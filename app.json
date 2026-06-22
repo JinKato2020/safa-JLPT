@@ -41,7 +41,8 @@
           "icon": "./assets/adaptive-icon.png",
           "color": "#2563eb"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "eas": {
