@@ -28,3 +28,8 @@ yarn-error.*
 
 # local env
 .env*.local
+
+# 署名資格情報（App C の keystore を Android 署名に流用。絶対にコミット/同梱しない）
+credentials.json
+credentials/
+*.keystore

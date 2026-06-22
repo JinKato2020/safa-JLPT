@@ -30,8 +30,8 @@ const BUNDLED: Record<string, number> = {
 };
 
 // 配信元(GitHub Pages)。アセットrepo名を変える/Cloudflareへ移す場合はこの1行だけ差し替え。
-// GitHubユーザー: JinKato2020 / 既定アセットrepo: safa-assets (要: Pages有効化＋ jlpt/audio/ に mp3 配置)。
-export const AUDIO_BASE_URL = 'https://jinkato2020.github.io/safa-assets/jlpt/audio/';
+// GitHubユーザー: JinKato2020 / アセットrepo: safa-JLPT (Pagesは大小文字区別=大文字JLPT必須。assets/audio/ に mp3)。
+export const AUDIO_BASE_URL = 'https://jinkato2020.github.io/safa-JLPT/assets/audio/';
 
 export type AudioSource = number | { uri: string };
 
