@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "まいにちJLPT",
+    "slug": "safa-jlpt",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "safajlpt",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2563eb"
+    },
+    "ios": {
+      "bundleIdentifier": "com.safa.jlpt",
+      "buildNumber": "1",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.safa.jlpt",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#2563eb"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-localization",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/adaptive-icon.png",
+          "color": "#2563eb"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "3590a434-66c9-4282-be7e-1f1c9d021c79"
+      }
+    },
+    "owner": "jinkato1914"
+  }
+}
