@@ -19,6 +19,14 @@ on:
         options:
           - 'false'
           - 'true'
+      skip_metadata:
+        description: 'true=メタデータに触れずスクショのみ(spaceshipで文言投入済みの場合)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
 
 jobs:
   deliver:
@@ -65,6 +73,7 @@ jobs:
             --metadata_path fastlane/metadata \
             --screenshots_path fastlane/screenshots \
             --skip_binary_upload true \
+            --skip_metadata ${{ github.event.inputs.skip_metadata || 'false' }} \
             --overwrite_screenshots true \
             --force true \
             --run_precheck_before_submit false \
