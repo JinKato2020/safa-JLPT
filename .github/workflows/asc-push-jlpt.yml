@@ -1,0 +1,116 @@
+name: ASC Push text (Mainichi JLPT)
+run-name: "ASC push text via spaceship (field-by-field)"
+
+# deliverの一括投入が500で落ちるため、spaceship ConnectAPIで
+# versionローカリゼーション(description/keywords/promo/support/marketing)と
+# appInfoローカリゼーション(name/subtitle/privacy)をフィールド単位で直接書き込む。
+# 欠けているappInfoロケールは自動作成。エラーはフィールド単位で切り分けて報告。
+# 文言は app/fastlane/metadata/{en-US,ja}/*.txt。審査提出はしない。スクショは別途。
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+      - name: Install fastlane (spaceship)
+        run: gem install fastlane --no-document
+      - name: Build ASC API key
+        env:
+          KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          KEY_B64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+        run: |
+          KID=$(printf '%s' "$KEY_ID" | tr -d '\r\n[:space:]')
+          IID=$(printf '%s' "$ISSUER_ID" | tr -d '\r\n[:space:]')
+          printf '%s' "$KEY_B64" | base64 --decode > /tmp/AuthKey.p8
+          node -e "const fs=require('fs');const key=fs.readFileSync('/tmp/AuthKey.p8','utf8');fs.writeFileSync('/tmp/asc.json',JSON.stringify({key_id:'$KID',issuer_id:'$IID',key,in_house:false}));"
+      - name: Push metadata field-by-field
+        run: |
+          ruby -e '
+            require "spaceship"
+            Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file("/tmp/asc.json")
+            app = Spaceship::ConnectAPI::App.find("com.safa.jlpt")
+            abort("APP NOT FOUND") unless app
+            plat = Spaceship::ConnectAPI::Platform::IOS
+            ver = app.get_edit_app_store_version(platform: plat)
+            abort("NO EDIT VERSION") unless ver
+            puts "version #{ver.version_string} state=#{ver.app_store_state} id=#{ver.id}"
+            LOCS = ["en-US", "ja"]
+            def rd(loc, f)
+              p = "fastlane/metadata/#{loc}/#{f}.txt"
+              return nil unless File.exist?(p)
+              s = File.read(p).strip
+              s.empty? ? nil : s
+            end
+            def setf(obj, kind, loc, k, v)
+              return if v.nil?
+              begin
+                obj.update(attributes: { k => v })
+                puts "  ok   #{kind}/#{loc}/#{k}"
+              rescue => e
+                puts "  ERR  #{kind}/#{loc}/#{k}: #{e.class} #{e.message.to_s.gsub(/\s+/, " ")[0,200]}"
+              end
+            end
+
+            puts "==== VERSION localizations ===="
+            vlocs = ver.get_app_store_version_localizations
+            LOCS.each do |loc|
+              l = vlocs.find { |x| x.locale == loc }
+              if l.nil?
+                begin
+                  l = Spaceship::ConnectAPI.post_app_store_version_localization(app_store_version_id: ver.id, attributes: { locale: loc }).first
+                  puts "  created versionLoc #{loc}"
+                rescue => e
+                  puts "  ERR create versionLoc #{loc}: #{e.message.to_s.gsub(/\s+/," ")[0,180]}"; next
+                end
+              end
+              setf(l, "ver", loc, :description, rd(loc, "description"))
+              setf(l, "ver", loc, :keywords, rd(loc, "keywords"))
+              setf(l, "ver", loc, :promotional_text, rd(loc, "promotional_text"))
+              setf(l, "ver", loc, :support_url, rd(loc, "support_url"))
+              setf(l, "ver", loc, :marketing_url, rd(loc, "marketing_url"))
+            end
+
+            puts "==== APP INFO localizations (name/subtitle/privacy) ===="
+            ai = nil
+            [:fetch_edit_app_info].each { |m| begin; ai = app.send(m); rescue => e; puts "  #{m}: #{e.message}"; end }
+            if ai.nil?
+              begin
+                infos = Spaceship::ConnectAPI::AppInfo.all(app_id: app.id, includes: "appInfoLocalizations")
+                ai = infos.find { |x| ["PREPARE_FOR_SUBMISSION","DEVELOPER_REJECTED","REJECTED","METADATA_REJECTED"].include?(x.app_store_state.to_s) } || infos.first
+              rescue => e; puts "  AppInfo.all: #{e.class} #{e.message}"; end
+            end
+            if ai
+              puts "  appInfo id=#{ai.id} state=#{ai.app_store_state rescue "?"}"
+              ailocs = (ai.get_app_info_localizations rescue [])
+              puts "  existing appInfo locales: #{ailocs.map(&:locale).inspect}"
+              LOCS.each do |loc|
+                l = ailocs.find { |x| x.locale == loc }
+                if l.nil?
+                  begin
+                    l = ai.create_app_info_localization(attributes: { locale: loc, name: rd(loc, "name"), subtitle: rd(loc, "subtitle") })
+                    puts "  created appInfoLoc #{loc} (name+subtitle)"
+                  rescue => e
+                    puts "  ERR create appInfoLoc #{loc}: #{e.class} #{e.message.to_s.gsub(/\s+/," ")[0,200]}"; next
+                  end
+                end
+                setf(l, "appInfo", loc, :name, rd(loc, "name"))
+                setf(l, "appInfo", loc, :subtitle, rd(loc, "subtitle"))
+                setf(l, "appInfo", loc, :privacy_policy_url, rd(loc, "privacy_url"))
+              end
+            else
+              puts "  !! could not fetch app info"
+            end
+            puts "==== DONE ===="
+          '
+          rm -f /tmp/AuthKey.p8 /tmp/asc.json
