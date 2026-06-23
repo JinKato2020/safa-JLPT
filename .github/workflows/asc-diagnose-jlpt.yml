@@ -1,0 +1,74 @@
+name: ASC Diagnose (Mainichi JLPT)
+run-name: "ASC diagnose (read-only)"
+
+# 読み取り専用。com.safa.jlpt のApp Store Connect状態(プライマリ言語・appInfoロケール・
+# バージョンロケール・各フィールド有無)をダンプし、deliver 500の真因を特定する。何も書き込まない。
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+      - name: Install fastlane (spaceship)
+        run: gem install fastlane --no-document
+      - name: Build ASC API key
+        env:
+          KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          KEY_B64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+        run: |
+          KID=$(printf '%s' "$KEY_ID" | tr -d '\r\n[:space:]')
+          IID=$(printf '%s' "$ISSUER_ID" | tr -d '\r\n[:space:]')
+          printf '%s' "$KEY_B64" | base64 --decode > /tmp/AuthKey.p8
+          node -e "const fs=require('fs');const key=fs.readFileSync('/tmp/AuthKey.p8','utf8');fs.writeFileSync('/tmp/asc.json',JSON.stringify({key_id:'$KID',issuer_id:'$IID',key,in_house:false}));"
+      - name: Diagnose (read-only dump)
+        run: |
+          ruby -e '
+            require "spaceship"
+            Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file("/tmp/asc.json")
+            app = Spaceship::ConnectAPI::App.find("com.safa.jlpt")
+            abort("!! APP NOT FOUND for com.safa.jlpt") unless app
+            puts "================ APP ================"
+            puts "name=#{app.name.inspect} id=#{app.id} bundle=#{app.bundle_id} primaryLocale=#{(app.primary_locale rescue "?")}"
+            begin
+              puts "availableInTerritory? sku=#{app.sku rescue "?"} contentRights=#{app.content_rights_declaration rescue "?"}"
+            rescue => e; puts "app meta err: #{e.message}"; end
+
+            puts "================ APP INFOS (name/subtitle/privacy = appInfoLocalizations) ================"
+            begin
+              app.get_app_infos.each do |ai|
+                puts "AppInfo id=#{ai.id} state=#{(ai.app_store_state rescue ai.state rescue "?")}"
+                locs = (ai.get_app_info_localizations rescue [])
+                puts "  localizations: #{locs.map(&:locale).inspect}"
+                locs.each do |l|
+                  puts "   - #{l.locale}: name=#{l.name.inspect} subtitle=#{l.subtitle.inspect} privacyUrl=#{(l.privacy_policy_url rescue nil).inspect}"
+                end
+              end
+            rescue => e; puts "appInfo err: #{e.class} #{e.message}"; end
+
+            puts "================ APP STORE VERSIONS (desc/keywords = versionLocalizations) ================"
+            begin
+              vers = (app.get_app_store_versions(filter: { platform: "IOS" }) rescue [])
+              puts "versions: #{vers.map { |v| "#{v.version_string}(#{v.app_store_state})" }.inspect}"
+              vers.each do |v|
+                puts "Version #{v.version_string} state=#{v.app_store_state} id=#{v.id}"
+                vl = (v.get_app_store_version_localizations rescue [])
+                puts "  localizations: #{vl.map(&:locale).inspect}"
+                vl.each do |l|
+                  puts "   - #{l.locale}: hasDesc=#{!l.description.to_s.empty?} kw=#{l.keywords.to_s.length} promo=#{!l.promotional_text.to_s.empty?} support=#{!l.support_url.to_s.empty?} marketing=#{!l.marketing_url.to_s.empty?} whatsNew=#{!l.whats_new.to_s.empty?}"
+                end
+              end
+            rescue => e; puts "version err: #{e.class} #{e.message}"; end
+            puts "================ END ================"
+          '
+          rm -f /tmp/AuthKey.p8 /tmp/asc.json
