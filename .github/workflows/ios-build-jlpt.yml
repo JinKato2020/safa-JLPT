@@ -71,6 +71,16 @@ jobs:
           echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_ENV
           echo "::notice::Project name: $PROJECT_NAME"
 
+      - name: Set EAS Update channel (production)
+        run: |
+          PLIST=$(find ios -name Expo.plist | head -1)
+          if [ -z "$PLIST" ]; then echo "::error::Expo.plist not found after prebuild (expo-updates設定漏れ?)"; exit 1; fi
+          echo "::notice::Expo.plist: $PLIST"
+          /usr/libexec/PlistBuddy -c "Delete :EXUpdatesRequestHeaders" "$PLIST" 2>/dev/null || true
+          /usr/libexec/PlistBuddy -c "Add :EXUpdatesRequestHeaders dict" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Add :EXUpdatesRequestHeaders:expo-channel-name string production" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Print :EXUpdatesRequestHeaders" "$PLIST"
+
       - name: Set build number in Info.plist
         run: |
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "ios/$PROJECT_NAME/Info.plist"

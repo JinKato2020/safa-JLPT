@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { itemsFor, KANJI_EXAMPLE, VOCAB_EXAMPLE } from '../data';
+import { itemsFor, KANJI_EXAMPLE, VOCAB_EXAMPLE, VOCAB_FURIGANA } from '../data';
 import type { StudyItem } from '../data';
 import LearnTestSession from '../components/LearnTestSession';
 
@@ -32,7 +32,7 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
         <Text style={s.meaning}>{item.meaning}</Text>
         {ex ? (
           <>
-            <Text style={s.ex}>{ex.ja}</Text>
+            <Text style={s.ex}>{VOCAB_FURIGANA[item.id] ?? ex.ja}</Text>
             <Text style={s.exEn}>{ex.en}</Text>
           </>
         ) : null}

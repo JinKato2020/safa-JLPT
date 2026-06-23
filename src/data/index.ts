@@ -8,6 +8,7 @@ import listening from './listening.json';
 import vocabExamples from './vocabExamples.json';
 import metaJson from './meta.json';
 import grammarClozeOkJson from './grammarClozeOk.json';
+import vocabFurigana from './vocabFurigana.json';
 import type { Category, Level } from '../engine/engine';
 
 export interface KanjiItem {
@@ -46,6 +47,9 @@ export const GRAMMAR_CLOZE_OK = new Set(grammarClozeOkJson as string[]);
 // 語彙の短い例文(無料・田中コーパス/EDRDG examples・CC-BY)。vocabId → { ja, en }。
 export interface VocabExample { ja: string; en: string; }
 export const VOCAB_EXAMPLE = vocabExamples as Record<string, VocabExample>;
+
+/** 語彙例文のふりがな付き版(MeCab生成・漢字(よみ)形式)。vocabId → ふりがな文。無い語は素のjaを使う。 */
+export const VOCAB_FURIGANA = vocabFurigana as Record<string, string>;
 
 // 各漢字の用例(無料・同梱JMdict由来): 音読み=熟語(漢字2字+)／訓読み=送り仮名 or 単漢字(主要訓を優先)。
 // 読みが難しい字(止→止まる, 出→出口+出 等)も音訓2例を併記。
