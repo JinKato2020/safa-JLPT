@@ -1,4 +1,4 @@
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, View, useColorScheme } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
@@ -22,6 +22,7 @@ import ReadingScreen from './src/screens/ReadingScreen';
 import ListeningScreen from './src/screens/ListeningScreen';
 import BrowseScreen from './src/screens/BrowseScreen';
 import TourOverlay from './src/components/TourOverlay';
+import { DesignThemeProvider } from './src/shared-design';
 
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -65,6 +66,8 @@ function Root() {
   const hydrated = useHydrated();
   const { settings } = useAppState();
   const c = useColors();
+  const sys = useColorScheme();
+  const scheme = settings.theme === 'auto' ? (sys ?? 'light') : settings.theme;
   const navTheme = {
     ...DefaultTheme,
     colors: { ...DefaultTheme.colors, background: c.bg, card: c.surface, text: c.ink, border: c.line, primary: c.blue },
@@ -79,7 +82,7 @@ function Root() {
   }
 
   return (
-    <>
+    <DesignThemeProvider scheme={scheme}>
     <NavigationContainer theme={navTheme}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!settings.onboarded ? (
@@ -98,7 +101,7 @@ function Root() {
       </RootStack.Navigator>
     </NavigationContainer>
     {settings.onboarded && !settings.tourDone && <TourOverlay />}
-    </>
+    </DesignThemeProvider>
   );
 }
 

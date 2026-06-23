@@ -10,6 +10,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState } from '../store/store';
 import { readinessFor, growthSeries, growthCurve, pacePrediction, nextBestAction, ringsFor, learnedNow } from '../store/selectors';
 import { computeBadges } from '../store/badges';
+import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../shared-design';
 import HeroGauge from '../components/HeroGauge';
 import RingGauge from '../components/RingGauge';
 import { dayStr, daysBetween, lastNDays } from '../store/state';
@@ -112,13 +113,7 @@ export default function HomeScreen() {
         <View style={s.card}>
           <Text style={s.miniH}>{t('home.growth_chart_title')}</Text>
           {hasGrowth ? (
-            <View style={s.curve}>
-              {curve.map((p) => (
-                <View key={p.day} style={s.curveCol}>
-                  <View style={[s.curveBar, { height: 6 + (54 * p.learned) / curveMax }]} />
-                </View>
-              ))}
-            </View>
+            <GrowthBars values={curve.map((p) => p.learned)} height={64} />
           ) : (
             <Text style={s.hint}>{t('home.growth_empty_hint')}</Text>
           )}
@@ -148,20 +143,9 @@ export default function HomeScreen() {
         {/* 継続 */}
         <Text style={s.sectionH}>{t('home.section_streak')}</Text>
         <View style={s.card}>
-          <View style={s.weekRow}>
-            {week.map((d) => {
-              const wd = WEEKDAY[new Date(`${d}T00:00:00Z`).getUTCDay()];
-              const on = studied.has(d);
-              return (
-                <View key={d} style={s.weekCell}>
-                  <View style={[s.weekDot, on ? s.weekDotOn : null, d === today && s.weekDotToday]}>
-                    <Text style={[s.weekDotTxt, on && s.weekDotTxtOn]}>{on ? '✓' : ''}</Text>
-                  </View>
-                  <Text style={s.weekLbl}>{t(wd)}</Text>
-                </View>
-              );
-            })}
-          </View>
+          <StreakWeek
+            days={week.map((d) => ({ key: d, label: t(WEEKDAY[new Date(`${d}T00:00:00Z`).getUTCDay()]), on: studied.has(d), today: d === today }))}
+          />
           <View style={s.streakMetaRow}>
             <Text style={s.metaTxt}>{t('home.streak_longest', { n: state.streak.longest })}</Text>
             <Text style={s.metaTxt}>❄️ {t('home.streak_freezes', { n: state.streak.freezes })}</Text>
@@ -177,24 +161,15 @@ export default function HomeScreen() {
             </Text>
           ) : null}
           <Text style={s.calCaption}>{t('home.cal_caption')}</Text>
-          <View style={s.cal}>
-            {cal.map((d) => (
-              <View key={d} style={[s.calCell, studied.has(d) && s.calCellOn, d === today && s.calCellToday]} />
-            ))}
-          </View>
+          <StreakCalendar days={cal.map((d) => ({ key: d, on: studied.has(d), today: d === today }))} />
         </View>
 
         {/* バッジ */}
         <Text style={s.sectionH}>{t('home.section_badges')}</Text>
-        <View style={s.badgeGrid}>
-          {badges.map((b) => (
-            <View key={b.id} style={[s.badge, !b.unlocked && s.badgeLocked]}>
-              <Text style={[s.badgeEmoji, !b.unlocked && s.badgeEmojiLocked]}>{b.unlocked ? b.emoji : '🔒'}</Text>
-              <Text style={s.badgeLabel}>{b.label}</Text>
-              <Text style={s.badgeHint}>{b.unlocked ? t('home.badge_achieved') : b.hint}</Text>
-            </View>
-          ))}
-        </View>
+        <BadgeGrid
+          badges={badges.map((b) => ({ id: b.id, emoji: b.emoji, label: b.label, hint: b.hint, unlocked: b.unlocked }))}
+          achievedLabel={t('home.badge_achieved')}
+        />
       </ScrollView>
     </SafeAreaView>
   );
