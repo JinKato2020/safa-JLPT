@@ -68,7 +68,7 @@ export default function TestScreen() {
         <View style={s.testCard}>
           <View style={s.testHead}>
             <Text style={s.testTitle}>ミニ模試</Text>
-            <Text style={s.testTime}>約10分</Text>
+            <Text style={s.testTime}>約7分</Text>
           </View>
           <Text style={s.testNote}>言語知識（漢字・語彙＋文法）20問。弱点ヒートマップ付き。</Text>
           <Pressable style={s.cta} onPress={() => nav.navigate('Mock')}>
@@ -80,9 +80,9 @@ export default function TestScreen() {
         <View style={s.testCard}>
           <View style={s.testHead}>
             <Text style={s.testTitle}>フル模試</Text>
-            <Text style={s.testTime}>約30分</Text>
+            <Text style={s.testTime}>約15分</Text>
           </View>
-          <Text style={s.testNote}>全区分（漢字・語彙＋文法＋読解＋聴解）。弱点ヒートマップ付き。</Text>
+          <Text style={s.testNote}>全区分（漢字・語彙＋文法＋読解＋聴解）約18問。弱点ヒートマップ付き。</Text>
           <Pressable style={s.cta} onPress={() => nav.navigate('Mock', { full: true })}>
             <Text style={s.ctaTxt}>始める →</Text>
           </Pressable>

@@ -20,6 +20,7 @@ import MockScreen from './src/screens/MockScreen';
 import ReadingScreen from './src/screens/ReadingScreen';
 import ListeningScreen from './src/screens/ListeningScreen';
 import BrowseScreen from './src/screens/BrowseScreen';
+import TourOverlay from './src/components/TourOverlay';
 
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -73,6 +74,7 @@ function Root() {
   }
 
   return (
+    <>
     <NavigationContainer theme={navTheme}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!settings.onboarded ? (
@@ -90,6 +92,8 @@ function Root() {
         )}
       </RootStack.Navigator>
     </NavigationContainer>
+    {settings.onboarded && !settings.tourDone && <TourOverlay />}
+    </>
   );
 }
 

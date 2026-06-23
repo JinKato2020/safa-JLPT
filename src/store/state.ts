@@ -10,6 +10,7 @@ export interface Settings {
   theme: ThemeMode;
   reminder: string | null; // 学習リマインド "HH:MM"
   onboarded: boolean;      // オンボーディング(自己チェック)完了
+  tourDone?: boolean;      // 初回ガイドツアー完了(旧stateには無い→未完扱い)
 }
 
 export interface Streak {
@@ -48,7 +49,7 @@ export const STATE_VERSION = 1;
 
 export const INITIAL_STATE: AppState = {
   version: STATE_VERSION,
-  settings: { level: 'N4', l1: 'vi', examDate: null, theme: 'auto', reminder: null, onboarded: false },
+  settings: { level: 'N4', l1: 'vi', examDate: null, theme: 'auto', reminder: null, onboarded: false, tourDone: false },
   items: {},
   streak: { current: 0, longest: 0, lastStudyDay: null, freezes: 2, history: [] },
   growth: [],
