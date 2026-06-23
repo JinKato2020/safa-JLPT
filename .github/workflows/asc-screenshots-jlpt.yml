@@ -42,7 +42,7 @@ jobs:
             ver = app.get_edit_app_store_version(platform: plat)
             abort("NO EDIT VERSION") unless ver
             LOCS = ["en-US", "ja"]
-            DT = "APP_IPHONE_6_9"
+            DT = "APP_IPHONE_67"  # 1320×2868(最新最大iPhone)はASC API上 APP_IPHONE_67(6.7/6.9兼用)
             def shots_of(set)
               (set.get_app_screenshots rescue nil) || (set.app_screenshots rescue nil) || []
             end
