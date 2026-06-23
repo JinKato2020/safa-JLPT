@@ -1,6 +1,7 @@
 // ホーム = ダッシュボード。到達度ゲージ(＋ペース予測)＋継続＋成長＋今日のおすすめ＋バッジ。
 // 指標は注記で明示。設定系は「設定」タブへ分離。
 import { useMemo } from 'react';
+import { useT } from '../i18n';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -17,16 +18,17 @@ import type { RootStackParamList } from '../navigation/types';
 
 const RING_ORDER: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 const RING_META: Record<Category, { label: string; color: keyof ThemeColors }> = {
-  moji_goi: { label: '漢字・語彙', color: 'mojiGoi' },
-  bunpou: { label: '文法', color: 'bunpou' },
-  dokkai: { label: '読解', color: 'dokkai' },
-  choukai: { label: '聴解', color: 'choukai' },
+  moji_goi: { label: 'home.cat_moji_goi', color: 'mojiGoi' },
+  bunpou: { label: 'home.cat_bunpou', color: 'bunpou' },
+  dokkai: { label: 'home.cat_dokkai', color: 'dokkai' },
+  choukai: { label: 'home.cat_choukai', color: 'choukai' },
 };
-const WEEKDAY = ['日', '月', '火', '水', '木', '金', '土'];
+const WEEKDAY = ['home.wd_sun', 'home.wd_mon', 'home.wd_tue', 'home.wd_wed', 'home.wd_thu', 'home.wd_fri', 'home.wd_sat'];
 
 export default function HomeScreen() {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const state = useAppState();
+  const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
@@ -50,7 +52,7 @@ export default function HomeScreen() {
   const last = series[series.length - 1];
   const prev = series[series.length - 2];
   const todayGain = last && last.day === today ? last.learned - (prev?.learned ?? 0) : 0;
-  const status = !measured ? '未測定' : readiness.passing ? '合格圏' : '合格ライン';
+  const status = !measured ? t('home.status_unmeasured') : readiness.passing ? t('home.status_passing') : t('home.status_borderline');
   const week = lastNDays(today, 7);
   const cal = lastNDays(today, 35);
   const curveMax = Math.max(1, ...curve.map((p) => p.learned));
@@ -61,54 +63,54 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.brand}>まいにちJLPT</Text>
+        <Text style={s.brand}>{t('home.brand')}</Text>
 
         {/* ヒーロー: 到達度ゲージ＋ペース＋統計 */}
         <View style={s.hero}>
-          <Text style={s.dd}>{state.settings.level} 到達度</Text>
+          <Text style={s.dd}>{state.settings.level} {t('home.readiness')}</Text>
           <HeroGauge value={measured ? overall : null} color={zone} mark={readiness.overallMinPct} size={212} stroke={14}>
             <Text style={s.score}>{measured ? overall : '—'}</Text>
             <Text style={s.bandIn}>±{readiness.band}</Text>
           </HeroGauge>
           <Text style={[s.status, { color: zone }]}>{status}</Text>
-          <Text style={s.passHint}>合格ライン {readiness.overallMinPct}%（｜印）</Text>
+          <Text style={s.passHint}>{t('home.pass_hint', { n: readiness.overallMinPct })}</Text>
 
           {readiness.passing ? (
-            <Text style={s.paceOk}>🎉 合格圏！この調子で維持しましょう。</Text>
+            <Text style={s.paceOk}>🎉 {t('home.pace_ok')}</Text>
           ) : pace.daysToPass != null ? (
             <>
               <Text style={s.paceMain}>
-                このペースで <Text style={s.paceDays}>あと{pace.daysToPass}日</Text> で合格圏
+                {t('home.pace_prefix')} <Text style={s.paceDays}>{t('home.pace_days', { n: pace.daysToPass })}</Text> {t('home.pace_suffix')}
               </Text>
-              <Text style={s.paceSub}>1日 約{pace.perDay}語 ・ 残り 約{pace.itemsNeeded}語</Text>
+              <Text style={s.paceSub}>{t('home.pace_sub', { n: pace.perDay, m: pace.itemsNeeded })}</Text>
             </>
           ) : (
-            <Text style={s.paceMuted}>毎日続けると「あと◯日で合格圏」が見えます</Text>
+            <Text style={s.paceMuted}>{t('home.pace_muted')}</Text>
           )}
 
           <View style={s.stats}>
             <View style={s.stat}>
               <Text style={s.statVal}>🔥 {state.streak.current}</Text>
-              <Text style={s.statLbl}>連続日数</Text>
+              <Text style={s.statLbl}>{t('home.streak_days')}</Text>
             </View>
             <View style={s.statSep} />
             <View style={s.stat}>
               <Text style={s.statVal}>+{todayGain}</Text>
-              <Text style={s.statLbl}>今日 覚えた</Text>
+              <Text style={s.statLbl}>{t('home.today_learned')}</Text>
             </View>
             <View style={s.statSep} />
             <View style={s.stat}>
               <Text style={s.statVal}>{learned}</Text>
-              <Text style={s.statLbl}>累計 覚えた</Text>
+              <Text style={s.statLbl}>{t('home.total_learned')}</Text>
             </View>
           </View>
-          <Text style={s.statsCap}>「覚えた」＝テストに正答して定着した語（4択で自動判定）</Text>
+          <Text style={s.statsCap}>{t('home.stats_caption')}</Text>
         </View>
 
         {/* 成長 */}
-        <Text style={s.sectionH}>成長</Text>
+        <Text style={s.sectionH}>{t('home.section_growth')}</Text>
         <View style={s.card}>
-          <Text style={s.miniH}>覚えた語の伸び（直近14日）</Text>
+          <Text style={s.miniH}>{t('home.growth_chart_title')}</Text>
           {hasGrowth ? (
             <View style={s.curve}>
               {curve.map((p) => (
@@ -118,33 +120,33 @@ export default function HomeScreen() {
               ))}
             </View>
           ) : (
-            <Text style={s.hint}>学習した日ごとに伸びが記録されます。</Text>
+            <Text style={s.hint}>{t('home.growth_empty_hint')}</Text>
           )}
-          <Text style={s.miniH}>区分別の到達度</Text>
-          <Text style={s.cap}>各区分＝学習範囲（カバー率）×定着（習得度）。｜は不要、数字は0〜100。</Text>
+          <Text style={s.miniH}>{t('home.ring_title')}</Text>
+          <Text style={s.cap}>{t('home.ring_caption')}</Text>
           <View style={s.ringRow}>
             {RING_ORDER.map((cat) => {
               const v = rings[cat];
               const rc = v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red;
-              return <RingGauge key={cat} value={v} color={rc} label={RING_META[cat].label} />;
+              return <RingGauge key={cat} value={v} color={rc} label={t(RING_META[cat].label)} />;
             })}
           </View>
         </View>
 
         {/* 今日のおすすめ(成長の後・主要操作=青。ボタン自体がセクション見出しを兼ねる) */}
         <Pressable style={s.cta} onPress={goAction}>
-          <Text style={s.ctaTxt}>今日のおすすめ</Text>
+          <Text style={s.ctaTxt}>{t('home.cta_title')}</Text>
           <Text style={s.ctaSub}>
             {readiness.passing
-              ? '今日の復習 ・ 全区分から10問'
+              ? t('home.cta_review')
               : nba
                 ? `${nba.label} ・ ${nba.reason}`
-                : '診断クイズ ・ 現在地を測定'}
+                : t('home.cta_diagnose')}
           </Text>
         </Pressable>
 
         {/* 継続 */}
-        <Text style={s.sectionH}>継続</Text>
+        <Text style={s.sectionH}>{t('home.section_streak')}</Text>
         <View style={s.card}>
           <View style={s.weekRow}>
             {week.map((d) => {
@@ -155,26 +157,26 @@ export default function HomeScreen() {
                   <View style={[s.weekDot, on ? s.weekDotOn : null, d === today && s.weekDotToday]}>
                     <Text style={[s.weekDotTxt, on && s.weekDotTxtOn]}>{on ? '✓' : ''}</Text>
                   </View>
-                  <Text style={s.weekLbl}>{wd}</Text>
+                  <Text style={s.weekLbl}>{t(wd)}</Text>
                 </View>
               );
             })}
           </View>
           <View style={s.streakMetaRow}>
-            <Text style={s.metaTxt}>最長 {state.streak.longest}日</Text>
-            <Text style={s.metaTxt}>❄️ フリーズ {state.streak.freezes}</Text>
+            <Text style={s.metaTxt}>{t('home.streak_longest', { n: state.streak.longest })}</Text>
+            <Text style={s.metaTxt}>❄️ {t('home.streak_freezes', { n: state.streak.freezes })}</Text>
           </View>
           {examDays != null && examDays >= 0 ? (
             <Text style={s.examLine}>
-              試験まで {examDays}日
+              {t('home.exam_days', { n: examDays })}
               {pace.daysToPass != null
                 ? pace.daysToPass <= examDays
-                  ? ' ・ このペースで間に合います ✓'
-                  : ' ・ もう少しペースアップで届きます'
+                  ? ` ・ ${t('home.exam_on_track')}`
+                  : ` ・ ${t('home.exam_speed_up')}`
                 : ''}
             </Text>
           ) : null}
-          <Text style={s.calCaption}>直近5週（学習した日に色）</Text>
+          <Text style={s.calCaption}>{t('home.cal_caption')}</Text>
           <View style={s.cal}>
             {cal.map((d) => (
               <View key={d} style={[s.calCell, studied.has(d) && s.calCellOn, d === today && s.calCellToday]} />
@@ -183,13 +185,13 @@ export default function HomeScreen() {
         </View>
 
         {/* バッジ */}
-        <Text style={s.sectionH}>バッジ</Text>
+        <Text style={s.sectionH}>{t('home.section_badges')}</Text>
         <View style={s.badgeGrid}>
           {badges.map((b) => (
             <View key={b.id} style={[s.badge, !b.unlocked && s.badgeLocked]}>
               <Text style={[s.badgeEmoji, !b.unlocked && s.badgeEmojiLocked]}>{b.unlocked ? b.emoji : '🔒'}</Text>
               <Text style={s.badgeLabel}>{b.label}</Text>
-              <Text style={s.badgeHint}>{b.unlocked ? '達成' : b.hint}</Text>
+              <Text style={s.badgeHint}>{b.unlocked ? t('home.badge_achieved') : b.hint}</Text>
             </View>
           ))}
         </View>

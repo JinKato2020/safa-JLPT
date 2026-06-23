@@ -11,6 +11,7 @@ import { progressSnapshot } from '../store/selectors';
 import SessionSummary from './SessionSummary';
 import { buildQueue, makeQuestion, reinsertForRelearn } from '../quiz/quiz';
 import type { StudyItem } from '../data';
+import { useT } from '../i18n';
 
 const RELEARN_GAP = 3;
 
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export default function LearnTestSession({ pool, size, renderLearnCard }: Props) {
+  const t = useT();
   const nav = useNavigation();
   const state = useAppState();
   const { items } = state;
@@ -59,10 +61,10 @@ export default function LearnTestSession({ pool, size, renderLearnCard }: Props)
       <SafeAreaView style={s.c}>
         <View style={s.center}>
           <Text style={s.bigEmoji}>✅</Text>
-          <Text style={s.doneTitle}>いまは対象がありません</Text>
-          <Text style={s.doneSub}>この区分は今日の分を学習済みです。</Text>
+          <Text style={s.doneTitle}>{t('learntestsession.no_items_title')}</Text>
+          <Text style={s.doneSub}>{t('learntestsession.no_items_sub')}</Text>
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
-            <Text style={s.ctaTxt}>学習ホームへ戻る</Text>
+            <Text style={s.ctaTxt}>{t('learntestsession.back_home')}</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -80,21 +82,21 @@ export default function LearnTestSession({ pool, size, renderLearnCard }: Props)
             <Pressable onPress={() => nav.goBack()} hitSlop={12}>
               <Text style={s.close}>✕</Text>
             </Pressable>
-            <Text style={s.progress}>学習 {learnIdx + 1} / {batch.length}</Text>
+            <Text style={s.progress}>{t('learntestsession.learn_progress', { n: learnIdx + 1, m: batch.length })}</Text>
           </View>
-          <Text style={s.phase}>📖 まず続けて覚える</Text>
+          <Text style={s.phase}>{t('learntestsession.learn_phase')}</Text>
           <View>{renderLearnCard(learnItem)}</View>
           <View style={s.navRow}>
             {learnIdx > 0 ? (
               <Pressable style={s.ctaBack} onPress={() => setLearnIdx((i) => Math.max(0, i - 1))}>
-                <Text style={s.ctaBackTxt}>← 戻る</Text>
+                <Text style={s.ctaBackTxt}>{t('learntestsession.back')}</Text>
               </Pressable>
             ) : null}
             <Pressable style={[s.cta, s.ctaFlex]} onPress={() => (last ? setPhase('test') : setLearnIdx((i) => i + 1))}>
-              <Text style={s.ctaTxt}>{last ? `テストへ（${batch.length}問）→` : '次へ →'}</Text>
+              <Text style={s.ctaTxt}>{last ? t('learntestsession.go_test', { n: batch.length }) : t('learntestsession.next')}</Text>
             </Pressable>
           </View>
-          {last ? <Text style={s.hint}>覚えたての{batch.length}問を、続けてテストします。</Text> : null}
+          {last ? <Text style={s.hint}>{t('learntestsession.learn_hint', { n: batch.length })}</Text> : null}
         </ScrollView>
       </SafeAreaView>
     );
@@ -106,11 +108,11 @@ export default function LearnTestSession({ pool, size, renderLearnCard }: Props)
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
           <Text style={s.bigEmoji}>🎉</Text>
-          <Text style={s.doneTitle}>セッション完了</Text>
-          <Text style={s.doneSub}>{answered} 問中 {correct} 問正解</Text>
+          <Text style={s.doneTitle}>{t('learntestsession.done_title')}</Text>
+          <Text style={s.doneSub}>{t('learntestsession.done_score', { n: answered, m: correct })}</Text>
           <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
-            <Text style={s.ctaTxt}>学習ホームへ戻る</Text>
+            <Text style={s.ctaTxt}>{t('learntestsession.back_home')}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -143,17 +145,17 @@ export default function LearnTestSession({ pool, size, renderLearnCard }: Props)
           <Pressable onPress={() => nav.goBack()} hitSlop={12}>
             <Text style={s.close}>✕</Text>
           </Pressable>
-          <Text style={s.progress}>テスト {testIdx + 1} / {total}</Text>
+          <Text style={s.progress}>{t('learntestsession.test_progress', { n: testIdx + 1, m: total })}</Text>
         </View>
-        <Text style={s.phase}>📝 続けてテスト</Text>
+        <Text style={s.phase}>{t('learntestsession.test_phase')}</Text>
 
         <View style={s.promptCard}>
           <Text style={s.prompt}>{question.prompt}</Text>
           {question.example ? (
             <Text style={s.reading}>
-              {question.example.pre}
-              <Text style={s.exHit}>{question.example.hit}</Text>
-              {question.example.post}
+              {question.example.map((sg, i) => (
+                <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
+              ))}
             </Text>
           ) : question.reading ? (
             <Text style={s.reading}>{question.reading}</Text>
@@ -181,10 +183,10 @@ export default function LearnTestSession({ pool, size, renderLearnCard }: Props)
 
         {reveal ? (
           <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
-            {picked === question.answerIndex ? '正解！' : 'おしい… あとで復習'}
+            {picked === question.answerIndex ? t('learntestsession.correct') : t('learntestsession.wrong')}
           </Text>
         ) : (
-          <Text style={s.hint}>覚えた内容を思い出して4択から選びましょう。</Text>
+          <Text style={s.hint}>{t('learntestsession.test_hint')}</Text>
         )}
       </ScrollView>
     </SafeAreaView>

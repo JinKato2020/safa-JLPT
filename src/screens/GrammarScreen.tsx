@@ -7,20 +7,23 @@ import { useAppState } from '../store/store';
 import { itemsFor } from '../data';
 import type { StudyItem } from '../data';
 import LearnTestSession from '../components/LearnTestSession';
+import HighlightedText from '../components/HighlightedText';
+import { useT } from '../i18n';
 
 function GrammarCard({ item }: { item: StudyItem }) {
   const c = useColors();
+  const t = useT();
   const s = useMemo(() => cardStyles(c), [c]);
   if (item.type !== 'grammar') return null;
   return (
     <View style={s.card}>
-      <Text style={s.tag}>文法</Text>
+      <Text style={s.tag}>{t('grammarscreen.tag')}</Text>
       <Text style={s.point}>{item.point}</Text>
       <Text style={s.romaji}>{item.romaji}</Text>
       <Text style={s.meaning}>{item.meaning}</Text>
       <View style={s.divider} />
-      <Text style={s.exLabel}>例文</Text>
-      <Text style={s.exJa}>{item.exampleJa}</Text>
+      <Text style={s.exLabel}>{t('grammarscreen.example_label')}</Text>
+      <HighlightedText text={item.exampleJa} target={item.point} style={s.exJa} hitStyle={s.exHit} />
       <Text style={s.exEn}>{item.exampleEn}</Text>
     </View>
   );
@@ -49,5 +52,6 @@ const cardStyles = (c: ThemeColors) =>
     divider: { height: 1, backgroundColor: c.line, marginVertical: spacing.md },
     exLabel: { fontSize: ty.tiny, fontWeight: '700', color: c.mute, letterSpacing: 1 },
     exJa: { fontSize: ty.h2, color: c.ink, lineHeight: 28, marginTop: spacing.xs },
+    exHit: { textDecorationLine: 'underline' },
     exEn: { fontSize: ty.small, color: c.mute, marginTop: spacing.xs, fontStyle: 'italic' },
   });

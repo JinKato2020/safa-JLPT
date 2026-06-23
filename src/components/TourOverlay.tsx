@@ -6,25 +6,27 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppActions } from '../store/store';
+import { useT } from '../i18n';
 import HeroGauge from './HeroGauge';
 import RingGauge from './RingGauge';
 
 type Kind = 'gauge' | 'growth' | 'rings' | 'today' | 'streak' | 'study' | 'test' | 'dict' | 'cheer';
-type Step = { kind: Kind; title: string; body: string };
+type Step = { kind: Kind; titleKey: string; bodyKey: string };
 
 const STEPS: Step[] = [
-  { kind: 'gauge', title: '到達度', body: '目標の級の合格にどれだけ近いか。大きな数字が到達度、｜印が合格ライン。学習で伸びます。' },
-  { kind: 'growth', title: '成長グラフ', body: '「覚えた語」が日々どれだけ増えたか。続けるほど右肩上がりに。' },
-  { kind: 'rings', title: '区分別の到達度', body: '漢字・語彙／文法／読解／聴解 の4区分それぞれの到達度。弱い区分がひと目で分かります。' },
-  { kind: 'today', title: '今日のおすすめ', body: '毎日ここを1つこなすのが基本。いちばん弱い区分を自動で選んで出します。' },
-  { kind: 'streak', title: '継続ダッシュボード', body: '学習した日を記録。連続日数・週間・カレンダーで習慣化を後押し。' },
-  { kind: 'study', title: '学習画面', body: '「学習」タブ。漢字・語彙／文法／読解／聴解を選んで4択練習。まちがいは正解するまで復習します。' },
-  { kind: 'test', title: 'テスト画面', body: '「テスト」タブ。ミニ模試/フル模試で力試し。結果が記録され、成長グラフに反映されます。' },
-  { kind: 'dict', title: '辞書画面', body: '「辞書」タブ。語彙・漢字・文法を検索＆一覧。覚えた語には✓が付きます。' },
-  { kind: 'cheer', title: 'さあ、始めましょう！', body: '毎日5分でも、続ければ必ず力になります。あなたの合格を全力で応援します。一緒にがんばりましょう！🔥' },
+  { kind: 'gauge', titleKey: 'touroverlay.step_gauge_title', bodyKey: 'touroverlay.step_gauge_body' },
+  { kind: 'growth', titleKey: 'touroverlay.step_growth_title', bodyKey: 'touroverlay.step_growth_body' },
+  { kind: 'rings', titleKey: 'touroverlay.step_rings_title', bodyKey: 'touroverlay.step_rings_body' },
+  { kind: 'today', titleKey: 'touroverlay.step_today_title', bodyKey: 'touroverlay.step_today_body' },
+  { kind: 'streak', titleKey: 'touroverlay.step_streak_title', bodyKey: 'touroverlay.step_streak_body' },
+  { kind: 'study', titleKey: 'touroverlay.step_study_title', bodyKey: 'touroverlay.step_study_body' },
+  { kind: 'test', titleKey: 'touroverlay.step_test_title', bodyKey: 'touroverlay.step_test_body' },
+  { kind: 'dict', titleKey: 'touroverlay.step_dict_title', bodyKey: 'touroverlay.step_dict_body' },
+  { kind: 'cheer', titleKey: 'touroverlay.step_cheer_title', bodyKey: 'touroverlay.step_cheer_body' },
 ];
 
 function Illustration({ kind, c }: { kind: Kind; c: ThemeColors }) {
+  const t = useT();
   if (kind === 'gauge') {
     return (
       <HeroGauge value={62} color={c.amber} mark={55} size={134} stroke={10}>
@@ -46,10 +48,10 @@ function Illustration({ kind, c }: { kind: Kind; c: ThemeColors }) {
   }
   if (kind === 'rings') {
     const sample = [
-      { v: 72, label: '漢字・語彙', col: c.green },
-      { v: 54, label: '文法', col: c.amber },
-      { v: 38, label: '読解', col: c.red },
-      { v: 30, label: '聴解', col: c.red },
+      { v: 72, label: t('touroverlay.ring_kanji'), col: c.green },
+      { v: 54, label: t('touroverlay.ring_grammar'), col: c.amber },
+      { v: 38, label: t('touroverlay.ring_reading'), col: c.red },
+      { v: 30, label: t('touroverlay.ring_listening'), col: c.red },
     ];
     return (
       <View style={{ flexDirection: 'row', gap: spacing.sm }}>
@@ -60,17 +62,25 @@ function Illustration({ kind, c }: { kind: Kind; c: ThemeColors }) {
   if (kind === 'today') {
     return (
       <View style={{ alignSelf: 'stretch', backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, paddingHorizontal: spacing.lg, alignItems: 'center' }}>
-        <Text style={{ color: '#ffffff', fontSize: ty.h2, fontWeight: '800' }}>今日のおすすめ</Text>
-        <Text style={{ color: '#dbeafe', fontSize: ty.tiny, marginTop: 3 }}>文法 ・ いちばん低い区分（到達度 54%）</Text>
+        <Text style={{ color: '#ffffff', fontSize: ty.h2, fontWeight: '800' }}>{t('touroverlay.today_label')}</Text>
+        <Text style={{ color: '#dbeafe', fontSize: ty.tiny, marginTop: 3 }}>{t('touroverlay.today_sub')}</Text>
       </View>
     );
   }
   if (kind === 'streak') {
-    const days = ['月', '火', '水', '木', '金', '土', '日'];
+    const days = [
+      t('touroverlay.day_mon'),
+      t('touroverlay.day_tue'),
+      t('touroverlay.day_wed'),
+      t('touroverlay.day_thu'),
+      t('touroverlay.day_fri'),
+      t('touroverlay.day_sat'),
+      t('touroverlay.day_sun'),
+    ];
     const on = [true, true, true, false, true, true, false];
     return (
       <View style={{ alignItems: 'center', gap: spacing.sm }}>
-        <Text style={{ fontSize: ty.h2, fontWeight: '800', color: c.ink }}>🔥 連続 5日</Text>
+        <Text style={{ fontSize: ty.h2, fontWeight: '800', color: c.ink }}>{t('touroverlay.streak_label')}</Text>
         <View style={{ flexDirection: 'row', gap: 8 }}>
           {days.map((d, i) => (
             <View key={d} style={{ alignItems: 'center', gap: 3 }}>
@@ -85,15 +95,20 @@ function Illustration({ kind, c }: { kind: Kind; c: ThemeColors }) {
     );
   }
   if (kind === 'study') {
-    const cards: [string, string][] = [['字', '漢字・語彙'], ['文', '文法'], ['読', '読解'], ['聴', '聴解']];
+    const cards: [string, string][] = [
+      ['字', t('touroverlay.study_kanji')],
+      ['文', t('touroverlay.study_grammar')],
+      ['読', t('touroverlay.study_reading')],
+      ['聴', t('touroverlay.study_listening')],
+    ];
     return (
       <View style={{ alignSelf: 'stretch', gap: 6 }}>
-        {cards.map(([ic, t]) => (
-          <View key={t} style={{ flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: 8, paddingHorizontal: 10 }}>
+        {cards.map(([ic, label]) => (
+          <View key={label} style={{ flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: 8, paddingHorizontal: 10 }}>
             <View style={{ width: 30, height: 30, borderRadius: 8, backgroundColor: c.surface, alignItems: 'center', justifyContent: 'center' }}>
               <Text style={{ fontWeight: '800', color: c.ink2, fontSize: ty.body }}>{ic}</Text>
             </View>
-            <Text style={{ flex: 1, fontWeight: '800', color: c.ink, fontSize: ty.body }}>{t}</Text>
+            <Text style={{ flex: 1, fontWeight: '800', color: c.ink, fontSize: ty.body }}>{label}</Text>
             <Text style={{ color: c.trace, fontSize: 20 }}>›</Text>
           </View>
         ))}
@@ -101,13 +116,16 @@ function Illustration({ kind, c }: { kind: Kind; c: ThemeColors }) {
     );
   }
   if (kind === 'test') {
-    const cards: [string, string, string][] = [['ミニ模試', '約7分', '言語知識20問'], ['フル模試', '約15分', '全区分 約18問']];
+    const cards: [string, string, string][] = [
+      [t('touroverlay.test_mini'), t('touroverlay.test_mini_time'), t('touroverlay.test_mini_note')],
+      [t('touroverlay.test_full'), t('touroverlay.test_full_time'), t('touroverlay.test_full_note')],
+    ];
     return (
       <View style={{ alignSelf: 'stretch', gap: 8 }}>
-        {cards.map(([t, time, note]) => (
-          <View key={t} style={{ backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: 10, gap: 4 }}>
+        {cards.map(([label, time, note]) => (
+          <View key={label} style={{ backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: 10, gap: 4 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={{ fontWeight: '800', color: c.ink, fontSize: ty.body }}>{t}</Text>
+              <Text style={{ fontWeight: '800', color: c.ink, fontSize: ty.body }}>{label}</Text>
               <Text style={{ fontSize: ty.tiny, color: c.mute, backgroundColor: c.surface, paddingHorizontal: 8, paddingVertical: 2, borderRadius: radius.pill, overflow: 'hidden' }}>{time}</Text>
             </View>
             <Text style={{ fontSize: ty.tiny, color: c.ink2 }}>{note}</Text>
@@ -121,10 +139,11 @@ function Illustration({ kind, c }: { kind: Kind; c: ThemeColors }) {
   }
   // dict (辞書画面)
   const entries: [string, string, string][] = [['勉強', 'べんきょう', 'study'], ['時間', 'じかん', 'time, hour']];
+  const dictTabs = [t('touroverlay.dict_tab_vocab'), t('touroverlay.dict_tab_kanji'), t('touroverlay.dict_tab_grammar')];
   return (
     <View style={{ alignSelf: 'stretch', gap: 8 }}>
       <View style={{ flexDirection: 'row', gap: 6 }}>
-        {['語彙', '漢字', '文法'].map((k, i) => (
+        {dictTabs.map((k, i) => (
           <View key={k} style={{ paddingVertical: 4, paddingHorizontal: 12, borderRadius: radius.pill, borderWidth: 1, borderColor: i === 0 ? c.blue : c.line, backgroundColor: i === 0 ? c.blueLight : c.surface }}>
             <Text style={{ fontSize: ty.tiny, fontWeight: '800', color: i === 0 ? c.blueDark : c.ink2 }}>{k}</Text>
           </View>
@@ -132,7 +151,7 @@ function Illustration({ kind, c }: { kind: Kind; c: ThemeColors }) {
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: 7, paddingHorizontal: 10 }}>
         <Ionicons name="search" size={16} color={c.faint} />
-        <Text style={{ fontSize: ty.small, color: c.faint }}>語を検索…</Text>
+        <Text style={{ fontSize: ty.small, color: c.faint }}>{t('touroverlay.dict_search_placeholder')}</Text>
       </View>
       {entries.map(([w, r, m]) => (
         <View key={w} style={{ flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: c.surface, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: 7, paddingHorizontal: 10 }}>
@@ -147,6 +166,7 @@ function Illustration({ kind, c }: { kind: Kind; c: ThemeColors }) {
 }
 
 export default function TourOverlay() {
+  const t = useT();
   const c = useColors();
   const s = makeStyles(c);
   const { setSettings } = useAppActions();
@@ -158,17 +178,17 @@ export default function TourOverlay() {
   return (
     <View style={s.overlay} pointerEvents="auto">
       <View style={s.card}>
-        <Text style={s.kicker}>使い方ガイド</Text>
+        <Text style={s.kicker}>{t('touroverlay.kicker')}</Text>
         <View style={s.illu}><Illustration kind={step.kind} c={c} /></View>
         <Text style={s.count}>{i + 1} / {STEPS.length}</Text>
-        <Text style={s.title}>{step.title}</Text>
-        <Text style={s.body}>{step.body}</Text>
+        <Text style={s.title}>{t(step.titleKey)}</Text>
+        <Text style={s.body}>{t(step.bodyKey)}</Text>
         <View style={s.row}>
-          <Pressable onPress={finish} hitSlop={8}><Text style={s.skip}>スキップ</Text></Pressable>
+          <Pressable onPress={finish} hitSlop={8}><Text style={s.skip}>{t('touroverlay.skip')}</Text></Pressable>
           <View style={s.rrow}>
-            {i > 0 && <Pressable onPress={() => setI(i - 1)} hitSlop={8} style={s.back}><Text style={s.backTxt}>戻る</Text></Pressable>}
+            {i > 0 && <Pressable onPress={() => setI(i - 1)} hitSlop={8} style={s.back}><Text style={s.backTxt}>{t('touroverlay.back')}</Text></Pressable>}
             <Pressable style={s.next} onPress={() => (last ? finish() : setI(i + 1))}>
-              <Text style={s.nextTxt}>{last ? '始める' : '次へ'}</Text>
+              <Text style={s.nextTxt}>{last ? t('touroverlay.start') : t('touroverlay.next')}</Text>
             </Pressable>
           </View>
         </View>

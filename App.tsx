@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useColors } from './src/theme';
 import { AppProvider, useAppState, useHydrated } from './src/store/store';
+import { useT } from './src/i18n';
 import type { RootStackParamList } from './src/navigation/types';
 import HomeScreen from './src/screens/HomeScreen';
 import StudyScreen from './src/screens/StudyScreen';
@@ -26,15 +27,16 @@ const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const TABS = [
-  { name: 'ホーム', component: HomeScreen, icon: 'home', iconOff: 'home-outline' },
-  { name: '学習', component: StudyScreen, icon: 'book', iconOff: 'book-outline' },
-  { name: 'テスト', component: TestScreen, icon: 'clipboard', iconOff: 'clipboard-outline' },
-  { name: '辞書', component: BrowseScreen, icon: 'search', iconOff: 'search-outline' },
-  { name: '設定', component: ProfileScreen, icon: 'settings', iconOff: 'settings-outline' },
+  { name: 'ホーム', component: HomeScreen, icon: 'home', iconOff: 'home-outline', labelKey: 'nav.home' },
+  { name: '学習', component: StudyScreen, icon: 'book', iconOff: 'book-outline', labelKey: 'study.tab' },
+  { name: 'テスト', component: TestScreen, icon: 'clipboard', iconOff: 'clipboard-outline', labelKey: 'test.tab' },
+  { name: '辞書', component: BrowseScreen, icon: 'search', iconOff: 'search-outline', labelKey: 'browse.title' },
+  { name: '設定', component: ProfileScreen, icon: 'settings', iconOff: 'settings-outline', labelKey: 'profile.tab' },
 ] as const;
 
 function MainTabs() {
   const c = useColors();
+  const t = useT();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -44,12 +46,15 @@ function MainTabs() {
         tabBarStyle: { backgroundColor: c.surface, borderTopColor: c.line },
       }}
     >
-      {TABS.map((t) => (
+      {TABS.map((tab) => (
         <Tab.Screen
-          key={t.name}
-          name={t.name}
-          component={t.component}
-          options={{ tabBarIcon: ({ color, size, focused }) => <Ionicons name={focused ? t.icon : t.iconOff} size={size ?? 24} color={color} /> }}
+          key={tab.name}
+          name={tab.name}
+          component={tab.component}
+          options={{
+            tabBarLabel: t(tab.labelKey),
+            tabBarIcon: ({ color, size, focused }) => <Ionicons name={focused ? tab.icon : tab.iconOff} size={size ?? 24} color={color} />,
+          }}
         />
       ))}
     </Tab.Navigator>

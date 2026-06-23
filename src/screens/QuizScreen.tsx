@@ -5,6 +5,7 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { progressSnapshot } from '../store/selectors';
+import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
 import { itemsFor, allWordsFor } from '../data';
 import { buildQueue, makeQuestion, reinsertForRelearn } from '../quiz/quiz';
@@ -32,6 +33,7 @@ export default function QuizScreen() {
   const { quizAnswer } = useAppActions();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
+  const t = useT();
 
   // 誤答プール＆弱点ドリルの照合は全語(学習＋模試専用)。出題キュー(category)は学習のみ=poolFor。
   const pool = useMemo(() => [...allWordsFor(settings.level, 'moji_goi'), ...allWordsFor(settings.level, 'bunpou')], [settings.level]);
@@ -67,13 +69,11 @@ export default function QuizScreen() {
       <SafeAreaView style={s.c}>
         <View style={s.center}>
           <Text style={s.bigEmoji}>🎉</Text>
-          <Text style={s.doneTitle}>セッション完了</Text>
-          <Text style={s.doneSub}>
-            {answered} 問中 {correctCount} 問正解
-          </Text>
+          <Text style={s.doneTitle}>{t('quiz.session_done')}</Text>
+          <Text style={s.doneSub}>{t('quiz.score', { answered, correct: correctCount })}</Text>
           <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
-            <Text style={s.ctaTxt}>結果を見る</Text>
+            <Text style={s.ctaTxt}>{t('quiz.see_results')}</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -116,9 +116,9 @@ export default function QuizScreen() {
           <Text style={s.prompt}>{question.prompt}</Text>
           {question.example ? (
             <Text style={s.reading}>
-              {question.example.pre}
-              <Text style={s.exHit}>{question.example.hit}</Text>
-              {question.example.post}
+              {question.example.map((sg, i) => (
+                <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
+              ))}
             </Text>
           ) : question.reading ? (
             <Text style={s.reading}>{question.reading}</Text>
@@ -147,10 +147,10 @@ export default function QuizScreen() {
 
         {picked !== null ? (
           <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
-            {picked === question.answerIndex ? '正解！' : 'おしい… あとで復習'}
+            {picked === question.answerIndex ? t('quiz.correct') : t('quiz.wrong')}
           </Text>
         ) : (
-          <Text style={s.hint}>4択から選んでください。間違えた語はあとで戻ってきます。</Text>
+          <Text style={s.hint}>{t('quiz.hint')}</Text>
         )}
       </ScrollView>
     </SafeAreaView>

@@ -9,6 +9,7 @@ import vocabExamples from './vocabExamples.json';
 import metaJson from './meta.json';
 import grammarClozeOkJson from './grammarClozeOk.json';
 import vocabFurigana from './vocabFurigana.json';
+import kanjiExamples from './kanjiExamples.json';
 import type { Category, Level } from '../engine/engine';
 
 export interface KanjiItem {
@@ -106,6 +107,8 @@ export const KANJI_EXAMPLE: Record<string, KanjiExample> = (() => {
     if (kunEx && kunEx !== onEx) ex.kun = { word: stripWave(kunEx.word), reading: kunEx.reading || '' };
     out[ch] = ex;
   }
+  // キュレート版(LLM精選・読み検証済 kanjiExamples.json)で上書き=音/訓を適正化(上→以上いじょう/天→天の川/気→訓なし 等)。未カバー字は導出のまま。
+  Object.assign(out, kanjiExamples as Record<string, KanjiExample>);
   return out;
 })();
 

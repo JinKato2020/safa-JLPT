@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
+import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
 import { readingItemsFor, type ReadingItem, type PassageQuestion } from '../data';
@@ -24,6 +25,7 @@ export default function ReadingScreen() {
   const { quizAnswer } = useAppActions();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
+  const t = useT();
 
   const [steps, setSteps] = useState<Step[]>(() => {
     const now = Date.now();
@@ -58,11 +60,11 @@ export default function ReadingScreen() {
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
           <Text style={s.bigEmoji}>🎉</Text>
-          <Text style={s.doneTitle}>読解セッション完了</Text>
-          <Text style={s.doneSub}>{answered} 問中 {correct} 問正解</Text>
+          <Text style={s.doneTitle}>{t('reading.sessionComplete')}</Text>
+          <Text style={s.doneSub}>{t('reading.scoreResult', { answered, correct })}</Text>
           <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
-            <Text style={s.ctaTxt}>学習ホームへ戻る</Text>
+            <Text style={s.ctaTxt}>{t('reading.backToHome')}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -101,7 +103,7 @@ export default function ReadingScreen() {
           <Text style={s.passageBody}>{step.passage.body}</Text>
         </View>
 
-        <Text style={s.qLabel}>設問 {step.qNum}/{step.qTotal}</Text>
+        <Text style={s.qLabel}>{t('reading.questionLabel', { n: step.qNum, m: step.qTotal })}</Text>
         <Text style={s.qText}>{step.q.q}</Text>
         <View style={s.choices}>
           {step.q.choices.map((ch, i) => {
@@ -127,10 +129,10 @@ export default function ReadingScreen() {
             <View style={s.explainBox}>
               <Text style={s.explainTxt}>{step.q.explain}</Text>
             </View>
-            <Text style={s.autoNext}>{idx + 1 >= steps.length ? 'まもなく結果へ…' : 'まもなく次へ…'}</Text>
+            <Text style={s.autoNext}>{idx + 1 >= steps.length ? t('reading.autoResult') : t('reading.autoNext')}</Text>
           </>
         ) : (
-          <Text style={s.hint}>本文を読んで答えましょう。</Text>
+          <Text style={s.hint}>{t('reading.hint')}</Text>
         )}
       </ScrollView>
     </SafeAreaView>

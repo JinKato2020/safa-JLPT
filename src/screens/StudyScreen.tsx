@@ -13,16 +13,17 @@ import { itemsFor, ringItemIdsFor } from '../data';
 import { dueStats } from '../quiz/quiz';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
+import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 type Styles = ReturnType<typeof makeStyles>;
 
 const RING_ORDER: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
-const RING_META: Record<Category, { label: string }> = {
-  moji_goi: { label: '漢字・語彙' },
-  bunpou: { label: '文法' },
-  dokkai: { label: '読解' },
-  choukai: { label: '聴解' },
+const RING_META: Record<Category, { labelKey: string }> = {
+  moji_goi: { labelKey: 'study.cat_moji_goi' },
+  bunpou: { labelKey: 'study.cat_bunpou' },
+  dokkai: { labelKey: 'study.cat_dokkai' },
+  choukai: { labelKey: 'study.cat_choukai' },
 };
 
 export default function StudyScreen() {
@@ -30,6 +31,7 @@ export default function StudyScreen() {
   const state = useAppState();
   const { settings, items, streak } = state;
   const c = useColors();
+  const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
   const rings = useMemo(() => ringsFor(state, now), [state]);
@@ -46,21 +48,21 @@ export default function StudyScreen() {
       <ScrollView contentContainerStyle={s.body}>
         <View style={s.head}>
           <View>
-            <Text style={s.tab}>学習</Text>
-            <Text style={s.title}>毎日コツコツ</Text>
+            <Text style={s.tab}>{t('study.tab')}</Text>
+            <Text style={s.title}>{t('study.title')}</Text>
           </View>
           {streak.current > 0 ? <Text style={s.streak}>🔥 {streak.current}</Text> : null}
         </View>
         <Text style={s.sub}>
-          {todo > 0 ? `今日の復習 ${todo} 件。` : '今日の復習はなし。新しい語に進めます。'}
+          {todo > 0 ? t('study.due_count', { n: todo }) : t('study.no_due')}
         </Text>
 
-        <StudyCard s={s} icon="字" title="漢字・語彙" onPress={() => nav.navigate('Flashcard')} />
-        <StudyCard s={s} icon="文" title="文法" onPress={() => nav.navigate('Grammar')} />
-        <StudyCard s={s} icon="読" title="読解" onPress={() => nav.navigate('Reading')} />
-        <StudyCard s={s} icon="聴" title="聴解" onPress={() => nav.navigate('Listening')} />
+        <StudyCard s={s} icon="字" title={t('study.cat_moji_goi')} onPress={() => nav.navigate('Flashcard')} />
+        <StudyCard s={s} icon="文" title={t('study.cat_bunpou')} onPress={() => nav.navigate('Grammar')} />
+        <StudyCard s={s} icon="読" title={t('study.cat_dokkai')} onPress={() => nav.navigate('Reading')} />
+        <StudyCard s={s} icon="聴" title={t('study.cat_choukai')} onPress={() => nav.navigate('Listening')} />
 
-        <Text style={s.sectionH}>区分別の到達度</Text>
+        <Text style={s.sectionH}>{t('study.section_progress')}</Text>
         <View style={s.ringRow}>
           {RING_ORDER.map((cat) => {
             const v = rings[cat];
@@ -69,14 +71,14 @@ export default function StudyScreen() {
             const done = all.filter((id) => items[id]).length;
             return (
               <View key={cat} style={s.ringCell}>
-                <RingGauge value={v} color={rc} label={RING_META[cat].label} />
+                <RingGauge value={v} color={rc} label={t(RING_META[cat].labelKey)} />
                 <Text style={s.ringData}>{done}/{all.length}</Text>
               </View>
             );
           })}
         </View>
 
-        <Text style={s.foot}>学習しない日が続くと習得度は少しずつ下がります。毎日少しでも触れて🔥を伸ばしましょう。</Text>
+        <Text style={s.foot}>{t('study.foot')}</Text>
       </ScrollView>
     </SafeAreaView>
   );

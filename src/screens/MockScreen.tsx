@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Audio, type AVPlaybackStatus } from 'expo-av';
+import { useT } from '../i18n';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { dayStr } from '../store/state';
@@ -23,7 +24,7 @@ type Styles = ReturnType<typeof makeStyles>;
 const MINI_SIZE = 20;
 const VOCAB_RATIO = 0.6;
 const SEC_ORDER: Sec[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
-const SEC_LABEL: Record<Sec, string> = { moji_goi: '漢字・語彙', bunpou: '文法', dokkai: '読解', choukai: '聴解' };
+const SEC_LABEL: Record<Sec, string> = { moji_goi: 'mock.sec_moji_goi', bunpou: 'mock.sec_bunpou', dokkai: 'mock.sec_dokkai', choukai: 'mock.sec_choukai' };
 
 interface MockItem {
   kind: 'word' | 'reading' | 'listening';
@@ -112,6 +113,7 @@ export default function MockScreen() {
   const state = useAppState();
   const { mockAnswer, recordMockResult } = useAppActions();
   const c = useColors();
+  const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
 
   const [exam] = useState<MockItem[]>(() => buildExam(state.settings.level, full, state.items));
@@ -193,25 +195,25 @@ export default function MockScreen() {
             <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12}>
               <Text style={s.close}>✕</Text>
             </Pressable>
-            <Text style={s.progress}>結果</Text>
+            <Text style={s.progress}>{t('mock.result_label')}</Text>
           </View>
           <View style={s.resultHero}>
             <Text style={s.resultPct}>{pct}%</Text>
-            <Text style={s.resultFrac}>{correct} / {answers.length} 正解 ・ ⏱ {mmss(elapsed)}</Text>
-            <Text style={s.resultCap}>{full ? 'フル模試（全区分）' : '言語知識ミニ模試'}</Text>
+            <Text style={s.resultFrac}>{t('mock.result_frac', { n: correct, m: answers.length, t: mmss(elapsed) })}</Text>
+            <Text style={s.resultCap}>{full ? t('mock.full_exam') : t('mock.mini_exam')}</Text>
             {prevMock ? (
               <Text style={[s.resultDelta, { color: pct - prevMock.pct > 0 ? c.green : pct - prevMock.pct < 0 ? c.red : c.mute }]}>
-                前回 {prevMock.pct}% → 今回 {pct}%
+                {t('mock.result_delta_base', { n: prevMock.pct, m: pct })}
                 {pct - prevMock.pct > 0
-                  ? `　▲ ${pct - prevMock.pct}%アップ`
+                  ? t('mock.result_delta_up', { n: pct - prevMock.pct })
                   : pct - prevMock.pct < 0
-                    ? `　▼ ${prevMock.pct - pct}%ダウン`
-                    : '　前回と同じ'}
+                    ? t('mock.result_delta_down', { n: prevMock.pct - pct })
+                    : t('mock.result_delta_same')}
               </Text>
             ) : null}
           </View>
 
-          <Text style={s.sectionH}>区分別の弱点</Text>
+          <Text style={s.sectionH}>{t('mock.section_weakness')}</Text>
           <View style={s.heatCard}>
             {SEC_ORDER.filter((k) => byCat[k]).map((k) => (
               <Bar key={k} label={SEC_LABEL[k]} correct={byCat[k].c} total={byCat[k].t} tc={c} s={s} />
@@ -223,13 +225,13 @@ export default function MockScreen() {
               style={s.cta}
               onPress={() => nav.replace('Quiz', { itemIds: wrongDrill.map((w) => w.id), title: '弱点ドリル' })}
             >
-              <Text style={s.ctaTxt}>語彙・文法の弱点を復習（{wrongDrill.length}問）</Text>
+              <Text style={s.ctaTxt}>{t('mock.drill_cta', { n: wrongDrill.length })}</Text>
             </Pressable>
           ) : (
-            <Text style={s.allOk}>🎯 語彙・文法の弱点なし。</Text>
+            <Text style={s.allOk}>{t('mock.all_ok')}</Text>
           )}
           <Pressable style={s.ghost} onPress={() => nav.goBack()}>
-            <Text style={s.ghostTxt}>閉じる</Text>
+            <Text style={s.ghostTxt}>{t('mock.close')}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -265,16 +267,16 @@ export default function MockScreen() {
           </Pressable>
           <Text style={s.progress}>{idx + 1} / {exam.length}</Text>
         </View>
-        <Text style={s.secTag}>{SEC_LABEL[cur.section]}</Text>
+        <Text style={s.secTag}>{t(SEC_LABEL[cur.section])}</Text>
 
         {cur.kind === 'word' ? (
           <View style={s.promptCard}>
             <Text style={s.prompt}>{cur.prompt}</Text>
             {cur.example ? (
               <Text style={s.readingHint}>
-                {cur.example.pre}
-                <Text style={s.exHit}>{cur.example.hit}</Text>
-                {cur.example.post}
+                {cur.example.map((sg, i) => (
+                  <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
+                ))}
               </Text>
             ) : cur.reading ? (
               <Text style={s.readingHint}>{cur.reading}</Text>
@@ -290,7 +292,7 @@ export default function MockScreen() {
           <View style={s.passageCard}>
             <Text style={s.passTitle}>{cur.title}</Text>
             <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
-              <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? '■ 再生中…' : '▶ 音声を聞く'}</Text>
+              <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('mock.playing') : t('mock.play_audio')}</Text>
             </Pressable>
             {reveal2 ? <Text style={s.passBody}>{formatScript(cur.script ?? '')}</Text> : null}
           </View>
@@ -321,14 +323,14 @@ export default function MockScreen() {
             {cur.explain ? <View style={s.explainBox}><Text style={s.explainTxt}>{cur.explain}</Text></View> : null}
             {cur.kind === 'listening' ? (
               <Pressable style={s.cta} onPress={next}>
-                <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? '結果を見る →' : '次へ →'}</Text>
+                <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
               </Pressable>
             ) : (
-              <Text style={s.autoNext}>{idx + 1 >= exam.length ? 'まもなく結果へ…' : 'まもなく次へ…'}</Text>
+              <Text style={s.autoNext}>{idx + 1 >= exam.length ? t('mock.auto_result') : t('mock.auto_next')}</Text>
             )}
           </>
         ) : (
-          <Text style={s.hint}>本番のつもりで4択から選びましょう。</Text>
+          <Text style={s.hint}>{t('mock.hint')}</Text>
         )}
       </ScrollView>
     </SafeAreaView>
@@ -336,11 +338,12 @@ export default function MockScreen() {
 }
 
 function Bar({ label, correct, total, tc, s }: { label: string; correct: number; total: number; tc: ThemeColors; s: Styles }) {
+  const t = useT();
   const pct = total ? Math.round((100 * correct) / total) : 0;
   const color = pct >= 80 ? tc.green : pct >= 50 ? tc.amber : tc.red;
   return (
     <View style={s.barRow}>
-      <Text style={s.barLabel}>{label}</Text>
+      <Text style={s.barLabel}>{t(label)}</Text>
       <View style={s.barTrack}><View style={[s.barFill, { width: `${pct}%`, backgroundColor: color }]} /></View>
       <Text style={[s.barPct, { color }]}>{pct}%</Text>
       <Text style={s.barFrac}>{correct}/{total}</Text>

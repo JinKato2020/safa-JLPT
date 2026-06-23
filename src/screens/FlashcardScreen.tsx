@@ -7,16 +7,19 @@ import { useAppState } from '../store/store';
 import { itemsFor, KANJI_EXAMPLE, VOCAB_EXAMPLE, VOCAB_FURIGANA } from '../data';
 import type { StudyItem } from '../data';
 import LearnTestSession from '../components/LearnTestSession';
+import HighlightedText from '../components/HighlightedText';
+import { useT } from '../i18n';
 
 function VocabKanjiCard({ item }: { item: StudyItem }) {
   const c = useColors();
+  const t = useT();
   const s = useMemo(() => cardStyles(c), [c]);
   if (item.type === 'kanji') {
     const ex = KANJI_EXAMPLE[item.char];
     return (
       <View style={s.card}>
         <Text style={s.kanji}>{item.char}</Text>
-        <Text style={s.reading}>音 {item.on}／訓 {item.kun}</Text>
+        <Text style={s.reading}>{t('flashcardscreen.reading_label', { on: item.on, kun: item.kun })}</Text>
         <Text style={s.meaning}>{item.meaning}</Text>
         {ex ? <Text style={s.ex}>{ex.word}（{ex.reading}）</Text> : null}
         {ex?.kun ? <Text style={s.ex}>{ex.kun.word}（{ex.kun.reading}）</Text> : null}
@@ -32,7 +35,7 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
         <Text style={s.meaning}>{item.meaning}</Text>
         {ex ? (
           <>
-            <Text style={s.ex}>{VOCAB_FURIGANA[item.id] ?? ex.ja}</Text>
+            <HighlightedText text={VOCAB_FURIGANA[item.id] ?? ex.ja} target={item.word} style={s.ex} hitStyle={s.exHit} />
             <Text style={s.exEn}>{ex.en}</Text>
           </>
         ) : null}
@@ -65,5 +68,6 @@ const cardStyles = (c: ThemeColors) =>
     reading: { fontSize: ty.body, color: c.mute, fontWeight: '700' },
     meaning: { fontSize: ty.body, color: c.ink2, marginTop: spacing.xs, textAlign: 'center' },
     ex: { fontSize: ty.body, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 24 },
+    exHit: { textDecorationLine: 'underline' },
     exEn: { fontSize: ty.tiny, color: c.faint, fontStyle: 'italic', textAlign: 'center' },
   });

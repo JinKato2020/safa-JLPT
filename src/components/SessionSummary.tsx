@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { useT } from '../i18n';
 import type { ProgressSnapshot } from '../store/selectors';
 
 type Styles = ReturnType<typeof makeStyles>;
@@ -12,6 +13,7 @@ export default function SessionSummary({
 }: {
   before: ProgressSnapshot; after: ProgressSnapshot; streak: number;
 }) {
+  const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const dTouched = after.touched - before.touched;
@@ -19,15 +21,15 @@ export default function SessionSummary({
 
   return (
     <View style={s.card}>
-      <Text style={s.h}>このセッションの伸び</Text>
-      <Row s={s} label="採点した語" value={`+${dTouched}`} good={dTouched > 0} />
+      <Text style={s.h}>{t('sessionsummary.heading')}</Text>
+      <Row s={s} label={t('sessionsummary.scored')} value={`+${dTouched}`} good={dTouched > 0} />
       <Row
         s={s}
-        label="信頼幅(精度)"
+        label={t('sessionsummary.confidence')}
         value={narrowed > 0 ? `±${before.band} → ±${after.band}` : `±${after.band}`}
         good={narrowed > 0}
       />
-      <Row s={s} label="連続" value={`🔥 ${streak}`} good={false} />
+      <Row s={s} label={t('sessionsummary.streak')} value={`🔥 ${streak}`} good={false} />
     </View>
   );
 }

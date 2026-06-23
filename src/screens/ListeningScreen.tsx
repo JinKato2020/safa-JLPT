@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
+import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
 import { listeningItemsFor, type ListeningItem, type PassageQuestion } from '../data';
@@ -31,6 +32,7 @@ export default function ListeningScreen() {
   const { quizAnswer } = useAppActions();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
+  const t = useT();
 
   const [steps, setSteps] = useState<Step[]>(() => {
     const now = Date.now();
@@ -87,11 +89,11 @@ export default function ListeningScreen() {
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
           <Text style={s.bigEmoji}>🎉</Text>
-          <Text style={s.doneTitle}>聴解セッション完了</Text>
-          <Text style={s.doneSub}>{answered} 問中 {correct} 問正解</Text>
+          <Text style={s.doneTitle}>{t('listening.done_title')}</Text>
+          <Text style={s.doneSub}>{t('listening.done_sub', { answered, correct })}</Text>
           <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
-            <Text style={s.ctaTxt}>学習ホームへ戻る</Text>
+            <Text style={s.ctaTxt}>{t('listening.go_home')}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -135,23 +137,23 @@ export default function ListeningScreen() {
         <View style={s.clipCard}>
           <Text style={s.clipTitle}>{step.clip.title}</Text>
           <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
-            <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? '■ 再生中…（もう一度で最初から）' : '▶ 音声を聞く'}</Text>
+            <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
           </Pressable>
           {showScript ? (
             <>
               <Text style={s.script}>{formatScript(step.clip.script)}</Text>
               <Pressable onPress={() => setShowScript(false)} hitSlop={8}>
-                <Text style={s.scriptToggle}>スクリプトを隠す</Text>
+                <Text style={s.scriptToggle}>{t('listening.script_hide')}</Text>
               </Pressable>
             </>
           ) : (
             <Pressable onPress={() => setShowScript(true)} hitSlop={8}>
-              <Text style={s.scriptToggle}>スクリプトを見る</Text>
+              <Text style={s.scriptToggle}>{t('listening.script_show')}</Text>
             </Pressable>
           )}
         </View>
 
-        <Text style={s.qLabel}>設問 {step.qNum}/{step.qTotal}</Text>
+        <Text style={s.qLabel}>{t('listening.q_label', { n: step.qNum, m: step.qTotal })}</Text>
         <Text style={s.qText}>{step.q.q}</Text>
         <View style={s.choices}>
           {step.q.choices.map((ch, i) => {
@@ -178,11 +180,11 @@ export default function ListeningScreen() {
               <Text style={s.explainTxt}>{step.q.explain}</Text>
             </View>
             <Pressable style={s.cta} onPress={next}>
-              <Text style={s.ctaTxt}>{idx + 1 >= steps.length ? '結果を見る →' : '次へ →'}</Text>
+              <Text style={s.ctaTxt}>{idx + 1 >= steps.length ? t('listening.see_results') : t('listening.next')}</Text>
             </Pressable>
           </>
         ) : (
-          <Text style={s.hint}>音声を聞いて答えましょう（スクリプトは隠せます）。</Text>
+          <Text style={s.hint}>{t('listening.hint')}</Text>
         )}
       </ScrollView>
     </SafeAreaView>

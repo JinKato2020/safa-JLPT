@@ -4,14 +4,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppActions } from '../store/store';
 import { detectL1 } from '../store/locale';
+import { useT } from '../i18n';
 import type { Level } from '../engine/engine';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 
-const LEVEL_DESC: Record<Level, string> = {
-  N5: 'いちばん易しい入門レベル。ひらがな・基本の語彙と文法から。',
-  N4: '基礎レベル。初級（みんなの日本語など）を終えた人向け。',
-  N3: '中級レベル。日常の文章がだいたい読める力。',
+const LEVEL_DESC_KEYS: Record<Level, string> = {
+  N5: 'onboarding.desc_n5',
+  N4: 'onboarding.desc_n4',
+  N3: 'onboarding.desc_n3',
 };
 
 export default function OnboardingScreen() {
@@ -19,14 +20,15 @@ export default function OnboardingScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const [level, setLevel] = useState<Level>('N4');
+  const t = useT();
 
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.brand}>まいにちJLPT</Text>
-        <Text style={s.title}>はじめましょう</Text>
+        <Text style={s.brand}>{t('onboarding.brand')}</Text>
+        <Text style={s.title}>{t('onboarding.title')}</Text>
 
-        <Text style={s.label}>目標の級を選ぶ</Text>
+        <Text style={s.label}>{t('onboarding.level_label')}</Text>
         <View style={s.row}>
           {LEVELS.map((lv) => (
             <Pressable key={lv} onPress={() => setLevel(lv)} style={[s.chip, level === lv && s.chipOn]}>
@@ -34,11 +36,11 @@ export default function OnboardingScreen() {
             </Pressable>
           ))}
         </View>
-        <Text style={s.levelDesc}>{LEVEL_DESC[level]}</Text>
-        <Text style={s.levelHint}>後で「設定」から変更できます。</Text>
+        <Text style={s.levelDesc}>{t(LEVEL_DESC_KEYS[level])}</Text>
+        <Text style={s.levelHint}>{t('onboarding.level_hint')}</Text>
 
         <Pressable style={s.cta} onPress={() => setSettings({ level, l1: detectL1(), onboarded: true })}>
-          <Text style={s.ctaTxt}>スタート</Text>
+          <Text style={s.ctaTxt}>{t('onboarding.start')}</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>

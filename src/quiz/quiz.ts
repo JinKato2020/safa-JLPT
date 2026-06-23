@@ -2,6 +2,7 @@
 // 4択生成 / 出題キュー(優先順) / 間違い再挿入(分散学習)。
 import type { StudyItem } from '../data';
 import { VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK } from '../data';
+import { highlightSegments } from './highlight';
 import { effectiveP, type ItemState } from '../engine/engine';
 
 // 問題形式(弱点ヒートマップの軸＋出題の多様化)。
@@ -14,12 +15,8 @@ export const FORMAT_LABEL: Record<QFormat, string> = {
   usage: '文法・用法',
 };
 
-// 例文ヒント(文法の例文＋該当文法の下線位置)。pre と post の間の hit を下線表示。
-export interface ExampleHint {
-  pre: string;
-  hit: string;
-  post: string;
-}
+// 例文ヒント = 下線セグメント列(共通 highlightSegments の結果)。多部分(A〜B)・1文字対応。
+export type ExampleHint = { text: string; hit: boolean }[];
 
 export interface Question {
   itemId: string;
@@ -115,23 +112,8 @@ function grammarCloze(item: StudyItem): string | null {
 /** 文法の例文中の該当文法の位置を返す(下線表示用・furigana除去)。見つからなければ null。 */
 function grammarHighlight(item: StudyItem): ExampleHint | null {
   if (item.type !== 'grammar' || !item.exampleJa) return null;
-  const plain = item.exampleJa.replace(FURI, '');
-  const core = item.point
-    .replace(FURI, '')
-    .split(/[〜～]/)
-    .map((p) => p.replace(/\s/g, '').trim())
-    .filter(Boolean)[0] ?? '';
-  if (!core) return null;
-  let at = -1;
-  let len = 0;
-  for (let L = core.length; L >= 1; L--) {
-    const i = plain.indexOf(core.slice(0, L));
-    if (i >= 0) { at = i; len = L; break; }
-  }
-  if (at < 0) return null;
-  let end = at + len;
-  if (len < core.length) while (end < plain.length && KANA_RE.test(plain[end])) end++;
-  return { pre: plain.slice(0, at), hit: plain.slice(at, end), post: plain.slice(end) };
+  const segs = highlightSegments(item.exampleJa.replace(FURI, ''), item.point);
+  return segs.some((sg) => sg.hit) ? segs : null;
 }
 
 interface Built {

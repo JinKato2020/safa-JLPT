@@ -11,6 +11,7 @@ export interface Settings {
   reminder: string | null; // 学習リマインド "HH:MM"
   onboarded: boolean;      // オンボーディング(自己チェック)完了
   tourDone?: boolean;      // 初回ガイドツアー完了(旧stateには無い→未完扱い)
+  uiLang?: string;         // UI表示言語(未設定→端末言語を自動判定)
 }
 
 export interface Streak {

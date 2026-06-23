@@ -7,12 +7,14 @@ import { useAppState } from '../store/store';
 import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE, VOCAB_EXAMPLE } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
+import { useT } from '../i18n';
+import { highlightSegments } from '../quiz/highlight';
 
 type Kubun = 'vocab' | 'kanji' | 'grammar';
-const KUBUN: { key: Kubun; label: string }[] = [
-  { key: 'vocab', label: '語彙' },
-  { key: 'kanji', label: '漢字' },
-  { key: 'grammar', label: '文法' },
+const KUBUN: { key: Kubun; labelKey: string }[] = [
+  { key: 'vocab', labelKey: 'browse.vocab' },
+  { key: 'kanji', labelKey: 'browse.kanji' },
+  { key: 'grammar', labelKey: 'browse.grammar' },
 ];
 
 function haystack(it: StudyItem): string {
@@ -21,45 +23,8 @@ function haystack(it: StudyItem): string {
   return `${it.point} ${it.romaji} ${it.meaning} ${it.exampleJa} ${it.exampleEn}`.toLowerCase();
 }
 
-// 例文中の文法点をハイライト用セグメントに分割。ふりがな保持・変化系(活用語尾)・A〜B型(離れた2部分)に対応。
-function highlightExample(exampleJa: string, point: string): { text: string; hit: boolean }[] {
-  const units: { base: string; disp: string }[] = [];
-  const re = /(.)（[^）]*）|([\s\S])/gu; // 「基（ふり）」または1文字
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(exampleJa))) units.push({ base: m[1] ?? m[2] ?? '', disp: m[0] });
-  const bases = units.map((u) => u.base).join('');
-  const flags = new Array<boolean>(units.length).fill(false);
-  const KANA = /[぀-ゟ]/;
-  // 文法点を 〜/～ で分割(A〜B型対応)。各部分を順に探す。
-  const parts = point
-    .replace(/（[^）]*）/g, '')
-    .split(/[〜～]/)
-    .map((p) => p.replace(/\s/g, '').trim())
-    .filter(Boolean);
-  let from = 0;
-  for (const part of parts) {
-    let at = -1;
-    let len = 0;
-    for (let L = part.length; L >= 2; L--) {
-      const i = bases.indexOf(part.slice(0, L), from); // 活用差に強い最長前方一致
-      if (i >= 0) { at = i; len = L; break; }
-    }
-    if (at < 0) continue;
-    let end = at + len;
-    if (len < part.length) while (end < units.length && KANA.test(units[end].base)) end++; // 変化系も赤
-    for (let j = at; j < end; j++) flags[j] = true;
-    from = end;
-  }
-  const segs: { text: string; hit: boolean }[] = [];
-  for (let i = 0; i < units.length; i++) {
-    const last = segs[segs.length - 1];
-    if (last && last.hit === flags[i]) last.text += units[i].disp;
-    else segs.push({ text: units[i].disp, hit: flags[i] });
-  }
-  return segs;
-}
-
 export default function BrowseScreen() {
+  const t = useT();
   const { settings, items } = useAppState();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
@@ -88,7 +53,7 @@ export default function BrowseScreen() {
 
   const renderSentence = (ja: string, target: string, en?: string) => {
     if (!ja) return null;
-    const segs = highlightExample(ja, target);
+    const segs = highlightSegments(ja, target);
     return (
       <>
         <Text style={s.example}>
@@ -112,7 +77,7 @@ export default function BrowseScreen() {
           </>
         ) : item.type === 'kanji' ? (
           <>
-            <Text style={s.term}>{item.char}　<Text style={s.reading}>音 {item.on}／訓 {item.kun}</Text></Text>
+            <Text style={s.term}>{item.char}　<Text style={s.reading}>{t('browse.kanjiReading', { on: item.on, kun: item.kun })}</Text></Text>
             <Text style={s.meaning}>{item.meaning}</Text>
             {KANJI_EXAMPLE[item.char] ? (
               <Text style={s.example}>
@@ -138,12 +103,12 @@ export default function BrowseScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <View style={s.top}>
-        <Text style={s.tab}>辞書</Text>
+        <Text style={s.tab}>{t('browse.title')}</Text>
         <TextInput
           style={s.search}
           value={query}
           onChangeText={setQuery}
-          placeholder="語・読み・意味で検索"
+          placeholder={t('browse.searchPlaceholder')}
           placeholderTextColor={c.faint}
           autoCorrect={false}
         />
@@ -152,15 +117,15 @@ export default function BrowseScreen() {
       <View style={s.filters}>
         {KUBUN.map((k) => (
           <Pressable key={k.key} onPress={() => setKubun(k.key)} style={[s.chip, kubun === k.key && s.chipOn]}>
-            <Text style={[s.chipTxt, kubun === k.key && s.chipTxtOn]}>{k.label}</Text>
+            <Text style={[s.chipTxt, kubun === k.key && s.chipTxtOn]}>{t(k.labelKey)}</Text>
           </Pressable>
         ))}
         <Pressable onPress={() => setAllLevels((v) => !v)} style={[s.chip, allLevels && s.chipOn]}>
-          <Text style={[s.chipTxt, allLevels && s.chipTxtOn]}>{allLevels ? '全級' : settings.level}</Text>
+          <Text style={[s.chipTxt, allLevels && s.chipTxtOn]}>{allLevels ? t('browse.allLevels') : settings.level}</Text>
         </Pressable>
       </View>
 
-      <Text style={s.count}>{results.length} 件</Text>
+      <Text style={s.count}>{t('browse.count', { n: results.length })}</Text>
 
       <FlatList
         data={results}
@@ -169,7 +134,7 @@ export default function BrowseScreen() {
         initialNumToRender={20}
         contentContainerStyle={s.listBody}
         keyboardShouldPersistTaps="handled"
-        ListEmptyComponent={<Text style={s.empty}>該当なし</Text>}
+        ListEmptyComponent={<Text style={s.empty}>{t('browse.empty')}</Text>}
       />
     </SafeAreaView>
   );

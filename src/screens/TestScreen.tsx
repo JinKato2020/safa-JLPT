@@ -9,10 +9,12 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState } from '../store/store';
 import { readinessFor } from '../store/selectors';
 import type { RootStackParamList } from '../navigation/types';
+import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 export default function TestScreen() {
+  const t = useT();
   const nav = useNavigation<Nav>();
   const state = useAppState();
   const c = useColors();
@@ -26,26 +28,26 @@ export default function TestScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.tab}>テスト</Text>
-        <Text style={s.title}>本番形式で確かめる</Text>
-        <Text style={s.sub}>実力を確認し、弱点を見つけます。</Text>
+        <Text style={s.tab}>{t('test.tab')}</Text>
+        <Text style={s.title}>{t('test.title')}</Text>
+        <Text style={s.sub}>{t('test.sub')}</Text>
 
         {/* 信頼幅 */}
         <View style={s.bandCard}>
-          <Text style={s.bandLabel}>現在の信頼幅</Text>
+          <Text style={s.bandLabel}>{t('test.band_label')}</Text>
           <Text style={s.bandVal}>±{readiness.band}</Text>
           <Text style={s.bandHint}>
-            {measured ? '模試を受けるほど ± が狭まり、到達度が確かになります。' : 'まず受けて現在地を測りましょう。'}
+            {measured ? t('test.band_hint_measured') : t('test.band_hint_unmeasured')}
           </Text>
         </View>
 
         {hist.length > 0 ? (
           <>
-            <Text style={s.sectionH}>模試の記録</Text>
+            <Text style={s.sectionH}>{t('test.history_section')}</Text>
             <View style={s.histCard}>
               <View style={s.histTop}>
-                <Text style={s.histMain}>最新 {hist[hist.length - 1].pct}%</Text>
-                <Text style={s.histSub}>全{hist.length}回 ・ 平均 {avgPct}%</Text>
+                <Text style={s.histMain}>{t('test.history_latest', { n: hist[hist.length - 1].pct })}</Text>
+                <Text style={s.histSub}>{t('test.history_summary', { n: hist.length, avg: avgPct })}</Text>
               </View>
               <View style={s.histBars}>
                 {recentMocks.map((m, i) => (
@@ -59,7 +61,7 @@ export default function TestScreen() {
                   </View>
                 ))}
               </View>
-              <Text style={s.histCap}>直近{recentMocks.length}回の正答率（右が最新・高いほど合格に近い）</Text>
+              <Text style={s.histCap}>{t('test.history_cap', { n: recentMocks.length })}</Text>
             </View>
           </>
         ) : null}
@@ -67,28 +69,28 @@ export default function TestScreen() {
         {/* ミニ模試(利用可) */}
         <View style={s.testCard}>
           <View style={s.testHead}>
-            <Text style={s.testTitle}>ミニ模試</Text>
-            <Text style={s.testTime}>約7分</Text>
+            <Text style={s.testTitle}>{t('test.mini_title')}</Text>
+            <Text style={s.testTime}>{t('test.mini_time')}</Text>
           </View>
-          <Text style={s.testNote}>言語知識（漢字・語彙＋文法）20問。弱点ヒートマップ付き。</Text>
+          <Text style={s.testNote}>{t('test.mini_note')}</Text>
           <Pressable style={s.cta} onPress={() => nav.navigate('Mock')}>
-            <Text style={s.ctaTxt}>始める →</Text>
+            <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
           </Pressable>
         </View>
 
         {/* フル模試(利用可) */}
         <View style={s.testCard}>
           <View style={s.testHead}>
-            <Text style={s.testTitle}>フル模試</Text>
-            <Text style={s.testTime}>約15分</Text>
+            <Text style={s.testTitle}>{t('test.full_title')}</Text>
+            <Text style={s.testTime}>{t('test.full_time')}</Text>
           </View>
-          <Text style={s.testNote}>全区分（漢字・語彙＋文法＋読解＋聴解）約18問。弱点ヒートマップ付き。</Text>
+          <Text style={s.testNote}>{t('test.full_note')}</Text>
           <Pressable style={s.cta} onPress={() => nav.navigate('Mock', { full: true })}>
-            <Text style={s.ctaTxt}>始める →</Text>
+            <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
           </Pressable>
         </View>
 
-        <Text style={s.foot}>※ ミニ＝言語知識のみの目安。フル模試は全区分で精度が上がります。いずれも合格を保証するものではありません。</Text>
+        <Text style={s.foot}>{t('test.foot')}</Text>
       </ScrollView>
     </SafeAreaView>
   );
