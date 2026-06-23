@@ -142,6 +142,8 @@
   "profile.supportSection": "支持・条款",
   "profile.tab": "设置",
   "profile.targetLevel": "目标级别",
+  "profile.telemetry": "共享使用数据",
+  "profile.telemetryHint": "匿名共享您的学习进度，帮助改进应用（无个人信息 • 无跟踪 • 随时可关闭）。",
   "profile.terms": "使用条款",
   "profile.termsBody": "毎日JLPT 使用条款\n\n• 本应用旨在辅助用户备考 JLPT（日语能力测试）。\n• 「进度」「合格区」等指标仅为学习参考，不保证考试结果。\n• 本应用与 JLPT 主办机构（国际交流基金・日本国际教育支援协会）无任何关联。\n• 因使用本应用而造成的损失，开发者不承担任何责任。\n• 应用规格・内容可能在不另行通知的情况下变更。\n• 词典・例句数据遵循各提供方许可协议（EDRDG・CC BY 等）。",
   "profile.theme": "主题",

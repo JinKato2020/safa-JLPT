@@ -1,7 +1,7 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
 import { useMemo, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as StoreReview from 'expo-store-review';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -13,6 +13,7 @@ import type { Level } from '../engine/engine';
 import type { ThemeMode } from '../store/state';
 import { useT, UI_LANGS, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
+import { setTelemetryEnabled } from '../telemetry/telemetry';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const THEMES: { v: ThemeMode; labelKey: 'profile.themeLight' | 'profile.themeDark' | 'profile.themeAuto' }[] = [
@@ -150,6 +151,15 @@ export default function ProfileScreen() {
             </Pressable>
           </View>
           <Text style={s.subtle}>{t('profile.reminderHint')}</Text>
+
+          <View style={s.toggleRow}>
+            <Text style={s.setLbl}>{t('profile.telemetry')}</Text>
+            <Switch
+              value={state.settings.telemetry !== false}
+              onValueChange={(v) => { setSettings({ telemetry: v }); setTelemetryEnabled(v); }}
+            />
+          </View>
+          <Text style={s.subtle}>{t('profile.telemetryHint')}</Text>
         </View>
 
         {/* 聴解データの一括DL(オンボードでスキップした人・既存ユーザー向け) */}
@@ -260,6 +270,7 @@ const makeStyles = (c: ThemeColors) =>
     linkDiv: { height: 1, backgroundColor: c.line },
     legal: { fontSize: ty.tiny, color: c.mute, lineHeight: 18, paddingBottom: spacing.sm },
     subtle: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.sm, lineHeight: 15 },
+    toggleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: spacing.md },
     credit: { fontSize: ty.tiny, color: c.mute, lineHeight: 16 },
     resetBtn: {
       marginTop: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: c.line,

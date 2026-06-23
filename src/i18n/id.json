@@ -142,6 +142,8 @@
   "profile.supportSection": "Dukungan & Ketentuan",
   "profile.tab": "Pengaturan",
   "profile.targetLevel": "Level Target",
+  "profile.telemetry": "Bagikan data penggunaan",
+  "profile.telemetryHint": "Bagikan progres belajar Anda secara anonim untuk membantu meningkatkan aplikasi (tanpa info pribadi • tanpa pelacakan • bisa dimatikan kapan saja).",
   "profile.terms": "Syarat Penggunaan",
   "profile.termsBody": "Syarat Penggunaan Mainichi JLPT\n\n• Aplikasi ini dirancang untuk membantu belajar menuju kelulusan JLPT (Japanese Language Proficiency Test).\n• Indikator seperti 'readiness' dan 'passing zone' adalah panduan belajar dan tidak menjamin hasil ujian.\n• Aplikasi ini tidak berafiliasi dengan penyelenggara JLPT (Japan Foundation · Japan Educational Exchanges and Services).\n• Pengembang tidak bertanggung jawab atas kerugian yang timbul akibat penggunaan aplikasi ini.\n• Spesifikasi dan konten dapat berubah sewaktu-waktu tanpa pemberitahuan.\n• Data kamus dan contoh kalimat tunduk pada lisensi masing-masing penyedia (EDRDG · CC BY, dll.).",
   "profile.theme": "Tema",

@@ -12,6 +12,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { dayStr } from '../store/state';
 import { examWordsFor, allWordsFor, examReadingFor, examListeningFor } from '../data';
 import { listeningSource } from '../data/listeningAudio';
+import { sendMock } from '../telemetry/telemetry';
 import { makeQuestion, sample, shuffleChoices, type ExampleHint } from '../quiz/quiz';
 import type { StudyItem } from '../data';
 import type { Level } from '../engine/engine';
@@ -147,6 +148,12 @@ export default function MockScreen() {
     const correctN = answers.filter((a) => a.correct).length;
     const now = Date.now();
     recordMockResult({ ts: now, day: dayStr(now), pct: Math.round((100 * correctN) / answers.length), correct: correctN, total: answers.length, full });
+    // 匿名計測: 模試結果(区分別%・タイムオーバー・所要)を送信。
+    const byc: Record<string, { c: number; t: number }> = {};
+    for (const a of answers) { (byc[a.section] ||= { c: 0, t: 0 }).t++; if (a.correct) byc[a.section].c++; }
+    const sections: Record<string, number | null> = {};
+    for (const k of ['moji_goi', 'bunpou', 'dokkai', 'choukai']) sections[k] = byc[k] ? Math.round((100 * byc[k].c) / byc[k].t) : null;
+    void sendMock({ level: state.settings.level, full, pct: Math.round((100 * correctN) / answers.length), sections, timedOut, elapsedSec: Math.round(((endedAt ?? now) - startedAt) / 1000) });
   }, [phase]);
 
   const cur = exam[idx];

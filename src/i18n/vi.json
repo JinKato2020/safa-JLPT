@@ -142,6 +142,8 @@
   "profile.supportSection": "Hỗ trợ & Điều khoản",
   "profile.tab": "Cài đặt",
   "profile.targetLevel": "Cấp độ mục tiêu",
+  "profile.telemetry": "Chia sẻ dữ liệu sử dụng",
+  "profile.telemetryHint": "Chia sẻ tiến trình học tập ẩn danh để giúp cải thiện ứng dụng (không có thông tin cá nhân • không theo dõi • có thể tắt bất cứ lúc nào).",
   "profile.terms": "Điều khoản sử dụng",
   "profile.termsBody": "Điều khoản sử dụng của Mainichi JLPT\n\n• Ứng dụng này hỗ trợ việc học hướng đến kỳ thi JLPT (Kỳ thi Năng lực Tiếng Nhật).\n• Các chỉ số như \"Mức độ sẵn sàng\", \"Vùng đậu\" chỉ là thước đo học tập và không đảm bảo kết quả thi.\n• Ứng dụng này không có liên kết với tổ chức tổ chức JLPT (Japan Foundation / JEES).\n• Nhà phát triển không chịu trách nhiệm về các thiệt hại phát sinh từ việc sử dụng ứng dụng này.\n• Tính năng và nội dung có thể thay đổi mà không cần thông báo trước.\n• Dữ liệu từ điển và ví dụ câu tuân theo giấy phép của từng nhà cung cấp (EDRDG・CC BY, v.v.).",
   "profile.theme": "Giao diện",

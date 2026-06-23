@@ -142,6 +142,8 @@
   "profile.supportSection": "지원·이용 약관",
   "profile.tab": "설정",
   "profile.targetLevel": "목표 급",
+  "profile.telemetry": "사용 데이터 공유",
+  "profile.telemetryHint": "학습 진행 상황을 익명으로 공유하여 앱 개선에 도움을 주세요 (개인 정보 없음 • 추적 없음 • 언제든지 끌 수 있음).",
   "profile.terms": "이용 약관",
   "profile.termsBody": "Mainichi JLPT 이용 약관\n\n• 본 앱은 JLPT（일본어능력시험）합격을 위한 학습을 지원합니다.\n• '준비도'、'합격권' 등의 지표는 학습의 기준이며, 시험 합격을 보증하지 않습니다.\n• JLPT 주관 단체（국제교류기금·일본국제교육지원협회）와는 관계가 없습니다.\n• 본 앱 이용으로 발생한 손해에 대해 개발자는 책임을 지지 않습니다.\n• 사양 및 내용은 예고 없이 변경될 수 있습니다.\n• 사전·예문 데이터는 각 제공처의 라이선스（EDRDG·CC BY 등）를 따릅니다.",
   "profile.theme": "테마",

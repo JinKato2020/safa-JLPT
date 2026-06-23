@@ -1,4 +1,5 @@
-import { ActivityIndicator, View, useColorScheme } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { ActivityIndicator, AppState, View, useColorScheme } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
@@ -23,6 +24,7 @@ import ListeningScreen from './src/screens/ListeningScreen';
 import BrowseScreen from './src/screens/BrowseScreen';
 import TourOverlay from './src/components/TourOverlay';
 import { DesignThemeProvider } from './src/shared-design';
+import { setTelemetryEnabled, sendDailySnapshot } from './src/telemetry/telemetry';
 
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -64,8 +66,23 @@ function MainTabs() {
 
 function Root() {
   const hydrated = useHydrated();
-  const { settings } = useAppState();
+  const state = useAppState();
+  const { settings } = state;
+  const stateRef = useRef(state);
+  stateRef.current = state;
   const c = useColors();
+
+  // 匿名計測(v1.1): 前面化ごとに日次スナップショット(モジュール側で1日1回に抑制)＋キュー再送。
+  useEffect(() => {
+    if (!hydrated) return;
+    const fire = () => {
+      setTelemetryEnabled(stateRef.current.settings.telemetry !== false);
+      void sendDailySnapshot(stateRef.current, Date.now());
+    };
+    fire();
+    const sub = AppState.addEventListener('change', (s) => { if (s === 'active') fire(); });
+    return () => sub.remove();
+  }, [hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
   const sys = useColorScheme();
   const scheme = settings.theme === 'auto' ? (sys ?? 'light') : settings.theme;
   const navTheme = {
