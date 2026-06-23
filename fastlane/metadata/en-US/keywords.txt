@@ -1,0 +1,1 @@
+japanese,nihongo,n5,n4,n3,kanji,vocabulary,grammar,listening,reading,furigana,flashcards,srs,exam
