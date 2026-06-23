@@ -4,7 +4,7 @@
 //  ・オンボードのレベル選択時、または聴解開始時に、そのレベルの全音声を一括DL(prefetchListening)。
 //  ・配信元は AUDIO_BASE_URL 差し替えだけで移行可。Web はストリーミング(ブラウザキャッシュ任せ)。
 //  生成: data-build/gen_listening_audio.py。
-import * as FileSystemNS from 'expo-file-system';
+import * as FileSystemNS from 'expo-file-system/legacy';
 import { Platform } from 'react-native';
 
 // 配信元(GitHub Pages)。assets/audio/ に全mp3。repo/移行時はこの1行だけ差し替え。
@@ -14,12 +14,12 @@ export type AudioSource = { uri: string };
 
 // expo-file-system は SDK 版差があるため any で受け、実行時に機能検出(無ければストリーミングへ)。
 const FS = FileSystemNS as unknown as {
-  cacheDirectory?: string | null;
+  documentDirectory?: string | null;
   makeDirectoryAsync?: (uri: string, opts?: { intermediates?: boolean }) => Promise<void>;
   getInfoAsync?: (uri: string) => Promise<{ exists: boolean }>;
   downloadAsync?: (url: string, dest: string) => Promise<{ uri: string }>;
 };
-const cacheDir = Platform.OS !== 'web' && FS.cacheDirectory ? `${FS.cacheDirectory}listening/` : null;
+const cacheDir = Platform.OS !== 'web' && FS.documentDirectory ? `${FS.documentDirectory}listening/` : null;
 /** キャッシュ可能な端末か(web等はストリーミングのみ=事前DL不要)。 */
 export const LISTENING_CACHEABLE = !!cacheDir && typeof FS.downloadAsync === 'function' && typeof FS.getInfoAsync === 'function';
 

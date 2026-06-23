@@ -12,6 +12,7 @@ import { META } from '../data';
 import type { Level } from '../engine/engine';
 import type { ThemeMode } from '../store/state';
 import { useT, UI_LANGS, useUiLang } from '../i18n';
+import ListeningDownloadGate from '../components/ListeningDownloadGate';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const THEMES: { v: ThemeMode; labelKey: 'profile.themeLight' | 'profile.themeDark' | 'profile.themeAuto' }[] = [
@@ -50,6 +51,7 @@ export default function ProfileScreen() {
   const [confirmReset, setConfirmReset] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [legal, setLegal] = useState<'privacy' | 'terms' | null>(null);
+  const [showDl, setShowDl] = useState(false);
 
   const rate = async () => {
     try {
@@ -150,6 +152,14 @@ export default function ProfileScreen() {
           <Text style={s.subtle}>{t('profile.reminderHint')}</Text>
         </View>
 
+        {/* 聴解データの一括DL(オンボードでスキップした人・既存ユーザー向け) */}
+        <View style={s.card}>
+          <Pressable style={s.linkRow} onPress={() => setShowDl(true)}>
+            <Text style={s.linkTxt}>🎧 {t('dl.title')}</Text>
+            <Text style={s.chev}>›</Text>
+          </Pressable>
+        </View>
+
         {/* サポート・規約 */}
         <Text style={s.sectionH}>{t('profile.supportSection')}</Text>
         <View style={s.card}>
@@ -195,6 +205,11 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
       </ScrollView>
+      {showDl ? (
+        <View style={StyleSheet.absoluteFill}>
+          <ListeningDownloadGate level={state.settings.level} allowSkip manual onComplete={() => setShowDl(false)} />
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 }
