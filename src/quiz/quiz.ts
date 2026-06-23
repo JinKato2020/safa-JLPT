@@ -1,7 +1,7 @@
 // 診断クイズの出題ロジック(純粋・RN非依存・テスト可)。
 // 4択生成 / 出題キュー(優先順) / 間違い再挿入(分散学習)。
 import type { StudyItem } from '../data';
-import { VOCAB_EXAMPLE } from '../data';
+import { VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK } from '../data';
 import { effectiveP, type ItemState } from '../engine/engine';
 
 // 問題形式(弱点ヒートマップの軸＋出題の多様化)。
@@ -90,7 +90,8 @@ function vocabCloze(item: StudyItem): string | null {
   if (!ex || !ex.ja || !w || !ex.ja.includes(w)) return null;
   return ex.ja.replace(w, '〔　〕');
 }
-/** 文法の例文中の該当文法を〔　〕に(活用語尾も含める)。見つからなければ null。 */
+/** 文法の例文中の該当文法を〔　〕に(活用語尾も含める)。見つからなければ null。
+ * ※穴埋めの出題可否は GRAMMAR_CLOZE_OK(LLM判定の適性ホワイトリスト)で別途ゲートする。 */
 function grammarCloze(item: StudyItem): string | null {
   if (item.type !== 'grammar' || !item.exampleJa) return null;
   const plain = item.exampleJa.replace(FURI, '');
@@ -174,8 +175,11 @@ function buildersFor(item: StudyItem): Built[] {
       format: 'usage', answer: meaning, valueOf: (x) => (x.type === 'grammar' ? firstSense(x.meaning) : ''),
     });
     out.push({ prompt: meaning, question: 'この意味の文法は？', format: 'reverse', answer: item.point, valueOf: gPoint });
-    const cz = grammarCloze(item);
-    if (cz) out.push({ prompt: cz, question: '〔　〕に入るのは？', format: 'cloze', answer: item.point, valueOf: gPoint });
+    // 穴埋め(cloze)は「答えが一意に決まる」とLLM判定された文法のみ(GRAMMAR_CLOZE_OK)。曖昧なものは除外。
+    if (GRAMMAR_CLOZE_OK.has(item.id)) {
+      const cz = grammarCloze(item);
+      if (cz) out.push({ prompt: cz, question: '〔　〕に入るのは？', format: 'cloze', answer: item.point, valueOf: gPoint });
+    }
   }
   return out;
 }

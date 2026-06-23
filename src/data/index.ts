@@ -7,6 +7,7 @@ import reading from './reading.json';
 import listening from './listening.json';
 import vocabExamples from './vocabExamples.json';
 import metaJson from './meta.json';
+import grammarClozeOkJson from './grammarClozeOk.json';
 import type { Category, Level } from '../engine/engine';
 
 export interface KanjiItem {
@@ -38,6 +39,9 @@ export const KANJI = kanji as KanjiItem[];
 export const VOCAB = vocab as VocabItem[];
 export const GRAMMAR = grammar as GrammarItem[];
 export const META = metaJson as Meta;
+
+/** 穴埋め(cloze)が適切な文法ID集合(LLM判定・答えが一意にならない曖昧な文法は除外)。 */
+export const GRAMMAR_CLOZE_OK = new Set(grammarClozeOkJson as string[]);
 
 // 語彙の短い例文(無料・田中コーパス/EDRDG examples・CC-BY)。vocabId → { ja, en }。
 export interface VocabExample { ja: string; en: string; }

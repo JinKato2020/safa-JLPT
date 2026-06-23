@@ -72,16 +72,13 @@ test('makeQuestion(文法): usage/reverse 等で出題', () => {
   assert.ok(fmts.has('usage') || fmts.has('reverse'));
 });
 
-test('makeQuestion(文法cloze): 例文の該当部を〔　〕にして問う', () => {
+test('makeQuestion(文法): 穴埋め対象外(GRAMMAR_CLOZE_OK外)の文法はcloze不生成', () => {
+  // g1 は判定ホワイトリストに無い合成ID → clozeは出ない(曖昧出題の抑止)
   const g: GrammarItem = { id: 'g1', level: 'N4', category: 'bunpou', type: 'grammar', point: '〜たほうがいい', romaji: '', meaning: 'had better', exampleJa: '傘（かさ）を持（も）っていったほうがいい。', exampleEn: '' };
-  let cloze: ReturnType<typeof makeQuestion> | null = null;
-  for (let s = 1; s <= 50 && !cloze; s++) {
+  for (let s = 1; s <= 50; s++) {
     const q = makeQuestion(g, [g], mulberry32(s));
-    if (q.format === 'cloze') cloze = q;
+    assert.notEqual(q.format, 'cloze', '非対象の文法でclozeは生成しない');
   }
-  assert.ok(cloze, 'cloze形式が生成される');
-  assert.ok(cloze!.prompt.includes('〔　〕'), '空欄がある: ' + (cloze ? cloze.prompt : ''));
-  assert.equal(cloze!.choices[cloze!.answerIndex], '〜たほうがいい');
 });
 
 test('sample: 重複なく最大n件を抽出', () => {
