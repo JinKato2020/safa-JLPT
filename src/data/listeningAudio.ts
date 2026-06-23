@@ -1,39 +1,16 @@
-// 聴解音声のソース解決。
-//  ・既存15本は同梱(オフラインで即再生)。
-//  ・追加分は配信URL(AUDIO_BASE_URL)から取得し、ネイティブは端末にキャッシュ(2回目以降はローカル)。
-//  ・配信元は AUDIO_BASE_URL の差し替えだけで GitHub Pages → Cloudflare 等へ無痛移行。Web はブラウザキャッシュ任せ。
-//  生成: data-build/gen_listening_audio.py (OpenAI gpt-4o-mini-tts nova+verse + ffmpeg)。
+// 聴解音声のソース解決＋レベル一括プリフェッチ。
+//  ・全音声(現39本・将来レベルごとに増加)は配信(GitHub Pages)＋端末キャッシュでオフライン対応。
+//    同梱は廃止(アプリ容量削減)。レベル別の問題リスト= listening.json(OTA更新可)が実質マニフェスト。
+//  ・オンボードのレベル選択時、または聴解開始時に、そのレベルの全音声を一括DL(prefetchListening)。
+//  ・配信元は AUDIO_BASE_URL 差し替えだけで移行可。Web はストリーミング(ブラウザキャッシュ任せ)。
+//  生成: data-build/gen_listening_audio.py。
 import * as FileSystemNS from 'expo-file-system';
 import { Platform } from 'react-native';
 
-import n4l1 from '../../assets/listening/n4-l-1.mp3';
-import n4l2 from '../../assets/listening/n4-l-2.mp3';
-import n4l3 from '../../assets/listening/n4-l-3.mp3';
-import n4l4 from '../../assets/listening/n4-l-4.mp3';
-import n4l5 from '../../assets/listening/n4-l-5.mp3';
-import n5l1 from '../../assets/listening/n5-l-1.mp3';
-import n5l2 from '../../assets/listening/n5-l-2.mp3';
-import n5l3 from '../../assets/listening/n5-l-3.mp3';
-import n5l4 from '../../assets/listening/n5-l-4.mp3';
-import n5l5 from '../../assets/listening/n5-l-5.mp3';
-import n3l1 from '../../assets/listening/n3-l-1.mp3';
-import n3l2 from '../../assets/listening/n3-l-2.mp3';
-import n3l3 from '../../assets/listening/n3-l-3.mp3';
-import n3l4 from '../../assets/listening/n3-l-4.mp3';
-import n3l5 from '../../assets/listening/n3-l-5.mp3';
-
-// 同梱(初期セット)。これらはオフラインで即再生。追加コンテンツは配信から。
-const BUNDLED: Record<string, number> = {
-  'n4-l-1': n4l1, 'n4-l-2': n4l2, 'n4-l-3': n4l3, 'n4-l-4': n4l4, 'n4-l-5': n4l5,
-  'n5-l-1': n5l1, 'n5-l-2': n5l2, 'n5-l-3': n5l3, 'n5-l-4': n5l4, 'n5-l-5': n5l5,
-  'n3-l-1': n3l1, 'n3-l-2': n3l2, 'n3-l-3': n3l3, 'n3-l-4': n3l4, 'n3-l-5': n3l5,
-};
-
-// 配信元(GitHub Pages)。アセットrepo名を変える/Cloudflareへ移す場合はこの1行だけ差し替え。
-// GitHubユーザー: JinKato2020 / アセットrepo: safa-JLPT (Pagesは大小文字区別=大文字JLPT必須。assets/audio/ に mp3)。
+// 配信元(GitHub Pages)。assets/audio/ に全mp3。repo/移行時はこの1行だけ差し替え。
 export const AUDIO_BASE_URL = 'https://jinkato2020.github.io/safa-JLPT/assets/audio/';
 
-export type AudioSource = number | { uri: string };
+export type AudioSource = { uri: string };
 
 // expo-file-system は SDK 版差があるため any で受け、実行時に機能検出(無ければストリーミングへ)。
 const FS = FileSystemNS as unknown as {
@@ -43,35 +20,60 @@ const FS = FileSystemNS as unknown as {
   downloadAsync?: (url: string, dest: string) => Promise<{ uri: string }>;
 };
 const cacheDir = Platform.OS !== 'web' && FS.cacheDirectory ? `${FS.cacheDirectory}listening/` : null;
+/** キャッシュ可能な端末か(web等はストリーミングのみ=事前DL不要)。 */
+export const LISTENING_CACHEABLE = !!cacheDir && typeof FS.downloadAsync === 'function' && typeof FS.getInfoAsync === 'function';
+
 let dirReady = false;
 async function ensureDir(): Promise<void> {
   if (!cacheDir || dirReady) return;
-  try {
-    await FS.makeDirectoryAsync?.(cacheDir, { intermediates: true });
-  } catch {
-    // 既存等は無視
-  }
+  try { await FS.makeDirectoryAsync?.(cacheDir, { intermediates: true }); } catch { /* 既存等は無視 */ }
   dirReady = true;
 }
 
-/** 再生ソース。同梱があれば同梱、無ければ配信URL(ネイティブはDL→ローカルキャッシュ、失敗時はストリーミング)。 */
+/** 再生ソース。キャッシュ済みならローカル、無ければ配信URL(ネイティブはDL→キャッシュ、失敗時ストリーミング)。 */
 export async function listeningSource(id: string): Promise<AudioSource | null> {
-  if (BUNDLED[id] != null) return BUNDLED[id];
   const url = `${AUDIO_BASE_URL}${id}.mp3`;
-  if (!cacheDir || typeof FS.downloadAsync !== 'function' || typeof FS.getInfoAsync !== 'function') {
-    return { uri: url };
-  }
+  if (!LISTENING_CACHEABLE) return { uri: url };
   try {
     await ensureDir();
     const local = `${cacheDir}${id}.mp3`;
-    const info = await FS.getInfoAsync(local);
+    const info = await FS.getInfoAsync!(local);
     if (info?.exists) return { uri: local };
-    const dl = await FS.downloadAsync(url, local);
+    const dl = await FS.downloadAsync!(url, local);
     return { uri: dl.uri };
   } catch {
     return { uri: url };
   }
 }
 
-// 後方互換(同梱の同期参照が要る箇所用)。新規は listeningSource を使う。
-export const LISTENING_AUDIO = BUNDLED;
+/** そのレベルの全音声がキャッシュ済みか(web/非対応端末は常にtrue=ストリーミング前提)。 */
+export async function listeningReady(ids: string[]): Promise<boolean> {
+  if (!LISTENING_CACHEABLE) return true;
+  for (const id of ids) {
+    try {
+      const info = await FS.getInfoAsync!(`${cacheDir}${id}.mp3`);
+      if (!info?.exists) return false;
+    } catch { return false; }
+  }
+  return true;
+}
+
+/** レベルの全音声を一括DL→キャッシュ。onProgress(done,total)。個別失敗は黙ってスキップ(後で再試行可)。 */
+export async function prefetchListening(ids: string[], onProgress?: (done: number, total: number) => void): Promise<void> {
+  if (!LISTENING_CACHEABLE) { onProgress?.(ids.length, ids.length); return; }
+  await ensureDir();
+  let done = 0;
+  for (const id of ids) {
+    try {
+      const local = `${cacheDir}${id}.mp3`;
+      const info = await FS.getInfoAsync!(local);
+      if (!info?.exists) await FS.downloadAsync!(`${AUDIO_BASE_URL}${id}.mp3`, local);
+    } catch { /* 個別失敗は無視 */ }
+    onProgress?.(++done, ids.length);
+  }
+}
+
+/** DL前のサイズ概算(bytes)。1本≈360KB×件数(同意画面の目安用。厳密なHEAD合計は省略)。 */
+export function listeningBytesEstimate(ids: string[]): number {
+  return ids.length * 360 * 1024;
+}

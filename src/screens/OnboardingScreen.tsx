@@ -5,6 +5,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppActions } from '../store/store';
 import { detectL1 } from '../store/locale';
 import { useT } from '../i18n';
+import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import type { Level } from '../engine/engine';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
@@ -20,7 +21,13 @@ export default function OnboardingScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const [level, setLevel] = useState<Level>('N4');
+  const [pending, setPending] = useState(false);
   const t = useT();
+
+  // レベル選択→スタート時に、そのレベルの聴解音声を一括DL(スキップ可)。完了/スキップでオンボード完了。
+  if (pending) {
+    return <ListeningDownloadGate level={level} allowSkip onComplete={() => setSettings({ level, l1: detectL1(), onboarded: true })} />;
+  }
 
   return (
     <SafeAreaView style={s.c}>
@@ -39,7 +46,7 @@ export default function OnboardingScreen() {
         <Text style={s.levelDesc}>{t(LEVEL_DESC_KEYS[level])}</Text>
         <Text style={s.levelHint}>{t('onboarding.level_hint')}</Text>
 
-        <Pressable style={s.cta} onPress={() => setSettings({ level, l1: detectL1(), onboarded: true })}>
+        <Pressable style={s.cta} onPress={() => setPending(true)}>
           <Text style={s.ctaTxt}>{t('onboarding.start')}</Text>
         </Pressable>
       </ScrollView>

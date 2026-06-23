@@ -182,6 +182,11 @@ export function examListeningFor(level: Level): ListeningItem[] {
   return all.length > EXAM_LISTENING ? all.slice(all.length - EXAM_LISTENING) : [];
 }
 
+/** そのレベルの全聴解音声id(学習＋模試)。レベル一括プリフェッチ用。 */
+export function listeningAudioIdsFor(level: Level): string[] {
+  return LISTENING.filter((i) => i.level === level).map((i) => i.id);
+}
+
 /** 小リング/学習カウントの分母 = 学習集合(模試専用を除外)。学習だけで100%に届く。 */
 export function ringItemIdsFor(level: Level, category: Category): string[] {
   if (category === 'moji_goi' || category === 'bunpou') return itemsFor(level, category).map((i) => i.id);

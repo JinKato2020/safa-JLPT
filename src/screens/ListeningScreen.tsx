@@ -1,7 +1,7 @@
 // ミニ聴解。会話/独話の音声(Google TTS生成)を聞いて4択で自動採点(重み3)→聴解リング点灯。
 // スクリプトは既定で隠す(本物の聴解)。解答後に表示＋解説。採点は quizAnswer(設問id) 流用。掲示板§4(聴解)。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Audio, type AVPlaybackStatus } from 'expo-av';
@@ -10,8 +10,9 @@ import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
-import { listeningItemsFor, type ListeningItem, type PassageQuestion } from '../data';
-import { listeningSource } from '../data/listeningAudio';
+import { listeningItemsFor, listeningAudioIdsFor, type ListeningItem, type PassageQuestion } from '../data';
+import { listeningSource, listeningReady } from '../data/listeningAudio';
+import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { sample, reinsertForRelearn, shuffleChoices } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
 
@@ -56,6 +57,23 @@ export default function ListeningScreen() {
     Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => undefined);
     return () => { soundRef.current?.unloadAsync().catch(() => undefined); };
   }, []);
+
+  // 聴解音声がこのレベル分キャッシュ済みか確認。未DLなら開始前にDLゲート(聴解開始時のDL機会・スキップ可)。
+  const [audioReady, setAudioReady] = useState<boolean | null>(null);
+  useEffect(() => {
+    let alive = true;
+    listeningReady(listeningAudioIdsFor(state.settings.level))
+      .then((r) => { if (alive) setAudioReady(r); })
+      .catch(() => { if (alive) setAudioReady(true); });
+    return () => { alive = false; };
+  }, [state.settings.level]);
+
+  if (audioReady === null) {
+    return <SafeAreaView style={s.c}><View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}><ActivityIndicator color={c.blue} /></View></SafeAreaView>;
+  }
+  if (!audioReady) {
+    return <ListeningDownloadGate level={state.settings.level} allowSkip onComplete={() => setAudioReady(true)} />;
+  }
 
   const step = steps[idx];
 
