@@ -25,6 +25,9 @@ const MINI_SIZE = 20;
 const VOCAB_RATIO = 0.6;
 const SEC_ORDER: Sec[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 const SEC_LABEL: Record<Sec, string> = { moji_goi: 'mock.sec_moji_goi', bunpou: 'mock.sec_bunpou', dokkai: 'mock.sec_dokkai', choukai: 'mock.sec_choukai' };
+// 1問あたりの持ち時間(秒)。本番のペースを縮約。フル模試(言語知識10+読解4+聴解4)=10×40+4×110+4×90=1200秒=20分。
+// ※変更時は i18n の test.full_time / touroverlay.test_full_time(分表示)も合わせること。
+const SEC_SECONDS: Record<Sec, number> = { moji_goi: 40, bunpou: 40, dokkai: 110, choukai: 90 };
 
 interface MockItem {
   kind: 'word' | 'reading' | 'listening';
@@ -183,6 +186,34 @@ export default function MockScreen() {
     } catch { setPlaying(false); }
   };
 
+  // 制限時間カウントダウン＋タイムオーバー(時間切れ＝未解答を不正解として自動採点→結果へ)。本番形式の時間制約。
+  const limitMs = useMemo(() => exam.reduce((acc, it) => acc + (SEC_SECONDS[it.section] ?? 60) * 1000, 0), [exam]);
+  const [remainingMs, setRemainingMs] = useState(limitMs);
+  const [timedOut, setTimedOut] = useState(false);
+  useEffect(() => {
+    if (phase !== 'exam') return;
+    const deadline = startedAt + limitMs;
+    const tick = () => {
+      const r = deadline - Date.now();
+      if (r > 0) { setRemainingMs(r); return; }
+      setRemainingMs(0);
+      setTimedOut(true);
+      void stopSound();
+      setAnswers((prev) => {
+        const done = new Set(prev.map((a) => a.id));
+        const miss = exam
+          .filter((it) => !done.has(it.id))
+          .map((it) => ({ id: it.id, section: it.section, correct: false, label: it.prompt ?? it.title ?? '', drillable: it.kind === 'word' }));
+        return [...prev, ...miss];
+      });
+      setEndedAt(Date.now());
+      setPhase('result');
+    };
+    tick();
+    const iv = setInterval(tick, 500);
+    return () => clearInterval(iv);
+  }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (phase === 'result' || !cur) {
     const correct = answers.filter((a) => a.correct).length;
     const pct = Math.round((100 * correct) / (answers.length || 1));
@@ -201,6 +232,7 @@ export default function MockScreen() {
             <Text style={s.resultPct}>{pct}%</Text>
             <Text style={s.resultFrac}>{t('mock.result_frac', { n: correct, m: answers.length, t: mmss(elapsed) })}</Text>
             <Text style={s.resultCap}>{full ? t('mock.full_exam') : t('mock.mini_exam')}</Text>
+            {timedOut ? <Text style={s.timeup}>{t('mock.timeup')}</Text> : null}
             {prevMock ? (
               <Text style={[s.resultDelta, { color: pct - prevMock.pct > 0 ? c.green : pct - prevMock.pct < 0 ? c.red : c.mute }]}>
                 {t('mock.result_delta_base', { n: prevMock.pct, m: pct })}
@@ -265,6 +297,7 @@ export default function MockScreen() {
           <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12}>
             <Text style={s.close}>✕</Text>
           </Pressable>
+          <Text style={[s.timer, remainingMs <= 60000 ? s.timerLow : null]}>⏱ {mmss(remainingMs)}</Text>
           <Text style={s.progress}>{idx + 1} / {exam.length}</Text>
         </View>
         <Text style={s.secTag}>{t(SEC_LABEL[cur.section])}</Text>
@@ -358,6 +391,9 @@ const makeStyles = (c: ThemeColors) =>
     top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
     close: { fontSize: ty.h2, color: c.mute },
     progress: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
+    timer: { fontSize: ty.small, color: c.ink2, fontWeight: '800' },
+    timerLow: { color: c.red },
+    timeup: { fontSize: ty.small, color: c.red, fontWeight: '800', marginTop: spacing.xs },
     secTag: { fontSize: ty.tiny, fontWeight: '800', color: c.blue, letterSpacing: 1 },
     promptCard: {
       backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,
