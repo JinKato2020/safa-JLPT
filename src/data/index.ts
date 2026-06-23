@@ -10,6 +10,7 @@ import metaJson from './meta.json';
 import grammarClozeOkJson from './grammarClozeOk.json';
 import vocabFurigana from './vocabFurigana.json';
 import kanjiExamples from './kanjiExamples.json';
+import kanjiReadings from './kanjiReadings.json';
 import type { Category, Level } from '../engine/engine';
 
 export interface KanjiItem {
@@ -37,7 +38,11 @@ export interface Meta {
   license: string;
 }
 
-export const KANJI = kanji as KanjiItem[];
+// 漢字の音/訓「表示」を整える(常用・頻出順・古語/稀を除外。kanjiReadings.json=並べ替え・取捨のみ・新造なし)。
+export const KANJI = (kanji as KanjiItem[]).map((k) => {
+  const r = (kanjiReadings as Record<string, { on: string; kun: string }>)[k.char];
+  return r ? { ...k, on: r.on, kun: r.kun } : k;
+});
 export const VOCAB = vocab as VocabItem[];
 export const GRAMMAR = grammar as GrammarItem[];
 export const META = metaJson as Meta;

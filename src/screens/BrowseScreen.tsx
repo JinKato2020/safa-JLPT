@@ -77,7 +77,7 @@ export default function BrowseScreen() {
           </>
         ) : item.type === 'kanji' ? (
           <>
-            <Text style={s.term}>{item.char}　<Text style={s.reading}>{t('browse.kanjiReading', { on: item.on, kun: item.kun })}</Text></Text>
+            <Text style={s.term}>{item.char}　<Text style={s.reading}>{item.kun ? t('browse.kanjiReading', { on: item.on, kun: item.kun }) : t('browse.kanjiReading_on', { on: item.on })}</Text></Text>
             <Text style={s.meaning}>{item.meaning}</Text>
             {KANJI_EXAMPLE[item.char] ? (
               <Text style={s.example}>

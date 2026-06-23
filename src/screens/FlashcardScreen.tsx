@@ -19,7 +19,7 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
     return (
       <View style={s.card}>
         <Text style={s.kanji}>{item.char}</Text>
-        <Text style={s.reading}>{t('flashcardscreen.reading_label', { on: item.on, kun: item.kun })}</Text>
+        <Text style={s.reading}>{item.kun ? t('flashcardscreen.reading_label', { on: item.on, kun: item.kun }) : t('flashcardscreen.reading_on', { on: item.on })}</Text>
         <Text style={s.meaning}>{item.meaning}</Text>
         {ex ? <Text style={s.ex}>{ex.word}（{ex.reading}）</Text> : null}
         {ex?.kun ? <Text style={s.ex}>{ex.kun.word}（{ex.kun.reading}）</Text> : null}
