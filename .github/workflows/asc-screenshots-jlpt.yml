@@ -1,0 +1,76 @@
+name: ASC Screenshots clean (Mainichi JLPT)
+run-name: "ASC screenshots: delete-all then upload-once (no dup)"
+
+# deliverの再アップロードで重複するため、spaceshipで「全削除→各1回アップロード」を確定的に行う。
+# 1ロケール=正確に5枚にする。再確認ループ無し=重複しない。
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+      - name: Install fastlane (spaceship)
+        run: gem install fastlane --no-document
+      - name: Build ASC API key
+        env:
+          KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          KEY_B64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+        run: |
+          KID=$(printf '%s' "$KEY_ID" | tr -d '\r\n[:space:]')
+          IID=$(printf '%s' "$ISSUER_ID" | tr -d '\r\n[:space:]')
+          printf '%s' "$KEY_B64" | base64 --decode > /tmp/AuthKey.p8
+          node -e "const fs=require('fs');const key=fs.readFileSync('/tmp/AuthKey.p8','utf8');fs.writeFileSync('/tmp/asc.json',JSON.stringify({key_id:'$KID',issuer_id:'$IID',key,in_house:false}));"
+      - name: Clean & upload screenshots (delete-all then once)
+        run: |
+          ruby -e '
+            require "spaceship"
+            Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file("/tmp/asc.json")
+            app = Spaceship::ConnectAPI::App.find("com.safa.jlpt")
+            abort("APP NOT FOUND") unless app
+            plat = Spaceship::ConnectAPI::Platform::IOS
+            ver = app.get_edit_app_store_version(platform: plat)
+            abort("NO EDIT VERSION") unless ver
+            LOCS = ["en-US", "ja"]
+            DT = "APP_IPHONE_6_9"
+            def shots_of(set)
+              (set.get_app_screenshots rescue nil) || (set.app_screenshots rescue nil) || []
+            end
+            ver.get_app_store_version_localizations.each do |loc|
+              next unless LOCS.include?(loc.locale)
+              sets = loc.get_app_screenshot_sets
+              before = sets.map { |s| shots_of(s).size }.sum
+              puts "#{loc.locale}: BEFORE=#{before} (sets=#{sets.map{|s| "#{s.screenshot_display_type}:#{shots_of(s).size}"}.join(", ")})"
+              # 全スクショ削除
+              sets.each do |s|
+                shots_of(s).each { |sh| begin; sh.delete!; rescue => e; puts "  del err: #{e.message.to_s[0,80]}"; end }
+              end
+              # 6.9インチ用セット(既存があれば再利用・無ければ作成)
+              sets = loc.get_app_screenshot_sets
+              set = sets.find { |s| s.screenshot_display_type == DT }
+              set ||= loc.create_app_screenshot_set(attributes: { screenshot_display_type: DT })
+              # 各1回だけアップロード(処理待ちしない=再確認ループ無し)
+              Dir.glob("fastlane/screenshots/#{loc.locale}/*.png").sort.each do |p|
+                begin
+                  set.upload_screenshot(path: p, wait_for_processing: false)
+                  puts "  uploaded #{File.basename(p)}"
+                rescue => e
+                  puts "  UPLOAD ERR #{File.basename(p)}: #{e.class} #{e.message.to_s.gsub(/\s+/," ")[0,140]}"
+                end
+              end
+              after = loc.get_app_screenshot_sets.map { |s| shots_of(s).size }.sum
+              puts "#{loc.locale}: AFTER=#{after} (期待=5)"
+            end
+            puts "DONE"
+          '
+          rm -f /tmp/AuthKey.p8 /tmp/asc.json
