@@ -10,7 +10,9 @@
     "web": "expo start --web",
     "tsc": "tsc --noEmit",
     "test": "node --import tsx --test src/engine/engine.test.ts src/quiz/quiz.test.ts src/store/streak.test.ts src/store/badges.test.ts",
-    "build:data": "python ../data-build/build_data.py"
+    "build:data": "python ../data-build/build_data.py && node ../data-build/dict/sync-dict.mjs",
+    "build:dict": "node ../data-build/dict/build-all.mjs",
+    "sync:dict": "node ../data-build/dict/sync-dict.mjs"
   },
   "dependencies": {
     "@babel/core": "^7.26.0",
