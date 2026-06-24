@@ -109,7 +109,7 @@ export default function ListeningScreen() {
           <Text style={s.bigEmoji}>🎉</Text>
           <Text style={s.doneTitle}>{t('listening.done_title')}</Text>
           <Text style={s.doneSub}>{t('listening.done_sub', { answered, correct })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="listening" />
+          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="choukai" />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('listening.go_home')}</Text>
           </Pressable>

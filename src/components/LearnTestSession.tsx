@@ -110,7 +110,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard }: Props)
           <Text style={s.bigEmoji}>🎉</Text>
           <Text style={s.doneTitle}>{t('learntestsession.done_title')}</Text>
           <Text style={s.doneSub}>{t('learntestsession.done_score', { n: answered, m: correct })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="study" />
+          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode={pool[0]?.category ?? 'study'} />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('learntestsession.back_home')}</Text>
           </Pressable>

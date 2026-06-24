@@ -71,14 +71,19 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
   const r = readinessFor(state, now);
   const rings = ringsFor(state, now);
   const remaining = {} as Record<Category, number>;
-  for (const c of CATS) remaining[c] = allItemIdsFor(level, c).filter((id) => !state.items[id]).length;
+  const total = {} as Record<Category, number>;
+  for (const c of CATS) {
+    const ids = allItemIdsFor(level, c);
+    total[c] = ids.length;
+    remaining[c] = ids.filter((id) => !state.items[id]).length;
+  }
   const exhausted = CATS.filter((c) => remaining[c] <= EXHAUST_THRESHOLD);
   return {
     v: 1, anonId: anon, app: APP_VERSION, platform: Platform.OS, uiLang: state.settings.uiLang || '',
     level, day: dayStr(now),
     readiness: { total: r.score, moji_goi: rings.moji_goi, bunpou: rings.bunpou, dokkai: rings.dokkai, choukai: rings.choukai },
     learned: learnedNow(state, now), streak: state.streak.current,
-    remaining, exhausted,
+    remaining, total, exhausted,
   };
 }
 
