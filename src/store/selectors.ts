@@ -193,3 +193,25 @@ export function nextBestAction(state: AppState, now: number): NextAction | null 
   const pctTxt = ringPct === null ? '未測定' : `${ringPct}%`;
   return { category: target, label: m.label, route: m.route, reason: `いちばん低い区分（到達度 ${pctTxt}）` };
 }
+
+// 達成ランク(C): 級内の習得率(覚えた/全)で上がる“帯”。コンテンツは固定しない(出題は易しい順=A)。合格判定とは別軸。
+const RANKS = [
+  { min: 0, name: '入門' }, { min: 15, name: '初級' }, { min: 35, name: '中級' },
+  { min: 55, name: '上級' }, { min: 80, name: '仕上げ' },
+];
+/** 級の学習ランク(習得率ベース)。 */
+export function levelRank(state: AppState, now: number) {
+  const level = state.settings.level;
+  let learned = 0;
+  let total = 0;
+  for (const c of RING_CATS) {
+    const ids = ringItemIdsFor(level, c);
+    total += ids.length;
+    for (const id of ids) { const st = state.items[id]; if (st && effectiveP(st, now) >= 0.6) learned++; }
+  }
+  const pct = total ? Math.round((100 * learned) / total) : 0;
+  let i = 0;
+  for (let k = RANKS.length - 1; k >= 0; k--) if (pct >= RANKS[k].min) { i = k; break; }
+  const next = RANKS[i + 1];
+  return { pct, learned, total, rank: RANKS[i].name, rankIndex: i, rankCount: RANKS.length, nextName: next ? next.name : null, nextAt: next ? next.min : null };
+}

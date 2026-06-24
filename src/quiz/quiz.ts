@@ -1,7 +1,7 @@
 // 診断クイズの出題ロジック(純粋・RN非依存・テスト可)。
 // 4択生成 / 出題キュー(優先順) / 間違い再挿入(分散学習)。
 import type { StudyItem } from '../data';
-import { VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK, VOCAB_CLOZE_OK, VOCAB_SYN } from '../data';
+import { VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK, VOCAB_CLOZE_OK, VOCAB_SYN, VOCAB_FREQ } from '../data';
 import { highlightSegments } from './highlight';
 import { effectiveP, type ItemState } from '../engine/engine';
 
@@ -185,7 +185,14 @@ export function makeQuestion(item: StudyItem, pool: StudyItem[], rng: Rng = Math
   return { itemId: item.id, prompt: b.prompt, reading: b.reading, example: b.example, question: b.question, format: b.format, choices, answerIndex: choices.indexOf(b.answer) };
 }
 
-/** 出題キュー: ①再学習/期限切れ(古い順・learning優先) → ②未測定(シャッフル) を最大 n 件。 */
+/** 新出導入の難易度(小=易)。語彙=使用頻度、漢字=学年+画数。文法/読解/聴解はNaN(=順序付けしない)。 */
+function itemDifficulty(it: StudyItem): number {
+  if (it.type === 'vocab') return VOCAB_FREQ[it.id] ?? 50;
+  if (it.type === 'kanji') return (it.grade || 9) * 7 + (it.strokes || 0) * 0.3;
+  return NaN;
+}
+
+/** 出題キュー: ①再学習/期限切れ(古い順) → ②未測定を「易しい順」で導入(復習量に応じ新出を自動調整=軽量D)。最大 n 件。 */
 export function buildQueue(
   items: StudyItem[],
   states: Record<string, ItemState>,
@@ -207,7 +214,13 @@ export function buildQueue(
     const lb = sb.reps === 0 ? 0 : 1;
     return la !== lb ? la - lb : sa.dueAt - sb.dueAt;
   });
-  return [...due, ...shuffle(fresh, rng)].slice(0, n);
+  // A: 新出は易しい順(頻度/学年)に導入。難易度不明(文法/読解/聴解)はシャッフル。
+  const easy = fresh.filter((it) => Number.isFinite(itemDifficulty(it))).sort((a, b) => itemDifficulty(a) - itemDifficulty(b));
+  const other = shuffle(fresh.filter((it) => !Number.isFinite(itemDifficulty(it))), rng);
+  const freshOrdered = [...easy, ...other];
+  // 軽量D: 復習が溜まっているほど新出を減らす(個人の定着ペースに自動調整)。
+  const maxNew = Math.max(2, Math.round(n * (due.length > 20 ? 0.25 : due.length > 8 ? 0.5 : 1)));
+  return [...due, ...freshOrdered.slice(0, maxNew)].slice(0, n);
 }
 
 /** 間違えた item を現在位置から gap 問後に差し込む(分散学習・末尾超過は末尾)。 */

@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { readinessFor, growthSeries, growthCurve, pacePrediction, nextBestAction, ringsFor, learnedNow, ringLearnedRatio } from '../store/selectors';
+import { readinessFor, growthSeries, growthCurve, pacePrediction, nextBestAction, ringsFor, learnedNow, ringLearnedRatio, levelRank } from '../store/selectors';
 import { computeBadges } from '../store/badges';
 import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../shared-design';
 import HeroGauge from '../components/HeroGauge';
@@ -38,6 +38,7 @@ export default function HomeScreen() {
   const nba = useMemo(() => nextBestAction(state, now), [state]);
   const rings = useMemo(() => ringsFor(state, now), [state]);
   const ringRatio = useMemo(() => ringLearnedRatio(state, now), [state]);
+  const rank = useMemo(() => levelRank(state, now), [state]);
   const learned = useMemo(() => learnedNow(state, now), [state]);
   const curve = useMemo(() => growthCurve(state, dayStr(now), 14), [state, now]);
   const studied = useMemo(() => new Set(state.streak.history), [state.streak.history]);
@@ -76,6 +77,7 @@ export default function HomeScreen() {
           </HeroGauge>
           <Text style={[s.status, { color: zone }]}>{status}</Text>
           <Text style={s.passHint}>{t('home.pass_hint', { n: readiness.overallMinPct })}</Text>
+          <Text style={s.rank}>🎖 {state.settings.level}・{rank.rank}（学習 {rank.pct}%{rank.nextName ? `／次 ${rank.nextName} ${rank.nextAt}%` : ''}）</Text>
 
           {readiness.passing ? (
             <Text style={s.paceOk}>🎉 {t('home.pace_ok')}</Text>
@@ -203,6 +205,7 @@ const makeStyles = (c: ThemeColors) =>
     bandIn: { fontSize: ty.small, color: c.faint, fontWeight: '600', marginTop: 2 },
     status: { fontSize: ty.h2, fontWeight: '800', marginTop: spacing.md },
     passHint: { fontSize: ty.tiny, color: c.faint, marginTop: 4 },
+    rank: { fontSize: ty.small, color: c.blue, fontWeight: '800', marginTop: 6 },
     paceMain: { fontSize: ty.body, color: c.ink2, fontWeight: '700', marginTop: spacing.sm, textAlign: 'center' },
     paceDays: { color: c.blue, fontWeight: '800' },
     paceSub: { fontSize: ty.tiny, color: c.faint, marginTop: 2, textAlign: 'center' },

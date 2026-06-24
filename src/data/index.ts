@@ -11,6 +11,7 @@ import grammarClozeOkJson from './grammarClozeOk.json';
 import vocabClozeOkJson from './vocabClozeOk.json';
 import vocabSynonymsJson from './vocabSynonyms.json';
 import dictExtJson from './dictExt.json';
+import vocabFreqJson from './vocabFreq.json';
 import vocabFurigana from './vocabFurigana.json';
 import kanjiExamples from './kanjiExamples.json';
 import kanjiReadings from './kanjiReadings.json';
@@ -62,6 +63,9 @@ export const VOCAB_SYN = vocabSynonymsJson as Record<string, string>;
 /** 辞書Browse拡張(N2/N1・参考辞書・学習対象外)。JMdict/KANJIDIC由来。levelがN2/N1なのでcastで型を通す。 */
 export const DICT_EXT_VOCAB = (dictExtJson.vocab as unknown) as VocabItem[];
 export const DICT_EXT_KANJI = (dictExtJson.kanji as unknown) as KanjiItem[];
+
+/** 語彙の難易度＝使用頻度スコア(小さいほど高頻度=易。JMdict頻度由来)。新出を易しい順に導入する材料。 */
+export const VOCAB_FREQ = vocabFreqJson as Record<string, number>;
 
 // 語彙の短い例文(無料・田中コーパス/EDRDG examples・CC-BY)。vocabId → { ja, en }。
 export interface VocabExample { ja: string; en: string; }
