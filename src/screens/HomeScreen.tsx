@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { readinessFor, growthSeries, growthCurve, pacePrediction, nextBestAction, ringsFor, learnedNow } from '../store/selectors';
+import { readinessFor, growthSeries, growthCurve, pacePrediction, nextBestAction, ringsFor, learnedNow, ringLearnedRatio } from '../store/selectors';
 import { computeBadges } from '../store/badges';
 import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../shared-design';
 import HeroGauge from '../components/HeroGauge';
@@ -37,6 +37,7 @@ export default function HomeScreen() {
   const pace = useMemo(() => pacePrediction(state, now), [state]);
   const nba = useMemo(() => nextBestAction(state, now), [state]);
   const rings = useMemo(() => ringsFor(state, now), [state]);
+  const ringRatio = useMemo(() => ringLearnedRatio(state, now), [state]);
   const learned = useMemo(() => learnedNow(state, now), [state]);
   const curve = useMemo(() => growthCurve(state, dayStr(now), 14), [state, now]);
   const studied = useMemo(() => new Set(state.streak.history), [state.streak.history]);
@@ -123,7 +124,8 @@ export default function HomeScreen() {
             {RING_ORDER.map((cat) => {
               const v = rings[cat];
               const rc = v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red;
-              return <RingGauge key={cat} value={v} color={rc} label={t(RING_META[cat].label)} />;
+              const rt = ringRatio[cat];
+              return <RingGauge key={cat} value={v} color={rc} label={t(RING_META[cat].label)} sub={`${rt.learned}/${rt.total}`} />;
             })}
           </View>
         </View>

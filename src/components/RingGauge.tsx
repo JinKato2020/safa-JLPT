@@ -8,9 +8,9 @@ import { type as ty, useColors } from '../theme';
 let _gid = 0;
 
 export default function RingGauge({
-  value, color, label, size = 68, stroke = 7, children, mark,
+  value, color, label, size = 68, stroke = 7, children, mark, sub,
 }: {
-  value: number | null; color: string; label?: string; size?: number; stroke?: number; children?: ReactNode; mark?: number;
+  value: number | null; color: string; label?: string; size?: number; stroke?: number; children?: ReactNode; mark?: number; sub?: string;
 }) {
   const c = useColors();
   const idRef = useRef<string | undefined>(undefined);
@@ -84,6 +84,7 @@ export default function RingGauge({
         )}
       </View>
       {label ? <Text style={[s.label, { color: c.mute }]}>{label}</Text> : null}
+      {sub ? <Text style={[s.sub, { color: c.faint }]}>{sub}</Text> : null}
     </View>
   );
 }
@@ -92,4 +93,5 @@ const s = StyleSheet.create({
   wrap: { alignItems: 'center', gap: 4 },
   pct: { fontSize: ty.body, fontWeight: '800' },
   label: { fontSize: ty.tiny },
+  sub: { fontSize: 10, fontWeight: '700' },
 });

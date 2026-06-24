@@ -81,6 +81,22 @@ export function learnedNow(state: AppState, now: number): number {
   return Object.values(state.items).filter((it) => effectiveP(it, now) >= 0.6).length;
 }
 
+/** 区分ごとの「覚えた/全語」(リング項目ベース。覚えた=減衰後 p>=0.6・リング%と整合)。 */
+export function ringLearnedRatio(state: AppState, now: number): Record<Category, { learned: number; total: number }> {
+  const level = state.settings.level;
+  const out = {} as Record<Category, { learned: number; total: number }>;
+  for (const c of RING_CATS) {
+    const ids = ringItemIdsFor(level, c);
+    let learned = 0;
+    for (const id of ids) {
+      const st = state.items[id];
+      if (st && effectiveP(st, now) >= 0.6) learned++;
+    }
+    out[c] = { learned, total: ids.length };
+  }
+  return out;
+}
+
 /** 成長カーブ(学習日ごとの習得数スナップショット)。 */
 export function growthSeries(state: AppState): GrowthPoint[] {
   return state.growth ?? [];
