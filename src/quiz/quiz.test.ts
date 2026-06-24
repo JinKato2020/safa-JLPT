@@ -55,13 +55,13 @@ test('makeQuestion: どの形式でも整形式(4択・重複なし・正解inde
 test('makeQuestion(漢字語): 複数形式で出題され多様化する', () => {
   const fmts = formatsOf(VPOOL[0], VPOOL); // 会う
   assert.ok(fmts.size >= 2, '会うは複数形式: ' + [...fmts].join(','));
-  assert.ok([...fmts].every((f) => ['reading', 'meaning', 'reverse', 'cloze'].includes(f)), '語彙の形式のみ');
+  assert.ok([...fmts].every((f) => ['reading', 'meaning', 'reverse', 'cloze', 'orthography', 'synonym'].includes(f)), '語彙の形式のみ');
 });
 
 test('makeQuestion(かな語): 読み問題は出ない(漢字なし)', () => {
   const fmts = formatsOf(VPOOL[4], VPOOL); // ありがとう
   assert.ok(!fmts.has('reading'), 'かな語に読み問題なし');
-  assert.ok([...fmts].every((f) => ['meaning', 'reverse', 'cloze'].includes(f)));
+  assert.ok([...fmts].every((f) => ['meaning', 'reverse', 'cloze', 'synonym'].includes(f)));
 });
 
 test('makeQuestion(文法): usage/reverse 等で出題', () => {

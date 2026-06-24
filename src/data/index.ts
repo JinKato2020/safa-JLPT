@@ -176,6 +176,7 @@ export interface ReadingItem {
 export interface ListeningItem {
   id: string; level: Level; category: 'choukai'; type: 'listening';
   title: string; script: string; questions: PassageQuestion[];
+  qtype?: string; // 公式4型: 課題理解/ポイント理解/概要理解/即時応答(補充分のみ・任意)
 }
 
 export const READING = reading as ReadingItem[];
