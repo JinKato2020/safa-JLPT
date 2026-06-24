@@ -6,6 +6,7 @@ import grammar from './grammar.json';
 import reading from './reading.json';
 import listening from './listening.json';
 import vocabExamples from './vocabExamples.json';
+import vocabExtExamples from './vocabExtExamples.json';
 import metaJson from './meta.json';
 import grammarClozeOkJson from './grammarClozeOk.json';
 import vocabClozeOkJson from './vocabClozeOk.json';
@@ -14,6 +15,7 @@ import dictExtJson from './dictExt.json';
 import vocabFreqJson from './vocabFreq.json';
 import vocabFurigana from './vocabFurigana.json';
 import kanjiExamples from './kanjiExamples.json';
+import kanjiExamplesMulti from './kanjiExamplesMulti.json';
 import kanjiReadings from './kanjiReadings.json';
 import type { Category, Level } from '../engine/engine';
 
@@ -68,8 +70,12 @@ export const DICT_EXT_KANJI = (dictExtJson.kanji as unknown) as KanjiItem[];
 export const VOCAB_FREQ = vocabFreqJson as Record<string, number>;
 
 // 語彙の短い例文(無料・田中コーパス/EDRDG examples・CC-BY)。vocabId → { ja, en }。
+// N5-N3コア(vocabExamples)＋N2/N1拡張辞書(vocabExtExamples)を統合＝辞書Browseで全級に例文＋下線。
 export interface VocabExample { ja: string; en: string; }
-export const VOCAB_EXAMPLE = vocabExamples as Record<string, VocabExample>;
+export const VOCAB_EXAMPLE = {
+  ...(vocabExamples as Record<string, VocabExample>),
+  ...(vocabExtExamples as Record<string, VocabExample>),
+};
 
 /** 語彙例文のふりがな付き版(MeCab生成・漢字(よみ)形式)。vocabId → ふりがな文。無い語は素のjaを使う。 */
 export const VOCAB_FURIGANA = vocabFurigana as Record<string, string>;
@@ -93,6 +99,12 @@ export interface KanjiExample {
   reading: string;
   kun?: { word: string; reading: string };
 }
+
+// 漢字の音訓 例語(複数読み・頻度順)。char → { on:[{reading(カナ),word,wordReading}], kun:[{reading(かな),word,wordReading}] }。
+// 生成: data-build/_build_kanji_multi.js(例語の読みが その音/訓を実際に含む検証済＝捏造ゼロ)。N5-N1対応。
+export interface KanjiReadingExample { reading: string; word: string; wordReading: string; }
+export interface KanjiExampleMulti { on?: KanjiReadingExample[]; kun?: KanjiReadingExample[]; }
+export const KANJI_EXAMPLE_MULTI = kanjiExamplesMulti as Record<string, KanjiExampleMulti>;
 export const KANJI_EXAMPLE: Record<string, KanjiExample> = (() => {
   const byChar: Record<string, VocabItem[]> = {};
   for (const v of VOCAB) {

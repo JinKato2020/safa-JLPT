@@ -4,7 +4,8 @@ import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE_MULTI, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI } from '../data';
+import type { KanjiReadingExample } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { useT } from '../i18n';
@@ -21,6 +22,13 @@ function haystack(it: StudyItem): string {
   if (it.type === 'vocab') return `${it.word} ${it.reading} ${it.meaning}`.toLowerCase();
   if (it.type === 'kanji') return `${it.char} ${it.on} ${it.kun} ${it.meaning}`.toLowerCase();
   return `${it.point} ${it.romaji} ${it.meaning} ${it.exampleJa} ${it.exampleEn}`.toLowerCase();
+}
+
+// 音/訓の例語を「読み：語（語の読み）」で頻度順に連結。語の読みが見出し読みと同じなら（…）を省略。
+function fmtReadEx(list: KanjiReadingExample[]): string {
+  return list
+    .map((e) => (e.wordReading && e.wordReading !== e.reading ? `${e.reading}：${e.word}（${e.wordReading}）` : `${e.reading}：${e.word}`))
+    .join('　');
 }
 
 export default function BrowseScreen() {
@@ -80,13 +88,11 @@ export default function BrowseScreen() {
           <>
             <Text style={s.term}>{item.char}　<Text style={s.reading}>{item.kun ? t('browse.kanjiReading', { on: item.on, kun: item.kun }) : t('browse.kanjiReading_on', { on: item.on })}</Text></Text>
             <Text style={s.meaning}>{item.meaning}</Text>
-            {KANJI_EXAMPLE[item.char] ? (
-              <Text style={s.example}>
-                {KANJI_EXAMPLE[item.char].word}（{KANJI_EXAMPLE[item.char].reading}）
-                {KANJI_EXAMPLE[item.char].kun
-                  ? `　${KANJI_EXAMPLE[item.char].kun!.word}（${KANJI_EXAMPLE[item.char].kun!.reading}）`
-                  : ''}
-              </Text>
+            {KANJI_EXAMPLE_MULTI[item.char]?.on?.length ? (
+              <Text style={s.example}>音 {fmtReadEx(KANJI_EXAMPLE_MULTI[item.char].on!)}</Text>
+            ) : null}
+            {KANJI_EXAMPLE_MULTI[item.char]?.kun?.length ? (
+              <Text style={s.example}>訓 {fmtReadEx(KANJI_EXAMPLE_MULTI[item.char].kun!)}</Text>
             ) : null}
           </>
         ) : (

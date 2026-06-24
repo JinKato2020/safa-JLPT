@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { itemsFor, KANJI_EXAMPLE, VOCAB_EXAMPLE, VOCAB_FURIGANA } from '../data';
-import type { StudyItem } from '../data';
+import { itemsFor, KANJI_EXAMPLE_MULTI, VOCAB_EXAMPLE, VOCAB_FURIGANA } from '../data';
+import type { StudyItem, KanjiReadingExample } from '../data';
 import LearnTestSession from '../components/LearnTestSession';
 import HighlightedText from '../components/HighlightedText';
 import { useT } from '../i18n';
@@ -15,14 +15,16 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
   const t = useT();
   const s = useMemo(() => cardStyles(c), [c]);
   if (item.type === 'kanji') {
-    const ex = KANJI_EXAMPLE[item.char];
+    const ex = KANJI_EXAMPLE_MULTI[item.char];
+    const fmt = (l: KanjiReadingExample[]) =>
+      l.map((e) => (e.wordReading && e.wordReading !== e.reading ? `${e.reading}：${e.word}（${e.wordReading}）` : `${e.reading}：${e.word}`)).join('　');
     return (
       <View style={s.card}>
         <Text style={s.kanji}>{item.char}</Text>
         <Text style={s.reading}>{item.kun ? t('flashcardscreen.reading_label', { on: item.on, kun: item.kun }) : t('flashcardscreen.reading_on', { on: item.on })}</Text>
         <Text style={s.meaning}>{item.meaning}</Text>
-        {ex ? <Text style={s.ex}>{ex.word}（{ex.reading}）</Text> : null}
-        {ex?.kun ? <Text style={s.ex}>{ex.kun.word}（{ex.kun.reading}）</Text> : null}
+        {ex?.on?.length ? <Text style={s.ex}>音 {fmt(ex.on)}</Text> : null}
+        {ex?.kun?.length ? <Text style={s.ex}>訓 {fmt(ex.kun)}</Text> : null}
       </View>
     );
   }
