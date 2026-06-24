@@ -6,6 +6,7 @@ import { useAppActions } from '../store/store';
 import { detectL1 } from '../store/locale';
 import { useT } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
+import { sendEvent } from '../telemetry/telemetry';
 import type { Level } from '../engine/engine';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
@@ -26,7 +27,7 @@ export default function OnboardingScreen() {
 
   // レベル選択→スタート時に、そのレベルの聴解音声を一括DL(スキップ可)。完了/スキップでオンボード完了。
   if (pending) {
-    return <ListeningDownloadGate level={level} allowSkip onComplete={() => setSettings({ level, l1: detectL1(), onboarded: true })} />;
+    return <ListeningDownloadGate level={level} allowSkip onComplete={() => { sendEvent('onboarding_complete', { level }); setSettings({ level, l1: detectL1(), onboarded: true }); }} />;
   }
 
   return (

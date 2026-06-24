@@ -13,7 +13,7 @@ import type { Level } from '../engine/engine';
 import type { ThemeMode } from '../store/state';
 import { useT, UI_LANGS, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
-import { setTelemetryEnabled } from '../telemetry/telemetry';
+import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const THEMES: { v: ThemeMode; labelKey: 'profile.themeLight' | 'profile.themeDark' | 'profile.themeAuto' }[] = [
@@ -90,6 +90,7 @@ export default function ProfileScreen() {
                 <Pressable
                   key={o.code}
                   onPress={() => {
+                    sendEvent('language_changed', { lang: o.code });
                     setSettings({ uiLang: o.code });
                     setLangOpen(false);
                   }}

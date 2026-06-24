@@ -71,7 +71,7 @@ export default function QuizScreen() {
           <Text style={s.bigEmoji}>🎉</Text>
           <Text style={s.doneTitle}>{t('quiz.session_done')}</Text>
           <Text style={s.doneSub}>{t('quiz.score', { answered, correct: correctCount })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} />
+          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="quiz" />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('quiz.see_results')}</Text>
           </Pressable>

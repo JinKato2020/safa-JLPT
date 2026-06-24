@@ -1,23 +1,29 @@
 // セッション結果の「伸び」表示(誠実な序盤の伸び体感)。要点3つに絞る:
 // 採点した語↑ / 信頼幅±の収束(精度UP) / 🔥streak。スコアは水増ししない。掲示板§2・§10。
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import type { ProgressSnapshot } from '../store/selectors';
+import { sendEvent } from '../telemetry/telemetry';
 
 type Styles = ReturnType<typeof makeStyles>;
 
 export default function SessionSummary({
-  before, after, streak,
+  before, after, streak, mode,
 }: {
-  before: ProgressSnapshot; after: ProgressSnapshot; streak: number;
+  before: ProgressSnapshot; after: ProgressSnapshot; streak: number; mode?: string;
 }) {
   const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const dTouched = after.touched - before.touched;
   const narrowed = before.band - after.band; // >0 = ± が縮んだ=精度UP
+
+  // 匿名計測: セッション完了(結果表示=マウント)時に1回だけ送信。
+  useEffect(() => {
+    if (mode) void sendEvent('session_complete', { mode, scored: dTouched });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <View style={s.card}>

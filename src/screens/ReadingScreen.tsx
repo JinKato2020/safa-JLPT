@@ -62,7 +62,7 @@ export default function ReadingScreen() {
           <Text style={s.bigEmoji}>🎉</Text>
           <Text style={s.doneTitle}>{t('reading.sessionComplete')}</Text>
           <Text style={s.doneSub}>{t('reading.scoreResult', { answered, correct })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} />
+          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="reading" />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('reading.backToHome')}</Text>
           </Pressable>
