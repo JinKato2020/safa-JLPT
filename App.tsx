@@ -75,12 +75,15 @@ function Root() {
   // 匿名計測(v1.1): 前面化ごとに日次スナップショット(モジュール側で1日1回に抑制)＋キュー再送。
   useEffect(() => {
     if (!hydrated) return;
-    const fire = () => {
+    const fire = (force: boolean) => {
       setTelemetryEnabled(stateRef.current.settings.telemetry !== false);
-      void sendDailySnapshot(stateRef.current, Date.now());
+      void sendDailySnapshot(stateRef.current, Date.now(), force);
     };
-    fire();
-    const sub = AppState.addEventListener('change', (s) => { if (s === 'active') fire(); });
+    fire(false);
+    const sub = AppState.addEventListener('change', (s) => {
+      if (s === 'active') fire(false);
+      else if (s === 'background') fire(true); // 閉じる時=学習後の状態で当日分を上書き(1行のまま)
+    });
     return () => sub.remove();
   }, [hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
   const sys = useColorScheme();

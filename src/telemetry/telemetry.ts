@@ -82,11 +82,12 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
   };
 }
 
-/** 1日1回の到達度スナップショット(前面化時に呼ぶ。同日2回目以降はキュー再送のみ)。 */
-export async function sendDailySnapshot(state: AppState, now: number): Promise<void> {
+/** 到達度スナップショット。force=false(前面化)=同日1回のみ / force=true(アプリを閉じる時)=学習後の状態で必ず更新。
+ *  サーバは (anonId, day) で upsert ＝ 1ユーザー/日 1行のまま(送信回数が増えても行は増えない)。 */
+export async function sendDailySnapshot(state: AppState, now: number, force = false): Promise<void> {
   if (!enabled || state.settings.telemetry === false) return;
   const day = dayStr(now);
-  if ((await AsyncStorage.getItem(K_DAY)) === day) { await flush(); return; }
+  if (!force && (await AsyncStorage.getItem(K_DAY)) === day) { await flush(); return; }
   await send('snapshot', snapshotBody(state, await anonId(), now));
   await AsyncStorage.setItem(K_DAY, day);
   await flush();
