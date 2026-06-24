@@ -20,7 +20,7 @@
     "ios": {
       "bundleIdentifier": "com.safa.jlpt",
       "buildNumber": "3",
-      "supportsTablet": true,
+      "supportsTablet": false,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
