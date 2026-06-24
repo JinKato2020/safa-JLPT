@@ -1,16 +1,18 @@
 // 診断クイズの出題ロジック(純粋・RN非依存・テスト可)。
 // 4択生成 / 出題キュー(優先順) / 間違い再挿入(分散学習)。
 import type { StudyItem } from '../data';
-import { VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK, VOCAB_CLOZE_OK } from '../data';
+import { VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK, VOCAB_CLOZE_OK, VOCAB_SYN } from '../data';
 import { highlightSegments } from './highlight';
 import { effectiveP, type ItemState } from '../engine/engine';
 
 // 問題形式(弱点ヒートマップの軸＋出題の多様化)。
-export type QFormat = 'reading' | 'meaning' | 'reverse' | 'cloze' | 'usage';
+export type QFormat = 'reading' | 'meaning' | 'reverse' | 'cloze' | 'usage' | 'orthography' | 'synonym';
 export const FORMAT_LABEL: Record<QFormat, string> = {
   reading: '読み',
   meaning: '意味',
   reverse: '意味→語',
+  orthography: '表記',
+  synonym: '類義語',
   cloze: '穴埋め',
   usage: '文法・用法',
 };
@@ -141,6 +143,13 @@ function buildersFor(item: StudyItem): Built[] {
     const cz = vocabCloze(item);
     // 穴埋めは「答えが一意に決まる」とLLM判定された語彙のみ(VOCAB_CLOZE_OK)。曖昧語(彼/妻・青/赤等)は除外。
     if (cz && VOCAB_CLOZE_OK.has(item.id)) out.push({ prompt: cz, question: '〔　〕に入る語は？', format: 'cloze', answer: item.word, valueOf: vWord });
+    // 表記(JLPT問題2): ひらがな(読み)→正しい漢字。漢字を含む語のみ。
+    if (hasKanji(item.word)) {
+      out.push({ prompt: item.reading, question: '正しい漢字（表記）は？', format: 'orthography', answer: item.word, valueOf: vWord });
+    }
+    // 類義語(JLPT問題4 言い換え類義): 検証済みの近い意味の語があるもののみ。
+    const syn = VOCAB_SYN[item.id];
+    if (syn) out.push({ prompt: item.word, question: '意味がいちばん近いのは？', format: 'synonym', answer: syn, valueOf: vWord });
   } else if (item.type === 'kanji') {
     const meaning = firstSense(item.meaning);
     out.push({ prompt: item.char, question: '意味は？', format: 'meaning', answer: meaning, valueOf: (x) => (x.type === 'kanji' ? firstSense(x.meaning) : '') });
@@ -171,7 +180,7 @@ function buildersFor(item: StudyItem): Built[] {
 export function makeQuestion(item: StudyItem, pool: StudyItem[], rng: Rng = Math.random): Question {
   const builders = buildersFor(item);
   const b = builders[Math.floor(rng() * builders.length)] ?? builders[0];
-  const wrongs = distractors(pool.map(b.valueOf), b.answer, 3, rng);
+  const wrongs = distractors(pool.map(b.valueOf).filter((v) => v !== b.prompt), b.answer, 3, rng);
   const choices = shuffle([b.answer, ...wrongs], rng);
   return { itemId: item.id, prompt: b.prompt, reading: b.reading, example: b.example, question: b.question, format: b.format, choices, answerIndex: choices.indexOf(b.answer) };
 }
