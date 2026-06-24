@@ -1,7 +1,7 @@
 // 診断クイズの出題ロジック(純粋・RN非依存・テスト可)。
 // 4択生成 / 出題キュー(優先順) / 間違い再挿入(分散学習)。
 import type { StudyItem } from '../data';
-import { VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK } from '../data';
+import { VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK, VOCAB_CLOZE_OK } from '../data';
 import { highlightSegments } from './highlight';
 import { effectiveP, type ItemState } from '../engine/engine';
 
@@ -139,7 +139,8 @@ function buildersFor(item: StudyItem): Built[] {
     out.push({ prompt: item.word, question: '意味は？', format: 'meaning', answer: meaning, valueOf: vMean });
     out.push({ prompt: meaning, question: 'この意味の語は？', format: 'reverse', answer: item.word, valueOf: vWord });
     const cz = vocabCloze(item);
-    if (cz) out.push({ prompt: cz, question: '〔　〕に入る語は？', format: 'cloze', answer: item.word, valueOf: vWord });
+    // 穴埋めは「答えが一意に決まる」とLLM判定された語彙のみ(VOCAB_CLOZE_OK)。曖昧語(彼/妻・青/赤等)は除外。
+    if (cz && VOCAB_CLOZE_OK.has(item.id)) out.push({ prompt: cz, question: '〔　〕に入る語は？', format: 'cloze', answer: item.word, valueOf: vWord });
   } else if (item.type === 'kanji') {
     const meaning = firstSense(item.meaning);
     out.push({ prompt: item.char, question: '意味は？', format: 'meaning', answer: meaning, valueOf: (x) => (x.type === 'kanji' ? firstSense(x.meaning) : '') });
