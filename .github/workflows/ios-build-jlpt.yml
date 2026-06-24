@@ -1,5 +1,5 @@
 name: Build iOS (まいにちJLPT)
-run-name: "まいにちJLPT v1.0.0 (com.safa.jlpt) — ${{ github.event.head_commit.message || github.ref_name }}"
+run-name: "まいにちJLPT iOS build (com.safa.jlpt) — ${{ github.event.head_commit.message || github.ref_name }}"
 
 # =============================================================================
 # まいにちJLPT (com.safa.jlpt) — iOS ビルド & TestFlight 提出
