@@ -10,6 +10,7 @@ import metaJson from './meta.json';
 import grammarClozeOkJson from './grammarClozeOk.json';
 import vocabClozeOkJson from './vocabClozeOk.json';
 import vocabSynonymsJson from './vocabSynonyms.json';
+import dictExtJson from './dictExt.json';
 import vocabFurigana from './vocabFurigana.json';
 import kanjiExamples from './kanjiExamples.json';
 import kanjiReadings from './kanjiReadings.json';
@@ -57,6 +58,10 @@ export const VOCAB_CLOZE_OK = new Set(vocabClozeOkJson as string[]);
 
 /** 検証済みの類義語(言い換え類義)。vocabId → 意味が近い語。WordNet候補からLLM選別・検証(N5-N3)。 */
 export const VOCAB_SYN = vocabSynonymsJson as Record<string, string>;
+
+/** 辞書Browse拡張(N2/N1・参考辞書・学習対象外)。JMdict/KANJIDIC由来。levelがN2/N1なのでcastで型を通す。 */
+export const DICT_EXT_VOCAB = (dictExtJson.vocab as unknown) as VocabItem[];
+export const DICT_EXT_KANJI = (dictExtJson.kanji as unknown) as KanjiItem[];
 
 // 語彙の短い例文(無料・田中コーパス/EDRDG examples・CC-BY)。vocabId → { ja, en }。
 export interface VocabExample { ja: string; en: string; }

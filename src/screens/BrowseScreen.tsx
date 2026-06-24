@@ -4,7 +4,7 @@ import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE, VOCAB_EXAMPLE } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { useT } from '../i18n';
@@ -35,7 +35,8 @@ export default function BrowseScreen() {
   const [query, setQuery] = useState('');
 
   const results = useMemo(() => {
-    const src: StudyItem[] = kubun === 'vocab' ? VOCAB : kubun === 'kanji' ? KANJI : GRAMMAR;
+    // 辞書は N5-N1(語彙/漢字はN2/N1の参考辞書を追加)。文法はN5-N3のまま。
+    const src: StudyItem[] = kubun === 'vocab' ? [...VOCAB, ...DICT_EXT_VOCAB] : kubun === 'kanji' ? [...KANJI, ...DICT_EXT_KANJI] : GRAMMAR;
     const byLevel = allLevels ? src : src.filter((i) => i.level === settings.level);
     const q = query.trim().toLowerCase();
     return q ? byLevel.filter((i) => haystack(i).includes(q)) : byLevel;
@@ -96,6 +97,7 @@ export default function BrowseScreen() {
           </>
         )}
       </View>
+      <Text style={s.levelBadge}>{item.level}</Text>
       {statusMark(item)}
     </View>
   );
@@ -187,6 +189,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   example: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.xs },
   exampleHit: { color: c.ink, textDecorationLine: 'underline' },
   exampleEn: { fontSize: ty.tiny, color: c.faint, fontStyle: 'italic', marginTop: 2 },
+  levelBadge: { fontSize: 10, fontWeight: '800', color: c.mute, alignSelf: 'flex-start' },
   status: { fontSize: ty.h2, fontWeight: '800', color: c.trace, width: 20, textAlign: 'center' },
   stLearned: { color: c.green },
   stSeen: { color: c.faint },
