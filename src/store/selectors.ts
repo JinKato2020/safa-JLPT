@@ -1,7 +1,7 @@
 // ストア状態 → JLPTエンジンへの橋渡し(派生値)。UI はこれを useMemo で呼ぶ。
-import { computeRing, computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
+import { computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
 import { examOf } from '../engine/examProfile';
-import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, META } from '../data';
+import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META } from '../data';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
 
@@ -14,16 +14,50 @@ function examItemIds(state: AppState, category: Category, full: boolean): string
   return full ? allItemIdsFor(state.settings.level, category) : ringItemIdsFor(state.settings.level, category);
 }
 
-/** 4区分リング(0-100 / 未測定 null)を現在の級・習得状態から算出。 */
+// スキル(読解/聴解)の難易度重み: 難問の正解ほど能力を強く示す。帯(A1/A2.1/A2.2)優先、無ければ級から。
+function skillWeight(id: string): number {
+  const b = JFT_BANDS[id];
+  if (b) return b === 'A2.2' ? 1.6 : b === 'A2.1' ? 1.3 : 1;
+  return id.startsWith('n3') ? 1.7 : id.startsWith('n4') ? 1.3 : 1;
+}
+
+// 区分の達成度%(0-100 / 未測定null)。妥当性のため評価モデルを区分で分ける:
+//  ・語彙/漢字/文法(離散知識) = カバー率×習得: 全項目のΣ習得度 / 全項目数(未習得=0で薄まる=「全部覚える」が目標)。
+//  ・読解/聴解(般化スキル)   = 難易度重み付き正答率: 受けた設問のみを母数に重み平均(何問解いたかは分母にしない)。
+//    少数回答の過大評価を防ぐため neutral prior(0.5)へ軽く収縮(K)。0回=未測定(null)。
+const SKILL_CATS: Category[] = ['dokkai', 'choukai'];
+function categoryPct(state: AppState, now: number, cat: Category, full: boolean): number | null {
+  const ids = examItemIds(state, cat, full);
+  if (!SKILL_CATS.includes(cat)) {
+    // 知識: カバー率込み(分母=全項目)。
+    if (!ids.length) return null;
+    let sum = 0;
+    for (const id of ids) { const st = state.items[id]; if (st) sum += effectiveP(st, now); }
+    return Math.round((100 * sum) / ids.length);
+  }
+  // スキル: 受けた設問だけ・難易度重み・prior収縮。
+  let wsum = 0, wp = 0, n = 0;
+  for (const id of ids) {
+    const st = state.items[id];
+    if (!st) continue; // 未受験はスキル推定に入れない(「何問解いたか」を分母にしない)
+    const w = skillWeight(id);
+    wsum += w; wp += w * effectiveP(st, now); n++;
+  }
+  if (n === 0) return null;
+  const K = 2, P0 = 0.5; // neutral prior へ収縮(少数回答=過大評価しない・データ増で真値へ収束)
+  return Math.round((100 * (wp + K * P0)) / (wsum + K));
+}
+
+// 平均(null除外)。全null→null。
+function avgPct(vals: (number | null)[]): number | null {
+  const m = vals.filter((v): v is number => v !== null);
+  return m.length ? Math.round(m.reduce((a, b) => a + b, 0) / m.length) : null;
+}
+
+/** 4区分リング(0-100 / 未測定 null)。知識=カバー率×習得 / 読解聴解=難易度重み正答率(categoryPct)。 */
 export function ringsFor(state: AppState, now: number): Record<Category, number | null> {
   const out = {} as Record<Category, number | null>;
-  for (const c of RING_CATS) {
-    const ids = examItemIds(state, c, false);
-    const states = ids
-      .map((id) => state.items[id])
-      .filter((s): s is NonNullable<typeof s> => Boolean(s));
-    out[c] = computeRing(ids.length, states, now);
-  }
+  for (const c of RING_CATS) out[c] = categoryPct(state, now, c, false);
   return out;
 }
 
@@ -57,33 +91,27 @@ function masteryParts(state: AppState, now: number, cats: Category[], full = tru
   return { sum, n };
 }
 
-/** 総合準備度＋公式ゲート(総合点＋区分別基準点)による合格圏判定。試験プロファイルで切替。 */
+/** 総合準備度＋公式ゲート(総合点＋区分別基準点)による合格圏判定。試験プロファイルで切替。
+ *  区分別 達成度は categoryPct(知識=カバー率×習得 / 読解聴解=難易度重み正答率)で統一。
+ *  セクション/総合は区分の平均(各区分等価)。 */
 export function readinessFor(state: AppState, now: number) {
   const prof = examOf(state.settings.targetExam);
   const evidenceTotal = Object.values(state.items).reduce((s, it) => s + it.evidence, 0);
-  // JFT-Basic: 単一試験・各区分足切りなし・合格は総合80%(=200/250)のみ。知識ベース=examItemIdsでN5+N4(A1+A2)統合。
+  const catP = {} as Record<Category, number | null>;
+  for (const c of RING_CATS) catP[c] = categoryPct(state, now, c, true);
+  const overallPct = avgPct(RING_CATS.map((c) => catP[c]));
+  // JFT-Basic: 単一試験・各区分足切りなし・合格は総合80%(=200/250)のみ。知識ベース=N5+N4(A1+A2)統合。
   if (prof.exam === 'jft') {
-    const sections: SectionInput[] = RING_CATS.map((cat) => {
-      const { sum, n } = masteryParts(state, now, [cat]);
-      return { key: cat, label: cat, pct: n === 0 ? null : Math.round((100 * sum) / n), minPct: prof.jftPassPct };
-    });
-    const all = masteryParts(state, now, RING_CATS);
-    const overallPct = all.n === 0 ? null : Math.round((100 * all.sum) / all.n);
+    const sections: SectionInput[] = RING_CATS.map((cat) => ({ key: cat, label: cat, pct: catP[cat], minPct: prof.jftPassPct }));
     return computeReadiness(sections, overallPct, prof.jftPassPct, evidenceTotal, false);
   }
-  const level = state.settings.level;
-  const pm = META.passMarks[level];
-  const sections: SectionInput[] = Object.entries(pm.sections).map(([key, sec]) => {
-    const { sum, n } = masteryParts(state, now, SECTION_CATS[key] ?? []);
-    return {
-      key,
-      label: SECTION_LABEL[key] ?? key,
-      pct: n === 0 ? null : Math.round((100 * sum) / n),
-      minPct: Math.round((100 * sec.min) / sec.max),
-    };
-  });
-  const all = masteryParts(state, now, RING_CATS);
-  const overallPct = all.n === 0 ? null : Math.round((100 * all.sum) / all.n);
+  const pm = META.passMarks[state.settings.level];
+  const sections: SectionInput[] = Object.entries(pm.sections).map(([key, sec]) => ({
+    key,
+    label: SECTION_LABEL[key] ?? key,
+    pct: avgPct((SECTION_CATS[key] ?? []).map((c) => catP[c])),
+    minPct: Math.round((100 * sec.min) / sec.max),
+  }));
   const overallMinPct = Math.round((100 * pm.overall) / pm.maxTotal);
   return computeReadiness(sections, overallPct, overallMinPct, evidenceTotal);
 }
