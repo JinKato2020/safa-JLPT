@@ -19,6 +19,7 @@ export default function TestScreen() {
   const state = useAppState();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
+  const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const readiness = useMemo(() => readinessFor(state, Date.now()), [state]);
   const measured = readiness.score > 0;
   const hist = state.mockHistory ?? [];
@@ -66,29 +67,45 @@ export default function TestScreen() {
           </>
         ) : null}
 
-        {/* ミニ模試(利用可) */}
-        <View style={s.testCard}>
-          <View style={s.testHead}>
-            <Text style={s.testTitle}>{t('test.mini_title')}</Text>
-            <Text style={s.testTime}>{t('test.mini_time')}</Text>
+        {isJft ? (
+          /* JFT-Basic 模試(単一・本番再現) */
+          <View style={s.testCard}>
+            <View style={s.testHead}>
+              <Text style={s.testTitle}>{t('test.jft_title')}</Text>
+              <Text style={s.testTime}>{t('test.jft_time')}</Text>
+            </View>
+            <Text style={s.testNote}>{t('test.jft_note')}</Text>
+            <Pressable style={s.cta} onPress={() => nav.navigate('Mock', { full: true })}>
+              <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
+            </Pressable>
           </View>
-          <Text style={s.testNote}>{t('test.mini_note')}</Text>
-          <Pressable style={s.cta} onPress={() => nav.navigate('Mock')}>
-            <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
-          </Pressable>
-        </View>
+        ) : (
+          <>
+            {/* ミニ模試(利用可) */}
+            <View style={s.testCard}>
+              <View style={s.testHead}>
+                <Text style={s.testTitle}>{t('test.mini_title')}</Text>
+                <Text style={s.testTime}>{t('test.mini_time')}</Text>
+              </View>
+              <Text style={s.testNote}>{t('test.mini_note')}</Text>
+              <Pressable style={s.cta} onPress={() => nav.navigate('Mock')}>
+                <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
+              </Pressable>
+            </View>
 
-        {/* フル模試(利用可) */}
-        <View style={s.testCard}>
-          <View style={s.testHead}>
-            <Text style={s.testTitle}>{t('test.full_title')}</Text>
-            <Text style={s.testTime}>{t('test.full_time')}</Text>
-          </View>
-          <Text style={s.testNote}>{t('test.full_note')}</Text>
-          <Pressable style={s.cta} onPress={() => nav.navigate('Mock', { full: true })}>
-            <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
-          </Pressable>
-        </View>
+            {/* フル模試(利用可) */}
+            <View style={s.testCard}>
+              <View style={s.testHead}>
+                <Text style={s.testTitle}>{t('test.full_title')}</Text>
+                <Text style={s.testTime}>{t('test.full_time')}</Text>
+              </View>
+              <Text style={s.testNote}>{t('test.full_note')}</Text>
+              <Pressable style={s.cta} onPress={() => nav.navigate('Mock', { full: true })}>
+                <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
+              </Pressable>
+            </View>
+          </>
+        )}
 
         <Text style={s.foot}>{t('test.foot')}</Text>
       </ScrollView>
