@@ -119,17 +119,13 @@ export default function HomeScreen() {
           </HeroGauge>
           <Text style={[s.status, { color: zone }]}>{status}</Text>
           <Text style={s.passHint}>{isJft ? t('home.jft_pass_hint') : t('home.pass_hint', { n: readiness.overallMinPct })}</Text>
-          <Text style={s.rank}>学習 {rank.pct}%{rank.nextName ? ` ・ 次「${rank.nextName}」まで ${rank.nextAt}%` : ' ・ 仕上げ到達'}</Text>
 
           {readiness.passing ? (
             <Text style={s.paceOk}>🎉 {t('home.pace_ok')}</Text>
           ) : pace.daysToPass != null ? (
-            <>
-              <Text style={s.paceMain}>
-                {t('home.pace_prefix')} <Text style={s.paceDays}>{t('home.pace_days', { n: pace.daysToPass })}</Text> {t('home.pace_suffix')}
-              </Text>
-              <Text style={s.paceSub}>{t('home.pace_sub', { n: pace.perDay, m: pace.itemsNeeded })}</Text>
-            </>
+            <Text style={s.paceMain}>
+              {t('home.pace_prefix')} <Text style={s.paceDays}>{t('home.pace_days', { n: pace.daysToPass })}</Text> {t('home.pace_suffix')}
+            </Text>
           ) : (
             <Text style={s.paceMuted}>{t('home.pace_muted')}</Text>
           )}
@@ -254,9 +250,9 @@ const makeStyles = (c: ThemeColors) =>
       elevation: 2,
     },
     ddRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.md },
-    dd: { fontSize: ty.body, color: c.ink2, letterSpacing: 0.5, fontWeight: '800' },
-    medal: { backgroundColor: c.blueLight, borderRadius: radius.pill, paddingHorizontal: spacing.sm, paddingVertical: 2, borderWidth: 1, borderColor: c.blue },
-    medalTxt: { fontSize: ty.small, fontWeight: '800', color: c.blueDark },
+    dd: { fontSize: 19, color: c.ink2, letterSpacing: 0.5, fontWeight: '800' },
+    medal: { backgroundColor: c.blueLight, borderRadius: radius.lg, paddingHorizontal: spacing.md, paddingVertical: 6, borderWidth: 1, borderColor: c.blue },
+    medalTxt: { fontSize: 24, fontWeight: '800', color: c.blueDark },
     score: { fontSize: 66, fontWeight: '800', color: c.ink, lineHeight: 70 },
     bandIn: { fontSize: ty.small, color: c.faint, fontWeight: '600', marginTop: 2 },
     status: { fontSize: ty.h2, fontWeight: '800', marginTop: spacing.md },

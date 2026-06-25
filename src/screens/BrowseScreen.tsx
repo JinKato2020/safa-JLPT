@@ -17,6 +17,8 @@ const KUBUN: { key: Kubun; labelKey: string }[] = [
   { key: 'kanji', labelKey: 'browse.kanji' },
   { key: 'grammar', labelKey: 'browse.grammar' },
 ];
+// 辞書のレベル並び(易→難)。「全」表示時はこの順でソート。
+const LEVEL_ORDER = ['N5', 'N4', 'N3', 'N2', 'N1'];
 
 function haystack(it: StudyItem): string {
   if (it.type === 'vocab') return `${it.word} ${it.reading} ${it.meaning}`.toLowerCase();
@@ -39,16 +41,27 @@ export default function BrowseScreen() {
   const now = Date.now();
 
   const [kubun, setKubun] = useState<Kubun>('vocab');
-  const [allLevels, setAllLevels] = useState(false);
+  const [level, setLevel] = useState<string>(settings.level); // 'all' または N5..N1
   const [query, setQuery] = useState('');
 
+  // 辞書は N5-N1(語彙/漢字はN2/N1の参考辞書を追加)。文法はN5-N3のまま。
+  const src = useMemo<StudyItem[]>(
+    () => (kubun === 'vocab' ? [...VOCAB, ...DICT_EXT_VOCAB] : kubun === 'kanji' ? [...KANJI, ...DICT_EXT_KANJI] : GRAMMAR),
+    [kubun],
+  );
+  // この区分に存在するレベルだけをN5→N1順で(プルダウン用)。
+  const availLevels = useMemo(() => LEVEL_ORDER.filter((l) => src.some((i) => i.level === l)), [src]);
+  // 選択レベルがこの区分に無ければ「全」扱い(例: 文法でN1選択→全表示)。
+  const effLevel = level === 'all' || availLevels.includes(level) ? level : 'all';
+
   const results = useMemo(() => {
-    // 辞書は N5-N1(語彙/漢字はN2/N1の参考辞書を追加)。文法はN5-N3のまま。
-    const src: StudyItem[] = kubun === 'vocab' ? [...VOCAB, ...DICT_EXT_VOCAB] : kubun === 'kanji' ? [...KANJI, ...DICT_EXT_KANJI] : GRAMMAR;
-    const byLevel = allLevels ? src : src.filter((i) => i.level === settings.level);
+    const byLevel =
+      effLevel === 'all'
+        ? [...src].sort((a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level)) // 全=N5→N1でソート
+        : src.filter((i) => i.level === effLevel);
     const q = query.trim().toLowerCase();
     return q ? byLevel.filter((i) => haystack(i).includes(q)) : byLevel;
-  }, [kubun, allLevels, query, settings.level]);
+  }, [src, effLevel, query]);
 
   const statusMark = (item: StudyItem) => {
     const st = items[item.id];
@@ -128,9 +141,18 @@ export default function BrowseScreen() {
             <Text style={[s.chipTxt, kubun === k.key && s.chipTxtOn]}>{t(k.labelKey)}</Text>
           </Pressable>
         ))}
-        <Pressable onPress={() => setAllLevels((v) => !v)} style={[s.chip, allLevels && s.chipOn]}>
-          <Text style={[s.chipTxt, allLevels && s.chipTxtOn]}>{allLevels ? t('browse.allLevels') : settings.level}</Text>
+      </View>
+
+      {/* レベル選択(全＝N5→N1ソート / 各級＝その級のみ)。区分に在るレベルだけ表示。 */}
+      <View style={[s.filters, s.filters2]}>
+        <Pressable onPress={() => setLevel('all')} style={[s.chip, effLevel === 'all' && s.chipOn]}>
+          <Text style={[s.chipTxt, effLevel === 'all' && s.chipTxtOn]}>{t('browse.allLevels')}</Text>
         </Pressable>
+        {availLevels.map((l) => (
+          <Pressable key={l} onPress={() => setLevel(l)} style={[s.chip, effLevel === l && s.chipOn]}>
+            <Text style={[s.chipTxt, effLevel === l && s.chipTxtOn]}>{l}</Text>
+          </Pressable>
+        ))}
       </View>
 
       <Text style={s.count}>{t('browse.count', { n: results.length })}</Text>
@@ -164,6 +186,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     color: c.ink,
   },
   filters: { flexDirection: 'row', gap: spacing.sm, paddingHorizontal: spacing.md, flexWrap: 'wrap' },
+  filters2: { marginTop: spacing.sm },
   chip: {
     paddingVertical: spacing.xs,
     paddingHorizontal: spacing.md,

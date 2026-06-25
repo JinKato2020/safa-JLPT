@@ -61,7 +61,7 @@
   "home.pace_days": "あと{n}日",
   "home.pace_muted": "毎日続けると「あと◯日で合格圏」が見えます",
   "home.pace_ok": "合格圏！この調子で維持しましょう。",
-  "home.pace_prefix": "このペースで",
+  "home.pace_prefix": "このペースで続けると、",
   "home.pace_sub": "1日 約{n}語 ・ 残り 約{m}語",
   "home.pace_suffix": "で合格圏",
   "home.pass_hint": "合格ライン {n}%（｜印）",
