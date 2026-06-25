@@ -11,6 +11,7 @@ import metaJson from './meta.json';
 import grammarClozeOkJson from './grammarClozeOk.json';
 import vocabClozeOkJson from './vocabClozeOk.json';
 import vocabSynonymsJson from './vocabSynonyms.json';
+import knowledgeBankJson from './knowledgeBank.json';
 import dictExtJson from './dictExt.json';
 import vocabFreqJson from './vocabFreq.json';
 import jftBandsJson from './jftBands.json';
@@ -62,6 +63,10 @@ export const VOCAB_CLOZE_OK = new Set(vocabClozeOkJson as string[]);
 
 /** 検証済みの類義語(言い換え類義)。vocabId → 意味が近い語。WordNet候補からLLM選別・検証(N5-N3)。 */
 export const VOCAB_SYN = vocabSynonymsJson as Record<string, string>;
+
+/** 知識バンク=実データから作れない大問(用法/文の組み立て/文章の文法)の生成問題。模試で本番比率に使う。 */
+export interface KnowledgeBankItem { level: string; daimon: string; stem: string; question: string; choices: string[]; answer: string; explain: string; }
+export const KNOWLEDGE_BANK = knowledgeBankJson as KnowledgeBankItem[];
 
 /** 辞書Browse拡張(N2/N1・参考辞書・学習対象外)。JMdict/KANJIDIC由来。levelがN2/N1なのでcastで型を通す。 */
 export const DICT_EXT_VOCAB = (dictExtJson.vocab as unknown) as VocabItem[];

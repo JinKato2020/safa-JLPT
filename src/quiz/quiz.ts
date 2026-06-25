@@ -7,6 +7,9 @@ import { effectiveP, type ItemState } from '../engine/engine';
 
 // 問題形式(弱点ヒートマップの軸＋出題の多様化)。
 export type QFormat = 'reading' | 'meaning' | 'reverse' | 'cloze' | 'usage' | 'orthography' | 'synonym';
+// 本番(JLPT)の大問に対応する出題形式。学習/模試で「意味は？」「意味→語」等の非本番形式を除く用。
+// ※漢字単体は本番大問でないため、漢字itemはこの集合に該当形式が無く makeQuestion 内で全形式にフォールバック(意味学習は残る)。
+export const EXAM_FORMATS: QFormat[] = ['reading', 'orthography', 'cloze', 'synonym', 'usage'];
 export const FORMAT_LABEL: Record<QFormat, string> = {
   reading: '読み',
   meaning: '意味',

@@ -20,3 +20,34 @@ export function blueprintCounts(level: string, full: boolean, jft: boolean): Rec
   for (const k of EXAM_SECS) out[k] = full ? bp[k] : (bp[k] > 0 ? Math.max(1, Math.round(bp[k] / 3)) : 0);
   return out;
 }
+
+// ── 大問(知識区分)内訳 ──────────────────────────────────────
+// 文字語彙=漢字読み/表記/文脈規定/言い換え類義/用法、文法=文法形式の判断/文の組み立て/文章の文法。
+export type Daimon = 'kanji_read' | 'orthography' | 'context' | 'synonym' | 'usage' | 'grammar_form' | 'order' | 'passage_grammar';
+export const DAIMON_SEC: Record<Daimon, ExamSec> = {
+  kanji_read: 'moji_goi', orthography: 'moji_goi', context: 'moji_goi', synonym: 'moji_goi', usage: 'moji_goi',
+  grammar_form: 'bunpou', order: 'bunpou', passage_grammar: 'bunpou',
+};
+// 各大問の出題形式。配列=makeQuestionに渡す許可QFormat / '@bank'=生成バンクから出題。
+export const DAIMON_ALLOWED: Record<Daimon, string[] | '@bank'> = {
+  kanji_read: ['reading'], orthography: ['orthography'], context: ['cloze'], synonym: ['synonym'], usage: '@bank',
+  grammar_form: ['cloze', 'usage'], order: '@bank', passage_grammar: '@bank',
+};
+export const DAIMON_LABEL: Record<Daimon, string> = {
+  kanji_read: 'mock.dai_kanji_read', orthography: 'mock.dai_orthography', context: 'mock.dai_context', synonym: 'mock.dai_synonym',
+  usage: 'mock.dai_usage', grammar_form: 'mock.dai_grammar_form', order: 'mock.dai_order', passage_grammar: 'mock.dai_passage_grammar',
+};
+// 級別 大問別 出題数(本番典型構成)。区分合計は JLPT_BLUEPRINT と一致。
+export const DAIMON_BLUEPRINT: Record<string, Partial<Record<Daimon, number>>> = {
+  N5: { kanji_read: 7, orthography: 5, context: 6, synonym: 3, grammar_form: 9, order: 4, passage_grammar: 4 },
+  N4: { kanji_read: 9, orthography: 6, context: 10, synonym: 5, usage: 5, grammar_form: 15, order: 5, passage_grammar: 5 },
+  N3: { kanji_read: 8, orthography: 6, context: 11, synonym: 5, usage: 5, grammar_form: 13, order: 5, passage_grammar: 5 },
+};
+/** 知識区分の大問別 出題数。full=本番数、!full=round(÷3)。 */
+export function daimonCounts(level: string, full: boolean): { daimon: Daimon; count: number }[] {
+  const bp = DAIMON_BLUEPRINT[level] ?? DAIMON_BLUEPRINT.N4;
+  return (Object.keys(bp) as Daimon[]).map((d) => {
+    const c = bp[d] ?? 0;
+    return { daimon: d, count: full ? c : Math.max(1, Math.round(c / 3)) };
+  });
+}

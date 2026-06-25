@@ -14,8 +14,9 @@ import { dayStr } from '../store/state';
 import { examWordsFor, allWordsFor, examReadingFor, examListeningFor } from '../data';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
-import { makeQuestion, sample, shuffleChoices, type ExampleHint, type QFormat } from '../quiz/quiz';
-import { blueprintCounts } from '../data/examBlueprint';
+import { makeQuestion, sample, shuffleChoices, hasKanji, type ExampleHint, type QFormat } from '../quiz/quiz';
+import { blueprintCounts, daimonCounts, DAIMON_ALLOWED, DAIMON_SEC, type Daimon } from '../data/examBlueprint';
+import { VOCAB_CLOZE_OK, VOCAB_SYN, VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK } from '../data';
 import type { StudyItem } from '../data';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -49,6 +50,7 @@ interface MockItem {
   clipId?: string;
   script?: string;
   explain?: string;
+  daimon?: Daimon; // 大問(知識区分の内訳集計用)
 }
 interface Answer { id: string; section: Sec; correct: boolean; label: string; drillable: boolean; }
 
@@ -74,6 +76,47 @@ function knowledgeItems(levels: Level[], category: 'moji_goi' | 'bunpou', n: num
       kind: 'word', id: item.id, section: item.category as Sec,
       question: q.question, choices: q.choices, answerIndex: q.answerIndex, prompt: q.prompt, reading: q.reading, example: q.example,
     };
+  });
+}
+
+// その出題形式が成立する項目か(漢字読みは漢字語のみ・cloze/synonymはデータ有りのみ)。強制形式で確実に成立させる。
+function supportsFormat(item: StudyItem, fmt: QFormat): boolean {
+  switch (fmt) {
+    case 'reading':
+    case 'orthography': return item.type === 'vocab' && hasKanji(item.word);
+    case 'cloze':
+      if (item.type === 'vocab') return VOCAB_CLOZE_OK.has(item.id) && !!VOCAB_EXAMPLE[item.id];
+      if (item.type === 'grammar') return GRAMMAR_CLOZE_OK.has(item.id) && !!item.exampleJa;
+      return false;
+    case 'synonym': return item.type === 'vocab' && !!VOCAB_SYN[item.id];
+    case 'usage': return item.type === 'grammar';
+    default: return false;
+  }
+}
+// バンク大問(用法/組み立て/文章の文法)がバンク不足のとき、同区分の派生形式で員数を埋める。
+const BANK_FALLBACK: Record<string, Daimon> = { usage: 'context', order: 'grammar_form', passage_grammar: 'grammar_form' };
+
+// 大問1つを count 問。派生形式は makeQuestion を該当形式に強制、バンク大問は KNOWLEDGE_BANK から(不足は派生で補充)。
+function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen: Seen): MockItem[] {
+  if (count <= 0) return [];
+  const allowed = DAIMON_ALLOWED[daimon];
+  const sec = DAIMON_SEC[daimon];
+  if (allowed === '@bank') {
+    const pool = KNOWLEDGE_BANK.filter((b) => levels.includes(b.level as Level) && b.daimon === daimon);
+    const out: MockItem[] = sample(pool, count).map((b, k) => {
+      const sc = shuffleChoices(b.choices, 0);
+      return { kind: 'word', id: `kb-${daimon}-${b.level}-${k}-${b.question.length}`, section: sec, daimon, question: b.question, choices: sc.choices, answerIndex: sc.answerIndex, prompt: b.stem || undefined, explain: b.explain };
+    });
+    if (out.length < count) out.push(...knowledgeForDaimon(levels, BANK_FALLBACK[daimon], count - out.length, seen));
+    return out.slice(0, count);
+  }
+  const fmts = allowed as QFormat[];
+  const pool = levels.flatMap((lv) => examWordsFor(lv, sec)).filter((it) => fmts.some((f) => supportsFormat(it, f)));
+  const all = levels.flatMap((lv) => allWordsFor(lv, sec));
+  const picked = pickFresh(pool, (i) => !!seen[i.id], count);
+  return picked.map((item) => {
+    const q = makeQuestion(item, all, Math.random, fmts);
+    return { kind: 'word', id: item.id, section: item.category as Sec, daimon, question: q.question, choices: q.choices, answerIndex: q.answerIndex, prompt: q.prompt, reading: q.reading, example: q.example };
   });
 }
 function readingItems(levels: Level[], nPassages: number, seen: Seen): MockItem[] {
@@ -102,13 +145,13 @@ function listeningItems(levels: Level[], nClips: number, seen: Seen): MockItem[]
 }
 // JFT模試は4セクションを必ず含む＝本番構成。出題はJFT公式順 ①文字と語彙②会話と表現③聴解④読解 にグループ化(セクション不可逆の本番再現)。
 const JFT_SEC_ORDER: Record<Sec, number> = { moji_goi: 0, bunpou: 1, choukai: 2, dokkai: 3 };
-// 比率駆動: フル=本番の区分別出題数(blueprint)、ミニ=round(÷3)。構成・割合はフルと同一。
+// 比率駆動: フル=本番の出題数、ミニ=round(÷3)。JLPTは大問内訳まで本番比率、JFTは区分(セクション)比率。
 function buildExam(levels: Level[], full: boolean, jft: boolean, seen: Seen): MockItem[] {
   const bp = blueprintCounts(levels[0], full, jft);
-  const knowledge = [
-    ...knowledgeItems(levels, 'moji_goi', bp.moji_goi, seen),
-    ...knowledgeItems(levels, 'bunpou', bp.bunpou, seen),
-  ];
+  // 知識区分: JLPT=大問別(漢字読み/表記/文脈規定/言い換え/用法/文法形式/組み立て/文章の文法)、JFT=区分2つ。
+  const knowledge = jft
+    ? [...knowledgeItems(levels, 'moji_goi', bp.moji_goi, seen), ...knowledgeItems(levels, 'bunpou', bp.bunpou, seen)]
+    : daimonCounts(levels[0], full).flatMap((d) => knowledgeForDaimon(levels, d.daimon, d.count, seen));
   const reading = readingItems(levels, bp.dokkai, seen);
   const listening = listeningItems(levels, bp.choukai, seen);
   if (jft) {

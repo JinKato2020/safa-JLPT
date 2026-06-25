@@ -9,7 +9,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState, useAppActions } from '../store/store';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from './SessionSummary';
-import { buildQueue, makeQuestion, reinsertForRelearn } from '../quiz/quiz';
+import { buildQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
 import type { StudyItem } from '../data';
 import { useT } from '../i18n';
 
@@ -42,7 +42,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard }: Props)
   const [before] = useState(() => progressSnapshot(state, Date.now()));
 
   const testItem = testQueue[testIdx];
-  const question = useMemo(() => (testItem ? makeQuestion(testItem, pool) : null), [testItem?.id, testIdx]);
+  const question = useMemo(() => (testItem ? makeQuestion(testItem, pool, Math.random, EXAM_FORMATS) : null), [testItem?.id, testIdx]);
 
   // テスト: 解答後に自動で次へ(正解は短め・不正解は正解を見せて長め)。
   useEffect(() => {

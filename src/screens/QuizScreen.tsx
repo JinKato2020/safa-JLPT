@@ -8,7 +8,7 @@ import { progressSnapshot } from '../store/selectors';
 import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
 import { itemsFor, allWordsFor } from '../data';
-import { buildQueue, makeQuestion, reinsertForRelearn } from '../quiz/quiz';
+import { buildQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
 import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -51,7 +51,7 @@ export default function QuizScreen() {
   const [before] = useState(() => progressSnapshot(state, Date.now()));
 
   const item = queue[idx];
-  const question = useMemo(() => (item ? makeQuestion(item, pool) : null), [item?.id, idx]);
+  const question = useMemo(() => (item ? makeQuestion(item, pool, Math.random, EXAM_FORMATS) : null), [item?.id, idx]);
 
   // 解答後に自動で次へ(正解は短め・不正解は正解を見せて長め)。
   useEffect(() => {
