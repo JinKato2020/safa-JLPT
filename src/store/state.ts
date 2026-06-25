@@ -3,8 +3,11 @@ import type { ItemState, Level } from '../engine/engine';
 
 export type ThemeMode = 'light' | 'dark' | 'auto';
 
+export type TargetExam = 'jlpt' | 'jft'; // 目標試験(JLPT / JFT-Basic)。未設定=jlpt。
+
 export interface Settings {
-  level: Level;            // 目標級
+  level: Level;            // 目標級(JLPTのみ。JFTはレベル選択なし=知識ベースはN4/A2)
+  targetExam?: TargetExam; // 目標試験プロファイル(未設定→jlpt)
   l1: string;              // 母語コード (vi/ne/id/my/en/zh)
   examDate: string | null; // 試験日 YYYY-MM-DD
   theme: ThemeMode;

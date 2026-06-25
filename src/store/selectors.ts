@@ -1,5 +1,6 @@
 // ストア状態 → JLPTエンジンへの橋渡し(派生値)。UI はこれを useMemo で呼ぶ。
 import { computeRing, computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
+import { examOf } from '../engine/examProfile';
 import { ringItemIdsFor, allItemIdsFor, META } from '../data';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
@@ -51,8 +52,20 @@ function masteryParts(state: AppState, now: number, cats: Category[], full = tru
   return { sum, n };
 }
 
-/** 総合準備度＋公式ゲート(総合点＋区分別基準点)による合格圏判定。 */
+/** 総合準備度＋公式ゲート(総合点＋区分別基準点)による合格圏判定。試験プロファイルで切替。 */
 export function readinessFor(state: AppState, now: number) {
+  const prof = examOf(state.settings.targetExam);
+  const evidenceTotal = Object.values(state.items).reduce((s, it) => s + it.evidence, 0);
+  // JFT-Basic: 単一試験・各区分足切りなし・合格は総合80%(=200/250)のみ。知識ベースは settings.level(JFT選択時=N4)。
+  if (prof.exam === 'jft') {
+    const sections: SectionInput[] = RING_CATS.map((cat) => {
+      const { sum, n } = masteryParts(state, now, [cat]);
+      return { key: cat, label: cat, pct: n === 0 ? null : Math.round((100 * sum) / n), minPct: prof.jftPassPct };
+    });
+    const all = masteryParts(state, now, RING_CATS);
+    const overallPct = all.n === 0 ? null : Math.round((100 * all.sum) / all.n);
+    return computeReadiness(sections, overallPct, prof.jftPassPct, evidenceTotal, false);
+  }
   const level = state.settings.level;
   const pm = META.passMarks[level];
   const sections: SectionInput[] = Object.entries(pm.sections).map(([key, sec]) => {
@@ -67,7 +80,6 @@ export function readinessFor(state: AppState, now: number) {
   const all = masteryParts(state, now, RING_CATS);
   const overallPct = all.n === 0 ? null : Math.round((100 * all.sum) / all.n);
   const overallMinPct = Math.round((100 * pm.overall) / pm.maxTotal);
-  const evidenceTotal = Object.values(state.items).reduce((s, it) => s + it.evidence, 0);
   return computeReadiness(sections, overallPct, overallMinPct, evidenceTotal);
 }
 

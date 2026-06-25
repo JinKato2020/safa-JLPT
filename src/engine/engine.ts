@@ -129,6 +129,7 @@ export function computeReadiness(
   overallPct: number | null,
   overallMinPct: number,
   evidenceTotal: number,
+  sectionGates = true, // JLPT=true(各区分足切り) / JFT=false(総合200のみ・区分は診断)
 ): Readiness {
   const results: SectionResult[] = sections.map((s) => ({
     ...s,
@@ -147,7 +148,7 @@ export function computeReadiness(
   const overallRatio = overallPct === null ? 0 : overallMinPct > 0 ? overallPct / overallMinPct : 1;
   const gateRatio = Math.min(overallRatio, ...results.map((r) => r.ratio));
   const allMeasured = overallPct !== null && results.every((r) => r.pct !== null);
-  const passing = allMeasured && overallPct >= overallMinPct && results.every((r) => r.pass);
+  const passing = allMeasured && overallPct >= overallMinPct && (!sectionGates || results.every((r) => r.pass));
 
   let weakest: SectionResult | null = null;
   for (const r of results) if (!weakest || r.ratio < weakest.ratio) weakest = r;

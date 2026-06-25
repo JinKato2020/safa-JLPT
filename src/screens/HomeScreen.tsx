@@ -10,6 +10,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState } from '../store/store';
 import { readinessFor, growthSeries, growthCurve, pacePrediction, nextBestAction, ringsFor, learnedNow, ringLearnedRatio, levelRank } from '../store/selectors';
 import { computeBadges } from '../store/badges';
+import { examOf, jftBand, jftScore } from '../engine/examProfile';
 import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../shared-design';
 import HeroGauge from '../components/HeroGauge';
 import RingGauge from '../components/RingGauge';
@@ -46,16 +47,23 @@ export default function HomeScreen() {
     () => computeBadges({ studyDays: state.streak.history.length, longestStreak: state.streak.longest, learned, score: readiness.score }),
     [state, learned, readiness.score],
   );
+  const prof = examOf(state.settings.targetExam);
+  const isJft = prof.exam === 'jft';
   const overall = readiness.overallPct ?? 0;
   const measured = overall > 0;
   const zone = !measured ? c.trace : readiness.passing ? c.green : readiness.gateRatio >= 0.8 ? c.amber : c.red;
+  const jb = isJft ? jftBand(measured ? overall : null) : null;
   const today = dayStr(now);
   const examDays = state.settings.examDate ? daysBetween(today, state.settings.examDate) : null;
   const series = growthSeries(state);
   const last = series[series.length - 1];
   const prev = series[series.length - 2];
   const todayGain = last && last.day === today ? last.learned - (prev?.learned ?? 0) : 0;
-  const status = !measured ? t('home.status_unmeasured') : readiness.passing ? t('home.status_passing') : t('home.status_borderline');
+  const status = !measured
+    ? t('home.status_unmeasured')
+    : isJft
+      ? t(jb!.key)
+      : readiness.passing ? t('home.status_passing') : t('home.status_borderline');
   const week = lastNDays(today, 7);
   const cal = lastNDays(today, 35);
   const curveMax = Math.max(1, ...curve.map((p) => p.learned));
@@ -95,15 +103,22 @@ export default function HomeScreen() {
         <View style={s.hero}>
           {/* 「N4 到達度」の横に学習メダル(入門/初級/中級/上級/仕上げ) */}
           <View style={s.ddRow}>
-            <Text style={s.dd}>{state.settings.level} {t('home.readiness')}</Text>
+            <Text style={s.dd}>{isJft ? 'JFT-Basic' : state.settings.level} {t('home.readiness')}</Text>
             <View style={s.medal}><Text style={s.medalTxt}>🎖 {rank.rank}</Text></View>
           </View>
-          <HeroGauge value={measured ? overall : null} color={zone} mark={readiness.overallMinPct} size={212} stroke={14}>
-            <Text style={s.score}>{measured ? overall : '—'}</Text>
-            <Text style={s.bandIn}>±{readiness.band}</Text>
+          <HeroGauge
+            value={measured ? overall : null}
+            color={zone}
+            mark={isJft ? undefined : readiness.overallMinPct}
+            marks={isJft ? prof.bandMarksPct : undefined}
+            size={212}
+            stroke={14}
+          >
+            <Text style={s.score}>{measured ? (isJft ? jftScore(overall) : overall) : '—'}</Text>
+            <Text style={s.bandIn}>{isJft ? `/ 250 ・ ±${jftScore(readiness.band)}` : `±${readiness.band}`}</Text>
           </HeroGauge>
           <Text style={[s.status, { color: zone }]}>{status}</Text>
-          <Text style={s.passHint}>{t('home.pass_hint', { n: readiness.overallMinPct })}</Text>
+          <Text style={s.passHint}>{isJft ? t('home.jft_pass_hint') : t('home.pass_hint', { n: readiness.overallMinPct })}</Text>
           <Text style={s.rank}>学習 {rank.pct}%{rank.nextName ? ` ・ 次「${rank.nextName}」まで ${rank.nextAt}%` : ' ・ 仕上げ到達'}</Text>
 
           {readiness.passing ? (
@@ -164,7 +179,7 @@ export default function HomeScreen() {
               const v = rings[cat];
               const rc = v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red;
               const rt = ringRatio[cat];
-              return <RingGauge key={cat} value={v} color={rc} label={t(RING_META[cat].label)} sub={`${rt.learned}/${rt.total}`} />;
+              return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub={`${rt.learned}/${rt.total}`} />;
             })}
           </View>
         </View>

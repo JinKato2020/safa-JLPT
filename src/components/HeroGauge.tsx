@@ -10,9 +10,9 @@ let _hg = 0;
 const TICKS = 60;
 
 export default function HeroGauge({
-  value, color, mark, size = 212, stroke = 14, children,
+  value, color, mark, marks, size = 212, stroke = 14, children,
 }: {
-  value: number | null; color: string; mark?: number; size?: number; stroke?: number; children?: ReactNode;
+  value: number | null; color: string; mark?: number; marks?: number[]; size?: number; stroke?: number; children?: ReactNode;
 }) {
   const c = useColors();
   const idRef = useRef<string | undefined>(undefined);
@@ -99,7 +99,21 @@ export default function HeroGauge({
           </>
         ) : null}
 
-        {/* 合格ライン刻み */}
+        {/* 帯の基準線(JFT=145/175/200の3本など。淡い線) */}
+        {(marks ?? []).map((mk, i) => {
+          const p = Math.max(0, Math.min(100, mk));
+          const a = ((-90 + 3.6 * p) * Math.PI) / 180;
+          return (
+            <Line
+              key={`mk-${i}`}
+              x1={mid + mri * Math.cos(a)} y1={mid + mri * Math.sin(a)}
+              x2={mid + mro * Math.cos(a)} y2={mid + mro * Math.sin(a)}
+              stroke={c.mute} strokeWidth={1.6} strokeLinecap="round" strokeOpacity={0.7}
+            />
+          );
+        })}
+
+        {/* 合格ライン刻み(単一) */}
         {mark != null ? (
           <Line
             x1={mid + mri * Math.cos(mA)} y1={mid + mri * Math.sin(mA)}
