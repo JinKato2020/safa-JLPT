@@ -197,14 +197,14 @@
   "test.band_hint_unmeasured": "Ikuti dulu untuk mengukur posisi kamu saat ini.",
   "test.band_label": "Rentang kepercayaan saat ini",
   "test.foot": "※ Mini = hanya pengetahuan bahasa sebagai gambaran. Full mock exam meningkatkan akurasi di semua section. Keduanya tidak menjamin kelulusan.",
-  "test.full_note": "Dilaksanakan dengan semua bagian dan jumlah soal yang sama seperti ujian sebenarnya (Kanji Kosakata + Tata Bahasa + Membaca + Mendengarkan). Dilengkapi dengan peta panas kelemahan.",
+  "test.full_note": "Dengan jumlah soal dan waktu yang sama persis seperti ujian sebenarnya, kami akan mendiagnosis tingkat kelulusan Anda secara realistis",
   "test.full_time": "Sekitar 60〜100 menit",
   "test.full_title": "Full Mock Exam",
   "test.history_cap": "Tingkat jawaban benar {n} sesi terakhir (kanan = terbaru · semakin tinggi semakin dekat lulus)",
   "test.history_latest": "Terbaru {n}%",
   "test.history_section": "Riwayat Mock Exam",
   "test.history_summary": "Total {n} sesi ・ Rata-rata {avg}%",
-  "test.mini_note": "Dikurangi menjadi 1/3 dari struktur ujian sebenarnya (semua bagian = Kanji Kosakata + Tata Bahasa + Membaca + Mendengarkan). Dilengkapi dengan peta panas kelemahan.",
+  "test.mini_note": "Dengan jumlah soal dan waktu 1/3 dari ujian sebenarnya, kami akan memberikan diagnosis sederhana tentang tingkat kelulusan Anda",
   "test.mini_time": "Sekitar 20〜35 menit",
   "test.mini_title": "Mini Mock Exam",
   "test.start_btn": "Mulai →",
@@ -263,5 +263,8 @@
   "touroverlay.today_label": "Rekomendasi Hari Ini",
   "touroverlay.today_sub": "Tata Bahasa ・ Section terendah (readiness 54%)",
   "profile.examJftHint": "JFT-Basic dilakukan secara berkala (CBT). Silakan pilih tanggal ujian yang telah Anda pesan di kalender.",
-  "profile.weekdays": "Min,Sen,Sel,Rab,Kam,Jum,Sab"
+  "profile.weekdays": "Min,Sen,Sel,Rab,Kam,Jum,Sab",
+  "onboarding.exam_label": "Pilih ujian yang akan diambil",
+  "onboarding.exam_jlpt_desc": "JLPT (N5〜N3)",
+  "onboarding.exam_jft_desc": "JFT-Basic (Pekerjaan & Keterampilan Khusus)"
 }

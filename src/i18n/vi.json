@@ -197,14 +197,14 @@
   "test.band_hint_unmeasured": "Hãy làm một bài để đo trình độ hiện tại.",
   "test.band_label": "Độ tin cậy hiện tại",
   "test.foot": "※ Mini = chỉ dành cho kiến thức ngôn ngữ. Đề thi thử đầy đủ bao gồm tất cả các phần và cho kết quả chính xác hơn. Không đảm bảo kết quả thi thật.",
-  "test.full_note": "Thực hiện với tất cả các phần và số lượng câu hỏi giống như kỳ thi thực tế (Kanji từ vựng + Ngữ pháp + Đọc hiểu + Nghe hiểu). Kèm theo bản đồ nhiệt điểm yếu.",
+  "test.full_note": "Chẩn đoán tỷ lệ đỗ của bạn một cách thực tế với cùng số lượng câu hỏi và thời gian như kỳ thi thực tế",
   "test.full_time": "Khoảng 60〜100 phút",
   "test.full_title": "Đề thi thử đầy đủ",
   "test.history_cap": "Tỷ lệ đúng {n} lần gần nhất (mới nhất bên phải・càng cao càng gần đậu)",
   "test.history_latest": "Mới nhất {n}%",
   "test.history_section": "Lịch sử thi thử",
   "test.history_summary": "Tổng {n} lần ・ Trung bình {avg}%",
-  "test.mini_note": "Thu nhỏ cấu trúc của kỳ thi thực tế xuống 1/3 (tất cả các phần = Kanji từ vựng + Ngữ pháp + Đọc hiểu + Nghe hiểu). Kèm theo bản đồ nhiệt điểm yếu.",
+  "test.mini_note": "Chẩn đoán tỷ lệ đỗ của bạn một cách đơn giản với 1/3 số lượng câu hỏi và thời gian của kỳ thi thực tế",
   "test.mini_time": "Khoảng 20〜35 phút",
   "test.mini_title": "Đề thi thử mini",
   "test.start_btn": "Bắt đầu →",
@@ -263,5 +263,8 @@
   "touroverlay.today_label": "Gợi ý hôm nay",
   "touroverlay.today_sub": "Ngữ pháp ・ Phần thấp nhất (mức độ sẵn sàng 54%)",
   "profile.examJftHint": "JFT-Basic được tổ chức thường xuyên (CBT). Vui lòng chọn ngày thi đã đặt trước trên lịch.",
-  "profile.weekdays": "CN,T2,T3,T4,T5,T6,T7"
+  "profile.weekdays": "CN,T2,T3,T4,T5,T6,T7",
+  "onboarding.exam_label": "Chọn kỳ thi bạn muốn tham gia",
+  "onboarding.exam_jlpt_desc": "Kỳ thi Năng lực Nhật ngữ (N5〜N3)",
+  "onboarding.exam_jft_desc": "Kỳ thi Cơ bản tiếng Nhật của Quỹ Giao lưu Quốc tế (Lao động & Kỹ năng đặc định)"
 }
