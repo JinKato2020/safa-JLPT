@@ -176,9 +176,14 @@ function buildersFor(item: StudyItem): Built[] {
   return out;
 }
 
-/** 1項目 → 4択問題。型ごとに複数形式(読み/意味/意味→語/穴埋め 等)から rng で選び多様化。誤答は同型プールから賢く。 */
-export function makeQuestion(item: StudyItem, pool: StudyItem[], rng: Rng = Math.random): Question {
-  const builders = buildersFor(item);
+/** 1項目 → 4択問題。型ごとに複数形式(読み/意味/意味→語/穴埋め 等)から rng で選び多様化。誤答は同型プールから賢く。
+ *  allowed 指定時はその形式に限定(模試=本番の大問形式のみに絞る用)。該当が無ければ全形式にフォールバック。 */
+export function makeQuestion(item: StudyItem, pool: StudyItem[], rng: Rng = Math.random, allowed?: QFormat[]): Question {
+  let builders = buildersFor(item);
+  if (allowed && allowed.length) {
+    const f = builders.filter((b) => allowed.includes(b.format));
+    if (f.length) builders = f;
+  }
   const b = builders[Math.floor(rng() * builders.length)] ?? builders[0];
   const wrongs = distractors(pool.map(b.valueOf).filter((v) => v !== b.prompt), b.answer, 3, rng);
   const choices = shuffle([b.answer, ...wrongs], rng);

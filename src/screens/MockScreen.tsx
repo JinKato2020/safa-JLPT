@@ -14,7 +14,8 @@ import { dayStr } from '../store/state';
 import { examWordsFor, allWordsFor, examReadingFor, examListeningFor } from '../data';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
-import { makeQuestion, sample, shuffleChoices, type ExampleHint } from '../quiz/quiz';
+import { makeQuestion, sample, shuffleChoices, type ExampleHint, type QFormat } from '../quiz/quiz';
+import { blueprintCounts } from '../data/examBlueprint';
 import type { StudyItem } from '../data';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -23,14 +24,14 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 type Sec = 'moji_goi' | 'bunpou' | 'dokkai' | 'choukai';
 type Styles = ReturnType<typeof makeStyles>;
 
-const MINI_SIZE = 20;
-const VOCAB_RATIO = 0.6;
+// 模試で出す形式=本番の大問に対応するもののみ(「意味は？」「意味→語」等の非本番形式は除外)。
+const MOJI_FORMATS: QFormat[] = ['reading', 'orthography', 'cloze', 'synonym']; // 漢字読み/表記/文脈規定/言い換え類義
+const BUNPOU_FORMATS: QFormat[] = ['usage', 'cloze']; // 文法形式の判断 等
 const SEC_ORDER: Sec[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 const SEC_LABEL: Record<Sec, string> = { moji_goi: 'mock.sec_moji_goi', bunpou: 'mock.sec_bunpou', dokkai: 'mock.sec_dokkai', choukai: 'mock.sec_choukai' };
 // JFTのセクション名(①文字と語彙②会話と表現③聴解④読解)。
 const JFT_SEC_LABEL: Record<Sec, string> = { moji_goi: 'exam.jft_cat_moji', bunpou: 'exam.jft_cat_hyougen', dokkai: 'mock.sec_dokkai', choukai: 'mock.sec_choukai' };
-// 1問あたりの持ち時間(秒)。本番のペースを縮約。フル模試(言語知識10+読解4+聴解4)=10×40+4×110+4×90=1200秒=20分。
-// ※変更時は i18n の test.full_time / touroverlay.test_full_time(分表示)も合わせること。
+// 1問あたりの持ち時間(秒)。総時間=Σ(区分の出題数×秒)で本番に概ね一致(例: N4フル=35×40+25×40+10×110+28×90≈100分)。
 const SEC_SECONDS: Record<Sec, number> = { moji_goi: 40, bunpou: 40, dokkai: 110, choukai: 90 };
 
 interface MockItem {
@@ -59,18 +60,16 @@ function pickFresh<T>(pool: T[], isSeen: (x: T) => boolean, n: number): T[] {
   if (fresh.length >= n) return fresh;
   return [...fresh, ...sample(pool.filter(isSeen), n - fresh.length)];
 }
+// 知識区分(moji_goi/bunpou)を区分ごとに n 問。形式は本番の大問に対応するものに限定。
 // levels: JLPT=[選択級] / JFT=['N5','N4'](A1+A2を難易度混在で出題)。
-function wordItems(levels: Level[], n: number, seen: Seen): MockItem[] {
-  const vocab = levels.flatMap((lv) => examWordsFor(lv, 'moji_goi')); // 模試専用(初見)
-  const gram = levels.flatMap((lv) => examWordsFor(lv, 'bunpou'));
-  const nV = Math.round(n * VOCAB_RATIO);
-  const picked: StudyItem[] = [
-    ...pickFresh(vocab, (i) => !!seen[i.id], nV),
-    ...pickFresh(gram, (i) => !!seen[i.id], n - nV),
-  ];
-  const all = levels.flatMap((lv) => [...allWordsFor(lv, 'moji_goi'), ...allWordsFor(lv, 'bunpou')]); // 誤答候補は全語から
+function knowledgeItems(levels: Level[], category: 'moji_goi' | 'bunpou', n: number, seen: Seen): MockItem[] {
+  if (n <= 0) return [];
+  const pool = levels.flatMap((lv) => examWordsFor(lv, category)); // 模試専用(初見優先)
+  const picked = pickFresh(pool, (i) => !!seen[i.id], n);
+  const all = levels.flatMap((lv) => allWordsFor(lv, category)); // 誤答候補は同区分から
+  const allowed = category === 'moji_goi' ? MOJI_FORMATS : BUNPOU_FORMATS;
   return sample(picked, picked.length).map((item) => {
-    const q = makeQuestion(item, all);
+    const q = makeQuestion(item, all, Math.random, allowed);
     return {
       kind: 'word', id: item.id, section: item.category as Sec,
       question: q.question, choices: q.choices, answerIndex: q.answerIndex, prompt: q.prompt, reading: q.reading, example: q.example,
@@ -103,13 +102,21 @@ function listeningItems(levels: Level[], nClips: number, seen: Seen): MockItem[]
 }
 // JFT模試は4セクションを必ず含む＝本番構成。出題はJFT公式順 ①文字と語彙②会話と表現③聴解④読解 にグループ化(セクション不可逆の本番再現)。
 const JFT_SEC_ORDER: Record<Sec, number> = { moji_goi: 0, bunpou: 1, choukai: 2, dokkai: 3 };
+// 比率駆動: フル=本番の区分別出題数(blueprint)、ミニ=round(÷3)。構成・割合はフルと同一。
 function buildExam(levels: Level[], full: boolean, jft: boolean, seen: Seen): MockItem[] {
+  const bp = blueprintCounts(levels[0], full, jft);
+  const knowledge = [
+    ...knowledgeItems(levels, 'moji_goi', bp.moji_goi, seen),
+    ...knowledgeItems(levels, 'bunpou', bp.bunpou, seen),
+  ];
+  const reading = readingItems(levels, bp.dokkai, seen);
+  const listening = listeningItems(levels, bp.choukai, seen);
   if (jft) {
-    const items = [...wordItems(levels, 12, seen), ...readingItems(levels, 4, seen), ...listeningItems(levels, 4, seen)];
-    return items.sort((a, b) => JFT_SEC_ORDER[a.section] - JFT_SEC_ORDER[b.section]); // セクション順(安定ソート=区分内は維持)
+    // JFT=公式セクション順(①文字語彙②会話表現③聴解④読解)
+    return [...knowledge, ...reading, ...listening].sort((a, b) => JFT_SEC_ORDER[a.section] - JFT_SEC_ORDER[b.section]);
   }
-  if (!full) return wordItems(levels, MINI_SIZE, seen);
-  return [...wordItems(levels, 10, seen), ...readingItems(levels, 2, seen), ...listeningItems(levels, 2, seen)];
+  // JLPT=本番ブロック順(①文字語彙 ②文法・読解 ③聴解)
+  return [...knowledge, ...reading, ...listening];
 }
 
 function mmss(ms: number): string {
