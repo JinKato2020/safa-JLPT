@@ -81,7 +81,6 @@ function distractors(values: string[], answer: string, n: number, rng: Rng): str
 }
 
 const FURI = /（[^）]*）/g;
-const KANA_RE = /[ぁ-ゟ]/;
 const noWave = (s: string) => (s || '').replace(/[～~]/g, '');
 
 /** 語彙の例文中の語を〔　〕に。例文が無い/語が含まれないなら null。 */
@@ -92,27 +91,27 @@ function vocabCloze(item: StudyItem): string | null {
   if (!ex || !ex.ja || !w || !ex.ja.includes(w)) return null;
   return ex.ja.replace(w, '〔　〕');
 }
-/** 文法の例文中の該当文法を〔　〕に(活用語尾も含める)。見つからなければ null。
- * ※穴埋めの出題可否は GRAMMAR_CLOZE_OK(LLM判定の適性ホワイトリスト)で別途ゲートする。 */
-function grammarCloze(item: StudyItem): string | null {
+/** 文法の例文中の該当文法を〔　〕に。空所化した語(=答え)も返す。条件を満たさなければ null。
+ * 厳格条件(誤穴埋めバグ対策):
+ *  ①不連続パターン(X〜Y で両側に語がある=「さえ〜ば」等)は単一空所にできない→不可。
+ *  ②文法語が例文中に【完全一致】で現れる場合のみ(活用ズレ「ようとする/ようとした」は前方一致で誤切り出しになるため不可)。
+ *  ③同じ語が例文中に2か所以上→曖昧→不可。
+ * ※答えは「実際に空所化した語」=表示と一致(item.pointの辞書形と例文の活用形のズレを排除)。 */
+function grammarCloze(item: StudyItem): { cloze: string; answer: string } | null {
   if (item.type !== 'grammar' || !item.exampleJa) return null;
   const plain = item.exampleJa.replace(FURI, '');
-  const core = item.point
+  const parts = item.point
     .replace(FURI, '')
     .split(/[〜～]/)
     .map((p) => p.replace(/\s/g, '').trim())
-    .filter(Boolean)[0] ?? '';
+    .filter(Boolean);
+  if (parts.length !== 1) return null; // ①不連続(X〜Y)は不可
+  const core = parts[0];
   if (core.length < 2) return null;
-  let at = -1;
-  let len = 0;
-  for (let L = core.length; L >= 2; L--) {
-    const i = plain.indexOf(core.slice(0, L));
-    if (i >= 0) { at = i; len = L; break; }
-  }
+  const at = plain.indexOf(core); // ②完全一致のみ
   if (at < 0) return null;
-  let end = at + len;
-  if (len < core.length) while (end < plain.length && KANA_RE.test(plain[end])) end++;
-  return `${plain.slice(0, at)}〔　〕${plain.slice(end)}`;
+  if (plain.indexOf(core, at + core.length) >= 0) return null; // ③複数出現→曖昧
+  return { cloze: `${plain.slice(0, at)}〔　〕${plain.slice(at + core.length)}`, answer: core };
 }
 /** 文法の例文中の該当文法の位置を返す(下線表示用・furigana除去)。見つからなければ null。 */
 function grammarHighlight(item: StudyItem): ExampleHint | null {
@@ -173,7 +172,7 @@ function buildersFor(item: StudyItem): Built[] {
     // 穴埋め(cloze)は「答えが一意に決まる」とLLM判定された文法のみ(GRAMMAR_CLOZE_OK)。曖昧なものは除外。
     if (GRAMMAR_CLOZE_OK.has(item.id)) {
       const cz = grammarCloze(item);
-      if (cz) out.push({ prompt: cz, question: '〔　〕に入るのは？', format: 'cloze', answer: item.point, valueOf: gPoint });
+      if (cz) out.push({ prompt: cz.cloze, question: '〔　〕に入るのは？', format: 'cloze', answer: cz.answer, valueOf: gPoint });
     }
   }
   return out;

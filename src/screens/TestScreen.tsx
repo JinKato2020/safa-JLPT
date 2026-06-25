@@ -118,7 +118,7 @@ const makeStyles = (c: ThemeColors) =>
     c: { flex: 1, backgroundColor: c.bg },
     body: { padding: spacing.lg, gap: spacing.sm },
     tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
-    title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, marginTop: spacing.xs },
+    title: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
     sub: { fontSize: ty.small, color: c.mute, lineHeight: 18 },
     bandCard: {
       backgroundColor: c.surface,
