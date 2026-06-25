@@ -179,7 +179,8 @@ export default function HomeScreen() {
               const v = rings[cat];
               const rc = v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red;
               const rt = ringRatio[cat];
-              return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub={`${rt.learned}/${rt.total}`} />;
+              const sub = rt.skill ? t('home.ring_attempts', { n: rt.attempted }) : `${rt.learned}/${rt.total}`;
+              return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub={sub} />;
             })}
           </View>
         </View>

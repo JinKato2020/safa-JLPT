@@ -66,6 +66,7 @@
   "home.pace_suffix": "until passing zone",
   "home.pass_hint": "Pass line {n}% (｜ mark)",
   "home.readiness": "Readiness",
+  "home.ring_attempts": "{n} attempted",
   "home.ring_caption": "Each section = study coverage × retention. ｜ is the pass line; scores range from 0–100.",
   "home.ring_title": "Readiness by Section",
   "home.section_badges": "Badges",

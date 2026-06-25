@@ -75,22 +75,6 @@ const SECTION_LABEL: Record<string, string> = {
   choukai: '聴解',
 };
 
-/** 指定カテゴリ群の カバー率×習得度 の素(Σ習得度 と 項目数)。 */
-// full=true(既定): 学習＋模試(allItemIds)=大リング/合格判定。 full=false: 学習のみ(ringItemIds)=ペース等。
-function masteryParts(state: AppState, now: number, cats: Category[], full = true): { sum: number; n: number } {
-  let sum = 0;
-  let n = 0;
-  for (const cat of cats) {
-    const ids = examItemIds(state, cat, full);
-    n += ids.length;
-    for (const id of ids) {
-      const st = state.items[id];
-      if (st) sum += effectiveP(st, now);
-    }
-  }
-  return { sum, n };
-}
-
 /** 総合準備度＋公式ゲート(総合点＋区分別基準点)による合格圏判定。試験プロファイルで切替。
  *  区分別 達成度は categoryPct(知識=カバー率×習得 / 読解聴解=難易度重み正答率)で統一。
  *  セクション/総合は区分の平均(各区分等価)。 */
@@ -126,17 +110,19 @@ export function learnedNow(state: AppState, now: number): number {
   return Object.values(state.items).filter((it) => effectiveP(it, now) >= 0.6).length;
 }
 
-/** 区分ごとの「覚えた/全語」(リング項目ベース。覚えた=減衰後 p>=0.6・リング%と整合)。 */
-export function ringLearnedRatio(state: AppState, now: number): Record<Category, { learned: number; total: number }> {
-  const out = {} as Record<Category, { learned: number; total: number }>;
+/** 区分ごとのリング下サブ。知識=「覚えた/全語」(カバー率) / 読解聴解(skill)=「解答数」(般化スキルは数えない)。 */
+export function ringLearnedRatio(state: AppState, now: number): Record<Category, { learned: number; total: number; attempted: number; skill: boolean }> {
+  const out = {} as Record<Category, { learned: number; total: number; attempted: number; skill: boolean }>;
   for (const c of RING_CATS) {
     const ids = examItemIds(state, c, false);
-    let learned = 0;
+    let learned = 0, attempted = 0;
     for (const id of ids) {
       const st = state.items[id];
-      if (st && effectiveP(st, now) >= 0.6) learned++;
+      if (!st) continue;
+      attempted++;
+      if (effectiveP(st, now) >= 0.6) learned++;
     }
-    out[c] = { learned, total: ids.length };
+    out[c] = { learned, total: ids.length, attempted, skill: SKILL_CATS.includes(c) };
   }
   return out;
 }
@@ -181,28 +167,25 @@ export interface PacePrediction {
   daysToPass: number | null; // 学習履歴が無いとnull
 }
 
-/** 「このペースであと◯日で合格圏」の目安。最長ゲート(最も足りない区分/総合)の残り÷ペース。 */
+/** 「このペースであと◯日で合格圏」の目安。perDay=語/日 と整合するよう、知識(語彙/文法)の
+ *  カバー率不足を「あと何語」で見積もる(読解/聴解は練習で別途上がる般化スキル=語数換算しない)。
+ *  目標カバー率=合格に要する総合%(JLPT=META由来 / JFT=80)。JLPT/JFT両対応。 */
 export function pacePrediction(state: AppState, now: number): PacePrediction {
   const r = readinessFor(state, now);
   if (r.passing) return { passing: true, perDay: 0, itemsNeeded: 0, daysToPass: 0 };
-  const pm = META.passMarks[state.settings.level];
+  const target = r.overallMinPct; // 合格に要する総合% を 知識カバー率の当面目標に
   let needed = 0;
-  for (const [key, sec] of Object.entries(pm.sections)) {
-    const { sum, n } = masteryParts(state, now, SECTION_CATS[key] ?? [], false);
-    if (n === 0) continue;
-    const pct = (100 * sum) / n;
-    const min = (100 * sec.min) / sec.max;
-    if (pct < min) needed = Math.max(needed, Math.ceil(((min - pct) / 100) * n));
-  }
-  const all = masteryParts(state, now, RING_CATS, false);
-  if (all.n > 0) {
-    const oPct = (100 * all.sum) / all.n;
-    const oMin = (100 * pm.overall) / pm.maxTotal;
-    if (oPct < oMin) needed = Math.max(needed, Math.ceil(((oMin - oPct) / 100) * all.n));
+  for (const cat of ['moji_goi', 'bunpou'] as Category[]) {
+    const ids = examItemIds(state, cat, false);
+    if (!ids.length) continue;
+    let sum = 0;
+    for (const id of ids) { const st = state.items[id]; if (st) sum += effectiveP(st, now); }
+    const pct = (100 * sum) / ids.length;
+    if (pct < target) needed += Math.ceil(((target - pct) / 100) * ids.length);
   }
   const studyDays = state.streak.history.length;
   const perDay = studyDays > 0 ? learnedNow(state, now) / studyDays : 0;
-  const daysToPass = perDay > 0 ? Math.ceil(needed / perDay) : null;
+  const daysToPass = needed > 0 && perDay > 0 ? Math.ceil(needed / perDay) : perDay > 0 ? 0 : null;
   return { passing: false, perDay: Math.round(perDay * 10) / 10, itemsNeeded: needed, daysToPass };
 }
 
