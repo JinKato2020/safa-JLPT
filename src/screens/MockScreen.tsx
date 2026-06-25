@@ -9,6 +9,7 @@ import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { useT } from '../i18n';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
+import { guessCorrect } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { examWordsFor, allWordsFor, examReadingFor, examListeningFor } from '../data';
 import { listeningSource } from '../data/listeningAudio';
@@ -224,6 +225,7 @@ export default function MockScreen() {
   if (phase === 'result' || !cur) {
     const correct = answers.filter((a) => a.correct).length;
     const pct = Math.round((100 * correct) / (answers.length || 1));
+    const pctTrue = Math.round(100 * guessCorrect(pct / 100)); // 当て推量補正後の実力(4択偶然25%を除去)
     const wrongDrill = answers.filter((a) => !a.correct && a.drillable);
     const elapsed = (endedAt ?? Date.now()) - startedAt;
     return (
@@ -237,6 +239,7 @@ export default function MockScreen() {
           </View>
           <View style={s.resultHero}>
             <Text style={s.resultPct}>{pct}%</Text>
+            <Text style={s.resultTrue}>{t('mock.result_true', { n: pctTrue })}</Text>
             <Text style={s.resultFrac}>{t('mock.result_frac', { n: correct, m: answers.length, t: mmss(elapsed) })}</Text>
             <Text style={s.resultCap}>{full ? t('mock.full_exam') : t('mock.mini_exam')}</Text>
             {timedOut ? <Text style={s.timeup}>{t('mock.timeup')}</Text> : null}
@@ -437,6 +440,7 @@ const makeStyles = (c: ThemeColors) =>
     // result
     resultHero: { backgroundColor: c.surface, borderRadius: radius.xl, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.xl, alignItems: 'center' },
     resultPct: { fontSize: 64, fontWeight: '800', color: c.ink, lineHeight: 70 },
+    resultTrue: { fontSize: ty.body, fontWeight: '800', color: c.blue, marginTop: 2 },
     resultFrac: { fontSize: ty.body, color: c.mute, marginTop: spacing.xs },
     resultCap: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs, letterSpacing: 1 },
     resultDelta: { fontSize: ty.small, color: c.mute, fontWeight: '700', marginTop: spacing.sm },

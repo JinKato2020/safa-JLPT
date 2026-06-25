@@ -132,6 +132,7 @@
   "mock.result_delta_up": "　▲ {n}%アップ",
   "mock.result_frac": "{n} / {m} 正解 ・ ⏱ {t}",
   "mock.result_label": "結果",
+  "mock.result_true": "実力 {n}%（当て推量補正後）",
   "mock.sec_bunpou": "文法",
   "mock.sec_choukai": "聴解",
   "mock.sec_dokkai": "読解",

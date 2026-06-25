@@ -132,6 +132,7 @@
   "mock.result_delta_up": "　▲ Up {n}%",
   "mock.result_frac": "{n} / {m} correct ・ ⏱ {t}",
   "mock.result_label": "Result",
+  "mock.result_true": "True {n}% (guess-corrected)",
   "mock.sec_bunpou": "Grammar",
   "mock.sec_choukai": "Listening",
   "mock.sec_dokkai": "Reading",

@@ -23,9 +23,14 @@ function skillWeight(id: string): number {
 
 // 区分の達成度%(0-100 / 未測定null)。妥当性のため評価モデルを区分で分ける:
 //  ・語彙/漢字/文法(離散知識) = カバー率×習得: 全項目のΣ習得度 / 全項目数(未習得=0で薄まる=「全部覚える」が目標)。
-//  ・読解/聴解(般化スキル)   = 難易度重み付き正答率: 受けた設問のみを母数に重み平均(何問解いたかは分母にしない)。
-//    少数回答の過大評価を防ぐため neutral prior(0.5)へ軽く収縮(K)。0回=未測定(null)。
+//    ※4択のまぐれはSRSの復習ループ(できるまで間隔反復)で自浄されるため当て推量補正はしない。
+//  ・読解/聴解(般化スキル)   = 難易度重み付き正答率 ＋ 当て推量補正: 受けた設問のみを母数に重み平均。
+//    4択は偶然25%当たるので g=0.25 を差し引き「真の実力」に直す(当てずっぽうレベル→0%)。
+//    少数回答の過大評価を防ぐため prior は偶然レベル(0.25)へ軽く収縮(K)。0回=未測定(null)。
+export const GUESS_RATE = 0.25; // 4択の偶然正解率
 const SKILL_CATS: Category[] = ['dokkai', 'choukai'];
+/** 当て推量補正: 観測正答率(0-1) → 真の実力(0-1)。(obs-g)/(1-g)。 */
+export const guessCorrect = (obs: number, g = GUESS_RATE): number => Math.max(0, Math.min(1, (obs - g) / (1 - g)));
 function categoryPct(state: AppState, now: number, cat: Category, full: boolean): number | null {
   const ids = examItemIds(state, cat, full);
   if (!SKILL_CATS.includes(cat)) {
@@ -35,7 +40,7 @@ function categoryPct(state: AppState, now: number, cat: Category, full: boolean)
     for (const id of ids) { const st = state.items[id]; if (st) sum += effectiveP(st, now); }
     return Math.round((100 * sum) / ids.length);
   }
-  // スキル: 受けた設問だけ・難易度重み・prior収縮。
+  // スキル: 受けた設問だけ・難易度重み・偶然レベルへprior収縮・当て推量補正。
   let wsum = 0, wp = 0, n = 0;
   for (const id of ids) {
     const st = state.items[id];
@@ -44,8 +49,9 @@ function categoryPct(state: AppState, now: number, cat: Category, full: boolean)
     wsum += w; wp += w * effectiveP(st, now); n++;
   }
   if (n === 0) return null;
-  const K = 2, P0 = 0.5; // neutral prior へ収縮(少数回答=過大評価しない・データ増で真値へ収束)
-  return Math.round((100 * (wp + K * P0)) / (wsum + K));
+  const K = 2;
+  const raw = (wp + K * GUESS_RATE) / (wsum + K); // 少数回答は偶然レベルへ収縮
+  return Math.round(100 * guessCorrect(raw));     // 当て推量補正(当てずっぽう=0%)
 }
 
 // 平均(null除外)。全null→null。
