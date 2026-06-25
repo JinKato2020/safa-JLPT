@@ -60,6 +60,25 @@ function avgPct(vals: (number | null)[]): number | null {
   return m.length ? Math.round(m.reduce((a, b) => a + b, 0) / m.length) : null;
 }
 
+// JFT模試の250点採点(掲示板§🧮): 区分能力aᵢ=当て推量補正した難易度重み正答率 → 区分点sᵢ=aᵢ×62.5 → 推定総合=Σsᵢ(0-250)。合格200(A2.2)。
+export interface JftMockScore { total: number; bandKey: string; pass: boolean; sectionScore: Record<Category, number>; }
+export function jftMockScore(answers: { id: string; section: Category; correct: boolean }[]): JftMockScore {
+  const sectionScore = {} as Record<Category, number>;
+  let total = 0;
+  for (const cat of RING_CATS) {
+    const as = answers.filter((a) => a.section === cat);
+    let wsum = 0, wc = 0;
+    for (const a of as) { const w = skillWeight(a.id); wsum += w; if (a.correct) wc += w; }
+    const acc = wsum > 0 ? wc / wsum : 0;
+    const s = guessCorrect(acc) * 62.5; // 当て推量補正→区分点(最大62.5)
+    sectionScore[cat] = Math.round(s);
+    total += s;
+  }
+  total = Math.round(total);
+  const bandKey = total >= 200 ? 'exam.jft_band_a22' : total >= 175 ? 'exam.jft_band_a21' : total >= 145 ? 'exam.jft_band_a1' : 'exam.jft_band_below';
+  return { total, bandKey, pass: total >= 200, sectionScore };
+}
+
 /** 4区分リング(0-100 / 未測定 null)。知識=カバー率×習得 / 読解聴解=難易度重み正答率(categoryPct)。 */
 export function ringsFor(state: AppState, now: number): Record<Category, number | null> {
   const out = {} as Record<Category, number | null>;

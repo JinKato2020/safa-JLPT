@@ -9,7 +9,7 @@ import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { useT } from '../i18n';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
-import { guessCorrect } from '../store/selectors';
+import { guessCorrect, jftMockScore } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { examWordsFor, allWordsFor, examReadingFor, examListeningFor } from '../data';
 import { listeningSource } from '../data/listeningAudio';
@@ -57,15 +57,16 @@ function pickFresh<T>(pool: T[], isSeen: (x: T) => boolean, n: number): T[] {
   if (fresh.length >= n) return fresh;
   return [...fresh, ...sample(pool.filter(isSeen), n - fresh.length)];
 }
-function wordItems(level: Level, n: number, seen: Seen): MockItem[] {
-  const vocab = examWordsFor(level, 'moji_goi'); // 模試専用(初見)
-  const gram = examWordsFor(level, 'bunpou');
+// levels: JLPT=[選択級] / JFT=['N5','N4'](A1+A2を難易度混在で出題)。
+function wordItems(levels: Level[], n: number, seen: Seen): MockItem[] {
+  const vocab = levels.flatMap((lv) => examWordsFor(lv, 'moji_goi')); // 模試専用(初見)
+  const gram = levels.flatMap((lv) => examWordsFor(lv, 'bunpou'));
   const nV = Math.round(n * VOCAB_RATIO);
   const picked: StudyItem[] = [
     ...pickFresh(vocab, (i) => !!seen[i.id], nV),
     ...pickFresh(gram, (i) => !!seen[i.id], n - nV),
   ];
-  const all = [...allWordsFor(level, 'moji_goi'), ...allWordsFor(level, 'bunpou')]; // 誤答候補は全語から
+  const all = levels.flatMap((lv) => [...allWordsFor(lv, 'moji_goi'), ...allWordsFor(lv, 'bunpou')]); // 誤答候補は全語から
   return sample(picked, picked.length).map((item) => {
     const q = makeQuestion(item, all);
     return {
@@ -74,8 +75,8 @@ function wordItems(level: Level, n: number, seen: Seen): MockItem[] {
     };
   });
 }
-function readingItems(level: Level, nPassages: number, seen: Seen): MockItem[] {
-  const picked = pickFresh(examReadingFor(level), (p) => p.questions.some((q) => !!seen[q.id]), nPassages);
+function readingItems(levels: Level[], nPassages: number, seen: Seen): MockItem[] {
+  const picked = pickFresh(levels.flatMap((lv) => examReadingFor(lv)), (p) => p.questions.some((q) => !!seen[q.id]), nPassages);
   return picked.flatMap((p) =>
     p.questions.map((q) => {
       const sc = shuffleChoices(q.choices, q.answerIndex);
@@ -86,8 +87,8 @@ function readingItems(level: Level, nPassages: number, seen: Seen): MockItem[] {
     }),
   );
 }
-function listeningItems(level: Level, nClips: number, seen: Seen): MockItem[] {
-  const picked = pickFresh(examListeningFor(level), (cl) => cl.questions.some((q) => !!seen[q.id]), nClips);
+function listeningItems(levels: Level[], nClips: number, seen: Seen): MockItem[] {
+  const picked = pickFresh(levels.flatMap((lv) => examListeningFor(lv)), (cl) => cl.questions.some((q) => !!seen[q.id]), nClips);
   return picked.flatMap((cl) =>
     cl.questions.map((q) => {
       const sc = shuffleChoices(q.choices, q.answerIndex);
@@ -98,9 +99,11 @@ function listeningItems(level: Level, nClips: number, seen: Seen): MockItem[] {
     }),
   );
 }
-function buildExam(level: Level, full: boolean, seen: Seen): MockItem[] {
-  if (!full) return wordItems(level, MINI_SIZE, seen);
-  return [...wordItems(level, 10, seen), ...readingItems(level, 2, seen), ...listeningItems(level, 2, seen)];
+// JFT模試は4セクションを必ず含む(言語知識＋会話表現＋読解＋聴解)＝本番構成。JLPTミニは語のみ。
+function buildExam(levels: Level[], full: boolean, jft: boolean, seen: Seen): MockItem[] {
+  if (jft) return [...wordItems(levels, 12, seen), ...readingItems(levels, 4, seen), ...listeningItems(levels, 4, seen)];
+  if (!full) return wordItems(levels, MINI_SIZE, seen);
+  return [...wordItems(levels, 10, seen), ...readingItems(levels, 2, seen), ...listeningItems(levels, 2, seen)];
 }
 
 function mmss(ms: number): string {
@@ -121,7 +124,8 @@ export default function MockScreen() {
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
 
-  const [exam] = useState<MockItem[]>(() => buildExam(state.settings.level, full, state.items));
+  const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
+  const [exam] = useState<MockItem[]>(() => buildExam(isJft ? ['N5', 'N4'] : [state.settings.level], full, isJft, state.items));
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -226,6 +230,7 @@ export default function MockScreen() {
     const correct = answers.filter((a) => a.correct).length;
     const pct = Math.round((100 * correct) / (answers.length || 1));
     const pctTrue = Math.round(100 * guessCorrect(pct / 100)); // 当て推量補正後の実力(4択偶然25%を除去)
+    const jftSc = isJft ? jftMockScore(answers.map((a) => ({ id: a.id, section: a.section, correct: a.correct }))) : null;
     const wrongDrill = answers.filter((a) => !a.correct && a.drillable);
     const elapsed = (endedAt ?? Date.now()) - startedAt;
     return (
@@ -238,8 +243,17 @@ export default function MockScreen() {
             <Text style={s.progress}>{t('mock.result_label')}</Text>
           </View>
           <View style={s.resultHero}>
-            <Text style={s.resultPct}>{pct}%</Text>
-            <Text style={s.resultTrue}>{t('mock.result_true', { n: pctTrue })}</Text>
+            {isJft && jftSc ? (
+              <>
+                <Text style={s.resultPct}>{jftSc.total}<Text style={s.resultMax}> / 250</Text></Text>
+                <Text style={[s.resultTrue, jftSc.pass && { color: c.green }]}>{t(jftSc.bandKey)}{jftSc.pass ? '' : ` ・ ${t('mock.jft_pass_at')}`}</Text>
+              </>
+            ) : (
+              <>
+                <Text style={s.resultPct}>{pct}%</Text>
+                <Text style={s.resultTrue}>{t('mock.result_true', { n: pctTrue })}</Text>
+              </>
+            )}
             <Text style={s.resultFrac}>{t('mock.result_frac', { n: correct, m: answers.length, t: mmss(elapsed) })}</Text>
             <Text style={s.resultCap}>{full ? t('mock.full_exam') : t('mock.mini_exam')}</Text>
             {timedOut ? <Text style={s.timeup}>{t('mock.timeup')}</Text> : null}
@@ -441,6 +455,7 @@ const makeStyles = (c: ThemeColors) =>
     resultHero: { backgroundColor: c.surface, borderRadius: radius.xl, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.xl, alignItems: 'center' },
     resultPct: { fontSize: 64, fontWeight: '800', color: c.ink, lineHeight: 70 },
     resultTrue: { fontSize: ty.body, fontWeight: '800', color: c.blue, marginTop: 2 },
+    resultMax: { fontSize: ty.h2, fontWeight: '800', color: c.faint },
     resultFrac: { fontSize: ty.body, color: c.mute, marginTop: spacing.xs },
     resultCap: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs, letterSpacing: 1 },
     resultDelta: { fontSize: ty.small, color: c.mute, fontWeight: '700', marginTop: spacing.sm },
