@@ -2,6 +2,7 @@
 import { computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
 import { examOf } from '../engine/examProfile';
 import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META } from '../data';
+import { JLPT_BLUEPRINT, JFT_BLUEPRINT } from '../data/examBlueprint';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
 
@@ -59,6 +60,12 @@ function avgPct(vals: (number | null)[]): number | null {
   const m = vals.filter((v): v is number => v !== null);
   return m.length ? Math.round(m.reduce((a, b) => a + b, 0) / m.length) : null;
 }
+// 加重平均(null除外・残りの重みで正規化)。本番配点/出題数で重み付けする用。
+function wAvgPct(pairs: [number | null, number][]): number | null {
+  let sw = 0, s = 0;
+  for (const [p, w] of pairs) if (p !== null && w > 0) { s += p * w; sw += w; }
+  return sw > 0 ? Math.round(s / sw) : null;
+}
 
 // JFT模試の250点採点(掲示板§🧮): 区分能力aᵢ=当て推量補正した難易度重み正答率 → 区分点sᵢ=aᵢ×62.5 → 推定総合=Σsᵢ(0-250)。合格200(A2.2)。
 export interface JftMockScore { total: number; bandKey: string; pass: boolean; sectionScore: Record<Category, number>; }
@@ -108,19 +115,25 @@ export function readinessFor(state: AppState, now: number) {
   const evidenceTotal = Object.values(state.items).reduce((s, it) => s + it.evidence, 0);
   const catP = {} as Record<Category, number | null>;
   for (const c of RING_CATS) catP[c] = categoryPct(state, now, c, true);
-  const overallPct = avgPct(RING_CATS.map((c) => catP[c]));
-  // JFT-Basic: 単一試験・各区分足切りなし・合格は総合80%(=200/250)のみ。知識ベース=N5+N4(A1+A2)統合。
+  // JFT-Basic: 単一試験・各区分足切りなし・合格は総合80%(=200/250)のみ。総合は区分の出題数で加重(各区分ほぼ均等)。
   if (prof.exam === 'jft') {
+    const overallPct = wAvgPct(RING_CATS.map((c) => [catP[c], JFT_BLUEPRINT[c] ?? 1]));
     const sections: SectionInput[] = RING_CATS.map((cat) => ({ key: cat, label: cat, pct: catP[cat], minPct: prof.jftPassPct }));
     return computeReadiness(sections, overallPct, prof.jftPassPct, evidenceTotal, false);
   }
+  // JLPT: 区分→セクションは本番の出題数で加重、総合はセクション配点(sec.max=言語知識読解120/聴解60 等)で加重。
+  //   ＝得意分野が実際の配点どおりに合格達成度へ反映される。
   const pm = META.passMarks[state.settings.level];
-  const sections: SectionInput[] = Object.entries(pm.sections).map(([key, sec]) => ({
+  const bp = JLPT_BLUEPRINT[state.settings.level] ?? JLPT_BLUEPRINT.N4;
+  const secEntries = Object.entries(pm.sections).map(([key, sec]) => ({
     key,
     label: SECTION_LABEL[key] ?? key,
-    pct: avgPct((SECTION_CATS[key] ?? []).map((c) => catP[c])),
+    pct: wAvgPct((SECTION_CATS[key] ?? []).map((c) => [catP[c], bp[c] ?? 1])),
     minPct: Math.round((100 * sec.min) / sec.max),
+    max: sec.max,
   }));
+  const overallPct = wAvgPct(secEntries.map((s) => [s.pct, s.max]));
+  const sections: SectionInput[] = secEntries.map(({ max, ...s }) => s);
   const overallMinPct = Math.round((100 * pm.overall) / pm.maxTotal);
   return computeReadiness(sections, overallPct, overallMinPct, evidenceTotal);
 }
