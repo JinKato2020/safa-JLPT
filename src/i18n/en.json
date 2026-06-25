@@ -126,6 +126,8 @@
   "mock.mini_exam": "Language Knowledge Mini Mock",
   "mock.next": "Next →",
   "mock.play_audio": "▶ Play Audio",
+  "mock.play_jft": "🔊 Play ({n} left)",
+  "mock.play_used": "Played (2×)",
   "mock.playing": "■ Playing…",
   "mock.result_delta_base": "Last {n}% → This time {m}%",
   "mock.result_delta_down": "　▼ Down {n}%",

@@ -27,6 +27,8 @@ const MINI_SIZE = 20;
 const VOCAB_RATIO = 0.6;
 const SEC_ORDER: Sec[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 const SEC_LABEL: Record<Sec, string> = { moji_goi: 'mock.sec_moji_goi', bunpou: 'mock.sec_bunpou', dokkai: 'mock.sec_dokkai', choukai: 'mock.sec_choukai' };
+// JFTのセクション名(①文字と語彙②会話と表現③聴解④読解)。
+const JFT_SEC_LABEL: Record<Sec, string> = { moji_goi: 'exam.jft_cat_moji', bunpou: 'exam.jft_cat_hyougen', dokkai: 'mock.sec_dokkai', choukai: 'mock.sec_choukai' };
 // 1問あたりの持ち時間(秒)。本番のペースを縮約。フル模試(言語知識10+読解4+聴解4)=10×40+4×110+4×90=1200秒=20分。
 // ※変更時は i18n の test.full_time / touroverlay.test_full_time(分表示)も合わせること。
 const SEC_SECONDS: Record<Sec, number> = { moji_goi: 40, bunpou: 40, dokkai: 110, choukai: 90 };
@@ -99,9 +101,13 @@ function listeningItems(levels: Level[], nClips: number, seen: Seen): MockItem[]
     }),
   );
 }
-// JFT模試は4セクションを必ず含む(言語知識＋会話表現＋読解＋聴解)＝本番構成。JLPTミニは語のみ。
+// JFT模試は4セクションを必ず含む＝本番構成。出題はJFT公式順 ①文字と語彙②会話と表現③聴解④読解 にグループ化(セクション不可逆の本番再現)。
+const JFT_SEC_ORDER: Record<Sec, number> = { moji_goi: 0, bunpou: 1, choukai: 2, dokkai: 3 };
 function buildExam(levels: Level[], full: boolean, jft: boolean, seen: Seen): MockItem[] {
-  if (jft) return [...wordItems(levels, 12, seen), ...readingItems(levels, 4, seen), ...listeningItems(levels, 4, seen)];
+  if (jft) {
+    const items = [...wordItems(levels, 12, seen), ...readingItems(levels, 4, seen), ...listeningItems(levels, 4, seen)];
+    return items.sort((a, b) => JFT_SEC_ORDER[a.section] - JFT_SEC_ORDER[b.section]); // セクション順(安定ソート=区分内は維持)
+  }
   if (!full) return wordItems(levels, MINI_SIZE, seen);
   return [...wordItems(levels, 10, seen), ...readingItems(levels, 2, seen), ...listeningItems(levels, 2, seen)];
 }
@@ -133,6 +139,7 @@ export default function MockScreen() {
   const [endedAt, setEndedAt] = useState<number | null>(null);
   const [phase, setPhase] = useState<'exam' | 'result'>('exam');
   const [playing, setPlaying] = useState(false);
+  const [playCount, setPlayCount] = useState(0); // 現在の聴解問題の再生回数(JFTは2回まで)
   const [reveal2, setReveal2] = useState(false); // 解答後のスクリプト/解説
   const soundRef = useRef<Audio.Sound | null>(null);
   const recordedRef = useRef(false);
@@ -162,6 +169,7 @@ export default function MockScreen() {
   }, [phase]);
 
   const cur = exam[idx];
+  useEffect(() => { setPlayCount(0); }, [idx]); // 問題が変わったら再生回数リセット
   const byCat = useMemo(() => {
     const out: Record<string, { c: number; t: number }> = {};
     for (const a of answers) { (out[a.section] ||= { c: 0, t: 0 }).t++; if (a.correct) out[a.section].c++; }
@@ -185,8 +193,10 @@ export default function MockScreen() {
     if (soundRef.current) { await soundRef.current.unloadAsync().catch(() => undefined); soundRef.current = null; }
     setPlaying(false);
   };
+  const JFT_LISTEN_MAX = 2; // JFT本番=聴解は2回まで再生
   const play = async () => {
     if (!cur || !cur.clipId) return;
+    if (isJft && cur.kind === 'listening' && playCount >= JFT_LISTEN_MAX) return; // 2回制限
     const src = await listeningSource(cur.clipId);
     if (!src) return;
     await stopSound();
@@ -194,6 +204,7 @@ export default function MockScreen() {
       const { sound } = await Audio.Sound.createAsync(src, { shouldPlay: true });
       soundRef.current = sound;
       setPlaying(true);
+      setPlayCount((n) => n + 1);
       sound.setOnPlaybackStatusUpdate((st: AVPlaybackStatus) => { if (st.isLoaded && st.didJustFinish) setPlaying(false); });
     } catch { setPlaying(false); }
   };
@@ -324,7 +335,7 @@ export default function MockScreen() {
           <Text style={[s.timer, remainingMs <= 60000 ? s.timerLow : null]}>⏱ {mmss(remainingMs)}</Text>
           <Text style={s.progress}>{idx + 1} / {exam.length}</Text>
         </View>
-        <Text style={s.secTag}>{t(SEC_LABEL[cur.section])}</Text>
+        <Text style={s.secTag}>{t((isJft ? JFT_SEC_LABEL : SEC_LABEL)[cur.section])}</Text>
 
         {cur.kind === 'word' ? (
           <View style={s.promptCard}>
@@ -348,9 +359,16 @@ export default function MockScreen() {
         ) : (
           <View style={s.passageCard}>
             <Text style={s.passTitle}>{cur.title}</Text>
-            <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
-              <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('mock.playing') : t('mock.play_audio')}</Text>
-            </Pressable>
+            {(() => {
+              const used = isJft && playCount >= JFT_LISTEN_MAX;
+              return (
+                <Pressable style={[s.playBtn, playing && s.playBtnOn, used && !playing && s.playBtnUsed]} onPress={play} disabled={used && !playing}>
+                  <Text style={[s.playTxt, playing && s.playTxtOn]}>
+                    {playing ? t('mock.playing') : isJft ? (used ? t('mock.play_used') : t('mock.play_jft', { n: JFT_LISTEN_MAX - playCount })) : t('mock.play_audio')}
+                  </Text>
+                </Pressable>
+              );
+            })()}
             {reveal2 ? <Text style={s.passBody}>{formatScript(cur.script ?? '')}</Text> : null}
           </View>
         )}
@@ -432,6 +450,7 @@ const makeStyles = (c: ThemeColors) =>
     passBody: { fontSize: ty.body, color: c.ink2, lineHeight: 26 },
     qtextBig: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
     playBtn: { backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.choukai, paddingVertical: spacing.md, alignItems: 'center' },
+    playBtnUsed: { opacity: 0.45, borderColor: c.line },
     playBtnOn: { backgroundColor: c.okBg, borderColor: c.green },
     playTxt: { fontSize: ty.body, fontWeight: '800', color: c.choukai },
     playTxtOn: { color: c.green },

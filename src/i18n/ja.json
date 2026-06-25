@@ -126,6 +126,8 @@
   "mock.mini_exam": "言語知識ミニ模試",
   "mock.next": "次へ →",
   "mock.play_audio": "▶ 音声を聞く",
+  "mock.play_jft": "🔊 再生（あと{n}回）",
+  "mock.play_used": "再生済み（2回）",
   "mock.playing": "■ 再生中…",
   "mock.result_delta_base": "前回 {n}% → 今回 {m}%",
   "mock.result_delta_down": "　▼ {n}%ダウン",
