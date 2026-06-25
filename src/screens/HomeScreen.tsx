@@ -61,6 +61,29 @@ export default function HomeScreen() {
   const curveMax = Math.max(1, ...curve.map((p) => p.learned));
   const hasGrowth = (state.growth?.length ?? 0) > 0;
 
+  // AIコーチ分析(端末内・非送信): 到達度/弱点/ペース/継続から評価と助言を組み立てる。
+  const ai = useMemo(() => {
+    const lines: { k: string; p?: Record<string, string | number> }[] = [];
+    let hl: string;
+    if (!measured) {
+      hl = 'home.ai_hl_start';
+      lines.push({ k: 'home.ai_start_body' });
+    } else {
+      hl = readiness.passing ? 'home.ai_hl_pass' : readiness.gateRatio >= 0.7 ? 'home.ai_hl_close' : 'home.ai_hl_build';
+      lines.push({ k: 'home.ai_status', p: { score: overall, min: readiness.overallMinPct } });
+      if (!readiness.passing && nba) {
+        const wp = rings[nba.category];
+        lines.push({ k: 'home.ai_weak', p: { cat: nba.label, pct: wp === null ? '—' : `${wp}` } });
+      }
+      if (readiness.passing) lines.push({ k: 'home.ai_keep' });
+      else if (pace.daysToPass != null) lines.push({ k: 'home.ai_pace', p: { days: pace.daysToPass, perDay: pace.perDay } });
+      else lines.push({ k: 'home.ai_pace_none' });
+      if (!readiness.passing && nba) lines.push({ k: 'home.ai_advice', p: { action: nba.label } });
+    }
+    lines.push(state.streak.current > 0 ? { k: 'home.ai_streak', p: { n: state.streak.current } } : { k: 'home.ai_streak0' });
+    return { hl, lines };
+  }, [measured, readiness, nba, rings, pace, state.streak.current, overall]);
+
   const goAction = () => (readiness.passing || !nba ? nav.navigate('Quiz', { category: 'all' }) : nav.navigate(nba.route));
 
   return (
@@ -70,14 +93,18 @@ export default function HomeScreen() {
 
         {/* ヒーロー: 到達度ゲージ＋ペース＋統計 */}
         <View style={s.hero}>
-          <Text style={s.dd}>{state.settings.level} {t('home.readiness')}</Text>
+          {/* 「N4 到達度」の横に学習メダル(入門/初級/中級/上級/仕上げ) */}
+          <View style={s.ddRow}>
+            <Text style={s.dd}>{state.settings.level} {t('home.readiness')}</Text>
+            <View style={s.medal}><Text style={s.medalTxt}>🎖 {rank.rank}</Text></View>
+          </View>
           <HeroGauge value={measured ? overall : null} color={zone} mark={readiness.overallMinPct} size={212} stroke={14}>
             <Text style={s.score}>{measured ? overall : '—'}</Text>
             <Text style={s.bandIn}>±{readiness.band}</Text>
           </HeroGauge>
           <Text style={[s.status, { color: zone }]}>{status}</Text>
           <Text style={s.passHint}>{t('home.pass_hint', { n: readiness.overallMinPct })}</Text>
-          <Text style={s.rank}>🎖 {state.settings.level}・{rank.rank}（学習 {rank.pct}%{rank.nextName ? `／次 ${rank.nextName} ${rank.nextAt}%` : ''}）</Text>
+          <Text style={s.rank}>学習 {rank.pct}%{rank.nextName ? ` ・ 次「${rank.nextName}」まで ${rank.nextAt}%` : ' ・ 仕上げ到達'}</Text>
 
           {readiness.passing ? (
             <Text style={s.paceOk}>🎉 {t('home.pace_ok')}</Text>
@@ -109,6 +136,16 @@ export default function HomeScreen() {
             </View>
           </View>
           <Text style={s.statsCap}>{t('home.stats_caption')}</Text>
+        </View>
+
+        {/* AIコーチ分析(端末内・あなたの学習データから自動評価) */}
+        <View style={s.aiCard}>
+          <Text style={s.aiTitle}>{t('home.ai_title')}</Text>
+          <Text style={s.aiHl}>{t(ai.hl)}</Text>
+          {ai.lines.map((ln, i) => (
+            <Text key={i} style={s.aiLine}>・{t(ln.k, ln.p)}</Text>
+          ))}
+          <Text style={s.aiCap}>{t('home.ai_caption')}</Text>
         </View>
 
         {/* 成長 */}
@@ -200,7 +237,10 @@ const makeStyles = (c: ThemeColors) =>
       shadowOffset: { width: 0, height: 8 },
       elevation: 2,
     },
-    dd: { fontSize: ty.body, color: c.ink2, letterSpacing: 0.5, fontWeight: '800', marginBottom: spacing.md },
+    ddRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.md },
+    dd: { fontSize: ty.body, color: c.ink2, letterSpacing: 0.5, fontWeight: '800' },
+    medal: { backgroundColor: c.blueLight, borderRadius: radius.pill, paddingHorizontal: spacing.sm, paddingVertical: 2, borderWidth: 1, borderColor: c.blue },
+    medalTxt: { fontSize: ty.small, fontWeight: '800', color: c.blueDark },
     score: { fontSize: 66, fontWeight: '800', color: c.ink, lineHeight: 70 },
     bandIn: { fontSize: ty.small, color: c.faint, fontWeight: '600', marginTop: 2 },
     status: { fontSize: ty.h2, fontWeight: '800', marginTop: spacing.md },
@@ -225,6 +265,13 @@ const makeStyles = (c: ThemeColors) =>
     statLbl: { fontSize: ty.tiny, color: c.mute, letterSpacing: 0.5 },
     statSep: { width: 1, backgroundColor: c.line, marginVertical: 2 },
     statsCap: { fontSize: 10, color: c.faint, marginTop: spacing.sm, textAlign: 'center' },
+
+    // AIコーチ分析カード
+    aiCard: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, borderLeftWidth: 4, borderLeftColor: c.blue, padding: spacing.md, gap: 2 },
+    aiTitle: { fontSize: ty.small, fontWeight: '800', color: c.blueDark, letterSpacing: 0.3 },
+    aiHl: { fontSize: ty.body, fontWeight: '800', color: c.ink, marginTop: 2, marginBottom: 2 },
+    aiLine: { fontSize: ty.small, color: c.ink2, lineHeight: 21 },
+    aiCap: { fontSize: 10, color: c.faint, marginTop: 5 },
 
     sectionH: { fontSize: ty.small, fontWeight: '800', color: c.ink2, marginTop: spacing.xs },
     card: {
