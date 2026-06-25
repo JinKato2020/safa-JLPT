@@ -96,28 +96,29 @@ function supportsFormat(item: StudyItem, fmt: QFormat): boolean {
 // バンク大問(用法/組み立て/文章の文法)がバンク不足のとき、同区分の派生形式で員数を埋める。
 const BANK_FALLBACK: Record<string, Daimon> = { usage: 'context', order: 'grammar_form', passage_grammar: 'grammar_form' };
 
-// 大問1つを count 問。派生形式は makeQuestion を該当形式に強制、バンク大問は KNOWLEDGE_BANK から(不足は派生で補充)。
+// 大問1つを count 問。バンク(KNOWLEDGE_BANK)を優先し、不足は派生形式(makeQuestionを該当形式に強制)で補充。
+// 用法/組み立て/文章=バンク専用、文法形式/文脈規定=バンク+派生で厚く、漢字読み/表記/言い換え=派生のみ。
 function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen: Seen): MockItem[] {
   if (count <= 0) return [];
   const allowed = DAIMON_ALLOWED[daimon];
   const sec = DAIMON_SEC[daimon];
-  if (allowed === '@bank') {
-    const pool = KNOWLEDGE_BANK.filter((b) => levels.includes(b.level as Level) && b.daimon === daimon);
-    const out: MockItem[] = sample(pool, count).map((b, k) => {
-      const sc = shuffleChoices(b.choices, 0);
-      return { kind: 'word', id: `kb-${daimon}-${b.level}-${k}-${b.question.length}`, section: sec, daimon, question: b.question, choices: sc.choices, answerIndex: sc.answerIndex, prompt: b.stem || undefined, explain: b.explain };
-    });
-    if (out.length < count) out.push(...knowledgeForDaimon(levels, BANK_FALLBACK[daimon], count - out.length, seen));
-    return out.slice(0, count);
-  }
+  const bankPool = KNOWLEDGE_BANK.filter((b) => levels.includes(b.level as Level) && b.daimon === daimon);
+  const out: MockItem[] = sample(bankPool, count).map((b, k) => {
+    const sc = shuffleChoices(b.choices, 0);
+    return { kind: 'word', id: `kb-${daimon}-${b.level}-${k}-${b.question.length}`, section: sec, daimon, question: b.question, choices: sc.choices, answerIndex: sc.answerIndex, prompt: b.stem || undefined, explain: b.explain };
+  });
+  if (out.length >= count) return out.slice(0, count);
+  const need = count - out.length;
+  if (allowed === '@bank') { out.push(...knowledgeForDaimon(levels, BANK_FALLBACK[daimon], need, seen)); return out.slice(0, count); }
   const fmts = allowed as QFormat[];
   const pool = levels.flatMap((lv) => examWordsFor(lv, sec)).filter((it) => fmts.some((f) => supportsFormat(it, f)));
   const all = levels.flatMap((lv) => allWordsFor(lv, sec));
-  const picked = pickFresh(pool, (i) => !!seen[i.id], count);
-  return picked.map((item) => {
+  const picked = pickFresh(pool, (i) => !!seen[i.id], need);
+  out.push(...picked.map((item) => {
     const q = makeQuestion(item, all, Math.random, fmts);
-    return { kind: 'word', id: item.id, section: item.category as Sec, daimon, question: q.question, choices: q.choices, answerIndex: q.answerIndex, prompt: q.prompt, reading: q.reading, example: q.example };
-  });
+    return { kind: 'word' as const, id: item.id, section: item.category as Sec, daimon, question: q.question, choices: q.choices, answerIndex: q.answerIndex, prompt: q.prompt, reading: q.reading, example: q.example };
+  }));
+  return out.slice(0, count);
 }
 function readingItems(levels: Level[], nPassages: number, seen: Seen): MockItem[] {
   const picked = pickFresh(levels.flatMap((lv) => examReadingFor(lv)), (p) => p.questions.some((q) => !!seen[q.id]), nPassages);
