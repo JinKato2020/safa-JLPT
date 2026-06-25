@@ -13,6 +13,7 @@ import vocabClozeOkJson from './vocabClozeOk.json';
 import vocabSynonymsJson from './vocabSynonyms.json';
 import dictExtJson from './dictExt.json';
 import vocabFreqJson from './vocabFreq.json';
+import jftBandsJson from './jftBands.json';
 import vocabFurigana from './vocabFurigana.json';
 import kanjiExamples from './kanjiExamples.json';
 import kanjiExamplesMulti from './kanjiExamplesMulti.json';
@@ -229,3 +230,17 @@ export function allItemIdsFor(level: Level, category: Category): string[] {
   if (category === 'dokkai') return READING.filter((i) => i.level === level).flatMap((r) => r.questions.map((q) => q.id));
   return LISTENING.filter((i) => i.level === level).flatMap((l) => l.questions.map((q) => q.id));
 }
+
+// --- JFT-Basic 知識スコープ = A1+A2 = N5+N4(統合・レベル選択なし)。N3は上積み(介護)で範囲外。 ---
+const JFT_LEVELS: Level[] = ['N5', 'N4'];
+/** JFT学習集合(小リング分母) = N5+N4 の学習項目。 */
+export function jftItemIdsFor(category: Category): string[] {
+  return JFT_LEVELS.flatMap((lv) => ringItemIdsFor(lv, category));
+}
+/** JFT到達度の分母 = N5+N4 の学習＋模試。 */
+export function allJftItemIdsFor(category: Category): string[] {
+  return JFT_LEVELS.flatMap((lv) => allItemIdsFor(lv, category));
+}
+
+/** JFT難易度帯タグ(itemId → A1/A2.1/A2.2)。level＋頻度から自作(クリーン・いろどり非使用)。 */
+export const JFT_BANDS = jftBandsJson as Record<string, 'A1' | 'A2.1' | 'A2.2'>;

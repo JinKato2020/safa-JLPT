@@ -1,18 +1,24 @@
 // ストア状態 → JLPTエンジンへの橋渡し(派生値)。UI はこれを useMemo で呼ぶ。
 import { computeRing, computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
 import { examOf } from '../engine/examProfile';
-import { ringItemIdsFor, allItemIdsFor, META } from '../data';
+import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, META } from '../data';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
 
 const RING_CATS: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 
+// 試験プロファイルに応じた項目id集合。JLPT=選択級 / JFT=N5+N4(A1+A2)統合スコープ。
+// full=true: 学習＋模試(到達度/合格分母) / false: 学習集合(小リング分母)。
+function examItemIds(state: AppState, category: Category, full: boolean): string[] {
+  if ((state.settings.targetExam ?? 'jlpt') === 'jft') return full ? allJftItemIdsFor(category) : jftItemIdsFor(category);
+  return full ? allItemIdsFor(state.settings.level, category) : ringItemIdsFor(state.settings.level, category);
+}
+
 /** 4区分リング(0-100 / 未測定 null)を現在の級・習得状態から算出。 */
 export function ringsFor(state: AppState, now: number): Record<Category, number | null> {
-  const level = state.settings.level;
   const out = {} as Record<Category, number | null>;
   for (const c of RING_CATS) {
-    const ids = ringItemIdsFor(level, c);
+    const ids = examItemIds(state, c, false);
     const states = ids
       .map((id) => state.items[id])
       .filter((s): s is NonNullable<typeof s> => Boolean(s));
@@ -38,11 +44,10 @@ const SECTION_LABEL: Record<string, string> = {
 /** 指定カテゴリ群の カバー率×習得度 の素(Σ習得度 と 項目数)。 */
 // full=true(既定): 学習＋模試(allItemIds)=大リング/合格判定。 full=false: 学習のみ(ringItemIds)=ペース等。
 function masteryParts(state: AppState, now: number, cats: Category[], full = true): { sum: number; n: number } {
-  const level = state.settings.level;
   let sum = 0;
   let n = 0;
   for (const cat of cats) {
-    const ids = full ? allItemIdsFor(level, cat) : ringItemIdsFor(level, cat);
+    const ids = examItemIds(state, cat, full);
     n += ids.length;
     for (const id of ids) {
       const st = state.items[id];
@@ -56,7 +61,7 @@ function masteryParts(state: AppState, now: number, cats: Category[], full = tru
 export function readinessFor(state: AppState, now: number) {
   const prof = examOf(state.settings.targetExam);
   const evidenceTotal = Object.values(state.items).reduce((s, it) => s + it.evidence, 0);
-  // JFT-Basic: 単一試験・各区分足切りなし・合格は総合80%(=200/250)のみ。知識ベースは settings.level(JFT選択時=N4)。
+  // JFT-Basic: 単一試験・各区分足切りなし・合格は総合80%(=200/250)のみ。知識ベース=examItemIdsでN5+N4(A1+A2)統合。
   if (prof.exam === 'jft') {
     const sections: SectionInput[] = RING_CATS.map((cat) => {
       const { sum, n } = masteryParts(state, now, [cat]);
@@ -95,10 +100,9 @@ export function learnedNow(state: AppState, now: number): number {
 
 /** 区分ごとの「覚えた/全語」(リング項目ベース。覚えた=減衰後 p>=0.6・リング%と整合)。 */
 export function ringLearnedRatio(state: AppState, now: number): Record<Category, { learned: number; total: number }> {
-  const level = state.settings.level;
   const out = {} as Record<Category, { learned: number; total: number }>;
   for (const c of RING_CATS) {
-    const ids = ringItemIdsFor(level, c);
+    const ids = examItemIds(state, c, false);
     let learned = 0;
     for (const id of ids) {
       const st = state.items[id];
@@ -213,11 +217,10 @@ const RANKS = [
 ];
 /** 級の学習ランク(習得率ベース)。 */
 export function levelRank(state: AppState, now: number) {
-  const level = state.settings.level;
   let learned = 0;
   let total = 0;
   for (const c of RING_CATS) {
-    const ids = ringItemIdsFor(level, c);
+    const ids = examItemIds(state, c, false);
     total += ids.length;
     for (const id of ids) { const st = state.items[id]; if (st && effectiveP(st, now) >= 0.6) learned++; }
   }
