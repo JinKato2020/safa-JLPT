@@ -51,6 +51,9 @@ export default function HomeScreen() {
   const isJft = prof.exam === 'jft';
   const overall = readiness.overallPct ?? 0;
   const measured = overall > 0;
+  // ゲージ表示値: JLPT=最弱リンクscore(足切りを反映=弱い区分が総合を押し下げる)/JFT=総合(区分足切り無し)。
+  // ※overallPct(配点平均)だと、例えば言語知識2%でも読解聴解が高いと56等と高く見え合格圏に誤認するため。
+  const gaugeVal = isJft ? overall : readiness.score;
   const zone = !measured ? c.trace : readiness.passing ? c.green : readiness.gateRatio >= 0.8 ? c.amber : c.red;
   const jb = isJft ? jftBand(measured ? overall : null) : null;
   const today = dayStr(now);
@@ -107,14 +110,14 @@ export default function HomeScreen() {
             <View style={s.medal}><Text style={s.medalTxt}>🎖 {rank.rank}</Text></View>
           </View>
           <HeroGauge
-            value={measured ? overall : null}
+            value={measured ? gaugeVal : null}
             color={zone}
             mark={isJft ? undefined : readiness.overallMinPct}
             marks={isJft ? prof.bandMarksPct : undefined}
             size={212}
             stroke={14}
           >
-            <Text style={s.score}>{measured ? (isJft ? jftScore(overall) : overall) : '—'}</Text>
+            <Text style={s.score}>{measured ? (isJft ? jftScore(overall) : gaugeVal) : '—'}</Text>
             <Text style={s.bandIn}>{isJft ? `/ 250 ・ ±${jftScore(readiness.band)}` : `±${readiness.band}`}</Text>
           </HeroGauge>
           <Text style={[s.status, { color: zone }]}>{status}</Text>
