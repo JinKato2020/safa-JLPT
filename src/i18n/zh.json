@@ -261,5 +261,7 @@
   "touroverlay.test_mini_note": "语言知识20题",
   "touroverlay.test_mini_time": "约7分钟",
   "touroverlay.today_label": "今日推荐",
-  "touroverlay.today_sub": "语法 ・ 最薄弱科目（达成度 54%）"
+  "touroverlay.today_sub": "语法 ・ 最薄弱科目（达成度 54%）",
+  "profile.examJftHint": "JFT-Basic随时进行（CBT）。请在日历上选择预约的考试日期。",
+  "profile.weekdays": "日,一,二,三,四,五,六"
 }

@@ -156,6 +156,8 @@
   "profile.dataSourceBody": "Kanji = KANJIDIC2 / Vocabulary = JMdict (© EDRDG, CC BY-SA). Vocabulary example sentences = Tanaka Corpus / Tatoeba (CC BY). Grammar explanations, examples, and conjugations are original to this app.",
   "profile.examDate": "Exam Date",
   "profile.examDaysLeft": "({n} days left)",
+  "profile.examJftHint": "JFT-Basic runs year-round (CBT). Pick the test date you booked on the calendar.",
+  "profile.weekdays": "S,M,T,W,T,F,S",
   "profile.examUndecided": "Not set",
   "profile.exam_jft": "JFT-Basic",
   "profile.exam_jlpt": "JLPT",

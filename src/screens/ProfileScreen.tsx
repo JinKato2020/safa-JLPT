@@ -13,6 +13,7 @@ import type { Level } from '../engine/engine';
 import type { ThemeMode } from '../store/state';
 import { useT, UI_LANGS, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
+import MiniCalendar from '../components/MiniCalendar';
 import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
@@ -48,6 +49,7 @@ export default function ProfileScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const today = dayStr(Date.now());
+  const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const exams = useMemo(() => upcomingExams(today), [today]);
   const [confirmReset, setConfirmReset] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -129,18 +131,37 @@ export default function ProfileScreen() {
           <Text style={s.subtle}>{t('profile.nativeLangHint')}</Text>
 
           <Text style={s.setLbl}>{t('profile.examDate')}</Text>
-          <View style={s.chipWrap}>
-            {exams.map((d) => (
-              <Pressable key={d} onPress={() => setSettings({ examDate: d })} style={[s.chip, state.settings.examDate === d && s.chipOn]}>
-                <Text style={[s.chipTxt, state.settings.examDate === d && s.chipTxtOn]}>
-                  {d.slice(5).replace('-', '/')}{t('profile.examDaysLeft', { n: daysBetween(today, d) })}
+          {isJft ? (
+            /* JFT=CBT(随時)。日程は自分でカレンダー入力 */
+            <>
+              <Text style={s.subtle}>{t('profile.examJftHint')}</Text>
+              {state.settings.examDate ? (
+                <Text style={s.examSel}>
+                  {state.settings.examDate.replace(/-/g, '/')}{t('profile.examDaysLeft', { n: daysBetween(today, state.settings.examDate) })}
                 </Text>
+              ) : null}
+              <MiniCalendar value={state.settings.examDate} min={today} onSelect={(d) => setSettings({ examDate: d })} />
+              <View style={s.chipWrap}>
+                <Pressable onPress={() => setSettings({ examDate: null })} style={[s.chip, !state.settings.examDate && s.chipOn]}>
+                  <Text style={[s.chipTxt, !state.settings.examDate && s.chipTxtOn]}>{t('profile.examUndecided')}</Text>
+                </Pressable>
+              </View>
+            </>
+          ) : (
+            /* JLPT=年2回(7月/12月の第1日曜)から2択 */
+            <View style={s.chipWrap}>
+              {exams.map((d) => (
+                <Pressable key={d} onPress={() => setSettings({ examDate: d })} style={[s.chip, state.settings.examDate === d && s.chipOn]}>
+                  <Text style={[s.chipTxt, state.settings.examDate === d && s.chipTxtOn]}>
+                    {d.slice(5).replace('-', '/')}{t('profile.examDaysLeft', { n: daysBetween(today, d) })}
+                  </Text>
+                </Pressable>
+              ))}
+              <Pressable onPress={() => setSettings({ examDate: null })} style={[s.chip, !state.settings.examDate && s.chipOn]}>
+                <Text style={[s.chipTxt, !state.settings.examDate && s.chipTxtOn]}>{t('profile.examUndecided')}</Text>
               </Pressable>
-            ))}
-            <Pressable onPress={() => setSettings({ examDate: null })} style={[s.chip, !state.settings.examDate && s.chipOn]}>
-              <Text style={[s.chipTxt, !state.settings.examDate && s.chipTxtOn]}>{t('profile.examUndecided')}</Text>
-            </Pressable>
-          </View>
+            </View>
+          )}
 
           <Text style={s.setLbl}>{t('profile.theme')}</Text>
           <View style={s.chipRow}>
@@ -295,6 +316,7 @@ const makeStyles = (c: ThemeColors) =>
     linkDiv: { height: 1, backgroundColor: c.line },
     legal: { fontSize: ty.tiny, color: c.mute, lineHeight: 18, paddingBottom: spacing.sm },
     subtle: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.sm, lineHeight: 15 },
+    examSel: { fontSize: ty.body, fontWeight: '800', color: c.blue, marginTop: spacing.xs },
     toggleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: spacing.md },
     credit: { fontSize: ty.tiny, color: c.mute, lineHeight: 16 },
     resetBtn: {

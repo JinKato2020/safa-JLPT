@@ -261,5 +261,7 @@
   "touroverlay.test_mini_note": "ဘာသာစကားပညာ ၂၀ မေးခွန်း",
   "touroverlay.test_mini_time": "ခန့်မှန်း ၇ မိနစ်",
   "touroverlay.today_label": "ယနေ့ အကြံပြုချက်",
-  "touroverlay.today_sub": "သဒ္ဒါ ・ အနိမ့်ဆုံးအပိုင်း（တိုးတက်မှုအဆင့် ၅၄%）"
+  "touroverlay.today_sub": "သဒ္ဒါ ・ အနိမ့်ဆုံးအပိုင်း（တိုးတက်မှုအဆင့် ၅၄%）",
+  "profile.examJftHint": "JFT-Basic ကို အချိန်မရွေး (CBT) ဖြင့် ကျင်းပပါသည်။ စာမေးပွဲရက်ကို ပြက္ခဒိန်တွင် ရွေးချယ်ပါ။",
+  "profile.weekdays": "နွေ,တ,ဂ,ဗု,ကြ,သ,စနေ"
 }

@@ -261,5 +261,7 @@
   "touroverlay.test_mini_note": "언어지식 20문제",
   "touroverlay.test_mini_time": "약 7분",
   "touroverlay.today_label": "오늘의 추천",
-  "touroverlay.today_sub": "문법 · 가장 낮은 섹션（준비도 54%）"
+  "touroverlay.today_sub": "문법 · 가장 낮은 섹션（준비도 54%）",
+  "profile.examJftHint": "JFT-Basic는 수시로 시행됩니다(CBT). 예약한 시험 날짜를 달력에서 선택하세요.",
+  "profile.weekdays": "일,월,화,수,목,금,토"
 }

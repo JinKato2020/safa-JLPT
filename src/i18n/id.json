@@ -261,5 +261,7 @@
   "touroverlay.test_mini_note": "Pengetahuan bahasa 20 soal",
   "touroverlay.test_mini_time": "~7 menit",
   "touroverlay.today_label": "Rekomendasi Hari Ini",
-  "touroverlay.today_sub": "Tata Bahasa ・ Section terendah (readiness 54%)"
+  "touroverlay.today_sub": "Tata Bahasa ・ Section terendah (readiness 54%)",
+  "profile.examJftHint": "JFT-Basic dilakukan secara berkala (CBT). Silakan pilih tanggal ujian yang telah Anda pesan di kalender.",
+  "profile.weekdays": "Min,Sen,Sel,Rab,Kam,Jum,Sab"
 }

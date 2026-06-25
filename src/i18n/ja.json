@@ -156,6 +156,8 @@
   "profile.dataSourceBody": "漢字=KANJIDIC2 / 語彙=JMdict（© EDRDG・CC BY-SA）。語彙の例文=田中コーパス/Tatoeba（CC BY）。文法の説明・例文・活用は本アプリのオリジナル。",
   "profile.examDate": "試験日",
   "profile.examDaysLeft": "（あと{n}日）",
+  "profile.examJftHint": "JFT-Basicは随時実施(CBT)。予約した試験日をカレンダーで選んでください。",
+  "profile.weekdays": "日,月,火,水,木,金,土",
   "profile.examUndecided": "未定",
   "profile.exam_jft": "JFT-Basic",
   "profile.exam_jlpt": "JLPT",

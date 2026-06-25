@@ -261,5 +261,7 @@
   "touroverlay.test_mini_note": "ভাষা জ্ঞান ২০টি প্রশ্ন",
   "touroverlay.test_mini_time": "প্রায় ৭ মিনিট",
   "touroverlay.today_label": "আজকের সুপারিশ",
-  "touroverlay.today_sub": "ব্যাকরণ ・ সবচেয়ে কম স্কোরের বিভাগ (অর্জন মাত্রা ৫৪%)"
+  "touroverlay.today_sub": "ব্যাকরণ ・ সবচেয়ে কম স্কোরের বিভাগ (অর্জন মাত্রা ৫৪%)",
+  "profile.examJftHint": "JFT-Basic পরীক্ষা নিয়মিতভাবে অনুষ্ঠিত হয় (CBT)। অনুগ্রহ করে ক্যালেন্ডার থেকে আপনার নির্ধারিত পরীক্ষার দিনটি নির্বাচন করুন।",
+  "profile.weekdays": "রবি,সোম,মঙ্গল,বুধ,বৃহস্পতি,শুক্র,শনি"
 }

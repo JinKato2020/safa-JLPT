@@ -261,5 +261,7 @@
   "touroverlay.test_mini_note": "ความรู้ภาษา 20 ข้อ",
   "touroverlay.test_mini_time": "ประมาณ 7 นาที",
   "touroverlay.today_label": "แนะนำสำหรับวันนี้",
-  "touroverlay.today_sub": "ไวยากรณ์ ・ หมวดที่อ่อนที่สุด (ความพร้อม 54%)"
+  "touroverlay.today_sub": "ไวยากรณ์ ・ หมวดที่อ่อนที่สุด (ความพร้อม 54%)",
+  "profile.examJftHint": "JFT-Basic เป็นการทดสอบที่จัดขึ้นตลอดเวลา (CBT) กรุณาเลือกวันที่สอบที่คุณจองไว้ในปฏิทิน",
+  "profile.weekdays": "อา,จ,อ,พ,พฤ,ศ,ส"
 }

@@ -261,5 +261,7 @@
   "touroverlay.test_mini_note": "Kiến thức ngôn ngữ・20 câu",
   "touroverlay.test_mini_time": "Khoảng 7 phút",
   "touroverlay.today_label": "Gợi ý hôm nay",
-  "touroverlay.today_sub": "Ngữ pháp ・ Phần thấp nhất (mức độ sẵn sàng 54%)"
+  "touroverlay.today_sub": "Ngữ pháp ・ Phần thấp nhất (mức độ sẵn sàng 54%)",
+  "profile.examJftHint": "JFT-Basic được tổ chức thường xuyên (CBT). Vui lòng chọn ngày thi đã đặt trước trên lịch.",
+  "profile.weekdays": "CN,T2,T3,T4,T5,T6,T7"
 }

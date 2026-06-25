@@ -261,5 +261,7 @@
   "touroverlay.test_mini_note": "भाषा ज्ञान २० प्रश्न",
   "touroverlay.test_mini_time": "लगभग ७ मिनेट",
   "touroverlay.today_label": "आजको सिफारिस",
-  "touroverlay.today_sub": "व्याकरण ・ सबैभन्दा कम विभाग (तयारी स्तर ५४%)"
+  "touroverlay.today_sub": "व्याकरण ・ सबैभन्दा कम विभाग (तयारी स्तर ५४%)",
+  "profile.examJftHint": "JFT-Basic निरन्तर सञ्चालनमा छ (CBT)। कृपया आफ्नो परीक्षा मिति क्यालेन्डरमा चयन गर्नुहोस्।",
+  "profile.weekdays": "आ,सो,मं,बु,बि,शु,श"
 }
