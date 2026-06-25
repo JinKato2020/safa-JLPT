@@ -47,6 +47,10 @@ function reducer(state: AppState, action: Action): AppState {
       return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next } }, action.now);
     }
     case 'MOCK_ANSWER': {
+      // バンクの合成項目(kb-*=用法/組み立て/文章/cloze)はSRS/evidenceに記録しない。
+      // 採点(模試pct)はMockScreenのローカル集計で別途行う。記録すると到達度の分母外なのにevidenceだけ水増しし、
+      // 大リングの信頼幅±が不当に狭くなる(過信)＋storage肥大するため除外。学習日(streak)だけは反映。
+      if (action.itemId.startsWith('kb-')) return withStudyDay(state, action.now);
       const prev = state.items[action.itemId] ?? newItemState(action.now);
       const next = recordMock(prev, action.correct, action.now);
       return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next } }, action.now);
