@@ -14,6 +14,7 @@ import { examOf } from '../engine/examProfile';
 import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../shared-design';
 import HeroGauge from '../components/HeroGauge';
 import RingGauge from '../components/RingGauge';
+import Badge from '../components/Badge';
 import { dayStr, daysBetween, lastNDays } from '../store/state';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -42,6 +43,9 @@ export default function HomeScreen() {
   const curve = useMemo(() => growthCurve(state, dayStr(now), 14), [state, now]);
   const cov = useMemo(() => coverageBars(state, now), [state, now]);
   const ppSeries = useMemo(() => (state.growth ?? []).slice(-14).map((g) => g.passProb ?? 0), [state.growth]);
+  const badgeSet = state.settings.badgeSet ?? 'natural';
+  const covTotal = cov.reduce((a, b) => a + b.total, 0);
+  const overallCovPct = covTotal > 0 ? Math.round((100 * cov.reduce((a, b) => a + b.learned, 0)) / covTotal) : 0;
   const studied = useMemo(() => new Set(state.streak.history), [state.streak.history]);
   const badges = useMemo(
     () => computeBadges({ studyDays: state.streak.history.length, longestStreak: state.streak.longest, learned, score: readiness.score }),
@@ -111,7 +115,8 @@ export default function HomeScreen() {
           {/* 「N4 到達度」の横に学習メダル(入門/初級/中級/上級/仕上げ) */}
           <View style={s.ddRow}>
             <Text style={s.dd}>{isJft ? 'JFT-Basic' : state.settings.level} {t('home.readiness')}</Text>
-            <View style={s.medal}><Text style={s.medalTxt}>🎖 {rank.rank}</Text></View>
+            {/* 合格率の“格”バッジ(10段階・設定でセット切替) */}
+            <Badge set={badgeSet} metric="pass" pct={measured ? passProb : null} size={44} />
           </View>
           <HeroGauge
             value={measured ? gaugeVal : null}
@@ -184,8 +189,11 @@ export default function HomeScreen() {
               return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />;
             })}
           </View>
-          {/* カバー率(量)= 漢字/語彙/文法 を横バー＋横に分数 */}
-          <Text style={s.miniH}>{t('home.coverage_title')}</Text>
+          {/* カバー率(量)= 漢字/語彙/文法 を横バー＋横に分数。横にカバー率の“格”バッジ(10段階) */}
+          <View style={s.covHead}>
+            <Text style={s.miniH}>{t('home.coverage_title')}</Text>
+            <Badge set={badgeSet} metric="cover" pct={overallCovPct} size={40} label={rank.rank} />
+          </View>
           {cov.map((b) => {
             const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
             return (
@@ -341,6 +349,7 @@ const makeStyles = (c: ThemeColors) =>
     hint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
     ringRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.md },
     // カバー率(量)の横バー＋横に分数
+    covHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
     covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.sm },
     covLabel: { width: 36, fontSize: ty.small, color: c.ink2, fontWeight: '700' },
     covTrack: { flex: 1, height: 12, borderRadius: 6, backgroundColor: c.bgSoft, overflow: 'hidden' },

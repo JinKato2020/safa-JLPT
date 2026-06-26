@@ -172,6 +172,18 @@ export default function ProfileScreen() {
             ))}
           </View>
 
+          <Text style={s.setLbl}>{t('profile.badgeSet')}</Text>
+          <View style={s.chipRow}>
+            {(['natural', 'gorgeous'] as const).map((bs) => {
+              const on = (state.settings.badgeSet ?? 'natural') === bs;
+              return (
+                <Pressable key={bs} onPress={() => setSettings({ badgeSet: bs })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(bs === 'natural' ? 'profile.badge_natural' : 'profile.badge_gorgeous')}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
           <Text style={s.setLbl}>{t('profile.reminder')}</Text>
           <View style={s.chipWrap}>
             {REMINDERS.map((r) => (
