@@ -21,6 +21,17 @@ function poolFor(level: 'N5' | 'N4' | 'N3', cat: Category | 'all'): StudyItem[] 
   if (cat === 'all') return [...itemsFor(level, 'moji_goi'), ...itemsFor(level, 'bunpou')];
   return itemsFor(level, cat);
 }
+// 「全区分の復習」は区分ごとにキューを作り交互に混ぜる(SRS期限切れが1区分に偏らない=本当に全区分から出す)。
+function buildAllQueue(level: 'N5' | 'N4' | 'N3', items: Parameters<typeof buildQueue>[1], now: number): StudyItem[] {
+  const a = buildQueue(itemsFor(level, 'moji_goi'), items, now, SESSION_SIZE);
+  const b = buildQueue(itemsFor(level, 'bunpou'), items, now, SESSION_SIZE);
+  const out: StudyItem[] = [];
+  for (let i = 0; out.length < SESSION_SIZE && (i < a.length || i < b.length); i++) {
+    if (i < a.length) out.push(a[i]);
+    if (out.length < SESSION_SIZE && i < b.length) out.push(b[i]);
+  }
+  return out;
+}
 
 export default function QuizScreen() {
   const nav = useNavigation();
@@ -42,7 +53,9 @@ export default function QuizScreen() {
       const byId = new Map(pool.map((i) => [i.id, i]));
       return itemIds.map((id) => byId.get(id)).filter((x): x is StudyItem => Boolean(x));
     }
-    return buildQueue(poolFor(settings.level, category), items, Date.now(), SESSION_SIZE);
+    return category === 'all'
+      ? buildAllQueue(settings.level, items, Date.now())
+      : buildQueue(poolFor(settings.level, category), items, Date.now(), SESSION_SIZE);
   });
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);

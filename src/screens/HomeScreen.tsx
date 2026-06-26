@@ -70,7 +70,7 @@ export default function HomeScreen() {
   const curveMax = Math.max(1, ...curve.map((p) => p.learned));
   const hasGrowth = (state.growth?.length ?? 0) > 0;
 
-  // AIコーチ分析(端末内・非送信): 到達度/弱点/ペース/継続から評価と助言を組み立てる。
+  // AIコーチ分析(端末内・非送信): 入手できるパラメータから【褒める材料】を積極的に探し、継続と成長を実感させる。
   const ai = useMemo(() => {
     const lines: { k: string; p?: Record<string, string | number> }[] = [];
     let hl: string;
@@ -79,17 +79,24 @@ export default function HomeScreen() {
       lines.push({ k: 'home.ai_start_body' });
     } else {
       hl = passProb >= 80 ? 'home.ai_hl_pass' : passProb >= 40 ? 'home.ai_hl_close' : 'home.ai_hl_build';
+      // ① 褒める: いちばん得意な区分(正解率が高い)
+      let strong: { cat: Category; v: number } | null = null;
+      for (const cd of RING_ORDER) { const v = rings[cd]; if (v !== null && (strong === null || v > strong.v)) strong = { cat: cd, v }; }
+      if (strong && strong.v >= 60) lines.push({ k: 'home.ai_strong', p: { cat: t(prof.catLabel[strong.cat]), pct: strong.v } });
+      // ② 褒める: 今日の学習成果(成長の実感)
+      if (todayGain > 0) lines.push({ k: 'home.ai_today_growth', p: { n: todayGain } });
+      // ③ 褒める: 合格率が上がった(伸びの実感)
+      const ppUp = ppSeries.length >= 2 ? ppSeries[ppSeries.length - 1] - ppSeries[ppSeries.length - 2] : 0;
+      if (ppUp > 0) lines.push({ k: 'home.ai_improving', p: { n: ppUp } });
+      // 現状＋やさしい次の一歩
       lines.push({ k: 'home.ai_passprob', p: { n: passProb } });
-      if (passProb < 80 && nba) {
-        const wp = rings[nba.category];
-        lines.push({ k: 'home.ai_weak', p: { cat: nba.label, pct: wp === null ? '—' : `${wp}` } });
-      }
       if (passProb >= 80) lines.push({ k: 'home.ai_keep' });
-      if (passProb < 80 && nba) lines.push({ k: 'home.ai_advice', p: { action: nba.label } });
+      else if (nba) lines.push({ k: 'home.ai_advice', p: { action: nba.label } });
     }
+    // 継続(streak)を必ず励ます
     lines.push(state.streak.current > 0 ? { k: 'home.ai_streak', p: { n: state.streak.current } } : { k: 'home.ai_streak0' });
     return { hl, lines };
-  }, [measured, readiness, nba, rings, passProb, state.streak.current]);
+  }, [measured, nba, rings, passProb, todayGain, ppSeries, prof, t, state.streak.current]);
 
   // 弱点(nba)があればその区分の学習へ(合格圏でも穴を埋める)。弱点なし=全区分高→一般復習。
   const goAction = () => (nba ? nav.navigate(nba.route) : nav.navigate('Quiz', { category: 'all' }));
