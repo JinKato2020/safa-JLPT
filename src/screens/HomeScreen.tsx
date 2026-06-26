@@ -71,9 +71,6 @@ export default function HomeScreen() {
   const last = series[series.length - 1];
   const prev = series[series.length - 2];
   const todayGain = last && last.day === today ? last.learned - (prev?.learned ?? 0) : 0;
-  const status = !measured
-    ? t('home.status_unmeasured')
-    : passProb >= 80 ? t('home.status_passing') : t('home.status_borderline');
   const week = lastNDays(today, 7);
   const cal = lastNDays(today, 35);
   const curveMax = Math.max(1, ...curve.map((p) => p.learned));
@@ -141,8 +138,13 @@ export default function HomeScreen() {
             {/* 合格ラインの代わりに称号(合格率tier)を発光表示 */}
             <Text style={s.bandIn}>{measured ? PASS_TITLES[badgeTierIndex(passProb)] : t('home.pass_prob_label')}</Text>
           </HeroGauge>
-          {/* 説明文は削除。状態メッセージのみ(黒)。 */}
-          <Text style={[s.status, { color: c.ink }]}>{status}</Text>
+          {/* 合格率の推移(横軸=日)を合格カード下部に */}
+          <Text style={s.miniH}>{t('home.passprob_trend_title')}</Text>
+          {ppSeries.length >= 2 ? (
+            <GrowthBars values={ppSeries} height={56} max={100} color={c.blue} />
+          ) : (
+            <Text style={s.hint}>{t('home.passprob_trend_empty')}</Text>
+          )}
         </View>
 
         {/* AIコーチ分析(端末内・あなたの学習データから自動評価) */}
@@ -158,27 +160,13 @@ export default function HomeScreen() {
         {/* 成長 */}
         <Text style={s.sectionH}>{t('home.section_growth')}</Text>
         <View style={s.card}>
-          {/* 今日覚えた・累計覚えた(ヒーローから移設) */}
+          {/* ① 今日覚えた・累計覚えた */}
           <View style={s.growStats}>
             <View style={s.stat}><Text style={s.statVal}>+{todayGain}</Text><Text style={s.statLbl}>{t('home.today_learned')}</Text></View>
             <View style={s.statSep} />
             <View style={s.stat}><Text style={s.statVal}>{learned}</Text><Text style={s.statLbl}>{t('home.total_learned')}</Text></View>
           </View>
-          {/* 合格率の推移(横軸=日) */}
-          <Text style={s.miniH}>{t('home.passprob_trend_title')}</Text>
-          {ppSeries.length >= 2 ? (
-            <GrowthBars values={ppSeries} height={64} max={100} color={c.blue} />
-          ) : (
-            <Text style={s.hint}>{t('home.passprob_trend_empty')}</Text>
-          )}
-          {/* 覚えた量の推移 */}
-          <Text style={s.miniH}>{t('home.growth_chart_title')}</Text>
-          {hasGrowth ? (
-            <GrowthBars values={curve.map((p) => p.learned)} height={64} />
-          ) : (
-            <Text style={s.hint}>{t('home.growth_empty_hint')}</Text>
-          )}
-          {/* 区分別 正解率(質) */}
+          {/* ② 区分別 正解率(小リング4つ) */}
           <Text style={s.miniH}>{t('home.ring_title')}</Text>
           <View style={s.ringRow}>
             {RING_ORDER.map((cat) => {
@@ -187,7 +175,14 @@ export default function HomeScreen() {
               return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />;
             })}
           </View>
-          {/* カバー率(量)= 漢字/語彙/文法。各行: 半分のバー＋分数 ／ 右に大きな成長バッジ＋10段名。 */}
+          {/* ③ 覚えた語の伸び */}
+          <Text style={s.miniH}>{t('home.growth_chart_title')}</Text>
+          {hasGrowth ? (
+            <GrowthBars values={curve.map((p) => p.learned)} height={64} />
+          ) : (
+            <Text style={s.hint}>{t('home.growth_empty_hint')}</Text>
+          )}
+          {/* ④ カバー率(量)= 漢字/語彙/文法。各行: 半分のバー＋分数 ／ 右に大きな成長バッジ＋10段名。 */}
           <Text style={s.miniH}>{t('home.coverage_title')}</Text>
           {cov.map((b) => {
             const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
@@ -346,7 +341,7 @@ const makeStyles = (c: ThemeColors) =>
     calCellOn: { backgroundColor: c.orange },
     calCellToday: { borderWidth: 1.5, borderColor: c.blue },
     // 成長
-    miniH: { fontSize: ty.tiny, fontWeight: '700', color: c.mute, marginTop: spacing.md, letterSpacing: 0.5 },
+    miniH: { fontSize: ty.small, fontWeight: '800', color: c.ink2, marginTop: spacing.md, letterSpacing: 0.5 },
     cap: { fontSize: 10, color: c.faint, marginTop: 2, lineHeight: 14 },
     curve: { flexDirection: 'row', alignItems: 'flex-end', gap: 4, height: 64, marginTop: spacing.xs },
     curveCol: { flex: 1, justifyContent: 'flex-end' },
