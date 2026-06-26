@@ -90,7 +90,8 @@ export default function HomeScreen() {
     return { hl, lines };
   }, [measured, readiness, nba, rings, passProb, state.streak.current]);
 
-  const goAction = () => (readiness.passing || !nba ? nav.navigate('Quiz', { category: 'all' }) : nav.navigate(nba.route));
+  // 弱点(nba)があればその区分の学習へ(合格圏でも穴を埋める)。弱点なし=全区分高→一般復習。
+  const goAction = () => (nba ? nav.navigate(nba.route) : nav.navigate('Quiz', { category: 'all' }));
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
@@ -175,11 +176,7 @@ export default function HomeScreen() {
         <Pressable style={s.cta} onPress={goAction}>
           <Text style={s.ctaTxt}>{t('home.cta_title')}</Text>
           <Text style={s.ctaSub}>
-            {readiness.passing
-              ? t('home.cta_review')
-              : nba
-                ? `${nba.label} ・ ${nba.reason}`
-                : t('home.cta_diagnose')}
+            {nba ? `${nba.label} ・ ${nba.reason}` : t('home.cta_review')}
           </Text>
         </Pressable>
 

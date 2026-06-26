@@ -141,6 +141,14 @@ export default function ListeningScreen() {
     setShowScript(false);
     setIdx((i) => i + 1);
   };
+  // 解答後は自動で次へ(正解=短め/不正解=正解とスクリプトを見せて長め)。手動「次へ」ボタンは廃止。
+  useEffect(() => {
+    if (picked === null) return;
+    const ok = picked === step.q.answerIndex;
+    const tmr = setTimeout(() => { next(); }, ok ? 1500 : 3000);
+    return () => clearTimeout(tmr);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [picked]);
 
   return (
     <SafeAreaView style={s.c}>
@@ -193,14 +201,9 @@ export default function ListeningScreen() {
         </View>
 
         {picked !== null ? (
-          <>
-            <View style={s.explainBox}>
-              <Text style={s.explainTxt}>{step.q.explain}</Text>
-            </View>
-            <Pressable style={s.cta} onPress={next}>
-              <Text style={s.ctaTxt}>{idx + 1 >= steps.length ? t('listening.see_results') : t('listening.next')}</Text>
-            </Pressable>
-          </>
+          <View style={s.explainBox}>
+            <Text style={s.explainTxt}>{step.q.explain}</Text>
+          </View>
         ) : (
           <Text style={s.hint}>{t('listening.hint')}</Text>
         )}

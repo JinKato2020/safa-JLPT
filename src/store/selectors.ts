@@ -235,22 +235,25 @@ export interface NextAction {
   reason: string;
 }
 
-/** Next Best Action = 最弱セクション内で最も低い区分の学習を勧める。 */
+/** Next Best Action = いちばん弱い区分の学習を勧める。
+ *  未測定の区分があれば最優先(まず触って測る)。なければ【正解率が最も低い区分】を弱点として勧める。
+ *  合格圏でも弱点は勧める(=合格済でも穴を埋める)。全区分とも高(>=85)なら特になし(一般復習へ)。 */
 export function nextBestAction(state: AppState, now: number): NextAction | null {
-  const r = readinessFor(state, now);
-  if (r.passing || !r.weakest) return null;
-  const cats = SECTION_CATS[r.weakest.key] ?? [];
   const rings = ringsFor(state, now);
-  let target: Category = cats[0] ?? 'moji_goi';
-  let lowest = Infinity;
-  for (const cat of cats) {
-    const v = rings[cat] ?? 0;
-    if (v < lowest) { lowest = v; target = cat; }
+  const unmeasured = RING_CATS.find((c) => rings[c] === null);
+  let target: Category;
+  if (unmeasured) {
+    target = unmeasured;
+  } else {
+    let lowest = Infinity; let t: Category = 'moji_goi';
+    for (const c of RING_CATS) { const v = rings[c] ?? 0; if (v < lowest) { lowest = v; t = c; } }
+    if (lowest >= 85) return null; // 全区分とも高い=特に弱点なし
+    target = t;
   }
   const m = NBA_MAP[target];
   const ringPct = rings[target];
-  const pctTxt = ringPct === null ? '未測定' : `${ringPct}%`;
-  return { category: target, label: m.label, route: m.route, reason: `いちばん低い区分（到達度 ${pctTxt}）` };
+  const reason = ringPct === null ? 'まだ未測定の区分' : `いちばん低い区分（正解率 ${ringPct}%）`;
+  return { category: target, label: m.label, route: m.route, reason };
 }
 
 // 達成ランク(C): 級内の習得率(覚えた/全)で上がる“帯”。コンテンツは固定しない(出題は易しい順=A)。合格判定とは別軸。
