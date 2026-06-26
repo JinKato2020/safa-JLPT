@@ -43,7 +43,7 @@ export default function HomeScreen() {
   const curve = useMemo(() => growthCurve(state, dayStr(now), 14), [state, now]);
   const cov = useMemo(() => coverageBars(state, now), [state, now]);
   const ppSeries = useMemo(() => (state.growth ?? []).slice(-14).map((g) => g.passProb ?? 0), [state.growth]);
-  const badgeSet = state.settings.badgeSet ?? 'natural';
+  const badgeSet = state.settings.badgeSet ?? 'gorgeous';
   const covTotal = cov.reduce((a, b) => a + b.total, 0);
   const overallCovPct = covTotal > 0 ? Math.round((100 * cov.reduce((a, b) => a + b.learned, 0)) / covTotal) : 0;
   const studied = useMemo(() => new Set(state.streak.history), [state.streak.history]);
@@ -115,8 +115,10 @@ export default function HomeScreen() {
           {/* 「N4 到達度」の横に学習メダル(入門/初級/中級/上級/仕上げ) */}
           <View style={s.ddRow}>
             <Text style={s.dd}>{isJft ? 'JFT-Basic' : state.settings.level} {t('home.readiness')}</Text>
-            {/* 合格率の数字はここにシンプルに(バッジは大リング中央へ移動) */}
             {measured ? <Text style={s.ddPct}>{passProb}%</Text> : null}
+            <View style={{ flex: 1 }} />
+            {/* 連続日数は右上に */}
+            <Text style={s.streakChip}>🔥 {state.streak.current}</Text>
           </View>
           <HeroGauge
             value={measured ? gaugeVal : null}
@@ -133,28 +135,8 @@ export default function HomeScreen() {
             )}
             <Text style={s.bandIn}>{t('home.pass_prob_label')}{measured ? ` ・ ±${readiness.band}` : ''}</Text>
           </HeroGauge>
-          <Text style={[s.status, { color: zone }]}>{status}</Text>
-          <Text style={s.passHint}>{t('home.pass_prob_hint')}</Text>
-
-          {passProb >= 80 ? <Text style={s.paceOk}>🎉 {t('home.pace_ok')}</Text> : null}
-
-          <View style={s.stats}>
-            <View style={s.stat}>
-              <Text style={s.statVal}>🔥 {state.streak.current}</Text>
-              <Text style={s.statLbl}>{t('home.streak_days')}</Text>
-            </View>
-            <View style={s.statSep} />
-            <View style={s.stat}>
-              <Text style={s.statVal}>+{todayGain}</Text>
-              <Text style={s.statLbl}>{t('home.today_learned')}</Text>
-            </View>
-            <View style={s.statSep} />
-            <View style={s.stat}>
-              <Text style={s.statVal}>{learned}</Text>
-              <Text style={s.statLbl}>{t('home.total_learned')}</Text>
-            </View>
-          </View>
-          <Text style={s.statsCap}>{t('home.stats_caption')}</Text>
+          {/* 説明文は削除。状態メッセージのみ(黒)。 */}
+          <Text style={[s.status, { color: c.ink }]}>{status}</Text>
         </View>
 
         {/* AIコーチ分析(端末内・あなたの学習データから自動評価) */}
@@ -170,6 +152,12 @@ export default function HomeScreen() {
         {/* 成長 */}
         <Text style={s.sectionH}>{t('home.section_growth')}</Text>
         <View style={s.card}>
+          {/* 今日覚えた・累計覚えた(ヒーローから移設) */}
+          <View style={s.growStats}>
+            <View style={s.stat}><Text style={s.statVal}>+{todayGain}</Text><Text style={s.statLbl}>{t('home.today_learned')}</Text></View>
+            <View style={s.statSep} />
+            <View style={s.stat}><Text style={s.statVal}>{learned}</Text><Text style={s.statLbl}>{t('home.total_learned')}</Text></View>
+          </View>
           {/* 合格率の推移(横軸=日) */}
           <Text style={s.miniH}>{t('home.passprob_trend_title')}</Text>
           {ppSeries.length >= 2 ? (
@@ -193,8 +181,11 @@ export default function HomeScreen() {
               return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />;
             })}
           </View>
-          {/* カバー率(量)= 漢字/語彙/文法。各バー＝ラベル＋バー＋分数＋【その区分のカバー率バッジ(10段階)】 */}
-          <Text style={s.miniH}>{t('home.coverage_title')}</Text>
+          {/* カバー率(量)= 漢字/語彙/文法の3バー。3指標を総合した【1つのカバー率バッジ】を横に。 */}
+          <View style={s.covHead}>
+            <Text style={s.miniH}>{t('home.coverage_title')}</Text>
+            <Badge set={badgeSet} metric="cover" pct={overallCovPct} size={52} />
+          </View>
           {cov.map((b) => {
             const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
             return (
@@ -204,7 +195,6 @@ export default function HomeScreen() {
                   <View style={s.covTrack}><View style={[s.covFill, { width: `${pct}%` }]} /></View>
                   <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
                 </View>
-                <Badge set={badgeSet} metric="cover" pct={pct} size={48} />
               </View>
             );
           })}
@@ -272,6 +262,8 @@ const makeStyles = (c: ThemeColors) =>
     ddRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.md },
     dd: { fontSize: 19, color: c.ink2, letterSpacing: 0.5, fontWeight: '800' },
     ddPct: { fontSize: 20, fontWeight: '800', color: c.blue },
+    streakChip: { fontSize: 15, fontWeight: '800', color: c.orange },
+    growStats: { flexDirection: 'row', alignSelf: 'stretch', paddingBottom: spacing.sm, marginBottom: spacing.xs, borderBottomWidth: 1, borderBottomColor: c.line },
     medal: { backgroundColor: c.blueLight, borderRadius: radius.lg, paddingHorizontal: spacing.md, paddingVertical: 6, borderWidth: 1, borderColor: c.blue },
     medalTxt: { fontSize: 24, fontWeight: '800', color: c.blueDark },
     score: { fontSize: 66, fontWeight: '800', color: c.ink, lineHeight: 70 },
