@@ -129,7 +129,7 @@ export default function HomeScreen() {
           >
             {/* 大リング中央＝合格率の“格”バッジを大きく */}
             {measured ? (
-              <Badge set={badgeSet} metric="pass" pct={passProb} size={120} />
+              <Badge set={badgeSet} metric="pass" pct={passProb} size={180} />
             ) : (
               <Text style={s.score}>—</Text>
             )}
@@ -267,7 +267,7 @@ const makeStyles = (c: ThemeColors) =>
     medal: { backgroundColor: c.blueLight, borderRadius: radius.lg, paddingHorizontal: spacing.md, paddingVertical: 6, borderWidth: 1, borderColor: c.blue },
     medalTxt: { fontSize: 24, fontWeight: '800', color: c.blueDark },
     score: { fontSize: 66, fontWeight: '800', color: c.ink, lineHeight: 70 },
-    bandIn: { fontSize: ty.small, color: c.faint, fontWeight: '600', marginTop: 2 },
+    bandIn: { position: 'absolute', bottom: 8, paddingHorizontal: 9, paddingVertical: 2, borderRadius: 11, overflow: 'hidden', backgroundColor: c.surface + 'e6', fontSize: ty.small, color: c.mute, fontWeight: '700' },
     status: { fontSize: ty.h2, fontWeight: '800', marginTop: spacing.md },
     passHint: { fontSize: ty.tiny, color: c.faint, marginTop: 4 },
     rank: { fontSize: ty.small, color: c.blue, fontWeight: '800', marginTop: 6 },
