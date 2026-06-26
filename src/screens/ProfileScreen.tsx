@@ -15,6 +15,7 @@ import { useT, UI_LANGS, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import MiniCalendar from '../components/MiniCalendar';
 import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
+import * as Application from 'expo-application';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const THEMES: { v: ThemeMode; labelKey: 'profile.themeLight' | 'profile.themeDark' | 'profile.themeAuto' }[] = [
@@ -272,6 +273,11 @@ export default function ProfileScreen() {
             </Text>
           </Pressable>
         </View>
+
+        {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示) */}
+        <Text style={s.version}>
+          v{Application.nativeApplicationVersion ?? '1.1.0'} (build {Application.nativeBuildVersion ?? '—'})
+        </Text>
       </ScrollView>
       {showDl ? (
         <View style={StyleSheet.absoluteFill}>
@@ -338,4 +344,5 @@ const makeStyles = (c: ThemeColors) =>
     resetBtnArm: { borderColor: c.red, backgroundColor: c.ngBg },
     resetTxt: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
     resetTxtArm: { color: c.red, fontWeight: '800' },
+    version: { textAlign: 'center', color: c.faint, fontSize: ty.tiny, fontWeight: '600', marginTop: spacing.md, marginBottom: spacing.lg },
   });
