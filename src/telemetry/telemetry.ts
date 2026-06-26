@@ -4,8 +4,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 import { dayStr, type AppState } from '../store/state';
-import { readinessFor, ringsFor, learnedNow } from '../store/selectors';
+import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank } from '../store/selectors';
 import { allItemIdsFor } from '../data';
+import { daysBetween } from '../store/state';
 import type { Category } from '../engine/engine';
 
 const BASE = 'https://t.safa-lang.com/jlpt/v1'; // Cloudflare Worker。未デプロイ時は送信失敗→キューに滞留(無害)。
@@ -78,13 +79,50 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
     remaining[c] = ids.filter((id) => !state.items[id]).length;
   }
   const exhausted = CATS.filter((c) => remaining[c] <= EXHAUST_THRESHOLD);
+  const cov = coverageBars(state, now); // 漢字/語彙/文法 カバー率
+  const covMap = Object.fromEntries(cov.map((b) => [b.key, { learned: b.learned, total: b.total }]));
+  const rank = levelRank(state, now);
+  const exam = state.settings.targetExam ?? 'jlpt';
+  const daysToExam = state.settings.examDate ? daysBetween(dayStr(now), state.settings.examDate) : null;
   return {
-    v: 1, anonId: anon, app: APP_VERSION, platform: Platform.OS, uiLang: state.settings.uiLang || '',
-    level, day: dayStr(now),
-    readiness: { total: r.score, moji_goi: rings.moji_goi, bunpou: rings.bunpou, dokkai: rings.dokkai, choukai: rings.choukai },
-    learned: learnedNow(state, now), streak: state.streak.current,
+    v: 2, anonId: anon, app: APP_VERSION, platform: Platform.OS, osVersion: String(Platform.Version ?? ''),
+    uiLang: state.settings.uiLang || '', level, exam, day: dayStr(now),
+    // 質(正解率リング)＋合格率＋信頼幅
+    readiness: { total: r.score, passProb: r.passProbability, band: r.band, passing: r.passing,
+      moji_goi: rings.moji_goi, bunpou: rings.bunpou, dokkai: rings.dokkai, choukai: rings.choukai },
+    // 量(カバー率)＋達成ランク
+    coverage: covMap, rankPct: rank.pct, rankIndex: rank.rankIndex,
+    learned: learnedNow(state, now),
+    streak: state.streak.current, streakLongest: state.streak.longest, freezes: state.streak.freezes,
+    mockCount: (state.mockHistory ?? []).length, studyDays: (state.growth ?? []).length,
+    daysToExam, badgeSet: state.settings.badgeSet ?? 'gorgeous', theme: state.settings.theme,
+    reminderOn: !!state.settings.reminder,
     remaining, total, exhausted,
   };
+}
+
+// ── 問題別の回答ログ(将来資源・難易度較正/コンテンツ改善用)。匿名: content-idと正誤のみ ──
+type Ans = { i: string; c: 0 | 1; d: string };
+let answerBuf: Ans[] = [];
+/** 1回答を記録(店舗action経由で全回答を捕捉)。バッファに溜め、背面化/300件でまとめて送信。 */
+export function recordAnswer(itemId: string, correct: boolean): void {
+  if (!enabled) return;
+  answerBuf.push({ i: itemId, c: correct ? 1 : 0, d: dayStr(Date.now()) });
+  if (answerBuf.length >= 300) void flushAnswers();
+}
+/** 回答バッファを100件ずつ 'answers' イベントで送信。 */
+export async function flushAnswers(): Promise<void> {
+  if (!enabled || answerBuf.length === 0) return;
+  const batch = answerBuf.splice(0, answerBuf.length);
+  const anon = await anonId();
+  for (let i = 0; i < batch.length; i += 100) {
+    await send('events', { v: 1, anonId: anon, app: APP_VERSION, ts: Math.floor(Date.now() / 1000), name: 'answers', props: { items: batch.slice(i, i + 100) } });
+  }
+}
+/** クラッシュ/エラー報告(実機の不具合検知)。 */
+export async function sendError(message: string, fatal: boolean, screen?: string): Promise<void> {
+  if (!enabled) return;
+  await send('events', { v: 1, anonId: await anonId(), app: APP_VERSION, ts: Math.floor(Date.now() / 1000), name: 'error', props: { message: String(message).slice(0, 300), fatal, screen: screen || '' } });
 }
 
 /** 到達度スナップショット。force=false(前面化)=同日1回のみ / force=true(アプリを閉じる時)=学習後の状態で必ず更新。

@@ -7,6 +7,7 @@ import {
 import { newItemState, recordQuiz, recordMock, effectiveP } from '../engine/engine';
 import { type AppState, type Settings, type MockResult, INITIAL_STATE, dayStr } from './state';
 import { readinessFor } from './selectors';
+import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
 
@@ -109,11 +110,15 @@ export function useHydrated(): boolean {
 export function useAppActions() {
   const dispatch = useContext(DispatchCtx);
   return {
-    setSettings: (patch: Partial<Settings>) => dispatch({ type: 'SET_SETTINGS', patch }),
-    quizAnswer: (itemId: string, correct: boolean) =>
-      dispatch({ type: 'QUIZ_ANSWER', itemId, correct, now: Date.now() }),
-    mockAnswer: (itemId: string, correct: boolean) =>
-      dispatch({ type: 'MOCK_ANSWER', itemId, correct, now: Date.now() }),
+    setSettings: (patch: Partial<Settings>) => { void sendEvent('setting_changed', patch as Record<string, unknown>); dispatch({ type: 'SET_SETTINGS', patch }); },
+    quizAnswer: (itemId: string, correct: boolean) => {
+      recordAnswer(itemId, correct); // 全回答を匿名記録(問題別正答率の資源化)
+      dispatch({ type: 'QUIZ_ANSWER', itemId, correct, now: Date.now() });
+    },
+    mockAnswer: (itemId: string, correct: boolean) => {
+      recordAnswer(itemId, correct);
+      dispatch({ type: 'MOCK_ANSWER', itemId, correct, now: Date.now() });
+    },
     recordMockResult: (result: MockResult) => dispatch({ type: 'RECORD_MOCK', result }),
     reset: () => {
       clearState();

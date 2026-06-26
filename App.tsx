@@ -24,7 +24,15 @@ import ListeningScreen from './src/screens/ListeningScreen';
 import BrowseScreen from './src/screens/BrowseScreen';
 import TourOverlay from './src/components/TourOverlay';
 import { DesignThemeProvider } from './src/shared-design';
-import { setTelemetryEnabled, sendDailySnapshot } from './src/telemetry/telemetry';
+import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers } from './src/telemetry/telemetry';
+
+// ナビゲーション状態から現在の画面名(最深ルート)を取得。
+function activeRouteName(navState: unknown): string | undefined {
+  const st = navState as { index?: number; routes?: { name: string; state?: unknown }[] } | undefined;
+  if (!st || typeof st.index !== 'number' || !st.routes) return undefined;
+  const route = st.routes[st.index];
+  return route?.state ? activeRouteName(route.state) : route?.name;
+}
 
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -72,17 +80,30 @@ function Root() {
   stateRef.current = state;
   const c = useColors();
 
-  // 匿名計測(v1.1): 前面化ごとに日次スナップショット(モジュール側で1日1回に抑制)＋キュー再送。
+  // 匿名計測: 日次スナップショット＋アプリ往来/滞在＋回答flush＋クラッシュ報告。
   useEffect(() => {
     if (!hydrated) return;
+    setTelemetryEnabled(stateRef.current.settings.telemetry !== false);
+    // クラッシュ/エラーを匿名報告(既存ハンドラはそのまま呼ぶ)。
+    const g = global as unknown as { ErrorUtils?: { getGlobalHandler?: () => ((e: unknown, f?: boolean) => void); setGlobalHandler?: (h: (e: unknown, f?: boolean) => void) => void } };
+    const prev = g.ErrorUtils?.getGlobalHandler?.();
+    g.ErrorUtils?.setGlobalHandler?.((e: unknown, isFatal?: boolean) => {
+      try { void sendError((e as { message?: string })?.message || String(e), !!isFatal); } catch { /* noop */ }
+      prev?.(e, isFatal);
+    });
+    let activeSince = Date.now();
     const fire = (force: boolean) => {
       setTelemetryEnabled(stateRef.current.settings.telemetry !== false);
       void sendDailySnapshot(stateRef.current, Date.now(), force);
     };
     fire(false);
     const sub = AppState.addEventListener('change', (s) => {
-      if (s === 'active') fire(false);
-      else if (s === 'background') fire(true); // 閉じる時=学習後の状態で当日分を上書き(1行のまま)
+      if (s === 'active') { activeSince = Date.now(); fire(false); }
+      else if (s === 'background') {
+        void sendEvent('app_session', { sec: Math.round((Date.now() - activeSince) / 1000) });
+        void flushAnswers();
+        fire(true); // 閉じる時=学習後の状態で当日分を上書き(1行のまま)
+      }
     });
     return () => sub.remove();
   }, [hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -103,7 +124,7 @@ function Root() {
 
   return (
     <DesignThemeProvider scheme={scheme}>
-    <NavigationContainer theme={navTheme}>
+    <NavigationContainer theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!settings.onboarded ? (
           <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
