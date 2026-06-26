@@ -59,7 +59,7 @@
   "home.pass_hint": "পাস লাইন {n}%（｜চিহ্ন）",
   "home.readiness": "অর্জন মাত্রা",
   "home.ring_caption": "প্রতিটি বিভাগ = পড়াশোনার পরিধি (কভারেজ) × দক্ষতা (অর্জন হার)। ｜চিহ্ন উপেক্ষা করুন, সংখ্যা ০–১০০।",
-  "home.ring_title": "বিভাগ অনুযায়ী অর্জন মাত্রা",
+  "home.ring_title": "বিভাগ অনুযায়ী সঠিকতার হার",
   "home.section_badges": "ব্যাজ",
   "home.section_growth": "অগ্রগতি",
   "home.section_streak": "ধারাবাহিকতা",

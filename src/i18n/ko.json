@@ -59,7 +59,7 @@
   "home.pass_hint": "합격 라인 {n}%（｜표시）",
   "home.readiness": "준비도",
   "home.ring_caption": "각 섹션 = 학습 범위（커버율）× 정착도（습득도）. ｜은 불필요, 숫자는 0〜100.",
-  "home.ring_title": "섹션별 준비도",
+  "home.ring_title": "구분별 정확도",
   "home.section_badges": "배지",
   "home.section_growth": "성장",
   "home.section_streak": "연속",

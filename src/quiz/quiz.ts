@@ -221,13 +221,15 @@ export function buildQueue(
     const lb = sb.reps === 0 ? 0 : 1;
     return la !== lb ? la - lb : sa.dueAt - sb.dueAt;
   });
-  // A: 新出は易しい順(頻度/学年)に導入。難易度不明(文法/読解/聴解)はシャッフル。
+  // A: 新出は易しい順(頻度/学年)。ただし毎回同じ並びにならないよう、易しい上位プールからランダム抽出して多様化。
   const easy = fresh.filter((it) => Number.isFinite(itemDifficulty(it))).sort((a, b) => itemDifficulty(a) - itemDifficulty(b));
   const other = shuffle(fresh.filter((it) => !Number.isFinite(itemDifficulty(it))), rng);
-  const freshOrdered = [...easy, ...other];
   // 軽量D: 復習が溜まっているほど新出を減らす(個人の定着ペースに自動調整)。
   const maxNew = Math.max(2, Math.round(n * (due.length > 20 ? 0.25 : due.length > 8 ? 0.5 : 1)));
-  return [...due, ...freshOrdered.slice(0, maxNew)].slice(0, n);
+  // 易しい上位(maxNew*2.5)からランダムにmaxNew件＝易しさは保ちつつ毎回違う出題に。
+  const easyPick = sample(easy.slice(0, Math.max(maxNew, Math.ceil(maxNew * 2.5))), maxNew, rng);
+  const freshSel = [...easyPick, ...other].slice(0, maxNew);
+  return [...due, ...freshSel].slice(0, n);
 }
 
 /** 間違えた item を現在位置から gap 問後に差し込む(分散学習・末尾超過は末尾)。 */

@@ -59,7 +59,7 @@
   "home.pass_hint": "Ngưỡng đậu {n}% (vạch ｜)",
   "home.readiness": "Mức độ sẵn sàng",
   "home.ring_caption": "Mỗi phần = Phạm vi học (tỷ lệ phủ) × Mức độ nắm vững. ｜ không cần thiết, con số từ 0–100.",
-  "home.ring_title": "Mức độ sẵn sàng theo phần",
+  "home.ring_title": "Độ chính xác theo khu vực",
   "home.section_badges": "Huy hiệu",
   "home.section_growth": "Tiến bộ",
   "home.section_streak": "Chuỗi ngày",

@@ -59,7 +59,7 @@
   "home.pass_hint": "เส้นผ่าน {n}% (เครื่องหมาย ｜)",
   "home.readiness": "ความพร้อม",
   "home.ring_caption": "แต่ละหมวด = ความครอบคลุม × ความเชี่ยวชาญ ｜ คือเส้นผ่าน, ตัวเลข 0–100",
-  "home.ring_title": "ความพร้อมแยกตามหมวด",
+  "home.ring_title": "ความถูกต้องตามส่วน",
   "home.section_badges": "ตรา",
   "home.section_growth": "การเติบโต",
   "home.section_streak": "ความต่อเนื่อง",

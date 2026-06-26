@@ -59,7 +59,7 @@
   "home.pass_hint": "Pass line {n}% (tanda ｜)",
   "home.readiness": "Readiness",
   "home.ring_caption": "Setiap section = cakupan materi × tingkat hafalan. Tanda ｜ tidak diperlukan, angka 0–100.",
-  "home.ring_title": "Readiness per Section",
+  "home.ring_title": "Akurasi Berdasarkan Bagian",
   "home.section_badges": "Lencana",
   "home.section_growth": "Pertumbuhan",
   "home.section_streak": "Streak",

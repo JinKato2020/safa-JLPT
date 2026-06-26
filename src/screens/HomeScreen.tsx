@@ -186,7 +186,6 @@ export default function HomeScreen() {
           )}
           {/* 区分別 正解率(質) */}
           <Text style={s.miniH}>{t('home.ring_title')}</Text>
-          <Text style={s.cap}>{t('home.ring_caption')}</Text>
           <View style={s.ringRow}>
             {RING_ORDER.map((cat) => {
               const v = rings[cat];
@@ -201,9 +200,11 @@ export default function HomeScreen() {
             return (
               <View key={b.key} style={s.covRow}>
                 <Text style={s.covLabel}>{t(`home.cov_${b.key}`)}</Text>
-                <View style={s.covTrack}><View style={[s.covFill, { width: `${pct}%` }]} /></View>
-                <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
-                <Badge set={badgeSet} metric="cover" pct={pct} size={34} />
+                <View style={s.covBarCol}>
+                  <View style={s.covTrack}><View style={[s.covFill, { width: `${pct}%` }]} /></View>
+                  <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
+                </View>
+                <Badge set={badgeSet} metric="cover" pct={pct} size={48} />
               </View>
             );
           })}
@@ -356,9 +357,10 @@ const makeStyles = (c: ThemeColors) =>
     covHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
     covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.sm },
     covLabel: { width: 36, fontSize: ty.small, color: c.ink2, fontWeight: '700' },
-    covTrack: { flex: 1, height: 12, borderRadius: 6, backgroundColor: c.bgSoft, overflow: 'hidden' },
+    covBarCol: { flex: 1 },
+    covTrack: { height: 12, borderRadius: 6, backgroundColor: c.bgSoft, overflow: 'hidden' },
     covFill: { height: '100%', borderRadius: 6, backgroundColor: c.blue },
-    covFrac: { minWidth: 60, fontSize: ty.tiny, color: c.mute, textAlign: 'right', fontWeight: '600' },
+    covFrac: { fontSize: ty.tiny, color: c.mute, marginTop: 3, fontWeight: '600' },
     // バッジ
     badgeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
     badge: {

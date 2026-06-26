@@ -59,7 +59,7 @@
   "home.pass_hint": "合格线 {n}%（｜标记）",
   "home.readiness": "达成度",
   "home.ring_caption": "各科目＝学习范围（覆盖率）×巩固度（掌握率）。｜为合格线，数字为0〜100。",
-  "home.ring_title": "各科目达成度",
+  "home.ring_title": "按区分的正确率",
   "home.section_badges": "徽章",
   "home.section_growth": "成长",
   "home.section_streak": "连续打卡",

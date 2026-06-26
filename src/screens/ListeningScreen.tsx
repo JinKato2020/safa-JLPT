@@ -68,6 +68,24 @@ export default function ListeningScreen() {
     return () => { alive = false; };
   }, [state.settings.level]);
 
+  // 解答後は自動で次へ(正解1.5秒/不正解3秒)。※フックは必ず早期returnより前に置く(Rules of Hooks)。自己完結。
+  useEffect(() => {
+    if (picked === null) return;
+    const st = steps[idx];
+    if (!st) return;
+    const ok = picked === st.q.answerIndex;
+    const tmr = setTimeout(() => {
+      soundRef.current?.unloadAsync().catch(() => undefined);
+      soundRef.current = null;
+      setPlaying(false);
+      setPicked(null);
+      setShowScript(false);
+      setIdx((i) => i + 1);
+    }, ok ? 1500 : 3000);
+    return () => clearTimeout(tmr);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [picked, idx]);
+
   if (audioReady === null) {
     return <SafeAreaView style={s.c}><View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}><ActivityIndicator color={c.blue} /></View></SafeAreaView>;
   }
@@ -135,20 +153,6 @@ export default function ListeningScreen() {
       });
     }
   };
-  const next = async () => {
-    await stopSound();
-    setPicked(null);
-    setShowScript(false);
-    setIdx((i) => i + 1);
-  };
-  // 解答後は自動で次へ(正解=短め/不正解=正解とスクリプトを見せて長め)。手動「次へ」ボタンは廃止。
-  useEffect(() => {
-    if (picked === null) return;
-    const ok = picked === step.q.answerIndex;
-    const tmr = setTimeout(() => { next(); }, ok ? 1500 : 3000);
-    return () => clearTimeout(tmr);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [picked]);
 
   return (
     <SafeAreaView style={s.c}>

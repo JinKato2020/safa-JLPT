@@ -80,7 +80,7 @@
   "home.readiness": "到達度",
   "home.ring_attempts": "解答 {n}問",
   "home.ring_caption": "各区分＝学習範囲（カバー率）×定着（習得度）。｜は不要、数字は0〜100。",
-  "home.ring_title": "区分別の到達度",
+  "home.ring_title": "区分別の正解率",
   "home.section_badges": "バッジ",
   "home.section_growth": "成長",
   "home.section_streak": "継続",
