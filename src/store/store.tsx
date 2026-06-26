@@ -6,6 +6,7 @@ import {
 } from 'react';
 import { newItemState, recordQuiz, recordMock, effectiveP } from '../engine/engine';
 import { type AppState, type Settings, type MockResult, INITIAL_STATE, dayStr } from './state';
+import { readinessFor } from './selectors';
 import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
 
@@ -27,11 +28,13 @@ function withStudyDay(state: AppState, now: number): AppState {
   const day = dayStr(now);
   const streak = applyStudyDay(state.streak, day);
   const learned = countLearned(state.items, now);
+  const passProb = readinessFor(state, now).passProbability; // その日時点の合格率(推移グラフ用)
   const prev = state.growth ?? [];
   const last = prev[prev.length - 1];
+  const point = { day, learned, passProb };
   const growth = last && last.day === day
-    ? [...prev.slice(0, -1), { day, learned }] // 同日は最新値で上書き
-    : [...prev, { day, learned }];
+    ? [...prev.slice(0, -1), point] // 同日は最新値で上書き
+    : [...prev, point];
   return { ...state, streak, growth };
 }
 

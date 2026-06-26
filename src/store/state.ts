@@ -27,8 +27,9 @@ export interface Streak {
 }
 
 export interface GrowthPoint {
-  day: string;     // YYYY-MM-DD
-  learned: number; // その日時点の「覚えた語」数(成長カーブ用スナップショット)
+  day: string;       // YYYY-MM-DD
+  learned: number;   // その日時点の「覚えた語」数(成長カーブ用スナップショット)
+  passProb?: number; // その日時点の合格率(%)。合格率推移グラフ用。旧データには無い→省略可。
 }
 
 // 模試の採点記録(成長可視化用)。
