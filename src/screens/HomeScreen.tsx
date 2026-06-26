@@ -138,6 +138,15 @@ export default function HomeScreen() {
             {/* 合格ラインの代わりに称号(合格率tier)を発光表示 */}
             <Text style={s.bandIn}>{measured ? PASS_TITLES[badgeTierIndex(passProb)] : t('home.pass_prob_label')}</Text>
           </HeroGauge>
+          {/* 区分別 正解率(小リング4つ)を 大リングと推移の間に */}
+          <Text style={s.miniH}>{t('home.ring_title')}</Text>
+          <View style={s.ringRow}>
+            {RING_ORDER.map((cat) => {
+              const v = rings[cat];
+              const rc = v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red;
+              return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />;
+            })}
+          </View>
           {/* 合格率の推移(横軸=日)を合格カード下部に */}
           <Text style={s.miniH}>{t('home.passprob_trend_title')}</Text>
           {ppSeries.length >= 2 ? (
@@ -166,16 +175,7 @@ export default function HomeScreen() {
             <View style={s.statSep} />
             <View style={s.stat}><Text style={s.statVal}>{learned}</Text><Text style={s.statLbl}>{t('home.total_learned')}</Text></View>
           </View>
-          {/* ② 区分別 正解率(小リング4つ) */}
-          <Text style={s.miniH}>{t('home.ring_title')}</Text>
-          <View style={s.ringRow}>
-            {RING_ORDER.map((cat) => {
-              const v = rings[cat];
-              const rc = v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red;
-              return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />;
-            })}
-          </View>
-          {/* ③ 覚えた語の伸び */}
+          {/* 覚えた語の伸び */}
           <Text style={s.miniH}>{t('home.growth_chart_title')}</Text>
           {hasGrowth ? (
             <GrowthBars values={curve.map((p) => p.learned)} height={64} />
