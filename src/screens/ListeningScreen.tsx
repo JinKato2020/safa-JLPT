@@ -20,7 +20,7 @@ const SESSION_CLIPS = 3;
 const RELEARN_GAP = 2;
 const MAX_STEPS = 24;
 
-interface Step { clip: ListeningItem; q: PassageQuestion; qNum: number; qTotal: number; }
+interface ClipStep { clip: ListeningItem; qs: PassageQuestion[]; } // 1音声＝1ページ。その音声の全設問を同ページに。
 
 // 話者ターン(全角スペース区切り)ごとに改行して読みやすく。
 function formatScript(s: string): string {
@@ -35,17 +35,18 @@ export default function ListeningScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
 
-  const [steps, setSteps] = useState<Step[]>(() => {
+  const [steps, setSteps] = useState<ClipStep[]>(() => {
     const now = Date.now();
     const all = listeningItemsFor(state.settings.level);
     // 未習得(未回答 or p<0.6)の設問を含むクリップを優先→カバー率が確実に進みリングが満ちる。
     const needy = all.filter((cl) => cl.questions.some((q) => { const st = state.items[q.id]; return !st || effectiveP(st, now) < 0.6; }));
     const rest = all.filter((cl) => !needy.includes(cl));
     const clips = [...sample(needy, SESSION_CLIPS), ...sample(rest, SESSION_CLIPS)].slice(0, SESSION_CLIPS);
-    return clips.flatMap((cl) => cl.questions.map((q, i) => ({ clip: cl, q: { ...q, ...shuffleChoices(q.choices, q.answerIndex) }, qNum: i + 1, qTotal: cl.questions.length })));
+    // 1クリップ＝1ページ。その音声の全設問(選択肢シャッフル済)をまとめて持つ。
+    return clips.map((cl) => ({ clip: cl, qs: cl.questions.map((q) => ({ ...q, ...shuffleChoices(q.choices, q.answerIndex) })) }));
   });
   const [idx, setIdx] = useState(0);
-  const [picked, setPicked] = useState<number | null>(null);
+  const [picked, setPicked] = useState<(number | null)[]>([]); // 現クリップの設問ごとの選択(qIndex→choiceIndex)
   const [answered, setAnswered] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
@@ -68,20 +69,25 @@ export default function ListeningScreen() {
     return () => { alive = false; };
   }, [state.settings.level]);
 
-  // 解答後は自動で次へ(正解1.5秒/不正解3秒)。※フックは必ず早期returnより前に置く(Rules of Hooks)。自己完結。
+  // クリップの全設問に答えたら自動で次へ(全問正解1.5秒/誤答あり3秒)。※フックは早期returnの前(Rules of Hooks)。
   useEffect(() => {
-    if (picked === null) return;
     const st = steps[idx];
-    if (!st) return;
-    const ok = picked === st.q.answerIndex;
+    if (!st || st.qs.length === 0) return;
+    const allDone = st.qs.every((_, qi) => picked[qi] != null);
+    if (!allDone) return;
+    const anyWrong = st.qs.some((q, qi) => picked[qi] !== q.answerIndex);
     const tmr = setTimeout(() => {
       soundRef.current?.unloadAsync().catch(() => undefined);
       soundRef.current = null;
       setPlaying(false);
-      setPicked(null);
+      if (anyWrong && steps.length < MAX_STEPS) {
+        // 誤答があったクリップは後ろに再挿入(できるまで)。
+        setSteps((arr) => { const head = arr.slice(0, idx + 1); const tail = reinsertForRelearn(arr.slice(idx + 1), st, RELEARN_GAP); return [...head, ...tail]; });
+      }
+      setPicked([]);
       setShowScript(false);
       setIdx((i) => i + 1);
-    }, ok ? 1500 : 3000);
+    }, anyWrong ? 3000 : 1500);
     return () => clearTimeout(tmr);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [picked, idx]);
@@ -136,22 +142,16 @@ export default function ListeningScreen() {
     );
   }
 
-  const onPick = (i: number) => {
-    if (picked !== null) return;
-    const ok = i === step.q.answerIndex;
-    setPicked(i);
-    setShowScript(true); // 解答後にスクリプトを開示(復習用)
-    quizAnswer(step.q.id, ok);
+  // 設問qiの選択ci。同ページの各設問を個別にタップ。再挿入はクリップ完了時(effect)でまとめて判定。
+  const onPick = (qi: number, ci: number) => {
+    if (picked[qi] != null) return;
+    const q = step.qs[qi];
+    const ok = ci === q.answerIndex;
+    setPicked((p) => { const n = [...p]; n[qi] = ci; return n; });
+    setShowScript(true); // 解答後にスクリプト開示(復習用)
+    quizAnswer(q.id, ok);
     setAnswered((a) => a + 1);
     if (ok) setCorrect((x) => x + 1);
-    else if (steps.length < MAX_STEPS) {
-      // 不正解は正解するまで後ろに戻す(聴解リングが確実に埋まる)
-      setSteps((q) => {
-        const head = q.slice(0, idx + 1);
-        const tail = reinsertForRelearn(q.slice(idx + 1), step, RELEARN_GAP);
-        return [...head, ...tail];
-      });
-    }
   };
 
   return (
@@ -183,34 +183,35 @@ export default function ListeningScreen() {
           )}
         </View>
 
-        <Text style={s.qLabel}>{t('listening.q_label', { n: step.qNum, m: step.qTotal })}</Text>
-        <Text style={s.qText}>{step.q.q}</Text>
-        <View style={s.choices}>
-          {step.q.choices.map((ch, i) => {
-            const isAnswer = i === step.q.answerIndex;
-            const isPicked = i === picked;
-            const reveal = picked !== null;
-            return (
-              <Pressable
-                key={i}
-                style={[s.choice, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
-                onPress={() => onPick(i)}
-                disabled={reveal}
-              >
-                <Text style={s.choiceTxt}>{ch}</Text>
-                {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
-              </Pressable>
-            );
-          })}
-        </View>
-
-        {picked !== null ? (
-          <View style={s.explainBox}>
-            <Text style={s.explainTxt}>{step.q.explain}</Text>
-          </View>
-        ) : (
-          <Text style={s.hint}>{t('listening.hint')}</Text>
-        )}
+        {step.qs.length === 0 || picked.length === 0 ? <Text style={s.hint}>{t('listening.hint')}</Text> : null}
+        {/* 1音声の全設問を同ページに。各設問を個別タップ→正誤表示→全問終わると自動で次へ。 */}
+        {step.qs.map((q, qi) => {
+          const reveal = picked[qi] != null;
+          return (
+            <View key={qi} style={s.qBlock}>
+              {step.qs.length > 1 ? <Text style={s.qLabel}>{t('listening.q_label', { n: qi + 1, m: step.qs.length })}</Text> : null}
+              <Text style={s.qText}>{q.q}</Text>
+              <View style={s.choices}>
+                {q.choices.map((ch, ci) => {
+                  const isAnswer = ci === q.answerIndex;
+                  const isPicked = ci === picked[qi];
+                  return (
+                    <Pressable
+                      key={ci}
+                      style={[s.choice, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
+                      onPress={() => onPick(qi, ci)}
+                      disabled={reveal}
+                    >
+                      <Text style={s.choiceTxt}>{ch}</Text>
+                      {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
+                    </Pressable>
+                  );
+                })}
+              </View>
+              {reveal ? <View style={s.explainBox}><Text style={s.explainTxt}>{q.explain}</Text></View> : null}
+            </View>
+          );
+        })}
       </ScrollView>
     </SafeAreaView>
   );
@@ -245,6 +246,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   playTxtOn: { color: c.green },
   script: { fontSize: ty.body, color: c.ink2, lineHeight: 26, marginTop: spacing.xs },
   scriptToggle: { fontSize: ty.small, color: c.blue, fontWeight: '700' },
+  qBlock: { marginTop: spacing.md, paddingTop: spacing.md, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.line },
   qLabel: { fontSize: ty.tiny, fontWeight: '700', color: c.mute, letterSpacing: 1 },
   qText: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
   choices: { gap: spacing.sm },

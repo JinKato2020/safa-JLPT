@@ -109,11 +109,13 @@ export function readinessFor(state: AppState, now: number) {
   const evidenceTotal = Object.values(state.items).reduce((s, it) => s + it.evidence, 0);
   const catP = {} as Record<Category, number | null>;
   for (const c of RING_CATS) catP[c] = categoryPct(state, now, c, true);
+  // 未測定の区分数(漢字語彙/文法/読解/聴解のうち未着手)。合算セクションが測定済区分だけで高く出る問題の補正に使う。
+  const unmeasuredCats = RING_CATS.filter((c) => catP[c] === null).length;
   // JFT-Basic: 単一試験・各区分足切りなし・合格は総合80%(=200/250)のみ。総合は区分の出題数で加重(各区分ほぼ均等)。
   if (prof.exam === 'jft') {
     const overallPct = wAvgPct(RING_CATS.map((c) => [catP[c], JFT_BLUEPRINT[c] ?? 1]));
     const sections: SectionInput[] = RING_CATS.map((cat) => ({ key: cat, label: cat, pct: catP[cat], minPct: prof.jftPassPct }));
-    return computeReadiness(sections, overallPct, prof.jftPassPct, evidenceTotal, false);
+    return computeReadiness(sections, overallPct, prof.jftPassPct, evidenceTotal, false, unmeasuredCats);
   }
   // JLPT: 区分→セクションは本番の出題数で加重、総合はセクション配点(sec.max=言語知識読解120/聴解60 等)で加重。
   //   ＝得意分野が実際の配点どおりに合格達成度へ反映される。
@@ -129,7 +131,7 @@ export function readinessFor(state: AppState, now: number) {
   const overallPct = wAvgPct(secEntries.map((s) => [s.pct, s.max]));
   const sections: SectionInput[] = secEntries.map(({ max, ...s }) => s);
   const overallMinPct = Math.round((100 * pm.overall) / pm.maxTotal);
-  return computeReadiness(sections, overallPct, overallMinPct, evidenceTotal);
+  return computeReadiness(sections, overallPct, overallMinPct, evidenceTotal, true, unmeasuredCats);
 }
 
 /** 「覚えた語」数 = 習得度 p>=0.6 の項目数(成長カーブ用)。 */

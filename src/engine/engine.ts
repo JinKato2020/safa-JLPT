@@ -131,6 +131,7 @@ export function computeReadiness(
   overallMinPct: number,
   evidenceTotal: number,
   sectionGates = true, // JLPT=true(各区分足切り) / JFT=false(総合200のみ・区分は診断)
+  unmeasuredCats = 0,  // 未測定の【区分】数(漢字語彙/文法/読解/聴解のうち未着手)。合算セクションが測定済区分だけで高く出る問題への補正用。
 ): Readiness {
   const results: SectionResult[] = sections.map((s) => ({
     ...s,
@@ -148,16 +149,17 @@ export function computeReadiness(
 
   const overallRatio = overallPct === null ? 0 : overallMinPct > 0 ? overallPct / overallMinPct : 1;
   const gateRatio = Math.min(overallRatio, ...results.map((r) => r.ratio));
-  const allMeasured = overallPct !== null && results.every((r) => r.pct !== null);
+  // 全区分(カテゴリ)が測定済み＝unmeasuredCats===0 を合格圏の必須条件に(文法/読解未測定で"合格圏"にしない)。
+  const allMeasured = overallPct !== null && results.every((r) => r.pct !== null) && unmeasuredCats === 0;
   const passing = allMeasured && overallPct >= overallMinPct && (!sectionGates || results.every((r) => r.pass));
 
   let weakest: SectionResult | null = null;
   for (const r of results) if (!weakest || r.ratio < weakest.ratio) weakest = r;
 
-  // 信頼幅: 客観エビデンスで収束 / 未測定セクションで拡大。
+  // 信頼幅: 客観エビデンスで収束 / 未測定セクション・未測定区分で拡大。
   const unmeasured = results.filter((r) => r.pct === null).length;
   const fromEvidence = 11 * Math.exp(-evidenceTotal / 80);
-  const band = Math.round(clamp(fromEvidence + unmeasured * 2, 3, 15));
+  const band = Math.round(clamp(fromEvidence + unmeasured * 2 + unmeasuredCats * 2, 3, 18));
 
   // 合格率 = 全ゲート(各セクション足切り＋総合)を同時にクリアする推定確率。各ゲートの「現在値−基準点」を
   // 信頼幅σで正規化しロジスティックCDFで確率化→積。未測定セクションは不確実(低め)。σは信頼幅(最低6)。
@@ -169,6 +171,8 @@ export function computeReadiness(
     if (sectionGates) pp *= phi((r.pct - r.minPct) / sigma); // JLPT=各区分足切り
   }
   if (overallPct !== null) pp *= phi((overallPct - overallMinPct) / sigma); else pp *= 0.3;
+  // 未測定の区分があるほど合格率を下げる(合算セクションが測定済区分だけで高く出ても、未着手の区分は合否リスク)。
+  pp *= Math.pow(0.45, unmeasuredCats);
   const passProbability = Math.round(clamp(pp * 100, 0, 99));
 
   return {
