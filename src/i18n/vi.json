@@ -266,5 +266,8 @@
   "profile.weekdays": "CN,T2,T3,T4,T5,T6,T7",
   "onboarding.exam_label": "Chọn kỳ thi bạn muốn tham gia",
   "onboarding.exam_jlpt_desc": "Kỳ thi Năng lực Nhật ngữ (N5〜N3)",
-  "onboarding.exam_jft_desc": "Kỳ thi Cơ bản tiếng Nhật của Quỹ Giao lưu Quốc tế (Lao động & Kỹ năng đặc định)"
+  "onboarding.exam_jft_desc": "Kỳ thi Cơ bản tiếng Nhật của Quỹ Giao lưu Quốc tế (Lao động & Kỹ năng đặc định)",
+  "home.pass_prob_label": "Tỷ lệ đỗ",
+  "home.pass_prob_hint": "Xác suất ước tính để vượt qua tất cả các phần và tổng thể cùng một lúc (｜dấu = vùng an toàn 80%).",
+  "home.ai_passprob": "Tỷ lệ đỗ hiện tại của bạn là khoảng {n}%. "
 }

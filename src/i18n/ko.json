@@ -266,5 +266,8 @@
   "profile.weekdays": "일,월,화,수,목,금,토",
   "onboarding.exam_label": "응시할 시험 선택",
   "onboarding.exam_jlpt_desc": "JLPT 일본어 능력 시험 (N5~N3)",
-  "onboarding.exam_jft_desc": "국제교류기금 일본어 기초 테스트 (취업·특정기능)"
+  "onboarding.exam_jft_desc": "국제교류기금 일본어 기초 테스트 (취업·특정기능)",
+  "home.pass_prob_label": "합격률",
+  "home.pass_prob_hint": "모든 구분의 커트라인과 종합을 동시에 통과할 추정 확률 (｜표시=안전권 80%).",
+  "home.ai_passprob": "현재 합격률은 약 {n}%입니다."
 }

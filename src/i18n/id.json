@@ -266,5 +266,8 @@
   "profile.weekdays": "Min,Sen,Sel,Rab,Kam,Jum,Sab",
   "onboarding.exam_label": "Pilih ujian yang akan diambil",
   "onboarding.exam_jlpt_desc": "JLPT (N5〜N3)",
-  "onboarding.exam_jft_desc": "JFT-Basic (Pekerjaan & Keterampilan Khusus)"
+  "onboarding.exam_jft_desc": "JFT-Basic (Pekerjaan & Keterampilan Khusus)",
+  "home.pass_prob_label": "Peluang Lulus",
+  "home.pass_prob_hint": "Perkiraan peluang untuk melewati semua batas minimum dan total secara bersamaan (｜=zona aman 80%).",
+  "home.ai_passprob": "Peluang lulus saat ini adalah sekitar {n}%."
 }

@@ -266,5 +266,8 @@
   "profile.weekdays": "日,一,二,三,四,五,六",
   "onboarding.exam_label": "选择要参加的考试",
   "onboarding.exam_jlpt_desc": "日本语能力测试（N5〜N3）",
-  "onboarding.exam_jft_desc": "国际交流基金 日本语基础测试（就业・特定技能）"
+  "onboarding.exam_jft_desc": "国际交流基金 日本语基础测试（就业・特定技能）",
+  "home.pass_prob_label": "合格率",
+  "home.pass_prob_hint": "同时通过所有部分的最低分数线和总分数的估计概率（｜线=安全区80%）。",
+  "home.ai_passprob": "当前的合格率约为{n}%。"
 }
