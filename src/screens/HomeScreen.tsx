@@ -17,11 +17,8 @@ import RingGauge from '../components/RingGauge';
 import Badge from '../components/Badge';
 import { badgeTierIndex } from '../data/badges';
 
-// カバー率(量)の成長バッジ 10段ネーミング(宝石/秘宝の格上がり)。badgeTierIndex(0-9)に対応。
-const COVER_TIERS = ['原石', '水晶', '宝石', '珠玉', '輝玉', '秘宝', '至宝', '金剛', '霊宝', '宝冠'];
-
-// 合格リング中央バッジの称号 10段(合格率tierに対応・badgeTierIndex 0-9)。
-const PASS_TITLES = ['ことばの芽', 'はじめの一歩', '日々の習慣', '表現の扉', '聞くちから', 'ことばの旅人', '努力の証', '考える力', '自信と発信', 'ことばのマスター'];
+// 称号(合格率tier 10段)= i18n home.passTitle0..9 / カバー率の成長バッジ段名 = home.coverTier0..9
+// バッジ名 = home.badge_<id> / home.badge_<id>_hint (badgeTierIndex 0-9・badge id 対応)。
 import { dayStr, daysBetween, lastNDays } from '../store/state';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -132,7 +129,7 @@ export default function HomeScreen() {
             {/* 大リング中央＝合格率の“格”バッジを大きく。初回(未測定)は新芽(tier0)を既定表示。 */}
             <Badge set={badgeSet} metric="pass" pct={measured ? passProb : 0} size={146} />
             {/* 合格ラインの代わりに称号(合格率tier)を発光表示。未測定は「ことばの芽」 */}
-            <Text style={s.bandIn}>{PASS_TITLES[badgeTierIndex(measured ? passProb : 0)]}</Text>
+            <Text style={s.bandIn}>{t('home.passTitle' + badgeTierIndex(measured ? passProb : 0))}</Text>
           </HeroGauge>
           {/* 区分別 正解率(小リング4つ)を 大リングと推移の間に */}
           <Text style={s.miniH}>{t('home.ring_title')}</Text>
@@ -191,7 +188,7 @@ export default function HomeScreen() {
                 </View>
                 <View style={s.covBadgeWrap}>
                   <Badge set={badgeSet} metric="cover" pct={pct} size={60} />
-                  <Text style={s.covTierName}>{COVER_TIERS[badgeTierIndex(pct)]}</Text>
+                  <Text style={s.covTierName}>{t('home.coverTier' + badgeTierIndex(pct))}</Text>
                 </View>
               </View>
             );
@@ -228,7 +225,7 @@ export default function HomeScreen() {
         {/* バッジ */}
         <Text style={s.sectionH}>{t('home.section_badges')}</Text>
         <BadgeGrid
-          badges={badges.map((b) => ({ id: b.id, emoji: b.emoji, label: b.label, hint: b.hint, unlocked: b.unlocked }))}
+          badges={badges.map((b) => ({ id: b.id, emoji: b.emoji, label: t('home.badge_' + b.id), hint: t('home.badge_' + b.id + '_hint'), unlocked: b.unlocked }))}
           achievedLabel={t('home.badge_achieved')}
         />
       </ScrollView>

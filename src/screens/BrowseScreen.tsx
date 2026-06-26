@@ -181,6 +181,7 @@ export default function BrowseScreen() {
       <Text style={s.count}>{t('browse.count', { n: results.length })}</Text>
 
       <FlatList
+        key={`${kubun}-${effLevel}`}
         data={results}
         keyExtractor={(i) => i.id}
         renderItem={renderItem}
