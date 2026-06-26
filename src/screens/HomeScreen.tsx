@@ -19,6 +19,9 @@ import { badgeTierIndex } from '../data/badges';
 
 // カバー率(量)の成長バッジ 10段ネーミング(宝石/秘宝の格上がり)。badgeTierIndex(0-9)に対応。
 const COVER_TIERS = ['原石', '水晶', '宝石', '珠玉', '輝玉', '秘宝', '至宝', '金剛', '霊宝', '宝冠'];
+
+// 合格リング中央バッジの称号 10段(合格率tierに対応・badgeTierIndex 0-9)。
+const PASS_TITLES = ['ことばの芽', 'はじめの一歩', '日々の習慣', '表現の扉', '聞くちから', 'ことばの旅人', '努力の証', '考える力', '自信と発信', 'ことばのマスター'];
 import { dayStr, daysBetween, lastNDays } from '../store/state';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -135,7 +138,8 @@ export default function HomeScreen() {
             ) : (
               <Text style={s.score}>—</Text>
             )}
-            <Text style={s.bandIn}>{t('home.pass_prob_label')}{measured ? ` ・ ±${readiness.band}` : ''}</Text>
+            {/* 合格ラインの代わりに称号(合格率tier)を発光表示 */}
+            <Text style={s.bandIn}>{measured ? PASS_TITLES[badgeTierIndex(passProb)] : t('home.pass_prob_label')}</Text>
           </HeroGauge>
           {/* 説明文は削除。状態メッセージのみ(黒)。 */}
           <Text style={[s.status, { color: c.ink }]}>{status}</Text>
@@ -270,7 +274,8 @@ const makeStyles = (c: ThemeColors) =>
     medal: { backgroundColor: c.blueLight, borderRadius: radius.lg, paddingHorizontal: spacing.md, paddingVertical: 6, borderWidth: 1, borderColor: c.blue },
     medalTxt: { fontSize: 24, fontWeight: '800', color: c.blueDark },
     score: { fontSize: 66, fontWeight: '800', color: c.ink, lineHeight: 70 },
-    bandIn: { position: 'absolute', bottom: 8, paddingHorizontal: 9, paddingVertical: 2, borderRadius: 11, overflow: 'hidden', backgroundColor: c.surface + 'e6', fontSize: ty.small, color: c.mute, fontWeight: '700' },
+    // 称号ラベル: 少し光らせる(金色グロー)。リング下部に固定。
+    bandIn: { position: 'absolute', bottom: 6, paddingHorizontal: 11, paddingVertical: 3, borderRadius: 12, backgroundColor: c.surface + 'e6', fontSize: ty.small, color: c.ink, fontWeight: '800', letterSpacing: 0.3, textShadowColor: '#f5b301', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 7 },
     status: { fontSize: ty.h2, fontWeight: '800', marginTop: spacing.md },
     passHint: { fontSize: ty.tiny, color: c.faint, marginTop: 4 },
     rank: { fontSize: ty.small, color: c.blue, fontWeight: '800', marginTop: 6 },
@@ -295,7 +300,7 @@ const makeStyles = (c: ThemeColors) =>
     statsCap: { fontSize: 10, color: c.faint, marginTop: spacing.sm, textAlign: 'center' },
 
     // AIコーチ分析カード
-    aiCard: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, borderLeftWidth: 4, borderLeftColor: c.blue, padding: spacing.md, gap: 2 },
+    aiCard: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: 2 },
     aiTitle: { fontSize: ty.small, fontWeight: '800', color: c.blueDark, letterSpacing: 0.3 },
     aiHl: { fontSize: ty.body, fontWeight: '800', color: c.ink, marginTop: 2, marginBottom: 2 },
     aiLine: { fontSize: ty.small, color: c.ink2, lineHeight: 21 },
