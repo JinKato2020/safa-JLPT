@@ -211,14 +211,20 @@ export default function ProfileScreen() {
           </View>
           <Text style={s.subtle}>{t('profile.reminderHint')}</Text>
 
-          <View style={s.toggleRow}>
-            <Text style={s.setLbl}>{t('profile.telemetry')}</Text>
+          {/* 利用状況データの送信: 目立たない控えめ表示(小さめ・淡色・区切り線で降格) */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>{t('profile.telemetry')}</Text>
+              <Text style={s.subtle}>{t('profile.telemetryHint')}</Text>
+            </View>
             <Switch
+              style={s.telemSwitch}
               value={state.settings.telemetry !== false}
               onValueChange={(v) => { setSettings({ telemetry: v }); setTelemetryEnabled(v); }}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
             />
           </View>
-          <Text style={s.subtle}>{t('profile.telemetryHint')}</Text>
         </View>
 
         {/* 聴解データの一括DL(オンボードでスキップした人・既存ユーザー向け) */}
@@ -336,6 +342,10 @@ const makeStyles = (c: ThemeColors) =>
     subtle: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.sm, lineHeight: 15 },
     examSel: { fontSize: ty.body, fontWeight: '800', color: c.blue, marginTop: spacing.xs },
     toggleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: spacing.md },
+    telemRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.sm, marginTop: spacing.lg, paddingTop: spacing.md, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.line },
+    telemTxt: { flex: 1 },
+    telemLbl: { fontSize: ty.tiny, fontWeight: '600', color: c.mute },
+    telemSwitch: { transform: [{ scale: 0.72 }] },
     credit: { fontSize: ty.tiny, color: c.mute, lineHeight: 16 },
     resetBtn: {
       marginTop: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: c.line,
