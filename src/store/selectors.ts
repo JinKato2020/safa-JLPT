@@ -1,7 +1,7 @@
 // ストア状態 → JLPTエンジンへの橋渡し(派生値)。UI はこれを useMemo で呼ぶ。
 import { computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
 import { examOf } from '../engine/examProfile';
-import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META } from '../data';
+import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR } from '../data';
 import { JLPT_BLUEPRINT, JFT_BLUEPRINT } from '../data/examBlueprint';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
@@ -142,6 +142,27 @@ export function learnedNow(state: AppState, now: number): number {
   return Object.values(state.items).filter((it) => effectiveP(it, now) >= 0.6).length;
 }
 
+/** 漢字/語彙/文法 のカバー率(覚えた数/全体)。レベル(JFT=N5+N4)スコープ。"量"の指標=3バー表示用。 */
+export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vocab' | 'grammar'; learned: number; total: number }[] {
+  const jft = (state.settings.targetExam ?? 'jlpt') === 'jft';
+  const inScope = (lv: string) => (jft ? lv === 'N5' || lv === 'N4' : lv === state.settings.level);
+  const cov = (items: { id: string; level: string }[]) => {
+    let learned = 0, total = 0;
+    for (const it of items) {
+      if (!inScope(it.level)) continue;
+      total++;
+      const st = state.items[it.id];
+      if (st && effectiveP(st, now) >= 0.6) learned++;
+    }
+    return { learned, total };
+  };
+  return [
+    { key: 'kanji' as const, ...cov(KANJI) },
+    { key: 'vocab' as const, ...cov(VOCAB) },
+    { key: 'grammar' as const, ...cov(GRAMMAR) },
+  ];
+}
+
 /** 区分ごとのリング下サブ。知識=「覚えた/全語」(カバー率) / 読解聴解(skill)=「解答数」(般化スキルは数えない)。 */
 export function ringLearnedRatio(state: AppState, now: number): Record<Category, { learned: number; total: number; attempted: number; skill: boolean }> {
   const out = {} as Record<Category, { learned: number; total: number; attempted: number; skill: boolean }>;
@@ -256,10 +277,12 @@ export function nextBestAction(state: AppState, now: number): NextAction | null 
   return { category: target, label: m.label, route: m.route, reason };
 }
 
-// 達成ランク(C): 級内の習得率(覚えた/全)で上がる“帯”。コンテンツは固定しない(出題は易しい順=A)。合格判定とは別軸。
+// 達成ランク(C): 級内の習得率(覚えた/全)で上がる“帯”。10段階(習得率10%刻み)。合格判定とは別軸。
 const RANKS = [
-  { min: 0, name: '入門' }, { min: 15, name: '初級' }, { min: 35, name: '中級' },
-  { min: 55, name: '上級' }, { min: 80, name: '仕上げ' },
+  { min: 0, name: '入門' }, { min: 10, name: '初級' }, { min: 20, name: '中級' },
+  { min: 30, name: '上級' }, { min: 40, name: '特級' }, { min: 50, name: '達人' },
+  { min: 60, name: '師範' }, { min: 70, name: '名人' }, { min: 80, name: '王者' },
+  { min: 90, name: '極み' },
 ];
 /** 級の学習ランク(習得率ベース)。 */
 export function levelRank(state: AppState, now: number) {

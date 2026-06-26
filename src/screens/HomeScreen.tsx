@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { readinessFor, growthSeries, growthCurve, nextBestAction, ringsFor, learnedNow, ringLearnedRatio, levelRank } from '../store/selectors';
+import { readinessFor, growthSeries, growthCurve, nextBestAction, ringsFor, learnedNow, levelRank, coverageBars } from '../store/selectors';
 import { computeBadges } from '../store/badges';
 import { examOf } from '../engine/examProfile';
 import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../shared-design';
@@ -37,10 +37,11 @@ export default function HomeScreen() {
   const readiness = useMemo(() => readinessFor(state, now), [state]);
   const nba = useMemo(() => nextBestAction(state, now), [state]);
   const rings = useMemo(() => ringsFor(state, now), [state]);
-  const ringRatio = useMemo(() => ringLearnedRatio(state, now), [state]);
   const rank = useMemo(() => levelRank(state, now), [state]);
   const learned = useMemo(() => learnedNow(state, now), [state]);
   const curve = useMemo(() => growthCurve(state, dayStr(now), 14), [state, now]);
+  const cov = useMemo(() => coverageBars(state, now), [state, now]);
+  const ppSeries = useMemo(() => (state.growth ?? []).slice(-14).map((g) => g.passProb ?? 0), [state.growth]);
   const studied = useMemo(() => new Set(state.streak.history), [state.streak.history]);
   const badges = useMemo(
     () => computeBadges({ studyDays: state.streak.history.length, longestStreak: state.streak.longest, learned, score: readiness.score }),
@@ -152,24 +153,42 @@ export default function HomeScreen() {
         {/* 成長 */}
         <Text style={s.sectionH}>{t('home.section_growth')}</Text>
         <View style={s.card}>
+          {/* 合格率の推移(横軸=日) */}
+          <Text style={s.miniH}>{t('home.passprob_trend_title')}</Text>
+          {ppSeries.length >= 2 ? (
+            <GrowthBars values={ppSeries} height={64} max={100} color={c.blue} />
+          ) : (
+            <Text style={s.hint}>{t('home.passprob_trend_empty')}</Text>
+          )}
+          {/* 覚えた量の推移 */}
           <Text style={s.miniH}>{t('home.growth_chart_title')}</Text>
           {hasGrowth ? (
             <GrowthBars values={curve.map((p) => p.learned)} height={64} />
           ) : (
             <Text style={s.hint}>{t('home.growth_empty_hint')}</Text>
           )}
+          {/* 区分別 正解率(質) */}
           <Text style={s.miniH}>{t('home.ring_title')}</Text>
           <Text style={s.cap}>{t('home.ring_caption')}</Text>
           <View style={s.ringRow}>
             {RING_ORDER.map((cat) => {
               const v = rings[cat];
               const rc = v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red;
-              const rt = ringRatio[cat];
-              // リング数字=正解率(質)、サブ=覚えた数/全体(量=カバー率)を全区分で表示。
-              const sub = `${rt.learned}/${rt.total}`;
-              return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub={sub} />;
+              return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />;
             })}
           </View>
+          {/* カバー率(量)= 漢字/語彙/文法 を横バー＋横に分数 */}
+          <Text style={s.miniH}>{t('home.coverage_title')}</Text>
+          {cov.map((b) => {
+            const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
+            return (
+              <View key={b.key} style={s.covRow}>
+                <Text style={s.covLabel}>{t(`home.cov_${b.key}`)}</Text>
+                <View style={s.covTrack}><View style={[s.covFill, { width: `${pct}%` }]} /></View>
+                <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
+              </View>
+            );
+          })}
         </View>
 
         {/* 今日のおすすめ(成長の後・主要操作=青。ボタン自体がセクション見出しを兼ねる) */}
@@ -314,6 +333,12 @@ const makeStyles = (c: ThemeColors) =>
     curveBar: { backgroundColor: c.green, borderRadius: 2, width: '100%' },
     hint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
     ringRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.md },
+    // カバー率(量)の横バー＋横に分数
+    covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.sm },
+    covLabel: { width: 36, fontSize: ty.small, color: c.ink2, fontWeight: '700' },
+    covTrack: { flex: 1, height: 12, borderRadius: 6, backgroundColor: c.bgSoft, overflow: 'hidden' },
+    covFill: { height: '100%', borderRadius: 6, backgroundColor: c.blue },
+    covFrac: { minWidth: 60, fontSize: ty.tiny, color: c.mute, textAlign: 'right', fontWeight: '600' },
     // バッジ
     badgeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
     badge: {

@@ -84,14 +84,14 @@ export function StreakCalendar({ days }: { days: CalDay[] }) {
 }
 
 /** 成長バー(値配列を棒グラフ化・右肩上がりの可視化)。色は success。 */
-export function GrowthBars({ values, height = 64 }: { values: number[]; height?: number }) {
+export function GrowthBars({ values, height = 64, max: maxProp, color }: { values: number[]; height?: number; max?: number; color?: string }) {
   const { colors } = useTokens();
-  const max = Math.max(1, ...values);
+  const max = maxProp ?? Math.max(1, ...values);
   return (
     <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 4, height }}>
       {values.map((v, i) => (
         <View key={i} style={{ flex: 1, justifyContent: 'flex-end' }}>
-          <View style={{ backgroundColor: colors.success, borderRadius: 2, width: '100%', height: 6 + ((height - 10) * v) / max }} />
+          <View style={{ backgroundColor: color ?? colors.success, borderRadius: 2, width: '100%', height: 6 + ((height - 10) * Math.max(0, Math.min(v, max))) / max }} />
         </View>
       ))}
     </View>
