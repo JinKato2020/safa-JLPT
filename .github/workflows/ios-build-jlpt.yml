@@ -1,17 +1,19 @@
-name: Build iOS (まいにちJLPT)
-run-name: "まいにちJLPT iOS build (com.safa.jlpt) — ${{ github.event.head_commit.message || github.ref_name }}"
+name: まいにちJLPT (Pages配信 + iOSビルド)
+run-name: "まいにちJLPT — ${{ github.event_name == 'workflow_dispatch' && 'iOS build' || 'Pages deploy' }} (${{ github.event.head_commit.message || github.ref_name }})"
 
 # =============================================================================
-# まいにちJLPT (com.safa.jlpt) — iOS ビルド & TestFlight 提出
-# アプリ本体はこのリポジトリ(safa-JLPT)のルート(Expoプロジェクト)。
-# 必要な Secrets:
-#   IOS_DIST_CERT_BASE64 / IOS_DIST_CERT_PASSWORD / IOS_TEAM_ID
+# まいにちJLPT (com.safa.jlpt) — 1ワークフローに統合:
+#  ① deploy-pages : push(main)時に GitHub Pages へ配信(聴解音声 assets/audio ＋ privacy/terms.html)
+#  ② build-ios    : 手動(workflow_dispatch)時に iOS ビルド & TestFlight 提出
+#  → 旧「pages build and deployment」(branch自動デプロイ)はPagesソースを"GitHub Actions"に切替えて廃止。
+# 必要な Secrets(ビルド): IOS_DIST_CERT_BASE64 / IOS_DIST_CERT_PASSWORD / IOS_TEAM_ID
 #   APP_STORE_CONNECT_KEY_ID / APP_STORE_CONNECT_ISSUER_ID / APP_STORE_CONNECT_API_KEY_BASE64
 #   IOS_PROVISIONING_PROFILE_JLPT_BASE64
-# 手動トリガー(workflow_dispatch)のみ＝macOSランナーの分を節約。
 # =============================================================================
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       submit:
@@ -23,11 +25,49 @@ on:
           - 'true'
           - 'false'
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 env:
   BUNDLE_ID: com.safa.jlpt
 
 jobs:
+  # ① Pages配信(push時): 音声と法務ページをGitHub Pagesへ。URL構造を従来どおり維持
+  #    (/assets/audio/*.mp3 ・ /privacy.html ・ /terms.html)。
+  deploy-pages:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Build _site (audio + legal pages・URL構造維持)
+        run: |
+          mkdir -p _site/assets
+          cp -r assets/audio _site/assets/audio
+          [ -f privacy.html ] && cp privacy.html _site/ || true
+          [ -f terms.html ] && cp terms.html _site/ || true
+          echo "::notice::_site contents:"; find _site -maxdepth 3 | head -40
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # ② iOSビルド(手動時のみ)。macOSランナー節約のため push では走らせない。
   build-ios:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: macos-26
     timeout-minutes: 90
     steps:
