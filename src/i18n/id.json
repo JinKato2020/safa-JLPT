@@ -43,7 +43,7 @@
   "home.cat_dokkai": "Membaca",
   "home.cat_moji_goi": "Kanji & Kosakata",
   "home.cta_diagnose": "Berikan soal kelemahan dan materi yang perlu diulang",
-  "home.cta_review": "Ulasan Hari Ini ・ 10 soal dari semua section",
+  "home.cta_review": "Ulasan Hari Ini - 10 Soal dari Kanji, Kosakata, dan Tata Bahasa",
   "home.cta_title": "Rekomendasi Hari Ini",
   "home.exam_days": "{n} hari lagi ujian",
   "home.exam_on_track": "Dengan kecepatan ini kamu tepat waktu ✓",
@@ -269,5 +269,14 @@
   "onboarding.exam_jft_desc": "JFT-Basic (Pekerjaan & Keterampilan Khusus)",
   "home.pass_prob_label": "Peluang Lulus",
   "home.pass_prob_hint": "Perkiraan peluang untuk melewati semua batas minimum dan total secara bersamaan (｜=zona aman 80%).",
-  "home.ai_passprob": "Peluang lulus saat ini adalah sekitar {n}%."
+  "home.ai_passprob": "Peluang lulus saat ini adalah sekitar {n}%.",
+  "home.passprob_trend_title": "Tren Peluang Lulus (Sumbu X = Hari)",
+  "home.passprob_trend_empty": "Lanjutkan belajar, dan tren peluang lulus harian akan ditampilkan.",
+  "home.coverage_title": "Tingkat Cakupan (Jumlah yang Dikuasai)",
+  "home.cov_kanji": "Kanji",
+  "home.cov_vocab": "Kosakata",
+  "home.cov_grammar": "Tata Bahasa",
+  "home.ai_strong": "Anda hebat dalam \"{cat}\" (Tingkat keberhasilan {pct}%)! Luar biasa👏",
+  "home.ai_today_growth": "Hari ini Anda menguasai {n} kata! Setiap langkah kecil adalah jalan terbaik menuju kelulusan.",
+  "home.ai_improving": "Peluang lulus meningkat {n} poin📈 Anda berkembang dengan baik!"
 }

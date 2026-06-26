@@ -43,7 +43,7 @@
   "home.cat_dokkai": "Đọc hiểu",
   "home.cat_moji_goi": "Kanji & Từ vựng",
   "home.cta_diagnose": "Đưa ra câu hỏi về điểm yếu và ôn tập khi đã quên",
-  "home.cta_review": "Ôn tập hôm nay ・ 10 câu từ tất cả các phần",
+  "home.cta_review": "Ôn tập hôm nay ・ 10 câu từ Hán tự, từ vựng và ngữ pháp",
   "home.cta_title": "Gợi ý hôm nay",
   "home.exam_days": "Còn {n} ngày đến kỳ thi",
   "home.exam_on_track": "Bạn đang đúng tiến độ ✓",
@@ -269,5 +269,14 @@
   "onboarding.exam_jft_desc": "Kỳ thi Cơ bản tiếng Nhật của Quỹ Giao lưu Quốc tế (Lao động & Kỹ năng đặc định)",
   "home.pass_prob_label": "Tỷ lệ đỗ",
   "home.pass_prob_hint": "Xác suất ước tính để vượt qua tất cả các phần và tổng thể cùng một lúc (｜dấu = vùng an toàn 80%).",
-  "home.ai_passprob": "Tỷ lệ đỗ hiện tại của bạn là khoảng {n}%. "
+  "home.ai_passprob": "Tỷ lệ đỗ hiện tại của bạn là khoảng {n}%. ",
+  "home.passprob_trend_title": "Xu hướng tỷ lệ đậu (trục ngang = ngày)",
+  "home.passprob_trend_empty": "Tiếp tục học để xem xu hướng tỷ lệ đậu theo ngày.",
+  "home.coverage_title": "Tỷ lệ bao phủ (lượng đã nhớ)",
+  "home.cov_kanji": "Hán tự",
+  "home.cov_vocab": "Từ vựng",
+  "home.cov_grammar": "Ngữ pháp",
+  "home.ai_strong": "Bạn rất giỏi về 「{cat}」 (tỷ lệ đúng {pct}%)! Tuyệt vời👏",
+  "home.ai_today_growth": "Hôm nay bạn đã nắm vững {n} từ! Tích lũy hàng ngày là con đường ngắn nhất đến thành công.",
+  "home.ai_improving": "Tỷ lệ đậu đã tăng {n} điểm📈 Bạn đang tiến bộ vững chắc!"
 }

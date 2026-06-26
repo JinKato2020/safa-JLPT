@@ -43,7 +43,7 @@
   "home.cat_dokkai": "독해",
   "home.cat_moji_goi": "한자·어휘",
   "home.cta_diagnose": "약점과 잊어버린 부분을 출제",
-  "home.cta_review": "오늘의 복습 · 전 섹션에서 10문제",
+  "home.cta_review": "오늘의 복습 ・ 한자어휘＋문법에서 10문제",
   "home.cta_title": "오늘의 추천",
   "home.exam_days": "시험까지 {n}일",
   "home.exam_on_track": "이 페이스면 제때 맞출 수 있어요 ✓",
@@ -269,5 +269,14 @@
   "onboarding.exam_jft_desc": "국제교류기금 일본어 기초 테스트 (취업·특정기능)",
   "home.pass_prob_label": "합격률",
   "home.pass_prob_hint": "모든 구분의 커트라인과 종합을 동시에 통과할 추정 확률 (｜표시=안전권 80%).",
-  "home.ai_passprob": "현재 합격률은 약 {n}%입니다."
+  "home.ai_passprob": "현재 합격률은 약 {n}%입니다.",
+  "home.passprob_trend_title": "합격률 추세（가로축＝일）",
+  "home.passprob_trend_empty": "학습을 계속하면, 일별 합격률 추세가 표시됩니다.",
+  "home.coverage_title": "커버율（암기량）",
+  "home.cov_kanji": "한자",
+  "home.cov_vocab": "어휘",
+  "home.cov_grammar": "문법",
+  "home.ai_strong": "「{cat}」을(를) 잘하시네요（정답률{pct}%）！멋져요👏",
+  "home.ai_today_growth": "오늘은 {n}단어 마스터! 매일의 노력이 합격으로 가는 가장 빠른 길입니다.",
+  "home.ai_improving": "합격률이 {n}포인트 상승📈 착실히 성장하고 있습니다!"
 }

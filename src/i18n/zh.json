@@ -43,7 +43,7 @@
   "home.cat_dokkai": "阅读",
   "home.cat_moji_goi": "汉字・词汇",
   "home.cta_diagnose": "出题弱点和遗忘的复习",
-  "home.cta_review": "今日复习 ・ 全科目10题",
+  "home.cta_review": "今天的复习 ・ 从汉字词汇＋语法中选择10题",
   "home.cta_title": "今日推荐",
   "home.exam_days": "距考试还有 {n} 天",
   "home.exam_on_track": "按此节奏可赶上考试 ✓",
@@ -269,5 +269,14 @@
   "onboarding.exam_jft_desc": "国际交流基金 日本语基础测试（就业・特定技能）",
   "home.pass_prob_label": "合格率",
   "home.pass_prob_hint": "同时通过所有部分的最低分数线和总分数的估计概率（｜线=安全区80%）。",
-  "home.ai_passprob": "当前的合格率约为{n}%。"
+  "home.ai_passprob": "当前的合格率约为{n}%。",
+  "home.passprob_trend_title": "合格率趋势（横轴＝日）",
+  "home.passprob_trend_empty": "继续学习，日合格率趋势将会显示。",
+  "home.coverage_title": "覆盖率（记忆量）",
+  "home.cov_kanji": "汉字",
+  "home.cov_vocab": "词汇",
+  "home.cov_grammar": "语法",
+  "home.ai_strong": "「{cat}」很擅长哦（正确率{pct}%）！太棒了👏",
+  "home.ai_today_growth": "今天掌握了{n}个词！每天的积累是通往合格的最佳途径。",
+  "home.ai_improving": "合格率上升了{n}点📈 稳步成长中！"
 }
