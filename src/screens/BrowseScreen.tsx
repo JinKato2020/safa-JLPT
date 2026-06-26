@@ -8,7 +8,7 @@ import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE_MULTI, VOCAB_EXAMPLE, DICT_EXT_VOC
 import type { KanjiReadingExample, KanjiExampleMulti } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
-import { loadSharedDict, syncDictCache, type SharedDict } from '../data/dictRemote';
+import { loadSharedDict, syncDictCache, type SharedDict } from '../../shared/JLPT-Listening/dict/dictRemote';
 import { buildDictMaps, sharedVocabItems, sharedKanjiItems } from '../data/dictView';
 import { useT } from '../i18n';
 import { highlightSegments } from '../quiz/highlight';

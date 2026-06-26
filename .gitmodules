@@ -1,0 +1,3 @@
+[submodule "shared"]
+	path = shared
+	url = https://github.com/JinKato2020/safa-shared.git

@@ -11,7 +11,7 @@ import { useAppState } from '../store/store';
 import { readinessFor, growthSeries, growthCurve, nextBestAction, ringsFor, learnedNow, levelRank, coverageBars } from '../store/selectors';
 import { computeBadges } from '../store/badges';
 import { examOf } from '../engine/examProfile';
-import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../shared-design';
+import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../../shared/JLPT-Listening/design';
 import HeroGauge from '../components/HeroGauge';
 import RingGauge from '../components/RingGauge';
 import Badge from '../components/Badge';

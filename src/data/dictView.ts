@@ -5,7 +5,7 @@
 //  ・ja-kanji は level を持たない(KANJIDIC由来)ので、同梱データから char→level を補完。
 //    補完できない漢字は level 空＝「全」表示時のみ出る(各級フィルタには出ない)。
 import { VOCAB, KANJI, DICT_EXT_VOCAB, DICT_EXT_KANJI, type VocabItem, type KanjiItem } from '.';
-import type { SharedDict } from './dictRemote';
+import type { SharedDict } from '../../shared/JLPT-Listening/dict/dictRemote';
 import type { Level } from '../engine/engine';
 
 export type DictMaps = {

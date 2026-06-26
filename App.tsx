@@ -23,7 +23,7 @@ import ReadingScreen from './src/screens/ReadingScreen';
 import ListeningScreen from './src/screens/ListeningScreen';
 import BrowseScreen from './src/screens/BrowseScreen';
 import TourOverlay from './src/components/TourOverlay';
-import { DesignThemeProvider } from './src/shared-design';
+import { DesignThemeProvider } from './shared/JLPT-Listening/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers } from './src/telemetry/telemetry';
 
 // ナビゲーション状態から現在の画面名(最深ルート)を取得。
