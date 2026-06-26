@@ -1,13 +1,15 @@
 // 一覧・検索(辞書/単語帳)。漢字/語彙/文法を検索＆一覧。各項目に習得状態を表示。出題のランダムと逆に「目的の語を探す」用。
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE_MULTI, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI } from '../data';
-import type { KanjiReadingExample } from '../data';
+import type { KanjiReadingExample, KanjiExampleMulti } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
+import { loadSharedDict, syncDictCache, type SharedDict } from '../data/dictRemote';
+import { buildDictMaps, sharedVocabItems, sharedKanjiItems } from '../data/dictView';
 import { useT } from '../i18n';
 import { highlightSegments } from '../quiz/highlight';
 
@@ -44,11 +46,32 @@ export default function BrowseScreen() {
   const [level, setLevel] = useState<string>(settings.level); // 'all' または N5..N1
   const [query, setQuery] = useState('');
 
-  // 辞書は N5-N1(語彙/漢字はN2/N1の参考辞書を追加)。文法はN5-N3のまま。
+  // 共有辞書(単一ソース=Pages配信)を取得＋キャッシュ。読めるまでは同梱データで表示(オフラインfallback)。
+  const [shared, setShared] = useState<SharedDict | null>(null);
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try { await syncDictCache(); const d = await loadSharedDict(); if (alive) setShared(d); }
+      catch { /* オフライン等は同梱データのまま */ }
+    })();
+    return () => { alive = false; };
+  }, []);
+
+  const maps = useMemo(buildDictMaps, []);
+  const sVocab = useMemo(() => (shared ? sharedVocabItems(shared, maps) : null), [shared, maps]);
+  const sKanji = useMemo(() => (shared ? sharedKanjiItems(shared, maps) : null), [shared, maps]);
+  // 辞書は共有辞書(remote)優先・未取得時は同梱にフォールバック。文法はJLPT固有(共有辞書に無い)=同梱のまま。
   const src = useMemo<StudyItem[]>(
-    () => (kubun === 'vocab' ? [...VOCAB, ...DICT_EXT_VOCAB] : kubun === 'kanji' ? [...KANJI, ...DICT_EXT_KANJI] : GRAMMAR),
-    [kubun],
+    () =>
+      kubun === 'vocab' ? (sVocab ?? [...VOCAB, ...DICT_EXT_VOCAB])
+      : kubun === 'kanji' ? (sKanji ?? [...KANJI, ...DICT_EXT_KANJI])
+      : GRAMMAR,
+    [kubun, sVocab, sKanji],
   );
+  // 例文: 共有辞書があれば共有(語|読み / char)を、無ければ同梱を使う。
+  const kanjiExMap = (shared?.kanjiExamples as unknown as Record<string, KanjiExampleMulti>) ?? KANJI_EXAMPLE_MULTI;
+  const vocabExOf = (it: StudyItem & { type: 'vocab' }) =>
+    shared ? shared.examples[`${it.word}|${it.reading}`] : VOCAB_EXAMPLE[it.id];
   // この区分に存在するレベルだけをN5→N1順で(プルダウン用)。
   const availLevels = useMemo(() => LEVEL_ORDER.filter((l) => src.some((i) => i.level === l)), [src]);
   // 選択レベルがこの区分に無ければ「全」扱い(例: 文法でN1選択→全表示)。
@@ -95,17 +118,17 @@ export default function BrowseScreen() {
           <>
             <Text style={s.term}>{item.word}　<Text style={s.reading}>{item.reading}</Text></Text>
             <Text style={s.meaning}>{item.meaning}</Text>
-            {VOCAB_EXAMPLE[item.id] ? renderSentence(VOCAB_EXAMPLE[item.id].ja, item.word, VOCAB_EXAMPLE[item.id].en) : null}
+            {(() => { const ex = vocabExOf(item); return ex ? renderSentence(ex.ja, item.word, ex.en) : null; })()}
           </>
         ) : item.type === 'kanji' ? (
           <>
             <Text style={s.term}>{item.char}　<Text style={s.reading}>{item.kun ? t('browse.kanjiReading', { on: item.on, kun: item.kun }) : t('browse.kanjiReading_on', { on: item.on })}</Text></Text>
             <Text style={s.meaning}>{item.meaning}</Text>
-            {KANJI_EXAMPLE_MULTI[item.char]?.on?.length ? (
-              <Text style={s.example}>音 {fmtReadEx(KANJI_EXAMPLE_MULTI[item.char].on!)}</Text>
+            {kanjiExMap[item.char]?.on?.length ? (
+              <Text style={s.example}>音 {fmtReadEx(kanjiExMap[item.char].on!)}</Text>
             ) : null}
-            {KANJI_EXAMPLE_MULTI[item.char]?.kun?.length ? (
-              <Text style={s.example}>訓 {fmtReadEx(KANJI_EXAMPLE_MULTI[item.char].kun!)}</Text>
+            {kanjiExMap[item.char]?.kun?.length ? (
+              <Text style={s.example}>訓 {fmtReadEx(kanjiExMap[item.char].kun!)}</Text>
             ) : null}
           </>
         ) : (
