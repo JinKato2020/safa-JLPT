@@ -54,6 +54,8 @@ jobs:
           cp -r assets/audio _site/assets/audio
           [ -f privacy.html ] && cp privacy.html _site/ || true
           [ -f terms.html ] && cp terms.html _site/ || true
+          # 共有辞書を1か所で配信(JLPT・App B 共通の単一ソース): /dict/ja-*.json
+          [ -d dict ] && cp -r dict _site/dict || true
           echo "::notice::_site contents:"; find _site -maxdepth 3 | head -40
       - name: Configure Pages
         uses: actions/configure-pages@v5
