@@ -15,6 +15,10 @@ import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../../shared/
 import HeroGauge from '../components/HeroGauge';
 import RingGauge from '../components/RingGauge';
 import Badge from '../components/Badge';
+import { badgeTierIndex } from '../data/badges';
+
+// カバー率(量)の成長バッジ 10段ネーミング(宝石/秘宝の格上がり)。badgeTierIndex(0-9)に対応。
+const COVER_TIERS = ['原石', '水晶', '宝石', '珠玉', '輝玉', '秘宝', '至宝', '金剛', '霊宝', '宝冠'];
 import { dayStr, daysBetween, lastNDays } from '../store/state';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -44,8 +48,6 @@ export default function HomeScreen() {
   const cov = useMemo(() => coverageBars(state, now), [state, now]);
   const ppSeries = useMemo(() => (state.growth ?? []).slice(-14).map((g) => g.passProb ?? 0), [state.growth]);
   const badgeSet = state.settings.badgeSet ?? 'gorgeous';
-  const covTotal = cov.reduce((a, b) => a + b.total, 0);
-  const overallCovPct = covTotal > 0 ? Math.round((100 * cov.reduce((a, b) => a + b.learned, 0)) / covTotal) : 0;
   const studied = useMemo(() => new Set(state.streak.history), [state.streak.history]);
   const badges = useMemo(
     () => computeBadges({ studyDays: state.streak.history.length, longestStreak: state.streak.longest, learned, score: readiness.score }),
@@ -181,19 +183,20 @@ export default function HomeScreen() {
               return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />;
             })}
           </View>
-          {/* カバー率(量)= 漢字/語彙/文法の3バー。3指標を総合した【1つのカバー率バッジ】を横に。 */}
-          <View style={s.covHead}>
-            <Text style={s.miniH}>{t('home.coverage_title')}</Text>
-            <Badge set={badgeSet} metric="cover" pct={overallCovPct} size={52} />
-          </View>
+          {/* カバー率(量)= 漢字/語彙/文法。各行: 半分のバー＋分数 ／ 右に大きな成長バッジ＋10段名。 */}
+          <Text style={s.miniH}>{t('home.coverage_title')}</Text>
           {cov.map((b) => {
             const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
             return (
               <View key={b.key} style={s.covRow}>
                 <Text style={s.covLabel}>{t(`home.cov_${b.key}`)}</Text>
-                <View style={s.covBarCol}>
+                <View style={s.covBarHalf}>
                   <View style={s.covTrack}><View style={[s.covFill, { width: `${pct}%` }]} /></View>
                   <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
+                </View>
+                <View style={s.covBadgeWrap}>
+                  <Badge set={badgeSet} metric="cover" pct={pct} size={60} />
+                  <Text style={s.covTierName}>{COVER_TIERS[badgeTierIndex(pct)]}</Text>
                 </View>
               </View>
             );
@@ -346,13 +349,14 @@ const makeStyles = (c: ThemeColors) =>
     hint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
     ringRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.md },
     // カバー率(量)の横バー＋横に分数
-    covHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-    covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.sm },
+    covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.md },
     covLabel: { width: 36, fontSize: ty.small, color: c.ink2, fontWeight: '700' },
-    covBarCol: { flex: 1 },
+    covBarHalf: { flex: 1 },                                  // バーは行の約半分(右の大バッジ＋段名で残りを使う)
     covTrack: { height: 12, borderRadius: 6, backgroundColor: c.bgSoft, overflow: 'hidden' },
     covFill: { height: '100%', borderRadius: 6, backgroundColor: c.blue },
     covFrac: { fontSize: ty.tiny, color: c.mute, marginTop: 3, fontWeight: '600' },
+    covBadgeWrap: { width: 72, alignItems: 'center' },        // 右に大きな成長バッジ＋10段名
+    covTierName: { fontSize: ty.tiny, color: c.ink2, fontWeight: '800', marginTop: 1 },
     // バッジ
     badgeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
     badge: {
