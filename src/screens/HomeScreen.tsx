@@ -129,7 +129,7 @@ export default function HomeScreen() {
           >
             {/* 大リング中央＝合格率の“格”バッジを大きく */}
             {measured ? (
-              <Badge set={badgeSet} metric="pass" pct={passProb} size={180} />
+              <Badge set={badgeSet} metric="pass" pct={passProb} size={146} />
             ) : (
               <Text style={s.score}>—</Text>
             )}

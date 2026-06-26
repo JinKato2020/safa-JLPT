@@ -214,13 +214,11 @@ export function buildQueue(
     if (st && st.dueAt <= now) due.push(it);
     else if (!st) fresh.push(it);
   }
-  due.sort((a, b) => {
-    const sa = states[a.id];
-    const sb = states[b.id];
-    const la = sa.reps === 0 ? 0 : 1; // learning(reps0)を先に
-    const lb = sb.reps === 0 ? 0 : 1;
-    return la !== lb ? la - lb : sa.dueAt - sb.dueAt;
-  });
+  // 復習は「学習中(reps0)を先に」だけ優先し、各層の中はシャッフル＝毎回先頭が変わる(同じ問題順の固定を解消)。
+  const dueLearning = shuffle(due.filter((it) => states[it.id].reps === 0), rng);
+  const dueReview = shuffle(due.filter((it) => states[it.id].reps > 0), rng);
+  due.length = 0;
+  due.push(...dueLearning, ...dueReview);
   // A: 新出は易しい順(頻度/学年)。ただし毎回同じ並びにならないよう、易しい上位プールからランダム抽出して多様化。
   const easy = fresh.filter((it) => Number.isFinite(itemDifficulty(it))).sort((a, b) => itemDifficulty(a) - itemDifficulty(b));
   const other = shuffle(fresh.filter((it) => !Number.isFinite(itemDifficulty(it))), rng);
