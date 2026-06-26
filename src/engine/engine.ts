@@ -110,7 +110,8 @@ export interface SectionResult extends SectionInput {
 }
 
 export interface Readiness {
-  score: number;            // 0-100 準備度(weakest-link合成・ゲージ表示用)
+  score: number;            // 0-100 準備度(weakest-link合成)
+  passProbability: number;  // 0-100 合格率(全ゲートを同時にクリアする推定確率・信頼幅を反映)=大リング表示用
   band: number;             // ± 信頼幅
   passing: boolean;         // 公式ゲート全達成(=合格圏): 全セクション基準点クリア かつ 総合クリア
   gateRatio: number;        // 最弱ゲートの達成率(>=1 で合格圏)
@@ -158,8 +159,21 @@ export function computeReadiness(
   const fromEvidence = 11 * Math.exp(-evidenceTotal / 80);
   const band = Math.round(clamp(fromEvidence + unmeasured * 2, 3, 15));
 
+  // 合格率 = 全ゲート(各セクション足切り＋総合)を同時にクリアする推定確率。各ゲートの「現在値−基準点」を
+  // 信頼幅σで正規化しロジスティックCDFで確率化→積。未測定セクションは不確実(低め)。σは信頼幅(最低6)。
+  const sigma = Math.max(band, 6);
+  const phi = (x: number) => 1 / (1 + Math.exp(-1.6 * x));
+  let pp = 1;
+  for (const r of results) {
+    if (r.pct === null) { pp *= 0.3; continue; } // 未測定=不確実
+    if (sectionGates) pp *= phi((r.pct - r.minPct) / sigma); // JLPT=各区分足切り
+  }
+  if (overallPct !== null) pp *= phi((overallPct - overallMinPct) / sigma); else pp *= 0.3;
+  const passProbability = Math.round(clamp(pp * 100, 0, 99));
+
   return {
     score,
+    passProbability,
     band,
     passing,
     gateRatio: Math.round(gateRatio * 100) / 100,

@@ -32,20 +32,14 @@ export const GUESS_RATE = 0.25; // 4択の偶然正解率
 const SKILL_CATS: Category[] = ['dokkai', 'choukai'];
 /** 当て推量補正: 観測正答率(0-1) → 真の実力(0-1)。(obs-g)/(1-g)。 */
 export const guessCorrect = (obs: number, g = GUESS_RATE): number => Math.max(0, Math.min(1, (obs - g) / (1 - g)));
+// 区分の達成度＝【純粋な正解率】(全区分で統一: 漢字語彙/文法/読解/聴解)。
+// 解いた項目だけ・難易度重み・偶然レベルへprior収縮・当て推量補正。母数(全項目)は無視＝カバー率(覚えた量)とは別軸。
 function categoryPct(state: AppState, now: number, cat: Category, full: boolean): number | null {
   const ids = examItemIds(state, cat, full);
-  if (!SKILL_CATS.includes(cat)) {
-    // 知識: カバー率込み(分母=全項目)。
-    if (!ids.length) return null;
-    let sum = 0;
-    for (const id of ids) { const st = state.items[id]; if (st) sum += effectiveP(st, now); }
-    return Math.round((100 * sum) / ids.length);
-  }
-  // スキル: 受けた設問だけ・難易度重み・偶然レベルへprior収縮・当て推量補正。
   let wsum = 0, wp = 0, n = 0;
   for (const id of ids) {
     const st = state.items[id];
-    if (!st) continue; // 未受験はスキル推定に入れない(「何問解いたか」を分母にしない)
+    if (!st) continue; // 未着手は正答率に入れない(「何問解いたか」を分母にしない)
     const w = skillWeight(id);
     wsum += w; wp += w * effectiveP(st, now); n++;
   }

@@ -8,9 +8,9 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { readinessFor, growthSeries, growthCurve, pacePrediction, nextBestAction, ringsFor, learnedNow, ringLearnedRatio, levelRank } from '../store/selectors';
+import { readinessFor, growthSeries, growthCurve, nextBestAction, ringsFor, learnedNow, ringLearnedRatio, levelRank } from '../store/selectors';
 import { computeBadges } from '../store/badges';
-import { examOf, jftBand, jftScore } from '../engine/examProfile';
+import { examOf } from '../engine/examProfile';
 import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../shared-design';
 import HeroGauge from '../components/HeroGauge';
 import RingGauge from '../components/RingGauge';
@@ -35,7 +35,6 @@ export default function HomeScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
   const readiness = useMemo(() => readinessFor(state, now), [state]);
-  const pace = useMemo(() => pacePrediction(state, now), [state]);
   const nba = useMemo(() => nextBestAction(state, now), [state]);
   const rings = useMemo(() => ringsFor(state, now), [state]);
   const ringRatio = useMemo(() => ringLearnedRatio(state, now), [state]);
@@ -51,11 +50,11 @@ export default function HomeScreen() {
   const isJft = prof.exam === 'jft';
   const overall = readiness.overallPct ?? 0;
   const measured = overall > 0;
-  // ゲージ表示値: JLPT=最弱リンクscore(足切りを反映=弱い区分が総合を押し下げる)/JFT=総合(区分足切り無し)。
-  // ※overallPct(配点平均)だと、例えば言語知識2%でも読解聴解が高いと56等と高く見え合格圏に誤認するため。
-  const gaugeVal = isJft ? overall : readiness.score;
-  const zone = !measured ? c.trace : readiness.passing ? c.green : readiness.gateRatio >= 0.8 ? c.amber : c.red;
-  const jb = isJft ? jftBand(measured ? overall : null) : null;
+  // 大リング＝【合格率】(%)。全ゲート(各区分足切り＋総合)を同時にクリアする推定確率＝足切りを自然に内包。
+  // 色は安全圏かで: 緑=合格率≥80(本番ラインを余裕でクリア)/黄=40〜79/赤<40。
+  const passProb = readiness.passProbability;
+  const gaugeVal = passProb;
+  const zone = !measured ? c.trace : passProb >= 80 ? c.green : passProb >= 40 ? c.amber : c.red;
   const today = dayStr(now);
   const examDays = state.settings.examDate ? daysBetween(today, state.settings.examDate) : null;
   const series = growthSeries(state);
@@ -64,9 +63,7 @@ export default function HomeScreen() {
   const todayGain = last && last.day === today ? last.learned - (prev?.learned ?? 0) : 0;
   const status = !measured
     ? t('home.status_unmeasured')
-    : isJft
-      ? t(jb!.key)
-      : readiness.passing ? t('home.status_passing') : t('home.status_borderline');
+    : passProb >= 80 ? t('home.status_passing') : t('home.status_borderline');
   const week = lastNDays(today, 7);
   const cal = lastNDays(today, 35);
   const curveMax = Math.max(1, ...curve.map((p) => p.learned));
@@ -80,20 +77,18 @@ export default function HomeScreen() {
       hl = 'home.ai_hl_start';
       lines.push({ k: 'home.ai_start_body' });
     } else {
-      hl = readiness.passing ? 'home.ai_hl_pass' : readiness.gateRatio >= 0.7 ? 'home.ai_hl_close' : 'home.ai_hl_build';
-      lines.push({ k: 'home.ai_status', p: { score: overall, min: readiness.overallMinPct } });
-      if (!readiness.passing && nba) {
+      hl = passProb >= 80 ? 'home.ai_hl_pass' : passProb >= 40 ? 'home.ai_hl_close' : 'home.ai_hl_build';
+      lines.push({ k: 'home.ai_passprob', p: { n: passProb } });
+      if (passProb < 80 && nba) {
         const wp = rings[nba.category];
         lines.push({ k: 'home.ai_weak', p: { cat: nba.label, pct: wp === null ? '—' : `${wp}` } });
       }
-      if (readiness.passing) lines.push({ k: 'home.ai_keep' });
-      else if (pace.daysToPass != null) lines.push({ k: 'home.ai_pace', p: { days: pace.daysToPass, perDay: pace.perDay } });
-      else lines.push({ k: 'home.ai_pace_none' });
-      if (!readiness.passing && nba) lines.push({ k: 'home.ai_advice', p: { action: nba.label } });
+      if (passProb >= 80) lines.push({ k: 'home.ai_keep' });
+      if (passProb < 80 && nba) lines.push({ k: 'home.ai_advice', p: { action: nba.label } });
     }
     lines.push(state.streak.current > 0 ? { k: 'home.ai_streak', p: { n: state.streak.current } } : { k: 'home.ai_streak0' });
     return { hl, lines };
-  }, [measured, readiness, nba, rings, pace, state.streak.current, overall]);
+  }, [measured, readiness, nba, rings, passProb, state.streak.current]);
 
   const goAction = () => (readiness.passing || !nba ? nav.navigate('Quiz', { category: 'all' }) : nav.navigate(nba.route));
 
@@ -112,26 +107,17 @@ export default function HomeScreen() {
           <HeroGauge
             value={measured ? gaugeVal : null}
             color={zone}
-            mark={isJft ? undefined : readiness.overallMinPct}
-            marks={isJft ? prof.bandMarksPct : undefined}
+            mark={80}
             size={212}
             stroke={14}
           >
-            <Text style={s.score}>{measured ? (isJft ? jftScore(overall) : gaugeVal) : '—'}</Text>
-            <Text style={s.bandIn}>{isJft ? `/ 250 ・ ±${jftScore(readiness.band)}` : `±${readiness.band}`}</Text>
+            <Text style={s.score}>{measured ? `${gaugeVal}%` : '—'}</Text>
+            <Text style={s.bandIn}>{t('home.pass_prob_label')}{measured ? ` ・ ±${readiness.band}` : ''}</Text>
           </HeroGauge>
           <Text style={[s.status, { color: zone }]}>{status}</Text>
-          <Text style={s.passHint}>{isJft ? t('home.jft_pass_hint') : t('home.pass_hint', { n: readiness.overallMinPct })}</Text>
+          <Text style={s.passHint}>{t('home.pass_prob_hint')}</Text>
 
-          {readiness.passing ? (
-            <Text style={s.paceOk}>🎉 {t('home.pace_ok')}</Text>
-          ) : pace.daysToPass != null ? (
-            <Text style={s.paceMain}>
-              {t('home.pace_prefix')} <Text style={s.paceDays}>{t('home.pace_days', { n: pace.daysToPass })}</Text> {t('home.pace_suffix')}
-            </Text>
-          ) : (
-            <Text style={s.paceMuted}>{t('home.pace_muted')}</Text>
-          )}
+          {passProb >= 80 ? <Text style={s.paceOk}>🎉 {t('home.pace_ok')}</Text> : null}
 
           <View style={s.stats}>
             <View style={s.stat}>
@@ -178,7 +164,8 @@ export default function HomeScreen() {
               const v = rings[cat];
               const rc = v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red;
               const rt = ringRatio[cat];
-              const sub = rt.skill ? t('home.ring_attempts', { n: rt.attempted }) : `${rt.learned}/${rt.total}`;
+              // リング数字=正解率(質)、サブ=覚えた数/全体(量=カバー率)を全区分で表示。
+              const sub = `${rt.learned}/${rt.total}`;
               return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub={sub} />;
             })}
           </View>
@@ -208,12 +195,7 @@ export default function HomeScreen() {
           </View>
           {examDays != null && examDays >= 0 ? (
             <Text style={s.examLine}>
-              {t('home.exam_days', { n: examDays })}
-              {pace.daysToPass != null
-                ? pace.daysToPass <= examDays
-                  ? ` ・ ${t('home.exam_on_track')}`
-                  : ` ・ ${t('home.exam_speed_up')}`
-                : ''}
+              {t('home.exam_days', { n: examDays })}{measured ? ` ・ ${t('home.pass_prob_label')} ${passProb}%` : ''}
             </Text>
           ) : null}
           <Text style={s.calCaption}>{t('home.cal_caption')}</Text>
