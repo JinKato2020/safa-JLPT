@@ -343,7 +343,7 @@ const makeStyles = (c: ThemeColors) =>
     curveCol: { flex: 1, justifyContent: 'flex-end' },
     curveBar: { backgroundColor: c.green, borderRadius: 2, width: '100%' },
     hint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
-    ringRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.md },
+    ringRow: { flexDirection: 'row', justifyContent: 'space-around', marginTop: spacing.lg, marginBottom: spacing.xs },
     // カバー率(量)の横バー＋横に分数
     covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.md },
     covLabel: { width: 36, fontSize: ty.small, color: c.ink2, fontWeight: '700' },

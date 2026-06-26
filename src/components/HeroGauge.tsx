@@ -40,8 +40,8 @@ export default function HeroGauge({
   const mri = rRing - stroke / 2 - 2;
   const mro = rTickOut + 1;
 
-  // 20/40/60/80 の位置(i=12,24,36,48)は刻みの代わりに数字を振る。
-  const LABEL_TICKS: Record<number, number> = { 12: 20, 24: 40, 36: 60, 48: 80 };
+  // 20/40/60 の位置(i=12,24,36)は刻みの代わりに数字を振る(80=合格ラインは別ラベル)。
+  const LABEL_TICKS: Record<number, number> = { 12: 20, 24: 40, 36: 60 };
   const ticks = [];
   const tickLabels = [];
   for (let i = 0; i < TICKS; i++) {
@@ -129,13 +129,22 @@ export default function HeroGauge({
           );
         })}
 
-        {/* 合格ライン刻み(単一) */}
+        {/* 合格ライン刻み(単一・強調)＋「合格LINE」ラベル */}
         {mark != null ? (
-          <Line
-            x1={mid + mri * Math.cos(mA)} y1={mid + mri * Math.sin(mA)}
-            x2={mid + mro * Math.cos(mA)} y2={mid + mro * Math.sin(mA)}
-            stroke={c.ink} strokeWidth={2.5} strokeLinecap="round"
-          />
+          <>
+            <Line
+              x1={mid + (mri - 3) * Math.cos(mA)} y1={mid + (mri - 3) * Math.sin(mA)}
+              x2={mid + mro * Math.cos(mA)} y2={mid + mro * Math.sin(mA)}
+              stroke={c.ink} strokeWidth={3} strokeLinecap="round"
+            />
+            <SvgText
+              x={mid + (rTickIn + rTickOut) / 2 * Math.cos(mA)}
+              y={mid + (rTickIn + rTickOut) / 2 * Math.sin(mA)}
+              fontSize={7.5} fontWeight="800" fill={c.ink}
+              textAnchor={Math.cos(mA) < -0.25 ? 'start' : Math.cos(mA) > 0.25 ? 'end' : 'middle'}
+              alignmentBaseline="central"
+            >合格LINE</SvgText>
+          </>
         ) : null}
       </Svg>
       {children}
