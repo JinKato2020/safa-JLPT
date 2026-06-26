@@ -3,7 +3,7 @@
 // 中央は children(到達度の数値±)。色は成績/合格圏(緑/橙/赤)。Profileの小リングは RingGauge を継続使用。
 import { useRef, type ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
-import Svg, { Circle, Line, Defs, LinearGradient, Stop } from 'react-native-svg';
+import Svg, { Circle, Line, Defs, LinearGradient, Stop, Text as SvgText } from 'react-native-svg';
 import { useColors } from '../theme';
 
 let _hg = 0;
@@ -40,10 +40,25 @@ export default function HeroGauge({
   const mri = rRing - stroke / 2 - 2;
   const mro = rTickOut + 1;
 
+  // 20/40/60/80 の位置(i=12,24,36,48)は刻みの代わりに数字を振る。
+  const LABEL_TICKS: Record<number, number> = { 12: 20, 24: 40, 36: 60, 48: 80 };
   const ticks = [];
+  const tickLabels = [];
   for (let i = 0; i < TICKS; i++) {
     const a = ((-90 + (360 * i) / TICKS) * Math.PI) / 180;
     const lit = drawn && (100 * i) / TICKS <= pct;
+    if (LABEL_TICKS[i] !== undefined) {
+      const rLab = (rTickIn + rTickOut) / 2;
+      tickLabels.push(
+        <SvgText
+          key={`lab-${i}`}
+          x={mid + rLab * Math.cos(a)} y={mid + rLab * Math.sin(a)}
+          fontSize={9.5} fontWeight="700" fill={lit ? color : c.mute}
+          textAnchor="middle" alignmentBaseline="central"
+        >{LABEL_TICKS[i]}</SvgText>,
+      );
+      continue; // この位置は刻み線を描かず数字のみ
+    }
     ticks.push(
       <Line
         key={i}
@@ -69,6 +84,7 @@ export default function HeroGauge({
         </Defs>
 
         {ticks}
+        {tickLabels}
 
         {/* 内側トラック(淡い同色) */}
         <Circle cx={mid} cy={mid} r={rRing} stroke={color} strokeOpacity={0.1} strokeWidth={stroke} fill="none" />

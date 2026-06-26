@@ -129,14 +129,10 @@ export default function HomeScreen() {
             size={212}
             stroke={14}
           >
-            {/* 大リング中央＝合格率の“格”バッジを大きく */}
-            {measured ? (
-              <Badge set={badgeSet} metric="pass" pct={passProb} size={146} />
-            ) : (
-              <Text style={s.score}>—</Text>
-            )}
-            {/* 合格ラインの代わりに称号(合格率tier)を発光表示 */}
-            <Text style={s.bandIn}>{measured ? PASS_TITLES[badgeTierIndex(passProb)] : t('home.pass_prob_label')}</Text>
+            {/* 大リング中央＝合格率の“格”バッジを大きく。初回(未測定)は新芽(tier0)を既定表示。 */}
+            <Badge set={badgeSet} metric="pass" pct={measured ? passProb : 0} size={146} />
+            {/* 合格ラインの代わりに称号(合格率tier)を発光表示。未測定は「ことばの芽」 */}
+            <Text style={s.bandIn}>{PASS_TITLES[badgeTierIndex(measured ? passProb : 0)]}</Text>
           </HeroGauge>
           {/* 区分別 正解率(小リング4つ)を 大リングと推移の間に */}
           <Text style={s.miniH}>{t('home.ring_title')}</Text>
