@@ -278,5 +278,8 @@
   "home.cov_grammar": "语法",
   "home.ai_strong": "「{cat}」很擅长哦（正确率{pct}%）！太棒了👏",
   "home.ai_today_growth": "今天掌握了{n}个词！每天的积累是通往合格的最佳途径。",
-  "home.ai_improving": "合格率上升了{n}点📈 稳步成长中！"
+  "home.ai_improving": "合格率上升了{n}点📈 稳步成长中！",
+  "profile.badgeSet": "徽章设计",
+  "profile.badge_natural": "自然",
+  "profile.badge_gorgeous": "华丽"
 }

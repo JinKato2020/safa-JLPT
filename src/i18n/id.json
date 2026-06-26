@@ -278,5 +278,8 @@
   "home.cov_grammar": "Tata Bahasa",
   "home.ai_strong": "Anda hebat dalam \"{cat}\" (Tingkat keberhasilan {pct}%)! Luar biasa👏",
   "home.ai_today_growth": "Hari ini Anda menguasai {n} kata! Setiap langkah kecil adalah jalan terbaik menuju kelulusan.",
-  "home.ai_improving": "Peluang lulus meningkat {n} poin📈 Anda berkembang dengan baik!"
+  "home.ai_improving": "Peluang lulus meningkat {n} poin📈 Anda berkembang dengan baik!",
+  "profile.badgeSet": "Desain Lencana",
+  "profile.badge_natural": "Alami",
+  "profile.badge_gorgeous": "Mewah"
 }

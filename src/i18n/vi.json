@@ -278,5 +278,8 @@
   "home.cov_grammar": "Ngữ pháp",
   "home.ai_strong": "Bạn rất giỏi về 「{cat}」 (tỷ lệ đúng {pct}%)! Tuyệt vời👏",
   "home.ai_today_growth": "Hôm nay bạn đã nắm vững {n} từ! Tích lũy hàng ngày là con đường ngắn nhất đến thành công.",
-  "home.ai_improving": "Tỷ lệ đậu đã tăng {n} điểm📈 Bạn đang tiến bộ vững chắc!"
+  "home.ai_improving": "Tỷ lệ đậu đã tăng {n} điểm📈 Bạn đang tiến bộ vững chắc!",
+  "profile.badgeSet": "Thiết kế huy hiệu",
+  "profile.badge_natural": "Tự nhiên",
+  "profile.badge_gorgeous": "Lộng lẫy"
 }

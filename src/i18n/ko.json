@@ -278,5 +278,8 @@
   "home.cov_grammar": "문법",
   "home.ai_strong": "「{cat}」을(를) 잘하시네요（정답률{pct}%）！멋져요👏",
   "home.ai_today_growth": "오늘은 {n}단어 마스터! 매일의 노력이 합격으로 가는 가장 빠른 길입니다.",
-  "home.ai_improving": "합격률이 {n}포인트 상승📈 착실히 성장하고 있습니다!"
+  "home.ai_improving": "합격률이 {n}포인트 상승📈 착실히 성장하고 있습니다!",
+  "profile.badgeSet": "배지 디자인",
+  "profile.badge_natural": "내추럴",
+  "profile.badge_gorgeous": "고져스"
 }
