@@ -115,8 +115,8 @@ export default function HomeScreen() {
           {/* 「N4 到達度」の横に学習メダル(入門/初級/中級/上級/仕上げ) */}
           <View style={s.ddRow}>
             <Text style={s.dd}>{isJft ? 'JFT-Basic' : state.settings.level} {t('home.readiness')}</Text>
-            {/* 合格率の“格”バッジ(10段階・設定でセット切替) */}
-            <Badge set={badgeSet} metric="pass" pct={measured ? passProb : null} size={44} />
+            {/* 合格率の数字はここにシンプルに(バッジは大リング中央へ移動) */}
+            {measured ? <Text style={s.ddPct}>{passProb}%</Text> : null}
           </View>
           <HeroGauge
             value={measured ? gaugeVal : null}
@@ -125,7 +125,12 @@ export default function HomeScreen() {
             size={212}
             stroke={14}
           >
-            <Text style={s.score}>{measured ? `${gaugeVal}%` : '—'}</Text>
+            {/* 大リング中央＝合格率の“格”バッジを大きく */}
+            {measured ? (
+              <Badge set={badgeSet} metric="pass" pct={passProb} size={120} />
+            ) : (
+              <Text style={s.score}>—</Text>
+            )}
             <Text style={s.bandIn}>{t('home.pass_prob_label')}{measured ? ` ・ ±${readiness.band}` : ''}</Text>
           </HeroGauge>
           <Text style={[s.status, { color: zone }]}>{status}</Text>
@@ -189,11 +194,8 @@ export default function HomeScreen() {
               return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />;
             })}
           </View>
-          {/* カバー率(量)= 漢字/語彙/文法 を横バー＋横に分数。横にカバー率の“格”バッジ(10段階) */}
-          <View style={s.covHead}>
-            <Text style={s.miniH}>{t('home.coverage_title')}</Text>
-            <Badge set={badgeSet} metric="cover" pct={overallCovPct} size={40} label={rank.rank} />
-          </View>
+          {/* カバー率(量)= 漢字/語彙/文法。各バー＝ラベル＋バー＋分数＋【その区分のカバー率バッジ(10段階)】 */}
+          <Text style={s.miniH}>{t('home.coverage_title')}</Text>
           {cov.map((b) => {
             const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
             return (
@@ -201,6 +203,7 @@ export default function HomeScreen() {
                 <Text style={s.covLabel}>{t(`home.cov_${b.key}`)}</Text>
                 <View style={s.covTrack}><View style={[s.covFill, { width: `${pct}%` }]} /></View>
                 <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
+                <Badge set={badgeSet} metric="cover" pct={pct} size={34} />
               </View>
             );
           })}
@@ -267,6 +270,7 @@ const makeStyles = (c: ThemeColors) =>
     },
     ddRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.md },
     dd: { fontSize: 19, color: c.ink2, letterSpacing: 0.5, fontWeight: '800' },
+    ddPct: { fontSize: 20, fontWeight: '800', color: c.blue },
     medal: { backgroundColor: c.blueLight, borderRadius: radius.lg, paddingHorizontal: spacing.md, paddingVertical: 6, borderWidth: 1, borderColor: c.blue },
     medalTxt: { fontSize: 24, fontWeight: '800', color: c.blueDark },
     score: { fontSize: 66, fontWeight: '800', color: c.ink, lineHeight: 70 },
