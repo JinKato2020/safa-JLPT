@@ -81,7 +81,7 @@ jobs:
         run: |
           cd android
           if [ "${{ inputs.aab }}" = "true" ]; then
-            ./gradlew bundleRelease assembleRelease --no-daemon
+            ./gradlew bundleRelease --no-daemon
           else
             ./gradlew assembleRelease --no-daemon
           fi
@@ -91,7 +91,8 @@ jobs:
         with:
           name: jlpt-appc-android-aab-${{ env.BUILD_NUMBER }}
           path: android/app/build/outputs/bundle/release/*.aab
-      - name: Upload APK (実機に直接インストール用)
+      - name: Upload APK (実機に直接インストール用・aab=falseのみ)
+        if: ${{ !inputs.aab }}
         uses: actions/upload-artifact@v4
         with:
           name: jlpt-appc-android-apk-${{ env.BUILD_NUMBER }}
