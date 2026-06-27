@@ -51,7 +51,7 @@ jobs:
           BUILD_NUMBER=$((2000 + $(git rev-list --count HEAD)))
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           APP_VERSION=$(node -p "require('./app.json').expo.version" 2>/dev/null || echo "?")
-          echo "## 🤖 まいにちJLPT v$APP_VERSION (Android versionCode $BUILD_NUMBER ・ pkg com.safa.english=App C枠)" >> $GITHUB_STEP_SUMMARY
+          echo "## 🤖 ${BUILD_NUMBER} — Android AAB ・ まいにちJLPT v$APP_VERSION (App C枠 com.safa.english)" >> $GITHUB_STEP_SUMMARY
       - name: Expo prebuild (Android)
         env:
           EXPO_NO_TELEMETRY: '1'

@@ -99,7 +99,7 @@ jobs:
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           echo "::notice::Build number: $BUILD_NUMBER"
           APP_VERSION=$(node -p "require('./app.json').expo.version" 2>/dev/null || echo "?")
-          echo "## 📦 まいにちJLPT v$APP_VERSION (iOS build $BUILD_NUMBER)" >> $GITHUB_STEP_SUMMARY
+          echo "## 📦 ${BUILD_NUMBER} — iOS build ・ まいにちJLPT v$APP_VERSION (TestFlight)" >> $GITHUB_STEP_SUMMARY
 
       - name: Expo prebuild (iOS)
         env:
