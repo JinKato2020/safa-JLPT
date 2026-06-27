@@ -26,8 +26,8 @@
       }
     },
     "android": {
-      "package": "com.safa.jlpt",
-      "versionCode": 1,
+      "package": "com.safa.english",
+      "versionCode": 2001,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#2563eb"
