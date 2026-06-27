@@ -128,8 +128,13 @@ export default function HomeScreen() {
           >
             {/* 大リング中央＝合格率の“格”バッジを大きく。初回(未測定)は新芽(tier0)を既定表示。 */}
             <Badge set={badgeSet} metric="pass" pct={measured ? passProb : 0} size={146} />
-            {/* 合格ラインの代わりに称号(合格率tier)を発光表示。setごとに称号系列を切替(natural=花の精/gorgeous=既定) */}
-            <Text style={s.bandIn}>{t((badgeSet === 'natural' ? 'home.natPassTitle' : 'home.passTitle') + badgeTierIndex(measured ? passProb : 0))}</Text>
+            {/* 大リング下の称号バンド: natural=上に称号+下に花の名前、gorgeous=称号のみ */}
+            <View style={s.band}>
+              <Text style={s.bandTitle}>{t((badgeSet === 'natural' ? 'home.natPassTitle' : 'home.passTitle') + badgeTierIndex(measured ? passProb : 0))}</Text>
+              {badgeSet === 'natural' ? (
+                <Text style={s.bandFlower}>{t('home.natFlower' + badgeTierIndex(measured ? passProb : 0))}</Text>
+              ) : null}
+            </View>
           </HeroGauge>
           {/* 区分別 正解率(小リング4つ)を 大リングと推移の間に */}
           <Text style={s.miniH}>{t('home.ring_title')}</Text>
@@ -263,7 +268,9 @@ const makeStyles = (c: ThemeColors) =>
     medalTxt: { fontSize: 24, fontWeight: '800', color: c.blueDark },
     score: { fontSize: 66, fontWeight: '800', color: c.ink, lineHeight: 70 },
     // 称号ラベル: 少し光らせる(金色グロー)。リング下部に固定。
-    bandIn: { position: 'absolute', bottom: 6, paddingHorizontal: 11, paddingVertical: 3, borderRadius: 12, backgroundColor: c.surface + 'e6', fontSize: ty.small, color: c.ink, fontWeight: '800', letterSpacing: 0.3, textShadowColor: '#f5b301', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 7 },
+    band: { position: 'absolute', bottom: 6, paddingHorizontal: 11, paddingVertical: 3, borderRadius: 12, backgroundColor: c.surface + 'e6', alignItems: 'center' },
+    bandTitle: { fontSize: ty.small, color: c.ink, fontWeight: '800', letterSpacing: 0.3, textShadowColor: '#f5b301', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 7 },
+    bandFlower: { fontSize: ty.tiny, color: c.mute, fontWeight: '700', marginTop: 1, letterSpacing: 0.2 },
     status: { fontSize: ty.h2, fontWeight: '800', marginTop: spacing.md },
     passHint: { fontSize: ty.tiny, color: c.faint, marginTop: 4 },
     rank: { fontSize: ty.small, color: c.blue, fontWeight: '800', marginTop: 6 },
