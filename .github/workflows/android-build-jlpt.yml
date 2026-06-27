@@ -10,6 +10,11 @@ run-name: "まいにちJLPT — Android AAB (App C枠 com.safa.english)"
 
 on:
   workflow_dispatch:
+    inputs:
+      aab:
+        description: 'AABも生成(Playクローズド提出用・約2倍遅い)。実機テストだけならOFF'
+        type: boolean
+        default: false
 
 jobs:
   build-android:
@@ -31,6 +36,14 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+      - name: Cache Gradle (2回目以降を高速化)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-jlpt-android-v1
+          restore-keys: gradle-jlpt-android-
       - name: Install npm dependencies
         run: npm ci || npm install
       - name: Calculate versionCode (2000+commit, App C 1270 超)
@@ -60,15 +73,20 @@ jobs:
             }
           '
           grep -q "RELEASE signing (CI)" android/app/build.gradle || { echo "::error::gradle patch failed"; exit 1; }
-      - name: Build AAB (Play用) + APK (実機テスト用)
+      - name: Build APK(実機用) ＋ 任意でAAB(Play用)
         env:
           RELEASE_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           RELEASE_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           RELEASE_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           cd android
-          ./gradlew bundleRelease assembleRelease --no-daemon --no-configuration-cache
-      - name: Upload AAB (Playクローズドテスト提出用)
+          if [ "${{ inputs.aab }}" = "true" ]; then
+            ./gradlew bundleRelease assembleRelease --no-daemon
+          else
+            ./gradlew assembleRelease --no-daemon
+          fi
+      - name: Upload AAB (Playクローズドテスト提出用・aab=trueのみ)
+        if: ${{ inputs.aab }}
         uses: actions/upload-artifact@v4
         with:
           name: jlpt-appc-android-aab-${{ env.BUILD_NUMBER }}
