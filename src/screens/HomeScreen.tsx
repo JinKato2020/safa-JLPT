@@ -230,7 +230,7 @@ export default function HomeScreen() {
         {/* バッジ */}
         <Text style={s.sectionH}>{t('home.section_badges')}</Text>
         <BadgeGrid
-          badges={badges.map((b) => ({ id: b.id, emoji: b.emoji, label: t('home.badge_' + b.id), hint: t('home.badge_' + b.id + '_hint'), unlocked: b.unlocked }))}
+          badges={badges.map((b) => ({ id: b.id, emoji: b.emoji, label: t('home.badge_' + b.id), hint: t('home.badge_' + b.id + '_hint'), unlocked: b.unlocked, image: b.id === 'pass' ? require('../../assets/icon.png') : undefined }))}
           achievedLabel={t('home.badge_achieved')}
         />
       </ScrollView>
