@@ -60,16 +60,21 @@ jobs:
             }
           '
           grep -q "RELEASE signing (CI)" android/app/build.gradle || { echo "::error::gradle patch failed"; exit 1; }
-      - name: Build AAB (Play提出用・bundleReleaseのみ=高速)
+      - name: Build AAB (Play用) + APK (実機テスト用)
         env:
           RELEASE_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           RELEASE_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           RELEASE_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           cd android
-          ./gradlew bundleRelease --no-daemon --no-configuration-cache
-      - name: Upload AAB (Play提出用)
+          ./gradlew bundleRelease assembleRelease --no-daemon --no-configuration-cache
+      - name: Upload AAB (Playクローズドテスト提出用)
         uses: actions/upload-artifact@v4
         with:
           name: jlpt-appc-android-aab-${{ env.BUILD_NUMBER }}
           path: android/app/build/outputs/bundle/release/*.aab
+      - name: Upload APK (実機に直接インストール用)
+        uses: actions/upload-artifact@v4
+        with:
+          name: jlpt-appc-android-apk-${{ env.BUILD_NUMBER }}
+          path: android/app/build/outputs/apk/release/*.apk
