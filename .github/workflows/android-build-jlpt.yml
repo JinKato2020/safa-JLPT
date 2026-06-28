@@ -4,9 +4,10 @@ run-name: "まいにちJLPT — Android AAB (App C枠 com.safa.english)"
 # App C(com.safa.english)の既存Play枠へ「上書き」する Android AAB/APK をビルドする。
 # ・applicationId=com.safa.english(app.json)・versionCode=2000+commit(App C現1270より上)。
 # ・署名= App C のアップロード鍵(Secrets)。Play App Signing 想定。
-# ・Playアップロードは自動化しない（生成AABを手動でApp Cのクローズドテストへ上げる=提出は合図後）。
+# ・Playアップロードは任意自動化: publish=true でAABをPlayの指定トラック(既定 alpha=クローズドテスト)へ提出。
+#   過去は手動だったが、SA鍵を入れれば「ビルド→クローズド提出」まで自走可。production指定は外部公開=合図後のみ。
 # 必要 Secrets(safa-JLPT): ANDROID_KEYSTORE_BASE64 / ANDROID_KEYSTORE_PASSWORD / ANDROID_KEY_ALIAS / ANDROID_KEY_PASSWORD
-#   ＝ C:\API 秘密の鍵\English\ (App C=聞いて話せる英語 のアップロード鍵)。
+#   （＝App C のアップロード鍵）＋ publish時のみ GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64（Play サービスアカウントJSONのbase64）。
 
 on:
   workflow_dispatch:
@@ -15,6 +16,15 @@ on:
         description: 'AABも生成(Playクローズド提出用・約2倍遅い)。実機テストだけならOFF'
         type: boolean
         default: false
+      publish:
+        description: 'Playへ自動アップロード(AABを下記trackへ提出)。要 GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64'
+        type: boolean
+        default: false
+      track:
+        description: 'Playトラック(publish時)。alpha=クローズドテスト / internal=内部 / production=本番(合図後のみ)'
+        type: choice
+        options: [alpha, internal, production]
+        default: alpha
 
 jobs:
   build-android:
@@ -92,20 +102,45 @@ jobs:
         run: |
           cd android
           # lintVitalRelease はリリース時Lint(メモリ大食い・OOMハングの一因)→スキップ。配布物に影響なし。
-          if [ "${{ inputs.aab }}" = "true" ]; then
+          # publish時はPlay提出にAABが必須なので必ず bundleRelease。
+          if [ "${{ inputs.aab }}" = "true" ] || [ "${{ inputs.publish }}" = "true" ]; then
             ./gradlew bundleRelease --no-daemon -x lintVitalRelease
           else
             ./gradlew assembleRelease --no-daemon -x lintVitalRelease
           fi
-      - name: Upload AAB (Playクローズドテスト提出用・aab=trueのみ)
-        if: ${{ inputs.aab }}
+      - name: Upload AAB (Playクローズドテスト提出用・aab/publish時)
+        if: ${{ inputs.aab || inputs.publish }}
         uses: actions/upload-artifact@v4
         with:
           name: jlpt-appc-android-aab-${{ env.BUILD_NUMBER }}
           path: android/app/build/outputs/bundle/release/*.aab
-      - name: Upload APK (実機に直接インストール用・aab=falseのみ)
-        if: ${{ !inputs.aab }}
+      - name: Upload APK (実機に直接インストール用・aab/publishがfalseのみ)
+        if: ${{ !inputs.aab && !inputs.publish }}
         uses: actions/upload-artifact@v4
         with:
           name: jlpt-appc-android-apk-${{ env.BUILD_NUMBER }}
           path: android/app/build/outputs/apk/release/*.apk
+      - name: Decode Play service account (publish時)
+        if: ${{ inputs.publish }}
+        env:
+          PLAY_SA_B64: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64 }}
+        run: |
+          if [ -z "$PLAY_SA_B64" ]; then
+            echo "::error::GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64 が未設定です。safa-JLPT にこのSecretを追加してください。"; exit 1
+          fi
+          echo "$PLAY_SA_B64" | base64 --decode > play-sa.json
+          test -s play-sa.json || { echo "::error::Play SA JSON のデコードに失敗(値を確認)"; exit 1; }
+          echo "## 🚀 Play 提出 — track=${{ inputs.track }} / versionCode=${BUILD_NUMBER} / com.safa.english" >> $GITHUB_STEP_SUMMARY
+      - name: Publish AAB to Google Play (track=${{ inputs.track }})
+        if: ${{ inputs.publish }}
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: play-sa.json
+          packageName: com.safa.english
+          releaseFiles: android/app/build/outputs/bundle/release/*.aab
+          track: ${{ inputs.track }}
+          status: completed
+          releaseName: ${{ env.BUILD_NUMBER }}
+      - name: Clean SA file
+        if: ${{ always() && inputs.publish }}
+        run: rm -f play-sa.json
