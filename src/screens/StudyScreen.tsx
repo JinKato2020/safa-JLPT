@@ -71,7 +71,6 @@ export default function StudyScreen() {
           <Pressable key={sub.key} style={({ pressed }) => [s.subCard, pressed && s.cardPressed]} onPress={() => nav.navigate('Reading', { subtype: sub.key })}>
             <View style={s.subDot} />
             <Text style={s.subTitle}>{t(sub.labelKey)}</Text>
-            <Text style={s.subN}>{sub.n}</Text>
             <Text style={s.chevron}>›</Text>
           </Pressable>
         ))}
@@ -153,7 +152,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   },
   subDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: c.blue },
   subTitle: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
-  subN: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, paddingVertical: 2, paddingHorizontal: spacing.sm, borderRadius: radius.pill, overflow: 'hidden' },
   sectionH: { fontSize: ty.small, fontWeight: '800', color: c.ink2, marginTop: spacing.lg },
   ringRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.sm },
   ringCell: { alignItems: 'center' },
