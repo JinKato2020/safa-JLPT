@@ -360,5 +360,15 @@
   "home.badge_pass_hint": "Reach readiness 75",
   "home.nba_reason_unmeasured": "Not measured yet",
   "home.nba_reason_lowest": "Lowest section (accuracy {pct}%)",
-  "home.pass_line": "Pass line"
+  "home.pass_line": "Pass line",
+  "tour.home_t": "Your readiness, at a glance",
+  "tour.home_b": "See your pass chance as one % with a confidence band — plus a glowing rank badge, per-section accuracy, an AI coach, and a clear pass line.",
+  "tour.study_t": "Practice every day",
+  "tour.study_b": "Kanji & Vocabulary, Grammar, Reading, Listening — quick 4-choice drills. Missed items return until you master them. Today’s pick targets your weakest area.",
+  "tour.test_t": "Check your pass chance",
+  "tour.test_b": "Take a Mini (1/3) or Full mock exam — same sections and timing as the real test — to confirm your readiness.",
+  "tour.dict_t": "Built-in dictionary",
+  "tour.dict_b": "Look up any word, kanji, or grammar point by JLPT level, anytime.",
+  "tour.cheer_t": "Let’s begin!",
+  "tour.cheer_b": "A little every day adds up. Good luck on your JLPT!"
 }

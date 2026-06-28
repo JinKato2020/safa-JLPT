@@ -360,5 +360,15 @@
   "home.badge_pass_hint": "到達度75",
   "home.nba_reason_unmeasured": "まだ未測定の区分",
   "home.nba_reason_lowest": "いちばん低い区分（正解率 {pct}%）",
-  "home.pass_line": "合格ライン"
+  "home.pass_line": "合格ライン",
+  "tour.home_t": "準備度がひと目で",
+  "tour.home_b": "合格可能性を1つの％＋信頼幅で表示。光る称号バッジ、区分別の正解率、AIコーチ、合格ラインで目標が分かります。",
+  "tour.study_t": "毎日コツコツ練習",
+  "tour.study_b": "漢字語彙・文法・読解・聴解を4択でサクッと。間違いは解けるまで再出題。今日のオススメが弱点を狙います。",
+  "tour.test_t": "合格可能性を診断",
+  "tour.test_b": "ミニ(1/3)またはフル模試で、本番と同じ構成・時間で実力を確認。",
+  "tour.dict_t": "組み込み辞書",
+  "tour.dict_b": "語彙・漢字・文法を級別にいつでも検索。",
+  "tour.cheer_t": "はじめよう！",
+  "tour.cheer_b": "毎日少しずつが合格への近道。JLPT合格を応援しています！"
 }
