@@ -1,12 +1,12 @@
 // 初回ガイドツアー(画面プレビュー型): 実画面を再現したスクショ(assets/tour/*.png)をスマホ枠で見せ、
 // 現行の強みを画面ごとに紹介。ホーム/学習/テスト/辞書 ＋ 締め(🌸)。手書きモック描画は廃止。
 import { useState } from 'react';
-import { View, Text, Pressable, Image, StyleSheet, type ImageSourcePropType } from 'react-native';
+import { View, Text, Pressable, Image, ScrollView, StyleSheet, type ImageSourcePropType } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppActions } from '../store/store';
 import { useT } from '../i18n';
 
-type Kind = 'home' | 'study' | 'test' | 'dict' | 'cheer';
+type Kind = 'home' | 'study' | 'test' | 'dict' | 'settings' | 'cheer';
 type Step = { kind: Kind; titleKey: string; bodyKey: string };
 
 const STEPS: Step[] = [
@@ -14,23 +14,26 @@ const STEPS: Step[] = [
   { kind: 'study', titleKey: 'tour.study_t', bodyKey: 'tour.study_b' },
   { kind: 'test', titleKey: 'tour.test_t', bodyKey: 'tour.test_b' },
   { kind: 'dict', titleKey: 'tour.dict_t', bodyKey: 'tour.dict_b' },
+  { kind: 'settings', titleKey: 'tour.settings_t', bodyKey: 'tour.settings_b' },
   { kind: 'cheer', titleKey: 'tour.cheer_t', bodyKey: 'tour.cheer_b' },
 ];
 
-// 実画面再現スクショ(540x1170 ≈ 端末比率)。スマホ枠で表示。
+// 実画面再現スクショ。ホームは縦長(540x2225)、他は1画面(540x1170)。スマホ枠で表示。
 const TOUR_IMAGES: Partial<Record<Kind, ImageSourcePropType>> = {
   home: require('../../assets/tour/home.png'),
   study: require('../../assets/tour/study.png'),
   test: require('../../assets/tour/test.png'),
   dict: require('../../assets/tour/dict.png'),
+  settings: require('../../assets/tour/settings.png'),
 };
 
 function Preview({ kind }: { kind: Kind }) {
   if (kind === 'cheer') return <Text style={{ fontSize: 72 }}>🌸</Text>;
   const src = TOUR_IMAGES[kind];
   if (!src) return null;
+  const tall = kind === 'home';
   return (
-    <View style={s2.phone}>
+    <View style={[s2.phone, { width: tall ? 124 : 150, aspectRatio: tall ? 540 / 2225 : 540 / 1170 }]}>
       <Image source={src} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
     </View>
   );
@@ -38,7 +41,7 @@ function Preview({ kind }: { kind: Kind }) {
 
 const s2 = StyleSheet.create({
   phone: {
-    width: 150, aspectRatio: 540 / 1170, borderRadius: 20, overflow: 'hidden',
+    borderRadius: 18, overflow: 'hidden',
     borderWidth: 4, borderColor: '#0f172a', backgroundColor: '#0f172a',
     shadowColor: '#000', shadowOpacity: 0.25, shadowRadius: 12, shadowOffset: { width: 0, height: 6 },
   },
@@ -57,11 +60,13 @@ export default function TourOverlay() {
   return (
     <View style={s.overlay} pointerEvents="auto">
       <View style={s.card}>
-        <Text style={s.kicker}>{t('touroverlay.kicker')}</Text>
-        <View style={s.illu}><Preview kind={step.kind} /></View>
-        <Text style={s.count}>{i + 1} / {STEPS.length}</Text>
-        <Text style={s.title}>{t(step.titleKey)}</Text>
-        <Text style={s.body}>{t(step.bodyKey)}</Text>
+        <ScrollView style={s.scroll} contentContainerStyle={s.scrollC} showsVerticalScrollIndicator={false}>
+          <Text style={s.kicker}>{t('touroverlay.kicker')}</Text>
+          <View style={s.illu}><Preview kind={step.kind} /></View>
+          <Text style={s.count}>{i + 1} / {STEPS.length}</Text>
+          <Text style={s.title}>{t(step.titleKey)}</Text>
+          <Text style={s.body}>{t(step.bodyKey)}</Text>
+        </ScrollView>
         <View style={s.row}>
           <Pressable onPress={finish} hitSlop={8}><Text style={s.skip}>{t('touroverlay.skip')}</Text></Pressable>
           <View style={s.rrow}>
@@ -83,10 +88,12 @@ const makeStyles = (c: ThemeColors) =>
       backgroundColor: 'rgba(8,12,24,0.62)', alignItems: 'center', justifyContent: 'center', padding: spacing.lg,
     },
     card: {
-      width: '100%', maxWidth: 360, backgroundColor: c.surface, borderRadius: radius.xl, padding: spacing.lg,
-      alignItems: 'center', gap: 5,
+      width: '100%', maxWidth: 360, maxHeight: '100%', backgroundColor: c.surface, borderRadius: radius.xl, padding: spacing.lg,
+      alignItems: 'center',
       shadowColor: '#000', shadowOpacity: 0.25, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 10,
     },
+    scroll: { alignSelf: 'stretch', flexGrow: 0, flexShrink: 1 },
+    scrollC: { alignItems: 'center', gap: 5 },
     kicker: { fontSize: ty.tiny, fontWeight: '800', color: c.blue, letterSpacing: 1 },
     illu: { alignItems: 'center', justifyContent: 'center', marginVertical: spacing.sm },
     count: { fontSize: ty.tiny, color: c.faint, fontWeight: '700' },
