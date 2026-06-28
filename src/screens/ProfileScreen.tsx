@@ -227,8 +227,24 @@ export default function ProfileScreen() {
           </View>
         </View>
 
-        {/* 聴解データの一括DL(オンボードでスキップした人・既存ユーザー向け) */}
+        {/* 聴解音声の取得方式(配信=都度ストリーミング / 一括DL=オフライン)＋一括DL導線 */}
         <View style={s.card}>
+          <Text style={s.setLbl}>{t('profile.listeningAudio')}</Text>
+          <View style={s.chipRow}>
+            {(['download', 'stream'] as const).map((m) => {
+              const on = (state.settings.listeningAudioMode ?? 'download') === m;
+              return (
+                <Pressable key={m} onPress={() => setSettings({ listeningAudioMode: m })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(m === 'download' ? 'profile.listeningAudio_download' : 'profile.listeningAudio_stream')}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <Text style={s.subtle}>
+            {t((state.settings.listeningAudioMode ?? 'download') === 'stream' ? 'profile.listeningAudioHint_stream' : 'profile.listeningAudioHint_download')}
+          </Text>
+          <View style={s.linkDiv} />
+          {/* 一括DL導線(オンボードでスキップした人・配信モードでも事前DLしたい人向け) */}
           <Pressable style={s.linkRow} onPress={() => setShowDl(true)}>
             <Text style={s.linkTxt}>🎧 {t('dl.title')}</Text>
             <Text style={s.chev}>›</Text>

@@ -30,8 +30,13 @@ async function ensureDir(): Promise<void> {
   dirReady = true;
 }
 
-/** 再生ソース。キャッシュ済みならローカル、無ければ配信URL(ネイティブはDL→キャッシュ、失敗時ストリーミング)。 */
-export async function listeningSource(id: string): Promise<AudioSource | null> {
+/**
+ * 再生ソース。キャッシュ済みならローカル、無ければ配信URL。
+ *  ・既定(download): ネイティブはDL→キャッシュ(オフライン再生)。
+ *  ・stream=true(配信モード): キャッシュがあれば使うが、無ければDLせず都度ストリーミング(容量節約)。
+ *  ・web/非対応端末・失敗時は常にストリーミング。
+ */
+export async function listeningSource(id: string, opts?: { stream?: boolean }): Promise<AudioSource | null> {
   const url = `${AUDIO_BASE_URL}${id}.mp3`;
   if (!LISTENING_CACHEABLE) return { uri: url };
   try {
@@ -39,6 +44,7 @@ export async function listeningSource(id: string): Promise<AudioSource | null> {
     const local = `${cacheDir}${id}.mp3`;
     const info = await FS.getInfoAsync!(local);
     if (info?.exists) return { uri: local };
+    if (opts?.stream) return { uri: url }; // 配信モード: DLせずストリーミング
     const dl = await FS.downloadAsync!(url, local);
     return { uri: dl.uri };
   } catch {

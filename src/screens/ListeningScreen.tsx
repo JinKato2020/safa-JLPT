@@ -59,15 +59,20 @@ export default function ListeningScreen() {
     return () => { soundRef.current?.unloadAsync().catch(() => undefined); };
   }, []);
 
+  // 聴解音声の取得方式: 配信(都度ストリーミング)/一括DL(オフライン)。未設定→download(従来挙動)。
+  const stream = state.settings.listeningAudioMode === 'stream';
+
   // 聴解音声がこのレベル分キャッシュ済みか確認。未DLなら開始前にDLゲート(聴解開始時のDL機会・スキップ可)。
+  // 配信モードはDL不要なのでゲートを出さず即開始。
   const [audioReady, setAudioReady] = useState<boolean | null>(null);
   useEffect(() => {
+    if (stream) { setAudioReady(true); return; }
     let alive = true;
     listeningReady(listeningAudioIdsFor(state.settings.level))
       .then((r) => { if (alive) setAudioReady(r); })
       .catch(() => { if (alive) setAudioReady(true); });
     return () => { alive = false; };
-  }, [state.settings.level]);
+  }, [state.settings.level, stream]);
 
   // クリップの全設問に答えたら自動で次へ(全問正解1.5秒/誤答あり3秒)。※フックは早期returnの前(Rules of Hooks)。
   useEffect(() => {
@@ -111,7 +116,7 @@ export default function ListeningScreen() {
 
   const play = async () => {
     if (!step) return;
-    const src = await listeningSource(step.clip.id);
+    const src = await listeningSource(step.clip.id, { stream });
     if (!src) return;
     await stopSound();
     try {

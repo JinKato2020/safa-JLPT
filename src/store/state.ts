@@ -17,6 +17,7 @@ export interface Settings {
   uiLang?: string;         // UI表示言語(未設定→端末言語を自動判定)
   telemetry?: boolean;     // 利用状況の匿名送信(未設定/true=ON, false=停止)
   badgeSet?: 'natural' | 'gorgeous'; // バッジ/勲章のデザインセット(未設定→natural)
+  listeningAudioMode?: 'stream' | 'download'; // 聴解音声: 都度配信(stream)/レベル一括DL(download)。未設定→download(従来挙動)
 }
 
 export interface Streak {
