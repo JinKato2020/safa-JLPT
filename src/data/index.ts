@@ -205,6 +205,27 @@ export function readingItemsFor(level: Level): ReadingItem[] {
   const all = READING.filter((i) => i.level === level);
   return all.length > EXAM_READING ? all.slice(0, all.length - EXAM_READING) : all;
 }
+
+/** 読解の小区分(JLPT大問型)。学習タブで区分の下にさらに分ける。 */
+export type ReadingSubtype = 'naiyou_tan' | 'naiyou_chu' | 'joho';
+const FORMAT_SUB: Record<string, ReadingSubtype> = {
+  'お知らせ': 'naiyou_tan', 'メール': 'naiyou_tan', 'メモ': 'naiyou_tan', '掲示': 'naiyou_tan', '予定': 'naiyou_tan', '案内': 'naiyou_tan', '説明書': 'naiyou_tan',
+  '中文': 'naiyou_chu', '説明文': 'naiyou_chu', '意見文': 'naiyou_chu', '随筆': 'naiyou_chu', '手紙': 'naiyou_chu',
+  '情報検索': 'joho',
+};
+/** 読解1本の小区分(formatから判定。未知は本文長で短文/中文)。 */
+export function readingSubtype(it: ReadingItem): ReadingSubtype {
+  return FORMAT_SUB[it.format] ?? ((it.body?.replace(/\s/g, '').length ?? 0) > 200 ? 'naiyou_chu' : 'naiyou_tan');
+}
+/** レベル×小区分の学習用読解。 */
+export function readingItemsForSub(level: Level, sub: ReadingSubtype): ReadingItem[] {
+  return readingItemsFor(level).filter((it) => readingSubtype(it) === sub);
+}
+export const READING_SUBTYPES: { key: ReadingSubtype; labelKey: string }[] = [
+  { key: 'naiyou_tan', labelKey: 'study.sub_naiyou_tan' },
+  { key: 'naiyou_chu', labelKey: 'study.sub_naiyou_chu' },
+  { key: 'joho', labelKey: 'study.sub_joho' },
+];
 export function examReadingFor(level: Level): ReadingItem[] {
   const all = READING.filter((i) => i.level === level);
   return all.length > EXAM_READING ? all.slice(all.length - EXAM_READING) : [];

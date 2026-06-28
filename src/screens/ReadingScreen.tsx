@@ -3,13 +3,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
-import { readingItemsFor, type ReadingItem, type PassageQuestion } from '../data';
+import { readingItemsFor, readingItemsForSub, type ReadingItem, type PassageQuestion } from '../data';
+import type { RootStackParamList } from '../navigation/types';
 import { sample, reinsertForRelearn, shuffleChoices } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
 
@@ -27,9 +28,12 @@ export default function ReadingScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
 
+  const route = useRoute<RouteProp<RootStackParamList, 'Reading'>>();
+  const sub = route.params?.subtype;
+
   const [steps, setSteps] = useState<Step[]>(() => {
     const now = Date.now();
-    const all = readingItemsFor(state.settings.level);
+    const all = sub ? readingItemsForSub(state.settings.level, sub) : readingItemsFor(state.settings.level);
     // 未習得(未回答 or p<0.6)の設問を含むパッセージを優先→カバー率が確実に進みリングが満ちる。
     const needy = all.filter((p) => p.questions.some((q) => { const st = state.items[q.id]; return !st || effectiveP(st, now) < 0.6; }));
     const rest = all.filter((p) => !needy.includes(p));

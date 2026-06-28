@@ -1,6 +1,6 @@
 // 学習タブ = 「学習ホーム」。今日やること(復習/新規)を区分ごとに提示し、
 // 単語カードSRS / 文法 / 読解 / 聴解 へ送り出すハブ。掲示板§4(コツコツ毎日)。
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +9,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState } from '../store/store';
 import { ringsFor } from '../store/selectors';
 import RingGauge from '../components/RingGauge';
-import { itemsFor, ringItemIdsFor } from '../data';
+import { itemsFor, ringItemIdsFor, readingItemsForSub, READING_SUBTYPES } from '../data';
 import { dueStats } from '../quiz/quiz';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -42,6 +42,12 @@ export default function StudyScreen() {
   const listening = useMemo(() => dueStats(ringItemIdsFor(settings.level, 'choukai').map((id) => ({ id })), items, now), [settings.level, items]);
 
   const todo = vocab.due + grammar.due + reading.due + listening.due;
+  const [openReading, setOpenReading] = useState(false);
+  // 読解の小区分(内容理解短文/中文/情報検索)ごとの問題数(その級に在るものだけ表示)。
+  const readingSubs = useMemo(
+    () => READING_SUBTYPES.map((sub) => ({ ...sub, n: readingItemsForSub(settings.level, sub.key).length })).filter((x) => x.n > 0),
+    [settings.level],
+  );
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
@@ -59,7 +65,17 @@ export default function StudyScreen() {
 
         <StudyCard s={s} icon="字" title={t('study.cat_moji_goi')} onPress={() => nav.navigate('Flashcard')} />
         <StudyCard s={s} icon="文" title={t('study.cat_bunpou')} onPress={() => nav.navigate('Grammar')} />
-        <StudyCard s={s} icon="読" title={t('study.cat_dokkai')} onPress={() => nav.navigate('Reading')} />
+        {/* 読解=小区分(内容理解短文/中文/情報検索)に展開。区分カードをタップで開閉。 */}
+        <StudyCard s={s} icon="読" title={t('study.cat_dokkai')} expandable open={openReading} onPress={() => (readingSubs.length > 1 ? setOpenReading((o) => !o) : nav.navigate('Reading'))} />
+        {openReading && readingSubs.map((sub) => (
+          <Pressable key={sub.key} style={({ pressed }) => [s.subCard, pressed && s.cardPressed]} onPress={() => nav.navigate('Reading', { subtype: sub.key })}>
+            <View style={s.subDot} />
+            <Text style={s.subTitle}>{t(sub.labelKey)}</Text>
+            <Text style={s.subN}>{sub.n}</Text>
+            <Text style={s.chevron}>›</Text>
+          </Pressable>
+        ))}
+
         <StudyCard s={s} icon="聴" title={t('study.cat_choukai')} onPress={() => nav.navigate('Listening')} />
 
         <Text style={s.sectionH}>{t('study.section_progress')}</Text>
@@ -85,9 +101,9 @@ export default function StudyScreen() {
 }
 
 function StudyCard({
-  s, icon, title, onPress,
+  s, icon, title, onPress, expandable, open,
 }: {
-  s: Styles; icon: string; title: string; onPress: () => void;
+  s: Styles; icon: string; title: string; onPress: () => void; expandable?: boolean; open?: boolean;
 }) {
   return (
     <Pressable style={({ pressed }) => [s.card, pressed && s.cardPressed]} onPress={onPress}>
@@ -97,7 +113,7 @@ function StudyCard({
       <View style={s.cardBody}>
         <Text style={s.cardTitle}>{title}</Text>
       </View>
-      <Text style={s.chevron}>›</Text>
+      <Text style={s.chevron}>{expandable ? (open ? '▾' : '▸') : '›'}</Text>
     </Pressable>
   );
 }
@@ -130,6 +146,14 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   cardBody: { flex: 1, gap: 2 },
   cardTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
   chevron: { fontSize: 28, color: c.trace, fontWeight: '700' },
+  subCard: {
+    flexDirection: 'row', alignItems: 'center', gap: spacing.sm,
+    backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line,
+    paddingVertical: spacing.sm + 2, paddingLeft: spacing.xl, paddingRight: spacing.md, marginTop: spacing.xs, marginLeft: spacing.lg,
+  },
+  subDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: c.blue },
+  subTitle: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
+  subN: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, paddingVertical: 2, paddingHorizontal: spacing.sm, borderRadius: radius.pill, overflow: 'hidden' },
   sectionH: { fontSize: ty.small, fontWeight: '800', color: c.ink2, marginTop: spacing.lg },
   ringRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.sm },
   ringCell: { alignItems: 'center' },

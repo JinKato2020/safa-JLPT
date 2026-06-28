@@ -372,5 +372,8 @@
   "tour.cheer_t": "Let’s begin!",
   "tour.cheer_b": "A little every day adds up. Good luck on your JLPT!",
   "tour.settings_t": "Make it yours",
-  "tour.settings_b": "Set your target exam & level, exam date, theme, reminders, and language — all in Settings."
+  "tour.settings_b": "Set your target exam & level, exam date, theme, reminders, and language — all in Settings.",
+  "study.sub_naiyou_tan": "Comprehension (Short)",
+  "study.sub_naiyou_chu": "Comprehension (Medium)",
+  "study.sub_joho": "Information Search"
 }
