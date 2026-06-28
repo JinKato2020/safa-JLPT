@@ -58,7 +58,7 @@ export default function ReadingScreen() {
     if (picked === null || !step) return;
     const isCorrect = picked === step.q.answerIndex;
     if (!isCorrect) return; // 不正解は自動前進しない
-    const t = setTimeout(advance, 2000);
+    const t = setTimeout(advance, 1300);
     return () => clearTimeout(t);
   }, [picked]);
 

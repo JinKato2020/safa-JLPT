@@ -1,5 +1,5 @@
 // 初回ガイドツアー(画面プレビュー型): 実画面を再現したスクショ(assets/tour/*.png)をスマホ枠で見せ、
-// 現行の強みを画面ごとに紹介。ホーム/学習/テスト/辞書 ＋ 締め(🌸)。手書きモック描画は廃止。
+// 現行の強みを画面ごとに紹介。ホーム/学習/テスト/辞書 ＋ 締め(アプリアイコン)。手書きモック描画は廃止。
 import { useState } from 'react';
 import { View, Text, Pressable, Image, ScrollView, StyleSheet, type ImageSourcePropType } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -28,7 +28,7 @@ const TOUR_IMAGES: Partial<Record<Kind, ImageSourcePropType>> = {
 };
 
 function Preview({ kind }: { kind: Kind }) {
-  if (kind === 'cheer') return <Text style={{ fontSize: 72 }}>🌸</Text>;
+  if (kind === 'cheer') return <Image source={require('../../assets/icon.png')} style={{ width: 104, height: 104, borderRadius: 22 }} resizeMode="contain" />;
   const src = TOUR_IMAGES[kind];
   if (!src) return null;
   const tall = kind === 'home';
