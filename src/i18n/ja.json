@@ -375,5 +375,7 @@
   "tour.settings_b": "目標試験・級、試験日、テーマ、リマインド、言語を設定でカスタマイズ。",
   "study.sub_naiyou_tan": "内容理解(短文)",
   "study.sub_naiyou_chu": "内容理解(中文)",
-  "study.sub_joho": "情報検索"
+  "study.sub_joho": "情報検索",
+  "study.sub_choubun": "内容理解(長文)",
+  "reading.empty": "この区分の読解はまだありません。"
 }

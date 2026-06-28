@@ -375,5 +375,7 @@
   "tour.settings_b": "Set your target exam & level, exam date, theme, reminders, and language — all in Settings.",
   "study.sub_naiyou_tan": "Comprehension (Short)",
   "study.sub_naiyou_chu": "Comprehension (Medium)",
-  "study.sub_joho": "Information Search"
+  "study.sub_joho": "Information Search",
+  "study.sub_choubun": "Comprehension (Long)",
+  "reading.empty": "No reading content for this section yet."
 }

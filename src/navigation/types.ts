@@ -8,6 +8,6 @@ export type RootStackParamList = {
   Flashcard: undefined; // 漢字・語彙 連続学習→連続テスト
   Grammar: undefined;   // 文法 連続学習→連続テスト
   Mock: { full?: boolean } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)
-  Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'joho' } | undefined;   // 読解(小区分つき)
+  Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho' } | undefined;   // 読解(小区分つき)
   Listening: undefined; // 聴解(テキスト先行)
 };

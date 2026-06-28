@@ -190,6 +190,7 @@ export interface PassageQuestion {
 export interface ReadingItem {
   id: string; level: Level; category: 'dokkai'; type: 'reading';
   format: string; title: string; body: string; questions: PassageQuestion[];
+  subtype?: ReadingSubtype; // 小区分の明示指定(データ正本)。無ければ format から推定。
 }
 export interface ListeningItem {
   id: string; level: Level; category: 'choukai'; type: 'listening';
@@ -206,24 +207,27 @@ export function readingItemsFor(level: Level): ReadingItem[] {
   return all.length > EXAM_READING ? all.slice(0, all.length - EXAM_READING) : all;
 }
 
-/** 読解の小区分(JLPT大問型)。学習タブで区分の下にさらに分ける。 */
-export type ReadingSubtype = 'naiyou_tan' | 'naiyou_chu' | 'joho';
+/** 読解の小区分(JLPT大問型)。学習タブで区分の下にさらに分ける。長文=N3大問6。 */
+export type ReadingSubtype = 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho';
 const FORMAT_SUB: Record<string, ReadingSubtype> = {
-  'お知らせ': 'naiyou_tan', 'メール': 'naiyou_tan', 'メモ': 'naiyou_tan', '掲示': 'naiyou_tan', '予定': 'naiyou_tan', '案内': 'naiyou_tan', '説明書': 'naiyou_tan',
+  'お知らせ': 'naiyou_tan', 'メール': 'naiyou_tan', 'メモ': 'naiyou_tan', '掲示': 'naiyou_tan', '予定': 'naiyou_tan', '案内': 'naiyou_tan', '説明書': 'naiyou_tan', '紹介': 'naiyou_tan',
   '中文': 'naiyou_chu', '説明文': 'naiyou_chu', '意見文': 'naiyou_chu', '随筆': 'naiyou_chu', '手紙': 'naiyou_chu',
+  '長文': 'choubun',
   '情報検索': 'joho',
 };
-/** 読解1本の小区分(formatから判定。未知は本文長で短文/中文)。 */
+/** 読解1本の小区分(明示 subtype を優先。無ければ format→本文長で推定)。 */
 export function readingSubtype(it: ReadingItem): ReadingSubtype {
+  if (it.subtype) return it.subtype;
   return FORMAT_SUB[it.format] ?? ((it.body?.replace(/\s/g, '').length ?? 0) > 200 ? 'naiyou_chu' : 'naiyou_tan');
 }
-/** レベル×小区分の学習用読解。 */
+/** レベル×小区分の読解(その級・区分の全本=学習で全コンテンツに到達できる)。 */
 export function readingItemsForSub(level: Level, sub: ReadingSubtype): ReadingItem[] {
-  return readingItemsFor(level).filter((it) => readingSubtype(it) === sub);
+  return READING.filter((it) => it.level === level && readingSubtype(it) === sub);
 }
 export const READING_SUBTYPES: { key: ReadingSubtype; labelKey: string }[] = [
   { key: 'naiyou_tan', labelKey: 'study.sub_naiyou_tan' },
   { key: 'naiyou_chu', labelKey: 'study.sub_naiyou_chu' },
+  { key: 'choubun', labelKey: 'study.sub_choubun' },
   { key: 'joho', labelKey: 'study.sub_joho' },
 ];
 export function examReadingFor(level: Level): ReadingItem[] {
