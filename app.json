@@ -12,11 +12,6 @@
       "url": "https://u.expo.dev/3590a434-66c9-4282-be7e-1f1c9d021c79"
     },
     "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "ios": {
       "bundleIdentifier": "com.safa.jlpt",
       "buildNumber": "3",
@@ -46,7 +41,16 @@
           "color": "#2563eb"
         }
       ],
-      "expo-font"
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ]
     ],
     "extra": {
       "eas": {
