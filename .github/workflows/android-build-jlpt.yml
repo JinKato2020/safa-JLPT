@@ -4,8 +4,8 @@ run-name: "まいにちJLPT — Android AAB (App C枠 com.safa.english)"
 # App C(com.safa.english)の既存Play枠へ「上書き」する Android AAB/APK をビルドする。
 # ・applicationId=com.safa.english(app.json)・versionCode=2000+commit(App C現1270より上)。
 # ・署名= App C のアップロード鍵(Secrets)。Play App Signing 想定。
-# ・Playアップロードは任意自動化: publish=true でAABをPlayの指定トラック(既定 alpha=クローズドテスト)へ提出。
-#   過去は手動だったが、SA鍵を入れれば「ビルド→クローズド提出」まで自走可。production指定は外部公開=合図後のみ。
+# ・Playアップロードは任意自動化: publish=true でAABをPlayの指定トラック(既定 internal=内部テスト)へ提出。
+#   方針(2026-06-29): ビルド後は「内部テスト(internal)まで自動」。クローズド(alpha)/本番(production)は合図時のみ。
 # 必要 Secrets(safa-JLPT): ANDROID_KEYSTORE_BASE64 / ANDROID_KEYSTORE_PASSWORD / ANDROID_KEY_ALIAS / ANDROID_KEY_PASSWORD
 #   （＝App C のアップロード鍵）＋ publish時のみ GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64（Play サービスアカウントJSONのbase64）。
 
@@ -21,10 +21,10 @@ on:
         type: boolean
         default: false
       track:
-        description: 'Playトラック(publish時)。alpha=クローズドテスト / internal=内部 / production=本番(合図後のみ)'
+        description: 'Playトラック(publish時)。internal=内部テスト(既定) / alpha=クローズド(合図時のみ) / production=本番(合図後のみ)'
         type: choice
-        options: [alpha, internal, production]
-        default: alpha
+        options: [internal, alpha, production]
+        default: internal
 
 jobs:
   build-android:
