@@ -379,5 +379,9 @@
   "study.sub_choubun": "Comprehension (Long)",
   "reading.empty": "No reading content for this section yet.",
   "reading.next": "Next",
-  "reading.toResult": "See result"
+  "reading.toResult": "See result",
+  "tour.home1_t": "Home — Readiness",
+  "tour.home1_b": "The big ring shows your pass-readiness and title. Below it, see each section’s status, the AI Coach’s advice, and your pass-chance trend at a glance.",
+  "tour.home2_t": "Home — Growth & Badges",
+  "tour.home2_b": "Scroll down for your learning growth, kanji/vocab/grammar coverage, your study streak, and the title badges you’ve earned."
 }

@@ -6,11 +6,12 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppActions } from '../store/store';
 import { useT } from '../i18n';
 
-type Kind = 'home' | 'study' | 'test' | 'dict' | 'settings' | 'cheer';
+type Kind = 'home1' | 'home2' | 'study' | 'test' | 'dict' | 'settings' | 'cheer';
 type Step = { kind: Kind; titleKey: string; bodyKey: string };
 
 const STEPS: Step[] = [
-  { kind: 'home', titleKey: 'tour.home_t', bodyKey: 'tour.home_b' },
+  { kind: 'home1', titleKey: 'tour.home1_t', bodyKey: 'tour.home1_b' },
+  { kind: 'home2', titleKey: 'tour.home2_t', bodyKey: 'tour.home2_b' },
   { kind: 'study', titleKey: 'tour.study_t', bodyKey: 'tour.study_b' },
   { kind: 'test', titleKey: 'tour.test_t', bodyKey: 'tour.test_b' },
   { kind: 'dict', titleKey: 'tour.dict_t', bodyKey: 'tour.dict_b' },
@@ -18,9 +19,10 @@ const STEPS: Step[] = [
   { kind: 'cheer', titleKey: 'tour.cheer_t', bodyKey: 'tour.cheer_b' },
 ];
 
-// 実画面再現スクショ。ホームは縦長(540x2225)、他は1画面(540x1170)。スマホ枠で表示。
+// 実画面再現スクショ。全て1画面(540x1170)で統一。ホームは縦長なので上下2枚に分割。スマホ枠で表示。
 const TOUR_IMAGES: Partial<Record<Kind, ImageSourcePropType>> = {
-  home: require('../../assets/tour/home.png'),
+  home1: require('../../assets/tour/home1.png'),
+  home2: require('../../assets/tour/home2.png'),
   study: require('../../assets/tour/study.png'),
   test: require('../../assets/tour/test.png'),
   dict: require('../../assets/tour/dict.png'),
@@ -31,9 +33,8 @@ function Preview({ kind }: { kind: Kind }) {
   if (kind === 'cheer') return <Image source={require('../../assets/icon.png')} style={{ width: 104, height: 104, borderRadius: 22 }} resizeMode="contain" />;
   const src = TOUR_IMAGES[kind];
   if (!src) return null;
-  const tall = kind === 'home';
   return (
-    <View style={[s2.phone, { width: tall ? 124 : 150, aspectRatio: tall ? 540 / 2225 : 540 / 1170 }]}>
+    <View style={[s2.phone, { width: 150, aspectRatio: 540 / 1170 }]}>
       <Image source={src} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
     </View>
   );
