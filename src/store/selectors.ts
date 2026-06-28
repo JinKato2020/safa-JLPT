@@ -253,9 +253,9 @@ const NBA_MAP: Record<Category, { label: string; route: 'Flashcard' | 'Grammar' 
 
 export interface NextAction {
   category: Category;
-  label: string;
   route: 'Flashcard' | 'Grammar' | 'Reading' | 'Listening';
-  reason: string;
+  reasonKey: string;                      // i18nキー(画面側でt()翻訳)。日本語固定をやめる。
+  reasonParams?: { pct: number };
 }
 
 /** Next Best Action = いちばん弱い区分の学習を勧める。
@@ -275,8 +275,9 @@ export function nextBestAction(state: AppState, now: number): NextAction | null 
   }
   const m = NBA_MAP[target];
   const ringPct = rings[target];
-  const reason = ringPct === null ? 'まだ未測定の区分' : `いちばん低い区分（正解率 ${ringPct}%）`;
-  return { category: target, label: m.label, route: m.route, reason };
+  return ringPct === null
+    ? { category: target, route: m.route, reasonKey: 'home.nba_reason_unmeasured' }
+    : { category: target, route: m.route, reasonKey: 'home.nba_reason_lowest', reasonParams: { pct: ringPct } };
 }
 
 // 達成ランク(C): 級内の習得率(覚えた/全)で上がる“帯”。10段階(習得率10%刻み)。合格判定とは別軸。

@@ -83,7 +83,7 @@ export default function RingGauge({
           </Text>
         )}
       </View>
-      {label ? <Text style={[s.label, { color: c.mute }]}>{label}</Text> : null}
+      {label ? <Text numberOfLines={2} style={[s.label, { color: c.mute }]}>{label}</Text> : null}
       {sub ? <Text style={[s.sub, { color: c.faint }]}>{sub}</Text> : null}
     </View>
   );
@@ -92,6 +92,6 @@ export default function RingGauge({
 const s = StyleSheet.create({
   wrap: { alignItems: 'center', gap: 4 },
   pct: { fontSize: ty.body, fontWeight: '800' },
-  label: { fontSize: ty.tiny },
+  label: { fontSize: ty.tiny, textAlign: 'center', maxWidth: 84, lineHeight: 13 },
   sub: { fontSize: 10, fontWeight: '700' },
 });

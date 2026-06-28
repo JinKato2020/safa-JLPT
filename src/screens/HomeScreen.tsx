@@ -50,8 +50,8 @@ export default function HomeScreen() {
   const badgeSet = state.settings.badgeSet ?? 'gorgeous';
   const studied = useMemo(() => new Set(state.streak.history), [state.streak.history]);
   const badges = useMemo(
-    () => computeBadges({ studyDays: state.streak.history.length, longestStreak: state.streak.longest, learned, score: readiness.score }),
-    [state, learned, readiness.score],
+    () => computeBadges({ studyDays: state.streak.history.length, longestStreak: state.streak.longest, learned, score: readiness.passProbability }),
+    [state, learned, readiness.passProbability],
   );
   const prof = examOf(state.settings.targetExam);
   const isJft = prof.exam === 'jft';
@@ -94,7 +94,7 @@ export default function HomeScreen() {
       // 現状＋やさしい次の一歩
       lines.push({ k: 'home.ai_passprob', p: { n: passProb } });
       if (passProb >= 80) lines.push({ k: 'home.ai_keep' });
-      else if (nba) lines.push({ k: 'home.ai_advice', p: { action: nba.label } });
+      else if (nba) lines.push({ k: 'home.ai_advice', p: { action: t(prof.catLabel[nba.category]) } });
     }
     // 継続(streak)を必ず励ます
     lines.push(state.streak.current > 0 ? { k: 'home.ai_streak', p: { n: state.streak.current } } : { k: 'home.ai_streak0' });
@@ -123,6 +123,7 @@ export default function HomeScreen() {
             value={measured ? gaugeVal : null}
             color={zone}
             mark={80}
+            markLabel={t('home.pass_line')}
             size={212}
             stroke={14}
           >
@@ -142,7 +143,11 @@ export default function HomeScreen() {
             {RING_ORDER.map((cat) => {
               const v = rings[cat];
               const rc = v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red;
-              return <RingGauge key={cat} value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />;
+              return (
+                <View key={cat} style={s.ringCell}>
+                  <RingGauge value={v} color={rc} label={t(prof.catLabel[cat])} sub="" />
+                </View>
+              );
             })}
           </View>
           {/* 合格率の推移(横軸=日)を合格カード下部に */}
@@ -204,7 +209,7 @@ export default function HomeScreen() {
         <Pressable style={s.cta} onPress={goAction}>
           <Text style={s.ctaTxt}>{t('home.cta_title')}</Text>
           <Text style={s.ctaSub}>
-            {nba ? `${nba.label} ・ ${nba.reason}` : t('home.cta_review')}
+            {nba ? `${t(prof.catLabel[nba.category])} ・ ${t(nba.reasonKey, nba.reasonParams)}` : t('home.cta_review')}
           </Text>
         </Pressable>
 
@@ -347,7 +352,8 @@ const makeStyles = (c: ThemeColors) =>
     curveCol: { flex: 1, justifyContent: 'flex-end' },
     curveBar: { backgroundColor: c.green, borderRadius: 2, width: '100%' },
     hint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
-    ringRow: { flexDirection: 'row', justifyContent: 'space-around', marginTop: spacing.lg, marginBottom: spacing.xs },
+    ringRow: { flexDirection: 'row', marginTop: spacing.lg, marginBottom: spacing.xs },
+    ringCell: { flex: 1, alignItems: 'center' },
     // カバー率(量)の横バー＋横に分数
     covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.md },
     covLabel: { width: 36, fontSize: ty.small, color: c.ink2, fontWeight: '700' },

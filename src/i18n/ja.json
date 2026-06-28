@@ -357,5 +357,8 @@
   "home.badge_vocab500": "語彙500",
   "home.badge_vocab500_hint": "500語を習得",
   "home.badge_pass": "合格圏",
-  "home.badge_pass_hint": "到達度75"
+  "home.badge_pass_hint": "到達度75",
+  "home.nba_reason_unmeasured": "まだ未測定の区分",
+  "home.nba_reason_lowest": "いちばん低い区分（正解率 {pct}%）",
+  "home.pass_line": "合格ライン"
 }

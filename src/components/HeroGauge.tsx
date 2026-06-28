@@ -1,6 +1,7 @@
 // ホームの到達度ゲージ(根本刷新)= 光る計器ダイヤル。
-// ①進捗で点灯する60目盛りベゼル ②グラデーション弧 ③多層グロー(ブルーム) ④白芯入り彗星ヘッド ⑤合格ライン刻み。
+// ①進捗で点灯する60目盛りベゼル ②グラデーション弧 ③多層グロー(ブルーム) ④白芯入り彗星ヘッド ⑤合格ライン(リング外)。
 // 中央は children(到達度の数値±)。色は成績/合格圏(緑/橙/赤)。Profileの小リングは RingGauge を継続使用。
+// レイヤ: [下] 目盛/リング/彗星 → children(バッジ/称号) → [上] 目盛数字20/40/60・合格ライン(称号の上に出す)。
 import { useRef, type ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Svg, { Circle, Line, Defs, LinearGradient, Stop, Text as SvgText } from 'react-native-svg';
@@ -10,9 +11,9 @@ let _hg = 0;
 const TICKS = 60;
 
 export default function HeroGauge({
-  value, color, mark, marks, size = 212, stroke = 14, children,
+  value, color, mark, marks, markLabel, size = 212, stroke = 14, children,
 }: {
-  value: number | null; color: string; mark?: number; marks?: number[]; size?: number; stroke?: number; children?: ReactNode;
+  value: number | null; color: string; mark?: number; marks?: number[]; markLabel?: string; size?: number; stroke?: number; children?: ReactNode;
 }) {
   const c = useColors();
   const idRef = useRef<string | undefined>(undefined);
@@ -23,7 +24,8 @@ export default function HeroGauge({
   const pct = Math.max(0, Math.min(100, value ?? 0));
   const drawn = value !== null && pct > 0;
 
-  const rTickOut = mid - 3;
+  // 外周に合格ライン用の余白を残す。
+  const rTickOut = mid - 13;
   const rTickIn = rTickOut - 8;
   const rRing = rTickIn - 11;
   const circ = 2 * Math.PI * rRing;
@@ -34,13 +36,14 @@ export default function HeroGauge({
   const ex = mid + rRing * Math.cos(endA);
   const ey = mid + rRing * Math.sin(endA);
 
-  // 合格ライン刻み(ベゼルを貫く)
+  // 合格ライン(リングの外側に出す)
   const markPct = Math.max(0, Math.min(100, mark ?? 0));
   const mA = ((-90 + 3.6 * markPct) * Math.PI) / 180;
-  const mri = rRing - stroke / 2 - 2;
-  const mro = rTickOut + 1;
+  const mLineIn = rTickOut + 1;     // ティックの外側から
+  const mLineOut = mid - 1;          // SVG端近くまで(=リングの外)
+  const mLabelR = mid - 6;           // 合格LINEラベルも外側
 
-  // 20/40/60 の位置(i=12,24,36)は刻みの代わりに数字を振る(80=合格ラインは別ラベル)。
+  // 20/40/60 の位置(i=12,24,36)は刻みの代わりに数字。80=合格ラインは別。
   const LABEL_TICKS: Record<number, number> = { 12: 20, 24: 40, 36: 60 };
   const ticks = [];
   const tickLabels = [];
@@ -53,7 +56,7 @@ export default function HeroGauge({
         <SvgText
           key={`lab-${i}`}
           x={mid + rLab * Math.cos(a)} y={mid + rLab * Math.sin(a)}
-          fontSize={9.5} fontWeight="700" fill={lit ? color : c.mute}
+          fontSize={9.5} fontWeight="800" fill={lit ? color : c.mute}
           textAnchor="middle" alignmentBaseline="central"
         >{LABEL_TICKS[i]}</SvgText>,
       );
@@ -74,6 +77,7 @@ export default function HeroGauge({
 
   return (
     <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
+      {/* [下層] 目盛り線・リング・彗星 */}
       <Svg width={size} height={size} style={StyleSheet.absoluteFill}>
         <Defs>
           <LinearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
@@ -84,7 +88,6 @@ export default function HeroGauge({
         </Defs>
 
         {ticks}
-        {tickLabels}
 
         {/* 内側トラック(淡い同色) */}
         <Circle cx={mid} cy={mid} r={rRing} stroke={color} strokeOpacity={0.1} strokeWidth={stroke} fill="none" />
@@ -122,32 +125,41 @@ export default function HeroGauge({
           return (
             <Line
               key={`mk-${i}`}
-              x1={mid + mri * Math.cos(a)} y1={mid + mri * Math.sin(a)}
-              x2={mid + mro * Math.cos(a)} y2={mid + mro * Math.sin(a)}
+              x1={mid + (rRing - stroke / 2 - 2) * Math.cos(a)} y1={mid + (rRing - stroke / 2 - 2) * Math.sin(a)}
+              x2={mid + (rTickOut + 1) * Math.cos(a)} y2={mid + (rTickOut + 1) * Math.sin(a)}
               stroke={c.mute} strokeWidth={1.6} strokeLinecap="round" strokeOpacity={0.7}
             />
           );
         })}
+      </Svg>
 
-        {/* 合格ライン刻み(単一・強調)＋「合格LINE」ラベル */}
+      {/* 中央: バッジ＋称号(下層SVGの上) */}
+      {children}
+
+      {/* [上層] 目盛数字(20/40/60)と合格ライン= 称号バンドの上に出す */}
+      <Svg width={size} height={size} style={StyleSheet.absoluteFill} pointerEvents="none">
+        {tickLabels}
         {mark != null ? (
           <>
+            {/* 合格ライン刻み(リングの外側) */}
             <Line
-              x1={mid + (mri - 3) * Math.cos(mA)} y1={mid + (mri - 3) * Math.sin(mA)}
-              x2={mid + mro * Math.cos(mA)} y2={mid + mro * Math.sin(mA)}
+              x1={mid + mLineIn * Math.cos(mA)} y1={mid + mLineIn * Math.sin(mA)}
+              x2={mid + mLineOut * Math.cos(mA)} y2={mid + mLineOut * Math.sin(mA)}
               stroke={c.ink} strokeWidth={3} strokeLinecap="round"
             />
-            <SvgText
-              x={mid + (rTickIn + rTickOut) / 2 * Math.cos(mA)}
-              y={mid + (rTickIn + rTickOut) / 2 * Math.sin(mA)}
-              fontSize={7.5} fontWeight="800" fill={c.ink}
-              textAnchor={Math.cos(mA) < -0.25 ? 'start' : Math.cos(mA) > 0.25 ? 'end' : 'middle'}
-              alignmentBaseline="central"
-            >合格LINE</SvgText>
+            {/* 合格LINEラベル(外側・i18n) */}
+            {markLabel ? (
+              <SvgText
+                x={mid + mLabelR * Math.cos(mA)}
+                y={mid + mLabelR * Math.sin(mA)}
+                fontSize={7.5} fontWeight="800" fill={c.ink}
+                textAnchor={Math.cos(mA) < -0.25 ? 'start' : Math.cos(mA) > 0.25 ? 'end' : 'middle'}
+                alignmentBaseline="central"
+              >{markLabel}</SvgText>
+            ) : null}
           </>
         ) : null}
       </Svg>
-      {children}
     </View>
   );
 }

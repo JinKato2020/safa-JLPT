@@ -25,6 +25,6 @@ export function computeBadges(i: BadgeInput): Badge[] {
     { id: 'vocab50', emoji: '📚', label: '語彙50', hint: '50語を習得', unlocked: i.learned >= 50 },
     { id: 'vocab200', emoji: '📖', label: '語彙200', hint: '200語を習得', unlocked: i.learned >= 200 },
     { id: 'vocab500', emoji: '🎓', label: '語彙500', hint: '500語を習得', unlocked: i.learned >= 500 },
-    { id: 'pass', emoji: '🎯', label: '合格圏', hint: '到達度75', unlocked: i.score >= 75 },
+    { id: 'pass', emoji: '🎯', label: '合格圏', hint: '合格ライン(合格率80%)到達', unlocked: i.score >= 80 },
   ];
 }

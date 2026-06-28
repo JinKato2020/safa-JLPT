@@ -357,5 +357,8 @@
   "home.badge_vocab500": "500 Words",
   "home.badge_vocab500_hint": "Learn 500 words",
   "home.badge_pass": "Passing Zone",
-  "home.badge_pass_hint": "Reach readiness 75"
+  "home.badge_pass_hint": "Reach readiness 75",
+  "home.nba_reason_unmeasured": "Not measured yet",
+  "home.nba_reason_lowest": "Lowest section (accuracy {pct}%)",
+  "home.pass_line": "Pass line"
 }
