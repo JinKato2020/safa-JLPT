@@ -377,5 +377,7 @@
   "study.sub_naiyou_chu": "Comprehension (Medium)",
   "study.sub_joho": "Information Search",
   "study.sub_choubun": "Comprehension (Long)",
-  "reading.empty": "No reading content for this section yet."
+  "reading.empty": "No reading content for this section yet.",
+  "reading.next": "Next",
+  "reading.toResult": "See result"
 }

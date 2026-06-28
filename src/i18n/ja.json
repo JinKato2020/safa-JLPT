@@ -377,5 +377,7 @@
   "study.sub_naiyou_chu": "内容理解(中文)",
   "study.sub_joho": "情報検索",
   "study.sub_choubun": "内容理解(長文)",
-  "reading.empty": "この区分の読解はまだありません。"
+  "reading.empty": "この区分の読解はまだありません。",
+  "reading.next": "次へ",
+  "reading.toResult": "結果へ"
 }

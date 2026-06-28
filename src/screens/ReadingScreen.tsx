@@ -48,14 +48,17 @@ export default function ReadingScreen() {
 
   const step = steps[idx];
 
-  // 解答後に自動で次へ(本文は読了済み。正解を見せて少し長め)。
+  const advance = () => {
+    setPicked(null);
+    setIdx((i) => i + 1);
+  };
+
+  // 正解のみ自動で次へ。不正解は解説を読んでから「次へ」ボタンで進む。
   useEffect(() => {
     if (picked === null || !step) return;
     const isCorrect = picked === step.q.answerIndex;
-    const t = setTimeout(() => {
-      setPicked(null);
-      setIdx((i) => i + 1);
-    }, isCorrect ? 2000 : 3200);
+    if (!isCorrect) return; // 不正解は自動前進しない
+    const t = setTimeout(advance, 2000);
     return () => clearTimeout(t);
   }, [picked]);
 
@@ -133,7 +136,13 @@ export default function ReadingScreen() {
             <View style={s.explainBox}>
               <Text style={s.explainTxt}>{step.q.explain}</Text>
             </View>
-            <Text style={s.autoNext}>{idx + 1 >= steps.length ? t('reading.autoResult') : t('reading.autoNext')}</Text>
+            {picked === step.q.answerIndex ? (
+              <Text style={s.autoNext}>{idx + 1 >= steps.length ? t('reading.autoResult') : t('reading.autoNext')}</Text>
+            ) : (
+              <Pressable style={s.nextBtn} onPress={advance}>
+                <Text style={s.nextBtnTxt}>{idx + 1 >= steps.length ? t('reading.toResult') : t('reading.next')}</Text>
+              </Pressable>
+            )}
           </>
         ) : (
           <Text style={s.hint}>{t('reading.hint')}</Text>
@@ -185,6 +194,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
   autoNext: { fontSize: ty.tiny, color: c.faint, textAlign: 'center', marginTop: spacing.xs },
+  nextBtn: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
+  nextBtnTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   bigEmoji: { fontSize: 56 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
   doneSub: { fontSize: ty.body, color: c.mute },
