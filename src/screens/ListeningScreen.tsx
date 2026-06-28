@@ -3,14 +3,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
-import { listeningItemsFor, listeningAudioIdsFor, type ListeningItem, type PassageQuestion } from '../data';
+import { listeningItemsFor, listeningItemsForSub, listeningAudioIdsFor, type ListeningItem, type PassageQuestion } from '../data';
+import type { RootStackParamList } from '../navigation/types';
 import { listeningSource, listeningReady } from '../data/listeningAudio';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { sample, reinsertForRelearn, shuffleChoices } from '../quiz/quiz';
@@ -34,10 +35,12 @@ export default function ListeningScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
+  const route = useRoute<RouteProp<RootStackParamList, 'Listening'>>();
+  const subtype = route.params?.subtype; // 学習タブの小区分から来た場合はその区分だけ出題
 
   const [steps, setSteps] = useState<ClipStep[]>(() => {
     const now = Date.now();
-    const all = listeningItemsFor(state.settings.level);
+    const all = subtype ? listeningItemsForSub(state.settings.level, subtype) : listeningItemsFor(state.settings.level);
     // 未習得(未回答 or p<0.6)の設問を含むクリップを優先→カバー率が確実に進みリングが満ちる。
     const needy = all.filter((cl) => cl.questions.some((q) => { const st = state.items[q.id]; return !st || effectiveP(st, now) < 0.6; }));
     const rest = all.filter((cl) => !needy.includes(cl));

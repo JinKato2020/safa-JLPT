@@ -9,5 +9,5 @@ export type RootStackParamList = {
   Grammar: undefined;   // 文法 連続学習→連続テスト
   Mock: { full?: boolean } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)
   Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho' } | undefined;   // 読解(小区分つき)
-  Listening: undefined; // 聴解(テキスト先行)
+  Listening: { subtype?: 'kadai' | 'point' | 'gaiyou' | 'hatsuwa' | 'sokuji' } | undefined; // 聴解(小区分つき)
 };

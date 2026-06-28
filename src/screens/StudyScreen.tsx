@@ -9,7 +9,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState } from '../store/store';
 import { ringsFor } from '../store/selectors';
 import RingGauge from '../components/RingGauge';
-import { itemsFor, ringItemIdsFor, readingItemsForSub, READING_SUBTYPES } from '../data';
+import { itemsFor, ringItemIdsFor, readingItemsForSub, READING_SUBTYPES, listeningItemsForSub, LISTENING_SUBTYPES } from '../data';
 import { dueStats } from '../quiz/quiz';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -43,9 +43,15 @@ export default function StudyScreen() {
 
   const todo = vocab.due + grammar.due + reading.due + listening.due;
   const [openReading, setOpenReading] = useState(false);
+  const [openListening, setOpenListening] = useState(false);
   // 読解の小区分(内容理解短文/中文/情報検索)ごとの問題数(その級に在るものだけ表示)。
   const readingSubs = useMemo(
     () => READING_SUBTYPES.map((sub) => ({ ...sub, n: readingItemsForSub(settings.level, sub.key).length })).filter((x) => x.n > 0),
+    [settings.level],
+  );
+  // 聴解の小区分(課題理解/ポイント理解/概要理解/発話表現/即時応答)ごとの問題数(その級に在るものだけ表示)。
+  const listeningSubs = useMemo(
+    () => LISTENING_SUBTYPES.map((sub) => ({ ...sub, n: listeningItemsForSub(settings.level, sub.key).length })).filter((x) => x.n > 0),
     [settings.level],
   );
 
@@ -75,7 +81,15 @@ export default function StudyScreen() {
           </Pressable>
         ))}
 
-        <StudyCard s={s} icon="聴" title={t('study.cat_choukai')} onPress={() => nav.navigate('Listening')} />
+        {/* 聴解=小区分(課題理解/ポイント理解/概要理解/発話表現/即時応答)に展開。レベルに在る区分だけ表示。 */}
+        <StudyCard s={s} icon="聴" title={t('study.cat_choukai')} expandable open={openListening} onPress={() => (listeningSubs.length > 1 ? setOpenListening((o) => !o) : nav.navigate('Listening'))} />
+        {openListening && listeningSubs.map((sub) => (
+          <Pressable key={sub.key} style={({ pressed }) => [s.subCard, pressed && s.cardPressed]} onPress={() => nav.navigate('Listening', { subtype: sub.key })}>
+            <View style={s.subDot} />
+            <Text style={s.subTitle}>{t(sub.labelKey)}</Text>
+            <Text style={s.chevron}>›</Text>
+          </Pressable>
+        ))}
 
         <Text style={s.sectionH}>{t('study.section_progress')}</Text>
         <View style={s.ringRow}>

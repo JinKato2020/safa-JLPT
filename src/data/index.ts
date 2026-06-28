@@ -195,7 +195,8 @@ export interface ReadingItem {
 export interface ListeningItem {
   id: string; level: Level; category: 'choukai'; type: 'listening';
   title: string; script: string; questions: PassageQuestion[];
-  qtype?: string; // 公式4型: 課題理解/ポイント理解/概要理解/即時応答(補充分のみ・任意)
+  qtype?: string; // 公式型ラベル: 課題理解/ポイント理解/概要理解/発話表現/即時応答 等(任意)
+  subtype?: ListeningSubtype; // 小区分の明示指定(データ正本)。無ければ qtype→台本構造で推定。
 }
 
 export const READING = reading as ReadingItem[];
@@ -238,6 +239,35 @@ export function listeningItemsFor(level: Level): ListeningItem[] {
   const all = LISTENING.filter((i) => i.level === level);
   return all.length > EXAM_LISTENING ? all.slice(0, all.length - EXAM_LISTENING) : all;
 }
+
+/** 聴解の小区分(JLPT聴解 大問型)。学習タブで聴解の下にさらに分ける。 */
+export type ListeningSubtype = 'kadai' | 'point' | 'gaiyou' | 'hatsuwa' | 'sokuji';
+const QTYPE_SUB: Record<string, ListeningSubtype> = {
+  '課題理解': 'kadai', '指示・アナウンス': 'kadai',
+  'ポイント理解': 'point', '店・公共機関': 'point',
+  '概要理解': 'gaiyou', '発話表現': 'hatsuwa', '即時応答': 'sokuji',
+};
+/** 聴解1本の小区分(明示 subtype 優先→qtype→台本構造で推定)。 */
+export function listeningSubtype(it: ListeningItem): ListeningSubtype {
+  if (it.subtype) return it.subtype;
+  if (it.qtype && QTYPE_SUB[it.qtype]) return QTYPE_SUB[it.qtype];
+  const turns = it.script ? it.script.split('　').map((s) => s.trim()).filter(Boolean).length : 0;
+  const len = it.script ? it.script.replace(/\s/g, '').length : 0;
+  if (turns <= 1 && len < 40) return 'sokuji'; // 短い1発話=即時応答
+  if (turns <= 1) return 'gaiyou';             // 1話者の独話=概要理解
+  return 'kadai';                              // 会話=課題理解(既定)
+}
+/** レベル×小区分の聴解(その級・区分の全本)。 */
+export function listeningItemsForSub(level: Level, sub: ListeningSubtype): ListeningItem[] {
+  return LISTENING.filter((it) => it.level === level && listeningSubtype(it) === sub);
+}
+export const LISTENING_SUBTYPES: { key: ListeningSubtype; labelKey: string }[] = [
+  { key: 'kadai', labelKey: 'study.lsub_kadai' },
+  { key: 'point', labelKey: 'study.lsub_point' },
+  { key: 'gaiyou', labelKey: 'study.lsub_gaiyou' },
+  { key: 'hatsuwa', labelKey: 'study.lsub_hatsuwa' },
+  { key: 'sokuji', labelKey: 'study.lsub_sokuji' },
+];
 export function examListeningFor(level: Level): ListeningItem[] {
   const all = LISTENING.filter((i) => i.level === level);
   return all.length > EXAM_LISTENING ? all.slice(all.length - EXAM_LISTENING) : [];
