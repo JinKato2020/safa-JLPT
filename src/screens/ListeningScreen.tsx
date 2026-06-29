@@ -10,19 +10,16 @@ import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
-import { listeningItemsFor, listeningItemsForSub, listeningAudioIdsFor, type ListeningItem, type PassageQuestion } from '../data';
+import { listeningItemsFor, listeningItemsForSub, type ListeningItem, type PassageQuestion } from '../data';
 import type { RootStackParamList } from '../navigation/types';
-import { listeningSource, listeningReady } from '../data/listeningAudio';
+import { listeningSource } from '../data/listeningAudio';
 import { illustSource } from '../data/listeningImage';
-import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { sample, reinsertForRelearn, shuffleChoices } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
 
 const SESSION_CLIPS = 3;
 const RELEARN_GAP = 2;
 const MAX_STEPS = 24;
-// 開発用テキスト表示モード(本番は音声/イラスト)。音声・イラストが揃うまで台本を文字で表示。
-const LISTENING_TEXT_MODE = true;
 
 interface ClipStep { clip: ListeningItem; qs: PassageQuestion[]; } // 1音声＝1ページ。その音声の全設問を同ページに。
 
@@ -68,17 +65,7 @@ export default function ListeningScreen() {
   // 聴解音声の取得方式: 配信(都度ストリーミング)/一括DL(オフライン)。未設定→download(従来挙動)。
   const stream = state.settings.listeningAudioMode === 'stream';
 
-  // 聴解音声がこのレベル分キャッシュ済みか確認。未DLなら開始前にDLゲート(聴解開始時のDL機会・スキップ可)。
-  // 配信モードはDL不要なのでゲートを出さず即開始。
-  const [audioReady, setAudioReady] = useState<boolean | null>(null);
-  useEffect(() => {
-    if (LISTENING_TEXT_MODE || stream || subtype === 'hatsuwa') { setAudioReady(true); return; } // 開発テキストモード/配信/発話表現はゲート不要
-    let alive = true;
-    listeningReady(listeningAudioIdsFor(state.settings.level))
-      .then((r) => { if (alive) setAudioReady(r); })
-      .catch(() => { if (alive) setAudioReady(true); });
-    return () => { alive = false; };
-  }, [state.settings.level, stream, subtype]);
+  // 音声は「問題ごとに再生時オンデマンドDL＋キャッシュ」。事前一括DLゲートは出さない。
 
   // 発話表現イラスト: 問題表示時にオンデマンドDL→キャッシュ(同梱しない)。
   const [imgUri, setImgUri] = useState<string | null>(null);
@@ -113,13 +100,6 @@ export default function ListeningScreen() {
     return () => clearTimeout(tmr);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [picked, idx]);
-
-  if (audioReady === null) {
-    return <SafeAreaView style={s.c}><View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}><ActivityIndicator color={c.blue} /></View></SafeAreaView>;
-  }
-  if (!audioReady) {
-    return <ListeningDownloadGate level={state.settings.level} allowSkip onComplete={() => setAudioReady(true)} />;
-  }
 
   const step = steps[idx];
 
@@ -190,12 +170,7 @@ export default function ListeningScreen() {
 
         <View style={s.clipCard}>
           <Text style={s.clipTitle}>{step.clip.title}</Text>
-          {LISTENING_TEXT_MODE ? (
-            <>
-              <Text style={s.devNote}>{t('listening.dev_text')}</Text>
-              <Text style={s.script}>{formatScript(step.clip.script)}</Text>
-            </>
-          ) : isHatsuwa ? (
+          {isHatsuwa ? (
             <>
               {imgUri ? (
                 <Image source={{ uri: imgUri }} style={s.hatsuwaImg} resizeMode="contain" />
@@ -204,7 +179,7 @@ export default function ListeningScreen() {
               )}
               <Text style={s.hatsuwaScene}>{step.clip.script}</Text>
             </>
-          ) : (
+          ) : step.clip.audio ? (
             <>
               <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
                 <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
@@ -222,10 +197,15 @@ export default function ListeningScreen() {
                 </Pressable>
               )}
             </>
+          ) : (
+            <>
+              <Text style={s.devNote}>{t('listening.dev_text')}</Text>
+              <Text style={s.script}>{formatScript(step.clip.script)}</Text>
+            </>
           )}
         </View>
 
-        {step.qs.length === 0 || picked.length === 0 ? <Text style={s.hint}>{t(isHatsuwa ? 'listening.hint_hatsuwa' : 'listening.hint')}</Text> : null}
+        {step.qs.length === 0 || picked.length === 0 ? <Text style={s.hint}>{t(isHatsuwa ? 'listening.hint_hatsuwa' : step.clip.audio ? 'listening.hint' : 'listening.dev_text')}</Text> : null}
         {/* 1音声の全設問を同ページに。各設問を個別タップ→正誤表示→全問終わると自動で次へ。 */}
         {step.qs.map((q, qi) => {
           const reveal = picked[qi] != null;
