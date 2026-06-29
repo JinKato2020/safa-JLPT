@@ -13,7 +13,7 @@ import SessionSummary from '../components/SessionSummary';
 import { listeningItemsFor, listeningItemsForSub, listeningAudioIdsFor, type ListeningItem, type PassageQuestion } from '../data';
 import type { RootStackParamList } from '../navigation/types';
 import { listeningSource, listeningReady } from '../data/listeningAudio';
-import { HATSUWA_IMAGES } from '../data/hatsuwaImages';
+import { illustSource } from '../data/listeningImage';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { sample, reinsertForRelearn, shuffleChoices } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
@@ -77,6 +77,17 @@ export default function ListeningScreen() {
       .catch(() => { if (alive) setAudioReady(true); });
     return () => { alive = false; };
   }, [state.settings.level, stream, subtype]);
+
+  // 発話表現イラスト: 問題表示時にオンデマンドDL→キャッシュ(同梱しない)。
+  const [imgUri, setImgUri] = useState<string | null>(null);
+  useEffect(() => {
+    const clip = steps[idx]?.clip;
+    if (!clip?.illust) { setImgUri(null); return; }
+    let alive = true;
+    setImgUri(null);
+    illustSource(clip.illust).then((u) => { if (alive) setImgUri(u); }).catch(() => undefined);
+    return () => { alive = false; };
+  }, [idx, steps]);
 
   // クリップの全設問に答えたら自動で次へ(全問正解1.5秒/誤答あり3秒)。※フックは早期returnの前(Rules of Hooks)。
   useEffect(() => {
@@ -179,9 +190,11 @@ export default function ListeningScreen() {
           <Text style={s.clipTitle}>{step.clip.title}</Text>
           {isHatsuwa ? (
             <>
-              {step.clip.illust && HATSUWA_IMAGES[step.clip.illust] ? (
-                <Image source={HATSUWA_IMAGES[step.clip.illust]} style={s.hatsuwaImg} resizeMode="contain" />
-              ) : null}
+              {imgUri ? (
+                <Image source={{ uri: imgUri }} style={s.hatsuwaImg} resizeMode="contain" />
+              ) : (
+                <View style={s.hatsuwaImgPh}><ActivityIndicator color={c.blue} /></View>
+              )}
               <Text style={s.hatsuwaScene}>{step.clip.script}</Text>
             </>
           ) : (
@@ -267,7 +280,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   playTxt: { fontSize: ty.body, fontWeight: '800', color: c.choukai },
   playTxtOn: { color: c.green },
   script: { fontSize: ty.body, color: c.ink2, lineHeight: 26, marginTop: spacing.xs },
-  hatsuwaImg: { width: '100%', aspectRatio: 1, borderRadius: radius.md, backgroundColor: '#ffffff', marginTop: spacing.xs },
+  hatsuwaImg: { width: '100%', maxWidth: 260, aspectRatio: 1, alignSelf: 'center', borderRadius: radius.md, backgroundColor: '#ffffff', marginTop: spacing.xs },
+  hatsuwaImgPh: { width: '100%', maxWidth: 260, aspectRatio: 1, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginTop: spacing.xs },
   hatsuwaScene: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.sm },
   scriptToggle: { fontSize: ty.small, color: c.blue, fontWeight: '700' },
   qBlock: { marginTop: spacing.md, paddingTop: spacing.md, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.line },

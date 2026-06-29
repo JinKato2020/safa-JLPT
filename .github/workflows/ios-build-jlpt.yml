@@ -54,6 +54,8 @@ jobs:
         run: |
           mkdir -p _site/assets
           cp -r assets/audio _site/assets/audio
+          # 発話表現イラスト(オンデマンドDL用・同梱しない)
+          [ -d assets/hatsuwa ] && cp -r assets/hatsuwa _site/assets/hatsuwa || true
           [ -f privacy.html ] && cp privacy.html _site/ || true
           [ -f terms.html ] && cp terms.html _site/ || true
           # 共有辞書を1か所で配信(JLPT・App B 共通の単一ソース): /dict/ja-*.json

@@ -197,7 +197,7 @@ export interface ListeningItem {
   title: string; script: string; questions: PassageQuestion[];
   qtype?: string; // 公式型ラベル: 課題理解/ポイント理解/概要理解/発話表現/即時応答 等(任意)
   subtype?: ListeningSubtype; // 小区分の明示指定(データ正本)。無ければ qtype→台本構造で推定。
-  illust?: string; // 発話表現など: イラストのキー(HATSUWA_IMAGES参照)。音声なし問題。
+  illust?: string; // 発話表現など: イラストのキー(listeningImage.illustSource でDL)。音声なし問題。
 }
 
 export const READING = reading as ReadingItem[];

@@ -14,10 +14,10 @@ import zh from './zh.json';
 import bn from './bn.json';
 import th from './th.json';
 
-// 英語のみ運用(2026-06-28・App C英語枠で配信)。多言語に戻す時は下の全言語をアンコメント。
+// 英語＋日本語を提供(2026-06-29 日本語を追加)。他言語に戻す時は下をアンコメント。
 export const UI_LANGS: { code: string; name: string }[] = [
   { code: 'en', name: 'English' },
-  // { code: 'ja', name: '日本語' },
+  { code: 'ja', name: '日本語' },
   // { code: 'ne', name: 'नेपाली' },
   // { code: 'vi', name: 'Tiếng Việt' },
   // { code: 'my', name: 'မြန်မာ' },
@@ -42,12 +42,15 @@ const DICT: Record<string, Record<string, string>> = {
 };
 const SUPPORTED = new Set(UI_LANGS.map((l) => l.code));
 
-/** UI言語判定。※英語のみ運用(App C枠)につき常に 'en'。多言語復帰時は下の自動判定を戻す。 */
+/** UI言語判定。端末言語が対応(en/ja)ならそれ、対応外は en。 */
 export function detectUiLang(): string {
+  try {
+    for (const loc of Localization.getLocales()) {
+      const c = (loc.languageCode || '').toLowerCase();
+      if (SUPPORTED.has(c)) return c;
+    }
+  } catch { /* 取得失敗時は en */ }
   return 'en';
-  // 多言語版: 端末言語から判定し対応外は en。
-  // try { for (const loc of Localization.getLocales()) { const c=(loc.languageCode||'').toLowerCase(); if (SUPPORTED.has(c)) return c; } } catch {}
-  // return 'en';
 }
 
 function fmt(s: string, p?: Record<string, string | number>): string {
@@ -60,10 +63,11 @@ export function translate(lang: string, key: string, p?: Record<string, string |
   return fmt(s, p);
 }
 
-/** 現在のUI言語。※英語のみ運用(App C枠)につき常に 'en' 固定。多言語復帰時は settings.uiLang||detectUiLang() に戻す。 */
+/** 現在のUI言語。設定(settings.uiLang)優先→端末判定。対応外は en。 */
 export function useUiLang(): string {
-  useAppState(); // フック規約維持(将来の多言語復帰用)
-  return 'en';
+  const st = useAppState();
+  const lang = st.settings.uiLang;
+  return lang && SUPPORTED.has(lang) ? lang : detectUiLang();
 }
 
 /** t(key, params?) を返すフック。コンポーネントで const t = useT(); {t('home.title')} の形で使う。 */
