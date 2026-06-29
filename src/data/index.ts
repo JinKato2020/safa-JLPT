@@ -197,6 +197,7 @@ export interface ListeningItem {
   title: string; script: string; questions: PassageQuestion[];
   qtype?: string; // 公式型ラベル: 課題理解/ポイント理解/概要理解/発話表現/即時応答 等(任意)
   subtype?: ListeningSubtype; // 小区分の明示指定(データ正本)。無ければ qtype→台本構造で推定。
+  illust?: string; // 発話表現など: イラストのキー(HATSUWA_IMAGES参照)。音声なし問題。
 }
 
 export const READING = reading as ReadingItem[];
@@ -273,9 +274,9 @@ export function examListeningFor(level: Level): ListeningItem[] {
   return all.length > EXAM_LISTENING ? all.slice(all.length - EXAM_LISTENING) : [];
 }
 
-/** そのレベルの全聴解音声id(学習＋模試)。レベル一括プリフェッチ用。 */
+/** そのレベルの全聴解音声id(学習＋模試)。レベル一括プリフェッチ用。発話表現(illust=音声なし)は除外。 */
 export function listeningAudioIdsFor(level: Level): string[] {
-  return LISTENING.filter((i) => i.level === level).map((i) => i.id);
+  return LISTENING.filter((i) => i.level === level && i.subtype !== 'hatsuwa').map((i) => i.id);
 }
 
 /** 小リング/学習カウントの分母 = 学習集合(模試専用を除外)。学習だけで100%に届く。 */

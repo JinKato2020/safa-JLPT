@@ -1,7 +1,7 @@
 // ミニ聴解。会話/独話の音声(Google TTS生成)を聞いて4択で自動採点(重み3)→聴解リング点灯。
 // スクリプトは既定で隠す(本物の聴解)。解答後に表示＋解説。採点は quizAnswer(設問id) 流用。掲示板§4(聴解)。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, ActivityIndicator, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { Audio, type AVPlaybackStatus } from 'expo-av';
@@ -13,6 +13,7 @@ import SessionSummary from '../components/SessionSummary';
 import { listeningItemsFor, listeningItemsForSub, listeningAudioIdsFor, type ListeningItem, type PassageQuestion } from '../data';
 import type { RootStackParamList } from '../navigation/types';
 import { listeningSource, listeningReady } from '../data/listeningAudio';
+import { HATSUWA_IMAGES } from '../data/hatsuwaImages';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { sample, reinsertForRelearn, shuffleChoices } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
@@ -69,13 +70,13 @@ export default function ListeningScreen() {
   // 配信モードはDL不要なのでゲートを出さず即開始。
   const [audioReady, setAudioReady] = useState<boolean | null>(null);
   useEffect(() => {
-    if (stream) { setAudioReady(true); return; }
+    if (stream || subtype === 'hatsuwa') { setAudioReady(true); return; } // 発話表現=音声なし(イラスト)→ゲート不要
     let alive = true;
     listeningReady(listeningAudioIdsFor(state.settings.level))
       .then((r) => { if (alive) setAudioReady(r); })
       .catch(() => { if (alive) setAudioReady(true); });
     return () => { alive = false; };
-  }, [state.settings.level, stream]);
+  }, [state.settings.level, stream, subtype]);
 
   // クリップの全設問に答えたら自動で次へ(全問正解1.5秒/誤答あり3秒)。※フックは早期returnの前(Rules of Hooks)。
   useEffect(() => {
@@ -162,6 +163,8 @@ export default function ListeningScreen() {
     if (ok) setCorrect((x) => x + 1);
   };
 
+  const isHatsuwa = !!step.clip.illust; // 発話表現=イラスト＋場面文、音声なし
+
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
@@ -174,24 +177,35 @@ export default function ListeningScreen() {
 
         <View style={s.clipCard}>
           <Text style={s.clipTitle}>{step.clip.title}</Text>
-          <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
-            <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
-          </Pressable>
-          {showScript ? (
+          {isHatsuwa ? (
             <>
-              <Text style={s.script}>{formatScript(step.clip.script)}</Text>
-              <Pressable onPress={() => setShowScript(false)} hitSlop={8}>
-                <Text style={s.scriptToggle}>{t('listening.script_hide')}</Text>
-              </Pressable>
+              {step.clip.illust && HATSUWA_IMAGES[step.clip.illust] ? (
+                <Image source={HATSUWA_IMAGES[step.clip.illust]} style={s.hatsuwaImg} resizeMode="contain" />
+              ) : null}
+              <Text style={s.hatsuwaScene}>{step.clip.script}</Text>
             </>
           ) : (
-            <Pressable onPress={() => setShowScript(true)} hitSlop={8}>
-              <Text style={s.scriptToggle}>{t('listening.script_show')}</Text>
-            </Pressable>
+            <>
+              <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
+                <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
+              </Pressable>
+              {showScript ? (
+                <>
+                  <Text style={s.script}>{formatScript(step.clip.script)}</Text>
+                  <Pressable onPress={() => setShowScript(false)} hitSlop={8}>
+                    <Text style={s.scriptToggle}>{t('listening.script_hide')}</Text>
+                  </Pressable>
+                </>
+              ) : (
+                <Pressable onPress={() => setShowScript(true)} hitSlop={8}>
+                  <Text style={s.scriptToggle}>{t('listening.script_show')}</Text>
+                </Pressable>
+              )}
+            </>
           )}
         </View>
 
-        {step.qs.length === 0 || picked.length === 0 ? <Text style={s.hint}>{t('listening.hint')}</Text> : null}
+        {step.qs.length === 0 || picked.length === 0 ? <Text style={s.hint}>{t(isHatsuwa ? 'listening.hint_hatsuwa' : 'listening.hint')}</Text> : null}
         {/* 1音声の全設問を同ページに。各設問を個別タップ→正誤表示→全問終わると自動で次へ。 */}
         {step.qs.map((q, qi) => {
           const reveal = picked[qi] != null;
@@ -253,6 +267,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   playTxt: { fontSize: ty.body, fontWeight: '800', color: c.choukai },
   playTxtOn: { color: c.green },
   script: { fontSize: ty.body, color: c.ink2, lineHeight: 26, marginTop: spacing.xs },
+  hatsuwaImg: { width: '100%', aspectRatio: 1, borderRadius: radius.md, backgroundColor: '#ffffff', marginTop: spacing.xs },
+  hatsuwaScene: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.sm },
   scriptToggle: { fontSize: ty.small, color: c.blue, fontWeight: '700' },
   qBlock: { marginTop: spacing.md, paddingTop: spacing.md, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.line },
   qLabel: { fontSize: ty.tiny, fontWeight: '700', color: c.mute, letterSpacing: 1 },
