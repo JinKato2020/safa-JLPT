@@ -21,6 +21,8 @@ import { effectiveP } from '../engine/engine';
 const SESSION_CLIPS = 3;
 const RELEARN_GAP = 2;
 const MAX_STEPS = 24;
+// 開発用テキスト表示モード(本番は音声/イラスト)。音声・イラストが揃うまで台本を文字で表示。
+const LISTENING_TEXT_MODE = true;
 
 interface ClipStep { clip: ListeningItem; qs: PassageQuestion[]; } // 1音声＝1ページ。その音声の全設問を同ページに。
 
@@ -70,7 +72,7 @@ export default function ListeningScreen() {
   // 配信モードはDL不要なのでゲートを出さず即開始。
   const [audioReady, setAudioReady] = useState<boolean | null>(null);
   useEffect(() => {
-    if (stream || subtype === 'hatsuwa') { setAudioReady(true); return; } // 発話表現=音声なし(イラスト)→ゲート不要
+    if (LISTENING_TEXT_MODE || stream || subtype === 'hatsuwa') { setAudioReady(true); return; } // 開発テキストモード/配信/発話表現はゲート不要
     let alive = true;
     listeningReady(listeningAudioIdsFor(state.settings.level))
       .then((r) => { if (alive) setAudioReady(r); })
@@ -188,7 +190,12 @@ export default function ListeningScreen() {
 
         <View style={s.clipCard}>
           <Text style={s.clipTitle}>{step.clip.title}</Text>
-          {isHatsuwa ? (
+          {LISTENING_TEXT_MODE ? (
+            <>
+              <Text style={s.devNote}>{t('listening.dev_text')}</Text>
+              <Text style={s.script}>{formatScript(step.clip.script)}</Text>
+            </>
+          ) : isHatsuwa ? (
             <>
               {imgUri ? (
                 <Image source={{ uri: imgUri }} style={s.hatsuwaImg} resizeMode="contain" />
@@ -280,6 +287,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   playTxt: { fontSize: ty.body, fontWeight: '800', color: c.choukai },
   playTxtOn: { color: c.green },
   script: { fontSize: ty.body, color: c.ink2, lineHeight: 26, marginTop: spacing.xs },
+  devNote: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs, fontStyle: 'italic' },
   hatsuwaImg: { width: '100%', maxWidth: 260, aspectRatio: 1, alignSelf: 'center', borderRadius: radius.md, backgroundColor: '#ffffff', marginTop: spacing.xs },
   hatsuwaImgPh: { width: '100%', maxWidth: 260, aspectRatio: 1, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginTop: spacing.xs },
   hatsuwaScene: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.sm },
