@@ -3,9 +3,9 @@ import { ActivityIndicator, AppState, View, useColorScheme } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColors } from './src/theme';
 import { AppProvider, useAppState, useHydrated } from './src/store/store';
 import { useT } from './src/i18n';
@@ -34,7 +34,7 @@ function activeRouteName(navState: unknown): string | undefined {
   return route?.state ? activeRouteName(route.state) : route?.name;
 }
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const TABS = [
@@ -48,13 +48,30 @@ const TABS = [
 function MainTabs() {
   const c = useColors();
   const t = useT();
+  const insets = useSafeAreaInsets();
+  // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
   return (
     <Tab.Navigator
+      tabBarPosition="bottom"
       screenOptions={{
-        headerShown: false,
+        swipeEnabled: true,
+        lazy: true,
         tabBarActiveTintColor: c.blue,
         tabBarInactiveTintColor: c.faint,
-        tabBarStyle: { backgroundColor: c.surface, borderTopColor: c.line },
+        tabBarShowIcon: true,
+        tabBarPressColor: 'transparent',
+        tabBarLabelStyle: { fontSize: 10, textTransform: 'none', margin: 0, marginTop: 2 },
+        tabBarItemStyle: { paddingVertical: 4 },
+        tabBarIndicatorStyle: { height: 0 }, // 上のインジケータ線は隠す(ボトムナビ風)
+        tabBarStyle: {
+          backgroundColor: c.surface,
+          borderTopWidth: 1,
+          borderTopColor: c.line,
+          height: 54 + insets.bottom,
+          paddingBottom: insets.bottom,
+          elevation: 0,
+          shadowOpacity: 0,
+        },
       }}
     >
       {TABS.map((tab) => (
@@ -64,7 +81,7 @@ function MainTabs() {
           component={tab.component}
           options={{
             tabBarLabel: t(tab.labelKey),
-            tabBarIcon: ({ color, size, focused }) => <Ionicons name={focused ? tab.icon : tab.iconOff} size={size ?? 24} color={color} />,
+            tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? tab.icon : tab.iconOff} size={22} color={color} />,
           }}
         />
       ))}

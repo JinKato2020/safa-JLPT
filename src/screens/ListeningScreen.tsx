@@ -45,8 +45,9 @@ export default function ListeningScreen() {
     const needy = all.filter((cl) => cl.questions.some((q) => { const st = state.items[q.id]; return !st || effectiveP(st, now) < 0.6; }));
     const rest = all.filter((cl) => !needy.includes(cl));
     const clips = [...sample(needy, SESSION_CLIPS), ...sample(rest, SESSION_CLIPS)].slice(0, SESSION_CLIPS);
-    // 1クリップ＝1ページ。その音声の全設問(選択肢シャッフル済)をまとめて持つ。
-    return clips.map((cl) => ({ clip: cl, qs: cl.questions.map((q) => ({ ...q, ...shuffleChoices(q.choices, q.answerIndex) })) }));
+    // 1クリップ＝1ページ。その音声の全設問をまとめて持つ。
+    // 通常はテキスト4択をシャッフル。発話/即時(audioChoices)は選択肢が音声で順番に流れるため、番号と一致させるべくシャッフルしない。
+    return clips.map((cl) => ({ clip: cl, qs: cl.questions.map((q) => (cl.audioChoices ? { ...q } : { ...q, ...shuffleChoices(q.choices, q.answerIndex) })) }));
   });
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<(number | null)[]>([]); // 現クリップの設問ごとの選択(qIndex→choiceIndex)
@@ -156,7 +157,9 @@ export default function ListeningScreen() {
     if (ok) setCorrect((x) => x + 1);
   };
 
-  const isHatsuwa = !!step.clip.illust; // 発話表現=イラスト＋場面文、音声なし
+  const isAudioChoices = !!step.clip.audioChoices; // 発話/即時=本文＋選択肢を音声で再生、画面は番号で選ぶ
+  const isHatsuwa = !isAudioChoices && !!step.clip.illust; // (旧)発話表現=イラスト＋場面文、音声なし
+  const anyPicked = picked.some((p) => p != null);
 
   return (
     <SafeAreaView style={s.c}>
@@ -170,7 +173,21 @@ export default function ListeningScreen() {
 
         <View style={s.clipCard}>
           <Text style={s.clipTitle}>{step.clip.title}</Text>
-          {isHatsuwa ? (
+          {isAudioChoices ? (
+            <>
+              {step.clip.illust ? (
+                imgUri ? (
+                  <Image source={{ uri: imgUri }} style={s.hatsuwaImg} resizeMode="contain" />
+                ) : (
+                  <View style={s.hatsuwaImgPh}><ActivityIndicator color={c.blue} /></View>
+                )
+              ) : null}
+              <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
+                <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
+              </Pressable>
+              {anyPicked ? <Text style={s.script}>{step.clip.script}</Text> : null}
+            </>
+          ) : isHatsuwa ? (
             <>
               {imgUri ? (
                 <Image source={{ uri: imgUri }} style={s.hatsuwaImg} resizeMode="contain" />
@@ -212,7 +229,7 @@ export default function ListeningScreen() {
           return (
             <View key={qi} style={s.qBlock}>
               {step.qs.length > 1 ? <Text style={s.qLabel}>{t('listening.q_label', { n: qi + 1, m: step.qs.length })}</Text> : null}
-              <Text style={s.qText}>{q.q}</Text>
+              {q.q ? <Text style={s.qText}>{q.q}</Text> : null}
               <View style={s.choices}>
                 {q.choices.map((ch, ci) => {
                   const isAnswer = ci === q.answerIndex;
@@ -220,11 +237,18 @@ export default function ListeningScreen() {
                   return (
                     <Pressable
                       key={ci}
-                      style={[s.choice, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
+                      style={[s.choice, isAudioChoices && !reveal && s.choiceNum, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
                       onPress={() => onPick(qi, ci)}
                       disabled={reveal}
                     >
-                      <Text style={s.choiceTxt}>{ch}</Text>
+                      {isAudioChoices ? (
+                        <View style={s.numRow}>
+                          <Text style={s.numBadge}>{ci + 1}</Text>
+                          {reveal ? <Text style={s.choiceTxt}>{ch}</Text> : null}
+                        </View>
+                      ) : (
+                        <Text style={s.choiceTxt}>{ch}</Text>
+                      )}
                       {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
                     </Pressable>
                   );
@@ -287,6 +311,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.md,
   },
+  choiceNum: { justifyContent: 'center', paddingVertical: spacing.lg }, // 番号のみ表示時は中央・やや高め
+  numRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, flex: 1 },
+  numBadge: { fontSize: ty.h1, fontWeight: '800', color: c.choukai, minWidth: 28, textAlign: 'center' },
   choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
   choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
   choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },

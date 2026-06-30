@@ -20,6 +20,7 @@
     "@expo/vector-icons": "^15.0.3",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.16.1",
+    "@react-navigation/material-top-tabs": "^7.6.3",
     "@react-navigation/native": "^7.2.4",
     "@react-navigation/native-stack": "^7.15.1",
     "babel-preset-expo": "~54.0.10",
@@ -36,9 +37,11 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
+    "react-native-pager-view": "6.9.1",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
     "react-native-svg": "15.12.1",
+    "react-native-tab-view": "^4.3.1",
     "react-native-web": "^0.21.0"
   },
   "devDependencies": {
