@@ -230,6 +230,28 @@ export function buildQueue(
   return [...due, ...freshSel].slice(0, n);
 }
 
+/** 大問(学習区分)の出題キュー: ユニットid(`項目#大問`/バンクid)版。期限切れ→新出。SRSは項目#大問キーで独立。 */
+export function buildUnitQueue(
+  units: string[],
+  states: Record<string, ItemState>,
+  now: number,
+  n: number,
+  rng: Rng = Math.random,
+): string[] {
+  const due: string[] = [];
+  const fresh: string[] = [];
+  for (const u of units) {
+    const st = states[u];
+    if (st && st.dueAt <= now) due.push(u);
+    else if (!st) fresh.push(u);
+  }
+  const dueLearning = shuffle(due.filter((u) => states[u].reps === 0), rng);
+  const dueReview = shuffle(due.filter((u) => states[u].reps > 0), rng);
+  const maxNew = Math.max(2, Math.round(n * (due.length > 20 ? 0.25 : due.length > 8 ? 0.5 : 1)));
+  const freshSel = sample(fresh, maxNew, rng);
+  return [...dueLearning, ...dueReview, ...freshSel].slice(0, n);
+}
+
 /** 間違えた item を現在位置から gap 問後に差し込む(分散学習・末尾超過は末尾)。 */
 export function reinsertForRelearn<T>(remaining: T[], item: T, gap: number): T[] {
   const next = remaining.slice();

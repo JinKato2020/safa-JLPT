@@ -2,7 +2,9 @@
 import { computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
 import { examOf } from '../engine/examProfile';
 import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR, readingIdsBySub, listeningIdsBySub } from '../data';
-import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT } from '../data/examBlueprint';
+import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT } from '../data/examBlueprint';
+import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds } from '../data/daimon';
+import { hasKanji } from '../quiz/quiz';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
 
@@ -60,7 +62,28 @@ function categoryPct(state: AppState, now: number, cat: Category, full: boolean)
     const bySub = listeningIdsBySub(lv, full); const bp = CHOUKAI_BLUEPRINT[lv] ?? {};
     return wAvgPct(Object.entries(bySub).map(([k, ids]) => [pctOfIds(state, now, ids ?? []), bp[k] ?? 0]));
   }
+  // 文字語彙/文法(JLPT)は大問(漢字読み/表記/文脈規定/言い換え/用法・文法形式/組み立て/文章の文法)別の正答率を本番出題数で加重。
+  if (!jft && (cat === 'moji_goi' || cat === 'bunpou')) {
+    const daimons = cat === 'moji_goi' ? MOJI_DAIMON : BUNPOU_DAIMON;
+    const bp = DAIMON_BLUEPRINT[lv] ?? {};
+    return wAvgPct(daimons.map((d) => [pctOfIds(state, now, daimonUnitIds(lv, d)), bp[d] ?? 0]));
+  }
   return pctOfIds(state, now, examItemIds(state, cat, full));
+}
+
+// 「項目#大問」状態から、基底項目(語/文法/設問id)ごとに集約した「習得済み(≥0.6)」集合。量・カバー率用。
+function masteredBases(state: AppState, now: number): Set<string> {
+  const s = new Set<string>();
+  for (const key in state.items) {
+    if (effectiveP(state.items[key], now) >= 0.6) s.add(key.includes('#') ? key.slice(0, key.indexOf('#')) : key);
+  }
+  return s;
+}
+// 基底項目ごとに「1回でも学習した(状態あり)」集合。
+function touchedBases(state: AppState): Set<string> {
+  const s = new Set<string>();
+  for (const key in state.items) s.add(key.includes('#') ? key.slice(0, key.indexOf('#')) : key);
+  return s;
 }
 
 // 平均(null除外)。全null→null。
@@ -148,32 +171,35 @@ export function readinessFor(state: AppState, now: number) {
   return computeReadiness(sections, overallPct, overallMinPct, evidenceTotal, true, unmeasuredCats);
 }
 
-/** 「覚えた語」数 = 習得度 p>=0.6 の項目数(成長カーブ用)。 */
+/** 「覚えた語」数 = 習得度 p>=0.6 の基底項目数(語/文法は大問をまたいで1つに集約・成長カーブ用)。 */
 export function learnedCount(state: AppState): number {
-  return Object.values(state.items).filter((it) => it.p >= 0.6).length;
+  const s = new Set<string>();
+  for (const key in state.items) if (state.items[key].p >= 0.6) s.add(key.includes('#') ? key.slice(0, key.indexOf('#')) : key);
+  return s.size;
 }
 
-/** 減衰を反映した「今」の覚えた語数(リング/成長カーブと整合)。 */
+/** 減衰を反映した「今」の覚えた数(基底項目で集約・リング/成長カーブと整合)。 */
 export function learnedNow(state: AppState, now: number): number {
-  return Object.values(state.items).filter((it) => effectiveP(it, now) >= 0.6).length;
+  return masteredBases(state, now).size;
 }
 
-/** 漢字/語彙/文法 のカバー率(覚えた数/全体)。レベル(JFT=N5+N4)スコープ。"量"の指標=3バー表示用。 */
+/** 漢字/語彙/文法 のカバー率(覚えた数/全体)。レベル(JFT=N5+N4)スコープ。"量"の指標=3バー表示用。
+ *  大問化に伴い単体漢字カードは廃止＝漢字は「漢字を含む語」で計測。習得は語/文法がいずれかの大問で≥0.6(基底集約)。 */
 export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vocab' | 'grammar'; learned: number; total: number }[] {
   const jft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const inScope = (lv: string) => (jft ? lv === 'N5' || lv === 'N4' : lv === state.settings.level);
+  const mastered = masteredBases(state, now);
   const cov = (items: { id: string; level: string }[]) => {
     let learned = 0, total = 0;
     for (const it of items) {
       if (!inScope(it.level)) continue;
       total++;
-      const st = state.items[it.id];
-      if (st && effectiveP(st, now) >= 0.6) learned++;
+      if (mastered.has(it.id)) learned++;
     }
     return { learned, total };
   };
   return [
-    { key: 'kanji' as const, ...cov(KANJI) },
+    { key: 'kanji' as const, ...cov(VOCAB.filter((v) => hasKanji(v.word))) }, // 漢字を含む語(単体漢字は廃止)
     { key: 'vocab' as const, ...cov(VOCAB) },
     { key: 'grammar' as const, ...cov(GRAMMAR) },
   ];
@@ -182,14 +208,13 @@ export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vo
 /** 区分ごとのリング下サブ。知識=「覚えた/全語」(カバー率) / 読解聴解(skill)=「解答数」(般化スキルは数えない)。 */
 export function ringLearnedRatio(state: AppState, now: number): Record<Category, { learned: number; total: number; attempted: number; skill: boolean }> {
   const out = {} as Record<Category, { learned: number; total: number; attempted: number; skill: boolean }>;
+  const mastered = masteredBases(state, now); const touched = touchedBases(state); // 「項目#大問」を基底idで集約
   for (const c of RING_CATS) {
     const ids = examItemIds(state, c, false);
     let learned = 0, attempted = 0;
     for (const id of ids) {
-      const st = state.items[id];
-      if (!st) continue;
-      attempted++;
-      if (effectiveP(st, now) >= 0.6) learned++;
+      if (touched.has(id)) attempted++;
+      if (mastered.has(id)) learned++;
     }
     out[c] = { learned, total: ids.length, attempted, skill: SKILL_CATS.includes(c) };
   }

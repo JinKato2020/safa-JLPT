@@ -10,6 +10,8 @@ import { useAppState } from '../store/store';
 import { ringsFor } from '../store/selectors';
 import RingGauge from '../components/RingGauge';
 import { itemsFor, ringItemIdsFor, readingItemsForSub, READING_SUBTYPES, listeningItemsForSub, LISTENING_SUBTYPES } from '../data';
+import { daimonsWithUnits } from '../data/daimon';
+import { DAIMON_LABEL } from '../data/examBlueprint';
 import { dueStats } from '../quiz/quiz';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -42,8 +44,13 @@ export default function StudyScreen() {
   const listening = useMemo(() => dueStats(ringItemIdsFor(settings.level, 'choukai').map((id) => ({ id })), items, now), [settings.level, items]);
 
   const todo = vocab.due + grammar.due + reading.due + listening.due;
+  const [openMoji, setOpenMoji] = useState(false);
+  const [openBunpou, setOpenBunpou] = useState(false);
   const [openReading, setOpenReading] = useState(false);
   const [openListening, setOpenListening] = useState(false);
+  // 文字語彙/文法の大問(漢字読み/表記/文脈規定/言い換え/用法・文法形式/組み立て/文章の文法)＝本番の学習区分。
+  const mojiDaimons = useMemo(() => daimonsWithUnits(settings.level, 'moji_goi'), [settings.level]);
+  const bunpouDaimons = useMemo(() => daimonsWithUnits(settings.level, 'bunpou'), [settings.level]);
   // 読解の小区分(内容理解短文/中文/情報検索)ごとの問題数(その級に在るものだけ表示)。
   const readingSubs = useMemo(
     () => READING_SUBTYPES.map((sub) => ({ ...sub, n: readingItemsForSub(settings.level, sub.key).length })).filter((x) => x.n > 0),
@@ -69,8 +76,24 @@ export default function StudyScreen() {
           {todo > 0 ? t('study.due_count', { n: todo }) : t('study.no_due')}
         </Text>
 
-        <StudyCard s={s} icon="字" title={t('study.cat_moji_goi')} onPress={() => nav.navigate('Flashcard')} />
-        <StudyCard s={s} icon="文" title={t('study.cat_bunpou')} onPress={() => nav.navigate('Grammar')} />
+        {/* 文字語彙=大問(漢字読み/表記/文脈規定/言い換え/用法)に展開。各大問は本番の固定形式で連続出題(状態は項目#大問)。 */}
+        <StudyCard s={s} icon="字" title={t('study.cat_moji_goi')} expandable open={openMoji} onPress={() => (mojiDaimons.length ? setOpenMoji((o) => !o) : nav.navigate('Flashcard'))} />
+        {openMoji && mojiDaimons.map((d) => (
+          <Pressable key={d.daimon} style={({ pressed }) => [s.subCard, pressed && s.cardPressed]} onPress={() => nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) })}>
+            <View style={s.subDot} />
+            <Text style={s.subTitle}>{t(DAIMON_LABEL[d.daimon])}</Text>
+            <Text style={s.chevron}>›</Text>
+          </Pressable>
+        ))}
+        {/* 文法=大問(文法形式の判断/文の組み立て/文章の文法)に展開。 */}
+        <StudyCard s={s} icon="文" title={t('study.cat_bunpou')} expandable open={openBunpou} onPress={() => (bunpouDaimons.length ? setOpenBunpou((o) => !o) : nav.navigate('Grammar'))} />
+        {openBunpou && bunpouDaimons.map((d) => (
+          <Pressable key={d.daimon} style={({ pressed }) => [s.subCard, pressed && s.cardPressed]} onPress={() => nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) })}>
+            <View style={s.subDot} />
+            <Text style={s.subTitle}>{t(DAIMON_LABEL[d.daimon])}</Text>
+            <Text style={s.chevron}>›</Text>
+          </Pressable>
+        ))}
         {/* 読解=小区分(内容理解短文/中文/情報検索)に展開。区分カードをタップで開閉。 */}
         <StudyCard s={s} icon="読" title={t('study.cat_dokkai')} expandable open={openReading} onPress={() => (readingSubs.length > 1 ? setOpenReading((o) => !o) : nav.navigate('Reading'))} />
         {openReading && readingSubs.map((sub) => (

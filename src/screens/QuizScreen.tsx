@@ -8,7 +8,8 @@ import { progressSnapshot } from '../store/selectors';
 import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
 import { itemsFor, allWordsFor } from '../data';
-import { buildQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
+import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
+import { daimonUnitIds, questionForUnit } from '../data/daimon';
 import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -39,6 +40,7 @@ export default function QuizScreen() {
   const category = route.params?.category ?? 'all';
   const itemIds = route.params?.itemIds;
   const title = route.params?.title;
+  const daimon = route.params?.daimon; // 大問学習(本番の大問を固定形式で連続出題・状態は「項目#大問」キー)
   const state = useAppState();
   const { settings, items } = state;
   const { quizAnswer } = useAppActions();
@@ -48,7 +50,9 @@ export default function QuizScreen() {
 
   // 誤答プール＆弱点ドリルの照合は全語(学習＋模試専用)。出題キュー(category)は学習のみ=poolFor。
   const pool = useMemo(() => [...allWordsFor(settings.level, 'moji_goi'), ...allWordsFor(settings.level, 'bunpou')], [settings.level]);
-  const [queue, setQueue] = useState<StudyItem[]>(() => {
+  // 大問モードはユニットid(string)、それ以外はStudyItemのキュー。
+  const [queue, setQueue] = useState<(StudyItem | string)[]>(() => {
+    if (daimon) return buildUnitQueue(daimonUnitIds(settings.level, daimon, 'learn'), items, Date.now(), SESSION_SIZE);
     if (itemIds && itemIds.length) {
       const byId = new Map(pool.map((i) => [i.id, i]));
       return itemIds.map((id) => byId.get(id)).filter((x): x is StudyItem => Boolean(x));
@@ -64,7 +68,11 @@ export default function QuizScreen() {
   const [before] = useState(() => progressSnapshot(state, Date.now()));
 
   const item = queue[idx];
-  const question = useMemo(() => (item ? makeQuestion(item, pool, Math.random, EXAM_FORMATS) : null), [item?.id, idx]);
+  const answerId = typeof item === 'string' ? item : item?.id; // quizAnswer/SRSのキー(大問=項目#大問)
+  const question = useMemo(
+    () => (!item ? null : typeof item === 'string' ? questionForUnit(item) : makeQuestion(item, pool, Math.random, EXAM_FORMATS)),
+    [answerId, idx], // eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   // 解答後に自動で次へ(正解は短め・不正解は正解を見せて長め)。
   useEffect(() => {
@@ -97,7 +105,7 @@ export default function QuizScreen() {
     if (picked !== null) return;
     const isCorrect = choiceIdx === question.answerIndex;
     setPicked(choiceIdx);
-    quizAnswer(item.id, isCorrect);
+    if (answerId) quizAnswer(answerId, isCorrect);
     setAnswered((a) => a + 1);
     if (isCorrect) setCorrectCount((c) => c + 1);
     // 不正解は数問後に再挿入(分散学習)
@@ -126,7 +134,7 @@ export default function QuizScreen() {
         {title ? <Text style={s.drillTitle}>{title}</Text> : null}
 
         <View style={s.promptCard}>
-          <Text style={s.prompt}>{question.prompt}</Text>
+          <Text style={[s.prompt, question.prompt.length > 10 && s.promptLong]}>{question.prompt}</Text>
           {question.example ? (
             <Text style={s.reading}>
               {question.example.map((sg, i) => (
@@ -188,6 +196,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     gap: spacing.xs,
   },
   prompt: { fontSize: 34, fontWeight: '800', color: c.ink },
+  promptLong: { fontSize: ty.h2, lineHeight: 30, textAlign: 'left', alignSelf: 'stretch' }, // 穴埋め/バンク=長文プロンプト
+
   reading: { fontSize: ty.small, color: c.mute },
   exHit: { color: c.ink, textDecorationLine: 'underline' },
   qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },

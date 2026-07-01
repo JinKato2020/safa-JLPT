@@ -38,14 +38,34 @@ function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
   return [];
 }
 
-/** ある級・大問の学習ユニットid列。item系=`<itemId>#<daimon>`、bank系=bank id。
+// 学習/模試の分割: EXAM_EVERY 個に1つ(=末尾側)を模試専用(初見)に確保、残りが学習集合。
+const EXAM_EVERY = 7;
+function split(all: string[], mode: 'all' | 'learn' | 'exam'): string[] {
+  if (mode === 'all') return all;
+  return all.filter((_, i) => (i % EXAM_EVERY === EXAM_EVERY - 1) === (mode === 'exam'));
+}
+/** ある級・大問の学習ユニットid列。item系=`<itemId>#<daimon>`、bank系=bank id。mode=all/learn(学習)/exam(模試専用)。
  *  context/grammar_form は item系＋バンク併用、usage/order/passage_grammar は純バンク。 */
-export function daimonUnitIds(level: Level, daimon: Daimon): string[] {
+export function daimonUnitIds(level: Level, daimon: Daimon, mode: 'all' | 'learn' | 'exam' = 'all'): string[] {
   const items = eligibleItems(level, daimon).map((it) => `${it.id}#${daimon}`);
   const fmt = DAIMON_FORMAT[daimon];
-  if (fmt === 'bank') return bankOf(level, daimon).map((b) => b.id);
-  if (daimon === 'context' || daimon === 'grammar_form') return [...items, ...bankOf(level, daimon).map((b) => b.id)];
-  return items;
+  const all = fmt === 'bank'
+    ? bankOf(level, daimon).map((b) => b.id)
+    : (daimon === 'context' || daimon === 'grammar_form')
+      ? [...items, ...bankOf(level, daimon).map((b) => b.id)]
+      : items;
+  return split(all, mode);
+}
+
+/** 文字語彙/文法セクションの大問。 */
+export const SECTION_DAIMONS: Record<'moji_goi' | 'bunpou', Daimon[]> = { moji_goi: MOJI_DAIMON, bunpou: BUNPOU_DAIMON };
+/** セクション(文字語彙/文法)の全大問の学習ユニットid(横断)。リング分母/カバー率/評価の母数用。 */
+export function sectionUnitIds(level: Level, section: 'moji_goi' | 'bunpou', mode: 'all' | 'learn' | 'exam' = 'all'): string[] {
+  return SECTION_DAIMONS[section].flatMap((d) => daimonUnitIds(level, d, mode));
+}
+/** ある級・セクションで実在する大問(ユニットが1件以上あるもの)。学習タブのサブカード用。 */
+export function daimonsWithUnits(level: Level, section: 'moji_goi' | 'bunpou'): { daimon: Daimon; n: number }[] {
+  return SECTION_DAIMONS[section].map((d) => ({ daimon: d, n: daimonUnitIds(level, d, 'all').length })).filter((x) => x.n > 0);
 }
 
 const ITEM_INDEX = new Map<string, StudyItem>([...VOCAB, ...GRAMMAR].map((it) => [it.id, it] as const));
