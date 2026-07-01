@@ -1,8 +1,8 @@
 // ストア状態 → JLPTエンジンへの橋渡し(派生値)。UI はこれを useMemo で呼ぶ。
 import { computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
 import { examOf } from '../engine/examProfile';
-import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR } from '../data';
-import { JLPT_BLUEPRINT, JFT_BLUEPRINT } from '../data/examBlueprint';
+import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR, readingIdsBySub, listeningIdsBySub } from '../data';
+import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT } from '../data/examBlueprint';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
 
@@ -34,8 +34,8 @@ const SKILL_CATS: Category[] = ['dokkai', 'choukai'];
 export const guessCorrect = (obs: number, g = GUESS_RATE): number => Math.max(0, Math.min(1, (obs - g) / (1 - g)));
 // 区分の達成度＝【純粋な正解率】(全区分で統一: 漢字語彙/文法/読解/聴解)。
 // 解いた項目だけ・難易度重み・偶然レベルへprior収縮・当て推量補正。母数(全項目)は無視＝カバー率(覚えた量)とは別軸。
-function categoryPct(state: AppState, now: number, cat: Category, full: boolean): number | null {
-  const ids = examItemIds(state, cat, full);
+// id集合の達成度%(難易度重み・偶然レベルへprior収縮・当て推量補正)。0回=null。
+function pctOfIds(state: AppState, now: number, ids: string[]): number | null {
   let wsum = 0, wp = 0, n = 0;
   for (const id of ids) {
     const st = state.items[id];
@@ -47,6 +47,20 @@ function categoryPct(state: AppState, now: number, cat: Category, full: boolean)
   const K = 2;
   const raw = (wp + K * GUESS_RATE) / (wsum + K); // 少数回答は偶然レベルへ収縮
   return Math.round(100 * guessCorrect(raw));     // 当て推量補正(当てずっぽう=0%)
+}
+// 区分の達成度%。読解/聴解(JLPT)は大問(区分)別の正答率を本番出題数で加重平均＝本番配分どおりに反映。
+function categoryPct(state: AppState, now: number, cat: Category, full: boolean): number | null {
+  const jft = (state.settings.targetExam ?? 'jlpt') === 'jft';
+  const lv = state.settings.level;
+  if (!jft && cat === 'dokkai') {
+    const bySub = readingIdsBySub(lv, full); const bp = DOKKAI_BLUEPRINT[lv] ?? {};
+    return wAvgPct(Object.entries(bySub).map(([k, ids]) => [pctOfIds(state, now, ids ?? []), bp[k] ?? 0]));
+  }
+  if (!jft && cat === 'choukai') {
+    const bySub = listeningIdsBySub(lv, full); const bp = CHOUKAI_BLUEPRINT[lv] ?? {};
+    return wAvgPct(Object.entries(bySub).map(([k, ids]) => [pctOfIds(state, now, ids ?? []), bp[k] ?? 0]));
+  }
+  return pctOfIds(state, now, examItemIds(state, cat, full));
 }
 
 // 平均(null除外)。全null→null。

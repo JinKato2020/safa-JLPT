@@ -51,3 +51,22 @@ export function daimonCounts(level: string, full: boolean): { daimon: Daimon; co
     return { daimon: d, count: full ? c : Math.max(1, Math.round(c / 3)) };
   });
 }
+
+// ── 読解/聴解の 大問(区分)別 出題数(本番典型構成)。区分合計は JLPT_BLUEPRINT と一致 ──
+// 読解の小区分: 内容理解 短文/中文/長文・情報検索(reading.ts の ReadingSubtype キー)。
+export const DOKKAI_BLUEPRINT: Record<string, Record<string, number>> = {
+  N5: { naiyou_tan: 3, naiyou_chu: 2 },                               // 計5
+  N4: { naiyou_tan: 4, naiyou_chu: 4, joho: 2 },                      // 計10
+  N3: { naiyou_tan: 4, naiyou_chu: 6, choubun: 4, joho: 2 },          // 計16
+};
+// 聴解の区分: 課題理解/ポイント理解/概要理解/発話表現/即時応答(ListeningSubtype キー)。
+export const CHOUKAI_BLUEPRINT: Record<string, Record<string, number>> = {
+  N5: { kadai: 7, point: 6, hatsuwa: 5, sokuji: 6 },                  // 計24
+  N4: { kadai: 8, point: 7, hatsuwa: 5, sokuji: 8 },                  // 計28
+  N3: { kadai: 6, point: 6, gaiyou: 3, hatsuwa: 4, sokuji: 9 },       // 計28
+};
+// 文字語彙の 漢字/語彙 配分(大問出題数の合算): 漢字=漢字読み+表記、語彙=文脈規定+言い換え+用法。
+export function mojiSplit(level: string): { kanji: number; vocab: number } {
+  const d = DAIMON_BLUEPRINT[level] ?? DAIMON_BLUEPRINT.N4;
+  return { kanji: (d.kanji_read ?? 0) + (d.orthography ?? 0), vocab: (d.context ?? 0) + (d.synonym ?? 0) + (d.usage ?? 0) };
+}

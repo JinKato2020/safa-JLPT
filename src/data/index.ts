@@ -281,6 +281,21 @@ export function listeningAudioIdsFor(level: Level): string[] {
   return LISTENING.filter((i) => i.level === level && i.audio).map((i) => i.id);
 }
 
+/** レベルの読解設問idを小区分別に(full=学習＋模試 / !full=学習集合)。評価の大問加重用。 */
+export function readingIdsBySub(level: Level, full: boolean): Partial<Record<ReadingSubtype, string[]>> {
+  const items = full ? READING.filter((i) => i.level === level) : readingItemsFor(level);
+  const out: Partial<Record<ReadingSubtype, string[]>> = {};
+  for (const it of items) { const s = readingSubtype(it); (out[s] ??= []).push(...it.questions.map((q) => q.id)); }
+  return out;
+}
+/** レベルの聴解設問idを区分別に(full=学習＋模試 / !full=学習集合)。評価の大問加重用。 */
+export function listeningIdsBySub(level: Level, full: boolean): Partial<Record<ListeningSubtype, string[]>> {
+  const items = full ? LISTENING.filter((i) => i.level === level) : listeningItemsFor(level);
+  const out: Partial<Record<ListeningSubtype, string[]>> = {};
+  for (const it of items) { const s = listeningSubtype(it); (out[s] ??= []).push(...it.questions.map((q) => q.id)); }
+  return out;
+}
+
 /** 小リング/学習カウントの分母 = 学習集合(模試専用を除外)。学習だけで100%に届く。 */
 export function ringItemIdsFor(level: Level, category: Category): string[] {
   if (category === 'moji_goi' || category === 'bunpou') return itemsFor(level, category).map((i) => i.id);
