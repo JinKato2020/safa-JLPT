@@ -7,6 +7,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColors } from './src/theme';
+import { useAppFonts, setActiveFont } from './src/theme/fonts';
 import { AppProvider, useAppState, useHydrated } from './src/store/store';
 import { useT } from './src/i18n';
 import type { RootStackParamList } from './src/navigation/types';
@@ -124,6 +125,8 @@ function Root() {
     });
     return () => sub.remove();
   }, [hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 現在フォントを設定値に同期(このレンダー→配下の全Textが新フォントで描画)。既定=maru(丸ゴシック)。
+  setActiveFont(settings.font ?? 'maru');
   const sys = useColorScheme();
   const scheme = settings.theme === 'auto' ? (sys ?? 'light') : settings.theme;
   const navTheme = {
@@ -164,6 +167,11 @@ function Root() {
 }
 
 export default function App() {
+  const [fontsLoaded] = useAppFonts();
+  // フォント読込前は端末既定で表示(白画面回避)。読込後に丸ゴシック等へ差し替わる。
+  if (!fontsLoaded) {
+    return <View style={{ flex: 1, backgroundColor: '#0b1220' }} />;
+  }
   return (
     <AppProvider>
       <SafeAreaProvider>

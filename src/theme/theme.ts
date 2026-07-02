@@ -1,5 +1,6 @@
 // safa JLPT デザインシステム。色はライト/ダークの2パレットを実行時に切替(useColors)。
 // 余白/角丸/タイポはテーマ非依存(静的)。§10: 将来 packages/shared へ昇格し App B と共有。
+import { Platform, type ViewStyle } from 'react-native';
 
 export interface ThemeColors {
   bg: string;
@@ -96,5 +97,18 @@ export const darkColors: ThemeColors = {
 export const colors = lightColors;
 
 export const spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 48 };
-export const radius = { sm: 6, md: 10, lg: 16, xl: 20, pill: 999 };
+export const radius = { sm: 8, md: 12, lg: 18, xl: 24, pill: 999 };
 export const type = { hero: 54, h1: 24, h2: 18, body: 14, small: 12, tiny: 10 };
+
+/** 立体感のある柔らかい影(elevation)。ボタン/カードを浮かせて洗練させる。iOS=shadow / Android=elevation。 */
+export const shadow = (level: 1 | 2 | 3 = 1): ViewStyle =>
+  (Platform.select({
+    ios: {
+      shadowColor: '#0f172a',
+      shadowOpacity: level === 1 ? 0.07 : level === 2 ? 0.12 : 0.18,
+      shadowRadius: level * 5 + 3,
+      shadowOffset: { width: 0, height: level * 2 + 1 },
+    },
+    android: { elevation: level * 2 + 1 },
+    default: {},
+  }) as ViewStyle);

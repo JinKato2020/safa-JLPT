@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
+import AppButton from '../components/AppButton';
 import { useAppState, useAppActions } from '../store/store';
 import { progressSnapshot } from '../store/selectors';
 import { useT } from '../i18n';
@@ -93,9 +94,7 @@ export default function QuizScreen() {
           <Text style={s.doneTitle}>{t('quiz.session_done')}</Text>
           <Text style={s.doneSub}>{t('quiz.score', { answered, correct: correctCount })}</Text>
           <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="quiz" />
-          <Pressable style={s.cta} onPress={() => nav.goBack()}>
-            <Text style={s.ctaTxt}>{t('quiz.see_results')}</Text>
-          </Pressable>
+          <AppButton label={t('quiz.see_results')} onPress={() => nav.goBack()} full={false} style={{ marginTop: spacing.sm }} />
         </View>
       </SafeAreaView>
     );
@@ -152,15 +151,27 @@ export default function QuizScreen() {
             const isAnswer = i === question.answerIndex;
             const isPicked = i === picked;
             const reveal = picked !== null;
-            const style = [
-              s.choice,
-              reveal && isAnswer && s.choiceCorrect,
-              reveal && isPicked && !isAnswer && s.choiceWrong,
-            ];
+            const showOk = reveal && isAnswer;
+            const showNg = reveal && isPicked && !isAnswer;
             return (
-              <Pressable key={i} style={style} onPress={() => onPick(i)} disabled={reveal}>
+              <Pressable
+                key={i}
+                onPress={() => onPick(i)}
+                disabled={reveal}
+                style={({ pressed }) => [
+                  s.choice,
+                  shadow(1),
+                  pressed && !reveal && s.choicePressed,
+                  showOk && s.choiceCorrect,
+                  showNg && s.choiceWrong,
+                ]}
+              >
+                <View style={[s.cbadge, showOk && s.cbadgeOk, showNg && s.cbadgeNg]}>
+                  <Text style={[s.cbadgeTxt, (showOk || showNg) && s.cbadgeTxtOn]}>
+                    {showOk ? '✓' : showNg ? '✕' : String(i + 1)}
+                  </Text>
+                </View>
                 <Text style={s.choiceTxt}>{ch}</Text>
-                {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
               </Pressable>
             );
           })}
@@ -201,22 +212,31 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   reading: { fontSize: ty.small, color: c.mute },
   exHit: { color: c.ink, textDecorationLine: 'underline' },
   qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
-  choices: { gap: spacing.sm },
+  choices: { gap: spacing.sm + 2 },
   choice: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    gap: spacing.md,
     backgroundColor: c.surface,
-    borderRadius: radius.md,
+    borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: c.line,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.md,
   },
+  choicePressed: { transform: [{ scale: 0.98 }], backgroundColor: c.bgSoft, borderColor: c.trace },
   choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
   choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
-  choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
-  mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
+  choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1, fontWeight: '600' },
+  // 選択肢先頭の丸バッジ(番号→正誤で✓✕)
+  cbadge: {
+    width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center',
+    backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line,
+  },
+  cbadgeOk: { backgroundColor: c.green, borderColor: c.green },
+  cbadgeNg: { backgroundColor: c.red, borderColor: c.red },
+  cbadgeTxt: { fontSize: ty.body, fontWeight: '800', color: c.mute },
+  cbadgeTxtOn: { color: '#ffffff' },
   cta: {
     marginTop: spacing.sm,
     backgroundColor: c.blue,

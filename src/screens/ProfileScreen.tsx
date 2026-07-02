@@ -185,6 +185,19 @@ export default function ProfileScreen() {
             })}
           </View>
 
+          {/* 表示フォント(端末既定/丸ゴシック/明朝/教科書体)。App Bから移植・全画面のTextへ反映。 */}
+          <Text style={s.setLbl}>{t('profile.font')}</Text>
+          <View style={s.chipWrap}>
+            {(['maru', 'mincho', 'kyokasho', 'system'] as const).map((f) => {
+              const on = (state.settings.font ?? 'maru') === f;
+              return (
+                <Pressable key={f} onPress={() => setSettings({ font: f })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(`profile.font_${f}`)}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
           <Text style={s.setLbl}>{t('profile.reminder')}</Text>
           <View style={s.chipWrap}>
             {REMINDERS.map((r) => (

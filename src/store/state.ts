@@ -18,6 +18,7 @@ export interface Settings {
   telemetry?: boolean;     // 利用状況の匿名送信(未設定/true=ON, false=停止)
   badgeSet?: 'natural' | 'gorgeous'; // バッジ/勲章のデザインセット(未設定→natural)
   listeningAudioMode?: 'stream' | 'download'; // 聴解音声: 都度配信(stream)/レベル一括DL(download)。未設定→download(従来挙動)
+  font?: 'system' | 'maru' | 'mincho' | 'kyokasho'; // 表示フォント(未設定→maru=丸ゴシック)。App Bから移植
 }
 
 export interface Streak {

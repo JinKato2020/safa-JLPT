@@ -5,7 +5,7 @@ import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { ringsFor } from '../store/selectors';
 import RingGauge from '../components/RingGauge';
@@ -163,6 +163,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   streak: { fontSize: ty.h2, fontWeight: '800', color: c.ink2 },
   sub: { fontSize: ty.small, color: c.mute, lineHeight: 18 },
   card: {
+    ...shadow(1),
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: c.surface,
@@ -173,14 +174,15 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     marginTop: spacing.sm,
     gap: spacing.md,
   },
-  cardPressed: { backgroundColor: c.bgSoft },
+  cardPressed: { backgroundColor: c.bgSoft, borderColor: c.trace, transform: [{ scale: 0.985 }] },
   badge: {
-    width: 40, height: 40, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center',
-    backgroundColor: c.bgSoft,
+    width: 44, height: 44, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center',
+    backgroundColor: c.blueLight,
   },
-  badgeTxt: { color: c.ink2, fontSize: ty.h2, fontWeight: '800' },
+  badgeTxt: { color: c.blueDark, fontSize: ty.h2, fontWeight: '800' },
   cardBody: { flex: 1, gap: 2 },
-  cardTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
+  // App Bのリスト見出しに合わせ、カード表題は明朝(Shippori Mincho)で上質に(本文フォントとは別系統)。
+  cardTitle: { fontSize: ty.h2, fontFamily: 'ShipporiMincho-Bold', color: c.ink, letterSpacing: 0.5 },
   chevron: { fontSize: 28, color: c.trace, fontWeight: '700' },
   subCard: {
     flexDirection: 'row', alignItems: 'center', gap: spacing.sm,
@@ -188,7 +190,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     paddingVertical: spacing.sm + 2, paddingLeft: spacing.xl, paddingRight: spacing.md, marginTop: spacing.xs, marginLeft: spacing.lg,
   },
   subDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: c.blue },
-  subTitle: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
+  subTitle: { flex: 1, fontSize: ty.body + 1, fontFamily: 'ShipporiMincho-Regular', color: c.ink2, letterSpacing: 0.3 },
   sectionH: { fontSize: ty.small, fontWeight: '800', color: c.ink2, marginTop: spacing.lg },
   ringRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.sm },
   ringCell: { alignItems: 'center' },

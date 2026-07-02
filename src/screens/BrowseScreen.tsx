@@ -236,7 +236,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     gap: spacing.sm,
   },
   rowMain: { flex: 1, gap: 2 },
-  term: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
+  // App Bのリスト見出しに合わせ、見出し語は明朝(Shippori Mincho)で上質に。
+  term: { fontSize: ty.h2, fontFamily: 'ShipporiMincho-Bold', color: c.ink, letterSpacing: 0.3 },
   reading: { fontSize: ty.small, fontWeight: '600', color: c.mute },
   meaning: { fontSize: ty.small, color: c.ink2 },
   example: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.xs },
