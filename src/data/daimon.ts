@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, VOCAB_CLOZE_OK, VOCAB_SYN, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, VOCAB_CLOZE_OK, VOCAB_SYN, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -29,9 +29,23 @@ for (const b of BANK) { const k = `${b.level}:${b.daimon}`; (BANK_BY.get(k) ?? B
 const bankOf = (level: string, daimon: Daimon): BankUnit[] => BANK_BY.get(`${level}:${daimon}`) ?? [];
 const BANK_INDEX = new Map(BANK.map((b) => [b.id, b] as const));
 
-// 大問に適格な「項目(語彙/文法)」。漢字読み/表記=漢字を含む語、文脈=cloze可、言い換え=類義あり、文法形式=cloze可文法。
+// 漢字レベル(N5=5易 → N3=3難)。JLPTは級ごとに出題漢字が決まる＝漢字読み/表記は「その級以下の漢字」だけを使う。
+const LEVEL_RANK: Record<string, number> = { N5: 5, N4: 4, N3: 3, N2: 2, N1: 1 };
+const KANJI_RANK = new Map<string, number>(KANJI.map((k) => [k.char, LEVEL_RANK[k.level] ?? 0] as const));
+const KANJI_CHAR_RE = /[㐀-龯豈-﫿]/;
+/** 語の全漢字がその級以下(=同級かより易しい)に収まるか。表に無い漢字はN2以上(=級超え)とみなす。
+ *  例: 一生懸命(N4語彙)は命=N3・懸=N2+で級超え→N4の漢字読み/表記からは除外(文脈規定/用法には残る)。 */
+function kanjiWithinLevel(word: string, level: Level): boolean {
+  const lim = LEVEL_RANK[level];
+  for (const ch of word) {
+    if (KANJI_CHAR_RE.test(ch) && (KANJI_RANK.get(ch) ?? 2) < lim) return false;
+  }
+  return true;
+}
+
+// 大問に適格な「項目(語彙/文法)」。漢字読み/表記=漢字を含む語(かつ構成漢字が級以下)、文脈=cloze可、言い換え=類義あり、文法形式=cloze可文法。
 function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
-  if (daimon === 'kanji_read' || daimon === 'orthography') return VOCAB.filter((v) => v.level === level && hasKanji(v.word));
+  if (daimon === 'kanji_read' || daimon === 'orthography') return VOCAB.filter((v) => v.level === level && hasKanji(v.word) && kanjiWithinLevel(v.word, level));
   if (daimon === 'context') return VOCAB.filter((v) => v.level === level && VOCAB_CLOZE_OK.has(v.id));
   if (daimon === 'synonym') return VOCAB.filter((v) => v.level === level && !!VOCAB_SYN[v.id]);
   if (daimon === 'grammar_form') return GRAMMAR.filter((g) => g.level === level && GRAMMAR_CLOZE_OK.has(g.id));
