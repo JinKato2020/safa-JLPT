@@ -1,7 +1,7 @@
 // ストア状態 → JLPTエンジンへの橋渡し(派生値)。UI はこれを useMemo で呼ぶ。
 import { computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
 import { examOf } from '../engine/examProfile';
-import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR, readingIdsBySub, listeningIdsBySub } from '../data';
+import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR, VOCAB_FREQ, readingIdsBySub, listeningIdsBySub } from '../data';
 import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT, type Daimon } from '../data/examBlueprint';
 import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits } from '../data/daimon';
 import { hasKanji } from '../quiz/quiz';
@@ -17,11 +17,20 @@ function examItemIds(state: AppState, category: Category, full: boolean): string
   return full ? allItemIdsFor(state.settings.level, category) : ringItemIdsFor(state.settings.level, category);
 }
 
-// スキル(読解/聴解)の難易度重み: 難問の正解ほど能力を強く示す。帯(A1/A2.1/A2.2)優先、無ければ級から。
+// 難易度重み: 難問の習得/正解ほど能力を強く示す。(a)語彙は使用頻度で項目別に補正 (b)級は bk:N3: と n3- の両形式から読む (c)級はベース。
 function skillWeight(id: string): number {
   const b = JFT_BANDS[id];
   if (b) return b === 'A2.2' ? 1.6 : b === 'A2.1' ? 1.3 : 1;
-  return id.startsWith('n3') ? 1.7 : id.startsWith('n4') ? 1.3 : 1;
+  // 級(難易度の基軸)。バンクid `bk:N3:usage:5` と 語id `n3-v-123#…` の両方に対応。
+  let level = 'N5';
+  if (id.startsWith('bk:')) level = id.split(':')[1] || 'N5';
+  else { const p = id.slice(0, 2).toLowerCase(); if (p === 'n3' || p === 'n4' || p === 'n5') level = p.toUpperCase(); }
+  const base = level === 'N3' ? 1.7 : level === 'N4' ? 1.3 : 1;
+  // 語彙は使用頻度(VOCAB_FREQ: 1=高頻度/易 〜 50=稀/難)で項目別補正。同じ級でも稀語ほど重い。
+  const vid = id.includes('#') ? id.slice(0, id.indexOf('#')) : id;
+  const f = VOCAB_FREQ[vid];
+  const mod = typeof f === 'number' ? 0.8 + 0.5 * Math.sqrt(Math.min(Math.max(f, 1), 50) / 50) : 1;
+  return base * mod;
 }
 
 // 区分の達成度%(0-100 / 未測定null)。妥当性のため評価モデルを区分で分ける:
@@ -34,8 +43,8 @@ export const GUESS_RATE = 0.25; // 4択の偶然正解率
 const SKILL_CATS: Category[] = ['dokkai', 'choukai'];
 /** 当て推量補正: 観測正答率(0-1) → 真の実力(0-1)。(obs-g)/(1-g)。 */
 export const guessCorrect = (obs: number, g = GUESS_RATE): number => Math.max(0, Math.min(1, (obs - g) / (1 - g)));
-// 区分の達成度＝【純粋な正解率】(全区分で統一: 漢字語彙/文法/読解/聴解)。
-// 解いた項目だけ・難易度重み・偶然レベルへprior収縮・当て推量補正。母数(全項目)は無視＝カバー率(覚えた量)とは別軸。
+// 【正答率】ベースの達成度(般化スキル=読解/聴解 用)。解いた項目だけ・難易度重み・偶然レベルへprior収縮(K)・
+// 当て推量補正。母数(全項目)は無視＝カバー率とは別軸。※知識(語彙/漢字/文法)は knowledgeDaimonPct(カバー率×習得)を使う。
 // id集合の達成度%(難易度重み・偶然レベルへprior収縮・当て推量補正)。0回=null。
 function pctOfIds(state: AppState, now: number, ids: string[]): number | null {
   let wsum = 0, wp = 0, n = 0;
@@ -50,6 +59,20 @@ function pctOfIds(state: AppState, now: number, ids: string[]): number | null {
   const raw = (wp + K * GUESS_RATE) / (wsum + K); // 少数回答は偶然レベルへ収縮
   return Math.round(100 * guessCorrect(raw));     // 当て推量補正(当てずっぽう=0%)
 }
+// 知識(文字語彙/文法)の大問達成度＝【カバー率×習得を統合】。全項目の難易度重み平均習得度(未着手=0)。
+// 少数の高正答を過大評価しない＝「覚えた量(カバー率)」が伴って初めて上がる。他アプリのC(量×質併記)/D(較正)準拠。
+// 例: 2,000項目中10項目だけ習得(p0.8) → 10×0.8/2000≈0.4%(≒未習得)。1,600項目習得(p0.85) → 68%。0回=未測定(null)。
+function knowledgeDaimonPct(state: AppState, now: number, ids: string[]): number | null {
+  let sw = 0, swp = 0, touched = 0;
+  for (const id of ids) {
+    const w = skillWeight(id);
+    const st = state.items[id];
+    sw += w;
+    if (st) { swp += w * effectiveP(st, now); touched++; }
+  }
+  if (touched === 0 || sw === 0) return null; // 未測定(未着手)
+  return Math.round(100 * (swp / sw));         // 全項目の平均習得度(カバー率×習得)
+}
 // 区分の達成度%。読解/聴解(JLPT)は大問(区分)別の正答率を本番出題数で加重平均＝本番配分どおりに反映。
 function categoryPct(state: AppState, now: number, cat: Category, full: boolean): number | null {
   const jft = (state.settings.targetExam ?? 'jlpt') === 'jft';
@@ -62,11 +85,11 @@ function categoryPct(state: AppState, now: number, cat: Category, full: boolean)
     const bySub = listeningIdsBySub(lv, full); const bp = CHOUKAI_BLUEPRINT[lv] ?? {};
     return wAvgPct(Object.entries(bySub).map(([k, ids]) => [pctOfIds(state, now, ids ?? []), bp[k] ?? 0]));
   }
-  // 文字語彙/文法(JLPT)は大問(漢字読み/表記/文脈規定/言い換え/用法・文法形式/組み立て/文章の文法)別の正答率を本番出題数で加重。
+  // 文字語彙/文法(JLPT)は大問別の【カバー率×習得】を本番出題数で加重＝学習量が伴って初めて達成度が上がる。
   if (!jft && (cat === 'moji_goi' || cat === 'bunpou')) {
     const daimons = cat === 'moji_goi' ? MOJI_DAIMON : BUNPOU_DAIMON;
     const bp = DAIMON_BLUEPRINT[lv] ?? {};
-    return wAvgPct(daimons.map((d) => [pctOfIds(state, now, daimonUnitIds(lv, d)), bp[d] ?? 0]));
+    return wAvgPct(daimons.map((d) => [knowledgeDaimonPct(state, now, daimonUnitIds(lv, d)), bp[d] ?? 0]));
   }
   return pctOfIds(state, now, examItemIds(state, cat, full));
 }
