@@ -345,5 +345,12 @@
   "home.badge_vocab500": "৫০০ শব্দ",
   "home.badge_vocab500_hint": "৫০০ শব্দ শিখুন",
   "home.badge_pass": "পাসিং জোন",
-  "home.badge_pass_hint": "প্রস্তুতি ৭৫ এ পৌঁছান"
+  "home.badge_pass_hint": "প্রস্তুতি ৭৫ এ পৌঁছান",
+  "profile.bg": "পটভূমি",
+  "profile.bg_none": "কোনোটিই নয়",
+  "profile.bg_sakura": "সাকুরা",
+  "profile.bg_sky": "আকাশ",
+  "profile.bg_green": "সবুজ",
+  "profile.bg_fuji": "উইস্টেরিয়া",
+  "profile.bg_akane": "সন্ধ্যা"
 }

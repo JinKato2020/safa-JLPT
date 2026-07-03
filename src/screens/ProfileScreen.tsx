@@ -198,6 +198,19 @@ export default function ProfileScreen() {
             })}
           </View>
 
+          {/* 水彩背景(桜/空/緑/藤/茜)。ライトモードで全画面に淡く反映。 */}
+          <Text style={s.setLbl}>{t('profile.bg')}</Text>
+          <View style={s.chipWrap}>
+            {(['none', 'sakura', 'sky', 'green', 'fuji', 'akane'] as const).map((b) => {
+              const on = (state.settings.bgSkin ?? 'none') === b;
+              return (
+                <Pressable key={b} onPress={() => setSettings({ bgSkin: b })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(`profile.bg_${b}`)}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
           <Text style={s.setLbl}>{t('profile.reminder')}</Text>
           <View style={s.chipWrap}>
             {REMINDERS.map((r) => (

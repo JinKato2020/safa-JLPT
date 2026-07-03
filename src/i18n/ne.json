@@ -345,5 +345,12 @@
   "home.badge_vocab500": "५०० शब्द",
   "home.badge_vocab500_hint": "५०० शब्द सिक्नुहोस्",
   "home.badge_pass": "पासिंग जोन",
-  "home.badge_pass_hint": "तयारी ७५ मा पुग्नुहोस्"
+  "home.badge_pass_hint": "तयारी ७५ मा पुग्नुहोस्",
+  "profile.bg": "पृष्ठभूमि",
+  "profile.bg_none": "कुनै पनि होइन",
+  "profile.bg_sakura": "साकुरा",
+  "profile.bg_sky": "आकाश",
+  "profile.bg_green": "हरियो",
+  "profile.bg_fuji": "विस्टेरिया",
+  "profile.bg_akane": "साँझ"
 }

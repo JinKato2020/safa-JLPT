@@ -345,5 +345,12 @@
   "home.badge_vocab500": "500 Kata",
   "home.badge_vocab500_hint": "Pelajari 500 kata",
   "home.badge_pass": "Zona Lulus",
-  "home.badge_pass_hint": "Capai kesiapan 75"
+  "home.badge_pass_hint": "Capai kesiapan 75",
+  "profile.bg": "Latar",
+  "profile.bg_none": "Tidak ada",
+  "profile.bg_sakura": "Sakura",
+  "profile.bg_sky": "Langit",
+  "profile.bg_green": "Hijau",
+  "profile.bg_fuji": "Wisteria",
+  "profile.bg_akane": "Senja"
 }

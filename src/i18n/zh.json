@@ -345,5 +345,12 @@
   "home.badge_vocab500": "500个词",
   "home.badge_vocab500_hint": "学习500个词",
   "home.badge_pass": "通过区",
-  "home.badge_pass_hint": "达到75的准备度"
+  "home.badge_pass_hint": "达到75的准备度",
+  "profile.bg": "背景",
+  "profile.bg_none": "无",
+  "profile.bg_sakura": "樱",
+  "profile.bg_sky": "天空",
+  "profile.bg_green": "绿",
+  "profile.bg_fuji": "藤",
+  "profile.bg_akane": "茜"
 }

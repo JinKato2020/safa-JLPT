@@ -345,5 +345,12 @@
   "home.badge_vocab500": "500 Kata",
   "home.badge_vocab500_hint": "Pelajari 500 kata",
   "home.badge_pass": "Zon Lulus",
-  "home.badge_pass_hint": "Capai kesediaan 75"
+  "home.badge_pass_hint": "Capai kesediaan 75",
+  "profile.bg": "နောက်ခံ",
+  "profile.bg_none": "မရှိ",
+  "profile.bg_sakura": "ချယ်ရီ",
+  "profile.bg_sky": "ကောင်းကင်",
+  "profile.bg_green": "အစိမ်း",
+  "profile.bg_fuji": "ဝါဒဲလ်",
+  "profile.bg_akane": "နေဝင်"
 }

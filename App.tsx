@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColors } from './src/theme';
 import { useAppFonts, setActiveFont } from './src/theme/fonts';
+import WatercolorBackground from './src/components/WatercolorBackground';
 import { AppProvider, useAppState, useHydrated } from './src/store/store';
 import { useT } from './src/i18n';
 import type { RootStackParamList } from './src/navigation/types';
@@ -128,9 +129,11 @@ function Root() {
   setActiveFont(settings.font ?? 'maru');
   const sys = useColorScheme();
   const scheme = settings.theme === 'auto' ? (sys ?? 'light') : settings.theme;
+  // 水彩背景(ライトモードのみ)。有効時はナビ背景を透明化して背後の水彩レイヤーを見せる。
+  const skin = scheme === 'light' && settings.bgSkin && settings.bgSkin !== 'none' ? settings.bgSkin : null;
   const navTheme = {
     ...DefaultTheme,
-    colors: { ...DefaultTheme.colors, background: c.bg, card: c.surface, text: c.ink, border: c.line, primary: c.blue },
+    colors: { ...DefaultTheme.colors, background: skin ? 'transparent' : c.bg, card: c.surface, text: c.ink, border: c.line, primary: c.blue },
   };
 
   if (!hydrated) {
@@ -143,7 +146,9 @@ function Root() {
 
   return (
     <DesignThemeProvider scheme={scheme}>
-    <NavigationContainer key={settings.font ?? 'maru'} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
+    <View style={{ flex: 1, backgroundColor: c.bg }}>
+    {skin ? <WatercolorBackground skin={skin} /> : null}
+    <NavigationContainer key={`${settings.font ?? 'maru'}-${settings.bgSkin ?? 'none'}`} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!settings.onboarded ? (
           <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
@@ -160,6 +165,7 @@ function Root() {
       </RootStack.Navigator>
     </NavigationContainer>
     {settings.onboarded && !settings.tourDone && <TourOverlay />}
+    </View>
     </DesignThemeProvider>
   );
 }

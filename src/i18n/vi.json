@@ -345,5 +345,12 @@
   "home.badge_vocab500": "500 từ",
   "home.badge_vocab500_hint": "Học 500 từ",
   "home.badge_pass": "Khu vực đạt",
-  "home.badge_pass_hint": "Đạt độ sẵn sàng 75"
+  "home.badge_pass_hint": "Đạt độ sẵn sàng 75",
+  "profile.bg": "Nền",
+  "profile.bg_none": "Không",
+  "profile.bg_sakura": "Anh đào",
+  "profile.bg_sky": "Bầu trời",
+  "profile.bg_green": "Xanh lá",
+  "profile.bg_fuji": "Tử đằng",
+  "profile.bg_akane": "Hoàng hôn"
 }

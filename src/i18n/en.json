@@ -413,5 +413,12 @@
   "tour.home1_t": "Home — Readiness",
   "tour.home1_b": "The big ring shows your pass-readiness and title. Below it, see each section’s status, the AI Coach’s advice, and your pass-chance trend at a glance.",
   "tour.home2_t": "Home — Growth & Badges",
-  "tour.home2_b": "Scroll down for your learning growth, kanji/vocab/grammar coverage, your study streak, and the title badges you’ve earned."
+  "tour.home2_b": "Scroll down for your learning growth, kanji/vocab/grammar coverage, your study streak, and the title badges you’ve earned.",
+  "profile.bg": "Background",
+  "profile.bg_none": "None",
+  "profile.bg_sakura": "Sakura",
+  "profile.bg_sky": "Sky",
+  "profile.bg_green": "Green",
+  "profile.bg_fuji": "Wisteria",
+  "profile.bg_akane": "Sunset"
 }

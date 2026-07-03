@@ -345,5 +345,12 @@
   "home.badge_vocab500": "500 คำ",
   "home.badge_vocab500_hint": "เรียนรู้ 500 คำ",
   "home.badge_pass": "โซนผ่าน",
-  "home.badge_pass_hint": "ถึงความพร้อม 75"
+  "home.badge_pass_hint": "ถึงความพร้อม 75",
+  "profile.bg": "พื้นหลัง",
+  "profile.bg_none": "ไม่มี",
+  "profile.bg_sakura": "ซากุระ",
+  "profile.bg_sky": "ท้องฟ้า",
+  "profile.bg_green": "เขียว",
+  "profile.bg_fuji": "วิสทีเรีย",
+  "profile.bg_akane": "ตะวันตกดิน"
 }
