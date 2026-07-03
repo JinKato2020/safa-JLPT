@@ -5,8 +5,7 @@ import vocab from './vocab.json';
 import grammar from './grammar.json';
 import reading from './reading.json';
 import listening from './listening.json';
-import vocabExamples from './vocabExamples.json';
-import vocabExtExamples from './vocabExtExamples.json';
+import vocabExamplesAi from './vocabExamplesAi.json';
 import metaJson from './meta.json';
 import grammarClozeOkJson from './grammarClozeOk.json';
 import vocabClozeOkJson from './vocabClozeOk.json';
@@ -78,13 +77,10 @@ export const DICT_EXT_KANJI = (dictExtJson.kanji as unknown) as KanjiItem[];
 /** 語彙の難易度＝使用頻度スコア(小さいほど高頻度=易。JMdict頻度由来)。新出を易しい順に導入する材料。 */
 export const VOCAB_FREQ = vocabFreqJson as Record<string, number>;
 
-// 語彙の短い例文(無料・田中コーパス/EDRDG examples・CC-BY)。vocabId → { ja, en }。
-// N5-N3コア(vocabExamples)＋N2/N1拡張辞書(vocabExtExamples)を統合＝辞書Browseで全級に例文＋下線。
-export interface VocabExample { ja: string; en: string; }
-export const VOCAB_EXAMPLE = {
-  ...(vocabExamples as Record<string, VocabExample>),
-  ...(vocabExtExamples as Record<string, VocabExample>),
-};
+// 語彙の短い例文＝本アプリのオリジナル文(全内容語ぶん・文脈規定contextBankの穴を正解で埋めた自然文)。
+// 旧・田中コーパス/Tatoeba由来の例文は同梱を廃止(第三者例文の全除去→謝辞をWaller+EDRDGの2件に集約)。
+export interface VocabExample { ja: string; en?: string; }
+export const VOCAB_EXAMPLE = vocabExamplesAi as Record<string, VocabExample>;
 
 /** 語彙例文のふりがな付き版(MeCab生成・漢字(よみ)形式)。vocabId → ふりがな文。無い語は素のjaを使う。 */
 export const VOCAB_FURIGANA = vocabFurigana as Record<string, string>;

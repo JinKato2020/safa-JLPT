@@ -34,3 +34,4 @@ credentials.json
 credentials/
 *.keystore
 _ctxwork/
+_synwork/

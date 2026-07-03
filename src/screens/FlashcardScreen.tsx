@@ -38,7 +38,7 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
         {ex ? (
           <>
             <HighlightedText text={VOCAB_FURIGANA[item.id] ?? ex.ja} target={item.word} style={s.ex} hitStyle={s.exHit} />
-            <Text style={s.exEn}>{ex.en}</Text>
+            {ex.en ? <Text style={s.exEn}>{ex.en}</Text> : null}
           </>
         ) : null}
       </View>
