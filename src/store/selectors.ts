@@ -2,8 +2,8 @@
 import { computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
 import { examOf } from '../engine/examProfile';
 import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR, readingIdsBySub, listeningIdsBySub } from '../data';
-import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT } from '../data/examBlueprint';
-import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds } from '../data/daimon';
+import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT, type Daimon } from '../data/examBlueprint';
+import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits } from '../data/daimon';
 import { hasKanji } from '../quiz/quiz';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
@@ -283,16 +283,17 @@ export function pacePrediction(state: AppState, now: number): PacePrediction {
   return { passing: false, perDay: Math.round(perDay * 10) / 10, itemsNeeded: needed, daysToPass };
 }
 
-const NBA_MAP: Record<Category, { label: string; route: 'Flashcard' | 'Grammar' | 'Reading' | 'Listening' }> = {
+const NBA_MAP: Record<Category, { label: string; route: 'Flashcard' | 'Quiz' | 'Reading' | 'Listening' }> = {
   moji_goi: { label: '漢字・語彙', route: 'Flashcard' },
-  bunpou: { label: '文法', route: 'Grammar' },
+  bunpou: { label: '文法', route: 'Quiz' }, // 文法は大問フロー(学習→四択)へ。旧Grammar画面は廃止。
   dokkai: { label: '読解', route: 'Reading' },
   choukai: { label: '聴解', route: 'Listening' },
 };
 
 export interface NextAction {
   category: Category;
-  route: 'Flashcard' | 'Grammar' | 'Reading' | 'Listening';
+  route: 'Flashcard' | 'Quiz' | 'Reading' | 'Listening';
+  daimon?: Daimon;                        // route==='Quiz'(文法)のとき、勧める大問
   reasonKey: string;                      // i18nキー(画面側でt()翻訳)。日本語固定をやめる。
   reasonParams?: { pct: number };
 }
@@ -314,9 +315,11 @@ export function nextBestAction(state: AppState, now: number): NextAction | null 
   }
   const m = NBA_MAP[target];
   const ringPct = rings[target];
+  // 文法は「弱い大問」を名指しで勧める(なければ先頭の大問)。
+  const daimon = target === 'bunpou' ? daimonsWithUnits(state.settings.level, 'bunpou')[0]?.daimon : undefined;
   return ringPct === null
-    ? { category: target, route: m.route, reasonKey: 'home.nba_reason_unmeasured' }
-    : { category: target, route: m.route, reasonKey: 'home.nba_reason_lowest', reasonParams: { pct: ringPct } };
+    ? { category: target, route: m.route, daimon, reasonKey: 'home.nba_reason_unmeasured' }
+    : { category: target, route: m.route, daimon, reasonKey: 'home.nba_reason_lowest', reasonParams: { pct: ringPct } };
 }
 
 // 達成ランク(C): 級内の習得率(覚えた/全)で上がる“帯”。10段階(習得率10%刻み)。合格判定とは別軸。

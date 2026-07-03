@@ -10,6 +10,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState } from '../store/store';
 import { readinessFor, growthSeries, growthCurve, nextBestAction, ringsFor, learnedNow, levelRank, coverageBars } from '../store/selectors';
 import { computeBadges } from '../store/badges';
+import { DAIMON_LABEL } from '../data/examBlueprint';
 import { examOf } from '../engine/examProfile';
 import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../../shared/JLPT-Listening/design';
 import HeroGauge from '../components/HeroGauge';
@@ -102,7 +103,16 @@ export default function HomeScreen() {
   }, [measured, nba, rings, passProb, todayGain, ppSeries, prof, t, state.streak.current]);
 
   // 弱点(nba)があればその区分の学習へ(合格圏でも穴を埋める)。弱点なし=全区分高→一般復習。
-  const goAction = () => (nba ? nav.navigate(nba.route) : nav.navigate('Quiz', { category: 'all' }));
+  // 文法(route==='Quiz')は勧める大問へ(学習カード→四択)。他区分は各画面へ。
+  const goAction = () => {
+    if (!nba) return nav.navigate('Quiz', { category: 'all' });
+    if (nba.route === 'Quiz') {
+      return nba.daimon
+        ? nav.navigate('Quiz', { daimon: nba.daimon, title: t(DAIMON_LABEL[nba.daimon]) })
+        : nav.navigate('Quiz', { category: 'bunpou' });
+    }
+    return nav.navigate(nba.route);
+  };
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>

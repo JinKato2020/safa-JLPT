@@ -10,7 +10,7 @@ import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
 import { itemsFor, allWordsFor } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
-import { daimonUnitIds, questionForUnit } from '../data/daimon';
+import { daimonUnitIds, questionForUnit, learnCardFor, type LearnCard } from '../data/daimon';
 import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -62,6 +62,16 @@ export default function QuizScreen() {
       ? buildAllQueue(settings.level, items, Date.now())
       : buildQueue(poolFor(settings.level, category), items, Date.now(), SESSION_SIZE);
   });
+  // 大問モード=4択の前に「学習カード」で自習(スキップ可)。学習する語=初期キューと同じ。
+  const [learnList] = useState<{ unit: string; card: LearnCard }[]>(() =>
+    daimon
+      ? (queue.filter((x): x is string => typeof x === 'string'))
+          .map((u) => ({ unit: u, card: learnCardFor(u) }))
+          .filter((x): x is { unit: string; card: LearnCard } => !!x.card)
+      : [],
+  );
+  const [phase, setPhase] = useState<'learn' | 'test'>(() => (daimon && learnList.length ? 'learn' : 'test'));
+  const [learnIdx, setLearnIdx] = useState(0);
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
@@ -85,6 +95,34 @@ export default function QuizScreen() {
     }, isCorrect ? 850 : 1600);
     return () => clearTimeout(t);
   }, [picked, question]);
+
+  // 学習フェーズ: 大問の4択に入る前にカードで自習。「テストへ進む」でスキップ可。
+  if (phase === 'learn') {
+    const lc = learnList[learnIdx]?.card;
+    const last = learnIdx >= learnList.length - 1;
+    const goTest = () => setPhase('test');
+    return (
+      <SafeAreaView style={s.c}>
+        <ScrollView contentContainerStyle={s.body}>
+          <View style={s.top}>
+            <Pressable onPress={() => nav.goBack()} hitSlop={12}>
+              <Text style={s.close}>✕</Text>
+            </Pressable>
+            <Text style={s.progress}>{t('quiz.learn_tag')} {learnIdx + 1} / {learnList.length}</Text>
+          </View>
+          {title ? <Text style={s.drillTitle}>{title}</Text> : null}
+          <View style={s.promptCard}>
+            <Text style={[s.prompt, lc && lc.title.length > 10 && s.promptLong]}>{lc?.title}</Text>
+            {lc?.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
+            {lc?.body ? <Text style={s.learnBody}>{lc.body}</Text> : null}
+            {lc?.note ? <Text style={s.learnNote}>{lc.note}</Text> : null}
+          </View>
+          <AppButton label={last ? t('quiz.learn_start') : t('quiz.learn_next')} onPress={() => (last ? goTest() : setLearnIdx((i) => i + 1))} />
+          <Pressable onPress={goTest} hitSlop={8}><Text style={s.learnSkip}>{t('quiz.learn_skip')}</Text></Pressable>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
 
   if (!item || !question) {
     return (
@@ -210,6 +248,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   promptLong: { fontSize: ty.h2, lineHeight: 30, textAlign: 'left', alignSelf: 'stretch' }, // 穴埋め/バンク=長文プロンプト
 
   reading: { fontSize: ty.small, color: c.mute },
+  learnBody: { fontSize: ty.body, color: c.ink2, marginTop: spacing.xs, textAlign: 'center', lineHeight: 22 },
+  learnNote: { fontSize: ty.small, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 22 },
+  learnSkip: { fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'center', marginTop: spacing.xs, textDecorationLine: 'underline' },
   exHit: { color: c.ink, textDecorationLine: 'underline' },
   qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
   choices: { gap: spacing.sm + 2 },

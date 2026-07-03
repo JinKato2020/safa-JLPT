@@ -86,7 +86,7 @@ export default function StudyScreen() {
           </Pressable>
         ))}
         {/* 文法=大問(文法形式の判断/文の組み立て/文章の文法)に展開。 */}
-        <StudyCard s={s} icon="文" title={t('study.cat_bunpou')} expandable open={openBunpou} onPress={() => (bunpouDaimons.length ? setOpenBunpou((o) => !o) : nav.navigate('Grammar'))} />
+        <StudyCard s={s} icon="文" title={t('study.cat_bunpou')} expandable open={openBunpou} onPress={() => (bunpouDaimons.length ? setOpenBunpou((o) => !o) : nav.navigate('Quiz', { category: 'bunpou' }))} />
         {openBunpou && bunpouDaimons.map((d) => (
           <Pressable key={d.daimon} style={({ pressed }) => [s.subCard, pressed && s.cardPressed]} onPress={() => nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) })}>
             <View style={s.subDot} />

@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, VOCAB_CLOZE_OK, VOCAB_SYN, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, VOCAB_CLOZE_OK, VOCAB_SYN, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -102,3 +102,29 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
 }
 
 export const isBankUnit = (unit: string): boolean => BANK_INDEX.has(unit);
+
+/** 学習カード表示用データ。大問の4択に入る前に「まず覚える」ための1枚分。 */
+export interface LearnCard { title: string; sub?: string; body?: string; note?: string; }
+/** 学習ユニットid → 学習カード。項目系=語/文法の情報、バンク系=正解＋文脈＋解説。 */
+export function learnCardFor(unit: string): LearnCard | null {
+  const bank = BANK_INDEX.get(unit);
+  if (bank) {
+    // 用法=対象語＋正しい使い方の文。他=正解＋空所を埋めた文＋解説。
+    if (bank.daimon === 'usage') return { title: bank.stem, body: bank.answer, note: bank.explain };
+    const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
+    return { title: bank.answer, body: filled, note: bank.explain };
+  }
+  const hash = unit.lastIndexOf('#');
+  if (hash < 0) return null;
+  const itemId = unit.slice(0, hash);
+  const daimon = unit.slice(hash + 1) as Daimon;
+  const item = ITEM_INDEX.get(itemId);
+  if (!item) return null;
+  if (item.type === 'vocab') {
+    const ex = VOCAB_EXAMPLE[item.id];
+    if (daimon === 'synonym') return { title: item.word, sub: item.reading, body: `≒ ${VOCAB_SYN[item.id] ?? ''}`, note: ex?.ja };
+    return { title: item.word, sub: item.reading, body: item.meaning, note: ex?.ja };
+  }
+  if (item.type === 'grammar') return { title: item.point, sub: item.romaji, body: item.meaning, note: item.exampleJa };
+  return null;
+}
