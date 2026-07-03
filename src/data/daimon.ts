@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, VOCAB_CLOZE_OK, VOCAB_SYN, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, VOCAB_SYN, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -32,11 +32,13 @@ const BANK_INDEX = new Map(BANK.map((b) => [b.id, b] as const));
 // 漢字読み/表記の対象語=固定問題集(KANJI_READ_BANK)にエントリがある語。交ぜ書き方式で作成済み。
 // ユニットキー <vocabId>#kanji_read / #orthography の集合を単一ソースにする。
 const KR_UNIT_SET = new Set(KANJI_READ_BANK.map((e) => `${e.id.slice(3)}#${e.daimon}`));
+// 文脈規定=固定問題集(CONTEXT_BANK)にエントリがある語。id cx:<vid> → ユニット <vid>#context。
+const CTX_UNIT_SET = new Set(CONTEXT_BANK.map((e) => `${e.id.slice(3)}#context`));
 
-// 大問に適格な「項目(語彙/文法)」。漢字読み/表記=固定問題集に在る語、文脈=cloze可、言い換え=類義あり、文法形式=cloze可文法。
+// 大問に適格な「項目(語彙/文法)」。漢字読み/表記=固定問題集に在る語、文脈=固定問題集に在る語、言い換え=類義あり、文法形式=cloze可文法。
 function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
   if (daimon === 'kanji_read' || daimon === 'orthography') return VOCAB.filter((v) => v.level === level && KR_UNIT_SET.has(`${v.id}#${daimon}`));
-  if (daimon === 'context') return VOCAB.filter((v) => v.level === level && VOCAB_CLOZE_OK.has(v.id));
+  if (daimon === 'context') return VOCAB.filter((v) => v.level === level && CTX_UNIT_SET.has(`${v.id}#context`));
   if (daimon === 'synonym') return VOCAB.filter((v) => v.level === level && !!VOCAB_SYN[v.id]);
   if (daimon === 'grammar_form') return GRAMMAR.filter((g) => g.level === level && GRAMMAR_CLOZE_OK.has(g.id));
   return [];
@@ -55,9 +57,9 @@ export function daimonUnitIds(level: Level, daimon: Daimon, mode: 'all' | 'learn
   const fmt = DAIMON_FORMAT[daimon];
   const all = fmt === 'bank'
     ? bankOf(level, daimon).map((b) => b.id)
-    : (daimon === 'context' || daimon === 'grammar_form')
+    : daimon === 'grammar_form'
       ? [...items, ...bankOf(level, daimon).map((b) => b.id)]
-      : items;
+      : items; // context/kanji_read/orthography/synonym は固定問題集(item系)のみ
   return split(all, mode);
 }
 
@@ -78,6 +80,10 @@ const ITEM_INDEX = new Map<string, StudyItem>([...VOCAB, ...GRAMMAR].map((it) =>
 const KR_BANK_INDEX = new Map<string, (typeof KANJI_READ_BANK)[number]>(
   KANJI_READ_BANK.map((e) => [`${e.id.slice(3)}#${e.daimon}`, e]),
 );
+// 文脈規定の固定問題集(id cx:<vid> → ユニット <vid>#context)。
+const CTX_BANK_INDEX = new Map<string, (typeof CONTEXT_BANK)[number]>(
+  CONTEXT_BANK.map((e) => [`${e.id.slice(3)}#context`, e]),
+);
 
 /** 学習ユニットid → 4択問題(出題形式は大問で固定)。Question.itemId はユニットid(=状態キー)にする。 */
 export function questionForUnit(unit: string, rng: Rng = Math.random): Question | null {
@@ -91,6 +97,12 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   if (kr) {
     const { choices, answerIndex } = shuffleChoices([kr.answer, ...kr.choices.filter((x) => x !== kr.answer)].slice(0, 4), 0, rng);
     return { itemId: unit, prompt: kr.prompt, question: kr.question, format: kr.daimon === 'kanji_read' ? 'reading' : 'orthography', choices, answerIndex };
+  }
+  // 文脈規定=固定問題集(全内容語のオリジナル文＋非競合誤答)。
+  const cx = CTX_BANK_INDEX.get(unit);
+  if (cx) {
+    const { choices, answerIndex } = shuffleChoices([cx.answer, ...cx.choices.filter((x) => x !== cx.answer)].slice(0, 4), 0, rng);
+    return { itemId: unit, prompt: cx.prompt, question: cx.question, format: 'cloze', choices, answerIndex };
   }
   const hash = unit.lastIndexOf('#');
   if (hash < 0) return null;
@@ -124,6 +136,11 @@ export function learnCardFor(unit: string): LearnCard | null {
   if (item.type === 'vocab') {
     const ex = VOCAB_EXAMPLE[item.id];
     if (daimon === 'synonym') return { title: item.word, sub: item.reading, body: `≒ ${VOCAB_SYN[item.id] ?? ''}`, note: ex?.ja };
+    if (daimon === 'context') {
+      const cx = CTX_BANK_INDEX.get(unit);
+      const filled = cx ? cx.prompt.replace('〔　〕', `【${cx.answer}】`) : ex?.ja;
+      return { title: item.word, sub: item.reading, body: item.meaning, note: filled };
+    }
     return { title: item.word, sub: item.reading, body: item.meaning, note: ex?.ja };
   }
   if (item.type === 'grammar') return { title: item.point, sub: item.romaji, body: item.meaning, note: item.exampleJa };

@@ -20,6 +20,7 @@ import kanjiExamples from './kanjiExamples.json';
 import kanjiExamplesMulti from './kanjiExamplesMulti.json';
 import kanjiLevelReadings from './kanjiLevelReadings.json';
 import kanjiReadBank from './kanjiReadingBank.json';
+import contextBank from './contextBank.json';
 import kanjiReadings from './kanjiReadings.json';
 import type { Category, Level } from '../engine/engine';
 
@@ -123,6 +124,9 @@ export const KANJI_LEVEL_READINGS = kanjiLevelReadings as unknown as Record<stri
 // choices[0]=正解(表示時にシャッフル)。生成=問題/tools/build_kanji_read_bank.py。
 export interface KanjiReadBankItem { id: string; level: string; daimon: 'kanji_read' | 'orthography'; prompt: string; question: string; answer: string; choices: string[]; }
 export const KANJI_READ_BANK = kanjiReadBank as KanjiReadBankItem[];
+// 文脈規定(大問3)の固定問題集。id=cx:<vocabId>、choices=誤答3(正解は実行時にanswerを先頭付与)。
+export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; }
+export const CONTEXT_BANK = contextBank as ContextBankItem[];
 export const KANJI_EXAMPLE: Record<string, KanjiExample> = (() => {
   const byChar: Record<string, VocabItem[]> = {};
   for (const v of VOCAB) {
