@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, VOCAB_SYN, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -34,12 +34,14 @@ const BANK_INDEX = new Map(BANK.map((b) => [b.id, b] as const));
 const KR_UNIT_SET = new Set(KANJI_READ_BANK.map((e) => `${e.id.slice(3)}#${e.daimon}`));
 // 文脈規定=固定問題集(CONTEXT_BANK)にエントリがある語。id cx:<vid> → ユニット <vid>#context。
 const CTX_UNIT_SET = new Set(CONTEXT_BANK.map((e) => `${e.id.slice(3)}#context`));
+// 言い換え類義=固定問題集(SYNONYM_BANK)にエントリがある語。id sy:<vid> → ユニット <vid>#synonym。
+const SY_UNIT_SET = new Set(SYNONYM_BANK.map((e) => `${e.id.slice(3)}#synonym`));
 
 // 大問に適格な「項目(語彙/文法)」。漢字読み/表記=固定問題集に在る語、文脈=固定問題集に在る語、言い換え=類義あり、文法形式=cloze可文法。
 function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
   if (daimon === 'kanji_read' || daimon === 'orthography') return VOCAB.filter((v) => v.level === level && KR_UNIT_SET.has(`${v.id}#${daimon}`));
   if (daimon === 'context') return VOCAB.filter((v) => v.level === level && CTX_UNIT_SET.has(`${v.id}#context`));
-  if (daimon === 'synonym') return VOCAB.filter((v) => v.level === level && !!VOCAB_SYN[v.id]);
+  if (daimon === 'synonym') return VOCAB.filter((v) => v.level === level && SY_UNIT_SET.has(`${v.id}#synonym`));
   if (daimon === 'grammar_form') return GRAMMAR.filter((g) => g.level === level && GRAMMAR_CLOZE_OK.has(g.id));
   return [];
 }
@@ -84,6 +86,20 @@ const KR_BANK_INDEX = new Map<string, (typeof KANJI_READ_BANK)[number]>(
 const CTX_BANK_INDEX = new Map<string, (typeof CONTEXT_BANK)[number]>(
   CONTEXT_BANK.map((e) => [`${e.id.slice(3)}#context`, e]),
 );
+// 言い換え類義の固定問題集(id sy:<vid> → ユニット <vid>#synonym)。
+const SY_BANK_INDEX = new Map<string, (typeof SYNONYM_BANK)[number]>(
+  SYNONYM_BANK.map((e) => [`${e.id.slice(3)}#synonym`, e]),
+);
+// 文＋下線スパンを ExampleHint(下線セグメント列)へ。
+function underlineSegments(sentence: string, span: string): { text: string; hit: boolean }[] {
+  const i = span ? sentence.indexOf(span) : -1;
+  if (i < 0) return [{ text: sentence, hit: false }];
+  const segs = [] as { text: string; hit: boolean }[];
+  if (i > 0) segs.push({ text: sentence.slice(0, i), hit: false });
+  segs.push({ text: span, hit: true });
+  if (i + span.length < sentence.length) segs.push({ text: sentence.slice(i + span.length), hit: false });
+  return segs;
+}
 
 /** 学習ユニットid → 4択問題(出題形式は大問で固定)。Question.itemId はユニットid(=状態キー)にする。 */
 export function questionForUnit(unit: string, rng: Rng = Math.random): Question | null {
@@ -103,6 +119,12 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   if (cx) {
     const { choices, answerIndex } = shuffleChoices([cx.answer, ...cx.choices.filter((x) => x !== cx.answer)].slice(0, 4), 0, rng);
     return { itemId: unit, prompt: cx.prompt, question: cx.question, format: 'cloze', choices, answerIndex };
+  }
+  // 言い換え類義=固定問題集(文＋下線部→意味が近い語)。prompt空・exampleに下線付き文。
+  const sy = SY_BANK_INDEX.get(unit);
+  if (sy) {
+    const { choices, answerIndex } = shuffleChoices([sy.answer, ...sy.choices.filter((x) => x !== sy.answer)].slice(0, 4), 0, rng);
+    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex };
   }
   const hash = unit.lastIndexOf('#');
   if (hash < 0) return null;
@@ -135,7 +157,10 @@ export function learnCardFor(unit: string): LearnCard | null {
   if (!item) return null;
   if (item.type === 'vocab') {
     const ex = VOCAB_EXAMPLE[item.id];
-    if (daimon === 'synonym') return { title: item.word, sub: item.reading, body: `≒ ${VOCAB_SYN[item.id] ?? ''}`, note: ex?.ja };
+    if (daimon === 'synonym') {
+      const sy = SY_BANK_INDEX.get(unit);
+      return { title: item.word, sub: item.reading, body: `≒ ${sy?.answer ?? ''}`, note: sy ? sy.sentence.replace(sy.underline, `【${sy.underline}】`) : ex?.ja };
+    }
     if (daimon === 'context') {
       const cx = CTX_BANK_INDEX.get(unit);
       const filled = cx ? cx.prompt.replace('〔　〕', `【${cx.answer}】`) : ex?.ja;

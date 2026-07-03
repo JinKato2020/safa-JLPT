@@ -171,9 +171,9 @@ export default function QuizScreen() {
         {title ? <Text style={s.drillTitle}>{title}</Text> : null}
 
         <View style={s.promptCard}>
-          <Text style={[s.prompt, question.prompt.length > 10 && s.promptLong]}>{question.prompt}</Text>
+          {question.prompt ? <Text style={[s.prompt, question.prompt.length > 10 && s.promptLong]}>{question.prompt}</Text> : null}
           {question.example ? (
-            <Text style={s.reading}>
+            <Text style={question.prompt ? s.reading : s.sentence}>
               {question.example.map((sg, i) => (
                 <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
               ))}
@@ -248,6 +248,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   promptLong: { fontSize: ty.h2, lineHeight: 30, textAlign: 'left', alignSelf: 'stretch' }, // 穴埋め/バンク=長文プロンプト
 
   reading: { fontSize: ty.small, color: c.mute },
+  sentence: { fontSize: ty.h2, lineHeight: 32, color: c.ink, textAlign: 'left', alignSelf: 'stretch' }, // 言い換え=文＋下線を主表示
+
   learnBody: { fontSize: ty.body, color: c.ink2, marginTop: spacing.xs, textAlign: 'center', lineHeight: 22 },
   learnNote: { fontSize: ty.small, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 22 },
   learnSkip: { fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'center', marginTop: spacing.xs, textDecorationLine: 'underline' },
