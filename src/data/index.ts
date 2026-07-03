@@ -19,6 +19,7 @@ import vocabFurigana from './vocabFurigana.json';
 import kanjiExamples from './kanjiExamples.json';
 import kanjiExamplesMulti from './kanjiExamplesMulti.json';
 import kanjiLevelReadings from './kanjiLevelReadings.json';
+import kanjiReadBank from './kanjiReadingBank.json';
 import kanjiReadings from './kanjiReadings.json';
 import type { Category, Level } from '../engine/engine';
 
@@ -117,6 +118,11 @@ export const KANJI_EXAMPLE_MULTI = kanjiExamplesMulti as Record<string, KanjiExa
 // その級の語彙で実際に使われる読みだけ(辞書全音訓ではない)。生成: 問題/tools/build_kanji_level_readings.py。
 export interface KanjiLevelReading { reading: string; type: 'on' | 'kun'; examples: [string, string][]; fallback?: boolean; }
 export const KANJI_LEVEL_READINGS = kanjiLevelReadings as unknown as Record<string, KanjiLevelReading[]>;
+
+// 漢字読み/表記の固定問題集(実行時自動生成でなく確定済み)。id=kr:<vocabId>/og:<vocabId>。
+// choices[0]=正解(表示時にシャッフル)。生成=問題/tools/build_kanji_read_bank.py。
+export interface KanjiReadBankItem { id: string; level: string; daimon: 'kanji_read' | 'orthography'; prompt: string; question: string; answer: string; choices: string[]; }
+export const KANJI_READ_BANK = kanjiReadBank as KanjiReadBankItem[];
 export const KANJI_EXAMPLE: Record<string, KanjiExample> = (() => {
   const byChar: Record<string, VocabItem[]> = {};
   for (const v of VOCAB) {
