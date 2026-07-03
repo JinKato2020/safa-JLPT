@@ -4,27 +4,27 @@ import { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { itemsFor, KANJI_EXAMPLE_MULTI, VOCAB_EXAMPLE, VOCAB_FURIGANA } from '../data';
-import type { StudyItem, KanjiReadingExample } from '../data';
+import { itemsFor, KANJI_LEVEL_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA } from '../data';
+import type { StudyItem } from '../data';
 import LearnTestSession from '../components/LearnTestSession';
 import HighlightedText from '../components/HighlightedText';
-import { useT } from '../i18n';
 
 function VocabKanjiCard({ item }: { item: StudyItem }) {
   const c = useColors();
-  const t = useT();
   const s = useMemo(() => cardStyles(c), [c]);
   if (item.type === 'kanji') {
-    const ex = KANJI_EXAMPLE_MULTI[item.char];
-    const fmt = (l: KanjiReadingExample[]) =>
-      l.map((e) => (e.wordReading && e.wordReading !== e.reading ? `${e.reading}：${e.word}（${e.wordReading}）` : `${e.reading}：${e.word}`)).join('　');
+    // 級別・試験特化の読みだけを表示(辞書の全音訓ではない)。読み1つにつき例語つき。
+    const lv = KANJI_LEVEL_READINGS[item.char] ?? [];
     return (
       <View style={s.card}>
         <Text style={s.kanji}>{item.char}</Text>
-        <Text style={s.reading}>{item.kun ? t('flashcardscreen.reading_label', { on: item.on, kun: item.kun }) : t('flashcardscreen.reading_on', { on: item.on })}</Text>
         <Text style={s.meaning}>{item.meaning}</Text>
-        {ex?.on?.length ? <Text style={s.ex}>音 {fmt(ex.on)}</Text> : null}
-        {ex?.kun?.length ? <Text style={s.ex}>訓 {fmt(ex.kun)}</Text> : null}
+        {lv.map((r, i) => (
+          <Text key={i} style={s.ex}>
+            <Text style={s.readTag}>{r.type === 'on' ? '音' : '訓'} {r.reading}</Text>
+            {r.examples.length ? `　${r.examples.map(([w, rd]) => `${w}（${rd}）`).join('　')}` : ''}
+          </Text>
+        ))}
       </View>
     );
   }
@@ -68,6 +68,7 @@ const cardStyles = (c: ThemeColors) =>
     kanji: { fontSize: 88, fontWeight: '800', color: c.ink, lineHeight: 96 },
     word: { fontSize: 40, fontWeight: '800', color: c.ink, textAlign: 'center' },
     reading: { fontSize: ty.body, color: c.mute, fontWeight: '700' },
+    readTag: { fontWeight: '800', color: c.blueDark },
     meaning: { fontSize: ty.body, color: c.ink2, marginTop: spacing.xs, textAlign: 'center' },
     ex: { fontSize: ty.body, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 24 },
     exHit: { textDecorationLine: 'underline' },

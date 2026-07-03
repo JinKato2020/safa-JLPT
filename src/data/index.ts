@@ -18,6 +18,7 @@ import jftBandsJson from './jftBands.json';
 import vocabFurigana from './vocabFurigana.json';
 import kanjiExamples from './kanjiExamples.json';
 import kanjiExamplesMulti from './kanjiExamplesMulti.json';
+import kanjiLevelReadings from './kanjiLevelReadings.json';
 import kanjiReadings from './kanjiReadings.json';
 import type { Category, Level } from '../engine/engine';
 
@@ -111,6 +112,11 @@ export interface KanjiExample {
 export interface KanjiReadingExample { reading: string; word: string; wordReading: string; }
 export interface KanjiExampleMulti { on?: KanjiReadingExample[]; kun?: KanjiReadingExample[]; }
 export const KANJI_EXAMPLE_MULTI = kanjiExamplesMulti as Record<string, KanjiExampleMulti>;
+
+// 級別・試験特化の漢字読み。char → [{reading(かな), type:'on'|'kun', examples:[[語,読み]], fallback?}]。
+// その級の語彙で実際に使われる読みだけ(辞書全音訓ではない)。生成: 問題/tools/build_kanji_level_readings.py。
+export interface KanjiLevelReading { reading: string; type: 'on' | 'kun'; examples: [string, string][]; fallback?: boolean; }
+export const KANJI_LEVEL_READINGS = kanjiLevelReadings as unknown as Record<string, KanjiLevelReading[]>;
 export const KANJI_EXAMPLE: Record<string, KanjiExample> = (() => {
   const byChar: Record<string, VocabItem[]> = {};
   for (const v of VOCAB) {
