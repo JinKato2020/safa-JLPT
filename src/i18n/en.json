@@ -203,6 +203,7 @@
   "profile.targetLevel": "Target Level",
   "profile.telemetry": "Share usage data",
   "profile.telemetryHint": "Anonymously share your study progress to help improve the app (no personal info, no tracking, off anytime).",
+  "profile.jlptSamples": "Official JLPT sample questions ↗",
   "profile.terms": "Terms of Use",
   "profile.termsBody": "Mainichi JLPT Terms of Use\n\n• This app is designed to support study toward passing the JLPT (Japanese Language Proficiency Test).\n• Indicators such as \"Readiness\" and \"Passing Zone\" are study guides only and do not guarantee exam results.\n• This app is not affiliated with the JLPT administering organizations (Japan Foundation / Japan Educational Exchanges and Services).\n• The developer is not liable for any damages arising from use of this app.\n• Features and content are subject to change without notice.\n• Dictionary and example sentence data are used in accordance with their respective licenses (EDRDG, CC BY, etc.).",
   "profile.theme": "Theme",

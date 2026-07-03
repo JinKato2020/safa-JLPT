@@ -1,7 +1,7 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
 import { useMemo, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Switch } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as StoreReview from 'expo-store-review';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -283,6 +283,11 @@ export default function ProfileScreen() {
             <Text style={s.chev}>{legal === 'terms' ? '▲' : '›'}</Text>
           </Pressable>
           {legal === 'terms' ? <Text style={s.legal}>{t('profile.termsBody')}</Text> : null}
+          {/* JLPT公式サンプル問題(外部リンク)。本番の出題形式を公式サイトで確認できる。 */}
+          <Pressable style={s.linkRow} onPress={() => Linking.openURL('https://www.jlpt.jp/samples/forlearners.html')}>
+            <Text style={s.linkTxt}>{t('profile.jlptSamples')}</Text>
+            <Text style={s.chev}>↗</Text>
+          </Pressable>
         </View>
 
         {/* 出典・リセット */}
