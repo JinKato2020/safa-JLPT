@@ -60,7 +60,7 @@ export function daimonUnitIds(level: Level, daimon: Daimon, mode: 'all' | 'learn
   const all = fmt === 'bank'
     ? bankOf(level, daimon).map((b) => b.id)
     : daimon === 'grammar_form'
-      ? [...items, ...bankOf(level, daimon).map((b) => b.id)]
+      ? bankOf(level, daimon).map((b) => b.id) // 文法形式も検証済の固定バンクのみ(旧例文clozeは廃止)
       : items; // context/kanji_read/orthography/synonym は固定問題集(item系)のみ
   return split(all, mode);
 }
