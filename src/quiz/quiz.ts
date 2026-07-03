@@ -32,6 +32,7 @@ export interface Question {
   format: QFormat;    // 問題形式(ヒートマップ集計用)
   choices: string[];
   answerIndex: number;
+  explain?: string;   // 解説(バンク問題のみ。模試の採点後表示用)
 }
 
 export type Rng = () => number;

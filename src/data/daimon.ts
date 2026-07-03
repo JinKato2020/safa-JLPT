@@ -106,7 +106,7 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   const bank = BANK_INDEX.get(unit);
   if (bank) {
     const { choices, answerIndex } = shuffleChoices([bank.answer, ...bank.choices.filter((x) => x !== bank.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex };
+    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, explain: bank.explain };
   }
   // 漢字読み/表記=固定問題集を優先(実行時自動生成でなく確定済み)。無ければ下の自動生成へfallback。
   const kr = KR_BANK_INDEX.get(unit);

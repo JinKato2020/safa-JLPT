@@ -14,10 +14,9 @@ import { dayStr } from '../store/state';
 import { examWordsFor, allWordsFor, examReadingFor, examListeningFor } from '../data';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
-import { makeQuestion, sample, shuffleChoices, hasKanji, type ExampleHint, type QFormat } from '../quiz/quiz';
-import { blueprintCounts, daimonCounts, DAIMON_ALLOWED, DAIMON_SEC, type Daimon } from '../data/examBlueprint';
-import { VOCAB_CLOZE_OK, VOCAB_SYN, VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK } from '../data';
-import type { StudyItem } from '../data';
+import { makeQuestion, sample, shuffleChoices, type ExampleHint, type QFormat } from '../quiz/quiz';
+import { blueprintCounts, daimonCounts, DAIMON_SEC, type Daimon } from '../data/examBlueprint';
+import { daimonUnitIds, questionForUnit } from '../data/daimon';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -79,45 +78,23 @@ function knowledgeItems(levels: Level[], category: 'moji_goi' | 'bunpou', n: num
   });
 }
 
-// その出題形式が成立する項目か(漢字読みは漢字語のみ・cloze/synonymはデータ有りのみ)。強制形式で確実に成立させる。
-function supportsFormat(item: StudyItem, fmt: QFormat): boolean {
-  switch (fmt) {
-    case 'reading':
-    case 'orthography': return item.type === 'vocab' && hasKanji(item.word);
-    case 'cloze':
-      if (item.type === 'vocab') return VOCAB_CLOZE_OK.has(item.id) && !!VOCAB_EXAMPLE[item.id];
-      if (item.type === 'grammar') return GRAMMAR_CLOZE_OK.has(item.id) && !!item.exampleJa;
-      return false;
-    case 'synonym': return item.type === 'vocab' && !!VOCAB_SYN[item.id];
-    case 'usage': return item.type === 'grammar';
-    default: return false;
-  }
-}
-// バンク大問(用法/組み立て/文章の文法)がバンク不足のとき、同区分の派生形式で員数を埋める。
-const BANK_FALLBACK: Record<string, Daimon> = { usage: 'context', order: 'grammar_form', passage_grammar: 'grammar_form' };
-
-// 大問1つを count 問。バンク(KNOWLEDGE_BANK)を優先し、不足は派生形式(makeQuestionを該当形式に強制)で補充。
-// 用法/組み立て/文章=バンク専用、文法形式/文脈規定=バンク+派生で厚く、漢字読み/表記/言い換え=派生のみ。
+// 大問1つを count 問。学習と同一の固定問題集(daimonUnitIds→questionForUnit)から出題＝模試も検証済バンクに統一。
+// 全大問(漢字読み/表記/文脈規定/言い換え/用法/文法形式/組み立て/文章の文法)が questionForUnit 経由で各固定バンクへ。
 function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen: Seen): MockItem[] {
   if (count <= 0) return [];
-  const allowed = DAIMON_ALLOWED[daimon];
   const sec = DAIMON_SEC[daimon];
-  const bankPool = KNOWLEDGE_BANK.filter((b) => levels.includes(b.level as Level) && b.daimon === daimon);
-  const out: MockItem[] = sample(bankPool, count).map((b, k) => {
-    const sc = shuffleChoices(b.choices, 0);
-    return { kind: 'word', id: `kb-${daimon}-${b.level}-${k}-${b.question.length}`, section: sec, daimon, question: b.question, choices: sc.choices, answerIndex: sc.answerIndex, prompt: b.stem || undefined, explain: b.explain };
-  });
-  if (out.length >= count) return out.slice(0, count);
-  const need = count - out.length;
-  if (allowed === '@bank') { out.push(...knowledgeForDaimon(levels, BANK_FALLBACK[daimon], need, seen)); return out.slice(0, count); }
-  const fmts = allowed as QFormat[];
-  const pool = levels.flatMap((lv) => examWordsFor(lv, sec)).filter((it) => fmts.some((f) => supportsFormat(it, f)));
-  const all = levels.flatMap((lv) => allWordsFor(lv, sec));
-  const picked = pickFresh(pool, (i) => !!seen[i.id], need);
-  out.push(...picked.map((item) => {
-    const q = makeQuestion(item, all, Math.random, fmts);
-    return { kind: 'word' as const, id: item.id, section: item.category as Sec, daimon, question: q.question, choices: q.choices, answerIndex: q.answerIndex, prompt: q.prompt, reading: q.reading, example: q.example };
-  }));
+  const units = levels.flatMap((lv) => daimonUnitIds(lv, daimon, 'all'));
+  const picked = pickFresh(units, (u) => !!seen[u], count);
+  const out: MockItem[] = [];
+  for (const unit of sample(picked, picked.length)) {
+    const q = questionForUnit(unit);
+    if (!q) continue;
+    out.push({
+      kind: 'word', id: unit, section: sec, daimon,
+      question: q.question, choices: q.choices, answerIndex: q.answerIndex,
+      prompt: q.prompt || undefined, reading: q.reading, example: q.example, explain: q.explain,
+    });
+  }
   return out.slice(0, count);
 }
 function readingItems(levels: Level[], nPassages: number, seen: Seen): MockItem[] {
