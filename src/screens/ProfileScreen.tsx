@@ -259,7 +259,7 @@ export default function ProfileScreen() {
           <View style={s.linkDiv} />
           {/* 一括DL導線(オンボードでスキップした人・配信モードでも事前DLしたい人向け) */}
           <Pressable style={s.linkRow} onPress={() => setShowDl(true)}>
-            <Text style={s.linkTxt}>🎧 {t('dl.title')}</Text>
+            <Text style={s.linkTxt}>{t('dl.title')}</Text>
             <Text style={s.chev}>›</Text>
           </Pressable>
         </View>
@@ -268,7 +268,7 @@ export default function ProfileScreen() {
         <Text style={s.sectionH}>{t('profile.supportSection')}</Text>
         <View style={s.card}>
           <Pressable style={s.linkRow} onPress={rate}>
-            <Text style={s.linkTxt}>⭐ {t('profile.rateApp')}</Text>
+            <Text style={s.linkTxt}>{t('profile.rateApp')}</Text>
             <Text style={s.chev}>›</Text>
           </Pressable>
           <View style={s.linkDiv} />

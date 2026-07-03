@@ -143,7 +143,7 @@ function Root() {
 
   return (
     <DesignThemeProvider scheme={scheme}>
-    <NavigationContainer theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
+    <NavigationContainer key={settings.font ?? 'maru'} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!settings.onboarded ? (
           <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
