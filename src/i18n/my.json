@@ -357,5 +357,8 @@
   "study.accuracy": "တိကျမှု",
   "study.balanced": "ဟန်ချက်ညီ လေ့ကျင့်",
   "study.balanced_sub": "အမျိုးအစား ၄ ခုမှ ဟန်ချက်ညီ",
-  "study.by_daimon": "မေးခွန်းအမျိုးအစားအလိုက်"
+  "study.by_daimon": "မေးခွန်းအမျိုးအစားအလိုက်",
+  "study.mix": "ရောစပ်လေ့ကျင့်",
+  "study.q_each": "တစ်ခေါက် ၁၀ပုဒ်",
+  "study.tap_daimon": "အပိုင်းကိုနှိပ်၍ ၁၀ပုဒ်"
 }

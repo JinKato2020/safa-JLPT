@@ -425,5 +425,8 @@
   "study.accuracy": "Accuracy",
   "study.balanced": "Balanced practice",
   "study.balanced_sub": "Balanced across all 4 categories",
-  "study.by_daimon": "Study by question type"
+  "study.by_daimon": "Study by question type",
+  "study.mix": "Mixed set",
+  "study.q_each": "10 per set",
+  "study.tap_daimon": "Tap a section to drill 10"
 }

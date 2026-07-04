@@ -357,5 +357,8 @@
   "study.accuracy": "ความแม่นยำ",
   "study.balanced": "ฝึกแบบสมดุล",
   "study.balanced_sub": "ครอบคลุมทั้ง 4 หมวดอย่างสมดุล",
-  "study.by_daimon": "เรียนตามประเภทข้อสอบ"
+  "study.by_daimon": "เรียนตามประเภทข้อสอบ",
+  "study.mix": "ชุดผสม",
+  "study.q_each": "10 ข้อต่อชุด",
+  "study.tap_daimon": "แตะหัวข้อเพื่อฝึก 10 ข้อ"
 }

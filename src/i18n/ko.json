@@ -357,5 +357,8 @@
   "study.accuracy": "정답률",
   "study.balanced": "균형 학습",
   "study.balanced_sub": "4개 영역에서 골고루 출제",
-  "study.by_daimon": "문제 유형별 학습"
+  "study.by_daimon": "문제 유형별 학습",
+  "study.mix": "믹스 출제",
+  "study.q_each": "세트당 10문",
+  "study.tap_daimon": "대문항을 탭하면 개별 10문"
 }

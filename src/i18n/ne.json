@@ -357,5 +357,8 @@
   "study.accuracy": "शुद्धता",
   "study.balanced": "सन्तुलित अभ्यास",
   "study.balanced_sub": "चारै वर्गबाट सन्तुलित",
-  "study.by_daimon": "प्रश्न प्रकार अनुसार"
+  "study.by_daimon": "प्रश्न प्रकार अनुसार",
+  "study.mix": "मिश्रित सेट",
+  "study.q_each": "प्रति सेट १० प्रश्न",
+  "study.tap_daimon": "खण्ड ट्याप गरी १० प्रश्न"
 }

@@ -425,5 +425,8 @@
   "study.accuracy": "正答率",
   "study.balanced": "バランス学習",
   "study.balanced_sub": "4カテゴリからバランスよく出題",
-  "study.by_daimon": "大問ごとに学習"
+  "study.by_daimon": "大問ごとに学習",
+  "study.mix": "ミックス出題",
+  "study.q_each": "1セット10問",
+  "study.tap_daimon": "大問をタップで個別に10問"
 }

@@ -357,5 +357,8 @@
   "study.accuracy": "Akurasi",
   "study.balanced": "Latihan seimbang",
   "study.balanced_sub": "Seimbang dari 4 kategori",
-  "study.by_daimon": "Belajar per tipe soal"
+  "study.by_daimon": "Belajar per tipe soal",
+  "study.mix": "Soal campuran",
+  "study.q_each": "10 soal/set",
+  "study.tap_daimon": "Ketuk bagian untuk 10 soal"
 }

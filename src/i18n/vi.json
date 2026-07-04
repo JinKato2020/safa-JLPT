@@ -357,5 +357,8 @@
   "study.accuracy": "Độ chính xác",
   "study.balanced": "Luyện cân bằng",
   "study.balanced_sub": "Cân bằng cả 4 phần",
-  "study.by_daimon": "Học theo dạng bài"
+  "study.by_daimon": "Học theo dạng bài",
+  "study.mix": "Đề tổng hợp",
+  "study.q_each": "10 câu mỗi lượt",
+  "study.tap_daimon": "Chạm mục để luyện 10 câu"
 }

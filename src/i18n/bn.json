@@ -357,5 +357,8 @@
   "study.accuracy": "নির্ভুলতা",
   "study.balanced": "সুষম অনুশীলন",
   "study.balanced_sub": "৪টি বিভাগ থেকে সুষমভাবে",
-  "study.by_daimon": "প্রশ্নের ধরন অনুসারে"
+  "study.by_daimon": "প্রশ্নের ধরন অনুসারে",
+  "study.mix": "মিশ্র সেট",
+  "study.q_each": "সেটে ১০টি",
+  "study.tap_daimon": "বিভাগে ট্যাপ করে ১০টি"
 }

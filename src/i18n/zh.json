@@ -357,5 +357,8 @@
   "study.accuracy": "正确率",
   "study.balanced": "均衡练习",
   "study.balanced_sub": "从4个类别均衡出题",
-  "study.by_daimon": "按大题学习"
+  "study.by_daimon": "按大题学习",
+  "study.mix": "混合出题",
+  "study.q_each": "每组10题",
+  "study.tap_daimon": "点击大题单独练习10题"
 }
