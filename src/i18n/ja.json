@@ -422,5 +422,8 @@
   "profile.bg_fuji": "藤",
   "profile.bg_akane": "茜",
   "study.coverage": "カバー率",
-  "study.accuracy": "正答率"
+  "study.accuracy": "正答率",
+  "study.balanced": "バランス学習",
+  "study.balanced_sub": "4カテゴリからバランスよく出題",
+  "study.by_daimon": "大問ごとに学習"
 }

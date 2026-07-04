@@ -354,5 +354,8 @@
   "profile.bg_fuji": "ဝါဒဲလ်",
   "profile.bg_akane": "နေဝင်",
   "study.coverage": "လွှမ်းခြုံမှု",
-  "study.accuracy": "တိကျမှု"
+  "study.accuracy": "တိကျမှု",
+  "study.balanced": "ဟန်ချက်ညီ လေ့ကျင့်",
+  "study.balanced_sub": "အမျိုးအစား ၄ ခုမှ ဟန်ချက်ညီ",
+  "study.by_daimon": "မေးခွန်းအမျိုးအစားအလိုက်"
 }

@@ -354,5 +354,8 @@
   "profile.bg_fuji": "วิสทีเรีย",
   "profile.bg_akane": "ตะวันตกดิน",
   "study.coverage": "ความครอบคลุม",
-  "study.accuracy": "ความแม่นยำ"
+  "study.accuracy": "ความแม่นยำ",
+  "study.balanced": "ฝึกแบบสมดุล",
+  "study.balanced_sub": "ครอบคลุมทั้ง 4 หมวดอย่างสมดุล",
+  "study.by_daimon": "เรียนตามประเภทข้อสอบ"
 }

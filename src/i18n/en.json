@@ -422,5 +422,8 @@
   "profile.bg_fuji": "Wisteria",
   "profile.bg_akane": "Sunset",
   "study.coverage": "Coverage",
-  "study.accuracy": "Accuracy"
+  "study.accuracy": "Accuracy",
+  "study.balanced": "Balanced practice",
+  "study.balanced_sub": "Balanced across all 4 categories",
+  "study.by_daimon": "Study by question type"
 }

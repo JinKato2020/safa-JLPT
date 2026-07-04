@@ -354,5 +354,8 @@
   "profile.bg_fuji": "등나무",
   "profile.bg_akane": "노을",
   "study.coverage": "커버리지",
-  "study.accuracy": "정답률"
+  "study.accuracy": "정답률",
+  "study.balanced": "균형 학습",
+  "study.balanced_sub": "4개 영역에서 골고루 출제",
+  "study.by_daimon": "문제 유형별 학습"
 }

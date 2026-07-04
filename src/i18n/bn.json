@@ -354,5 +354,8 @@
   "profile.bg_fuji": "উইস্টেরিয়া",
   "profile.bg_akane": "সন্ধ্যা",
   "study.coverage": "কভারেজ",
-  "study.accuracy": "নির্ভুলতা"
+  "study.accuracy": "নির্ভুলতা",
+  "study.balanced": "সুষম অনুশীলন",
+  "study.balanced_sub": "৪টি বিভাগ থেকে সুষমভাবে",
+  "study.by_daimon": "প্রশ্নের ধরন অনুসারে"
 }

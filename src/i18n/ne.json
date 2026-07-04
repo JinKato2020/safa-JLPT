@@ -354,5 +354,8 @@
   "profile.bg_fuji": "विस्टेरिया",
   "profile.bg_akane": "साँझ",
   "study.coverage": "कभरेज",
-  "study.accuracy": "शुद्धता"
+  "study.accuracy": "शुद्धता",
+  "study.balanced": "सन्तुलित अभ्यास",
+  "study.balanced_sub": "चारै वर्गबाट सन्तुलित",
+  "study.by_daimon": "प्रश्न प्रकार अनुसार"
 }

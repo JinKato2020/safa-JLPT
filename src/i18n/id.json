@@ -354,5 +354,8 @@
   "profile.bg_fuji": "Wisteria",
   "profile.bg_akane": "Senja",
   "study.coverage": "Cakupan",
-  "study.accuracy": "Akurasi"
+  "study.accuracy": "Akurasi",
+  "study.balanced": "Latihan seimbang",
+  "study.balanced_sub": "Seimbang dari 4 kategori",
+  "study.by_daimon": "Belajar per tipe soal"
 }
