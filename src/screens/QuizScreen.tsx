@@ -8,7 +8,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { progressSnapshot } from '../store/selectors';
 import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
-import { itemsFor, allWordsFor } from '../data';
+import { itemsFor, allWordsFor, rubyNeeded } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
 import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, MOJI_DAIMON, BUNPOU_DAIMON, type LearnCard } from '../data/daimon';
 import type { StudyItem } from '../data';
@@ -16,14 +16,14 @@ import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 import RubyText from '../components/RubyText';
 
-// 学習カードの例文を表示。ふりがな「漢字（かな）」はルビ、対象部「【…】」は括弧を外して下線に統一。
-function LearnText({ text, style, hitStyle, rubyStyle }: { text: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle> }) {
+// 学習カードの例文を表示。ふりがな「漢字（かな）」はレベル適応ルビ、対象部「【…】」は括弧を外して下線に統一。
+function LearnText({ text, style, hitStyle, rubyStyle, rubyGate }: { text: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle>; rubyGate: (run: string) => boolean }) {
   const hasFuri = /（[^）]*）/.test(text);
   if (hasFuri) {
     const m = text.match(/【(.+?)】/);
     const target = m ? m[1] : '';
     const body = text.replace(/[【】]/g, ''); // 括弧を外し、中身は下線対象(target)として渡す
-    return <RubyText text={body} target={target} style={style} hitStyle={hitStyle} rubyStyle={rubyStyle} center />;
+    return <RubyText text={body} target={target} style={style} hitStyle={hitStyle} rubyStyle={rubyStyle} rubyGate={rubyGate} center />;
   }
   // ふりがな無し=従来Text。【…】は下線に。
   return <Text style={style}>{text.split(/【(.+?)】/).map((p, i) => (i % 2 === 1 ? <Text key={i} style={hitStyle}>{p}</Text> : p))}</Text>;
@@ -63,6 +63,8 @@ export default function QuizScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
+  // レベル適応ルビ: ユーザーのレベル以上(同レベル含む)の漢字群にだけ読みを振る。
+  const rubyGate = (run: string) => rubyNeeded(run, settings.level);
 
   // 誤答プール＆弱点ドリルの照合は全語(学習＋模試専用)。出題キュー(category)は学習のみ=poolFor。
   const pool = useMemo(() => [...allWordsFor(settings.level, 'moji_goi'), ...allWordsFor(settings.level, 'bunpou')], [settings.level]);
@@ -130,8 +132,8 @@ export default function QuizScreen() {
           <View style={s.promptCard}>
             <Text style={[s.prompt, lc && lc.title.length > 10 && s.promptLong]}>{lc?.title}</Text>
             {lc?.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
-            {lc?.body ? <LearnText text={lc.body} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} /> : null}
-            {lc?.note ? <LearnText text={lc.note} style={s.learnNote} hitStyle={s.learnHit} rubyStyle={s.learnRuby} /> : null}
+            {lc?.body ? <LearnText text={lc.body} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
+            {lc?.note ? <LearnText text={lc.note} style={s.learnNote} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
           </View>
           <AppButton label={last ? t('quiz.learn_start') : t('quiz.learn_next')} onPress={() => (last ? goTest() : setLearnIdx((i) => i + 1))} />
           <Pressable onPress={goTest} hitSlop={8}><Text style={s.learnSkip}>{t('quiz.learn_skip')}</Text></Pressable>

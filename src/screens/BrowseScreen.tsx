@@ -4,7 +4,7 @@ import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_CARD_READINGS, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_CARD_READINGS, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, rubyNeeded } from '../data';
 import type { KanjiCardReadingEntry } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
@@ -45,6 +45,8 @@ function cardReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
 export default function BrowseScreen() {
   const t = useT();
   const { settings, items } = useAppState();
+  // レベル適応ルビ: ユーザーのレベル以上(同レベル含む)の漢字群にだけ読みを振る。
+  const rubyGate = (run: string) => rubyNeeded(run, settings.level);
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
@@ -112,7 +114,7 @@ export default function BrowseScreen() {
       return (
         <>
           <View style={s.exampleRubyWrap}>
-            <RubyText text={ja} target={target} style={s.exampleRubyBase} hitStyle={s.exampleHit} rubyStyle={s.exampleRuby} />
+            <RubyText text={ja} target={target} style={s.exampleRubyBase} hitStyle={s.exampleHit} rubyStyle={s.exampleRuby} rubyGate={rubyGate} />
           </View>
           {en ? <Text style={s.exampleEn}>{en}</Text> : null}
         </>
@@ -160,7 +162,7 @@ export default function BrowseScreen() {
                     <View key={i} style={s.readPair}>
                       <Text style={s.readLabel}>{e.label}：</Text>
                       <View style={s.rubyWord}>
-                        <Text style={s.exampleRuby} numberOfLines={1}>{e.wordReading}</Text>
+                        <Text style={s.exampleRuby} numberOfLines={1}>{rubyGate(e.word) ? e.wordReading : ' '}</Text>
                         <Text style={s.readWord}>{e.word}</Text>
                       </View>
                     </View>

@@ -20,7 +20,7 @@ function parseCells(text: string): Cell[] {
 }
 
 export default function RubyText({
-  text, target, style, hitStyle, rubyStyle, center,
+  text, target, style, hitStyle, rubyStyle, center, rubyGate,
 }: {
   text: string;
   target?: string;
@@ -28,6 +28,7 @@ export default function RubyText({
   hitStyle?: StyleProp<TextStyle>; // 下線部のスタイル
   rubyStyle?: StyleProp<TextStyle>; // ルビ(小さいかな)のスタイル
   center?: boolean; // 各行を中央寄せ(学習カード等)
+  rubyGate?: (run: string) => boolean; // レベル適応: falseの漢字群はルビを出さず素の漢字にする
 }) {
   const cells = parseCells(text);
   const plain = cells.map((c) => c.base).join('');
@@ -41,12 +42,16 @@ export default function RubyText({
   }
   return (
     <View style={[styles.row, center && styles.center]}>
-      {cells.map((c, i) => (
-        <View key={i} style={styles.col}>
-          <Text style={[styles.ruby, rubyStyle]} numberOfLines={1}>{c.ruby ?? ' '}</Text>
-          <Text style={[style, c.hit ? hitStyle : undefined]}>{c.base}</Text>
-        </View>
-      ))}
+      {cells.map((c, i) => {
+        // レベル適応: rubyGate が false の漢字群はルビを出さず素の漢字にする。
+        const showRuby = c.ruby != null && (!rubyGate || rubyGate(c.base));
+        return (
+          <View key={i} style={styles.col}>
+            <Text style={[styles.ruby, rubyStyle]} numberOfLines={1}>{showRuby ? c.ruby : ' '}</Text>
+            <Text style={[style, c.hit ? hitStyle : undefined]}>{c.base}</Text>
+          </View>
+        );
+      })}
     </View>
   );
 }

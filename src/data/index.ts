@@ -62,6 +62,19 @@ export const KANJI = (kanji as KanjiItem[]).map((k) => {
 // 生の音訓(kanji.json由来。「-り」等の接尾特殊読みマーカーを保持)。表示整形前なので主要読み判定に使う。
 export const KANJI_RAW_READINGS: Record<string, { on: string; kun: string }> =
   Object.fromEntries((kanji as KanjiItem[]).map((k) => [k.char, { on: k.on ?? '', kun: k.kun ?? '' }]));
+
+// 漢字→JLPTレベル(kanji.json)。レベル適応ルビ(ユーザーのレベル以上の漢字にだけ読みを振る)の判定に使う。
+export const KANJI_LEVEL: Record<string, string> = Object.fromEntries((kanji as KanjiItem[]).map((k) => [k.char, k.level]));
+const LV_RANK: Record<string, number> = { N5: 0, N4: 1, N3: 2, N2: 3, N1: 4 };
+const CJK = /[㐀-鿿々〆〇ヶ]/;
+/** 漢字群 run に「ユーザーのレベル以上(=同レベル含む)の漢字」が含まれるか＝ルビを振るべきか。未収録漢字はN1相当(常にルビ)。 */
+export function rubyNeeded(run: string, userLevel: string): boolean {
+  const u = LV_RANK[userLevel] ?? 0;
+  for (const ch of run) {
+    if (CJK.test(ch) && (LV_RANK[KANJI_LEVEL[ch]] ?? 4) >= u) return true;
+  }
+  return false;
+}
 export const VOCAB = vocab as VocabItem[];
 export const GRAMMAR = grammar as GrammarItem[];
 export const META = metaJson as Meta;
