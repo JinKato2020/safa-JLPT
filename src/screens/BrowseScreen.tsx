@@ -4,8 +4,8 @@ import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE_MULTI, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
-import type { KanjiReadingExample, KanjiExampleMulti } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_LEVEL_READINGS, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
+import type { KanjiLevelReading } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { loadSharedDict, syncDictCache, type SharedDict } from '../../shared/JLPT-Listening/dict/dictRemote';
@@ -29,11 +29,21 @@ function haystack(it: StudyItem): string {
   return `${it.point} ${it.romaji} ${it.meaning} ${it.exampleJa} ${it.exampleEn}`.toLowerCase();
 }
 
-// 音/訓の例語を「読み：語（語の読み）」で頻度順に連結。語の読みが見出し読みと同じなら（…）を省略。
-function fmtReadEx(list: KanjiReadingExample[]): string {
-  return list
-    .map((e) => (e.wordReading && e.wordReading !== e.reading ? `${e.reading}：${e.word}（${e.wordReading}）` : `${e.reading}：${e.word}`))
-    .join('　');
+const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+
+// 級別漢字読み(KANJI_LEVEL_READINGS=読みとその読みで実際に読む例語の検証済みセット)を
+// 「音/訓」ごとに「読み：語（語の読み）」で連結。音読みはカタカナ表記。例が無い読みは読みのみ。
+function fmtLevelReadings(char: string): { on: string; kun: string } {
+  const entries: KanjiLevelReading[] = KANJI_LEVEL_READINGS[char] ?? [];
+  const one = (e: KanjiLevelReading): string => {
+    const disp = e.type === 'on' ? hiraToKata(e.reading) : e.reading;
+    const ex = e.examples?.[0];
+    if (!ex) return disp;
+    const [w, wr] = ex;
+    return wr && wr !== e.reading ? `${disp}：${w}（${wr}）` : `${disp}：${w}`;
+  };
+  const join = (type: 'on' | 'kun') => entries.filter((e) => e.type === type).map(one).join('　');
+  return { on: join('on'), kun: join('kun') };
 }
 
 export default function BrowseScreen() {
@@ -73,7 +83,6 @@ export default function BrowseScreen() {
     [kubun, sVocab, sKanji],
   );
   // 例文: 共有辞書があれば共有(語|読み / char)を、無ければ同梱を使う。
-  const kanjiExMap = (shared?.kanjiExamples as unknown as Record<string, KanjiExampleMulti>) ?? KANJI_EXAMPLE_MULTI;
   const vocabExOf = (it: StudyItem & { type: 'vocab' }) =>
     shared ? shared.examples[`${it.word}|${it.reading}`] : VOCAB_EXAMPLE[it.id];
   // この区分に存在するレベルだけをN5→N1順で(プルダウン用)。
@@ -146,12 +155,15 @@ export default function BrowseScreen() {
             <Text style={s.term}>{item.char}　<Text style={s.reading}>{item.kun ? t('browse.kanjiReading', { on: item.on, kun: item.kun }) : t('browse.kanjiReading_on', { on: item.on })}</Text></Text>
             <Text style={s.meaning}>{nm(item.char) ?? item.meaning}</Text>
             {nm(item.char) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
-            {kanjiExMap[item.char]?.on?.length ? (
-              <Text style={s.example}>音 {fmtReadEx(kanjiExMap[item.char].on!)}</Text>
-            ) : null}
-            {kanjiExMap[item.char]?.kun?.length ? (
-              <Text style={s.example}>訓 {fmtReadEx(kanjiExMap[item.char].kun!)}</Text>
-            ) : null}
+            {(() => {
+              const { on, kun } = fmtLevelReadings(item.char);
+              return (
+                <>
+                  {on ? <Text style={s.example}>音 {on}</Text> : null}
+                  {kun ? <Text style={s.example}>訓 {kun}</Text> : null}
+                </>
+              );
+            })()}
           </>
         ) : (
           <>
