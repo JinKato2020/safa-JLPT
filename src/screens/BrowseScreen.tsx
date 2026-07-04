@@ -4,7 +4,7 @@ import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE_MULTI, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_EXAMPLE_MULTI, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
 import type { KanjiReadingExample, KanjiExampleMulti } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
@@ -41,6 +41,9 @@ export default function BrowseScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
+  const l1 = settings.l1; // 母語コード
+  // 母語(l1)の意味。無ければ undefined(=英語表示)。
+  const nm = (key: string): string | undefined => (l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined);
 
   const [kubun, setKubun] = useState<Kubun>('vocab');
   const [level, setLevel] = useState<string>(settings.level); // 'all' または N5..N1
@@ -117,13 +120,20 @@ export default function BrowseScreen() {
         {item.type === 'vocab' ? (
           <>
             <Text style={s.term}>{item.word}　<Text style={s.reading}>{item.reading}</Text></Text>
-            <Text style={s.meaning}>{item.meaning}</Text>
-            {(() => { const ex = vocabExOf(item); return ex ? renderSentence(ex.ja, item.word, ex.en) : null; })()}
+            <Text style={s.meaning}>{nm(item.id) ?? item.meaning}</Text>
+            {nm(item.id) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
+            {(() => {
+              const ex = vocabExOf(item);
+              if (!ex) return null;
+              const nex = l1 && l1 !== 'en' ? exampleIn(item.id, l1) : undefined;
+              return (<>{renderSentence(ex.ja, item.word, ex.en)}{nex ? <Text style={s.exampleNe}>{nex}</Text> : null}</>);
+            })()}
           </>
         ) : item.type === 'kanji' ? (
           <>
             <Text style={s.term}>{item.char}　<Text style={s.reading}>{item.kun ? t('browse.kanjiReading', { on: item.on, kun: item.kun }) : t('browse.kanjiReading_on', { on: item.on })}</Text></Text>
-            <Text style={s.meaning}>{item.meaning}</Text>
+            <Text style={s.meaning}>{nm(item.char) ?? item.meaning}</Text>
+            {nm(item.char) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
             {kanjiExMap[item.char]?.on?.length ? (
               <Text style={s.example}>音 {fmtReadEx(kanjiExMap[item.char].on!)}</Text>
             ) : null}
@@ -240,9 +250,11 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   term: { fontSize: ty.h2, fontFamily: 'ShipporiMincho-Bold', color: c.ink, letterSpacing: 0.3 },
   reading: { fontSize: ty.small, fontWeight: '600', color: c.mute },
   meaning: { fontSize: ty.small, color: c.ink2 },
+  meaningEn: { fontSize: ty.tiny, color: c.faint, marginTop: 1 },
   example: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.xs },
   exampleHit: { color: c.ink, textDecorationLine: 'underline' },
   exampleEn: { fontSize: ty.tiny, color: c.faint, fontStyle: 'italic', marginTop: 2 },
+  exampleNe: { fontSize: ty.tiny, color: c.mute, marginTop: 1 },
   levelBadge: { fontSize: 10, fontWeight: '800', color: c.mute, alignSelf: 'flex-start' },
   status: { fontSize: ty.h2, fontWeight: '800', color: c.trace, width: 20, textAlign: 'center' },
   stLearned: { color: c.green },

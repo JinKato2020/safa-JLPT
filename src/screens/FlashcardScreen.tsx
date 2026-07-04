@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { itemsFor, KANJI_LEVEL_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn } from '../data';
+import { itemsFor, KANJI_LEVEL_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn } from '../data';
 import type { StudyItem } from '../data';
 import LearnTestSession from '../components/LearnTestSession';
 import HighlightedText from '../components/HighlightedText';
@@ -36,6 +36,7 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
   }
   if (item.type === 'vocab') {
     const ex = VOCAB_EXAMPLE[item.id];
+    const nex = l1 && l1 !== 'en' ? exampleIn(item.id, l1) : undefined; // 例文の母語訳
     return (
       <View style={s.card}>
         <Text style={s.word}>{item.word}</Text>
@@ -45,7 +46,7 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
         {ex ? (
           <>
             <HighlightedText text={VOCAB_FURIGANA[item.id] ?? ex.ja} target={item.word} style={s.ex} hitStyle={s.exHit} />
-            {ex.en ? <Text style={s.exEn}>{ex.en}</Text> : null}
+            {nex ? <Text style={s.exNe}>{nex}</Text> : ex.en ? <Text style={s.exEn}>{ex.en}</Text> : null}
           </>
         ) : null}
       </View>
@@ -81,4 +82,5 @@ const cardStyles = (c: ThemeColors) =>
     ex: { fontSize: ty.body, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 24 },
     exHit: { textDecorationLine: 'underline' },
     exEn: { fontSize: ty.tiny, color: c.faint, fontStyle: 'italic', textAlign: 'center' },
+    exNe: { fontSize: ty.small, color: c.mute, textAlign: 'center', marginTop: 2 },
   });

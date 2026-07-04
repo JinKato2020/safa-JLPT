@@ -7,6 +7,7 @@ import reading from './reading.json';
 import listening from './listening.json';
 import vocabExamplesAi from './vocabExamplesAi.json';
 import meaningL10n from './meaningL10n.json';
+import exampleL10n from './exampleL10n.json';
 import metaJson from './meta.json';
 import grammarClozeOkJson from './grammarClozeOk.json';
 import vocabClozeOkJson from './vocabClozeOk.json';
@@ -83,6 +84,10 @@ export const VOCAB_FREQ = vocabFreqJson as Record<string, number>;
 export const MEANING_L10N = meaningL10n as Record<string, Record<string, string>>;
 /** その項目の母語(lang)の意味。無ければ undefined。 */
 export const meaningIn = (key: string, lang: string): string | undefined => MEANING_L10N[key]?.[lang];
+// 例文の母語訳: 語彙id → { 言語: 訳文 }。辞書/フラッシュカードで例文を母語表示。
+export const EXAMPLE_L10N = exampleL10n as Record<string, Record<string, string>>;
+/** その語の例文の母語(lang)訳。無ければ undefined。 */
+export const exampleIn = (vid: string, lang: string): string | undefined => EXAMPLE_L10N[vid]?.[lang];
 
 // 語彙の短い例文＝本アプリのオリジナル文(全内容語ぶん・文脈規定contextBankの穴を正解で埋めた自然文)。
 // 旧・田中コーパス/Tatoeba由来の例文は同梱を廃止(第三者例文の全除去→謝辞をWaller+EDRDGの2件に集約)。
