@@ -4,8 +4,8 @@ import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_LEVEL_READINGS, KANJI_RAW_READINGS, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
-import type { KanjiLevelReading } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_CARD_READINGS, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
+import type { KanjiCardReadingEntry } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { loadSharedDict, syncDictCache, type SharedDict } from '../../shared/JLPT-Listening/dict/dictRemote';
@@ -31,57 +31,16 @@ function haystack(it: StudyItem): string {
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 
-// kanji.json の生読み(KANJIDIC由来。「-り」等の接尾特殊読みを含む)から「主要読み」集合を作る。
-// 「-」付き(一人/二人でのみ使う接尾・特殊読み)は除外。「あ.う」は送りがな前(あ)にする。
-const mainReadingSet = (field?: string): Set<string> => {
-  const set = new Set<string>();
-  for (let r of (field ?? '').split(/[、,･・]/)) {
-    r = r.trim();
-    if (!r || r.startsWith('-') || r.startsWith('－')) continue;
-    r = r.split('.')[0].split('．')[0].replace(/[-－]/g, '').trim();
-    if (r) set.add(r);
-  }
-  return set;
-};
-
-const VOICE: Record<string, string> = { か:'が',き:'ぎ',く:'ぐ',け:'げ',こ:'ご',さ:'ざ',し:'じ',す:'ず',せ:'ぜ',そ:'ぞ',た:'だ',ち:'ぢ',つ:'づ',て:'で',と:'ど',は:'ば',ひ:'び',ふ:'ぶ',へ:'べ',ほ:'ぼ' };
-const HANDAKU: Record<string, string> = { は:'ぱ',ひ:'ぴ',ふ:'ぷ',へ:'ぺ',ほ:'ぽ' };
-// 主要読み m の規則的な音変化(促音便・連濁・半濁音)を含む集合。神社(じゃ)/学校(がっ)/文法(ぽう)等の複合語読みを許容するため。
-function readingVariants(m: string): Set<string> {
-  const v = new Set([m]);
-  const last = m[m.length - 1];
-  if ('くきつち'.includes(last)) v.add(m.slice(0, -1) + 'っ'); // 促音便
-  const f = m[0], rest = m.slice(1);
-  if (VOICE[f]) v.add(VOICE[f] + rest); // 連濁
-  if (HANDAKU[f]) v.add(HANDAKU[f] + rest); // 半濁音
-  return v;
-}
-
-// 級別漢字読み(KANJI_LEVEL_READINGS)を「音/訓」ごとに「読み：語（語の読み）」で連結。音読みはカタカナ表記。
-// kanji.jsonの主要読み(+規則的音変化)に一致する読みだけ表示し、人=り・日=か 等の機械分解された特殊読みを排除。
-// 音/訓の振り分けも主要読み一致で決める(級データの型ラベル誤りを自動補正)。
-function fmtLevelReadings(char: string): { on: string; kun: string } {
-  const entries: KanjiLevelReading[] = KANJI_LEVEL_READINGS[char] ?? [];
-  const raw = KANJI_RAW_READINGS[char];
-  const onSet = new Set<string>(); for (const m of mainReadingSet(raw?.on)) for (const v of readingVariants(m)) onSet.add(v);
-  const kunSet = new Set<string>(); for (const m of mainReadingSet(raw?.kun)) for (const v of readingVariants(m)) kunSet.add(v);
-  const one = (e: KanjiLevelReading, isOn: boolean): string => {
+// 漢字カードの音訓＋例語(KANJI_CARD_READINGS=本アプリ作成・KANJIDIC範囲内で検証済み)を
+// 「音/訓」ごとに「読み：語（語の読み）」で連結。音読みはカタカナ表記。読みと例語は必ず正しいセット。
+function fmtCardReadings(char: string): { on: string; kun: string } {
+  const d = KANJI_CARD_READINGS[char];
+  if (!d) return { on: '', kun: '' };
+  const one = (e: KanjiCardReadingEntry, isOn: boolean): string => {
     const disp = isOn ? hiraToKata(e.reading) : e.reading;
-    const ex = e.examples?.[0];
-    if (!ex) return disp;
-    const [w, wr] = ex;
-    return wr && wr !== e.reading ? `${disp}：${w}（${wr}）` : `${disp}：${w}`;
+    return e.wordReading && e.wordReading !== e.reading ? `${disp}：${e.word}（${e.wordReading}）` : `${disp}：${e.word}`;
   };
-  const on: string[] = []; const kun: string[] = [];
-  const noMain = onSet.size === 0 && kunSet.size === 0;
-  for (const e of entries) {
-    const inOn = onSet.has(e.reading), inKun = kunSet.has(e.reading);
-    if (noMain) { (e.type === 'on' ? on : kun).push(one(e, e.type === 'on')); continue; }
-    if (!inOn && !inKun) continue; // 主要読みに無い＝特殊読み(人=り 等)は除外
-    const isOn = inOn && (!inKun || e.type === 'on');
-    (isOn ? on : kun).push(one(e, isOn));
-  }
-  return { on: on.join('　'), kun: kun.join('　') };
+  return { on: d.on.map((e) => one(e, true)).join('　'), kun: d.kun.map((e) => one(e, false)).join('　') };
 }
 
 export default function BrowseScreen() {
@@ -194,7 +153,7 @@ export default function BrowseScreen() {
             <Text style={s.meaning}>{nm(item.char) ?? item.meaning}</Text>
             {nm(item.char) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
             {(() => {
-              const { on, kun } = fmtLevelReadings(item.char);
+              const { on, kun } = fmtCardReadings(item.char);
               return (
                 <>
                   {on ? <Text style={s.example}>音 {on}</Text> : null}

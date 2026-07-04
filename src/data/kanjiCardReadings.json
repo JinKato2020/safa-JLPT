@@ -1,0 +1,9452 @@
+{
+ "科": {
+  "on": [
+   {
+    "reading": "カ",
+    "word": "科学",
+    "wordReading": "かがく"
+   }
+  ],
+  "kun": []
+ },
+ "約": {
+  "on": [
+   {
+    "reading": "ヤク",
+    "word": "約束",
+    "wordReading": "やくそく"
+   }
+  ],
+  "kun": []
+ },
+ "美": {
+  "on": [
+   {
+    "reading": "ビ",
+    "word": "美人",
+    "wordReading": "びじん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うつく",
+    "word": "美しい",
+    "wordReading": "うつくしい"
+   }
+  ]
+ },
+ "背": {
+  "on": [
+   {
+    "reading": "ハイ",
+    "word": "背後",
+    "wordReading": "はいご"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "せ",
+    "word": "背中",
+    "wordReading": "せなか"
+   },
+   {
+    "reading": "そむ",
+    "word": "背く",
+    "wordReading": "そむく"
+   }
+  ]
+ },
+ "草": {
+  "on": [
+   {
+    "reading": "ソウ",
+    "word": "草原",
+    "wordReading": "そうげん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くさ",
+    "word": "草",
+    "wordReading": "くさ"
+   }
+  ]
+ },
+ "要": {
+  "on": [
+   {
+    "reading": "ヨウ",
+    "word": "必要",
+    "wordReading": "ひつよう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "い",
+    "word": "要る",
+    "wordReading": "いる"
+   }
+  ]
+ },
+ "負": {
+  "on": [
+   {
+    "reading": "フ",
+    "word": "負担",
+    "wordReading": "ふたん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ま",
+    "word": "負ける",
+    "wordReading": "まける"
+   },
+   {
+    "reading": "お",
+    "word": "負う",
+    "wordReading": "おう"
+   }
+  ]
+ },
+ "迷": {
+  "on": [
+   {
+    "reading": "メイ",
+    "word": "迷惑",
+    "wordReading": "めいわく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まよ",
+    "word": "迷う",
+    "wordReading": "まよう"
+   }
+  ]
+ },
+ "追": {
+  "on": [
+   {
+    "reading": "ツイ",
+    "word": "追加",
+    "wordReading": "ついか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "お",
+    "word": "追う",
+    "wordReading": "おう"
+   }
+  ]
+ },
+ "退": {
+  "on": [
+   {
+    "reading": "タイ",
+    "word": "退院",
+    "wordReading": "たいいん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "しりぞ",
+    "word": "退く",
+    "wordReading": "しりぞく"
+   }
+  ]
+ },
+ "逃": {
+  "on": [
+   {
+    "reading": "トウ",
+    "word": "逃走",
+    "wordReading": "とうそう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "に",
+    "word": "逃げる",
+    "wordReading": "にげる"
+   }
+  ]
+ },
+ "限": {
+  "on": [
+   {
+    "reading": "ゲン",
+    "word": "制限",
+    "wordReading": "せいげん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かぎ",
+    "word": "限る",
+    "wordReading": "かぎる"
+   }
+  ]
+ },
+ "面": {
+  "on": [
+   {
+    "reading": "メン",
+    "word": "面接",
+    "wordReading": "めんせつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おもて",
+    "word": "面",
+    "wordReading": "おもて"
+   }
+  ]
+ },
+ "飛": {
+  "on": [
+   {
+    "reading": "ヒ",
+    "word": "飛行機",
+    "wordReading": "ひこうき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "と",
+    "word": "飛ぶ",
+    "wordReading": "とぶ"
+   }
+  ]
+ },
+ "首": {
+  "on": [
+   {
+    "reading": "シュ",
+    "word": "首都",
+    "wordReading": "しゅと"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くび",
+    "word": "首",
+    "wordReading": "くび"
+   }
+  ]
+ },
+ "倒": {
+  "on": [
+   {
+    "reading": "トウ",
+    "word": "倒産",
+    "wordReading": "とうさん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たお",
+    "word": "倒れる",
+    "wordReading": "たおれる"
+   }
+  ]
+ },
+ "候": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "気候",
+    "wordReading": "きこう"
+   }
+  ],
+  "kun": []
+ },
+ "値": {
+  "on": [
+   {
+    "reading": "チ",
+    "word": "価値",
+    "wordReading": "かち"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ね",
+    "word": "値段",
+    "wordReading": "ねだん"
+   }
+  ]
+ },
+ "原": {
+  "on": [
+   {
+    "reading": "ゲン",
+    "word": "原因",
+    "wordReading": "げんいん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はら",
+    "word": "野原",
+    "wordReading": "のはら"
+   }
+  ]
+ },
+ "娘": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "むすめ",
+    "word": "娘",
+    "wordReading": "むすめ"
+   }
+  ]
+ },
+ "害": {
+  "on": [
+   {
+    "reading": "ガイ",
+    "word": "被害",
+    "wordReading": "ひがい"
+   }
+  ],
+  "kun": []
+ },
+ "容": {
+  "on": [
+   {
+    "reading": "ヨウ",
+    "word": "内容",
+    "wordReading": "ないよう"
+   }
+  ],
+  "kun": []
+ },
+ "差": {
+  "on": [
+   {
+    "reading": "サ",
+    "word": "差別",
+    "wordReading": "さべつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さ",
+    "word": "差す",
+    "wordReading": "さす"
+   }
+  ]
+ },
+ "師": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "教師",
+    "wordReading": "きょうし"
+   }
+  ],
+  "kun": []
+ },
+ "席": {
+  "on": [
+   {
+    "reading": "セキ",
+    "word": "出席",
+    "wordReading": "しゅっせき"
+   }
+  ],
+  "kun": []
+ },
+ "座": {
+  "on": [
+   {
+    "reading": "ザ",
+    "word": "座席",
+    "wordReading": "ざせき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "すわ",
+    "word": "座る",
+    "wordReading": "すわる"
+   }
+  ]
+ },
+ "庭": {
+  "on": [
+   {
+    "reading": "テイ",
+    "word": "家庭",
+    "wordReading": "かてい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "にわ",
+    "word": "庭",
+    "wordReading": "にわ"
+   }
+  ]
+ },
+ "徒": {
+  "on": [
+   {
+    "reading": "ト",
+    "word": "生徒",
+    "wordReading": "せいと"
+   }
+  ],
+  "kun": []
+ },
+ "恐": {
+  "on": [
+   {
+    "reading": "キョウ",
+    "word": "恐怖",
+    "wordReading": "きょうふ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おそ",
+    "word": "恐ろしい",
+    "wordReading": "おそろしい"
+   },
+   {
+    "reading": "こわ",
+    "word": "恐い",
+    "wordReading": "こわい"
+   }
+  ]
+ },
+ "恥": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "はじ",
+    "word": "恥",
+    "wordReading": "はじ"
+   },
+   {
+    "reading": "は",
+    "word": "恥ずかしい",
+    "wordReading": "はずかしい"
+   }
+  ]
+ },
+ "息": {
+  "on": [
+   {
+    "reading": "ソク",
+    "word": "休息",
+    "wordReading": "きゅうそく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いき",
+    "word": "息",
+    "wordReading": "いき"
+   }
+  ]
+ },
+ "捕": {
+  "on": [
+   {
+    "reading": "ホ",
+    "word": "逮捕",
+    "wordReading": "たいほ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つか",
+    "word": "捕まえる",
+    "wordReading": "つかまえる"
+   }
+  ]
+ },
+ "格": {
+  "on": [
+   {
+    "reading": "カク",
+    "word": "合格",
+    "wordReading": "ごうかく"
+   }
+  ],
+  "kun": []
+ },
+ "残": {
+  "on": [
+   {
+    "reading": "ザン",
+    "word": "残念",
+    "wordReading": "ざんねん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "のこ",
+    "word": "残る",
+    "wordReading": "のこる"
+   }
+  ]
+ },
+ "殺": {
+  "on": [
+   {
+    "reading": "サツ",
+    "word": "殺人",
+    "wordReading": "さつじん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ころ",
+    "word": "殺す",
+    "wordReading": "ころす"
+   }
+  ]
+ },
+ "流": {
+  "on": [
+   {
+    "reading": "リュウ",
+    "word": "流行",
+    "wordReading": "りゅうこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なが",
+    "word": "流れる",
+    "wordReading": "ながれる"
+   }
+  ]
+ },
+ "浮": {
+  "on": [
+   {
+    "reading": "フ",
+    "word": "浮力",
+    "wordReading": "ふりょく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "う",
+    "word": "浮く",
+    "wordReading": "うく"
+   }
+  ]
+ },
+ "消": {
+  "on": [
+   {
+    "reading": "ショウ",
+    "word": "消費",
+    "wordReading": "しょうひ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "け",
+    "word": "消す",
+    "wordReading": "けす"
+   },
+   {
+    "reading": "き",
+    "word": "消える",
+    "wordReading": "きえる"
+   }
+  ]
+ },
+ "留": {
+  "on": [
+   {
+    "reading": "リュウ",
+    "word": "留学",
+    "wordReading": "りゅうがく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "と",
+    "word": "留める",
+    "wordReading": "とめる"
+   }
+  ]
+ },
+ "疲": {
+  "on": [
+   {
+    "reading": "ヒ",
+    "word": "疲労",
+    "wordReading": "ひろう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つか",
+    "word": "疲れる",
+    "wordReading": "つかれる"
+   }
+  ]
+ },
+ "眠": {
+  "on": [
+   {
+    "reading": "ミン",
+    "word": "睡眠",
+    "wordReading": "すいみん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ねむ",
+    "word": "眠る",
+    "wordReading": "ねむる"
+   }
+  ]
+ },
+ "破": {
+  "on": [
+   {
+    "reading": "ハ",
+    "word": "破壊",
+    "wordReading": "はかい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やぶ",
+    "word": "破る",
+    "wordReading": "やぶる"
+   }
+  ]
+ },
+ "笑": {
+  "on": [
+   {
+    "reading": "ショウ",
+    "word": "微笑",
+    "wordReading": "びしょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "わら",
+    "word": "笑う",
+    "wordReading": "わらう"
+   }
+  ]
+ },
+ "能": {
+  "on": [
+   {
+    "reading": "ノウ",
+    "word": "能力",
+    "wordReading": "のうりょく"
+   }
+  ],
+  "kun": []
+ },
+ "記": {
+  "on": [
+   {
+    "reading": "キ",
+    "word": "記録",
+    "wordReading": "きろく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "しる",
+    "word": "記す",
+    "wordReading": "しるす"
+   }
+  ]
+ },
+ "私": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "私立",
+    "wordReading": "しりつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "わたし",
+    "word": "私",
+    "wordReading": "わたし"
+   }
+  ]
+ },
+ "究": {
+  "on": [
+   {
+    "reading": "キュウ",
+    "word": "研究",
+    "wordReading": "けんきゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "きわ",
+    "word": "究める",
+    "wordReading": "きわめる"
+   }
+  ]
+ },
+ "花": {
+  "on": [
+   {
+    "reading": "カ",
+    "word": "花瓶",
+    "wordReading": "かびん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はな",
+    "word": "花",
+    "wordReading": "はな"
+   }
+  ]
+ },
+ "言": {
+  "on": [
+   {
+    "reading": "ゲン",
+    "word": "言語",
+    "wordReading": "げんご"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "い",
+    "word": "言う",
+    "wordReading": "いう"
+   },
+   {
+    "reading": "こと",
+    "word": "言葉",
+    "wordReading": "ことば"
+   }
+  ]
+ },
+ "赤": {
+  "on": [
+   {
+    "reading": "セキ",
+    "word": "赤道",
+    "wordReading": "せきどう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あか",
+    "word": "赤い",
+    "wordReading": "あかい"
+   }
+  ]
+ },
+ "走": {
+  "on": [
+   {
+    "reading": "ソウ",
+    "word": "競走",
+    "wordReading": "きょうそう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はし",
+    "word": "走る",
+    "wordReading": "はしる"
+   }
+  ]
+ },
+ "足": {
+  "on": [
+   {
+    "reading": "ソク",
+    "word": "遠足",
+    "wordReading": "えんそく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あし",
+    "word": "足",
+    "wordReading": "あし"
+   },
+   {
+    "reading": "た",
+    "word": "足りる",
+    "wordReading": "たりる"
+   }
+  ]
+ },
+ "近": {
+  "on": [
+   {
+    "reading": "キン",
+    "word": "最近",
+    "wordReading": "さいきん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ちか",
+    "word": "近い",
+    "wordReading": "ちかい"
+   }
+  ]
+ },
+ "事": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "食事",
+    "wordReading": "しょくじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "こと",
+    "word": "事",
+    "wordReading": "こと"
+   }
+  ]
+ },
+ "京": {
+  "on": [
+   {
+    "reading": "キョウ",
+    "word": "東京",
+    "wordReading": "とうきょう"
+   }
+  ],
+  "kun": []
+ },
+ "使": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "使用",
+    "wordReading": "しよう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つか",
+    "word": "使う",
+    "wordReading": "つかう"
+   }
+  ]
+ },
+ "味": {
+  "on": [
+   {
+    "reading": "ミ",
+    "word": "意味",
+    "wordReading": "いみ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あじ",
+    "word": "味",
+    "wordReading": "あじ"
+   }
+  ]
+ },
+ "夜": {
+  "on": [
+   {
+    "reading": "ヤ",
+    "word": "今夜",
+    "wordReading": "こんや"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "よる",
+    "word": "夜",
+    "wordReading": "よる"
+   }
+  ]
+ },
+ "妹": {
+  "on": [
+   {
+    "reading": "マイ",
+    "word": "姉妹",
+    "wordReading": "しまい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いもうと",
+    "word": "妹",
+    "wordReading": "いもうと"
+   }
+  ]
+ },
+ "姉": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "姉妹",
+    "wordReading": "しまい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あね",
+    "word": "姉",
+    "wordReading": "あね"
+   }
+  ]
+ },
+ "始": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "開始",
+    "wordReading": "かいし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はじ",
+    "word": "始める",
+    "wordReading": "はじめる"
+   }
+  ]
+ },
+ "店": {
+  "on": [
+   {
+    "reading": "テン",
+    "word": "店員",
+    "wordReading": "てんいん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みせ",
+    "word": "店",
+    "wordReading": "みせ"
+   }
+  ]
+ },
+ "明": {
+  "on": [
+   {
+    "reading": "メイ",
+    "word": "説明",
+    "wordReading": "せつめい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あか",
+    "word": "明るい",
+    "wordReading": "あかるい"
+   },
+   {
+    "reading": "あ",
+    "word": "明ける",
+    "wordReading": "あける"
+   }
+  ]
+ },
+ "服": {
+  "on": [
+   {
+    "reading": "フク",
+    "word": "洋服",
+    "wordReading": "ようふく"
+   }
+  ],
+  "kun": []
+ },
+ "歩": {
+  "on": [
+   {
+    "reading": "ホ",
+    "word": "歩道",
+    "wordReading": "ほどう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ある",
+    "word": "歩く",
+    "wordReading": "あるく"
+   }
+  ]
+ },
+ "注": {
+  "on": [
+   {
+    "reading": "チュウ",
+    "word": "注意",
+    "wordReading": "ちゅうい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "そそ",
+    "word": "注ぐ",
+    "wordReading": "そそぐ"
+   }
+  ]
+ },
+ "物": {
+  "on": [
+   {
+    "reading": "ブツ",
+    "word": "動物",
+    "wordReading": "どうぶつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "もの",
+    "word": "買い物",
+    "wordReading": "かいもの"
+   }
+  ]
+ },
+ "画": {
+  "on": [
+   {
+    "reading": "ガ",
+    "word": "映画",
+    "wordReading": "えいが"
+   },
+   {
+    "reading": "カク",
+    "word": "計画",
+    "wordReading": "けいかく"
+   }
+  ],
+  "kun": []
+ },
+ "知": {
+  "on": [
+   {
+    "reading": "チ",
+    "word": "知識",
+    "wordReading": "ちしき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "し",
+    "word": "知る",
+    "wordReading": "しる"
+   }
+  ]
+ },
+ "空": {
+  "on": [
+   {
+    "reading": "クウ",
+    "word": "空気",
+    "wordReading": "くうき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "そら",
+    "word": "空",
+    "wordReading": "そら"
+   },
+   {
+    "reading": "あ",
+    "word": "空く",
+    "wordReading": "あく"
+   }
+  ]
+ },
+ "者": {
+  "on": [
+   {
+    "reading": "シャ",
+    "word": "医者",
+    "wordReading": "いしゃ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "もの",
+    "word": "若者",
+    "wordReading": "わかもの"
+   }
+  ]
+ },
+ "英": {
+  "on": [
+   {
+    "reading": "エイ",
+    "word": "英語",
+    "wordReading": "えいご"
+   }
+  ],
+  "kun": []
+ },
+ "青": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "青年",
+    "wordReading": "せいねん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あお",
+    "word": "青い",
+    "wordReading": "あおい"
+   }
+  ]
+ },
+ "品": {
+  "on": [
+   {
+    "reading": "ヒン",
+    "word": "食品",
+    "wordReading": "しょくひん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "しな",
+    "word": "品物",
+    "wordReading": "しなもの"
+   }
+  ]
+ },
+ "室": {
+  "on": [
+   {
+    "reading": "シツ",
+    "word": "教室",
+    "wordReading": "きょうしつ"
+   }
+  ],
+  "kun": []
+ },
+ "屋": {
+  "on": [
+   {
+    "reading": "オク",
+    "word": "屋上",
+    "wordReading": "おくじょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "や",
+    "word": "本屋",
+    "wordReading": "ほんや"
+   }
+  ]
+ },
+ "度": {
+  "on": [
+   {
+    "reading": "ド",
+    "word": "今度",
+    "wordReading": "こんど"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たび",
+    "word": "度々",
+    "wordReading": "たびたび"
+   }
+  ]
+ },
+ "建": {
+  "on": [
+   {
+    "reading": "ケン",
+    "word": "建設",
+    "wordReading": "けんせつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "た",
+    "word": "建てる",
+    "wordReading": "たてる"
+   }
+  ]
+ },
+ "待": {
+  "on": [
+   {
+    "reading": "タイ",
+    "word": "期待",
+    "wordReading": "きたい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ま",
+    "word": "待つ",
+    "wordReading": "まつ"
+   }
+  ]
+ },
+ "思": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "不思議",
+    "wordReading": "ふしぎ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おも",
+    "word": "思う",
+    "wordReading": "おもう"
+   }
+  ]
+ },
+ "急": {
+  "on": [
+   {
+    "reading": "キュウ",
+    "word": "急行",
+    "wordReading": "きゅうこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いそ",
+    "word": "急ぐ",
+    "wordReading": "いそぐ"
+   }
+  ]
+ },
+ "持": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "持参",
+    "wordReading": "じさん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "も",
+    "word": "持つ",
+    "wordReading": "もつ"
+   }
+  ]
+ },
+ "映": {
+  "on": [
+   {
+    "reading": "エイ",
+    "word": "映画",
+    "wordReading": "えいが"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うつ",
+    "word": "映る",
+    "wordReading": "うつる"
+   }
+  ]
+ },
+ "春": {
+  "on": [
+   {
+    "reading": "シュン",
+    "word": "青春",
+    "wordReading": "せいしゅん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はる",
+    "word": "春",
+    "wordReading": "はる"
+   }
+  ]
+ },
+ "昼": {
+  "on": [
+   {
+    "reading": "チュウ",
+    "word": "昼食",
+    "wordReading": "ちゅうしょく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひる",
+    "word": "昼",
+    "wordReading": "ひる"
+   }
+  ]
+ },
+ "洋": {
+  "on": [
+   {
+    "reading": "ヨウ",
+    "word": "洋服",
+    "wordReading": "ようふく"
+   }
+  ],
+  "kun": []
+ },
+ "海": {
+  "on": [
+   {
+    "reading": "カイ",
+    "word": "海外",
+    "wordReading": "かいがい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うみ",
+    "word": "海",
+    "wordReading": "うみ"
+   }
+  ]
+ },
+ "界": {
+  "on": [
+   {
+    "reading": "カイ",
+    "word": "世界",
+    "wordReading": "せかい"
+   }
+  ],
+  "kun": []
+ },
+ "発": {
+  "on": [
+   {
+    "reading": "ハツ",
+    "word": "出発",
+    "wordReading": "しゅっぱつ"
+   }
+  ],
+  "kun": []
+ },
+ "研": {
+  "on": [
+   {
+    "reading": "ケン",
+    "word": "研究",
+    "wordReading": "けんきゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "と",
+    "word": "研ぐ",
+    "wordReading": "とぐ"
+   }
+  ]
+ },
+ "道": {
+  "on": [
+   {
+    "reading": "どう",
+    "word": "道路",
+    "wordReading": "どうろ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みち",
+    "word": "道",
+    "wordReading": "みち"
+   }
+  ]
+ },
+ "開": {
+  "on": [
+   {
+    "reading": "かい",
+    "word": "開始",
+    "wordReading": "かいし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひら",
+    "word": "開く",
+    "wordReading": "ひらく"
+   },
+   {
+    "reading": "あ",
+    "word": "開ける",
+    "wordReading": "あける"
+   }
+  ]
+ },
+ "集": {
+  "on": [
+   {
+    "reading": "しゅう",
+    "word": "集合",
+    "wordReading": "しゅうごう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あつ",
+    "word": "集める",
+    "wordReading": "あつめる"
+   }
+  ]
+ },
+ "飯": {
+  "on": [
+   {
+    "reading": "はん",
+    "word": "ご飯",
+    "wordReading": "ごはん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "めし",
+    "word": "飯",
+    "wordReading": "めし"
+   }
+  ]
+ },
+ "飲": {
+  "on": [
+   {
+    "reading": "いん",
+    "word": "飲食",
+    "wordReading": "いんしょく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "の",
+    "word": "飲む",
+    "wordReading": "のむ"
+   }
+  ]
+ },
+ "意": {
+  "on": [
+   {
+    "reading": "い",
+    "word": "意味",
+    "wordReading": "いみ"
+   }
+  ],
+  "kun": []
+ },
+ "新": {
+  "on": [
+   {
+    "reading": "しん",
+    "word": "新聞",
+    "wordReading": "しんぶん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あたら",
+    "word": "新しい",
+    "wordReading": "あたらしい"
+   },
+   {
+    "reading": "あら",
+    "word": "新た",
+    "wordReading": "あらた"
+   }
+  ]
+ },
+ "業": {
+  "on": [
+   {
+    "reading": "ぎょう",
+    "word": "授業",
+    "wordReading": "じゅぎょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "わざ",
+    "word": "神業",
+    "wordReading": "かみわざ"
+   }
+  ]
+ },
+ "楽": {
+  "on": [
+   {
+    "reading": "がく",
+    "word": "音楽",
+    "wordReading": "おんがく"
+   },
+   {
+    "reading": "らく",
+    "word": "楽",
+    "wordReading": "らく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たの",
+    "word": "楽しい",
+    "wordReading": "たのしい"
+   }
+  ]
+ },
+ "漢": {
+  "on": [
+   {
+    "reading": "かん",
+    "word": "漢字",
+    "wordReading": "かんじ"
+   }
+  ],
+  "kun": []
+ },
+ "試": {
+  "on": [
+   {
+    "reading": "し",
+    "word": "試験",
+    "wordReading": "しけん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ため",
+    "word": "試す",
+    "wordReading": "ためす"
+   }
+  ]
+ },
+ "歌": {
+  "on": [
+   {
+    "reading": "か",
+    "word": "歌手",
+    "wordReading": "かしゅ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うた",
+    "word": "歌",
+    "wordReading": "うた"
+   }
+  ]
+ },
+ "銀": {
+  "on": [
+   {
+    "reading": "ぎん",
+    "word": "銀行",
+    "wordReading": "ぎんこう"
+   }
+  ],
+  "kun": []
+ },
+ "駅": {
+  "on": [
+   {
+    "reading": "えき",
+    "word": "駅",
+    "wordReading": "えき"
+   }
+  ],
+  "kun": []
+ },
+ "質": {
+  "on": [
+   {
+    "reading": "しつ",
+    "word": "質問",
+    "wordReading": "しつもん"
+   }
+  ],
+  "kun": []
+ },
+ "親": {
+  "on": [
+   {
+    "reading": "しん",
+    "word": "親切",
+    "wordReading": "しんせつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おや",
+    "word": "親",
+    "wordReading": "おや"
+   },
+   {
+    "reading": "した",
+    "word": "親しい",
+    "wordReading": "したしい"
+   }
+  ]
+ },
+ "館": {
+  "on": [
+   {
+    "reading": "かん",
+    "word": "図書館",
+    "wordReading": "としょかん"
+   }
+  ],
+  "kun": []
+ },
+ "曜": {
+  "on": [
+   {
+    "reading": "よう",
+    "word": "曜日",
+    "wordReading": "ようび"
+   }
+  ],
+  "kun": []
+ },
+ "題": {
+  "on": [
+   {
+    "reading": "だい",
+    "word": "問題",
+    "wordReading": "もんだい"
+   }
+  ],
+  "kun": []
+ },
+ "験": {
+  "on": [
+   {
+    "reading": "けん",
+    "word": "試験",
+    "wordReading": "しけん"
+   }
+  ],
+  "kun": []
+ },
+ "与": {
+  "on": [
+   {
+    "reading": "よ",
+    "word": "与党",
+    "wordReading": "よとう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あた",
+    "word": "与える",
+    "wordReading": "あたえる"
+   }
+  ]
+ },
+ "亡": {
+  "on": [
+   {
+    "reading": "ぼう",
+    "word": "死亡",
+    "wordReading": "しぼう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "な",
+    "word": "亡くなる",
+    "wordReading": "なくなる"
+   }
+  ]
+ },
+ "才": {
+  "on": [
+   {
+    "reading": "さい",
+    "word": "才能",
+    "wordReading": "さいのう"
+   }
+  ],
+  "kun": []
+ },
+ "予": {
+  "on": [
+   {
+    "reading": "よ",
+    "word": "予定",
+    "wordReading": "よてい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あらかじ",
+    "word": "予め",
+    "wordReading": "あらかじめ"
+   }
+  ]
+ },
+ "互": {
+  "on": [
+   {
+    "reading": "ご",
+    "word": "相互",
+    "wordReading": "そうご"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たが",
+    "word": "お互い",
+    "wordReading": "おたがい"
+   }
+  ]
+ },
+ "内": {
+  "on": [
+   {
+    "reading": "ない",
+    "word": "内容",
+    "wordReading": "ないよう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うち",
+    "word": "内",
+    "wordReading": "うち"
+   }
+  ]
+ },
+ "化": {
+  "on": [
+   {
+    "reading": "か",
+    "word": "文化",
+    "wordReading": "ぶんか"
+   },
+   {
+    "reading": "け",
+    "word": "化粧",
+    "wordReading": "けしょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ば",
+    "word": "化ける",
+    "wordReading": "ばける"
+   }
+  ]
+ },
+ "反": {
+  "on": [
+   {
+    "reading": "はん",
+    "word": "反対",
+    "wordReading": "はんたい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "そ",
+    "word": "反る",
+    "wordReading": "そる"
+   }
+  ]
+ },
+ "収": {
+  "on": [
+   {
+    "reading": "しゅう",
+    "word": "収入",
+    "wordReading": "しゅうにゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おさ",
+    "word": "収める",
+    "wordReading": "おさめる"
+   }
+  ]
+ },
+ "太": {
+  "on": [
+   {
+    "reading": "たい",
+    "word": "太陽",
+    "wordReading": "たいよう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ふと",
+    "word": "太い",
+    "wordReading": "ふとい"
+   }
+  ]
+ },
+ "夫": {
+  "on": [
+   {
+    "reading": "ふう",
+    "word": "夫婦",
+    "wordReading": "ふうふ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おっと",
+    "word": "夫",
+    "wordReading": "おっと"
+   }
+  ]
+ },
+ "引": {
+  "on": [
+   {
+    "reading": "いん",
+    "word": "引退",
+    "wordReading": "いんたい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひ",
+    "word": "引く",
+    "wordReading": "ひく"
+   }
+  ]
+ },
+ "支": {
+  "on": [
+   {
+    "reading": "し",
+    "word": "支店",
+    "wordReading": "してん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ささ",
+    "word": "支える",
+    "wordReading": "ささえる"
+   }
+  ]
+ },
+ "欠": {
+  "on": [
+   {
+    "reading": "けつ",
+    "word": "欠席",
+    "wordReading": "けっせき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "か",
+    "word": "欠ける",
+    "wordReading": "かける"
+   }
+  ]
+ },
+ "王": {
+  "on": [
+   {
+    "reading": "おう",
+    "word": "王様",
+    "wordReading": "おうさま"
+   }
+  ],
+  "kun": []
+ },
+ "他": {
+  "on": [
+   {
+    "reading": "た",
+    "word": "他人",
+    "wordReading": "たにん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ほか",
+    "word": "他",
+    "wordReading": "ほか"
+   }
+  ]
+ },
+ "付": {
+  "on": [
+   {
+    "reading": "ふ",
+    "word": "付近",
+    "wordReading": "ふきん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つ",
+    "word": "付ける",
+    "wordReading": "つける"
+   }
+  ]
+ },
+ "処": {
+  "on": [
+   {
+    "reading": "しょ",
+    "word": "処理",
+    "wordReading": "しょり"
+   }
+  ],
+  "kun": []
+ },
+ "加": {
+  "on": [
+   {
+    "reading": "か",
+    "word": "参加",
+    "wordReading": "さんか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くわ",
+    "word": "加える",
+    "wordReading": "くわえる"
+   }
+  ]
+ },
+ "号": {
+  "on": [
+   {
+    "reading": "ごう",
+    "word": "番号",
+    "wordReading": "ばんごう"
+   }
+  ],
+  "kun": []
+ },
+ "失": {
+  "on": [
+   {
+    "reading": "しつ",
+    "word": "失敗",
+    "wordReading": "しっぱい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うしな",
+    "word": "失う",
+    "wordReading": "うしなう"
+   }
+  ]
+ },
+ "市": {
+  "on": [
+   {
+    "reading": "し",
+    "word": "都市",
+    "wordReading": "とし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いち",
+    "word": "市場",
+    "wordReading": "いちば"
+   }
+  ]
+ },
+ "平": {
+  "on": [
+   {
+    "reading": "へい",
+    "word": "平和",
+    "wordReading": "へいわ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たい",
+    "word": "平ら",
+    "wordReading": "たいら"
+   }
+  ]
+ },
+ "必": {
+  "on": [
+   {
+    "reading": "ひつ",
+    "word": "必要",
+    "wordReading": "ひつよう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かなら",
+    "word": "必ず",
+    "wordReading": "かならず"
+   }
+  ]
+ },
+ "打": {
+  "on": [
+   {
+    "reading": "だ",
+    "word": "打撃",
+    "wordReading": "だげき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "う",
+    "word": "打つ",
+    "wordReading": "うつ"
+   }
+  ]
+ },
+ "休": {
+  "on": [
+   {
+    "reading": "キュウ",
+    "word": "休日",
+    "wordReading": "きゅうじつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やす",
+    "word": "休む",
+    "wordReading": "やすむ"
+   }
+  ]
+ },
+ "先": {
+  "on": [
+   {
+    "reading": "セン",
+    "word": "先生",
+    "wordReading": "せんせい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さき",
+    "word": "先",
+    "wordReading": "さき"
+   }
+  ]
+ },
+ "名": {
+  "on": [
+   {
+    "reading": "メイ",
+    "word": "有名",
+    "wordReading": "ゆうめい"
+   },
+   {
+    "reading": "ミョウ",
+    "word": "名字",
+    "wordReading": "みょうじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "な",
+    "word": "名前",
+    "wordReading": "なまえ"
+   }
+  ]
+ },
+ "年": {
+  "on": [
+   {
+    "reading": "ネン",
+    "word": "来年",
+    "wordReading": "らいねん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "とし",
+    "word": "年",
+    "wordReading": "とし"
+   }
+  ]
+ },
+ "毎": {
+  "on": [
+   {
+    "reading": "マイ",
+    "word": "毎日",
+    "wordReading": "まいにち"
+   }
+  ],
+  "kun": []
+ },
+ "気": {
+  "on": [
+   {
+    "reading": "キ",
+    "word": "天気",
+    "wordReading": "てんき"
+   }
+  ],
+  "kun": []
+ },
+ "百": {
+  "on": [
+   {
+    "reading": "ヒャク",
+    "word": "百円",
+    "wordReading": "ひゃくえん"
+   }
+  ],
+  "kun": []
+ },
+ "行": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "旅行",
+    "wordReading": "りょこう"
+   },
+   {
+    "reading": "ギョウ",
+    "word": "行事",
+    "wordReading": "ぎょうじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "い",
+    "word": "行く",
+    "wordReading": "いく"
+   },
+   {
+    "reading": "おこな",
+    "word": "行う",
+    "wordReading": "おこなう"
+   }
+  ]
+ },
+ "西": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "西洋",
+    "wordReading": "せいよう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "にし",
+    "word": "西",
+    "wordReading": "にし"
+   }
+  ]
+ },
+ "何": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "なに",
+    "word": "何",
+    "wordReading": "なに"
+   },
+   {
+    "reading": "なん",
+    "word": "何時",
+    "wordReading": "なんじ"
+   }
+  ]
+ },
+ "来": {
+  "on": [
+   {
+    "reading": "ライ",
+    "word": "来年",
+    "wordReading": "らいねん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "く",
+    "word": "来る",
+    "wordReading": "くる"
+   }
+  ]
+ },
+ "男": {
+  "on": [
+   {
+    "reading": "ダン",
+    "word": "男子",
+    "wordReading": "だんし"
+   },
+   {
+    "reading": "ナン",
+    "word": "長男",
+    "wordReading": "ちょうなん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おとこ",
+    "word": "男",
+    "wordReading": "おとこ"
+   }
+  ]
+ },
+ "見": {
+  "on": [
+   {
+    "reading": "ケン",
+    "word": "意見",
+    "wordReading": "いけん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "み",
+    "word": "見る",
+    "wordReading": "みる"
+   }
+  ]
+ },
+ "車": {
+  "on": [
+   {
+    "reading": "シャ",
+    "word": "電車",
+    "wordReading": "でんしゃ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くるま",
+    "word": "車",
+    "wordReading": "くるま"
+   }
+  ]
+ },
+ "国": {
+  "on": [
+   {
+    "reading": "コク",
+    "word": "外国",
+    "wordReading": "がいこく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くに",
+    "word": "国",
+    "wordReading": "くに"
+   }
+  ]
+ },
+ "学": {
+  "on": [
+   {
+    "reading": "ガク",
+    "word": "学校",
+    "wordReading": "がっこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まな",
+    "word": "学ぶ",
+    "wordReading": "まなぶ"
+   }
+  ]
+ },
+ "東": {
+  "on": [
+   {
+    "reading": "トウ",
+    "word": "東京",
+    "wordReading": "とうきょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひがし",
+    "word": "東",
+    "wordReading": "ひがし"
+   }
+  ]
+ },
+ "金": {
+  "on": [
+   {
+    "reading": "キン",
+    "word": "金曜日",
+    "wordReading": "きんようび"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かね",
+    "word": "お金",
+    "wordReading": "おかね"
+   }
+  ]
+ },
+ "長": {
+  "on": [
+   {
+    "reading": "チョウ",
+    "word": "社長",
+    "wordReading": "しゃちょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なが",
+    "word": "長い",
+    "wordReading": "ながい"
+   }
+  ]
+ },
+ "雨": {
+  "on": [
+   {
+    "reading": "ウ",
+    "word": "雨天",
+    "wordReading": "うてん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あめ",
+    "word": "雨",
+    "wordReading": "あめ"
+   }
+  ]
+ },
+ "前": {
+  "on": [
+   {
+    "reading": "ゼン",
+    "word": "午前",
+    "wordReading": "ごぜん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まえ",
+    "word": "前",
+    "wordReading": "まえ"
+   }
+  ]
+ },
+ "南": {
+  "on": [
+   {
+    "reading": "ナン",
+    "word": "南北",
+    "wordReading": "なんぼく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みなみ",
+    "word": "南",
+    "wordReading": "みなみ"
+   }
+  ]
+ },
+ "後": {
+  "on": [
+   {
+    "reading": "ゴ",
+    "word": "午後",
+    "wordReading": "ごご"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あと",
+    "word": "後",
+    "wordReading": "あと"
+   },
+   {
+    "reading": "うし",
+    "word": "後ろ",
+    "wordReading": "うしろ"
+   }
+  ]
+ },
+ "食": {
+  "on": [
+   {
+    "reading": "ショク",
+    "word": "食事",
+    "wordReading": "しょくじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "た",
+    "word": "食べる",
+    "wordReading": "たべる"
+   }
+  ]
+ },
+ "時": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "時間",
+    "wordReading": "じかん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "とき",
+    "word": "時",
+    "wordReading": "とき"
+   }
+  ]
+ },
+ "書": {
+  "on": [
+   {
+    "reading": "ショ",
+    "word": "図書館",
+    "wordReading": "としょかん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "か",
+    "word": "書く",
+    "wordReading": "かく"
+   }
+  ]
+ },
+ "校": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "学校",
+    "wordReading": "がっこう"
+   }
+  ],
+  "kun": []
+ },
+ "高": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "高校",
+    "wordReading": "こうこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たか",
+    "word": "高い",
+    "wordReading": "たかい"
+   }
+  ]
+ },
+ "間": {
+  "on": [
+   {
+    "reading": "カン",
+    "word": "時間",
+    "wordReading": "じかん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あいだ",
+    "word": "間",
+    "wordReading": "あいだ"
+   }
+  ]
+ },
+ "話": {
+  "on": [
+   {
+    "reading": "ワ",
+    "word": "会話",
+    "wordReading": "かいわ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はな",
+    "word": "話す",
+    "wordReading": "はなす"
+   },
+   {
+    "reading": "はなし",
+    "word": "話",
+    "wordReading": "はなし"
+   }
+  ]
+ },
+ "電": {
+  "on": [
+   {
+    "reading": "デン",
+    "word": "電気",
+    "wordReading": "でんき"
+   }
+  ],
+  "kun": []
+ },
+ "聞": {
+  "on": [
+   {
+    "reading": "ブン",
+    "word": "新聞",
+    "wordReading": "しんぶん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "き",
+    "word": "聞く",
+    "wordReading": "きく"
+   }
+  ]
+ },
+ "語": {
+  "on": [
+   {
+    "reading": "ゴ",
+    "word": "日本語",
+    "wordReading": "にほんご"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かた",
+    "word": "語る",
+    "wordReading": "かたる"
+   }
+  ]
+ },
+ "読": {
+  "on": [
+   {
+    "reading": "ドク",
+    "word": "読書",
+    "wordReading": "どくしょ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "よ",
+    "word": "読む",
+    "wordReading": "よむ"
+   }
+  ]
+ },
+ "力": {
+  "on": [
+   {
+    "reading": "リョク",
+    "word": "体力",
+    "wordReading": "たいりょく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ちから",
+    "word": "力",
+    "wordReading": "ちから"
+   }
+  ]
+ },
+ "口": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "人口",
+    "wordReading": "じんこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くち",
+    "word": "口",
+    "wordReading": "くち"
+   }
+  ]
+ },
+ "夕": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "ゆう",
+    "word": "夕方",
+    "wordReading": "ゆうがた"
+   }
+  ]
+ },
+ "工": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "工場",
+    "wordReading": "こうじょう"
+   },
+   {
+    "reading": "ク",
+    "word": "工夫",
+    "wordReading": "くふう"
+   }
+  ],
+  "kun": []
+ },
+ "不": {
+  "on": [
+   {
+    "reading": "フ",
+    "word": "不便",
+    "wordReading": "ふべん"
+   }
+  ],
+  "kun": []
+ },
+ "元": {
+  "on": [
+   {
+    "reading": "ゲン",
+    "word": "元気",
+    "wordReading": "げんき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "もと",
+    "word": "元",
+    "wordReading": "もと"
+   }
+  ]
+ },
+ "公": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "公園",
+    "wordReading": "こうえん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おおやけ",
+    "word": "公",
+    "wordReading": "おおやけ"
+   }
+  ]
+ },
+ "切": {
+  "on": [
+   {
+    "reading": "セツ",
+    "word": "大切",
+    "wordReading": "たいせつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "き",
+    "word": "切る",
+    "wordReading": "きる"
+   }
+  ]
+ },
+ "少": {
+  "on": [
+   {
+    "reading": "ショウ",
+    "word": "少年",
+    "wordReading": "しょうねん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "すく",
+    "word": "少ない",
+    "wordReading": "すくない"
+   },
+   {
+    "reading": "すこ",
+    "word": "少し",
+    "wordReading": "すこし"
+   }
+  ]
+ },
+ "心": {
+  "on": [
+   {
+    "reading": "シン",
+    "word": "心配",
+    "wordReading": "しんぱい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "こころ",
+    "word": "心",
+    "wordReading": "こころ"
+   }
+  ]
+ },
+ "手": {
+  "on": [
+   {
+    "reading": "シュ",
+    "word": "選手",
+    "wordReading": "せんしゅ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "て",
+    "word": "手",
+    "wordReading": "て"
+   }
+  ]
+ },
+ "秋": {
+  "on": [
+   {
+    "reading": "しゅう",
+    "word": "立秋",
+    "wordReading": "りっしゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あき",
+    "word": "秋",
+    "wordReading": "あき"
+   }
+  ]
+ },
+ "茶": {
+  "on": [
+   {
+    "reading": "ちゃ",
+    "word": "お茶",
+    "wordReading": "おちゃ"
+   },
+   {
+    "reading": "さ",
+    "word": "喫茶店",
+    "wordReading": "きっさてん"
+   }
+  ],
+  "kun": []
+ },
+ "計": {
+  "on": [
+   {
+    "reading": "けい",
+    "word": "計画",
+    "wordReading": "けいかく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はか",
+    "word": "計る",
+    "wordReading": "はかる"
+   }
+  ]
+ },
+ "送": {
+  "on": [
+   {
+    "reading": "そう",
+    "word": "放送",
+    "wordReading": "ほうそう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おく",
+    "word": "送る",
+    "wordReading": "おくる"
+   }
+  ]
+ },
+ "重": {
+  "on": [
+   {
+    "reading": "じゅう",
+    "word": "重要",
+    "wordReading": "じゅうよう"
+   },
+   {
+    "reading": "ちょう",
+    "word": "貴重",
+    "wordReading": "きちょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おも",
+    "word": "重い",
+    "wordReading": "おもい"
+   },
+   {
+    "reading": "かさ",
+    "word": "重ねる",
+    "wordReading": "かさねる"
+   }
+  ]
+ },
+ "音": {
+  "on": [
+   {
+    "reading": "おん",
+    "word": "音楽",
+    "wordReading": "おんがく"
+   },
+   {
+    "reading": "いん",
+    "word": "母音",
+    "wordReading": "ぼいん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おと",
+    "word": "音",
+    "wordReading": "おと"
+   },
+   {
+    "reading": "ね",
+    "word": "音色",
+    "wordReading": "ねいろ"
+   }
+  ]
+ },
+ "風": {
+  "on": [
+   {
+    "reading": "ふう",
+    "word": "台風",
+    "wordReading": "たいふう"
+   },
+   {
+    "reading": "ふ",
+    "word": "風呂",
+    "wordReading": "ふろ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かぜ",
+    "word": "風",
+    "wordReading": "かぜ"
+   }
+  ]
+ },
+ "借": {
+  "on": [
+   {
+    "reading": "しゃく",
+    "word": "借金",
+    "wordReading": "しゃっきん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "か",
+    "word": "借りる",
+    "wordReading": "かりる"
+   }
+  ]
+ },
+ "勉": {
+  "on": [
+   {
+    "reading": "べん",
+    "word": "勉強",
+    "wordReading": "べんきょう"
+   }
+  ],
+  "kun": []
+ },
+ "員": {
+  "on": [
+   {
+    "reading": "いん",
+    "word": "店員",
+    "wordReading": "てんいん"
+   }
+  ],
+  "kun": []
+ },
+ "夏": {
+  "on": [
+   {
+    "reading": "か",
+    "word": "初夏",
+    "wordReading": "しょか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なつ",
+    "word": "夏",
+    "wordReading": "なつ"
+   }
+  ]
+ },
+ "家": {
+  "on": [
+   {
+    "reading": "か",
+    "word": "家族",
+    "wordReading": "かぞく"
+   },
+   {
+    "reading": "け",
+    "word": "家来",
+    "wordReading": "けらい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いえ",
+    "word": "家",
+    "wordReading": "いえ"
+   },
+   {
+    "reading": "や",
+    "word": "家賃",
+    "wordReading": "やちん"
+   }
+  ]
+ },
+ "帰": {
+  "on": [
+   {
+    "reading": "き",
+    "word": "帰国",
+    "wordReading": "きこく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かえ",
+    "word": "帰る",
+    "wordReading": "かえる"
+   }
+  ]
+ },
+ "料": {
+  "on": [
+   {
+    "reading": "りょう",
+    "word": "料理",
+    "wordReading": "りょうり"
+   }
+  ],
+  "kun": []
+ },
+ "旅": {
+  "on": [
+   {
+    "reading": "りょ",
+    "word": "旅行",
+    "wordReading": "りょこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たび",
+    "word": "旅",
+    "wordReading": "たび"
+   }
+  ]
+ },
+ "特": {
+  "on": [
+   {
+    "reading": "とく",
+    "word": "特別",
+    "wordReading": "とくべつ"
+   }
+  ],
+  "kun": []
+ },
+ "病": {
+  "on": [
+   {
+    "reading": "びょう",
+    "word": "病気",
+    "wordReading": "びょうき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やまい",
+    "word": "病",
+    "wordReading": "やまい"
+   }
+  ]
+ },
+ "真": {
+  "on": [
+   {
+    "reading": "しん",
+    "word": "写真",
+    "wordReading": "しゃしん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ま",
+    "word": "真ん中",
+    "wordReading": "まんなか"
+   }
+  ]
+ },
+ "紙": {
+  "on": [
+   {
+    "reading": "し",
+    "word": "用紙",
+    "wordReading": "ようし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かみ",
+    "word": "紙",
+    "wordReading": "かみ"
+   }
+  ]
+ },
+ "起": {
+  "on": [
+   {
+    "reading": "き",
+    "word": "起立",
+    "wordReading": "きりつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "お",
+    "word": "起きる",
+    "wordReading": "おきる"
+   }
+  ]
+ },
+ "通": {
+  "on": [
+   {
+    "reading": "つう",
+    "word": "交通",
+    "wordReading": "こうつう"
+   },
+   {
+    "reading": "つ",
+    "word": "通夜",
+    "wordReading": "つや"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "とお",
+    "word": "通る",
+    "wordReading": "とおる"
+   },
+   {
+    "reading": "かよ",
+    "word": "通う",
+    "wordReading": "かよう"
+   }
+  ]
+ },
+ "院": {
+  "on": [
+   {
+    "reading": "いん",
+    "word": "病院",
+    "wordReading": "びょういん"
+   }
+  ],
+  "kun": []
+ },
+ "動": {
+  "on": [
+   {
+    "reading": "どう",
+    "word": "運動",
+    "wordReading": "うんどう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うご",
+    "word": "動く",
+    "wordReading": "うごく"
+   }
+  ]
+ },
+ "問": {
+  "on": [
+   {
+    "reading": "もん",
+    "word": "問題",
+    "wordReading": "もんだい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "と",
+    "word": "問う",
+    "wordReading": "とう"
+   }
+  ]
+ },
+ "堂": {
+  "on": [
+   {
+    "reading": "どう",
+    "word": "食堂",
+    "wordReading": "しょくどう"
+   }
+  ],
+  "kun": []
+ },
+ "強": {
+  "on": [
+   {
+    "reading": "きょう",
+    "word": "勉強",
+    "wordReading": "べんきょう"
+   },
+   {
+    "reading": "ごう",
+    "word": "強引",
+    "wordReading": "ごういん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つよ",
+    "word": "強い",
+    "wordReading": "つよい"
+   }
+  ]
+ },
+ "悪": {
+  "on": [
+   {
+    "reading": "あく",
+    "word": "悪人",
+    "wordReading": "あくにん"
+   },
+   {
+    "reading": "お",
+    "word": "悪寒",
+    "wordReading": "おかん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "わる",
+    "word": "悪い",
+    "wordReading": "わるい"
+   }
+  ]
+ },
+ "教": {
+  "on": [
+   {
+    "reading": "きょう",
+    "word": "教室",
+    "wordReading": "きょうしつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おし",
+    "word": "教える",
+    "wordReading": "おしえる"
+   },
+   {
+    "reading": "おそ",
+    "word": "教わる",
+    "wordReading": "おそわる"
+   }
+  ]
+ },
+ "族": {
+  "on": [
+   {
+    "reading": "ぞく",
+    "word": "家族",
+    "wordReading": "かぞく"
+   }
+  ],
+  "kun": []
+ },
+ "理": {
+  "on": [
+   {
+    "reading": "り",
+    "word": "理由",
+    "wordReading": "りゆう"
+   }
+  ],
+  "kun": []
+ },
+ "終": {
+  "on": [
+   {
+    "reading": "しゅう",
+    "word": "終了",
+    "wordReading": "しゅうりょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "お",
+    "word": "終わる",
+    "wordReading": "おわる"
+   }
+  ]
+ },
+ "習": {
+  "on": [
+   {
+    "reading": "しゅう",
+    "word": "練習",
+    "wordReading": "れんしゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なら",
+    "word": "習う",
+    "wordReading": "ならう"
+   }
+  ]
+ },
+ "転": {
+  "on": [
+   {
+    "reading": "てん",
+    "word": "運転",
+    "wordReading": "うんてん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ころ",
+    "word": "転ぶ",
+    "wordReading": "ころぶ"
+   }
+  ]
+ },
+ "週": {
+  "on": [
+   {
+    "reading": "しゅう",
+    "word": "今週",
+    "wordReading": "こんしゅう"
+   }
+  ],
+  "kun": []
+ },
+ "野": {
+  "on": [
+   {
+    "reading": "や",
+    "word": "野球",
+    "wordReading": "やきゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "の",
+    "word": "野原",
+    "wordReading": "のはら"
+   }
+  ]
+ },
+ "魚": {
+  "on": [
+   {
+    "reading": "ぎょ",
+    "word": "金魚",
+    "wordReading": "きんぎょ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さかな",
+    "word": "魚",
+    "wordReading": "さかな"
+   }
+  ]
+ },
+ "鳥": {
+  "on": [
+   {
+    "reading": "ちょう",
+    "word": "白鳥",
+    "wordReading": "はくちょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "とり",
+    "word": "鳥",
+    "wordReading": "とり"
+   }
+  ]
+ },
+ "黒": {
+  "on": [
+   {
+    "reading": "こく",
+    "word": "黒板",
+    "wordReading": "こくばん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くろ",
+    "word": "黒",
+    "wordReading": "くろ"
+   }
+  ]
+ },
+ "場": {
+  "on": [
+   {
+    "reading": "じょう",
+    "word": "会場",
+    "wordReading": "かいじょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ば",
+    "word": "場所",
+    "wordReading": "ばしょ"
+   }
+  ]
+ },
+ "朝": {
+  "on": [
+   {
+    "reading": "ちょう",
+    "word": "朝食",
+    "wordReading": "ちょうしょく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あさ",
+    "word": "朝",
+    "wordReading": "あさ"
+   }
+  ]
+ },
+ "着": {
+  "on": [
+   {
+    "reading": "ちゃく",
+    "word": "到着",
+    "wordReading": "とうちゃく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "き",
+    "word": "着る",
+    "wordReading": "きる"
+   },
+   {
+    "reading": "つ",
+    "word": "着く",
+    "wordReading": "つく"
+   }
+  ]
+ },
+ "答": {
+  "on": [
+   {
+    "reading": "とう",
+    "word": "回答",
+    "wordReading": "かいとう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "こた",
+    "word": "答える",
+    "wordReading": "こたえる"
+   }
+  ]
+ },
+ "買": {
+  "on": [
+   {
+    "reading": "ばい",
+    "word": "売買",
+    "wordReading": "ばいばい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "か",
+    "word": "買う",
+    "wordReading": "かう"
+   }
+  ]
+ },
+ "貸": {
+  "on": [
+   {
+    "reading": "たい",
+    "word": "賃貸",
+    "wordReading": "ちんたい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "か",
+    "word": "貸す",
+    "wordReading": "かす"
+   }
+  ]
+ },
+ "運": {
+  "on": [
+   {
+    "reading": "うん",
+    "word": "運動",
+    "wordReading": "うんどう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はこ",
+    "word": "運ぶ",
+    "wordReading": "はこぶ"
+   }
+  ]
+ },
+ "文": {
+  "on": [
+   {
+    "reading": "ブン",
+    "word": "作文",
+    "wordReading": "さくぶん"
+   },
+   {
+    "reading": "モン",
+    "word": "注文",
+    "wordReading": "ちゅうもん"
+   }
+  ],
+  "kun": []
+ },
+ "方": {
+  "on": [
+   {
+    "reading": "ホウ",
+    "word": "方法",
+    "wordReading": "ほうほう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かた",
+    "word": "見方",
+    "wordReading": "みかた"
+   }
+  ]
+ },
+ "止": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "中止",
+    "wordReading": "ちゅうし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "と",
+    "word": "止まる",
+    "wordReading": "とまる"
+   }
+  ]
+ },
+ "牛": {
+  "on": [
+   {
+    "reading": "ギュウ",
+    "word": "牛乳",
+    "wordReading": "ぎゅうにゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うし",
+    "word": "牛",
+    "wordReading": "うし"
+   }
+  ]
+ },
+ "犬": {
+  "on": [
+   {
+    "reading": "ケン",
+    "word": "番犬",
+    "wordReading": "ばんけん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いぬ",
+    "word": "犬",
+    "wordReading": "いぬ"
+   }
+  ]
+ },
+ "世": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "世紀",
+    "wordReading": "せいき"
+   },
+   {
+    "reading": "セ",
+    "word": "世話",
+    "wordReading": "せわ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "よ",
+    "word": "世の中",
+    "wordReading": "よのなか"
+   }
+  ]
+ },
+ "主": {
+  "on": [
+   {
+    "reading": "シュ",
+    "word": "主人",
+    "wordReading": "しゅじん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おも",
+    "word": "主に",
+    "wordReading": "おもに"
+   }
+  ]
+ },
+ "仕": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "仕事",
+    "wordReading": "しごと"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つか",
+    "word": "仕える",
+    "wordReading": "つかえる"
+   }
+  ]
+ },
+ "代": {
+  "on": [
+   {
+    "reading": "ダイ",
+    "word": "時代",
+    "wordReading": "じだい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "か",
+    "word": "代わる",
+    "wordReading": "かわる"
+   }
+  ]
+ },
+ "以": {
+  "on": [
+   {
+    "reading": "イ",
+    "word": "以上",
+    "wordReading": "いじょう"
+   }
+  ],
+  "kun": []
+ },
+ "兄": {
+  "on": [
+   {
+    "reading": "キョウ",
+    "word": "兄弟",
+    "wordReading": "きょうだい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あに",
+    "word": "兄",
+    "wordReading": "あに"
+   }
+  ]
+ },
+ "写": {
+  "on": [
+   {
+    "reading": "シャ",
+    "word": "写真",
+    "wordReading": "しゃしん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うつ",
+    "word": "写す",
+    "wordReading": "うつす"
+   }
+  ]
+ },
+ "冬": {
+  "on": [
+   {
+    "reading": "トウ",
+    "word": "冬眠",
+    "wordReading": "とうみん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ふゆ",
+    "word": "冬",
+    "wordReading": "ふゆ"
+   }
+  ]
+ },
+ "去": {
+  "on": [
+   {
+    "reading": "キョ",
+    "word": "去年",
+    "wordReading": "きょねん"
+   },
+   {
+    "reading": "コ",
+    "word": "過去",
+    "wordReading": "かこ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さ",
+    "word": "去る",
+    "wordReading": "さる"
+   }
+  ]
+ },
+ "古": {
+  "on": [
+   {
+    "reading": "コ",
+    "word": "中古",
+    "wordReading": "ちゅうこ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ふる",
+    "word": "古い",
+    "wordReading": "ふるい"
+   }
+  ]
+ },
+ "台": {
+  "on": [
+   {
+    "reading": "ダイ",
+    "word": "台所",
+    "wordReading": "だいどころ"
+   },
+   {
+    "reading": "タイ",
+    "word": "台風",
+    "wordReading": "たいふう"
+   }
+  ],
+  "kun": []
+ },
+ "広": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "広告",
+    "wordReading": "こうこく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひろ",
+    "word": "広い",
+    "wordReading": "ひろい"
+   }
+  ]
+ },
+ "正": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "正解",
+    "wordReading": "せいかい"
+   },
+   {
+    "reading": "ショウ",
+    "word": "正月",
+    "wordReading": "しょうがつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ただ",
+    "word": "正しい",
+    "wordReading": "ただしい"
+   }
+  ]
+ },
+ "用": {
+  "on": [
+   {
+    "reading": "ヨウ",
+    "word": "用事",
+    "wordReading": "ようじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "もち",
+    "word": "用いる",
+    "wordReading": "もちいる"
+   }
+  ]
+ },
+ "田": {
+  "on": [
+   {
+    "reading": "デン",
+    "word": "水田",
+    "wordReading": "すいでん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "た",
+    "word": "田んぼ",
+    "wordReading": "たんぼ"
+   }
+  ]
+ },
+ "目": {
+  "on": [
+   {
+    "reading": "モク",
+    "word": "目的",
+    "wordReading": "もくてき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "め",
+    "word": "目",
+    "wordReading": "め"
+   }
+  ]
+ },
+ "立": {
+  "on": [
+   {
+    "reading": "リツ",
+    "word": "国立",
+    "wordReading": "こくりつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "た",
+    "word": "立つ",
+    "wordReading": "たつ"
+   }
+  ]
+ },
+ "会": {
+  "on": [
+   {
+    "reading": "カイ",
+    "word": "会社",
+    "wordReading": "かいしゃ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あ",
+    "word": "会う",
+    "wordReading": "あう"
+   }
+  ]
+ },
+ "同": {
+  "on": [
+   {
+    "reading": "ドウ",
+    "word": "同時",
+    "wordReading": "どうじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おな",
+    "word": "同じ",
+    "wordReading": "おなじ"
+   }
+  ]
+ },
+ "地": {
+  "on": [
+   {
+    "reading": "チ",
+    "word": "地図",
+    "wordReading": "ちず"
+   },
+   {
+    "reading": "ジ",
+    "word": "地震",
+    "wordReading": "じしん"
+   }
+  ],
+  "kun": []
+ },
+ "多": {
+  "on": [
+   {
+    "reading": "タ",
+    "word": "多分",
+    "wordReading": "たぶん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おお",
+    "word": "多い",
+    "wordReading": "おおい"
+   }
+  ]
+ },
+ "字": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "漢字",
+    "wordReading": "かんじ"
+   }
+  ],
+  "kun": []
+ },
+ "安": {
+  "on": [
+   {
+    "reading": "アン",
+    "word": "安心",
+    "wordReading": "あんしん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やす",
+    "word": "安い",
+    "wordReading": "やすい"
+   }
+  ]
+ },
+ "早": {
+  "on": [
+   {
+    "reading": "ソウ",
+    "word": "早朝",
+    "wordReading": "そうちょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はや",
+    "word": "早い",
+    "wordReading": "はやい"
+   }
+  ]
+ },
+ "有": {
+  "on": [
+   {
+    "reading": "ユウ",
+    "word": "有名",
+    "wordReading": "ゆうめい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あ",
+    "word": "有る",
+    "wordReading": "ある"
+   }
+  ]
+ },
+ "死": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "死亡",
+    "wordReading": "しぼう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "し",
+    "word": "死ぬ",
+    "wordReading": "しぬ"
+   }
+  ]
+ },
+ "考": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "参考",
+    "wordReading": "さんこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かんが",
+    "word": "考える",
+    "wordReading": "かんがえる"
+   }
+  ]
+ },
+ "肉": {
+  "on": [
+   {
+    "reading": "ニク",
+    "word": "牛肉",
+    "wordReading": "ぎゅうにく"
+   }
+  ],
+  "kun": []
+ },
+ "自": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "自分",
+    "wordReading": "じぶん"
+   },
+   {
+    "reading": "シ",
+    "word": "自然",
+    "wordReading": "しぜん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みずか",
+    "word": "自ら",
+    "wordReading": "みずから"
+   }
+  ]
+ },
+ "色": {
+  "on": [
+   {
+    "reading": "ショク",
+    "word": "特色",
+    "wordReading": "とくしょく"
+   },
+   {
+    "reading": "シキ",
+    "word": "景色",
+    "wordReading": "けしき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いろ",
+    "word": "色",
+    "wordReading": "いろ"
+   }
+  ]
+ },
+ "住": {
+  "on": [
+   {
+    "reading": "ジュウ",
+    "word": "住所",
+    "wordReading": "じゅうしょ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "す",
+    "word": "住む",
+    "wordReading": "すむ"
+   }
+  ]
+ },
+ "体": {
+  "on": [
+   {
+    "reading": "タイ",
+    "word": "体育",
+    "wordReading": "たいいく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "からだ",
+    "word": "体",
+    "wordReading": "からだ"
+   }
+  ]
+ },
+ "作": {
+  "on": [
+   {
+    "reading": "サク",
+    "word": "作品",
+    "wordReading": "さくひん"
+   },
+   {
+    "reading": "サ",
+    "word": "作業",
+    "wordReading": "さぎょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つく",
+    "word": "作る",
+    "wordReading": "つくる"
+   }
+  ]
+ },
+ "別": {
+  "on": [
+   {
+    "reading": "ベツ",
+    "word": "特別",
+    "wordReading": "とくべつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "わか",
+    "word": "別れる",
+    "wordReading": "わかれる"
+   }
+  ]
+ },
+ "医": {
+  "on": [
+   {
+    "reading": "イ",
+    "word": "医者",
+    "wordReading": "いしゃ"
+   }
+  ],
+  "kun": []
+ },
+ "図": {
+  "on": [
+   {
+    "reading": "ズ",
+    "word": "地図",
+    "wordReading": "ちず"
+   },
+   {
+    "reading": "ト",
+    "word": "図書館",
+    "wordReading": "としょかん"
+   }
+  ],
+  "kun": []
+ },
+ "売": {
+  "on": [
+   {
+    "reading": "バイ",
+    "word": "売店",
+    "wordReading": "ばいてん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "う",
+    "word": "売る",
+    "wordReading": "うる"
+   }
+  ]
+ },
+ "弟": {
+  "on": [
+   {
+    "reading": "ダイ",
+    "word": "兄弟",
+    "wordReading": "きょうだい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おとうと",
+    "word": "弟",
+    "wordReading": "おとうと"
+   }
+  ]
+ },
+ "町": {
+  "on": [
+   {
+    "reading": "チョウ",
+    "word": "町内",
+    "wordReading": "ちょうない"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まち",
+    "word": "町",
+    "wordReading": "まち"
+   }
+  ]
+ },
+ "社": {
+  "on": [
+   {
+    "reading": "シャ",
+    "word": "会社",
+    "wordReading": "かいしゃ"
+   }
+  ],
+  "kun": []
+ },
+ "初": {
+  "on": [
+   {
+    "reading": "しょ",
+    "word": "最初",
+    "wordReading": "さいしょ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はじ",
+    "word": "初めて",
+    "wordReading": "はじめて"
+   },
+   {
+    "reading": "はつ",
+    "word": "初雪",
+    "wordReading": "はつゆき"
+   }
+  ]
+ },
+ "判": {
+  "on": [
+   {
+    "reading": "はん",
+    "word": "判断",
+    "wordReading": "はんだん"
+   },
+   {
+    "reading": "ばん",
+    "word": "裁判",
+    "wordReading": "さいばん"
+   }
+  ],
+  "kun": []
+ },
+ "利": {
+  "on": [
+   {
+    "reading": "り",
+    "word": "便利",
+    "wordReading": "べんり"
+   }
+  ],
+  "kun": []
+ },
+ "助": {
+  "on": [
+   {
+    "reading": "じょ",
+    "word": "援助",
+    "wordReading": "えんじょ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たす",
+    "word": "助ける",
+    "wordReading": "たすける"
+   }
+  ]
+ },
+ "努": {
+  "on": [
+   {
+    "reading": "ど",
+    "word": "努力",
+    "wordReading": "どりょく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つと",
+    "word": "努める",
+    "wordReading": "つとめる"
+   }
+  ]
+ },
+ "労": {
+  "on": [
+   {
+    "reading": "ろう",
+    "word": "労働",
+    "wordReading": "ろうどう"
+   }
+  ],
+  "kun": []
+ },
+ "君": {
+  "on": [
+   {
+    "reading": "くん",
+    "word": "君主",
+    "wordReading": "くんしゅ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "きみ",
+    "word": "君",
+    "wordReading": "きみ"
+   }
+  ]
+ },
+ "否": {
+  "on": [
+   {
+    "reading": "ひ",
+    "word": "否定",
+    "wordReading": "ひてい"
+   }
+  ],
+  "kun": []
+ },
+ "吹": {
+  "on": [
+   {
+    "reading": "すい",
+    "word": "吹奏楽",
+    "wordReading": "すいそうがく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ふ",
+    "word": "吹く",
+    "wordReading": "ふく"
+   }
+  ]
+ },
+ "告": {
+  "on": [
+   {
+    "reading": "こく",
+    "word": "報告",
+    "wordReading": "ほうこく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つ",
+    "word": "告げる",
+    "wordReading": "つげる"
+   }
+  ]
+ },
+ "困": {
+  "on": [
+   {
+    "reading": "こん",
+    "word": "困難",
+    "wordReading": "こんなん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "こま",
+    "word": "困る",
+    "wordReading": "こまる"
+   }
+  ]
+ },
+ "声": {
+  "on": [
+   {
+    "reading": "せい",
+    "word": "音声",
+    "wordReading": "おんせい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "こえ",
+    "word": "声",
+    "wordReading": "こえ"
+   }
+  ]
+ },
+ "完": {
+  "on": [
+   {
+    "reading": "かん",
+    "word": "完成",
+    "wordReading": "かんせい"
+   }
+  ],
+  "kun": []
+ },
+ "対": {
+  "on": [
+   {
+    "reading": "たい",
+    "word": "反対",
+    "wordReading": "はんたい"
+   },
+   {
+    "reading": "つい",
+    "word": "一対",
+    "wordReading": "いっつい"
+   }
+  ],
+  "kun": []
+ },
+ "局": {
+  "on": [
+   {
+    "reading": "きょく",
+    "word": "郵便局",
+    "wordReading": "ゆうびんきょく"
+   }
+  ],
+  "kun": []
+ },
+ "形": {
+  "on": [
+   {
+    "reading": "けい",
+    "word": "形式",
+    "wordReading": "けいしき"
+   },
+   {
+    "reading": "ぎょう",
+    "word": "人形",
+    "wordReading": "にんぎょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かたち",
+    "word": "形",
+    "wordReading": "かたち"
+   }
+  ]
+ },
+ "役": {
+  "on": [
+   {
+    "reading": "やく",
+    "word": "役割",
+    "wordReading": "やくわり"
+   },
+   {
+    "reading": "えき",
+    "word": "現役",
+    "wordReading": "げんえき"
+   }
+  ],
+  "kun": []
+ },
+ "忘": {
+  "on": [
+   {
+    "reading": "ぼう",
+    "word": "忘年会",
+    "wordReading": "ぼうねんかい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "わす",
+    "word": "忘れる",
+    "wordReading": "わすれる"
+   }
+  ]
+ },
+ "戻": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "もど",
+    "word": "戻る",
+    "wordReading": "もどる"
+   }
+  ]
+ },
+ "投": {
+  "on": [
+   {
+    "reading": "とう",
+    "word": "投票",
+    "wordReading": "とうひょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "な",
+    "word": "投げる",
+    "wordReading": "なげる"
+   }
+  ]
+ },
+ "折": {
+  "on": [
+   {
+    "reading": "せつ",
+    "word": "骨折",
+    "wordReading": "こっせつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "お",
+    "word": "折る",
+    "wordReading": "おる"
+   }
+  ]
+ },
+ "抜": {
+  "on": [
+   {
+    "reading": "ばつ",
+    "word": "抜群",
+    "wordReading": "ばつぐん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ぬ",
+    "word": "抜く",
+    "wordReading": "ぬく"
+   }
+  ]
+ },
+ "更": {
+  "on": [
+   {
+    "reading": "こう",
+    "word": "変更",
+    "wordReading": "へんこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さら",
+    "word": "更に",
+    "wordReading": "さらに"
+   }
+  ]
+ },
+ "束": {
+  "on": [
+   {
+    "reading": "そく",
+    "word": "約束",
+    "wordReading": "やくそく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たば",
+    "word": "束",
+    "wordReading": "たば"
+   }
+  ]
+ },
+ "求": {
+  "on": [
+   {
+    "reading": "きゅう",
+    "word": "要求",
+    "wordReading": "ようきゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "もと",
+    "word": "求める",
+    "wordReading": "もとめる"
+   }
+  ]
+ },
+ "決": {
+  "on": [
+   {
+    "reading": "けつ",
+    "word": "決定",
+    "wordReading": "けってい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "き",
+    "word": "決める",
+    "wordReading": "きめる"
+   }
+  ]
+ },
+ "状": {
+  "on": [
+   {
+    "reading": "じょう",
+    "word": "状態",
+    "wordReading": "じょうたい"
+   }
+  ],
+  "kun": []
+ },
+ "良": {
+  "on": [
+   {
+    "reading": "りょう",
+    "word": "改良",
+    "wordReading": "かいりょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "よ",
+    "word": "良い",
+    "wordReading": "よい"
+   }
+  ]
+ },
+ "迎": {
+  "on": [
+   {
+    "reading": "げい",
+    "word": "歓迎",
+    "wordReading": "かんげい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "むか",
+    "word": "迎える",
+    "wordReading": "むかえる"
+   }
+  ]
+ },
+ "返": {
+  "on": [
+   {
+    "reading": "へん",
+    "word": "返事",
+    "wordReading": "へんじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かえ",
+    "word": "返す",
+    "wordReading": "かえす"
+   }
+  ]
+ },
+ "例": {
+  "on": [
+   {
+    "reading": "れい",
+    "word": "例外",
+    "wordReading": "れいがい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たと",
+    "word": "例える",
+    "wordReading": "たとえる"
+   }
+  ]
+ },
+ "供": {
+  "on": [
+   {
+    "reading": "きょう",
+    "word": "提供",
+    "wordReading": "ていきょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "とも",
+    "word": "子供",
+    "wordReading": "こども"
+   }
+  ]
+ },
+ "具": {
+  "on": [
+   {
+    "reading": "ぐ",
+    "word": "道具",
+    "wordReading": "どうぐ"
+   }
+  ],
+  "kun": []
+ },
+ "到": {
+  "on": [
+   {
+    "reading": "とう",
+    "word": "到着",
+    "wordReading": "とうちゃく"
+   }
+  ],
+  "kun": []
+ },
+ "制": {
+  "on": [
+   {
+    "reading": "せい",
+    "word": "制度",
+    "wordReading": "せいど"
+   }
+  ],
+  "kun": []
+ },
+ "刻": {
+  "on": [
+   {
+    "reading": "こく",
+    "word": "時刻",
+    "wordReading": "じこく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "きざ",
+    "word": "刻む",
+    "wordReading": "きざむ"
+   }
+  ]
+ },
+ "参": {
+  "on": [
+   {
+    "reading": "さん",
+    "word": "参加",
+    "wordReading": "さんか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まい",
+    "word": "参る",
+    "wordReading": "まいる"
+   }
+  ]
+ },
+ "取": {
+  "on": [
+   {
+    "reading": "しゅ",
+    "word": "取得",
+    "wordReading": "しゅとく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "と",
+    "word": "取る",
+    "wordReading": "とる"
+   }
+  ]
+ },
+ "受": {
+  "on": [
+   {
+    "reading": "じゅ",
+    "word": "受験",
+    "wordReading": "じゅけん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "う",
+    "word": "受ける",
+    "wordReading": "うける"
+   }
+  ]
+ },
+ "呼": {
+  "on": [
+   {
+    "reading": "こ",
+    "word": "呼吸",
+    "wordReading": "こきゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "よ",
+    "word": "呼ぶ",
+    "wordReading": "よぶ"
+   }
+  ]
+ },
+ "命": {
+  "on": [
+   {
+    "reading": "めい",
+    "word": "命令",
+    "wordReading": "めいれい"
+   },
+   {
+    "reading": "みょう",
+    "word": "寿命",
+    "wordReading": "じゅみょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いのち",
+    "word": "命",
+    "wordReading": "いのち"
+   }
+  ]
+ },
+ "和": {
+  "on": [
+   {
+    "reading": "わ",
+    "word": "平和",
+    "wordReading": "へいわ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やわ",
+    "word": "和らぐ",
+    "wordReading": "やわらぐ"
+   }
+  ]
+ },
+ "妻": {
+  "on": [
+   {
+    "reading": "さい",
+    "word": "夫妻",
+    "wordReading": "ふさい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つま",
+    "word": "妻",
+    "wordReading": "つま"
+   }
+  ]
+ },
+ "官": {
+  "on": [
+   {
+    "reading": "かん",
+    "word": "警官",
+    "wordReading": "けいかん"
+   }
+  ],
+  "kun": []
+ },
+ "定": {
+  "on": [
+   {
+    "reading": "てい",
+    "word": "予定",
+    "wordReading": "よてい"
+   },
+   {
+    "reading": "じょう",
+    "word": "勘定",
+    "wordReading": "かんじょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さだ",
+    "word": "定める",
+    "wordReading": "さだめる"
+   }
+  ]
+ },
+ "鳴": {
+  "on": [
+   {
+    "reading": "メイ",
+    "word": "悲鳴",
+    "wordReading": "ひめい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "な",
+    "word": "鳴く",
+    "wordReading": "なく"
+   }
+  ]
+ },
+ "権": {
+  "on": [
+   {
+    "reading": "ケン",
+    "word": "権利",
+    "wordReading": "けんり"
+   }
+  ],
+  "kun": []
+ },
+ "横": {
+  "on": [
+   {
+    "reading": "オウ",
+    "word": "横断",
+    "wordReading": "おうだん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "よこ",
+    "word": "横",
+    "wordReading": "よこ"
+   }
+  ]
+ },
+ "熱": {
+  "on": [
+   {
+    "reading": "ネツ",
+    "word": "熱心",
+    "wordReading": "ねっしん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あつ",
+    "word": "熱い",
+    "wordReading": "あつい"
+   }
+  ]
+ },
+ "確": {
+  "on": [
+   {
+    "reading": "カク",
+    "word": "確認",
+    "wordReading": "かくにん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たし",
+    "word": "確か",
+    "wordReading": "たしか"
+   }
+  ]
+ },
+ "箱": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "はこ",
+    "word": "箱",
+    "wordReading": "はこ"
+   }
+  ]
+ },
+ "舞": {
+  "on": [
+   {
+    "reading": "ブ",
+    "word": "舞台",
+    "wordReading": "ぶたい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ま",
+    "word": "舞う",
+    "wordReading": "まう"
+   },
+   {
+    "reading": "まい",
+    "word": "舞",
+    "wordReading": "まい"
+   }
+  ]
+ },
+ "調": {
+  "on": [
+   {
+    "reading": "チョウ",
+    "word": "調子",
+    "wordReading": "ちょうし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "しら",
+    "word": "調べる",
+    "wordReading": "しらべる"
+   }
+  ]
+ },
+ "談": {
+  "on": [
+   {
+    "reading": "ダン",
+    "word": "相談",
+    "wordReading": "そうだん"
+   }
+  ],
+  "kun": []
+ },
+ "論": {
+  "on": [
+   {
+    "reading": "ロン",
+    "word": "論文",
+    "wordReading": "ろんぶん"
+   }
+  ],
+  "kun": []
+ },
+ "賛": {
+  "on": [
+   {
+    "reading": "サン",
+    "word": "賛成",
+    "wordReading": "さんせい"
+   }
+  ],
+  "kun": []
+ },
+ "選": {
+  "on": [
+   {
+    "reading": "セン",
+    "word": "選手",
+    "wordReading": "せんしゅ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "えら",
+    "word": "選ぶ",
+    "wordReading": "えらぶ"
+   }
+  ]
+ },
+ "機": {
+  "on": [
+   {
+    "reading": "キ",
+    "word": "機械",
+    "wordReading": "きかい"
+   }
+  ],
+  "kun": []
+ },
+ "積": {
+  "on": [
+   {
+    "reading": "セキ",
+    "word": "面積",
+    "wordReading": "めんせき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つ",
+    "word": "積む",
+    "wordReading": "つむ"
+   }
+  ]
+ },
+ "薬": {
+  "on": [
+   {
+    "reading": "ヤク",
+    "word": "薬局",
+    "wordReading": "やっきょく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くすり",
+    "word": "薬",
+    "wordReading": "くすり"
+   }
+  ]
+ },
+ "頭": {
+  "on": [
+   {
+    "reading": "トウ",
+    "word": "先頭",
+    "wordReading": "せんとう"
+   },
+   {
+    "reading": "ズ",
+    "word": "頭痛",
+    "wordReading": "ずつう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あたま",
+    "word": "頭",
+    "wordReading": "あたま"
+   }
+  ]
+ },
+ "頼": {
+  "on": [
+   {
+    "reading": "ライ",
+    "word": "依頼",
+    "wordReading": "いらい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たの",
+    "word": "頼む",
+    "wordReading": "たのむ"
+   },
+   {
+    "reading": "たよ",
+    "word": "頼る",
+    "wordReading": "たよる"
+   }
+  ]
+ },
+ "優": {
+  "on": [
+   {
+    "reading": "ユウ",
+    "word": "優勝",
+    "wordReading": "ゆうしょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やさ",
+    "word": "優しい",
+    "wordReading": "やさしい"
+   },
+   {
+    "reading": "すぐ",
+    "word": "優れる",
+    "wordReading": "すぐれる"
+   }
+  ]
+ },
+ "職": {
+  "on": [
+   {
+    "reading": "ショク",
+    "word": "職業",
+    "wordReading": "しょくぎょう"
+   }
+  ],
+  "kun": []
+ },
+ "観": {
+  "on": [
+   {
+    "reading": "カン",
+    "word": "観光",
+    "wordReading": "かんこう"
+   }
+  ],
+  "kun": []
+ },
+ "難": {
+  "on": [
+   {
+    "reading": "ナン",
+    "word": "困難",
+    "wordReading": "こんなん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "むずか",
+    "word": "難しい",
+    "wordReading": "むずかしい"
+   }
+  ]
+ },
+ "顔": {
+  "on": [
+   {
+    "reading": "ガン",
+    "word": "洗顔",
+    "wordReading": "せんがん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かお",
+    "word": "顔",
+    "wordReading": "かお"
+   }
+  ]
+ },
+ "類": {
+  "on": [
+   {
+    "reading": "ルイ",
+    "word": "種類",
+    "wordReading": "しゅるい"
+   }
+  ],
+  "kun": []
+ },
+ "識": {
+  "on": [
+   {
+    "reading": "シキ",
+    "word": "知識",
+    "wordReading": "ちしき"
+   }
+  ],
+  "kun": []
+ },
+ "警": {
+  "on": [
+   {
+    "reading": "ケイ",
+    "word": "警察",
+    "wordReading": "けいさつ"
+   }
+  ],
+  "kun": []
+ },
+ "願": {
+  "on": [
+   {
+    "reading": "ガン",
+    "word": "願望",
+    "wordReading": "がんぼう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ねが",
+    "word": "願う",
+    "wordReading": "ねがう"
+   }
+  ]
+ },
+ "議": {
+  "on": [
+   {
+    "reading": "ギ",
+    "word": "会議",
+    "wordReading": "かいぎ"
+   }
+  ],
+  "kun": []
+ },
+ "実": {
+  "on": [
+   {
+    "reading": "ジツ",
+    "word": "実力",
+    "wordReading": "じつりょく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "み",
+    "word": "実",
+    "wordReading": "み"
+   },
+   {
+    "reading": "みの",
+    "word": "実る",
+    "wordReading": "みのる"
+   }
+  ]
+ },
+ "居": {
+  "on": [
+   {
+    "reading": "キョ",
+    "word": "住居",
+    "wordReading": "じゅうきょ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "い",
+    "word": "居る",
+    "wordReading": "いる"
+   }
+  ]
+ },
+ "幸": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "幸福",
+    "wordReading": "こうふく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "しあわ",
+    "word": "幸せ",
+    "wordReading": "しあわせ"
+   },
+   {
+    "reading": "さいわ",
+    "word": "幸い",
+    "wordReading": "さいわい"
+   }
+  ]
+ },
+ "彼": {
+  "on": [
+   {
+    "reading": "ヒ",
+    "word": "彼岸",
+    "wordReading": "ひがん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かれ",
+    "word": "彼",
+    "wordReading": "かれ"
+   }
+  ]
+ },
+ "念": {
+  "on": [
+   {
+    "reading": "ネン",
+    "word": "残念",
+    "wordReading": "ざんねん"
+   }
+  ],
+  "kun": []
+ },
+ "怖": {
+  "on": [
+   {
+    "reading": "フ",
+    "word": "恐怖",
+    "wordReading": "きょうふ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "こわ",
+    "word": "怖い",
+    "wordReading": "こわい"
+   }
+  ]
+ },
+ "性": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "性格",
+    "wordReading": "せいかく"
+   },
+   {
+    "reading": "ショウ",
+    "word": "根性",
+    "wordReading": "こんじょう"
+   }
+  ],
+  "kun": []
+ },
+ "所": {
+  "on": [
+   {
+    "reading": "ショ",
+    "word": "場所",
+    "wordReading": "ばしょ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ところ",
+    "word": "所",
+    "wordReading": "ところ"
+   }
+  ]
+ },
+ "抱": {
+  "on": [
+   {
+    "reading": "ホウ",
+    "word": "辛抱",
+    "wordReading": "しんぼう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "だ",
+    "word": "抱く",
+    "wordReading": "だく"
+   },
+   {
+    "reading": "かか",
+    "word": "抱える",
+    "wordReading": "かかえる"
+   }
+  ]
+ },
+ "押": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "お",
+    "word": "押す",
+    "wordReading": "おす"
+   },
+   {
+    "reading": "おさ",
+    "word": "押さえる",
+    "wordReading": "おさえる"
+   }
+  ]
+ },
+ "招": {
+  "on": [
+   {
+    "reading": "ショウ",
+    "word": "招待",
+    "wordReading": "しょうたい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まね",
+    "word": "招く",
+    "wordReading": "まねく"
+   }
+  ]
+ },
+ "放": {
+  "on": [
+   {
+    "reading": "ホウ",
+    "word": "放送",
+    "wordReading": "ほうそう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はな",
+    "word": "放す",
+    "wordReading": "はなす"
+   }
+  ]
+ },
+ "易": {
+  "on": [
+   {
+    "reading": "イ",
+    "word": "容易",
+    "wordReading": "ようい"
+   },
+   {
+    "reading": "エキ",
+    "word": "貿易",
+    "wordReading": "ぼうえき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やさ",
+    "word": "易しい",
+    "wordReading": "やさしい"
+   }
+  ]
+ },
+ "昔": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "むかし",
+    "word": "昔",
+    "wordReading": "むかし"
+   }
+  ]
+ },
+ "杯": {
+  "on": [
+   {
+    "reading": "ハイ",
+    "word": "一杯",
+    "wordReading": "いっぱい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さかずき",
+    "word": "杯",
+    "wordReading": "さかずき"
+   }
+  ]
+ },
+ "果": {
+  "on": [
+   {
+    "reading": "カ",
+    "word": "結果",
+    "wordReading": "けっか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "は",
+    "word": "果たす",
+    "wordReading": "はたす"
+   }
+  ]
+ },
+ "治": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "政治",
+    "wordReading": "せいじ"
+   },
+   {
+    "reading": "チ",
+    "word": "治療",
+    "wordReading": "ちりょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なお",
+    "word": "治す",
+    "wordReading": "なおす"
+   },
+   {
+    "reading": "おさ",
+    "word": "治める",
+    "wordReading": "おさめる"
+   }
+  ]
+ },
+ "法": {
+  "on": [
+   {
+    "reading": "ホウ",
+    "word": "方法",
+    "wordReading": "ほうほう"
+   }
+  ],
+  "kun": []
+ },
+ "泳": {
+  "on": [
+   {
+    "reading": "エイ",
+    "word": "水泳",
+    "wordReading": "すいえい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "およ",
+    "word": "泳ぐ",
+    "wordReading": "およぐ"
+   }
+  ]
+ },
+ "直": {
+  "on": [
+   {
+    "reading": "チョク",
+    "word": "直接",
+    "wordReading": "ちょくせつ"
+   },
+   {
+    "reading": "ジキ",
+    "word": "正直",
+    "wordReading": "しょうじき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なお",
+    "word": "直す",
+    "wordReading": "なおす"
+   }
+  ]
+ },
+ "突": {
+  "on": [
+   {
+    "reading": "トツ",
+    "word": "突然",
+    "wordReading": "とつぜん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つ",
+    "word": "突く",
+    "wordReading": "つく"
+   }
+  ]
+ },
+ "育": {
+  "on": [
+   {
+    "reading": "イク",
+    "word": "教育",
+    "wordReading": "きょういく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "そだ",
+    "word": "育てる",
+    "wordReading": "そだてる"
+   }
+  ]
+ },
+ "若": {
+  "on": [
+   {
+    "reading": "ジャク",
+    "word": "若干",
+    "wordReading": "じゃっかん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "わか",
+    "word": "若い",
+    "wordReading": "わかい"
+   }
+  ]
+ },
+ "苦": {
+  "on": [
+   {
+    "reading": "ク",
+    "word": "苦労",
+    "wordReading": "くろう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くる",
+    "word": "苦しい",
+    "wordReading": "くるしい"
+   },
+   {
+    "reading": "にが",
+    "word": "苦い",
+    "wordReading": "にがい"
+   }
+  ]
+ },
+ "表": {
+  "on": [
+   {
+    "reading": "ヒョウ",
+    "word": "表現",
+    "wordReading": "ひょうげん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おもて",
+    "word": "表",
+    "wordReading": "おもて"
+   },
+   {
+    "reading": "あらわ",
+    "word": "表す",
+    "wordReading": "あらわす"
+   }
+  ]
+ },
+ "非": {
+  "on": [
+   {
+    "reading": "ヒ",
+    "word": "非常",
+    "wordReading": "ひじょう"
+   }
+  ],
+  "kun": []
+ },
+ "乗": {
+  "on": [
+   {
+    "reading": "ジョウ",
+    "word": "乗車",
+    "wordReading": "じょうしゃ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "の",
+    "word": "乗る",
+    "wordReading": "のる"
+   }
+  ]
+ },
+ "便": {
+  "on": [
+   {
+    "reading": "ベン",
+    "word": "便利",
+    "wordReading": "べんり"
+   },
+   {
+    "reading": "ビン",
+    "word": "郵便",
+    "wordReading": "ゆうびん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たよ",
+    "word": "便り",
+    "wordReading": "たより"
+   }
+  ]
+ },
+ "係": {
+  "on": [
+   {
+    "reading": "ケイ",
+    "word": "関係",
+    "wordReading": "かんけい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かかり",
+    "word": "係",
+    "wordReading": "かかり"
+   }
+  ]
+ },
+ "信": {
+  "on": [
+   {
+    "reading": "シン",
+    "word": "信用",
+    "wordReading": "しんよう"
+   }
+  ],
+  "kun": []
+ },
+ "単": {
+  "on": [
+   {
+    "reading": "タン",
+    "word": "簡単",
+    "wordReading": "かんたん"
+   }
+  ],
+  "kun": []
+ },
+ "変": {
+  "on": [
+   {
+    "reading": "ヘン",
+    "word": "変化",
+    "wordReading": "へんか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "か",
+    "word": "変わる",
+    "wordReading": "かわる"
+   }
+  ]
+ },
+ "客": {
+  "on": [
+   {
+    "reading": "キャク",
+    "word": "乗客",
+    "wordReading": "じょうきゃく"
+   },
+   {
+    "reading": "カク",
+    "word": "旅客",
+    "wordReading": "りょかく"
+   }
+  ],
+  "kun": []
+ },
+ "怒": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "おこ",
+    "word": "怒る",
+    "wordReading": "おこる"
+   },
+   {
+    "reading": "いか",
+    "word": "怒る",
+    "wordReading": "いかる"
+   }
+  ]
+ },
+ "指": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "指定",
+    "wordReading": "してい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ゆび",
+    "word": "指",
+    "wordReading": "ゆび"
+   },
+   {
+    "reading": "さ",
+    "word": "指す",
+    "wordReading": "さす"
+   }
+  ]
+ },
+ "政": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "政治",
+    "wordReading": "せいじ"
+   }
+  ],
+  "kun": []
+ },
+ "昨": {
+  "on": [
+   {
+    "reading": "サク",
+    "word": "昨年",
+    "wordReading": "さくねん"
+   }
+  ],
+  "kun": []
+ },
+ "段": {
+  "on": [
+   {
+    "reading": "ダン",
+    "word": "階段",
+    "wordReading": "かいだん"
+   }
+  ],
+  "kun": []
+ },
+ "洗": {
+  "on": [
+   {
+    "reading": "セン",
+    "word": "洗濯",
+    "wordReading": "せんたく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あら",
+    "word": "洗う",
+    "wordReading": "あらう"
+   }
+  ]
+ },
+ "活": {
+  "on": [
+   {
+    "reading": "カツ",
+    "word": "生活",
+    "wordReading": "せいかつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "い",
+    "word": "活かす",
+    "wordReading": "いかす"
+   }
+  ]
+ },
+ "点": {
+  "on": [
+   {
+    "reading": "テン",
+    "word": "点数",
+    "wordReading": "てんすう"
+   }
+  ],
+  "kun": []
+ },
+ "皆": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "みな",
+    "word": "皆",
+    "wordReading": "みな"
+   },
+   {
+    "reading": "みんな",
+    "word": "皆",
+    "wordReading": "みんな"
+   }
+  ]
+ },
+ "相": {
+  "on": [
+   {
+    "reading": "ソウ",
+    "word": "相談",
+    "wordReading": "そうだん"
+   },
+   {
+    "reading": "ショウ",
+    "word": "首相",
+    "wordReading": "しゅしょう"
+   }
+  ],
+  "kun": []
+ },
+ "祖": {
+  "on": [
+   {
+    "reading": "ソ",
+    "word": "祖父",
+    "wordReading": "そふ"
+   }
+  ],
+  "kun": []
+ },
+ "神": {
+  "on": [
+   {
+    "reading": "シン",
+    "word": "精神",
+    "wordReading": "せいしん"
+   },
+   {
+    "reading": "ジン",
+    "word": "神社",
+    "wordReading": "じんじゃ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かみ",
+    "word": "神様",
+    "wordReading": "かみさま"
+   }
+  ]
+ },
+ "陽": {
+  "on": [
+   {
+    "reading": "ヨウ",
+    "word": "太陽",
+    "wordReading": "たいよう"
+   }
+  ],
+  "kun": []
+ },
+ "働": {
+  "on": [
+   {
+    "reading": "ドウ",
+    "word": "労働",
+    "wordReading": "ろうどう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はたら",
+    "word": "働く",
+    "wordReading": "はたらく"
+   }
+  ]
+ },
+ "園": {
+  "on": [
+   {
+    "reading": "エン",
+    "word": "公園",
+    "wordReading": "こうえん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "その",
+    "word": "花園",
+    "wordReading": "はなぞの"
+   }
+  ]
+ },
+ "夢": {
+  "on": [
+   {
+    "reading": "ム",
+    "word": "夢中",
+    "wordReading": "むちゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ゆめ",
+    "word": "夢",
+    "wordReading": "ゆめ"
+   }
+  ]
+ },
+ "寝": {
+  "on": [
+   {
+    "reading": "シン",
+    "word": "寝室",
+    "wordReading": "しんしつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ね",
+    "word": "寝る",
+    "wordReading": "ねる"
+   }
+  ]
+ },
+ "想": {
+  "on": [
+   {
+    "reading": "ソウ",
+    "word": "想像",
+    "wordReading": "そうぞう"
+   }
+  ],
+  "kun": []
+ },
+ "愛": {
+  "on": [
+   {
+    "reading": "アイ",
+    "word": "愛情",
+    "wordReading": "あいじょう"
+   }
+  ],
+  "kun": []
+ },
+ "感": {
+  "on": [
+   {
+    "reading": "カン",
+    "word": "感動",
+    "wordReading": "かんどう"
+   }
+  ],
+  "kun": []
+ },
+ "戦": {
+  "on": [
+   {
+    "reading": "セン",
+    "word": "戦争",
+    "wordReading": "せんそう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たたか",
+    "word": "戦う",
+    "wordReading": "たたかう"
+   }
+  ]
+ },
+ "数": {
+  "on": [
+   {
+    "reading": "スウ",
+    "word": "数字",
+    "wordReading": "すうじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かず",
+    "word": "数",
+    "wordReading": "かず"
+   },
+   {
+    "reading": "かぞ",
+    "word": "数える",
+    "wordReading": "かぞえる"
+   }
+  ]
+ },
+ "暗": {
+  "on": [
+   {
+    "reading": "アン",
+    "word": "暗記",
+    "wordReading": "あんき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くら",
+    "word": "暗い",
+    "wordReading": "くらい"
+   }
+  ]
+ },
+ "歳": {
+  "on": [
+   {
+    "reading": "サイ",
+    "word": "何歳",
+    "wordReading": "なんさい"
+   }
+  ],
+  "kun": []
+ },
+ "煙": {
+  "on": [
+   {
+    "reading": "エン",
+    "word": "禁煙",
+    "wordReading": "きんえん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "けむり",
+    "word": "煙",
+    "wordReading": "けむり"
+   }
+  ]
+ },
+ "福": {
+  "on": [
+   {
+    "reading": "フク",
+    "word": "幸福",
+    "wordReading": "こうふく"
+   }
+  ],
+  "kun": []
+ },
+ "続": {
+  "on": [
+   {
+    "reading": "ゾク",
+    "word": "連続",
+    "wordReading": "れんぞく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つづ",
+    "word": "続く",
+    "wordReading": "つづく"
+   }
+  ]
+ },
+ "罪": {
+  "on": [
+   {
+    "reading": "ザイ",
+    "word": "犯罪",
+    "wordReading": "はんざい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つみ",
+    "word": "罪",
+    "wordReading": "つみ"
+   }
+  ]
+ },
+ "置": {
+  "on": [
+   {
+    "reading": "チ",
+    "word": "位置",
+    "wordReading": "いち"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "お",
+    "word": "置く",
+    "wordReading": "おく"
+   }
+  ]
+ },
+ "腹": {
+  "on": [
+   {
+    "reading": "フク",
+    "word": "空腹",
+    "wordReading": "くうふく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はら",
+    "word": "腹",
+    "wordReading": "はら"
+   }
+  ]
+ },
+ "解": {
+  "on": [
+   {
+    "reading": "カイ",
+    "word": "解決",
+    "wordReading": "かいけつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "と",
+    "word": "解く",
+    "wordReading": "とく"
+   }
+  ]
+ },
+ "資": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "資料",
+    "wordReading": "しりょう"
+   }
+  ],
+  "kun": []
+ },
+ "路": {
+  "on": [
+   {
+    "reading": "ロ",
+    "word": "道路",
+    "wordReading": "どうろ"
+   }
+  ],
+  "kun": []
+ },
+ "辞": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "辞書",
+    "wordReading": "じしょ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "や",
+    "word": "辞める",
+    "wordReading": "やめる"
+   }
+  ]
+ },
+ "違": {
+  "on": [
+   {
+    "reading": "イ",
+    "word": "違反",
+    "wordReading": "いはん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ちが",
+    "word": "違う",
+    "wordReading": "ちがう"
+   }
+  ]
+ },
+ "遠": {
+  "on": [
+   {
+    "reading": "エン",
+    "word": "永遠",
+    "wordReading": "えいえん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "とお",
+    "word": "遠い",
+    "wordReading": "とおい"
+   }
+  ]
+ },
+ "靴": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "くつ",
+    "word": "靴",
+    "wordReading": "くつ"
+   }
+  ]
+ },
+ "増": {
+  "on": [
+   {
+    "reading": "ゾウ",
+    "word": "増加",
+    "wordReading": "ぞうか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ふ",
+    "word": "増える",
+    "wordReading": "ふえる"
+   },
+   {
+    "reading": "ま",
+    "word": "増す",
+    "wordReading": "ます"
+   }
+  ]
+ },
+ "察": {
+  "on": [
+   {
+    "reading": "サツ",
+    "word": "警察",
+    "wordReading": "けいさつ"
+   }
+  ],
+  "kun": []
+ },
+ "慣": {
+  "on": [
+   {
+    "reading": "カン",
+    "word": "習慣",
+    "wordReading": "しゅうかん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "な",
+    "word": "慣れる",
+    "wordReading": "なれる"
+   }
+  ]
+ },
+ "暮": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "く",
+    "word": "暮らす",
+    "wordReading": "くらす"
+   }
+  ]
+ },
+ "構": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "構成",
+    "wordReading": "こうせい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かま",
+    "word": "構える",
+    "wordReading": "かまえる"
+   }
+  ]
+ },
+ "様": {
+  "on": [
+   {
+    "reading": "ヨウ",
+    "word": "様子",
+    "wordReading": "ようす"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さま",
+    "word": "神様",
+    "wordReading": "かみさま"
+   }
+  ]
+ },
+ "演": {
+  "on": [
+   {
+    "reading": "エン",
+    "word": "演技",
+    "wordReading": "えんぎ"
+   }
+  ],
+  "kun": []
+ },
+ "疑": {
+  "on": [
+   {
+    "reading": "ギ",
+    "word": "疑問",
+    "wordReading": "ぎもん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うたが",
+    "word": "疑う",
+    "wordReading": "うたがう"
+   }
+  ]
+ },
+ "種": {
+  "on": [
+   {
+    "reading": "シュ",
+    "word": "種類",
+    "wordReading": "しゅるい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たね",
+    "word": "種",
+    "wordReading": "たね"
+   }
+  ]
+ },
+ "精": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "精神",
+    "wordReading": "せいしん"
+   }
+  ],
+  "kun": []
+ },
+ "緒": {
+  "on": [
+   {
+    "reading": "ショ",
+    "word": "一緒",
+    "wordReading": "いっしょ"
+   }
+  ],
+  "kun": []
+ },
+ "認": {
+  "on": [
+   {
+    "reading": "ニン",
+    "word": "確認",
+    "wordReading": "かくにん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みと",
+    "word": "認める",
+    "wordReading": "みとめる"
+   }
+  ]
+ },
+ "誤": {
+  "on": [
+   {
+    "reading": "ゴ",
+    "word": "誤解",
+    "wordReading": "ごかい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あやま",
+    "word": "誤る",
+    "wordReading": "あやまる"
+   }
+  ]
+ },
+ "説": {
+  "on": [
+   {
+    "reading": "セツ",
+    "word": "説明",
+    "wordReading": "せつめい"
+   }
+  ],
+  "kun": []
+ },
+ "適": {
+  "on": [
+   {
+    "reading": "テキ",
+    "word": "適当",
+    "wordReading": "てきとう"
+   }
+  ],
+  "kun": []
+ },
+ "関": {
+  "on": [
+   {
+    "reading": "カン",
+    "word": "関係",
+    "wordReading": "かんけい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かか",
+    "word": "関わる",
+    "wordReading": "かかわる"
+   }
+  ]
+ },
+ "際": {
+  "on": [
+   {
+    "reading": "サイ",
+    "word": "国際",
+    "wordReading": "こくさい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "きわ",
+    "word": "際",
+    "wordReading": "きわ"
+   }
+  ]
+ },
+ "雑": {
+  "on": [
+   {
+    "reading": "ザツ",
+    "word": "複雑",
+    "wordReading": "ふくざつ"
+   }
+  ],
+  "kun": []
+ },
+ "静": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "静止",
+    "wordReading": "せいし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "しず",
+    "word": "静か",
+    "wordReading": "しずか"
+   }
+  ]
+ },
+ "髪": {
+  "on": [
+   {
+    "reading": "ハツ",
+    "word": "散髪",
+    "wordReading": "さんぱつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かみ",
+    "word": "髪",
+    "wordReading": "かみ"
+   }
+  ]
+ },
+ "都": {
+  "on": [
+   {
+    "reading": "ト",
+    "word": "都市",
+    "wordReading": "とし"
+   },
+   {
+    "reading": "ツ",
+    "word": "都合",
+    "wordReading": "つごう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みやこ",
+    "word": "都",
+    "wordReading": "みやこ"
+   }
+  ]
+ },
+ "閉": {
+  "on": [
+   {
+    "reading": "ヘイ",
+    "word": "閉店",
+    "wordReading": "へいてん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "し",
+    "word": "閉める",
+    "wordReading": "しめる"
+   },
+   {
+    "reading": "と",
+    "word": "閉じる",
+    "wordReading": "とじる"
+   }
+  ]
+ },
+ "険": {
+  "on": [
+   {
+    "reading": "ケン",
+    "word": "危険",
+    "wordReading": "きけん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "けわ",
+    "word": "険しい",
+    "wordReading": "けわしい"
+   }
+  ]
+ },
+ "雪": {
+  "on": [
+   {
+    "reading": "セツ",
+    "word": "積雪",
+    "wordReading": "せきせつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ゆき",
+    "word": "雪",
+    "wordReading": "ゆき"
+   }
+  ]
+ },
+ "頂": {
+  "on": [
+   {
+    "reading": "チョウ",
+    "word": "頂上",
+    "wordReading": "ちょうじょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いただ",
+    "word": "頂く",
+    "wordReading": "いただく"
+   }
+  ]
+ },
+ "偉": {
+  "on": [
+   {
+    "reading": "イ",
+    "word": "偉大",
+    "wordReading": "いだい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "えら",
+    "word": "偉い",
+    "wordReading": "えらい"
+   }
+  ]
+ },
+ "備": {
+  "on": [
+   {
+    "reading": "ビ",
+    "word": "準備",
+    "wordReading": "じゅんび"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "そな",
+    "word": "備える",
+    "wordReading": "そなえる"
+   }
+  ]
+ },
+ "割": {
+  "on": [
+   {
+    "reading": "カツ",
+    "word": "分割",
+    "wordReading": "ぶんかつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "わ",
+    "word": "割る",
+    "wordReading": "わる"
+   },
+   {
+    "reading": "わり",
+    "word": "割合",
+    "wordReading": "わりあい"
+   }
+  ]
+ },
+ "勝": {
+  "on": [
+   {
+    "reading": "ショウ",
+    "word": "勝利",
+    "wordReading": "しょうり"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "か",
+    "word": "勝つ",
+    "wordReading": "かつ"
+   }
+  ]
+ },
+ "勤": {
+  "on": [
+   {
+    "reading": "キン",
+    "word": "勤務",
+    "wordReading": "きんむ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つと",
+    "word": "勤める",
+    "wordReading": "つとめる"
+   }
+  ]
+ },
+ "喜": {
+  "on": [
+   {
+    "reading": "キ",
+    "word": "喜劇",
+    "wordReading": "きげき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "よろこ",
+    "word": "喜ぶ",
+    "wordReading": "よろこぶ"
+   }
+  ]
+ },
+ "報": {
+  "on": [
+   {
+    "reading": "ホウ",
+    "word": "情報",
+    "wordReading": "じょうほう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "むく",
+    "word": "報いる",
+    "wordReading": "むくいる"
+   }
+  ]
+ },
+ "富": {
+  "on": [
+   {
+    "reading": "フ",
+    "word": "豊富",
+    "wordReading": "ほうふ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "と",
+    "word": "富む",
+    "wordReading": "とむ"
+   },
+   {
+    "reading": "とみ",
+    "word": "富",
+    "wordReading": "とみ"
+   }
+  ]
+ },
+ "寒": {
+  "on": [
+   {
+    "reading": "カン",
+    "word": "寒波",
+    "wordReading": "かんぱ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さむ",
+    "word": "寒い",
+    "wordReading": "さむい"
+   }
+  ]
+ },
+ "幾": {
+  "on": [
+   {
+    "reading": "キ",
+    "word": "幾何",
+    "wordReading": "きか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いく",
+    "word": "幾つ",
+    "wordReading": "いくつ"
+   }
+  ]
+ },
+ "御": {
+  "on": [
+   {
+    "reading": "ゴ",
+    "word": "御飯",
+    "wordReading": "ごはん"
+   },
+   {
+    "reading": "ギョ",
+    "word": "制御",
+    "wordReading": "せいぎょ"
+   }
+  ],
+  "kun": []
+ },
+ "悲": {
+  "on": [
+   {
+    "reading": "ヒ",
+    "word": "悲劇",
+    "wordReading": "ひげき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かな",
+    "word": "悲しい",
+    "wordReading": "かなしい"
+   }
+  ]
+ },
+ "散": {
+  "on": [
+   {
+    "reading": "サン",
+    "word": "散歩",
+    "wordReading": "さんぽ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ち",
+    "word": "散る",
+    "wordReading": "ちる"
+   }
+  ]
+ },
+ "晩": {
+  "on": [
+   {
+    "reading": "バン",
+    "word": "今晩",
+    "wordReading": "こんばん"
+   }
+  ],
+  "kun": []
+ },
+ "景": {
+  "on": [
+   {
+    "reading": "ケイ",
+    "word": "風景",
+    "wordReading": "ふうけい"
+   }
+  ],
+  "kun": []
+ },
+ "晴": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "晴天",
+    "wordReading": "せいてん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "は",
+    "word": "晴れる",
+    "wordReading": "はれる"
+   }
+  ]
+ },
+ "最": {
+  "on": [
+   {
+    "reading": "サイ",
+    "word": "最高",
+    "wordReading": "さいこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "もっと",
+    "word": "最も",
+    "wordReading": "もっとも"
+   }
+  ]
+ },
+ "期": {
+  "on": [
+   {
+    "reading": "キ",
+    "word": "期間",
+    "wordReading": "きかん"
+   }
+  ],
+  "kun": []
+ },
+ "歯": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "歯科",
+    "wordReading": "しか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "は",
+    "word": "歯",
+    "wordReading": "は"
+   }
+  ]
+ },
+ "渡": {
+  "on": [
+   {
+    "reading": "ト",
+    "word": "渡航",
+    "wordReading": "とこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "わた",
+    "word": "渡る",
+    "wordReading": "わたる"
+   }
+  ]
+ },
+ "港": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "空港",
+    "wordReading": "くうこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みなと",
+    "word": "港",
+    "wordReading": "みなと"
+   }
+  ]
+ },
+ "満": {
+  "on": [
+   {
+    "reading": "マン",
+    "word": "満足",
+    "wordReading": "まんぞく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "み",
+    "word": "満ちる",
+    "wordReading": "みちる"
+   }
+  ]
+ },
+ "然": {
+  "on": [
+   {
+    "reading": "ゼン",
+    "word": "自然",
+    "wordReading": "しぜん"
+   },
+   {
+    "reading": "ネン",
+    "word": "天然",
+    "wordReading": "てんねん"
+   }
+  ],
+  "kun": []
+ },
+ "番": {
+  "on": [
+   {
+    "reading": "バン",
+    "word": "番号",
+    "wordReading": "ばんごう"
+   }
+  ],
+  "kun": []
+ },
+ "痛": {
+  "on": [
+   {
+    "reading": "ツウ",
+    "word": "頭痛",
+    "wordReading": "ずつう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いた",
+    "word": "痛い",
+    "wordReading": "いたい"
+   }
+  ]
+ },
+ "登": {
+  "on": [
+   {
+    "reading": "トウ",
+    "word": "登場",
+    "wordReading": "とうじょう"
+   },
+   {
+    "reading": "ト",
+    "word": "登山",
+    "wordReading": "とざん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "のぼ",
+    "word": "登る",
+    "wordReading": "のぼる"
+   }
+  ]
+ },
+ "程": {
+  "on": [
+   {
+    "reading": "テイ",
+    "word": "程度",
+    "wordReading": "ていど"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ほど",
+    "word": "程",
+    "wordReading": "ほど"
+   }
+  ]
+ },
+ "等": {
+  "on": [
+   {
+    "reading": "トウ",
+    "word": "平等",
+    "wordReading": "びょうどう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひと",
+    "word": "等しい",
+    "wordReading": "ひとしい"
+   },
+   {
+    "reading": "など",
+    "word": "等",
+    "wordReading": "など"
+   }
+  ]
+ },
+ "給": {
+  "on": [
+   {
+    "reading": "キュウ",
+    "word": "給料",
+    "wordReading": "きゅうりょう"
+   }
+  ],
+  "kun": []
+ },
+ "絵": {
+  "on": [
+   {
+    "reading": "エ",
+    "word": "絵本",
+    "wordReading": "えほん"
+   },
+   {
+    "reading": "カイ",
+    "word": "絵画",
+    "wordReading": "かいが"
+   }
+  ],
+  "kun": []
+ },
+ "絶": {
+  "on": [
+   {
+    "reading": "ゼツ",
+    "word": "絶対",
+    "wordReading": "ぜったい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "た",
+    "word": "絶える",
+    "wordReading": "たえる"
+   }
+  ]
+ },
+ "落": {
+  "on": [
+   {
+    "reading": "ラク",
+    "word": "落下",
+    "wordReading": "らっか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "お",
+    "word": "落ちる",
+    "wordReading": "おちる"
+   }
+  ]
+ },
+ "葉": {
+  "on": [
+   {
+    "reading": "ヨウ",
+    "word": "紅葉",
+    "wordReading": "こうよう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "は",
+    "word": "葉",
+    "wordReading": "は"
+   }
+  ]
+ },
+ "覚": {
+  "on": [
+   {
+    "reading": "カク",
+    "word": "感覚",
+    "wordReading": "かんかく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おぼ",
+    "word": "覚える",
+    "wordReading": "おぼえる"
+   },
+   {
+    "reading": "さ",
+    "word": "覚める",
+    "wordReading": "さめる"
+   }
+  ]
+ },
+ "費": {
+  "on": [
+   {
+    "reading": "ヒ",
+    "word": "費用",
+    "wordReading": "ひよう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つい",
+    "word": "費やす",
+    "wordReading": "ついやす"
+   }
+  ]
+ },
+ "越": {
+  "on": [
+   {
+    "reading": "エツ",
+    "word": "超越",
+    "wordReading": "ちょうえつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "こ",
+    "word": "越える",
+    "wordReading": "こえる"
+   }
+  ]
+ },
+ "遅": {
+  "on": [
+   {
+    "reading": "チ",
+    "word": "遅刻",
+    "wordReading": "ちこく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おく",
+    "word": "遅れる",
+    "wordReading": "おくれる"
+   },
+   {
+    "reading": "おそ",
+    "word": "遅い",
+    "wordReading": "おそい"
+   }
+  ]
+ },
+ "遊": {
+  "on": [
+   {
+    "reading": "ユウ",
+    "word": "遊園地",
+    "wordReading": "ゆうえんち"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あそ",
+    "word": "遊ぶ",
+    "wordReading": "あそぶ"
+   }
+  ]
+ },
+ "過": {
+  "on": [
+   {
+    "reading": "カ",
+    "word": "過去",
+    "wordReading": "かこ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "す",
+    "word": "過ぎる",
+    "wordReading": "すぎる"
+   }
+  ]
+ },
+ "達": {
+  "on": [
+   {
+    "reading": "タツ",
+    "word": "達成",
+    "wordReading": "たっせい"
+   }
+  ],
+  "kun": []
+ },
+ "払": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "はら",
+    "word": "払う",
+    "wordReading": "はらう"
+   }
+  ]
+ },
+ "未": {
+  "on": [
+   {
+    "reading": "ミ",
+    "word": "未来",
+    "wordReading": "みらい"
+   }
+  ],
+  "kun": []
+ },
+ "末": {
+  "on": [
+   {
+    "reading": "マツ",
+    "word": "週末",
+    "wordReading": "しゅうまつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "すえ",
+    "word": "末っ子",
+    "wordReading": "すえっこ"
+   }
+  ]
+ },
+ "民": {
+  "on": [
+   {
+    "reading": "ミン",
+    "word": "国民",
+    "wordReading": "こくみん"
+   }
+  ],
+  "kun": []
+ },
+ "犯": {
+  "on": [
+   {
+    "reading": "ハン",
+    "word": "犯人",
+    "wordReading": "はんにん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おか",
+    "word": "犯す",
+    "wordReading": "おかす"
+   }
+  ]
+ },
+ "由": {
+  "on": [
+   {
+    "reading": "ユウ",
+    "word": "理由",
+    "wordReading": "りゆう"
+   },
+   {
+    "reading": "ユ",
+    "word": "由来",
+    "wordReading": "ゆらい"
+   }
+  ],
+  "kun": []
+ },
+ "申": {
+  "on": [
+   {
+    "reading": "シン",
+    "word": "申請",
+    "wordReading": "しんせい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "もう",
+    "word": "申す",
+    "wordReading": "もうす"
+   }
+  ]
+ },
+ "石": {
+  "on": [
+   {
+    "reading": "セキ",
+    "word": "石油",
+    "wordReading": "せきゆ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いし",
+    "word": "石",
+    "wordReading": "いし"
+   }
+  ]
+ },
+ "示": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "指示",
+    "wordReading": "しじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "しめ",
+    "word": "示す",
+    "wordReading": "しめす"
+   }
+  ]
+ },
+ "礼": {
+  "on": [
+   {
+    "reading": "レイ",
+    "word": "失礼",
+    "wordReading": "しつれい"
+   }
+  ],
+  "kun": []
+ },
+ "込": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "こ",
+    "word": "込む",
+    "wordReading": "こむ"
+   }
+  ]
+ },
+ "両": {
+  "on": [
+   {
+    "reading": "リョウ",
+    "word": "両親",
+    "wordReading": "りょうしん"
+   }
+  ],
+  "kun": []
+ },
+ "争": {
+  "on": [
+   {
+    "reading": "ソウ",
+    "word": "競争",
+    "wordReading": "きょうそう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あらそ",
+    "word": "争う",
+    "wordReading": "あらそう"
+   }
+  ]
+ },
+ "交": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "交通",
+    "wordReading": "こうつう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まじ",
+    "word": "交わる",
+    "wordReading": "まじわる"
+   }
+  ]
+ },
+ "件": {
+  "on": [
+   {
+    "reading": "ケン",
+    "word": "事件",
+    "wordReading": "じけん"
+   }
+  ],
+  "kun": []
+ },
+ "任": {
+  "on": [
+   {
+    "reading": "ニン",
+    "word": "責任",
+    "wordReading": "せきにん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まか",
+    "word": "任せる",
+    "wordReading": "まかせる"
+   }
+  ]
+ },
+ "伝": {
+  "on": [
+   {
+    "reading": "デン",
+    "word": "伝説",
+    "wordReading": "でんせつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つた",
+    "word": "伝える",
+    "wordReading": "つたえる"
+   }
+  ]
+ },
+ "光": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "観光",
+    "wordReading": "かんこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひか",
+    "word": "光る",
+    "wordReading": "ひかる"
+   }
+  ]
+ },
+ "全": {
+  "on": [
+   {
+    "reading": "ゼン",
+    "word": "全部",
+    "wordReading": "ぜんぶ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "すべ",
+    "word": "全て",
+    "wordReading": "すべて"
+   },
+   {
+    "reading": "まった",
+    "word": "全く",
+    "wordReading": "まったく"
+   }
+  ]
+ },
+ "共": {
+  "on": [
+   {
+    "reading": "キョウ",
+    "word": "共通",
+    "wordReading": "きょうつう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "とも",
+    "word": "共に",
+    "wordReading": "ともに"
+   }
+  ]
+ },
+ "列": {
+  "on": [
+   {
+    "reading": "レツ",
+    "word": "列車",
+    "wordReading": "れっしゃ"
+   }
+  ],
+  "kun": []
+ },
+ "危": {
+  "on": [
+   {
+    "reading": "キ",
+    "word": "危険",
+    "wordReading": "きけん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あぶ",
+    "word": "危ない",
+    "wordReading": "あぶない"
+   }
+  ]
+ },
+ "合": {
+  "on": [
+   {
+    "reading": "ゴウ",
+    "word": "合計",
+    "wordReading": "ごうけい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あ",
+    "word": "合う",
+    "wordReading": "あう"
+   }
+  ]
+ },
+ "向": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "方向",
+    "wordReading": "ほうこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "む",
+    "word": "向かう",
+    "wordReading": "むかう"
+   }
+  ]
+ },
+ "吸": {
+  "on": [
+   {
+    "reading": "キュウ",
+    "word": "吸収",
+    "wordReading": "きゅうしゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "す",
+    "word": "吸う",
+    "wordReading": "すう"
+   }
+  ]
+ },
+ "回": {
+  "on": [
+   {
+    "reading": "カイ",
+    "word": "回転",
+    "wordReading": "かいてん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まわ",
+    "word": "回る",
+    "wordReading": "まわる"
+   }
+  ]
+ },
+ "因": {
+  "on": [
+   {
+    "reading": "イン",
+    "word": "原因",
+    "wordReading": "げんいん"
+   }
+  ],
+  "kun": []
+ },
+ "在": {
+  "on": [
+   {
+    "reading": "ザイ",
+    "word": "存在",
+    "wordReading": "そんざい"
+   }
+  ],
+  "kun": []
+ },
+ "好": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "好物",
+    "wordReading": "こうぶつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "す",
+    "word": "好き",
+    "wordReading": "すき"
+   },
+   {
+    "reading": "この",
+    "word": "好む",
+    "wordReading": "このむ"
+   }
+  ]
+ },
+ "存": {
+  "on": [
+   {
+    "reading": "ソン",
+    "word": "存在",
+    "wordReading": "そんざい"
+   },
+   {
+    "reading": "ゾン",
+    "word": "保存",
+    "wordReading": "ほぞん"
+   }
+  ],
+  "kun": []
+ },
+ "宅": {
+  "on": [
+   {
+    "reading": "タク",
+    "word": "住宅",
+    "wordReading": "じゅうたく"
+   }
+  ],
+  "kun": []
+ },
+ "守": {
+  "on": [
+   {
+    "reading": "シュ",
+    "word": "守備",
+    "wordReading": "しゅび"
+   },
+   {
+    "reading": "ス",
+    "word": "留守",
+    "wordReading": "るす"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まも",
+    "word": "守る",
+    "wordReading": "まもる"
+   }
+  ]
+ },
+ "式": {
+  "on": [
+   {
+    "reading": "シキ",
+    "word": "形式",
+    "wordReading": "けいしき"
+   }
+  ],
+  "kun": []
+ },
+ "当": {
+  "on": [
+   {
+    "reading": "トウ",
+    "word": "弁当",
+    "wordReading": "べんとう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あ",
+    "word": "当たる",
+    "wordReading": "あたる"
+   }
+  ]
+ },
+ "忙": {
+  "on": [
+   {
+    "reading": "ボウ",
+    "word": "多忙",
+    "wordReading": "たぼう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いそが",
+    "word": "忙しい",
+    "wordReading": "いそがしい"
+   }
+  ]
+ },
+ "成": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "成功",
+    "wordReading": "せいこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "な",
+    "word": "成る",
+    "wordReading": "なる"
+   }
+  ]
+ },
+ "曲": {
+  "on": [
+   {
+    "reading": "キョク",
+    "word": "曲線",
+    "wordReading": "きょくせん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ま",
+    "word": "曲がる",
+    "wordReading": "まがる"
+   }
+  ]
+ },
+ "次": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "次回",
+    "wordReading": "じかい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つぎ",
+    "word": "次",
+    "wordReading": "つぎ"
+   }
+  ]
+ },
+ "米": {
+  "on": [
+   {
+    "reading": "ベイ",
+    "word": "米国",
+    "wordReading": "べいこく"
+   },
+   {
+    "reading": "マイ",
+    "word": "白米",
+    "wordReading": "はくまい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "こめ",
+    "word": "米",
+    "wordReading": "こめ"
+   }
+  ]
+ },
+ "老": {
+  "on": [
+   {
+    "reading": "ロウ",
+    "word": "老人",
+    "wordReading": "ろうじん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "お",
+    "word": "老いる",
+    "wordReading": "おいる"
+   }
+  ]
+ },
+ "耳": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "耳鼻科",
+    "wordReading": "じびか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みみ",
+    "word": "耳",
+    "wordReading": "みみ"
+   }
+  ]
+ },
+ "似": {
+  "on": [
+   {
+    "reading": "ジ",
+    "word": "類似",
+    "wordReading": "るいじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "に",
+    "word": "似る",
+    "wordReading": "にる"
+   }
+  ]
+ },
+ "位": {
+  "on": [
+   {
+    "reading": "イ",
+    "word": "位置",
+    "wordReading": "いち"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くらい",
+    "word": "位",
+    "wordReading": "くらい"
+   }
+  ]
+ },
+ "余": {
+  "on": [
+   {
+    "reading": "ヨ",
+    "word": "余分",
+    "wordReading": "よぶん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あま",
+    "word": "余る",
+    "wordReading": "あまる"
+   }
+  ]
+ },
+ "冷": {
+  "on": [
+   {
+    "reading": "レイ",
+    "word": "冷蔵庫",
+    "wordReading": "れいぞうこ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つめ",
+    "word": "冷たい",
+    "wordReading": "つめたい"
+   },
+   {
+    "reading": "ひ",
+    "word": "冷える",
+    "wordReading": "ひえる"
+   }
+  ]
+ },
+ "一": {
+  "on": [
+   {
+    "reading": "イチ",
+    "word": "一番",
+    "wordReading": "いちばん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひと",
+    "word": "一つ",
+    "wordReading": "ひとつ"
+   }
+  ]
+ },
+ "七": {
+  "on": [
+   {
+    "reading": "シチ",
+    "word": "七時",
+    "wordReading": "しちじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なな",
+    "word": "七つ",
+    "wordReading": "ななつ"
+   },
+   {
+    "reading": "なの",
+    "word": "七日",
+    "wordReading": "なのか"
+   }
+  ]
+ },
+ "九": {
+  "on": [
+   {
+    "reading": "キュウ",
+    "word": "九州",
+    "wordReading": "きゅうしゅう"
+   },
+   {
+    "reading": "ク",
+    "word": "九月",
+    "wordReading": "くがつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ここの",
+    "word": "九つ",
+    "wordReading": "ここのつ"
+   }
+  ]
+ },
+ "二": {
+  "on": [
+   {
+    "reading": "ニ",
+    "word": "二階",
+    "wordReading": "にかい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ふた",
+    "word": "二つ",
+    "wordReading": "ふたつ"
+   }
+  ]
+ },
+ "人": {
+  "on": [
+   {
+    "reading": "ジン",
+    "word": "日本人",
+    "wordReading": "にほんじん"
+   },
+   {
+    "reading": "ニン",
+    "word": "三人",
+    "wordReading": "さんにん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひと",
+    "word": "人",
+    "wordReading": "ひと"
+   }
+  ]
+ },
+ "入": {
+  "on": [
+   {
+    "reading": "ニュウ",
+    "word": "入学",
+    "wordReading": "にゅうがく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はい",
+    "word": "入る",
+    "wordReading": "はいる"
+   },
+   {
+    "reading": "い",
+    "word": "入れる",
+    "wordReading": "いれる"
+   }
+  ]
+ },
+ "八": {
+  "on": [
+   {
+    "reading": "ハチ",
+    "word": "八時",
+    "wordReading": "はちじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "や",
+    "word": "八つ",
+    "wordReading": "やっつ"
+   }
+  ]
+ },
+ "十": {
+  "on": [
+   {
+    "reading": "ジュウ",
+    "word": "十分",
+    "wordReading": "じゅうぶん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "とお",
+    "word": "十日",
+    "wordReading": "とおか"
+   }
+  ]
+ },
+ "万": {
+  "on": [
+   {
+    "reading": "マン",
+    "word": "一万",
+    "wordReading": "いちまん"
+   },
+   {
+    "reading": "バン",
+    "word": "万歳",
+    "wordReading": "ばんざい"
+   }
+  ],
+  "kun": []
+ },
+ "三": {
+  "on": [
+   {
+    "reading": "サン",
+    "word": "三月",
+    "wordReading": "さんがつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "み",
+    "word": "三つ",
+    "wordReading": "みっつ"
+   }
+  ]
+ },
+ "上": {
+  "on": [
+   {
+    "reading": "ジョウ",
+    "word": "上手",
+    "wordReading": "じょうず"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うえ",
+    "word": "上",
+    "wordReading": "うえ"
+   },
+   {
+    "reading": "あ",
+    "word": "上げる",
+    "wordReading": "あげる"
+   }
+  ]
+ },
+ "下": {
+  "on": [
+   {
+    "reading": "カ",
+    "word": "地下",
+    "wordReading": "ちか"
+   },
+   {
+    "reading": "ゲ",
+    "word": "上下",
+    "wordReading": "じょうげ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "した",
+    "word": "下",
+    "wordReading": "した"
+   },
+   {
+    "reading": "さ",
+    "word": "下げる",
+    "wordReading": "さげる"
+   }
+  ]
+ },
+ "千": {
+  "on": [
+   {
+    "reading": "セン",
+    "word": "千円",
+    "wordReading": "せんえん"
+   }
+  ],
+  "kun": []
+ },
+ "土": {
+  "on": [
+   {
+    "reading": "ド",
+    "word": "土曜日",
+    "wordReading": "どようび"
+   },
+   {
+    "reading": "ト",
+    "word": "土地",
+    "wordReading": "とち"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つち",
+    "word": "土",
+    "wordReading": "つち"
+   }
+  ]
+ },
+ "大": {
+  "on": [
+   {
+    "reading": "ダイ",
+    "word": "大学",
+    "wordReading": "だいがく"
+   },
+   {
+    "reading": "タイ",
+    "word": "大切",
+    "wordReading": "たいせつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おお",
+    "word": "大きい",
+    "wordReading": "おおきい"
+   }
+  ]
+ },
+ "女": {
+  "on": [
+   {
+    "reading": "ジョ",
+    "word": "女子",
+    "wordReading": "じょし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "おんな",
+    "word": "女",
+    "wordReading": "おんな"
+   }
+  ]
+ },
+ "子": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "帽子",
+    "wordReading": "ぼうし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "こ",
+    "word": "子",
+    "wordReading": "こ"
+   }
+  ]
+ },
+ "小": {
+  "on": [
+   {
+    "reading": "ショウ",
+    "word": "小学校",
+    "wordReading": "しょうがっこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ちい",
+    "word": "小さい",
+    "wordReading": "ちいさい"
+   }
+  ]
+ },
+ "山": {
+  "on": [
+   {
+    "reading": "サン",
+    "word": "富士山",
+    "wordReading": "ふじさん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やま",
+    "word": "山",
+    "wordReading": "やま"
+   }
+  ]
+ },
+ "川": {
+  "on": [
+   {
+    "reading": "セン",
+    "word": "河川",
+    "wordReading": "かせん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かわ",
+    "word": "川",
+    "wordReading": "かわ"
+   }
+  ]
+ },
+ "中": {
+  "on": [
+   {
+    "reading": "チュウ",
+    "word": "中学校",
+    "wordReading": "ちゅうがっこう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なか",
+    "word": "中",
+    "wordReading": "なか"
+   }
+  ]
+ },
+ "五": {
+  "on": [
+   {
+    "reading": "ゴ",
+    "word": "五月",
+    "wordReading": "ごがつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いつ",
+    "word": "五つ",
+    "wordReading": "いつつ"
+   }
+  ]
+ },
+ "今": {
+  "on": [
+   {
+    "reading": "コン",
+    "word": "今週",
+    "wordReading": "こんしゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "いま",
+    "word": "今",
+    "wordReading": "いま"
+   }
+  ]
+ },
+ "六": {
+  "on": [
+   {
+    "reading": "ロク",
+    "word": "六月",
+    "wordReading": "ろくがつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "む",
+    "word": "六つ",
+    "wordReading": "むっつ"
+   }
+  ]
+ },
+ "円": {
+  "on": [
+   {
+    "reading": "エン",
+    "word": "百円",
+    "wordReading": "ひゃくえん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まる",
+    "word": "円い",
+    "wordReading": "まるい"
+   }
+  ]
+ },
+ "午": {
+  "on": [
+   {
+    "reading": "ゴ",
+    "word": "午後",
+    "wordReading": "ごご"
+   }
+  ],
+  "kun": []
+ },
+ "友": {
+  "on": [
+   {
+    "reading": "ユウ",
+    "word": "友人",
+    "wordReading": "ゆうじん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "とも",
+    "word": "友達",
+    "wordReading": "ともだち"
+   }
+  ]
+ },
+ "天": {
+  "on": [
+   {
+    "reading": "テン",
+    "word": "天気",
+    "wordReading": "てんき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あま",
+    "word": "天の川",
+    "wordReading": "あまのがわ"
+   }
+  ]
+ },
+ "日": {
+  "on": [
+   {
+    "reading": "ニチ",
+    "word": "日曜日",
+    "wordReading": "にちようび"
+   },
+   {
+    "reading": "ジツ",
+    "word": "平日",
+    "wordReading": "へいじつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひ",
+    "word": "日",
+    "wordReading": "ひ"
+   }
+  ]
+ },
+ "月": {
+  "on": [
+   {
+    "reading": "ゲツ",
+    "word": "月曜日",
+    "wordReading": "げつようび"
+   },
+   {
+    "reading": "ガツ",
+    "word": "一月",
+    "wordReading": "いちがつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つき",
+    "word": "月",
+    "wordReading": "つき"
+   }
+  ]
+ },
+ "木": {
+  "on": [
+   {
+    "reading": "モク",
+    "word": "木曜日",
+    "wordReading": "もくようび"
+   },
+   {
+    "reading": "ボク",
+    "word": "大木",
+    "wordReading": "たいぼく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "き",
+    "word": "木",
+    "wordReading": "き"
+   }
+  ]
+ },
+ "水": {
+  "on": [
+   {
+    "reading": "スイ",
+    "word": "水曜日",
+    "wordReading": "すいようび"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みず",
+    "word": "水",
+    "wordReading": "みず"
+   }
+  ]
+ },
+ "火": {
+  "on": [
+   {
+    "reading": "カ",
+    "word": "火曜日",
+    "wordReading": "かようび"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひ",
+    "word": "火",
+    "wordReading": "ひ"
+   }
+  ]
+ },
+ "父": {
+  "on": [
+   {
+    "reading": "フ",
+    "word": "父母",
+    "wordReading": "ふぼ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ちち",
+    "word": "父",
+    "wordReading": "ちち"
+   }
+  ]
+ },
+ "出": {
+  "on": [
+   {
+    "reading": "シュツ",
+    "word": "出発",
+    "wordReading": "しゅっぱつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "で",
+    "word": "出る",
+    "wordReading": "でる"
+   },
+   {
+    "reading": "だ",
+    "word": "出す",
+    "wordReading": "だす"
+   }
+  ]
+ },
+ "北": {
+  "on": [
+   {
+    "reading": "ホク",
+    "word": "東北",
+    "wordReading": "とうほく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "きた",
+    "word": "北",
+    "wordReading": "きた"
+   }
+  ]
+ },
+ "半": {
+  "on": [
+   {
+    "reading": "ハン",
+    "word": "半分",
+    "wordReading": "はんぶん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なか",
+    "word": "半ば",
+    "wordReading": "なかば"
+   }
+  ]
+ },
+ "右": {
+  "on": [
+   {
+    "reading": "ウ",
+    "word": "右折",
+    "wordReading": "うせつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "みぎ",
+    "word": "右",
+    "wordReading": "みぎ"
+   }
+  ]
+ },
+ "四": {
+  "on": [
+   {
+    "reading": "シ",
+    "word": "四月",
+    "wordReading": "しがつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "よん",
+    "word": "四",
+    "wordReading": "よん"
+   },
+   {
+    "reading": "よ",
+    "word": "四つ",
+    "wordReading": "よっつ"
+   }
+  ]
+ },
+ "外": {
+  "on": [
+   {
+    "reading": "ガイ",
+    "word": "外国",
+    "wordReading": "がいこく"
+   },
+   {
+    "reading": "ゲ",
+    "word": "外科",
+    "wordReading": "げか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "そと",
+    "word": "外",
+    "wordReading": "そと"
+   },
+   {
+    "reading": "はず",
+    "word": "外す",
+    "wordReading": "はずす"
+   }
+  ]
+ },
+ "左": {
+  "on": [
+   {
+    "reading": "サ",
+    "word": "左右",
+    "wordReading": "さゆう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ひだり",
+    "word": "左",
+    "wordReading": "ひだり"
+   }
+  ]
+ },
+ "本": {
+  "on": [
+   {
+    "reading": "ホン",
+    "word": "本",
+    "wordReading": "ほん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "もと",
+    "word": "本",
+    "wordReading": "もと"
+   }
+  ]
+ },
+ "母": {
+  "on": [
+   {
+    "reading": "ボ",
+    "word": "母国",
+    "wordReading": "ぼこく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はは",
+    "word": "母",
+    "wordReading": "はは"
+   }
+  ]
+ },
+ "生": {
+  "on": [
+   {
+    "reading": "セイ",
+    "word": "学生",
+    "wordReading": "がくせい"
+   },
+   {
+    "reading": "ショウ",
+    "word": "一生",
+    "wordReading": "いっしょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "い",
+    "word": "生きる",
+    "wordReading": "いきる"
+   },
+   {
+    "reading": "う",
+    "word": "生まれる",
+    "wordReading": "うまれる"
+   }
+  ]
+ },
+ "白": {
+  "on": [
+   {
+    "reading": "ハク",
+    "word": "白紙",
+    "wordReading": "はくし"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "しろ",
+    "word": "白",
+    "wordReading": "しろ"
+   }
+  ]
+ },
+ "財": {
+  "on": [
+   {
+    "reading": "ザイ",
+    "word": "財産",
+    "wordReading": "ざいさん"
+   }
+  ],
+  "kun": []
+ },
+ "途": {
+  "on": [
+   {
+    "reading": "ト",
+    "word": "途中",
+    "wordReading": "とちゅう"
+   }
+  ],
+  "kun": []
+ },
+ "速": {
+  "on": [
+   {
+    "reading": "ソク",
+    "word": "速度",
+    "wordReading": "そくど"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "はや",
+    "word": "速い",
+    "wordReading": "はやい"
+   }
+  ]
+ },
+ "連": {
+  "on": [
+   {
+    "reading": "レン",
+    "word": "連続",
+    "wordReading": "れんぞく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つ",
+    "word": "連れる",
+    "wordReading": "つれる"
+   }
+  ]
+ },
+ "配": {
+  "on": [
+   {
+    "reading": "ハイ",
+    "word": "配達",
+    "wordReading": "はいたつ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "くば",
+    "word": "配る",
+    "wordReading": "くばる"
+   }
+  ]
+ },
+ "酒": {
+  "on": [
+   {
+    "reading": "シュ",
+    "word": "日本酒",
+    "wordReading": "にほんしゅ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さけ",
+    "word": "お酒",
+    "wordReading": "おさけ"
+   }
+  ]
+ },
+ "降": {
+  "on": [
+   {
+    "reading": "コウ",
+    "word": "降水",
+    "wordReading": "こうすい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ふ",
+    "word": "降る",
+    "wordReading": "ふる"
+   },
+   {
+    "reading": "お",
+    "word": "降りる",
+    "wordReading": "おりる"
+   }
+  ]
+ },
+ "除": {
+  "on": [
+   {
+    "reading": "ジョ",
+    "word": "除去",
+    "wordReading": "じょきょ"
+   },
+   {
+    "reading": "ジ",
+    "word": "掃除",
+    "wordReading": "そうじ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "のぞ",
+    "word": "除く",
+    "wordReading": "のぞく"
+   }
+  ]
+ },
+ "馬": {
+  "on": [
+   {
+    "reading": "バ",
+    "word": "競馬",
+    "wordReading": "けいば"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "うま",
+    "word": "馬",
+    "wordReading": "うま"
+   }
+  ]
+ },
+ "側": {
+  "on": [
+   {
+    "reading": "ソク",
+    "word": "側面",
+    "wordReading": "そくめん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "かわ",
+    "word": "右側",
+    "wordReading": "みぎがわ"
+   }
+  ]
+ },
+ "偶": {
+  "on": [
+   {
+    "reading": "グウ",
+    "word": "偶然",
+    "wordReading": "ぐうぜん"
+   }
+  ],
+  "kun": []
+ },
+ "務": {
+  "on": [
+   {
+    "reading": "ム",
+    "word": "事務",
+    "wordReading": "じむ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つと",
+    "word": "務める",
+    "wordReading": "つとめる"
+   }
+  ]
+ },
+ "商": {
+  "on": [
+   {
+    "reading": "ショウ",
+    "word": "商品",
+    "wordReading": "しょうひん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あきな",
+    "word": "商う",
+    "wordReading": "あきなう"
+   }
+  ]
+ },
+ "婚": {
+  "on": [
+   {
+    "reading": "コン",
+    "word": "結婚",
+    "wordReading": "けっこん"
+   }
+  ],
+  "kun": []
+ },
+ "婦": {
+  "on": [
+   {
+    "reading": "フ",
+    "word": "主婦",
+    "wordReading": "しゅふ"
+   }
+  ],
+  "kun": []
+ },
+ "宿": {
+  "on": [
+   {
+    "reading": "シュク",
+    "word": "宿題",
+    "wordReading": "しゅくだい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やど",
+    "word": "宿",
+    "wordReading": "やど"
+   }
+  ]
+ },
+ "寄": {
+  "on": [
+   {
+    "reading": "キ",
+    "word": "寄付",
+    "wordReading": "きふ"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "よ",
+    "word": "寄る",
+    "wordReading": "よる"
+   }
+  ]
+ },
+ "常": {
+  "on": [
+   {
+    "reading": "ジョウ",
+    "word": "日常",
+    "wordReading": "にちじょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "つね",
+    "word": "常に",
+    "wordReading": "つねに"
+   }
+  ]
+ },
+ "得": {
+  "on": [
+   {
+    "reading": "トク",
+    "word": "得意",
+    "wordReading": "とくい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "え",
+    "word": "得る",
+    "wordReading": "える"
+   }
+  ]
+ },
+ "情": {
+  "on": [
+   {
+    "reading": "ジョウ",
+    "word": "情報",
+    "wordReading": "じょうほう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "なさ",
+    "word": "情け",
+    "wordReading": "なさけ"
+   }
+  ]
+ },
+ "掛": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "か",
+    "word": "掛ける",
+    "wordReading": "かける"
+   }
+  ]
+ },
+ "探": {
+  "on": [
+   {
+    "reading": "タン",
+    "word": "探検",
+    "wordReading": "たんけん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "さが",
+    "word": "探す",
+    "wordReading": "さがす"
+   },
+   {
+    "reading": "さぐ",
+    "word": "探る",
+    "wordReading": "さぐる"
+   }
+  ]
+ },
+ "敗": {
+  "on": [
+   {
+    "reading": "ハイ",
+    "word": "失敗",
+    "wordReading": "しっぱい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "やぶ",
+    "word": "敗れる",
+    "wordReading": "やぶれる"
+   }
+  ]
+ },
+ "断": {
+  "on": [
+   {
+    "reading": "ダン",
+    "word": "判断",
+    "wordReading": "はんだん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ことわ",
+    "word": "断る",
+    "wordReading": "ことわる"
+   }
+  ]
+ },
+ "望": {
+  "on": [
+   {
+    "reading": "ボウ",
+    "word": "希望",
+    "wordReading": "きぼう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "のぞ",
+    "word": "望む",
+    "wordReading": "のぞむ"
+   }
+  ]
+ },
+ "欲": {
+  "on": [
+   {
+    "reading": "ヨク",
+    "word": "食欲",
+    "wordReading": "しょくよく"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ほ",
+    "word": "欲しい",
+    "wordReading": "ほしい"
+   }
+  ]
+ },
+ "深": {
+  "on": [
+   {
+    "reading": "シン",
+    "word": "深夜",
+    "wordReading": "しんや"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ふか",
+    "word": "深い",
+    "wordReading": "ふかい"
+   }
+  ]
+ },
+ "済": {
+  "on": [
+   {
+    "reading": "サイ",
+    "word": "経済",
+    "wordReading": "けいざい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "す",
+    "word": "済む",
+    "wordReading": "すむ"
+   }
+  ]
+ },
+ "猫": {
+  "on": [],
+  "kun": [
+   {
+    "reading": "ねこ",
+    "word": "猫",
+    "wordReading": "ねこ"
+   }
+  ]
+ },
+ "現": {
+  "on": [
+   {
+    "reading": "ゲン",
+    "word": "現在",
+    "wordReading": "げんざい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "あらわ",
+    "word": "現れる",
+    "wordReading": "あらわれる"
+   }
+  ]
+ },
+ "球": {
+  "on": [
+   {
+    "reading": "キュウ",
+    "word": "野球",
+    "wordReading": "やきゅう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たま",
+    "word": "球",
+    "wordReading": "たま"
+   }
+  ]
+ },
+ "産": {
+  "on": [
+   {
+    "reading": "サン",
+    "word": "産業",
+    "wordReading": "さんぎょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "う",
+    "word": "産む",
+    "wordReading": "うむ"
+   }
+  ]
+ },
+ "盗": {
+  "on": [
+   {
+    "reading": "トウ",
+    "word": "盗難",
+    "wordReading": "とうなん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ぬす",
+    "word": "盗む",
+    "wordReading": "ぬすむ"
+   }
+  ]
+ },
+ "窓": {
+  "on": [
+   {
+    "reading": "ソウ",
+    "word": "同窓会",
+    "wordReading": "どうそうかい"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まど",
+    "word": "窓",
+    "wordReading": "まど"
+   }
+  ]
+ },
+ "組": {
+  "on": [
+   {
+    "reading": "ソ",
+    "word": "組織",
+    "wordReading": "そしき"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "く",
+    "word": "組む",
+    "wordReading": "くむ"
+   }
+  ]
+ },
+ "経": {
+  "on": [
+   {
+    "reading": "ケイ",
+    "word": "経験",
+    "wordReading": "けいけん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "へ",
+    "word": "経る",
+    "wordReading": "へる"
+   }
+  ]
+ },
+ "船": {
+  "on": [
+   {
+    "reading": "セン",
+    "word": "船長",
+    "wordReading": "せんちょう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ふね",
+    "word": "船",
+    "wordReading": "ふね"
+   }
+  ]
+ },
+ "術": {
+  "on": [
+   {
+    "reading": "ジュツ",
+    "word": "技術",
+    "wordReading": "ぎじゅつ"
+   }
+  ],
+  "kun": []
+ },
+ "規": {
+  "on": [
+   {
+    "reading": "キ",
+    "word": "規則",
+    "wordReading": "きそく"
+   }
+  ],
+  "kun": []
+ },
+ "訪": {
+  "on": [
+   {
+    "reading": "ホウ",
+    "word": "訪問",
+    "wordReading": "ほうもん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "たず",
+    "word": "訪ねる",
+    "wordReading": "たずねる"
+   }
+  ]
+ },
+ "許": {
+  "on": [
+   {
+    "reading": "キョ",
+    "word": "許可",
+    "wordReading": "きょか"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "ゆる",
+    "word": "許す",
+    "wordReading": "ゆるす"
+   }
+  ]
+ },
+ "貧": {
+  "on": [
+   {
+    "reading": "ヒン",
+    "word": "貧困",
+    "wordReading": "ひんこん"
+   },
+   {
+    "reading": "ビン",
+    "word": "貧乏",
+    "wordReading": "びんぼう"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "まず",
+    "word": "貧しい",
+    "wordReading": "まずしい"
+   }
+  ]
+ },
+ "責": {
+  "on": [
+   {
+    "reading": "セキ",
+    "word": "責任",
+    "wordReading": "せきにん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "せ",
+    "word": "責める",
+    "wordReading": "せめる"
+   }
+  ]
+ },
+ "進": {
+  "on": [
+   {
+    "reading": "シン",
+    "word": "前進",
+    "wordReading": "ぜんしん"
+   }
+  ],
+  "kun": [
+   {
+    "reading": "すす",
+    "word": "進む",
+    "wordReading": "すすむ"
+   }
+  ]
+ },
+ "部": {
+  "on": [
+   {
+    "reading": "ブ",
+    "word": "部分",
+    "wordReading": "ぶぶん"
+   }
+  ],
+  "kun": []
+ }
+}

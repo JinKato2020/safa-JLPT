@@ -4,7 +4,9 @@ import { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { itemsFor, KANJI_LEVEL_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn } from '../data';
+import { itemsFor, KANJI_CARD_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn } from '../data';
+
+const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 import type { StudyItem } from '../data';
 import LearnTestSession from '../components/LearnTestSession';
 import HighlightedText from '../components/HighlightedText';
@@ -18,17 +20,18 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
   const key = item.type === 'kanji' ? item.char : item.id;
   const native = l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined;
   if (item.type === 'kanji') {
-    // 級別・試験特化の読みだけを表示(辞書の全音訓ではない)。読み1つにつき例語つき。
-    const lv = KANJI_LEVEL_READINGS[item.char] ?? [];
+    // 主要な音訓＋例語(KANJI_CARD_READINGS=本アプリ作成・KANJIDIC範囲内で検証済み。読みと例語が正しいセット)。
+    const d = KANJI_CARD_READINGS[item.char];
+    const rows = d ? [...d.on.map((e) => ({ ...e, on: true })), ...d.kun.map((e) => ({ ...e, on: false }))] : [];
     return (
       <View style={s.card}>
         <Text style={s.kanji}>{item.char}</Text>
         <Text style={s.meaning}>{native ?? item.meaning}</Text>
         {native ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
-        {lv.map((r, i) => (
+        {rows.map((r, i) => (
           <Text key={i} style={s.ex}>
-            <Text style={s.readTag}>{r.type === 'on' ? '音' : '訓'} {r.reading}</Text>
-            {r.examples.length ? `　${r.examples.map(([w, rd]) => `${w}（${rd}）`).join('　')}` : ''}
+            <Text style={s.readTag}>{r.on ? '音' : '訓'} {r.on ? hiraToKata(r.reading) : r.reading}</Text>
+            {`　${r.word}（${r.wordReading}）`}
           </Text>
         ))}
       </View>

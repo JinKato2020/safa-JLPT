@@ -26,6 +26,7 @@ import synonymBank from './synonymBank.json';
 import jftExpression from './jftExpression.json';
 import orthographyBank from './orthographyBank.json';
 import kanjiReadings from './kanjiReadings.json';
+import kanjiCardReadings from './kanjiCardReadings.json';
 import type { Category, Level } from '../engine/engine';
 
 export interface KanjiItem {
@@ -131,6 +132,12 @@ export const KANJI_EXAMPLE_MULTI = kanjiExamplesMulti as Record<string, KanjiExa
 // その級の語彙で実際に使われる読みだけ(辞書全音訓ではない)。生成: 問題/tools/build_kanji_level_readings.py。
 export interface KanjiLevelReading { reading: string; type: 'on' | 'kun'; examples: [string, string][]; fallback?: boolean; }
 export const KANJI_LEVEL_READINGS = kanjiLevelReadings as unknown as Record<string, KanjiLevelReading[]>;
+
+// 漢字カード用の音訓＋例語(本アプリ作成・KANJIDIC範囲内で検証済み)。char→{on,kun}。各読みに1例語。
+// 音readingはカタカナ/訓readingはその漢字が担うひらがな読み。生成=問題/tools/build_kanjicard.py。
+export interface KanjiCardReadingEntry { reading: string; word: string; wordReading: string; }
+export interface KanjiCardReadings { on: KanjiCardReadingEntry[]; kun: KanjiCardReadingEntry[]; }
+export const KANJI_CARD_READINGS = kanjiCardReadings as unknown as Record<string, KanjiCardReadings>;
 
 // 漢字読み/表記の固定問題集(実行時自動生成でなく確定済み)。id=kr:<vocabId>/og:<vocabId>。
 // choices[0]=正解(表示時にシャッフル)。生成=問題/tools/build_kanji_read_bank.py。
