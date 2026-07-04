@@ -352,5 +352,7 @@
   "profile.bg_sky": "Langit",
   "profile.bg_green": "Hijau",
   "profile.bg_fuji": "Wisteria",
-  "profile.bg_akane": "Senja"
+  "profile.bg_akane": "Senja",
+  "study.coverage": "Cakupan",
+  "study.accuracy": "Akurasi"
 }

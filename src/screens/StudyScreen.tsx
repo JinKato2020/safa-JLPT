@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { ringsFor, daimonRingPct, idsRingPct } from '../store/selectors';
+import { ringsFor, daimonRingPct, idsRingPct, daimonCoveragePct, categoryCoveragePct, idsCoveragePct } from '../store/selectors';
 import RingGauge from '../components/RingGauge';
 import { ringItemIdsFor, readingItemsForSub, READING_SUBTYPES, listeningItemsForSub, LISTENING_SUBTYPES } from '../data';
 import { daimonsWithUnits } from '../data/daimon';
@@ -28,7 +28,7 @@ const RING_META: Record<Category, { labelKey: string; icon: string }> = {
   choukai: { labelKey: 'study.cat_choukai', icon: '聴' },
 };
 
-interface SubRing { key: string; label: string; value: number | null; onPress: () => void; }
+interface SubRing { key: string; label: string; value: number | null; cover: number | null; onPress: () => void; }
 
 export default function StudyScreen() {
   const nav = useNavigation<Nav>();
@@ -58,15 +58,15 @@ export default function StudyScreen() {
 
   const ringColor = (v: number | null): string => (v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red);
 
-  // 各中リング(カテゴリ)配下の小リング(大問/サブ種別)。
+  // 各中リング(カテゴリ)配下の小リング(大問/サブ種別)。value=正答率 / cover=カバー率(別指標)。
   const subRingsFor = (cat: Category): SubRing[] => {
-    if (cat === 'moji_goi')
-      return mojiDaimons.map((d) => ({ key: d.daimon, label: t(DAIMON_LABEL[d.daimon]), value: daimonRingPct(state, now, d.daimon), onPress: () => nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) }) }));
-    if (cat === 'bunpou')
-      return bunpouDaimons.map((d) => ({ key: d.daimon, label: t(DAIMON_LABEL[d.daimon]), value: daimonRingPct(state, now, d.daimon), onPress: () => nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) }) }));
+    if (cat === 'moji_goi' || cat === 'bunpou') {
+      const list = cat === 'moji_goi' ? mojiDaimons : bunpouDaimons;
+      return list.map((d) => ({ key: d.daimon, label: t(DAIMON_LABEL[d.daimon]), value: daimonRingPct(state, now, d.daimon), cover: daimonCoveragePct(state, now, d.daimon), onPress: () => nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) }) }));
+    }
     if (cat === 'dokkai')
-      return readingSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, readingItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Reading', { subtype: sub.key }) }));
-    return listeningSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, listeningItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Listening', { subtype: sub.key }) }));
+      return readingSubs.map((sub) => { const ids = readingItemsForSub(lv, sub.key).map((x) => x.id); return { key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, ids), cover: idsCoveragePct(state, now, ids), onPress: () => nav.navigate('Reading', { subtype: sub.key }) }; });
+    return listeningSubs.map((sub) => { const ids = listeningItemsForSub(lv, sub.key).map((x) => x.id); return { key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, ids), cover: idsCoveragePct(state, now, ids), onPress: () => nav.navigate('Listening', { subtype: sub.key }) }; });
   };
   const catHeadPress = (cat: Category) => {
     if (cat === 'moji_goi') return mojiDaimons.length ? nav.navigate('Quiz', { daimon: mojiDaimons[0].daimon, title: t(DAIMON_LABEL[mojiDaimons[0].daimon]) }) : nav.navigate('Flashcard');
@@ -89,9 +89,8 @@ export default function StudyScreen() {
 
         {/* 中リング(カテゴリ)→ 小リング(大問/サブ種別)の3段階。大リング(合格)はホーム。 */}
         {RING_ORDER.map((cat) => {
-          const v = rings[cat];
-          const all = ringItemIdsFor(lv, cat);
-          const done = all.filter((id) => items[id]).length;
+          const v = rings[cat]; // 中リング=正答率
+          const cover = categoryCoveragePct(state, now, cat); // カバー率(別指標)
           const subs = subRingsFor(cat);
           return (
             <View key={cat} style={s.catBlock}>
@@ -99,15 +98,15 @@ export default function StudyScreen() {
                 <View style={s.badge}><Text style={s.badgeTxt}>{RING_META[cat].icon}</Text></View>
                 <View style={s.catHeadTxt}>
                   <Text style={s.catName}>{t(RING_META[cat].labelKey)}</Text>
-                  <Text style={s.catData}>{done}/{all.length}</Text>
+                  <Text style={s.catData}>{t('study.coverage')} {cover === null ? '–' : `${cover}%`}</Text>
                 </View>
-                <RingGauge value={v} color={ringColor(v)} size={52} stroke={6} />
+                <RingGauge value={v} color={ringColor(v)} size={52} stroke={6} sub={t('study.accuracy')} />
               </Pressable>
               {subs.length ? (
                 <View style={s.subRingWrap}>
                   {subs.map((sr) => (
                     <Pressable key={sr.key} style={({ pressed }) => [s.subRingCell, pressed && s.pressed]} onPress={sr.onPress}>
-                      <RingGauge value={sr.value} color={ringColor(sr.value)} size={46} stroke={5} label={sr.label} />
+                      <RingGauge value={sr.value} color={ringColor(sr.value)} size={46} stroke={5} label={sr.label} sub={sr.cover === null ? undefined : `${t('study.coverage')} ${sr.cover}%`} />
                     </Pressable>
                   ))}
                 </View>

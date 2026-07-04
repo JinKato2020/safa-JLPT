@@ -352,5 +352,7 @@
   "profile.bg_sky": "Bầu trời",
   "profile.bg_green": "Xanh lá",
   "profile.bg_fuji": "Tử đằng",
-  "profile.bg_akane": "Hoàng hôn"
+  "profile.bg_akane": "Hoàng hôn",
+  "study.coverage": "Độ phủ",
+  "study.accuracy": "Độ chính xác"
 }

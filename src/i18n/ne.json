@@ -352,5 +352,7 @@
   "profile.bg_sky": "आकाश",
   "profile.bg_green": "हरियो",
   "profile.bg_fuji": "विस्टेरिया",
-  "profile.bg_akane": "साँझ"
+  "profile.bg_akane": "साँझ",
+  "study.coverage": "कभरेज",
+  "study.accuracy": "शुद्धता"
 }

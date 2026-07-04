@@ -420,5 +420,7 @@
   "profile.bg_sky": "Sky",
   "profile.bg_green": "Green",
   "profile.bg_fuji": "Wisteria",
-  "profile.bg_akane": "Sunset"
+  "profile.bg_akane": "Sunset",
+  "study.coverage": "Coverage",
+  "study.accuracy": "Accuracy"
 }

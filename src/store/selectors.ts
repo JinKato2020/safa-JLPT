@@ -73,8 +73,10 @@ function knowledgeDaimonPct(state: AppState, now: number, ids: string[]): number
   if (touched === 0 || sw === 0) return null; // 未測定(未着手)
   return Math.round(100 * (swp / sw));         // 全項目の平均習得度(カバー率×習得)
 }
-// 区分の達成度%。読解/聴解(JLPT)は大問(区分)別の正答率を本番出題数で加重平均＝本番配分どおりに反映。
-function categoryPct(state: AppState, now: number, cat: Category, full: boolean): number | null {
+// 区分の達成度%。coverageFolded=false: リング表示用【正答率】 / true: 合格率用【カバー率×習得】。
+// 読解/聴解(般化スキル)は常に正答率(カバー率の概念なし)。
+function categoryPct(state: AppState, now: number, cat: Category, full: boolean, coverageFolded = false): number | null {
+  const knowFn = coverageFolded ? knowledgeDaimonPct : pctOfIds;
   const jft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const lv = state.settings.level;
   if (!jft && cat === 'dokkai') {
@@ -85,15 +87,15 @@ function categoryPct(state: AppState, now: number, cat: Category, full: boolean)
     const bySub = listeningIdsBySub(lv, full); const bp = CHOUKAI_BLUEPRINT[lv] ?? {};
     return wAvgPct(Object.entries(bySub).map(([k, ids]) => [pctOfIds(state, now, ids ?? []), bp[k] ?? 0]));
   }
-  // 文字語彙/文法(JLPT)は大問別の【カバー率×習得】を本番出題数で加重＝学習量が伴って初めて達成度が上がる。
+  // 文字語彙/文法(JLPT)は大問別。リング=正答率 / 合格率=カバー率×習得。本番出題数で加重。
   if (!jft && (cat === 'moji_goi' || cat === 'bunpou')) {
     const daimons = cat === 'moji_goi' ? MOJI_DAIMON : BUNPOU_DAIMON;
     const bp = DAIMON_BLUEPRINT[lv] ?? {};
-    return wAvgPct(daimons.map((d) => [knowledgeDaimonPct(state, now, daimonUnitIds(lv, d)), bp[d] ?? 0]));
+    return wAvgPct(daimons.map((d) => [knowFn(state, now, daimonUnitIds(lv, d)), bp[d] ?? 0]));
   }
-  // JFT(文字語彙/表現=知識)も同様に【カバー率×習得】＝JFT基準の合格率も学習量を反映(模試なしで練習から算定)。
+  // JFT(文字語彙/会話表現=知識)も同様。合格率はカバー率×習得、リングは正答率。
   if (jft && (cat === 'moji_goi' || cat === 'bunpou')) {
-    return knowledgeDaimonPct(state, now, examItemIds(state, cat, full));
+    return knowFn(state, now, examItemIds(state, cat, full));
   }
   return pctOfIds(state, now, examItemIds(state, cat, full));
 }
@@ -150,13 +152,32 @@ export function ringsFor(state: AppState, now: number): Record<Category, number 
   for (const c of RING_CATS) out[c] = categoryPct(state, now, c, false);
   return out;
 }
-/** 小リング(大問): 知識大問の達成度＝カバー率×習得。文字語彙/文法の各大問用。 */
+/** 小リング(大問): 正答率(解いた問題の当て推量補正済み正答率)。文字語彙/文法の各大問用。 */
 export function daimonRingPct(state: AppState, now: number, daimon: Daimon): number | null {
-  return knowledgeDaimonPct(state, now, daimonUnitIds(state.settings.level, daimon));
+  return pctOfIds(state, now, daimonUnitIds(state.settings.level, daimon));
 }
 /** 小リング(読解/聴解サブ種別): 正答率(般化スキル)。id集合を渡す。 */
 export function idsRingPct(state: AppState, now: number, ids: string[]): number | null {
   return pctOfIds(state, now, ids);
+}
+// --- カバー率(量) = 別指標: 習得(p≥0.6)した項目 / 全項目。正答率(質)とは独立の学習量メーター。 ---
+function coverPct(state: AppState, now: number, ids: string[]): number | null {
+  if (!ids.length) return null;
+  let m = 0;
+  for (const id of ids) { const st = state.items[id]; if (st && effectiveP(st, now) >= 0.6) m++; }
+  return Math.round((100 * m) / ids.length);
+}
+/** 大問のカバー率%(習得済み/全項目)。小リングの別指標。 */
+export function daimonCoveragePct(state: AppState, now: number, daimon: Daimon): number | null {
+  return coverPct(state, now, daimonUnitIds(state.settings.level, daimon));
+}
+/** 区分のカバー率%(習得済み/全項目)。中リングの別指標。 */
+export function categoryCoveragePct(state: AppState, now: number, cat: Category): number | null {
+  return coverPct(state, now, ringItemIdsFor(state.settings.level, cat));
+}
+/** id集合のカバー率%(読解/聴解サブ種別の別指標)。 */
+export function idsCoveragePct(state: AppState, now: number, ids: string[]): number | null {
+  return coverPct(state, now, ids);
 }
 
 // 公式の区分別基準点(passMarks)の各セクション → 本アプリの4区分カテゴリへの対応。
@@ -180,7 +201,7 @@ export function readinessFor(state: AppState, now: number) {
   const prof = examOf(state.settings.targetExam);
   const evidenceTotal = Object.values(state.items).reduce((s, it) => s + it.evidence, 0);
   const catP = {} as Record<Category, number | null>;
-  for (const c of RING_CATS) catP[c] = categoryPct(state, now, c, true);
+  for (const c of RING_CATS) catP[c] = categoryPct(state, now, c, true, true); // 合格率=カバー率×習得
   // 未測定の区分数(漢字語彙/文法/読解/聴解のうち未着手)。合算セクションが測定済区分だけで高く出る問題の補正に使う。
   const unmeasuredCats = RING_CATS.filter((c) => catP[c] === null).length;
   // JFT-Basic: 単一試験・各区分足切りなし・合格は総合80%(=200/250)のみ。総合は区分の出題数で加重(各区分ほぼ均等)。

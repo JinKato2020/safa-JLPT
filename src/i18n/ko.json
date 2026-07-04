@@ -352,5 +352,7 @@
   "profile.bg_sky": "하늘",
   "profile.bg_green": "초록",
   "profile.bg_fuji": "등나무",
-  "profile.bg_akane": "노을"
+  "profile.bg_akane": "노을",
+  "study.coverage": "커버리지",
+  "study.accuracy": "정답률"
 }

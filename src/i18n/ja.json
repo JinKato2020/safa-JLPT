@@ -420,5 +420,7 @@
   "profile.bg_sky": "空",
   "profile.bg_green": "緑",
   "profile.bg_fuji": "藤",
-  "profile.bg_akane": "茜"
+  "profile.bg_akane": "茜",
+  "study.coverage": "カバー率",
+  "study.accuracy": "正答率"
 }

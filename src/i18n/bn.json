@@ -352,5 +352,7 @@
   "profile.bg_sky": "আকাশ",
   "profile.bg_green": "সবুজ",
   "profile.bg_fuji": "উইস্টেরিয়া",
-  "profile.bg_akane": "সন্ধ্যা"
+  "profile.bg_akane": "সন্ধ্যা",
+  "study.coverage": "কভারেজ",
+  "study.accuracy": "নির্ভুলতা"
 }

@@ -352,5 +352,7 @@
   "profile.bg_sky": "ท้องฟ้า",
   "profile.bg_green": "เขียว",
   "profile.bg_fuji": "วิสทีเรีย",
-  "profile.bg_akane": "ตะวันตกดิน"
+  "profile.bg_akane": "ตะวันตกดิน",
+  "study.coverage": "ความครอบคลุม",
+  "study.accuracy": "ความแม่นยำ"
 }
