@@ -198,6 +198,19 @@ export default function ProfileScreen() {
             })}
           </View>
 
+          {/* 母語(l1) = フラッシュカード等の意味の表示言語。翻訳がある言語のみ提示(現状=英語/ネパール語)。 */}
+          <Text style={s.setLbl}>{t('profile.nativeLang')}</Text>
+          <View style={s.chipWrap}>
+            {([{ code: 'en', name: 'English' }, { code: 'ne', name: 'नेपाली' }] as const).map((L) => {
+              const on = (state.settings.l1 ?? 'en') === L.code;
+              return (
+                <Pressable key={L.code} onPress={() => setSettings({ l1: L.code })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{L.name}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
           <Text style={s.setLbl}>{t('profile.reminder')}</Text>
           <View style={s.chipWrap}>
             {REMINDERS.map((r) => (

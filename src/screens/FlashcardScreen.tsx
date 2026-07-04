@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { itemsFor, KANJI_LEVEL_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA } from '../data';
+import { itemsFor, KANJI_LEVEL_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn } from '../data';
 import type { StudyItem } from '../data';
 import LearnTestSession from '../components/LearnTestSession';
 import HighlightedText from '../components/HighlightedText';
@@ -12,13 +12,19 @@ import HighlightedText from '../components/HighlightedText';
 function VocabKanjiCard({ item }: { item: StudyItem }) {
   const c = useColors();
   const s = useMemo(() => cardStyles(c), [c]);
+  const { settings } = useAppState();
+  const l1 = settings.l1; // 母語コード
+  // 母語(l1)の意味があれば主表示、英語は補助。無ければ英語を主表示。
+  const key = item.type === 'kanji' ? item.char : item.id;
+  const native = l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined;
   if (item.type === 'kanji') {
     // 級別・試験特化の読みだけを表示(辞書の全音訓ではない)。読み1つにつき例語つき。
     const lv = KANJI_LEVEL_READINGS[item.char] ?? [];
     return (
       <View style={s.card}>
         <Text style={s.kanji}>{item.char}</Text>
-        <Text style={s.meaning}>{item.meaning}</Text>
+        <Text style={s.meaning}>{native ?? item.meaning}</Text>
+        {native ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
         {lv.map((r, i) => (
           <Text key={i} style={s.ex}>
             <Text style={s.readTag}>{r.type === 'on' ? '音' : '訓'} {r.reading}</Text>
@@ -34,7 +40,8 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
       <View style={s.card}>
         <Text style={s.word}>{item.word}</Text>
         <Text style={s.reading}>{item.reading}</Text>
-        <Text style={s.meaning}>{item.meaning}</Text>
+        <Text style={s.meaning}>{native ?? item.meaning}</Text>
+        {native ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
         {ex ? (
           <>
             <HighlightedText text={VOCAB_FURIGANA[item.id] ?? ex.ja} target={item.word} style={s.ex} hitStyle={s.exHit} />
@@ -70,6 +77,7 @@ const cardStyles = (c: ThemeColors) =>
     reading: { fontSize: ty.body, color: c.mute, fontWeight: '700' },
     readTag: { fontWeight: '800', color: c.blueDark },
     meaning: { fontSize: ty.body, color: c.ink2, marginTop: spacing.xs, textAlign: 'center' },
+    meaningEn: { fontSize: ty.tiny, color: c.faint, marginTop: 2, textAlign: 'center' },
     ex: { fontSize: ty.body, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 24 },
     exHit: { textDecorationLine: 'underline' },
     exEn: { fontSize: ty.tiny, color: c.faint, fontStyle: 'italic', textAlign: 'center' },

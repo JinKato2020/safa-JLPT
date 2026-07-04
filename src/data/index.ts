@@ -6,6 +6,7 @@ import grammar from './grammar.json';
 import reading from './reading.json';
 import listening from './listening.json';
 import vocabExamplesAi from './vocabExamplesAi.json';
+import meaningL10n from './meaningL10n.json';
 import metaJson from './meta.json';
 import grammarClozeOkJson from './grammarClozeOk.json';
 import vocabClozeOkJson from './vocabClozeOk.json';
@@ -78,6 +79,10 @@ export const DICT_EXT_KANJI = (dictExtJson.kanji as unknown) as KanjiItem[];
 
 /** 語彙の難易度＝使用頻度スコア(小さいほど高頻度=易。JMdict頻度由来)。新出を易しい順に導入する材料。 */
 export const VOCAB_FREQ = vocabFreqJson as Record<string, number>;
+// 母語対応: 語彙id/漢字char → { 言語コード: 意味の訳 }。フラッシュカード等で母語(l1)の意味を表示。
+export const MEANING_L10N = meaningL10n as Record<string, Record<string, string>>;
+/** その項目の母語(lang)の意味。無ければ undefined。 */
+export const meaningIn = (key: string, lang: string): string | undefined => MEANING_L10N[key]?.[lang];
 
 // 語彙の短い例文＝本アプリのオリジナル文(全内容語ぶん・文脈規定contextBankの穴を正解で埋めた自然文)。
 // 旧・田中コーパス/Tatoeba由来の例文は同梱を廃止(第三者例文の全除去→謝辞をWaller+EDRDGの2件に集約)。

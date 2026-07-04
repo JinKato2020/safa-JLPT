@@ -152,7 +152,7 @@
   "profile.examDate": "考试日期",
   "profile.examDaysLeft": "（还有 {n} 天）",
   "profile.examUndecided": "待定",
-  "profile.nativeLang": "语言",
+  "profile.nativeLang": "母语（释义显示语言）",
   "profile.nativeLangHint": "应用的显示语言。会根据设备语言自动设置。",
   "profile.privacy": "隐私政策",
   "profile.privacyBody": "毎日JLPT 隐私政策\n\n本应用仅将学习数据（进度・学习记录・设置）保存在用户设备本地，不向外部发送或收集。\n\n• 无需账号注册，不收集姓名・邮箱等个人信息。\n• 不进行广告及分析工具的行为追踪。\n• 点击「评价应用」后将启动系统自带的评价功能（App Store / Google Play），使用须遵守各平台政策。\n• 词典数据使用 JMdict / KANJIDIC2（© EDRDG），JLPT等级划分使用 Jonathan Waller（tanos.co.uk）。例句与题目均为本应用原创。\n\n学习数据可通过「重置学习数据」或卸载应用从设备中完全删除。本政策可能在不另行通知的情况下修订。\n\n匿名使用数据（v1.1+）：为改善应用体验，我们收集匿名的学习进度数据（准备度、已学数量、模拟考试结果、基本使用情况）。这些数据不与您的个人身份关联，不用于追踪；不存储任何个人信息或IP地址。您可随时在设置 → 发送使用数据中关闭此功能。",

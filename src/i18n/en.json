@@ -187,7 +187,7 @@
   "profile.exam_jft": "JFT-Basic",
   "profile.exam_jlpt": "JLPT",
   "profile.jft_note": "JFT-Basic is a single test (no level selection). Pass = 200 total points (A2.2).",
-  "profile.nativeLang": "Language",
+  "profile.nativeLang": "Native language (for meanings)",
   "profile.nativeLangHint": "This is the app display language. It is set automatically based on your device language.",
   "profile.privacy": "Privacy Policy",
   "profile.privacyBody": "Mainichi JLPT Privacy Policy\n\nThis app stores learning data (readiness, study history, and settings) only on your device and does not transmit or collect it externally.\n\n• No account registration is required, and we do not collect personal information such as your name or email address.\n• We do not track behavior via advertising or analytics tools.\n• Tapping \"Rate This App\" launches the OS's built-in review feature (App Store / Google Play). Use is subject to each platform's policies.\n• Dictionary data uses JMdict / KANJIDIC2 (© EDRDG); JLPT level classification uses Jonathan Waller (tanos.co.uk). Example sentences and questions are original to this app.\n\nData can be completely erased from your device via \"Reset Study Data\" or by uninstalling the app. This policy may be revised without notice.\n\nAnonymous usage data (v1.1+): To improve the app, we collect anonymous study and usage data (readiness, pass chance, coverage, learned counts, streak, mock results, per-question correctness, screen usage, session time, error reports, device type/app version). It is not linked to your identity and not used for tracking; no personal info or IP is stored. You can turn it off anytime in Settings → Share usage data.",
