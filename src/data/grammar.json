@@ -909,7 +909,7 @@
   "point": "あまり～ない",
   "romaji": "amari~nai",
   "meaning": "not very ~; not much",
-  "exampleJa": "この映画（えいが）はあまり面白（おもしろ）くありません。",
+  "exampleJa": "この映画（えいが）はあまり面白（おもしろ）くない。",
   "exampleEn": "This movie is not very interesting."
  },
  {
@@ -1437,7 +1437,7 @@
   "point": "なかなか～ない",
   "romaji": "nakanaka~nai",
   "meaning": "not easily ~; just won't ~",
-  "exampleJa": "バスがなかなか来（き）ません。",
+  "exampleJa": "バスがなかなか来（こ）ない。",
   "exampleEn": "The bus just won't come."
  },
  {
@@ -2182,7 +2182,7 @@
   "level": "N4",
   "category": "bunpou",
   "type": "grammar",
-  "point": "は〜が… は",
+  "point": "は〜が〜は",
   "romaji": "wa~ga... wa",
   "meaning": "as for A ~, but as for B ~ (contrast)",
   "exampleJa": "夏（なつ）は好（す）きですが、冬（ふゆ）は好（す）きじゃありません。",
@@ -2306,7 +2306,7 @@
   "point": "全然～ない（ぜんぜん～ない）",
   "romaji": "zenzen~nai",
   "meaning": "not at all",
-  "exampleJa": "お酒（さけ）は全然（ぜんぜん）飲（の）みません。",
+  "exampleJa": "お酒（さけ）は全然（ぜんぜん）飲（の）まない。",
   "exampleEn": "I don't drink alcohol at all."
  },
  {
@@ -2768,7 +2768,7 @@
   "point": "決して～ない（けっして～ない）",
   "romaji": "kesshite~nai",
   "meaning": "never ~",
-  "exampleJa": "この約束（やくそく）は決（けっ）して忘（わす）れません。",
+  "exampleJa": "この約束（やくそく）は決（けっ）して忘（わす）れない。",
   "exampleEn": "I will never forget this promise."
  },
  {
