@@ -58,6 +58,9 @@ export const KANJI = (kanji as KanjiItem[]).map((k) => {
   const r = (kanjiReadings as Record<string, { on: string; kun: string }>)[k.char];
   return r ? { ...k, on: r.on, kun: r.kun } : k;
 });
+// 生の音訓(kanji.json由来。「-り」等の接尾特殊読みマーカーを保持)。表示整形前なので主要読み判定に使う。
+export const KANJI_RAW_READINGS: Record<string, { on: string; kun: string }> =
+  Object.fromEntries((kanji as KanjiItem[]).map((k) => [k.char, { on: k.on ?? '', kun: k.kun ?? '' }]));
 export const VOCAB = vocab as VocabItem[];
 export const GRAMMAR = grammar as GrammarItem[];
 export const META = metaJson as Meta;
