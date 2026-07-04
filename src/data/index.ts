@@ -22,6 +22,7 @@ import kanjiExamplesMulti from './kanjiExamplesMulti.json';
 import kanjiLevelReadings from './kanjiLevelReadings.json';
 import kanjiReadBank from './kanjiReadingBank.json';
 import contextBank from './contextBank.json';
+import sentenceFuri from './sentenceFuri.json';
 import synonymBank from './synonymBank.json';
 import jftExpression from './jftExpression.json';
 import orthographyBank from './orthographyBank.json';
@@ -168,6 +169,8 @@ export const SYNONYM_BANK = synonymBank as SynonymBankItem[];
 // 誤答=形が似た字(部首/字形の似た別漢字・字形の似たカタカナ)。生成=問題/tools/build_orthography_bank.py。
 export interface OrthographyBankItem { id: string; level: string; sentence: string; underline: string; answer: string; choices: string[]; explain?: string; }
 export const ORTHOGRAPHY_BANK = orthographyBank as OrthographyBankItem[];
+// ①〜④問題文のふりがな(漢字（かな）)。bankId→ふりがな付き文。kuroshiro生成。レベル適応ルビの元データ。
+export const SENTENCE_FURI = sentenceFuri as Record<string, string>;
 // JFT-Basic「会話と表現」= 場面に適切な表現を4択で選ぶ(JFT専用・A1/A2)。JLPTの文法とは別物。
 export interface JftExpressionItem { id: string; level: string; situation: string; choices: string[]; answer: string; explain?: string; }
 export const JFT_EXPRESSION = jftExpression as JftExpressionItem[];

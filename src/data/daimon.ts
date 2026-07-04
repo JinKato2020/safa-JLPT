@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, JFT_EXPRESSION, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, JFT_EXPRESSION, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -123,25 +123,25 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   const og = OG_BANK_INDEX.get(unit);
   if (og) {
     const { choices, answerIndex } = shuffleChoices([og.answer, ...og.choices.filter((x) => x !== og.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain };
+    return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), furi: SENTENCE_FURI[og.id], furiTarget: og.underline, question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain };
   }
   // 漢字読み=固定問題集(公式形式・文中の漢字を下線→読み方を4択)。prompt空・exampleに下線付き文。
   const kr = KR_BANK_INDEX.get(unit);
   if (kr) {
     const { choices, answerIndex } = shuffleChoices([kr.answer, ...kr.choices.filter((x) => x !== kr.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: '', example: underlineSegments(kr.sentence, kr.underline), question: '下線の言葉の読み方は？', format: 'reading', choices, answerIndex };
+    return { itemId: unit, prompt: '', example: underlineSegments(kr.sentence, kr.underline), furi: SENTENCE_FURI[kr.id], furiTarget: kr.underline, noTargetRuby: true, question: '下線の言葉の読み方は？', format: 'reading', choices, answerIndex };
   }
   // 文脈規定=固定問題集(全内容語のオリジナル文＋非競合誤答)。
   const cx = CTX_BANK_INDEX.get(unit);
   if (cx) {
     const { choices, answerIndex } = shuffleChoices([cx.answer, ...cx.choices.filter((x) => x !== cx.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: cx.prompt, question: cx.question, format: 'cloze', choices, answerIndex };
+    return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex };
   }
   // 言い換え類義=固定問題集(文＋下線部→意味が近い語)。prompt空・exampleに下線付き文。
   const sy = SY_BANK_INDEX.get(unit);
   if (sy) {
     const { choices, answerIndex } = shuffleChoices([sy.answer, ...sy.choices.filter((x) => x !== sy.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex };
+    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex };
   }
   // JFT会話と表現=場面(situation)に適切な表現を4択で。
   const ex = EXPR_INDEX.get(unit);

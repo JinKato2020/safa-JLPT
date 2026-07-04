@@ -189,16 +189,23 @@ export default function QuizScreen() {
         {title ? <Text style={s.drillTitle}>{title}</Text> : null}
 
         <View style={s.promptCard}>
-          {question.prompt ? <Text style={[s.prompt, question.prompt.length > 10 && s.promptLong]}>{question.prompt}</Text> : null}
-          {question.example ? (
-            <Text style={question.prompt ? s.reading : s.sentence}>
-              {question.example.map((sg, i) => (
-                <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
-              ))}
-            </Text>
-          ) : question.reading ? (
-            <Text style={s.reading}>{question.reading}</Text>
-          ) : null}
+          {question.furi ? (
+            // ふりがな付き問題文=レベル適応ルビ(同レベル以上の漢字のみ)。①漢字読みは対象語のルビを抑止。
+            <RubyText text={question.furi} target={question.furiTarget} style={s.sentence} hitStyle={s.exHit} rubyStyle={s.qRuby} rubyGate={rubyGate} noRubyOnHit={question.noTargetRuby} center />
+          ) : (
+            <>
+              {question.prompt ? <Text style={[s.prompt, question.prompt.length > 10 && s.promptLong]}>{question.prompt}</Text> : null}
+              {question.example ? (
+                <Text style={question.prompt ? s.reading : s.sentence}>
+                  {question.example.map((sg, i) => (
+                    <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
+                  ))}
+                </Text>
+              ) : question.reading ? (
+                <Text style={s.reading}>{question.reading}</Text>
+              ) : null}
+            </>
+          )}
           <Text style={s.qtext}>{question.question}</Text>
         </View>
 
@@ -274,6 +281,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   learnRuby: { fontSize: 9, lineHeight: 11, color: c.mute, textAlign: 'center' },
   learnSkip: { fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'center', marginTop: spacing.xs, textDecorationLine: 'underline' },
   exHit: { color: c.ink, textDecorationLine: 'underline' },
+  qRuby: { fontSize: 10, lineHeight: 12, color: c.mute, textAlign: 'center' },
   qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
   choices: { gap: spacing.sm + 2 },
   choice: {

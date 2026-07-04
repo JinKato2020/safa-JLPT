@@ -11,7 +11,8 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState, useAppActions } from '../store/store';
 import { guessCorrect, jftMockScore } from '../store/selectors';
 import { dayStr } from '../store/state';
-import { examReadingFor, examListeningFor } from '../data';
+import { examReadingFor, examListeningFor, rubyNeeded } from '../data';
+import RubyText from '../components/RubyText';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
 import { sample, shuffleChoices, type ExampleHint } from '../quiz/quiz';
@@ -42,6 +43,9 @@ interface MockItem {
   prompt?: string;
   reading?: string;
   example?: ExampleHint;
+  furi?: string;
+  furiTarget?: string;
+  noTargetRuby?: boolean;
   title?: string;
   body?: string;
   clipId?: string;
@@ -91,7 +95,7 @@ function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen
     out.push({
       kind: 'word', id: unit, section: sec, daimon,
       question: q.question, choices: q.choices, answerIndex: q.answerIndex,
-      prompt: q.prompt || undefined, reading: q.reading, example: q.example, explain: q.explain,
+      prompt: q.prompt || undefined, reading: q.reading, example: q.example, furi: q.furi, furiTarget: q.furiTarget, noTargetRuby: q.noTargetRuby, explain: q.explain,
     });
   }
   return out.slice(0, count);
@@ -156,6 +160,8 @@ export default function MockScreen() {
   const c = useColors();
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
+  // レベル適応ルビ: ユーザーのレベル以上(同レベル含む)の漢字群にだけ読みを振る。
+  const rubyGate = (run: string) => rubyNeeded(run, state.settings.level);
 
   const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const [exam] = useState<MockItem[]>(() => buildExam(isJft ? ['N5', 'N4'] : [state.settings.level], full, isJft, state.items));
@@ -366,16 +372,23 @@ export default function MockScreen() {
 
         {cur.kind === 'word' ? (
           <View style={s.promptCard}>
-            <Text style={s.prompt}>{cur.prompt}</Text>
-            {cur.example ? (
-              <Text style={s.readingHint}>
-                {cur.example.map((sg, i) => (
-                  <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
-                ))}
-              </Text>
-            ) : cur.reading ? (
-              <Text style={s.readingHint}>{cur.reading}</Text>
-            ) : null}
+            {cur.furi ? (
+              // ふりがな付き問題文=レベル適応ルビ(同レベル以上の漢字のみ)。①漢字読みは対象語のルビを抑止。
+              <RubyText text={cur.furi} target={cur.furiTarget} style={s.mockSentence} hitStyle={s.exHit} rubyStyle={s.mockRuby} rubyGate={rubyGate} noRubyOnHit={cur.noTargetRuby} center />
+            ) : (
+              <>
+                {cur.prompt ? <Text style={s.prompt}>{cur.prompt}</Text> : null}
+                {cur.example ? (
+                  <Text style={s.readingHint}>
+                    {cur.example.map((sg, i) => (
+                      <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
+                    ))}
+                  </Text>
+                ) : cur.reading ? (
+                  <Text style={s.readingHint}>{cur.reading}</Text>
+                ) : null}
+              </>
+            )}
             <Text style={s.qtext}>{cur.question}</Text>
           </View>
         ) : cur.kind === 'reading' ? (
@@ -470,6 +483,8 @@ const makeStyles = (c: ThemeColors) =>
     },
     prompt: { fontSize: 30, fontWeight: '800', color: c.ink, textAlign: 'center' },
     readingHint: { fontSize: ty.small, color: c.mute },
+    mockSentence: { fontSize: ty.h2, lineHeight: 32, color: c.ink },
+    mockRuby: { fontSize: 10, lineHeight: 12, color: c.mute, textAlign: 'center' },
     exHit: { color: c.ink, textDecorationLine: 'underline' },
     qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
     passageCard: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.lg, gap: spacing.sm },
