@@ -20,13 +20,14 @@ function parseCells(text: string): Cell[] {
 }
 
 export default function RubyText({
-  text, target, style, hitStyle, rubyStyle,
+  text, target, style, hitStyle, rubyStyle, center,
 }: {
   text: string;
   target?: string;
   style?: StyleProp<TextStyle>; // 本文(漢字/かな)の文字スタイル
   hitStyle?: StyleProp<TextStyle>; // 下線部のスタイル
   rubyStyle?: StyleProp<TextStyle>; // ルビ(小さいかな)のスタイル
+  center?: boolean; // 各行を中央寄せ(学習カード等)
 }) {
   const cells = parseCells(text);
   const plain = cells.map((c) => c.base).join('');
@@ -39,7 +40,7 @@ export default function RubyText({
     off += c.base.length;
   }
   return (
-    <View style={styles.row}>
+    <View style={[styles.row, center && styles.center]}>
       {cells.map((c, i) => (
         <View key={i} style={styles.col}>
           <Text style={[styles.ruby, rubyStyle]} numberOfLines={1}>{c.ruby ?? ' '}</Text>
@@ -52,6 +53,7 @@ export default function RubyText({
 
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-end', rowGap: 2 },
+  center: { justifyContent: 'center' },
   col: { alignItems: 'center' },
   ruby: { fontSize: 9, lineHeight: 11, textAlign: 'center', includeFontPadding: false },
 });

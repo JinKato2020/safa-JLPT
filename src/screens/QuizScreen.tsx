@@ -14,10 +14,19 @@ import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, MOJI_D
 import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
+import RubyText from '../components/RubyText';
 
-// 学習カードの例文中「【…】」で囲った対象部を、括弧を外して下線表示に統一する。
-function markUnderline(text: string, hitStyle: StyleProp<TextStyle>) {
-  return text.split(/【(.+?)】/).map((p, i) => (i % 2 === 1 ? <Text key={i} style={hitStyle}>{p}</Text> : p));
+// 学習カードの例文を表示。ふりがな「漢字（かな）」はルビ、対象部「【…】」は括弧を外して下線に統一。
+function LearnText({ text, style, hitStyle, rubyStyle }: { text: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle> }) {
+  const hasFuri = /（[^）]*）/.test(text);
+  if (hasFuri) {
+    const m = text.match(/【(.+?)】/);
+    const target = m ? m[1] : '';
+    const body = text.replace(/[【】]/g, ''); // 括弧を外し、中身は下線対象(target)として渡す
+    return <RubyText text={body} target={target} style={style} hitStyle={hitStyle} rubyStyle={rubyStyle} center />;
+  }
+  // ふりがな無し=従来Text。【…】は下線に。
+  return <Text style={style}>{text.split(/【(.+?)】/).map((p, i) => (i % 2 === 1 ? <Text key={i} style={hitStyle}>{p}</Text> : p))}</Text>;
 }
 
 const SESSION_SIZE = 10;
@@ -121,8 +130,8 @@ export default function QuizScreen() {
           <View style={s.promptCard}>
             <Text style={[s.prompt, lc && lc.title.length > 10 && s.promptLong]}>{lc?.title}</Text>
             {lc?.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
-            {lc?.body ? <Text style={s.learnBody}>{markUnderline(lc.body, s.learnHit)}</Text> : null}
-            {lc?.note ? <Text style={s.learnNote}>{markUnderline(lc.note, s.learnHit)}</Text> : null}
+            {lc?.body ? <LearnText text={lc.body} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} /> : null}
+            {lc?.note ? <LearnText text={lc.note} style={s.learnNote} hitStyle={s.learnHit} rubyStyle={s.learnRuby} /> : null}
           </View>
           <AppButton label={last ? t('quiz.learn_start') : t('quiz.learn_next')} onPress={() => (last ? goTest() : setLearnIdx((i) => i + 1))} />
           <Pressable onPress={goTest} hitSlop={8}><Text style={s.learnSkip}>{t('quiz.learn_skip')}</Text></Pressable>
@@ -260,6 +269,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   learnBody: { fontSize: ty.body, color: c.ink2, marginTop: spacing.xs, textAlign: 'center', lineHeight: 22 },
   learnNote: { fontSize: ty.small, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 22 },
   learnHit: { color: c.ink, fontWeight: '800', textDecorationLine: 'underline' },
+  learnRuby: { fontSize: 9, lineHeight: 11, color: c.mute, textAlign: 'center' },
   learnSkip: { fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'center', marginTop: spacing.xs, textDecorationLine: 'underline' },
   exHit: { color: c.ink, textDecorationLine: 'underline' },
   qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
