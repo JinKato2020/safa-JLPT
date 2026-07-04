@@ -150,6 +150,14 @@ export function ringsFor(state: AppState, now: number): Record<Category, number 
   for (const c of RING_CATS) out[c] = categoryPct(state, now, c, false);
   return out;
 }
+/** 小リング(大問): 知識大問の達成度＝カバー率×習得。文字語彙/文法の各大問用。 */
+export function daimonRingPct(state: AppState, now: number, daimon: Daimon): number | null {
+  return knowledgeDaimonPct(state, now, daimonUnitIds(state.settings.level, daimon));
+}
+/** 小リング(読解/聴解サブ種別): 正答率(般化スキル)。id集合を渡す。 */
+export function idsRingPct(state: AppState, now: number, ids: string[]): number | null {
+  return pctOfIds(state, now, ids);
+}
 
 // 公式の区分別基準点(passMarks)の各セクション → 本アプリの4区分カテゴリへの対応。
 const SECTION_CATS: Record<string, Category[]> = {
