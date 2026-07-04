@@ -12,6 +12,7 @@ import RingGauge from '../components/RingGauge';
 import { readingItemsForSub, READING_SUBTYPES, listeningItemsForSub, LISTENING_SUBTYPES } from '../data';
 import { daimonsWithUnits } from '../data/daimon';
 import { DAIMON_LABEL } from '../data/examBlueprint';
+import { examOf } from '../engine/examProfile';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 import { useT } from '../i18n';
@@ -38,6 +39,9 @@ export default function StudyScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
   const lv = settings.level;
+  const prof = examOf(settings.targetExam);
+  const isJft = prof.exam === 'jft'; // JFT=文字と語彙/会話と表現/読解/聴解(文法⑥⑦⑧なし)
+  const catName = (cat: Category) => t(prof.catLabel[cat]); // JLPT/JFTでラベル切替(bunpou=文法/会話と表現)
   const rings = useMemo(() => ringsFor(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
   const [showDaimon, setShowDaimon] = useState(false);
 
@@ -49,6 +53,8 @@ export default function StudyScreen() {
   const ringColor = (v: number | null): string => (v === null ? c.trace : v >= 80 ? c.green : v >= 50 ? c.amber : c.red);
 
   const subRingsFor = (cat: Category): SubRing[] => {
+    // JFTの bunpou=会話と表現 は大問(小)を持たず、中リング(会話と表現)から直接練習。
+    if (isJft && cat === 'bunpou') return [];
     if (cat === 'moji_goi' || cat === 'bunpou') {
       const list = cat === 'moji_goi' ? mojiDaimons : bunpouDaimons;
       return list.map((d) => ({ key: d.daimon, label: t(DAIMON_LABEL[d.daimon]), value: daimonRingPct(state, now, d.daimon), onPress: () => nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) }) }));
@@ -57,10 +63,11 @@ export default function StudyScreen() {
       return readingSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, readingItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Reading', { subtype: sub.key }) }));
     return listeningSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, listeningItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Listening', { subtype: sub.key }) }));
   };
-  // 中リングタップ = そのカテゴリの学習へ(漢字語彙/文法=そのカテゴリ混合クイズ、読解/聴解=各画面)。
+  // 中リングタップ = そのカテゴリの学習へ。JFTの会話と表現(bunpou)は場面→表現の練習へ。
   const catPress = (cat: Category) => {
     if (cat === 'dokkai') return nav.navigate('Reading');
     if (cat === 'choukai') return nav.navigate('Listening');
+    if (isJft && cat === 'bunpou') return nav.navigate('Quiz', { expression: true, title: catName('bunpou') });
     return nav.navigate('Quiz', { category: cat });
   };
 
@@ -75,17 +82,17 @@ export default function StudyScreen() {
           {streak.current > 0 ? <Text style={s.streak}>🔥 {streak.current}</Text> : null}
         </View>
 
-        {/* メイン: 4カテゴリからバランスよく出題(漢字語彙＋文法の混合クイズ)。 */}
-        <Pressable style={({ pressed }) => [s.cta, pressed && s.ctaPressed]} onPress={() => nav.navigate('Quiz')}>
+        {/* メイン: バランス出題(JLPT=漢字語彙＋文法の混合 / JFT=文字と語彙の混合)。 */}
+        <Pressable style={({ pressed }) => [s.cta, pressed && s.ctaPressed]} onPress={() => nav.navigate('Quiz', isJft ? { category: 'moji_goi' } : undefined)}>
           <Text style={s.ctaTitle}>{t('study.balanced')}</Text>
           <Text style={s.ctaSub}>{t('study.balanced_sub')}</Text>
         </Pressable>
 
-        {/* 中リング(4カテゴリ・正答率)。タップで各カテゴリの学習へ。 */}
+        {/* 中リング(4カテゴリ・正答率)。タップで各カテゴリの学習へ。JFTは会話と表現ラベル。 */}
         <View style={s.ringRow}>
           {RING_ORDER.map((cat) => (
             <Pressable key={cat} style={({ pressed }) => [s.ringCell, pressed && s.pressed]} onPress={() => catPress(cat)}>
-              <RingGauge value={rings[cat]} color={ringColor(rings[cat])} size={62} stroke={7} label={t(RING_META[cat].labelKey)} />
+              <RingGauge value={rings[cat]} color={ringColor(rings[cat])} size={62} stroke={7} label={catName(cat)} />
             </Pressable>
           ))}
         </View>
@@ -101,7 +108,7 @@ export default function StudyScreen() {
               if (!subs.length) return null;
               return (
                 <View key={cat} style={s.daimonBlock}>
-                  <Text style={s.daimonCat}>{RING_META[cat].icon}　{t(RING_META[cat].labelKey)}</Text>
+                  <Text style={s.daimonCat}>{RING_META[cat].icon}　{catName(cat)}</Text>
                   <View style={s.subRingWrap}>
                     {subs.map((sr) => (
                       <Pressable key={sr.key} style={({ pressed }) => [s.subRingCell, pressed && s.pressed]} onPress={sr.onPress}>

@@ -10,7 +10,7 @@ import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
 import { itemsFor, allWordsFor } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
-import { daimonUnitIds, questionForUnit, learnCardFor, type LearnCard } from '../data/daimon';
+import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, type LearnCard } from '../data/daimon';
 import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -42,6 +42,7 @@ export default function QuizScreen() {
   const itemIds = route.params?.itemIds;
   const title = route.params?.title;
   const daimon = route.params?.daimon; // 大問学習(本番の大問を固定形式で連続出題・状態は「項目#大問」キー)
+  const expression = route.params?.expression; // JFT会話と表現(場面→適切な表現)
   const state = useAppState();
   const { settings, items } = state;
   const { quizAnswer } = useAppActions();
@@ -53,6 +54,7 @@ export default function QuizScreen() {
   const pool = useMemo(() => [...allWordsFor(settings.level, 'moji_goi'), ...allWordsFor(settings.level, 'bunpou')], [settings.level]);
   // 大問モードはユニットid(string)、それ以外はStudyItemのキュー。
   const [queue, setQueue] = useState<(StudyItem | string)[]>(() => {
+    if (expression) return buildUnitQueue(expressionUnitIds(), items, Date.now(), SESSION_SIZE);
     if (daimon) return buildUnitQueue(daimonUnitIds(settings.level, daimon, 'learn'), items, Date.now(), SESSION_SIZE);
     if (itemIds && itemIds.length) {
       const byId = new Map(pool.map((i) => [i.id, i]));

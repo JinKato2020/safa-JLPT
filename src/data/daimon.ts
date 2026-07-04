@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, JFT_EXPRESSION, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -90,6 +90,10 @@ const CTX_BANK_INDEX = new Map<string, (typeof CONTEXT_BANK)[number]>(
 const SY_BANK_INDEX = new Map<string, (typeof SYNONYM_BANK)[number]>(
   SYNONYM_BANK.map((e) => [`${e.id.slice(3)}#synonym`, e]),
 );
+// JFT会話と表現(id=jx-… をユニットidにそのまま使う)。JFTの学習/模試で場面→適切な表現を出題。
+const EXPR_INDEX = new Map<string, (typeof JFT_EXPRESSION)[number]>(JFT_EXPRESSION.map((e) => [e.id, e]));
+/** JFT会話と表現の全ユニットid(A1+A2)。 */
+export const expressionUnitIds = (): string[] => JFT_EXPRESSION.map((e) => e.id);
 // 文＋下線スパンを ExampleHint(下線セグメント列)へ。
 function underlineSegments(sentence: string, span: string): { text: string; hit: boolean }[] {
   const i = span ? sentence.indexOf(span) : -1;
@@ -125,6 +129,12 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   if (sy) {
     const { choices, answerIndex } = shuffleChoices([sy.answer, ...sy.choices.filter((x) => x !== sy.answer)].slice(0, 4), 0, rng);
     return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex };
+  }
+  // JFT会話と表現=場面(situation)に適切な表現を4択で。
+  const ex = EXPR_INDEX.get(unit);
+  if (ex) {
+    const { choices, answerIndex } = shuffleChoices([ex.answer, ...ex.choices.filter((x) => x !== ex.answer)].slice(0, 4), 0, rng);
+    return { itemId: unit, prompt: ex.situation, question: '', format: 'usage', choices, answerIndex, explain: ex.explain };
   }
   const hash = unit.lastIndexOf('#');
   if (hash < 0) return null;

@@ -5,7 +5,7 @@ export type RootStackParamList = {
   Onboarding: undefined;
   Main: undefined;
   // 診断クイズ / 弱点ドリル(itemIds 指定でその語だけを出題) / 大問学習(daimon 指定=本番の大問を固定形式で連続出題)
-  Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon } | undefined;
+  Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon; expression?: boolean } | undefined;
   Flashcard: undefined; // 漢字・語彙 連続学習→連続テスト(個別漢字79字を含む)
   Mock: { full?: boolean } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)
   Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho' } | undefined;   // 読解(小区分つき)
