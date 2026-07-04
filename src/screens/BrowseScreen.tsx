@@ -31,16 +31,15 @@ function haystack(it: StudyItem): string {
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 
-// 漢字カードの音訓＋例語(KANJI_CARD_READINGS=本アプリ作成・KANJIDIC範囲内で検証済み)を
-// 「音/訓」ごとに「読み：語（語の読み）」で連結。音読みはカタカナ表記。読みと例語は必ず正しいセット。
-function fmtCardReadings(char: string): { on: string; kun: string } {
+// 漢字カードの音訓＋例語(KANJI_CARD_READINGS=本アプリ作成・KANJIDIC範囲内で検証済み)。
+// 読み(音=カタカナ/訓=ひらがな)＋例語(語＋語全体の読み)を構造化して返す。例語はルビ表示する。
+interface CardLine { label: string; word: string; wordReading: string; }
+function cardReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
   const d = KANJI_CARD_READINGS[char];
-  if (!d) return { on: '', kun: '' };
-  const one = (e: KanjiCardReadingEntry, isOn: boolean): string => {
-    const disp = isOn ? hiraToKata(e.reading) : e.reading;
-    return e.wordReading && e.wordReading !== e.reading ? `${disp}：${e.word}（${e.wordReading}）` : `${disp}：${e.word}`;
-  };
-  return { on: d.on.map((e) => one(e, true)).join('　'), kun: d.kun.map((e) => one(e, false)).join('　') };
+  if (!d) return { on: [], kun: [] };
+  const map = (list: KanjiCardReadingEntry[], isOn: boolean): CardLine[] =>
+    list.map((e) => ({ label: isOn ? hiraToKata(e.reading) : e.reading, word: e.word, wordReading: e.wordReading }));
+  return { on: map(d.on, true), kun: map(d.kun, false) };
 }
 
 export default function BrowseScreen() {
@@ -153,11 +152,25 @@ export default function BrowseScreen() {
             <Text style={s.meaning}>{nm(item.char) ?? item.meaning}</Text>
             {nm(item.char) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
             {(() => {
-              const { on, kun } = fmtCardReadings(item.char);
+              const { on, kun } = cardReadingLines(item.char);
+              const line = (tag: string, lines: CardLine[]) => (
+                <View style={s.readLine}>
+                  <Text style={s.readTag}>{tag}</Text>
+                  {lines.map((e, i) => (
+                    <View key={i} style={s.readPair}>
+                      <Text style={s.readLabel}>{e.label}：</Text>
+                      <View style={s.rubyWord}>
+                        <Text style={s.exampleRuby} numberOfLines={1}>{e.wordReading}</Text>
+                        <Text style={s.readWord}>{e.word}</Text>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              );
               return (
                 <>
-                  {on ? <Text style={s.example}>音 {on}</Text> : null}
-                  {kun ? <Text style={s.example}>訓 {kun}</Text> : null}
+                  {on.length ? line('音', on) : null}
+                  {kun.length ? line('訓', kun) : null}
                 </>
               );
             })()}
@@ -275,8 +288,15 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   example: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.xs },
   exampleRubyWrap: { marginTop: spacing.xs },
   exampleRubyBase: { fontSize: ty.body, color: c.ink },
-  exampleRuby: { color: c.faint },
+  exampleRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },
   exampleHit: { color: c.ink, textDecorationLine: 'underline' },
+  // 漢字カードの音訓行(例語はグループルビ=語の上に読み)。
+  readLine: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-end', marginTop: spacing.xs, rowGap: spacing.xs },
+  readTag: { fontSize: ty.small, fontWeight: '800', color: c.mute, marginRight: 6 },
+  readPair: { flexDirection: 'row', alignItems: 'flex-end', marginRight: spacing.md },
+  readLabel: { fontSize: ty.body, color: c.ink2, fontWeight: '700' },
+  rubyWord: { alignItems: 'center' },
+  readWord: { fontSize: ty.body, color: c.ink },
   exampleEn: { fontSize: ty.tiny, color: c.faint, fontStyle: 'italic', marginTop: 2 },
   exampleNe: { fontSize: ty.tiny, color: c.mute, marginTop: 1 },
   levelBadge: { fontSize: 10, fontWeight: '800', color: c.mute, alignSelf: 'flex-start' },
