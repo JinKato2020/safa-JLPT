@@ -18,11 +18,6 @@ import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
-const THEMES: { v: ThemeMode; labelKey: 'profile.themeLight' | 'profile.themeDark' | 'profile.themeAuto' }[] = [
-  { v: 'light', labelKey: 'profile.themeLight' },
-  { v: 'dark', labelKey: 'profile.themeDark' },
-  { v: 'auto', labelKey: 'profile.themeAuto' },
-];
 const REMINDERS = ['07:00', '12:00', '19:00', '21:00', '22:00'];
 
 
@@ -164,13 +159,18 @@ export default function ProfileScreen() {
             </View>
           )}
 
+          {/* テーマ = ライト/ダーク/自動 ＋ 水彩(桜/空/緑/藤/茜=ライト系＋淡い水彩背景)。 */}
           <Text style={s.setLbl}>{t('profile.theme')}</Text>
-          <View style={s.chipRow}>
-            {THEMES.map((th) => (
-              <Pressable key={th.v} onPress={() => setSettings({ theme: th.v })} style={[s.chip, state.settings.theme === th.v && s.chipOn]}>
-                <Text style={[s.chipTxt, state.settings.theme === th.v && s.chipTxtOn]}>{t(th.labelKey)}</Text>
-              </Pressable>
-            ))}
+          <View style={s.chipWrap}>
+            {(['light', 'dark', 'auto', 'sakura', 'sky', 'green', 'fuji', 'akane'] as const).map((th) => {
+              const on = (state.settings.theme ?? 'auto') === th;
+              const label = th === 'light' ? t('profile.themeLight') : th === 'dark' ? t('profile.themeDark') : th === 'auto' ? t('profile.themeAuto') : t(`profile.bg_${th}`);
+              return (
+                <Pressable key={th} onPress={() => setSettings({ theme: th })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{label}</Text>
+                </Pressable>
+              );
+            })}
           </View>
 
           <Text style={s.setLbl}>{t('profile.badgeSet')}</Text>
@@ -193,19 +193,6 @@ export default function ProfileScreen() {
               return (
                 <Pressable key={f} onPress={() => setSettings({ font: f })} style={[s.chip, on && s.chipOn]}>
                   <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(`profile.font_${f}`)}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-          {/* 水彩背景(桜/空/緑/藤/茜)。ライトモードで全画面に淡く反映。 */}
-          <Text style={s.setLbl}>{t('profile.bg')}</Text>
-          <View style={s.chipWrap}>
-            {(['none', 'sakura', 'sky', 'green', 'fuji', 'akane'] as const).map((b) => {
-              const on = (state.settings.bgSkin ?? 'none') === b;
-              return (
-                <Pressable key={b} onPress={() => setSettings({ bgSkin: b })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(`profile.bg_${b}`)}</Text>
                 </Pressable>
               );
             })}

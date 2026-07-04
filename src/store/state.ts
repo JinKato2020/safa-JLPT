@@ -1,7 +1,11 @@
 // アプリ永続状態の型と初期値・日付ヘルパー。
 import type { ItemState, Level } from '../engine/engine';
 
-export type ThemeMode = 'light' | 'dark' | 'auto';
+// テーマ = ライト/ダーク/自動 ＋ 水彩(桜/空/緑/藤/茜。ライト系＋淡い水彩背景)。
+export type ThemeMode = 'light' | 'dark' | 'auto' | 'sakura' | 'sky' | 'green' | 'fuji' | 'akane';
+export const WATERCOLOR_THEMES = ['sakura', 'sky', 'green', 'fuji', 'akane'] as const;
+export type WatercolorTheme = (typeof WATERCOLOR_THEMES)[number];
+export const isWatercolor = (t?: ThemeMode): t is WatercolorTheme => !!t && (WATERCOLOR_THEMES as readonly string[]).includes(t);
 
 export type TargetExam = 'jlpt' | 'jft'; // 目標試験(JLPT / JFT-Basic)。未設定=jlpt。
 
@@ -19,7 +23,6 @@ export interface Settings {
   badgeSet?: 'natural' | 'gorgeous'; // バッジ/勲章のデザインセット(未設定→natural)
   listeningAudioMode?: 'stream' | 'download'; // 聴解音声: 都度配信(stream)/レベル一括DL(download)。未設定→download(従来挙動)
   font?: 'system' | 'maru' | 'mincho' | 'kyokasho'; // 表示フォント(未設定→maru=丸ゴシック)。App Bから移植
-  bgSkin?: 'none' | 'sakura' | 'sky' | 'green' | 'fuji' | 'akane'; // 水彩背景(未設定/none→無地)。ライトモードのみ適用
 }
 
 export interface Streak {

@@ -10,6 +10,7 @@ import { useColors } from './src/theme';
 import { useAppFonts, setActiveFont } from './src/theme/fonts';
 import WatercolorBackground from './src/components/WatercolorBackground';
 import { AppProvider, useAppState, useHydrated } from './src/store/store';
+import { isWatercolor } from './src/store/state';
 import { useT } from './src/i18n';
 import type { RootStackParamList } from './src/navigation/types';
 import HomeScreen from './src/screens/HomeScreen';
@@ -128,9 +129,9 @@ function Root() {
   // 現在フォントを設定値に同期(このレンダー→配下の全Textが新フォントで描画)。既定=maru(丸ゴシック)。
   setActiveFont(settings.font ?? 'maru');
   const sys = useColorScheme();
-  const scheme = settings.theme === 'auto' ? (sys ?? 'light') : settings.theme;
-  // 水彩背景(ライトモードのみ)。有効時はナビ背景を透明化して背後の水彩レイヤーを見せる。
-  const skin = scheme === 'light' && settings.bgSkin && settings.bgSkin !== 'none' ? settings.bgSkin : null;
+  // 水彩テーマ(桜/空/緑/藤/茜)はライト系。ナビ背景を透明化して背後の水彩レイヤーを見せる。
+  const skin = isWatercolor(settings.theme) ? settings.theme : null;
+  const scheme: 'light' | 'dark' = skin ? 'light' : settings.theme === 'auto' ? (sys ?? 'light') : settings.theme === 'dark' ? 'dark' : 'light';
   const navTheme = {
     ...DefaultTheme,
     colors: { ...DefaultTheme.colors, background: skin ? 'transparent' : c.bg, card: c.surface, text: c.ink, border: c.line, primary: c.blue },
@@ -148,7 +149,7 @@ function Root() {
     <DesignThemeProvider scheme={scheme}>
     <View style={{ flex: 1, backgroundColor: c.bg }}>
     {skin ? <WatercolorBackground skin={skin} /> : null}
-    <NavigationContainer key={`${settings.font ?? 'maru'}-${settings.bgSkin ?? 'none'}`} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
+    <NavigationContainer key={`${settings.font ?? 'maru'}-${settings.theme ?? 'auto'}`} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!settings.onboarded ? (
           <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
