@@ -125,11 +125,11 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
     const { choices, answerIndex } = shuffleChoices([og.answer, ...og.choices.filter((x) => x !== og.answer)].slice(0, 4), 0, rng);
     return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain };
   }
-  // 漢字読み=固定問題集を優先(実行時自動生成でなく確定済み)。無ければ下の自動生成へfallback。
+  // 漢字読み=固定問題集(公式形式・文中の漢字を下線→読み方を4択)。prompt空・exampleに下線付き文。
   const kr = KR_BANK_INDEX.get(unit);
   if (kr) {
     const { choices, answerIndex } = shuffleChoices([kr.answer, ...kr.choices.filter((x) => x !== kr.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: kr.prompt, question: kr.question, format: 'reading', choices, answerIndex };
+    return { itemId: unit, prompt: '', example: underlineSegments(kr.sentence, kr.underline), question: '下線の言葉の読み方は？', format: 'reading', choices, answerIndex };
   }
   // 文脈規定=固定問題集(全内容語のオリジナル文＋非競合誤答)。
   const cx = CTX_BANK_INDEX.get(unit);

@@ -131,7 +131,9 @@ export const KANJI_LEVEL_READINGS = kanjiLevelReadings as unknown as Record<stri
 
 // 漢字読み/表記の固定問題集(実行時自動生成でなく確定済み)。id=kr:<vocabId>/og:<vocabId>。
 // choices[0]=正解(表示時にシャッフル)。生成=問題/tools/build_kanji_read_bank.py。
-export interface KanjiReadBankItem { id: string; level: string; daimon: 'kanji_read' | 'orthography'; prompt: string; question: string; answer: string; choices: string[]; }
+// 公式形式: 文中の対象語(漢字)を下線(underline=漢字span)→正しい読み(answer=ひらがな)を4択。
+// choices=誤答読み3(紛らわしいひらがな/似た語の読み)。生成=問題/tools/build_kanjiread_bank.py。
+export interface KanjiReadBankItem { id: string; level: string; daimon: 'kanji_read'; sentence: string; underline: string; answer: string; choices: string[]; }
 export const KANJI_READ_BANK = kanjiReadBank as KanjiReadBankItem[];
 // 文脈規定(大問3)の固定問題集。id=cx:<vocabId>、choices=誤答3(正解は実行時にanswerを先頭付与)。
 export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; }
