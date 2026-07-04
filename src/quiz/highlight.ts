@@ -43,3 +43,33 @@ export function highlightSegments(exampleJa: string, point: string): Segment[] {
 
 /** ヒットが1つでもあるか(無ければ下線表示しない判断に使う)。 */
 export function hasHit(segs: Segment[]): boolean { return segs.some((s) => s.hit); }
+
+/**
+ * ふりがな除去済みの plain 文字列に対し、対象(語/文法点)がヒットする各文字の真偽を返す。
+ * ロジックは highlightSegments と同一(〜でA〜B分割・活用差に強い前方一致・変化系も下線)。
+ * ルビ描画(RubyText)がセル単位で下線可否を判定するために使う。
+ */
+export function highlightHits(plain: string, point: string): boolean[] {
+  const flags = new Array<boolean>(plain.length).fill(false);
+  const KANA = /[぀-ゟ]/;
+  const parts = point
+    .replace(/（[^）]*）/g, '')
+    .split(/[〜～]/)
+    .map((p) => p.replace(/\s/g, '').trim())
+    .filter(Boolean);
+  let from = 0;
+  for (const part of parts) {
+    let at = -1;
+    let len = 0;
+    for (let L = part.length; L >= Math.min(2, part.length); L--) {
+      const i = plain.indexOf(part.slice(0, L), from);
+      if (i >= 0) { at = i; len = L; break; }
+    }
+    if (at < 0) continue;
+    let end = at + len;
+    if (len < part.length) while (end < plain.length && KANA.test(plain[end])) end++;
+    for (let j = at; j < end; j++) flags[j] = true;
+    from = end;
+  }
+  return flags;
+}

@@ -12,6 +12,7 @@ import { loadSharedDict, syncDictCache, type SharedDict } from '../../shared/JLP
 import { buildDictMaps, sharedVocabItems, sharedKanjiItems } from '../data/dictView';
 import { useT } from '../i18n';
 import { highlightSegments } from '../quiz/highlight';
+import RubyText from '../components/RubyText';
 
 type Kubun = 'vocab' | 'kanji' | 'grammar';
 const KUBUN: { key: Kubun; labelKey: string }[] = [
@@ -101,6 +102,17 @@ export default function BrowseScreen() {
 
   const renderSentence = (ja: string, target: string, en?: string) => {
     if (!ja) return null;
+    // ふりがな「漢字（かな）」を含む例文(＝文法)は、括弧併記でなく本物のルビ(漢字の上に小さくかな)で表示。
+    if (/（[^）]*）/.test(ja)) {
+      return (
+        <>
+          <View style={s.exampleRubyWrap}>
+            <RubyText text={ja} target={target} style={s.exampleRubyBase} hitStyle={s.exampleHit} rubyStyle={s.exampleRuby} />
+          </View>
+          {en ? <Text style={s.exampleEn}>{en}</Text> : null}
+        </>
+      );
+    }
     const segs = highlightSegments(ja, target);
     return (
       <>
@@ -252,6 +264,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   meaning: { fontSize: ty.small, color: c.ink2 },
   meaningEn: { fontSize: ty.tiny, color: c.faint, marginTop: 1 },
   example: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.xs },
+  exampleRubyWrap: { marginTop: spacing.xs },
+  exampleRubyBase: { fontSize: ty.body, color: c.ink },
+  exampleRuby: { color: c.faint },
   exampleHit: { color: c.ink, textDecorationLine: 'underline' },
   exampleEn: { fontSize: ty.tiny, color: c.faint, fontStyle: 'italic', marginTop: 2 },
   exampleNe: { fontSize: ty.tiny, color: c.mute, marginTop: 1 },
