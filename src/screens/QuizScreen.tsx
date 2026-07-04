@@ -10,7 +10,7 @@ import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
 import { itemsFor, allWordsFor } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
-import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, type LearnCard } from '../data/daimon';
+import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, MOJI_DAIMON, BUNPOU_DAIMON, type LearnCard } from '../data/daimon';
 import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -60,9 +60,9 @@ export default function QuizScreen() {
       const byId = new Map(pool.map((i) => [i.id, i]));
       return itemIds.map((id) => byId.get(id)).filter((x): x is StudyItem => Boolean(x));
     }
-    return category === 'all'
-      ? buildAllQueue(settings.level, items, Date.now())
-      : buildQueue(poolFor(settings.level, category), items, Date.now(), SESSION_SIZE);
+    // 学習(バランス/カテゴリ)も検証済の大問バンクから出題(makeQuestionの曖昧な意味当てクイズを廃止＝一意性確保)。
+    const daimons = category === 'moji_goi' ? MOJI_DAIMON : category === 'bunpou' ? BUNPOU_DAIMON : [...MOJI_DAIMON, ...BUNPOU_DAIMON];
+    return buildUnitQueue(daimons.flatMap((d) => daimonUnitIds(settings.level, d, 'learn')), items, Date.now(), SESSION_SIZE);
   });
   // 大問モード=4択の前に「学習カード」で自習(スキップ可)。学習する語=初期キューと同じ。
   const [learnList] = useState<{ unit: string; card: LearnCard }[]>(() =>
