@@ -167,10 +167,10 @@ export interface LearnCard { title: string; sub?: string; body?: string; note?: 
 export function learnCardFor(unit: string): LearnCard | null {
   const bank = BANK_INDEX.get(unit);
   if (bank) {
-    // 用法=対象語＋正しい使い方の文。他=正解＋空所を埋めた文＋解説。
+    // 用法=対象語＋正しい使い方の文。文法(⑥⑦⑧)=正解＋空所を埋めた例文のみ(解説は学習カードでは出さない)。
     if (bank.daimon === 'usage') return { title: bank.stem, body: bank.answer, note: bank.explain };
     const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
-    return { title: bank.answer, body: filled, note: bank.explain };
+    return { title: bank.answer, body: filled };
   }
   const hash = unit.lastIndexOf('#');
   if (hash < 0) return null;

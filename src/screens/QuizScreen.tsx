@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, type StyleProp, type TextStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
@@ -14,6 +14,11 @@ import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, MOJI_D
 import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
+
+// 学習カードの例文中「【…】」で囲った対象部を、括弧を外して下線表示に統一する。
+function markUnderline(text: string, hitStyle: StyleProp<TextStyle>) {
+  return text.split(/【(.+?)】/).map((p, i) => (i % 2 === 1 ? <Text key={i} style={hitStyle}>{p}</Text> : p));
+}
 
 const SESSION_SIZE = 10;
 const RELEARN_GAP = 3;
@@ -116,8 +121,8 @@ export default function QuizScreen() {
           <View style={s.promptCard}>
             <Text style={[s.prompt, lc && lc.title.length > 10 && s.promptLong]}>{lc?.title}</Text>
             {lc?.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
-            {lc?.body ? <Text style={s.learnBody}>{lc.body}</Text> : null}
-            {lc?.note ? <Text style={s.learnNote}>{lc.note}</Text> : null}
+            {lc?.body ? <Text style={s.learnBody}>{markUnderline(lc.body, s.learnHit)}</Text> : null}
+            {lc?.note ? <Text style={s.learnNote}>{markUnderline(lc.note, s.learnHit)}</Text> : null}
           </View>
           <AppButton label={last ? t('quiz.learn_start') : t('quiz.learn_next')} onPress={() => (last ? goTest() : setLearnIdx((i) => i + 1))} />
           <Pressable onPress={goTest} hitSlop={8}><Text style={s.learnSkip}>{t('quiz.learn_skip')}</Text></Pressable>
@@ -254,6 +259,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
 
   learnBody: { fontSize: ty.body, color: c.ink2, marginTop: spacing.xs, textAlign: 'center', lineHeight: 22 },
   learnNote: { fontSize: ty.small, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 22 },
+  learnHit: { color: c.ink, fontWeight: '800', textDecorationLine: 'underline' },
   learnSkip: { fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'center', marginTop: spacing.xs, textDecorationLine: 'underline' },
   exHit: { color: c.ink, textDecorationLine: 'underline' },
   qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
