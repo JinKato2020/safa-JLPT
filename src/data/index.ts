@@ -24,6 +24,7 @@ import kanjiReadBank from './kanjiReadingBank.json';
 import contextBank from './contextBank.json';
 import synonymBank from './synonymBank.json';
 import jftExpression from './jftExpression.json';
+import orthographyBank from './orthographyBank.json';
 import kanjiReadings from './kanjiReadings.json';
 import type { Category, Level } from '../engine/engine';
 
@@ -138,6 +139,10 @@ export const CONTEXT_BANK = contextBank as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
 export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; }
 export const SYNONYM_BANK = synonymBank as SynonymBankItem[];
+// 表記(大問2)の固定問題集(公式形式)。文中の対象語をかな(読み)で下線→正しい漢字/カタカナを4択。
+// 誤答=形が似た字(部首/字形の似た別漢字・字形の似たカタカナ)。生成=問題/tools/build_orthography_bank.py。
+export interface OrthographyBankItem { id: string; level: string; sentence: string; underline: string; answer: string; choices: string[]; explain?: string; }
+export const ORTHOGRAPHY_BANK = orthographyBank as OrthographyBankItem[];
 // JFT-Basic「会話と表現」= 場面に適切な表現を4択で選ぶ(JFT専用・A1/A2)。JLPTの文法とは別物。
 export interface JftExpressionItem { id: string; level: string; situation: string; choices: string[]; answer: string; explain?: string; }
 export const JFT_EXPRESSION = jftExpression as JftExpressionItem[];

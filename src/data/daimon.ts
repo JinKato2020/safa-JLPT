@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, JFT_EXPRESSION, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, JFT_EXPRESSION, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -32,6 +32,8 @@ const BANK_INDEX = new Map(BANK.map((b) => [b.id, b] as const));
 // 漢字読み/表記の対象語=固定問題集(KANJI_READ_BANK)にエントリがある語。交ぜ書き方式で作成済み。
 // ユニットキー <vocabId>#kanji_read / #orthography の集合を単一ソースにする。
 const KR_UNIT_SET = new Set(KANJI_READ_BANK.map((e) => `${e.id.slice(3)}#${e.daimon}`));
+// 表記(公式形式)=固定問題集(ORTHOGRAPHY_BANK)にエントリがある語。ユニットキー <vocabId>#orthography。
+const OG_UNIT_SET = new Set(ORTHOGRAPHY_BANK.map((e) => `${e.id.slice(3)}#orthography`));
 // 文脈規定=固定問題集(CONTEXT_BANK)にエントリがある語。id cx:<vid> → ユニット <vid>#context。
 const CTX_UNIT_SET = new Set(CONTEXT_BANK.map((e) => `${e.id.slice(3)}#context`));
 // 言い換え類義=固定問題集(SYNONYM_BANK)にエントリがある語。id sy:<vid> → ユニット <vid>#synonym。
@@ -39,7 +41,8 @@ const SY_UNIT_SET = new Set(SYNONYM_BANK.map((e) => `${e.id.slice(3)}#synonym`))
 
 // 大問に適格な「項目(語彙/文法)」。漢字読み/表記=固定問題集に在る語、文脈=固定問題集に在る語、言い換え=類義あり、文法形式=cloze可文法。
 function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
-  if (daimon === 'kanji_read' || daimon === 'orthography') return VOCAB.filter((v) => v.level === level && KR_UNIT_SET.has(`${v.id}#${daimon}`));
+  if (daimon === 'orthography') return VOCAB.filter((v) => v.level === level && OG_UNIT_SET.has(`${v.id}#orthography`));
+  if (daimon === 'kanji_read') return VOCAB.filter((v) => v.level === level && KR_UNIT_SET.has(`${v.id}#kanji_read`));
   if (daimon === 'context') return VOCAB.filter((v) => v.level === level && CTX_UNIT_SET.has(`${v.id}#context`));
   if (daimon === 'synonym') return VOCAB.filter((v) => v.level === level && SY_UNIT_SET.has(`${v.id}#synonym`));
   if (daimon === 'grammar_form') return GRAMMAR.filter((g) => g.level === level && GRAMMAR_CLOZE_OK.has(g.id));
@@ -80,7 +83,11 @@ const ITEM_INDEX = new Map<string, StudyItem>([...VOCAB, ...GRAMMAR].map((it) =>
 
 // 漢字読み/表記の固定問題集(id kr:<vid>/og:<vid> → ユニット <vid>#kanji_read / #orthography)。
 const KR_BANK_INDEX = new Map<string, (typeof KANJI_READ_BANK)[number]>(
-  KANJI_READ_BANK.map((e) => [`${e.id.slice(3)}#${e.daimon}`, e]),
+  KANJI_READ_BANK.filter((e) => e.daimon === 'kanji_read').map((e) => [`${e.id.slice(3)}#kanji_read`, e]),
+);
+// 表記(大問2・公式形式)の固定問題集(id og:<vid> → ユニット <vid>#orthography)。
+const OG_BANK_INDEX = new Map<string, (typeof ORTHOGRAPHY_BANK)[number]>(
+  ORTHOGRAPHY_BANK.map((e) => [`${e.id.slice(3)}#orthography`, e]),
 );
 // 文脈規定の固定問題集(id cx:<vid> → ユニット <vid>#context)。
 const CTX_BANK_INDEX = new Map<string, (typeof CONTEXT_BANK)[number]>(
@@ -112,11 +119,17 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
     const { choices, answerIndex } = shuffleChoices([bank.answer, ...bank.choices.filter((x) => x !== bank.answer)].slice(0, 4), 0, rng);
     return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, explain: bank.explain };
   }
-  // 漢字読み/表記=固定問題集を優先(実行時自動生成でなく確定済み)。無ければ下の自動生成へfallback。
+  // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
+  const og = OG_BANK_INDEX.get(unit);
+  if (og) {
+    const { choices, answerIndex } = shuffleChoices([og.answer, ...og.choices.filter((x) => x !== og.answer)].slice(0, 4), 0, rng);
+    return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain };
+  }
+  // 漢字読み=固定問題集を優先(実行時自動生成でなく確定済み)。無ければ下の自動生成へfallback。
   const kr = KR_BANK_INDEX.get(unit);
   if (kr) {
     const { choices, answerIndex } = shuffleChoices([kr.answer, ...kr.choices.filter((x) => x !== kr.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: kr.prompt, question: kr.question, format: kr.daimon === 'kanji_read' ? 'reading' : 'orthography', choices, answerIndex };
+    return { itemId: unit, prompt: kr.prompt, question: kr.question, format: 'reading', choices, answerIndex };
   }
   // 文脈規定=固定問題集(全内容語のオリジナル文＋非競合誤答)。
   const cx = CTX_BANK_INDEX.get(unit);
