@@ -91,6 +91,10 @@ function categoryPct(state: AppState, now: number, cat: Category, full: boolean)
     const bp = DAIMON_BLUEPRINT[lv] ?? {};
     return wAvgPct(daimons.map((d) => [knowledgeDaimonPct(state, now, daimonUnitIds(lv, d)), bp[d] ?? 0]));
   }
+  // JFT(文字語彙/表現=知識)も同様に【カバー率×習得】＝JFT基準の合格率も学習量を反映(模試なしで練習から算定)。
+  if (jft && (cat === 'moji_goi' || cat === 'bunpou')) {
+    return knowledgeDaimonPct(state, now, examItemIds(state, cat, full));
+  }
   return pctOfIds(state, now, examItemIds(state, cat, full));
 }
 

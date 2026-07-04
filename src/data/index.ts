@@ -21,6 +21,7 @@ import kanjiLevelReadings from './kanjiLevelReadings.json';
 import kanjiReadBank from './kanjiReadingBank.json';
 import contextBank from './contextBank.json';
 import synonymBank from './synonymBank.json';
+import jftExpression from './jftExpression.json';
 import kanjiReadings from './kanjiReadings.json';
 import type { Category, Level } from '../engine/engine';
 
@@ -127,6 +128,9 @@ export const CONTEXT_BANK = contextBank as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
 export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; }
 export const SYNONYM_BANK = synonymBank as SynonymBankItem[];
+// JFT-Basic「会話と表現」= 場面に適切な表現を4択で選ぶ(JFT専用・A1/A2)。JLPTの文法とは別物。
+export interface JftExpressionItem { id: string; level: string; situation: string; choices: string[]; answer: string; explain?: string; }
+export const JFT_EXPRESSION = jftExpression as JftExpressionItem[];
 export const KANJI_EXAMPLE: Record<string, KanjiExample> = (() => {
   const byChar: Record<string, VocabItem[]> = {};
   for (const v of VOCAB) {
@@ -327,12 +331,16 @@ export function allItemIdsFor(level: Level, category: Category): string[] {
 
 // --- JFT-Basic 知識スコープ = A1+A2 = N5+N4(統合・レベル選択なし)。N3は上積み(介護)で範囲外。 ---
 const JFT_LEVELS: Level[] = ['N5', 'N4'];
-/** JFT学習集合(小リング分母) = N5+N4 の学習項目。 */
+// JFTの bunpou 区分は JLPT の「文法」ではなく「会話と表現」＝場面に適切な表現を選ぶ(JFT本番準拠)。
+const JFT_EXPR_IDS = () => JFT_EXPRESSION.map((e) => e.id);
+/** JFT学習集合(小リング分母)。文字語彙=N5+N4の語彙、会話表現(bunpou)=会話と表現バンク、読解聴解=N5+N4。 */
 export function jftItemIdsFor(category: Category): string[] {
+  if (category === 'bunpou') return JFT_EXPR_IDS();
   return JFT_LEVELS.flatMap((lv) => ringItemIdsFor(lv, category));
 }
-/** JFT到達度の分母 = N5+N4 の学習＋模試。 */
+/** JFT到達度の分母。bunpou=会話と表現バンク、他=N5+N4の学習＋模試。 */
 export function allJftItemIdsFor(category: Category): string[] {
+  if (category === 'bunpou') return JFT_EXPR_IDS();
   return JFT_LEVELS.flatMap((lv) => allItemIdsFor(lv, category));
 }
 

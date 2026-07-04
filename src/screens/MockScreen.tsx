@@ -11,12 +11,13 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState, useAppActions } from '../store/store';
 import { guessCorrect, jftMockScore } from '../store/selectors';
 import { dayStr } from '../store/state';
-import { examWordsFor, allWordsFor, examReadingFor, examListeningFor } from '../data';
+import { examReadingFor, examListeningFor } from '../data';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
-import { makeQuestion, sample, shuffleChoices, type ExampleHint, type QFormat } from '../quiz/quiz';
+import { sample, shuffleChoices, type ExampleHint } from '../quiz/quiz';
 import { blueprintCounts, daimonCounts, DAIMON_SEC, type Daimon } from '../data/examBlueprint';
-import { daimonUnitIds, questionForUnit } from '../data/daimon';
+import { daimonUnitIds, questionForUnit, MOJI_DAIMON } from '../data/daimon';
+import { JFT_EXPRESSION } from '../data';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -24,9 +25,6 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 type Sec = 'moji_goi' | 'bunpou' | 'dokkai' | 'choukai';
 type Styles = ReturnType<typeof makeStyles>;
 
-// 模試で出す形式=本番の大問に対応するもののみ(「意味は？」「意味→語」等の非本番形式は除外)。
-const MOJI_FORMATS: QFormat[] = ['reading', 'orthography', 'cloze', 'synonym']; // 漢字読み/表記/文脈規定/言い換え類義
-const BUNPOU_FORMATS: QFormat[] = ['usage', 'cloze']; // 文法形式の判断 等
 const SEC_ORDER: Sec[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 const SEC_LABEL: Record<Sec, string> = { moji_goi: 'mock.sec_moji_goi', bunpou: 'mock.sec_bunpou', dokkai: 'mock.sec_dokkai', choukai: 'mock.sec_choukai' };
 // JFTのセクション名(①文字と語彙②会話と表現③聴解④読解)。
@@ -61,21 +59,22 @@ function pickFresh<T>(pool: T[], isSeen: (x: T) => boolean, n: number): T[] {
   if (fresh.length >= n) return fresh;
   return [...fresh, ...sample(pool.filter(isSeen), n - fresh.length)];
 }
-// 知識区分(moji_goi/bunpou)を区分ごとに n 問。形式は本番の大問に対応するものに限定。
-// levels: JLPT=[選択級] / JFT=['N5','N4'](A1+A2を難易度混在で出題)。
-function knowledgeItems(levels: Level[], category: 'moji_goi' | 'bunpou', n: number, seen: Seen): MockItem[] {
+// JFTの知識区分を n 問。JFT本番に忠実に: 文字と語彙(moji_goi)=①〜⑤(検証済バンク)、会話と表現(bunpou)=JFT_EXPRESSION。
+// JLPTの文法(組み立て/文章の文法)はJFTに無いので出さない。評価だけJFT基準(readinessForで別途)。
+function jftKnowledgeItems(levels: Level[], category: 'moji_goi' | 'bunpou', n: number, seen: Seen): MockItem[] {
   if (n <= 0) return [];
-  const pool = levels.flatMap((lv) => examWordsFor(lv, category)); // 模試専用(初見優先)
-  const picked = pickFresh(pool, (i) => !!seen[i.id], n);
-  const all = levels.flatMap((lv) => allWordsFor(lv, category)); // 誤答候補は同区分から
-  const allowed = category === 'moji_goi' ? MOJI_FORMATS : BUNPOU_FORMATS;
-  return sample(picked, picked.length).map((item) => {
-    const q = makeQuestion(item, all, Math.random, allowed);
-    return {
-      kind: 'word', id: item.id, section: item.category as Sec,
-      question: q.question, choices: q.choices, answerIndex: q.answerIndex, prompt: q.prompt, reading: q.reading, example: q.example,
-    };
-  });
+  if (category === 'bunpou') {
+    // 会話と表現: 場面(situation)に適切な表現を4択で。
+    const picked = pickFresh(JFT_EXPRESSION, (e) => !!seen[e.id], n);
+    return picked.map((e) => {
+      const { choices, answerIndex } = shuffleChoices([e.answer, ...e.choices.filter((x) => x !== e.answer)].slice(0, 4), 0);
+      return { kind: 'word' as const, id: e.id, section: 'bunpou' as Sec, prompt: e.situation, question: '', choices, answerIndex, explain: e.explain };
+    });
+  }
+  const daimons = MOJI_DAIMON; // 文字と語彙 = ①〜⑤(漢字読み/表記/文脈規定/言い換え/用法)
+  const per = Math.floor(n / daimons.length);
+  let rem = n - per * daimons.length;
+  return daimons.flatMap((d) => knowledgeForDaimon(levels, d, per + (rem-- > 0 ? 1 : 0), seen));
 }
 
 // 大問1つを count 問。学習と同一の固定問題集(daimonUnitIds→questionForUnit)から出題＝模試も検証済バンクに統一。
@@ -128,7 +127,7 @@ function buildExam(levels: Level[], full: boolean, jft: boolean, seen: Seen): Mo
   const bp = blueprintCounts(levels[0], full, jft);
   // 知識区分: JLPT=大問別(漢字読み/表記/文脈規定/言い換え/用法/文法形式/組み立て/文章の文法)、JFT=区分2つ。
   const knowledge = jft
-    ? [...knowledgeItems(levels, 'moji_goi', bp.moji_goi, seen), ...knowledgeItems(levels, 'bunpou', bp.bunpou, seen)]
+    ? [...jftKnowledgeItems(levels, 'moji_goi', bp.moji_goi, seen), ...jftKnowledgeItems(levels, 'bunpou', bp.bunpou, seen)]
     : daimonCounts(levels[0], full).flatMap((d) => knowledgeForDaimon(levels, d.daimon, d.count, seen));
   const reading = readingItems(levels, bp.dokkai, seen);
   const listening = listeningItems(levels, bp.choukai, seen);

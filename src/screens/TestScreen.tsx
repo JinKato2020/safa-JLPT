@@ -68,7 +68,7 @@ export default function TestScreen() {
         ) : null}
 
         {isJft ? (
-          /* JFT-Basic 模試(単一・本番再現) */
+          /* JFT-Basic: 模試はJLPT模試(検証済バンク)をN5+N4で出題。評価(合格率)だけJFT基準(合格200/250)。 */
           <View style={s.testCard}>
             <View style={s.testHead}>
               <Text style={s.testTitle}>{t('test.jft_title')}</Text>
