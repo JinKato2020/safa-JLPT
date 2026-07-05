@@ -9,7 +9,8 @@ import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
-import { readingItemsFor, readingItemsForSub, type ReadingItem, type PassageQuestion } from '../data';
+import { readingItemsFor, readingItemsForSub, rubyNeeded, type ReadingItem, type PassageQuestion } from '../data';
+import RubyText from '../components/RubyText';
 import type { RootStackParamList } from '../navigation/types';
 import { sample, reinsertForRelearn, shuffleChoices } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
@@ -27,6 +28,8 @@ export default function ReadingScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
+  // 読解も適応ルビ(自分のレベル以上の漢字にルビ)。本文・設問・選択肢の 漢字（かな） をルビ表示。
+  const rubyGate = (run: string) => rubyNeeded(run, state.settings.level);
 
   const route = useRoute<RouteProp<RootStackParamList, 'Reading'>>();
   const sub = route.params?.subtype;
@@ -106,12 +109,16 @@ export default function ReadingScreen() {
 
         <View style={s.passageCard}>
           <Text style={s.fmtTag}>{step.passage.format}</Text>
-          <Text style={s.passageTitle}>{step.passage.title}</Text>
-          <Text style={s.passageBody}>{step.passage.body}</Text>
+          <RubyText text={step.passage.title} style={s.passageTitle} rubyStyle={s.passRuby} rubyGate={rubyGate} />
+          <View style={s.passageBodyWrap}>
+            {step.passage.body.split('\n').map((line, i) => (
+              line ? <RubyText key={i} text={line} style={s.passageBody} rubyStyle={s.passRuby} rubyGate={rubyGate} /> : <View key={i} style={s.passageBlank} />
+            ))}
+          </View>
         </View>
 
         <Text style={s.qLabel}>{t('reading.questionLabel', { n: step.qNum, m: step.qTotal })}</Text>
-        <Text style={s.qText}>{step.q.q}</Text>
+        <RubyText text={step.q.q} style={s.qText} rubyStyle={s.qRuby} rubyGate={rubyGate} />
         <View style={s.choices}>
           {step.q.choices.map((ch, i) => {
             const isAnswer = i === step.q.answerIndex;
@@ -124,7 +131,7 @@ export default function ReadingScreen() {
                 onPress={() => onPick(i)}
                 disabled={reveal}
               >
-                <Text style={s.choiceTxt}>{ch}</Text>
+                <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.choiceRuby} rubyGate={rubyGate} /></View>
                 {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
               </Pressable>
             );
@@ -169,9 +176,15 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   },
   fmtTag: { fontSize: ty.tiny, fontWeight: '800', color: c.dokkai, letterSpacing: 1 },
   passageTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
-  passageBody: { fontSize: ty.body, color: c.ink2, lineHeight: 26, marginTop: spacing.xs },
+  passageBody: { fontSize: ty.body, color: c.ink2 },
+  passageBodyWrap: { marginTop: spacing.xs, gap: 4 },
+  passageBlank: { height: 8 },
+  passRuby: { fontSize: 10, lineHeight: 12, color: c.faint, textAlign: 'center' },
   qLabel: { fontSize: ty.tiny, fontWeight: '700', color: c.mute, letterSpacing: 1 },
   qText: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
+  qRuby: { fontSize: 10, lineHeight: 12, color: c.mute, textAlign: 'center' },
+  choiceTxtWrap: { flex: 1 },
+  choiceRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },
   choices: { gap: spacing.sm },
   choice: {
     flexDirection: 'row',

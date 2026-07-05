@@ -393,8 +393,12 @@ export default function MockScreen() {
           </View>
         ) : cur.kind === 'reading' ? (
           <View style={s.passageCard}>
-            <Text style={s.passTitle}>{cur.title}</Text>
-            <Text style={s.passBody}>{cur.body}</Text>
+            <RubyText text={cur.title ?? ''} style={s.passTitle} rubyStyle={s.mockRuby} rubyGate={rubyGate} />
+            <View style={s.passBodyWrap}>
+              {(cur.body ?? '').split('\n').map((line, i) => (
+                line ? <RubyText key={i} text={line} style={s.passBody} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : <View key={i} style={s.passBlank} />
+              ))}
+            </View>
           </View>
         ) : (
           <View style={s.passageCard}>
@@ -413,7 +417,7 @@ export default function MockScreen() {
           </View>
         )}
 
-        {cur.kind !== 'word' ? <Text style={s.qtextBig}>{cur.question}</Text> : null}
+        {cur.kind !== 'word' ? <RubyText text={cur.question ?? ''} style={s.qtextBig} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : null}
 
         <View style={s.choices}>
           {cur.choices.map((ch, i) => {
@@ -426,7 +430,7 @@ export default function MockScreen() {
                 onPress={() => onPick(i)}
                 disabled={reveal}
               >
-                <Text style={s.choiceTxt}>{ch}</Text>
+                <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.mockRuby} rubyGate={rubyGate} /></View>
                 {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
               </Pressable>
             );
@@ -489,7 +493,10 @@ const makeStyles = (c: ThemeColors) =>
     qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
     passageCard: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.lg, gap: spacing.sm },
     passTitle: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, letterSpacing: 1 },
-    passBody: { fontSize: ty.body, color: c.ink2, lineHeight: 26 },
+    passBody: { fontSize: ty.body, color: c.ink2 },
+    passBodyWrap: { marginTop: spacing.xs, gap: 4 },
+    passBlank: { height: 8 },
+    choiceTxtWrap: { flex: 1 },
     qtextBig: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
     playBtn: { backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.choukai, paddingVertical: spacing.md, alignItems: 'center' },
     playBtnUsed: { opacity: 0.45, borderColor: c.line },
