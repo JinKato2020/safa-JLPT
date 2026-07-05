@@ -189,6 +189,15 @@ export function learnCardFor(unit: string): LearnCard | null {
       const filled = cx ? cx.prompt.replace('〔　〕', `【${cx.answer}】`) : ex?.ja;
       return { title: item.word, sub: item.reading, body: item.meaning, note: filled };
     }
+    // ①漢字読み・②表記: クイズと同じ固定問題集の例文を使い、対象語(下線)を【】で囲って下線表示する。
+    if (daimon === 'kanji_read') {
+      const kr = KR_BANK_INDEX.get(unit);
+      return { title: item.word, sub: item.reading, body: item.meaning, note: kr ? kr.sentence.replace(kr.underline, `【${kr.underline}】`) : ex?.ja };
+    }
+    if (daimon === 'orthography') {
+      const og = OG_BANK_INDEX.get(unit);
+      return { title: item.word, sub: item.reading, body: item.meaning, note: og ? og.sentence.replace(og.underline, `【${og.underline}】`) : ex?.ja };
+    }
     return { title: item.word, sub: item.reading, body: item.meaning, note: ex?.ja };
   }
   if (item.type === 'grammar') return { title: item.point, sub: item.romaji, body: item.meaning, note: item.exampleJa };
