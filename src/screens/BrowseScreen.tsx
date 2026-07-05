@@ -138,7 +138,11 @@ export default function BrowseScreen() {
       <View style={s.rowMain}>
         {item.type === 'vocab' ? (
           <>
-            <Text style={s.term}>{item.word}　<Text style={s.reading}>{item.reading}</Text></Text>
+            {/* 見出し語: 読みを漢字の上にルビ表示(レベル適応=ユーザーのレベル以上の漢字を含む時だけ)。 */}
+            <View style={s.termRubyWrap}>
+              <Text style={s.termRuby} numberOfLines={1}>{rubyGate(item.word) ? item.reading : ' '}</Text>
+              <Text style={s.term}>{item.word}</Text>
+            </View>
             <Text style={s.meaning}>{nm(item.id) ?? item.meaning}</Text>
             {nm(item.id) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
             {(() => {
@@ -285,6 +289,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   // App Bのリスト見出しに合わせ、見出し語は明朝(Shippori Mincho)で上質に。
   term: { fontSize: ty.h2, fontFamily: 'ShipporiMincho-Bold', color: c.ink, letterSpacing: 0.3 },
   reading: { fontSize: ty.small, fontWeight: '600', color: c.mute },
+  // 見出し語の読みルビ(語の上に小さく・中央寄せ)。
+  termRubyWrap: { alignSelf: 'flex-start', alignItems: 'center' },
+  termRuby: { fontSize: 11, lineHeight: 13, fontWeight: '600', color: c.mute, textAlign: 'center' },
   meaning: { fontSize: ty.small, color: c.ink2 },
   meaningEn: { fontSize: ty.tiny, color: c.faint, marginTop: 1 },
   example: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.xs },
