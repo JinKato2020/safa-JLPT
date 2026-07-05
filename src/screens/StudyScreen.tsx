@@ -28,6 +28,9 @@ const RING_META: Record<Category, { icon: string }> = {
   choukai: { icon: '聴' },
 };
 
+// 大問(小リング)の識別コード。リングにはこの記号を表示し、下の凡例で名称を説明する。
+const SUB_CODE = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+
 interface SubRing { key: string; label: string; value: number | null; onPress: () => void; }
 
 export default function StudyScreen() {
@@ -108,11 +111,17 @@ export default function StudyScreen() {
               {subs.length ? (
                 <>
                   <Text style={s.tapHint}>{t('study.tap_daimon')}</Text>
-                  <View style={s.subRingWrap}>
-                    {subs.map((sr) => (
-                      <Pressable key={sr.key} style={({ pressed }) => [s.subRingCell, pressed && s.pressed]} onPress={sr.onPress}>
-                        <RingGauge value={sr.value} color={ringColor(sr.value)} size={46} stroke={5} label={sr.label} />
+                  {/* 大問ボタン(1段)。リングはA/B…のコード表示、下の凡例で名称を説明。枠線+背景でタップ可と明示。 */}
+                  <View style={s.subRingRow}>
+                    {subs.map((sr, i) => (
+                      <Pressable key={sr.key} style={({ pressed }) => [s.subRingBtn, pressed && s.subRingBtnPressed]} onPress={sr.onPress}>
+                        <RingGauge value={sr.value} color={ringColor(sr.value)} size={38} stroke={5} label={SUB_CODE[i]} />
                       </Pressable>
+                    ))}
+                  </View>
+                  <View style={s.legend}>
+                    {subs.map((sr, i) => (
+                      <Text key={sr.key} style={s.legendItem}><Text style={s.legendCode}>{SUB_CODE[i]}</Text>：{sr.label}</Text>
                     ))}
                   </View>
                 </>
@@ -162,7 +171,16 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   mixTitle: { fontSize: ty.body, fontWeight: '800', color: c.blue },
   mixSub: { fontSize: ty.small, fontWeight: '700', color: c.mute },
   tapHint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
-  subRingWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
-  subRingCell: { width: 64, alignItems: 'center', paddingVertical: spacing.xs, borderRadius: radius.md },
+  // 大問ボタン(1段・均等幅)。枠線＋背景でタップ可と明示。
+  subRingRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.xs },
+  subRingBtn: {
+    flex: 1, marginHorizontal: 3, alignItems: 'center', paddingVertical: spacing.xs,
+    borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft,
+  },
+  subRingBtnPressed: { backgroundColor: c.blueLight, borderColor: c.blue, transform: [{ scale: 0.97 }] },
+  // コード→名称の凡例(A：漢字読み …)。
+  legend: { flexDirection: 'row', flexWrap: 'wrap', columnGap: spacing.sm, rowGap: 2, marginTop: spacing.xs, paddingHorizontal: 2 },
+  legendItem: { fontSize: ty.tiny, color: c.mute, lineHeight: 15 },
+  legendCode: { fontWeight: '800', color: c.ink2 },
   foot: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.lg, lineHeight: 16 },
 });
