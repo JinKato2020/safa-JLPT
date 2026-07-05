@@ -183,9 +183,15 @@ export default function BrowseScreen() {
           </>
         ) : (
           <>
-            <Text style={s.term}>{item.point}</Text>
+            {/（[^）]*）/.test(item.point) ? (
+              <View style={s.termRubyWrap}>
+                <RubyText text={item.point} style={s.term} rubyStyle={s.termRuby} rubyGate={rubyGate} />
+              </View>
+            ) : (
+              <Text style={s.term}>{item.point}</Text>
+            )}
             <Text style={s.meaning}>{item.meaning}</Text>
-            {renderSentence(item.exampleJa, item.point)}
+            {renderSentence(item.exampleJa, item.point.replace(/[（(][^）)]*[）)]/g, ''))}
           </>
         )}
       </View>
