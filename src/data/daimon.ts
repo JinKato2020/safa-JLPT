@@ -177,6 +177,12 @@ export function learnCardFor(unit: string): LearnCard | null {
     // 用法=対象語＋正しい使い方の文。文法(⑥⑦⑧)=正解＋空所を埋めた例文のみ(解説は学習カードでは出さない)。
     // ⑤用法はLEARN_FURI(kuroshiro＋校正)でふりがなを付ける。ルビ描画は上位のLearnTextがレベル適応で行う。
     if (bank.daimon === 'usage') return { title: LEARN_FURI[bank.stem] ?? bank.stem, body: LEARN_FURI[bank.answer] ?? bank.answer, note: LEARN_FURI[bank.explain] ?? bank.explain };
+    // ⑦文の組み立て(order): 空所の並べ替えなので「正解の断片1つ」を出しても意味がない。
+    // 解説から「正しい文」を取り出し、完成した文全体を見せる(これが学習になる)。
+    if (bank.daimon === 'order') {
+      const m = bank.explain.match(/正し(?:い文)?は「([^」]+)」/);
+      return { title: '文（ぶん）の組（く）み立（た）て', body: m ? m[1] : bank.stem };
+    }
     const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
     return { title: bank.answer, body: filled };
   }
