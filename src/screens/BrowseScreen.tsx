@@ -209,7 +209,6 @@ export default function BrowseScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <View style={s.top}>
-        <Text style={s.tab}>{t('browse.title')}</Text>
         <TextInput
           style={s.search}
           value={query}

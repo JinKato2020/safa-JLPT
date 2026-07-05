@@ -63,7 +63,6 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.tab}>{t('profile.tab')}</Text>
         <Text style={s.title}>{t('profile.title')}</Text>
 
         {/* 学習設定 */}

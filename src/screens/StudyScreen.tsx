@@ -78,7 +78,6 @@ export default function StudyScreen() {
       <ScrollView contentContainerStyle={s.body}>
         <View style={s.head}>
           <View>
-            <Text style={s.tab}>{t('study.tab')}</Text>
             <Text style={s.title}>{t('study.title')}</Text>
           </View>
           {streak.current > 0 ? <Text style={s.streak}>🔥 {streak.current}</Text> : null}

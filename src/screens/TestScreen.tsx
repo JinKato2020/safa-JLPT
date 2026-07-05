@@ -29,7 +29,6 @@ export default function TestScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.tab}>{t('test.tab')}</Text>
         <Text style={s.title}>{t('test.title')}</Text>
         <Text style={s.sub}>{t('test.sub')}</Text>
 
