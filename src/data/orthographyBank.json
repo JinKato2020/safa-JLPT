@@ -314,8 +314,8 @@
  {
   "id": "og:n5-v-31",
   "level": "N5",
-  "sentence": "えきの ちかくの アパート に すむ。",
-  "underline": "アパート",
+  "sentence": "えきの ちかくの あぱーと に すむ。",
+  "underline": "あぱーと",
   "answer": "アパート",
   "choices": [
    "マパート",
@@ -964,8 +964,8 @@
  {
   "id": "og:n5-v-93",
   "level": "N5",
-  "sentence": "エレベーターでさんがいへいきます。",
-  "underline": "エレベーター",
+  "sentence": "えれべーたーでさんがいへいきます。",
+  "underline": "えれべーたー",
   "answer": "エレベーター",
   "choices": [
    "エレベーラー",
@@ -1770,8 +1770,8 @@
  {
   "id": "og:n5-v-169",
   "level": "N5",
-  "sentence": "あたらしい カップで おちゃを のみます。",
-  "underline": "カップ",
+  "sentence": "あたらしい かっぷで おちゃを のみます。",
+  "underline": "かっぷ",
   "answer": "カップ",
   "choices": [
    "カツプ",
@@ -1835,8 +1835,8 @@
  {
   "id": "og:n5-v-176",
   "level": "N5",
-  "sentence": "あたらしい カメラで しゃしんを とる。",
-  "underline": "カメラ",
+  "sentence": "あたらしい かめらで しゃしんを とる。",
+  "underline": "かめら",
   "answer": "カメラ",
   "choices": [
    "カヌラ",
@@ -1913,8 +1913,8 @@
  {
   "id": "og:n5-v-183",
   "level": "N5",
-  "sentence": "ばんごはんは カレーです。",
-  "underline": "カレー",
+  "sentence": "ばんごはんは かれーです。",
+  "underline": "かれー",
   "answer": "カレー",
   "choices": [
    "力レー",
@@ -1926,8 +1926,8 @@
  {
   "id": "og:n5-v-184",
   "level": "N5",
-  "sentence": "かべに カレンダーを かけます。",
-  "underline": "カレンダー",
+  "sentence": "かべに かれんだーを かけます。",
+  "underline": "かれんだー",
   "answer": "カレンダー",
   "choices": [
    "力レンダー",
@@ -2043,8 +2043,8 @@
  {
   "id": "og:n5-v-195",
   "level": "N5",
-  "sentence": "かれは ギターを ひくのが じょうずだ。",
-  "underline": "ギター",
+  "sentence": "かれは ぎたーを ひくのが じょうずだ。",
+  "underline": "ぎたー",
   "answer": "ギター",
   "choices": [
    "ギワー",
@@ -3655,8 +3655,8 @@
  {
   "id": "og:n5-v-347",
   "level": "N5",
-  "sentence": "さむいので セーターを きる。",
-  "underline": "セーター",
+  "sentence": "さむいので せーたーを きる。",
+  "underline": "せーたー",
   "answer": "セーター",
   "choices": [
    "ヤーター",
@@ -3707,8 +3707,8 @@
  {
   "id": "og:n5-v-351",
   "level": "N5",
-  "sentence": "てんすうは ゼロだった。",
-  "underline": "ゼロ",
+  "sentence": "てんすうは ぜろだった。",
+  "underline": "ぜろ",
   "answer": "ゼロ",
   "choices": [
    "セロ",
@@ -3954,8 +3954,8 @@
  {
   "id": "og:n5-v-382",
   "level": "N5",
-  "sentence": "えきまで タクシーで いく。",
-  "underline": "タクシー",
+  "sentence": "えきまで たくしーで いく。",
+  "underline": "たくしー",
   "answer": "タクシー",
   "choices": [
    "タクツー",
@@ -5969,8 +5969,8 @@
  {
   "id": "og:n5-v-576",
   "level": "N5",
-  "sentence": "カメラに フィルムを いれます。",
-  "underline": "フィルム",
+  "sentence": "カメラに ふぃるむを いれます。",
+  "underline": "ふぃるむ",
   "answer": "フィルム",
   "choices": [
    "フィルハ",
@@ -5995,8 +5995,8 @@
  {
   "id": "og:n5-v-578",
   "level": "N5",
-  "sentence": "なつは プールで およぎます。",
-  "underline": "プール",
+  "sentence": "なつは ぷーるで およぎます。",
+  "underline": "ぷーる",
   "answer": "プール",
   "choices": [
    "プーハ",
@@ -6008,8 +6008,8 @@
  {
   "id": "og:n5-v-579",
   "level": "N5",
-  "sentence": "フォークで たべます。",
-  "underline": "フォーク",
+  "sentence": "ふぉーくで たべます。",
+  "underline": "ふぉーく",
   "answer": "フォーク",
   "choices": [
    "フォータ",
@@ -6164,8 +6164,8 @@
  {
   "id": "og:n5-v-592",
   "level": "N5",
-  "sentence": "つぎの ページを みて ください。",
-  "underline": "ページ",
+  "sentence": "つぎの ぺーじを みて ください。",
+  "underline": "ぺーじ",
   "answer": "ページ",
   "choices": [
    "ペーヅ",
@@ -6190,8 +6190,8 @@
  {
   "id": "og:n5-v-594",
   "level": "N5",
-  "sentence": "ベッドで ねます。",
-  "underline": "ベッド",
+  "sentence": "べっどで ねます。",
+  "underline": "べっど",
   "answer": "ベッド",
   "choices": [
    "ベツド",
@@ -6203,8 +6203,8 @@
  {
   "id": "og:n5-v-595",
   "level": "N5",
-  "sentence": "いえで ペットを かって います。",
-  "underline": "ペット",
+  "sentence": "いえで ぺっとを かって います。",
+  "underline": "ぺっと",
   "answer": "ペット",
   "choices": [
    "ペツト",
@@ -6242,8 +6242,8 @@
  {
   "id": "og:n5-v-598",
   "level": "N5",
-  "sentence": "あかい ペンを かします。",
-  "underline": "ペン",
+  "sentence": "あかい ぺんを かします。",
+  "underline": "ぺん",
   "answer": "ペン",
   "choices": [
    "ペソ",
@@ -6294,8 +6294,8 @@
  {
   "id": "og:n5-v-602",
   "level": "N5",
-  "sentence": "ボールペンで かきます。",
-  "underline": "ボールペン",
+  "sentence": "ぼーるぺんで かきます。",
+  "underline": "ぼーるぺん",
   "answer": "ボールペン",
   "choices": [
    "ボーハペン",
@@ -6320,8 +6320,8 @@
  {
   "id": "og:n5-v-604",
   "level": "N5",
-  "sentence": "ポケットに かぎを いれます。",
-  "underline": "ポケット",
+  "sentence": "ぽけっとに かぎを いれます。",
+  "underline": "ぽけっと",
   "answer": "ポケット",
   "choices": [
    "ポケツト",
@@ -6346,8 +6346,8 @@
  {
   "id": "og:n5-v-606",
   "level": "N5",
-  "sentence": "てがみを ポストに いれます。",
-  "underline": "ポスト",
+  "sentence": "てがみを ぽすとに いれます。",
+  "underline": "ぽすと",
   "answer": "ポスト",
   "choices": [
    "ポスチ",
@@ -6372,8 +6372,8 @@
  {
   "id": "og:n5-v-608",
   "level": "N5",
-  "sentence": "ボタンを おして ください。",
-  "underline": "ボタン",
+  "sentence": "ぼたんを おして ください。",
+  "underline": "ぼたん",
   "answer": "ボタン",
   "choices": [
    "ボタソ",
@@ -6385,8 +6385,8 @@
  {
   "id": "og:n5-v-609",
   "level": "N5",
-  "sentence": "りょこうで ホテルに とまります。",
-  "underline": "ホテル",
+  "sentence": "りょこうで ほてるに とまります。",
+  "underline": "ほてる",
   "answer": "ホテル",
   "choices": [
    "ホラル",
@@ -7295,8 +7295,8 @@
  {
   "id": "og:n5-v-696",
   "level": "N5",
-  "sentence": "まいあさ ラジオを 聞きます。",
-  "underline": "ラジオ",
+  "sentence": "まいあさ らじおを 聞きます。",
+  "underline": "らじお",
   "answer": "ラジオ",
   "choices": [
    "ラシオ",
@@ -7308,8 +7308,8 @@
  {
   "id": "og:n5-v-697",
   "level": "N5",
-  "sentence": "古い ラジカセで おんがくを 聞きます。",
-  "underline": "ラジカセ",
+  "sentence": "古い らじかせで おんがくを 聞きます。",
+  "underline": "らじかせ",
   "answer": "ラジカセ",
   "choices": [
    "ラシカセ",
@@ -7399,8 +7399,8 @@
  {
   "id": "og:n5-v-705",
   "level": "N5",
-  "sentence": "ふるい レコードを 聞きます。",
-  "underline": "レコード",
+  "sentence": "ふるい れこーどを 聞きます。",
+  "underline": "れこーど",
   "answer": "レコード",
   "choices": [
    "レコート",
@@ -7412,8 +7412,8 @@
  {
   "id": "og:n5-v-706",
   "level": "N5",
-  "sentence": "えきの ちかくの レストランで ごはんを 食べます。",
-  "underline": "レストラン",
+  "sentence": "えきの ちかくの れすとらんで ごはんを 食べます。",
+  "underline": "れすとらん",
   "answer": "レストラン",
   "choices": [
    "レストラソ",
@@ -7464,8 +7464,8 @@
  {
   "id": "og:n5-v-710",
   "level": "N5",
-  "sentence": "白い ワイシャツを きます。",
-  "underline": "ワイシャツ",
+  "sentence": "白い わいしゃつを きます。",
+  "underline": "わいしゃつ",
   "answer": "ワイシャツ",
   "choices": [
    "ワイシャシ",
@@ -10649,8 +10649,8 @@
  {
   "id": "og:n4-v-296",
   "level": "N4",
-  "sentence": "パンにジャムをぬります。",
-  "underline": "ジャム",
+  "sentence": "パンにじゃむをぬります。",
+  "underline": "じゃむ",
   "answer": "ジャム",
   "choices": [
    "シャム",
@@ -10883,8 +10883,8 @@
  {
   "id": "og:n4-v-319",
   "level": "N4",
-  "sentence": "昔はワープロを使っていました。",
-  "underline": "ワープロ",
+  "sentence": "昔はわーぷろを使っていました。",
+  "underline": "わーぷろ",
   "answer": "ワープロ",
   "choices": [
    "クープロ",
@@ -11208,8 +11208,8 @@
  {
   "id": "og:n4-v-346",
   "level": "N4",
-  "sentence": "仕事でパソコンを使います。",
-  "underline": "パソコン",
+  "sentence": "仕事でぱそこんを使います。",
+  "underline": "ぱそこん",
   "answer": "パソコン",
   "choices": [
    "バソコン",
@@ -12261,8 +12261,8 @@
  {
   "id": "og:n4-v-443",
   "level": "N4",
-  "sentence": "たんじょうびに プレゼントを もらった。",
-  "underline": "プレゼント",
+  "sentence": "たんじょうびに ぷれぜんとを もらった。",
+  "underline": "ぷれぜんと",
   "answer": "プレゼント",
   "choices": [
    "プレセント",
@@ -12326,8 +12326,8 @@
  {
   "id": "og:n4-v-450",
   "level": "N4",
-  "sentence": "めんせつには スーツを きて いきます。",
-  "underline": "スーツ",
+  "sentence": "めんせつには すーつを きて いきます。",
+  "underline": "すーつ",
   "answer": "スーツ",
   "choices": [
    "スーシ",
@@ -12521,8 +12521,8 @@
  {
   "id": "og:n4-v-468",
   "level": "N4",
-  "sentence": "しょるいを ファックスで おくります。",
-  "underline": "ファックス",
+  "sentence": "しょるいを ふぁっくすで おくります。",
+  "underline": "ふぁっくす",
   "answer": "ファックス",
   "choices": [
    "ファックヌ",
@@ -12950,8 +12950,8 @@
  {
   "id": "og:n4-v-508",
   "level": "N4",
-  "sentence": "らいねん、アジアの国を旅行します。",
-  "underline": "アジア",
+  "sentence": "らいねん、あじあの国を旅行します。",
+  "underline": "あじあ",
   "answer": "アジア",
   "choices": [
    "アシア",
@@ -13080,8 +13080,8 @@
  {
   "id": "og:n4-v-520",
   "level": "N4",
-  "sentence": "へやのカーテンを新しくした。",
-  "underline": "カーテン",
+  "sentence": "へやのかーてんを新しくした。",
+  "underline": "かーてん",
   "answer": "カーテン",
   "choices": [
    "カーラン",
@@ -14328,8 +14328,8 @@
  {
   "id": "og:n4-v-630",
   "level": "N4",
-  "sentence": "ガソリンスタンドで車に油を入れた。",
-  "underline": "ガソリンスタンド",
+  "sentence": "がそりんすたんどで車に油を入れた。",
+  "underline": "がそりんすたんど",
   "answer": "ガソリンスタンド",
   "choices": [
    "ガンリンスタンド",
@@ -14341,8 +14341,8 @@
  {
   "id": "og:n4-v-631",
   "level": "N4",
-  "sentence": "友だちと公園でテニスをした。",
-  "underline": "テニス",
+  "sentence": "友だちと公園でてにすをした。",
+  "underline": "てにす",
   "answer": "テニス",
   "choices": [
    "ラニス",
@@ -14536,8 +14536,8 @@
  {
   "id": "og:n4-v-647",
   "level": "N4",
-  "sentence": "毎日ピアノを練習している。",
-  "underline": "ピアノ",
+  "sentence": "毎日ぴあのを練習している。",
+  "underline": "ぴあの",
   "answer": "ピアノ",
   "choices": [
    "ヒアノ",
@@ -14614,8 +14614,8 @@
  {
   "id": "og:n4-v-654",
   "level": "N4",
-  "sentence": "新しいタイプの車を買った。",
-  "underline": "タイプ",
+  "sentence": "新しいたいぷの車を買った。",
+  "underline": "たいぷ",
   "answer": "タイプ",
   "choices": [
    "夕イプ",
@@ -14640,8 +14640,8 @@
  {
   "id": "og:n4-v-657",
   "level": "N4",
-  "sentence": "この飲み物にはアルコールが入っている。",
-  "underline": "アルコール",
+  "sentence": "この飲み物にはあるこーるが入っている。",
+  "underline": "あるこーる",
   "answer": "アルコール",
   "choices": [
    "アレコール",
@@ -14653,8 +14653,8 @@
  {
   "id": "og:n4-v-658",
   "level": "N4",
-  "sentence": "このソフトはとても使いやすい。",
-  "underline": "ソフト",
+  "sentence": "このそふとはとても使いやすい。",
+  "underline": "そふと",
   "answer": "ソフト",
   "choices": [
    "ンフト",
@@ -18384,8 +18384,8 @@
  {
   "id": "og:n3-v-295",
   "level": "N3",
-  "sentence": "でかける前に髪をセットする。",
-  "underline": "セット",
+  "sentence": "でかける前に髪をせっとする。",
+  "underline": "せっと",
   "answer": "セット",
   "choices": [
    "ヤット",
@@ -18449,8 +18449,8 @@
  {
   "id": "og:n3-v-300",
   "level": "N3",
-  "sentence": "暑いのでアイスクリームを食べた。",
-  "underline": "アイスクリーム",
+  "sentence": "暑いのであいすくりーむを食べた。",
+  "underline": "あいすくりーむ",
   "answer": "アイスクリーム",
   "choices": [
    "マイスクリーム",
@@ -18501,8 +18501,8 @@
  {
   "id": "og:n3-v-305",
   "level": "N3",
-  "sentence": "打ったボールがアウトになった。",
-  "underline": "アウト",
+  "sentence": "打ったボールがあうとになった。",
+  "underline": "あうと",
   "answer": "アウト",
   "choices": [
    "マウト",
@@ -20412,8 +20412,8 @@
  {
   "id": "og:n3-v-476",
   "level": "N3",
-  "sentence": "たいようのエネルギーを利用する。",
-  "underline": "エネルギー",
+  "sentence": "たいようのえねるぎーを利用する。",
+  "underline": "えねるぎー",
   "answer": "エネルギー",
   "choices": [
    "エネハギー",
@@ -20503,8 +20503,8 @@
  {
   "id": "og:n3-v-483",
   "level": "N3",
-  "sentence": "車のエンジンをかける。",
-  "underline": "エンジン",
+  "sentence": "車のえんじんをかける。",
+  "underline": "えんじん",
   "answer": "エンジン",
   "choices": [
    "エソジン",
@@ -21049,8 +21049,8 @@
  {
   "id": "og:n3-v-525",
   "level": "N3",
-  "sentence": "来月あたらしいオフィスにひっこす。",
-  "underline": "オフィス",
+  "sentence": "来月あたらしいおふぃすにひっこす。",
+  "underline": "おふぃす",
   "answer": "オフィス",
   "choices": [
    "オワィス",
@@ -21296,8 +21296,8 @@
  {
   "id": "og:n3-v-547",
   "level": "N3",
-  "sentence": "父はあたらしいカーを買った。",
-  "underline": "カー",
+  "sentence": "父はあたらしいかーを買った。",
+  "underline": "かー",
   "answer": "カー",
   "choices": [
    "ケー",
@@ -21309,8 +21309,8 @@
  {
   "id": "og:n3-v-548",
   "level": "N3",
-  "sentence": "としょかんのカードを新しく作る。",
-  "underline": "カード",
+  "sentence": "としょかんのかーどを新しく作る。",
+  "underline": "かーど",
   "answer": "カード",
   "choices": [
    "ケード",
@@ -23597,8 +23597,8 @@
  {
   "id": "og:n3-v-731",
   "level": "N3",
-  "sentence": "チームの キャプテン が みんなを まとめた。",
-  "underline": "キャプテン",
+  "sentence": "チームの きゃぷてん が みんなを まとめた。",
+  "underline": "きゃぷてん",
   "answer": "キャプテン",
   "choices": [
    "キャブテン",
@@ -23610,8 +23610,8 @@
  {
   "id": "og:n3-v-732",
   "level": "N3",
-  "sentence": "夏休みに 山で キャンプ を した。",
-  "underline": "キャンプ",
+  "sentence": "夏休みに 山で きゃんぷ を した。",
+  "underline": "きゃんぷ",
   "answer": "キャンプ",
   "choices": [
    "キャソプ",
@@ -24455,8 +24455,8 @@
  {
   "id": "og:n3-v-800",
   "level": "N3",
-  "sentence": "母はクラシック音楽が好きだ。",
-  "underline": "クラシック",
+  "sentence": "母はくらしっく音楽が好きだ。",
+  "underline": "くらしっく",
   "answer": "クラシック",
   "choices": [
    "クラシツク",
@@ -24481,8 +24481,8 @@
  {
   "id": "og:n3-v-802",
   "level": "N3",
-  "sentence": "グラスに冷たい水を注ぐ。",
-  "underline": "グラス",
+  "sentence": "ぐらすに冷たい水を注ぐ。",
+  "underline": "ぐらす",
   "answer": "グラス",
   "choices": [
    "グテス",
@@ -24494,8 +24494,8 @@
  {
   "id": "og:n3-v-803",
   "level": "N3",
-  "sentence": "学校のグランドで走る。",
-  "underline": "グランド",
+  "sentence": "学校のぐらんどで走る。",
+  "underline": "ぐらんど",
   "answer": "グランド",
   "choices": [
    "グテンド",
@@ -24507,8 +24507,8 @@
  {
   "id": "og:n3-v-804",
   "level": "N3",
-  "sentence": "ケーキにクリームをぬる。",
-  "underline": "クリーム",
+  "sentence": "ケーキにくりーむをぬる。",
+  "underline": "くりーむ",
   "answer": "クリーム",
   "choices": [
    "クリーヌ",
@@ -24533,8 +24533,8 @@
  {
   "id": "og:n3-v-806",
   "level": "N3",
-  "sentence": "もうすぐたのしいクリスマスだ。",
-  "underline": "クリスマス",
+  "sentence": "もうすぐたのしいくりすますだ。",
+  "underline": "くりすます",
   "answer": "クリスマス",
   "choices": [
    "クリスヌス",
@@ -24546,8 +24546,8 @@
  {
   "id": "og:n3-v-808",
   "level": "N3",
-  "sentence": "クラスを三つのグループに分ける。",
-  "underline": "グループ",
+  "sentence": "クラスを三つのぐるーぷに分ける。",
+  "underline": "ぐるーぷ",
   "answer": "グループ",
   "choices": [
    "グルーブ",
@@ -24884,8 +24884,8 @@
  {
   "id": "og:n3-v-835",
   "level": "N3",
-  "sentence": "このケースは特別だ。",
-  "underline": "ケース",
+  "sentence": "このけーすは特別だ。",
+  "underline": "けーす",
   "answer": "ケース",
   "choices": [
    "ケーヌ",
@@ -24897,8 +24897,8 @@
  {
   "id": "og:n3-v-836",
   "level": "N3",
-  "sentence": "弟は毎日ゲームをしている。",
-  "underline": "ゲーム",
+  "sentence": "弟は毎日げーむをしている。",
+  "underline": "げーむ",
   "answer": "ゲーム",
   "choices": [
    "ゲーマ",
@@ -25794,8 +25794,8 @@
  {
   "id": "og:n3-v-907",
   "level": "N3",
-  "sentence": "新しいコーチが選手を指導する。",
-  "underline": "コーチ",
+  "sentence": "新しいこーちが選手を指導する。",
+  "underline": "こーち",
   "answer": "コーチ",
   "choices": [
    "コーテ",
@@ -25807,8 +25807,8 @@
  {
   "id": "og:n3-v-908",
   "level": "N3",
-  "sentence": "パソコンのコードがからまった。",
-  "underline": "コード",
+  "sentence": "パソコンのこーどがからまった。",
+  "underline": "こーど",
   "answer": "コード",
   "choices": [
    "コート",
@@ -25833,8 +25833,8 @@
  {
   "id": "og:n3-v-911",
   "level": "N3",
-  "sentence": "マラソンでやっとゴールに着いた。",
-  "underline": "ゴール",
+  "sentence": "マラソンでやっとごーるに着いた。",
+  "underline": "ごーる",
   "answer": "ゴール",
   "choices": [
    "ゴーレ",
@@ -27185,8 +27185,8 @@
  {
   "id": "og:n3-v-1026",
   "level": "N3",
-  "sentence": "毎朝コーヒーにミルクを入れる。",
-  "underline": "ミルク",
+  "sentence": "毎朝コーヒーにみるくを入れる。",
+  "underline": "みるく",
   "answer": "ミルク",
   "choices": [
    "ミレク",
@@ -27549,8 +27549,8 @@
  {
   "id": "og:n3-v-1054",
   "level": "N3",
-  "sentence": "大切な予定をメモに書いておく。",
-  "underline": "メモ",
+  "sentence": "大切な予定をめもに書いておく。",
+  "underline": "めも",
   "answer": "メモ",
   "choices": [
    "ナモ",
@@ -27627,8 +27627,8 @@
  {
   "id": "og:n3-v-1060",
   "level": "N3",
-  "sentence": "私はテニス部のメンバーだ。",
-  "underline": "メンバー",
+  "sentence": "私はテニス部のめんばーだ。",
+  "underline": "めんばー",
   "answer": "メンバー",
   "choices": [
    "メソバー",
@@ -28251,8 +28251,8 @@
  {
   "id": "og:n3-v-1113",
   "level": "N3",
-  "sentence": "あの先生の話にはユーモアがある。",
-  "underline": "ユーモア",
+  "sentence": "あの先生の話にはゆーもあがある。",
+  "underline": "ゆーもあ",
   "answer": "ユーモア",
   "choices": [
    "コーモア",
@@ -28524,8 +28524,8 @@
  {
   "id": "og:n3-v-1134",
   "level": "N3",
-  "sentence": "夏休みにヨーロッパへ旅行した。",
-  "underline": "ヨーロッパ",
+  "sentence": "夏休みによーろっぱへ旅行した。",
+  "underline": "よーろっぱ",
   "answer": "ヨーロッパ",
   "choices": [
    "ヨーロツパ",
@@ -30487,8 +30487,8 @@
  {
   "id": "og:n3-v-1291",
   "level": "N3",
-  "sentence": "歌のコンテストに出場する。",
-  "underline": "コンテスト",
+  "sentence": "歌のこんてすとに出場する。",
+  "underline": "こんてすと",
   "answer": "コンテスト",
   "choices": [
    "コソテスト",
@@ -30747,8 +30747,8 @@
  {
   "id": "og:n3-v-1311",
   "level": "N3",
-  "sentence": "駅前のセンターで手続きをする。",
-  "underline": "センター",
+  "sentence": "駅前のせんたーで手続きをする。",
+  "underline": "せんたー",
   "answer": "センター",
   "choices": [
    "ヤンター",
@@ -31020,8 +31020,8 @@
  {
   "id": "og:n3-v-1339",
   "level": "N3",
-  "sentence": "つかれてソファーにすわる。",
-  "underline": "ソファー",
+  "sentence": "つかれてそふぁーにすわる。",
+  "underline": "そふぁー",
   "answer": "ソファー",
   "choices": [
    "ソフャー",
@@ -31462,8 +31462,8 @@
  {
   "id": "og:n3-v-1377",
   "level": "N3",
-  "sentence": "古いタイプライターで手紙を書く。",
-  "underline": "タイプライター",
+  "sentence": "古いたいぷらいたーで手紙を書く。",
+  "underline": "たいぷらいたー",
   "answer": "タイプライター",
   "choices": [
    "タイフライター",
@@ -31501,8 +31501,8 @@
  {
   "id": "og:n3-v-1380",
   "level": "N3",
-  "sentence": "電車のダイヤが乱れた。",
-  "underline": "ダイヤ",
+  "sentence": "電車のだいやが乱れた。",
+  "underline": "だいや",
   "answer": "ダイヤ",
   "choices": [
    "タイヤ",
@@ -31579,8 +31579,8 @@
  {
   "id": "og:n3-v-1386",
   "level": "N3",
-  "sentence": "タオルで手をふく。",
-  "underline": "タオル",
+  "sentence": "たおるで手をふく。",
+  "underline": "たおる",
   "answer": "タオル",
   "choices": [
    "タオレ",
@@ -32567,8 +32567,8 @@
  {
   "id": "og:n3-v-1471",
   "level": "N3",
-  "sentence": "これは、とてもいいチャンスだ。",
-  "underline": "チャンス",
+  "sentence": "これは、とてもいいちゃんすだ。",
+  "underline": "ちゃんす",
   "answer": "チャンス",
   "choices": [
    "チャソス",
@@ -35505,8 +35505,8 @@
  {
   "id": "og:n3-v-1714",
   "level": "N3",
-  "sentence": "彼は質問に ノー と答えた。",
-  "underline": "ノー",
+  "sentence": "彼は質問に のー と答えた。",
+  "underline": "のー",
   "answer": "ノー",
   "choices": [
    "ソー",
@@ -35648,8 +35648,8 @@
  {
   "id": "og:n3-v-1725",
   "level": "N3",
-  "sentence": "ドアをノックする音が聞こえた。",
-  "underline": "ノック",
+  "sentence": "ドアをのっくする音が聞こえた。",
+  "underline": "のっく",
   "answer": "ノック",
   "choices": [
    "ノツク",
@@ -35739,8 +35739,8 @@
  {
   "id": "og:n3-v-1737",
   "level": "N3",
-  "sentence": "試験に合格したのは全体の三十パーセントだった。",
-  "underline": "パーセント",
+  "sentence": "試験に合格したのは全体の三十ぱーせんとだった。",
+  "underline": "ぱーせんと",
   "answer": "パーセント",
   "choices": [
    "パーセソト",
@@ -36493,8 +36493,8 @@
  {
   "id": "og:n3-v-1799",
   "level": "N3",
-  "sentence": "たいそうでバランスをとる。",
-  "underline": "バランス",
+  "sentence": "たいそうでばらんすをとる。",
+  "underline": "ばらんす",
   "answer": "バランス",
   "choices": [
    "バラソス",
@@ -36558,8 +36558,8 @@
  {
   "id": "og:n3-v-1804",
   "level": "N3",
-  "sentence": "かれはとてもハンサムだ。",
-  "underline": "ハンサム",
+  "sentence": "かれはとてもはんさむだ。",
+  "underline": "はんさむ",
   "answer": "ハンサム",
   "choices": [
    "ハソサム",
@@ -36636,8 +36636,8 @@
  {
   "id": "og:n3-v-1810",
   "level": "N3",
-  "sentence": "つめたいビールをのむ。",
-  "underline": "ビール",
+  "sentence": "つめたいびーるをのむ。",
+  "underline": "びーる",
   "answer": "ビール",
   "choices": [
    "ビーハ",
@@ -36675,8 +36675,8 @@
  {
   "id": "og:n3-v-1813",
   "level": "N3",
-  "sentence": "こうえんでピクニックをする。",
-  "underline": "ピクニック",
+  "sentence": "こうえんでぴくにっくをする。",
+  "underline": "ぴくにっく",
   "answer": "ピクニック",
   "choices": [
    "ビクニック",
@@ -36831,8 +36831,8 @@
  {
   "id": "og:n3-v-1826",
   "level": "N3",
-  "sentence": "むかしのビデオをみる。",
-  "underline": "ビデオ",
+  "sentence": "むかしのびでおをみる。",
+  "underline": "びでお",
   "answer": "ビデオ",
   "choices": [
    "ピデオ",
@@ -38014,8 +38014,8 @@
  {
   "id": "og:n3-v-1920",
   "level": "N3",
-  "sentence": "ズボンが ゆるいので ベルト を しめる。",
-  "underline": "ベルト",
+  "sentence": "ズボンが ゆるいので べると を しめる。",
+  "underline": "べると",
   "answer": "ベルト",
   "choices": [
    "ベレト",
@@ -38040,8 +38040,8 @@
  {
   "id": "og:n3-v-1922",
   "level": "N3",
-  "sentence": "かべに 白い ペンキ を ぬる。",
-  "underline": "ペンキ",
+  "sentence": "かべに 白い ぺんき を ぬる。",
+  "underline": "ぺんき",
   "answer": "ペンキ",
   "choices": [
    "ペソキ",
@@ -38066,8 +38066,8 @@
  {
   "id": "og:n3-v-1924",
   "level": "N3",
-  "sentence": "公園の ベンチ に すわる。",
-  "underline": "ベンチ",
+  "sentence": "公園の べんち に すわる。",
+  "underline": "べんち",
   "answer": "ベンチ",
   "choices": [
    "ベソチ",
@@ -38261,8 +38261,8 @@
  {
   "id": "og:n3-v-1939",
   "level": "N3",
-  "sentence": "ホテルの ボーイ に 案内された。",
-  "underline": "ボーイ",
+  "sentence": "ホテルの ぼーい に 案内された。",
+  "underline": "ぼーい",
   "answer": "ボーイ",
   "choices": [
    "ホーイ",
@@ -38274,8 +38274,8 @@
  {
   "id": "og:n3-v-1940",
   "level": "N3",
-  "sentence": "みんなで 湖で ボート に 乗る。",
-  "underline": "ボート",
+  "sentence": "みんなで 湖で ぼーと に 乗る。",
+  "underline": "ぼーと",
   "answer": "ボート",
   "choices": [
    "ホート",
@@ -38287,8 +38287,8 @@
  {
   "id": "og:n3-v-1941",
   "level": "N3",
-  "sentence": "電車が ホーム に 着いた。",
-  "underline": "ホーム",
+  "sentence": "電車が ほーむ に 着いた。",
+  "underline": "ほーむ",
   "answer": "ホーム",
   "choices": [
    "ボーム",
@@ -38300,8 +38300,8 @@
  {
   "id": "og:n3-v-1942",
   "level": "N3",
-  "sentence": "子どもが 公園で ボール を 投げる。",
-  "underline": "ボール",
+  "sentence": "子どもが 公園で ぼーる を 投げる。",
+  "underline": "ぼーる",
   "answer": "ボール",
   "choices": [
    "ボーレ",
@@ -38547,8 +38547,8 @@
  {
   "id": "og:n3-v-1964",
   "level": "N3",
-  "sentence": "朝の マーケット で 野菜を 買う。",
-  "underline": "マーケット",
+  "sentence": "朝の まーけっと で 野菜を 買う。",
+  "underline": "まーけっと",
   "answer": "マーケット",
   "choices": [
    "マークット",
@@ -38560,8 +38560,8 @@
  {
   "id": "og:n3-v-1965",
   "level": "N3",
-  "sentence": "歌う ときは マイク を 使う。",
-  "underline": "マイク",
+  "sentence": "歌う ときは まいく を 使う。",
+  "underline": "まいく",
   "answer": "マイク",
   "choices": [
    "ワイク",
@@ -38586,8 +38586,8 @@
  {
   "id": "og:n3-v-1967",
   "level": "N3",
-  "sentence": "今朝は 気温が マイナス 五度に なった。",
-  "underline": "マイナス",
+  "sentence": "今朝は 気温が まいなす 五度に なった。",
+  "underline": "まいなす",
   "answer": "マイナス",
   "choices": [
    "ワイナス",
@@ -38768,8 +38768,8 @@
  {
   "id": "og:n3-v-1983",
   "level": "N3",
-  "sentence": "英語の発音をマスターしたい。",
-  "underline": "マスター",
+  "sentence": "英語の発音をますたーしたい。",
+  "underline": "ますたー",
   "answer": "マスター",
   "choices": [
    "マヌター",
@@ -39275,8 +39275,8 @@
  {
   "id": "og:n3-v-2027",
   "level": "N3",
-  "sentence": "悪い知らせにショックを受けた。",
-  "underline": "ショック",
+  "sentence": "悪い知らせにしょっくを受けた。",
+  "underline": "しょっく",
   "answer": "ショック",
   "choices": [
    "ツョック",
@@ -39366,8 +39366,8 @@
  {
   "id": "og:n3-v-2034",
   "level": "N3",
-  "sentence": "毎日のストレスをためない。",
-  "underline": "ストレス",
+  "sentence": "毎日のすとれすをためない。",
+  "underline": "すとれす",
   "answer": "ストレス",
   "choices": [
    "ストレヌ",
@@ -40471,8 +40471,8 @@
  {
   "id": "og:n3-v-2122",
   "level": "N3",
-  "sentence": "そのニュースはマスコミで大きく報じられた。",
-  "underline": "マスコミ",
+  "sentence": "そのニュースはますこみで大きく報じられた。",
+  "underline": "ますこみ",
   "answer": "マスコミ",
   "choices": [
    "アスコミ",
@@ -40510,8 +40510,8 @@
  {
   "id": "og:n3-v-2125",
   "level": "N3",
-  "sentence": "肩のマッサージを受ける。",
-  "underline": "マッサージ",
+  "sentence": "肩のまっさーじを受ける。",
+  "underline": "まっさーじ",
   "answer": "マッサージ",
   "choices": [
    "アッサージ",
@@ -40549,8 +40549,8 @@
  {
   "id": "og:n3-v-2128",
   "level": "N3",
-  "sentence": "友だちにメッセージを送る。",
-  "underline": "メッセージ",
+  "sentence": "友だちにめっせーじを送る。",
+  "underline": "めっせーじ",
   "answer": "メッセージ",
   "choices": [
    "メッサージ",
@@ -40666,8 +40666,8 @@
  {
   "id": "og:n3-v-2137",
   "level": "N3",
-  "sentence": "びんにラベルをはる。",
-  "underline": "ラベル",
+  "sentence": "びんにらべるをはる。",
+  "underline": "らべる",
   "answer": "ラベル",
   "choices": [
    "テベル",
@@ -40679,8 +40679,8 @@
  {
   "id": "og:n3-v-2138",
   "level": "N3",
-  "sentence": "ゲームのルールを守る。",
-  "underline": "ルール",
+  "sentence": "ゲームのるーるを守る。",
+  "underline": "るーる",
   "answer": "ルール",
   "choices": [
    "ルーレ",

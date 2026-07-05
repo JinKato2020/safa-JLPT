@@ -50,7 +50,7 @@ export default function RubyText({
         return (
           <View key={i} style={styles.col}>
             <Text style={[styles.ruby, rubyStyle]} numberOfLines={1}>{showRuby ? c.ruby : ' '}</Text>
-            <Text style={[style, c.hit ? hitStyle : undefined]}>{c.base}</Text>
+            <Text style={[style, styles.base, c.hit ? hitStyle : undefined]}>{c.base}</Text>
           </View>
         );
       })}
@@ -63,4 +63,7 @@ const styles = StyleSheet.create({
   center: { justifyContent: 'center' },
   col: { alignItems: 'center' },
   ruby: { fontSize: 9, lineHeight: 11, textAlign: 'center', includeFontPadding: false },
+  // 基底(漢字/かな)のフォント上下パディングを除去。これを付けないとAndroidで行ボックス内の
+  // グリフが下がり、ルビと漢字の間が広く開いて「ルビが高い位置に浮く」ように見える。
+  base: { includeFontPadding: false },
 });
