@@ -112,7 +112,8 @@ export default function ProfileScreen() {
                   key={o.code}
                   onPress={() => {
                     sendEvent('language_changed', { lang: o.code });
-                    setSettings({ uiLang: o.code });
+                    // 母語を一本化: UI言語＝意味の表示言語。意味翻訳がある言語(現状ネパール語)はその言語、無ければ英語で表示。
+                    setSettings({ uiLang: o.code, l1: o.code === 'ne' ? 'ne' : 'en' });
                     setLangOpen(false);
                   }}
                   style={s.dropdownItem}
@@ -192,19 +193,6 @@ export default function ProfileScreen() {
               return (
                 <Pressable key={f} onPress={() => setSettings({ font: f })} style={[s.chip, on && s.chipOn]}>
                   <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(`profile.font_${f}`)}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-          {/* 母語(l1) = フラッシュカード等の意味の表示言語。翻訳がある言語のみ提示(現状=英語/ネパール語)。 */}
-          <Text style={s.setLbl}>{t('profile.nativeLang')}</Text>
-          <View style={s.chipWrap}>
-            {([{ code: 'en', name: 'English' }, { code: 'ne', name: 'नेपाली' }] as const).map((L) => {
-              const on = (state.settings.l1 ?? 'en') === L.code;
-              return (
-                <Pressable key={L.code} onPress={() => setSettings({ l1: L.code })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{L.name}</Text>
                 </Pressable>
               );
             })}
