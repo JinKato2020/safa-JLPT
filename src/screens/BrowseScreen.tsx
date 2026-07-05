@@ -4,7 +4,7 @@ import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_CARD_READINGS, VOCAB_EXAMPLE, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, rubyNeeded } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_CARD_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, rubyNeeded } from '../data';
 import type { KanjiCardReadingEntry } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
@@ -147,9 +147,15 @@ export default function BrowseScreen() {
             {nm(item.id) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
             {(() => {
               const ex = vocabExOf(item);
-              if (!ex) return null;
+              // ふりがな付きの正データ(VOCAB_FURIGANA=vocabExamplesAi由来)を優先=ルビ表示。無ければ素の例文。
+              const furi = VOCAB_FURIGANA[item.id];
+              const ja = furi ?? ex?.ja;
+              if (!ja) return null;
+              const norm = (str?: string) => (str ? str.replace(/[（(][^）)]*[）)]/g, '').replace(/\s|　/g, '') : '');
+              // 英訳は表示JA(良文)と同一文の時だけ(共有辞書の別例文との不一致を避ける)。
+              const en = ex?.en && norm(ex.ja) === norm(ja) ? ex.en : undefined;
               const nex = l1 && l1 !== 'en' ? exampleIn(item.id, l1) : undefined;
-              return (<>{renderSentence(ex.ja, item.word, ex.en)}{nex ? <Text style={s.exampleNe}>{nex}</Text> : null}</>);
+              return (<>{renderSentence(ja, item.word, en)}{nex ? <Text style={s.exampleNe}>{nex}</Text> : null}</>);
             })()}
           </>
         ) : item.type === 'kanji' ? (
