@@ -171,13 +171,10 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   mixTitle: { fontSize: ty.body, fontWeight: '800', color: c.blue },
   mixSub: { fontSize: ty.small, fontWeight: '700', color: c.mute },
   tapHint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
-  // 大問ボタン(1段・均等幅)。枠線＋背景でタップ可と明示。
-  subRingRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.xs },
-  subRingBtn: {
-    flex: 1, marginHorizontal: 3, alignItems: 'center', paddingVertical: spacing.xs,
-    borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft,
-  },
-  subRingBtnPressed: { backgroundColor: c.blueLight, borderColor: c.blue, transform: [{ scale: 0.97 }] },
+  // 大問ボタン(1段・均等配置)。枠線・背景は付けず(チープなので)、リングは均一サイズ。押下時だけ淡くハイライト。
+  subRingRow: { flexDirection: 'row', justifyContent: 'space-around', marginTop: spacing.xs },
+  subRingBtn: { flex: 1, alignItems: 'center', paddingVertical: spacing.xs, borderRadius: radius.md },
+  subRingBtnPressed: { backgroundColor: c.bgSoft, transform: [{ scale: 0.96 }] },
   // コード→名称の凡例(A：漢字読み …)。
   legend: { flexDirection: 'row', flexWrap: 'wrap', columnGap: spacing.sm, rowGap: 2, marginTop: spacing.xs, paddingHorizontal: 2 },
   legendItem: { fontSize: ty.tiny, color: c.mute, lineHeight: 15 },
