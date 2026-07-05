@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, JFT_EXPRESSION, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -163,12 +163,20 @@ export const isBankUnit = (unit: string): boolean => BANK_INDEX.has(unit);
 
 /** 学習カード表示用データ。大問の4択に入る前に「まず覚える」ための1枚分。 */
 export interface LearnCard { title: string; sub?: string; body?: string; note?: string; }
+/** ふりがな付き文(漢字（かな）)の中で、素の対象語(target)を見つけて【】で囲う(下線用)。targetの各文字は直後に(かな)を伴い得る。 */
+function markFuri(furi: string, target: string): string {
+  if (!target || !furi) return furi;
+  const esc = (ch: string) => ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const pat = [...target].map((ch) => `${esc(ch)}(?:[（(][^）)]*[）)])?`).join('');
+  try { return furi.replace(new RegExp(pat), (m) => `【${m}】`); } catch { return furi; }
+}
 /** 学習ユニットid → 学習カード。項目系=語/文法の情報、バンク系=正解＋文脈＋解説。 */
 export function learnCardFor(unit: string): LearnCard | null {
   const bank = BANK_INDEX.get(unit);
   if (bank) {
     // 用法=対象語＋正しい使い方の文。文法(⑥⑦⑧)=正解＋空所を埋めた例文のみ(解説は学習カードでは出さない)。
-    if (bank.daimon === 'usage') return { title: bank.stem, body: bank.answer, note: bank.explain };
+    // ⑤用法はLEARN_FURI(kuroshiro＋校正)でふりがなを付ける。ルビ描画は上位のLearnTextがレベル適応で行う。
+    if (bank.daimon === 'usage') return { title: LEARN_FURI[bank.stem] ?? bank.stem, body: LEARN_FURI[bank.answer] ?? bank.answer, note: LEARN_FURI[bank.explain] ?? bank.explain };
     const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
     return { title: bank.answer, body: filled };
   }
@@ -180,23 +188,26 @@ export function learnCardFor(unit: string): LearnCard | null {
   if (!item) return null;
   if (item.type === 'vocab') {
     const ex = VOCAB_EXAMPLE[item.id];
+    // ①〜④の例文はSENTENCE_FURI(ふりがな付き)を使い、対象語(下線)をmarkFuriで【】囲い。ルビ描画はLearnTextがレベル適応で行う。
     if (daimon === 'synonym') {
       const sy = SY_BANK_INDEX.get(unit);
-      return { title: item.word, sub: item.reading, body: `≒ ${sy?.answer ?? ''}`, note: sy ? sy.sentence.replace(sy.underline, `【${sy.underline}】`) : ex?.ja };
+      const note = sy ? markFuri(SENTENCE_FURI[sy.id] ?? sy.sentence, sy.underline) : ex?.ja;
+      return { title: item.word, sub: item.reading, body: `≒ ${sy?.answer ?? ''}`, note };
     }
     if (daimon === 'context') {
       const cx = CTX_BANK_INDEX.get(unit);
-      const filled = cx ? cx.prompt.replace('〔　〕', `【${cx.answer}】`) : ex?.ja;
+      const base = cx ? (SENTENCE_FURI[cx.id]?.includes('〔　〕') ? SENTENCE_FURI[cx.id] : cx.prompt) : '';
+      const filled = cx ? base.replace('〔　〕', `【${cx.answer}】`) : ex?.ja;
       return { title: item.word, sub: item.reading, body: item.meaning, note: filled };
     }
-    // ①漢字読み・②表記: クイズと同じ固定問題集の例文を使い、対象語(下線)を【】で囲って下線表示する。
+    // ①漢字読み・②表記: クイズと同じ固定問題集の例文を使い、対象語(下線)を【】で囲って下線＋ルビ表示する。
     if (daimon === 'kanji_read') {
       const kr = KR_BANK_INDEX.get(unit);
-      return { title: item.word, sub: item.reading, body: item.meaning, note: kr ? kr.sentence.replace(kr.underline, `【${kr.underline}】`) : ex?.ja };
+      return { title: item.word, sub: item.reading, body: item.meaning, note: kr ? markFuri(SENTENCE_FURI[kr.id] ?? kr.sentence, kr.underline) : ex?.ja };
     }
     if (daimon === 'orthography') {
       const og = OG_BANK_INDEX.get(unit);
-      return { title: item.word, sub: item.reading, body: item.meaning, note: og ? og.sentence.replace(og.underline, `【${og.underline}】`) : ex?.ja };
+      return { title: item.word, sub: item.reading, body: item.meaning, note: og ? markFuri(SENTENCE_FURI[og.id] ?? og.sentence, og.underline) : ex?.ja };
     }
     return { title: item.word, sub: item.reading, body: item.meaning, note: ex?.ja };
   }

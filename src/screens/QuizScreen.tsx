@@ -18,10 +18,10 @@ import RubyText from '../components/RubyText';
 
 // 学習カードの例文を表示。ふりがな「漢字（かな）」はレベル適応ルビ、対象部「【…】」は括弧を外して下線に統一。
 function LearnText({ text, style, hitStyle, rubyStyle, rubyGate }: { text: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle>; rubyGate: (run: string) => boolean }) {
-  const hasFuri = /（[^）]*）/.test(text);
+  const hasFuri = /[（(][^）)]*[）)]/.test(text); // 全角・半角どちらのふりがな括弧も対象
   if (hasFuri) {
-    const m = text.match(/【(.+?)】/);
-    const target = m ? m[1] : '';
+    const m = text.match(/【([\s\S]+?)】/);
+    const target = m ? m[1].replace(/[（(][^）)]*[）)]/g, '') : ''; // 対象語のふりがなを除いた素の語でマッチ
     const body = text.replace(/[【】]/g, ''); // 括弧を外し、中身は下線対象(target)として渡す
     return <RubyText text={body} target={target} style={style} hitStyle={hitStyle} rubyStyle={rubyStyle} rubyGate={rubyGate} center />;
   }
@@ -130,7 +130,7 @@ export default function QuizScreen() {
           </View>
           {title ? <Text style={s.drillTitle}>{title}</Text> : null}
           <View style={s.promptCard}>
-            <Text style={[s.prompt, lc && lc.title.length > 10 && s.promptLong]}>{lc?.title}</Text>
+            {lc?.title ? <LearnText text={lc.title} style={[s.prompt, lc.title.length > 10 && s.promptLong]} hitStyle={s.learnHit} rubyStyle={s.promptRuby} rubyGate={rubyGate} /> : null}
             {lc?.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
             {lc?.body ? <LearnText text={lc.body} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
             {lc?.note ? <LearnText text={lc.note} style={s.learnNote} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
@@ -279,6 +279,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   learnNote: { fontSize: ty.small, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 22 },
   learnHit: { color: c.ink, fontWeight: '800', textDecorationLine: 'underline' },
   learnRuby: { fontSize: 9, lineHeight: 11, color: c.mute, textAlign: 'center' },
+  promptRuby: { fontSize: 12, lineHeight: 14, color: c.mute, textAlign: 'center' }, // 見出し(title)のルビ(大きめ本文用)
   learnSkip: { fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'center', marginTop: spacing.xs, textDecorationLine: 'underline' },
   exHit: { color: c.ink, textDecorationLine: 'underline' },
   qRuby: { fontSize: 10, lineHeight: 12, color: c.mute, textAlign: 'center' },

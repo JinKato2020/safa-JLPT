@@ -4,7 +4,8 @@
 import { View, Text, StyleSheet, type TextStyle, type StyleProp } from 'react-native';
 import { highlightHits } from '../quiz/highlight';
 
-const RUBY_RE = /([一-鿿㐀-䶿々〆〇ヶ]+)（([^）]*)）|([\s\S])/gu;
+// ふりがな区切りは全角（）・半角()の両方を受ける(sentenceFuri等はkuroshiro既定の半角、文法データは全角)。
+const RUBY_RE = /([一-鿿㐀-䶿々〆〇ヶ]+)[（(]([^）)]*)[）)]|([\s\S])/gu;
 
 interface Cell { base: string; ruby?: string; hit?: boolean; }
 
