@@ -191,7 +191,13 @@ export default function BrowseScreen() {
               <Text style={s.term}>{item.point}</Text>
             )}
             <Text style={s.meaning}>{item.meaning}</Text>
-            {renderSentence(item.exampleJa, item.point.replace(/[（(][^）)]*[）)]/g, ''))}
+            {(() => {
+              // 文法点を例文中で下線。活用等で辞書形がそのまま無い時は文法点の漢字にフォールバック(合う→合)。
+              const pt = item.point.replace(/[（(][^）)]*[）)]/g, '').replace(/[〜～]/g, '');
+              const plainEx = item.exampleJa.replace(/[（(][^）)]*[）)]/g, '');
+              const tgt = pt && plainEx.includes(pt) ? pt : (pt.match(/[一-鿿々〆〇ヶ]+/)?.[0] ?? pt);
+              return renderSentence(item.exampleJa, tgt);
+            })()}
           </>
         )}
       </View>
