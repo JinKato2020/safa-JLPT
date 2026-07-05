@@ -4,7 +4,7 @@ import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_CARD_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, rubyNeeded } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_CARD_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
 import type { KanjiCardReadingEntry } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
@@ -45,8 +45,8 @@ function cardReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
 export default function BrowseScreen() {
   const t = useT();
   const { settings, items } = useAppState();
-  // レベル適応ルビ: ユーザーのレベル以上(同レベル含む)の漢字群にだけ読みを振る。
-  const rubyGate = (run: string) => rubyNeeded(run, settings.level);
+  // 辞書は常にルビ表示(引くためのツールなので、レベル適応ゲートを免除して全漢字にルビ)。
+  const rubyGate = (_run?: string) => true;
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
