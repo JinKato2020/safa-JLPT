@@ -162,7 +162,7 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
 export const isBankUnit = (unit: string): boolean => BANK_INDEX.has(unit);
 
 /** 学習カード表示用データ。大問の4択に入る前に「まず覚える」ための1枚分。 */
-export interface LearnCard { title: string; sub?: string; body?: string; note?: string; }
+export interface LearnCard { title: string; sub?: string; body?: string; note?: string; hit?: string; }
 /** ふりがな付き文(漢字（かな）)の中で、素の対象語(target)を見つけて【】で囲う(下線用)。targetの各文字は直後に(かな)を伴い得る。 */
 function markFuri(furi: string, target: string): string {
   if (!target || !furi) return furi;
@@ -176,7 +176,14 @@ export function learnCardFor(unit: string): LearnCard | null {
   if (bank) {
     // 用法=対象語＋正しい使い方の文。文法(⑥⑦⑧)=正解＋空所を埋めた例文のみ(解説は学習カードでは出さない)。
     // ⑤用法はLEARN_FURI(kuroshiro＋校正)でふりがなを付ける。ルビ描画は上位のLearnTextがレベル適応で行う。
-    if (bank.daimon === 'usage') return { title: LEARN_FURI[bank.stem] ?? bank.stem, body: LEARN_FURI[bank.answer] ?? bank.answer, note: LEARN_FURI[bank.explain] ?? bank.explain };
+    // ⑤用法: 例文(answer)の中の対象語(stem)を下線＋ルビで示す。hitで対象語を明示し、
+    // RubyTextのhighlightHits(活用語尾も追従)で下線するので、活用した動詞でも正しく引ける。
+    if (bank.daimon === 'usage') {
+      const title = LEARN_FURI[bank.stem] ?? bank.stem;
+      const plain = title.replace(/[（(][ぁ-ゖァ-ヶー]+[）)]/g, '');
+      const sent = LEARN_FURI[bank.answer] ?? bank.answer;
+      return { title, body: sent, hit: plain, note: LEARN_FURI[bank.explain] ?? bank.explain };
+    }
     // ⑦文の組み立て(order): 空所の並べ替えなので「正解の断片1つ」を出しても意味がない。
     // 解説から「正しい文」を取り出し、完成した文全体を見せる(これが学習になる)。
     if (bank.daimon === 'order') {

@@ -17,11 +17,12 @@ import type { RootStackParamList } from '../navigation/types';
 import RubyText from '../components/RubyText';
 
 // 学習カードの例文を表示。ふりがな「漢字（かな）」はレベル適応ルビ、対象部「【…】」は括弧を外して下線に統一。
-function LearnText({ text, style, hitStyle, rubyStyle, rubyGate }: { text: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle>; rubyGate: (run: string) => boolean }) {
+function LearnText({ text, target: explicitTarget, style, hitStyle, rubyStyle, rubyGate }: { text: string; target?: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle>; rubyGate: (run: string) => boolean }) {
   const hasFuri = /[（(][^）)]*[）)]/.test(text); // 全角・半角どちらのふりがな括弧も対象
   if (hasFuri) {
     const m = text.match(/【([\s\S]+?)】/);
-    const target = m ? m[1].replace(/[（(][^）)]*[）)]/g, '') : ''; // 対象語のふりがなを除いた素の語でマッチ
+    // 【…】があればそれを下線対象に、無ければ明示targetを使う(⑤用法=活用語も追従)。
+    const target = m ? m[1].replace(/[（(][^）)]*[）)]/g, '') : (explicitTarget ?? ''); // 対象語のふりがなを除いた素の語でマッチ
     const body = text.replace(/[【】]/g, ''); // 括弧を外し、中身は下線対象(target)として渡す
     return <RubyText text={body} target={target} style={style} hitStyle={hitStyle} rubyStyle={rubyStyle} rubyGate={rubyGate} center />;
   }
@@ -132,7 +133,7 @@ export default function QuizScreen() {
           <View style={s.promptCard}>
             {lc?.title ? <LearnText text={lc.title} style={[s.prompt, lc.title.length > 10 && s.promptLong]} hitStyle={s.learnHit} rubyStyle={s.promptRuby} rubyGate={rubyGate} /> : null}
             {lc?.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
-            {lc?.body ? <LearnText text={lc.body} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
+            {lc?.body ? <LearnText text={lc.body} target={lc.hit} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
             {lc?.note ? <LearnText text={lc.note} style={s.learnNote} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
           </View>
           <AppButton label={last ? t('quiz.learn_start') : t('quiz.learn_next')} onPress={() => (last ? goTest() : setLearnIdx((i) => i + 1))} />
