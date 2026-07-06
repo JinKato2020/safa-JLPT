@@ -42,6 +42,22 @@ function cardReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
   return { on: map(d.on, true), kun: map(d.kun, false) };
 }
 
+// 見出し行の読み要約。検証済みKANJI_CARD_READINGS(整った常用読み・全学習漢字を網羅)から生成する。
+// 生KANJIDIC(item.on/kun)は「上」の -うえ 等の位置記号や たてまつ.る 等の文語・級外読みまで含み、
+// JLPT学習者(特にN5)には不要な知識を見出しに出してしまうため使わない。未収録漢字のみ生データを整形(記号除去)。
+function headReading(char: string, rawOn: string, rawKun: string): { on: string; kun: string } {
+  const d = KANJI_CARD_READINGS[char];
+  if (d) {
+    return {
+      on: d.on.map((e) => hiraToKata(e.reading)).join('、'),
+      kun: d.kun.map((e) => e.reading).join('、'),
+    };
+  }
+  const clean = (s: string) =>
+    Array.from(new Set((s || '').split('、').map((r) => r.replace(/[.\-]/g, '')).filter(Boolean))).join('、');
+  return { on: clean(rawOn), kun: clean(rawKun) };
+}
+
 export default function BrowseScreen() {
   const t = useT();
   const { settings, items } = useAppState();
@@ -160,7 +176,10 @@ export default function BrowseScreen() {
           </>
         ) : item.type === 'kanji' ? (
           <>
-            <Text style={s.term}>{item.char}　<Text style={s.reading}>{item.kun ? t('browse.kanjiReading', { on: item.on, kun: item.kun }) : t('browse.kanjiReading_on', { on: item.on })}</Text></Text>
+            {(() => {
+              const hr = headReading(item.char, item.on, item.kun);
+              return <Text style={s.term}>{item.char}　<Text style={s.reading}>{hr.kun ? t('browse.kanjiReading', { on: hr.on, kun: hr.kun }) : t('browse.kanjiReading_on', { on: hr.on })}</Text></Text>;
+            })()}
             <Text style={s.meaning}>{nm(item.char) ?? item.meaning}</Text>
             {nm(item.char) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
             {(() => {

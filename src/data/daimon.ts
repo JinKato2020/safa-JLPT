@@ -141,7 +141,7 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   const sy = SY_BANK_INDEX.get(unit);
   if (sy) {
     const { choices, answerIndex } = shuffleChoices([sy.answer, ...sy.choices.filter((x) => x !== sy.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex };
+    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex, explain: sy.reason };
   }
   // JFT会話と表現=場面(situation)に適切な表現を4択で。
   const ex = EXPR_INDEX.get(unit);
@@ -185,10 +185,37 @@ export function learnCardFor(unit: string): LearnCard | null {
       return { title, body: sent, hit: plain, note: LEARN_FURI[bank.explain] ?? bank.explain };
     }
     // ⑦文の組み立て(order): 空所の並べ替えなので「正解の断片1つ」を出しても意味がない。
-    // 解説から「正しい文」を取り出し、完成した文全体を見せる(これが学習になる)。
+    // 解説冒頭の「完成した正しい文」を主表示にする(これが学習になる)。解説文はふりがな無しなので、
+    // stem内の漢字（かな）＋選択肢のふりがな断片を完成文に重ねて再付与し、レベル適応ルビを効かせる。
     if (bank.daimon === 'order') {
-      const m = bank.explain.match(/正し(?:い文)?は「([^」]+)」/);
-      return { title: '文（ぶん）の組（く）み立（た）て', body: m ? m[1] : bank.stem };
+      const strip = (x: string) => x.replace(/（[ぁ-ゖー]+）/g, '');
+      const m = bank.explain.match(/「([^」]+)」/); // 解説冒頭の「正しくは『…』」の完成文
+      let sent = m ? m[1] : bank.stem.replace(/[＿★\s]/g, '');
+      const frags = [...bank.choices, ...(bank.stem.match(/[一-鿿々]+（[ぁ-ゖー]+）/g) ?? [])]
+        .sort((a, b) => strip(b).length - strip(a).length); // 長い断片から重ねて部分一致の取り違えを防ぐ
+      for (const f of frags) {
+        const p = strip(f);
+        if (p && sent.includes(p) && !sent.includes(f)) sent = sent.replace(p, f);
+      }
+      // 文法学習として、完成文に加え「その文法の説明(活用・接続・語順の理由)」も併載する。
+      // explain冒頭の「正しくは『完成文』。」は表題と重複するので除き、文法解説部分だけをnoteに。
+      const gnote = bank.explain.replace(/^[^。]*「[^」]+」。?/, '').trim() || bank.explain;
+      return { title: sent, sub: '文の組み立て', note: gnote };
+    }
+    // ⑧文章の文法(passage_grammar): stemは長文全体。空所〔　〕を含む一文＋直前の一文(接続詞の文脈用)
+    //   だけを抜き、正解を埋めて下線表示する(長文をそのまま学習カードに出さない)。
+    if (bank.daimon === 'passage_grammar') {
+      const tgt = `【${bank.answer}】`;
+      const filled = bank.stem.replace('〔　〕', tgt);
+      const parts = filled.split('。').filter((x) => x.trim());
+      const i = parts.findIndex((x) => x.includes(tgt));
+      if (i >= 0) {
+        const clause = (i > 0 ? [parts[i - 1], parts[i]] : [parts[i]])
+          .map((x) => x.replace(/^[、，」\s]+/, '')).join('。') + '。';
+        // 文法学習として、正解が入る文脈に加え「その文法(接続詞/文型)の説明」も併載する。
+        return { title: bank.answer, body: clause, note: bank.explain };
+      }
+      return { title: bank.answer, body: filled, note: bank.explain };
     }
     const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
     return { title: bank.answer, body: filled };

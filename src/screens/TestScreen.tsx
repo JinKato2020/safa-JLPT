@@ -1,4 +1,4 @@
-// テストタブ = 本番形式の総合評価(月1〜2回)。客観採点(重み5)で到達度の信頼幅±を狭める。
+// テストタブ = 本番形式の総合評価。フル模試は月1回に制限(同一暦月に受験済みなら翌月までロック)。ミニ模試は常時可。客観採点(重み5)で到達度の信頼幅±を狭める。
 // 2つの模試を同じカード形で提示し、差は「始めるボタン(利用可)」か「準備中バッジ」のみ＝統一感。
 import { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
+import { dayStr } from '../store/state';
 import { readinessFor } from '../store/selectors';
 import type { RootStackParamList } from '../navigation/types';
 import { useT } from '../i18n';
@@ -25,6 +26,13 @@ export default function TestScreen() {
   const hist = state.mockHistory ?? [];
   const recentMocks = hist.slice(-12);
   const avgPct = hist.length ? Math.round(hist.reduce((acc, m) => acc + m.pct, 0) / hist.length) : 0;
+
+  // フル模試(＆JFT)は月1回。同一暦月にフル模試を受けていれば翌月1日までロック(ミニ模試は常時可)。
+  const thisMonth = dayStr(Date.now()).slice(0, 7); // YYYY-MM
+  const lastFull = [...hist].reverse().find((m) => m.full);
+  const fullLocked = !!lastFull && lastFull.day.slice(0, 7) === thisMonth;
+  const [ly, lm] = thisMonth.split('-').map(Number);
+  const nextAvail = { y: lm === 12 ? ly + 1 : ly, m: lm === 12 ? 1 : lm + 1, d: 1 }; // 翌月1日
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
@@ -71,12 +79,19 @@ export default function TestScreen() {
           <View style={s.testCard}>
             <View style={s.testHead}>
               <Text style={s.testTitle}>{t('test.jft_title')}</Text>
+              {fullLocked ? <Text style={[s.badge, s.badgeSoon]}>{t('test.locked_badge')}</Text> : null}
               <Text style={s.testTime}>{t('test.jft_time')}</Text>
             </View>
             <Text style={s.testNote}>{t('test.jft_note')}</Text>
-            <Pressable style={s.cta} onPress={() => nav.navigate('Mock', { full: true })}>
-              <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
-            </Pressable>
+            {fullLocked ? (
+              <View style={s.ctaDisabled}>
+                <Text style={s.ctaDisabledTxt}>{t('test.locked_next', nextAvail)}</Text>
+              </View>
+            ) : (
+              <Pressable style={s.cta} onPress={() => nav.navigate('Mock', { full: true })}>
+                <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
+              </Pressable>
+            )}
           </View>
         ) : (
           <>
@@ -92,16 +107,23 @@ export default function TestScreen() {
               </Pressable>
             </View>
 
-            {/* フル模試(利用可) */}
+            {/* フル模試(月1回) */}
             <View style={s.testCard}>
               <View style={s.testHead}>
                 <Text style={s.testTitle}>{t('test.full_title')}</Text>
+                {fullLocked ? <Text style={[s.badge, s.badgeSoon]}>{t('test.locked_badge')}</Text> : null}
                 <Text style={s.testTime}>{t('test.full_time')}</Text>
               </View>
               <Text style={s.testNote}>{t('test.full_note')}</Text>
-              <Pressable style={s.cta} onPress={() => nav.navigate('Mock', { full: true })}>
-                <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
-              </Pressable>
+              {fullLocked ? (
+                <View style={s.ctaDisabled}>
+                  <Text style={s.ctaDisabledTxt}>{t('test.locked_next', nextAvail)}</Text>
+                </View>
+              ) : (
+                <Pressable style={s.cta} onPress={() => nav.navigate('Mock', { full: true })}>
+                  <Text style={s.ctaTxt}>{t('test.start_btn')}</Text>
+                </Pressable>
+              )}
             </View>
           </>
         )}

@@ -104,16 +104,11 @@ export default function QuizScreen() {
     [answerId, idx], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
-  // 解答後に自動で次へ(正解は短め・不正解は正解を見せて長め)。
-  useEffect(() => {
-    if (picked === null || !question) return;
-    const isCorrect = picked === question.answerIndex;
-    const t = setTimeout(() => {
-      setPicked(null);
-      setIdx((i) => i + 1);
-    }, isCorrect ? 850 : 1600);
-    return () => clearTimeout(t);
-  }, [picked, question]);
+  // 解答後は自動で進めず、解説を確認してから「次へ」で進む(ユーザー要望: 回答後に解説を読める)。
+  const advance = () => {
+    setPicked(null);
+    setIdx((i) => i + 1);
+  };
 
   // 学習フェーズ: 大問の4択に入る前にカードで自習。「テストへ進む」でスキップ可。
   if (phase === 'learn') {
@@ -242,9 +237,18 @@ export default function QuizScreen() {
         </View>
 
         {picked !== null ? (
-          <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
-            {picked === question.answerIndex ? t('quiz.correct') : t('quiz.wrong')}
-          </Text>
+          <>
+            <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
+              {picked === question.answerIndex ? t('quiz.correct') : t('quiz.wrong')}
+            </Text>
+            {question.explain ? (
+              <View style={s.explainBox}>
+                <Text style={s.explainLabel}>{t('quiz.explain_label')}</Text>
+                <LearnText text={question.explain} style={s.explainTxt} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} />
+              </View>
+            ) : null}
+            <AppButton label={idx + 1 >= total ? t('quiz.see_results') : t('quiz.learn_next')} onPress={advance} />
+          </>
         ) : (
           <Text style={s.hint}>{t('quiz.hint')}</Text>
         )}
@@ -322,6 +326,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   judge: { fontSize: ty.h2, fontWeight: '800', textAlign: 'center', marginTop: spacing.sm },
   judgeOk: { color: c.green },
   judgeNg: { color: c.red },
+  explainBox: { backgroundColor: c.bgSoft, borderRadius: radius.md, padding: spacing.md, gap: 4, marginTop: spacing.xs },
+  explainLabel: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, letterSpacing: 1 },
+  explainTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 20 },
   bigEmoji: { fontSize: 56 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
   doneSub: { fontSize: ty.body, color: c.mute },
