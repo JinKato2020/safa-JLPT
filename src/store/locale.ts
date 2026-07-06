@@ -1,16 +1,22 @@
-// 母語(L1)の一覧と判定。※英語のみ運用(2026-06-28・App C英語枠)。多言語復帰時は全言語＋自動判定を戻す。
+// 母語(L1)の一覧と判定。ネパール語を再有効化(2026-07-06)。意味/例文/解説のne翻訳が揃っているため。
+import * as Localization from 'expo-localization';
 
 export const L1_LIST: { code: string; name: string }[] = [
   { code: 'en', name: 'English' },
+  { code: 'ne', name: 'नेपाली' },
   // { code: 'vi', name: 'Tiếng Việt' },
-  // { code: 'ne', name: 'नेपाली' },
   // { code: 'zh', name: '中文' },
   // { code: 'id', name: 'Bahasa Indonesia' },
   // { code: 'my', name: 'မြန်မာ' },
 ];
 
-/** 母語コード判定。※英語のみ運用につき常に 'en'。 */
+/** 母語コード判定。端末言語がネパール語なら 'ne'、それ以外は 'en'。 */
 export function detectL1(): string {
+  try {
+    for (const loc of Localization.getLocales()) {
+      if ((loc.languageCode || '').toLowerCase() === 'ne') return 'ne';
+    }
+  } catch { /* 取得失敗時は en */ }
   return 'en';
 }
 

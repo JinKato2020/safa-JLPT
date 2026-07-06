@@ -245,6 +245,7 @@ export default function QuizScreen() {
               <View style={s.explainBox}>
                 <Text style={s.explainLabel}>{t('quiz.explain_label')}</Text>
                 <LearnText text={question.explain} style={s.explainTxt} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} />
+                {settings.l1 === 'ne' && question.explainNe ? <Text style={s.explainNe}>{question.explainNe}</Text> : null}
               </View>
             ) : null}
             <AppButton label={idx + 1 >= total ? t('quiz.see_results') : t('quiz.learn_next')} onPress={advance} />
@@ -329,6 +330,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   explainBox: { backgroundColor: c.bgSoft, borderRadius: radius.md, padding: spacing.md, gap: 4, marginTop: spacing.xs },
   explainLabel: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, letterSpacing: 1 },
   explainTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 20 },
+  explainNe: { fontSize: ty.small, color: c.blue, lineHeight: 20, marginTop: 4 },
   bigEmoji: { fontSize: 56 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
   doneSub: { fontSize: ty.body, color: c.mute },

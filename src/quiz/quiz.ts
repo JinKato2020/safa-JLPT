@@ -33,6 +33,7 @@ export interface Question {
   choices: string[];
   answerIndex: number;
   explain?: string;   // 解説(バンク問題のみ。模試の採点後表示用)
+  explainNe?: string; // 解説の母語(ネパール語)訳。l1=neのとき解答後に併記。
   furi?: string;      // ふりがな付き問題文(漢字（かな）)。レベル適応ルビで描画。
   furiTarget?: string; // 下線対象語(furi中で下線を引く語)。
   noTargetRuby?: boolean; // ①漢字読み: 対象語にはふりがなを出さない(読みが問題)。

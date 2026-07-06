@@ -161,14 +161,14 @@ export const KANJI_CARD_READINGS = kanjiCardReadings as unknown as Record<string
 export interface KanjiReadBankItem { id: string; level: string; daimon: 'kanji_read'; sentence: string; underline: string; answer: string; choices: string[]; }
 export const KANJI_READ_BANK = kanjiReadBank as KanjiReadBankItem[];
 // 文脈規定(大問3)の固定問題集。id=cx:<vocabId>、choices=誤答3(正解は実行時にanswerを先頭付与)。
-export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; }
+export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; }
 export const CONTEXT_BANK = contextBank as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
-export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; }
+export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; }
 export const SYNONYM_BANK = synonymBank as SynonymBankItem[];
 // 表記(大問2)の固定問題集(公式形式)。文中の対象語をかな(読み)で下線→正しい漢字/カタカナを4択。
 // 誤答=形が似た字(部首/字形の似た別漢字・字形の似たカタカナ)。生成=問題/tools/build_orthography_bank.py。
-export interface OrthographyBankItem { id: string; level: string; sentence: string; underline: string; answer: string; choices: string[]; explain?: string; }
+export interface OrthographyBankItem { id: string; level: string; sentence: string; underline: string; answer: string; choices: string[]; explain?: string; explainNe?: string; }
 export const ORTHOGRAPHY_BANK = orthographyBank as OrthographyBankItem[];
 // ①〜④問題文のふりがな(漢字（かな）)。bankId→ふりがな付き文。kuroshiro生成。レベル適応ルビの元データ。
 export const SENTENCE_FURI = sentenceFuri as Record<string, string>;

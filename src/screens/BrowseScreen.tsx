@@ -30,15 +30,22 @@ function haystack(it: StudyItem): string {
 }
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+const kataToHira = (s: string): string => s.replace(/[ァ-ヶ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60));
 
 // 漢字カードの音訓＋例語(KANJI_CARD_READINGS=本アプリ作成・KANJIDIC範囲内で検証済み)。
 // 読み(音=カタカナ/訓=ひらがな)＋例語(語＋語全体の読み)を構造化して返す。例語はルビ表示する。
-interface CardLine { label: string; word: string; wordReading: string; }
+interface CardLine { label: string; word: string; wordReading: string; furiWord: string; }
 function cardReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
   const d = KANJI_CARD_READINGS[char];
   if (!d) return { on: [], kun: [] };
+  // 例語のルビは「その漢字が担う読み」だけを漢字の上に付ける(送り仮名や他の漢字にはルビを付けない)。
+  // 例: 上げる → 上（あ）げる。ルビ用の読みは常にひらがな(音読みも kataToHira でひらがな化)。
   const map = (list: KanjiCardReadingEntry[], isOn: boolean): CardLine[] =>
-    list.map((e) => ({ label: isOn ? hiraToKata(e.reading) : e.reading, word: e.word, wordReading: e.wordReading }));
+    list.map((e) => {
+      const rubyKana = kataToHira(e.reading);
+      const furiWord = e.word.includes(char) ? e.word.replace(char, `${char}（${rubyKana}）`) : `${char}（${rubyKana}）`;
+      return { label: isOn ? hiraToKata(e.reading) : e.reading, word: e.word, wordReading: e.wordReading, furiWord };
+    });
   return { on: map(d.on, true), kun: map(d.kun, false) };
 }
 
@@ -191,8 +198,7 @@ export default function BrowseScreen() {
                     <View key={i} style={s.readPair}>
                       <Text style={s.readLabel}>{e.label}：</Text>
                       <View style={s.rubyWord}>
-                        <Text style={s.exampleRuby} numberOfLines={1}>{rubyGate(e.word) ? e.wordReading : ' '}</Text>
-                        <Text style={s.readWord}>{e.word}</Text>
+                        <RubyText text={e.furiWord} style={s.readWord} rubyStyle={s.exampleRuby} rubyGate={rubyGate} />
                       </View>
                     </View>
                   ))}

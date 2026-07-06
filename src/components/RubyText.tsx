@@ -2,6 +2,8 @@
 // 入力テキストは「漢字（かな）」形式(既存データと同じ)。漢字連(熟語)＋（読み）を1ルビセルにまとめる。
 // target(語/文法点)にマッチする部分は下線(hitStyle)。〜を含む文法点(A〜B型)も両部分に下線。
 import { View, Text, StyleSheet, type TextStyle, type StyleProp } from 'react-native';
+// 基底テキストは親の大きな lineHeight を引き継ぐと、グリフが行ボックス中央に来て
+// ルビとの間が空き「ルビが高い位置に浮く」。ルビ列では lineHeight を fontSize に詰めて真上に寄せる。
 import { highlightHits } from '../quiz/highlight';
 
 // ふりがな区切りは全角（）・半角()の両方を受ける(sentenceFuri等はkuroshiro既定の半角、文法データは全角)。
@@ -33,6 +35,9 @@ export default function RubyText({
   noRubyOnHit?: boolean; // ①漢字読み: 出題対象語(=hit)にはふりがなを出さない(読みが問題のため)
 }) {
   const cells = parseCells(text);
+  // 基底のフォントサイズを取り出し、ルビ列の基底 lineHeight をそれに合わせて詰める(ルビを漢字の真上に)。
+  const flat = StyleSheet.flatten(style) as TextStyle | undefined;
+  const baseFs = typeof flat?.fontSize === 'number' ? flat.fontSize : undefined;
   const plain = cells.map((c) => c.base).join('');
   const hits = target ? highlightHits(plain, target) : [];
   let off = 0;
@@ -50,7 +55,7 @@ export default function RubyText({
         return (
           <View key={i} style={styles.col}>
             <Text style={[styles.ruby, rubyStyle]} numberOfLines={1}>{showRuby ? c.ruby : ' '}</Text>
-            <Text style={[style, styles.base, c.hit ? hitStyle : undefined]}>{c.base}</Text>
+            <Text style={[style, styles.base, baseFs ? { lineHeight: baseFs } : null, c.hit ? hitStyle : undefined]}>{c.base}</Text>
           </View>
         );
       })}

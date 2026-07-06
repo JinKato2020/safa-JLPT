@@ -18,7 +18,7 @@ import th from './th.json';
 export const UI_LANGS: { code: string; name: string }[] = [
   { code: 'en', name: 'English' },
   { code: 'ja', name: '日本語' },
-  // { code: 'ne', name: 'नेपाली' },
+  { code: 'ne', name: 'नेपाली' }, // 母語=ネパール語(意味/例文/解説をneで表示。2026-07-06 再有効化)
   // { code: 'vi', name: 'Tiếng Việt' },
   // { code: 'my', name: 'မြန်မာ' },
   // { code: 'id', name: 'Bahasa Indonesia' },

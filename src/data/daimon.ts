@@ -22,7 +22,7 @@ export const MOJI_DAIMON: Daimon[] = ['kanji_read', 'orthography', 'context', 's
 export const BUNPOU_DAIMON: Daimon[] = ['grammar_form', 'order', 'passage_grammar'];
 
 // 知識バンクに安定idを付与(状態キー/重複排除用)。id = bk:<level>:<daimon>:<index>。
-export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; explain: string; }
+export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; explain: string; explainNe?: string; }
 export const BANK: BankUnit[] = (KNOWLEDGE_BANK as Omit<BankUnit, 'id'>[]).map((b, i) => ({ ...b, id: `bk:${b.level}:${b.daimon}:${i}` }));
 const BANK_BY = new Map<string, BankUnit[]>();
 for (const b of BANK) { const k = `${b.level}:${b.daimon}`; (BANK_BY.get(k) ?? BANK_BY.set(k, []).get(k)!).push(b); }
@@ -117,13 +117,13 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   const bank = BANK_INDEX.get(unit);
   if (bank) {
     const { choices, answerIndex } = shuffleChoices([bank.answer, ...bank.choices.filter((x) => x !== bank.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, explain: bank.explain };
+    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, explain: bank.explain, explainNe: bank.explainNe };
   }
   // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
   const og = OG_BANK_INDEX.get(unit);
   if (og) {
     const { choices, answerIndex } = shuffleChoices([og.answer, ...og.choices.filter((x) => x !== og.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), furi: SENTENCE_FURI[og.id], furiTarget: og.underline, question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain };
+    return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), furi: SENTENCE_FURI[og.id], furiTarget: og.underline, question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain, explainNe: og.explainNe };
   }
   // 漢字読み=固定問題集(公式形式・文中の漢字を下線→読み方を4択)。prompt空・exampleに下線付き文。
   const kr = KR_BANK_INDEX.get(unit);
@@ -135,13 +135,13 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   const cx = CTX_BANK_INDEX.get(unit);
   if (cx) {
     const { choices, answerIndex } = shuffleChoices([cx.answer, ...cx.choices.filter((x) => x !== cx.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex };
+    return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex, explain: cx.explain, explainNe: cx.explainNe };
   }
   // 言い換え類義=固定問題集(文＋下線部→意味が近い語)。prompt空・exampleに下線付き文。
   const sy = SY_BANK_INDEX.get(unit);
   if (sy) {
     const { choices, answerIndex } = shuffleChoices([sy.answer, ...sy.choices.filter((x) => x !== sy.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex, explain: sy.reason };
+    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex, explain: sy.reason, explainNe: sy.reasonNe };
   }
   // JFT会話と表現=場面(situation)に適切な表現を4択で。
   const ex = EXPR_INDEX.get(unit);
@@ -184,39 +184,10 @@ export function learnCardFor(unit: string): LearnCard | null {
       const sent = LEARN_FURI[bank.answer] ?? bank.answer;
       return { title, body: sent, hit: plain, note: LEARN_FURI[bank.explain] ?? bank.explain };
     }
-    // ⑦文の組み立て(order): 空所の並べ替えなので「正解の断片1つ」を出しても意味がない。
-    // 解説冒頭の「完成した正しい文」を主表示にする(これが学習になる)。解説文はふりがな無しなので、
-    // stem内の漢字（かな）＋選択肢のふりがな断片を完成文に重ねて再付与し、レベル適応ルビを効かせる。
-    if (bank.daimon === 'order') {
-      const strip = (x: string) => x.replace(/（[ぁ-ゖー]+）/g, '');
-      const m = bank.explain.match(/「([^」]+)」/); // 解説冒頭の「正しくは『…』」の完成文
-      let sent = m ? m[1] : bank.stem.replace(/[＿★\s]/g, '');
-      const frags = [...bank.choices, ...(bank.stem.match(/[一-鿿々]+（[ぁ-ゖー]+）/g) ?? [])]
-        .sort((a, b) => strip(b).length - strip(a).length); // 長い断片から重ねて部分一致の取り違えを防ぐ
-      for (const f of frags) {
-        const p = strip(f);
-        if (p && sent.includes(p) && !sent.includes(f)) sent = sent.replace(p, f);
-      }
-      // 文法学習として、完成文に加え「その文法の説明(活用・接続・語順の理由)」も併載する。
-      // explain冒頭の「正しくは『完成文』。」は表題と重複するので除き、文法解説部分だけをnoteに。
-      const gnote = bank.explain.replace(/^[^。]*「[^」]+」。?/, '').trim() || bank.explain;
-      return { title: sent, sub: '文の組み立て', note: gnote };
-    }
-    // ⑧文章の文法(passage_grammar): stemは長文全体。空所〔　〕を含む一文＋直前の一文(接続詞の文脈用)
-    //   だけを抜き、正解を埋めて下線表示する(長文をそのまま学習カードに出さない)。
-    if (bank.daimon === 'passage_grammar') {
-      const tgt = `【${bank.answer}】`;
-      const filled = bank.stem.replace('〔　〕', tgt);
-      const parts = filled.split('。').filter((x) => x.trim());
-      const i = parts.findIndex((x) => x.includes(tgt));
-      if (i >= 0) {
-        const clause = (i > 0 ? [parts[i - 1], parts[i]] : [parts[i]])
-          .map((x) => x.replace(/^[、，」\s]+/, '')).join('。') + '。';
-        // 文法学習として、正解が入る文脈に加え「その文法(接続詞/文型)の説明」も併載する。
-        return { title: bank.answer, body: clause, note: bank.explain };
-      }
-      return { title: bank.answer, body: filled, note: bank.explain };
-    }
+    // ⑦文の組み立て・⑧文章の文法は「解いて学ぶ」技能問題(語順の組み立て/文脈の流れ)。
+    // 学習カードで完成文や正解を先に見せるとテストの意味が無くなるため、学習カードは出さない。
+    // 解答後の解説(questionForUnitで explain 付与済)で学ぶ。
+    if (bank.daimon === 'order' || bank.daimon === 'passage_grammar') return null;
     const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
     return { title: bank.answer, body: filled };
   }
