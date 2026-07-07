@@ -10,7 +10,7 @@ import { readinessFor } from './selectors';
 import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
-import { scheduleKakitori } from '../kakitori/srs';
+import { applyKakitoriProgress } from '../kakitori/progress';
 
 type Action =
   | { type: 'HYDRATE'; state: AppState }
@@ -65,22 +65,7 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, mockHistory: [...(state.mockHistory ?? []), action.result].slice(-60) };
     case 'KAKITORI_PROGRESS': {
       const map = state.kakitori ?? {};
-      const prev = map[action.char] ?? { step: 0, stars: 0, best: 0 };
-      const passed = !action.skipped;
-      const stars = passed ? Math.max(prev.stars, action.step) : prev.stars;
-      let next = {
-        ...prev,
-        step: Math.max(prev.step, action.step),
-        stars,
-        best: Math.max(prev.best, action.score),
-      };
-      // 最終step(3)を実際に書いて合格→SRSスケジュール(復習キューへ)。
-      if (passed && action.step >= 3) {
-        const today = dayStr(action.now ?? Date.now());
-        const mistakes = Math.max(0, Math.round((100 - action.score) / 8));
-        next = scheduleKakitori(next, { mistakes, today });
-      }
-      return { ...state, kakitori: { ...map, [action.char]: next } };
+      return { ...state, kakitori: { ...map, [action.char]: applyKakitoriProgress(map[action.char], action) } };
     }
     case 'RESET':
       return INITIAL_STATE;
@@ -88,7 +73,6 @@ function reducer(state: AppState, action: Action): AppState {
       return state;
   }
 }
-export const reducerForTest = reducer;
 
 const StateCtx = createContext<AppState>(INITIAL_STATE);
 const DispatchCtx = createContext<Dispatch<Action>>(() => undefined);
