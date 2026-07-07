@@ -1,10 +1,8 @@
-// 書き取りの採点(純関数)。絶対位置ではなく「形の一致」で採点する:
-// 描いた点列と手本を、それぞれ重心中心・RMSスケールで正規化(=平行移動と拡大縮小に不変)
-// してから近さを測る。タッチペンで書いた字が、位置や大きさが違っても形が合えば高得点になる。
+// 書き取りの採点(純関数)。「画ごと・書き順どおり」に形を照合する:
+//  ・全体(全点)を重心中心・RMSスケールで正規化 → 位置と大小には不変(タッチペン式)。
+//  ・ユーザーの第i画 ↔ 手本の第i画 を対応させて類似度を測る(書き順どおりに描く前提)。
+//  ・画数が違えば強く減点(余分/不足の画は0点扱い)。→ 大(3画)を木(4画)と誤判定しない。
 export type Pt = [number, number];
-
-const TOL = 0.3; // 正規化(単位分散)空間での近傍しきい
-const SPILL = 2 * TOL; // これを超えたら「はみ出し」
 
 const d2 = (a: Pt, b: Pt) => (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2;
 function nearest2(p: Pt, pts: Pt[]): number {
@@ -16,56 +14,55 @@ function nearest2(p: Pt, pts: Pt[]): number {
   return m;
 }
 
-// 点列を重心中心・RMSスケール1に正規化(平行移動・拡大縮小に不変)。点が一点集中なら null。
-function normalize(pts: Pt[]): Pt[] | null {
-  const n = pts.length;
-  if (n === 0) return null;
+// 全画をまとめて重心中心・RMSスケール1に正規化(平行移動・拡大縮小に不変)。空/一点集中なら null。
+function normalizeStrokes(strokes: Pt[][]): Pt[][] | null {
+  const all: Pt[] = [];
+  for (const s of strokes) for (const p of s) all.push(p);
+  if (all.length === 0) return null;
   let cx = 0;
   let cy = 0;
-  for (const [x, y] of pts) { cx += x; cy += y; }
-  cx /= n; cy /= n;
-  let s = 0;
-  for (const [x, y] of pts) { s += (x - cx) ** 2 + (y - cy) ** 2; }
-  s = Math.sqrt(s / n);
+  for (const [x, y] of all) { cx += x; cy += y; }
+  cx /= all.length; cy /= all.length;
+  let v = 0;
+  for (const [x, y] of all) { v += (x - cx) ** 2 + (y - cy) ** 2; }
+  const s = Math.sqrt(v / all.length);
   if (s < 1e-6) return null;
-  return pts.map(([x, y]) => [(x - cx) / s, (y - cy) / s] as Pt);
+  return strokes.map((st) => st.map(([x, y]) => [(x - cx) / s, (y - cy) / s] as Pt));
 }
 
-// 0..100の整数。100=形がほぼ一致, 0=無関係/空。位置・大きさには不変。
-export function scoreDrawing(user: Pt[], model: Pt[][]): number {
-  const um = normalize(user);
-  const mm = normalize(model.flat());
-  if (!um || !mm) return 0;
-  const tol2 = TOL * TOL;
-  const spill2 = SPILL * SPILL;
-  let accSum = 0;
-  let spill = 0;
-  for (const p of um) {
-    const dd = nearest2(p, mm);
-    accSum += Math.max(0, 1 - Math.sqrt(dd) / TOL);
-    if (dd > spill2) spill += 1;
-  }
-  const accuracy = accSum / um.length;
-  const spillRatio = spill / um.length;
-  let covered = 0;
-  for (const q of mm) if (nearest2(q, um) <= tol2) covered += 1;
-  const coverage = covered / mm.length;
-  const raw = 0.5 * accuracy + 0.5 * coverage - 0.3 * spillRatio;
-  return Math.round(100 * Math.min(1, Math.max(0, raw)));
+const STROKE_TOL = 0.32; // 正規化空間での「同じ画」とみなす近傍しきい
+// 1画どうしの対称類似度(0..1)。近さ(accuracy)と被覆(coverage)の平均。
+function strokeSim(a: Pt[], b: Pt[]): number {
+  if (!a.length || !b.length) return 0;
+  const tol2 = STROKE_TOL * STROKE_TOL;
+  let acc = 0;
+  for (const p of a) acc += Math.max(0, 1 - Math.sqrt(nearest2(p, b)) / STROKE_TOL);
+  let cov = 0;
+  for (const q of b) if (nearest2(q, a) <= tol2) cov += 1;
+  return 0.5 * (acc / a.length) + 0.5 * (cov / b.length);
+}
+
+// 0..100。100=画ごと・書き順どおりに形が一致。位置/大小に不変、画数違いは強く減点。
+export function scoreStrokes(userStrokes: Pt[][], templateStrokes: Pt[][]): number {
+  const u = normalizeStrokes(userStrokes.filter((s) => s.length > 0));
+  const t = normalizeStrokes(templateStrokes);
+  if (!u || !t) return 0;
+  const n = Math.min(u.length, t.length);
+  let sum = 0;
+  for (let i = 0; i < n; i++) sum += strokeSim(u[i], t[i]);
+  const denom = Math.max(u.length, t.length); // 余分/不足の画=0点 → 画数一致を要求
+  return Math.round(100 * (sum / denom));
 }
 
 export const PASS_SCORE = 70;
+export const RECOGNIZE_FLOOR = 45;
 
-// タッチペン式の手書き認識: 描いた形を全テンプレと照合し、似ている順に返す。
-// 位置・大きさに不変(scoreDrawingが正規化するため)。top1が対象字なら「その字に見える」。
+// タッチペン式の手書き認識: 描いた形(画ごと)を全テンプレと照合し、似ている順に返す。
 export function recognize(
-  user: Pt[],
+  userStrokes: Pt[][],
   templates: { char: string; strokes: number[][][] }[],
 ): { char: string; score: number }[] {
   return templates
-    .map((tp) => ({ char: tp.char, score: scoreDrawing(user, tp.strokes as Pt[][]) }))
+    .map((tp) => ({ char: tp.char, score: scoreStrokes(userStrokes, tp.strokes as Pt[][]) }))
     .sort((a, b) => b.score - a.score);
 }
-
-// 認識の最低ライン(これ未満なら、たとえ最も近くても「その字」とは認めない)。
-export const RECOGNIZE_FLOOR = 45;

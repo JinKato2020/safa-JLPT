@@ -1,58 +1,55 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { scoreDrawing, recognize, PASS_SCORE, type Pt } from './score';
+import { scoreStrokes, recognize, PASS_SCORE, type Pt } from './score';
+import sample from '../data/kakitoriSample.json' with { type: 'json' };
 
-// L字の手本(横線＋縦線)
+const tpl = sample as { char: string; strokes: number[][][] }[];
+const by = (c: string): Pt[][] => tpl.find((k) => k.char === c)!.strokes as Pt[][];
+
+// L字(横線＋縦線)= 2画
 const L: Pt[][] = [
   [[0.1, 0.1], [0.5, 0.1], [0.9, 0.1]],
   [[0.5, 0.1], [0.5, 0.5], [0.5, 0.9]],
 ];
 
 test('exact shape scores high', () => {
-  assert.ok(scoreDrawing(L.flat(), L) >= 90, `got ${scoreDrawing(L.flat(), L)}`);
+  assert.ok(scoreStrokes(L, L) >= 90, `got ${scoreStrokes(L, L)}`);
 });
 
 test('empty input scores 0', () => {
-  assert.equal(scoreDrawing([], L), 0);
-  assert.equal(scoreDrawing(L.flat(), []), 0);
+  assert.equal(scoreStrokes([], L), 0);
+  assert.equal(scoreStrokes(L, []), 0);
 });
 
 test('same shape shifted+scaled still passes (position/size invariant)', () => {
-  // 位置を(+0.3,-0.05)平行移動し0.5倍に縮小=同じ形
-  const moved: Pt[] = L.flat().map(([x, y]) => [x * 0.5 + 0.3, y * 0.5 - 0.05]);
-  const s = scoreDrawing(moved, L);
-  assert.ok(s >= 90, `got ${s}`);
+  const moved: Pt[][] = L.map((st) => st.map(([x, y]) => [x * 0.5 + 0.3, y * 0.5 - 0.05] as Pt));
+  assert.ok(scoreStrokes(moved, L) >= 90, `got ${scoreStrokes(moved, L)}`);
 });
 
-test('wrong shape does not pass', () => {
-  // 対角線=L字とは別の形
-  const diag: Pt[] = [[0.1, 0.9], [0.3, 0.7], [0.5, 0.5], [0.7, 0.3], [0.9, 0.1]];
-  const s = scoreDrawing(diag, L);
-  assert.ok(s < PASS_SCORE, `got ${s}`);
+// ユーザー報告の再現: 大(3画)を木(4画)と誤判定してはならない
+test('大 is recognized as 大, not 木', () => {
+  const r = recognize(by('大'), tpl);
+  assert.equal(r[0].char, '大', `top=${r[0].char} ${r[0].score}, 木=${r.find((x) => x.char === '木')?.score}`);
 });
 
-test('partial (one stroke of two) does not pass', () => {
-  const s = scoreDrawing(L[0], L);
-  assert.ok(s < PASS_SCORE, `got ${s}`);
+test('大 scores higher on 大 than on 木 (stroke-count aware)', () => {
+  const sDai = scoreStrokes(by('大'), by('大'));
+  const sKi = scoreStrokes(by('大'), by('木'));
+  assert.ok(sDai > sKi, `大=${sDai} 木=${sKi}`);
 });
 
-// 手書き認識: 形を全テンプレと照合して一番近い字を選ぶ(位置・大小に不変)
-const HLINE: Pt[][] = [[[0.1, 0.5], [0.5, 0.5], [0.9, 0.5]]];
-const VLINE: Pt[][] = [[[0.5, 0.1], [0.5, 0.5], [0.5, 0.9]]];
-const TEMPLATES = [
-  { char: 'L', strokes: L },
-  { char: 'H', strokes: HLINE },
-  { char: 'V', strokes: VLINE },
-];
-
-test('recognize picks the matching template (shifted+scaled)', () => {
-  const drawnL: Pt[] = L.flat().map(([x, y]) => [x * 0.6 + 0.2, y * 0.6 + 0.1]);
-  assert.equal(recognize(drawnL, TEMPLATES)[0].char, 'L');
+test('stroke-count mismatch (3-stroke drawn vs 4-stroke template) does not pass', () => {
+  assert.ok(scoreStrokes(by('大'), by('木')) < PASS_SCORE, `got ${scoreStrokes(by('大'), by('木'))}`);
 });
 
-test('recognize distinguishes horizontal vs vertical line', () => {
-  const drawnH: Pt[] = [[0.2, 0.3], [0.5, 0.3], [0.8, 0.3]];
-  const drawnV: Pt[] = [[0.4, 0.2], [0.4, 0.5], [0.4, 0.8]];
-  assert.equal(recognize(drawnH, TEMPLATES)[0].char, 'H');
-  assert.equal(recognize(drawnV, TEMPLATES)[0].char, 'V');
+test('大 with proportional variation is still recognized as 大', () => {
+  const drawn: Pt[][] = by('大').map((st) => st.map(([x, y]) => [x * 0.85 + 0.1, y * 1.05] as Pt));
+  assert.equal(recognize(drawn, tpl)[0].char, '大');
+});
+
+test('each sample kanji recognizes itself (perfect template)', () => {
+  for (const k of tpl) {
+    const top = recognize(by(k.char), tpl)[0];
+    assert.equal(top.char, k.char, `${k.char} -> ${top.char}`);
+  }
 });

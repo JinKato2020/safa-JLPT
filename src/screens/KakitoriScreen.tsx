@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import Svg, { Polyline, Circle, Text as SvgText } from 'react-native-svg';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
-import { scoreDrawing, recognize, RECOGNIZE_FLOOR, type Pt } from '../kakitori/score';
+import { scoreStrokes, recognize, RECOGNIZE_FLOOR, type Pt } from '../kakitori/score';
 import kakitoriSample from '../data/kakitoriSample.json';
 import { KANJI } from '../data';
 import { useT } from '../i18n';
@@ -127,11 +127,12 @@ export default function KakitoriScreen() {
 
   const clear = () => { setStrokes([]); setCur([]); setLast(null); };
   const grade = () => {
-    const user: Pt[] = strokes.flat();
-    // 手書き認識: 描いた形を全10字テンプレと照合。top1が対象字なら合格(位置・大小に不変)。
-    const ranking = recognize(user, kakitoriSample as { char: string; strokes: number[][][] }[]);
+    // 手書き認識: 描いた形を「画ごと・書き順どおり」に全10字テンプレと照合。
+    // top1が対象字なら合格(位置・大小に不変・画数一致を要求)。
+    const drawn: Pt[][] = strokes;
+    const ranking = recognize(drawn, kakitoriSample as { char: string; strokes: number[][][] }[]);
     const top = ranking[0];
-    const score = scoreDrawing(user, k.strokes as Pt[][]);
+    const score = scoreStrokes(drawn, k.strokes as Pt[][]);
     const ok = !!top && top.char === k.char && top.score >= RECOGNIZE_FLOOR;
     setLast({ as: top?.char ?? '?', ok, score });
     if (ok) {
