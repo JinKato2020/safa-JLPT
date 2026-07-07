@@ -63,10 +63,10 @@ KW.setStep=function(step){
 };
 KW.setFree=function(on){
   free=on;
+  // on: enter free practice(採点/前進なし). off: caller(RN)が続けて KW.setStep(...) で再初期化する契約。
   if(on){writer=make({showCharacter:false,showOutline:true,leniency:2.0});writer.quiz({showHintAfterMisses:1,highlightOnComplete:false});post({type:'started',step:-1});}
 };
 KW.animate=function(){if(writer)writer.animateCharacter();};
-KW.hint=function(){if(writer&&writer.showHint)writer.showHint();};
 KW.showAnswer=function(){if(!writer)return;writer.showOutline();writer.animateCharacter();};
 KW.clear=function(){if(writer&&writer.cancelQuiz){writer.cancelQuiz();} if(free){KW.setFree(true);} else {KW.setStep(curStep);}};
 window.KW=KW;
