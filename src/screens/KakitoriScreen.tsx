@@ -2,7 +2,7 @@
 // (自作の幾何採点は廃止)。WebView内でHanziWriterを動かし、1画ずつ寛容に採点(位置/大小/傾き/筆致の崩れを吸収)。
 // 3ステップ: なぞり(外形+ヒント+アニメ) → 見て書く(外形なし・ヒント少) → 見ないで書く(外形/ヒントなし)。
 import { useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ActivityIndicator, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { WebView, type WebViewMessageEvent } from 'react-native-webview';
@@ -88,6 +88,19 @@ export default function KakitoriScreen() {
       }, 700);
     }
   };
+
+  // web(ブラウザ)では react-native-webview を描画できない → 案内にフォールバック(クラッシュ回避)。
+  if (Platform.OS === 'web') {
+    return (
+      <SafeAreaView style={s.c} edges={['top']}>
+        <View style={s.center}>
+          <Text style={s.doneEmoji}>✍️</Text>
+          <Text style={s.doneTxt}>{t('kakitori.web_only')}</Text>
+          <Pressable style={s.doneBtn} onPress={() => nav.goBack()}><Text style={s.doneBtnTxt}>{t('kakitori.clear')}</Text></Pressable>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   if (done) {
     return (

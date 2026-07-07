@@ -29,6 +29,7 @@
  "kakitori.score": "Score {n}",
  "kakitori.mastered": "All mastered!",
  "kakitori.model": "Model",
+ "kakitori.web_only": "Writing practice is available in the app (device)",
  "kakitori.recall_hint": "Recall from the reading",
  "kakitori.replay": "Replay stroke order",
  "kakitori.recognized_as": "Looks like {char}",

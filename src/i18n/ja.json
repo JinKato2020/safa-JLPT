@@ -29,6 +29,7 @@
  "kakitori.score": "スコア {n}",
  "kakitori.mastered": "全部マスター！",
  "kakitori.model": "手本",
+ "kakitori.web_only": "書き取り練習はアプリ(実機)でご利用ください",
  "kakitori.recall_hint": "読みから思い出して書く",
  "kakitori.replay": "書き順を再生",
  "kakitori.recognized_as": "「{char}」に見えます",
