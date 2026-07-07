@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import Svg, { Polyline, Circle, Text as SvgText } from 'react-native-svg';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
-import { scoreDrawing, PASS_SCORE, type Pt } from '../kakitori/score';
+import { scoreDrawing, recognize, RECOGNIZE_FLOOR, type Pt } from '../kakitori/score';
 import kakitoriSample from '../data/kakitoriSample.json';
 import { KANJI } from '../data';
 import { useT } from '../i18n';
@@ -20,23 +20,27 @@ const pts2str = (pts: Pt[], size: number) => pts.map((p) => `${p[0] * size},${p[
 const toStr = (pts: Pt[]) => pts2str(pts, W);
 
 // 書き順の動的ガイド: 薄い全体+完了画+現在画を先頭ドットが始点→終点へ進む。番号は現在画のみ(重なり回避)。
-function StrokeGuide({ strokes, size, color, faint }: { strokes: Pt[][]; size: number; color: string; faint: string }) {
+function StrokeGuide({ strokes, size, color, faint, playToken }: { strokes: Pt[][]; size: number; color: string; faint: string; playToken: number }) {
   const lens = strokes.map((s) => s.length);
   const sum = lens.reduce((a, b) => a + b, 0);
-  const GAP = 14; // 1周ごとの休止フレーム
-  const [tick, setTick] = useState(0);
+  const [tick, setTick] = useState(sum); // 既定=完了(静止)。playTokenで先頭から1回だけ再生。
   useEffect(() => {
-    const id = setInterval(() => setTick((x) => (x + 1) % (sum + GAP)), 45);
+    setTick(0);
+    const id = setInterval(() => setTick((x) => {
+      if (x + 1 >= sum) { clearInterval(id); return sum; } // 最後まで来たら停止(繰り返さない)
+      return x + 1;
+    }), 70); // ゆっくり
     return () => clearInterval(id);
-  }, [sum]);
-  let si = strokes.length; // 既定=全画完了(休止中)
+  }, [sum, playToken]);
+  const animating = tick < sum;
+  let si = strokes.length;
   let pi = 0;
   let q = tick;
   for (let i = 0; i < strokes.length; i++) {
     if (q < lens[i]) { si = i; pi = q; break; }
     q -= lens[i];
   }
-  const cur = si < strokes.length ? strokes[si] : null;
+  const cur = animating && si < strokes.length ? strokes[si] : null;
   const start = cur ? [cur[0][0] * size, cur[0][1] * size] : null;
   const head = cur ? [cur[Math.min(pi, cur.length - 1)][0] * size, cur[Math.min(pi, cur.length - 1)][1] * size] : null;
   return (
@@ -45,14 +49,14 @@ function StrokeGuide({ strokes, size, color, faint }: { strokes: Pt[][]; size: n
         <Polyline key={`gf${i}`} points={pts2str(stk, size)} fill="none" stroke={faint} strokeWidth={size * 0.03} strokeLinecap="round" strokeLinejoin="round" opacity={0.5} />
       ))}
       {strokes.map((stk, i) => (i < si ? (
-        <Polyline key={`gd${i}`} points={pts2str(stk, size)} fill="none" stroke={color} strokeWidth={size * 0.038} strokeLinecap="round" strokeLinejoin="round" opacity={0.55} />
+        <Polyline key={`gd${i}`} points={pts2str(stk, size)} fill="none" stroke={color} strokeWidth={size * 0.038} strokeLinecap="round" strokeLinejoin="round" opacity={0.5} />
       ) : null))}
       {cur && pi > 0 ? (
         <Polyline points={pts2str(cur.slice(0, pi + 1), size)} fill="none" stroke={color} strokeWidth={size * 0.05} strokeLinecap="round" strokeLinejoin="round" />
       ) : null}
-      {cur && start ? <Circle cx={start[0]} cy={start[1]} r={size * 0.1} fill={color} /> : null}
-      {cur && start ? <SvgText x={start[0]} y={start[1] + size * 0.04} fontSize={size * 0.13} fill="#fff" fontWeight="bold" textAnchor="middle">{`${si + 1}`}</SvgText> : null}
-      {cur && head ? <Circle cx={head[0]} cy={head[1]} r={size * 0.05} fill={color} /> : null}
+      {cur && start ? <Circle cx={start[0]} cy={start[1]} r={size * 0.042} fill={color} /> : null}
+      {cur && start ? <SvgText x={start[0]} y={start[1] + size * 0.02} fontSize={size * 0.055} fill="#fff" fontWeight="bold" textAnchor="middle">{`${si + 1}`}</SvgText> : null}
+      {cur && head ? <Circle cx={head[0]} cy={head[1]} r={size * 0.035} fill={color} /> : null}
     </>
   );
 }
@@ -69,10 +73,14 @@ export default function KakitoriScreen() {
   const [step, setStep] = useState(0); // 0=trace,1=guided,2=recall
   const [strokes, setStrokes] = useState<Pt[][]>([]); // 確定した画
   const [cur, setCur] = useState<Pt[]>([]); // 描画中の画
-  const [last, setLast] = useState<number | null>(null);
+  const [last, setLast] = useState<{ as: string; ok: boolean; score: number } | null>(null);
+  const [playToken, setPlayToken] = useState(0); // 書き順アニメの再生トリガ(字/ステップ変更・再生ボタンで+1)
 
   const done = idx >= kakitoriSample.length;
   const k = done ? null : kakitoriSample[idx];
+
+  // 字・ステップが変わるたびに書き順アニメを頭から1回だけ再生。
+  useEffect(() => { setPlayToken((x) => x + 1); }, [idx, step]);
 
   const pan = useMemo(
     () =>
@@ -120,14 +128,18 @@ export default function KakitoriScreen() {
   const clear = () => { setStrokes([]); setCur([]); setLast(null); };
   const grade = () => {
     const user: Pt[] = strokes.flat();
-    const sc = scoreDrawing(user, k.strokes as Pt[][]);
-    setLast(sc);
-    if (sc >= PASS_SCORE) {
-      recordKakitori(k.char, step + 1, sc);
+    // 手書き認識: 描いた形を全10字テンプレと照合。top1が対象字なら合格(位置・大小に不変)。
+    const ranking = recognize(user, kakitoriSample as { char: string; strokes: number[][][] }[]);
+    const top = ranking[0];
+    const score = scoreDrawing(user, k.strokes as Pt[][]);
+    const ok = !!top && top.char === k.char && top.score >= RECOGNIZE_FLOOR;
+    setLast({ as: top?.char ?? '?', ok, score });
+    if (ok) {
+      recordKakitori(k.char, step + 1, score);
       setTimeout(() => {
         if (step < 2) { setStep(step + 1); clear(); }
         else { setIdx(idx + 1); setStep(0); clear(); }
-      }, 650);
+      }, 700);
     }
   };
 
@@ -142,11 +154,17 @@ export default function KakitoriScreen() {
       <Text style={s.char}>{step === 2 ? cue : k.char}</Text>
       <Text style={s.stepLabel}>{t(STEP_KEYS[step])}{step === 2 ? ` ・ ${t('kakitori.recall_hint')}` : ''}</Text>
 
+      {step < 2 && (
+        <Pressable onPress={() => setPlayToken((x) => x + 1)} style={({ pressed }) => [s.replay, pressed && s.pressed]}>
+          <Text style={s.replayTxt}>↻ {t('kakitori.replay')}</Text>
+        </Pressable>
+      )}
+
       {showReference && (
         <View style={s.refWrap}>
           <Text style={s.refLabel}>{t('kakitori.model')}</Text>
           <Svg width={REF} height={REF} style={s.refSvg}>
-            <StrokeGuide strokes={k.strokes as Pt[][]} size={REF} color={c.red} faint={c.trace} />
+            <StrokeGuide strokes={k.strokes as Pt[][]} size={REF} color={c.red} faint={c.trace} playToken={playToken} />
           </Svg>
         </View>
       )}
@@ -154,7 +172,7 @@ export default function KakitoriScreen() {
       <View style={s.canvasWrap}>
         <View style={[s.canvas, { width: W, height: W }]} {...pan.panHandlers}>
           <Svg width={W} height={W}>
-            {showOverlay ? <StrokeGuide strokes={k.strokes as Pt[][]} size={W} color={c.red} faint={c.trace} /> : null}
+            {showOverlay ? <StrokeGuide strokes={k.strokes as Pt[][]} size={W} color={c.red} faint={c.trace} playToken={playToken} /> : null}
             {[...strokes, cur].map((stk, i) => (
               stk.length > 1 ? <Polyline key={`u${i}`} points={toStr(stk)} fill="none" stroke={c.blue} strokeWidth={10} strokeLinecap="round" strokeLinejoin="round" /> : null
             ))}
@@ -163,8 +181,8 @@ export default function KakitoriScreen() {
       </View>
 
       {last != null && (
-        <Text style={[s.score, { color: last >= PASS_SCORE ? c.green : c.amber }]}>
-          {t('kakitori.score', { n: last })} ・ {last >= PASS_SCORE ? t('kakitori.pass') : t('kakitori.retry')}
+        <Text style={[s.score, { color: last.ok ? c.green : c.amber }]}>
+          {last.ok ? t('kakitori.pass') : t('kakitori.recognized_as', { char: last.as })} ・ {t('kakitori.score', { n: last.score })}
         </Text>
       )}
 
@@ -192,6 +210,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   closeTxt: { fontSize: 30, color: c.mute, fontWeight: '700' },
   char: { fontSize: 40, fontFamily: 'ShipporiMincho-Bold', color: c.ink, textAlign: 'center', marginTop: spacing.sm },
   stepLabel: { fontSize: ty.body, fontWeight: '700', color: c.blue, textAlign: 'center', marginTop: spacing.xs },
+  replay: { alignSelf: 'center', marginTop: spacing.xs, paddingVertical: 6, paddingHorizontal: spacing.md, borderRadius: radius.md, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line },
+  replayTxt: { fontSize: ty.small, fontWeight: '800', color: c.blue },
   refWrap: { alignItems: 'center', marginTop: spacing.sm },
   refLabel: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, marginBottom: 2, letterSpacing: 1 },
   refSvg: { backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line },

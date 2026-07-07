@@ -55,3 +55,17 @@ export function scoreDrawing(user: Pt[], model: Pt[][]): number {
 }
 
 export const PASS_SCORE = 70;
+
+// タッチペン式の手書き認識: 描いた形を全テンプレと照合し、似ている順に返す。
+// 位置・大きさに不変(scoreDrawingが正規化するため)。top1が対象字なら「その字に見える」。
+export function recognize(
+  user: Pt[],
+  templates: { char: string; strokes: number[][][] }[],
+): { char: string; score: number }[] {
+  return templates
+    .map((tp) => ({ char: tp.char, score: scoreDrawing(user, tp.strokes as Pt[][]) }))
+    .sort((a, b) => b.score - a.score);
+}
+
+// 認識の最低ライン(これ未満なら、たとえ最も近くても「その字」とは認めない)。
+export const RECOGNIZE_FLOOR = 45;
