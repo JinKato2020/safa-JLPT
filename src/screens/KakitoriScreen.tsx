@@ -1,20 +1,22 @@
 // 漢字書き取り(サンプル10字)。3ステップ(なぞり→手本を見て書く→見ないで書く)で
 // 指の軌跡を集め、手本への近さを採点(score.ts)。合格(70)でステップ/字が進む。星で進捗。
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Fragment } from 'react';
 import { View, Text, Pressable, StyleSheet, PanResponder, Dimensions, type GestureResponderEvent } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import Svg, { Polyline } from 'react-native-svg';
+import Svg, { Polyline, Circle, Text as SvgText } from 'react-native-svg';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { scoreDrawing, PASS_SCORE, type Pt } from '../kakitori/score';
 import kakitoriSample from '../data/kakitoriSample.json';
 import { useT } from '../i18n';
 
-const W = Math.min(320, Dimensions.get('window').width - 48);
+const W = Math.min(300, Dimensions.get('window').width - 48);
+const REF = 116; // 手本(別枠)のサイズ
 const STEP_KEYS = ['kakitori.step_trace', 'kakitori.step_guided', 'kakitori.step_recall'];
 const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
-const toStr = (pts: Pt[]) => pts.map((p) => `${p[0] * W},${p[1] * W}`).join(' ');
+const pts2str = (pts: Pt[], size: number) => pts.map((p) => `${p[0] * size},${p[1] * size}`).join(' ');
+const toStr = (pts: Pt[]) => pts2str(pts, W);
 
 export default function KakitoriScreen() {
   const nav = useNavigation();
@@ -68,7 +70,8 @@ export default function KakitoriScreen() {
     );
   }
 
-  const modelOpacity = step === 0 ? 0.5 : step === 1 ? 0.18 : 0;
+  const showOverlay = step === 0; // なぞり=手本を重ねる / 見て書く・見ないで書く=キャンバスは白紙
+  const showReference = step === 1; // 見て書く=別枠に手本＋書き順番号
   const stars = state.kakitori?.[k.char]?.stars ?? 0;
   const allPts: Pt[] = [...strokes, cur].flat();
 
@@ -97,11 +100,34 @@ export default function KakitoriScreen() {
       <Text style={s.char}>{k.char}</Text>
       <Text style={s.stepLabel}>{t(STEP_KEYS[step])}</Text>
 
+      {showReference && (
+        <View style={s.refWrap}>
+          <Text style={s.refLabel}>{t('kakitori.model')}</Text>
+          <Svg width={REF} height={REF} style={s.refSvg}>
+            {k.strokes.map((stk, i) => (
+              <Polyline key={`r${i}`} points={pts2str(stk as Pt[], REF)} fill="none" stroke={c.ink2} strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
+            ))}
+            {k.strokes.map((stk, i) => (
+              <Fragment key={`rn${i}`}>
+                <Circle cx={stk[0][0] * REF} cy={stk[0][1] * REF} r={REF * 0.1} fill={c.red} />
+                <SvgText x={stk[0][0] * REF} y={stk[0][1] * REF + REF * 0.04} fontSize={REF * 0.13} fill="#fff" fontWeight="bold" textAnchor="middle">{`${i + 1}`}</SvgText>
+              </Fragment>
+            ))}
+          </Svg>
+        </View>
+      )}
+
       <View style={s.canvasWrap}>
         <View style={[s.canvas, { width: W, height: W }]} {...pan.panHandlers}>
           <Svg width={W} height={W}>
-            {k.strokes.map((stk, i) => (
-              <Polyline key={`m${i}`} points={toStr(stk as Pt[])} fill="none" stroke={c.trace} strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" opacity={modelOpacity} />
+            {showOverlay && k.strokes.map((stk, i) => (
+              <Polyline key={`m${i}`} points={toStr(stk as Pt[])} fill="none" stroke={c.trace} strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" opacity={0.5} />
+            ))}
+            {showOverlay && k.strokes.map((stk, i) => (
+              <Fragment key={`on${i}`}>
+                <Circle cx={stk[0][0] * W} cy={stk[0][1] * W} r={W * 0.038} fill={c.red} opacity={0.9} />
+                <SvgText x={stk[0][0] * W} y={stk[0][1] * W + W * 0.016} fontSize={W * 0.05} fill="#fff" fontWeight="bold" textAnchor="middle">{`${i + 1}`}</SvgText>
+              </Fragment>
             ))}
             {[...strokes, cur].map((stk, i) => (
               stk.length > 1 ? <Polyline key={`u${i}`} points={toStr(stk)} fill="none" stroke={c.blue} strokeWidth={10} strokeLinecap="round" strokeLinejoin="round" /> : null
@@ -140,7 +166,10 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   closeTxt: { fontSize: 30, color: c.mute, fontWeight: '700' },
   char: { fontSize: 40, fontFamily: 'ShipporiMincho-Bold', color: c.ink, textAlign: 'center', marginTop: spacing.sm },
   stepLabel: { fontSize: ty.body, fontWeight: '700', color: c.blue, textAlign: 'center', marginTop: spacing.xs },
-  canvasWrap: { alignItems: 'center', marginTop: spacing.md },
+  refWrap: { alignItems: 'center', marginTop: spacing.sm },
+  refLabel: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, marginBottom: 2, letterSpacing: 1 },
+  refSvg: { backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line },
+  canvasWrap: { alignItems: 'center', marginTop: spacing.sm },
   canvas: { ...shadow(1), backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line },
   score: { fontSize: ty.body, fontWeight: '800', textAlign: 'center', marginTop: spacing.md },
   btnRow: { flexDirection: 'row', gap: spacing.md, paddingHorizontal: spacing.lg, marginTop: spacing.lg },

@@ -28,6 +28,7 @@
  "kakitori.retry": "もう一度",
  "kakitori.score": "スコア {n}",
  "kakitori.mastered": "全部マスター！",
+ "kakitori.model": "手本",
  "browse.vocab": "語彙",
  "dl.body": "聴解音声（約{size}）。一度ダウンロードすればオフラインで聴けます。",
  "dl.fail": "ダウンロードに失敗しました",
