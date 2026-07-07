@@ -11,7 +11,7 @@ import { coverageBars } from '../store/selectors';
 import Badge from '../components/Badge';
 import { badgeTierIndex } from '../data/badges';
 import type { RootStackParamList } from '../navigation/types';
-import kakitoriSample from '../data/kakitoriSample.json';
+import { KAKITORI_CHARS } from '../kakitori/chars';
 import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -34,7 +34,7 @@ export default function CardsScreen() {
   const badgeSet = state.settings.badgeSet ?? 'gorgeous';
   const cov = useMemo(() => coverageBars(state, now), [state]);
   const covOf = (k: Key) => cov.find((b) => b.key === k) ?? { learned: 0, total: 0 };
-  const kakiTotal = kakitoriSample.length;
+  const kakiTotal = KAKITORI_CHARS.length;
   const kakiDone = Object.values(state.kakitori ?? {}).filter((k) => k.step >= 3).length;
 
   return (

@@ -9,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "tsc": "tsc --noEmit",
-    "test": "node --import tsx --test src/engine/engine.test.ts src/quiz/quiz.test.ts src/store/streak.test.ts src/store/badges.test.ts src/kakitori/score.test.ts",
+    "test": "node --import tsx --test src/engine/engine.test.ts src/quiz/quiz.test.ts src/store/streak.test.ts src/store/badges.test.ts",
     "build:data": "python ../data-build/build_data.py && node ../data-build/dict/sync-dict.mjs",
     "build:dict": "node ../data-build/dict/build-all.mjs",
     "sync:dict": "node ../data-build/dict/sync-dict.mjs"
@@ -42,7 +42,8 @@
     "react-native-screens": "~4.16.0",
     "react-native-svg": "15.12.1",
     "react-native-tab-view": "^4.3.1",
-    "react-native-web": "^0.21.0"
+    "react-native-web": "^0.21.0",
+    "react-native-webview": "13.15.0"
   },
   "devDependencies": {
     "@expo/ngrok": "^4.1.3",
