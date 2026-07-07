@@ -220,7 +220,7 @@
  "onboarding.start": "Start",
  "onboarding.title": "Let's Get Started",
  "profile.dataSource": "Data Sources",
- "profile.dataSourceBody": "・JLPT level classification & word lists: Jonathan Waller (tanos.co.uk / CC BY)\n・Dictionary data (kanji, word meanings): JMdict & KANJIDIC2 © EDRDG (CC BY-SA, modified)",
+ "profile.dataSourceBody": "・JLPT level classification & word lists: Jonathan Waller (tanos.co.uk / CC BY)\n・Dictionary data (kanji, word meanings): JMdict & KANJIDIC2 © EDRDG (CC BY-SA, modified)\n・Kanji stroke order & writing: HanziWriter © Jack Huang (MIT License)",
  "profile.examDate": "Exam Date",
  "profile.examDaysLeft": "({n} days left)",
  "profile.examJftHint": "JFT-Basic runs year-round (CBT). Pick the test date you booked on the calendar.",
