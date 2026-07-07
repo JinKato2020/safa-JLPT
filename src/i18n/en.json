@@ -29,6 +29,7 @@
  "kakitori.score": "Score {n}",
  "kakitori.mastered": "All mastered!",
  "kakitori.model": "Model",
+ "kakitori.recall_hint": "Recall from the reading",
  "browse.vocab": "Vocabulary",
  "dl.body": "Listening audio (about {size}). Download once to listen offline anytime.",
  "dl.fail": "Download failed",
