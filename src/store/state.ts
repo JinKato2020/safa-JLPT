@@ -23,6 +23,10 @@ export interface Settings {
   badgeSet?: 'natural' | 'gorgeous'; // バッジ/勲章のデザインセット(未設定→natural)
   listeningAudioMode?: 'stream' | 'download'; // 聴解音声: 都度配信(stream)/レベル一括DL(download)。未設定→download(従来挙動)
   font?: 'system' | 'maru' | 'mincho' | 'kyokasho'; // 表示フォント(未設定→maru=丸ゴシック)。App Bから移植
+  kakitoriGrid?: 'none' | 'ta' | 'kome';   // 書き取りグリッド(未設定→kome=米字格)
+  kakitoriSpeed?: 'slow' | 'normal' | 'fast'; // 書き順アニメ速度(未設定→normal)
+  kakitoriSound?: boolean;                  // 合格時の読み上げTTS(未設定→ON)
+  kakitoriMode?: 'drill' | 'free';          // ドリル/自由練習(未設定→drill)
 }
 
 export interface Streak {
@@ -56,7 +60,7 @@ export interface AppState {
   streak: Streak;
   growth?: GrowthPoint[];           // 学習日ごとの習得数(旧stateには無い→省略可)
   mockHistory?: MockResult[];       // 模試の採点履歴(旧stateには無い→省略可)
-  kakitori?: Record<string, { step: number; stars: number; best: number }>; // 漢字書き取り進捗(char→) 旧stateには無い→省略可
+  kakitori?: Record<string, { step: number; stars: number; best: number; due?: string; interval?: number; reps?: number }>; // 漢字書き取り進捗(char→) 旧stateには無い→省略可
 }
 
 export const STATE_VERSION = 1;

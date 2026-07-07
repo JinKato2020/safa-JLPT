@@ -11,5 +11,5 @@ export type RootStackParamList = {
   Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho' } | undefined;   // 読解(小区分つき)
   Listening: { subtype?: 'kadai' | 'point' | 'gaiyou' | 'hatsuwa' | 'sokuji' } | undefined; // 聴解(小区分つき)
   Browse: { view?: 'kanji' | 'vocab' | 'grammar' } | undefined; // 辞書(カードのリンクから開くモーダル)
-  Kakitori: undefined; // 漢字書き取り(サンプル10字・3ステップ)
+  Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review' } | undefined; // 漢字書き取り(サンプル10字・3ステップ)
 };
