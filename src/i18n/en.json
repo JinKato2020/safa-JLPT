@@ -477,5 +477,7 @@
  "settings.kakitori_section": "Kanji Writing",
  "settings.kakitori_grid": "Grid",
  "settings.kakitori_speed": "Animation speed",
- "settings.kakitori_sound": "Read aloud"
+ "settings.kakitori_sound": "Read aloud",
+ "settings.on": "On",
+ "settings.off": "Off"
 }

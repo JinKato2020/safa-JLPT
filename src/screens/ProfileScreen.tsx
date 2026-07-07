@@ -264,6 +264,46 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
 
+        {/* 漢字書き取り: グリッド/アニメ速度/読み上げ */}
+        <Text style={s.sectionH}>{t('settings.kakitori_section')}</Text>
+        <View style={s.card}>
+          <Text style={s.setLbl}>{t('settings.kakitori_grid')}</Text>
+          <View style={s.chipRow}>
+            {(['ta', 'kome', 'none'] as const).map((g) => {
+              const on = (state.settings.kakitoriGrid ?? 'kome') === g;
+              return (
+                <Pressable key={g} onPress={() => setSettings({ kakitoriGrid: g })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(`kakitori.grid_${g}`)}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={s.setLbl}>{t('settings.kakitori_speed')}</Text>
+          <View style={s.chipRow}>
+            {(['slow', 'normal', 'fast'] as const).map((sp) => {
+              const on = (state.settings.kakitoriSpeed ?? 'normal') === sp;
+              return (
+                <Pressable key={sp} onPress={() => setSettings({ kakitoriSpeed: sp })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(`kakitori.speed_${sp}`)}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={s.setLbl}>{t('settings.kakitori_sound')}</Text>
+          <View style={s.chipRow}>
+            {([true, false] as const).map((v) => {
+              const on = (state.settings.kakitoriSound ?? true) === v;
+              return (
+                <Pressable key={String(v)} onPress={() => setSettings({ kakitoriSound: v })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(v ? 'settings.on' : 'settings.off')}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        </View>
+
         {/* サポート・規約 */}
         <Text style={s.sectionH}>{t('profile.supportSection')}</Text>
         <View style={s.card}>

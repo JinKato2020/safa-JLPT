@@ -477,5 +477,7 @@
  "settings.kakitori_section": "漢字書き取り",
  "settings.kakitori_grid": "グリッド",
  "settings.kakitori_speed": "アニメ速度",
- "settings.kakitori_sound": "読み上げ"
+ "settings.kakitori_sound": "読み上げ",
+ "settings.on": "オン",
+ "settings.off": "オフ"
 }
