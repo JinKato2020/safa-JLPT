@@ -47,10 +47,13 @@ export default function KakitoriScreen() {
 
   const level = (route.params?.level ?? state.settings.level) as Level;
   const mode = route.params?.mode ?? 'drill';
+  // 復習キューはセッション開始時のスナップショットで固定する。
+  // mastering中に state.kakitori が変わっても due リストを揺らさない(idxズレ防止)。
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const chars = useMemo(() => {
-    if (mode === 'review') { const now = Date.now(); const d = kakitoriDueToday(state.kakitori, dayOf(now)); return d.length ? d : kanjiListFor(level); }
+    if (mode === 'review') { const d = kakitoriDueToday(state.kakitori, dayOf(Date.now())); return d.length ? d : kanjiListFor(level); }
     return kanjiListFor(level);
-  }, [mode, level, state.kakitori]);
+  }, [mode, level]);
 
   const grid = state.settings.kakitoriGrid ?? 'kome';
   const speed = state.settings.kakitoriSpeed ?? 'normal';
@@ -183,9 +186,9 @@ export default function KakitoriScreen() {
           </Pressable>
         </View>
         <View style={s.toolbar}>
-          <Pressable onPress={() => inject('KW.animate()')} style={s.tool}><Text style={s.toolTxt}>↻ {t('kakitori.show_model')}</Text></Pressable>
-          <Pressable onPress={() => inject('KW.showAnswer()')} style={s.tool}><Text style={s.toolTxt}>{t('kakitori.hint')}</Text></Pressable>
-          <Pressable onPress={() => inject('KW.clear()')} style={s.tool}><Text style={s.toolTxt}>{t('kakitori.clear')}</Text></Pressable>
+          <Pressable onPress={() => { if (readyRef.current) inject('KW.animate()'); }} style={s.tool}><Text style={s.toolTxt}>↻ {t('kakitori.show_model')}</Text></Pressable>
+          <Pressable onPress={() => { if (readyRef.current) inject('KW.showAnswer()'); }} style={s.tool}><Text style={s.toolTxt}>{t('kakitori.hint')}</Text></Pressable>
+          <Pressable onPress={() => { if (readyRef.current) inject('KW.clear()'); }} style={s.tool}><Text style={s.toolTxt}>{t('kakitori.clear')}</Text></Pressable>
         </View>
 
         {!free && (
