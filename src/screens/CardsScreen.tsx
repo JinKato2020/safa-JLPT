@@ -12,6 +12,7 @@ import Badge from '../components/Badge';
 import { badgeTierIndex } from '../data/badges';
 import type { RootStackParamList } from '../navigation/types';
 import { kanjiListFor } from '../kakitori/list';
+import { kakitoriDueToday } from '../kakitori/srs';
 import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -36,6 +37,11 @@ export default function CardsScreen() {
   const covOf = (k: Key) => cov.find((b) => b.key === k) ?? { learned: 0, total: 0 };
   const kakiTotal = kanjiListFor(state.settings.level).length;
   const kakiDone = Object.values(state.kakitori ?? {}).filter((k) => k.step >= 3).length;
+
+  const todayStr = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  };
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
@@ -67,10 +73,20 @@ export default function CardsScreen() {
               </Pressable>
 
               {card.key === 'kanji' && (
-                <Pressable style={({ pressed }) => [s.kakiBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori')}>
-                  <Text style={s.kakiTxt}>{t('cards.kakitori_entry')}</Text>
-                  <Text style={s.kakiProg}>{t('cards.kakitori_progress', { done: kakiDone, total: kakiTotal })}</Text>
-                </Pressable>
+                <>
+                  {(() => {
+                    const due = kakitoriDueToday(state.kakitori, todayStr());
+                    return due.length ? (
+                      <Pressable style={({ pressed }) => [s.kakiBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { mode: 'review' })}>
+                        <Text style={s.kakiTxt}>{t('cards.kakitori_review', { n: due.length })}</Text>
+                      </Pressable>
+                    ) : null;
+                  })()}
+                  <Pressable style={({ pressed }) => [s.kakiBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill' })}>
+                    <Text style={s.kakiTxt}>{t('cards.kakitori_entry')}</Text>
+                    <Text style={s.kakiProg}>{t('cards.kakitori_progress', { done: kakiDone, total: kakiTotal })}</Text>
+                  </Pressable>
+                </>
               )}
             </View>
           );
