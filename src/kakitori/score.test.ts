@@ -47,6 +47,23 @@ test('大 with proportional variation is still recognized as 大', () => {
   assert.equal(recognize(drawn, tpl)[0].char, '大');
 });
 
+function rotate(strokes: Pt[][], deg: number): Pt[][] {
+  const r = (deg * Math.PI) / 180;
+  const c = Math.cos(r);
+  const s = Math.sin(r);
+  return strokes.map((st) => st.map(([x, y]) => {
+    const dx = x - 0.5;
+    const dy = y - 0.5;
+    return [0.5 + dx * c - dy * s, 0.5 + dx * s + dy * c] as Pt;
+  }));
+}
+
+test('三 tilted by hand (18deg) still scores high and recognizes as 三', () => {
+  const tilted = rotate(by('三'), 18);
+  assert.ok(scoreStrokes(tilted, by('三')) >= 80, `got ${scoreStrokes(tilted, by('三'))}`);
+  assert.equal(recognize(tilted, tpl)[0].char, '三');
+});
+
 test('each sample kanji recognizes itself (perfect template)', () => {
   for (const k of tpl) {
     const top = recognize(by(k.char), tpl)[0];

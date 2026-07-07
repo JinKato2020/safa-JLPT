@@ -42,16 +42,33 @@ function strokeSim(a: Pt[], b: Pt[]): number {
   return 0.5 * (acc / a.length) + 0.5 * (cov / b.length);
 }
 
-// 0..100。100=画ごと・書き順どおりに形が一致。位置/大小に不変、画数違いは強く減点。
-export function scoreStrokes(userStrokes: Pt[][], templateStrokes: Pt[][]): number {
-  const u = normalizeStrokes(userStrokes.filter((s) => s.length > 0));
-  const t = normalizeStrokes(templateStrokes);
-  if (!u || !t) return 0;
+// 手の傾きを許容するための候補回転(±24°程度)。90°回転(三→川もどき)は許さないよう範囲を限定。
+const ROT_ANGLES = [-24, -16, -8, 0, 8, 16, 24].map((d) => (d * Math.PI) / 180);
+function rotateStrokes(strokes: Pt[][], a: number): Pt[][] {
+  const c = Math.cos(a);
+  const s = Math.sin(a);
+  return strokes.map((st) => st.map(([x, y]) => [x * c - y * s, x * s + y * c] as Pt));
+}
+// 画ごと(書き順どおり)の一致度0..1。画数違いは分母max()で強く減点。
+function matchScore(u: Pt[][], t: Pt[][]): number {
   const n = Math.min(u.length, t.length);
   let sum = 0;
   for (let i = 0; i < n; i++) sum += strokeSim(u[i], t[i]);
-  const denom = Math.max(u.length, t.length); // 余分/不足の画=0点 → 画数一致を要求
-  return Math.round(100 * (sum / denom));
+  return sum / Math.max(u.length, t.length);
+}
+
+// 0..100。100=画ごと・書き順どおりに形が一致。位置/大小/手の傾き(±24°)に不変、画数違いは強く減点。
+export function scoreStrokes(userStrokes: Pt[][], templateStrokes: Pt[][]): number {
+  const u0 = normalizeStrokes(userStrokes.filter((s) => s.length > 0));
+  const t = normalizeStrokes(templateStrokes);
+  if (!u0 || !t) return 0;
+  // ユーザーの字を少しずつ回し、一番合う角度で採点(=手の傾きに寛容)。
+  let best = 0;
+  for (const a of ROT_ANGLES) {
+    const sc = matchScore(a === 0 ? u0 : rotateStrokes(u0, a), t);
+    if (sc > best) best = sc;
+  }
+  return Math.round(100 * best);
 }
 
 export const PASS_SCORE = 70;
