@@ -56,6 +56,7 @@ export interface AppState {
   streak: Streak;
   growth?: GrowthPoint[];           // 学習日ごとの習得数(旧stateには無い→省略可)
   mockHistory?: MockResult[];       // 模試の採点履歴(旧stateには無い→省略可)
+  kakitori?: Record<string, { step: number; stars: number; best: number }>; // 漢字書き取り進捗(char→) 旧stateには無い→省略可
 }
 
 export const STATE_VERSION = 1;

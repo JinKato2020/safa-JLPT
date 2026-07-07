@@ -2,6 +2,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRoute, type RouteProp } from '@react-navigation/native';
+import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { KANJI, VOCAB, GRAMMAR, KANJI_CARD_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
@@ -77,7 +79,8 @@ export default function BrowseScreen() {
   // 母語(l1)の意味。無ければ undefined(=英語表示)。
   const nm = (key: string): string | undefined => (l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined);
 
-  const [kubun, setKubun] = useState<Kubun>('vocab');
+  const route = useRoute<RouteProp<RootStackParamList, 'Browse'>>();
+  const [kubun, setKubun] = useState<Kubun>(route.params?.view ?? 'vocab');
   const [level, setLevel] = useState<string>(settings.level); // 'all' または N5..N1
   const [query, setQuery] = useState('');
 

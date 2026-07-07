@@ -17,6 +17,7 @@ type Action =
   | { type: 'QUIZ_ANSWER'; itemId: string; correct: boolean; now: number }
   | { type: 'MOCK_ANSWER'; itemId: string; correct: boolean; now: number }
   | { type: 'RECORD_MOCK'; result: MockResult }
+  | { type: 'KAKITORI_PROGRESS'; char: string; step: number; score: number }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -61,6 +62,16 @@ function reducer(state: AppState, action: Action): AppState {
     }
     case 'RECORD_MOCK':
       return { ...state, mockHistory: [...(state.mockHistory ?? []), action.result].slice(-60) };
+    case 'KAKITORI_PROGRESS': {
+      const map = state.kakitori ?? {};
+      const prev = map[action.char] ?? { step: 0, stars: 0, best: 0 };
+      const next = {
+        step: Math.max(prev.step, action.step),
+        stars: Math.max(prev.stars, action.step),
+        best: Math.max(prev.best, action.score),
+      };
+      return { ...state, kakitori: { ...map, [action.char]: next } };
+    }
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -120,6 +131,7 @@ export function useAppActions() {
       dispatch({ type: 'MOCK_ANSWER', itemId, correct, now: Date.now() });
     },
     recordMockResult: (result: MockResult) => dispatch({ type: 'RECORD_MOCK', result }),
+    recordKakitori: (char: string, step: number, score: number) => dispatch({ type: 'KAKITORI_PROGRESS', char, step, score }),
     reset: () => {
       clearState();
       dispatch({ type: 'RESET' });

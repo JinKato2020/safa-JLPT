@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { readinessFor, growthSeries, growthCurve, nextBestAction, ringsFor, learnedNow, levelRank, coverageBars } from '../store/selectors';
+import { readinessFor, growthSeries, growthCurve, nextBestAction, ringsFor, learnedNow, levelRank } from '../store/selectors';
 import { computeBadges } from '../store/badges';
 import { DAIMON_LABEL } from '../data/examBlueprint';
 import { examOf } from '../engine/examProfile';
@@ -46,7 +46,6 @@ export default function HomeScreen() {
   const rank = useMemo(() => levelRank(state, now), [state]);
   const learned = useMemo(() => learnedNow(state, now), [state]);
   const curve = useMemo(() => growthCurve(state, dayStr(now), 14), [state, now]);
-  const cov = useMemo(() => coverageBars(state, now), [state, now]);
   const ppSeries = useMemo(() => (state.growth ?? []).slice(-14).map((g) => g.passProb ?? 0), [state.growth]);
   const badgeSet = state.settings.badgeSet ?? 'gorgeous';
   const studied = useMemo(() => new Set(state.streak.history), [state.streak.history]);
@@ -195,24 +194,7 @@ export default function HomeScreen() {
           ) : (
             <Text style={s.hint}>{t('home.growth_empty_hint')}</Text>
           )}
-          {/* ④ カバー率(量)= 漢字/語彙/文法。各行: 半分のバー＋分数 ／ 右に大きな成長バッジ＋10段名。 */}
-          <Text style={s.miniH}>{t('home.coverage_title')}</Text>
-          {cov.map((b) => {
-            const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
-            return (
-              <View key={b.key} style={s.covRow}>
-                <Text style={s.covLabel}>{t(`home.cov_${b.key}`)}</Text>
-                <View style={s.covBarHalf}>
-                  <View style={s.covTrack}><View style={[s.covFill, { width: `${pct}%` }]} /></View>
-                  <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
-                </View>
-                <View style={s.covBadgeWrap}>
-                  <Badge set={badgeSet} metric="cover" pct={pct} size={60} />
-                  <Text style={s.covTierName}>{t('home.coverTier' + badgeTierIndex(pct))}</Text>
-                </View>
-              </View>
-            );
-          })}
+          {/* ④ カバー率(量)= 漢字/語彙/文法はカードタブ(CardsScreen)へ移設。ホームでは非表示。 */}
         </View>
 
         {/* 今日のおすすめ(成長の後・主要操作=青。ボタン自体がセクション見出しを兼ねる) */}

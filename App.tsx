@@ -24,6 +24,8 @@ import MockScreen from './src/screens/MockScreen';
 import ReadingScreen from './src/screens/ReadingScreen';
 import ListeningScreen from './src/screens/ListeningScreen';
 import BrowseScreen from './src/screens/BrowseScreen';
+import CardsScreen from './src/screens/CardsScreen';
+import KakitoriScreen from './src/screens/KakitoriScreen';
 import TourOverlay from './src/components/TourOverlay';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers } from './src/telemetry/telemetry';
@@ -41,9 +43,9 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const TABS = [
   { name: 'ホーム', component: HomeScreen, icon: 'home', iconOff: 'home-outline', labelKey: 'nav.home' },
+  { name: 'カード', component: CardsScreen, icon: 'albums', iconOff: 'albums-outline', labelKey: 'cards.tab' },
   { name: '学習', component: StudyScreen, icon: 'book', iconOff: 'book-outline', labelKey: 'study.tab' },
   { name: 'テスト', component: TestScreen, icon: 'clipboard', iconOff: 'clipboard-outline', labelKey: 'test.tab' },
-  { name: '辞書', component: BrowseScreen, icon: 'search', iconOff: 'search-outline', labelKey: 'browse.title' },
   { name: '設定', component: ProfileScreen, icon: 'settings', iconOff: 'settings-outline', labelKey: 'profile.tab' },
 ] as const;
 
@@ -161,6 +163,8 @@ function Root() {
             <RootStack.Screen name="Mock" component={MockScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Reading" component={ReadingScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Listening" component={ListeningScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Browse" component={BrowseScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Kakitori" component={KakitoriScreen} options={{ presentation: 'modal' }} />
           </>
         )}
       </RootStack.Navigator>
