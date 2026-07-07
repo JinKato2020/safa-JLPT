@@ -10,6 +10,7 @@ import { readinessFor } from './selectors';
 import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
+import { scheduleKakitori } from '../kakitori/srs';
 
 type Action =
   | { type: 'HYDRATE'; state: AppState }
@@ -17,7 +18,7 @@ type Action =
   | { type: 'QUIZ_ANSWER'; itemId: string; correct: boolean; now: number }
   | { type: 'MOCK_ANSWER'; itemId: string; correct: boolean; now: number }
   | { type: 'RECORD_MOCK'; result: MockResult }
-  | { type: 'KAKITORI_PROGRESS'; char: string; step: number; score: number }
+  | { type: 'KAKITORI_PROGRESS'; char: string; step: number; score: number; skipped?: boolean; now?: number }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -65,11 +66,20 @@ function reducer(state: AppState, action: Action): AppState {
     case 'KAKITORI_PROGRESS': {
       const map = state.kakitori ?? {};
       const prev = map[action.char] ?? { step: 0, stars: 0, best: 0 };
-      const next = {
+      const passed = !action.skipped;
+      const stars = passed ? Math.max(prev.stars, action.step) : prev.stars;
+      let next = {
+        ...prev,
         step: Math.max(prev.step, action.step),
-        stars: Math.max(prev.stars, action.step),
+        stars,
         best: Math.max(prev.best, action.score),
       };
+      // 最終step(3)を実際に書いて合格→SRSスケジュール(復習キューへ)。
+      if (passed && action.step >= 3) {
+        const today = dayStr(action.now ?? Date.now());
+        const mistakes = Math.max(0, Math.round((100 - action.score) / 8));
+        next = scheduleKakitori(next, { mistakes, today });
+      }
       return { ...state, kakitori: { ...map, [action.char]: next } };
     }
     case 'RESET':
@@ -78,6 +88,7 @@ function reducer(state: AppState, action: Action): AppState {
       return state;
   }
 }
+export const reducerForTest = reducer;
 
 const StateCtx = createContext<AppState>(INITIAL_STATE);
 const DispatchCtx = createContext<Dispatch<Action>>(() => undefined);
@@ -131,7 +142,8 @@ export function useAppActions() {
       dispatch({ type: 'MOCK_ANSWER', itemId, correct, now: Date.now() });
     },
     recordMockResult: (result: MockResult) => dispatch({ type: 'RECORD_MOCK', result }),
-    recordKakitori: (char: string, step: number, score: number) => dispatch({ type: 'KAKITORI_PROGRESS', char, step, score }),
+    recordKakitori: (char: string, step: number, score: number, opts?: { skipped?: boolean; now?: number }) =>
+      dispatch({ type: 'KAKITORI_PROGRESS', char, step, score, skipped: opts?.skipped, now: opts?.now }),
     reset: () => {
       clearState();
       dispatch({ type: 'RESET' });
