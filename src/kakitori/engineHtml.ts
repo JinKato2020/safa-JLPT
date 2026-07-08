@@ -63,12 +63,26 @@ KW.setStep=function(step){
 };
 KW.setFree=function(on){
   free=on;
-  // on: enter free practice(採点/前進なし). off: caller(RN)が続けて KW.setStep(...) で再初期化する契約。
+  // on: enter free practice(採点/前進なし・なぞり相当の既定). off: caller(RN)が続けて KW.setStep(...) で再初期化する契約。
   if(on){writer=make({showCharacter:false,showOutline:true,leniency:2.0});writer.quiz({showHintAfterMisses:1,highlightOnComplete:false});post({type:'started',step:-1});}
+};
+KW.setFreeStep=function(step){
+  // 自由練習内のモード選択(なぞり/見て書く/見ないで書く)。setStepと同じ外形/ゴースト/leniencyだが
+  // onComplete/onMistakeを登録しない=採点イベントをpostしない(前進/記録が起きない契約)。
+  curStep=step;free=true;
+  var showOutline=(step===0);
+  var len=(step===2?1.0:(step===1?1.2:1.4));
+  writer=make({showCharacter:false,showOutline:showOutline,leniency:len});
+  if(step===0){writer.animateCharacter();}
+  writer.quiz({
+    showHintAfterMisses: step===0?1:(step===1?3:999),
+    highlightOnComplete:true
+  });
+  post({type:'started',step:-1});
 };
 KW.animate=function(){if(writer)writer.animateCharacter();};
 KW.showAnswer=function(){if(!writer)return;writer.showOutline();writer.animateCharacter();};
-KW.clear=function(){if(writer&&writer.cancelQuiz){writer.cancelQuiz();} if(free){KW.setFree(true);} else {KW.setStep(curStep);}};
+KW.clear=function(){if(writer&&writer.cancelQuiz){writer.cancelQuiz();} if(free){KW.setFreeStep(curStep);} else {KW.setStep(curStep);}};
 window.KW=KW;
 window.addEventListener('resize',function(){if(window._grid)drawGrid(window._grid);});
 post({type:'ready'});

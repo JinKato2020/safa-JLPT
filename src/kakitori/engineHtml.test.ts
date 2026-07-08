@@ -5,7 +5,7 @@ import { buildEngineHtml } from './engineHtml.ts';
 
 test('必要なJS APIとグリッド種別を含む', () => {
   const h = buildEngineHtml();
-  for (const api of ['KW.load', 'setStep', 'setGrid', 'setColors', 'setSpeed', 'animate', 'showAnswer', 'setFree']) {
+  for (const api of ['KW.load', 'setStep', 'setGrid', 'setColors', 'setSpeed', 'animate', 'showAnswer', 'setFree', 'setFreeStep']) {
     assert.ok(h.includes(api), 'missing ' + api);
   }
   for (const g of ['ta', 'kome', 'none']) assert.ok(h.includes(g));

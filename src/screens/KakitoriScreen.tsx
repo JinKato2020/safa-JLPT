@@ -89,6 +89,8 @@ export default function KakitoriScreen() {
   const speed = state.settings.kakitoriSpeed ?? 'normal';
   const sound = state.settings.kakitoriSound ?? true;
   const [free, setFree] = useState(state.settings.kakitoriMode === 'free');
+  // 自由練習内の3モード選択(なぞり/見て書く/見ないで書く)。採点/前進には関与しない=セッション内stateのみ。
+  const [freeStep, setFreeStepState] = useState(0);
   const readyRef = useRef(false);
 
   const [idx, setIdx] = useState(0);
@@ -110,12 +112,12 @@ export default function KakitoriScreen() {
     try {
       const data = await fetchCharData(ch);
       inject(`KW.setColors(${JSON.stringify({ stroke: c.blue, outline: c.line, grid: c.mute, highlight: '#22c55e' })}); KW.setGrid(${JSON.stringify(grid)}); KW.setSpeed(${JSON.stringify(speed)}); KW.load(${JSON.stringify(ch)}, ${JSON.stringify(data)});`);
-      if (free) inject('KW.setFree(true)'); else inject(`KW.setStep(${st})`);
+      if (free) inject(`KW.setFreeStep(${st})`); else inject(`KW.setStep(${st})`);
       setLoading(false);
     } catch { setLoading(false); setError(true); }
   };
 
-  useEffect(() => { if (readyRef.current && !done) loadChar(char, step); }, [grid, speed, free]);
+  useEffect(() => { if (readyRef.current && !done) loadChar(char, free ? freeStep : step); }, [grid, speed, free, freeStep]);
 
   useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
 
@@ -145,7 +147,7 @@ export default function KakitoriScreen() {
   const onMessage = (e: WebViewMessageEvent) => {
     let m: { type?: string; mistakes?: number };
     try { m = JSON.parse(e.nativeEvent.data); } catch { return; }
-    if (m.type === 'ready') { readyRef.current = true; if (!done) loadChar(char, step); return; }
+    if (m.type === 'ready') { readyRef.current = true; if (!done) loadChar(char, free ? freeStep : step); return; }
     if (m.type === 'mistake') { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {}); return; }
     if (m.type === 'complete') {
       const score = scoreForMistakes(m.mistakes ?? 0);
@@ -182,7 +184,7 @@ export default function KakitoriScreen() {
       </View>
       <ScrollView contentContainerStyle={s.body}>
         <View style={s.infoRow}>
-          <Text style={s.infoChar}>{step === 2 && !free ? '？' : char}</Text>
+          <Text style={s.infoChar}>{(free ? freeStep : step) === 2 ? '？' : char}</Text>
           <View style={{ flex: 1 }}>
             <Text style={s.infoReading}>{readingLine(char)}</Text>
             <Text style={s.infoMeaning} numberOfLines={1}>{info?.meaning ?? ''}</Text>
@@ -198,6 +200,19 @@ export default function KakitoriScreen() {
                 <View style={[s.dot, i <= step && s.dotOn]} />
                 <Text style={[s.dotLabel, i === step && s.dotLabelOn]}>{t(STEP_KEYS[i])}</Text>
               </View>
+            ))}
+          </View>
+        )}
+        {free && (
+          <View style={s.toolbar}>
+            {[0, 1, 2].map((i) => (
+              <Pressable
+                key={i}
+                onPress={() => setFreeStepState(i)}
+                style={[s.tool, freeStep === i && s.toolOn]}
+              >
+                <Text style={[s.toolTxt, freeStep === i && s.toolTxtOn]}>{t(STEP_KEYS[i])}</Text>
+              </Pressable>
             ))}
           </View>
         )}
