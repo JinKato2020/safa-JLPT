@@ -15,6 +15,7 @@ import { buildEngineHtml } from '../kakitori/engineHtml';
 import { fetchCharData } from '../kakitori/charData';
 import { scoreForMistakes } from '../kakitori/scoring';
 import { kakitoriDueToday } from '../kakitori/srs';
+import { kakitoriDrillQueue } from '../kakitori/queue';
 import levelReadings from '../data/kanjiLevelReadings.json';
 import type { RootStackParamList } from '../navigation/types';
 import type { Level } from '../engine/engine';
@@ -82,7 +83,7 @@ export default function KakitoriScreen() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const chars = useMemo(() => {
     if (mode === 'review') { const d = kakitoriDueToday(state.kakitori, dayOf(Date.now())); return d.length ? d : kanjiListFor(level); }
-    return kanjiListFor(level);
+    return kakitoriDrillQueue(state.kakitori, kanjiListFor(level), dayOf(Date.now()));
   }, [mode, level]);
 
   const grid = state.settings.kakitoriGrid ?? 'kome';
