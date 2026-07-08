@@ -153,6 +153,7 @@ export default function KakitoriScreen() {
     if (m.type === 'ready') { readyRef.current = true; if (!done) loadChar(char, free ? freeStep : step); return; }
     if (m.type === 'mistake') { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {}); return; }
     if (m.type === 'complete') {
+      if (free) return;
       const score = scoreForMistakes(m.mistakes ?? 0);
       recordKakitori(char, step + 1, score, { skipped: false, now: Date.now() });
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
