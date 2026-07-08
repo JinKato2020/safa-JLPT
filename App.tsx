@@ -26,6 +26,7 @@ import ListeningScreen from './src/screens/ListeningScreen';
 import BrowseScreen from './src/screens/BrowseScreen';
 import CardsScreen from './src/screens/CardsScreen';
 import KakitoriScreen from './src/screens/KakitoriScreen';
+import KanjiDetailScreen from './src/screens/KanjiDetailScreen';
 import TourOverlay from './src/components/TourOverlay';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers } from './src/telemetry/telemetry';
@@ -165,6 +166,7 @@ function Root() {
             <RootStack.Screen name="Listening" component={ListeningScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Browse" component={BrowseScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Kakitori" component={KakitoriScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="KanjiDetail" component={KanjiDetailScreen} options={{ presentation: 'modal' }} />
           </>
         )}
       </RootStack.Navigator>

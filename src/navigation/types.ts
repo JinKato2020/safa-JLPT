@@ -12,4 +12,5 @@ export type RootStackParamList = {
   Listening: { subtype?: 'kadai' | 'point' | 'gaiyou' | 'hatsuwa' | 'sokuji' } | undefined; // 聴解(小区分つき)
   Browse: { view?: 'kanji' | 'vocab' | 'grammar' } | undefined; // 辞書(カードのリンクから開くモーダル)
   Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review'; char?: string } | undefined; // 漢字書き取り(サンプル10字・3ステップ、単字自由練習対応)
+  KanjiDetail: { char: string }; // 漢字詳細(全読み＋例語＋書き取り練習への導線)
 };
