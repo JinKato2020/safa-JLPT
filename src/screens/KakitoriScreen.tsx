@@ -78,10 +78,12 @@ export default function KakitoriScreen() {
 
   const level = (route.params?.level ?? state.settings.level) as Level;
   const mode = route.params?.mode ?? 'drill';
+  const singleChar = route.params?.char;
   // 復習キューはセッション開始時のスナップショットで固定する。
   // mastering中に state.kakitori が変わっても due リストを揺らさない(idxズレ防止)。
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const chars = useMemo(() => {
+    if (singleChar) return [singleChar];
     if (mode === 'review') { const d = kakitoriDueToday(state.kakitori, dayOf(Date.now())); return d.length ? d : kanjiListFor(level); }
     return kakitoriDrillQueue(state.kakitori, kanjiListFor(level), dayOf(Date.now()));
   }, [mode, level]);
@@ -89,7 +91,7 @@ export default function KakitoriScreen() {
   const grid = state.settings.kakitoriGrid ?? 'kome';
   const speed = state.settings.kakitoriSpeed ?? 'normal';
   const sound = state.settings.kakitoriSound ?? true;
-  const [free, setFree] = useState(state.settings.kakitoriMode === 'free');
+  const [free, setFree] = useState(singleChar ? true : state.settings.kakitoriMode === 'free');
   // 自由練習内の3モード選択(なぞり/見て書く/見ないで書く)。採点/前進には関与しない=セッション内stateのみ。
   const [freeStep, setFreeStepState] = useState(0);
   const readyRef = useRef(false);
