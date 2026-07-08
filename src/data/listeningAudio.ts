@@ -6,9 +6,10 @@
 //  生成: data-build/gen_listening_audio.py。
 import * as FileSystemNS from 'expo-file-system/legacy';
 import { Platform } from 'react-native';
+import { AUDIO_BASE_URL } from './audioBase';
 
 // 配信元(GitHub Pages)。assets/audio/ に全mp3。repo/移行時はこの1行だけ差し替え。
-export const AUDIO_BASE_URL = 'https://jinkato2020.github.io/safa-JLPT/assets/audio/';
+export { AUDIO_BASE_URL };
 
 export type AudioSource = { uri: string };
 
