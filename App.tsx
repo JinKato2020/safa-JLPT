@@ -43,7 +43,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const TABS = [
   { name: 'ホーム', component: HomeScreen, icon: 'home', iconOff: 'home-outline', labelKey: 'nav.home' },
-  { name: 'カード', component: CardsScreen, icon: 'albums', iconOff: 'albums-outline', labelKey: 'cards.tab' },
+  { name: 'カード', component: CardsScreen, icon: 'language', iconOff: 'language-outline', labelKey: 'cards.tab' },
   { name: '学習', component: StudyScreen, icon: 'book', iconOff: 'book-outline', labelKey: 'study.tab' },
   { name: 'テスト', component: TestScreen, icon: 'clipboard', iconOff: 'clipboard-outline', labelKey: 'test.tab' },
   { name: '設定', component: ProfileScreen, icon: 'settings', iconOff: 'settings-outline', labelKey: 'profile.tab' },
