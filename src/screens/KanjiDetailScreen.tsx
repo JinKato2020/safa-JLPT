@@ -12,6 +12,7 @@ import { KANJI, KANJI_CARD_READINGS, meaningIn } from '../data';
 import type { KanjiCardReadingEntry } from '../data';
 import { useT } from '../i18n';
 import RubyText from '../components/RubyText';
+import { rubyForWord } from '../kakitori/furigana';
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 
@@ -23,7 +24,7 @@ function fullWordReadingLines(char: string): { on: CardLine[]; kun: CardLine[] }
   const map = (list: KanjiCardReadingEntry[], isOn: boolean): CardLine[] =>
     list.map((e) => ({
       label: isOn ? hiraToKata(e.reading) : e.reading,
-      furiWord: `${e.word}（${e.wordReading}）`,
+      furiWord: rubyForWord(e.word, e.wordReading),
     }));
   return { on: map(d.on, true), kun: map(d.kun, false) };
 }
