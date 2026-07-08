@@ -220,7 +220,7 @@
  "onboarding.start": "スタート",
  "onboarding.title": "はじめましょう",
  "profile.dataSource": "データ出典",
- "profile.dataSourceBody": "・JLPTレベル区分・語彙リスト：Jonathan Waller（tanos.co.uk／CC BY）\n・辞書データ（漢字・語彙の意味）：JMdict・KANJIDIC2 © EDRDG（CC BY-SA／一部改変）\n・漢字の筆順・書き取り：HanziWriter © Jack Huang（MITライセンス）",
+ "profile.dataSourceBody": "・JLPTレベル区分・語彙リスト：Jonathan Waller（tanos.co.uk／CC BY）\n・辞書データ（漢字・語彙の意味）：JMdict・KANJIDIC2 © EDRDG（CC BY-SA／一部改変）\n・漢字の筆順・書き取り：HanziWriter © Jack Huang（MITライセンス）\n・漢字の筆順・書き取りデータ：animCJK（parsimonhi）／Arphic Public License",
  "profile.examDate": "試験日",
  "profile.examDaysLeft": "（あと{n}日）",
  "profile.examJftHint": "JFT-Basicは随時実施(CBT)。予約した試験日をカレンダーで選んでください。",
