@@ -1,33 +1,17 @@
-// 字形データ(hanzi-writer-data)の取得＋端末キャッシュ。WebViewはネットに触れず、
-// ここで得た生JSONを KW.load(char, json) で注入する。[[expo-fs-legacy-sdk54]]
-import * as FileSystem from 'expo-file-system/legacy';
+// 漢字の筆画データ(animCJK日本語・HanziWriter形式)を同梱JSONから同期ルックアップする。
+// WebViewはネットに触れず、ここで得たJSONを KW.load(char, json) で注入する。完全オフライン。
+import strokes from '../data/kakitoriStrokes.json';
 
-const BASE = 'https://cdn.jsdelivr.net/npm/hanzi-writer-data@2';
-const DIR = FileSystem.cacheDirectory + 'hwdata/';
+type Entry = { strokes: string[]; medians: number[][][] };
+const DATA = strokes as Record<string, Entry>;
 
-export function charDataUrl(char: string): string {
-  return `${BASE}/${encodeURIComponent(char)}.json`;
+export function hasCharData(char: string): boolean {
+  return Object.prototype.hasOwnProperty.call(DATA, char);
 }
 
-function cachePath(char: string): string {
-  return DIR + char.codePointAt(0)!.toString(16) + '.json';
-}
-
-async function ensureDir(): Promise<void> {
-  const info = await FileSystem.getInfoAsync(DIR);
-  if (!info.exists) await FileSystem.makeDirectoryAsync(DIR, { intermediates: true });
-}
-
-/** 字形JSON(生文字列)を返す。キャッシュ優先→無ければDLして保存。失敗時throw。 */
+/** 同梱の字形JSON(生文字列)を返す。互換のためPromise。収録外はreject(呼び出し側はエラーUI)。 */
 export async function fetchCharData(char: string): Promise<string> {
-  await ensureDir();
-  const path = cachePath(char);
-  const cached = await FileSystem.getInfoAsync(path);
-  if (cached.exists) {
-    const s = await FileSystem.readAsStringAsync(path);
-    if (s && s.length > 0) return s;
-  }
-  const res = await FileSystem.downloadAsync(charDataUrl(char), path);
-  if (res.status !== 200) throw new Error('char data ' + res.status);
-  return await FileSystem.readAsStringAsync(path);
+  const e = DATA[char];
+  if (!e) throw new Error('no stroke data: ' + char);
+  return JSON.stringify(e);
 }
