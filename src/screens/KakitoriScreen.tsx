@@ -7,6 +7,7 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { WebView, type WebViewMessageEvent } from 'react-native-webview';
 import * as Speech from 'expo-speech';
 import * as Haptics from 'expo-haptics';
+import { Audio } from 'expo-av';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { kanjiListFor, kanjiInfo } from '../kakitori/list';
@@ -87,7 +88,21 @@ export default function KakitoriScreen() {
 
   useEffect(() => { if (readyRef.current && !done) loadChar(char, step); }, [grid, speed, free]);
 
-  const speak = (ch: string) => { if (!sound) return; const r = readingLine(ch); if (r) Speech.speak(r.split('・')[0], { language: 'ja-JP' }); };
+  useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
+
+  const speakReading = (ch: string): string => {
+    const r = readingLine(ch);
+    if (r) return r.split('・')[0];
+    const info = kanjiInfo(ch);            // 読み欠けは kanji.json の音/訓 先頭へフォールバック
+    const on = (info?.on ?? '').split('、')[0].split('・')[0];
+    const kun = (info?.kun ?? '').split('、')[0].split('.')[0];
+    return on || kun || '';
+  };
+  const speak = (ch: string, opts?: { manual?: boolean }) => {
+    if (!opts?.manual && !sound) return;   // 自動読み上げのみ設定に従う。手動🔊は常時
+    const r = speakReading(ch);
+    if (r) Speech.speak(r, { language: 'ja-JP' });
+  };
 
   // 自動/手動を単一の前進関数に集約(タイミング競合を断つ)。
   const advance = () => {
@@ -138,13 +153,13 @@ export default function KakitoriScreen() {
       </View>
       <ScrollView contentContainerStyle={s.body}>
         <View style={s.infoRow}>
-          <Text style={s.infoChar}>{char}</Text>
+          <Text style={s.infoChar}>{step === 2 && !free ? '？' : char}</Text>
           <View style={{ flex: 1 }}>
             <Text style={s.infoReading}>{readingLine(char)}</Text>
             <Text style={s.infoMeaning} numberOfLines={1}>{info?.meaning ?? ''}</Text>
             {!!exampleWord(char) && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
           </View>
-          <Pressable onPress={() => speak(char)} hitSlop={10}><Text style={s.speak}>🔊</Text></Pressable>
+          <Pressable onPress={() => speak(char, { manual: true })} hitSlop={10}><Text style={s.speak}>🔊</Text></Pressable>
         </View>
 
         {!free && (
