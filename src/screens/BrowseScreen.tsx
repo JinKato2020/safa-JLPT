@@ -4,6 +4,9 @@ import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
+import * as Speech from 'expo-speech';
+import { playVocab } from '../data/vocabAudio';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
@@ -150,6 +153,11 @@ export default function BrowseScreen() {
   };
 
   const renderItem = ({ item }: { item: StudyItem }) => {
+    const playWord = (id: string, reading: string) => {
+      playVocab(id).then((ok) => {
+        if (!ok && reading) Speech.speak(reading, { language: 'ja-JP' });
+      });
+    };
     const rowInner = (
       <>
       <View style={s.rowMain}>
@@ -232,6 +240,21 @@ export default function BrowseScreen() {
         <Pressable style={s.row} onPress={() => nav.navigate('KanjiDetail', { char: item.char })}>
           {rowInner}
         </Pressable>
+      );
+    }
+    if (item.type === 'vocab') {
+      return (
+        <View style={s.row}>
+          {rowInner}
+          <Pressable
+            style={s.playBtn}
+            hitSlop={10}
+            onPress={() => playWord(item.id, item.reading)}
+            accessibilityLabel={`${item.word} を再生`}
+          >
+            <Ionicons name="play" size={20} color={c.mute} />
+          </Pressable>
+        </View>
       );
     }
     return <View style={s.row}>{rowInner}</View>;
@@ -331,6 +354,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     marginTop: spacing.sm,
     gap: spacing.sm,
   },
+  playBtn: { paddingLeft: 10, paddingVertical: 4, alignSelf: 'center' },
   rowMain: { flex: 1, gap: 2 },
   // App Bのリスト見出しに合わせ、見出し語は明朝(Shippori Mincho)で上質に。
   term: { fontSize: ty.h2, fontFamily: 'ShipporiMincho-Bold', color: c.ink, letterSpacing: 0.3 },
