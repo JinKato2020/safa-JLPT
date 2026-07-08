@@ -6,6 +6,7 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import * as Speech from 'expo-speech';
+import { Audio } from 'expo-av';
 import { playVocab } from '../data/vocabAudio';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -76,6 +77,8 @@ export default function BrowseScreen() {
   const [kubun, setKubun] = useState<Kubun>(route.params?.view ?? 'vocab');
   const [level, setLevel] = useState<string>(settings.level); // 'all' または N5..N1
   const [query, setQuery] = useState('');
+
+  useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
 
   // 共有辞書(単一ソース=Pages配信)を取得＋キャッシュ。読めるまでは同梱データで表示(オフラインfallback)。
   const [shared, setShared] = useState<SharedDict | null>(null);

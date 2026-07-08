@@ -9,7 +9,8 @@ const FS = FileSystemNS as unknown as {
   documentDirectory?: string | null;
   makeDirectoryAsync?: (uri: string, opts?: { intermediates?: boolean }) => Promise<void>;
   getInfoAsync?: (uri: string) => Promise<{ exists: boolean }>;
-  downloadAsync?: (url: string, dest: string) => Promise<{ uri: string }>;
+  downloadAsync?: (url: string, dest: string) => Promise<{ uri: string; status?: number }>;
+  deleteAsync?: (uri: string, opts?: { idempotent?: boolean }) => Promise<void>;
 };
 const cacheDir = Platform.OS !== 'web' && FS.documentDirectory ? `${FS.documentDirectory}vocab/` : null;
 const CACHEABLE = !!cacheDir && typeof FS.downloadAsync === 'function' && typeof FS.getInfoAsync === 'function';
@@ -30,6 +31,10 @@ async function resolveSource(id: string): Promise<{ uri: string }> {
     const info = await FS.getInfoAsync!(local);
     if (info?.exists) return { uri: local };
     const dl = await FS.downloadAsync!(url, local);
+    if (dl.status && dl.status !== 200) {
+      try { await FS.deleteAsync?.(local, { idempotent: true }); } catch { /* noop */ }
+      return { uri: url };
+    }
     return { uri: dl.uri };
   } catch {
     return { uri: url };
