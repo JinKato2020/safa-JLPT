@@ -1,7 +1,7 @@
 // 漢字書き取り(級別・3ステップ)。描画/採点/書き順はエンジンWebView(HanziWriter同梱)に委譲。
 // フロー: なぞり(外形+アニメ)→見て書く→見ないで書く。自動合格＋常時[次へ/スキップ]で詰み防止。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ActivityIndicator, Platform, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ActivityIndicator, Platform, ScrollView, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { WebView, type WebViewMessageEvent } from 'react-native-webview';
@@ -34,6 +34,35 @@ function exampleWord(char: string): string {
   return ex ? `${ex[0]}（${ex[1]}）` : '';
 }
 function dayOf(now: number): string { const d = new Date(now); const m = String(d.getMonth() + 1).padStart(2, '0'); const day = String(d.getDate()).padStart(2, '0'); return `${d.getFullYear()}-${m}-${day}`; }
+
+// 軽量な自作プルダウン(グリッド/速度で共通利用)。押すと透明Modalで選択肢を表示。
+function Dropdown<T extends string>({ value, options, labelFor, onSelect, s }: {
+  value: T; options: readonly T[]; labelFor: (v: T) => string; onSelect: (v: T) => void; s: ReturnType<typeof makeStyles>;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Pressable onPress={() => setOpen(true)} style={s.tool}>
+        <Text style={s.toolTxt}>{labelFor(value)} ▾</Text>
+      </Pressable>
+      <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
+        <Pressable style={s.menuBackdrop} onPress={() => setOpen(false)}>
+          <View style={s.menu}>
+            {options.map((opt) => (
+              <Pressable
+                key={opt}
+                onPress={() => { onSelect(opt); setOpen(false); }}
+                style={[s.tool, s.menuItem, value === opt && s.toolOn]}
+              >
+                <Text style={[s.toolTxt, value === opt && s.toolTxtOn]}>{labelFor(opt)}</Text>
+              </Pressable>
+            ))}
+          </View>
+        </Pressable>
+      </Modal>
+    </>
+  );
+}
 
 export default function KakitoriScreen() {
   const nav = useNavigation();
@@ -182,17 +211,8 @@ export default function KakitoriScreen() {
         </View>
 
         <View style={s.toolbar}>
-          {GRIDS.map((g) => (
-            <Pressable key={g} onPress={() => setSettings({ kakitoriGrid: g })} style={[s.tool, grid === g && s.toolOn]}>
-              <Text style={[s.toolTxt, grid === g && s.toolTxtOn]}>{t('kakitori.grid_' + g)}</Text>
-            </Pressable>
-          ))}
-          <Pressable
-            onPress={() => { const i = SPEEDS.indexOf(speed); setSettings({ kakitoriSpeed: SPEEDS[(i + 1) % SPEEDS.length] }); }}
-            style={s.tool}
-          >
-            <Text style={s.toolTxt}>{t('kakitori.speed_' + speed)}</Text>
-          </Pressable>
+          <Dropdown value={grid} options={GRIDS} labelFor={(g) => t('kakitori.grid_' + g)} onSelect={(g) => setSettings({ kakitoriGrid: g })} s={s} />
+          <Dropdown value={speed} options={SPEEDS} labelFor={(sp) => t('kakitori.speed_' + sp)} onSelect={(sp) => setSettings({ kakitoriSpeed: sp })} s={s} />
           <Pressable
             onPress={() => { const nf = !free; setSettings({ kakitoriMode: nf ? 'free' : 'drill' }); setFree(nf); }}
             style={[s.tool, free && s.toolOn]}
@@ -201,8 +221,7 @@ export default function KakitoriScreen() {
           </Pressable>
         </View>
         <View style={s.toolbar}>
-          <Pressable onPress={() => { if (readyRef.current) inject('KW.animate()'); }} style={s.tool}><Text style={s.toolTxt}>↻ {t('kakitori.show_model')}</Text></Pressable>
-          <Pressable onPress={() => { if (readyRef.current) inject('KW.showAnswer()'); }} style={s.tool}><Text style={s.toolTxt}>{t('kakitori.hint')}</Text></Pressable>
+          <Pressable onPress={() => { if (readyRef.current) inject('KW.showAnswer()'); }} style={s.tool}><Text style={s.toolTxt}>↻ {t('kakitori.show_model')}</Text></Pressable>
           <Pressable onPress={() => { if (readyRef.current) inject('KW.clear()'); }} style={s.tool}><Text style={s.toolTxt}>{t('kakitori.clear')}</Text></Pressable>
         </View>
 
@@ -241,6 +260,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   toolbar: { flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.md, paddingHorizontal: spacing.lg },
   tool: { paddingVertical: spacing.xs, paddingHorizontal: spacing.md, borderRadius: radius.md, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line },
   toolOn: { backgroundColor: c.blue, borderColor: c.blue }, toolTxt: { fontSize: ty.small, fontWeight: '700', color: c.ink }, toolTxtOn: { color: '#fff' },
+  menuBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.3)', alignItems: 'center', justifyContent: 'center' },
+  menu: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.sm, gap: spacing.xs, minWidth: 160 },
+  menuItem: { alignItems: 'center' },
   actions: { flexDirection: 'row', gap: spacing.md, paddingHorizontal: spacing.lg, marginTop: spacing.lg },
   actBtn: { flex: 1, paddingVertical: spacing.md, borderRadius: radius.md, alignItems: 'center' },
   actGhost: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line }, actGhostTxt: { fontSize: ty.body, fontWeight: '800', color: c.mute },
