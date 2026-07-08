@@ -2,12 +2,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRoute, type RouteProp } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_CARD_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
-import type { KanjiCardReadingEntry } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_LEVEL_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
+import type { KanjiLevelReading } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { loadSharedDict, syncDictCache, type SharedDict } from '../../shared/JLPT-Listening/dict/dictRemote';
@@ -15,6 +16,9 @@ import { buildDictMaps, sharedVocabItems, sharedKanjiItems } from '../data/dictV
 import { useT } from '../i18n';
 import { highlightSegments } from '../quiz/highlight';
 import RubyText from '../components/RubyText';
+import { rubyForWord } from '../kakitori/furigana';
+
+type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 type Kubun = 'vocab' | 'kanji' | 'grammar';
 const KUBUN: { key: Kubun; labelKey: string }[] = [
@@ -32,39 +36,24 @@ function haystack(it: StudyItem): string {
 }
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
-const kataToHira = (s: string): string => s.replace(/[ァ-ヶ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60));
 
-// 漢字カードの音訓＋例語(KANJI_CARD_READINGS=本アプリ作成・KANJIDIC範囲内で検証済み)。
-// 読み(音=カタカナ/訓=ひらがな)＋例語(語＋語全体の読み)を構造化して返す。例語はルビ表示する。
-interface CardLine { label: string; word: string; wordReading: string; furiWord: string; }
+// 漢字カードの音訓＋例語(KANJI_LEVEL_READINGS=対象レベルの語彙で実際に使われる読みのみ・級外は除外)。
+// 読み(音=カタカナ/訓=ひらがな)＋例語(語全体ルビ=全漢字が読める形)を構造化して返す。
+interface CardLine { label: string; furiWord: string; }
 function cardReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
-  const d = KANJI_CARD_READINGS[char];
-  if (!d) return { on: [], kun: [] };
-  // 例語のルビは「その漢字が担う読み」だけを漢字の上に付ける(送り仮名や他の漢字にはルビを付けない)。
-  // 例: 上げる → 上（あ）げる。ルビ用の読みは常にひらがな(音読みも kataToHira でひらがな化)。
-  const map = (list: KanjiCardReadingEntry[], isOn: boolean): CardLine[] =>
-    list.map((e) => {
-      const rubyKana = kataToHira(e.reading);
-      const furiWord = e.word.includes(char) ? e.word.replace(char, `${char}（${rubyKana}）`) : `${char}（${rubyKana}）`;
-      return { label: isOn ? hiraToKata(e.reading) : e.reading, word: e.word, wordReading: e.wordReading, furiWord };
-    });
-  return { on: map(d.on, true), kun: map(d.kun, false) };
-}
-
-// 見出し行の読み要約。検証済みKANJI_CARD_READINGS(整った常用読み・全学習漢字を網羅)から生成する。
-// 生KANJIDIC(item.on/kun)は「上」の -うえ 等の位置記号や たてまつ.る 等の文語・級外読みまで含み、
-// JLPT学習者(特にN5)には不要な知識を見出しに出してしまうため使わない。未収録漢字のみ生データを整形(記号除去)。
-function headReading(char: string, rawOn: string, rawKun: string): { on: string; kun: string } {
-  const d = KANJI_CARD_READINGS[char];
-  if (d) {
+  const list = KANJI_LEVEL_READINGS[char];
+  if (!list || !list.length) return { on: [], kun: [] };
+  const mk = (e: KanjiLevelReading): CardLine | null => {
+    const [word, wordReading] = e.examples[0] ?? ['', ''];
+    if (!word) return null;
     return {
-      on: d.on.map((e) => hiraToKata(e.reading)).join('、'),
-      kun: d.kun.map((e) => e.reading).join('、'),
+      label: e.type === 'on' ? hiraToKata(e.reading) : e.reading,
+      furiWord: rubyForWord(word, wordReading),
     };
-  }
-  const clean = (s: string) =>
-    Array.from(new Set((s || '').split('、').map((r) => r.replace(/[.\-]/g, '')).filter(Boolean))).join('、');
-  return { on: clean(rawOn), kun: clean(rawKun) };
+  };
+  const on = list.filter((e) => e.type === 'on').map(mk).filter((x): x is CardLine => x != null);
+  const kun = list.filter((e) => e.type === 'kun').map(mk).filter((x): x is CardLine => x != null);
+  return { on, kun };
 }
 
 export default function BrowseScreen() {
@@ -72,6 +61,7 @@ export default function BrowseScreen() {
   const { settings, items } = useAppState();
   // 辞書は常にルビ表示(引くためのツールなので、レベル適応ゲートを免除して全漢字にルビ)。
   const rubyGate = (_run?: string) => true;
+  const nav = useNavigation<Nav>();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
@@ -159,8 +149,9 @@ export default function BrowseScreen() {
     );
   };
 
-  const renderItem = ({ item }: { item: StudyItem }) => (
-    <View style={s.row}>
+  const renderItem = ({ item }: { item: StudyItem }) => {
+    const rowInner = (
+      <>
       <View style={s.rowMain}>
         {item.type === 'vocab' ? (
           <>
@@ -186,10 +177,7 @@ export default function BrowseScreen() {
           </>
         ) : item.type === 'kanji' ? (
           <>
-            {(() => {
-              const hr = headReading(item.char, item.on, item.kun);
-              return <Text style={s.term}>{item.char}　<Text style={s.reading}>{hr.kun ? t('browse.kanjiReading', { on: hr.on, kun: hr.kun }) : t('browse.kanjiReading_on', { on: hr.on })}</Text></Text>;
-            })()}
+            <Text style={s.term}>{item.char}</Text>
             <Text style={s.meaning}>{nm(item.char) ?? item.meaning}</Text>
             {nm(item.char) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
             {(() => {
@@ -237,12 +225,24 @@ export default function BrowseScreen() {
       </View>
       <Text style={s.levelBadge}>{item.level}</Text>
       {statusMark(item)}
-    </View>
-  );
+      </>
+    );
+    if (item.type === 'kanji') {
+      return (
+        <Pressable style={s.row} onPress={() => nav.navigate('KanjiDetail', { char: item.char })}>
+          {rowInner}
+        </Pressable>
+      );
+    }
+    return <View style={s.row}>{rowInner}</View>;
+  };
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <View style={s.top}>
+        <Pressable onPress={() => nav.goBack()} hitSlop={12}>
+          <Text style={s.close}>×</Text>
+        </Pressable>
         <TextInput
           style={s.search}
           value={query}
@@ -292,6 +292,7 @@ export default function BrowseScreen() {
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
   top: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, padding: spacing.md },
+  close: { fontSize: 30, color: c.mute, fontWeight: '700' },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
   search: {
     flex: 1,
