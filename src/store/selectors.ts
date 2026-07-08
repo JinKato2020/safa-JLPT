@@ -240,7 +240,7 @@ export function learnedNow(state: AppState, now: number): number {
 }
 
 /** 漢字/語彙/文法 のカバー率(覚えた数/全体)。レベル(JFT=N5+N4)スコープ。"量"の指標=3バー表示用。
- *  大問化に伴い単体漢字カードは廃止＝漢字は「漢字を含む語」で計測。習得は語/文法がいずれかの大問で≥0.6(基底集約)。 */
+ *  漢字は漢字1字で計測(79/166/367)。習得は語/文法がいずれかの大問で≥0.6(基底集約)。 */
 export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vocab' | 'grammar'; learned: number; total: number }[] {
   const jft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const inScope = (lv: string) => (jft ? lv === 'N5' || lv === 'N4' : lv === state.settings.level);
@@ -255,7 +255,7 @@ export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vo
     return { learned, total };
   };
   return [
-    { key: 'kanji' as const, ...cov(VOCAB.filter((v) => hasKanji(v.word))) }, // 漢字を含む語(単体漢字は廃止)
+    { key: 'kanji' as const, ...cov(KANJI.filter((k) => k.type === 'kanji').map((k) => ({ id: k.id, level: k.level }))) }, // 漢字1字(79/166/367)
     { key: 'vocab' as const, ...cov(VOCAB) },
     { key: 'grammar' as const, ...cov(GRAMMAR) },
   ];
