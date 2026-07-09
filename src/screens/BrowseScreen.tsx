@@ -1,6 +1,6 @@
 // 一覧・検索(辞書/単語帳)。漢字/語彙/文法を検索＆一覧。各項目に習得状態を表示。出題のランダムと逆に「目的の語を探す」用。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-native';
+import { View, Text, Pressable, StyleSheet, TextInput, FlatList, SectionList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -22,6 +22,8 @@ import { highlightSegments } from '../quiz/highlight';
 import RubyText from '../components/RubyText';
 import { rubyForWord } from '../kakitori/furigana';
 import { levelListFor } from '../words/levelList';
+import { studySections } from '../words/sections';
+import { CAT_BY_ID } from '../data/categories';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -316,22 +318,45 @@ export default function BrowseScreen() {
 
       <Text style={s.count}>{t('browse.count', { n: results.length })}</Text>
 
-      <FlatList
-        key={`${kubun}-${effLevel}`}
-        data={results}
-        keyExtractor={(i) => i.id}
-        renderItem={renderItem}
-        initialNumToRender={20}
-        contentContainerStyle={s.listBody}
-        keyboardShouldPersistTaps="handled"
-        ListEmptyComponent={<Text style={s.empty}>{t('browse.empty')}</Text>}
-      />
+      {study ? (
+        <SectionList
+          key={`sec-${kubun}-${settings.level}`}
+          sections={studySections(kubun, results).map((sec) => ({ ...sec, key: sec.catId }))}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          renderSectionHeader={({ section }) => (
+            <View style={s.catHeaderWrap}>
+              {section.umbrella ? <Text style={s.catUmbrella}>{CAT_BY_ID[section.umbrella]?.label}</Text> : null}
+              <Text style={s.catHeader}>{section.label}</Text>
+            </View>
+          )}
+          stickySectionHeadersEnabled={false}
+          initialNumToRender={20}
+          contentContainerStyle={s.listBody}
+          keyboardShouldPersistTaps="handled"
+          ListEmptyComponent={<Text style={s.empty}>{t('browse.empty')}</Text>}
+        />
+      ) : (
+        <FlatList
+          key={`${kubun}-${effLevel}`}
+          data={results}
+          keyExtractor={(i) => i.id}
+          renderItem={renderItem}
+          initialNumToRender={20}
+          contentContainerStyle={s.listBody}
+          keyboardShouldPersistTaps="handled"
+          ListEmptyComponent={<Text style={s.empty}>{t('browse.empty')}</Text>}
+        />
+      )}
     </SafeAreaView>
   );
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
+  catHeaderWrap: { paddingHorizontal: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.sm, backgroundColor: c.bg },
+  catUmbrella: { fontSize: ty.small, fontWeight: '700', color: c.mute, letterSpacing: 1, marginBottom: 2 },
+  catHeader: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
   top: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, padding: spacing.md },
   close: { fontSize: 30, color: c.mute, fontWeight: '700' },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
