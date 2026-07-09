@@ -4,7 +4,7 @@ export interface MockHistoryEntry { day: string; full: boolean; pct?: number }
 
 function ym(now: number): string {
   const d = new Date(now);
-  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
 }
 
 /** 同一暦月にフル模試を受けていれば locked。next = 翌月1日。 */
