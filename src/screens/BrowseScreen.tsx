@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import * as Speech from 'expo-speech';
@@ -21,6 +21,7 @@ import { useT } from '../i18n';
 import { highlightSegments } from '../quiz/highlight';
 import RubyText from '../components/RubyText';
 import { rubyForWord } from '../kakitori/furigana';
+import { levelListFor } from '../words/levelList';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -73,8 +74,10 @@ export default function BrowseScreen() {
   // 母語(l1)の意味。無ければ undefined(=英語表示)。
   const nm = (key: string): string | undefined => (l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined);
 
-  const route = useRoute<RouteProp<RootStackParamList, 'Browse'>>();
-  const [kubun, setKubun] = useState<Kubun>(route.params?.view ?? 'vocab');
+  const route = useRoute();
+  const params = (route.params ?? {}) as { view?: Kubun; mode?: 'dict' | 'study' };
+  const study = params.mode === 'study';
+  const [kubun, setKubun] = useState<Kubun>(params.view ?? 'vocab');
   const [level, setLevel] = useState<string>(settings.level); // 'all' または N5..N1
   const [query, setQuery] = useState('');
 
@@ -97,10 +100,12 @@ export default function BrowseScreen() {
   // 辞書は共有辞書(remote)優先・未取得時は同梱にフォールバック。文法はJLPT固有(共有辞書に無い)=同梱のまま。
   const src = useMemo<StudyItem[]>(
     () =>
-      kubun === 'vocab' ? (sVocab ?? [...VOCAB, ...DICT_EXT_VOCAB])
-      : kubun === 'kanji' ? (sKanji ?? [...KANJI, ...DICT_EXT_KANJI])
-      : GRAMMAR,
-    [kubun, sVocab, sKanji],
+      study
+        ? levelListFor(kubun, settings.level)
+        : kubun === 'vocab' ? (sVocab ?? [...VOCAB, ...DICT_EXT_VOCAB])
+        : kubun === 'kanji' ? (sKanji ?? [...KANJI, ...DICT_EXT_KANJI])
+        : GRAMMAR,
+    [kubun, sVocab, sKanji, study, settings.level],
   );
   // 例文: 共有辞書があれば共有(語|読み / char)を、無ければ同梱を使う。
   const vocabExOf = (it: StudyItem & { type: 'vocab' }) =>
@@ -111,13 +116,14 @@ export default function BrowseScreen() {
   const effLevel = level === 'all' || availLevels.includes(level) ? level : 'all';
 
   const results = useMemo(() => {
+    if (study) return src; // 既に当該レベルのコアのみ・検索なし
     const byLevel =
       effLevel === 'all'
         ? [...src].sort((a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level)) // 全=N5→N1でソート
         : src.filter((i) => i.level === effLevel);
     const q = query.trim().toLowerCase();
     return q ? byLevel.filter((i) => haystack(i).includes(q)) : byLevel;
-  }, [src, effLevel, query]);
+  }, [src, effLevel, query, study]);
 
   const statusMark = (item: StudyItem) => {
     const st = items[item.id];
@@ -240,7 +246,7 @@ export default function BrowseScreen() {
     );
     if (item.type === 'kanji') {
       return (
-        <Pressable style={s.row} onPress={() => nav.navigate('KanjiDetail', { char: item.char })}>
+        <Pressable style={s.row} onPress={() => nav.navigate('KanjiDetail', { char: item.char, scope: study ? 'level' : 'all' })}>
           {rowInner}
         </Pressable>
       );
@@ -266,38 +272,47 @@ export default function BrowseScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <View style={s.top}>
-        <Pressable onPress={() => nav.goBack()} hitSlop={12}>
-          <Text style={s.close}>×</Text>
-        </Pressable>
-        <TextInput
-          style={s.search}
-          value={query}
-          onChangeText={setQuery}
-          placeholder={t('browse.searchPlaceholder')}
-          placeholderTextColor={c.faint}
-          autoCorrect={false}
-        />
+        {study || route.params ? (
+          <Pressable onPress={() => nav.goBack()} hitSlop={12}>
+            <Text style={s.close}>{study ? '←' : '×'}</Text>
+          </Pressable>
+        ) : <View style={{ width: 30 }} />}
+        {!study && (
+          <TextInput
+            style={s.search}
+            value={query}
+            onChangeText={setQuery}
+            placeholder={t('browse.searchPlaceholder')}
+            placeholderTextColor={c.faint}
+            autoCorrect={false}
+          />
+        )}
+        {study && <Text style={s.title}>{t(KUBUN.find((k) => k.key === kubun)!.labelKey)}</Text>}
       </View>
 
-      <View style={s.filters}>
-        {KUBUN.map((k) => (
-          <Pressable key={k.key} onPress={() => setKubun(k.key)} style={[s.chip, kubun === k.key && s.chipOn]}>
-            <Text style={[s.chipTxt, kubun === k.key && s.chipTxtOn]}>{t(k.labelKey)}</Text>
-          </Pressable>
-        ))}
-      </View>
+      {!study && (
+        <View style={s.filters}>
+          {KUBUN.map((k) => (
+            <Pressable key={k.key} onPress={() => setKubun(k.key)} style={[s.chip, kubun === k.key && s.chipOn]}>
+              <Text style={[s.chipTxt, kubun === k.key && s.chipTxtOn]}>{t(k.labelKey)}</Text>
+            </Pressable>
+          ))}
+        </View>
+      )}
 
       {/* レベル選択(全＝N5→N1ソート / 各級＝その級のみ)。区分に在るレベルだけ表示。 */}
-      <View style={[s.filters, s.filters2]}>
-        <Pressable onPress={() => setLevel('all')} style={[s.chip, effLevel === 'all' && s.chipOn]}>
-          <Text style={[s.chipTxt, effLevel === 'all' && s.chipTxtOn]}>{t('browse.allLevels')}</Text>
-        </Pressable>
-        {availLevels.map((l) => (
-          <Pressable key={l} onPress={() => setLevel(l)} style={[s.chip, effLevel === l && s.chipOn]}>
-            <Text style={[s.chipTxt, effLevel === l && s.chipTxtOn]}>{l}</Text>
+      {!study && (
+        <View style={[s.filters, s.filters2]}>
+          <Pressable onPress={() => setLevel('all')} style={[s.chip, effLevel === 'all' && s.chipOn]}>
+            <Text style={[s.chipTxt, effLevel === 'all' && s.chipTxtOn]}>{t('browse.allLevels')}</Text>
           </Pressable>
-        ))}
-      </View>
+          {availLevels.map((l) => (
+            <Pressable key={l} onPress={() => setLevel(l)} style={[s.chip, effLevel === l && s.chipOn]}>
+              <Text style={[s.chipTxt, effLevel === l && s.chipTxtOn]}>{l}</Text>
+            </Pressable>
+          ))}
+        </View>
+      )}
 
       <Text style={s.count}>{t('browse.count', { n: results.length })}</Text>
 
@@ -320,6 +335,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   top: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, padding: spacing.md },
   close: { fontSize: 30, color: c.mute, fontWeight: '700' },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
+  title: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
   search: {
     flex: 1,
     backgroundColor: c.surface,
