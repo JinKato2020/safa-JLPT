@@ -49,6 +49,7 @@ export default function ListeningQuizScreen() {
   const built = useMemo(() => {
     if (kind === 'vocab') {
       const pool: LQItem[] = (levelListFor('vocab', level) as { id: string; word: string; reading: string; meaning: string }[])
+        .filter((v) => !/[～~]/.test(v.word) && v.word !== 'では') // 非自立語(接辞/助詞)は音声出題に不適
         .map((v) => ({ id: v.id, word: v.word, reading: v.reading, meaning: (l1 && l1 !== 'en' ? meaningIn(v.id, l1) : undefined) ?? v.meaning }));
       const items = pickItems(pool, COUNT, Math.random);
       const questions = buildVocabQuiz(items, pool, Math.random);

@@ -22,3 +22,9 @@ test('grammar N4 は当該レベルの文法のみ', () => {
 test('存在しないレベルは空配列', () => {
   assert.deepEqual(levelListFor('kanji', 'N1').filter((i) => i.level !== 'N1'), []);
 });
+
+test('vocab: ～付きは素の基語があれば重複除外(前/～前)', () => {
+  const r = levelListFor('vocab', 'N5');
+  assert.ok(r.some((i) => i.word === '前'));
+  assert.ok(!r.some((i) => i.word === '～前'));
+});
