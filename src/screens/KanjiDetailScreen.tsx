@@ -1,6 +1,6 @@
 // 漢字詳細(モーダル)。BrowseScreenの辞書カードから開き、全読み(音訓)＋例語(語全体ルビ)＋
 // 書き取り練習への導線を提供する。BrowseScreenの意匠/RubyText/KANJI_CARD_READINGSを流用。
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
@@ -13,11 +13,17 @@ import type { KanjiCardReadingEntry } from '../data';
 import { useT } from '../i18n';
 import RubyText from '../components/RubyText';
 import { rubyForWord } from '../kakitori/furigana';
+import { Ionicons } from '@expo/vector-icons';
+import { Audio } from 'expo-av';
+import * as Speech from 'expo-speech';
+import { playVocab } from '../data/vocabAudio';
+import { vocabIdForWord } from '../words/vocabIndex';
+import kanjiDrillReps from '../data/kanjiDrillReps.json';
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 
 // 例語は「語全体」にルビ(その語の全漢字が読める形)。BrowseScreenの部分ルビ(対象字だけ)とは異なる。
-interface CardLine { label: string; furiWord: string; }
+interface CardLine { label: string; furiWord: string; word: string; wordReading: string; }
 function fullWordReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
   const d = KANJI_CARD_READINGS[char];
   if (!d) return { on: [], kun: [] };
@@ -25,6 +31,8 @@ function fullWordReadingLines(char: string): { on: CardLine[]; kun: CardLine[] }
     list.map((e) => ({
       label: isOn ? hiraToKata(e.reading) : e.reading,
       furiWord: rubyForWord(e.word, e.wordReading),
+      word: e.word,
+      wordReading: e.wordReading,
     }));
   return { on: map(d.on, true), kun: map(d.kun, false) };
 }
@@ -41,6 +49,8 @@ function levelWordReadingLines(char: string): { on: CardLine[]; kun: CardLine[] 
     const line: CardLine = {
       label: e.type === 'on' ? hiraToKata(e.reading) : e.reading,
       furiWord: ex ? rubyForWord(ex[0], ex[1]) : e.reading,
+      word: ex ? ex[0] : '',
+      wordReading: ex ? ex[1] : e.reading,
     };
     (e.type === 'on' ? on : kun).push(line);
   }
@@ -68,6 +78,19 @@ export default function KanjiDetailScreen() {
     [char, scope],
   );
 
+  useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
+  const playExample = (word: string, reading: string) => {
+    const id = word ? vocabIdForWord(word, reading) : null;
+    if (id) playVocab(id).then((ok) => { if (!ok && reading) Speech.speak(reading, { language: 'ja-JP' }); });
+    else if (reading) Speech.speak(reading, { language: 'ja-JP' });
+  };
+  // 代表語(reps)が例語に無ければ補完行を作る。
+  const rep = (kanjiDrillReps as Record<string, { bound: boolean; word: string; reading: string }>)[char];
+  const repLine: CardLine | null = rep && !rep.bound && rep.word
+    && ![...on, ...kun].some((l) => l.word === rep.word && l.wordReading === rep.reading)
+    ? { label: rep.reading, furiWord: rubyForWord(rep.word, rep.reading), word: rep.word, wordReading: rep.reading }
+    : null;
+
   const readLine = (tag: string, lines: CardLine[]) => (
     <View style={s.readLine} key={tag}>
       <Text style={s.readTag}>{tag}</Text>
@@ -77,6 +100,9 @@ export default function KanjiDetailScreen() {
           <View style={s.rubyWord}>
             <RubyText text={e.furiWord} style={s.readWord} rubyStyle={s.readRuby} />
           </View>
+          <Pressable style={s.exPlay} hitSlop={8} onPress={() => playExample(e.word, e.wordReading)}>
+            <Ionicons name="play" size={16} color={c.mute} />
+          </Pressable>
         </View>
       ))}
     </View>
@@ -100,6 +126,7 @@ export default function KanjiDetailScreen() {
           <View style={s.readingsBox}>
             {on.length ? readLine('音', on) : null}
             {kun.length ? readLine('訓', kun) : null}
+            {repLine ? readLine('例', [repLine]) : null}
           </View>
         ) : (
           <Text style={s.noData}>{t('kanjiDetail.noReadings')}</Text>
@@ -142,6 +169,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   rubyWord: { alignItems: 'center' },
   readWord: { fontSize: ty.body, color: c.ink },
   readRuby: { fontSize: 10, lineHeight: 12, color: c.faint, textAlign: 'center' },
+  exPlay: { paddingLeft: 6, paddingVertical: 2, alignSelf: 'center' },
   noData: { fontSize: ty.small, color: c.faint, marginTop: spacing.lg },
   cta: {
     alignSelf: 'stretch',

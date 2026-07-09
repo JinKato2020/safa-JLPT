@@ -6,3 +6,8 @@ export const AUDIO_BASE_URL = 'https://jinkato2020.github.io/safa-JLPT/assets/au
 export function vocabAudioUrl(id: string): string {
   return `${AUDIO_BASE_URL}vocab/${id}.mp3`;
 }
+
+/** 漢字代表音声のURL。char=漢字1字(例 川)。事前生成158字分・無ければ語彙mp3/TTSにフォールバック。 */
+export function kanjiAudioUrl(char: string): string {
+  return `${AUDIO_BASE_URL}kanji/${encodeURIComponent(char)}.mp3`;
+}

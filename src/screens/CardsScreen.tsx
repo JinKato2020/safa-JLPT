@@ -72,6 +72,12 @@ export default function CardsScreen() {
                 <Text style={s.chevron}>›</Text>
               </Pressable>
 
+              {(card.key === 'vocab' || card.key === 'kanji') ? (
+                <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('ListeningQuiz', { kind: card.key as 'vocab' | 'kanji' })}>
+                  <Text style={s.linkTxt}>🎧 {t('cards.listening')}</Text>
+                </Pressable>
+              ) : null}
+
               {card.key === 'kanji' && (
                 <>
                   {(() => {

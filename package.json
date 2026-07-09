@@ -9,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "tsc": "tsc --noEmit",
-    "test": "node --import tsx --test src/engine/engine.test.ts src/quiz/quiz.test.ts src/store/streak.test.ts src/store/badges.test.ts src/kakitori/scoring.test.ts src/kakitori/srs.test.ts src/kakitori/list.test.ts src/kakitori/progress.test.ts src/kakitori/charData.test.ts src/kakitori/engineHtml.test.ts src/kakitori/queue.test.ts src/kakitori/furigana.test.ts src/data/audioBase.test.ts src/mock/fullMockLock.test.ts src/words/levelList.test.ts",
+    "test": "node --import tsx --test src/engine/engine.test.ts src/quiz/quiz.test.ts src/store/streak.test.ts src/store/badges.test.ts src/kakitori/scoring.test.ts src/kakitori/srs.test.ts src/kakitori/list.test.ts src/kakitori/progress.test.ts src/kakitori/charData.test.ts src/kakitori/engineHtml.test.ts src/kakitori/queue.test.ts src/kakitori/furigana.test.ts src/data/audioBase.test.ts src/mock/fullMockLock.test.ts src/words/levelList.test.ts src/words/vocabIndex.test.ts src/listening/listeningQuiz.test.ts",
     "build:data": "python ../data-build/build_data.py && node ../data-build/dict/sync-dict.mjs",
     "build:dict": "node ../data-build/dict/build-all.mjs",
     "sync:dict": "node ../data-build/dict/sync-dict.mjs"
