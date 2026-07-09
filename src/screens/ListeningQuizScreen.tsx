@@ -35,8 +35,11 @@ export default function ListeningQuizScreen() {
 
   useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
 
+  // 1問がvocabIdとkanji char(mp3)を両方持つことは無い(kanji mp3は語彙に無い158字のみ収録)ため、
+  // 下のvocab→TTS / kanji→TTSの分岐は排他的であり、フォールバック先のTTSが常に最終段として正しい。
   const play = (vocabId: string | null, reading: string, char?: string) => {
-    const fallback = () => { if (reading) Speech.speak(reading, { language: 'ja-JP' }); };
+    const fallback = () => { Speech.stop(); if (reading) Speech.speak(reading, { language: 'ja-JP' }); };
+    Speech.stop(); // 連打による発話の重なり・キューイングを防止
     if (vocabId) playVocab(vocabId).then((ok) => { if (!ok) fallback(); });
     else if (char) playKanjiRep(char).then((ok) => { if (!ok) fallback(); });
     else fallback();

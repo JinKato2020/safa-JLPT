@@ -31,6 +31,34 @@ test('buildVocabQuiz: 4択・正解含む・label=意味', () => {
   assert.equal(q.audioReading, 'かいしゃ');
 });
 
+test('nearDistractors: backfillでも意味重複を選ばない(小プールで強制backfill)', () => {
+  // ck(会社)と共通漢字/読みが無いためscored=0件→全てbackfillに落ちる小プール。
+  // b/eが同じmeaning('dup')を持つ→backfillが両方選ぶと正解含め意味重複が起きる典型ケース。
+  const pool: LQItem[] = [
+    { id: 'x1', word: '桜', reading: 'さくら', meaning: 'cherry' },
+    { id: 'x2', word: '海', reading: 'うみ', meaning: 'dup' },
+    { id: 'x3', word: '山', reading: 'やま', meaning: 'dup' },
+    { id: 'x4', word: '空', reading: 'そら', meaning: 'sky' },
+  ];
+  const correct: LQItem = { id: 'c0', word: '会社', reading: 'かいしゃ', meaning: 'company' };
+  const d = nearDistractors(correct, pool, 3, rng0);
+  const meanings = d.map((x) => x.meaning);
+  assert.equal(new Set(meanings).size, meanings.length); // 誤答同士も重複なし
+  assert.ok(!meanings.includes('company')); // 正解の意味と重複しない
+});
+test('buildVocabQuiz: backfillが発生する小プールでも4択の意味labelが全て distinct', () => {
+  const pool: LQItem[] = [
+    { id: 'c0', word: '会社', reading: 'かいしゃ', meaning: 'company' },
+    { id: 'x1', word: '桜', reading: 'さくら', meaning: 'cherry' },
+    { id: 'x2', word: '海', reading: 'うみ', meaning: 'dup' },
+    { id: 'x3', word: '山', reading: 'やま', meaning: 'dup' },
+  ];
+  const qs = buildVocabQuiz([pool[0]], pool, rng0);
+  const q = qs[0];
+  assert.equal(new Set(q.choices).size, q.choices.length);
+  assert.equal(q.choices[q.answerIndex], 'company');
+});
+
 const KP: KanjiRep[] = [
   { id: 'k1', char: '火', level: 'N5', bound: false, word: '火', reading: 'ひ' },
   { id: 'k2', char: '水', level: 'N5', bound: false, word: '水', reading: 'みず' },

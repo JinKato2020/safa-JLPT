@@ -38,8 +38,15 @@ export function nearDistractors(correct: LQItem, pool: LQItem[], count: number, 
   const near = scored.filter((x) => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 20).map((x) => x.p);
   const chosen = shuffle(near, rng).slice(0, count);
   if (chosen.length < count) {
-    const have = new Set(chosen.map((x) => x.id).concat(correct.id));
-    for (const f of shuffle(pool.filter((p) => !have.has(p.id)), rng)) { if (chosen.length >= count) break; chosen.push(f); }
+    const haveIds = new Set(chosen.map((x) => x.id).concat(correct.id));
+    const haveMeanings = new Set(chosen.map((x) => x.meaning).concat(correct.meaning));
+    for (const f of shuffle(pool.filter((p) => !haveIds.has(p.id)), rng)) {
+      if (chosen.length >= count) break;
+      if (haveMeanings.has(f.meaning)) continue; // 意味重複はスコアリングの誤答扱いになるため必ず除外
+      chosen.push(f);
+      haveIds.add(f.id);
+      haveMeanings.add(f.meaning);
+    }
   }
   return chosen.slice(0, count);
 }
@@ -61,6 +68,15 @@ export function buildVocabQuiz(items: LQItem[], pool: LQItem[], rng: () => numbe
 export function nearKanjiDistractors(correct: KanjiRep, pool: KanjiRep[], count: number, rng: () => number): KanjiRep[] {
   const cand = pool.filter((p) => p.id !== correct.id && p.char !== correct.char && p.reading !== correct.reading);
   const chosen = shuffle(cand, rng).slice(0, count);
+  if (chosen.length < count) {
+    // 最終手段: 同音読み除外を緩めて補充(id/char重複のみ避ける)。現行データでは到達しない想定だがプール枯渇時の防御。
+    const have = new Set(chosen.map((x) => x.id).concat(correct.id));
+    for (const f of shuffle(pool.filter((p) => !have.has(p.id) && p.char !== correct.char), rng)) {
+      if (chosen.length >= count) break;
+      chosen.push(f);
+      have.add(f.id);
+    }
+  }
   return chosen.slice(0, count);
 }
 
