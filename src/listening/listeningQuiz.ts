@@ -7,6 +7,7 @@ export type LQQuestion = {
   answerId: string;
   audioVocabId: string | null; // mp3再生用(あればplayVocab、無ければTTS)
   audioReading: string;        // TTS用の読み
+  audioChar?: string;          // 漢字ドリル専用: kanji mp3再生用(audioVocabId無い時のフォールバック元)
   choices: string[];
   answerIndex: number;
 };
@@ -71,6 +72,7 @@ export function buildKanjiQuiz(items: KanjiRep[], pool: KanjiRep[], rng: () => n
       answerId: it.id,
       audioVocabId,
       audioReading: it.reading,
+      audioChar: it.char,
       choices: options.map((o) => o.char),
       answerIndex: options.findIndex((o) => o.id === it.id),
     };

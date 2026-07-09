@@ -11,7 +11,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState, useAppActions } from '../store/store';
 import { levelListFor } from '../words/levelList';
 import { KANJI, meaningIn } from '../data';
-import { playVocab } from '../data/vocabAudio';
+import { playVocab, playKanjiRep } from '../data/vocabAudio';
 import kanjiDrillReps from '../data/kanjiDrillReps.json';
 import { pickItems, buildVocabQuiz, buildKanjiQuiz, type LQItem, type KanjiRep } from '../listening/listeningQuiz';
 import type { RootStackParamList } from '../navigation/types';
@@ -35,9 +35,11 @@ export default function ListeningQuizScreen() {
 
   useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
 
-  const play = (vocabId: string | null, reading: string) => {
-    if (vocabId) playVocab(vocabId).then((ok) => { if (!ok && reading) Speech.speak(reading, { language: 'ja-JP' }); });
-    else if (reading) Speech.speak(reading, { language: 'ja-JP' });
+  const play = (vocabId: string | null, reading: string, char?: string) => {
+    const fallback = () => { if (reading) Speech.speak(reading, { language: 'ja-JP' }); };
+    if (vocabId) playVocab(vocabId).then((ok) => { if (!ok) fallback(); });
+    else if (char) playKanjiRep(char).then((ok) => { if (!ok) fallback(); });
+    else fallback();
   };
 
   // 出題(セッション固定)。学習行＋テスト問題を同一10件から生成。学習行の再生は対応する設問と同じ音声(questions[i])を使う。
@@ -47,7 +49,7 @@ export default function ListeningQuizScreen() {
         .map((v) => ({ id: v.id, word: v.word, reading: v.reading, meaning: (l1 && l1 !== 'en' ? meaningIn(v.id, l1) : undefined) ?? v.meaning }));
       const items = pickItems(pool, COUNT, Math.random);
       const questions = buildVocabQuiz(items, pool, Math.random);
-      const rows: StudyRow[] = items.map((it, i) => ({ key: it.id, main: it.word, sub: it.reading, meaning: it.meaning, play: () => play(questions[i].audioVocabId, questions[i].audioReading) }));
+      const rows: StudyRow[] = items.map((it, i) => ({ key: it.id, main: it.word, sub: it.reading, meaning: it.meaning, play: () => play(questions[i].audioVocabId, questions[i].audioReading, questions[i].audioChar) }));
       return { questions, rows };
     }
     const reps = kanjiDrillReps as Record<string, { level: string; bound: boolean; word: string; reading: string }>;
@@ -61,7 +63,7 @@ export default function ListeningQuizScreen() {
       main: it.char,
       sub: it.bound ? it.reading : `${it.word}（${it.reading}）`,
       meaning: meaningOf(it.id, it.char),
-      play: () => play(questions[i].audioVocabId, questions[i].audioReading),
+      play: () => play(questions[i].audioVocabId, questions[i].audioReading, questions[i].audioChar),
     }));
     return { questions, rows };
   }, [kind, level, l1]);
@@ -125,8 +127,8 @@ export default function ListeningQuizScreen() {
       <View style={s.head}><Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable><Text style={s.headTitle}>{idx + 1} / {questions.length}</Text><View style={{ width: 30 }} /></View>
       <ScrollView contentContainerStyle={s.body}>
         <Text style={s.prompt}>{t(kind === 'vocab' ? 'listening2.prompt_vocab' : 'listening2.prompt_kanji')}</Text>
-        <Pressable style={s.playBig} onPress={() => play(q.audioVocabId, q.audioReading)}><Ionicons name="volume-high" size={40} color="#fff" /></Pressable>
-        <Pressable style={s.playAgain} hitSlop={8} onPress={() => play(q.audioVocabId, q.audioReading)}><Text style={s.playAgainTxt}>{t('listening2.again')}</Text></Pressable>
+        <Pressable style={s.playBig} onPress={() => play(q.audioVocabId, q.audioReading, q.audioChar)}><Ionicons name="volume-high" size={40} color="#fff" /></Pressable>
+        <Pressable style={s.playAgain} hitSlop={8} onPress={() => play(q.audioVocabId, q.audioReading, q.audioChar)}><Text style={s.playAgainTxt}>{t('listening2.again')}</Text></Pressable>
         <View style={s.choices}>
           {q.choices.map((ch, i) => {
             const reveal = picked !== null; const isAns = i === q.answerIndex; const isPk = i === picked;
