@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { ringsFor, daimonRingPct, idsRingPct } from '../store/selectors';
+import { ringsFor, daimonRingPct, idsRingPct, readinessFor } from '../store/selectors';
 import RingGauge from '../components/RingGauge';
 import { readingItemsForSub, READING_SUBTYPES, listeningItemsForSub, LISTENING_SUBTYPES } from '../data';
 import { daimonsWithUnits } from '../data/daimon';
@@ -16,6 +16,7 @@ import { examOf } from '../engine/examProfile';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 import { useT } from '../i18n';
+import { fullMockLocked } from '../mock/fullMockLock';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 type Styles = ReturnType<typeof makeStyles>;
@@ -46,6 +47,14 @@ export default function StudyScreen() {
   const isJft = prof.exam === 'jft'; // JFT=文字と語彙/会話と表現/読解/聴解(文法⑥⑦⑧なし)
   const catName = (cat: Category) => t(prof.catLabel[cat]); // JLPT/JFTでラベル切替(bunpou=文法/会話と表現)
   const rings = useMemo(() => ringsFor(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 学習タブ最下部: 信頼幅＋履歴＋フル模試CTA(旧テストタブから移設)。isJftは上のprof.examで判定済み。
+  const readiness = useMemo(() => readinessFor(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
+  const measured = readiness.score > 0;
+  const hist = state.mockHistory ?? [];
+  const recentMocks = hist.slice(-12);
+  const avgPct = hist.length ? Math.round(hist.reduce((a, m) => a + m.pct, 0) / hist.length) : 0;
+  const lock = fullMockLocked(hist, now);
 
   const mojiDaimons = useMemo(() => daimonsWithUnits(lv, 'moji_goi'), [lv]);
   const bunpouDaimons = useMemo(() => daimonsWithUnits(lv, 'bunpou'), [lv]);
@@ -130,6 +139,47 @@ export default function StudyScreen() {
         })}
 
         <Text style={s.foot}>{t('study.foot')}</Text>
+
+        {/* ===== フル模試・信頼幅・履歴(旧テストタブから移設) ===== */}
+        <View style={s.mockBand}>
+          <Text style={s.mockBandLabel}>{t('test.band_label')}</Text>
+          <Text style={s.mockBandVal}>±{readiness.band}</Text>
+          <Text style={s.mockBandHint}>{measured ? t('test.band_hint_measured') : t('test.band_hint_unmeasured')}</Text>
+        </View>
+
+        {hist.length > 0 ? (
+          <View style={s.mockHist}>
+            <View style={s.mockHistTop}>
+              <Text style={s.mockHistMain}>{t('test.history_latest', { n: hist[hist.length - 1].pct })}</Text>
+              <Text style={s.mockHistSub}>{t('test.history_summary', { n: hist.length, avg: avgPct })}</Text>
+            </View>
+            <View style={s.mockHistBars}>
+              {recentMocks.map((m, i) => (
+                <View key={i} style={s.mockHistCol}>
+                  <View style={[s.mockHistBar, { height: 6 + (54 * m.pct) / 100, backgroundColor: m.pct >= 80 ? c.green : m.pct >= 50 ? c.amber : c.red }]} />
+                </View>
+              ))}
+            </View>
+          </View>
+        ) : null}
+
+        <View style={s.mockCta}>
+          <View style={s.mockCtaHead}>
+            <Text style={s.mockCtaTitle}>{isJft ? t('test.jft_title') : t('test.full_title')}</Text>
+            {lock.locked ? <Text style={s.mockLockBadge}>{t('test.locked_badge')}</Text> : null}
+            <Text style={s.mockTime}>{isJft ? t('test.jft_time') : t('test.full_time')}</Text>
+          </View>
+          <Text style={s.mockNote}>{isJft ? t('test.jft_note') : t('test.full_note')}</Text>
+          {lock.locked ? (
+            <View style={s.mockCtaDisabled}>
+              <Text style={s.mockCtaDisabledTxt}>{t('test.locked_next', lock.next)}</Text>
+            </View>
+          ) : (
+            <Pressable style={s.mockCtaBtn} onPress={() => nav.navigate('Mock', { full: true })}>
+              <Text style={s.mockCtaBtnTxt}>{t('test.start_btn')}</Text>
+            </Pressable>
+          )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -179,4 +229,26 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   legendItem: { fontSize: ty.tiny, color: c.mute, lineHeight: 15 },
   legendCode: { fontWeight: '800', color: c.ink2 },
   foot: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.lg, lineHeight: 16 },
+  // 信頼幅＋履歴＋フル模試CTA(旧テストタブから移設)
+  mockBand: { backgroundColor: c.surface, borderRadius: radius.xl, borderWidth: 1, borderColor: c.line, padding: spacing.lg, alignItems: 'center', marginTop: spacing.lg },
+  mockBandLabel: { fontSize: ty.small, color: c.mute },
+  mockBandVal: { fontSize: 40, fontWeight: '800', color: c.ink, lineHeight: 46 },
+  mockBandHint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center', marginTop: spacing.xs },
+  mockHist: { backgroundColor: c.surface, borderRadius: radius.xl, borderWidth: 1, borderColor: c.line, padding: spacing.lg, marginTop: spacing.sm },
+  mockHistTop: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between' },
+  mockHistMain: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
+  mockHistSub: { fontSize: ty.tiny, color: c.mute },
+  mockHistBars: { flexDirection: 'row', alignItems: 'flex-end', gap: 4, height: 64, marginTop: spacing.md },
+  mockHistCol: { flex: 1, justifyContent: 'flex-end' },
+  mockHistBar: { borderRadius: 2, width: '100%' },
+  mockCta: { backgroundColor: c.surface, borderRadius: radius.xl, borderWidth: 1, borderColor: c.line, padding: spacing.lg, marginTop: spacing.sm, gap: spacing.sm },
+  mockCtaHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.sm },
+  mockCtaTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, flex: 1 },
+  mockLockBadge: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, paddingVertical: 3, paddingHorizontal: spacing.sm, borderRadius: radius.pill, overflow: 'hidden' },
+  mockTime: { fontSize: ty.tiny, fontWeight: '700', color: c.mute, backgroundColor: c.bgSoft, paddingVertical: 3, paddingHorizontal: spacing.sm, borderRadius: radius.pill, overflow: 'hidden' },
+  mockNote: { fontSize: ty.small, color: c.ink2, lineHeight: 18 },
+  mockCtaBtn: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center' },
+  mockCtaBtnTxt: { color: '#ffffff', fontSize: ty.h2, fontWeight: '800' },
+  mockCtaDisabled: { backgroundColor: c.bgSoft, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center' },
+  mockCtaDisabledTxt: { color: c.faint, fontSize: ty.body, fontWeight: '700' },
 });
