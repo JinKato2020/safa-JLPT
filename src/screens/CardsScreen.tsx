@@ -10,12 +10,12 @@ import { useAppState } from '../store/store';
 import { coverageBars } from '../store/selectors';
 import Badge from '../components/Badge';
 import { badgeTierIndex } from '../data/badges';
-import type { RootStackParamList } from '../navigation/types';
+import type { RootStackParamList, WordsStackParamList } from '../navigation/types';
 import { kanjiListFor } from '../kakitori/list';
 import { kakitoriDueToday } from '../kakitori/srs';
 import { useT } from '../i18n';
 
-type Nav = NativeStackNavigationProp<RootStackParamList>;
+type Nav = NativeStackNavigationProp<WordsStackParamList & RootStackParamList>;
 type Styles = ReturnType<typeof makeStyles>;
 type Key = 'kanji' | 'vocab' | 'grammar';
 
@@ -67,7 +67,7 @@ export default function CardsScreen() {
                 <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
               </View>
 
-              <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Browse', { view: card.key })}>
+              <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordList', { view: card.key, mode: 'study' })}>
                 <Text style={s.linkTxt}>{t(card.listKey)}</Text>
                 <Text style={s.chevron}>›</Text>
               </Pressable>

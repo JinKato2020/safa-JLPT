@@ -8,7 +8,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, KANJI_CARD_READINGS, meaningIn } from '../data';
+import { KANJI, KANJI_CARD_READINGS, KANJI_LEVEL_READINGS, meaningIn } from '../data';
 import type { KanjiCardReadingEntry } from '../data';
 import { useT } from '../i18n';
 import RubyText from '../components/RubyText';
@@ -29,6 +29,24 @@ function fullWordReadingLines(char: string): { on: CardLine[]; kun: CardLine[] }
   return { on: map(d.on, true), kun: map(d.kun, false) };
 }
 
+// scope='level': KANJI_LEVEL_READINGS(当該レベルの読み/例のみ)から行を作る。
+// examplesは [word, wordReading] の配列。先頭例を語全体ルビにする。
+function levelWordReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
+  const entries = KANJI_LEVEL_READINGS[char];
+  if (!entries) return { on: [], kun: [] };
+  const on: CardLine[] = [];
+  const kun: CardLine[] = [];
+  for (const e of entries) {
+    const ex = e.examples && e.examples[0];
+    const line: CardLine = {
+      label: e.type === 'on' ? hiraToKata(e.reading) : e.reading,
+      furiWord: ex ? rubyForWord(ex[0], ex[1]) : e.reading,
+    };
+    (e.type === 'on' ? on : kun).push(line);
+  }
+  return { on, kun };
+}
+
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 export default function KanjiDetailScreen() {
@@ -44,7 +62,11 @@ export default function KanjiDetailScreen() {
   const info = useMemo(() => KANJI.find((k) => k.char === char), [char]);
   const meaning = (l1 && l1 !== 'en' ? meaningIn(char, l1) : undefined) ?? info?.meaning;
   const meaningEn = info?.meaning;
-  const { on, kun } = useMemo(() => fullWordReadingLines(char), [char]);
+  const scope = route.params?.scope ?? 'all';
+  const { on, kun } = useMemo(
+    () => (scope === 'level' ? levelWordReadingLines(char) : fullWordReadingLines(char)),
+    [char, scope],
+  );
 
   const readLine = (tag: string, lines: CardLine[]) => (
     <View style={s.readLine} key={tag}>

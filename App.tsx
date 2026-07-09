@@ -12,10 +12,9 @@ import WatercolorBackground from './src/components/WatercolorBackground';
 import { AppProvider, useAppState, useHydrated } from './src/store/store';
 import { isWatercolor } from './src/store/state';
 import { useT } from './src/i18n';
-import type { RootStackParamList } from './src/navigation/types';
+import type { RootStackParamList, WordsStackParamList } from './src/navigation/types';
 import HomeScreen from './src/screens/HomeScreen';
 import StudyScreen from './src/screens/StudyScreen';
-import TestScreen from './src/screens/TestScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import QuizScreen from './src/screens/QuizScreen';
@@ -41,12 +40,21 @@ function activeRouteName(navState: unknown): string | undefined {
 
 const Tab = createMaterialTopTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
+const WordsStack = createNativeStackNavigator<WordsStackParamList>();
+function WordsTab() {
+  return (
+    <WordsStack.Navigator screenOptions={{ headerShown: false }}>
+      <WordsStack.Screen name="WordsHome" component={CardsScreen} />
+      <WordsStack.Screen name="WordList" component={BrowseScreen} initialParams={{ mode: 'study' }} />
+    </WordsStack.Navigator>
+  );
+}
 
 const TABS = [
   { name: 'ホーム', component: HomeScreen, icon: 'home', iconOff: 'home-outline', labelKey: 'nav.home' },
-  { name: 'カード', component: CardsScreen, icon: 'language', iconOff: 'language-outline', labelKey: 'cards.tab' },
+  { name: '単語', component: WordsTab, icon: 'language', iconOff: 'language-outline', labelKey: 'cards.tab' },
   { name: '学習', component: StudyScreen, icon: 'book', iconOff: 'book-outline', labelKey: 'study.tab' },
-  { name: 'テスト', component: TestScreen, icon: 'clipboard', iconOff: 'clipboard-outline', labelKey: 'test.tab' },
+  { name: '辞書', component: BrowseScreen, icon: 'library', iconOff: 'library-outline', labelKey: 'dict.tab' },
   { name: '設定', component: ProfileScreen, icon: 'settings', iconOff: 'settings-outline', labelKey: 'profile.tab' },
 ] as const;
 
@@ -164,7 +172,6 @@ function Root() {
             <RootStack.Screen name="Mock" component={MockScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Reading" component={ReadingScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Listening" component={ListeningScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="Browse" component={BrowseScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Kakitori" component={KakitoriScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="KanjiDetail" component={KanjiDetailScreen} options={{ presentation: 'modal' }} />
           </>
