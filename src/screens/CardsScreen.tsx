@@ -11,7 +11,6 @@ import { coverageBars } from '../store/selectors';
 import Badge from '../components/Badge';
 import { badgeTierIndex } from '../data/badges';
 import type { RootStackParamList, WordsStackParamList } from '../navigation/types';
-import { kanjiListFor } from '../kakitori/list';
 import { kakitoriDueToday } from '../kakitori/srs';
 import { useT } from '../i18n';
 
@@ -35,8 +34,6 @@ export default function CardsScreen() {
   const badgeSet = state.settings.badgeSet ?? 'gorgeous';
   const cov = useMemo(() => coverageBars(state, now), [state]);
   const covOf = (k: Key) => cov.find((b) => b.key === k) ?? { learned: 0, total: 0 };
-  const kakiTotal = kanjiListFor(state.settings.level).length;
-  const kakiDone = Object.values(state.kakitori ?? {}).filter((k) => k.step >= 3).length;
 
   const todayStr = () => {
     const d = new Date();
@@ -46,17 +43,15 @@ export default function CardsScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.tab}>{t('cards.tab')}</Text>
         <Text style={s.title}>{t('cards.title')}</Text>
 
-        {/* オススメ学習セット: SRSが弱点を自動選択して出題(設計 §2.3)。当面は横断ミックス(Quiz)へ。 */}
-        <Pressable style={({ pressed }) => [s.reco, pressed && s.recoPressed]} onPress={() => nav.navigate('Quiz', undefined)}>
-          <View style={s.recoIcon}><Text style={s.recoIconTxt}>★</Text></View>
+        {/* オススメ学習セット: SRSが弱点を自動選択して出題(設計 §2.3)。当面は横断ミックス(Quiz)へ。他ボタンと同じ体裁。 */}
+        <Pressable style={({ pressed }) => [s.reco, pressed && s.pressed]} onPress={() => nav.navigate('Quiz', undefined)}>
           <View style={s.recoTextWrap}>
             <Text style={s.recoTitle}>{t('cards.reco')}</Text>
             <Text style={s.recoSub}>{t('cards.reco_sub')}</Text>
           </View>
-          <Text style={s.recoChevron}>›</Text>
+          <Text style={s.chevron}>›</Text>
         </Pressable>
 
         {CARDS.map((card) => {
@@ -98,17 +93,15 @@ export default function CardsScreen() {
 
               {card.key === 'kanji' && (
                 <>
-                  {(() => {
-                    const due = kakitoriDueToday(state.kakitori, todayStr());
-                    return due.length ? (
-                      <Pressable style={({ pressed }) => [s.kakiBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { mode: 'review' })}>
-                        <Text style={s.kakiTxt}>{t('cards.kakitori_review', { n: due.length })}</Text>
-                      </Pressable>
-                    ) : null;
-                  })()}
-                  <Pressable style={({ pressed }) => [s.kakiBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill' })}>
-                    <Text style={s.kakiTxt}>{t('cards.kakitori_entry')}</Text>
-                    <Text style={s.kakiProg}>{t('cards.kakitori_progress', { done: kakiDone, total: kakiTotal })}</Text>
+                  {kakitoriDueToday(state.kakitori, todayStr()).length ? (
+                    <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { mode: 'review' })}>
+                      <Text style={s.linkTxt}>{t('cards.kakitori_review')}</Text>
+                      <Text style={s.chevron}>›</Text>
+                    </Pressable>
+                  ) : null}
+                  <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill' })}>
+                    <Text style={s.linkTxt}>{t('cards.kakitori_entry')}</Text>
+                    <Text style={s.chevron}>›</Text>
                   </Pressable>
                 </>
               )}
@@ -125,14 +118,14 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   body: { padding: spacing.lg, gap: spacing.sm },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
   title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, marginTop: spacing.xs, marginBottom: spacing.sm },
-  reco: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, ...shadow(1) },
-  recoPressed: { opacity: 0.9 },
-  recoIcon: { width: 40, height: 40, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.2)' },
-  recoIconTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
+  reco: {
+    flexDirection: 'row', alignItems: 'center', gap: spacing.sm,
+    backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line,
+    paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md,
+  },
   recoTextWrap: { flex: 1 },
-  recoTitle: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
-  recoSub: { fontSize: ty.small, color: '#fff', opacity: 0.9, marginTop: 2 },
-  recoChevron: { fontSize: 24, color: '#fff', fontWeight: '700' },
+  recoTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink2 },
+  recoSub: { fontSize: ty.small, color: c.mute, marginTop: 2 },
   card: {
     ...shadow(1),
     backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,
@@ -156,10 +149,4 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   linkTxt: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
   chevron: { fontSize: 24, color: c.trace, fontWeight: '700' },
   pressed: { backgroundColor: c.bgSoft, opacity: 0.85 },
-  kakiBtn: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    backgroundColor: c.blueLight, borderRadius: radius.md, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md,
-  },
-  kakiTxt: { fontSize: ty.body, fontWeight: '800', color: c.blueDark },
-  kakiProg: { fontSize: ty.small, fontWeight: '700', color: c.blueDark },
 });

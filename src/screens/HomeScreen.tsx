@@ -344,7 +344,7 @@ const makeStyles = (c: ThemeColors) =>
     curveCol: { flex: 1, justifyContent: 'flex-end' },
     curveBar: { backgroundColor: c.green, borderRadius: 2, width: '100%' },
     hint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
-    ringRow: { flexDirection: 'row', marginTop: spacing.lg, marginBottom: spacing.xs },
+    ringRow: { flexDirection: 'row', marginTop: spacing.lg, marginBottom: spacing.xs, paddingHorizontal: spacing.sm, gap: spacing.md },
     ringCell: { flex: 1, alignItems: 'center' },
     // カバー率(量)の横バー＋横に分数
     covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.md },
