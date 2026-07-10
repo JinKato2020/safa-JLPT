@@ -1,6 +1,6 @@
 // 語→漢字スコープ判定。語の「漢字読み・表記」は構成漢字(漢字アイテム)の習得から合成するため、
 // その語の漢字が全て「学習対象(カード集合612 かつ ≤当該レベル)」に収まるかを判定する。設計書 §1.3。
-import kanjiCards from '../data/kanjiCards.json';
+import kanjiCards from '../data/words/kanjiCards.json';
 import { Level } from './facets';
 
 const LEVELS: readonly Level[] = ['N5', 'N4', 'N3', 'N2', 'N1'];

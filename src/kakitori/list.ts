@@ -1,5 +1,5 @@
 // 級別の書き取り対象漢字リストと字情報。データ源=kanji.json。
-import kanji from '../data/kanji.json';
+import kanji from '../data/dict/kanji.json';
 import type { Level } from '../engine/engine';
 
 export interface KanjiRow {

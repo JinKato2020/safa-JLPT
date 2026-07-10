@@ -1,6 +1,6 @@
 // 漢字の筆画データ(animCJK日本語・HanziWriter形式)を同梱JSONから同期ルックアップする。
 // WebViewはネットに触れず、ここで得たJSONを KW.load(char, json) で注入する。完全オフライン。
-import strokes from '../data/kakitoriStrokes.json';
+import strokes from '../data/words/kakitoriStrokes.json';
 
 type Entry = { strokes: string[]; medians: number[][][] };
 const DATA = strokes as Record<string, Entry>;

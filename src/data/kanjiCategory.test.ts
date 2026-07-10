@@ -5,7 +5,7 @@ import { KANJI } from './index.ts';
 import { CAT_BY_ID } from './categories.ts';
 
 const map = JSON.parse(
-  fs.readFileSync(new URL('./kanjiCategory.json', import.meta.url), 'utf8'),
+  fs.readFileSync(new URL('./dict/kanjiCategory.json', import.meta.url), 'utf8'),
 ) as Record<string, string>;
 
 test('全漢字がちょうど1傘に属す・傘は漢字kind', () => {

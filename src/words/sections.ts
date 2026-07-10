@@ -2,9 +2,9 @@
 import { groupByCategory, type CatSection } from './groupByCategory';
 import type { StudyItem } from '../data';
 import type { Kubun } from './levelList';
-import kanjiCat from '../data/kanjiCategory.json';
-import vocabCat from '../data/vocabCategory.json';
-import grammarCat from '../data/grammarCategory.json';
+import kanjiCat from '../data/dict/kanjiCategory.json';
+import vocabCat from '../data/dict/vocabCategory.json';
+import grammarCat from '../data/dict/grammarCategory.json';
 
 export function studySections(kubun: Kubun, items: StudyItem[]): CatSection<StudyItem>[] {
   if (kubun === 'kanji')

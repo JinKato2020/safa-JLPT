@@ -1,9 +1,9 @@
 // 単語タブの受容MC問題(4択)を実データ+distractorから組む。設計書 §2.1, §3.5。
 // 産出系(かなタイル/完全並べ替え/書き取り)は別形式のため別モジュール。
-import vocab from '../data/vocab.json';
-import grammar from '../data/grammar.json';
-import kanjiCards from '../data/kanjiCards.json';
-import kanjiFacets from '../data/kanjiFacets.json';
+import vocab from '../data/shared/vocab.json';
+import grammar from '../data/shared/grammar.json';
+import kanjiCards from '../data/words/kanjiCards.json';
+import kanjiFacets from '../data/words/kanjiFacets.json';
 import { Facet } from './mastery';
 import { Candidate, inferPos, pickSimilar } from './distractor';
 import { mulberry32 } from './rng';

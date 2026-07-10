@@ -12,7 +12,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { levelListFor } from '../words/levelList';
 import { KANJI, meaningIn } from '../data';
 import { playVocab, playKanjiRep } from '../data/vocabAudio';
-import kanjiDrillReps from '../data/kanjiDrillReps.json';
+import kanjiDrillReps from '../data/words/kanjiDrillReps.json';
 import { pickItems, buildVocabQuiz, buildKanjiQuiz, type LQItem, type KanjiRep } from '../listening/listeningQuiz';
 import type { RootStackParamList } from '../navigation/types';
 import { useT } from '../i18n';

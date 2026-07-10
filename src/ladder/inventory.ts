@@ -1,9 +1,9 @@
 // 面付きの学習アイテム在庫。実データ(vocab/kanji/grammar + kanjiFacets)から構築。
 // カバー率の分母・出題選択の母集団に使う。設計書 §1。React非依存(静的JSONのみ)。
-import vocab from '../data/vocab.json';
-import grammar from '../data/grammar.json';
-import kanjiCards from '../data/kanjiCards.json';
-import kanjiFacets from '../data/kanjiFacets.json';
+import vocab from '../data/shared/vocab.json';
+import grammar from '../data/shared/grammar.json';
+import kanjiCards from '../data/words/kanjiCards.json';
+import kanjiFacets from '../data/words/kanjiFacets.json';
 import { Level } from './facets';
 import { Facet } from './mastery';
 

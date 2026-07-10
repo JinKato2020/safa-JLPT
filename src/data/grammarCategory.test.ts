@@ -5,7 +5,7 @@ import { GRAMMAR } from './index.ts';
 import { CAT_BY_ID } from './categories.ts';
 
 const map = JSON.parse(
-  fs.readFileSync(new URL('./grammarCategory.json', import.meta.url), 'utf8'),
+  fs.readFileSync(new URL('./dict/grammarCategory.json', import.meta.url), 'utf8'),
 ) as Record<string, string>;
 
 test('全文法点がちょうど1機能(kind grammar)に属す', () => {

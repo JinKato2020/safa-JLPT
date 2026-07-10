@@ -4,8 +4,8 @@
 //               ※文の並べ替えは日本語の語順自由で答えが一意にならないため廃止。文法語の綴りは一意=堅牢。
 //  ・gMeaning  文法: 文法点の意味を4択(受容)。itemId=<gId>#gmeaning → 文法カバー率。
 // 出題順は SRS(state.items の忘却/未習を優先)。専門用語はUIに出さない。タイルは約8個(ダミー多め)。
-import vocab from '../data/vocab.json';
-import grammar from '../data/grammar.json';
+import vocab from '../data/shared/vocab.json';
+import grammar from '../data/shared/grammar.json';
 import { grammarMeaningProblem } from './wordTabProblems';
 import { mulberry32 } from './rng';
 

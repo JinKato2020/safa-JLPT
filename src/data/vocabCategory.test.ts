@@ -5,7 +5,7 @@ import { VOCAB } from './index.ts';
 import { CAT_BY_ID } from './categories.ts';
 
 const map = JSON.parse(
-  fs.readFileSync(new URL('./vocabCategory.json', import.meta.url), 'utf8'),
+  fs.readFileSync(new URL('./dict/vocabCategory.json', import.meta.url), 'utf8'),
 ) as Record<string, string>;
 
 // 非自立で文法にもある24語=語彙分類から除外(文法へ移管)
