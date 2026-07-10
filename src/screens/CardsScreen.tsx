@@ -79,12 +79,24 @@ export default function CardsScreen() {
                 <Text style={s.chevron}>›</Text>
               </Pressable>
 
-              {/* 問題(練習): 語彙/文法カードから各区分のQuizへ(既存の出題基盤=SRS+バンク)。漢字は聞き取り/書き取りで実践。 */}
-              {(card.key === 'vocab' || card.key === 'grammar') ? (
-                <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Quiz', { category: card.key === 'grammar' ? 'bunpou' : 'moji_goi' })}>
-                  <Text style={s.linkTxt}>{t('cards.quiz')}</Text>
+              {/* 単語タブ独立の新形式問題(試験タブとは別)。産出/受容をSRSで出題。専門用語は出さない。 */}
+              {card.key === 'vocab' ? (
+                <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordDrill', { kind: 'vProduce' })}>
+                  <Text style={s.linkTxt}>{t('cards.produce')}</Text>
                   <Text style={s.chevron}>›</Text>
                 </Pressable>
+              ) : null}
+              {card.key === 'grammar' ? (
+                <>
+                  <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordDrill', { kind: 'gMeaning' })}>
+                    <Text style={s.linkTxt}>{t('cards.gmeaning')}</Text>
+                    <Text style={s.chevron}>›</Text>
+                  </Pressable>
+                  <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordDrill', { kind: 'gOrder' })}>
+                    <Text style={s.linkTxt}>{t('cards.gorder')}</Text>
+                    <Text style={s.chevron}>›</Text>
+                  </Pressable>
+                </>
               ) : null}
 
               {(card.key === 'vocab' || card.key === 'kanji') ? (
