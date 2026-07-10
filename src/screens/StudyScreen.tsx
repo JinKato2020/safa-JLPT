@@ -92,13 +92,8 @@ export default function StudyScreen() {
           {streak.current > 0 ? <Text style={s.streak}>🔥 {streak.current}</Text> : null}
         </View>
 
-        {/* メイン: 4カテゴリ横断のバランス出題(JLPT=漢字語彙＋文法 / JFT=文字と語彙)。 */}
-        <Pressable style={({ pressed }) => [s.cta, pressed && s.ctaPressed]} onPress={() => nav.navigate('Quiz', isJft ? { category: 'moji_goi' } : undefined)}>
-          <Text style={s.ctaTitle}>{t('study.balanced')}</Text>
-          <Text style={s.ctaSub}>{t('study.balanced_sub')}</Text>
-        </Pressable>
-
-        {/* カテゴリカード×4。全体正答率＋ミックス出題(10)＋大問毎正答率(タップで個別10問)。 */}
+        {/* カテゴリカード×4。全体正答率＋ミックス出題(10)＋大問毎正答率(タップで個別10問)。
+            ※「バランス学習」CTAは廃止(設計 §2・ユーザー指示)。出題は各カテゴリのミックス/大問から。 */}
         {RING_ORDER.map((cat) => {
           const subs = subRingsFor(cat);
           return (
