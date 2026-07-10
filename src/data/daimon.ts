@@ -21,12 +21,11 @@ const DAIMON_QFORMAT: Record<Daimon, QFormat> = {
 export const MOJI_DAIMON: Daimon[] = ['kanji_read', 'orthography', 'context', 'synonym', 'usage'];
 export const BUNPOU_DAIMON: Daimon[] = ['grammar_form', 'order', 'passage_grammar'];
 
-// 知識バンクに安定idを付与(状態キー/重複排除用)。id = bk:<level>:<daimon>:<index>。
+// 知識バンクの安定id(状態キー/重複排除用)。id = kb-NNNNNN(data由来・knowledgeBank.jsonに焼き込み済み。Task 1)。
 export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; explain: string; explainNe?: string; ambiguous?: boolean; }
 // 並べ替え(order)のうち一意性監査で「複数正解=曖昧」と判定された問題(ambiguous:true・108問)は出題プールから恒久除外。
-// 日本語は副詞・主語の位置が自由で★の答えが一意にならないため。監査=LLM一括(2026-07-10)。id は元index基準なので filter後も安定。
-export const BANK: BankUnit[] = (KNOWLEDGE_BANK as Omit<BankUnit, 'id'>[])
-  .map((b, i) => ({ ...b, id: `bk:${b.level}:${b.daimon}:${i}` }))
+// 日本語は副詞・主語の位置が自由で★の答えが一意にならないため。監査=LLM一括(2026-07-10)。id は data由来なので filter後も安定。
+export const BANK: BankUnit[] = (KNOWLEDGE_BANK as BankUnit[])
   .filter((b) => !(b.daimon === 'order' && b.ambiguous));
 const BANK_BY = new Map<string, BankUnit[]>();
 for (const b of BANK) { const k = `${b.level}:${b.daimon}`; (BANK_BY.get(k) ?? BANK_BY.set(k, []).get(k)!).push(b); }
