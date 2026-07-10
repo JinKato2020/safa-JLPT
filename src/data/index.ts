@@ -92,7 +92,7 @@ export const VOCAB_CLOZE_OK = new Set(vocabClozeOkJson as string[]);
 export const VOCAB_SYN = vocabSynonymsJson as Record<string, string>;
 
 /** 知識バンク=実データから作れない大問(用法/文の組み立て/文章の文法)の生成問題。模試で本番比率に使う。 */
-export interface KnowledgeBankItem { id: string; level: string; daimon: string; stem: string; question: string; choices: string[]; answer: string; explain: string; ambiguous?: boolean; }
+export interface KnowledgeBankItem { id: string; level: string; daimon: string; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; }
 export const KNOWLEDGE_BANK = knowledgeBankJson as KnowledgeBankItem[];
 
 /** 辞書Browse拡張(N2/N1・参考辞書・学習対象外)。JMdict/KANJIDIC由来。levelがN2/N1なのでcastで型を通す。 */

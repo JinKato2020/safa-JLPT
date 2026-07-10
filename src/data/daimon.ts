@@ -7,6 +7,7 @@ import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE,
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
+import { explainJa } from './exam/explainJa';
 
 // 大問 → 固定出題形式(makeQuestion用QFormat) / 'bank'(知識バンクの4択)。
 export const DAIMON_FORMAT: Record<Daimon, QFormat | 'bank'> = {
@@ -22,7 +23,7 @@ export const MOJI_DAIMON: Daimon[] = ['kanji_read', 'orthography', 'context', 's
 export const BUNPOU_DAIMON: Daimon[] = ['grammar_form', 'order', 'passage_grammar'];
 
 // 知識バンクの安定id(状態キー/重複排除用)。id = kb-NNNNNN(data由来・knowledgeBank.jsonに焼き込み済み。Task 1)。
-export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; explain: string; explainNe?: string; ambiguous?: boolean; }
+export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; }
 // 並べ替え(order)のうち一意性監査で「複数正解=曖昧」と判定された問題(ambiguous:true・108問)は出題プールから恒久除外。
 // 日本語は副詞・主語の位置が自由で★の答えが一意にならないため。監査=LLM一括(2026-07-10)。id は data由来なので filter後も安定。
 export const BANK: BankUnit[] = (KNOWLEDGE_BANK as BankUnit[])
@@ -120,7 +121,7 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   const bank = BANK_INDEX.get(unit);
   if (bank) {
     const { choices, answerIndex } = shuffleChoices([bank.answer, ...bank.choices.filter((x) => x !== bank.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, explain: bank.explain, explainNe: bank.explainNe };
+    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, explain: explainJa(bank.id) };
   }
   // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
   const og = OG_BANK_INDEX.get(unit);
@@ -185,7 +186,8 @@ export function learnCardFor(unit: string): LearnCard | null {
       const title = LEARN_FURI[bank.stem] ?? bank.stem;
       const plain = title.replace(/[（(][ぁ-ゖァ-ヶー]+[）)]/g, '');
       const sent = LEARN_FURI[bank.answer] ?? bank.answer;
-      return { title, body: sent, hit: plain, note: LEARN_FURI[bank.explain] ?? bank.explain };
+      const explain = explainJa(bank.id);
+      return { title, body: sent, hit: plain, note: (explain !== undefined ? LEARN_FURI[explain] ?? explain : undefined) };
     }
     // ⑦文の組み立て・⑧文章の文法は「解いて学ぶ」技能問題(語順の組み立て/文脈の流れ)。
     // 学習カードで完成文や正解を先に見せるとテストの意味が無くなるため、学習カードは出さない。
