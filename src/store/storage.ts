@@ -2,6 +2,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { type AppState, STATE_VERSION } from './state';
 import { KANJI, VOCAB, GRAMMAR } from '../data';
+import KB_ID_MIGRATION from '../data/exam/kbIdMigration.json';
 
 const KEY = 'safa-jlpt:state:v1';
 
@@ -22,6 +23,17 @@ function migrateDaimonKeys<T>(items: Record<string, T>): Record<string, T> {
   return out;
 }
 
+// 不変id移行: 旧 bk:<lv>:<daimon>:<idx> 状態キーを新 kb-NNNNNN へ改名。冪等(既に kb- 等は保持)。
+const KB_ID_MAP = KB_ID_MIGRATION as Record<string, string>;
+export function migrateBankIds<T>(items: Record<string, T>): Record<string, T> {
+  const out: Record<string, T> = {};
+  for (const key in items) {
+    if (key.startsWith('bk:') && KB_ID_MAP[key]) { out[KB_ID_MAP[key]] = items[key]; continue; }
+    out[key] = items[key];
+  }
+  return out;
+}
+
 export async function loadState(): Promise<AppState | null> {
   try {
     const raw = await AsyncStorage.getItem(KEY);
@@ -29,6 +41,7 @@ export async function loadState(): Promise<AppState | null> {
     const parsed = JSON.parse(raw) as AppState;
     if (parsed.version !== STATE_VERSION) return null; // 将来のマイグレーション地点
     if (parsed.items) parsed.items = migrateDaimonKeys(parsed.items);
+    if (parsed.items) parsed.items = migrateBankIds(parsed.items);
     return parsed;
   } catch {
     return null;
