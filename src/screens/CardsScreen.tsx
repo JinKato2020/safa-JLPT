@@ -47,14 +47,15 @@ export default function CardsScreen() {
       <ScrollView contentContainerStyle={s.body}>
         <Text style={s.title}>{t('cards.title')}</Text>
 
-        {/* オススメ学習セット: SRSが弱点を自動選択して出題(設計 §2.3)。当面は横断ミックス(Quiz)へ。他ボタンと同じ体裁。 */}
-        <Pressable style={({ pressed }) => [s.reco, pressed && s.pressed]} onPress={() => nav.navigate('Quiz', undefined)}>
-          <View style={s.recoTextWrap}>
-            <Text style={s.recoTitle}>{t('cards.reco')}</Text>
-            <Text style={s.recoSub}>{t('cards.reco_sub')}</Text>
-          </View>
-          <Text style={s.chevron}>›</Text>
-        </Pressable>
+        {/* 今日のオススメ: 苦手をAI判定しSRSで反復出題(当面は横断ミックスQuizへ)。カード内にミックス出題型ボタンを配置。 */}
+        <View style={s.recoCard}>
+          <Text style={s.recoCardTitle}>{t('cards.reco')}</Text>
+          <Text style={s.recoCardDesc}>{t('cards.reco_sub')}</Text>
+          <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('Quiz', undefined)}>
+            <Text style={s.mixTitle}>{t('cards.reco_start')}</Text>
+            <Text style={s.mixSub}>›</Text>
+          </Pressable>
+        </View>
 
         {CARDS.map((card) => {
           const b = covOf(card.key);
@@ -101,7 +102,8 @@ export default function CardsScreen() {
 
               {(card.key === 'vocab' || card.key === 'kanji') ? (
                 <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('ListeningQuiz', { kind: card.key as 'vocab' | 'kanji' })}>
-                  <Text style={s.linkTxt}>🎧 {t('cards.listening')}</Text>
+                  <Text style={s.linkTxt}>{t('cards.listening')}</Text>
+                  <Text style={s.chevron}>›</Text>
                 </Pressable>
               ) : null}
 
@@ -133,14 +135,19 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   body: { padding: spacing.lg, gap: spacing.sm },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
   title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, marginTop: spacing.xs, marginBottom: spacing.sm },
-  reco: {
-    flexDirection: 'row', alignItems: 'center', gap: spacing.sm,
-    backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line,
-    paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md,
+  recoCard: {
+    backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.blue,
+    padding: spacing.md, gap: spacing.sm, ...shadow(1),
   },
-  recoTextWrap: { flex: 1 },
-  recoTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink2 },
-  recoSub: { fontSize: ty.small, color: c.mute, marginTop: 2 },
+  recoCardTitle: { fontSize: ty.h2, fontWeight: '800', color: c.blueDark },
+  recoCardDesc: { fontSize: ty.small, color: c.ink2, lineHeight: 18 },
+  mixBtn: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    backgroundColor: c.blueLight, borderRadius: radius.md, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md,
+  },
+  mixBtnPressed: { opacity: 0.9, transform: [{ scale: 0.99 }] },
+  mixTitle: { fontSize: ty.body, fontWeight: '800', color: c.blueDark },
+  mixSub: { fontSize: ty.small, fontWeight: '700', color: c.blue },
   card: {
     ...shadow(1),
     backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,

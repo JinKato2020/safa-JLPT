@@ -131,9 +131,7 @@ export default function StudyScreen() {
           );
         })}
 
-        <Text style={s.foot}>{t('study.foot')}</Text>
-
-        {/* ===== フル模試・履歴(旧テストタブから移設) ===== */}
+        {/* ===== フル模試・履歴(旧テストタブから移設)。習得度低下の説明はホーム到達度カードへ移設。 ===== */}
         {hist.length > 0 ? (
           <View style={s.mockHist}>
             <View style={s.mockHistTop}>
@@ -151,19 +149,16 @@ export default function StudyScreen() {
         ) : null}
 
         <View style={s.mockCta}>
-          <View style={s.mockCtaHead}>
-            <Text style={s.mockCtaTitle}>{isJft ? t('test.jft_title') : t('test.full_title')}</Text>
-            {lock.locked ? <Text style={s.mockLockBadge}>{t('test.locked_badge')}</Text> : null}
-            <Text style={s.mockTime}>{isJft ? t('test.jft_time') : t('test.full_time')}</Text>
-          </View>
           <Text style={s.mockNote}>{isJft ? t('test.jft_note') : t('test.full_note')}</Text>
           {lock.locked ? (
             <View style={s.mockCtaDisabled}>
               <Text style={s.mockCtaDisabledTxt}>{t('test.locked_next', lock.next)}</Text>
             </View>
           ) : (
-            <Pressable style={s.mockCtaBtn} onPress={() => nav.navigate('Mock', { full: true })}>
-              <Text style={s.mockCtaBtnTxt}>{t('test.start_btn')}</Text>
+            /* ミックス出題ボタンと同型に統一。右端に頻度/所要時間を表示。 */
+            <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('Mock', { full: true })}>
+              <Text style={s.mixTitle}>{isJft ? t('test.jft_title') : t('test.full_title')}</Text>
+              <Text style={s.mixSub}>{isJft ? t('test.jft_time') : t('test.full_time')} ›</Text>
             </Pressable>
           )}
         </View>

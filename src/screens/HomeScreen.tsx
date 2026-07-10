@@ -170,6 +170,8 @@ export default function HomeScreen() {
           ) : (
             <Text style={s.hint}>{t('home.passprob_trend_empty')}</Text>
           )}
+          {/* 習得度は学習しない日が続くと下がる=到達度に影響するため、到達度カード下端に明記(試験タブから移設)。 */}
+          <Text style={s.heroFoot}>{t('study.foot')}</Text>
         </View>
 
         {/* AIコーチ分析(端末内・あなたの学習データから自動評価) */}
@@ -349,6 +351,7 @@ const makeStyles = (c: ThemeColors) =>
     curveCol: { flex: 1, justifyContent: 'flex-end' },
     curveBar: { backgroundColor: c.green, borderRadius: 2, width: '100%' },
     hint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
+    heroFoot: { alignSelf: 'stretch', fontSize: ty.tiny, color: c.faint, lineHeight: 16, marginTop: spacing.lg, paddingTop: spacing.md, borderTopWidth: 1, borderTopColor: c.line },
     ringRow: { flexDirection: 'row', marginTop: spacing.lg, marginBottom: spacing.xs, paddingHorizontal: spacing.sm, gap: spacing.md },
     ringCell: { flex: 1, alignItems: 'center' },
     // カバー率(量)の横バー＋横に分数
