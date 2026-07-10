@@ -47,11 +47,11 @@ export default function CardsScreen() {
       <ScrollView contentContainerStyle={s.body}>
         <Text style={s.title}>{t('cards.title')}</Text>
 
-        {/* 今日のオススメ: 苦手をAI判定しSRSで反復出題(当面は横断ミックスQuizへ)。カード内にミックス出題型ボタンを配置。 */}
+        {/* 今日のオススメ: 苦手をSRSで反復出題。単語タブ内の3形式(産出/作成/意味)を横断=試験タブとは独立(越境しない)。 */}
         <View style={s.recoCard}>
           <Text style={s.recoCardTitle}>{t('cards.reco')}</Text>
           <Text style={s.recoCardDesc}>{t('cards.reco_sub')}</Text>
-          <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('Quiz', undefined)}>
+          <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('WordDrill', { kind: 'mixed' })}>
             <Text style={s.mixTitle}>{t('cards.reco_start')}</Text>
             <Text style={s.mixSub}>›</Text>
           </Pressable>

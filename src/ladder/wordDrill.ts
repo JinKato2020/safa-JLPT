@@ -9,7 +9,7 @@ import grammar from '../data/grammar.json';
 import { grammarMeaningProblem } from './wordTabProblems';
 import { mulberry32 } from './rng';
 
-export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning';
+export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning' | 'mixed';
 
 export type DrillProblem =
   | { kind: 'vProduce'; itemId: string; prompt: string; hint?: string; reading: string; answer: string[]; tiles: string[] }
@@ -96,8 +96,18 @@ function orderBySrs<T>(items: T[], keyOf: (t: T) => string, itemsState: Record<s
   return shuffled.sort((a, b) => (itemsState[keyOf(a)]?.p ?? -1) - (itemsState[keyOf(b)]?.p ?? -1));
 }
 
-/** 指定形式・レベルの出題バッチ(count問)。itemsState を渡すと SRS(未習/低習得優先)で並べる。 */
+/** 指定形式・レベルの出題バッチ(count問)。itemsState を渡すと SRS(未習/低習得優先)で並べる。
+ *  mixed=今日のオススメ: 語彙産出/文法作成/文法意味の3形式を横断で交互出題(単語タブ内で完結・試験タブとは独立)。 */
 export function buildDrill(kind: DrillKind, level: string, count = 10, seed = 1, itemsState?: Record<string, { p: number }>): DrillProblem[] {
+  if (kind === 'mixed') {
+    const per = Math.ceil(count / 3);
+    const a = buildDrill('vProduce', level, per, seed, itemsState);
+    const b = buildDrill('gBuild', level, per, seed + 101, itemsState);
+    const g = buildDrill('gMeaning', level, per, seed + 202, itemsState);
+    const mixed: DrillProblem[] = [];
+    for (let i = 0; i < per; i++) { if (a[i]) mixed.push(a[i]); if (b[i]) mixed.push(b[i]); if (g[i]) mixed.push(g[i]); }
+    return mixed.slice(0, count);
+  }
   if (kind === 'vProduce') {
     const pool = orderBySrs(produceEligible(level), (v) => `${v.id}#produce`, itemsState, seed);
     return pool.slice(0, count).map((v, i) => vProduce(v, seed + i * 7919));

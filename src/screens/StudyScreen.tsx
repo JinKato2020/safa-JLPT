@@ -90,6 +90,16 @@ export default function StudyScreen() {
           {streak.current > 0 ? <Text style={s.streak}>🔥 {streak.current}</Text> : null}
         </View>
 
+        {/* 今日のオススメ(試験タブ版): 本番形式で弱点大問を重点出題。単語タブのオススメとは独立(越境しない)。 */}
+        <View style={s.recoCard}>
+          <Text style={s.recoCardTitle}>{t('study.reco')}</Text>
+          <Text style={s.recoCardDesc}>{t('study.reco_sub')}</Text>
+          <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('Quiz', { category: 'all' })}>
+            <Text style={s.mixTitle}>{t('study.reco_start')}</Text>
+            <Text style={s.mixSub}>›</Text>
+          </Pressable>
+        </View>
+
         {/* カテゴリカード×4。全体正答率＋ミックス出題(10)＋大問毎正答率(タップで個別10問)。
             ※「バランス学習」CTAは廃止(設計 §2・ユーザー指示)。出題は各カテゴリのミックス/大問から。 */}
         {RING_ORDER.map((cat) => {
@@ -182,6 +192,13 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   ctaPressed: { transform: [{ scale: 0.99 }], opacity: 0.94 },
   ctaTitle: { fontSize: ty.h2, fontWeight: '800', color: '#ffffff' },
   ctaSub: { fontSize: ty.small, color: '#ffffff', opacity: 0.9 },
+  // 今日のオススメ(試験タブ版)
+  recoCard: {
+    backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.blue,
+    padding: spacing.md, marginTop: spacing.sm, gap: spacing.sm, ...shadow(1),
+  },
+  recoCardTitle: { fontSize: ty.h2, fontWeight: '800', color: c.blueDark },
+  recoCardDesc: { fontSize: ty.small, color: c.ink2, lineHeight: 18 },
   // カテゴリカード
   card: {
     backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,

@@ -60,8 +60,9 @@ export default function WordDrillScreen() {
     setI((n) => n + 1);
   };
 
-  const titleKey = kind === 'vProduce' ? 'worddrill.title_vProduce' : kind === 'gBuild' ? 'worddrill.title_gBuild' : 'worddrill.title_gMeaning';
-  const askKey = kind === 'vProduce' ? 'worddrill.produce_ask' : kind === 'gBuild' ? 'worddrill.build_ask' : 'worddrill.meaning_ask';
+  const titleKey = kind === 'vProduce' ? 'worddrill.title_vProduce' : kind === 'gBuild' ? 'worddrill.title_gBuild' : kind === 'gMeaning' ? 'worddrill.title_gMeaning' : 'worddrill.title_mixed';
+  // 問いかけは各問題の形式に依存(mixedでは問題ごとに変わる)。
+  const askKeyFor = (k: DrillProblem['kind']) => k === 'vProduce' ? 'worddrill.produce_ask' : k === 'gBuild' ? 'worddrill.build_ask' : 'worddrill.meaning_ask';
 
   // ── 問題枯渇 / 終了 ──
   if (!problems.length) {
@@ -90,7 +91,7 @@ export default function WordDrillScreen() {
       <Header title={t(titleKey)} onClose={() => nav.goBack()} s={s}
         progress={(i + (judged !== null ? 1 : 0)) / problems.length} count={`${i + 1}/${problems.length}`} />
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.ask}>{t(askKey)}</Text>
+        <Text style={s.ask}>{t(askKeyFor(p.kind))}</Text>
 
         {(p.kind === 'vProduce' || p.kind === 'gBuild') && (
           <ProduceView p={p} placed={placed} setPlaced={setPlaced} judged={judged} record={record} s={s} c={c} t={t} />
