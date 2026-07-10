@@ -11,8 +11,7 @@ import { playVocab } from '../data/vocabAudio';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_LEVEL_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
-import type { KanjiLevelReading } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { loadSharedDict, syncDictCache, type SharedDict } from '../../shared/JLPT-Listening/dict/dictRemote';
@@ -44,23 +43,21 @@ function haystack(it: StudyItem): string {
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 
-// 漢字カードの音訓＋例語(KANJI_LEVEL_READINGS=対象レベルの語彙で実際に使われる読みのみ・級外は除外)。
-// 読み(音=カタカナ/訓=ひらがな)＋例語(語全体ルビ=全漢字が読める形)を構造化して返す。
-interface CardLine { label: string; furiWord: string; }
-function cardReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
-  const list = KANJI_LEVEL_READINGS[char];
-  if (!list || !list.length) return { on: [], kun: [] };
-  const mk = (e: KanjiLevelReading): CardLine | null => {
-    const [word, wordReading] = e.examples[0] ?? ['', ''];
-    if (!word) return null;
+// 漢字カードの音訓＋例語(KANJI_CARDS=正データ・読みごとに高頻度例語)。表示はローカル優先(リモート辞書の羅列を使わない)。
+// 1読み=1行: [音/訓][読み][先頭例語(語全体ルビ)][例語の英訳gloss]。詳細カードと同じ情報を辞書/単語タブにも。
+interface CardLine { tag: string; label: string; furiWord: string; gloss: string; }
+function cardReadingLines(char: string): CardLine[] {
+  const card = KANJI_CARDS[char];
+  if (!card) return [];
+  return card.readings.map((r) => {
+    const ex = r.examples[0];
     return {
-      label: e.type === 'on' ? hiraToKata(e.reading) : e.reading,
-      furiWord: rubyForWord(word, wordReading),
+      tag: r.type === 'on' ? '音' : '訓',
+      label: r.type === 'on' ? hiraToKata(r.reading) : r.reading,
+      furiWord: ex ? rubyForWord(ex.word, ex.reading) : r.reading,
+      gloss: ex?.gloss ?? '',
     };
-  };
-  const on = list.filter((e) => e.type === 'on').map(mk).filter((x): x is CardLine => x != null);
-  const kun = list.filter((e) => e.type === 'kun').map(mk).filter((x): x is CardLine => x != null);
-  return { on, kun };
+  });
 }
 
 export default function BrowseScreen() {
@@ -110,8 +107,10 @@ export default function BrowseScreen() {
     [kubun, sVocab, sKanji, study, settings.level],
   );
   // 例文: 共有辞書があれば共有(語|読み / char)を、無ければ同梱を使う。
+  // 同梱学習語は辞書タブでも「ローカル例文」を優先する(リモート共有辞書の不適合＝いくら→幾ら/あっち→彼方 を避ける)。
+  // 同梱に無い辞書専用語(sv:…)のみリモートを使う。
   const vocabExOf = (it: StudyItem & { type: 'vocab' }) =>
-    shared ? shared.examples[`${it.word}|${it.reading}`] : VOCAB_EXAMPLE[it.id];
+    VOCAB_EXAMPLE[it.id] ?? (shared ? shared.examples[`${it.word}|${it.reading}`] : undefined);
   // この区分に存在するレベルだけをN5→N1順で(プルダウン用)。
   const availLevels = useMemo(() => LEVEL_ORDER.filter((l) => src.some((i) => i.level === l)), [src]);
   // 選択レベルがこの区分に無ければ「全」扱い(例: 文法でN1選択→全表示)。
@@ -197,28 +196,24 @@ export default function BrowseScreen() {
         ) : item.type === 'kanji' ? (
           <>
             <Text style={s.term}>{item.char}</Text>
-            <Text style={s.meaning}>{nm(item.char) ?? item.meaning}</Text>
-            {nm(item.char) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
+            {/* 意味はローカル優先: 母語 > カードの簡潔意味(glossShort) > 同梱/リモート。リモートの平坦な多義羅列を避ける。 */}
+            <Text style={s.meaning}>{nm(item.char) ?? KANJI_CARDS[item.char]?.glossShort ?? item.meaning}</Text>
+            {nm(item.char) && KANJI_CARDS[item.char]?.glossShort ? <Text style={s.meaningEn}>{KANJI_CARDS[item.char].glossShort}</Text> : null}
             {(() => {
-              const { on, kun } = cardReadingLines(item.char);
-              const line = (tag: string, lines: CardLine[]) => (
-                <View style={s.readLine}>
-                  <Text style={s.readTag}>{tag}</Text>
+              const lines = cardReadingLines(item.char);
+              return (
+                <View style={s.readBox}>
                   {lines.map((e, i) => (
-                    <View key={i} style={s.readPair}>
-                      <Text style={s.readLabel}>{e.label}：</Text>
+                    <View key={i} style={s.readLine}>
+                      <Text style={s.readTag}>{e.tag}</Text>
+                      <Text style={s.readLabel}>{e.label}</Text>
                       <View style={s.rubyWord}>
                         <RubyText text={e.furiWord} style={s.readWord} rubyStyle={s.exampleRuby} rubyGate={rubyGate} />
                       </View>
+                      {!!e.gloss && <Text style={s.readGloss} numberOfLines={1}>{e.gloss}</Text>}
                     </View>
                   ))}
                 </View>
-              );
-              return (
-                <>
-                  {on.length ? line('音', on) : null}
-                  {kun.length ? line('訓', kun) : null}
-                </>
               );
             })()}
           </>
@@ -414,12 +409,15 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   exampleRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },
   exampleHit: { color: c.ink, textDecorationLine: 'underline' },
   // 漢字カードの音訓行(例語はグループルビ=語の上に読み)。
-  readLine: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-end', marginTop: spacing.xs, rowGap: spacing.xs },
-  readTag: { fontSize: ty.small, fontWeight: '800', color: c.mute, marginRight: 6 },
+  // 1読み=1行(音/訓・読み・例語・英訳)。詳細カードと同じ情報を辞書/単語タブのカードにも。
+  readBox: { marginTop: spacing.xs, gap: spacing.xs, alignSelf: 'stretch' },
+  readLine: { flexDirection: 'row', alignItems: 'flex-end', gap: 6, flexWrap: 'wrap' },
+  readTag: { fontSize: ty.small, fontWeight: '800', color: c.mute },
   readPair: { flexDirection: 'row', alignItems: 'flex-end', marginRight: spacing.md },
   readLabel: { fontSize: ty.body, color: c.ink2, fontWeight: '700' },
   rubyWord: { alignItems: 'center' },
   readWord: { fontSize: ty.body, color: c.ink },
+  readGloss: { fontSize: ty.small, color: c.mute, flexShrink: 1, marginBottom: 1 },
   exampleEn: { fontSize: ty.tiny, color: c.faint, fontStyle: 'italic', marginTop: 2 },
   exampleNe: { fontSize: ty.tiny, color: c.mute, marginTop: 1 },
   levelBadge: { fontSize: 10, fontWeight: '800', color: c.mute, alignSelf: 'flex-start' },

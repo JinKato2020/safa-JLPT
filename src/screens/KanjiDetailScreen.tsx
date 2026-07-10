@@ -8,8 +8,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, KANJI_CARD_READINGS, KANJI_LEVEL_READINGS, meaningIn } from '../data';
-import type { KanjiCardReadingEntry } from '../data';
+import { KANJI, KANJI_CARDS, meaningIn } from '../data';
+import type { KanjiCard } from '../data';
 import { useT } from '../i18n';
 import RubyText from '../components/RubyText';
 import { rubyForWord } from '../kakitori/furigana';
@@ -18,43 +18,22 @@ import { Audio } from 'expo-av';
 import * as Speech from 'expo-speech';
 import { playVocab } from '../data/vocabAudio';
 import { vocabIdForWord } from '../words/vocabIndex';
-import kanjiDrillReps from '../data/kanjiDrillReps.json';
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 
 // 例語は「語全体」にルビ(その語の全漢字が読める形)。BrowseScreenの部分ルビ(対象字だけ)とは異なる。
-interface CardLine { label: string; furiWord: string; word: string; wordReading: string; }
-function fullWordReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
-  const d = KANJI_CARD_READINGS[char];
-  if (!d) return { on: [], kun: [] };
-  const map = (list: KanjiCardReadingEntry[], isOn: boolean): CardLine[] =>
-    list.map((e) => ({
-      label: isOn ? hiraToKata(e.reading) : e.reading,
-      furiWord: rubyForWord(e.word, e.wordReading),
-      word: e.word,
-      wordReading: e.wordReading,
-    }));
-  return { on: map(d.on, true), kun: map(d.kun, false) };
-}
-
-// scope='level': KANJI_LEVEL_READINGS(当該レベルの読み/例のみ)から行を作る。
-// examplesは [word, wordReading] の配列。先頭例を語全体ルビにする。
-function levelWordReadingLines(char: string): { on: CardLine[]; kun: CardLine[] } {
-  const entries = KANJI_LEVEL_READINGS[char];
-  if (!entries) return { on: [], kun: [] };
-  const on: CardLine[] = [];
-  const kun: CardLine[] = [];
-  for (const e of entries) {
-    const ex = e.examples && e.examples[0];
-    const line: CardLine = {
-      label: e.type === 'on' ? hiraToKata(e.reading) : e.reading,
-      furiWord: ex ? rubyForWord(ex[0], ex[1]) : e.reading,
-      word: ex ? ex[0] : '',
-      wordReading: ex ? ex[1] : e.reading,
-    };
-    (e.type === 'on' ? on : kun).push(line);
-  }
-  return { on, kun };
+// 読みごとに「音/訓・読みラベル・意味(gloss)・例語(1〜3)」を1行にまとめる(KANJI_CARDS正データ)。
+interface RdExample { furiWord: string; word: string; reading: string; gloss: string; }
+interface RdLine { type: 'on' | 'kun'; label: string; gloss: string; examples: RdExample[]; }
+function cardReadingLines(char: string): RdLine[] {
+  const card = KANJI_CARDS[char];
+  if (!card) return [];
+  return card.readings.map((r) => ({
+    type: r.type,
+    label: r.type === 'on' ? hiraToKata(r.reading) : r.reading,
+    gloss: r.gloss,
+    examples: r.examples.map((e) => ({ furiWord: rubyForWord(e.word, e.reading), word: e.word, reading: e.reading, gloss: e.gloss })),
+  }));
 }
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -70,13 +49,11 @@ export default function KanjiDetailScreen() {
 
   const l1 = settings.l1;
   const info = useMemo(() => KANJI.find((k) => k.char === char), [char]);
-  const meaning = (l1 && l1 !== 'en' ? meaningIn(char, l1) : undefined) ?? info?.meaning;
-  const meaningEn = info?.meaning;
-  const scope = route.params?.scope ?? 'all';
-  const { on, kun } = useMemo(
-    () => (scope === 'level' ? levelWordReadingLines(char) : fullWordReadingLines(char)),
-    [char, scope],
-  );
+  const card = KANJI_CARDS[char] as KanjiCard | undefined;
+  // 意味: 母語(l1) > カードの簡潔意味(glossShort) > 同梱の全義。詳細(glossFull)は下に小さく併記。
+  const meaning = (l1 && l1 !== 'en' ? meaningIn(char, l1) : undefined) ?? card?.glossShort ?? info?.meaning;
+  const meaningFull = card?.glossFull ?? info?.meaning;
+  const readings = useMemo(() => cardReadingLines(char), [char]);
 
   useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
   const playExample = (word: string, reading: string) => {
@@ -84,27 +61,28 @@ export default function KanjiDetailScreen() {
     if (id) playVocab(id).then((ok) => { if (!ok && reading) Speech.speak(reading, { language: 'ja-JP' }); });
     else if (reading) Speech.speak(reading, { language: 'ja-JP' });
   };
-  // 代表語(reps)が例語に無ければ補完行を作る。
-  const rep = (kanjiDrillReps as Record<string, { bound: boolean; word: string; reading: string }>)[char];
-  const repLine: CardLine | null = rep && !rep.bound && rep.word
-    && ![...on, ...kun].some((l) => l.word === rep.word && l.wordReading === rep.reading)
-    ? { label: rep.reading, furiWord: rubyForWord(rep.word, rep.reading), word: rep.word, wordReading: rep.reading }
-    : null;
 
-  const readLine = (tag: string, lines: CardLine[]) => (
-    <View style={s.readLine} key={tag}>
-      <Text style={s.readTag}>{tag}</Text>
-      {lines.map((e, i) => (
-        <View key={i} style={s.readPair}>
-          <Text style={s.readLabel}>{e.label}：</Text>
-          <View style={s.rubyWord}>
-            <RubyText text={e.furiWord} style={s.readWord} rubyStyle={s.readRuby} />
+  // 1読み=1行: [音/訓][読み][意味] ＋ 例語(語全体ルビ＋再生)。
+  const readingRow = (r: RdLine, i: number) => (
+    <View style={s.readRow} key={i}>
+      <View style={s.readHead}>
+        <Text style={s.readTag}>{r.type === 'on' ? '音' : '訓'}</Text>
+        <Text style={s.readLabel}>{r.label}</Text>
+        <Text style={s.readGloss} numberOfLines={2}>{r.gloss}</Text>
+      </View>
+      <View style={s.readExamples}>
+        {r.examples.map((e, j) => (
+          <View key={j} style={s.readPair}>
+            <Pressable style={s.exPlay} hitSlop={8} onPress={() => playExample(e.word, e.reading)}>
+              <Ionicons name="play" size={16} color={c.mute} />
+            </Pressable>
+            <View style={s.rubyWord}>
+              <RubyText text={e.furiWord} style={s.readWord} rubyStyle={s.readRuby} />
+            </View>
+            {!!e.gloss && <Text style={s.exGloss} numberOfLines={1}>{e.gloss}</Text>}
           </View>
-          <Pressable style={s.exPlay} hitSlop={8} onPress={() => playExample(e.word, e.wordReading)}>
-            <Ionicons name="play" size={16} color={c.mute} />
-          </Pressable>
-        </View>
-      ))}
+        ))}
+      </View>
     </View>
   );
 
@@ -117,16 +95,14 @@ export default function KanjiDetailScreen() {
       <ScrollView contentContainerStyle={s.body}>
         <Text style={s.bigChar}>{char}</Text>
         {!!meaning && <Text style={s.meaning}>{meaning}</Text>}
-        {!!meaningEn && meaningEn !== meaning && <Text style={s.meaningEn}>{meaningEn}</Text>}
+        {!!meaningFull && meaningFull !== meaning && <Text style={s.meaningEn}>{meaningFull}</Text>}
         {typeof info?.strokes === 'number' && (
           <Text style={s.strokes}>{t('kanjiDetail.strokes', { n: info.strokes })}</Text>
         )}
 
-        {(on.length > 0 || kun.length > 0) ? (
+        {readings.length ? (
           <View style={s.readingsBox}>
-            {on.length ? readLine('音', on) : null}
-            {kun.length ? readLine('訓', kun) : null}
-            {repLine ? readLine('例', [repLine]) : null}
+            {readings.map((r, i) => readingRow(r, i))}
           </View>
         ) : (
           <Text style={s.noData}>{t('kanjiDetail.noReadings')}</Text>
@@ -160,12 +136,18 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     borderColor: c.line,
     padding: spacing.md,
     marginTop: spacing.lg,
-    gap: spacing.sm,
+    gap: spacing.md,
   },
-  readLine: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-end', rowGap: spacing.sm },
+  // 1読み=1ブロック: 見出し行(音/訓・読み・意味)＋例語行。
+  readRow: { alignSelf: 'stretch', gap: 4 },
+  readHead: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' },
   readTag: { fontSize: ty.small, fontWeight: '800', color: c.mute, marginRight: 6 },
-  readPair: { flexDirection: 'row', alignItems: 'flex-end', marginRight: spacing.md, marginTop: spacing.xs },
-  readLabel: { fontSize: ty.body, color: c.ink2, fontWeight: '700' },
+  readLabel: { fontSize: ty.body, color: c.ink2, fontWeight: '800', marginRight: spacing.sm },
+  readGloss: { fontSize: ty.small, color: c.mute, flexShrink: 1 },
+  // 例語は縦に積む(各行: ▷ 語(ルビ) 英訳)。英訳を併記して読みやすく。
+  readExamples: { paddingLeft: spacing.md, gap: spacing.xs, marginTop: 2 },
+  readPair: { flexDirection: 'row', alignItems: 'flex-end', gap: 6 },
+  exGloss: { fontSize: ty.small, color: c.mute, flexShrink: 1, marginBottom: 1 },
   rubyWord: { alignItems: 'center' },
   readWord: { fontSize: ty.body, color: c.ink },
   readRuby: { fontSize: 10, lineHeight: 12, color: c.faint, textAlign: 'center' },

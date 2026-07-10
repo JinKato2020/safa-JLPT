@@ -29,6 +29,7 @@ import jftExpression from './jftExpression.json';
 import orthographyBank from './orthographyBank.json';
 import kanjiReadings from './kanjiReadings.json';
 import kanjiCardReadings from './kanjiCardReadings.json';
+import kanjiCards from './kanjiCards.json';
 import type { Category, Level } from '../engine/engine';
 
 export interface KanjiItem {
@@ -153,6 +154,14 @@ export const KANJI_LEVEL_READINGS = kanjiLevelReadings as unknown as Record<stri
 export interface KanjiCardReadingEntry { reading: string; word: string; wordReading: string; }
 export interface KanjiCardReadings { on: KanjiCardReadingEntry[]; kun: KanjiCardReadingEntry[]; }
 export const KANJI_CARD_READINGS = kanjiCardReadings as unknown as Record<string, KanjiCardReadings>;
+
+// 漢字カード正データ(本アプリ作成・KANJIDIC読み＋app語彙例語で検証済み・表示はローカル優先)。
+// char → { level, glossShort(既定意味・簡潔), glossFull(全義・詳細), readings:[{type,reading,level,gloss,examples:[{word,reading}]}] }。
+// 生成=tools/build_kanji_packets.js→kanji-cards-gen workflow→tools/build_kanjiCards.js。読みごとに意味＋高頻度例語。
+export interface KanjiCardExample { word: string; reading: string; gloss: string; }
+export interface KanjiCardLine { type: 'on' | 'kun'; reading: string; level: string; gloss: string; examples: KanjiCardExample[]; }
+export interface KanjiCard { level: string; glossShort: string; glossFull: string; readings: KanjiCardLine[]; }
+export const KANJI_CARDS = kanjiCards as unknown as Record<string, KanjiCard>;
 
 // 漢字読み/表記の固定問題集(実行時自動生成でなく確定済み)。id=kr:<vocabId>/og:<vocabId>。
 // choices[0]=正解(表示時にシャッフル)。生成=問題/tools/build_kanji_read_bank.py。
