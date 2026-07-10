@@ -5,6 +5,8 @@ import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BAN
 import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT, type Daimon } from '../data/examBlueprint';
 import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits } from '../data/daimon';
 import { hasKanji } from '../quiz/quiz';
+import { passProbability as ladderPassProbability, itemP as ladderItemP, type DaimonExpectation } from '../ladder/passRate';
+import { type Level as LadderLevel } from '../ladder/facets';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
 
@@ -197,6 +199,29 @@ const SECTION_LABEL: Record<string, string> = {
 /** 総合準備度＋公式ゲート(総合点＋区分別基準点)による合格圏判定。試験プロファイルで切替。
  *  区分別 達成度は categoryPct(知識=カバー率×習得 / 読解聴解=難易度重み正答率)で統一。
  *  セクション/総合は区分の平均(各区分等価)。 */
+// 大リング【合格率】= 新モンテカルロ(面別マスタリー→大問→公式得点区分・設計書 §6)。
+// 既存 state.items を大問プールで束ねて予測正答率μを作り、ladder passProbability に流す。
+// 予測正答率 μ = mean( item ? itemP(effectiveP) : 0.25 )（未着手は推測下限0.25＝カバー率が自然に効く）。
+function ladderPassPct(state: AppState, now: number): number {
+  const lv = state.settings.level;
+  const meanPredicted = (ids: string[]): number => {
+    if (!ids.length) return 0.25;
+    let s = 0;
+    for (const id of ids) { const st = state.items[id]; s += st ? ladderItemP(effectiveP(st, now)) : 0.25; }
+    return s / ids.length;
+  };
+  const skillMu = (cat: Category): number => {
+    const p = categoryPct(state, now, cat, false); // 読解/聴解=観測正答率(true能力・当て推量補正済)
+    return p === null ? 0.25 : ladderItemP(p / 100); // 観測正答確率へ戻す
+  };
+  const entries: DaimonExpectation[] = [];
+  for (const d of MOJI_DAIMON) entries.push({ daimon: 'context', n: 6, mu: meanPredicted(daimonUnitIds(lv, d)) });
+  for (const d of BUNPOU_DAIMON) entries.push({ daimon: 'grammar_form', n: 6, mu: meanPredicted(daimonUnitIds(lv, d)) });
+  entries.push({ daimon: 'reading', n: 10, mu: skillMu('dokkai') });
+  entries.push({ daimon: 'listening', n: 10, mu: skillMu('choukai') });
+  return Math.round(100 * ladderPassProbability(lv as LadderLevel, entries, 2000, 1));
+}
+
 export function readinessFor(state: AppState, now: number) {
   const prof = examOf(state.settings.targetExam);
   const evidenceTotal = Object.values(state.items).reduce((s, it) => s + it.evidence, 0);
@@ -224,7 +249,10 @@ export function readinessFor(state: AppState, now: number) {
   const overallPct = wAvgPct(secEntries.map((s) => [s.pct, s.max]));
   const sections: SectionInput[] = secEntries.map(({ max, ...s }) => s);
   const overallMinPct = Math.round((100 * pm.overall) / pm.maxTotal);
-  return computeReadiness(sections, overallPct, overallMinPct, evidenceTotal, true, unmeasuredCats);
+  const r = computeReadiness(sections, overallPct, overallMinPct, evidenceTotal, true, unmeasuredCats);
+  // 大リング【合格率】を新モンテカルロに差し替え(設計方針=既存engineは残骸)。失敗時は既存値のまま。
+  try { r.passProbability = ladderPassPct(state, now); } catch { /* fallback: computeReadiness の値 */ }
+  return r;
 }
 
 /** 「覚えた語」数 = 習得度 p>=0.6 の基底項目数(語/文法は大問をまたいで1つに集約・成長カーブ用)。 */
