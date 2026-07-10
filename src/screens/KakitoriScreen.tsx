@@ -17,6 +17,7 @@ import { scoreForMistakes } from '../kakitori/scoring';
 import { kakitoriDueToday } from '../kakitori/srs';
 import { kakitoriDrillQueue } from '../kakitori/queue';
 import levelReadings from '../data/kanjiLevelReadings.json';
+import kanjiDrillReps from '../data/kanjiDrillReps.json';
 import type { RootStackParamList } from '../navigation/types';
 import type { Level } from '../engine/engine';
 import { useT } from '../i18n';
@@ -125,6 +126,9 @@ export default function KakitoriScreen() {
   useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
 
   const speakReading = (ch: string): string => {
+    // 発話は curated 代表(自然)読みを優先。雨→あめ(×ウ「う」)。全612件がひらがな自然読みで音読み単発を回避。
+    const rep = (kanjiDrillReps as Record<string, { reading: string }>)[ch]?.reading;
+    if (rep) return rep;
     const r = readingLine(ch);
     if (r) return r.split('・')[0];
     const info = kanjiInfo(ch);            // 読み欠けは kanji.json の音/訓 先頭へフォールバック
