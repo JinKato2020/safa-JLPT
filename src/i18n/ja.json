@@ -10,6 +10,8 @@
  "browse.title": "辞書",
  "cards.tab": "単語",
  "cards.title": "カード",
+ "cards.reco": "オススメ学習セット",
+ "cards.reco_sub": "弱いところをまとめて出題",
  "cards.kanji": "漢字",
  "cards.vocab": "語彙",
  "cards.grammar": "文法",

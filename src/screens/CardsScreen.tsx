@@ -49,6 +49,16 @@ export default function CardsScreen() {
         <Text style={s.tab}>{t('cards.tab')}</Text>
         <Text style={s.title}>{t('cards.title')}</Text>
 
+        {/* オススメ学習セット: SRSが弱点を自動選択して出題(設計 §2.3)。当面は横断ミックス(Quiz)へ。 */}
+        <Pressable style={({ pressed }) => [s.reco, pressed && s.recoPressed]} onPress={() => nav.navigate('Quiz', undefined)}>
+          <View style={s.recoIcon}><Text style={s.recoIconTxt}>★</Text></View>
+          <View style={s.recoTextWrap}>
+            <Text style={s.recoTitle}>{t('cards.reco')}</Text>
+            <Text style={s.recoSub}>{t('cards.reco_sub')}</Text>
+          </View>
+          <Text style={s.recoChevron}>›</Text>
+        </Pressable>
+
         {CARDS.map((card) => {
           const b = covOf(card.key);
           const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
@@ -107,6 +117,14 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   body: { padding: spacing.lg, gap: spacing.sm },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
   title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, marginTop: spacing.xs, marginBottom: spacing.sm },
+  reco: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, ...shadow(1) },
+  recoPressed: { opacity: 0.9 },
+  recoIcon: { width: 40, height: 40, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.2)' },
+  recoIconTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
+  recoTextWrap: { flex: 1 },
+  recoTitle: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
+  recoSub: { fontSize: ty.small, color: '#fff', opacity: 0.9, marginTop: 2 },
+  recoChevron: { fontSize: 24, color: '#fff', fontWeight: '700' },
   card: {
     ...shadow(1),
     backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,
