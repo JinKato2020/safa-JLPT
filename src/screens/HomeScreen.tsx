@@ -1,6 +1,6 @@
 // ホーム = ダッシュボード。到達度ゲージ(＋ペース予測)＋継続＋成長＋今日のおすすめ＋バッジ。
 // 指標は注記で明示。設定系は「設定」タブへ分離。
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useT } from '../i18n';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,6 +16,7 @@ import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../../shared/
 import HeroGauge from '../components/HeroGauge';
 import RingGauge from '../components/RingGauge';
 import Badge from '../components/Badge';
+import BadgeCollection from '../components/BadgeCollection';
 import { badgeTierIndex } from '../data/badges';
 
 // 称号(合格率tier 10段)= i18n home.passTitle0..9 / カバー率の成長バッジ段名 = home.coverTier0..9
@@ -39,6 +40,7 @@ export default function HomeScreen() {
   const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
+  const [collectionOpen, setCollectionOpen] = useState(false);
   const now = Date.now();
   const readiness = useMemo(() => readinessFor(state, now), [state]);
   const nba = useMemo(() => nextBestAction(state, now), [state]);
@@ -136,8 +138,10 @@ export default function HomeScreen() {
             size={212}
             stroke={14}
           >
-            {/* 大リング中央＝合格率の“格”バッジを大きく。初回(未測定)は新芽(tier0)を既定表示。 */}
-            <Badge set={badgeSet} metric="pass" pct={measured ? passProb : 0} size={146} />
+            {/* 大リング中央＝合格率の“格”バッジを大きく。初回(未測定)は新芽(tier0)を既定表示。タップで称号コレクション。 */}
+            <Pressable onPress={() => setCollectionOpen(true)}>
+              <Badge set={badgeSet} metric="pass" pct={measured ? passProb : 0} size={146} />
+            </Pressable>
             {/* 大リング下の称号バンド: natural=上に称号+下に花の名前、gorgeous=称号のみ */}
             <View style={s.band}>
               <Text style={s.bandTitle}>{t((badgeSet === 'natural' ? 'home.natPassTitle' : 'home.passTitle') + badgeTierIndex(measured ? passProb : 0))}</Text>
@@ -231,6 +235,7 @@ export default function HomeScreen() {
           achievedLabel={t('home.badge_achieved')}
         />
       </ScrollView>
+      <BadgeCollection visible={collectionOpen} onClose={() => setCollectionOpen(false)} set={badgeSet} metric="pass" pct={measured ? passProb : 0} />
     </SafeAreaView>
   );
 }

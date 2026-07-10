@@ -1,4 +1,7 @@
 {
+ "badges.collection_title": "Title Collection",
+ "badges.collection_sub": "Earned {done} / 10",
+ "badges.collection_hint": "Keep studying to unlock the grayed-out titles one by one.",
  "browse.allLevels": "All Levels",
  "browse.count": "{n} items",
  "browse.empty": "No results",

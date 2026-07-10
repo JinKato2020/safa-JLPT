@@ -1,6 +1,6 @@
 // カードタブ = 漢字/語彙/文法の3カード。各カードにカバー率(ホームから移設)＋辞書リストへのリンク。
 // 漢字カードは書き取り(サンプル10字)入口＋進捗も持つ。
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +9,7 @@ import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from
 import { useAppState } from '../store/store';
 import { coverageBars } from '../store/selectors';
 import Badge from '../components/Badge';
+import BadgeCollection from '../components/BadgeCollection';
 import { badgeTierIndex } from '../data/badges';
 import type { RootStackParamList, WordsStackParamList } from '../navigation/types';
 import { kakitoriDueToday } from '../kakitori/srs';
@@ -34,6 +35,7 @@ export default function CardsScreen() {
   const badgeSet = state.settings.badgeSet ?? 'gorgeous';
   const cov = useMemo(() => coverageBars(state, now), [state]);
   const covOf = (k: Key) => cov.find((b) => b.key === k) ?? { learned: 0, total: 0 };
+  const [collPct, setCollPct] = useState<number | null>(null); // 称号コレクション: タップしたカードのカバー率(null=閉)
 
   const todayStr = () => {
     const d = new Date();
@@ -62,10 +64,10 @@ export default function CardsScreen() {
               <View style={s.cardHead}>
                 <View style={s.badge}><Text style={s.badgeTxt}>{card.emoji}</Text></View>
                 <Text style={s.cardTitle}>{t(card.labelKey)}</Text>
-                <View style={s.covBadgeWrap}>
+                <Pressable style={s.covBadgeWrap} onPress={() => setCollPct(pct)}>
                   <Badge set={badgeSet} metric="cover" pct={pct} size={54} />
                   <Text style={s.covTierName}>{t('home.coverTier' + badgeTierIndex(pct))}</Text>
-                </View>
+                </Pressable>
               </View>
               <View style={s.covBarRow}>
                 <View style={s.covTrack}><View style={[s.covFill, { width: `${pct}%`, backgroundColor: c.blue }]} /></View>
@@ -109,6 +111,7 @@ export default function CardsScreen() {
           );
         })}
       </ScrollView>
+      <BadgeCollection visible={collPct !== null} onClose={() => setCollPct(null)} set={badgeSet} metric="cover" pct={collPct} />
     </SafeAreaView>
   );
 }

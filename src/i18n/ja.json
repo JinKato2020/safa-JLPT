@@ -1,4 +1,7 @@
 {
+ "badges.collection_title": "称号コレクション",
+ "badges.collection_sub": "取得済み {done} / 10",
+ "badges.collection_hint": "学習を進めるとグレーの称号が順に解放されます。",
  "browse.allLevels": "全級",
  "browse.count": "{n} 件",
  "browse.empty": "該当なし",
