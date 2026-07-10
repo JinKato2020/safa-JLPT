@@ -13,7 +13,7 @@ export type RootStackParamList = {
   Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review'; char?: string } | undefined; // 漢字書き取り(サンプル10字・3ステップ、単字自由練習対応)
   KanjiDetail: { char: string; scope?: 'level' | 'all' }; // scope=level:自レベル読み(単語タブ) / all(既定):全読み(辞書)
   ListeningQuiz: { kind: 'vocab' | 'kanji' }; // 聞き取りドリル(学習→テスト・語彙/漢字)
-  WordDrill: { kind: 'vProduce' | 'gOrder' | 'gMeaning'; level?: 'N5' | 'N4' | 'N3' }; // 単語タブ新形式(意味から単語/文を組み立てる/意味を選ぶ)
+  WordDrill: { kind: 'vProduce' | 'gBuild' | 'gMeaning'; level?: 'N5' | 'N4' | 'N3' }; // 単語タブ新形式(意味から単語/文をつくる/意味を選ぶ)
 };
 
 export type Kubun = 'kanji' | 'vocab' | 'grammar';

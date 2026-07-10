@@ -21,8 +21,6 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 type Rt = RouteProp<RootStackParamList, 'WordDrill'>;
 type Styles = ReturnType<typeof makeStyles>;
 
-const arrEq = (a: number[], b: number[]) => a.length === b.length && a.every((v, i) => v === b[i]);
-
 export default function WordDrillScreen() {
   const nav = useNavigation<Nav>();
   const route = useRoute<Rt>();
@@ -62,8 +60,8 @@ export default function WordDrillScreen() {
     setI((n) => n + 1);
   };
 
-  const titleKey = kind === 'vProduce' ? 'worddrill.title_vProduce' : kind === 'gOrder' ? 'worddrill.title_gOrder' : 'worddrill.title_gMeaning';
-  const askKey = kind === 'vProduce' ? 'worddrill.produce_ask' : kind === 'gOrder' ? 'worddrill.order_ask' : 'worddrill.meaning_ask';
+  const titleKey = kind === 'vProduce' ? 'worddrill.title_vProduce' : kind === 'gBuild' ? 'worddrill.title_gBuild' : 'worddrill.title_gMeaning';
+  const askKey = kind === 'vProduce' ? 'worddrill.produce_ask' : kind === 'gBuild' ? 'worddrill.build_ask' : 'worddrill.meaning_ask';
 
   // ── 問題枯渇 / 終了 ──
   if (!problems.length) {
@@ -94,11 +92,8 @@ export default function WordDrillScreen() {
       <ScrollView contentContainerStyle={s.body}>
         <Text style={s.ask}>{t(askKey)}</Text>
 
-        {p.kind === 'vProduce' && (
+        {(p.kind === 'vProduce' || p.kind === 'gBuild') && (
           <ProduceView p={p} placed={placed} setPlaced={setPlaced} judged={judged} record={record} s={s} c={c} t={t} />
-        )}
-        {p.kind === 'gOrder' && (
-          <OrderView p={p} placed={placed} setPlaced={setPlaced} judged={judged} record={record} s={s} c={c} />
         )}
         {p.kind === 'gMeaning' && (
           <MeaningView p={p} sel={sel} setSel={setSel} judged={judged} record={record} s={s} />
@@ -130,9 +125,9 @@ function Header({ title, onClose, progress, count, s }: { title: string; onClose
   );
 }
 
-// ── 語彙 産出(意味→かな) ──
+// ── 産出(かなタイル): 語彙 意味→単語 / 文法 例文の空所に文法語を作る ──
 function ProduceView({ p, placed, setPlaced, judged, record, s, c, t }: {
-  p: Extract<DrillProblem, { kind: 'vProduce' }>; placed: number[]; setPlaced: (v: number[]) => void;
+  p: Extract<DrillProblem, { kind: 'vProduce' | 'gBuild' }>; placed: number[]; setPlaced: (v: number[]) => void;
   judged: null | boolean; record: (correct: boolean, id: string) => void; s: Styles; c: ThemeColors; t: (k: string, p?: Record<string, string | number>) => string;
 }) {
   const slotCount = p.answer.length;
@@ -149,11 +144,20 @@ function ProduceView({ p, placed, setPlaced, judged, record, s, c, t }: {
   return (
     <>
       <View style={s.prompt}>
-        <Text style={s.promptEn}>{p.prompt}</Text>
-        <Pressable style={s.listen} onPress={() => playVocab(vid)}>
-          <Ionicons name="headset-outline" size={15} color={c.blueDark} />
-          <Text style={s.listenTxt}>{t('worddrill.listen')}</Text>
-        </Pressable>
+        {p.kind === 'vProduce' ? (
+          <>
+            <Text style={s.promptEn}>{p.prompt}</Text>
+            <Pressable style={s.listen} onPress={() => playVocab(vid)}>
+              <Ionicons name="headset-outline" size={15} color={c.blueDark} />
+              <Text style={s.listenTxt}>{t('worddrill.listen')}</Text>
+            </Pressable>
+          </>
+        ) : (
+          <>
+            <RubyText text={p.prompt} style={s.promptJa} rubyStyle={{ color: c.mute }} center />
+            {!!p.hint && <Text style={s.promptHint}>{p.hint}</Text>}
+          </>
+        )}
       </View>
       <View style={s.slots}>
         {Array.from({ length: slotCount }).map((_, k) => {
@@ -173,48 +177,6 @@ function ProduceView({ p, placed, setPlaced, judged, record, s, c, t }: {
         {p.tiles.map((tl, idx) => (
           <Pressable key={idx} style={[s.tile, placed.includes(idx) && s.tileUsed]} onPress={() => tapTile(idx)}>
             <Text style={s.tileTxt}>{tl}</Text>
-          </Pressable>
-        ))}
-      </View>
-    </>
-  );
-}
-
-// ── 文法 完全並べ替え ──
-function OrderView({ p, placed, setPlaced, judged, record, s, c }: {
-  p: Extract<DrillProblem, { kind: 'gOrder' }>; placed: number[]; setPlaced: (v: number[]) => void;
-  judged: null | boolean; record: (correct: boolean, id: string) => void; s: Styles; c: ThemeColors;
-}) {
-  const n = p.tiles.length;
-  const tapBank = (origIdx: number) => {
-    if (judged !== null || placed.includes(origIdx) || placed.length >= n) return;
-    const nextPlaced = [...placed, origIdx];
-    setPlaced(nextPlaced);
-    if (nextPlaced.length === n) record(arrEq(nextPlaced, p.correctOrder), p.itemId);
-  };
-  return (
-    <>
-      <View style={s.orderRows}>
-        {Array.from({ length: n }).map((_, k) => {
-          const origIdx = placed[k];
-          const filled = origIdx != null;
-          const showCorrect = judged === false; // 誤答時は正しい並びを緑で提示
-          return (
-            <Pressable key={k} style={[s.oslot, filled && s.oslotFilled, judged === true && s.oslotOk, judged === false && s.oslotNg]}
-              onPress={() => { if (judged === null && filled) setPlaced(placed.filter((x) => x !== origIdx)); }}>
-              <Text style={s.oNum}>{k + 1}</Text>
-              {filled ? <RubyText text={p.tiles[origIdx]} style={s.oTileTxt} rubyStyle={{ color: c.mute }} />
-                : showCorrect ? <RubyText text={p.tiles[p.correctOrder[k]]} style={[s.oTileTxt, { color: c.green }]} rubyStyle={{ color: c.green }} />
-                  : <Text style={s.oPlaceholder} /> }
-            </Pressable>
-          );
-        })}
-      </View>
-      <Text style={s.bankLbl}>{judged !== null ? '' : ''}</Text>
-      <View style={s.bank}>
-        {p.scrambled.map((origIdx) => (
-          <Pressable key={origIdx} style={[s.tile, s.tileK, placed.includes(origIdx) && s.tileUsed]} onPress={() => tapBank(origIdx)}>
-            <RubyText text={p.tiles[origIdx]} style={s.tileKTxt} rubyStyle={{ color: c.faint }} />
           </Pressable>
         ))}
       </View>
@@ -273,6 +235,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   prompt: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: spacing.xs },
   promptEn: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
   promptPt: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
+  promptJa: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
+  promptHint: { fontSize: ty.small, color: c.mute, fontWeight: '700', marginTop: spacing.xs, textAlign: 'center' },
   listen: { flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 2 },
   listenTxt: { fontSize: ty.small, fontWeight: '800', color: c.blueDark },
   // produce slots

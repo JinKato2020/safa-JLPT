@@ -11,7 +11,31 @@ const FS = FileSystemNS as unknown as {
   getInfoAsync?: (uri: string) => Promise<{ exists: boolean }>;
   downloadAsync?: (url: string, dest: string) => Promise<{ uri: string; status?: number }>;
   deleteAsync?: (uri: string, opts?: { idempotent?: boolean }) => Promise<void>;
+  readAsStringAsync?: (uri: string) => Promise<string>;
+  writeAsStringAsync?: (uri: string, contents: string) => Promise<void>;
 };
+
+// キャッシュ世代。サーバーの音声を差し替えたのに端末の旧mp3が残る問題(例: 雨→「う」誤読の旧版)を解消するため、
+// この番号を上げると初回アクセス時に vocab/・kanji/ キャッシュを一掃し、正しい最新mp3を取り直す。
+// 音声を修正・再生成して配信したら必ずこの番号を +1 する。
+const AUDIO_CACHE_VERSION = 2;
+let cacheVersionChecked = false;
+async function ensureCacheVersion(): Promise<void> {
+  if (cacheVersionChecked || !FS.documentDirectory) return;
+  cacheVersionChecked = true;
+  const marker = `${FS.documentDirectory}audio_cache.v`;
+  try {
+    let ver = '';
+    const info = await FS.getInfoAsync?.(marker);
+    if (info?.exists) { try { ver = (await FS.readAsStringAsync?.(marker)) ?? ''; } catch { /* noop */ } }
+    if (ver !== String(AUDIO_CACHE_VERSION)) {
+      if (cacheDir) { try { await FS.deleteAsync?.(cacheDir, { idempotent: true }); } catch { /* noop */ } }
+      if (kanjiCacheDir) { try { await FS.deleteAsync?.(kanjiCacheDir, { idempotent: true }); } catch { /* noop */ } }
+      dirReady = false; kanjiDirReady = false;
+      try { await FS.writeAsStringAsync?.(marker, String(AUDIO_CACHE_VERSION)); } catch { /* noop */ }
+    }
+  } catch { /* 失敗時はキャッシュ据え置き(致命的でない) */ }
+}
 const cacheDir = Platform.OS !== 'web' && FS.documentDirectory ? `${FS.documentDirectory}vocab/` : null;
 const CACHEABLE = !!cacheDir && typeof FS.downloadAsync === 'function' && typeof FS.getInfoAsync === 'function';
 const kanjiCacheDir = Platform.OS !== 'web' && FS.documentDirectory ? `${FS.documentDirectory}kanji/` : null;
@@ -35,6 +59,7 @@ async function resolveSource(id: string): Promise<{ uri: string }> {
   const url = vocabAudioUrl(id);
   if (!CACHEABLE) return { uri: url };
   try {
+    await ensureCacheVersion();
     await ensureDir();
     const local = `${cacheDir}${id}.mp3`;
     const info = await FS.getInfoAsync!(local);
@@ -54,6 +79,7 @@ async function resolveKanjiSource(char: string): Promise<{ uri: string }> {
   const url = kanjiAudioUrl(char);
   if (!KANJI_CACHEABLE) return { uri: url };
   try {
+    await ensureCacheVersion();
     await ensureKanjiDir();
     const local = `${kanjiCacheDir}${encodeURIComponent(char)}.mp3`;
     const info = await FS.getInfoAsync!(local);

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildDrill, produceEligible, orderEligible, meaningEligible, toMorae } from './wordDrill';
+import { buildDrill, produceEligible, buildEligible, meaningEligible, toMorae } from './wordDrill';
 
 test('toMorae: 拗音/長音は結合・促音は独立', () => {
   assert.deepEqual(toMorae('きゃく'), ['きゃ', 'く']);
@@ -9,25 +9,26 @@ test('toMorae: 拗音/長音は結合・促音は独立', () => {
   assert.deepEqual(toMorae('あう'), ['あ', 'う']);
 });
 
-test('vProduce: 答えモーラが全てタイルに含まれ、余分なダミーがある', () => {
+test('vProduce: 答えモーラが全てタイルに含まれ、タイルは約8個', () => {
   const [p] = buildDrill('vProduce', 'N5', 1, 1);
   assert.equal(p.kind, 'vProduce');
   if (p.kind !== 'vProduce') return;
   for (const m of p.answer) assert.ok(p.tiles.includes(m), `tile欠落: ${m}`);
-  assert.ok(p.tiles.length > p.answer.length, 'ダミータイルが無い');
+  assert.ok(p.tiles.length >= p.answer.length + 2, 'ダミータイルが足りない');
+  assert.ok(p.tiles.length >= 6, 'タイルが少なすぎ(約8個の想定)');
   assert.equal(p.answer.join(''), p.reading);
   assert.ok(p.itemId.endsWith('#produce'));
 });
 
-test('gOrder: correctOrder は tiles の完全順列で、pointId#order を itemId に持つ', () => {
-  const batch = buildDrill('gOrder', 'N5', 5, 1);
+test('gBuild: 答えの文法語モーラがタイルに含まれ、空所〔　　〕を含む例文、#gbuild を itemId に持つ', () => {
+  const batch = buildDrill('gBuild', 'N5', 5, 1);
   assert.ok(batch.length > 0);
   for (const p of batch) {
-    if (p.kind !== 'gOrder') continue;
-    assert.equal(p.correctOrder.length, p.tiles.length);
-    assert.equal(new Set(p.correctOrder).size, p.tiles.length, '順列が重複');
-    assert.equal(new Set(p.scrambled).size, p.tiles.length, '表示順が重複');
-    assert.ok(/#order$|^bk:order:/.test(p.itemId));
+    if (p.kind !== 'gBuild') continue;
+    for (const m of p.answer) assert.ok(p.tiles.includes(m), `tile欠落: ${m}`);
+    assert.equal(p.answer.join(''), p.reading);
+    assert.ok(p.prompt.includes('〔'), '空所が無い');
+    assert.ok(p.itemId.endsWith('#gbuild'));
   }
 });
 
@@ -43,7 +44,7 @@ test('gMeaning: 4択で answerIndex が範囲内・itemId は #gmeaning', () => 
 test('eligible: N5〜N3 は問題があり、コンテンツ外レベルは空', () => {
   for (const lv of ['N5', 'N4', 'N3']) {
     assert.ok(produceEligible(lv).length > 0, `${lv} produce空`);
-    assert.ok(orderEligible(lv).length > 0, `${lv} order空`);
+    assert.ok(buildEligible(lv).length > 0, `${lv} gBuild空`);
     assert.ok(meaningEligible(lv).length > 0, `${lv} meaning空`);
   }
 });

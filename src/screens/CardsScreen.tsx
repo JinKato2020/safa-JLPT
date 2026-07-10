@@ -92,7 +92,7 @@ export default function CardsScreen() {
                     <Text style={s.linkTxt}>{t('cards.gmeaning')}</Text>
                     <Text style={s.chevron}>›</Text>
                   </Pressable>
-                  <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordDrill', { kind: 'gOrder' })}>
+                  <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordDrill', { kind: 'gBuild' })}>
                     <Text style={s.linkTxt}>{t('cards.gorder')}</Text>
                     <Text style={s.chevron}>›</Text>
                   </Pressable>
