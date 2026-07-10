@@ -247,6 +247,7 @@ export default function QuizScreen() {
                 <Text style={s.explainLabel}>{t('quiz.explain_label')}</Text>
                 <LearnText text={question.explain} style={s.explainTxt} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} />
                 {question.itemId ? <ExplainL10n id={question.itemId} l1={settings.l1} /> : null}
+                {settings.l1 === 'ne' && question.explainNe ? <Text style={s.explainNe}>{question.explainNe}</Text> : null}
               </View>
             ) : null}
             <AppButton label={idx + 1 >= total ? t('quiz.see_results') : t('quiz.learn_next')} onPress={advance} />

@@ -32,6 +32,9 @@ const BANK_BY = new Map<string, BankUnit[]>();
 for (const b of BANK) { const k = `${b.level}:${b.daimon}`; (BANK_BY.get(k) ?? BANK_BY.set(k, []).get(k)!).push(b); }
 const bankOf = (level: string, daimon: Daimon): BankUnit[] => BANK_BY.get(`${level}:${daimon}`) ?? [];
 const BANK_INDEX = new Map(BANK.map((b) => [b.id, b] as const));
+// 知識バンクid(kb-NNNNNN) → 級。skillWeight等、状態キーだけから難易度を逆引きしたい呼び出し元向け。
+const BANK_LEVEL = new Map(BANK.map((b) => [b.id, b.level] as const));
+export function bankLevelOf(id: string): string | undefined { return BANK_LEVEL.get(id); }
 
 // 漢字読み/表記の対象語=固定問題集(KANJI_READ_BANK)にエントリがある語。交ぜ書き方式で作成済み。
 // ユニットキー <vocabId>#kanji_read / #orthography の集合を単一ソースにする。
