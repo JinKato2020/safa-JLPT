@@ -13,6 +13,7 @@ import { guessCorrect, jftMockScore } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { examReadingFor, examListeningFor, rubyNeeded } from '../data';
 import RubyText from '../components/RubyText';
+import ExplainL10n from '../components/ExplainL10n';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
 import { sample, shuffleChoices, type ExampleHint } from '../quiz/quiz';
@@ -51,6 +52,7 @@ interface MockItem {
   clipId?: string;
   script?: string;
   explain?: string;
+  itemId?: string;
   daimon?: Daimon; // 大問(知識区分の内訳集計用)
 }
 interface Answer { id: string; section: Sec; correct: boolean; label: string; drillable: boolean; }
@@ -95,7 +97,7 @@ function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen
     out.push({
       kind: 'word', id: unit, section: sec, daimon,
       question: q.question, choices: q.choices, answerIndex: q.answerIndex,
-      prompt: q.prompt || undefined, reading: q.reading, example: q.example, furi: q.furi, furiTarget: q.furiTarget, noTargetRuby: q.noTargetRuby, explain: q.explain,
+      prompt: q.prompt || undefined, reading: q.reading, example: q.example, furi: q.furi, furiTarget: q.furiTarget, noTargetRuby: q.noTargetRuby, explain: q.explain, itemId: q.itemId,
     });
   }
   return out.slice(0, count);
@@ -440,6 +442,7 @@ export default function MockScreen() {
         {reveal ? (
           <>
             {cur.explain ? <View style={s.explainBox}><Text style={s.explainTxt}>{cur.explain}</Text></View> : null}
+            {cur.itemId ? <ExplainL10n id={cur.itemId} l1={state.settings.l1} /> : null}
             {cur.kind === 'listening' ? (
               <Pressable style={s.cta} onPress={next}>
                 <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
