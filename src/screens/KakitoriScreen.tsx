@@ -8,6 +8,7 @@ import { WebView, type WebViewMessageEvent } from 'react-native-webview';
 import * as Speech from 'expo-speech';
 import * as Haptics from 'expo-haptics';
 import { Audio } from 'expo-av';
+import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { kanjiListFor, kanjiInfo } from '../kakitori/list';
@@ -18,6 +19,8 @@ import { kakitoriDueToday } from '../kakitori/srs';
 import { kakitoriDrillQueue } from '../kakitori/queue';
 import levelReadings from '../data/kanjiLevelReadings.json';
 import kanjiDrillReps from '../data/kanjiDrillReps.json';
+import { playVocab, playKanjiRep } from '../data/vocabAudio';
+import { vocabIdForWord } from '../words/vocabIndex';
 import type { RootStackParamList } from '../navigation/types';
 import type { Level } from '../engine/engine';
 import { useT } from '../i18n';
@@ -136,10 +139,16 @@ export default function KakitoriScreen() {
     const kun = (info?.kun ?? '').split('、')[0].split('.')[0];
     return on || kun || '';
   };
+  // 音声は「漢字聞き取り」と同一: playVocab(配信mp3) → playKanjiRep(kanji/<字>.mp3) → TTSフォールバック(自然読み)。
   const speak = (ch: string, opts?: { manual?: boolean }) => {
-    if (!opts?.manual && !sound) return;   // 自動読み上げのみ設定に従う。手動🔊は常時
-    const r = speakReading(ch);
-    if (r) Speech.speak(r, { language: 'ja-JP' });
+    if (!opts?.manual && !sound) return;   // 自動読み上げのみ設定に従う。手動🎧は常時
+    const rep = (kanjiDrillReps as Record<string, { word: string; reading: string }>)[ch];
+    const reading = rep?.reading || speakReading(ch);
+    const vocabId = rep?.word && rep?.reading ? vocabIdForWord(rep.word, rep.reading) : null;
+    const fallback = () => { if (reading) Speech.speak(reading, { language: 'ja-JP' }); };
+    Speech.stop();
+    if (vocabId) playVocab(vocabId).then((ok) => { if (!ok) fallback(); });
+    else playKanjiRep(ch).then((ok) => { if (!ok) fallback(); });
   };
 
   // 自動/手動を単一の前進関数に集約(タイミング競合を断つ)。
@@ -198,7 +207,7 @@ export default function KakitoriScreen() {
             <Text style={s.infoMeaning} numberOfLines={1}>{info?.meaning ?? ''}</Text>
             {!!exampleWord(char) && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
           </View>
-          <Pressable onPress={() => speak(char, { manual: true })} hitSlop={10}><Text style={s.speak}>🔊</Text></Pressable>
+          <Pressable onPress={() => speak(char, { manual: true })} hitSlop={10}><Ionicons name="headset-outline" size={26} color={c.blue} /></Pressable>
         </View>
 
         {!free && (
