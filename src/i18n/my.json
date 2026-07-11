@@ -186,6 +186,7 @@
  "reading.hint": "စာသားဖတ်ပြီး ဖြေပါ။",
  "reading.questionLabel": "မေးခွန်း {n}/{m}",
  "reading.scoreResult": "{answered} မေးခွန်းထဲမှ {correct} ခု မှန်ကန်",
+ "passage.sessionComplete": "စာပိုဒ်သဒ္ဒါ ဆက်ရှင် ပြီးဆုံးပြီ",
  "reading.sessionComplete": "စာဖတ်ဆက်ရှင် ပြီးဆုံးပြီ",
  "sessionsummary.confidence": "ယုံကြည်ကွာဟချက်（တိကျမှု）",
  "sessionsummary.heading": "ဤဆက်ရှင်တွင် တိုးတက်မှု",

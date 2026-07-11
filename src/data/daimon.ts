@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, passageGrammarSetsFor, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -52,7 +52,8 @@ export interface BankUnit { id: string; level: string; daimon: Daimon; stem: str
 // 並べ替え(order)のうち一意性監査で「複数正解=曖昧」と判定された問題(ambiguous:true・108問)は出題プールから恒久除外。
 // 日本語は副詞・主語の位置が自由で★の答えが一意にならないため。監査=LLM一括(2026-07-10)。id は data由来なので filter後も安定。
 export const BANK: BankUnit[] = (KNOWLEDGE_BANK as BankUnit[])
-  .filter((b) => !(b.daimon === 'order' && b.ambiguous));
+  .filter((b) => !(b.daimon === 'order' && b.ambiguous))
+  .filter((b) => b.daimon !== 'passage_grammar'); // 文章の文法は passageGrammar.json(セット形式)へ移行(Task 5)。PassageGrammarScreen+PassageSetPlayerで出題。
 const BANK_BY = new Map<string, BankUnit[]>();
 for (const b of BANK) { const k = `${b.level}:${b.daimon}`; (BANK_BY.get(k) ?? BANK_BY.set(k, []).get(k)!).push(b); }
 const bankOf = (level: string, daimon: Daimon): BankUnit[] => BANK_BY.get(`${level}:${daimon}`) ?? [];
@@ -88,8 +89,11 @@ function split(all: string[], mode: 'all' | 'learn' | 'exam'): string[] {
   return all.filter((_, i) => (i % EXAM_EVERY === EXAM_EVERY - 1) === (mode === 'exam'));
 }
 /** ある級・大問の学習ユニットid列。item系=`<itemId>#<daimon>`、bank系=bank id。mode=all/learn(学習)/exam(模試専用)。
- *  context/grammar_form は item系＋バンク併用、usage/order/passage_grammar は純バンク。 */
+ *  context/grammar_form は item系＋バンク併用、usage/order は純バンク、passage_grammar はセット(passageGrammar.json)設問id。 */
 export function daimonUnitIds(level: Level, daimon: Daimon, mode: 'all' | 'learn' | 'exam' = 'all'): string[] {
+  // 文章の文法=BANKから除外済(Task 5)。母数/リング/カバー率は passageGrammar.json の全設問idを分母にする
+  // (PassageGrammarScreen+PassageSetPlayerが quizAnswer(q.id,...) を記録=同じ状態キー空間に乗る)。
+  if (daimon === 'passage_grammar') return split(passageGrammarSetsFor(level).flatMap((s) => s.questions.map((q) => q.id)), mode);
   const items = eligibleItems(level, daimon).map((it) => `${it.id}#${daimon}`);
   const fmt = DAIMON_FORMAT[daimon];
   const all = fmt === 'bank'

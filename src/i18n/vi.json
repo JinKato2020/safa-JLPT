@@ -186,6 +186,7 @@
  "reading.hint": "Đọc đoạn văn và trả lời câu hỏi.",
  "reading.questionLabel": "Câu hỏi {n}/{m}",
  "reading.scoreResult": "Đúng {correct}/{answered} câu",
+ "passage.sessionComplete": "Hoàn thành phiên ngữ pháp đoạn văn",
  "reading.sessionComplete": "Hoàn thành phiên đọc hiểu",
  "sessionsummary.confidence": "Độ tin cậy (độ chính xác)",
  "sessionsummary.heading": "Tiến bộ trong phiên này",

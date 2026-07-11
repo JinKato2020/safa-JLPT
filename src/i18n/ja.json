@@ -324,6 +324,7 @@
  "passage.hint": "すべての問に答えてください。",
  "passage.next": "次へ",
  "passage.qLabel": "問{n}",
+ "passage.sessionComplete": "文章の文法セッション完了",
  "passage.toResult": "結果へ",
  "quiz.correct": "正解！",
  "quiz.hint": "4択から選んでください。間違えた語はあとで戻ってきます。",

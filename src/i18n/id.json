@@ -186,6 +186,7 @@
  "reading.hint": "Baca teks dan jawab soalnya.",
  "reading.questionLabel": "Soal {n}/{m}",
  "reading.scoreResult": "{correct} dari {answered} soal benar",
+ "passage.sessionComplete": "Sesi Tata Bahasa Wacana Selesai",
  "reading.sessionComplete": "Sesi Membaca Selesai",
  "sessionsummary.confidence": "Rentang kepercayaan (akurasi)",
  "sessionsummary.heading": "Kemajuan sesi ini",

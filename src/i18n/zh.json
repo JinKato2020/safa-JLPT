@@ -186,6 +186,7 @@
  "reading.hint": "阅读文章后作答。",
  "reading.questionLabel": "题目 {n}/{m}",
  "reading.scoreResult": "{answered} 题中答对 {correct} 题",
+ "passage.sessionComplete": "文章语法练习完成",
  "reading.sessionComplete": "阅读练习完成",
  "sessionsummary.confidence": "可信度（精度）",
  "sessionsummary.heading": "本次学习的进步",

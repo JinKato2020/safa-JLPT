@@ -108,6 +108,7 @@ export default function HomeScreen() {
   const goAction = () => {
     if (!nba) return nav.navigate('Quiz', { category: 'all' });
     if (nba.route === 'Quiz') {
+      if (nba.daimon === 'passage_grammar') return nav.navigate('PassageGrammar'); // 文章の文法は専用画面(セット形式)
       return nba.daimon
         ? nav.navigate('Quiz', { daimon: nba.daimon, title: t(DAIMON_LABEL[nba.daimon]) })
         : nav.navigate('Quiz', { category: 'bunpou' });
