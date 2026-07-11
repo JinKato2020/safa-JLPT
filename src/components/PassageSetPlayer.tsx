@@ -10,7 +10,7 @@ import { type PassageSet } from '../quiz/passageSet';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
-export default function PassageSetPlayer({ set, isLast, onNext }: { set: PassageSet; isLast: boolean; onNext: () => void }) {
+export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { set: PassageSet; isLast: boolean; onNext: () => void; onGraded?: (results: { id: string; correct: boolean }[]) => void }) {
   const state = useAppState();
   const { quizAnswer, addToMyList } = useAppActions();
   const c = useColors();
@@ -25,10 +25,11 @@ export default function PassageSetPlayer({ set, isLast, onNext }: { set: Passage
   const [recorded, setRecorded] = useState(false);
   const revealed = answers.every((a) => a !== null);
 
-  // 全問回答した瞬間に、各設問の正誤を1回だけ記録（冪等）。
+  // 全問回答した瞬間に、各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)が採点集計したい場合は onGraded も同時に1回だけ発火。
   useEffect(() => {
     if (revealed && !recorded) {
       set.questions.forEach((q, i) => quizAnswer(q.id, correctness[i]));
+      onGraded?.(set.questions.map((q, i) => ({ id: q.id, correct: correctness[i] })));
       setRecorded(true);
     }
   }, [revealed, recorded]);
