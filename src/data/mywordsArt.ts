@@ -1,18 +1,12 @@
-// my単語帳のイラスト資産(バンドル同梱=require、即時表示)。badges.ts と同方式。
-// 生成: blog/tools/gen-images.mjs(Gemini 2.5 Flash Image=Nano Banana)。原寸は デザイン提案/イラスト本生成_原寸 に保管。
-// マスコット=子ぎつね書生(hero:迎える / cheer:応援 / empty:まだ空)。本表紙=語彙/漢字/文法(和綴じ・区分色)。
+// my単語帳「桜の書斎」の同梱アセット(require=即時表示)。
+// 案内キャラ=桜の巫女(ユーザー提供絵)。guide.open=開き目 / guide.blink=目だけ閉じた同一絵(瞬き用・目以外は完全同一)。
+// room=書斎の背景(部屋)。生成/加工の由来は デザイン提案/ に保管。本(和綴じ)はViewで描画=画像不要。
 import type { ImageSourcePropType } from 'react-native';
 
-export type MascotPose = 'hero' | 'cheer' | 'empty';
-export const MASCOT: Record<MascotPose, ImageSourcePropType> = {
-  hero: require('../../assets/mywords/mascot_hero.png'),
-  cheer: require('../../assets/mywords/mascot_cheer.png'),
-  empty: require('../../assets/mywords/mascot_empty.png'),
+export const GUIDE: { open: ImageSourcePropType; blink: ImageSourcePropType } = {
+  open: require('../../assets/mywords/guide_open.png'),
+  blink: require('../../assets/mywords/guide_blink.png'),
 };
+export const ROOM: ImageSourcePropType = require('../../assets/mywords/room.jpg');
 
 export type BookKind = 'vocab' | 'kanji' | 'grammar';
-export const BOOK_COVERS: Record<BookKind, ImageSourcePropType> = {
-  vocab: require('../../assets/mywords/book_vocab.png'),
-  kanji: require('../../assets/mywords/book_kanji.png'),
-  grammar: require('../../assets/mywords/book_grammar.png'),
-};
