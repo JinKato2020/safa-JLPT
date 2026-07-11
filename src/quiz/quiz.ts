@@ -23,6 +23,9 @@ export const FORMAT_LABEL: Record<QFormat, string> = {
 // 例文ヒント = 下線セグメント列(共通 highlightSegments の結果)。多部分(A〜B)・1文字対応。
 export type ExampleHint = { text: string; hit: boolean }[];
 
+// my単語帳への保存参照。語daimon→vocab.json id、文法daimon→grammar.json id。解決不能な問題には付けない。
+export type SaveRef = { type: 'vocab' | 'grammar'; id: string };
+
 export interface Question {
   itemId: string;
   prompt: string;     // 提示(語/漢字/文法点)
@@ -37,6 +40,7 @@ export interface Question {
   furi?: string;      // ふりがな付き問題文(漢字（かな）)。レベル適応ルビで描画。
   furiTarget?: string; // 下線対象語(furi中で下線を引く語)。
   noTargetRuby?: boolean; // ①漢字読み: 対象語にはふりがなを出さない(読みが問題)。
+  saveRef?: SaveRef; // my単語帳への保存対象(解決できた問題のみ)。
 }
 
 export type Rng = () => number;
