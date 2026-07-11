@@ -15,6 +15,7 @@ import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 import RubyText from '../components/RubyText';
+import ExplainL10n from '../components/ExplainL10n';
 
 // 学習カードの例文を表示。ふりがな「漢字（かな）」はレベル適応ルビ、対象部「【…】」は括弧を外して下線に統一。
 function LearnText({ text, target: explicitTarget, style, hitStyle, rubyStyle, rubyGate }: { text: string; target?: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle>; rubyGate: (run: string) => boolean }) {
@@ -245,6 +246,7 @@ export default function QuizScreen() {
               <View style={s.explainBox}>
                 <Text style={s.explainLabel}>{t('quiz.explain_label')}</Text>
                 <LearnText text={question.explain} style={s.explainTxt} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} />
+                {question.itemId ? <ExplainL10n id={question.itemId} l1={settings.l1} /> : null}
                 {settings.l1 === 'ne' && question.explainNe ? <Text style={s.explainNe}>{question.explainNe}</Text> : null}
               </View>
             ) : null}
