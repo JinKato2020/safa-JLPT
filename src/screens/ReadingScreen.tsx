@@ -1,62 +1,52 @@
 // ミニ読解。お知らせ/メール/メモ等の本文を読み、4択で自動採点(重み3=mini)→読解リング点灯。
-// 採点は quizAnswer(設問id) を流用。間違いの解説つき。掲示板§4(読解)。
+// 1パッセージ=1セットとして PassageSetPlayer に一括提示(本文+全設問→一括採点)。掲示板§4(読解)。
 import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
-import { useAppState, useAppActions } from '../store/store';
+import { useAppState } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
-import { readingItemsFor, readingItemsForSub, rubyNeeded, type ReadingItem, type PassageQuestion } from '../data';
-import RubyText from '../components/RubyText';
+import { readingItemsFor, readingItemsForSub } from '../data';
+import PassageSetPlayer from '../components/PassageSetPlayer';
+import { readingToSet, type PassageSet } from '../quiz/passageSet';
 import type { RootStackParamList } from '../navigation/types';
-import { sample, reinsertForRelearn, shuffleChoices } from '../quiz/quiz';
+import { sample } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
 
 const SESSION_PASSAGES = 3;
-const RELEARN_GAP = 2;   // 不正解を何問後に戻すか
-const MAX_STEPS = 24;    // 再挿入の暴走防止
-
-interface Step { passage: ReadingItem; q: PassageQuestion; qNum: number; qTotal: number; }
 
 export default function ReadingScreen() {
   const nav = useNavigation();
   const state = useAppState();
-  const { quizAnswer } = useAppActions();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
-  // 読解も適応ルビ(自分のレベル以上の漢字にルビ)。本文・設問・選択肢の 漢字（かな） をルビ表示。
-  const rubyGate = (run: string) => rubyNeeded(run, state.settings.level);
 
   const route = useRoute<RouteProp<RootStackParamList, 'Reading'>>();
   const sub = route.params?.subtype;
 
-  const [steps, setSteps] = useState<Step[]>(() => {
+  const [sets] = useState<PassageSet[]>(() => {
     const now = Date.now();
     const all = sub ? readingItemsForSub(state.settings.level, sub) : readingItemsFor(state.settings.level);
     // 未習得(未回答 or p<0.6)の設問を含むパッセージを優先→カバー率が確実に進みリングが満ちる。
     const needy = all.filter((p) => p.questions.some((q) => { const st = state.items[q.id]; return !st || effectiveP(st, now) < 0.6; }));
     const rest = all.filter((p) => !needy.includes(p));
     const passages = [...sample(needy, SESSION_PASSAGES), ...sample(rest, SESSION_PASSAGES)].slice(0, SESSION_PASSAGES);
-    return passages.flatMap((p) => p.questions.map((q, i) => ({ passage: p, q: { ...q, ...shuffleChoices(q.choices, q.answerIndex) }, qNum: i + 1, qTotal: p.questions.length })));
+    return passages.map(readingToSet);
   });
   const [idx, setIdx] = useState(0);
-  const [picked, setPicked] = useState<number | null>(null);
-  const [answered, setAnswered] = useState(0);
-  const [correct, setCorrect] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
 
-  const step = steps[idx];
+  const set = sets[idx];
 
-  const advance = () => {
-    setPicked(null);
-    setIdx((i) => i + 1);
-  };
-
-  if (!step) {
+  if (!set) {
+    // セッション内で回答した全設問のうち、最終的に正解だった数(reps>0=直近の quizAnswer が正解=SRSのgood判定)。
+    const allQuestionIds = sets.flatMap((st) => st.questions.map((q) => q.id));
+    const answered = allQuestionIds.length;
+    const correct = allQuestionIds.filter((id) => (state.items[id]?.reps ?? 0) > 0).length;
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
@@ -72,122 +62,27 @@ export default function ReadingScreen() {
     );
   }
 
-  const onPick = (i: number) => {
-    if (picked !== null) return;
-    const ok = i === step.q.answerIndex;
-    setPicked(i);
-    quizAnswer(step.q.id, ok);
-    setAnswered((a) => a + 1);
-    if (ok) setCorrect((x) => x + 1);
-    else if (steps.length < MAX_STEPS) {
-      // 不正解は正解するまで後ろに戻す(語彙・文法と同じ復習ループ→読解リングが埋まる)
-      setSteps((q) => {
-        const head = q.slice(0, idx + 1);
-        const tail = reinsertForRelearn(q.slice(idx + 1), step, RELEARN_GAP);
-        return [...head, ...tail];
-      });
-    }
-  };
   return (
     <SafeAreaView style={s.c}>
-      <ScrollView contentContainerStyle={s.body}>
-        <View style={s.top}>
-          <Pressable onPress={() => nav.goBack()} hitSlop={12}>
-            <Text style={s.close}>✕</Text>
-          </Pressable>
-          <Text style={s.progress}>{idx + 1} / {steps.length}</Text>
-        </View>
-
-        <View style={s.passageCard}>
-          <Text style={s.fmtTag}>{step.passage.format}</Text>
-          <RubyText text={step.passage.title} style={s.passageTitle} rubyStyle={s.passRuby} rubyGate={rubyGate} />
-          <View style={s.passageBodyWrap}>
-            {step.passage.body.split('\n').map((line, i) => (
-              line ? <RubyText key={i} text={line} style={s.passageBody} rubyStyle={s.passRuby} rubyGate={rubyGate} /> : <View key={i} style={s.passageBlank} />
-            ))}
-          </View>
-        </View>
-
-        <Text style={s.qLabel}>{t('reading.questionLabel', { n: step.qNum, m: step.qTotal })}</Text>
-        <RubyText text={step.q.q} style={s.qText} rubyStyle={s.qRuby} rubyGate={rubyGate} />
-        <View style={s.choices}>
-          {step.q.choices.map((ch, i) => {
-            const isAnswer = i === step.q.answerIndex;
-            const isPicked = i === picked;
-            const reveal = picked !== null;
-            return (
-              <Pressable
-                key={i}
-                style={[s.choice, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
-                onPress={() => onPick(i)}
-                disabled={reveal}
-              >
-                <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.choiceRuby} rubyGate={rubyGate} /></View>
-                {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
-              </Pressable>
-            );
-          })}
-        </View>
-
-        {picked !== null ? (
-          <Pressable style={s.nextBtn} onPress={advance}>
-            <Text style={s.nextBtnTxt}>{idx + 1 >= steps.length ? t('reading.toResult') : t('reading.next')}</Text>
-          </Pressable>
-        ) : (
-          <Text style={s.hint}>{t('reading.hint')}</Text>
-        )}
-      </ScrollView>
+      <View style={s.top}>
+        <Pressable onPress={() => nav.goBack()} hitSlop={12}>
+          <Text style={s.close}>✕</Text>
+        </Pressable>
+        <Text style={s.progress}>{idx + 1} / {sets.length}</Text>
+      </View>
+      <PassageSetPlayer set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
     </SafeAreaView>
   );
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
-  body: { padding: spacing.lg, gap: spacing.md },
   doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
-  top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
   close: { fontSize: ty.h2, color: c.mute },
   progress: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
-  passageCard: {
-    backgroundColor: c.surface,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: c.line,
-    padding: spacing.lg,
-    gap: spacing.xs,
-  },
-  fmtTag: { fontSize: ty.tiny, fontWeight: '800', color: c.dokkai, letterSpacing: 1 },
-  passageTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
-  passageBody: { fontSize: ty.body, color: c.ink2 },
-  passageBodyWrap: { marginTop: spacing.xs, gap: 4 },
-  passageBlank: { height: 8 },
-  passRuby: { fontSize: 10, lineHeight: 12, color: c.faint, textAlign: 'center' },
-  qLabel: { fontSize: ty.tiny, fontWeight: '700', color: c.mute, letterSpacing: 1 },
-  qText: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
-  qRuby: { fontSize: 10, lineHeight: 12, color: c.mute, textAlign: 'center' },
-  choiceTxtWrap: { flex: 1 },
-  choiceRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },
-  choices: { gap: spacing.sm },
-  choice: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: c.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: c.line,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.md,
-  },
-  choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
-  choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
-  choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
-  mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
-  hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
-  nextBtn: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
-  nextBtnTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   bigEmoji: { fontSize: 56 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
   doneSub: { fontSize: ty.body, color: c.mute },
