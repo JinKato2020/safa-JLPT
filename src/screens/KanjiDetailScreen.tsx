@@ -1,5 +1,5 @@
 // 漢字詳細(モーダル)。BrowseScreenの辞書カードから開き、全読み(音訓)＋例語(語全体ルビ)＋
-// 書き取り練習への導線を提供する。BrowseScreenの意匠/RubyText/KANJI_CARD_READINGSを流用。
+// 書き取り練習への導線を提供する。BrowseScreenの意匠/RubyText/KANJI_CARDSを流用。詳細は全読み表示(表面で隠した応用読みの受け皿)＋レベル超えにバッジ。
 import { useMemo, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,7 +8,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, KANJI_CARDS, meaningIn } from '../data';
+import { KANJI, KANJI_CARDS, meaningIn, readingAboveUserLevel } from '../data';
 import type { KanjiCard } from '../data';
 import { useT } from '../i18n';
 import RubyText from '../components/RubyText';
@@ -24,13 +24,15 @@ const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String
 // 例語は「語全体」にルビ(その語の全漢字が読める形)。BrowseScreenの部分ルビ(対象字だけ)とは異なる。
 // 読みごとに「音/訓・読みラベル・意味(gloss)・例語(1〜3)」を1行にまとめる(KANJI_CARDS正データ)。
 interface RdExample { furiWord: string; word: string; reading: string; gloss: string; }
-interface RdLine { type: 'on' | 'kun'; label: string; gloss: string; examples: RdExample[]; }
+interface RdLine { type: 'on' | 'kun'; label: string; level: string; gloss: string; examples: RdExample[]; }
+// 詳細は全読みを表示(表面で隠したレベル超えの読みの受け皿)。levelも保持しバッジ判定に使う。
 function cardReadingLines(char: string): RdLine[] {
   const card = KANJI_CARDS[char];
   if (!card) return [];
   return card.readings.map((r) => ({
     type: r.type,
     label: r.type === 'on' ? hiraToKata(r.reading) : r.reading,
+    level: r.level,
     gloss: r.gloss,
     examples: r.examples.map((e) => ({ furiWord: rubyForWord(e.word, e.reading), word: e.word, reading: e.reading, gloss: e.gloss })),
   }));
@@ -68,6 +70,7 @@ export default function KanjiDetailScreen() {
       <View style={s.readHead}>
         <Text style={s.readTag}>{r.type === 'on' ? '音' : '訓'}</Text>
         <Text style={s.readLabel}>{r.label}</Text>
+        {readingAboveUserLevel(r.level, settings.level) && <Text style={s.readLevelBadge}>{r.level}</Text>}
         <Text style={s.readGloss} numberOfLines={2}>{r.gloss}</Text>
       </View>
       <View style={s.readExamples}>
@@ -142,7 +145,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   readRow: { alignSelf: 'stretch', gap: 4 },
   readHead: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' },
   readTag: { fontSize: ty.small, fontWeight: '800', color: c.mute, marginRight: 6 },
-  readLabel: { fontSize: ty.body, color: c.ink2, fontWeight: '800', marginRight: spacing.sm },
+  readLabel: { fontSize: ty.body, color: c.ink2, fontWeight: '800', marginRight: 6 },
+  // レベル超えの読み(自分のレベルより上)に付く小さなバッジ。応用読みだと一目で分かる。
+  readLevelBadge: { fontSize: 10, fontWeight: '800', color: c.mute, backgroundColor: c.bgSoft, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1, overflow: 'hidden', marginRight: spacing.sm },
   readGloss: { fontSize: ty.small, color: c.mute, flexShrink: 1 },
   // 例語は縦に積む(各行: ▷ 語(ルビ) 英訳)。英訳を併記して読みやすく。
   readExamples: { paddingLeft: spacing.md, gap: spacing.xs, marginTop: 2 },

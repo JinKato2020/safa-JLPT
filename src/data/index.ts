@@ -165,6 +165,29 @@ export interface KanjiCardLine { type: 'on' | 'kun'; reading: string; level: str
 export interface KanjiCard { level: string; glossShort: string; glossFull: string; readings: KanjiCardLine[]; }
 export const KANJI_CARDS = kanjiCards as unknown as Record<string, KanjiCard>;
 
+/** レベル文字列(N5..N1)のランク。N5=0(易)〜N1=4(難)。未知はN1相当(4)。 */
+export function levelRank(level: string): number { return LV_RANK[level] ?? 4; }
+
+/**
+ * カード「表面」に出すべき読みだけを返す(辞書/単語タブのリスト用)。
+ * ふりがな原則の読みリスト版: 自分のレベル以下の読みだけ表面に出し、レベル超えの読みは詳細でのみ見せる。
+ * しきい値 = {ユーザーのレベル, その漢字のカードレベル} の高い方。
+ *   → 自分のレベルより上の漢字を辞書で引いた時も、その漢字レベルまでの読みは出す(表面が空にならない安全弁)。
+ * 例(N5): 外→ガイ/そと/ほか(N5)を表示、ゲ/はず(N3)は非表示。詳細では全読み表示。
+ */
+export function cardFaceReadings(char: string, userLevel: string): KanjiCardLine[] {
+  const card = KANJI_CARDS[char];
+  if (!card) return [];
+  const threshold = Math.max(LV_RANK[userLevel] ?? 0, LV_RANK[card.level] ?? 0);
+  const shown = card.readings.filter((r) => (LV_RANK[r.level] ?? 4) <= threshold);
+  return shown.length ? shown : card.readings.slice(0, 1);
+}
+
+/** その読みがユーザーのレベルより上か(詳細画面のレベルバッジ表示判定)。 */
+export function readingAboveUserLevel(readingLevel: string, userLevel: string): boolean {
+  return (LV_RANK[readingLevel] ?? 4) > (LV_RANK[userLevel] ?? 0);
+}
+
 // 漢字読み/表記の固定問題集(実行時自動生成でなく確定済み)。id=kr:<vocabId>/og:<vocabId>。
 // choices[0]=正解(表示時にシャッフル)。生成=問題/tools/build_kanji_read_bank.py。
 // 公式形式: 文中の対象語(漢字)を下線(underline=漢字span)→正しい読み(answer=ひらがな)を4択。

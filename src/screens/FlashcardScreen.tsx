@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { itemsFor, VOCAB, KANJI_CARD_READINGS, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
+import { itemsFor, VOCAB, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 import type { StudyItem, VocabItem } from '../data';
@@ -24,9 +24,12 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
   const key = item.type === 'kanji' ? item.char : item.id;
   const native = l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined;
   if (item.type === 'kanji') {
-    // 主要な音訓＋例語(KANJI_CARD_READINGS=本アプリ作成・KANJIDIC範囲内で検証済み。読みと例語が正しいセット)。
-    const d = KANJI_CARD_READINGS[item.char];
-    const rows = d ? [...d.on.map((e) => ({ ...e, on: true })), ...d.kun.map((e) => ({ ...e, on: false }))] : [];
+    // 主要な音訓＋例語(KANJI_CARDS=正データ・読みごとにlevel付き)。カード表面はレベル適応で絞る:
+    // 自分のレベル以下の読みだけ提示し、レベル超えの読みは辞書の詳細でのみ見せる(ふりがな原則の読み版)。
+    const rows = cardFaceReadings(item.char, settings.level).map((r) => {
+      const ex = r.examples[0];
+      return { on: r.type === 'on', reading: r.reading, word: ex?.word ?? '', wordReading: ex?.reading ?? '' };
+    });
     return (
       <View style={s.card}>
         <Text style={s.kanji}>{item.char}</Text>

@@ -11,7 +11,7 @@ import { playVocab } from '../data/vocabAudio';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, cardFaceReadings } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { loadSharedDict, syncDictCache, type SharedDict } from '../../shared/JLPT-Listening/dict/dictRemote';
@@ -46,10 +46,9 @@ const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String
 // 漢字カードの音訓＋例語(KANJI_CARDS=正データ・読みごとに高頻度例語)。表示はローカル優先(リモート辞書の羅列を使わない)。
 // 1読み=1行: [音/訓][読み][先頭例語(語全体ルビ)][例語の英訳gloss]。詳細カードと同じ情報を辞書/単語タブにも。
 interface CardLine { tag: string; label: string; furiWord: string; gloss: string; }
-function cardReadingLines(char: string): CardLine[] {
-  const card = KANJI_CARDS[char];
-  if (!card) return [];
-  return card.readings.map((r) => {
+// カード表面はレベル適応: 自分のレベル(またはその漢字のレベル)以下の読みだけ。上の読みは詳細でのみ。
+function cardReadingLines(char: string, userLevel: string): CardLine[] {
+  return cardFaceReadings(char, userLevel).map((r) => {
     const ex = r.examples[0];
     return {
       tag: r.type === 'on' ? '音' : '訓',
@@ -200,7 +199,7 @@ export default function BrowseScreen() {
             <Text style={s.meaning}>{nm(item.char) ?? KANJI_CARDS[item.char]?.glossShort ?? item.meaning}</Text>
             {nm(item.char) && KANJI_CARDS[item.char]?.glossShort ? <Text style={s.meaningEn}>{KANJI_CARDS[item.char].glossShort}</Text> : null}
             {(() => {
-              const lines = cardReadingLines(item.char);
+              const lines = cardReadingLines(item.char, settings.level);
               return (
                 <View style={s.readBox}>
                   {lines.map((e, i) => (
