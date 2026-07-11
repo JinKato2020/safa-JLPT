@@ -13,7 +13,6 @@ import { guessCorrect, jftMockScore } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { examReadingFor, examListeningFor, rubyNeeded } from '../data';
 import RubyText from '../components/RubyText';
-import ExplainL10n from '../components/ExplainL10n';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
 import { sample, shuffleChoices, type ExampleHint } from '../quiz/quiz';
@@ -210,19 +209,6 @@ export default function MockScreen() {
     for (const a of answers) { (out[a.section] ||= { c: 0, t: 0 }).t++; if (a.correct) out[a.section].c++; }
     return out;
   }, [answers]);
-
-  // 解答後に自動で次へ(語=短め / 読解=正解を見せて長め)。聴解は再生・スクリプト確認のため手動。
-  useEffect(() => {
-    if (phase !== 'exam' || picked === null || !cur || cur.kind === 'listening') return;
-    const isCorrect = picked === cur.answerIndex;
-    const delay = cur.kind === 'word' ? (isCorrect ? 850 : 1600) : isCorrect ? 2000 : 3200;
-    const t = setTimeout(() => {
-      setPicked(null);
-      setReveal2(false);
-      if (idx + 1 >= exam.length) { setEndedAt(Date.now()); setPhase('result'); } else setIdx((i) => i + 1);
-    }, delay);
-    return () => clearTimeout(t);
-  }, [picked]);
 
   const stopSound = async () => {
     if (soundRef.current) { await soundRef.current.unloadAsync().catch(() => undefined); soundRef.current = null; }
@@ -440,17 +426,9 @@ export default function MockScreen() {
         </View>
 
         {reveal ? (
-          <>
-            {cur.explain ? <View style={s.explainBox}><Text style={s.explainTxt}>{cur.explain}</Text></View> : null}
-            {cur.itemId ? <ExplainL10n id={cur.itemId} l1={state.settings.l1} /> : null}
-            {cur.kind === 'listening' ? (
-              <Pressable style={s.cta} onPress={next}>
-                <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
-              </Pressable>
-            ) : (
-              <Text style={s.autoNext}>{idx + 1 >= exam.length ? t('mock.auto_result') : t('mock.auto_next')}</Text>
-            )}
-          </>
+          <Pressable style={s.cta} onPress={next}>
+            <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
+          </Pressable>
         ) : (
           <Text style={s.hint}>{t('mock.hint')}</Text>
         )}
@@ -516,12 +494,9 @@ const makeStyles = (c: ThemeColors) =>
     choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
     choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
     mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
-    explainBox: { backgroundColor: c.bgSoft, borderRadius: radius.md, padding: spacing.md },
-    explainTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 20 },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
     ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
     hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
-    autoNext: { fontSize: ty.tiny, color: c.faint, textAlign: 'center', marginTop: spacing.xs },
     // result
     resultHero: { backgroundColor: c.surface, borderRadius: radius.xl, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.xl, alignItems: 'center' },
     resultPct: { fontSize: 64, fontWeight: '800', color: c.ink, lineHeight: 70 },

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { AUDIO_BASE_URL, vocabAudioUrl, kanjiAudioUrl, explainL10nUrl } from './audioBase.ts';
+import { AUDIO_BASE_URL, vocabAudioUrl, kanjiAudioUrl } from './audioBase.ts';
 
 test('AUDIO_BASE_URL は既存の聴解と同じ配信ルート', () => {
   assert.equal(AUDIO_BASE_URL, 'https://jinkato2020.github.io/safa-JLPT/assets/audio/');
@@ -13,8 +13,4 @@ test('vocabAudioUrl は vocab/ サブディレクトリの mp3 を指す', () =>
 
 test('kanjiAudioUrl は kanji/ サブディレクトリの mp3 を指す(URLエンコード済)', () => {
   assert.equal(kanjiAudioUrl('川'), `${AUDIO_BASE_URL}kanji/${encodeURIComponent('川')}.mp3`);
-});
-
-test('explainL10nUrl は assets/l10n の言語別JSON URL', () => {
-  assert.equal(explainL10nUrl('en'), 'https://jinkato2020.github.io/safa-JLPT/assets/l10n/explain.en.json');
 });

@@ -254,7 +254,6 @@ export default function ListeningScreen() {
                   );
                 })}
               </View>
-              {reveal ? <View style={s.explainBox}><Text style={s.explainTxt}>{q.explain}</Text></View> : null}
             </View>
           );
         })}
@@ -318,8 +317,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
   choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
   mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
-  explainBox: { backgroundColor: c.bgSoft, borderRadius: radius.md, padding: spacing.md },
-  explainTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 20 },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },

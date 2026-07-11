@@ -7,7 +7,6 @@ import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE,
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
-import { explainJa } from './exam/explainJa';
 
 // 大問 → 固定出題形式(makeQuestion用QFormat) / 'bank'(知識バンクの4択)。
 export const DAIMON_FORMAT: Record<Daimon, QFormat | 'bank'> = {
@@ -124,7 +123,7 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   const bank = BANK_INDEX.get(unit);
   if (bank) {
     const { choices, answerIndex } = shuffleChoices([bank.answer, ...bank.choices.filter((x) => x !== bank.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, explain: explainJa(bank.id) };
+    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex };
   }
   // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
   const og = OG_BANK_INDEX.get(unit);
@@ -189,12 +188,10 @@ export function learnCardFor(unit: string): LearnCard | null {
       const title = LEARN_FURI[bank.stem] ?? bank.stem;
       const plain = title.replace(/[（(][ぁ-ゖァ-ヶー]+[）)]/g, '');
       const sent = LEARN_FURI[bank.answer] ?? bank.answer;
-      const explain = explainJa(bank.id);
-      return { title, body: sent, hit: plain, note: (explain !== undefined ? LEARN_FURI[explain] ?? explain : undefined) };
+      return { title, body: sent, hit: plain };
     }
     // ⑦文の組み立て・⑧文章の文法は「解いて学ぶ」技能問題(語順の組み立て/文脈の流れ)。
     // 学習カードで完成文や正解を先に見せるとテストの意味が無くなるため、学習カードは出さない。
-    // 解答後の解説(questionForUnitで explain 付与済)で学ぶ。
     if (bank.daimon === 'order' || bank.daimon === 'passage_grammar') return null;
     const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
     return { title: bank.answer, body: filled };
