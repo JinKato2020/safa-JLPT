@@ -395,7 +395,7 @@ export default function MockScreen() {
 
       {cur.kind === 'passageSet' && cur.set ? (
         // 読解/文章の文法=1文章＋全設問を一括提示。採点は設問単位(PassageSetPlayerのonGraded)。「次へ」もPassageSetPlayer側で統一。
-        <PassageSetPlayer set={cur.set} isLast={idx + 1 >= exam.length} onNext={next} onGraded={accumulateScore} />
+        <PassageSetPlayer key={cur.set.id} set={cur.set} isLast={idx + 1 >= exam.length} onNext={next} onGraded={accumulateScore} />
       ) : (
         <ScrollView contentContainerStyle={s.body}>
           {cur.kind === 'word' ? (

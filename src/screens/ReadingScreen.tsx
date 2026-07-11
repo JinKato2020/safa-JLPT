@@ -70,7 +70,7 @@ export default function ReadingScreen() {
         </Pressable>
         <Text style={s.progress}>{idx + 1} / {sets.length}</Text>
       </View>
-      <PassageSetPlayer set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
+      <PassageSetPlayer key={set.id} set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
     </SafeAreaView>
   );
 }
