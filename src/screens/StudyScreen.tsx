@@ -66,7 +66,13 @@ export default function StudyScreen() {
     if (isJft && cat === 'bunpou') return []; // JFTの会話と表現は大問(小)を持たない。
     if (cat === 'moji_goi' || cat === 'bunpou') {
       const list = cat === 'moji_goi' ? mojiDaimons : bunpouDaimons;
-      return list.map((d) => ({ key: d.daimon, label: t(DAIMON_LABEL[d.daimon]), value: daimonRingPct(state, now, d.daimon), onPress: () => nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) }) }));
+      return list.map((d) => ({
+        key: d.daimon,
+        label: t(DAIMON_LABEL[d.daimon]),
+        value: daimonRingPct(state, now, d.daimon),
+        // 文章の文法(passage_grammar)はセット形式(1文章＋5設問)なので専用画面(PassageGrammarScreen)へ。他大問は従来のQuiz。
+        onPress: () => (d.daimon === 'passage_grammar' ? nav.navigate('PassageGrammar') : nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) })),
+      }));
     }
     if (cat === 'dokkai')
       return readingSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, readingItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Reading', { subtype: sub.key }) }));

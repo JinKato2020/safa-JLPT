@@ -12,9 +12,11 @@ import { useAppState, useAppActions } from '../store/store';
 import { isInMyList } from '../store/state';
 import { guessCorrect, jftMockScore } from '../store/selectors';
 import { dayStr } from '../store/state';
-import { examReadingFor, examListeningFor, rubyNeeded } from '../data';
+import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor } from '../data';
 import RubyText from '../components/RubyText';
 import AppButton from '../components/AppButton';
+import PassageSetPlayer from '../components/PassageSetPlayer';
+import { readingToSet, type PassageSet } from '../quiz/passageSet';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
 import { sample, shuffleChoices, type ExampleHint, type SaveRef } from '../quiz/quiz';
@@ -36,7 +38,7 @@ const JFT_SEC_LABEL: Record<Sec, string> = { moji_goi: 'exam.jft_cat_moji', bunp
 const SEC_SECONDS: Record<Sec, number> = { moji_goi: 40, bunpou: 40, dokkai: 110, choukai: 90 };
 
 interface MockItem {
-  kind: 'word' | 'reading' | 'listening';
+  kind: 'word' | 'listening' | 'passageSet';
   id: string;
   section: Sec;
   question: string;
@@ -56,6 +58,7 @@ interface MockItem {
   itemId?: string;
   daimon?: Daimon; // 大問(知識区分の内訳集計用)
   saveRef?: SaveRef; // my単語帳への保存対象(questionForUnit経由の語daimonのみ)
+  set?: PassageSet; // kind==='passageSet'用: 読解1文章 or 文章の文法1文章＋複数設問を一括提示(PassageSetPlayer)
 }
 interface Answer { id: string; section: Sec; correct: boolean; label: string; drillable: boolean; }
 
@@ -104,17 +107,20 @@ function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen
   }
   return out.slice(0, count);
 }
-function readingItems(levels: Level[], nPassages: number, seen: Seen): MockItem[] {
+// 読解=1文章(+全設問)をpassage-setステップに。PassageSetPlayerが本文＋全設問を一括提示→一括採点(設問単位でスコア加算)。
+function readingSetItems(levels: Level[], nPassages: number, seen: Seen): MockItem[] {
   const picked = pickFresh(levels.flatMap((lv) => examReadingFor(lv)), (p) => p.questions.some((q) => !!seen[q.id]), nPassages);
-  return picked.flatMap((p) =>
-    p.questions.map((q) => {
-      const sc = shuffleChoices(q.choices, q.answerIndex);
-      return {
-        kind: 'reading' as const, id: q.id, section: 'dokkai' as Sec,
-        title: p.title, body: p.body, question: q.q, choices: sc.choices, answerIndex: sc.answerIndex, explain: q.explain,
-      };
-    }),
-  );
+  return picked.map((p) => {
+    const set = readingToSet(p);
+    return { kind: 'passageSet' as const, id: set.id, section: 'dokkai' as Sec, question: '', choices: [], answerIndex: -1, set };
+  });
+}
+// 文章の文法(大問⑧)=セット形式(1文章＋複数設問)。本番同様フル/ミニ問わず1セットのみ(JFTには無い区分)。
+function passageGrammarItems(levels: Level[], seen: Seen): MockItem[] {
+  const all = levels.flatMap((lv) => passageGrammarSetsFor(lv));
+  if (all.length === 0) return [];
+  const picked = pickFresh(all, (st) => st.questions.some((q) => !!seen[q.id]), 1);
+  return picked.map((set) => ({ kind: 'passageSet' as const, id: set.id, section: 'bunpou' as Sec, question: '', choices: [], answerIndex: -1, set }));
 }
 function listeningItems(levels: Level[], nClips: number, seen: Seen): MockItem[] {
   const picked = pickFresh(levels.flatMap((lv) => examListeningFor(lv)), (cl) => cl.questions.some((q) => !!seen[q.id]), nClips);
@@ -134,17 +140,19 @@ const JFT_SEC_ORDER: Record<Sec, number> = { moji_goi: 0, bunpou: 1, choukai: 2,
 function buildExam(levels: Level[], full: boolean, jft: boolean, seen: Seen): MockItem[] {
   const bp = blueprintCounts(levels[0], full, jft);
   // 知識区分: JLPT=大問別(漢字読み/表記/文脈規定/言い換え/用法/文法形式/組み立て/文章の文法)、JFT=区分2つ。
+  // passage_grammar(大問⑧)はセット形式で別途扱う(BANKからは除外済=Task 5)。daimonCountsからは除いてknowledgeForDaimonに渡さない。
   const knowledge = jft
     ? [...jftKnowledgeItems(levels, 'moji_goi', bp.moji_goi, seen), ...jftKnowledgeItems(levels, 'bunpou', bp.bunpou, seen)]
-    : daimonCounts(levels[0], full).flatMap((d) => knowledgeForDaimon(levels, d.daimon, d.count, seen));
-  const reading = readingItems(levels, bp.dokkai, seen);
+    : daimonCounts(levels[0], full).filter((d) => d.daimon !== 'passage_grammar').flatMap((d) => knowledgeForDaimon(levels, d.daimon, d.count, seen));
+  const passageGrammar = jft ? [] : passageGrammarItems(levels, seen); // JFTにJLPTの文章の文法は無い
+  const reading = readingSetItems(levels, bp.dokkai, seen);
   const listening = listeningItems(levels, bp.choukai, seen);
   if (jft) {
     // JFT=公式セクション順(①文字語彙②会話表現③聴解④読解)
     return [...knowledge, ...reading, ...listening].sort((a, b) => JFT_SEC_ORDER[a.section] - JFT_SEC_ORDER[b.section]);
   }
-  // JLPT=本番ブロック順(①文字語彙 ②文法・読解 ③聴解)
-  return [...knowledge, ...reading, ...listening];
+  // JLPT=本番ブロック順(①文字語彙・文法(⑧文章の文法含む) ②読解 ③聴解)
+  return [...knowledge, ...passageGrammar, ...reading, ...listening];
 }
 
 function mmss(ms: number): string {
@@ -153,6 +161,19 @@ function mmss(ms: number): string {
 }
 function formatScript(s: string): string {
   return s.split('　').map((t) => t.trim()).filter(Boolean).join('\n');
+}
+// 1ステップの持ち時間。passage-setは内包する設問数ぶん(=1問=SEC_SECONDS[section])を合算(本番の1文章複数設問の持ち時間相当)。
+function stepSeconds(it: MockItem): number {
+  const base = SEC_SECONDS[it.section] ?? 60;
+  return it.kind === 'passageSet' && it.set ? base * Math.max(1, it.set.questions.length) : base;
+}
+// 1ステップが内包する「設問」の一覧(タイムオーバー時の未回答判定用)。word/listening=自身1問、passageSet=セット内の全設問。
+function stepQuestionIds(it: MockItem): { id: string; section: Sec; label: string }[] {
+  if (it.kind === 'passageSet' && it.set) {
+    const label = it.set.passages[0]?.title ?? '';
+    return it.set.questions.map((q) => ({ id: q.id, section: it.section, label }));
+  }
+  return [{ id: it.id, section: it.section, label: it.prompt ?? it.title ?? '' }];
 }
 
 export default function MockScreen() {
@@ -234,7 +255,7 @@ export default function MockScreen() {
   };
 
   // 制限時間カウントダウン＋タイムオーバー(時間切れ＝未解答を不正解として自動採点→結果へ)。本番形式の時間制約。
-  const limitMs = useMemo(() => exam.reduce((acc, it) => acc + (SEC_SECONDS[it.section] ?? 60) * 1000, 0), [exam]);
+  const limitMs = useMemo(() => exam.reduce((acc, it) => acc + stepSeconds(it) * 1000, 0), [exam]);
   const [remainingMs, setRemainingMs] = useState(limitMs);
   const [timedOut, setTimedOut] = useState(false);
   useEffect(() => {
@@ -248,9 +269,12 @@ export default function MockScreen() {
       void stopSound();
       setAnswers((prev) => {
         const done = new Set(prev.map((a) => a.id));
-        const miss = exam
-          .filter((it) => !done.has(it.id))
-          .map((it) => ({ id: it.id, section: it.section, correct: false, label: it.prompt ?? it.title ?? '', drillable: it.kind === 'word' }));
+        // passage-setは「セット丸ごと」ではなく内包する設問ごとに未回答判定(部分回答中のセットも残り全問を不正解に)。
+        const miss = exam.flatMap((it) =>
+          stepQuestionIds(it)
+            .filter((q) => !done.has(q.id))
+            .map((q) => ({ id: q.id, section: q.section, correct: false, label: q.label, drillable: it.kind === 'word' })),
+        );
         return [...prev, ...miss];
       });
       setEndedAt(Date.now());
@@ -346,12 +370,19 @@ export default function MockScreen() {
     setReveal2(false);
     if (idx + 1 >= exam.length) { setEndedAt(Date.now()); setPhase('result'); } else setIdx((i) => i + 1);
   };
+  // passage-setステップ(読解/文章の文法)が全問回答された時にPassageSetPlayerから1回だけ呼ばれる。設問ごとにmock集計へ加算(採点は
+  // PassageSetPlayer内のquizAnswerが既に記録済み=ここではMockScreenローカルの正誤集計(結果画面/区分ヒートマップ/JFT得点)のみ行う)。
+  const accumulateScore = (results: { id: string; correct: boolean }[]) => {
+    const section = cur.section;
+    const label = cur.set?.passages[0]?.title ?? '';
+    setAnswers((a) => [...a, ...results.map((r) => ({ id: r.id, section, correct: r.correct, label, drillable: false }))]);
+  };
 
   const reveal = picked !== null;
 
   return (
     <SafeAreaView style={s.c}>
-      <ScrollView contentContainerStyle={s.body}>
+      <View style={s.topWrap}>
         <View style={s.top}>
           <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12}>
             <Text style={s.close}>✕</Text>
@@ -360,94 +391,92 @@ export default function MockScreen() {
           <Text style={s.progress}>{idx + 1} / {exam.length}</Text>
         </View>
         <Text style={s.secTag}>{t((isJft ? JFT_SEC_LABEL : SEC_LABEL)[cur.section])}</Text>
+      </View>
 
-        {cur.kind === 'word' ? (
-          <View style={s.promptCard}>
-            {cur.furi ? (
-              // ふりがな付き問題文=レベル適応ルビ(同レベル以上の漢字のみ)。①漢字読みは対象語のルビを抑止。
-              <RubyText text={cur.furi} target={cur.furiTarget} style={s.mockSentence} hitStyle={s.exHit} rubyStyle={s.mockRuby} rubyGate={rubyGate} noRubyOnHit={cur.noTargetRuby} center />
-            ) : (
-              <>
-                {cur.prompt ? <Text style={s.prompt}>{cur.prompt}</Text> : null}
-                {cur.example ? (
-                  <Text style={s.readingHint}>
-                    {cur.example.map((sg, i) => (
-                      <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
-                    ))}
-                  </Text>
-                ) : cur.reading ? (
-                  <Text style={s.readingHint}>{cur.reading}</Text>
-                ) : null}
-              </>
-            )}
-            <Text style={s.qtext}>{cur.question}</Text>
-          </View>
-        ) : cur.kind === 'reading' ? (
-          <View style={s.passageCard}>
-            <RubyText text={cur.title ?? ''} style={s.passTitle} rubyStyle={s.mockRuby} rubyGate={rubyGate} />
-            <View style={s.passBodyWrap}>
-              {(cur.body ?? '').split('\n').map((line, i) => (
-                line ? <RubyText key={i} text={line} style={s.passBody} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : <View key={i} style={s.passBlank} />
-              ))}
+      {cur.kind === 'passageSet' && cur.set ? (
+        // 読解/文章の文法=1文章＋全設問を一括提示。採点は設問単位(PassageSetPlayerのonGraded)。「次へ」もPassageSetPlayer側で統一。
+        <PassageSetPlayer key={cur.set.id} set={cur.set} isLast={idx + 1 >= exam.length} onNext={next} onGraded={accumulateScore} />
+      ) : (
+        <ScrollView contentContainerStyle={s.body}>
+          {cur.kind === 'word' ? (
+            <View style={s.promptCard}>
+              {cur.furi ? (
+                // ふりがな付き問題文=レベル適応ルビ(同レベル以上の漢字のみ)。①漢字読みは対象語のルビを抑止。
+                <RubyText text={cur.furi} target={cur.furiTarget} style={s.mockSentence} hitStyle={s.exHit} rubyStyle={s.mockRuby} rubyGate={rubyGate} noRubyOnHit={cur.noTargetRuby} center />
+              ) : (
+                <>
+                  {cur.prompt ? <Text style={s.prompt}>{cur.prompt}</Text> : null}
+                  {cur.example ? (
+                    <Text style={s.readingHint}>
+                      {cur.example.map((sg, i) => (
+                        <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
+                      ))}
+                    </Text>
+                  ) : cur.reading ? (
+                    <Text style={s.readingHint}>{cur.reading}</Text>
+                  ) : null}
+                </>
+              )}
+              <Text style={s.qtext}>{cur.question}</Text>
             </View>
-          </View>
-        ) : (
-          <View style={s.passageCard}>
-            <Text style={s.passTitle}>{cur.title}</Text>
-            {(() => {
-              const used = isJft && playCount >= JFT_LISTEN_MAX;
+          ) : (
+            <View style={s.passageCard}>
+              <Text style={s.passTitle}>{cur.title}</Text>
+              {(() => {
+                const used = isJft && playCount >= JFT_LISTEN_MAX;
+                return (
+                  <Pressable style={[s.playBtn, playing && s.playBtnOn, used && !playing && s.playBtnUsed]} onPress={play} disabled={used && !playing}>
+                    <Text style={[s.playTxt, playing && s.playTxtOn]}>
+                      {playing ? t('mock.playing') : isJft ? (used ? t('mock.play_used') : t('mock.play_jft', { n: JFT_LISTEN_MAX - playCount })) : t('mock.play_audio')}
+                    </Text>
+                  </Pressable>
+                );
+              })()}
+              {reveal2 ? <Text style={s.passBody}>{formatScript(cur.script ?? '')}</Text> : null}
+            </View>
+          )}
+
+          {cur.kind !== 'word' ? <RubyText text={cur.question ?? ''} style={s.qtextBig} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : null}
+
+          <View style={s.choices}>
+            {cur.choices.map((ch, i) => {
+              const isAnswer = i === cur.answerIndex;
+              const isPicked = i === picked;
               return (
-                <Pressable style={[s.playBtn, playing && s.playBtnOn, used && !playing && s.playBtnUsed]} onPress={play} disabled={used && !playing}>
-                  <Text style={[s.playTxt, playing && s.playTxtOn]}>
-                    {playing ? t('mock.playing') : isJft ? (used ? t('mock.play_used') : t('mock.play_jft', { n: JFT_LISTEN_MAX - playCount })) : t('mock.play_audio')}
-                  </Text>
+                <Pressable
+                  key={i}
+                  style={[s.choice, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
+                  onPress={() => onPick(i)}
+                  disabled={reveal}
+                >
+                  <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.mockRuby} rubyGate={rubyGate} /></View>
+                  {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
                 </Pressable>
               );
-            })()}
-            {reveal2 ? <Text style={s.passBody}>{formatScript(cur.script ?? '')}</Text> : null}
+            })}
           </View>
-        )}
 
-        {cur.kind !== 'word' ? <RubyText text={cur.question ?? ''} style={s.qtextBig} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : null}
-
-        <View style={s.choices}>
-          {cur.choices.map((ch, i) => {
-            const isAnswer = i === cur.answerIndex;
-            const isPicked = i === picked;
-            return (
-              <Pressable
-                key={i}
-                style={[s.choice, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
-                onPress={() => onPick(i)}
-                disabled={reveal}
-              >
-                <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.mockRuby} rubyGate={rubyGate} /></View>
-                {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
+          {reveal ? (
+            <>
+              {cur.saveRef ? (
+                <AppButton
+                  label={isInMyList(state.myList, cur.saveRef) ? t('mywords.added') : t('mywords.add')}
+                  variant="secondary"
+                  size="md"
+                  full={false}
+                  onPress={() => addToMyList(cur.saveRef!)}
+                  style={s.myListBtn}
+                />
+              ) : null}
+              <Pressable style={s.cta} onPress={next}>
+                <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
               </Pressable>
-            );
-          })}
-        </View>
-
-        {reveal ? (
-          <>
-            {cur.saveRef ? (
-              <AppButton
-                label={isInMyList(state.myList, cur.saveRef) ? t('mywords.added') : t('mywords.add')}
-                variant="secondary"
-                size="md"
-                full={false}
-                onPress={() => addToMyList(cur.saveRef!)}
-                style={s.myListBtn}
-              />
-            ) : null}
-            <Pressable style={s.cta} onPress={next}>
-              <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
-            </Pressable>
-          </>
-        ) : (
-          <Text style={s.hint}>{t('mock.hint')}</Text>
-        )}
-      </ScrollView>
+            </>
+          ) : (
+            <Text style={s.hint}>{t('mock.hint')}</Text>
+          )}
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 }
@@ -470,6 +499,9 @@ const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     c: { flex: 1, backgroundColor: c.bg },
     body: { padding: spacing.lg, gap: spacing.md },
+    // 出題中(exam)画面の上部バー(閉じる/タイマー/進捗+区分タグ)。passage-setはPassageSetPlayer(自前ScrollView)を
+    // ネストさせない為、ScrollViewの外に出して常設表示する(word/listening/passageSet共通)。
+    topWrap: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.sm, gap: spacing.sm },
     top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
     close: { fontSize: ty.h2, color: c.mute },
     progress: { fontSize: ty.small, color: c.mute, fontWeight: '700' },

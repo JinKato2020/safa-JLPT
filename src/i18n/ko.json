@@ -186,6 +186,7 @@
  "reading.hint": "본문을 읽고 답하세요.",
  "reading.questionLabel": "문제 {n}/{m}",
  "reading.scoreResult": "{answered}문제 중 {correct}문제 정답",
+ "passage.sessionComplete": "글의 문법 세션 완료",
  "reading.sessionComplete": "독해 세션 완료",
  "sessionsummary.confidence": "신뢰 구간（정확도）",
  "sessionsummary.heading": "이번 세션의 성장",

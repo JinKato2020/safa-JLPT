@@ -8,9 +8,10 @@ test('BANK の id は data 由来 kb-NNNNNN', () => {
   for (const b of BANK) assert.match(b.id, /^kb-\d{6}$/);
 });
 
-test('BANK は ambiguous な order を除外した件数', () => {
+test('BANK は ambiguous な order と passage_grammar(新セット経路へ移行)を除外した件数', () => {
   const expected = (KB as { daimon: string; ambiguous?: boolean }[])
-    .filter((b) => !(b.daimon === 'order' && b.ambiguous)).length;
+    .filter((b) => !(b.daimon === 'order' && b.ambiguous))
+    .filter((b) => b.daimon !== 'passage_grammar').length;
   assert.equal(BANK.length, expected);
 });
 

@@ -10,6 +10,7 @@ export type RootStackParamList = {
   MyWords: undefined; // my単語帳(保存した語/文法)一覧
   Mock: { full?: boolean } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)
   Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho' } | undefined;   // 読解(小区分つき)
+  PassageGrammar: undefined; // 文章の文法(大問⑧・セット形式=1文章＋5設問。passageGrammar.json)
   Listening: { subtype?: 'kadai' | 'point' | 'gaiyou' | 'hatsuwa' | 'sokuji' } | undefined; // 聴解(小区分つき)
   Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review'; char?: string } | undefined; // 漢字書き取り(サンプル10字・3ステップ、単字自由練習対応)
   KanjiDetail: { char: string; scope?: 'level' | 'all' }; // scope=level:自レベル読み(単語タブ) / all(既定):全読み(辞書)

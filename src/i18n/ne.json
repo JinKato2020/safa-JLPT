@@ -187,6 +187,7 @@
  "reading.hint": "पाठ पढेर जवाफ दिनुहोस्।",
  "reading.questionLabel": "प्रश्न {n}/{m}",
  "reading.scoreResult": "{answered} मध्ये {correct} प्रश्न सही",
+ "passage.sessionComplete": "अनुच्छेद व्याकरण सत्र पूर्ण",
  "reading.sessionComplete": "पठन सत्र पूर्ण",
  "sessionsummary.confidence": "विश्वास दायरा (शुद्धता)",
  "sessionsummary.heading": "यस session को प्रगति",

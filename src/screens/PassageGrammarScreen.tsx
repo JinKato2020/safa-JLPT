@@ -1,41 +1,37 @@
-// ミニ読解。お知らせ/メール/メモ等の本文を読み、4択で自動採点(重み3=mini)→読解リング点灯。
-// 1パッセージ=1セットとして PassageSetPlayer に一括提示(本文+全設問→一括採点)。掲示板§4(読解)。
+// 文章の文法(大問⑧・セット形式)。1文章＋5設問(空欄5〜9)を PassageSetPlayer に一括提示(本文+全設問→一括採点)。
+// 旧知識バンク(passage_grammar daimon)から passageGrammar.json(セット形式)へ移行(Task 5・daimon.tsのBANKからは除外済)。
 import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
-import { readingItemsFor, readingItemsForSub } from '../data';
+import { passageGrammarSetsFor } from '../data';
 import PassageSetPlayer from '../components/PassageSetPlayer';
-import { readingToSet, type PassageSet } from '../quiz/passageSet';
-import type { RootStackParamList } from '../navigation/types';
+import { type PassageSet } from '../quiz/passageSet';
 import { sample } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
 
-const SESSION_PASSAGES = 3;
+const SESSION_SETS = 3;
 
-export default function ReadingScreen() {
+export default function PassageGrammarScreen() {
   const nav = useNavigation();
   const state = useAppState();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
 
-  const route = useRoute<RouteProp<RootStackParamList, 'Reading'>>();
-  const sub = route.params?.subtype;
-
   const [sets] = useState<PassageSet[]>(() => {
     const now = Date.now();
-    const all = sub ? readingItemsForSub(state.settings.level, sub) : readingItemsFor(state.settings.level);
-    // 未習得(未回答 or p<0.6)の設問を含むパッセージを優先→カバー率が確実に進みリングが満ちる。
-    const needy = all.filter((p) => p.questions.some((q) => { const st = state.items[q.id]; return !st || effectiveP(st, now) < 0.6; }));
-    const rest = all.filter((p) => !needy.includes(p));
-    const passages = [...sample(needy, SESSION_PASSAGES), ...sample(rest, SESSION_PASSAGES)].slice(0, SESSION_PASSAGES);
-    return passages.map(readingToSet);
+    const all = passageGrammarSetsFor(state.settings.level);
+    // 未習得(未回答 or p<0.6)の設問を含むセットを優先→カバー率が確実に進みリングが満ちる。
+    const needy = all.filter((set) => set.questions.some((q) => { const st = state.items[q.id]; return !st || effectiveP(st, now) < 0.6; }));
+    const rest = all.filter((set) => !needy.includes(set));
+    const picked = [...sample(needy, SESSION_SETS), ...sample(rest, SESSION_SETS)].slice(0, SESSION_SETS);
+    return picked;
   });
   const [idx, setIdx] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
@@ -51,9 +47,9 @@ export default function ReadingScreen() {
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
           <Text style={s.bigEmoji}>🎉</Text>
-          <Text style={s.doneTitle}>{t('reading.sessionComplete')}</Text>
+          <Text style={s.doneTitle}>{t('passage.sessionComplete')}</Text>
           <Text style={s.doneSub}>{t('reading.scoreResult', { answered, correct })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="dokkai" />
+          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="passage_grammar" />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('reading.backToHome')}</Text>
           </Pressable>

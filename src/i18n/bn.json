@@ -186,6 +186,7 @@
  "reading.hint": "মূল লেখা পড়ে উত্তর দিন।",
  "reading.questionLabel": "প্রশ্ন {n}/{m}",
  "reading.scoreResult": "{answered} প্রশ্নের মধ্যে {correct} টি সঠিক",
+ "passage.sessionComplete": "অনুচ্ছেদ ব্যাকরণ সেশন সম্পন্ন",
  "reading.sessionComplete": "পঠন সেশন সম্পন্ন",
  "sessionsummary.confidence": "আস্থা ব্যান্ড (নির্ভুলতা)",
  "sessionsummary.heading": "এই সেশনে অগ্রগতি",

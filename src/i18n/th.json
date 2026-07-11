@@ -186,6 +186,7 @@
  "reading.hint": "อ่านบทความแล้วตอบคำถาม",
  "reading.questionLabel": "ข้อ {n}/{m}",
  "reading.scoreResult": "ถูก {correct} จาก {answered} ข้อ",
+ "passage.sessionComplete": "เซสชันไวยากรณ์ในบทความเสร็จสิ้น",
  "reading.sessionComplete": "เซสชันการอ่านเสร็จสิ้น",
  "sessionsummary.confidence": "ช่วงความเชื่อมั่น (ความแม่นยำ)",
  "sessionsummary.heading": "การเติบโตในเซสชันนี้",

@@ -34,6 +34,8 @@ function LearnText({ text, target: explicitTarget, style, hitStyle, rubyStyle, r
 const SESSION_SIZE = 10;
 const RELEARN_GAP = 3;
 const MAX_QUESTIONS = 30; // 再挿入の上限(無限ループ防止)
+// 文法ミックス出題用の大問(passage_grammarはセット形式=questionForUnitで単問化できないため除外。専用画面PassageGrammarScreenへ)。
+const MIX_BUNPOU_DAIMON = BUNPOU_DAIMON.filter((d) => d !== 'passage_grammar');
 
 function poolFor(level: 'N5' | 'N4' | 'N3', cat: Category | 'all'): StudyItem[] {
   if (cat === 'all') return [...itemsFor(level, 'moji_goi'), ...itemsFor(level, 'bunpou')];
@@ -79,7 +81,8 @@ export default function QuizScreen() {
       return itemIds.map((id) => byId.get(id)).filter((x): x is StudyItem => Boolean(x));
     }
     // 学習(バランス/カテゴリ)も検証済の大問バンクから出題(makeQuestionの曖昧な意味当てクイズを廃止＝一意性確保)。
-    const daimons = category === 'moji_goi' ? MOJI_DAIMON : category === 'bunpou' ? BUNPOU_DAIMON : [...MOJI_DAIMON, ...BUNPOU_DAIMON];
+    // 文章の文法(passage_grammar)は questionForUnit で解決できないセット形式なので、ミックス出題からは除外(専用のPassageGrammarScreenへ)。
+    const daimons = category === 'moji_goi' ? MOJI_DAIMON : category === 'bunpou' ? MIX_BUNPOU_DAIMON : [...MOJI_DAIMON, ...MIX_BUNPOU_DAIMON];
     return buildUnitQueue(daimons.flatMap((d) => daimonUnitIds(settings.level, d, 'learn')), items, Date.now(), SESSION_SIZE);
   });
   // 大問モード=4択の前に「学習カード」で自習(スキップ可)。学習する語=初期キューと同じ。

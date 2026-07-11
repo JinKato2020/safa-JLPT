@@ -30,7 +30,9 @@ import orthographyBank from './exam/orthographyBank.json';
 import kanjiReadings from './dict/kanjiReadings.json';
 import kanjiCardReadings from './words/kanjiCardReadings.json';
 import kanjiCards from './words/kanjiCards.json';
+import passageGrammar from './exam/passageGrammar.json';
 import type { Category, Level } from '../engine/engine';
+import type { PassageSet } from '../quiz/passageSet';
 
 export interface KanjiItem {
   id: string; level: Level; category: 'moji_goi'; type: 'kanji';
@@ -279,6 +281,14 @@ export interface ListeningItem {
 
 export const READING = reading as ReadingItem[];
 export const LISTENING = listening as ListeningItem[];
+
+// 文章の文法(大問⑧・セット形式=1文章＋5設問)。旧知識バンク(passage_grammar daimon)から本セットへ移行(BANKからは除外・daimon.ts)。
+// 生成: 問題/tools(文章の文法量産パイプライン)。id=pg-<Level>-<3桁連番>、設問id=pg-<Level>-<3桁>-q5..q9。
+export const PASSAGE_GRAMMAR = passageGrammar as PassageSet[];
+/** レベルの文章の文法セット(40本/級)。 */
+export function passageGrammarSetsFor(level: string): PassageSet[] {
+  return PASSAGE_GRAMMAR.filter((s) => s.level === level);
+}
 
 /** 学習用の読解(後ろ EXAM_READING 本は模試専用に除外)。 */
 export function readingItemsFor(level: Level): ReadingItem[] {
