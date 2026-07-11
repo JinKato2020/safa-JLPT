@@ -5,7 +5,7 @@ import {
   type Dispatch, type ReactNode,
 } from 'react';
 import { newItemState, recordQuiz, recordMock, effectiveP } from '../engine/engine';
-import { type AppState, type Settings, type MockResult, INITIAL_STATE, dayStr } from './state';
+import { type AppState, type Settings, type MockResult, type SaveRef, INITIAL_STATE, dayStr, toggleMyList } from './state';
 import { readinessFor } from './selectors';
 import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
@@ -19,6 +19,7 @@ type Action =
   | { type: 'MOCK_ANSWER'; itemId: string; correct: boolean; now: number }
   | { type: 'RECORD_MOCK'; result: MockResult }
   | { type: 'KAKITORI_PROGRESS'; char: string; step: number; score: number; skipped?: boolean; now?: number }
+  | { type: 'ADD_TO_MY_LIST'; ref: SaveRef }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -67,6 +68,8 @@ function reducer(state: AppState, action: Action): AppState {
       const map = state.kakitori ?? {};
       return { ...state, kakitori: { ...map, [action.char]: applyKakitoriProgress(map[action.char], action) } };
     }
+    case 'ADD_TO_MY_LIST':
+      return { ...state, myList: toggleMyList(state.myList ?? [], action.ref) };
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -128,6 +131,7 @@ export function useAppActions() {
     recordMockResult: (result: MockResult) => dispatch({ type: 'RECORD_MOCK', result }),
     recordKakitori: (char: string, step: number, score: number, opts?: { skipped?: boolean; now?: number }) =>
       dispatch({ type: 'KAKITORI_PROGRESS', char, step, score, skipped: opts?.skipped, now: opts?.now }),
+    addToMyList: (ref: SaveRef) => dispatch({ type: 'ADD_TO_MY_LIST', ref }),
     reset: () => {
       clearState();
       dispatch({ type: 'RESET' });

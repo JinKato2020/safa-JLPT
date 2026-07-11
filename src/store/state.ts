@@ -1,5 +1,8 @@
 // アプリ永続状態の型と初期値・日付ヘルパー。
 import type { ItemState, Level } from '../engine/engine';
+import type { SaveRef } from '../quiz/quiz';
+
+export type { SaveRef };
 
 // テーマ = ライト/ダーク/自動 ＋ 水彩(桜/空/緑/藤/茜。ライト系＋淡い水彩背景)。
 export type ThemeMode = 'light' | 'dark' | 'auto' | 'sakura' | 'sky' | 'green' | 'fuji' | 'akane';
@@ -61,6 +64,19 @@ export interface AppState {
   growth?: GrowthPoint[];           // 学習日ごとの習得数(旧stateには無い→省略可)
   mockHistory?: MockResult[];       // 模試の採点履歴(旧stateには無い→省略可)
   kakitori?: Record<string, { step: number; stars: number; best: number; due?: string; interval?: number; reps?: number }>; // 漢字書き取り進捗(char→) 旧stateには無い→省略可
+  myList?: SaveRef[]; // my単語帳(保存した語/文法)。旧stateには無い→省略可(実質[])。
+}
+
+/** my単語帳トグル(純粋関数・テスト可能): 同一type+idが既存なら削除、無ければ追加。 */
+export function toggleMyList(list: SaveRef[], ref: SaveRef): SaveRef[] {
+  const i = list.findIndex((r) => r.type === ref.type && r.id === ref.id);
+  if (i >= 0) return [...list.slice(0, i), ...list.slice(i + 1)];
+  return [...list, ref];
+}
+
+/** my単語帳に既に登録済みか(UI側の「登録済み✓」表示判定用)。 */
+export function isInMyList(list: SaveRef[] | undefined, ref: SaveRef): boolean {
+  return !!list?.some((r) => r.type === ref.type && r.id === ref.id);
 }
 
 export const STATE_VERSION = 1;
@@ -72,6 +88,7 @@ export const INITIAL_STATE: AppState = {
   streak: { current: 0, longest: 0, lastStudyDay: null, freezes: 2, history: [] },
   growth: [],
   mockHistory: [],
+  myList: [],
 };
 
 /** epoch ms → ローカル日付 YYYY-MM-DD */

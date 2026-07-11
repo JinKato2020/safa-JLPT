@@ -54,8 +54,6 @@ jobs:
         run: |
           mkdir -p _site/assets
           cp -r assets/audio _site/assets/audio
-          mkdir -p _site/assets/l10n
-          cp src/data/exam/l10n/explain.*.json _site/assets/l10n/
           # 発話表現イラスト(オンデマンドDL用・同梱しない)
           [ -d assets/hatsuwa ] && cp -r assets/hatsuwa _site/assets/hatsuwa || true
           [ -f privacy.html ] && cp privacy.html _site/ || true

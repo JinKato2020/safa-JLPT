@@ -5,6 +5,7 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import AppButton from '../components/AppButton';
 import { useAppState, useAppActions } from '../store/store';
+import { isInMyList } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
 import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
@@ -15,7 +16,6 @@ import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 import RubyText from '../components/RubyText';
-import ExplainL10n from '../components/ExplainL10n';
 
 // 学習カードの例文を表示。ふりがな「漢字（かな）」はレベル適応ルビ、対象部「【…】」は括弧を外して下線に統一。
 function LearnText({ text, target: explicitTarget, style, hitStyle, rubyStyle, rubyGate }: { text: string; target?: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle>; rubyGate: (run: string) => boolean }) {
@@ -61,7 +61,7 @@ export default function QuizScreen() {
   const expression = route.params?.expression; // JFT会話と表現(場面→適切な表現)
   const state = useAppState();
   const { settings, items } = state;
-  const { quizAnswer } = useAppActions();
+  const { quizAnswer, addToMyList } = useAppActions();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
@@ -242,13 +242,15 @@ export default function QuizScreen() {
             <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
               {picked === question.answerIndex ? t('quiz.correct') : t('quiz.wrong')}
             </Text>
-            {question.explain ? (
-              <View style={s.explainBox}>
-                <Text style={s.explainLabel}>{t('quiz.explain_label')}</Text>
-                <LearnText text={question.explain} style={s.explainTxt} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} />
-                {question.itemId ? <ExplainL10n id={question.itemId} l1={settings.l1} /> : null}
-                {settings.l1 === 'ne' && question.explainNe ? <Text style={s.explainNe}>{question.explainNe}</Text> : null}
-              </View>
+            {question.saveRef ? (
+              <AppButton
+                label={isInMyList(state.myList, question.saveRef) ? t('mywords.added') : t('mywords.add')}
+                variant="secondary"
+                size="md"
+                full={false}
+                onPress={() => addToMyList(question.saveRef!)}
+                style={s.myListBtn}
+              />
             ) : null}
             <AppButton label={idx + 1 >= total ? t('quiz.see_results') : t('quiz.learn_next')} onPress={advance} />
           </>
@@ -326,13 +328,10 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center', marginTop: spacing.sm },
+  myListBtn: { alignSelf: 'center', marginTop: spacing.xs },
   judge: { fontSize: ty.h2, fontWeight: '800', textAlign: 'center', marginTop: spacing.sm },
   judgeOk: { color: c.green },
   judgeNg: { color: c.red },
-  explainBox: { backgroundColor: c.bgSoft, borderRadius: radius.md, padding: spacing.md, gap: 4, marginTop: spacing.xs },
-  explainLabel: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, letterSpacing: 1 },
-  explainTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 20 },
-  explainNe: { fontSize: ty.small, color: c.blue, lineHeight: 20, marginTop: 4 },
   bigEmoji: { fontSize: 56 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
   doneSub: { fontSize: ty.body, color: c.mute },

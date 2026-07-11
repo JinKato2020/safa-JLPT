@@ -79,29 +79,6 @@ export default function ListeningScreen() {
     return () => { alive = false; };
   }, [idx, steps]);
 
-  // クリップの全設問に答えたら自動で次へ(全問正解1.5秒/誤答あり3秒)。※フックは早期returnの前(Rules of Hooks)。
-  useEffect(() => {
-    const st = steps[idx];
-    if (!st || st.qs.length === 0) return;
-    const allDone = st.qs.every((_, qi) => picked[qi] != null);
-    if (!allDone) return;
-    const anyWrong = st.qs.some((q, qi) => picked[qi] !== q.answerIndex);
-    const tmr = setTimeout(() => {
-      soundRef.current?.unloadAsync().catch(() => undefined);
-      soundRef.current = null;
-      setPlaying(false);
-      if (anyWrong && steps.length < MAX_STEPS) {
-        // 誤答があったクリップは後ろに再挿入(できるまで)。
-        setSteps((arr) => { const head = arr.slice(0, idx + 1); const tail = reinsertForRelearn(arr.slice(idx + 1), st, RELEARN_GAP); return [...head, ...tail]; });
-      }
-      setPicked([]);
-      setShowScript(false);
-      setIdx((i) => i + 1);
-    }, anyWrong ? 3000 : 1500);
-    return () => clearTimeout(tmr);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [picked, idx]);
-
   const step = steps[idx];
 
   const stopSound = async () => {
@@ -157,9 +134,22 @@ export default function ListeningScreen() {
     if (ok) setCorrect((x) => x + 1);
   };
 
+  // クリップの全設問に答え終えたら「次へ」ボタンで手動前進(自動前進しない)。誤答があれば再挿入。
+  const advance = async () => {
+    await stopSound();
+    const anyWrong = step.qs.some((q, qi) => picked[qi] !== q.answerIndex);
+    if (anyWrong && steps.length < MAX_STEPS) {
+      setSteps((arr) => { const head = arr.slice(0, idx + 1); const tail = reinsertForRelearn(arr.slice(idx + 1), step, RELEARN_GAP); return [...head, ...tail]; });
+    }
+    setPicked([]);
+    setShowScript(false);
+    setIdx((i) => i + 1);
+  };
+
   const isAudioChoices = !!step.clip.audioChoices; // 発話/即時=本文＋選択肢を音声で再生、画面は番号で選ぶ
   const isHatsuwa = !isAudioChoices && !!step.clip.illust; // (旧)発話表現=イラスト＋場面文、音声なし
   const anyPicked = picked.some((p) => p != null);
+  const allDone = step.qs.length > 0 && step.qs.every((_, qi) => picked[qi] != null);
 
   return (
     <SafeAreaView style={s.c}>
@@ -254,10 +244,15 @@ export default function ListeningScreen() {
                   );
                 })}
               </View>
-              {reveal ? <View style={s.explainBox}><Text style={s.explainTxt}>{q.explain}</Text></View> : null}
             </View>
           );
         })}
+
+        {allDone ? (
+          <Pressable style={s.cta} onPress={advance}>
+            <Text style={s.ctaTxt}>{idx + 1 >= steps.length ? t('listening.see_results') : t('listening.next')}</Text>
+          </Pressable>
+        ) : null}
       </ScrollView>
     </SafeAreaView>
   );
@@ -318,8 +313,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
   choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
   mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
-  explainBox: { backgroundColor: c.bgSoft, borderRadius: radius.md, padding: spacing.md },
-  explainTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 20 },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },

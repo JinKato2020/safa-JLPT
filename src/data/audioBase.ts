@@ -11,11 +11,3 @@ export function vocabAudioUrl(id: string): string {
 export function kanjiAudioUrl(char: string): string {
   return `${AUDIO_BASE_URL}kanji/${encodeURIComponent(char)}.mp3`;
 }
-
-/** 解説L10n配信元(GitHub Pages)。非日本語解説を言語別JSONで配信。 */
-export const L10N_BASE_URL = 'https://jinkato2020.github.io/safa-JLPT/assets/l10n/';
-
-/** 言語別解説JSONのURL。lang=en/zh/ko/vi/th/id/my/bn/ne 等。 */
-export function explainL10nUrl(lang: string): string {
-  return `${L10N_BASE_URL}explain.${lang}.json`;
-}

@@ -1,6 +1,6 @@
 // ミニ読解。お知らせ/メール/メモ等の本文を読み、4択で自動採点(重み3=mini)→読解リング点灯。
 // 採点は quizAnswer(設問id) を流用。間違いの解説つき。掲示板§4(読解)。
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
@@ -55,15 +55,6 @@ export default function ReadingScreen() {
     setPicked(null);
     setIdx((i) => i + 1);
   };
-
-  // 正解のみ自動で次へ。不正解は解説を読んでから「次へ」ボタンで進む。
-  useEffect(() => {
-    if (picked === null || !step) return;
-    const isCorrect = picked === step.q.answerIndex;
-    if (!isCorrect) return; // 不正解は自動前進しない
-    const t = setTimeout(advance, 1300);
-    return () => clearTimeout(t);
-  }, [picked]);
 
   if (!step) {
     return (
@@ -139,18 +130,9 @@ export default function ReadingScreen() {
         </View>
 
         {picked !== null ? (
-          <>
-            <View style={s.explainBox}>
-              <Text style={s.explainTxt}>{step.q.explain}</Text>
-            </View>
-            {picked === step.q.answerIndex ? (
-              <Text style={s.autoNext}>{idx + 1 >= steps.length ? t('reading.autoResult') : t('reading.autoNext')}</Text>
-            ) : (
-              <Pressable style={s.nextBtn} onPress={advance}>
-                <Text style={s.nextBtnTxt}>{idx + 1 >= steps.length ? t('reading.toResult') : t('reading.next')}</Text>
-              </Pressable>
-            )}
-          </>
+          <Pressable style={s.nextBtn} onPress={advance}>
+            <Text style={s.nextBtnTxt}>{idx + 1 >= steps.length ? t('reading.toResult') : t('reading.next')}</Text>
+          </Pressable>
         ) : (
           <Text style={s.hint}>{t('reading.hint')}</Text>
         )}
@@ -201,12 +183,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
   choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
   mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
-  explainBox: { backgroundColor: c.bgSoft, borderRadius: radius.md, padding: spacing.md },
-  explainTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 20 },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
-  autoNext: { fontSize: ty.tiny, color: c.faint, textAlign: 'center', marginTop: spacing.xs },
   nextBtn: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   nextBtnTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   bigEmoji: { fontSize: 56 },

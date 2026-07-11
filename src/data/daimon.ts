@@ -5,9 +5,34 @@
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
 import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
-import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng } from '../quiz/quiz';
+import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
-import { explainJa } from './exam/explainJa';
+
+// my単語帳 saveRef 解決用の索引。
+// 文法daimon(grammar_form/order/passage_grammar)の bank.pointId → grammar.json 実在id のみ採用(欠落/不整合は無視)。
+const GRAMMAR_ID_SET = new Set(GRAMMAR.map((g) => g.id));
+// 用法(usage)の bank.stem(語。ふりがな括弧を含み得る) → vocab.json id の逆引き。同語は最初の一致を採用。
+const FURI_PAREN = /（[^）]*）/g;
+const WORD_TO_VOCAB_ID = new Map<string, string>();
+for (const v of VOCAB) { if (!WORD_TO_VOCAB_ID.has(v.word)) WORD_TO_VOCAB_ID.set(v.word, v.id); }
+/** 用法バンクの stem(例: "出（だ）す")からふりがなを除いた語で vocab id を逆引き。解決不能なら null。 */
+function saveRefForUsageStem(stem: string): SaveRef | null {
+  const word = (stem || '').replace(FURI_PAREN, '');
+  const id = WORD_TO_VOCAB_ID.get(word);
+  return id ? { type: 'vocab', id } : null;
+}
+/** BANK_INDEX分岐(usage/文法系)の saveRef。解決不能(pointId欠落・未知id・stem不一致)なら undefined。 */
+function saveRefForBank(bank: BankUnit): SaveRef | undefined {
+  if (bank.daimon === 'grammar_form' || bank.daimon === 'order' || bank.daimon === 'passage_grammar') {
+    return bank.pointId && GRAMMAR_ID_SET.has(bank.pointId) ? { type: 'grammar', id: bank.pointId } : undefined;
+  }
+  if (bank.daimon === 'usage') return saveRefForUsageStem(bank.stem) ?? undefined;
+  return undefined;
+}
+/** `<vocabId>#daimon` 形式のユニットidから vocabId を取り出し saveRef を作る(漢字読み/表記/文脈規定/言い換え共通)。 */
+function saveRefForVocabUnit(unit: string): SaveRef {
+  return { type: 'vocab', id: unit.split('#')[0] };
+}
 
 // 大問 → 固定出題形式(makeQuestion用QFormat) / 'bank'(知識バンクの4択)。
 export const DAIMON_FORMAT: Record<Daimon, QFormat | 'bank'> = {
@@ -23,7 +48,7 @@ export const MOJI_DAIMON: Daimon[] = ['kanji_read', 'orthography', 'context', 's
 export const BUNPOU_DAIMON: Daimon[] = ['grammar_form', 'order', 'passage_grammar'];
 
 // 知識バンクの安定id(状態キー/重複排除用)。id = kb-NNNNNN(data由来・knowledgeBank.jsonに焼き込み済み。Task 1)。
-export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; }
+export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; pointId?: string; }
 // 並べ替え(order)のうち一意性監査で「複数正解=曖昧」と判定された問題(ambiguous:true・108問)は出題プールから恒久除外。
 // 日本語は副詞・主語の位置が自由で★の答えが一意にならないため。監査=LLM一括(2026-07-10)。id は data由来なので filter後も安定。
 export const BANK: BankUnit[] = (KNOWLEDGE_BANK as BankUnit[])
@@ -124,31 +149,31 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   const bank = BANK_INDEX.get(unit);
   if (bank) {
     const { choices, answerIndex } = shuffleChoices([bank.answer, ...bank.choices.filter((x) => x !== bank.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, explain: explainJa(bank.id) };
+    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, saveRef: saveRefForBank(bank) };
   }
   // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
   const og = OG_BANK_INDEX.get(unit);
   if (og) {
     const { choices, answerIndex } = shuffleChoices([og.answer, ...og.choices.filter((x) => x !== og.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), furi: SENTENCE_FURI[og.id], furiTarget: og.underline, question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain, explainNe: og.explainNe };
+    return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), furi: SENTENCE_FURI[og.id], furiTarget: og.underline, question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain, explainNe: og.explainNe, saveRef: saveRefForVocabUnit(unit) };
   }
   // 漢字読み=固定問題集(公式形式・文中の漢字を下線→読み方を4択)。prompt空・exampleに下線付き文。
   const kr = KR_BANK_INDEX.get(unit);
   if (kr) {
     const { choices, answerIndex } = shuffleChoices([kr.answer, ...kr.choices.filter((x) => x !== kr.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: '', example: underlineSegments(kr.sentence, kr.underline), furi: SENTENCE_FURI[kr.id], furiTarget: kr.underline, noTargetRuby: true, question: '下線の言葉の読み方は？', format: 'reading', choices, answerIndex };
+    return { itemId: unit, prompt: '', example: underlineSegments(kr.sentence, kr.underline), furi: SENTENCE_FURI[kr.id], furiTarget: kr.underline, noTargetRuby: true, question: '下線の言葉の読み方は？', format: 'reading', choices, answerIndex, saveRef: saveRefForVocabUnit(unit) };
   }
   // 文脈規定=固定問題集(全内容語のオリジナル文＋非競合誤答)。
   const cx = CTX_BANK_INDEX.get(unit);
   if (cx) {
     const { choices, answerIndex } = shuffleChoices([cx.answer, ...cx.choices.filter((x) => x !== cx.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex, explain: cx.explain, explainNe: cx.explainNe };
+    return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex, explain: cx.explain, explainNe: cx.explainNe, saveRef: saveRefForVocabUnit(unit) };
   }
   // 言い換え類義=固定問題集(文＋下線部→意味が近い語)。prompt空・exampleに下線付き文。
   const sy = SY_BANK_INDEX.get(unit);
   if (sy) {
     const { choices, answerIndex } = shuffleChoices([sy.answer, ...sy.choices.filter((x) => x !== sy.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex, explain: sy.reason, explainNe: sy.reasonNe };
+    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex, explain: sy.reason, explainNe: sy.reasonNe, saveRef: saveRefForVocabUnit(unit) };
   }
   // JFT会話と表現=場面(situation)に適切な表現を4択で。
   const ex = EXPR_INDEX.get(unit);
@@ -189,12 +214,10 @@ export function learnCardFor(unit: string): LearnCard | null {
       const title = LEARN_FURI[bank.stem] ?? bank.stem;
       const plain = title.replace(/[（(][ぁ-ゖァ-ヶー]+[）)]/g, '');
       const sent = LEARN_FURI[bank.answer] ?? bank.answer;
-      const explain = explainJa(bank.id);
-      return { title, body: sent, hit: plain, note: (explain !== undefined ? LEARN_FURI[explain] ?? explain : undefined) };
+      return { title, body: sent, hit: plain };
     }
     // ⑦文の組み立て・⑧文章の文法は「解いて学ぶ」技能問題(語順の組み立て/文脈の流れ)。
     // 学習カードで完成文や正解を先に見せるとテストの意味が無くなるため、学習カードは出さない。
-    // 解答後の解説(questionForUnitで explain 付与済)で学ぶ。
     if (bank.daimon === 'order' || bank.daimon === 'passage_grammar') return null;
     const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
     return { title: bank.answer, body: filled };
