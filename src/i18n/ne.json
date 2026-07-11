@@ -364,5 +364,7 @@
  "study.q_each": "प्रति सेट १० प्रश्न",
  "study.tap_daimon": "खण्ड ट्याप गरी १० प्रश्न",
  "test.locked_badge": "यो महिना पूरा",
- "test.locked_next": "अर्को: {d}/{m}/{y}"
+ "test.locked_next": "अर्को: {d}/{m}/{y}",
+ "passage.showTrans": "अनुवाद हेर्नुहोस्",
+ "passage.hideTrans": "अनुवाद लुकाउनुहोस्"
 }

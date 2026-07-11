@@ -7,8 +7,12 @@ import { rubyNeeded } from '../data';
 import { useAppState, useAppActions } from '../store/store';
 import { shuffleChoices } from '../quiz/quiz';
 import { type PassageSet } from '../quiz/passageSet';
+import passageTransNe from '../data/exam/passageTransNe.json';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
+
+// 本文のネパール語訳(回答後トグル表示・l1=ne時のみ)。key=PassageSet.id → 本文ごとの訳配列。
+const TRANS_NE = passageTransNe as Record<string, string[]>;
 
 export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { set: PassageSet; isLast: boolean; onNext: () => void; onGraded?: (results: { id: string; correct: boolean }[]) => void }) {
   const state = useAppState();
@@ -23,7 +27,9 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
   const [answers, setAnswers] = useState<(number | null)[]>(() => set.questions.map(() => null));
   const [correctness, setCorrectness] = useState<boolean[]>(() => set.questions.map(() => false)); // pick時に確定
   const [recorded, setRecorded] = useState(false);
+  const [showTrans, setShowTrans] = useState(false);
   const revealed = answers.every((a) => a !== null);
+  const trans = state.settings.l1 === 'ne' ? TRANS_NE[set.id] : undefined; // 本文ごとのネパール語訳(無ければundefined)
 
   // 全問回答した瞬間に、各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)が採点集計したい場合は onGraded も同時に1回だけ発火。
   useEffect(() => {
@@ -52,8 +58,15 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
           <View style={s.passageBodyWrap}>
             {p.body.split('\n').map((line, i) => (line ? <RubyText key={i} text={line} style={s.passageBody} rubyStyle={s.rubyS} rubyGate={rubyGate} /> : <View key={i} style={s.blankLine} />))}
           </View>
+          {revealed && showTrans && trans?.[pi] ? <Text style={s.transTxt}>{trans[pi]}</Text> : null}
         </View>
       ))}
+
+      {revealed && trans ? (
+        <Pressable style={s.transBtn} onPress={() => setShowTrans((v) => !v)}>
+          <Text style={s.transBtnTxt}>{showTrans ? t('passage.hideTrans') : t('passage.showTrans')}</Text>
+        </Pressable>
+      ) : null}
 
       {set.questions.map((q, qi) => {
         const picked = answers[qi];
@@ -100,6 +113,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   passageBody: { fontSize: ty.body, color: c.ink2, lineHeight: 26 },
   blankLine: { height: spacing.sm },
   rubyS: { fontSize: 10, color: c.mute },
+  transTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 22, marginTop: spacing.sm, paddingTop: spacing.sm, borderTopWidth: 1, borderTopColor: c.line },
+  transBtn: { alignSelf: 'flex-start', backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: 6, paddingHorizontal: spacing.md, marginTop: -spacing.xs },
+  transBtnTxt: { fontSize: ty.small, fontWeight: '700', color: c.blueDark },
   qBlock: { gap: spacing.sm },
   qLabel: { fontSize: ty.small, fontWeight: '800', color: c.blueDark },
   qText: { fontSize: ty.body, color: c.ink },
