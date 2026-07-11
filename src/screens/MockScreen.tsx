@@ -9,13 +9,15 @@ import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { useT } from '../i18n';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
+import { isInMyList } from '../store/state';
 import { guessCorrect, jftMockScore } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { examReadingFor, examListeningFor, rubyNeeded } from '../data';
 import RubyText from '../components/RubyText';
+import AppButton from '../components/AppButton';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
-import { sample, shuffleChoices, type ExampleHint } from '../quiz/quiz';
+import { sample, shuffleChoices, type ExampleHint, type SaveRef } from '../quiz/quiz';
 import { blueprintCounts, daimonCounts, DAIMON_SEC, type Daimon } from '../data/examBlueprint';
 import { daimonUnitIds, questionForUnit, MOJI_DAIMON } from '../data/daimon';
 import { JFT_EXPRESSION } from '../data';
@@ -53,6 +55,7 @@ interface MockItem {
   explain?: string;
   itemId?: string;
   daimon?: Daimon; // 大問(知識区分の内訳集計用)
+  saveRef?: SaveRef; // my単語帳への保存対象(questionForUnit経由の語daimonのみ)
 }
 interface Answer { id: string; section: Sec; correct: boolean; label: string; drillable: boolean; }
 
@@ -96,7 +99,7 @@ function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen
     out.push({
       kind: 'word', id: unit, section: sec, daimon,
       question: q.question, choices: q.choices, answerIndex: q.answerIndex,
-      prompt: q.prompt || undefined, reading: q.reading, example: q.example, furi: q.furi, furiTarget: q.furiTarget, noTargetRuby: q.noTargetRuby, explain: q.explain, itemId: q.itemId,
+      prompt: q.prompt || undefined, reading: q.reading, example: q.example, furi: q.furi, furiTarget: q.furiTarget, noTargetRuby: q.noTargetRuby, explain: q.explain, itemId: q.itemId, saveRef: q.saveRef,
     });
   }
   return out.slice(0, count);
@@ -157,7 +160,7 @@ export default function MockScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'Mock'>>();
   const full = route.params?.full ?? false;
   const state = useAppState();
-  const { mockAnswer, recordMockResult } = useAppActions();
+  const { mockAnswer, recordMockResult, addToMyList } = useAppActions();
   const c = useColors();
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
@@ -426,9 +429,21 @@ export default function MockScreen() {
         </View>
 
         {reveal ? (
-          <Pressable style={s.cta} onPress={next}>
-            <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
-          </Pressable>
+          <>
+            {cur.saveRef ? (
+              <AppButton
+                label={isInMyList(state.myList, cur.saveRef) ? t('mywords.added') : t('mywords.add')}
+                variant="secondary"
+                size="md"
+                full={false}
+                onPress={() => addToMyList(cur.saveRef!)}
+                style={s.myListBtn}
+              />
+            ) : null}
+            <Pressable style={s.cta} onPress={next}>
+              <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
+            </Pressable>
+          </>
         ) : (
           <Text style={s.hint}>{t('mock.hint')}</Text>
         )}
@@ -494,6 +509,7 @@ const makeStyles = (c: ThemeColors) =>
     choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
     choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
     mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
+    myListBtn: { alignSelf: 'center', marginTop: spacing.xs },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
     ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
     hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },

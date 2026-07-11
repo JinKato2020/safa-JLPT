@@ -19,9 +19,10 @@ interface Props {
   pool: StudyItem[];
   size: number;
   renderLearnCard: (item: StudyItem) => ReactNode;
+  overrideBatch?: StudyItem[]; // 指定時はSRSキュー(buildQueue)を使わず、この項目群をそのままテスト対象にする(例: my単語帳の「復習する」= 保存済みを全件)
 }
 
-export default function LearnTestSession({ pool, size, renderLearnCard }: Props) {
+export default function LearnTestSession({ pool, size, renderLearnCard, overrideBatch }: Props) {
   const t = useT();
   const nav = useNavigation();
   const state = useAppState();
@@ -30,8 +31,8 @@ export default function LearnTestSession({ pool, size, renderLearnCard }: Props)
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
 
-  const maxCards = size * 3 + 4; // relearn 再出題の上限
-  const [batch] = useState<StudyItem[]>(() => buildQueue(pool, items, Date.now(), size));
+  const maxCards = (overrideBatch ? overrideBatch.length : size) * 3 + 4; // relearn 再出題の上限
+  const [batch] = useState<StudyItem[]>(() => overrideBatch ?? buildQueue(pool, items, Date.now(), size));
   const [phase, setPhase] = useState<'learn' | 'test'>('learn');
   const [learnIdx, setLearnIdx] = useState(0);
   const [testQueue, setTestQueue] = useState<StudyItem[]>(batch); // 学習と同じ batch をテスト

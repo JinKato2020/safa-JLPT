@@ -5,6 +5,7 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import AppButton from '../components/AppButton';
 import { useAppState, useAppActions } from '../store/store';
+import { isInMyList } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
 import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
@@ -60,7 +61,7 @@ export default function QuizScreen() {
   const expression = route.params?.expression; // JFT会話と表現(場面→適切な表現)
   const state = useAppState();
   const { settings, items } = state;
-  const { quizAnswer } = useAppActions();
+  const { quizAnswer, addToMyList } = useAppActions();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
@@ -241,6 +242,16 @@ export default function QuizScreen() {
             <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
               {picked === question.answerIndex ? t('quiz.correct') : t('quiz.wrong')}
             </Text>
+            {question.saveRef ? (
+              <AppButton
+                label={isInMyList(state.myList, question.saveRef) ? t('mywords.added') : t('mywords.add')}
+                variant="secondary"
+                size="md"
+                full={false}
+                onPress={() => addToMyList(question.saveRef!)}
+                style={s.myListBtn}
+              />
+            ) : null}
             <AppButton label={idx + 1 >= total ? t('quiz.see_results') : t('quiz.learn_next')} onPress={advance} />
           </>
         ) : (
@@ -317,6 +328,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center', marginTop: spacing.sm },
+  myListBtn: { alignSelf: 'center', marginTop: spacing.xs },
   judge: { fontSize: ty.h2, fontWeight: '800', textAlign: 'center', marginTop: spacing.sm },
   judgeOk: { color: c.green },
   judgeNg: { color: c.red },

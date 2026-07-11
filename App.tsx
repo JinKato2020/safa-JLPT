@@ -28,6 +28,7 @@ import KakitoriScreen from './src/screens/KakitoriScreen';
 import KanjiDetailScreen from './src/screens/KanjiDetailScreen';
 import ListeningQuizScreen from './src/screens/ListeningQuizScreen';
 import WordDrillScreen from './src/screens/WordDrillScreen';
+import MyWordsScreen from './src/screens/MyWordsScreen';
 import TourOverlay from './src/components/TourOverlay';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers } from './src/telemetry/telemetry';
@@ -178,6 +179,7 @@ function Root() {
             <RootStack.Screen name="KanjiDetail" component={KanjiDetailScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="ListeningQuiz" component={ListeningQuizScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="WordDrill" component={WordDrillScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="MyWords" component={MyWordsScreen} options={{ presentation: 'modal' }} />
           </>
         )}
       </RootStack.Navigator>
