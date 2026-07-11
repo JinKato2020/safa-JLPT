@@ -186,7 +186,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
-  autoNext: { fontSize: ty.tiny, color: c.faint, textAlign: 'center', marginTop: spacing.xs },
   nextBtn: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   nextBtnTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   bigEmoji: { fontSize: 56 },
