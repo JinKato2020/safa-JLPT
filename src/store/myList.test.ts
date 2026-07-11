@@ -6,6 +6,7 @@ import { toggleMyList, isInMyList, type SaveRef } from './state';
 const v1: SaveRef = { type: 'vocab', id: 'n4-v-3' };
 const v2: SaveRef = { type: 'vocab', id: 'n4-v-6' };
 const g1: SaveRef = { type: 'grammar', id: 'n5-g-1' };
+const k1: SaveRef = { type: 'kanji', id: 'n5-k-1' };
 
 test('空リストへ追加すると1件になる', () => {
   const out = toggleMyList([], v1);
@@ -46,4 +47,15 @@ test('isInMyList: 登録済みならtrue、未登録/undefinedならfalse', () =
   assert.equal(isInMyList([v1, g1], v1), true);
   assert.equal(isInMyList([v1, g1], v2), false);
   assert.equal(isInMyList(undefined, v1), false);
+});
+
+test('漢字(kanji type)も追加・重複排除・トグルできる', () => {
+  const added = toggleMyList([v1], k1);
+  assert.deepEqual(added, [v1, k1]);
+  assert.equal(isInMyList(added, k1), true);
+  // 同じidでtype違い(vocab/kanji)は別entry
+  const vocabSameId: SaveRef = { type: 'vocab', id: 'n5-k-1' };
+  assert.equal(isInMyList(added, vocabSameId), false);
+  // トグルOFFで消える
+  assert.deepEqual(toggleMyList(added, k1), [v1]);
 });

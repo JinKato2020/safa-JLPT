@@ -9,7 +9,7 @@ import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
 import { playVocab } from '../data/vocabAudio';
 import type { RootStackParamList } from '../navigation/types';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, cardFaceReadings } from '../data';
 import { effectiveP } from '../engine/engine';
@@ -27,10 +27,10 @@ import { CAT_BY_ID } from '../data/categories';
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 type Kubun = 'vocab' | 'kanji' | 'grammar';
-const KUBUN: { key: Kubun; labelKey: string }[] = [
-  { key: 'vocab', labelKey: 'browse.vocab' },
-  { key: 'kanji', labelKey: 'browse.kanji' },
-  { key: 'grammar', labelKey: 'browse.grammar' },
+const KUBUN: { key: Kubun; labelKey: string; glyph: string }[] = [
+  { key: 'vocab', labelKey: 'browse.vocab', glyph: '語' },
+  { key: 'kanji', labelKey: 'browse.kanji', glyph: '漢' },
+  { key: 'grammar', labelKey: 'browse.grammar', glyph: '文' },
 ];
 // 辞書のレベル並び(易→難)。「全」表示時はこの順でソート。
 const LEVEL_ORDER = ['N5', 'N4', 'N3', 'N2', 'N1'];
@@ -61,7 +61,7 @@ function cardReadingLines(char: string, userLevel: string): CardLine[] {
 
 export default function BrowseScreen() {
   const t = useT();
-  const { settings, items } = useAppState();
+  const { settings, items, myList } = useAppState();
   // 辞書は常にルビ表示(引くためのツールなので、レベル適応ゲートを免除して全漢字にルビ)。
   const rubyGate = (_run?: string) => true;
   const nav = useNavigation<Nav>();
@@ -265,8 +265,20 @@ export default function BrowseScreen() {
     return <View style={s.row}>{rowInner}</View>;
   };
 
+  const kubunAccent = (k: Kubun) => (k === 'vocab' ? c.mojiGoi : k === 'kanji' ? c.dokkai : c.bunpou);
+
   return (
     <SafeAreaView style={s.c} edges={['top']}>
+      {/* 最上部: my単語帳 入口(辞書タブのみ)。保存した 語彙/漢字/文法 の一覧へ。 */}
+      {!study && (
+        <Pressable style={({ pressed }) => [s.myWordsBtn, pressed && s.myWordsPressed]} onPress={() => nav.navigate('MyWords')}>
+          <View style={s.myWordsIcon}><Ionicons name="star" size={16} color={c.blueDark} /></View>
+          <Text style={s.myWordsLabel}>{t('mywords.card')}</Text>
+          {(myList?.length ?? 0) > 0 ? <Text style={s.myWordsCount}>{myList!.length}</Text> : null}
+          <Ionicons name="chevron-forward" size={18} color={c.faint} />
+        </Pressable>
+      )}
+
       <View style={s.top}>
         {study || route.params ? (
           <Pressable onPress={() => nav.goBack()} hitSlop={12}>
@@ -286,13 +298,19 @@ export default function BrowseScreen() {
         {study && <Text style={s.title}>{t(KUBUN.find((k) => k.key === kubun)!.labelKey)}</Text>}
       </View>
 
+      {/* 区分セグメント(語彙/漢字/文法): グリフ＋色で「今どの区分か」を一目で。選択中は区分色で塗る。 */}
       {!study && (
-        <View style={s.filters}>
-          {KUBUN.map((k) => (
-            <Pressable key={k.key} onPress={() => setKubun(k.key)} style={[s.chip, kubun === k.key && s.chipOn]}>
-              <Text style={[s.chipTxt, kubun === k.key && s.chipTxtOn]}>{t(k.labelKey)}</Text>
-            </Pressable>
-          ))}
+        <View style={s.seg}>
+          {KUBUN.map((k) => {
+            const on = kubun === k.key;
+            const accent = kubunAccent(k.key);
+            return (
+              <Pressable key={k.key} onPress={() => setKubun(k.key)} style={[s.segItem, on && { backgroundColor: accent, borderColor: accent }]}>
+                <Text style={[s.segGlyph, { color: on ? '#fff' : accent }]}>{k.glyph}</Text>
+                <Text style={[s.segTxt, on && s.segTxtOn]}>{t(k.labelKey)}</Text>
+              </Pressable>
+            );
+          })}
         </View>
       )}
 
@@ -351,6 +369,18 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   catHeaderWrap: { paddingHorizontal: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.sm, backgroundColor: c.bg },
   catUmbrella: { fontSize: ty.small, fontWeight: '700', color: c.mute, letterSpacing: 1, marginBottom: 2 },
   catHeader: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
+  // my単語帳 入口(最上部)。★＋ラベル＋件数＋›。
+  myWordsBtn: { ...shadow(1), flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, borderRadius: radius.lg, marginHorizontal: spacing.md, marginTop: spacing.md, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md },
+  myWordsPressed: { opacity: 0.85 },
+  myWordsIcon: { width: 30, height: 30, borderRadius: radius.sm, alignItems: 'center', justifyContent: 'center', backgroundColor: c.blueLight },
+  myWordsLabel: { flex: 1, fontSize: ty.body, fontWeight: '800', color: c.ink },
+  myWordsCount: { fontSize: ty.small, fontWeight: '800', color: c.blueDark, backgroundColor: c.blueLight, borderRadius: radius.pill, paddingHorizontal: 8, paddingVertical: 1, overflow: 'hidden', minWidth: 22, textAlign: 'center' },
+  // 区分セグメント: グリフ＋ラベル。選択中は区分色で塗りつぶし。
+  seg: { flexDirection: 'row', gap: spacing.sm, paddingHorizontal: spacing.md, marginTop: spacing.sm },
+  segItem: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5, paddingVertical: spacing.sm, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface },
+  segGlyph: { fontSize: ty.body, fontWeight: '900' },
+  segTxt: { fontSize: ty.small, fontWeight: '700', color: c.ink2 },
+  segTxtOn: { color: '#fff', fontWeight: '800' },
   top: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, padding: spacing.md },
   close: { fontSize: 30, color: c.mute, fontWeight: '700' },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },

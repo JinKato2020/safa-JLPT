@@ -57,16 +57,7 @@ export default function CardsScreen() {
           </Pressable>
         </View>
 
-        {/* my単語帳: 解答後に「＋my単語帳」で保存した語/文法の一覧・復習入口。 */}
-        <Pressable style={({ pressed }) => [s.myListCard, pressed && s.pressed]} onPress={() => nav.navigate('MyWords')}>
-          <View style={s.myListBadge}><Text style={s.myListBadgeTxt}>★</Text></View>
-          <View style={s.myListTextWrap}>
-            <Text style={s.myListTitle}>{t('mywords.card')}</Text>
-            <Text style={s.myListCount}>{state.myList?.length ?? 0}</Text>
-          </View>
-          <Text style={s.chevron}>›</Text>
-        </Pressable>
-
+        {/* my単語帳の入口は辞書タブ最上部へ移設(重複を避ける)。 */}
         {CARDS.map((card) => {
           const b = covOf(card.key);
           const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
@@ -158,17 +149,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   mixBtnPressed: { opacity: 0.9, transform: [{ scale: 0.99 }] },
   mixTitle: { fontSize: ty.body, fontWeight: '800', color: c.blueDark },
   mixSub: { fontSize: ty.small, fontWeight: '700', color: c.blue },
-  myListCard: {
-    ...shadow(1),
-    flexDirection: 'row', alignItems: 'center', gap: spacing.md,
-    backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,
-    padding: spacing.md, marginTop: spacing.sm,
-  },
-  myListBadge: { width: 44, height: 44, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center', backgroundColor: c.blueLight },
-  myListBadgeTxt: { color: c.blueDark, fontSize: ty.h2, fontWeight: '800' },
-  myListTextWrap: { flex: 1 },
-  myListTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
-  myListCount: { fontSize: ty.small, color: c.mute, fontWeight: '700', marginTop: 2 },
   card: {
     ...shadow(1),
     backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,

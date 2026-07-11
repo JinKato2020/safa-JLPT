@@ -5,10 +5,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { itemsFor, VOCAB, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
+import { itemsFor, VOCAB, KANJI, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
-import type { StudyItem, VocabItem } from '../data';
+import type { StudyItem } from '../data';
 import type { RootStackParamList } from '../navigation/types';
 import LearnTestSession from '../components/LearnTestSession';
 import RubyText from '../components/RubyText';
@@ -71,14 +71,16 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
 export default function FlashcardScreen() {
   const { settings } = useAppState();
   const route = useRoute<RouteProp<RootStackParamList, 'Flashcard'>>();
-  const ids = route.params?.ids; // my単語帳の「復習する」= 保存済みvocab idのみ復習(未指定時=従来のSRSキュー)
+  const ids = route.params?.ids; // my単語帳の「復習する」= 保存済みの語彙＋漢字を復習(未指定時=従来のSRSキュー)
   const pool = useMemo(() => itemsFor(settings.level, 'moji_goi'), [settings.level]);
-  // idsが渡された時は、レベルに関係なくその語id群を「そのまま」復習対象にする(buildQueueのdue/fresh絞り込みを迂回)。
+  // idsが渡された時は、レベルに関係なくその語/漢字id群を「そのまま」復習対象にする(buildQueueのdue/fresh絞り込みを迂回)。
   const overrideBatch = useMemo(() => {
     if (!ids || !ids.length) return undefined;
-    const byId = new Map(VOCAB.map((v) => [v.id, v]));
-    const items = ids.map((id) => byId.get(id)).filter((x): x is VocabItem => Boolean(x));
-    return items.length ? (items as StudyItem[]) : undefined;
+    const byId = new Map<string, StudyItem>();
+    for (const v of VOCAB) byId.set(v.id, v);
+    for (const k of KANJI) byId.set(k.id, k);
+    const items = ids.map((id) => byId.get(id)).filter((x): x is StudyItem => Boolean(x));
+    return items.length ? items : undefined;
   }, [ids]);
   return <LearnTestSession pool={pool} size={12} overrideBatch={overrideBatch} renderLearnCard={(item) => <VocabKanjiCard item={item} />} />;
 }

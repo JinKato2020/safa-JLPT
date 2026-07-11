@@ -23,8 +23,8 @@ export const FORMAT_LABEL: Record<QFormat, string> = {
 // 例文ヒント = 下線セグメント列(共通 highlightSegments の結果)。多部分(A〜B)・1文字対応。
 export type ExampleHint = { text: string; hit: boolean }[];
 
-// my単語帳への保存参照。語daimon→vocab.json id、文法daimon→grammar.json id。解決不能な問題には付けない。
-export type SaveRef = { type: 'vocab' | 'grammar'; id: string };
+// my単語帳への保存参照。語daimon→vocab.json id、文法daimon→grammar.json id、漢字→kanji.json id(詳細画面の★保存)。
+export type SaveRef = { type: 'vocab' | 'grammar' | 'kanji'; id: string };
 
 export interface Question {
   itemId: string;

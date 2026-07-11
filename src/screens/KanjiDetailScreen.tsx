@@ -7,7 +7,8 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
-import { useAppState } from '../store/store';
+import { useAppState, useAppActions } from '../store/store';
+import { isInMyList } from '../store/state';
 import { KANJI, KANJI_CARDS, meaningIn, readingAboveUserLevel } from '../data';
 import type { KanjiCard } from '../data';
 import { useT } from '../i18n';
@@ -45,7 +46,9 @@ export default function KanjiDetailScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'KanjiDetail'>>();
   const char = route.params?.char ?? '';
   const t = useT();
-  const { settings } = useAppState();
+  const state = useAppState();
+  const { settings } = state;
+  const { addToMyList } = useAppActions();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
 
@@ -56,6 +59,9 @@ export default function KanjiDetailScreen() {
   const meaning = (l1 && l1 !== 'en' ? meaningIn(char, l1) : undefined) ?? card?.glossShort ?? info?.meaning;
   const meaningFull = card?.glossFull ?? info?.meaning;
   const readings = useMemo(() => cardReadingLines(char), [char]);
+  // 漢字を my単語帳 に保存(★トグル)。kanji.json の id を参照に使う。
+  const saveRef = info ? ({ type: 'kanji', id: info.id } as const) : null;
+  const saved = saveRef ? isInMyList(state.myList, saveRef) : false;
 
   useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
   const playExample = (word: string, reading: string) => {
@@ -93,7 +99,12 @@ export default function KanjiDetailScreen() {
     <SafeAreaView style={s.c} edges={['top']}>
       <View style={s.head}>
         <Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable>
-        <View style={{ width: 30 }} />
+        {saveRef ? (
+          <Pressable style={[s.saveBtn, saved && s.saveBtnOn]} hitSlop={8} onPress={() => addToMyList(saveRef)}>
+            <Ionicons name={saved ? 'star' : 'star-outline'} size={16} color={saved ? c.blueDark : c.blue} />
+            <Text style={[s.saveTxt, saved && s.saveTxtOn]}>{saved ? t('mywords.added') : t('mywords.add')}</Text>
+          </Pressable>
+        ) : <View style={{ width: 30 }} />}
       </View>
       <ScrollView contentContainerStyle={s.body}>
         <Text style={s.bigChar}>{char}</Text>
@@ -126,6 +137,10 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
   head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
   close: { fontSize: 30, color: c.mute, fontWeight: '700' },
+  saveBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, borderRadius: radius.pill, borderWidth: 1, borderColor: c.blue, paddingHorizontal: spacing.md, paddingVertical: 6 },
+  saveBtnOn: { backgroundColor: c.blueLight, borderColor: c.blueLight },
+  saveTxt: { fontSize: ty.small, fontWeight: '800', color: c.blue },
+  saveTxtOn: { color: c.blueDark },
   body: { paddingHorizontal: spacing.lg, paddingBottom: spacing.xl, alignItems: 'center' },
   bigChar: { fontSize: 88, fontFamily: 'ShipporiMincho-Bold', color: c.ink, marginTop: spacing.sm },
   meaning: { fontSize: ty.h2, fontWeight: '700', color: c.ink2, textAlign: 'center', marginTop: spacing.sm },
