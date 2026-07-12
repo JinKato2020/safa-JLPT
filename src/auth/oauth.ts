@@ -3,9 +3,11 @@
 //        戻りURLの ?code= を exchangeCodeForSession でセッションに交換(PKCE)。
 import * as WebBrowser from 'expo-web-browser';
 import * as Linking from 'expo-linking';
-import * as AppleAuthentication from 'expo-apple-authentication';
-import { Platform } from 'react-native';
 import { supabase } from '../config/supabase';
+// 注: expo-apple-authentication は一時的に未導入(パッケージごと外している)。
+// 導入するとインストールだけで applesignin entitlement が自動付与され、
+// 現行の配布プロビジョニングプロファイルでは署名が通らないため(build 1392/1393 が ARCHIVE FAILED)。
+// App IDに Sign In with Apple を付与→プロファイル再生成→CI secret更新 後に再導入する。
 
 // ブラウザ認証セッションを正しく閉じるために必要(モジュール読込時に一度)。
 WebBrowser.maybeCompleteAuthSession();
@@ -49,42 +51,12 @@ export async function signInWithProvider(provider: OAuthProvider): Promise<{ err
   }
 }
 
-// Appleサインインは一時無効化(2026-07-12)。App IDに「Sign In with Apple」capabilityを付け、
-// 配布用プロビジョニングプロファイル(J App Store CI)を再生成してCI secretを更新したら true に戻し、
-// app.json plugins に "expo-apple-authentication" を再追加する。App Store提出前に有効化必須(ガイドライン4.8)。
-const APPLE_SIGNIN_ENABLED = false;
-
-/** Appleでサインイン(iOSのみ・ネイティブ)。identityTokenを signInWithIdToken でセッションへ。 */
+/** Appleでサインイン(一時無効化中・スタブ)。再導入時に expo-apple-authentication を使う実装へ戻す。 */
 export async function signInWithApple(): Promise<{ error?: string }> {
-  if (!APPLE_SIGNIN_ENABLED) return { error: 'account.err_oauth' };
-  if (Platform.OS !== 'ios') return { error: 'account.err_oauth' };
-  try {
-    const credential = await AppleAuthentication.signInAsync({
-      requestedScopes: [
-        AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-        AppleAuthentication.AppleAuthenticationScope.EMAIL,
-      ],
-    });
-    if (!credential.identityToken) return { error: 'account.err_oauth' };
-    const { error } = await supabase.auth.signInWithIdToken({
-      provider: 'apple',
-      token: credential.identityToken,
-    });
-    return error ? { error: error.message } : {};
-  } catch (e) {
-    // ユーザーがキャンセルした場合(ERR_REQUEST_CANCELED)はエラー表示しない。
-    if ((e as { code?: string })?.code === 'ERR_REQUEST_CANCELED') return { error: 'cancelled' };
-    return { error: 'account.err_oauth' };
-  }
+  return { error: 'account.err_oauth' };
 }
 
-/** Appleサインインがこの端末で使えるか(iOS + 対応OS)。 */
+/** Appleサインインがこの端末で使えるか(一時無効化中は常に false=ボタン非表示)。 */
 export async function isAppleAvailable(): Promise<boolean> {
-  if (!APPLE_SIGNIN_ENABLED) return false; // 一時無効化中はボタンを出さない
-  if (Platform.OS !== 'ios') return false;
-  try {
-    return await AppleAuthentication.isAvailableAsync();
-  } catch {
-    return false;
-  }
+  return false;
 }
