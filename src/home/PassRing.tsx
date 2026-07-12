@@ -1,9 +1,9 @@
-// 合格リング(Skia)。外=5科目カバー率の発光弧／中=総合正答の光弧／中央=呼吸する発光ディスク＋金の称号。
-// reanimated は使わず、React状態＋requestAnimationFrame でアニメ(弧の伸び/中央の呼吸/金装飾の微回転)。
-// 見出し・称号テキストは RN Text をキャンバス上に重ねる(フォント一貫・多言語・可読性の影)。
+// 合格リング(react-native-svg)。外=5科目カバー率の発光弧／中=総合正答の光弧／中央=呼吸する発光ディスク＋金の称号。
+// Skiaは newArchEnabled 下で起動クラッシュの実績があり、既存の react-native-svg(実績あり)へ移行。
+// アニメは React状態＋requestAnimationFrame(弧の伸び/中央の呼吸/金装飾の微回転)。見出し・称号は RN Text を重ねる。
 import { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Canvas, Path, Circle, Group, RadialGradient, LinearGradient, Blur, DashPathEffect, vec } from '@shopify/react-native-skia';
+import Svg, { G, Circle, Path, Defs, RadialGradient, LinearGradient, Stop } from 'react-native-svg';
 import { arcPath, C, R_OUT, R_MID, R_IN, SEG, GAP } from './ringGeometry';
 import type { PassRingData } from './passRingData';
 
@@ -28,55 +28,66 @@ export function PassRing({ data, size }: { data: PassRingData; size: number }) {
   }, []);
 
   const breathe = 0.82 + 0.18 * (0.5 + 0.5 * Math.sin(phase * 1.7));
-  const rotate = phase * 0.1;
-  const s = size / 400; // 400 viewBox → 実サイズ
+  const rotateDeg = (phase * 6) % 360;
+
+  // 部分弧を安全に描く(伸びが極小なら描かない=退化パス回避)。
+  const partial = (r: number, a0: number, a1: number, frac: number): string | null => {
+    const f = Math.max(0, Math.min(1, frac));
+    if (f <= 0.002) return null;
+    return arcPath(r, a0, a0 + (a1 - a0) * f);
+  };
 
   return (
     <View style={{ width: size, height: size }}>
-      <Canvas style={StyleSheet.absoluteFill}>
-        <Group transform={[{ scale: s }]}>
-          {/* 中央: 呼吸する発光＋ディスク＋金縁 */}
-          <Circle cx={C} cy={C} r={R_IN + 16} opacity={breathe}>
-            <RadialGradient c={vec(C, C - 20)} r={R_IN + 34} colors={['#fff0f6', '#f5b8d2', '#7b4f9c']} />
-            <Blur blur={12} />
-          </Circle>
-          <Circle cx={C} cy={C} r={R_IN}>
-            <RadialGradient c={vec(C, C - 18)} r={R_IN} colors={['#fff0f6', '#f5b8d2', '#7b4f9c']} />
-          </Circle>
-          <Circle cx={C} cy={C} r={R_IN} style="stroke" strokeWidth={2} color="#e7c877" opacity={0.85} />
+      <Svg width={size} height={size} viewBox="0 0 400 400">
+        <Defs>
+          <RadialGradient id="pr-center" cx={C} cy={C - 18} r={R_IN} gradientUnits="userSpaceOnUse">
+            <Stop offset="0" stopColor="#fff0f6" />
+            <Stop offset="0.55" stopColor="#f5b8d2" />
+            <Stop offset="1" stopColor="#7b4f9c" />
+          </RadialGradient>
+          <RadialGradient id="pr-halo" cx={C} cy={C - 20} r={R_IN + 34} gradientUnits="userSpaceOnUse">
+            <Stop offset="0" stopColor="#fff0f6" stopOpacity="0.9" />
+            <Stop offset="0.6" stopColor="#f5b8d2" stopOpacity="0.5" />
+            <Stop offset="1" stopColor="#7b4f9c" stopOpacity="0" />
+          </RadialGradient>
+          <LinearGradient id="pr-energy" x1="60" y1="60" x2="340" y2="340" gradientUnits="userSpaceOnUse">
+            <Stop offset="0" stopColor="#8fe6ff" />
+            <Stop offset="1" stopColor="#c9a0ff" />
+          </LinearGradient>
+        </Defs>
 
-          {/* 外リング: 5科目カバー率(トラック＋グロー＋シャープ) */}
-          {data.categories.map((cat, i) => {
-            const a0 = i * SEG + GAP / 2, a1 = i * SEG + SEG - GAP / 2;
-            const p = arcPath(R_OUT, a0, a1);
-            const end = progress * (cat.coveragePct / 100);
-            return (
-              <Group key={cat.key}>
-                <Path path={p} style="stroke" strokeWidth={OUT_W} strokeCap="round" color="rgba(255,255,255,0.10)" />
-                <Path path={p} style="stroke" strokeWidth={OUT_W + 4} strokeCap="round" color={cat.color} start={0} end={end} opacity={0.5}>
-                  <Blur blur={5} />
-                </Path>
-                <Path path={p} style="stroke" strokeWidth={OUT_W} strokeCap="round" color={cat.color} start={0} end={end} />
-              </Group>
-            );
-          })}
+        {/* 中央: 呼吸する発光(halo)＋ディスク＋金縁 */}
+        <Circle cx={C} cy={C} r={R_IN + 22} fill="url(#pr-halo)" opacity={breathe} />
+        <Circle cx={C} cy={C} r={R_IN} fill="url(#pr-center)" />
+        <Circle cx={C} cy={C} r={R_IN} fill="none" stroke="#e7c877" strokeWidth={2} opacity={0.85} />
 
-          {/* 中リング: 総合正答(エネルギーの光弧) */}
-          <Path path={arcPath(R_MID, 4, 356)} style="stroke" strokeWidth={MID_W} strokeCap="round" color="rgba(255,255,255,0.10)" />
-          <Path path={arcPath(R_MID, 4, 356)} style="stroke" strokeWidth={MID_W} strokeCap="round" start={0} end={progress * (data.overallAccuracyPct / 100)}>
-            <LinearGradient start={vec(60, 60)} end={vec(340, 340)} colors={['#8fe6ff', '#c9a0ff']} />
-            <Blur blur={3} />
-          </Path>
+        {/* 外リング: 5科目カバー率(トラック＋グロー＋シャープ) */}
+        {data.categories.map((cat, i) => {
+          const a0 = i * SEG + GAP / 2, a1 = i * SEG + SEG - GAP / 2;
+          const d = partial(R_OUT, a0, a1, progress * (cat.coveragePct / 100));
+          return (
+            <G key={cat.key}>
+              <Path d={arcPath(R_OUT, a0, a1)} stroke="rgba(255,255,255,0.12)" strokeWidth={OUT_W} strokeLinecap="round" fill="none" />
+              {d ? <Path d={d} stroke={cat.color} strokeWidth={OUT_W + 5} strokeLinecap="round" fill="none" opacity={0.28} /> : null}
+              {d ? <Path d={d} stroke={cat.color} strokeWidth={OUT_W} strokeLinecap="round" fill="none" /> : null}
+            </G>
+          );
+        })}
 
-          {/* 金の装飾(微回転) */}
-          <Group origin={vec(C, C)} transform={[{ rotate }]}>
-            <Circle cx={C} cy={C} r={R_OUT + 11} style="stroke" strokeWidth={1.5} color="#e7c877" opacity={0.5}>
-              <DashPathEffect intervals={[2, 10]} />
-            </Circle>
-            <Circle cx={C} cy={C} r={R_OUT - 11} style="stroke" strokeWidth={1} color="#b8924a" opacity={0.5} />
-          </Group>
-        </Group>
-      </Canvas>
+        {/* 中リング: 総合正答(エネルギーの光弧) */}
+        <Path d={arcPath(R_MID, 4, 356)} stroke="rgba(255,255,255,0.12)" strokeWidth={MID_W} strokeLinecap="round" fill="none" />
+        {(() => {
+          const d = partial(R_MID, 4, 356, progress * (data.overallAccuracyPct / 100));
+          return d ? <Path d={d} stroke="url(#pr-energy)" strokeWidth={MID_W} strokeLinecap="round" fill="none" /> : null;
+        })()}
+
+        {/* 金の装飾(微回転) */}
+        <G rotation={rotateDeg} originX={C} originY={C}>
+          <Circle cx={C} cy={C} r={R_OUT + 11} fill="none" stroke="#e7c877" strokeWidth={1.5} strokeDasharray="2 10" opacity={0.5} />
+          <Circle cx={C} cy={C} r={R_OUT - 11} fill="none" stroke="#b8924a" strokeWidth={1} opacity={0.5} />
+        </G>
+      </Svg>
 
       {/* 見出し・称号(RN Text オーバーレイ) */}
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
