@@ -10,6 +10,7 @@ import { useColors } from './src/theme';
 import { useAppFonts, setActiveFont } from './src/theme/fonts';
 import WatercolorBackground from './src/components/WatercolorBackground';
 import { AppProvider, useAppState, useHydrated } from './src/store/store';
+import { SyncProvider } from './src/auth/SyncProvider';
 import { isWatercolor } from './src/store/state';
 import { useT } from './src/i18n';
 import type { RootStackParamList, WordsStackParamList } from './src/navigation/types';
@@ -30,6 +31,7 @@ import KanjiDetailScreen from './src/screens/KanjiDetailScreen';
 import ListeningQuizScreen from './src/screens/ListeningQuizScreen';
 import WordDrillScreen from './src/screens/WordDrillScreen';
 import MyWordsScreen from './src/screens/MyWordsScreen';
+import AccountScreen from './src/screens/AccountScreen';
 import TourOverlay from './src/components/TourOverlay';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers } from './src/telemetry/telemetry';
@@ -182,6 +184,7 @@ function Root() {
             <RootStack.Screen name="ListeningQuiz" component={ListeningQuizScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="WordDrill" component={WordDrillScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="MyWords" component={MyWordsScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
           </>
         )}
       </RootStack.Navigator>
@@ -200,10 +203,12 @@ export default function App() {
   }
   return (
     <AppProvider>
-      <SafeAreaProvider>
-        <Root />
-        <StatusBar style="auto" />
-      </SafeAreaProvider>
+      <SyncProvider>
+        <SafeAreaProvider>
+          <Root />
+          <StatusBar style="auto" />
+        </SafeAreaProvider>
+      </SyncProvider>
     </AppProvider>
   );
 }

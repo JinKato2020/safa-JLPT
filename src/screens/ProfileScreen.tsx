@@ -1,8 +1,9 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
 import { useMemo, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import * as StoreReview from 'expo-store-review';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
@@ -16,6 +17,9 @@ import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import MiniCalendar from '../components/MiniCalendar';
 import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
+import { useSync } from '../auth/SyncProvider';
+import { signOut, deleteAccount } from '../auth/authClient';
+import { GUIDE } from '../data/mywordsArt';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const REMINDERS = ['07:00', '12:00', '19:00', '21:00', '22:00'];
@@ -51,6 +55,16 @@ export default function ProfileScreen() {
   const [langOpen, setLangOpen] = useState(false);
   const [legal, setLegal] = useState<'privacy' | 'terms' | null>(null);
   const [showDl, setShowDl] = useState(false);
+  const nav = useNavigation();
+  const { session, email, lastSyncedAt } = useSync();
+  const [confirmDel, setConfirmDel] = useState(false);
+  const syncedLabel = lastSyncedAt ? new Date(lastSyncedAt).toLocaleTimeString() : t('account.not_synced');
+  const onDelete = async () => {
+    if (!session) return;
+    if (!confirmDel) { setConfirmDel(true); return; }
+    await deleteAccount(session.user.id);
+    setConfirmDel(false);
+  };
 
   const rate = async () => {
     try {
@@ -64,6 +78,37 @@ export default function ProfileScreen() {
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
         <Text style={s.title}>{t('profile.title')}</Text>
+
+        {/* アカウント: 未ログイン=作成誘導(桜巫女) / ログイン中=メール・最終同期・ログアウト・削除 */}
+        <View style={s.card}>
+          {session ? (
+            <>
+              <Text style={s.setLbl}>{t('profile.account_section')}</Text>
+              <Text style={s.acctEmail}>{email}</Text>
+              <Text style={s.subtle}>{t('account.synced_at', { t: syncedLabel })}</Text>
+              <Pressable style={s.linkRow} onPress={() => { void signOut(); }}>
+                <Text style={s.linkTxt}>{t('account.logout')}</Text>
+                <Text style={s.chev}>›</Text>
+              </Pressable>
+              <View style={s.linkDiv} />
+              <Pressable style={s.linkRow} onPress={onDelete}>
+                <Text style={[s.linkTxt, confirmDel && { color: c.red, fontWeight: '800' }]}>
+                  {confirmDel ? t('account.delete_confirm') : t('account.delete')}
+                </Text>
+                <Text style={s.chev}>›</Text>
+              </Pressable>
+            </>
+          ) : (
+            <Pressable style={s.acctCta} onPress={() => nav.navigate('Account' as never)}>
+              <Image source={GUIDE.open} style={s.acctGuide} resizeMode="contain" />
+              <View style={{ flex: 1 }}>
+                <Text style={s.acctTitle}>{t('account.benefit_title')}</Text>
+                <Text style={s.subtle}>{t('account.benefit_sub')}</Text>
+              </View>
+              <Text style={s.chev}>›</Text>
+            </Pressable>
+          )}
+        </View>
 
         {/* 学習設定 */}
         <View style={s.card}>
@@ -316,7 +361,9 @@ export default function ProfileScreen() {
             <Text style={s.linkTxt}>{t('profile.privacy')}</Text>
             <Text style={s.chev}>{legal === 'privacy' ? '▲' : '›'}</Text>
           </Pressable>
-          {legal === 'privacy' ? <Text style={s.legal}>{t('profile.privacyBody')}</Text> : null}
+          {legal === 'privacy' ? (
+            <Text style={s.legal}>{t('profile.privacyBody')}{'\n\n'}{t('profile.privacyAccount')}</Text>
+          ) : null}
           <View style={s.linkDiv} />
           <Pressable style={s.linkRow} onPress={() => setLegal((v) => (v === 'terms' ? null : 'terms'))}>
             <Text style={s.linkTxt}>{t('profile.terms')}</Text>
@@ -429,4 +476,8 @@ const makeStyles = (c: ThemeColors) =>
     resetTxt: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
     resetTxtArm: { color: c.red, fontWeight: '800' },
     version: { textAlign: 'center', color: c.faint, fontSize: ty.tiny, fontWeight: '600', marginTop: spacing.md, marginBottom: spacing.lg },
+    acctCta: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
+    acctGuide: { width: 48, height: 54 },
+    acctTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    acctEmail: { fontSize: ty.body, fontWeight: '700', color: c.ink, marginTop: spacing.xs },
   });

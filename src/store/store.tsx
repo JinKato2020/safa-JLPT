@@ -5,7 +5,7 @@ import {
   type Dispatch, type ReactNode,
 } from 'react';
 import { newItemState, recordQuiz, recordMock, effectiveP } from '../engine/engine';
-import { type AppState, type Settings, type MockResult, type SaveRef, INITIAL_STATE, dayStr, toggleMyList } from './state';
+import { type AppState, type Settings, type MockResult, type SaveRef, INITIAL_STATE, dayStr, toggleMyList, withUpdatedAt } from './state';
 import { readinessFor } from './selectors';
 import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
@@ -94,9 +94,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     })();
   }, []);
 
-  // 変更を永続化(復元前は保存しない=初期値で上書きしない)
+  // 変更を永続化(復元前は保存しない=初期値で上書きしない)。保存の都度 updatedAt を刻む(同期のLWW基準)。
   useEffect(() => {
-    if (hydrated) saveState(state);
+    if (hydrated) saveState(withUpdatedAt(state, Date.now()));
   }, [state, hydrated]);
 
   return (
@@ -132,6 +132,7 @@ export function useAppActions() {
     recordKakitori: (char: string, step: number, score: number, opts?: { skipped?: boolean; now?: number }) =>
       dispatch({ type: 'KAKITORI_PROGRESS', char, step, score, skipped: opts?.skipped, now: opts?.now }),
     addToMyList: (ref: SaveRef) => dispatch({ type: 'ADD_TO_MY_LIST', ref }),
+    hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     reset: () => {
       clearState();
       dispatch({ type: 'RESET' });

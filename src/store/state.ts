@@ -65,6 +65,12 @@ export interface AppState {
   mockHistory?: MockResult[];       // 模試の採点履歴(旧stateには無い→省略可)
   kakitori?: Record<string, { step: number; stars: number; best: number; due?: string; interval?: number; reps?: number }>; // 漢字書き取り進捗(char→) 旧stateには無い→省略可
   myList?: SaveRef[]; // my単語帳(保存した語/文法)。旧stateには無い→省略可(実質[])。
+  updatedAt?: number; // 最終更新(epoch ms)。クラウド同期のLWW比較基準。旧stateには無い→0扱い。
+}
+
+/** 保存/同期用に updatedAt を刻んだ複製を返す(純関数・入力は不変)。 */
+export function withUpdatedAt(state: AppState, now: number): AppState {
+  return { ...state, updatedAt: now };
 }
 
 /** my単語帳トグル(純粋関数・テスト可能): 同一type+idが既存なら削除、無ければ追加。 */
