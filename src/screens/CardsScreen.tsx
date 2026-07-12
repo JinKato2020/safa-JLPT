@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
@@ -27,6 +27,10 @@ const CARDS: { key: Key; emoji: string; labelKey: string; listKey: string }[] = 
 
 export default function CardsScreen() {
   const nav = useNavigation<Nav>();
+  const route = useRoute();
+  // 世界観ハブ(WordsHome)から区分を指定して開かれる。kubun指定時はその1区分のみ表示＋戻る。
+  const kubunParam = (route.params as { kubun?: Key } | undefined)?.kubun;
+  const shownCards = kubunParam ? CARDS.filter((c) => c.key === kubunParam) : CARDS;
   const state = useAppState();
   const c = useColors();
   const t = useT();
@@ -45,20 +49,30 @@ export default function CardsScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.title}>{t('cards.title')}</Text>
+        {kubunParam ? (
+          <View style={s.hubHead}>
+            <Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.back}>←</Text></Pressable>
+            <Text style={s.title}>{t(CARDS.find((c) => c.key === kubunParam)!.labelKey)}</Text>
+          </View>
+        ) : (
+          <Text style={s.title}>{t('cards.title')}</Text>
+        )}
 
-        {/* 今日のオススメ: 苦手をSRSで反復出題。単語タブ内の3形式(産出/作成/意味)を横断=試験タブとは独立(越境しない)。 */}
-        <View style={s.recoCard}>
-          <Text style={s.recoCardTitle}>{t('cards.reco')}</Text>
-          <Text style={s.recoCardDesc}>{t('cards.reco_sub')}</Text>
-          <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('WordDrill', { kind: 'mixed' })}>
-            <Text style={s.mixTitle}>{t('cards.reco_start')}</Text>
-            <Text style={s.mixSub}>›</Text>
-          </Pressable>
-        </View>
+        {/* 今日のオススメ: 苦手をSRSで反復出題。単語タブ内の3形式(産出/作成/意味)を横断=試験タブとは独立(越境しない)。
+            ハブ(区分指定)から開いた時は、今日のオススメはハブの「今日の目標」札が担うため出さない。 */}
+        {!kubunParam && (
+          <View style={s.recoCard}>
+            <Text style={s.recoCardTitle}>{t('cards.reco')}</Text>
+            <Text style={s.recoCardDesc}>{t('cards.reco_sub')}</Text>
+            <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('WordDrill', { kind: 'mixed' })}>
+              <Text style={s.mixTitle}>{t('cards.reco_start')}</Text>
+              <Text style={s.mixSub}>›</Text>
+            </Pressable>
+          </View>
+        )}
 
         {/* my単語帳の入口は辞書タブ最上部へ移設(重複を避ける)。 */}
-        {CARDS.map((card) => {
+        {shownCards.map((card) => {
           const b = covOf(card.key);
           const pct = b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0;
           return (
@@ -136,6 +150,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   body: { padding: spacing.lg, gap: spacing.sm },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
   title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, marginTop: spacing.xs, marginBottom: spacing.sm },
+  hubHead: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.xs, marginBottom: spacing.sm },
+  back: { fontSize: 26, fontWeight: '800', color: c.ink2 },
   recoCard: {
     backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.blue,
     padding: spacing.md, gap: spacing.sm, ...shadow(1),

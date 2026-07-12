@@ -21,6 +21,15 @@ export type RootStackParamList = {
 
 export type Kubun = 'kanji' | 'vocab' | 'grammar';
 export type WordsStackParamList = {
-  WordsHome: undefined;
+  WordsHome: undefined;                       // 世界観ハブ(掛軸=語彙/文法/漢字・今日の目標札)
+  WordKubun: { kubun: Kubun };                // 1区分の練習ホーム(カバー率＋各ドリル。旧CardsScreenの1カード分)
   WordList: { view: Kubun; mode: 'study' };
+};
+export type DictStackParamList = {
+  DictHome: undefined;                        // 図書館ホーム(4カード=語彙/漢字/文法辞書＋My単語帳)
+  DictList: { view: Kubun };                  // 各辞書リスト(BrowseScreen)
+};
+export type StudyStackParamList = {
+  StudyHome: undefined;                       // 試験タブ 世界観ホーム(タイル=オススメ/4カテゴリ/模試)
+  StudyCategory: { cat: Category };           // 1カテゴリ詳細(全体正答率＋ミックス＋大問)
 };

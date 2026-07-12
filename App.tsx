@@ -15,9 +15,12 @@ import { navigationRef } from './src/navigation/navRef';
 import AccountPrompt from './src/components/AccountPrompt';
 import { isWatercolor } from './src/store/state';
 import { useT } from './src/i18n';
-import type { RootStackParamList, WordsStackParamList } from './src/navigation/types';
+import type { RootStackParamList, WordsStackParamList, DictStackParamList, StudyStackParamList } from './src/navigation/types';
 import HomeScreen from './src/screens/HomeScreen';
-import StudyScreen from './src/screens/StudyScreen';
+import StudyHomeScreen from './src/screens/StudyHomeScreen';
+import StudyCategoryScreen from './src/screens/StudyCategoryScreen';
+import WordsHubScreen from './src/screens/WordsHubScreen';
+import DictHomeScreen from './src/screens/DictHomeScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import QuizScreen from './src/screens/QuizScreen';
@@ -50,19 +53,41 @@ const Tab = createMaterialTopTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 const WordsStack = createNativeStackNavigator<WordsStackParamList>();
 function WordsTab() {
+  // 単語タブ: 世界観ハブ(WordsHome) → 区分の練習ホーム(WordKubun=CardsScreen) → 学習リスト(WordList=BrowseScreen)。
   return (
     <WordsStack.Navigator screenOptions={{ headerShown: false }}>
-      <WordsStack.Screen name="WordsHome" component={CardsScreen} />
+      <WordsStack.Screen name="WordsHome" component={WordsHubScreen} />
+      <WordsStack.Screen name="WordKubun" component={CardsScreen} />
       <WordsStack.Screen name="WordList" component={BrowseScreen} initialParams={{ mode: 'study' }} />
     </WordsStack.Navigator>
+  );
+}
+const DictStack = createNativeStackNavigator<DictStackParamList>();
+function DictTab() {
+  // 辞書タブ: 没入する図書館ホーム(DictHome) → 各辞書リスト(DictList=BrowseScreen)。My単語帳はRootStackモーダル。
+  return (
+    <DictStack.Navigator screenOptions={{ headerShown: false }}>
+      <DictStack.Screen name="DictHome" component={DictHomeScreen} />
+      <DictStack.Screen name="DictList" component={BrowseScreen} />
+    </DictStack.Navigator>
+  );
+}
+const StudyStack = createNativeStackNavigator<StudyStackParamList>();
+function StudyTab() {
+  // 試験タブ: 世界観タイルホーム(StudyHome) → 各カテゴリ詳細(StudyCategory)。
+  return (
+    <StudyStack.Navigator screenOptions={{ headerShown: false }}>
+      <StudyStack.Screen name="StudyHome" component={StudyHomeScreen} />
+      <StudyStack.Screen name="StudyCategory" component={StudyCategoryScreen} />
+    </StudyStack.Navigator>
   );
 }
 
 const TABS = [
   { name: 'ホーム', component: HomeScreen, icon: 'home', iconOff: 'home-outline', labelKey: 'nav.home' },
   { name: '単語', component: WordsTab, icon: 'language', iconOff: 'language-outline', labelKey: 'cards.tab' },
-  { name: '学習', component: StudyScreen, icon: 'book', iconOff: 'book-outline', labelKey: 'study.tab' },
-  { name: '辞書', component: BrowseScreen, icon: 'library', iconOff: 'library-outline', labelKey: 'dict.tab' },
+  { name: '学習', component: StudyTab, icon: 'book', iconOff: 'book-outline', labelKey: 'study.tab' },
+  { name: '辞書', component: DictTab, icon: 'library', iconOff: 'library-outline', labelKey: 'dict.tab' },
   { name: '設定', component: ProfileScreen, icon: 'settings', iconOff: 'settings-outline', labelKey: 'profile.tab' },
 ] as const;
 
