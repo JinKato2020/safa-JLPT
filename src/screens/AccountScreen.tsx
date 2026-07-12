@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { signUp, signIn } from '../auth/authClient';
@@ -23,6 +24,7 @@ export default function AccountScreen() {
   const [busy, setBusy] = useState(false);
   const [errKey, setErrKey] = useState<string | null>(null);
   const [confirmSent, setConfirmSent] = useState(false);
+  const [showPw, setShowPw] = useState(false);
 
   const submit = async () => {
     setErrKey(null);
@@ -90,15 +92,20 @@ export default function AccountScreen() {
           />
 
           <Text style={s.label}>{t('account.password')}</Text>
-          <TextInput
-            style={s.input}
-            value={pw}
-            onChangeText={setPw}
-            secureTextEntry
-            autoCapitalize="none"
-            placeholder={t('account.pw_hint')}
-            placeholderTextColor={c.faint}
-          />
+          <View style={s.pwRow}>
+            <TextInput
+              style={s.pwInput}
+              value={pw}
+              onChangeText={setPw}
+              secureTextEntry={!showPw}
+              autoCapitalize="none"
+              placeholder={t('account.pw_hint')}
+              placeholderTextColor={c.faint}
+            />
+            <Pressable onPress={() => setShowPw((v) => !v)} hitSlop={8} style={s.pwEye} accessibilityLabel={t(showPw ? 'account.pw_hide' : 'account.pw_show')}>
+              <Ionicons name={showPw ? 'eye-off-outline' : 'eye-outline'} size={22} color={c.mute} />
+            </Pressable>
+          </View>
 
           {errKey ? <Text style={s.err}>{t(errKey)}</Text> : null}
 
@@ -133,6 +140,9 @@ const makeStyles = (c: ThemeColors) =>
     noticeBody: { fontSize: ty.small, color: c.ink2, lineHeight: 18 },
     label: { fontSize: ty.small, fontWeight: '700', color: c.ink2, marginTop: spacing.sm },
     input: { borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.sm, paddingHorizontal: spacing.md, fontSize: ty.body, color: c.ink },
+    pwRow: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingRight: spacing.xs },
+    pwInput: { flex: 1, paddingVertical: spacing.sm, paddingHorizontal: spacing.md, fontSize: ty.body, color: c.ink },
+    pwEye: { padding: spacing.xs },
     err: { fontSize: ty.small, color: c.red, marginTop: spacing.xs },
     cta: { marginTop: spacing.md, backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.md, alignItems: 'center' },
     ctaOff: { opacity: 0.5 },

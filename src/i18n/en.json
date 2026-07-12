@@ -6,6 +6,8 @@
  "account.email": "Email",
  "account.password": "Password",
  "account.pw_hint": "At least 8 characters",
+ "account.pw_show": "Show password",
+ "account.pw_hide": "Hide password",
  "account.cta_create": "Create account",
  "account.cta_login": "Log in",
  "account.logout": "Log out",

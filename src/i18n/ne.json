@@ -6,6 +6,8 @@
  "account.email": "इमेल",
  "account.password": "पासवर्ड",
  "account.pw_hint": "कम्तिमा ८ अक्षर",
+ "account.pw_show": "पासवर्ड देखाउनुहोस्",
+ "account.pw_hide": "पासवर्ड लुकाउनुहोस्",
  "account.cta_create": "खाता बनाउनुहोस्",
  "account.cta_login": "लगइन",
  "account.logout": "लगआउट",

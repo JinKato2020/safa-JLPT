@@ -6,6 +6,8 @@
  "account.email": "メールアドレス",
  "account.password": "パスワード",
  "account.pw_hint": "8文字以上",
+ "account.pw_show": "パスワードを表示",
+ "account.pw_hide": "パスワードを隠す",
  "account.cta_create": "アカウントを作成",
  "account.cta_login": "ログイン",
  "account.logout": "ログアウト",
