@@ -5,8 +5,8 @@ import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList, StudyStackParamList } from '../navigation/types';
-import { TabBackground, BottomIconBar, TabIconButton } from '../components/TabScene';
-import { TAB_BG } from '../data/tabArt';
+import { TabBackground, PopoverBar, type TabEntry } from '../components/TabScene';
+import { useTabBg } from '../data/tabArt';
 import { useAppState } from '../store/store';
 import { examOf } from '../engine/examProfile';
 import type { Category } from '../engine/engine';
@@ -30,17 +30,16 @@ export default function StudyHomeScreen() {
   const prof = useMemo(() => examOf(state.settings.targetExam), [state.settings.targetExam]);
   const isJft = prof.exam === 'jft';
   const lock = fullMockLocked(state.mockHistory ?? [], now);
+  const bg = useTabBg('exam');
 
   return (
     <View style={styles.c}>
-      <TabBackground source={TAB_BG.exam} scrim={0.12}>
-        <BottomIconBar>
-          <TabIconButton glyph="✦" label={t('study.reco')} accent="#c9a24a" onPress={() => nav.navigate('Quiz', { category: 'all' })} />
-          {CATS.map((x) => (
-            <TabIconButton key={x.cat} glyph={x.glyph} label={t(prof.catLabel[x.cat])} accent={x.accent} onPress={() => nav.navigate('StudyCategory', { cat: x.cat })} />
-          ))}
-          <TabIconButton glyph="試" label={isJft ? t('test.jft_title') : t('test.full_title')} accent={lock.locked ? '#a89a86' : '#b8924a'} onPress={() => { if (!lock.locked) nav.navigate('Mock', { full: true }); }} />
-        </BottomIconBar>
+      <TabBackground source={bg} scrim={0.12}>
+        <PopoverBar entries={[
+          { key: 'reco', glyph: '✦', label: t('study.reco'), accent: '#c9a24a', onGo: () => nav.navigate('Quiz', { category: 'all' }) },
+          ...CATS.map((x) => ({ key: x.cat, glyph: x.glyph, label: t(prof.catLabel[x.cat]), accent: x.accent, subtitle: t('study.card_ring_hint'), onGo: () => nav.navigate('StudyCategory', { cat: x.cat }) })),
+          { key: 'mock', glyph: '試', label: isJft ? t('test.jft_title') : t('test.full_title'), accent: lock.locked ? '#a89a86' : '#b8924a', disabled: lock.locked, subtitle: lock.locked ? t('test.locked_next', lock.next) : undefined, onGo: () => { if (!lock.locked) nav.navigate('Mock', { full: true }); } },
+        ] as TabEntry[]} />
       </TabBackground>
     </View>
   );

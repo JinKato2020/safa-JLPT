@@ -251,6 +251,14 @@ export default function KakitoriScreen() {
           >
             <Text style={[s.toolTxt, free && s.toolTxtOn]}>{t(free ? 'kakitori.free_mode' : 'kakitori.drill_mode')}</Text>
           </Pressable>
+          {/* 読み上げ(自動)ON/OFF。設定タブから移設。 */}
+          <Pressable
+            onPress={() => setSettings({ kakitoriSound: !sound })}
+            style={[s.tool, sound && s.toolOn]}
+            accessibilityLabel={t('settings.kakitori_sound')}
+          >
+            <Text style={[s.toolTxt, sound && s.toolTxtOn]}>{sound ? '🔊' : '🔇'} {t('settings.kakitori_sound')}</Text>
+          </Pressable>
         </View>
         <View style={s.toolbar}>
           <Pressable onPress={() => { if (readyRef.current) inject('KW.showAnswer()'); }} style={s.tool}><Text style={s.toolTxt}>↻ {t('kakitori.show_model')}</Text></Pressable>

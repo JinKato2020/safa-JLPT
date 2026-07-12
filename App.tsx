@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { ActivityIndicator, AppState, View, useColorScheme } from 'react-native';
+import { ActivityIndicator, AppState, Pressable, StyleSheet, View, useColorScheme } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, type NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColors } from './src/theme';
 import { useAppFonts, setActiveFont } from './src/theme/fonts';
@@ -88,15 +88,17 @@ const TABS = [
   { name: '単語', component: WordsTab, icon: 'language', iconOff: 'language-outline', labelKey: 'cards.tab' },
   { name: '学習', component: StudyTab, icon: 'book', iconOff: 'book-outline', labelKey: 'study.tab' },
   { name: '辞書', component: DictTab, icon: 'library', iconOff: 'library-outline', labelKey: 'dict.tab' },
-  { name: '設定', component: ProfileScreen, icon: 'settings', iconOff: 'settings-outline', labelKey: 'profile.tab' },
 ] as const;
 
 function MainTabs() {
   const c = useColors();
   const t = useT();
   const insets = useSafeAreaInsets();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
+  // 設定タブは廃止 → 画面左上=アカウント(人)・右上=設定(歯車)のオーバーレイから開く。
   return (
+    <View style={{ flex: 1 }}>
     <Tab.Navigator
       tabBarPosition="bottom"
       screenOptions={{
@@ -132,8 +134,34 @@ function MainTabs() {
         />
       ))}
     </Tab.Navigator>
+      {/* 画面左上=アカウント(人アイコン)・右上=設定(歯車)。全タブ共通のオーバーレイ。 */}
+      <Pressable
+        onPress={() => nav.navigate('Account')}
+        accessibilityLabel={t('account.title')}
+        hitSlop={8}
+        style={[cornerStyles.btn, { top: insets.top + 6, left: 12, backgroundColor: c.surface, borderColor: c.line }]}
+      >
+        <Ionicons name="person-circle-outline" size={26} color={c.ink} />
+      </Pressable>
+      <Pressable
+        onPress={() => nav.navigate('Settings')}
+        accessibilityLabel={t('profile.title')}
+        hitSlop={8}
+        style={[cornerStyles.btn, { top: insets.top + 6, right: 12, backgroundColor: c.surface, borderColor: c.line }]}
+      >
+        <Ionicons name="settings-outline" size={22} color={c.ink} />
+      </Pressable>
+    </View>
   );
 }
+
+const cornerStyles = StyleSheet.create({
+  btn: {
+    position: 'absolute', width: 40, height: 40, borderRadius: 20, borderWidth: 1,
+    alignItems: 'center', justifyContent: 'center', zIndex: 20,
+    shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
+  },
+});
 
 function Root() {
   const hydrated = useHydrated();
@@ -213,6 +241,7 @@ function Root() {
             <RootStack.Screen name="WordDrill" component={WordDrillScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="MyWords" component={MyWordsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
           </>
         )}
       </RootStack.Navigator>

@@ -22,7 +22,7 @@ import { signOut, deleteAccount } from '../auth/authClient';
 import { GUIDE } from '../data/mywordsArt';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
-const REMINDERS = ['07:00', '12:00', '19:00', '21:00', '22:00'];
+const pad2 = (n: number) => String(n).padStart(2, '0');
 
 
 function firstSundayOf(year: number, month: number): string {
@@ -75,10 +75,24 @@ export default function ProfileScreen() {
     }
   };
 
+  // 学習リマインド: 時:分をカウンター(±)で指定するシンプルUI。ONで通知を予約、OFFで解除。
+  const reminderOn = state.settings.reminder != null;
+  const [remH, setRemH] = useState(() => Number((state.settings.reminder ?? '19:00').split(':')[0]));
+  const [remM, setRemM] = useState(() => Number((state.settings.reminder ?? '19:00').split(':')[1]));
+  const applyReminder = (hh: number, mm: number) => { const v = `${pad2(hh)}:${pad2(mm)}`; setSettings({ reminder: v }); void scheduleDailyReminder(v); };
+  const stepH = (d: number) => { const nh = (remH + d + 24) % 24; setRemH(nh); if (reminderOn) applyReminder(nh, remM); };
+  const stepM = (d: number) => { const nm = (remM + d * 5 + 60) % 60; setRemM(nm); if (reminderOn) applyReminder(remH, nm); };
+  const toggleReminder = (v: boolean) => { if (v) applyReminder(remH, remM); else { setSettings({ reminder: null }); void cancelReminder(); } };
+
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.title}>{t('profile.title')}</Text>
+        <View style={s.headRow}>
+          <Text style={s.title}>{t('profile.title')}</Text>
+          <Pressable onPress={() => nav.goBack()} hitSlop={12} accessibilityLabel={t('nav.close')}>
+            <Text style={s.closeX}>×</Text>
+          </Pressable>
+        </View>
 
         {/* アカウント: 未ログイン=作成誘導(桜巫女) / ログイン中=メール・最終同期・ログアウト・削除 */}
         <View style={s.card}>
@@ -238,28 +252,22 @@ export default function ProfileScreen() {
           </View>
 
           <Text style={s.setLbl}>{t('profile.reminder')}</Text>
-          <View style={s.chipWrap}>
-            {REMINDERS.map((r) => (
-              <Pressable
-                key={r}
-                onPress={() => {
-                  setSettings({ reminder: r });
-                  void scheduleDailyReminder(r);
-                }}
-                style={[s.chip, state.settings.reminder === r && s.chipOn]}
-              >
-                <Text style={[s.chipTxt, state.settings.reminder === r && s.chipTxtOn]}>{r}</Text>
-              </Pressable>
-            ))}
-            <Pressable
-              onPress={() => {
-                setSettings({ reminder: null });
-                void cancelReminder();
-              }}
-              style={[s.chip, !state.settings.reminder && s.chipOn]}
-            >
-              <Text style={[s.chipTxt, !state.settings.reminder && s.chipTxtOn]}>{t('profile.reminderOff')}</Text>
-            </Pressable>
+          <View style={s.reminderRow}>
+            <Switch
+              value={reminderOn}
+              onValueChange={toggleReminder}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+            <View style={[s.counter, !reminderOn && s.counterOff]}>
+              <Pressable style={s.stepBtn} onPress={() => stepH(-1)} disabled={!reminderOn} hitSlop={6}><Text style={s.stepTxt}>−</Text></Pressable>
+              <Text style={s.counterNum}>{pad2(remH)}</Text>
+              <Pressable style={s.stepBtn} onPress={() => stepH(1)} disabled={!reminderOn} hitSlop={6}><Text style={s.stepTxt}>＋</Text></Pressable>
+              <Text style={s.counterColon}>:</Text>
+              <Pressable style={s.stepBtn} onPress={() => stepM(-1)} disabled={!reminderOn} hitSlop={6}><Text style={s.stepTxt}>−</Text></Pressable>
+              <Text style={s.counterNum}>{pad2(remM)}</Text>
+              <Pressable style={s.stepBtn} onPress={() => stepM(1)} disabled={!reminderOn} hitSlop={6}><Text style={s.stepTxt}>＋</Text></Pressable>
+            </View>
           </View>
           <Text style={s.subtle}>{t('profile.reminderHint')}</Text>
 
@@ -303,45 +311,7 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
 
-        {/* 漢字書き取り: グリッド/アニメ速度/読み上げ */}
-        <Text style={s.sectionH}>{t('settings.kakitori_section')}</Text>
-        <View style={s.card}>
-          <Text style={s.setLbl}>{t('settings.kakitori_grid')}</Text>
-          <View style={s.chipRow}>
-            {(['ta', 'kome', 'none'] as const).map((g) => {
-              const on = (state.settings.kakitoriGrid ?? 'kome') === g;
-              return (
-                <Pressable key={g} onPress={() => setSettings({ kakitoriGrid: g })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(`kakitori.grid_${g}`)}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-          <Text style={s.setLbl}>{t('settings.kakitori_speed')}</Text>
-          <View style={s.chipRow}>
-            {(['slow', 'normal', 'fast'] as const).map((sp) => {
-              const on = (state.settings.kakitoriSpeed ?? 'normal') === sp;
-              return (
-                <Pressable key={sp} onPress={() => setSettings({ kakitoriSpeed: sp })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(`kakitori.speed_${sp}`)}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-          <Text style={s.setLbl}>{t('settings.kakitori_sound')}</Text>
-          <View style={s.chipRow}>
-            {([true, false] as const).map((v) => {
-              const on = (state.settings.kakitoriSound ?? true) === v;
-              return (
-                <Pressable key={String(v)} onPress={() => setSettings({ kakitoriSound: v })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(v ? 'settings.on' : 'settings.off')}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-        </View>
+        {/* 漢字書き取りの設定(グリッド/速度/読み上げ)は「漢字書き取り」画面内へ移設。 */}
 
         {/* サポート・規約 */}
         <Text style={s.sectionH}>{t('profile.supportSection')}</Text>
@@ -422,6 +392,15 @@ const makeStyles = (c: ThemeColors) =>
     body: { padding: spacing.lg, gap: spacing.sm },
     tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
     title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, marginTop: spacing.xs },
+    headRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+    closeX: { fontSize: 30, color: c.mute, fontWeight: '700', paddingHorizontal: spacing.xs },
+    reminderRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, marginTop: spacing.xs },
+    counter: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 4, paddingHorizontal: spacing.sm, backgroundColor: c.surface },
+    counterOff: { opacity: 0.4 },
+    stepBtn: { width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: c.bgSoft },
+    stepTxt: { fontSize: ty.h2, fontWeight: '900', color: c.blue },
+    counterNum: { fontSize: ty.h2, fontWeight: '800', color: c.ink, minWidth: 30, textAlign: 'center', fontVariant: ['tabular-nums'] },
+    counterColon: { fontSize: ty.h2, fontWeight: '800', color: c.ink, marginHorizontal: 2 },
     sectionH: { fontSize: ty.small, fontWeight: '800', color: c.ink2, marginTop: spacing.md },
     card: {
       backgroundColor: c.surface,

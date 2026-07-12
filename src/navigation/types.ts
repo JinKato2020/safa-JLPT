@@ -5,6 +5,7 @@ export type RootStackParamList = {
   Onboarding: undefined;
   Main: undefined;
   Account: undefined; // アカウント作成/ログイン(段階1: メール+パスワード)
+  Settings: undefined; // 設定(旧・設定タブ=ProfileScreen をモーダル化。右上の歯車から開く)
   // 診断クイズ / 弱点ドリル(itemIds 指定でその語だけを出題) / 大問学習(daimon 指定=本番の大問を固定形式で連続出題)
   Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon; expression?: boolean } | undefined;
   Flashcard: { ids?: string[] } | undefined; // 漢字・語彙 連続学習→連続テスト(個別漢字79字を含む)。ids指定時はその語id集合だけを復習(my単語帳の「復習する」)

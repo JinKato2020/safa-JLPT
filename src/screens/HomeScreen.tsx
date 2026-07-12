@@ -253,7 +253,7 @@ export default function HomeScreen() {
 const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     c: { flex: 1, backgroundColor: c.bg },
-    body: { padding: spacing.lg, gap: spacing.md },
+    body: { padding: spacing.lg, paddingTop: 52, gap: spacing.md }, // 上部=左右角のアカウント/設定ボタン分を空ける
     passRingWrap: { alignItems: 'center', marginTop: spacing.xs, marginBottom: spacing.sm },
     brand: { fontSize: ty.body, fontWeight: '800', color: c.blue, letterSpacing: 0.5 },
 
