@@ -19,7 +19,7 @@
  "account.synced_at": "Last synced: {t}",
  "account.not_synced": "Not synced yet",
  "account.confirm_sent": "Confirmation email sent",
- "account.confirm_hint": "Open the link in the email to confirm, then log in.",
+ "account.confirm_hint": "Open the link in the email to confirm, then log in. If you can't find it, please also check your spam/junk folder.",
  "account.err_invalid": "Email or password is incorrect.",
  "account.err_taken": "This email is already registered.",
  "account.err_network": "Connection failed. Please check your network.",

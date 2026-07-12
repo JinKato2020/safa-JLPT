@@ -19,7 +19,7 @@
  "account.synced_at": "最終同期: {t}",
  "account.not_synced": "まだ同期していません",
  "account.confirm_sent": "確認メールを送りました",
- "account.confirm_hint": "メール内のリンクを開いて確認してから、ログインしてください。",
+ "account.confirm_hint": "メール内のリンクを開いて確認してから、ログインしてください。メールが見つからないときは、迷惑メール（スパム）フォルダもご確認ください。",
  "account.err_invalid": "メールアドレスまたはパスワードが正しくありません。",
  "account.err_taken": "このメールアドレスは既に登録されています。",
  "account.err_network": "通信に失敗しました。接続を確認してください。",
