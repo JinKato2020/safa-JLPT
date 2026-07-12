@@ -20,6 +20,7 @@ type Action =
   | { type: 'RECORD_MOCK'; result: MockResult }
   | { type: 'KAKITORI_PROGRESS'; char: string; step: number; score: number; skipped?: boolean; now?: number }
   | { type: 'ADD_TO_MY_LIST'; ref: SaveRef }
+  | { type: 'ADD_STUDY_SECONDS'; sec: number }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -70,6 +71,8 @@ function reducer(state: AppState, action: Action): AppState {
     }
     case 'ADD_TO_MY_LIST':
       return { ...state, myList: toggleMyList(state.myList ?? [], action.ref) };
+    case 'ADD_STUDY_SECONDS':
+      return { ...state, studySeconds: (state.studySeconds ?? 0) + Math.max(0, Math.round(action.sec)) };
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -132,6 +135,7 @@ export function useAppActions() {
     recordKakitori: (char: string, step: number, score: number, opts?: { skipped?: boolean; now?: number }) =>
       dispatch({ type: 'KAKITORI_PROGRESS', char, step, score, skipped: opts?.skipped, now: opts?.now }),
     addToMyList: (ref: SaveRef) => dispatch({ type: 'ADD_TO_MY_LIST', ref }),
+    addStudySeconds: (sec: number) => dispatch({ type: 'ADD_STUDY_SECONDS', sec }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     reset: () => {
       clearState();

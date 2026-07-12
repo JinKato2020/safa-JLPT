@@ -8,6 +8,9 @@ import { daylightAt, type Daylight } from './daylight';
 export type TabKey = 'word' | 'exam' | 'dict';
 export { daylightAt, type Daylight };
 
+// ホーム背景(ユーザー提供 HOME.png)。昼夜なしの単一画像。
+export const HOME_BG: ImageSourcePropType = require('../../assets/tabs/home_bg.jpg');
+
 // 各タブの全画面背景(昼/夜)。word=単語タブ, exam=試験タブ, dict=辞書タブ。
 export const TAB_BG: Record<TabKey, Record<Daylight, ImageSourcePropType>> = {
   word: { day: require('../../assets/tabs/word_bg_day.jpg'), night: require('../../assets/tabs/word_bg_night.jpg') },

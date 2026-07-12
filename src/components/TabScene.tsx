@@ -3,10 +3,9 @@
 //  - SceneTitle: イラスト上部中央の見出し。
 //  - BottomIconBar / TabIconButton: イラスト下端(ボトムナビの上)に置く小アイコンの操作列。
 //  - Hotspot: 背景の描き込み要素に重ねる透明タップ領域(必要時)。
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, Image, Pressable, StyleSheet, type DimensionValue, type ImageSourcePropType } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useT } from '../i18n';
 
 export const IMMERSIVE = {
   card: 'rgba(255,251,244,0.88)',
@@ -51,68 +50,33 @@ export function TabIconButton({ glyph, icon, label, accent, count, active, onPre
   );
 }
 
-// タブ下端の操作: 各アイコンをタップすると、その上に「カード」(ポップオーバー)が出て、
-// タイトル＋開くボタンを表示する。カード外/同じアイコン再タップで閉じる。
+// タブ下端の操作列: 各アイコンをタップ＝即その区分の画面へ遷移(ポップオーバーの「開く」二度手間は廃止)。
 export type TabEntry = {
   key: string;
   glyph?: string;
   icon?: React.ComponentProps<typeof Ionicons>['name'];
-  label: string;        // ボタンのラベル兼カード見出し
+  label: string;        // ボタンのラベル
   accent: string;
   count?: number;       // ボタンの件数バッジ(任意)
-  subtitle?: string;    // カードの一言説明(任意)
-  disabled?: boolean;   // 開くを無効化(例: 模試ロック中)
-  onGo: () => void;     // カードの「開く」で実行
+  disabled?: boolean;   // 遷移を無効化(例: 模試ロック中)
+  onGo: () => void;     // タップで実行(直接遷移)
 };
 
 export function PopoverBar({ entries }: { entries: TabEntry[] }) {
-  const t = useT();
-  const [open, setOpen] = useState<string | null>(null);
-  const activeIdx = entries.findIndex((e) => e.key === open);
-  const active = activeIdx >= 0 ? entries[activeIdx] : null;
   return (
-    <>
-      {active ? (
-        <>
-          {/* カード外タップで閉じる透明スクリム(ボトムバーは覆わない=再タップで閉じられる) */}
-          <Pressable style={styles.popScrim} onPress={() => setOpen(null)} accessibilityLabel={t('nav.close')} />
-          <View style={styles.popWrap} pointerEvents="box-none">
-            <View style={styles.popCard}>
-              <View style={[styles.popIcon, { borderColor: active.accent }]}>
-                {active.icon ? <Ionicons name={active.icon} size={24} color={active.accent} /> : <Text style={[styles.popGlyph, { color: active.accent }]}>{active.glyph}</Text>}
-              </View>
-              <View style={styles.popText}>
-                <Text style={styles.popTitle} numberOfLines={1}>{active.label}</Text>
-                {active.subtitle ? <Text style={styles.popSub} numberOfLines={2}>{active.subtitle}</Text> : null}
-              </View>
-              <Pressable
-                disabled={active.disabled}
-                onPress={() => { setOpen(null); active.onGo(); }}
-                style={[styles.popBtn, { backgroundColor: active.accent }, active.disabled && styles.popBtnOff]}
-              >
-                <Text style={styles.popBtnTxt}>{t('nav.open')}</Text>
-              </Pressable>
-            </View>
-            {/* 選択中ボタンの真上を指す小さな三角 */}
-            <View style={[styles.popTail, { left: `${((activeIdx + 0.5) / entries.length) * 100}%` }]} />
-          </View>
-        </>
-      ) : null}
-      <BottomIconBar>
-        {entries.map((e) => (
-          <TabIconButton
-            key={e.key}
-            glyph={e.glyph}
-            icon={e.icon}
-            label={e.label}
-            accent={e.accent}
-            count={e.count}
-            active={open === e.key}
-            onPress={() => setOpen(open === e.key ? null : e.key)}
-          />
-        ))}
-      </BottomIconBar>
-    </>
+    <BottomIconBar>
+      {entries.map((e) => (
+        <TabIconButton
+          key={e.key}
+          glyph={e.glyph}
+          icon={e.icon}
+          label={e.label}
+          accent={e.accent}
+          count={e.count}
+          onPress={() => { if (!e.disabled) e.onGo(); }}
+        />
+      ))}
+    </BottomIconBar>
   );
 }
 

@@ -37,8 +37,8 @@ export default function StudyHomeScreen() {
       <TabBackground source={bg} scrim={0.12}>
         <PopoverBar entries={[
           { key: 'reco', glyph: '✦', label: t('study.reco'), accent: '#c9a24a', onGo: () => nav.navigate('Quiz', { category: 'all' }) },
-          ...CATS.map((x) => ({ key: x.cat, glyph: x.glyph, label: t(prof.catLabel[x.cat]), accent: x.accent, subtitle: t('study.card_ring_hint'), onGo: () => nav.navigate('StudyCategory', { cat: x.cat }) })),
-          { key: 'mock', glyph: '試', label: isJft ? t('test.jft_title') : t('test.full_title'), accent: lock.locked ? '#a89a86' : '#b8924a', disabled: lock.locked, subtitle: lock.locked ? t('test.locked_next', lock.next) : undefined, onGo: () => { if (!lock.locked) nav.navigate('Mock', { full: true }); } },
+          ...CATS.map((x) => ({ key: x.cat, glyph: x.glyph, label: t(prof.catLabel[x.cat]), accent: x.accent, onGo: () => nav.navigate('StudyCategory', { cat: x.cat }) })),
+          { key: 'mock', glyph: '試', label: isJft ? t('test.jft_title') : t('test.full_title'), accent: lock.locked ? '#a89a86' : '#b8924a', disabled: lock.locked, onGo: () => { if (!lock.locked) nav.navigate('Mock', { full: true }); } },
         ] as TabEntry[]} />
       </TabBackground>
     </View>

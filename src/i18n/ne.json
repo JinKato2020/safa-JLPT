@@ -595,5 +595,14 @@
   "notif.empty": "कुनै नयाँ सूचना छैन",
   "notif.reminder_on": "अध्ययन रिमाइन्डर: दैनिक {t} बजे",
   "notif.reminder_off": "अध्ययन रिमाइन्डर बन्द छ",
-  "notif.manage": "रिमाइन्डर सेट गर्नुहोस्"
+  "notif.manage": "रिमाइन्डर सेट गर्नुहोस्",
+  "status.title": "स्थिति",
+  "status.rank_label": "श्रेणी",
+  "status.streak_label": "निरन्तरता",
+  "status.studytime_label": "अध्ययन समय",
+  "status.pass_level": "पास Lv",
+  "status.pass_reach": "पास {n}%",
+  "status.days": "{n} दिन",
+  "status.time_hm": "{h} घण्टा {m} मिनेट",
+  "status.time_m": "{m} मिनेट"
 }

@@ -592,5 +592,14 @@
   "notif.empty": "No new notifications",
   "notif.reminder_on": "Study reminder: daily at {t}",
   "notif.reminder_off": "Study reminder is off",
-  "notif.manage": "Set reminder"
+  "notif.manage": "Set reminder",
+  "status.title": "STATUS",
+  "status.rank_label": "Rank",
+  "status.streak_label": "Streak",
+  "status.studytime_label": "Study time",
+  "status.pass_level": "Pass Lv",
+  "status.pass_reach": "Pass {n}%",
+  "status.days": "{n} days",
+  "status.time_hm": "{h}h {m}m",
+  "status.time_m": "{m}m"
 }

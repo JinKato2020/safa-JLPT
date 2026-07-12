@@ -592,5 +592,14 @@
   "notif.empty": "新しい通知はありません",
   "notif.reminder_on": "学習リマインド: 毎日 {t} に通知",
   "notif.reminder_off": "学習リマインドはオフです",
-  "notif.manage": "リマインドを設定"
+  "notif.manage": "リマインドを設定",
+  "status.title": "ステータス",
+  "status.rank_label": "ランク",
+  "status.streak_label": "継続日数",
+  "status.studytime_label": "学習時間",
+  "status.pass_level": "合格Lv",
+  "status.pass_reach": "合格到達度 {n}%",
+  "status.days": "{n}日",
+  "status.time_hm": "{h}時間{m}分",
+  "status.time_m": "{m}分"
 }

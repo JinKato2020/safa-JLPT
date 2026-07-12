@@ -1,7 +1,7 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
 import { useMemo, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Image, Alert } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import * as StoreReview from 'expo-store-review';
@@ -19,7 +19,6 @@ import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
 import { useSync } from '../auth/SyncProvider';
 import { signOut, deleteAccount } from '../auth/authClient';
-import { GUIDE } from '../data/mywordsArt';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -94,29 +93,19 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
 
-        {/* アカウント: 未ログイン=作成誘導(桜巫女) / ログイン中=メール・最終同期・ログアウト・削除 */}
-        <View style={s.card}>
-          {session ? (
-            <>
-              <Text style={s.setLbl}>{t('profile.account_section')}</Text>
-              <Text style={s.acctEmail}>{email}</Text>
-              <Text style={s.subtle}>{t('account.synced_at', { t: syncedLabel })}</Text>
-              <Pressable style={s.linkRow} onPress={() => { void signOut(); }}>
-                <Text style={s.linkTxt}>{t('account.logout')}</Text>
-                <Text style={s.chev}>›</Text>
-              </Pressable>
-            </>
-          ) : (
-            <Pressable style={s.acctCta} onPress={() => nav.navigate('Account' as never)}>
-              <Image source={GUIDE.open} style={s.acctGuide} resizeMode="contain" />
-              <View style={{ flex: 1 }}>
-                <Text style={s.acctTitle}>{t('account.benefit_title')}</Text>
-                <Text style={s.subtle}>{t('account.benefit_sub')}</Text>
-              </View>
+        {/* アカウント作成の誘導カードは廃止(上部の人アイコンから作成/ログイン)。
+            ログイン中のみ、メール・最終同期・ログアウトの管理を表示。 */}
+        {session ? (
+          <View style={s.card}>
+            <Text style={s.setLbl}>{t('profile.account_section')}</Text>
+            <Text style={s.acctEmail}>{email}</Text>
+            <Text style={s.subtle}>{t('account.synced_at', { t: syncedLabel })}</Text>
+            <Pressable style={s.linkRow} onPress={() => { void signOut(); }}>
+              <Text style={s.linkTxt}>{t('account.logout')}</Text>
               <Text style={s.chev}>›</Text>
             </Pressable>
-          )}
-        </View>
+          </View>
+        ) : null}
 
         {/* 学習設定 */}
         <View style={s.card}>

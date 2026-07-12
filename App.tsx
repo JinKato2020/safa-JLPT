@@ -205,6 +205,7 @@ const topBar = StyleSheet.create({
 function Root() {
   const hydrated = useHydrated();
   const state = useAppState();
+  const { addStudySeconds } = useAppActions();
   const { session } = useSync();
   const { settings } = state;
   const stateRef = useRef(state);
@@ -231,7 +232,9 @@ function Root() {
     const sub = AppState.addEventListener('change', (s) => {
       if (s === 'active') { activeSince = Date.now(); fire(false); }
       else if (s === 'background') {
-        void sendEvent('app_session', { sec: Math.round((Date.now() - activeSince) / 1000) });
+        const sec = Math.round((Date.now() - activeSince) / 1000);
+        if (sec > 0 && sec < 6 * 3600) addStudySeconds(sec); // 前面滞在秒を累計学習時間へ(異常値は加算しない)
+        void sendEvent('app_session', { sec });
         void flushAnswers();
         fire(true); // 閉じる時=学習後の状態で当日分を上書き(1行のまま)
       }

@@ -66,6 +66,7 @@ export interface AppState {
   mockHistory?: MockResult[];       // 模試の採点履歴(旧stateには無い→省略可)
   kakitori?: Record<string, { step: number; stars: number; best: number; due?: string; interval?: number; reps?: number }>; // 漢字書き取り進捗(char→) 旧stateには無い→省略可
   myList?: SaveRef[]; // my単語帳(保存した語/文法)。旧stateには無い→省略可(実質[])。
+  studySeconds?: number; // 累計学習時間(秒)。アプリ前面滞在秒を加算。旧stateには無い→0扱い。
   updatedAt?: number; // 最終更新(epoch ms)。クラウド同期のLWW比較基準。旧stateには無い→0扱い。
 }
 
