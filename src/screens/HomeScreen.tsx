@@ -1,8 +1,8 @@
 // ホーム = ゲーム風ステータス画面(B案・1画面完結)。
 // 背景=HOME.png 全画面／中央=ステータスパネル(内側スクロール)／下部=動く桜の巫女(AIコーチの吹き出し)。
 // 上部の共通バー(アカウント/JLPTレベル/設定/通知)は MainTabs のオーバーレイで別途表示。
-import { useMemo } from 'react';
-import { View, StyleSheet, useWindowDimensions } from 'react-native';
+import { useMemo, useState } from 'react';
+import { View, ScrollView, StyleSheet, type NativeSyntheticEvent, type NativeScrollEvent, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useT } from '../i18n';
@@ -15,6 +15,9 @@ import type { RootStackParamList } from '../navigation/types';
 import { TabBackground } from '../components/TabScene';
 import { HOME_BG } from '../data/tabArt';
 import StatusPanel from '../home/StatusPanel';
+import StreakCard from '../home/StreakCard';
+import CoverageCard from '../home/CoverageCard';
+import { FRAME_ASPECT } from '../home/FramedPanel';
 import HomeGuide, { type GuideAdvice } from '../home/HomeGuide';
 import { homeStatus } from '../home/homeStatus';
 import SafeBoundary from '../components/SafeBoundary';
@@ -65,13 +68,32 @@ export default function HomeScreen() {
     return { title: t('home.ai_title'), hl, lines };
   }, [measured, passProb, rings, nba, todayGain, ppSeries, prof, t, state.streak.current]);
 
+  // ホーム3カード(ステータス/継続/カバー率)を横スワイプで切替。カード上=カード切替、背景=タブ切替。
+  const cardW = Math.min(width * 0.92, 380);
+  const cardH = cardW / FRAME_ASPECT;
+  const [page, setPage] = useState(0);
+  const onPage = (e: NativeSyntheticEvent<NativeScrollEvent>) => setPage(Math.round(e.nativeEvent.contentOffset.x / cardW));
+
   return (
     <View style={styles.c}>
       <TabBackground source={HOME_BG}>
-        <View style={[styles.panelWrap, { top: height * 0.15 }]} pointerEvents="box-none">
-          <SafeBoundary tag="statuspanel" fallback={null}>
-            <StatusPanel data={status} width={Math.min(width * 0.92, 380)} />
+        <View style={[styles.panelWrap, { top: height * 0.12, width: cardW, height: cardH + 22, left: (width - cardW) / 2 }]}>
+          <SafeBoundary tag="homecards" fallback={null}>
+            <ScrollView
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              style={{ width: cardW, height: cardH }}
+              onMomentumScrollEnd={onPage}
+            >
+              <StatusPanel data={status} width={cardW} />
+              <StreakCard width={cardW} />
+              <CoverageCard width={cardW} />
+            </ScrollView>
           </SafeBoundary>
+          <View style={styles.dots}>
+            {[0, 1, 2].map((i) => <View key={i} style={[styles.dot, page === i && styles.dotOn]} />)}
+          </View>
         </View>
         <View style={styles.guideWrap} pointerEvents="box-none">
           <HomeGuide advice={advice} width={Math.min(160, width * 0.42)} />
@@ -83,6 +105,9 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   c: { flex: 1 },
-  panelWrap: { position: 'absolute', left: 0, right: 0, alignItems: 'center' },
+  panelWrap: { position: 'absolute' },
+  dots: { flexDirection: 'row', justifyContent: 'center', gap: 7, marginTop: 8 },
+  dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.35)' },
+  dotOn: { backgroundColor: '#ffe6a3', width: 9, height: 9, borderRadius: 5 },
   guideWrap: { position: 'absolute', right: 8, bottom: 6, alignItems: 'flex-end' },
 });

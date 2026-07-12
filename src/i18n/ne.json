@@ -605,5 +605,7 @@
   "status.days": "{n} दिन",
   "status.time_hm": "{h} घण्टा {m} मिनेट",
   "status.time_m": "{m} मिनेट",
-  "dict.open_list": "शब्दकोश सूची खोल्नुहोस्"
+  "dict.open_list": "शब्दकोश सूची खोल्नुहोस्",
+  "status.coverage": "कभरेज",
+  "status.coverage_hint": "सिकेको ÷ जम्मा। अध्ययनले भरिन्छ।"
 }

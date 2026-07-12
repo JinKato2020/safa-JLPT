@@ -602,5 +602,7 @@
   "status.days": "{n} days",
   "status.time_hm": "{h}h {m}m",
   "status.time_m": "{m}m",
-  "dict.open_list": "Open dictionary list"
+  "dict.open_list": "Open dictionary list",
+  "status.coverage": "Coverage",
+  "status.coverage_hint": "Learned ÷ total. Fills up as you study."
 }
