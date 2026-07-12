@@ -49,8 +49,14 @@ export async function signInWithProvider(provider: OAuthProvider): Promise<{ err
   }
 }
 
+// Appleサインインは一時無効化(2026-07-12)。App IDに「Sign In with Apple」capabilityを付け、
+// 配布用プロビジョニングプロファイル(J App Store CI)を再生成してCI secretを更新したら true に戻し、
+// app.json plugins に "expo-apple-authentication" を再追加する。App Store提出前に有効化必須(ガイドライン4.8)。
+const APPLE_SIGNIN_ENABLED = false;
+
 /** Appleでサインイン(iOSのみ・ネイティブ)。identityTokenを signInWithIdToken でセッションへ。 */
 export async function signInWithApple(): Promise<{ error?: string }> {
+  if (!APPLE_SIGNIN_ENABLED) return { error: 'account.err_oauth' };
   if (Platform.OS !== 'ios') return { error: 'account.err_oauth' };
   try {
     const credential = await AppleAuthentication.signInAsync({
@@ -74,6 +80,7 @@ export async function signInWithApple(): Promise<{ error?: string }> {
 
 /** Appleサインインがこの端末で使えるか(iOS + 対応OS)。 */
 export async function isAppleAvailable(): Promise<boolean> {
+  if (!APPLE_SIGNIN_ENABLED) return false; // 一時無効化中はボタンを出さない
   if (Platform.OS !== 'ios') return false;
   try {
     return await AppleAuthentication.isAvailableAsync();
