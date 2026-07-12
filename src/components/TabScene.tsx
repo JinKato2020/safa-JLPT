@@ -3,8 +3,8 @@
 //  - SceneTitle: イラスト上部中央の見出し。
 //  - BottomIconBar / TabIconButton: イラスト下端(ボトムナビの上)に置く小アイコンの操作列。
 //  - Hotspot: 背景の描き込み要素に重ねる透明タップ領域(必要時)。
-import React from 'react';
-import { View, Text, Image, Pressable, StyleSheet, type DimensionValue, type ImageSourcePropType } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, Image, Animated, Pressable, StyleSheet, type DimensionValue, type ImageSourcePropType } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export const IMMERSIVE = {
@@ -15,10 +15,27 @@ export const IMMERSIVE = {
 };
 
 // 全画面背景。overflow:hidden で画面外へはみ出さない。scrim>0 で暗幕。
-export function TabBackground({ source, scrim = 0, children }: { source: ImageSourcePropType; scrim?: number; children?: React.ReactNode }) {
+// blinkSource=「閉じ目版」の全画面画像(元絵と目以外は完全同一)を渡すと、その画像を背景に重ねて
+// 透明度を 2回/6秒 で 0→1→0 させる=目だけが閉じて見える(他は同一なのでチラつかない)。
+export function TabBackground({ source, blinkSource, scrim = 0, children }: { source: ImageSourcePropType; blinkSource?: ImageSourcePropType; scrim?: number; children?: React.ReactNode }) {
+  const blink = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    if (!blinkSource) return;
+    const once = () => Animated.sequence([
+      Animated.timing(blink, { toValue: 1, duration: 80, useNativeDriver: true }),
+      Animated.timing(blink, { toValue: 0, duration: 95, useNativeDriver: true }),
+    ]);
+    // 6秒周期で2回まばたき
+    const loop = Animated.loop(Animated.sequence([
+      Animated.delay(2500), once(), Animated.delay(180), once(), Animated.delay(2870),
+    ]));
+    loop.start();
+    return () => loop.stop();
+  }, [blinkSource, blink]);
   return (
     <View style={styles.fill}>
       <Image source={source} style={styles.bg} resizeMode="cover" />
+      {blinkSource ? <Animated.Image source={blinkSource} style={[styles.bg, { opacity: blink }]} resizeMode="cover" /> : null}
       {scrim > 0 ? <View style={[StyleSheet.absoluteFill, { backgroundColor: `rgba(0,0,0,${scrim})` }]} /> : null}
       {children}
     </View>

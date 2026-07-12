@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList, WordsStackParamList } from '../navigation/types';
 import { TabBackground, PopoverBar, Hotspot, type TabEntry } from '../components/TabScene';
-import { useTabBg } from '../data/tabArt';
+import { useTabBg, useTabBlink } from '../data/tabArt';
 import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<WordsStackParamList & RootStackParamList>;
@@ -15,11 +15,12 @@ export default function WordsHubScreen() {
   const nav = useNavigation<Nav>();
   const t = useT();
   const bg = useTabBg('word');
+  const blinkBg = useTabBlink('word');
   const goKubun = (kubun: 'vocab' | 'grammar' | 'kanji') => nav.navigate('WordKubun', { kubun });
   const goReco = () => nav.navigate('WordDrill', { kind: 'mixed' });
   return (
     <View style={styles.c}>
-      <TabBackground source={bg}>
+      <TabBackground source={bg} blinkSource={blinkBg}>
         {/* 背景の掛軸/札にも重ねる(任意)。座標は実機で微調整。 */}
         <Hotspot label="語彙" area={{ left: '12%', top: '17%', width: '15%', height: '11%' }} onPress={() => goKubun('vocab')} />
         <Hotspot label="文法" area={{ left: '28%', top: '16%', width: '15%', height: '11%' }} onPress={() => goKubun('grammar')} />

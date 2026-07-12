@@ -18,6 +18,14 @@ export const TAB_BG: Record<TabKey, Record<Daylight, ImageSourcePropType>> = {
   dict: { day: require('../../assets/tabs/dict_bg_day.jpg'), night: require('../../assets/tabs/dict_bg_night.jpg') },
 };
 
+// 「閉じ目版」全画面画像(元絵と目以外は完全同一のもの)。単語/辞書タブのキャラのまばたき用。
+// アセットを受領したら下にrequireを追加(例: word: { day: require('../../assets/tabs/word_bg_day_blink.png'), night: ... })。
+// 未登録のタブ/変種は blink なし(undefined)。
+export const TAB_BLINK: Partial<Record<TabKey, Partial<Record<Daylight, ImageSourcePropType>>>> = {
+  // word: { day: require('../../assets/tabs/word_bg_day_blink.png'), night: require('../../assets/tabs/word_bg_night_blink.png') },
+  // dict: { day: require('../../assets/tabs/dict_bg_day_blink.png'), night: require('../../assets/tabs/dict_bg_night_blink.png') },
+};
+
 // 現在の昼/夜を返し、境界跨ぎ(60秒間隔)とフォアグラウンド復帰で自動更新するフック。
 export function useDaylight(): Daylight {
   const [dl, setDl] = useState<Daylight>(() => daylightAt(new Date()));
@@ -34,4 +42,9 @@ export function useDaylight(): Daylight {
 // 指定タブの、いまの時刻に応じた背景を返す。
 export function useTabBg(key: TabKey): ImageSourcePropType {
   return TAB_BG[key][useDaylight()];
+}
+
+// 指定タブの、いまの時刻に応じた「閉じ目版」を返す(未登録なら undefined=まばたきなし)。
+export function useTabBlink(key: TabKey): ImageSourcePropType | undefined {
+  return TAB_BLINK[key]?.[useDaylight()];
 }

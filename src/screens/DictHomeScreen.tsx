@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList, DictStackParamList, Kubun } from '../navigation/types';
 import { TabBackground, PopoverBar, type TabEntry } from '../components/TabScene';
-import { useTabBg } from '../data/tabArt';
+import { useTabBg, useTabBlink } from '../data/tabArt';
 import { useAppState } from '../store/store';
 import { useT } from '../i18n';
 
@@ -16,9 +16,10 @@ export default function DictHomeScreen() {
   const t = useT();
   const { myList } = useAppState();
   const bg = useTabBg('dict');
+  const blinkBg = useTabBlink('dict');
   return (
     <View style={styles.c}>
-      <TabBackground source={bg} scrim={0.1}>
+      <TabBackground source={bg} blinkSource={blinkBg} scrim={0.1}>
         <PopoverBar entries={[
           { key: 'vocab', glyph: '語', label: t('browse.vocab'), accent: '#3f9d5a', onGo: () => nav.navigate('DictList', { view: 'vocab' as Kubun }) },
           { key: 'kanji', glyph: '漢', label: t('browse.kanji'), accent: '#d9743f', onGo: () => nav.navigate('DictList', { view: 'kanji' as Kubun }) },
