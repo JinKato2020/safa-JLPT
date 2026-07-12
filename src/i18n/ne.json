@@ -604,5 +604,6 @@
   "status.pass_reach": "पास {n}%",
   "status.days": "{n} दिन",
   "status.time_hm": "{h} घण्टा {m} मिनेट",
-  "status.time_m": "{m} मिनेट"
+  "status.time_m": "{m} मिनेट",
+  "dict.open_list": "शब्दकोश सूची खोल्नुहोस्"
 }

@@ -601,5 +601,6 @@
   "status.pass_reach": "Pass {n}%",
   "status.days": "{n} days",
   "status.time_hm": "{h}h {m}m",
-  "status.time_m": "{m}m"
+  "status.time_m": "{m}m",
+  "dict.open_list": "Open dictionary list"
 }

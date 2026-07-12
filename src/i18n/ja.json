@@ -601,5 +601,6 @@
   "status.pass_reach": "合格到達度 {n}%",
   "status.days": "{n}日",
   "status.time_hm": "{h}時間{m}分",
-  "status.time_m": "{m}分"
+  "status.time_m": "{m}分",
+  "dict.open_list": "辞書リストを開く"
 }

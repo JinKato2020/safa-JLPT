@@ -1,12 +1,14 @@
-// 単語タブ = 世界観ハブ(全画面背景=学習タブ.PNG)。操作はイラスト下端(ボトムナビの上)の小アイコン列。
-// 加えて、背景に描かれた掛軸/札にも透明タップ領域を重ねる(任意の没入操作)。
-// 語彙/文法/漢字 → 各区分の練習(WordKubun)、今日のオススメ → 横断ドリル(WordDrill mixed)。
-import { View, StyleSheet } from 'react-native';
+// 単語タブ = 世界観ハブ。上部=全画面イラスト(ヒーロー)＋下端アイコン列。
+// アイコンをタップ＝画面遷移せず、下に そのボタンのカード(KubunCard=成長バッジ/バー/リスト/聞き取り/書き取り 等)を表示。
+import { useRef, useState } from 'react';
+import { View, ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList, WordsStackParamList } from '../navigation/types';
+import type { RootStackParamList, WordsStackParamList, Kubun } from '../navigation/types';
 import { TabBackground, PopoverBar, Hotspot, type TabEntry } from '../components/TabScene';
 import { useTabBg, useTabBlink } from '../data/tabArt';
+import KubunCard from '../components/KubunCard';
+import { useColors } from '../theme';
 import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<WordsStackParamList & RootStackParamList>;
@@ -14,27 +16,41 @@ type Nav = NativeStackNavigationProp<WordsStackParamList & RootStackParamList>;
 export default function WordsHubScreen() {
   const nav = useNavigation<Nav>();
   const t = useT();
+  const c = useColors();
   const bg = useTabBg('word');
   const blinkBg = useTabBlink('word');
-  const goKubun = (kubun: 'vocab' | 'grammar' | 'kanji') => nav.navigate('WordKubun', { kubun });
+  const { height } = useWindowDimensions();
+  const [sel, setSel] = useState<Kubun>('kanji');
+  const scrollRef = useRef<ScrollView>(null);
+  const heroH = height * 0.82;
+  const pick = (k: Kubun) => { setSel(k); requestAnimationFrame(() => scrollRef.current?.scrollTo({ y: heroH * 0.62, animated: true })); };
   const goReco = () => nav.navigate('WordDrill', { kind: 'mixed' });
+
   return (
-    <View style={styles.c}>
-      <TabBackground source={bg} blinkSource={blinkBg}>
-        {/* 背景の掛軸/札にも重ねる(任意)。座標は実機で微調整。 */}
-        <Hotspot label="語彙" area={{ left: '12%', top: '17%', width: '15%', height: '11%' }} onPress={() => goKubun('vocab')} />
-        <Hotspot label="文法" area={{ left: '28%', top: '16%', width: '15%', height: '11%' }} onPress={() => goKubun('grammar')} />
-        <Hotspot label="漢字" area={{ left: '42%', top: '17%', width: '15%', height: '11%' }} onPress={() => goKubun('kanji')} />
-        <Hotspot label="今日の目標" area={{ left: '2%', top: '38%', width: '38%', height: '17%' }} onPress={goReco} />
-        <PopoverBar entries={[
-          { key: 'vocab', glyph: '語', label: t('cards.vocab'), accent: '#3f9d5a', onGo: () => goKubun('vocab') },
-          { key: 'grammar', glyph: '文', label: t('cards.grammar'), accent: '#7b6bd6', onGo: () => goKubun('grammar') },
-          { key: 'kanji', glyph: '漢', label: t('cards.kanji'), accent: '#d9743f', onGo: () => goKubun('kanji') },
-          { key: 'reco', glyph: '✦', label: t('cards.reco'), accent: '#2f80b8', onGo: goReco },
-        ] as TabEntry[]} />
-      </TabBackground>
+    <View style={[styles.c, { backgroundColor: c.bg }]}>
+      <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
+        <View style={{ height: heroH }}>
+          <TabBackground source={bg} blinkSource={blinkBg}>
+            <Hotspot label={t('cards.vocab')} area={{ left: '12%', top: '17%', width: '15%', height: '11%' }} onPress={() => pick('vocab')} />
+            <Hotspot label={t('cards.grammar')} area={{ left: '28%', top: '16%', width: '15%', height: '11%' }} onPress={() => pick('grammar')} />
+            <Hotspot label={t('cards.kanji')} area={{ left: '42%', top: '17%', width: '15%', height: '11%' }} onPress={() => pick('kanji')} />
+            <PopoverBar entries={[
+              { key: 'vocab', glyph: '語', label: t('cards.vocab'), accent: '#3f9d5a', onGo: () => pick('vocab') },
+              { key: 'grammar', glyph: '文', label: t('cards.grammar'), accent: '#7b6bd6', onGo: () => pick('grammar') },
+              { key: 'kanji', glyph: '漢', label: t('cards.kanji'), accent: '#d9743f', onGo: () => pick('kanji') },
+              { key: 'reco', glyph: '✦', label: t('cards.reco'), accent: '#2f80b8', onGo: goReco },
+            ] as TabEntry[]} />
+          </TabBackground>
+        </View>
+        <View style={styles.cardArea}>
+          <KubunCard kubun={sel} />
+        </View>
+      </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({ c: { flex: 1 } });
+const styles = StyleSheet.create({
+  c: { flex: 1 },
+  cardArea: { padding: 16, paddingBottom: 40 },
+});
