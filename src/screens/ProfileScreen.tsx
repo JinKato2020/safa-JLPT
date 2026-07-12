@@ -91,11 +91,6 @@ export default function ProfileScreen() {
                 <Text style={s.linkTxt}>{t('account.logout')}</Text>
                 <Text style={s.chev}>›</Text>
               </Pressable>
-              <View style={s.linkDiv} />
-              <Pressable style={s.linkRow} onPress={onDelete}>
-                <Text style={[s.linkTxt, { color: c.red }]}>{t('account.delete')}</Text>
-                <Text style={s.chev}>›</Text>
-              </Pressable>
             </>
           ) : (
             <Pressable style={s.acctCta} onPress={() => nav.navigate('Account' as never)}>
@@ -400,6 +395,13 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
 
+        {/* アカウント削除は設定の一番下に配置(誤操作しにくく) */}
+        {session ? (
+          <Pressable style={s.deleteBottom} onPress={onDelete}>
+            <Text style={s.deleteBottomTxt}>{t('account.delete')}</Text>
+          </Pressable>
+        ) : null}
+
         {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示) */}
         <Text style={s.version}>
           v{Application.nativeApplicationVersion ?? '1.1.0'} (build {Application.nativeBuildVersion ?? '—'})
@@ -479,4 +481,6 @@ const makeStyles = (c: ThemeColors) =>
     acctGuide: { width: 48, height: 54 },
     acctTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
     acctEmail: { fontSize: ty.body, fontWeight: '700', color: c.ink, marginTop: spacing.xs },
+    deleteBottom: { alignItems: 'center', paddingVertical: spacing.md, marginTop: spacing.sm },
+    deleteBottomTxt: { fontSize: ty.small, color: c.red, fontWeight: '700' },
   });

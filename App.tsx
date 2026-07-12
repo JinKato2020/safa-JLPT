@@ -10,7 +10,9 @@ import { useColors } from './src/theme';
 import { useAppFonts, setActiveFont } from './src/theme/fonts';
 import WatercolorBackground from './src/components/WatercolorBackground';
 import { AppProvider, useAppState, useHydrated } from './src/store/store';
-import { SyncProvider } from './src/auth/SyncProvider';
+import { SyncProvider, useSync } from './src/auth/SyncProvider';
+import { navigationRef } from './src/navigation/navRef';
+import AccountPrompt from './src/components/AccountPrompt';
 import { isWatercolor } from './src/store/state';
 import { useT } from './src/i18n';
 import type { RootStackParamList, WordsStackParamList } from './src/navigation/types';
@@ -111,6 +113,7 @@ function MainTabs() {
 function Root() {
   const hydrated = useHydrated();
   const state = useAppState();
+  const { session } = useSync();
   const { settings } = state;
   const stateRef = useRef(state);
   stateRef.current = state;
@@ -166,7 +169,7 @@ function Root() {
     <DesignThemeProvider scheme={scheme}>
     <View style={{ flex: 1, backgroundColor: c.bg }}>
     {skin ? <WatercolorBackground skin={skin} /> : null}
-    <NavigationContainer key={`${settings.font ?? 'maru'}-${settings.theme ?? 'auto'}`} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
+    <NavigationContainer ref={navigationRef} key={`${settings.font ?? 'maru'}-${settings.theme ?? 'auto'}`} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!settings.onboarded ? (
           <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
@@ -190,6 +193,7 @@ function Root() {
       </RootStack.Navigator>
     </NavigationContainer>
     {settings.onboarded && !settings.tourDone && <TourOverlay />}
+    {settings.onboarded && settings.tourDone && !session && !settings.accountPromptSeen && <AccountPrompt />}
     </View>
     </DesignThemeProvider>
   );
