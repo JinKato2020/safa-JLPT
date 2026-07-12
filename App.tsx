@@ -294,30 +294,32 @@ function Root() {
 }
 
 export default function App() {
-  const [fontsLoaded] = useAppFonts();
+  const [fontsLoaded, fontError] = useAppFonts();
   // フォント読込前は端末既定で表示(白画面回避)。読込後に丸ゴシック等へ差し替わる。
-  if (!fontsLoaded) {
+  // 読込エラー時は待たずに端末既定フォントで起動する(フォント失敗でスプラッシュに固着させない)。
+  if (!fontsLoaded && !fontError) {
     return <View style={{ flex: 1, backgroundColor: '#0b1220' }} />;
   }
+  // 防波堤はプロバイダの外側に置く(プロバイダ初期化中の例外も捕捉。native例外は捕捉不可)。
   return (
-    <AppProvider>
-      <SyncProvider>
-        <SafeAreaProvider>
-          <SafeBoundary
-            tag="root"
-            fallback={(
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24, backgroundColor: '#0b1220' }}>
-                <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', lineHeight: 24 }}>
-                  問題が発生しました。アプリを再起動してください。{'\n'}Something went wrong. Please restart the app.
-                </Text>
-              </View>
-            )}
-          >
+    <SafeBoundary
+      tag="app"
+      fallback={(
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24, backgroundColor: '#0b1220' }}>
+          <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', lineHeight: 24 }}>
+            問題が発生しました。アプリを再起動してください。{'\n'}Something went wrong. Please restart the app.
+          </Text>
+        </View>
+      )}
+    >
+      <AppProvider>
+        <SyncProvider>
+          <SafeAreaProvider>
             <Root />
-          </SafeBoundary>
-          <StatusBar style="auto" />
-        </SafeAreaProvider>
-      </SyncProvider>
-    </AppProvider>
+            <StatusBar style="auto" />
+          </SafeAreaProvider>
+        </SyncProvider>
+      </AppProvider>
+    </SafeBoundary>
   );
 }
