@@ -11,6 +11,8 @@
  "account.logout": "Log out",
  "account.delete": "Delete account",
  "account.delete_confirm": "Delete for good? This cannot be undone.",
+ "account.delete_yes": "Yes, delete",
+ "account.delete_no": "No",
  "account.benefit_title": "Create an account to protect your data",
  "account.benefit_sub": "Keep your progress even when you change devices",
  "account.hero_hello": "Welcome! Your progress will be kept safe.",

@@ -1,7 +1,7 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
 import { useMemo, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Image } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import * as StoreReview from 'expo-store-review';
@@ -57,13 +57,14 @@ export default function ProfileScreen() {
   const [showDl, setShowDl] = useState(false);
   const nav = useNavigation();
   const { session, email, lastSyncedAt } = useSync();
-  const [confirmDel, setConfirmDel] = useState(false);
   const syncedLabel = lastSyncedAt ? new Date(lastSyncedAt).toLocaleTimeString() : t('account.not_synced');
-  const onDelete = async () => {
+  const onDelete = () => {
     if (!session) return;
-    if (!confirmDel) { setConfirmDel(true); return; }
-    await deleteAccount(session.user.id);
-    setConfirmDel(false);
+    const uid = session.user.id;
+    Alert.alert(t('account.delete'), t('account.delete_confirm'), [
+      { text: t('account.delete_no'), style: 'cancel' },
+      { text: t('account.delete_yes'), style: 'destructive', onPress: () => { void deleteAccount(uid); } },
+    ]);
   };
 
   const rate = async () => {
@@ -92,9 +93,7 @@ export default function ProfileScreen() {
               </Pressable>
               <View style={s.linkDiv} />
               <Pressable style={s.linkRow} onPress={onDelete}>
-                <Text style={[s.linkTxt, confirmDel && { color: c.red, fontWeight: '800' }]}>
-                  {confirmDel ? t('account.delete_confirm') : t('account.delete')}
-                </Text>
+                <Text style={[s.linkTxt, { color: c.red }]}>{t('account.delete')}</Text>
                 <Text style={s.chev}>›</Text>
               </Pressable>
             </>

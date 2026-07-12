@@ -11,6 +11,8 @@
  "account.logout": "ログアウト",
  "account.delete": "アカウントを削除",
  "account.delete_confirm": "本当に削除しますか？（元に戻せません）",
+ "account.delete_yes": "はい（削除）",
+ "account.delete_no": "いいえ",
  "account.benefit_title": "アカウントを作成してデータを守る",
  "account.benefit_sub": "機種変更しても学習の記録を引き継げます",
  "account.hero_hello": "ようこそ！学習の記録を大切にお預かりします。",

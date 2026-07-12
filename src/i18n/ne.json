@@ -11,6 +11,8 @@
  "account.logout": "लगआउट",
  "account.delete": "खाता मेट्नुहोस्",
  "account.delete_confirm": "साँच्चै मेट्ने? यो फिर्ता गर्न सकिँदैन।",
+ "account.delete_yes": "हो, मेट्नुहोस्",
+ "account.delete_no": "होइन",
  "account.benefit_title": "डेटा सुरक्षित गर्न खाता बनाउनुहोस्",
  "account.benefit_sub": "फोन बदल्दा पनि प्रगति जोगिन्छ",
  "account.hero_hello": "स्वागत छ! तपाईंको प्रगति सुरक्षित राखिनेछ।",

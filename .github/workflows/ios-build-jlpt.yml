@@ -58,6 +58,8 @@ jobs:
           [ -d assets/hatsuwa ] && cp -r assets/hatsuwa _site/assets/hatsuwa || true
           [ -f privacy.html ] && cp privacy.html _site/ || true
           [ -f terms.html ] && cp terms.html _site/ || true
+          # メール確認後のリダイレクト先(Supabase Site URL)。localhostエラー回避。
+          [ -f confirm.html ] && cp confirm.html _site/ || true
           # 共有辞書を1か所で配信(JLPT・App B 共通の単一ソース): /dict/ja-*.json
           [ -d dict ] && cp -r dict _site/dict || true
           echo "::notice::_site contents:"; find _site -maxdepth 3 | head -40
