@@ -39,6 +39,7 @@ import MyWordsScreen from './src/screens/MyWordsScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import TourOverlay from './src/components/TourOverlay';
+import SafeBoundary from './src/components/SafeBoundary';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers } from './src/telemetry/telemetry';
 
@@ -302,7 +303,18 @@ export default function App() {
     <AppProvider>
       <SyncProvider>
         <SafeAreaProvider>
-          <Root />
+          <SafeBoundary
+            tag="root"
+            fallback={(
+              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24, backgroundColor: '#0b1220' }}>
+                <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', lineHeight: 24 }}>
+                  問題が発生しました。アプリを再起動してください。{'\n'}Something went wrong. Please restart the app.
+                </Text>
+              </View>
+            )}
+          >
+            <Root />
+          </SafeBoundary>
           <StatusBar style="auto" />
         </SafeAreaProvider>
       </SyncProvider>

@@ -15,6 +15,7 @@ import { examOf } from '../engine/examProfile';
 import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../../shared/JLPT-Listening/design';
 import HeroGauge from '../components/HeroGauge';
 import { PassRing } from '../home/PassRing';
+import SafeBoundary from '../components/SafeBoundary';
 import { passRingData } from '../home/passRingData';
 import RingGauge from '../components/RingGauge';
 import Badge from '../components/Badge';
@@ -122,10 +123,12 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
-        {/* 合格リング(Skia): ホーム中央のヒーロー。背景はユーザー準備の上に載る想定。 */}
-        <View style={s.passRingWrap}>
-          <PassRing data={passRingData(state, now)} size={Math.min(ringW * 0.94, 400)} />
-        </View>
+        {/* 合格リング(Skia): ホーム中央のヒーロー。Skia描画が失敗してもホーム全体を落とさない。 */}
+        <SafeBoundary tag="passring" fallback={null}>
+          <View style={s.passRingWrap}>
+            <PassRing data={passRingData(state, now)} size={Math.min(ringW * 0.94, 400)} />
+          </View>
+        </SafeBoundary>
         <Text style={s.brand}>{t('home.brand')}</Text>
 
         {/* ヒーロー: 到達度ゲージ＋ペース＋統計 */}
