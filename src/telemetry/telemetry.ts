@@ -1,6 +1,7 @@
 // 匿名・追跡なしの利用状況計測(v1.1)。到達度/区分別/新規枯渇/模試/行動イベントを
-// Cloudflare Worker へ送る。settings.telemetry=false で完全停止。PII一切なし(匿名UUIDのみ)。
-// 設計=計測設計_v1.1.md。送信先は AUDIO_BASE 同様 BASE 1行差替で移行可。
+// Supabase(tel_snapshot / tel_event / tel_mock)へ INSERT する(旧Cloudflare Workerから移管)。
+// settings.telemetry=false で完全停止。PII一切なし(匿名UUIDのみ・ログインとは無関係)。
+// テーブル未作成時はinsert失敗→キューに滞留(無害・作成後にflushで再送)。RLSは anon/authenticated の INSERT のみ許可。
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 import { dayStr, type AppState } from '../store/state';
@@ -8,8 +9,8 @@ import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank } from '../
 import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
 import type { Category } from '../engine/engine';
+import { supabase } from '../config/supabase';
 
-const BASE = 'https://t.safa-lang.com/jlpt/v1'; // Cloudflare Worker。未デプロイ時は送信失敗→キューに滞留(無害)。
 const APP_VERSION = '1.1.0';
 const CATS: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 const EXHAUST_THRESHOLD = 3; // 新規残数がこれ以下=その区分は“枯渇”(コンテンツ不足シグナル)
@@ -33,12 +34,25 @@ async function anonId(): Promise<string> {
   return id;
 }
 
+// 送信先を Supabase テーブルへ INSERT に切替。path(snapshot/mock/events)でテーブルと整形を分岐。
+// 失敗(error/例外)は false を返し、既存のキュー(enqueue/flush)が再送する。
 async function post(path: string, body: unknown): Promise<boolean> {
+  const b = body as Record<string, unknown>;
   try {
-    const res = await fetch(`${BASE}/${path}`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
-    });
-    return res.ok;
+    if (path === 'snapshot') {
+      const { error } = await supabase.from('tel_snapshot').insert({ anon_id: b.anonId, day: b.day, data: b });
+      return !error;
+    }
+    if (path === 'mock') {
+      const { error } = await supabase.from('tel_mock').insert({
+        anon_id: b.anonId, level: b.level ?? null, is_full: b.full ?? null,
+        pct: b.pct ?? null, sections: b.sections ?? null, timed_out: b.timedOut ?? null, elapsed_sec: b.elapsedSec ?? null,
+      });
+      return !error;
+    }
+    // 'events' (answers/error/session/language_changed 等)
+    const { error } = await supabase.from('tel_event').insert({ anon_id: b.anonId, name: b.name, props: b.props ?? null, level: b.level ?? null });
+    return !error;
   } catch { return false; }
 }
 async function enqueue(path: string, body: unknown): Promise<void> {
