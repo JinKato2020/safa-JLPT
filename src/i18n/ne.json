@@ -29,6 +29,7 @@
  "account.err_unconfirmed": "इमेल अझै पुष्टि भएको छैन। पठाइएको लिंक खोल्नुहोस्।",
  "account.err_oauth": "Google लगइन असफल भयो। फेरि प्रयास गर्नुहोस्।",
  "account.google": "Google बाट लगइन",
+ "account.apple": "Apple बाट साइन इन",
  "account.or": "वा",
  "profile.account_section": "खाता",
  "profile.privacyAccount": "खाता बनाउनुभयो भने तपाईंको इमेल र सिकाइ डेटा Supabase सर्भर (टोकियो) मा राखिन्छ, ब्याकअप र नयाँ फोनमा पुनःस्थापनाका लागि प्रयोग हुन्छ। एपको \"खाता मेट्नुहोस्\" बाट जुनसुकै बेला मेट्न सकिन्छ।",

@@ -1,6 +1,6 @@
 // アカウント作成/ログイン(段階1)。メール+パスワード。確認メールON=新規作成後は確認案内→ログイン。
 // 案内=桜の巫女(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { signUp, signIn } from '../auth/authClient';
-import { signInWithProvider } from '../auth/oauth';
+import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { GUIDE } from '../data/mywordsArt';
 
@@ -26,6 +26,8 @@ export default function AccountScreen() {
   const [errKey, setErrKey] = useState<string | null>(null);
   const [confirmSent, setConfirmSent] = useState(false);
   const [showPw, setShowPw] = useState(false);
+  const [appleOk, setAppleOk] = useState(false);
+  useEffect(() => { void isAppleAvailable().then(setAppleOk); }, []);
 
   const submit = async () => {
     setErrKey(null);
@@ -63,6 +65,20 @@ export default function AccountScreen() {
     }
   };
 
+  const onApple = async () => {
+    setErrKey(null);
+    setConfirmSent(false);
+    setBusy(true);
+    try {
+      const r = await signInWithApple();
+      if (r.error === 'cancelled') return;
+      if (r.error) { setErrKey(r.error.startsWith('account.') ? r.error : 'account.err_oauth'); return; }
+      nav.goBack();
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const canSubmit = email.trim().length > 3 && pw.length >= 8 && !busy;
 
   return (
@@ -83,6 +99,12 @@ export default function AccountScreen() {
             <Ionicons name="logo-google" size={20} color="#EA4335" />
             <Text style={s.googleTxt}>{t('account.google')}</Text>
           </Pressable>
+          {appleOk ? (
+            <Pressable style={[s.appleBtn, busy && s.ctaOff]} onPress={onApple} disabled={busy}>
+              <Ionicons name="logo-apple" size={20} color="#fff" />
+              <Text style={s.appleTxt}>{t('account.apple')}</Text>
+            </Pressable>
+          ) : null}
           <View style={s.divider}>
             <View style={s.divLine} />
             <Text style={s.divTxt}>{t('account.or')}</Text>
@@ -174,6 +196,8 @@ const makeStyles = (c: ThemeColors) =>
     ctaTxt: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
     googleBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.md },
     googleTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    appleBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderRadius: radius.md, backgroundColor: '#000', paddingVertical: spacing.md, marginTop: spacing.sm },
+    appleTxt: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
     divider: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.md, marginBottom: spacing.xs },
     divLine: { flex: 1, height: 1, backgroundColor: c.line },
     divTxt: { fontSize: ty.small, color: c.faint },

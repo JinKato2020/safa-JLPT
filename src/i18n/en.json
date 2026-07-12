@@ -29,6 +29,7 @@
  "account.err_unconfirmed": "Email not confirmed yet. Please open the link we sent.",
  "account.err_oauth": "Google sign-in failed. Please try again.",
  "account.google": "Sign in with Google",
+ "account.apple": "Sign in with Apple",
  "account.or": "or",
  "profile.account_section": "Account",
  "profile.privacyAccount": "If you create an account, your email and learning data are stored on Supabase servers (Tokyo region) and used for backup and restoring on a new device. You can delete them anytime from \"Delete account\" in the app.",

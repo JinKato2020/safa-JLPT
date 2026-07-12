@@ -29,6 +29,7 @@
  "account.err_unconfirmed": "メールの確認が済んでいません。届いたリンクを開いてください。",
  "account.err_oauth": "Googleログインに失敗しました。もう一度お試しください。",
  "account.google": "Googleでログイン",
+ "account.apple": "Appleでサインイン",
  "account.or": "または",
  "profile.account_section": "アカウント",
  "profile.privacyAccount": "アカウントを作成した場合、メールアドレスと学習データは日本国内（東京リージョン）のSupabaseサーバーに保存され、バックアップと機種変更時の復元に使われます。アプリ内の「アカウントを削除」からいつでも削除できます。",
