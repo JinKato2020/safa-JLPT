@@ -68,9 +68,9 @@ export default function HomeScreen() {
   return (
     <View style={styles.c}>
       <TabBackground source={HOME_BG}>
-        <View style={[styles.panelWrap, { top: height * 0.185 }]} pointerEvents="box-none">
+        <View style={[styles.panelWrap, { top: height * 0.15 }]} pointerEvents="box-none">
           <SafeBoundary tag="statuspanel" fallback={null}>
-            <StatusPanel data={status} maxHeight={height * 0.42} />
+            <StatusPanel data={status} width={Math.min(width * 0.92, 380)} />
           </SafeBoundary>
         </View>
         <View style={styles.guideWrap} pointerEvents="box-none">
@@ -83,6 +83,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   c: { flex: 1 },
-  panelWrap: { position: 'absolute', left: 14, right: 14 },
+  panelWrap: { position: 'absolute', left: 0, right: 0, alignItems: 'center' },
   guideWrap: { position: 'absolute', right: 8, bottom: 6, alignItems: 'flex-end' },
 });
