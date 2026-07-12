@@ -2,7 +2,7 @@
 // 指標は注記で明示。設定系は「設定」タブへ分離。
 import { useMemo, useState } from 'react';
 import { useT } from '../i18n';
-import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -14,6 +14,8 @@ import { DAIMON_LABEL } from '../data/examBlueprint';
 import { examOf } from '../engine/examProfile';
 import { StreakWeek, StreakCalendar, GrowthBars, BadgeGrid } from '../../shared/JLPT-Listening/design';
 import HeroGauge from '../components/HeroGauge';
+import { PassRing } from '../home/PassRing';
+import { passRingData } from '../home/passRingData';
 import RingGauge from '../components/RingGauge';
 import Badge from '../components/Badge';
 import BadgeCollection from '../components/BadgeCollection';
@@ -41,6 +43,7 @@ export default function HomeScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const [collectionOpen, setCollectionOpen] = useState(false);
+  const { width: ringW } = useWindowDimensions();
   const now = Date.now();
   const readiness = useMemo(() => readinessFor(state, now), [state]);
   const nba = useMemo(() => nextBestAction(state, now), [state]);
@@ -119,6 +122,10 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
+        {/* 合格リング(Skia): ホーム中央のヒーロー。背景はユーザー準備の上に載る想定。 */}
+        <View style={s.passRingWrap}>
+          <PassRing data={passRingData(state, now)} size={Math.min(ringW * 0.94, 400)} />
+        </View>
         <Text style={s.brand}>{t('home.brand')}</Text>
 
         {/* ヒーロー: 到達度ゲージ＋ペース＋統計 */}
@@ -247,6 +254,7 @@ const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     c: { flex: 1, backgroundColor: c.bg },
     body: { padding: spacing.lg, gap: spacing.md },
+    passRingWrap: { alignItems: 'center', marginTop: spacing.xs, marginBottom: spacing.sm },
     brand: { fontSize: ty.body, fontWeight: '800', color: c.blue, letterSpacing: 0.5 },
 
     hero: {
