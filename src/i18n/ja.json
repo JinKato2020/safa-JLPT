@@ -587,5 +587,10 @@
   "settings.off": "オフ",
   "nav.open": "ひらく",
   "nav.close": "閉じる",
-  "study.card_ring_hint": "下のリングをタップで大問別の問題を開始"
+  "study.card_ring_hint": "下のリングをタップで大問別の問題を開始",
+  "notif.title": "通知",
+  "notif.empty": "新しい通知はありません",
+  "notif.reminder_on": "学習リマインド: 毎日 {t} に通知",
+  "notif.reminder_off": "学習リマインドはオフです",
+  "notif.manage": "リマインドを設定"
 }

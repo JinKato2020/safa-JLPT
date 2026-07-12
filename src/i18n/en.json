@@ -587,5 +587,10 @@
   "settings.off": "Off",
   "nav.open": "Open",
   "nav.close": "Close",
-  "study.card_ring_hint": "Tap a ring to start problems by section"
+  "study.card_ring_hint": "Tap a ring to start problems by section",
+  "notif.title": "Notifications",
+  "notif.empty": "No new notifications",
+  "notif.reminder_on": "Study reminder: daily at {t}",
+  "notif.reminder_off": "Study reminder is off",
+  "notif.manage": "Set reminder"
 }

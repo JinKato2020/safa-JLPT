@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { ActivityIndicator, AppState, Pressable, StyleSheet, View, useColorScheme } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, AppState, Modal, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
@@ -9,7 +9,7 @@ import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-cont
 import { useColors } from './src/theme';
 import { useAppFonts, setActiveFont } from './src/theme/fonts';
 import WatercolorBackground from './src/components/WatercolorBackground';
-import { AppProvider, useAppState, useHydrated } from './src/store/store';
+import { AppProvider, useAppState, useAppActions, useHydrated } from './src/store/store';
 import { SyncProvider, useSync } from './src/auth/SyncProvider';
 import { navigationRef } from './src/navigation/navRef';
 import AccountPrompt from './src/components/AccountPrompt';
@@ -37,6 +37,7 @@ import ListeningQuizScreen from './src/screens/ListeningQuizScreen';
 import WordDrillScreen from './src/screens/WordDrillScreen';
 import MyWordsScreen from './src/screens/MyWordsScreen';
 import AccountScreen from './src/screens/AccountScreen';
+import NotificationsScreen from './src/screens/NotificationsScreen';
 import TourOverlay from './src/components/TourOverlay';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers } from './src/telemetry/telemetry';
@@ -90,13 +91,21 @@ const TABS = [
   { name: '辞書', component: DictTab, icon: 'library', iconOff: 'library-outline', labelKey: 'dict.tab' },
 ] as const;
 
+const JLPT_LEVELS = ['N5', 'N4', 'N3'] as const;
+
 function MainTabs() {
   const c = useColors();
   const t = useT();
   const insets = useSafeAreaInsets();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const state = useAppState();
+  const { setSettings } = useAppActions();
+  const [lvlOpen, setLvlOpen] = useState(false);
+  const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
+  const level = state.settings.level;
   // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
-  // 設定タブは廃止 → 画面左上=アカウント(人)・右上=設定(歯車)のオーバーレイから開く。
+  // 設定タブは廃止 → 画面上部に共通の操作列(左から): アカウント/JLPTレベル/設定/通知。
+  const iconBtn = [topBar.btn, { backgroundColor: c.surface, borderColor: c.line }];
   return (
     <View style={{ flex: 1 }}>
     <Tab.Navigator
@@ -134,33 +143,62 @@ function MainTabs() {
         />
       ))}
     </Tab.Navigator>
-      {/* 画面左上=アカウント(人アイコン)・右上=設定(歯車)。全タブ共通のオーバーレイ。 */}
-      <Pressable
-        onPress={() => nav.navigate('Account')}
-        accessibilityLabel={t('account.title')}
-        hitSlop={8}
-        style={[cornerStyles.btn, { top: insets.top + 6, left: 12, backgroundColor: c.surface, borderColor: c.line }]}
-      >
-        <Ionicons name="person-circle-outline" size={26} color={c.ink} />
-      </Pressable>
-      <Pressable
-        onPress={() => nav.navigate('Settings')}
-        accessibilityLabel={t('profile.title')}
-        hitSlop={8}
-        style={[cornerStyles.btn, { top: insets.top + 6, right: 12, backgroundColor: c.surface, borderColor: c.line }]}
-      >
-        <Ionicons name="settings-outline" size={22} color={c.ink} />
-      </Pressable>
+      {/* 全タブ共通の上部操作列(左から): アカウント / JLPTレベル / 設定 / 通知。 */}
+      <View style={[topBar.row, { top: insets.top + 6 }]}>
+        <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="person-circle-outline" size={26} color={c.ink} />
+        </Pressable>
+        <Pressable
+          onPress={() => { if (!isJft) setLvlOpen(true); }}
+          accessibilityLabel={t('profile.targetLevel')}
+          hitSlop={6}
+          style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}
+        >
+          <Text style={[topBar.pillTxt, { color: c.blue }]}>{isJft ? 'JFT' : level}</Text>
+        </Pressable>
+        <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="settings-outline" size={22} color={c.ink} />
+        </Pressable>
+        <Pressable onPress={() => nav.navigate('Notifications')} accessibilityLabel={t('notif.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="notifications-outline" size={22} color={c.ink} />
+        </Pressable>
+      </View>
+      {/* JLPTレベルの選択メニュー(N5/N4/N3)。レベルピル直下に出す。 */}
+      <Modal visible={lvlOpen} transparent animationType="fade" onRequestClose={() => setLvlOpen(false)}>
+        <Pressable style={topBar.backdrop} onPress={() => setLvlOpen(false)}>
+          <View style={[topBar.menu, { top: insets.top + 50, backgroundColor: c.surface, borderColor: c.line }]}>
+            {JLPT_LEVELS.map((lv) => {
+              const on = level === lv;
+              return (
+                <Pressable key={lv} onPress={() => { setSettings({ level: lv, targetExam: 'jlpt' }); setLvlOpen(false); }} style={topBar.menuItem}>
+                  <Text style={[topBar.menuTxt, { color: on ? c.blue : c.ink2 }, on && { fontWeight: '900' }]}>{lv}</Text>
+                  {on ? <Text style={[topBar.menuCheck, { color: c.blue }]}>✓</Text> : null}
+                </Pressable>
+              );
+            })}
+          </View>
+        </Pressable>
+      </Modal>
     </View>
   );
 }
 
-const cornerStyles = StyleSheet.create({
+const topBar = StyleSheet.create({
+  row: { position: 'absolute', left: 12, flexDirection: 'row', alignItems: 'center', gap: 8, zIndex: 20 },
   btn: {
-    position: 'absolute', width: 40, height: 40, borderRadius: 20, borderWidth: 1,
-    alignItems: 'center', justifyContent: 'center', zIndex: 20,
+    width: 40, height: 40, borderRadius: 20, borderWidth: 1, alignItems: 'center', justifyContent: 'center',
     shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
   },
+  pill: {
+    height: 40, minWidth: 46, paddingHorizontal: 14, borderRadius: 20, borderWidth: 1, alignItems: 'center', justifyContent: 'center',
+    shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
+  },
+  pillTxt: { fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },
+  backdrop: { flex: 1 },
+  menu: { position: 'absolute', left: 60, minWidth: 92, borderRadius: 14, borderWidth: 1, paddingVertical: 4, overflow: 'hidden', elevation: 8, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } },
+  menuItem: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10, paddingHorizontal: 16 },
+  menuTxt: { fontSize: 16, fontWeight: '700' },
+  menuCheck: { fontSize: 15, fontWeight: '900' },
 });
 
 function Root() {
@@ -242,6 +280,7 @@ function Root() {
             <RootStack.Screen name="MyWords" component={MyWordsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
           </>
         )}
       </RootStack.Navigator>
