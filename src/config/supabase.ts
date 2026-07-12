@@ -12,5 +12,6 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false, // RNではURLにセッションは載らない
+    flowType: 'pkce', // OAuth(Google)はPKCE。exchangeCodeForSessionで安全に交換
   },
 });

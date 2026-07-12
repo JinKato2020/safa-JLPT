@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { signUp, signIn } from '../auth/authClient';
+import { signInWithProvider } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { GUIDE } from '../data/mywordsArt';
 
@@ -48,6 +49,20 @@ export default function AccountScreen() {
     }
   };
 
+  const onGoogle = async () => {
+    setErrKey(null);
+    setConfirmSent(false);
+    setBusy(true);
+    try {
+      const r = await signInWithProvider('google');
+      if (r.error === 'cancelled') return; // ユーザーが閉じた=エラー表示しない
+      if (r.error) { setErrKey(r.error.startsWith('account.') ? r.error : 'account.err_oauth'); return; }
+      nav.goBack(); // 成功→設定へ戻る(SyncProviderがpull/push)
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const canSubmit = email.trim().length > 3 && pw.length >= 8 && !busy;
 
   return (
@@ -62,6 +77,16 @@ export default function AccountScreen() {
             <Image source={GUIDE.open} style={s.guide} resizeMode="contain" />
             <Text style={s.benefitTitle}>{t('account.benefit_title')}</Text>
             <Text style={s.benefitSub}>{t('account.benefit_sub')}</Text>
+          </View>
+
+          <Pressable style={[s.googleBtn, busy && s.ctaOff]} onPress={onGoogle} disabled={busy}>
+            <Ionicons name="logo-google" size={20} color="#EA4335" />
+            <Text style={s.googleTxt}>{t('account.google')}</Text>
+          </Pressable>
+          <View style={s.divider}>
+            <View style={s.divLine} />
+            <Text style={s.divTxt}>{t('account.or')}</Text>
+            <View style={s.divLine} />
           </View>
 
           <View style={s.tabs}>
@@ -147,4 +172,9 @@ const makeStyles = (c: ThemeColors) =>
     cta: { marginTop: spacing.md, backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.md, alignItems: 'center' },
     ctaOff: { opacity: 0.5 },
     ctaTxt: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
+    googleBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.md },
+    googleTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    divider: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.md, marginBottom: spacing.xs },
+    divLine: { flex: 1, height: 1, backgroundColor: c.line },
+    divTxt: { fontSize: ty.small, color: c.faint },
   });
