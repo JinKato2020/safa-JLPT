@@ -50,14 +50,16 @@ export default function HomeGuide({ advice, width = 150 }: { advice: GuideAdvice
   return (
     <View style={styles.wrap} pointerEvents="box-none">
       {visible ? (
-        <Pressable style={styles.bubble} onPress={onTap}>
-          <Text style={styles.bTitle}>{advice.title}</Text>
-          <Text style={styles.bHl}>{advice.hl}</Text>
-          {advice.lines.slice(0, 3).map((ln, i) => (
-            <Text key={i} style={styles.bLine} numberOfLines={2}>・{ln}</Text>
-          ))}
-          <View style={styles.tail} />
-        </Pressable>
+        <View style={styles.bubbleWrap} pointerEvents="box-none">
+          <Pressable style={styles.bubble} onPress={onTap}>
+            <Text style={styles.bTitle}>{advice.title}</Text>
+            <Text style={styles.bHl}>{advice.hl}</Text>
+            {advice.lines.slice(0, 3).map((ln, i) => (
+              <Text key={i} style={styles.bLine} numberOfLines={2}>・{ln}</Text>
+            ))}
+            <View style={styles.tail} />
+          </Pressable>
+        </View>
       ) : null}
       <Pressable onPress={onTap} accessibilityLabel={advice.title}>
         <Animated.View style={{ width, height: h, transform: [{ translateY: floatY }] }}>
@@ -71,9 +73,11 @@ export default function HomeGuide({ advice, width = 150 }: { advice: GuideAdvice
 
 const styles = StyleSheet.create({
   wrap: { alignItems: 'center' },
+  // 吹き出しはキャラの上に絶対配置=表示時にキャラを押し出さない(前に出ない)。
+  bubbleWrap: { position: 'absolute', bottom: '100%', left: 0, right: 0, alignItems: 'center', paddingBottom: 4 },
   bubble: {
     maxWidth: 250, backgroundColor: 'rgba(255,253,248,0.97)', borderRadius: 16, borderBottomRightRadius: 5,
-    paddingVertical: 9, paddingHorizontal: 12, marginBottom: 6,
+    paddingVertical: 9, paddingHorizontal: 12,
     borderWidth: 1, borderColor: 'rgba(184,146,74,0.5)',
     shadowColor: '#000', shadowOpacity: 0.25, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 8,
   },
