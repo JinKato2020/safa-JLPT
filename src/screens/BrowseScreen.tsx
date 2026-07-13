@@ -20,6 +20,7 @@ import { useT } from '../i18n';
 import { highlightSegments } from '../quiz/highlight';
 import RubyText from '../components/RubyText';
 import { rubyForWord } from '../kakitori/furigana';
+import Dropdown from '../components/Dropdown';
 import { levelListFor } from '../words/levelList';
 import { studySections } from '../words/sections';
 import { CAT_BY_ID } from '../data/categories';
@@ -61,7 +62,7 @@ function cardReadingLines(char: string, userLevel: string): CardLine[] {
 
 export default function BrowseScreen() {
   const t = useT();
-  const { settings, items, myList } = useAppState();
+  const { settings, items } = useAppState();
   // 辞書は常にルビ表示(引くためのツールなので、レベル適応ゲートを免除して全漢字にルビ)。
   const rubyGate = (_run?: string) => true;
   const nav = useNavigation<Nav>();
@@ -75,7 +76,7 @@ export default function BrowseScreen() {
   const route = useRoute();
   const params = (route.params ?? {}) as { view?: Kubun; mode?: 'dict' | 'study' };
   const study = params.mode === 'study';
-  const [kubun, setKubun] = useState<Kubun>(params.view ?? 'vocab');
+  const [kubun] = useState<Kubun>(params.view ?? 'vocab');
   const [level, setLevel] = useState<string>(settings.level); // 'all' または N5..N1
   const [query, setQuery] = useState('');
 
@@ -265,20 +266,9 @@ export default function BrowseScreen() {
     return <View style={s.row}>{rowInner}</View>;
   };
 
-  const kubunAccent = (k: Kubun) => (k === 'vocab' ? c.mojiGoi : k === 'kanji' ? c.dokkai : c.bunpou);
-
   return (
     <SafeAreaView style={s.c} edges={['top']}>
-      {/* 最上部: my単語帳 入口(辞書タブのみ)。保存した 語彙/漢字/文法 の一覧へ。 */}
-      {!study && (
-        <Pressable style={({ pressed }) => [s.myWordsBtn, pressed && s.myWordsPressed]} onPress={() => nav.navigate('MyWords')}>
-          <View style={s.myWordsIcon}><Ionicons name="star" size={16} color={c.blueDark} /></View>
-          <Text style={s.myWordsLabel}>{t('mywords.card')}</Text>
-          {(myList?.length ?? 0) > 0 ? <Text style={s.myWordsCount}>{myList!.length}</Text> : null}
-          <Ionicons name="chevron-forward" size={18} color={c.faint} />
-        </Pressable>
-      )}
-
+      {/* 上部の操作: 戻る＋検索窓。辞書タブ(dictモード)はここに「レベルのプルダウン」だけを添える。 */}
       <View style={s.top}>
         {study || route.params ? (
           <Pressable onPress={() => nav.goBack()} hitSlop={12}>
@@ -298,33 +288,15 @@ export default function BrowseScreen() {
         {study && <Text style={s.title}>{t(KUBUN.find((k) => k.key === kubun)!.labelKey)}</Text>}
       </View>
 
-      {/* 区分セグメント(語彙/漢字/文法): グリフ＋色で「今どの区分か」を一目で。選択中は区分色で塗る。 */}
-      {!study && (
-        <View style={s.seg}>
-          {KUBUN.map((k) => {
-            const on = kubun === k.key;
-            const accent = kubunAccent(k.key);
-            return (
-              <Pressable key={k.key} onPress={() => setKubun(k.key)} style={[s.segItem, on && { backgroundColor: accent, borderColor: accent }]}>
-                <Text style={[s.segGlyph, { color: on ? '#fff' : accent }]}>{k.glyph}</Text>
-                <Text style={[s.segTxt, on && s.segTxtOn]}>{t(k.labelKey)}</Text>
-              </Pressable>
-            );
-          })}
-        </View>
-      )}
-
-      {/* レベル選択(全＝N5→N1ソート / 各級＝その級のみ)。区分に在るレベルだけ表示。 */}
+      {/* レベル変更のプルダウン(全＝N5→N1ソート / 各級＝その級のみ)。この区分に在るレベルだけ。 */}
       {!study && (
         <View style={[s.filters, s.filters2]}>
-          <Pressable onPress={() => setLevel('all')} style={[s.chip, effLevel === 'all' && s.chipOn]}>
-            <Text style={[s.chipTxt, effLevel === 'all' && s.chipTxtOn]}>{t('browse.allLevels')}</Text>
-          </Pressable>
-          {availLevels.map((l) => (
-            <Pressable key={l} onPress={() => setLevel(l)} style={[s.chip, effLevel === l && s.chipOn]}>
-              <Text style={[s.chipTxt, effLevel === l && s.chipTxtOn]}>{l}</Text>
-            </Pressable>
-          ))}
+          <Dropdown
+            value={effLevel}
+            options={['all', ...availLevels]}
+            labelFor={(l) => (l === 'all' ? t('browse.allLevels') : l)}
+            onSelect={setLevel}
+          />
         </View>
       )}
 
@@ -369,18 +341,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   catHeaderWrap: { paddingHorizontal: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.sm, backgroundColor: c.bg },
   catUmbrella: { fontSize: ty.small, fontWeight: '700', color: c.mute, letterSpacing: 1, marginBottom: 2 },
   catHeader: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
-  // my単語帳 入口(最上部)。★＋ラベル＋件数＋›。
-  myWordsBtn: { ...shadow(1), flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, borderRadius: radius.lg, marginHorizontal: spacing.md, marginTop: spacing.md, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md },
-  myWordsPressed: { opacity: 0.85 },
-  myWordsIcon: { width: 30, height: 30, borderRadius: radius.sm, alignItems: 'center', justifyContent: 'center', backgroundColor: c.blueLight },
-  myWordsLabel: { flex: 1, fontSize: ty.body, fontWeight: '800', color: c.ink },
-  myWordsCount: { fontSize: ty.small, fontWeight: '800', color: c.blueDark, backgroundColor: c.blueLight, borderRadius: radius.pill, paddingHorizontal: 8, paddingVertical: 1, overflow: 'hidden', minWidth: 22, textAlign: 'center' },
-  // 区分セグメント: グリフ＋ラベル。選択中は区分色で塗りつぶし。
-  seg: { flexDirection: 'row', gap: spacing.sm, paddingHorizontal: spacing.md, marginTop: spacing.sm },
-  segItem: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5, paddingVertical: spacing.sm, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface },
-  segGlyph: { fontSize: ty.body, fontWeight: '900' },
-  segTxt: { fontSize: ty.small, fontWeight: '700', color: c.ink2 },
-  segTxtOn: { color: '#fff', fontWeight: '800' },
   top: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, padding: spacing.md },
   close: { fontSize: 30, color: c.mute, fontWeight: '700' },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
@@ -398,17 +358,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   },
   filters: { flexDirection: 'row', gap: spacing.sm, paddingHorizontal: spacing.md, flexWrap: 'wrap' },
   filters2: { marginTop: spacing.sm },
-  chip: {
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.md,
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    borderColor: c.line,
-    backgroundColor: c.surface,
-  },
-  chipOn: { borderColor: c.blue, backgroundColor: c.blueLight },
-  chipTxt: { fontSize: ty.small, color: c.ink2, fontWeight: '600' },
-  chipTxtOn: { color: c.blueDark, fontWeight: '800' },
   count: { fontSize: ty.tiny, color: c.faint, paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
   listBody: { paddingHorizontal: spacing.md, paddingBottom: spacing.xl },
   row: {
