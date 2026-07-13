@@ -5,10 +5,12 @@ import { View, Image, Animated, Easing, StyleSheet } from 'react-native';
 import ElectricShader from './ElectricShader';
 
 export const FRAME = require('../../assets/tabs/status_frame.png');
-export const FRAME_ASPECT = 720 / 987;
-// 和紙(暗色)上のテキスト/バー色トークン。
-export const PC = { gold: '#ffe6a3', ink: '#f3e6cf', mute: '#cdb897', trackBg: 'rgba(10,8,20,0.65)', trackBorder: 'rgba(231,200,119,0.25)' };
-export const RAMP = ['#37d6a0', '#7fd94a', '#f2c14e', '#ef7a4a', '#e85f86'];
+export const FRAME_ASPECT = 640 / 823; // 濃茶木目枠(方式B)の実比率
+// 木目の暗色内側上のテキスト/バー色トークン。
+export const PC = { gold: '#ffe6a3', ink: '#f3e6cf', mute: '#cdb897', trackBg: 'rgba(14,8,20,0.72)', trackBorder: 'rgba(231,200,119,0.28)' };
+// メインバー=虹(参考実測: シアン→金→紫)。区分バー=紫グラデ(参考実測 #EDE6FF→#824EBD→#47387D)。
+export const RAMP = ['#66B0D7', '#7fd0c8', '#F6C569', '#e0943f', '#824EBD'];
+export const PURPLE_RAMP = ['#ede6ff', '#b79ae6', '#824EBD', '#47387D'];
 
 /** マウント時に 0→1 へ伸びる共有値＋数値カウントアップ用の frac。 */
 export function useReveal(duration = 1000): { progress: Animated.Value; frac: number } {
@@ -35,13 +37,14 @@ export function Ticks({ n }: { n: number }) {
   );
 }
 
-// 単色フィル(段目盛り＋発光)の横バー。gradient=合格Lv用のカラーランプ。
-export function AnimBar({ pct, color, progress, height = 15, segs = 16, gradient }: { pct: number; color?: string; progress: Animated.Value; height?: number; segs?: number; gradient?: boolean }) {
+// 段目盛り＋発光の横バー。gradient=メイン(虹)。それ以外=区分(紫グラデ)。参考実測色。
+export function AnimBar({ pct, progress, height = 15, segs = 16, gradient }: { pct: number; color?: string; progress: Animated.Value; height?: number; segs?: number; gradient?: boolean }) {
   const w = progress.interpolate({ inputRange: [0, 1], outputRange: ['0%', `${Math.max(0, Math.min(100, pct))}%`] });
+  const ramp = gradient ? RAMP : PURPLE_RAMP;
   return (
     <View style={[styles.track, { height }]}>
-      <Animated.View style={[styles.fill, { width: w, backgroundColor: gradient ? undefined : color, shadowColor: color ?? '#f2c14e' }]}>
-        {gradient ? RAMP.map((col, i) => <View key={i} style={{ flex: 1, backgroundColor: col }} />) : null}
+      <Animated.View style={[styles.fill, { width: w, shadowColor: gradient ? '#f2c14e' : '#a98fe0' }]}>
+        {ramp.map((col, i) => <View key={i} style={{ flex: 1, backgroundColor: col }} />)}
       </Animated.View>
       <Ticks n={segs} />
     </View>
@@ -51,8 +54,8 @@ export function AnimBar({ pct, color, progress, height = 15, segs = 16, gradient
 // 枠＋中央和紙＋動的電撃層(UVスクロール＋フリッカ)。子は中央和紙に載る。
 export default function FramedPanel({ width, children }: { width: number; children: React.ReactNode }) {
   const height = width / FRAME_ASPECT;
-  const pad = { paddingLeft: width * 0.17, paddingRight: width * 0.14, paddingTop: height * 0.095, paddingBottom: height * 0.085 };
-  const innerX = width * 0.15, innerY = height * 0.08, innerW = Math.round(width * 0.72), innerH = Math.round(height * 0.84);
+  const pad = { paddingLeft: width * 0.20, paddingRight: width * 0.20, paddingTop: height * 0.14, paddingBottom: height * 0.13 };
+  const innerX = width * 0.19, innerY = height * 0.13, innerW = Math.round(width * 0.62), innerH = Math.round(height * 0.74);
   return (
     <View style={{ width, height }}>
       <Image source={FRAME} style={StyleSheet.absoluteFill} resizeMode="stretch" />
