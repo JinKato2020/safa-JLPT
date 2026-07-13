@@ -316,15 +316,16 @@ export default function BrowseScreen() {
         {study && <Text style={s.title}>{t(KUBUN.find((k) => k.key === kubun)!.labelKey)}</Text>}
       </View>
 
-      {/* レベル変更のプルダウン(全＝N5→N1ソート / 各級＝その級のみ)。この区分に在るレベルだけ。 */}
+      {/* レベル変更のプルダウン(全＝N5→N1ソート / 各級＝その級のみ)＋ 右に「今どの区分の一覧か」を明示。 */}
       {!study && (
-        <View style={[s.filters, s.filters2]}>
+        <View style={[s.filters, s.filters2, s.filtersRow]}>
           <Dropdown
             value={effLevel}
             options={['all', ...availLevels]}
             labelFor={(l) => (l === 'all' ? t('browse.allLevels') : l)}
             onSelect={setLevel}
           />
+          <Text style={s.listTitle}>{t(KUBUN.find((k) => k.key === kubun)!.labelKey)}</Text>
         </View>
       )}
 
@@ -386,6 +387,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   },
   filters: { flexDirection: 'row', gap: spacing.sm, paddingHorizontal: spacing.md, flexWrap: 'wrap' },
   filters2: { marginTop: spacing.sm },
+  filtersRow: { alignItems: 'center', justifyContent: 'space-between', flexWrap: 'nowrap' },
+  listTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, fontFamily: 'ShipporiMincho-Bold' },
   count: { fontSize: ty.tiny, color: c.faint, paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
   listBody: { paddingHorizontal: spacing.md, paddingBottom: spacing.xl },
   row: {

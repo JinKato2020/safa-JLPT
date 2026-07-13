@@ -83,3 +83,14 @@ test('buildKanjiQuiz: 拘束字は音読みが audioReading・audioVocabId は n
   assert.equal(qs[0].audioReading, 'こう');
   assert.equal(qs[0].audioVocabId, null);
 });
+// 回帰: reading が null/欠損の語(かな見出し語 等)がプールに在っても throw しない。
+// これを踏むと built useMemo が例外→ルート防波堤で全画面クラッシュしていた(N4語彙で実際に発生)。
+test('nearDistractors/buildVocabQuiz: reading=null をプールに含んでも throw しない', () => {
+  const withNull: LQItem[] = [
+    ...VP,
+    { id: 'z1', word: 'ごらんになる', reading: null as unknown as string, meaning: 'to see (hon.)' },
+    { id: 'z2', word: 'かまう', reading: null as unknown as string, meaning: 'to mind' },
+  ];
+  assert.doesNotThrow(() => nearDistractors(withNull[withNull.length - 1], withNull, 3, rng0));
+  assert.doesNotThrow(() => buildVocabQuiz(withNull, withNull, rng0));
+});

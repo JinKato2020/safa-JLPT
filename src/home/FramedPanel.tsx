@@ -1,13 +1,14 @@
-// ホームの3カード共通の枠＋部品。和風フレーム素材を背景に、中央和紙へ内容を載せる。
+// ホームの3カード共通の枠＋部品。ドラクエ風の「コマンドウィンドウ」= 紺地＋白の角丸二重枠。
+// (旧: 木目素材＋放電シェーダは廃止。ユーザー指定でDQ風のクリーンな枠に統一。)
 // useReveal=マウント時に0→1へ伸ばす共有アニメ(バーの伸び＋数値カウントアップ)。
 import { useEffect, useRef, useState } from 'react';
-import { View, Image, Animated, Easing, StyleSheet } from 'react-native';
-import ElectricShader from './ElectricShader';
+import { View, Animated, Easing, StyleSheet } from 'react-native';
 
-export const FRAME = require('../../assets/tabs/status_frame.png');
-export const FRAME_ASPECT = 640 / 823; // 濃茶木目枠(方式B)の実比率
-// 木目の暗色内側上のテキスト/バー色トークン。
-export const PC = { gold: '#ffe6a3', ink: '#f3e6cf', mute: '#cdb897', trackBg: 'rgba(14,8,20,0.72)', trackBorder: 'rgba(231,200,119,0.28)' };
+export const FRAME_ASPECT = 640 / 823; // カード縦横比(据え置き=ホームのレイアウト互換)。
+// DQ風ウィンドウ(紺地)上のテキスト/バー色トークン。寒色系・高コントラスト。
+export const PC = { gold: '#ffd76a', ink: '#eef2ff', mute: '#a9b4d6', trackBg: 'rgba(6,10,26,0.72)', trackBorder: 'rgba(180,200,255,0.30)' };
+// DQ風ウィンドウの地色(上→下でわずかに明→暗)。gradientライブラリ不使用のため単色帯を重ねて近似。
+const WIN = { top: '#1b2a58', bottom: '#0e1836', border: '#eef2ff', innerBorder: 'rgba(180,200,255,0.35)' };
 // メインバー=虹(参考実測: シアン→金→紫)。区分バー=紫グラデ(参考実測 #EDE6FF→#824EBD→#47387D)。
 export const RAMP = ['#66B0D7', '#7fd0c8', '#F6C569', '#e0943f', '#824EBD'];
 export const PURPLE_RAMP = ['#ede6ff', '#b79ae6', '#824EBD', '#47387D'];
@@ -51,24 +52,26 @@ export function AnimBar({ pct, progress, height = 15, segs = 16, gradient }: { p
   );
 }
 
-// 枠＋中央和紙＋動的電撃層(UVスクロール＋フリッカ)。子は中央和紙に載る。
+// DQ風コマンドウィンドウ。紺地の角丸＋白の外枠＋淡色の内枠、上に薄い明色帯で立体感。子は中央に載る。
 export default function FramedPanel({ width, children }: { width: number; children: React.ReactNode }) {
   const height = width / FRAME_ASPECT;
-  const pad = { paddingLeft: width * 0.20, paddingRight: width * 0.20, paddingTop: height * 0.14, paddingBottom: height * 0.13 };
-  const innerX = width * 0.19, innerY = height * 0.13, innerW = Math.round(width * 0.62), innerH = Math.round(height * 0.74);
   return (
-    <View style={{ width, height }}>
-      <Image source={FRAME} style={StyleSheet.absoluteFill} resizeMode="stretch" />
-      {/* 動的電撃層(中央和紙の上・内容の下)= expo-gl の GLSL シェーダ(UVスクロール＋加算合成グロー)。 */}
-      <View style={{ position: 'absolute', left: innerX, top: innerY, width: innerW, height: innerH, overflow: 'hidden', opacity: 0.9 }} pointerEvents="none">
-        <ElectricShader width={innerW} height={innerH} />
-      </View>
-      <View style={[StyleSheet.absoluteFill, pad]}>{children}</View>
+    <View style={[styles.win, { width, height }]}>
+      {/* 地色の縦グラデ近似: 下地(暗)の上に上半分だけ明色帯を重ねる。 */}
+      <View style={[StyleSheet.absoluteFill, { backgroundColor: WIN.bottom, borderRadius: 16 }]} />
+      <View style={[styles.topBand, { height: height * 0.5, backgroundColor: WIN.top }]} pointerEvents="none" />
+      {/* 内側の淡い二重枠(DQらしさ)。 */}
+      <View style={styles.innerBorder} pointerEvents="none" />
+      <View style={[StyleSheet.absoluteFill, { paddingHorizontal: width * 0.075, paddingVertical: height * 0.07 }]}>{children}</View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  win: { borderRadius: 16, borderWidth: 2, borderColor: WIN.border, overflow: 'hidden', backgroundColor: WIN.bottom,
+    shadowColor: '#000', shadowOpacity: 0.35, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 6 },
+  topBand: { position: 'absolute', left: 0, right: 0, top: 0, borderTopLeftRadius: 14, borderTopRightRadius: 14, opacity: 0.55 },
+  innerBorder: { position: 'absolute', left: 5, top: 5, right: 5, bottom: 5, borderRadius: 11, borderWidth: 1, borderColor: WIN.innerBorder },
   track: { position: 'relative', borderRadius: 7, overflow: 'hidden', backgroundColor: PC.trackBg, borderWidth: 1, borderColor: PC.trackBorder, flexDirection: 'row' },
   fill: { position: 'absolute', left: 0, top: 0, bottom: 0, borderRadius: 6, flexDirection: 'row', shadowOpacity: 0.8, shadowRadius: 4, shadowOffset: { width: 0, height: 0 } },
 });

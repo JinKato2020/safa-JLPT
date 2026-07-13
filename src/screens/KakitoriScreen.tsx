@@ -1,5 +1,6 @@
 // 漢字書き取り(級別・3ステップ)。描画/採点/書き順はエンジンWebView(HanziWriter同梱)に委譲。
-// フロー: なぞり(外形+アニメ)→見て書く→見ないで書く。自動合格＋常時[次へ/スキップ]で詰み防止。
+// フロー: 各字を なぞり(外形+アニメ)→見ながら書く→見ないで書く の3段。前進は全て手動[次へ]
+//   (自動前進しない=本人のペース。見ないでは[次へ]まで何度でも書き直せる)。[スキップ]で字ごと飛ばし。
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ActivityIndicator, Platform, ScrollView, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -103,10 +104,7 @@ export default function KakitoriScreen() {
   const readyRef = useRef(false);
 
   const [idx, setIdx] = useState(0);
-  const [step, setStep] = useState(0);
-  // フェーズ: practice=5字を3段練習(自動前進) / test=同じ5字をヒント無しで書き取りテスト(自動前進しない)。
-  const [phase, setPhase] = useState<'practice' | 'test'>('practice');
-  const testDoneRef = useRef<Record<string, boolean>>({}); // テストは字ごと1回だけ記録(多重記録防止)。
+  const [step, setStep] = useState(0); // 0=なぞり / 1=見ながら / 2=見ないで(各字この3段を手動[次へ]で進む)。
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -156,26 +154,18 @@ export default function KakitoriScreen() {
     else playKanjiRep(ch).then((ok) => { if (!ok) fallback(); });
   };
 
-  // 練習(5字×3段)が終わったら、同じ5字のヒント無しテスト(見ないで書く=step2)へ切替。
-  const startTest = () => { setPhase('test'); setIdx(0); setStep(2); testDoneRef.current = {}; loadChar(chars[0], 2); };
-  const goNextChar = (fromIdx: number, st: number) => {
-    const ni = fromIdx + 1; setIdx(ni);
-    if (ni < chars.length) loadChar(chars[ni], st);
+  // 前進は全て手動([次へ]/[スキップ])。各字を なぞり→見ながら→見ないで の3段で進め、
+  // 見ないで(step2)で[次へ]を押すと次の字へ。最後の字の[次へ]で done(=セッション終了)。
+  const nextChar = () => {
+    if (idx + 1 < chars.length) { setIdx(idx + 1); setStep(0); loadChar(chars[idx + 1], 0); }
+    else setIdx(chars.length); // 5字め完了 → done画面へ
   };
-  // 自動/手動を単一の前進関数に集約(タイミング競合を断つ)。
   const advance = () => {
     if (free) return;
-    if (phase === 'test') { goNextChar(idx, 2); return; } // テストは常に見ないで書く。[次へ]で次字。
-    if (step < 2) { const ns = step + 1; setStep(ns); loadChar(char, ns); return; }
-    if (idx + 1 < chars.length) { setIdx(idx + 1); setStep(0); loadChar(chars[idx + 1], 0); }
-    else startTest(); // 5字の練習完了 → テストへ
+    if (step < 2) { const ns = step + 1; setStep(ns); loadChar(char, ns); return; } // 同じ字の次の段へ
+    nextChar(); // 見ないで完了 → 次の字(または終了)
   };
-  const skipChar = () => {
-    if (free) return;
-    if (phase === 'test') { goNextChar(idx, 2); return; }
-    if (idx + 1 < chars.length) { setIdx(idx + 1); setStep(0); loadChar(chars[idx + 1], 0); }
-    else startTest();
-  };
+  const skipChar = () => { if (!free) nextChar(); }; // 字ごとスキップ(3段飛ばして次字)
 
   const onMessage = (e: WebViewMessageEvent) => {
     let m: { type?: string; mistakes?: number };
@@ -184,18 +174,12 @@ export default function KakitoriScreen() {
     if (m.type === 'mistake') { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {}); return; }
     if (m.type === 'complete') {
       if (free) return;
+      // 書けたら記録＋フィードバック。ただし自動前進しない=[次へ]は本人が選ぶ
+      // (見ないで(step2)は[次へ]を押すまで何度でも書き直せる)。
       const score = scoreForMistakes(m.mistakes ?? 0);
-      if (phase === 'test') {
-        // ヒント無しテスト: 字ごと1回だけ記録し、自動前進しない([次へ]まで書き直せる)。
-        if (!testDoneRef.current[char]) { testDoneRef.current[char] = true; recordKakitori(char, 3, score, { skipped: false, now: Date.now() }); }
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
-        speak(char);
-        return;
-      }
       recordKakitori(char, step + 1, score, { skipped: false, now: Date.now() });
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
       if (step >= 2) speak(char);
-      setTimeout(advance, 700);
     }
   };
 
@@ -229,12 +213,12 @@ export default function KakitoriScreen() {
           <View style={{ flex: 1 }}>
             <Text style={s.infoReading}>{readingLine(char)}</Text>
             <Text style={s.infoMeaning} numberOfLines={1}>{info?.meaning ?? ''}</Text>
-            {!!exampleWord(char) && phase !== 'test' && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
+            {!!exampleWord(char) && (free ? freeStep : step) !== 2 && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
           </View>
           <Pressable onPress={() => speak(char, { manual: true })} hitSlop={10}><Ionicons name="headset-outline" size={26} color={c.blue} /></Pressable>
         </View>
 
-        {!free && phase === 'practice' && (
+        {!free && (
           <View style={s.dots}>
             {[0, 1, 2].map((i) => (
               <View key={i} style={s.dotWrap}>
@@ -242,12 +226,6 @@ export default function KakitoriScreen() {
                 <Text style={[s.dotLabel, i === step && s.dotLabelOn]}>{t(STEP_KEYS[i])}</Text>
               </View>
             ))}
-          </View>
-        )}
-        {!free && phase === 'test' && (
-          <View style={s.testBanner}>
-            <Text style={s.testPhase}>{t('learntestsession.test_phase')}</Text>
-            <Text style={s.testProg}>{t('learntestsession.test_progress', { n: idx + 1, m: chars.length })}・{t('kakitori.step_recall')}</Text>
           </View>
         )}
         {free && (
@@ -291,8 +269,8 @@ export default function KakitoriScreen() {
           </Pressable>
         </View>
         <View style={s.toolbar}>
-          {/* お手本はヒント。テスト(ヒント無し)では隠す。 */}
-          {phase !== 'test' && (
+          {/* お手本はヒント。見ないで(step2)では隠してヒント無しにする。 */}
+          {(free ? freeStep : step) !== 2 && (
             <Pressable onPress={() => { if (readyRef.current) inject('KW.showAnswer()'); }} style={s.tool}><Text style={s.toolTxt}>↻ {t('kakitori.show_model')}</Text></Pressable>
           )}
           <Pressable onPress={() => { if (readyRef.current) inject('KW.clear()'); }} style={s.tool}><Text style={s.toolTxt}>{t('kakitori.clear')}</Text></Pressable>

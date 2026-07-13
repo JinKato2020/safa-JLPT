@@ -13,7 +13,7 @@ export type LQQuestion = {
 };
 
 const KANJI_RE = /[一-龿々〆]/;
-function kanjiSet(s: string): Set<string> { const o = new Set<string>(); for (const c of s) if (KANJI_RE.test(c)) o.add(c); return o; }
+function kanjiSet(s: string): Set<string> { const o = new Set<string>(); for (const c of s ?? '') if (KANJI_RE.test(c)) o.add(c); return o; }
 function shuffle<T>(arr: T[], rng: () => number): T[] {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)) % (i + 1); [a[i], a[j]] = [a[j], a[i]]; }
@@ -26,13 +26,16 @@ export function pickItems<T extends { id: string }>(pool: T[], count: number, rn
 
 /** 語彙ダミー: 共通漢字>読み長/かな一致 でスコアし近いプールから。不足は補充。 */
 export function nearDistractors(correct: LQItem, pool: LQItem[], count: number, rng: () => number): LQItem[] {
-  const ck = kanjiSet(correct.word); const cr = correct.reading;
+  // 一部の語彙は reading が null/欠損(かな見出し語 等)。ガード無しで .length/[0] を触ると
+  // 生成が throw → ルート防波堤で全画面クラッシュするため、必ず空文字にフォールバックする。
+  const ck = kanjiSet(correct.word); const cr = correct.reading ?? '';
   const scored = pool
     .filter((p) => p.id !== correct.id && p.word !== correct.word && p.meaning !== correct.meaning)
     .map((p) => {
+      const pr = p.reading ?? '';
       let s = 0; for (const k of kanjiSet(p.word)) if (ck.has(k)) s += 3;
-      if (p.reading.length === cr.length) s += 1;
-      if (p.reading[0] === cr[0] || p.reading[p.reading.length - 1] === cr[cr.length - 1]) s += 1;
+      if (pr.length === cr.length) s += 1;
+      if (pr[0] === cr[0] || pr[pr.length - 1] === cr[cr.length - 1]) s += 1;
       return { p, s };
     });
   const near = scored.filter((x) => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 20).map((x) => x.p);
