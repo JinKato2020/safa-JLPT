@@ -3,8 +3,8 @@
 //  - SceneTitle: イラスト上部中央の見出し。
 //  - BottomIconBar / TabIconButton: イラスト下端(ボトムナビの上)に置く小アイコンの操作列。
 //  - Hotspot: 背景の描き込み要素に重ねる透明タップ領域(必要時)。
-import React, { useEffect, useRef } from 'react';
-import { View, Text, Image, Animated, Pressable, StyleSheet, type DimensionValue, type ImageSourcePropType } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, Image, Animated, Pressable, ScrollView, StyleSheet, useWindowDimensions, type DimensionValue, type ImageSourcePropType } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export const IMMERSIVE = {
@@ -67,7 +67,9 @@ export function TabIconButton({ glyph, icon, label, accent, count, active, onPre
   );
 }
 
-// タブ下端の操作列: 各アイコンをタップ＝即その区分の画面へ遷移(ポップオーバーの「開く」二度手間は廃止)。
+// タブ下端の操作列のエントリ。
+//  - renderCard を持つボタン = タップでそのカードを「ボタンの上」にトグル表示(画面遷移も背景スクロールも無し)。
+//  - renderCard が無いボタン = 従来どおり onGo() を実行(出題・一覧などのフローへ遷移)。
 export type TabEntry = {
   key: string;
   glyph?: string;
@@ -75,8 +77,9 @@ export type TabEntry = {
   label: string;        // ボタンのラベル
   accent: string;
   count?: number;       // ボタンの件数バッジ(任意)
-  disabled?: boolean;   // 遷移を無効化(例: 模試ロック中)
-  onGo: () => void;     // タップで実行(直接遷移)
+  disabled?: boolean;   // 無効化(例: 模試ロック中)
+  onGo?: () => void;    // タップで実行(遷移系ボタン)。renderCard があるボタンでは不要
+  renderCard?: () => React.ReactNode; // タップでボタン上に出すカード(遅延生成)
 };
 
 export function PopoverBar({ entries }: { entries: TabEntry[] }) {
@@ -90,10 +93,78 @@ export function PopoverBar({ entries }: { entries: TabEntry[] }) {
           label={e.label}
           accent={e.accent}
           count={e.count}
-          onPress={() => { if (!e.disabled) e.onGo(); }}
+          onPress={() => { if (!e.disabled) e.onGo?.(); }}
         />
       ))}
     </BottomIconBar>
+  );
+}
+
+// 没入タブの統合部品: 全画面背景イラスト＋下端ボタン列＋「ボタン上トグル・ポップオーバー」。
+//  - renderCard を持つボタンをタップ = その区分カードをボタン列の"すぐ上"にフロート表示。
+//    画面遷移せず、背景イラストも動かさない。再タップ or 背景の薄暗幕タップで閉じる(開くのは常に1枚)。
+//  - カードは maxHeight でキャップし、超過分はカード内スクロール。初期は何も開かない(イラストが主役)。
+//  - hotspots = 背景の描き込み要素に重ねる透明タップ領域。対応する key のカードをトグルする。
+export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, hotspots }: {
+  source: ImageSourcePropType;
+  blinkSource?: ImageSourcePropType;
+  scrim?: number;
+  title?: React.ReactNode;
+  entries: TabEntry[];
+  hotspots?: { key: string; area: Area; label?: string }[];
+}) {
+  const { height } = useWindowDimensions();
+  const [openKey, setOpenKey] = useState<string | null>(null);
+  const activeEntry = entries.find((e) => e.key === openKey && e.renderCard);
+
+  const handle = (e: TabEntry) => {
+    if (e.disabled) return;
+    if (e.renderCard) setOpenKey((k) => (k === e.key ? null : e.key));
+    else { setOpenKey(null); e.onGo?.(); }
+  };
+  const toggleKey = (key: string) => {
+    const e = entries.find((x) => x.key === key);
+    if (e) handle(e);
+  };
+
+  return (
+    <View style={styles.fill}>
+      <TabBackground source={source} blinkSource={blinkSource} scrim={scrim}>
+        {title != null ? <SceneTitle>{title}</SceneTitle> : null}
+        {hotspots?.map((h) => (
+          <Hotspot key={h.key} area={h.area} label={h.label} onPress={() => toggleKey(h.key)} />
+        ))}
+        {activeEntry ? (
+          <>
+            <Pressable style={styles.popScrim} onPress={() => setOpenKey(null)} accessibilityLabel="close" />
+            <View style={styles.popWrap} pointerEvents="box-none">
+              <ScrollView
+                style={{ maxHeight: height * 0.62 }}
+                contentContainerStyle={styles.popScrollContent}
+                showsVerticalScrollIndicator={false}
+                bounces={false}
+              >
+                {activeEntry.renderCard!()}
+              </ScrollView>
+            </View>
+          </>
+        ) : null}
+        <BottomIconBar>
+          {entries.map((e) => (
+            <TabIconButton
+              key={e.key}
+              glyph={e.glyph}
+              icon={e.icon}
+              label={e.label}
+              accent={e.accent}
+              count={e.count}
+              active={openKey === e.key && !!e.renderCard}
+              onPress={() => handle(e)}
+            />
+          ))}
+        </BottomIconBar>
+      </TabBackground>
+    </View>
   );
 }
 
@@ -127,8 +198,10 @@ const styles = StyleSheet.create({
   btnLabel: { fontSize: 10.5, fontWeight: '800', color: '#fff', textShadowColor: 'rgba(0,0,0,0.7)', textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 3 },
   badge: { position: 'absolute', top: -4, right: -6, minWidth: 16, fontSize: 10, fontWeight: '800', color: '#fff', borderRadius: 8, paddingHorizontal: 4, textAlign: 'center', overflow: 'hidden' },
   // ポップオーバー(タップしたアイコンの上に出るカード)。
-  popScrim: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 82 },
+  // popScrim=カードの外側全面をタップで閉じる薄暗幕(ボタン列の上まで)。
+  popScrim: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 82, backgroundColor: 'rgba(0,0,0,0.18)' },
   popWrap: { position: 'absolute', left: 10, right: 10, bottom: 84 },
+  popScrollContent: { paddingBottom: 2 },
   popCard: {
     flexDirection: 'row', alignItems: 'center', gap: 12,
     backgroundColor: 'rgba(255,251,244,0.96)', borderRadius: 18, borderWidth: 1, borderColor: 'rgba(184,146,74,0.55)',

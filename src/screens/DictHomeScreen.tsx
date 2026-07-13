@@ -1,11 +1,12 @@
-// 辞書タブ = 没入する図書館。上部=全画面イラスト(ヒーロー)＋下端アイコン列。
-// 語/漢/文 をタップ＝画面遷移せず、下に その辞書のカード(件数＋リストを開く)を表示。★My単語帳はモーダル。
-import { useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
+// 辞書タブ = 没入する図書館。全画面イラスト(ヒーロー)＋下端アイコン列。
+// 語/漢/文 をタップ＝画面遷移せず・背景も動かさず、そのボタンの上に その辞書のカード(件数＋一覧を開く)を
+// トグル表示。★My単語帳はモーダルへ遷移。
+import { useMemo } from 'react';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList, DictStackParamList, Kubun } from '../navigation/types';
-import { TabBackground, PopoverBar, type TabEntry } from '../components/TabScene';
+import { ImmersiveTab, type TabEntry } from '../components/TabScene';
 import { useTabBg, useTabBlink } from '../data/tabArt';
 import { useAppState } from '../store/store';
 import { coverageBars } from '../store/selectors';
@@ -13,7 +14,8 @@ import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from
 import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<DictStackParamList & RootStackParamList>;
-const DICTS: { view: Kubun; glyph: string; labelKey: string; accent: string }[] = [
+type Dict = { view: Kubun; glyph: string; labelKey: string; accent: string };
+const DICTS: Dict[] = [
   { view: 'vocab', glyph: '語', labelKey: 'browse.vocab', accent: '#3f9d5a' },
   { view: 'kanji', glyph: '漢', labelKey: 'browse.kanji', accent: '#d9743f' },
   { view: 'grammar', glyph: '文', labelKey: 'browse.grammar', accent: '#7b6bd6' },
@@ -29,47 +31,41 @@ export default function DictHomeScreen() {
   const now = Date.now();
   const bg = useTabBg('dict');
   const blinkBg = useTabBlink('dict');
-  const { height } = useWindowDimensions();
-  const [sel, setSel] = useState<Kubun>('vocab');
-  const scrollRef = useRef<ScrollView>(null);
-  const heroH = height * 0.82;
-  const pick = (v: Kubun) => { setSel(v); requestAnimationFrame(() => scrollRef.current?.scrollTo({ y: heroH * 0.62, animated: true })); };
-
   const cov = useMemo(() => coverageBars(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
-  const meta = DICTS.find((d) => d.view === sel)!;
-  const b = cov.find((x) => x.key === sel) ?? { learned: 0, total: 0 };
+
+  const dictCard = (d: Dict) => () => {
+    const b = cov.find((x) => x.key === d.view) ?? { learned: 0, total: 0 };
+    return (
+      <View style={s.card}>
+        <View style={s.cardHead}>
+          <View style={[s.badge, { backgroundColor: d.accent }]}><Text style={s.badgeTxt}>{d.glyph}</Text></View>
+          <Text style={s.cardTitle}>{t(d.labelKey)}</Text>
+          <Text style={s.count}>{b.total}</Text>
+        </View>
+        <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('DictList', { view: d.view })}>
+          <Text style={s.linkTxt}>{t('dict.open_list')}</Text><Text style={s.chevron}>›</Text>
+        </Pressable>
+      </View>
+    );
+  };
 
   return (
     <View style={[styles.c, { backgroundColor: c.bg }]}>
-      <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
-        <View style={{ height: heroH }}>
-          <TabBackground source={bg} blinkSource={blinkBg} scrim={0.1}>
-            <PopoverBar entries={[
-              ...DICTS.map((d) => ({ key: d.view, glyph: d.glyph, label: t(d.labelKey), accent: d.accent, onGo: () => pick(d.view) })),
-              { key: 'mywords', glyph: '★', label: t('mywords.card'), accent: '#c05580', count: myList?.length ?? 0, onGo: () => nav.navigate('MyWords') },
-            ] as TabEntry[]} />
-          </TabBackground>
-        </View>
-        <View style={styles.cardArea}>
-          <View style={s.card}>
-            <View style={s.cardHead}>
-              <View style={[s.badge, { backgroundColor: meta.accent }]}><Text style={s.badgeTxt}>{meta.glyph}</Text></View>
-              <Text style={s.cardTitle}>{t(meta.labelKey)}</Text>
-              <Text style={s.count}>{b.total}</Text>
-            </View>
-            <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('DictList', { view: sel })}>
-              <Text style={s.linkTxt}>{t('dict.open_list')}</Text><Text style={s.chevron}>›</Text>
-            </Pressable>
-          </View>
-        </View>
-      </ScrollView>
+      <ImmersiveTab
+        source={bg}
+        blinkSource={blinkBg}
+        scrim={0.1}
+        entries={[
+          ...DICTS.map((d) => ({ key: d.view, glyph: d.glyph, label: t(d.labelKey), accent: d.accent, renderCard: dictCard(d) })),
+          { key: 'mywords', glyph: '★', label: t('mywords.card'), accent: '#c05580', count: myList?.length ?? 0, onGo: () => nav.navigate('MyWords') },
+        ] as TabEntry[]}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   c: { flex: 1 },
-  cardArea: { padding: 16, paddingBottom: 40 },
 });
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   card: { ...shadow(1), backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.sm },
