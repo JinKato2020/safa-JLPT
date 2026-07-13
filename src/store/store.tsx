@@ -11,6 +11,7 @@ import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
+import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, type ShopKind } from './wallet';
 
 type Action =
   | { type: 'HYDRATE'; state: AppState }
@@ -21,6 +22,10 @@ type Action =
   | { type: 'KAKITORI_PROGRESS'; char: string; step: number; score: number; skipped?: boolean; now?: number }
   | { type: 'ADD_TO_MY_LIST'; ref: SaveRef }
   | { type: 'ADD_STUDY_SECONDS'; sec: number }
+  | { type: 'ADD_POINTS'; amount: number; now: number; cap?: boolean }
+  | { type: 'AWARD_ONCE'; key: string; amount: number }
+  | { type: 'BUY_ITEM'; item: { id: string; price: number }; now: number }
+  | { type: 'EQUIP_ITEM'; item: { id: string; kind: ShopKind } }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -73,6 +78,14 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, myList: toggleMyList(state.myList ?? [], action.ref) };
     case 'ADD_STUDY_SECONDS':
       return { ...state, studySeconds: (state.studySeconds ?? 0) + Math.max(0, Math.round(action.sec)) };
+    case 'ADD_POINTS':
+      return walletAdd(state, action.amount, action.now, { cap: action.cap });
+    case 'AWARD_ONCE':
+      return walletAwardOnce(state, action.key, action.amount);
+    case 'BUY_ITEM':
+      return walletBuy(state, action.item, action.now);
+    case 'EQUIP_ITEM':
+      return walletEquip(state, action.item);
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -126,16 +139,27 @@ export function useAppActions() {
     quizAnswer: (itemId: string, correct: boolean) => {
       recordAnswer(itemId, correct); // 全回答を匿名記録(問題別正答率の資源化)
       dispatch({ type: 'QUIZ_ANSWER', itemId, correct, now: Date.now() });
+      if (correct) dispatch({ type: 'ADD_POINTS', amount: 2, now: Date.now(), cap: true });
     },
     mockAnswer: (itemId: string, correct: boolean) => {
       recordAnswer(itemId, correct);
       dispatch({ type: 'MOCK_ANSWER', itemId, correct, now: Date.now() });
+      if (correct) dispatch({ type: 'ADD_POINTS', amount: 2, now: Date.now(), cap: true });
     },
-    recordMockResult: (result: MockResult) => dispatch({ type: 'RECORD_MOCK', result }),
-    recordKakitori: (char: string, step: number, score: number, opts?: { skipped?: boolean; now?: number }) =>
-      dispatch({ type: 'KAKITORI_PROGRESS', char, step, score, skipped: opts?.skipped, now: opts?.now }),
+    recordMockResult: (result: MockResult) => {
+      dispatch({ type: 'RECORD_MOCK', result });
+      dispatch({ type: 'ADD_POINTS', amount: 50, now: Date.now(), cap: true }); // 模試完了
+    },
+    recordKakitori: (char: string, step: number, score: number, opts?: { skipped?: boolean; now?: number }) => {
+      dispatch({ type: 'KAKITORI_PROGRESS', char, step, score, skipped: opts?.skipped, now: opts?.now });
+      if (step >= 3 && !opts?.skipped && score >= 2) dispatch({ type: 'ADD_POINTS', amount: 5, now: Date.now(), cap: true }); // 漢字マスター
+    },
     addToMyList: (ref: SaveRef) => dispatch({ type: 'ADD_TO_MY_LIST', ref }),
     addStudySeconds: (sec: number) => dispatch({ type: 'ADD_STUDY_SECONDS', sec }),
+    addPoints: (amount: number, opts?: { cap?: boolean }) => dispatch({ type: 'ADD_POINTS', amount, now: Date.now(), cap: opts?.cap }),
+    awardOnce: (key: string, amount: number) => dispatch({ type: 'AWARD_ONCE', key, amount }),
+    buyItem: (item: { id: string; price: number }) => dispatch({ type: 'BUY_ITEM', item, now: Date.now() }),
+    equipItem: (item: { id: string; kind: ShopKind }) => dispatch({ type: 'EQUIP_ITEM', item }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     reset: () => {
       clearState();
