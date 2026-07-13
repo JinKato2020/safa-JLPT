@@ -1,13 +1,15 @@
-// 継続カード(3カードの1枚)。和風フレーム中央に 継続日数(大)＋今週の点＋最長/凍結＋直近4週の点図。
+// カード③(継続)。DQ風: 称号＋合格到達Lv(共通ヘッダー)＋継続日数(大)＋総学習時間＋今週/直近4週の点図。
 import { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useAppState } from '../store/store';
 import { dayStr, lastNDays } from '../store/state';
 import { useT } from '../i18n';
+import { studyHM, type HomeStatus } from './homeStatus';
 import FramedPanel, { PC, useReveal } from './FramedPanel';
+import StatusHeader from './StatusHeader';
 
 const GOLD = '#f2c14e';
-export default function StreakCard({ width }: { width: number }) {
+export default function StreakCard({ data, width }: { data: HomeStatus; width: number }) {
   const t = useT();
   const state = useAppState();
   const { frac } = useReveal();
@@ -16,13 +18,20 @@ export default function StreakCard({ width }: { width: number }) {
   const week = lastNDays(today, 7);
   const month = lastNDays(today, 28);
   const cu = (n: number) => Math.round(n * frac);
+  const { h, m } = studyHM(data.studySeconds);
 
   return (
     <FramedPanel width={width}>
-      <Text style={s.title}>{t('home.section_streak')}</Text>
-      <View style={s.bigRow}>
-        <Text style={s.fire}>🔥</Text>
-        <Text style={s.big}>{t('status.days', { n: cu(state.streak.current) })}</Text>
+      <StatusHeader passPct={data.passPct} rankTitleKey={data.rankTitleKey} />
+      <View style={s.statRow}>
+        <View style={s.stat}>
+          <Text style={s.statLbl}>{t('home.section_streak')}</Text>
+          <Text style={s.big}>🔥{t('status.days', { n: cu(state.streak.current) })}</Text>
+        </View>
+        <View style={s.stat}>
+          <Text style={s.statLbl}>{t('status.studytime_label')}</Text>
+          <Text style={s.big}>{h > 0 ? t('status.time_hm', { h, m }) : t('status.time_m', { m })}</Text>
+        </View>
       </View>
       <View style={s.week}>
         {week.map((d) => (
@@ -40,15 +49,15 @@ export default function StreakCard({ width }: { width: number }) {
 }
 
 const s = StyleSheet.create({
-  title: { color: PC.gold, fontWeight: '900', fontSize: 14, fontFamily: 'ShipporiMincho-Bold', marginBottom: 6 },
-  bigRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
-  fire: { fontSize: 30 },
-  big: { color: PC.ink, fontWeight: '900', fontSize: 34, fontFamily: 'ShipporiMincho-Bold' },
-  week: { flexDirection: 'row', gap: 8, marginBottom: 10 },
-  dot: { width: 20, height: 20, borderRadius: 10, backgroundColor: 'rgba(255,255,255,0.12)' },
+  statRow: { flexDirection: 'row', gap: 10, marginBottom: 8 },
+  stat: { flex: 1 },
+  statLbl: { color: PC.gold, fontWeight: '800', fontSize: 11, fontFamily: 'ShipporiMincho-Bold' },
+  big: { color: PC.ink, fontWeight: '900', fontSize: 20, fontFamily: 'ShipporiMincho-Bold', marginTop: 2 },
+  week: { flexDirection: 'row', gap: 7, marginBottom: 8 },
+  dot: { width: 18, height: 18, borderRadius: 9, backgroundColor: 'rgba(255,255,255,0.12)' },
   dotOn: { backgroundColor: GOLD },
   dotToday: { borderWidth: 2, borderColor: '#fff' },
-  meta: { color: PC.mute, fontSize: 12, marginBottom: 10 },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, width: 7 * 20 + 6 * 6 },
-  gdot: { width: 14, height: 14, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.1)' },
+  meta: { color: PC.mute, fontSize: 11.5, marginBottom: 8 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 5, width: 7 * 18 + 6 * 5 },
+  gdot: { width: 13, height: 13, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.1)' },
 });

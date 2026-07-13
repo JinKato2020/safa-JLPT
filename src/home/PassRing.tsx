@@ -3,7 +3,6 @@
 //  - リング内(穴の上寄り中央) = 到達度の数字％＋「到達度」ラベル。
 //  - その下 = 桜巫女(guide_open)。%は動的・キャラは別レイヤーで差し替え可。
 import { View, Text, Image, StyleSheet, type ImageSourcePropType } from 'react-native';
-import { badgeTierIndex } from '../data/badges';
 import { useT } from '../i18n';
 
 const RINGS: ImageSourcePropType[] = [
@@ -24,12 +23,15 @@ const GIRL_AR = 600 / 670; // 元画像の縦横比(w/h)
 export default function PassRing({ pct, size }: { pct: number; size: number }) {
   const t = useT();
   const p = Math.max(0, Math.min(100, Math.round(pct)));
-  const tier = badgeTierIndex(p); // 0..9 → リング 01..10
+  // 主役は常に「完成した黒い墨絵の丸」。到達度で 03(黒い丸)→10(金・桜満開)へ成長。
+  // 薄い未完成の段01-02はヒーローに使わない(0%でも丸が見える)。
+  const ringNum = 3 + Math.round((p / 100) * 7); // 3..10
+  const ring = RINGS[ringNum - 1];
   const girlH = size * 0.48;
 
   return (
     <View style={{ width: size, height: size }}>
-      <Image source={RINGS[tier]} style={{ position: 'absolute', width: size, height: size }} resizeMode="contain" />
+      <Image source={ring} style={{ position: 'absolute', width: size, height: size }} resizeMode="contain" />
 
       {/* 到達度%(穴の上寄り中央)。背景が多彩なので淡い和紙下地を敷いて可読性を確保。 */}
       <View style={[styles.pctWrap, { top: size * 0.26 }]} pointerEvents="none">
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
   pctWrap: { position: 'absolute', left: 0, right: 0, alignItems: 'center' },
   plate: { alignItems: 'center', backgroundColor: 'rgba(255,251,244,0.66)' },
   pct: {
-    fontWeight: '900', color: '#2b2b2b', lineHeight: undefined,
+    fontWeight: '500', color: '#2b2b2b', lineHeight: undefined,
     textShadowColor: 'rgba(255,255,255,0.55)', textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 6,
   },
   lbl: { fontWeight: '800', color: '#6a5a42', marginTop: 2, textShadowColor: 'rgba(255,255,255,0.5)', textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 4 },

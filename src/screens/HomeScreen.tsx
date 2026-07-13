@@ -1,15 +1,18 @@
-// ホーム = 合格到達度リングを中央に据えたシンプル画面。
-// 背景=HOME.png 全画面／中央=合格リング(到達度で段位が成る)＋到達度％＋桜巫女。
-// 上部の共通バー(アカウント/JLPTレベル/設定/通知)は MainTabs のオーバーレイで別途表示。
-import { useMemo, useEffect } from 'react';
-import { View, StyleSheet, useWindowDimensions } from 'react-native';
+// ホーム = DQ風ステータスを主役に。背景=HOME.png 全画面／中央に3枚のステータスカードを横スワイプ。
+//  ①正解率(5区分＋合格到達Lv推移)②カバー率(分数＋覚えた数推移)③継続(継続日数＋総学習時間)。
+//  称号＋合格到達Lv は各カード共通ヘッダー。上部の共通バーは MainTabs のオーバーレイ。
+import { useMemo, useState, useEffect } from 'react';
+import { View, ScrollView, StyleSheet, type NativeSyntheticEvent, type NativeScrollEvent, useWindowDimensions } from 'react-native';
 import { useAppState, useAppActions } from '../store/store';
-import { learnedNow } from '../store/selectors';
+import { learnedNow, growthSeries } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { TabBackground } from '../components/TabScene';
 import { HOME_BG } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
-import PassRing from '../home/PassRing';
+import StatusPanel from '../home/StatusPanel';
+import CoverageCard from '../home/CoverageCard';
+import StreakCard from '../home/StreakCard';
+import { FRAME_ASPECT } from '../home/FramedPanel';
 import SafeBoundary from '../components/SafeBoundary';
 
 export default function HomeScreen() {
@@ -18,6 +21,11 @@ export default function HomeScreen() {
   const { width, height } = useWindowDimensions();
 
   const status = useMemo(() => homeStatus(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
+  const { lvTrend, wordTrend } = useMemo(() => {
+    const g = growthSeries(state).slice(-10);
+    return { lvTrend: g.map((p) => p.passProb ?? 0), wordTrend: g.map((p) => p.learned ?? 0) };
+  }, [state]);
+
   const { awardOnce } = useAppActions();
   // 継続・上達の桜貝付与(awardOnce が二重付与を防ぐので毎マウント呼んで安全)。
   useEffect(() => {
@@ -34,15 +42,32 @@ export default function HomeScreen() {
     for (let k = 1; k <= Math.floor(learned / 100); k++) awardOnce('learned' + (k * 100), 30);
   }, [state, status.passPct]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const ringSize = Math.min(width * 0.88, height * 0.62);
+  const cardW = Math.min(width * 0.86, 330);
+  const cardH = cardW / FRAME_ASPECT;
+  const [page, setPage] = useState(0);
+  const onPage = (e: NativeSyntheticEvent<NativeScrollEvent>) => setPage(Math.round(e.nativeEvent.contentOffset.x / cardW));
+  const top = Math.max(height * 0.1, (height - cardH) / 2 - 20);
 
   return (
     <View style={styles.c}>
       <TabBackground source={HOME_BG}>
-        <View style={styles.center} pointerEvents="box-none">
-          <SafeBoundary tag="passring" fallback={null}>
-            <PassRing pct={status.passPct} size={ringSize} />
+        <View style={[styles.panelWrap, { top, width: cardW, height: cardH + 22, left: (width - cardW) / 2 }]}>
+          <SafeBoundary tag="homecards" fallback={null}>
+            <ScrollView
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              style={{ width: cardW, height: cardH }}
+              onMomentumScrollEnd={onPage}
+            >
+              <StatusPanel data={status} lvTrend={lvTrend} width={cardW} />
+              <CoverageCard data={status} wordTrend={wordTrend} width={cardW} />
+              <StreakCard data={status} width={cardW} />
+            </ScrollView>
           </SafeBoundary>
+          <View style={styles.dots}>
+            {[0, 1, 2].map((i) => <View key={i} style={[styles.dot, page === i && styles.dotOn]} />)}
+          </View>
         </View>
       </TabBackground>
     </View>
@@ -51,5 +76,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   c: { flex: 1 },
-  center: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
+  panelWrap: { position: 'absolute' },
+  dots: { flexDirection: 'row', justifyContent: 'center', gap: 7, marginTop: 8 },
+  dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.35)' },
+  dotOn: { backgroundColor: '#ffe6a3', width: 9, height: 9, borderRadius: 5 },
 });
