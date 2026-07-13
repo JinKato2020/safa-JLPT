@@ -2,9 +2,9 @@
 // useReveal=マウント時に0→1へ伸ばす共有アニメ(バーの伸び＋数値カウントアップ)。
 import { useEffect, useRef, useState } from 'react';
 import { View, Image, Animated, Easing, StyleSheet } from 'react-native';
+import ElectricShader from './ElectricShader';
 
 export const FRAME = require('../../assets/tabs/status_frame.png');
-export const ELEC = require('../../assets/tabs/electric_tex.png');
 export const FRAME_ASPECT = 720 / 987;
 // 和紙(暗色)上のテキスト/バー色トークン。
 export const PC = { gold: '#ffe6a3', ink: '#f3e6cf', mute: '#cdb897', trackBg: 'rgba(10,8,20,0.65)', trackBorder: 'rgba(231,200,119,0.25)' };
@@ -52,26 +52,13 @@ export function AnimBar({ pct, color, progress, height = 15, segs = 16, gradient
 export default function FramedPanel({ width, children }: { width: number; children: React.ReactNode }) {
   const height = width / FRAME_ASPECT;
   const pad = { paddingLeft: width * 0.17, paddingRight: width * 0.14, paddingTop: height * 0.095, paddingBottom: height * 0.085 };
-  const innerX = width * 0.15, innerY = height * 0.08, innerW = width * 0.72, innerH = height * 0.84;
-  const scroll = useRef(new Animated.Value(0)).current;
-  const flicker = useRef(new Animated.Value(0.3)).current;
-  useEffect(() => {
-    const sc = Animated.loop(Animated.timing(scroll, { toValue: 1, duration: 7000, easing: Easing.linear, useNativeDriver: true }));
-    const fl = Animated.loop(Animated.sequence([
-      Animated.timing(flicker, { toValue: 0.42, duration: 140, useNativeDriver: true }),
-      Animated.timing(flicker, { toValue: 0.12, duration: 260, useNativeDriver: true }),
-      Animated.timing(flicker, { toValue: 0.3, duration: 420, useNativeDriver: true }),
-    ]));
-    sc.start(); fl.start();
-    return () => { sc.stop(); fl.stop(); };
-  }, [scroll, flicker]);
-  const tx = scroll.interpolate({ inputRange: [0, 1], outputRange: [0, -innerW] });
+  const innerX = width * 0.15, innerY = height * 0.08, innerW = Math.round(width * 0.72), innerH = Math.round(height * 0.84);
   return (
     <View style={{ width, height }}>
       <Image source={FRAME} style={StyleSheet.absoluteFill} resizeMode="stretch" />
-      {/* 動的電撃層(中央和紙の上・内容の下)。透過テクスチャを横スクロール＋フリッカ。 */}
-      <View style={{ position: 'absolute', left: innerX, top: innerY, width: innerW, height: innerH, overflow: 'hidden' }} pointerEvents="none">
-        <Animated.Image source={ELEC} style={{ position: 'absolute', width: innerW * 2, height: innerH, opacity: flicker, transform: [{ translateX: tx }] }} resizeMode="cover" />
+      {/* 動的電撃層(中央和紙の上・内容の下)= expo-gl の GLSL シェーダ(UVスクロール＋加算合成グロー)。 */}
+      <View style={{ position: 'absolute', left: innerX, top: innerY, width: innerW, height: innerH, overflow: 'hidden', opacity: 0.55 }} pointerEvents="none">
+        <ElectricShader width={innerW} height={innerH} />
       </View>
       <View style={[StyleSheet.absoluteFill, pad]}>{children}</View>
     </View>
