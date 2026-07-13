@@ -10,7 +10,8 @@ import { Audio } from 'expo-av';
 import { playVocab } from '../data/vocabAudio';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
-import { useAppState } from '../store/store';
+import { useAppState, useAppActions } from '../store/store';
+import { isInMyList, type SaveRef } from '../store/state';
 import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, cardFaceReadings } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
@@ -62,7 +63,8 @@ function cardReadingLines(char: string, userLevel: string): CardLine[] {
 
 export default function BrowseScreen() {
   const t = useT();
-  const { settings, items } = useAppState();
+  const { settings, items, myList } = useAppState();
+  const { addToMyList } = useAppActions();
   // 辞書は常にルビ表示(引くためのツールなので、レベル適応ゲートを免除して全漢字にルビ)。
   const rubyGate = (_run?: string) => true;
   const nav = useNavigation<Nav>();
@@ -162,6 +164,21 @@ export default function BrowseScreen() {
     );
   };
 
+  // 単語帳(my単語帳)へ追加/解除するトグルボタン。語彙・文法の各行に置く。
+  const SaveButton = ({ refItem }: { refItem: SaveRef }) => {
+    const saved = isInMyList(myList ?? [], refItem);
+    return (
+      <Pressable
+        style={s.saveBtn}
+        hitSlop={10}
+        onPress={() => addToMyList(refItem)}
+        accessibilityLabel={t(saved ? 'mywords.added' : 'mywords.add')}
+      >
+        <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={20} color={saved ? c.blue : c.mute} />
+      </Pressable>
+    );
+  };
+
   const renderItem = ({ item }: { item: StudyItem }) => {
     const playWord = (id: string, reading: string) => {
       playVocab(id).then((ok) => {
@@ -252,18 +269,29 @@ export default function BrowseScreen() {
       return (
         <View style={s.row}>
           {rowInner}
-          <Pressable
-            style={s.playBtn}
-            hitSlop={10}
-            onPress={() => playWord(item.id, item.reading)}
-            accessibilityLabel={`${item.word} を再生`}
-          >
-            <Ionicons name="play" size={20} color={c.mute} />
-          </Pressable>
+          <View style={s.rowBtns}>
+            <Pressable
+              style={s.playBtn}
+              hitSlop={10}
+              onPress={() => playWord(item.id, item.reading)}
+              accessibilityLabel={`${item.word} を再生`}
+            >
+              <Ionicons name="play" size={20} color={c.mute} />
+            </Pressable>
+            <SaveButton refItem={{ type: 'vocab', id: item.id }} />
+          </View>
         </View>
       );
     }
-    return <View style={s.row}>{rowInner}</View>;
+    // 文法
+    return (
+      <View style={s.row}>
+        {rowInner}
+        <View style={s.rowBtns}>
+          <SaveButton refItem={{ type: 'grammar', id: item.id }} />
+        </View>
+      </View>
+    );
   };
 
   return (
@@ -372,6 +400,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     gap: spacing.sm,
   },
   playBtn: { paddingLeft: 10, paddingVertical: 4, alignSelf: 'center' },
+  rowBtns: { alignItems: 'center', justifyContent: 'center', gap: 6, paddingLeft: 6 },
+  saveBtn: { paddingVertical: 4, paddingHorizontal: 4 },
   rowMain: { flex: 1, gap: 2 },
   // App Bのリスト見出しに合わせ、見出し語は明朝(Shippori Mincho)で上質に。
   term: { fontSize: ty.h2, fontFamily: 'ShipporiMincho-Bold', color: c.ink, letterSpacing: 0.3 },

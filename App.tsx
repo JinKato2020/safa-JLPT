@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, AppState, Modal, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, useNavigation, useNavigationState } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator, type NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -104,6 +104,8 @@ function MainTabs() {
   const state = useAppState();
   const { setSettings } = useAppActions();
   const [lvlOpen, setLvlOpen] = useState(false);
+  // 辞書リスト(DictList)では上部の共通アイコン列を隠す(その画面自身に×戻る＋検索がある)。
+  const hideTopBar = useNavigationState((s) => activeRouteName(s) === 'DictList');
   const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const level = state.settings.level;
   // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
@@ -146,7 +148,8 @@ function MainTabs() {
         />
       ))}
     </Tab.Navigator>
-      {/* 全タブ共通の上部操作列(左から): アカウント / JLPTレベル / 設定 / 通知。 */}
+      {/* 全タブ共通の上部操作列(左から): アカウント / JLPTレベル / 設定 / 通知。辞書リストでは非表示。 */}
+      {!hideTopBar && (
       <View style={[topBar.row, { top: insets.top + 6 }]}>
         <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="person-circle-outline" size={26} color={c.ink} />
@@ -169,6 +172,7 @@ function MainTabs() {
           <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
         </Pressable>
       </View>
+      )}
       {/* JLPTレベルの選択メニュー(N5/N4/N3)。レベルピル直下に出す。 */}
       <Modal visible={lvlOpen} transparent animationType="fade" onRequestClose={() => setLvlOpen(false)}>
         <Pressable style={topBar.backdrop} onPress={() => setLvlOpen(false)}>
