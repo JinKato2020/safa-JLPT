@@ -9,7 +9,7 @@ attribute vec2 aPos;
 varying vec2 vUv;
 void main(){ vUv = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }`;
 
-// 波打つ水平の発光弧を複数本＋明滅＋走査。数式のみ＝テクスチャ不要。
+// 青白いギザギザの枝分かれ稲妻が、バーを横切って閃く(striking)。参考画像=ホームタブ2.png準拠。
 const FRAG = `
 precision highp float;
 varying vec2 vUv;
@@ -21,31 +21,34 @@ float noise(vec2 p){
   return mix(mix(hash(i), hash(i+vec2(1.0,0.0)), f.x),
              mix(hash(i+vec2(0.0,1.0)), hash(i+vec2(1.0,1.0)), f.x), f.y);
 }
-float fbm(vec2 p){ float v=0.0, a=0.5; for(int i=0;i<4;i++){ v+=a*noise(p); p*=2.0; a*=0.5; } return v; }
+float fbm(vec2 p){ float v=0.0, a=0.5; for(int i=0;i<5;i++){ v+=a*noise(p); p=p*2.03; a*=0.5; } return v; }
+// 水平の稲妻: fbmでギザギザに折れ曲がる芯＋発光。枝分かれ感は多オクターブで。
+float bolt(vec2 uv, float cy, float seed, float t){
+  float disp = fbm(vec2(uv.x*7.0 + seed, t*3.0 + seed)) - 0.5;
+  disp += 0.5 * (fbm(vec2(uv.x*22.0 + seed*3.0, t*6.0)) - 0.5); // 細かい折れ=枝分かれ感
+  float y = cy + disp*0.22;
+  float d = abs(uv.y - y);
+  float core = 0.0028 / (d + 0.0012);   // 細く鋭い芯
+  float glow = 0.018 / (d + 0.05);      // 周囲の発光
+  return core + glow*0.6;
+}
 void main(){
-  vec2 uv = vUv;
-  float t = uTime;
+  vec2 uv = vUv; float t = uTime;
   float e = 0.0;
-  for(int i=0;i<3;i++){
+  // 4本の稲妻が別々のタイミングで閃く(striking)＋常に薄く走る
+  for(int i=0;i<4;i++){
     float fi = float(i);
-    float baseY = 0.28 + fi*0.22;
-    // 横に流れる波打ち(fbmで有機的に)
-    float wob = (fbm(vec2(uv.x*3.5 + t*1.2 + fi*7.0, t*0.6 + fi*3.0)) - 0.5) * 0.30;
-    float d = abs(uv.y - (baseY + wob));
-    // 芯＝細く強く、周囲＝ぼんやりグロー
-    float core = 0.0016 / (d*d + 0.00025);
-    float glow = 0.010 / (d + 0.02);
-    // 弧に沿った電流の走り(明暗の粒)
-    float run = 0.55 + 0.45 * sin(uv.x*22.0 - t*9.0 + fi*2.0);
-    e += (core*0.9 + glow*0.5) * run;
+    float cy = 0.16 + fi*0.22;
+    float ph = t*1.7 + fi*1.7;
+    float strike = pow(max(0.0, sin(ph)), 6.0);   // 鋭い閃光
+    strike = max(strike, 0.14);                    // 常時うっすら
+    strike *= 0.7 + 0.3 * step(0.5, hash(vec2(floor(t*24.0), fi))); // 高速ちらつき
+    e += bolt(uv, cy, fi*11.0 + floor(ph)*3.7, t) * strike;
   }
-  // 全体の明滅(フリッカ)
-  float fl = 0.6 + 0.4 * sin(t*17.0) * sin(t*7.3 + 1.0);
-  e *= fl;
-  e = clamp(e * 0.9, 0.0, 2.2);
-  // 金→シアンの配色
-  vec3 col = mix(vec3(1.0,0.85,0.42), vec3(0.6,0.95,1.0), clamp(uv.y,0.0,1.0));
-  gl_FragColor = vec4(col * e, clamp(e,0.0,1.0));
+  e = clamp(e * 0.5, 0.0, 2.6);
+  // 青白い稲妻(芯=白・周辺=青)
+  vec3 col = mix(vec3(0.45,0.7,1.0), vec3(1.0,1.0,1.0), clamp(e*0.8, 0.0, 1.0));
+  gl_FragColor = vec4(col * e, clamp(e, 0.0, 1.0));
 }`;
 
 function compile(gl: ExpoWebGLRenderingContext, type: number, src: string) {

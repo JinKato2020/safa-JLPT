@@ -69,7 +69,8 @@ export default function HomeScreen() {
   }, [measured, passProb, rings, nba, todayGain, ppSeries, prof, t, state.streak.current]);
 
   // ホーム3カード(ステータス/継続/カバー率)を横スワイプで切替。カード上=カード切替、背景=タブ切替。
-  const cardW = Math.min(width * 0.92, 380);
+  // 背景(HOME.png)を活かすためコンパクトに(参考画像=上部に小さめのパネル)。
+  const cardW = Math.min(width * 0.72, 300);
   const cardH = cardW / FRAME_ASPECT;
   const [page, setPage] = useState(0);
   const onPage = (e: NativeSyntheticEvent<NativeScrollEvent>) => setPage(Math.round(e.nativeEvent.contentOffset.x / cardW));
