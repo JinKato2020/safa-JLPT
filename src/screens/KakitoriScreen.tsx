@@ -26,6 +26,7 @@ import type { Level } from '../engine/engine';
 import { useT } from '../i18n';
 
 const STEP_KEYS = ['kakitori.step_trace', 'kakitori.step_guided', 'kakitori.step_recall'];
+const SET_SIZE = 5; // 1セット=5字。5字を練習(3段)→同じ5字をヒント無しテスト→セッション終了。
 const GRIDS = ['ta', 'kome', 'none'] as const;
 const SPEEDS = ['slow', 'normal', 'fast'] as const;
 
@@ -88,8 +89,9 @@ export default function KakitoriScreen() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const chars = useMemo(() => {
     if (singleChar) return [singleChar];
-    if (mode === 'review') { const d = kakitoriDueToday(state.kakitori, dayOf(Date.now())); return d.length ? d : kanjiListFor(level); }
-    return kakitoriDrillQueue(state.kakitori, kanjiListFor(level), dayOf(Date.now()));
+    // 1セット=先頭5字だけ(残りは次セッションで自然に繰り上がる)。エンドレスを廃止。
+    if (mode === 'review') { const d = kakitoriDueToday(state.kakitori, dayOf(Date.now())); return (d.length ? d : kanjiListFor(level)).slice(0, SET_SIZE); }
+    return kakitoriDrillQueue(state.kakitori, kanjiListFor(level), dayOf(Date.now())).slice(0, SET_SIZE);
   }, [mode, level]);
 
   const grid = state.settings.kakitoriGrid ?? 'kome';
@@ -102,6 +104,9 @@ export default function KakitoriScreen() {
 
   const [idx, setIdx] = useState(0);
   const [step, setStep] = useState(0);
+  // フェーズ: practice=5字を3段練習(自動前進) / test=同じ5字をヒント無しで書き取りテスト(自動前進しない)。
+  const [phase, setPhase] = useState<'practice' | 'test'>('practice');
+  const testDoneRef = useRef<Record<string, boolean>>({}); // テストは字ごと1回だけ記録(多重記録防止)。
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -151,14 +156,26 @@ export default function KakitoriScreen() {
     else playKanjiRep(ch).then((ok) => { if (!ok) fallback(); });
   };
 
+  // 練習(5字×3段)が終わったら、同じ5字のヒント無しテスト(見ないで書く=step2)へ切替。
+  const startTest = () => { setPhase('test'); setIdx(0); setStep(2); testDoneRef.current = {}; loadChar(chars[0], 2); };
+  const goNextChar = (fromIdx: number, st: number) => {
+    const ni = fromIdx + 1; setIdx(ni);
+    if (ni < chars.length) loadChar(chars[ni], st);
+  };
   // 自動/手動を単一の前進関数に集約(タイミング競合を断つ)。
   const advance = () => {
     if (free) return;
+    if (phase === 'test') { goNextChar(idx, 2); return; } // テストは常に見ないで書く。[次へ]で次字。
     if (step < 2) { const ns = step + 1; setStep(ns); loadChar(char, ns); return; }
-    const ni = idx + 1; setIdx(ni); setStep(0);
-    if (ni < chars.length) loadChar(chars[ni], 0);
+    if (idx + 1 < chars.length) { setIdx(idx + 1); setStep(0); loadChar(chars[idx + 1], 0); }
+    else startTest(); // 5字の練習完了 → テストへ
   };
-  const skipChar = () => { const ni = idx + 1; setIdx(ni); setStep(0); if (ni < chars.length) loadChar(chars[ni], 0); };
+  const skipChar = () => {
+    if (free) return;
+    if (phase === 'test') { goNextChar(idx, 2); return; }
+    if (idx + 1 < chars.length) { setIdx(idx + 1); setStep(0); loadChar(chars[idx + 1], 0); }
+    else startTest();
+  };
 
   const onMessage = (e: WebViewMessageEvent) => {
     let m: { type?: string; mistakes?: number };
@@ -168,6 +185,13 @@ export default function KakitoriScreen() {
     if (m.type === 'complete') {
       if (free) return;
       const score = scoreForMistakes(m.mistakes ?? 0);
+      if (phase === 'test') {
+        // ヒント無しテスト: 字ごと1回だけ記録し、自動前進しない([次へ]まで書き直せる)。
+        if (!testDoneRef.current[char]) { testDoneRef.current[char] = true; recordKakitori(char, 3, score, { skipped: false, now: Date.now() }); }
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+        speak(char);
+        return;
+      }
       recordKakitori(char, step + 1, score, { skipped: false, now: Date.now() });
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
       if (step >= 2) speak(char);
@@ -186,8 +210,8 @@ export default function KakitoriScreen() {
   if (done) {
     return (
       <SafeAreaView style={s.c} edges={['top']}>
-        <View style={s.center}><Text style={s.doneEmoji}>🎉</Text><Text style={s.doneTxt}>{t('kakitori.mastered')}</Text>
-          <Pressable style={s.doneBtn} onPress={() => nav.goBack()}><Text style={s.doneBtnTxt}>{t('kakitori.clear')}</Text></Pressable></View>
+        <View style={s.center}><Text style={s.doneEmoji}>🎉</Text><Text style={s.doneTxt}>{t('learntestsession.done_title')}</Text>
+          <Pressable style={s.doneBtn} onPress={() => nav.goBack()}><Text style={s.doneBtnTxt}>{t('learntestsession.back')}</Text></Pressable></View>
       </SafeAreaView>
     );
   }
@@ -205,12 +229,12 @@ export default function KakitoriScreen() {
           <View style={{ flex: 1 }}>
             <Text style={s.infoReading}>{readingLine(char)}</Text>
             <Text style={s.infoMeaning} numberOfLines={1}>{info?.meaning ?? ''}</Text>
-            {!!exampleWord(char) && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
+            {!!exampleWord(char) && phase !== 'test' && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
           </View>
           <Pressable onPress={() => speak(char, { manual: true })} hitSlop={10}><Ionicons name="headset-outline" size={26} color={c.blue} /></Pressable>
         </View>
 
-        {!free && (
+        {!free && phase === 'practice' && (
           <View style={s.dots}>
             {[0, 1, 2].map((i) => (
               <View key={i} style={s.dotWrap}>
@@ -218,6 +242,12 @@ export default function KakitoriScreen() {
                 <Text style={[s.dotLabel, i === step && s.dotLabelOn]}>{t(STEP_KEYS[i])}</Text>
               </View>
             ))}
+          </View>
+        )}
+        {!free && phase === 'test' && (
+          <View style={s.testBanner}>
+            <Text style={s.testPhase}>{t('learntestsession.test_phase')}</Text>
+            <Text style={s.testProg}>{t('learntestsession.test_progress', { n: idx + 1, m: chars.length })}・{t('kakitori.step_recall')}</Text>
           </View>
         )}
         {free && (
@@ -261,7 +291,10 @@ export default function KakitoriScreen() {
           </Pressable>
         </View>
         <View style={s.toolbar}>
-          <Pressable onPress={() => { if (readyRef.current) inject('KW.showAnswer()'); }} style={s.tool}><Text style={s.toolTxt}>↻ {t('kakitori.show_model')}</Text></Pressable>
+          {/* お手本はヒント。テスト(ヒント無し)では隠す。 */}
+          {phase !== 'test' && (
+            <Pressable onPress={() => { if (readyRef.current) inject('KW.showAnswer()'); }} style={s.tool}><Text style={s.toolTxt}>↻ {t('kakitori.show_model')}</Text></Pressable>
+          )}
           <Pressable onPress={() => { if (readyRef.current) inject('KW.clear()'); }} style={s.tool}><Text style={s.toolTxt}>{t('kakitori.clear')}</Text></Pressable>
         </View>
 
@@ -293,6 +326,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   dots: { flexDirection: 'row', justifyContent: 'center', gap: spacing.xl, marginTop: spacing.md },
   dotWrap: { alignItems: 'center', gap: 4 }, dot: { width: 12, height: 12, borderRadius: 6, backgroundColor: c.line },
   dotOn: { backgroundColor: c.blue }, dotLabel: { fontSize: ty.small, color: c.mute }, dotLabelOn: { color: c.blue, fontWeight: '800' },
+  testBanner: { alignItems: 'center', gap: 2, marginTop: spacing.md },
+  testPhase: { fontSize: ty.body, fontWeight: '800', color: c.blue },
+  testProg: { fontSize: ty.small, fontWeight: '700', color: c.mute },
   canvas: { alignSelf: 'center', width: SIZE, height: SIZE, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, overflow: 'hidden', marginTop: spacing.md },
   web: { flex: 1, backgroundColor: 'transparent' },
   loader: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center', gap: spacing.sm, backgroundColor: c.surface },
