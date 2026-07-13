@@ -668,3 +668,18 @@ cd app && git add tools/content/build_content.ts content package.json && git com
 **Placeholder scan**: TODO/TBD無し。全step にコードまたは実行コマンド＋期待値あり。
 
 **Type consistency**: `ContentFile`/`ContentItem`/`LexiconFile`/`Manifest` は schema.ts で定義し全タスクで同一名を使用。関数名(`toItem`/`groupToFiles`/`splitKnowledgeBank`/`readingToFiles`/`listeningToFiles`/`lexiconToFiles`/`buildManifest`/`fileEntry`/`checkIdsUnique`/`checkLangCompleteness`/`checkManifest`/`checkOrphanLexicon`)は Interfaces と実装で一致。
+
+---
+
+## 実装時の調整(実データ対応・2026-07-14 実行済み)
+
+`--check` の実データ実行で判明した点を反映して実装(件数は第1回答の表と完全一致・223テスト緑・tsc 0)。
+
+1. **knowledgeBank から採るのは usage/grammar_form/order のみ**(context 等も入っているが context は固定バンク使用=dead。`splitKnowledgeBank` を whitelist 化)。
+2. **用法/文法形式/文の組み立ては解説データ無し** → `DAIMON_SPEC.translate=[]`(ja訳を必須にしない。将来 explain を追加)。読解/聴解の explain は設問単位なので item 完全性検査の対象外。
+3. **読解の長文subtypeは `choubun`**(`naiyou_cho` ではない)。
+4. **文章の文法(passage_grammar)** は passageGrammar.json 由来 → `passageGrammarToFiles` を追加(セット=1item・40/40/40)。
+5. **passageTransNe の値は行配列** → `join('\n')` で `i18n.ne.body` に格納。
+6. **meaningL10n に漢字1字キー612件** → `lexiconToFiles(l10n, kind, levelOf)` に級解決関数を渡す(漢字は kanji.json の level)。
+7. **孤児lexicon(n3-v-1005)は非致命警告**(移行は忠実転写。実在語彙/漢字=コア＋辞書拡張を universe に)。
+8. **tools/ と content/ は tsc 対象外**(tsx 実行スクリプト・生成物)。tsconfig.json exclude に追加。
