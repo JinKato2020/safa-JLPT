@@ -38,6 +38,8 @@ import WordDrillScreen from './src/screens/WordDrillScreen';
 import MyWordsScreen from './src/screens/MyWordsScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
+import ShopScreen from './src/screens/ShopScreen';
+import { walletPoints } from './src/store/wallet';
 import TourOverlay from './src/components/TourOverlay';
 import SafeBoundary from './src/components/SafeBoundary';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
@@ -163,6 +165,9 @@ function MainTabs() {
         <Pressable onPress={() => nav.navigate('Notifications')} accessibilityLabel={t('notif.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="notifications-outline" size={22} color={c.ink} />
         </Pressable>
+        <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.title')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
+          <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
+        </Pressable>
       </View>
       {/* JLPTレベルの選択メニュー(N5/N4/N3)。レベルピル直下に出す。 */}
       <Modal visible={lvlOpen} transparent animationType="fade" onRequestClose={() => setLvlOpen(false)}>
@@ -285,6 +290,7 @@ function Root() {
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
           </>
         )}
       </RootStack.Navigator>

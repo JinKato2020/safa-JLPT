@@ -1,13 +1,13 @@
 // ホーム = ゲーム風ステータス画面(B案・1画面完結)。
 // 背景=HOME.png 全画面／中央=ステータスパネル(内側スクロール)／下部=動く桜の巫女(AIコーチの吹き出し)。
 // 上部の共通バー(アカウント/JLPTレベル/設定/通知)は MainTabs のオーバーレイで別途表示。
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, type NativeSyntheticEvent, type NativeScrollEvent, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useT } from '../i18n';
-import { useAppState } from '../store/store';
-import { readinessFor, ringsFor, nextBestAction, growthSeries } from '../store/selectors';
+import { useAppState, useAppActions } from '../store/store';
+import { readinessFor, ringsFor, nextBestAction, growthSeries, learnedNow } from '../store/selectors';
 import { examOf } from '../engine/examProfile';
 import { dayStr } from '../store/state';
 import type { Category } from '../engine/engine';
@@ -32,6 +32,21 @@ export default function HomeScreen() {
   const { width, height } = useWindowDimensions();
 
   const status = useMemo(() => homeStatus(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
+  const { awardOnce } = useAppActions();
+  // 継続・上達の桜貝付与(awardOnce が二重付与を防ぐので毎マウント呼んで安全)。
+  useEffect(() => {
+    const td = dayStr(now);
+    if (state.streak.history.includes(td)) awardOnce('dailyFirst-' + td, 10);
+    if (state.streak.current >= 7) awardOnce('streak7', 50);
+    if (state.streak.current >= 30) awardOnce('streak30', 200);
+    const p = status.passPct;
+    if (p >= 50) awardOnce('pass50', 150);
+    if (p >= 70) awardOnce('pass70', 150);
+    if (p >= 80) awardOnce('pass80', 150);
+    for (let i = 1; i <= Math.min(9, Math.floor(p / 10)); i++) awardOnce('tier' + i, 100);
+    const learned = learnedNow(state, now);
+    for (let k = 1; k <= Math.floor(learned / 100); k++) awardOnce('learned' + (k * 100), 30);
+  }, [state, status.passPct]); // eslint-disable-line react-hooks/exhaustive-deps
   const readiness = useMemo(() => readinessFor(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
   const rings = useMemo(() => ringsFor(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
   const nba = useMemo(() => nextBestAction(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
