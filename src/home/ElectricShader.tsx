@@ -1,34 +1,51 @@
-// 電撃FXをネイティブGPUシェーダで描画(expo-gl / GLSL)。Skiaは新アーキ起動クラッシュのため不使用。
-// 稲妻テクスチャを2オクターブUVスクロール＋加算合成(gl.blendFunc(SRC_ALPHA, ONE))で発光グロー。
+// 電撃FXをネイティブGPUシェーダで描画(expo-gl / GLSL)。Skia(新アーキ起動クラッシュ)不使用。
+// テクスチャ依存を廃し、フラグメントシェーダ内で稲妻をプロシージャル生成(ノイズ＋波打つ発光弧)。
+// 時間 uTime で毎フレーム動く。加算合成(SRC_ALPHA,ONE)で発光グロー。
 import { useEffect, useRef } from 'react';
 import { GLView, type ExpoWebGLRenderingContext } from 'expo-gl';
-import { Asset } from 'expo-asset';
-
-const ELEC = require('../../assets/tabs/electric_tex.png');
 
 const VERT = `
 attribute vec2 aPos;
 varying vec2 vUv;
 void main(){ vUv = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }`;
 
+// 波打つ水平の発光弧を複数本＋明滅＋走査。数式のみ＝テクスチャ不要。
 const FRAG = `
 precision highp float;
 varying vec2 vUv;
-uniform sampler2D uTex;
 uniform float uTime;
+uniform vec2 uRes;
+float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p); f = f*f*(3.0-2.0*f);
+  return mix(mix(hash(i), hash(i+vec2(1.0,0.0)), f.x),
+             mix(hash(i+vec2(0.0,1.0)), hash(i+vec2(1.0,1.0)), f.x), f.y);
+}
+float fbm(vec2 p){ float v=0.0, a=0.5; for(int i=0;i<4;i++){ v+=a*noise(p); p*=2.0; a*=0.5; } return v; }
 void main(){
-  // 2オクターブのUVスクロール(速度・向き違い)
-  vec2 uv1 = vec2(vUv.x - uTime * 0.05, vUv.y);
-  vec2 uv2 = vec2(vUv.x * 1.7 + uTime * 0.085, vUv.y * 1.25 + 0.3);
-  float e1 = texture2D(uTex, uv1).r;
-  float e2 = texture2D(uTex, uv2).r;
-  float e = e1 * 0.75 + e2 * 0.55;
-  // 明滅(フリッカ)
-  float fl = 0.5 + 0.5 * sin(uTime * 11.0 + vUv.x * 6.0);
-  e *= (0.35 + 0.65 * fl) * 0.85;
-  // 金→シアンのグロー配色。alpha=e で加算合成すると発光になる。
-  vec3 col = mix(vec3(1.0, 0.82, 0.35), vec3(0.62, 0.95, 1.0), clamp(e2 * 1.3, 0.0, 1.0));
-  gl_FragColor = vec4(col * e, e);
+  vec2 uv = vUv;
+  float t = uTime;
+  float e = 0.0;
+  for(int i=0;i<3;i++){
+    float fi = float(i);
+    float baseY = 0.28 + fi*0.22;
+    // 横に流れる波打ち(fbmで有機的に)
+    float wob = (fbm(vec2(uv.x*3.5 + t*1.2 + fi*7.0, t*0.6 + fi*3.0)) - 0.5) * 0.30;
+    float d = abs(uv.y - (baseY + wob));
+    // 芯＝細く強く、周囲＝ぼんやりグロー
+    float core = 0.0016 / (d*d + 0.00025);
+    float glow = 0.010 / (d + 0.02);
+    // 弧に沿った電流の走り(明暗の粒)
+    float run = 0.55 + 0.45 * sin(uv.x*22.0 - t*9.0 + fi*2.0);
+    e += (core*0.9 + glow*0.5) * run;
+  }
+  // 全体の明滅(フリッカ)
+  float fl = 0.6 + 0.4 * sin(t*17.0) * sin(t*7.3 + 1.0);
+  e *= fl;
+  e = clamp(e * 0.9, 0.0, 2.2);
+  // 金→シアンの配色
+  vec3 col = mix(vec3(1.0,0.85,0.42), vec3(0.6,0.95,1.0), clamp(uv.y,0.0,1.0));
+  gl_FragColor = vec4(col * e, clamp(e,0.0,1.0));
 }`;
 
 function compile(gl: ExpoWebGLRenderingContext, type: number, src: string) {
@@ -42,7 +59,7 @@ export default function ElectricShader({ width, height }: { width: number; heigh
   const raf = useRef(0);
   useEffect(() => () => cancelAnimationFrame(raf.current), []);
 
-  const onCreate = async (gl: ExpoWebGLRenderingContext) => {
+  const onCreate = (gl: ExpoWebGLRenderingContext) => {
     const prog = gl.createProgram()!;
     gl.attachShader(prog, compile(gl, gl.VERTEX_SHADER, VERT));
     gl.attachShader(prog, compile(gl, gl.FRAGMENT_SHADER, FRAG));
@@ -56,20 +73,8 @@ export default function ElectricShader({ width, height }: { width: number; heigh
     gl.enableVertexAttribArray(aPos);
     gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
-    const asset = Asset.fromModule(ELEC);
-    await asset.downloadAsync();
-    const tex = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, tex);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    // expo-gl の texImage2D は Expo Asset を画素ソースとして受け付ける。
-    // expo-gl の texImage2D は Expo Asset を画素ソースとして受け付ける(型定義に無いため any 経由)。
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, asset as any);
-    gl.uniform1i(gl.getUniformLocation(prog, 'uTex'), 0);
     const uTime = gl.getUniformLocation(prog, 'uTime');
+    gl.uniform2f(gl.getUniformLocation(prog, 'uRes'), width, height);
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE); // 加算合成

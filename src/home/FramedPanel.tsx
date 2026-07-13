@@ -57,7 +57,7 @@ export default function FramedPanel({ width, children }: { width: number; childr
     <View style={{ width, height }}>
       <Image source={FRAME} style={StyleSheet.absoluteFill} resizeMode="stretch" />
       {/* 動的電撃層(中央和紙の上・内容の下)= expo-gl の GLSL シェーダ(UVスクロール＋加算合成グロー)。 */}
-      <View style={{ position: 'absolute', left: innerX, top: innerY, width: innerW, height: innerH, overflow: 'hidden', opacity: 0.55 }} pointerEvents="none">
+      <View style={{ position: 'absolute', left: innerX, top: innerY, width: innerW, height: innerH, overflow: 'hidden', opacity: 0.9 }} pointerEvents="none">
         <ElectricShader width={innerW} height={innerH} />
       </View>
       <View style={[StyleSheet.absoluteFill, pad]}>{children}</View>
