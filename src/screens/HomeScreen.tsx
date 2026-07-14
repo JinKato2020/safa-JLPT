@@ -48,18 +48,13 @@ export default function HomeScreen() {
     loop.start();
     return () => loop.stop();
   }, [glow]);
-  // 背景に負けない強いグロー: 外側(広い)＋内側(明るい)の2層を大きく明滅させる。
-  const gOuterOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.55, 1] });
-  const gInnerOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.7, 1] });
-  const gOuterSc = glow.interpolate({ inputRange: [0, 1], outputRange: [0.85, 1.3] });
-  const gInnerSc = glow.interpolate({ inputRange: [0, 1], outputRange: [0.95, 1.12] });
+  // グロー=リング素材(pass_ring)から作った同形の発光を「同サイズで真上」に重ねる=リングと完全一致。
+  // 呼吸は主に明滅(opacity)＋ごく僅かな拡大(帯から離れない)。
+  const gOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.4, 1] });
+  const gSc = glow.interpolate({ inputRange: [0, 1], outputRange: [1.0, 1.12] });
 
-  const ringW = Math.round(width * 0.30);
-  // 環状グロー: リングの帯に沿って光らせる(中心=合格率は光らせない)。素材が環状ピークなので
-  // リングとほぼ同径に置くと帯にhaloが乗る。外側にもう一枚重ねて滲みを出す。
-  const glowOuter = Math.round(ringW * 1.55);
-  const glowInner = Math.round(ringW * 1.12);
-  const top = Math.round(height * 0.22); // やや上寄せ
+  const ringW = Math.round(width * 0.26); // リングは小さめ
+  const top = Math.round(height * 0.22);
   const left = Math.round((width - ringW) / 2);
   const pct = Math.round(status.passPct);
 
@@ -71,14 +66,9 @@ export default function HomeScreen() {
             <Animated.Image
               source={GLOW}
               resizeMode="contain"
-              style={[styles.glow, { width: glowOuter, height: glowOuter, left: (ringW - glowOuter) / 2, top: (ringW - glowOuter) / 2, opacity: gOuterOp, transform: [{ scale: gOuterSc }] }]}
+              style={[StyleSheet.absoluteFill, { opacity: gOp, transform: [{ scale: gSc }] }]}
             />
-            <Animated.Image
-              source={GLOW}
-              resizeMode="contain"
-              style={[styles.glow, { width: glowInner, height: glowInner, left: (ringW - glowInner) / 2, top: (ringW - glowInner) / 2, opacity: gInnerOp, transform: [{ scale: gInnerSc }] }]}
-            />
-            <Image source={RING} style={{ width: ringW, height: ringW }} resizeMode="contain" />
+            <Image source={RING} style={StyleSheet.absoluteFill} resizeMode="contain" />
             <View style={styles.pct} pointerEvents="none">
               {/* 数字を穴の中心にぴったり固定。ラベルは数字の上へ絶対配置(=数字を押し下げない)。 */}
               <View style={styles.pctInner}>

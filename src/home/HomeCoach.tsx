@@ -1,8 +1,8 @@
-// ホーム下部に「桜の巫女」=AIコーチをふわっと浮遊配置。状態に応じたセリフを吹き出しで語る。
-//  ・不規則に登場→数秒で自動退場→また間隔を空けて再登場(=表示し続けない)。
-//  ・登場中は上下にゆっくり浮遊＋まばたき(guide_open/guide_blink 差し替え)。
-//  ・吹き出し/キャラをタップで即消せる。
-import { useEffect, useRef, useState } from 'react';
+// ホーム中央に案内キャラ「桜」を常駐。状態に合わせた“やさしいアドバイス”を吹き出しで語る。
+//  ・桜は常に表示(ふわふわ浮遊＋まばたき)。アドバイスの吹き出しは非定期に自動で出て数秒で消える。
+//  ・桜をタップ→その場でアドバイスを表示(既に出ていれば消す)。吹き出しタップでも消える。
+//  ・口調は上から目線のコーチではなく、寄り添う女の子の語り(i18n coach.* をやさしい文面に)。
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useT } from '../i18n';
 import type { HomeStatus } from './homeStatus';
@@ -14,104 +14,98 @@ const BLINK = require('../../assets/mywords/guide_blink.png');
 export default function HomeCoach({ status, learned }: { status: HomeStatus; learned: number }) {
   const t = useT();
   const { width } = useWindowDimensions();
-  const [visible, setVisible] = useState(false);
-  const [line, setLine] = useState('');
+  const [line, setLine] = useState<string | null>(null);
   const [eyesClosed, setEyesClosed] = useState(false);
-  const anim = useRef(new Animated.Value(0)).current; // 0=退場, 1=登場
   const bob = useRef(new Animated.Value(0)).current;
-  // 最新の状態を参照するため ref に保持(スケジューラは一度だけ張るので)。
+  const hideRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // 最新の状態を参照(スケジューラは一度だけ張るため)。
   const dataRef = useRef({ status, learned, t });
   dataRef.current = { status, learned, t };
 
-  // 出現/退場スケジューラ: ランダム間隔で現れ、数秒で自動退場、また間隔を空けて再出現。
+  const showAdvice = useCallback(() => {
+    const d = dataRef.current;
+    setLine(pickLine(coachLines(d.t, { status: d.status, learned: d.learned })));
+    if (hideRef.current) clearTimeout(hideRef.current);
+    hideRef.current = setTimeout(() => setLine(null), 7000); // 数秒で自動的に引っ込む
+  }, []);
+  const dismiss = useCallback(() => {
+    if (hideRef.current) clearTimeout(hideRef.current);
+    setLine(null);
+  }, []);
+
+  // 非定期スケジューラ: 初回は少し待って登場→以後ランダム間隔で再表示。
   useEffect(() => {
     let alive = true;
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    const push = (fn: () => void, ms: number) => { timers.push(setTimeout(fn, ms)); };
-
-    const hide = () => {
-      Animated.timing(anim, { toValue: 0, duration: 500, useNativeDriver: true }).start(() => {
-        if (alive) setVisible(false);
-      });
+    let t1: ReturnType<typeof setTimeout>, t2: ReturnType<typeof setTimeout>;
+    const cycle = () => {
+      t1 = setTimeout(() => {
+        if (!alive) return;
+        showAdvice();
+        cycle();
+      }, 14000 + Math.random() * 18000); // 14〜32秒間隔
     };
-    const schedule = () => { push(show, 12000 + Math.random() * 16000); }; // 次まで 12–28秒
-    function show() {
-      if (!alive) return;
-      const d = dataRef.current;
-      setLine(pickLine(coachLines(d.t, { status: d.status, learned: d.learned })));
-      setVisible(true);
-      Animated.timing(anim, { toValue: 1, duration: 600, useNativeDriver: true }).start();
-      push(() => { hide(); schedule(); }, 6000 + Math.random() * 3000); // 表示 6–9秒で自動退場
-    }
+    t2 = setTimeout(() => { if (alive) { showAdvice(); cycle(); } }, 4000 + Math.random() * 3000);
+    return () => { alive = false; clearTimeout(t1); clearTimeout(t2); if (hideRef.current) clearTimeout(hideRef.current); };
+  }, [showAdvice]);
 
-    push(show, 3500 + Math.random() * 3000); // 初回は少し待って登場
-    return () => { alive = false; timers.forEach(clearTimeout); };
-  }, [anim]);
-
-  // 登場中のみ: 上下ゆっくり浮遊＋まばたき。
+  // 常時: ふわふわ浮遊＋まばたき。
   useEffect(() => {
-    if (!visible) return;
     const loop = Animated.loop(Animated.sequence([
-      Animated.timing(bob, { toValue: 1, duration: 1800, useNativeDriver: true }),
-      Animated.timing(bob, { toValue: 0, duration: 1800, useNativeDriver: true }),
+      Animated.timing(bob, { toValue: 1, duration: 2000, useNativeDriver: true }),
+      Animated.timing(bob, { toValue: 0, duration: 2000, useNativeDriver: true }),
     ]));
     loop.start();
     let bAlive = true;
-    const blinkTimers: ReturnType<typeof setTimeout>[] = [];
+    const bt: ReturnType<typeof setTimeout>[] = [];
     const blink = () => {
       if (!bAlive) return;
       setEyesClosed(true);
-      blinkTimers.push(setTimeout(() => setEyesClosed(false), 130));
-      blinkTimers.push(setTimeout(blink, 2500 + Math.random() * 3000));
+      bt.push(setTimeout(() => setEyesClosed(false), 130));
+      bt.push(setTimeout(blink, 2600 + Math.random() * 3200));
     };
-    blinkTimers.push(setTimeout(blink, 1600));
-    return () => { loop.stop(); bAlive = false; blinkTimers.forEach(clearTimeout); };
-  }, [visible, bob]);
+    bt.push(setTimeout(blink, 1600));
+    return () => { loop.stop(); bAlive = false; bt.forEach(clearTimeout); };
+  }, [bob]);
 
-  const dismiss = () => {
-    Animated.timing(anim, { toValue: 0, duration: 260, useNativeDriver: true }).start(() => setVisible(false));
-  };
-
-  if (!visible) return null;
-  const charW = Math.round(width * 0.34);
-  const slideY = anim.interpolate({ inputRange: [0, 1], outputRange: [44, 0] });
-  const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -10] });
+  const onTapChar = () => (line != null ? dismiss() : showAdvice());
+  const charW = Math.round(width * 0.40);
+  const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
 
   return (
-    <Animated.View pointerEvents="box-none" style={[styles.wrap, { opacity: anim, transform: [{ translateY: slideY }] }]}>
-      {/* 吹き出し(タップで消える) */}
-      <Pressable onPress={dismiss} style={[styles.bubbleWrap, { maxWidth: Math.round(width * 0.66) }]}>
-        <View style={styles.bubble}>
-          <Text style={styles.bubbleTxt}>{line}</Text>
-          <Text style={styles.close}>×</Text>
-        </View>
-        <View style={styles.tail} />
-      </Pressable>
-      {/* キャラ(タップでも消える) */}
+    <View style={styles.wrap} pointerEvents="box-none">
+      {line != null && (
+        <Pressable onPress={dismiss} style={[styles.bubbleWrap, { maxWidth: Math.round(width * 0.72) }]}>
+          <View style={styles.bubble}>
+            <Text style={styles.bubbleTxt}>{line}</Text>
+            <Text style={styles.close}>×</Text>
+          </View>
+          <View style={styles.tail} />
+        </Pressable>
+      )}
       <Animated.View style={{ transform: [{ translateY: bobY }] }}>
-        <Pressable onPress={dismiss} hitSlop={4}>
+        <Pressable onPress={onTapChar} hitSlop={4}>
           <Image source={eyesClosed ? BLINK : OPEN} style={{ width: charW, height: charW }} resizeMode="contain" />
         </Pressable>
       </Animated.View>
-    </Animated.View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  wrap: { position: 'absolute', right: 6, bottom: 70, alignItems: 'flex-end' },
-  bubbleWrap: { alignItems: 'flex-end', marginRight: 24, marginBottom: -6 },
+  wrap: { position: 'absolute', left: 0, right: 0, bottom: 60, alignItems: 'center' },
+  bubbleWrap: { alignItems: 'center', marginBottom: -4 },
   bubble: {
     flexDirection: 'row', alignItems: 'flex-start', gap: 6,
-    backgroundColor: 'rgba(255,252,247,0.97)', borderRadius: 16,
+    backgroundColor: 'rgba(255,252,247,0.97)', borderRadius: 18,
     borderWidth: 1.5, borderColor: '#e7c9a6',
-    paddingVertical: 10, paddingHorizontal: 13,
+    paddingVertical: 11, paddingHorizontal: 15,
     shadowColor: '#a06e32', shadowOpacity: 0.28, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 4,
   },
-  bubbleTxt: { flexShrink: 1, fontSize: 14, lineHeight: 20, color: '#5a3d22', fontWeight: '700' },
+  bubbleTxt: { flexShrink: 1, fontSize: 14.5, lineHeight: 21, color: '#5a3d22', fontWeight: '700', textAlign: 'center' },
   close: { fontSize: 13, color: '#b79366', fontWeight: '800', marginTop: -1 },
   tail: {
     width: 14, height: 14, backgroundColor: 'rgba(255,252,247,0.97)',
     borderRightWidth: 1.5, borderBottomWidth: 1.5, borderColor: '#e7c9a6',
-    transform: [{ rotate: '45deg' }], marginRight: 34, marginTop: -8,
+    transform: [{ rotate: '45deg' }], marginTop: -8,
   },
 });
