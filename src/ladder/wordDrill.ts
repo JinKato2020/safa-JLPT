@@ -54,10 +54,13 @@ function buildTiles(answer: string[], seed: number): string[] {
 // ── 語彙 産出(意味→かな) ────────────────────────────────
 function vProduce(v: V, seed: number): DrillProblem {
   const answer = toMorae(v.reading);
-  return { kind: 'vProduce', itemId: `${v.id}#produce`, prompt: v.meaning, hint: v.word, reading: v.reading, answer, tiles: buildTiles(answer, seed) };
+  // ヒント=単語(漢字表記)。ただし かな語(word===reading)は hint が答えそのものになるので出さない(意味だけで想起)。
+  const hint = v.word !== v.reading ? v.word : undefined;
+  return { kind: 'vProduce', itemId: `${v.id}#produce`, prompt: v.meaning, hint, reading: v.reading, answer, tiles: buildTiles(answer, seed) };
 }
 export function produceEligible(level: string): V[] {
-  return VOCAB.filter((v) => v.level === level && /^[ぁ-ゖー]+$/.test(v.reading) && toMorae(v.reading).length >= 2 && toMorae(v.reading).length <= 6);
+  // 接尾辞/束縛形態素(～観・～敗 等 〜付き)は単独産出に不適=除外。
+  return VOCAB.filter((v) => v.level === level && !/[～~]/.test(v.word) && /^[ぁ-ゖー]+$/.test(v.reading) && toMorae(v.reading).length >= 2 && toMorae(v.reading).length <= 6);
 }
 
 // ── 文法 産出(例文の空所に文法語をかなタイルで作る) ─────────
