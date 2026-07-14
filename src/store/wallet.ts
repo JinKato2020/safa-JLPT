@@ -2,7 +2,7 @@
 import type { AppState } from './state';
 import { dayStr, withUpdatedAt } from './state';
 
-export type ShopKind = 'frame' | 'outfit' | 'petal' | 'theme' | 'badge';
+export type ShopKind = 'frame' | 'outfit' | 'petal' | 'theme' | 'badge' | 'font';
 
 export const EARN = {
   answer: 2, dailyCap: 300, completion: 15, mock: 50, kanjiMaster: 5,
