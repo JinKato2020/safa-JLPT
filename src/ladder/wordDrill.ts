@@ -81,7 +81,13 @@ export function buildEligible(level: string): { g: G; pt: string }[] {
     if (g.level !== level || !g.exampleJa) continue;
     const pt = pointSurface(g);
     if (!pt) continue;
-    if (strip(g.exampleJa).replace(/\s|　/g, '').includes(pt)) out.push({ g, pt });
+    // gBuild は生の exampleJa の「最初の一致」を空所化する。表層形が複数回出ると空所位置が曖昧になり、
+    // 意図しない語を問う事故になる(例: 〜たい で「冷たい水が飲みたい」→ 冷たい を空所化)。→ 一意に出る文法のみ採用。
+    const ex = g.exampleJa;
+    const first = ex.indexOf(pt);
+    if (first < 0) continue;                                // 出現しない
+    if (ex.indexOf(pt, first + pt.length) >= 0) continue;   // 複数出現=曖昧→除外
+    out.push({ g, pt });
   }
   return out;
 }
