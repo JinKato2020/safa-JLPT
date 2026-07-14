@@ -78,7 +78,7 @@ const s = StyleSheet.create({
   x: { width: 36, height: 36, borderRadius: 999, backgroundColor: 'rgba(30,22,14,0.5)', alignItems: 'center', justifyContent: 'center' },
   xTxt: { color: '#fff', fontSize: 22, fontWeight: '700', marginTop: -2 },
   titleWrap: { position: 'absolute', left: 0, right: 0, bottom: 14, alignItems: 'center' },
-  title: { color: '#fff', fontSize: 26, fontWeight: '900', fontFamily: 'ShipporiMincho-Bold', textShadowColor: 'rgba(0,0,0,0.7)', textShadowRadius: 8 },
+  title: { color: '#fff', fontSize: 26, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.7)', textShadowRadius: 8 },
   subt: { color: '#fbeede', fontSize: 13, marginTop: 2, textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 4 },
   info: { flex: 1, paddingHorizontal: 18, paddingTop: 12, backgroundColor: CREAM },
   chips: { flexDirection: 'row', gap: 8 },

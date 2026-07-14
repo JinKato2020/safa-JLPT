@@ -298,7 +298,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   stars: { fontSize: ty.h2, color: c.amber, letterSpacing: 2 },
   body: { paddingBottom: spacing.xl },
   infoRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, paddingHorizontal: spacing.lg, marginTop: spacing.sm },
-  infoChar: { fontSize: 40, fontFamily: 'ShipporiMincho-Bold', color: c.ink },
+  infoChar: { fontSize: 40, fontWeight: '800', color: c.ink },
   infoReading: { fontSize: ty.body, fontWeight: '700', color: c.ink }, infoMeaning: { fontSize: ty.small, color: c.mute },
   infoExample: { fontSize: ty.small, color: c.blue }, speak: { fontSize: 26 },
   dots: { flexDirection: 'row', justifyContent: 'center', gap: spacing.xl, marginTop: spacing.md },

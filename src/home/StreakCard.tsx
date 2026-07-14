@@ -51,8 +51,8 @@ export default function StreakCard({ data, width }: { data: HomeStatus; width: n
 const s = StyleSheet.create({
   statRow: { flexDirection: 'row', gap: 10, marginBottom: 8 },
   stat: { flex: 1 },
-  statLbl: { color: PC.gold, fontWeight: '800', fontSize: 11, fontFamily: 'ShipporiMincho-Bold' },
-  big: { color: PC.ink, fontWeight: '900', fontSize: 20, fontFamily: 'ShipporiMincho-Bold', marginTop: 2 },
+  statLbl: { color: PC.gold, fontWeight: '800', fontSize: 11 },
+  big: { color: PC.ink, fontWeight: '900', fontSize: 20, marginTop: 2 },
   week: { flexDirection: 'row', gap: 7, marginBottom: 8 },
   dot: { width: 18, height: 18, borderRadius: 9, backgroundColor: 'rgba(255,255,255,0.12)' },
   dotOn: { backgroundColor: GOLD },

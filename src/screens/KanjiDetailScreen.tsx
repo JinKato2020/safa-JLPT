@@ -142,7 +142,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   saveTxt: { fontSize: ty.small, fontWeight: '800', color: c.blue },
   saveTxtOn: { color: c.blueDark },
   body: { paddingHorizontal: spacing.lg, paddingBottom: spacing.xl, alignItems: 'center' },
-  bigChar: { fontSize: 88, fontFamily: 'ShipporiMincho-Bold', color: c.ink, marginTop: spacing.sm },
+  bigChar: { fontSize: 88, fontWeight: '800', color: c.ink, marginTop: spacing.sm },
   meaning: { fontSize: ty.h2, fontWeight: '700', color: c.ink2, textAlign: 'center', marginTop: spacing.sm },
   meaningEn: { fontSize: ty.small, color: c.faint, textAlign: 'center', marginTop: 2 },
   strokes: { fontSize: ty.small, color: c.mute, marginTop: spacing.xs },

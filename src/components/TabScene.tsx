@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.94)',
     shadowColor: '#000', shadowOpacity: 0.35, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 4,
   },
-  glyph: { fontSize: 23, fontWeight: '900', fontFamily: 'ShipporiMincho-Bold' },
+  glyph: { fontSize: 23, fontWeight: '900' },
   btnLabel: { fontSize: 10.5, fontWeight: '800', color: '#fff', textShadowColor: 'rgba(0,0,0,0.7)', textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 3 },
   badge: { position: 'absolute', top: -4, right: -6, minWidth: 16, fontSize: 10, fontWeight: '800', color: '#fff', borderRadius: 8, paddingHorizontal: 4, textAlign: 'center', overflow: 'hidden' },
   // ポップオーバー(タップしたアイコンの上に出るカード)。
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000', shadowOpacity: 0.28, shadowRadius: 14, shadowOffset: { width: 0, height: 6 }, elevation: 10,
   },
   popIcon: { width: 46, height: 46, borderRadius: 23, borderWidth: 2, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' },
-  popGlyph: { fontSize: 25, fontWeight: '900', fontFamily: 'ShipporiMincho-Bold' },
+  popGlyph: { fontSize: 25, fontWeight: '900' },
   popText: { flex: 1 },
   popTitle: { fontSize: 16, fontWeight: '900', color: '#3a2f22' },
   popSub: { fontSize: 11.5, fontWeight: '600', color: '#7a6a52', marginTop: 2, lineHeight: 15 },

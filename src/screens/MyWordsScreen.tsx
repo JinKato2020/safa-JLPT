@@ -132,7 +132,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   screen: { flex: 1, backgroundColor: c.bg },
   top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingVertical: spacing.md },
   close: { fontSize: ty.h2, color: c.ink2, width: 30 },
-  title: { fontFamily: 'ShipporiMincho-Bold', fontSize: ty.h2, fontWeight: '800', color: c.ink, letterSpacing: 1 },
+  title: { fontSize: ty.h2, fontWeight: '800', color: c.ink, letterSpacing: 1 },
   reviewPill: { flexDirection: 'row', alignItems: 'center', gap: 3, backgroundColor: c.blue, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 5, ...shadow(1) },
   reviewPillTxt: { color: '#fff', fontSize: ty.small, fontWeight: '800' },
 
@@ -155,7 +155,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   accentBar: { width: 5, alignSelf: 'stretch' },
   rowText: { flex: 1, paddingVertical: spacing.md, paddingLeft: spacing.md },
   rowTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
-  rowTitleBig: { fontSize: 28, lineHeight: 34, fontFamily: 'ShipporiMincho-Bold' },
+  rowTitleBig: { fontSize: 28, lineHeight: 34, fontWeight: '800' },
   rowSub: { fontSize: ty.small, color: c.mute, marginTop: 2 },
   delBtn: { padding: spacing.xs },
 });

@@ -20,8 +20,8 @@ export default function StatusHeader({ passPct, rankTitleKey }: { passPct: numbe
 
 const s = StyleSheet.create({
   wrap: { marginBottom: 7, borderBottomWidth: 1, borderBottomColor: PC.trackBorder, paddingBottom: 6 },
-  rank: { color: PC.gold, fontWeight: '900', fontSize: 13, fontFamily: 'ShipporiMincho-Bold' },
+  rank: { color: PC.gold, fontWeight: '900', fontSize: 13 },
   lvRow: { flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 4 },
-  lvLbl: { color: PC.gold, fontWeight: '800', fontSize: 11.5, fontFamily: 'ShipporiMincho-Bold' },
+  lvLbl: { color: PC.gold, fontWeight: '800', fontSize: 11.5 },
   lvVal: { color: '#fff', fontWeight: '900', fontSize: 12.5, width: 26, textAlign: 'right', fontVariant: ['tabular-nums'] },
 });

@@ -47,10 +47,10 @@ export default function CoverageCard({ data, wordTrend, width }: { data: HomeSta
 }
 
 const s = StyleSheet.create({
-  title: { color: PC.gold, fontWeight: '800', fontSize: 11.5, fontFamily: 'ShipporiMincho-Bold', marginBottom: 3 },
+  title: { color: PC.gold, fontWeight: '800', fontSize: 11.5, marginBottom: 3 },
   row: { marginTop: 5 },
   rowHead: { flexDirection: 'row', alignItems: 'flex-end', marginBottom: 3 },
-  lbl: { flex: 1, color: PC.ink, fontWeight: '800', fontSize: 13, fontFamily: 'ShipporiMincho-Bold' },
+  lbl: { flex: 1, color: PC.ink, fontWeight: '800', fontSize: 13 },
   frac: { color: PC.mute, fontSize: 11.5, marginRight: 8, fontVariant: ['tabular-nums'] },
   pct: { color: PC.ink, fontWeight: '800', fontSize: 12, fontVariant: ['tabular-nums'] },
 });

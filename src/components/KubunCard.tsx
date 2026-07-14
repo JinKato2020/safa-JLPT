@@ -97,7 +97,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   cardHead: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
   badge: { width: 44, height: 44, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center', backgroundColor: c.blueLight },
   badgeTxt: { color: c.blueDark, fontSize: ty.h2, fontWeight: '800' },
-  cardTitle: { flex: 1, fontSize: ty.h2, fontFamily: 'ShipporiMincho-Bold', color: c.ink, letterSpacing: 0.5 },
+  cardTitle: { flex: 1, fontSize: ty.h2, fontWeight: '800', color: c.ink, letterSpacing: 0.5 },
   covBadgeWrap: { width: 64, alignItems: 'center' },
   covTierName: { fontSize: 9, color: c.mute, fontWeight: '700', marginTop: 2, textAlign: 'center' },
   covBarRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },

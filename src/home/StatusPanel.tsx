@@ -27,8 +27,8 @@ export default function StatusPanel({ data, lvTrend, width }: { data: HomeStatus
 }
 
 const styles = StyleSheet.create({
-  sect: { color: PC.gold, fontWeight: '800', fontSize: 11.5, fontFamily: 'ShipporiMincho-Bold', marginBottom: 3 },
+  sect: { color: PC.gold, fontWeight: '800', fontSize: 11.5, marginBottom: 3 },
   barRow: { flexDirection: 'row', alignItems: 'center', gap: 7, marginTop: 3 },
-  lbl: { width: 28, color: PC.ink, fontWeight: '800', fontSize: 12.5, fontFamily: 'ShipporiMincho-Bold' },
+  lbl: { width: 28, color: PC.ink, fontWeight: '800', fontSize: 12.5 },
   pct: { width: 36, textAlign: 'right', color: PC.ink, fontWeight: '800', fontSize: 12, fontVariant: ['tabular-nums'] },
 });

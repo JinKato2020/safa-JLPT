@@ -393,7 +393,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   filters2: { marginTop: spacing.sm },
   filtersRow: { alignItems: 'center', flexWrap: 'nowrap' },
   filterSide: { flex: 1, alignItems: 'flex-start' }, // 左=プルダウン / 右=空スペーサ。両側flex:1で区分名を中央に。
-  listTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, fontFamily: 'ShipporiMincho-Bold', textAlign: 'center' },
+  listTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
   count: { fontSize: ty.tiny, color: c.faint, paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
   listBody: { paddingHorizontal: spacing.md, paddingBottom: spacing.xl },
   row: {
@@ -412,7 +412,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   saveBtn: { paddingVertical: 4, paddingHorizontal: 4 },
   rowMain: { flex: 1, gap: 2 },
   // App Bのリスト見出しに合わせ、見出し語は明朝(Shippori Mincho)で上質に。
-  term: { fontSize: ty.h2, fontFamily: 'ShipporiMincho-Bold', color: c.ink, letterSpacing: 0.3 },
+  term: { fontSize: ty.h2, fontWeight: '800', color: c.ink, letterSpacing: 0.3 },
   reading: { fontSize: ty.small, fontWeight: '600', color: c.mute },
   // 見出し語の読みルビ(語の上に小さく・中央寄せ)。
   termRubyWrap: { alignSelf: 'flex-start', alignItems: 'center' },
