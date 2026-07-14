@@ -47,7 +47,7 @@ export default function ShopScreen() {
   const renderCard = (i: ShopItem) => (
     <View key={i.id} style={s.card}>
       {i.asset ? (
-        <Image source={i.asset} style={s.prev} resizeMode="cover" />
+        <Image source={i.asset} style={[s.prev, s.prevImg]} resizeMode="contain" />
       ) : (
         <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
       )}
@@ -111,6 +111,7 @@ const s = StyleSheet.create({
   card: { width: '46.5%', backgroundColor: '#fffdf7', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', padding: 10 },
   prev: { width: '100%', aspectRatio: 16 / 10, borderRadius: 10 },
   prevEmoji: { backgroundColor: '#f3ead9', alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 40 },
+  prevImg: { backgroundColor: '#f7efe0' },
   name: { marginTop: 8, marginBottom: 4, fontWeight: '800', color: '#5a3d22', fontSize: 14 },
   rarity: { marginBottom: 6, fontSize: 12, color: '#e0a63c', letterSpacing: 1 },
   rarityOff: { color: '#e2d4b8' },
