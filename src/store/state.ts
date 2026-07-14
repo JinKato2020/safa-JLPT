@@ -101,6 +101,11 @@ export const STATE_VERSION = 1;
 
 // 初期から所持＋装備している髪型(標準=ロング)。ショート装備後もここへ戻せるよう、既存ユーザーにも所持を補完する。
 export const DEFAULT_HAIR_ID = 'hair_long';
+// 「なし」= 装備を外す選択肢。初期から所持＋既定装備(=筆/民族衣装は未装備の見た目)。
+export const NONE_BRUSH_ID = 'brush_none';
+export const NONE_COSTUME_ID = 'costume_none';
+// 既存ユーザーにも所持を補完すべき既定アイテム(装備を外せるように)。
+export const DEFAULT_OWNED = [DEFAULT_HAIR_ID, NONE_BRUSH_ID, NONE_COSTUME_ID];
 
 export const INITIAL_STATE: AppState = {
   version: STATE_VERSION,
@@ -110,8 +115,8 @@ export const INITIAL_STATE: AppState = {
   growth: [],
   mockHistory: [],
   myList: [],
-  owned: [DEFAULT_HAIR_ID],
-  equipped: { hair: DEFAULT_HAIR_ID },
+  owned: [...DEFAULT_OWNED],
+  equipped: { hair: DEFAULT_HAIR_ID, brush: NONE_BRUSH_ID, costume: NONE_COSTUME_ID },
 };
 
 /** epoch ms → ローカル日付 YYYY-MM-DD */

@@ -1,6 +1,6 @@
 // AsyncStorage 永続化(Web では localStorage に自動マップ)。
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { type AppState, STATE_VERSION, DEFAULT_HAIR_ID } from './state';
+import { type AppState, STATE_VERSION, DEFAULT_HAIR_ID, DEFAULT_OWNED } from './state';
 import { KANJI, VOCAB, GRAMMAR } from '../data';
 import KB_ID_MIGRATION from '../data/exam/kbIdMigration.json';
 
@@ -42,9 +42,11 @@ export async function loadState(): Promise<AppState | null> {
     if (parsed.version !== STATE_VERSION) return null; // 将来のマイグレーション地点
     if (parsed.items) parsed.items = migrateDaimonKeys(parsed.items);
     if (parsed.items) parsed.items = migrateBankIds(parsed.items);
-    // ロング髪(標準)を既存ユーザーにも補完: 所持に無ければ追加(ショート装備後に戻せるように)。
+    // 既定アイテム(ロング髪・筆なし・民族衣装なし)を既存ユーザーにも補完: 所持に無ければ追加(装備を外せるように)。
     // 髪型が未装備なら標準=ロングを装備(既にショート等を装備中なら本人の選択を尊重して上書きしない)。
-    if (!(parsed.owned ?? []).includes(DEFAULT_HAIR_ID)) parsed.owned = [...(parsed.owned ?? []), DEFAULT_HAIR_ID];
+    const own = new Set(parsed.owned ?? []);
+    for (const id of DEFAULT_OWNED) own.add(id);
+    parsed.owned = [...own];
     if (!parsed.equipped?.hair) parsed.equipped = { ...(parsed.equipped ?? {}), hair: DEFAULT_HAIR_ID };
     return parsed;
   } catch {
