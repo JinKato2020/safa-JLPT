@@ -42,7 +42,7 @@ function main() {
   // ファイルパス割付(daimon→フォルダ)
   const FOLDER: Record<string, string> = {};
   for (const s of DAIMON_SPEC) FOLDER[s.daimon] = s.folder;
-  for (const d of ['grammar_form', 'order', 'passage_grammar']) FOLDER[d] = 'bunpou';
+  for (const d of ['grammar_form', 'order', 'passage_grammar', 'knowledgebank']) FOLDER[d] = 'bunpou';
   for (const d of ['naiyou_tan', 'naiyou_chu', 'choubun', 'joho']) FOLDER[d] = 'dokkai';
   for (const d of ['kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji']) FOLDER[d] = 'choukai';
 
@@ -86,6 +86,15 @@ function main() {
     mkdirSync(dirname(path), { recursive: true });
     writeFileSync(path, text, 'utf8');
   }
-  console.log('WROTE', OUT);
+  // Metroバンドル用バレル(全content JSONを静的import→BUNDLEDマップ)。src/data/content に生成。
+  const jsonPaths = Object.keys(files).filter((p) => p.endsWith('.json') && p !== '_manifest.json').sort();
+  const barrel = '// 自動生成(build_content.ts)。手で編集しない。content/ の全JSONを静的importする。\n'
+    + jsonPaths.map((p, i) => `import f${i} from '../../../content/${p}';`).join('\n')
+    + '\nexport const BUNDLED: Record<string, unknown> = {\n'
+    + jsonPaths.map((p, i) => `  '${p}': f${i},`).join('\n')
+    + '\n};\n';
+  mkdirSync('src/data/content', { recursive: true });
+  writeFileSync('src/data/content/bundled.generated.ts', barrel, 'utf8');
+  console.log('WROTE', OUT, '+ bundled.generated.ts (', jsonPaths.length, 'imports )');
 }
 main();

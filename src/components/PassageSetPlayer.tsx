@@ -7,12 +7,12 @@ import { rubyNeeded } from '../data';
 import { useAppState, useAppActions } from '../store/store';
 import { shuffleChoices } from '../quiz/quiz';
 import { type PassageSet } from '../quiz/passageSet';
-import passageTransNe from '../data/exam/passageTransNe.json';
+import { PASSAGE_TRANS_NE } from '../data';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
 // 本文のネパール語訳(回答後トグル表示・l1=ne時のみ)。key=PassageSet.id → 本文ごとの訳配列。
-const TRANS_NE = passageTransNe as Record<string, string[]>;
+const TRANS_NE = PASSAGE_TRANS_NE;
 
 export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { set: PassageSet; isLast: boolean; onNext: () => void; onGraded?: (results: { id: string; correct: boolean }[]) => void }) {
   const state = useAppState();

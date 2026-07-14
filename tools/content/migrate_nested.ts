@@ -7,34 +7,33 @@ const groupBy = <T>(rows: T[], key: (r: T) => string): Map<string, T[]> => {
   return m;
 };
 
-// knowledgeBankにはcontext等も入るが、アプリが実際にknowledgeBankから引くのは usage/grammar_form/order のみ
-// (context/kanji_read/表記/言い換えは固定バンク使用)。その3daimonだけを採る。orderはambiguousを除外。
-const KB_DAIMONS = new Set(['usage', 'grammar_form', 'order']);
+// knowledgeBank は生成バンクの「生の実体」(context/usage/grammar_form/order/passage_grammar が同居)。
+// アプリ(daimon.ts)が後段で ambiguous order と passage_grammar を除外して使うため、ここでは
+// フィルタも大問分割もせず、全daimon・全フィールドを保存してレベル別1ファイルにする(挙動不変・pointId等を維持)。
 export function splitKnowledgeBank(kb: any[]): ContentFile[] {
-  const rows = kb.filter((x) => KB_DAIMONS.has(x.daimon)).filter((x) => !(x.daimon === 'order' && x.ambiguous));
   const out: ContentFile[] = [];
-  for (const [daimon, drows] of groupBy(rows, (r) => r.daimon)) {
-    for (const [level, lrows] of groupBy(drows, (r) => r.level)) {
-      const items: ContentItem[] = lrows.map((r) => ({ id: r.id, stem: r.stem, question: r.question, answer: r.answer, choices: r.choices, i18n: {} }));
-      out.push({ schema: 1, daimon, level, languages: ['ja', 'ne'], items });
-    }
+  for (const [level, lrows] of groupBy(kb, (r) => r.level)) {
+    const items: ContentItem[] = lrows.map((r) => ({ ...r, i18n: {} }));
+    out.push({ schema: 1, daimon: 'knowledgebank', level, languages: ['ja', 'ne'], items });
   }
   return out;
 }
-// passageTransNe[id] は行ごとの配列(まれに文字列)。i18n.ne.body に改行連結で格納(取りこぼしを避ける)。
+// 言語非依存フィールド(format/category/type/title/body/subtype/level 等)は全保存(spread)。
+// 設問の explain(JA)は q.i18n.ja.explain へ移設。passageTransNe[id](行配列)は i18n.ne.body へ配列のまま格納。
 export function readingToFiles(reading: any[], passageTransNe: Record<string, unknown>): ContentFile[] {
   const out: ContentFile[] = [];
   for (const [subtype, srows] of groupBy(reading, (r) => r.subtype)) {
     for (const [level, lrows] of groupBy(srows, (r) => r.level)) {
       const items: ContentItem[] = lrows.map((r) => {
+        const { questions, ...rest } = r;
         const i18n: ContentItem['i18n'] = {};
         const pv = passageTransNe[r.id];
-        if (pv) i18n.ne = { body: Array.isArray(pv) ? pv.join('\n') : String(pv) };
-        const questions = (r.questions ?? []).map((q: any) => ({
-          id: q.id, q: q.q, choices: q.choices, answerIndex: q.answerIndex,
-          i18n: q.explain ? { ja: { explain: q.explain } } : {},
-        }));
-        return { id: r.id, title: r.title, body: r.body, questions, i18n };
+        if (pv) i18n.ne = { body: pv as string[] };
+        return {
+          ...rest,
+          questions: (questions ?? []).map((q: any) => { const { explain, ...qr } = q; return { ...qr, i18n: explain ? { ja: { explain } } : {} }; }),
+          i18n,
+        };
       });
       out.push({ schema: 1, daimon: subtype, level, languages: ['ja', 'ne'], items });
     }
@@ -45,11 +44,10 @@ export function readingToFiles(reading: any[], passageTransNe: Record<string, un
 export function passageGrammarToFiles(pg: any[]): ContentFile[] {
   const out: ContentFile[] = [];
   for (const [level, lrows] of groupBy(pg, (r) => r.level)) {
-    const items: ContentItem[] = lrows.map((r) => ({
-      id: r.id, kind: r.kind, passages: r.passages,
-      questions: (r.questions ?? []).map((q: any) => ({ id: q.id, blankNo: q.blankNo, choices: q.choices, answerIndex: q.answerIndex, pointId: q.pointId, i18n: {} })),
-      i18n: {},
-    }));
+    const items: ContentItem[] = lrows.map((r) => {
+      const { questions, ...rest } = r;
+      return { ...rest, questions: (questions ?? []).map((q: any) => ({ ...q, i18n: {} })), i18n: {} };
+    });
     out.push({ schema: 1, daimon: 'passage_grammar', level, languages: ['ja', 'ne'], items });
   }
   return out;
@@ -58,11 +56,14 @@ export function listeningToFiles(listening: any[]): ContentFile[] {
   const out: ContentFile[] = [];
   for (const [subtype, srows] of groupBy(listening, (r) => r.subtype)) {
     for (const [level, lrows] of groupBy(srows, (r) => r.level)) {
-      const items: ContentItem[] = lrows.map((r) => ({
-        id: r.id, title: r.title, script: r.script, audio: r.audio, audioChoices: r.audioChoices,
-        questions: (r.questions ?? []).map((q: any) => ({ id: q.id, q: q.q, choices: q.choices, answerIndex: q.answerIndex, i18n: q.explain ? { ja: { explain: q.explain } } : {} })),
-        i18n: {},
-      }));
+      const items: ContentItem[] = lrows.map((r) => {
+        const { questions, ...rest } = r;
+        return {
+          ...rest,
+          questions: (questions ?? []).map((q: any) => { const { explain, ...qr } = q; return { ...qr, i18n: explain ? { ja: { explain } } : {} }; }),
+          i18n: {},
+        };
+      });
       out.push({ schema: 1, daimon: subtype, level, languages: ['ja', 'ne'], items });
     }
   }

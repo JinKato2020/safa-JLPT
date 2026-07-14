@@ -2,7 +2,8 @@
 export const LANGS = ['ja', 'ne', 'vi', 'en', 'zh', 'ko', 'th', 'id', 'bn', 'my'] as const;
 export type Lang = (typeof LANGS)[number];
 
-export type ContentItem = { id: string; i18n: Record<string, Record<string, string>>; [k: string]: unknown };
+// i18n値は基本string(explain等)。読解/聴解のパッセージ訳(body)は行配列=string[]を許す。
+export type ContentItem = { id: string; i18n: Record<string, Record<string, string | string[]>>; [k: string]: unknown };
 export type ContentFile = { schema: 1; daimon: string; level: string; languages: string[]; items: ContentItem[] };
 export type LexiconFile = { schema: 1; kind: 'meaning' | 'example'; level: string; languages: string[]; items: Record<string, Record<string, string>> };
 export type ManifestEntry = { sha256: string; bytes: number; count: number };

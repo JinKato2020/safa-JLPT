@@ -3,16 +3,11 @@
 import kanji from './dict/kanji.json';
 import vocab from './shared/vocab.json';
 import grammar from './shared/grammar.json';
-import reading from './exam/reading.json';
-import listening from './exam/listening.json';
 import vocabExamplesAi from './dict/vocabExamplesAi.json';
-import meaningL10n from './dict/meaningL10n.json';
-import exampleL10n from './dict/exampleL10n.json';
 import metaJson from './settings/meta.json';
 import grammarClozeOkJson from './exam/grammarClozeOk.json';
 import vocabClozeOkJson from './exam/vocabClozeOk.json';
 import vocabSynonymsJson from './dict/vocabSynonyms.json';
-import knowledgeBankJson from './exam/knowledgeBank.json';
 import dictExtJson from './dict/dictExt.json';
 import vocabFreqJson from './dict/vocabFreq.json';
 import jftBandsJson from './exam/jftBands.json';
@@ -20,17 +15,16 @@ import vocabFurigana from './dict/vocabFurigana.json';
 import kanjiExamples from './dict/kanjiExamples.json';
 import kanjiExamplesMulti from './dict/kanjiExamplesMulti.json';
 import kanjiLevelReadings from './dict/kanjiLevelReadings.json';
-import kanjiReadBank from './exam/kanjiReadingBank.json';
-import contextBank from './exam/contextBank.json';
 import sentenceFuri from './dict/sentenceFuri.json';
 import learnFuri from './dict/learnFuri.json';
-import synonymBank from './exam/synonymBank.json';
 import jftExpression from './exam/jftExpression.json';
-import orthographyBank from './exam/orthographyBank.json';
 import kanjiReadings from './dict/kanjiReadings.json';
 import kanjiCardReadings from './words/kanjiCardReadings.json';
 import kanjiCards from './words/kanjiCards.json';
-import passageGrammar from './exam/passageGrammar.json';
+// 問題バンク・読解聴解・語彙訳は新フォーマット(content/・大問×レベル・i18n inline)から再構成して供給する。
+import { BUNDLED } from './content/bundled.generated';
+import { rehydrateBanks } from './content/rehydrate';
+const _R = rehydrateBanks(BUNDLED as Record<string, any>); // eslint-disable-line @typescript-eslint/no-explicit-any
 import type { Category, Level } from '../engine/engine';
 import type { PassageSet } from '../quiz/passageSet';
 
@@ -95,7 +89,7 @@ export const VOCAB_SYN = vocabSynonymsJson as Record<string, string>;
 
 /** 知識バンク=実データから作れない大問(用法/文の組み立て/文章の文法)の生成問題。模試で本番比率に使う。 */
 export interface KnowledgeBankItem { id: string; level: string; daimon: string; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; }
-export const KNOWLEDGE_BANK = knowledgeBankJson as KnowledgeBankItem[];
+export const KNOWLEDGE_BANK = _R.KNOWLEDGE_BANK as KnowledgeBankItem[];
 
 /** 辞書Browse拡張(N2/N1・参考辞書・学習対象外)。JMdict/KANJIDIC由来。levelがN2/N1なのでcastで型を通す。 */
 export const DICT_EXT_VOCAB = (dictExtJson.vocab as unknown) as VocabItem[];
@@ -104,11 +98,11 @@ export const DICT_EXT_KANJI = (dictExtJson.kanji as unknown) as KanjiItem[];
 /** 語彙の難易度＝使用頻度スコア(小さいほど高頻度=易。JMdict頻度由来)。新出を易しい順に導入する材料。 */
 export const VOCAB_FREQ = vocabFreqJson as Record<string, number>;
 // 母語対応: 語彙id/漢字char → { 言語コード: 意味の訳 }。フラッシュカード等で母語(l1)の意味を表示。
-export const MEANING_L10N = meaningL10n as Record<string, Record<string, string>>;
+export const MEANING_L10N = _R.MEANING_L10N as Record<string, Record<string, string>>;
 /** その項目の母語(lang)の意味。無ければ undefined。 */
 export const meaningIn = (key: string, lang: string): string | undefined => MEANING_L10N[key]?.[lang];
 // 例文の母語訳: 語彙id → { 言語: 訳文 }。辞書/フラッシュカードで例文を母語表示。
-export const EXAMPLE_L10N = exampleL10n as Record<string, Record<string, string>>;
+export const EXAMPLE_L10N = _R.EXAMPLE_L10N as Record<string, Record<string, string>>;
 /** その語の例文の母語(lang)訳。無ければ undefined。 */
 export const exampleIn = (vid: string, lang: string): string | undefined => EXAMPLE_L10N[vid]?.[lang];
 
@@ -193,17 +187,17 @@ export function readingAboveUserLevel(readingLevel: string, userLevel: string): 
 // 公式形式: 文中の対象語(漢字)を下線(underline=漢字span)→正しい読み(answer=ひらがな)を4択。
 // choices=誤答読み3(紛らわしいひらがな/似た語の読み)。生成=問題/tools/build_kanjiread_bank.py。
 export interface KanjiReadBankItem { id: string; level: string; daimon: 'kanji_read'; sentence: string; underline: string; answer: string; choices: string[]; }
-export const KANJI_READ_BANK = kanjiReadBank as KanjiReadBankItem[];
+export const KANJI_READ_BANK = _R.KANJI_READ_BANK as KanjiReadBankItem[];
 // 文脈規定(大問3)の固定問題集。id=cx:<vocabId>、choices=誤答3(正解は実行時にanswerを先頭付与)。
 export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; }
-export const CONTEXT_BANK = contextBank as ContextBankItem[];
+export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
 export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; }
-export const SYNONYM_BANK = synonymBank as SynonymBankItem[];
+export const SYNONYM_BANK = _R.SYNONYM_BANK as SynonymBankItem[];
 // 表記(大問2)の固定問題集(公式形式)。文中の対象語をかな(読み)で下線→正しい漢字/カタカナを4択。
 // 誤答=形が似た字(部首/字形の似た別漢字・字形の似たカタカナ)。生成=問題/tools/build_orthography_bank.py。
 export interface OrthographyBankItem { id: string; level: string; sentence: string; underline: string; answer: string; choices: string[]; explain?: string; explainNe?: string; }
-export const ORTHOGRAPHY_BANK = orthographyBank as OrthographyBankItem[];
+export const ORTHOGRAPHY_BANK = _R.ORTHOGRAPHY_BANK as OrthographyBankItem[];
 // ①〜④問題文のふりがな(漢字（かな）)。bankId→ふりがな付き文。kuroshiro生成。レベル適応ルビの元データ。
 export const SENTENCE_FURI = sentenceFuri as Record<string, string>;
 // 学習カード用の追加ふりがな(⑤用法の例文/解説/対象語 等)。生文字列→ふりがな付き。kuroshiro生成＋文脈校正。
@@ -302,12 +296,14 @@ export interface ListeningItem {
   audioChoices?: boolean; // 発話/即時: 選択肢を音声で読む(本文＋番号→選択肢の連結mp3)。画面は番号のみ・シャッフル不可・回答後に本文/選択肢開示。
 }
 
-export const READING = reading as ReadingItem[];
-export const LISTENING = listening as ListeningItem[];
+export const READING = _R.READING as ReadingItem[];
+export const LISTENING = _R.LISTENING as ListeningItem[];
+/** 読解パッセージの母語(ne)訳。id→行配列。PassageSetPlayer 等で表示。 */
+export const PASSAGE_TRANS_NE = _R.PASSAGE_TRANS_NE as Record<string, string[]>;
 
 // 文章の文法(大問⑧・セット形式=1文章＋5設問)。旧知識バンク(passage_grammar daimon)から本セットへ移行(BANKからは除外・daimon.ts)。
 // 生成: 問題/tools(文章の文法量産パイプライン)。id=pg-<Level>-<3桁連番>、設問id=pg-<Level>-<3桁>-q5..q9。
-export const PASSAGE_GRAMMAR = passageGrammar as PassageSet[];
+export const PASSAGE_GRAMMAR = _R.PASSAGE_GRAMMAR as PassageSet[];
 /** レベルの文章の文法セット(40本/級)。 */
 export function passageGrammarSetsFor(level: string): PassageSet[] {
   return PASSAGE_GRAMMAR.filter((s) => s.level === level);
