@@ -142,7 +142,9 @@ export default function QuizScreen() {
       <SafeAreaView style={s.c}>
         <View style={s.center}>
           <Text style={s.bigEmoji}>🎉</Text>
+          {title ? <Text style={s.doneDaimon}>{title}</Text> : null}
           <Text style={s.doneTitle}>{t('quiz.session_done')}</Text>
+          <Text style={s.doneRate}>{t('quiz.accuracy', { pct: answered ? Math.round((correctCount / answered) * 100) : 0 })}</Text>
           <Text style={s.doneSub}>{t('quiz.score', { answered, correct: correctCount })}</Text>
           <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="quiz" />
           <AppButton label={t('quiz.see_results')} onPress={() => nav.goBack()} full={false} style={{ marginTop: spacing.sm }} />
@@ -323,6 +325,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   judgeOk: { color: c.green },
   judgeNg: { color: c.red },
   bigEmoji: { fontSize: 56 },
+  doneDaimon: { fontSize: ty.small, fontWeight: '800', color: c.blueDark, letterSpacing: 1 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
+  doneRate: { fontSize: 40, fontWeight: '900', color: c.blue, marginTop: spacing.xs },
   doneSub: { fontSize: ty.body, color: c.mute },
 });

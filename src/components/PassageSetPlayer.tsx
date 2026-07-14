@@ -25,25 +25,26 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
   // 選択肢は問ごとに一度だけシャッフルして固定（sh.answerIndex＝シャッフル後の正解位置）。
   const qs = useMemo(() => set.questions.map((q) => ({ q, sh: shuffleChoices(q.choices, q.answerIndex) })), [set.id]);
   const [answers, setAnswers] = useState<(number | null)[]>(() => set.questions.map(() => null));
-  const [correctness, setCorrectness] = useState<boolean[]>(() => set.questions.map(() => false)); // pick時に確定
+  const [graded, setGraded] = useState(false); // 「答え合わせ」を押すまで採点しない＝それまで選び直せる
   const [recorded, setRecorded] = useState(false);
   const [showTrans, setShowTrans] = useState(false);
-  const revealed = answers.every((a) => a !== null);
+  const allAnswered = answers.length > 0 && answers.every((a) => a !== null);
+  const revealed = graded; // 正誤の開示は採点後のみ
   const trans = state.settings.l1 === 'ne' ? TRANS_NE[set.id] : undefined; // 本文ごとのネパール語訳(無ければundefined)
 
-  // 全問回答した瞬間に、各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)が採点集計したい場合は onGraded も同時に1回だけ発火。
+  // 「答え合わせ」で一括採点した瞬間に、各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)が採点集計したい場合は onGraded も同時に1回だけ発火。
   useEffect(() => {
-    if (revealed && !recorded) {
-      set.questions.forEach((q, i) => quizAnswer(q.id, correctness[i]));
-      onGraded?.(set.questions.map((q, i) => ({ id: q.id, correct: correctness[i] })));
+    if (graded && !recorded) {
+      const results = qs.map((x, i) => answers[i] === x.sh.answerIndex);
+      set.questions.forEach((q, i) => quizAnswer(q.id, results[i]));
+      onGraded?.(set.questions.map((q, i) => ({ id: q.id, correct: results[i] })));
       setRecorded(true);
     }
-  }, [revealed, recorded]);
+  }, [graded, recorded]);
 
+  // 採点前はいつでも選び直せる（間違いに後から気付いた時のため／再タップで別の選択肢に変更）。採点後は変更不可。
   const pick = (qi: number, choiceIdx: number) => {
-    if (answers[qi] !== null) return;
-    const ok = choiceIdx === qs[qi].sh.answerIndex;
-    setCorrectness((cs) => { const n = [...cs]; n[qi] = ok; return n; });
+    if (graded) return;
     setAnswers((a) => { const n = [...a]; n[qi] = choiceIdx; return n; });
   };
 
@@ -95,8 +96,10 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
         );
       })}
 
-      {revealed ? (
+      {graded ? (
         <Pressable style={s.nextBtn} onPress={onNext}><Text style={s.nextTxt}>{isLast ? t('passage.toResult') : t('passage.next')}</Text></Pressable>
+      ) : allAnswered ? (
+        <Pressable style={s.nextBtn} onPress={() => setGraded(true)}><Text style={s.nextTxt}>{t('passage.grade')}</Text></Pressable>
       ) : (
         <Text style={s.hint}>{t('passage.hint')}</Text>
       )}
