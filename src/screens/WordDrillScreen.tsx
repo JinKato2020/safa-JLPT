@@ -207,7 +207,8 @@ function MeaningView({ p, sel, setSel, judged, record, s }: {
   };
   return (
     <>
-      <View style={s.prompt}><Text style={s.promptPt}>{p.prompt}</Text></View>
+      {/* 文法点は 漢字（かな） を含む(82/393)。RubyTextで漢字の上にルビ表示(カッコ生表示を回避)。 */}
+      <View style={s.prompt}><RubyText text={p.prompt} style={s.promptPt} rubyStyle={s.exampleRuby} center /></View>
       {!!p.example && (
         <View style={s.exampleBox}>
           <RubyText text={p.example} target={p.hit} style={s.exampleTxt} hitStyle={s.exampleHit} rubyStyle={s.exampleRuby} center />
