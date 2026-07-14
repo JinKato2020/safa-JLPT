@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, AppState, Modal, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer, DefaultTheme, useNavigation, useNavigationState } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, useNavigation, useNavigationState, StackActions } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator, type NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -147,6 +147,16 @@ function MainTabs() {
           key={tab.name}
           name={tab.name}
           component={tab.component}
+          // タブから離れたら、そのタブの入れ子スタックを先頭(ハブ=背景画像の画面)まで戻す。
+          // 再度スワイプで戻った時に、前に開いていたカード/リストではなく既定の背景が出るように(ユーザー要望)。
+          listeners={({ navigation, route }) => ({
+            blur: () => {
+              const parent = navigation.getState();
+              const r = parent.routes.find((x) => x.key === route.key);
+              const nestedKey = (r?.state as { key?: string } | undefined)?.key;
+              if (nestedKey) navigation.dispatch({ ...StackActions.popToTop(), target: nestedKey });
+            },
+          })}
           options={{
             tabBarLabel: t(tab.labelKey),
             tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? tab.icon : tab.iconOff} size={22} color={color} />,

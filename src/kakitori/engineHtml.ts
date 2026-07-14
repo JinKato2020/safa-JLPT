@@ -76,7 +76,8 @@ KW.setFreeStep=function(step){
   if(step===0){writer.animateCharacter();}
   writer.quiz({
     showHintAfterMisses: step===0?1:(step===1?3:999),
-    highlightOnComplete:true
+    highlightOnComplete:true,
+    onComplete:function(s){post({type:'freeComplete'});}
   });
   post({type:'started',step:-1});
 };

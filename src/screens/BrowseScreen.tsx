@@ -36,6 +36,8 @@ const KUBUN: { key: Kubun; labelKey: string; glyph: string }[] = [
 ];
 // 辞書のレベル並び(易→難)。「全」表示時はこの順でソート。
 const LEVEL_ORDER = ['N5', 'N4', 'N3', 'N2', 'N1'];
+// 漢字の char → kanji.json id。詳細カードと同じidで my単語帳に保存し、簡易カードからの登録と重複しないようにする。
+const KANJI_ID_BY_CHAR = new Map(KANJI.map((k) => [k.char, k.id]));
 
 function haystack(it: StudyItem): string {
   if (it.type === 'vocab') return `${it.word} ${it.reading} ${it.meaning}`.toLowerCase();
@@ -259,10 +261,18 @@ export default function BrowseScreen() {
       </>
     );
     if (item.type === 'kanji') {
+      // 簡易カードから直接 my単語帳 登録できるよう★ボタンを配置(詳細を開かずに保存可)。
+      // 本体タップは従来通り詳細へ。保存idは詳細カードと同じ kanji.json id で統一。
+      const kanjiId = KANJI_ID_BY_CHAR.get(item.char) ?? item.id;
       return (
-        <Pressable style={s.row} onPress={() => nav.navigate('KanjiDetail', { char: item.char, scope: study ? 'level' : 'all' })}>
-          {rowInner}
-        </Pressable>
+        <View style={s.row}>
+          <Pressable style={s.kanjiMain} onPress={() => nav.navigate('KanjiDetail', { char: item.char, scope: study ? 'level' : 'all' })}>
+            {rowInner}
+          </Pressable>
+          <View style={s.rowBtns}>
+            <SaveButton refItem={{ type: 'kanji', id: kanjiId }} />
+          </View>
+        </View>
       );
     }
     if (item.type === 'vocab') {
@@ -408,6 +418,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     gap: spacing.sm,
   },
   playBtn: { paddingLeft: 10, paddingVertical: 4, alignSelf: 'center' },
+  // 漢字行: 本体(詳細へ遷移)は横並びのまま flex:1。右に★ボタンを添える。
+  kanjiMain: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   rowBtns: { alignItems: 'center', justifyContent: 'center', gap: 6, paddingLeft: 6 },
   saveBtn: { paddingVertical: 4, paddingHorizontal: 4 },
   rowMain: { flex: 1, gap: 2 },

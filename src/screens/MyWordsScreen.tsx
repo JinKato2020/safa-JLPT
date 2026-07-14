@@ -19,7 +19,7 @@ import type { RootStackParamList } from '../navigation/types';
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 const KINDS: BookKind[] = ['kanji', 'vocab', 'grammar']; // 表示順=漢字→語彙→文法(ユーザー指定)
 
-interface Row { ref: SaveRef; title: string; sub: string; big?: boolean }
+interface Row { ref: SaveRef; title: string; sub: string; level: string; big?: boolean }
 
 export default function MyWordsScreen() {
   const nav = useNavigation<Nav>();
@@ -43,13 +43,13 @@ export default function MyWordsScreen() {
     for (const ref of state.myList ?? []) {
       if (ref.type === 'vocab') {
         const v = vocabById.get(ref.id);
-        if (v) out.vocab.push({ ref, title: v.word, sub: `${v.reading ? v.reading + ' ・ ' : ''}${nm(v.id, v.meaning)}` });
+        if (v) out.vocab.push({ ref, title: v.word, sub: `${v.reading ? v.reading + ' ・ ' : ''}${nm(v.id, v.meaning)}`, level: v.level });
       } else if (ref.type === 'kanji') {
         const k = kanjiById.get(ref.id);
-        if (k) out.kanji.push({ ref, title: k.char, sub: nm(k.char, k.meaning), big: true });
+        if (k) out.kanji.push({ ref, title: k.char, sub: nm(k.char, k.meaning), level: k.level, big: true });
       } else {
         const g = grammarById.get(ref.id);
-        if (g) out.grammar.push({ ref, title: g.point, sub: nm(g.id, g.meaning) });
+        if (g) out.grammar.push({ ref, title: g.point, sub: nm(g.id, g.meaning), level: g.level });
       }
     }
     return out;
@@ -77,6 +77,7 @@ export default function MyWordsScreen() {
         <Text style={[s.rowTitle, item.big && s.rowTitleBig]} numberOfLines={1}>{item.title}</Text>
         <Text style={s.rowSub} numberOfLines={2}>{item.sub}</Text>
       </View>
+      <Text style={s.levelBadge}>{item.level}</Text>
       <Pressable style={s.delBtn} hitSlop={10} onPress={() => addToMyList(item.ref)}>
         <Ionicons name="close" size={18} color={c.faint} />
       </Pressable>
@@ -157,5 +158,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   rowTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
   rowTitleBig: { fontSize: 28, lineHeight: 34, fontWeight: '800' },
   rowSub: { fontSize: ty.small, color: c.mute, marginTop: 2 },
+  levelBadge: { fontSize: 10, fontWeight: '800', color: c.mute, backgroundColor: c.bgSoft, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 2, overflow: 'hidden', marginRight: spacing.xs },
   delBtn: { padding: spacing.xs },
 });

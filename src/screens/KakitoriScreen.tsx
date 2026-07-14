@@ -115,9 +115,16 @@ export default function KakitoriScreen() {
 
   const inject = (code: string) => { webRef.current?.injectJavaScript(`try{${code}}catch(e){window.ReactNativeWebView&&window.ReactNativeWebView.postMessage(JSON.stringify({type:'error',msg:String(e)}))}; true;`); };
 
+  // 書き切ったら少し見せてから青線を自動クリア＝同じ段の練習を続けられる(自動前進はしない/ユーザー要望)。
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelReset = () => { if (resetTimer.current) { clearTimeout(resetTimer.current); resetTimer.current = null; } };
+  const scheduleReset = () => { cancelReset(); resetTimer.current = setTimeout(() => { resetTimer.current = null; if (readyRef.current) inject('KW.clear()'); }, 700); };
+  useEffect(() => cancelReset, []);
+
   // 指定字をロード→現モードで開始。字形データはRNが取得しWebViewへ注入。
   const loadChar = async (ch: string, st: number) => {
     if (!ch || !readyRef.current) return;
+    cancelReset(); // 別の字/段へ移る時は保留中の自動クリアを取り消す(次字を消さない)。
     setLoading(true); setError(false);
     try {
       const data = await fetchCharData(ch);
@@ -172,6 +179,12 @@ export default function KakitoriScreen() {
     try { m = JSON.parse(e.nativeEvent.data); } catch { return; }
     if (m.type === 'ready') { readyRef.current = true; if (!done) loadChar(char, free ? freeStep : step); return; }
     if (m.type === 'mistake') { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {}); return; }
+    // 自由練習(なぞり/見て書く/見ないで)の完了: 記録も前進もせず、青線だけ自動リセット＝続けて練習可。
+    if (m.type === 'freeComplete') {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      scheduleReset();
+      return;
+    }
     if (m.type === 'complete') {
       if (free) return;
       // 書けたら記録＋フィードバック。ただし自動前進しない=[次へ]は本人が選ぶ
@@ -179,6 +192,8 @@ export default function KakitoriScreen() {
       const score = scoreForMistakes(m.mistakes ?? 0);
       recordKakitori(char, step + 1, score, { skipped: false, now: Date.now() });
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      // 書き切ったら少し見せてから青線を自動クリア＝同じ字/段を続けて練習できる。前進は[次へ]で本人が選ぶ。
+      scheduleReset();
       // 完了後の自動発音は行わない(ユーザー要望)。読み上げは手動🎧のみ。
     }
   };
