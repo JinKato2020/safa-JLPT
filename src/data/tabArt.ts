@@ -8,8 +8,13 @@ import { daylightAt, type Daylight } from './daylight';
 export type TabKey = 'word' | 'exam' | 'dict';
 export { daylightAt, type Daylight };
 
-// ホーム背景(ユーザー提供 HOME.png)。昼夜なしの単一画像。
-export const HOME_BG: ImageSourcePropType = require('../../assets/tabs/home_bg.jpg');
+// ホーム背景(ユーザー提供 HOME.png)。昼=home_bg.jpg / 夜=home_bg_night.jpg を時刻で切替。
+export const HOME_BG_BY: Record<Daylight, ImageSourcePropType> = {
+  day: require('../../assets/tabs/home_bg.jpg'),
+  night: require('../../assets/tabs/home_bg_night.jpg'),
+};
+// 後方互換(昼)。現行の参照が残っていても壊れないように。
+export const HOME_BG: ImageSourcePropType = HOME_BG_BY.day;
 
 // 各タブの全画面背景(昼/夜)。word=単語タブ, exam=試験タブ, dict=辞書タブ。
 export const TAB_BG: Record<TabKey, Record<Daylight, ImageSourcePropType>> = {
@@ -42,6 +47,11 @@ export function useDaylight(): Daylight {
 // 指定タブの、いまの時刻に応じた背景を返す。
 export function useTabBg(key: TabKey): ImageSourcePropType {
   return TAB_BG[key][useDaylight()];
+}
+
+// ホーム背景の、いまの時刻に応じた昼/夜を返す。
+export function useHomeBg(): ImageSourcePropType {
+  return HOME_BG_BY[useDaylight()];
 }
 
 // 指定タブの、いまの時刻に応じた「閉じ目版」を返す(未登録なら undefined=まばたきなし)。

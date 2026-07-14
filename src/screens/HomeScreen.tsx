@@ -7,7 +7,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { learnedNow } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { TabBackground } from '../components/TabScene';
-import { HOME_BG } from '../data/tabArt';
+import { useHomeBg } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
 import HomeCoach from '../home/HomeCoach';
 import SafeBoundary from '../components/SafeBoundary';
@@ -19,6 +19,7 @@ export default function HomeScreen() {
   const state = useAppState();
   const now = Date.now();
   const { width, height } = useWindowDimensions();
+  const homeBg = useHomeBg(); // 昼/夜で自動切替
 
   const status = useMemo(() => homeStatus(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -61,7 +62,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.c}>
-      <TabBackground source={HOME_BG}>
+      <TabBackground source={homeBg}>
         <SafeBoundary tag="homering" fallback={null}>
           <View style={[styles.wrap, { top, left, width: ringW, height: ringW }]}>
             {/* 画像は必ず明示サイズ(=ringW)で拘束する。absoluteFill+containは実機で実寸化する事故があるため使わない。 */}

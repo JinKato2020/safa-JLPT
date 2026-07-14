@@ -20,10 +20,7 @@ export const SHOP: ShopItem[] = [
   // 着せ替え(髪型/服/筆) — 巫女の見た目。髪型・服・筆はそれぞれ別スロットで同時装備できる。
   // ロング=標準髪型。初期から所持＋装備(INITIAL_STATE)。ショートを装備した後もここから戻せる。
   { id: 'hair_long', cat: 'dressup', kind: 'hair', price: 0, name: 'ロング', asset: require('../../assets/shop/hair/long.png') },
-  { id: 'hair_osage', cat: 'dressup', kind: 'hair', price: 0, name: 'おさげ', emoji: '💇' },
   { id: 'hair_short', cat: 'dressup', kind: 'hair', price: 800, name: 'ショート', asset: require('../../assets/shop/hair/short.png') },
-  { id: 'hair_yui', cat: 'dressup', kind: 'hair', price: 600, name: '結い上げ', emoji: '🎀' },
-  { id: 'hair_ribbon', cat: 'dressup', kind: 'hair', price: 500, name: '桜リボン', emoji: '🌸' },
   { id: 'outfit_miko', cat: 'dressup', kind: 'outfit', price: 0, name: '巫女装束', emoji: '👘' },
   { id: 'outfit_yukata', cat: 'dressup', kind: 'outfit', price: 700, name: '夏の浴衣', emoji: '🎐' },
   { id: 'outfit_haregi', cat: 'dressup', kind: 'outfit', price: 1000, name: '桜の晴れ着', emoji: '🌸' },

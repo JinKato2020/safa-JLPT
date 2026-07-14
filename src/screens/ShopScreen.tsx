@@ -152,9 +152,10 @@ const s = StyleSheet.create({
   xTxt: { color: '#fff', fontSize: 22, fontWeight: '700', marginTop: -2 },
   panel: { flex: 1, marginTop: -20, borderTopLeftRadius: 22, borderTopRightRadius: 22, backgroundColor: CREAM, paddingTop: 12, borderTopWidth: 3, borderTopColor: '#b98a4e' },
   tabs: { flexDirection: 'row', gap: 8, paddingHorizontal: 14, paddingBottom: 10 },
-  tab: { paddingVertical: 8, paddingHorizontal: 15, borderRadius: 999, backgroundColor: '#fff8ec', borderWidth: 1, borderColor: 'rgba(180,140,80,0.4)' },
+  tab: { paddingVertical: 10, paddingHorizontal: 15, borderRadius: 999, backgroundColor: '#fff8ec', borderWidth: 1, borderColor: 'rgba(180,140,80,0.4)' },
   tabOn: { backgroundColor: '#c8894a', borderColor: '#c8894a' },
-  tabTxt: { fontSize: 13, fontWeight: '800', color: '#8a5a2a' }, tabTxtOn: { color: '#fff' },
+  // 日本語の下端(はらい)が切れないよう lineHeight を確保し、Android の余白詰めを無効化。
+  tabTxt: { fontSize: 13, lineHeight: 18, fontWeight: '800', color: '#8a5a2a', includeFontPadding: false, textAlignVertical: 'center' }, tabTxtOn: { color: '#fff' },
   scroll: { paddingHorizontal: 14, paddingBottom: 28 },
   group: { marginBottom: 6 },
   kindHead: { fontSize: 13, fontWeight: '900', color: '#a5732f', marginTop: 6, marginBottom: 8, letterSpacing: 1 },
