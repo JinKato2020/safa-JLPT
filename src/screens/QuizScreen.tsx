@@ -9,6 +9,7 @@ import { isInMyList } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
 import { useT } from '../i18n';
 import SessionSummary from '../components/SessionSummary';
+import ExamHeader from '../components/ExamHeader';
 import { itemsFor, allWordsFor, rubyNeeded } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
 import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, MOJI_DAIMON, BUNPOU_DAIMON, type LearnCard } from '../data/daimon';
@@ -122,13 +123,7 @@ export default function QuizScreen() {
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.body}>
-          <View style={s.top}>
-            <Pressable onPress={() => nav.goBack()} hitSlop={12}>
-              <Text style={s.close}>✕</Text>
-            </Pressable>
-            <Text style={s.progress}>{t('quiz.learn_tag')} {learnIdx + 1} / {learnList.length}</Text>
-          </View>
-          {title ? <Text style={s.drillTitle}>{title}</Text> : null}
+          <ExamHeader title={title} onClose={() => nav.goBack()} right={`${t('quiz.learn_tag')} ${learnIdx + 1} / ${learnList.length}`} />
           <View style={s.promptCard}>
             {lc?.title ? <LearnText text={lc.title} style={[s.prompt, lc.title.length > 10 && s.promptLong]} hitStyle={s.learnHit} rubyStyle={s.promptRuby} rubyGate={rubyGate} /> : null}
             {lc?.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
@@ -178,15 +173,7 @@ export default function QuizScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <View style={s.top}>
-          <Pressable onPress={() => nav.goBack()} hitSlop={12}>
-            <Text style={s.close}>✕</Text>
-          </Pressable>
-          <Text style={s.progress}>
-            {idx + 1} / {total}
-          </Text>
-        </View>
-        {title ? <Text style={s.drillTitle}>{title}</Text> : null}
+        <ExamHeader title={title} onClose={() => nav.goBack()} right={`${idx + 1} / ${total}`} />
 
         <View style={s.promptCard}>
           {question.furi ? (

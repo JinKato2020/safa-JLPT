@@ -9,6 +9,7 @@ import { useAppState } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
+import ExamHeader from '../components/ExamHeader';
 import { readingItemsFor, readingItemsForSub } from '../data';
 import PassageSetPlayer from '../components/PassageSetPlayer';
 import { readingToSet, type PassageSet } from '../quiz/passageSet';
@@ -64,12 +65,7 @@ export default function ReadingScreen() {
 
   return (
     <SafeAreaView style={s.c}>
-      <View style={s.top}>
-        <Pressable onPress={() => nav.goBack()} hitSlop={12}>
-          <Text style={s.close}>✕</Text>
-        </Pressable>
-        <Text style={s.progress}>{idx + 1} / {sets.length}</Text>
-      </View>
+      <ExamHeader title={route.params?.title} onClose={() => nav.goBack()} right={`${idx + 1} / ${sets.length}`} />
       <PassageSetPlayer key={set.id} set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
     </SafeAreaView>
   );

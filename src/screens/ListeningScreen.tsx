@@ -10,6 +10,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
+import ExamHeader from '../components/ExamHeader';
 import { listeningItemsFor, listeningItemsForSub, type ListeningItem, type PassageQuestion } from '../data';
 import type { RootStackParamList } from '../navigation/types';
 import { listeningSource } from '../data/listeningAudio';
@@ -154,12 +155,7 @@ export default function ListeningScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <View style={s.top}>
-          <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12}>
-            <Text style={s.close}>✕</Text>
-          </Pressable>
-          <Text style={s.progress}>{idx + 1} / {steps.length}</Text>
-        </View>
+        <ExamHeader title={route.params?.title} onClose={async () => { await stopSound(); nav.goBack(); }} right={`${idx + 1} / ${steps.length}`} />
 
         <View style={s.clipCard}>
           <Text style={s.clipTitle}>{step.clip.title}</Text>

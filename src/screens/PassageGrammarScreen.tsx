@@ -3,12 +3,14 @@
 import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
+import ExamHeader from '../components/ExamHeader';
+import type { RootStackParamList } from '../navigation/types';
 import { passageGrammarSetsFor } from '../data';
 import PassageSetPlayer from '../components/PassageSetPlayer';
 import { type PassageSet } from '../quiz/passageSet';
@@ -19,6 +21,7 @@ const SESSION_SETS = 3;
 
 export default function PassageGrammarScreen() {
   const nav = useNavigation();
+  const route = useRoute<RouteProp<RootStackParamList, 'PassageGrammar'>>();
   const state = useAppState();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
@@ -60,12 +63,7 @@ export default function PassageGrammarScreen() {
 
   return (
     <SafeAreaView style={s.c}>
-      <View style={s.top}>
-        <Pressable onPress={() => nav.goBack()} hitSlop={12}>
-          <Text style={s.close}>✕</Text>
-        </Pressable>
-        <Text style={s.progress}>{idx + 1} / {sets.length}</Text>
-      </View>
+      <ExamHeader title={route.params?.title} onClose={() => nav.goBack()} right={`${idx + 1} / ${sets.length}`} />
       <PassageSetPlayer key={set.id} set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
     </SafeAreaView>
   );
