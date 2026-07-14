@@ -11,6 +11,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
+import { isInMyList, type SaveRef } from '../store/state';
 import { buildDrill, type DrillProblem } from '../ladder/wordDrill';
 import { playVocab } from '../data/vocabAudio';
 import RubyText from '../components/RubyText';
@@ -101,12 +102,20 @@ export default function WordDrillScreen() {
         )}
       </ScrollView>
 
-      {judged !== null && (
-        <View style={s.footer}>
-          <Text style={[s.fbTxt, { color: judged ? c.green : c.red }]}>{judged ? t('worddrill.correct') : t('worddrill.wrong')}</Text>
-          <Pressable style={s.cta} onPress={next}><Text style={s.ctaTxt}>{t('worddrill.next')}</Text></Pressable>
-        </View>
-      )}
+      {judged !== null && (() => {
+        // 正誤判定時に my単語帳 登録ボタン(辞書リストと同じブックマークUI)。itemId=<id>#<mode>。
+        const saveRef: SaveRef = { type: p.kind === 'vProduce' ? 'vocab' : 'grammar', id: p.itemId.split('#')[0] };
+        const saved = isInMyList(state.myList ?? [], saveRef);
+        return (
+          <View style={s.footer}>
+            <Text style={[s.fbTxt, { color: judged ? c.green : c.red }]}>{judged ? t('worddrill.correct') : t('worddrill.wrong')}</Text>
+            <Pressable style={s.saveBtn} hitSlop={10} onPress={() => actions.addToMyList(saveRef)} accessibilityLabel={t('mywords.add')}>
+              <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={22} color={saved ? c.blue : c.mute} />
+            </Pressable>
+            <Pressable style={s.cta} onPress={next}><Text style={s.ctaTxt}>{t('worddrill.next')}</Text></Pressable>
+          </View>
+        );
+      })()}
     </SafeAreaView>
   );
 }
@@ -287,6 +296,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   // footer
   footer: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, padding: spacing.lg, borderTopWidth: 1, borderTopColor: c.line, backgroundColor: c.surface },
   fbTxt: { fontSize: ty.h2, fontWeight: '800', flex: 1 },
+  saveBtn: { width: 40, height: 40, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, paddingHorizontal: spacing.xl, alignItems: 'center' },
   ctaTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
 });
