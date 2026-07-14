@@ -14,7 +14,7 @@ export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning' | 'mixed';
 export type DrillProblem =
   | { kind: 'vProduce'; itemId: string; prompt: string; hint?: string; reading: string; answer: string[]; tiles: string[] }
   | { kind: 'gBuild'; itemId: string; prompt: string; hint?: string; reading: string; answer: string[]; tiles: string[] }
-  | { kind: 'gMeaning'; itemId: string; prompt: string; choices: string[]; answerIndex: number };
+  | { kind: 'gMeaning'; itemId: string; prompt: string; choices: string[]; answerIndex: number; example?: string; hit?: string };
 
 type V = { id: string; level: string; word: string; reading: string; meaning: string };
 const VOCAB = vocab as V[];
@@ -118,10 +118,11 @@ export function buildDrill(kind: DrillKind, level: string, count = 10, seed = 1,
   }
   const pool = orderBySrs(meaningEligible(level), (g) => `${g.id}#gmeaning`, itemsState, seed);
   return pool.slice(0, count)
-    .map((g, i) => {
+    .map((g, i): DrillProblem | null => {
       const p = grammarMeaningProblem(g.id, seed + i * 7919);
       if (!p) return null;
-      return { kind: 'gMeaning' as const, itemId: `${g.id}#gmeaning`, prompt: p.prompt, choices: p.choices, answerIndex: p.answerIndex };
+      // 例文＋対象文法点(下線用)を併設=意味だけでは判別しづらいため用例で示す。
+      return { kind: 'gMeaning' as const, itemId: `${g.id}#gmeaning`, prompt: p.prompt, choices: p.choices, answerIndex: p.answerIndex, example: g.exampleJa, hit: g.point };
     })
     .filter((x): x is Extract<DrillProblem, { kind: 'gMeaning' }> => x !== null);
 }

@@ -199,6 +199,11 @@ function MeaningView({ p, sel, setSel, judged, record, s }: {
   return (
     <>
       <View style={s.prompt}><Text style={s.promptPt}>{p.prompt}</Text></View>
+      {!!p.example && (
+        <View style={s.exampleBox}>
+          <RubyText text={p.example} target={p.hit} style={s.exampleTxt} hitStyle={s.exampleHit} rubyStyle={s.exampleRuby} center />
+        </View>
+      )}
       <View style={s.choices}>
         {p.choices.map((ch, k) => {
           const isAns = k === p.answerIndex;
@@ -236,6 +241,11 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   prompt: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: spacing.xs },
   promptEn: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
   promptPt: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
+  // gMeaning: 文法点の用例(対象語に下線)。意味だけでは判別しづらいため併設。
+  exampleBox: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: spacing.sm, paddingHorizontal: spacing.md },
+  exampleTxt: { fontSize: ty.body, color: c.ink2, textAlign: 'center' },
+  exampleHit: { color: c.blue, fontWeight: '800', textDecorationLine: 'underline' },
+  exampleRuby: { color: c.mute },
   promptJa: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
   promptHint: { fontSize: ty.small, color: c.mute, fontWeight: '700', marginTop: spacing.xs, textAlign: 'center' },
   listen: { flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 2 },
