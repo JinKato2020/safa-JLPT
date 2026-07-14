@@ -48,10 +48,10 @@ test('buy: 残高不足は不可', () => {
 });
 
 test('equip: 所有品のみ・kind別スロット', () => {
-  let s = buy(addPoints(INITIAL_STATE, 600, NOW), { id: 'frame_x', price: 500 }, NOW);
-  s = equip(s, { id: 'frame_x', kind: 'frame' });
-  assert.equal(s.equipped?.frame, 'frame_x');
-  assert.equal(isEquipped(s, { id: 'frame_x', kind: 'frame' }), true);
-  s = equip(s, { id: 'frame_y', kind: 'frame' });
-  assert.equal(s.equipped?.frame, 'frame_x');
+  let s = buy(addPoints(INITIAL_STATE, 600, NOW), { id: 'hair_x', price: 500 }, NOW);
+  s = equip(s, { id: 'hair_x', kind: 'hair' });
+  assert.equal(s.equipped?.hair, 'hair_x');
+  assert.equal(isEquipped(s, { id: 'hair_x', kind: 'hair' }), true);
+  s = equip(s, { id: 'hair_y', kind: 'hair' }); // 未所有は装備されない
+  assert.equal(s.equipped?.hair, 'hair_x');
 });

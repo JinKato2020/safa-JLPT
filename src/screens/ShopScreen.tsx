@@ -1,49 +1,62 @@
 // 桜貝ショップ(モーダル)。上=店内イラスト帯／下=アイテム。
-//  背景(水彩テーマ)・フォントは「装備」で settings に反映=実際にアプリの見た目が変わる。
-//  称号/枠/花びらは owned/equipped の状態管理。通貨=桜貝(wallet.points)。
+//  大分類タブ=着せ替え/仲間/道具。着せ替えは髪型/服/筆の小見出しで整理。
+//  着せ替え・仲間=owned/equipped の状態管理。道具=所持のみ(効果は順次)。通貨=桜貝(wallet.points)。
+//  背景テーマ・フォントは設定画面へ移設(ここには無い)。
 import { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, Image, ImageBackground, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useAppState, useAppActions } from '../store/store';
-import { walletPoints, isOwned, isEquipped, type ShopKind } from '../store/wallet';
-import { SHOP, SHOP_CATS, type ShopItem } from '../data/shop';
+import { walletPoints, isOwned, isEquipped } from '../store/wallet';
+import { SHOP, SHOP_CATS, KIND_LABEL, type ShopItem, type ShopCat } from '../data/shop';
 
 const BANNER = require('../../assets/shop/shop_banner.png');
-
-// 水彩テーマのプレビュー色(サムネ代わり)。
-const THEME_SWATCH: Record<string, string> = { sakura: '#f2a6c0', sky: '#8fb8ea', green: '#8fc99a', fuji: '#a98fe0', akane: '#e0906f' };
 
 export default function ShopScreen() {
   const nav = useNavigation();
   const { height } = useWindowDimensions();
   const state = useAppState();
-  const { buyItem, equipItem, setSettings } = useAppActions();
-  const [cat, setCat] = useState<ShopKind>('theme');
-  const items = SHOP.filter((i) => i.kind === cat);
+  const { buyItem, equipItem } = useAppActions();
+  const [cat, setCat] = useState<ShopCat>('dressup');
+  const items = SHOP.filter((i) => i.cat === cat);
+  const kinds = [...new Set(items.map((i) => i.kind))]; // タブ内のスロット種別(着せ替え=髪型/服/筆)
+  const showKindHead = kinds.length > 1;
 
   const points = walletPoints(state);
-  const ownedItem = (i: ShopItem) => i.price === 0 || isOwned(state, i.id);
-  const equippedItem = (i: ShopItem): boolean => {
-    if (i.apply?.theme) return state.settings.theme === i.apply.theme;
-    if (i.apply?.font) return (state.settings.font ?? 'maru') === i.apply.font;
-    return isEquipped(state, { id: i.id, kind: i.kind });
-  };
+  const ownedItem = (i: ShopItem) => isOwned(state, i.id);
+  const equippedItem = (i: ShopItem) => isEquipped(state, { id: i.id, kind: i.kind });
   const canBuyItem = (i: ShopItem) => !ownedItem(i) && points >= i.price;
 
   const act = (i: ShopItem) => {
-    if (!ownedItem(i)) { if (canBuyItem(i)) buyItem(i); return; }   // 未所持→購入
-    if (equippedItem(i)) return;                                    // 装備中→何もしない
-    if (i.apply) setSettings(i.apply);                              // 背景/フォント=実反映
-    else equipItem({ id: i.id, kind: i.kind });                    // 称号/枠/花びら=状態
+    if (!ownedItem(i)) { if (canBuyItem(i)) buyItem(i); return; } // 未所持(無料含む)→取得
+    if (i.kind === 'tool') return;                                 // 道具=所持のみ
+    if (equippedItem(i)) return;                                   // 装備中→何もしない
+    equipItem({ id: i.id, kind: i.kind });                         // 着せ替え/仲間=装備
   };
   const statusOf = (i: ShopItem) =>
-    equippedItem(i) ? '装備中' : ownedItem(i) ? '装備する' : canBuyItem(i) ? `🌸 ${i.price}` : '足りない';
-  const disabled = (i: ShopItem) => equippedItem(i) || (!ownedItem(i) && !canBuyItem(i));
+    equippedItem(i) ? '装備中'
+      : ownedItem(i) ? (i.kind === 'tool' ? '購入済み' : '装備する')
+        : i.price === 0 ? '手に入れる'
+          : canBuyItem(i) ? `🌸 ${i.price}` : '足りない';
+  const disabled = (i: ShopItem) => equippedItem(i) || (ownedItem(i) && i.kind === 'tool') || (!ownedItem(i) && !canBuyItem(i));
   const pill = (i: ShopItem) => (equippedItem(i) ? s.pillOn : ownedItem(i) ? s.pillOwn : canBuyItem(i) ? s.pillBuy : s.pillNo);
   const pillTxt = (i: ShopItem) => (equippedItem(i) ? s.txtOn : ownedItem(i) ? s.txtOwn : canBuyItem(i) ? s.txtBuy : s.txtNo);
 
   const bannerH = Math.max(280, Math.round(height * 0.40));
+
+  const renderCard = (i: ShopItem) => (
+    <View key={i.id} style={s.card}>
+      {i.asset ? (
+        <Image source={i.asset} style={s.prev} resizeMode="cover" />
+      ) : (
+        <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
+      )}
+      <Text style={s.name} numberOfLines={1}>{i.name}</Text>
+      <Pressable disabled={disabled(i)} onPress={() => act(i)} style={[s.btn, pill(i)]}>
+        <Text style={[s.btnTxt, pillTxt(i)]}>{statusOf(i)}</Text>
+      </Pressable>
+    </View>
+  );
 
   return (
     <View style={s.c}>
@@ -59,25 +72,16 @@ export default function ShopScreen() {
       <View style={s.panel}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.tabs}>
           {SHOP_CATS.map((x) => (
-            <Pressable key={x.kind} onPress={() => setCat(x.kind)} style={[s.tab, cat === x.kind && s.tabOn]}>
-              <Text style={[s.tabTxt, cat === x.kind && s.tabTxtOn]}>{x.label}</Text>
+            <Pressable key={x.cat} onPress={() => setCat(x.cat)} style={[s.tab, cat === x.cat && s.tabOn]}>
+              <Text style={[s.tabTxt, cat === x.cat && s.tabTxtOn]}>{x.label}</Text>
             </Pressable>
           ))}
         </ScrollView>
-        <ScrollView contentContainerStyle={s.grid} showsVerticalScrollIndicator={false}>
-          {items.map((i) => (
-            <View key={i.id} style={s.card}>
-              {i.asset ? (
-                <Image source={i.asset} style={s.prev} resizeMode="cover" />
-              ) : i.apply?.theme ? (
-                <View style={[s.prev, { backgroundColor: THEME_SWATCH[i.apply.theme] ?? '#eee' }]} />
-              ) : (
-                <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
-              )}
-              <Text style={s.name} numberOfLines={1}>{i.name}</Text>
-              <Pressable disabled={disabled(i)} onPress={() => act(i)} style={[s.btn, pill(i)]}>
-                <Text style={[s.btnTxt, pillTxt(i)]}>{statusOf(i)}</Text>
-              </Pressable>
+        <ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
+          {kinds.map((k) => (
+            <View key={k} style={s.group}>
+              {showKindHead ? <Text style={s.kindHead}>{KIND_LABEL[k]}</Text> : null}
+              <View style={s.grid}>{items.filter((i) => i.kind === k).map(renderCard)}</View>
             </View>
           ))}
         </ScrollView>
@@ -99,7 +103,10 @@ const s = StyleSheet.create({
   tab: { paddingVertical: 8, paddingHorizontal: 15, borderRadius: 999, backgroundColor: '#fff8ec', borderWidth: 1, borderColor: 'rgba(180,140,80,0.4)' },
   tabOn: { backgroundColor: '#c8894a', borderColor: '#c8894a' },
   tabTxt: { fontSize: 13, fontWeight: '800', color: '#8a5a2a' }, tabTxtOn: { color: '#fff' },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, paddingHorizontal: 14, paddingBottom: 28 },
+  scroll: { paddingHorizontal: 14, paddingBottom: 28 },
+  group: { marginBottom: 6 },
+  kindHead: { fontSize: 13, fontWeight: '900', color: '#a5732f', marginTop: 6, marginBottom: 8, letterSpacing: 1 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   card: { width: '46.5%', backgroundColor: '#fffdf7', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', padding: 10 },
   prev: { width: '100%', aspectRatio: 16 / 10, borderRadius: 10 },
   prevEmoji: { backgroundColor: '#f3ead9', alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 40 },
