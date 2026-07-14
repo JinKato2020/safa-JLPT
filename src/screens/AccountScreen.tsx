@@ -1,16 +1,17 @@
 // アカウント作成/ログイン(段階1)。メール+パスワード。確認メールON=新規作成後は確認案内→ログイン。
 // 案内=桜の巫女(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
-import { signUp, signIn } from '../auth/authClient';
+import { signUp, signIn, signOut, deleteAccount } from '../auth/authClient';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { GUIDE } from '../data/mywordsArt';
+import { useSync } from '../auth/SyncProvider';
 
 type Tab = 'signup' | 'login';
 
@@ -19,6 +20,7 @@ export default function AccountScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation();
+  const { session, email: acctEmail, lastSyncedAt } = useSync();
   const [tab, setTab] = useState<Tab>('signup');
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
@@ -80,6 +82,38 @@ export default function AccountScreen() {
   };
 
   const canSubmit = email.trim().length > 3 && pw.length >= 8 && !busy;
+
+  // ログイン中は登録フォームではなく「アカウント情報」を表示(ログアウト/削除)。
+  if (session) {
+    const syncedLabel = lastSyncedAt ? new Date(lastSyncedAt).toLocaleTimeString() : t('account.not_synced');
+    const onDelete = () => {
+      const uid = session.user.id;
+      Alert.alert(t('account.delete'), t('account.delete_confirm'), [
+        { text: t('account.delete_no'), style: 'cancel' },
+        { text: t('account.delete_yes'), style: 'destructive', onPress: () => { void deleteAccount(uid); } },
+      ]);
+    };
+    return (
+      <SafeAreaView style={s.c} edges={['top']}>
+        <ScrollView contentContainerStyle={s.body}>
+          <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}><Text style={s.closeTxt}>✕</Text></Pressable>
+          <View style={s.hero}>
+            <Image source={GUIDE.open} style={s.guide} resizeMode="contain" />
+            <Text style={s.benefitTitle}>{t('account.logged_in_title')}</Text>
+            <Text style={s.acctEmail}>{acctEmail}</Text>
+            <Text style={s.benefitSub}>{t('account.synced_at', { t: syncedLabel })}</Text>
+          </View>
+          <Pressable style={s.manageBtn} onPress={() => { void signOut(); }}>
+            <Ionicons name="log-out-outline" size={20} color={c.ink} />
+            <Text style={s.manageTxt}>{t('account.logout')}</Text>
+          </Pressable>
+          <Pressable style={s.deleteRow} onPress={onDelete} hitSlop={6}>
+            <Text style={s.deleteTxt}>{t('account.delete')}</Text>
+          </Pressable>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
@@ -177,6 +211,11 @@ const makeStyles = (c: ThemeColors) =>
     guide: { width: 120, height: 134 },
     benefitTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
     benefitSub: { fontSize: ty.small, color: c.mute, textAlign: 'center' },
+    acctEmail: { fontSize: ty.body, fontWeight: '800', color: c.ink, textAlign: 'center' },
+    manageBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.md, marginTop: spacing.md },
+    manageTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    deleteRow: { alignItems: 'center', paddingVertical: spacing.md, marginTop: spacing.sm },
+    deleteTxt: { fontSize: ty.small, color: c.red, fontWeight: '700' },
     tabs: { flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.sm },
     tab: { flex: 1, paddingVertical: spacing.sm, alignItems: 'center', borderRadius: radius.pill, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface },
     tabOn: { borderColor: c.blue, backgroundColor: c.blueLight },

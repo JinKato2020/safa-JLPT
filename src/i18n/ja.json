@@ -632,5 +632,17 @@
   "coach.weak": "きょうは「{s}」を のぞいてみようか。ひとつずつ でいいよ。",
   "coach.learned": "もう {n}語も おぼえたんだね。ほんとに すごいよ。",
   "coach.tip1": "つかれたら 休んでね。あなたの ペースが いちばん🌸",
-  "coach.tip2": "少しでも できたら、それは ちゃんと 前進だよ。"
+  "coach.tip2": "少しでも できたら、それは ちゃんと 前進だよ。",
+  "account.logged_in_title": "ログイン中",
+  "inventory.title": "アイテム",
+  "inventory.tools": "道具",
+  "inventory.items": "持ち物(着せ替え・仲間)",
+  "inventory.badges": "称号バッジ",
+  "inventory.equipped": "装備中",
+  "inventory.empty": "まだ持っていません",
+  "inventory.to_shop": "ショップで手に入れる",
+  "inventory.badge_count": "{done} / 10 段 獲得",
+  "inventory.badge_pass": "合格の称号",
+  "inventory.badge_pass_nat": "花の精の称号",
+  "inventory.badge_cover": "学習の称号"
 }

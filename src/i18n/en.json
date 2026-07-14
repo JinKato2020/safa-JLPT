@@ -632,5 +632,17 @@
   "coach.weak": "Shall we peek at \"{s}\" today? One at a time is okay.",
   "coach.learned": "You've learned {n} words already. That's really wonderful.",
   "coach.tip1": "Rest when you're tired. Your own pace matters most 🌸",
-  "coach.tip2": "Even a little done today is real progress."
+  "coach.tip2": "Even a little done today is real progress.",
+  "account.logged_in_title": "Signed in",
+  "inventory.title": "Items",
+  "inventory.tools": "Tools",
+  "inventory.items": "Belongings (outfits & companions)",
+  "inventory.badges": "Rank badges",
+  "inventory.equipped": "Equipped",
+  "inventory.empty": "Nothing yet",
+  "inventory.to_shop": "Get some in the shop",
+  "inventory.badge_count": "{done} / 10 tiers earned",
+  "inventory.badge_pass": "Pass rank",
+  "inventory.badge_pass_nat": "Blossom-spirit rank",
+  "inventory.badge_cover": "Study rank"
 }

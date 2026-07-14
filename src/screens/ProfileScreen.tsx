@@ -1,7 +1,7 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
 import { useMemo, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Alert } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import * as StoreReview from 'expo-store-review';
@@ -17,8 +17,6 @@ import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import MiniCalendar from '../components/MiniCalendar';
 import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
-import { useSync } from '../auth/SyncProvider';
-import { signOut, deleteAccount } from '../auth/authClient';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -55,16 +53,6 @@ export default function ProfileScreen() {
   const [legal, setLegal] = useState<'privacy' | 'terms' | null>(null);
   const [showDl, setShowDl] = useState(false);
   const nav = useNavigation();
-  const { session, email, lastSyncedAt } = useSync();
-  const syncedLabel = lastSyncedAt ? new Date(lastSyncedAt).toLocaleTimeString() : t('account.not_synced');
-  const onDelete = () => {
-    if (!session) return;
-    const uid = session.user.id;
-    Alert.alert(t('account.delete'), t('account.delete_confirm'), [
-      { text: t('account.delete_no'), style: 'cancel' },
-      { text: t('account.delete_yes'), style: 'destructive', onPress: () => { void deleteAccount(uid); } },
-    ]);
-  };
 
   const rate = async () => {
     try {
@@ -93,19 +81,7 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
 
-        {/* アカウント作成の誘導カードは廃止(上部の人アイコンから作成/ログイン)。
-            ログイン中のみ、メール・最終同期・ログアウトの管理を表示。 */}
-        {session ? (
-          <View style={s.card}>
-            <Text style={s.setLbl}>{t('profile.account_section')}</Text>
-            <Text style={s.acctEmail}>{email}</Text>
-            <Text style={s.subtle}>{t('account.synced_at', { t: syncedLabel })}</Text>
-            <Pressable style={s.linkRow} onPress={() => { void signOut(); }}>
-              <Text style={s.linkTxt}>{t('account.logout')}</Text>
-              <Text style={s.chev}>›</Text>
-            </Pressable>
-          </View>
-        ) : null}
+        {/* アカウント管理(メール・同期・ログアウト・削除)は上部の人アイコン→アカウント画面に集約。設定にカードは置かない。 */}
 
         {/* 学習設定 */}
         <View style={s.card}>
@@ -353,13 +329,6 @@ export default function ProfileScreen() {
             </Text>
           </Pressable>
         </View>
-
-        {/* アカウント削除は設定の一番下に配置(誤操作しにくく) */}
-        {session ? (
-          <Pressable style={s.deleteBottom} onPress={onDelete}>
-            <Text style={s.deleteBottomTxt}>{t('account.delete')}</Text>
-          </Pressable>
-        ) : null}
 
         {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示) */}
         <Text style={s.version}>

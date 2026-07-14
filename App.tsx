@@ -39,6 +39,7 @@ import WordDrillScreen from './src/screens/WordDrillScreen';
 import MyWordsScreen from './src/screens/MyWordsScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
+import InventoryScreen from './src/screens/InventoryScreen';
 import ShopScreen from './src/screens/ShopScreen';
 import { walletPoints } from './src/store/wallet';
 import TourOverlay from './src/components/TourOverlay';
@@ -169,8 +170,8 @@ function MainTabs() {
         <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="settings-outline" size={22} color={c.ink} />
         </Pressable>
-        <Pressable onPress={() => nav.navigate('Notifications')} accessibilityLabel={t('notif.title')} hitSlop={6} style={iconBtn}>
-          <Ionicons name="notifications-outline" size={22} color={c.ink} />
+        <Pressable onPress={() => nav.navigate('Inventory')} accessibilityLabel={t('inventory.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="bag-handle-outline" size={22} color={c.ink} />
         </Pressable>
         <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.title')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
           <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
@@ -299,6 +300,7 @@ function Root() {
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Inventory" component={InventoryScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
           </>
         )}

@@ -6,7 +6,8 @@ export type RootStackParamList = {
   Main: undefined;
   Account: undefined; // アカウント作成/ログイン(段階1: メール+パスワード)
   Settings: undefined; // 設定(旧・設定タブ=ProfileScreen をモーダル化。上部の歯車から開く)
-  Notifications: undefined; // 通知(上部のベルから開く)
+  Notifications: undefined; // 通知(リマインド)
+  Inventory: undefined; // アイテム(所持品・道具・バッジ一覧。上部の袋アイコンから開く)
   Shop: undefined; // ショップ(桜貝で着せ替え購入)
   // 診断クイズ / 弱点ドリル(itemIds 指定でその語だけを出題) / 大問学習(daimon 指定=本番の大問を固定形式で連続出題)
   Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon; expression?: boolean } | undefined;
