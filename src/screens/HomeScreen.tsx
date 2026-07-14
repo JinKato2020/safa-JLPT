@@ -1,19 +1,18 @@
-// ホーム = DQ風ステータスを主役に。背景=HOME.png 全画面／中央に3枚のステータスカードを横スワイプ。
-//  ①正解率(5区分＋合格到達Lv推移)②カバー率(分数＋覚えた数推移)③継続(継続日数＋総学習時間)。
-//  称号＋合格到達Lv は各カード共通ヘッダー。上部の共通バーは MainTabs のオーバーレイ。
-import { useMemo, useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, type NativeSyntheticEvent, type NativeScrollEvent, useWindowDimensions } from 'react-native';
+// ホーム = 星屑リングを主役に。背景=HOME.png 全画面／上部に合格リング(星屑リング)＋中央に合格率。
+//  リング画像は段階素材(到達度で差し替え)。中央の合格率は動的。グローは呼吸するようにゆっくり明滅(Animated)。
+//  ※DQ風ステータスカードは不採用(ユーザー指定)。上部の共通バーは MainTabs のオーバーレイ。
+import { useMemo, useEffect, useRef } from 'react';
+import { View, Text, Image, Animated, StyleSheet, useWindowDimensions } from 'react-native';
 import { useAppState, useAppActions } from '../store/store';
-import { learnedNow, growthSeries } from '../store/selectors';
+import { learnedNow } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { TabBackground } from '../components/TabScene';
 import { HOME_BG } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
-import StatusPanel from '../home/StatusPanel';
-import CoverageCard from '../home/CoverageCard';
-import StreakCard from '../home/StreakCard';
-import { FRAME_ASPECT } from '../home/FramedPanel';
 import SafeBoundary from '../components/SafeBoundary';
+
+const RING = require('../../assets/home/pass_ring.png');
+const GLOW = require('../../assets/home/ring_glow.png');
 
 export default function HomeScreen() {
   const state = useAppState();
@@ -21,10 +20,6 @@ export default function HomeScreen() {
   const { width, height } = useWindowDimensions();
 
   const status = useMemo(() => homeStatus(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
-  const { lvTrend, wordTrend } = useMemo(() => {
-    const g = growthSeries(state).slice(-10);
-    return { lvTrend: g.map((p) => p.passProb ?? 0), wordTrend: g.map((p) => p.learned ?? 0) };
-  }, [state]);
 
   const { awardOnce } = useAppActions();
   // 継続・上達の桜貝付与(awardOnce が二重付与を防ぐので毎マウント呼んで安全)。
@@ -42,33 +37,44 @@ export default function HomeScreen() {
     for (let k = 1; k <= Math.floor(learned / 100); k++) awardOnce('learned' + (k * 100), 30);
   }, [state, status.passPct]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const cardW = Math.min(width * 0.86, 330);
-  const cardH = cardW / FRAME_ASPECT;
-  const [page, setPage] = useState(0);
-  const onPage = (e: NativeSyntheticEvent<NativeScrollEvent>) => setPage(Math.round(e.nativeEvent.contentOffset.x / cardW));
-  const top = Math.max(height * 0.1, (height - cardH) / 2 - 20);
+  // 呼吸グロー(0→1→0 をゆっくりループ・useNativeDriver で軽量)。
+  const glow = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(Animated.sequence([
+      Animated.timing(glow, { toValue: 1, duration: 2300, useNativeDriver: true }),
+      Animated.timing(glow, { toValue: 0, duration: 2300, useNativeDriver: true }),
+    ]));
+    loop.start();
+    return () => loop.stop();
+  }, [glow]);
+  const gOpacity = glow.interpolate({ inputRange: [0, 1], outputRange: [0.4, 1] });
+  const gScale = glow.interpolate({ inputRange: [0, 1], outputRange: [0.9, 1.18] });
+
+  const ringW = Math.round(width * 0.30);
+  const glowW = Math.round(ringW * 2.0);
+  const top = Math.round(height * 0.11);
+  const left = Math.round((width - ringW) / 2);
+  const pct = Math.round(status.passPct);
 
   return (
     <View style={styles.c}>
       <TabBackground source={HOME_BG}>
-        <View style={[styles.panelWrap, { top, width: cardW, height: cardH + 22, left: (width - cardW) / 2 }]}>
-          <SafeBoundary tag="homecards" fallback={null}>
-            <ScrollView
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              style={{ width: cardW, height: cardH }}
-              onMomentumScrollEnd={onPage}
-            >
-              <StatusPanel data={status} lvTrend={lvTrend} width={cardW} />
-              <CoverageCard data={status} wordTrend={wordTrend} width={cardW} />
-              <StreakCard data={status} width={cardW} />
-            </ScrollView>
-          </SafeBoundary>
-          <View style={styles.dots}>
-            {[0, 1, 2].map((i) => <View key={i} style={[styles.dot, page === i && styles.dotOn]} />)}
+        <SafeBoundary tag="homering" fallback={null}>
+          <View style={[styles.wrap, { top, left, width: ringW, height: ringW }]}>
+            <Animated.Image
+              source={GLOW}
+              resizeMode="contain"
+              style={[styles.glow, { width: glowW, height: glowW, left: (ringW - glowW) / 2, top: (ringW - glowW) / 2, opacity: gOpacity, transform: [{ scale: gScale }] }]}
+            />
+            <Image source={RING} style={{ width: ringW, height: ringW }} resizeMode="contain" />
+            <View style={styles.pct} pointerEvents="none">
+              <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>合格率</Text>
+              <Text style={[styles.num, { fontSize: Math.round(ringW * 0.30) }]}>
+                {pct}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.15) }]}>%</Text>
+              </Text>
+            </View>
           </View>
-        </View>
+        </SafeBoundary>
       </TabBackground>
     </View>
   );
@@ -76,8 +82,10 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   c: { flex: 1 },
-  panelWrap: { position: 'absolute' },
-  dots: { flexDirection: 'row', justifyContent: 'center', gap: 7, marginTop: 8 },
-  dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.35)' },
-  dotOn: { backgroundColor: '#ffe6a3', width: 9, height: 9, borderRadius: 5 },
+  wrap: { position: 'absolute', alignItems: 'center', justifyContent: 'center' },
+  glow: { position: 'absolute' },
+  pct: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
+  lbl: { fontWeight: '700', letterSpacing: 1.5, color: '#dbe4ff', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4, marginBottom: 1 },
+  num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(160,200,255,0.9)', textShadowRadius: 14 },
+  numSmall: { fontWeight: '800', color: '#eaf0ff' },
 });
