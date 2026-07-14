@@ -18,7 +18,7 @@ export type RootStackParamList = {
   Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho'; title?: string } | undefined;   // 読解(小区分つき)。title=大問名ヘッダー
   PassageGrammar: { title?: string } | undefined; // 文章の文法(大問⑧・セット形式=1文章＋5設問。passageGrammar.json)。title=大問名ヘッダー
   Listening: { subtype?: 'kadai' | 'point' | 'gaiyou' | 'hatsuwa' | 'sokuji'; title?: string } | undefined; // 聴解(小区分つき)。title=大問名ヘッダー
-  Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review'; char?: string } | undefined; // 漢字書き取り(サンプル10字・3ステップ、単字自由練習対応)
+  Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review'; char?: string; script?: 'kanji' | 'hiragana' | 'katakana' } | undefined; // 書き取り(漢字/ひらがな/カタカナ・3ステップ、単字自由練習対応)
   KanjiDetail: { char: string; scope?: 'level' | 'all' }; // scope=level:自レベル読み(単語タブ) / all(既定):全読み(辞書)
   ListeningQuiz: { kind: 'vocab' | 'kanji' }; // 聞き取りドリル(学習→テスト・語彙/漢字)
   WordDrill: { kind: 'vProduce' | 'gBuild' | 'gMeaning' | 'mixed'; level?: 'N5' | 'N4' | 'N3' }; // 単語タブ新形式(意味から単語/文をつくる/意味を選ぶ/今日のオススメ=横断)

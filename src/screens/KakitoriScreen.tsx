@@ -13,6 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { kanjiListFor, kanjiInfo } from '../kakitori/list';
+import { HIRAGANA, KATAKANA, romajiOf } from '../words/kana';
 import { buildEngineHtml } from '../kakitori/engineHtml';
 import { fetchCharData } from '../kakitori/charData';
 import { scoreForMistakes } from '../kakitori/scoring';
@@ -84,16 +85,20 @@ export default function KakitoriScreen() {
 
   const level = (route.params?.level ?? state.settings.level) as Level;
   const mode = route.params?.mode ?? 'drill';
+  const script = route.params?.script ?? 'kanji'; // kanji / hiragana / katakana
+  const isKana = script !== 'kanji';
   const singleChar = route.params?.char;
   // 復習キューはセッション開始時のスナップショットで固定する。
   // mastering中に state.kakitori が変わっても due リストを揺らさない(idxズレ防止)。
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const chars = useMemo(() => {
     if (singleChar) return [singleChar];
+    // 仮名(ひらがな/カタカナ)= 固定の五十音リストをSRSキューで少しずつ。漢字=級別リスト。
+    const source = script === 'hiragana' ? HIRAGANA : script === 'katakana' ? KATAKANA : kanjiListFor(level);
     // 1セット=先頭5字だけ(残りは次セッションで自然に繰り上がる)。エンドレスを廃止。
-    if (mode === 'review') { const d = kakitoriDueToday(state.kakitori, dayOf(Date.now())); return (d.length ? d : kanjiListFor(level)).slice(0, SET_SIZE); }
-    return kakitoriDrillQueue(state.kakitori, kanjiListFor(level), dayOf(Date.now())).slice(0, SET_SIZE);
-  }, [mode, level]);
+    if (mode === 'review' && !isKana) { const d = kakitoriDueToday(state.kakitori, dayOf(Date.now())); return (d.length ? d : source).slice(0, SET_SIZE); }
+    return kakitoriDrillQueue(state.kakitori, source, dayOf(Date.now())).slice(0, SET_SIZE);
+  }, [mode, level, script]);
 
   const grid = state.settings.kakitoriGrid ?? 'kome';
   const speed = state.settings.kakitoriSpeed ?? 'normal';
@@ -226,11 +231,11 @@ export default function KakitoriScreen() {
         <View style={s.infoRow}>
           <Text style={s.infoChar}>{(free ? freeStep : step) === 2 ? '？' : char}</Text>
           <View style={{ flex: 1 }}>
-            <Text style={s.infoReading}>{readingLine(char)}</Text>
-            <Text style={s.infoMeaning} numberOfLines={1}>{info?.meaning ?? ''}</Text>
-            {!!exampleWord(char) && (free ? freeStep : step) !== 2 && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
+            <Text style={s.infoReading}>{isKana ? romajiOf(char) : readingLine(char)}</Text>
+            <Text style={s.infoMeaning} numberOfLines={1}>{isKana ? (script === 'hiragana' ? 'ひらがな' : 'カタカナ') : (info?.meaning ?? '')}</Text>
+            {!isKana && !!exampleWord(char) && (free ? freeStep : step) !== 2 && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
           </View>
-          <Pressable onPress={() => speak(char, { manual: true })} hitSlop={10}><Ionicons name="headset-outline" size={26} color={c.blue} /></Pressable>
+          <Pressable onPress={() => (isKana ? (Speech.stop(), Speech.speak(char, { language: 'ja-JP' })) : speak(char, { manual: true }))} hitSlop={10}><Ionicons name="headset-outline" size={26} color={c.blue} /></Pressable>
         </View>
 
         {!free && (
