@@ -47,12 +47,16 @@ export default function HomeScreen() {
     loop.start();
     return () => loop.stop();
   }, [glow]);
-  const gOpacity = glow.interpolate({ inputRange: [0, 1], outputRange: [0.4, 1] });
-  const gScale = glow.interpolate({ inputRange: [0, 1], outputRange: [0.9, 1.18] });
+  // 背景に負けない強いグロー: 外側(広い)＋内側(明るい)の2層を大きく明滅させる。
+  const gOuterOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.55, 1] });
+  const gInnerOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.7, 1] });
+  const gOuterSc = glow.interpolate({ inputRange: [0, 1], outputRange: [0.85, 1.3] });
+  const gInnerSc = glow.interpolate({ inputRange: [0, 1], outputRange: [0.95, 1.12] });
 
   const ringW = Math.round(width * 0.30);
-  const glowW = Math.round(ringW * 2.0);
-  const top = Math.round(height * 0.11);
+  const glowOuter = Math.round(ringW * 2.6);
+  const glowInner = Math.round(ringW * 1.5);
+  const top = Math.round(height * 0.18); // 上端に寄り過ぎないよう下げる
   const left = Math.round((width - ringW) / 2);
   const pct = Math.round(status.passPct);
 
@@ -64,7 +68,12 @@ export default function HomeScreen() {
             <Animated.Image
               source={GLOW}
               resizeMode="contain"
-              style={[styles.glow, { width: glowW, height: glowW, left: (ringW - glowW) / 2, top: (ringW - glowW) / 2, opacity: gOpacity, transform: [{ scale: gScale }] }]}
+              style={[styles.glow, { width: glowOuter, height: glowOuter, left: (ringW - glowOuter) / 2, top: (ringW - glowOuter) / 2, opacity: gOuterOp, transform: [{ scale: gOuterSc }] }]}
+            />
+            <Animated.Image
+              source={GLOW}
+              resizeMode="contain"
+              style={[styles.glow, { width: glowInner, height: glowInner, left: (ringW - glowInner) / 2, top: (ringW - glowInner) / 2, opacity: gInnerOp, transform: [{ scale: gInnerSc }] }]}
             />
             <Image source={RING} style={{ width: ringW, height: ringW }} resizeMode="contain" />
             <View style={styles.pct} pointerEvents="none">

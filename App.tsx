@@ -26,6 +26,7 @@ import OnboardingScreen from './src/screens/OnboardingScreen';
 import QuizScreen from './src/screens/QuizScreen';
 import FlashcardScreen from './src/screens/FlashcardScreen';
 import MockScreen from './src/screens/MockScreen';
+import MockIntroScreen from './src/screens/MockIntroScreen';
 import ReadingScreen from './src/screens/ReadingScreen';
 import PassageGrammarScreen from './src/screens/PassageGrammarScreen';
 import ListeningScreen from './src/screens/ListeningScreen';
@@ -282,6 +283,7 @@ function Root() {
             <RootStack.Screen name="Main" component={MainTabs} />
             <RootStack.Screen name="Quiz" component={QuizScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Flashcard" component={FlashcardScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="MockIntro" component={MockIntroScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Mock" component={MockScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Reading" component={ReadingScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="PassageGrammar" component={PassageGrammarScreen} options={{ presentation: 'modal' }} />

@@ -12,6 +12,7 @@ export type RootStackParamList = {
   Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon; expression?: boolean } | undefined;
   Flashcard: { ids?: string[] } | undefined; // 漢字・語彙 連続学習→連続テスト(個別漢字79字を含む)。ids指定時はその語id集合だけを復習(my単語帳の「復習する」)
   MyWords: undefined; // my単語帳(保存した語/文法)一覧
+  MockIntro: { full?: boolean } | undefined; // 模試の説明(いきなり始めず遷移)。案内キャラ＋目安
   Mock: { full?: boolean } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)
   Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho' } | undefined;   // 読解(小区分つき)
   PassageGrammar: undefined; // 文章の文法(大問⑧・セット形式=1文章＋5設問。passageGrammar.json)

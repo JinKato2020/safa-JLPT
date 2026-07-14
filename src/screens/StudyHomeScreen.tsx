@@ -44,7 +44,7 @@ export default function StudyHomeScreen() {
         entries={[
           { key: 'reco', glyph: '✦', label: t('study.reco'), accent: '#c9a24a', onGo: () => nav.navigate('Quiz', { category: 'all' }) },
           ...CATS.map((x) => ({ key: x.cat, glyph: x.glyph, label: t(prof.catLabel[x.cat]), accent: x.accent, renderCard: () => <CategoryCard cat={x.cat} /> })),
-          { key: 'mock', glyph: '試', label: isJft ? t('test.jft_title') : t('test.full_title'), accent: lock.locked ? '#a89a86' : '#b8924a', disabled: lock.locked, onGo: () => { if (!lock.locked) nav.navigate('Mock', { full: true }); } },
+          { key: 'mock', glyph: '試', label: isJft ? t('test.jft_title') : t('test.full_title'), accent: lock.locked ? '#a89a86' : '#b8924a', disabled: lock.locked, onGo: () => { if (!lock.locked) nav.navigate('MockIntro', { full: true }); } },
         ] as TabEntry[]}
       />
     </View>
