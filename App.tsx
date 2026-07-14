@@ -42,6 +42,7 @@ import NotificationsScreen from './src/screens/NotificationsScreen';
 import InventoryScreen from './src/screens/InventoryScreen';
 import ShopScreen from './src/screens/ShopScreen';
 import { walletPoints } from './src/store/wallet';
+import { mockTicketCount } from './src/store/tickets';
 import TourOverlay from './src/components/TourOverlay';
 import SafeBoundary from './src/components/SafeBoundary';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
@@ -175,6 +176,7 @@ function MainTabs() {
         </Pressable>
         <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.title')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
           <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
+          <Text style={[topBar.pillTxt, { color: c.ink, marginLeft: 8 }]}>🎫 {mockTicketCount(state)}</Text>
         </Pressable>
       </View>
       )}
@@ -205,7 +207,7 @@ const topBar = StyleSheet.create({
     shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
   },
   pill: {
-    height: 40, minWidth: 46, paddingHorizontal: 14, borderRadius: 20, borderWidth: 1, alignItems: 'center', justifyContent: 'center',
+    height: 40, minWidth: 46, paddingHorizontal: 14, borderRadius: 20, borderWidth: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
   },
   pillTxt: { fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },

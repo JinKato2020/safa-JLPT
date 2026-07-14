@@ -12,6 +12,7 @@ import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
 import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, type ShopKind } from './wallet';
+import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket } from './tickets';
 
 type Action =
   | { type: 'HYDRATE'; state: AppState }
@@ -26,6 +27,9 @@ type Action =
   | { type: 'AWARD_ONCE'; key: string; amount: number }
   | { type: 'BUY_ITEM'; item: { id: string; price: number }; now: number }
   | { type: 'EQUIP_ITEM'; item: { id: string; kind: ShopKind } }
+  | { type: 'SYNC_TICKETS'; now: number }
+  | { type: 'BUY_TICKET'; now: number }
+  | { type: 'SPEND_TICKET'; now: number }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -86,6 +90,12 @@ function reducer(state: AppState, action: Action): AppState {
       return walletBuy(state, action.item, action.now);
     case 'EQUIP_ITEM':
       return walletEquip(state, action.item);
+    case 'SYNC_TICKETS':
+      return syncMockTickets(state, action.now);
+    case 'BUY_TICKET':
+      return ticketBuy(state, action.now);
+    case 'SPEND_TICKET':
+      return spendMockTicket(state, action.now);
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -106,6 +116,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     (async () => {
       const saved = await loadState();
       if (saved) dispatch({ type: 'HYDRATE', state: saved });
+      dispatch({ type: 'SYNC_TICKETS', now: Date.now() }); // 初回=インストール日+歓迎1枚 / 以降=30日ごと+1(上限3)
       setHydrated(true);
     })();
   }, []);
@@ -160,6 +171,9 @@ export function useAppActions() {
     awardOnce: (key: string, amount: number) => dispatch({ type: 'AWARD_ONCE', key, amount }),
     buyItem: (item: { id: string; price: number }) => dispatch({ type: 'BUY_ITEM', item, now: Date.now() }),
     equipItem: (item: { id: string; kind: ShopKind }) => dispatch({ type: 'EQUIP_ITEM', item }),
+    syncTickets: () => dispatch({ type: 'SYNC_TICKETS', now: Date.now() }),
+    buyMockTicket: () => dispatch({ type: 'BUY_TICKET', now: Date.now() }),
+    spendMockTicket: () => dispatch({ type: 'SPEND_TICKET', now: Date.now() }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     reset: () => {
       clearState();

@@ -8,7 +8,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useAppState, useAppActions } from '../store/store';
 import { walletPoints, isOwned, isEquipped } from '../store/wallet';
+import { mockTicketCount, canBuyMockTicket, MAX_MOCK_TICKETS, MOCK_TICKET_PRICE } from '../store/tickets';
 import { SHOP, SHOP_CATS, KIND_LABEL, type ShopItem, type ShopCat } from '../data/shop';
+
+const MOCK_TICKET_ID = 'tool_mock_ticket';
 
 const BANNER = require('../../assets/shop/shop_banner.png');
 
@@ -16,7 +19,7 @@ export default function ShopScreen() {
   const nav = useNavigation();
   const { height } = useWindowDimensions();
   const state = useAppState();
-  const { buyItem, equipItem, addPoints } = useAppActions();
+  const { buyItem, equipItem, addPoints, buyMockTicket } = useAppActions();
   const devUnlimited = state.settings.devUnlimitedPoints === true;
   const [cat, setCat] = useState<ShopCat>('dressup');
   // 購入直後の演出(桜が筆を持つ絵を2秒表示)。
@@ -40,7 +43,18 @@ export default function ShopScreen() {
   const equippedItem = (i: ShopItem) => isEquipped(state, { id: i.id, kind: i.kind });
   const canBuyItem = (i: ShopItem) => !ownedItem(i) && (devUnlimited || points >= i.price);
 
+  const tickets = mockTicketCount(state);
+  const ticketFull = tickets >= MAX_MOCK_TICKETS;
+  const canBuyTicket = !ticketFull && (devUnlimited || canBuyMockTicket(state));
+
   const act = (i: ShopItem) => {
+    if (i.id === MOCK_TICKET_ID) {
+      // 模試チケット=スタック式(所持数で管理・上限3)。買うたびに+1。
+      if (!canBuyTicket) return;
+      if (devUnlimited && points < MOCK_TICKET_PRICE) addPoints(1_000_000);
+      buyMockTicket();
+      return;
+    }
     if (!ownedItem(i)) {
       if (canBuyItem(i)) {
         if (devUnlimited && points < i.price) addPoints(1_000_000); // 【開発用】無限ポイント: 残高を確保して必ず購入
@@ -54,13 +68,14 @@ export default function ShopScreen() {
     equipItem({ id: i.id, kind: i.kind });                         // 着せ替え/仲間=装備
   };
   const statusOf = (i: ShopItem) =>
-    equippedItem(i) ? '装備中'
-      : ownedItem(i) ? (i.kind === 'tool' ? '購入済み' : '装備する')
-        : i.price === 0 ? '手に入れる'
-          : canBuyItem(i) ? `🌸 ${i.price}` : '足りない';
-  const disabled = (i: ShopItem) => equippedItem(i) || (ownedItem(i) && i.kind === 'tool') || (!ownedItem(i) && !canBuyItem(i));
-  const pill = (i: ShopItem) => (equippedItem(i) ? s.pillOn : ownedItem(i) ? s.pillOwn : canBuyItem(i) ? s.pillBuy : s.pillNo);
-  const pillTxt = (i: ShopItem) => (equippedItem(i) ? s.txtOn : ownedItem(i) ? s.txtOwn : canBuyItem(i) ? s.txtBuy : s.txtNo);
+    i.id === MOCK_TICKET_ID ? (ticketFull ? '最大3枚' : canBuyTicket ? `🌸 ${MOCK_TICKET_PRICE}` : '足りない')
+      : equippedItem(i) ? '装備中'
+        : ownedItem(i) ? (i.kind === 'tool' ? '購入済み' : '装備する')
+          : i.price === 0 ? '手に入れる'
+            : canBuyItem(i) ? `🌸 ${i.price}` : '足りない';
+  const disabled = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? !canBuyTicket : equippedItem(i) || (ownedItem(i) && i.kind === 'tool') || (!ownedItem(i) && !canBuyItem(i)));
+  const pill = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.pillBuy : ticketFull ? s.pillOwn : s.pillNo) : equippedItem(i) ? s.pillOn : ownedItem(i) ? s.pillOwn : canBuyItem(i) ? s.pillBuy : s.pillNo);
+  const pillTxt = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.txtBuy : ticketFull ? s.txtOwn : s.txtNo) : equippedItem(i) ? s.txtOn : ownedItem(i) ? s.txtOwn : canBuyItem(i) ? s.txtBuy : s.txtNo);
 
   const bannerH = Math.max(280, Math.round(height * 0.40));
 
@@ -72,6 +87,7 @@ export default function ShopScreen() {
         <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
       )}
       <Text style={s.name} numberOfLines={1}>{i.name}</Text>
+      {i.id === MOCK_TICKET_ID ? <Text style={s.remain} numberOfLines={1}>残り {tickets} / {MAX_MOCK_TICKETS}</Text> : null}
       {i.rarity ? <Text style={s.rarity} numberOfLines={1}>{'★'.repeat(i.rarity)}<Text style={s.rarityOff}>{'★'.repeat(5 - i.rarity)}</Text></Text> : null}
       <Pressable disabled={disabled(i)} onPress={() => act(i)} style={[s.btn, pill(i)]}>
         <Text style={[s.btnTxt, pillTxt(i)]}>{statusOf(i)}</Text>
@@ -149,6 +165,7 @@ const s = StyleSheet.create({
   prevEmoji: { backgroundColor: '#f3ead9', alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 40 },
   prevImg: { backgroundColor: '#f7efe0' },
   name: { marginTop: 8, marginBottom: 4, fontWeight: '800', color: '#5a3d22', fontSize: 14 },
+  remain: { marginBottom: 6, fontSize: 12, color: '#7a4a1e', fontWeight: '800' },
   rarity: { marginBottom: 6, fontSize: 12, color: '#e0a63c', letterSpacing: 1 },
   rarityOff: { color: '#e2d4b8' },
   btn: { alignSelf: 'stretch', borderRadius: 10, paddingVertical: 9, alignItems: 'center' },

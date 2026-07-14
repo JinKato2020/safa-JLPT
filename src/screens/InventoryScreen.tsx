@@ -11,6 +11,7 @@ import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
 import { isEquipped } from '../store/wallet';
 import { SHOP_BY_ID, type ShopItem } from '../data/shop';
+import { mockTicketCount, MAX_MOCK_TICKETS } from '../store/tickets';
 import { homeStatus } from '../home/homeStatus';
 import { coverageBars } from '../store/selectors';
 import Badge from '../components/Badge';
@@ -30,7 +31,9 @@ export default function InventoryScreen() {
   const now = Date.now();
 
   const owned = (state.owned ?? []).map((id) => SHOP_BY_ID[id]).filter(Boolean) as ShopItem[];
-  const tools = owned.filter((i) => i.cat === 'tool');
+  const tools = owned.filter((i) => i.cat === 'tool' && i.id !== 'tool_mock_ticket'); // 模試チケットは枚数管理で別表示
+  const ticketItem = SHOP_BY_ID['tool_mock_ticket'];
+  const tickets = mockTicketCount(state);
   const belongings = owned.filter((i) => i.cat === 'dressup' || i.cat === 'companion');
 
   const status = useMemo(() => homeStatus(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -94,7 +97,14 @@ export default function InventoryScreen() {
       </View>
       <ScrollView contentContainerStyle={s.body} showsVerticalScrollIndicator={false}>
         <Text style={s.section}>{t('inventory.tools')}</Text>
-        {tools.length ? <View style={s.grid}>{tools.map(card)}</View> : emptyHint}
+        <View style={s.grid}>
+          <View style={s.card}>
+            <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{ticketItem?.emoji ?? '🎫'}</Text></View>
+            <Text style={s.cardName} numberOfLines={1}>{ticketItem?.name ?? '模試チケット'}</Text>
+            <Text style={s.ticketN}>{tickets} / {MAX_MOCK_TICKETS}</Text>
+          </View>
+          {tools.map(card)}
+        </View>
 
         <Text style={s.section}>{t('inventory.items')}</Text>
         {belongings.length ? <View style={s.grid}>{belongings.map(card)}</View> : emptyHint}
@@ -133,6 +143,7 @@ const makeStyles = (c: ThemeColors) =>
     cardName: { marginTop: spacing.xs, fontSize: ty.tiny, fontWeight: '800', color: c.ink, textAlign: 'center' },
     rarity: { fontSize: 11, color: '#e0a63c', letterSpacing: 1, marginTop: 1 }, rarityOff: { color: c.line },
     equipped: { marginTop: 2, fontSize: ty.tiny, fontWeight: '800', color: c.blue },
+    ticketN: { marginTop: 2, fontSize: ty.small, fontWeight: '900', color: c.ink, fontVariant: ['tabular-nums'] },
     empty: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, borderStyle: 'dashed', padding: spacing.md, alignItems: 'center', gap: 4 },
     emptyTxt: { fontSize: ty.small, color: c.mute },
     emptyLink: { fontSize: ty.small, color: c.blue, fontWeight: '800' },
