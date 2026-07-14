@@ -9,6 +9,7 @@ import { dayStr } from '../store/state';
 import { TabBackground } from '../components/TabScene';
 import { HOME_BG } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
+import HomeCoach from '../home/HomeCoach';
 import SafeBoundary from '../components/SafeBoundary';
 
 const RING = require('../../assets/home/pass_ring.png');
@@ -85,6 +86,9 @@ export default function HomeScreen() {
               </Text>
             </View>
           </View>
+        </SafeBoundary>
+        <SafeBoundary tag="homecoach" fallback={null}>
+          <HomeCoach status={status} learned={learnedNow(state, now)} />
         </SafeBoundary>
       </TabBackground>
     </View>

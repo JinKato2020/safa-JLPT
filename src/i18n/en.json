@@ -622,5 +622,15 @@
   "shop.item_petal_gold": "Golden Sparkle",
   "shop.item_outfit_summer": "Summer Yukata",
   "shop.item_badge_gold": "Golden Badge",
-  "shop.item_theme_night": "Night Sakura"
+  "shop.item_theme_night": "Night Sakura",
+  "coach.greet": "Hi! Let's study together today 🌸",
+  "coach.streak": "{n}-day streak! Keep it up ✨",
+  "coach.streak0": "Let's start again today — even a little counts!",
+  "coach.pass_high": "A pass is in sight! Almost there — you've got this!",
+  "coach.pass_mid": "You're improving steadily. Keep this pace!",
+  "coach.pass_low": "One step at a time. I'm right here with you.",
+  "coach.weak": "How about a little \"{s}\" today?",
+  "coach.learned": "You've learned {n} words already. Amazing!",
+  "coach.tip1": "A little every day is the shortest path to passing 🌸",
+  "coach.tip2": "Listening gets much easier once your ears adjust."
 }
