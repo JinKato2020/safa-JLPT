@@ -169,6 +169,11 @@ function ProduceView({ p, placed, setPlaced, judged, record, s, c, t }: {
           </>
         )}
       </View>
+      {p.kind === 'vProduce' && !!p.example && (
+        <View style={s.exampleBox}>
+          <RubyText text={p.example} style={s.exampleTxt} rubyStyle={s.exampleRuby} center />
+        </View>
+      )}
       <View style={s.slots}>
         {Array.from({ length: slotCount }).map((_, k) => {
           const tileIdx = placed[k];

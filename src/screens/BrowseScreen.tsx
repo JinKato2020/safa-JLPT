@@ -319,13 +319,16 @@ export default function BrowseScreen() {
       {/* レベル変更のプルダウン(全＝N5→N1ソート / 各級＝その級のみ)＋ 右に「今どの区分の一覧か」を明示。 */}
       {!study && (
         <View style={[s.filters, s.filters2, s.filtersRow]}>
-          <Dropdown
-            value={effLevel}
-            options={['all', ...availLevels]}
-            labelFor={(l) => (l === 'all' ? t('browse.allLevels') : l)}
-            onSelect={setLevel}
-          />
+          <View style={s.filterSide}>
+            <Dropdown
+              value={effLevel}
+              options={['all', ...availLevels]}
+              labelFor={(l) => (l === 'all' ? t('browse.allLevels') : l)}
+              onSelect={setLevel}
+            />
+          </View>
           <Text style={s.listTitle}>{t(KUBUN.find((k) => k.key === kubun)!.labelKey)}</Text>
+          <View style={s.filterSide} />
         </View>
       )}
 
@@ -387,8 +390,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   },
   filters: { flexDirection: 'row', gap: spacing.sm, paddingHorizontal: spacing.md, flexWrap: 'wrap' },
   filters2: { marginTop: spacing.sm },
-  filtersRow: { alignItems: 'center', justifyContent: 'space-between', flexWrap: 'nowrap' },
-  listTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, fontFamily: 'ShipporiMincho-Bold' },
+  filtersRow: { alignItems: 'center', flexWrap: 'nowrap' },
+  filterSide: { flex: 1, alignItems: 'flex-start' }, // 左=プルダウン / 右=空スペーサ。両側flex:1で区分名を中央に。
+  listTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, fontFamily: 'ShipporiMincho-Bold', textAlign: 'center' },
   count: { fontSize: ty.tiny, color: c.faint, paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
   listBody: { paddingHorizontal: spacing.md, paddingBottom: spacing.xl },
   row: {

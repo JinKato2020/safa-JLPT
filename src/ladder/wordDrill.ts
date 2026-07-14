@@ -6,13 +6,15 @@
 // 出題順は SRS(state.items の忘却/未習を優先)。専門用語はUIに出さない。タイルは約8個(ダミー多め)。
 import vocab from '../data/shared/vocab.json';
 import grammar from '../data/shared/grammar.json';
+import vocabExamplesAi from '../data/dict/vocabExamplesAi.json';
+const VOCAB_EXAMPLE = vocabExamplesAi as Record<string, { ja?: string }>;
 import { grammarMeaningProblem } from './wordTabProblems';
 import { mulberry32 } from './rng';
 
 export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning' | 'mixed';
 
 export type DrillProblem =
-  | { kind: 'vProduce'; itemId: string; prompt: string; hint?: string; reading: string; answer: string[]; tiles: string[] }
+  | { kind: 'vProduce'; itemId: string; prompt: string; hint?: string; example?: string; reading: string; answer: string[]; tiles: string[] }
   | { kind: 'gBuild'; itemId: string; prompt: string; hint?: string; reading: string; answer: string[]; tiles: string[] }
   | { kind: 'gMeaning'; itemId: string; prompt: string; choices: string[]; answerIndex: number; example?: string; hit?: string };
 
@@ -56,7 +58,10 @@ function vProduce(v: V, seed: number): DrillProblem {
   const answer = toMorae(v.reading);
   // ヒント=単語(漢字表記)。ただし かな語(word===reading)は hint が答えそのものになるので出さない(意味だけで想起)。
   const hint = v.word !== v.reading ? v.word : undefined;
-  return { kind: 'vProduce', itemId: `${v.id}#produce`, prompt: v.meaning, hint, reading: v.reading, answer, tiles: buildTiles(answer, seed) };
+  // 対象語を隠した例文(文脈ヒント)。例文に語が出現する時のみ空所〔　　〕に置換。
+  const exJa = VOCAB_EXAMPLE[v.id]?.ja;
+  const example = exJa && exJa.includes(v.word) ? exJa.replace(v.word, '〔　　〕') : undefined;
+  return { kind: 'vProduce', itemId: `${v.id}#produce`, prompt: v.meaning, hint, example, reading: v.reading, answer, tiles: buildTiles(answer, seed) };
 }
 export function produceEligible(level: string): V[] {
   // 接尾辞/束縛形態素(～観・～敗 等 〜付き)は単独産出に不適=除外。

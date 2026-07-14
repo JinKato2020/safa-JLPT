@@ -11,9 +11,10 @@ import { useColors } from '../theme';
 import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<DictStackParamList & RootStackParamList>;
+// 表示順=漢字→語彙→文法(my単語帳と同じ並び。ユーザー指定)。
 const DICTS: { view: Kubun; glyph: string; labelKey: string; accent: string }[] = [
-  { view: 'vocab', glyph: '語', labelKey: 'browse.vocab', accent: '#3f9d5a' },
   { view: 'kanji', glyph: '漢', labelKey: 'browse.kanji', accent: '#d9743f' },
+  { view: 'vocab', glyph: '語', labelKey: 'browse.vocab', accent: '#3f9d5a' },
   { view: 'grammar', glyph: '文', labelKey: 'browse.grammar', accent: '#7b6bd6' },
 ];
 

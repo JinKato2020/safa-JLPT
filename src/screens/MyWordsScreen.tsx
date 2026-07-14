@@ -31,7 +31,7 @@ export default function MyWordsScreen() {
 
   const l1 = state.settings.l1;
   const nm = (key: string, fallback: string) => (l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined) ?? fallback;
-  const accentOf = (k: BookKind) => (k === 'vocab' ? c.mojiGoi : k === 'kanji' ? c.dokkai : c.bunpou);
+  const accentOf = (_k: BookKind) => c.blue; // 色分けしない(区分共通の単色。ユーザー指定)
   const bookTitle = (k: BookKind) => t(k === 'vocab' ? 'mywords.book_vocab' : k === 'kanji' ? 'mywords.book_kanji' : 'mywords.book_grammar');
 
   const vocabById = useMemo(() => new Map(VOCAB.map((v) => [v.id, v])), []);
