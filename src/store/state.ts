@@ -99,6 +99,9 @@ export function isInMyList(list: SaveRef[] | undefined, ref: SaveRef): boolean {
 
 export const STATE_VERSION = 1;
 
+// 初期から所持＋装備している髪型(標準=ロング)。ショート装備後もここへ戻せるよう、既存ユーザーにも所持を補完する。
+export const DEFAULT_HAIR_ID = 'hair_long';
+
 export const INITIAL_STATE: AppState = {
   version: STATE_VERSION,
   settings: { level: 'N4', l1: 'vi', examDate: null, theme: 'dark', reminder: null, onboarded: false, tourDone: false },
@@ -107,6 +110,8 @@ export const INITIAL_STATE: AppState = {
   growth: [],
   mockHistory: [],
   myList: [],
+  owned: [DEFAULT_HAIR_ID],
+  equipped: { hair: DEFAULT_HAIR_ID },
 };
 
 /** epoch ms → ローカル日付 YYYY-MM-DD */
