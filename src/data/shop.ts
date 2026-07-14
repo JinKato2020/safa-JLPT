@@ -9,6 +9,7 @@ export type ShopCat = 'dressup' | 'companion' | 'tool';
 
 export type ShopItem = {
   id: string; cat: ShopCat; kind: ShopKind; price: number; name: string; emoji?: string; asset?: ImageSourcePropType;
+  rarity?: number; // 希少度(1〜5)。価値の目安として★で表示。省略=無印
 };
 
 export const SHOP: ShopItem[] = [
@@ -19,9 +20,11 @@ export const SHOP: ShopItem[] = [
   { id: 'outfit_miko', cat: 'dressup', kind: 'outfit', price: 0, name: '巫女装束', emoji: '👘' },
   { id: 'outfit_yukata', cat: 'dressup', kind: 'outfit', price: 700, name: '夏の浴衣', emoji: '🎐' },
   { id: 'outfit_haregi', cat: 'dressup', kind: 'outfit', price: 1000, name: '桜の晴れ着', emoji: '🌸' },
-  { id: 'brush_take', cat: 'dressup', kind: 'brush', price: 0, name: '竹の筆', emoji: '🖌️' },
-  { id: 'brush_gold', cat: 'dressup', kind: 'brush', price: 600, name: '金の筆', emoji: '✨' },
-  { id: 'brush_sakura', cat: 'dressup', kind: 'brush', price: 800, name: '桜蒔絵の筆', emoji: '🌸' },
+  { id: 'brush_take', cat: 'dressup', kind: 'brush', price: 0, name: '竹の筆', emoji: '🖌️', rarity: 1 },
+  { id: 'brush_sakura', cat: 'dressup', kind: 'brush', price: 400, name: '桜染めの筆', emoji: '🌸', rarity: 2 },
+  { id: 'brush_makie', cat: 'dressup', kind: 'brush', price: 900, name: '金蒔絵の筆', emoji: '✨', rarity: 3 },
+  { id: 'brush_raden', cat: 'dressup', kind: 'brush', price: 1600, name: '螺鈿の筆', emoji: '🐚', rarity: 4 },
+  { id: 'brush_tenpitsu', cat: 'dressup', kind: 'brush', price: 2800, name: '天の霊筆', emoji: '🖋️', rarity: 5 },
   // 仲間 — 連れ歩く相棒。1体を選んで装備。
   { id: 'pet_dog', cat: 'companion', kind: 'companion', price: 500, name: '子犬', emoji: '🐕' },
   { id: 'pet_fox', cat: 'companion', kind: 'companion', price: 800, name: '白狐', emoji: '🦊' },

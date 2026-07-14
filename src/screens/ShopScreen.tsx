@@ -52,6 +52,7 @@ export default function ShopScreen() {
         <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
       )}
       <Text style={s.name} numberOfLines={1}>{i.name}</Text>
+      {i.rarity ? <Text style={s.rarity} numberOfLines={1}>{'★'.repeat(i.rarity)}<Text style={s.rarityOff}>{'★'.repeat(5 - i.rarity)}</Text></Text> : null}
       <Pressable disabled={disabled(i)} onPress={() => act(i)} style={[s.btn, pill(i)]}>
         <Text style={[s.btnTxt, pillTxt(i)]}>{statusOf(i)}</Text>
       </Pressable>
@@ -110,7 +111,9 @@ const s = StyleSheet.create({
   card: { width: '46.5%', backgroundColor: '#fffdf7', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', padding: 10 },
   prev: { width: '100%', aspectRatio: 16 / 10, borderRadius: 10 },
   prevEmoji: { backgroundColor: '#f3ead9', alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 40 },
-  name: { marginTop: 8, marginBottom: 8, fontWeight: '800', color: '#5a3d22', fontSize: 14 },
+  name: { marginTop: 8, marginBottom: 4, fontWeight: '800', color: '#5a3d22', fontSize: 14 },
+  rarity: { marginBottom: 6, fontSize: 12, color: '#e0a63c', letterSpacing: 1 },
+  rarityOff: { color: '#e2d4b8' },
   btn: { alignSelf: 'stretch', borderRadius: 10, paddingVertical: 9, alignItems: 'center' },
   btnTxt: { fontWeight: '800', fontSize: 13 },
   pillOn: { backgroundColor: '#efe3c8', borderWidth: 1, borderColor: '#d8b96a' }, txtOn: { color: '#8a6a2a' },
