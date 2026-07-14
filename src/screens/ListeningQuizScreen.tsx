@@ -9,6 +9,7 @@ import { Audio } from 'expo-av';
 import * as Speech from 'expo-speech';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
+import { isInMyList, type SaveRef } from '../store/state';
 import { levelListFor } from '../words/levelList';
 import { KANJI, meaningIn } from '../data';
 import { playVocab, playKanjiRep } from '../data/vocabAudio';
@@ -94,12 +95,21 @@ export default function ListeningQuizScreen() {
         <View style={s.head}><Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable><Text style={s.headTitle}>{t(kind === 'vocab' ? 'listening2.vocab_title' : 'listening2.kanji_title')}</Text><View style={{ width: 30 }} /></View>
         <ScrollView contentContainerStyle={s.body}>
           <Text style={s.studyH}>{t('listening2.study_title')}</Text>
-          {rows.map((r) => (
-            <View key={r.key} style={s.studyRow}>
-              <View style={{ flex: 1 }}><Text style={s.studySub}>{r.sub}</Text><Text style={s.studyMain}>{r.main}</Text><Text style={s.studyMeaning}>{r.meaning}</Text></View>
-              <Pressable style={s.studyPlay} hitSlop={8} onPress={r.play}><Ionicons name="play" size={22} color={c.blue} /></Pressable>
-            </View>
-          ))}
+          {rows.map((r) => {
+            const inner = (
+              <>
+                <View style={{ flex: 1 }}><Text style={s.studySub}>{r.sub}</Text><Text style={s.studyMain}>{r.main}</Text><Text style={s.studyMeaning}>{r.meaning}</Text></View>
+                <Pressable style={s.studyPlay} hitSlop={8} onPress={r.play}><Ionicons name="play" size={22} color={c.blue} /></Pressable>
+                {kind === 'kanji' ? <Ionicons name="chevron-forward" size={18} color={c.faint} /> : null}
+              </>
+            );
+            // 漢字の聞き取りは学習カードのタップで漢字詳細(全読み・例語・書き取り導線)へ。再生ボタンは入れ子Pressableで別動作。
+            return kind === 'kanji' ? (
+              <Pressable key={r.key} style={s.studyRow} onPress={() => nav.navigate('KanjiDetail', { char: r.main })}>{inner}</Pressable>
+            ) : (
+              <View key={r.key} style={s.studyRow}>{inner}</View>
+            );
+          })}
           <Pressable style={s.cta} onPress={() => { setPhase('quiz'); setIdx(0); setPicked(null); }}><Text style={s.ctaTxt}>{t('listening2.start_btn')}</Text></Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -143,14 +153,25 @@ export default function ListeningQuizScreen() {
             );
           })}
         </View>
-        {picked !== null ? (
-          <>
-            <Text style={[s.judge, picked === q.answerIndex ? s.judgeOk : s.judgeNg]}>{picked === q.answerIndex ? t('listening2.correct') : t('listening2.wrong')}</Text>
-            {rows[idx] && <Text style={s.reveal}>✓ {rows[idx].main && rows[idx].main !== rows[idx].sub ? `${rows[idx].main}（${rows[idx].sub}）` : rows[idx].sub}</Text>}
-            <Pressable style={s.cta} onPress={advance}><Text style={s.ctaTxt}>{idx + 1 >= questions.length ? t('listening2.close') : t('listening2.next')}</Text></Pressable>
-          </>
+        {picked !== null && rows[idx] ? (
+          <Text style={s.reveal}>✓ {rows[idx].main && rows[idx].main !== rows[idx].sub ? `${rows[idx].main}（${rows[idx].sub}）` : rows[idx].sub}</Text>
         ) : null}
       </ScrollView>
+
+      {/* 下端固定フッター(WordDrillと統一): 正誤 ＋ my単語帳登録(ブックマーク) ＋ 次へ。 */}
+      {picked !== null && (() => {
+        const saveRef: SaveRef = { type: kind === 'vocab' ? 'vocab' : 'kanji', id: rows[idx]?.key ?? '' };
+        const saved = isInMyList(state.myList ?? [], saveRef);
+        return (
+          <View style={s.footer}>
+            <Text style={[s.fbTxt, { color: picked === q.answerIndex ? c.green : c.red }]}>{picked === q.answerIndex ? t('listening2.correct') : t('listening2.wrong')}</Text>
+            <Pressable style={s.saveBtn} hitSlop={10} onPress={() => actions.addToMyList(saveRef)} accessibilityLabel={t('mywords.add')}>
+              <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={22} color={saved ? c.blue : c.mute} />
+            </Pressable>
+            <Pressable style={s.footCta} onPress={advance}><Text style={s.ctaTxt}>{idx + 1 >= questions.length ? t('listening2.close') : t('listening2.next')}</Text></Pressable>
+          </View>
+        );
+      })()}
     </SafeAreaView>
   );
 }
@@ -182,10 +203,13 @@ const makeStyles = (c: ThemeColors) =>
     // 大きな漢字グリフを上下左右とも中央へ。固定lineHeight(=fontSize)はiOSで字が下寄せになるため付けず、
     // 自然な行ボックス＋カードの中央寄せ(justify/alignItems center)に任せる。Androidは padding除去+縦中央指定。
     choiceKanjiTxt: { fontSize: 48, fontWeight: '800', color: c.ink, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
-    judge: { fontSize: ty.h2, fontWeight: '800', textAlign: 'center', marginTop: spacing.sm },
-    judgeOk: { color: c.green }, judgeNg: { color: c.red },
     reveal: { fontSize: ty.h2, fontWeight: '800', color: c.green, textAlign: 'center' },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.sm, width: '100%' },
     ctaTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
+    // 下端固定フッター(WordDrillと統一): 正誤(左・flex) ＋ ブックマーク ＋ 次へ。
+    footer: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, padding: spacing.lg, borderTopWidth: 1, borderTopColor: c.line, backgroundColor: c.surface },
+    fbTxt: { fontSize: ty.h2, fontWeight: '800', flex: 1 },
+    saveBtn: { width: 40, height: 40, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
+    footCta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, paddingHorizontal: spacing.xl, alignItems: 'center' },
     bigEmoji: { fontSize: 56 }, doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink }, doneScore: { fontSize: ty.h2, fontWeight: '700', color: c.ink2 },
   });
