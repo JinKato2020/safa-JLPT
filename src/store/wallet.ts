@@ -3,7 +3,7 @@ import type { AppState } from './state';
 import { dayStr, withUpdatedAt } from './state';
 
 // 装備スロット/種別: 着せ替え(髪型/服/筆)・仲間(companion)・道具(tool)。背景テーマ・フォントは設定画面へ移設。
-export type ShopKind = 'hair' | 'outfit' | 'brush' | 'companion' | 'tool';
+export type ShopKind = 'hair' | 'outfit' | 'brush' | 'costume' | 'companion' | 'tool';
 
 export const EARN = {
   answer: 2, dailyCap: 300, completion: 15, mock: 50, kanjiMaster: 5,

@@ -23,6 +23,10 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const isShort = state.equipped?.hair === 'hair_short';
   const bItem = eqBrush ? SHOP_BY_ID[eqBrush] : undefined;
   const brushImg = bItem ? (isShort ? bItem.homeShort : bItem.homeLong) : undefined;
+  // 民族衣装を装備中はその全身アバターを優先表示(髪型/筆より上位)。桜が各国の衣装をまとう。
+  const eqCostume = state.equipped?.costume;
+  const costumeImg = eqCostume ? SHOP_BY_ID[eqCostume]?.asset : undefined;
+  const charImg = costumeImg ?? brushImg; // 優先: 民族衣装 > 筆(背負い) > 既定の案内キャラ
   const [line, setLine] = useState<string | null>(null);
   const [eyesClosed, setEyesClosed] = useState(false);
   const bob = useRef(new Animated.Value(0)).current;
@@ -77,9 +81,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   }, [bob]);
 
   const onTapChar = () => (line != null ? dismiss() : showAdvice());
-  // 装備筆の絵(桜が筆を背負う)は縦長なので少し大きめ＋縦横比を変える。既定の案内キャラはほぼ正方形。
-  const charW = Math.round(width * (brushImg ? 0.60 : 0.40));
-  const charH = Math.round(charW * (brushImg ? 1.370 : 1.12)); // 背負い画像=864x1184比に一致(余白なし)
+  // 民族衣装/背負い筆の全身絵は縦長(≒864x1184)なので少し大きめ＋縦横比を変える。既定の案内キャラはほぼ正方形。
+  const charW = Math.round(width * (charImg ? 0.60 : 0.40));
+  const charH = Math.round(charW * (charImg ? 1.370 : 1.12));
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
 
   return (
@@ -95,7 +99,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       )}
       <Animated.View style={{ transform: [{ translateY: bobY }] }}>
         <Pressable onPress={onTapChar} hitSlop={4}>
-          <Image source={brushImg ?? (eyesClosed ? BLINK : OPEN)} style={{ width: charW, height: charH }} resizeMode="contain" />
+          <Image source={charImg ?? (eyesClosed ? BLINK : OPEN)} style={{ width: charW, height: charH }} resizeMode="contain" />
         </Pressable>
       </Animated.View>
     </View>

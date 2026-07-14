@@ -71,7 +71,7 @@ export interface AppState {
   studySeconds?: number; // 累計学習時間(秒)。アプリ前面滞在秒を加算。旧stateには無い→0扱い。
   wallet?: { points: number };          // 所持桜貝(内部通貨)。未設定→0
   owned?: string[];                     // 購入済みアイテムID(着せ替え)
-  equipped?: { hair?: string; outfit?: string; brush?: string; companion?: string; tool?: string }; // 着せ替え(髪型/服/筆)・仲間の装備中ID。背景・フォントは settings で反映
+  equipped?: { hair?: string; outfit?: string; brush?: string; costume?: string; companion?: string; tool?: string }; // 着せ替え(髪型/服/筆/民族衣装)・仲間の装備中ID。背景・フォントは settings で反映
   claimedMilestones?: string[];         // 節目付与の重複防止
   dailyEarn?: { day: string; amount: number }; // 1日獲得上限の当日累計
   installedAt?: number;                 // 初回起動(ダウンロード)日時 epoch ms。模試チケット月次付与の起点。未設定→初回起動で確定。

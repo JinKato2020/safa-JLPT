@@ -29,6 +29,15 @@ export const SHOP: ShopItem[] = [
   { id: 'brush_makie', cat: 'dressup', kind: 'brush', price: 900, name: '金蒔絵の筆', rarity: 3, asset: require('../../assets/shop/brush/brush_makie.png'), celebrate: require('../../assets/shop/celebrate/brush_makie.png'), homeLong: require('../../assets/home/seoi/long/makie.png'), homeShort: require('../../assets/home/seoi/short/makie.png') },
   { id: 'brush_raden', cat: 'dressup', kind: 'brush', price: 1600, name: '螺鈿の筆', rarity: 4, asset: require('../../assets/shop/brush/brush_raden.png'), celebrate: require('../../assets/shop/celebrate/brush_raden.png'), homeLong: require('../../assets/home/seoi/long/raden.png'), homeShort: require('../../assets/home/seoi/short/raden.png') },
   { id: 'brush_tenpitsu', cat: 'dressup', kind: 'brush', price: 2800, name: '天の霊筆', rarity: 5, asset: require('../../assets/shop/brush/brush_tenpitsu.png'), celebrate: require('../../assets/shop/celebrate/brush_tenpitsu.png'), homeLong: require('../../assets/home/seoi/long/tenpitsu.png'), homeShort: require('../../assets/home/seoi/short/tenpitsu.png') },
+  // 民族衣装 — 桜が各国の民族衣装をまとう全身アバター。装備するとホームの桜がその姿になる(髪型/筆より優先)。
+  { id: 'costume_vietnam', cat: 'dressup', kind: 'costume', price: 1200, name: 'アオザイ（ベトナム）', asset: require('../../assets/shop/costume/vietnam.png') },
+  { id: 'costume_nepal', cat: 'dressup', kind: 'costume', price: 1200, name: 'クルタ・スルワール（ネパール）', asset: require('../../assets/shop/costume/nepal.png') },
+  { id: 'costume_china', cat: 'dressup', kind: 'costume', price: 1200, name: 'チャイナドレス（中国）', asset: require('../../assets/shop/costume/china.png') },
+  { id: 'costume_bangladesh', cat: 'dressup', kind: 'costume', price: 1200, name: 'サリー（バングラデシュ）', asset: require('../../assets/shop/costume/bangladesh.png') },
+  { id: 'costume_indonesia', cat: 'dressup', kind: 'costume', price: 1200, name: 'クバヤ（インドネシア）', asset: require('../../assets/shop/costume/indonesia.png') },
+  { id: 'costume_myanmar', cat: 'dressup', kind: 'costume', price: 1200, name: 'ロンジー（ミャンマー）', asset: require('../../assets/shop/costume/myanmar.png') },
+  { id: 'costume_philippines', cat: 'dressup', kind: 'costume', price: 1200, name: 'テルノ（フィリピン）', asset: require('../../assets/shop/costume/philippines.png') },
+  { id: 'costume_korea', cat: 'dressup', kind: 'costume', price: 1200, name: 'ハンボク（韓国）', asset: require('../../assets/shop/costume/korea.png') },
   // 仲間 — 連れ歩く相棒。1体を選んで装備。
   { id: 'pet_dog', cat: 'companion', kind: 'companion', price: 500, name: '子犬', emoji: '🐕' },
   { id: 'pet_fox', cat: 'companion', kind: 'companion', price: 800, name: '白狐', emoji: '🦊' },
@@ -51,5 +60,5 @@ export const SHOP_CATS: { cat: ShopCat; label: string }[] = [
 
 // 着せ替えタブ内の小見出し(スロット別)。
 export const KIND_LABEL: Record<ShopKind, string> = {
-  hair: '髪型', outfit: '服', brush: '筆', companion: '仲間', tool: '道具',
+  hair: '髪型', outfit: '服', brush: '筆', costume: '民族衣装', companion: '仲間', tool: '道具',
 };
