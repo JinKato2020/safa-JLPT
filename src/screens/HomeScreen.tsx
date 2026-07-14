@@ -64,12 +64,13 @@ export default function HomeScreen() {
       <TabBackground source={HOME_BG}>
         <SafeBoundary tag="homering" fallback={null}>
           <View style={[styles.wrap, { top, left, width: ringW, height: ringW }]}>
+            {/* 画像は必ず明示サイズ(=ringW)で拘束する。absoluteFill+containは実機で実寸化する事故があるため使わない。 */}
             <Animated.Image
               source={GLOW}
               resizeMode="contain"
-              style={[StyleSheet.absoluteFill, { opacity: gOp, transform: [{ scale: gSc }] }]}
+              style={[styles.glow, { width: ringW, height: ringW, opacity: gOp, transform: [{ scale: gSc }] }]}
             />
-            <Image source={RING} style={StyleSheet.absoluteFill} resizeMode="contain" />
+            <Image source={RING} style={{ width: ringW, height: ringW }} resizeMode="contain" />
             <View style={styles.pct} pointerEvents="none">
               {/* 数字を穴の中心にぴったり固定。ラベルは数字の上へ絶対配置(=数字を押し下げない)。 */}
               <View style={styles.pctInner}>
