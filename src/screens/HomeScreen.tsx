@@ -73,12 +73,12 @@ export default function HomeScreen() {
             />
             <Image source={RING} style={{ width: ringW, height: ringW }} resizeMode="contain" />
             <View style={styles.pct} pointerEvents="none">
-              {/* 数字を穴の中心にぴったり固定。ラベルは数字の上へ絶対配置(=数字を押し下げない)。 */}
+              {/* 数字＋ラベル(準備度)を縦に積み、その塊の中心を穴の中心に合わせる。ラベルは数字の下。 */}
               <View style={styles.pctInner}>
-                <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085), top: -Math.round(ringW * 0.115) }]}>合格率</Text>
                 <Text style={[styles.num, { fontSize: Math.round(ringW * 0.30), lineHeight: Math.round(ringW * 0.30) }]}>
                   {pct}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.15) }]}>%</Text>
                 </Text>
+                <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085), marginTop: Math.round(ringW * 0.03) }]}>準備度</Text>
               </View>
             </View>
           </View>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   glow: { position: 'absolute' },
   pct: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
   pctInner: { alignItems: 'center', justifyContent: 'center' },
-  lbl: { position: 'absolute', fontWeight: '700', letterSpacing: 1.5, color: '#dbe4ff', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4 },
+  lbl: { fontWeight: '700', letterSpacing: 1.5, color: '#dbe4ff', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4 },
   num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(160,200,255,0.9)', textShadowRadius: 14, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
   numSmall: { fontWeight: '800', color: '#eaf0ff' },
 });
