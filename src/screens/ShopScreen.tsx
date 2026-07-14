@@ -67,7 +67,7 @@ export default function ShopScreen() {
   const renderCard = (i: ShopItem) => (
     <View key={i.id} style={s.card}>
       {i.asset ? (
-        <Image source={i.asset} style={[s.prev, s.prevImg]} resizeMode="contain" />
+        <View style={[s.prev, s.prevImg]}><Image source={i.asset} style={s.prevInner} resizeMode="contain" /></View>
       ) : (
         <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
       )}
@@ -144,7 +144,8 @@ const s = StyleSheet.create({
   kindHead: { fontSize: 13, fontWeight: '900', color: '#a5732f', marginTop: 6, marginBottom: 8, letterSpacing: 1 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   card: { width: '46.5%', backgroundColor: '#fffdf7', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', padding: 10, overflow: 'hidden' },
-  prev: { width: '100%', aspectRatio: 1, borderRadius: 10, overflow: 'hidden' },
+  prev: { width: '100%', aspectRatio: 1, borderRadius: 10, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+  prevInner: { width: '72%', height: '72%' }, // カード内に余白(約14%)を残して収める
   prevEmoji: { backgroundColor: '#f3ead9', alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 40 },
   prevImg: { backgroundColor: '#f7efe0' },
   name: { marginTop: 8, marginBottom: 4, fontWeight: '800', color: '#5a3d22', fontSize: 14 },

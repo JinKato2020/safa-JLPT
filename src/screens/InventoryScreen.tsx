@@ -53,7 +53,7 @@ export default function InventoryScreen() {
         onPress={() => equipItem({ id: i.id, kind: i.kind })}
       >
         {i.asset ? (
-          <Image source={i.asset} style={[s.prev, s.prevImg]} resizeMode="contain" />
+          <View style={[s.prev, s.prevImg]}><Image source={i.asset} style={s.prevInner} resizeMode="contain" /></View>
         ) : (
           <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
         )}
@@ -126,7 +126,8 @@ const makeStyles = (c: ThemeColors) =>
     card: { width: '31%', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.sm, alignItems: 'center', overflow: 'hidden' },
     cardOn: { borderColor: c.blue, backgroundColor: c.blueLight },
     equipHint: { marginTop: 2, fontSize: ty.tiny, fontWeight: '700', color: c.mute },
-    prev: { width: '100%', aspectRatio: 1, borderRadius: radius.md, overflow: 'hidden' },
+    prev: { width: '100%', aspectRatio: 1, borderRadius: radius.md, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+    prevInner: { width: '72%', height: '72%' }, // カード内に余白を残して収める
     prevImg: { backgroundColor: '#f7efe0' },
     prevEmoji: { backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 34 },
     cardName: { marginTop: spacing.xs, fontSize: ty.tiny, fontWeight: '800', color: c.ink, textAlign: 'center' },

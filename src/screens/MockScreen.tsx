@@ -254,8 +254,16 @@ export default function MockScreen() {
     } catch { setPlaying(false); }
   };
 
-  // 制限時間カウントダウン＋タイムオーバー(時間切れ＝未解答を不正解として自動採点→結果へ)。本番形式の時間制約。
-  const limitMs = useMemo(() => exam.reduce((acc, it) => acc + stepSeconds(it) * 1000, 0), [exam]);
+  // 制限時間: 公式規定の試験時間で計る(イントロ表示と一致)。フル=本番規定どおり／ミニ=その1/3。
+  //  JLPT本番: N5=105分 / N4=125分 / N3=140分(文字語彙＋文法読解＋聴解の合計)。
+  //  ※問題数×秒の合算だと生成数に左右されて規定時間からズレるため、規定時間を正本にする。
+  //  JFTは公式構成が別のため従来どおり問題数ベース。
+  const limitMs = useMemo(() => {
+    if (isJft) return exam.reduce((acc, it) => acc + stepSeconds(it) * 1000, 0);
+    const OFFICIAL_MIN: Record<Level, number> = { N5: 105, N4: 125, N3: 140 };
+    const totalMs = (OFFICIAL_MIN[state.settings.level] ?? 125) * 60_000;
+    return full ? totalMs : Math.round(totalMs / 3);
+  }, [exam, isJft, full, state.settings.level]);
   const [remainingMs, setRemainingMs] = useState(limitMs);
   const [timedOut, setTimedOut] = useState(false);
   useEffect(() => {

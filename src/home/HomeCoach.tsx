@@ -17,10 +17,12 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const t = useT();
   const { width } = useWindowDimensions();
   const state = useAppState();
-  // 装備中の筆があれば、その「桜が筆を地面に立てて添える絵(homeArt)」で出現。なければ既定の案内キャラ(まばたきあり)。
-  // ※持ち上げて喜ぶ絵(celebrate)は購入演出専用。ホームには使わない。
+  // 装備中の筆があれば、その「桜が筆を背負う絵」で出現。髪型がショートなら短髪版・標準はロング版。
+  // なければ既定の案内キャラ(まばたきあり)。※持ち上げ絵(celebrate)は購入演出専用でホームには使わない。
   const eqBrush = state.equipped?.brush;
-  const brushImg = eqBrush ? SHOP_BY_ID[eqBrush]?.homeArt : undefined;
+  const isShort = state.equipped?.hair === 'hair_short';
+  const bItem = eqBrush ? SHOP_BY_ID[eqBrush] : undefined;
+  const brushImg = bItem ? (isShort ? bItem.homeShort : bItem.homeLong) : undefined;
   const [line, setLine] = useState<string | null>(null);
   const [eyesClosed, setEyesClosed] = useState(false);
   const bob = useRef(new Animated.Value(0)).current;
@@ -75,9 +77,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   }, [bob]);
 
   const onTapChar = () => (line != null ? dismiss() : showAdvice());
-  // 装備筆の絵(桜＋筆)は縦長なので少し大きめ＋縦横比を変える。既定の案内キャラはほぼ正方形。
-  const charW = Math.round(width * (brushImg ? 0.52 : 0.40));
-  const charH = Math.round(charW * (brushImg ? 1.335 : 1.12)); // 装備筆画像=811x1083比に一致(余白なし)
+  // 装備筆の絵(桜が筆を背負う)は縦長なので少し大きめ＋縦横比を変える。既定の案内キャラはほぼ正方形。
+  const charW = Math.round(width * (brushImg ? 0.60 : 0.40));
+  const charH = Math.round(charW * (brushImg ? 1.370 : 1.12)); // 背負い画像=864x1184比に一致(余白なし)
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
 
   return (

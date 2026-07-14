@@ -52,10 +52,10 @@ export default function HomeScreen() {
   // 呼吸は主に明滅(opacity)＋ごく僅かな拡大(帯から離れない)。
   // グローはリングに密着させ膨張させない(明滅は控えめ・拡大はごく僅か)。
   const gOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.28, 0.6] });
-  const gSc = glow.interpolate({ inputRange: [0, 1], outputRange: [1.0, 1.03] });
+  const gSc = glow.interpolate({ inputRange: [0, 1], outputRange: [1.0, 1.12] });
 
-  const ringW = Math.round(width * 0.30); // 画面幅の30%
-  const top = Math.round(height * 0.22);
+  const ringW = Math.round(width * 0.40); // 画面幅の40%(ヒーロー寄せに戻し)
+  const top = Math.round(height * 0.15);  // やや上
   const left = Math.round((width - ringW) / 2);
   const pct = Math.round(status.passPct);
 
