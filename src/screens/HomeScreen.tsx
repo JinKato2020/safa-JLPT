@@ -54,9 +54,11 @@ export default function HomeScreen() {
   const gInnerSc = glow.interpolate({ inputRange: [0, 1], outputRange: [0.95, 1.12] });
 
   const ringW = Math.round(width * 0.30);
-  const glowOuter = Math.round(ringW * 2.6);
-  const glowInner = Math.round(ringW * 1.5);
-  const top = Math.round(height * 0.18); // 上端に寄り過ぎないよう下げる
+  // 環状グロー: リングの帯に沿って光らせる(中心=合格率は光らせない)。素材が環状ピークなので
+  // リングとほぼ同径に置くと帯にhaloが乗る。外側にもう一枚重ねて滲みを出す。
+  const glowOuter = Math.round(ringW * 1.55);
+  const glowInner = Math.round(ringW * 1.12);
+  const top = Math.round(height * 0.30); // もっと中央へ
   const left = Math.round((width - ringW) / 2);
   const pct = Math.round(status.passPct);
 
