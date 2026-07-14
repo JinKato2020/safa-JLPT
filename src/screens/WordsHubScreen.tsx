@@ -27,9 +27,9 @@ export default function WordsHubScreen() {
         source={bg}
         blinkSource={blinkBg}
         entries={[
+          { key: 'kanji', glyph: '漢', label: t('cards.kanji'), accent: '#d9743f', renderCard: card('kanji') },
           { key: 'vocab', glyph: '語', label: t('cards.vocab'), accent: '#3f9d5a', renderCard: card('vocab') },
           { key: 'grammar', glyph: '文', label: t('cards.grammar'), accent: '#7b6bd6', renderCard: card('grammar') },
-          { key: 'kanji', glyph: '漢', label: t('cards.kanji'), accent: '#d9743f', renderCard: card('kanji') },
           { key: 'reco', glyph: '✦', label: t('cards.reco'), accent: '#2f80b8', onGo: () => nav.navigate('WordDrill', { kind: 'mixed' }) },
         ] as TabEntry[]}
         hotspots={[
