@@ -49,22 +49,48 @@ export function useAppFonts() {
 }
 
 let patched = false;
-/** 全 <Text> に現在フォントを適用(ウェイト→ファミリー)。1度だけ実行。 */
+// 現在フォントのファミリーを style へ注入(既に fontFamily 指定=アイコン等は尊重)。
+function injectFont<T extends { style?: unknown }>(props: T): T {
+  const flat = StyleSheet.flatten(props.style as never) as { fontWeight?: string | number; fontFamily?: string } | undefined;
+  if (flat && flat.fontFamily) return props;
+  const fam = familyFor(flat?.fontWeight);
+  if (!fam) return props; // system既定
+  return { ...props, style: [{ fontFamily: fam }, props.style, { fontWeight: undefined }] };
+}
+
+/** 全 <Text> に現在フォントを適用。RN0.81/React19 の Text は関数コンポーネントで .render を持たないため、
+ *  自動JSXランタイム(react/jsx-runtime の jsx/jsxs, dev の jsxDEV)を包んで Text 生成時にフォントを注入する。 */
 export function installGlobalFont() {
   if (patched) return;
   patched = true;
-  const anyText = RNText as unknown as { render: (...a: unknown[]) => unknown };
-  const orig = anyText.render;
-  anyText.render = function (this: unknown, ...args: unknown[]) {
-    const props = (args[0] || {}) as { style?: unknown };
-    const flat = StyleSheet.flatten(props.style as never) as { fontWeight?: string | number; fontFamily?: string } | undefined;
-    // 既に fontFamily 指定(アイコン等)はそのまま尊重
-    if (flat && flat.fontFamily) return orig.call(this, ...args);
-    const fam = familyFor(flat?.fontWeight);
-    if (!fam) return orig.call(this, ...args); // system既定
-    const style = [{ fontFamily: fam }, props.style, { fontWeight: undefined }];
-    return orig.call(this, { ...props, style }, ...args.slice(1));
+  const wrap = (orig: (...a: unknown[]) => unknown) =>
+    function (type: unknown, props: { style?: unknown } | null, ...rest: unknown[]) {
+      if (type === RNText && props != null) return orig(type, injectFont(props), ...rest);
+      return orig(type, props as never, ...rest);
+    };
+  const patchMod = (mod: Record<string, unknown> | null, keys: string[]) => {
+    if (!mod) return;
+    for (const k of keys) {
+      const fn = mod[k];
+      if (typeof fn === 'function') { try { mod[k] = wrap(fn as (...a: unknown[]) => unknown); } catch { /* frozen: 無視 */ } }
+    }
   };
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  try { patchMod(require('react/jsx-runtime') as Record<string, unknown>, ['jsx', 'jsxs']); } catch { /* noop */ }
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  try { patchMod(require('react/jsx-dev-runtime') as Record<string, unknown>, ['jsxDEV']); } catch { /* noop */ }
+  // 保険: classicランタイム(React.createElement)経路も包む(ライブラリ等)。
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  try {
+    const React = require('react') as { createElement: (...a: unknown[]) => unknown };
+    const oc = React.createElement;
+    React.createElement = function (...args: unknown[]) {
+      const type = args[0];
+      const props = args[1] as { style?: unknown } | null;
+      if (type === RNText && props != null) return oc(type, injectFont(props), ...args.slice(2));
+      return oc(...args);
+    };
+  } catch { /* noop */ }
 }
 
 // import時に一度だけパッチ(ロード前は端末既定→ロード後に反映)。
