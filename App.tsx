@@ -97,6 +97,10 @@ const TABS = [
 
 const JLPT_LEVELS = ['N5', 'N4', 'N3'] as const;
 
+// 上部の共通アイコン列(アカウント/レベル/設定/通知)を隠す画面: 辞書リスト(DictList)と
+// 単語タブの練習ホーム・学習リスト(WordKubun/WordList)。各画面自身に×/←戻り＋見出しがあり、没入して学習に集中できる。
+const HIDE_TOPBAR = new Set(['DictList', 'WordKubun', 'WordList']);
+
 function MainTabs() {
   const c = useColors();
   const t = useT();
@@ -105,8 +109,7 @@ function MainTabs() {
   const state = useAppState();
   const { setSettings } = useAppActions();
   const [lvlOpen, setLvlOpen] = useState(false);
-  // 辞書リスト(DictList)・単語の学習リスト(WordList)では上部の共通アイコン列を隠す(各画面自身に×/←戻り＋見出しがある)。
-  const hideTopBar = useNavigationState((s) => { const n = activeRouteName(s); return n === 'DictList' || n === 'WordList'; });
+  const hideTopBar = useNavigationState((s) => HIDE_TOPBAR.has(activeRouteName(s) ?? ''));
   const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const level = state.settings.level;
   // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
