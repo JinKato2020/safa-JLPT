@@ -179,7 +179,7 @@ export default function KakitoriScreen() {
       const score = scoreForMistakes(m.mistakes ?? 0);
       recordKakitori(char, step + 1, score, { skipped: false, now: Date.now() });
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
-      if (step >= 2) speak(char);
+      // 完了後の自動発音は行わない(ユーザー要望)。読み上げは手動🎧のみ。
     }
   };
 
