@@ -639,6 +639,7 @@
   "inventory.items": "持ち物(着せ替え・仲間)",
   "inventory.badges": "称号バッジ",
   "inventory.equipped": "装備中",
+  "inventory.equip": "装備する",
   "inventory.empty": "まだ持っていません",
   "inventory.to_shop": "ショップで手に入れる",
   "inventory.badge_count": "{done} / 10 段 獲得",

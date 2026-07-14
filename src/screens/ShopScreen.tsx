@@ -2,8 +2,8 @@
 //  大分類タブ=着せ替え/仲間/道具。着せ替えは髪型/服/筆の小見出しで整理。
 //  着せ替え・仲間=owned/equipped の状態管理。道具=所持のみ(効果は順次)。通貨=桜貝(wallet.points)。
 //  背景テーマ・フォントは設定画面へ移設(ここには無い)。
-import { useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Image, ImageBackground, useWindowDimensions } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { View, Text, Pressable, StyleSheet, ScrollView, Image, ImageBackground, Animated, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useAppState, useAppActions } from '../store/store';
@@ -16,8 +16,21 @@ export default function ShopScreen() {
   const nav = useNavigation();
   const { height } = useWindowDimensions();
   const state = useAppState();
-  const { buyItem, equipItem } = useAppActions();
+  const { buyItem, equipItem, addPoints } = useAppActions();
+  const devUnlimited = state.settings.devUnlimitedPoints === true;
   const [cat, setCat] = useState<ShopCat>('dressup');
+  // 購入直後の演出(桜が筆を持つ絵を2秒表示)。
+  const [celebrate, setCelebrate] = useState<ShopItem | null>(null);
+  const celAnim = useRef(new Animated.Value(0)).current;
+  const celTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => { if (celTimer.current) clearTimeout(celTimer.current); }, []);
+  const showCelebrate = (i: ShopItem) => {
+    setCelebrate(i);
+    celAnim.setValue(0);
+    Animated.spring(celAnim, { toValue: 1, useNativeDriver: true, friction: 6, tension: 80 }).start();
+    if (celTimer.current) clearTimeout(celTimer.current);
+    celTimer.current = setTimeout(() => setCelebrate(null), 2000);
+  };
   const items = SHOP.filter((i) => i.cat === cat);
   const kinds = [...new Set(items.map((i) => i.kind))]; // タブ内のスロット種別(着せ替え=髪型/服/筆)
   const showKindHead = kinds.length > 1;
@@ -25,10 +38,17 @@ export default function ShopScreen() {
   const points = walletPoints(state);
   const ownedItem = (i: ShopItem) => isOwned(state, i.id);
   const equippedItem = (i: ShopItem) => isEquipped(state, { id: i.id, kind: i.kind });
-  const canBuyItem = (i: ShopItem) => !ownedItem(i) && points >= i.price;
+  const canBuyItem = (i: ShopItem) => !ownedItem(i) && (devUnlimited || points >= i.price);
 
   const act = (i: ShopItem) => {
-    if (!ownedItem(i)) { if (canBuyItem(i)) buyItem(i); return; } // 未所持(無料含む)→取得
+    if (!ownedItem(i)) {
+      if (canBuyItem(i)) {
+        if (devUnlimited && points < i.price) addPoints(1_000_000); // 【開発用】無限ポイント: 残高を確保して必ず購入
+        buyItem(i);
+        if (i.celebrate) showCelebrate(i);
+      }
+      return; // 未所持(無料含む)→取得。演出あり品は2秒表示
+    }
     if (i.kind === 'tool') return;                                 // 道具=所持のみ
     if (equippedItem(i)) return;                                   // 装備中→何もしない
     equipItem({ id: i.id, kind: i.kind });                         // 着せ替え/仲間=装備
@@ -87,6 +107,21 @@ export default function ShopScreen() {
           ))}
         </ScrollView>
       </View>
+
+      {/* 購入演出: 桜が手に入れた筆を持って2秒登場(タップで即閉じ)。 */}
+      {celebrate && (
+        <Animated.View style={[s.celOverlay, { opacity: celAnim }]}>
+          <Pressable style={s.celFill} onPress={() => setCelebrate(null)}>
+            <Text style={s.celGot}>手に入れた！</Text>
+            <Animated.Image
+              source={celebrate.celebrate!}
+              resizeMode="contain"
+              style={[s.celImg, { transform: [{ scale: celAnim.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1] }) }] }]}
+            />
+            <Text style={s.celName}>{celebrate.name}</Text>
+          </Pressable>
+        </Animated.View>
+      )}
     </View>
   );
 }
@@ -121,4 +156,9 @@ const s = StyleSheet.create({
   pillOwn: { backgroundColor: '#eaf1fb', borderWidth: 1, borderColor: '#a9c6f2' }, txtOwn: { color: '#3f7fd6' },
   pillBuy: { backgroundColor: '#3f7fd6' }, txtBuy: { color: '#fff' },
   pillNo: { backgroundColor: '#eee' }, txtNo: { color: '#aaa' },
+  celOverlay: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
+  celFill: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(30,20,12,0.62)', gap: 8 },
+  celGot: { color: '#ffe9c2', fontSize: 22, fontWeight: '900', letterSpacing: 2, textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
+  celImg: { width: '78%', height: '58%' },
+  celName: { color: '#fff', fontSize: 18, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
 });

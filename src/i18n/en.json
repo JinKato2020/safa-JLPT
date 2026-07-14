@@ -639,6 +639,7 @@
   "inventory.items": "Belongings (outfits & companions)",
   "inventory.badges": "Rank badges",
   "inventory.equipped": "Equipped",
+  "inventory.equip": "Equip",
   "inventory.empty": "Nothing yet",
   "inventory.to_shop": "Get some in the shop",
   "inventory.badge_count": "{done} / 10 tiers earned",

@@ -31,6 +31,8 @@ export interface Settings {
   kakitoriSpeed?: 'slow' | 'normal' | 'fast'; // 書き順アニメ速度(未設定→normal)
   kakitoriSound?: boolean;                  // 合格時の読み上げTTS(未設定→ON)
   kakitoriMode?: 'drill' | 'free';          // ドリル/自由練習(未設定→drill)
+  devUnlimitedPoints?: boolean;             // 【開発用】ON=桜貝を無限に扱い、ショップで無制限購入
+  devPro?: boolean;                         // 【開発用】ON=Pro課金状態 / OFF=無課金として扱う
 }
 
 export interface Streak {

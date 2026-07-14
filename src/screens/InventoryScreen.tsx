@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
-import { useAppState } from '../store/store';
+import { useAppState, useAppActions } from '../store/store';
 import { isEquipped } from '../store/wallet';
 import { SHOP_BY_ID, type ShopItem } from '../data/shop';
 import { homeStatus } from '../home/homeStatus';
@@ -26,6 +26,7 @@ export default function InventoryScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation<Nav>();
   const state = useAppState();
+  const { equipItem } = useAppActions();
   const now = Date.now();
 
   const owned = (state.owned ?? []).map((id) => SHOP_BY_ID[id]).filter(Boolean) as ShopItem[];
@@ -41,18 +42,28 @@ export default function InventoryScreen() {
   const badgeSet = state.settings.badgeSet ?? 'gorgeous';
   const [coll, setColl] = useState<{ metric: BadgeMetric; pct: number } | null>(null);
 
-  const card = (i: ShopItem) => (
-    <View key={i.id} style={s.card}>
-      {i.asset ? (
-        <Image source={i.asset} style={[s.prev, s.prevImg]} resizeMode="contain" />
-      ) : (
-        <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
-      )}
-      <Text style={s.cardName} numberOfLines={1}>{i.name}</Text>
-      {i.rarity ? <Text style={s.rarity}>{'★'.repeat(i.rarity)}<Text style={s.rarityOff}>{'★'.repeat(5 - i.rarity)}</Text></Text> : null}
-      {isEquipped(state, { id: i.id, kind: i.kind }) ? <Text style={s.equipped}>{t('inventory.equipped')}</Text> : null}
-    </View>
-  );
+  const card = (i: ShopItem) => {
+    const equipped = isEquipped(state, { id: i.id, kind: i.kind });
+    const equippable = i.kind !== 'tool';
+    return (
+      <Pressable
+        key={i.id}
+        style={[s.card, equipped && s.cardOn]}
+        disabled={!equippable || equipped}
+        onPress={() => equipItem({ id: i.id, kind: i.kind })}
+      >
+        {i.asset ? (
+          <Image source={i.asset} style={[s.prev, s.prevImg]} resizeMode="contain" />
+        ) : (
+          <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
+        )}
+        <Text style={s.cardName} numberOfLines={1}>{i.name}</Text>
+        {i.rarity ? <Text style={s.rarity}>{'★'.repeat(i.rarity)}<Text style={s.rarityOff}>{'★'.repeat(5 - i.rarity)}</Text></Text> : null}
+        {equipped ? <Text style={s.equipped}>{t('inventory.equipped')}</Text>
+          : equippable ? <Text style={s.equipHint}>{t('inventory.equip')}</Text> : null}
+      </Pressable>
+    );
+  };
 
   const emptyHint = (
     <Pressable style={s.empty} onPress={() => nav.navigate('Shop')}>
@@ -113,6 +124,8 @@ const makeStyles = (c: ThemeColors) =>
     section: { fontSize: ty.small, fontWeight: '800', color: c.ink2, marginTop: spacing.md, marginBottom: spacing.sm },
     grid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
     card: { width: '31%', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.sm, alignItems: 'center' },
+    cardOn: { borderColor: c.blue, backgroundColor: c.blueLight },
+    equipHint: { marginTop: 2, fontSize: ty.tiny, fontWeight: '700', color: c.mute },
     prev: { width: '100%', aspectRatio: 1, borderRadius: radius.md },
     prevImg: { backgroundColor: '#f7efe0' },
     prevEmoji: { backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 34 },

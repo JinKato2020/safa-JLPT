@@ -5,6 +5,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useT } from '../i18n';
+import { useAppState } from '../store/store';
+import { SHOP_BY_ID } from '../data/shop';
 import type { HomeStatus } from './homeStatus';
 import { coachLines, pickLine } from './coachLines';
 
@@ -14,6 +16,10 @@ const BLINK = require('../../assets/mywords/guide_blink.png');
 export default function HomeCoach({ status, learned }: { status: HomeStatus; learned: number }) {
   const t = useT();
   const { width } = useWindowDimensions();
+  const state = useAppState();
+  // 装備中の筆があれば、その「桜が筆を持つ絵」で出現。なければ既定の案内キャラ(まばたきあり)。
+  const eqBrush = state.equipped?.brush;
+  const brushImg = eqBrush ? SHOP_BY_ID[eqBrush]?.celebrate : undefined;
   const [line, setLine] = useState<string | null>(null);
   const [eyesClosed, setEyesClosed] = useState(false);
   const bob = useRef(new Animated.Value(0)).current;
@@ -68,7 +74,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   }, [bob]);
 
   const onTapChar = () => (line != null ? dismiss() : showAdvice());
-  const charW = Math.round(width * 0.40);
+  // 装備筆の絵(桜＋筆)は縦長なので少し大きめ＋縦横比を変える。既定の案内キャラはほぼ正方形。
+  const charW = Math.round(width * (brushImg ? 0.52 : 0.40));
+  const charH = Math.round(charW * (brushImg ? 1.5 : 1.12));
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
 
   return (
@@ -84,7 +92,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       )}
       <Animated.View style={{ transform: [{ translateY: bobY }] }}>
         <Pressable onPress={onTapChar} hitSlop={4}>
-          <Image source={eyesClosed ? BLINK : OPEN} style={{ width: charW, height: charW }} resizeMode="contain" />
+          <Image source={brushImg ?? (eyesClosed ? BLINK : OPEN)} style={{ width: charW, height: charH }} resizeMode="contain" />
         </Pressable>
       </Animated.View>
     </View>

@@ -330,6 +330,37 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
 
+        {/* 開発用トグル(テスト用途)。ポイント無限＝ショップ無制限購入 / Pro課金＝Pro/無課金の切替 */}
+        <Text style={s.sectionH}>開発用</Text>
+        <View style={s.card}>
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>ポイント無限</Text>
+              <Text style={s.subtle}>ONでショップを桜貝の残高に関係なく無制限に購入できる</Text>
+            </View>
+            <Switch
+              style={s.telemSwitch}
+              value={state.settings.devUnlimitedPoints === true}
+              onValueChange={(v) => setSettings({ devUnlimitedPoints: v })}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+          </View>
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>Pro課金</Text>
+              <Text style={s.subtle}>ON=Pro課金状態 / OFF=無課金ユーザー状態として扱う</Text>
+            </View>
+            <Switch
+              style={s.telemSwitch}
+              value={state.settings.devPro === true}
+              onValueChange={(v) => setSettings({ devPro: v })}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+          </View>
+        </View>
+
         {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示) */}
         <Text style={s.version}>
           v{Application.nativeApplicationVersion ?? '1.1.0'} (build {Application.nativeBuildVersion ?? '—'})
