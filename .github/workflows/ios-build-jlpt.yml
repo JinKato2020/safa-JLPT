@@ -62,6 +62,8 @@ jobs:
           [ -f confirm.html ] && cp confirm.html _site/ || true
           # 共有辞書を1か所で配信(JLPT・App B 共通の単一ソース): /dict/ja-*.json
           [ -d dict ] && cp -r dict _site/dict || true
+          # 問題コンテンツ(大問×レベル・i18n inline)を /content/ で配信=逐次OTAの取得元。
+          [ -d content ] && cp -r content _site/content || true
           echo "::notice::_site contents:"; find _site -maxdepth 3 | head -40
       - name: Configure Pages
         uses: actions/configure-pages@v5

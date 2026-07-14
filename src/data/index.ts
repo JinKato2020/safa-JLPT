@@ -22,9 +22,11 @@ import kanjiReadings from './dict/kanjiReadings.json';
 import kanjiCardReadings from './words/kanjiCardReadings.json';
 import kanjiCards from './words/kanjiCards.json';
 // 問題バンク・読解聴解・語彙訳は新フォーマット(content/・大問×レベル・i18n inline)から再構成して供給する。
-import { BUNDLED } from './content/bundled.generated';
+// ソースは source.getContentFiles()=baseline(bundled)にOTAキャッシュを上書き合成したもの。
+// (起動時にエントリ index.ts が setContentFiles でキャッシュを注入してから本モジュールが読まれる。)
+import { getContentFiles } from './content/source';
 import { rehydrateBanks } from './content/rehydrate';
-const _R = rehydrateBanks(BUNDLED as Record<string, any>); // eslint-disable-line @typescript-eslint/no-explicit-any
+const _R = rehydrateBanks(getContentFiles() as Record<string, any>); // eslint-disable-line @typescript-eslint/no-explicit-any
 import type { Category, Level } from '../engine/engine';
 import type { PassageSet } from '../quiz/passageSet';
 
