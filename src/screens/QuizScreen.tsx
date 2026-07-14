@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, type StyleProp, type TextStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import AppButton from '../components/AppButton';
@@ -235,14 +236,15 @@ export default function QuizScreen() {
               {picked === question.answerIndex ? t('quiz.correct') : t('quiz.wrong')}
             </Text>
             {question.saveRef ? (
-              <AppButton
-                label={isInMyList(state.myList, question.saveRef) ? t('mywords.added') : t('mywords.add')}
-                variant="secondary"
-                size="md"
-                full={false}
+              // 単語タブ(WordDrill)と同じ「しおり」アイコンで my単語帳 登録/解除。
+              <Pressable
+                style={s.saveBtn}
+                hitSlop={10}
                 onPress={() => addToMyList(question.saveRef!)}
-                style={s.myListBtn}
-              />
+                accessibilityLabel={t(isInMyList(state.myList, question.saveRef) ? 'mywords.added' : 'mywords.add')}
+              >
+                <Ionicons name={isInMyList(state.myList, question.saveRef) ? 'bookmark' : 'bookmark-outline'} size={24} color={isInMyList(state.myList, question.saveRef) ? c.blue : c.mute} />
+              </Pressable>
             ) : null}
             <AppButton label={idx + 1 >= total ? t('quiz.see_results') : t('quiz.learn_next')} onPress={advance} />
           </>
@@ -320,7 +322,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center', marginTop: spacing.sm },
-  myListBtn: { alignSelf: 'center', marginTop: spacing.xs },
+  saveBtn: { alignSelf: 'center', marginTop: spacing.xs, width: 44, height: 44, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
   judge: { fontSize: ty.h2, fontWeight: '800', textAlign: 'center', marginTop: spacing.sm },
   judgeOk: { color: c.green },
   judgeNg: { color: c.red },

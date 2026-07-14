@@ -2,6 +2,7 @@
 // 読解・文章の文法・模試で共用。ルビは同級以上のみ(rubyNeeded)。解説なし。pointIdある問は＋my単語帳。
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import RubyText from './RubyText';
 import { rubyNeeded } from '../data';
 import { useAppState, useAppActions } from '../store/store';
@@ -25,26 +26,25 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
   // 選択肢は問ごとに一度だけシャッフルして固定（sh.answerIndex＝シャッフル後の正解位置）。
   const qs = useMemo(() => set.questions.map((q) => ({ q, sh: shuffleChoices(q.choices, q.answerIndex) })), [set.id]);
   const [answers, setAnswers] = useState<(number | null)[]>(() => set.questions.map(() => null));
-  const [graded, setGraded] = useState(false); // 「答え合わせ」を押すまで採点しない＝それまで選び直せる
   const [recorded, setRecorded] = useState(false);
   const [showTrans, setShowTrans] = useState(false);
-  const allAnswered = answers.length > 0 && answers.every((a) => a !== null);
-  const revealed = graded; // 正誤の開示は採点後のみ
+  // 全問回答したら自動で答え合わせ(採点)。それまでは各問いつでも選び直せる。
+  const revealed = answers.length > 0 && answers.every((a) => a !== null);
   const trans = state.settings.l1 === 'ne' ? TRANS_NE[set.id] : undefined; // 本文ごとのネパール語訳(無ければundefined)
 
-  // 「答え合わせ」で一括採点した瞬間に、各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)が採点集計したい場合は onGraded も同時に1回だけ発火。
+  // 全問回答した瞬間に一括採点＝各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)の集計も同時に1回だけ発火。
   useEffect(() => {
-    if (graded && !recorded) {
+    if (revealed && !recorded) {
       const results = qs.map((x, i) => answers[i] === x.sh.answerIndex);
       set.questions.forEach((q, i) => quizAnswer(q.id, results[i]));
       onGraded?.(set.questions.map((q, i) => ({ id: q.id, correct: results[i] })));
       setRecorded(true);
     }
-  }, [graded, recorded]);
+  }, [revealed, recorded]);
 
-  // 採点前はいつでも選び直せる（間違いに後から気付いた時のため／再タップで別の選択肢に変更）。採点後は変更不可。
+  // 採点(全問回答)前はいつでも選び直せる（間違いに後から気付いた時のため／再タップで別の選択肢に変更）。採点後は変更不可。
   const pick = (qi: number, choiceIdx: number) => {
-    if (graded) return;
+    if (revealed) return;
     setAnswers((a) => { const n = [...a]; n[qi] = choiceIdx; return n; });
   };
 
@@ -88,18 +88,17 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
               })}
             </View>
             {revealed && q.pointId ? (
-              <Pressable style={s.saveBtn} onPress={() => addToMyList({ type: 'grammar', id: q.pointId! })}>
-                <Text style={s.saveTxt}>{isSaved(q.pointId) ? t('mywords.added') : t('mywords.add')}</Text>
+              // 単語タブと同じ「しおり」アイコンで my単語帳 登録/解除。
+              <Pressable style={s.saveBtn} hitSlop={10} onPress={() => addToMyList({ type: 'grammar', id: q.pointId! })} accessibilityLabel={t(isSaved(q.pointId) ? 'mywords.added' : 'mywords.add')}>
+                <Ionicons name={isSaved(q.pointId) ? 'bookmark' : 'bookmark-outline'} size={22} color={isSaved(q.pointId) ? c.blue : c.mute} />
               </Pressable>
             ) : null}
           </View>
         );
       })}
 
-      {graded ? (
+      {revealed ? (
         <Pressable style={s.nextBtn} onPress={onNext}><Text style={s.nextTxt}>{isLast ? t('passage.toResult') : t('passage.next')}</Text></Pressable>
-      ) : allAnswered ? (
-        <Pressable style={s.nextBtn} onPress={() => setGraded(true)}><Text style={s.nextTxt}>{t('passage.grade')}</Text></Pressable>
       ) : (
         <Text style={s.hint}>{t('passage.hint')}</Text>
       )}
@@ -130,8 +129,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   choiceTxtWrap: { flex: 1 },
   choiceTxt: { fontSize: ty.body, color: c.ink2 },
   mark: { fontSize: ty.body, color: c.green, fontWeight: '800' },
-  saveBtn: { alignSelf: 'flex-start', backgroundColor: c.blueLight, borderRadius: radius.md, paddingVertical: 6, paddingHorizontal: spacing.md },
-  saveTxt: { fontSize: ty.small, fontWeight: '700', color: c.blueDark },
+  saveBtn: { alignSelf: 'flex-start', width: 40, height: 40, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
   nextBtn: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.sm },
   nextTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
