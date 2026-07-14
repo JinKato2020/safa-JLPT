@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import sets from './passageGrammar.json';
+import { PASSAGE_GRAMMAR as sets } from '../index'; // 旧 passageGrammar.json 相当(rehydrate由来)
 import grammar from '../shared/grammar.json';
 
 const S = sets as any[];

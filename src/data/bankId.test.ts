@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { BANK, bankLevelOf } from './daimon';
-import KB from './exam/knowledgeBank.json';
+import { KNOWLEDGE_BANK as KB } from './index'; // 旧 exam/knowledgeBank.json 相当(rehydrateで生のまま復元)
 
 test('BANK の id は data 由来 kb-NNNNNN', () => {
   assert.ok(BANK.length > 0);

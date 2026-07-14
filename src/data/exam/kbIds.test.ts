@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import bank from './knowledgeBank.json';
+import { KNOWLEDGE_BANK as bank } from '../index'; // 旧 knowledgeBank.json 相当(rehydrateで生のまま復元)
 import migration from './kbIdMigration.json';
 
 const B = bank as { id: string }[];

@@ -36,12 +36,13 @@ test('listeningToFiles: subtype×level・question explain', () => {
   assert.equal((files[0].items[0] as any).script, 'S');
   assert.equal((files[0].items[0] as any).questions[0].i18n.ja.explain, 'E');
 });
-test('passageGrammarToFiles: level分割・daimon=passage_grammar', () => {
+test('passageGrammarToFiles: level分割・pointId保存・本文訳をi18n.ne.bodyへ', () => {
   const pg = [{ id: 'pg1', level: 'N4', kind: 'k', passages: ['p'], questions: [{ id: 'q', blankNo: 1, choices: ['a'], answerIndex: 0, pointId: 'x' }] }];
-  const f = passageGrammarToFiles(pg);
+  const f = passageGrammarToFiles(pg, { pg1: ['訳1'] });
   assert.equal(f[0].daimon, 'passage_grammar');
   assert.equal(f[0].level, 'N4');
   assert.equal((f[0].items[0] as any).questions[0].pointId, 'x');
+  assert.deepEqual(f[0].items[0].i18n.ne.body, ['訳1']);
 });
 test('lexiconToFiles: levelOf で級分割(漢字キーも解決)', () => {
   const levelOf = (k: string) => (/^n([1-5])-/.test(k) ? 'N' + k.match(/^n([1-5])-/)![1] : k === '会' ? 'N4' : 'N?');

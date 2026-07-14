@@ -34,6 +34,7 @@ export function rehydrateBanks(files: Record<string, Any>) {
   }));
   const PASSAGE_GRAMMAR = bankItems(files, 'passage_grammar', (it, level) => {
     const { i18n, questions, ...rest } = it;
+    if (i18n?.ne?.body) PASSAGE_TRANS_NE[it.id] = i18n.ne.body; // pgセットの本文訳も PASSAGE_TRANS_NE へ
     return { ...rest, level, questions: (questions ?? []).map((q: Any) => { const { i18n: _q, ...qr } = q; return qr; }) };
   });
 

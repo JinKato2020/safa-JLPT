@@ -41,12 +41,16 @@ export function readingToFiles(reading: any[], passageTransNe: Record<string, un
   return out;
 }
 // 文章の文法=passageGrammar.json(セット形式)。1セット=1item(passages＋questions)。level分割。
-export function passageGrammarToFiles(pg: any[]): ContentFile[] {
+// passageTransNe は読解＋文章の文法の両方の本文訳(行配列)を持つ。pgセット分は i18n.ne.body へ格納。
+export function passageGrammarToFiles(pg: any[], passageTransNe: Record<string, unknown> = {}): ContentFile[] {
   const out: ContentFile[] = [];
   for (const [level, lrows] of groupBy(pg, (r) => r.level)) {
     const items: ContentItem[] = lrows.map((r) => {
       const { questions, ...rest } = r;
-      return { ...rest, questions: (questions ?? []).map((q: any) => ({ ...q, i18n: {} })), i18n: {} };
+      const i18n: ContentItem['i18n'] = {};
+      const pv = passageTransNe[r.id];
+      if (pv) i18n.ne = { body: pv as string[] };
+      return { ...rest, questions: (questions ?? []).map((q: any) => ({ ...q, i18n: {} })), i18n };
     });
     out.push({ schema: 1, daimon: 'passage_grammar', level, languages: ['ja', 'ne'], items });
   }

@@ -1,8 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import trans from './passageTransNe.json';
-import reading from './reading.json';
-import pg from './passageGrammar.json';
+import { PASSAGE_TRANS_NE as trans, READING as reading, PASSAGE_GRAMMAR as pg } from '../index'; // rehydrate由来(旧 exam/*.json 相当)
 
 const T = trans as Record<string, string[]>;
 

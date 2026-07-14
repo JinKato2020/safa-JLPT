@@ -26,7 +26,7 @@ function main() {
   }
   // knowledgeBank(usage/grammar_form/order)＋文章の文法(passageGrammar.json)
   for (const f of splitKnowledgeBank(R('exam/knowledgeBank.json'))) problemFiles.push(f);
-  for (const f of passageGrammarToFiles(R('exam/passageGrammar.json'))) problemFiles.push(f);
+  for (const f of passageGrammarToFiles(R('exam/passageGrammar.json'), R('exam/passageTransNe.json'))) problemFiles.push(f);
   // 読解・聴解
   for (const f of readingToFiles(R('exam/reading.json'), R('exam/passageTransNe.json'))) problemFiles.push(f);
   for (const f of listeningToFiles(R('exam/listening.json'))) problemFiles.push(f);

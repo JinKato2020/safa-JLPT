@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import reading from '../data/exam/reading.json';
+import { READING as reading } from '../data'; // 旧 exam/reading.json 相当(rehydrate由来)
 import { readingToSet, gradeSet, type SetQuestion } from './passageSet';
 
 test('readingToSet は passage+questions を保持', () => {
