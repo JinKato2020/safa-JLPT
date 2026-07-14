@@ -314,6 +314,7 @@ export default function BrowseScreen() {
           />
         )}
         {study && <Text style={s.title}>{t(KUBUN.find((k) => k.key === kubun)!.labelKey)}</Text>}
+        {study && <View style={{ width: 30 }} />}
       </View>
 
       {/* レベル変更のプルダウン(全＝N5→N1ソート / 各級＝その級のみ)＋ 右に「今どの区分の一覧か」を明示。 */}
@@ -376,7 +377,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   top: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, padding: spacing.md },
   close: { fontSize: 30, color: c.mute, fontWeight: '700' },
   tab: { fontSize: ty.small, fontWeight: '700', letterSpacing: 1, color: c.mute },
-  title: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
+  title: { flex: 1, textAlign: 'center', fontSize: ty.h2, fontWeight: '800', color: c.ink },
   search: {
     flex: 1,
     backgroundColor: c.surface,

@@ -105,8 +105,8 @@ function MainTabs() {
   const state = useAppState();
   const { setSettings } = useAppActions();
   const [lvlOpen, setLvlOpen] = useState(false);
-  // 辞書リスト(DictList)では上部の共通アイコン列を隠す(その画面自身に×戻る＋検索がある)。
-  const hideTopBar = useNavigationState((s) => activeRouteName(s) === 'DictList');
+  // 辞書リスト(DictList)・単語の学習リスト(WordList)では上部の共通アイコン列を隠す(各画面自身に×/←戻り＋見出しがある)。
+  const hideTopBar = useNavigationState((s) => { const n = activeRouteName(s); return n === 'DictList' || n === 'WordList'; });
   const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const level = state.settings.level;
   // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。

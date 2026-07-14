@@ -146,6 +146,7 @@ export default function ListeningQuizScreen() {
         {picked !== null ? (
           <>
             <Text style={[s.judge, picked === q.answerIndex ? s.judgeOk : s.judgeNg]}>{picked === q.answerIndex ? t('listening2.correct') : t('listening2.wrong')}</Text>
+            {rows[idx] && <Text style={s.reveal}>✓ {rows[idx].main && rows[idx].main !== rows[idx].sub ? `${rows[idx].main}（${rows[idx].sub}）` : rows[idx].sub}</Text>}
             <Pressable style={s.cta} onPress={advance}><Text style={s.ctaTxt}>{idx + 1 >= questions.length ? t('listening2.close') : t('listening2.next')}</Text></Pressable>
           </>
         ) : null}
@@ -182,6 +183,7 @@ const makeStyles = (c: ThemeColors) =>
     choiceKanjiTxt: { fontSize: 48, lineHeight: 48, fontWeight: '800', color: c.ink, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
     judge: { fontSize: ty.h2, fontWeight: '800', textAlign: 'center', marginTop: spacing.md },
     judgeOk: { color: c.green }, judgeNg: { color: c.red },
+    reveal: { fontSize: ty.h2, fontWeight: '800', color: c.green, textAlign: 'center' },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.lg, width: '100%' },
     ctaTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
     bigEmoji: { fontSize: 56 }, doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink }, doneScore: { fontSize: ty.h2, fontWeight: '700', color: c.ink2 },

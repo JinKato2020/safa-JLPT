@@ -186,7 +186,7 @@ function ProduceView({ p, placed, setPlaced, judged, record, s, c, t }: {
           );
         })}
       </View>
-      {judged === false && <Text style={s.answerHint}>{t('worddrill.answer_is', { a: p.reading })}</Text>}
+      {judged !== null && <Text style={s.answerHint}>{t('worddrill.answer_is', { a: p.kind === 'vProduce' && p.hint && p.hint !== p.reading ? `${p.hint}（${p.reading}）` : p.reading })}</Text>}
       <Text style={s.bankLbl}>{t('worddrill.tap_kana')}</Text>
       <View style={s.bank}>
         {p.tiles.map((tl, idx) => (
