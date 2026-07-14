@@ -178,7 +178,8 @@ const makeStyles = (c: ThemeColors) =>
     choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
     choiceNg: { borderColor: c.red, backgroundColor: c.bgSoft },
     choiceTxt: { fontSize: ty.body, fontWeight: '700', color: c.ink },
-    choiceKanjiTxt: { fontSize: 48, fontWeight: '800', color: c.ink },
+    // 大きな漢字グリフがカード下寄りに見えるのを防ぐ: 行高を詰め＋パディング除去で上下中央へ。
+    choiceKanjiTxt: { fontSize: 48, lineHeight: 48, fontWeight: '800', color: c.ink, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
     judge: { fontSize: ty.h2, fontWeight: '800', textAlign: 'center', marginTop: spacing.md },
     judgeOk: { color: c.green }, judgeNg: { color: c.red },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.lg, width: '100%' },
