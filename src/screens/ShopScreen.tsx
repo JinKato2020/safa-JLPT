@@ -143,8 +143,8 @@ const s = StyleSheet.create({
   group: { marginBottom: 6 },
   kindHead: { fontSize: 13, fontWeight: '900', color: '#a5732f', marginTop: 6, marginBottom: 8, letterSpacing: 1 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
-  card: { width: '46.5%', backgroundColor: '#fffdf7', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', padding: 10 },
-  prev: { width: '100%', aspectRatio: 16 / 10, borderRadius: 10 },
+  card: { width: '46.5%', backgroundColor: '#fffdf7', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', padding: 10, overflow: 'hidden' },
+  prev: { width: '100%', aspectRatio: 1, borderRadius: 10, overflow: 'hidden' },
   prevEmoji: { backgroundColor: '#f3ead9', alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 40 },
   prevImg: { backgroundColor: '#f7efe0' },
   name: { marginTop: 8, marginBottom: 4, fontWeight: '800', color: '#5a3d22', fontSize: 14 },
@@ -159,6 +159,6 @@ const s = StyleSheet.create({
   celOverlay: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
   celFill: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(30,20,12,0.62)', gap: 8 },
   celGot: { color: '#ffe9c2', fontSize: 22, fontWeight: '900', letterSpacing: 2, textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
-  celImg: { width: '78%', height: '58%' },
+  celImg: { width: '72%', height: '50%', alignSelf: 'center' },
   celName: { color: '#fff', fontSize: 18, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
 });

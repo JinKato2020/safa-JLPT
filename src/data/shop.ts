@@ -10,7 +10,8 @@ export type ShopCat = 'dressup' | 'companion' | 'tool';
 export type ShopItem = {
   id: string; cat: ShopCat; kind: ShopKind; price: number; name: string; emoji?: string; asset?: ImageSourcePropType;
   rarity?: number; // 希少度(1〜5)。価値の目安として★で表示。省略=無印
-  celebrate?: ImageSourcePropType; // 購入直後に2秒表示する演出画像(桜が持つ絵)
+  celebrate?: ImageSourcePropType; // 購入直後に2秒表示する演出画像(桜が筆を持ち上げて喜ぶ絵)
+  homeArt?: ImageSourcePropType;   // ホームで常駐する桜の絵(筆を地面に立てて添える絵)。装備中に表示
 };
 
 export const SHOP: ShopItem[] = [
@@ -21,11 +22,11 @@ export const SHOP: ShopItem[] = [
   { id: 'outfit_miko', cat: 'dressup', kind: 'outfit', price: 0, name: '巫女装束', emoji: '👘' },
   { id: 'outfit_yukata', cat: 'dressup', kind: 'outfit', price: 700, name: '夏の浴衣', emoji: '🎐' },
   { id: 'outfit_haregi', cat: 'dressup', kind: 'outfit', price: 1000, name: '桜の晴れ着', emoji: '🌸' },
-  { id: 'brush_take', cat: 'dressup', kind: 'brush', price: 0, name: '竹の筆', rarity: 1, asset: require('../../assets/shop/brush/brush_take.png'), celebrate: require('../../assets/shop/celebrate/brush_take.png') },
-  { id: 'brush_sakura', cat: 'dressup', kind: 'brush', price: 400, name: '桜染めの筆', rarity: 2, asset: require('../../assets/shop/brush/brush_sakura.png'), celebrate: require('../../assets/shop/celebrate/brush_sakura.png') },
-  { id: 'brush_makie', cat: 'dressup', kind: 'brush', price: 900, name: '金蒔絵の筆', rarity: 3, asset: require('../../assets/shop/brush/brush_makie.png'), celebrate: require('../../assets/shop/celebrate/brush_makie.png') },
-  { id: 'brush_raden', cat: 'dressup', kind: 'brush', price: 1600, name: '螺鈿の筆', rarity: 4, asset: require('../../assets/shop/brush/brush_raden.png'), celebrate: require('../../assets/shop/celebrate/brush_raden.png') },
-  { id: 'brush_tenpitsu', cat: 'dressup', kind: 'brush', price: 2800, name: '天の霊筆', rarity: 5, asset: require('../../assets/shop/brush/brush_tenpitsu.png'), celebrate: require('../../assets/shop/celebrate/brush_tenpitsu.png') },
+  { id: 'brush_take', cat: 'dressup', kind: 'brush', price: 0, name: '竹の筆', rarity: 1, asset: require('../../assets/shop/brush/brush_take.png'), celebrate: require('../../assets/shop/celebrate/brush_take.png'), homeArt: require('../../assets/shop/home/brush_take.png') },
+  { id: 'brush_sakura', cat: 'dressup', kind: 'brush', price: 400, name: '桜染めの筆', rarity: 2, asset: require('../../assets/shop/brush/brush_sakura.png'), celebrate: require('../../assets/shop/celebrate/brush_sakura.png'), homeArt: require('../../assets/shop/home/brush_sakura.png') },
+  { id: 'brush_makie', cat: 'dressup', kind: 'brush', price: 900, name: '金蒔絵の筆', rarity: 3, asset: require('../../assets/shop/brush/brush_makie.png'), celebrate: require('../../assets/shop/celebrate/brush_makie.png'), homeArt: require('../../assets/shop/home/brush_makie.png') },
+  { id: 'brush_raden', cat: 'dressup', kind: 'brush', price: 1600, name: '螺鈿の筆', rarity: 4, asset: require('../../assets/shop/brush/brush_raden.png'), celebrate: require('../../assets/shop/celebrate/brush_raden.png'), homeArt: require('../../assets/shop/home/brush_raden.png') },
+  { id: 'brush_tenpitsu', cat: 'dressup', kind: 'brush', price: 2800, name: '天の霊筆', rarity: 5, asset: require('../../assets/shop/brush/brush_tenpitsu.png'), celebrate: require('../../assets/shop/celebrate/brush_tenpitsu.png'), homeArt: require('../../assets/shop/home/brush_tenpitsu.png') },
   // 仲間 — 連れ歩く相棒。1体を選んで装備。
   { id: 'pet_dog', cat: 'companion', kind: 'companion', price: 500, name: '子犬', emoji: '🐕' },
   { id: 'pet_fox', cat: 'companion', kind: 'companion', price: 800, name: '白狐', emoji: '🦊' },

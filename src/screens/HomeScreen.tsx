@@ -50,10 +50,11 @@ export default function HomeScreen() {
   }, [glow]);
   // グロー=リング素材(pass_ring)から作った同形の発光を「同サイズで真上」に重ねる=リングと完全一致。
   // 呼吸は主に明滅(opacity)＋ごく僅かな拡大(帯から離れない)。
-  const gOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.4, 1] });
-  const gSc = glow.interpolate({ inputRange: [0, 1], outputRange: [1.0, 1.12] });
+  // グローはリングに密着させ膨張させない(明滅は控えめ・拡大はごく僅か)。
+  const gOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.28, 0.6] });
+  const gSc = glow.interpolate({ inputRange: [0, 1], outputRange: [1.0, 1.03] });
 
-  const ringW = Math.round(width * 0.26); // リングは小さめ
+  const ringW = Math.round(width * 0.30); // 画面幅の30%
   const top = Math.round(height * 0.22);
   const left = Math.round((width - ringW) / 2);
   const pct = Math.round(status.passPct);
