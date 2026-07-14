@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAppState } from '../store/store';
+import { mockTicketCount } from '../store/tickets';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -25,6 +26,7 @@ export default function MockIntroScreen() {
   const { height } = useWindowDimensions();
   const level = (state.settings.level as Level) ?? 'N5';
   const info = MOCK_INFO[level] ?? MOCK_INFO.N5;
+  const tickets = mockTicketCount(state);
   const illusH = Math.round(height * 0.60);
 
   const chips = [
@@ -61,6 +63,9 @@ export default function MockIntroScreen() {
           ))}
         </View>
         <Text style={s.note}>本番と同じ構成(文字・語彙／文法／読解／聴解)で採点します。{'\n'}※目安は {level}。級により異なります。</Text>
+        <View style={s.ticketRow}>
+          <Text style={s.ticketTxt}>🎫 模試チケット 残り <Text style={s.ticketN}>{tickets}</Text> 枚</Text>
+        </View>
         <Pressable style={s.start} onPress={() => nav.replace('Mock', { full: route.params?.full ?? true })}>
           <Text style={s.startTxt}>模試を始める</Text>
         </Pressable>
@@ -87,6 +92,9 @@ const s = StyleSheet.create({
   chipLbl: { fontSize: 10, color: '#a5732f', fontWeight: '800', marginTop: 2 },
   chipVal: { fontSize: 13, color: '#5a3d22', fontWeight: '900', marginTop: 1, fontVariant: ['tabular-nums'] },
   note: { fontSize: 12.5, color: '#7a5a34', lineHeight: 19, textAlign: 'center', marginTop: 12 },
+  ticketRow: { alignSelf: 'center', marginTop: 12, backgroundColor: '#fffdf7', borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', borderRadius: 999, paddingVertical: 7, paddingHorizontal: 16 },
+  ticketTxt: { fontSize: 13, color: '#7a5a34', fontWeight: '800' },
+  ticketN: { color: '#c8894a', fontSize: 15, fontWeight: '900', fontVariant: ['tabular-nums'] },
   start: { marginTop: 'auto', backgroundColor: '#c8894a', borderRadius: 16, paddingVertical: 15, alignItems: 'center', shadowColor: '#a06e32', shadowOpacity: 0.5, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
   startTxt: { color: '#fff', fontSize: 18, fontWeight: '900', letterSpacing: 1 },
   later: { alignItems: 'center', paddingVertical: 10 },
