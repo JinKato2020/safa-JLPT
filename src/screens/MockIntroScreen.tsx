@@ -66,10 +66,13 @@ export default function MockIntroScreen() {
         <View style={s.ticketRow}>
           <Text style={s.ticketTxt}>🎫 模試チケット 残り <Text style={s.ticketN}>{tickets}</Text> 枚</Text>
         </View>
-        <Pressable style={s.start} onPress={() => nav.replace('Mock', { full: route.params?.full ?? true })}>
-          <Text style={s.startTxt}>模試を始める</Text>
-        </Pressable>
-        <Pressable style={s.later} onPress={() => nav.goBack()}><Text style={s.laterTxt}>また今度</Text></Pressable>
+        {/* [また今度][模試を始める]を横並びにして下端で見切れないように */}
+        <View style={s.btnRow}>
+          <Pressable style={s.later} onPress={() => nav.goBack()}><Text style={s.laterTxt}>また今度</Text></Pressable>
+          <Pressable style={s.start} onPress={() => nav.replace('Mock', { full: route.params?.full ?? true })}>
+            <Text style={s.startTxt}>模試を始める</Text>
+          </Pressable>
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -95,8 +98,9 @@ const s = StyleSheet.create({
   ticketRow: { alignSelf: 'center', marginTop: 12, backgroundColor: '#fffdf7', borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', borderRadius: 999, paddingVertical: 7, paddingHorizontal: 16 },
   ticketTxt: { fontSize: 13, color: '#7a5a34', fontWeight: '800' },
   ticketN: { color: '#c8894a', fontSize: 15, fontWeight: '900', fontVariant: ['tabular-nums'] },
-  start: { marginTop: 'auto', backgroundColor: '#c8894a', borderRadius: 16, paddingVertical: 15, alignItems: 'center', shadowColor: '#a06e32', shadowOpacity: 0.5, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
+  btnRow: { flexDirection: 'row', gap: 10, marginTop: 'auto', paddingTop: 12, paddingBottom: 4, alignItems: 'stretch' },
+  start: { flex: 1, backgroundColor: '#c8894a', borderRadius: 16, paddingVertical: 15, alignItems: 'center', justifyContent: 'center', shadowColor: '#a06e32', shadowOpacity: 0.5, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
   startTxt: { color: '#fff', fontSize: 18, fontWeight: '900', letterSpacing: 1 },
-  later: { alignItems: 'center', paddingVertical: 10 },
-  laterTxt: { color: '#9a6a3a', fontSize: 13, fontWeight: '700' },
+  later: { paddingHorizontal: 22, borderRadius: 16, borderWidth: 1.5, borderColor: 'rgba(180,140,80,0.5)', backgroundColor: '#fffdf7', alignItems: 'center', justifyContent: 'center' },
+  laterTxt: { color: '#9a6a3a', fontSize: 14, fontWeight: '800' },
 });

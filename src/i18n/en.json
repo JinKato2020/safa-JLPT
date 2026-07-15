@@ -1,5 +1,5 @@
 {
-  "account.title": "Account",
+  "account.title": "Status",
   "account.section": "Account",
   "account.tab_signup": "Sign up",
   "account.tab_login": "Log in",
@@ -7,6 +7,9 @@
   "account.learned_words": "{n} words learned",
   "account.week_gain": "This week +{n}",
   "account.growth_trend": "Learned words",
+  "account.pass_now": "Pass rate {n}%",
+  "account.pass_trend": "Pass-rate trend",
+  "account.pass_gain": "This week {n}pt",
   "account.password": "Password",
   "account.pw_hint": "At least 8 characters",
   "account.pw_show": "Show password",

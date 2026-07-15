@@ -164,7 +164,7 @@ function MainTabs() {
         />
       ))}
     </Tab.Navigator>
-      {/* 全タブ共通の上部操作列(左から): アカウント / JLPTレベル / 設定 / 通知。辞書リストでは非表示。 */}
+      {/* 全タブ共通の上部操作列(左から): ステータス / JLPTレベル / 持ち物 / ショップ / 設定(一番右)。辞書リストでは非表示。 */}
       {!hideTopBar && (
       <View style={[topBar.row, { top: insets.top + 6 }]}>
         <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
@@ -178,15 +178,16 @@ function MainTabs() {
         >
           <Text style={[topBar.pillTxt, { color: c.blue }]}>{isJft ? 'JFT' : level}</Text>
         </Pressable>
-        <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>
-          <Ionicons name="settings-outline" size={22} color={c.ink} />
-        </Pressable>
         <Pressable onPress={() => nav.navigate('Inventory')} accessibilityLabel={t('inventory.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="bag-handle-outline" size={22} color={c.ink} />
         </Pressable>
         <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.title')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
           <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
           <Text style={[topBar.pillTxt, { color: c.ink, marginLeft: 8 }]}>🎫 {mockTicketCount(state)}</Text>
+        </Pressable>
+        {/* 設定(歯車)は一番右 */}
+        <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="settings-outline" size={22} color={c.ink} />
         </Pressable>
       </View>
       )}

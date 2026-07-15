@@ -109,13 +109,16 @@ export default function AccountScreen() {
       <SafeAreaView style={s.c} edges={['top']}>
         <ScrollView contentContainerStyle={s.body}>
           <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}><Text style={s.closeTxt}>✕</Text></Pressable>
-          <StatCards />
+          {/* 最上部: 桜 + ログイン中 + メールアドレス */}
           <View style={s.hero}>
             <Image source={GUIDE.open} style={s.guide} resizeMode="contain" />
             <Text style={s.benefitTitle}>{t('account.logged_in_title')}</Text>
             <Text style={s.acctEmail}>{acctEmail}</Text>
             <Text style={s.benefitSub}>{t('account.synced_at', { t: syncedLabel })}</Text>
           </View>
+          <StatCards />
+          {/* ログアウトは一番下へ押し下げる */}
+          <View style={s.spacer} />
           <Pressable style={s.manageBtn} onPress={() => { void signOut(); }}>
             <Ionicons name="log-out-outline" size={20} color={c.ink} />
             <Text style={s.manageTxt}>{t('account.logout')}</Text>
@@ -219,7 +222,8 @@ export default function AccountScreen() {
 const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     c: { flex: 1, backgroundColor: c.bg },
-    body: { padding: spacing.lg, gap: spacing.sm, paddingBottom: spacing.xl },
+    body: { padding: spacing.lg, gap: spacing.sm, paddingBottom: spacing.xl, flexGrow: 1 },
+    spacer: { flex: 1, minHeight: spacing.lg },
     close: { alignSelf: 'flex-end', padding: spacing.xs },
     closeTxt: { fontSize: ty.h2, color: c.mute, fontWeight: '700' },
     hero: { alignItems: 'center', gap: spacing.xs, marginBottom: spacing.md },

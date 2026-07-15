@@ -9,8 +9,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
-import { isEquipped } from '../store/wallet';
-import { SHOP_BY_ID, type ShopItem } from '../data/shop';
+import { isEquipped, type ShopKind } from '../store/wallet';
+import { SHOP, SHOP_BY_ID, KIND_LABEL, type ShopItem } from '../data/shop';
 import { mockTicketCount, MAX_MOCK_TICKETS } from '../store/tickets';
 import { homeStatus } from '../home/homeStatus';
 import { coverageBars } from '../store/selectors';
@@ -20,6 +20,10 @@ import { badgeTierIndex, type BadgeMetric } from '../data/badges';
 import type { RootStackParamList } from '../navigation/types';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
+
+// 持ち物はカテゴリー(kind)別に並べる。順=SHOPカタログ順(筆=レベル順で天の霊筆が最後、各カテゴリのnoneが先頭)。
+const SHOP_ORDER: Record<string, number> = Object.fromEntries(SHOP.map((it, idx) => [it.id, idx]));
+const KIND_ORDER: ShopKind[] = ['hair', 'outfit', 'brush', 'costume', 'companion'];
 
 export default function InventoryScreen() {
   const t = useT();
@@ -107,7 +111,20 @@ export default function InventoryScreen() {
         </View>
 
         <Text style={s.section}>{t('inventory.items')}</Text>
-        {belongings.length ? <View style={s.grid}>{belongings.map(card)}</View> : emptyHint}
+        {belongings.length ? (
+          KIND_ORDER.map((k) => {
+            const items = belongings
+              .filter((i) => i.kind === k)
+              .sort((a, b) => (SHOP_ORDER[a.id] ?? 999) - (SHOP_ORDER[b.id] ?? 999));
+            if (!items.length) return null;
+            return (
+              <View key={k}>
+                <Text style={s.subSection}>{KIND_LABEL[k]}</Text>
+                <View style={s.grid}>{items.map(card)}</View>
+              </View>
+            );
+          })
+        ) : emptyHint}
 
         <Text style={s.section}>{t('inventory.badges')}</Text>
         {badgeRow('pass', passPct, badgeSet === 'natural' ? 'inventory.badge_pass_nat' : 'inventory.badge_pass')}
@@ -132,6 +149,7 @@ const makeStyles = (c: ThemeColors) =>
     closeX: { fontSize: ty.h2, color: c.mute, fontWeight: '700' },
     body: { padding: spacing.lg, paddingTop: spacing.sm, gap: spacing.xs },
     section: { fontSize: ty.small, fontWeight: '800', color: c.ink2, marginTop: spacing.md, marginBottom: spacing.sm },
+    subSection: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, letterSpacing: 1, marginTop: spacing.sm, marginBottom: spacing.xs },
     grid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
     card: { width: '31%', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.sm, alignItems: 'center', overflow: 'hidden' },
     cardOn: { borderColor: c.blue, backgroundColor: c.blueLight },

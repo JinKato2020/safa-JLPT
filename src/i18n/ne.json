@@ -1,5 +1,5 @@
 {
-  "account.title": "खाता",
+  "account.title": "स्थिति",
   "account.section": "खाता",
   "account.tab_signup": "दर्ता",
   "account.tab_login": "लगइन",
@@ -7,6 +7,9 @@
   "account.learned_words": "{n} शब्द सिकियो",
   "account.week_gain": "यो हप्ता +{n}",
   "account.growth_trend": "सिकेका शब्दहरू",
+  "account.pass_now": "उत्तीर्ण दर {n}%",
+  "account.pass_trend": "उत्तीर्ण दर प्रवृत्ति",
+  "account.pass_gain": "यो हप्ता {n}pt",
   "account.password": "पासवर्ड",
   "account.pw_hint": "कम्तिमा ८ अक्षर",
   "account.pw_show": "पासवर्ड देखाउनुहोस्",

@@ -1,5 +1,5 @@
 {
-  "account.title": "アカウント",
+  "account.title": "ステータス",
   "account.section": "アカウント",
   "account.tab_signup": "新規作成",
   "account.tab_login": "ログイン",
@@ -7,6 +7,9 @@
   "account.learned_words": "覚えた語 {n}語",
   "account.week_gain": "今週 +{n}語",
   "account.growth_trend": "覚えた語の推移",
+  "account.pass_now": "合格率 {n}%",
+  "account.pass_trend": "合格率の推移",
+  "account.pass_gain": "今週 {n}pt",
   "account.password": "パスワード",
   "account.pw_hint": "8文字以上",
   "account.pw_show": "パスワードを表示",
