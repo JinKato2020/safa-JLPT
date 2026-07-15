@@ -10,22 +10,24 @@ import { useAppState, useAppActions } from '../store/store';
 import { walletPoints, isOwned, isEquipped } from '../store/wallet';
 import { mockTicketCount, canBuyMockTicket, MAX_MOCK_TICKETS, MOCK_TICKET_PRICE } from '../store/tickets';
 import { SHOP, type ShopItem } from '../data/shop';
+import { useT } from '../i18n';
 
 const MOCK_TICKET_ID = 'tool_mock_ticket';
 
 const BANNER = require('../../assets/shop/shop_banner.png');
 
 // ショップのカテゴリタブ。順=髪型/筆/民族衣装/道具/仲間(服は廃止)。各タブは単一種別なので小見出しは不要。
-const TABS: { key: string; label: string; match: (i: ShopItem) => boolean }[] = [
-  { key: 'hair', label: '髪型', match: (i) => i.kind === 'hair' },
-  { key: 'brush', label: '筆', match: (i) => i.kind === 'brush' },
-  { key: 'costume', label: '民族衣装', match: (i) => i.kind === 'costume' },
-  { key: 'tool', label: '道具', match: (i) => i.cat === 'tool' },
-  { key: 'companion', label: '仲間', match: (i) => i.cat === 'companion' },
+const TABS: { key: string; labelKey: string; match: (i: ShopItem) => boolean }[] = [
+  { key: 'hair', labelKey: 'shop.tab_hair', match: (i) => i.kind === 'hair' },
+  { key: 'brush', labelKey: 'shop.tab_brush', match: (i) => i.kind === 'brush' },
+  { key: 'costume', labelKey: 'shop.tab_costume', match: (i) => i.kind === 'costume' },
+  { key: 'tool', labelKey: 'shop.tab_tool', match: (i) => i.cat === 'tool' },
+  { key: 'companion', labelKey: 'shop.tab_companion', match: (i) => i.cat === 'companion' },
 ];
 
 export default function ShopScreen() {
   const nav = useNavigation();
+  const t = useT();
   const { height } = useWindowDimensions();
   const state = useAppState();
   const { buyItem, equipItem, addPoints, buyMockTicket } = useAppActions();
@@ -45,6 +47,8 @@ export default function ShopScreen() {
   };
   const items = SHOP.filter((TABS.find((tb) => tb.key === cat) ?? TABS[0]).match);
 
+  // アイテム名はi18n(shop.name_<id>)で解決。未登録キーはデータのnameにフォールバック。
+  const nameOf = (i: ShopItem) => { const k = 'shop.name_' + i.id; const v = t(k); return v === k ? i.name : v; };
   const points = walletPoints(state);
   const ownedItem = (i: ShopItem) => isOwned(state, i.id);
   const equippedItem = (i: ShopItem) => isEquipped(state, { id: i.id, kind: i.kind });
@@ -75,11 +79,11 @@ export default function ShopScreen() {
     equipItem({ id: i.id, kind: i.kind });                         // 着せ替え/仲間=装備
   };
   const statusOf = (i: ShopItem) =>
-    i.id === MOCK_TICKET_ID ? (ticketFull ? '最大3枚' : canBuyTicket ? `🌸 ${MOCK_TICKET_PRICE}` : '足りない')
-      : equippedItem(i) ? '装備中'
-        : ownedItem(i) ? (i.kind === 'tool' ? '購入済み' : '装備する')
-          : i.price === 0 ? '手に入れる'
-            : canBuyItem(i) ? `🌸 ${i.price}` : '足りない';
+    i.id === MOCK_TICKET_ID ? (ticketFull ? t('shop.st_max') : canBuyTicket ? `🌸 ${MOCK_TICKET_PRICE}` : t('shop.st_insufficient'))
+      : equippedItem(i) ? t('shop.st_equipped')
+        : ownedItem(i) ? (i.kind === 'tool' ? t('shop.st_owned') : t('shop.st_equip'))
+          : i.price === 0 ? t('shop.st_get')
+            : canBuyItem(i) ? `🌸 ${i.price}` : t('shop.st_insufficient');
   const disabled = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? !canBuyTicket : equippedItem(i) || (ownedItem(i) && i.kind === 'tool') || (!ownedItem(i) && !canBuyItem(i)));
   const pill = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.pillBuy : ticketFull ? s.pillOwn : s.pillNo) : equippedItem(i) ? s.pillOn : ownedItem(i) ? s.pillOwn : canBuyItem(i) ? s.pillBuy : s.pillNo);
   const pillTxt = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.txtBuy : ticketFull ? s.txtOwn : s.txtNo) : equippedItem(i) ? s.txtOn : ownedItem(i) ? s.txtOwn : canBuyItem(i) ? s.txtBuy : s.txtNo);
@@ -93,7 +97,7 @@ export default function ShopScreen() {
       ) : (
         <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
       )}
-      <Text style={s.name} numberOfLines={1}>{i.name}</Text>
+      <Text style={s.name} numberOfLines={1}>{nameOf(i)}</Text>
       {i.id === MOCK_TICKET_ID ? <Text style={s.remain} numberOfLines={1}>残り {tickets} / {MAX_MOCK_TICKETS}</Text> : null}
       {i.rarity ? <Text style={s.rarity} numberOfLines={1}>{'★'.repeat(i.rarity)}<Text style={s.rarityOff}>{'★'.repeat(5 - i.rarity)}</Text></Text> : null}
       <Pressable disabled={disabled(i)} onPress={() => act(i)} style={[s.btn, pill(i)]}>
@@ -107,7 +111,7 @@ export default function ShopScreen() {
       <ImageBackground source={BANNER} style={{ height: bannerH }} resizeMode="cover">
         <SafeAreaView edges={['top']}>
           <View style={s.top}>
-            <View style={s.bal}><Text style={s.balIco}>🌸</Text><Text style={s.balN}>{points.toLocaleString()}</Text><Text style={s.balL}>貝殻ポイント</Text></View>
+            <View style={s.bal}><Text style={s.balIco}>🌸</Text><Text style={s.balN}>{points.toLocaleString()}</Text><Text style={s.balL}>{t('shop.points_label')}</Text></View>
             <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.x}><Text style={s.xTxt}>×</Text></Pressable>
           </View>
         </SafeAreaView>
@@ -117,7 +121,7 @@ export default function ShopScreen() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.tabs}>
           {TABS.map((x) => (
             <Pressable key={x.key} onPress={() => setCat(x.key)} style={[s.tab, cat === x.key && s.tabOn]}>
-              <Text style={[s.tabTxt, cat === x.key && s.tabTxtOn]}>{x.label}</Text>
+              <Text style={[s.tabTxt, cat === x.key && s.tabTxtOn]}>{t(x.labelKey)}</Text>
             </Pressable>
           ))}
         </ScrollView>
@@ -130,13 +134,13 @@ export default function ShopScreen() {
       {celebrate && (
         <Animated.View style={[s.celOverlay, { opacity: celAnim }]}>
           <Pressable style={s.celFill} onPress={() => setCelebrate(null)}>
-            <Text style={s.celGot}>手に入れた！</Text>
+            <Text style={s.celGot}>{t('shop.got')}</Text>
             <Animated.Image
               source={celebrate.celebrate!}
               resizeMode="contain"
               style={[s.celImg, { transform: [{ scale: celAnim.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1] }) }] }]}
             />
-            <Text style={s.celName}>{celebrate.name}</Text>
+            <Text style={s.celName}>{nameOf(celebrate)}</Text>
           </Pressable>
         </Animated.View>
       )}

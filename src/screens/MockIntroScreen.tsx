@@ -6,23 +6,25 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAppState } from '../store/store';
 import { mockTicketCount } from '../store/tickets';
+import { useT } from '../i18n';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 
 const TOP = require('../../assets/mock/mock_intro_top.png');
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
-// 級別の目安(本番JLPTの試験時間・合格点)。模試の心構え用の参考値。
-const MOCK_INFO: Record<Level, { time: string; pass: string }> = {
-  N5: { time: '約105分', pass: '80/180' },
-  N4: { time: '約125分', pass: '90/180' },
-  N3: { time: '約140分', pass: '95/180' },
+// 級別の目安(本番JLPTの試験時間=分・合格点)。模試の心構え用の参考値。表示文言はi18n。
+const MOCK_INFO: Record<Level, { min: number; pass: string }> = {
+  N5: { min: 105, pass: '80/180' },
+  N4: { min: 125, pass: '90/180' },
+  N3: { min: 140, pass: '95/180' },
 };
 
 export default function MockIntroScreen() {
   const nav = useNavigation<Nav>();
   const route = useRoute<RouteProp<RootStackParamList, 'MockIntro'>>();
   const state = useAppState();
+  const t = useT();
   const { height } = useWindowDimensions();
   const level = (state.settings.level as Level) ?? 'N5';
   const info = MOCK_INFO[level] ?? MOCK_INFO.N5;
@@ -30,9 +32,9 @@ export default function MockIntroScreen() {
   const illusH = Math.round(height * 0.60);
 
   const chips = [
-    { ico: '🗓', label: 'ペース', val: '月1回' },
-    { ico: '⏱', label: '試験時間', val: info.time },
-    { ico: '🎯', label: '合格の目安', val: info.pass },
+    { ico: '🗓', label: t('mockintro.chip_pace'), val: t('mockintro.pace_val') },
+    { ico: '⏱', label: t('mockintro.chip_time'), val: t('mockintro.time_val', { n: info.min }) },
+    { ico: '🎯', label: t('mockintro.chip_pass'), val: info.pass },
   ];
 
   return (
@@ -46,8 +48,8 @@ export default function MockIntroScreen() {
           </View>
         </SafeAreaView>
         <View style={s.titleWrap}>
-          <Text style={s.title}>模試に挑戦</Text>
-          <Text style={s.subt}>本番と同じ形式で、いまの実力をチェック</Text>
+          <Text style={s.title}>{t('mockintro.title')}</Text>
+          <Text style={s.subt}>{t('mockintro.subtitle')}</Text>
         </View>
       </ImageBackground>
 
@@ -62,15 +64,15 @@ export default function MockIntroScreen() {
             </View>
           ))}
         </View>
-        <Text style={s.note}>本番と同じ構成(文字・語彙／文法／読解／聴解)で採点します。{'\n'}※目安は {level}。級により異なります。</Text>
+        <Text style={s.note}>{t('mockintro.note', { level })}</Text>
         <View style={s.ticketRow}>
-          <Text style={s.ticketTxt}>🎫 模試チケット 残り <Text style={s.ticketN}>{tickets}</Text> 枚</Text>
+          <Text style={s.ticketTxt}>{t('mockintro.tickets', { n: tickets })}</Text>
         </View>
         {/* [また今度][模試を始める]を横並びにして下端で見切れないように */}
         <View style={s.btnRow}>
-          <Pressable style={s.later} onPress={() => nav.goBack()}><Text style={s.laterTxt}>また今度</Text></Pressable>
+          <Pressable style={s.later} onPress={() => nav.goBack()}><Text style={s.laterTxt}>{t('mockintro.later')}</Text></Pressable>
           <Pressable style={s.start} onPress={() => nav.replace('Mock', { full: route.params?.full ?? true })}>
-            <Text style={s.startTxt}>模試を始める</Text>
+            <Text style={s.startTxt}>{t('mockintro.start')}</Text>
           </Pressable>
         </View>
       </SafeAreaView>

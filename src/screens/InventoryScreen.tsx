@@ -10,7 +10,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
 import { isEquipped, type ShopKind } from '../store/wallet';
-import { SHOP, SHOP_BY_ID, KIND_LABEL, type ShopItem } from '../data/shop';
+import { SHOP, SHOP_BY_ID, type ShopItem } from '../data/shop';
 import { mockTicketCount, MAX_MOCK_TICKETS } from '../store/tickets';
 import { homeStatus } from '../home/homeStatus';
 import { coverageBars } from '../store/selectors';
@@ -24,6 +24,7 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 // 持ち物はカテゴリー(kind)別に並べる。順=SHOPカタログ順(筆=レベル順で天の霊筆が最後、各カテゴリのnoneが先頭)。
 const SHOP_ORDER: Record<string, number> = Object.fromEntries(SHOP.map((it, idx) => [it.id, idx]));
 const KIND_ORDER: ShopKind[] = ['hair', 'brush', 'costume', 'companion'];
+const KIND_LABEL_KEY: Partial<Record<ShopKind, string>> = { hair: 'shop.tab_hair', brush: 'shop.tab_brush', costume: 'shop.tab_costume', companion: 'shop.tab_companion' };
 const SHOW_BADGES = false; // アイテム欄の称号バッジ表示。一旦OFF(後で使うかも)。trueで復活。
 
 export default function InventoryScreen() {
@@ -35,6 +36,8 @@ export default function InventoryScreen() {
   const { equipItem } = useAppActions();
   const now = Date.now();
 
+  // アイテム名はi18n(shop.name_<id>)で解決。未登録キーはデータのnameにフォールバック。
+  const nameOf = (i: ShopItem) => { const k = 'shop.name_' + i.id; const v = t(k); return v === k ? i.name : v; };
   const owned = (state.owned ?? []).map((id) => SHOP_BY_ID[id]).filter(Boolean) as ShopItem[];
   const tools = owned.filter((i) => i.cat === 'tool' && i.id !== 'tool_mock_ticket'); // 模試チケットは枚数管理で別表示
   const ticketItem = SHOP_BY_ID['tool_mock_ticket'];
@@ -65,7 +68,7 @@ export default function InventoryScreen() {
         ) : (
           <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
         )}
-        <Text style={s.cardName} numberOfLines={1}>{i.name}</Text>
+        <Text style={s.cardName} numberOfLines={1}>{nameOf(i)}</Text>
         {i.rarity ? <Text style={s.rarity}>{'★'.repeat(i.rarity)}<Text style={s.rarityOff}>{'★'.repeat(5 - i.rarity)}</Text></Text> : null}
         {equipped ? <Text style={s.equipped}>{t('inventory.equipped')}</Text>
           : equippable ? <Text style={s.equipHint}>{t('inventory.equip')}</Text> : null}
@@ -105,7 +108,7 @@ export default function InventoryScreen() {
         <View style={s.grid}>
           <View style={s.card}>
             <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{ticketItem?.emoji ?? '🎫'}</Text></View>
-            <Text style={s.cardName} numberOfLines={1}>{ticketItem?.name ?? '模試チケット'}</Text>
+            <Text style={s.cardName} numberOfLines={1}>{ticketItem ? nameOf(ticketItem) : t('shop.name_tool_mock_ticket')}</Text>
             <Text style={s.ticketN}>{tickets} / {MAX_MOCK_TICKETS}</Text>
           </View>
           {tools.map(card)}
@@ -120,7 +123,7 @@ export default function InventoryScreen() {
             if (!items.length) return null;
             return (
               <View key={k}>
-                <Text style={s.subSection}>{KIND_LABEL[k]}</Text>
+                <Text style={s.subSection}>{t(KIND_LABEL_KEY[k] ?? '')}</Text>
                 <View style={s.grid}>{items.map(card)}</View>
               </View>
             );
