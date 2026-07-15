@@ -52,8 +52,12 @@ export default function HomeScreen() {
   // グロー=リング素材(pass_ring)から作った同形の発光を「同サイズで真上」に重ねる=リングと完全一致。
   // 呼吸は主に明滅(opacity)＋ごく僅かな拡大(帯から離れない)。
   // グローはリングに密着させ膨張させない(明滅は控えめ・拡大はごく僅か)。
-  const gOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.28, 0.6] });
-  const gSc = glow.interpolate({ inputRange: [0, 1], outputRange: [1.0, 1.12] });
+  // 主グロー(リング直近)。増光＋やや拡大で存在感を強める。
+  const gOp = glow.interpolate({ inputRange: [0, 1], outputRange: [0.5, 0.9] });
+  const gSc = glow.interpolate({ inputRange: [0, 1], outputRange: [1.08, 1.24] });
+  // 外側グロー(広いハロー)。同じGLOW画像を大きく重ねて発光を広く強く見せる。
+  const gOp2 = glow.interpolate({ inputRange: [0, 1], outputRange: [0.32, 0.6] });
+  const gSc2 = glow.interpolate({ inputRange: [0, 1], outputRange: [1.5, 1.74] });
 
   const ringW = Math.round(width * 0.40); // 画面幅の40%(ヒーロー寄せに戻し)
   const top = Math.round(height * 0.15);  // やや上
@@ -66,6 +70,13 @@ export default function HomeScreen() {
         <SafeBoundary tag="homering" fallback={null}>
           <View style={[styles.wrap, { top, left, width: ringW, height: ringW }]}>
             {/* 画像は必ず明示サイズ(=ringW)で拘束する。absoluteFill+containは実機で実寸化する事故があるため使わない。 */}
+            {/* 外側の広いハロー(奥) */}
+            <Animated.Image
+              source={GLOW}
+              resizeMode="contain"
+              style={[styles.glow, { width: ringW, height: ringW, opacity: gOp2, transform: [{ scale: gSc2 }] }]}
+            />
+            {/* 主グロー(リング直近) */}
             <Animated.Image
               source={GLOW}
               resizeMode="contain"
