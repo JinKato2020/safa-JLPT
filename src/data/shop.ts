@@ -21,9 +21,6 @@ export const SHOP: ShopItem[] = [
   // ロング=標準髪型。初期から所持＋装備(INITIAL_STATE)。ショートを装備した後もここから戻せる。
   { id: 'hair_long', cat: 'dressup', kind: 'hair', price: 0, name: 'ロング', asset: require('../../assets/shop/hair/long.png') },
   { id: 'hair_short', cat: 'dressup', kind: 'hair', price: 800, name: 'ショート', asset: require('../../assets/shop/hair/short.png') },
-  { id: 'outfit_miko', cat: 'dressup', kind: 'outfit', price: 0, name: '巫女装束', emoji: '👘' },
-  { id: 'outfit_yukata', cat: 'dressup', kind: 'outfit', price: 700, name: '夏の浴衣', emoji: '🎐' },
-  { id: 'outfit_haregi', cat: 'dressup', kind: 'outfit', price: 1000, name: '桜の晴れ着', emoji: '🌸' },
   { id: 'brush_none', cat: 'dressup', kind: 'brush', price: 0, name: '筆なし', emoji: '🚫' },
   { id: 'brush_take', cat: 'dressup', kind: 'brush', price: 0, name: '竹の筆', rarity: 1, asset: require('../../assets/shop/brush/brush_take.png'), celebrate: require('../../assets/shop/celebrate/brush_take.png'), homeLong: require('../../assets/home/seoi/long/take.png'), homeShort: require('../../assets/home/seoi/short/take.png') },
   { id: 'brush_sakura', cat: 'dressup', kind: 'brush', price: 400, name: '桜染めの筆', rarity: 2, asset: require('../../assets/shop/brush/brush_sakura.png'), celebrate: require('../../assets/shop/celebrate/brush_sakura.png'), homeLong: require('../../assets/home/seoi/long/sakura.png'), homeShort: require('../../assets/home/seoi/short/sakura.png') },

@@ -74,12 +74,12 @@ export default function HomeScreen() {
             <Image source={RING} style={{ width: ringW, height: ringW }} resizeMode="contain" />
             <View style={styles.pct} pointerEvents="none">
               {/* 数字＋ラベル(到達度)を縦に積み、その塊の中心を穴の中心に合わせる。ラベルは数字の下。
-                  数字のlineHeightを字高に詰めて(下余白を除去)、ラベルとの隙間をmarginTop=20pxで直接制御。 */}
+                  数字のlineHeightを字高に詰めて(下余白を除去)、ラベルとの隙間をmarginTop=5pxで直接制御。 */}
               <View style={styles.pctInner}>
                 <Text style={[styles.num, { fontSize: Math.round(ringW * 0.30), lineHeight: Math.round(ringW * 0.30 * 0.78) }]}>
                   {pct}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.15) }]}>%</Text>
                 </Text>
-                <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085), marginTop: 20 }]}>到達度</Text>
+                <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085), marginTop: 5 }]}>到達度</Text>
               </View>
             </View>
           </View>

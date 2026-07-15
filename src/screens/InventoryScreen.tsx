@@ -23,7 +23,7 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 // 持ち物はカテゴリー(kind)別に並べる。順=SHOPカタログ順(筆=レベル順で天の霊筆が最後、各カテゴリのnoneが先頭)。
 const SHOP_ORDER: Record<string, number> = Object.fromEntries(SHOP.map((it, idx) => [it.id, idx]));
-const KIND_ORDER: ShopKind[] = ['hair', 'outfit', 'brush', 'costume', 'companion'];
+const KIND_ORDER: ShopKind[] = ['hair', 'brush', 'costume', 'companion'];
 
 export default function InventoryScreen() {
   const t = useT();

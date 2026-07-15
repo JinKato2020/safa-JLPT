@@ -11,6 +11,8 @@ import { signUp, signIn, signOut, deleteAccount } from '../auth/authClient';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { GUIDE } from '../data/mywordsArt';
+import { useAppState } from '../store/store';
+import { SHOP_BY_ID } from '../data/shop';
 import { useSync } from '../auth/SyncProvider';
 import AccountGrowthCard from '../components/AccountGrowthCard';
 import AccountStreakCard from '../components/AccountStreakCard';
@@ -33,6 +35,16 @@ export default function AccountScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation();
   const { session, email: acctEmail, lastSyncedAt } = useSync();
+  // 上部キャラ＝ホーム(HomeCoach)と同じ選択: 民族衣装 > 背負い筆 > 既定の案内キャラ。装備なしはGUIDE。
+  const appState = useAppState();
+  const eqBrush = appState.equipped?.brush;
+  const isShort = appState.equipped?.hair === 'hair_short';
+  const bItem = eqBrush ? SHOP_BY_ID[eqBrush] : undefined;
+  const brushImg = bItem ? (isShort ? bItem.homeShort : bItem.homeLong) : undefined;
+  const eqCostume = appState.equipped?.costume;
+  const costumeImg = eqCostume ? SHOP_BY_ID[eqCostume]?.asset : undefined;
+  const heroChar = costumeImg ?? brushImg ?? GUIDE.open;
+  const heroFull = !!(costumeImg ?? brushImg); // 全身立ち絵(縦長)か
   const [tab, setTab] = useState<Tab>('signup');
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
@@ -109,9 +121,9 @@ export default function AccountScreen() {
       <SafeAreaView style={s.c} edges={['top']}>
         <ScrollView contentContainerStyle={s.body}>
           <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}><Text style={s.closeTxt}>✕</Text></Pressable>
-          {/* 最上部: 桜 + ログイン中 + メールアドレス */}
+          {/* 最上部: 桜(ホームと同じ装備キャラ) + ログイン中 + メールアドレス */}
           <View style={s.hero}>
-            <Image source={GUIDE.open} style={s.guide} resizeMode="contain" />
+            <Image source={heroChar} style={heroFull ? s.guideFull : s.guide} resizeMode="contain" />
             <Text style={s.benefitTitle}>{t('account.logged_in_title')}</Text>
             <Text style={s.acctEmail}>{acctEmail}</Text>
             <Text style={s.benefitSub}>{t('account.synced_at', { t: syncedLabel })}</Text>
@@ -142,7 +154,7 @@ export default function AccountScreen() {
           <StatCards />
 
           <View style={s.hero}>
-            <Image source={GUIDE.open} style={s.guide} resizeMode="contain" />
+            <Image source={heroChar} style={heroFull ? s.guideFull : s.guide} resizeMode="contain" />
             <Text style={s.benefitTitle}>{t('account.benefit_title')}</Text>
             <Text style={s.benefitSub}>{t('account.benefit_sub')}</Text>
           </View>
@@ -228,6 +240,7 @@ const makeStyles = (c: ThemeColors) =>
     closeTxt: { fontSize: ty.h2, color: c.mute, fontWeight: '700' },
     hero: { alignItems: 'center', gap: spacing.xs, marginBottom: spacing.md },
     guide: { width: 120, height: 134 },
+    guideFull: { width: 168, height: 230 }, // 全身立ち絵(民族衣装/背負い筆)は縦長(≒864x1184)
     benefitTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
     benefitSub: { fontSize: ty.small, color: c.mute, textAlign: 'center' },
     acctEmail: { fontSize: ty.body, fontWeight: '800', color: c.ink, textAlign: 'center' },

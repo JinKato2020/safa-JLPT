@@ -9,11 +9,20 @@ import { useNavigation } from '@react-navigation/native';
 import { useAppState, useAppActions } from '../store/store';
 import { walletPoints, isOwned, isEquipped } from '../store/wallet';
 import { mockTicketCount, canBuyMockTicket, MAX_MOCK_TICKETS, MOCK_TICKET_PRICE } from '../store/tickets';
-import { SHOP, SHOP_CATS, KIND_LABEL, type ShopItem, type ShopCat } from '../data/shop';
+import { SHOP, type ShopItem } from '../data/shop';
 
 const MOCK_TICKET_ID = 'tool_mock_ticket';
 
 const BANNER = require('../../assets/shop/shop_banner.png');
+
+// ショップのカテゴリタブ。順=髪型/筆/民族衣装/道具/仲間(服は廃止)。各タブは単一種別なので小見出しは不要。
+const TABS: { key: string; label: string; match: (i: ShopItem) => boolean }[] = [
+  { key: 'hair', label: '髪型', match: (i) => i.kind === 'hair' },
+  { key: 'brush', label: '筆', match: (i) => i.kind === 'brush' },
+  { key: 'costume', label: '民族衣装', match: (i) => i.kind === 'costume' },
+  { key: 'tool', label: '道具', match: (i) => i.cat === 'tool' },
+  { key: 'companion', label: '仲間', match: (i) => i.cat === 'companion' },
+];
 
 export default function ShopScreen() {
   const nav = useNavigation();
@@ -21,7 +30,7 @@ export default function ShopScreen() {
   const state = useAppState();
   const { buyItem, equipItem, addPoints, buyMockTicket } = useAppActions();
   const devUnlimited = state.settings.devUnlimitedPoints === true;
-  const [cat, setCat] = useState<ShopCat>('dressup');
+  const [cat, setCat] = useState<string>('hair');
   // 購入直後の演出(桜が筆を持つ絵を2秒表示)。
   const [celebrate, setCelebrate] = useState<ShopItem | null>(null);
   const celAnim = useRef(new Animated.Value(0)).current;
@@ -34,9 +43,7 @@ export default function ShopScreen() {
     if (celTimer.current) clearTimeout(celTimer.current);
     celTimer.current = setTimeout(() => setCelebrate(null), 2000);
   };
-  const items = SHOP.filter((i) => i.cat === cat);
-  const kinds = [...new Set(items.map((i) => i.kind))]; // タブ内のスロット種別(着せ替え=髪型/服/筆)
-  const showKindHead = kinds.length > 1;
+  const items = SHOP.filter((TABS.find((tb) => tb.key === cat) ?? TABS[0]).match);
 
   const points = walletPoints(state);
   const ownedItem = (i: ShopItem) => isOwned(state, i.id);
@@ -108,19 +115,14 @@ export default function ShopScreen() {
 
       <View style={s.panel}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.tabs}>
-          {SHOP_CATS.map((x) => (
-            <Pressable key={x.cat} onPress={() => setCat(x.cat)} style={[s.tab, cat === x.cat && s.tabOn]}>
-              <Text style={[s.tabTxt, cat === x.cat && s.tabTxtOn]}>{x.label}</Text>
+          {TABS.map((x) => (
+            <Pressable key={x.key} onPress={() => setCat(x.key)} style={[s.tab, cat === x.key && s.tabOn]}>
+              <Text style={[s.tabTxt, cat === x.key && s.tabTxtOn]}>{x.label}</Text>
             </Pressable>
           ))}
         </ScrollView>
         <ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
-          {kinds.map((k) => (
-            <View key={k} style={s.group}>
-              {showKindHead ? <Text style={s.kindHead}>{KIND_LABEL[k]}</Text> : null}
-              <View style={s.grid}>{items.filter((i) => i.kind === k).map(renderCard)}</View>
-            </View>
-          ))}
+          <View style={s.grid}>{items.map(renderCard)}</View>
         </ScrollView>
       </View>
 
