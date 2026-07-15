@@ -85,11 +85,15 @@ export default function HomeScreen() {
             <Image source={RING} style={{ width: ringW, height: ringW }} resizeMode="contain" />
             <View style={styles.pct} pointerEvents="none">
               {/* 数字＋ラベル(到達度)を縦に積み、その塊の中心を穴の中心に合わせる。ラベルは数字の下。
-                  数字のlineHeightを字高に詰めて(下余白を除去)、ラベルとの隙間をmarginTop=5pxで直接制御。 */}
+                  iOSは lineHeight<fontSize や textAlignVertical/includeFontPadding を無視するため、数字の
+                  フォント下余白(ディセント)が残って離れて見えた。→ 数字を高さ固定の overflow:hidden で包み、
+                  下の空白を物理的にクリップしてラベルとの隙間(≈5px)を確実に詰める。 */}
               <View style={styles.pctInner}>
-                <Text style={[styles.num, { fontSize: Math.round(ringW * 0.30), lineHeight: Math.round(ringW * 0.30 * 0.78) }]}>
-                  {pct}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.15) }]}>%</Text>
-                </Text>
+                <View style={{ height: Math.round(ringW * 0.30 * 0.81), overflow: 'hidden' }}>
+                  <Text style={[styles.num, { fontSize: Math.round(ringW * 0.30), lineHeight: Math.round(ringW * 0.30) }]}>
+                    {pct}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.15) }]}>%</Text>
+                  </Text>
+                </View>
                 <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085), marginTop: 5 }]}>到達度</Text>
               </View>
             </View>
