@@ -82,8 +82,14 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
               <Text style={s.linkTxt}>{t('cards.kakitori_review')}</Text><Text style={s.chevron}>›</Text>
             </Pressable>
           ) : null}
-          <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill' })}>
+          <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill', script: 'kanji' })}>
             <Text style={s.linkTxt}>{t('cards.kakitori_entry')}</Text><Text style={s.chevron}>›</Text>
+          </Pressable>
+          <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { mode: 'drill', script: 'katakana' })}>
+            <Text style={s.linkTxt}>{t('cards.kakitori_kata')}</Text><Text style={s.chevron}>›</Text>
+          </Pressable>
+          <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { mode: 'drill', script: 'hiragana' })}>
+            <Text style={s.linkTxt}>{t('cards.kakitori_hira')}</Text><Text style={s.chevron}>›</Text>
           </Pressable>
         </>
       ) : null}
