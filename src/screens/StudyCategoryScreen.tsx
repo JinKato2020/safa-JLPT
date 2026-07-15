@@ -64,7 +64,7 @@ export default function StudyCategoryScreen() {
     if (cc === 'dokkai') return nav.navigate('Reading', { title: catName('dokkai') });
     if (cc === 'choukai') return nav.navigate('Listening', { title: catName('choukai') });
     if (isJft && cc === 'bunpou') return nav.navigate('Quiz', { expression: true, title: catName('bunpou') });
-    return nav.navigate('Quiz', { category: cc });
+    return nav.navigate('Quiz', { category: cc, title: catName(cc) });
   };
 
   const subs = subRingsFor(cat);

@@ -224,7 +224,13 @@ export default function QuizScreen() {
                     {showOk ? '✓' : showNg ? '✕' : String(i + 1)}
                   </Text>
                 </View>
-                <Text style={s.choiceTxt}>{ch}</Text>
+                {/[（(]/.test(ch) ? (
+                  <View style={s.choiceRubyWrap}>
+                    <RubyText text={ch} style={s.choiceTxt} rubyStyle={s.cRuby} rubyGate={rubyGate} />
+                  </View>
+                ) : (
+                  <Text style={s.choiceTxt}>{ch}</Text>
+                )}
               </Pressable>
             );
           })}
@@ -304,6 +310,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
   choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
   choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1, fontWeight: '600' },
+  choiceRubyWrap: { flex: 1 },
+  cRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },
   // 選択肢先頭の丸バッジ(番号→正誤で✓✕)
   cbadge: {
     width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center',

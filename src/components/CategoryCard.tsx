@@ -47,18 +47,18 @@ export default function CategoryCard({ cat }: { cat: Category }) {
         key: d.daimon,
         label: t(DAIMON_LABEL[d.daimon]),
         value: daimonRingPct(state, now, d.daimon),
-        onPress: () => (d.daimon === 'passage_grammar' ? nav.navigate('PassageGrammar') : nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) })),
+        onPress: () => (d.daimon === 'passage_grammar' ? nav.navigate('PassageGrammar', { title: t(DAIMON_LABEL[d.daimon]) }) : nav.navigate('Quiz', { daimon: d.daimon, title: t(DAIMON_LABEL[d.daimon]) })),
       }));
     }
     if (cc === 'dokkai')
-      return readingSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, readingItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Reading', { subtype: sub.key }) }));
-    return listeningSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, listeningItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Listening', { subtype: sub.key }) }));
+      return readingSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, readingItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Reading', { subtype: sub.key, title: t(sub.labelKey) }) }));
+    return listeningSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, listeningItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Listening', { subtype: sub.key, title: t(sub.labelKey) }) }));
   };
   const mixPress = (cc: Category) => {
-    if (cc === 'dokkai') return nav.navigate('Reading');
-    if (cc === 'choukai') return nav.navigate('Listening');
+    if (cc === 'dokkai') return nav.navigate('Reading', { title: catName('dokkai') });
+    if (cc === 'choukai') return nav.navigate('Listening', { title: catName('choukai') });
     if (isJft && cc === 'bunpou') return nav.navigate('Quiz', { expression: true, title: catName('bunpou') });
-    return nav.navigate('Quiz', { category: cc });
+    return nav.navigate('Quiz', { category: cc, title: catName(cc) });
   };
   const subs = subRingsFor(cat);
 

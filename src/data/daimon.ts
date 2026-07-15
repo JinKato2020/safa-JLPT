@@ -153,7 +153,9 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   const bank = BANK_INDEX.get(unit);
   if (bank) {
     const { choices, answerIndex } = shuffleChoices([bank.answer, ...bank.choices.filter((x) => x !== bank.answer)].slice(0, 4), 0, rng);
-    return { itemId: unit, prompt: bank.stem, question: bank.question, format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, saveRef: saveRefForBank(bank) };
+    // 文法形式判断・文の組み立ては文中の漢字にレベル適応ルビを出す(カッコふりがな→上付きルビ)。stemをfuriとして渡す。
+    const useFuri = bank.daimon === 'grammar_form' || bank.daimon === 'order';
+    return { itemId: unit, prompt: bank.stem, question: bank.question, ...(useFuri ? { furi: bank.stem } : {}), format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, saveRef: saveRefForBank(bank) };
   }
   // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
   const og = OG_BANK_INDEX.get(unit);
