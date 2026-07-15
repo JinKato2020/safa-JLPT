@@ -24,6 +24,7 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 // 持ち物はカテゴリー(kind)別に並べる。順=SHOPカタログ順(筆=レベル順で天の霊筆が最後、各カテゴリのnoneが先頭)。
 const SHOP_ORDER: Record<string, number> = Object.fromEntries(SHOP.map((it, idx) => [it.id, idx]));
 const KIND_ORDER: ShopKind[] = ['hair', 'brush', 'costume', 'companion'];
+const SHOW_BADGES = false; // アイテム欄の称号バッジ表示。一旦OFF(後で使うかも)。trueで復活。
 
 export default function InventoryScreen() {
   const t = useT();
@@ -126,9 +127,14 @@ export default function InventoryScreen() {
           })
         ) : emptyHint}
 
-        <Text style={s.section}>{t('inventory.badges')}</Text>
-        {badgeRow('pass', passPct, badgeSet === 'natural' ? 'inventory.badge_pass_nat' : 'inventory.badge_pass')}
-        {badgeRow('cover', coverPct, 'inventory.badge_cover')}
+        {/* バッジ欄は一旦非表示(後で復活させるかも)。SHOW_BADGES=true で戻せる。 */}
+        {SHOW_BADGES && (
+          <>
+            <Text style={s.section}>{t('inventory.badges')}</Text>
+            {badgeRow('pass', passPct, badgeSet === 'natural' ? 'inventory.badge_pass_nat' : 'inventory.badge_pass')}
+            {badgeRow('cover', coverPct, 'inventory.badge_cover')}
+          </>
+        )}
       </ScrollView>
       <BadgeCollection
         visible={coll !== null}
