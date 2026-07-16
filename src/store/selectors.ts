@@ -203,7 +203,9 @@ const SECTION_LABEL: Record<string, string> = {
 // 大リング【合格率】= 新モンテカルロ(面別マスタリー→大問→公式得点区分・設計書 §6)。
 // 既存 state.items を大問プールで束ねて予測正答率μを作り、ladder passProbability に流す。
 // 予測正答率 μ = mean( item ? itemP(effectiveP) : 0.25 )（未着手は推測下限0.25＝カバー率が自然に効く）。
-function ladderPassPct(state: AppState, now: number): number {
+// 各大問の重み n = 本番出題数(DAIMON/DOKKAI/CHOUKAI_BLUEPRINT)。1問=同じ点・大問の重み=出題数(本番準拠)。
+//   ※旧実装は全大問 n=6/n=10 均等で、用法5問を文法形式13問と同格に扱う不正確があった(他計算=categoryPctは既に出題数で重み付け済)。
+export function ladderPassEntries(state: AppState, now: number): DaimonExpectation[] {
   const lv = state.settings.level;
   const meanPredicted = (ids: string[]): number => {
     if (!ids.length) return 0.25;
@@ -215,12 +217,18 @@ function ladderPassPct(state: AppState, now: number): number {
     const p = categoryPct(state, now, cat, false); // 読解/聴解=観測正答率(true能力・当て推量補正済)
     return p === null ? 0.25 : ladderItemP(p / 100); // 観測正答確率へ戻す
   };
+  const bp: Partial<Record<Daimon, number>> = DAIMON_BLUEPRINT[lv] ?? {};
+  const sumCounts = (m: Record<string, number> | undefined): number => Object.values(m ?? {}).reduce((a, b) => a + b, 0);
   const entries: DaimonExpectation[] = [];
-  for (const d of MOJI_DAIMON) entries.push({ daimon: 'context', n: 6, mu: meanPredicted(daimonUnitIds(lv, d)) });
-  for (const d of BUNPOU_DAIMON) entries.push({ daimon: 'grammar_form', n: 6, mu: meanPredicted(daimonUnitIds(lv, d)) });
-  entries.push({ daimon: 'reading', n: 10, mu: skillMu('dokkai') });
-  entries.push({ daimon: 'listening', n: 10, mu: skillMu('choukai') });
-  return Math.round(100 * ladderPassProbability(lv as LadderLevel, entries, 2000, 1));
+  // 語彙/文法の8大問=本番出題数、読解/聴解=区分合計の出題数。ラベルは得点区分ルーティング用(gengo/dokkai/choukai)。
+  for (const d of MOJI_DAIMON) entries.push({ daimon: 'context', n: bp[d] ?? 0, mu: meanPredicted(daimonUnitIds(lv, d)) });
+  for (const d of BUNPOU_DAIMON) entries.push({ daimon: 'grammar_form', n: bp[d] ?? 0, mu: meanPredicted(daimonUnitIds(lv, d)) });
+  entries.push({ daimon: 'reading', n: sumCounts(DOKKAI_BLUEPRINT[lv]), mu: skillMu('dokkai') });
+  entries.push({ daimon: 'listening', n: sumCounts(CHOUKAI_BLUEPRINT[lv]), mu: skillMu('choukai') });
+  return entries;
+}
+function ladderPassPct(state: AppState, now: number): number {
+  return Math.round(100 * ladderPassProbability(state.settings.level as LadderLevel, ladderPassEntries(state, now), 2000, 1));
 }
 
 export function readinessFor(state: AppState, now: number) {
