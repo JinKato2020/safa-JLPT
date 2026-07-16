@@ -100,9 +100,7 @@ export function daimonUnitIds(level: Level, daimon: Daimon, mode: 'all' | 'learn
     ? bankOf(level, daimon).map((b) => b.id)
     : daimon === 'grammar_form'
       ? bankOf(level, daimon).map((b) => b.id) // 文法形式も検証済の固定バンクのみ(旧例文clozeは廃止)
-      : daimon === 'synonym'
-        ? items.filter((u) => SY_VERIFIED_UNITS.has(u)) // 言い換えは一意性検証済のみ出題(未検証の旧ダミーは除外)
-        : items; // context/kanji_read/orthography は固定問題集(item系)のみ
+      : items; // context/kanji_read/orthography/synonym は固定問題集(item系)のみ
   return split(all, mode);
 }
 
@@ -135,12 +133,10 @@ const CTX_BANK_INDEX = new Map<string, (typeof CONTEXT_BANK)[number]>(
 const SY_BANK_INDEX = new Map<string, (typeof SYNONYM_BANK)[number]>(
   SYNONYM_BANK.map((e) => [`${e.id.slice(3)}#synonym`, e]),
 );
-// 誤答を作り直し、独立の反証で一意性を確認した問題(verified)だけを出題する。
-// 未検証は旧データ=分野違いの易しすぎるダミー(例 作法→天気/音楽/地図)で、出題もカバー率の母数も汚すため除外。
-// 波状生成で verified が付いた分だけ解禁される(=母数はデータ投入に応じて増える)。
-const SY_VERIFIED_UNITS = new Set(
-  SYNONYM_BANK.filter((e) => e.verified === true).map((e) => `${e.id.slice(3)}#synonym`),
-);
+// 言い換えは verified(誤答を作り直し独立の反証で一意性を確認済)の有無にかかわらず全て出題する。
+// 未検証(旧データ=分野違いの易しすぎるダミー。例 作法→天気/音楽/地図)も出す方針:
+// 一般ユーザーは存在せず開発者しか触らないため、出題を止めるより未修正の問題も見えている方がよい
+// (ユーザー判断 2026-07-17)。verified は「どこまで作り直したか」の進捗メタとして残す。
 // JFT会話と表現(id=jx-… をユニットidにそのまま使う)。JFTの学習/模試で場面→適切な表現を出題。
 const EXPR_INDEX = new Map<string, (typeof JFT_EXPRESSION)[number]>(JFT_EXPRESSION.map((e) => [e.id, e]));
 /** JFT会話と表現の全ユニットid(A1+A2)。 */
