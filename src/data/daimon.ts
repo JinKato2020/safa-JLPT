@@ -5,7 +5,7 @@
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
 import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, passageGrammarSetsFor, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
-import { hasKanji, makeQuestion, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
+import { hasKanji, makeQuestion, sample, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
 
 // my単語帳 saveRef 解決用の索引。
@@ -152,7 +152,10 @@ function underlineSegments(sentence: string, span: string): { text: string; hit:
 export function questionForUnit(unit: string, rng: Rng = Math.random): Question | null {
   const bank = BANK_INDEX.get(unit);
   if (bank) {
-    const { choices, answerIndex } = shuffleChoices([bank.answer, ...bank.choices.filter((x) => x !== bank.answer)].slice(0, 4), 0, rng);
+    // 用法など誤答プールが3を超える大問は、出題ごとに誤答を動的3抽出(暗記防止)。組み立て/文法形式(誤答3)は全て使う。
+    const distractors = bank.choices.filter((x) => x !== bank.answer);
+    const picked = distractors.length > 3 ? sample(distractors, 3, rng) : distractors;
+    const { choices, answerIndex } = shuffleChoices([bank.answer, ...picked].slice(0, 4), 0, rng);
     // 文法形式判断・文の組み立ては文中の漢字にレベル適応ルビを出す(カッコふりがな→上付きルビ)。stemをfuriとして渡す。
     const useFuri = bank.daimon === 'grammar_form' || bank.daimon === 'order';
     return { itemId: unit, prompt: bank.stem, question: bank.question, ...(useFuri ? { furi: bank.stem } : {}), format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, saveRef: saveRefForBank(bank) };
