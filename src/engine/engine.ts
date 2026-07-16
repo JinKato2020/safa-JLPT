@@ -71,7 +71,9 @@ function scheduleAfterGrade(state: ItemState, grade: Grade, now: number): Schedu
     ease = clamp(ease + (grade === 'easy' ? 0.15 : grade === 'good' ? 0 : -0.15), 1.3, 2.8);
     reps += 1;
   }
-  const dueAt = grade === 'again' ? now + 600_000 /*10分後=すぐ復習へ*/ : now + intervalDays * DAY;
+  // 不正解(again)は「翌日以降」に再出題(同一セッションで即再出題しない)。即再出題は誤答だけ変えた同一問題と
+  // 気づかれ暗記防止にならない、というユーザー要望(2026-07-17)。※SRSの再学習リセット(reps=0)は維持。
+  const dueAt = grade === 'again' ? now + DAY : now + intervalDays * DAY;
   return { reps, intervalDays, ease, dueAt };
 }
 

@@ -298,17 +298,19 @@ function Root() {
         ) : (
           <>
             <RootStack.Screen name="Main" component={MainTabs} />
-            <RootStack.Screen name="Quiz" component={QuizScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="Flashcard" component={FlashcardScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="MockIntro" component={MockIntroScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="Mock" component={MockScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="Reading" component={ReadingScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="PassageGrammar" component={PassageGrammarScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="Listening" component={ListeningScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="Kakitori" component={KakitoriScreen} options={{ presentation: 'modal' }} />
+            {/* 学習系(試験/単語タブ→学習)は全画面切替(card)。下から持ち上がる部分モーダル(上部に背景が覗く)をやめる。ユーザー要望2026-07-17。 */}
+            <RootStack.Screen name="Quiz" component={QuizScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Flashcard" component={FlashcardScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="MockIntro" component={MockIntroScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Mock" component={MockScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Reading" component={ReadingScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="PassageGrammar" component={PassageGrammarScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Listening" component={ListeningScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Kakitori" component={KakitoriScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="ListeningQuiz" component={ListeningQuizScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="WordDrill" component={WordDrillScreen} options={{ presentation: 'card' }} />
+            {/* 以下は overlay/ダイアログ的なのでモーダル(下から)のまま。 */}
             <RootStack.Screen name="KanjiDetail" component={KanjiDetailScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="ListeningQuiz" component={ListeningQuizScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="WordDrill" component={WordDrillScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="MyWords" component={MyWordsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
