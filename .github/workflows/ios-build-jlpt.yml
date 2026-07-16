@@ -1,5 +1,5 @@
 name: まいにちJLPT (Pages配信 + iOSビルド)
-run-name: "まいにちJLPT — ${{ github.event_name == 'workflow_dispatch' && 'iOS build' || 'Pages deploy' }} (${{ github.event.head_commit.message || github.ref_name }})"
+run-name: "${{ inputs.build_number || 'Pages' }} — まいにちJLPT ${{ github.event_name == 'workflow_dispatch' && 'iOS build' || 'deploy' }} (${{ github.event.head_commit.message || github.ref_name }})"
 
 # =============================================================================
 # まいにちJLPT (com.safa.jlpt) — 1ワークフローに統合:
@@ -16,6 +16,11 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      build_number:
+        description: 'Build番号(=1000+commit数)。run-name先頭に出すため dispatch 側で渡す。空ならジョブ内で計算'
+        required: false
+        default: ''
+        type: string
       submit:
         description: 'Submit to TestFlight after build?'
         required: false
@@ -102,6 +107,13 @@ jobs:
       - name: Calculate build number
         run: |
           BUILD_NUMBER=$((1000 + $(git rev-list --count HEAD)))
+          # run-name に出した番号(dispatch入力)と実際のビルド番号がズレたら、版の追跡が壊れる。
+          # (dispatch後に別コミットが載った等)。黙って進めず落とす。
+          WANT="${{ inputs.build_number }}"
+          if [ -n "$WANT" ] && [ "$WANT" != "$BUILD_NUMBER" ]; then
+            echo "::error::run-nameの番号($WANT)と実際のビルド番号($BUILD_NUMBER)が不一致。dispatch後にコミットが載った可能性。再実行してください"
+            exit 1
+          fi
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           echo "::notice::Build number: $BUILD_NUMBER"
           APP_VERSION=$(node -p "require('./app.json').expo.version" 2>/dev/null || echo "?")

@@ -1,5 +1,5 @@
 name: まいにちJLPT (Androidビルド=App C枠)
-run-name: "まいにちJLPT — Android AAB (App C枠 com.safa.english)"
+run-name: "${{ inputs.version_code }} — まいにちJLPT Android AAB (App C枠 com.safa.english)"
 
 # App C(com.safa.english)の既存Play枠へ「上書き」する Android AAB/APK をビルドする。
 # ・applicationId=com.safa.english(app.json)・versionCode=2000+commit(App C現1270より上)。
@@ -12,6 +12,11 @@ run-name: "まいにちJLPT — Android AAB (App C枠 com.safa.english)"
 on:
   workflow_dispatch:
     inputs:
+      version_code:
+        description: 'versionCode(=2000+commit数)。run-name先頭に出すため dispatch 側で渡す。空ならジョブ内で計算'
+        required: false
+        default: ''
+        type: string
       aab:
         description: 'AABも生成(Playクローズド提出用・約2倍遅い)。実機テストだけならOFF'
         type: boolean
@@ -59,6 +64,12 @@ jobs:
       - name: Calculate versionCode (2000+commit, App C 1270 超)
         run: |
           BUILD_NUMBER=$((2000 + $(git rev-list --count HEAD)))
+          # run-name に出した番号(dispatch入力)と実際の versionCode がズレたら版の追跡が壊れる。黙って進めず落とす。
+          WANT="${{ inputs.version_code }}"
+          if [ -n "$WANT" ] && [ "$WANT" != "$BUILD_NUMBER" ]; then
+            echo "::error::run-nameの番号($WANT)と実際のversionCode($BUILD_NUMBER)が不一致。dispatch後にコミットが載った可能性。再実行してください"
+            exit 1
+          fi
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           APP_VERSION=$(node -p "require('./app.json').expo.version" 2>/dev/null || echo "?")
           echo "## 🤖 ${BUILD_NUMBER} — Android AAB ・ まいにちJLPT v$APP_VERSION (App C枠 com.safa.english)" >> $GITHUB_STEP_SUMMARY
