@@ -62,7 +62,9 @@ export function reducer(state: AppState, action: Action): AppState {
       return { ...state, settings: { ...state.settings, ...action.patch } };
     case 'QUIZ_ANSWER': {
       const prev = state.items[action.itemId] ?? newItemState(action.now);
-      const next = recordQuiz(prev, action.correct, action.now);
+      // 漢字読み/表記は答えが一つで暗記懸念が薄い→不正解は即再出題OK。他大問(文脈/用法/文法等)は翌日以降(ユーザー要望2026-07-17)。
+      const immediate = action.itemId.endsWith('#kanji_read') || action.itemId.endsWith('#orthography');
+      const next = recordQuiz(prev, action.correct, action.now, immediate);
       return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next } }, action.now);
     }
     case 'MOCK_ANSWER': {

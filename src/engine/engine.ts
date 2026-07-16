@@ -59,7 +59,10 @@ export function updateMastery(state: ItemState, outcome: number, weight: number,
 interface Schedule { reps: number; intervalDays: number; ease: number; dueAt: number; }
 
 // スケジューリングのみ(習得度は触らない)。again=数分後に戻す=復習ループ(次バッチに再出題)。
-function scheduleAfterGrade(state: ItemState, grade: Grade, now: number): Schedule {
+// immediateAgain=true のとき、不正解(again)を数分後に即再出題(漢字読み/表記=答えが一つで暗記懸念が薄い大問)。
+// false のときは「翌日以降」に再出題(文脈規定/用法/文法等=誤答だけ変えた同一問題と気づかれ暗記防止にならない
+// のを避ける・ユーザー要望2026-07-17)。※SRSの再学習リセット(reps=0)は両者維持。
+function scheduleAfterGrade(state: ItemState, grade: Grade, now: number, immediateAgain = false): Schedule {
   let { reps, intervalDays, ease } = state;
   if (grade === 'again') {
     reps = 0; intervalDays = 0; ease = clamp(ease - 0.2, 1.3, 2.8);
@@ -71,17 +74,16 @@ function scheduleAfterGrade(state: ItemState, grade: Grade, now: number): Schedu
     ease = clamp(ease + (grade === 'easy' ? 0.15 : grade === 'good' ? 0 : -0.15), 1.3, 2.8);
     reps += 1;
   }
-  // 不正解(again)は「翌日以降」に再出題(同一セッションで即再出題しない)。即再出題は誤答だけ変えた同一問題と
-  // 気づかれ暗記防止にならない、というユーザー要望(2026-07-17)。※SRSの再学習リセット(reps=0)は維持。
-  const dueAt = grade === 'again' ? now + DAY : now + intervalDays * DAY;
+  const dueAt = grade === 'again' ? now + (immediateAgain ? 600_000 : DAY) : now + intervalDays * DAY;
   return { reps, intervalDays, ease, dueAt };
 }
 
-/** 診断クイズ(客観採点・重み3)。正解=間隔↑、不正解=習得度↓＋数分後に再出題(復習ループ)。 */
-export function recordQuiz(state: ItemState, correct: boolean, now: number): ItemState {
+/** 診断クイズ(客観採点・重み3)。正解=間隔↑、不正解=習得度↓＋再出題。
+ *  immediateAgain=true(漢字読み/表記)は数分後に即再出題、false(他)は翌日以降。 */
+export function recordQuiz(state: ItemState, correct: boolean, now: number, immediateAgain = false): ItemState {
   const grade: Grade = correct ? 'good' : 'again';
   const updated = updateMastery(state, correct ? 1 : 0, SIGNAL_WEIGHT.practice, now);
-  return { ...updated, ...scheduleAfterGrade(state, grade, now) };
+  return { ...updated, ...scheduleAfterGrade(state, grade, now, immediateAgain) };
 }
 
 /** 本番形式テスト(客観採点・重み5=最も信頼度が高く±を狭める)。スケジュールも更新。 */

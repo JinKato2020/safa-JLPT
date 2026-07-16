@@ -92,12 +92,19 @@ test('信頼幅: 客観エビデンスが増えると収束する', () => {
   assert.ok(high < low, `エビデンス増で band 収束: ${high} < ${low}`);
 });
 
-test('客観クイズ 不正解: 習得度↓＋数分後に再出題(復習ループ)', () => {
+test('客観クイズ 不正解(既定): 習得度↓＋翌日以降に再出題(即再出題しない)', () => {
   const s = updateMastery(newItemState(T0), 0.6, 1, T0); // p=0.6, ev=1
   const wrong = recordQuiz(s, false, T0);
   assert.ok(wrong.p < 0.6, '不正解で習得度を下方修正');
   assert.equal(wrong.dueAt, T0 + DAY, '翌日以降に戻る(即再出題しない)');
   assert.equal(wrong.reps, 0, '再学習へリセット');
+});
+
+test('客観クイズ 不正解(immediateAgain=漢字読み/表記): 数分後に即再出題OK', () => {
+  const s = updateMastery(newItemState(T0), 0.6, 1, T0);
+  const wrong = recordQuiz(s, false, T0, true); // 即再出題
+  assert.equal(wrong.dueAt, T0 + 600_000, '漢字読み/表記は10分後に即再出題');
+  assert.equal(wrong.reps, 0, '再学習へリセットは同じ');
 });
 
 test('客観クイズ 正解: 習得度↑＋客観重み(3)で信頼度を積む', () => {
