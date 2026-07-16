@@ -5,7 +5,9 @@ import {
   type Dispatch, type ReactNode,
 } from 'react';
 import { newItemState, recordQuiz, recordMock, effectiveP } from '../engine/engine';
-import { type AppState, type Settings, type MockResult, type SaveRef, INITIAL_STATE, dayStr, toggleMyList, withUpdatedAt } from './state';
+import { type Settings, type MockResult, type SaveRef, INITIAL_STATE, dayStr, toggleMyList, withUpdatedAt } from './state';
+export type { AppState } from './state';
+import type { AppState } from './state';
 import { readinessFor } from './selectors';
 import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
@@ -52,7 +54,7 @@ function withStudyDay(state: AppState, now: number): AppState {
   return { ...state, streak, growth };
 }
 
-function reducer(state: AppState, action: Action): AppState {
+export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'HYDRATE':
       return action.state;
@@ -64,12 +66,10 @@ function reducer(state: AppState, action: Action): AppState {
       return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next } }, action.now);
     }
     case 'MOCK_ANSWER': {
-      // バンクの合成項目(kb-*=用法/組み立て/文章/cloze)はSRS/evidenceに記録しない。
-      // 採点(模試pct)はMockScreenのローカル集計で別途行う。記録すると到達度の分母外なのにevidenceだけ水増しし、
-      // 大リングの信頼幅±が不当に狭くなる(過信)＋storage肥大するため除外。学習日(streak)だけは反映。
-      if (action.itemId.startsWith('kb-')) return withStudyDay(state, action.now);
-      const prev = state.items[action.itemId] ?? newItemState(action.now);
-      const next = recordMock(prev, action.correct, action.now);
+      // 模試は「その項目が初見(state.itemsに無い)のときだけ」evidenceに記録(初見保証で正当=模試は常に初見プール)。
+      // 既出(万一の再出題)は学習日のみ→暗記/再出題の水増しを防ぐ。台帳/非台帳(kb-/usg-/moji)を問わず統一。
+      if (state.items[action.itemId]) return withStudyDay(state, action.now);
+      const next = recordMock(newItemState(action.now), action.correct, action.now);
       return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next } }, action.now);
     }
     case 'RECORD_MOCK':

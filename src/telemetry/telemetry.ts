@@ -3,7 +3,6 @@
 // settings.telemetry=false で完全停止。PII一切なし(匿名UUIDのみ・ログインとは無関係)。
 // テーブル未作成時はinsert失敗→キューに滞留(無害・作成後にflushで再送)。RLSは anon/authenticated の INSERT のみ許可。
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
 import { dayStr, type AppState } from '../store/state';
 import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank } from '../store/selectors';
 import { allItemIdsFor } from '../data';
@@ -20,6 +19,14 @@ const K_DAY = 'safa-jlpt:telemetryLastDay';
 
 let enabled = true; // App側で settings.telemetry に同期(既定ON)
 export function setTelemetryEnabled(on: boolean): void { enabled = on; }
+
+// 'react-native' 本体はFlow構文(opaque type等)を含みesbuild(tsx/node:test)で静的import不可のため遅延require。
+// store.tsx→telemetry.tsが単体テスト(reducer等)からimportされてもクラッシュしない(実行時は未呼出=無害)。
+// RN実行時はMetro(Babel)がrequireを解決するため挙動は従来どおり。
+function getPlatform(): { OS: string; Version?: unknown } {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  return (require('react-native') as typeof import('react-native')).Platform;
+}
 
 // 匿名UUID(PIIなし)。端末ローカルに保存、再インストールで新ID(匿名のため許容)。
 function uuid(): string {
@@ -99,7 +106,7 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
   const exam = state.settings.targetExam ?? 'jlpt';
   const daysToExam = state.settings.examDate ? daysBetween(dayStr(now), state.settings.examDate) : null;
   return {
-    v: 2, anonId: anon, app: APP_VERSION, platform: Platform.OS, osVersion: String(Platform.Version ?? ''),
+    v: 2, anonId: anon, app: APP_VERSION, platform: getPlatform().OS, osVersion: String(getPlatform().Version ?? ''),
     uiLang: state.settings.uiLang || '', level, exam, day: dayStr(now),
     // 質(正解率リング)＋合格率＋信頼幅
     readiness: { total: r.score, passProb: r.passProbability, band: r.band, passing: r.passing,
