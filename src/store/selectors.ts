@@ -36,6 +36,25 @@ export function skillWeight(id: string): number {
   return base * mod;
 }
 
+// 単語タブ vProduce(<vocabId>#produce)→試験大問への「持ち込み」割引係数(ユーザー確定2026-07-16)。
+// produce(意味→読みを自分で作る)は試験の漢字読み(4択で認識)より難しい=できれば漢字読みもできる→高(0.9)。
+// 文脈規定/言い換えは別技能で「意味を知る」部分寄与のみ→中(0.35)。表記(漢字を書く)/用法(正確な使い方)は未練習=0(不掲載)。
+// 文法(gBuild/gMeaning→文法形式)は pointId が疎+Plan Bで作り直し予定のため後回し(ここでは持ち込まない)。
+export const WORDTAB_TRANSFER: Partial<Record<Daimon, number>> = { kanji_read: 0.9, context: 0.35, synonym: 0.35 };
+
+// 試験ユニット(<vocabId>#daimon)の実効習得度。直接の試験証拠があれば最優先(=上書き)、無ければ
+// 単語タブ vProduce を係数で割引して持ち込む。持ち込み対象外(表記/用法/文法/バンクid)や証拠皆無は null(未着手)。
+export function unitMasteryWithTransfer(state: AppState, now: number, unit: string): number | null {
+  const direct = state.items[unit];
+  if (direct) return effectiveP(direct, now); // 直接の試験証拠が最優先
+  const hash = unit.lastIndexOf('#');
+  if (hash < 0) return null;                   // バンクid(usg-/kb-/mk-)は持ち込み対象外
+  const coef = WORDTAB_TRANSFER[unit.slice(hash + 1) as Daimon];
+  if (!coef) return null;                      // 表記/用法など係数なし=持ち込まない
+  const prod = state.items[`${unit.slice(0, hash)}#produce`];
+  return prod ? coef * effectiveP(prod, now) : null;
+}
+
 // 区分の達成度%(0-100 / 未測定null)。妥当性のため評価モデルを区分で分ける:
 //  ・語彙/漢字/文法(離散知識) = カバー率×習得: 全項目のΣ習得度 / 全項目数(未習得=0で薄まる=「全部覚える」が目標)。
 //    ※4択のまぐれはSRSの復習ループ(できるまで間隔反復)で自浄されるため当て推量補正はしない。
@@ -69,9 +88,9 @@ function knowledgeDaimonPct(state: AppState, now: number, ids: string[]): number
   let sw = 0, swp = 0, touched = 0;
   for (const id of ids) {
     const w = skillWeight(id);
-    const st = state.items[id];
+    const m = unitMasteryWithTransfer(state, now, id); // 直接証拠 or 単語タブ持ち込み(割引)
     sw += w;
-    if (st) { swp += w * effectiveP(st, now); touched++; }
+    if (m !== null) { swp += w * m; touched++; }
   }
   if (touched === 0 || sw === 0) return null; // 未測定(未着手)
   return Math.round(100 * (swp / sw));         // 全項目の平均習得度(カバー率×習得)
@@ -210,7 +229,7 @@ export function ladderPassEntries(state: AppState, now: number): DaimonExpectati
   const meanPredicted = (ids: string[]): number => {
     if (!ids.length) return 0.25;
     let s = 0;
-    for (const id of ids) { const st = state.items[id]; s += st ? ladderItemP(effectiveP(st, now)) : 0.25; }
+    for (const id of ids) { const m = unitMasteryWithTransfer(state, now, id); s += m === null ? 0.25 : ladderItemP(m); }
     return s / ids.length;
   };
   const skillMu = (cat: Category): number => {
