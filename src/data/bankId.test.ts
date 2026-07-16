@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import { BANK, bankLevelOf } from './daimon';
 import { KNOWLEDGE_BANK as KB } from './index'; // 旧 exam/knowledgeBank.json 相当(rehydrateで生のまま復元)
 
-test('BANK の id は data 由来 kb-NNNNNN', () => {
+test('BANK の id は data 由来 kb-NNNNNN(厳選用法usg3-/usg4-を除く)', () => {
   assert.ok(BANK.length > 0);
-  for (const b of BANK) assert.match(b.id, /^kb-\d{6}$/);
+  for (const b of BANK) assert.match(b.id, /^(kb-\d{6}|usg[34]-\d{3})$/); // 厳選用法は usg3-/usg4-
 });
 
 test('BANK は ambiguous な order と passage_grammar(新セット経路へ移行)を除外した件数', () => {
