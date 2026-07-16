@@ -19,13 +19,14 @@ function examItemIds(state: AppState, category: Category, full: boolean): string
   return full ? allItemIdsFor(state.settings.level, category) : ringItemIdsFor(state.settings.level, category);
 }
 
-// 難易度重み: 難問の習得/正解ほど能力を強く示す。(a)語彙は使用頻度で項目別に補正 (b)級は kb-NNNNNN と n3- の両形式から読む (c)級はベース。
-function skillWeight(id: string): number {
+// 難易度重み: 難問の習得/正解ほど能力を強く示す。(a)語彙は使用頻度で項目別に補正 (b)級は bankLevelOf(データ由来)優先、無ければ n3- 等のid接頭辞 (c)級はベース。
+export function skillWeight(id: string): number {
   const b = JFT_BANDS[id];
   if (b) return b === 'A2.2' ? 1.6 : b === 'A2.1' ? 1.3 : 1;
-  // 級(難易度の基軸)。バンクid `kb-NNNNNN`(data由来・levelはBANKから逆引き) と 語id `n3-v-123#…` の両方に対応。
+  // 級(難易度の基軸)。バンクid(kb-/usg-/mk- いずれもデータから級を逆引き) と 語id(n3-v-123#…)の両対応。
   let level = 'N5';
-  if (id.startsWith('kb-')) level = bankLevelOf(id) ?? 'N5';
+  const bl = bankLevelOf(id);
+  if (bl) level = bl;
   else { const p = id.slice(0, 2).toLowerCase(); if (p === 'n3' || p === 'n4' || p === 'n5') level = p.toUpperCase(); }
   const base = level === 'N3' ? 1.7 : level === 'N4' ? 1.3 : 1;
   // 語彙は使用頻度(VOCAB_FREQ: 1=高頻度/易 〜 50=稀/難)で項目別補正。同じ級でも稀語ほど重い。
