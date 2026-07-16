@@ -100,7 +100,9 @@ export function daimonUnitIds(level: Level, daimon: Daimon, mode: 'all' | 'learn
     ? bankOf(level, daimon).map((b) => b.id)
     : daimon === 'grammar_form'
       ? bankOf(level, daimon).map((b) => b.id) // 文法形式も検証済の固定バンクのみ(旧例文clozeは廃止)
-      : items; // context/kanji_read/orthography/synonym は固定問題集(item系)のみ
+      : daimon === 'synonym'
+        ? items.filter((u) => SY_VERIFIED_UNITS.has(u)) // 言い換えは一意性検証済のみ出題(未検証の旧ダミーは除外)
+        : items; // context/kanji_read/orthography は固定問題集(item系)のみ
   return split(all, mode);
 }
 
@@ -132,6 +134,12 @@ const CTX_BANK_INDEX = new Map<string, (typeof CONTEXT_BANK)[number]>(
 // 言い換え類義の固定問題集(id sy:<vid> → ユニット <vid>#synonym)。
 const SY_BANK_INDEX = new Map<string, (typeof SYNONYM_BANK)[number]>(
   SYNONYM_BANK.map((e) => [`${e.id.slice(3)}#synonym`, e]),
+);
+// 誤答を作り直し、独立の反証で一意性を確認した問題(verified)だけを出題する。
+// 未検証は旧データ=分野違いの易しすぎるダミー(例 作法→天気/音楽/地図)で、出題もカバー率の母数も汚すため除外。
+// 波状生成で verified が付いた分だけ解禁される(=母数はデータ投入に応じて増える)。
+const SY_VERIFIED_UNITS = new Set(
+  SYNONYM_BANK.filter((e) => e.verified === true).map((e) => `${e.id.slice(3)}#synonym`),
 );
 // JFT会話と表現(id=jx-… をユニットidにそのまま使う)。JFTの学習/模試で場面→適切な表現を出題。
 const EXPR_INDEX = new Map<string, (typeof JFT_EXPRESSION)[number]>(JFT_EXPRESSION.map((e) => [e.id, e]));
@@ -185,10 +193,16 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
     const { choices, answerIndex } = build4Choices(cx.answer, cx.choices, rng);
     return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex, explain: cx.explain, explainNe: cx.explainNe, saveRef: saveRefForVocabUnit(unit) };
   }
-  // 言い換え類義=固定問題集(文＋下線部→意味が近い語)。prompt空・exampleに下線付き文。
+  // 言い換え類義=固定問題集。公式形式が級で違うので2通りに分岐する。
   const sy = SY_BANK_INDEX.get(unit);
   if (sy) {
     const { choices, answerIndex } = build4Choices(sy.answer, sy.choices, rng);
+    // N4公式=文レベル: 提示文と「だいたい同じ意味の文」を4文から選ぶ(選択肢が文)。
+    // stem/選択肢のカッコふりがなは RubyText が自動でルビ化する(用法と同じ描画経路)。
+    if (sy.stem) {
+      return { itemId: unit, prompt: sy.stem, question: 'だいたい同じ意味の文はどれですか。', format: 'usage', choices, answerIndex, saveRef: saveRefForVocabUnit(unit) };
+    }
+    // N3公式=語レベル: 文中の下線語と意味が最も近い語を4語から選ぶ。
     return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex, explain: sy.reason, explainNe: sy.reasonNe, saveRef: saveRefForVocabUnit(unit) };
   }
   // JFT会話と表現=場面(situation)に適切な表現を4択で。

@@ -194,7 +194,10 @@ export const KANJI_READ_BANK = _R.KANJI_READ_BANK as KanjiReadBankItem[];
 export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; }
 export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
-export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; }
+// verified=誤答を作り直し、独立の反証で「第2の正解が無い」ことを確認済みの問題。
+// 未検証(旧=分野違いの易しすぎるダミー。例 作法→天気/音楽/地図)は出題しない(daimonUnitIdsで除外)。
+// stem=N4公式形式(文レベル)の出題文。stemがある問題は choices も文になる(語レベルは sentence+underline)。
+export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; verified?: boolean; stem?: string; }
 export const SYNONYM_BANK = _R.SYNONYM_BANK as SynonymBankItem[];
 // 表記(大問2)の固定問題集(公式形式)。文中の対象語をかな(読み)で下線→正しい漢字/カタカナを4択。
 // 誤答=形が似た字(部首/字形の似た別漢字・字形の似たカタカナ)。生成=問題/tools/build_orthography_bank.py。
