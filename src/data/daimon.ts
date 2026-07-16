@@ -148,14 +148,21 @@ function underlineSegments(sentence: string, span: string): { text: string; hit:
   return segs;
 }
 
+/**
+ * 正解＋誤答プール → 4択。誤答が3個を超える大問は出題ごとに動的3抽出(毎回同じ3個だと暗記される)。
+ * 3個以下(組み立て/文法形式など)はプールを全て使う。
+ */
+export function build4Choices(answer: string, pool: string[], rng: Rng): { choices: string[]; answerIndex: number } {
+  const distractors = pool.filter((x) => x !== answer);
+  const picked = distractors.length > 3 ? sample(distractors, 3, rng) : distractors;
+  return shuffleChoices([answer, ...picked].slice(0, 4), 0, rng);
+}
+
 /** 学習ユニットid → 4択問題(出題形式は大問で固定)。Question.itemId はユニットid(=状態キー)にする。 */
 export function questionForUnit(unit: string, rng: Rng = Math.random): Question | null {
   const bank = BANK_INDEX.get(unit);
   if (bank) {
-    // 用法など誤答プールが3を超える大問は、出題ごとに誤答を動的3抽出(暗記防止)。組み立て/文法形式(誤答3)は全て使う。
-    const distractors = bank.choices.filter((x) => x !== bank.answer);
-    const picked = distractors.length > 3 ? sample(distractors, 3, rng) : distractors;
-    const { choices, answerIndex } = shuffleChoices([bank.answer, ...picked].slice(0, 4), 0, rng);
+    const { choices, answerIndex } = build4Choices(bank.answer, bank.choices, rng);
     // 文法形式判断・文の組み立ては文中の漢字にレベル適応ルビを出す(カッコふりがな→上付きルビ)。stemをfuriとして渡す。
     const useFuri = bank.daimon === 'grammar_form' || bank.daimon === 'order';
     return { itemId: unit, prompt: bank.stem, question: bank.question, ...(useFuri ? { furi: bank.stem } : {}), format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, saveRef: saveRefForBank(bank) };
@@ -163,31 +170,31 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
   // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
   const og = OG_BANK_INDEX.get(unit);
   if (og) {
-    const { choices, answerIndex } = shuffleChoices([og.answer, ...og.choices.filter((x) => x !== og.answer)].slice(0, 4), 0, rng);
+    const { choices, answerIndex } = build4Choices(og.answer, og.choices, rng);
     return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), furi: SENTENCE_FURI[og.id], furiTarget: og.underline, question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain, explainNe: og.explainNe, saveRef: saveRefForVocabUnit(unit) };
   }
   // 漢字読み=固定問題集(公式形式・文中の漢字を下線→読み方を4択)。prompt空・exampleに下線付き文。
   const kr = KR_BANK_INDEX.get(unit);
   if (kr) {
-    const { choices, answerIndex } = shuffleChoices([kr.answer, ...kr.choices.filter((x) => x !== kr.answer)].slice(0, 4), 0, rng);
+    const { choices, answerIndex } = build4Choices(kr.answer, kr.choices, rng);
     return { itemId: unit, prompt: '', example: underlineSegments(kr.sentence, kr.underline), furi: SENTENCE_FURI[kr.id], furiTarget: kr.underline, noTargetRuby: true, question: '下線の言葉の読み方は？', format: 'reading', choices, answerIndex, saveRef: saveRefForVocabUnit(unit) };
   }
   // 文脈規定=固定問題集(全内容語のオリジナル文＋非競合誤答)。
   const cx = CTX_BANK_INDEX.get(unit);
   if (cx) {
-    const { choices, answerIndex } = shuffleChoices([cx.answer, ...cx.choices.filter((x) => x !== cx.answer)].slice(0, 4), 0, rng);
+    const { choices, answerIndex } = build4Choices(cx.answer, cx.choices, rng);
     return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex, explain: cx.explain, explainNe: cx.explainNe, saveRef: saveRefForVocabUnit(unit) };
   }
   // 言い換え類義=固定問題集(文＋下線部→意味が近い語)。prompt空・exampleに下線付き文。
   const sy = SY_BANK_INDEX.get(unit);
   if (sy) {
-    const { choices, answerIndex } = shuffleChoices([sy.answer, ...sy.choices.filter((x) => x !== sy.answer)].slice(0, 4), 0, rng);
+    const { choices, answerIndex } = build4Choices(sy.answer, sy.choices, rng);
     return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex, explain: sy.reason, explainNe: sy.reasonNe, saveRef: saveRefForVocabUnit(unit) };
   }
   // JFT会話と表現=場面(situation)に適切な表現を4択で。
   const ex = EXPR_INDEX.get(unit);
   if (ex) {
-    const { choices, answerIndex } = shuffleChoices([ex.answer, ...ex.choices.filter((x) => x !== ex.answer)].slice(0, 4), 0, rng);
+    const { choices, answerIndex } = build4Choices(ex.answer, ex.choices, rng);
     return { itemId: unit, prompt: ex.situation, question: '', format: 'usage', choices, answerIndex, explain: ex.explain };
   }
   const hash = unit.lastIndexOf('#');
