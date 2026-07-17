@@ -191,7 +191,7 @@ export function readingAboveUserLevel(readingLevel: string, userLevel: string): 
 export interface KanjiReadBankItem { id: string; level: string; daimon: 'kanji_read'; sentence: string; underline: string; answer: string; choices: string[]; }
 export const KANJI_READ_BANK = _R.KANJI_READ_BANK as KanjiReadBankItem[];
 // 文脈規定(大問3)の固定問題集。id=cx:<vocabId>、choices=誤答3(正解は実行時にanswerを先頭付与)。
-export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; }
+export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; verified?: boolean; }
 export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
 // verified=誤答を作り直し、独立の反証で「第2の正解が無い」ことを確認済みの問題。

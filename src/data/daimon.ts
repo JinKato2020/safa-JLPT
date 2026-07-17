@@ -69,6 +69,13 @@ const KR_UNIT_SET = new Set(KANJI_READ_BANK.map((e) => `${e.id.slice(3)}#${e.dai
 const OG_UNIT_SET = new Set(ORTHOGRAPHY_BANK.map((e) => `${e.id.slice(3)}#orthography`));
 // 文脈規定=固定問題集(CONTEXT_BANK)にエントリがある語。id cx:<vid> → ユニット <vid>#context。
 const CTX_UNIT_SET = new Set(CONTEXT_BANK.map((e) => `${e.id.slice(3)}#context`));
+// 文脈規定は verified(作り直し＋独立の反証2回＋揃い監査を通過)だけを出題する級がある。
+// 旧データの誤答は分野違いで当てずっぽうに消せる(例 作法→湿度/酸素/時刻)ため測定にならない。
+// 【重要】級を絞ること。全級に一律で掛けると、まだ作り直していない級の文脈規定が丸ごと消滅する。
+const CTX_GATED_LEVELS = new Set<string>(['N4', 'N3']); // 作り直し済みの級だけ。N5は未着手なので従来どおり全部出す
+const CTX_VERIFIED_SET = new Set(
+  CONTEXT_BANK.filter((e) => e.verified === true).map((e) => `${e.id.slice(3)}#context`),
+);
 // 言い換え類義=固定問題集(SYNONYM_BANK)にエントリがある語。id sy:<vid> → ユニット <vid>#synonym。
 const SY_UNIT_SET = new Set(SYNONYM_BANK.map((e) => `${e.id.slice(3)}#synonym`));
 
@@ -76,7 +83,11 @@ const SY_UNIT_SET = new Set(SYNONYM_BANK.map((e) => `${e.id.slice(3)}#synonym`))
 function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
   if (daimon === 'orthography') return VOCAB.filter((v) => v.level === level && OG_UNIT_SET.has(`${v.id}#orthography`));
   if (daimon === 'kanji_read') return VOCAB.filter((v) => v.level === level && KR_UNIT_SET.has(`${v.id}#kanji_read`));
-  if (daimon === 'context') return VOCAB.filter((v) => v.level === level && CTX_UNIT_SET.has(`${v.id}#context`));
+  if (daimon === 'context') {
+    const gated = CTX_GATED_LEVELS.has(level);
+    return VOCAB.filter((v) => v.level === level && CTX_UNIT_SET.has(`${v.id}#context`)
+      && (!gated || CTX_VERIFIED_SET.has(`${v.id}#context`)));
+  }
   if (daimon === 'synonym') return VOCAB.filter((v) => v.level === level && SY_UNIT_SET.has(`${v.id}#synonym`));
   if (daimon === 'grammar_form') return GRAMMAR.filter((g) => g.level === level && GRAMMAR_CLOZE_OK.has(g.id));
   return [];
