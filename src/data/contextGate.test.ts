@@ -2,7 +2,7 @@
 // 【このテストが守るもの】ゲートを級で絞り忘れると、未着手の級の文脈規定が丸ごと消滅する(出荷事故)。
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { daimonUnitIds } from './daimon.ts';
+import { daimonUnitIds, contextGated } from './daimon.ts';
 import { CONTEXT_BANK } from './index.ts';
 
 const GATED = ['N5', 'N4', 'N3'];   // 作り直し＋独立の反証2回＋揃い監査を通過済み(N5=2026-07-18に599問)
@@ -54,4 +54,15 @@ test('誤答が足りずタグを付けた語は出題されない', () => {
     assert.ok(!e.verified, `${e.id}: 誤答不足なのにverifiedが付いている`);
     assert.ok(!units(e.level).includes(`${e.id.slice(3)}#context`), `${e.id}: 誤答不足なのに出題されている`);
   }
+});
+
+// 【安全網】ゲート対象級でも、実データの verified が0件なら【ゲートしない】(=全部出す)。
+// 既存ユーザーは古いOTAキャッシュ(verified無し)を焼き込みデータへ上書きして起動するため、
+// ゲートだけ先に効くと検証済みデータが届くまで文脈規定が丸ごと消える(2026-07-18・N5初回起動で実発生)。
+test('ゲート安全網: その級のverifiedが0件ならゲートしない(大問を空にしない)', () => {
+  const g = new Set(['N5', 'N4', 'N3']);
+  assert.equal(contextGated('N5', g, new Set(['N5'])), true, 'verifiedありならゲートする');
+  assert.equal(contextGated('N5', g, new Set()), false, 'verified0件は安全網でゲートしない(全部出す)');
+  assert.equal(contextGated('N4', g, new Set(['N5'])), false, 'その級にverifiedが無ければゲートしない');
+  assert.equal(contextGated('N1', g, new Set(['N1'])), false, 'ゲート対象外の級はゲートしない');
 });

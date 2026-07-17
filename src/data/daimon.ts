@@ -76,6 +76,15 @@ const CTX_GATED_LEVELS = new Set<string>(['N5', 'N4', 'N3']); // 作り直し済
 const CTX_VERIFIED_SET = new Set(
   CONTEXT_BANK.filter((e) => e.verified === true).map((e) => `${e.id.slice(3)}#context`),
 );
+// その級に verified が1問でもある級だけを記録(実際に読み込まれたデータに基づく)。
+const CTX_VERIFIED_LEVELS = new Set(CONTEXT_BANK.filter((e) => e.verified === true).map((e) => e.level));
+// 【安全網】ゲート対象級でも、実データの verified が0件なら【ゲートしない】(=全部出す)。
+// 理由: 既存ユーザーはOTAキャッシュ(古い=verified無し)を焼き込みデータへ上書きして起動するため、
+// ゲートだけ先に効くと検証済みデータが届くまで文脈規定が丸ごと消える(2026-07-18・N5初回起動で実際に発生)。
+// 「古い問題を出す」方が「大問が空」より遥かにマシ。背景同期後の再起動で verified が入ればゲートが効く。
+export function contextGated(level: string, gatedLevels = CTX_GATED_LEVELS, verifiedLevels = CTX_VERIFIED_LEVELS): boolean {
+  return gatedLevels.has(level) && verifiedLevels.has(level);
+}
 // 言い換え類義=固定問題集(SYNONYM_BANK)にエントリがある語。id sy:<vid> → ユニット <vid>#synonym。
 const SY_UNIT_SET = new Set(SYNONYM_BANK.map((e) => `${e.id.slice(3)}#synonym`));
 
@@ -84,7 +93,7 @@ function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
   if (daimon === 'orthography') return VOCAB.filter((v) => v.level === level && OG_UNIT_SET.has(`${v.id}#orthography`));
   if (daimon === 'kanji_read') return VOCAB.filter((v) => v.level === level && KR_UNIT_SET.has(`${v.id}#kanji_read`));
   if (daimon === 'context') {
-    const gated = CTX_GATED_LEVELS.has(level);
+    const gated = contextGated(level); // 安全網: その級にverifiedが0件ならゲートしない(大問を空にしない)
     return VOCAB.filter((v) => v.level === level && CTX_UNIT_SET.has(`${v.id}#context`)
       && (!gated || CTX_VERIFIED_SET.has(`${v.id}#context`)));
   }
