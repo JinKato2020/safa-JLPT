@@ -1,0 +1,428 @@
+name: まいにちJLPT (Pages配信 + iOS/Android ビルド)
+run-name: "${{ inputs.build_number && format('{0}/{1} — まいにちJLPT {2} ビルド', inputs.build_number, inputs.version_code, inputs.platforms) || format('Pages — まいにちJLPT 配信 ({0})', github.event.head_commit.message) }}"
+
+# =============================================================================
+# まいにちJLPT — 1ワークフローに統合(ユーザー要望 2026-07-17):
+#  ① deploy-pages  : push(main)時 → GitHub Pages 配信(聴解音声/法務ページ/辞書/問題コンテンツ)
+#  ② build-ios     : 手動時 → iOS ビルド & TestFlight 提出 (com.safa.jlpt)
+#  ③ build-android : 手動時 → Android APK/AAB (App C枠 com.safa.english)
+#  「ビルドして」= iOS+Android 両方が既定(platforms=both)。②③は別ランナーで並列に走る。
+#
+# 版番号(CLAUDE.md #0・最重要): run-name の先頭に必ず番号を出す。
+#   iOS Build番号 = 1000 + commit数 / Android versionCode = 2000 + commit数(App C現1270より上)
+#   dispatch で渡した番号と実際の番号がズレたら各ジョブが落ちる(版の追跡が壊れるため黙って進めない)。
+#
+# 必要な Secrets:
+#   iOS     : IOS_DIST_CERT_BASE64 / IOS_DIST_CERT_PASSWORD / IOS_TEAM_ID
+#             APP_STORE_CONNECT_KEY_ID / APP_STORE_CONNECT_ISSUER_ID / APP_STORE_CONNECT_API_KEY_BASE64
+#             IOS_PROVISIONING_PROFILE_JLPT_BASE64
+#   Android : ANDROID_KEYSTORE_BASE64 / ANDROID_KEYSTORE_PASSWORD / ANDROID_KEY_ALIAS / ANDROID_KEY_PASSWORD
+#             (publish時のみ) GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64
+# =============================================================================
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      platforms:
+        description: 'ビルド対象。「ビルドして」= both(既定)'
+        required: false
+        default: 'both'
+        type: choice
+        options: ['both', 'ios', 'android']
+      build_number:
+        description: 'iOS Build番号(=1000+commit数)。run-name先頭に出すため dispatch 側で渡す。空ならジョブ内で計算'
+        required: false
+        default: ''
+        type: string
+      version_code:
+        description: 'Android versionCode(=2000+commit数)。同上'
+        required: false
+        default: ''
+        type: string
+      submit:
+        description: 'iOS: ビルド後 TestFlight へ提出(既定true)'
+        required: false
+        default: 'true'
+        type: choice
+        options: ['true', 'false']
+      aab:
+        description: 'Android: AABも生成(Play提出用・約2倍遅い)。実機テストだけならOFF'
+        type: boolean
+        default: false
+      publish:
+        description: 'Android: Playへ自動アップロード。⚠他アプリ(App C)の配信面に触れるので合図時のみ'
+        type: boolean
+        default: false
+      track:
+        description: 'Playトラック(publish時)。internal=内部テスト(既定) / alpha=クローズド / production=本番(合図後のみ)'
+        type: choice
+        options: [internal, alpha, production]
+        default: internal
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  BUNDLE_ID: com.safa.jlpt
+
+jobs:
+  # ① Pages配信(push時): 音声と法務ページをGitHub Pagesへ。URL構造を従来どおり維持
+  #    (/assets/audio/*.mp3 ・ /privacy.html ・ /terms.html)。
+  deploy-pages:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          submodules: recursive
+      - name: Build _site (audio + legal pages・URL構造維持)
+        run: |
+          mkdir -p _site/assets
+          cp -r assets/audio _site/assets/audio
+          # 発話表現イラスト(オンデマンドDL用・同梱しない)
+          [ -d assets/hatsuwa ] && cp -r assets/hatsuwa _site/assets/hatsuwa || true
+          [ -f privacy.html ] && cp privacy.html _site/ || true
+          [ -f terms.html ] && cp terms.html _site/ || true
+          # メール確認後のリダイレクト先(Supabase Site URL)。localhostエラー回避。
+          [ -f confirm.html ] && cp confirm.html _site/ || true
+          # 共有辞書を1か所で配信(JLPT・App B 共通の単一ソース): /dict/ja-*.json
+          [ -d dict ] && cp -r dict _site/dict || true
+          # 問題コンテンツ(大問×レベル・i18n inline)を /content/ で配信=逐次OTAの取得元。
+          [ -d content ] && cp -r content _site/content || true
+          echo "::notice::_site contents:"; find _site -maxdepth 3 | head -40
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # ② iOSビルド(手動時のみ)。macOSランナー節約のため push では走らせない。
+  build-ios:
+    if: github.event_name == 'workflow_dispatch' && (inputs.platforms == 'both' || inputs.platforms == 'ios')
+    runs-on: macos-26
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Verify Xcode version
+        run: xcodebuild -version
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install npm dependencies
+        run: npm ci || npm install
+
+      - name: Calculate build number
+        run: |
+          BUILD_NUMBER=$((1000 + $(git rev-list --count HEAD)))
+          # run-name に出した番号(dispatch入力)と実際のビルド番号がズレたら、版の追跡が壊れる。
+          # (dispatch後に別コミットが載った等)。黙って進めず落とす。
+          WANT="${{ inputs.build_number }}"
+          if [ -n "$WANT" ] && [ "$WANT" != "$BUILD_NUMBER" ]; then
+            echo "::error::run-nameの番号($WANT)と実際のビルド番号($BUILD_NUMBER)が不一致。dispatch後にコミットが載った可能性。再実行してください"
+            exit 1
+          fi
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+          echo "::notice::Build number: $BUILD_NUMBER"
+          APP_VERSION=$(node -p "require('./app.json').expo.version" 2>/dev/null || echo "?")
+          echo "## 📦 ${BUILD_NUMBER} — iOS build ・ まいにちJLPT v$APP_VERSION (TestFlight)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Expo prebuild (iOS)
+        env:
+          EXPO_NO_TELEMETRY: '1'
+        run: npx expo prebuild --platform ios --clean
+
+      - name: Detect Xcode project name
+        run: |
+          XCODEPROJ=$(ls -d ios/*.xcodeproj 2>/dev/null | head -1)
+          if [ -z "$XCODEPROJ" ]; then
+            echo "::error::No .xcodeproj found after prebuild"; ls -la ios/ || true; exit 1
+          fi
+          PROJECT_NAME=$(basename "$XCODEPROJ" .xcodeproj)
+          echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_ENV
+          echo "::notice::Project name: $PROJECT_NAME"
+
+      - name: Set EAS Update channel (production)
+        run: |
+          PLIST=$(find ios -name Expo.plist | head -1)
+          if [ -z "$PLIST" ]; then echo "::error::Expo.plist not found after prebuild (expo-updates設定漏れ?)"; exit 1; fi
+          echo "::notice::Expo.plist: $PLIST"
+          /usr/libexec/PlistBuddy -c "Delete :EXUpdatesRequestHeaders" "$PLIST" 2>/dev/null || true
+          /usr/libexec/PlistBuddy -c "Add :EXUpdatesRequestHeaders dict" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Add :EXUpdatesRequestHeaders:expo-channel-name string production" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Print :EXUpdatesRequestHeaders" "$PLIST"
+
+      - name: Set build number in Info.plist
+        run: |
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "ios/$PROJECT_NAME/Info.plist"
+          echo "::notice::Set CFBundleVersion to $BUILD_NUMBER"
+
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ios
+          pod install
+
+      - name: Setup signing keychain
+        env:
+          CERT_B64: ${{ secrets.IOS_DIST_CERT_BASE64 }}
+          CERT_PWD: ${{ secrets.IOS_DIST_CERT_PASSWORD }}
+        run: |
+          CERT_PWD_CLEAN=$(printf '%s' "$CERT_PWD" | tr -d '\r\n[:space:]')
+          KEYCHAIN_PATH="$RUNNER_TEMP/build.keychain-db"
+          security create-keychain -p "tempkeychain" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "tempkeychain" "$KEYCHAIN_PATH"
+          printf '%s' "$CERT_B64" | base64 --decode > cert.p12
+          if [ ! -s cert.p12 ]; then echo "::error::Decoded .p12 is empty"; exit 1; fi
+          echo "::notice::cert.p12 size: $(wc -c < cert.p12) bytes"
+          security import cert.p12 -k "$KEYCHAIN_PATH" -P "$CERT_PWD_CLEAN" -A -t cert -f pkcs12
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "tempkeychain" "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | xargs)
+          rm cert.p12
+
+      - name: Install provisioning profile
+        env:
+          PROFILE_B64: ${{ secrets.IOS_PROVISIONING_PROFILE_JLPT_BASE64 }}
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "$PROFILE_B64" | base64 --decode > profile.mobileprovision
+          PROFILE_UUID=$(security cms -D -i profile.mobileprovision | plutil -extract UUID raw -o - -)
+          echo "PROFILE_UUID=$PROFILE_UUID" >> $GITHUB_ENV
+          echo "::notice::Provisioning profile UUID: $PROFILE_UUID"
+          cp profile.mobileprovision "$HOME/Library/MobileDevice/Provisioning Profiles/$PROFILE_UUID.mobileprovision"
+          rm profile.mobileprovision
+
+      - name: Create ExportOptions.plist
+        env:
+          TEAM_ID_RAW: ${{ secrets.IOS_TEAM_ID }}
+        run: |
+          TEAM_ID=$(printf '%s' "$TEAM_ID_RAW" | tr -d '\r\n[:space:]')
+          cat > ExportOptions.plist <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store-connect</string>
+            <key>teamID</key>
+            <string>$TEAM_ID</string>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>$BUNDLE_ID</key>
+              <string>$PROFILE_UUID</string>
+            </dict>
+            <key>uploadSymbols</key>
+            <true/>
+            <key>stripSwiftSymbols</key>
+            <true/>
+          </dict>
+          </plist>
+          EOF
+
+      - name: Build archive
+        env:
+          TEAM_ID_RAW: ${{ secrets.IOS_TEAM_ID }}
+        run: |
+          set -o pipefail
+          TEAM_ID=$(printf '%s' "$TEAM_ID_RAW" | tr -d '\r\n[:space:]')
+          cd ios
+          xcodebuild \
+            -workspace "${PROJECT_NAME}.xcworkspace" \
+            -scheme "${PROJECT_NAME}" \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -archivePath "build/App.xcarchive" \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_UUID" \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            archive
+
+      - name: Export IPA
+        run: |
+          set -o pipefail
+          cd ios
+          xcodebuild -exportArchive \
+            -archivePath build/App.xcarchive \
+            -exportPath build \
+            -exportOptionsPlist ../ExportOptions.plist
+          IPA_PATH=$(find build -name "*.ipa" | head -1)
+          if [ -z "$IPA_PATH" ]; then echo "::error::IPA export failed"; exit 1; fi
+          echo "::notice::IPA created: $IPA_PATH"
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: ios-ipa-jlpt-build-${{ env.BUILD_NUMBER }}
+          path: ios/build/*.ipa
+          retention-days: 30
+
+      - name: Upload to TestFlight
+        if: ${{ inputs.submit != 'false' }}
+        env:
+          KEY_ID_RAW: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          ISSUER_ID_RAW: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          KEY_B64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+        run: |
+          KEY_ID=$(printf '%s' "$KEY_ID_RAW" | tr -d '\r\n[:space:]')
+          ISSUER_ID=$(printf '%s' "$ISSUER_ID_RAW" | tr -d '\r\n[:space:]')
+          mkdir -p ~/.appstoreconnect/private_keys
+          printf '%s' "$KEY_B64" | base64 --decode > ~/.appstoreconnect/private_keys/AuthKey_${KEY_ID}.p8
+          IPA_PATH=$(find ios/build -name "*.ipa" | head -1)
+          echo "::notice::Uploading $IPA_PATH to TestFlight..."
+          xcrun altool --upload-app --file "$IPA_PATH" --type ios --apiKey "$KEY_ID" --apiIssuer "$ISSUER_ID"
+          rm -rf ~/.appstoreconnect
+
+  # ③ Androidビルド(手動時のみ)。App C(com.safa.english)の既存Play枠へ「上書き」する AAB/APK。
+  #    ・applicationId=com.safa.english(app.json)・versionCode=2000+commit(App C現1270より上)。
+  #    ・署名= App C のアップロード鍵(Secrets)。Play App Signing 想定。
+  #    ・方針(2026-06-29): ビルド後は「内部テスト(internal)まで自動」。クローズド/本番は合図時のみ。
+  build-android:
+    if: github.event_name == 'workflow_dispatch' && (inputs.platforms == 'both' || inputs.platforms == 'android')
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Setup Java (JDK 17)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Cache Gradle (2回目以降を高速化)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-jlpt-android-v1
+          restore-keys: gradle-jlpt-android-
+      - name: Install npm dependencies
+        run: npm ci || npm install
+      - name: Calculate versionCode (2000+commit, App C 1270 超)
+        run: |
+          BUILD_NUMBER=$((2000 + $(git rev-list --count HEAD)))
+          # run-name に出した番号(dispatch入力)と実際の versionCode がズレたら版の追跡が壊れる。黙って進めず落とす。
+          WANT="${{ inputs.version_code }}"
+          if [ -n "$WANT" ] && [ "$WANT" != "$BUILD_NUMBER" ]; then
+            echo "::error::run-nameの番号($WANT)と実際のversionCode($BUILD_NUMBER)が不一致。dispatch後にコミットが載った可能性。再実行してください"
+            exit 1
+          fi
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+          APP_VERSION=$(node -p "require('./app.json').expo.version" 2>/dev/null || echo "?")
+          echo "## 🤖 ${BUILD_NUMBER} — Android AAB ・ まいにちJLPT v$APP_VERSION (App C枠 com.safa.english)" >> $GITHUB_STEP_SUMMARY
+      - name: Expo prebuild (Android)
+        env:
+          EXPO_NO_TELEMETRY: '1'
+        run: npx expo prebuild --platform android --clean
+      - name: Set versionCode = build number
+        run: sed -i "s/versionCode .*/versionCode $BUILD_NUMBER/" android/app/build.gradle
+      - name: Gradleチューニング(JVMメモリ増+ABI限定=90分タイムアウトの真因対策)
+        run: |
+          GP=android/gradle.properties
+          # 真因: 既定 -Xmx2048m/Metaspace512m が不足し lintVital がOOM→GCスラッシング→ハング
+          sed -i 's/^org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx5120m -XX:MaxMetaspaceSize=1280m -XX:+UseParallelGC -Dfile.encoding=UTF-8/' "$GP"
+          grep -q '^org.gradle.jvmargs=' "$GP" || echo 'org.gradle.jvmargs=-Xmx5120m -XX:MaxMetaspaceSize=1280m -XX:+UseParallelGC -Dfile.encoding=UTF-8' >> "$GP"
+          # ABI=arm64-v8a+armeabi-v7a(実機ARM 64/32bitをカバー・x86/x86_64=エミュ用のみ除外)。
+          # ※arm64のみだと旧32bit端末がPlayで非対応になりエラー(5,891台)。両方入れて回避。
+          sed -i 's/^reactNativeArchitectures=.*/reactNativeArchitectures=arm64-v8a,armeabi-v7a/' "$GP"
+          grep -q '^reactNativeArchitectures=' "$GP" || echo 'reactNativeArchitectures=arm64-v8a,armeabi-v7a' >> "$GP"
+          echo "--- tuned ---"; grep -E '^(org.gradle.jvmargs|reactNativeArchitectures)=' "$GP"
+      - name: Configure release signing (App C upload key)
+        env:
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          echo "$KS_B64" | base64 --decode > android/app/release.keystore
+          if [ ! -s android/app/release.keystore ]; then echo "::error::keystore empty (set ANDROID_KEYSTORE_BASE64)"; exit 1; fi
+          node -e '
+            const fs=require("fs");const p="android/app/build.gradle";let s=fs.readFileSync(p,"utf8");
+            if(!s.includes("RELEASE signing (CI)")){
+              s=s.replace(/signingConfigs\s*\{/, m=>m+`\n        // RELEASE signing (CI)\n        release {\n            storeFile file("release.keystore")\n            storePassword System.getenv("RELEASE_STORE_PASSWORD")\n            keyAlias System.getenv("RELEASE_KEY_ALIAS")\n            keyPassword System.getenv("RELEASE_KEY_PASSWORD")\n        }`);
+              s=s.replace(/signingConfig signingConfigs\.debug/g,"signingConfig signingConfigs.release");
+              fs.writeFileSync(p,s);
+            }
+          '
+          grep -q "RELEASE signing (CI)" android/app/build.gradle || { echo "::error::gradle patch failed"; exit 1; }
+      - name: Build APK(実機用) ＋ 任意でAAB(Play用)
+        env:
+          RELEASE_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          cd android
+          # lintVitalRelease はリリース時Lint(メモリ大食い・OOMハングの一因)→スキップ。配布物に影響なし。
+          # publish時はPlay提出にAABが必須なので必ず bundleRelease。
+          if [ "${{ inputs.aab }}" = "true" ] || [ "${{ inputs.publish }}" = "true" ]; then
+            ./gradlew bundleRelease --no-daemon -x lintVitalRelease
+          else
+            ./gradlew assembleRelease --no-daemon -x lintVitalRelease
+          fi
+      - name: Upload AAB (Playクローズドテスト提出用・aab/publish時)
+        if: ${{ inputs.aab || inputs.publish }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: jlpt-appc-android-aab-${{ env.BUILD_NUMBER }}
+          path: android/app/build/outputs/bundle/release/*.aab
+      - name: Upload APK (実機に直接インストール用・aab/publishがfalseのみ)
+        if: ${{ !inputs.aab && !inputs.publish }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: jlpt-appc-android-apk-${{ env.BUILD_NUMBER }}
+          path: android/app/build/outputs/apk/release/*.apk
+      - name: Decode Play service account (publish時)
+        if: ${{ inputs.publish }}
+        env:
+          PLAY_SA_B64: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64 }}
+        run: |
+          if [ -z "$PLAY_SA_B64" ]; then
+            echo "::error::GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64 が未設定です。safa-JLPT にこのSecretを追加してください。"; exit 1
+          fi
+          echo "$PLAY_SA_B64" | base64 --decode > play-sa.json
+          test -s play-sa.json || { echo "::error::Play SA JSON のデコードに失敗(値を確認)"; exit 1; }
+          echo "## 🚀 Play 提出 — track=${{ inputs.track }} / versionCode=${BUILD_NUMBER} / com.safa.english" >> $GITHUB_STEP_SUMMARY
+      - name: Publish AAB to Google Play (track=${{ inputs.track }})
+        if: ${{ inputs.publish }}
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: play-sa.json
+          packageName: com.safa.english
+          releaseFiles: android/app/build/outputs/bundle/release/*.aab
+          track: ${{ inputs.track }}
+          status: completed
+          releaseName: ${{ env.BUILD_NUMBER }}
+      - name: Clean SA file
+        if: ${{ always() && inputs.publish }}
+        run: rm -f play-sa.json
