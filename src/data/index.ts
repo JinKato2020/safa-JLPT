@@ -195,9 +195,12 @@ export interface ContextBankItem { id: string; level: string; prompt: string; qu
 export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
 // verified=誤答を作り直し、独立の反証で「第2の正解が無い」ことを確認済みの問題。
-// 未検証(旧=分野違いの易しすぎるダミー。例 作法→天気/音楽/地図)は出題しない(daimonUnitIdsで除外)。
-// stem=N4公式形式(文レベル)の出題文。stemがある問題は choices も文になる(語レベルは sentence+underline)。
-export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; verified?: boolean; stem?: string; }
+// ★出題ゲートは無い(edb076f・2026-07-17)。開発者しか触らないため未検証の旧問題も出す。
+//   verified は「どこまで作り直したか」の進捗メタ。※以前の「未検証は出題しない」は事実と異なるため削除。
+// stem=公式の文レベル形式(N4/N5)の出題文。stemがある問題は choices も文になる(語レベル=N3は sentence+underline)。
+// pattern=作問の型。*_cross は build4Choices の動的3抽出でクロスが壊れるため誤答ちょうど3個(設計書 §4.3)。
+export type SynonymPattern = 'noun' | 'adj' | 'verb' | 'hypernym' | 'negation_cross' | 'perspective_cross';
+export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; verified?: boolean; stem?: string; pattern?: SynonymPattern; }
 export const SYNONYM_BANK = _R.SYNONYM_BANK as SynonymBankItem[];
 // 表記(大問2)の固定問題集(公式形式)。文中の対象語をかな(読み)で下線→正しい漢字/カタカナを4択。
 // 誤答=形が似た字(部首/字形の似た別漢字・字形の似たカタカナ)。生成=問題/tools/build_orthography_bank.py。
