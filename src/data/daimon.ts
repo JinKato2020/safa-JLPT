@@ -72,7 +72,7 @@ const CTX_UNIT_SET = new Set(CONTEXT_BANK.map((e) => `${e.id.slice(3)}#context`)
 // 文脈規定は verified(作り直し＋独立の反証2回＋揃い監査を通過)だけを出題する級がある。
 // 旧データの誤答は分野違いで当てずっぽうに消せる(例 作法→湿度/酸素/時刻)ため測定にならない。
 // 【重要】級を絞ること。全級に一律で掛けると、まだ作り直していない級の文脈規定が丸ごと消滅する。
-const CTX_GATED_LEVELS = new Set<string>(['N4', 'N3']); // 作り直し済みの級だけ。N5は未着手なので従来どおり全部出す
+const CTX_GATED_LEVELS = new Set<string>(['N5', 'N4', 'N3']); // 作り直し済みの級だけ。N5=揃え直し599問verified済(2026-07-18)・残73は手作り待ちで非表示
 const CTX_VERIFIED_SET = new Set(
   CONTEXT_BANK.filter((e) => e.verified === true).map((e) => `${e.id.slice(3)}#context`),
 );

@@ -5,8 +5,8 @@ import assert from 'node:assert/strict';
 import { daimonUnitIds } from './daimon.ts';
 import { CONTEXT_BANK } from './index.ts';
 
-const GATED = ['N4', 'N3'];   // 作り直し＋独立の反証2回＋揃い監査を通過済み
-const UNGATED = ['N5'];       // 未着手。ゲートしてはいけない(掛けると全問消える)
+const GATED = ['N5', 'N4', 'N3'];   // 作り直し＋独立の反証2回＋揃い監査を通過済み(N5=2026-07-18に599問)
+const UNGATED: string[] = [];        // 全級ゲート済み。未着手の級ができたらここへ足す
 
 const bank = (level: string) => CONTEXT_BANK.filter((e) => e.level === level);
 const verified = (level: string) => bank(level).filter((e) => e.verified === true);
