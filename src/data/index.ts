@@ -199,7 +199,9 @@ export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];
 //   verified は「どこまで作り直したか」の進捗メタ。※以前の「未検証は出題しない」は事実と異なるため削除。
 // stem=公式の文レベル形式(N4/N5)の出題文。stemがある問題は choices も文になる(語レベル=N3は sentence+underline)。
 // pattern=作問の型。*_cross は build4Choices の動的3抽出でクロスが壊れるため誤答ちょうど3個(設計書 §4.3)。
-export type SynonymPattern = 'noun' | 'adj' | 'verb' | 'hypernym' | 'negation_cross' | 'perspective_cross';
+// pattern=作問の型。adv=副詞・疑問詞(ちょうど/どう/なぜ/もう/大変…)。実データの一定数がこれで、
+// 型に無いと生成役が adj へ寄せ、adj の「正解の対義語を1つ入れる」規則が副詞に適用されて非文になる。
+export type SynonymPattern = 'noun' | 'adj' | 'adv' | 'verb' | 'hypernym' | 'negation_cross' | 'perspective_cross';
 export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; verified?: boolean; stem?: string; pattern?: SynonymPattern; }
 export const SYNONYM_BANK = _R.SYNONYM_BANK as SynonymBankItem[];
 // 表記(大問2)の固定問題集(公式形式)。文中の対象語をかな(読み)で下線→正しい漢字/カタカナを4択。
