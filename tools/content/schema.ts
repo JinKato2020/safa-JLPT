@@ -24,7 +24,12 @@ export const DAIMON_SPEC: DaimonSpec[] = [
   { daimon: 'context', prefix: 'context', folder: 'moji_goi', neutral: ['prompt', 'question', 'answer', 'choices'], translate: ['explain'], neField: 'explainNe' },
   { daimon: 'synonym', prefix: 'synonym', folder: 'moji_goi', neutral: ['sentence', 'underline', 'word', 'answer', 'choices'], translate: ['explain'], neField: 'reasonNe' },
   // 用法/文法形式/組み立ては現状 解説データ無し(将来 i18n.<lang>.explain を追加)。今は訳必須にしない。
+  // ★neutral には BankUnit(data/daimon.ts)が要るフィールドを漏らさず入れること。
+  //   pointId … saveRefForBank が文法idの逆引きに使う。落とすと学習記録が保存されない。
+  //   ambiguous … order のうち「複数正解=一意にならない」と監査された296問の除外印。
+  //               落とすと除外が効かなくなり、答えが定まらない問題が出題される。
+  //   level/daimon はファイルヘッダ側に持つ(rehydrate が復元する)。
   { daimon: 'usage', prefix: 'usage', folder: 'moji_goi', neutral: ['stem', 'question', 'answer', 'choices'], translate: [] },
-  { daimon: 'grammar_form', prefix: 'grammar_form', folder: 'bunpou', neutral: ['stem', 'question', 'answer', 'choices'], translate: [] },
-  { daimon: 'order', prefix: 'order', folder: 'bunpou', neutral: ['stem', 'question', 'answer', 'choices'], translate: [] },
+  { daimon: 'grammar_form', prefix: 'grammar_form', folder: 'bunpou', neutral: ['stem', 'question', 'answer', 'choices', 'pointId'], translate: [] },
+  { daimon: 'order', prefix: 'order', folder: 'bunpou', neutral: ['stem', 'question', 'answer', 'choices', 'pointId', 'ambiguous'], translate: [] },
 ];

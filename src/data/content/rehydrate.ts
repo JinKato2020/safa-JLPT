@@ -17,17 +17,14 @@ export function rehydrateBanks(files: Record<string, Any>) {
   const ORTHOGRAPHY_BANK = bankItems(files, 'orthography', (it, level) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain }));
   const CONTEXT_BANK = bankItems(files, 'context', (it, level) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain }));
   const SYNONYM_BANK = bankItems(files, 'synonym', (it, level) => ({ ...stripI18n(it), level, reason: it.i18n?.ja?.explain, reasonNe: it.i18n?.ne?.explain }));
-  // knowledgeBank は生のまま復元(全daimon・pointId・ambiguous を保持)。daimon.ts が後段でフィルタする。
-  // 用法(usage)だけは大問別ファイル moji_goi/usage_*.json が正本(旧バンクからは削除済み)。
+  // 旧バンク(knowledgebank_*.json)は解体済み(2026-07-17)。全大問が「大問×レベル=1ファイル」になった。
   // 分割ファイルの item は level/daimon を持たない(ファイルヘッダ側にある)ので、ここで復元して
-  // 旧バンクと同じ shape に揃える。BankUnit が level/daimon を要求するため。
-  // ※ grammar_form/order を同じ方式に移せないのは、分割ファイルが pointId(saveRefに必須)と
-  //   ambiguous(order の複数正解296問を出題プールから除外する印)を落としているため。
-  //   移すなら先に tools/content/schema.ts の neutral に両フィールドを足して再生成すること。
-  const KNOWLEDGE_BANK = [
-    ...filesByDaimon(files, 'knowledgebank').flatMap((f) => f.items.map((it: Any) => stripI18n(it))),
-    ...bankItems(files, 'usage', (it, level) => ({ ...stripI18n(it), level, daimon: 'usage' })),
-  ];
+  // BankUnit(data/daimon.ts)が要る shape に揃える。pointId/ambiguous は item 側に入っている。
+  // 旧バンクにあった context(653)と passage_grammar(842)は【一度も出題されない死蔵】だったので削除した
+  // (文脈規定は moji_goi/context_*.json のみ・文章の文法は passage_grammar_*.json のセット形式へ移行済)。
+  const BANK_DAIMON = ['usage', 'grammar_form', 'order'] as const;
+  const KNOWLEDGE_BANK = BANK_DAIMON.flatMap((daimon) =>
+    bankItems(files, daimon, (it, level) => ({ ...stripI18n(it), level, daimon })));
 
   const READING_SUBTYPES = ['naiyou_tan', 'naiyou_chu', 'choubun', 'joho'];
   const LISTENING_SUBTYPES = ['kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji'];
