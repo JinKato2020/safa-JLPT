@@ -4,8 +4,10 @@ import { buildInventory, inventoryCount } from './inventory.ts';
 
 const INV = buildInventory();
 
-test('inventory has vocab 3525 / kanji 612 / grammar 393', () => {
-  assert.equal(INV.filter(i => i.type === 'vocab').length, 3525);
+// 在庫数は語彙を足すたびに動く。3525→3541 は表記のカタカナ孤児16問(コーラ/サッカー等)を
+// 救うため語彙を追加したもの(2026-07-17)。増減した時はここを更新する＝意図しない増減を検知する番人。
+test('inventory has vocab 3541 / kanji 612 / grammar 393', () => {
+  assert.equal(INV.filter(i => i.type === 'vocab').length, 3541);
   assert.equal(INV.filter(i => i.type === 'kanji').length, 612);
   assert.equal(INV.filter(i => i.type === 'grammar').length, 393);
 });
@@ -34,5 +36,5 @@ test('529 kanji carry the meaning facet', () => {
 
 test('inventoryCount filters by level and type', () => {
   const n5v = inventoryCount(INV, 'N5', 'vocab');
-  assert.ok(n5v > 0 && n5v < 3525);
+  assert.ok(n5v > 0 && n5v < 3541);
 });

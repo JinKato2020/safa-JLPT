@@ -1,1 +1,5387 @@
-{"schema":1,"daimon":"kanji_read","level":"N4","languages":["ja","ne"],"items":[{"id":"kr:n5-v-3","i18n":{},"sentence":"そらの 青 は きれいだ。","underline":"青","answer":"あお","choices":["あう","おあ","かお"]},{"id":"kr:n5-v-4","i18n":{},"sentence":"うみは 青い。","underline":"青い","answer":"あおい","choices":["あうい","あおえ","おおい"]},{"id":"kr:n5-v-5","i18n":{},"sentence":"赤 の えを かく。","underline":"赤","answer":"あか","choices":["あが","あさ","かき"]},{"id":"kr:n5-v-6","i18n":{},"sentence":"この はなは 赤い。","underline":"赤い","answer":"あかい","choices":["あがい","あかえ","あさい"]},{"id":"kr:n5-v-7","i18n":{},"sentence":"この へやは 明るい。","underline":"明るい","answer":"あかるい","choices":["あがるい","あからい","あかるえ"]},{"id":"kr:n5-v-8","i18n":{},"sentence":"もう 秋 ですね。","underline":"秋","answer":"あき","choices":["あぎ","あさ","かき"]},{"id":"kr:n5-v-9","i18n":{},"sentence":"まどが 開く。","underline":"開く","answer":"あく","choices":["あぐ","さく","まく"]},{"id":"kr:n5-v-10","i18n":{},"sentence":"いえの とを 開ける。","underline":"開ける","answer":"あける","choices":["あげる","あけろ","かける"]},{"id":"kr:n5-v-12","i18n":{},"sentence":"朝 おきる。","underline":"朝","answer":"あさ","choices":["あざ","あき","あそ"]},{"id":"kr:n5-v-20","i18n":{},"sentence":"頭 が いたい。","underline":"頭","answer":"あたま","choices":["あだま","あたば","あため"]},{"id":"kr:n5-v-23","i18n":{},"sentence":"なつは 暑い。","underline":"暑い","answer":"あつい","choices":["あづい","あすい","あつえ"]},{"id":"kr:n5-v-29","i18n":{},"sentence":"兄 は だいがくせいだ。","underline":"兄","answer":"あに","choices":["あね","あじ","あみ"]},{"id":"kr:n5-v-30","i18n":{},"sentence":"姉 は やさしい。","underline":"姉","answer":"あね","choices":["あに","あめ","あせ"]},{"id":"kr:n5-v-39","i18n":{},"sentence":"てを 洗う。","underline":"洗う","answer":"あらう","choices":["あらお","あわう","あらぶ"]},{"id":"kr:n5-v-41","i18n":{},"sentence":"じかんが 有る。","underline":"有る","answer":"ある","choices":["あろ","あう","かる"]},{"id":"kr:n5-v-42","i18n":{},"sentence":"えきまで 歩く。","underline":"歩く","answer":"あるく","choices":["あるぐ","あるこ","あろく"]},{"id":"kr:n5-v-47","i18n":{},"sentence":"わたしの 家 は ちいさい。","underline":"家","answer":"いえ","choices":["いへ","うえ","いね"]},{"id":"kr:n5-v-52","i18n":{},"sentence":"こうえんの 池 は おおきい。","underline":"池","answer":"いけ","choices":["いげ","いき","いせ"]},{"id":"kr:n5-v-53","i18n":{},"sentence":"ねつが でて 医者 に いった。","underline":"医者","answer":"いしゃ","choices":["いじゃ","いしや","いちゃ"]},{"id":"kr:n5-v-65","i18n":{},"sentence":"しろい 犬 が いる。","underline":"犬","answer":"いぬ","choices":["いね","いむ","きぬ"]},{"id":"kr:n5-v-67","i18n":{},"sentence":"この ことばの 意味 を しらべる。","underline":"意味","answer":"いみ","choices":["いび","いめ","いに"]},{"id":"kr:n5-v-68","i18n":{},"sentence":"わたしの 妹 は げんきだ。","underline":"妹","answer":"いもうと","choices":["いもと","いもうど","いぼうと"]},{"id":"kr:n5-v-74","i18n":{},"sentence":"すきな 色 を えらぶ。","underline":"色","answer":"いろ","choices":["いる","いよ","しろ"]},{"id":"kr:n5-v-79","i18n":{},"sentence":"わたしはこの歌がすきです。","underline":"歌","answer":"うた","choices":["うだ","うち","うな"]},{"id":"kr:n5-v-80","i18n":{},"sentence":"かのじょはまいばんへやで歌う。","underline":"歌う","answer":"うたう","choices":["うだう","うたお","うつう"]},{"id":"kr:n5-v-83","i18n":{},"sentence":"なつに海へいきます。","underline":"海","answer":"うみ","choices":["うび","うに","うめ"]},{"id":"kr:n5-v-84","i18n":{},"sentence":"みせでやさいを売る。","underline":"売る","answer":"うる","choices":["うろ","おる","える"]},{"id":"kr:n5-v-86","i18n":{},"sentence":"さむいので上着をきます。","underline":"上着","answer":"うわぎ","choices":["うわき","うばぎ","うわご"]},{"id":"kr:n5-v-88","i18n":{},"sentence":"きのうう映画をみました。","underline":"映画","answer":"えいが","choices":["えいか","えいご","えんが"]},{"id":"kr:n5-v-89","i18n":{},"sentence":"映画館でポップコーンをたべます。","underline":"映画館","answer":"えいがかん","choices":["えいかかん","えいがはん","えいがくん"]},{"id":"kr:n5-v-90","i18n":{},"sentence":"わたしは英語をべんきょうします。","underline":"英語","answer":"えいご","choices":["えいこ","えいが","えんご"]},{"id":"kr:n5-v-105","i18n":{},"sentence":"まいあさろくじに起きる。","underline":"起きる","answer":"おきる","choices":["おぎる","おきろ","おこる"]},{"id":"kr:n5-v-112","i18n":{},"sentence":"せんせいがかんじを教える。","underline":"教える","answer":"おしえる","choices":["おじえる","おしえろ","おそえる"]},{"id":"kr:n5-v-115","i18n":{},"sentence":"あさお茶をのみます。","underline":"お茶","answer":"おちゃ","choices":["おじゃ","おしゃ","おちゅ"]},{"id":"kr:n5-v-116","i18n":{},"sentence":"お手洗いはどこですか。","underline":"お手洗い","answer":"おてあらい","choices":["おであらい","おてあわい","おてあらえ"]},{"id":"kr:n5-v-118","i18n":{},"sentence":"わたしには弟がひとりいます。","underline":"弟","answer":"おとうと","choices":["おとおと","おどうと","おとうど"]},{"id":"kr:n5-v-125","i18n":{},"sentence":"わたしとかれは同じがっこうです。","underline":"同じ","answer":"おなじ","choices":["おなし","おまじ","おなぜ"]},{"id":"kr:n5-v-126","i18n":{},"sentence":"わたしのお兄さんはだいがくせいです。","underline":"お兄さん","answer":"おにいさん","choices":["おにいざん","おにさん","おねいさん"]},{"id":"kr:n5-v-127","i18n":{},"sentence":"お姉さんはうたがじょうずです。","underline":"お姉さん","answer":"おねえさん","choices":["おねいさん","おねえざん","おねさん"]},{"id":"kr:n5-v-134","i18n":{},"sentence":"このにもつはとても重いです。","underline":"重い","answer":"おもい","choices":["おもえ","おぼい","おむい"]},{"id":"kr:n5-v-138","i18n":{},"sentence":"もうすぐじゅぎょうが終る。","underline":"終る","answer":"おわる","choices":["おばる","おわろ","おなる"]},{"id":"kr:n5-v-139","i18n":{},"sentence":"わたしは音楽がすきです。","underline":"音楽","answer":"おんがく","choices":["おんかく","おんがぐ","おんぱく"]},{"id":"kr:n5-v-148","i18n":{},"sentence":"ははと スーパーで 買い物を しました。","underline":"買い物","answer":"かいもの","choices":["がいもの","かいもん","かいむの"]},{"id":"kr:n5-v-151","i18n":{},"sentence":"はやく いえに 帰る。","underline":"帰る","answer":"かえる","choices":["がえる","かえろ","かける"]},{"id":"kr:n5-v-152","i18n":{},"sentence":"あさ 顔を あらいます。","underline":"顔","answer":"かお","choices":["がお","かご","かほ"]},{"id":"kr:n5-v-161","i18n":{},"sentence":"ともだちに えんぴつを 貸す。","underline":"貸す","answer":"かす","choices":["かず","がす","かつ"]},{"id":"kr:n5-v-162","i18n":{},"sentence":"きょうは 風が つよいです。","underline":"風","answer":"かぜ","choices":["かせ","がぜ","かで"]},{"id":"kr:n5-v-164","i18n":{},"sentence":"あの 方は せんせいです。","underline":"方","answer":"かた","choices":["がた","かだ","かな"]},{"id":"kr:n5-v-165","i18n":{},"sentence":"わたしの 家族は よにんです。","underline":"家族","answer":"かぞく","choices":["かそく","がぞく","かぞぐ"]},{"id":"kr:n5-v-175","i18n":{},"sentence":"しろい 紙に えを かきます。","underline":"紙","answer":"かみ","choices":["がみ","かび","かめ"]},{"id":"kr:n5-v-177","i18n":{},"sentence":"火曜日に びょういんへ いきます。","underline":"火曜日","answer":"かようび","choices":["かようひ","がようび","かよび"]},{"id":"kr:n5-v-179","i18n":{},"sentence":"まいにち うんどうして 体を うごかす。","underline":"体","answer":"からだ","choices":["からた","がらだ","かたら"]},{"id":"kr:n5-v-180","i18n":{},"sentence":"としょかんで ほんを 借りる。","underline":"借りる","answer":"かりる","choices":["かりろ","がりる","かける"]},{"id":"kr:n5-v-182","i18n":{},"sentence":"この かばんは とても 軽い。","underline":"軽い","answer":"かるい","choices":["からい","がるい","かろい"]},{"id":"kr:n5-v-188","i18n":{},"sentence":"この 漢字の よみかたが わかりません。","underline":"漢字","answer":"かんじ","choices":["かんし","がんじ","かんぢ"]},{"id":"kr:n5-v-198","i18n":{},"sentence":"はがきに 切手を はる。","underline":"切手","answer":"きって","choices":["きて","きっで","ぎって"]},{"id":"kr:n5-v-202","i18n":{},"sentence":"ばんごはんに 牛肉を たべる。","underline":"牛肉","answer":"ぎゅうにく","choices":["きゅうにく","ぎゅにく","ぎゅうにぐ"]},{"id":"kr:n5-v-205","i18n":{},"sentence":"せいとが 教室に はいる。","underline":"教室","answer":"きょうしつ","choices":["きょしつ","きょうじつ","ぎょうしつ"]},{"id":"kr:n5-v-206","i18n":{},"sentence":"わたしは さんにん 兄弟です。","underline":"兄弟","answer":"きょうだい","choices":["きょうたい","きょだい","ぎょうだい"]},{"id":"kr:n5-v-207","i18n":{},"sentence":"去年 にほんへ いきました。","underline":"去年","answer":"きょねん","choices":["きょうねん","ぎょねん","きょね"]},{"id":"kr:n5-v-209","i18n":{},"sentence":"はさみで かみを 切る。","underline":"切る","answer":"きる","choices":["きろ","ぎる","ちる"]},{"id":"kr:n5-v-210","i18n":{},"sentence":"さむいので うわぎを 着る。","underline":"着る","answer":"きる","choices":["きろ","ぎる","ける"]},{"id":"kr:n5-v-214","i18n":{},"sentence":"おかねを 銀行 に あずけます。","underline":"銀行","answer":"ぎんこう","choices":["きんこう","ぎんこ","ぎんごう"]},{"id":"kr:n5-v-215","i18n":{},"sentence":"金曜日 に えいがを みます。","underline":"金曜日","answer":"きんようび","choices":["ぎんようび","きんようひ","きんよび"]},{"id":"kr:n5-v-217","i18n":{},"sentence":"あたまが いたいので 薬 を のみます。","underline":"薬","answer":"くすり","choices":["ぐすり","くずり","くすい"]},{"id":"kr:n5-v-226","i18n":{},"sentence":"この へやは 暗い です。","underline":"暗い","answer":"くらい","choices":["ぐらい","くろい","くらえ"]},{"id":"kr:n5-v-232","i18n":{},"sentence":"この かばんは 黒 です。","underline":"黒","answer":"くろ","choices":["ぐろ","くる","しろ"]},{"id":"kr:n5-v-233","i18n":{},"sentence":"黒い ねこが います。","underline":"黒い","answer":"くろい","choices":["ぐろい","くるい","しろい"]},{"id":"kr:n5-v-239","i18n":{},"sentence":"月曜日 から しごとです。","underline":"月曜日","answer":"げつようび","choices":["けつようび","げつようひ","げつよび"]},{"id":"kr:n5-v-241","i18n":{},"sentence":"おじいさんは とても 元気 です。","underline":"元気","answer":"げんき","choices":["けんき","げんぎ","げんけ"]},{"id":"kr:n5-v-249","i18n":{},"sentence":"おおきな 声 で はなす。","underline":"声","answer":"こえ","choices":["ごえ","こへ","こい"]},{"id":"kr:n5-v-257","i18n":{},"sentence":"せんせいの しつもんに 答える。","underline":"答える","answer":"こたえる","choices":["ごたえる","こだえる","こたへる"]},{"id":"kr:n5-v-280","i18n":{},"sentence":"にほんごで 作文 を かきました。","underline":"作文","answer":"さくぶん","choices":["ざくぶん","さくふん","さくぶ"]},{"id":"kr:n5-v-285","i18n":{},"sentence":"きょうは とても 寒い。","underline":"寒い","answer":"さむい","choices":["ざむい","さぶい","さもい"]},{"id":"kr:n5-v-296","i18n":{},"sentence":"ちちは 仕事 が いそがしい。","underline":"仕事","answer":"しごと","choices":["じごと","しこと","しごど"]},{"id":"kr:n5-v-301","i18n":{},"sentence":"せんせいに 質問 を します。","underline":"質問","answer":"しつもん","choices":["じつもん","しづもん","しつぼん"]},{"id":"kr:n5-v-302","i18n":{},"sentence":"まいにち 自転車 で がっこうへ いきます。","underline":"自転車","answer":"じてんしゃ","choices":["してんしゃ","じでんしゃ","じてんじゃ"]},{"id":"kr:n5-v-303","i18n":{},"sentence":"あかい 自動車 が ほしい。","underline":"自動車","answer":"じどうしゃ","choices":["しどうしゃ","じとうしゃ","じどうじゃ"]},{"id":"kr:n5-v-304","i18n":{},"sentence":"この むしは もうすぐ 死ぬ。","underline":"死ぬ","answer":"しぬ","choices":["じぬ","しの","ちぬ"]},{"id":"kr:n5-v-305","i18n":{},"sentence":"しらない かんじを 字引 で ひきます。","underline":"字引","answer":"じびき","choices":["しびき","じぴき","じびぎ"]},{"id":"kr:n5-v-306","i18n":{},"sentence":"これは 自分 で つくりました。","underline":"自分","answer":"じぶん","choices":["しぶん","じぷん","じふん"]},{"id":"kr:n5-v-311","i18n":{},"sentence":"みんなで 写真 を とりました。","underline":"写真","answer":"しゃしん","choices":["じゃしん","しゃじん","しゃし"]},{"id":"kr:n5-v-322","i18n":{},"sentence":"おひるは 食堂 で たべます。","underline":"食堂","answer":"しょくどう","choices":["しょくとう","じょくどう","しょくど"]},{"id":"kr:n5-v-323","i18n":{},"sentence":"かれの なまえを 知る。","underline":"知る","answer":"しる","choices":["きる","ちる","にる"]},{"id":"kr:n5-v-328","i18n":{},"sentence":"水曜日 は やすみです。","underline":"水曜日","answer":"すいようび","choices":["ずいようび","すいようひ","すいよび"]},{"id":"kr:n5-v-331","i18n":{},"sentence":"わたしは いぬが 好き です。","underline":"好き","answer":"すき","choices":["すぎ","つき","ずき"]},{"id":"kr:n5-v-342","i18n":{},"sentence":"わたしは とうきょうに 住む。","underline":"住む","answer":"すむ","choices":["ずむ","つむ","すめ"]},{"id":"kr:n5-v-373","i18n":{},"sentence":"大使館へ ビザを もらいに いく。","underline":"大使館","answer":"たいしかん","choices":["だいしかん","たいじかん","たいしがん"]},{"id":"kr:n5-v-375","i18n":{},"sentence":"わたしは いぬが 大好きだ。","underline":"大好き","answer":"だいすき","choices":["たいすき","だいすぎ","だいずき"]},{"id":"kr:n5-v-376","i18n":{},"sentence":"これは 大切な しゃしんだ。","underline":"大切","answer":"たいせつ","choices":["だいせつ","たいぜつ","たいせづ"]},{"id":"kr:n5-v-377","i18n":{},"sentence":"ははは 台所で りょうりする。","underline":"台所","answer":"だいどころ","choices":["たいどころ","だいところ","だいどごろ"]},{"id":"kr:n5-v-387","i18n":{},"sentence":"あの 建物は おおきい。","underline":"建物","answer":"たてもの","choices":["だてもの","たでもの","たてもん"]},{"id":"kr:n5-v-388","i18n":{},"sentence":"パーティーは 楽しい。","underline":"楽しい","answer":"たのしい","choices":["だのしい","たのじい","たのすい"]},{"id":"kr:n5-v-392","i18n":{},"sentence":"すきな 食べ物は なんですか。","underline":"食べ物","answer":"たべもの","choices":["だべもの","たべもん","たべぼの"]},{"id":"kr:n5-v-401","i18n":{},"sentence":"えきは いえから 近い。","underline":"近い","answer":"ちかい","choices":["ちがい","ちかえ","じかい"]},{"id":"kr:n5-v-403","i18n":{},"sentence":"この 近くに みせが ある。","underline":"近く","answer":"ちかく","choices":["ちがく","ちかぐ","じかく"]},{"id":"kr:n5-v-405","i18n":{},"sentence":"地図を みて みちを さがす。","underline":"地図","answer":"ちず","choices":["ちづ","じず","ちす"]},{"id":"kr:n5-v-407","i18n":{},"sentence":"茶色の くつを かった。","underline":"茶色","answer":"ちゃいろ","choices":["ちゃいろう","じゃいろ","ちゃいる"]},{"id":"kr:n5-v-413","i18n":{},"sentence":"はしを 使う。","underline":"使う","answer":"つかう","choices":["つがう","ずかう","つかお"]},{"id":"kr:n5-v-416","i18n":{},"sentence":"えきに 着く。","underline":"着く","answer":"つく","choices":["つぐ","づく","ちく"]},{"id":"kr:n5-v-418","i18n":{},"sentence":"りょうりを 作る。","underline":"作る","answer":"つくる","choices":["つぐる","づくる","つくろ"]},{"id":"kr:n5-v-423","i18n":{},"sentence":"かれは ちからが 強い。","underline":"強い","answer":"つよい","choices":["つより","づよい","ちよい"]},{"id":"kr:n5-v-429","i18n":{},"sentence":"ともだちに 手紙を かく。","underline":"手紙","answer":"てがみ","choices":["てかみ","でがみ","てがび"]},{"id":"kr:n5-v-449","i18n":{},"sentence":"動物えんに いく。","underline":"動物","answer":"どうぶつ","choices":["とうぶつ","どうふつ","どうぶづ"]},{"id":"kr:n5-v-452","i18n":{},"sentence":"えきは いえから 遠い。","underline":"遠い","answer":"とおい","choices":["とうい","どおい","とおえ"]},{"id":"kr:n5-v-458","i18n":{},"sentence":"しずかな 所が すきだ。","underline":"所","answer":"ところ","choices":["とごろ","どころ","ところう"]},{"id":"kr:n5-v-460","i18n":{},"sentence":"図書館で ほんを かりる。","underline":"図書館","answer":"としょかん","choices":["ずしょかん","としょがん","どしょかん"]},{"id":"kr:n5-v-468","i18n":{},"sentence":"あかしんごうで くるまが 止まる。","underline":"止まる","answer":"とまる","choices":["どまる","とまう","とばる"]},{"id":"kr:n5-v-470","i18n":{},"sentence":"土曜日に かいものを する。","underline":"土曜日","answer":"どようび","choices":["とようび","どよおび","どようひ"]},{"id":"kr:n5-v-471","i18n":{},"sentence":"そらに 鳥が いる。","underline":"鳥","answer":"とり","choices":["どり","とりい","たり"]},{"id":"kr:n5-v-484","i18n":{},"sentence":"ことしの 夏は あつい。","underline":"夏","answer":"なつ","choices":["なづ","なっ","まつ"]},{"id":"kr:n5-v-485","i18n":{},"sentence":"夏休みに うみへ いく。","underline":"夏休み","answer":"なつやすみ","choices":["なつやすび","なづやすみ","なつやずみ"]},{"id":"kr:n5-v-491","i18n":{},"sentence":"ピアノを 習う。","underline":"習う","answer":"ならう","choices":["ならお","なろう","なわう"]},{"id":"kr:n5-v-498","i18n":{},"sentence":"よる 肉を たべる。","underline":"肉","answer":"にく","choices":["にぐ","につ","みく"]},{"id":"kr:n5-v-501","i18n":{},"sentence":"つぎの 日曜日に ともだちと あそびます。","underline":"日曜日","answer":"にちようび","choices":["にちよび","にちょうび","にちようひ"]},{"id":"kr:n5-v-514","i18n":{},"sentence":"つめたい 飲み物が ほしいです。","underline":"飲み物","answer":"のみもの","choices":["のみもち","のむもの","のびもの"]},{"id":"kr:n5-v-516","i18n":{},"sentence":"えきで でんしゃに 乗る。","underline":"乗る","answer":"のる","choices":["のろ","もる","ぬる"]},{"id":"kr:n5-v-528","i18n":{},"sentence":"じゅぎょうが 始まる。","underline":"始まる","answer":"はじまる","choices":["はしまる","はじまろ","はじばる"]},{"id":"kr:n5-v-531","i18n":{},"sentence":"こうえんを 走る。","underline":"走る","answer":"はしる","choices":["はじる","はしろ","わしる"]},{"id":"kr:n5-v-535","i18n":{},"sentence":"あには ぎんこうで 働く。","underline":"働く","answer":"はたらく","choices":["はだらく","はたらぐ","はたらこ"]},{"id":"kr:n5-v-543","i18n":{},"sentence":"あさ 早い でんしゃに のります。","underline":"早い","answer":"はやい","choices":["ばやい","はやし","はよい"]},{"id":"kr:n5-v-545","i18n":{},"sentence":"春に さくらが さきます。","underline":"春","answer":"はる","choices":["ばる","はろ","はう"]},{"id":"kr:n5-v-559","i18n":{},"sentence":"つよく ロープを 引く。","underline":"引く","answer":"ひく","choices":["ひぐ","びく","ふく"]},{"id":"kr:n5-v-561","i18n":{},"sentence":"この つくえは 低いです。","underline":"低い","answer":"ひくい","choices":["ひぐい","びくい","ひくり"]},{"id":"kr:n5-v-570","i18n":{},"sentence":"あした 病院へ いきます。","underline":"病院","answer":"びょういん","choices":["びょいん","びよういん","ぴょういん"]},{"id":"kr:n5-v-571","i18n":{},"sentence":"おとうとは 病気です。","underline":"病気","answer":"びょうき","choices":["びょき","びようき","びょうぎ"]},{"id":"kr:n5-v-573","i18n":{},"sentence":"昼に ごはんを たべます。","underline":"昼","answer":"ひる","choices":["びる","ひろ","しる"]},{"id":"kr:n5-v-575","i18n":{},"sentence":"この へやは 広いです。","underline":"広い","answer":"ひろい","choices":["びろい","ひろり","ひらい"]},{"id":"kr:n5-v-581","i18n":{},"sentence":"あたらしい 服を かいました。","underline":"服","answer":"ふく","choices":["ぷく","ふぐ","ぶく"]},{"id":"kr:n5-v-586","i18n":{},"sentence":"この きは 太いです。","underline":"太い","answer":"ふとい","choices":["ふどい","ぶとい","ほそい"]},{"id":"kr:n5-v-587","i18n":{},"sentence":"冬は とても さむいです。","underline":"冬","answer":"ふゆ","choices":["ぶゆ","ふゅ","ふゆう"]},{"id":"kr:n5-v-599","i18n":{},"sentence":"まいにち にほんごを 勉強します。","underline":"勉強","answer":"べんきょう","choices":["べんきょ","へんきょう","べんぎょう"]},{"id":"kr:n5-v-615","i18n":{},"sentence":"毎朝 さんぽします。","underline":"毎朝","answer":"まいあさ","choices":["まいあざ","まいあさあ","まいはさ"]},{"id":"kr:n5-v-627","i18n":{},"sentence":"わたしの 町には おおきな こうえんが あります。","underline":"町","answer":"まち","choices":["まぢ","まっち","なち"]},{"id":"kr:n5-v-628","i18n":{},"sentence":"ともだちを えきで 待つ。","underline":"待つ","answer":"まつ","choices":["まづ","まっつ","まぬ"]},{"id":"kr:n5-v-637","i18n":{},"sentence":"この えんぴつは 短い。","underline":"短い","answer":"みじかい","choices":["みぢかい","みしかい","みじがい"]},{"id":"kr:n5-v-654","i18n":{},"sentence":"ちいさな 村に すんでいます。","underline":"村","answer":"むら","choices":["むろ","ぬら","むが"]},{"id":"kr:n5-v-659","i18n":{},"sentence":"らいしゅうの 木曜日に テストが あります。","underline":"木曜日","answer":"もくようび","choices":["もくようひ","もぐようび","もくょうび"]},{"id":"kr:n5-v-663","i18n":{},"sentence":"つくえの うえに いろいろな 物が ある。","underline":"物","answer":"もの","choices":["もぬ","ぼの","もん"]},{"id":"kr:n5-v-664","i18n":{},"sentence":"おてらの おおきな 門を くぐる。","underline":"門","answer":"もん","choices":["もぬ","ぼん","もむ"]},{"id":"kr:n5-v-665","i18n":{},"sentence":"この 問題は かんたんです。","underline":"問題","answer":"もんだい","choices":["もんたい","もうだい","もんでい"]},{"id":"kr:n5-v-668","i18n":{},"sentence":"まいにち 野菜を たべる。","underline":"野菜","answer":"やさい","choices":["やざい","やせい","やしい"]},{"id":"kr:n5-v-676","i18n":{},"sentence":"夕方に さんぽを する。","underline":"夕方","answer":"ゆうがた","choices":["ゆうかた","ゆがた","ゆうがだ"]},{"id":"kr:n5-v-677","i18n":{},"sentence":"いえで 夕飯を たべる。","underline":"夕飯","answer":"ゆうはん","choices":["ゆうばん","ゆはん","ゆうぱん"]},{"id":"kr:n5-v-680","i18n":{},"sentence":"この みせは 有名です。","underline":"有名","answer":"ゆうめい","choices":["ゆめい","ゆうめ","ゆうべい"]},{"id":"kr:n5-v-684","i18n":{},"sentence":"デパートで 洋服を かう。","underline":"洋服","answer":"ようふく","choices":["ようぶく","よふく","ようぷく"]},{"id":"kr:n5-v-691","i18n":{},"sentence":"夜は はやく ねます。","underline":"夜","answer":"よる","choices":["よろ","よう","よぬ"]},{"id":"kr:n5-v-692","i18n":{},"sentence":"わたしは からだが 弱い。","underline":"弱い","answer":"よわい","choices":["よばい","よあい","わよい"]},{"id":"kr:n5-v-701","i18n":{},"sentence":"母の 料理は とても おいしいです。","underline":"料理","answer":"りょうり","choices":["りょり","りょうい","りゅうり"]},{"id":"kr:n5-v-702","i18n":{},"sentence":"かぞくで 京都へ 旅行に 行きます。","underline":"旅行","answer":"りょこう","choices":["りょうこう","りょこ","りょごう"]},{"id":"kr:n5-v-714","i18n":{},"sentence":"私は がくせいです。","underline":"私","answer":"わたし","choices":["わだし","わたち","わたじ"]},{"id":"kr:n5-v-715","i18n":{},"sentence":"私が ごあんないします。","underline":"私","answer":"わたくし","choices":["わだくし","わたぐし","わたくち"]},{"id":"kr:n5-v-718","i18n":{},"sentence":"きょうは てんきが 悪いです。","underline":"悪い","answer":"わるい","choices":["わろい","あるい","わずい"]},{"id":"kr:n4-v-13","i18n":{},"sentence":"会議で自分の意見をはっきり言った。","underline":"意見","answer":"いけん","choices":["いげん","いけい","いっけん"]},{"id":"kr:n4-v-17","i18n":{},"sentence":"兄は大学で医学を勉強している。","underline":"医学","answer":"いがく","choices":["かがく","いかく","いがぐ"]},{"id":"kr:n4-v-30","i18n":{},"sentence":"健康のために毎朝運動している。","underline":"運動","answer":"うんどう","choices":["うんとう","うんどお","うんぼう"]},{"id":"kr:n4-v-31","i18n":{},"sentence":"しばらくすると強い雨が止む。","underline":"止む","answer":"やむ","choices":["やぶ","さむ","やも"]},{"id":"kr:n4-v-35","i18n":{},"sentence":"このバスの運転手はとても親切だ。","underline":"運転手","answer":"うんてんしゅ","choices":["うんでんしゅ","うんてんじゅ","うんてんしゅう"]},{"id":"kr:n4-v-38","i18n":{},"sentence":"今日は別の店で買い物をした。","underline":"別","answer":"べつ","choices":["へつ","べづ","べち"]},{"id":"kr:n4-v-50","i18n":{},"sentence":"くつの売り場は三階にあります。","underline":"売り場","answer":"うりば","choices":["うりは","うりぱ","うりべ"]},{"id":"kr:n4-v-51","i18n":{},"sentence":"正月は家族で実家に帰る。","underline":"正月","answer":"しょうがつ","choices":["しょうかつ","しょがつ","じょうがつ"]},{"id":"kr:n4-v-54","i18n":{},"sentence":"英語の発音を何度も練習した。","underline":"発音","answer":"はつおん","choices":["はつおう","ばつおん","はづおん"]},{"id":"kr:n4-v-56","i18n":{},"sentence":"ビルの屋上から町をながめた。","underline":"屋上","answer":"おくじょう","choices":["おくじょ","おくしょう","おぐじょう"]},{"id":"kr:n4-v-62","i18n":{},"sentence":"今度一緒に食事に行きましょう。","underline":"今度","answer":"こんど","choices":["こんと","こんどう","ごんど"]},{"id":"kr:n4-v-64","i18n":{},"sentence":"駅の近くに新しい家を建てる。","underline":"建てる","answer":"たてる","choices":["だてる","たでる","たてろ"]},{"id":"kr:n4-v-69","i18n":{},"sentence":"先生から大事な話があると言われた。","underline":"大事","answer":"だいじ","choices":["たいじ","だいし","でいじ"]},{"id":"kr:n4-v-73","i18n":{},"sentence":"道を歩くときは車に注意しよう。","underline":"注意","answer":"ちゅうい","choices":["ちゅい","じゅうい","ちゅうえ"]},{"id":"kr:n4-v-74","i18n":{},"sentence":"あした、大きな 台風 が 来る そうです。","underline":"台風","answer":"たいふう","choices":["たいふ","だいふう","たいぷう"]},{"id":"kr:n4-v-78","i18n":{},"sentence":"この 道を まっすぐ 通る と 駅に つきます。","underline":"通る","answer":"とおる","choices":["とうる","どおる","とおろ"]},{"id":"kr:n4-v-86","i18n":{},"sentence":"たばこを 止める こと に した。","underline":"止める","answer":"やめる","choices":["やめろ","やべる","さめる"]},{"id":"kr:n4-v-106","i18n":{},"sentence":"あした 六時に 私を 起こす。","underline":"起こす","answer":"おこす","choices":["おごす","おこず","おこうす"]},{"id":"kr:n4-v-109","i18n":{},"sentence":"となりの 赤ちゃん は よく 笑う。","underline":"赤ちゃん","answer":"あかちゃん","choices":["あがちゃん","あかちゃ","あかじゃん"]},{"id":"kr:n4-v-112","i18n":{},"sentence":"この 小説 は とても おもしろい。","underline":"小説","answer":"しょうせつ","choices":["しょうぜつ","しょせつ","しょうせち"]},{"id":"kr:n4-v-113","i18n":{},"sentence":"私の 親 は 農家 です。","underline":"親","answer":"おや","choices":["おうや","おわ","あや"]},{"id":"kr:n4-v-115","i18n":{},"sentence":"西洋 の 音楽が 好きだ。","underline":"西洋","answer":"せいよう","choices":["せいよ","せえよう","ぜいよう"]},{"id":"kr:n4-v-116","i18n":{},"sentence":"私も そう 思う。","underline":"思う","answer":"おもう","choices":["おもお","おおう","おむう"]},{"id":"kr:n4-v-118","i18n":{},"sentence":"江戸 時代 の 話を 読んだ。","underline":"時代","answer":"じだい","choices":["しだい","じたい","ちだい"]},{"id":"kr:n4-v-125","i18n":{},"sentence":"二かい 建て の 家を 買った。","underline":"建て","answer":"だて","choices":["だで","たで","ばて"]},{"id":"kr:n4-v-132","i18n":{},"sentence":"お店を あたらしく 開く。","underline":"開く","answer":"ひらく","choices":["ひらぐ","びらく","ひろく"]},{"id":"kr:n4-v-138","i18n":{},"sentence":"学校で 地理 を 習った。","underline":"地理","answer":"ちり","choices":["じり","ちりい","ちれ"]},{"id":"kr:n4-v-146","i18n":{},"sentence":"この店の品物はとても安い。","underline":"品物","answer":"しなもの","choices":["じなもの","しなもん","しなぶつ"]},{"id":"kr:n4-v-150","i18n":{},"sentence":"車を家の前に止める。","underline":"止める","answer":"とめる","choices":["どめる","とめう","とべる"]},{"id":"kr:n4-v-153","i18n":{},"sentence":"今日は大切な用事があります。","underline":"用事","answer":"ようじ","choices":["ようし","よじ","ようぢ"]},{"id":"kr:n4-v-159","i18n":{},"sentence":"重い荷物を持つのは力がいる。","underline":"力","answer":"ちから","choices":["ちがら","ちかろ","じから"]},{"id":"kr:n4-v-165","i18n":{},"sentence":"雨の場合は中止です。","underline":"場合","answer":"ばあい","choices":["ばわい","はあい","ばあ"]},{"id":"kr:n4-v-172","i18n":{},"sentence":"世界には色々な国がある。","underline":"世界","answer":"せかい","choices":["せいかい","せっかい","せがい"]},{"id":"kr:n4-v-173","i18n":{},"sentence":"ここに住所を書いてください。","underline":"住所","answer":"じゅうしょ","choices":["じゅうしょう","じゅしょ","じゅうじょ"]},{"id":"kr:n4-v-175","i18n":{},"sentence":"家の後ろに小さな林がある。","underline":"林","answer":"はやし","choices":["ばやし","はやち","はらし"]},{"id":"kr:n4-v-200","i18n":{},"sentence":"大切な事を話します。","underline":"事","answer":"こと","choices":["こど","ごと","ことう"]},{"id":"kr:n4-v-202","i18n":{},"sentence":"明日、サッカーの試合がある。","underline":"試合","answer":"しあい","choices":["じあい","しゃあい","しわい"]},{"id":"kr:n4-v-207","i18n":{},"sentence":"映画の終わりで泣いてしまった。","underline":"終わり","answer":"おわり","choices":["おあり","おわ","おわい"]},{"id":"kr:n4-v-209","i18n":{},"sentence":"もう一度ゆっくり言ってください。","underline":"一度","answer":"いちど","choices":["いちと","いちどう","いっど"]},{"id":"kr:n4-v-211","i18n":{},"sentence":"この店の人は とても 親切です。","underline":"親切","answer":"しんせつ","choices":["しんぜつ","じんせつ","しんせち"]},{"id":"kr:n4-v-212","i18n":{},"sentence":"試験の 結果を みんなに 知らせる。","underline":"知らせる","answer":"しらせる","choices":["しなせる","ちらせる","しらぜる"]},{"id":"kr:n4-v-215","i18n":{},"sentence":"毎朝 六時に 仕事を 始める。","underline":"始める","answer":"はじめる","choices":["はしめる","ばじめる","はぢめる"]},{"id":"kr:n4-v-237","i18n":{},"sentence":"待ち合わせの 場所を 決める。","underline":"場所","answer":"ばしょ","choices":["ばしょう","ばじょ","はしょ"]},{"id":"kr:n4-v-238","i18n":{},"sentence":"テストの 答を 書く。","underline":"答","answer":"こたえ","choices":["こだえ","ごたえ","こたい"]},{"id":"kr:n4-v-247","i18n":{},"sentence":"この本は 千円 以下です。","underline":"以下","answer":"いか","choices":["いが","いっか","いげ"]},{"id":"kr:n4-v-250","i18n":{},"sentence":"やさしい 心を 持つ。","underline":"心","answer":"こころ","choices":["こごろ","ここる","こころう"]},{"id":"kr:n4-v-258","i18n":{},"sentence":"スーパーで 食料品を 買う。","underline":"食料品","answer":"しょくりょうひん","choices":["しょくりょひん","しょくりゅうひん","しょくりょうびん"]},{"id":"kr:n4-v-259","i18n":{},"sentence":"くらい 森の 中を 歩く。","underline":"森","answer":"もり","choices":["もい","もる","もん"]},{"id":"kr:n4-v-265","i18n":{},"sentence":"昔のことを 思い出す。","underline":"思い出す","answer":"おもいだす","choices":["おもいたす","おぼいだす","おもいだず"]},{"id":"kr:n4-v-269","i18n":{},"sentence":"ご主人は お元気ですか。","underline":"ご主人","answer":"ごしゅじん","choices":["こしゅじん","ごしゅうじん","ごじゅしん"]},{"id":"kr:n4-v-271","i18n":{},"sentence":"きゅうな 用が できた。","underline":"用","answer":"よう","choices":["よ","ゆう","よん"]},{"id":"kr:n4-v-274","i18n":{},"sentence":"旅行の 用意を する。","underline":"用意","answer":"ようい","choices":["よい","ように","ゆうい"]},{"id":"kr:n4-v-277","i18n":{},"sentence":"父が 車を 運転する。","underline":"運転","answer":"うんてん","choices":["うんでん","うってん","うんてい"]},{"id":"kr:n4-v-282","i18n":{},"sentence":"温泉の旅館は静かでした。","underline":"旅館","answer":"りょかん","choices":["りょうかん","りょがん","りゅかん"]},{"id":"kr:n4-v-289","i18n":{},"sentence":"子どもは乗り物が大好きです。","underline":"乗り物","answer":"のりもの","choices":["のりもん","のりぼの","のりもう"]},{"id":"kr:n4-v-291","i18n":{},"sentence":"弟は自転車で学校に通う。","underline":"通う","answer":"かよう","choices":["かおう","がよう","かゆう"]},{"id":"kr:n4-v-294","i18n":{},"sentence":"庭に小鳥が来ました。","underline":"小鳥","answer":"ことり","choices":["こどり","ごとり","ことい"]},{"id":"kr:n4-v-301","i18n":{},"sentence":"工事が予定どおり進む。","underline":"進む","answer":"すすむ","choices":["すずむ","すすぶ","ずすむ"]},{"id":"kr:n4-v-302","i18n":{},"sentence":"休みの日は音楽を楽む。","underline":"楽む","answer":"たのしむ","choices":["たのしぶ","だのしむ","たのじむ"]},{"id":"kr:n4-v-307","i18n":{},"sentence":"来週試験があります。","underline":"試験","answer":"しけん","choices":["じけん","しげん","しけい"]},{"id":"kr:n4-v-310","i18n":{},"sentence":"あの店の店員は親切です。","underline":"店員","answer":"てんいん","choices":["てんにん","ていいん","でんいん"]},{"id":"kr:n4-v-313","i18n":{},"sentence":"今夜は早く寝ます。","underline":"今夜","answer":"こんや","choices":["ごんや","こんにゃ","こにゃ"]},{"id":"kr:n4-v-321","i18n":{},"sentence":"つぎの急行に乗ります。","underline":"急行","answer":"きゅうこう","choices":["きゅうごう","きゅこう","きゅうこ"]},{"id":"kr:n4-v-323","i18n":{},"sentence":"このスープは味がうすい。","underline":"味","answer":"あじ","choices":["あぢ","あし","いじ"]},{"id":"kr:n4-v-332","i18n":{},"sentence":"明日は都合が悪いです。","underline":"都合","answer":"つごう","choices":["つこう","づごう","つご"]},{"id":"kr:n4-v-338","i18n":{},"sentence":"すずしくて気持ちがいいです。","underline":"気持ち","answer":"きもち","choices":["きもじ","ぎもち","きもと"]},{"id":"kr:n4-v-345","i18n":{},"sentence":"黒板の字をノートに写す。","underline":"写す","answer":"うつす","choices":["うづす","うつづ","うすつ"]},{"id":"kr:n4-v-348","i18n":{},"sentence":"ゆうべ 町で 火事が ありました。","underline":"火事","answer":"かじ","choices":["かし","がじ","かぢ"]},{"id":"kr:n4-v-350","i18n":{},"sentence":"毎週 日曜日に 教会へ 行きます。","underline":"教会","answer":"きょうかい","choices":["きょうがい","きょかい","ぎょうかい"]},{"id":"kr:n4-v-356","i18n":{},"sentence":"この工場では 車を 生産しています。","underline":"生産","answer":"せいさん","choices":["せいざん","せえさん","せいさ"]},{"id":"kr:n4-v-357","i18n":{},"sentence":"お正月に 着物を 着ました。","underline":"着物","answer":"きもの","choices":["ぎもの","きもん","きめの"]},{"id":"kr:n4-v-365","i18n":{},"sentence":"昼間は とても 暑いです。","underline":"昼間","answer":"ひるま","choices":["ひるば","びるま","ひろま"]},{"id":"kr:n4-v-379","i18n":{},"sentence":"この家は 駅から 遠くて 不便です。","underline":"不便","answer":"ふべん","choices":["ふへん","ぶべん","ふべ"]},{"id":"kr:n4-v-400","i18n":{},"sentence":"果物の中で 特に りんごが 好きです。","underline":"特に","answer":"とくに","choices":["とっくに","どくに","とぐに"]},{"id":"kr:n4-v-402","i18n":{},"sentence":"夏休みの 計画を 立てます。","underline":"計画","answer":"けいかく","choices":["けいがく","けいかっく","けいこく"]},{"id":"kr:n4-v-403","i18n":{},"sentence":"この 通りを まっすぐ 行ってください。","underline":"通り","answer":"とおり","choices":["とうり","どおり","とほり"]},{"id":"kr:n4-v-404","i18n":{},"sentence":"新しい 下着を 買いました。","underline":"下着","answer":"したぎ","choices":["したき","しだぎ","したく"]},{"id":"kr:n4-v-412","i18n":{},"sentence":"日曜日 以外は 忙しいです。","underline":"以外","answer":"いがい","choices":["いかい","いがえ","いげい"]},{"id":"kr:n4-v-415","i18n":{},"sentence":"兄は 大きな 市で 働いています。","underline":"市","answer":"し","choices":["じ","ち","き"]},{"id":"kr:n4-v-416","i18n":{},"sentence":"引き出しに ペンを 入れます。","underline":"引き出し","answer":"ひきだし","choices":["ひきたし","ひぎだし","ひきざし"]},{"id":"kr:n4-v-422","i18n":{},"sentence":"となりの へやから へんな 音が きこえた。","underline":"音","answer":"おと","choices":["おど","おとう","こと"]},{"id":"kr:n4-v-425","i18n":{},"sentence":"遠くに やまが みえます。","underline":"遠く","answer":"とおく","choices":["とうく","どおく","とほく"]},{"id":"kr:n4-v-426","i18n":{},"sentence":"しゅくだいは 大体 おわりました。","underline":"大体","answer":"だいたい","choices":["たいたい","だいだい","だいてい"]},{"id":"kr:n4-v-428","i18n":{},"sentence":"この こたえは 正しい です。","underline":"正しい","answer":"ただしい","choices":["たたしい","だたしい","たらしい"]},{"id":"kr:n4-v-431","i18n":{},"sentence":"ちちは 都で はたらいて います。","underline":"都","answer":"と","choices":["ど","とう","つ"]},{"id":"kr:n4-v-432","i18n":{},"sentence":"この まちは 産業が さかんです。","underline":"産業","answer":"さんぎょう","choices":["さんきょう","ざんぎょう","さんぎょ"]},{"id":"kr:n4-v-434","i18n":{},"sentence":"かれは お金持ちに なりました。","underline":"お金持ち","answer":"おかねもち","choices":["おがねもち","おかねもじ","おかねもっち"]},{"id":"kr:n4-v-435","i18n":{},"sentence":"せんせいの 説明は わかりやすい。","underline":"説明","answer":"せつめい","choices":["せづめい","ぜつめい","せつめえ"]},{"id":"kr:n4-v-440","i18n":{},"sentence":"ねだんは せんえん 以上です。","underline":"以上","answer":"いじょう","choices":["いしょう","いじょ","いぞう"]},{"id":"kr:n4-v-442","i18n":{},"sentence":"特急に のって おおさかへ いく。","underline":"特急","answer":"とっきゅう","choices":["とくきゅう","とっきゅ","どっきゅう"]},{"id":"kr:n4-v-446","i18n":{},"sentence":"しごとの 帰りに かいものを します。","underline":"帰り","answer":"かえり","choices":["かおり","かわり","がえり"]},{"id":"kr:n4-v-461","i18n":{},"sentence":"ともだちに てがみを 送る。","underline":"送る","answer":"おくる","choices":["おこる","おぐる","おくろ"]},{"id":"kr:n4-v-467","i18n":{},"sentence":"この こうえんは 市民の ために あります。","underline":"市民","answer":"しみん","choices":["じみん","しみ","しびん"]},{"id":"kr:n4-v-476","i18n":{},"sentence":"昼休みに おべんとうを たべます。","underline":"昼休み","answer":"ひるやすみ","choices":["ひるやすめ","ちゅうやすみ","ひろやすみ"]},{"id":"kr:n4-v-497","i18n":{},"sentence":"パーティーの会場はどこですか。","underline":"会場","answer":"かいじょう","choices":["かいじょ","がいじょう","かいしょう"]},{"id":"kr:n4-v-499","i18n":{},"sentence":"荷物を車で運ぶ。","underline":"運ぶ","answer":"はこぶ","choices":["はごぶ","はこむ","はこべ"]},{"id":"kr:n4-v-500","i18n":{},"sentence":"大学で文学を勉強しています。","underline":"文学","answer":"ぶんがく","choices":["ぶんか","すうがく","かがく"]},{"id":"kr:n4-v-501","i18n":{},"sentence":"朝の光が窓から入る。","underline":"光","answer":"ひかり","choices":["ひがり","ひかい","ひまり"]},{"id":"kr:n4-v-507","i18n":{},"sentence":"この漢字の字がきれいですね。","underline":"字","answer":"じ","choices":["し","ち","じい"]},{"id":"kr:n4-v-513","i18n":{},"sentence":"このくつは足に合う。","underline":"合う","answer":"あう","choices":["おう","かう","あく"]},{"id":"kr:n4-v-525","i18n":{},"sentence":"食べすぎて太る。","underline":"太る","answer":"ふとる","choices":["ふどる","ふとろ","ふとう"]},{"id":"kr:n4-v-531","i18n":{},"sentence":"家族が元気だと安心する。","underline":"安心","answer":"あんしん","choices":["あんじん","かんしん","あんじ"]},{"id":"kr:n4-v-533","i18n":{},"sentence":"きってを集める。","underline":"集める","answer":"あつめる","choices":["あつまる","あづめる","あつねる"]},{"id":"kr:n4-v-538","i18n":{},"sentence":"犬の世話をする。","underline":"世話","answer":"せわ","choices":["せいわ","ぜわ","せば"]},{"id":"kr:n4-v-539","i18n":{},"sentence":"近所のスーパーで買い物する。","underline":"近所","answer":"きんじょ","choices":["きんしょ","きんじょう","ぎんじょ"]},{"id":"kr:n4-v-556","i18n":{},"sentence":"バスの 出発 の 時間を 調べる。","underline":"出発","answer":"しゅっぱつ","choices":["しゅっばつ","しゅつはつ","しゅっぱ"]},{"id":"kr:n4-v-570","i18n":{},"sentence":"将来のことを よく 考える。","underline":"考える","answer":"かんがえる","choices":["かんかえる","かんがへる","がんがえる"]},{"id":"kr:n4-v-573","i18n":{},"sentence":"この 機械の 使い 仕方 を 教える。","underline":"仕方","answer":"しかた","choices":["しがた","しかだ","じかた"]},{"id":"kr:n4-v-574","i18n":{},"sentence":"うしろを 見ようと 首 を まわす。","underline":"首","answer":"くび","choices":["くひ","ぐび","くぶ"]},{"id":"kr:n4-v-576","i18n":{},"sentence":"お茶の 代わり に 水を 飲む。","underline":"代わり","answer":"かわり","choices":["がわり","さわり","まわり"]},{"id":"kr:n4-v-578","i18n":{},"sentence":"この 町は 工業 が さかんだ。","underline":"工業","answer":"こうぎょう","choices":["こうきょう","こぎょう","こうぎょ"]},{"id":"kr:n4-v-582","i18n":{},"sentence":"先生の 研究室 を たずねる。","underline":"研究室","answer":"けんきゅうしつ","choices":["けんきゅしつ","げんきゅうしつ","けんきゅうじつ"]},{"id":"kr:n4-v-583","i18n":{},"sentence":"父は 車の 工場 で 働いている。","underline":"工場","answer":"こうじょう","choices":["こうしょう","こじょう","こうじょ"]},{"id":"kr:n4-v-587","i18n":{},"sentence":"こわくて 体が 動く。","underline":"動く","answer":"うごく","choices":["うこく","うごぐ","うごる"]},{"id":"kr:n4-v-602","i18n":{},"sentence":"遅れそうなので 駅まで 急ぐ。","underline":"急ぐ","answer":"いそぐ","choices":["いそく","およぐ","いすぐ"]},{"id":"kr:n4-v-606","i18n":{},"sentence":"きょうは 特別 な 日です。","underline":"特別","answer":"とくべつ","choices":["どくべつ","とくへつ","とくべづ"]},{"id":"kr:n4-v-608","i18n":{},"sentence":"急いで 走れば 電車に 間に合う。","underline":"間に合う","answer":"まにあう","choices":["まにあわ","まにやう","まにあお"]},{"id":"kr:n4-v-611","i18n":{},"sentence":"部屋の 真中 に つくえを 置く。","underline":"真中","answer":"まんなか","choices":["まんなが","まなか","まんまか"]},{"id":"kr:n4-v-613","i18n":{},"sentence":"大学で 星の 研究 を している。","underline":"研究","answer":"けんきゅう","choices":["げんきゅう","けんきゅ","けんぎゅう"]},{"id":"kr:n4-v-622","i18n":{},"sentence":"祖父が病気で入院した。","underline":"入院","answer":"にゅういん","choices":["にゅうえん","じゅういん","にゅいん"]},{"id":"kr:n4-v-624","i18n":{},"sentence":"ここで彼と別れることになった。","underline":"別れる","answer":"わかれる","choices":["わすれる","わかられる","わけれる"]},{"id":"kr:n4-v-628","i18n":{},"sentence":"古いお城を見物した。","underline":"見物","answer":"けんぶつ","choices":["げんぶつ","けんぷつ","けんもつ"]},{"id":"kr:n4-v-635","i18n":{},"sentence":"家族といっしょに食事をした。","underline":"食事","answer":"しょくじ","choices":["しょくし","しょうじ","しょくじょ"]},{"id":"kr:n4-v-642","i18n":{},"sentence":"駅前に大勢の人が集まる。","underline":"集まる","answer":"あつまる","choices":["あづまる","あすまる","あつばる"]},{"id":"kr:n4-v-650","i18n":{},"sentence":"急に雨が降ってきた。","underline":"急","answer":"きゅう","choices":["きゅ","ぎゅう","しゅう"]},{"id":"kr:n4-v-661","i18n":{},"sentence":"来月の旅行を楽しみにしている。","underline":"楽しみ","answer":"たのしみ","choices":["だのしみ","たのしび","たのしめ"]},{"id":"kr:n3-v-10","i18n":{},"sentence":"彼は町をだまって去る。","underline":"去る","answer":"さる","choices":["ざる","さろ","さり"]},{"id":"kr:n3-v-49","i18n":{},"sentence":"彼とはとても親しい。","underline":"親しい","answer":"したしい","choices":["しだしい","したじい","しらしい"]},{"id":"kr:n3-v-50","i18n":{},"sentence":"この製品は質がいい。","underline":"質","answer":"しつ","choices":["じつ","しづ","ちつ"]},{"id":"kr:n3-v-66","i18n":{},"sentence":"このドアはしどうではなく自動で開く。","underline":"自動","answer":"じどう","choices":["しどう","じとう","じど"]},{"id":"kr:n3-v-68","i18n":{},"sentence":"いい品を安く買った。","underline":"品","answer":"しな","choices":["じな","しの","ちな"]},{"id":"kr:n3-v-77","i18n":{},"sentence":"この二人は姉妹だそうだ。","underline":"姉妹","answer":"しまい","choices":["じまい","しまえ","ちまい"]},{"id":"kr:n3-v-80","i18n":{},"sentence":"きょうは地味な服を選んだ。","underline":"地味","answer":"じみ","choices":["ちみ","しみ","じび"]},{"id":"kr:n3-v-86","i18n":{},"sentence":"毎月すこしずつ借金を返す。","underline":"借金","answer":"しゃっきん","choices":["しゃきん","じゃっきん","しゃっぎん"]},{"id":"kr:n3-v-98","i18n":{},"sentence":"事故で彼は重体になった。","underline":"重体","answer":"じゅうたい","choices":["しゅうたい","じゅたい","じゅうだい"]},{"id":"kr:n3-v-100","i18n":{},"sentence":"これは重大な問題だ。","underline":"重大","answer":"じゅうだい","choices":["しゅうだい","じゅだい","じゅうたい"]},{"id":"kr:n3-v-103","i18n":{},"sentence":"静かな部屋で勉強に集中する。","underline":"集中","answer":"しゅうちゅう","choices":["じゅうちゅう","しゅちゅう","しゅうちゅ"]},{"id":"kr:n3-v-105","i18n":{},"sentence":"町の住民が広場に集まる。","underline":"住民","answer":"じゅうみん","choices":["しゅうみん","じゅみん","じゅうめん"]},{"id":"kr:n3-v-114","i18n":{},"sentence":"全国大会に出場する。","underline":"出場","answer":"しゅつじょう","choices":["しゅっじょう","しゅつしょう","じゅつじょう"]},{"id":"kr:n3-v-117","i18n":{},"sentence":"日本の首都は東京だ。","underline":"首都","answer":"しゅと","choices":["しゅうと","しゅど","じゅと"]},{"id":"kr:n3-v-126","i18n":{},"sentence":"この部屋を使用するには予約がいる。","underline":"使用","answer":"しよう","choices":["しょう","じよう","ちよう"]},{"id":"kr:n3-v-134","i18n":{},"sentence":"就職の ために 上京 する。","underline":"上京","answer":"じょうきょう","choices":["しょうきょう","じょうぎょう","じょきょう"]},{"id":"kr:n3-v-137","i18n":{},"sentence":"会議は 正午 に 始まる。","underline":"正午","answer":"しょうご","choices":["しょうこ","じょうご","しょご"]},{"id":"kr:n3-v-164","i18n":{},"sentence":"店で 食品 を 買う。","underline":"食品","answer":"しょくひん","choices":["しょくびん","しょっぴん","じょくひん"]},{"id":"kr:n3-v-166","i18n":{},"sentence":"体に よい 食物 を 食べる。","underline":"食物","answer":"しょくもつ","choices":["しょくぶつ","しょくもち","じょくもつ"]},{"id":"kr:n3-v-168","i18n":{},"sentence":"一週間分の 食料 を 買う。","underline":"食料","answer":"しょくりょう","choices":["しょくりょ","しょくりゅう","じょくりょう"]},{"id":"kr:n3-v-175","i18n":{},"sentence":"古い 書物 を 集める。","underline":"書物","answer":"しょもつ","choices":["しょぶつ","しょもち","じょもつ"]},{"id":"kr:n3-v-179","i18n":{},"sentence":"うれしい 知らせ が 届いた。","underline":"知らせ","answer":"しらせ","choices":["しらべ","しらせい","ちらせ"]},{"id":"kr:n3-v-181","i18n":{},"sentence":"駅で 知合い に 会った。","underline":"知合い","answer":"しりあい","choices":["しりわい","ちりあい","しりゃい"]},{"id":"kr:n3-v-184","i18n":{},"sentence":"大学に 進学 する。","underline":"進学","answer":"しんがく","choices":["しんかく","じんがく","しんが"]},{"id":"kr:n3-v-189","i18n":{},"sentence":"この大きな湖は人工で作られたそうだ。","underline":"人工","answer":"じんこう","choices":["しんこう","じんごう","じんこ"]},{"id":"kr:n3-v-202","i18n":{},"sentence":"彼は歴史に残る有名な人物だ。","underline":"人物","answer":"じんぶつ","choices":["じんぷつ","しんぶつ","じんぶ"]},{"id":"kr:n3-v-203","i18n":{},"sentence":"技術の進歩はとても速い。","underline":"進歩","answer":"しんぽ","choices":["しんぼ","しんほ","しんぽう"]},{"id":"kr:n3-v-204","i18n":{},"sentence":"彼は私の大切な親友だ。","underline":"親友","answer":"しんゆう","choices":["しんゆ","じんゆう","しにゅう"]},{"id":"kr:n3-v-207","i18n":{},"sentence":"大学で人の心理について学んでいる。","underline":"心理","answer":"しんり","choices":["じんり","しんじ","しんりん"]},{"id":"kr:n3-v-211","i18n":{},"sentence":"先生が黒板に図をかいて説明した。","underline":"図","answer":"ず","choices":["す","ずう","つ"]},{"id":"kr:n3-v-230","i18n":{},"sentence":"会議を予定どおり進める。","underline":"進める","answer":"すすめる","choices":["すずめる","すすまる","すすめれる"]},{"id":"kr:n3-v-254","i18n":{},"sentence":"答えが正か誤りかを確かめる。","underline":"正","answer":"せい","choices":["ぜい","せ","しい"]},{"id":"kr:n3-v-279","i18n":{},"sentence":"元気な青年が工場で働く。","underline":"青年","answer":"せいねん","choices":["しょうねん","せんねん","せいれん"]},{"id":"kr:n3-v-283","i18n":{},"sentence":"海の生物を研究する。","underline":"生物","answer":"せいぶつ","choices":["せいふつ","しょくぶつ","じんぶつ"]},{"id":"kr:n3-v-290","i18n":{},"sentence":"世間の目が気になる。","underline":"世間","answer":"せけん","choices":["せげん","せっけん","せんけん"]},{"id":"kr:n3-v-291","i18n":{},"sentence":"学者が新しい説を唱える。","underline":"説","answer":"せつ","choices":["ぜつ","せち","せい"]},{"id":"kr:n3-v-299","i18n":{},"sentence":"手をふって合図を送る。","underline":"合図","answer":"あいず","choices":["あいづ","あいす","あいずう"]},{"id":"kr:n3-v-306","i18n":{},"sentence":"くらいので部屋の明かりをつける。","underline":"明かり","answer":"あかり","choices":["あがり","あかりい","あきり"]},{"id":"kr:n3-v-308","i18n":{},"sentence":"彼のうそは明らかだ。","underline":"明らか","answer":"あきらか","choices":["あきらが","あからか","あぎらか"]},{"id":"kr:n3-v-313","i18n":{},"sentence":"長い夜がようやく明ける。","underline":"明ける","answer":"あける","choices":["あげる","あけえる","あくける"]},{"id":"kr:n3-v-330","i18n":{},"sentence":"日曜日に町の集まりがある。","underline":"集まり","answer":"あつまり","choices":["あづまり","あつばり","あつまりい"]},{"id":"kr:n3-v-353","i18n":{},"sentence":"みんなで力を合わせる。","underline":"合わせる","answer":"あわせる","choices":["あばせる","あわぜる","あわする"]},{"id":"kr:n3-v-364","i18n":{},"sentence":"意外な結果におどろいた。","underline":"意外","answer":"いがい","choices":["いかい","いがえ","いだい"]},{"id":"kr:n3-v-369","i18n":{},"sentence":"海には多くの生き物がいる。","underline":"生き物","answer":"いきもの","choices":["いぎもの","いきぼの","いきもん"]},{"id":"kr:n3-v-372","i18n":{},"sentence":"自分の意思をはっきり伝える。","underline":"意思","answer":"いし","choices":["いじ","いち","いす"]},{"id":"kr:n3-v-377","i18n":{},"sentence":"弟に意地悪をしてしまった。","underline":"意地悪","answer":"いじわる","choices":["いしわる","いぢわる","いじわ"]},{"id":"kr:n3-v-380","i18n":{},"sentence":"以前この町に住んでいた。","underline":"以前","answer":"いぜん","choices":["いせん","いぜ","いねん"]},{"id":"kr:n3-v-388","i18n":{},"sentence":"町の 市 で 新鮮な 野菜を 買った。","underline":"市","answer":"いち","choices":["いじ","いつ","えち"]},{"id":"kr:n3-v-391","i18n":{},"sentence":"たくさんの 荷物を 一度に 運んだ。","underline":"一度に","answer":"いちどに","choices":["いちとに","いちどう","いちどね"]},{"id":"kr:n3-v-392","i18n":{},"sentence":"朝の 市場 は 買い物客で にぎやかだ。","underline":"市場","answer":"いちば","choices":["いちは","いちぱ","いちま"]},{"id":"kr:n3-v-394","i18n":{},"sentence":"たなかさん 一家 が となり町へ 引っ越した。","underline":"一家","answer":"いっか","choices":["いっが","いか","いっかい"]},{"id":"kr:n3-v-399","i18n":{},"sentence":"一体 何が 起きたのか わからない。","underline":"一体","answer":"いったい","choices":["いたい","いっだい","いったえ"]},{"id":"kr:n3-v-404","i18n":{},"sentence":"便利だが 一方 で 問題もある。","underline":"一方","answer":"いっぽう","choices":["いっぼう","いっほう","いほう"]},{"id":"kr:n3-v-419","i18n":{},"sentence":"あの 事件 以来 彼とは 会っていない。","underline":"以来","answer":"いらい","choices":["いらり","いろい","いだい"]},{"id":"kr:n3-v-434","i18n":{},"sentence":"作文に 有名な 本の 一文を 引用 した。","underline":"引用","answer":"いんよう","choices":["いんゆう","いんよ","いにょう"]},{"id":"kr:n3-v-440","i18n":{},"sentence":"重い 机を みんなで 動かす。","underline":"動かす","answer":"うごかす","choices":["うこかす","うごがす","うごかず"]},{"id":"kr:n3-v-442","i18n":{},"sentence":"牧場に たくさんの 牛 がいる。","underline":"牛","answer":"うし","choices":["うじ","うち","うす"]},{"id":"kr:n3-v-449","i18n":{},"sentence":"鏡に 自分の 姿を 映す。","underline":"映す","answer":"うつす","choices":["うづす","うつず","うつし"]},{"id":"kr:n3-v-451","i18n":{},"sentence":"この 写真は 顔が よく 写る。","underline":"写る","answer":"うつる","choices":["うづる","うつろ","うする"]},{"id":"kr:n3-v-452","i18n":{},"sentence":"静かな 水面に 月が 映る。","underline":"映る","answer":"うつる","choices":["うづる","うちる","うつろ"]},{"id":"kr:n3-v-462","i18n":{},"sentence":"この本はよく売れる。","underline":"売れる","answer":"うれる","choices":["うける","うれろ","うねる"]},{"id":"kr:n3-v-464","i18n":{},"sentence":"今日は運がよかった。","underline":"運","answer":"うん","choices":["うむ","おん","うぬ"]},{"id":"kr:n3-v-465","i18n":{},"sentence":"車の運転に気をつける。","underline":"運転","answer":"うんてん","choices":["うんでん","うんてい","うんとん"]},{"id":"kr:n3-v-495","i18n":{},"sentence":"今日の仕事を終える。","underline":"終える","answer":"おえる","choices":["おへる","おいる","おうえる"]},{"id":"kr:n3-v-498","i18n":{},"sentence":"アパートの大家に家賃をはらう。","underline":"大家","answer":"おおや","choices":["おうや","おや","おおいや"]},{"id":"kr:n3-v-503","i18n":{},"sentence":"交差点で事故が起こる。","underline":"起こる","answer":"おこる","choices":["おごる","おこう","おっころ"]},{"id":"kr:n3-v-516","i18n":{},"sentence":"先生に日本語を教わる。","underline":"教わる","answer":"おそわる","choices":["おぞわる","おそはる","おしわる"]},{"id":"kr:n3-v-524","i18n":{},"sentence":"そろそろお昼にしよう。","underline":"お昼","answer":"おひる","choices":["おびる","おしる","おひろ"]},{"id":"kr:n3-v-531","i18n":{},"sentence":"旅行でたのしい思い出ができた。","underline":"思い出","answer":"おもいで","choices":["おもいて","おもえで","おもいれ"]},{"id":"kr:n3-v-532","i18n":{},"sentence":"この店は主に若者が来る。","underline":"主に","answer":"おもに","choices":["おもうに","おもね","おもみ"]},{"id":"kr:n3-v-533","i18n":{},"sentence":"その話に思わず笑ってしまった。","underline":"思わず","answer":"おもわず","choices":["おもわす","おもはず","おもわづ"]},{"id":"kr:n3-v-540","i18n":{},"sentence":"遠くからきれいな音が聞こえる。","underline":"音","answer":"おん","choices":["おお","おむ","おうん"]},{"id":"kr:n3-v-551","i18n":{},"sentence":"近所のジムの会員になる。","underline":"会員","answer":"かいいん","choices":["がいいん","かいん","けいいん"]},{"id":"kr:n3-v-553","i18n":{},"sentence":"来年はじめて海外に行く。","underline":"海外","answer":"かいがい","choices":["かいかい","がいがい","けいがい"]},{"id":"kr:n3-v-554","i18n":{},"sentence":"食事のあとレジで会計をする。","underline":"会計","answer":"かいけい","choices":["かいげい","がいけい","かいけ"]},{"id":"kr:n3-v-556","i18n":{},"sentence":"町の会合に出席する。","underline":"会合","answer":"かいごう","choices":["かいこう","がいごう","かいご"]},{"id":"kr:n3-v-558","i18n":{},"sentence":"三時に試合が開始する。","underline":"開始","answer":"かいし","choices":["がいし","かいじ","けいし"]},{"id":"kr:n3-v-565","i18n":{},"sentence":"先生は生徒を早めに家へ帰す。","underline":"帰す","answer":"かえす","choices":["かえる","かえず","きえす"]},{"id":"kr:n3-v-566","i18n":{},"sentence":"監督は試合中に選手を代える。","underline":"代える","answer":"かえる","choices":["かける","かえす","こえる"]},{"id":"kr:n3-v-587","i18n":{},"sentence":"かれは有名な学者だ。","underline":"学者","answer":"がくしゃ","choices":["かくしゃ","がくじゃ","がくしゅ"]},{"id":"kr:n3-v-588","i18n":{},"sentence":"毎日の言語の学習が大切だ。","underline":"学習","answer":"がくしゅう","choices":["かくしゅう","がくしゅ","がくじゅう"]},{"id":"kr:n3-v-592","i18n":{},"sentence":"学問の世界は奥が深い。","underline":"学問","answer":"がくもん","choices":["かくもん","がくもう","がくぼん"]},{"id":"kr:n3-v-602","i18n":{},"sentence":"二つの予定が重なる。","underline":"重なる","answer":"かさなる","choices":["かざなる","がさなる","かたなる"]},{"id":"kr:n3-v-603","i18n":{},"sentence":"本を高く重ねる。","underline":"重ねる","answer":"かさねる","choices":["かざねる","がさねる","かたねる"]},{"id":"kr:n3-v-605","i18n":{},"sentence":"かれに貸しがある。","underline":"貸し","answer":"かし","choices":["かじ","がし","けし"]},{"id":"kr:n3-v-607","i18n":{},"sentence":"毎日家事をこなす。","underline":"家事","answer":"かじ","choices":["かし","がじ","けじ"]},{"id":"kr:n3-v-609","i18n":{},"sentence":"有名な歌手のコンサートに行く。","underline":"歌手","answer":"かしゅ","choices":["かじゅ","がしゅ","かしゅう"]},{"id":"kr:n3-v-661","i18n":{},"sentence":"きょうの担当が私に 代る。","underline":"代る","answer":"かわる","choices":["がわる","かわろ","かばる"]},{"id":"kr:n3-v-664","i18n":{},"sentence":"いい 考え が浮かんだ。","underline":"考え","answer":"かんがえ","choices":["かんかえ","がんがえ","かんがい"]},{"id":"kr:n3-v-704","i18n":{},"sentence":"この シャツの 生地 は とても やわらかい。","underline":"生地","answer":"きじ","choices":["きし","ぎじ","きぢ"]},{"id":"kr:n3-v-710","i18n":{},"sentence":"水を 熱すると 気体 に 変わる。","underline":"気体","answer":"きたい","choices":["きだい","ぎたい","きて"]},{"id":"kr:n3-v-726","i18n":{},"sentence":"今日は かぜ 気味 で 体が だるい。","underline":"気味","answer":"きみ","choices":["ぎみ","きび","きめ"]},{"id":"kr:n3-v-743","i18n":{},"sentence":"空が 急に 暗くなった。","underline":"急に","answer":"きゅうに","choices":["きゅに","ぎゅうに","きゅうにい"]},{"id":"kr:n3-v-756","i18n":{},"sentence":"この 薬は 強力 に 効く。","underline":"強力","answer":"きょうりょく","choices":["きょうりゅく","きょりょく","きょうりょ"]},{"id":"kr:n3-v-762","i18n":{},"sentence":"テーブルを 切れ で ふいた。","underline":"切れ","answer":"きれ","choices":["ぎれ","きれい","きえ"]},{"id":"kr:n3-v-763","i18n":{},"sentence":"この はさみは よく 切れる。","underline":"切れる","answer":"きれる","choices":["きえる","ぎれる","きられる"]},{"id":"kr:n3-v-767","i18n":{},"sentence":"銀のスプーンをもらった。","underline":"銀","answer":"ぎん","choices":["きん","ぎい","じん"]},{"id":"kr:n3-v-774","i18n":{},"sentence":"近代の歴史を勉強する。","underline":"近代","answer":"きんだい","choices":["きんたい","ぎんだい","きんでい"]},{"id":"kr:n3-v-791","i18n":{},"sentence":"本物とにせ物を区別する。","underline":"区別","answer":"くべつ","choices":["ぐべつ","くべづ","くべ"]},{"id":"kr:n3-v-823","i18n":{},"sentence":"三人で計五千円かかった。","underline":"計","answer":"けい","choices":["げい","けえ","き"]},{"id":"kr:n3-v-853","i18n":{},"sentence":"隣の県まで車で行く。","underline":"県","answer":"けん","choices":["げん","けえん","こん"]},{"id":"kr:n3-v-887","i18n":{},"sentence":"買い物の合計は三千円だった。","underline":"合計","answer":"ごうけい","choices":["こうけい","ごけい","ごうげい"]},{"id":"kr:n3-v-893","i18n":{},"sentence":"二つの案のうち後者を選んだ。","underline":"後者","answer":"こうしゃ","choices":["こしゃ","ごうしゃ","こうじゃ"]},{"id":"kr:n3-v-894","i18n":{},"sentence":"父は町の工場で働いている。","underline":"工場","answer":"こうば","choices":["こば","ごうば","こうぱ"]},{"id":"kr:n3-v-898","i18n":{},"sentence":"彼の勇敢な行動に感心した。","underline":"行動","answer":"こうどう","choices":["こどう","ごうどう","こうとう"]},{"id":"kr:n3-v-921","i18n":{},"sentence":"多くの国民が選挙に行った。","underline":"国民","answer":"こくみん","choices":["こくみ","ごくみん","こぐみん"]},{"id":"kr:n3-v-928","i18n":{},"sentence":"国民の力で国家を支える。","underline":"国家","answer":"こっか","choices":["こか","ごっか","こっが"]},{"id":"kr:n3-v-938","i18n":{},"sentence":"服の好みは人によって違う。","underline":"好み","answer":"このみ","choices":["このび","こなみ","こごみ"]},{"id":"kr:n3-v-939","i18n":{},"sentence":"彼は静かな場所を好む。","underline":"好む","answer":"このむ","choices":["このぶ","こなむ","ごのむ"]},{"id":"kr:n3-v-945","i18n":{},"sentence":"山の小屋で一晩泊まった。","underline":"小屋","answer":"こや","choices":["こうや","ごや","しょうや"]},{"id":"kr:n3-v-948","i18n":{},"sentence":"急ぐと転ぶから気をつけて。","underline":"転ぶ","answer":"ころぶ","choices":["こらぶ","ごろぶ","ころむ"]},{"id":"kr:n3-v-949","i18n":{},"sentence":"今回の旅行はとても楽しかった。","underline":"今回","answer":"こんかい","choices":["こうかい","こんがい","こんけい"]},{"id":"kr:n3-v-974","i18n":{},"sentence":"工場で 作業を 続ける。","underline":"作業","answer":"さぎょう","choices":["さきょう","さぎょ","ざぎょう"]},{"id":"kr:n3-v-977","i18n":{},"sentence":"この 作品は 有名だ。","underline":"作品","answer":"さくひん","choices":["さくびん","さくぴん","ざくひん"]},{"id":"kr:n3-v-978","i18n":{},"sentence":"畑の 作物が 育つ。","underline":"作物","answer":"さくもつ","choices":["さくぶつ","さくもち","ざくもつ"]},{"id":"kr:n3-v-988","i18n":{},"sentence":"杯に お酒を 注す。","underline":"注す","answer":"さす","choices":["ざす","さっす","さつ"]},{"id":"kr:n3-v-993","i18n":{},"sentence":"有名な 作家の 小説を 読む。","underline":"作家","answer":"さっか","choices":["さつか","ざっか","さっぱ"]},{"id":"kr:n3-v-1011","i18n":{},"sentence":"駅で 友人の 見送りを した。","underline":"見送り","answer":"みおくり","choices":["みおぐり","みうくり","みおくれ"]},{"id":"kr:n3-v-1012","i18n":{},"sentence":"私は あなたの 味方だ。","underline":"味方","answer":"みかた","choices":["みがた","みかだ","びかた"]},{"id":"kr:n3-v-1013","i18n":{},"sentence":"見事な 演技だった。","underline":"見事","answer":"みごと","choices":["みこと","みごど","みごとう"]},{"id":"kr:n3-v-1019","i18n":{},"sentence":"旅行の土産を家族に買った。","underline":"土産","answer":"みやげ","choices":["みやけ","みあげ","みやべ"]},{"id":"kr:n3-v-1020","i18n":{},"sentence":"平安時代の都は今の京都にあった。","underline":"都","answer":"みやこ","choices":["みやご","みあこ","みやこう"]},{"id":"kr:n3-v-1052","i18n":{},"sentence":"昼の飯をいっしょに食べよう。","underline":"飯","answer":"めし","choices":["めじ","べし","めす"]},{"id":"kr:n3-v-1067","i18n":{},"sentence":"黒板の小さな文字が見えない。","underline":"文字","answer":"もじ","choices":["もし","もぢ","ぼじ"]},{"id":"kr:n3-v-1068","i18n":{},"sentence":"古い石に文字が刻まれている。","underline":"文字","answer":"もんじ","choices":["もんし","もんじい","ぼんじ"]},{"id":"kr:n3-v-1071","i18n":{},"sentence":"重い荷物を両手で持ち上げる。","underline":"持ち上げる","answer":"もちあげる","choices":["もちあける","もぢあげる","もちあがる"]},{"id":"kr:n3-v-1072","i18n":{},"sentence":"この実験では特別な道具を用いる。","underline":"用いる","answer":"もちいる","choices":["もぢいる","もちいろ","もちえる"]},{"id":"kr:n3-v-1075","i18n":{},"sentence":"この会社の元の社長は父だ。","underline":"元","answer":"もと","choices":["もど","もとう","ぼと"]},{"id":"kr:n3-v-1081","i18n":{},"sentence":"この仕事をした者は誰ですか。","underline":"者","answer":"もの","choices":["ものう","もぬ","ぼの"]},{"id":"kr:n3-v-1082","i18n":{},"sentence":"夜中に変な物音が聞こえた。","underline":"物音","answer":"ものおと","choices":["ものおど","ものごと","ものと"]},{"id":"kr:n3-v-1083","i18n":{},"sentence":"祖母が昔の物語を話してくれた。","underline":"物語","answer":"ものがたり","choices":["ものかたり","ものがだり","ものがたし"]},{"id":"kr:n3-v-1084","i18n":{},"sentence":"彼は物事を深く考える人だ。","underline":"物事","answer":"ものごと","choices":["ものこと","ものごど","ものおと"]},{"id":"kr:n3-v-1105","i18n":{},"sentence":"二つの国の友好を深める。","underline":"友好","answer":"ゆうこう","choices":["ゆうごう","ゆこう","ゆうこ"]},{"id":"kr:n3-v-1121","i18n":{},"sentence":"夜が明けるのを静かに待った。","underline":"夜","answer":"よ","choices":["よお","ゆ","よん"]},{"id":"kr:n3-v-1122","i18n":{},"sentence":"夜明けの空はとてもきれいだ。","underline":"夜明け","answer":"よあけ","choices":["よあげ","やあけ","よまけ"]},{"id":"kr:n3-v-1128","i18n":{},"sentence":"夜道はじゅうぶん用心してください。","underline":"用心","answer":"ようじん","choices":["ようしん","よじん","ようにん"]},{"id":"kr:n3-v-1133","i18n":{},"sentence":"今日は何曜日ですか。","underline":"曜日","answer":"ようび","choices":["ようひ","よび","ようぴ"]},{"id":"kr:n3-v-1139","i18n":{},"sentence":"けんかはもう止すように言った。","underline":"止す","answer":"よす","choices":["よず","よつ","ようす"]},{"id":"kr:n3-v-1143","i18n":{},"sentence":"夜中に目がさめてしまった。","underline":"夜中","answer":"よなか","choices":["よなが","やなか","よるなか"]},{"id":"kr:n3-v-1144","i18n":{},"sentence":"世の中にはいろいろな人がいる。","underline":"世の中","answer":"よのなか","choices":["よのなが","ようのなか","せのなか"]},{"id":"kr:n3-v-1158","i18n":{},"sentence":"この仕事はとても楽だ。","underline":"楽","answer":"らく","choices":["らぐ","らこ","らくう"]},{"id":"kr:n3-v-1172","i18n":{},"sentence":"電車の料金を支払った。","underline":"料金","answer":"りょうきん","choices":["りょうぎん","りょきん","りゅうきん"]},{"id":"kr:n3-v-1192","i18n":{},"sentence":"親友との別れはさびしかった。","underline":"別れ","answer":"わかれ","choices":["わがれ","わかり","わけれ"]},{"id":"kr:n3-v-1200","i18n":{},"sentence":"その映画が今話題になっている。","underline":"話題","answer":"わだい","choices":["わたい","はだい","わだいい"]},{"id":"kr:n3-v-1203","i18n":{},"sentence":"人の悪口を言ってはいけない。","underline":"悪口","answer":"わるくち","choices":["わるくつ","わるこう","わろくち"]},{"id":"kr:n3-v-1208","i18n":{},"sentence":"この 物語は 悪と 正義の 戦いを 描く。","underline":"悪","answer":"あく","choices":["あぐ","あこ","わく"]},{"id":"kr:n3-v-1214","i18n":{},"sentence":"相手の 意を くみ取る。","underline":"意","answer":"い","choices":["き","ち","じ"]},{"id":"kr:n3-v-1215","i18n":{},"sentence":"近くの 医院で 診てもらった。","underline":"医院","answer":"いいん","choices":["いん","ぎいん","いえん"]},{"id":"kr:n3-v-1218","i18n":{},"sentence":"彼は 意地を 張って 謝らない。","underline":"意地","answer":"いじ","choices":["いし","いち","えじ"]},{"id":"kr:n3-v-1227","i18n":{},"sentence":"にわとりが 卵を 産む。","underline":"産む","answer":"うむ","choices":["うる","くむ","ふむ"]},{"id":"kr:n3-v-1232","i18n":{},"sentence":"先生の 教えを 守る。","underline":"教え","answer":"おしえ","choices":["おじえ","おさえ","おそえ"]},{"id":"kr:n3-v-1245","i18n":{},"sentence":"友だちに 借りが ある。","underline":"借り","answer":"かり","choices":["がり","かい","はり"]},{"id":"kr:n3-v-1264","i18n":{},"sentence":"仕事に 切りを つける。","underline":"切り","answer":"きり","choices":["ぎり","ちり","きい"]},{"id":"kr:n3-v-1293","i18n":{},"sentence":"今年の米の作は豊かだ。","underline":"作","answer":"さく","choices":["ざく","さぐ","しゃく"]},{"id":"kr:n3-v-1307","i18n":{},"sentence":"二つの案のうち前者を選ぶ。","underline":"前者","answer":"ぜんしゃ","choices":["せんしゃ","ぜんじゃ","ぜんしゅ"]},{"id":"kr:n3-v-1310","i18n":{},"sentence":"一歩ずつ前進する。","underline":"前進","answer":"ぜんしん","choices":["せんしん","ぜんじん","ぜんちん"]},{"id":"kr:n3-v-1328","i18n":{},"sentence":"コップに水を注ぐ。","underline":"注ぐ","answer":"そそぐ","choices":["そそく","すすぐ","さそぐ"]},{"id":"kr:n3-v-1352","i18n":{},"sentence":"祖父は田で米を作っている。","underline":"田","answer":"た","choices":["だ","ち","な"]},{"id":"kr:n3-v-1356","i18n":{},"sentence":"作文の題を考える。","underline":"題","answer":"だい","choices":["たい","でい","だいい"]},{"id":"kr:n3-v-1361","i18n":{},"sentence":"商品の代金を払う。","underline":"代金","answer":"だいきん","choices":["たいきん","だいぎん","だいけん"]},{"id":"kr:n3-v-1364","i18n":{},"sentence":"日本の大使と話す。","underline":"大使","answer":"たいし","choices":["だいし","たいじ","たいしい"]},{"id":"kr:n3-v-1366","i18n":{},"sentence":"毎朝体重をはかる。","underline":"体重","answer":"たいじゅう","choices":["たいじゅ","だいじゅう","たいしゅう"]},{"id":"kr:n3-v-1379","i18n":{},"sentence":"本の題名をおぼえる。","underline":"題名","answer":"だいめい","choices":["たいめい","だいめ","だいべい"]},{"id":"kr:n3-v-1383","i18n":{},"sentence":"社長の代理で出席する。","underline":"代理","answer":"だいり","choices":["たいり","だいれ","だいりい"]},{"id":"kr:n3-v-1410","i18n":{},"sentence":"相手の立場を考える。","underline":"立場","answer":"たちば","choices":["たちは","だちば","たちぱ"]},{"id":"kr:n3-v-1411","i18n":{},"sentence":"新しいビルが建つ。","underline":"建つ","answer":"たつ","choices":["まつ","だつ","たづ"]},{"id":"kr:n3-v-1423","i18n":{},"sentence":"会う度に元気になる。","underline":"度","answer":"たび","choices":["だび","ため","たみ"]},{"id":"kr:n3-v-1424","i18n":{},"sentence":"一人で旅に出る。","underline":"旅","answer":"たび","choices":["だび","たべ","たに"]},{"id":"kr:n3-v-1435","i18n":{},"sentence":"いちど試しにやってみる。","underline":"試し","answer":"ためし","choices":["だめし","たべし","ためせ"]},{"id":"kr:n3-v-1436","i18n":{},"sentence":"新しい方法を試す。","underline":"試す","answer":"ためす","choices":["だめす","たべす","ためつ"]},{"id":"kr:n3-v-1438","i18n":{},"sentence":"故郷からの便りが届く。","underline":"便り","answer":"たより","choices":["だより","たよい","たまり"]},{"id":"kr:n3-v-1451","i18n":{},"sentence":"この村の地はゆたかだ。","underline":"地","answer":"ち","choices":["し","ひ","き"]},{"id":"kr:n3-v-1457","i18n":{},"sentence":"地下に駐車場がある。","underline":"地下","answer":"ちか","choices":["じか","ちが","しか"]},{"id":"kr:n3-v-1462","i18n":{},"sentence":"この地区は静かだ。","underline":"地区","answer":"ちく","choices":["じく","ちぐ","しく"]},{"id":"kr:n3-v-1464","i18n":{},"sentence":"県の知事が選ばれる。","underline":"知事","answer":"ちじ","choices":["ちし","じじ","ちぢ"]},{"id":"kr:n3-v-1466","i18n":{},"sentence":"わたしの父親は、まいあさはやくおきます。","underline":"父親","answer":"ちちおや","choices":["ちぢおや","ちちうや","ちちや"]},{"id":"kr:n3-v-1469","i18n":{},"sentence":"この地方は、ふゆに雪がおおい。","underline":"地方","answer":"ちほう","choices":["じほう","ちぼう","ちほお"]},{"id":"kr:n3-v-1470","i18n":{},"sentence":"しょくじのあとで、茶をのみます。","underline":"茶","answer":"ちゃ","choices":["じゃ","しゃ","ちゃあ"]},{"id":"kr:n3-v-1474","i18n":{},"sentence":"本のしたに、ことばの注がついている。","underline":"注","answer":"ちゅう","choices":["ちゅ","しゅう","ちょう"]},{"id":"kr:n3-v-1478","i18n":{},"sentence":"あめで、しあいが中止になった。","underline":"中止","answer":"ちゅうし","choices":["ちゅうじ","ちゅし","ちょうし"]},{"id":"kr:n3-v-1480","i18n":{},"sentence":"きょうの昼食は、カレーだった。","underline":"昼食","answer":"ちゅうしょく","choices":["ちゅうじょく","ちゅしょく","ちゅうそく"]},{"id":"kr:n3-v-1481","i18n":{},"sentence":"まちの中心に、えきがある。","underline":"中心","answer":"ちゅうしん","choices":["ちゅうじん","ちゅしん","ちゅうちん"]},{"id":"kr:n3-v-1482","i18n":{},"sentence":"あたらしいせんしゅが、注目をあつめている。","underline":"注目","answer":"ちゅうもく","choices":["ちゅうもぐ","ちゅもく","ちゅうぼく"]},{"id":"kr:n3-v-1483","i18n":{},"sentence":"レストランで、りょうりを注文した。","underline":"注文","answer":"ちゅうもん","choices":["ちゅうぼん","ちゅもん","ちゅうもう"]},{"id":"kr:n3-v-1497","i18n":{},"sentence":"まいにち、じてんしゃで通学する。","underline":"通学","answer":"つうがく","choices":["つうかく","つがく","とうがく"]},{"id":"kr:n3-v-1499","i18n":{},"sentence":"こうじで、このみちは通行できません。","underline":"通行","answer":"つうこう","choices":["つうごう","つこう","つうこ"]},{"id":"kr:n3-v-1500","i18n":{},"sentence":"このみちは、えきに通じる。","underline":"通じる","answer":"つうじる","choices":["つうしる","つじる","とうじる"]},{"id":"kr:n3-v-1513","i18n":{},"sentence":"コップに、つめたいみずを注ぐ。","underline":"注ぐ","answer":"つぐ","choices":["つく","そぐ","づぐ"]},{"id":"kr:n3-v-1515","i18n":{},"sentence":"くびに、きれいなネックレスを着ける。","underline":"着ける","answer":"つける","choices":["つげる","づける","つかる"]},{"id":"kr:n3-v-1538","i18n":{},"sentence":"二つの川の出合いの場所へ行く。","underline":"出合い","answer":"であい","choices":["てあい","でわい","であき"]},{"id":"kr:n3-v-1549","i18n":{},"sentence":"昨日ふしぎな出来事があった。","underline":"出来事","answer":"できごと","choices":["できこと","てきごと","でぎごと"]},{"id":"kr:n3-v-1555","i18n":{},"sentence":"パーティーで手品を見せる。","underline":"手品","answer":"てじな","choices":["てしな","でじな","てじま"]},{"id":"kr:n3-v-1571","i18n":{},"sentence":"先生の問いに答える。","underline":"問い","answer":"とい","choices":["どい","とえ","とり"]},{"id":"kr:n3-v-1575","i18n":{},"sentence":"二つの品は同一のものだ。","underline":"同一","answer":"どういつ","choices":["とういつ","どういち","どうにつ"]},{"id":"kr:n3-v-1579","i18n":{},"sentence":"二人が同時に話し始めた。","underline":"同時","answer":"どうじ","choices":["とうじ","どうし","どじ"]},{"id":"kr:n3-v-1585","i18n":{},"sentence":"東洋の文化に興味がある。","underline":"東洋","answer":"とうよう","choices":["どうよう","とうよ","とよう"]},{"id":"kr:n3-v-1590","i18n":{},"sentence":"お客さんを部屋に通す。","underline":"通す","answer":"とおす","choices":["とうす","どおす","とおず"]},{"id":"kr:n3-v-1592","i18n":{},"sentence":"都会の生活は忙しい。","underline":"都会","answer":"とかい","choices":["とがい","どかい","つかい"]},{"id":"kr:n3-v-1601","i18n":{},"sentence":"この製品の特長は軽さです。","underline":"特長","answer":"とくちょう","choices":["とくちょ","どくちょう","とくじょう"]},{"id":"kr:n3-v-1610","i18n":{},"sentence":"大きな都市に住む。","underline":"都市","answer":"とし","choices":["どし","とじ","とち"]},{"id":"kr:n3-v-1612","i18n":{},"sentence":"図書を借りる。","underline":"図書","answer":"としょ","choices":["どしょ","とじょ","ずしょ"]},{"id":"kr:n3-v-1616","i18n":{},"sentence":"広い土地を買う。","underline":"土地","answer":"とち","choices":["どち","とし","とっち"]},{"id":"kr:n3-v-1650","i18n":{},"sentence":"弁当の中味がおいしそうだ。","underline":"中味","answer":"なかみ","choices":["なかび","ながみ","なかも"]},{"id":"kr:n3-v-1683","i18n":{},"sentence":"窓から 日光 が入る。","underline":"日光","answer":"にっこう","choices":["にこう","にっこ","にっこお"]},{"id":"kr:n3-v-1688","i18n":{},"sentence":"コンサートの 入場 を待つ。","underline":"入場","answer":"にゅうじょう","choices":["にゅうじょ","にゅうしょう","にうじょう"]},{"id":"kr:n3-v-1706","i18n":{},"sentence":"同じ 年代 の友人が多い。","underline":"年代","answer":"ねんだい","choices":["ねんたい","ねんだ","ねんない"]},{"id":"kr:n3-v-1708","i18n":{},"sentence":"子どもたちが 野 で遊ぶ。","underline":"野","answer":"の","choices":["は","も","ろ"]},{"id":"kr:n3-v-1718","i18n":{},"sentence":"荷物を車に 乗せる。","underline":"乗せる","answer":"のせる","choices":["よせる","のぜる","のする"]},{"id":"kr:n3-v-1735","i18n":{},"sentence":"その場にいた全員がその知らせに驚いた。","underline":"場","answer":"ば","choices":["は","ぱ","ま"]},{"id":"kr:n3-v-1750","i18n":{},"sentence":"ストップウォッチで走る時間を計る。","underline":"計る","answer":"はかる","choices":["はがる","ばかる","はかろ"]},{"id":"kr:n3-v-1763","i18n":{},"sentence":"この物語の始まりはとても静かだ。","underline":"始まり","answer":"はじまり","choices":["はしまり","はじまい","はじばり"]},{"id":"kr:n3-v-1772","i18n":{},"sentence":"この薬は熱を下げる働きが強い。","underline":"働き","answer":"はたらき","choices":["はだらき","はたらぎ","ばたらき"]},{"id":"kr:n3-v-1774","i18n":{},"sentence":"天文学者が新しい星を発見した。","underline":"発見","answer":"はっけん","choices":["はつけん","はっげん","ばっけん"]},{"id":"kr:n3-v-1775","i18n":{},"sentence":"図書館で利用者カードを発行してもらった。","underline":"発行","answer":"はっこう","choices":["はつこう","はっごう","はっこ"]},{"id":"kr:n3-v-1776","i18n":{},"sentence":"電車はまもなくホームから発車する。","underline":"発車","answer":"はっしゃ","choices":["はつしゃ","はっじゃ","ばっしゃ"]},{"id":"kr:n3-v-1783","i18n":{},"sentence":"彼は便利な機械を発明した。","underline":"発明","answer":"はつめい","choices":["はっめい","はつめえ","ばつめい"]},{"id":"kr:n3-v-1785","i18n":{},"sentence":"みんなでこの問題について話し合うことにした。","underline":"話し合う","answer":"はなしあう","choices":["はなしがう","はなしあお","はなじあう"]},{"id":"kr:n3-v-1793","i18n":{},"sentence":"わたしの母親はやさしい。","underline":"母親","answer":"ははおや","choices":["はばおや","ははおうや","ははや"]},{"id":"kr:n3-v-1847","i18n":{},"sentence":"うわさがまちに広がる。","underline":"広がる","answer":"ひろがる","choices":["ひろかる","ひらがる","ひろがれ"]},{"id":"kr:n3-v-1848","i18n":{},"sentence":"机の上に地図を広げる。","underline":"広げる","answer":"ひろげる","choices":["ひろける","ひらげる","ひろげろ"]},{"id":"kr:n3-v-1849","i18n":{},"sentence":"新しい技術を世界に広める。","underline":"広める","answer":"ひろめる","choices":["ひろめろ","ひろべる","ひらめる"]},{"id":"kr:n3-v-1850","i18n":{},"sentence":"あの店は品がいい。","underline":"品","answer":"ひん","choices":["びん","ぴん","しん"]},{"id":"kr:n3-v-1852","i18n":{},"sentence":"次の便で荷物を送る。","underline":"便","answer":"びん","choices":["ぴん","みん","びぬ"]},{"id":"kr:n3-v-1854","i18n":{},"sentence":"そんなことは不可能です。","underline":"不","answer":"ふ","choices":["ふう","む","ほ"]},{"id":"kr:n3-v-1855","i18n":{},"sentence":"不器用な手つきだ。","underline":"不","answer":"ぶ","choices":["ぷ","む","ぶう"]},{"id":"kr:n3-v-1858","i18n":{},"sentence":"試験の結果が不安だ。","underline":"不安","answer":"ふあん","choices":["ぶあん","ふうあん","ふあ"]},{"id":"kr:n3-v-1877","i18n":{},"sentence":"試験で不正をする。","underline":"不正","answer":"ふせい","choices":["ぶせい","ふぜい","ふせ"]},{"id":"kr:n3-v-1879","i18n":{},"sentence":"水が不足する。","underline":"不足","answer":"ふそく","choices":["ぶそく","ふぞく","ふそぐ"]},{"id":"kr:n3-v-1886","i18n":{},"sentence":"電話が不通になる。","underline":"不通","answer":"ふつう","choices":["ぶつう","ふつ","ふづう"]},{"id":"kr:n3-v-1890","i18n":{},"sentence":"新しい物質を発見する。","underline":"物質","answer":"ぶっしつ","choices":["ぶつしつ","ぶっじつ","ふっしつ"]},{"id":"kr:n3-v-1891","i18n":{},"sentence":"物理の授業が好きだ。","underline":"物理","answer":"ぶつり","choices":["ふつり","ぶつじ","ぶづり"]},{"id":"kr:n3-v-1909","i18n":{},"sentence":"短い文を書く。","underline":"文","answer":"ぶん","choices":["ふん","ぷん","ぶうん"]},{"id":"kr:n3-v-1912","i18n":{},"sentence":"古代の 文明 について 学んだ。","underline":"文明","answer":"ぶんめい","choices":["ぶんめえ","ふんめい","ぶんべい"]},{"id":"kr:n3-v-1913","i18n":{},"sentence":"彼は 科学の 分野 で 有名だ。","underline":"分野","answer":"ぶんや","choices":["ぶにゃ","ふんや","ぶんにゃ"]},{"id":"kr:n3-v-1917","i18n":{},"sentence":"別に 行きたくない わけでは ない。","underline":"別に","answer":"べつに","choices":["べづに","べっに","べつじ"]},{"id":"kr:n3-v-1926","i18n":{},"sentence":"こちらの 方 が 大きい。","underline":"方","answer":"ほう","choices":["ぼう","ほお","ぽう"]},{"id":"kr:n3-v-1948","i18n":{},"sentence":"歩道 を 歩いて 学校へ 行く。","underline":"歩道","answer":"ほどう","choices":["ほとう","ぼどう","ほど"]},{"id":"kr:n3-v-1960","i18n":{},"sentence":"これは 本物 の ダイヤだ。","underline":"本物","answer":"ほんもの","choices":["ほんもん","ぼんもの","ほんも"]},{"id":"kr:n3-v-1990","i18n":{},"sentence":"夕日で空が真っ赤になった。","underline":"真っ赤","answer":"まっか","choices":["まか","まっき","まっが"]},{"id":"kr:n3-v-2010","i18n":{},"sentence":"読みやすい字体を選ぶ。","underline":"字体","answer":"じたい","choices":["したい","じだい","ちたい"]},{"id":"kr:n3-v-2016","i18n":{},"sentence":"衣食住が生活の基本だ。","underline":"住","answer":"じゅう","choices":["しゅう","じゅ","ちゅう"]},{"id":"kr:n3-v-2018","i18n":{},"sentence":"勤務中に私用で電話した。","underline":"私用","answer":"しよう","choices":["しょう","じよう","しよ"]},{"id":"kr:n3-v-2023","i18n":{},"sentence":"犯人の正体がわかった。","underline":"正体","answer":"しょうたい","choices":["じょうたい","しょうだい","しょたい"]},{"id":"kr:n3-v-2028","i18n":{},"sentence":"会議は進行中です。","underline":"進行","answer":"しんこう","choices":["じんこう","しんごう","しんこ"]},{"id":"kr:n3-v-2032","i18n":{},"sentence":"科学の真理を追い求める。","underline":"真理","answer":"しんり","choices":["じんり","しんじ","しんい"]},{"id":"kr:n3-v-2033","i18n":{},"sentence":"水洗トイレを設置する。","underline":"水洗","answer":"すいせん","choices":["すいぜん","すいせい","ずいせん"]},{"id":"kr:n3-v-2040","i18n":{},"sentence":"会社は事故について声明を発表した。","underline":"声明","answer":"せいめい","choices":["しょうめい","せんめい","ぜいめい"]},{"id":"kr:n3-v-2042","i18n":{},"sentence":"人間のからだの生理について学ぶ。","underline":"生理","answer":"せいり","choices":["ぜいり","せいじ","せいち"]},{"id":"kr:n3-v-2073","i18n":{},"sentence":"台風で風がだんだん強まる。","underline":"強まる","answer":"つよまる","choices":["つよめる","つよばる","ちよまる"]},{"id":"kr:n3-v-2074","i18n":{},"sentence":"守りをいっそう強める必要がある。","underline":"強める","answer":"つよめる","choices":["つよまる","つよべる","ちよめる"]},{"id":"kr:n3-v-2078","i18n":{},"sentence":"父の仕事で遠くの学校へ転校する。","underline":"転校","answer":"てんこう","choices":["でんこう","てんこ","てんごう"]},{"id":"kr:n3-v-2081","i18n":{},"sentence":"会社の責任を問う声が上がった。","underline":"問う","answer":"とう","choices":["どう","とお","つう"]},{"id":"kr:n3-v-2088","i18n":{},"sentence":"先生が平和の大切さを説く。","underline":"説く","answer":"とく","choices":["どく","とぐ","つく"]},{"id":"kr:n3-v-2095","i18n":{},"sentence":"鈴の音が美しく響く。","underline":"音","answer":"ね","choices":["に","ぬ","れ"]},{"id":"kr:n3-v-2101","i18n":{},"sentence":"夕日に染まった山がきれいに映える。","underline":"映える","answer":"はえる","choices":["ばえる","はへる","はえろ"]},{"id":"kr:n3-v-2103","i18n":{},"sentence":"会社は業務の効率化を図る。","underline":"図る","answer":"はかる","choices":["ばかる","はがる","はまる"]},{"id":"kr:n3-v-2111","i18n":{},"sentence":"うわさが町中に広まる。","underline":"広まる","answer":"ひろまる","choices":["びろまる","ひろばる","ひろめる"]},{"id":"kr:n3-v-2132","i18n":{},"sentence":"世の中は大きく変わった。","underline":"世","answer":"よ","choices":["や","ゆ","よう"]},{"id":"kr:n3-v-2135","i18n":{},"sentence":"台風の勢いが弱まる。","underline":"弱まる","answer":"よわまる","choices":["よわばる","よはまる","やわまる"]},{"id":"kr:n3-v-2136","i18n":{},"sentence":"火を弱める。","underline":"弱める","answer":"よわめる","choices":["よわべる","よはめる","やわめる"]}]}
+{
+ "schema": 1,
+ "daimon": "kanji_read",
+ "level": "N4",
+ "languages": [
+  "ja",
+  "ne"
+ ],
+ "items": [
+  {
+   "id": "kr:n4-v-10",
+   "i18n": {},
+   "sentence": "この木は百年も生きると言われている。",
+   "underline": "生きる",
+   "answer": "いきる",
+   "choices": [
+    "いぎる",
+    "いきぬ",
+    "いっきる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-23",
+   "i18n": {},
+   "sentence": "となりの部屋から話し声が聞こえる。",
+   "underline": "聞こえる",
+   "answer": "きこえる",
+   "choices": [
+    "きごえる",
+    "ぎこえる",
+    "きこえろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-34",
+   "i18n": {},
+   "sentence": "姉はとなり町の大学生だ。",
+   "underline": "大学生",
+   "answer": "だいがくせい",
+   "choices": [
+    "たいがくせい",
+    "だいかくせい",
+    "だいがくせえ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-75",
+   "i18n": {},
+   "sentence": "きょうは 日 が とても つよい。",
+   "underline": "日",
+   "answer": "ひ",
+   "choices": [
+    "び",
+    "ち",
+    "に"
+   ]
+  },
+  {
+   "id": "kr:n4-v-91",
+   "i18n": {},
+   "sentence": "この 町の 人口 は 少ない。",
+   "underline": "人口",
+   "answer": "じんこう",
+   "choices": [
+    "じんこ",
+    "しんこう",
+    "じんごう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-92",
+   "i18n": {},
+   "sentence": "夜空に 月 が きれいに 見える。",
+   "underline": "月",
+   "answer": "つき",
+   "choices": [
+    "つぎ",
+    "づき",
+    "つく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-101",
+   "i18n": {},
+   "sentence": "妹は 中学校 に かよって いる。",
+   "underline": "中学校",
+   "answer": "ちゅうがっこう",
+   "choices": [
+    "ちゅうがこう",
+    "ちゅがっこう",
+    "ちゅうかっこう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-126",
+   "i18n": {},
+   "sentence": "社長 が スピーチを した。",
+   "underline": "社長",
+   "answer": "しゃちょう",
+   "choices": [
+    "しゃちょ",
+    "しゃぢょう",
+    "じゃちょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-161",
+   "i18n": {},
+   "sentence": "今日はとてもいい気分です。",
+   "underline": "気分",
+   "answer": "きぶん",
+   "choices": [
+    "きふん",
+    "ぎぶん",
+    "きぶ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-168",
+   "i18n": {},
+   "sentence": "来月、学校でお祭りを行う。",
+   "underline": "行う",
+   "answer": "おこなう",
+   "choices": [
+    "おこのう",
+    "おぎなう",
+    "おごなう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-194",
+   "i18n": {},
+   "sentence": "妹は小学校の三年生です。",
+   "underline": "小学校",
+   "answer": "しょうがっこう",
+   "choices": [
+    "しょうがこう",
+    "しょがっこう",
+    "しょうがっこ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-221",
+   "i18n": {},
+   "sentence": "水道の 水を 使う。",
+   "underline": "水道",
+   "answer": "すいどう",
+   "choices": [
+    "すいとう",
+    "すいど",
+    "ずいどう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-230",
+   "i18n": {},
+   "sentence": "本を たなに 立てる。",
+   "underline": "立てる",
+   "answer": "たてる",
+   "choices": [
+    "たでる",
+    "だてる",
+    "たける"
+   ]
+  },
+  {
+   "id": "kr:n4-v-285",
+   "i18n": {},
+   "sentence": "台所で火をつけます。",
+   "underline": "火",
+   "answer": "ひ",
+   "choices": [
+    "び",
+    "ぴ",
+    "ひい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-316",
+   "i18n": {},
+   "sentence": "英語で会話を練習します。",
+   "underline": "会話",
+   "answer": "かいわ",
+   "choices": [
+    "かいは",
+    "がいわ",
+    "かえわ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-317",
+   "i18n": {},
+   "sentence": "山の空気はきれいです。",
+   "underline": "空気",
+   "answer": "くうき",
+   "choices": [
+    "くうぎ",
+    "くき",
+    "ぐうき"
+   ]
+  },
+  {
+   "id": "kr:n4-v-326",
+   "i18n": {},
+   "sentence": "校長が話をしました。",
+   "underline": "校長",
+   "answer": "こうちょう",
+   "choices": [
+    "こうじょう",
+    "ごうちょう",
+    "こうちょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-343",
+   "i18n": {},
+   "sentence": "四月に大学に入学します。",
+   "underline": "入学",
+   "answer": "にゅうがく",
+   "choices": [
+    "にゅうかく",
+    "にゅがく",
+    "にゅうがぐ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-349",
+   "i18n": {},
+   "sentence": "この数に 十を 足すと いくつですか。",
+   "underline": "足す",
+   "answer": "たす",
+   "choices": [
+    "だす",
+    "たず",
+    "さす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-396",
+   "i18n": {},
+   "sentence": "あの 子は 私の 妹です。",
+   "underline": "子",
+   "answer": "こ",
+   "choices": [
+    "ご",
+    "こう",
+    "き"
+   ]
+  },
+  {
+   "id": "kr:n4-v-401",
+   "i18n": {},
+   "sentence": "席が 空くのを 待っています。",
+   "underline": "空く",
+   "answer": "あく",
+   "choices": [
+    "あぐ",
+    "はく",
+    "なく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-420",
+   "i18n": {},
+   "sentence": "まどから うみが よく 見える。",
+   "underline": "見える",
+   "answer": "みえる",
+   "choices": [
+    "みいる",
+    "めえる",
+    "みえろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-421",
+   "i18n": {},
+   "sentence": "じかんは 十分 あります。",
+   "underline": "十分",
+   "answer": "じゅうぶん",
+   "choices": [
+    "じゅうふん",
+    "じゅぶん",
+    "じょうぶん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-455",
+   "i18n": {},
+   "sentence": "えきと いえの 間に こうえんが あります。",
+   "underline": "間",
+   "answer": "あいだ",
+   "choices": [
+    "あいた",
+    "あいで",
+    "あんだ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-472",
+   "i18n": {},
+   "sentence": "なくした かぎを 見つける。",
+   "underline": "見つける",
+   "answer": "みつける",
+   "choices": [
+    "みつめる",
+    "みつげる",
+    "みつけろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-473",
+   "i18n": {},
+   "sentence": "あには 高校生です。",
+   "underline": "高校生",
+   "answer": "こうこうせい",
+   "choices": [
+    "こうこせい",
+    "ごうこうせい",
+    "こうこうしょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-478",
+   "i18n": {},
+   "sentence": "つぎの えきで でんしゃを 下りる。",
+   "underline": "下りる",
+   "answer": "おりる",
+   "choices": [
+    "くだりる",
+    "さがりる",
+    "おちる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-496",
+   "i18n": {},
+   "sentence": "お子さんはおいくつですか。",
+   "underline": "お子さん",
+   "answer": "おこさん",
+   "choices": [
+    "おごさん",
+    "おこざん",
+    "おこうさん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-506",
+   "i18n": {},
+   "sentence": "気温が急に下る。",
+   "underline": "下る",
+   "answer": "さがる",
+   "choices": [
+    "あがる",
+    "さかる",
+    "ざがる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-510",
+   "i18n": {},
+   "sentence": "昼すぎは電車が空く。",
+   "underline": "空く",
+   "answer": "すく",
+   "choices": [
+    "すぐ",
+    "つく",
+    "すか"
+   ]
+  },
+  {
+   "id": "kr:n4-v-523",
+   "i18n": {},
+   "sentence": "なくしたかぎが見つかる。",
+   "underline": "見つかる",
+   "answer": "みつかる",
+   "choices": [
+    "みつける",
+    "みづかる",
+    "みつがる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-550",
+   "i18n": {},
+   "sentence": "この間、山田さんに会いました。",
+   "underline": "この間",
+   "answer": "このあいだ",
+   "choices": [
+    "このあいた",
+    "このあだ",
+    "このあいで"
+   ]
+  },
+  {
+   "id": "kr:n4-v-560",
+   "i18n": {},
+   "sentence": "父は 新聞社 で 働いています。",
+   "underline": "新聞社",
+   "answer": "しんぶんしゃ",
+   "choices": [
+    "しんぶんじゃ",
+    "しんふんしゃ",
+    "しんぶんしや"
+   ]
+  },
+  {
+   "id": "kr:n4-v-619",
+   "i18n": {},
+   "sentence": "暑いのでエアコンの温度を下げることにした。",
+   "underline": "下げる",
+   "answer": "さげる",
+   "choices": [
+    "あげる",
+    "さける",
+    "ざげる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-620",
+   "i18n": {},
+   "sentence": "春に公園でみんなと花見をした。",
+   "underline": "花見",
+   "answer": "はなみ",
+   "choices": [
+    "はなび",
+    "ばなみ",
+    "はなめ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-633",
+   "i18n": {},
+   "sentence": "昼になって気温が上がる。",
+   "underline": "上がる",
+   "answer": "あがる",
+   "choices": [
+    "さがる",
+    "あかる",
+    "まがる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-660",
+   "i18n": {},
+   "sentence": "けがは大分よくなった。",
+   "underline": "大分",
+   "answer": "だいぶ",
+   "choices": [
+    "たいぶ",
+    "だいぶん",
+    "だいふ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-668",
+   "i18n": {},
+   "sentence": "授業で日本の社会について学んだ。",
+   "underline": "社会",
+   "answer": "しゃかい",
+   "choices": [
+    "しゃがい",
+    "しゃっかい",
+    "じゃかい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-13",
+   "i18n": {},
+   "sentence": "会議で自分の意見をはっきり言った。",
+   "underline": "意見",
+   "answer": "いけん",
+   "choices": [
+    "いげん",
+    "いけい",
+    "いっけん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-17",
+   "i18n": {},
+   "sentence": "兄は大学で医学を勉強している。",
+   "underline": "医学",
+   "answer": "いがく",
+   "choices": [
+    "かがく",
+    "いかく",
+    "いがぐ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-30",
+   "i18n": {},
+   "sentence": "健康のために毎朝運動している。",
+   "underline": "運動",
+   "answer": "うんどう",
+   "choices": [
+    "うんとう",
+    "うんどお",
+    "うんぼう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-31",
+   "i18n": {},
+   "sentence": "しばらくすると強い雨が止む。",
+   "underline": "止む",
+   "answer": "やむ",
+   "choices": [
+    "やぶ",
+    "さむ",
+    "やも"
+   ]
+  },
+  {
+   "id": "kr:n4-v-35",
+   "i18n": {},
+   "sentence": "このバスの運転手はとても親切だ。",
+   "underline": "運転手",
+   "answer": "うんてんしゅ",
+   "choices": [
+    "うんでんしゅ",
+    "うんてんじゅ",
+    "うんてんしゅう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-38",
+   "i18n": {},
+   "sentence": "今日は別の店で買い物をした。",
+   "underline": "別",
+   "answer": "べつ",
+   "choices": [
+    "へつ",
+    "べづ",
+    "べち"
+   ]
+  },
+  {
+   "id": "kr:n4-v-50",
+   "i18n": {},
+   "sentence": "くつの売り場は三階にあります。",
+   "underline": "売り場",
+   "answer": "うりば",
+   "choices": [
+    "うりは",
+    "うりぱ",
+    "うりべ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-51",
+   "i18n": {},
+   "sentence": "正月は家族で実家に帰る。",
+   "underline": "正月",
+   "answer": "しょうがつ",
+   "choices": [
+    "しょうかつ",
+    "しょがつ",
+    "じょうがつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-54",
+   "i18n": {},
+   "sentence": "英語の発音を何度も練習した。",
+   "underline": "発音",
+   "answer": "はつおん",
+   "choices": [
+    "はつおう",
+    "ばつおん",
+    "はづおん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-56",
+   "i18n": {},
+   "sentence": "ビルの屋上から町をながめた。",
+   "underline": "屋上",
+   "answer": "おくじょう",
+   "choices": [
+    "おくじょ",
+    "おくしょう",
+    "おぐじょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-62",
+   "i18n": {},
+   "sentence": "今度一緒に食事に行きましょう。",
+   "underline": "今度",
+   "answer": "こんど",
+   "choices": [
+    "こんと",
+    "こんどう",
+    "ごんど"
+   ]
+  },
+  {
+   "id": "kr:n4-v-64",
+   "i18n": {},
+   "sentence": "駅の近くに新しい家を建てる。",
+   "underline": "建てる",
+   "answer": "たてる",
+   "choices": [
+    "だてる",
+    "たでる",
+    "たてろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-69",
+   "i18n": {},
+   "sentence": "先生から大事な話があると言われた。",
+   "underline": "大事",
+   "answer": "だいじ",
+   "choices": [
+    "たいじ",
+    "だいし",
+    "でいじ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-73",
+   "i18n": {},
+   "sentence": "道を歩くときは車に注意しよう。",
+   "underline": "注意",
+   "answer": "ちゅうい",
+   "choices": [
+    "ちゅい",
+    "じゅうい",
+    "ちゅうえ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-74",
+   "i18n": {},
+   "sentence": "あした、大きな 台風 が 来る そうです。",
+   "underline": "台風",
+   "answer": "たいふう",
+   "choices": [
+    "たいふ",
+    "だいふう",
+    "たいぷう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-78",
+   "i18n": {},
+   "sentence": "この 道を まっすぐ 通る と 駅に つきます。",
+   "underline": "通る",
+   "answer": "とおる",
+   "choices": [
+    "とうる",
+    "どおる",
+    "とおろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-86",
+   "i18n": {},
+   "sentence": "たばこを 止める こと に した。",
+   "underline": "止める",
+   "answer": "やめる",
+   "choices": [
+    "やめろ",
+    "やべる",
+    "さめる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-106",
+   "i18n": {},
+   "sentence": "あした 六時に 私を 起こす。",
+   "underline": "起こす",
+   "answer": "おこす",
+   "choices": [
+    "おごす",
+    "おこず",
+    "おこうす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-109",
+   "i18n": {},
+   "sentence": "となりの 赤ちゃん は よく 笑う。",
+   "underline": "赤ちゃん",
+   "answer": "あかちゃん",
+   "choices": [
+    "あがちゃん",
+    "あかちゃ",
+    "あかじゃん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-112",
+   "i18n": {},
+   "sentence": "この 小説 は とても おもしろい。",
+   "underline": "小説",
+   "answer": "しょうせつ",
+   "choices": [
+    "しょうぜつ",
+    "しょせつ",
+    "しょうせち"
+   ]
+  },
+  {
+   "id": "kr:n4-v-113",
+   "i18n": {},
+   "sentence": "私の 親 は 農家 です。",
+   "underline": "親",
+   "answer": "おや",
+   "choices": [
+    "おうや",
+    "おわ",
+    "あや"
+   ]
+  },
+  {
+   "id": "kr:n4-v-115",
+   "i18n": {},
+   "sentence": "西洋 の 音楽が 好きだ。",
+   "underline": "西洋",
+   "answer": "せいよう",
+   "choices": [
+    "せいよ",
+    "せえよう",
+    "ぜいよう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-116",
+   "i18n": {},
+   "sentence": "私も そう 思う。",
+   "underline": "思う",
+   "answer": "おもう",
+   "choices": [
+    "おもお",
+    "おおう",
+    "おむう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-118",
+   "i18n": {},
+   "sentence": "江戸 時代 の 話を 読んだ。",
+   "underline": "時代",
+   "answer": "じだい",
+   "choices": [
+    "しだい",
+    "じたい",
+    "ちだい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-125",
+   "i18n": {},
+   "sentence": "二かい 建て の 家を 買った。",
+   "underline": "建て",
+   "answer": "だて",
+   "choices": [
+    "だで",
+    "たで",
+    "ばて"
+   ]
+  },
+  {
+   "id": "kr:n4-v-132",
+   "i18n": {},
+   "sentence": "お店を あたらしく 開く。",
+   "underline": "開く",
+   "answer": "ひらく",
+   "choices": [
+    "ひらぐ",
+    "びらく",
+    "ひろく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-138",
+   "i18n": {},
+   "sentence": "学校で 地理 を 習った。",
+   "underline": "地理",
+   "answer": "ちり",
+   "choices": [
+    "じり",
+    "ちりい",
+    "ちれ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-146",
+   "i18n": {},
+   "sentence": "この店の品物はとても安い。",
+   "underline": "品物",
+   "answer": "しなもの",
+   "choices": [
+    "じなもの",
+    "しなもん",
+    "しなぶつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-150",
+   "i18n": {},
+   "sentence": "車を家の前に止める。",
+   "underline": "止める",
+   "answer": "とめる",
+   "choices": [
+    "どめる",
+    "とめう",
+    "とべる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-153",
+   "i18n": {},
+   "sentence": "今日は大切な用事があります。",
+   "underline": "用事",
+   "answer": "ようじ",
+   "choices": [
+    "ようし",
+    "よじ",
+    "ようぢ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-159",
+   "i18n": {},
+   "sentence": "重い荷物を持つのは力がいる。",
+   "underline": "力",
+   "answer": "ちから",
+   "choices": [
+    "ちがら",
+    "ちかろ",
+    "じから"
+   ]
+  },
+  {
+   "id": "kr:n4-v-165",
+   "i18n": {},
+   "sentence": "雨の場合は中止です。",
+   "underline": "場合",
+   "answer": "ばあい",
+   "choices": [
+    "ばわい",
+    "はあい",
+    "ばあ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-172",
+   "i18n": {},
+   "sentence": "世界には色々な国がある。",
+   "underline": "世界",
+   "answer": "せかい",
+   "choices": [
+    "せいかい",
+    "せっかい",
+    "せがい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-173",
+   "i18n": {},
+   "sentence": "ここに住所を書いてください。",
+   "underline": "住所",
+   "answer": "じゅうしょ",
+   "choices": [
+    "じゅうしょう",
+    "じゅしょ",
+    "じゅうじょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-175",
+   "i18n": {},
+   "sentence": "家の後ろに小さな林がある。",
+   "underline": "林",
+   "answer": "はやし",
+   "choices": [
+    "ばやし",
+    "はやち",
+    "はらし"
+   ]
+  },
+  {
+   "id": "kr:n4-v-200",
+   "i18n": {},
+   "sentence": "大切な事を話します。",
+   "underline": "事",
+   "answer": "こと",
+   "choices": [
+    "こど",
+    "ごと",
+    "ことう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-202",
+   "i18n": {},
+   "sentence": "明日、サッカーの試合がある。",
+   "underline": "試合",
+   "answer": "しあい",
+   "choices": [
+    "じあい",
+    "しゃあい",
+    "しわい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-207",
+   "i18n": {},
+   "sentence": "映画の終わりで泣いてしまった。",
+   "underline": "終わり",
+   "answer": "おわり",
+   "choices": [
+    "おあり",
+    "おわ",
+    "おわい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-209",
+   "i18n": {},
+   "sentence": "もう一度ゆっくり言ってください。",
+   "underline": "一度",
+   "answer": "いちど",
+   "choices": [
+    "いちと",
+    "いちどう",
+    "いっど"
+   ]
+  },
+  {
+   "id": "kr:n4-v-211",
+   "i18n": {},
+   "sentence": "この店の人は とても 親切です。",
+   "underline": "親切",
+   "answer": "しんせつ",
+   "choices": [
+    "しんぜつ",
+    "じんせつ",
+    "しんせち"
+   ]
+  },
+  {
+   "id": "kr:n4-v-212",
+   "i18n": {},
+   "sentence": "試験の 結果を みんなに 知らせる。",
+   "underline": "知らせる",
+   "answer": "しらせる",
+   "choices": [
+    "しなせる",
+    "ちらせる",
+    "しらぜる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-215",
+   "i18n": {},
+   "sentence": "毎朝 六時に 仕事を 始める。",
+   "underline": "始める",
+   "answer": "はじめる",
+   "choices": [
+    "はしめる",
+    "ばじめる",
+    "はぢめる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-237",
+   "i18n": {},
+   "sentence": "待ち合わせの 場所を 決める。",
+   "underline": "場所",
+   "answer": "ばしょ",
+   "choices": [
+    "ばしょう",
+    "ばじょ",
+    "はしょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-238",
+   "i18n": {},
+   "sentence": "テストの 答を 書く。",
+   "underline": "答",
+   "answer": "こたえ",
+   "choices": [
+    "こだえ",
+    "ごたえ",
+    "こたい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-247",
+   "i18n": {},
+   "sentence": "この本は 千円 以下です。",
+   "underline": "以下",
+   "answer": "いか",
+   "choices": [
+    "いが",
+    "いっか",
+    "いげ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-250",
+   "i18n": {},
+   "sentence": "やさしい 心を 持つ。",
+   "underline": "心",
+   "answer": "こころ",
+   "choices": [
+    "こごろ",
+    "ここる",
+    "こころう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-258",
+   "i18n": {},
+   "sentence": "スーパーで 食料品を 買う。",
+   "underline": "食料品",
+   "answer": "しょくりょうひん",
+   "choices": [
+    "しょくりょひん",
+    "しょくりゅうひん",
+    "しょくりょうびん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-259",
+   "i18n": {},
+   "sentence": "くらい 森の 中を 歩く。",
+   "underline": "森",
+   "answer": "もり",
+   "choices": [
+    "もい",
+    "もる",
+    "もん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-265",
+   "i18n": {},
+   "sentence": "昔のことを 思い出す。",
+   "underline": "思い出す",
+   "answer": "おもいだす",
+   "choices": [
+    "おもいたす",
+    "おぼいだす",
+    "おもいだず"
+   ]
+  },
+  {
+   "id": "kr:n4-v-269",
+   "i18n": {},
+   "sentence": "ご主人は お元気ですか。",
+   "underline": "ご主人",
+   "answer": "ごしゅじん",
+   "choices": [
+    "こしゅじん",
+    "ごしゅうじん",
+    "ごじゅしん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-271",
+   "i18n": {},
+   "sentence": "きゅうな 用が できた。",
+   "underline": "用",
+   "answer": "よう",
+   "choices": [
+    "よ",
+    "ゆう",
+    "よん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-274",
+   "i18n": {},
+   "sentence": "旅行の 用意を する。",
+   "underline": "用意",
+   "answer": "ようい",
+   "choices": [
+    "よい",
+    "ように",
+    "ゆうい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-277",
+   "i18n": {},
+   "sentence": "父が 車を 運転する。",
+   "underline": "運転",
+   "answer": "うんてん",
+   "choices": [
+    "うんでん",
+    "うってん",
+    "うんてい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-282",
+   "i18n": {},
+   "sentence": "温泉の旅館は静かでした。",
+   "underline": "旅館",
+   "answer": "りょかん",
+   "choices": [
+    "りょうかん",
+    "りょがん",
+    "りゅかん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-289",
+   "i18n": {},
+   "sentence": "子どもは乗り物が大好きです。",
+   "underline": "乗り物",
+   "answer": "のりもの",
+   "choices": [
+    "のりもん",
+    "のりぼの",
+    "のりもう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-291",
+   "i18n": {},
+   "sentence": "弟は自転車で学校に通う。",
+   "underline": "通う",
+   "answer": "かよう",
+   "choices": [
+    "かおう",
+    "がよう",
+    "かゆう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-294",
+   "i18n": {},
+   "sentence": "庭に小鳥が来ました。",
+   "underline": "小鳥",
+   "answer": "ことり",
+   "choices": [
+    "こどり",
+    "ごとり",
+    "ことい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-301",
+   "i18n": {},
+   "sentence": "工事が予定どおり進む。",
+   "underline": "進む",
+   "answer": "すすむ",
+   "choices": [
+    "すずむ",
+    "すすぶ",
+    "ずすむ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-302",
+   "i18n": {},
+   "sentence": "休みの日は音楽を楽む。",
+   "underline": "楽む",
+   "answer": "たのしむ",
+   "choices": [
+    "たのしぶ",
+    "だのしむ",
+    "たのじむ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-307",
+   "i18n": {},
+   "sentence": "来週試験があります。",
+   "underline": "試験",
+   "answer": "しけん",
+   "choices": [
+    "じけん",
+    "しげん",
+    "しけい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-310",
+   "i18n": {},
+   "sentence": "あの店の店員は親切です。",
+   "underline": "店員",
+   "answer": "てんいん",
+   "choices": [
+    "てんにん",
+    "ていいん",
+    "でんいん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-313",
+   "i18n": {},
+   "sentence": "今夜は早く寝ます。",
+   "underline": "今夜",
+   "answer": "こんや",
+   "choices": [
+    "ごんや",
+    "こんにゃ",
+    "こにゃ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-321",
+   "i18n": {},
+   "sentence": "つぎの急行に乗ります。",
+   "underline": "急行",
+   "answer": "きゅうこう",
+   "choices": [
+    "きゅうごう",
+    "きゅこう",
+    "きゅうこ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-323",
+   "i18n": {},
+   "sentence": "このスープは味がうすい。",
+   "underline": "味",
+   "answer": "あじ",
+   "choices": [
+    "あぢ",
+    "あし",
+    "いじ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-332",
+   "i18n": {},
+   "sentence": "明日は都合が悪いです。",
+   "underline": "都合",
+   "answer": "つごう",
+   "choices": [
+    "つこう",
+    "づごう",
+    "つご"
+   ]
+  },
+  {
+   "id": "kr:n4-v-338",
+   "i18n": {},
+   "sentence": "すずしくて気持ちがいいです。",
+   "underline": "気持ち",
+   "answer": "きもち",
+   "choices": [
+    "きもじ",
+    "ぎもち",
+    "きもと"
+   ]
+  },
+  {
+   "id": "kr:n4-v-345",
+   "i18n": {},
+   "sentence": "黒板の字をノートに写す。",
+   "underline": "写す",
+   "answer": "うつす",
+   "choices": [
+    "うづす",
+    "うつづ",
+    "うすつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-348",
+   "i18n": {},
+   "sentence": "ゆうべ 町で 火事が ありました。",
+   "underline": "火事",
+   "answer": "かじ",
+   "choices": [
+    "かし",
+    "がじ",
+    "かぢ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-350",
+   "i18n": {},
+   "sentence": "毎週 日曜日に 教会へ 行きます。",
+   "underline": "教会",
+   "answer": "きょうかい",
+   "choices": [
+    "きょうがい",
+    "きょかい",
+    "ぎょうかい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-356",
+   "i18n": {},
+   "sentence": "この工場では 車を 生産しています。",
+   "underline": "生産",
+   "answer": "せいさん",
+   "choices": [
+    "せいざん",
+    "せえさん",
+    "せいさ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-357",
+   "i18n": {},
+   "sentence": "お正月に 着物を 着ました。",
+   "underline": "着物",
+   "answer": "きもの",
+   "choices": [
+    "ぎもの",
+    "きもん",
+    "きめの"
+   ]
+  },
+  {
+   "id": "kr:n4-v-365",
+   "i18n": {},
+   "sentence": "昼間は とても 暑いです。",
+   "underline": "昼間",
+   "answer": "ひるま",
+   "choices": [
+    "ひるば",
+    "びるま",
+    "ひろま"
+   ]
+  },
+  {
+   "id": "kr:n4-v-379",
+   "i18n": {},
+   "sentence": "この家は 駅から 遠くて 不便です。",
+   "underline": "不便",
+   "answer": "ふべん",
+   "choices": [
+    "ふへん",
+    "ぶべん",
+    "ふべ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-400",
+   "i18n": {},
+   "sentence": "果物の中で 特に りんごが 好きです。",
+   "underline": "特に",
+   "answer": "とくに",
+   "choices": [
+    "とっくに",
+    "どくに",
+    "とぐに"
+   ]
+  },
+  {
+   "id": "kr:n4-v-402",
+   "i18n": {},
+   "sentence": "夏休みの 計画を 立てます。",
+   "underline": "計画",
+   "answer": "けいかく",
+   "choices": [
+    "けいがく",
+    "けいかっく",
+    "けいこく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-403",
+   "i18n": {},
+   "sentence": "この 通りを まっすぐ 行ってください。",
+   "underline": "通り",
+   "answer": "とおり",
+   "choices": [
+    "とうり",
+    "どおり",
+    "とほり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-404",
+   "i18n": {},
+   "sentence": "新しい 下着を 買いました。",
+   "underline": "下着",
+   "answer": "したぎ",
+   "choices": [
+    "したき",
+    "しだぎ",
+    "したく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-412",
+   "i18n": {},
+   "sentence": "日曜日 以外は 忙しいです。",
+   "underline": "以外",
+   "answer": "いがい",
+   "choices": [
+    "いかい",
+    "いがえ",
+    "いげい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-415",
+   "i18n": {},
+   "sentence": "兄は 大きな 市で 働いています。",
+   "underline": "市",
+   "answer": "し",
+   "choices": [
+    "じ",
+    "ち",
+    "き"
+   ]
+  },
+  {
+   "id": "kr:n4-v-416",
+   "i18n": {},
+   "sentence": "引き出しに ペンを 入れます。",
+   "underline": "引き出し",
+   "answer": "ひきだし",
+   "choices": [
+    "ひきたし",
+    "ひぎだし",
+    "ひきざし"
+   ]
+  },
+  {
+   "id": "kr:n4-v-422",
+   "i18n": {},
+   "sentence": "となりの へやから へんな 音が きこえた。",
+   "underline": "音",
+   "answer": "おと",
+   "choices": [
+    "おど",
+    "おとう",
+    "こと"
+   ]
+  },
+  {
+   "id": "kr:n4-v-425",
+   "i18n": {},
+   "sentence": "遠くに やまが みえます。",
+   "underline": "遠く",
+   "answer": "とおく",
+   "choices": [
+    "とうく",
+    "どおく",
+    "とほく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-426",
+   "i18n": {},
+   "sentence": "しゅくだいは 大体 おわりました。",
+   "underline": "大体",
+   "answer": "だいたい",
+   "choices": [
+    "たいたい",
+    "だいだい",
+    "だいてい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-428",
+   "i18n": {},
+   "sentence": "この こたえは 正しい です。",
+   "underline": "正しい",
+   "answer": "ただしい",
+   "choices": [
+    "たたしい",
+    "だたしい",
+    "たらしい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-431",
+   "i18n": {},
+   "sentence": "ちちは 都で はたらいて います。",
+   "underline": "都",
+   "answer": "と",
+   "choices": [
+    "ど",
+    "とう",
+    "つ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-432",
+   "i18n": {},
+   "sentence": "この まちは 産業が さかんです。",
+   "underline": "産業",
+   "answer": "さんぎょう",
+   "choices": [
+    "さんきょう",
+    "ざんぎょう",
+    "さんぎょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-434",
+   "i18n": {},
+   "sentence": "かれは お金持ちに なりました。",
+   "underline": "お金持ち",
+   "answer": "おかねもち",
+   "choices": [
+    "おがねもち",
+    "おかねもじ",
+    "おかねもっち"
+   ]
+  },
+  {
+   "id": "kr:n4-v-435",
+   "i18n": {},
+   "sentence": "せんせいの 説明は わかりやすい。",
+   "underline": "説明",
+   "answer": "せつめい",
+   "choices": [
+    "せづめい",
+    "ぜつめい",
+    "せつめえ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-440",
+   "i18n": {},
+   "sentence": "ねだんは せんえん 以上です。",
+   "underline": "以上",
+   "answer": "いじょう",
+   "choices": [
+    "いしょう",
+    "いじょ",
+    "いぞう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-442",
+   "i18n": {},
+   "sentence": "特急に のって おおさかへ いく。",
+   "underline": "特急",
+   "answer": "とっきゅう",
+   "choices": [
+    "とくきゅう",
+    "とっきゅ",
+    "どっきゅう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-446",
+   "i18n": {},
+   "sentence": "しごとの 帰りに かいものを します。",
+   "underline": "帰り",
+   "answer": "かえり",
+   "choices": [
+    "かおり",
+    "かわり",
+    "がえり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-461",
+   "i18n": {},
+   "sentence": "ともだちに てがみを 送る。",
+   "underline": "送る",
+   "answer": "おくる",
+   "choices": [
+    "おこる",
+    "おぐる",
+    "おくろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-467",
+   "i18n": {},
+   "sentence": "この こうえんは 市民の ために あります。",
+   "underline": "市民",
+   "answer": "しみん",
+   "choices": [
+    "じみん",
+    "しみ",
+    "しびん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-476",
+   "i18n": {},
+   "sentence": "昼休みに おべんとうを たべます。",
+   "underline": "昼休み",
+   "answer": "ひるやすみ",
+   "choices": [
+    "ひるやすめ",
+    "ちゅうやすみ",
+    "ひろやすみ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-497",
+   "i18n": {},
+   "sentence": "パーティーの会場はどこですか。",
+   "underline": "会場",
+   "answer": "かいじょう",
+   "choices": [
+    "かいじょ",
+    "がいじょう",
+    "かいしょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-499",
+   "i18n": {},
+   "sentence": "荷物を車で運ぶ。",
+   "underline": "運ぶ",
+   "answer": "はこぶ",
+   "choices": [
+    "はごぶ",
+    "はこむ",
+    "はこべ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-500",
+   "i18n": {},
+   "sentence": "大学で文学を勉強しています。",
+   "underline": "文学",
+   "answer": "ぶんがく",
+   "choices": [
+    "ぶんか",
+    "すうがく",
+    "かがく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-501",
+   "i18n": {},
+   "sentence": "朝の光が窓から入る。",
+   "underline": "光",
+   "answer": "ひかり",
+   "choices": [
+    "ひがり",
+    "ひかい",
+    "ひまり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-507",
+   "i18n": {},
+   "sentence": "この漢字の字がきれいですね。",
+   "underline": "字",
+   "answer": "じ",
+   "choices": [
+    "し",
+    "ち",
+    "じい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-513",
+   "i18n": {},
+   "sentence": "このくつは足に合う。",
+   "underline": "合う",
+   "answer": "あう",
+   "choices": [
+    "おう",
+    "かう",
+    "あく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-525",
+   "i18n": {},
+   "sentence": "食べすぎて太る。",
+   "underline": "太る",
+   "answer": "ふとる",
+   "choices": [
+    "ふどる",
+    "ふとろ",
+    "ふとう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-531",
+   "i18n": {},
+   "sentence": "家族が元気だと安心する。",
+   "underline": "安心",
+   "answer": "あんしん",
+   "choices": [
+    "あんじん",
+    "かんしん",
+    "あんじ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-533",
+   "i18n": {},
+   "sentence": "きってを集める。",
+   "underline": "集める",
+   "answer": "あつめる",
+   "choices": [
+    "あつまる",
+    "あづめる",
+    "あつねる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-538",
+   "i18n": {},
+   "sentence": "犬の世話をする。",
+   "underline": "世話",
+   "answer": "せわ",
+   "choices": [
+    "せいわ",
+    "ぜわ",
+    "せば"
+   ]
+  },
+  {
+   "id": "kr:n4-v-539",
+   "i18n": {},
+   "sentence": "近所のスーパーで買い物する。",
+   "underline": "近所",
+   "answer": "きんじょ",
+   "choices": [
+    "きんしょ",
+    "きんじょう",
+    "ぎんじょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-556",
+   "i18n": {},
+   "sentence": "バスの 出発 の 時間を 調べる。",
+   "underline": "出発",
+   "answer": "しゅっぱつ",
+   "choices": [
+    "しゅっばつ",
+    "しゅつはつ",
+    "しゅっぱ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-570",
+   "i18n": {},
+   "sentence": "将来のことを よく 考える。",
+   "underline": "考える",
+   "answer": "かんがえる",
+   "choices": [
+    "かんかえる",
+    "かんがへる",
+    "がんがえる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-573",
+   "i18n": {},
+   "sentence": "この 機械の 使い 仕方 を 教える。",
+   "underline": "仕方",
+   "answer": "しかた",
+   "choices": [
+    "しがた",
+    "しかだ",
+    "じかた"
+   ]
+  },
+  {
+   "id": "kr:n4-v-574",
+   "i18n": {},
+   "sentence": "うしろを 見ようと 首 を まわす。",
+   "underline": "首",
+   "answer": "くび",
+   "choices": [
+    "くひ",
+    "ぐび",
+    "くぶ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-576",
+   "i18n": {},
+   "sentence": "お茶の 代わり に 水を 飲む。",
+   "underline": "代わり",
+   "answer": "かわり",
+   "choices": [
+    "がわり",
+    "さわり",
+    "まわり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-578",
+   "i18n": {},
+   "sentence": "この 町は 工業 が さかんだ。",
+   "underline": "工業",
+   "answer": "こうぎょう",
+   "choices": [
+    "こうきょう",
+    "こぎょう",
+    "こうぎょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-582",
+   "i18n": {},
+   "sentence": "先生の 研究室 を たずねる。",
+   "underline": "研究室",
+   "answer": "けんきゅうしつ",
+   "choices": [
+    "けんきゅしつ",
+    "げんきゅうしつ",
+    "けんきゅうじつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-583",
+   "i18n": {},
+   "sentence": "父は 車の 工場 で 働いている。",
+   "underline": "工場",
+   "answer": "こうじょう",
+   "choices": [
+    "こうしょう",
+    "こじょう",
+    "こうじょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-587",
+   "i18n": {},
+   "sentence": "こわくて 体が 動く。",
+   "underline": "動く",
+   "answer": "うごく",
+   "choices": [
+    "うこく",
+    "うごぐ",
+    "うごる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-602",
+   "i18n": {},
+   "sentence": "遅れそうなので 駅まで 急ぐ。",
+   "underline": "急ぐ",
+   "answer": "いそぐ",
+   "choices": [
+    "いそく",
+    "およぐ",
+    "いすぐ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-606",
+   "i18n": {},
+   "sentence": "きょうは 特別 な 日です。",
+   "underline": "特別",
+   "answer": "とくべつ",
+   "choices": [
+    "どくべつ",
+    "とくへつ",
+    "とくべづ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-608",
+   "i18n": {},
+   "sentence": "急いで 走れば 電車に 間に合う。",
+   "underline": "間に合う",
+   "answer": "まにあう",
+   "choices": [
+    "まにあわ",
+    "まにやう",
+    "まにあお"
+   ]
+  },
+  {
+   "id": "kr:n4-v-611",
+   "i18n": {},
+   "sentence": "部屋の 真中 に つくえを 置く。",
+   "underline": "真中",
+   "answer": "まんなか",
+   "choices": [
+    "まんなが",
+    "まなか",
+    "まんまか"
+   ]
+  },
+  {
+   "id": "kr:n4-v-613",
+   "i18n": {},
+   "sentence": "大学で 星の 研究 を している。",
+   "underline": "研究",
+   "answer": "けんきゅう",
+   "choices": [
+    "げんきゅう",
+    "けんきゅ",
+    "けんぎゅう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-622",
+   "i18n": {},
+   "sentence": "祖父が病気で入院した。",
+   "underline": "入院",
+   "answer": "にゅういん",
+   "choices": [
+    "にゅうえん",
+    "じゅういん",
+    "にゅいん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-624",
+   "i18n": {},
+   "sentence": "ここで彼と別れることになった。",
+   "underline": "別れる",
+   "answer": "わかれる",
+   "choices": [
+    "わすれる",
+    "わかられる",
+    "わけれる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-628",
+   "i18n": {},
+   "sentence": "古いお城を見物した。",
+   "underline": "見物",
+   "answer": "けんぶつ",
+   "choices": [
+    "げんぶつ",
+    "けんぷつ",
+    "けんもつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-635",
+   "i18n": {},
+   "sentence": "家族といっしょに食事をした。",
+   "underline": "食事",
+   "answer": "しょくじ",
+   "choices": [
+    "しょくし",
+    "しょうじ",
+    "しょくじょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-642",
+   "i18n": {},
+   "sentence": "駅前に大勢の人が集まる。",
+   "underline": "集まる",
+   "answer": "あつまる",
+   "choices": [
+    "あづまる",
+    "あすまる",
+    "あつばる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-650",
+   "i18n": {},
+   "sentence": "急に雨が降ってきた。",
+   "underline": "急",
+   "answer": "きゅう",
+   "choices": [
+    "きゅ",
+    "ぎゅう",
+    "しゅう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-661",
+   "i18n": {},
+   "sentence": "来月の旅行を楽しみにしている。",
+   "underline": "楽しみ",
+   "answer": "たのしみ",
+   "choices": [
+    "だのしみ",
+    "たのしび",
+    "たのしめ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-4",
+   "i18n": {},
+   "sentence": "人のお金を盗むのは悪いことだ。",
+   "underline": "盗む",
+   "answer": "ぬすむ",
+   "choices": [
+    "ぬずむ",
+    "ぬすぶ",
+    "ぬづむ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-8",
+   "i18n": {},
+   "sentence": "朝、家のベルが鳴る音で目がさめた。",
+   "underline": "鳴る",
+   "answer": "なる",
+   "choices": [
+    "だる",
+    "まる",
+    "わる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-11",
+   "i18n": {},
+   "sentence": "この薬はとても苦い味がした。",
+   "underline": "苦い",
+   "answer": "にがい",
+   "choices": [
+    "にかい",
+    "にがえ",
+    "にぎい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-12",
+   "i18n": {},
+   "sentence": "やかんのお湯が沸くまで待った。",
+   "underline": "沸く",
+   "answer": "わく",
+   "choices": [
+    "やく",
+    "まく",
+    "わぐ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-20",
+   "i18n": {},
+   "sentence": "公園で木の枝を折る子がいた。",
+   "underline": "折る",
+   "answer": "おる",
+   "choices": [
+    "とる",
+    "こる",
+    "おろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-25",
+   "i18n": {},
+   "sentence": "あしたは必ず約束の場所へ行く。",
+   "underline": "必ず",
+   "answer": "かならず",
+   "choices": [
+    "かならづ",
+    "がならず",
+    "かなうず"
+   ]
+  },
+  {
+   "id": "kr:n4-v-27",
+   "i18n": {},
+   "sentence": "うそをついたので父が怒る。",
+   "underline": "怒る",
+   "answer": "おこる",
+   "choices": [
+    "おごる",
+    "おころ",
+    "おこぬ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-28",
+   "i18n": {},
+   "sentence": "床屋で短く髪を切ってもらった。",
+   "underline": "床屋",
+   "answer": "とこや",
+   "choices": [
+    "どこや",
+    "ところ",
+    "とごや"
+   ]
+  },
+  {
+   "id": "kr:n4-v-33",
+   "i18n": {},
+   "sentence": "紙の表に名前を大きく書いた。",
+   "underline": "表",
+   "answer": "おもて",
+   "choices": [
+    "おもで",
+    "おもと",
+    "おおて"
+   ]
+  },
+  {
+   "id": "kr:n4-v-36",
+   "i18n": {},
+   "sentence": "あしたの授業の予習をしておく。",
+   "underline": "予習",
+   "answer": "よしゅう",
+   "choices": [
+    "よしゅ",
+    "よじゅう",
+    "よっしゅう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-37",
+   "i18n": {},
+   "sentence": "帰りがおそいと母が心配する。",
+   "underline": "心配",
+   "answer": "しんぱい",
+   "choices": [
+    "しんばい",
+    "しんはい",
+    "しんぱえ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-39",
+   "i18n": {},
+   "sentence": "今日は非常に寒い一日だった。",
+   "underline": "非常に",
+   "answer": "ひじょうに",
+   "choices": [
+    "ひじょに",
+    "ひしょうに",
+    "びじょうに"
+   ]
+  },
+  {
+   "id": "kr:n4-v-40",
+   "i18n": {},
+   "sentence": "明日、先生のお宅にうかがう予定だ。",
+   "underline": "お宅",
+   "answer": "おたく",
+   "choices": [
+    "おだく",
+    "おたぐ",
+    "おとく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-41",
+   "i18n": {},
+   "sentence": "焼きたてのパンはとても柔らかい。",
+   "underline": "柔らかい",
+   "answer": "やわらかい",
+   "choices": [
+    "やらわかい",
+    "やわらがい",
+    "わやらかい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-42",
+   "i18n": {},
+   "sentence": "道に落ちていたごみを拾うて捨てた。",
+   "underline": "拾う",
+   "answer": "ひろっ",
+   "choices": [
+    "ひらっ",
+    "びろっ",
+    "ひろん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-45",
+   "i18n": {},
+   "sentence": "兄と弟の背を比べるてみた。",
+   "underline": "比べる",
+   "answer": "くらべ",
+   "choices": [
+    "くらへ",
+    "ぐらべ",
+    "くわべ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-48",
+   "i18n": {},
+   "sentence": "しずかな東京の郊外に引っ越した。",
+   "underline": "郊外",
+   "answer": "こうがい",
+   "choices": [
+    "こうかい",
+    "こがい",
+    "ごうがい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-52",
+   "i18n": {},
+   "sentence": "学校の規則をきちんと守る。",
+   "underline": "規則",
+   "answer": "きそく",
+   "choices": [
+    "ぎそく",
+    "きぞく",
+    "きそぐ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-55",
+   "i18n": {},
+   "sentence": "夕食に肉と魚を焼くことにした。",
+   "underline": "焼く",
+   "answer": "やく",
+   "choices": [
+    "わく",
+    "まく",
+    "やぐ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-57",
+   "i18n": {},
+   "sentence": "先に帰るときは失礼しますと言う。",
+   "underline": "失礼",
+   "answer": "しつれい",
+   "choices": [
+    "しつれえ",
+    "じつれい",
+    "しつれ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-60",
+   "i18n": {},
+   "sentence": "今回のテストで百点を取った。",
+   "underline": "点",
+   "answer": "てん",
+   "choices": [
+    "でん",
+    "てい",
+    "ねん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-63",
+   "i18n": {},
+   "sentence": "いい機会なので海外で働いてみたい。",
+   "underline": "機会",
+   "answer": "きかい",
+   "choices": [
+    "きがい",
+    "ぎかい",
+    "きかえ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-65",
+   "i18n": {},
+   "sentence": "この問題はとても複雑でわかりにくい。",
+   "underline": "複雑",
+   "answer": "ふくざつ",
+   "choices": [
+    "ふくさつ",
+    "ふくざづ",
+    "ぷくざつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-66",
+   "i18n": {},
+   "sentence": "彼はとても親切で人気がある。",
+   "underline": "彼",
+   "answer": "かれ",
+   "choices": [
+    "がれ",
+    "かで",
+    "われ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-68",
+   "i18n": {},
+   "sentence": "寒くなったので厚い布団を出した。",
+   "underline": "布団",
+   "answer": "ふとん",
+   "choices": [
+    "ふどん",
+    "ぷとん",
+    "ふとう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-70",
+   "i18n": {},
+   "sentence": "友だちへの贈り物を買いに行った。",
+   "underline": "贈り物",
+   "answer": "おくりもの",
+   "choices": [
+    "おくりもん",
+    "おぐりもの",
+    "おくりむの"
+   ]
+  },
+  {
+   "id": "kr:n4-v-71",
+   "i18n": {},
+   "sentence": "夜、家に泥棒が入ったらしい。",
+   "underline": "泥棒",
+   "answer": "どろぼう",
+   "choices": [
+    "とろぼう",
+    "どろぽう",
+    "どろぼ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-79",
+   "i18n": {},
+   "sentence": "バスが 私の 前を 過ぎる。",
+   "underline": "過ぎる",
+   "answer": "すぎる",
+   "choices": [
+    "すきる",
+    "すぎろ",
+    "ずぎる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-81",
+   "i18n": {},
+   "sentence": "木の 葉が 赤く なった。",
+   "underline": "葉",
+   "answer": "は",
+   "choices": [
+    "ば",
+    "ぱ",
+    "な"
+   ]
+  },
+  {
+   "id": "kr:n4-v-82",
+   "i18n": {},
+   "sentence": "この 仕事には 経験が 必要 だ。",
+   "underline": "必要",
+   "answer": "ひつよう",
+   "choices": [
+    "ひつよ",
+    "ひっつよう",
+    "びつよう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-83",
+   "i18n": {},
+   "sentence": "課長 に 書類を 見せた。",
+   "underline": "課長",
+   "answer": "かちょう",
+   "choices": [
+    "がちょう",
+    "かちょ",
+    "かじょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-84",
+   "i18n": {},
+   "sentence": "ゆうべ 大きな 地震 が あった。",
+   "underline": "地震",
+   "answer": "じしん",
+   "choices": [
+    "ちしん",
+    "じしい",
+    "じっしん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-95",
+   "i18n": {},
+   "sentence": "この 川は とても 深い。",
+   "underline": "深い",
+   "answer": "ふかい",
+   "choices": [
+    "ふがい",
+    "ぶかい",
+    "ふうかい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-98",
+   "i18n": {},
+   "sentence": "りんごが 木から 落る。",
+   "underline": "落る",
+   "answer": "おちる",
+   "choices": [
+    "おりる",
+    "おとる",
+    "おつる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-100",
+   "i18n": {},
+   "sentence": "その 話を 聞いて 悲しい 気持ちに なった。",
+   "underline": "悲しい",
+   "answer": "かなしい",
+   "choices": [
+    "かなじい",
+    "がなしい",
+    "かなさい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-103",
+   "i18n": {},
+   "sentence": "みんなの 幸せを 祈る。",
+   "underline": "祈る",
+   "answer": "いのる",
+   "choices": [
+    "いのう",
+    "いなる",
+    "いおる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-110",
+   "i18n": {},
+   "sentence": "この 池は 浅い。",
+   "underline": "浅い",
+   "answer": "あさい",
+   "choices": [
+    "あざい",
+    "あかい",
+    "あわい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-119",
+   "i18n": {},
+   "sentence": "お礼を 申し上げる。",
+   "underline": "申し上げる",
+   "answer": "もうしあげる",
+   "choices": [
+    "もしあげる",
+    "もうしあける",
+    "もうしさげる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-121",
+   "i18n": {},
+   "sentence": "会議に 出席 する。",
+   "underline": "出席",
+   "answer": "しゅっせき",
+   "choices": [
+    "しゅつせき",
+    "しゅっせぎ",
+    "しゅっぜき"
+   ]
+  },
+  {
+   "id": "kr:n4-v-123",
+   "i18n": {},
+   "sentence": "駅で 友だちを 迎える。",
+   "underline": "迎える",
+   "answer": "むかえる",
+   "choices": [
+    "むがえる",
+    "むかえう",
+    "むこえる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-124",
+   "i18n": {},
+   "sentence": "てで さくひんに 触る な。",
+   "underline": "触る",
+   "answer": "さわる",
+   "choices": [
+    "ざわる",
+    "さはる",
+    "さわう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-127",
+   "i18n": {},
+   "sentence": "日曜日に 動物園 へ 行った。",
+   "underline": "動物園",
+   "answer": "どうぶつえん",
+   "choices": [
+    "どうぶつえ",
+    "どぶつえん",
+    "とうぶつえん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-128",
+   "i18n": {},
+   "sentence": "けいさつが どろぼうを 捕まえる。",
+   "underline": "捕まえる",
+   "answer": "つかまえる",
+   "choices": [
+    "つがまえる",
+    "つかまえう",
+    "つかまわる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-129",
+   "i18n": {},
+   "sentence": "日本には 四つの 季節 が ある。",
+   "underline": "季節",
+   "answer": "きせつ",
+   "choices": [
+    "ぎせつ",
+    "きせち",
+    "きぜつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-130",
+   "i18n": {},
+   "sentence": "帰りに 本屋に 寄る。",
+   "underline": "寄る",
+   "answer": "よる",
+   "choices": [
+    "よう",
+    "ゆる",
+    "よろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-131",
+   "i18n": {},
+   "sentence": "会議の 日が 決まる。",
+   "underline": "決まる",
+   "answer": "きまる",
+   "choices": [
+    "ぎまる",
+    "きまう",
+    "きばる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-133",
+   "i18n": {},
+   "sentence": "どろぼうが 逃げる。",
+   "underline": "逃げる",
+   "answer": "にげる",
+   "choices": [
+    "にける",
+    "にぎる",
+    "ねげる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-135",
+   "i18n": {},
+   "sentence": "まけて しまって 残念 だ。",
+   "underline": "残念",
+   "answer": "ざんねん",
+   "choices": [
+    "さんねん",
+    "ざんね",
+    "ざんめん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-136",
+   "i18n": {},
+   "sentence": "わしつには 畳 が しいて ある。",
+   "underline": "畳",
+   "answer": "たたみ",
+   "choices": [
+    "だたみ",
+    "たたび",
+    "ただみ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-140",
+   "i18n": {},
+   "sentence": "その 話は とても 怖い。",
+   "underline": "怖い",
+   "answer": "こわい",
+   "choices": [
+    "ごわい",
+    "こあい",
+    "こわいい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-141",
+   "i18n": {},
+   "sentence": "プレゼントをきれいな紙で包む。",
+   "underline": "包む",
+   "answer": "つつむ",
+   "choices": [
+    "づつむ",
+    "つつぶ",
+    "つずむ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-143",
+   "i18n": {},
+   "sentence": "そんなにたくさんの仕事は、一日では無理です。",
+   "underline": "無理",
+   "answer": "むり",
+   "choices": [
+    "ぶり",
+    "むりい",
+    "むれ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-145",
+   "i18n": {},
+   "sentence": "会議室で話し合いをします。",
+   "underline": "会議室",
+   "answer": "かいぎしつ",
+   "choices": [
+    "かいきしつ",
+    "かいぎしち",
+    "かいぎじつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-147",
+   "i18n": {},
+   "sentence": "たなの上にきれいな人形がある。",
+   "underline": "人形",
+   "answer": "にんぎょう",
+   "choices": [
+    "にんきょう",
+    "にんぎょ",
+    "じんぎょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-148",
+   "i18n": {},
+   "sentence": "このカードはコンビニでも利用できます。",
+   "underline": "利用",
+   "answer": "りよう",
+   "choices": [
+    "りよ",
+    "りゆう",
+    "りょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-151",
+   "i18n": {},
+   "sentence": "みんなの前で転んで、とても恥ずかしい。",
+   "underline": "恥ずかしい",
+   "answer": "はずかしい",
+   "choices": [
+    "はずがしい",
+    "はづかしい",
+    "はすかしい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-157",
+   "i18n": {},
+   "sentence": "ボールを遠くへ投げる。",
+   "underline": "投げる",
+   "answer": "なげる",
+   "choices": [
+    "なける",
+    "ながる",
+    "なげう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-160",
+   "i18n": {},
+   "sentence": "来週、日本語のテストを受ける。",
+   "underline": "受ける",
+   "answer": "うける",
+   "choices": [
+    "うげる",
+    "うけう",
+    "うくる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-164",
+   "i18n": {},
+   "sentence": "夜空に星がたくさん光っている。",
+   "underline": "星",
+   "answer": "ほし",
+   "choices": [
+    "ぼし",
+    "ほじ",
+    "ほす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-171",
+   "i18n": {},
+   "sentence": "旅行の準備をする。",
+   "underline": "準備",
+   "answer": "じゅんび",
+   "choices": [
+    "じゅんぴ",
+    "しゅんび",
+    "じゅび"
+   ]
+  },
+  {
+   "id": "kr:n4-v-174",
+   "i18n": {},
+   "sentence": "再来月、日本へ行きます。",
+   "underline": "再来月",
+   "answer": "さらいげつ",
+   "choices": [
+    "さいらいげつ",
+    "さらいつき",
+    "さらいげづ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-176",
+   "i18n": {},
+   "sentence": "今年の売り上げは去年の倍になった。",
+   "underline": "倍",
+   "answer": "ばい",
+   "choices": [
+    "はい",
+    "ぱい",
+    "べい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-178",
+   "i18n": {},
+   "sentence": "ノートにまっすぐな線を引く。",
+   "underline": "線",
+   "answer": "せん",
+   "choices": [
+    "ぜん",
+    "せい",
+    "てん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-179",
+   "i18n": {},
+   "sentence": "戦争のない平和な世界を願う。",
+   "underline": "戦争",
+   "answer": "せんそう",
+   "choices": [
+    "せんぞう",
+    "せんそ",
+    "ぜんそう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-180",
+   "i18n": {},
+   "sentence": "旅行の日にちを決める。",
+   "underline": "決める",
+   "answer": "きめる",
+   "choices": [
+    "けめる",
+    "きべる",
+    "ぎめる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-181",
+   "i18n": {},
+   "sentence": "分からない言葉を辞書で調べる。",
+   "underline": "調べる",
+   "answer": "しらべる",
+   "choices": [
+    "しなべる",
+    "ちらべる",
+    "しらめる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-182",
+   "i18n": {},
+   "sentence": "今朝は寝坊して学校に遅れた。",
+   "underline": "寝坊",
+   "answer": "ねぼう",
+   "choices": [
+    "ねぼ",
+    "ねぽう",
+    "ねんぼう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-185",
+   "i18n": {},
+   "sentence": "わたしの夫は医者です。",
+   "underline": "夫",
+   "answer": "おっと",
+   "choices": [
+    "おと",
+    "おうと",
+    "おっど"
+   ]
+  },
+  {
+   "id": "kr:n4-v-186",
+   "i18n": {},
+   "sentence": "空に白い雲がうかんでいる。",
+   "underline": "雲",
+   "answer": "くも",
+   "choices": [
+    "ぐも",
+    "くろ",
+    "くぼ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-187",
+   "i18n": {},
+   "sentence": "この長い坂を上ると学校がある。",
+   "underline": "坂",
+   "answer": "さか",
+   "choices": [
+    "さが",
+    "ざか",
+    "さっか"
+   ]
+  },
+  {
+   "id": "kr:n4-v-189",
+   "i18n": {},
+   "sentence": "飛行場で飛行機を待つ。",
+   "underline": "飛行場",
+   "answer": "ひこうじょう",
+   "choices": [
+    "ひこうじょ",
+    "ひこじょう",
+    "ひこうしょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-190",
+   "i18n": {},
+   "sentence": "兄は学校で柔道を習っている。",
+   "underline": "柔道",
+   "answer": "じゅうどう",
+   "choices": [
+    "じゅうとう",
+    "じゅどう",
+    "じゅうど"
+   ]
+  },
+  {
+   "id": "kr:n4-v-191",
+   "i18n": {},
+   "sentence": "私は決してうそをつきません。",
+   "underline": "決して",
+   "answer": "けっして",
+   "choices": [
+    "けして",
+    "げっして",
+    "けっちて"
+   ]
+  },
+  {
+   "id": "kr:n4-v-192",
+   "i18n": {},
+   "sentence": "父の事務所は駅の近くにある。",
+   "underline": "事務所",
+   "answer": "じむしょ",
+   "choices": [
+    "じむしょう",
+    "じむじょ",
+    "じもしょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-193",
+   "i18n": {},
+   "sentence": "着いたら連絡してください。",
+   "underline": "連絡",
+   "answer": "れんらく",
+   "choices": [
+    "れんかく",
+    "れんらぐ",
+    "れいらく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-195",
+   "i18n": {},
+   "sentence": "レストランに大勢の客が来た。",
+   "underline": "客",
+   "answer": "きゃく",
+   "choices": [
+    "きゃぐ",
+    "きゃっく",
+    "きょく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-196",
+   "i18n": {},
+   "sentence": "昔、ここに大きな城があった。",
+   "underline": "昔",
+   "answer": "むかし",
+   "choices": [
+    "むがし",
+    "むかじ",
+    "むかい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-197",
+   "i18n": {},
+   "sentence": "この庭はとても美しい。",
+   "underline": "美しい",
+   "answer": "うつくしい",
+   "choices": [
+    "うつしい",
+    "うくつしい",
+    "うつぐしい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-198",
+   "i18n": {},
+   "sentence": "いらない物をごみ箱に捨てる。",
+   "underline": "捨てる",
+   "answer": "すてる",
+   "choices": [
+    "すでる",
+    "ずてる",
+    "せてる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-203",
+   "i18n": {},
+   "sentence": "この問題に適当な答えを選ぶ。",
+   "underline": "適当",
+   "answer": "てきとう",
+   "choices": [
+    "てきとお",
+    "てきと",
+    "できとう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-205",
+   "i18n": {},
+   "sentence": "日曜日に美術館へ絵を見に行った。",
+   "underline": "美術館",
+   "answer": "びじゅつかん",
+   "choices": [
+    "びじゅつがん",
+    "びじゅっかん",
+    "びじつかん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-206",
+   "i18n": {},
+   "sentence": "日本語の文法を勉強する。",
+   "underline": "文法",
+   "answer": "ぶんぽう",
+   "choices": [
+    "ぶんぼう",
+    "ぶんぷう",
+    "ぶんほう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-208",
+   "i18n": {},
+   "sentence": "へやの壁に絵をかけた。",
+   "underline": "壁",
+   "answer": "かべ",
+   "choices": [
+    "がべ",
+    "かぺ",
+    "かめ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-210",
+   "i18n": {},
+   "sentence": "たすけてくれた人に お礼を 言いました。",
+   "underline": "お礼",
+   "answer": "おれい",
+   "choices": [
+    "おれ",
+    "おれえ",
+    "おらい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-213",
+   "i18n": {},
+   "sentence": "歯が いたいので 歯医者に 行った。",
+   "underline": "歯医者",
+   "answer": "はいしゃ",
+   "choices": [
+    "はいじゃ",
+    "ばいしゃ",
+    "はいちゃ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-214",
+   "i18n": {},
+   "sentence": "彼は 熱心に 勉強している。",
+   "underline": "熱心",
+   "answer": "ねっしん",
+   "choices": [
+    "ねつしん",
+    "ねっじん",
+    "ねしん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-217",
+   "i18n": {},
+   "sentence": "赤ちゃんが 大きな声で 泣く。",
+   "underline": "泣く",
+   "answer": "なく",
+   "choices": [
+    "なぐ",
+    "まく",
+    "なっく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-218",
+   "i18n": {},
+   "sentence": "薬を 飲んだら 風邪が 治る。",
+   "underline": "治る",
+   "answer": "なおる",
+   "choices": [
+    "なうる",
+    "なほる",
+    "ながる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-219",
+   "i18n": {},
+   "sentence": "かぜで 熱が 出た。",
+   "underline": "熱",
+   "answer": "ねつ",
+   "choices": [
+    "ねづ",
+    "ねち",
+    "ねす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-220",
+   "i18n": {},
+   "sentence": "夏の お祭りに 行きます。",
+   "underline": "お祭り",
+   "answer": "おまつり",
+   "choices": [
+    "おまづり",
+    "おまつ",
+    "おまちり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-224",
+   "i18n": {},
+   "sentence": "赤ん坊が しずかに ねている。",
+   "underline": "赤ん坊",
+   "answer": "あかんぼう",
+   "choices": [
+    "あかんぼ",
+    "あかんぽう",
+    "あがんぼう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-226",
+   "i18n": {},
+   "sentence": "道路で 事故が あった。",
+   "underline": "事故",
+   "answer": "じこ",
+   "choices": [
+    "じご",
+    "しこ",
+    "じこう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-227",
+   "i18n": {},
+   "sentence": "この 料理は 変な 味がする。",
+   "underline": "変",
+   "answer": "へん",
+   "choices": [
+    "べん",
+    "ぺん",
+    "へい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-229",
+   "i18n": {},
+   "sentence": "ごはんが 少し 残る。",
+   "underline": "残る",
+   "answer": "のこる",
+   "choices": [
+    "のごる",
+    "のこう",
+    "ねこる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-233",
+   "i18n": {},
+   "sentence": "事故の 原因を 調べる。",
+   "underline": "原因",
+   "answer": "げんいん",
+   "choices": [
+    "げいいん",
+    "げんい",
+    "けんいん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-236",
+   "i18n": {},
+   "sentence": "わたしの 祖母は 元気です。",
+   "underline": "祖母",
+   "answer": "そぼ",
+   "choices": [
+    "そぼう",
+    "そぽ",
+    "そも"
+   ]
+  },
+  {
+   "id": "kr:n4-v-241",
+   "i18n": {},
+   "sentence": "病院の 受付で 名前を 書く。",
+   "underline": "受付",
+   "answer": "うけつけ",
+   "choices": [
+    "うけづけ",
+    "うけつき",
+    "うげつけ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-242",
+   "i18n": {},
+   "sentence": "三日の 内に 返して ください。",
+   "underline": "内",
+   "answer": "うち",
+   "choices": [
+    "うぢ",
+    "うつ",
+    "うい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-244",
+   "i18n": {},
+   "sentence": "町の 人口が 増える。",
+   "underline": "増える",
+   "answer": "ふえる",
+   "choices": [
+    "ふへる",
+    "ぶえる",
+    "へえる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-248",
+   "i18n": {},
+   "sentence": "好きな 色を 選ぶ。",
+   "underline": "選ぶ",
+   "answer": "えらぶ",
+   "choices": [
+    "えらむ",
+    "えばる",
+    "えらぷ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-253",
+   "i18n": {},
+   "sentence": "荷物を 家まで 届ける。",
+   "underline": "届ける",
+   "answer": "とどける",
+   "choices": [
+    "とどげる",
+    "ととける",
+    "どどける"
+   ]
+  },
+  {
+   "id": "kr:n4-v-256",
+   "i18n": {},
+   "sentence": "彼は 確か 先生です。",
+   "underline": "確か",
+   "answer": "たしか",
+   "choices": [
+    "だしか",
+    "たしが",
+    "たじか"
+   ]
+  },
+  {
+   "id": "kr:n4-v-260",
+   "i18n": {},
+   "sentence": "一時間 以内に 来て ください。",
+   "underline": "以内",
+   "answer": "いない",
+   "choices": [
+    "いがい",
+    "いなり",
+    "いだい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-261",
+   "i18n": {},
+   "sentence": "明日の 予定を 教えて。",
+   "underline": "予定",
+   "answer": "よてい",
+   "choices": [
+    "よでい",
+    "ようてい",
+    "よってい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-263",
+   "i18n": {},
+   "sentence": "せんたくものが よく 乾く。",
+   "underline": "乾く",
+   "answer": "かわく",
+   "choices": [
+    "がわく",
+    "かばく",
+    "かわぐ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-264",
+   "i18n": {},
+   "sentence": "川で きれいな 石を 拾う。",
+   "underline": "石",
+   "answer": "いし",
+   "choices": [
+    "いじ",
+    "いち",
+    "いす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-266",
+   "i18n": {},
+   "sentence": "音楽に あわせて 踊る。",
+   "underline": "踊る",
+   "answer": "おどる",
+   "choices": [
+    "おとる",
+    "おどう",
+    "おどろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-267",
+   "i18n": {},
+   "sentence": "細かい ところまで よく 見る。",
+   "underline": "細かい",
+   "answer": "こまかい",
+   "choices": [
+    "ごまかい",
+    "こまがい",
+    "こまかり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-268",
+   "i18n": {},
+   "sentence": "かべに ペンキを 塗る。",
+   "underline": "塗る",
+   "answer": "ぬる",
+   "choices": [
+    "ねる",
+    "のる",
+    "ぬろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-270",
+   "i18n": {},
+   "sentence": "これは とても 珍しい 花です。",
+   "underline": "珍しい",
+   "answer": "めずらしい",
+   "choices": [
+    "めづらしい",
+    "めすらしい",
+    "めずらいし"
+   ]
+  },
+  {
+   "id": "kr:n4-v-272",
+   "i18n": {},
+   "sentence": "父は 公務員です。",
+   "underline": "公務員",
+   "answer": "こうむいん",
+   "choices": [
+    "こむいん",
+    "ごうむいん",
+    "こうむい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-275",
+   "i18n": {},
+   "sentence": "なくした かぎを 探す。",
+   "underline": "探す",
+   "answer": "さがす",
+   "choices": [
+    "さかす",
+    "さがず",
+    "さがう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-276",
+   "i18n": {},
+   "sentence": "この 石は へんな 形だ。",
+   "underline": "形",
+   "answer": "かたち",
+   "choices": [
+    "かだち",
+    "かたじ",
+    "がたち"
+   ]
+  },
+  {
+   "id": "kr:n4-v-283",
+   "i18n": {},
+   "sentence": "夏に海岸で泳ぎました。",
+   "underline": "海岸",
+   "answer": "かいがん",
+   "choices": [
+    "かいかん",
+    "がいがん",
+    "かいがい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-286",
+   "i18n": {},
+   "sentence": "庭で花を育てるのは楽しい。",
+   "underline": "育てる",
+   "answer": "そだてる",
+   "choices": [
+    "そたてる",
+    "そだでる",
+    "ぞだてる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-288",
+   "i18n": {},
+   "sentence": "合格のお祝いをしました。",
+   "underline": "お祝い",
+   "answer": "おいわい",
+   "choices": [
+    "おいわえ",
+    "おいあい",
+    "おいわり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-290",
+   "i18n": {},
+   "sentence": "駅で道を案内しました。",
+   "underline": "案内",
+   "answer": "あんない",
+   "choices": [
+    "あんばい",
+    "あない",
+    "あんねい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-292",
+   "i18n": {},
+   "sentence": "妹を動物園に連れる。",
+   "underline": "連れる",
+   "answer": "つれる",
+   "choices": [
+    "つねる",
+    "ずれる",
+    "づれる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-293",
+   "i18n": {},
+   "sentence": "新しい技術を学びます。",
+   "underline": "技術",
+   "answer": "ぎじゅつ",
+   "choices": [
+    "きじゅつ",
+    "ぎじゅづ",
+    "ぎじつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-295",
+   "i18n": {},
+   "sentence": "大学の近くに下宿しています。",
+   "underline": "下宿",
+   "answer": "げしゅく",
+   "choices": [
+    "けしゅく",
+    "げじゅく",
+    "げしゅうく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-297",
+   "i18n": {},
+   "sentence": "友だちを家に招待しました。",
+   "underline": "招待",
+   "answer": "しょうたい",
+   "choices": [
+    "しょうだい",
+    "しょたい",
+    "しょうたえ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-300",
+   "i18n": {},
+   "sentence": "あたらしい法律ができました。",
+   "underline": "法律",
+   "answer": "ほうりつ",
+   "choices": [
+    "ほうりち",
+    "ほりつ",
+    "ぼうりつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-303",
+   "i18n": {},
+   "sentence": "父は貿易の仕事をしています。",
+   "underline": "貿易",
+   "answer": "ぼうえき",
+   "choices": [
+    "ぼうえぎ",
+    "ほうえき",
+    "ぼえき"
+   ]
+  },
+  {
+   "id": "kr:n4-v-304",
+   "i18n": {},
+   "sentence": "その意見に反対します。",
+   "underline": "反対",
+   "answer": "はんたい",
+   "choices": [
+    "はんだい",
+    "ばんたい",
+    "はんてい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-306",
+   "i18n": {},
+   "sentence": "私は田中と申す。",
+   "underline": "申す",
+   "answer": "もうす",
+   "choices": [
+    "もうず",
+    "もす",
+    "むうす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-311",
+   "i18n": {},
+   "sentence": "出張でホテルに泊まる。",
+   "underline": "泊まる",
+   "answer": "とまる",
+   "choices": [
+    "どまる",
+    "とまう",
+    "とばる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-318",
+   "i18n": {},
+   "sentence": "この町は交通が便利です。",
+   "underline": "交通",
+   "answer": "こうつう",
+   "choices": [
+    "こうづう",
+    "こつう",
+    "ごうつう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-320",
+   "i18n": {},
+   "sentence": "合格したら家族が喜ぶ。",
+   "underline": "喜ぶ",
+   "answer": "よろこぶ",
+   "choices": [
+    "よろこむ",
+    "よろごぶ",
+    "よろこぷ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-322",
+   "i18n": {},
+   "sentence": "クラスの皆で写真をとった。",
+   "underline": "皆",
+   "answer": "みな",
+   "choices": [
+    "びな",
+    "みや",
+    "みぬ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-324",
+   "i18n": {},
+   "sentence": "朝はやく空港に着きました。",
+   "underline": "空港",
+   "answer": "くうこう",
+   "choices": [
+    "くうごう",
+    "くこう",
+    "くうこ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-325",
+   "i18n": {},
+   "sentence": "寒いので手袋をします。",
+   "underline": "手袋",
+   "answer": "てぶくろ",
+   "choices": [
+    "てふくろ",
+    "でぶくろ",
+    "てぷくろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-328",
+   "i18n": {},
+   "sentence": "祭りで踊りを見ました。",
+   "underline": "踊り",
+   "answer": "おどり",
+   "choices": [
+    "おとり",
+    "おどう",
+    "おどい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-330",
+   "i18n": {},
+   "sentence": "来月となりの町に引っ越す。",
+   "underline": "引っ越す",
+   "answer": "ひっこす",
+   "choices": [
+    "ひっこず",
+    "ひこす",
+    "ひっごす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-334",
+   "i18n": {},
+   "sentence": "大切な人が亡くなるのは悲しい。",
+   "underline": "亡くなる",
+   "answer": "なくなる",
+   "choices": [
+    "なぐなる",
+    "ながなる",
+    "なくなう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-335",
+   "i18n": {},
+   "sentence": "科学の授業が好きです。",
+   "underline": "科学",
+   "answer": "かがく",
+   "choices": [
+    "かかく",
+    "がかく",
+    "かがぐ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-337",
+   "i18n": {},
+   "sentence": "先生にお礼の品を差し上げる。",
+   "underline": "差し上げる",
+   "answer": "さしあげる",
+   "choices": [
+    "さしあける",
+    "ざしあげる",
+    "さしさげる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-339",
+   "i18n": {},
+   "sentence": "わたしの祖父は元気です。",
+   "underline": "祖父",
+   "answer": "そふ",
+   "choices": [
+    "そぶ",
+    "そふう",
+    "ぞふ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-340",
+   "i18n": {},
+   "sentence": "船が港に着きました。",
+   "underline": "港",
+   "answer": "みなと",
+   "choices": [
+    "みなど",
+    "みなとう",
+    "みのと"
+   ]
+  },
+  {
+   "id": "kr:n4-v-341",
+   "i18n": {},
+   "sentence": "レストランを予約しました。",
+   "underline": "予約",
+   "answer": "よやく",
+   "choices": [
+    "よやぐ",
+    "ようやく",
+    "よやこ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-344",
+   "i18n": {},
+   "sentence": "部屋をきれいに片付ける。",
+   "underline": "片付ける",
+   "answer": "かたづける",
+   "choices": [
+    "かたつける",
+    "かだづける",
+    "かたずける"
+   ]
+  },
+  {
+   "id": "kr:n4-v-347",
+   "i18n": {},
+   "sentence": "部長に この書類を わたしてください。",
+   "underline": "部長",
+   "answer": "ぶちょう",
+   "choices": [
+    "ぶじょう",
+    "ぷちょう",
+    "ぶちょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-351",
+   "i18n": {},
+   "sentence": "彼らは 私の 友達です。",
+   "underline": "彼ら",
+   "answer": "かれら",
+   "choices": [
+    "がれら",
+    "かねら",
+    "かれろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-352",
+   "i18n": {},
+   "sentence": "コップに ジュースが 一杯 入っています。",
+   "underline": "一杯",
+   "answer": "いっぱい",
+   "choices": [
+    "いっばい",
+    "いっはい",
+    "いちはい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-354",
+   "i18n": {},
+   "sentence": "あの 男性は 私の 兄です。",
+   "underline": "男性",
+   "answer": "だんせい",
+   "choices": [
+    "たんせい",
+    "だんぜい",
+    "なんせい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-355",
+   "i18n": {},
+   "sentence": "学校を 休んだ 理由を 話してください。",
+   "underline": "理由",
+   "answer": "りゆう",
+   "choices": [
+    "りゅう",
+    "りよう",
+    "りゆ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-359",
+   "i18n": {},
+   "sentence": "冬は 早く 日が 暮れる。",
+   "underline": "暮れる",
+   "answer": "くれる",
+   "choices": [
+    "ぐれる",
+    "くれう",
+    "くれろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-362",
+   "i18n": {},
+   "sentence": "ボールを バットで 打つ。",
+   "underline": "打つ",
+   "answer": "うつ",
+   "choices": [
+    "うづ",
+    "うす",
+    "おつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-366",
+   "i18n": {},
+   "sentence": "日本の 教育について 調べています。",
+   "underline": "教育",
+   "answer": "きょういく",
+   "choices": [
+    "きょういぐ",
+    "ぎょういく",
+    "きょいく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-367",
+   "i18n": {},
+   "sentence": "あの 女性は 有名な 歌手です。",
+   "underline": "女性",
+   "answer": "じょせい",
+   "choices": [
+    "じょぜい",
+    "じょせ",
+    "しょせい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-368",
+   "i18n": {},
+   "sentence": "秋に 米を 収穫します。",
+   "underline": "米",
+   "answer": "こめ",
+   "choices": [
+    "ごめ",
+    "こべ",
+    "こま"
+   ]
+  },
+  {
+   "id": "kr:n4-v-370",
+   "i18n": {},
+   "sentence": "兄は 国際の 会社で 働いています。",
+   "underline": "国際",
+   "answer": "こくさい",
+   "choices": [
+    "ごくさい",
+    "こくざい",
+    "こくさ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-371",
+   "i18n": {},
+   "sentence": "部屋の 隅に 机を 置きました。",
+   "underline": "隅",
+   "answer": "すみ",
+   "choices": [
+    "ずみ",
+    "すび",
+    "すめ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-372",
+   "i18n": {},
+   "sentence": "先生に 意見を 伺う つもりです。",
+   "underline": "伺う",
+   "answer": "うかがう",
+   "choices": [
+    "うかかう",
+    "うががう",
+    "うかごう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-373",
+   "i18n": {},
+   "sentence": "再来週 家族で 旅行に 行きます。",
+   "underline": "再来週",
+   "answer": "さらいしゅう",
+   "choices": [
+    "さいらいしゅう",
+    "さらいしゅ",
+    "さらいじゅう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-374",
+   "i18n": {},
+   "sentence": "私の 夢は 医者に なることです。",
+   "underline": "夢",
+   "answer": "ゆめ",
+   "choices": [
+    "ゆべ",
+    "いめ",
+    "ゆね"
+   ]
+  },
+  {
+   "id": "kr:n4-v-376",
+   "i18n": {},
+   "sentence": "最近 少し 太りました。",
+   "underline": "最近",
+   "answer": "さいきん",
+   "choices": [
+    "さいぎん",
+    "ざいきん",
+    "さいき"
+   ]
+  },
+  {
+   "id": "kr:n4-v-377",
+   "i18n": {},
+   "sentence": "家の 周りを 散歩します。",
+   "underline": "周り",
+   "answer": "まわり",
+   "choices": [
+    "まわい",
+    "まあり",
+    "まはり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-378",
+   "i18n": {},
+   "sentence": "日本の 歴史を 勉強しています。",
+   "underline": "歴史",
+   "answer": "れきし",
+   "choices": [
+    "れきじ",
+    "れぎし",
+    "えきし"
+   ]
+  },
+  {
+   "id": "kr:n4-v-380",
+   "i18n": {},
+   "sentence": "けがをして 血が 出ました。",
+   "underline": "血",
+   "answer": "ち",
+   "choices": [
+    "じ",
+    "ぢ",
+    "し"
+   ]
+  },
+  {
+   "id": "kr:n4-v-382",
+   "i18n": {},
+   "sentence": "この猫の 毛は やわらかいです。",
+   "underline": "毛",
+   "answer": "け",
+   "choices": [
+    "げ",
+    "へ",
+    "き"
+   ]
+  },
+  {
+   "id": "kr:n4-v-384",
+   "i18n": {},
+   "sentence": "果物、例えば りんごや みかんが 好きです。",
+   "underline": "例えば",
+   "answer": "たとえば",
+   "choices": [
+    "たとへば",
+    "だとえば",
+    "たどえば"
+   ]
+  },
+  {
+   "id": "kr:n4-v-388",
+   "i18n": {},
+   "sentence": "布団を 押し入れに しまいます。",
+   "underline": "押し入れ",
+   "answer": "おしいれ",
+   "choices": [
+    "おしいえ",
+    "おしれ",
+    "おすいれ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-389",
+   "i18n": {},
+   "sentence": "暗いので 電灯を つけました。",
+   "underline": "電灯",
+   "answer": "でんとう",
+   "choices": [
+    "でんどう",
+    "てんとう",
+    "でんと"
+   ]
+  },
+  {
+   "id": "kr:n4-v-394",
+   "i18n": {},
+   "sentence": "会議の 予定を 変えることに しました。",
+   "underline": "変える",
+   "answer": "かえる",
+   "choices": [
+    "がえる",
+    "かへる",
+    "かえう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-395",
+   "i18n": {},
+   "sentence": "卒業式は 講堂で 行われます。",
+   "underline": "講堂",
+   "answer": "こうどう",
+   "choices": [
+    "こうとう",
+    "ごうどう",
+    "こうど"
+   ]
+  },
+  {
+   "id": "kr:n4-v-397",
+   "i18n": {},
+   "sentence": "やかんで お湯を 沸かす。",
+   "underline": "沸かす",
+   "answer": "わかす",
+   "choices": [
+    "わがす",
+    "あかす",
+    "まかす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-405",
+   "i18n": {},
+   "sentence": "大学で 経済を 勉強しています。",
+   "underline": "経済",
+   "answer": "けいざい",
+   "choices": [
+    "けいさい",
+    "けいざん",
+    "けえざい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-408",
+   "i18n": {},
+   "sentence": "紙の 裏に 名前を 書きます。",
+   "underline": "裏",
+   "answer": "うら",
+   "choices": [
+    "うろ",
+    "くら",
+    "うわ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-411",
+   "i18n": {},
+   "sentence": "信号が 青に 変わる。",
+   "underline": "変わる",
+   "answer": "かわる",
+   "choices": [
+    "さわる",
+    "まわる",
+    "がわる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-413",
+   "i18n": {},
+   "sentence": "仕事が 済むまで 待ちます。",
+   "underline": "済む",
+   "answer": "すむ",
+   "choices": [
+    "ずむ",
+    "つむ",
+    "すぶ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-417",
+   "i18n": {},
+   "sentence": "こどもたちは こうえんで 遊びを たのしんで います。",
+   "underline": "遊び",
+   "answer": "あそび",
+   "choices": [
+    "あそひ",
+    "あぞび",
+    "あさび"
+   ]
+  },
+  {
+   "id": "kr:n4-v-418",
+   "i18n": {},
+   "sentence": "あさ はやく でかける 支度を します。",
+   "underline": "支度",
+   "answer": "したく",
+   "choices": [
+    "したぐ",
+    "しだく",
+    "したき"
+   ]
+  },
+  {
+   "id": "kr:n4-v-427",
+   "i18n": {},
+   "sentence": "つよい かぜで きの えだが 折れる。",
+   "underline": "折れる",
+   "answer": "おれる",
+   "choices": [
+    "われる",
+    "おちる",
+    "おれろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-429",
+   "i18n": {},
+   "sentence": "この くだものは がいこくから 輸入 して います。",
+   "underline": "輸入",
+   "answer": "ゆにゅう",
+   "choices": [
+    "ゆにゅ",
+    "ゆうにゅう",
+    "ゆにょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-430",
+   "i18n": {},
+   "sentence": "メールの 返事を かきました。",
+   "underline": "返事",
+   "answer": "へんじ",
+   "choices": [
+    "へんし",
+    "べんじ",
+    "へんぎ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-433",
+   "i18n": {},
+   "sentence": "かれに ことづけを 伝える。",
+   "underline": "伝える",
+   "answer": "つたえる",
+   "choices": [
+    "つたえろ",
+    "つだえる",
+    "つかえる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-436",
+   "i18n": {},
+   "sentence": "ふねで ちいさな 島へ いきました。",
+   "underline": "島",
+   "answer": "しま",
+   "choices": [
+    "じま",
+    "しば",
+    "しも"
+   ]
+  },
+  {
+   "id": "kr:n4-v-437",
+   "i18n": {},
+   "sentence": "そうじの 道具を かいました。",
+   "underline": "道具",
+   "answer": "どうぐ",
+   "choices": [
+    "とうぐ",
+    "どうく",
+    "どうぐう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-445",
+   "i18n": {},
+   "sentence": "わたしの 妻は きょうしです。",
+   "underline": "妻",
+   "answer": "つま",
+   "choices": [
+    "づま",
+    "つめ",
+    "すま"
+   ]
+  },
+  {
+   "id": "kr:n4-v-447",
+   "i18n": {},
+   "sentence": "きょうは からだの 具合が わるい。",
+   "underline": "具合",
+   "answer": "ぐあい",
+   "choices": [
+    "くあい",
+    "ぐわい",
+    "ぐあえ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-449",
+   "i18n": {},
+   "sentence": "くるまを 駐車場に とめる。",
+   "underline": "駐車場",
+   "answer": "ちゅうしゃじょう",
+   "choices": [
+    "ちゅうしゃじょ",
+    "ちゅうしゃしょう",
+    "ちゅしゃじょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-451",
+   "i18n": {},
+   "sentence": "ここは 危険ですから、はいらないで ください。",
+   "underline": "危険",
+   "answer": "きけん",
+   "choices": [
+    "きげん",
+    "ぎけん",
+    "きえん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-452",
+   "i18n": {},
+   "sentence": "かのじょは 髪が ながい。",
+   "underline": "髪",
+   "answer": "かみ",
+   "choices": [
+    "がみ",
+    "かめ",
+    "はみ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-453",
+   "i18n": {},
+   "sentence": "あさ 天気予報を みます。",
+   "underline": "天気予報",
+   "answer": "てんきよほう",
+   "choices": [
+    "てんきよほ",
+    "でんきよほう",
+    "てんきよぼう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-454",
+   "i18n": {},
+   "sentence": "彼女は えいごが じょうずです。",
+   "underline": "彼女",
+   "answer": "かのじょ",
+   "choices": [
+    "かのじょう",
+    "かのしょ",
+    "がのじょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-456",
+   "i18n": {},
+   "sentence": "らいねん だいがくを 卒業 します。",
+   "underline": "卒業",
+   "answer": "そつぎょう",
+   "choices": [
+    "そつきょう",
+    "そつぎょ",
+    "ぞつぎょう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-458",
+   "i18n": {},
+   "sentence": "きの 枝に とりが とまって いる。",
+   "underline": "枝",
+   "answer": "えだ",
+   "choices": [
+    "えた",
+    "えで",
+    "えざ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-459",
+   "i18n": {},
+   "sentence": "わたしの 専門は かがくです。",
+   "underline": "専門",
+   "answer": "せんもん",
+   "choices": [
+    "ぜんもん",
+    "せんぼん",
+    "せんもう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-465",
+   "i18n": {},
+   "sentence": "よる くじから ニュースを 放送 します。",
+   "underline": "放送",
+   "answer": "ほうそう",
+   "choices": [
+    "ぼうそう",
+    "ほうぞう",
+    "ほうそ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-466",
+   "i18n": {},
+   "sentence": "かれは 政治に きょうみが あります。",
+   "underline": "政治",
+   "answer": "せいじ",
+   "choices": [
+    "せいち",
+    "ぜいじ",
+    "せいじい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-469",
+   "i18n": {},
+   "sentence": "よわい チームに 負ける。",
+   "underline": "負ける",
+   "answer": "まける",
+   "choices": [
+    "まげる",
+    "ばける",
+    "まけろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-470",
+   "i18n": {},
+   "sentence": "きれいな 指輪を かいました。",
+   "underline": "指輪",
+   "answer": "ゆびわ",
+   "choices": [
+    "ゆびは",
+    "ゆぴわ",
+    "ゆびば"
+   ]
+  },
+  {
+   "id": "kr:n4-v-477",
+   "i18n": {},
+   "sentence": "でんしゃに 忘れ物を しました。",
+   "underline": "忘れ物",
+   "answer": "わすれもの",
+   "choices": [
+    "わすれぶつ",
+    "わずれもの",
+    "わすれもん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-479",
+   "i18n": {},
+   "sentence": "きょうは 腕が いたいです。",
+   "underline": "腕",
+   "answer": "うで",
+   "choices": [
+    "かた",
+    "ゆび",
+    "ひじ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-481",
+   "i18n": {},
+   "sentence": "その けんは 承知 しました。",
+   "underline": "承知",
+   "answer": "しょうち",
+   "choices": [
+    "しょうじ",
+    "じょうち",
+    "しょち"
+   ]
+  },
+  {
+   "id": "kr:n4-v-482",
+   "i18n": {},
+   "sentence": "まいばん 日記を かきます。",
+   "underline": "日記",
+   "answer": "にっき",
+   "choices": [
+    "にちき",
+    "にき",
+    "にっぎ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-484",
+   "i18n": {},
+   "sentence": "あなたは おかあさんに よく 似る。",
+   "underline": "似る",
+   "answer": "にる",
+   "choices": [
+    "みる",
+    "にえる",
+    "ねる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-487",
+   "i18n": {},
+   "sentence": "昨日、田中さんの家に行ったら、留守でした。",
+   "underline": "留守",
+   "answer": "るす",
+   "choices": [
+    "るしゅ",
+    "りゅうす",
+    "るず"
+   ]
+  },
+  {
+   "id": "kr:n4-v-488",
+   "i18n": {},
+   "sentence": "合格した人の割合は高かった。",
+   "underline": "割合",
+   "answer": "わりあい",
+   "choices": [
+    "わりごう",
+    "わりあわせ",
+    "われあい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-489",
+   "i18n": {},
+   "sentence": "この村には古い寺があります。",
+   "underline": "寺",
+   "answer": "てら",
+   "choices": [
+    "でら",
+    "てろ",
+    "てや"
+   ]
+  },
+  {
+   "id": "kr:n4-v-491",
+   "i18n": {},
+   "sentence": "私は普通七時に起きます。",
+   "underline": "普通",
+   "answer": "ふつう",
+   "choices": [
+    "ふうつう",
+    "ふつ",
+    "ぶつう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-492",
+   "i18n": {},
+   "sentence": "母の仕事を手伝う。",
+   "underline": "手伝う",
+   "answer": "てつだう",
+   "choices": [
+    "てづだう",
+    "てつたう",
+    "てったう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-495",
+   "i18n": {},
+   "sentence": "私の息子は大学生です。",
+   "underline": "息子",
+   "answer": "むすこ",
+   "choices": [
+    "むすめ",
+    "むすご",
+    "もすこ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-498",
+   "i18n": {},
+   "sentence": "みんなが大きな声で笑う。",
+   "underline": "笑う",
+   "answer": "わらう",
+   "choices": [
+    "わろう",
+    "わらいう",
+    "ならう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-502",
+   "i18n": {},
+   "sentence": "入院した友だちのお見舞いに行った。",
+   "underline": "お見舞い",
+   "answer": "おみまい",
+   "choices": [
+    "おみあい",
+    "おみまえ",
+    "おみわい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-503",
+   "i18n": {},
+   "sentence": "電車で席にすわった。",
+   "underline": "席",
+   "answer": "せき",
+   "choices": [
+    "せぎ",
+    "せい",
+    "せっき"
+   ]
+  },
+  {
+   "id": "kr:n4-v-505",
+   "i18n": {},
+   "sentence": "この店をご存じですか。",
+   "underline": "ご存じ",
+   "answer": "ごぞんじ",
+   "choices": [
+    "ごそんじ",
+    "ごぞんち",
+    "ごずんじ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-512",
+   "i18n": {},
+   "sentence": "この店が最もやすい。",
+   "underline": "最も",
+   "answer": "もっとも",
+   "choices": [
+    "もとも",
+    "もっと",
+    "もっとう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-515",
+   "i18n": {},
+   "sentence": "マラソンで最後まで走った。",
+   "underline": "最後",
+   "answer": "さいご",
+   "choices": [
+    "さいこ",
+    "ざいご",
+    "さいごう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-516",
+   "i18n": {},
+   "sentence": "この車の値段は高い。",
+   "underline": "値段",
+   "answer": "ねだん",
+   "choices": [
+    "ねたん",
+    "ちだん",
+    "ねだ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-517",
+   "i18n": {},
+   "sentence": "父は来週退院します。",
+   "underline": "退院",
+   "answer": "たいいん",
+   "choices": [
+    "にゅういん",
+    "だいいん",
+    "たいい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-519",
+   "i18n": {},
+   "sentence": "久しぶりに友だちに会った。",
+   "underline": "久しぶり",
+   "answer": "ひさしぶり",
+   "choices": [
+    "ひざしぶり",
+    "ひさしふり",
+    "ひさひぶり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-522",
+   "i18n": {},
+   "sentence": "バスがじこで遅れる。",
+   "underline": "遅れる",
+   "answer": "おくれる",
+   "choices": [
+    "おそれる",
+    "おくらる",
+    "おくれう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-524",
+   "i18n": {},
+   "sentence": "先生がおすしを召し上がる。",
+   "underline": "召し上がる",
+   "answer": "めしあがる",
+   "choices": [
+    "めしあげる",
+    "めしあがう",
+    "めしのぼる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-527",
+   "i18n": {},
+   "sentence": "雪の様にしろい。",
+   "underline": "様",
+   "answer": "よう",
+   "choices": [
+    "よお",
+    "ゆう",
+    "よ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-529",
+   "i18n": {},
+   "sentence": "この仕事は最初はむずかしかった。",
+   "underline": "最初",
+   "answer": "さいしょ",
+   "choices": [
+    "さいしょう",
+    "さいじょ",
+    "ざいしょ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-532",
+   "i18n": {},
+   "sentence": "こわれた時計が直る。",
+   "underline": "直る",
+   "answer": "なおる",
+   "choices": [
+    "なほる",
+    "なおう",
+    "なうる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-534",
+   "i18n": {},
+   "sentence": "まちがえた字を直す。",
+   "underline": "直す",
+   "answer": "なおす",
+   "choices": [
+    "なほす",
+    "なおず",
+    "なうす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-535",
+   "i18n": {},
+   "sentence": "いい天気が続く。",
+   "underline": "続く",
+   "answer": "つづく",
+   "choices": [
+    "つずく",
+    "つづぐ",
+    "つずぐ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-537",
+   "i18n": {},
+   "sentence": "友だちとの約束をまもる。",
+   "underline": "約束",
+   "answer": "やくそく",
+   "choices": [
+    "やくぞく",
+    "やぐそく",
+    "やくそ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-540",
+   "i18n": {},
+   "sentence": "将来は医者になりたい。",
+   "underline": "将来",
+   "answer": "しょうらい",
+   "choices": [
+    "しょうかい",
+    "じょうらい",
+    "しょらい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-541",
+   "i18n": {},
+   "sentence": "この会社は一億円もうけた。",
+   "underline": "億",
+   "answer": "おく",
+   "choices": [
+    "おき",
+    "おこ",
+    "あく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-542",
+   "i18n": {},
+   "sentence": "数学のテストはむずかしい。",
+   "underline": "数学",
+   "answer": "すうがく",
+   "choices": [
+    "すがく",
+    "すうかく",
+    "かがく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-543",
+   "i18n": {},
+   "sentence": "日本の文化を学ぶ。",
+   "underline": "文化",
+   "answer": "ぶんか",
+   "choices": [
+    "ぶんが",
+    "ぶんかい",
+    "ぶんこ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-544",
+   "i18n": {},
+   "sentence": "レジでお金を払う。",
+   "underline": "払う",
+   "answer": "はらう",
+   "choices": [
+    "あらう",
+    "ばらう",
+    "はろう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-545",
+   "i18n": {},
+   "sentence": "まいあさ走るのがわたしの習慣です。",
+   "underline": "習慣",
+   "answer": "しゅうかん",
+   "choices": [
+    "しゅかん",
+    "しゅうがん",
+    "じゅうかん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-546",
+   "i18n": {},
+   "sentence": "魚がおいしそうに焼ける。",
+   "underline": "焼ける",
+   "answer": "やける",
+   "choices": [
+    "やげる",
+    "よける",
+    "やけう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-547",
+   "i18n": {},
+   "sentence": "君はどう思いますか。",
+   "underline": "君",
+   "answer": "きみ",
+   "choices": [
+    "きび",
+    "ぎみ",
+    "きめ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-548",
+   "i18n": {},
+   "sentence": "夜になって体が冷える。",
+   "underline": "冷える",
+   "answer": "ひえる",
+   "choices": [
+    "びえる",
+    "ふえる",
+    "ひける"
+   ]
+  },
+  {
+   "id": "kr:n4-v-549",
+   "i18n": {},
+   "sentence": "部屋のでんきが点く。",
+   "underline": "点く",
+   "answer": "つく",
+   "choices": [
+    "づく",
+    "つぐ",
+    "すく"
+   ]
+  },
+  {
+   "id": "kr:n4-v-551",
+   "i18n": {},
+   "sentence": "その 格好 で 出かけるの?",
+   "underline": "格好",
+   "answer": "かっこう",
+   "choices": [
+    "がっこう",
+    "かっこ",
+    "かこう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-553",
+   "i18n": {},
+   "sentence": "毎日 日本語の 勉強を 続ける。",
+   "underline": "続ける",
+   "answer": "つづける",
+   "choices": [
+    "つずける",
+    "つつける",
+    "つづれる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-554",
+   "i18n": {},
+   "sentence": "電車の 中で 財布を 落す。",
+   "underline": "落す",
+   "answer": "おとす",
+   "choices": [
+    "おどす",
+    "おこす",
+    "おとず"
+   ]
+  },
+  {
+   "id": "kr:n4-v-557",
+   "i18n": {},
+   "sentence": "先生の 手紙を 拝見 する。",
+   "underline": "拝見",
+   "answer": "はいけん",
+   "choices": [
+    "はいげん",
+    "ばいけん",
+    "はいけい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-558",
+   "i18n": {},
+   "sentence": "落として コップが 割れる。",
+   "underline": "割れる",
+   "answer": "われる",
+   "choices": [
+    "かれる",
+    "たれる",
+    "わられる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-559",
+   "i18n": {},
+   "sentence": "重い かばんで 背中 が 痛い。",
+   "underline": "背中",
+   "answer": "せなか",
+   "choices": [
+    "せなが",
+    "せいなか",
+    "ぜなか"
+   ]
+  },
+  {
+   "id": "kr:n4-v-565",
+   "i18n": {},
+   "sentence": "夜おそくなって とても 眠い。",
+   "underline": "眠い",
+   "answer": "ねむい",
+   "choices": [
+    "ねぶい",
+    "にぶい",
+    "ねもい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-567",
+   "i18n": {},
+   "sentence": "強い 風で 木が 倒れる。",
+   "underline": "倒れる",
+   "answer": "たおれる",
+   "choices": [
+    "だおれる",
+    "たうれる",
+    "たおられる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-571",
+   "i18n": {},
+   "sentence": "みんなで 駅に 向かう。",
+   "underline": "向かう",
+   "answer": "むかう",
+   "choices": [
+    "むがう",
+    "むこう",
+    "つかう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-572",
+   "i18n": {},
+   "sentence": "きょうは 自由 に 使える 時間が ある。",
+   "underline": "自由",
+   "answer": "じゆう",
+   "choices": [
+    "じゅう",
+    "じゆ",
+    "じいゆう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-575",
+   "i18n": {},
+   "sentence": "泣きたい 程 うれしかった。",
+   "underline": "程",
+   "answer": "ほど",
+   "choices": [
+    "ほと",
+    "ぼど",
+    "ほろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-577",
+   "i18n": {},
+   "sentence": "何度も 失敗 して やっと できた。",
+   "underline": "失敗",
+   "answer": "しっぱい",
+   "choices": [
+    "しつぱい",
+    "しっばい",
+    "しっはい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-579",
+   "i18n": {},
+   "sentence": "来月 新しい 家に 移る。",
+   "underline": "移る",
+   "answer": "うつる",
+   "choices": [
+    "うずる",
+    "うたる",
+    "うつす"
+   ]
+  },
+  {
+   "id": "kr:n4-v-584",
+   "i18n": {},
+   "sentence": "友だちに 家族を 紹介 する。",
+   "underline": "紹介",
+   "answer": "しょうかい",
+   "choices": [
+    "しょかい",
+    "しょうがい",
+    "じょうかい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-586",
+   "i18n": {},
+   "sentence": "川を 舟 で わたる。",
+   "underline": "舟",
+   "answer": "ふね",
+   "choices": [
+    "ぶね",
+    "ふれ",
+    "ほね"
+   ]
+  },
+  {
+   "id": "kr:n4-v-590",
+   "i18n": {},
+   "sentence": "庭に 小さな 虫 が いる。",
+   "underline": "虫",
+   "answer": "むし",
+   "choices": [
+    "むじ",
+    "ぶし",
+    "むち"
+   ]
+  },
+  {
+   "id": "kr:n4-v-591",
+   "i18n": {},
+   "sentence": "あの 人は だれにでも 優しい。",
+   "underline": "優しい",
+   "answer": "やさしい",
+   "choices": [
+    "やざしい",
+    "あやしい",
+    "やさひい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-593",
+   "i18n": {},
+   "sentence": "庭に 花を 植える。",
+   "underline": "植える",
+   "answer": "うえる",
+   "choices": [
+    "ふえる",
+    "きえる",
+    "ううえる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-594",
+   "i18n": {},
+   "sentence": "コーヒーと 紅茶の 両方 が 好きだ。",
+   "underline": "両方",
+   "answer": "りょうほう",
+   "choices": [
+    "りょうぼう",
+    "りょほう",
+    "りょうほ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-595",
+   "i18n": {},
+   "sentence": "遊んで 服が 汚れる。",
+   "underline": "汚れる",
+   "answer": "よごれる",
+   "choices": [
+    "よこれる",
+    "よごられる",
+    "よぼれる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-596",
+   "i18n": {},
+   "sentence": "夏は 毎日 水泳 を 習っている。",
+   "underline": "水泳",
+   "answer": "すいえい",
+   "choices": [
+    "ずいえい",
+    "すいえ",
+    "すえい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-597",
+   "i18n": {},
+   "sentence": "外国で 働いた 経験 が ある。",
+   "underline": "経験",
+   "answer": "けいけん",
+   "choices": [
+    "けいげん",
+    "げいけん",
+    "けいけい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-598",
+   "i18n": {},
+   "sentence": "きょうの 試合に 勝つ。",
+   "underline": "勝つ",
+   "answer": "かつ",
+   "choices": [
+    "がつ",
+    "たつ",
+    "まつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-599",
+   "i18n": {},
+   "sentence": "海べで こまかい 砂 を さわる。",
+   "underline": "砂",
+   "answer": "すな",
+   "choices": [
+    "ずな",
+    "さな",
+    "すの"
+   ]
+  },
+  {
+   "id": "kr:n4-v-600",
+   "i18n": {},
+   "sentence": "困った時は 警察 に 相談する。",
+   "underline": "警察",
+   "answer": "けいさつ",
+   "choices": [
+    "けいざつ",
+    "けさつ",
+    "げいさつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-601",
+   "i18n": {},
+   "sentence": "こわれた 部品を 新しいものに 取り替える。",
+   "underline": "取り替える",
+   "answer": "とりかえる",
+   "choices": [
+    "とりがえる",
+    "とりかへる",
+    "とりかえろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-603",
+   "i18n": {},
+   "sentence": "この 問題は とても 簡単 だ。",
+   "underline": "簡単",
+   "answer": "かんたん",
+   "choices": [
+    "かんだん",
+    "がんたん",
+    "かんた"
+   ]
+  },
+  {
+   "id": "kr:n4-v-604",
+   "i18n": {},
+   "sentence": "ただ今 そちらへ 参る。",
+   "underline": "参る",
+   "answer": "まいる",
+   "choices": [
+    "まわる",
+    "まえる",
+    "まいり"
+   ]
+  },
+  {
+   "id": "kr:n4-v-605",
+   "i18n": {},
+   "sentence": "その話は 全然 知らなかった。",
+   "underline": "全然",
+   "answer": "ぜんぜん",
+   "choices": [
+    "せんぜん",
+    "ぜんせん",
+    "ぜんねん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-607",
+   "i18n": {},
+   "sentence": "テストの前に よく 復習 する。",
+   "underline": "復習",
+   "answer": "ふくしゅう",
+   "choices": [
+    "ふくしゅ",
+    "ふくじゅう",
+    "ぶくしゅう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-609",
+   "i18n": {},
+   "sentence": "この 辞書は とても 役に立つ。",
+   "underline": "役に立つ",
+   "answer": "やくにたつ",
+   "choices": [
+    "やくにだつ",
+    "やくにたづ",
+    "やくにたち"
+   ]
+  },
+  {
+   "id": "kr:n4-v-612",
+   "i18n": {},
+   "sentence": "忘れ物を 取りに 家へ 戻る。",
+   "underline": "戻る",
+   "answer": "もどる",
+   "choices": [
+    "もとる",
+    "のぼる",
+    "もどろ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-615",
+   "i18n": {},
+   "sentence": "公園の みどりの 草 に すわる。",
+   "underline": "草",
+   "answer": "くさ",
+   "choices": [
+    "ぐさ",
+    "くざ",
+    "きさ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-616",
+   "i18n": {},
+   "sentence": "朝の 電車は とても 込む。",
+   "underline": "込む",
+   "answer": "こむ",
+   "choices": [
+    "ごむ",
+    "こぶ",
+    "くむ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-618",
+   "i18n": {},
+   "sentence": "日曜日に友だちの家を訪ねるつもりです。",
+   "underline": "訪ねる",
+   "answer": "たずねる",
+   "choices": [
+    "たづねる",
+    "たすねる",
+    "かさねる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-621",
+   "i18n": {},
+   "sentence": "学校へ行く途中で雨が降ってきた。",
+   "underline": "途中",
+   "answer": "とちゅう",
+   "choices": [
+    "どちゅう",
+    "とちゅ",
+    "とちう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-623",
+   "i18n": {},
+   "sentence": "東京駅で電車を乗り換えるつもりだ。",
+   "underline": "乗り換える",
+   "answer": "のりかえる",
+   "choices": [
+    "のりがえる",
+    "のりこえる",
+    "のりかわる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-626",
+   "i18n": {},
+   "sentence": "この道は広くて安全です。",
+   "underline": "安全",
+   "answer": "あんぜん",
+   "choices": [
+    "あんせん",
+    "かんぜん",
+    "あんてん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-629",
+   "i18n": {},
+   "sentence": "進路について先生に相談した。",
+   "underline": "相談",
+   "answer": "そうだん",
+   "choices": [
+    "そうたん",
+    "しょうだん",
+    "そだん"
+   ]
+  },
+  {
+   "id": "kr:n4-v-632",
+   "i18n": {},
+   "sentence": "昨日はよく眠ることができた。",
+   "underline": "眠る",
+   "answer": "ねむる",
+   "choices": [
+    "ねぶる",
+    "ねまる",
+    "ねもる"
+   ]
+  },
+  {
+   "id": "kr:n4-v-637",
+   "i18n": {},
+   "sentence": "私の娘は高校生です。",
+   "underline": "娘",
+   "answer": "むすめ",
+   "choices": [
+    "むすこ",
+    "むずめ",
+    "むすべ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-638",
+   "i18n": {},
+   "sentence": "おふろの湯はとても熱い。",
+   "underline": "湯",
+   "answer": "ゆ",
+   "choices": [
+    "ゆう",
+    "いゆ",
+    "ゆき"
+   ]
+  },
+  {
+   "id": "kr:n4-v-639",
+   "i18n": {},
+   "sentence": "運動会で友だちと競争した。",
+   "underline": "競争",
+   "answer": "きょうそう",
+   "choices": [
+    "きょうそ",
+    "きょそう",
+    "きょうぞう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-640",
+   "i18n": {},
+   "sentence": "午後に大切な会議があります。",
+   "underline": "会議",
+   "answer": "かいぎ",
+   "choices": [
+    "かいき",
+    "がいぎ",
+    "かいご"
+   ]
+  },
+  {
+   "id": "kr:n4-v-641",
+   "i18n": {},
+   "sentence": "湖で魚をつった。",
+   "underline": "湖",
+   "answer": "みずうみ",
+   "choices": [
+    "みづうみ",
+    "みずうめ",
+    "みずみ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-644",
+   "i18n": {},
+   "sentence": "日本での生活にやっと慣れた。",
+   "underline": "生活",
+   "answer": "せいかつ",
+   "choices": [
+    "せいがつ",
+    "せいかづ",
+    "しょうかつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-645",
+   "i18n": {},
+   "sentence": "はりに糸を通してボタンをつけた。",
+   "underline": "糸",
+   "answer": "いと",
+   "choices": [
+    "いど",
+    "いとう",
+    "いた"
+   ]
+  },
+  {
+   "id": "kr:n4-v-646",
+   "i18n": {},
+   "sentence": "二人の関係はとてもよい。",
+   "underline": "関係",
+   "answer": "かんけい",
+   "choices": [
+    "かんげい",
+    "かんけ",
+    "がんけい"
+   ]
+  },
+  {
+   "id": "kr:n4-v-649",
+   "i18n": {},
+   "sentence": "好きなテレビの番組を見た。",
+   "underline": "番組",
+   "answer": "ばんぐみ",
+   "choices": [
+    "ばんくみ",
+    "ぱんぐみ",
+    "ばんごみ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-653",
+   "i18n": {},
+   "sentence": "日本は多くの車を輸出している。",
+   "underline": "輸出",
+   "answer": "ゆしゅつ",
+   "choices": [
+    "ゆしゅづ",
+    "ゆしゅう",
+    "ゆちゅつ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-659",
+   "i18n": {},
+   "sentence": "お正月に神社へおまいりに行った。",
+   "underline": "神社",
+   "answer": "じんじゃ",
+   "choices": [
+    "しんじゃ",
+    "じんしゃ",
+    "じんじゃあ"
+   ]
+  },
+  {
+   "id": "kr:n4-v-663",
+   "i18n": {},
+   "sentence": "祖母から電報が届いた。",
+   "underline": "電報",
+   "answer": "でんぽう",
+   "choices": [
+    "でんぼう",
+    "でんぽ",
+    "てんぽう"
+   ]
+  },
+  {
+   "id": "kr:n4-v-664",
+   "i18n": {},
+   "sentence": "家内は今買い物に出ている。",
+   "underline": "家内",
+   "answer": "かない",
+   "choices": [
+    "やない",
+    "かねい",
+    "がない"
+   ]
+  },
+  {
+   "id": "kr:n4-v-665",
+   "i18n": {},
+   "sentence": "ドアにはさんで指にけがをした。",
+   "underline": "指",
+   "answer": "ゆび",
+   "choices": [
+    "ゆひ",
+    "ゆうび",
+    "ゆべ"
+   ]
+  }
+ ]
+}
