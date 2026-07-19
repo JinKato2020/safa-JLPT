@@ -8,7 +8,7 @@ test('BANK に passage_grammar が含まれない(新経路へ移行)', () => {
   assert.equal(BANK.some((b) => b.daimon === 'passage_grammar'), false);
 });
 test('passageGrammarSetsFor は級で絞る', () => {
-  assert.ok(PASSAGE_GRAMMAR.length === 120);
+  assert.ok(PASSAGE_GRAMMAR.length === 200); // 2026-07-19 新問題へ全面差し替え(N5 80/N4 80/N3 40)
   const n3 = passageGrammarSetsFor('N3');
   assert.ok(n3.length === 40 && n3.every((s) => s.level === 'N3'));
 });

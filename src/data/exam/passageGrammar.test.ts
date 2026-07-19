@@ -6,11 +6,11 @@ import grammar from '../shared/grammar.json';
 const S = sets as any[];
 const gids = new Set((grammar as any[]).map((g) => g.id));
 
-test('120セット・級別40', () => {
-  assert.equal(S.length, 120);
+test('200セット・N5 80/N4 80/N3 40', () => {
+  assert.equal(S.length, 200); // 2026-07-19 新問題へ全面差し替え
   const by: Record<string, number> = {};
   for (const s of S) by[s.level] = (by[s.level] || 0) + 1;
-  assert.deepEqual(by, { N5: 40, N4: 40, N3: 40 });
+  assert.deepEqual(by, { N5: 80, N4: 80, N3: 40 });
 });
 
 test('セットid一意', () => {
