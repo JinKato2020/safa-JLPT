@@ -38,6 +38,14 @@ export default function RubyText({
   // 基底のフォントサイズを取り出し、ルビ列の基底 lineHeight をそれに合わせて詰める(ルビを漢字の真上に)。
   const flat = StyleSheet.flatten(style) as TextStyle | undefined;
   const baseFs = typeof flat?.fontSize === 'number' ? flat.fontSize : undefined;
+  // flex系プロパティは各文字の基底テキストに載せない。1文字ずつが伸縮対象になると
+  // 列(col)の高さ計算が壊れ、折り返し時に2行目が大きく押し下げられて行間が異常に開く。
+  // 幅は親(choiceRubyWrap 等の flex:1)が確保するので、基底テキストに flex は不要。
+  let baseStyle: TextStyle | undefined = flat;
+  if (flat && ('flex' in flat || 'flexGrow' in flat || 'flexBasis' in flat || 'flexShrink' in flat)) {
+    baseStyle = { ...flat };
+    delete baseStyle.flex; delete baseStyle.flexGrow; delete baseStyle.flexBasis; delete baseStyle.flexShrink;
+  }
   const plain = cells.map((c) => c.base).join('');
   const hits = target ? highlightHits(plain, target) : [];
   let off = 0;
@@ -65,7 +73,7 @@ export default function RubyText({
         return (
           <View key={i} style={styles.col}>
             <Text style={[styles.ruby, rubyStyle]} numberOfLines={1}>{showRuby ? c.ruby : ' '}</Text>
-            <Text style={[style, styles.base, baseFs ? { lineHeight: baseFs } : null]}>
+            <Text style={[baseStyle, styles.base, baseFs ? { lineHeight: baseFs } : null]}>
               {c.hit
                 ? c.segs!.map((seg, j) => (seg.hit ? <Text key={j} style={hitStyle}>{seg.text}</Text> : <Text key={j}>{seg.text}</Text>))
                 : c.base}
