@@ -1,8 +1,8 @@
 // ホーム = 星屑リングを主役に。背景=HOME.png 全画面／上部に合格リング(星屑リング)＋中央に合格率。
 //  リング画像は段階素材(到達度で差し替え)。中央の合格率は動的。グローは呼吸するようにゆっくり明滅(Animated)。
 //  ※DQ風ステータスカードは不採用(ユーザー指定)。上部の共通バーは MainTabs のオーバーレイ。
-import { useMemo, useEffect, useRef } from 'react';
-import { View, Text, Image, Animated, StyleSheet, useWindowDimensions } from 'react-native';
+import { useMemo, useEffect, useRef, useState } from 'react';
+import { View, Text, Image, Animated, StyleSheet, useWindowDimensions, Modal, Pressable, ScrollView } from 'react-native';
 import { useAppState, useAppActions } from '../store/store';
 import { learnedNow } from '../store/selectors';
 import { dayStr } from '../store/state';
@@ -11,6 +11,8 @@ import { useHomeBg } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
 import HomeCoach from '../home/HomeCoach';
 import SafeBoundary from '../components/SafeBoundary';
+import AccountGrowthCard from '../components/AccountGrowthCard';
+import AccountStreakCard from '../components/AccountStreakCard';
 
 const RING = require('../../assets/home/pass_ring.png');
 const GLOW = require('../../assets/home/ring_glow.png');
@@ -20,6 +22,7 @@ export default function HomeScreen() {
   const now = Date.now();
   const { width, height } = useWindowDimensions();
   const homeBg = useHomeBg(); // 昼/夜で自動切替
+  const [showCards, setShowCards] = useState(false);
 
   const status = useMemo(() => homeStatus(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -65,7 +68,7 @@ export default function HomeScreen() {
     <View style={styles.c}>
       <TabBackground source={homeBg}>
         <SafeBoundary tag="homering" fallback={null}>
-          <View style={[styles.wrap, { top, left, width: ringW, height: ringW }]}>
+          <Pressable style={[styles.wrap, { top, left, width: ringW, height: ringW }]} onPress={() => setShowCards(true)}>
             {/* 画像は必ず明示サイズ(=ringW)で拘束する。absoluteFill+containは実機で実寸化する事故があるため使わない。 */}
             {/* グロー(1重) */}
             <Animated.Image
@@ -88,12 +91,22 @@ export default function HomeScreen() {
                 <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085), marginTop: 5 }]}>到達度</Text>
               </View>
             </View>
-          </View>
+          </Pressable>
         </SafeBoundary>
         <SafeBoundary tag="homecoach" fallback={null}>
           <HomeCoach status={status} learned={learnedNow(state, now)} />
         </SafeBoundary>
       </TabBackground>
+      <Modal visible={showCards} transparent animationType="slide" onRequestClose={() => setShowCards(false)}>
+        <Pressable style={styles.modalBackdrop} onPress={() => setShowCards(false)} />
+        <View style={styles.modalContent}>
+          <View style={styles.modalHandle} />
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.cardsList}>
+            <AccountGrowthCard />
+            <AccountStreakCard />
+          </ScrollView>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -107,4 +120,8 @@ const styles = StyleSheet.create({
   lbl: { fontWeight: '700', letterSpacing: 1.5, color: '#dbe4ff', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4, includeFontPadding: false },
   num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(160,200,255,0.9)', textShadowRadius: 14, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
   numSmall: { fontWeight: '800', color: '#eaf0ff' },
+  modalBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
+  modalContent: { backgroundColor: '#fff', borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingBottom: 20 },
+  modalHandle: { height: 4, width: 40, borderRadius: 2, backgroundColor: '#ccc', alignSelf: 'center', marginTop: 10, marginBottom: 16 },
+  cardsList: { paddingHorizontal: 16, gap: 12 },
 });

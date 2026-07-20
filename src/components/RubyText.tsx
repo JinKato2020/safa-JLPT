@@ -88,8 +88,8 @@ export default function RubyText({
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-end', rowGap: 2 },
   center: { justifyContent: 'center' },
-  col: { alignItems: 'center' },
-  ruby: { fontSize: 9, lineHeight: 11, textAlign: 'center', includeFontPadding: false },
+  col: { alignItems: 'center', gap: 2 },
+  ruby: { fontSize: 9, lineHeight: 9, textAlign: 'center', includeFontPadding: false },
   // 基底(漢字/かな)のフォント上下パディングを除去。これを付けないとAndroidで行ボックス内の
   // グリフが下がり、ルビと漢字の間が広く開いて「ルビが高い位置に浮く」ように見える。
   base: { includeFontPadding: false },

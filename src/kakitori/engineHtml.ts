@@ -41,7 +41,7 @@ function make(opts){
   document.getElementById('t').innerHTML='';
   var S=size();
   return HanziWriter.create('t',curChar,Object.assign({
-    width:S,height:S,padding:Math.round(S*0.04),
+    width:S,height:S,padding:Math.round(S*0.08),
     strokeColor:COLORS.stroke,outlineColor:COLORS.outline,drawingColor:COLORS.stroke,highlightColor:COLORS.highlight,
     strokeAnimationSpeed:SPEED[speed],delayBetweenStrokes:DELAY[speed],
     charDataLoader:function(c,onComplete){onComplete(curData);}
