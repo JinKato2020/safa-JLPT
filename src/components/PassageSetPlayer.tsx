@@ -1,19 +1,27 @@
 // 1文章＋全設問を一括提示→各問回答(正誤は出さない)→全問回答で一括採点(色付け)＋quizAnswer記録→「次へ」待機。
 // 読解・文章の文法・模試で共用。ルビは同級以上のみ(rubyNeeded)。解説なし。pointIdある問は＋my単語帳。
+// テーブル型(情報検索)は別コンポーネントにルーティング。
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import RubyText from './RubyText';
+import { InfoSearchFigure } from './InfoSearchFigure';
 import { rubyNeeded } from '../data';
 import { useAppState, useAppActions } from '../store/store';
 import { shuffleChoices } from '../quiz/quiz';
-import { type PassageSet } from '../quiz/passageSet';
+import { type PassageSet, type Figure } from '../quiz/passageSet';
 import { PASSAGE_TRANS_NE } from '../data';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
 // 本文のネパール語訳(回答後トグル表示・l1=ne時のみ)。key=PassageSet.id → 本文ごとの訳配列。
 const TRANS_NE = PASSAGE_TRANS_NE;
+
+// 旧・情報検索テーブル(Record<列,値>[])を figure(表1枚)へ変換する後方互換ヘルパ。新形式は figure を直接持つ。
+function tableToFigure(rows: Record<string, string | number>[]): Figure {
+  const columns = rows.length ? Object.keys(rows[0]) : [];
+  return { tables: [{ columns, rows: rows.map((r) => columns.map((col) => String(r[col] ?? ''))) }] };
+}
 
 export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { set: PassageSet; isLast: boolean; onNext: () => void; onGraded?: (results: { id: string; correct: boolean }[]) => void }) {
   const state = useAppState();
@@ -22,6 +30,31 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
   const rubyGate = (run: string) => rubyNeeded(run, state.settings.level);
+
+  // 情報検索(図表主体)問題か判別。新形式は figure、旧形式は table を持つ。
+  const isInfoSearch = !!set.figure || (!!set.table && set.table.length > 0);
+
+  // 情報検索は全級 InfoSearchFigure へルーティング(N5/N4/N3 共通・画像なしの軽量図表描画)。
+  if (isInfoSearch) {
+    const q0 = set.questions[0];
+    const fig: Figure = set.figure ?? tableToFigure(set.table!);
+    return (
+      <InfoSearchFigure
+        level={set.level}
+        title={set.passages[0]?.title ?? ''}
+        situation={set.passages[0]?.body ?? ''}
+        figure={fig}
+        question={q0?.q ?? ''}
+        choices={q0?.choices ?? []}
+        answer={q0?.answerIndex ?? 0}
+        explain={q0?.explain ?? ''}
+        rubyGate={rubyGate}
+        isLast={isLast}
+        onGraded={(correct) => { if (q0) { quizAnswer(q0.id, correct); onGraded?.([{ id: q0.id, correct }]); } }}
+        onNext={onNext}
+      />
+    );
+  }
 
   // 選択肢は問ごとに一度だけシャッフルして固定（sh.answerIndex＝シャッフル後の正解位置）。
   const qs = useMemo(() => set.questions.map((q) => ({ q, sh: shuffleChoices(q.choices, q.answerIndex) })), [set.id]);
