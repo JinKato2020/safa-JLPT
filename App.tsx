@@ -39,7 +39,6 @@ import WordDrillScreen from './src/screens/WordDrillScreen';
 import MyWordsScreen from './src/screens/MyWordsScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
-import InventoryScreen from './src/screens/InventoryScreen';
 import ShopScreen from './src/screens/ShopScreen';
 import { walletPoints } from './src/store/wallet';
 import { mockTicketCount } from './src/store/tickets';
@@ -164,7 +163,8 @@ function MainTabs() {
         />
       ))}
     </Tab.Navigator>
-      {/* 全タブ共通の上部操作列(左から): ステータス / JLPTレベル / 持ち物 / ショップ / 設定(一番右)。辞書リストでは非表示。 */}
+      {/* 全タブ共通の上部操作列(左から): アカウント / JLPTレベル / ショップ / 設定(一番右)。辞書リストでは非表示。
+          ※持ち物(アイテム一覧)は「桜/柴のタップで購入済みを確認」に集約したため上部アイコンは廃止。 */}
       {!hideTopBar && (
       <View style={[topBar.row, { top: insets.top + 6 }]}>
         <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
@@ -177,9 +177,6 @@ function MainTabs() {
           style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}
         >
           <Text style={[topBar.pillTxt, { color: c.blue }]}>{isJft ? 'JFT' : level}</Text>
-        </Pressable>
-        <Pressable onPress={() => nav.navigate('Inventory')} accessibilityLabel={t('inventory.title')} hitSlop={6} style={iconBtn}>
-          <Ionicons name="bag-handle-outline" size={22} color={c.ink} />
         </Pressable>
         <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.title')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
           <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
@@ -315,7 +312,6 @@ function Root() {
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="Inventory" component={InventoryScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
           </>
         )}

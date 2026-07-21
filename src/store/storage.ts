@@ -1,6 +1,6 @@
 // AsyncStorage 永続化(Web では localStorage に自動マップ)。
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { type AppState, STATE_VERSION, DEFAULT_HAIR_ID, DEFAULT_OWNED } from './state';
+import { type AppState, STATE_VERSION, DEFAULT_HAIR_ID, DEFAULT_OWNED, DEFAULT_COMPANION_ID, COMPANION_IDS } from './state';
 import { KANJI, VOCAB, GRAMMAR } from '../data';
 import KB_ID_MIGRATION from '../data/exam/kbIdMigration.json';
 
@@ -48,6 +48,8 @@ export async function loadState(): Promise<AppState | null> {
     for (const id of DEFAULT_OWNED) own.add(id);
     parsed.owned = [...own];
     if (!parsed.equipped?.hair) parsed.equipped = { ...(parsed.equipped ?? {}), hair: DEFAULT_HAIR_ID };
+    // 仲間: 未装備、または旧仮ペット等の無効IDなら「はじめの仲間(柴1)」を装備。有効な柴を装備中なら本人の選択を尊重。
+    if (!COMPANION_IDS.includes(parsed.equipped?.companion ?? '')) parsed.equipped = { ...(parsed.equipped ?? {}), companion: DEFAULT_COMPANION_ID };
     return parsed;
   } catch {
     return null;

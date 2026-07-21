@@ -14,6 +14,7 @@ export type ShopItem = {
   // ホームで常駐する桜の絵(筆を背負う姿)。装備中に表示。髪型に応じて長短を出し分ける(標準=ロング)。
   homeLong?: ImageSourcePropType;  // ロング髪版
   homeShort?: ImageSourcePropType; // ショート髪版(ショート髪型を装備時)
+  homeScale?: number; // 仲間(companion)がホームで桜の左に並ぶ時の大きさ。桜の幅に対する比(0.50=桜の半分)。番号が上がるほど大きい。
 };
 
 export const SHOP: ShopItem[] = [
@@ -37,11 +38,20 @@ export const SHOP: ShopItem[] = [
   { id: 'costume_myanmar', cat: 'dressup', kind: 'costume', price: 1200, name: 'ロンジー（ミャンマー）', asset: require('../../assets/shop/costume/myanmar.png') },
   { id: 'costume_philippines', cat: 'dressup', kind: 'costume', price: 1200, name: 'テルノ（フィリピン）', asset: require('../../assets/shop/costume/philippines.png') },
   { id: 'costume_korea', cat: 'dressup', kind: 'costume', price: 1200, name: 'ハンボク（韓国）', asset: require('../../assets/shop/costume/korea.png') },
-  // 仲間 — 連れ歩く相棒。1体を選んで装備。
-  { id: 'pet_dog', cat: 'companion', kind: 'companion', price: 500, name: '子犬', emoji: '🐕' },
-  { id: 'pet_fox', cat: 'companion', kind: 'companion', price: 800, name: '白狐', emoji: '🦊' },
-  { id: 'pet_cat', cat: 'companion', kind: 'companion', price: 600, name: '招き猫', emoji: '🐈' },
-  { id: 'pet_tanuki', cat: 'companion', kind: 'companion', price: 700, name: '狸', emoji: '🦝' },
+  // 仲間 — 桜と一緒にホームに常駐する相棒(柴犬)。1体を選んで装備。柴1(茶①)は初期から所持＝はじめの仲間。
+  //  番号が上がるほどホームで大きく表示(homeScale)。黒柴は色違いで少し高め。
+  { id: 'pet_shiba1', cat: 'companion', kind: 'companion', price: 0,    name: '茶柴①', rarity: 1, asset: require('../../assets/shop/companion/shiba1.png'), homeScale: 0.50 },
+  { id: 'pet_shiba2', cat: 'companion', kind: 'companion', price: 300,  name: '茶柴②', rarity: 1, asset: require('../../assets/shop/companion/shiba2.png'), homeScale: 0.57 },
+  { id: 'pet_shiba3', cat: 'companion', kind: 'companion', price: 500,  name: '茶柴③', rarity: 2, asset: require('../../assets/shop/companion/shiba3.png'), homeScale: 0.64 },
+  { id: 'pet_shiba4', cat: 'companion', kind: 'companion', price: 800,  name: '茶柴④', rarity: 2, asset: require('../../assets/shop/companion/shiba4.png'), homeScale: 0.72 },
+  { id: 'pet_shiba5', cat: 'companion', kind: 'companion', price: 1200, name: '茶柴⑤', rarity: 3, asset: require('../../assets/shop/companion/shiba5.png'), homeScale: 0.80 },
+  { id: 'pet_shiba6', cat: 'companion', kind: 'companion', price: 1600, name: '茶柴⑥', rarity: 4, asset: require('../../assets/shop/companion/shiba6.png'), homeScale: 0.90 },
+  { id: 'pet_kuro1',  cat: 'companion', kind: 'companion', price: 500,  name: '黒柴①', rarity: 2, asset: require('../../assets/shop/companion/kuro1.png'), homeScale: 0.50 },
+  { id: 'pet_kuro2',  cat: 'companion', kind: 'companion', price: 800,  name: '黒柴②', rarity: 2, asset: require('../../assets/shop/companion/kuro2.png'), homeScale: 0.57 },
+  { id: 'pet_kuro3',  cat: 'companion', kind: 'companion', price: 1100, name: '黒柴③', rarity: 3, asset: require('../../assets/shop/companion/kuro3.png'), homeScale: 0.64 },
+  { id: 'pet_kuro4',  cat: 'companion', kind: 'companion', price: 1500, name: '黒柴④', rarity: 3, asset: require('../../assets/shop/companion/kuro4.png'), homeScale: 0.72 },
+  { id: 'pet_kuro5',  cat: 'companion', kind: 'companion', price: 2000, name: '黒柴⑤', rarity: 4, asset: require('../../assets/shop/companion/kuro5.png'), homeScale: 0.80 },
+  { id: 'pet_kuro6',  cat: 'companion', kind: 'companion', price: 2600, name: '黒柴⑥', rarity: 5, asset: require('../../assets/shop/companion/kuro6.png'), homeScale: 0.90 },
   // 道具 — 学習を助ける消耗品・お守り(所持。消費/効果は順次実装)。
   { id: 'tool_mock_ticket', cat: 'tool', kind: 'tool', price: 300, name: '模試チケット', emoji: '📝' },
   { id: 'tool_retry', cat: 'tool', kind: 'tool', price: 200, name: '再挑戦券', emoji: '🔁' },

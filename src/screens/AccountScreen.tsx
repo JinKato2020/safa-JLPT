@@ -1,13 +1,13 @@
 // アカウント作成/ログイン(段階1)。メール+パスワード。確認メールON=新規作成後は確認案内→ログイン。
 // 案内=桜の巫女(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
-import { signUp, signIn, signOut, deleteAccount } from '../auth/authClient';
+import { signUp, signIn, signOut } from '../auth/authClient';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { GUIDE } from '../data/mywordsArt';
@@ -107,16 +107,9 @@ export default function AccountScreen() {
 
   const canSubmit = email.trim().length > 3 && pw.length >= 8 && !busy;
 
-  // ログイン中は登録フォームではなく「アカウント情報」を表示(ログアウト/削除)。
+  // ログイン中は「ログイン中の状態」＋「ログアウト」だけを表示(他カード/アカウント削除は出さない=ユーザー指定)。
   if (session) {
     const syncedLabel = lastSyncedAt ? new Date(lastSyncedAt).toLocaleTimeString() : t('account.not_synced');
-    const onDelete = () => {
-      const uid = session.user.id;
-      Alert.alert(t('account.delete'), t('account.delete_confirm'), [
-        { text: t('account.delete_no'), style: 'cancel' },
-        { text: t('account.delete_yes'), style: 'destructive', onPress: () => { void deleteAccount(uid); } },
-      ]);
-    };
     return (
       <SafeAreaView style={s.c} edges={['top']}>
         <ScrollView contentContainerStyle={s.body}>
@@ -128,15 +121,11 @@ export default function AccountScreen() {
             <Text style={s.acctEmail}>{acctEmail}</Text>
             <Text style={s.benefitSub}>{t('account.synced_at', { t: syncedLabel })}</Text>
           </View>
-          <StatCards />
           {/* ログアウトは一番下へ押し下げる */}
           <View style={s.spacer} />
           <Pressable style={s.manageBtn} onPress={() => { void signOut(); }}>
             <Ionicons name="log-out-outline" size={20} color={c.ink} />
             <Text style={s.manageTxt}>{t('account.logout')}</Text>
-          </Pressable>
-          <Pressable style={s.deleteRow} onPress={onDelete} hitSlop={6}>
-            <Text style={s.deleteTxt}>{t('account.delete')}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>

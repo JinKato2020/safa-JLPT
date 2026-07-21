@@ -1,6 +1,7 @@
-// ホーム中央に案内キャラ「桜」を常駐。吹き出しアドバイスは廃止。
+// ホーム中央に案内キャラ「桜」を常駐。左に仲間(柴犬)。吹き出しアドバイスは廃止。
 //  ・桜は常に表示(ふわふわ浮遊＋まばたき)。装備中の筆/民族衣装を表示。
-//  ・桜をタップ→アイテム一覧が下からスワイプで表示(髪型、民族衣装、筆、道具の順)。
+//  ・桜をタップ→「購入済み」の着せ替え一覧が下からスワイプ(髪型、民族衣装、筆の順)。未購入・道具はショップで。
+//  ・柴犬(仲間)をタップ→「購入済み」の柴だけ並べて交換(着せ替え)。購入はショップの「仲間」タブで。
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions, Modal, ScrollView, Dimensions } from 'react-native';
 import { useT } from '../i18n';
@@ -25,7 +26,13 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const eqCostume = state.equipped?.costume;
   const costumeImg = eqCostume ? SHOP_BY_ID[eqCostume]?.asset : undefined;
   const charImg = costumeImg ?? brushImg; // 優先: 民族衣装 > 筆(背負い) > 既定の案内キャラ
+  // 仲間(柴犬): 装備中の1体を桜の左に常駐。番号が上がるほど大きい(homeScale)。
+  const eqComp = state.equipped?.companion;
+  const compItem = eqComp ? SHOP_BY_ID[eqComp] : undefined;
+  const compImg = compItem?.asset;
+  const compScale = compItem?.homeScale ?? 0.5;
   const [showShop, setShowShop] = useState(false);
+  const [showPicker, setShowPicker] = useState(false);
   const [eyesClosed, setEyesClosed] = useState(false);
   const bob = useRef(new Animated.Value(0)).current;
 
@@ -52,14 +59,19 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const charW = Math.round(width * (charImg ? 0.60 : 0.40));
   const charH = Math.round(charW * (charImg ? 1.370 : 1.12));
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
+  // 仲間の表示サイズ=桜の幅×homeScale(柴1=0.50=桜の半分・番号が上がるほど大きい)。
+  const compW = compImg ? Math.round(charW * compScale) : 0;
+  const compH = Math.round(compW * 1.08);
 
-  // アイテム一覧(髪型、民族衣装、筆、道具の順)
+  // 桜タップの着せ替え=「購入済み」の髪型/民族衣装/筆のみ(道具・未購入はショップで確認)。
+  const owned = new Set(state.owned ?? []);
   const itemsByKind = {
-    hair: SHOP.filter((item) => item.kind === 'hair'),
-    costume: SHOP.filter((item) => item.kind === 'costume'),
-    brush: SHOP.filter((item) => item.kind === 'brush'),
-    tool: SHOP.filter((item) => item.cat === 'tool'),
+    hair: SHOP.filter((item) => item.kind === 'hair' && owned.has(item.id)),
+    costume: SHOP.filter((item) => item.kind === 'costume' && owned.has(item.id)),
+    brush: SHOP.filter((item) => item.kind === 'brush' && owned.has(item.id)),
   };
+  // 柴タップ=購入済みの仲間(柴犬)だけを並べて着せ替え。
+  const ownedCompanions = SHOP.filter((item) => item.cat === 'companion' && owned.has(item.id));
 
   const onTapItem = (itemId: string) => {
     const item = SHOP_BY_ID[itemId];
@@ -69,64 +81,58 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
 
   return (
     <View style={styles.wrap} pointerEvents="box-none">
-      <Animated.View style={{ transform: [{ translateY: bobY }] }}>
-        <Pressable onPress={() => setShowShop(true)} hitSlop={4}>
-          <Image source={charImg ?? (eyesClosed ? BLINK : OPEN)} style={{ width: charW, height: charH }} resizeMode="contain" />
-        </Pressable>
-      </Animated.View>
+      <View style={styles.row}>
+        {/* 仲間(柴犬)=桜の左に常駐。タップで購入済みの柴だけ選べる。 */}
+        {compImg ? (
+          <Pressable onPress={() => setShowPicker(true)} hitSlop={6} style={styles.compWrap}>
+            <Image source={compImg} style={{ width: compW, height: compH }} resizeMode="contain" />
+          </Pressable>
+        ) : null}
+        {/* 桜(案内キャラ)=右。タップで購入済みの着せ替え一覧。 */}
+        <Animated.View style={{ transform: [{ translateY: bobY }] }}>
+          <Pressable onPress={() => setShowShop(true)} hitSlop={4}>
+            <Image source={charImg ?? (eyesClosed ? BLINK : OPEN)} style={{ width: charW, height: charH }} resizeMode="contain" />
+          </Pressable>
+        </Animated.View>
+      </View>
       <Modal visible={showShop} transparent animationType="slide" onRequestClose={() => setShowShop(false)}>
         <Pressable style={styles.modalBackdrop} onPress={() => setShowShop(false)} />
         <View style={styles.modalContent}>
           <View style={styles.modalHandle} />
           <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.shopList}>
-            {/* 髪型 */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>{t('shop_hair') ?? '髪型'}</Text>
-              <View style={styles.itemGrid}>
-                {itemsByKind.hair.map((item) => (
-                  <Pressable key={item.id} style={[styles.itemCard, state.equipped?.hair === item.id && styles.itemCardSelected]} onPress={() => { onTapItem(item.id); setShowShop(false); }}>
-                    {item.asset ? <Image source={item.asset} style={styles.itemImage} resizeMode="contain" /> : <Text style={styles.itemEmoji}>{item.emoji}</Text>}
-                    <Text style={styles.itemName}>{item.name}</Text>
-                    {item.price > 0 && <Text style={styles.itemPrice}>{item.price}</Text>}
-                  </Pressable>
-                ))}
+            {([
+              { key: 'hair', title: t('shop_hair') ?? '髪型', items: itemsByKind.hair, slot: 'hair' as const },
+              { key: 'costume', title: t('shop_costume') ?? '民族衣装', items: itemsByKind.costume, slot: 'costume' as const },
+              { key: 'brush', title: t('shop_brush') ?? '筆', items: itemsByKind.brush, slot: 'brush' as const },
+            ]).map((sec) => (
+              <View key={sec.key} style={styles.section}>
+                <Text style={styles.sectionTitle}>{sec.title}</Text>
+                <View style={styles.itemGrid}>
+                  {sec.items.map((item) => (
+                    <Pressable key={item.id} style={[styles.itemCard, state.equipped?.[sec.slot] === item.id && styles.itemCardSelected]} onPress={() => { onTapItem(item.id); setShowShop(false); }}>
+                      {item.asset ? <Image source={item.asset} style={styles.itemImage} resizeMode="contain" /> : <Text style={styles.itemEmoji}>{item.emoji}</Text>}
+                      <Text style={styles.itemName}>{item.name}</Text>
+                    </Pressable>
+                  ))}
+                </View>
               </View>
-            </View>
-            {/* 民族衣装 */}
+            ))}
+          </ScrollView>
+        </View>
+      </Modal>
+      {/* 柴タップ=購入済みの仲間だけを並べて交換(着せ替え)。購入はショップで。 */}
+      <Modal visible={showPicker} transparent animationType="slide" onRequestClose={() => setShowPicker(false)}>
+        <Pressable style={styles.modalBackdrop} onPress={() => setShowPicker(false)} />
+        <View style={styles.modalContent}>
+          <View style={styles.modalHandle} />
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.shopList}>
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>{t('shop_costume') ?? '民族衣装'}</Text>
+              <Text style={styles.sectionTitle}>{t('shop_companion') ?? '仲間'}</Text>
               <View style={styles.itemGrid}>
-                {itemsByKind.costume.map((item) => (
-                  <Pressable key={item.id} style={[styles.itemCard, state.equipped?.costume === item.id && styles.itemCardSelected]} onPress={() => { onTapItem(item.id); setShowShop(false); }}>
+                {ownedCompanions.map((item) => (
+                  <Pressable key={item.id} style={[styles.itemCard, state.equipped?.companion === item.id && styles.itemCardSelected]} onPress={() => { onTapItem(item.id); setShowPicker(false); }}>
                     {item.asset ? <Image source={item.asset} style={styles.itemImage} resizeMode="contain" /> : <Text style={styles.itemEmoji}>{item.emoji}</Text>}
                     <Text style={styles.itemName}>{item.name}</Text>
-                    {item.price > 0 && <Text style={styles.itemPrice}>{item.price}</Text>}
-                  </Pressable>
-                ))}
-              </View>
-            </View>
-            {/* 筆 */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>{t('shop_brush') ?? '筆'}</Text>
-              <View style={styles.itemGrid}>
-                {itemsByKind.brush.map((item) => (
-                  <Pressable key={item.id} style={[styles.itemCard, state.equipped?.brush === item.id && styles.itemCardSelected]} onPress={() => { onTapItem(item.id); setShowShop(false); }}>
-                    {item.asset ? <Image source={item.asset} style={styles.itemImage} resizeMode="contain" /> : <Text style={styles.itemEmoji}>{item.emoji}</Text>}
-                    <Text style={styles.itemName}>{item.name}</Text>
-                    {item.price > 0 && <Text style={styles.itemPrice}>{item.price}</Text>}
-                  </Pressable>
-                ))}
-              </View>
-            </View>
-            {/* 道具 */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>{t('shop_tool') ?? '道具'}</Text>
-              <View style={styles.itemGrid}>
-                {itemsByKind.tool.map((item) => (
-                  <Pressable key={item.id} style={[styles.itemCard, state.equipped?.companion === item.id && styles.itemCardSelected]} onPress={() => { onTapItem(item.id); setShowShop(false); }}>
-                    {item.asset ? <Image source={item.asset} style={styles.itemImage} resizeMode="contain" /> : <Text style={styles.itemEmoji}>{item.emoji}</Text>}
-                    <Text style={styles.itemName}>{item.name}</Text>
-                    {item.price > 0 && <Text style={styles.itemPrice}>{item.price}</Text>}
                   </Pressable>
                 ))}
               </View>
@@ -140,6 +146,8 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
 
 const styles = StyleSheet.create({
   wrap: { position: 'absolute', left: 0, right: 0, bottom: 60, alignItems: 'center' },
+  row: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' },
+  compWrap: { marginRight: -6, marginBottom: 2 },
   modalBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
   modalContent: { backgroundColor: '#fff', borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingBottom: 20, maxHeight: Dimensions.get('window').height * 0.8 },
   modalHandle: { height: 4, width: 40, borderRadius: 2, backgroundColor: '#ccc', alignSelf: 'center', marginTop: 10, marginBottom: 16 },

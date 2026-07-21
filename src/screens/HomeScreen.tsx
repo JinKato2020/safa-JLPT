@@ -10,6 +10,7 @@ import { TabBackground } from '../components/TabScene';
 import { useHomeBg } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
 import HomeCoach from '../home/HomeCoach';
+import ExamInfoCard from '../home/ExamInfoCard';
 import SafeBoundary from '../components/SafeBoundary';
 import AccountGrowthCard from '../components/AccountGrowthCard';
 import AccountStreakCard from '../components/AccountStreakCard';
@@ -102,6 +103,8 @@ export default function HomeScreen() {
         <View style={styles.modalContent}>
           <View style={styles.modalHandle} />
           <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.cardsList}>
+            {/* 最上部＝試験情報(桜＋試験日/残日数/申込期間/費用)。その下に成長・継続カード。 */}
+            <ExamInfoCard />
             <AccountGrowthCard />
             <AccountStreakCard />
           </ScrollView>

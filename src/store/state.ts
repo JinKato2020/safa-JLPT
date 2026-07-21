@@ -104,8 +104,14 @@ export const DEFAULT_HAIR_ID = 'hair_long';
 // 「なし」= 装備を外す選択肢。初期から所持＋既定装備(=筆/民族衣装は未装備の見た目)。
 export const NONE_BRUSH_ID = 'brush_none';
 export const NONE_COSTUME_ID = 'costume_none';
-// 既存ユーザーにも所持を補完すべき既定アイテム(装備を外せるように)。
-export const DEFAULT_OWNED = [DEFAULT_HAIR_ID, NONE_BRUSH_ID, NONE_COSTUME_ID];
+// 仲間(柴犬)。柴1(茶①)は初期から所持＋装備＝はじめの仲間。有効な仲間ID一覧(旧仮ペット等の無効IDを既定へ戻す判定に使う)。
+export const DEFAULT_COMPANION_ID = 'pet_shiba1';
+export const COMPANION_IDS = [
+  'pet_shiba1', 'pet_shiba2', 'pet_shiba3', 'pet_shiba4', 'pet_shiba5', 'pet_shiba6',
+  'pet_kuro1', 'pet_kuro2', 'pet_kuro3', 'pet_kuro4', 'pet_kuro5', 'pet_kuro6',
+];
+// 既存ユーザーにも所持を補完すべき既定アイテム(装備を外せるように・はじめの仲間を持たせる)。
+export const DEFAULT_OWNED = [DEFAULT_HAIR_ID, NONE_BRUSH_ID, NONE_COSTUME_ID, DEFAULT_COMPANION_ID];
 
 export const INITIAL_STATE: AppState = {
   version: STATE_VERSION,
@@ -116,7 +122,7 @@ export const INITIAL_STATE: AppState = {
   mockHistory: [],
   myList: [],
   owned: [...DEFAULT_OWNED],
-  equipped: { hair: DEFAULT_HAIR_ID, brush: NONE_BRUSH_ID, costume: NONE_COSTUME_ID },
+  equipped: { hair: DEFAULT_HAIR_ID, brush: NONE_BRUSH_ID, costume: NONE_COSTUME_ID, companion: DEFAULT_COMPANION_ID },
 };
 
 /** epoch ms → ローカル日付 YYYY-MM-DD */
