@@ -84,6 +84,18 @@ jobs:
         uses: actions/checkout@v5
         with:
           submodules: recursive
+      # 目録(_manifest.json)を配信直前に実ファイルから作り直す。
+      #  人が rebuild を忘れて指紋が旧のままでも、公開される目録が必ず実体と一致し、
+      #  OTAの差分判定がズレて新問題が届かない事故(2026-07-22 joho_N3)を根絶する。
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Regenerate content manifest (配信前に目録を実ファイルと一致=OTAズレ防止)
+        run: |
+          npx --yes tsx tools/content/rebuild.ts
+          echo "::notice::regenerated content/_manifest.json before publish"
       - name: Build _site (audio + legal pages・URL構造維持)
         run: |
           mkdir -p _site/assets
