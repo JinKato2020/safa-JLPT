@@ -2,7 +2,7 @@
 //  リング画像は段階素材(到達度で差し替え)。中央の合格率は動的。グローは呼吸するようにゆっくり明滅(Animated)。
 //  ※DQ風ステータスカードは不採用(ユーザー指定)。上部の共通バーは MainTabs のオーバーレイ。
 import { useMemo, useEffect, useRef, useState } from 'react';
-import { View, Text, Image, Animated, StyleSheet, useWindowDimensions, Modal, Pressable, ScrollView } from 'react-native';
+import { View, Text, Image, Animated, StyleSheet, useWindowDimensions, Pressable, ScrollView } from 'react-native';
 import { useAppState, useAppActions } from '../store/store';
 import { learnedNow } from '../store/selectors';
 import { dayStr } from '../store/state';
@@ -14,6 +14,7 @@ import ExamInfoCard from '../home/ExamInfoCard';
 import SafeBoundary from '../components/SafeBoundary';
 import AccountGrowthCard from '../components/AccountGrowthCard';
 import AccountStreakCard from '../components/AccountStreakCard';
+import SwipeSheet from '../components/SwipeSheet';
 
 const RING = require('../../assets/home/pass_ring.png');
 const GLOW = require('../../assets/home/ring_glow.png');
@@ -98,18 +99,14 @@ export default function HomeScreen() {
           <HomeCoach status={status} learned={learnedNow(state, now)} />
         </SafeBoundary>
       </TabBackground>
-      <Modal visible={showCards} transparent animationType="slide" onRequestClose={() => setShowCards(false)}>
-        <Pressable style={styles.modalBackdrop} onPress={() => setShowCards(false)} />
-        <View style={styles.modalContent}>
-          <View style={styles.modalHandle} />
-          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.cardsList}>
-            {/* 最上部＝試験情報(桜＋試験日/残日数/申込期間/費用)。その下に成長・継続カード。 */}
-            <ExamInfoCard />
-            <AccountGrowthCard />
-            <AccountStreakCard />
-          </ScrollView>
-        </View>
-      </Modal>
+      <SwipeSheet visible={showCards} onClose={() => setShowCards(false)}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.cardsList}>
+          {/* 最上部＝試験情報(桜＋試験日/残日数/申込期間/費用)。その下に成長・継続カード。 */}
+          <ExamInfoCard />
+          <AccountGrowthCard />
+          <AccountStreakCard />
+        </ScrollView>
+      </SwipeSheet>
     </View>
   );
 }
@@ -123,8 +120,5 @@ const styles = StyleSheet.create({
   lbl: { fontWeight: '700', letterSpacing: 1.5, color: '#dbe4ff', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4, includeFontPadding: false },
   num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(160,200,255,0.9)', textShadowRadius: 14, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
   numSmall: { fontWeight: '800', color: '#eaf0ff' },
-  modalBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
-  modalContent: { backgroundColor: '#fff', borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingBottom: 20 },
-  modalHandle: { height: 4, width: 40, borderRadius: 2, backgroundColor: '#ccc', alignSelf: 'center', marginTop: 10, marginBottom: 16 },
   cardsList: { paddingHorizontal: 16, gap: 12 },
 });

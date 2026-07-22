@@ -90,10 +90,16 @@ export default function ShopScreen() {
 
   const bannerH = Math.max(280, Math.round(height * 0.40));
 
-  const renderCard = (i: ShopItem) => (
+  const renderCard = (i: ShopItem) => {
+    // 仲間(犬)は homeScale(実寸の比 0.50〜0.90=番号が上がるほど大きい)をカード内サイズにも反映。
+    // 下端そろえ(接地)にして「小さい犬は小さく・大きい犬は迫力を持って」大小差を見せる(装備後のホームと一致)。
+    const dogPct = i.cat === 'companion' && i.homeScale != null ? Math.round(i.homeScale * 95) : null;
+    return (
     <View key={i.id} style={s.card}>
       {i.asset ? (
-        <View style={[s.prev, s.prevImg]}><Image source={i.asset} style={s.prevInner} resizeMode="contain" /></View>
+        <View style={[s.prev, s.prevImg, dogPct != null && s.prevDog]}>
+          <Image source={i.asset} style={dogPct != null ? { width: `${dogPct}%`, height: `${dogPct}%` } : s.prevInner} resizeMode="contain" />
+        </View>
       ) : (
         <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
       )}
@@ -104,7 +110,8 @@ export default function ShopScreen() {
         <Text style={[s.btnTxt, pillTxt(i)]}>{statusOf(i)}</Text>
       </Pressable>
     </View>
-  );
+    );
+  };
 
   return (
     <View style={s.c}>
@@ -169,6 +176,7 @@ const s = StyleSheet.create({
   card: { width: '46.5%', backgroundColor: '#fffdf7', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', padding: 10, overflow: 'hidden' },
   prev: { width: '100%', aspectRatio: 1, borderRadius: 10, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   prevInner: { width: '72%', height: '72%' }, // カード内に余白(約14%)を残して収める
+  prevDog: { justifyContent: 'flex-end', paddingBottom: '4%' }, // 犬は接地(下そろえ)で実寸差を強調
   prevEmoji: { backgroundColor: '#f3ead9', alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 40 },
   prevImg: { backgroundColor: '#f7efe0' },
   name: { marginTop: 8, marginBottom: 4, fontWeight: '800', color: '#5a3d22', fontSize: 14 },

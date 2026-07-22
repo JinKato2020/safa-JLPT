@@ -3,10 +3,11 @@
 //  ・桜をタップ→「購入済み」の着せ替え一覧が下からスワイプ(髪型、民族衣装、筆の順)。未購入・道具はショップで。
 //  ・柴犬(仲間)をタップ→「購入済み」の柴だけ並べて交換(着せ替え)。購入はショップの「仲間」タブで。
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions, Modal, ScrollView, Dimensions } from 'react-native';
+import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
 import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
 import { SHOP_BY_ID, SHOP } from '../data/shop';
+import SwipeSheet from '../components/SwipeSheet';
 import type { HomeStatus } from './homeStatus';
 
 const OPEN = require('../../assets/mywords/guide_open.png');
@@ -62,6 +63,12 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   // 仲間の表示サイズ=桜の幅×homeScale(柴1=0.50=桜の半分・番号が上がるほど大きい)。
   const compW = compImg ? Math.round(charW * compScale) : 0;
   const compH = Math.round(compW * 1.08);
+  // 犬は必ず画面内に収める。桜と横並びで画面幅を超える分だけ、桜を犬側へ寄せて重ねる(=犬の尾まで画面内)。
+  // 重なる時は犬を前面・桜を後ろにして、犬の全身が隠れないようにする(小さい犬は重ならないので従来どおり)。
+  const edgePad = 10; // 画面端の最小余白
+  const overflow = Math.max(0, compW + charW - (width - edgePad * 2));
+  const compOverlap = 6 + overflow; // 既定の軽い重なり6px + はみ出し分
+  const dogInFront = overflow > 0;  // はみ出す(重なる)時だけ犬を前面に
 
   // 桜タップの着せ替え=「購入済み」の髪型/民族衣装/筆のみ(道具・未購入はショップで確認)。
   const owned = new Set(state.owned ?? []);
@@ -84,21 +91,18 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       <View style={styles.row}>
         {/* 仲間(柴犬)=桜の左に常駐。タップで購入済みの柴だけ選べる。 */}
         {compImg ? (
-          <Pressable onPress={() => setShowPicker(true)} hitSlop={6} style={styles.compWrap}>
+          <Pressable onPress={() => setShowPicker(true)} hitSlop={6} style={[styles.compWrap, { marginRight: -compOverlap, zIndex: dogInFront ? 2 : 0 }]}>
             <Image source={compImg} style={{ width: compW, height: compH }} resizeMode="contain" />
           </Pressable>
         ) : null}
         {/* 桜(案内キャラ)=右。タップで購入済みの着せ替え一覧。 */}
-        <Animated.View style={{ transform: [{ translateY: bobY }] }}>
+        <Animated.View style={{ transform: [{ translateY: bobY }], zIndex: dogInFront ? 1 : 0 }}>
           <Pressable onPress={() => setShowShop(true)} hitSlop={4}>
             <Image source={charImg ?? (eyesClosed ? BLINK : OPEN)} style={{ width: charW, height: charH }} resizeMode="contain" />
           </Pressable>
         </Animated.View>
       </View>
-      <Modal visible={showShop} transparent animationType="slide" onRequestClose={() => setShowShop(false)}>
-        <Pressable style={styles.modalBackdrop} onPress={() => setShowShop(false)} />
-        <View style={styles.modalContent}>
-          <View style={styles.modalHandle} />
+      <SwipeSheet visible={showShop} onClose={() => setShowShop(false)} maxHeightRatio={0.8}>
           <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.shopList}>
             {([
               { key: 'hair', title: t('shop_hair') ?? '髪型', items: itemsByKind.hair, slot: 'hair' as const },
@@ -118,13 +122,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
               </View>
             ))}
           </ScrollView>
-        </View>
-      </Modal>
+      </SwipeSheet>
       {/* 柴タップ=購入済みの仲間だけを並べて交換(着せ替え)。購入はショップで。 */}
-      <Modal visible={showPicker} transparent animationType="slide" onRequestClose={() => setShowPicker(false)}>
-        <Pressable style={styles.modalBackdrop} onPress={() => setShowPicker(false)} />
-        <View style={styles.modalContent}>
-          <View style={styles.modalHandle} />
+      <SwipeSheet visible={showPicker} onClose={() => setShowPicker(false)} maxHeightRatio={0.8}>
           <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.shopList}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>{t('shop_companion') ?? '仲間'}</Text>
@@ -138,8 +138,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
               </View>
             </View>
           </ScrollView>
-        </View>
-      </Modal>
+      </SwipeSheet>
     </View>
   );
 }
@@ -147,10 +146,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
 const styles = StyleSheet.create({
   wrap: { position: 'absolute', left: 0, right: 0, bottom: 60, alignItems: 'center' },
   row: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' },
-  compWrap: { marginRight: -6, marginBottom: 2 },
-  modalBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
-  modalContent: { backgroundColor: '#fff', borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingBottom: 20, maxHeight: Dimensions.get('window').height * 0.8 },
-  modalHandle: { height: 4, width: 40, borderRadius: 2, backgroundColor: '#ccc', alignSelf: 'center', marginTop: 10, marginBottom: 16 },
+  compWrap: { marginBottom: 2 },
   shopList: { paddingHorizontal: 16, gap: 24 },
   section: { gap: 12 },
   sectionTitle: { fontSize: 16, fontWeight: '800', color: '#333' },
