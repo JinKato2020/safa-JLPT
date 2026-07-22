@@ -3,7 +3,7 @@
 //  ・カード配色はテーマを反映: 面色(surface)地＋テーマ文字色(ink)＋テーマ別アクセント帯。
 //    → ライト/ダーク/水彩のどれでも地色・文字色がテーマに追従する(旧: 常に青で非追従だった)。
 import { useMemo } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../theme';
@@ -23,6 +23,14 @@ export default function AICoachScreen() {
   const state = useAppState();
   const accent = TINT[state.settings.theme ?? 'auto'] ?? c.blue;
 
+  // ホームの「リング下端〜桜上端」の帯にカードを収める(ユーザー指定2026-07-23)。
+  // リング=HomeScreen(top=height*0.15, W=width*0.40) / 桜=HomeCoach(bottom20, 高さ≈width*0.60*1.37=衣装ありの最大想定=安全側)。
+  const { width, height } = useWindowDimensions();
+  const ringBottom = height * 0.15 + width * 0.40;
+  const sakuraTop = height - 20 - width * 0.60 * 1.37;
+  const bandTop = Math.min(ringBottom + 12, height * 0.5);
+  const bandH = Math.max(150, sakuraTop - bandTop - 12); // 帯の高さ(最低150px確保)。超過分はカード内スクロール。
+
   const advice = useMemo(() => {
     const status = homeStatus(state, Date.now());
     const subs = status.subjects;
@@ -41,20 +49,23 @@ export default function AICoachScreen() {
     <Pressable style={styles.backdrop} onPress={() => nav.goBack()}>
       {/* カード=テーマ面色地＋テーマ文字色。左にテーマ・アクセント帯。カード/背景どこをタップしても閉じる。 */}
       <Pressable
-        style={[styles.card, { backgroundColor: c.surface, borderColor: c.line }]}
+        style={[styles.card, { backgroundColor: c.surface, borderColor: c.line, marginTop: bandTop, maxHeight: bandH }]}
         onPress={() => nav.goBack()}
         accessibilityLabel={advice.title}
       >
         <View style={[styles.accentBar, { backgroundColor: accent }]} />
         <View style={styles.body}>
-          <View style={styles.titleRow}>
-            <Ionicons name="sparkles" size={16} color={accent} />
-            <Text style={[styles.title, { color: accent }]}>{advice.title}</Text>
-          </View>
-          <Text style={[styles.hl, { color: c.ink }]}>{advice.hl}</Text>
-          {advice.lines.map((ln, i) => (
-            <Text key={i} style={[styles.line, { color: c.ink2 }]} numberOfLines={3}>・{ln}</Text>
-          ))}
+          {/* 帯に収まらない分はここでスクロール(ユーザー指定)。 */}
+          <ScrollView showsVerticalScrollIndicator contentContainerStyle={styles.scrollBody}>
+            <View style={styles.titleRow}>
+              <Ionicons name="sparkles" size={16} color={accent} />
+              <Text style={[styles.title, { color: accent }]}>{advice.title}</Text>
+            </View>
+            <Text style={[styles.hl, { color: c.ink }]}>{advice.hl}</Text>
+            {advice.lines.map((ln, i) => (
+              <Text key={i} style={[styles.line, { color: c.ink2 }]}>・{ln}</Text>
+            ))}
+          </ScrollView>
         </View>
         <Ionicons name="close" size={20} color={c.faint} style={styles.close} />
       </Pressable>
@@ -63,7 +74,8 @@ export default function AICoachScreen() {
 }
 
 const styles = StyleSheet.create({
-  backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.35)', justifyContent: 'center', alignItems: 'center', padding: 24 },
+  backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.35)', justifyContent: 'flex-start', alignItems: 'center', paddingHorizontal: 24 },
+  scrollBody: { paddingRight: 4 },
   card: {
     flexDirection: 'row', width: '100%', maxWidth: 360, borderRadius: 18, borderWidth: 1, overflow: 'hidden',
     shadowColor: '#000', shadowOpacity: 0.25, shadowRadius: 16, shadowOffset: { width: 0, height: 6 }, elevation: 10,

@@ -67,7 +67,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const charH = Math.round(charW * (charImg ? 1.370 : 1.12));
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
   // 仲間の表示サイズ=桜の幅×homeScale(柴1=0.50=桜の半分・番号が上がるほど大きい)。
-  const compW = compImg ? Math.round(charW * compScale / 3) : 0; // ホームの見かけを1/3に(ユーザー指定・全犬画像へ一律適用)
+  const compW = compImg ? Math.round(charW * compScale * 2 / 3) : 0; // ホームの見かけ=元の1/3をさらに2倍(ユーザー指定2026-07-23・全犬画像へ一律)
   const compH = Math.round(compW * compAspect);
   // 犬は必ず画面内に収める。桜と横並びで画面幅を超える分だけ、桜を犬側へ寄せて重ねる(=犬の尾まで画面内)。
   // 重なる時は犬を前面・桜を後ろにして、犬の全身が隠れないようにする(小さい犬は重ならないので従来どおり)。
