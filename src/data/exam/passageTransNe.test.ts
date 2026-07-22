@@ -6,7 +6,9 @@ const T = trans as Record<string, string[]>;
 
 test('全 reading ＋ 文章の文法 セットに非空のネパール語訳(本文数一致)がある', () => {
   const expect: Record<string, number> = {};
-  for (const r of reading as any[]) expect[r.id] = 1;
+  // 情報検索(joho)は図表主体で InfoSearchFigure が描画し、PASSAGE_TRANS_NE(本文ネパール訳)を一切使わない。
+  // ネパール訳は散文読解(naiyou_tan/naiyou_chu/choubun)＋文章の文法セット限定なので joho を期待から除外する。
+  for (const r of reading as any[]) if (r.subtype !== 'joho') expect[r.id] = 1;
   for (const s of pg as any[]) expect[s.id] = s.passages.length;
   const missing: string[] = [];
   const badLen: string[] = [];
