@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
 import RubyText from './RubyText';
-import { type Figure, type FigureBlock } from '../quiz/passageSet';
+import { type Figure, type FigureBlock, type FigureTable } from '../quiz/passageSet';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
@@ -95,19 +95,26 @@ export function InfoSearchFigure(props: Props) {
     </View>
   );
 
-  const renderTable = (tbl: { caption?: string; columns: string[]; rows: string[][] }, key: number) => (
+  const renderTable = (tblIn: FigureTable | string[][], key: number) => {
+    // データが {columns, rows} でも、旧・行配列([ヘッダ行, ...データ行])でも落ちないよう正規化＋undefinedガード。
+    const tbl = Array.isArray(tblIn)
+      ? { caption: undefined as string | undefined, columns: (tblIn[0] ?? []) as string[], rows: tblIn.slice(1) as string[][] }
+      : tblIn;
+    const columns = tbl?.columns ?? [];
+    const rows = tbl?.rows ?? [];
+    return (
     <View key={`t${key}`} style={s.tableWrap}>
-      {tbl.caption ? R(tbl.caption, s.caption) : null}
+      {tbl?.caption ? R(tbl.caption, s.caption) : null}
       <ScrollView horizontal showsHorizontalScrollIndicator contentContainerStyle={s.tableScroll}>
         <View style={s.table}>
           <View style={[s.row, s.headRow]}>
-            {tbl.columns.map((col, ci) => (
+            {columns.map((col, ci) => (
               <View key={ci} style={[s.cell, ci === 0 && s.firstCol]}>{R(col, s.headText, { ruby: s.rubyOnDark, center: true })}</View>
             ))}
           </View>
-          {tbl.rows.map((row, ri) => (
+          {rows.map((row, ri) => (
             <View key={ri} style={[s.row, ri % 2 === 1 && s.rowAlt]}>
-              {row.map((val, ci) => (
+              {(row ?? []).map((val, ci) => (
                 <View key={ci} style={[s.cell, ci === 0 && s.firstCol]}>{R(val, ci === 0 ? s.cellHeadText : s.cellText, { center: true })}</View>
               ))}
             </View>
@@ -115,7 +122,8 @@ export function InfoSearchFigure(props: Props) {
         </View>
       </ScrollView>
     </View>
-  );
+    );
+  };
 
   const blocks = figure?.blocks ?? [];
   const legacyTables = figure?.tables ?? [];
