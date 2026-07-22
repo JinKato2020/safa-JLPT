@@ -6,7 +6,7 @@ import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList, StudyStackParamList } from '../navigation/types';
-import { ImmersiveTab, type TabEntry } from '../components/TabScene';
+import { ImmersiveTab, StartCard, type TabEntry } from '../components/TabScene';
 import { useTabBg } from '../data/tabArt';
 import CategoryCard from '../components/CategoryCard';
 import { useAppState } from '../store/store';
@@ -42,10 +42,13 @@ export default function StudyHomeScreen() {
         source={bg}
         scrim={0.12}
         entries={[
-          { key: 'reco', glyph: '✦', label: t('study.reco'), accent: '#c9a24a', onGo: () => nav.navigate('Quiz', { category: 'all' }) },
+          // ✦オススメは下端アイコンから撤去。桜(鳥居の下に立つキャラ)タップで「はじめる」確認カードを出す。
+          { key: 'reco', hidden: true, label: t('study.reco'), accent: '#c9a24a',
+            renderCard: () => <StartCard glyph="✦" accent="#c9a24a" title={t('study.reco')} cta={t('study.reco_start')} onStart={() => nav.navigate('Quiz', { category: 'all' })} /> },
           ...CATS.map((x) => ({ key: x.cat, glyph: x.glyph, label: t(prof.catLabel[x.cat]), accent: x.accent, renderCard: () => <CategoryCard cat={x.cat} /> })),
           { key: 'mock', glyph: '試', label: isJft ? t('test.jft_title') : t('test.full_title'), accent: lock.locked ? '#a89a86' : '#b8924a', disabled: lock.locked, onGo: () => { if (!lock.locked) nav.navigate('MockIntro', { full: true }); } },
         ] as TabEntry[]}
+        hotspots={[{ key: 'reco', label: t('study.reco'), area: { left: '30%', top: '46%', width: '32%', height: '27%' } }]}
       />
     </View>
   );

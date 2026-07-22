@@ -2,8 +2,9 @@
 //  ・スライドイン(animationType=slide) ・つまみを掴んで「下スワイプで閉じる」
 //  ・背景タップで閉じる ・×ボタン(iOSは戻るボタンが無いため確実な逃げ道) ・高さ上限で背景を必ず残す。
 // 中身(children)はそのまま差し込む=各シートの見た目は不変。
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, type ReactNode } from 'react';
 import { Modal, View, Text, Pressable, Animated, PanResponder, StyleSheet, useWindowDimensions } from 'react-native';
+import { useColors, type ThemeColors } from '../theme';
 
 export default function SwipeSheet({ visible, onClose, children, maxHeightRatio = 0.85 }: {
   visible: boolean;
@@ -12,6 +13,8 @@ export default function SwipeSheet({ visible, onClose, children, maxHeightRatio 
   maxHeightRatio?: number;
 }) {
   const { height } = useWindowDimensions();
+  const c = useColors();
+  const styles = useMemo(() => makeStyles(c), [c]); // ダーク時もシート地/つまみ/×をテーマ色に
   const translateY = useRef(new Animated.Value(0)).current;
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose; // 常に最新のonCloseを参照(PanResponderは初回生成のため)
@@ -47,11 +50,11 @@ export default function SwipeSheet({ visible, onClose, children, maxHeightRatio 
   );
 }
 
-const styles = StyleSheet.create({
+const makeStyles = (c: ThemeColors) => StyleSheet.create({
   backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
-  sheet: { backgroundColor: '#fff', borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingBottom: 20 },
+  sheet: { backgroundColor: c.surface, borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingBottom: 20 },
   handleZone: { alignItems: 'center', paddingTop: 10, paddingBottom: 12 }, // 掴みやすいドラッグ帯
-  handle: { height: 4, width: 40, borderRadius: 2, backgroundColor: '#ccc' },
-  close: { position: 'absolute', top: 6, right: 10, width: 30, height: 30, borderRadius: 15, backgroundColor: '#f1efe9', alignItems: 'center', justifyContent: 'center', zIndex: 5 },
-  closeTxt: { fontSize: 19, lineHeight: 19, color: '#8a7a63', fontWeight: '800', marginTop: -1 },
+  handle: { height: 4, width: 40, borderRadius: 2, backgroundColor: c.trace },
+  close: { position: 'absolute', top: 6, right: 10, width: 30, height: 30, borderRadius: 15, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center', zIndex: 5 },
+  closeTxt: { fontSize: 19, lineHeight: 19, color: c.mute, fontWeight: '800', marginTop: -1 },
 });

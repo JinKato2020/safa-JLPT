@@ -3,6 +3,9 @@
 //  ※DQ風ステータスカードは不採用(ユーザー指定)。上部の共通バーは MainTabs のオーバーレイ。
 import { useMemo, useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, StyleSheet, useWindowDimensions, Pressable, ScrollView } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useColors } from '../theme';
+import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
 import { learnedNow } from '../store/selectors';
 import { dayStr } from '../store/state';
@@ -19,12 +22,23 @@ import SwipeSheet from '../components/SwipeSheet';
 const RING = require('../../assets/home/pass_ring.png');
 const GLOW = require('../../assets/home/ring_glow.png');
 
+// 🤖アドバイスカードの地色=選択中のテーマ色。水彩5種は代表色・light/dark/autoはbrand青(c.blue)。
+const THEME_TINT: Record<string, string> = {
+  sakura: '#d76b8c', sky: '#4a8fcf', green: '#42a066', fuji: '#7d68c6', akane: '#d97840',
+};
+
 export default function HomeScreen() {
   const state = useAppState();
   const now = Date.now();
   const { width, height } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  const c = useColors();
+  const t = useT();
   const homeBg = useHomeBg(); // 昼/夜で自動切替
   const [showCards, setShowCards] = useState(false);
+  const [showAdvice, setShowAdvice] = useState(false); // 🤖AIコーチの助言(桜と犬の間に表示)
+  // 到達度の左に出す現在レベル(JFT目標はレベル無し=「JFT」)。
+  const levelLabel = (state.settings.targetExam ?? 'jlpt') === 'jft' ? 'JFT' : state.settings.level;
 
   const status = useMemo(() => homeStatus(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -66,6 +80,22 @@ export default function HomeScreen() {
   const left = Math.round((width - ringW) / 2);
   const pct = Math.round(status.passPct);
 
+  // アドバイス地色=選択中のテーマ色。
+  const adviceColor = THEME_TINT[state.settings.theme ?? 'auto'] ?? c.blue;
+  // 🤖AIコーチの助言=現在の指標(合格率・各分野の到達度)から、いちばん弱い分野を優先案内。
+  const advice = useMemo(() => {
+    const subs = status.subjects;
+    const weakest = subs.reduce((a, b) => (b.pct < a.pct ? b : a), subs[0]);
+    const p = status.passPct;
+    const hlKey = p >= 70 ? 'home.ai_hl_pass' : p >= 50 ? 'home.ai_hl_close' : p >= 20 ? 'home.ai_hl_build' : 'home.ai_hl_start';
+    const cat = t(weakest.labelKey);
+    return {
+      title: t('home.ai_title'),
+      hl: t(hlKey),
+      lines: [t('home.ai_passprob', { n: p }), t('home.ai_weak', { cat, pct: weakest.pct }), t('home.ai_advice', { action: cat })],
+    };
+  }, [status, t]);
+
   return (
     <View style={styles.c}>
       <TabBackground source={homeBg}>
@@ -90,7 +120,11 @@ export default function HomeScreen() {
                     {pct}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.15) }]}>%</Text>
                   </Text>
                 </View>
-                <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085), marginTop: 5 }]}>到達度</Text>
+                {/* 到達度の左に現在レベル(N5/N4/N3 or JFT)を同じ大きさで表示。 */}
+                <View style={[styles.lblRow, { marginTop: 5 }]}>
+                  <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>{levelLabel}</Text>
+                  <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>到達度</Text>
+                </View>
               </View>
             </View>
           </Pressable>
@@ -98,6 +132,27 @@ export default function HomeScreen() {
         <SafeBoundary tag="homecoach" fallback={null}>
           <HomeCoach status={status} learned={learnedNow(state, now)} />
         </SafeBoundary>
+        {/* 🤖アドバイス=リングと桜の間(リング直下)に表示。地色=選択中のテーマ色。タップで閉じる。 */}
+        {showAdvice ? (
+          <View style={[styles.adviceWrap, { top: top + ringW + 20 }]} pointerEvents="box-none">
+            <Pressable style={[styles.adviceCard, { backgroundColor: adviceColor }]} onPress={() => setShowAdvice(false)} accessibilityLabel={advice.title}>
+              <Text style={styles.adviceTitle}>{advice.title}</Text>
+              <Text style={styles.adviceHl}>{advice.hl}</Text>
+              {advice.lines.map((ln, i) => (
+                <Text key={i} style={styles.adviceLine} numberOfLines={3}>・{ln}</Text>
+              ))}
+            </Pressable>
+          </View>
+        ) : null}
+        {/* 最上部の🤖アドバイスボタン。タップでリングと桜の間にAIコーチの助言を出す。上部左のアイコン列を避け右端に配置。 */}
+        <Pressable
+          style={[styles.adviceBtn, { top: insets.top + 6, backgroundColor: c.surface, borderColor: c.line }]}
+          onPress={() => setShowAdvice((v) => !v)}
+          accessibilityLabel={t('home.ai_title')}
+          hitSlop={6}
+        >
+          <Text style={styles.adviceGlyph}>🤖</Text>
+        </Pressable>
       </TabBackground>
       <SwipeSheet visible={showCards} onClose={() => setShowCards(false)}>
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.cardsList}>
@@ -117,6 +172,22 @@ const styles = StyleSheet.create({
   glow: { position: 'absolute' },
   pct: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
   pctInner: { alignItems: 'center', justifyContent: 'center' },
+  lblRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  adviceBtn: {
+    position: 'absolute', right: 12, width: 40, height: 40, borderRadius: 20, borderWidth: 1,
+    alignItems: 'center', justifyContent: 'center', zIndex: 20,
+    shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
+  },
+  adviceGlyph: { fontSize: 20 },
+  // 🤖アドバイスカード=リングと桜の間に置く帯。テーマ色地＋白文字(どのテーマ色でも読めるよう薄い影)。
+  adviceWrap: { position: 'absolute', left: 0, right: 0, alignItems: 'center', paddingHorizontal: 16, zIndex: 15 },
+  adviceCard: {
+    maxWidth: 320, width: '90%', paddingVertical: 12, paddingHorizontal: 16, borderRadius: 18, borderBottomRightRadius: 6,
+    shadowColor: '#000', shadowOpacity: 0.25, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 8,
+  },
+  adviceTitle: { fontSize: 12, fontWeight: '800', color: '#fff', opacity: 0.95, letterSpacing: 0.5 },
+  adviceHl: { fontSize: 15, fontWeight: '900', color: '#fff', marginTop: 2, lineHeight: 21, textShadowColor: 'rgba(0,0,0,0.25)', textShadowRadius: 3 },
+  adviceLine: { fontSize: 12.5, fontWeight: '600', color: '#fff', marginTop: 3, lineHeight: 18, opacity: 0.97, textShadowColor: 'rgba(0,0,0,0.22)', textShadowRadius: 2 },
   lbl: { fontWeight: '700', letterSpacing: 1.5, color: '#dbe4ff', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4, includeFontPadding: false },
   num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(160,200,255,0.9)', textShadowRadius: 14, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
   numSmall: { fontWeight: '800', color: '#eaf0ff' },

@@ -78,6 +78,7 @@ export type TabEntry = {
   accent: string;
   count?: number;       // ボタンの件数バッジ(任意)
   disabled?: boolean;   // 無効化(例: 模試ロック中)
+  hidden?: boolean;     // 下端の操作列には出さない(背景の桜ホットスポット等からのみ開くカード用)
   onGo?: () => void;    // タップで実行(遷移系ボタン)。renderCard があるボタンでは不要
   renderCard?: () => React.ReactNode; // タップでボタン上に出すカード(遅延生成)
 };
@@ -85,7 +86,7 @@ export type TabEntry = {
 export function PopoverBar({ entries }: { entries: TabEntry[] }) {
   return (
     <BottomIconBar>
-      {entries.map((e) => (
+      {entries.filter((e) => !e.hidden).map((e) => (
         <TabIconButton
           key={e.key}
           glyph={e.glyph}
@@ -150,7 +151,7 @@ export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, h
           </>
         ) : null}
         <BottomIconBar>
-          {entries.map((e) => (
+          {entries.filter((e) => !e.hidden).map((e) => (
             <TabIconButton
               key={e.key}
               glyph={e.glyph}
@@ -171,6 +172,26 @@ export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, h
 export type Area = { left: DimensionValue; top: DimensionValue; width: DimensionValue; height: DimensionValue };
 export function Hotspot({ area, onPress, label }: { area: Area; onPress: () => void; label?: string }) {
   return <Pressable onPress={onPress} accessibilityLabel={label} style={({ pressed }) => [{ position: 'absolute', ...area, borderRadius: 14 }, pressed && styles.hotPressed]} />;
+}
+
+// 桜(背景ホットスポット)から開く「はじめる」確認カード。ボタン列のすぐ上にフロート表示。
+// 即遷移せず、まず見出し＋[はじめる]ボタンのカードを出し、押して初めてフローへ入る。
+export function StartCard({ glyph, accent, title, cta, onStart }: {
+  glyph: string; accent: string; title: string; cta: string; onStart: () => void;
+}) {
+  return (
+    <View style={styles.popCard}>
+      <View style={[styles.popIcon, { borderColor: accent }]}>
+        <Text style={[styles.popGlyph, { color: accent }]}>{glyph}</Text>
+      </View>
+      <View style={styles.popText}>
+        <Text style={styles.popTitle} numberOfLines={2}>{title}</Text>
+      </View>
+      <Pressable style={[styles.popBtn, { backgroundColor: accent }]} onPress={onStart} accessibilityLabel={cta}>
+        <Text style={styles.popBtnTxt}>{cta}</Text>
+      </Pressable>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

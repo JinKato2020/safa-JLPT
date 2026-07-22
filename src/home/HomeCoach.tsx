@@ -2,12 +2,13 @@
 //  ・桜は常に表示(ふわふわ浮遊＋まばたき)。装備中の筆/民族衣装を表示。
 //  ・桜をタップ→「購入済み」の着せ替え一覧が下からスワイプ(髪型、民族衣装、筆の順)。未購入・道具はショップで。
 //  ・柴犬(仲間)をタップ→「購入済み」の柴だけ並べて交換(着せ替え)。購入はショップの「仲間」タブで。
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
 import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
 import { SHOP_BY_ID, SHOP } from '../data/shop';
 import SwipeSheet from '../components/SwipeSheet';
+import { useColors, type ThemeColors } from '../theme';
 import type { HomeStatus } from './homeStatus';
 
 const OPEN = require('../../assets/mywords/guide_open.png');
@@ -15,6 +16,8 @@ const BLINK = require('../../assets/mywords/guide_blink.png');
 
 export default function HomeCoach({ status, learned }: { status: HomeStatus; learned: number }) {
   const t = useT();
+  const c = useColors();
+  const styles = useMemo(() => makeStyles(c), [c]);
   const { width } = useWindowDimensions();
   const state = useAppState();
   const { equipItem } = useAppActions();
@@ -32,6 +35,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const compItem = eqComp ? SHOP_BY_ID[eqComp] : undefined;
   const compImg = compItem?.asset;
   const compScale = compItem?.homeScale ?? 0.5;
+  // 透過余白を除去したPNGの実寸比(縦/横)で表示枠を作る=枠と絵の隙間(レターボックス)を無くし、犬が枠いっぱい＝左端まで詰まって出る。
+  const compSrc = compImg ? Image.resolveAssetSource(compImg) : null;
+  const compAspect = compSrc?.width ? compSrc.height / compSrc.width : 1.08;
   const [showShop, setShowShop] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [eyesClosed, setEyesClosed] = useState(false);
@@ -62,7 +68,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
   // 仲間の表示サイズ=桜の幅×homeScale(柴1=0.50=桜の半分・番号が上がるほど大きい)。
   const compW = compImg ? Math.round(charW * compScale) : 0;
-  const compH = Math.round(compW * 1.08);
+  const compH = Math.round(compW * compAspect);
   // 犬は必ず画面内に収める。桜と横並びで画面幅を超える分だけ、桜を犬側へ寄せて重ねる(=犬の尾まで画面内)。
   // 重なる時は犬を前面・桜を後ろにして、犬の全身が隠れないようにする(小さい犬は重ならないので従来どおり)。
   const edgePad = 10; // 画面端の最小余白
@@ -143,18 +149,19 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   );
 }
 
-const styles = StyleSheet.create({
-  wrap: { position: 'absolute', left: 0, right: 0, bottom: 60, alignItems: 'center' },
+const makeStyles = (c: ThemeColors) => StyleSheet.create({
+  // bottom を下げて桜/犬を画面のより下へ(ユーザー要望)。
+  wrap: { position: 'absolute', left: 0, right: 0, bottom: 20, alignItems: 'center' },
   row: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' },
   compWrap: { marginBottom: 2 },
   shopList: { paddingHorizontal: 16, gap: 24 },
   section: { gap: 12 },
-  sectionTitle: { fontSize: 16, fontWeight: '800', color: '#333' },
+  sectionTitle: { fontSize: 16, fontWeight: '800', color: c.ink },
   itemGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
-  itemCard: { flex: 1, minWidth: '30%', alignItems: 'center', gap: 8, padding: 12, borderRadius: 12, borderWidth: 2, borderColor: '#eee', backgroundColor: '#fafafa' },
-  itemCardSelected: { borderColor: '#2f7bf6', backgroundColor: '#eff4ff' },
+  itemCard: { flex: 1, minWidth: '30%', alignItems: 'center', gap: 8, padding: 12, borderRadius: 12, borderWidth: 2, borderColor: c.line, backgroundColor: c.bgSoft },
+  itemCardSelected: { borderColor: c.blue, backgroundColor: c.blueLight },
   itemImage: { width: 60, height: 60 },
   itemEmoji: { fontSize: 32 },
-  itemName: { fontSize: 12, fontWeight: '700', color: '#333', textAlign: 'center' },
-  itemPrice: { fontSize: 11, color: '#f59e0b' },
+  itemName: { fontSize: 12, fontWeight: '700', color: c.ink, textAlign: 'center' },
+  itemPrice: { fontSize: 11, color: c.amber },
 });

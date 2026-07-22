@@ -14,18 +14,6 @@ import { GUIDE } from '../data/mywordsArt';
 import { useAppState } from '../store/store';
 import { SHOP_BY_ID } from '../data/shop';
 import { useSync } from '../auth/SyncProvider';
-import AccountGrowthCard from '../components/AccountGrowthCard';
-import AccountStreakCard from '../components/AccountStreakCard';
-
-// 成長→継続カード。ログイン中・未ログインの両状態で画面上部に表示(統計はローカル)。
-function StatCards() {
-  return (
-    <>
-      <AccountGrowthCard />
-      <AccountStreakCard />
-    </>
-  );
-}
 
 type Tab = 'signup' | 'login';
 
@@ -139,8 +127,6 @@ export default function AccountScreen() {
           <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}>
             <Text style={s.closeTxt}>✕</Text>
           </Pressable>
-
-          <StatCards />
 
           <View style={s.hero}>
             <Image source={heroChar} style={heroFull ? s.guideFull : s.guide} resizeMode="contain" />

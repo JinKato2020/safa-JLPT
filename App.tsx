@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, AppState, Modal, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { ActivityIndicator, AppState, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, DefaultTheme, useNavigation, useNavigationState, StackActions } from '@react-navigation/native';
@@ -96,8 +96,6 @@ const TABS = [
   { name: '辞書', component: DictTab, icon: 'library', iconOff: 'library-outline', labelKey: 'dict.tab' },
 ] as const;
 
-const JLPT_LEVELS = ['N5', 'N4', 'N3'] as const;
-
 // 上部の共通アイコン列(アカウント/レベル/設定/通知)を隠す画面: 辞書リスト(DictList)と
 // 単語タブの練習ホーム・学習リスト(WordKubun/WordList)。各画面自身に×/←戻り＋見出しがあり、没入して学習に集中できる。
 const HIDE_TOPBAR = new Set(['DictList', 'WordKubun', 'WordList']);
@@ -108,11 +106,7 @@ function MainTabs() {
   const insets = useSafeAreaInsets();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const state = useAppState();
-  const { setSettings } = useAppActions();
-  const [lvlOpen, setLvlOpen] = useState(false);
   const hideTopBar = useNavigationState((s) => HIDE_TOPBAR.has(activeRouteName(s) ?? ''));
-  const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
-  const level = state.settings.level;
   // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
   // 設定タブは廃止 → 画面上部に共通の操作列(左から): アカウント/JLPTレベル/設定/通知。
   const iconBtn = [topBar.btn, { backgroundColor: c.surface, borderColor: c.line }];
@@ -170,14 +164,7 @@ function MainTabs() {
         <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="person-circle-outline" size={26} color={c.ink} />
         </Pressable>
-        <Pressable
-          onPress={() => { if (!isJft) setLvlOpen(true); }}
-          accessibilityLabel={t('profile.targetLevel')}
-          hitSlop={6}
-          style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}
-        >
-          <Text style={[topBar.pillTxt, { color: c.blue }]}>{isJft ? 'JFT' : level}</Text>
-        </Pressable>
+        {/* JLPTレベルのピルは廃止(設定で選ぶ+ホームの到達度左に現在レベルを表示)。 */}
         <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.title')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
           <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
           <Text style={[topBar.pillTxt, { color: c.ink, marginLeft: 8 }]}>🎫 {mockTicketCount(state)}</Text>
@@ -188,22 +175,6 @@ function MainTabs() {
         </Pressable>
       </View>
       )}
-      {/* JLPTレベルの選択メニュー(N5/N4/N3)。レベルピル直下に出す。 */}
-      <Modal visible={lvlOpen} transparent animationType="fade" onRequestClose={() => setLvlOpen(false)}>
-        <Pressable style={topBar.backdrop} onPress={() => setLvlOpen(false)}>
-          <View style={[topBar.menu, { top: insets.top + 50, backgroundColor: c.surface, borderColor: c.line }]}>
-            {JLPT_LEVELS.map((lv) => {
-              const on = level === lv;
-              return (
-                <Pressable key={lv} onPress={() => { setSettings({ level: lv, targetExam: 'jlpt' }); setLvlOpen(false); }} style={topBar.menuItem}>
-                  <Text style={[topBar.menuTxt, { color: on ? c.blue : c.ink2 }, on && { fontWeight: '900' }]}>{lv}</Text>
-                  {on ? <Text style={[topBar.menuCheck, { color: c.blue }]}>✓</Text> : null}
-                </Pressable>
-              );
-            })}
-          </View>
-        </Pressable>
-      </Modal>
     </View>
   );
 }
