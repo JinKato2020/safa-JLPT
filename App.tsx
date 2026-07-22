@@ -40,6 +40,7 @@ import MyWordsScreen from './src/screens/MyWordsScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import ShopScreen from './src/screens/ShopScreen';
+import AICoachScreen from './src/screens/AICoachScreen';
 import { walletPoints } from './src/store/wallet';
 import { mockTicketCount } from './src/store/tickets';
 import TourOverlay from './src/components/TourOverlay';
@@ -161,15 +162,23 @@ function MainTabs() {
           ※持ち物(アイテム一覧)は「桜/柴のタップで購入済みを確認」に集約したため上部アイコンは廃止。 */}
       {!hideTopBar && (
       <View style={[topBar.row, { top: insets.top + 6 }]}>
-        <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
-          <Ionicons name="person-circle-outline" size={26} color={c.ink} />
-        </Pressable>
-        {/* JLPTレベルのピルは廃止(設定で選ぶ+ホームの到達度左に現在レベルを表示)。 */}
-        <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.title')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
-          <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
-          <Text style={[topBar.pillTxt, { color: c.ink, marginLeft: 8 }]}>🎫 {mockTicketCount(state)}</Text>
-        </Pressable>
-        {/* 設定(歯車)は一番右 */}
+        <View style={topBar.left}>
+          <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
+            <Ionicons name="person-circle-outline" size={26} color={c.ink} />
+          </Pressable>
+          {/* 貝殻ポイントと模試チケットは別々のアイコンに分離(どちらもタップでショップへ)。 */}
+          <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.points_label')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
+            <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
+          </Pressable>
+          <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.name_tool_mock_ticket')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
+            <Text style={[topBar.pillTxt, { color: c.ink }]}>🎫 {mockTicketCount(state)}</Text>
+          </Pressable>
+          {/* AIコーチ=全タブ共通の上部アイコン。他の上部アイコンと同じ挙動(タップでモーダル助言)。 */}
+          <Pressable onPress={() => nav.navigate('AICoach')} accessibilityLabel={t('home.ai_title')} hitSlop={6} style={iconBtn}>
+            <Ionicons name="sparkles-outline" size={22} color={c.ink} />
+          </Pressable>
+        </View>
+        {/* 設定(歯車)は必ず一番右。今後も動かさない(固定・ユーザー指定)。 */}
         <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="settings-outline" size={22} color={c.ink} />
         </Pressable>
@@ -180,7 +189,8 @@ function MainTabs() {
 }
 
 const topBar = StyleSheet.create({
-  row: { position: 'absolute', left: 12, flexDirection: 'row', alignItems: 'center', gap: 8, zIndex: 20 },
+  row: { position: 'absolute', left: 12, right: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', zIndex: 20 },
+  left: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   btn: {
     width: 40, height: 40, borderRadius: 20, borderWidth: 1, alignItems: 'center', justifyContent: 'center',
     shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
@@ -282,6 +292,7 @@ function Root() {
             <RootStack.Screen name="MyWords" component={MyWordsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="AICoach" component={AICoachScreen} options={{ presentation: 'transparentModal', animation: 'fade' }} />
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
           </>

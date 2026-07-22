@@ -56,13 +56,6 @@ export default function MyWordsScreen() {
   }, [state.myList, vocabById, kanjiById, grammarById, l1]);
 
   const counts = { vocab: rowsByKind.vocab.length, kanji: rowsByKind.kanji.length, grammar: rowsByKind.grammar.length };
-  const reviewIds = useMemo(
-    () => (state.myList ?? [])
-      .filter((r) => (r.type === 'vocab' && vocabById.has(r.id)) || (r.type === 'kanji' && kanjiById.has(r.id)))
-      .map((r) => r.id),
-    [state.myList, vocabById, kanjiById],
-  );
-
   // 開いたら直接1冊を表示。既定=最初に中身のある帳(無ければ漢字帳)。
   const [view, setView] = useState<BookKind>(() => {
     const list = state.myList ?? [];
@@ -89,12 +82,7 @@ export default function MyWordsScreen() {
       <View style={s.top}>
         <Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>✕</Text></Pressable>
         <Text style={s.title}>{t('mywords.title')}</Text>
-        {reviewIds.length > 0 ? (
-          <Pressable style={s.reviewPill} hitSlop={8} onPress={() => nav.navigate('Flashcard', { ids: reviewIds })}>
-            <Ionicons name="refresh" size={14} color="#fff" />
-            <Text style={s.reviewPillTxt}>{t('mywords.review')}</Text>
-          </Pressable>
-        ) : <View style={{ width: 30 }} />}
+        <View style={{ width: 30 }} />
       </View>
 
       {/* 上部の切り替えボタン: 漢字帳 / 語彙帳 / 文法帳 */}
@@ -134,8 +122,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingVertical: spacing.md },
   close: { fontSize: ty.h2, color: c.ink2, width: 30 },
   title: { fontSize: ty.h2, fontWeight: '800', color: c.ink, letterSpacing: 1 },
-  reviewPill: { flexDirection: 'row', alignItems: 'center', gap: 3, backgroundColor: c.blue, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 5, ...shadow(1) },
-  reviewPillTxt: { color: '#fff', fontSize: ty.small, fontWeight: '800' },
 
   // 上部切り替えボタン
   tabs: { flexDirection: 'row', gap: spacing.sm, paddingHorizontal: spacing.lg, marginBottom: spacing.md },

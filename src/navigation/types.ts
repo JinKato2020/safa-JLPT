@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Main: undefined;
   Account: undefined; // アカウント作成/ログイン(段階1: メール+パスワード)
   Settings: undefined; // 設定(旧・設定タブ=ProfileScreen をモーダル化。上部の歯車から開く)
+  AICoach: undefined; // AIコーチの助言(全タブ共通の上部アイコン✦から開くモーダル)
   Notifications: undefined; // 通知(リマインド)
   Inventory: undefined; // アイテム(所持品・道具・バッジ一覧。上部の袋アイコンから開く)
   Shop: undefined; // ショップ(桜貝で着せ替え購入)

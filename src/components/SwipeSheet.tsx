@@ -1,8 +1,9 @@
 // 下から出るボトムシート共通部品。閉じ方をアプリ全体で統一する:
 //  ・スライドイン(animationType=slide) ・つまみを掴んで「下スワイプで閉じる」
+//  ・本文が最上部にある時は、本文を下スワイプしても閉じる(スクロール可能でも一番上ならそのまま離脱)
 //  ・背景タップで閉じる ・×ボタン(iOSは戻るボタンが無いため確実な逃げ道) ・高さ上限で背景を必ず残す。
-// 中身(children)はそのまま差し込む=各シートの見た目は不変。
-import { useEffect, useMemo, useRef, type ReactNode } from 'react';
+// 中身(children)はそのまま差し込む=各シートの見た目は不変。子がScrollViewなら onScroll を差し込んで「最上部か」を追跡する。
+import { useEffect, useMemo, useRef, cloneElement, isValidElement, type ReactNode, type ReactElement } from 'react';
 import { Modal, View, Text, Pressable, Animated, PanResponder, StyleSheet, useWindowDimensions } from 'react-native';
 import { useColors, type ThemeColors } from '../theme';
 
@@ -18,14 +19,15 @@ export default function SwipeSheet({ visible, onClose, children, maxHeightRatio 
   const translateY = useRef(new Animated.Value(0)).current;
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose; // 常に最新のonCloseを参照(PanResponderは初回生成のため)
+  const atTop = useRef(true);   // 子ScrollViewが最上部にあるか(=下スワイプでシートごと閉じてよいか)
 
-  // 開くたびに位置を初期化(前回ドラッグの残りを消す)。
-  useEffect(() => { if (visible) translateY.setValue(0); }, [visible, translateY]);
+  // 開くたびに位置と「最上部」状態を初期化(前回ドラッグ/スクロールの残りを消す)。
+  useEffect(() => { if (visible) { translateY.setValue(0); atTop.current = true; } }, [visible, translateY]);
 
   const springBack = () => Animated.spring(translateY, { toValue: 0, useNativeDriver: true, bounciness: 2 }).start();
 
-  // つまみ帯だけをドラッグ対象にする(中のScrollViewと競合させない)。下へ一定量/勢いで閉じる。
-  const pan = useRef(
+  // つまみ帯=スクロール位置に関係なく常にドラッグで閉じられる(確実な逃げ道)。
+  const handlePan = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (_e, g) => g.dy > 4 && Math.abs(g.dy) > Math.abs(g.dx) * 1.3,
       onPanResponderMove: (_e, g) => { if (g.dy > 0) translateY.setValue(g.dy); },
@@ -34,17 +36,42 @@ export default function SwipeSheet({ visible, onClose, children, maxHeightRatio 
     })
   ).current;
 
+  // 本文=「最上部で下方向」の明確なドラッグの時だけ横取り(capture)して閉じる。
+  //  それ以外(上方向/途中スクロール)は横取りせず子のScrollViewに委ねる=通常スクロールは阻害しない。
+  const sheetPan = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponderCapture: (_e, g) => atTop.current && g.dy > 6 && g.dy > Math.abs(g.dx) * 1.3,
+      onPanResponderMove: (_e, g) => { if (g.dy > 0) translateY.setValue(g.dy); },
+      onPanResponderRelease: (_e, g) => { if (g.dy > 90 || g.vy > 0.8) onCloseRef.current(); else springBack(); },
+      onPanResponderTerminate: springBack,
+    })
+  ).current;
+
+  // 子がScrollViewなら onScroll を差し込み、最上部(offsetY<=0)かを追跡。既存の onScroll があれば保持。
+  const content = isValidElement(children)
+    ? cloneElement(children as ReactElement<any>, {
+        scrollEventThrottle: 16,
+        onScroll: (e: any) => {
+          atTop.current = (e?.nativeEvent?.contentOffset?.y ?? 0) <= 0;
+          (children as ReactElement<any>).props.onScroll?.(e);
+        },
+      })
+    : children;
+
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <Pressable style={styles.backdrop} onPress={onClose} />
-      <Animated.View style={[styles.sheet, { maxHeight: Math.round(height * maxHeightRatio), transform: [{ translateY }] }]}>
-        <View style={styles.handleZone} {...pan.panHandlers}>
+      <Animated.View
+        style={[styles.sheet, { maxHeight: Math.round(height * maxHeightRatio), transform: [{ translateY }] }]}
+        {...sheetPan.panHandlers}
+      >
+        <View style={styles.handleZone} {...handlePan.panHandlers}>
           <View style={styles.handle} />
         </View>
         <Pressable onPress={onClose} hitSlop={12} style={styles.close}>
           <Text style={styles.closeTxt}>×</Text>
         </Pressable>
-        {children}
+        {content}
       </Animated.View>
     </Modal>
   );

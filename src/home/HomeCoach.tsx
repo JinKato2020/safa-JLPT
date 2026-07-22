@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
 import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
-import { SHOP_BY_ID, SHOP } from '../data/shop';
+import { SHOP_BY_ID, SHOP, type ShopItem } from '../data/shop';
 import SwipeSheet from '../components/SwipeSheet';
 import { useColors, type ThemeColors } from '../theme';
 import type { HomeStatus } from './homeStatus';
@@ -67,7 +67,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const charH = Math.round(charW * (charImg ? 1.370 : 1.12));
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
   // 仲間の表示サイズ=桜の幅×homeScale(柴1=0.50=桜の半分・番号が上がるほど大きい)。
-  const compW = compImg ? Math.round(charW * compScale) : 0;
+  const compW = compImg ? Math.round(charW * compScale / 3) : 0; // ホームの見かけを1/3に(ユーザー指定・全犬画像へ一律適用)
   const compH = Math.round(compW * compAspect);
   // 犬は必ず画面内に収める。桜と横並びで画面幅を超える分だけ、桜を犬側へ寄せて重ねる(=犬の尾まで画面内)。
   // 重なる時は犬を前面・桜を後ろにして、犬の全身が隠れないようにする(小さい犬は重ならないので従来どおり)。
@@ -91,6 +91,8 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
     if (!item) return;
     equipItem({ id: itemId, kind: item.kind });
   };
+  // 表示名=ショップと同じ多言語解決(shop.name_<id> があれば翻訳・無ければ日本語の既定名)。
+  const nameOf = (i: ShopItem) => { const k = 'shop.name_' + i.id; const v = t(k); return v === k ? i.name : v; };
 
   return (
     <View style={styles.wrap} pointerEvents="box-none">
@@ -111,9 +113,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       <SwipeSheet visible={showShop} onClose={() => setShowShop(false)} maxHeightRatio={0.8}>
           <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.shopList}>
             {([
-              { key: 'hair', title: t('shop_hair') ?? '髪型', items: itemsByKind.hair, slot: 'hair' as const },
-              { key: 'costume', title: t('shop_costume') ?? '民族衣装', items: itemsByKind.costume, slot: 'costume' as const },
-              { key: 'brush', title: t('shop_brush') ?? '筆', items: itemsByKind.brush, slot: 'brush' as const },
+              { key: 'hair', title: t('shop.tab_hair'), items: itemsByKind.hair, slot: 'hair' as const },
+              { key: 'costume', title: t('shop.tab_costume'), items: itemsByKind.costume, slot: 'costume' as const },
+              { key: 'brush', title: t('shop.tab_brush'), items: itemsByKind.brush, slot: 'brush' as const },
             ]).map((sec) => (
               <View key={sec.key} style={styles.section}>
                 <Text style={styles.sectionTitle}>{sec.title}</Text>
@@ -121,7 +123,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
                   {sec.items.map((item) => (
                     <Pressable key={item.id} style={[styles.itemCard, state.equipped?.[sec.slot] === item.id && styles.itemCardSelected]} onPress={() => { onTapItem(item.id); setShowShop(false); }}>
                       {item.asset ? <Image source={item.asset} style={styles.itemImage} resizeMode="contain" /> : <Text style={styles.itemEmoji}>{item.emoji}</Text>}
-                      <Text style={styles.itemName}>{item.name}</Text>
+                      <Text style={styles.itemName}>{nameOf(item)}</Text>
                     </Pressable>
                   ))}
                 </View>
@@ -133,14 +135,20 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       <SwipeSheet visible={showPicker} onClose={() => setShowPicker(false)} maxHeightRatio={0.8}>
           <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.shopList}>
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>{t('shop_companion') ?? '仲間'}</Text>
+              <Text style={styles.sectionTitle}>{t('shop.tab_companion')}</Text>
               <View style={styles.itemGrid}>
-                {ownedCompanions.map((item) => (
+                {ownedCompanions.map((item) => {
+                  // 犬は実寸比(homeScale)で相対表示=小さい犬は小さく・大きい犬は大きく(ショップと同じ・下端そろえ)。
+                  const dogPct = Math.round((item.homeScale ?? 0.5) * 95);
+                  return (
                   <Pressable key={item.id} style={[styles.itemCard, state.equipped?.companion === item.id && styles.itemCardSelected]} onPress={() => { onTapItem(item.id); setShowPicker(false); }}>
-                    {item.asset ? <Image source={item.asset} style={styles.itemImage} resizeMode="contain" /> : <Text style={styles.itemEmoji}>{item.emoji}</Text>}
-                    <Text style={styles.itemName}>{item.name}</Text>
+                    <View style={styles.dogBox}>
+                      {item.asset ? <Image source={item.asset} style={{ width: `${dogPct}%`, height: `${dogPct}%` }} resizeMode="contain" /> : <Text style={styles.itemEmoji}>{item.emoji}</Text>}
+                    </View>
+                    <Text style={styles.itemName}>{nameOf(item)}</Text>
                   </Pressable>
-                ))}
+                  );
+                })}
               </View>
             </View>
           </ScrollView>
@@ -161,6 +169,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   itemCard: { flex: 1, minWidth: '30%', alignItems: 'center', gap: 8, padding: 12, borderRadius: 12, borderWidth: 2, borderColor: c.line, backgroundColor: c.bgSoft },
   itemCardSelected: { borderColor: c.blue, backgroundColor: c.blueLight },
   itemImage: { width: 60, height: 60 },
+  dogBox: { width: 60, height: 60, justifyContent: 'flex-end', alignItems: 'center' },
   itemEmoji: { fontSize: 32 },
   itemName: { fontSize: 12, fontWeight: '700', color: c.ink, textAlign: 'center' },
   itemPrice: { fontSize: 11, color: c.amber },

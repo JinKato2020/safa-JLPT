@@ -7,7 +7,9 @@ import { View, Text, StyleSheet, type TextStyle, type StyleProp } from 'react-na
 import { highlightHits } from '../quiz/highlight';
 
 // ふりがな区切りは全角（）・半角()の両方を受ける(sentenceFuri等はkuroshiro既定の半角、文法データは全角)。
-const RUBY_RE = /([一-鿿㐀-䶿々〆〇ヶ]+)[（(]([^）)]*)[）)]|([\s\S])/gu;
+// 第1群=漢字群＋読み(ルビ表示)。第2群=カタカナ群＋かな読み=カタカナに不要なひらがなルビは出さない(読みを捨てて素のカタカナだけ表示)。第3群=その他1文字。
+// ※カタカナ後の（…）でも中身がかな以外(例: カレー（辛口）の説明)なら第2群に一致せず、注記としてそのまま残す。
+const RUBY_RE = /([一-鿿㐀-䶿々〆〇ヶ]+)[（(]([^）)]*)[）)]|([ァ-ヴーヵヶ・]+)[（(][ぁ-んァ-ヴー]+[）)]|([\s\S])/gu;
 
 interface Cell { base: string; ruby?: string; hit?: boolean; segs?: { text: string; hit: boolean }[]; }
 
@@ -17,7 +19,8 @@ function parseCells(text: string): Cell[] {
   RUBY_RE.lastIndex = 0;
   while ((m = RUBY_RE.exec(text))) {
     if (m[1] !== undefined) cells.push({ base: m[1], ruby: m[2] });
-    else cells.push({ base: m[3]! });
+    else if (m[3] !== undefined) cells.push({ base: m[3] }); // カタカナ＋かな読み=読みを捨ててルビ無し(不要なひらがなルビを出さない)
+    else cells.push({ base: m[4]! });
   }
   return cells;
 }
@@ -46,6 +49,12 @@ export default function RubyText({
     baseStyle = { ...flat };
     delete baseStyle.flex; delete baseStyle.flexGrow; delete baseStyle.flexBasis; delete baseStyle.flexShrink;
   }
+  // ルビの行高は必ずフォントサイズ以上を確保する。rubyStyleでfontSizeだけ上書きされ行高が9pxのまま
+  // 残る画面があり(例: 本文ルビfontSize10×行高9)、ルビ字形が箱を下にはみ出して漢字の頭に被っていた。
+  // 「漢字の上部がルビで隠れる」不具合を全画面共通でここで防ぐ(行高=フォントサイズの1.25倍を最低保証)。
+  const rubyFlat = StyleSheet.flatten(rubyStyle) as TextStyle | undefined;
+  const rubyFs = typeof rubyFlat?.fontSize === 'number' ? rubyFlat.fontSize : 9;
+  const rubyLh = Math.max(typeof rubyFlat?.lineHeight === 'number' ? rubyFlat.lineHeight : 0, Math.ceil(rubyFs * 1.25));
   const plain = cells.map((c) => c.base).join('');
   const hits = target ? highlightHits(plain, target) : [];
   let off = 0;
@@ -72,7 +81,7 @@ export default function RubyText({
         const showRuby = c.ruby != null && (!rubyGate || rubyGate(c.base)) && !(noRubyOnHit && c.hit);
         return (
           <View key={i} style={styles.col}>
-            <Text style={[styles.ruby, rubyStyle]} numberOfLines={1}>{showRuby ? c.ruby : ' '}</Text>
+            <Text style={[styles.ruby, rubyStyle, { lineHeight: rubyLh }]} numberOfLines={1}>{showRuby ? c.ruby : ' '}</Text>
             <Text style={[baseStyle, styles.base, baseFs ? { lineHeight: baseFs } : null]}>
               {c.hit
                 ? c.segs!.map((seg, j) => (seg.hit ? <Text key={j} style={hitStyle}>{seg.text}</Text> : <Text key={j}>{seg.text}</Text>))

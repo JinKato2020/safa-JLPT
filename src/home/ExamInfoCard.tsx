@@ -31,11 +31,11 @@ function nextJlpt(today: string): string {
 // 国内(日本)JLPTの受付期間。例年ほぼ固定(インターネット申込=MyJLPT)。7月回/12月回で分ける。
 //  7月回=3月下旬〜4月中旬 / 12月回=8月下旬〜9月中旬。年度により数日前後するため画面で注記＋公式確認を促す。
 const APPLY_PERIOD_JP: Record<'jul' | 'dec', string> = {
-  jul: '3月下旬〜4月中旬（インターネット申込）',
-  dec: '8月下旬〜9月中旬（インターネット申込）',
+  jul: '3月下旬〜4月中旬',
+  dec: '8月下旬〜9月中旬',
 };
 // 国内(日本)JLPTの受験料(全レベル共通)。※改定される場合があるため公式最新値に要更新。
-const FEE_JP = '7,500円（税込）';
+const FEE_JP = '7,500円';
 
 export default function ExamInfoCard() {
   const c = useColors();
@@ -63,7 +63,7 @@ export default function ExamInfoCard() {
   const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
 
   const rows: { label: string; value: string }[] = [
-    { label: '試験日', value: examDate.replace(/-/g, '/') + (usingSet ? '' : '（次回の目安）') },
+    { label: '試験日', value: examDate.replace(/-/g, '/') },
     { label: '試験までの日数', value: `あと ${days} 日` },
   ];
   if (!isJft) {
@@ -82,7 +82,7 @@ export default function ExamInfoCard() {
           {rows.map((r) => (
             <View key={r.label} style={s.line}>
               <Text style={s.lbl}>{r.label}</Text>
-              <Text style={s.val}>{r.value}</Text>
+              <Text style={s.val} numberOfLines={1}>{r.value}</Text>
             </View>
           ))}
         </View>
