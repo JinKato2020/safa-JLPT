@@ -370,6 +370,8 @@
   "profile.listeningAudio_stream": "配信(都度)",
   "profile.listeningAudioHint_download": "レベルの音声をまとめてダウンロードし、オフラインでいつでも再生(Wi-Fi推奨)。",
   "profile.listeningAudioHint_stream": "再生のたびにサーバーから配信。容量を節約できますが毎回通信が必要です。",
+  "profile.listeningRate": "音声の再生スピード",
+  "profile.listeningRateHint": "聞き取りが難しいときは遅く、慣れてきたら速く。0.5〜1.5倍で調整できます(本番の速さは1.0倍が目安)。",
   "profile.themeAuto": "自動",
   "profile.themeDark": "ダーク",
   "profile.themeLight": "ライト",

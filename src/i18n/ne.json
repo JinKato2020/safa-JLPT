@@ -546,6 +546,8 @@
   "profile.listeningAudio_download": "एकैचोटि डाउनलोड",
   "profile.listeningAudio_stream": "स्ट्रिमिङ (हरेक पटक)",
   "profile.listeningAudioHint_download": "तहको सबै अडियो एकैचोटि डाउनलोड गरी अफलाइनमा जहिले पनि सुन्नुहोस् (Wi-Fi सिफारिस गरिन्छ)।",
+  "profile.listeningRate": "अडियो प्ले गति",
+  "profile.listeningRateHint": "सुन्न गाह्रो हुँदा ढिलो, बानी परेपछि छिटो बनाउनुहोस्। ०.५× देखि १.५× सम्म मिलाउन सकिन्छ (१.०× वास्तविक परीक्षाको गति हो)।",
   "profile.listeningAudioHint_stream": "प्रत्येक पटक सर्भरबाट स्ट्रिम हुन्छ। ठाउँ बचत हुन्छ तर हरेक पटक इन्टरनेट चाहिन्छ।",
   "passage.blankLabel": "{n}",
   "passage.grade": "उत्तर जाँच्नुहोस्",

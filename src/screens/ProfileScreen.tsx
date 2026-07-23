@@ -14,6 +14,7 @@ import type { Level } from '../engine/engine';
 import type { ThemeMode } from '../store/state';
 import { useT, UI_LANGS, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
+import Slider from '../components/Slider';
 import MiniCalendar from '../components/MiniCalendar';
 import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
@@ -261,6 +262,22 @@ export default function ProfileScreen() {
             <Text style={s.linkTxt}>{t('dl.title')}</Text>
             <Text style={s.chev}>›</Text>
           </Pressable>
+        </View>
+
+        {/* 聴解音声の再生スピード(0.5〜1.5倍。ネイティブ非依存の自作スライダー=OTA配信可) */}
+        <View style={s.card}>
+          <Text style={s.setLbl}>{t('profile.listeningRate')}</Text>
+          <Slider
+            value={state.settings.listeningRate ?? 1}
+            min={0.5}
+            max={1.5}
+            step={0.1}
+            onChange={(v) => setSettings({ listeningRate: v })}
+            trackColor={c.line}
+            fillColor={c.blue}
+            formatValue={(v) => `${v.toFixed(1)}×`}
+          />
+          <Text style={s.subtle}>{t('profile.listeningRateHint')}</Text>
         </View>
 
         {/* 漢字書き取りの設定(グリッド/速度/読み上げ)は「漢字書き取り」画面内へ移設。 */}

@@ -26,6 +26,7 @@ export interface Settings {
   telemetry?: boolean;     // 利用状況の匿名送信(未設定/true=ON, false=停止)
   badgeSet?: 'natural' | 'gorgeous'; // バッジ/勲章のデザインセット(未設定→natural)
   listeningAudioMode?: 'stream' | 'download'; // 聴解音声: 都度配信(stream)/レベル一括DL(download)。未設定→download(従来挙動)
+  listeningRate?: number;  // 聴解音声の再生スピード(0.5〜1.5。未設定→1.0=等速)
   font?: 'system' | 'maru' | 'mincho' | 'kyokasho'; // 表示フォント(未設定→maru=丸ゴシック)。App Bから移植
   kakitoriGrid?: 'none' | 'ta' | 'kome';   // 書き取りグリッド(未設定→kome=米字格)
   kakitoriSpeed?: 'slow' | 'normal' | 'fast'; // 書き順アニメ速度(未設定→normal)

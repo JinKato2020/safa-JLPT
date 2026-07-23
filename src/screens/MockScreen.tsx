@@ -246,7 +246,8 @@ export default function MockScreen() {
     if (!src) return;
     await stopSound();
     try {
-      const { sound } = await Audio.Sound.createAsync(src, { shouldPlay: true });
+      const rate = state.settings.listeningRate ?? 1;
+      const { sound } = await Audio.Sound.createAsync(src, { shouldPlay: true, rate, shouldCorrectPitch: true });
       soundRef.current = sound;
       setPlaying(true);
       setPlayCount((n) => n + 1);
