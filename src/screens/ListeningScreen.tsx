@@ -97,7 +97,8 @@ export default function ListeningScreen() {
     await stopSound();
     try {
       const rate = state.settings.listeningRate ?? 1;
-      const { sound } = await Audio.Sound.createAsync(src, { shouldPlay: true, rate, shouldCorrectPitch: true });
+      // shouldCorrectPitch=速度を変えても声の高さを保つ / High=iOSのSpectralアルゴリズム(声を最も自然に引き伸ばす。0.5倍でも人声の質感を維持)
+      const { sound } = await Audio.Sound.createAsync(src, { shouldPlay: true, rate, shouldCorrectPitch: true, pitchCorrectionQuality: Audio.PitchCorrectionQuality.High });
       soundRef.current = sound;
       setPlaying(true);
       sound.setOnPlaybackStatusUpdate((st: AVPlaybackStatus) => {
