@@ -42,6 +42,8 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const [showPicker, setShowPicker] = useState(false);
   const [eyesClosed, setEyesClosed] = useState(false);
   const bob = useRef(new Animated.Value(0)).current;
+  const dogSway = useRef(new Animated.Value(0)).current; // 犬: 体を左右にゆらす
+  const dogHop = useRef(new Animated.Value(0)).current;  // 犬: 時々ぴょこっと跳ねる
 
   // 常時: ふわふわ浮遊＋まばたき。
   useEffect(() => {
@@ -50,6 +52,18 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       Animated.timing(bob, { toValue: 0, duration: 2000, useNativeDriver: true }),
     ]));
     loop.start();
+    // 犬: ゆっくり左右にゆらす ＋ 数秒ごとにぴょこっと跳ねる。
+    const sway = Animated.loop(Animated.sequence([
+      Animated.timing(dogSway, { toValue: 1, duration: 1600, useNativeDriver: true }),
+      Animated.timing(dogSway, { toValue: 0, duration: 1600, useNativeDriver: true }),
+    ]));
+    sway.start();
+    const hop = Animated.loop(Animated.sequence([
+      Animated.delay(2600),
+      Animated.timing(dogHop, { toValue: 1, duration: 160, useNativeDriver: true }),
+      Animated.timing(dogHop, { toValue: 0, duration: 300, useNativeDriver: true }),
+    ]));
+    hop.start();
     let bAlive = true;
     const bt: ReturnType<typeof setTimeout>[] = [];
     const blink = () => {
@@ -59,15 +73,17 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       bt.push(setTimeout(blink, 2600 + Math.random() * 3200));
     };
     bt.push(setTimeout(blink, 1600));
-    return () => { loop.stop(); bAlive = false; bt.forEach(clearTimeout); };
-  }, [bob]);
+    return () => { loop.stop(); sway.stop(); hop.stop(); bAlive = false; bt.forEach(clearTimeout); };
+  }, [bob, dogSway, dogHop]);
 
   // 民族衣装/背負い筆の全身絵は縦長(≒864x1184)なので少し大きめ＋縦横比を変える。既定の案内キャラはほぼ正方形。
   const charW = Math.round(width * (charImg ? 0.60 : 0.40));
   const charH = Math.round(charW * (charImg ? 1.370 : 1.12));
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
+  const dogSwayDeg = dogSway.interpolate({ inputRange: [0, 1], outputRange: ['-3deg', '3deg'] });
+  const dogHopY = dogHop.interpolate({ inputRange: [0, 1], outputRange: [0, -14] });
   // 仲間の表示サイズ=桜の幅×homeScale(柴1=0.50=桜の半分・番号が上がるほど大きい)。
-  const compW = compImg ? Math.round(charW * compScale * 2 / 3) : 0; // ホームの見かけ=元の1/3をさらに2倍(ユーザー指定2026-07-23・全犬画像へ一律)
+  const compW = compImg ? Math.round(charW * compScale * 2 / 3 * 1.3) : 0; // ホームの見かけ=元の1/3×2、さらに×1.3倍(ユーザー指定・全犬画像へ一律)
   const compH = Math.round(compW * compAspect);
   // 犬は必ず画面内に収める。桜と横並びで画面幅を超える分だけ、桜を犬側へ寄せて重ねる(=犬の尾まで画面内)。
   // 重なる時は犬を前面・桜を後ろにして、犬の全身が隠れないようにする(小さい犬は重ならないので従来どおり)。
@@ -100,7 +116,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
         {/* 仲間(柴犬)=桜の左に常駐。タップで購入済みの柴だけ選べる。 */}
         {compImg ? (
           <Pressable onPress={() => setShowPicker(true)} hitSlop={6} style={[styles.compWrap, { marginRight: -compOverlap, zIndex: dogInFront ? 2 : 0 }]}>
-            <Image source={compImg} style={{ width: compW, height: compH }} resizeMode="contain" />
+            <Animated.View style={{ transform: [{ translateY: dogHopY }, { rotate: dogSwayDeg }] }}>
+              <Image source={compImg} style={{ width: compW, height: compH }} resizeMode="contain" />
+            </Animated.View>
           </Pressable>
         ) : null}
         {/* 桜(案内キャラ)=右。タップで購入済みの着せ替え一覧。 */}

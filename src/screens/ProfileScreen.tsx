@@ -102,14 +102,15 @@ export default function ProfileScreen() {
           <Text style={s.setLbl}>{t('profile.targetExam')}</Text>
           <View style={s.chipRow}>
             {(['jlpt', 'jft'] as const).map((ex) => {
+              if (ex === 'jft') return null; // JFTは準備中のため非表示(準備完了でこの行を消す)
               const on = (state.settings.targetExam ?? 'jlpt') === ex;
               return (
                 <Pressable
                   key={ex}
-                  onPress={() => setSettings(ex === 'jft' ? { targetExam: 'jft', level: 'N4' } : { targetExam: 'jlpt' })}
+                  onPress={() => setSettings({ targetExam: 'jlpt' })}
                   style={[s.chip, on && s.chipOn]}
                 >
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(ex === 'jft' ? 'profile.exam_jft' : 'profile.exam_jlpt')}</Text>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t('profile.exam_jlpt')}</Text>
                 </Pressable>
               );
             })}
@@ -184,9 +185,7 @@ export default function ProfileScreen() {
                   </Text>
                 </Pressable>
               ))}
-              <Pressable onPress={() => setSettings({ examDate: null })} style={[s.chip, !state.settings.examDate && s.chipOn]}>
-                <Text style={[s.chipTxt, !state.settings.examDate && s.chipTxtOn]}>{t('profile.examUndecided')}</Text>
-              </Pressable>
+              {/* 「未定」チップは非表示(ユーザー指定)。試験日は7月/12月から選ぶ。 */}
             </View>
           )}
 

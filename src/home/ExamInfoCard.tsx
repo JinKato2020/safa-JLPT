@@ -68,7 +68,7 @@ export default function ExamInfoCard() {
   ];
   if (!isJft) {
     rows.push({ label: '受験申込み期間', value: APPLY_PERIOD_JP[season] });
-    rows.push({ label: '費用', value: FEE_JP });
+    rows.push({ label: '受験費用', value: FEE_JP });
   }
   const note = isJft
     ? '※JFT-Basicは通年CBT。申込みは随時、受験料は会場・国により異なります。'
