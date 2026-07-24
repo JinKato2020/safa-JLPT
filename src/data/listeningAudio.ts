@@ -20,7 +20,11 @@ const FS = FileSystemNS as unknown as {
   getInfoAsync?: (uri: string) => Promise<{ exists: boolean }>;
   downloadAsync?: (url: string, dest: string) => Promise<{ uri: string }>;
 };
-const cacheDir = Platform.OS !== 'web' && FS.documentDirectory ? `${FS.documentDirectory}listening/` : null;
+// 配信済み音声の内容を差し替えた時はこの版を上げる→旧キャッシュ(別フォルダ)を捨てて全音声を再DLさせる。
+// 同名{id}.mp3はキャッシュ優先で再DLされないため、内容更新はこの版上げが唯一の伝達手段。
+// v2(2026-07-25): 発話001-010を差し替え(All Chirp3-HD・正解位置シャッフル)。
+const LISTENING_CACHE_VER = 'v2';
+const cacheDir = Platform.OS !== 'web' && FS.documentDirectory ? `${FS.documentDirectory}listening_${LISTENING_CACHE_VER}/` : null;
 /** キャッシュ可能な端末か(web等はストリーミングのみ=事前DL不要)。 */
 export const LISTENING_CACHEABLE = !!cacheDir && typeof FS.downloadAsync === 'function' && typeof FS.getInfoAsync === 'function';
 

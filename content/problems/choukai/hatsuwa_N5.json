@@ -1,1 +1,567 @@
-{"schema":1,"daimon":"hatsuwa","level":"N5","languages":["ja","ne"],"items":[{"id":"N5-C-H-001","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"友達のペンを借りたいです。何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-001-q1","q":"","choices":["ペンを貸してくれる？","ペンを貸そうか？","ペンを借りた？"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N5-C-H-002","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"友達に消しゴムを借りたいです。何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-002-q1","q":"","choices":["ちょっと消しゴム貸して。","消しゴムを借りようか。","消しゴム、貸そうか。"],"answerIndex":0,"i18n":{"ja":{"explain":"友達への軽い依頼。2は自分が借りる申し出、3は貸す申し出で逆。"}}}],"i18n":{}},{"id":"N5-C-H-003","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"先生の部屋に入ります。何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-003-q1","q":"","choices":["失礼します。","失礼しました。","お邪魔しました。"],"answerIndex":0,"i18n":{"ja":{"explain":"入る時は「失礼します」。2・3は過去形で退出時の表現。"}}}],"i18n":{}},{"id":"N5-C-H-004","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"知らない人に写真を撮ってほしいです。何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-004-q1","q":"","choices":["すみません、写真を撮ってもらえますか。","写真を撮りましょうか。","写真を撮ってもいいですか。"],"answerIndex":0,"i18n":{"ja":{"explain":"2は撮ってあげる申し出、3は自分が撮る許可で逆。"}}}],"i18n":{}},{"id":"N5-C-H-005","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"駅へ行く道がわかりません。近くの人に聞きます。何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-005-q1","q":"","choices":["すみません、駅はどこですか。","すみません、駅は何時ですか。","すみません、駅はいくらですか。"],"answerIndex":0,"i18n":{"ja":{"explain":"場所は「どこ」。2は時刻、3は値段で疑問詞が不適切。"}}}],"i18n":{}},{"id":"N5-C-H-006","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"友達の家に入ります。何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-006-q1","q":"","choices":["お邪魔します。","お邪魔しました。","いらっしゃいませ。"],"answerIndex":0,"i18n":{"ja":{"explain":"入る時は「お邪魔します」。2は退出時、3は迎える側の表現。"}}}],"i18n":{}},{"id":"N5-C-H-007","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"クラスのみんなより先に帰ります。何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-007-q1","q":"","choices":["お先に失礼します。","ただいま。","おかえりなさい。"],"answerIndex":0,"i18n":{"ja":{"explain":"先に帰る時の定型。2は帰宅時、3は迎える側。"}}}],"i18n":{}},{"id":"N5-C-H-008","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"部屋を出る友達に、電気を消してほしいです。何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-008-q1","q":"","choices":["ごめん、電気を消してくれる？","電気を消そうか。","電気を消してもいい？"],"answerIndex":0,"i18n":{"ja":{"explain":"2は自分が消す申し出、3は自分が消す許可で逆。"}}}],"i18n":{}},{"id":"N5-C-H-009","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"友達を映画に誘いたいです。何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-009-q1","q":"","choices":["よかったら一緒に映画を見に行かない？","映画を見に行ってきます。","映画を見てもいい？"],"answerIndex":0,"i18n":{"ja":{"explain":"2は出かける報告、3は許可求めで誘いにならない。"}}}],"i18n":{}},{"id":"N5-C-H-010","level":"N5","category":"choukai","type":"listening","subtype":"hatsuwa","qtype":"発話表現","title":"発話表現","script":"レストランで、お水がもう一杯ほしいです。店員に何と言いますか。","audio":true,"audioChoices":true,"questions":[{"id":"N5-C-H-010-q1","q":"","choices":["すみません、お水をもらえますか。","お水はいかがですか。","お水を入れましょうか。"],"answerIndex":0,"i18n":{"ja":{"explain":"2・3は相手に勧める/入れてあげる側の表現で逆。"}}}],"i18n":{}}]}
+{
+ "schema": 1,
+ "daimon": "hatsuwa",
+ "level": "N5",
+ "languages": [
+  "ja",
+  "ne"
+ ],
+ "items": [
+  {
+   "id": "N5-C-H-001",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "友達のペンを借りたいです。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-001-q1",
+     "q": "",
+     "choices": [
+      "ペンを貸してくれる？",
+      "ペンを貸そうか？",
+      "ペンを借りた？"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-002",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "友達に消しゴムを借りたいです。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-002-q1",
+     "q": "",
+     "choices": [
+      "ちょっと消しゴム貸して。",
+      "消しゴムを借りようか。",
+      "消しゴム、貸そうか。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "友達への軽い依頼。2は自分が借りる申し出、3は貸す申し出で逆。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-003",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "先生の部屋に入ります。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-003-q1",
+     "q": "",
+     "choices": [
+      "失礼します。",
+      "失礼しました。",
+      "お邪魔しました。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "入る時は「失礼します」。2・3は過去形で退出時の表現。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-004",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "知らない人に写真を撮ってほしいです。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-004-q1",
+     "q": "",
+     "choices": [
+      "写真を撮りましょうか。",
+      "すみません、写真を撮ってもらえますか。",
+      "写真を撮ってもいいですか。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {
+       "explain": "2は撮ってあげる申し出、3は自分が撮る許可で逆。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-005",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "駅へ行く道がわかりません。近くの人に聞きます。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-005-q1",
+     "q": "",
+     "choices": [
+      "すみません、駅はどこですか。",
+      "すみません、駅は何時ですか。",
+      "すみません、駅はいくらですか。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "場所は「どこ」。2は時刻、3は値段で疑問詞が不適切。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-006",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "友達の家に入ります。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-006-q1",
+     "q": "",
+     "choices": [
+      "お邪魔しました。",
+      "お邪魔します。",
+      "いらっしゃいませ。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {
+       "explain": "入る時は「お邪魔します」。2は退出時、3は迎える側の表現。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-007",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "仕事のあと、みんなより先に帰ります。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-007-q1",
+     "q": "",
+     "choices": [
+      "ただいま。",
+      "お先に失礼します。",
+      "おかえりなさい。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {
+       "explain": "先に帰る時の定型。2は帰宅時、3は迎える側。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-008",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "部屋を出る友達に、電気を消してほしいです。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-008-q1",
+     "q": "",
+     "choices": [
+      "電気を消そうか。",
+      "電気を消してもいい？",
+      "電気を消してくれる？"
+     ],
+     "answerIndex": 2,
+     "i18n": {
+      "ja": {
+       "explain": "2は自分が消す申し出、3は自分が消す許可で逆。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-009",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "友達を映画に誘いたいです。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-009-q1",
+     "q": "",
+     "choices": [
+      "映画を見に行ってきます。",
+      "一緒に映画を見に行かない？",
+      "映画を見てもよい？"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {
+       "explain": "2は出かける報告、3は許可求めで誘いにならない。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-010",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "レストランで、お水がほしいです。店員に何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-010-q1",
+     "q": "",
+     "choices": [
+      "お水はいかがですか。",
+      "すみません。お水をもらえますか。",
+      "お水を入れましょうか。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {
+       "explain": "2・3は相手に勧める/入れてあげる側の表現で逆。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-011",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "朝、学校で先生に会いました。あいさつをします。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-011-q1",
+     "q": "",
+     "choices": [
+      "こんばんは。",
+      "おはようございます。",
+      "おやすみなさい。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-012",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "重い荷物を持つのを、友達が手伝ってくれました。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-012-q1",
+     "q": "",
+     "choices": [
+      "荷物を持とうか？",
+      "荷物、持ってくれる？",
+      "ありがとう、助かったよ。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-013",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "部屋が暑いです。窓を開けたいです。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-013-q1",
+     "q": "",
+     "choices": [
+      "窓を開けてもいいですか。",
+      "窓を開けましょうか。",
+      "窓を開けました。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-014",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "先生の話が速くて、聞こえませんでした。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-014-q1",
+     "q": "",
+     "choices": [
+      "もう一度言いましょうか。",
+      "もう一度言ってもいいですか。",
+      "すみません、もう一度言ってください。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-015",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "電車で、お年寄りが立っています。席をゆずりたいです。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-015-q1",
+     "q": "",
+     "choices": [
+      "どうぞ、こちらの席に座ってください。",
+      "ここに座ってもいいですか。",
+      "席をゆずってくれますか。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-016",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "歩いていて、人にぶつかってしまいました。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-016-q1",
+     "q": "",
+     "choices": [
+      "あっ、大丈夫ですよ。",
+      "ぶつかってくれてありがとう。",
+      "あっ、ごめんなさい。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-017",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "友達をお昼ごはんに誘いたいです。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-017-q1",
+     "q": "",
+     "choices": [
+      "よかったら、一緒にお昼を食べない？",
+      "お昼を食べてきます。",
+      "お昼を食べてもいい？"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-018",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "友達が袋の中身を落としました。何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-018-q1",
+     "q": "",
+     "choices": [
+      "拾ってくれる？",
+      "拾ってもらえますか？",
+      "大丈夫？拾うのを手伝おうか？"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-019",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "黒板の字が小さくて、よく見えません。先生に何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-019-q1",
+     "q": "",
+     "choices": [
+      "もう少し大きく書きましょうか。",
+      "もう少し大きく書いてもいいですか。",
+      "先生、もう少し大きく書いてください。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N5-C-H-020",
+   "level": "N5",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "hatsuwa",
+   "qtype": "発話表現",
+   "title": "発話表現",
+   "script": "友達の家で、ごはんをごちそうになりました。食べ終わって、何と言いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N5-C-H-020-q1",
+     "q": "",
+     "choices": [
+      "いただきます。",
+      "ごちそうさまでした。",
+      "おじゃまします。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  }
+ ]
+}
