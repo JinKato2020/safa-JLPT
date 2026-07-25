@@ -1,1 +1,567 @@
-{"schema":1,"daimon":"sokuji","level":"N4","languages":["ja","ne"],"items":[{"id":"N4-C-S-001","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"これからコンビニに行きますけど、何か買ってきましょうか。","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-001-q1","q":"","choices":["あ、じゃあ、お茶をお願いします。","はい、買ってきました。","いいえ、行きませんでした。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N4-C-S-002","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"その資料、もう送ってくれた？","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-002-q1","q":"","choices":["あ、すみません、今すぐ送ります。","はい、送ってください。","いいえ、送りましょうか。"],"answerIndex":0,"i18n":{"ja":{"explain":"まだなら謝って対応。2は依頼、3は申し出でずれる。"}}}],"i18n":{}},{"id":"N4-C-S-003","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"会議は三時からでしたっけ。","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-003-q1","q":"","choices":["いえ、四時からですよ。","はい、三時に終わりました。","三時間かかりました。"],"answerIndex":0,"i18n":{"ja":{"explain":"時刻を訂正。2は終了時刻、3は所要時間。"}}}],"i18n":{}},{"id":"N4-C-S-004","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"ちょっと手を貸してもらえる？","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-004-q1","q":"","choices":["いいよ、何をすればいい？","うん、貸してくれてありがとう。","ごめん、手を借りたいんだ。"],"answerIndex":0,"i18n":{"ja":{"explain":"引き受ける。2はお礼、3は自分が頼む側で逆。"}}}],"i18n":{}},{"id":"N4-C-S-005","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"今日はずいぶん早いね。","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-005-q1","q":"","choices":["うん、早く目が覚めちゃって。","うん、遅くなってごめん。","いいえ、まだ早くないよ。"],"answerIndex":0,"i18n":{"ja":{"explain":"早い理由を述べる。2は遅刻の謝罪で逆、3は否定がずれる。"}}}],"i18n":{}},{"id":"N4-C-S-006","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"コーヒーでも飲みに行かない？","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-006-q1","q":"","choices":["いいね、ちょうど休憩したかったんだ。","うん、飲んできたよ。","いや、飲みに行ったよ。"],"answerIndex":0,"i18n":{"ja":{"explain":"誘いに乗る。2・3は過去で噛み合わない。"}}}],"i18n":{}},{"id":"N4-C-S-007","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"これ、コピーしておいてくれる？","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-007-q1","q":"","choices":["はい、何部いりますか。","はい、コピーしてくれました。","いいえ、コピーしましょうか。"],"answerIndex":0,"i18n":{"ja":{"explain":"引き受け確認。2は主体が逆、3は不自然。"}}}],"i18n":{}},{"id":"N4-C-S-008","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"傘、持ってきた？雨が降りそうだよ。","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-008-q1","q":"","choices":["あ、忘れた。貸してくれる？","うん、降ってきたね。","いいえ、晴れてるよ。"],"answerIndex":0,"i18n":{"ja":{"explain":"持参を答える。2・3は質問とずれる。"}}}],"i18n":{}},{"id":"N4-C-S-009","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"具合が悪そうだけど、大丈夫？","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-009-q1","q":"","choices":["うん、ちょっと頭が痛くて。","うん、元気を出してね。","いいえ、大丈夫じゃなくてよかった。"],"answerIndex":0,"i18n":{"ja":{"explain":"症状を述べる。2は励ます側、3は意味が破綻。"}}}],"i18n":{}},{"id":"N4-C-S-010","level":"N4","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","script":"悪いんだけど、ちょっと静かにしてくれる？","audio":true,"audioChoices":true,"questions":[{"id":"N4-C-S-010-q1","q":"","choices":["あ、ごめんなさい、気をつけます。","はい、静かにしてくれてありがとう。","いいえ、うるさくないですよ。"],"answerIndex":0,"i18n":{"ja":{"explain":"謝って受け入れる。2はお礼、3は反論でずれる。"}}}],"i18n":{}}]}
+{
+ "schema": 1,
+ "daimon": "sokuji",
+ "level": "N4",
+ "languages": [
+  "ja",
+  "ne"
+ ],
+ "items": [
+  {
+   "id": "N4-C-S-001",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "これからコンビニに行きますけど、何か買ってきましょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-001-q1",
+     "q": "",
+     "choices": [
+      "はい、買ってきました。",
+      "いいえ、行きませんでした。",
+      "あ、じゃあ、お茶をお願いします。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-002",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "その資料、もう送ってくれた？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-002-q1",
+     "q": "",
+     "choices": [
+      "はい、送ってください。",
+      "ええ、送ってくれてありがとう。",
+      "あ、すみません、今すぐ送ります。"
+     ],
+     "answerIndex": 2,
+     "i18n": {
+      "ja": {
+       "explain": "まだなら謝って対応。2は依頼、3は申し出でずれる。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-003",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "会議は三時からでしたっけ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-003-q1",
+     "q": "",
+     "choices": [
+      "はい、三時に終わりました。",
+      "三時間かかりました。",
+      "いえ、四時からですよ。"
+     ],
+     "answerIndex": 2,
+     "i18n": {
+      "ja": {
+       "explain": "時刻を訂正。2は終了時刻、3は所要時間。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-004",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "ちょっと手を貸してもらえる？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-004-q1",
+     "q": "",
+     "choices": [
+      "うん、貸してくれてありがとう。",
+      "いいよ、何をすればいい？",
+      "ごめん、手を借りたいんだ。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {
+       "explain": "引き受ける。2はお礼、3は自分が頼む側で逆。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-005",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今日はずいぶん早いね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-005-q1",
+     "q": "",
+     "choices": [
+      "うん、遅くなってごめん。",
+      "いいえ、まだ早くないよ。",
+      "うん、早く目が覚めちゃって。"
+     ],
+     "answerIndex": 2,
+     "i18n": {
+      "ja": {
+       "explain": "早い理由を述べる。2は遅刻の謝罪で逆、3は否定がずれる。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-006",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "コーヒーでも飲みに行かない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-006-q1",
+     "q": "",
+     "choices": [
+      "いいね、ちょうど休憩したかったんだ。",
+      "うん、飲んできたよ。",
+      "いや、飲みに行ったよ。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "誘いに乗る。2・3は過去で噛み合わない。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-007",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "これ、コピーしておいてくれる？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-007-q1",
+     "q": "",
+     "choices": [
+      "はい、何部いりますか。",
+      "はい、コピーしてくれました。",
+      "いいえ、コピーしましょうか。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "引き受け確認。2は主体が逆、3は不自然。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-008",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "傘、持ってきた？雨が降りそうだよ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-008-q1",
+     "q": "",
+     "choices": [
+      "あ、忘れた。貸してくれる？",
+      "うん、降ってきたね。",
+      "いいえ、晴れてるよ。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "持参を答える。2・3は質問とずれる。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-009",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "具合が悪そうだけど、大丈夫？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-009-q1",
+     "q": "",
+     "choices": [
+      "うん、ちょっと頭が痛くて。",
+      "うん、元気を出してね。",
+      "いいえ、大丈夫じゃなくてよかった。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "症状を述べる。2は励ます側、3は意味が破綻。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-010",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "悪いんだけど、ちょっと静かにしてくれる？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-010-q1",
+     "q": "",
+     "choices": [
+      "はい、静かにしてくれてありがとう。",
+      "あ、ごめんなさい、気をつけます。",
+      "いいえ、うるさくないですよ。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {
+       "explain": "謝って受け入れる。2はお礼、3は反論でずれる。"
+      }
+     }
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-011",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この店のラーメン、おいしいから食べてみて。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-011-q1",
+     "q": "",
+     "choices": [
+      "うん、作ってあげるね。",
+      "へえ、じゃあ今度行ってみるよ。",
+      "うん、おいしかったね。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-012",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "お手数ですが、この書類にサインをお願いできますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-012-q1",
+     "q": "",
+     "choices": [
+      "はい、サインしてくれました。",
+      "いいえ、書類はありません。",
+      "はい、こちらでいいですか。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-013",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "週末、みんなで海に行くんだけど、来ない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-013-q1",
+     "q": "",
+     "choices": [
+      "うん、海は楽しかったね。",
+      "行きたいけど、その日はちょっと用事があって。",
+      "じゃあ、気をつけて行ってきてね。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-014",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "例の件、来週までにまとめておいてくれる？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-014-q1",
+     "q": "",
+     "choices": [
+      "はい、来週まとめました。",
+      "例の件って、どの件でしたっけ？",
+      "はい、まとめておいてください。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-015",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "どうぞ、こちらの席に座ってください。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-015-q1",
+     "q": "",
+     "choices": [
+      "ありがとうございます。失礼します。",
+      "はい、どうぞお座りください。",
+      "いいえ、座りませんでした。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-016",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "すみません、注文したものと違うものが来たんですが。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-016-q1",
+     "q": "",
+     "choices": [
+      "申し訳ございません、すぐお取り替えします。",
+      "はい、ご注文ありがとうございました。",
+      "では、こちらを注文します。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-017",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あれ、私のかさ、ここに置かなかった？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-017-q1",
+     "q": "",
+     "choices": [
+      "うん、置いてきてね。",
+      "あ、それなら入り口に置いてあったよ。",
+      "うん、かさをさして帰ろう。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-018",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "最近ちょっと太っちゃって、どうしよう。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-018-q1",
+     "q": "",
+     "choices": [
+      "うん、痩せてよかったね。",
+      "うん、たくさん食べてね。",
+      "一緒に運動でも始めてみる？"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-019",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "明日の会議、十時からで大丈夫でしょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-019-q1",
+     "q": "",
+     "choices": [
+      "はい、会議は終わりました。",
+      "はい、その時間で問題ありません。",
+      "いいえ、十時に始めてください。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  },
+  {
+   "id": "N4-C-S-020",
+   "level": "N4",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "これ、旅行のお土産です。よかったらどうぞ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N4-C-S-020-q1",
+     "q": "",
+     "choices": [
+      "わあ、ありがとうございます。うれしいです。",
+      "はい、お土産を買ってきてね。",
+      "いいえ、旅行は楽しかったです。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {}
+  }
+ ]
+}
