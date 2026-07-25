@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>まいにちJLPT 管理ダッシュボード</title>
+<style>
+  :root{
+    --bg:#f6f5f1; --card:#fff; --ink:#2b2b2b; --sub:#7a756c; --line:#e6e2d8;
+    --accent:#c8483a; --accent2:#3a7bc8; --good:#2e9c6b; --warn:#d98a1f; --bad:#c8483a;
+    --chip:#f0ede6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#1b1a18; --card:#26241f; --ink:#efece4; --sub:#a89f90; --line:#3a372f; --chip:#2f2c26; }
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.6; }
+  header{ padding:18px 20px; border-bottom:1px solid var(--line); background:var(--card); }
+  h1{ font-size:19px; margin:0 0 2px; }
+  .muted{ color:var(--sub); font-size:13px; }
+  main{ max-width:1180px; margin:0 auto; padding:18px 16px 60px; }
+  .bar{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:12px 0 4px; }
+  input[type=text],input[type=password],input.search{ padding:8px 10px; border:1px solid var(--line);
+    border-radius:8px; background:var(--card); color:var(--ink); font-size:13px; min-width:220px; }
+  button{ padding:8px 14px; border:0; border-radius:8px; background:var(--accent); color:#fff;
+    font-size:13px; cursor:pointer; }
+  button.ghost{ background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  section{ background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:14px 16px; margin:14px 0; }
+  section h2{ font-size:15px; margin:0 0 10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  section h2 .note{ font-size:12px; color:var(--sub); font-weight:400; }
+  .cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .kpi{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:12px; }
+  .kpi .n{ font-size:26px; font-weight:700; }
+  .kpi .l{ font-size:12px; color:var(--sub); }
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th,td{ text-align:left; padding:7px 8px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th{ color:var(--sub); font-weight:600; font-size:12px; }
+  td.num,th.num{ text-align:right; font-variant-numeric:tabular-nums; }
+  th.sortable{ cursor:pointer; user-select:none; }
+  th.sortable:hover{ color:var(--ink); }
+  th .arw{ opacity:.5; font-size:10px; }
+  tr.row{ cursor:pointer; }
+  tr.row:hover td{ background:var(--bg); }
+  tr.row.open td{ background:var(--bg); }
+  .caret{ display:inline-block; color:var(--sub); transition:transform .12s; }
+  tr.row.open .caret{ transform:rotate(90deg); }
+  tr.detail>td{ background:var(--bg); padding:10px 14px; white-space:normal; }
+  .dm-grid{ display:flex; flex-wrap:wrap; gap:6px; }
+  .dm{ font-size:12px; padding:3px 9px; border-radius:8px; border:1px solid var(--line); background:var(--card); }
+  .dm b{ font-variant-numeric:tabular-nums; }
+  .dm.ok{ border-color:var(--good); color:var(--good); }
+  .dm.mid{ border-color:var(--warn); color:var(--warn); }
+  .dm.low{ border-color:var(--bad); color:var(--bad); }
+  .dm.off{ color:var(--sub); opacity:.7; }
+  .dm-cov{ margin-top:8px; font-size:12px; color:var(--sub); }
+  .scroll{ overflow-x:auto; }
+  .empty{ color:var(--sub); font-size:13px; padding:8px 0; }
+  .warn{ font-size:12px; color:var(--warn); }
+  .err{ color:var(--bad); font-size:13px; white-space:pre-wrap; }
+  .pill{ font-size:11px; padding:1px 8px; border-radius:99px; background:var(--chip); border:1px solid var(--line); color:var(--sub); }
+  .pill.good{ border-color:var(--good); color:var(--good); }
+  .mono{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:var(--sub); }
+  .updated{ font-size:12px; color:var(--sub); margin-left:auto; }
+  .count{ font-size:12px; color:var(--sub); font-weight:400; }
+</style>
+</head>
+<body>
+<header>
+  <h1>まいにちJLPT 管理ダッシュボード</h1>
+  <div class="muted">Supabase の利用データを日本語で1画面に横並び表示（管理者用・ローカルで開くページ）</div>
+  <div class="bar">
+    <input id="url" type="text" placeholder="Supabase URL" />
+    <input id="key" type="password" placeholder="service_role キー（秘密）" />
+    <button id="load">読み込む</button>
+    <button id="reload" class="ghost">再取得</button>
+    <span class="updated" id="updated"></span>
+  </div>
+  <div class="warn">⚠️ ここに入れる <b>service_role</b> キーは全データを読める“合鍵”です。自分の端末だけで使い、他人・スクショ・共有は厳禁。キーはこの端末のブラウザにだけ保存されます（ファイルには残りません）。</div>
+  <div id="err" class="err"></div>
+</header>
+
+<main id="app" style="display:none">
+
+  <section>
+    <h2>全体サマリー</h2>
+    <div class="cards" id="kpi"></div>
+  </section>
+
+  <section>
+    <h2>レベル別 平均 <span class="note">利用者の最新スナップショットを N5/N4/N3 で平均（％表示）</span></h2>
+    <div class="scroll"><table id="tLevel"></table></div>
+  </section>
+
+  <section>
+    <h2>分野別 枯渇状況 <span class="note">新規残数の平均・残り3問以下＝コンテンツ不足のサイン</span></h2>
+    <div class="scroll"><table id="tExhaust"></table></div>
+  </section>
+
+  <section>
+    <h2>利用者一覧 <span class="note">登録・匿名を同じ1表に。見出しをクリックで並べ替え／行をクリックで大問別の内訳を展開</span>
+      <span class="count" id="devCount"></span></h2>
+    <div class="bar"><input id="search" class="search" type="text" placeholder="絞り込み（メール・端末ID・レベル）" /></div>
+    <div class="scroll"><table id="tDevices"></table></div>
+  </section>
+
+</main>
+
+<script>
+const DEFAULT_URL = 'https://nxovouiqelynryumjvyq.supabase.co';
+const CATJP = { moji_goi:'文字・語彙', bunpou:'文法', dokkai:'読解', choukai:'聴解' };
+// 大問(8種)の日本語ラベルと表示順(文字語彙5→文法3)。
+const DAIMON_JP = { kanji_read:'漢字読み', orthography:'表記', context:'文脈規定', synonym:'言い換え類義', usage:'用法', grammar_form:'文法形式', order:'並べ替え', passage_grammar:'文章の文法' };
+const DAIMON_ORDER = ['kanji_read','orthography','context','synonym','usage','grammar_form','order','passage_grammar'];
+const $ = (id) => document.getElementById(id);
+
+$('url').value = localStorage.getItem('dash_url') || DEFAULT_URL;
+$('key').value = localStorage.getItem('dash_key') || '';
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function catJp(k){ return CATJP[k] || k; }
+function fmtDate(s){ if(!s) return '—'; return String(s).slice(0,10); }
+function pct(v){ return (v==null || v==='') ? '<span class="empty">—</span>' : `${v}%`; }
+function numOr(v){ return (v==null || v==='') ? null : Number(v); }
+function pill(txt, cls){ return `<span class="pill${cls?' '+cls:''}">${txt}</span>`; }
+
+// 単純な集計表(レベル別/枯渇)。empty時も table 要素は残す。
+function simpleTbl(el, cols, rows, cellFns){
+  if(!rows || rows.length===0){ el.innerHTML = `<tr><td class="empty">データがまだありません。アプリが起動・バックグラウンド化されると溜まっていきます。</td></tr>`; return; }
+  const head = '<tr>' + cols.map(c=>`<th class="${c.num?'num':''}">${c.label}</th>`).join('') + '</tr>';
+  const body = rows.map(r => '<tr>' + cols.map((c,i)=>`<td class="${c.num?'num':''}">${cellFns[i](r)}</td>`).join('') + '</tr>').join('');
+  el.innerHTML = head + body;
+}
+
+async function api(url, key, view){
+  const res = await fetch(`${url}/rest/v1/${view}?select=*`, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
+  if(!res.ok){ throw new Error(`${view}: HTTP ${res.status}\n${await res.text()}`); }
+  return res.json();
+}
+
+async function loadAll(){
+  const url = $('url').value.trim().replace(/\/+$/,'');
+  const key = $('key').value.trim();
+  $('err').textContent = '';
+  if(!url || !key){ $('err').textContent = 'URL と service_role キーを入力してください。'; return; }
+  localStorage.setItem('dash_url', url);
+  localStorage.setItem('dash_key', key);
+  try{
+    const [summary, level, exhaust, devices] = await Promise.all([
+      api(url,key,'v_admin_summary'),
+      api(url,key,'v_admin_level'),
+      api(url,key,'v_admin_exhaust'),
+      api(url,key,'v_admin_devices'),
+    ]);
+    renderSummary(summary[0]||{});
+    renderLevel(level);
+    renderExhaust(exhaust);
+    devData = devices || [];
+    renderDevices();
+    $('app').style.display = '';
+    $('updated').textContent = '最終取得 ' + new Date().toLocaleString('ja-JP');
+  }catch(e){
+    $('err').textContent = 'エラー: ' + e.message +
+      '\n（ビュー未作成なら docs/supabase/dashboard_views.sql を SQL Editor で実行。401/permission なら service_role キーを確認）';
+  }
+}
+
+function renderSummary(s){
+  const kpis = [
+    ['総ユーザー(匿名ID)', s.total_users ?? 0],
+    ['今日のアクティブ', s.dau ?? 0],
+    ['週間アクティブ', s.wau ?? 0],
+    ['登録アカウント', s.accounts ?? 0],
+    ['同期済み(クラウド保存)', s.synced ?? 0],
+    ['模試 実施数', s.total_mocks ?? 0],
+    ['エラー報告', s.total_errors ?? 0],
+  ];
+  $('kpi').innerHTML = kpis.map(([l,n])=>`<div class="kpi"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+}
+
+function renderLevel(level){
+  simpleTbl($('tLevel'),
+    [{label:'レベル'},{label:'人数',num:1},{label:'平均 合格率',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間(分)',num:1},{label:'平均 継続日数',num:1},{label:'合格圏',num:1}],
+    level,
+    [ r=>`<b>${r.level}</b>`, r=>r.users, r=>pct(r.avg_pass_pct), r=>pct(r.avg_cov_pct), r=>r.avg_study_min, r=>r.avg_streak, r=>`${r.passing_users}人` ]
+  );
+}
+
+function renderExhaust(exhaust){
+  simpleTbl($('tExhaust'),
+    [{label:'分野'},{label:'平均 残り(新規)',num:1},{label:'枯渇端末(残≤3)',num:1},{label:'対象端末',num:1}],
+    exhaust,
+    [ r=>catJp(r.category), r=>r.avg_remaining, r=>`<span class="pill">${r.exhausted_users}</span>`, r=>r.users ]
+  );
+}
+
+// ── 利用者一覧(統合・ソート可能・行展開で大問別) ──
+let devData = [], sortKey = 'last_day', sortDir = -1; // -1=降順 / 1=昇順
+const COLS = [
+  { key:'_caret', label:'',       nosort:1, cell:()=>'<span class="caret">▸</span>' },
+  { key:'kind',   label:'種別',   val:r=>r.kind||'',           cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
+  { key:'who',    label:'ID / メール', val:r=>(r.email||r.anon_id||''), cell:r=> r.email ? esc(r.email) : `<span class="mono">${esc(String(r.anon_id||'').slice(0,8))}</span>` },
+  { key:'level',  label:'レベル', val:r=>r.level||'',          cell:r=> r.level||'—' },
+  { key:'pass_pct',    label:'合格率', num:1, val:r=>numOr(r.pass_pct),    cell:r=> pct(r.pass_pct) },
+  { key:'cov_kanji',   label:'漢字',   num:1, val:r=>numOr(r.cov_kanji),   cell:r=> pct(r.cov_kanji) },
+  { key:'cov_vocab',   label:'語彙',   num:1, val:r=>numOr(r.cov_vocab),   cell:r=> pct(r.cov_vocab) },
+  { key:'cov_grammar', label:'文法',   num:1, val:r=>numOr(r.cov_grammar), cell:r=> pct(r.cov_grammar) },
+  { key:'mylist_count',label:'単語帳', num:1, val:r=>numOr(r.mylist_count),cell:r=> (r.mylist_count ?? 0) },
+  { key:'daimon_learned', label:'大問正解', num:1, val:r=>numOr(r.daimon_learned), cell:r=> daimonSummary(r) },
+  { key:'streak',    label:'継続',   num:1, val:r=>numOr(r.streak),    cell:r=> (r.streak ?? 0) },
+  { key:'study_min', label:'学習分', num:1, val:r=>numOr(r.study_min), cell:r=> (r.study_min ?? 0) },
+  { key:'last_day',  label:'最終日', val:r=>r.last_day||'',      cell:r=> fmtDate(r.last_day) },
+];
+
+function daimonSummary(r){
+  if(!r.daimon) return '<span class="empty">—</span>';
+  return `${r.daimon_learned ?? 0}/${r.daimon_total ?? 0}`;
+}
+function daimonDetail(r){
+  if(!r.daimon){
+    return '<span class="empty">大問別データは未取得です（このユーザーは大問別記録に対応する前のバージョン）。次回以降のスナップショットで溜まります。</span>';
+  }
+  const cells = DAIMON_ORDER.map(k=>{
+    const a = r.daimon[k]; const l = Array.isArray(a)?Number(a[0]||0):0; const t = Array.isArray(a)?Number(a[1]||0):0;
+    let cls = 'off';
+    if(t>0){ const ratio = l/t; cls = ratio>=0.8 ? 'ok' : (ratio>=0.4 ? 'mid' : 'low'); }
+    return `<span class="dm ${cls}">${DAIMON_JP[k]} <b>${t===0?'—':l+'/'+t}</b></span>`;
+  }).join('');
+  const cov = `カバー率 漢字 ${r.cov_kanji==null?'—':r.cov_kanji+'%'}・語彙 ${r.cov_vocab==null?'—':r.cov_vocab+'%'}・文法 ${r.cov_grammar==null?'—':r.cov_grammar+'%'}　／　単語帳 ${r.mylist_count??0}語　／　履修 ${r.learned??0}　模試 ${r.mock_count??0}回　端末 ${esc(r.platform||'—')}`;
+  return `<div class="dm-grid">${cells}</div><div class="dm-cov">${cov}</div>`;
+}
+
+function filtered(){
+  const q = $('search').value.trim().toLowerCase();
+  if(!q) return devData;
+  return devData.filter(r => `${r.email||''} ${r.anon_id||''} ${r.level||''} ${r.kind||''}`.toLowerCase().includes(q));
+}
+
+function renderDevices(){
+  const el = $('tDevices');
+  const col = COLS.find(c=>c.key===sortKey) || COLS[COLS.length-1];
+  const rows = filtered().slice().sort((a,b)=>{
+    let x = col.val ? col.val(a) : '', y = col.val ? col.val(b) : '';
+    if(typeof x==='number' || typeof y==='number'){ x = x==null?-1:Number(x); y = y==null?-1:Number(y); return sortDir*(x-y); }
+    return sortDir*String(x).localeCompare(String(y),'ja');
+  });
+  $('devCount').textContent = `全 ${devData.length} 人` + ($('search').value.trim()? `（表示 ${rows.length}）`:'');
+
+  const head = '<tr>' + COLS.map(c=>{
+    const arw = c.key===sortKey ? `<span class="arw">${sortDir<0?'▼':'▲'}</span>` : '';
+    return `<th class="${c.num?'num ':''}${c.nosort?'':'sortable'}" data-k="${c.key}">${c.label}${arw}</th>`;
+  }).join('') + '</tr>';
+
+  if(rows.length===0){
+    el.innerHTML = head + `<tr><td class="empty" colspan="${COLS.length}">該当する利用者がいません。</td></tr>`;
+    return;
+  }
+  const body = rows.map((r,i)=>{
+    const main = '<tr class="row" data-i="'+i+'">' + COLS.map(c=>`<td class="${c.num?'num':''}">${c.cell(r)}</td>`).join('') + '</tr>';
+    const det  = '<tr class="detail" data-i="'+i+'" style="display:none"><td colspan="'+COLS.length+'">'+daimonDetail(r)+'</td></tr>';
+    return main + det;
+  }).join('');
+  el.innerHTML = head + body;
+}
+
+// 見出しクリック=並べ替え / 行クリック=展開
+$('tDevices').addEventListener('click', (ev)=>{
+  const th = ev.target.closest('th.sortable');
+  if(th){ const k = th.dataset.k; if(k===sortKey){ sortDir = -sortDir; } else { sortKey = k; sortDir = (k==='who'||k==='level'||k==='kind')?1:-1; } renderDevices(); return; }
+  const row = ev.target.closest('tr.row');
+  if(row){ const i = row.dataset.i; const det = $('tDevices').querySelector(`tr.detail[data-i="${i}"]`); row.classList.toggle('open'); if(det) det.style.display = det.style.display==='none'?'':'none'; }
+});
+$('search').addEventListener('input', renderDevices);
+$('load').addEventListener('click', loadAll);
+$('reload').addEventListener('click', loadAll);
+if($('key').value) loadAll();
+</script>
+</body>
+</html>

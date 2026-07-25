@@ -13,6 +13,8 @@ import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from
 import { useAppState, useAppActions } from '../store/store';
 import { isInMyList, type SaveRef } from '../store/state';
 import { buildDrill, type DrillProblem } from '../ladder/wordDrill';
+import { progressSnapshot } from '../store/selectors';
+import SessionSummary from '../components/SessionSummary';
 import { playVocab } from '../data/vocabAudio';
 import RubyText from '../components/RubyText';
 import { useT } from '../i18n';
@@ -45,6 +47,7 @@ export default function WordDrillScreen() {
   const [sel, setSel] = useState<number | null>(null); // gMeaning: 選んだ選択肢
   const [judged, setJudged] = useState<null | boolean>(null);
   const [score, setScore] = useState(0);
+  const [before] = useState(() => progressSnapshot(state, Date.now())); // 完了画面の「伸び」表示用(試験タブと統一)
 
   const p = problems[i];
 
@@ -78,11 +81,13 @@ export default function WordDrillScreen() {
     return (
       <SafeAreaView style={s.c} edges={['top']}>
         <Header title={t(titleKey)} onClose={() => nav.goBack()} s={s} />
-        <View style={s.center}>
+        <ScrollView contentContainerStyle={s.doneBody}>
+          <Text style={s.doneEmoji}>🎉</Text>
           <Text style={s.doneTitle}>{t('worddrill.done_title')}</Text>
           <Text style={s.doneScore}>{t('worddrill.done_score', { n: score, total: problems.length })}</Text>
+          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode={kind === 'vProduce' ? 'moji_goi' : 'bunpou'} />
           <Pressable style={s.cta} onPress={() => nav.goBack()}><Text style={s.ctaTxt}>{t('worddrill.finish')}</Text></Pressable>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -242,6 +247,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   body: { padding: spacing.lg, gap: spacing.md, paddingBottom: 40 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: spacing.md },
   emptyTxt: { fontSize: ty.body, color: c.mute, textAlign: 'center' },
+  doneBody: { padding: spacing.xl, gap: spacing.md, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
+  doneEmoji: { fontSize: 56 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
   doneScore: { fontSize: ty.h2, fontWeight: '800', color: c.blue },
   header: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.sm, borderBottomWidth: 1, borderBottomColor: c.line },

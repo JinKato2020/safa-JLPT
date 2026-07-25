@@ -1,10 +1,11 @@
-// 匿名・追跡なしの利用状況計測(v1.1)。到達度/区分別/新規枯渇/模試/行動イベントを
+// 利用状況計測(v1.2)。到達度/区分別/新規枯渇/模試/行動イベントを
 // Supabase(tel_snapshot / tel_event / tel_mock)へ INSERT する(旧Cloudflare Workerから移管)。
-// settings.telemetry=false で完全停止。PII一切なし(匿名UUIDのみ・ログインとは無関係)。
+// settings.telemetry=false で完全停止。未ログインは匿名UUIDのみ。ログイン中は account_id(認証ユーザーID)を
+// 添えてアカウントに紐づけ分析する(SyncProviderがsetTelemetryAccountで注入)。第三者追跡・IP保存はしない。
 // テーブル未作成時はinsert失敗→キューに滞留(無害・作成後にflushで再送)。RLSは anon/authenticated の INSERT のみ許可。
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dayStr, type AppState } from '../store/state';
-import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank } from '../store/selectors';
+import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts } from '../store/selectors';
 import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
 import type { Category } from '../engine/engine';
@@ -19,6 +20,11 @@ const K_DAY = 'safa-jlpt:telemetryLastDay';
 
 let enabled = true; // App側で settings.telemetry に同期(既定ON)
 export function setTelemetryEnabled(on: boolean): void { enabled = on; }
+
+// ログイン中のアカウントID(認証ユーザーUUID)。SyncProviderがセッション変化で注入。未ログイン=null(匿名)。
+// 送信body に accountId として載せ、post() が account_id 列へ格納する。
+let accountId: string | null = null;
+export function setTelemetryAccount(id: string | null): void { accountId = id; }
 
 // 'react-native' 本体はFlow構文(opaque type等)を含みesbuild(tsx/node:test)で静的import不可のため遅延require。
 // store.tsx→telemetry.tsが単体テスト(reducer等)からimportされてもクラッシュしない(実行時は未呼出=無害)。
@@ -46,19 +52,20 @@ async function anonId(): Promise<string> {
 async function post(path: string, body: unknown): Promise<boolean> {
   const b = body as Record<string, unknown>;
   try {
+    const acc = (b.accountId as string) ?? null; // ログイン中のみ非null(=アカウント紐づけ)
     if (path === 'snapshot') {
-      const { error } = await supabase.from('tel_snapshot').insert({ anon_id: b.anonId, day: b.day, data: b });
+      const { error } = await supabase.from('tel_snapshot').insert({ anon_id: b.anonId, account_id: acc, day: b.day, data: b });
       return !error;
     }
     if (path === 'mock') {
       const { error } = await supabase.from('tel_mock').insert({
-        anon_id: b.anonId, level: b.level ?? null, is_full: b.full ?? null,
+        anon_id: b.anonId, account_id: acc, level: b.level ?? null, is_full: b.full ?? null,
         pct: b.pct ?? null, sections: b.sections ?? null, timed_out: b.timedOut ?? null, elapsed_sec: b.elapsedSec ?? null,
       });
       return !error;
     }
     // 'events' (answers/error/session/language_changed 等)
-    const { error } = await supabase.from('tel_event').insert({ anon_id: b.anonId, name: b.name, props: b.props ?? null, level: b.level ?? null });
+    const { error } = await supabase.from('tel_event').insert({ anon_id: b.anonId, account_id: acc, name: b.name, props: b.props ?? null, level: b.level ?? null });
     return !error;
   } catch { return false; }
 }
@@ -85,6 +92,7 @@ export async function flush(): Promise<void> {
 }
 async function send(path: string, body: Record<string, unknown>): Promise<void> {
   if (!enabled) return;
+  if (accountId && body.accountId == null) body.accountId = accountId; // ログイン中はアカウントを添付(送信時点で確定・キュー滞留分も保持)
   if (!(await post(path, body))) await enqueue(path, body);
 }
 
@@ -105,17 +113,23 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
   const rank = levelRank(state, now);
   const exam = state.settings.targetExam ?? 'jlpt';
   const daysToExam = state.settings.examDate ? daysBetween(dayStr(now), state.settings.examDate) : null;
+  // 大問別 習得数(正解相当)＝[learned,total] の配列。管理ダッシュボードの「大問別正解数」用。
+  const daimonMap = Object.fromEntries(daimonMasteryCounts(state, now).map((d) => [d.daimon, [d.learned, d.total]]));
   return {
-    v: 2, anonId: anon, app: APP_VERSION, platform: getPlatform().OS, osVersion: String(getPlatform().Version ?? ''),
+    v: 3, anonId: anon, app: APP_VERSION, platform: getPlatform().OS, osVersion: String(getPlatform().Version ?? ''),
     uiLang: state.settings.uiLang || '', level, exam, day: dayStr(now),
     // 質(正解率リング)＋合格率＋信頼幅
     readiness: { total: r.score, passProb: r.passProbability, band: r.band, passing: r.passing,
       moji_goi: rings.moji_goi, bunpou: rings.bunpou, dokkai: rings.dokkai, choukai: rings.choukai },
     // 量(カバー率)＋達成ランク
     coverage: covMap, rankPct: rank.pct, rankIndex: rank.rankIndex,
+    daimonMastery: daimonMap, // 大問別 [習得数,母数]（8大問: 文字語彙5＋文法3）
+    myListCount: (state.myList ?? []).length, // 私の単語帳 登録単語数
     learned: learnedNow(state, now),
     streak: state.streak.current, streakLongest: state.streak.longest, freezes: state.streak.freezes,
     mockCount: (state.mockHistory ?? []).length, studyDays: (state.growth ?? []).length,
+    studySeconds: state.studySeconds ?? 0, // 累計学習時間(秒)＝前面滞在の合算
+
     daysToExam, badgeSet: state.settings.badgeSet ?? 'gorgeous', theme: state.settings.theme,
     reminderOn: !!state.settings.reminder,
     remaining, total, exhausted,

@@ -1,7 +1,7 @@
 // 連続学習→連続テスト の共通フロー（掲示板「学習フロー」）。
 // ①まず batch(最大size件) を続けて「学習」(採点なし・各画面が renderLearnCard で表示)
 // → ②同じ batch を続けて4択「テスト」(客観・重み3=recordQuiz)。間違いは分散再出題(relearn)。
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -45,16 +45,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
   const testItem = testQueue[testIdx];
   const question = useMemo(() => (testItem ? makeQuestion(testItem, pool, Math.random, EXAM_FORMATS) : null), [testItem?.id, testIdx]);
 
-  // テスト: 解答後に自動で次へ(正解は短め・不正解は正解を見せて長め)。
-  useEffect(() => {
-    if (phase !== 'test' || picked === null || !question) return;
-    const isCorrect = picked === question.answerIndex;
-    const t = setTimeout(() => {
-      setPicked(null);
-      setTestIdx((i) => i + 1);
-    }, isCorrect ? 850 : 1600);
-    return () => clearTimeout(t);
-  }, [picked, phase, question]);
+  // テスト: 解答後は自動で進めず、手動「次へ」で前進(試験タブと統一)。前進処理は advance()。
 
   // 対象なし（その区分を学習し尽くした / 未作成）
   if (batch.length === 0) {
@@ -136,6 +127,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
       });
     }
   };
+  const advance = () => { setPicked(null); setTestIdx((i) => i + 1); };
   const total = Math.min(testQueue.length, maxCards);
   const reveal = picked !== null;
 
@@ -183,9 +175,14 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
         </View>
 
         {reveal ? (
-          <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
-            {picked === question.answerIndex ? t('learntestsession.correct') : t('learntestsession.wrong')}
-          </Text>
+          <>
+            <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
+              {picked === question.answerIndex ? t('learntestsession.correct') : t('learntestsession.wrong')}
+            </Text>
+            <Pressable style={s.cta} onPress={advance}>
+              <Text style={s.ctaTxt}>{t('learntestsession.next')}</Text>
+            </Pressable>
+          </>
         ) : (
           <Text style={s.hint}>{t('learntestsession.test_hint')}</Text>
         )}

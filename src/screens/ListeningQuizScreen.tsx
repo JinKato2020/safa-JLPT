@@ -10,6 +10,8 @@ import * as Speech from 'expo-speech';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { isInMyList, type SaveRef } from '../store/state';
+import { progressSnapshot } from '../store/selectors';
+import SessionSummary from '../components/SessionSummary';
 import { levelListFor } from '../words/levelList';
 import { KANJI, meaningIn } from '../data';
 import { playVocab, playKanjiRep } from '../data/vocabAudio';
@@ -79,6 +81,7 @@ export default function ListeningQuizScreen() {
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [correct, setCorrect] = useState(0);
+  const [before] = useState(() => progressSnapshot(state, Date.now()));
 
   if (questions.length === 0) {
     return (
@@ -120,7 +123,13 @@ export default function ListeningQuizScreen() {
     return (
       <SafeAreaView style={s.c} edges={['top']}>
         <View style={s.head}><View style={{ width: 30 }} /></View>
-        <View style={s.center}><Text style={s.bigEmoji}>🎧</Text><Text style={s.doneTitle}>{t('listening2.done_title')}</Text><Text style={s.doneScore}>{t('listening2.score', { correct, total: questions.length })}</Text><Pressable style={s.cta} onPress={() => nav.goBack()}><Text style={s.ctaTxt}>{t('listening2.close')}</Text></Pressable></View>
+        <ScrollView contentContainerStyle={s.doneBody}>
+          <Text style={s.bigEmoji}>🎧</Text>
+          <Text style={s.doneTitle}>{t('listening2.done_title')}</Text>
+          <Text style={s.doneScore}>{t('listening2.score', { correct, total: questions.length })}</Text>
+          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="moji_goi" />
+          <Pressable style={s.cta} onPress={() => nav.goBack()}><Text style={s.ctaTxt}>{t('listening2.close')}</Text></Pressable>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -183,6 +192,7 @@ const makeStyles = (c: ThemeColors) =>
     headTitle: { fontSize: ty.small, fontWeight: '700', color: c.mute },
     close: { fontSize: 30, color: c.mute, fontWeight: '700' },
     body: { padding: spacing.lg, gap: spacing.sm },
+    doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
     center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: spacing.md, padding: spacing.lg },
     studyH: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
     studyRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.sm },
@@ -198,7 +208,7 @@ const makeStyles = (c: ThemeColors) =>
     choice: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, alignItems: 'center', width: '100%' },
     choiceKanji: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, alignItems: 'center', justifyContent: 'center', width: '46%', aspectRatio: 1 },
     choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
-    choiceNg: { borderColor: c.red, backgroundColor: c.bgSoft },
+    choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
     choiceTxt: { fontSize: ty.body, fontWeight: '700', color: c.ink },
     // 大きな漢字グリフを上下左右とも中央へ。固定lineHeight(=fontSize)はiOSで字が下寄せになるため付けず、
     // 自然な行ボックス＋カードの中央寄せ(justify/alignItems center)に任せる。Androidは padding除去+縦中央指定。

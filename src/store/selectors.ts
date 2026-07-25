@@ -193,6 +193,17 @@ function coverPct(state: AppState, now: number, ids: string[]): number | null {
 export function daimonCoveragePct(state: AppState, now: number, daimon: Daimon): number | null {
   return coverPct(state, now, daimonUnitIds(state.settings.level, daimon));
 }
+/** 大問別の習得数(＝正解相当: effectiveP>=0.6)と母数。管理ダッシュボードの「大問別正解数」用。
+ *  文字語彙5大問＋文法3大問(=Daimon型の全8種)。読解/聴解はスキルリング(readiness)側で把握。 */
+export function daimonMasteryCounts(state: AppState, now: number): { daimon: Daimon; learned: number; total: number }[] {
+  const lv = state.settings.level;
+  return [...MOJI_DAIMON, ...BUNPOU_DAIMON].map((d) => {
+    const ids = daimonUnitIds(lv, d);
+    let learned = 0;
+    for (const id of ids) { const st = state.items[id]; if (st && effectiveP(st, now) >= 0.6) learned++; }
+    return { daimon: d, learned, total: ids.length };
+  });
+}
 /** 区分のカバー率%(習得済み/全項目)。中リングの別指標。 */
 export function categoryCoveragePct(state: AppState, now: number, cat: Category): number | null {
   return coverPct(state, now, ringItemIdsFor(state.settings.level, cat));

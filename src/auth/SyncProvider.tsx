@@ -8,6 +8,7 @@ import { getSession, onAuthStateChange } from './authClient';
 import { pullState, pushState } from './syncClient';
 import { chooseNewer } from './sync';
 import { useAppState, useAppActions, useHydrated } from '../store/store';
+import { setTelemetryAccount } from '../telemetry/telemetry';
 
 type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null };
 const Ctx = createContext<SyncCtx>({ session: null, email: null, lastSyncedAt: null });
@@ -48,6 +49,11 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       supabase.auth.stopAutoRefresh();
     };
   }, []);
+
+  // テレメトリにアカウントID(=紐づけ)を注入。未ログイン→null(匿名)。ログイン/ログアウトで切替。
+  useEffect(() => {
+    setTelemetryAccount(session?.user?.id ?? null);
+  }, [session]);
 
   // ログイン確立時: リモートを引いて新しい方を採用(remote採用→hydrate、そうでなければ push)。
   useEffect(() => {
