@@ -708,5 +708,10 @@
   "shop.name_tool_mock_ticket": "模試チケット",
   "shop.name_tool_retry": "再挑戦券",
   "shop.name_tool_freeze": "連続フリーズ",
-  "shop.name_tool_omamori": "合格お守り"
+  "shop.name_tool_omamori": "合格お守り",
+  "limit.title": "今日の練習はおしまい",
+  "limit.body": "無料では1日{n}回まで練習できます。日付が変わると、またできるようになります。",
+  "limit.note": "辞書・単語カード・成績の確認は、いつでも使えます。",
+  "limit.close": "とじる",
+  "limit.left": "あと{n}回"
 }
