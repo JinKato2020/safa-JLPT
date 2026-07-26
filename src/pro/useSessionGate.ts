@@ -18,7 +18,9 @@ export function useSessionGate(): SessionGate {
   const quota = quotaFor(state, Date.now());
 
   function begin(): boolean {
-    if (GATING_ENABLED && !quotaFor(state, Date.now()).canPractice) {
+    // 【開発用】devFree の時だけは、この端末で本当に上限をかける(無料ユーザーの見え方を確認するため)
+    const gateOn = GATING_ENABLED || state.settings.devFree === true;
+    if (gateOn && !quotaFor(state, Date.now()).canPractice) {
       setLimited(true);
       return false;
     }

@@ -344,7 +344,7 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
 
-        {/* 開発用トグル(テスト用途)。ポイント無限＝ショップ無制限購入 / Pro課金＝Pro/無課金の切替 */}
+        {/* 開発用トグル(テスト用途)。ポイント無限＝ショップ無制限購入 / Pro課金・無料ユーザー＝状態の切替(排他) */}
         <Text style={s.sectionH}>開発用</Text>
         <View style={s.card}>
           <View style={s.telemRow}>
@@ -368,7 +368,22 @@ export default function ProfileScreen() {
             <Switch
               style={s.telemSwitch}
               value={state.settings.devPro === true}
-              onValueChange={(v) => setSettings({ devPro: v })}
+              onValueChange={(v) => setSettings(v ? { devPro: true, devFree: false } : { devPro: false })}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+          </View>
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>無料ユーザー</Text>
+              <Text style={s.subtle}>
+                ON=お試し中でも無料ユーザー扱い。1日{FREE_SESSIONS_PER_DAY}回の上限もこの端末だけ実際にかかる
+              </Text>
+            </View>
+            <Switch
+              style={s.telemSwitch}
+              value={state.settings.devFree === true}
+              onValueChange={(v) => setSettings(v ? { devFree: true, devPro: false } : { devFree: false })}
               trackColor={{ true: c.blueLight, false: c.line }}
               thumbColor={c.faint}
             />

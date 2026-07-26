@@ -34,6 +34,7 @@ export interface Settings {
   kakitoriMode?: 'drill' | 'free';          // ドリル/自由練習(未設定→drill)
   devUnlimitedPoints?: boolean;             // 【開発用】ON=桜貝を無限に扱い、ショップで無制限購入
   devPro?: boolean;                         // 【開発用】ON=Pro課金状態 / OFF=無課金として扱う
+  devFree?: boolean;                        // 【開発用】ON=無料ユーザー扱い(お試し中でも無料・1日の上限も実際にかける)
 }
 
 export interface Streak {

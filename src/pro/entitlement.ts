@@ -1,5 +1,5 @@
 // Proかどうかの唯一の判定(純関数・副作用なし)。画面はこの結果だけを見る。
-// 優先順位: 開発スイッチ → 購入(レシート同期のキャッシュ) → 期限つき(紹介) → お試し7日 → 無料。
+// 優先順位: 開発スイッチ(無料→Pro) → 購入(レシート同期のキャッシュ) → 期限つき(紹介) → お試し7日 → 無料。
 // 通信断でもProが剥がれないよう、購入状態は端末に保存した値を信じる(正本はストアのレシート)。
 import type { AppState } from '../store/state';
 
@@ -23,6 +23,8 @@ export function trialEndsAt(state: AppState): number | undefined {
 export function proStatus(state: AppState, now: number): ProStatus {
   const trialEnd = trialEndsAt(state);
   const trialDaysLeft = trialEnd && trialEnd > now ? Math.ceil((trialEnd - now) / DAY_MS) : 0;
+  // 【開発用】無料ユーザーの見え方を確かめるための強制OFF。お試し中でも無料に落とす(devProより優先)
+  if (state.settings.devFree) return { isPro: false, source: 'none', trialDaysLeft: 0 };
   if (state.settings.devPro) return { isPro: true, source: 'dev', trialDaysLeft };
   if (state.entitlements?.purchaseActive) return { isPro: true, source: 'purchase', trialDaysLeft };
   const until = state.entitlements?.proUntil ?? 0;

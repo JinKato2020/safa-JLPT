@@ -35,6 +35,14 @@ test('開発スイッチ devPro は最優先', () => {
   assert.equal(proStatus(s, T0 + 999 * DAY_MS).source, 'dev');
 });
 
+test('開発スイッチ devFree は devPro より優先(お試し中でも無料に落ちる)', () => {
+  const s = base({ settings: { ...INITIAL_STATE.settings, devFree: true, devPro: true } });
+  const r = proStatus(s, T0 + 1 * DAY_MS); // お試し期間のど真ん中
+  assert.equal(r.isPro, false);
+  assert.equal(r.source, 'none');
+  assert.equal(r.trialDaysLeft, 0);
+});
+
 test('紹介+7日: お試し中に足すと お試し終了日から7日 伸びる(二重取りしない)', () => {
   const s = grantProDays(base(), 7, T0 + 2 * DAY_MS);
   assert.equal(s.entitlements?.proUntil, (trialEndsAt(base()) as number) + 7 * DAY_MS);
