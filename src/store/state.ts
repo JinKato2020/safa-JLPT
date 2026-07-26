@@ -78,6 +78,12 @@ export interface AppState {
   installedAt?: number;                 // 初回起動(ダウンロード)日時 epoch ms。模試チケット月次付与の起点。未設定→初回起動で確定。
   mockTickets?: number;                 // 模試チケット所持数(上限3)。未設定→0(初回起動で1付与)。
   mockGrantsClaimed?: number;           // 消化済み月次付与数(installedAtからの経過月と比較して差分を付与)。
+  entitlements?: {              // Pro(有料)の権利。未設定→無料
+    purchaseActive?: boolean;   // RevenueCat同期結果のキャッシュ(正本はストアのレシート)
+    purchaseCheckedAt?: number; // 最後に同期できた時刻 epoch ms
+    proUntil?: number;          // 期限つきPro(紹介など)の終了時刻 epoch ms
+  };
+  dailyQuota?: { day: string; used: number; bonus: number }; // 1日の練習回数。day=YYYY-MM-DD / used=今日始めた回数 / bonus=広告で足した回数
   updatedAt?: number; // 最終更新(epoch ms)。クラウド同期のLWW比較基準。旧stateには無い→0扱い。
 }
 
