@@ -26,6 +26,8 @@ import { vocabIdForWord } from '../words/vocabIndex';
 import type { RootStackParamList } from '../navigation/types';
 import type { Level } from '../engine/engine';
 import { useT } from '../i18n';
+import { useSessionGate } from '../pro/useSessionGate';
+import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 const STEP_KEYS = ['kakitori.step_trace', 'kakitori.step_guided', 'kakitori.step_recall'];
 const SET_SIZE = 5; // 1セット=5字。5字を練習(3段)→同じ5字をヒント無しテスト→セッション終了。
@@ -73,6 +75,10 @@ function Dropdown<T extends string>({ value, options, labelFor, onSelect, s }: {
 
 export default function KakitoriScreen() {
   const nav = useNavigation();
+  // 1日の回数ゲート(共通)。GATING_ENABLED=false の間は素通りする。
+  const gate = useSessionGate();
+  const [gateAllowed, setGateAllowed] = useState<boolean | null>(null);
+  useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const route = useRoute<RouteProp<RootStackParamList, 'Kakitori'>>();
   const state = useAppState();
   const { recordKakitori, setSettings } = useAppActions();
@@ -219,6 +225,9 @@ export default function KakitoriScreen() {
       // 完了後の自動発音は行わない(ユーザー要望)。読み上げは手動🎧のみ。
     }
   };
+
+  if (gateAllowed === null) return null;
+  if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
 
   if (Platform.OS === 'web') {
     return (

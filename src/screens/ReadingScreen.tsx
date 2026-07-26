@@ -1,6 +1,6 @@
 // ミニ読解。お知らせ/メール/メモ等の本文を読み、4択で自動採点(重み3=mini)→読解リング点灯。
 // 1パッセージ=1セットとして PassageSetPlayer に一括提示(本文+全設問→一括採点)。掲示板§4(読解)。
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
@@ -16,11 +16,17 @@ import { readingToSet, type PassageSet } from '../quiz/passageSet';
 import type { RootStackParamList } from '../navigation/types';
 import { sample } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
+import { useSessionGate } from '../pro/useSessionGate';
+import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 const SESSION_PASSAGES = 3;
 
 export default function ReadingScreen() {
   const nav = useNavigation();
+  // 1日の回数ゲート(共通)。GATING_ENABLED=false の間は素通りする。
+  const gate = useSessionGate();
+  const [gateAllowed, setGateAllowed] = useState<boolean | null>(null);
+  useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const state = useAppState();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
@@ -42,6 +48,9 @@ export default function ReadingScreen() {
   const [before] = useState(() => progressSnapshot(state, Date.now()));
 
   const set = sets[idx];
+
+  if (gateAllowed === null) return null;
+  if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
 
   if (!set) {
     // セッション内で回答した全設問のうち、最終的に正解だった数(reps>0=直近の quizAnswer が正解=SRSのgood判定)。

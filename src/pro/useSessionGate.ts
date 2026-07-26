@@ -1,5 +1,5 @@
 // 練習を始める前の共通ゲート。回数の消費をここ1か所に集約する(画面ごとに書かない)。
-// 使い方は各練習画面の冒頭で begin() を1回だけ呼ぶ(Task 4 の定型ブロック)。
+// 使い方は各練習画面の冒頭で begin() を1回だけ呼ぶ(Task 5 の定型ブロック)。
 import { useState } from 'react';
 import { useAppState, useAppActions } from '../store/store';
 import { quotaFor, type Quota } from './dailyQuota';

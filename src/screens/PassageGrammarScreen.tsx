@@ -1,6 +1,6 @@
 // 文章の文法(大問⑧・セット形式)。1文章＋5設問(空欄5〜9)を PassageSetPlayer に一括提示(本文+全設問→一括採点)。
 // 旧知識バンク(passage_grammar daimon)から passageGrammar.json(セット形式)へ移行(Task 5・daimon.tsのBANKからは除外済)。
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
@@ -16,11 +16,17 @@ import PassageSetPlayer from '../components/PassageSetPlayer';
 import { type PassageSet } from '../quiz/passageSet';
 import { sample } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
+import { useSessionGate } from '../pro/useSessionGate';
+import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 const SESSION_SETS = 3;
 
 export default function PassageGrammarScreen() {
   const nav = useNavigation();
+  // 1日の回数ゲート(共通)。GATING_ENABLED=false の間は素通りする。
+  const gate = useSessionGate();
+  const [gateAllowed, setGateAllowed] = useState<boolean | null>(null);
+  useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const route = useRoute<RouteProp<RootStackParamList, 'PassageGrammar'>>();
   const state = useAppState();
   const c = useColors();
@@ -40,6 +46,9 @@ export default function PassageGrammarScreen() {
   const [before] = useState(() => progressSnapshot(state, Date.now()));
 
   const set = sets[idx];
+
+  if (gateAllowed === null) return null;
+  if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
 
   if (!set) {
     // セッション内で回答した全設問のうち、最終的に正解だった数(reps>0=直近の quizAnswer が正解=SRSのgood判定)。

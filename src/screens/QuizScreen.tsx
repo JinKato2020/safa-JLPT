@@ -18,6 +18,8 @@ import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 import RubyText from '../components/RubyText';
+import { useSessionGate } from '../pro/useSessionGate';
+import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 // 学習カードの例文を表示。ふりがな「漢字（かな）」はレベル適応ルビ、対象部「【…】」は括弧を外して下線に統一。
 function LearnText({ text, target: explicitTarget, style, hitStyle, rubyStyle, rubyGate }: { text: string; target?: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle>; rubyGate: (run: string) => boolean }) {
@@ -57,6 +59,10 @@ function buildAllQueue(level: 'N5' | 'N4' | 'N3', items: Parameters<typeof build
 
 export default function QuizScreen() {
   const nav = useNavigation();
+  // 1日の回数ゲート(共通)。GATING_ENABLED=false の間は素通りする。
+  const gate = useSessionGate();
+  const [gateAllowed, setGateAllowed] = useState<boolean | null>(null);
+  useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const route = useRoute<RouteProp<RootStackParamList, 'Quiz'>>();
   const category = route.params?.category ?? 'all';
   const itemIds = route.params?.itemIds;
@@ -115,6 +121,9 @@ export default function QuizScreen() {
     setPicked(null);
     setIdx((i) => i + 1);
   };
+
+  if (gateAllowed === null) return null;
+  if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
 
   // 学習フェーズ: 大問の4択に入る前にカードで自習。「テストへ進む」でスキップ可。
   if (phase === 'learn') {

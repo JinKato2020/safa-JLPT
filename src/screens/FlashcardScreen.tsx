@@ -1,8 +1,8 @@
 // 文字語彙(漢字+語彙)。連続学習→連続テストの共通フロー(LearnTestSession)で実施。
 // 学習フェーズ=語/漢字＋読み＋意味＋例文を続けて提示(採点なし)。テスト=客観4択・自動採点(重み3)。
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useRoute, type RouteProp } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { itemsFor, VOCAB, KANJI, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
@@ -12,6 +12,8 @@ import type { StudyItem } from '../data';
 import type { RootStackParamList } from '../navigation/types';
 import LearnTestSession from '../components/LearnTestSession';
 import RubyText from '../components/RubyText';
+import { useSessionGate } from '../pro/useSessionGate';
+import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 function VocabKanjiCard({ item }: { item: StudyItem }) {
   const c = useColors();
@@ -69,6 +71,11 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
 }
 
 export default function FlashcardScreen() {
+  const nav = useNavigation();
+  // 1日の回数ゲート(共通)。GATING_ENABLED=false の間は素通りする。
+  const gate = useSessionGate();
+  const [gateAllowed, setGateAllowed] = useState<boolean | null>(null);
+  useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const { settings } = useAppState();
   const route = useRoute<RouteProp<RootStackParamList, 'Flashcard'>>();
   const ids = route.params?.ids; // my単語帳の「復習する」= 保存済みの語彙＋漢字を復習(未指定時=従来のSRSキュー)
@@ -82,6 +89,9 @@ export default function FlashcardScreen() {
     const items = ids.map((id) => byId.get(id)).filter((x): x is StudyItem => Boolean(x));
     return items.length ? items : undefined;
   }, [ids]);
+  if (gateAllowed === null) return null;
+  if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
+
   return <LearnTestSession pool={pool} size={12} overrideBatch={overrideBatch} renderLearnCard={(item) => <VocabKanjiCard item={item} />} />;
 }
 

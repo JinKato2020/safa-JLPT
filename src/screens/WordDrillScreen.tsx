@@ -3,7 +3,7 @@
 //  ・gOrder    全タイルを正しい順に並べる(完全並べ替え・産出)
 //  ・gMeaning  文法点の意味を4択(受容)
 // 結果は quizAnswer(itemId, correct) で記録 → 語彙/文法カバー率に反映。専門用語はUIに出さない。
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
@@ -19,6 +19,8 @@ import { playVocab } from '../data/vocabAudio';
 import RubyText from '../components/RubyText';
 import { useT } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
+import { useSessionGate } from '../pro/useSessionGate';
+import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 type Rt = RouteProp<RootStackParamList, 'WordDrill'>;
@@ -26,6 +28,10 @@ type Styles = ReturnType<typeof makeStyles>;
 
 export default function WordDrillScreen() {
   const nav = useNavigation<Nav>();
+  // 1日の回数ゲート(共通)。GATING_ENABLED=false の間は素通りする。
+  const gate = useSessionGate();
+  const [gateAllowed, setGateAllowed] = useState<boolean | null>(null);
+  useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const route = useRoute<Rt>();
   const state = useAppState();
   const actions = useAppActions();
@@ -67,6 +73,9 @@ export default function WordDrillScreen() {
   const titleKey = kind === 'vProduce' ? 'worddrill.title_vProduce' : kind === 'gBuild' ? 'worddrill.title_gBuild' : kind === 'gMeaning' ? 'worddrill.title_gMeaning' : 'worddrill.title_mixed';
   // 問いかけは各問題の形式に依存(mixedでは問題ごとに変わる)。
   const askKeyFor = (k: DrillProblem['kind']) => k === 'vProduce' ? 'worddrill.produce_ask' : k === 'gBuild' ? 'worddrill.build_ask' : 'worddrill.meaning_ask';
+
+  if (gateAllowed === null) return null;
+  if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
 
   // ── 問題枯渇 / 終了 ──
   if (!problems.length) {

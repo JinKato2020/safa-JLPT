@@ -19,6 +19,8 @@ import kanjiDrillReps from '../data/words/kanjiDrillReps.json';
 import { pickItems, buildVocabQuiz, buildKanjiQuiz, type LQItem, type KanjiRep } from '../listening/listeningQuiz';
 import type { RootStackParamList } from '../navigation/types';
 import { useT } from '../i18n';
+import { useSessionGate } from '../pro/useSessionGate';
+import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 const COUNT = 10;
@@ -26,6 +28,10 @@ type StudyRow = { key: string; main: string; sub: string; meaning: string; play:
 
 export default function ListeningQuizScreen() {
   const nav = useNavigation<Nav>();
+  // 1日の回数ゲート(共通)。GATING_ENABLED=false の間は素通りする。
+  const gate = useSessionGate();
+  const [gateAllowed, setGateAllowed] = useState<boolean | null>(null);
+  useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const route = useRoute<RouteProp<RootStackParamList, 'ListeningQuiz'>>();
   const kind = route.params?.kind ?? 'vocab';
   const state = useAppState();
@@ -82,6 +88,9 @@ export default function ListeningQuizScreen() {
   const [picked, setPicked] = useState<number | null>(null);
   const [correct, setCorrect] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
+
+  if (gateAllowed === null) return null;
+  if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
 
   if (questions.length === 0) {
     return (
