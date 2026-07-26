@@ -15,6 +15,8 @@ import { loadState, saveState, clearState } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
 import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, type ShopKind } from './wallet';
 import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket } from './tickets';
+import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
+import { setPurchaseActive as proSetPurchase, grantProDays as proGrantDays } from '../pro/entitlement';
 
 type Action =
   | { type: 'HYDRATE'; state: AppState }
@@ -32,6 +34,10 @@ type Action =
   | { type: 'SYNC_TICKETS'; now: number }
   | { type: 'BUY_TICKET'; now: number }
   | { type: 'SPEND_TICKET'; now: number }
+  | { type: 'CONSUME_SESSION'; now: number }
+  | { type: 'GRANT_AD_BONUS'; now: number }
+  | { type: 'SET_PURCHASE_ACTIVE'; active: boolean; now: number }
+  | { type: 'GRANT_PRO_DAYS'; days: number; now: number }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -98,6 +104,14 @@ export function reducer(state: AppState, action: Action): AppState {
       return ticketBuy(state, action.now);
     case 'SPEND_TICKET':
       return spendMockTicket(state, action.now);
+    case 'CONSUME_SESSION':
+      return quotaConsume(state, action.now);
+    case 'GRANT_AD_BONUS':
+      return quotaAdBonus(state, action.now);
+    case 'SET_PURCHASE_ACTIVE':
+      return proSetPurchase(state, action.active, action.now);
+    case 'GRANT_PRO_DAYS':
+      return proGrantDays(state, action.days, action.now);
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -176,6 +190,10 @@ export function useAppActions() {
     syncTickets: () => dispatch({ type: 'SYNC_TICKETS', now: Date.now() }),
     buyMockTicket: () => dispatch({ type: 'BUY_TICKET', now: Date.now() }),
     spendMockTicket: () => dispatch({ type: 'SPEND_TICKET', now: Date.now() }),
+    consumeSession: () => dispatch({ type: 'CONSUME_SESSION', now: Date.now() }),
+    grantAdBonus: () => dispatch({ type: 'GRANT_AD_BONUS', now: Date.now() }),
+    setPurchaseActive: (active: boolean) => dispatch({ type: 'SET_PURCHASE_ACTIVE', active, now: Date.now() }),
+    grantProDays: (days: number) => dispatch({ type: 'GRANT_PRO_DAYS', days, now: Date.now() }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     reset: () => {
       clearState();
