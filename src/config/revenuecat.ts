@@ -5,8 +5,8 @@
 // 空のうちは課金機能は一切起動しない(no-op)＝アプリは今までどおり動く。キーを入れて初めて有効化される。
 import { Platform } from 'react-native';
 
-const IOS_KEY = '';     // 例: 'appl_xxxxxxxxxxxxxxxxxxxxxxxx'
-const ANDROID_KEY = ''; // 例: 'goog_xxxxxxxxxxxxxxxxxxxxxxxx'
+const IOS_KEY = 'appl_RwrdqeSXuhKmXPfoeJxXGBbOfCh';
+const ANDROID_KEY = 'goog_RoquHhTaTqbRCbNCXBBkBqmPESx';
 
 // どの商品(年額/月額/受験パック)を買っても立つ「権利」の識別子。RevenueCat の Entitlements で 'pro' を1つ作る。
 export const PRO_ENTITLEMENT_ID = 'pro';
