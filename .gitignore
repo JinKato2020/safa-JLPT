@@ -39,3 +39,30 @@ _usgwork/
 _gramwork/
 _jftwork/
 _l10nwork/
+
+# ── 2026-07-26 整理: 追跡しないもの ──────────────────────────
+# Claude Code のローカル設定（APIキーが埋まっているので絶対にコミットしない）
+.claude/settings.local.json
+# 生成の作業フォルダ（途中経過。再実行で作り直せる）
+scratchpad/
+# Python キャッシュ / Excel のロック残骸
+__pycache__/
+*.pyc
+~$*
+# 辞書・例文の元データ（公開ダウンロード物・約50MB）
+data-build/dict/
+data-build/_examples.utf
+# Wrangler のローカルキャッシュ
+cloudflare/.wrangler/
+
+# 大きい制作素材（1.1GB。公開リポジトリなので入れない＝別途バックアップで保全）
+# ※「問題作成の参考」は公式試験の音声/PDF＝著作物。公開repoに絶対に入れない。
+問題/
+画像/
+問題作成の参考/
+デザイン提案/
+バックアップ/
+聴解パイロット/
+プレビュー/
+data-build/shots/raw/
+data-build/shots/raw_en/

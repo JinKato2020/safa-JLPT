@@ -1,0 +1,13 @@
+{
+  "width": 1320, "height": 2868,
+  "chrome": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "tmp": "C:/Temp/_storeimg_ja",
+  "fonts": ["C:/Windows/Fonts/YuGothB.ttc", "C:/Windows/Fonts/meiryob.ttc", "C:/Windows/Fonts/segoeuib.ttf"],
+  "jobs": [
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw/01_home.png",   "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/ja/01_home.png",   "lines": ["合格までの距離が、", "ひと目でわかる"] },
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw/02_study.png",  "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/ja/02_study.png",  "lines": ["1日数分で、", "着実に積み上がる"] },
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw/03_test.png",   "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/ja/03_test.png",   "lines": ["本番形式で", "実力をチェック"] },
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw/04_dict.png",   "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/ja/04_dict.png",   "lines": ["ふりがな・例文つきで", "すぐ引ける"] },
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw/05_streak.png", "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/ja/05_streak.png", "lines": ["続けるほど、", "準備度が伸びる"] }
+  ]
+}

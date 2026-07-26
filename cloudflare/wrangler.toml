@@ -1,0 +1,15 @@
+name = "safa-jlpt-telemetry"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# 独自ドメイン t.safa-lang.com を Worker のカスタムドメインとして新規作成(DNS・証明書も自動)。
+# クライアント telemetry.ts の BASE = https://t.safa-lang.com/jlpt/v1 と一致。
+routes = [
+  { pattern = "t.safa-lang.com", custom_domain = true }
+]
+
+# D1 バインディング(env.DB)。
+[[d1_databases]]
+binding = "DB"
+database_name = "safa_jlpt_telemetry"
+database_id = "d5676be2-53b8-4814-9a49-e447f2ac9f54"

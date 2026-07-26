@@ -1,0 +1,30 @@
+const { chromium } = require('playwright-core');
+const fs = require('fs');
+const URL = process.argv[2] || 'https://gbizncg-jinkato1914-8083.exp.direct';
+const seedBase = JSON.parse(fs.readFileSync('./seed.json', 'utf8'));
+const OUT = './kanji_check';
+fs.mkdirSync(OUT, { recursive: true });
+(async () => {
+  const b = await chromium.launch({ channel: 'chrome', headless: true });
+  const ctx = await b.newContext({ viewport: { width: 440, height: 956 }, deviceScaleFactor: 2 });
+  const p = await ctx.newPage();
+  await p.goto(URL, { waitUntil: 'load', timeout: 90000 });
+  await p.waitForTimeout(10000);
+  const seed = JSON.stringify({ ...seedBase, settings: { ...seedBase.settings, uiLang: 'ja', onboarded: true, tourDone: true } });
+  await p.evaluate((s) => localStorage.setItem('safa-jlpt:state:v1', s), seed);
+  await p.reload({ waitUntil: 'load', timeout: 90000 });
+  await p.waitForTimeout(7000);
+  await p.getByText('辞書', { exact: true }).last().click({ timeout: 8000 }).catch((e) => console.log('dict miss', e.message.split('\n')[0]));
+  await p.waitForTimeout(1500);
+  await p.getByText('漢字', { exact: true }).first().click({ timeout: 8000 }).catch((e) => console.log('kanji miss', e.message.split('\n')[0]));
+  await p.waitForTimeout(1200);
+  await p.getByText('N4', { exact: true }).first().click({ timeout: 6000 }).catch((e) => console.log('level miss', e.message.split('\n')[0])); // 全級に
+  await p.waitForTimeout(1000);
+  const search = p.getByPlaceholder('語・読み・意味で検索');
+  await search.fill('天').catch((e) => console.log('fill miss', e.message.split('\n')[0]));
+  await p.waitForTimeout(2500);
+  await p.screenshot({ path: `${OUT}/kanji_ten.png` });
+  console.log('shot kanji_ten');
+  await b.close();
+  console.log('done');
+})().catch((e) => { console.error('FATAL', e.message); process.exit(1); });

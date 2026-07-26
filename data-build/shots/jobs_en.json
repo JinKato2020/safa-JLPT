@@ -1,0 +1,13 @@
+{
+  "width": 1320, "height": 2868,
+  "chrome": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "tmp": "C:/Temp/_storeimg_en",
+  "fonts": ["C:/Windows/Fonts/segoeuib.ttf", "C:/Windows/Fonts/arialbd.ttf"],
+  "jobs": [
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw_en/01_home.png",   "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/en/01_home.png",   "lines": ["Know your pass readiness", "at a glance"] },
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw_en/02_study.png",  "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/en/02_study.png",  "lines": ["A few minutes a day", "is all it takes"] },
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw_en/03_test.png",   "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/en/03_test.png",   "lines": ["Test yourself,", "exam-style"] },
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw_en/04_dict.png",   "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/en/04_dict.png",   "lines": ["Furigana & examples", "on every word"] },
+    { "in": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/data-build/shots/raw_en/05_streak.png", "out": "C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ/申請スクショ/en/05_streak.png", "lines": ["Keep going —", "watch it grow"] }
+  ]
+}

@@ -1,7 +1,18 @@
-# handoff（/clear 耐性・上書き式・常に最新のみ）
+# 前セッション圧縮情報
+
+## 何をしたか
+- ツール呼び出し 9 回・18 ターン
+- 往復 11653 回
+
+## 何が変わったか
+- memory/handoff.md
+- memory/session-summary-LATEST.md
+- src/data/exam/passageTransNe.test.ts
+- memory/在庫問題数.txt
+- tools/stock_report.py
 
 ## 次の一手
-- **🧹 幽霊・放置の駆除（2026-07-26・完了3件／保留1件）**: ①**`safa-assets/` 削除済**＝旧配信staging(github `JinKato2020/safa-jlpt`)のローカル複製。未追跡・26MB・376ファイル・最終更新 2026-06-27・**dirty0/unpushed0でHEAD==origin/main** を確認してから削除（復旧は `git clone https://github.com/JinKato2020/safa-jlpt.git`）。現行の音声正本は**root `assets/audio/`(260本)＋Pages `safa-JLPT`**、生成器は`問題\tools\build_choukai3.py`。唯一の参照元 `data-build/gen_listening_audio.py`(未追跡・2026-06-25・旧パイロットの残骸)も**ユーザー指示で削除済**（未追跡＝復旧不可。現行フローは `問題\toolsuild_choukai3.py` なので実害なし）。②**型エラー 11→0**＝`git submodule update --init --recursive` で `shared/JLPT-Listening` を配置(残6はDeno製 `docs/supabase/functions/…` だったので `tsconfig.json` の exclude に `docs` を追加)。③**在庫レポートに作成日時を追加**＝`tools/stock_report.py` に git 履歴（作成日時／最終コミット／コミット回数）を出す `history()` を追加。**全大問が作成 2026-07-14 なのは、その日に content/problems/… へ一括で作り直したため**（それ以前の履歴はこのパスに無い）。④**保留＝ネパール語訳**（下記）。
+- **🧹 幽霊・放置の駆除（2026-07-26・完了3件／保留1件）**: ①**`safa-assets/` 削除済**＝旧配信staging(github `JinKato2020/safa-jlpt`)のローカル複製。未追跡・26MB・376ファイル・最終更新 2026-06-27・**dirty0/unpushed0でHEAD==origin/main** を確認してから削除（復旧は `git clone https://github.com/JinKato2020/safa-jlpt.git`）。現行の音声正本は**root `assets/audio/`(260本)＋Pages `safa-JLPT`**、生成器は`問題\tools\build_choukai3.py`。唯一の参照元 `data-build/gen_listening_audio.py`(未追跡・2026-06-25・旧パイロットの残骸)も**ユーザー指示で削除済**（未追跡＝復旧不可。現行フローは `問題	oolsuild_choukai3.py` なので実害なし）。②**型エラー 11→0**＝`git submodule update --init --recursive` で `shared/JLPT-Listening` を配置(残6はDeno製 `docs/supabase/functions/…` だったので `tsconfig.json` の exclude に `docs` を追加)。③**在庫レポートに作成日時を追加**＝`tools/stock_report.py` に git 履歴（作成日時／最終コミット／コミット回数）を出す `history()` を追加。**全大問が作成 2026-07-14 なのは、その日に content/problems/… へ一括で作り直したため**（それ以前の履歴はこのパスに無い）。④**保留＝ネパール語訳**（下記）。
 - **🇳🇵 文章の文法200セットのネパール語訳＝ユーザー判断で保留（2026-07-26）**: 中身＝**passage_grammar 200セット(N5 80/N4 80/N3 40)・280本文・79,072字が i18n.ne.body 未作成**（読解側は完備）。アプリは `PassageSetPlayer.tsx:66` で `l1==='ne'` の時だけ訳トグルを出す＝**落ちはしないがネパール語話者には文章の文法だけ訳が出ない**。見積り提示（Opus約¥2,300／Sonnet約¥450／Gemini2.5Flash約¥100）→**「今は作らない(¥0)」を選択**。`src/data/exam/passageTransNe.test.ts` は**赤いまま放置せず「既知の借金の見張り」に作り替えた**＝読解は従来どおり全数必須／pgは `KNOWN_PG_UNTRANSLATED=200` と一致すること（増えたら新規本文の訳忘れで赤）／訳がある分は本文数一致・デーヴァナーガリー必須／余計なidが無いこと。**訳を作ったらこの定数を減らし、0になったら定数ごと消して完全チェックへ戻す**。**`npm test` 302/302・`tsc` 0エラー**。
 - **📌 `tools/stock_report.py` と `memory/在庫問題数.txt` は git 追跡へ（2026-07-26 ユーザー指示）**＝`git add` 済み(staged)。**次に commit/push する時に一緒に入れる**。.gitignore には引っかかっていない（単に未追跡だっただけ）。
 - **🤖 AndroidがPlayへ一度も出ていなかった件（2026-07-26・対処済）**: build **2539〜2553の12回すべて**、Androidジョブは success なのに **Play提出3ステップ(AAB生成/SA復号/アップロード)が全て skipped**＝GPCに存在しない（内部テストにもクローズドテストにも無い）。**真因＝方針と既定値のズレ**: 方針(2026-06-29)は「ビルド後は自動提出」なのに workflow 既定が `aab=false/publish=false` で、dispatch時に `-f` を付け忘れると**黙って「APKのみ生成」に落ちる**。iOSは `submit` 既定 true なので毎回TestFlightへ行っており、Androidだけ取り残されていた。鍵・SA(`GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64`含む5種)は登録済＝仕組み自体は健全。**対処**(commit `b1c707b`・**push済＝origin/main に入っている**): `.github/workflows/build-jlpt.yml` の既定を **`aab=true / publish=true / track=alpha`(クローズドテスト)** に変更＝ユーザー指示「自動でクローズドテストまで」。`production` は従来どおり**明示合図時のみ**。⚠️新既定は **【訂正2026-07-26】push 済みで**すでに有効**（HEAD==origin/main・default が aab=true/publish=true/track=alpha）**（それまでは dispatch で明示指定が要る）。⚠️AAB生成時はAPKを作らない＝実機直挿しAPKが欲しい時は `aab=false publish=false`。**走行中(2本)**: ①run `30186323178` = 2553 を android のみ・alpha で提出（先行の動作確認用）②**run `30186484303` = Build 2568 / both / submit=true(iOS→TestFlight) / publish=true・track=alpha(Android→クローズドテスト)** ＝ユーザー指示「プッシュしてから両OSでビルド」。ユーザー方針により**監視・自動報告はしない**＝Play Console「聞いて話せる英語」→テスト→クローズドテスト／App Store Connect TestFlight で確認。
@@ -79,27 +90,3 @@
   2. **本文の加長** … 字数が目標未達（中央値 N5 190/250・N4 207/340・N3 354/425）。N4の不足が大きい。
 - **作業スクリプト（全部ローカル・LLM不要）**: `scratchpad\pg\` に rescue.py（中断救済）/ make_verify_rest.py（残りだけ再生成）/ assemble_qc.py（統合＋品質集計）/ finalize.py（シャッフル＋Excel）/ adopt.py（退避＋採用）。材料と最終形も同フォルダ（final_all.json＝正本）。
 - **中断したら救済（run IDを覚えていなくてよい）**: `python scratchpad\pg\rescue.py --since 2026-07-18` → 残りが missing_ids.txt に出る → `python scratchpad\pg\make_verify_rest.py --only scratchpad\pg\missing_ids.txt` で残りだけ作り直して Workflow 起動。残ゼロまで繰り返す（id後勝ちで二重にならない）。
-
-
-## 文脈の床（基準値・2026-07-19 実測）
-- `/clear` 直後の床 = **40.1k / 200k（20%）**。増加は約 760→514→400 トークン/往復と逓減（往復21:46,424 / 24:48,708 / 30:51,791 / 33:52,992）。
-- 注意: 最小化前の床は記録が無く、削減幅は不明。以後は変更のたびにここを上書きする。
-
-<!-- AUTO:BEGIN -->
-
-## 走行中の run（自動・完了通知が来ていないもの）
-- a24a55339e7688334 general-purpose
-- a299080a95b15e8d3 general-purpose
-
-## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
-- memory/session-summary-LATEST.md
-- src/data/exam/passageTransNe.test.ts
-- memory/在庫問題数.txt
-- tools/stock_report.py
-- tsconfig.json
-- shared/JLPT-Listening/dict/dictRemote.ts
-- shared/JLPT-Listening/dict/data/manifest.json
-
-_自動更新: 2026-07-26 13:30_
-<!-- AUTO:END -->
