@@ -82,19 +82,23 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 41ターン（文脈 8万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 41ターン・ツール21回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
 - memory/handoff.md
+- memory/session-summary-LATEST.md
 - docs/superpowers/specs/2026-07-26-monetization-design.md
 - src/screens/ProfileScreen.tsx
 - src/i18n/ne.json
 - src/i18n/en.json
 - src/i18n/ja.json
 - src/screens/ReadingScreen.tsx
-- src/screens/PassageGrammarScreen.tsx
 
-_自動更新: 2026-07-26 12:11_
+_自動更新: 2026-07-26 12:33_
 <!-- AUTO:END -->
