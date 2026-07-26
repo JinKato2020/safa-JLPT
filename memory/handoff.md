@@ -1,7 +1,7 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手
-- **💰 マネタイズ設計＋Phase0実装計画 確定（2026-07-26・commit予定）**: 設計書=`docs/superpowers/specs/2026-07-26-monetization-design.md` / 実装計画=`docs/superpowers/plans/2026-07-26-monetize-phase0-entitlement.md`（Task1-6・TDD）。**確定事項**: 無料=1日3回(約20〜30問)・広告1本で+1回/1日2本まで→最大5回。**レベル制限(N4/N3ロック)は不採用**(28ファイル波及＋体験悪)。「今日のおすすめ」はPro限定にせず無料(ただし1回消費)。広告報酬は練習+1回のみ(模試チケット無し)。お試し=7日(戦略板14日から変更)。Android=`com.safa.english`(App C枠)のまま＝**コード変更ゼロ**。iOS=`com.safa.jlpt`。RevenueCat(課金)＋AdMob(広告)。**Phase0=`GATING_ENABLED=false`で出荷＝誰も制限されない**(仕組みだけ完成)。Phase1で購入画面と同時にtrue。**次の一手**: Phase0の計画をTask1から実装（`src/pro/entitlement.ts`→`dailyQuota.ts`→store配線→7画面）。**Phase1/2はユーザーの手作業待ち**=RevenueCatアカウント＋ストア課金商品作成／AdMobアカウント＋広告ユニット＋app-ads.txt。**戦略板へ報告すべき差分5件**（お試し7日／AndroidはApp C枠／レベル制限→1日3回／おすすめは無料／広告報酬は+1回のみ）は未報告。
+- **💰 マネタイズ Phase0 実装完了（2026-07-26・未push）**: 設計書=`docs/superpowers/specs/2026-07-26-monetization-design.md` / 実装計画=`docs/superpowers/plans/2026-07-26-monetize-phase0-entitlement.md`（Task1-6・TDD）。**確定事項**: 無料=1日3回(約20〜30問)・広告1本で+1回/1日2本まで→最大5回。**レベル制限(N4/N3ロック)は不採用**(28ファイル波及＋体験悪)。「今日のおすすめ」はPro限定にせず無料(ただし1回消費)。広告報酬は練習+1回のみ(模試チケット無し)。お試し=7日(戦略板14日から変更)。Android=`com.safa.english`(App C枠)のまま＝**コード変更ゼロ**。iOS=`com.safa.jlpt`。RevenueCat(課金)＋AdMob(広告)。**Phase0=`GATING_ENABLED=false`で出荷＝誰も制限されない**(仕組みだけ完成)。Phase1で購入画面と同時にtrue。**✅Phase0=Task1-6すべて完了・commit 6件**（`95a2e33` `64c8150` `851ceaa` `ee9f7cf` `117ae43` `699e61c`・未push。サブエージェント3体に束ねて実行＝共通ルールB）: 新規`src/pro/{entitlement,gating,dailyQuota,useSessionGate,LimitReachedSheet}`＋`store.tsx`配線(action4つ・+18行/削除0)＋練習7画面(Quiz/ListeningQuiz/Kakitori/WordDrill/Flashcard/PassageGrammar/Reading)にゲート配線＋ProfileScreenに状態表示＋i18n(`limit.*`5・`pro.*`4／ja/en/ne)。**検証は本体が実測**=新規テスト15/15合格・`npm test` 299中298合格(残1=着手前から赤の`passageTransNe`)・`npx tsc --noEmit` 11件=ベースラインと同数で**増加0**(既存11=`shared/JLPT-Listening/`未配置＋Deno型)・`GATING_ENABLED=false`維持・`safa-assets/`不変。設計書も実装に同期済(`dailyQuota()`→`quotaFor()`改名／返金の記述削除／§5.1の表を6→7画面)。**注意**: OFFの間も`consumeSession()`は数える（実使用の回数データが貯まる＝ONにする前に実態を見られる）。画面に入って即戻ると1回消費（中断時の返金は未実装＝YAGNIで意図的に除外）。**次の一手**: 実機で目視確認（設定に「お試し中（あとN日）」が出るか・練習が今までどおり止まらず動くか）。**Phase1/2はユーザーの手作業待ち**=RevenueCatアカウント＋ストア課金商品作成／AdMobアカウント＋広告ユニット＋app-ads.txt。**戦略板へ報告すべき差分5件**（お試し7日／AndroidはApp C枠／レベル制限→1日3回／おすすめは無料／広告報酬は+1回のみ）は未報告。
 - **✅ Build 2553/both 投入・全260聴解実装確定（2026-07-26・commit 2aa53c5・push済・run 30177746932）**: N3音声を公式話速で再生成(100本)＝**聴解260問=データ260＋音声260本すべて実在・bundled.generated.tsに焼込確認・_manifest再生成**。同梱=Google/Apple認証(Web OAuth)・仮名書き取り(行選択ア〜ワ/見ないでランダム/漢字画面の速度・ドリルボタン削除)・管理ダッシュボード統合(登録匿名1表・大問別/単語帳数/カバー率3分割・snapshot v3)・単語タブ完了画面を試験タブに統一・プライバシー10言語。**dispatch=platforms=both/build_number=2553/submit=true(iOS→TestFlight)/aab=false・publish=false(Androidはビルドのみ・Play非公開)**。push契機でPages OTAも起動(新音声260＋content配信)。tsc=触ったファイル0エラー(既存11=submodule/Deno無関係)。**次: Actions run緑を確認しE2報告(iOS TestFlight＋Android＋OTA)。監視ポーリングはしない(通知/ユーザー確認待ち)。** D2実費: N3音声≈243円(Gemini 2.5 Flash TTS)。
 - **✅(完了・上記Buildで出荷) 聴解 音声バッチ＝レベル分割（2026-07-25・ユーザー承認「N5→確認→N4→N3」）**: N5の76問（各大問K/P/H/S × 002-020）を生成 **完了=66/76・$0.53≒79円**（`bw1ne1af4` exit0・2026-07-25）。Excel反映済=75/80。1回目の失敗10件を再生成→5回復(P群)。**残5件(K-006/007/015/019・P-010)は決定的400=「Model tried to generate text...only be used for TTS」**＝長い品質プロンプト＋末尾疑問文でFlashが読み上げでなく“回答”しテキスト生成→AUDIO専用で弾かれる確率的事故。**真因=生成器がコスト集計で`M.flash_pcm`を`flash_pcm_acc`(gen_choukai_json)に差し替えており、build_choukai3側のガードは素通り**。**修正=`flash_pcm_acc`にガード投入済**(text生成400を踏むと以降`M.SAFE_READ`前置でループ内再試行→尽きれば`RuntimeError`化→`one()`のChirp3フォールバック)。同ガードは`build_choukai3.flash_pcm`にも(標準経路用)。**✅5件を再生成→5/5成功（修正版・約9円）＝N5 80/80完了・Excel反映済80/80・N5実費≈99円**。**✅N5ユーザー承認済→N4(76問=K/P/H/S×002-020)生成中=bg `bq7w40250`**（`--fresh`・改善版Gemini・読み上げ専用ガード入り・IDリスト=scratchpad `n4_ids.txt`）。**完了後**: `update_choukai_xlsx.py N4`→ユーザー確認→**N3(95・概要G含む)**。※発話HはN5同様Chirp3-HD→Gemini Ledaへ更新（ユーザーに事前告知済・異議あれば発話除外）。同ガードでN4/N3も同種400に強い。残見積≈530円（同期API・バッチ半額はTTS非対応）。生成記録=`memory\choukai_audio_rec.json`（生成器がid→尺・声を追記）。詳細=`md\聴解_音声作成フロー.md`冒頭。
 - **🔊 聴解 音声＝Gemini 2.5 Flash TTS フロー 本採用・確定（2026-07-25。旧OpenAI/VOICEVOX二分化は無効）**: エンジン=`gemini-2.5-flash-preview-tts`。ナレーター(導入・設問)=**Aoede**／対話=男1 Orus・男2 Fenrir・女1 Leda・女2 Kore／**独話系(発話・即時・概要)=既定 Leda・台本が男性役(父/息子/男教師/兄弟/夫等)のときだけ Orus**（`gen_choukai_json.py` の `hs_voice`＝MALE_RE/FEMALE_RE。旧「奇数Orus/偶数Leda」は廃止）。番号1〜4・発話末尾「なんと言いますか」= `_numbers\{Leda,Orus}\*.wav` の合格クリップ**固定読込(TTS生成しない)**。**プロンプト品質3本柱=①速度ゆっくり/早口にしない ②文末(語尾)まで声を保ち言い切る ③東京式ピッチ正確/漢字読み間違えない**（`build_choukai3.py` NARR/DIA/BLOCK_STYLE＋`gen_choukai_json.py` CHOICE_STYLE）。生成=`python 問題/tools/gen_choukai_json.py --ids <csv>|--ids-file <f> [--fresh]`→`問題\聴解\{lv}\{大問}\{id}.mp3`＋`assets\audio\{id}.mp3`・ログ`memory\choukai_gen_log.txt`(末尾に実費円)。旧音声退避=`問題\聴解\パラスタ\旧音声バックアップ_2026-07-25\`(117本)。Excel3ファイルに「音声プロンプト指示」列追加済。**✅パイロット13本(各大問001)再生成完了=13/13・$0.18≒28円・H/S全Leda・改善版で尺+12〜25%(ゆっくり化)・N5-P LCS0.66はユーザー試聴OK**。次=試聴確認→残り問題へ展開→**OTA `_manifest.json`再生成**必須(旧指紋だと新音声が届かない[[ota-manifest-regen-or-stale]])。速度不足なら保険=ffmpeg atempo(ピッチ維持)。手順正本=`md\聴解_音声作成フロー.md` 冒頭『最新の確定』・[[choukai-audio-pipeline]]。
@@ -84,16 +84,17 @@
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
+- a554b34a1de51b5a8 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- docs/superpowers/specs/2026-07-26-monetization-design.md
+- memory/monetize-phase0-inflight.md
+- src/pro/LimitReachedSheet.tsx
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
+- src/pro/useSessionGate.ts
+- src/store/store.tsx
 - memory/session-summary-LATEST.md
-- memory/handoff.md
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- 問題/聴解/聴解_TTSスクリプト_N4.xlsx
-- 問題/聴解/聴解_TTSスクリプト_N3.xlsx
-- memory/choukai_gen_log.txt
 
-_自動更新: 2026-07-26 08:30_
+_自動更新: 2026-07-26 12:01_
 <!-- AUTO:END -->
