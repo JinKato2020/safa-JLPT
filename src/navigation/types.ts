@@ -7,6 +7,7 @@ export type RootStackParamList = {
   Account: undefined; // アカウント作成/ログイン(段階1: メール+パスワード)
   Settings: undefined; // 設定(旧・設定タブ=ProfileScreen をモーダル化。上部の歯車から開く)
   AICoach: undefined; // AIコーチの助言(全タブ共通の上部アイコン✦から開くモーダル)
+  Paywall: undefined; // Pro購入画面(上限画面や🔒Proから開く。商品はRevenueCat Offeringsから取得)
   Notifications: undefined; // 通知(リマインド)
   Inventory: undefined; // アイテム(所持品・道具・バッジ一覧。上部の袋アイコンから開く)
   Shop: undefined; // ショップ(桜貝で着せ替え購入)

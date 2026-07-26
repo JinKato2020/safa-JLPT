@@ -41,6 +41,8 @@ import AccountScreen from './src/screens/AccountScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import ShopScreen from './src/screens/ShopScreen';
 import AICoachScreen from './src/screens/AICoachScreen';
+import PaywallScreen from './src/screens/PaywallScreen';
+import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './src/pro/purchases';
 import { walletPoints } from './src/store/wallet';
 import { mockTicketCount } from './src/store/tickets';
 import TourOverlay from './src/components/TourOverlay';
@@ -210,7 +212,7 @@ const topBar = StyleSheet.create({
 function Root() {
   const hydrated = useHydrated();
   const state = useAppState();
-  const { addStudySeconds } = useAppActions();
+  const { addStudySeconds, setPurchaseActive } = useAppActions();
   const { session } = useSync();
   const { settings } = state;
   const stateRef = useRef(state);
@@ -246,6 +248,22 @@ function Root() {
     });
     return () => sub.remove();
   }, [hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 課金(RevenueCat)の初期化とPro状態の同期。キー未設定(src/config/revenuecat.ts が空)なら全て no-op。
+  // ログイン中は実IDへ紐付け(機種変で権利がfollow)、匿名なら匿名IDで同期。結果を端末へ保存(通信断でもProが剥がれない)。
+  const userId = session?.user?.id;
+  useEffect(() => {
+    if (!hydrated) return;
+    let cancelled = false;
+    (async () => {
+      await initPurchases(userId ?? null);
+      let active: boolean | null;
+      if (userId) active = await linkAccount(userId);
+      else { await unlinkAccount(); active = await syncEntitlement(); }
+      if (!cancelled && typeof active === 'boolean') setPurchaseActive(active);
+    })();
+    return () => { cancelled = true; };
+  }, [hydrated, userId]); // eslint-disable-line react-hooks/exhaustive-deps
   // 現在フォントを設定値に同期(このレンダー→配下の全Textが新フォントで描画)。既定=maru(丸ゴシック)。
   setActiveFont(settings.font ?? 'maru');
   const sys = useColorScheme();
@@ -293,6 +311,7 @@ function Root() {
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="AICoach" component={AICoachScreen} options={{ presentation: 'transparentModal', animation: 'fade' }} />
+            <RootStack.Screen name="Paywall" component={PaywallScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
           </>
