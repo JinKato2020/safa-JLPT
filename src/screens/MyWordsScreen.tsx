@@ -14,9 +14,9 @@ import type { SaveRef } from '../store/state';
 import { VOCAB, GRAMMAR, KANJI, meaningIn } from '../data';
 import type { BookKind } from '../data/mywordsArt';
 import { useT } from '../i18n';
-import type { RootStackParamList } from '../navigation/types';
+import type { DictStackParamList } from '../navigation/types';
 
-type Nav = NativeStackNavigationProp<RootStackParamList>;
+type Nav = NativeStackNavigationProp<DictStackParamList>;
 const KINDS: BookKind[] = ['kanji', 'vocab', 'grammar']; // 表示順=漢字→語彙→文法(ユーザー指定)
 
 interface Row { ref: SaveRef; title: string; sub: string; level: string; big?: boolean }

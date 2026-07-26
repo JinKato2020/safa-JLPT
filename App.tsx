@@ -73,11 +73,13 @@ function WordsTab() {
 }
 const DictStack = createNativeStackNavigator<DictStackParamList>();
 function DictTab() {
-  // 辞書タブ: 没入する図書館ホーム(DictHome) → 各辞書リスト(DictList=BrowseScreen)。My単語帳はRootStackモーダル。
+  // 辞書タブ: 没入する図書館ホーム(DictHome) → 各辞書リスト(DictList=BrowseScreen) / My単語帳(MyWords)。
+  // My単語帳はタブ内画面(スタック)に置く=下からせり上がるモーダルにせず、ボトムナビを消さない(ユーザー要望)。
   return (
     <DictStack.Navigator screenOptions={{ headerShown: false }}>
       <DictStack.Screen name="DictHome" component={DictHomeScreen} />
       <DictStack.Screen name="DictList" component={BrowseScreen} />
+      <DictStack.Screen name="MyWords" component={MyWordsScreen} />
     </DictStack.Navigator>
   );
 }
@@ -101,7 +103,7 @@ const TABS = [
 
 // 上部の共通アイコン列(アカウント/レベル/設定/通知)を隠す画面: 辞書リスト(DictList)と
 // 単語タブの練習ホーム・学習リスト(WordKubun/WordList)。各画面自身に×/←戻り＋見出しがあり、没入して学習に集中できる。
-const HIDE_TOPBAR = new Set(['DictList', 'WordKubun', 'WordList']);
+const HIDE_TOPBAR = new Set(['DictList', 'WordKubun', 'WordList', 'MyWords']);
 
 function MainTabs() {
   const c = useColors();
@@ -307,7 +309,7 @@ function Root() {
             <RootStack.Screen name="WordDrill" component={WordDrillScreen} options={{ presentation: 'card' }} />
             {/* 以下は overlay/ダイアログ的なのでモーダル(下から)のまま。 */}
             <RootStack.Screen name="KanjiDetail" component={KanjiDetailScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="MyWords" component={MyWordsScreen} options={{ presentation: 'modal' }} />
+            {/* My単語帳は辞書タブ内(DictStack)へ移設=タブ内画面。ボトムナビを消さない(ユーザー要望2026-07-27)。 */}
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="AICoach" component={AICoachScreen} options={{ presentation: 'transparentModal', animation: 'fade' }} />

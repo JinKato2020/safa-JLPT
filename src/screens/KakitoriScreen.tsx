@@ -2,7 +2,7 @@
 // フロー: 各字を なぞり(外形+アニメ)→見ながら書く→見ないで書く の3段。前進は全て手動[次へ]
 //   (自動前進しない=本人のペース。見ないでは[次へ]まで何度でも書き直せる)。[スキップ]で字ごと飛ばし。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ActivityIndicator, Platform, ScrollView, Modal } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ActivityIndicator, Platform, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { WebView, type WebViewMessageEvent } from 'react-native-webview';
@@ -31,7 +31,7 @@ import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 const STEP_KEYS = ['kakitori.step_trace', 'kakitori.step_guided', 'kakitori.step_recall'];
 const SET_SIZE = 5; // 1セット=5字。5字を練習(3段)→同じ5字をヒント無しテスト→セッション終了。
-const GRIDS = ['ta', 'kome', 'none'] as const;
+const KOME_SIDE = 64; // お手本の米マスセルの一辺(px)。
 
 function readingLine(char: string): string {
   const arr = (levelReadings as Record<string, Array<{ reading: string }>>)[char];
@@ -44,32 +44,17 @@ function exampleWord(char: string): string {
 }
 function dayOf(now: number): string { const d = new Date(now); const m = String(d.getMonth() + 1).padStart(2, '0'); const day = String(d.getDate()).padStart(2, '0'); return `${d.getFullYear()}-${m}-${day}`; }
 
-// 軽量な自作プルダウン(グリッド/速度で共通利用)。押すと透明Modalで選択肢を表示。
-function Dropdown<T extends string>({ value, options, labelFor, onSelect, s }: {
-  value: T; options: readonly T[]; labelFor: (v: T) => string; onSelect: (v: T) => void; s: ReturnType<typeof makeStyles>;
-}) {
-  const [open, setOpen] = useState(false);
+// お手本の文字を「米マス(格子＋枠)」の中に表示する小セル。書き取りキャンバスと同じ見た目でお手本を示す。
+// 縦横の中心線＋2本の対角線(＝米)を薄く敷き、枠(border)で囲う。
+function KomeCell({ ch, s }: { ch: string; s: ReturnType<typeof makeStyles> }) {
   return (
-    <>
-      <Pressable onPress={() => setOpen(true)} style={s.tool}>
-        <Text style={s.toolTxt}>{labelFor(value)} ▾</Text>
-      </Pressable>
-      <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
-        <Pressable style={s.menuBackdrop} onPress={() => setOpen(false)}>
-          <View style={s.menu}>
-            {options.map((opt) => (
-              <Pressable
-                key={opt}
-                onPress={() => { onSelect(opt); setOpen(false); }}
-                style={[s.tool, s.menuItem, value === opt && s.toolOn]}
-              >
-                <Text style={[s.toolTxt, value === opt && s.toolTxtOn]}>{labelFor(opt)}</Text>
-              </Pressable>
-            ))}
-          </View>
-        </Pressable>
-      </Modal>
-    </>
+    <View style={s.komeCell}>
+      <View style={s.komeLineV} />
+      <View style={s.komeLineH} />
+      <View style={[s.komeDiag, s.komeDiag1]} />
+      <View style={[s.komeDiag, s.komeDiag2]} />
+      <Text style={s.komeChar}>{ch}</Text>
+    </View>
   );
 }
 
@@ -81,7 +66,7 @@ export default function KakitoriScreen() {
   useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const route = useRoute<RouteProp<RootStackParamList, 'Kakitori'>>();
   const state = useAppState();
-  const { recordKakitori, setSettings } = useAppActions();
+  const { recordKakitori } = useAppActions();
   const c = useColors();
   const t = useT();
   const s = makeStyles(c);
@@ -93,28 +78,21 @@ export default function KakitoriScreen() {
   const script = route.params?.script ?? 'kanji'; // kanji / hiragana / katakana
   const isKana = script !== 'kanji';
   const singleChar = route.params?.char;
-  // 仮名: 練習する行(あ〜ぱ)と「見ないで(ランダム)」モード。漢字では未使用。chars useMemo より前に宣言する。
+  // 仮名: 練習する行(あ〜ぱ)。漢字では未使用。chars useMemo より前に宣言する。
   const [rowKey, setRowKey] = useState('a');
-  const [blind, setBlind] = useState(false);
   // 復習キューはセッション開始時のスナップショットで固定する。
   // mastering中に state.kakitori が変わっても due リストを揺らさない(idxズレ防止)。
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const chars = useMemo(() => {
     if (singleChar) return [singleChar];
-    // 仮名=選んだ行の文字だけ(見ないでモードはランダム順)。漢字=級別リストをSRSキューで先頭5字ずつ。
-    if (isKana) {
-      const row = kanaRowChars(script as 'hiragana' | 'katakana', rowKey);
-      if (!blind) return row;
-      const a = [...row];
-      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-      return a;
-    }
+    // 仮名=選んだ行の文字だけ。漢字=級別リストをSRSキューで先頭5字ずつ。
+    if (isKana) return kanaRowChars(script as 'hiragana' | 'katakana', rowKey);
     const source = kanjiListFor(level);
     if (mode === 'review') { const d = kakitoriDueToday(state.kakitori, dayOf(Date.now())); return (d.length ? d : source).slice(0, SET_SIZE); }
     return kakitoriDrillQueue(state.kakitori, source, dayOf(Date.now())).slice(0, SET_SIZE);
-  }, [mode, level, script, rowKey, blind]);
+  }, [mode, level, script, rowKey]);
 
-  const grid = state.settings.kakitoriGrid ?? 'kome';
+  const grid = 'kome' as const; // お手本/キャンバスとも米マスに固定(選択UIは廃止・ユーザー要望)。
   const speed = state.settings.kakitoriSpeed ?? 'normal';
   const sound = state.settings.kakitoriSound ?? true;
   const [free] = useState(!!singleChar); // 自由練習は単字(辞書から)のみ。ドリル画面はドリル固定(トグル廃止)。
@@ -130,7 +108,7 @@ export default function KakitoriScreen() {
   const done = idx >= chars.length;
   const char = done ? '' : chars[idx];
   const info = char ? kanjiInfo(char) : undefined;
-  const effStep = free ? freeStep : blind ? 2 : step; // 見ないで=常に想起段(？＋ローマ字だけ)
+  const effStep = free ? freeStep : step;
   const stars = char ? (state.kakitori?.[char]?.stars ?? 0) : 0;
 
   const inject = (code: string) => { webRef.current?.injectJavaScript(`try{${code}}catch(e){window.ReactNativeWebView&&window.ReactNativeWebView.postMessage(JSON.stringify({type:'error',msg:String(e)}))}; true;`); };
@@ -155,13 +133,13 @@ export default function KakitoriScreen() {
   };
 
   useEffect(() => { if (readyRef.current && !done) loadChar(char, effStep); }, [grid, speed, free, freeStep]);
-  // 仮名: 行/「見ないで」を切り替えたら先頭字から。
+  // 仮名: 行を切り替えたら先頭字・なぞり段から。
   useEffect(() => {
     if (singleChar || !isKana) return;
     setIdx(0); setStep(0);
-    if (readyRef.current && chars.length) loadChar(chars[0], blind ? 2 : 0);
+    if (readyRef.current && chars.length) loadChar(chars[0], 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rowKey, blind]);
+  }, [rowKey]);
 
   useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);
 
@@ -191,16 +169,23 @@ export default function KakitoriScreen() {
   // 前進は全て手動([次へ]/[スキップ])。各字を なぞり→見ながら→見ないで の3段で進め、
   // 見ないで(step2)で[次へ]を押すと次の字へ。最後の字の[次へ]で done(=セッション終了)。
   const nextChar = () => {
-    if (idx + 1 < chars.length) { setIdx(idx + 1); setStep(0); loadChar(chars[idx + 1], blind ? 2 : 0); }
+    if (idx + 1 < chars.length) { setIdx(idx + 1); setStep(0); loadChar(chars[idx + 1], 0); }
     else setIdx(chars.length); // 5字め完了 → done画面へ
   };
   const advance = () => {
     if (free) return;
-    if (blind) { nextChar(); return; } // 見ないで=1回書いたら次の字へ(3段なし)
     if (step < 2) { const ns = step + 1; setStep(ns); loadChar(char, ns); return; } // 同じ字の次の段へ
     nextChar(); // 見ないで完了 → 次の字(または終了)
   };
   const skipChar = () => { if (!free) nextChar(); }; // 字ごとスキップ(3段飛ばして次字)
+  // 上部の3モード見出し(なぞり書き/手本を見て書く/見ないで書く)のタップで、その段へ直接切り替える。
+  // 自由練習はfreeStep、ドリル/仮名はstepを動かして同じ字を選んだモードで再ロードする。
+  const goStep = (i: number) => {
+    if (free) { setFreeStepState(i); return; }
+    if (done) return;
+    setStep(i);
+    if (readyRef.current) loadChar(char, i);
+  };
 
   const onMessage = (e: WebViewMessageEvent) => {
     let m: { type?: string; mistakes?: number };
@@ -264,7 +249,8 @@ export default function KakitoriScreen() {
           </ScrollView>
         )}
         <View style={s.infoRow}>
-          <Text style={s.infoChar}>{effStep === 2 ? '？' : char}</Text>
+          {/* お手本の文字は米マス(格子＋枠)の中に表示。見ないで段(effStep2)ではお手本を隠す=？。 */}
+          <KomeCell ch={effStep === 2 ? '？' : char} s={s} />
           <View style={{ flex: 1 }}>
             <Text style={s.infoReading}>{isKana ? romajiOf(char) : readingLine(char)}</Text>
             <Text style={s.infoMeaning} numberOfLines={1}>{isKana ? (script === 'hiragana' ? 'ひらがな' : 'カタカナ') : (info?.meaning ?? '')}</Text>
@@ -273,29 +259,15 @@ export default function KakitoriScreen() {
           <Pressable onPress={() => (isKana ? (Speech.stop(), Speech.speak(char, { language: 'ja-JP' })) : speak(char, { manual: true }))} hitSlop={10}><Ionicons name="headset-outline" size={26} color={c.blue} /></Pressable>
         </View>
 
-        {!free && !blind && (
-          <View style={s.dots}>
-            {[0, 1, 2].map((i) => (
-              <View key={i} style={s.dotWrap}>
-                <View style={[s.dot, i <= step && s.dotOn]} />
-                <Text style={[s.dotLabel, i === step && s.dotLabelOn]}>{t(STEP_KEYS[i])}</Text>
-              </View>
-            ))}
-          </View>
-        )}
-        {free && (
-          <View style={s.toolbar}>
-            {[0, 1, 2].map((i) => (
-              <Pressable
-                key={i}
-                onPress={() => setFreeStepState(i)}
-                style={[s.tool, freeStep === i && s.toolOn]}
-              >
-                <Text style={[s.toolTxt, freeStep === i && s.toolTxtOn]}>{t(STEP_KEYS[i])}</Text>
-              </Pressable>
-            ))}
-          </View>
-        )}
+        {/* 3モード見出し(なぞり書き/手本を見て書く/見ないで書く)。タップでその段へ直接切替(ユーザー要望)。 */}
+        <View style={s.dots}>
+          {[0, 1, 2].map((i) => (
+            <Pressable key={i} style={s.dotWrap} onPress={() => goStep(i)} hitSlop={6}>
+              <View style={[s.dot, i === effStep && s.dotOn]} />
+              <Text style={[s.dotLabel, i === effStep && s.dotLabelOn]}>{t(STEP_KEYS[i])}</Text>
+            </Pressable>
+          ))}
+        </View>
 
         <View style={s.canvas}>
           <WebView ref={webRef} originWhitelist={['*']} source={{ html }} onMessage={onMessage}
@@ -305,16 +277,7 @@ export default function KakitoriScreen() {
             <Pressable style={s.doneBtn} onPress={() => loadChar(char, step)}><Text style={s.doneBtnTxt}>{t('kakitori.retry')}</Text></Pressable></View>}
         </View>
 
-        {/* 漢字=グリッドのみ(スピード/ドリルトグルは削除)。仮名=グリッド＋「見て書く / 見ないで(ランダム)」。 */}
-        <View style={s.toolbar}>
-          <Dropdown value={grid} options={GRIDS} labelFor={(g) => t('kakitori.grid_' + g)} onSelect={(g) => setSettings({ kakitoriGrid: g })} s={s} />
-          {isKana && (
-            <>
-              <Pressable onPress={() => setBlind(false)} style={[s.tool, !blind && s.toolOn]}><Text style={[s.toolTxt, !blind && s.toolTxtOn]}>{t('kakitori.kana_see')}</Text></Pressable>
-              <Pressable onPress={() => setBlind(true)} style={[s.tool, blind && s.toolOn]}><Text style={[s.toolTxt, blind && s.toolTxtOn]}>{t('kakitori.kana_blind')}</Text></Pressable>
-            </>
-          )}
-        </View>
+        {/* お手本を見る/クリア。米マスグリッドは常時(選択UIは廃止)。仮名の見て書く/見ないでランダムも廃止=上の見出しタップで切替。 */}
         <View style={s.toolbar}>
           {/* お手本はヒント。見ないで(step2)では隠してヒント無しにする。 */}
           {effStep !== 2 && (
@@ -350,7 +313,14 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   rowChipTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink2 },
   rowChipTxtOn: { color: c.blueDark },
   infoRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, paddingHorizontal: spacing.lg, marginTop: spacing.sm },
-  infoChar: { fontSize: 40, fontWeight: '800', color: c.ink },
+  // お手本の米マスセル(枠＋縦横中心線＋2本の対角線)。文字はセル中央に重ねる。
+  komeCell: { width: KOME_SIDE, height: KOME_SIDE, borderRadius: 6, borderWidth: 1.5, borderColor: c.line, backgroundColor: c.surface, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  komeLineV: { position: 'absolute', left: KOME_SIDE / 2 - 0.5, top: 0, bottom: 0, width: 1, backgroundColor: c.mute, opacity: 0.4 },
+  komeLineH: { position: 'absolute', top: KOME_SIDE / 2 - 0.5, left: 0, right: 0, height: 1, backgroundColor: c.mute, opacity: 0.4 },
+  komeDiag: { position: 'absolute', left: KOME_SIDE / 2 - 0.5, top: (KOME_SIDE - 91) / 2, width: 1, height: 91, backgroundColor: c.mute, opacity: 0.28 },
+  komeDiag1: { transform: [{ rotate: '45deg' }] },
+  komeDiag2: { transform: [{ rotate: '-45deg' }] },
+  komeChar: { fontSize: 38, fontWeight: '800', color: c.ink },
   infoReading: { fontSize: ty.body, fontWeight: '700', color: c.ink }, infoMeaning: { fontSize: ty.small, color: c.mute },
   infoExample: { fontSize: ty.small, color: c.blue }, speak: { fontSize: 26 },
   dots: { flexDirection: 'row', justifyContent: 'center', gap: spacing.xl, marginTop: spacing.md },
@@ -366,9 +336,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   toolbar: { flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.md, paddingHorizontal: spacing.lg },
   tool: { paddingVertical: spacing.xs, paddingHorizontal: spacing.md, borderRadius: radius.md, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line },
   toolOn: { backgroundColor: c.blue, borderColor: c.blue }, toolTxt: { fontSize: ty.small, fontWeight: '700', color: c.ink }, toolTxtOn: { color: '#fff' },
-  menuBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.3)', alignItems: 'center', justifyContent: 'center' },
-  menu: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.sm, gap: spacing.xs, minWidth: 160 },
-  menuItem: { alignItems: 'center' },
   actions: { flexDirection: 'row', gap: spacing.md, paddingHorizontal: spacing.lg, marginTop: spacing.lg },
   actBtn: { flex: 1, paddingVertical: spacing.md, borderRadius: radius.md, alignItems: 'center' },
   actGhost: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line }, actGhostTxt: { fontSize: ty.body, fontWeight: '800', color: c.mute },

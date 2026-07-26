@@ -1,19 +1,27 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 9 回・18 ターン
-- 往復 11653 回
+- ツール呼び出し 50 回・96 ターン
+- 往復 112 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
-- src/data/exam/passageTransNe.test.ts
-- memory/在庫問題数.txt
-- tools/stock_report.py
+- src/screens/KakitoriScreen.tsx
+- src/components/TabScene.tsx
+- src/screens/MyWordsScreen.tsx
+- App.tsx
+
+## ⚠️ 注意
+- - ⚠ 連続 96ターン（文脈 19万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 96ターン・ツール50回）— まとめ方を変える
 
 ## 次の一手
-- **🧹 幽霊・放置の駆除（2026-07-26・完了3件／保留1件）**: ①**`safa-assets/` 削除済**＝旧配信staging(github `JinKato2020/safa-jlpt`)のローカル複製。未追跡・26MB・376ファイル・最終更新 2026-06-27・**dirty0/unpushed0でHEAD==origin/main** を確認してから削除（復旧は `git clone https://github.com/JinKato2020/safa-jlpt.git`）。現行の音声正本は**root `assets/audio/`(260本)＋Pages `safa-JLPT`**、生成器は`問題\tools\build_choukai3.py`。唯一の参照元 `data-build/gen_listening_audio.py`(未追跡・2026-06-25・旧パイロットの残骸)も**ユーザー指示で削除済**（未追跡＝復旧不可。現行フローは `問題	oolsuild_choukai3.py` なので実害なし）。②**型エラー 11→0**＝`git submodule update --init --recursive` で `shared/JLPT-Listening` を配置(残6はDeno製 `docs/supabase/functions/…` だったので `tsconfig.json` の exclude に `docs` を追加)。③**在庫レポートに作成日時を追加**＝`tools/stock_report.py` に git 履歴（作成日時／最終コミット／コミット回数）を出す `history()` を追加。**全大問が作成 2026-07-14 なのは、その日に content/problems/… へ一括で作り直したため**（それ以前の履歴はこのパスに無い）。④**保留＝ネパール語訳**（下記）。
+- **🎨 UI一括修正7件（2026-07-27・未commit/未push/未ビルド・tsc 0エラー・test 303/303）**: ①my単語帳をRootStackモーダル→**DictStack内画面**へ移設（`App.tsx` DictTab／RootStack.Screen削除／`navigation/types.ts` MyWordsをRootStack→DictStackへ移動／`MyWordsScreen.tsx` Nav型変更／`HIDE_TOPBAR`に'MyWords'追加）＝下からせり上がるモーダルをやめ**ボトムナビを消さない**。辞書の各リスト(DictList)は元からタブ内でボトムナビ維持＝「同じUI＝振る舞いだけ揃える」（見た目の統一はユーザー選択で不要）。②タブ移動リセット強化＝`TabScene.tsx` の ImmersiveTab に `useFocusEffect` でblur時 `openKey=null`（既存の blur→popToTop と対で「開いている画面を保存しない」を満たす）。③〜⑥書き取り(`KakitoriScreen.tsx`): 米/田グリッド選択Dropdown削除→**米固定**／仮名の見て書く・見ないで(ランダム)ボタン削除＋`blind`state撤去（シャッフル廃止・仮名も3段フローに統一）／上部3モード見出し(なぞり/手本を見て書く/見ないで書く)を**タップで段切替**(goStep・free/drill/仮名 共通)／お手本文字を**米マス(枠＋中心線＋対角線)セル KomeCell** で表示。**次の一手**: 実機で目視確認（辞書→my単語帳でボトムナビが残るか・タブ往復で背景に戻るか・書き取りの見出しタップ切替と米マス表示）。**未push=OTA/ビルドは合図待ち**。
+- **🧹 幽霊・放置の駆除（2026-07-26・完了3件／保留1件）**: ①**`safa-assets/` 削除済**＝旧配信staging(github `JinKato2020/safa-jlpt`)のローカル複製。未追跡・26MB・376ファイル・最終更新 2026-06-27・**dirty0/unpushed0でHEAD==origin/main** を確認してから削除（復旧は `git clone https://github.com/JinKato2020/safa-jlpt.git`）。現行の音声正本は**root `assets/audio/`(260本)＋Pages `safa-JLPT`**、生成器は`問題\tools\build_choukai3.py`。唯一の参照元 `data-build/gen_listening_audio.py`(未追跡・2026-06-25・旧パイロットの残骸)も**ユーザー指示で削除済**（未追跡＝復旧不可。現行フローは `問題\toolsuild_choukai3.py` なので実害なし）。②**型エラー 11→0**＝`git submodule update --init --recursive` で `shared/JLPT-Listening` を配置(残6はDeno製 `docs/supabase/functions/…` だったので `tsconfig.json` の exclude に `docs` を追加)。③**在庫レポートに作成日時を追加**＝`tools/stock_report.py` に git 履歴（作成日時／最終コミット／コミット回数）を出す `history()` を追加。**全大問が作成 2026-07-14 なのは、その日に content/problems/… へ一括で作り直したため**（それ以前の履歴はこのパスに無い）。④**保留＝ネパール語訳**（下記）。
 - **🇳🇵 文章の文法200セットのネパール語訳＝ユーザー判断で保留（2026-07-26）**: 中身＝**passage_grammar 200セット(N5 80/N4 80/N3 40)・280本文・79,072字が i18n.ne.body 未作成**（読解側は完備）。アプリは `PassageSetPlayer.tsx:66` で `l1==='ne'` の時だけ訳トグルを出す＝**落ちはしないがネパール語話者には文章の文法だけ訳が出ない**。見積り提示（Opus約¥2,300／Sonnet約¥450／Gemini2.5Flash約¥100）→**「今は作らない(¥0)」を選択**。`src/data/exam/passageTransNe.test.ts` は**赤いまま放置せず「既知の借金の見張り」に作り替えた**＝読解は従来どおり全数必須／pgは `KNOWN_PG_UNTRANSLATED=200` と一致すること（増えたら新規本文の訳忘れで赤）／訳がある分は本文数一致・デーヴァナーガリー必須／余計なidが無いこと。**訳を作ったらこの定数を減らし、0になったら定数ごと消して完全チェックへ戻す**。**`npm test` 302/302・`tsc` 0エラー**。
+- **✅ push完了＋未追跡1.1GBを整理（2026-07-26）**: `299351c`(型エラー0・見張りテスト・在庫レポート) と `9f6c09c`(整理) を push 済＝**作業ツリーは完全にクリーン(未追跡0)**。①**追跡開始 197ファイル/4.1MB**＝tools/ docs/ md/ memory/ .claude/ cloudflare/ dict/ data-build/(スクリプト)・ルート直下の手順書/ASC申請文/PDF/TTS台本xlsx＝「消えると作り直せない道具と手順」だけ。②**.gitignore 追加**＝`.claude/settings.local.json`(**Google APIキーが平文。過去コミットに無し＝未漏洩を確認**)／scratchpad/ __pycache__/ *.pyc ~$* cloudflare/.wrangler/ data-build/dict/ data-build/_examples.utf／**制作素材1.1GB**(問題568MB・画像270MB・問題作成の参考188MB・デザイン提案34MB・バックアップ19MB・聴解パイロット17MB・プレビュー)。⚠**repoは PUBLIC**なので「問題作成の参考」＝公式試験の音声/PDF(著作物)は**絶対に入れない**。⚠**この1.1GBはgit外＝PCが壊れると復旧不可**。外部バックアップは要ユーザー判断。③**削除12.9MB**＝全`__pycache__`と`data-build/shots/node_modules`(npm install で戻る)＋`data-build/gen_listening_audio.py`(旧パイロット残骸・ユーザー指示)。
+- **✅ `confirm.html` は消してはいけない（2026-07-26 判明）**: アカウントの**メール確認が終わった人が着地する完了ページ**（title「メール確認完了 — まいにちJLPT」・commit `191411a` 由来）。`.github/workflows/build-jlpt.yml:108` が `_site/` へコピー＝ Pages で配信中。消すと確認メールのリンク先が404になる。**復元済・追跡済のまま維持**。
+- **🇳🇵→🌏 翻訳は全10言語まとめて（2026-07-26 ユーザー指示）**: 文章の文法200セットの訳は**しばらく保留**。やる時は**ネパール語単独ではなく対応10言語を同時に1回で**作る＝見積もりも最初から10言語分で出す。
 - **📌 `tools/stock_report.py` と `memory/在庫問題数.txt` は git 追跡へ（2026-07-26 ユーザー指示）**＝`git add` 済み(staged)。**次に commit/push する時に一緒に入れる**。.gitignore には引っかかっていない（単に未追跡だっただけ）。
 - **🤖 AndroidがPlayへ一度も出ていなかった件（2026-07-26・対処済）**: build **2539〜2553の12回すべて**、Androidジョブは success なのに **Play提出3ステップ(AAB生成/SA復号/アップロード)が全て skipped**＝GPCに存在しない（内部テストにもクローズドテストにも無い）。**真因＝方針と既定値のズレ**: 方針(2026-06-29)は「ビルド後は自動提出」なのに workflow 既定が `aab=false/publish=false` で、dispatch時に `-f` を付け忘れると**黙って「APKのみ生成」に落ちる**。iOSは `submit` 既定 true なので毎回TestFlightへ行っており、Androidだけ取り残されていた。鍵・SA(`GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64`含む5種)は登録済＝仕組み自体は健全。**対処**(commit `b1c707b`・**push済＝origin/main に入っている**): `.github/workflows/build-jlpt.yml` の既定を **`aab=true / publish=true / track=alpha`(クローズドテスト)** に変更＝ユーザー指示「自動でクローズドテストまで」。`production` は従来どおり**明示合図時のみ**。⚠️新既定は **【訂正2026-07-26】push 済みで**すでに有効**（HEAD==origin/main・default が aab=true/publish=true/track=alpha）**（それまでは dispatch で明示指定が要る）。⚠️AAB生成時はAPKを作らない＝実機直挿しAPKが欲しい時は `aab=false publish=false`。**走行中(2本)**: ①run `30186323178` = 2553 を android のみ・alpha で提出（先行の動作確認用）②**run `30186484303` = Build 2568 / both / submit=true(iOS→TestFlight) / publish=true・track=alpha(Android→クローズドテスト)** ＝ユーザー指示「プッシュしてから両OSでビルド」。ユーザー方針により**監視・自動報告はしない**＝Play Console「聞いて話せる英語」→テスト→クローズドテスト／App Store Connect TestFlight で確認。
 - **📤 全push完了（2026-07-26）**: マネタイズPhase0の12件＋workflow既定値修正＋handoffを **push 済**（origin/main と同期）。push契機で **Pages OTA も起動**（`content/` の変更は0件＝配信内容は同一・`_manifest.json` 再生成不要）。

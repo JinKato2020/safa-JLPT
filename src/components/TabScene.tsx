@@ -3,8 +3,9 @@
 //  - SceneTitle: イラスト上部中央の見出し。
 //  - BottomIconBar / TabIconButton: イラスト下端(ボトムナビの上)に置く小アイコンの操作列。
 //  - Hotspot: 背景の描き込み要素に重ねる透明タップ領域(必要時)。
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, ScrollView, StyleSheet, useWindowDimensions, type DimensionValue, type ImageSourcePropType } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 export const IMMERSIVE = {
@@ -117,6 +118,10 @@ export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, h
   const { height } = useWindowDimensions();
   const [openKey, setOpenKey] = useState<string | null>(null);
   const activeEntry = entries.find((e) => e.key === openKey && e.renderCard);
+
+  // タブから離れたら開いていたカード(ポップオーバー)を必ず閉じる=戻った時は既定の背景に戻す
+  // (タブ移動で画面をリセットする方針。入れ子スタックの popToTop と対で「開いている画面を保存しない」を満たす)。
+  useFocusEffect(useCallback(() => () => setOpenKey(null), []));
 
   const handle = (e: TabEntry) => {
     if (e.disabled) return;

@@ -14,7 +14,6 @@ export type RootStackParamList = {
   // 診断クイズ / 弱点ドリル(itemIds 指定でその語だけを出題) / 大問学習(daimon 指定=本番の大問を固定形式で連続出題)
   Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon; expression?: boolean } | undefined;
   Flashcard: { ids?: string[] } | undefined; // 漢字・語彙 連続学習→連続テスト(個別漢字79字を含む)。ids指定時はその語id集合だけを復習(my単語帳の「復習する」)
-  MyWords: undefined; // my単語帳(保存した語/文法)一覧
   MockIntro: { full?: boolean } | undefined; // 模試の説明(いきなり始めず遷移)。案内キャラ＋目安
   Mock: { full?: boolean } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)
   Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho'; title?: string } | undefined;   // 読解(小区分つき)。title=大問名ヘッダー
@@ -35,6 +34,7 @@ export type WordsStackParamList = {
 export type DictStackParamList = {
   DictHome: undefined;                        // 図書館ホーム(4カード=語彙/漢字/文法辞書＋My単語帳)
   DictList: { view: Kubun };                  // 各辞書リスト(BrowseScreen)
+  MyWords: undefined;                         // my単語帳(保存した語/文法)一覧。タブ内画面=ボトムナビを消さない
 };
 export type StudyStackParamList = {
   StudyHome: undefined;                       // 試験タブ 世界観ホーム(タイル=オススメ/4カテゴリ/模試)
