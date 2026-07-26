@@ -1,7 +1,12 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手
-- **🤖 AndroidがPlayへ一度も出ていなかった件（2026-07-26・対処済）**: build **2539〜2553の12回すべて**、Androidジョブは success なのに **Play提出3ステップ(AAB生成/SA復号/アップロード)が全て skipped**＝GPCに存在しない（内部テストにもクローズドテストにも無い）。**真因＝方針と既定値のズレ**: 方針(2026-06-29)は「ビルド後は自動提出」なのに workflow 既定が `aab=false/publish=false` で、dispatch時に `-f` を付け忘れると**黙って「APKのみ生成」に落ちる**。iOSは `submit` 既定 true なので毎回TestFlightへ行っており、Androidだけ取り残されていた。鍵・SA(`GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64`含む5種)は登録済＝仕組み自体は健全。**対処**(commit `b1c707b`・未push): `.github/workflows/build-jlpt.yml` の既定を **`aab=true / publish=true / track=alpha`(クローズドテスト)** に変更＝ユーザー指示「自動でクローズドテストまで」。`production` は従来どおり**明示合図時のみ**。⚠️新既定は **push するまで効かない**（それまでは dispatch で明示指定が要る）。⚠️AAB生成時はAPKを作らない＝実機直挿しAPKが欲しい時は `aab=false publish=false`。**走行中**: run **`30186323178`** = 2553 を `platforms=android` のみ・`track=alpha` で提出（iOSを含めると同番号2553でTestFlightが重複を弾くため除外）。ユーザー方針により**監視・自動報告はしない**＝結果は Play Console「聞いて話せる英語」→テスト→クローズドテストで確認。
+- **🧹 幽霊・放置の駆除（2026-07-26・完了3件／保留1件）**: ①**`safa-assets/` 削除済**＝旧配信staging(github `JinKato2020/safa-jlpt`)のローカル複製。未追跡・26MB・376ファイル・最終更新 2026-06-27・**dirty0/unpushed0でHEAD==origin/main** を確認してから削除（復旧は `git clone https://github.com/JinKato2020/safa-jlpt.git`）。現行の音声正本は**root `assets/audio/`(260本)＋Pages `safa-JLPT`**、生成器は`問題\tools\build_choukai3.py`。唯一の参照元 `data-build/gen_listening_audio.py`(未追跡・2026-06-25・旧パイロットの残骸)も**ユーザー指示で削除済**（未追跡＝復旧不可。現行フローは `問題	oolsuild_choukai3.py` なので実害なし）。②**型エラー 11→0**＝`git submodule update --init --recursive` で `shared/JLPT-Listening` を配置(残6はDeno製 `docs/supabase/functions/…` だったので `tsconfig.json` の exclude に `docs` を追加)。③**在庫レポートに作成日時を追加**＝`tools/stock_report.py` に git 履歴（作成日時／最終コミット／コミット回数）を出す `history()` を追加。**全大問が作成 2026-07-14 なのは、その日に content/problems/… へ一括で作り直したため**（それ以前の履歴はこのパスに無い）。④**保留＝ネパール語訳**（下記）。
+- **🇳🇵 文章の文法200セットのネパール語訳＝ユーザー判断で保留（2026-07-26）**: 中身＝**passage_grammar 200セット(N5 80/N4 80/N3 40)・280本文・79,072字が i18n.ne.body 未作成**（読解側は完備）。アプリは `PassageSetPlayer.tsx:66` で `l1==='ne'` の時だけ訳トグルを出す＝**落ちはしないがネパール語話者には文章の文法だけ訳が出ない**。見積り提示（Opus約¥2,300／Sonnet約¥450／Gemini2.5Flash約¥100）→**「今は作らない(¥0)」を選択**。`src/data/exam/passageTransNe.test.ts` は**赤いまま放置せず「既知の借金の見張り」に作り替えた**＝読解は従来どおり全数必須／pgは `KNOWN_PG_UNTRANSLATED=200` と一致すること（増えたら新規本文の訳忘れで赤）／訳がある分は本文数一致・デーヴァナーガリー必須／余計なidが無いこと。**訳を作ったらこの定数を減らし、0になったら定数ごと消して完全チェックへ戻す**。**`npm test` 302/302・`tsc` 0エラー**。
+- **📌 `tools/stock_report.py` と `memory/在庫問題数.txt` は git 追跡へ（2026-07-26 ユーザー指示）**＝`git add` 済み(staged)。**次に commit/push する時に一緒に入れる**。.gitignore には引っかかっていない（単に未追跡だっただけ）。
+- **🤖 AndroidがPlayへ一度も出ていなかった件（2026-07-26・対処済）**: build **2539〜2553の12回すべて**、Androidジョブは success なのに **Play提出3ステップ(AAB生成/SA復号/アップロード)が全て skipped**＝GPCに存在しない（内部テストにもクローズドテストにも無い）。**真因＝方針と既定値のズレ**: 方針(2026-06-29)は「ビルド後は自動提出」なのに workflow 既定が `aab=false/publish=false` で、dispatch時に `-f` を付け忘れると**黙って「APKのみ生成」に落ちる**。iOSは `submit` 既定 true なので毎回TestFlightへ行っており、Androidだけ取り残されていた。鍵・SA(`GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64`含む5種)は登録済＝仕組み自体は健全。**対処**(commit `b1c707b`・**push済＝origin/main に入っている**): `.github/workflows/build-jlpt.yml` の既定を **`aab=true / publish=true / track=alpha`(クローズドテスト)** に変更＝ユーザー指示「自動でクローズドテストまで」。`production` は従来どおり**明示合図時のみ**。⚠️新既定は **【訂正2026-07-26】push 済みで**すでに有効**（HEAD==origin/main・default が aab=true/publish=true/track=alpha）**（それまでは dispatch で明示指定が要る）。⚠️AAB生成時はAPKを作らない＝実機直挿しAPKが欲しい時は `aab=false publish=false`。**走行中(2本)**: ①run `30186323178` = 2553 を android のみ・alpha で提出（先行の動作確認用）②**run `30186484303` = Build 2568 / both / submit=true(iOS→TestFlight) / publish=true・track=alpha(Android→クローズドテスト)** ＝ユーザー指示「プッシュしてから両OSでビルド」。ユーザー方針により**監視・自動報告はしない**＝Play Console「聞いて話せる英語」→テスト→クローズドテスト／App Store Connect TestFlight で確認。
+- **📤 全push完了（2026-07-26）**: マネタイズPhase0の12件＋workflow既定値修正＋handoffを **push 済**（origin/main と同期）。push契機で **Pages OTA も起動**（`content/` の変更は0件＝配信内容は同一・`_manifest.json` 再生成不要）。
+- **🧹 `confirm.html` の幽霊削除を復元（2026-07-26）**: 作業ツリーで `confirm.html` が**未コミットのまま削除**されていた（誰が消したか不明・本セッションではない）。実体＝**アカウント作成時のメール確認リンクの着地ページ**（Supabase Site URL。2026-07-12 `191411a` で追加。localhostエラー回避用）。`build-jlpt.yml:108` が `[ -f confirm.html ] && cp confirm.html _site/ || true` でPagesへ配信しており、**`|| true` のためビルドは緑のまま静かにページだけ消える**＝新規登録のメール確認が404になる実害。→ `git restore` で復元してから push した。**教訓**: 未コミットの削除は「消していい根拠」を確認するまで一緒にpushしない。
 - **💰 マネタイズ Phase0 実装完了（2026-07-26・未push）**: 設計書=`docs/superpowers/specs/2026-07-26-monetization-design.md` / 実装計画=`docs/superpowers/plans/2026-07-26-monetize-phase0-entitlement.md`（Task1-6・TDD）。**確定事項**: 無料=1日3回(約20〜30問)・広告1本で+1回/1日2本まで→最大5回。**レベル制限(N4/N3ロック)は不採用**(28ファイル波及＋体験悪)。「今日のおすすめ」はPro限定にせず無料(ただし1回消費)。広告報酬は練習+1回のみ(模試チケット無し)。お試し=7日(戦略板14日から変更)。Android=`com.safa.english`(App C枠)のまま＝**コード変更ゼロ**。iOS=`com.safa.jlpt`。RevenueCat(課金)＋AdMob(広告)。**Phase0=`GATING_ENABLED=false`で出荷＝誰も制限されない**(仕組みだけ完成)。Phase1で購入画面と同時にtrue。**✅Phase0=Task1-6すべて完了・commit 6件**（`95a2e33` `64c8150` `851ceaa` `ee9f7cf` `117ae43` `699e61c`・未push。サブエージェント3体に束ねて実行＝共通ルールB）: 新規`src/pro/{entitlement,gating,dailyQuota,useSessionGate,LimitReachedSheet}`＋`store.tsx`配線(action4つ・+18行/削除0)＋練習7画面(Quiz/ListeningQuiz/Kakitori/WordDrill/Flashcard/PassageGrammar/Reading)にゲート配線＋ProfileScreenに状態表示＋i18n(`limit.*`5・`pro.*`4／ja/en/ne)。**検証は本体が実測**=新規テスト15/15合格・`npm test` 299中298合格(残1=着手前から赤の`passageTransNe`)・`npx tsc --noEmit` 11件=ベースラインと同数で**増加0**(既存11=`shared/JLPT-Listening/`未配置＋Deno型)・`GATING_ENABLED=false`維持・`safa-assets/`不変。設計書も実装に同期済(`dailyQuota()`→`quotaFor()`改名／返金の記述削除／§5.1の表を6→7画面)。**注意**: OFFの間も`consumeSession()`は数える（実使用の回数データが貯まる＝ONにする前に実態を見られる）。画面に入って即戻ると1回消費（中断時の返金は未実装＝YAGNIで意図的に除外）。**次の一手**: 実機で目視確認（設定に「お試し中（あとN日）」が出るか・練習が今までどおり止まらず動くか）。**Phase1/2はユーザーの手作業待ち**=RevenueCatアカウント＋ストア課金商品作成／AdMobアカウント＋広告ユニット＋app-ads.txt。**戦略板へ報告すべき差分5件**（お試し7日／AndroidはApp C枠／レベル制限→1日3回／おすすめは無料／広告報酬は+1回のみ）は未報告。
 - **✅ Build 2553/both 投入・全260聴解実装確定（2026-07-26・commit 2aa53c5・push済・run 30177746932）**: N3音声を公式話速で再生成(100本)＝**聴解260問=データ260＋音声260本すべて実在・bundled.generated.tsに焼込確認・_manifest再生成**。同梱=Google/Apple認証(Web OAuth)・仮名書き取り(行選択ア〜ワ/見ないでランダム/漢字画面の速度・ドリルボタン削除)・管理ダッシュボード統合(登録匿名1表・大問別/単語帳数/カバー率3分割・snapshot v3)・単語タブ完了画面を試験タブに統一・プライバシー10言語。**dispatch=platforms=both/build_number=2553/submit=true(iOS→TestFlight)/aab=false・publish=false(Androidはビルドのみ・Play非公開)**。push契機でPages OTAも起動(新音声260＋content配信)。tsc=触ったファイル0エラー(既存11=submodule/Deno無関係)。**次: Actions run緑を確認しE2報告(iOS TestFlight＋Android＋OTA)。監視ポーリングはしない(通知/ユーザー確認待ち)。** D2実費: N3音声≈243円(Gemini 2.5 Flash TTS)。
 - **✅(完了・上記Buildで出荷) 聴解 音声バッチ＝レベル分割（2026-07-25・ユーザー承認「N5→確認→N4→N3」）**: N5の76問（各大問K/P/H/S × 002-020）を生成 **完了=66/76・$0.53≒79円**（`bw1ne1af4` exit0・2026-07-25）。Excel反映済=75/80。1回目の失敗10件を再生成→5回復(P群)。**残5件(K-006/007/015/019・P-010)は決定的400=「Model tried to generate text...only be used for TTS」**＝長い品質プロンプト＋末尾疑問文でFlashが読み上げでなく“回答”しテキスト生成→AUDIO専用で弾かれる確率的事故。**真因=生成器がコスト集計で`M.flash_pcm`を`flash_pcm_acc`(gen_choukai_json)に差し替えており、build_choukai3側のガードは素通り**。**修正=`flash_pcm_acc`にガード投入済**(text生成400を踏むと以降`M.SAFE_READ`前置でループ内再試行→尽きれば`RuntimeError`化→`one()`のChirp3フォールバック)。同ガードは`build_choukai3.flash_pcm`にも(標準経路用)。**✅5件を再生成→5/5成功（修正版・約9円）＝N5 80/80完了・Excel反映済80/80・N5実費≈99円**。**✅N5ユーザー承認済→N4(76問=K/P/H/S×002-020)生成中=bg `bq7w40250`**（`--fresh`・改善版Gemini・読み上げ専用ガード入り・IDリスト=scratchpad `n4_ids.txt`）。**完了後**: `update_choukai_xlsx.py N4`→ユーザー確認→**N3(95・概要G含む)**。※発話HはN5同様Chirp3-HD→Gemini Ledaへ更新（ユーザーに事前告知済・異議あれば発話除外）。同ガードでN4/N3も同種400に強い。残見積≈530円（同期API・バッチ半額はTTS非対応）。生成記録=`memory\choukai_audio_rec.json`（生成器がid→尺・声を追記）。詳細=`md\聴解_音声作成フロー.md`冒頭。
@@ -82,10 +87,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 41ターン（文脈 8万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 41ターン・ツール21回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -93,12 +94,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/handoff.md
 - memory/session-summary-LATEST.md
-- docs/superpowers/specs/2026-07-26-monetization-design.md
-- src/screens/ProfileScreen.tsx
-- src/i18n/ne.json
-- src/i18n/en.json
-- src/i18n/ja.json
-- src/screens/ReadingScreen.tsx
+- src/data/exam/passageTransNe.test.ts
+- memory/在庫問題数.txt
+- tools/stock_report.py
+- tsconfig.json
+- shared/JLPT-Listening/dict/dictRemote.ts
+- shared/JLPT-Listening/dict/data/manifest.json
 
-_自動更新: 2026-07-26 12:33_
+_自動更新: 2026-07-26 13:30_
 <!-- AUTO:END -->
