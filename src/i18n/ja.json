@@ -713,5 +713,9 @@
   "limit.body": "無料では1日{n}回まで練習できます。日付が変わると、またできるようになります。",
   "limit.note": "辞書・単語カード・成績の確認は、いつでも使えます。",
   "limit.close": "とじる",
-  "limit.left": "あと{n}回"
+  "limit.left": "あと{n}回",
+  "pro.row_label": "今の状態",
+  "pro.state_pro": "Pro（無制限）",
+  "pro.state_trial": "お試し中（あと{n}日）",
+  "pro.state_free": "無料（1日{n}回）"
 }

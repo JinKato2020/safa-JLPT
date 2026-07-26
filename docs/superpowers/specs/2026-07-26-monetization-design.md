@@ -64,7 +64,7 @@
         模試の解錠            Pro限定の装飾          広告SDKを起動するか
                                      |
                                      v
-                        dailyQuota(state, now)  ← 唯一の回数判定
+                        quotaFor(state, now)  ← 唯一の回数判定
                         （Pro なら無制限・無料なら 3 + 広告ボーナス）
                                      |
                                      v
@@ -136,8 +136,12 @@ export function proStatus(state: AppState, now: number): ProStatus;
 | `ListeningQuizScreen`（聴解練習） | 10問（`COUNT = 10`） |
 | `KakitoriScreen`（書き取り） | 5字（`SET_SIZE = 5`） |
 | `WordDrillScreen`（単語ドリル） | 1セット |
-| `FlashcardScreen` / `PassageGrammarScreen` | 1セット |
+| `FlashcardScreen`（単語カード学習→テスト） | 12語（`size = 12`） |
+| `PassageGrammarScreen`（文章の文法） | 3セット（`SESSION_SETS = 3`） |
+| `ReadingScreen`（読解） | 3パッセージ（`SESSION_PASSAGES = 3`） |
 | **「今日のおすすめ」** | 1回として数える（無料でも使えるが上限は消費する） |
+
+ゲートを通すのは上の**7画面**（`QuizScreen` / `ListeningQuizScreen` / `KakitoriScreen` / `WordDrillScreen` / `FlashcardScreen` / `PassageGrammarScreen` / `ReadingScreen`）。
 
 **数えないもの**（無料でも無制限）:
 
@@ -184,14 +188,14 @@ export interface Quota {
   canWatchAd: boolean; // 無料 かつ bonus < 2 かつ 残り0 のときだけ true
 }
 
-export function dailyQuota(state: AppState, now: number): Quota;
+export function quotaFor(state: AppState, now: number): Quota;
 export function consumeSession(state: AppState, now: number): AppState;
 export function grantAdBonus(state: AppState, now: number): AppState;
 ```
 
 決めごと:
 
-- **消費は「練習を始めた時」**（終わった時ではない）。途中でやめても消費する。ただし**1問も答えずに戻った場合だけ返す**（誤タップ救済）
+- **消費は「練習を始めた時」**（終わった時ではない）。途中でやめても消費する。**返さない**（払い戻しの仕組みは持たない）。代わりに**入口に「あと◯回」を表示して誤タップを防ぐ**（Phase 1）
 - 日付は**端末のローカル日付**で判定。`day` が今日と違えば `used`/`bonus` を0とみなす（純関数の中で処理し、保存は次の書き込み時）
 - 端末の時計を戻す不正は**防がない**（サーバを持たないオフライン前提のため）。実害は小さく、対策コストが見合わない
 - **広告ボタンは残り0になってから出す**。まだ回数が残っているのに広告を勧めない
@@ -280,7 +284,7 @@ export async function showRewarded(): Promise<'earned' | 'skipped' | 'unavailabl
 // 'earned' のときだけ grantAdBonus() を呼ぶ
 ```
 
-- 「見られるか」の判定は `dailyQuota().canWatchAd` に一本化する（広告側で別の上限を持たない）
+- 「見られるか」の判定は `quotaFor().canWatchAd` に一本化する（広告側で別の上限を持たない）
 - 広告が読み込めないときは**静かに諦める**。機能自体は壊さない（ボタンを隠す）
 - 開発中は**AdMobのテスト広告ユニットID**を使う。本番IDを開発で叩くとアカウント停止の危険がある
 
@@ -355,7 +359,7 @@ Pro機能の実装重さ:
 
 - **純関数はテストを書く**（既存 `node --test` の並びに追加）
   - `src/pro/entitlement.test.ts`: お試し期限・紹介加算・購入優先・期限切れ・devPro
-  - `src/pro/dailyQuota.test.ts`: 3回で止まる・日付またぎでリセット・広告+1が2本まで・Proは無制限・1問も答えず離脱で戻る
+  - `src/pro/dailyQuota.test.ts`: 3回で止まる・日付またぎでリセット・広告+1が2本まで・Proは無制限・壊れた保存値でも落ちない
 - **実機確認**
   - iOS: サンドボックス購入・復元・機種変（別端末でログイン→Pro follow）
   - Android: ライセンステスターで購入・復元

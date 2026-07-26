@@ -713,5 +713,9 @@
   "limit.body": "The free plan includes {n} practice sessions per day. You can practice again tomorrow.",
   "limit.note": "The dictionary, word cards and your results are always available.",
   "limit.close": "Close",
-  "limit.left": "{n} left"
+  "limit.left": "{n} left",
+  "pro.row_label": "Your plan",
+  "pro.state_pro": "Pro (unlimited)",
+  "pro.state_trial": "Free trial ({n} days left)",
+  "pro.state_free": "Free ({n} sessions/day)"
 }

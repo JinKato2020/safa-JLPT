@@ -20,6 +20,8 @@ import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
 import { useSync } from '../auth/SyncProvider';
 import { deleteAccount } from '../auth/authClient';
+import { proStatus } from '../pro/entitlement';
+import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -57,6 +59,14 @@ export default function ProfileScreen() {
   const [showDl, setShowDl] = useState(false);
   const nav = useNavigation();
   const { session } = useSync();
+
+  // 今の状態(Pro / お試し中 / 無料)。判定は proStatus ただ1つに任せる(画面では判定しない)。
+  const pro = proStatus(state, Date.now());
+  const proText = pro.source === 'trial'
+    ? t('pro.state_trial', { n: pro.trialDaysLeft })
+    : pro.isPro
+      ? t('pro.state_pro')
+      : t('pro.state_free', { n: FREE_SESSIONS_PER_DAY });
 
   // アカウント削除(ログイン中のみ・設定の最後に配置)。Apple審査要件=アプリ内から退会できること。
   const onDelete = () => {
@@ -362,6 +372,12 @@ export default function ProfileScreen() {
               trackColor={{ true: c.blueLight, false: c.line }}
               thumbColor={c.faint}
             />
+          </View>
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>{t('pro.row_label')}</Text>
+              <Text style={s.subtle}>{proText}</Text>
+            </View>
           </View>
         </View>
 
