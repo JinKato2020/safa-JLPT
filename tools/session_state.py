@@ -39,12 +39,16 @@ MAX_FILES = 8
 MAX_RUNS = 5
 
 # 文脈サイズのしきい値（トークン）
-# settings.json の autoCompactWindow=200000 が実際の上限。20万に達すると自動圧縮が走り、
-# 会話は要約に置き換わる（≒7万まで落ちて再び伸びる）。だから 20万/30万で警告しても遅い or
-# 到達不能。窓に対する割合で切り、「自動圧縮に飲まれる前に、区切りで自分から /clear」を促す。
-CTX_WINDOW = 200_000  # settings.json の autoCompactWindow と合わせること
-CTX_WARN = 130_000    # 窓の65%。画面に注意を出す
-CTX_ALERT = 170_000   # 窓の85%。handoff.md の先頭にも赤ペンを入れる
+# ★窓枠は「今どのモデルか」で決まる★
+#   settings.json の autoCompactWindow=700000 が効くのは 1M窓のモデル(Opus 4.8[1m] / Fable 5)だけ。
+#   Opus 5 などは標準20万窓で、設定をいくら上げても20万で強制的に圧縮される。
+#   だから窓を決め打ちにせず、transcript に記録された実際のモデル名から選ぶ（2026-07-26 修正）。
+# 警告は窓に対する割合で切る（絶対値だと一方は手遅れ・他方は到達不能になる）。
+CTX_WINDOW_BIG = 700_000  # 1M窓のモデル。settings.json の autoCompactWindow と合わせること
+CTX_WINDOW_STD = 200_000  # それ以外の標準窓（設定では広げられない）
+WARN_RATIO = 4 / 7        # 窓の約57%＝70万なら40万で注意（ユーザー指定）
+ALERT_RATIO = 6 / 7       # 窓の約86%＝70万なら60万。handoff.md の先頭にも赤ペンを入れる
+BIG_WINDOW_MODELS = ("opus-4-8", "fable", "[1m]")
 # 直前のユーザー指示から連続した私のターン数（ツール呼び出しループの長さ）
 LOOP_WARN = 40
 
@@ -148,15 +152,29 @@ def hook_input() -> dict:
         return {}
 
 
+def window_for(model: str) -> int:
+    """今のモデルの実際の文脈窓。1M窓でなければ設定に関係なく20万。"""
+    m = (model or "").lower()
+    return CTX_WINDOW_BIG if any(k in m for k in BIG_WINDOW_MODELS) else CTX_WINDOW_STD
+
+
+def finalize(out: dict) -> dict:
+    """モデル名から窓としきい値を確定させる。"""
+    out["win"] = window_for(out.get("model", ""))
+    out["warn"] = int(out["win"] * WARN_RATIO)
+    out["alert"] = int(out["win"] * ALERT_RATIO)
+    return out
+
+
 def scan_transcript(path: str) -> dict:
     """今の会話の重さを測る。文脈サイズ・往復数・ツールループ長。
 
     ファイルは会話に載らないので全部なめてよい。JSON 解析は必要な行だけに絞る。
     """
-    out = {"ctx": 0, "turns": 0, "loop": 0, "tools": 0}
+    out = {"ctx": 0, "turns": 0, "loop": 0, "tools": 0, "model": ""}
     p = Path(path)
     if not path or not p.exists():
-        return out
+        return finalize(out)
     try:
         with p.open("r", encoding="utf-8", errors="replace") as fh:
             for line in fh:
@@ -190,6 +208,7 @@ def scan_transcript(path: str) -> dict:
                     out["tools"] += sum(
                         1 for c in content if isinstance(c, dict) and c.get("type") == "tool_use"
                     )
+                out["model"] = msg.get("model") or out["model"]
                 out["ctx"] = (
                     (usage.get("input_tokens") or 0)
                     + (usage.get("cache_read_input_tokens") or 0)
@@ -197,7 +216,7 @@ def scan_transcript(path: str) -> dict:
                 )
     except OSError:
         pass
-    return out
+    return finalize(out)
 
 
 def context_warnings(st: dict) -> tuple[str, list[str]]:
@@ -205,16 +224,22 @@ def context_warnings(st: dict) -> tuple[str, list[str]]:
     ctx, turns, loop, tools = st["ctx"], st["turns"], st["loop"], st["tools"]
     if not ctx:
         return "", []
+    win, warn, alert = st["win"], st["warn"], st["alert"]
     man = f"{ctx/10000:.0f}万"
-    pct = round(ctx * 100 / CTX_WINDOW)
+    pct = round(ctx * 100 / win)
     notes: list[str] = []
 
-    if ctx >= CTX_ALERT:
-        head = f"🔴 文脈 {man}／{CTX_WINDOW//10000}万（{pct}%）・{turns}往復 — まもなく自動圧縮。区切りをつけて /clear を"
-    elif ctx >= CTX_WARN:
-        head = f"⚠ 文脈 {man}／{CTX_WINDOW//10000}万（{pct}%）・{turns}往復 — そろそろ /clear の頃合い"
+    if ctx >= alert:
+        head = f"🔴 文脈 {man}／{win//10000}万（{pct}%）・{turns}往復 — まもなく強制圧縮。区切りをつけて /clear を"
+    elif ctx >= warn:
+        head = f"⚠ 文脈 {man}／{win//10000}万（{pct}%）・{turns}往復 — そろそろ /clear の頃合い"
     else:
         head = ""
+
+    # 20万窓のモデルだと「70万設定にしたのに早く圧縮される」ように見える。理由を毎回そこに書く
+    if head and win == CTX_WINDOW_STD:
+        short = (st.get("model") or "?").replace("claude-", "")
+        notes.append(f"今のモデル {short} は標準{win//10000}万窓。settings.json の70万は1M窓モデル(Opus 4.8[1m])の時だけ効く")
 
     if loop >= LOOP_WARN:
         notes.append(f"ツール呼び出しループが長い（指示1件に対し {loop}ターン・ツール{tools}回）— まとめ方を変える")
@@ -226,7 +251,7 @@ def context_warnings(st: dict) -> tuple[str, list[str]]:
 
     lines = [f"- {head}"]
     lines += [f"- {n}" for n in notes]
-    if ctx >= CTX_ALERT:
+    if ctx >= alert:
         lines.append("- 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）")
     return head, lines
 
@@ -350,7 +375,7 @@ def main() -> int:
         st = scan_transcript(payload.get("transcript_path") or "")
         banner, warn_lines = context_warnings(st)
         # 赤ペン（handoff.md）は ALERT 以上だけ。WARN は画面の1行で足りる
-        if st["ctx"] < CTX_ALERT and st["loop"] < LOOP_WARN:
+        if st["ctx"] < st["alert"] and st["loop"] < LOOP_WARN:
             warn_lines = []
     except Exception:
         pass

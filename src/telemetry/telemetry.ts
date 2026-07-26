@@ -5,7 +5,8 @@
 // テーブル未作成時はinsert失敗→キューに滞留(無害・作成後にflushで再送)。RLSは anon/authenticated の INSERT のみ許可。
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dayStr, type AppState } from '../store/state';
-import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts } from '../store/selectors';
+import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts, passageMasteryCounts } from '../store/selectors';
+import { stockCounts } from './stock';
 import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
 import type { Category } from '../engine/engine';
@@ -114,9 +115,13 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
   const exam = state.settings.targetExam ?? 'jlpt';
   const daysToExam = state.settings.examDate ? daysBetween(dayStr(now), state.settings.examDate) : null;
   // 大問別 習得数(正解相当)＝[learned,total] の配列。管理ダッシュボードの「大問別正解数」用。
-  const daimonMap = Object.fromEntries(daimonMasteryCounts(state, now).map((d) => [d.daimon, [d.learned, d.total]]));
+  // 文字語彙5＋文法3 に、読解4区分・聴解5区分(キー: dokkai_*/choukai_*)を足して全大問を1つの表に載せる。
+  const daimonMap = Object.fromEntries([
+    ...daimonMasteryCounts(state, now).map((d) => [d.daimon, [d.learned, d.total]]),
+    ...passageMasteryCounts(state, now).map((p) => [p.key, [p.learned, p.total]]),
+  ]);
   return {
-    v: 3, anonId: anon, app: APP_VERSION, platform: getPlatform().OS, osVersion: String(getPlatform().Version ?? ''),
+    v: 4, anonId: anon, app: APP_VERSION, platform: getPlatform().OS, osVersion: String(getPlatform().Version ?? ''),
     uiLang: state.settings.uiLang || '', level, exam, day: dayStr(now),
     // 質(正解率リング)＋合格率＋信頼幅
     readiness: { total: r.score, passProb: r.passProbability, band: r.band, passing: r.passing,
@@ -124,6 +129,7 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
     // 量(カバー率)＋達成ランク
     coverage: covMap, rankPct: rank.pct, rankIndex: rank.rankIndex,
     daimonMastery: daimonMap, // 大問別 [習得数,母数]（8大問: 文字語彙5＋文法3）
+    stock: stockCounts(state, level), // 在庫 [未出題の残り,母数]（8大問＋単語タブのドリル3種）
     myListCount: (state.myList ?? []).length, // 私の単語帳 登録単語数
     learned: learnedNow(state, now),
     streak: state.streak.current, streakLongest: state.streak.longest, freezes: state.streak.freezes,

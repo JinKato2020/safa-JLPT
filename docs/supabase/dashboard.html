@@ -19,7 +19,8 @@
   header{ padding:18px 20px; border-bottom:1px solid var(--line); background:var(--card); }
   h1{ font-size:19px; margin:0 0 2px; }
   .muted{ color:var(--sub); font-size:13px; }
-  main{ max-width:1180px; margin:0 auto; padding:18px 16px 60px; }
+  /* 横に広いPCでは横スクロールなしで全部見えるように、画面幅いっぱいまで使う(上限は視認性のため2400px)。 */
+  main{ max-width:2400px; margin:0 auto; padding:18px 16px 60px; }
   .bar{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:12px 0 4px; }
   input[type=text],input[type=password],input.search{ padding:8px 10px; border:1px solid var(--line);
     border-radius:8px; background:var(--card); color:var(--ink); font-size:13px; min-width:220px; }
@@ -35,26 +36,18 @@
   .kpi .n{ font-size:26px; font-weight:700; }
   .kpi .l{ font-size:12px; color:var(--sub); }
   table{ width:100%; border-collapse:collapse; font-size:13px; }
-  th,td{ text-align:left; padding:7px 8px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th,td{ text-align:left; padding:6px 7px; border-bottom:1px solid var(--line); white-space:nowrap; }
   th{ color:var(--sub); font-weight:600; font-size:12px; }
   td.num,th.num{ text-align:right; font-variant-numeric:tabular-nums; }
   th.sortable{ cursor:pointer; user-select:none; }
   th.sortable:hover{ color:var(--ink); }
   th .arw{ opacity:.5; font-size:10px; }
-  tr.row{ cursor:pointer; }
   tr.row:hover td{ background:var(--bg); }
-  tr.row.open td{ background:var(--bg); }
-  .caret{ display:inline-block; color:var(--sub); transition:transform .12s; }
-  tr.row.open .caret{ transform:rotate(90deg); }
-  tr.detail>td{ background:var(--bg); padding:10px 14px; white-space:normal; }
-  .dm-grid{ display:flex; flex-wrap:wrap; gap:6px; }
-  .dm{ font-size:12px; padding:3px 9px; border-radius:8px; border:1px solid var(--line); background:var(--card); }
-  .dm b{ font-variant-numeric:tabular-nums; }
-  .dm.ok{ border-color:var(--good); color:var(--good); }
-  .dm.mid{ border-color:var(--warn); color:var(--warn); }
-  .dm.low{ border-color:var(--bad); color:var(--bad); }
-  .dm.off{ color:var(--sub); opacity:.7; }
-  .dm-cov{ margin-top:8px; font-size:12px; color:var(--sub); }
+  /* 見出しは2段(グループ→項目)。同じグループの列はまとめて縦線で区切る。 */
+  th.grp{ text-align:center; font-size:11px; font-weight:600; color:var(--sub); background:var(--bg); padding:4px 8px; }
+  .gsep{ border-left:1px solid var(--line); }
+  td .ok{ color:var(--good); } td .mid{ color:var(--warn); } td .low{ color:var(--bad); }
+  td .off{ color:var(--sub); opacity:.55; }
   .scroll{ overflow-x:auto; }
   .empty{ color:var(--sub); font-size:13px; padding:8px 0; }
   .warn{ font-size:12px; color:var(--warn); }
@@ -64,6 +57,19 @@
   .mono{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:var(--sub); }
   .updated{ font-size:12px; color:var(--sub); margin-left:auto; }
   .count{ font-size:12px; color:var(--sub); font-weight:400; }
+  /* 削除用の選択列・危険ボタン・確認モーダル */
+  .selcol{ width:34px; text-align:center; padding:6px 4px; }
+  .selcol input{ width:16px; height:16px; cursor:pointer; vertical-align:middle; }
+  button.danger{ background:var(--bad); }
+  button:disabled{ opacity:.45; cursor:not-allowed; }
+  .modal-bg{ position:fixed; inset:0; background:rgba(0,0,0,.5); display:flex; align-items:center; justify-content:center; padding:20px; z-index:50; }
+  .modal{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px; max-width:560px; width:100%; max-height:85vh; overflow:auto; }
+  .modal h3{ margin:0 0 8px; font-size:16px; color:var(--bad); }
+  .modal ul{ margin:6px 0; padding-left:18px; font-size:13px; max-height:180px; overflow:auto; }
+  .modal .opt{ display:flex; gap:8px; align-items:flex-start; margin:12px 0; font-size:13px; }
+  .modal .opt input{ margin-top:3px; }
+  .modal .actions{ display:flex; gap:8px; justify-content:flex-end; margin-top:14px; }
+  .modal .st{ font-size:13px; margin-top:10px; white-space:pre-wrap; min-height:1px; }
 </style>
 </head>
 <body>
@@ -89,37 +95,40 @@
   </section>
 
   <section>
-    <h2>レベル別 平均 <span class="note">利用者の最新スナップショットを N5/N4/N3 で平均（％表示）</span></h2>
+    <h2>レベル別 合計 <span class="note">人数・今日のアクティブ・学習回数・学習時間はレベルごとの合計／合格率などは平均</span></h2>
     <div class="scroll"><table id="tLevel"></table></div>
   </section>
 
   <section>
-    <h2>分野別 枯渇状況 <span class="note">新規残数の平均・残り3問以下＝コンテンツ不足のサイン</span></h2>
-    <div class="scroll"><table id="tExhaust"></table></div>
+    <h2>レベル別 在庫（新規の残り） <span class="note">行＝レベル／列＝大問・単語タブの学習。数字＝<b>いちばん学習が進んでいる人</b>から見た残り＝アプリの問題数−その大問を最も多くやった人の学習数（誰も手を付けていなければ問題数そのもの／誰か1人がやり切れば0）。赤 ≦3＝在庫切れ・橙 ≦20＝要増産。マウスを乗せると問題数と平均も出ます</span></h2>
+    <div class="scroll"><table id="tStock"></table></div>
   </section>
 
   <section>
-    <h2>利用者一覧 <span class="note">登録・匿名を同じ1表に。見出しをクリックで並べ替え／行をクリックで大問別の内訳を展開</span>
+    <h2>利用者一覧 <span class="note">登録・匿名を同じ1表に。1人1行で全項目を横並び（見出しをクリックで並べ替え・右へスクロール）</span>
       <span class="count" id="devCount"></span></h2>
-    <div class="bar"><input id="search" class="search" type="text" placeholder="絞り込み（メール・端末ID・レベル）" /></div>
+    <div class="bar">
+      <input id="search" class="search" type="text" placeholder="絞り込み（メール・端末ID・レベル）" />
+      <button id="btnDel" class="danger" disabled>🗑 削除</button>
+      <button id="btnClear" class="ghost">選択解除</button>
+      <span class="note">左端のチェックで消したい人を選び、🗑 削除。取り消せません。</span>
+    </div>
     <div class="scroll"><table id="tDevices"></table></div>
   </section>
 
 </main>
 
+<div id="modal" class="modal-bg" style="display:none"><div class="modal" id="modalBox"></div></div>
+
 <script>
 const DEFAULT_URL = 'https://nxovouiqelynryumjvyq.supabase.co';
-const CATJP = { moji_goi:'文字・語彙', bunpou:'文法', dokkai:'読解', choukai:'聴解' };
-// 大問(8種)の日本語ラベルと表示順(文字語彙5→文法3)。
-const DAIMON_JP = { kanji_read:'漢字読み', orthography:'表記', context:'文脈規定', synonym:'言い換え類義', usage:'用法', grammar_form:'文法形式', order:'並べ替え', passage_grammar:'文章の文法' };
-const DAIMON_ORDER = ['kanji_read','orthography','context','synonym','usage','grammar_form','order','passage_grammar'];
+// 大問(8種)のラベルと並び順は COLS の dmCol(...) 側で定義(文字語彙5→文法3)。
 const $ = (id) => document.getElementById(id);
 
 $('url').value = localStorage.getItem('dash_url') || DEFAULT_URL;
 $('key').value = localStorage.getItem('dash_key') || '';
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-function catJp(k){ return CATJP[k] || k; }
 function fmtDate(s){ if(!s) return '—'; return String(s).slice(0,10); }
 function pct(v){ return (v==null || v==='') ? '<span class="empty">—</span>' : `${v}%`; }
 function numOr(v){ return (v==null || v==='') ? null : Number(v); }
@@ -147,15 +156,15 @@ async function loadAll(){
   localStorage.setItem('dash_url', url);
   localStorage.setItem('dash_key', key);
   try{
-    const [summary, level, exhaust, devices] = await Promise.all([
+    const [summary, level, stock, devices] = await Promise.all([
       api(url,key,'v_admin_summary'),
       api(url,key,'v_admin_level'),
-      api(url,key,'v_admin_exhaust'),
+      api(url,key,'v_admin_stock'),
       api(url,key,'v_admin_devices'),
     ]);
     renderSummary(summary[0]||{});
     renderLevel(level);
-    renderExhaust(exhaust);
+    renderStock(stock);
     devData = devices || [];
     renderDevices();
     $('app').style.display = '';
@@ -179,99 +188,307 @@ function renderSummary(s){
   $('kpi').innerHTML = kpis.map(([l,n])=>`<div class="kpi"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
 }
 
+// 分を「◯時間◯分」に(60分未満はそのまま)。合計学習時間が読みやすくなる。
+function hm(min){
+  const m = Number(min||0);
+  return m < 60 ? `${m}分` : `${Math.floor(m/60)}時間${m%60}分`;
+}
+const LV_ORDER = { N5:1, N4:2, N3:3, N2:4, N1:5 };
+const byLevel = (a,b) => (LV_ORDER[a.level]||9) - (LV_ORDER[b.level]||9);
+
 function renderLevel(level){
   simpleTbl($('tLevel'),
-    [{label:'レベル'},{label:'人数',num:1},{label:'平均 合格率',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間(分)',num:1},{label:'平均 継続日数',num:1},{label:'合格圏',num:1}],
-    level,
-    [ r=>`<b>${r.level}</b>`, r=>r.users, r=>pct(r.avg_pass_pct), r=>pct(r.avg_cov_pct), r=>r.avg_study_min, r=>r.avg_streak, r=>`${r.passing_users}人` ]
+    [{label:'レベル'},{label:'人数',num:1},{label:'今日のアクティブ',num:1},{label:'学習回数',num:1},{label:'学習時間(合計)',num:1},
+     {label:'平均 合格率',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'合格圏',num:1}],
+    (level||[]).slice().sort(byLevel),
+    [ r=>`<b>${r.level}</b>`, r=>`${r.users}人`, r=>`${r.dau ?? 0}人`, r=>`${r.sessions ?? 0}回`, r=>hm(r.study_min),
+      r=>pct(r.avg_pass_pct), r=>pct(r.avg_cov_pct), r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.passing_users}人` ]
   );
 }
 
-function renderExhaust(exhaust){
-  simpleTbl($('tExhaust'),
-    [{label:'分野'},{label:'平均 残り(新規)',num:1},{label:'枯渇端末(残≤3)',num:1},{label:'対象端末',num:1}],
-    exhaust,
-    [ r=>catJp(r.category), r=>r.avg_remaining, r=>`<span class="pill">${r.exhausted_users}</span>`, r=>r.users ]
-  );
-}
-
-// ── 利用者一覧(統合・ソート可能・行展開で大問別) ──
-let devData = [], sortKey = 'last_day', sortDir = -1; // -1=降順 / 1=昇順
-const COLS = [
-  { key:'_caret', label:'',       nosort:1, cell:()=>'<span class="caret">▸</span>' },
-  { key:'kind',   label:'種別',   val:r=>r.kind||'',           cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
-  { key:'who',    label:'ID / メール', val:r=>(r.email||r.anon_id||''), cell:r=> r.email ? esc(r.email) : `<span class="mono">${esc(String(r.anon_id||'').slice(0,8))}</span>` },
-  { key:'level',  label:'レベル', val:r=>r.level||'',          cell:r=> r.level||'—' },
-  { key:'pass_pct',    label:'合格率', num:1, val:r=>numOr(r.pass_pct),    cell:r=> pct(r.pass_pct) },
-  { key:'cov_kanji',   label:'漢字',   num:1, val:r=>numOr(r.cov_kanji),   cell:r=> pct(r.cov_kanji) },
-  { key:'cov_vocab',   label:'語彙',   num:1, val:r=>numOr(r.cov_vocab),   cell:r=> pct(r.cov_vocab) },
-  { key:'cov_grammar', label:'文法',   num:1, val:r=>numOr(r.cov_grammar), cell:r=> pct(r.cov_grammar) },
-  { key:'mylist_count',label:'単語帳', num:1, val:r=>numOr(r.mylist_count),cell:r=> (r.mylist_count ?? 0) },
-  { key:'daimon_learned', label:'大問正解', num:1, val:r=>numOr(r.daimon_learned), cell:r=> daimonSummary(r) },
-  { key:'streak',    label:'継続',   num:1, val:r=>numOr(r.streak),    cell:r=> (r.streak ?? 0) },
-  { key:'study_min', label:'学習分', num:1, val:r=>numOr(r.study_min), cell:r=> (r.study_min ?? 0) },
-  { key:'last_day',  label:'最終日', val:r=>r.last_day||'',      cell:r=> fmtDate(r.last_day) },
+// ── レベル別 在庫(行=レベル / 列=大問・単語タブの学習) ──
+// すべて アプリが送る stock(v4〜)の [残り,母数]。読解/聴解も公式の大問(区分)ごとに分けて出す。
+// 旧アプリ版しか居ないレベルでは、読解計/聴解計だけ旧 remaining で埋まり、区分列は「—」になる。
+const STOCK_COLS = [
+  { g:'文字・語彙(大問)', k:'kanji_read',      l:'漢字読み' },
+  { g:'文字・語彙(大問)', k:'orthography',     l:'表記' },
+  { g:'文字・語彙(大問)', k:'context',         l:'文脈規定' },
+  { g:'文字・語彙(大問)', k:'synonym',         l:'類義',   t:'言い換え類義' },
+  { g:'文字・語彙(大問)', k:'usage',           l:'用法',   t:'用法（N5には無い大問）' },
+  { g:'文法(大問)',      k:'grammar_form',    l:'文法形式' },
+  { g:'文法(大問)',      k:'order',           l:'並べ替え' },
+  { g:'文法(大問)',      k:'passage_grammar', l:'文章文法', t:'文章の文法' },
+  { g:'読解(大問)',      k:'dokkai_naiyou_tan', l:'短文', t:'内容理解（短文）' },
+  { g:'読解(大問)',      k:'dokkai_naiyou_chu', l:'中文', t:'内容理解（中文）' },
+  { g:'読解(大問)',      k:'dokkai_choubun',    l:'長文', t:'内容理解（長文）＝N3のみ' },
+  { g:'読解(大問)',      k:'dokkai_joho',       l:'情報検索', t:'情報検索' },
+  { g:'読解(大問)',      k:'dokkai',            l:'計',   t:'読解ぜんぶの合計' },
+  { g:'聴解(大問)',      k:'choukai_kadai',     l:'課題',  t:'課題理解' },
+  { g:'聴解(大問)',      k:'choukai_point',     l:'ポイント', t:'ポイント理解' },
+  { g:'聴解(大問)',      k:'choukai_gaiyou',    l:'概要',  t:'概要理解＝N3のみ' },
+  { g:'聴解(大問)',      k:'choukai_hatsuwa',   l:'発話',  t:'発話表現' },
+  { g:'聴解(大問)',      k:'choukai_sokuji',    l:'即時',  t:'即時応答' },
+  { g:'聴解(大問)',      k:'choukai',           l:'計',   t:'聴解ぜんぶの合計' },
+  { g:'単語タブ',        k:'w_produce',       l:'語つくり',   t:'単語タブ: 語をかなタイルで作る' },
+  { g:'単語タブ',        k:'w_gbuild',        l:'文くみたて', t:'単語タブ: 文法をかなタイルで作る' },
+  { g:'単語タブ',        k:'w_gmeaning',      l:'意味えらび', t:'単語タブ: 文法の意味を4択' },
 ];
-
-function daimonSummary(r){
-  if(!r.daimon) return '<span class="empty">—</span>';
-  return `${r.daimon_learned ?? 0}/${r.daimon_total ?? 0}`;
+// 数字＝いちばん学習が進んでいる人から見た残り(min_left)＝ 母数 − その大問を最も多くやった人の学習数。
+// 誰も手を付けていなければ母数そのもの(アプリの問題数)、誰か1人がやり切れば0。
+function stockCell(r){
+  if(!r) return '<span class="off" title="このアプリ版はまだ在庫を送っていません">—</span>';
+  const n = Number(r.min_left ?? 0);
+  const cls = n <= 3 ? 'low' : (n <= 20 ? 'mid' : 'ok');
+  const tip = `アプリの問題数 ${r.total ?? '—'}／全員の平均残り ${r.avg_left ?? '—'}／在庫切れ ${r.exhausted_users ?? 0}人 / ${r.users ?? 0}人`;
+  return `<span class="${cls}" title="${esc(tip)}">${n}</span>`;
 }
-function daimonDetail(r){
-  if(!r.daimon){
-    return '<span class="empty">大問別データは未取得です（このユーザーは大問別記録に対応する前のバージョン）。次回以降のスナップショットで溜まります。</span>';
+function renderStock(stock){
+  const el = $('tStock');
+  const rows = (stock||[]);
+  if(rows.length===0){
+    el.innerHTML = `<tr><td class="empty">データがまだありません。アプリが起動・バックグラウンド化されると溜まっていきます。</td></tr>`;
+    return;
   }
-  const cells = DAIMON_ORDER.map(k=>{
-    const a = r.daimon[k]; const l = Array.isArray(a)?Number(a[0]||0):0; const t = Array.isArray(a)?Number(a[1]||0):0;
-    let cls = 'off';
-    if(t>0){ const ratio = l/t; cls = ratio>=0.8 ? 'ok' : (ratio>=0.4 ? 'mid' : 'low'); }
-    return `<span class="dm ${cls}">${DAIMON_JP[k]} <b>${t===0?'—':l+'/'+t}</b></span>`;
+  const levels = [...new Set(rows.map(r=>r.level))].map(l=>({level:l})).sort(byLevel).map(x=>x.level);
+  const at = (lv,k) => rows.find(r=>r.level===lv && r.unit===k);
+
+  let grp = '<th class="grp">　</th>';
+  for(let i=0;i<STOCK_COLS.length;){
+    let j=i; while(j<STOCK_COLS.length && STOCK_COLS[j].g===STOCK_COLS[i].g) j++;
+    grp += `<th class="grp gsep" colspan="${j-i}">${STOCK_COLS[i].g}</th>`; i=j;
+  }
+  const head = STOCK_COLS.map((c,i)=>{
+    const first = i===0 || STOCK_COLS[i-1].g!==STOCK_COLS[i].g;
+    return `<th class="num ${first?'gsep':''}" title="${esc(c.t||c.l)}">${c.l}</th>`;
   }).join('');
-  const cov = `カバー率 漢字 ${r.cov_kanji==null?'—':r.cov_kanji+'%'}・語彙 ${r.cov_vocab==null?'—':r.cov_vocab+'%'}・文法 ${r.cov_grammar==null?'—':r.cov_grammar+'%'}　／　単語帳 ${r.mylist_count??0}語　／　履修 ${r.learned??0}　模試 ${r.mock_count??0}回　端末 ${esc(r.platform||'—')}`;
-  return `<div class="dm-grid">${cells}</div><div class="dm-cov">${cov}</div>`;
+  const body = levels.map(lv => '<tr class="row"><td><b>'+lv+'</b></td>' + STOCK_COLS.map((c,i)=>{
+    const first = i===0 || STOCK_COLS[i-1].g!==STOCK_COLS[i].g;
+    return `<td class="num ${first?'gsep':''}">${stockCell(at(lv,c.k))}</td>`;
+  }).join('') + '</tr>').join('');
+  el.innerHTML = `<tr>${grp}</tr><tr><th>レベル</th>${head}</tr>${body}`;
 }
+
+// ── 利用者一覧(1人1行・全項目を横の列に並べる。見出しは2段=グループ→項目) ──
+let devData = [], sortKey = 'last_day', sortDir = -1; // -1=降順 / 1=昇順
+let selected = new Set(), pendingFull = [], pendingPartial = [], pendingAccs = []; // 削除の選択(行キー)と実行待ちの中身
+// 行の識別＝匿名ID×レベル(ビューが distinct on (anon_id, level) なので1行に1つ)。同じ人の別レベル行は別物として選べる。
+const rowKey = (r) => (r.anon_id||'') + '|' + (r.level||'');
+
+// 大問別 [正解,母数] の1マス。母数0=その級に無い大問 / daimon自体が無い=大問別を記録しない旧アプリ版。
+function dmPair(r, k){
+  const a = r.daimon && r.daimon[k];
+  return { l: Array.isArray(a)?Number(a[0]||0):0, t: Array.isArray(a)?Number(a[1]||0):0 };
+}
+function dmVal(r, k){ const p = dmPair(r,k); return p.t>0 ? p.l/p.t : null; } // 並べ替えは正解率で
+function dmCell(r, k){
+  if(!r.daimon) return '<span class="off" title="このアプリ版は大問別を記録していません">—</span>';
+  const p = dmPair(r,k);
+  if(p.t===0) return '<span class="off" title="この級には出ない大問です">—</span>';
+  const ratio = p.l/p.t;
+  return `<span class="${ratio>=0.8?'ok':(ratio>=0.4?'mid':'low')}">${p.l}/${p.t}</span>`;
+}
+// 大問1つ＝1列。見出しは短く、正式名はマウスを乗せると出る(title)。
+const dmCol = (k, label, full, grp) => ({ g:grp||'大問別 正解/母数（文字語彙・文法）', key:'d_'+k, label, title:full||label, num:1,
+  val:r=>dmVal(r,k), cell:r=>dmCell(r,k) });
+// 読解・聴解の大問(公式の区分)。文字語彙/文法と同じ [正解,母数] で並べる。
+const RD = '大問別 正解/母数（読解・聴解）';
+
+const COLS = [
+  { g:'利用者', key:'who',   label:'ID / メール', val:r=>(r.email||r.anon_id||''),
+    cell:r=> r.email ? esc(r.email) : `<span class="mono">${esc(String(r.anon_id||'').slice(0,8))}</span>` },
+  { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
+  // レベルを切り替えて使った人は、レベルごとに1行ずつ出る(同じメール/IDが複数行に並ぶ=正常)。
+  // 「今」＝その人がいま使っているレベル。印の無い行は過去に使っていたレベルの記録。
+  { g:'利用者', key:'level', label:'レベル', title:'レベルごとに1行。「今」＝現在のレベル／印なし＝過去に使ったレベル',
+    val:r=>(r.level||'')+(r.is_latest?' 1':' 0'),
+    cell:r=> (r.level||'—') + (r.is_latest ? ' <span class="pill good">今</span>' : ' <span class="off" title="過去に使っていたレベル">過去</span>') },
+  { g:'利用者', key:'platform', label:'端末', val:r=>r.platform||'', cell:r=> esc(r.platform||'—') },
+  { g:'利用者', key:'app',   label:'アプリ版', title:'その端末が動かしているアプリの版(古いと母数も古い)',
+    val:r=>r.app||'', cell:r=> `<span class="mono">${esc(r.app||'—')}</span>` },
+  { g:'到達度', key:'pass_pct', label:'合格率', num:1, val:r=>numOr(r.pass_pct), cell:r=> pct(r.pass_pct) },
+  { g:'カバー率', key:'cov_kanji',   label:'漢字', num:1, val:r=>numOr(r.cov_kanji),   cell:r=> pct(r.cov_kanji) },
+  { g:'カバー率', key:'cov_vocab',   label:'語彙', num:1, val:r=>numOr(r.cov_vocab),   cell:r=> pct(r.cov_vocab) },
+  { g:'カバー率', key:'cov_grammar', label:'文法', num:1, val:r=>numOr(r.cov_grammar), cell:r=> pct(r.cov_grammar) },
+  dmCol('kanji_read','漢字読み'), dmCol('orthography','表記'), dmCol('context','文脈規定'),
+  dmCol('synonym','類義','言い換え類義'), dmCol('usage','用法','用法（N5には出ない大問）'),
+  dmCol('grammar_form','文法形式'), dmCol('order','並べ替え'), dmCol('passage_grammar','文章文法','文章の文法'),
+  dmCol('dokkai_naiyou_tan','読解:短文','読解 内容理解（短文）',RD),
+  dmCol('dokkai_naiyou_chu','読解:中文','読解 内容理解（中文）',RD),
+  dmCol('dokkai_choubun','読解:長文','読解 内容理解（長文）＝N3のみ',RD),
+  dmCol('dokkai_joho','読解:情報','読解 情報検索',RD),
+  dmCol('choukai_kadai','聴解:課題','聴解 課題理解',RD),
+  dmCol('choukai_point','聴解:ポイント','聴解 ポイント理解',RD),
+  dmCol('choukai_gaiyou','聴解:概要','聴解 概要理解＝N3のみ',RD),
+  dmCol('choukai_hatsuwa','聴解:発話','聴解 発話表現',RD),
+  dmCol('choukai_sokuji','聴解:即時','聴解 即時応答',RD),
+  { g:RD, key:'daimon_learned', label:'合計', num:1, title:'全大問（文字語彙5＋文法3＋読解4＋聴解5）の合計',
+    val:r=>numOr(r.daimon_learned),
+    cell:r=> r.daimon ? `${r.daimon_learned ?? 0}/${r.daimon_total ?? 0}` : '<span class="off">—</span>' },
+  { g:'活動', key:'mylist_count', label:'単語帳', num:1, title:'私の単語帳に入れた語数', val:r=>numOr(r.mylist_count), cell:r=> (r.mylist_count ?? 0) },
+  { g:'活動', key:'learned',    label:'履修',   num:1, title:'覚えた語・文法の数',   val:r=>numOr(r.learned),    cell:r=> (r.learned ?? 0) },
+  { g:'活動', key:'mock_count', label:'模試',   num:1, title:'模試の実施回数',       val:r=>numOr(r.mock_count), cell:r=> (r.mock_count ?? 0) },
+  { g:'活動', key:'streak',     label:'継続',   num:1, title:'連続学習日数',         val:r=>numOr(r.streak),     cell:r=> (r.streak ?? 0) },
+  { g:'活動', key:'study_min',  label:'学習分', num:1, title:'累計の学習時間(分)',   val:r=>numOr(r.study_min),  cell:r=> (r.study_min ?? 0) },
+  { g:'活動', key:'days',       label:'日数',   num:1, title:'データを送ってきた日数(使った日数)', val:r=>numOr(r.days), cell:r=> (r.days ?? '—') },
+  { g:'活動', key:'first_day',  label:'初回日', title:'このIDが初めて記録された日＝実質のインストール日', val:r=>r.first_day||'', cell:r=> fmtDate(r.first_day) },
+  { g:'活動', key:'last_day',   label:'最終日', val:r=>r.last_day||'', cell:r=> fmtDate(r.last_day) },
+];
+const isFirstOfGroup = (i) => i===0 || COLS[i-1].g !== COLS[i].g;
 
 function filtered(){
   const q = $('search').value.trim().toLowerCase();
   if(!q) return devData;
-  return devData.filter(r => `${r.email||''} ${r.anon_id||''} ${r.level||''} ${r.kind||''}`.toLowerCase().includes(q));
+  return devData.filter(r => `${r.email||''} ${r.anon_id||''} ${r.level||''} ${r.kind||''} ${r.platform||''} ${r.app||''}`.toLowerCase().includes(q));
+}
+
+// 1段目=グループ見出し(同じ g をまとめる) / 2段目=項目見出し(クリックで並べ替え)
+function headHtml(){
+  let grp = '<th class="grp selcol" rowspan="2" title="削除する行を選ぶ／ここで表示中を全選択"><input type="checkbox" id="chkAll"></th>';
+  for(let i=0; i<COLS.length; ){
+    let j = i; while(j<COLS.length && COLS[j].g===COLS[i].g) j++;
+    grp += `<th class="grp gsep" colspan="${j-i}">${COLS[i].g}</th>`;
+    i = j;
+  }
+  const cols = COLS.map((c,i)=>{
+    const arw = c.key===sortKey ? `<span class="arw">${sortDir<0?'▼':'▲'}</span>` : '';
+    return `<th class="sortable ${c.num?'num ':''}${isFirstOfGroup(i)?'gsep':''}" data-k="${c.key}" title="${esc(c.title||c.label)}">${c.label}${arw}</th>`;
+  }).join('');
+  return `<tr>${grp}</tr><tr>${cols}</tr>`;
 }
 
 function renderDevices(){
   const el = $('tDevices');
   const col = COLS.find(c=>c.key===sortKey) || COLS[COLS.length-1];
-  const rows = filtered().slice().sort((a,b)=>{
+  const cmp = (a,b)=>{
     let x = col.val ? col.val(a) : '', y = col.val ? col.val(b) : '';
     if(typeof x==='number' || typeof y==='number'){ x = x==null?-1:Number(x); y = y==null?-1:Number(y); return sortDir*(x-y); }
     return sortDir*String(x).localeCompare(String(y),'ja');
-  });
+  };
+  // 同じアカウント(登録=account_id / 匿名=anon_id)の行は隣どうしに並べ、その中はレベル降順(N3が上・N5が下)。
+  // グループ同士の並び順は、選んだ列で「今のレベル(is_latest)の行」を代表にして決める。
+  const groups = new Map();
+  filtered().forEach(r=>{ const gk = r.account_id || r.anon_id; if(!groups.has(gk)) groups.set(gk, []); groups.get(gk).push(r); });
+  const rep = (rs)=> rs.find(r=>r.is_latest) || rs[0];
+  const rows = [...groups.values()]
+    .sort((ga,gb)=> cmp(rep(ga), rep(gb)))
+    .flatMap(rs => rs.slice().sort((a,b)=> (LV_ORDER[b.level]||0) - (LV_ORDER[a.level]||0)));
   $('devCount').textContent = `全 ${devData.length} 人` + ($('search').value.trim()? `（表示 ${rows.length}）`:'');
 
-  const head = '<tr>' + COLS.map(c=>{
-    const arw = c.key===sortKey ? `<span class="arw">${sortDir<0?'▼':'▲'}</span>` : '';
-    return `<th class="${c.num?'num ':''}${c.nosort?'':'sortable'}" data-k="${c.key}">${c.label}${arw}</th>`;
-  }).join('') + '</tr>';
-
   if(rows.length===0){
-    el.innerHTML = head + `<tr><td class="empty" colspan="${COLS.length}">該当する利用者がいません。</td></tr>`;
+    el.innerHTML = headHtml() + `<tr><td class="empty" colspan="${COLS.length+1}">該当する利用者がいません。</td></tr>`;
+    updateSelBar();
     return;
   }
-  const body = rows.map((r,i)=>{
-    const main = '<tr class="row" data-i="'+i+'">' + COLS.map(c=>`<td class="${c.num?'num':''}">${c.cell(r)}</td>`).join('') + '</tr>';
-    const det  = '<tr class="detail" data-i="'+i+'" style="display:none"><td colspan="'+COLS.length+'">'+daimonDetail(r)+'</td></tr>';
-    return main + det;
-  }).join('');
-  el.innerHTML = head + body;
+  el.innerHTML = headHtml() + rows.map(r =>
+    '<tr class="row"><td class="selcol"><input type="checkbox" class="rowchk" data-k="'+esc(rowKey(r))+'"'+(selected.has(rowKey(r))?' checked':'')+'></td>'
+    + COLS.map((c,i)=>`<td class="${c.num?'num ':''}${isFirstOfGroup(i)?'gsep':''}">${c.cell(r)}</td>`).join('') + '</tr>'
+  ).join('');
+  updateSelBar();
 }
 
-// 見出しクリック=並べ替え / 行クリック=展開
+// 削除ボタンの文言/活性と、ヘッダーの全選択チェックの状態を、選択に合わせて更新。
+function updateSelBar(){
+  const n = selected.size;
+  const b = $('btnDel');
+  if(b){ b.disabled = n===0; b.textContent = n===0 ? '🗑 削除' : `🗑 選択した ${n} 件を削除`; }
+  const all = $('chkAll');
+  if(all){ const f = filtered(); all.checked = f.length>0 && f.every(r=>selected.has(rowKey(r))); }
+}
+
+// 選択した行を消す確認モーダル。選んだ行が端末の全レベルなら「端末まるごと」、一部レベルだけなら
+// 「そのレベルのスナップショットだけ」を消す(イベント/模試はレベル別に分かれていないので残す)。
+function openDeleteModal(){
+  if(selected.size===0) return;
+  const rows = devData.filter(r=>selected.has(rowKey(r)));
+  const byAnon = new Map();
+  rows.forEach(r=>{ if(!byAnon.has(r.anon_id)) byAnon.set(r.anon_id, []); byAnon.get(r.anon_id).push(r); });
+  pendingFull = []; pendingPartial = []; const accMap = new Map();
+  for(const [aid, rs] of byAnon){
+    const allLv = new Set(devData.filter(r=>r.anon_id===aid).map(r=>r.level||''));
+    const selLv = new Set(rs.map(r=>r.level||''));
+    const isFull = allLv.size===selLv.size && [...allLv].every(l=>selLv.has(l));
+    if(isFull){ pendingFull.push(aid); rs.forEach(r=>{ if(r.account_id) accMap.set(r.account_id, r.email||r.account_id); }); }
+    else rs.forEach(r=> pendingPartial.push({ anon_id:r.anon_id, level:r.level||'' }));
+  }
+  pendingAccs = [...accMap.entries()];
+  const fullN = pendingFull.length, partN = pendingPartial.length, accN = pendingAccs.length;
+  const emails = pendingAccs.map(a=>`<li>${esc(a[1])}</li>`).join('');
+  const partList = pendingPartial.map(p=>`<li><span class="mono">${esc(String(p.anon_id).slice(0,8))}</span> の <b>${esc(p.level||'(レベル無し)')}</b></li>`).join('');
+  $('modalBox').innerHTML =
+    `<h3>⚠️ 選択した ${fullN+partN} 件を削除します（取り消せません）</h3>`+
+    (fullN? `<div class="muted" style="margin-top:6px">・<b>端末まるごと ${fullN} 件</b>＝その端末の全レベル＋イベント＋模試を削除。</div>`:'')+
+    (partN? `<div class="muted" style="margin-top:6px">・<b>一部レベルだけ ${partN} 件</b>＝そのレベルの記録だけ削除（同じ端末の他レベル・イベント・模試は残します）:<ul>${partList}</ul></div>`:'')+
+    (accN
+      ? `<div style="margin-top:8px">端末まるごとに <b>登録アカウント ${accN} 件</b> を含みます:<ul>${emails}</ul>`+
+        `<label class="opt"><input type="checkbox" id="optAuth" checked><span>登録アカウントの<b>ログイン情報とクラウド保存</b>も完全に削除する<br><span class="muted">オフにすると利用ログだけ消し、ログイン自体は残します。（一部レベルだけの削除ではアカウントには触れません）</span></span></label></div>`
+      : (fullN? `<div class="muted" style="margin-top:8px">端末まるごとに登録アカウント（メール）は含まれていません。</div>`:''))+
+    `<label class="opt"><input type="checkbox" id="optConfirm"><span><b>理解しました。この操作は取り消せません。</b></span></label>`+
+    `<div class="st err" id="delSt"></div>`+
+    `<div class="actions"><button class="ghost" id="btnCancel">やめる</button>`+
+    `<button class="danger" id="btnDoDel" disabled>削除する</button></div>`;
+  $('optConfirm').addEventListener('change', e=>{ $('btnDoDel').disabled = !e.target.checked; });
+  $('btnCancel').addEventListener('click', closeModal);
+  $('btnDoDel').addEventListener('click', doDelete);
+  $('modal').style.display = 'flex';
+}
+function closeModal(){ $('modal').style.display = 'none'; }
+
+// service_role キーで元表に対して REST DELETE を投げる小ヘルパー(404=既に無い は成功扱い)。
+async function del(path){
+  const url = $('url').value.trim().replace(/\/+$/,'');
+  const key = $('key').value.trim();
+  const res = await fetch(url+path, { method:'DELETE',
+    headers:{ apikey:key, Authorization:`Bearer ${key}`, Prefer:'return=minimal' } });
+  if(!res.ok && res.status!==404){ throw new Error(`${path.split('?')[0]} → HTTP ${res.status} ${(await res.text()).slice(0,200)}`); }
+}
+
+async function doDelete(){
+  const btn = $('btnDoDel'); btn.disabled = true;
+  const st = $('delSt'); st.textContent = '削除中…';
+  const delAuth = $('optAuth') ? $('optAuth').checked : false;
+  try{
+    // ① 端末まるごと(全レベル＋イベント＋模試)。匿名IDで束ねて一括。
+    if(pendingFull.length){
+      const list = pendingFull.join(',');
+      for(const tbl of ['tel_event','tel_mock','tel_snapshot']){
+        await del(`/rest/v1/${tbl}?anon_id=in.(${list})`);
+      }
+      // 登録アカウントも消す時だけ: クラウド保存 → ログイン(auth) の順。
+      if(delAuth && pendingAccs.length){
+        const alist = pendingAccs.map(a=>a[0]).join(',');
+        await del(`/rest/v1/user_state?user_id=in.(${alist})`);
+        for(const a of pendingAccs){ await del(`/auth/v1/admin/users/${a[0]}`); }
+      }
+    }
+    // ② 一部レベルだけ: そのレベルのスナップショットだけ消す(イベント/模試は残す)。
+    for(const p of pendingPartial){
+      await del(`/rest/v1/tel_snapshot?anon_id=eq.${encodeURIComponent(p.anon_id)}&data->>level=eq.${encodeURIComponent(p.level)}`);
+    }
+    selected.clear();
+    closeModal();
+    await loadAll();
+  }catch(e){
+    st.textContent = '一部失敗しました: ' + e.message + '\n（もう一度「削除する」で残りを再試行できます）';
+    btn.disabled = false;
+  }
+}
+
+// 見出しクリック=並べ替え（グループ見出しは対象外＝2段目だけ反応する）
 $('tDevices').addEventListener('click', (ev)=>{
   const th = ev.target.closest('th.sortable');
-  if(th){ const k = th.dataset.k; if(k===sortKey){ sortDir = -sortDir; } else { sortKey = k; sortDir = (k==='who'||k==='level'||k==='kind')?1:-1; } renderDevices(); return; }
-  const row = ev.target.closest('tr.row');
-  if(row){ const i = row.dataset.i; const det = $('tDevices').querySelector(`tr.detail[data-i="${i}"]`); row.classList.toggle('open'); if(det) det.style.display = det.style.display==='none'?'':'none'; }
+  if(th){ const k = th.dataset.k; if(k===sortKey){ sortDir = -sortDir; } else { sortKey = k; sortDir = (k==='who'||k==='level'||k==='kind')?1:-1; } renderDevices(); }
 });
 $('search').addEventListener('input', renderDevices);
+// 行チェック / ヘッダーの全選択(表示中のみ)。同じ匿名IDの行はまとめて反映される。
+$('tDevices').addEventListener('change', (ev)=>{
+  const cb = ev.target.closest('input.rowchk');
+  if(cb){ if(cb.checked) selected.add(cb.dataset.k); else selected.delete(cb.dataset.k); updateSelBar(); return; }
+  const all = ev.target.closest('#chkAll');
+  if(all){ const f = filtered(); f.forEach(r=> all.checked ? selected.add(rowKey(r)) : selected.delete(rowKey(r))); renderDevices(); }
+});
+$('btnDel').addEventListener('click', openDeleteModal);
+$('btnClear').addEventListener('click', ()=>{ selected.clear(); renderDevices(); });
+$('modal').addEventListener('click', (ev)=>{ if(ev.target.id==='modal') closeModal(); });
 $('load').addEventListener('click', loadAll);
 $('reload').addEventListener('click', loadAll);
 if($('key').value) loadAll();

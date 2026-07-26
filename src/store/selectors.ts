@@ -204,6 +204,24 @@ export function daimonMasteryCounts(state: AppState, now: number): { daimon: Dai
     return { daimon: d, learned, total: ids.length };
   });
 }
+/** 読解/聴解の 大問(小区分)別 習得数(＝正解相当: effectiveP>=0.6)と母数。管理ダッシュボードの「大問別正解数」用。
+ *  読解4区分(内容理解 短/中/長文・情報検索)＋聴解5区分(課題/ポイント/概要理解・発話表現・即時応答)。
+ *  母数は学習＋模試の全設問(=アプリが持つ問題数)。その級に無い区分は 0 件＝キーごと出さない。 */
+export function passageMasteryCounts(state: AppState, now: number): { key: string; learned: number; total: number }[] {
+  const lv = state.settings.level;
+  const out: { key: string; learned: number; total: number }[] = [];
+  const add = (prefix: string, map: Partial<Record<string, string[]>>) => {
+    for (const [sub, ids] of Object.entries(map)) {
+      if (!ids?.length) continue;
+      let learned = 0;
+      for (const id of ids) { const st = state.items[id]; if (st && effectiveP(st, now) >= 0.6) learned++; }
+      out.push({ key: `${prefix}_${sub}`, learned, total: ids.length });
+    }
+  };
+  add('dokkai', readingIdsBySub(lv, true));
+  add('choukai', listeningIdsBySub(lv, true));
+  return out;
+}
 /** 区分のカバー率%(習得済み/全項目)。中リングの別指標。 */
 export function categoryCoveragePct(state: AppState, now: number, cat: Category): number | null {
   return coverPct(state, now, ringItemIdsFor(state.settings.level, cat));

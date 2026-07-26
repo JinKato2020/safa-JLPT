@@ -17,7 +17,13 @@ select
   (select count(*) from public.tel_mock)                                                  as total_mocks,
   (select count(*) from public.tel_event where name = 'error')                            as total_errors;
 
--- ② 利用者別 最新スナップショット(1 anon = 最新1行)＝ダッシュボードの主役の1表。
+-- ② 利用者別 最新スナップショット(1人 × 1レベル = 1行)＝ダッシュボードの主役の1表。
+--    ★レベルを切り替えて使っている人(N5→N4→N3)は、レベルごとに別の行として出す。
+--      同じメール/匿名IDが複数行に並ぶのは正常。行はそのレベルで最後に送ってきた日の内容。
+--      is_latest = その人の「いま使っているレベル」の行(true は1人1行だけ)。
+--      合計を出すビュー(③)は is_latest の行だけを見る。累計値(学習時間・履修・継続・模試)は
+--      端末まるごとの通算でレベル別に分けられないため、全行に同じ数が入る=足すと重複するから。
+--      レベル別に本当に分かれる値(合格率・カバー率・大問別・在庫)は行ごとに正しくそのレベルの値。
 --    登録者(account_id有)も匿名も「同じ1つのカテゴリー」として並べ、種別で見分ける(ダッシュボード側でソート)。
 --    passProb はアプリ側で 0〜100 の整数として保存(×100しない)。
 --    カバー率は 漢字/語彙/文法 の3本を個別%で出す。大問別[習得,母数]は生JSON(daimon)＋合計を出す。
@@ -26,15 +32,20 @@ drop view if exists public.v_admin_devices cascade;
 create view public.v_admin_devices as
 select
   t.*,
+  (row_number() over (partition by t.anon_id order by t.last_day desc)) = 1 as is_latest,
   case when t.account_id is not null then '登録' else '匿名' end as kind,
   u.email
 from (
-  select distinct on (anon_id)
+  select distinct on (anon_id, data->>'level')
     anon_id,
     account_id,
     data->>'level'                                              as level,
     data->>'exam'                                               as exam,
     data->>'platform'                                           as platform,
+    -- 「この行は誰か」を特定するための身元列(アプリ版/OS/初回日/利用日数)。
+    -- 匿名IDは端末のアプリ内保存に作るUUID＝入れ直し/データ削除/別バンドルで新しいIDになる。
+    data->>'app'                                                as app,
+    data->>'osVersion'                                          as os_version,
     data->>'uiLang'                                             as ui_lang,
     round(coalesce((data->'readiness'->>'passProb')::numeric,0)) as pass_pct,
     (data->'readiness'->>'passing')::boolean                    as passing,
@@ -53,6 +64,8 @@ from (
     coalesce((data->>'myListCount')::int, 0)                    as mylist_count,
     -- 大問別 [習得,母数] の生JSON(8大問)＋合計(v3〜。旧データはnull)。
     data->'daimonMastery'                                       as daimon,
+    -- 在庫 {キー: [未出題の残り, 母数]}(v4〜。8大問＋単語タブのドリル3種)。旧データはnull。
+    data->'stock'                                               as stock,
     (select coalesce(sum((v->>0)::numeric),0) from jsonb_each(coalesce(data->'daimonMastery','{}'::jsonb)) as e(k,v)) as daimon_learned,
     (select coalesce(sum((v->>1)::numeric),0) from jsonb_each(coalesce(data->'daimonMastery','{}'::jsonb)) as e(k,v)) as daimon_total,
     coalesce((data->>'streak')::int, 0)                         as streak,
@@ -62,38 +75,78 @@ from (
     coalesce((data->>'mockCount')::int, 0)                      as mock_count,
     data->'remaining'                                           as remaining,
     data->'exhausted'                                           as exhausted,
-    day                                                         as last_day
-  from public.tel_snapshot
-  order by anon_id, day desc, created_at desc
+    day                                                         as last_day,
+    -- 初回日/利用日数は「そのレベルを使っていた期間」で数える(行=レベルなので行の中で辻褄が合う)。
+    (select min(s2.day)            from public.tel_snapshot s2
+       where s2.anon_id = s.anon_id and s2.data->>'level' is not distinct from s.data->>'level') as first_day,
+    (select count(distinct s2.day) from public.tel_snapshot s2
+       where s2.anon_id = s.anon_id and s2.data->>'level' is not distinct from s.data->>'level') as days
+  from public.tel_snapshot s
+  order by anon_id, data->>'level', day desc, created_at desc
 ) t
 left join auth.users u on u.id = t.account_id
-order by (t.account_id is null), t.last_day desc;
+order by (t.account_id is null), t.last_day desc, t.level;
 
--- ③ レベル別 平均(利用者別ビューを N5/N4/N3 で集計)。
-create or replace view public.v_admin_level as
+-- ③ レベル別 合計・平均(利用者別ビューを N5/N4/N3 で集計)。
+--    合計＝人数・今日のアクティブ・学習回数・学習時間。平均＝合格率/カバー率/継続。
+--    学習回数 = 練習を最後まで終えた回数(tel_event の session_complete)。
+--    ※session_complete は結果画面を出す練習だけが送る(書き取り・カード・一覧は未送信=数に入らない)。
+--    ★is_latest の行だけを数える＝1人は「いま使っているレベル」に1回だけ計上。
+--      過去に使ったレベルまで足すと、人数も学習時間も同じ人を何度も数えてしまうため。
+drop view if exists public.v_admin_level;
+create view public.v_admin_level as
 select
-  coalesce(level, '?')      as level,
-  count(*)                  as users,
-  round(avg(pass_pct))      as avg_pass_pct,
-  round(avg(cov_pct))       as avg_cov_pct,
-  round(avg(study_min))     as avg_study_min,
-  round(avg(streak), 1)     as avg_streak,
-  count(*) filter (where passing) as passing_users
-from public.v_admin_devices
-group by level
-order by level;
+  coalesce(d.level, '?')                                as level,
+  count(*)                                              as users,
+  count(*) filter (where d.last_day = current_date)     as dau,
+  coalesce(sum(s.sessions), 0)                          as sessions,
+  coalesce(sum(d.study_min), 0)                         as study_min,
+  round(avg(d.pass_pct))                                as avg_pass_pct,
+  round(avg(d.cov_pct))                                 as avg_cov_pct,
+  round(avg(d.study_min))                               as avg_study_min,
+  round(avg(d.streak), 1)                               as avg_streak,
+  count(*) filter (where d.passing)                     as passing_users
+from public.v_admin_devices d
+left join (
+  select anon_id, count(*) as sessions
+  from public.tel_event where name = 'session_complete' group by anon_id
+) s on s.anon_id = d.anon_id
+where d.is_latest
+group by coalesce(d.level, '?')
+order by 1;
 
--- ④ 分野別 枯渇状況(新規残数の平均・残り3問以下の端末数)。コンテンツ不足シグナル。
-create or replace view public.v_admin_exhaust as
+-- ④ レベル別 在庫(枯渇状況)。行=レベル / 列=大問・単語タブの学習。
+--    data->'stock' の {キー: [残り,母数]}(v4〜)。文字語彙5＋文法3、読解4区分＋聴解5区分(＋各合計)、単語タブ3種。
+--    旧アプリ版(v3以前)は stock を持たないので、読解/聴解の合計だけ旧 remaining で埋める(同じキーは新しい方を優先)。
+--
+--    ★在庫の基準＝「いちばん学習が進んでいる人」(min_left)。
+--      在庫 = 母数 − その大問を最も多く学習した人の学習数。
+--      誰も学習していなければ 母数そのもの(=アプリの問題数)、誰か1人が全部やり切れば 0 になる。
+--      平均(avg_left)は参考値としてツールチップに残す。
+--    残り3以下＝先頭の人に出せる新規が尽きた＝コンテンツ不足のサイン。
+drop view if exists public.v_admin_exhaust;
+drop view if exists public.v_admin_stock;
+create view public.v_admin_stock as
 select
-  e.key                                              as category,
-  round(avg((e.value)::numeric), 1)                  as avg_remaining,
-  count(*) filter (where (e.value)::numeric <= 3)    as exhausted_users,
-  count(*)                                           as users
-from public.v_admin_devices d,
-     jsonb_each_text(coalesce(d.remaining, '{}'::jsonb)) as e(key, value)
-group by e.key
-order by e.key;
+  level,
+  unit,
+  min(left_n)                                 as min_left,   -- ★表示の主役=最も進んだ人から見た残り
+  round(avg(left_n))                          as avg_left,   -- 参考: 全員の平均
+  max(total_n)                                as total,      -- アプリが持つ問題数(最新版の母数)
+  count(*) filter (where left_n <= 3)         as exhausted_users,
+  count(*)                                    as users
+from (
+  select coalesce(d.level,'?') as level, e.key as unit,
+         (e.value->>0)::numeric as left_n, (e.value->>1)::numeric as total_n
+  from public.v_admin_devices d, jsonb_each(coalesce(d.stock, '{}'::jsonb)) as e(key, value)
+  union all
+  -- 旧版のみの救済。stock に同じキーがある端末は除く(=二重計上しない)。母数は旧版が送っていないので null。
+  select coalesce(d.level,'?'), e.key, (e.value)::numeric, null::numeric
+  from public.v_admin_devices d, jsonb_each_text(coalesce(d.remaining, '{}'::jsonb)) as e(key, value)
+  where e.key in ('dokkai', 'choukai')
+    and not (coalesce(d.stock, '{}'::jsonb) ? e.key)
+) x
+group by level, unit;
 
 -- 旧「アカウント別 横並び」ビューは撤去(登録者は上の v_admin_devices に統合済み=メール＋合格率まで1表で見える)。
 drop view if exists public.v_admin_accounts;
@@ -103,5 +156,28 @@ grant select on
   public.v_admin_summary,
   public.v_admin_devices,
   public.v_admin_level,
-  public.v_admin_exhaust
+  public.v_admin_stock
 to service_role;
+
+-- ダッシュボードの「ごみ箱」ボタンは、これらの元表を service_role で REST DELETE する。
+-- (service_role は通常フル権限だが、環境差で消せない事故を防ぐため明示的に付与しておく。)
+grant select, delete on public.tel_event, public.tel_mock, public.tel_snapshot, public.user_state to service_role;
+
+-- ⑤ 手入れ用(コピーして使う): テスト端末など、要らない利用者を完全に消す。
+--    ビューからは消せない(v_admin_devices は集計ビュー=読み取り専用)。必ず元の表から消す。
+--    ⚠ 取り消せません。先に select で中身を確かめてから delete すること。
+--
+-- (1) まず確認: 何者で何件あるか。account_id が出たら「登録アカウント」も持っている。
+-- select anon_id, account_id, data->>'level' as level, count(*) as snapshots, min(day) as first, max(day) as last
+--   from public.tel_snapshot where anon_id like 'e28ed898-%' group by 1,2,3 order by 3;
+--
+-- (2) 利用ログを消す(＝ダッシュボードの利用者一覧・在庫・レベル別から消える)。
+-- delete from public.tel_event    where anon_id like 'e28ed898-%';
+-- delete from public.tel_mock     where anon_id like 'e28ed898-%';
+-- delete from public.tel_snapshot where anon_id like 'e28ed898-%';
+--
+-- (3) 登録アカウントも消す場合だけ追加で実行((1)で account_id が出た時のみ)。
+--     user_state=クラウド同期データ。auth.users=ログインそのもの(消すとログインできなくなる)。
+-- delete from public.user_state where user_id in (
+--   select distinct account_id from public.tel_snapshot where anon_id like 'e28ed898-%' and account_id is not null);
+-- -- auth.users は Dashboard の Authentication > Users から消すのが安全(SQLで消すと関連行が残ることがある)。
