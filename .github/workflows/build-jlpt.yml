@@ -5,7 +5,7 @@ run-name: "${{ inputs.build_number && format('{0} — まいにちJLPT {1} ビ�
 # まいにちJLPT — 1ワークフローに統合(ユーザー要望 2026-07-17):
 #  ① deploy-pages  : push(main)時 → GitHub Pages 配信(聴解音声/法務ページ/辞書/問題コンテンツ)
 #  ② build-ios     : 手動時 → iOS ビルド & TestFlight 提出 (com.safa.jlpt)
-#  ③ build-android : 手動時 → Android APK/AAB (App C枠 com.safa.english)
+#  ③ build-android : 手動時 → Android AAB → Playクローズドテストへ自動提出 (App C枠 com.safa.english)
 #  「ビルドして」= iOS+Android 両方が既定(platforms=both)。②③は別ランナーで並列に走る。
 #
 # 版番号(CLAUDE.md #0・最重要): run-name の先頭に必ず番号を出す。
@@ -46,18 +46,18 @@ on:
         type: choice
         options: ['true', 'false']
       aab:
-        description: 'Android: AABも生成(Play提出用・約2倍遅い)。実機テストだけならOFF'
+        description: 'Android: AAB(Play提出形式)を生成。既定ON。※ONだとAABのみ生成＝実機直挿し用APKは出ない'
         type: boolean
-        default: false
+        default: true
       publish:
-        description: 'Android: Playへ自動アップロード。⚠他アプリ(App C)の配信面に触れるので合図時のみ'
+        description: 'Android: Playへ自動アップロード。既定ON(ユーザー方針 2026-07-26)。⚠App C枠(com.safa.english)を上書きする'
         type: boolean
-        default: false
+        default: true
       track:
-        description: 'Playトラック(publish時)。internal=内部テスト(既定) / alpha=クローズド / production=本番(合図後のみ)'
+        description: 'Playトラック(publish時)。alpha=クローズドテスト(既定) / internal=内部テスト / production=本番(⚠ユーザーの明示合図がある時だけ)'
         type: choice
-        options: [internal, alpha, production]
-        default: internal
+        options: [alpha, internal, production]
+        default: alpha
 
 permissions:
   contents: read
@@ -313,7 +313,10 @@ jobs:
   # ③ Androidビルド(手動時のみ)。App C(com.safa.english)の既存Play枠へ「上書き」する AAB/APK。
   #    ・applicationId=com.safa.english(app.json)・versionCode=2000+commit(App C現1270より上)。
   #    ・署名= App C のアップロード鍵(Secrets)。Play App Signing 想定。
-  #    ・方針(2026-06-29): ビルド後は「内部テスト(internal)まで自動」。クローズド/本番は合図時のみ。
+  #    ・方針(2026-07-26 更新): ビルド後は「クローズドテスト(alpha)まで自動」。本番(production)は合図時のみ。
+  #      ※旧既定(aab/publish=false)では2539〜2553の12回が全てPlay未提出のまま気づかれなかった。
+  #        方針=自動なら既定値も自動側に置く(既定OFF+dispatch指定漏れ=黙って落ちる、を再発させない)。
+  #    ・実機に直接入れるAPKが欲しい時は aab=false publish=false で起動する(AAB生成時はAPKを作らないため)。
   build-android:
     if: github.event_name == 'workflow_dispatch' && (inputs.platforms == 'both' || inputs.platforms == 'android')
     runs-on: ubuntu-latest
