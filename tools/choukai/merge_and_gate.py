@@ -8,43 +8,80 @@
 
 使い方:
   python tools/choukai/merge_and_gate.py --new <NEWDIR>            # ゲート(検証)のみ
-  python tools/choukai/merge_and_gate.py --new <NEWDIR> --apply   # 検証OKなら追記
+  python tools/choukai/merge_and_gate.py --new <NEWDIR> --apply   # 検証OKなら合格分だけ追記
 
-QA: 件数・id衝突/形式・選択肢数(4/3)・重複選択肢・字数レンジ(公式)・正解先頭。
+QA(合否):
+  致命(その問を追記しない): id/level不正・id衝突(既存/バッチ内)・選択肢数(4/3)違い・選択肢重複
+  帯外(その問を追記しない): 本文モーラが公式中央値の 80〜120% の帯(floor_080〜ceiling_120)の外
+                           ← 新規は公式の±20%以内(ユーザールール 2026-07-27)。既存は据え置き(測らない)。帯幅=BAND_PCT。
+                           短すぎ(<下限)=本文に自然文を加筆(答え・一意性・観点は不変)→再gate。
+                           長すぎ(>上限)=短縮しない(短縮は一意性を壊す危険)→作り直し。
+  参考表示(合否に使わない): 音声化テキストの字数レンジ・場面タグ重複
+基準値: tools/choukai/official_mora_baseline.json の official[<daimon>_<level>].floor_085
+  ※「本文」= 台本から導入(冒頭の状況ナレーション)と設問・選択肢を除いた台詞のみ。定義は
+    official_mora_baseline.json 生成時と揃える(kadai/point/gaiyouは最初の話者行から/発話・即時は台本全体)。
 追記: 既存 items[0] を template として deepcopy し id/level/script/question/choices/answerIndex=0 を差替
-      （subtype/qtype/audioChoices/title/audio/i18n{} を継承＝スキーマ完全一致）。compact JSONで書き戻し。
+      (subtype/qtype/audioChoices/title/audio/i18n{} を継承=スキーマ完全一致)。合格分のみ。compact JSONで書き戻し。
 """
 import json, os, re, sys, copy, glob, argparse, statistics
 from collections import defaultdict
 import pykakasi
+try: sys.stdout.reconfigure(encoding='utf-8')
+except Exception: pass
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 CDIR = os.path.join(REPO, 'content', 'problems', 'choukai')
+BASELINE = os.path.join(os.path.dirname(__file__), 'official_mora_baseline.json')
 kks = pykakasi.kakasi(); SMALL = set("ゃゅょぁぃぅぇぉゎ")
 def mora(s):
     h = "".join(x['hira'] for x in kks.convert(s))
     return sum(1 for c in h if ('ぁ' <= c <= 'ん' or c == 'ー') and c not in SMALL)
-LABEL = re.compile(r'^\s*(?:ナレ(?:ーション)?|[男女][12]?|店員|先生|学生|客|係|母|父|司会|アナウンス)?\s*[：:]\s*')
+# 行頭の話者ラベル(会話の台詞行か)を判定/除去
+SPK = re.compile(r'^\s*(?:[男女][12]?|店員|先生|学生|客|係|係員|母|父|司会|アナウンス|店長|部長|課長|先輩|後輩|医者|受付)\s*[：:]')
+LABEL = re.compile(r'^\s*(?:ナレ(?:ーション)?|[男女][12]?|店員|先生|学生|客|係|係員|母|父|司会|アナウンス|店長|部長|課長|先輩|後輩|医者|受付)?\s*[：:]\s*')
+def _lines(script):
+    return [l.strip() for l in re.split(r'[\n　]+', script or '') if l.strip()]
 def spoken(script):
-    out = []
-    for ln in re.split(r'[\n　]+', script or ''):
-        ln = ln.strip()
-        if ln: out.append(LABEL.sub('', ln))
-    return ''.join(out)
-CHSP = {'gaiyou', 'hatsuwa', 'sokuji'}      # 選択肢も音声化される大問(字数に選択肢を加算)
+    return ''.join(LABEL.sub('', l) for l in _lines(script))
+def body_text(cat, script):
+    """モーラ計測の対象=本文のみ。kadai/point/gaiyouは最初の話者行から(導入=状況ナレを落とす)。
+    発話/即時は短い状況+投げかけ=台本全体を本文とみなす(official_mora_baseline.json と同じ定義)。"""
+    lines = _lines(script)
+    if cat in ('kadai', 'point', 'gaiyou'):
+        idx = next((i for i, l in enumerate(lines) if SPK.match(l)), None)
+        if idx is not None:
+            lines = lines[idx:]
+        elif cat == 'gaiyou' and len(lines) > 1:
+            lines = lines[1:]   # 独話(話者ラベルなし): 先頭の導入ナレを除外
+    return ''.join(LABEL.sub('', l) for l in lines)
+def body_mora(cat, script):
+    return mora(body_text(cat, script))
+
+CHSP = {'gaiyou', 'hatsuwa', 'sokuji'}      # 選択肢も音声化される大問(参考字数に選択肢を加算)
 NCH = {'kadai':4,'point':4,'gaiyou':4,'hatsuwa':3,'sokuji':3}
-# 公式実測 字数レンジ(音声化テキスト総量)。出典: md/10_聴解.md
+# 公式実測 字数レンジ(参考表示のみ・合否に使わない)。出典: md/10_聴解.md
 OFF = {('kadai','N5'):(106,209),('kadai','N4'):(214,270),('kadai','N3'):(190,295),
        ('point','N5'):(109,215),('point','N4'):(192,292),('point','N3'):(253,262),
        ('gaiyou','N3'):(251,295),
        ('hatsuwa','N5'):(43,103),('hatsuwa','N4'):(66,104),('hatsuwa','N3'):(98,113),
        ('sokuji','N5'):(33,90),('sokuji','N4'):(49,90),('sokuji','N3'):(40,90)}
-EXPECT = {'kadai':30,'point':30,'gaiyou':10,'hatsuwa':30,'sokuji':30}  # 目安(各大問×3レベル=30/概要はN3のみ10)
 
 def audio_chars(cat, script, choices):
     c = len(spoken(script))
     if cat in CHSP: c += sum(len(x) for x in choices)
     return c
+
+BAND_PCT = 0.20   # 新規は公式中央値の (1±BAND_PCT) の帯内が合格。緩め/厳しめはここだけ変える。
+def load_bands():
+    """{ '<daimon>_<level>': (下限, 上限) } 新規はこの帯(公式中央値±BAND_PCT)内が合格。"""
+    if not os.path.exists(BASELINE):
+        print(f'!! 基準値なし: {BASELINE} が見当たりません(先に公式本文モーラ基準を作成)'); return {}
+    off = json.load(open(BASELINE, encoding='utf-8')).get('official', {})
+    out = {}
+    for k, v in off.items():
+        med = v.get('mora_median')
+        if med: out[k] = (round(med*(1-BAND_PCT)), round(med*(1+BAND_PCT)))
+    return out
 
 def main():
     ap = argparse.ArgumentParser()
@@ -52,11 +89,13 @@ def main():
     ap.add_argument('--apply', action='store_true')
     a = ap.parse_args()
 
-    existing = set()
+    BAND = load_bands()
+    existing = set(); seen_scene = defaultdict(set)
     for f in glob.glob(os.path.join(CDIR, '*.json')):
         for it in json.load(open(f, encoding='utf-8'))['items']: existing.add(it['id'])
 
     problems, stats, plan = [], [], {}
+    bad_ids, redo_ids = set(), set()   # bad=致命 / redo=帯外(短すぎ=加筆/長すぎ=短縮)。どちらも追記しない
     for cat in ['kadai','point','gaiyou','hatsuwa','sokuji']:
         p = os.path.join(a.new, f'new_{cat}.json')
         if not os.path.exists(p): continue
@@ -66,36 +105,54 @@ def main():
         for r in recs:
             rid, lv, ch, sc = r.get('id'), r.get('level'), r.get('choices') or [], r.get('script') or ''
             tag = f'{cat} {rid}'
-            if not rid or lv not in ('N5','N4','N3'): problems.append(f'{tag}: bad id/level'); continue
-            if rid in existing or rid in seen: problems.append(f'{tag}: DUP id')
+            if not rid or lv not in ('N5','N4','N3'): problems.append(f'{tag}: bad id/level'); bad_ids.add(rid); continue
+            if rid in existing or rid in seen: problems.append(f'{tag}: DUP id'); bad_ids.add(rid)
             seen.add(rid)
-            if len(ch) != NCH[cat]: problems.append(f'{tag}: choices={len(ch)} != {NCH[cat]}')
-            if len(set(ch)) != len(ch): problems.append(f'{tag}: duplicate choice text')
-            ac = audio_chars(cat, sc, ch); lo, hi = OFF[(cat, lv)]
-            if not (lo*0.9 <= ac <= hi*1.15): problems.append(f'{tag} [{lv}] chars={ac} OUT({lo}-{hi})')
-            stats.append((cat, lv, ac))
+            if len(ch) != NCH[cat]: problems.append(f'{tag}: choices={len(ch)} != {NCH[cat]}'); bad_ids.add(rid)
+            if len(set(ch)) != len(ch): problems.append(f'{tag}: duplicate choice text'); bad_ids.add(rid)
+            # 本文モーラ・ゲート(合否)= 公式中央値の85〜115%の帯内
+            bm = body_mora(cat, sc); band = BAND.get(f'{cat}_{lv}')
+            if band:
+                lo, hi = band
+                if bm < lo:
+                    problems.append(f'{tag} [{lv}] 本文mora={bm} < 下限{lo}(不足{lo-bm}) → 自然文を加筆(答え/一意性不変)'); redo_ids.add(rid)
+                elif bm > hi:
+                    problems.append(f'{tag} [{lv}] 本文mora={bm} > 上限{hi}(超過{bm-hi}) → 作り直し(短縮は一意性を壊す恐れ)'); redo_ids.add(rid)
+            # 場面タグ重複(参考)
+            st = (r.get('scenario_tag') or '').strip()
+            if st:
+                if st in seen_scene[(cat, lv)]: problems.append(f'{tag}: 場面タグ重複 <{st}>(多様性・参考)')
+                seen_scene[(cat, lv)].add(st)
+            ac = audio_chars(cat, sc, ch)
+            stats.append((cat, lv, bm, ac, band))
         plan[cat] = recs
 
     g = defaultdict(list)
-    for cat, lv, ac in stats: g[(cat, lv)].append(ac)
-    print('=== 新規 字数(音声総量) min/med/max vs 公式 ===')
+    for cat, lv, bm, ac, band in stats: g[(cat, lv)].append((bm, ac, band))
+    print('=== 新規 本文モーラ min/med/max (合格帯=公式中央値の80〜120%) | 参考:字数med ===')
     for cat in ['kadai','point','gaiyou','hatsuwa','sokuji']:
         for lv in ['N5','N4','N3']:
             if (cat, lv) in g:
-                v = sorted(g[(cat, lv)]); lo, hi = OFF[(cat, lv)]
-                print(f'  {cat:8} {lv}: n={len(v)} {min(v)}/{int(statistics.median(v))}/{max(v)}  公式{lo}-{hi}')
-    print(f'\n新規合計= {sum(len(v) for v in plan.values())}')
-    fatal = [x for x in problems if any(k in x for k in ('parse error','bad id','DUP id','choices=','duplicate choice'))]
-    print(f'\n=== 問題点 {len(problems)} 件 (致命的 {len(fatal)}) ===')
+                v = g[(cat, lv)]; bms = sorted(x[0] for x in v); acs = sorted(x[1] for x in v)
+                band = v[0][2]; bandtxt = f'{band[0]}-{band[1]}' if band else '基準なし'
+                print(f'  {cat:8} {lv}: n={len(v)} mora {min(bms)}/{int(statistics.median(bms))}/{max(bms)} 帯[{bandtxt}]'
+                      f'  | 字数med{int(statistics.median(acs))}')
+    print(f'\n新規合計= {sum(len(v) for v in plan.values())}  (致命 {len(bad_ids)} / 帯外(短/長) {len(redo_ids)})')
+    print(f'\n=== 問題点 {len(problems)} 件 ===')
     for x in problems: print('  -', x)
     if not problems: print('  (なし)')
 
-    if a.apply and fatal:
-        print('\n!! 致命的問題があるため APPLY 中止'); return
+    parse_fatal = [x for x in problems if 'parse error' in x]
+    if a.apply and parse_fatal:
+        print('\n!! JSON parse error があるため APPLY 中止'); return
     if a.apply:
+        skip = bad_ids | redo_ids
         byfile = defaultdict(list)
         for cat, recs in plan.items():
-            for r in recs: byfile[(cat, r['level'])].append(r)
+            for r in recs:
+                if r.get('id') in skip: continue
+                byfile[(cat, r['level'])].append(r)
+        total = 0
         for (cat, lv), recs in byfile.items():
             fp = os.path.join(CDIR, f'{cat}_{lv}.json')
             data = json.load(open(fp, encoding='utf-8'))
@@ -107,10 +164,11 @@ def main():
                 q['id'], q['q'], q['choices'], q['answerIndex'] = r['id']+'-q1', r.get('question','') or '', r['choices'], 0
                 data['items'].append(it)
             json.dump(data, open(fp, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
-            print(f'APPLIED {cat}_{lv}: +{len(recs)} -> {len(data["items"])}')
-        print('=== APPLY 完了 ===')
+            total += len(recs); print(f'APPLIED {cat}_{lv}: +{len(recs)} -> {len(data["items"])}')
+        print(f'=== APPLY 完了: 合格 +{total} / 追記除外(致命+帯外) {len(skip)} ===')
+        if skip: print('  帯外/除外id(加筆or短縮で帯内へ→再gate):', ', '.join(sorted(skip)))
     else:
-        print('\n(ゲートのみ。--apply で追記)')
+        print('\n(ゲートのみ。--apply で合格分だけ追記)')
 
 if __name__ == '__main__':
     main()

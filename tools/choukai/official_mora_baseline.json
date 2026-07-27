@@ -1,0 +1,176 @@
+{
+  "official": {
+    "kadai_N5": {
+      "n": 7,
+      "mora_min": 107,
+      "mora_p25": 115,
+      "mora_median": 131,
+      "mora_max": 208,
+      "floor_080": 105,
+      "ceiling_120": 157
+    },
+    "point_N5": {
+      "n": 6,
+      "mora_min": 84,
+      "mora_p25": 136,
+      "mora_median": 186,
+      "mora_max": 207,
+      "floor_080": 149,
+      "ceiling_120": 223
+    },
+    "hatsuwa_N5": {
+      "n": 5,
+      "mora_min": 15,
+      "mora_p25": 16,
+      "mora_median": 25,
+      "mora_max": 36,
+      "floor_080": 20,
+      "ceiling_120": 30
+    },
+    "sokuji_N5": {
+      "n": 6,
+      "mora_min": 2,
+      "mora_p25": 12,
+      "mora_median": 26,
+      "mora_max": 60,
+      "floor_080": 21,
+      "ceiling_120": 31
+    },
+    "kadai_N4": {
+      "n": 8,
+      "mora_min": 176,
+      "mora_p25": 193,
+      "mora_median": 261,
+      "mora_max": 338,
+      "floor_080": 209,
+      "ceiling_120": 313
+    },
+    "point_N4": {
+      "n": 7,
+      "mora_min": 135,
+      "mora_p25": 180,
+      "mora_median": 219,
+      "mora_max": 377,
+      "floor_080": 175,
+      "ceiling_120": 263
+    },
+    "hatsuwa_N4": {
+      "n": 5,
+      "mora_min": 14,
+      "mora_p25": 18,
+      "mora_median": 25,
+      "mora_max": 32,
+      "floor_080": 20,
+      "ceiling_120": 30
+    },
+    "sokuji_N4": {
+      "n": 8,
+      "mora_min": 2,
+      "mora_p25": 6,
+      "mora_median": 24,
+      "mora_max": 118,
+      "floor_080": 19,
+      "ceiling_120": 29
+    },
+    "kadai_N3": {
+      "n": 6,
+      "mora_min": 189,
+      "mora_p25": 251,
+      "mora_median": 322,
+      "mora_max": 351,
+      "floor_080": 258,
+      "ceiling_120": 386
+    },
+    "point_N3": {
+      "n": 6,
+      "mora_min": 50,
+      "mora_p25": 122,
+      "mora_median": 224,
+      "mora_max": 296,
+      "floor_080": 179,
+      "ceiling_120": 269
+    },
+    "gaiyou_N3": {
+      "n": 3,
+      "mora_min": 56,
+      "mora_p25": 56,
+      "mora_median": 237,
+      "mora_max": 245,
+      "floor_080": 190,
+      "ceiling_120": 284
+    },
+    "hatsuwa_N3": {
+      "n": 4,
+      "mora_min": 23,
+      "mora_p25": 26,
+      "mora_median": 34,
+      "mora_max": 51,
+      "floor_080": 27,
+      "ceiling_120": 41
+    },
+    "sokuji_N3": {
+      "n": 9,
+      "mora_min": 2,
+      "mora_p25": 10,
+      "mora_median": 20,
+      "mora_max": 108,
+      "floor_080": 16,
+      "ceiling_120": 24
+    }
+  },
+  "stock": {
+    "kadai_N5": {
+      "n": 20,
+      "mora_median": 98
+    },
+    "point_N5": {
+      "n": 20,
+      "mora_median": 108
+    },
+    "hatsuwa_N5": {
+      "n": 20,
+      "mora_median": 28
+    },
+    "sokuji_N5": {
+      "n": 20,
+      "mora_median": 13
+    },
+    "kadai_N4": {
+      "n": 20,
+      "mora_median": 174
+    },
+    "point_N4": {
+      "n": 20,
+      "mora_median": 164
+    },
+    "hatsuwa_N4": {
+      "n": 20,
+      "mora_median": 34
+    },
+    "sokuji_N4": {
+      "n": 20,
+      "mora_median": 18
+    },
+    "kadai_N3": {
+      "n": 20,
+      "mora_median": 222
+    },
+    "point_N3": {
+      "n": 20,
+      "mora_median": 222
+    },
+    "gaiyou_N3": {
+      "n": 20,
+      "mora_median": 184
+    },
+    "hatsuwa_N3": {
+      "n": 20,
+      "mora_median": 38
+    },
+    "sokuji_N3": {
+      "n": 20,
+      "mora_median": 22
+    }
+  },
+  "note": "本文のみ(導入/設問/選択肢除外)・pykakasiモーラ・新規は公式中央値の80〜120%(floor_080〜ceiling_120)の帯内。既存は据え置き。"
+}

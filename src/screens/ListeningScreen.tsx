@@ -11,7 +11,8 @@ import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import SessionSummary from '../components/SessionSummary';
 import ExamHeader from '../components/ExamHeader';
-import { listeningItemsFor, listeningItemsForSub, type ListeningItem, type PassageQuestion } from '../data';
+import RubyText from '../components/RubyText';
+import { listeningItemsFor, listeningItemsForSub, listeningSubtype, rubyNeeded, type ListeningItem, type PassageQuestion } from '../data';
 import type { RootStackParamList } from '../navigation/types';
 import { listeningSource } from '../data/listeningAudio';
 import { illustSource } from '../data/listeningImage';
@@ -36,6 +37,8 @@ export default function ListeningScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
+  // ルビ(ふりがな)は自レベル以上の漢字だけに出す(読解・単語と同じレベルゲート)。共通仕様§3。
+  const rubyGate = (run: string) => rubyNeeded(run, state.settings.level);
   const route = useRoute<RouteProp<RootStackParamList, 'Listening'>>();
   const subtype = route.params?.subtype; // 学習タブの小区分から来た場合はその区分だけ出題
 
@@ -151,8 +154,24 @@ export default function ListeningScreen() {
 
   const isAudioChoices = !!step.clip.audioChoices; // 発話/即時=本文＋選択肢を音声で再生、画面は番号で選ぶ
   const isHatsuwa = !isAudioChoices && !!step.clip.illust; // (旧)発話表現=イラスト＋場面文、音声なし
+  const isGaiyou = listeningSubtype(step.clip) === 'gaiyou'; // 概要も課題/ポイントと同じ音声再生UI(mp3未生成でも再生ボタンは出す)
   const anyPicked = picked.some((p) => p != null);
   const allDone = step.qs.length > 0 && step.qs.every((_, qi) => picked[qi] != null);
+
+  // スクリプトを行ごとにルビ付きで描画(空行は間隔)。話者ラベル「女1：」等もそのまま。
+  const renderScript = (raw: string) =>
+    formatScript(raw)
+      .split('\n')
+      .map((line, i) => (line ? <RubyText key={i} text={line} style={s.script} rubyStyle={s.scriptRuby} rubyGate={rubyGate} /> : <View key={i} style={s.scriptGap} />));
+  // 「スクリプトを見る／隠す」トグル。課題/ポイント/概要/発話/即時で共通に使う(確認用)。
+  const scriptBlock = showScript ? (
+    <>
+      <View style={s.scriptBox}>{renderScript(step.clip.script)}</View>
+      <Pressable onPress={() => setShowScript(false)} hitSlop={8}><Text style={s.scriptToggle}>{t('listening.script_hide')}</Text></Pressable>
+    </>
+  ) : (
+    <Pressable onPress={() => setShowScript(true)} hitSlop={8}><Text style={s.scriptToggle}>{t('listening.script_show')}</Text></Pressable>
+  );
 
   return (
     <SafeAreaView style={s.c}>
@@ -173,7 +192,7 @@ export default function ListeningScreen() {
               <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
                 <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
               </Pressable>
-              {anyPicked ? <Text style={s.script}>{step.clip.script}</Text> : null}
+              {scriptBlock}
             </>
           ) : isHatsuwa ? (
             <>
@@ -182,30 +201,19 @@ export default function ListeningScreen() {
               ) : (
                 <View style={s.hatsuwaImgPh}><ActivityIndicator color={c.blue} /></View>
               )}
-              <Text style={s.hatsuwaScene}>{step.clip.script}</Text>
+              <RubyText text={step.clip.script} style={s.hatsuwaScene} rubyStyle={s.scriptRuby} rubyGate={rubyGate} />
             </>
-          ) : step.clip.audio ? (
+          ) : (step.clip.audio || isGaiyou) ? (
             <>
               <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
                 <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
               </Pressable>
-              {showScript ? (
-                <>
-                  <Text style={s.script}>{formatScript(step.clip.script)}</Text>
-                  <Pressable onPress={() => setShowScript(false)} hitSlop={8}>
-                    <Text style={s.scriptToggle}>{t('listening.script_hide')}</Text>
-                  </Pressable>
-                </>
-              ) : (
-                <Pressable onPress={() => setShowScript(true)} hitSlop={8}>
-                  <Text style={s.scriptToggle}>{t('listening.script_show')}</Text>
-                </Pressable>
-              )}
+              {scriptBlock}
             </>
           ) : (
             <>
               <Text style={s.devNote}>{t('listening.dev_text')}</Text>
-              <Text style={s.script}>{formatScript(step.clip.script)}</Text>
+              {scriptBlock}
             </>
           )}
         </View>
@@ -217,7 +225,7 @@ export default function ListeningScreen() {
           return (
             <View key={qi} style={s.qBlock}>
               {step.qs.length > 1 ? <Text style={s.qLabel}>{t('listening.q_label', { n: qi + 1, m: step.qs.length })}</Text> : null}
-              {q.q ? <Text style={s.qText}>{q.q}</Text> : null}
+              {q.q ? <RubyText text={q.q} style={s.qText} rubyStyle={s.scriptRuby} rubyGate={rubyGate} /> : null}
               <View style={s.choices}>
                 {q.choices.map((ch, ci) => {
                   const isAnswer = ci === q.answerIndex;
@@ -232,10 +240,10 @@ export default function ListeningScreen() {
                       {isAudioChoices ? (
                         <View style={s.numRow}>
                           <Text style={s.numBadge}>{ci + 1}</Text>
-                          {reveal ? <Text style={s.choiceTxt}>{ch}</Text> : null}
+                          {reveal ? <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.scriptRuby} rubyGate={rubyGate} /></View> : null}
                         </View>
                       ) : (
-                        <Text style={s.choiceTxt}>{ch}</Text>
+                        <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.scriptRuby} rubyGate={rubyGate} /></View>
                       )}
                       {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
                     </Pressable>
@@ -283,7 +291,10 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   playBtnOn: { backgroundColor: c.okBg, borderColor: c.green },
   playTxt: { fontSize: ty.body, fontWeight: '800', color: c.choukai },
   playTxtOn: { color: c.green },
-  script: { fontSize: ty.body, color: c.ink2, lineHeight: 26, marginTop: spacing.xs },
+  script: { fontSize: ty.body, color: c.ink2, lineHeight: 26 },
+  scriptBox: { gap: 2, marginTop: spacing.xs },
+  scriptGap: { height: spacing.sm, width: '100%' },
+  scriptRuby: { fontSize: 10, color: c.mute },
   devNote: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs, fontStyle: 'italic' },
   hatsuwaImg: { width: '100%', maxWidth: 260, aspectRatio: 1, alignSelf: 'center', borderRadius: radius.md, backgroundColor: '#ffffff', marginTop: spacing.xs },
   hatsuwaImgPh: { width: '100%', maxWidth: 260, aspectRatio: 1, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginTop: spacing.xs },
@@ -309,7 +320,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   numBadge: { fontSize: ty.h1, fontWeight: '800', color: c.choukai, minWidth: 28, textAlign: 'center' },
   choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
   choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
-  choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
+  choiceTxt: { fontSize: ty.body, color: c.ink2 },
+  choiceTxtWrap: { flex: 1 },
   mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
