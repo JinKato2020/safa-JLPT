@@ -7,7 +7,7 @@
     "scheme": "safajlpt",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "runtimeVersion": "1.1.1",
+    "runtimeVersion": "1.2.0",
     "updates": {
       "url": "https://u.expo.dev/3590a434-66c9-4282-be7e-1f1c9d021c79"
     },
@@ -52,7 +52,20 @@
         }
       ],
       "expo-web-browser",
-      "expo-asset"
+      "expo-asset",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-8926100627445480~1388546351",
+          "iosAppId": "ca-app-pub-8926100627445480~7953954707"
+        }
+      ],
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermissionMessage": "許可すると、あなたの興味に合った広告が表示されます。学習の記録が第三者に共有されることはありません。"
+        }
+      ]
     ],
     "extra": {
       "eas": {

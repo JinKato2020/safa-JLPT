@@ -43,6 +43,7 @@ import ShopScreen from './src/screens/ShopScreen';
 import AICoachScreen from './src/screens/AICoachScreen';
 import PaywallScreen from './src/screens/PaywallScreen';
 import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './src/pro/purchases';
+import { initAds } from './src/pro/ads';
 import { walletPoints } from './src/store/wallet';
 import { mockTicketCount } from './src/store/tickets';
 import TourOverlay from './src/components/TourOverlay';
@@ -266,6 +267,11 @@ function Root() {
     })();
     return () => { cancelled = true; };
   }, [hydrated, userId]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 広告(AdMob)の初期化。iOSはATT(トラッキング許可)を尋ねてから。SDK未リンクなら安全に no-op。
+  useEffect(() => {
+    if (!hydrated) return;
+    void initAds();
+  }, [hydrated]);
   // 現在フォントを設定値に同期(このレンダー→配下の全Textが新フォントで描画)。既定=maru(丸ゴシック)。
   setActiveFont(settings.font ?? 'maru');
   const sys = useColorScheme();
