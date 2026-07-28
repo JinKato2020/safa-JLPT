@@ -49,7 +49,7 @@ import { mockTicketCount } from './src/store/tickets';
 import TourOverlay from './src/components/TourOverlay';
 import SafeBoundary from './src/components/SafeBoundary';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
-import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers } from './src/telemetry/telemetry';
+import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers, sendLifecycleMetrics } from './src/telemetry/telemetry';
 
 // ナビゲーション状態から現在の画面名(最深ルート)を取得。
 function activeRouteName(navState: unknown): string | undefined {
@@ -237,6 +237,7 @@ function Root() {
     const fire = (force: boolean) => {
       setTelemetryEnabled(stateRef.current.settings.telemetry !== false);
       void sendDailySnapshot(stateRef.current, Date.now(), force);
+      void sendLifecycleMetrics(stateRef.current, Date.now()); // install / 翌日起動を1回だけ(§8)
     };
     fire(false);
     const sub = AppState.addEventListener('change', (s) => {

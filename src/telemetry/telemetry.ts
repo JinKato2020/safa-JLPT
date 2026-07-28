@@ -11,6 +11,7 @@ import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
 import type { Category } from '../engine/engine';
 import { supabase } from '../config/supabase';
+import { cohortProps, dueLifecycleOpens, metricsWishKey, installDayStr, daysSinceInstall, M_FIRST_SESSION } from '../story/metrics';
 
 const APP_VERSION = '1.1.0';
 const CATS: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
@@ -139,6 +140,8 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
     daysToExam, badgeSet: state.settings.badgeSet ?? 'gorgeous', theme: state.settings.theme,
     reminderOn: !!state.settings.reminder,
     remaining, total, exhausted,
+    // 願い(wishKey)別リテンション用コホート: 日次スナップショットの有無×wishKeyでD1/D7/D30をサーバ集計。§8
+    wishKey: metricsWishKey(state), installDay: installDayStr(state), daysSinceInstall: daysSinceInstall(state, now),
   };
 }
 
@@ -189,4 +192,31 @@ export async function sendMock(m: {
 export async function sendEvent(name: string, props?: Record<string, unknown>, level?: string): Promise<void> {
   if (!enabled) return;
   await send('events', { v: 1, anonId: await anonId(), app: APP_VERSION, ts: Math.floor(Date.now() / 1000), level: level ?? '', name, props: props ?? {} });
+}
+
+// ── ライフサイクル計測3点(install / first_session / next_day_open)。各1回だけ・端末ローカルで重複防止。§8
+const K_METRICS = 'safa-jlpt:metricsSeen';
+async function metricsSeen(): Promise<string[]> {
+  try { const r = await AsyncStorage.getItem(K_METRICS); return r ? JSON.parse(r) : []; } catch { return []; }
+}
+async function markMetricsSeen(names: string[]): Promise<void> {
+  try {
+    const set = Array.from(new Set([...(await metricsSeen()), ...names]));
+    await AsyncStorage.setItem(K_METRICS, JSON.stringify(set));
+  } catch { /* noop */ }
+}
+/** 起動時: install / next_day_open のうち未送信分を wishKey コホート付きで1回だけ送る。 */
+export async function sendLifecycleMetrics(state: AppState, now: number): Promise<void> {
+  if (!enabled || state.settings.telemetry === false) return;
+  const due = dueLifecycleOpens(state, now, await metricsSeen());
+  if (due.length === 0) return;
+  for (const e of due) await sendEvent(e.name, e.props as unknown as Record<string, unknown>);
+  await markMetricsSeen(due.map((e) => e.name));
+}
+/** 初回セッション完了を1回だけ送る(wishKeyコホート付き)。SessionSummary から呼ぶ。 */
+export async function sendFirstSessionOnce(state: AppState): Promise<void> {
+  if (!enabled || state.settings.telemetry === false) return;
+  if ((await metricsSeen()).includes(M_FIRST_SESSION)) return;
+  await sendEvent(M_FIRST_SESSION, cohortProps(state, Date.now()) as unknown as Record<string, unknown>);
+  await markMetricsSeen([M_FIRST_SESSION]);
 }

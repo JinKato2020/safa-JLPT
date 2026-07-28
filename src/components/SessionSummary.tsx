@@ -5,7 +5,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import type { ProgressSnapshot } from '../store/selectors';
-import { sendEvent } from '../telemetry/telemetry';
+import { sendEvent, sendFirstSessionOnce } from '../telemetry/telemetry';
+import { useAppState } from '../store/store';
+import { metricsWishKey } from '../story/metrics';
 
 type Styles = ReturnType<typeof makeStyles>;
 
@@ -17,12 +19,14 @@ export default function SessionSummary({
   const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
+  const state = useAppState();
   const dTouched = after.touched - before.touched;
   const narrowed = before.band - after.band; // >0 = ± が縮んだ=精度UP
 
-  // 匿名計測: セッション完了(結果表示=マウント)時に1回だけ送信。
+  // 匿名計測: セッション完了(結果表示=マウント)時に1回だけ送信。願い別リテンション用に wishKey を添付。§8
   useEffect(() => {
-    if (mode) void sendEvent('session_complete', { mode, scored: dTouched });
+    if (mode) void sendEvent('session_complete', { mode, scored: dTouched, wishKey: metricsWishKey(state) });
+    void sendFirstSessionOnce(state); // 初回セッション完了(コホート鍵付き)を1回だけ
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

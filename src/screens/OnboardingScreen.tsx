@@ -43,7 +43,7 @@ export default function OnboardingScreen() {
         level={lv}
         allowSkip
         onComplete={() => {
-          sendEvent('onboarding_complete', { exam: exam ?? 'jlpt', level: lv });
+          sendEvent('onboarding_complete', { exam: exam ?? 'jlpt', level: lv, wishKey: wish?.kind ?? 'none' });
           setSettings({ targetExam: exam ?? 'jlpt', level: lv, l1: detectL1(), onboarded: true, ...(wish ? { wish } : {}) });
         }}
       />
