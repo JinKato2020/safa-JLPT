@@ -12,11 +12,16 @@ export const isWatercolor = (t?: ThemeMode): t is WatercolorTheme => !!t && (WAT
 
 export type TargetExam = 'jlpt' | 'jft'; // 目標試験(JLPT / JFT-Basic)。未設定=jlpt。
 
+// 「願い」= 物語の軸。なぜ日本語を学ぶか。enum＋任意テキスト＋設定日。いつでも書き換え可(later/未設定=未設定扱い)。
+export type WishKind = 'work_live' | 'study' | 'talk' | 'family' | 'like' | 'self' | 'custom' | 'later';
+export interface Wish { kind: WishKind; text?: string; setAt: string }
+
 export interface Settings {
   level: Level;            // 目標級(JLPTのみ。JFTはレベル選択なし=知識ベースはN4/A2)
   targetExam?: TargetExam; // 目標試験プロファイル(未設定→jlpt)
   l1: string;              // 母語コード (vi/ne/id/my/en/zh)
   examDate: string | null; // 試験日 YYYY-MM-DD
+  wish?: Wish;             // 物語の軸=願い(未設定→まだ聞いていない/スキップ)
   theme: ThemeMode;
   reminder: string | null; // 学習リマインド "HH:MM"
   onboarded: boolean;      // オンボーディング(自己チェック)完了
