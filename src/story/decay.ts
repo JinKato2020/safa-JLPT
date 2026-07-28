@@ -25,6 +25,8 @@ const DEFAULT_POLICY: DecayPolicy = { fullTimes: 1, shortTimes: 4, refreshAfterD
 export const DECAY_POLICIES: Record<string, DecayPolicy> = {
   // 毎日の出迎え: 1日1回・最初の3日は full・4日あけば full 復帰。lastGreetDay を吸収(§6)。
   daily_greet: { perDay: 1, fullTimes: 3, shortTimes: 100000, refreshAfterDays: 4 },
+  // 受験日の一言(前夜/当日/翌日): 1日1回・年数回の稀少イベントなので常に full(refreshAfterDays:1で毎日リセット)。
+  exam: { perDay: 1, fullTimes: 9999, shortTimes: 0, refreshAfterDays: 1 },
 };
 
 const policyFor = (id: string): DecayPolicy => DECAY_POLICIES[id] ?? DEFAULT_POLICY;
