@@ -8,6 +8,7 @@ import type { ProgressSnapshot } from '../store/selectors';
 import { sendEvent, sendFirstSessionOnce } from '../telemetry/telemetry';
 import { useAppState } from '../store/store';
 import { metricsWishKey } from '../story/metrics';
+import SessionFx from './SessionFx';
 
 type Styles = ReturnType<typeof makeStyles>;
 
@@ -31,6 +32,8 @@ export default function SessionSummary({
 
   return (
     <View style={s.card}>
+      {/* 学習後の小演出(花吹雪＋犬・数秒で消える・減衰で頻度自動調整)。結果カードの上に重ねる。 */}
+      <SessionFx />
       <Text style={s.h}>{t('sessionsummary.heading')}</Text>
       <Row s={s} label={t('sessionsummary.scored')} value={`+${dTouched}`} good={dTouched > 0} />
       <Row
