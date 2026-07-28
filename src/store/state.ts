@@ -19,6 +19,9 @@ export interface Wish { kind: WishKind; text?: string; setAt: string }
 // 演出の減衰カウンタ(接点ID→回数)。total=通算表示回数 / skips=見送り回数 / lastDay=最終接触(dayStr) / dayCount=当日回数。§6
 export interface DecayCounter { total: number; skips: number; lastDay: string; dayCount: number }
 
+// 記念の色紙。合格の自己申告で書斎の壁に残り続ける証(級と日付)。壁が埋まる=長期継続そのもの。§4
+export interface Shikishi { level: Level; date: string }
+
 export interface Settings {
   level: Level;            // 目標級(JLPTのみ。JFTはレベル選択なし=知識ベースはN4/A2)
   targetExam?: TargetExam; // 目標試験プロファイル(未設定→jlpt)
@@ -85,6 +88,7 @@ export interface AppState {
   claimedMilestones?: string[];         // 節目付与の重複防止
   dailyEarn?: { day: string; amount: number }; // 1日獲得上限の当日累計
   storyDecay?: Record<string, DecayCounter>; // 演出の減衰カウンタ(接点ID→回数)。出迎えの1日1回もここに吸収。§6
+  shikishi?: Shikishi[];                 // 壁に残る合格の記念色紙(級ごと一度)。合否報告フローで追記。§4
   installedAt?: number;                 // 初回起動(ダウンロード)日時 epoch ms。模試チケット月次付与の起点。未設定→初回起動で確定。
   mockTickets?: number;                 // 模試チケット所持数(上限3)。未設定→0(初回起動で1付与)。
   mockGrantsClaimed?: number;           // 消化済み月次付与数(installedAtからの経過月と比較して差分を付与)。

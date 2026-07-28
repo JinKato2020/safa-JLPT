@@ -31,7 +31,8 @@ export type Occasion =
   | { kind: 'comeback'; absenceDays: number; wish?: Wish } // 復帰(空白の長さで段階・願い依存)
   | { kind: 'exam'; timing: 'eve' | 'day' | 'after'; wish?: Wish } // 大試 前夜/当日/翌日(願い依存)
   | { kind: 'result'; outcome: 'pass' | 'fail'; wish?: Wish }      // 合否の報告(願い依存)
-  | { kind: 'milestone'; wish?: Wish };                 // 到達の節目(リング満ち等・願い依存)
+  | { kind: 'milestone'; wish?: Wish }                  // 到達の節目(リング満ち等・願い依存)
+  | { kind: 'result_hint' };                            // 発表期の前後「そろそろ結果が出る頃かな」(願い非依存)
 
 // ── core 台詞(ja 正本)。全語ルビ前提のN5語彙・24字2文以内・絵文字なし・数値/比較/能力評価を出さない。
 export const CORE_LINES: Record<string, Line[]> = {
@@ -179,6 +180,11 @@ export const CORE_LINES: Record<string, Line[]> = {
   first: [
     { id: 'first.1', text: 'はじめまして。わたしは桜。' },
     { id: 'first.2', text: 'この書斎へ、ようこそ。' },
+  ],
+  // 発表期の前後だけ・自己申告の「報告する」導線に添える(数値/催促にしない・そっと)。
+  result_hint: [
+    { id: 'result_hint.1', text: 'そろそろ結果が出る頃かな。' },
+    { id: 'result_hint.2', text: '結果、どうだったかな。' },
   ],
 };
 
