@@ -1,17 +1,35 @@
-// 学習後(単語ドリル終了)の画面 上部に大きく出す「ランダム画像」の一覧。
-//  ・ユーザーが用意した画像を assets/afterstudy/ に置き、下の配列に require を1行ずつ足すだけで増える。
+// 学習後(単語ドリル終了)の画面 上部に大きく出す画像。今は「季節連動」=今の季節の絵を優先。
+//  ・画像は assets/afterstudy/ に置く。季節ごとに複数入れれば、その季節内でランダムに変わる。
 //  ・RNは動的requireができないため、ファイル追加＝この配列の編集が必要(1画像=1行)。
-//  ・いまは既存の桜/書斎イラストを仮置き。専用画像が届いたら差し替え/追記する。
-//  ・推奨: 全幅で大きく出る前提。横長〜正方形が収まりやすい(縦長すぎると上下が切れる)。
-export const AFTER_STUDY_IMAGES = [
-  require('../../assets/mywords/room.jpg'),      // 仮: 書斎の間
-  require('../../assets/mywords/guide_open.png'), // 仮: 桜
-  // ここに assets/afterstudy/xxx.png を require で追加していく
-];
+//  ・季節判定は P0 の seasonOf を再利用(追加コストなし)。季節画像が無い時は全体からランダムにフォールバック。
+import { seasonOf, type Season } from '../story/voice';
 
-/** seed から1枚を決める(同一セッション内で安定・セッション毎に変わる)。画像ゼロなら null。 */
-export function pickAfterStudyImage(seed: number) {
+const SPRING = require('../../assets/afterstudy/spring.png'); // 春(桜)
+const SUMMER = require('../../assets/afterstudy/summer.png'); // 夏(新緑)
+const AUTUMN = require('../../assets/afterstudy/autumn.png'); // 秋(紅葉)
+const WINTER = require('../../assets/afterstudy/winter.png'); // 冬(雪)
+
+// 季節ごとの候補。同じ季節に複数入れたらここに足す(その季節内でランダム)。
+const BY_SEASON: Record<Season, ReturnType<typeof require>[]> = {
+  spring: [SPRING],
+  summer: [SUMMER],
+  autumn: [AUTUMN],
+  winter: [WINTER],
+};
+
+// 全画像(季節が空のときのフォールバック用)。
+export const AFTER_STUDY_IMAGES = [SPRING, SUMMER, AUTUMN, WINTER];
+
+/**
+ * 学習後に出す1枚を決める。now を渡すと今の季節の絵を優先(春→春)。
+ * その季節に画像が無ければ全体からランダム。seed で同一セッション内は安定。
+ */
+export function pickAfterStudyImage(seed: number, now?: number) {
+  const idx = Math.abs(Math.floor(seed));
+  if (now != null) {
+    const pool = BY_SEASON[seasonOf(now)];
+    if (pool && pool.length) return pool[idx % pool.length];
+  }
   if (AFTER_STUDY_IMAGES.length === 0) return null;
-  const i = Math.abs(Math.floor(seed)) % AFTER_STUDY_IMAGES.length;
-  return AFTER_STUDY_IMAGES[i];
+  return AFTER_STUDY_IMAGES[idx % AFTER_STUDY_IMAGES.length];
 }

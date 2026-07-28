@@ -26,7 +26,7 @@ export default function AfterStudyReward({ words, shellsEarned, scored, mode, se
   const { width, height } = useWindowDimensions();
 
   // ランダム画像=大きめ(全幅・最大で画面高の46%)。縦横比は画像に合わせ、切れないよう高さを上限で抑える。
-  const img = useMemo(() => pickAfterStudyImage(seed), [seed]);
+  const img = useMemo(() => pickAfterStudyImage(seed, Date.now()), [seed]); // 今の季節の絵を優先
   const dims = img ? Image.resolveAssetSource(img) : null;
   const aspect = dims && dims.width && dims.height ? dims.width / dims.height : 3 / 2;
   const frameW = width - spacing.lg * 2;
