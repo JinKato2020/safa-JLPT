@@ -1,7 +1,13 @@
 // 桜の台詞テーブル＋選択エンジン(純関数)。core(一文目)＋flavor(二文目)の2段合成・反復回避・連載(fragment)。
-// 【配分の原則】行数は状態の"重要度"でなく"発火頻度"に比例させる。
-//   年1回の exam に3案は過剰(一生に1〜2本しか見ない)、年300回の daily に3案は297回が使い回し。
-//   在庫は頻度の高い方へ寄せる → daily 24(streak棚3×8)/flavor 28 で日常の反復自覚を2〜3か月まで遅らせる。
+// 【配分の原則】行数は状態の"重要度"でなく、その棚で"実際に引く回数"に比例させる。
+//   daily(出迎え)は streak棚で引く回数が全く違う: A=3回だけ/B=27回/C=無限。均等8枚はAで死蔵・Cで永久周回。
+//   → A4 / B14 / C1(31-90)12。C2(91-)20・C3(366-)12 は「在庫の後払い」=ユーザーが到達する直前に書く
+//     (31日到達は最短でリリース1か月後・その頃には実使用が分かり良い台詞が書ける)。未執筆なら下の棚へフォールバック。
+// 【役割分担】出迎えは「変わらない安心」を担当。挨拶は繰り返すのが自然(毎朝ちがう名言を言う家族は不気味)。
+//   危ないのは繰り返しでなく「機械が回してる」と分かること。新鮮味は出迎えでなく"出来事"が運ぶ:
+//   季節(年4)・100/365の節目・語の卒業(週1)・連載(週1)・大試/合否(年1-2)。変化の予算を出迎えに全振りしない。
+// 【flavorは"同時に使える数"で数える】春は春の在庫しか使えない(夏12本は存在しないのと同じ)。
+//   → 季節4×8=32 / 時間3×6=18。掛け算(呼びかけ×本文)は見た目を増やすが新鮮味は本文の数でしか増えない。
 // 台詞は500回目に評価される: 口調は正本シートに固定してから書く(後から通すと全書き直し)。
 // 正本(口調・禁止表現・価値観): docs/superpowers/specs/桜-口調シート.md / 世界観: 同specs §1.5,§3,§4
 // ja が正本。en/ne 等は後で一括翻訳(シートを訳者に添付)。UIはここが返す text をそのまま表示。
@@ -29,37 +35,50 @@ export type Occasion =
 
 // ── core 台詞(ja 正本)。全語ルビ前提のN5語彙・24字2文以内・絵文字なし・数値/比較/能力評価を出さない。
 export const CORE_LINES: Record<string, Line[]> = {
-  // daily: streak棚で3分割(片道でしか進まないので、31日目には前半16本が二度と出ない=「最近言うことが変わった」感)。
-  'daily:early': [ // 1〜3日: 歓迎・そっと
-    { id: 'daily.early.1', text: '今日も来てくれたんだね。' },
-    { id: 'daily.early.2', text: 'また会えたね。' },
-    { id: 'daily.early.3', text: 'ここで待っていたよ。' },
-    { id: 'daily.early.4', text: '来たね。うれしいよ。' },
-    { id: 'daily.early.5', text: '今日も、ここにいるね。' },
-    { id: 'daily.early.6', text: '来てくれて、ありがとう。' },
-    { id: 'daily.early.7', text: '席、あけてあったよ。' },
-    { id: 'daily.early.8', text: 'さあ、はじめようか。' },
+  // daily: streak棚。引く回数に比例(A=3回だけ→4本 / B=27回→14本 / C1=無限区間→12本)。片道なので下の棚は二度と出ない。
+  'daily:a': [ // 1〜3日(3回だけ引く): 歓迎・そっと。4本で十分
+    { id: 'daily.a.1', text: '今日も来てくれたんだね。' },
+    { id: 'daily.a.2', text: 'また会えたね。' },
+    { id: 'daily.a.3', text: 'ここで待っていたよ。' },
+    { id: 'daily.a.4', text: '来たね。うれしいよ。' },
   ],
-  'daily:mid': [ // 4〜30日: 習慣になりつつある
-    { id: 'daily.mid.1', text: '今日も来たね。いい流れだね。' },
-    { id: 'daily.mid.2', text: 'また灯りがついたね。' },
-    { id: 'daily.mid.3', text: '続いているね。うれしいよ。' },
-    { id: 'daily.mid.4', text: 'おかえり、と言いたくなるね。' },
-    { id: 'daily.mid.5', text: '今日の分、書こうか。' },
-    { id: 'daily.mid.6', text: 'そのペース、いいね。' },
-    { id: 'daily.mid.7', text: '手が慣れてきたね。' },
-    { id: 'daily.mid.8', text: '今日もここにいるね。' },
+  'daily:b': [ // 4〜30日(27回引く): 習慣化。14本で27日を2周弱=気づかれにくい
+    { id: 'daily.b.1', text: '今日も来たね。いい流れだね。' },
+    { id: 'daily.b.2', text: 'また灯りがついたね。' },
+    { id: 'daily.b.3', text: '続いているね。うれしいよ。' },
+    { id: 'daily.b.4', text: 'おかえり、と言いたくなるね。' },
+    { id: 'daily.b.5', text: '今日の分、書こうか。' },
+    { id: 'daily.b.6', text: 'そのペース、いいね。' },
+    { id: 'daily.b.7', text: '手が慣れてきたね。' },
+    { id: 'daily.b.8', text: '今日もここにいるね。' },
+    { id: 'daily.b.9', text: 'もう慣れてきたかな。' },
+    { id: 'daily.b.10', text: '毎日、顔を見せてくれるね。' },
+    { id: 'daily.b.11', text: '机の前が、板についてきたね。' },
+    { id: 'daily.b.12', text: '今日の一枚、始めようか。' },
+    { id: 'daily.b.13', text: '来るのが、あたりまえになったね。' },
+    { id: 'daily.b.14', text: 'きちんと、戻ってくるね。' },
   ],
-  'daily:long': [ // 31日〜: 長く続く人。静かな信頼
-    { id: 'daily.long.1', text: 'ずいぶん長く、続けているね。' },
-    { id: 'daily.long.2', text: 'この書斎も、見慣れた顔だね。' },
-    { id: 'daily.long.3', text: '遠くまで来たね。' },
-    { id: 'daily.long.4', text: '静かに、続いているね。' },
-    { id: 'daily.long.5', text: '毎日の音になったね。' },
-    { id: 'daily.long.6', text: 'ここが、居場所になったね。' },
-    { id: 'daily.long.7', text: 'よく通う道になったね。' },
-    { id: 'daily.long.8', text: '変わらず、来てくれるね。' },
+  'daily:c1': [ // 31〜90日(無限区間の入口): 静かな信頼・変化=18本。C2(91-)/C3(366-)は後払い→この棚へフォールバック
+    { id: 'daily.c1.1', text: 'ずいぶん長く、続けているね。' },
+    { id: 'daily.c1.2', text: 'この書斎も、見慣れた顔だね。' },
+    { id: 'daily.c1.3', text: '遠くまで来たね。' },
+    { id: 'daily.c1.4', text: '静かに、続いているね。' },
+    { id: 'daily.c1.5', text: '毎日の音になったね。' },
+    { id: 'daily.c1.6', text: 'ここが、居場所になったね。' },
+    { id: 'daily.c1.7', text: 'よく通う道になったね。' },
+    { id: 'daily.c1.8', text: '変わらず、来てくれるね。' },
+    { id: 'daily.c1.9', text: 'すっかり、日課になったね。' },
+    { id: 'daily.c1.10', text: '長い付き合いになったね。' },
+    { id: 'daily.c1.11', text: 'この席、あたたかいままだね。' },
+    { id: 'daily.c1.12', text: '変わらないね。それがいいよ。' },
+    { id: 'daily.c1.13', text: 'すっかり顔なじみだね。' },
+    { id: 'daily.c1.14', text: 'ここに来る音、覚えたよ。' },
+    { id: 'daily.c1.15', text: '長いね。ありがとう。' },
+    { id: 'daily.c1.16', text: 'まだ隣にいてくれるね。' },
+    { id: 'daily.c1.17', text: '慣れた道を、今日も来たね。' },
+    { id: 'daily.c1.18', text: '変わらず、灯りがつくね。' },
   ],
+  // daily:c2 (91〜365日=20本) / daily:c3 (366日〜=12本) は在庫の後払い。未執筆の間は c1 へフォールバック(pickCore)。
   streak_mark: [
     { id: 'streak_mark.1', text: '灯りが、また一つ増えたね。' },
     { id: 'streak_mark.2', text: 'ここまで続いたね。' },
@@ -163,37 +182,49 @@ export const CORE_LINES: Record<string, Line[]> = {
   ],
 };
 
-// ── flavor 台詞(二文目・付いたり付かなかったり)。season 4×4 ／ time 3×4 = 28。組み合わせで daily を希釈。
+// ── flavor 台詞(二文目・付いたり付かなかったり)。"同時に使える数"で数える: season 4×8 ／ time 3×6。
+//    春は春の8本しか使えない(夏の在庫は存在しないのと同じ)。1季あたり2〜3周に収める狙い。
 export const FLAVOR_SEASON: Record<Season, Line[]> = {
   spring: [
     { id: 'fl.spring.1', text: '桜が咲きはじめたよ。' }, { id: 'fl.spring.2', text: '春の風だね。' },
     { id: 'fl.spring.3', text: '花の匂いがするね。' }, { id: 'fl.spring.4', text: '日が長くなったね。' },
+    { id: 'fl.spring.5', text: 'あたたかくなってきたね。' }, { id: 'fl.spring.6', text: '鳥の声が増えたね。' },
+    { id: 'fl.spring.7', text: '芽が出てきたね。' }, { id: 'fl.spring.8', text: '空がやわらかいね。' },
   ],
   summer: [
     { id: 'fl.summer.1', text: '日ざしが強いね。' }, { id: 'fl.summer.2', text: '夏の音がするよ。' },
     { id: 'fl.summer.3', text: '風が生ぬるいね。' }, { id: 'fl.summer.4', text: '空が高いね。' },
+    { id: 'fl.summer.5', text: '蝉が鳴いているね。' }, { id: 'fl.summer.6', text: '夕立が来そうだね。' },
+    { id: 'fl.summer.7', text: '汗ばむ日だね。' }, { id: 'fl.summer.8', text: '緑が濃いね。' },
   ],
   autumn: [
     { id: 'fl.autumn.1', text: '葉が色づいてきたね。' }, { id: 'fl.autumn.2', text: '秋の匂いだね。' },
     { id: 'fl.autumn.3', text: '日が短くなったね。' }, { id: 'fl.autumn.4', text: '風が涼しいね。' },
+    { id: 'fl.autumn.5', text: '月がきれいだね。' }, { id: 'fl.autumn.6', text: '虫の声がするね。' },
+    { id: 'fl.autumn.7', text: '空が澄んできたね。' }, { id: 'fl.autumn.8', text: '少し肌寒いね。' },
   ],
   winter: [
     { id: 'fl.winter.1', text: '息が白いね。' }, { id: 'fl.winter.2', text: '静かな冬だね。' },
     { id: 'fl.winter.3', text: '手がかじかむね。' }, { id: 'fl.winter.4', text: '空気が澄んでるね。' },
+    { id: 'fl.winter.5', text: '日暮れが早いね。' }, { id: 'fl.winter.6', text: '雪になりそうだね。' },
+    { id: 'fl.winter.7', text: '温かいお茶がほしいね。' }, { id: 'fl.winter.8', text: '星がよく見えるね。' },
   ],
 };
 export const FLAVOR_TIME: Record<TimeBand, Line[]> = {
   morning: [
     { id: 'fl.morning.1', text: 'いい朝だね。' }, { id: 'fl.morning.2', text: '朝の光だね。' },
     { id: 'fl.morning.3', text: 'まだ静かだね。' }, { id: 'fl.morning.4', text: '目が覚めたね。' },
+    { id: 'fl.morning.5', text: '一日が始まるね。' }, { id: 'fl.morning.6', text: '空が明るいね。' },
   ],
   noon: [
     { id: 'fl.noon.1', text: 'お昼だね。' }, { id: 'fl.noon.2', text: '日が高いね。' },
     { id: 'fl.noon.3', text: '明るいね。' }, { id: 'fl.noon.4', text: 'ひと休みだね。' },
+    { id: 'fl.noon.5', text: 'お腹がすく頃だね。' }, { id: 'fl.noon.6', text: '日なたが気持ちいいね。' },
   ],
   night: [
     { id: 'fl.night.1', text: 'もう夜だね。' }, { id: 'fl.night.2', text: '静かな夜だね。' },
     { id: 'fl.night.3', text: '月が出てるね。' }, { id: 'fl.night.4', text: '灯りが優しいね。' },
+    { id: 'fl.night.5', text: '一日、お疲れさま。' }, { id: 'fl.night.6', text: 'そろそろ休む頃かな。' },
   ],
 };
 
@@ -227,11 +258,22 @@ export function wishKey(wish?: Wish): string {
   return k && (WISH_KEYS as readonly string[]).includes(k) ? k : '_';
 }
 
-// streak日数 → daily の棚。片道でしか進まない(31日目には early/mid が二度と出ない)。
-export function streakShelf(days: number): 'early' | 'mid' | 'long' {
-  if (days <= 3) return 'early';
-  if (days <= 30) return 'mid';
-  return 'long';
+export type DailyShelf = 'a' | 'b' | 'c1' | 'c2' | 'c3';
+const DAILY_SHELVES: readonly DailyShelf[] = ['a', 'b', 'c1', 'c2', 'c3'];
+
+// streak日数 → daily の棚。片道でしか進まない(下の棚は二度と出ない)。c2/c3 は在庫の後払い。
+export function streakShelf(days: number): DailyShelf {
+  if (days <= 3) return 'a';
+  if (days <= 30) return 'b';
+  if (days <= 90) return 'c1';
+  if (days <= 365) return 'c2';
+  return 'c3';
+}
+
+// 目標棚から下位棚へ降りるキー列(後払いで未執筆の c2/c3 は c1 等へフォールバック)。
+function dailyKeysFrom(shelf: DailyShelf): string[] {
+  const i = DAILY_SHELVES.indexOf(shelf);
+  return DAILY_SHELVES.slice(0, i + 1).reverse().map((s) => `daily:${s}`);
 }
 
 // 空白日数 → comeback の段階。
@@ -241,7 +283,7 @@ export function comebackStage(days: number): 'short' | 'mid' | 'long' {
   return 'long';
 }
 
-// 機会 → core のキー。
+// 機会 → core の(第一候補)キー。daily は未執筆棚へのフォールバックを pickCore が処理。
 export function coreKeyFor(o: Occasion): string {
   switch (o.kind) {
     case 'daily': return `daily:${streakShelf(o.streakDays)}`;
@@ -277,9 +319,14 @@ export function timeBandOf(now: number): TimeBand {
   return 'night';
 }
 
-/** core を1本選ぶ(機会からキーを決めて反復回避)。 */
+/** core を1本選ぶ。daily は目標棚→下位棚の順で最初の非空プールを使う(後払い棚のフォールバック)。 */
 export function pickCore(o: Occasion, seed: number, recent: readonly string[] = []): Line | null {
-  return pickLine(CORE_LINES[coreKeyFor(o)] ?? [], seed, recent);
+  const keys = o.kind === 'daily' ? dailyKeysFrom(streakShelf(o.streakDays)) : [coreKeyFor(o)];
+  for (const k of keys) {
+    const pool = CORE_LINES[k];
+    if (pool && pool.length) return pickLine(pool, seed, recent);
+  }
+  return null;
 }
 
 /** flavor を1本選ぶ。season と time を交互(seedの上位ビット)に選び反復回避。 */

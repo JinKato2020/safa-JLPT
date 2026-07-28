@@ -16,12 +16,23 @@ test('wishKey: 6願いはそのまま・custom/later/未設定は neutral', () =
   assert.equal(wishKey(undefined), '_');
 });
 
-test('streakShelf: 片道の3棚(1-3 / 4-30 / 31-)', () => {
-  assert.equal(streakShelf(1), 'early');
-  assert.equal(streakShelf(3), 'early');
-  assert.equal(streakShelf(4), 'mid');
-  assert.equal(streakShelf(30), 'mid');
-  assert.equal(streakShelf(31), 'long');
+test('streakShelf: 引く回数に比例した5棚(a1-3 / b4-30 / c1..90 / c2..365 / c3)', () => {
+  assert.equal(streakShelf(1), 'a');
+  assert.equal(streakShelf(3), 'a');
+  assert.equal(streakShelf(4), 'b');
+  assert.equal(streakShelf(30), 'b');
+  assert.equal(streakShelf(31), 'c1');
+  assert.equal(streakShelf(90), 'c1');
+  assert.equal(streakShelf(91), 'c2');
+  assert.equal(streakShelf(365), 'c2');
+  assert.equal(streakShelf(366), 'c3');
+});
+
+test('daily 後払い棚のフォールバック: c2/c3 未執筆なら c1 の台詞を返す', () => {
+  // c2(91-365)/c3(366-) はまだ書いていない → 下位棚 c1 のIDが返る
+  assert.match(pickCore({ kind: 'daily', streakDays: 200 }, 0)?.id ?? '', /^daily\.c1\./);
+  assert.match(pickCore({ kind: 'daily', streakDays: 400 }, 0)?.id ?? '', /^daily\.c1\./);
+  assert.match(pickCore({ kind: 'daily', streakDays: 2 }, 0)?.id ?? '', /^daily\.a\./);
 });
 
 test('comebackStage: 空白の長さで3段階(≤6 / ≤14 / それ以上)', () => {
@@ -31,7 +42,7 @@ test('comebackStage: 空白の長さで3段階(≤6 / ≤14 / それ以上)', ()
 });
 
 test('coreKeyFor: 機会からキーを組む', () => {
-  assert.equal(coreKeyFor({ kind: 'daily', streakDays: 40 }), 'daily:long');
+  assert.equal(coreKeyFor({ kind: 'daily', streakDays: 40 }), 'daily:c1');
   assert.equal(coreKeyFor({ kind: 'comeback', absenceDays: 3, wish: wish('self') }), 'comeback:short:self');
   assert.equal(coreKeyFor({ kind: 'exam', timing: 'eve', wish: wish('family') }), 'exam:eve:family');
   assert.equal(coreKeyFor({ kind: 'result', outcome: 'fail', wish: wish('like') }), 'result:fail:like');
@@ -59,7 +70,7 @@ test('seasonOf/timeBandOf: ローカル月/時で判定', () => {
 });
 
 test('pickCore: streak棚・願い別に正しいプールを引く', () => {
-  assert.equal(pickCore({ kind: 'daily', streakDays: 1 }, 0)?.id, 'daily.early.1');
+  assert.equal(pickCore({ kind: 'daily', streakDays: 1 }, 0)?.id, 'daily.a.1');
   assert.equal(pickCore({ kind: 'exam', timing: 'eve', wish: wish('study') }, 0)?.text, '学ぶために始めたね。いってらっしゃい。');
 });
 
@@ -79,7 +90,7 @@ test('composeVoice: full=1文coreにflavor付与・short=coreのみ・2文core�
 });
 
 test('composeVoice: coreが空なら空文字(UIは出さない)', () => {
-  const r = composeVoice({ occasion: { kind: 'daily', streakDays: 1 } as Occasion, now: 0, seed: 0, recent: CORE_LINES['daily:early'].map((l) => l.id) });
+  const r = composeVoice({ occasion: { kind: 'daily', streakDays: 1 } as Occasion, now: 0, seed: 0, recent: CORE_LINES['daily:a'].map((l) => l.id) });
   assert.ok(r.text.length > 0); // 全除外でも除外無視で1本返る(=空にならない)
 });
 
@@ -89,11 +100,14 @@ test('pickFragment: 反復回避で連載のかけらを返す', () => {
 });
 
 // ── 配分(発火頻度に比例): 在庫が頻度の高い方へ寄っているか
-test('在庫配分: daily24(棚3×8)/flavor28/fragment20/session_end12/word_graduate8', () => {
-  assert.equal(CORE_LINES['daily:early'].length, 8);
-  assert.equal(CORE_LINES['daily:mid'].length, 8);
-  assert.equal(CORE_LINES['daily:long'].length, 8);
-  assert.equal(Object.values(FLAVOR_SEASON).flat().length + Object.values(FLAVOR_TIME).flat().length, 28);
+test('在庫配分(引く回数に比例): daily a4/b14/c1_18・flavor 季32+時18/fragment20/session12/word8', () => {
+  assert.equal(CORE_LINES['daily:a'].length, 4);   // 3回しか引かない
+  assert.equal(CORE_LINES['daily:b'].length, 14);  // 27回引く
+  assert.equal(CORE_LINES['daily:c1'].length, 18); // 無限区間の入口
+  assert.equal(CORE_LINES['daily:c2'], undefined); // 後払い(未執筆)
+  assert.equal(CORE_LINES['daily:c3'], undefined); // 後払い(未執筆)
+  assert.equal(Object.values(FLAVOR_SEASON).flat().length, 32); // 4季×8=同時使用8
+  assert.equal(Object.values(FLAVOR_TIME).flat().length, 18);   // 3帯×6
   assert.equal(FRAGMENTS.length, 20);
   assert.equal(CORE_LINES['session_end'].length, 12);
   assert.equal(CORE_LINES['word_graduate'].length, 8);
