@@ -11,6 +11,9 @@ import { useHomeBg } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
 import HomeCoach from '../home/HomeCoach';
 import ExamInfoCard from '../home/ExamInfoCard';
+import SakuraSpeech from '../home/SakuraSpeech';
+import ResultReportCard from '../home/ResultReportCard';
+import ShikishiWall from '../home/ShikishiWall';
 import SafeBoundary from '../components/SafeBoundary';
 import AccountGrowthCard from '../components/AccountGrowthCard';
 import AccountStreakCard from '../components/AccountStreakCard';
@@ -104,13 +107,21 @@ export default function HomeScreen() {
         <SafeBoundary tag="homecoach" fallback={null}>
           <HomeCoach status={status} learned={learnedNow(state, now)} />
         </SafeBoundary>
+        {/* 桜の今日の一言(受験日 > 出迎え)。1日1回・タップで消える。減衰レイヤーが頻度を絞る。 */}
+        <SafeBoundary tag="sakuraspeech" fallback={null}>
+          <SakuraSpeech />
+        </SafeBoundary>
       </TabBackground>
       <SwipeSheet visible={showCards} onClose={() => setShowCards(false)}>
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.cardsList}>
+          {/* 受験後の合否報告(該当時のみ・§4)。最上部で受け止める。 */}
+          <ResultReportCard />
           {/* 最上部＝試験情報(桜＋試験日/残日数/申込期間/費用)。その下に成長・継続カード。 */}
           <ExamInfoCard />
           <AccountGrowthCard />
           <AccountStreakCard />
+          {/* 合格の色紙の壁(合格を報告していれば表示)。 */}
+          <ShikishiWall />
         </ScrollView>
       </SwipeSheet>
     </View>
