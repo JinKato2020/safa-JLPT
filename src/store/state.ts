@@ -76,6 +76,7 @@ export interface AppState {
   equipped?: { hair?: string; outfit?: string; brush?: string; costume?: string; companion?: string; tool?: string }; // 着せ替え(髪型/服/筆/民族衣装)・仲間の装備中ID。背景・フォントは settings で反映
   claimedMilestones?: string[];         // 節目付与の重複防止
   dailyEarn?: { day: string; amount: number }; // 1日獲得上限の当日累計
+  lastGreetDay?: string;                 // 毎回起動の「今日の出迎え」を1日1回に絞る(dayStr)
   installedAt?: number;                 // 初回起動(ダウンロード)日時 epoch ms。模試チケット月次付与の起点。未設定→初回起動で確定。
   mockTickets?: number;                 // 模試チケット所持数(上限3)。未設定→0(初回起動で1付与)。
   mockGrantsClaimed?: number;           // 消化済み月次付与数(installedAtからの経過月と比較して差分を付与)。
