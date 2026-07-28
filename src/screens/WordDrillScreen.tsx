@@ -11,10 +11,10 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
-import { isInMyList, type SaveRef } from '../store/state';
+import { walletPoints } from '../store/wallet';
 import { buildDrill, type DrillProblem } from '../ladder/wordDrill';
 import { progressSnapshot } from '../store/selectors';
-import SessionSummary from '../components/SessionSummary';
+import AfterStudyReward, { type StudiedWord } from '../components/AfterStudyReward';
 import { playVocab } from '../data/vocabAudio';
 import RubyText from '../components/RubyText';
 import { useT } from '../i18n';
@@ -54,6 +54,24 @@ export default function WordDrillScreen() {
   const [judged, setJudged] = useState<null | boolean>(null);
   const [score, setScore] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now())); // 完了画面の「伸び」表示用(試験タブと統一)
+  const [walletStart] = useState(() => walletPoints(state)); // セッション開始時の桜貝残高(獲得数=終了時との差)
+
+  // この回に学習した単語(重複除去)。毎問登録をやめ、最後にまとめて☑で私の単語帳へ。
+  const studiedWords = useMemo<StudiedWord[]>(() => {
+    const seen = new Set<string>();
+    const out: StudiedWord[] = [];
+    for (const pr of problems) {
+      const id = pr.itemId.split('#')[0];
+      const type = pr.kind === 'vProduce' ? ('vocab' as const) : ('grammar' as const);
+      const key = type + id;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      if (pr.kind === 'vProduce') out.push({ ref: { type, id }, word: pr.hint ?? pr.reading, meaning: pr.prompt });
+      else if (pr.kind === 'gBuild') out.push({ ref: { type, id }, word: pr.reading, meaning: pr.hint });
+      else out.push({ ref: { type, id }, word: pr.hit ?? pr.prompt });
+    }
+    return out;
+  }, [problems]);
 
   const p = problems[i];
 
@@ -91,10 +109,13 @@ export default function WordDrillScreen() {
       <SafeAreaView style={s.c} edges={['top']}>
         <Header title={t(titleKey)} onClose={() => nav.goBack()} s={s} />
         <ScrollView contentContainerStyle={s.doneBody}>
-          <Text style={s.doneEmoji}>🎉</Text>
-          <Text style={s.doneTitle}>{t('worddrill.done_title')}</Text>
-          <Text style={s.doneScore}>{t('worddrill.done_score', { n: score, total: problems.length })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode={kind === 'vProduce' ? 'moji_goi' : 'bunpou'} />
+          <AfterStudyReward
+            words={studiedWords}
+            shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
+            scored={progressSnapshot(state, Date.now()).touched - before.touched}
+            mode={kind === 'vProduce' ? 'moji_goi' : 'bunpou'}
+            seed={seed}
+          />
           <Pressable style={s.cta} onPress={() => nav.goBack()}><Text style={s.ctaTxt}>{t('worddrill.finish')}</Text></Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -116,20 +137,13 @@ export default function WordDrillScreen() {
         )}
       </ScrollView>
 
-      {judged !== null && (() => {
-        // 正誤判定時に my単語帳 登録ボタン(辞書リストと同じブックマークUI)。itemId=<id>#<mode>。
-        const saveRef: SaveRef = { type: p.kind === 'vProduce' ? 'vocab' : 'grammar', id: p.itemId.split('#')[0] };
-        const saved = isInMyList(state.myList ?? [], saveRef);
-        return (
-          <View style={s.footer}>
-            <Text style={[s.fbTxt, { color: judged ? c.green : c.red }]}>{judged ? t('worddrill.correct') : t('worddrill.wrong')}</Text>
-            <Pressable style={s.saveBtn} hitSlop={10} onPress={() => actions.addToMyList(saveRef)} accessibilityLabel={t('mywords.add')}>
-              <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={22} color={saved ? c.blue : c.mute} />
-            </Pressable>
-            <Pressable style={s.cta} onPress={next}><Text style={s.ctaTxt}>{t('worddrill.next')}</Text></Pressable>
-          </View>
-        );
-      })()}
+      {judged !== null && (
+        // 単語帳への登録は毎問やめ、学習後にまとめて(AfterStudyReward)。ここは正誤＋次へだけ。
+        <View style={s.footer}>
+          <Text style={[s.fbTxt, { color: judged ? c.green : c.red }]}>{judged ? t('worddrill.correct') : t('worddrill.wrong')}</Text>
+          <Pressable style={s.cta} onPress={next}><Text style={s.ctaTxt}>{t('worddrill.next')}</Text></Pressable>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -256,7 +270,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   body: { padding: spacing.lg, gap: spacing.md, paddingBottom: 40 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: spacing.md },
   emptyTxt: { fontSize: ty.body, color: c.mute, textAlign: 'center' },
-  doneBody: { padding: spacing.xl, gap: spacing.md, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
+  doneBody: { padding: spacing.lg, gap: spacing.lg, alignItems: 'center' },
   doneEmoji: { fontSize: 56 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
   doneScore: { fontSize: ty.h2, fontWeight: '800', color: c.blue },

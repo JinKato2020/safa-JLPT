@@ -27,9 +27,6 @@ export const DECAY_POLICIES: Record<string, DecayPolicy> = {
   daily_greet: { perDay: 1, fullTimes: 3, shortTimes: 100000, refreshAfterDays: 4 },
   // 受験日の一言(前夜/当日/翌日): 1日1回・年数回の稀少イベントなので常に full(refreshAfterDays:1で毎日リセット)。
   exam: { perDay: 1, fullTimes: 9999, shortTimes: 0, refreshAfterDays: 1 },
-  // 学習後の小演出(花吹雪＋犬): 1日2回まで・最初の5回はfull(花吹雪+犬)→以降short(花びら控えめ)→やがてnone。
-  // うるさくならないよう早めに希釈(§6の思想=変化は出来事が運ぶ・日常は静かに)。3日あければfull復帰。
-  session_fx: { perDay: 2, fullTimes: 5, shortTimes: 20, refreshAfterDays: 3 },
 };
 
 const policyFor = (id: string): DecayPolicy => DECAY_POLICIES[id] ?? DEFAULT_POLICY;
