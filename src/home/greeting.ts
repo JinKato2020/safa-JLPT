@@ -1,12 +1,20 @@
-// 毎回起動の「今日の出迎え」を1日1回だけ出すための純関数。UI配線は後続プランで行う。
-import { dayStr, type AppState } from '../store/state';
+// 毎日の「今日の出迎え」を1日1回に絞る。減衰レイヤーの daily_greet 接点に委譲(lastGreetDay を吸収・§6)。
+import { type AppState } from '../store/state';
+import { intensityFor, recordDecay, type Intensity } from '../story/decay';
 
-/** 今日まだ出迎えていなければ true（lastGreetDay が今日と違う）。 */
+const GREET = 'daily_greet';
+
+/** 今日まだ出迎えていなければ true(daily_greet が none 以外)。 */
 export function shouldGreetToday(state: AppState, now: number): boolean {
-  return state.lastGreetDay !== dayStr(now);
+  return intensityFor(state.storyDecay, GREET, { now }) !== 'none';
 }
 
-/** 出迎え済みとして当日を記録した新しい状態を返す（純粋・入力は不変）。 */
-export function markGreetedToday(state: AppState, now: number): AppState {
-  return { ...state, lastGreetDay: dayStr(now) };
+/** 今日の出迎えの強さ(full/short/none)。none は UI では出さない(先に shouldGreetToday で弾く)。 */
+export function greetVariant(state: AppState, now: number, reduceMotion = false): Intensity {
+  return intensityFor(state.storyDecay, GREET, { now, reduceMotion });
+}
+
+/** 出迎え済み(または見送り)を記録した新しい状態を返す(純粋・入力は不変)。 */
+export function markGreetedToday(state: AppState, now: number, skipped = false): AppState {
+  return { ...state, storyDecay: recordDecay(state.storyDecay, GREET, now, { skipped }) };
 }
