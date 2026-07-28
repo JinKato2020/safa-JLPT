@@ -56,7 +56,6 @@ export const SHOP: ShopItem[] = [
   { id: 'tool_mock_ticket', cat: 'tool', kind: 'tool', price: 300, name: '模試チケット', emoji: '📝' },
   { id: 'tool_retry', cat: 'tool', kind: 'tool', price: 200, name: '再挑戦券', emoji: '🔁' },
   { id: 'tool_freeze', cat: 'tool', kind: 'tool', price: 250, name: '連続フリーズ', emoji: '❄️' },
-  { id: 'tool_omamori', cat: 'tool', kind: 'tool', price: 400, name: '合格お守り', emoji: '🧧' },
 ];
 export const SHOP_BY_ID: Record<string, ShopItem> = Object.fromEntries(SHOP.map((i) => [i.id, i]));
 
