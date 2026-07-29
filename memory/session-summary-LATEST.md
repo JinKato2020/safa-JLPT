@@ -1,15 +1,13 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 20 回・39 ターン
-- 往復 6194 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/screens/HomeScreen.tsx
-- src/home/LibraryPanel.tsx
-- src/store/store.tsx
-- src/store/state.ts
+- src/screens/MockScreen.tsx
+- src/screens/ListeningScreen.tsx
+- src/screens/PassageGrammarScreen.tsx
+- src/screens/ReadingScreen.tsx
 
 ## 次の一手
 - **📖 世界観ストーリー P0＝実装完了→ビルド中（2026-07-29）**: v2602/both dispatch=run `30398250437`（push済602コミット）。tsc0・test359緑。正本=`docs/superpowers/specs/2026-07-28-書斎ストーリー-design.md`(v6)＋`docs/superpowers/specs/桜-口調シート.md`。核＝**軸=ユーザーの「願い」を世界の中心**（使命は預かる／没入は狙わない=選択・痕跡・承認／物語は乗数）。成果コード=`src/story/{wish,decay,voice,examLine,resultReport,metrics}.ts`＋UI配線`src/home/{SakuraSpeech,ResultReportCard,ShikishiWall}.tsx`＋学習後まとめ画面`src/components/AfterStudyReward.tsx`（毎問登録廃止→最後に10単語☑まとめ・桜貝＋ねぎらい・四季画像`src/data/afterStudyArt.ts`／`assets/afterstudy/{spring,summer,autumn,winter}.png`）。**次=P1〜（要画像/Rive・要見積りD1）**＝合格リング意匠/入場物語/機能の衣。**ユーザー待ち**=全画面の合格ムービー（AI動画・Veo/Kling等でユーザーが作成）→来たら私が`expo-av`で合格報告に全画面配線。台詞のC2/C3後払い在庫は到達直前に執筆（今は下位棚へ自動フォールバック）。

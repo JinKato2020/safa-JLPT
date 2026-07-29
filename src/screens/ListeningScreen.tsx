@@ -10,6 +10,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from '../components/AfterStudyReward';
+import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
 import ExamHeader from '../components/ExamHeader';
 import RubyText from '../components/RubyText';
@@ -265,11 +266,8 @@ export default function ListeningScreen() {
           );
         })}
 
-        {allDone ? (
-          <Pressable style={s.cta} onPress={advance}>
-            <Text style={s.ctaTxt}>{idx + 1 >= steps.length ? t('listening.see_results') : t('listening.next')}</Text>
-          </Pressable>
-        ) : null}
+        {/* 全ドリル共通の回答フッター(セット型=正誤なし・次へのみ)。 */}
+        {allDone ? <AnswerFooter onNext={advance} nextKind={idx + 1 >= steps.length ? 'result' : 'next'} /> : null}
       </ScrollView>
     </SafeAreaView>
   );

@@ -754,5 +754,10 @@
   "paywall.period_month": "मासिक",
   "paywall.period_6month": "६ महिना",
   "paywall.period_3month": "३ महिना",
-  "paywall.period_lifetime": "आजीवन"
+  "paywall.period_lifetime": "आजीवन",
+  "answer.correct": "सही!",
+  "answer.wrong": "दुर्भाग्य",
+  "answer.next": "अर्को →",
+  "answer.result": "नतिजा हेर्नुहोस्",
+  "answer.finish": "समाप्त"
 }

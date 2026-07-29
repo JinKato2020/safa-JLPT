@@ -753,5 +753,10 @@
   "paywall.period_month": "月額",
   "paywall.period_6month": "6か月",
   "paywall.period_3month": "3か月",
-  "paywall.period_lifetime": "買い切り"
+  "paywall.period_lifetime": "買い切り",
+  "answer.correct": "正解！",
+  "answer.wrong": "ざんねん",
+  "answer.next": "次へ →",
+  "answer.result": "結果を見る",
+  "answer.finish": "終了"
 }

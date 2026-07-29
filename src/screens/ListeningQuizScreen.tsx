@@ -12,6 +12,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { type SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from '../components/AfterStudyReward';
+import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords } from '../data/studiedWords';
 import { levelListFor } from '../words/levelList';
@@ -191,12 +192,9 @@ export default function ListeningQuizScreen() {
         ) : null}
       </ScrollView>
 
-      {/* 下端固定フッター: 正誤 ＋ 次へ。毎問の私の単語帳登録は廃止(終了画面でまとめて☑登録)。 */}
+      {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(終了画面でまとめて☑登録)。 */}
       {picked !== null && (
-        <View style={s.footer}>
-          <Text style={[s.fbTxt, { color: picked === q.answerIndex ? c.green : c.red }]}>{picked === q.answerIndex ? t('listening2.correct') : t('listening2.wrong')}</Text>
-          <Pressable style={s.footCta} onPress={advance}><Text style={s.ctaTxt}>{idx + 1 >= questions.length ? t('listening2.close') : t('listening2.next')}</Text></Pressable>
-        </View>
+        <AnswerFooter correct={picked === q.answerIndex} onNext={advance} nextKind={idx + 1 >= questions.length ? 'finish' : 'next'} />
       )}
     </SafeAreaView>
   );

@@ -15,6 +15,7 @@ import { walletPoints } from '../store/wallet';
 import { buildDrill, type DrillProblem } from '../ladder/wordDrill';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward, { type StudiedWord } from '../components/AfterStudyReward';
+import AnswerFooter from '../components/AnswerFooter';
 import { playVocab } from '../data/vocabAudio';
 import RubyText from '../components/RubyText';
 import { useT } from '../i18n';
@@ -137,12 +138,9 @@ export default function WordDrillScreen() {
         )}
       </ScrollView>
 
+      {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(学習後にまとめて)。 */}
       {judged !== null && (
-        // 単語帳への登録は毎問やめ、学習後にまとめて(AfterStudyReward)。ここは正誤＋次へだけ。
-        <View style={s.footer}>
-          <Text style={[s.fbTxt, { color: judged ? c.green : c.red }]}>{judged ? t('worddrill.correct') : t('worddrill.wrong')}</Text>
-          <Pressable style={s.cta} onPress={next}><Text style={s.ctaTxt}>{t('worddrill.next')}</Text></Pressable>
-        </View>
+        <AnswerFooter correct={judged} onNext={next} nextKind="next" />
       )}
     </SafeAreaView>
   );

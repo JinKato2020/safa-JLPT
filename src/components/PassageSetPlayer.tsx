@@ -13,6 +13,7 @@ import { type PassageSet, type Figure } from '../quiz/passageSet';
 import { PASSAGE_TRANS_NE } from '../data';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
+import AnswerFooter from './AnswerFooter';
 
 // 本文のネパール語訳(回答後トグル表示・l1=ne時のみ)。key=PassageSet.id → 本文ごとの訳配列。
 const TRANS_NE = PASSAGE_TRANS_NE;
@@ -124,7 +125,7 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
       })}
 
       {revealed ? (
-        <Pressable style={s.nextBtn} onPress={onNext}><Text style={s.nextTxt}>{isLast ? t('passage.toResult') : t('passage.next')}</Text></Pressable>
+        <AnswerFooter onNext={onNext} nextKind={isLast ? 'result' : 'next'} />
       ) : (
         <Text style={s.hint}>{t('passage.hint')}</Text>
       )}

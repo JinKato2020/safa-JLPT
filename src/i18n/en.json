@@ -753,5 +753,10 @@
   "paywall.period_month": "Monthly",
   "paywall.period_6month": "6 months",
   "paywall.period_3month": "3 months",
-  "paywall.period_lifetime": "Lifetime"
+  "paywall.period_lifetime": "Lifetime",
+  "answer.correct": "Correct!",
+  "answer.wrong": "Not quite",
+  "answer.next": "Next →",
+  "answer.result": "See Results",
+  "answer.finish": "Finish"
 }

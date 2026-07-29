@@ -9,6 +9,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState, useAppActions } from '../store/store';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from './AfterStudyReward';
+import AnswerFooter from './AnswerFooter';
 import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords } from '../data/studiedWords';
 import type { SaveRef } from '../store/state';
@@ -189,19 +190,10 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
           })}
         </View>
 
-        {reveal ? (
-          <>
-            <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
-              {picked === question.answerIndex ? t('learntestsession.correct') : t('learntestsession.wrong')}
-            </Text>
-            <Pressable style={s.cta} onPress={advance}>
-              <Text style={s.ctaTxt}>{t('learntestsession.next')}</Text>
-            </Pressable>
-          </>
-        ) : (
-          <Text style={s.hint}>{t('learntestsession.test_hint')}</Text>
-        )}
+        {!reveal && <Text style={s.hint}>{t('learntestsession.test_hint')}</Text>}
       </ScrollView>
+      {/* 全ドリル共通の回答フッター(正誤＋次へ)。 */}
+      {reveal && <AnswerFooter correct={picked === question.answerIndex} onNext={advance} nextKind="next" />}
     </SafeAreaView>
   );
 }

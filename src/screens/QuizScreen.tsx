@@ -10,6 +10,7 @@ import { type SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
 import { useT } from '../i18n';
 import AfterStudyReward from '../components/AfterStudyReward';
+import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords } from '../data/studiedWords';
 import ExamHeader from '../components/ExamHeader';
@@ -259,18 +260,12 @@ export default function QuizScreen() {
           })}
         </View>
 
-        {picked !== null ? (
-          <>
-            <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
-              {picked === question.answerIndex ? t('quiz.correct') : t('quiz.wrong')}
-            </Text>
-            {/* 毎問の私の単語帳登録は廃止。学習語は終了画面(AfterStudyReward)でまとめて☑登録。 */}
-            <AppButton label={idx + 1 >= total ? t('quiz.see_results') : t('quiz.learn_next')} onPress={advance} />
-          </>
-        ) : (
-          <Text style={s.hint}>{t('quiz.hint')}</Text>
-        )}
+        {picked === null && <Text style={s.hint}>{t('quiz.hint')}</Text>}
       </ScrollView>
+      {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(学習後にまとめて)。 */}
+      {picked !== null && (
+        <AnswerFooter correct={picked === question.answerIndex} onNext={advance} nextKind={idx + 1 >= total ? 'result' : 'next'} />
+      )}
     </SafeAreaView>
   );
 }

@@ -16,6 +16,7 @@ import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor } f
 import RubyText from '../components/RubyText';
 import AppButton from '../components/AppButton';
 import PassageSetPlayer from '../components/PassageSetPlayer';
+import AnswerFooter from '../components/AnswerFooter';
 import { readingToSet, type PassageSet } from '../quiz/passageSet';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
@@ -466,11 +467,9 @@ export default function MockScreen() {
             })}
           </View>
 
+          {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問の私の単語帳登録は廃止(模試は結果重視)。 */}
           {reveal ? (
-            /* 毎問の私の単語帳登録は廃止(模試は結果重視)。単語登録は練習(単語/試験タブ)の学習後画面でまとめて。 */
-            <Pressable style={s.cta} onPress={next}>
-              <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
-            </Pressable>
+            <AnswerFooter correct={picked === cur.answerIndex} onNext={next} nextKind={idx + 1 >= exam.length ? 'result' : 'next'} />
           ) : (
             <Text style={s.hint}>{t('mock.hint')}</Text>
           )}
