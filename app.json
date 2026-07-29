@@ -65,14 +65,6 @@
         {
           "userTrackingPermissionMessage": "許可すると、あなたの興味に合った広告が表示されます。学習の記録が第三者に共有されることはありません。"
         }
-      ],
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "kotlinVersion": "2.2.20"
-          }
-        }
       ]
     ],
     "extra": {
