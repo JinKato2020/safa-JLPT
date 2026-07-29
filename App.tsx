@@ -14,7 +14,7 @@ import { SyncProvider, useSync } from './src/auth/SyncProvider';
 import { navigationRef } from './src/navigation/navRef';
 import AccountPrompt from './src/components/AccountPrompt';
 import { isWatercolor } from './src/store/state';
-import { useT } from './src/i18n';
+import { useT, useUiLang } from './src/i18n';
 import type { RootStackParamList, WordsStackParamList, DictStackParamList, StudyStackParamList } from './src/navigation/types';
 import HomeScreen from './src/screens/HomeScreen';
 import StudyHomeScreen from './src/screens/StudyHomeScreen';
@@ -215,12 +215,23 @@ const topBar = StyleSheet.create({
 function Root() {
   const hydrated = useHydrated();
   const state = useAppState();
-  const { addStudySeconds, setPurchaseActive } = useAppActions();
+  const { addStudySeconds, setPurchaseActive, setSettings } = useAppActions();
   const { session } = useSync();
   const { settings } = state;
   const stateRef = useRef(state);
   stateRef.current = state;
   const c = useColors();
+
+  // 言語の一本化: 表示言語(uiLang＝設定or端末自動判定)と「意味の表示言語(l1)」を常に一致させる。
+  // 端末が日本語だと uiLang は自動で ja になるのに、l1 が初回オンボーディングの ne のまま残り
+  // 「日本語表示なのに意味がネパール語」になっていた食い違いをここで解消する。
+  // 意味データがあるのはネパール語のみ→ne は ne、それ以外(ja/en)は英語で表示。
+  const uiLang = useUiLang();
+  const meaningLang = uiLang === 'ne' ? 'ne' : 'en';
+  useEffect(() => {
+    if (!hydrated) return;
+    if (settings.l1 !== meaningLang) setSettings({ l1: meaningLang });
+  }, [hydrated, meaningLang]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 匿名計測: 日次スナップショット＋アプリ往来/滞在＋回答flush＋クラッシュ報告。
   useEffect(() => {
