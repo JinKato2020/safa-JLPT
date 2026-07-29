@@ -33,14 +33,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- 画像/ストーリー/ストーリー.xlsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- App.tsx
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
 - src/kakitori/engineHtml.ts
 - src/components/RubyText.tsx
-- content/lexicon/meaning_N3.json
-- content/lexicon/meaning_N4.json
 
-_自動更新: 2026-07-29 14:09_
+_自動更新: 2026-07-29 14:31_
 <!-- AUTO:END -->

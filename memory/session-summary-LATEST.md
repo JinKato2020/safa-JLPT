@@ -1,14 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- 往復 8204 回
+- ツール呼び出し 2 回・6 ターン
+- 往復 8252 回
 
 ## 何が変わったか
 - memory/handoff.md
+- 画像/ストーリー/ストーリー.xlsx
 - memory/session-summary-LATEST.md
+- App.tsx
 - content/_manifest.json
-- src/data/content/bundled.generated.ts
-- src/kakitori/engineHtml.ts
 
 ## 次の一手
 - **🐛 実機テスト3バグ修正＝iOS 2611で配信中（2026-07-29）**: commit932cc7c・tsc0/test366緑・run`30424126041`(platforms=ios)。①母語訳の英語落ち＝カタカナ外来語16語のne欠落→`content/lexicon/meaning_*.json`にne追加(manifest/bundle再生成済)。※UI言語(uiLang)と意味の母語(l1)は別設定＝仕様（日本語UIでも意味はl1=neのまま）。②ルビ下の漢字上端切れ＝`RubyText.tsx`のbase lineHeightを1.18倍(col gap0で相殺)。③書き取り自己交差の線切れ＝`engineHtml.ts`の`#t svg path`をround結合/nonzero(iOS WKWebView対策・**要実機確認**)。**次=iOS実機で3件確認**。**Android未解決**＝ads SDK(AdMob)のKotlin2.3.0がKSP2と不整合([[android-admob-kotlin-2_3-mismatch]])→次善=AdMob版downgrード or 広告後回し。

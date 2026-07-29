@@ -73,8 +73,7 @@
             "kotlinVersion": "2.2.20"
           }
         }
-      ],
-      "./plugins/withKotlinSkipMetadataCheck"
+      ]
     ],
     "extra": {
       "eas": {
