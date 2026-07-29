@@ -43,6 +43,7 @@ type Action =
   | { type: 'GRANT_PRO_DAYS'; days: number; now: number }
   | { type: 'MARK_STORY_SHOWN'; id: string; now: number; skipped?: boolean }
   | { type: 'APPLY_RESULT_REPORT'; level: Level; outcome: Outcome; date: string }
+  | { type: 'MARK_STORY_READ'; id: string }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -123,6 +124,11 @@ export function reducer(state: AppState, action: Action): AppState {
     case 'APPLY_RESULT_REPORT':
       // 合格の自己申告=色紙を壁に1枚(級ごと一度)。不合格・重複は状態不変。手習い帳/貝殻/桜貝には触れない(持ち越し)。
       return applyResultReport(state, { level: action.level, outcome: action.outcome, date: action.date });
+    case 'MARK_STORY_READ': {
+      // 復元の節目で覚書(小ストーリー)を受け取った=一度きり。id集合に足すだけ(重複はそのまま)。付与ロジックには触れない。
+      const seen = state.storySeen ?? [];
+      return seen.includes(action.id) ? state : { ...state, storySeen: [...seen, action.id] };
+    }
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -207,6 +213,7 @@ export function useAppActions() {
     grantProDays: (days: number) => dispatch({ type: 'GRANT_PRO_DAYS', days, now: Date.now() }),
     markStoryShown: (id: string, skipped = false) => dispatch({ type: 'MARK_STORY_SHOWN', id, now: Date.now(), skipped }),
     reportResult: (level: Level, outcome: Outcome, date: string) => dispatch({ type: 'APPLY_RESULT_REPORT', level, outcome, date }),
+    markStoryRead: (id: string) => dispatch({ type: 'MARK_STORY_READ', id }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     reset: () => {
       clearState();
