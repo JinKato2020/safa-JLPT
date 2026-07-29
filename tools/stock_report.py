@@ -7,13 +7,15 @@
   python tools/stock_report.py --quiet      標準出力を出さない（hook用）
   python tools/stock_report.py --if-changed 問題ファイルが更新された時だけ集計（hook用）
 
-■ 「在庫問題数」の定義（2026-07-19 ユーザー決定）
-  在庫＝**公式問題にそって新しく作成した問題**だけ。次は在庫に数えない。
-    (1) 公式問題にそっていない既存データ … 漢字読み・表記（辞書から機械生成した分）
-    (2) 監査に落ちた問題 … hold 付き / ambiguous=True / verified=False
+■ 「在庫問題数」の定義（2026-07-19 ユーザー決定 / 2026-07-29 更新）
+  在庫＝**公式レベルの語彙・出題形式で作成した問題**。次だけ在庫に数えない。
+    ・監査に落ちた問題 … hold 付き / ambiguous=True / verified=False
+  漢字読み・表記も在庫に数える（2026-07-29 ユーザー決定）＝出題語は公式レベルの
+  語彙バンク（辞書＝content/lexicon）で絞り込み済み・誤答も公式と同形式のため。
+  監査スタンプ・漢字読みの解説は付けない方針（ユーザー決定）。
   旧データ（文法形式・組み立て）は**監査に合格した分だけ**在庫に数える。
   未検証（verified 欄はあるが true が付いていない）は在庫に含めつつ別掲する。
-  在庫外はファイル末尾の「参考」に件数だけ残す（消えたと誤解しないため）。
+  在庫外（監査落ち）はファイル末尾の「参考」に件数だけ残す（消えたと誤解しないため）。
 
 記録する内容
   - 在庫問題数 / 未検証数（verified 欄を持つ大問のみ）
@@ -61,11 +63,10 @@ ORDER = ['kanji_read', 'orthography', 'context', 'synonym', 'usage',
          'kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji']
 LEVELS = ['N5', 'N4', 'N3', 'N2', 'N1']
 
-# 公式問題にそっていない既存データ。在庫に数えず、末尾の参考に件数だけ出す。
-NOT_OFFICIAL = {
-    'kanji_read':  '辞書から機械生成した既存データ（公式問題にそって作り直していない）',
-    'orthography': '辞書から機械生成した既存データ（公式問題にそって作り直していない）',
-}
+# 在庫に数えないもの＝監査落ちだけ（下の rejected）。
+# 漢字読み・表記は 2026-07-29 に在庫入り（出題語は公式レベルの辞書で絞り込み済み・
+# 誤答も公式と同形式）。よってここは空。将来また在庫外に回す大問が出たらここへ追加する。
+NOT_OFFICIAL = {}
 
 
 def rejected(q):
@@ -287,6 +288,38 @@ def main():
                 L.append('【%s】 監査に落ちて在庫外 %d問（%s）'
                          % (DAIMON[key][0], sum(out.values()),
                             ', '.join('%s×%d' % (k, v) for k, v in sorted(out.items()))))
+
+    # 参考：問題化の母数＝辞書にある全単語数（漢字・語彙・文法）。ユーザー要望2026-07-29。
+    # 漢字辞書=src/data/dict/kanji.json（level付きlist）／語彙辞書=content/lexicon/meaning_*.json
+    #（level別ファイル・items）／文法辞書=src/data/shared/grammar.json（level付きlist）。
+    def _by_level_list(path, key='level'):
+        c = Counter()
+        if os.path.exists(path):
+            for it in json.load(io.open(path, encoding='utf-8')):
+                if isinstance(it, dict) and it.get(key):
+                    c[str(it[key]).upper()] += 1
+        return c
+    kj = _by_level_list(os.path.join(ROOT, 'src', 'data', 'dict', 'kanji.json'))
+    gr = _by_level_list(os.path.join(ROOT, 'src', 'data', 'shared', 'grammar.json'))
+    vc = Counter()
+    for lv in LEVELS:
+        mp = os.path.join(ROOT, 'content', 'lexicon', 'meaning_%s.json' % lv)
+        if os.path.exists(mp):
+            vc[lv] = len((json.load(io.open(mp, encoding='utf-8')).get('items')) or [])
+    L.append('')
+    L.append('=' * 60)
+    L.append('■ 参考：辞書にある全単語数（問題化の母数。漢字・語彙・文法）')
+    L.append('=' * 60)
+
+    def _dictline(name, c):
+        levs = [lv for lv in LEVELS if c.get(lv)]
+        return '【%s辞書】 %d件（%s）' % (
+            name, sum(c.values()), ' / '.join('%s %d' % (lv, c[lv]) for lv in levs))
+    L.append(_dictline('漢字', kj))
+    L.append(_dictline('語彙', vc))
+    L.append(_dictline('文法', gr))
+    L.append('   ※この母数から問題を作る。漢字読みは語彙辞書のうち「漢字を含む語」、')
+    L.append('     表記は「書き取れる語」だけが対象（カタカナ語＝アパート等は漢字読みに入らない）。')
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     io.open(OUT, 'w', encoding='utf-8', newline='\r\n').write('\n'.join(L) + '\n')
