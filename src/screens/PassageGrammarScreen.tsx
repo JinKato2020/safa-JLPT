@@ -8,7 +8,9 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
-import SessionSummary from '../components/SessionSummary';
+import AfterStudyReward from '../components/AfterStudyReward';
+import { walletPoints } from '../store/wallet';
+import { resolveStudiedWords } from '../data/studiedWords';
 import ExamHeader from '../components/ExamHeader';
 import type { RootStackParamList } from '../navigation/types';
 import { passageGrammarSetsFor } from '../data';
@@ -44,6 +46,7 @@ export default function PassageGrammarScreen() {
   });
   const [idx, setIdx] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
+  const [walletStart] = useState(() => walletPoints(state));
 
   const set = sets[idx];
 
@@ -55,13 +58,24 @@ export default function PassageGrammarScreen() {
     const allQuestionIds = sets.flatMap((st) => st.questions.map((q) => q.id));
     const answered = allQuestionIds.length;
     const correct = allQuestionIds.filter((id) => (state.items[id]?.reps ?? 0) > 0).length;
+    const after = progressSnapshot(state, Date.now());
+    // 文章の文法=各設問に文法点(pointId)。学習した文法をまとめて私の単語帳へ。
+    const studiedRefs = sets.flatMap((st) => st.questions).filter((q) => q.pointId).map((q) => ({ type: 'grammar' as const, id: q.pointId! }));
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
           <Text style={s.bigEmoji}>🎉</Text>
           <Text style={s.doneTitle}>{t('passage.sessionComplete')}</Text>
           <Text style={s.doneSub}>{t('reading.scoreResult', { answered, correct })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="passage_grammar" />
+          <AfterStudyReward
+            words={resolveStudiedWords(studiedRefs, state.settings.l1)}
+            shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
+            scored={after.touched - before.touched}
+            streak={state.streak.current}
+            bandBefore={before.band}
+            bandAfter={after.band}
+            mode="passage_grammar"
+          />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('reading.backToHome')}</Text>
           </Pressable>

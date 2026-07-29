@@ -8,7 +8,10 @@ import { useNavigation } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { progressSnapshot } from '../store/selectors';
-import SessionSummary from './SessionSummary';
+import AfterStudyReward from './AfterStudyReward';
+import { walletPoints } from '../store/wallet';
+import { resolveStudiedWords } from '../data/studiedWords';
+import type { SaveRef } from '../store/state';
 import { buildQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
 import type { StudyItem } from '../data';
 import { useT } from '../i18n';
@@ -41,6 +44,8 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
   const [answered, setAnswered] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
+  const [walletStart] = useState(() => walletPoints(state));
+  const [studiedRefs, setStudiedRefs] = useState<SaveRef[]>([]); // この回の学習語(終了時にまとめて私の単語帳へ)
 
   const testItem = testQueue[testIdx];
   const question = useMemo(() => (testItem ? makeQuestion(testItem, pool, Math.random, EXAM_FORMATS) : null), [testItem?.id, testIdx]);
@@ -96,13 +101,22 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
 
   // テスト完了
   if (!testItem || !question) {
+    const after = progressSnapshot(state, Date.now());
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
           <Text style={s.bigEmoji}>🎉</Text>
           <Text style={s.doneTitle}>{t('learntestsession.done_title')}</Text>
           <Text style={s.doneSub}>{t('learntestsession.done_score', { n: answered, m: correct })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode={pool[0]?.category ?? 'study'} />
+          <AfterStudyReward
+            words={resolveStudiedWords(studiedRefs, state.settings.l1)}
+            shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
+            scored={after.touched - before.touched}
+            streak={state.streak.current}
+            bandBefore={before.band}
+            bandAfter={after.band}
+            mode={pool[0]?.category ?? 'study'}
+          />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('learntestsession.back_home')}</Text>
           </Pressable>
@@ -117,6 +131,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
     const isCorrect = choiceIdx === question.answerIndex;
     setPicked(choiceIdx);
     quizAnswer(testItem.id, isCorrect);
+    if (question.saveRef) setStudiedRefs((r) => [...r, question.saveRef!]); // 学習語を蓄積
     setAnswered((a) => a + 1);
     if (isCorrect) setCorrect((x) => x + 1);
     if (!isCorrect && testQueue.length < maxCards) {

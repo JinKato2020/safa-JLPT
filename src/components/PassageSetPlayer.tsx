@@ -25,7 +25,7 @@ function tableToFigure(rows: Record<string, string | number>[]): Figure {
 
 export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { set: PassageSet; isLast: boolean; onNext: () => void; onGraded?: (results: { id: string; correct: boolean }[]) => void }) {
   const state = useAppState();
-  const { quizAnswer, addToMyList } = useAppActions();
+  const { quizAnswer } = useAppActions();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
@@ -81,8 +81,6 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
     setAnswers((a) => { const n = [...a]; n[qi] = choiceIdx; return n; });
   };
 
-  const isSaved = (pointId?: string) => !!pointId && (state.myList ?? []).some((r) => r.type === 'grammar' && r.id === pointId);
-
   return (
     <ScrollView contentContainerStyle={s.body}>
       {set.passages.map((p, pi) => (
@@ -120,12 +118,7 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
                 );
               })}
             </View>
-            {revealed && q.pointId ? (
-              // 単語タブと同じ「しおり」アイコンで my単語帳 登録/解除。
-              <Pressable style={s.saveBtn} hitSlop={10} onPress={() => addToMyList({ type: 'grammar', id: q.pointId! })} accessibilityLabel={t(isSaved(q.pointId) ? 'mywords.added' : 'mywords.add')}>
-                <Ionicons name={isSaved(q.pointId) ? 'bookmark' : 'bookmark-outline'} size={22} color={isSaved(q.pointId) ? c.blue : c.mute} />
-              </Pressable>
-            ) : null}
+            {/* 毎問の私の単語帳登録は廃止。学習語は各画面の終了時(AfterStudyReward)でまとめて☑登録。 */}
           </View>
         );
       })}

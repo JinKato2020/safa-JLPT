@@ -6,10 +6,12 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import AppButton from '../components/AppButton';
 import { useAppState, useAppActions } from '../store/store';
-import { isInMyList } from '../store/state';
+import { type SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
 import { useT } from '../i18n';
-import SessionSummary from '../components/SessionSummary';
+import AfterStudyReward from '../components/AfterStudyReward';
+import { walletPoints } from '../store/wallet';
+import { resolveStudiedWords } from '../data/studiedWords';
 import ExamHeader from '../components/ExamHeader';
 import { itemsFor, allWordsFor, rubyNeeded } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
@@ -108,6 +110,8 @@ export default function QuizScreen() {
   const [correctCount, setCorrectCount] = useState(0);
   const [answered, setAnswered] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
+  const [walletStart] = useState(() => walletPoints(state));
+  const [studiedRefs, setStudiedRefs] = useState<SaveRef[]>([]); // この回に学習した語(終了時にまとめて私の単語帳へ)
 
   const item = queue[idx];
   const answerId = typeof item === 'string' ? item : item?.id; // quizAnswer/SRSのキー(大問=項目#大問)
@@ -148,17 +152,26 @@ export default function QuizScreen() {
   }
 
   if (!item || !question) {
+    const after = progressSnapshot(state, Date.now());
     return (
       <SafeAreaView style={s.c}>
-        <View style={s.center}>
+        <ScrollView contentContainerStyle={{ padding: spacing.lg, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' }}>
           <Text style={s.bigEmoji}>🎉</Text>
           {title ? <Text style={s.doneDaimon}>{title}</Text> : null}
           <Text style={s.doneTitle}>{t('quiz.session_done')}</Text>
           <Text style={s.doneRate}>{t('quiz.accuracy', { pct: answered ? Math.round((correctCount / answered) * 100) : 0 })}</Text>
           <Text style={s.doneSub}>{t('quiz.score', { answered, correct: correctCount })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="quiz" />
+          <AfterStudyReward
+            words={resolveStudiedWords(studiedRefs, settings.l1)}
+            shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
+            scored={after.touched - before.touched}
+            streak={state.streak.current}
+            bandBefore={before.band}
+            bandAfter={after.band}
+            mode="quiz"
+          />
           <AppButton label={t('quiz.see_results')} onPress={() => nav.goBack()} full={false} style={{ marginTop: spacing.sm }} />
-        </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -167,6 +180,7 @@ export default function QuizScreen() {
     if (picked !== null) return;
     const isCorrect = choiceIdx === question.answerIndex;
     setPicked(choiceIdx);
+    if (question.saveRef) setStudiedRefs((r) => [...r, question.saveRef!]); // 学習語を蓄積(毎問登録はやめ最後にまとめて)
     if (answerId) quizAnswer(answerId, isCorrect);
     setAnswered((a) => a + 1);
     if (isCorrect) setCorrectCount((c) => c + 1);
@@ -250,17 +264,7 @@ export default function QuizScreen() {
             <Text style={[s.judge, picked === question.answerIndex ? s.judgeOk : s.judgeNg]}>
               {picked === question.answerIndex ? t('quiz.correct') : t('quiz.wrong')}
             </Text>
-            {question.saveRef ? (
-              // 単語タブ(WordDrill)と同じ「しおり」アイコンで my単語帳 登録/解除。
-              <Pressable
-                style={s.saveBtn}
-                hitSlop={10}
-                onPress={() => addToMyList(question.saveRef!)}
-                accessibilityLabel={t(isInMyList(state.myList, question.saveRef) ? 'mywords.added' : 'mywords.add')}
-              >
-                <Ionicons name={isInMyList(state.myList, question.saveRef) ? 'bookmark' : 'bookmark-outline'} size={24} color={isInMyList(state.myList, question.saveRef) ? c.blue : c.mute} />
-              </Pressable>
-            ) : null}
+            {/* 毎問の私の単語帳登録は廃止。学習語は終了画面(AfterStudyReward)でまとめて☑登録。 */}
             <AppButton label={idx + 1 >= total ? t('quiz.see_results') : t('quiz.learn_next')} onPress={advance} />
           </>
         ) : (

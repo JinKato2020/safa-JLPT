@@ -9,9 +9,11 @@ import { Audio } from 'expo-av';
 import * as Speech from 'expo-speech';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
-import { isInMyList, type SaveRef } from '../store/state';
+import { type SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
-import SessionSummary from '../components/SessionSummary';
+import AfterStudyReward from '../components/AfterStudyReward';
+import { walletPoints } from '../store/wallet';
+import { resolveStudiedWords } from '../data/studiedWords';
 import { levelListFor } from '../words/levelList';
 import { KANJI, meaningIn } from '../data';
 import { playVocab, playKanjiRep } from '../data/vocabAudio';
@@ -88,6 +90,8 @@ export default function ListeningQuizScreen() {
   const [picked, setPicked] = useState<number | null>(null);
   const [correct, setCorrect] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
+  const [walletStart] = useState(() => walletPoints(state));
+  const [studiedRefs, setStudiedRefs] = useState<SaveRef[]>([]); // この回の学習語(終了時にまとめて私の単語帳へ)
 
   if (gateAllowed === null) return null;
   if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
@@ -129,6 +133,7 @@ export default function ListeningQuizScreen() {
   }
 
   if (phase === 'done') {
+    const after = progressSnapshot(state, Date.now());
     return (
       <SafeAreaView style={s.c} edges={['top']}>
         <View style={s.head}><View style={{ width: 30 }} /></View>
@@ -136,7 +141,15 @@ export default function ListeningQuizScreen() {
           <Text style={s.bigEmoji}>🎧</Text>
           <Text style={s.doneTitle}>{t('listening2.done_title')}</Text>
           <Text style={s.doneScore}>{t('listening2.score', { correct, total: questions.length })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="moji_goi" />
+          <AfterStudyReward
+            words={resolveStudiedWords(studiedRefs, l1)}
+            shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
+            scored={after.touched - before.touched}
+            streak={state.streak.current}
+            bandBefore={before.band}
+            bandAfter={after.band}
+            mode="moji_goi"
+          />
           <Pressable style={s.cta} onPress={() => nav.goBack()}><Text style={s.ctaTxt}>{t('listening2.close')}</Text></Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -150,6 +163,8 @@ export default function ListeningQuizScreen() {
     const ok = i === q.answerIndex;
     if (ok) setCorrect((n) => n + 1);
     actions.quizAnswer(q.answerId, ok);
+    const r = rows[idx];
+    if (r?.key) setStudiedRefs((prev) => [...prev, { type: kind === 'vocab' ? 'vocab' : 'kanji', id: r.key }]); // 学習語を蓄積
   };
   const advance = () => { if (idx + 1 >= questions.length) { setPhase('done'); return; } setIdx((i) => i + 1); setPicked(null); };
   const bigChoice = kind === 'kanji';
@@ -176,20 +191,13 @@ export default function ListeningQuizScreen() {
         ) : null}
       </ScrollView>
 
-      {/* 下端固定フッター(WordDrillと統一): 正誤 ＋ my単語帳登録(ブックマーク) ＋ 次へ。 */}
-      {picked !== null && (() => {
-        const saveRef: SaveRef = { type: kind === 'vocab' ? 'vocab' : 'kanji', id: rows[idx]?.key ?? '' };
-        const saved = isInMyList(state.myList ?? [], saveRef);
-        return (
-          <View style={s.footer}>
-            <Text style={[s.fbTxt, { color: picked === q.answerIndex ? c.green : c.red }]}>{picked === q.answerIndex ? t('listening2.correct') : t('listening2.wrong')}</Text>
-            <Pressable style={s.saveBtn} hitSlop={10} onPress={() => actions.addToMyList(saveRef)} accessibilityLabel={t('mywords.add')}>
-              <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={22} color={saved ? c.blue : c.mute} />
-            </Pressable>
-            <Pressable style={s.footCta} onPress={advance}><Text style={s.ctaTxt}>{idx + 1 >= questions.length ? t('listening2.close') : t('listening2.next')}</Text></Pressable>
-          </View>
-        );
-      })()}
+      {/* 下端固定フッター: 正誤 ＋ 次へ。毎問の私の単語帳登録は廃止(終了画面でまとめて☑登録)。 */}
+      {picked !== null && (
+        <View style={s.footer}>
+          <Text style={[s.fbTxt, { color: picked === q.answerIndex ? c.green : c.red }]}>{picked === q.answerIndex ? t('listening2.correct') : t('listening2.wrong')}</Text>
+          <Pressable style={s.footCta} onPress={advance}><Text style={s.ctaTxt}>{idx + 1 >= questions.length ? t('listening2.close') : t('listening2.next')}</Text></Pressable>
+        </View>
+      )}
     </SafeAreaView>
   );
 }

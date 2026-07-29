@@ -467,21 +467,10 @@ export default function MockScreen() {
           </View>
 
           {reveal ? (
-            <>
-              {cur.saveRef ? (
-                <AppButton
-                  label={isInMyList(state.myList, cur.saveRef) ? t('mywords.added') : t('mywords.add')}
-                  variant="secondary"
-                  size="md"
-                  full={false}
-                  onPress={() => addToMyList(cur.saveRef!)}
-                  style={s.myListBtn}
-                />
-              ) : null}
-              <Pressable style={s.cta} onPress={next}>
-                <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
-              </Pressable>
-            </>
+            /* 毎問の私の単語帳登録は廃止(模試は結果重視)。単語登録は練習(単語/試験タブ)の学習後画面でまとめて。 */
+            <Pressable style={s.cta} onPress={next}>
+              <Text style={s.ctaTxt}>{idx + 1 >= exam.length ? t('mock.see_result') : t('mock.next')}</Text>
+            </Pressable>
           ) : (
             <Text style={s.hint}>{t('mock.hint')}</Text>
           )}

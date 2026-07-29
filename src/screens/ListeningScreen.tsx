@@ -9,7 +9,8 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
-import SessionSummary from '../components/SessionSummary';
+import AfterStudyReward from '../components/AfterStudyReward';
+import { walletPoints } from '../store/wallet';
 import ExamHeader from '../components/ExamHeader';
 import RubyText from '../components/RubyText';
 import { listeningItemsFor, listeningItemsForSub, listeningSubtype, rubyNeeded, type ListeningItem, type PassageQuestion } from '../data';
@@ -58,6 +59,7 @@ export default function ListeningScreen() {
   const [answered, setAnswered] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
+  const [walletStart] = useState(() => walletPoints(state));
   const [showScript, setShowScript] = useState(false);
   const [playing, setPlaying] = useState(false);
   const soundRef = useRef<Audio.Sound | null>(null);
@@ -119,7 +121,16 @@ export default function ListeningScreen() {
           <Text style={s.bigEmoji}>🎉</Text>
           <Text style={s.doneTitle}>{t('listening.done_title')}</Text>
           <Text style={s.doneSub}>{t('listening.done_sub', { answered, correct })}</Text>
-          <SessionSummary before={before} after={progressSnapshot(state, Date.now())} streak={state.streak.current} mode="choukai" />
+          {(() => { const after = progressSnapshot(state, Date.now()); return (
+            <AfterStudyReward
+              shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
+              scored={after.touched - before.touched}
+              streak={state.streak.current}
+              bandBefore={before.band}
+              bandAfter={after.band}
+              mode="choukai"
+            />
+          ); })()}
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('listening.go_home')}</Text>
           </Pressable>
