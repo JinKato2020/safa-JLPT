@@ -119,16 +119,11 @@ export default function ListeningScreen() {
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
-          <Text style={s.bigEmoji}>🎉</Text>
-          <Text style={s.doneTitle}>{t('listening.done_title')}</Text>
-          <Text style={s.doneSub}>{t('listening.done_sub', { answered, correct })}</Text>
           {(() => { const after = progressSnapshot(state, Date.now()); return (
             <AfterStudyReward
               shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
               scored={after.touched - before.touched}
-              streak={state.streak.current}
-              bandBefore={before.band}
-              bandAfter={after.band}
+              accuracy={answered ? Math.round((correct / answered) * 100) : 0}
               mode="choukai"
             />
           ); })()}

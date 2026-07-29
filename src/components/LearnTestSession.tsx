@@ -46,7 +46,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
   const [correct, setCorrect] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
   const [walletStart] = useState(() => walletPoints(state));
-  const [studiedRefs, setStudiedRefs] = useState<SaveRef[]>([]); // この回の学習語(終了時にまとめて私の単語帳へ)
+  const [studiedRefs, setStudiedRefs] = useState<{ ref: SaveRef; correct: boolean }[]>([]); // この回の学習語＋正誤(終了時にまとめて私の単語帳へ)
 
   const testItem = testQueue[testIdx];
   const question = useMemo(() => (testItem ? makeQuestion(testItem, pool, Math.random, EXAM_FORMATS) : null), [testItem?.id, testIdx]);
@@ -106,16 +106,11 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
-          <Text style={s.bigEmoji}>🎉</Text>
-          <Text style={s.doneTitle}>{t('learntestsession.done_title')}</Text>
-          <Text style={s.doneSub}>{t('learntestsession.done_score', { n: answered, m: correct })}</Text>
           <AfterStudyReward
             words={resolveStudiedWords(studiedRefs, state.settings.l1)}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
-            streak={state.streak.current}
-            bandBefore={before.band}
-            bandAfter={after.band}
+            accuracy={answered ? Math.round((correct / answered) * 100) : 0}
             mode={pool[0]?.category ?? 'study'}
           />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
@@ -132,7 +127,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
     const isCorrect = choiceIdx === question.answerIndex;
     setPicked(choiceIdx);
     quizAnswer(testItem.id, isCorrect);
-    if (question.saveRef) setStudiedRefs((r) => [...r, question.saveRef!]); // 学習語を蓄積
+    if (question.saveRef) setStudiedRefs((r) => [...r, { ref: question.saveRef!, correct: isCorrect }]); // 学習語＋正誤を蓄積
     setAnswered((a) => a + 1);
     if (isCorrect) setCorrect((x) => x + 1);
     if (!isCorrect && testQueue.length < maxCards) {

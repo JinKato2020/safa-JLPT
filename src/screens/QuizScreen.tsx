@@ -112,7 +112,7 @@ export default function QuizScreen() {
   const [answered, setAnswered] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
   const [walletStart] = useState(() => walletPoints(state));
-  const [studiedRefs, setStudiedRefs] = useState<SaveRef[]>([]); // この回に学習した語(終了時にまとめて私の単語帳へ)
+  const [studiedRefs, setStudiedRefs] = useState<{ ref: SaveRef; correct: boolean }[]>([]); // この回に学習した語(終了時にまとめて私の単語帳へ・正誤も)
 
   const item = queue[idx];
   const answerId = typeof item === 'string' ? item : item?.id; // quizAnswer/SRSのキー(大問=項目#大問)
@@ -157,18 +157,11 @@ export default function QuizScreen() {
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={{ padding: spacing.lg, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' }}>
-          <Text style={s.bigEmoji}>🎉</Text>
-          {title ? <Text style={s.doneDaimon}>{title}</Text> : null}
-          <Text style={s.doneTitle}>{t('quiz.session_done')}</Text>
-          <Text style={s.doneRate}>{t('quiz.accuracy', { pct: answered ? Math.round((correctCount / answered) * 100) : 0 })}</Text>
-          <Text style={s.doneSub}>{t('quiz.score', { answered, correct: correctCount })}</Text>
           <AfterStudyReward
             words={resolveStudiedWords(studiedRefs, settings.l1)}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
-            streak={state.streak.current}
-            bandBefore={before.band}
-            bandAfter={after.band}
+            accuracy={answered ? Math.round((correctCount / answered) * 100) : 0}
             mode="quiz"
           />
           <AppButton label={t('quiz.see_results')} onPress={() => nav.goBack()} full={false} style={{ marginTop: spacing.sm }} />
@@ -181,7 +174,7 @@ export default function QuizScreen() {
     if (picked !== null) return;
     const isCorrect = choiceIdx === question.answerIndex;
     setPicked(choiceIdx);
-    if (question.saveRef) setStudiedRefs((r) => [...r, question.saveRef!]); // 学習語を蓄積(毎問登録はやめ最後にまとめて)
+    if (question.saveRef) setStudiedRefs((r) => [...r, { ref: question.saveRef!, correct: isCorrect }]); // 学習語＋正誤を蓄積
     if (answerId) quizAnswer(answerId, isCorrect);
     setAnswered((a) => a + 1);
     if (isCorrect) setCorrectCount((c) => c + 1);

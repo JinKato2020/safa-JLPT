@@ -59,21 +59,16 @@ export default function PassageGrammarScreen() {
     const answered = allQuestionIds.length;
     const correct = allQuestionIds.filter((id) => (state.items[id]?.reps ?? 0) > 0).length;
     const after = progressSnapshot(state, Date.now());
-    // 文章の文法=各設問に文法点(pointId)。学習した文法をまとめて私の単語帳へ。
-    const studiedRefs = sets.flatMap((st) => st.questions).filter((q) => q.pointId).map((q) => ({ type: 'grammar' as const, id: q.pointId! }));
+    // 文章の文法=各設問に文法点(pointId)。学習した文法を正誤(reps>0)付きでまとめて私の単語帳へ。
+    const studiedRefs = sets.flatMap((st) => st.questions).filter((q) => q.pointId).map((q) => ({ ref: { type: 'grammar' as const, id: q.pointId! }, correct: (state.items[q.id]?.reps ?? 0) > 0 }));
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
-          <Text style={s.bigEmoji}>🎉</Text>
-          <Text style={s.doneTitle}>{t('passage.sessionComplete')}</Text>
-          <Text style={s.doneSub}>{t('reading.scoreResult', { answered, correct })}</Text>
           <AfterStudyReward
             words={resolveStudiedWords(studiedRefs, state.settings.l1)}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
-            streak={state.streak.current}
-            bandBefore={before.band}
-            bandAfter={after.band}
+            accuracy={answered ? Math.round((correct / answered) * 100) : 0}
             mode="passage_grammar"
           />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>

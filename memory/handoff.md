@@ -24,6 +24,10 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 文脈 45万／70万（64%）・6428往復 — そろそろ /clear の頃合い
+- ツール呼び出しループが長い（指示1件に対し 110ターン・ツール51回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -32,14 +36,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- app.json
+- package-lock.json
+- package.json
+- 画像/ストーリー/ストーリー.xlsx
 - src/screens/MockScreen.tsx
-- src/screens/ListeningScreen.tsx
-- src/screens/PassageGrammarScreen.tsx
-- src/screens/ReadingScreen.tsx
 - src/components/PassageSetPlayer.tsx
-- src/components/LearnTestSession.tsx
-- src/screens/ListeningQuizScreen.tsx
-- src/screens/QuizScreen.tsx
+- src/screens/ListeningScreen.tsx
+- src/components/AnswerFooter.tsx
 
-_自動更新: 2026-07-29 12:14_
+_自動更新: 2026-07-29 12:37_
 <!-- AUTO:END -->

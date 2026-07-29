@@ -1,8 +1,7 @@
-// 学習後(全ドリル共通)のごほうび画面。単語タブ/試験タブで同じUI:
-//  ①上部に大きめのランダム画像(afterStudyArt・季節連動) ②桜貝の獲得数🌸＋桜のねぎらい(voiceのsession_end)
-//  ③この回の学習語を☑で「私の単語帳」へまとめて登録(毎問登録をやめ、最後にまとめて。読解/聴解等は語が無ければ非表示)
-//  ④誠実な伸び(採点した語↑/信頼幅/🔥streak)を任意表示(SessionSummaryの役割を吸収)。
-//  付与ロジックには触れない(貝は学習中に付与済=ここは表示のみ)。台詞正本=story/voice.ts。
+// 学習後(全ドリル共通)のごほうび画面。単語タブ/試験タブで同じUI。トップに画像→貝→ねぎらい→単語帳。
+//  ①上部に大きめのランダム画像(afterStudyArt・季節連動) ②貝の獲得数🐚(ホーム上部と同じ巻貝)＋桜のねぎらい(voice session_end)
+//  ③この回の学習語を☑で「私の単語帳」へまとめて登録(正解/不正解も参考表示・読解/聴解等は語が無ければ非表示)＋見出し右に正解率。
+//  ※🎉やセッション完了/得点テキスト・伸び(採点/信頼幅/連続)カードは廃止(ユーザー指定)。付与ロジックには触れない(表示のみ)。
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -12,29 +11,23 @@ import { isInMyList } from '../store/state';
 import { composeVoice } from '../story/voice';
 import { pickAfterStudyImage } from '../data/afterStudyArt';
 import RubyText from './RubyText';
-import { useT } from '../i18n';
 import { sendEvent, sendFirstSessionOnce } from '../telemetry/telemetry';
 import { metricsWishKey } from '../story/metrics';
 import type { StudiedWord } from '../data/studiedWords';
 
 export type { StudiedWord } from '../data/studiedWords';
 
-export default function AfterStudyReward({
-  words = [], shellsEarned = 0, scored = 0, mode, seed, streak, bandBefore, bandAfter,
-}: {
+export default function AfterStudyReward({ words = [], shellsEarned = 0, scored = 0, accuracy, mode, seed }: {
   words?: StudiedWord[];
   shellsEarned?: number;
-  scored?: number;
+  scored?: number;      // 計測用(session_complete)。画面には出さない。
+  accuracy?: number;    // 正解率%(単語帳の見出し右に表示)
   mode: string;
   seed?: number;
-  streak?: number;      // 指定時のみ「伸び」行を出す(SessionSummary相当)
-  bandBefore?: number;  // 信頼幅(採点前)
-  bandAfter?: number;   // 信頼幅(採点後)
 }) {
   const state = useAppState();
   const { addToMyList } = useAppActions();
   const c = useColors();
-  const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
   const { width, height } = useWindowDimensions();
   const [fallbackSeed] = useState(() => (Date.now() & 0xffff) | 1);
@@ -59,8 +52,7 @@ export default function AfterStudyReward({
     void sendFirstSessionOnce(state);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const showGrowth = streak != null;
-  const narrowed = bandBefore != null && bandAfter != null && bandBefore > bandAfter;
+  const acc = accuracy != null ? `正解率 ${Math.round(accuracy)}%` : null;
 
   return (
     <View style={s.wrap}>
@@ -70,33 +62,25 @@ export default function AfterStudyReward({
         </View>
       )}
 
-      {/* 桜貝の獲得数＋ねぎらい */}
+      {/* 貝の獲得数(ホーム上部と同じ🐚)＋ねぎらい */}
       <View style={s.rewardBlock}>
         {shellsEarned > 0 && (
           <View style={s.shellRow}>
-            <Text style={s.shellIco}>🌸</Text>
+            <Text style={s.shellIco}>🐚</Text>
             <Text style={s.shellN}>+{shellsEarned}</Text>
-            <Text style={s.shellL}>桜貝</Text>
+            <Text style={s.shellL}>貝</Text>
           </View>
         )}
         {!!line && <Text style={s.voice}>{line}</Text>}
       </View>
 
-      {/* 誠実な伸び(任意)。SessionSummaryを吸収=採点した語/信頼幅/streak。 */}
-      {showGrowth && (
-        <View style={s.growth}>
-          <Row s={s} label={t('sessionsummary.scored')} value={`+${scored}`} good={scored > 0} />
-          {bandAfter != null && (
-            <Row s={s} label={t('sessionsummary.confidence')} value={narrowed ? `±${bandBefore} → ±${bandAfter}` : `±${bandAfter}`} good={narrowed} />
-          )}
-          <Row s={s} label={t('sessionsummary.streak')} value={`🔥 ${streak}`} good={false} />
-        </View>
-      )}
-
-      {/* この回の学習語をまとめて「私の単語帳」へ(☑)。読解/聴解など語が無ければ非表示。 */}
-      {words.length > 0 && (
+      {/* この回の学習語をまとめて「私の単語帳」へ(☑＋正解/不正解)。見出し右に正解率。 */}
+      {words.length > 0 ? (
         <View style={s.listCard}>
-          <Text style={s.listH}>単語帳に入れる</Text>
+          <View style={s.listHead}>
+            <Text style={s.listH}>単語帳に入れる</Text>
+            {!!acc && <Text style={s.listAcc}>{acc}</Text>}
+          </View>
           {words.map((w) => {
             const saved = isInMyList(state.myList ?? [], w.ref);
             return (
@@ -106,20 +90,16 @@ export default function AfterStudyReward({
                   <RubyText text={w.word} style={s.wword} rubyStyle={s.wruby} />
                   {!!w.meaning && <Text style={s.wmean} numberOfLines={1}>{w.meaning}</Text>}
                 </View>
+                {w.correct != null && (
+                  <Ionicons name={w.correct ? 'checkmark-circle' : 'close-circle'} size={18} color={w.correct ? c.green : c.red} />
+                )}
               </Pressable>
             );
           })}
         </View>
-      )}
-    </View>
-  );
-}
-
-function Row({ s, label, value, good }: { s: ReturnType<typeof makeStyles>; label: string; value: string; good: boolean }) {
-  return (
-    <View style={s.grow_row}>
-      <Text style={s.grow_label}>{label}</Text>
-      <Text style={[s.grow_value, good && s.grow_valueGood]}>{value}</Text>
+      ) : !!acc ? (
+        <Text style={s.accSolo}>{acc}</Text>
+      ) : null}
     </View>
   );
 }
@@ -135,14 +115,12 @@ const makeStyles = (c: ThemeColors) =>
     shellN: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
     shellL: { fontSize: ty.small, fontWeight: '800', color: c.mute },
     voice: { fontSize: ty.body, fontWeight: '700', color: c.ink, lineHeight: 24, textAlign: 'center', paddingHorizontal: spacing.md },
-    growth: { width: '100%', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.sm },
-    grow_row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-    grow_label: { fontSize: ty.small, color: c.mute },
-    grow_value: { fontSize: ty.body, fontWeight: '800', color: c.ink2 },
-    grow_valueGood: { color: c.green },
     listCard: { width: '100%', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: 2 },
-    listH: { fontSize: ty.small, fontWeight: '800', color: c.ink2, marginBottom: spacing.xs },
-    // 1行=☑＋単語(＋意味)。コンパクトに。
+    listHead: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: spacing.xs },
+    listH: { fontSize: ty.small, fontWeight: '800', color: c.ink2 },
+    listAcc: { fontSize: ty.small, fontWeight: '800', color: c.blue, fontVariant: ['tabular-nums'] }, // 同フォントサイズ
+    accSolo: { fontSize: ty.small, fontWeight: '800', color: c.blue },
+    // 1行=☑＋単語(＋意味)＋正誤マーク。コンパクトに。
     wrow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, paddingVertical: 7 },
     wtextWrap: { flex: 1, flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm },
     wword: { fontSize: ty.body, fontWeight: '800', color: c.ink },

@@ -54,6 +54,7 @@ export default function WordDrillScreen() {
   const [sel, setSel] = useState<number | null>(null); // gMeaning: 選んだ選択肢
   const [judged, setJudged] = useState<null | boolean>(null);
   const [score, setScore] = useState(0);
+  const [results, setResults] = useState<Record<string, boolean>>({}); // itemId(#前)→正誤(学習後リストの参考表示用)
   const [before] = useState(() => progressSnapshot(state, Date.now())); // 完了画面の「伸び」表示用(試験タブと統一)
   const [walletStart] = useState(() => walletPoints(state)); // セッション開始時の桜貝残高(獲得数=終了時との差)
 
@@ -67,12 +68,13 @@ export default function WordDrillScreen() {
       const key = type + id;
       if (seen.has(key)) continue;
       seen.add(key);
-      if (pr.kind === 'vProduce') out.push({ ref: { type, id }, word: pr.hint ?? pr.reading, meaning: pr.prompt });
-      else if (pr.kind === 'gBuild') out.push({ ref: { type, id }, word: pr.reading, meaning: pr.hint });
-      else out.push({ ref: { type, id }, word: pr.hit ?? pr.prompt });
+      const correct = results[id];
+      if (pr.kind === 'vProduce') out.push({ ref: { type, id }, word: pr.hint ?? pr.reading, meaning: pr.prompt, correct });
+      else if (pr.kind === 'gBuild') out.push({ ref: { type, id }, word: pr.reading, meaning: pr.hint, correct });
+      else out.push({ ref: { type, id }, word: pr.hit ?? pr.prompt, correct });
     }
     return out;
-  }, [problems]);
+  }, [problems, results]);
 
   const p = problems[i];
 
@@ -80,6 +82,7 @@ export default function WordDrillScreen() {
     setJudged(correct);
     if (correct) setScore((n) => n + 1);
     actions.quizAnswer(itemId, correct);
+    setResults((m) => ({ ...m, [itemId.split('#')[0]]: correct })); // 学習後リストの正誤参考表示
   };
 
   const next = () => {
@@ -114,6 +117,7 @@ export default function WordDrillScreen() {
             words={studiedWords}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={progressSnapshot(state, Date.now()).touched - before.touched}
+            accuracy={problems.length ? Math.round((score / problems.length) * 100) : 0}
             mode={kind === 'vProduce' ? 'moji_goi' : 'bunpou'}
             seed={seed}
           />
