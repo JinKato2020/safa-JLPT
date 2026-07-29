@@ -7,7 +7,11 @@ export function buildEngineHtml(): string {
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <style>html,body{margin:0;padding:0;background:transparent;height:100%;overflow:hidden}
 #wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-#grid{position:absolute;pointer-events:none}#t{touch-action:none}</style>
+#grid{position:absolute;pointer-events:none}#t{touch-action:none}
+/* あ/ぬ等「自分の線が交差する」筆画で、iOS WKWebView が miter 結合＋自己交差クリップを
+   誤ってレンダリングし、交差点で線が途切れる不具合を防ぐ。全 path を round 結合・
+   nonzero 塗り(=自己重なり部を穴にしない)に上書きする。CSS はプレゼンテーション属性より優先。 */
+#t svg path{stroke-linejoin:round;fill-rule:nonzero;clip-rule:nonzero}</style>
 </head><body>
 <div id="wrap"><svg id="grid"></svg><div id="t"></div></div>
 <script>${HANZI_WRITER_JS}</script>

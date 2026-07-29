@@ -39,6 +39,9 @@ export default function RubyText({
 }) {
   const cells = parseCells(text);
   // 基底のフォントサイズを取り出し、ルビ列の基底 lineHeight をそれに合わせて詰める(ルビを漢字の真上に)。
+  // ただし lineHeight=fontSize ちょうどだと iOS でグリフ上端(特に太字の下線対象=原/太い漢字)が
+  // 行ボックスからはみ出して切れる(「漢字の上部が消える」不具合)。1.18倍の余白でクリップを防ぎ、
+  // 増えた分は col の gap を 0 にして相殺する(ルビの浮きを戻す)。
   const flat = StyleSheet.flatten(style) as TextStyle | undefined;
   const baseFs = typeof flat?.fontSize === 'number' ? flat.fontSize : undefined;
   // flex系プロパティは各文字の基底テキストに載せない。1文字ずつが伸縮対象になると
@@ -82,7 +85,7 @@ export default function RubyText({
         return (
           <View key={i} style={styles.col}>
             <Text style={[styles.ruby, rubyStyle, { lineHeight: rubyLh }]} numberOfLines={1}>{showRuby ? c.ruby : ' '}</Text>
-            <Text style={[baseStyle, styles.base, baseFs ? { lineHeight: baseFs } : null]}>
+            <Text style={[baseStyle, styles.base, baseFs ? { lineHeight: Math.round(baseFs * 1.18) } : null]}>
               {c.hit
                 ? c.segs!.map((seg, j) => (seg.hit ? <Text key={j} style={hitStyle}>{seg.text}</Text> : <Text key={j}>{seg.text}</Text>))
                 : c.base}
@@ -97,7 +100,7 @@ export default function RubyText({
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-end', rowGap: 2 },
   center: { justifyContent: 'center' },
-  col: { alignItems: 'center', gap: 2 },
+  col: { alignItems: 'center', gap: 0 },
   ruby: { fontSize: 9, lineHeight: 9, textAlign: 'center', includeFontPadding: false },
   // 基底(漢字/かな)のフォント上下パディングを除去。これを付けないとAndroidで行ボックス内の
   // グリフが下がり、ルビと漢字の間が広く開いて「ルビが高い位置に浮く」ように見える。
