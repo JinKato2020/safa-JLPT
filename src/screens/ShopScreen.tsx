@@ -1,8 +1,7 @@
-// 桜貝ショップ(モーダル)。上=店内イラスト帯／下=アイテム。
-//  大分類タブ=着せ替え/仲間/道具。着せ替えは髪型/服/筆の小見出しで整理。
-//  着せ替え・仲間=owned/equipped の状態管理。道具=所持のみ(効果は順次)。通貨=桜貝(wallet.points)。
+// 桜貝ショップ(モーダル)。上=店内イラスト帯／下=アイテム。配色はアプリ共通テーマ(light/dark)に統一。
+//  大分類タブ=髪型/筆/民族衣装/道具/仲間。着せ替え・仲間=owned/equipped の状態管理。道具=所持のみ。通貨=桜貝(wallet.points)。
 //  背景テーマ・フォントは設定画面へ移設(ここには無い)。
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, Image, ImageBackground, Animated, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -10,13 +9,14 @@ import { useAppState, useAppActions } from '../store/store';
 import { walletPoints, isOwned, isEquipped } from '../store/wallet';
 import { mockTicketCount, canBuyMockTicket, MAX_MOCK_TICKETS, MOCK_TICKET_PRICE } from '../store/tickets';
 import { SHOP, type ShopItem } from '../data/shop';
+import { useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
 const MOCK_TICKET_ID = 'tool_mock_ticket';
 
 const BANNER = require('../../assets/shop/shop_banner.png');
 
-// ショップのカテゴリタブ。順=髪型/筆/民族衣装/道具/仲間(服は廃止)。各タブは単一種別なので小見出しは不要。
+// ショップのカテゴリタブ。順=髪型/筆/民族衣装/道具/仲間。各タブは単一種別なので小見出しは不要。
 const TABS: { key: string; labelKey: string; match: (i: ShopItem) => boolean }[] = [
   { key: 'hair', labelKey: 'shop.tab_hair', match: (i) => i.kind === 'hair' },
   { key: 'brush', labelKey: 'shop.tab_brush', match: (i) => i.kind === 'brush' },
@@ -28,6 +28,8 @@ const TABS: { key: string; labelKey: string; match: (i: ShopItem) => boolean }[]
 export default function ShopScreen() {
   const nav = useNavigation();
   const t = useT();
+  const c = useColors();
+  const s = useMemo(() => makeStyles(c), [c]);
   const { height } = useWindowDimensions();
   const state = useAppState();
   const { buyItem, equipItem, addPoints, buyMockTicket } = useAppActions();
@@ -60,7 +62,6 @@ export default function ShopScreen() {
 
   const act = (i: ShopItem) => {
     if (i.id === MOCK_TICKET_ID) {
-      // 模試チケット=スタック式(所持数で管理・上限3)。買うたびに+1。
       if (!canBuyTicket) return;
       if (devUnlimited && points < MOCK_TICKET_PRICE) addPoints(1_000_000);
       buyMockTicket();
@@ -91,8 +92,6 @@ export default function ShopScreen() {
   const bannerH = Math.max(280, Math.round(height * 0.40));
 
   const renderCard = (i: ShopItem) => {
-    // 仲間(犬)は homeScale(実寸の比 0.50〜0.90=番号が上がるほど大きい)をカード内サイズにも反映。
-    // 下端そろえ(接地)にして「小さい犬は小さく・大きい犬は迫力を持って」大小差を見せる(装備後のホームと一致)。
     const dogPct = i.cat === 'companion' && i.homeScale != null ? Math.round(i.homeScale * 95) : null;
     return (
     <View key={i.id} style={s.card}>
@@ -155,43 +154,43 @@ export default function ShopScreen() {
   );
 }
 
-const CREAM = '#f5ead6';
-const s = StyleSheet.create({
-  c: { flex: 1, backgroundColor: CREAM },
-  top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, paddingTop: 8 },
-  bal: { flexDirection: 'row', alignItems: 'center', gap: 7, backgroundColor: 'rgba(255,250,240,0.95)', borderWidth: 1, borderColor: 'rgba(180,140,80,0.5)', borderRadius: 999, paddingVertical: 7, paddingHorizontal: 13 },
-  balIco: { fontSize: 15 }, balN: { fontWeight: '900', color: '#7a4a1e', fontSize: 16, fontVariant: ['tabular-nums'] }, balL: { fontSize: 10, color: '#9a6a3a', fontWeight: '700' },
-  x: { width: 36, height: 36, borderRadius: 999, backgroundColor: 'rgba(30,22,14,0.6)', alignItems: 'center', justifyContent: 'center' },
-  xTxt: { color: '#fff', fontSize: 22, fontWeight: '700', marginTop: -2 },
-  panel: { flex: 1, marginTop: -20, borderTopLeftRadius: 22, borderTopRightRadius: 22, backgroundColor: CREAM, paddingTop: 12, borderTopWidth: 3, borderTopColor: '#b98a4e' },
-  tabs: { flexDirection: 'row', gap: 8, paddingHorizontal: 14, paddingBottom: 10 },
-  tab: { paddingVertical: 10, paddingHorizontal: 15, borderRadius: 999, backgroundColor: '#fff8ec', borderWidth: 1, borderColor: 'rgba(180,140,80,0.4)' },
-  tabOn: { backgroundColor: '#c8894a', borderColor: '#c8894a' },
-  // 日本語の下端(はらい)が切れないよう lineHeight を確保し、Android の余白詰めを無効化。
-  tabTxt: { fontSize: 13, lineHeight: 18, fontWeight: '800', color: '#8a5a2a', includeFontPadding: false, textAlignVertical: 'center' }, tabTxtOn: { color: '#fff' },
-  scroll: { paddingHorizontal: 14, paddingBottom: 28 },
-  group: { marginBottom: 6 },
-  kindHead: { fontSize: 13, fontWeight: '900', color: '#a5732f', marginTop: 6, marginBottom: 8, letterSpacing: 1 },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
-  card: { width: '46.5%', backgroundColor: '#fffdf7', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(180,140,80,0.35)', padding: 10, overflow: 'hidden' },
-  prev: { width: '100%', aspectRatio: 1, borderRadius: 10, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
-  prevInner: { width: '72%', height: '72%' }, // カード内に余白(約14%)を残して収める
-  prevDog: { justifyContent: 'flex-end', paddingBottom: '4%' }, // 犬は接地(下そろえ)で実寸差を強調
-  prevEmoji: { backgroundColor: '#f3ead9', alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 40 },
-  prevImg: { backgroundColor: '#f7efe0' },
-  name: { marginTop: 8, marginBottom: 4, fontWeight: '800', color: '#5a3d22', fontSize: 14 },
-  remain: { marginBottom: 6, fontSize: 12, color: '#7a4a1e', fontWeight: '800' },
-  rarity: { marginBottom: 6, fontSize: 12, color: '#e0a63c', letterSpacing: 1 },
-  rarityOff: { color: '#e2d4b8' },
-  btn: { alignSelf: 'stretch', borderRadius: 10, paddingVertical: 9, alignItems: 'center' },
-  btnTxt: { fontWeight: '800', fontSize: 13 },
-  pillOn: { backgroundColor: '#efe3c8', borderWidth: 1, borderColor: '#d8b96a' }, txtOn: { color: '#8a6a2a' },
-  pillOwn: { backgroundColor: '#eaf1fb', borderWidth: 1, borderColor: '#a9c6f2' }, txtOwn: { color: '#3f7fd6' },
-  pillBuy: { backgroundColor: '#3f7fd6' }, txtBuy: { color: '#fff' },
-  pillNo: { backgroundColor: '#eee' }, txtNo: { color: '#aaa' },
-  celOverlay: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
-  celFill: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(30,20,12,0.62)', gap: 8 },
-  celGot: { color: '#ffe9c2', fontSize: 22, fontWeight: '900', letterSpacing: 2, textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
-  celImg: { width: '72%', height: '50%', alignSelf: 'center' },
-  celName: { color: '#fff', fontSize: 18, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
-});
+const makeStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    c: { flex: 1, backgroundColor: c.bg },
+    top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, paddingTop: 8 },
+    // 残高ピル=テーマのカード色。バナー画像の上でも読めるよう影を少し。
+    bal: { flexDirection: 'row', alignItems: 'center', gap: 7, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: 999, paddingVertical: 7, paddingHorizontal: 13, shadowColor: '#000', shadowOpacity: 0.14, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 2 },
+    balIco: { fontSize: 15 }, balN: { fontWeight: '900', color: c.ink, fontSize: 16, fontVariant: ['tabular-nums'] }, balL: { fontSize: 10, color: c.mute, fontWeight: '700' },
+    x: { width: 36, height: 36, borderRadius: 999, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, alignItems: 'center', justifyContent: 'center' },
+    xTxt: { color: c.ink, fontSize: 22, fontWeight: '700', marginTop: -2 },
+    // 下パネル=アプリの背景色。バナーに少し重ねて角丸(店内→棚のつながり)。
+    panel: { flex: 1, marginTop: -20, borderTopLeftRadius: 22, borderTopRightRadius: 22, backgroundColor: c.bg, paddingTop: 14 },
+    tabs: { flexDirection: 'row', gap: 8, paddingHorizontal: 14, paddingBottom: 12 },
+    tab: { paddingVertical: 9, paddingHorizontal: 16, borderRadius: 999, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line },
+    tabOn: { backgroundColor: c.blue, borderColor: c.blue },
+    tabTxt: { fontSize: 13, lineHeight: 18, fontWeight: '800', color: c.ink2, includeFontPadding: false, textAlignVertical: 'center' }, tabTxtOn: { color: '#fff' },
+    scroll: { paddingHorizontal: 14, paddingBottom: 28 },
+    grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
+    card: { width: '46.5%', backgroundColor: c.surface, borderRadius: 16, borderWidth: 1, borderColor: c.line, padding: 10, overflow: 'hidden' },
+    prev: { width: '100%', aspectRatio: 1, borderRadius: 12, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+    prevInner: { width: '72%', height: '72%' },
+    prevDog: { justifyContent: 'flex-end', paddingBottom: '4%' },
+    prevEmoji: { backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' }, emoji: { fontSize: 40 },
+    prevImg: { backgroundColor: c.bgSoft },
+    name: { marginTop: 10, marginBottom: 4, fontWeight: '800', color: c.ink, fontSize: 14 },
+    remain: { marginBottom: 6, fontSize: 12, color: c.mute, fontWeight: '800' },
+    rarity: { marginBottom: 6, fontSize: 12, color: c.amber, letterSpacing: 1 },
+    rarityOff: { color: c.line },
+    // ボタン=角丸ピル(縦長ブロックにしない)。状態で色分け=購入(青)/装備可(淡青)/装備中(緑)/不可(灰)。
+    btn: { alignSelf: 'stretch', borderRadius: 999, paddingVertical: 10, alignItems: 'center', justifyContent: 'center', marginTop: 2 },
+    btnTxt: { fontWeight: '800', fontSize: 13, letterSpacing: 0.3 },
+    pillOn: { backgroundColor: c.okBg, borderWidth: 1, borderColor: c.okBorder }, txtOn: { color: c.green },
+    pillOwn: { backgroundColor: c.blueLight }, txtOwn: { color: c.blueDark },
+    pillBuy: { backgroundColor: c.blue }, txtBuy: { color: '#fff' },
+    pillNo: { backgroundColor: c.bgSoft }, txtNo: { color: c.faint },
+    celOverlay: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
+    celFill: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(15,23,42,0.66)', gap: 8 },
+    celGot: { color: '#fff', fontSize: 22, fontWeight: '900', letterSpacing: 2, textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
+    celImg: { width: '72%', height: '50%', alignSelf: 'center' },
+    celName: { color: '#fff', fontSize: 18, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
+  });

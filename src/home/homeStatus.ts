@@ -34,7 +34,8 @@ export function homeStatus(state: AppState, now: number): HomeStatus {
   const idsOf = (...ds: Daimon[]) => ds.flatMap((d) => { try { return daimonUnitIds(lv, d); } catch { return [] as string[]; } });
   const acc = (ids: string[]) => { try { return idsRingPct(state, now, ids); } catch { return null; } };
 
-  const passPct = clamp(readiness?.passProbability);
+  // 【開発用】settings.devPassPct が設定されていれば合格率を固定(辞書背景/AIコーチ等の挙動確認)。null/未設定=自動計算。
+  const passPct = state.settings.devPassPct != null ? clamp(state.settings.devPassPct) : clamp(readiness?.passProbability);
   const subjects: StatusSubject[] = [
     { key: 'kanji', labelKey: 'cards.kanji', color: COL.kanji, pct: clamp(acc(idsOf('kanji_read', 'orthography'))) },
     { key: 'vocab', labelKey: 'cards.vocab', color: COL.vocab, pct: clamp(acc(idsOf('context', 'synonym', 'usage'))) },

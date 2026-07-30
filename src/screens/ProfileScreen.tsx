@@ -38,6 +38,9 @@ export default function ProfileScreen() {
   const today = dayStr(Date.now());
   const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const exams = useMemo(() => upcomingExams(today), [today]);
+  // 【開発用】合格率を固定して、合格率連動UI(辞書タブ背景/AIコーチ等)の挙動を確認する。
+  const devPass = state.settings.devPassPct ?? null;
+  const stepPass = (d: number) => { const cur = state.settings.devPassPct ?? 0; setSettings({ devPassPct: Math.max(0, Math.min(100, cur + d)) }); };
   const [confirmReset, setConfirmReset] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [legal, setLegal] = useState<'privacy' | 'terms' | null>(null);
@@ -379,6 +382,28 @@ export default function ProfileScreen() {
               <Text style={s.subtle}>{proText}</Text>
             </View>
           </View>
+          {/* 合格率を固定(開発用)。辞書タブ背景・AIコーチ等の合格率連動を確認。 */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>合格率を固定</Text>
+              <Text style={s.subtle}>設定中はこの値で辞書タブ背景・AIコーチ等が動く。「自動」で通常の計算に戻す</Text>
+            </View>
+          </View>
+          <View style={s.ppRow}>
+            <Pressable onPress={() => stepPass(-5)} style={s.ppStep} hitSlop={6}><Text style={s.ppStepTxt}>−</Text></Pressable>
+            <Text style={s.ppVal}>{devPass == null ? '自動' : devPass + '%'}</Text>
+            <Pressable onPress={() => stepPass(5)} style={s.ppStep} hitSlop={6}><Text style={s.ppStepTxt}>＋</Text></Pressable>
+          </View>
+          <View style={s.ppChips}>
+            {[0, 20, 40, 60, 80, 100].map((v) => (
+              <Pressable key={v} onPress={() => setSettings({ devPassPct: v })} style={[s.ppChip, devPass === v && s.ppChipOn]}>
+                <Text style={[s.ppChipTxt, devPass === v && s.ppChipTxtOn]}>{v}</Text>
+              </Pressable>
+            ))}
+            <Pressable onPress={() => setSettings({ devPassPct: null })} style={[s.ppChip, devPass == null && s.ppChipOn]}>
+              <Text style={[s.ppChipTxt, devPass == null && s.ppChipTxtOn]}>自動</Text>
+            </Pressable>
+          </View>
         </View>
 
         {/* アカウント削除(ログイン中のみ・設定の一番下)。誤タップ防止に確認ダイアログ。 */}
@@ -471,6 +496,16 @@ const makeStyles = (c: ThemeColors) =>
     resetBtnArm: { borderColor: c.red, backgroundColor: c.ngBg },
     resetTxt: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
     resetTxtArm: { color: c.red, fontWeight: '800' },
+    // 開発用: 合格率ステッパー＋クイックチップ
+    ppRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 18, marginTop: 6, marginBottom: 10 },
+    ppStep: { width: 44, height: 44, borderRadius: 999, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, alignItems: 'center', justifyContent: 'center' },
+    ppStepTxt: { fontSize: 22, fontWeight: '800', color: c.ink2, marginTop: -2 },
+    ppVal: { minWidth: 88, textAlign: 'center', fontSize: 22, fontWeight: '900', color: c.ink, fontVariant: ['tabular-nums'] },
+    ppChips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+    ppChip: { paddingVertical: 8, paddingHorizontal: 14, borderRadius: 999, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface },
+    ppChipOn: { backgroundColor: c.blue, borderColor: c.blue },
+    ppChipTxt: { fontSize: 14, fontWeight: '800', color: c.ink2 },
+    ppChipTxtOn: { color: '#fff' },
     version: { textAlign: 'center', color: c.faint, fontSize: ty.tiny, fontWeight: '600', marginTop: spacing.md, marginBottom: spacing.lg },
     acctCta: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
     acctGuide: { width: 48, height: 54 },

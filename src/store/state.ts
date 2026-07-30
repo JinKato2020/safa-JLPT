@@ -38,6 +38,8 @@ export interface Settings {
   devUnlimitedPoints?: boolean;             // 【開発用】ON=桜貝を無限に扱い、ショップで無制限購入
   devPro?: boolean;                         // 【開発用】ON=Pro課金状態 / OFF=無課金として扱う
   devFree?: boolean;                        // 【開発用】ON=無料ユーザー扱い(お試し中でも無料・1日の上限も実際にかける)
+  devPassPct?: number | null;               // 【開発用】0-100を設定するとhomeStatus.passPctを固定(辞書背景/AIコーチ等の挙動確認)。null/未設定=自動計算
+  lastSakuraSpeechAt?: number | null;       // 桜の癒し吹き出しを最後に出した時刻(ms)。約8時間に1度に絞るためのゲート
 }
 
 export interface Streak {
