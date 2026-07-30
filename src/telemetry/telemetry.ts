@@ -11,9 +11,22 @@ import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
 import type { Category } from '../engine/engine';
 import { supabase } from '../config/supabase';
-import { cohortProps, dueLifecycleOpens, metricsWishKey, installDayStr, daysSinceInstall, M_FIRST_SESSION } from '../story/metrics';
 
 const APP_VERSION = '1.1.0';
+
+// ── ライフサイクル計測(install / first_session / next_day_open)。願い(wish)非依存の素の継続シグナル。
+const M_INSTALL = 'install';
+const M_FIRST_SESSION = 'first_session';
+const M_NEXT_DAY_OPEN = 'next_day_open';
+const LIFECYCLE_DAY_MS = 24 * 3600 * 1000;
+function installDayStr(state: AppState): string | null { return state.installedAt ? dayStr(state.installedAt) : null; }
+function daysSinceInstall(state: AppState, now: number): number | null {
+  if (!state.installedAt) return null;
+  return Math.max(0, Math.floor(now / LIFECYCLE_DAY_MS) - Math.floor(state.installedAt / LIFECYCLE_DAY_MS));
+}
+function lifecycleCohort(state: AppState, now: number): Record<string, unknown> {
+  return { installDay: installDayStr(state), daysSinceInstall: daysSinceInstall(state, now) };
+}
 const CATS: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 const EXHAUST_THRESHOLD = 3; // 新規残数がこれ以下=その区分は“枯渇”(コンテンツ不足シグナル)
 const K_ANON = 'safa-jlpt:anonId';
@@ -140,8 +153,8 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
     daysToExam, badgeSet: state.settings.badgeSet ?? 'gorgeous', theme: state.settings.theme,
     reminderOn: !!state.settings.reminder,
     remaining, total, exhausted,
-    // 願い(wishKey)別リテンション用コホート: 日次スナップショットの有無×wishKeyでD1/D7/D30をサーバ集計。§8
-    wishKey: metricsWishKey(state), installDay: installDayStr(state), daysSinceInstall: daysSinceInstall(state, now),
+    // リテンション用: 日次スナップショットの有無×経過日でD1/D7/D30をサーバ集計。§8
+    installDay: installDayStr(state), daysSinceInstall: daysSinceInstall(state, now),
   };
 }
 
@@ -205,18 +218,23 @@ async function markMetricsSeen(names: string[]): Promise<void> {
     await AsyncStorage.setItem(K_METRICS, JSON.stringify(set));
   } catch { /* noop */ }
 }
-/** 起動時: install / next_day_open のうち未送信分を wishKey コホート付きで1回だけ送る。 */
+/** 起動時: install / next_day_open のうち未送信分を1回だけ送る(経過日コホート付き)。 */
 export async function sendLifecycleMetrics(state: AppState, now: number): Promise<void> {
   if (!enabled || state.settings.telemetry === false) return;
-  const due = dueLifecycleOpens(state, now, await metricsSeen());
+  const seen = await metricsSeen();
+  const cohort = lifecycleCohort(state, now);
+  const due: string[] = [];
+  if (state.installedAt && !seen.includes(M_INSTALL)) due.push(M_INSTALL);
+  const d = daysSinceInstall(state, now);
+  if (d != null && d >= 1 && !seen.includes(M_NEXT_DAY_OPEN)) due.push(M_NEXT_DAY_OPEN);
   if (due.length === 0) return;
-  for (const e of due) await sendEvent(e.name, e.props as unknown as Record<string, unknown>);
-  await markMetricsSeen(due.map((e) => e.name));
+  for (const name of due) await sendEvent(name, cohort);
+  await markMetricsSeen(due);
 }
-/** 初回セッション完了を1回だけ送る(wishKeyコホート付き)。SessionSummary から呼ぶ。 */
+/** 初回セッション完了を1回だけ送る(経過日コホート付き)。学習後の画面から呼ぶ。 */
 export async function sendFirstSessionOnce(state: AppState): Promise<void> {
   if (!enabled || state.settings.telemetry === false) return;
   if ((await metricsSeen()).includes(M_FIRST_SESSION)) return;
-  await sendEvent(M_FIRST_SESSION, cohortProps(state, Date.now()) as unknown as Record<string, unknown>);
+  await sendEvent(M_FIRST_SESSION, lifecycleCohort(state, Date.now()));
   await markMetricsSeen([M_FIRST_SESSION]);
 }

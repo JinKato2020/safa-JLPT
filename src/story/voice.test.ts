@@ -1,20 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { makeWish } from './wish';
 import {
-  coreKeyFor, wishKey, streakShelf, comebackStage, pickLine, seasonOf, timeBandOf,
+  coreKeyFor, streakShelf, pickLine, seasonOf, timeBandOf,
   pickCore, composeVoice, pickFragment, sentenceCount,
   CORE_LINES, FLAVOR_SEASON, FLAVOR_TIME, FRAGMENTS, type Line, type Occasion,
 } from './voice';
-
-const wish = (k: Parameters<typeof makeWish>[0]) => makeWish(k, 0);
-
-test('wishKey: 6願いはそのまま・custom/later/未設定は neutral', () => {
-  assert.equal(wishKey(wish('family')), 'family');
-  assert.equal(wishKey(wish('custom')), '_');
-  assert.equal(wishKey(wish('later')), '_');
-  assert.equal(wishKey(undefined), '_');
-});
 
 test('streakShelf: 引く回数に比例した5棚(a1-3 / b4-30 / c1..90 / c2..365 / c3)', () => {
   assert.equal(streakShelf(1), 'a');
@@ -35,19 +25,12 @@ test('daily 後払い棚のフォールバック: c2/c3 未執筆なら c1 の�
   assert.match(pickCore({ kind: 'daily', streakDays: 2 }, 0)?.id ?? '', /^daily\.a\./);
 });
 
-test('comebackStage: 空白の長さで3段階(≤6 / ≤14 / それ以上)', () => {
-  assert.equal(comebackStage(2), 'short');
-  assert.equal(comebackStage(10), 'mid');
-  assert.equal(comebackStage(40), 'long');
-});
-
-test('coreKeyFor: 機会からキーを組む', () => {
+test('coreKeyFor: 機会からキーを組む(中立のみ)', () => {
   assert.equal(coreKeyFor({ kind: 'daily', streakDays: 40 }), 'daily:c1');
-  assert.equal(coreKeyFor({ kind: 'comeback', absenceDays: 3, wish: wish('self') }), 'comeback:short:self');
-  assert.equal(coreKeyFor({ kind: 'exam', timing: 'eve', wish: wish('family') }), 'exam:eve:family');
-  assert.equal(coreKeyFor({ kind: 'result', outcome: 'fail', wish: wish('like') }), 'result:fail:like');
-  assert.equal(coreKeyFor({ kind: 'milestone', wish: wish('study') }), 'milestone:study');
   assert.equal(coreKeyFor({ kind: 'session_end' }), 'session_end');
+  assert.equal(coreKeyFor({ kind: 'streak_mark' }), 'streak_mark');
+  assert.equal(coreKeyFor({ kind: 'word_graduate' }), 'word_graduate');
+  assert.equal(coreKeyFor({ kind: 'first' }), 'first');
 });
 
 test('pickLine: 反復回避で直近IDを除外・全除外なら無視・seedで選ぶ', () => {
@@ -69,9 +52,9 @@ test('seasonOf/timeBandOf: ローカル月/時で判定', () => {
   assert.equal(timeBandOf(new Date(2026, 0, 1, 21).getTime()), 'night');
 });
 
-test('pickCore: streak棚・願い別に正しいプールを引く', () => {
+test('pickCore: streak棚から正しいプールを引く', () => {
   assert.equal(pickCore({ kind: 'daily', streakDays: 1 }, 0)?.id, 'daily.a.1');
-  assert.equal(pickCore({ kind: 'exam', timing: 'eve', wish: wish('study') }, 0)?.text, '学ぶために始めたね。いってらっしゃい。');
+  assert.equal(pickCore({ kind: 'session_end' }, 0)?.id, 'session_end.1');
 });
 
 test('composeVoice: full=1文coreにflavor付与・short=coreのみ・2文coreにはflavor付けない', () => {
@@ -83,13 +66,13 @@ test('composeVoice: full=1文coreにflavor付与・short=coreのみ・2文core�
   const short = composeVoice({ occasion: { kind: 'daily', streakDays: 1 }, variant: 'short', now: spring, seed: 0 });
   assert.equal(short.ids.length, 1);
 
-  // comeback は既に2文 → full でも flavor を付けない(最大2文を守る)
-  const two = composeVoice({ occasion: { kind: 'comeback', absenceDays: 2, wish: wish('family') }, variant: 'full', now: spring, seed: 0 });
+  // daily:b の先頭は既に2文 → full でも flavor を付けない(最大2文を守る)
+  const two = composeVoice({ occasion: { kind: 'daily', streakDays: 5 }, variant: 'full', now: spring, seed: 0 });
   assert.equal(two.ids.length, 1);
   assert.equal(sentenceCount(two.text), 2);
 });
 
-test('composeVoice: coreが空なら空文字(UIは出さない)', () => {
+test('composeVoice: coreが空でも全除外は無視して1本返る(UIは空を出さない)', () => {
   const r = composeVoice({ occasion: { kind: 'daily', streakDays: 1 } as Occasion, now: 0, seed: 0, recent: CORE_LINES['daily:a'].map((l) => l.id) });
   assert.ok(r.text.length > 0); // 全除外でも除外無視で1本返る(=空にならない)
 });
@@ -114,17 +97,9 @@ test('在庫配分(引く回数に比例): daily a4/b14/c1_18・flavor 季32+時
   assert.equal(CORE_LINES['streak_mark'].length, 4);
 });
 
-test('願い依存(comeback/exam/result/milestone)は neutral＋6願いを全て持つ', () => {
-  const groups: string[] = [
-    ...['short', 'mid', 'long'].map((s) => `comeback:${s}`),
-    ...['eve', 'day', 'after'].map((t) => `exam:${t}`),
-    ...['pass', 'fail'].map((o) => `result:${o}`),
-    'milestone',
-  ];
-  for (const g of groups) {
-    for (const w of ['_', 'work_live', 'study', 'talk', 'family', 'like', 'self']) {
-      assert.ok((CORE_LINES[`${g}:${w}`]?.length ?? 0) >= 1, `台詞欠落: ${g}:${w}`);
-    }
+test('中立のみ: 願い依存の棚(comeback/exam/result/milestone)は残っていない', () => {
+  for (const k of Object.keys(CORE_LINES)) {
+    assert.ok(!/^(comeback|exam|result|milestone)/.test(k), `願い依存棚が残存: ${k}`);
   }
 });
 

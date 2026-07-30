@@ -11,8 +11,7 @@ import { scheduleDailyReminder, cancelReminder } from '../store/notifications';
 import { dayStr, daysBetween } from '../store/state';
 import { META } from '../data';
 import type { Level } from '../engine/engine';
-import type { ThemeMode, WishKind } from '../store/state';
-import { makeWish } from '../story/wish';
+import type { ThemeMode } from '../store/state';
 import { useT, UI_LANGS, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import Slider from '../components/Slider';
@@ -25,8 +24,6 @@ import { proStatus } from '../pro/entitlement';
 import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
-// 願い(学ぶ理由)の書き換え用。プリセット6＋あとで(later)。custom はオンボードで入力(設定では上書きのみ)。
-const WISH_EDIT: WishKind[] = ['work_live', 'study', 'talk', 'family', 'like', 'self', 'later'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
 
 
@@ -145,22 +142,6 @@ export default function ProfileScreen() {
           ) : (
             <Text style={{ fontSize: ty.tiny, color: c.faint, marginTop: 4, lineHeight: 16 }}>{t('profile.jft_note')}</Text>
           )}
-
-          {/* 願い(物語の軸)= 学ぶ理由。いつでも書き換え可。仕様 §1 */}
-          <Text style={s.setLbl}>{t('wish.edit_title')}</Text>
-          <View style={s.chipRow}>
-            {WISH_EDIT.map((k) => {
-              const on = state.settings.wish?.kind === k;
-              return (
-                <Pressable key={k} onPress={() => setSettings({ wish: makeWish(k, Date.now()) })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t(k === 'later' ? 'wish.later' : `wish.opt_${k}`)}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-          {state.settings.wish?.kind === 'custom' ? (
-            <Text style={{ fontSize: ty.tiny, color: c.faint, marginTop: 4 }}>「{state.settings.wish.text}」</Text>
-          ) : null}
 
           <Text style={s.setLbl}>{t('profile.nativeLang')}</Text>
           <Pressable style={s.dropdown} onPress={() => setLangOpen((o) => !o)}>

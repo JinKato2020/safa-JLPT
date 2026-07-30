@@ -11,28 +11,20 @@
 // 台詞は500回目に評価される: 口調は正本シートに固定してから書く(後から通すと全書き直し)。
 // 正本(口調・禁止表現・価値観): docs/superpowers/specs/桜-口調シート.md / 世界観: 同specs §1.5,§3,§4
 // ja が正本。en/ne 等は後で一括翻訳(シートを訳者に添付)。UIはここが返す text をそのまま表示。
-import { type Wish } from '../store/state';
-
-// 願い専用台詞を持つ種類(custom/later/未設定は neutral `_` にフォールバック)。
-const WISH_KEYS = ['work_live', 'study', 'talk', 'family', 'like', 'self'] as const;
+// 桜=癒し・ねぎらい専用(数字/日付/合否/願いは言わない)。中立の機会だけを持つ。
 
 export type Season = 'spring' | 'summer' | 'autumn' | 'winter';
 export type TimeBand = 'morning' | 'noon' | 'night';
 
 export interface Line { id: string; text: string }
 
-// 発火の機会。行数は各プールの発火頻度に比例(下の CORE_LINES を参照)。
+// 発火の機会。行数は各プールの発火頻度に比例(下の CORE_LINES を参照)。中立のみ(数字/日付/合否/願いは扱わない)。
 export type Occasion =
   | { kind: 'daily'; streakDays: number }               // 毎回の出迎え(streakで棚を分ける・最頻)
   | { kind: 'streak_mark' }                              // 連続の節目(まれ・再登場しない)
   | { kind: 'session_end' }                              // 学習後(減衰で none へ)
   | { kind: 'word_graduate' }                            // 手習いの間で苦手語を卒業
-  | { kind: 'first' }                                    // 入場・初回(一生に一度)
-  | { kind: 'comeback'; absenceDays: number; wish?: Wish } // 復帰(空白の長さで段階・願い依存)
-  | { kind: 'exam'; timing: 'eve' | 'day' | 'after'; wish?: Wish } // 大試 前夜/当日/翌日(願い依存)
-  | { kind: 'result'; outcome: 'pass' | 'fail'; wish?: Wish }      // 合否の報告(願い依存)
-  | { kind: 'milestone'; wish?: Wish }                  // 到達の節目(リング満ち等・願い依存)
-  | { kind: 'result_hint' };                            // 発表期の前後「そろそろ結果が出る頃かな」(願い非依存)
+  | { kind: 'first' };                                   // 入場・初回(一生に一度)
 
 // ── core 台詞(ja 正本)。全語ルビ前提のN5語彙・24字2文以内・絵文字なし・数値/比較/能力評価を出さない。
 export const CORE_LINES: Record<string, Line[]> = {
@@ -110,81 +102,9 @@ export const CORE_LINES: Record<string, Line[]> = {
     { id: 'word_graduate.7', text: 'ここは、もう任せられるね。' },
     { id: 'word_graduate.8', text: '手習いが、実ったね。' },
   ],
-  // comeback: 空白の長さで段階(short/mid/long)。復帰は効きどころ=願いを預かったままと伝える(責めない)。
-  'comeback:short:_': [{ id: 'comeback.short._.1', text: 'おかえり。待っていたよ。' }],
-  'comeback:short:work_live': [{ id: 'comeback.short.work_live.1', text: 'おかえり。暮らしの言葉、預かったままだよ。' }],
-  'comeback:short:study': [{ id: 'comeback.short.study.1', text: 'おかえり。学びへの道、覚えているよ。' }],
-  'comeback:short:talk': [{ id: 'comeback.short.talk.1', text: 'おかえり。話したい人のこと、忘れていないよ。' }],
-  'comeback:short:family': [{ id: 'comeback.short.family.1', text: 'おかえり。家族への言葉、ここにあるよ。' }],
-  'comeback:short:like': [{ id: 'comeback.short.like.1', text: 'おかえり。好きの言葉、まだ光ってるよ。' }],
-  'comeback:short:self': [{ id: 'comeback.short.self.1', text: 'おかえり。挑む気持ち、預かったままだよ。' }],
-  'comeback:mid:_': [{ id: 'comeback.mid._.1', text: 'おかえり。ちゃんといたよ。' }],
-  'comeback:mid:work_live': [{ id: 'comeback.mid.work_live.1', text: 'おかえり。暮らしの願い、消えてないよ。' }],
-  'comeback:mid:study': [{ id: 'comeback.mid.study.1', text: 'おかえり。学びへの道、閉じてないよ。' }],
-  'comeback:mid:talk': [{ id: 'comeback.mid.talk.1', text: 'おかえり。あの人のこと、まだここにあるよ。' }],
-  'comeback:mid:family': [{ id: 'comeback.mid.family.1', text: 'おかえり。家族への想い、預かってるよ。' }],
-  'comeback:mid:like': [{ id: 'comeback.mid.like.1', text: 'おかえり。好きは、そのままだよ。' }],
-  'comeback:mid:self': [{ id: 'comeback.mid.self.1', text: 'おかえり。挑む気持ち、まだあるよ。' }],
-  'comeback:long:_': [{ id: 'comeback.long._.1', text: 'おかえり。ずっと、ここにいたよ。' }],
-  'comeback:long:work_live': [{ id: 'comeback.long.work_live.1', text: 'おかえり。暮らしの言葉、ずっと持ってたよ。' }],
-  'comeback:long:study': [{ id: 'comeback.long.study.1', text: 'おかえり。学びへの道、ずっとあけてたよ。' }],
-  'comeback:long:talk': [{ id: 'comeback.long.talk.1', text: 'おかえり。話したい人のこと、ずっと覚えてた。' }],
-  'comeback:long:family': [{ id: 'comeback.long.family.1', text: 'おかえり。家族への言葉、ずっとここに。' }],
-  'comeback:long:like': [{ id: 'comeback.long.like.1', text: 'おかえり。好きの言葉、消さずにいたよ。' }],
-  'comeback:long:self': [{ id: 'comeback.long.self.1', text: 'おかえり。挑む気持ち、ずっと預かってた。' }],
-  // exam: 前夜/当日/翌日。前夜=「◯◯のために始めたね。いってらっしゃい」。
-  'exam:eve:_': [{ id: 'exam.eve._.1', text: 'いってらっしゃい。ここで待つよ。' }],
-  'exam:eve:work_live': [{ id: 'exam.eve.work_live.1', text: '暮らしのために始めたね。いってらっしゃい。' }],
-  'exam:eve:study': [{ id: 'exam.eve.study.1', text: '学ぶために始めたね。いってらっしゃい。' }],
-  'exam:eve:talk': [{ id: 'exam.eve.talk.1', text: '話すために始めたね。いってらっしゃい。' }],
-  'exam:eve:family': [{ id: 'exam.eve.family.1', text: '家族のために始めたね。いってらっしゃい。' }],
-  'exam:eve:like': [{ id: 'exam.eve.like.1', text: '好きのために始めたね。いってらっしゃい。' }],
-  'exam:eve:self': [{ id: 'exam.eve.self.1', text: '自分のために始めたね。いってらっしゃい。' }],
-  'exam:day:_': [{ id: 'exam.day._.1', text: '今日だね。いってらっしゃい。' }],
-  'exam:day:work_live': [{ id: 'exam.day.work_live.1', text: '暮らしへの一日だね。いってらっしゃい。' }],
-  'exam:day:study': [{ id: 'exam.day.study.1', text: '学びへの一日だね。いってらっしゃい。' }],
-  'exam:day:talk': [{ id: 'exam.day.talk.1', text: 'あの人へ近づく日だね。いってらっしゃい。' }],
-  'exam:day:family': [{ id: 'exam.day.family.1', text: '家族への一日だね。いってらっしゃい。' }],
-  'exam:day:like': [{ id: 'exam.day.like.1', text: '好きへ向かう日だね。いってらっしゃい。' }],
-  'exam:day:self': [{ id: 'exam.day.self.1', text: '挑む日だね。いってらっしゃい。' }],
-  'exam:after:_': [{ id: 'exam.after._.1', text: 'おかえり。よく行ってきたね。' }],
-  'exam:after:work_live': [{ id: 'exam.after.work_live.1', text: 'おかえり。暮らしへ、一歩進んだね。' }],
-  'exam:after:study': [{ id: 'exam.after.study.1', text: 'おかえり。学びへ、一歩進んだね。' }],
-  'exam:after:talk': [{ id: 'exam.after.talk.1', text: 'おかえり。あの人へ、近づいたね。' }],
-  'exam:after:family': [{ id: 'exam.after.family.1', text: 'おかえり。家族へ、また一歩だね。' }],
-  'exam:after:like': [{ id: 'exam.after.like.1', text: 'おかえり。好きへ、まっすぐだったね。' }],
-  'exam:after:self': [{ id: 'exam.after.self.1', text: 'おかえり。よく挑んだね。' }],
-  // result: 合格=まず「叶ったね」。不合格=慰めない・願いが消えないことにだけ静かに触れる。
-  'result:pass:_': [{ id: 'result.pass._.1', text: '叶ったね。' }],
-  'result:pass:work_live': [{ id: 'result.pass.work_live.1', text: '叶ったね。暮らしへの一歩だね。' }],
-  'result:pass:study': [{ id: 'result.pass.study.1', text: '叶ったね。学びへ進めるね。' }],
-  'result:pass:talk': [{ id: 'result.pass.talk.1', text: '叶ったね。あの人と話せるね。' }],
-  'result:pass:family': [{ id: 'result.pass.family.1', text: '叶ったね。家族に届いたね。' }],
-  'result:pass:like': [{ id: 'result.pass.like.1', text: '叶ったね。好きにまっすぐだね。' }],
-  'result:pass:self': [{ id: 'result.pass.self.1', text: '叶ったね。よく挑んだね。' }],
-  'result:fail:_': [{ id: 'result.fail._.1', text: 'また、ここから書こう。' }],
-  'result:fail:work_live': [{ id: 'result.fail.work_live.1', text: '暮らしへの道は、消えないよ。' }],
-  'result:fail:study': [{ id: 'result.fail.study.1', text: '学びへの道は、まだ続くよ。' }],
-  'result:fail:talk': [{ id: 'result.fail.talk.1', text: '話したい気持ちは、そのままだよ。' }],
-  'result:fail:family': [{ id: 'result.fail.family.1', text: '家族への想いは、変わらないよ。' }],
-  'result:fail:like': [{ id: 'result.fail.like.1', text: '好きは、消えないよ。' }],
-  'result:fail:self': [{ id: 'result.fail.self.1', text: '挑む気持ちは、まだここにあるよ。' }],
-  // milestone: 到達の節目(リングが満ちる等)。
-  'milestone:_': [{ id: 'milestone._.1', text: '輪が満ちたね。ここまで来たね。' }],
-  'milestone:work_live': [{ id: 'milestone.work_live.1', text: '輪が満ちたね。暮らしへ、また一歩。' }],
-  'milestone:study': [{ id: 'milestone.study.1', text: '輪が満ちたね。学びへ、また一歩。' }],
-  'milestone:talk': [{ id: 'milestone.talk.1', text: '輪が満ちたね。あの人へ、近づいたね。' }],
-  'milestone:family': [{ id: 'milestone.family.1', text: '輪が満ちたね。家族へ、届きそうだね。' }],
-  'milestone:like': [{ id: 'milestone.like.1', text: '輪が満ちたね。好きへ、まっすぐだね。' }],
-  'milestone:self': [{ id: 'milestone.self.1', text: '輪が満ちたね。よく挑んできたね。' }],
   first: [
     { id: 'first.1', text: 'はじめまして。わたしは桜。' },
     { id: 'first.2', text: 'この書斎へ、ようこそ。' },
-  ],
-  // 発表期の前後だけ・自己申告の「報告する」導線に添える(数値/催促にしない・そっと)。
-  result_hint: [
-    { id: 'result_hint.1', text: 'そろそろ結果が出る頃かな。' },
-    { id: 'result_hint.2', text: '結果、どうだったかな。' },
   ],
 };
 
@@ -258,12 +178,6 @@ export const FRAGMENTS: Line[] = [
   { id: 'frag.20', text: '貝殻の一つに、小さな傷があるの。' },
 ];
 
-// 願いの棚キー(6種のいずれか、または neutral `_`)。
-export function wishKey(wish?: Wish): string {
-  const k = wish?.kind;
-  return k && (WISH_KEYS as readonly string[]).includes(k) ? k : '_';
-}
-
 export type DailyShelf = 'a' | 'b' | 'c1' | 'c2' | 'c3';
 const DAILY_SHELVES: readonly DailyShelf[] = ['a', 'b', 'c1', 'c2', 'c3'];
 
@@ -282,23 +196,10 @@ function dailyKeysFrom(shelf: DailyShelf): string[] {
   return DAILY_SHELVES.slice(0, i + 1).reverse().map((s) => `daily:${s}`);
 }
 
-// 空白日数 → comeback の段階。
-export function comebackStage(days: number): 'short' | 'mid' | 'long' {
-  if (days <= 6) return 'short';
-  if (days <= 14) return 'mid';
-  return 'long';
-}
-
 // 機会 → core の(第一候補)キー。daily は未執筆棚へのフォールバックを pickCore が処理。
 export function coreKeyFor(o: Occasion): string {
-  switch (o.kind) {
-    case 'daily': return `daily:${streakShelf(o.streakDays)}`;
-    case 'comeback': return `comeback:${comebackStage(o.absenceDays)}:${wishKey(o.wish)}`;
-    case 'exam': return `exam:${o.timing}:${wishKey(o.wish)}`;
-    case 'result': return `result:${o.outcome}:${wishKey(o.wish)}`;
-    case 'milestone': return `milestone:${wishKey(o.wish)}`;
-    default: return o.kind; // streak_mark / session_end / word_graduate / first
-  }
+  if (o.kind === 'daily') return `daily:${streakShelf(o.streakDays)}`;
+  return o.kind; // streak_mark / session_end / word_graduate / first
 }
 
 // 反復回避: 直近IDを除いて seed で1本選ぶ。全部除外なら除外を無視。seed∈[0,1)。

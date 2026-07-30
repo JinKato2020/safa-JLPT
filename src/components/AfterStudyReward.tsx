@@ -12,7 +12,6 @@ import { composeVoice } from '../story/voice';
 import { pickAfterStudyImage } from '../data/afterStudyArt';
 import RubyText from './RubyText';
 import { sendEvent, sendFirstSessionOnce } from '../telemetry/telemetry';
-import { metricsWishKey } from '../story/metrics';
 import type { StudiedWord } from '../data/studiedWords';
 
 export type { StudiedWord } from '../data/studiedWords';
@@ -46,9 +45,9 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
     [seedV],
   );
 
-  // 匿名計測: 学習完了を1回だけ(SessionSummaryの代わりにここで担保)。願い別リテンション用にwishKey添付。
+  // 匿名計測: 学習完了を1回だけ担保。
   useEffect(() => {
-    void sendEvent('session_complete', { mode, scored, wishKey: metricsWishKey(state) });
+    void sendEvent('session_complete', { mode, scored });
     void sendFirstSessionOnce(state);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

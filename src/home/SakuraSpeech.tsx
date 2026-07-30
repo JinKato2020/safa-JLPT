@@ -1,17 +1,16 @@
 // 桜の「今日の一言」吹き出し。ホームで1日1回だけ、桜の頭上にそっと出す。
-//  ・優先順位 = 受験日の一言(前夜/当日/翌日) > 毎日の出迎え。どちらも無ければ何も出さない。
-//  ・出す/出さないと文言選びは純関数(examLine.ts / greeting.ts / voice.ts)に委譲。ここは表示と「出した記録」だけ。
-//  ・付与・課金・出題ロジックには一切触れない(物語=見た目の皮)。減衰レイヤーが1日1回に絞る。
+//  ・毎日の出迎え(daily)の中立セリフだけ。数字/日付/合否/願いは言わない=癒し・ねぎらい専用。
+//  ・出す/出さないと文言選びは純関数(greeting.ts / voice.ts)に委譲。ここは表示と「出した記録」だけ。
+//  ・付与・課金・出題ロジックには一切触れない。減衰レイヤーが1日1回に絞る。
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { dayStr, type AppState } from '../store/state';
 import { shouldGreetToday, greetVariant } from './greeting';
-import { examLineToday } from '../story/examLine';
 import { composeVoice } from '../story/voice';
 
-type Touchpoint = 'daily_greet' | 'exam';
+const GREET_TOUCHPOINT = 'daily_greet';
 
 // YYYY-MM-DD → 通日番号。日替わりで台詞が変わるよう seed に使う(recent永続化なしでも隣接日は別文言)。
 function dayNo(day: string): number {
@@ -19,12 +18,10 @@ function dayNo(day: string): number {
   return Math.floor(Date.UTC(y, m - 1, d) / 86400000);
 }
 
-/** 今日この画面で桜が言う一言(なければ null)。受験日 > 出迎え の優先で1つだけ選ぶ。 */
-function pickSpeech(state: AppState, now: number): { text: string; touchpoint: Touchpoint } | null {
-  const seed = dayNo(dayStr(now));
-  const exam = examLineToday(state, now, { seed });
-  if (exam?.text) return { text: exam.text, touchpoint: 'exam' };
+/** 今日この画面で桜が言う出迎えの一言(なければ null)。 */
+function pickSpeech(state: AppState, now: number): { text: string } | null {
   if (!shouldGreetToday(state, now)) return null;
+  const seed = dayNo(dayStr(now));
   const intensity = greetVariant(state, now); // 'full' | 'short'(none は shouldGreetToday で除外済)
   const res = composeVoice({
     occasion: { kind: 'daily', streakDays: state.streak.current },
@@ -32,7 +29,7 @@ function pickSpeech(state: AppState, now: number): { text: string; touchpoint: T
     now,
     seed,
   });
-  return res.text ? { text: res.text, touchpoint: 'daily_greet' } : null;
+  return res.text ? { text: res.text } : null;
 }
 
 export default function SakuraSpeech() {
@@ -50,7 +47,7 @@ export default function SakuraSpeech() {
   // 出した記録=1日1回に絞る(減衰レイヤー)。表示の有無に関わらず今日はもう出さない。
   useEffect(() => {
     if (!speech) return;
-    markStoryShown(speech.touchpoint);
+    markStoryShown(GREET_TOUCHPOINT);
     Animated.timing(fade, { toValue: 1, duration: 420, useNativeDriver: true }).start();
   }, [speech]); // eslint-disable-line react-hooks/exhaustive-deps
 
