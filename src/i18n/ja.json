@@ -319,6 +319,7 @@
   "mywords.shelf_hint": "問題の答えや漢字を「＋私の単語帳」で保存すると、ここに集まります。",
   "nav.home": "ホーム",
   "onboarding.brand": "まいにちJLPT",
+  "onboarding.optional": "任意",
   "onboarding.exam_label": "受ける試験を選ぶ",
   "onboarding.exam_jlpt_desc": "日本語能力試験（N5〜N3）",
   "onboarding.exam_jft_desc": "国際交流基金 日本語基礎テスト（就労・特定技能）",

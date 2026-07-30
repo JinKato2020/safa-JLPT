@@ -16,6 +16,7 @@ import { useT, UI_LANGS, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import Slider from '../components/Slider';
 import MiniCalendar from '../components/MiniCalendar';
+import { upcomingExams } from '../data/jlptDates';
 import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
 import { useSync } from '../auth/SyncProvider';
@@ -26,22 +27,6 @@ import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
 
-
-function firstSundayOf(year: number, month: number): string {
-  for (let d = 1; d <= 7; d++) {
-    if (new Date(Date.UTC(year, month - 1, d)).getUTCDay() === 0) {
-      return `${year}-${String(month).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    }
-  }
-  return `${year}-${String(month).padStart(2, '0')}-01`;
-}
-/** 次回以降のJLPT(7月・12月の第1日曜)を最大2つ。 */
-function upcomingExams(today: string): string[] {
-  const y = Number(today.slice(0, 4));
-  return [firstSundayOf(y, 7), firstSundayOf(y, 12), firstSundayOf(y + 1, 7), firstSundayOf(y + 1, 12)]
-    .filter((d) => d > today)
-    .slice(0, 2);
-}
 
 export default function ProfileScreen() {
   const t = useT();
