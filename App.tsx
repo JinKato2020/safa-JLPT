@@ -166,22 +166,22 @@ function MainTabs() {
           ※持ち物(アイテム一覧)は「桜/柴のタップで購入済みを確認」に集約したため上部アイコンは廃止。 */}
       {!hideTopBar && (
       <View style={[topBar.row, { top: insets.top + 6 }]}>
-        <View style={topBar.left}>
-          <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
-            <Ionicons name="person-circle-outline" size={26} color={c.ink} />
-          </Pressable>
-          {/* 貝殻ポイントと模試チケットは別々のアイコンに分離(どちらもタップでショップへ)。 */}
-          <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.points_label')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
-            <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
-          </Pressable>
-          <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.name_tool_mock_ticket')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
-            <Text style={[topBar.pillTxt, { color: c.ink }]}>🎫 {mockTicketCount(state)}</Text>
-          </Pressable>
-          {/* AIコーチ=全タブ共通の上部アイコン。他の上部アイコンと同じ挙動(タップでモーダル助言)。 */}
-          <Pressable onPress={() => nav.navigate('AICoach')} accessibilityLabel={t('home.ai_title')} hitSlop={6} style={iconBtn}>
-            <Ionicons name="sparkles-outline" size={22} color={c.ink} />
-          </Pressable>
-        </View>
+        {/* 上部操作列は全アイコン等間隔(space-between)。左→右: アカウント / 貝殻 / チケット / AIコーチ / 設定。
+            以前は左4つを1グループに束ねていたため、左に固まって設定だけ遠くに離れ不均等に見えた。 */}
+        <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="person-circle-outline" size={26} color={c.ink} />
+        </Pressable>
+        {/* 貝殻ポイントと模試チケットは別々のアイコンに分離(どちらもタップでショップへ)。 */}
+        <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.points_label')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
+          <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
+        </Pressable>
+        <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.name_tool_mock_ticket')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
+          <Text style={[topBar.pillTxt, { color: c.ink }]}>🎫 {mockTicketCount(state)}</Text>
+        </Pressable>
+        {/* AIコーチ=全タブ共通の上部アイコン。他の上部アイコンと同じ挙動(タップでモーダル助言)。 */}
+        <Pressable onPress={() => nav.navigate('AICoach')} accessibilityLabel={t('home.ai_title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="sparkles-outline" size={22} color={c.ink} />
+        </Pressable>
         {/* 設定(歯車)は必ず一番右。今後も動かさない(固定・ユーザー指定)。 */}
         <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="settings-outline" size={22} color={c.ink} />
@@ -194,7 +194,6 @@ function MainTabs() {
 
 const topBar = StyleSheet.create({
   row: { position: 'absolute', left: 12, right: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', zIndex: 20 },
-  left: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   btn: {
     width: 40, height: 40, borderRadius: 20, borderWidth: 1, alignItems: 'center', justifyContent: 'center',
     shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,

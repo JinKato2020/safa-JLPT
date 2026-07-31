@@ -166,9 +166,10 @@ const makeStyles = (c: ThemeColors) =>
     // 下パネル=アプリの背景色。バナーに少し重ねて角丸(店内→棚のつながり)。
     panel: { flex: 1, marginTop: -20, borderTopLeftRadius: 22, borderTopRightRadius: 22, backgroundColor: c.bg, paddingTop: 14 },
     tabs: { flexDirection: 'row', gap: 8, paddingHorizontal: 14, paddingBottom: 12 },
-    tab: { paddingVertical: 9, paddingHorizontal: 16, borderRadius: 999, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line },
+    tab: { paddingVertical: 10, paddingHorizontal: 16, borderRadius: 999, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, alignItems: 'center', justifyContent: 'center' },
     tabOn: { backgroundColor: c.blue, borderColor: c.blue },
-    tabTxt: { fontSize: 13, lineHeight: 18, fontWeight: '800', color: c.ink2, includeFontPadding: false, textAlignVertical: 'center' }, tabTxtOn: { color: '#fff' },
+    // lineHeight=20＋includeFontPadding既定。以前の includeFontPadding:false は CJK(髪/型/装 等)の下端を約1/3切っていた。
+    tabTxt: { fontSize: 13, lineHeight: 20, fontWeight: '800', color: c.ink2 }, tabTxtOn: { color: '#fff' },
     scroll: { paddingHorizontal: 14, paddingBottom: 28 },
     grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
     card: { width: '46.5%', backgroundColor: c.surface, borderRadius: 16, borderWidth: 1, borderColor: c.line, padding: 10, overflow: 'hidden' },
