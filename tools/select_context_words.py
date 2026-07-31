@@ -23,8 +23,8 @@ CAT_SHARE_CAP = 0.22  # 1カテゴリが精選全体の22%を超えないよう�
 def load(p):
     return json.load(io.open(os.path.join(ROOT, p), encoding='utf-8'))
 
-freq = load('app/src/data/dict/vocabFreq.json')
-cat = load('app/src/data/dict/vocabCategory.json')
+freq = load('src/data/dict/vocabFreq.json')
+cat = load('src/data/dict/vocabCategory.json')
 
 AFFIX = re.compile(r'[～〜]|^御')
 
@@ -38,7 +38,7 @@ def unusable(word):
 os.makedirs(os.path.join(ROOT, 'scratchpad/context_regen'), exist_ok=True)
 
 for lv, target in TARGET.items():
-    d = load(f'app/content/problems/moji_goi/context_{lv}.json')
+    d = load(f'content/problems/moji_goi/context_{lv}.json')
     items = d['items']
     unver = [x for x in items if x.get('verified') is not True]  # 未検証だけ＝次のバッチ
 

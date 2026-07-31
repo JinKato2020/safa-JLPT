@@ -56,7 +56,7 @@ def report(name, rows):
 print('公式20問(問題対策と問題作成.mdの実測)  文字種そろい= 90.0%  語末そろい= 40.0%  漢字共有あり= 20.0%')
 print('-' * 92)
 
-old = json.load(io.open(os.path.join(ROOT, f'app/content/problems/moji_goi/context_{LV}.json'), encoding='utf-8'))
+old = json.load(io.open(os.path.join(ROOT, f'content/problems/moji_goi/context_{LV}.json'), encoding='utf-8'))
 report(f'旧{LV}(在庫全部)', [(i['answer'], i['choices']) for i in old['items']])
 
 baked = json.load(io.open(os.path.join(ROOT, f'scratchpad/context_regen/baked_{LV}.json'), encoding='utf-8'))

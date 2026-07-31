@@ -222,7 +222,7 @@ def main():
         sys.exit('中止: --polish が未指定です。ルビ無しでは出荷できません（漢字にルビが出ない）。')
 
     # --- 書き込み ---
-    cpath = os.path.join(ROOT, f'app/content/problems/moji_goi/context_{LV}.json')
+    cpath = os.path.join(ROOT, f'content/problems/moji_goi/context_{LV}.json')
     doc = json.load(io.open(cpath, encoding='utf-8'))
     by_id = {it['id']: it for it in good}
     n_rep = 0
@@ -241,7 +241,7 @@ def main():
         json.dump(doc, f, ensure_ascii=False, indent=1)
     print(f'  → {cpath} を更新（{n_rep}問を差し替え・verified=true）')
 
-    fpath = os.path.join(ROOT, 'app/src/data/dict/sentenceFuri.json')
+    fpath = os.path.join(ROOT, 'src/data/dict/sentenceFuri.json')
     sf = json.load(io.open(fpath, encoding='utf-8'))
     for k, v in furi.items():
         sf[k] = v
