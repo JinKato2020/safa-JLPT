@@ -64,17 +64,36 @@ def main():
     src = os.path.join(ROOT, f"content/problems/moji_goi/context_{a.level}.json")
     d = json.load(io.open(src, encoding="utf-8"))
     unver = [x for x in d["items"] if x.get("verified") is not True]
-    unver_ids = {x["id"] for x in unver}
+
+    # 構造ゲート(contextGate.test の不変条件と一致): 誤答3〜5個・正解が誤答に混入しない・
+    # 重複なし・空所〔　〕が1個・needsWork タグなし。LLMが ok でも構造NGなら verified にしない。
+    def struct_bad(x):
+        ch = x.get("choices") or []
+        if not (3 <= len(ch) <= 5):
+            return f"誤答{len(ch)}個(3〜5でない)"
+        if x.get("answer") in ch:
+            return "正解が誤答に混入"
+        if len(set(ch)) != len(ch):
+            return "誤答が重複"
+        if x["prompt"].count("〔　〕") != 1:
+            return "空所が1個でない"
+        if x.get("needsWork"):
+            return "needsWork(誤答不足タグ)"
+        return None
 
     ok, ng, missing = [], [], []
     for x in unver:
         r = verdicts.get(x["id"])
+        sbad = struct_bad(x)
         if r is None:
             missing.append(x["id"])
-        elif r.get("verdict") == "ok":
+        elif r.get("verdict") == "ok" and not sbad:
             ok.append(x["id"])
         else:
-            ng.append((x["id"], x["answer"], x["prompt"], r.get("badChoices") or [], r.get("note", "")))
+            why = r.get("note", "") if r and r.get("verdict") != "ok" else ""
+            if sbad:
+                why = (why + " / " if why else "") + "構造: " + sbad
+            ng.append((x["id"], x["answer"], x["prompt"], (r or {}).get("badChoices") or [], why))
 
     print(f"[{a.level}] 未検証{len(unver)}問 / 判定回収{len(verdicts)}件")
     print(f"  合格(verified付与予定) {len(ok)} / 人手送り {len(ng)} / 判定なし(未回収) {len(missing)}")
@@ -90,6 +109,11 @@ def main():
     for e in d["items"]:
         if e["id"] in ok_set and e.get("verified") is not True:
             e["verified"] = True
+            # 検査(作り直さない)でも解説は除去して他の verified 文脈規定と揃える(rehydrateが
+            # i18n.ja.explain を explain へ復元するため。contextGate.test は verified に explain 無しを要求)。
+            e.pop("i18n", None)
+            e.pop("explain", None)
+            e.pop("needsWork", None)
             n += 1
     with io.open(src, "w", encoding="utf-8", newline="\n") as f:
         json.dump(d, f, ensure_ascii=False, indent=1)
