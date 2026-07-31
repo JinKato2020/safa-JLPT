@@ -1,7 +1,7 @@
-// 桜の吹き出し。ホーム常駐中、約8時間に1度だけ、そっと癒し・励ましの一言を出す。
-//  ・数字/日付/合否/願い/物語世界(かけら)は言わない=純粋な癒し・ねぎらい(voice.ts の daily＋季節/時間flavor)。
-//  ・前回表示から8時間たっていれば、ホームを開いて数秒後に1回だけ出す→約11秒で自然に消える。タップでも即消える。
-//  ・付与・課金・出題ロジックには一切触れない。
+// 桜の吹き出し。ホーム常駐中、約5時間に1度だけ、そっと励まし・応援の一言を出す。
+//  ・寄り添い口調=AIコーチ風ではない(voice.ts の daily＋季節/時間flavor)。数字/日付/合否/願い/物語世界(かけら)は言わない。
+//  ・前回表示から5時間たっていれば、ホームを開いて数秒後に1回だけ出す→約11秒で自然に消える。タップでも即消える。
+//  ・付与・課金・出題ロジックには一切触れない。分析・アドバイスは別空間(ご褒美/AIコーチ)が担当。
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -9,7 +9,7 @@ import { useAppState, useAppActions } from '../store/store';
 import type { AppState } from '../store/state';
 import { composeVoice } from '../story/voice';
 
-const MIN_GAP_MS = 8 * 60 * 60 * 1000; // 8時間に1度くらい(ユーザー方針 2026-07-31)
+const MIN_GAP_MS = 5 * 60 * 60 * 1000; // 5時間に1度くらい(ユーザー方針 2026-07-31)
 const INITIAL_MS = 3500;               // ホームに着いて少し落ち着いてから
 const SHOW_MS = 11_000;                // 表示時間(タップでも即消える)
 
@@ -40,7 +40,7 @@ export default function SakuraSpeech() {
 
   useEffect(() => {
     const last = state.settings.lastSakuraSpeechAt ?? 0;
-    if (Date.now() - last < MIN_GAP_MS) return; // まだ8時間たっていない→今回は出さない
+    if (Date.now() - last < MIN_GAP_MS) return; // まだ5時間たっていない→今回は出さない
     const hide = () => {
       if (hideTimer.current) { clearTimeout(hideTimer.current); hideTimer.current = null; }
       Animated.timing(fade, { toValue: 0, duration: 380, useNativeDriver: true }).start(({ finished }) => { if (finished) setVisible(false); });
@@ -50,7 +50,7 @@ export default function SakuraSpeech() {
       setText(pickBubble(state, now));
       setVisible(true);
       Animated.timing(fade, { toValue: 1, duration: 420, useNativeDriver: true }).start();
-      setSettings({ lastSakuraSpeechAt: now }); // 記録=次は8時間後まで出さない
+      setSettings({ lastSakuraSpeechAt: now }); // 記録=次は5時間後まで出さない
       hideTimer.current = setTimeout(hide, SHOW_MS);
     }, INITIAL_MS);
     return () => { clearTimeout(t); if (hideTimer.current) clearTimeout(hideTimer.current); };
