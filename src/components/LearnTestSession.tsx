@@ -24,9 +24,10 @@ interface Props {
   size: number;
   renderLearnCard: (item: StudyItem) => ReactNode;
   overrideBatch?: StudyItem[]; // 指定時はSRSキュー(buildQueue)を使わず、この項目群をそのままテスト対象にする(例: my単語帳の「復習する」= 保存済みを全件)
+  review?: boolean;            // my単語帳の「復習する」=true。学習後画面で記憶した語を単語帳から外せる。
 }
 
-export default function LearnTestSession({ pool, size, renderLearnCard, overrideBatch }: Props) {
+export default function LearnTestSession({ pool, size, renderLearnCard, overrideBatch, review }: Props) {
   const t = useT();
   const nav = useNavigation();
   const state = useAppState();
@@ -112,6 +113,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
             scored={after.touched - before.touched}
             accuracy={answered ? Math.round((correct / answered) * 100) : 0}
             mode={pool[0]?.category ?? 'study'}
+            review={review}
           />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('learntestsession.back_home')}</Text>

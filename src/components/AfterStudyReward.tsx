@@ -1,10 +1,11 @@
-// 学習後(全ドリル共通)の画面。順=①単語帳登録(毎回) → ②ご褒美イラスト＋励まし(約10回に1度) → ③AIコーチ(同ご褒美時)。
-//  ①単語登録=この回の学習語を☑で「私の単語帳」へ(毎回)。見出し右に正解率。
-//  ②ご褒美=季節連動の大きめ画像＋貝🐚＋桜のねぎらい(voice session_end)。癒し・励まし(AIコーチ風でない)。
-//  ③AIコーチ=成長データ中心の励まし＋「何が欠けているか」を冷静に分析(homeStatus)。桜とは見た目を分ける。
-//  ※②③は afterStudyCount で約10回に1度だけ表示(初回は出す)。付与ロジックには触れない(表示のみ)。
+// 学習後の共通テンプレ(全ドリル=試験/単語/辞書タブ共通)。画面は上から:
+//  ①ご褒美イラスト＋桜のねぎらい(約10回に1度・通常の学習では非表示)。
+//  ②貝の取得情報(毎回)=正解に基づく獲得数＋ボーナス内訳。
+//  ③単語帳の登録チェック＋正誤リスト(毎回)。※復習(私の単語帳)モードでは、記憶した(正解した)単語だけ
+//    チェックを外して単語帳から除外できる(外す前に確認ダイアログ)。通常は☑で「私の単語帳」へ追加。
+//  ・AIコーチ(成長分析)はご褒美時のみ最下部に添える。※付与ロジックには触れない(表示のみ)。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, Image, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
+import { View, Text, Image, Pressable, StyleSheet, useWindowDimensions, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
@@ -21,13 +22,14 @@ export type { StudiedWord } from '../data/studiedWords';
 
 const REWARD_EVERY = 10; // 約10学習に1度、ご褒美(②③)を出す
 
-export default function AfterStudyReward({ words = [], shellsEarned = 0, scored = 0, accuracy, mode, seed }: {
+export default function AfterStudyReward({ words = [], shellsEarned = 0, scored = 0, accuracy, mode, seed, review = false }: {
   words?: StudiedWord[];
   shellsEarned?: number;
   scored?: number;      // 計測用(session_complete)。画面には出さない。
   accuracy?: number;    // 正解率%(単語帳の見出し右に表示)
   mode: string;
   seed?: number;
+  review?: boolean;     // 私の単語帳の「復習する」= true。記憶した(正解)語だけ確認の上で外せる。
 }) {
   const state = useAppState();
   const { addToMyList, setSettings, awardOnce } = useAppActions();
@@ -82,18 +84,55 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
 
   return (
     <View style={s.wrap}>
-      {/* ① この回の学習語をまとめて「私の単語帳」へ(毎回)。見出し右に正解率。 */}
+      {/* ① ご褒美イラスト＋桜のねぎらい(約10回に1度・通常の学習では非表示) */}
+      {showReward && img && (
+        <View style={[s.imgFrame, { width: frameW, height: frameH }]}>
+          <Image source={img} style={s.img} resizeMode="cover" />
+        </View>
+      )}
+      {showReward && !!line && (
+        <View style={s.rewardBlock}>
+          <Text style={s.voice}>{line}</Text>
+        </View>
+      )}
+
+      {/* ② 獲得した貝(毎回)。合計=1問正解×2貝(＋今日はじめての学習なら30貝)。 */}
+      <View style={s.shellCard}>
+        <View style={s.shellRow}>
+          <Text style={s.shellIco}>🐚</Text>
+          <Text style={s.shellN}>+{shellsEarned}</Text>
+          <Text style={s.shellL}>貝</Text>
+        </View>
+        <Text style={s.shellNote}>1問正解 = 2貝</Text>
+        {grantedDaily && <Text style={s.shellBonus}>＋ 毎日はじめての学習ボーナス 30貝</Text>}
+      </View>
+
+      {/* ③ 単語ごとの登録チェック＋正誤(毎回)。復習モードは記憶した(正解)語だけ確認の上で外せる。 */}
       {words.length > 0 ? (
         <View style={s.listCard}>
           <View style={s.listHead}>
-            <Text style={s.listH}>単語帳に入れる</Text>
+            <Text style={s.listH}>{review ? '覚えた単語は単語帳から外せます' : '単語帳に入れる'}</Text>
             {!!acc && <Text style={s.listAcc}>{acc}</Text>}
           </View>
           {words.map((w) => {
             const saved = isInMyList(state.myList ?? [], w.ref);
+            const memorized = review && w.correct === true; // 復習で正解=記憶したと判定
+            const onRow = () => {
+              if (review) {
+                if (memorized) {
+                  Alert.alert('覚えましたか？', 'この単語を「私の単語帳」から外しますか？', [
+                    { text: 'まだ残す', style: 'cancel' },
+                    { text: '外す', style: 'destructive', onPress: () => addToMyList(w.ref) }, // toggleで外れる
+                  ]);
+                }
+                // 復習でまだ(未正解)の語は外せない=何もしない
+              } else {
+                addToMyList(w.ref); // 通常: ☑トグルで私の単語帳へ
+              }
+            };
             return (
-              <Pressable key={w.ref.type + w.ref.id} style={s.wrow} onPress={() => addToMyList(w.ref)} hitSlop={4}>
-                <Ionicons name={saved ? 'checkbox' : 'square-outline'} size={22} color={saved ? c.blue : c.mute} />
+              <Pressable key={w.ref.type + w.ref.id} style={s.wrow} onPress={onRow} hitSlop={4} disabled={review && !memorized}>
+                <Ionicons name={saved ? 'checkbox' : 'square-outline'} size={22} color={!saved ? c.mute : review && !memorized ? c.mute : c.blue} />
                 <View style={s.wtextWrap}>
                   <RubyText text={w.word} style={s.wword} rubyStyle={s.wruby} />
                   {!!w.meaning && <Text style={s.wmean} numberOfLines={1}>{w.meaning}</Text>}
@@ -109,30 +148,7 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
         <Text style={s.accSolo}>{acc}</Text>
       ) : null}
 
-      {/* 獲得した貝(毎回表示・何の貝かを明示)。合計=1問正解×2貝(＋今日はじめての学習なら30貝)。 */}
-      <View style={s.shellCard}>
-        <View style={s.shellRow}>
-          <Text style={s.shellIco}>🐚</Text>
-          <Text style={s.shellN}>+{shellsEarned}</Text>
-          <Text style={s.shellL}>貝</Text>
-        </View>
-        <Text style={s.shellNote}>1問正解 = 2貝</Text>
-        {grantedDaily && <Text style={s.shellBonus}>＋ 毎日はじめての学習ボーナス 30貝</Text>}
-      </View>
-
-      {/* ② ご褒美イラスト＋桜のねぎらい(約10回に1度・登録の後) */}
-      {showReward && img && (
-        <View style={[s.imgFrame, { width: frameW, height: frameH }]}>
-          <Image source={img} style={s.img} resizeMode="cover" />
-        </View>
-      )}
-      {showReward && !!line && (
-        <View style={s.rewardBlock}>
-          <Text style={s.voice}>{line}</Text>
-        </View>
-      )}
-
-      {/* ③ AIコーチ=成長データ中心の励まし＋弱点の冷静分析(桜とは別の無機質な枠) */}
+      {/* AIコーチ=成長データ中心の励まし＋弱点分析(ご褒美時のみ・最下部) */}
       {showReward && (
         <View style={s.coachCard}>
           <View style={s.coachHead}>

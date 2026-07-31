@@ -101,7 +101,7 @@ export default function FlashcardScreen() {
   if (gateAllowed === null) return null;
   if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
 
-  return <LearnTestSession pool={pool} size={12} overrideBatch={overrideBatch} renderLearnCard={(item) => <VocabKanjiCard item={item} />} />;
+  return <LearnTestSession pool={pool} size={12} overrideBatch={overrideBatch} review={!!ids?.length} renderLearnCard={(item) => <VocabKanjiCard item={item} />} />;
 }
 
 const cardStyles = (c: ThemeColors) =>
