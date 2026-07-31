@@ -188,12 +188,12 @@ export default function ProfileScreen() {
             </View>
           )}
 
-          {/* テーマ = ライト/ダーク/自動 ＋ 水彩(桜/空/緑/藤/茜=ライト系＋淡い水彩背景)。 */}
+          {/* テーマ = ライト/ダーク/自動。水彩(桜/空/緑/藤/茜)はユーザー指定で撤去(2026-07-31)。 */}
           <Text style={s.setLbl}>{t('profile.theme')}</Text>
           <View style={s.chipWrap}>
-            {(['light', 'dark', 'auto', 'sakura', 'sky', 'green', 'fuji', 'akane'] as const).map((th) => {
+            {(['light', 'dark', 'auto'] as const).map((th) => {
               const on = (state.settings.theme ?? 'auto') === th;
-              const label = th === 'light' ? t('profile.themeLight') : th === 'dark' ? t('profile.themeDark') : th === 'auto' ? t('profile.themeAuto') : t(`profile.bg_${th}`);
+              const label = th === 'light' ? t('profile.themeLight') : th === 'dark' ? t('profile.themeDark') : t('profile.themeAuto');
               return (
                 <Pressable key={th} onPress={() => setSettings({ theme: th })} style={[s.chip, on && s.chipOn]}>
                   <Text style={[s.chipTxt, on && s.chipTxtOn]}>{label}</Text>
@@ -338,7 +338,7 @@ export default function ProfileScreen() {
           <View style={s.telemRow}>
             <View style={s.telemTxt}>
               <Text style={s.telemLbl}>ポイント無限</Text>
-              <Text style={s.subtle}>ONでショップを桜貝の残高に関係なく無制限に購入できる</Text>
+              <Text style={s.subtle}>ONでショップを桜貝の残高に関係なく無制限に購入＋獲得の1日上限(300貝)も無視(テスト用)</Text>
             </View>
             <Switch
               style={s.telemSwitch}

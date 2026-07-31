@@ -13,7 +13,7 @@ import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
-import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, EARN, type ShopKind } from './wallet';
+import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, type ShopKind } from './wallet';
 import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket } from './tickets';
 import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
 import { setPurchaseActive as proSetPurchase, grantProDays as proGrantDays } from '../pro/entitlement';
@@ -74,8 +74,8 @@ export function reducer(state: AppState, action: Action): AppState {
       const immediate = action.itemId.endsWith('#kanji_read') || action.itemId.endsWith('#orthography');
       const next = recordQuiz(prev, action.correct, action.now, immediate);
       const withDay = withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next } }, action.now);
-      // 1問正解=2貝(1日上限内)。正解の時だけ付与。不正解や再出題(relearn)の繰り返しでは増えない=正誤数で獲得貝が変わる。
-      return action.correct ? walletAdd(withDay, EARN.answer, action.now, { cap: true }) : withDay;
+      // 1問正解=2貝は quizAnswer 側の ADD_POINTS で付与(MOCK_ANSWERと同経路)。ここで足すと二重取りになるため学習日の記録だけ返す。
+      return withDay;
     }
     case 'MOCK_ANSWER': {
       // 模試は「その項目が初見(state.itemsに無い)のときだけ」evidenceに記録(初見保証で正当=模試は常に初見プール)。

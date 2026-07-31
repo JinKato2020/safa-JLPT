@@ -18,7 +18,8 @@ export function addPoints(state: AppState, amount: number, now: number, opts?: {
   if (amt === 0) return state;
   let add = amt;
   let dailyEarn = state.dailyEarn;
-  if (opts?.cap) {
+  // 開発用「ポイント無限」がONの時は1日の獲得上限を無視(テストで頻度・貝の付与を確認できるように)。
+  if (opts?.cap && !state.settings?.devUnlimitedPoints) {
     const day = dayStr(now);
     const cur = dailyEarn && dailyEarn.day === day ? dailyEarn.amount : 0;
     add = Math.max(0, Math.min(amt, EARN.dailyCap - cur));
