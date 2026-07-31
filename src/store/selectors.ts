@@ -5,7 +5,7 @@ import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BAN
 import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT, type Daimon } from '../data/examBlueprint';
 import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits, bankLevelOf } from '../data/daimon';
 import { hasKanji } from '../quiz/quiz';
-import { passProbability as ladderPassProbability, itemP as ladderItemP, type DaimonExpectation } from '../ladder/passRate';
+import { passProbability as ladderPassProbability, itemP as ladderItemP, expectedScore as ladderExpectedScore, type DaimonExpectation, type ScoreEstimate } from '../ladder/passRate';
 import { type Level as LadderLevel } from '../ladder/facets';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
@@ -277,6 +277,11 @@ export function ladderPassEntries(state: AppState, now: number): DaimonExpectati
 }
 function ladderPassPct(state: AppState, now: number): number {
   return Math.round(100 * ladderPassProbability(state.settings.level as LadderLevel, ladderPassEntries(state, now), 2000, 1));
+}
+
+/** 予想得点(受験レベルの 予想得点/総得点180)。合格率と同じ大問配点で期待値算出。 */
+export function expectedScoreFor(state: AppState, now: number): ScoreEstimate {
+  return ladderExpectedScore(state.settings.level as LadderLevel, ladderPassEntries(state, now));
 }
 
 export function readinessFor(state: AppState, now: number) {

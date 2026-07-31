@@ -3,7 +3,7 @@
 // 継続日数=streak、学習時間=studySeconds。値欠損は0埋め(クラッシュしない)。
 import type { AppState } from '../store/state';
 import type { Daimon } from '../data/examBlueprint';
-import { readinessFor, ringsFor, idsRingPct } from '../store/selectors';
+import { readinessFor, ringsFor, idsRingPct, expectedScoreFor } from '../store/selectors';
 import { daimonUnitIds } from '../data/daimon';
 
 // 合格率tier(0→9 = 0%→90%台)。badges.ts は画像requireを含むためここでは同式を内包。
@@ -12,6 +12,9 @@ const tierIndex = (pct: number) => Math.min(9, Math.max(0, Math.floor(pct / 10))
 export type StatusSubject = { key: string; labelKey: string; color: string; pct: number };
 export type HomeStatus = {
   passPct: number;
+  predScore: number;    // 予想得点(受験レベル・期待値)
+  predMax: number;      // 総得点(JLPTは180)
+  passTotal: number;    // 合格ライン(総合)
   rankTitleKey: string; // ランク称号(合格率tierのタイトルキー)
   streakDays: number;
   studySeconds: number;
@@ -36,6 +39,11 @@ export function homeStatus(state: AppState, now: number): HomeStatus {
 
   // 【開発用】settings.devPassPct が設定されていれば合格率を固定(辞書背景/AIコーチ等の挙動確認)。null/未設定=自動計算。
   const passPct = state.settings.devPassPct != null ? clamp(state.settings.devPassPct) : clamp(readiness?.passProbability);
+  // 予想得点(受験レベル・期待値)。開発用に合格率を固定した時は得点もその割合で連動させ挙動確認できるように。
+  const est = (() => { try { return expectedScoreFor(state, now); } catch { return null; } })();
+  const predMax = est?.max ?? 180;
+  const predScore = state.settings.devPassPct != null ? Math.round((clamp(state.settings.devPassPct) / 100) * predMax) : (est?.score ?? 0);
+  const passTotal = est?.passTotal ?? 0;
   const subjects: StatusSubject[] = [
     { key: 'kanji', labelKey: 'cards.kanji', color: COL.kanji, pct: clamp(acc(idsOf('kanji_read', 'orthography'))) },
     { key: 'vocab', labelKey: 'cards.vocab', color: COL.vocab, pct: clamp(acc(idsOf('context', 'synonym', 'usage'))) },
@@ -46,6 +54,9 @@ export function homeStatus(state: AppState, now: number): HomeStatus {
 
   return {
     passPct,
+    predScore,
+    predMax,
+    passTotal,
     rankTitleKey: 'home.passTitle' + tierIndex(passPct),
     streakDays: state.streak?.current ?? 0,
     studySeconds: state.studySeconds ?? 0,

@@ -2,6 +2,28 @@
 import { Level, LEVEL_SPECS, scoringSectionForDaimon } from './facets';
 import { mulberry32 } from './rng';
 
+// 予想得点(期待値・決定的)。各区分= (Σ n×μ / Σ n)×区分満点。総得点=区分満点の和(JLPTは常に180)。
+// モンテカルロは使わず期待値で出す(合格率とは別指標=「今の実力ならこれくらい取れる」)。
+export interface ScoreEstimate { score: number; max: number; passTotal: number; sections: { key: string; score: number; max: number; minPoint: number }[] }
+export function expectedScore(level: Level, daimons: DaimonExpectation[]): ScoreEstimate {
+  const spec = LEVEL_SPECS[level];
+  const acc = new Map<string, { c: number; n: number }>();
+  for (const dm of daimons) {
+    const key = scoringSectionForDaimon(level, dm.daimon);
+    const a = acc.get(key) ?? { c: 0, n: 0 };
+    a.c += dm.n * dm.mu; a.n += dm.n; acc.set(key, a); // c=期待正答数
+  }
+  let total = 0, max = 0;
+  const sections = spec.sections.map((sec) => {
+    const a = acc.get(sec.key);
+    const frac = a && a.n > 0 ? a.c / a.n : 0;
+    const s = frac * sec.max;
+    total += s; max += sec.max;
+    return { key: sec.key, score: Math.round(s), max: sec.max, minPoint: sec.minPoint };
+  });
+  return { score: Math.round(total), max, passTotal: spec.passTotal, sections };
+}
+
 export const GUESS_FLOOR = 0.25;
 export const MC_DRAWS = 2000;
 

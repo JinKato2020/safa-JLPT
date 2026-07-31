@@ -66,7 +66,9 @@ export default function HomeScreen() {
   const ringW = Math.round(width * 0.40); // 画面幅の40%(ヒーロー寄せに戻し)
   const top = Math.round(height * 0.15);  // やや上
   const left = Math.round((width - ringW) / 2);
-  const pct = Math.round(status.passPct);
+  // リング中央=受験レベルの「予想得点 / 総得点(180)」。リングの塗り(素材画像)は合格率のまま。
+  const predScore = status.predScore;
+  const predMax = status.predMax;
 
   return (
     <View style={styles.c}>
@@ -89,13 +91,13 @@ export default function HomeScreen() {
               <View style={styles.pctInner}>
                 <View style={{ height: Math.round(ringW * 0.30 * 0.81), overflow: 'hidden' }}>
                   <Text style={[styles.num, { fontSize: Math.round(ringW * 0.30), lineHeight: Math.round(ringW * 0.30) }]}>
-                    {pct}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.15) }]}>%</Text>
+                    {predScore}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.13) }]}>/{predMax}</Text>
                   </Text>
                 </View>
-                {/* 到達度の左に現在レベル(N5/N4/N3 or JFT)を同じ大きさで表示。 */}
+                {/* 現在レベル(N5/N4/N3 or JFT)＋「予想得点」。中央=受験レベルの予想得点/総得点。 */}
                 <View style={[styles.lblRow, { marginTop: 5 }]}>
                   <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>{levelLabel}</Text>
-                  <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>到達度</Text>
+                  <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>予想得点</Text>
                 </View>
               </View>
             </View>
