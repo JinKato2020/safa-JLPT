@@ -679,5 +679,10 @@
   "answer.wrong": "ざんねん",
   "answer.next": "次へ →",
   "answer.result": "結果を見る",
-  "answer.finish": "終了"
+  "answer.finish": "終了",
+  "afterstudy.coach": "AIコーチ",
+  "afterstudy.coach_reach": "到達度 {p}%（合格まで あと {r}%）",
+  "afterstudy.coach_strong": "{s} が伸びています（{p}%）",
+  "afterstudy.coach_gap": "いま弱いのは {s}（{p}%）。次はここを重点的に。",
+  "afterstudy.coach_early": "まだ始めたばかり。ここから少しずつ積み上げよう。"
 }
