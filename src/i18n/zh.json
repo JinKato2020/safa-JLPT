@@ -33,7 +33,7 @@
   "home.ai_status": "您的准备度是{score}%，通过线是{min}%。",
   "home.ai_streak": "连续学习{n}天。坚持是通过的最大捷径。",
   "home.ai_streak0": "今天解决一个问题即可重新开始您的连续记录。",
-  "home.ai_title": "🤖 AI教练分析",
+  "home.ai_title": "AI教练分析",
   "home.ai_weak": "您最弱的领域是“{cat}”({pct}%)。专注于此最为有效。",
   "home.badge_achieved": "已达成",
   "home.brand": "毎日JLPT",

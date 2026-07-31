@@ -23,9 +23,8 @@ export const TAB_BG: Record<TabKey, Record<Daylight, ImageSourcePropType>> = {
   dict: { day: require('../../assets/tabs/dict_bg_day.jpg'), night: require('../../assets/tabs/dict_bg_night.jpg') },
 };
 
-// 辞書タブ「昼」の書庫は、合格率(到達度%)に応じて“復元されていく”5段階。
-// 合格率20%刻み: 0-19→s1 / 20-39→s2 / 40-59→s3 / 60-79→s4 / 80-100→s5。
-// 夜は従来どおり1枚(TAB_BG.dict.night)。
+// 辞書タブの書庫は、予想得点に応じて“復元されていく”5段階(昼夜の区別なし=常にこの5枚を使う・ユーザー指定2026-07-31)。
+// しきい値T=合格点(passTotal)×1.1。予想得点がT以上でs5。それ未満は[0,T]を4分割してs1..s4。
 export const DICT_DAY_STAGES: ImageSourcePropType[] = [
   require('../../assets/tabs/dict_bg_day_s1.jpg'),
   require('../../assets/tabs/dict_bg_day_s2.jpg'),
@@ -34,10 +33,14 @@ export const DICT_DAY_STAGES: ImageSourcePropType[] = [
   require('../../assets/tabs/dict_bg_day_s5.jpg'),
 ];
 
-// 合格率(0-100)→段階インデックス(0-4)。20%刻みで、100%はs5に丸める。
-export function dictStageIndex(passPct: number): number {
-  const i = Math.floor((passPct || 0) / 20);
-  return i < 0 ? 0 : i > 4 ? 4 : i;
+// 予想得点(predScore)＋合格点(passTotal)→段階インデックス(0-4)。
+// T=passTotal×1.1。predScore≥T→s5(4)。未満は[0,T]を4等分し s1..s4(0..3)。passTotalが未確定(≤0)ならs1。
+export function dictStageIndex(predScore: number, passTotal: number): number {
+  const T = (passTotal || 0) * 1.1;
+  if (T <= 0) return 0;
+  if ((predScore || 0) >= T) return 4;
+  const i = Math.floor((predScore || 0) / (T / 4));
+  return i < 0 ? 0 : i > 3 ? 3 : i;
 }
 
 // 「閉じ目版」全画面画像(元絵と目以外は完全同一のもの)。単語/辞書タブのキャラのまばたき用。
@@ -66,9 +69,9 @@ export function useTabBg(key: TabKey): ImageSourcePropType {
   return TAB_BG[key][useDaylight()];
 }
 
-// 辞書タブ背景: 昼は合格率で復元段階(s1..s5)を切替、夜は従来の1枚。
-export function useDictBg(passPct: number): ImageSourcePropType {
-  return useDaylight() === 'day' ? DICT_DAY_STAGES[dictStageIndex(passPct)] : TAB_BG.dict.night;
+// 辞書タブ背景: 予想得点で復元段階(s1..s5)を切替。昼夜の区別なし(常に同じ5枚・ユーザー指定)。
+export function useDictBg(predScore: number, passTotal: number): ImageSourcePropType {
+  return DICT_DAY_STAGES[dictStageIndex(predScore, passTotal)];
 }
 
 // ホーム背景の、いまの時刻に応じた昼/夜を返す。

@@ -33,7 +33,7 @@
   "home.ai_status": "Khả năng sẵn sàng của bạn là {score}%, và mức đỗ là {min}%.",
   "home.ai_streak": "Chuỗi học {n} ngày. Sự kiên trì là con đường tắt lớn nhất để đỗ.",
   "home.ai_streak0": "Giải một câu hỏi hôm nay để khởi động lại chuỗi của bạn.",
-  "home.ai_title": "🤖 Phân tích của AI Coach",
+  "home.ai_title": "Phân tích của AI Coach",
   "home.ai_weak": "Điểm yếu nhất của bạn là \"{cat}\" ({pct}%). Tập trung vào đây là hiệu quả nhất.",
   "home.badge_achieved": "Đạt được",
   "home.brand": "Mainichi JLPT",

@@ -33,7 +33,7 @@
   "home.ai_status": "Kesiapan Anda adalah {score}%, dan batas lulus adalah {min}%.",
   "home.ai_streak": "{n} hari berturut-turut belajar. Konsistensi adalah jalan pintas terbesar untuk lulus.",
   "home.ai_streak0": "Selesaikan satu pertanyaan hari ini untuk memulai ulang rekor Anda.",
-  "home.ai_title": "🤖 Analisis AI Coach",
+  "home.ai_title": "Analisis AI Coach",
   "home.ai_weak": "Area terlemah Anda adalah \"{cat}\" ({pct}%). Fokus di sini paling efektif.",
   "home.badge_achieved": "Diraih",
   "home.brand": "Mainichi JLPT",

@@ -8,7 +8,7 @@ import { View, Text, Image, Pressable, StyleSheet, useWindowDimensions } from 'r
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
-import { isInMyList } from '../store/state';
+import { isInMyList, dayStr } from '../store/state';
 import { composeVoice } from '../story/voice';
 import { pickAfterStudyImage } from '../data/afterStudyArt';
 import { homeStatus } from '../home/homeStatus';
@@ -30,7 +30,7 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
   seed?: number;
 }) {
   const state = useAppState();
-  const { addToMyList, setSettings } = useAppActions();
+  const { addToMyList, setSettings, awardOnce } = useAppActions();
   const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
@@ -41,11 +41,17 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
   // ご褒美(②③)は約10回に1度。表示可否はマウント時に固定(この後カウンタを+1しても画面は変わらない)。
   const [showReward] = useState(() => ((state.settings.afterStudyCount ?? 0) % REWARD_EVERY) === 0);
 
-  // 匿名計測＋ご褒美カウンタ+1(毎回)。
+  // 毎日はじめての学習=30貝。この学習が今日の最初か(=まだ未付与か)をマウント時に固定。
+  // 付与前に判定して「今回この画面で30貝を出すか」を決める。付与自体は下のeffectで1回だけ。
+  const dailyKey = 'dailyFirst-' + dayStr(Date.now());
+  const [grantedDaily] = useState(() => !(state.claimedMilestones ?? []).includes(dailyKey));
+
+  // 匿名計測＋ご褒美カウンタ+1(毎回)＋今日はじめての学習なら30貝を加算(1回だけ)。
   useEffect(() => {
     void sendEvent('session_complete', { mode, scored });
     void sendFirstSessionOnce(state);
     setSettings({ afterStudyCount: (state.settings.afterStudyCount ?? 0) + 1 });
+    if (grantedDaily) awardOnce(dailyKey, 30); // 合計(=+shellsEarned)に反映され、下で内訳も表示
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ②ご褒美画像=大きめ(全幅・最大で画面高の46%)。縦横比は画像に合わせ、切れないよう高さを上限で抑える。
@@ -101,14 +107,15 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
         <Text style={s.accSolo}>{acc}</Text>
       ) : null}
 
-      {/* 獲得した貝(毎回表示・何の貝かを明示)。今回ぶん=1問正解×2貝。毎日はじめての学習ボーナス(30貝)はホームで加算。 */}
+      {/* 獲得した貝(毎回表示・何の貝かを明示)。合計=1問正解×2貝(＋今日はじめての学習なら30貝)。 */}
       <View style={s.shellCard}>
         <View style={s.shellRow}>
           <Text style={s.shellIco}>🐚</Text>
           <Text style={s.shellN}>+{shellsEarned}</Text>
           <Text style={s.shellL}>貝</Text>
         </View>
-        <Text style={s.shellNote}>1問正解 = 2貝　／　毎日はじめての学習 = 30貝</Text>
+        <Text style={s.shellNote}>1問正解 = 2貝</Text>
+        {grantedDaily && <Text style={s.shellBonus}>＋ 毎日はじめての学習ボーナス 30貝</Text>}
       </View>
 
       {/* ② ご褒美イラスト＋桜のねぎらい(約10回に1度・登録の後) */}
@@ -156,6 +163,7 @@ const makeStyles = (c: ThemeColors) =>
     // 貝カード=毎回表示。獲得数＋「何の貝か」の説明を添える。
     shellCard: { width: '100%', alignItems: 'center', gap: 2, backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.sm },
     shellNote: { fontSize: ty.tiny, color: c.mute, fontWeight: '700' },
+    shellBonus: { fontSize: ty.tiny, color: c.blue, fontWeight: '800' },
     shellRow: { flexDirection: 'row', alignItems: 'baseline', gap: 6 },
     shellIco: { fontSize: ty.h2 },
     shellN: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },

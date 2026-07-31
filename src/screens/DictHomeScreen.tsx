@@ -25,9 +25,9 @@ export default function DictHomeScreen() {
   const c = useColors();
   const state = useAppState();
   const { myList } = state;
-  // 合格率(到達度%)で書庫の復元段階を切替(昼のみ・20%刻み)。ホームの合格リングと同じ passPct。
-  const passPct = homeStatus(state, Date.now()).passPct;
-  const bg = useDictBg(passPct);
+  // 書庫の復元段階=予想得点で切替(昼夜の区別なし)。しきい値=合格点×1.1でs5、未満は4分割。ホーム中央の予想得点と同じ。
+  const st = homeStatus(state, Date.now());
+  const bg = useDictBg(st.predScore, st.passTotal);
   const blinkBg = useTabBlink('dict');
   // 復習対象=my単語帳に保存した語彙＋漢字のid(VOCAB/KANJIに無いidはFlashcard側で自動除外)。
   const reviewIds = (myList ?? []).filter((r) => r.type === 'vocab' || r.type === 'kanji').map((r) => r.id);

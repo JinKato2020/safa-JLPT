@@ -169,7 +169,7 @@
   "home.ai_improving": "Your pass chance rose {n} points 📈 You're growing steadily!",
   "home.ai_streak": "{n}-day study streak. Consistency is the biggest shortcut to passing.",
   "home.ai_streak0": "Solve even one question today to restart your streak.",
-  "home.ai_title": "🤖 AI Coach Analysis",
+  "home.ai_title": "AI Coach Analysis",
   "home.ai_weak": "Your weakest area is \"{cat}\" ({pct}%). Focusing here is most effective.",
   "home.badge_achieved": "Achieved",
   "home.brand": "Mainichi JLPT",

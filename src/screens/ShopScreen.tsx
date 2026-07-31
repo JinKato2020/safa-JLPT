@@ -124,14 +124,14 @@ export default function ShopScreen() {
       </ImageBackground>
 
       <View style={s.panel}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.tabs}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.tabBar} contentContainerStyle={s.tabs}>
           {TABS.map((x) => (
             <Pressable key={x.key} onPress={() => setCat(x.key)} style={[s.tab, cat === x.key && s.tabOn]}>
               <Text style={[s.tabTxt, cat === x.key && s.tabTxtOn]}>{t(x.labelKey)}</Text>
             </Pressable>
           ))}
         </ScrollView>
-        <ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
+        <ScrollView style={s.content} contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
           <View style={s.grid}>{items.map(renderCard)}</View>
         </ScrollView>
       </View>
@@ -165,8 +165,13 @@ const makeStyles = (c: ThemeColors) =>
     xTxt: { color: c.ink, fontSize: 22, fontWeight: '700', marginTop: -2 },
     // 下パネル=アプリの背景色。バナーに少し重ねて角丸(店内→棚のつながり)。
     panel: { flex: 1, marginTop: -20, borderTopLeftRadius: 22, borderTopRightRadius: 22, backgroundColor: c.bg, paddingTop: 14 },
-    tabs: { flexDirection: 'row', gap: 8, paddingHorizontal: 14, paddingBottom: 12 },
-    tab: { paddingVertical: 10, paddingHorizontal: 16, borderRadius: 999, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, alignItems: 'center', justifyContent: 'center' },
+    // タブ帯=内容の高さに縮める(flexGrow:0)。これが無いと横ScrollViewが縦に伸び、行の既定alignItems:stretchで
+    // タブが帯高いっぱいに引き伸ばされて選択カテゴリごとに縦長/潰れが起きていた(2026-07-31修正)。
+    tabBar: { flexGrow: 0, flexShrink: 0 },
+    content: { flex: 1 }, // 残りの縦領域はこちらが占有=タブ帯を押し伸ばさない
+    // alignItems:'center'=タブを自然な高さ(中身)に固定し縦伸びを止める。
+    tabs: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 14, paddingBottom: 12 },
+    tab: { height: 40, paddingHorizontal: 16, borderRadius: 999, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, alignItems: 'center', justifyContent: 'center' },
     tabOn: { backgroundColor: c.blue, borderColor: c.blue },
     // lineHeight=20＋includeFontPadding既定。以前の includeFontPadding:false は CJK(髪/型/装 等)の下端を約1/3切っていた。
     tabTxt: { fontSize: 13, lineHeight: 20, fontWeight: '800', color: c.ink2 }, tabTxtOn: { color: '#fff' },

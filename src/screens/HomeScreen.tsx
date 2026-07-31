@@ -5,7 +5,6 @@ import { useMemo, useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, StyleSheet, useWindowDimensions, Pressable, ScrollView } from 'react-native';
 import { useAppState, useAppActions } from '../store/store';
 import { learnedNow } from '../store/selectors';
-import { dayStr } from '../store/state';
 import { TabBackground } from '../components/TabScene';
 import { useHomeBg } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
@@ -33,8 +32,7 @@ export default function HomeScreen() {
   const { awardOnce } = useAppActions();
   // 継続・上達の桜貝付与(awardOnce が二重付与を防ぐので毎マウント呼んで安全)。
   useEffect(() => {
-    const td = dayStr(now);
-    if (state.streak.history.includes(td)) awardOnce('dailyFirst-' + td, 30); // 毎日学習ボーナス=30貝(1日1回)
+    // 毎日はじめての学習=30貝は「今日の最初の学習の直後(AfterStudyReward)」で付与・表示する。ホームでは付与しない。
     if (state.streak.current >= 7) awardOnce('streak7', 50);
     if (state.streak.current >= 30) awardOnce('streak30', 200);
     const p = status.passPct;

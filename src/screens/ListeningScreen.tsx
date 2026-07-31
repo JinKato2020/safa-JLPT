@@ -14,6 +14,7 @@ import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
 import ExamHeader from '../components/ExamHeader';
 import RubyText from '../components/RubyText';
+import Slider from '../components/Slider';
 import { listeningItemsFor, listeningItemsForSub, listeningSubtype, rubyNeeded, type ListeningItem, type PassageQuestion } from '../data';
 import type { RootStackParamList } from '../navigation/types';
 import { listeningSource } from '../data/listeningAudio';
@@ -35,7 +36,7 @@ function formatScript(s: string): string {
 export default function ListeningScreen() {
   const nav = useNavigation();
   const state = useAppState();
-  const { quizAnswer } = useAppActions();
+  const { quizAnswer, setSettings } = useAppActions();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
@@ -141,7 +142,7 @@ export default function ListeningScreen() {
     const q = step.qs[qi];
     const ok = ci === q.answerIndex;
     setPicked((p) => { const n = [...p]; n[qi] = ci; return n; });
-    setShowScript(true); // 解答後にスクリプト開示(復習用)
+    // スクリプトは自動表示しない。ユーザーが「スクリプトを見る」を押した時だけ開示する(ユーザー指定2026-07-31)。
     quizAnswer(q.id, ok);
     setAnswered((a) => a + 1);
     if (ok) setCorrect((x) => x + 1);
@@ -179,6 +180,23 @@ export default function ListeningScreen() {
   ) : (
     <Pressable onPress={() => setShowScript(true)} hitSlop={8}><Text style={s.scriptToggle}>{t('listening.script_show')}</Text></Pressable>
   );
+  // 音声スピード(設定と同じ0.5〜1.5倍・0.1刻み)。スクリプトトグルの下に置く。変更は次の再生から反映。
+  const speedBar = (
+    <View style={s.speedRow}>
+      <Text style={s.speedLbl}>{t('listening.speed')}</Text>
+      <Slider
+        value={state.settings.listeningRate ?? 1}
+        min={0.5}
+        max={1.5}
+        step={0.1}
+        onChange={(v) => setSettings({ listeningRate: v })}
+        trackColor={c.line}
+        fillColor={c.blue}
+        formatValue={(v) => `${v.toFixed(1)}×`}
+      />
+    </View>
+  );
+  const audioControls = (<>{scriptBlock}{speedBar}</>); // 音声のある区分=スクリプトトグル＋スピードバー
 
   return (
     <SafeAreaView style={s.c}>
@@ -199,7 +217,7 @@ export default function ListeningScreen() {
               <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
                 <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
               </Pressable>
-              {scriptBlock}
+              {audioControls}
             </>
           ) : isHatsuwa ? (
             <>
@@ -215,7 +233,7 @@ export default function ListeningScreen() {
               <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
                 <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
               </Pressable>
-              {scriptBlock}
+              {audioControls}
             </>
           ) : (
             <>
@@ -304,6 +322,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   hatsuwaImgPh: { width: '100%', maxWidth: 260, aspectRatio: 1, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginTop: spacing.xs },
   hatsuwaScene: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.sm },
   scriptToggle: { fontSize: ty.small, color: c.blue, fontWeight: '700' },
+  speedRow: { marginTop: spacing.sm, gap: 4 },
+  speedLbl: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
   qBlock: { marginTop: spacing.md, paddingTop: spacing.md, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.line },
   qLabel: { fontSize: ty.tiny, fontWeight: '700', color: c.mute, letterSpacing: 1 },
   qText: { fontSize: ty.h2, fontWeight: '700', color: c.ink },

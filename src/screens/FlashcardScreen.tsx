@@ -6,6 +6,9 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { itemsFor, VOCAB, KANJI, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
+import { effectiveP } from '../engine/engine';
+
+const REVIEW_SIZE = 10; // my単語帳の「復習する」= 苦手優先で10問に絞る
 
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 import type { StudyItem } from '../data';
@@ -76,19 +79,25 @@ export default function FlashcardScreen() {
   const gate = useSessionGate();
   const [gateAllowed, setGateAllowed] = useState<boolean | null>(null);
   useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
-  const { settings } = useAppState();
+  const state = useAppState();
+  const { settings } = state;
   const route = useRoute<RouteProp<RootStackParamList, 'Flashcard'>>();
   const ids = route.params?.ids; // my単語帳の「復習する」= 保存済みの語彙＋漢字を復習(未指定時=従来のSRSキュー)
   const pool = useMemo(() => itemsFor(settings.level, 'moji_goi'), [settings.level]);
-  // idsが渡された時は、レベルに関係なくその語/漢字id群を「そのまま」復習対象にする(buildQueueのdue/fresh絞り込みを迂回)。
+  // idsが渡された時は、レベルに関係なくその語/漢字id群を対象にする(buildQueueのdue/fresh絞り込みを迂回)。
+  // 出題順=苦手優先: 記憶度(effectiveP)が低い順に並べ、上位REVIEW_SIZE(10)問だけ復習する。
+  // 未学習(SRS状態なし)は0扱い=最優先。同点は保存順を維持(安定ソート)。
   const overrideBatch = useMemo(() => {
     if (!ids || !ids.length) return undefined;
     const byId = new Map<string, StudyItem>();
     for (const v of VOCAB) byId.set(v.id, v);
     for (const k of KANJI) byId.set(k.id, k);
     const items = ids.map((id) => byId.get(id)).filter((x): x is StudyItem => Boolean(x));
-    return items.length ? items : undefined;
-  }, [ids]);
+    if (!items.length) return undefined;
+    const now = Date.now();
+    const weakness = (it: StudyItem) => { const st = state.items[it.id]; return st ? effectiveP(st, now) : 0; };
+    return [...items].sort((a, b) => weakness(a) - weakness(b)).slice(0, REVIEW_SIZE);
+  }, [ids, state.items]);
   if (gateAllowed === null) return null;
   if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
 

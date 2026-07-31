@@ -29,7 +29,9 @@ export default function AICoachScreen() {
   const ringBottom = height * 0.15 + width * 0.40;
   const sakuraTop = height - 20 - width * 0.60 * 1.37;
   const bandTop = Math.min(ringBottom + 12, height * 0.5);
-  const bandH = Math.max(150, sakuraTop - bandTop - 12); // 帯の高さ(最低150px確保)。超過分はカード内スクロール。
+  // 帯の高さ: 本文(見出し＋合格率＋弱点＋助言)が切れないよう最低300px確保。画面が小さければ画面高の66%まで拡大し、
+  // それでも収まらない時だけカード内スクロール(テキストが途中で切れて見えないのを防ぐ・ユーザー指定2026-07-31)。
+  const bandH = Math.min(Math.max(300, sakuraTop - bandTop - 12), height * 0.66);
 
   const advice = useMemo(() => {
     const status = homeStatus(state, Date.now());
