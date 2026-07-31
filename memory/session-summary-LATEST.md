@@ -1,15 +1,19 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 1 回・3 ターン
-- 往復 13072 回
+- ツール呼び出し 54 回・93 ターン
+- 往復 13165 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
-- App.tsx
-- src/screens/ShopScreen.tsx
-- src/components/AfterStudyReward.tsx
+- src/screens/AccountScreen.tsx
+- src/screens/HomeScreen.tsx
+- src/components/AccountGrowthCard.tsx
+- src/screens/KanjiDetailScreen.tsx
+
+## ⚠️ 注意
+- - ⚠ 連続 93ターン（文脈 19万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 93ターン・ツール54回）— まとめ方を変える
 
 ## 次の一手
 - **🔄 大転換=物語システム撤去＋新オンボ実装＝完了・ビルド済（2026-07-30〜31）**: 方針＝「軸となるストーリーを作らない。桜と柴犬は癒し/ねぎらい専用(数字を言わない)。成長/数値はAIコーチ(別空間)に集約。癒しと分析を綺麗に分離」。**①撤去(commit`6b1a71c`)**=願い(wish)一式・復元クエスト(library/LibraryPanel)・合否申告→色紙(resultReport/ResultReportCard/ShikishiWall)・受験日の桜一言(examLine)・幽霊(SessionSummary/PassRing)。中立化=voice.ts(daily/session_end等のみ)/SakuraSpeech(出迎えのみ)。残=AfterStudyReward＋季節画像(=約10回に1度のご褒美)・decay/greeting・桜/柴犬資産・AICoachScreen。**②新オンボ(commit`1ffe146`)**=初回だけ`assets/onboarding/opening.jpg`に台詞レイヤー上部表示「はじめまして。桜です。/一緒に日本語の勉強、頑張りましょう」→AIコーチ設定(既存light/darkテーマ・目標N5/N4/N3・受験日JLPT2択+未定・毎日リマインド任意)→ホーム。日付=`src/data/jlptDates.ts`共有(Profileも移行)。**タブ構成は現状維持**。**③UI磨き(commit`eee65bd`)**=ショップを共通テーマ(useColors/light-dark)に統一＋ボタン角丸ピル化／桜の吹き出しを「約8時間に1度・ホーム開時1回・タップ/11秒で消える」時間ゲート化(世界のかけら=物語は除外・純癒し)・最終表示時刻はsettings.lastSakuraSpeechAt／開発用「合格率を固定」(設定→開発用・±5＋0/20/40/60/80/100＋自動＝settings.devPassPct→homeStatus.passPct上書き)。**最新ビルド=2619/both dispatch=run`30586107249`(iOS→TestFlight/Android→Play alpha App C)・監視しない**(前=2618/run`30554777369`)。tsc0/test330緑。**次=①ホームを癒し専用に整える(桜と柴犬の今日の一枚＋一言・数字ゼロ)②AIコーチ画面を分析ホーム化(到達度%/語彙+X%/継続/効率)③ご褒美頻度を毎回→約1/10に**。概念デモHTML=scratchpad/newopening.build.html・オープニング実装確認=opening2.build.html。

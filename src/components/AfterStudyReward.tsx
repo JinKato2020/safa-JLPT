@@ -101,22 +101,25 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
         <Text style={s.accSolo}>{acc}</Text>
       ) : null}
 
-      {/* ② ご褒美イラスト＋貝＋桜のねぎらい(約10回に1度・登録の後) */}
+      {/* 獲得した貝(毎回表示・何の貝かを明示)。今回ぶん=1問正解×2貝。毎日はじめての学習ボーナス(30貝)はホームで加算。 */}
+      <View style={s.shellCard}>
+        <View style={s.shellRow}>
+          <Text style={s.shellIco}>🐚</Text>
+          <Text style={s.shellN}>+{shellsEarned}</Text>
+          <Text style={s.shellL}>貝</Text>
+        </View>
+        <Text style={s.shellNote}>1問正解 = 2貝　／　毎日はじめての学習 = 30貝</Text>
+      </View>
+
+      {/* ② ご褒美イラスト＋桜のねぎらい(約10回に1度・登録の後) */}
       {showReward && img && (
         <View style={[s.imgFrame, { width: frameW, height: frameH }]}>
           <Image source={img} style={s.img} resizeMode="cover" />
         </View>
       )}
-      {showReward && (
+      {showReward && !!line && (
         <View style={s.rewardBlock}>
-          {shellsEarned > 0 && (
-            <View style={s.shellRow}>
-              <Text style={s.shellIco}>🐚</Text>
-              <Text style={s.shellN}>+{shellsEarned}</Text>
-              <Text style={s.shellL}>貝</Text>
-            </View>
-          )}
-          {!!line && <Text style={s.voice}>{line}</Text>}
+          <Text style={s.voice}>{line}</Text>
         </View>
       )}
 
@@ -150,6 +153,9 @@ const makeStyles = (c: ThemeColors) =>
     imgFrame: { borderRadius: radius.lg, overflow: 'hidden', backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line },
     img: { width: '100%', height: '100%' },
     rewardBlock: { width: '100%', alignItems: 'center', gap: spacing.xs },
+    // 貝カード=毎回表示。獲得数＋「何の貝か」の説明を添える。
+    shellCard: { width: '100%', alignItems: 'center', gap: 2, backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.sm },
+    shellNote: { fontSize: ty.tiny, color: c.mute, fontWeight: '700' },
     shellRow: { flexDirection: 'row', alignItems: 'baseline', gap: 6 },
     shellIco: { fontSize: ty.h2 },
     shellN: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },

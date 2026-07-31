@@ -34,7 +34,7 @@ export default function HomeScreen() {
   // 継続・上達の桜貝付与(awardOnce が二重付与を防ぐので毎マウント呼んで安全)。
   useEffect(() => {
     const td = dayStr(now);
-    if (state.streak.history.includes(td)) awardOnce('dailyFirst-' + td, 10);
+    if (state.streak.history.includes(td)) awardOnce('dailyFirst-' + td, 30); // 毎日学習ボーナス=30貝(1日1回)
     if (state.streak.current >= 7) awardOnce('streak7', 50);
     if (state.streak.current >= 30) awardOnce('streak30', 200);
     const p = status.passPct;
