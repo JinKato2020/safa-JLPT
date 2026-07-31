@@ -38,8 +38,10 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
   const [fallbackSeed] = useState(() => (Date.now() & 0xffff) | 1);
   const seedV = seed ?? fallbackSeed;
 
-  // ご褒美(②③)は約10回に1度。表示可否はマウント時に固定(この後カウンタを+1しても画面は変わらない)。
-  const [showReward] = useState(() => ((state.settings.afterStudyCount ?? 0) % REWARD_EVERY) === 0);
+  // ご褒美(②③)は約10回に1度。開発用トグル(devRewardHalf)がONの時だけ2回に1回に上げる(表示頻度の確認用)。
+  // 表示可否はマウント時に固定(この後カウンタを+1しても画面は変わらない)。
+  const rewardEvery = state.settings.devRewardHalf ? 2 : REWARD_EVERY;
+  const [showReward] = useState(() => ((state.settings.afterStudyCount ?? 0) % rewardEvery) === 0);
 
   // 毎日はじめての学習=30貝。この学習が今日の最初か(=まだ未付与か)をマウント時に固定。
   // 付与前に判定して「今回この画面で30貝を出すか」を決める。付与自体は下のeffectで1回だけ。

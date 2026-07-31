@@ -378,6 +378,27 @@ export default function ProfileScreen() {
           </View>
           <View style={s.telemRow}>
             <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>ご褒美を1/2で出す</Text>
+              <Text style={s.subtle}>ON=ご褒美イラストを2回に1回出す（通常は約10回に1回）。表示頻度の確認用</Text>
+            </View>
+            <Switch
+              style={s.telemSwitch}
+              value={state.settings.devRewardHalf === true}
+              onValueChange={(v) => setSettings({ devRewardHalf: v })}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+          </View>
+          {/* オープニング(初回のオンボーディング)を再表示。onboarded=falseで App が Onboarding 画面へ切替(認証フロー型)。 */}
+          <Pressable style={s.telemRow} onPress={() => setSettings({ onboarded: false })}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>オープニングを確認する</Text>
+              <Text style={s.subtle}>初回のオープニング（桜の挨拶→初期設定）をもう一度表示する</Text>
+            </View>
+            <Text style={s.chev}>›</Text>
+          </Pressable>
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
               <Text style={s.telemLbl}>{t('pro.row_label')}</Text>
               <Text style={s.subtle}>{proText}</Text>
             </View>
