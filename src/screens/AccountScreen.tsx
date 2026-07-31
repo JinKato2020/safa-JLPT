@@ -137,6 +137,9 @@ export default function AccountScreen() {
             <Text style={s.benefitSub}>{t('account.benefit_sub')}</Text>
           </View>
 
+          {/* 未ログインでも直近の試験情報カードを表示(試験日/残日数/申込期間/費用)。 */}
+          <ExamInfoCard />
+
           <Pressable style={[s.googleBtn, busy && s.ctaOff]} onPress={onGoogle} disabled={busy}>
             <Ionicons name="logo-google" size={20} color="#EA4335" />
             <Text style={s.googleTxt}>{t('account.google')}</Text>
