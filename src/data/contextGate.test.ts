@@ -16,7 +16,7 @@ for (const lv of GATED) {
   test(`文脈規定${lv}: verifiedだけを出題する(旧データの分野違いダミーは出さない)`, () => {
     const v = verified(lv);
     assert.ok(v.length > 0, `${lv}のverifiedが0件ならテストが空回りする`);
-    assert.ok(v.length < bank(lv).length, `${lv}は一部だけ作り直し済み=ゲートが意味を持つ前提`);
+    assert.ok(v.length <= bank(lv).length, `${lv}のverified数がbankを超えるのは異常`); // 全問検証済みも許容(N4は完了)
     const ids = units(lv);
     assert.equal(ids.length, v.length);
     const want = new Set(v.map((e) => `${e.id.slice(3)}#context`));
@@ -48,8 +48,9 @@ for (const lv of GATED) {
 }
 
 test('誤答が足りずタグを付けた語は出題されない', () => {
+  // needsWork(誤答不足)タグが残っている問題は verified/出題されてはならない。
+  // タグ0件も正常(検査が進み全て解消/検証済みになった=N4は完了)。0件なら不変条件は空で真。
   const tagged = CONTEXT_BANK.filter((e) => (e as { needsWork?: string }).needsWork);
-  assert.ok(tagged.length > 0, 'タグ付きが0件ならテストが空回りする');
   for (const e of tagged) {
     assert.ok(!e.verified, `${e.id}: 誤答不足なのにverifiedが付いている`);
     assert.ok(!units(e.level).includes(`${e.id.slice(3)}#context`), `${e.id}: 誤答不足なのに出題されている`);

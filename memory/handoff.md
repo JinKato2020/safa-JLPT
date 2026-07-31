@@ -28,22 +28,26 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 51ターン（文脈 37万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 51ターン・ツール20回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
-- afdc995ef86d15f2a workflow-subagent
-- ac4d85c44d469e42b workflow-subagent
-- a8b94797ef68a91df workflow-subagent
-- aef312fdecf102ed9 workflow-subagent
-- acee09a6ddf6e1778 workflow-subagent
+- a24a55339e7688334 general-purpose
+- a299080a95b15e8d3 general-purpose
+- a47ab6769b1b9a288 general-purpose
+- ae9c448fbd26954a9 general-purpose
+- a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
+- memory/在庫問題数.txt
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- 文脈規定_N4_人手が必要な問題.md
+- content/problems/moji_goi/context_N4.json
 - tools/bake_context_verify.py
-- scratchpad/context_verify/wf_verify_N4.mjs
-- tools/build_context_verify_wf.py
 - memory/session-summary-LATEST.md
-- scratchpad/context_regen/wf_polish_N4.mjs
-- scratchpad/context_regen/wf_context_N4.mjs
-- scratchpad/context_regen/select_N3.json
+- memory/handoff.md
 
-_自動更新: 2026-07-31 18:15_
+_自動更新: 2026-07-31 18:24_
 <!-- AUTO:END -->
