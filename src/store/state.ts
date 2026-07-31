@@ -23,7 +23,6 @@ export interface Settings {
   theme: ThemeMode;
   reminder: string | null; // 学習リマインド "HH:MM"
   onboarded: boolean;      // オンボーディング(自己チェック)完了
-  tourDone?: boolean;      // 初回ガイドツアー完了(旧stateには無い→未完扱い)
   accountPromptSeen?: boolean; // 初回のアカウント登録案内を表示済み(旧stateには無い→未表示)
   uiLang?: string;         // UI表示言語(未設定→端末言語を自動判定)
   telemetry?: boolean;     // 利用状況の匿名送信(未設定/true=ON, false=停止)
@@ -129,7 +128,7 @@ export const DEFAULT_OWNED = [DEFAULT_HAIR_ID, NONE_BRUSH_ID, NONE_COSTUME_ID, D
 
 export const INITIAL_STATE: AppState = {
   version: STATE_VERSION,
-  settings: { level: 'N4', l1: 'vi', examDate: null, theme: 'dark', reminder: null, onboarded: false, tourDone: false, font: 'mincho' },
+  settings: { level: 'N4', l1: 'vi', examDate: null, theme: 'dark', reminder: null, onboarded: false, font: 'mincho' },
   items: {},
   streak: { current: 0, longest: 0, lastStudyDay: null, freezes: 2, history: [] },
   growth: [],

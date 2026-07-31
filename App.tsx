@@ -46,7 +46,6 @@ import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './sr
 import { initAds } from './src/pro/ads';
 import { walletPoints } from './src/store/wallet';
 import { mockTicketCount } from './src/store/tickets';
-import TourOverlay from './src/components/TourOverlay';
 import SafeBoundary from './src/components/SafeBoundary';
 import { DesignThemeProvider } from './shared/JLPT-Listening/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers, sendLifecycleMetrics } from './src/telemetry/telemetry';
@@ -338,8 +337,7 @@ function Root() {
         )}
       </RootStack.Navigator>
     </NavigationContainer>
-    {settings.onboarded && !settings.tourDone && <TourOverlay />}
-    {settings.onboarded && settings.tourDone && !session && !settings.accountPromptSeen && <AccountPrompt />}
+    {settings.onboarded && !session && !settings.accountPromptSeen && <AccountPrompt />}
     </View>
     </DesignThemeProvider>
   );
