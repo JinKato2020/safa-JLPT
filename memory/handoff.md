@@ -1,10 +1,12 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+- **🔄 大転換=物語システム撤去＋新オンボ実装＝完了・ビルド済（2026-07-30〜31）**: 方針＝「軸となるストーリーを作らない。桜と柴犬は癒し/ねぎらい専用(数字を言わない)。成長/数値はAIコーチ(別空間)に集約。癒しと分析を綺麗に分離」。**①撤去(commit`6b1a71c`)**=願い(wish)一式・復元クエスト(library/LibraryPanel)・合否申告→色紙(resultReport/ResultReportCard/ShikishiWall)・受験日の桜一言(examLine)・幽霊(SessionSummary/PassRing)。中立化=voice.ts(daily/session_end等のみ)/SakuraSpeech(出迎えのみ)。残=AfterStudyReward＋季節画像(=約10回に1度のご褒美)・decay/greeting・桜/柴犬資産・AICoachScreen。**②新オンボ(commit`1ffe146`)**=初回だけ`assets/onboarding/opening.jpg`に台詞レイヤー上部表示「はじめまして。桜です。/一緒に日本語の勉強、頑張りましょう」→AIコーチ設定(既存light/darkテーマ・目標N5/N4/N3・受験日JLPT2択+未定・毎日リマインド任意)→ホーム。日付=`src/data/jlptDates.ts`共有(Profileも移行)。**タブ構成は現状維持**。**③UI磨き(commit`eee65bd`)**=ショップを共通テーマ(useColors/light-dark)に統一＋ボタン角丸ピル化／桜の吹き出しを「約8時間に1度・ホーム開時1回・タップ/11秒で消える」時間ゲート化(世界のかけら=物語は除外・純癒し)・最終表示時刻はsettings.lastSakuraSpeechAt／開発用「合格率を固定」(設定→開発用・±5＋0/20/40/60/80/100＋自動＝settings.devPassPct→homeStatus.passPct上書き)。**最新ビルド=2619/both dispatch=run`30586107249`(iOS→TestFlight/Android→Play alpha App C)・監視しない**(前=2618/run`30554777369`)。tsc0/test330緑。**次=①ホームを癒し専用に整える(桜と柴犬の今日の一枚＋一言・数字ゼロ)②AIコーチ画面を分析ホーム化(到達度%/語彙+X%/継続/効率)③ご褒美頻度を毎回→約1/10に**。概念デモHTML=scratchpad/newopening.build.html・オープニング実装確認=opening2.build.html。
+
 - **🐛 実機テスト3バグ修正＝iOS 2611で配信中（2026-07-29）**: commit932cc7c・tsc0/test366緑・run`30424126041`(platforms=ios)。①母語訳の英語落ち＝カタカナ外来語16語のne欠落→`content/lexicon/meaning_*.json`にne追加(manifest/bundle再生成済)。※UI言語(uiLang)と意味の母語(l1)は別設定＝仕様（日本語UIでも意味はl1=neのまま）。②ルビ下の漢字上端切れ＝`RubyText.tsx`のbase lineHeightを1.18倍(col gap0で相殺)。③書き取り自己交差の線切れ＝`engineHtml.ts`の`#t svg path`をround結合/nonzero(iOS WKWebView対策・**要実機確認**)。**次=iOS実機で3件確認**。**Android未解決**＝ads SDK(AdMob)のKotlin2.3.0がKSP2と不整合([[android-admob-kotlin-2_3-mismatch]])→次善=AdMob版downgrード or 広告後回し。
-- **📖 世界観ストーリー P0＝実装完了・配信済み**: v2602/both dispatch=run `30398250437`（push済602コミット）。tsc0・test359緑。正本=`docs/superpowers/specs/2026-07-28-書斎ストーリー-design.md`(v6)＋`docs/superpowers/specs/桜-口調シート.md`。核＝**軸=ユーザーの「願い」を世界の中心**（使命は預かる／没入は狙わない=選択・痕跡・承認／物語は乗数）。成果コード=`src/story/{wish,decay,voice,examLine,resultReport,metrics}.ts`＋UI配線`src/home/{SakuraSpeech,ResultReportCard,ShikishiWall}.tsx`＋学習後まとめ画面`src/components/AfterStudyReward.tsx`（毎問登録廃止→最後に10単語☑まとめ・桜貝＋ねぎらい・四季画像`src/data/afterStudyArt.ts`／`assets/afterstudy/{spring,summer,autumn,winter}.png`）。**次=P1〜（要画像/Rive・要見積りD1）**＝合格リング意匠/入場物語/機能の衣。**ユーザー待ち**=全画面の合格ムービー（AI動画・Veo/Kling等でユーザーが作成）→来たら私が`expo-av`で合格報告に全画面配線。台詞のC2/C3後払い在庫は到達直前に執筆（今は下位棚へ自動フォールバック）。
-- **🔊 聴解 新260問の音声（未生成・要D1見積提示）**: 対象=各大問021-040の260問（001-020は既存mp3が実在）。IDリスト=`問題/聴解/audio_todo_021-040.txt`。手順=生成前に`python 問題/tools/tts_script.py`で台本更新→`python 問題/tools/gen_choukai_json.py --ids-file 問題/聴解/audio_todo_021-040.txt`。声=ナレータAoede／対話Orus,Fenrir,Leda,Kore／独話は既定Leda・男役のみOrus／番号・末尾は合格クリップ固定。実費目安¥300-500（Gemini2.5Flash TTS・同期）→**実行前に円で提示（親D1）・後でD2報告**。後工程=assets/audio自動コピー→Pages配信→**OTA `_manifest.json`再生成必須**([[ota-manifest-regen-or-stale]])→ビルド。正本=`md/聴解_音声作成フロー.md`・[[choukai-audio-pipeline]]・[[choukai-authoring-flow]]。
-- **🌏 翻訳(i18n)＝全10言語まとめて・保留中**: passage_grammar 200セットのne他が未訳（読解は完備）。落ちはしない（`PassageSetPlayer.tsx`が`l1==='ne'`時だけ訳トグル）。見張り=`src/data/exam/passageTransNe.test.ts`（`KNOWN_PG_UNTRANSLATED=200`・増えたら赤）。やる時は**ネパール単独でなく10言語同時・見積も10言語分**。[[i18n-translate-all-10-langs-at-once]]。
+- **📖 旧・世界観ストーリー(願い/復元)＝2026-07-30に全撤去済み(上の🔄参照)＝無効**。`docs/superpowers/specs/書斎ストーリー-design.md`等の願い中心設計は不採用。癒し資産(AfterStudyReward・四季画像`assets/afterstudy/*`・桜/柴犬)のみ新方針で存続。合格ムービー(ユーザー作成のAI動画→`expo-av`で合格報告に全画面配線)の受け入れ口だけは今後も有効。
+- **🔊 聴解 音声＝全520本 生成・コミット・push済み（2026-07-29 実データ確認・完了）**: 13大問×各40問=520問すべてに実音声mp3が実在（`assets/audio`・中央値約0.5MB・空/壊れ0）。新260問(021-040)は 07-27〜28 に生成→commit`48d346f`「聴解新音声260本」で本番反映→`main==origin/main`・`_manifest.json`再生成済み=OTA配信可。**⚠旧記述「260未生成・要D1見積」はこの生成より前の古い記録＝無効**（`choukai_gen_done.txt`は180IDだが記録漏れで、mp3実体は260本そろう）。作り直したい時だけ手順=`md/聴解_音声作成フロー.md`＋`tools/choukai`。[[choukai-audio-pipeline]]・[[choukai-authoring-flow]]。
+- **🌏 翻訳(i18n)＝指示があるまで他言語に触らない（厳命2026-07-30）**: 新規UI文字列は`ja.json`だけに入れる＝他言語は`t()`がjaへ自動フォールバック（既にbn/id/ko/my/th/vi/zhは約370キー=半分未訳でこの方式で運用中・ne/enほぼ完備）。**先回り翻訳・小出し禁止**。翻訳はユーザーが明示した時だけ一括＋円見積り。バックログ=`tools/i18n_backlog.py`（`--lang <l>`で作業リスト・`--stale`で幽霊キー）。保留=passage_grammar 200セット本文訳。[[i18n-translate-all-10-langs-at-once]]。
 - **💰 課金の続き＝正本は別ファイル** `memory\monetize-inflight.md`（Phase0-1は配信済＝1日3回ゲートON。残るユーザー手作業=AdMob/ストア設定等はそちらを参照）。
 
 ## 道具・正本（毎回は読まない・必要時だけ）
@@ -33,14 +35,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- 画像/ストーリー/ストーリー.xlsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
 - App.tsx
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- src/kakitori/engineHtml.ts
-- src/components/RubyText.tsx
+- src/screens/ShopScreen.tsx
+- src/components/AfterStudyReward.tsx
+- src/i18n/ja.json
+- src/store/state.ts
+- src/home/SakuraSpeech.tsx
 
-_自動更新: 2026-07-29 14:31_
+_自動更新: 2026-07-31 11:14_
 <!-- AUTO:END -->

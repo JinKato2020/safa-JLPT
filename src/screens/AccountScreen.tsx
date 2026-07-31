@@ -14,6 +14,7 @@ import { GUIDE } from '../data/mywordsArt';
 import { useAppState } from '../store/store';
 import { SHOP_BY_ID } from '../data/shop';
 import { useSync } from '../auth/SyncProvider';
+import ExamInfoCard from '../home/ExamInfoCard';
 
 type Tab = 'signup' | 'login';
 
@@ -109,6 +110,8 @@ export default function AccountScreen() {
             <Text style={s.acctEmail}>{acctEmail}</Text>
             <Text style={s.benefitSub}>{t('account.synced_at', { t: syncedLabel })}</Text>
           </View>
+          {/* 最終同期の下に試験情報カード(試験日/残日数/申込期間/費用)。ホームのリングシートから移設。 */}
+          <ExamInfoCard />
           {/* ログアウトは一番下へ押し下げる */}
           <View style={s.spacer} />
           <Pressable style={s.manageBtn} onPress={() => { void signOut(); }}>

@@ -9,6 +9,7 @@ import { growthBars, weekGain, passCurve, passGain } from '../home/growthStats';
 import { daimonUnitIds } from '../data/daimon';
 import { ringItemIdsFor } from '../data';
 import { useT } from '../i18n';
+import RingGauge from './RingGauge';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 
 const CHART_H = 40;
@@ -45,6 +46,8 @@ export default function AccountGrowthCard() {
   const vocabLearned = Math.round(vocabCov * vocabTotal / 100);
   const bunkouLearned = Math.round(bunkouCov * bunkouTotal / 100);
 
+  // リングの色=到達度(80%↑=緑 / 50%↑=橙 / 未満=赤)。CategoryCardと同じ基準。
+  const ringColor = (v: number): string => (v >= 80 ? c.green : v >= 50 ? c.amber : c.red);
   // リング用（4カテゴリの達成度）
   const rings = useMemo(() => ringsFor(state, now), [state, now]);
   const mojiRing = rings.moji_goi ?? 0;
@@ -103,7 +106,7 @@ export default function AccountGrowthCard() {
         ))}
       </View>
 
-      {/* リング（漢字・語彙、文法、読解、聴解） */}
+      {/* リング（漢字・語彙、文法、読解、聴解）。色で到達度を表現(80%↑=緑 / 50%↑=橙 / 未満=赤)。 */}
       <View style={s.ringGroup}>
         {[
           { label: '漢字・語彙', pct: mojiRing },
@@ -111,12 +114,7 @@ export default function AccountGrowthCard() {
           { label: '読解', pct: dokakaiRing },
           { label: '聴解', pct: chouakaiRing },
         ].map((item, i) => (
-          <View key={i} style={s.ringItem}>
-            <View style={[s.ringCircle, { borderColor: c.blue }]}>
-              <Text style={s.ringText}>{item.pct}%</Text>
-            </View>
-            <Text style={s.ringLabel}>{item.label}</Text>
-          </View>
+          <RingGauge key={i} value={item.pct} color={ringColor(item.pct)} label={item.label} size={62} stroke={6} />
         ))}
       </View>
     </View>
@@ -141,8 +139,4 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   coverageFill: { height: '100%', borderRadius: 3 },
   coverageNum: { fontSize: ty.tiny, fontWeight: '700', color: c.faint, width: 45, textAlign: 'right' },
   ringGroup: { flexDirection: 'row', justifyContent: 'space-around', marginTop: spacing.sm, gap: spacing.xs },
-  ringItem: { alignItems: 'center', gap: spacing.xs },
-  ringCircle: { width: 50, height: 50, borderRadius: 25, borderWidth: 3, alignItems: 'center', justifyContent: 'center' },
-  ringText: { fontSize: ty.small, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
-  ringLabel: { fontSize: 10, fontWeight: '600', color: c.faint, textAlign: 'center', lineHeight: 12 },
 });

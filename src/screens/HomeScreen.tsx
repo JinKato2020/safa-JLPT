@@ -10,7 +10,6 @@ import { TabBackground } from '../components/TabScene';
 import { useHomeBg } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
 import HomeCoach from '../home/HomeCoach';
-import ExamInfoCard from '../home/ExamInfoCard';
 import SakuraSpeech from '../home/SakuraSpeech';
 import SafeBoundary from '../components/SafeBoundary';
 import AccountGrowthCard from '../components/AccountGrowthCard';
@@ -112,8 +111,7 @@ export default function HomeScreen() {
       </TabBackground>
       <SwipeSheet visible={showCards} onClose={() => setShowCards(false)}>
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.cardsList}>
-          {/* 最上部＝試験情報(桜＋試験日/残日数/申込期間/費用)。その下に成長・継続カード。 */}
-          <ExamInfoCard />
+          {/* 成長・継続カード。試験情報カードはアカウント画面(最終同期の下)へ移設。 */}
           <AccountGrowthCard />
           <AccountStreakCard />
         </ScrollView>

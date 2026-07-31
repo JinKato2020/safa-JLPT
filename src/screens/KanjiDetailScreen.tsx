@@ -55,9 +55,10 @@ export default function KanjiDetailScreen() {
   const l1 = settings.l1;
   const info = useMemo(() => KANJI.find((k) => k.char === char), [char]);
   const card = KANJI_CARDS[char] as KanjiCard | undefined;
-  // 意味: 母語(l1) > カードの簡潔意味(glossShort) > 同梱の全義。詳細(glossFull)は下に小さく併記。
-  const meaning = (l1 && l1 !== 'en' ? meaningIn(char, l1) : undefined) ?? card?.glossShort ?? info?.meaning;
-  const meaningFull = card?.glossFull ?? info?.meaning;
+  // 意味: 母語(l1) > カードの簡潔意味(glossShort) > 同梱の全義。母語訳がある時は英語の全義を併記しない(二言語併記はしない)。
+  const l1Meaning = l1 && l1 !== 'en' ? meaningIn(char, l1) : undefined;
+  const meaning = l1Meaning ?? card?.glossShort ?? info?.meaning;
+  const meaningFull = l1Meaning ? undefined : (card?.glossFull ?? info?.meaning);
   const readings = useMemo(() => cardReadingLines(char), [char]);
   // 漢字を my単語帳 に保存(★トグル)。kanji.json の id を参照に使う。
   const saveRef = info ? ({ type: 'kanji', id: info.id } as const) : null;

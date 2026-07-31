@@ -164,7 +164,8 @@ export default function QuizScreen() {
             accuracy={answered ? Math.round((correctCount / answered) * 100) : 0}
             mode="quiz"
           />
-          <AppButton label={t('quiz.see_results')} onPress={() => nav.goBack()} full={false} style={{ marginTop: spacing.sm }} />
+          {/* 既に結果表示中。ボタンは「結果を見る」ではなくホームへ戻る(他ドリル画面と統一)。 */}
+          <AppButton label={t('reading.backToHome')} onPress={() => nav.goBack()} full={false} style={{ marginTop: spacing.sm }} />
         </ScrollView>
       </SafeAreaView>
     );

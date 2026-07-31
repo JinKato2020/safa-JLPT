@@ -197,8 +197,8 @@ export default function BrowseScreen() {
               <Text style={s.termRuby} numberOfLines={1}>{rubyGate(item.word) ? item.reading : ' '}</Text>
               <Text style={s.term}>{item.word}</Text>
             </View>
+            {/* 意味は母語(l1)のみ。英語は母語訳が無い時のフォールバックとしてだけ表示(二言語併記はしない)。 */}
             <Text style={s.meaning}>{nm(item.id) ?? item.meaning}</Text>
-            {nm(item.id) ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
             {(() => {
               const ex = vocabExOf(item);
               // ふりがな付きの正データ(VOCAB_FURIGANA=vocabExamplesAi由来)を優先=ルビ表示。無ければ素の例文。
@@ -206,18 +206,17 @@ export default function BrowseScreen() {
               const ja = furi ?? ex?.ja;
               if (!ja) return null;
               const norm = (str?: string) => (str ? str.replace(/[（(][^）)]*[）)]/g, '').replace(/\s|　/g, '') : '');
-              // 英訳は表示JA(良文)と同一文の時だけ(共有辞書の別例文との不一致を避ける)。
+              // 訳は母語(l1)を優先。無い時だけ英訳(表示JAと同一文の時のみ)にフォールバック。二言語は併記しない。
               const en = ex?.en && norm(ex.ja) === norm(ja) ? ex.en : undefined;
               const nex = l1 && l1 !== 'en' ? exampleIn(item.id, l1) : undefined;
-              return (<>{renderSentence(ja, item.word, en)}{nex ? <Text style={s.exampleNe}>{nex}</Text> : null}</>);
+              return renderSentence(ja, item.word, nex ?? en);
             })()}
           </>
         ) : item.type === 'kanji' ? (
           <>
             <Text style={s.term}>{item.char}</Text>
-            {/* 意味はローカル優先: 母語 > カードの簡潔意味(glossShort) > 同梱/リモート。リモートの平坦な多義羅列を避ける。 */}
+            {/* 意味は母語(l1)のみ。母語訳が無い時だけ簡潔意味(英語)にフォールバック。二言語併記はしない。 */}
             <Text style={s.meaning}>{nm(item.char) ?? KANJI_CARDS[item.char]?.glossShort ?? item.meaning}</Text>
-            {nm(item.char) && KANJI_CARDS[item.char]?.glossShort ? <Text style={s.meaningEn}>{KANJI_CARDS[item.char].glossShort}</Text> : null}
             {(() => {
               const lines = cardReadingLines(item.char, settings.level);
               return (
