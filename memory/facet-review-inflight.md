@@ -18,8 +18,9 @@
    - ✅ **P5 予想得点の面参照化**=`selectors.ts unitMasteryWithTransfer`を面優先(facetsForUnit→facetEffectiveP)、面未構築時のみ従来items＋vProduce持ち込みへフォールバック。context/synonym=同mean面で一貫。回帰(ladderWeighting/wordTabTransfer)は面未設定でフォールバック→緑。新test3。全数370緑・tsc0。コミット予定。
    - ✅ **P5.5 面キー統合（設計§3.1完全準拠・ユーザー確定）**=facetMapに`KB_RESOLVE`追加＝用法(kb)→語IDのmean面(stem→vocabId・81%)、文法形式/組み立て(kb)→文法pointIdのgrammar面(82%/65%)。文章の文法はpointId列が無く設問ID単位のまま。生データ(items/テレメトリ)は不変＝面(要約)だけ束ねる。「どの問題を落としたか」はitemsに全残存。全数372緑・tsc0。
    - ✅ **P6 UI入口+旧mixed撤去**=Quiz `review:true`モード追加(selectReview→unitForPick→questionForUnit・空状態)。入口=ホーム(AICoachScreenアドバイス末尾CTA)＋書斎(WordsHub桜tap/CardsScreenトップ)。試験/辞書には置かない(ユーザー方針)。試験タブ全部混ぜ撤去。ラベル→「試験問題の復習」。unitForPickはバンクid集合判定=未解決用法も描ける。runtime smoke通過。全数372緑・tsc0。
-   - ⬜ P7書き取り2ターン→P8検証
-   - ⬜ **別件(ユーザー質問2026-08-01)=予想得点の大問重み**。均等割り(聴解4→各25%/読解3→各33%)は非現実的。設問数(配点)シェアで重み付けが正。現状の実装(ladder/passRate.ts expectedScore・selectors categoryPct/skillWeight)が均等か設問数重みか要確認→必要なら是正。この復習フロー一区切り後に着手。
+   - 〜 **P7書き取り2ターン=本質達成済み**: 現行KakitoriScreenが各字で なぞり→見て→見ないで(お手本非表示リコール)を行い、見ないで完了で`recordKakitori(char,step3)`→P2配線でwrite面へ底上げ稼働。§6の残差は「5字一括なぞり→5字一括テスト」のバッチ化(順序入替)のみ=教育効果等価・回帰リスク大につき**任意保留**。
+   - ✅ **予想得点の大問重み=確認済・是正不要**: 現状すでに`DAIMON_BLUEPRINT`(本番出題数)で重み付け(`ladderPassEntries`のn＝出題数、`expectedScore`のfrac=Σ(n·μ)/Σn)。均等割りではない(N3例:文脈規定11/言い換え5/用法5/文法形式13…)。読解聴解は`categoryPct`が設問数×難易度重み。コメントにも「旧均等を出題数重みへ是正済み」と明記。
+   - ✅ **ラベル変更**: 統合復習「試験問題の復習」→「今日のおすすめ」(ja.jsonのみ・コミット済・次ビルドで反映)。
 
 ## 次の一手
 = **P7 書き取り2ターン化**（KakitoriScreenを学習ターン(なぞり5字)→問題ターン(見ずに5字採点)へ。合格でwrite面底上げ=P2の`facetsForKakitori`合流が受ける・既存SRS間隔1/3/7/16/35は維持）。その後P8総検証。**別途、予想得点の大問重み(設問数シェア)是正**をユーザーと相談。**実機確認未**＝復習フロー(各入口→10問→採点→AfterStudyReward)を`/run`で通したい。
