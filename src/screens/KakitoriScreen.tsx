@@ -101,14 +101,17 @@ export default function KakitoriScreen() {
   const readyRef = useRef(false);
 
   const [idx, setIdx] = useState(0);
-  const [step, setStep] = useState(0); // 0=なぞり / 1=見ながら / 2=見ないで(各字この3段を手動[次へ]で進む)。
+  // 2ターン制: 学習ターン(5字を1字ずつ「なぞり/見て書く」から選んで練習)→テストターン(同じ5字を見ずに書いて採点)。
+  const [turn, setTurn] = useState<'learn' | 'test'>('learn');
+  const [learnMode, setLearnMode] = useState(0); // 学習ターンの書き方: 0=なぞり / 1=手本を見て書く(スイッチ)。
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const done = idx >= chars.length;
-  const char = done ? '' : chars[idx];
+  const done = !free && turn === 'test' && idx >= chars.length; // テスト5字完了で終了(自由練習は終了しない)。
+  const char = idx < chars.length ? chars[idx] : '';
   const info = char ? kanjiInfo(char) : undefined;
-  const effStep = free ? freeStep : step;
+  // 実効ステップ(WebViewへ渡す): 自由練習=freeStep / 学習ターン=選択中の書き方 / テストターン=見ないで(2)。
+  const effStep = free ? freeStep : (turn === 'learn' ? learnMode : 2);
   const stars = char ? (state.kakitori?.[char]?.stars ?? 0) : 0;
 
   const inject = (code: string) => { webRef.current?.injectJavaScript(`try{${code}}catch(e){window.ReactNativeWebView&&window.ReactNativeWebView.postMessage(JSON.stringify({type:'error',msg:String(e)}))}; true;`); };
@@ -133,10 +136,10 @@ export default function KakitoriScreen() {
   };
 
   useEffect(() => { if (readyRef.current && !done) loadChar(char, effStep); }, [grid, speed, free, freeStep]);
-  // 仮名: 行を切り替えたら先頭字・なぞり段から。
+  // 仮名: 行を切り替えたら先頭字・学習ターンのなぞりから。
   useEffect(() => {
     if (singleChar || !isKana) return;
-    setIdx(0); setStep(0);
+    setIdx(0); setTurn('learn'); setLearnMode(0);
     if (readyRef.current && chars.length) loadChar(chars[0], 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowKey]);
@@ -166,24 +169,25 @@ export default function KakitoriScreen() {
     else playKanjiRep(ch).then((ok) => { if (!ok) fallback(); });
   };
 
-  // 前進は全て手動([次へ]/[スキップ])。各字を なぞり→見ながら→見ないで の3段で進め、
-  // 見ないで(step2)で[次へ]を押すと次の字へ。最後の字の[次へ]で done(=セッション終了)。
-  const nextChar = () => {
-    if (idx + 1 < chars.length) { setIdx(idx + 1); setStep(0); loadChar(chars[idx + 1], 0); }
-    else setIdx(chars.length); // 5字め完了 → done画面へ
-  };
+  // 前進は全て手動([次へ]/[スキップ])。
+  // 学習ターン: 選んだ書き方(なぞり/見て書く)で1字ずつ練習→[次へ]で次字。5字終わったらテストターンへ。
+  // テストターン: 見ずに1字ずつ書いて採点→[次へ]で次字。5字終わったら done。
   const advance = () => {
     if (free) return;
-    if (step < 2) { const ns = step + 1; setStep(ns); loadChar(char, ns); return; } // 同じ字の次の段へ
-    nextChar(); // 見ないで完了 → 次の字(または終了)
+    if (turn === 'learn') {
+      if (idx + 1 < chars.length) { setIdx(idx + 1); loadChar(chars[idx + 1], learnMode); }
+      else { setTurn('test'); setIdx(0); loadChar(chars[0], 2); } // 学習5字完了 → 見ずにテストへ
+      return;
+    }
+    if (idx + 1 < chars.length) { setIdx(idx + 1); loadChar(chars[idx + 1], 2); }
+    else setIdx(chars.length); // テスト5字完了 → done画面へ
   };
-  const skipChar = () => { if (!free) nextChar(); }; // 字ごとスキップ(3段飛ばして次字)
-  // 上部の3モード見出し(なぞり書き/手本を見て書く/見ないで書く)のタップで、その段へ直接切り替える。
-  // 自由練習はfreeStep、ドリル/仮名はstepを動かして同じ字を選んだモードで再ロードする。
+  const skipChar = () => { if (!free) advance(); }; // スキップ=このターンの次の字へ
+  // 自由練習: 3モード(なぞり/見て/見ないで)を直接選ぶ。学習ターン: なぞり↔見て書くのスイッチ。
   const goStep = (i: number) => {
     if (free) { setFreeStepState(i); return; }
-    if (done) return;
-    setStep(i);
+    if (done || turn !== 'learn') return; // テストターンは見ずに固定=切替不可
+    setLearnMode(i);
     if (readyRef.current) loadChar(char, i);
   };
 
@@ -200,12 +204,14 @@ export default function KakitoriScreen() {
     }
     if (m.type === 'complete') {
       if (free) return;
-      // 書けたら記録＋フィードバック。ただし自動前進しない=[次へ]は本人が選ぶ
-      // (見ないで(step2)は[次へ]を押すまで何度でも書き直せる)。
-      const score = scoreForMistakes(m.mistakes ?? 0);
-      recordKakitori(char, step + 1, score, { skipped: false, now: Date.now() });
+      // テストターン(見ずに書く)の完成だけを採点・記録=SRSスケジュール＋write面(step3)へ底上げ。
+      // 学習ターン(なぞり/見て書く)は練習なので記録しない(何度でも書き直せる)。前進は[次へ]で本人が選ぶ。
+      if (turn === 'test') {
+        const score = scoreForMistakes(m.mistakes ?? 0);
+        recordKakitori(char, 3, score, { skipped: false, now: Date.now() });
+      }
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
-      // 書き切ったら少し見せてから青線を自動クリア＝同じ字/段を続けて練習できる。前進は[次へ]で本人が選ぶ。
+      // 書き切ったら少し見せてから青線を自動クリア＝続けて練習できる。
       scheduleReset();
       // 完了後の自動発音は行わない(ユーザー要望)。読み上げは手動🎧のみ。
     }
@@ -259,22 +265,40 @@ export default function KakitoriScreen() {
           <Pressable onPress={() => (isKana ? (Speech.stop(), Speech.speak(char, { language: 'ja-JP' })) : speak(char, { manual: true }))} hitSlop={10}><Ionicons name="headset-outline" size={26} color={c.blue} /></Pressable>
         </View>
 
-        {/* 3モード見出し(なぞり書き/手本を見て書く/見ないで書く)。タップでその段へ直接切替(ユーザー要望)。 */}
-        <View style={s.dots}>
-          {[0, 1, 2].map((i) => (
-            <Pressable key={i} style={s.dotWrap} onPress={() => goStep(i)} hitSlop={6}>
-              <View style={[s.dot, i === effStep && s.dotOn]} />
-              <Text style={[s.dotLabel, i === effStep && s.dotLabelOn]}>{t(STEP_KEYS[i])}</Text>
-            </Pressable>
-          ))}
-        </View>
+        {/* 自由練習=3モード直接選択。ドリル/仮名=2ターン制。学習ターンは「なぞり/見て書く」をスイッチで選び、
+            テストターンは見ずに書く固定。 */}
+        {free ? (
+          <View style={s.dots}>
+            {[0, 1, 2].map((i) => (
+              <Pressable key={i} style={s.dotWrap} onPress={() => goStep(i)} hitSlop={6}>
+                <View style={[s.dot, i === effStep && s.dotOn]} />
+                <Text style={[s.dotLabel, i === effStep && s.dotLabelOn]}>{t(STEP_KEYS[i])}</Text>
+              </Pressable>
+            ))}
+          </View>
+        ) : turn === 'learn' ? (
+          <View style={s.turnBox}>
+            <Text style={s.turnLabel}>① {t('kakitori.turn_learn')}　{idx + 1} / {chars.length}</Text>
+            <View style={s.switchRow}>
+              {[0, 1].map((i) => (
+                <Pressable key={i} style={[s.switchBtn, i === learnMode && s.switchBtnOn]} onPress={() => goStep(i)}>
+                  <Text style={[s.switchTxt, i === learnMode && s.switchTxtOn]}>{t(STEP_KEYS[i])}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+        ) : (
+          <View style={s.turnBox}>
+            <Text style={s.turnLabelTest}>② {t('kakitori.turn_test')}・{t('kakitori.step_recall')}　{idx + 1} / {chars.length}</Text>
+          </View>
+        )}
 
         <View style={s.canvas}>
           <WebView ref={webRef} originWhitelist={['*']} source={{ html }} onMessage={onMessage}
             style={s.web} scrollEnabled={false} javaScriptEnabled domStorageEnabled />
           {loading && <View style={s.loader}><ActivityIndicator color={c.blue} /><Text style={s.loaderTxt}>{t('kakitori.loading_char')}</Text></View>}
           {error && <View style={s.loader}><Text style={s.loaderTxt}>{t('kakitori.load_error')}</Text>
-            <Pressable style={s.doneBtn} onPress={() => loadChar(char, step)}><Text style={s.doneBtnTxt}>{t('kakitori.retry')}</Text></Pressable></View>}
+            <Pressable style={s.doneBtn} onPress={() => loadChar(char, effStep)}><Text style={s.doneBtnTxt}>{t('kakitori.retry')}</Text></Pressable></View>}
         </View>
 
         {/* お手本を見る/クリア。米マスグリッドは常時(選択UIは廃止)。仮名の見て書く/見ないでランダムも廃止=上の見出しタップで切替。 */}
@@ -289,7 +313,7 @@ export default function KakitoriScreen() {
         {!free && (
           <View style={s.actions}>
             <Pressable style={[s.actBtn, s.actGhost]} onPress={skipChar}><Text style={s.actGhostTxt}>{t('kakitori.skip')}</Text></Pressable>
-            <Pressable style={[s.actBtn, s.actPrimary]} onPress={advance}><Text style={s.actPrimaryTxt}>{t('kakitori.next')} →</Text></Pressable>
+            <Pressable style={[s.actBtn, s.actPrimary]} onPress={advance}><Text style={s.actPrimaryTxt}>{(turn === 'learn' && idx + 1 >= chars.length) ? t('kakitori.to_test') : t('kakitori.next')} →</Text></Pressable>
           </View>
         )}
       </ScrollView>
@@ -326,9 +350,15 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   dots: { flexDirection: 'row', justifyContent: 'center', gap: spacing.xl, marginTop: spacing.md },
   dotWrap: { alignItems: 'center', gap: 4 }, dot: { width: 12, height: 12, borderRadius: 6, backgroundColor: c.line },
   dotOn: { backgroundColor: c.blue }, dotLabel: { fontSize: ty.small, color: c.mute }, dotLabelOn: { color: c.blue, fontWeight: '800' },
-  testBanner: { alignItems: 'center', gap: 2, marginTop: spacing.md },
-  testPhase: { fontSize: ty.body, fontWeight: '800', color: c.blue },
-  testProg: { fontSize: ty.small, fontWeight: '700', color: c.mute },
+  // 2ターン制の見出し＋学習ターンの書き方スイッチ(なぞり/見て書く)。
+  turnBox: { alignItems: 'center', gap: spacing.sm, marginTop: spacing.md },
+  turnLabel: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+  turnLabelTest: { fontSize: ty.body, fontWeight: '800', color: c.blue },
+  switchRow: { flexDirection: 'row', gap: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.pill, padding: 3, borderWidth: 1, borderColor: c.line },
+  switchBtn: { paddingVertical: 8, paddingHorizontal: spacing.lg, borderRadius: radius.pill },
+  switchBtnOn: { backgroundColor: c.blue },
+  switchTxt: { fontSize: ty.small, fontWeight: '800', color: c.ink2 },
+  switchTxtOn: { color: '#fff' },
   canvas: { alignSelf: 'center', width: SIZE, height: SIZE, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, overflow: 'hidden', marginTop: spacing.md },
   web: { flex: 1, backgroundColor: 'transparent' },
   loader: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center', gap: spacing.sm, backgroundColor: c.surface },
