@@ -34,10 +34,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 64ターン（文脈 39万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 64ターン・ツール25回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -47,13 +43,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - src/home/HomeCoach.tsx
-- assets/mywords/guide_blink.png
-- assets/mywords/guide_open.png
+- 画像/キャラクター/桜_短髪_不透明_開き目.png
+- assets/mywords/guide_open_short.png
 - memory/session-summary-LATEST.md
 - memory/handoff.md
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- src/data/afterStudyArt.ts
+- 画像/キャラクター/桜_長髪_不透明_まばたき.png
 
-_自動更新: 2026-08-02 00:48_
+_自動更新: 2026-08-02 06:54_
 <!-- AUTO:END -->

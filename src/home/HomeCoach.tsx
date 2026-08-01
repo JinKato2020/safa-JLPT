@@ -13,6 +13,8 @@ import type { HomeStatus } from './homeStatus';
 
 const OPEN = require('../../assets/mywords/guide_open.png');
 const BLINK = require('../../assets/mywords/guide_blink.png');
+// 髪型「短髪」を装備中(かつ筆/衣装なし)の既定桜=短髪版(hair3を不透明化)。短髪用の閉じ目は無いのでまばたきは静止。
+const SHORT_OPEN = require('../../assets/mywords/guide_open_short.png');
 
 export default function HomeCoach({ status, learned }: { status: HomeStatus; learned: number }) {
   const t = useT();
@@ -125,7 +127,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
         {/* 桜(案内キャラ)=右。タップで購入済みの着せ替え一覧。 */}
         <Animated.View style={{ transform: [{ translateY: bobY }], zIndex: dogInFront ? 1 : 0 }}>
           <Pressable onPress={() => setShowShop(true)} hitSlop={4}>
-            <Image source={charImg ?? (eyesClosed ? BLINK : OPEN)} style={{ width: charW, height: charH }} resizeMode="contain" />
+            <Image source={charImg ?? (isShort ? SHORT_OPEN : (eyesClosed ? BLINK : OPEN))} style={{ width: charW, height: charH }} resizeMode="contain" />
           </Pressable>
         </Animated.View>
       </View>
