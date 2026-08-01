@@ -77,8 +77,8 @@
 
 **Tests:** 旧キー集合→期待面・補強が認識面を上書きしない・二度実行で不変・フラグの効き。
 
-- [ ] migrateMastery.ts + テスト
-- [ ] storage.loadState へ配線（既存冪等移行の後段）・テスト・tsc緑
+- [x] migrateMastery.ts + テスト（認識面複製・補強p×weight・認識面を下げない・冪等）
+- [x] storage.loadState へ配線（既存冪等移行の後段・owned/equipped補完の後）・全数360緑・tsc緑
 
 ## Phase 4 — 統合復習エンジン「試験問題の復習」
 

@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { type AppState, STATE_VERSION, DEFAULT_HAIR_ID, DEFAULT_OWNED, DEFAULT_COMPANION_ID, COMPANION_IDS } from './state';
 import { KANJI, VOCAB, GRAMMAR } from '../data';
 import KB_ID_MIGRATION from '../data/exam/kbIdMigration.json';
+import { migrateMastery } from '../review/migrateMastery';
 
 const KEY = 'safa-jlpt:state:v1';
 
@@ -50,7 +51,8 @@ export async function loadState(): Promise<AppState | null> {
     if (!parsed.equipped?.hair) parsed.equipped = { ...(parsed.equipped ?? {}), hair: DEFAULT_HAIR_ID };
     // 仲間: 未装備、または旧仮ペット等の無効IDなら「はじめの仲間(柴1)」を装備。有効な柴を装備中なら本人の選択を尊重。
     if (!COMPANION_IDS.includes(parsed.equipped?.companion ?? '')) parsed.equipped = { ...(parsed.equipped ?? {}), companion: DEFAULT_COMPANION_ID };
-    return parsed;
+    // 面別マスタリー移行(一度きり・冪等)。キー正規化(daimon/bank)後の items/kakitori を面へ寄せる。
+    return migrateMastery(parsed, Date.now());
   } catch {
     return null;
   }
