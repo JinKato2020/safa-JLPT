@@ -99,6 +99,18 @@
 - [x] selectReview.ts + テスト（既習due弱い順・非due補充・同面3連続回避・新出除外）
 - [x] reviewQuestion.ts + テスト（面→unit逆写像→questionForUnit。listen/漢字char/passageは当面null）・全数367緑
 
+## Phase 5.5 — 面キーの統合（設計§3.1完全準拠・ユーザー確定2026-08-01）
+
+facetMap の写像を「大問→面(認識)」から「大問→**語/文法ポイント単位の面**」へ統合。生データ(state.items/テレメトリ)は不変で、面(要約)だけを束ねる。
+
+- 用法(usage・bare kb) → **語IDのmean面**（stem→vocabId。81%解決・残りはkb-idのまま）。文脈規定・言い換えと同じmean面に合流。
+- 文法形式/組み立て(grammar_form/order・bare kb) → **文法pointIdのgrammar面**（82%/65%解決・残りkb-id）。
+- 文章の文法(passage_grammar) → pointId無しのため当面**設問ID単位のまま**（データにpointId列が無い）。
+- 影響: 予想得点の大問別到達度は語/文法point由来で一本化（P5が自動追従）。migration/reducer も facetsForUnit 経由なので自動で統合。
+
+- [x] facetMap に KB_RESOLVE（usage→vocabId / grammar→pointId）＋facetsForUnit差し替え・テスト更新
+- [x] 用法大問→語mean面の統合をP5経路で確認する統合テスト・全数372緑・tsc緑
+
 ## Phase 5 — 予想得点の面参照化（配線差し替え）
 
 **Files:** `src/store/selectors.ts`

@@ -16,6 +16,7 @@
    - ✅ **P3 移行**=`migrateMastery.ts`（`buildMasteryFromLegacy`＝items/kakitori→面・認識面複製/補強p×weight/認識面を下げない/冪等）＋`storage.loadState`配線＋test8。全数360緑・tsc0。
    - ✅ **P4 復習エンジン**=`selectReview.ts`(既習due弱い順・非due補充・size10・同面3連続回避・新出除外)＋`reviewQuestion.ts`(面→unit逆写像→questionForUnit。unitForPick: kb-はそのまま/vocab read→#kanji_read・write→#orthography・mean→#context|#synonym/grammar id→#grammar_form。listen・漢字char・passageは当面null=読み飛ばし)＋test7。全数367緑・tsc0。
    - ✅ **P5 予想得点の面参照化**=`selectors.ts unitMasteryWithTransfer`を面優先(facetsForUnit→facetEffectiveP)、面未構築時のみ従来items＋vProduce持ち込みへフォールバック。context/synonym=同mean面で一貫。回帰(ladderWeighting/wordTabTransfer)は面未設定でフォールバック→緑。新test3。全数370緑・tsc0。コミット予定。
+   - ✅ **P5.5 面キー統合（設計§3.1完全準拠・ユーザー確定）**=facetMapに`KB_RESOLVE`追加＝用法(kb)→語IDのmean面(stem→vocabId・81%)、文法形式/組み立て(kb)→文法pointIdのgrammar面(82%/65%)。文章の文法はpointId列が無く設問ID単位のまま。生データ(items/テレメトリ)は不変＝面(要約)だけ束ねる。「どの問題を落としたか」はitemsに全残存。全数372緑・tsc0。
    - ⬜ **P6 UI入口+旧mixed撤去（見た目が変わる=ユーザー確認ポイント）**→P7書き取り2ターン→P8検証
 
 ## 次の一手

@@ -32,8 +32,28 @@ export function facetsForDaimon(itemId: string, daimon: string): FacetTarget[] {
 }
 
 // ── データ索引(bare id の逆引き用・モジュール読込時に一度だけ) ──
-// 知識バンク kb-NNNNNN → daimon(usage/order/grammar_form)。
-const KB_DAIMON = new Map<string, string>((KNOWLEDGE_BANK as { id: string; daimon: string }[]).map((b) => [b.id, b.daimon]));
+// 語の見出し → vocabId(用法の統合先)。ふりがな括弧は除いて突き合わせる。
+const FURI_PAREN = /（[^）]*）/g;
+const stripFuri = (s: string) => (s || '').replace(FURI_PAREN, '');
+const WORD_TO_VID = new Map<string, string>();
+for (const v of VOCAB) if (!WORD_TO_VID.has(v.word)) WORD_TO_VID.set(v.word, v.id);
+const GRAMMAR_ID_SET = new Set<string>(GRAMMAR.map((g) => g.id));
+
+// 知識バンク kb-NNNNNN → { daimon, itemId }。設計§3.1 の統合:
+//  用法 → 語ID(stem→vocab・意味面を語に合流) / 文法形式・組み立て → 文法pointId(文法面を文法点に合流)。
+//  解決できない分(用法で語が引けない/文法でpointId欠落)は kb-id のまま(問題単位)。
+interface KbResolved { daimon: string; itemId: string }
+const KB_RESOLVE = new Map<string, KbResolved>();
+for (const b of KNOWLEDGE_BANK as { id: string; daimon: string; stem?: string; pointId?: string }[]) {
+  let itemId = b.id;
+  if (b.daimon === 'usage') {
+    const vid = WORD_TO_VID.get(stripFuri(b.stem ?? ''));
+    if (vid) itemId = vid;
+  } else if (b.daimon === 'grammar_form' || b.daimon === 'order') {
+    if (b.pointId && GRAMMAR_ID_SET.has(b.pointId)) itemId = b.pointId;
+  }
+  KB_RESOLVE.set(b.id, { daimon: b.daimon, itemId });
+}
 // 文章の文法(passageGrammar)の全設問id(全級)→ grammar。
 const PASSAGE_Q_IDS = new Set<string>(
   (['N5', 'N4', 'N3'] as const).flatMap((lv) => passageGrammarSetsFor(lv).flatMap((s) => s.questions.map((q) => q.id))),
@@ -68,8 +88,8 @@ export function facetsForUnit(unit: string): FacetTarget[] {
     }
   }
   // bare id
-  const kbDaimon = KB_DAIMON.get(unit);
-  if (kbDaimon) return facetsForDaimon(unit, kbDaimon);
+  const kb = KB_RESOLVE.get(unit);
+  if (kb) return facetsForDaimon(kb.itemId, kb.daimon); // 用法→語 / 文法→文法point へ統合(§3.1)
   if (PASSAGE_Q_IDS.has(unit)) return [{ itemId: unit, facet: 'grammar', weight: 1 }];
   if (VOCAB_IDS.has(unit) || KANJI_IDS.has(unit) || GRAMMAR_IDS.has(unit)) return [{ itemId: unit, facet: 'listen', weight: 1 }];
   return [];

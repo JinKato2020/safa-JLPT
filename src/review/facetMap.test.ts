@@ -33,13 +33,25 @@ test('facetsForUnit: 補強キー(産出/文法作成/文法意味)は weight<1'
   assert.deepEqual(facetsForUnit('n5-g-1#gmeaning'), [{ itemId: 'n5-g-1', facet: 'grammar', weight: 0.85 }]);
 });
 
-test('facetsForUnit: bare kb- id はバンクの daimon から面(usage→mean / order・grammar_form→grammar)', () => {
-  const byDaimon = (d: string) => (KNOWLEDGE_BANK as { id: string; daimon: string }[]).find((b) => b.daimon === d);
-  const usage = byDaimon('usage');
-  const order = byDaimon('order');
-  if (usage) assert.deepEqual(facetsForUnit(usage.id), [{ itemId: usage.id, facet: 'mean', weight: 1 }], 'usage→mean');
-  if (order) assert.deepEqual(facetsForUnit(order.id), [{ itemId: order.id, facet: 'grammar', weight: 1 }], 'order→grammar');
-  assert.ok(usage || order, 'バンクに usage か order が存在する');
+test('facetsForUnit: 用法(kb)→語のmean面へ統合(stem→vocabId)', () => {
+  const FURI = /（[^）]*）/g;
+  const strip = (s: string) => (s || '').replace(FURI, '');
+  const wordToVid = new Map<string, string>();
+  for (const v of VOCAB) if (!wordToVid.has(v.word)) wordToVid.set(v.word, v.id);
+  // 語に解決できる用法問題は mean 面が「語ID」でキーされる(文脈規定/言い換えと同じ面に合流)。
+  const resolvable = (KNOWLEDGE_BANK as { id: string; daimon: string; stem?: string }[])
+    .find((b) => b.daimon === 'usage' && wordToVid.has(strip(b.stem ?? '')));
+  assert.ok(resolvable, '語に解決できる用法問題がある');
+  const vid = wordToVid.get(strip(resolvable!.stem ?? ''))!;
+  assert.deepEqual(facetsForUnit(resolvable!.id), [{ itemId: vid, facet: 'mean', weight: 1 }], '用法→語IDのmean');
+});
+
+test('facetsForUnit: 文法形式(kb)→文法pointのgrammar面へ統合(pointId)', () => {
+  const gid = new Set(GRAMMAR.map((g) => g.id));
+  const withPoint = (KNOWLEDGE_BANK as { id: string; daimon: string; pointId?: string }[])
+    .find((b) => b.daimon === 'grammar_form' && b.pointId && gid.has(b.pointId));
+  assert.ok(withPoint, 'pointId付きの文法形式問題がある');
+  assert.deepEqual(facetsForUnit(withPoint!.id), [{ itemId: withPoint!.pointId, facet: 'grammar', weight: 1 }], '文法→pointIdのgrammar');
 });
 
 test('facetsForUnit: bare 素id(語彙/文法) は listen(設計§9・履歴由来)', () => {
