@@ -21,15 +21,16 @@ const BY_SEASON: Record<Season, ReturnType<typeof require>[]> = {
 export const AFTER_STUDY_IMAGES = [SPRING, SUMMER, AUTUMN, WINTER];
 
 /**
- * 学習後に出す1枚を決める。now を渡すと今の季節の絵を優先(春→春)。
- * その季節に画像が無ければ全体からランダム。seed で同一セッション内は安定。
+ * 学習後に出す1枚を決める。seed=学習回数(afterStudyCount)を渡すと、学習ごとに1枚ずつ
+ * 順送りで切り替わる=マンネリ防止(気分転換)。同一セッション内は afterStudyCount 固定なので安定。
+ *  ・今の季節に複数枚あればその季節内で順送り。1枚だけ/無い季節は全画像を順送り(必ず変わる)。
  */
 export function pickAfterStudyImage(seed: number, now?: number) {
   const idx = Math.abs(Math.floor(seed));
   if (now != null) {
     const pool = BY_SEASON[seasonOf(now)];
-    if (pool && pool.length) return pool[idx % pool.length];
+    if (pool && pool.length > 1) return pool[idx % pool.length]; // 季節内に複数=季節優先で順送り
   }
   if (AFTER_STUDY_IMAGES.length === 0) return null;
-  return AFTER_STUDY_IMAGES[idx % AFTER_STUDY_IMAGES.length];
+  return AFTER_STUDY_IMAGES[idx % AFTER_STUDY_IMAGES.length]; // 全画像を順送り=毎回変わる
 }

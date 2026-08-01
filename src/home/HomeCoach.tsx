@@ -76,9 +76,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
     return () => { loop.stop(); sway.stop(); hop.stop(); bAlive = false; bt.forEach(clearTimeout); };
   }, [bob, dogSway, dogHop]);
 
-  // 民族衣装/背負い筆の全身絵は縦長(≒864x1184)なので少し大きめ＋縦横比を変える。既定の案内キャラはほぼ正方形。
-  const charW = Math.round(width * (charImg ? 0.60 : 0.40));
-  const charH = Math.round(charW * (charImg ? 1.370 : 1.12));
+  // 民族衣装/背負い筆の全身絵は縦長(≒864x1184)なので少し大きめ＋縦横比を変える。既定の案内キャラ(桜=hair_long)も縦長896x1152。
+  const charW = Math.round(width * (charImg ? 0.60 : 0.46));
+  const charH = Math.round(charW * (charImg ? 1.370 : 1.286)); // 既定=1152/896
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
   const dogSwayDeg = dogSway.interpolate({ inputRange: [0, 1], outputRange: ['-3deg', '3deg'] });
   const dogHopY = dogHop.interpolate({ inputRange: [0, 1], outputRange: [0, -14] });

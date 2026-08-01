@@ -12,6 +12,8 @@ import { useColors } from '../theme';
 import { useT } from '../i18n';
 import { useAppState } from '../store/store';
 import { homeStatus } from '../home/homeStatus';
+import { weekGain, passGain } from '../home/growthStats';
+import { dayStr } from '../store/state';
 
 // 水彩テーマ(桜/空/緑/藤/茜)の代表色。ライト/ダーク/autoは brand 青(c.blue)。カードのアクセントに使う。
 const TINT: Record<string, string> = {
@@ -35,18 +37,32 @@ export default function AICoachScreen() {
   // それでも収まらない時だけカード内スクロール(テキストが途中で切れて見えないのを防ぐ・ユーザー指定2026-07-31)。
   const bandH = Math.min(Math.max(300, sakuraTop - bandTop - 12), height * 0.66);
 
+  // 助言=①総合分析(予想得点＋合格率) ②成長率＋具体的証拠(この7日の合格率pt・覚えた語) ③弱点 ④ゴールまでの見通し。
   const advice = useMemo(() => {
-    const status = homeStatus(state, Date.now());
+    const now = Date.now();
+    const status = homeStatus(state, now);
+    const today = dayStr(now);
     const subs = status.subjects;
     const weakest = subs.reduce((a, b) => (b.pct < a.pct ? b : a), subs[0]);
+    const strongest = subs.reduce((a, b) => (b.pct > a.pct ? b : a), subs[0]);
     const p = status.passPct;
+    const wg = weekGain(state, today, 7);       // この7日で覚えた語(証拠)
+    const pg = Math.round(passGain(state, today, 7)); // この7日の合格率変化(pt・±)
     const hlKey = p >= 70 ? 'home.ai_hl_pass' : p >= 50 ? 'home.ai_hl_close' : p >= 20 ? 'home.ai_hl_build' : 'home.ai_hl_start';
     const cat = t(weakest.labelKey);
-    return {
-      title: t('home.ai_title'),
-      hl: t(hlKey),
-      lines: [t('home.ai_passprob', { n: p }), t('home.ai_weak', { cat, pct: weakest.pct }), t('home.ai_advice', { action: cat })],
-    };
+    const lines: string[] = [];
+    // ①総合分析
+    lines.push(t('home.ai_snapshot', { score: status.predScore, max: status.predMax, p }));
+    // ②成長率＋具体的証拠
+    if (wg > 0 || pg !== 0) lines.push(t('home.ai_growth', { pg: (pg > 0 ? '+' : '') + pg, wg, strong: t(strongest.labelKey) }));
+    else lines.push(t('home.ai_growth_none'));
+    // ③弱点
+    lines.push(t('home.ai_weak', { cat, pct: weakest.pct }));
+    // ④ゴールまでの見通し
+    if (p >= 80) lines.push(t('home.ai_outlook_reached'));
+    else if (pg > 0) lines.push(t('home.ai_outlook', { w: Math.max(1, Math.ceil((80 - p) / pg)) }));
+    else lines.push(t('home.ai_outlook_none'));
+    return { title: t('home.ai_title'), hl: t(hlKey), lines };
   }, [state, t]);
 
   return (

@@ -69,6 +69,8 @@ export default function PassageGrammarScreen() {
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
             accuracy={answered ? Math.round((correct / answered) * 100) : 0}
+            correct={correct}
+            total={answered}
             mode="passage_grammar"
           />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>

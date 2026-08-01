@@ -144,6 +144,8 @@ export default function ListeningQuizScreen() {
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
             accuracy={questions.length ? Math.round((correct / questions.length) * 100) : 0}
+            correct={correct}
+            total={questions.length}
             mode="moji_goi"
           />
           <Pressable style={s.cta} onPress={() => nav.goBack()}><Text style={s.ctaTxt}>{t('listening2.close')}</Text></Pressable>

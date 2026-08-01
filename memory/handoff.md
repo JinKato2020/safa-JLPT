@@ -42,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
-- docs/superpowers/plans/2026-08-01-unified-facet-review.md
-- src/screens/KakitoriScreen.tsx
-- src/i18n/ja.json
 - memory/session-summary-LATEST.md
+- memory/handoff.md
+- memory/在庫問題数.txt
+- content/problems/dokkai/naiyou_tan_N5.json
+- content/problems/dokkai/naiyou_tan_N4.json
+- content/problems/dokkai/naiyou_chu_N4.json
 - src/screens/StudyCategoryScreen.tsx
-- src/components/CategoryCard.tsx
-- package.json
+- src/i18n/ja.json
 
-_自動更新: 2026-08-01 22:24_
+_自動更新: 2026-08-01 23:23_
 <!-- AUTO:END -->

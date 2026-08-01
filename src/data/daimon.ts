@@ -216,7 +216,9 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
     // N4公式=文レベル: 提示文と「だいたい同じ意味の文」を4文から選ぶ(選択肢が文)。
     // stem/選択肢のカッコふりがなは RubyText が自動でルビ化する(用法と同じ描画経路)。
     if (sy.stem) {
-      return { itemId: unit, prompt: sy.stem, question: 'だいたい同じ意味の文はどれですか。', format: 'usage', choices, answerIndex, saveRef: saveRefForVocabUnit(unit) };
+      // 提示文(stem)は「漢字（かな）」形式のふりがな付き。furi に載せて RubyText でルビ化する
+      // (以前は prompt のみ=素のTextで括弧のまま表示されていた)。下線は対象語(underline)。
+      return { itemId: unit, prompt: sy.stem, furi: sy.stem, furiTarget: sy.underline, question: 'だいたい同じ意味の文はどれですか。', format: 'usage', choices, answerIndex, saveRef: saveRefForVocabUnit(unit) };
     }
     // N3公式=語レベル: 文中の下線語と意味が最も近い語を4語から選ぶ。
     return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex, explain: sy.reason, explainNe: sy.reasonNe, saveRef: saveRefForVocabUnit(unit) };

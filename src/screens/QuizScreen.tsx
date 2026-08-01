@@ -186,6 +186,8 @@ export default function QuizScreen() {
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
             accuracy={answered ? Math.round((correctCount / answered) * 100) : 0}
+            correct={correctCount}
+            total={answered}
             mode="quiz"
           />
           {/* 既に結果表示中。ボタンは「結果を見る」ではなくホームへ戻る(他ドリル画面と統一)。 */}
@@ -226,7 +228,14 @@ export default function QuizScreen() {
             <RubyText text={question.furi} target={question.furiTarget} style={s.sentence} hitStyle={s.exHit} rubyStyle={s.qRuby} rubyGate={rubyGate} noRubyOnHit={question.noTargetRuby} center />
           ) : (
             <>
-              {question.prompt ? <Text style={[s.prompt, question.prompt.length > 10 && s.promptLong]}>{question.prompt}</Text> : null}
+              {question.prompt ? (
+                /[（(][^）)]*[）)]/.test(question.prompt) ? (
+                  // ふりがな付き提示文(JFT表現の場面文など)は素のTextだと括弧のまま出るのでルビ化する。
+                  <RubyText text={question.prompt} target={question.furiTarget} style={[s.prompt, question.prompt.length > 10 && s.promptLong]} hitStyle={s.exHit} rubyStyle={s.qRuby} rubyGate={rubyGate} center />
+                ) : (
+                  <Text style={[s.prompt, question.prompt.length > 10 && s.promptLong]}>{question.prompt}</Text>
+                )
+              ) : null}
               {question.example ? (
                 <Text style={question.prompt ? s.reading : s.sentence}>
                   {question.example.map((sg, i) => (

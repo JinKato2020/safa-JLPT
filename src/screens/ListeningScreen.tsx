@@ -125,6 +125,8 @@ export default function ListeningScreen() {
               shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
               scored={after.touched - before.touched}
               accuracy={answered ? Math.round((correct / answered) * 100) : 0}
+            correct={correct}
+            total={answered}
               mode="choukai"
             />
           ); })()}

@@ -118,6 +118,8 @@ export default function WordDrillScreen() {
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={progressSnapshot(state, Date.now()).touched - before.touched}
             accuracy={problems.length ? Math.round((score / problems.length) * 100) : 0}
+            correct={score}
+            total={problems.length}
             mode={kind === 'vProduce' ? 'moji_goi' : 'bunpou'}
             seed={seed}
           />
