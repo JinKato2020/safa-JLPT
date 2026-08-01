@@ -24,6 +24,9 @@
 ## 次の一手
 = **P7 書き取り2ターン化**（KakitoriScreenを学習ターン(なぞり5字)→問題ターン(見ずに5字採点)へ。合格でwrite面底上げ=P2の`facetsForKakitori`合流が受ける・既存SRS間隔1/3/7/16/35は維持）。その後P8総検証。**別途、予想得点の大問重み(設問数シェア)是正**をユーザーと相談。**実機確認未**＝復習フロー(各入口→10問→採点→AfterStudyReward)を`/run`で通したい。
 
+## ビルド
+- **ビルド2654 both dispatch=run`30700408364`（2026-08-01・監視しない）**: P1-P6反映(統合復習=ホーム/書斎入口・試験全部混ぜ撤去)。iOS→TestFlight/Android→Play alpha(App C)。build番号=2000+654commit。build.ps1は`app/`前提で古い(app/は無くrootが実体)→`gh workflow run build-jlpt.yml`を直叩き。
+
 ## 走行run
 - Explore（地図取得）=完了・結果は上記に畳んだ
 
