@@ -13,6 +13,8 @@ import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
+import { recordFacet } from '../review/facetMastery';
+import { facetsForUnit, facetsForKakitori } from '../review/facetMap';
 import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, type ShopKind } from './wallet';
 import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket } from './tickets';
 import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
@@ -73,7 +75,9 @@ export function reducer(state: AppState, action: Action): AppState {
       // 漢字読み/表記は答えが一つで暗記懸念が薄い→不正解は即再出題OK。他大問(文脈/用法/文法等)は翌日以降(ユーザー要望2026-07-17)。
       const immediate = action.itemId.endsWith('#kanji_read') || action.itemId.endsWith('#orthography');
       const next = recordQuiz(prev, action.correct, action.now, immediate);
-      const withDay = withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next } }, action.now);
+      // 面別マスタリーへも合流(additive・従来のitems記録は維持)。統合復習/予想得点の正本。
+      const mastery = recordFacet(state.mastery ?? {}, facetsForUnit(action.itemId), action.correct, 'practice', action.now);
+      const withDay = withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next }, mastery }, action.now);
       // 1問正解=2貝は quizAnswer 側の ADD_POINTS で付与(MOCK_ANSWERと同経路)。ここで足すと二重取りになるため学習日の記録だけ返す。
       return withDay;
     }
@@ -82,13 +86,20 @@ export function reducer(state: AppState, action: Action): AppState {
       // 既出(万一の再出題)は学習日のみ→暗記/再出題の水増しを防ぐ。台帳/非台帳(kb-/usg-/moji)を問わず統一。
       if (state.items[action.itemId]) return withStudyDay(state, action.now);
       const next = recordMock(newItemState(action.now), action.correct, action.now);
-      return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next } }, action.now);
+      // 面へも合流(初見時のみ=itemsと同条件。mockは重み5)。
+      const mastery = recordFacet(state.mastery ?? {}, facetsForUnit(action.itemId), action.correct, 'mock', action.now);
+      return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next }, mastery }, action.now);
     }
     case 'RECORD_MOCK':
       return { ...state, mockHistory: [...(state.mockHistory ?? []), action.result].slice(-60) };
     case 'KAKITORI_PROGRESS': {
       const map = state.kakitori ?? {};
-      return { ...state, kakitori: { ...map, [action.char]: applyKakitoriProgress(map[action.char], action) } };
+      // 合格(見ないで書く=step>=3・未スキップ)なら write(副read)面を補強(成功のみ底上げ)。
+      const passed = !action.skipped && action.step >= 3;
+      const mastery = passed
+        ? recordFacet(state.mastery ?? {}, facetsForKakitori(action.char), true, 'practice', action.now ?? Date.now())
+        : (state.mastery ?? {});
+      return { ...state, kakitori: { ...map, [action.char]: applyKakitoriProgress(map[action.char], action) }, mastery };
     }
     case 'ADD_TO_MY_LIST':
       return { ...state, myList: toggleMyList(state.myList ?? [], action.ref) };

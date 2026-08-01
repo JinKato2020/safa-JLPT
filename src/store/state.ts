@@ -1,6 +1,7 @@
 // アプリ永続状態の型と初期値・日付ヘルパー。
 import type { ItemState, Level } from '../engine/engine';
 import type { SaveRef } from '../quiz/quiz';
+import type { MasterySlice } from '../review/facetMastery';
 
 export type { SaveRef };
 
@@ -92,6 +93,8 @@ export interface AppState {
     proUntil?: number;          // 期限つきPro(紹介など)の終了時刻 epoch ms
   };
   dailyQuota?: { day: string; used: number; bonus: number }; // 1日の練習回数。day=YYYY-MM-DD / used=今日始めた回数 / bonus=広告で足した回数
+  mastery?: MasterySlice;   // 単語×面(read/write/mean/listen/grammar)の統合苦手度。統合復習/予想得点の正本。旧stateには無い→移行で構築。
+  masteryMigrated?: boolean; // 旧キー(items/kakitori)→面の一度きり移行を済ませたか。undefined/false=未移行。
   updatedAt?: number; // 最終更新(epoch ms)。クラウド同期のLWW比較基準。旧stateには無い→0扱い。
 }
 
@@ -138,6 +141,8 @@ export const INITIAL_STATE: AppState = {
   myList: [],
   owned: [...DEFAULT_OWNED],
   equipped: { hair: DEFAULT_HAIR_ID, brush: NONE_BRUSH_ID, costume: NONE_COSTUME_ID, companion: DEFAULT_COMPANION_ID },
+  mastery: {},
+  masteryMigrated: true, // 新規インストールは移行対象の旧データが無い＝済み扱い。旧ユーザーはloadStateの移行が偽→実行。
 };
 
 /** epoch ms → ローカル日付 YYYY-MM-DD */

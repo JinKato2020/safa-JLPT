@@ -64,8 +64,8 @@
 
 **Tests:** reducer 単体（各 answer が対応面を更新・書き取り合格で write が上がる・従来 `state.items` も従来通り）。
 
-- [ ] state.ts 拡張（optional・旧state互換）
-- [ ] store.tsx 各 case 合流 + テスト・tsc緑
+- [x] state.ts 拡張（`mastery?`/`masteryMigrated?`・INITIAL_STATEは`{}`/true）
+- [x] store.tsx QUIZ_ANSWER/MOCK_ANSWER/KAKITORI_PROGRESS 合流 + テスト6件・tsc緑（全数352）
 
 ## Phase 3 — 一度きり冪等マイグレーション（旧キー→面）
 
