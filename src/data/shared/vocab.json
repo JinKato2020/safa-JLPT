@@ -321,7 +321,7 @@
   "type": "vocab",
   "word": "あちら",
   "reading": "あちら",
-  "meaning": "this way (polite)",
+  "meaning": "that way, over there (polite)",
   "tags": [
    "Genki",
    "Genki_Ln.20",
@@ -368,7 +368,7 @@
   "type": "vocab",
   "word": "厚い",
   "reading": "あつい",
-  "meaning": "kind, warm(hearted), thick, deep",
+  "meaning": "thick, deep",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -471,7 +471,7 @@
   "type": "vocab",
   "word": "あの",
   "reading": "あの",
-  "meaning": "that over there; like that, that way; um...",
+  "meaning": "that (over there); um... (filler)",
   "tags": [
    "JLPT_4",
    "JLPT_5",
@@ -514,7 +514,7 @@
   "type": "vocab",
   "word": "甘い",
   "reading": "あまい",
-  "meaning": "generous, sweet",
+  "meaning": "sweet; lenient, indulgent",
   "tags": [
    "Genki",
    "Genki_Ln.12",
@@ -529,7 +529,7 @@
   "type": "vocab",
   "word": "余り",
   "reading": "あまり",
-  "meaning": "not very; surplus",
+  "meaning": "not very (with negative); surplus, remainder",
   "tags": [
    "JLPT_3",
    "JLPT_5",
@@ -1012,7 +1012,7 @@
   "type": "vocab",
   "word": "妹",
   "reading": "いもうと",
-  "meaning": "younger sister (humble)",
+  "meaning": "younger sister",
   "tags": [
    "Genki",
    "Genki_Ln.1",
@@ -1055,7 +1055,7 @@
   "type": "vocab",
   "word": "居る",
   "reading": "いる",
-  "meaning": "(humble) to be (animate), to exist",
+  "meaning": "to be (animate), to exist",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -1742,7 +1742,7 @@
   "type": "vocab",
   "word": "お父さん",
   "reading": "おとうさん",
-  "meaning": "father (formal)",
+  "meaning": "father, dad (polite)",
   "tags": [
    "Genki",
    "Genki_Ln.1",
@@ -2570,7 +2570,7 @@
   "type": "vocab",
   "word": "かばん",
   "reading": "かばん",
-  "meaning": "bag, basket",
+  "meaning": "bag, briefcase",
   "tags": [
    "Genki",
    "Genki_Ln.2",
@@ -2692,7 +2692,7 @@
   "type": "vocab",
   "word": "借りる",
   "reading": "かりる",
-  "meaning": "to borrow, to owe",
+  "meaning": "to borrow, to rent",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -2705,7 +2705,7 @@
   "type": "vocab",
   "word": "～がる",
   "reading": "～がる",
-  "meaning": "feel",
+  "meaning": "to show signs of feeling ~",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -3071,7 +3071,7 @@
   "type": "vocab",
   "word": "兄弟",
   "reading": "きょうだい",
-  "meaning": "siblings (humble), brothers and sisters",
+  "meaning": "siblings, brothers and sisters",
   "tags": [
    "Genki",
    "Genki_Ln.7",
@@ -3281,7 +3281,7 @@
   "type": "vocab",
   "word": "口",
   "reading": "くち",
-  "meaning": "job opening; mouth",
+  "meaning": "mouth; opening",
   "tags": [
    "Intermediate_Japanese",
    "Intermediate_Japanese_Ln.11",
@@ -4659,7 +4659,7 @@
   "type": "vocab",
   "word": "～中",
   "reading": "～じゅう",
-  "meaning": "during, while",
+  "meaning": "throughout, all over, all through",
   "tags": [
    "JLPT_2",
    "JLPT_5",
@@ -5286,7 +5286,7 @@
   "type": "vocab",
   "word": "そう",
   "reading": "そう",
-  "meaning": "yes; appears, to be the case",
+  "meaning": "so, in that way; that's right, yes; seems",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -5313,7 +5313,7 @@
   "type": "vocab",
   "word": "そして",
   "reading": "そして",
-  "meaning": "and, like that",
+  "meaning": "and, and then",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -5356,7 +5356,7 @@
   "type": "vocab",
   "word": "そっち",
   "reading": "そっち",
-  "meaning": "over there",
+  "meaning": "that way, that side (near the listener)",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -5531,7 +5531,7 @@
   "type": "vocab",
   "word": "大好き",
   "reading": "だいすき",
-  "meaning": "very like-able, like very much",
+  "meaning": "to like very much, to love",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -6065,7 +6065,7 @@
   "type": "vocab",
   "word": "一日",
   "reading": "ついたち",
-  "meaning": "one day; first day of the month",
+  "meaning": "first day of the month",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -6169,7 +6169,7 @@
   "type": "vocab",
   "word": "つける",
   "reading": "つける",
-  "meaning": "to turn on (e.g., a light); to take",
+  "meaning": "to turn on (e.g., a light); to attach; to apply",
   "tags": [
    "JLPT_3",
    "JLPT_4",
@@ -6936,7 +6936,7 @@
   "type": "vocab",
   "word": "鳥",
   "reading": "とり",
-  "meaning": "chicken (lit., bird)",
+  "meaning": "bird; (poultry) chicken",
   "tags": [
    "Intermediate_Japanese",
    "Intermediate_Japanese_Ln.6",
@@ -7291,7 +7291,7 @@
   "type": "vocab",
   "word": "何～",
   "reading": "なん～",
-  "meaning": "what sort of ~",
+  "meaning": "what ~; how many ~",
   "tags": [
    "JLPT_5",
    "JLPT_N5"
@@ -9172,7 +9172,7 @@
   "type": "vocab",
   "word": "また",
   "reading": "また",
-  "meaning": "and; furthermore",
+  "meaning": "again; also, moreover",
   "tags": [
    "Genki",
    "Genki_Ln.20",
@@ -9190,7 +9190,7 @@
   "type": "vocab",
   "word": "まだ",
   "reading": "まだ",
-  "meaning": "yet, still, besides",
+  "meaning": "yet, still",
   "tags": [
    "Genki",
    "Genki_Ln.19",
@@ -9910,7 +9910,7 @@
   "type": "vocab",
   "word": "やる",
   "reading": "やる",
-  "meaning": "to do; to give (to pets, parents, siblings, etc.)",
+  "meaning": "to do; to give (to animals, plants, or inferiors)",
   "tags": [
    "Genki",
    "Genki_Ln.21",
@@ -10816,7 +10816,7 @@
   "type": "vocab",
   "word": "うかがう",
   "reading": "うかがう",
-  "meaning": "to ask",
+  "meaning": "to ask; to hear; to visit (humble)",
   "tags": [
    "JLPT_N4"
   ]
@@ -11364,7 +11364,7 @@
   "type": "vocab",
   "word": "複雑",
   "reading": "ふくざつ",
-  "meaning": "complexity, complication",
+  "meaning": "complex, complicated; complexity",
   "tags": [
    "JLPT_N4"
   ]
@@ -11544,7 +11544,7 @@
   "type": "vocab",
   "word": "過ぎる",
   "reading": "すぎる",
-  "meaning": "to exceed, to go beyond",
+  "meaning": "to pass, to go past; to exceed",
   "tags": [
    "JLPT_N4"
   ]
@@ -11819,7 +11819,7 @@
   "type": "vocab",
   "word": "中学校",
   "reading": "ちゅうがっこう",
-  "meaning": "junior high school pupil",
+  "meaning": "junior high school",
   "tags": [
    "JLPT_N4"
   ]
@@ -13112,7 +13112,7 @@
   "type": "vocab",
   "word": "適当",
   "reading": "てきとう",
-  "meaning": "fitness, suitability",
+  "meaning": "suitable, appropriate; haphazard, irresponsible",
   "tags": [
    "JLPT_N4"
   ]
@@ -13426,7 +13426,7 @@
   "type": "vocab",
   "word": "辞典",
   "reading": "じてん",
-  "meaning": "encyclopedia, reference book",
+  "meaning": "dictionary",
   "tags": [
    "JLPT_N4"
   ]
@@ -13654,7 +13654,7 @@
   "type": "vocab",
   "word": "けがする",
   "reading": "けがする",
-  "meaning": "injury (to animate object), hurt",
+  "meaning": "to get injured, to be hurt",
   "tags": [
    "JLPT_N4"
   ]
@@ -13666,7 +13666,7 @@
   "type": "vocab",
   "word": "以下",
   "reading": "いか",
-  "meaning": "less than, below",
+  "meaning": "(and) below; not more than; the following",
   "tags": [
    "JLPT_N4"
   ]
@@ -15097,7 +15097,7 @@
   "type": "vocab",
   "word": "～ちゃん",
   "reading": "～ちゃん",
-  "meaning": "suffix for familiar (female) person",
+  "meaning": "affectionate suffix (for children, close friends, etc.)",
   "tags": [
    "JLPT_N4"
   ]
@@ -15908,7 +15908,7 @@
   "type": "vocab",
   "word": "大体",
   "reading": "だいたい",
-  "meaning": "approximately; in most cases; in general; to begin with (same as もともと)",
+  "meaning": "approximately; in most cases; in general; to begin with",
   "tags": [
    "Intermediate_Japanese_Ln.15",
    "Intermediate_Japanese_Ln.3",
@@ -15970,7 +15970,7 @@
   "type": "vocab",
   "word": "都",
   "reading": "と",
-  "meaning": "metropolitan",
+  "meaning": "metropolis, capital",
   "tags": [
    "JLPT_N4"
   ]
@@ -16144,7 +16144,7 @@
   "type": "vocab",
   "word": "妻",
   "reading": "つま",
-  "meaning": "wife (humble)",
+  "meaning": "(one's own) wife",
   "tags": [
    "JLPT_N4"
   ]
@@ -16776,7 +16776,7 @@
   "type": "vocab",
   "word": "息子",
   "reading": "むすこ",
-  "meaning": "(humble) son",
+  "meaning": "son",
   "tags": [
    "JLPT_N4"
   ]
@@ -17186,7 +17186,7 @@
   "type": "vocab",
   "word": "様",
   "reading": "よう",
-  "meaning": "way, manner, kind",
+  "meaning": "way, manner, appearance",
   "tags": [
    "JLPT_N4"
   ]
@@ -17287,7 +17287,7 @@
   "type": "vocab",
   "word": "続く",
   "reading": "つづく",
-  "meaning": "to be continued",
+  "meaning": "to continue, to last, to go on",
   "tags": [
    "JLPT_N4"
   ]
@@ -17419,7 +17419,7 @@
   "type": "vocab",
   "word": "習慣",
   "reading": "しゅうかん",
-  "meaning": "custom (in reference to culture)",
+  "meaning": "custom, habit",
   "tags": [
    "JLPT_N4"
   ]
@@ -17443,7 +17443,7 @@
   "type": "vocab",
   "word": "君",
   "reading": "きみ",
-  "meaning": "you (informal for men)",
+  "meaning": "you (informal, chiefly male speech)",
   "tags": [
    "JLPT_N4"
   ]
@@ -17467,7 +17467,7 @@
   "type": "vocab",
   "word": "点く",
   "reading": "つく",
-  "meaning": "to be started, to be switched on",
+  "meaning": "to come on, to be lit (light, fire)",
   "tags": [
    "JLPT_N4"
   ]
@@ -18171,7 +18171,7 @@
   "type": "vocab",
   "word": "全然",
   "reading": "ぜんぜん",
-  "meaning": "not at all; wholly, entirely",
+  "meaning": "(with negative) not at all; (colloquial, with positive) entirely, completely",
   "tags": [
    "JLPT_N4"
   ]
@@ -18569,7 +18569,7 @@
   "type": "vocab",
   "word": "娘",
   "reading": "むすめ",
-  "meaning": "daughter (humble)",
+  "meaning": "daughter; girl",
   "tags": [
    "JLPT_N4"
   ]
@@ -19276,7 +19276,7 @@
   "type": "vocab",
   "word": "直に",
   "reading": "じかに",
-  "meaning": "immediately, readily, directly",
+  "meaning": "directly, in person",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -20071,7 +20071,7 @@
   "type": "vocab",
   "word": "下",
   "reading": "しも",
-  "meaning": "under, below, beneath",
+  "meaning": "lower part, latter part; downstream",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -20298,7 +20298,7 @@
   "type": "vocab",
   "word": "住宅",
   "reading": "じゅうたく",
-  "meaning": "resident, housing",
+  "meaning": "housing, residence, dwelling",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -20482,7 +20482,7 @@
   "type": "vocab",
   "word": "出身",
   "reading": "しゅっしん",
-  "meaning": "come from",
+  "meaning": "origin, one's hometown/background",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -20683,7 +20683,7 @@
   "type": "vocab",
   "word": "上",
   "reading": "じょう",
-  "meaning": "first volume; superior quality; governmental",
+  "meaning": "upper part, top; first volume (of a set); superior quality",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -21686,7 +21686,7 @@
   "type": "vocab",
   "word": "信用",
   "reading": "しんよう",
-  "meaning": "confidence, dependence",
+  "meaning": "trust, confidence, credit",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -21870,7 +21870,7 @@
   "type": "vocab",
   "word": "末",
   "reading": "すえ",
-  "meaning": "the end of, powder",
+  "meaning": "the end (of a period), close",
   "tags": [
    "Intermediate_Japanese",
    "JLPT_3",
@@ -21978,7 +21978,7 @@
   "type": "vocab",
   "word": "少しも",
   "reading": "すこしも",
-  "meaning": "anything of, not one bit",
+  "meaning": "(not) at all, (not) in the least (with negative)",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -22157,7 +22157,7 @@
   "type": "vocab",
   "word": "すなわち",
   "reading": "すなわち",
-  "meaning": "that is, namely, e.g.",
+  "meaning": "that is, namely, i.e.",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -22198,7 +22198,7 @@
   "type": "vocab",
   "word": "済ませる",
   "reading": "すませる",
-  "meaning": "to be finished",
+  "meaning": "to finish, to get (something) done",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -22328,7 +22328,7 @@
   "type": "vocab",
   "word": "ずれる",
   "reading": "ずれる",
-  "meaning": "move, off the point",
+  "meaning": "to slip out of place, to be off/misaligned",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -22436,7 +22436,7 @@
   "type": "vocab",
   "word": "正確",
   "reading": "せいかく",
-  "meaning": "accurate, punctuality, exact",
+  "meaning": "accurate, precise, exact",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -23272,7 +23272,7 @@
   "type": "vocab",
   "word": "暖める",
   "reading": "あたためる",
-  "meaning": "to warm (up to someone/something), to heat (up to someone/something)",
+  "meaning": "to warm, to heat",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -24010,7 +24010,7 @@
   "type": "vocab",
   "word": "いずれ",
   "reading": "いずれ",
-  "meaning": "where, which, who",
+  "meaning": "which (one); either; eventually, sooner or later",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -24051,7 +24051,7 @@
   "type": "vocab",
   "word": "偉大",
   "reading": "いだい",
-  "meaning": "greatness",
+  "meaning": "great, grand, magnificent",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -24511,7 +24511,7 @@
   "type": "vocab",
   "word": "イメージ",
   "reading": "イメージ",
-  "meaning": "one's image",
+  "meaning": "image, impression",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -25698,7 +25698,7 @@
   "type": "vocab",
   "word": "収める",
   "reading": "おさめる",
-  "meaning": "to store to pay, to supply",
+  "meaning": "to store, to pay, to supply",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -25711,7 +25711,7 @@
   "type": "vocab",
   "word": "納める",
   "reading": "おさめる",
-  "meaning": "to store to pay, to supply",
+  "meaning": "to pay, to supply, to store",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -25988,7 +25988,7 @@
   "type": "vocab",
   "word": "おめでとう",
   "reading": "おめでとう",
-  "meaning": "Congratulations!, an auspicious occasion!",
+  "meaning": "Congratulations!",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -26001,7 +26001,7 @@
   "type": "vocab",
   "word": "お目に掛かる",
   "reading": "おめにかかる",
-  "meaning": "meet ~, see ~",
+  "meaning": "to meet (humble)",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -26055,7 +26055,7 @@
   "type": "vocab",
   "word": "思わず",
   "reading": "おもわず",
-  "meaning": "unintentional, spontaneous",
+  "meaning": "unintentionally, involuntarily, spontaneously",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -26133,7 +26133,7 @@
   "type": "vocab",
   "word": "卸す",
   "reading": "おろす",
-  "meaning": "to sell wholesale, grated (vegetables)",
+  "meaning": "to sell wholesale; to grate (e.g. vegetables)",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -26172,7 +26172,7 @@
   "type": "vocab",
   "word": "温暖",
   "reading": "おんだん",
-  "meaning": "warmth",
+  "meaning": "warm, mild (climate)",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -26252,7 +26252,7 @@
   "type": "vocab",
   "word": "カード",
   "reading": "カード",
-  "meaning": "card, curd",
+  "meaning": "card",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -27178,7 +27178,7 @@
   "type": "vocab",
   "word": "片付く",
   "reading": "かたづく",
-  "meaning": "to put in order, to solve",
+  "meaning": "to be put in order, to be settled",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -27313,7 +27313,7 @@
   "type": "vocab",
   "word": "活躍",
   "reading": "かつやく",
-  "meaning": "activity",
+  "meaning": "active participation, playing an active role",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -28495,7 +28495,7 @@
   "type": "vocab",
   "word": "気に入る",
   "reading": "きにいる",
-  "meaning": "to like, to be please",
+  "meaning": "to like, to be pleased with",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -29622,7 +29622,7 @@
   "type": "vocab",
   "word": "グラス",
   "reading": "グラス",
-  "meaning": "glass; grass",
+  "meaning": "glass (drinking glass)",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -29635,7 +29635,7 @@
   "type": "vocab",
   "word": "グランド",
   "reading": "グランド",
-  "meaning": "gland, grand, (electrical) ground",
+  "meaning": "ground (sports ground); grand (piano); (electrical) ground",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -29743,7 +29743,7 @@
   "type": "vocab",
   "word": "暮れ",
   "reading": "くれ",
-  "meaning": "year end,",
+  "meaning": "year-end; nightfall, dusk",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -29851,7 +29851,7 @@
   "type": "vocab",
   "word": "郡",
   "reading": "ぐん",
-  "meaning": "country, district",
+  "meaning": "county, district",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -31044,7 +31044,7 @@
   "type": "vocab",
   "word": "氷",
   "reading": "こおり",
-  "meaning": "ice, hail",
+  "meaning": "ice",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -31273,7 +31273,7 @@
   "type": "vocab",
   "word": "越す",
   "reading": "こす",
-  "meaning": "to go over (e.g., with audience)",
+  "meaning": "to cross, to go over, to exceed",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -31576,7 +31576,7 @@
   "type": "vocab",
   "word": "今回",
   "reading": "こんかい",
-  "meaning": "now, this time, lately",
+  "meaning": "this time, this occasion",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -31602,7 +31602,7 @@
   "type": "vocab",
   "word": "混雑",
   "reading": "こんざつ",
-  "meaning": "confusion, congestion",
+  "meaning": "congestion, crowding",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -32065,7 +32065,7 @@
   "type": "vocab",
   "word": "指す",
   "reading": "さす",
-  "meaning": "to point,",
+  "meaning": "to point, to indicate",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -32201,7 +32201,7 @@
   "type": "vocab",
   "word": "さっぱり",
   "reading": "さっぱり",
-  "meaning": "feeling refreshed, neat",
+  "meaning": "refreshed, neat; (with neg.) not at all",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -32547,7 +32547,7 @@
   "type": "vocab",
   "word": "未来",
   "reading": "みらい",
-  "meaning": "future (life tense)",
+  "meaning": "future",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -32770,7 +32770,7 @@
   "type": "vocab",
   "word": "夢中",
   "reading": "むちゅう",
-  "meaning": "crush, crazy, be hooked on",
+  "meaning": "engrossed, absorbed; crazy about",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -33265,7 +33265,7 @@
   "type": "vocab",
   "word": "素",
   "reading": "もと",
-  "meaning": "prime",
+  "meaning": "origin, source, base, ingredient",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -33596,7 +33596,7 @@
   "type": "vocab",
   "word": "辞める",
   "reading": "やめる",
-  "meaning": "to retire",
+  "meaning": "to quit, to resign",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -34060,7 +34060,7 @@
   "type": "vocab",
   "word": "横切る",
   "reading": "よこぎる",
-  "meaning": "to cross (e.g., arms), to traverse",
+  "meaning": "to cross, to cut across, to traverse",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -34244,7 +34244,7 @@
   "type": "vocab",
   "word": "余裕",
   "reading": "よゆう",
-  "meaning": "excess; surplus",
+  "meaning": "room, leeway, margin; surplus",
   "tags": [
    "Intermediate_Japanese",
    "JLPT_3",
@@ -34259,7 +34259,7 @@
   "type": "vocab",
   "word": "より",
   "reading": "より",
-  "meaning": "twist, ply",
+  "meaning": "than, from (comparison); (also) a twist, ply",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -34633,7 +34633,7 @@
   "type": "vocab",
   "word": "列車",
   "reading": "れっしゃ",
-  "meaning": "train (ordinary)",
+  "meaning": "train",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -34845,7 +34845,7 @@
   "type": "vocab",
   "word": "湧く",
   "reading": "わく",
-  "meaning": "to boil, to grow hot",
+  "meaning": "to well up, to gush forth, to spring out",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -35131,7 +35131,7 @@
   "type": "vocab",
   "word": "粋",
   "reading": "いき",
-  "meaning": "chic, style, purity",
+  "meaning": "chic, stylish, refined",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -35486,7 +35486,7 @@
   "type": "vocab",
   "word": "加味",
   "reading": "かみ",
-  "meaning": "seasoning, flavoring",
+  "meaning": "adding, taking into account; seasoning, flavoring",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -35538,7 +35538,7 @@
   "type": "vocab",
   "word": "～観",
   "reading": "かん",
-  "meaning": "feeling, view",
+  "meaning": "view, outlook (on ~)",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -35616,7 +35616,7 @@
   "type": "vocab",
   "word": "器官",
   "reading": "きかん",
-  "meaning": "organ (of body, instrument)",
+  "meaning": "organ (of the body)",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -36084,7 +36084,7 @@
   "type": "vocab",
   "word": "ことによると",
   "reading": "ことによると",
-  "meaning": "(depending on the circumstances)",
+  "meaning": "possibly, perhaps (depending on circumstances)",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -36614,7 +36614,7 @@
   "type": "vocab",
   "word": "そっくり",
   "reading": "そっくり",
-  "meaning": "the splitting image of; entirely",
+  "meaning": "the spitting image of; entirely, completely",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -37308,7 +37308,7 @@
   "type": "vocab",
   "word": "平ら",
   "reading": "たいら",
-  "meaning": "flatness, level, smooth",
+  "meaning": "flat, level, smooth",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -37520,7 +37520,7 @@
   "type": "vocab",
   "word": "多少",
   "reading": "たしょう",
-  "meaning": "a little (same as 少し (すこし))",
+  "meaning": "a little, somewhat, more or less",
   "tags": [
    "Intermediate_Japanese",
    "JLPT_3",
@@ -37943,7 +37943,7 @@
   "type": "vocab",
   "word": "偶",
   "reading": "たま",
-  "meaning": "even number, couple, friend",
+  "meaning": "even number; pair; by chance",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -40181,7 +40181,7 @@
   "type": "vocab",
   "word": "得意",
   "reading": "とくい",
-  "meaning": "pride, triumph, prosperity",
+  "meaning": "one's forte, strong point; being good at; pride, triumph",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -40315,7 +40315,7 @@
   "type": "vocab",
   "word": "ところが",
   "reading": "ところが",
-  "meaning": "however, while, even if",
+  "meaning": "however, but, and yet",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -40527,7 +40527,7 @@
   "type": "vocab",
   "word": "留める",
   "reading": "とめる",
-  "meaning": "to fasten, to turn off, to detain",
+  "meaning": "to fasten, to fix in place, to detain",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -40568,7 +40568,7 @@
   "type": "vocab",
   "word": "共に",
   "reading": "ともに",
-  "meaning": "sharing with, participate in",
+  "meaning": "together (with); both; at the same time",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -40728,7 +40728,7 @@
   "type": "vocab",
   "word": "トン",
   "reading": "トン",
-  "meaning": "ton (1000 lbs.)",
+  "meaning": "ton (1000 kg)",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -41154,7 +41154,7 @@
   "type": "vocab",
   "word": "為る",
   "reading": "なる",
-  "meaning": "to change, to be of use, to reach to",
+  "meaning": "to become, to turn into; to reach; to result in",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -41219,7 +41219,7 @@
   "type": "vocab",
   "word": "何でも",
   "reading": "なんでも",
-  "meaning": "by all means, everything",
+  "meaning": "anything, everything, whatever",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -41589,7 +41589,7 @@
   "type": "vocab",
   "word": "年間",
   "reading": "ねんかん",
-  "meaning": "year",
+  "meaning": "period of a year; annual",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -41667,7 +41667,7 @@
   "type": "vocab",
   "word": "能",
   "reading": "のう",
-  "meaning": "being skilled in, nicely, properly",
+  "meaning": "ability, talent; Noh (theatre)",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -42699,7 +42699,7 @@
   "type": "vocab",
   "word": "放す",
   "reading": "はなす",
-  "meaning": "to separate, to set free",
+  "meaning": "to release, to set free, to let go",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -43166,7 +43166,7 @@
   "type": "vocab",
   "word": "必死",
   "reading": "ひっし",
-  "meaning": "desperation, frantic, inevitable result",
+  "meaning": "desperate, frantic, for dear life",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -43629,7 +43629,7 @@
   "type": "vocab",
   "word": "分",
   "reading": "ぶ",
-  "meaning": "dividing, part",
+  "meaning": "rate, proportion; degree",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -43841,7 +43841,7 @@
   "type": "vocab",
   "word": "不思議",
   "reading": "ふしぎ",
-  "meaning": "mystery, curiosity",
+  "meaning": "wonder, miracle, mystery",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -44470,7 +44470,7 @@
   "type": "vocab",
   "word": "ベルト",
   "reading": "ベルト",
-  "meaning": "Belt for western clothes",
+  "meaning": "belt",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -44561,7 +44561,7 @@
   "type": "vocab",
   "word": "法",
   "reading": "ほう",
-  "meaning": "Act (law: the X Act)",
+  "meaning": "law; method, way; rule",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -45206,7 +45206,7 @@
   "type": "vocab",
   "word": "まさに",
   "reading": "まさに",
-  "meaning": "correctly, surely",
+  "meaning": "exactly, precisely, just, surely",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -45310,7 +45310,7 @@
   "type": "vocab",
   "word": "ますます",
   "reading": "ますます",
-  "meaning": "increasingly (same as もっと), more and more",
+  "meaning": "increasingly, more and more",
   "tags": [
    "Intermediate_Japanese",
    "JLPT_3",
@@ -45338,7 +45338,7 @@
   "type": "vocab",
   "word": "交ぜる",
   "reading": "まぜる",
-  "meaning": "to be mixed, to be blended with",
+  "meaning": "to mix, to blend",
   "tags": [
    "JLPT_2",
    "JLPT_3"
@@ -45682,7 +45682,7 @@
   "type": "vocab",
   "word": "視点",
   "reading": "してん",
-  "meaning": "opinion, point of view, visual point",
+  "meaning": "viewpoint, point of view, perspective",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -46249,7 +46249,7 @@
   "type": "vocab",
   "word": "操縦",
   "reading": "そうじゅう",
-  "meaning": "management, control, manipulation",
+  "meaning": "piloting, operating (a machine); control",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -46446,7 +46446,7 @@
   "type": "vocab",
   "word": "継ぐ",
   "reading": "つぐ",
-  "meaning": "to succeed (someone in a business or inheritance",
+  "meaning": "to succeed (to a business, position), to inherit",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -46602,7 +46602,7 @@
   "type": "vocab",
   "word": "棟",
   "reading": "とう",
-  "meaning": "ridge (of roof",
+  "meaning": "building, wing; ridge (of a roof)",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -46803,7 +46803,7 @@
   "type": "vocab",
   "word": "脳",
   "reading": "のう",
-  "meaning": "brain, memory",
+  "meaning": "brain",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -46881,7 +46881,7 @@
   "type": "vocab",
   "word": "図る",
   "reading": "はかる",
-  "meaning": "to plot, to attempt, to devise, to design, to refer A to B",
+  "meaning": "to plan, to attempt, to devise, to design",
   "tags": [
    "JLPT_1",
    "JLPT_3"
@@ -46972,7 +46972,7 @@
   "type": "vocab",
   "word": "票",
   "reading": "ひょう",
-  "meaning": "label, ballot, sign",
+  "meaning": "vote, ballot; slip",
   "tags": [
    "JLPT_1",
    "JLPT_3"

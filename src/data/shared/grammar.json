@@ -1524,7 +1524,7 @@
   "type": "grammar",
   "point": "にする",
   "romaji": "ni suru",
-  "meaning": "make into ~; turn into ~",
+  "meaning": "to decide on ~; to make into ~",
   "exampleJa": "部屋（へや）をきれいにしました。",
   "exampleEn": "I made the room clean."
  },
@@ -2360,7 +2360,7 @@
   "type": "grammar",
   "point": "合（あ）う",
   "romaji": "au",
-  "meaning": "~ each other; do ~ together",
+  "meaning": "to fit, to match, to suit; ~ each other",
   "exampleJa": "クラスのみんなで意見（いけん）を出（だ）し合（あ）いました。",
   "exampleEn": "The whole class exchanged opinions together."
  },
@@ -2492,7 +2492,7 @@
   "type": "grammar",
   "point": "だけ",
   "romaji": "dake",
-  "meaning": "as much as ~",
+  "meaning": "only, just; as much as ~",
   "exampleJa": "好（す）きなだけ食（た）べてください。",
   "exampleEn": "Please eat as much as you like."
  },
