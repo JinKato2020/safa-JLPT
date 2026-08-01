@@ -47,7 +47,7 @@ import { initAds } from './src/pro/ads';
 import { walletPoints } from './src/store/wallet';
 import { mockTicketCount } from './src/store/tickets';
 import SafeBoundary from './src/components/SafeBoundary';
-import { DesignThemeProvider } from './shared/JLPT-Listening/design';
+import { DesignThemeProvider } from './src/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers, sendLifecycleMetrics } from './src/telemetry/telemetry';
 
 // ナビゲーション状態から現在の画面名(最深ルート)を取得。
