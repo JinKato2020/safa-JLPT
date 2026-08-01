@@ -5,9 +5,11 @@
     tools\build.ps1 -NoCommit                       # コミット済み・ビルドだけ
     tools\build.ps1 -Message "..." -DryRun          # 検証まで（push も dispatch もしない）
     tools\build.ps1 -Message "..." -Platforms ios   # 既定は both
+    tools\build.ps1 -Message "..." -NoWatch         # dispatch まで（監視しない＝既定の運用方針）
 
-  やること: manifest再生成 → テスト+tsc → commit → push → Build番号算出 → dispatch → 監視
+  やること: manifest再生成 → テスト+tsc → commit → push → Build番号算出 → dispatch → 監視(-NoWatch で省略)
   Build番号 = 2000 + commit数（push後に数える。ズレると各ジョブが黙って落ちる）
+  ※アプリの実体はリポジトリ直下（submodule 撤去・独立化で app/ は廃止）。$APP=リポジトリルート。
 
   意図的に用意していない口:
     publish / track ... Play本番やApp Store公開は誤爆すると別アプリApp Cの配信面に触れる。
@@ -18,19 +20,21 @@ param(
   [string]$Message,
   [switch]$NoCommit,
   [switch]$DryRun,
+  [switch]$NoWatch,
   [ValidateSet('both', 'ios', 'android')]
   [string]$Platforms = 'both'
 )
 
 $ErrorActionPreference = 'Stop'
-$APP = Join-Path (Split-Path $PSScriptRoot -Parent) 'app'
+# アプリの実体はリポジトリ直下（app/ は独立化で廃止）。build.ps1 は tools/ 配下なので親＝リポジトリルート。
+$APP = Split-Path $PSScriptRoot -Parent
 
 function Step($n, $t) { Write-Host "`n[$n] $t" -ForegroundColor Cyan }
 function Die($m) { Write-Host "`n中止: $m" -ForegroundColor Red; exit 1 }
 
 # ---- 1. 前提チェック -------------------------------------------------------
 Step 1 '前提チェック'
-if (-not (Test-Path $APP)) { Die "app フォルダが見つかりません: $APP" }
+if (-not (Test-Path (Join-Path $APP 'app.json'))) { Die "リポジトリルートに app.json が見つかりません: $APP" }
 Set-Location $APP
 
 $branch = git rev-parse --abbrev-ref HEAD
@@ -123,6 +127,12 @@ Start-Sleep -Seconds 8
 $runId = gh run list --workflow=build-jlpt.yml --event workflow_dispatch --limit 1 --json databaseId -q '.[0].databaseId'
 if (-not $runId) { Die 'run-id を取得できませんでした。gh run list で確認してください。' }
 Write-Host "  run $runId — https://github.com/JinKato2020/safa-JLPT/actions/runs/$runId"
+
+if ($NoWatch) {
+  $ver = (Get-Content app.json -Raw | ConvertFrom-Json).expo.version
+  Write-Host "`nv$ver($build) dispatch 済み。-NoWatch のため監視しません（運用方針）。" -ForegroundColor Green
+  exit 0
+}
 
 # ---- 8. 監視して報告 -------------------------------------------------------
 Step 8 '監視（10〜30分かかります）'
