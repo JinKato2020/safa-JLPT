@@ -5,6 +5,8 @@
 import { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../theme';
 import { useT } from '../i18n';
@@ -19,7 +21,7 @@ const TINT: Record<string, string> = {
 export default function AICoachScreen() {
   const c = useColors();
   const t = useT();
-  const nav = useNavigation();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const state = useAppState();
   const accent = TINT[state.settings.theme ?? 'auto'] ?? c.blue;
 
@@ -67,6 +69,14 @@ export default function AICoachScreen() {
             {advice.lines.map((ln, i) => (
               <Text key={i} style={[styles.line, { color: c.ink2 }]}>・{ln}</Text>
             ))}
+            {/* アドバイスの流れで「試験問題の復習」へ誘導(面別マスタリー統合復習)。押すと閉じて復習へ。 */}
+            <Pressable
+              style={({ pressed }) => [styles.reviewBtn, { backgroundColor: accent }, pressed && { opacity: 0.9 }]}
+              onPress={() => { nav.goBack(); nav.navigate('Quiz', { review: true }); }}
+            >
+              <Ionicons name="refresh" size={15} color="#ffffff" />
+              <Text style={styles.reviewBtnTxt}>{t('review.start')}</Text>
+            </Pressable>
           </ScrollView>
         </View>
         <Ionicons name="close" size={20} color={c.faint} style={styles.close} />
@@ -88,5 +98,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 13, fontWeight: '800', letterSpacing: 0.5 },
   hl: { fontSize: 17, fontWeight: '900', marginTop: 6, lineHeight: 23 },
   line: { fontSize: 13.5, fontWeight: '600', marginTop: 6, lineHeight: 19 },
+  reviewBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 14, paddingVertical: 11, borderRadius: 12 },
+  reviewBtnTxt: { color: '#ffffff', fontSize: 14, fontWeight: '800' },
   close: { position: 'absolute', top: 10, right: 10 },
 });

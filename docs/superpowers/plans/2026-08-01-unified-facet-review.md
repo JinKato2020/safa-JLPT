@@ -132,8 +132,11 @@ facetMap の写像を「大問→面(認識)」から「大問→**語/文法ポ
 
 **Tests:** ナビ型のtsc・スモーク（起動して各入口が復習へ遷移＝`/run` で実機確認は最後にまとめて）。
 
-- [ ] 入口3箇所 + ラベル改称
-- [ ] 旧mixed/全部混ぜ撤去・参照(stock.ts等)整理・tsc緑/test緑
+- [x] Quiz に `review:true` モード追加（selectReview→unitForPick→questionForUnit・空状態・ヘッダー名=試験問題の復習）
+- [x] 入口=**ホーム(AICoachScreenのアドバイス末尾にCTA)＋書斎(WordsHubScreen桜tap・CardsScreenトップ)**。試験/辞書には置かない(ユーザー方針2026-08-01)。
+- [x] ラベル `cards.reco`「今日のオススメ」→「試験問題の復習」(ja.jsonのみ)＋`review.*`追加
+- [x] 撤去=試験タブ StudyHomeScreen の全部混ぜ(reco/hotspot)削除。書斎の mixed 入口→統合復習へ差替(WordDrill 'mixed' 下層コードは無害な未参照として残置)。
+- [x] unitForPick はバンクid全集合(usg…/kb…)で判定=未解決の用法問題も復習で描ける。runtime smoke(5面→bad0/nullQ0)。全数372緑・tsc緑。
 
 ## Phase 7 — 書き取り新フロー（学習ターン/問題ターン分離）
 

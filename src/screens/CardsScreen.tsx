@@ -58,13 +58,13 @@ export default function CardsScreen() {
           <Text style={s.title}>{t('cards.title')}</Text>
         )}
 
-        {/* 今日のオススメ: 苦手をSRSで反復出題。単語タブ内の3形式(産出/作成/意味)を横断=試験タブとは独立(越境しない)。
-            ハブ(区分指定)から開いた時は、今日のオススメはハブの「今日の目標」札が担うため出さない。 */}
+        {/* 試験問題の復習(面別マスタリー統合復習): 苦手な面を忘却曲線でまとめて出題。書斎タブの目立つ入口。
+            旧「今日のオススメ(mixed=産出/作成/意味の横断)」はここへ吸収。ハブ(区分指定)から開いた時は出さない。 */}
         {!kubunParam && (
           <View style={s.recoCard}>
             <Text style={s.recoCardTitle}>{t('cards.reco')}</Text>
             <Text style={s.recoCardDesc}>{t('cards.reco_sub')}</Text>
-            <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('WordDrill', { kind: 'mixed' })}>
+            <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('Quiz', { review: true })}>
               <Text style={s.mixTitle}>{t('cards.reco_start')}</Text>
               <Text style={s.mixSub}>›</Text>
             </Pressable>

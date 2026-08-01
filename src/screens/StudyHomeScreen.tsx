@@ -6,7 +6,7 @@ import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList, StudyStackParamList } from '../navigation/types';
-import { ImmersiveTab, StartCard, type TabEntry } from '../components/TabScene';
+import { ImmersiveTab, type TabEntry } from '../components/TabScene';
 import { useTabBg } from '../data/tabArt';
 import CategoryCard from '../components/CategoryCard';
 import { useAppState } from '../store/store';
@@ -42,13 +42,11 @@ export default function StudyHomeScreen() {
         source={bg}
         scrim={0.12}
         entries={[
-          // ✦オススメは下端アイコンから撤去。桜(鳥居の下に立つキャラ)タップで「はじめる」確認カードを出す。
-          { key: 'reco', hidden: true, label: t('study.reco'), accent: '#c9a24a',
-            renderCard: () => <StartCard glyph="✦" accent="#c9a24a" title={t('study.reco')} cta={t('study.reco_start')} onStart={() => nav.navigate('Quiz', { category: 'all' })} /> },
+          // 試験タブ=大問別(字/文/読/聴)＋模試のみ。旧「全部混ぜ(今日のオススメ)」は統合復習へ移行し撤去(復習は
+          // ホーム/書斎の入口へ。試験タブには復習を置かない=ユーザー方針2026-08-01)。
           ...CATS.map((x) => ({ key: x.cat, glyph: x.glyph, label: t(prof.catLabel[x.cat]), accent: x.accent, renderCard: () => <CategoryCard cat={x.cat} /> })),
           { key: 'mock', glyph: '試', label: isJft ? t('test.jft_title') : t('test.full_title'), accent: lock.locked ? '#a89a86' : '#b8924a', disabled: lock.locked, onGo: () => { if (!lock.locked) nav.navigate('MockIntro', { full: true }); } },
         ] as TabEntry[]}
-        hotspots={[{ key: 'reco', label: t('study.reco'), area: { left: '30%', top: '46%', width: '32%', height: '27%' } }]}
       />
     </View>
   );

@@ -30,9 +30,9 @@ export default function WordsHubScreen() {
           { key: 'kanji', glyph: '漢', label: t('cards.kanji'), accent: '#d9743f', renderCard: card('kanji') },
           { key: 'vocab', glyph: '語', label: t('cards.vocab'), accent: '#3f9d5a', renderCard: card('vocab') },
           { key: 'grammar', glyph: '文', label: t('cards.grammar'), accent: '#7b6bd6', renderCard: card('grammar') },
-          // ✦オススメは下端アイコンから撤去。桜(背景)タップで「はじめる」確認カードを出す。
+          // 桜(机に座る巫女)タップで「試験問題の復習(統合復習)」の開始カード。旧mixedはここへ吸収。
           { key: 'reco', hidden: true, label: t('cards.reco'), accent: '#2f80b8',
-            renderCard: () => <StartCard glyph="✦" accent="#2f80b8" title={t('cards.reco')} cta={t('cards.reco_start')} onStart={() => nav.navigate('WordDrill', { kind: 'mixed' })} /> },
+            renderCard: () => <StartCard glyph="✦" accent="#2f80b8" title={t('cards.reco')} cta={t('cards.reco_start')} onStart={() => nav.navigate('Quiz', { review: true })} /> },
         ] as TabEntry[]}
         hotspots={[
           { key: 'vocab', label: t('cards.vocab'), area: { left: '12%', top: '17%', width: '15%', height: '11%' } },

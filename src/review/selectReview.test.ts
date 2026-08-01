@@ -5,7 +5,7 @@ import { selectReview } from './selectReview.ts';
 import { reviewQuestion, unitForPick } from './reviewQuestion.ts';
 import { recordFacet, type MasterySlice } from './facetMastery.ts';
 import { newItemState, recordQuiz, type ItemState } from '../engine/engine.ts';
-import { VOCAB } from '../data/index.ts';
+import { VOCAB, KNOWLEDGE_BANK } from '../data/index.ts';
 import type { Facet, FacetTarget } from './facetMap.ts';
 
 const NOW = 1_700_000_000_000;
@@ -62,7 +62,8 @@ test('unitForPick: 面→unit の逆写像', () => {
   assert.equal(unitForPick(vid, 'write', rng), `${vid}#orthography`);
   assert.ok((unitForPick(vid, 'mean', rng) ?? '').startsWith(`${vid}#`), 'mean は context/synonym');
   assert.equal(unitForPick(vid, 'listen', rng), null, 'listen は当面null');
-  assert.equal(unitForPick('kb-000001', 'grammar', rng), 'kb-000001', 'kb はそのまま');
+  const bankId = (KNOWLEDGE_BANK as { id: string }[])[0].id; // 実在バンクid(用法/組み立て等)
+  assert.equal(unitForPick(bankId, 'grammar', rng), bankId, '未解決バンク問題はそのまま');
   assert.equal(unitForPick('漢', 'write', rng), null, '漢字charは当面null');
 });
 

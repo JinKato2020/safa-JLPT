@@ -17,6 +17,8 @@ import ExamHeader from '../components/ExamHeader';
 import { itemsFor, allWordsFor, rubyNeeded } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
 import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, MOJI_DAIMON, BUNPOU_DAIMON, type LearnCard } from '../data/daimon';
+import { selectReview } from '../review/selectReview';
+import { unitForPick } from '../review/reviewQuestion';
 import type { StudyItem } from '../data';
 import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -69,7 +71,8 @@ export default function QuizScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'Quiz'>>();
   const category = route.params?.category ?? 'all';
   const itemIds = route.params?.itemIds;
-  const title = route.params?.title;
+  const review = route.params?.review; // 面別マスタリー統合復習(既習の苦手な面だけを忘却曲線で)
+  const paramTitle = route.params?.title;
   const daimon = route.params?.daimon; // 大問学習(本番の大問を固定形式で連続出題・状態は「項目#大問」キー)
   const expression = route.params?.expression; // JFT会話と表現(場面→適切な表現)
   const state = useAppState();
@@ -78,6 +81,7 @@ export default function QuizScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
+  const title = review ? t('review.title') : paramTitle; // 復習はヘッダー名を「試験問題の復習」に
   // レベル適応ルビ: ユーザーのレベル以上(同レベル含む)の漢字群にだけ読みを振る。
   const rubyGate = (run: string) => rubyNeeded(run, settings.level);
 
@@ -85,6 +89,12 @@ export default function QuizScreen() {
   const pool = useMemo(() => [...allWordsFor(settings.level, 'moji_goi'), ...allWordsFor(settings.level, 'bunpou')], [settings.level]);
   // 大問モードはユニットid(string)、それ以外はStudyItemのキュー。
   const [queue, setQueue] = useState<(StudyItem | string)[]>(() => {
+    if (review) {
+      // 面別マスタリー統合復習: 既習の苦手な面を弱い順に選び、描ける面だけを unit にして出題。
+      // listen/漢字書き取り等の描けない面は読み飛ばすため多めに選んで先頭 SESSION_SIZE 件。
+      const picks = selectReview(state.mastery ?? {}, Date.now(), SESSION_SIZE * 2);
+      return picks.map((p) => unitForPick(p.itemId, p.facet, Math.random)).filter((u): u is string => !!u).slice(0, SESSION_SIZE);
+    }
     if (expression) return buildUnitQueue(expressionUnitIds(), items, Date.now(), SESSION_SIZE);
     if (daimon) return buildUnitQueue(daimonUnitIds(settings.level, daimon, 'learn'), items, Date.now(), SESSION_SIZE);
     if (itemIds && itemIds.length) {
@@ -147,6 +157,20 @@ export default function QuizScreen() {
           </View>
           <AppButton label={last ? t('quiz.learn_start') : t('quiz.learn_next')} onPress={() => (last ? goTest() : setLearnIdx((i) => i + 1))} />
           <Pressable onPress={goTest} hitSlop={8}><Text style={s.learnSkip}>{t('quiz.learn_skip')}</Text></Pressable>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
+  // 復習に出す問題が無い(未学習/苦手が期限内)=ねぎらいつつ新出学習へ誘導。
+  if (review && queue.length === 0 && answered === 0) {
+    return (
+      <SafeAreaView style={s.c}>
+        <ScrollView contentContainerStyle={s.center}>
+          <Text style={s.bigEmoji}>🌸</Text>
+          <Text style={s.doneTitle}>{t('review.empty_title')}</Text>
+          <Text style={s.doneSub}>{t('review.empty_sub')}</Text>
+          <AppButton label={t('reading.backToHome')} onPress={() => nav.goBack()} full={false} style={{ marginTop: spacing.md }} />
         </ScrollView>
       </SafeAreaView>
     );
