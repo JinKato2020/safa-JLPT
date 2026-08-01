@@ -89,6 +89,27 @@ function distractors(values: string[], answer: string, n: number, rng: Rng): str
   return shuffle(pool, rng).slice(0, n);
 }
 
+// 類義語(言い換え)の選択肢を「正解と同じ語形」に揃えるための粗い分類(表層のみ)。
+// う段かな終わり=動詞、…い終わり=い形容詞、他=名詞等。名詞でもう段かな終わりはあり得るが、
+// 選択肢の見た目を揃える(=正解だけ品詞で浮かせない)用途には十分な近似。
+const U_DAN = new Set('うくぐすずつづぬふぶむゆるぷ');
+function wordForm(s: string): 'verb' | 'iadj' | 'other' {
+  if (!s) return 'other';
+  const last = s[s.length - 1];
+  if (s.length >= 2 && last === 'い') return 'iadj';
+  if (U_DAN.has(last)) return 'verb';
+  return 'other';
+}
+// 検証済み類義語の全値を語形でグループ化(誤答プール用・モジュール読込時に一度だけ)。
+const ALL_SYN_VALUES = Object.values(VOCAB_SYN);
+const SYN_BY_FORM: Record<'verb' | 'iadj' | 'other', string[]> = { verb: [], iadj: [], other: [] };
+for (const v of ALL_SYN_VALUES) if (v) SYN_BY_FORM[wordForm(v)].push(v);
+/** 類義語の誤答候補=他の検証済み類義語のうち正解と同じ語形。同形が少なければ全体にフォールバック。 */
+function synonymCandidates(answer: string): string[] {
+  const same = SYN_BY_FORM[wordForm(answer)];
+  return same.length >= 6 ? same : ALL_SYN_VALUES;
+}
+
 const FURI = /（[^）]*）/g;
 const noWave = (s: string) => (s || '').replace(/[～~]/g, '');
 
@@ -196,7 +217,10 @@ export function makeQuestion(item: StudyItem, pool: StudyItem[], rng: Rng = Math
     if (f.length) builders = f;
   }
   const b = builders[Math.floor(rng() * builders.length)] ?? builders[0];
-  const wrongs = distractors(pool.map(b.valueOf).filter((v) => v !== b.prompt), b.answer, 3, rng);
+  // 類義語の誤答は「他の検証済み類義語のうち正解と同じ語形(動詞/い形容詞/名詞)」から採る。
+  // 従来は pool の生の見出し語(名詞/動詞が混在)を使ったため、動詞句の正解(例 音がする)だけ浮いていた。
+  const cands = b.format === 'synonym' ? synonymCandidates(b.answer) : pool.map(b.valueOf);
+  const wrongs = distractors(cands.filter((v) => v !== b.prompt), b.answer, 3, rng);
   const choices = shuffle([b.answer, ...wrongs], rng);
   return { itemId: item.id, prompt: b.prompt, reading: b.reading, example: b.example, question: b.question, format: b.format, choices, answerIndex: choices.indexOf(b.answer) };
 }
