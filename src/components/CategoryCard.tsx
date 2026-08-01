@@ -61,6 +61,9 @@ export default function CategoryCard({ cat }: { cat: Category }) {
     return nav.navigate('Quiz', { category: cc, title: catName(cc) });
   };
   const subs = subRingsFor(cat);
+  // 語彙/文法のミックス出題は統合復習(今日のオススメ問題)へ移行=試験タブからは撤去。
+  // 読解/聴解のボタンはReading/Listeningへの入口・JFT文法は会話と表現の入口なので残す。
+  const showMix = cat === 'dokkai' || cat === 'choukai' || (cat === 'bunpou' && isJft);
 
   return (
     <View style={s.card}>
@@ -68,10 +71,12 @@ export default function CategoryCard({ cat }: { cat: Category }) {
         <Text style={s.cardTitle}>{catName(cat)}</Text>
         <RingGauge value={rings[cat]} color={ringColor(rings[cat])} size={54} stroke={6} label={t('study.accuracy')} />
       </View>
-      <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => mixPress(cat)}>
-        <Text style={s.mixTitle}>{t('study.mix')}</Text>
-        <Text style={s.mixSub}>{t('study.q_each')} ›</Text>
-      </Pressable>
+      {showMix && (
+        <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => mixPress(cat)}>
+          <Text style={s.mixTitle}>{t('study.mix')}</Text>
+          <Text style={s.mixSub}>{t('study.q_each')} ›</Text>
+        </Pressable>
+      )}
       {subs.length ? (
         <>
           <Text style={s.tapHint}>{t('study.tap_daimon')}</Text>
