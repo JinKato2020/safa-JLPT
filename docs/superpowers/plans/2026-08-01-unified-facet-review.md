@@ -96,8 +96,8 @@
 
 **Tests:** 既習の苦手のみ・未習は出ない・忘却曲線順・同一面3連続なし・面→出題形式の対応・size上限。
 
-- [ ] selectReview.ts + テスト
-- [ ] reviewQuestion.ts + テスト・tsc緑
+- [x] selectReview.ts + テスト（既習due弱い順・非due補充・同面3連続回避・新出除外）
+- [x] reviewQuestion.ts + テスト（面→unit逆写像→questionForUnit。listen/漢字char/passageは当面null）・全数367緑
 
 ## Phase 5 — 予想得点の面参照化（配線差し替え）
 

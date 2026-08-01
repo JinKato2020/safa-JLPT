@@ -14,10 +14,11 @@
    - ✅ **P1**（純ロジック）=`facetMap.ts`＋`facetMastery.ts`＋test16。コミット`18bce99`。
    - ✅ **P2**（状態合流）=state.tsに`mastery?`/`masteryMigrated?`（INITIAL=`{}`/true）＋store.tsx 3case合流（QUIZ→practice/MOCK→mock初見のみ/KAKITORI step3合格→write補強）＋test6。全数352緑・tsc0。
    - ✅ **P3 移行**=`migrateMastery.ts`（`buildMasteryFromLegacy`＝items/kakitori→面・認識面複製/補強p×weight/認識面を下げない/冪等）＋`storage.loadState`配線＋test8。全数360緑・tsc0。
-   - ⬜ P4復習エンジン→P5予想得点配線→P6 UI入口+旧mixed撤去→P7書き取り2ターン→P8検証
+   - ✅ **P4 復習エンジン**=`selectReview.ts`(既習due弱い順・非due補充・size10・同面3連続回避・新出除外)＋`reviewQuestion.ts`(面→unit逆写像→questionForUnit。unitForPick: kb-はそのまま/vocab read→#kanji_read・write→#orthography・mean→#context|#synonym/grammar id→#grammar_form。listen・漢字char・passageは当面null=読み飛ばし)＋test7。全数367緑・tsc0。
+   - ⬜ P5予想得点配線→（ここまで内部・安全）→P6 UI入口+旧mixed撤去→P7書き取り2ターン→P8検証
 
 ## 次の一手
-= **P4 復習エンジン**（`src/review/selectReview.ts`＝既習(面state有)かつ due の面を effectiveP昇順・size10・同面3連続回避／`reviewQuestion.ts`＝面→既存出題(read→questionForUnit #kanji_read等/mean→context・synonym・usage/grammar→文法バンク/listen→ListeningQuiz)）。純ロジック＋テスト先行。逆写像=面→代表unitが要る（facetMapの逆＝itemIdと面から出題unitを組む）。
+= **P5 予想得点の面参照化**（`src/store/selectors.ts`の`unitMasteryWithTransfer(state,now,unit)`を、大問→面を`facetsForUnit`で解決し`facetEffectiveP`優先で返すよう変更。無ければ従来`state.items[unit]`＋WORDTAB_TRANSFERを保険で残す。`ladderPassEntries`/`readinessFor`/`expectedScore`は自動追従。回帰=`store/ladderWeighting.test.ts`/`wordTabTransfer.test.ts`を面でも緑に）。**P5まで内部・安全→P6(UI/旧mixed撤去)直前でユーザーに一度見せる**。
 
 ## 走行run
 - Explore（地図取得）=完了・結果は上記に畳んだ
