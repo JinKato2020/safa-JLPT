@@ -29,8 +29,8 @@ export default function DictHomeScreen() {
   const st = homeStatus(state, Date.now());
   const bg = useDictBg(st.predScore, st.passTotal);
   const blinkBg = useTabBlink('dict');
-  // 復習対象=my単語帳に保存した語彙＋漢字のid(VOCAB/KANJIに無いidはFlashcard側で自動除外)。
-  const reviewIds = (myList ?? []).filter((r) => r.type === 'vocab' || r.type === 'kanji').map((r) => r.id);
+  // 復習対象=my単語帳に保存した語彙＋漢字＋文法のid(該当データが無いidはFlashcard側で自動除外)。
+  const reviewIds = (myList ?? []).map((r) => r.id);
 
   return (
     <View style={[styles.c, { backgroundColor: c.bg }]}>

@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { itemsFor, VOCAB, KANJI, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
+import { itemsFor, allWordsFor, VOCAB, KANJI, GRAMMAR, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
 import { effectiveP } from '../engine/engine';
 
 const REVIEW_SIZE = 10; // my単語帳の「復習する」= 苦手優先で10問に絞る
@@ -70,6 +70,18 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
       </View>
     );
   }
+  if (item.type === 'grammar') {
+    // 文法の学習カード=文法点＋意味＋例文(かなルビは括弧表記なので剥がして素の文を提示)。
+    const exPlain = item.exampleJa ? item.exampleJa.replace(/[（(][^）)]*[）)]/g, '') : '';
+    return (
+      <View style={s.card}>
+        <Text style={s.word}>{item.point}</Text>
+        <Text style={s.meaning}>{native ?? item.meaning}</Text>
+        {native ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
+        {exPlain ? <Text style={s.ex}>{exPlain}</Text> : null}
+      </View>
+    );
+  }
   return null;
 }
 
@@ -83,7 +95,8 @@ export default function FlashcardScreen() {
   const { settings } = state;
   const route = useRoute<RouteProp<RootStackParamList, 'Flashcard'>>();
   const ids = route.params?.ids; // my単語帳の「復習する」= 保存済みの語彙＋漢字を復習(未指定時=従来のSRSキュー)
-  const pool = useMemo(() => itemsFor(settings.level, 'moji_goi'), [settings.level]);
+  // 誤答プール=語彙+漢字(moji_goi)に加え文法(bunpou)も含める。文法itemの誤答が他の文法点の意味から引けるように。
+  const pool = useMemo(() => [...allWordsFor(settings.level, 'moji_goi'), ...allWordsFor(settings.level, 'bunpou')], [settings.level]);
   // idsが渡された時は、レベルに関係なくその語/漢字id群を対象にする(buildQueueのdue/fresh絞り込みを迂回)。
   // 出題順=苦手優先: 記憶度(effectiveP)が低い順に並べ、上位REVIEW_SIZE(10)問だけ復習する。
   // 未学習(SRS状態なし)は0扱い=最優先。同点は保存順を維持(安定ソート)。
@@ -92,6 +105,7 @@ export default function FlashcardScreen() {
     const byId = new Map<string, StudyItem>();
     for (const v of VOCAB) byId.set(v.id, v);
     for (const k of KANJI) byId.set(k.id, k);
+    for (const g of GRAMMAR) byId.set(g.id, g); // 私の単語帳に保存した文法も復習対象に含める
     const items = ids.map((id) => byId.get(id)).filter((x): x is StudyItem => Boolean(x));
     if (!items.length) return undefined;
     const now = Date.now();
