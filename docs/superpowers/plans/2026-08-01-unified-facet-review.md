@@ -108,7 +108,7 @@
 
 **Tests:** 既存 `store/ladderWeighting.test.ts`・`store/wordTabTransfer.test.ts` を面参照でも緑に更新（回帰線）。面が上がると予想得点が上がる単調性。
 
-- [ ] selectors.ts 差し替え + テスト更新・tsc緑
+- [x] selectors.ts `unitMasteryWithTransfer` を面優先へ（面未構築時のみ従来items＋vProduce持ち込みへフォールバック）。context/synonymは共にmean面＝一貫。回帰(ladderWeighting/wordTabTransfer)は面未設定でフォールバックし緑。新テスト3件で面優先を担保。全数370緑・tsc緑。
 
 ## Phase 6 — UI入口＋ラベル改称（撤去含む）
 

@@ -5,6 +5,8 @@ import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BAN
 import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT, type Daimon } from '../data/examBlueprint';
 import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits, bankLevelOf } from '../data/daimon';
 import { hasKanji } from '../quiz/quiz';
+import { facetsForUnit } from '../review/facetMap';
+import { facetEffectiveP } from '../review/facetMastery';
 import { passProbability as ladderPassProbability, itemP as ladderItemP, expectedScore as ladderExpectedScore, type DaimonExpectation, type ScoreEstimate } from '../ladder/passRate';
 import { type Level as LadderLevel } from '../ladder/facets';
 import type { AppState, GrowthPoint } from './state';
@@ -42,11 +44,22 @@ export function skillWeight(id: string): number {
 // 文法(gBuild/gMeaning→文法形式)は pointId が疎+Plan Bで作り直し予定のため後回し(ここでは持ち込まない)。
 export const WORDTAB_TRANSFER: Partial<Record<Daimon, number>> = { kanji_read: 0.9, context: 0.35, synonym: 0.35 };
 
-// 試験ユニット(<vocabId>#daimon)の実効習得度。直接の試験証拠があれば最優先(=上書き)、無ければ
-// 単語タブ vProduce を係数で割引して持ち込む。持ち込み対象外(表記/用法/文法/バンクid)や証拠皆無は null(未着手)。
+// 試験ユニット(<vocabId>#daimon / バンクid)の実効習得度。面別マスタリー統合復習(2026-08-01)以降は
+// 「面(read/write/mean/grammar)の実力」を正本とし、大問→面(facetsForUnit)で解決して返す。
+// 面が未構築(移行前・面未記録)のときだけ従来ロジック(直接items＋vProduce持ち込み)へフォールバック。
 export function unitMasteryWithTransfer(state: AppState, now: number, unit: string): number | null {
+  // 1) 面別マスタリー優先: この大問の認識面(weight1)の実効実力。context/synonymは共にmean面=語彙の意味実力に一貫。
+  const m = state.mastery;
+  if (m) {
+    for (const t of facetsForUnit(unit)) {
+      if (t.weight < 1) continue;
+      const p = facetEffectiveP(m, t.itemId, t.facet, now);
+      if (p !== null) return p;
+    }
+  }
+  // 2) フォールバック(移行前/面未記録): 直接の試験証拠 → vProduce の割引持ち込み。
   const direct = state.items[unit];
-  if (direct) return effectiveP(direct, now); // 直接の試験証拠が最優先
+  if (direct) return effectiveP(direct, now);
   const hash = unit.lastIndexOf('#');
   if (hash < 0) return null;                   // バンクid(usg-/kb-/mk-)は持ち込み対象外
   const coef = WORDTAB_TRANSFER[unit.slice(hash + 1) as Daimon];

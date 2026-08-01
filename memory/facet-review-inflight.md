@@ -15,10 +15,11 @@
    - ✅ **P2**（状態合流）=state.tsに`mastery?`/`masteryMigrated?`（INITIAL=`{}`/true）＋store.tsx 3case合流（QUIZ→practice/MOCK→mock初見のみ/KAKITORI step3合格→write補強）＋test6。全数352緑・tsc0。
    - ✅ **P3 移行**=`migrateMastery.ts`（`buildMasteryFromLegacy`＝items/kakitori→面・認識面複製/補強p×weight/認識面を下げない/冪等）＋`storage.loadState`配線＋test8。全数360緑・tsc0。
    - ✅ **P4 復習エンジン**=`selectReview.ts`(既習due弱い順・非due補充・size10・同面3連続回避・新出除外)＋`reviewQuestion.ts`(面→unit逆写像→questionForUnit。unitForPick: kb-はそのまま/vocab read→#kanji_read・write→#orthography・mean→#context|#synonym/grammar id→#grammar_form。listen・漢字char・passageは当面null=読み飛ばし)＋test7。全数367緑・tsc0。
-   - ⬜ P5予想得点配線→（ここまで内部・安全）→P6 UI入口+旧mixed撤去→P7書き取り2ターン→P8検証
+   - ✅ **P5 予想得点の面参照化**=`selectors.ts unitMasteryWithTransfer`を面優先(facetsForUnit→facetEffectiveP)、面未構築時のみ従来items＋vProduce持ち込みへフォールバック。context/synonym=同mean面で一貫。回帰(ladderWeighting/wordTabTransfer)は面未設定でフォールバック→緑。新test3。全数370緑・tsc0。コミット予定。
+   - ⬜ **P6 UI入口+旧mixed撤去（見た目が変わる=ユーザー確認ポイント）**→P7書き取り2ターン→P8検証
 
 ## 次の一手
-= **P5 予想得点の面参照化**（`src/store/selectors.ts`の`unitMasteryWithTransfer(state,now,unit)`を、大問→面を`facetsForUnit`で解決し`facetEffectiveP`優先で返すよう変更。無ければ従来`state.items[unit]`＋WORDTAB_TRANSFERを保険で残す。`ladderPassEntries`/`readinessFor`/`expectedScore`は自動追従。回帰=`store/ladderWeighting.test.ts`/`wordTabTransfer.test.ts`を面でも緑に）。**P5まで内部・安全→P6(UI/旧mixed撤去)直前でユーザーに一度見せる**。
+= **★ここでユーザーに一度報告（P1-P5=内部完了・push済・未ビルド・見た目不変）**。承認後P6着手：ホーム(HomeCoach横)/書斎(StudyHome)/辞書(私の単語帳)に「試験問題の復習」入口＝新route or Quiz mode:'review'（selectReview→reviewQuestion→null読み飛ばしで10問揃え→既存AfterStudyReward）。ラベル`cards.reco`/`study.reco`「今日のオススメ」→「試験問題の復習」(ja.jsonのみ)。旧`category:'all'`(QuizScreen buildAllQueue)＋書斎`WordDrill mixed`(CardsScreen)撤去。参照stock.ts整理。
 
 ## 走行run
 - Explore（地図取得）=完了・結果は上記に畳んだ
