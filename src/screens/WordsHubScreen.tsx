@@ -38,8 +38,8 @@ export default function WordsHubScreen() {
           { key: 'vocab', label: t('cards.vocab'), area: { left: '12%', top: '17%', width: '15%', height: '11%' } },
           { key: 'grammar', label: t('cards.grammar'), area: { left: '28%', top: '16%', width: '15%', height: '11%' } },
           { key: 'kanji', label: t('cards.kanji'), area: { left: '42%', top: '17%', width: '15%', height: '11%' } },
-          // 桜(机に座るキャラ)=画面中央。タップでオススメ開始カード。
-          { key: 'reco', label: t('cards.reco'), area: { left: '34%', top: '31%', width: '33%', height: '27%' } },
+          // 桜(机に座る巫女)=新背景(書斎)では中央やや下。タップでオススメ開始カード。
+          { key: 'reco', label: t('cards.reco'), area: { left: '35%', top: '41%', width: '31%', height: '25%' } },
         ]}
       />
     </View>
