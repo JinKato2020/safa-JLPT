@@ -1,7 +1,7 @@
 // Phase4: 復習選抜＋出題。実行 node --import tsx --test src/review/selectReview.test.ts
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { selectReview } from './selectReview.ts';
+import { selectReview, dueCount } from './selectReview.ts';
 import { reviewQuestion, unitForPick } from './reviewQuestion.ts';
 import { recordFacet, type MasterySlice } from './facetMastery.ts';
 import { newItemState, recordQuiz, type ItemState } from '../engine/engine.ts';
@@ -54,6 +54,15 @@ test('同一面が3連続しない(実現可能な配分で)', () => {
   for (let i = 2; i < picks.length; i++) {
     assert.ok(!(picks[i].facet === picks[i - 1].facet && picks[i].facet === picks[i - 2].facet), `3連続なし @${i}`);
   }
+});
+
+test('dueCount: dueAt<=now の面だけを数える(空は0)', () => {
+  const m: MasterySlice = {
+    a: { read: weakDue(), mean: weakDue() }, // due 2面
+    b: { grammar: strongFuture() },          // 非due
+  };
+  assert.equal(dueCount(m, NOW), 2);
+  assert.equal(dueCount({}, NOW), 0);
 });
 
 test('unitForPick: 面→unit の逆写像', () => {

@@ -251,7 +251,7 @@ const SECTION_CATS: Record<string, Category[]> = {
   dokkai: ['dokkai'],                             // N3: 読解
   choukai: ['choukai'],                           // 聴解
 };
-const SECTION_LABEL: Record<string, string> = {
+export const SECTION_LABEL: Record<string, string> = {
   gengo_dokkai: '言語知識・読解',
   gengo: '言語知識',
   dokkai: '読解',

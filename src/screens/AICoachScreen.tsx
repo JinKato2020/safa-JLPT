@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
-import Svg, { Path, Circle } from 'react-native-svg';
+import Svg, { Path, Circle, Rect } from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
@@ -15,6 +15,9 @@ import { useAppState } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
 import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
 import { dayStr } from '../store/state';
+import { expectedScoreFor, categoryCoveragePct, SECTION_LABEL } from '../store/selectors';
+import { dueCount } from '../review/selectReview';
+import type { Category } from '../engine/engine';
 import RingGauge from '../components/RingGauge';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -40,7 +43,19 @@ export default function AICoachScreen() {
     const learned = bars.length ? bars[bars.length - 1] : 0;
     const { h, m } = studyHM(st.studySeconds);
     const weeks = st.passPct >= 80 ? 0 : pg > 0 ? Math.max(1, Math.ceil((80 - st.passPct) / pg)) : null;
-    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks };
+    // 科目別の予想得点＋基準点(合格率が予想得点より低い理由=科目落ちの可視化)。
+    let score: ReturnType<typeof expectedScoreFor> | null = null;
+    try { score = expectedScoreFor(state, now); } catch { score = null; }
+    // 復習待ち(忘れかけ)の面数=面別マスタリーの due 数。
+    const due = state.mastery ? dueCount(state.mastery, now) : 0;
+    // 学習量の推移: 累積「覚えた語」の日次差分=その日の新規習得数(15点→14本のバー)。
+    const cum = growthBars(state, today, 15);
+    const daily = cum.slice(1).map((v, i) => Math.max(0, v - cum[i]));
+    // カバー率(学んだ範囲の割合): 4区分ごとの習得済み/全項目。正答率(質)と別の「量」の指標。
+    const RING_CATS: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
+    const CAT_LABEL: Record<string, string> = { moji_goi: 'home.cat_moji_goi', bunpou: 'home.cat_bunpou', dokkai: 'home.cat_dokkai', choukai: 'home.cat_choukai' };
+    const coverage = RING_CATS.map((cat) => ({ cat, labelKey: CAT_LABEL[cat], pct: categoryCoveragePct(state, now, cat) }));
+    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, due, daily, coverage };
   }, [state]);
 
   const { st } = d;
@@ -76,7 +91,6 @@ export default function AICoachScreen() {
           <View style={s.sigil}><Ionicons name="sparkles" size={15} color="#fff" /></View>
           <View>
             <Text style={s.brandT}>{t('home.ai_title')}</Text>
-            <Text style={s.brandS}>{t('home.ai_caption')}</Text>
           </View>
         </View>
         <Pressable onPress={() => nav.goBack()} hitSlop={12}><Ionicons name="close" size={24} color={c.mute} /></Pressable>
@@ -93,16 +107,12 @@ export default function AICoachScreen() {
               <Text style={s.ringCap}>予想得点</Text>
             </RingGauge>
             <View style={s.heroSide}>
+              {/* 主役=予想得点はリング中央。ここは合格率(補足)＋合格ラインだけ(得点の重複表示を撤去)。 */}
               <View>
-                <View style={s.mK}><View style={[s.dot, { backgroundColor: scoreColor }]} /><Text style={s.mKt}>予想得点（取れそうな点）</Text></View>
-                <Text style={s.mV}>{st.predScore}<Text style={s.mVs}> / {st.predMax}点</Text></Text>
-                <Text style={s.mNote}>合格ライン {st.passTotal}点（リングの｜印）</Text>
-              </View>
-              {/* 補足=合格率（小さく） */}
-              <View style={s.subMetric}>
                 <Text style={s.subMetricT}>合格率（実際に受かる確率）</Text>
                 <Text style={[s.subMetricV, { color: passColor }]}>{st.passPct}<Text style={s.subMetricU}>％</Text></Text>
               </View>
+              <Text style={s.mNote}>合格ライン {st.passTotal}点（リングの｜印）</Text>
             </View>
           </View>
           <Text style={s.diff}>💡 予想得点＝取れそうな点／合格率＝実際に受かる確率。1科目でも基準点割れだと合格率は下がります。</Text>
@@ -110,13 +120,42 @@ export default function AICoachScreen() {
 
         {/* ② 分野別の到達度 */}
         <View style={s.card}>
-          <SecLabel c={c} s={s} text="分野別の到達度" />
+          <SecLabel c={c} s={s} text="分野別の正解率" />
           <View style={s.facets}>
             {d.subs.map((sub) => (
               <RingGauge key={sub.key} value={sub.pct} color={sub.color} size={52} stroke={6} label={t(sub.labelKey)} />
             ))}
           </View>
         </View>
+
+        {/* ②-b 科目別の予想得点＋基準点(合格率が予想得点より低い理由=科目落ちを可視化) */}
+        {d.score && d.score.sections.length > 0 && (
+          <View style={s.card}>
+            <SecLabel c={c} s={s} text="科目別の予想得点と基準点" />
+            <View style={s.scoreList}>
+              {d.score.sections.map((sec) => {
+                const cleared = sec.score >= sec.minPoint;
+                const col = cleared ? c.green : c.red;
+                const fillW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.score) / sec.max)) : 0;
+                const markW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.minPoint) / sec.max)) : 0;
+                return (
+                  <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
+                    <View style={s.scoreHead}>
+                      <Text style={s.scoreLabel}>{SECTION_LABEL[sec.key] ?? sec.key}</Text>
+                      <Text style={[s.scoreStatus, { color: col }]}>{cleared ? 'クリア✓' : `基準点まであと${sec.minPoint - sec.score}点`}</Text>
+                    </View>
+                    <View style={s.scoreBar}>
+                      <View style={[s.scoreBarFill, { width: `${fillW}%`, backgroundColor: col }]} />
+                      <View style={[s.scoreMk, { left: `${markW}%` }]} />
+                    </View>
+                    <Text style={s.scoreSub}>予想 <Text style={s.scoreSubEm}>{sec.score}</Text> / {sec.max}点（基準点 {sec.minPoint}点 ＝ ｜印）</Text>
+                  </View>
+                );
+              })}
+            </View>
+            <Text style={s.diff}>💡 1科目でも基準点（各科目の最低ライン）を割ると不合格です。赤い科目を最優先で上げましょう。</Text>
+          </View>
+        )}
 
         {/* ③ この7日の成長 */}
         <View style={s.card}>
@@ -161,6 +200,40 @@ export default function AICoachScreen() {
           <View style={s.goalScale}><Text style={s.goalScaleT}>いま {st.passPct}%</Text><Text style={s.goalScaleT}>合格圏 80%</Text></View>
         </View>
 
+        {/* ⑤-b カバー率(学んだ範囲=量。正答率=質とは別軸) */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="カバー率（学んだ範囲）" />
+          <View style={s.covList}>
+            {d.coverage.map((cv) => {
+              const pct = cv.pct ?? 0;
+              return (
+                <View key={cv.cat} style={s.covRow}>
+                  <Text style={s.covLabel}>{t(cv.labelKey)}</Text>
+                  <View style={s.covBar}><View style={[s.covBarFill, { width: `${pct}%`, backgroundColor: c.blue }]} /></View>
+                  <Text style={s.covPct}>{cv.pct === null ? '—' : `${pct}%`}</Text>
+                </View>
+              );
+            })}
+          </View>
+          <Text style={s.diff}>💡 「どれだけ広く学んだか（量）」の目安です。正解率（うまさ・質）とは別の指標です。</Text>
+        </View>
+
+        {/* ⑤-c 復習の待ち(忘れかけ) */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="復習の待ち（忘れかけ）" />
+          <View style={s.dueRow}>
+            <Text style={[s.dueBig, { color: d.due > 0 ? c.amber : c.green }]}>{d.due}<Text style={s.dueUnit}>語</Text></Text>
+            <Text style={s.dueNote}>{d.due > 0 ? '復習のタイミングが来た語です。今日はここから始めると、忘れる前に定着します。' : 'いまは忘れかけなし。よく復習できています。'}</Text>
+          </View>
+        </View>
+
+        {/* ⑤-d 学習量の推移(覚えた語/日・直近14日) */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="学習量（覚えた語/日・直近14日）" />
+          <BarChart s={s} c={c} data={d.daily} />
+          <Text style={s.barCap}>直近14日で ＋{d.daily.reduce((a, b) => a + b, 0)}語</Text>
+        </View>
+
         {/* ⑥ 継続・学習量 */}
         <View style={s.strip}>
           <StripCell s={s} n={`${d.st.streakDays}`} unit="日" tt="連続学習" c={c} />
@@ -199,6 +272,23 @@ function Stat({ s, tt, v, unit, up, c, color }: { s: Styles; tt: string; v: stri
         <Text style={[s.statV, up && { color: c.green }, color ? { color, fontSize: ty.body } : null]}>{v}</Text>
         {!!unit && <Text style={s.statU}>{unit}</Text>}
       </View>
+    </View>
+  );
+}
+
+function BarChart({ s, c, data }: { s: Styles; c: ThemeColors; data: number[] }) {
+  const W = 320, H = 64, gap = 3;
+  const n = Math.max(1, data.length);
+  const bw = (W - gap * (n - 1)) / n;
+  const max = Math.max(1, ...data);
+  return (
+    <View style={s.bars}>
+      <Svg width="100%" height={H} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
+        {data.map((v, i) => {
+          const h = v > 0 ? Math.max(2, (v / max) * (H - 4)) : 0;
+          return <Rect key={i} x={i * (bw + gap)} y={H - h} width={bw} height={h} rx={1.5} fill={c.blue} opacity={v > 0 ? 0.85 : 0.16} />;
+        })}
+      </Svg>
     </View>
   );
 }
@@ -249,6 +339,36 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
 
   card: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.md, ...shadow1(c) },
   facets: { flexDirection: 'row', justifyContent: 'space-between' },
+
+  // 科目別の予想得点＋基準点
+  scoreList: { gap: spacing.xs },
+  scoreItem: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 9, paddingHorizontal: 10, gap: 6 },
+  scoreHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
+  scoreLabel: { fontSize: 12.5, fontWeight: '800', color: c.ink },
+  scoreStatus: { fontSize: 11.5, fontWeight: '800' },
+  scoreBar: { height: 7, borderRadius: 7, backgroundColor: c.surface, position: 'relative', overflow: 'hidden', borderWidth: 1, borderColor: c.line },
+  scoreBarFill: { position: 'absolute', top: 0, bottom: 0, left: 0, borderRadius: 7 },
+  scoreMk: { position: 'absolute', top: -3, bottom: -3, width: 2, backgroundColor: c.ink2 },
+  scoreSub: { fontSize: 10.5, color: c.faint, fontWeight: '600' },
+  scoreSubEm: { fontSize: 12, color: c.ink, fontWeight: '900' },
+
+  // カバー率(量)
+  covList: { gap: spacing.xs },
+  covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  covLabel: { width: 62, fontSize: 11.5, color: c.ink2, fontWeight: '700' },
+  covBar: { flex: 1, height: 8, borderRadius: 8, backgroundColor: c.bgSoft, overflow: 'hidden' },
+  covBarFill: { height: '100%', borderRadius: 8 },
+  covPct: { width: 40, textAlign: 'right', fontSize: 12, fontWeight: '800', color: c.ink, fontVariant: ['tabular-nums'] },
+
+  // 復習の待ち
+  dueRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
+  dueBig: { fontSize: 40, fontWeight: '900', fontVariant: ['tabular-nums'] },
+  dueUnit: { fontSize: 15, fontWeight: '800' },
+  dueNote: { flex: 1, fontSize: 12, color: c.ink2, lineHeight: 18, fontWeight: '600' },
+
+  // 学習量の推移
+  bars: { marginTop: 2 },
+  barCap: { fontSize: 10.5, color: c.faint, fontWeight: '700', marginTop: 6, textAlign: 'right' },
 
   growthRow: { flexDirection: 'row', gap: spacing.sm },
   stat: { flex: 1, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 9, paddingHorizontal: 10 },

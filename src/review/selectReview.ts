@@ -29,6 +29,19 @@ function avoidTriples(items: ReviewPick[]): ReviewPick[] {
  * 復習の出題対象を size 件選ぶ。既習(面state有)のみ。
  * ① dueAt<=now を effectiveP 昇順(弱い順)で。② 足りなければ非dueの弱い順で補充。③ 同一面3連続回避。
  */
+/** 忘れかけ(復習待ち)の面数。dueAt<=now の面の総数(selectReview の due 判定と同一ロジック)。 */
+export function dueCount(mastery: MasterySlice, now: number): number {
+  let n = 0;
+  for (const itemId in mastery) {
+    const facets = mastery[itemId];
+    for (const f in facets) {
+      const st = facets[f as Facet]!;
+      if (st.dueAt <= now) n++;
+    }
+  }
+  return n;
+}
+
 export function selectReview(mastery: MasterySlice, now: number, size = 10, _rng?: Rng): ReviewPick[] {
   const scored: Scored[] = [];
   for (const itemId in mastery) {
