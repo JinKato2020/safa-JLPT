@@ -81,17 +81,19 @@
 - **現金配布・レビュー投稿を条件にするのは不可**。1週間Pro（アプリ機能）はOK。
 - 付与は自前フラグ（§2）で、ストア課金を通さない。
 
-## 9. 依存・前提
+## 9. 依存・前提（2026-08-02 実コード確認・**Pro/広告は実装済み**）
 
-- **Pro（時間制サブスク）は未実装**。本設計は Pro が載るタイミングで有効化できる形にし、最小土台 `entitlements.pro_until` ＋ クライアント `isPro`（`pro_until > now`）だけ先に定義する。
-- マネタイズは「アプリ完成が先」方針（`memory/priority-complete-app-before-monetize`）。着手時期はその判断次第。
+- **Pro・広告・お試し・課金は実装済み**。`src/pro/entitlement.ts` の `proStatus(state, now)` が唯一の判定。優先順位＝dev → 購入（RevenueCat `purchaseActive`）→ **期限つき（紹介 `entitlements.proUntil`）** → お試し7日（`installedAt + 7日`）→ 無料。
+- **紹介の受け皿は既に用意済み**：`proStatus` に `source: 'referral'`（＝`proUntil > now`）があり、`grantProDays(state, days, now)` は**お試し終了日から積んで期間の二重取りを防ぐ**。お試し7日も `installedAt` 起点で既存。
+- したがって本設計の**クライアント側の報酬反映は新規実装が不要**。残るのは ①継続トリガー判定 ②Supabase の台帳／サーバー付与 ③導線UI ④サーバーが延ばした `pro_until` をクライアントへ同期、だけ。
+- 課金（RevenueCat `src/pro/purchases.ts`）はストア課金の正本。**紹介の付与は自前 `proUntil`** で行い、ストア課金は通さない（両立）。
 - クラウド同期＝Supabase 段階1実装済（`memory/jlpt-account-supabase`・東京）。
 
 ## 10. フェーズ（実装は別プラン）
 
-- **フェーズ0（前提）**: `entitlements.pro_until` と `isPro`。お試し1週間＝インストール時に `pro_until = install+7日`。
-- **フェーズ1（MVP）**: `referral_codes`/`referrals` ＋ コード発行・手入力・トリガー判定（streak 流用）＋ `referral-qualify` Function ＋ 達成直後と設定の導線。
-- **フェーズ2（本番）**: ディープリンク自動アトリビューション、ペイウォール導線、通知、付与上限などの運用パラメータ。
+- **フェーズ0（Pro土台）＝実装済み**: `proStatus`／`grantProDays`／お試し7日（`installedAt`）／RevenueCat／広告／課金ゲート。新規作業なし。
+- **フェーズ1（MVP・今回の実装対象）**: `referral_codes`/`referrals` ＋ コード発行・手入力・トリガー判定（適格学習日の集計）＋ `referral-qualify` Function ＋ サーバー付与 `pro_until` のクライアント同期 ＋ 達成直後と設定の導線。
+- **フェーズ2（本番）**: ディープリンク自動アトリビューション、ペイウォール導線（既存 `LimitReachedSheet` 活用）、通知、付与上限などの運用パラメータ。
 
 ## 11. 未決・将来（当面は触らない）
 

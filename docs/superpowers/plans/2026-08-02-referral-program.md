@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 友だち紹介で「紹介した人」と「続いた新規」の両方に Pro 1週間を配る仕組みを、Pro 未実装のうちは最小土台＋MVP まで作る。
+**Goal:** 友だち紹介で「紹介した人」と「続いた新規」の両方に Pro 1週間を配る仕組みを、**既存のPro実装に接続して**MVP（トリガー判定＋Supabase台帳＋導線UI＋同期）まで作る。
 
-**Architecture:** クライアントは local-first のまま。継続トリガー（14日以内に別々の7日×各日1セット）はセット完了イベントで適格学習日を貯め、成立をサーバー（Supabase Edge Function）で確定して `entitlements.pro_until` を延長。付与は自前フラグで、ストア課金は通さない。
+**Architecture:** クライアントは local-first のまま。**Proの反映（`proStatus`/`grantProDays`/お試し7日）・広告・RevenueCat課金・課金ゲートは実装済み**なので、残りの「継続トリガー判定・Supabaseの台帳と付与・導線UI・サーバーが延ばした `pro_until` の同期」を作る。継続トリガー（14日以内に別々の7日×各日1セット）はセット完了イベントで適格学習日を貯め、成立をサーバー（Supabase Edge Function）で確定して DB の `pro_until` を延長→同期。付与は自前フラグで、ストア課金は通さない。
 
 **Tech Stack:** React Native / Expo（TS）、node 標準テストランナー（`node --import tsx --test`）、Supabase（Postgres + Edge Functions / Deno）。
 
@@ -35,88 +35,29 @@
 
 ---
 
-## フェーズ0（前提）: Pro 権利の最小土台
+## フェーズ0（Pro土台）＝実装済み（新規作業なし）
 
-### Task 1: `entitlement.ts` に時間制 Pro（pro_until）を追加
+`src/pro/entitlement.ts` に以下が既存。**紹介の受け皿は最初から用意されている**ので作り直さない：
+- `proStatus(state, now)`（唯一の判定・優先度 dev→購入→**紹介 `proUntil`**→お試し7日→無料）／`grantProDays(state, days, now)`（お試し終了日から積んで二重取り防止）／お試し7日＝`installedAt + 7日`。
+- `state.entitlements.{ proUntil, purchaseActive, purchaseCheckedAt }`、`state.installedAt` も既存。RevenueCat（`src/pro/purchases.ts`）・広告（`src/pro/ads.ts`）・課金ゲート（`dailyQuota.ts`/`useSessionGate.ts`/`LimitReachedSheet.tsx`）も実装済み。
 
-**Files:**
-- Modify: `src/pro/entitlement.ts`
-- Test: `src/pro/entitlement.test.ts`（既存に追記）
-
-**Interfaces:**
-- Produces: `isPro(state, now): boolean`（`state.entitlements?.proUntil > now`）、`grantProDays(state, days, now): AppState`（`proUntil = max(now, proUntil) + days*86400000`）、`startTrialIfNew(state, now): AppState`（`installDate` 未設定なら `installDate=now` かつ `proUntil=now+7日`）。
-
-- [ ] **Step 1: Write the failing tests**
-
-```ts
-import { test } from 'node:test'; import assert from 'node:assert/strict';
-import { INITIAL_STATE } from '../store/state';
-import { isPro, grantProDays, startTrialIfNew } from './entitlement';
-const NOW = Date.UTC(2026, 7, 2, 0, 0, 0); const DAY = 86400000;
-test('startTrialIfNew: 新規は install=now・proUntil=+7日', () => {
-  const s = startTrialIfNew(INITIAL_STATE, NOW);
-  assert.equal(s.entitlements?.proUntil, NOW + 7*DAY);
-  assert.equal(isPro(s, NOW), true);
-});
-test('startTrialIfNew: 既に installDate があれば何もしない', () => {
-  const s1 = startTrialIfNew(INITIAL_STATE, NOW);
-  const s2 = startTrialIfNew(s1, NOW + 3*DAY);
-  assert.equal(s2.entitlements?.proUntil, s1.entitlements?.proUntil);
-});
-test('grantProDays: 期限内は延長・期限切れは now 起点', () => {
-  const s1 = startTrialIfNew(INITIAL_STATE, NOW);          // proUntil=+7
-  const s2 = grantProDays(s1, 7, NOW + 2*DAY);              // まだ期限内→+7延長=+14
-  assert.equal(s2.entitlements?.proUntil, NOW + 14*DAY);
-  const s3 = grantProDays(INITIAL_STATE, 7, NOW);           // 権利なし→now+7
-  assert.equal(s3.entitlements?.proUntil, NOW + 7*DAY);
-});
-test('isPro: 期限切れは false', () => {
-  const s = grantProDays(INITIAL_STATE, 7, NOW);
-  assert.equal(isPro(s, NOW + 8*DAY), false);
-});
-```
-
-- [ ] **Step 2: Run to verify fail** — `node --import tsx --test src/pro/entitlement.test.ts` → FAIL（未定義）。
-- [ ] **Step 3: Implement**
-
-```ts
-// src/pro/entitlement.ts に追記
-const DAY = 86400000;
-export function isPro(state: AppState, now: number): boolean {
-  return (state.entitlements?.proUntil ?? 0) > now;
-}
-export function grantProDays(state: AppState, days: number, now: number): AppState {
-  const base = Math.max(now, state.entitlements?.proUntil ?? 0);
-  return { ...state, entitlements: { ...state.entitlements, proUntil: base + days * DAY } };
-}
-export function startTrialIfNew(state: AppState, now: number): AppState {
-  if (state.referral?.installDate) return state;
-  const withInstall = { ...state, referral: { ...state.referral, installDate: now } };
-  return grantProDays(withInstall, 7, now);
-}
-```
-
-- [ ] **Step 4: Run to verify pass** — 同コマンド → PASS。
-- [ ] **Step 5: Commit** — `git add src/pro/entitlement.ts src/pro/entitlement.test.ts && git commit -m "feat(pro): 時間制Pro(pro_until)の最小土台とお試し初期化"`
-
-### Task 2: state に entitlements / referral を追加し、起動時にお試し開始
+### Task 1: referral の state フィールドを追加
 
 **Files:**
-- Modify: `src/store/state.ts`（`AppState` に `entitlements?: { proUntil: number }` と `referral?: { installDate?: number; qualifyingDays?: string[]; enteredCode?: string }`）
-- Modify: `src/store/store.tsx`（storage ロード後 or 初期化時に `startTrialIfNew(state, Date.now())` を1回適用）
+- Modify: `src/store/state.ts`（`AppState` に `referral?: { qualifyingDays?: string[]; enteredCode?: string }`。継続の起点は既存の `installedAt` を流用）
 
 **Interfaces:**
-- Consumes: `startTrialIfNew`（Task 1）。
-- Produces: `state.entitlements.proUntil`, `state.referral.*`。
+- Produces: `state.referral.qualifyingDays`（適格学習日 ISO 文字列配列）、`state.referral.enteredCode`（新規が入力した紹介コード）。
 
-- [ ] **Step 1:** `AppState` に上記2フィールドを型追加（`INITIAL_STATE` は未設定＝undefined のまま。お試しは起動時付与で入る）。
-- [ ] **Step 2:** store の初期ロード（`storage.ts` の返り値 or Provider マウント時）で `startTrialIfNew` を適用。既存の migrate 群と同じ場所に置く。
-- [ ] **Step 3:** `npx tsc --noEmit` → エラー0。
-- [ ] **Step 4: Commit** — `git commit -am "feat(pro): 起動時にお試しPro(7日)を付与・referral state土台"`
+- [ ] **Step 1:** 型追加（`INITIAL_STATE` は未設定＝undefined のまま）。
+- [ ] **Step 2:** `npx tsc --noEmit` → エラー0。
+- [ ] **Step 3: Commit** — `git commit -am "feat(referral): referral state(qualifyingDays/enteredCode)を追加"`
 
 ---
 
 ## フェーズ1（MVP）: トリガー判定＋テーブル＋関数＋導線
+
+> ※Task番号は 3 から続く（旧 Task 2＝お試しPro は実装済みのため欠番）。継続の起点は `state.installedAt`（既存）。
 
 ### Task 3: 継続トリガーの純関数（中核ロジック）
 
@@ -292,7 +233,7 @@ create policy en_read on public.entitlements for select using (user_id = auth.ui
 - [ ] **Step 1:** `ReferralScreen`＝自分のコード（`getMyCode`）＋ `Share.share` で文面＋リンク／新規は初回コード手入力（`enteredCode` を state 保存）。
 - [ ] **Step 2:** `AfterStudyReward` に紹介カード（Pro 実装フラグ or 常時。文言は ja.json `referral.invite_*`）。
 - [ ] **Step 3:** `ProfileScreen` に「友だち紹介」行→ `Referral` へ。
-- [ ] **Step 4:** アプリ側でトリガー成立を検知したら（`isTriggerMet(installDate, qualifyingDays, now)`）`reportQualified` を1回呼ぶ（同期のタイミング。冪等なので多重でも安全）。
+- [ ] **Step 4:** アプリ側でトリガー成立を検知したら（`isTriggerMet(state.installedAt ?? now, state.referral?.qualifyingDays ?? [], now)`）`reportQualified` を1回呼ぶ（同期のタイミング。冪等なので多重でも安全）。サーバーが延ばした `pro_until` は次回同期で `state.entitlements.proUntil` に載り、既存 `proStatus` が `source:'referral'` として Pro 扱いする（クライアント新規実装は不要）。
 - [ ] **Step 5:** `npx tsc --noEmit` → 0。手動確認: コード発行・共有・手入力・成立報告の一連。
 - [ ] **Step 6: Commit** — `git commit -am "feat(referral): 導線UI(達成直後カード/コード共有/手入力)と成立報告"`
 
