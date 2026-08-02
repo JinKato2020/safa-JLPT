@@ -34,22 +34,26 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- 🔴 文脈 63万／70万（90%）・1222往復 — まもなく強制圧縮。区切りをつけて /clear を
+- 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
+
 ## 走行中の run（自動・完了通知が来ていないもの）
-- a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
 - a47ab6769b1b9a288 general-purpose
 - ae9c448fbd26954a9 general-purpose
 - a83565e1b69fe6554 general-purpose
+- a3668032d7bd70630 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
 - src/screens/AICoachScreen.tsx
-- App.tsx
+- docs/supabase/functions/referral-qualify/index.ts
+- src/components/AfterStudyReward.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/home/HomeCoach.tsx
-- 画像/キャラクター/桜_短髪_不透明_開き目.png
+- src/screens/ProfileScreen.tsx
+- App.tsx
+- src/navigation/types.ts
 
-_自動更新: 2026-08-02 11:20_
+_自動更新: 2026-08-02 15:01_
 <!-- AUTO:END -->
