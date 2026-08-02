@@ -47,6 +47,8 @@ export default function AICoachScreen() {
   const passColor = st.passPct >= 70 ? c.green : st.passPct >= 45 ? c.blue : c.amber;
   const scorePct = st.predMax > 0 ? Math.round((st.predScore / st.predMax) * 100) : 0;
   const goalPct = st.predMax > 0 ? Math.round((st.passTotal / st.predMax) * 100) : 50;
+  // 予想得点=主役。合格ラインに届いていれば緑・未満は橙。
+  const scoreColor = st.predScore >= st.passTotal && st.passTotal > 0 ? c.green : c.amber;
   const startLearn = () => { nav.goBack(); nav.navigate('Quiz', { review: true }); };
 
   // 14日の合格率スパークライン(0-100の絶対スケール)。
@@ -85,27 +87,25 @@ export default function AICoachScreen() {
         <View style={s.hero}>
           <SecLabel c={c} s={s} text="合格の見込み" />
           <View style={s.heroRow}>
-            <RingGauge value={st.passPct} color={passColor} size={116} stroke={11}>
-              <Text style={[s.ringBig, { color: passColor }]}>{st.passPct}<Text style={s.ringPct}>%</Text></Text>
-              <Text style={s.ringCap}>合格率</Text>
+            {/* 主役=予想得点。リングの塗り=得点率、｜印=合格ライン。 */}
+            <RingGauge value={scorePct} color={scoreColor} size={124} stroke={11} mark={goalPct}>
+              <Text style={[s.ringBig, { color: scoreColor }]}>{st.predScore}<Text style={s.ringPct}>/{st.predMax}</Text></Text>
+              <Text style={s.ringCap}>予想得点</Text>
             </RingGauge>
             <View style={s.heroSide}>
               <View>
-                <View style={s.mK}><View style={[s.dot, { backgroundColor: passColor }]} /><Text style={s.mKt}>合格率（受かる確率）</Text></View>
-                <Text style={s.mV}>{st.passPct}<Text style={s.mVs}>％</Text></Text>
-              </View>
-              <View>
-                <View style={s.mK}><View style={[s.dot, { backgroundColor: c.green }]} /><Text style={s.mKt}>予想得点（取れそうな点）</Text></View>
+                <View style={s.mK}><View style={[s.dot, { backgroundColor: scoreColor }]} /><Text style={s.mKt}>予想得点（取れそうな点）</Text></View>
                 <Text style={s.mV}>{st.predScore}<Text style={s.mVs}> / {st.predMax}点</Text></Text>
-                <View style={s.passbar}>
-                  <View style={[s.passbarFill, { width: `${Math.min(100, scorePct)}%`, backgroundColor: c.green }]} />
-                  <View style={[s.passbarGoal, { left: `${Math.min(100, goalPct)}%` }]} />
-                </View>
-                <Text style={s.mNote}>合格ライン {st.passTotal}点</Text>
+                <Text style={s.mNote}>合格ライン {st.passTotal}点（リングの｜印）</Text>
+              </View>
+              {/* 補足=合格率（小さく） */}
+              <View style={s.subMetric}>
+                <Text style={s.subMetricT}>合格率（実際に受かる確率）</Text>
+                <Text style={[s.subMetricV, { color: passColor }]}>{st.passPct}<Text style={s.subMetricU}>％</Text></Text>
               </View>
             </View>
           </View>
-          <Text style={s.diff}>💡 得点＝取れそうな点／合格率＝実際に受かる確率。1科目でも基準点割れだと合格率は下がります。</Text>
+          <Text style={s.diff}>💡 予想得点＝取れそうな点／合格率＝実際に受かる確率。1科目でも基準点割れだと合格率は下がります。</Text>
         </View>
 
         {/* ② 分野別の到達度 */}
@@ -228,9 +228,13 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
 
   hero: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.md, ...shadow1(c) },
   heroRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
-  ringBig: { fontSize: 34, fontWeight: '900', fontVariant: ['tabular-nums'] },
-  ringPct: { fontSize: 16, fontWeight: '800' },
+  ringBig: { fontSize: 29, fontWeight: '900', fontVariant: ['tabular-nums'] },
+  ringPct: { fontSize: 13, fontWeight: '800' },
   ringCap: { fontSize: 10.5, color: c.mute, fontWeight: '700', marginTop: 2 },
+  subMetric: { borderTopWidth: 1, borderTopColor: c.line, paddingTop: spacing.sm },
+  subMetricT: { fontSize: 10.5, color: c.ink2, fontWeight: '700' },
+  subMetricV: { fontSize: 17, fontWeight: '900', marginTop: 1, fontVariant: ['tabular-nums'] },
+  subMetricU: { fontSize: 11, color: c.faint, fontWeight: '600' },
   heroSide: { flex: 1, gap: spacing.sm },
   mK: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   dot: { width: 7, height: 7, borderRadius: 4 },
