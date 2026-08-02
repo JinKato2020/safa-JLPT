@@ -1,120 +1,289 @@
-// AIコーチの助言モーダル。全タブ共通の上部アイコン(✦)から開く=他の上部アイコンと同じ挙動。
-//  ・現在の指標(合格率・各分野の到達度)から、いちばん弱い分野を優先して案内。
-//  ・カード配色はテーマを反映: 面色(surface)地＋テーマ文字色(ink)＋テーマ別アクセント帯。
-//    → ライト/ダーク/水彩のどれでも地色・文字色がテーマに追従する(旧: 常に青で非追従だった)。
+// AIコーチ＝「分析ホーム」。合格の見込み(合格率＋予想得点)・分野別到達度・この7日の成長(証拠つき)・
+// 弱点・ゴールまでの見通し・継続/学習量 を1画面に集約。癒し(桜)とは分け、淡々とした分析専用画面。
+//  ・データは homeStatus / growthStats の実データ。数値ロジックには触れない(表示のみ)。
 import { useMemo } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
+import Svg, { Path, Circle } from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
-import { useColors } from '../theme';
+import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { useAppState } from '../store/store';
-import { homeStatus } from '../home/homeStatus';
-import { weekGain, passGain } from '../home/growthStats';
+import { homeStatus, studyHM } from '../home/homeStatus';
+import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
 import { dayStr } from '../store/state';
+import RingGauge from '../components/RingGauge';
 
-// 水彩テーマ(桜/空/緑/藤/茜)の代表色。ライト/ダーク/autoは brand 青(c.blue)。カードのアクセントに使う。
-const TINT: Record<string, string> = {
-  sakura: '#d76b8c', sky: '#4a8fcf', green: '#42a066', fuji: '#7d68c6', akane: '#d97840',
-};
+type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 export default function AICoachScreen() {
   const c = useColors();
   const t = useT();
-  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const nav = useNavigation<Nav>();
   const state = useAppState();
-  const accent = TINT[state.settings.theme ?? 'auto'] ?? c.blue;
+  const s = useMemo(() => makeStyles(c), [c]);
 
-  // ホームの「リング下端〜桜上端」の帯にカードを収める(ユーザー指定2026-07-23)。
-  // リング=HomeScreen(top=height*0.15, W=width*0.40) / 桜=HomeCoach(bottom20, 高さ≈width*0.60*1.37=衣装ありの最大想定=安全側)。
-  const { width, height } = useWindowDimensions();
-  const ringBottom = height * 0.15 + width * 0.40;
-  const sakuraTop = height - 20 - width * 0.60 * 1.37;
-  const bandTop = Math.min(ringBottom + 12, height * 0.5);
-  // 帯の高さ: 本文(見出し＋合格率＋弱点＋助言)が切れないよう最低300px確保。画面が小さければ画面高の66%まで拡大し、
-  // それでも収まらない時だけカード内スクロール(テキストが途中で切れて見えないのを防ぐ・ユーザー指定2026-07-31)。
-  const bandH = Math.min(Math.max(300, sakuraTop - bandTop - 12), height * 0.66);
-
-  // 助言=①総合分析(予想得点＋合格率) ②成長率＋具体的証拠(この7日の合格率pt・覚えた語) ③弱点 ④ゴールまでの見通し。
-  const advice = useMemo(() => {
+  const d = useMemo(() => {
     const now = Date.now();
-    const status = homeStatus(state, now);
+    const st = homeStatus(state, now);
     const today = dayStr(now);
-    const subs = status.subjects;
+    const subs = st.subjects;
     const weakest = subs.reduce((a, b) => (b.pct < a.pct ? b : a), subs[0]);
     const strongest = subs.reduce((a, b) => (b.pct > a.pct ? b : a), subs[0]);
-    const p = status.passPct;
-    const wg = weekGain(state, today, 7);       // この7日で覚えた語(証拠)
-    const pg = Math.round(passGain(state, today, 7)); // この7日の合格率変化(pt・±)
-    const hlKey = p >= 70 ? 'home.ai_hl_pass' : p >= 50 ? 'home.ai_hl_close' : p >= 20 ? 'home.ai_hl_build' : 'home.ai_hl_start';
-    const cat = t(weakest.labelKey);
-    const lines: string[] = [];
-    // ①総合分析
-    lines.push(t('home.ai_snapshot', { score: status.predScore, max: status.predMax, p }));
-    // ②成長率＋具体的証拠
-    if (wg > 0 || pg !== 0) lines.push(t('home.ai_growth', { pg: (pg > 0 ? '+' : '') + pg, wg, strong: t(strongest.labelKey) }));
-    else lines.push(t('home.ai_growth_none'));
-    // ③弱点
-    lines.push(t('home.ai_weak', { cat, pct: weakest.pct }));
-    // ④ゴールまでの見通し
-    if (p >= 80) lines.push(t('home.ai_outlook_reached'));
-    else if (pg > 0) lines.push(t('home.ai_outlook', { w: Math.max(1, Math.ceil((80 - p) / pg)) }));
-    else lines.push(t('home.ai_outlook_none'));
-    return { title: t('home.ai_title'), hl: t(hlKey), lines };
-  }, [state, t]);
+    const wg = weekGain(state, today, 7);
+    const pg = Math.round(passGain(state, today, 7));
+    const curve = passCurve(state, today, 14);
+    const bars = growthBars(state, today, 14);
+    const learned = bars.length ? bars[bars.length - 1] : 0;
+    const { h, m } = studyHM(st.studySeconds);
+    const weeks = st.passPct >= 80 ? 0 : pg > 0 ? Math.max(1, Math.ceil((80 - st.passPct) / pg)) : null;
+    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks };
+  }, [state]);
+
+  const { st } = d;
+  const passColor = st.passPct >= 70 ? c.green : st.passPct >= 45 ? c.blue : c.amber;
+  const scorePct = st.predMax > 0 ? Math.round((st.predScore / st.predMax) * 100) : 0;
+  const goalPct = st.predMax > 0 ? Math.round((st.passTotal / st.predMax) * 100) : 50;
+  const startLearn = () => { nav.goBack(); nav.navigate('Quiz', { review: true }); };
+
+  // 14日の合格率スパークライン(0-100の絶対スケール)。
+  const spark = useMemo(() => {
+    const n = d.curve.length;
+    if (n < 2) return null;
+    const W = 320, H = 60, pad = 6;
+    const pts = d.curve.map((v, i) => {
+      const x = (i / (n - 1)) * W;
+      const y = pad + (1 - Math.max(0, Math.min(100, v)) / 100) * (H - 2 * pad);
+      return [x, y] as const;
+    });
+    const line = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+    const area = `${line} L${W} ${H} L0 ${H} Z`;
+    return { line, area, end: pts[n - 1], W, H };
+  }, [d.curve]);
+
+  const cat = t(d.weakest.labelKey);
 
   return (
-    <Pressable style={styles.backdrop} onPress={() => nav.goBack()}>
-      {/* カード=テーマ面色地＋テーマ文字色。左にテーマ・アクセント帯。カード/背景どこをタップしても閉じる。 */}
-      <Pressable
-        style={[styles.card, { backgroundColor: c.surface, borderColor: c.line, marginTop: bandTop, maxHeight: bandH }]}
-        onPress={() => nav.goBack()}
-        accessibilityLabel={advice.title}
-      >
-        <View style={[styles.accentBar, { backgroundColor: accent }]} />
-        <View style={styles.body}>
-          {/* 帯に収まらない分はここでスクロール(ユーザー指定)。 */}
-          <ScrollView showsVerticalScrollIndicator contentContainerStyle={styles.scrollBody}>
-            <View style={styles.titleRow}>
-              <Ionicons name="sparkles" size={16} color={accent} />
-              <Text style={[styles.title, { color: accent }]}>{advice.title}</Text>
-            </View>
-            <Text style={[styles.hl, { color: c.ink }]}>{advice.hl}</Text>
-            {advice.lines.map((ln, i) => (
-              <Text key={i} style={[styles.line, { color: c.ink2 }]}>・{ln}</Text>
-            ))}
-            {/* アドバイスの流れで「試験問題の復習」へ誘導(面別マスタリー統合復習)。押すと閉じて復習へ。 */}
-            <Pressable
-              style={({ pressed }) => [styles.reviewBtn, { backgroundColor: accent }, pressed && { opacity: 0.9 }]}
-              onPress={() => { nav.goBack(); nav.navigate('Quiz', { review: true }); }}
-            >
-              <Ionicons name="refresh" size={15} color="#ffffff" />
-              <Text style={styles.reviewBtnTxt}>{t('review.start')}</Text>
-            </Pressable>
-          </ScrollView>
+    <SafeAreaView style={s.c} edges={['top', 'bottom']}>
+      {/* ヘッダー */}
+      <View style={s.head}>
+        <View style={s.brand}>
+          <View style={s.sigil}><Ionicons name="sparkles" size={15} color="#fff" /></View>
+          <View>
+            <Text style={s.brandT}>{t('home.ai_title')}</Text>
+            <Text style={s.brandS}>{t('home.ai_caption')}</Text>
+          </View>
         </View>
-        <Ionicons name="close" size={20} color={c.faint} style={styles.close} />
-      </Pressable>
-    </Pressable>
+        <Pressable onPress={() => nav.goBack()} hitSlop={12}><Ionicons name="close" size={24} color={c.mute} /></Pressable>
+      </View>
+
+      <ScrollView contentContainerStyle={s.body} showsVerticalScrollIndicator={false}>
+        {/* ① 合格の見込み */}
+        <View style={s.hero}>
+          <SecLabel c={c} s={s} text="合格の見込み" />
+          <View style={s.heroRow}>
+            <RingGauge value={st.passPct} color={passColor} size={116} stroke={11}>
+              <Text style={[s.ringBig, { color: passColor }]}>{st.passPct}<Text style={s.ringPct}>%</Text></Text>
+              <Text style={s.ringCap}>合格率</Text>
+            </RingGauge>
+            <View style={s.heroSide}>
+              <View>
+                <View style={s.mK}><View style={[s.dot, { backgroundColor: passColor }]} /><Text style={s.mKt}>合格率（受かる確率）</Text></View>
+                <Text style={s.mV}>{st.passPct}<Text style={s.mVs}>％</Text></Text>
+              </View>
+              <View>
+                <View style={s.mK}><View style={[s.dot, { backgroundColor: c.green }]} /><Text style={s.mKt}>予想得点（取れそうな点）</Text></View>
+                <Text style={s.mV}>{st.predScore}<Text style={s.mVs}> / {st.predMax}点</Text></Text>
+                <View style={s.passbar}>
+                  <View style={[s.passbarFill, { width: `${Math.min(100, scorePct)}%`, backgroundColor: c.green }]} />
+                  <View style={[s.passbarGoal, { left: `${Math.min(100, goalPct)}%` }]} />
+                </View>
+                <Text style={s.mNote}>合格ライン {st.passTotal}点</Text>
+              </View>
+            </View>
+          </View>
+          <Text style={s.diff}>💡 得点＝取れそうな点／合格率＝実際に受かる確率。1科目でも基準点割れだと合格率は下がります。</Text>
+        </View>
+
+        {/* ② 分野別の到達度 */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="分野別の到達度" />
+          <View style={s.facets}>
+            {d.subs.map((sub) => (
+              <RingGauge key={sub.key} value={sub.pct} color={sub.color} size={52} stroke={6} label={t(sub.labelKey)} />
+            ))}
+          </View>
+        </View>
+
+        {/* ③ この7日の成長 */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="この7日の成長" />
+          <View style={s.growthRow}>
+            <Stat s={s} tt="合格率" v={`${d.pg > 0 ? '+' : ''}${d.pg}`} unit="pt" up={d.pg > 0} c={c} />
+            <Stat s={s} tt="覚えた語" v={`+${d.wg}`} unit="語" up={d.wg > 0} c={c} />
+            <Stat s={s} tt="伸びた分野" v={t(d.strongest.labelKey)} unit="" up={false} c={c} color={d.strongest.color} />
+          </View>
+          {spark && (
+            <View style={s.spark}>
+              <View style={s.sparkCap}><Text style={s.sparkCapT}>合格率 14日</Text><Text style={[s.sparkEnd, { color: c.green }]}>{st.passPct}%</Text></View>
+              <Svg width="100%" height={60} viewBox={`0 0 ${spark.W} ${spark.H}`} preserveAspectRatio="none">
+                <Path d={spark.area} fill={c.green} fillOpacity={0.14} />
+                <Path d={spark.line} fill="none" stroke={c.green} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
+                <Circle cx={spark.end[0]} cy={spark.end[1]} r={3.4} fill={c.green} />
+              </Svg>
+            </View>
+          )}
+        </View>
+
+        {/* ④ いちばんの弱点 */}
+        <View style={[s.card, s.weakCard]}>
+          <View style={[s.chip, { backgroundColor: c.red + '22', borderColor: c.red + '55' }]}><Text style={[s.chipT, { color: c.red }]}>弱点</Text></View>
+          <Text style={s.weakT}>いちばんの伸びしろは <Text style={{ color: c.red, fontWeight: '800' }}>{cat}（{d.weakest.pct}%）</Text>。ここを上げると合格率が大きく動きます。</Text>
+        </View>
+
+        {/* ⑤ ゴールまでの見通し */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="ゴールまでの見通し" />
+          {st.passPct >= 80 ? (
+            <Text style={s.goalT}>すでに合格圏です。いまの力を保ちながら、弱点を仕上げれば安心です。</Text>
+          ) : d.weeks != null ? (
+            <Text style={s.goalT}>このペースなら <Text style={s.goalEm}>約{d.weeks}週間</Text> で合格率 <Text style={s.goalEm}>80%</Text> に届く見込みです。</Text>
+          ) : (
+            <Text style={s.goalT}>学習を続けると、合格までの見通し（あと何週間か）がここに出ます。</Text>
+          )}
+          <View style={s.goalbar}>
+            <View style={[s.goalbarFill, { width: `${Math.min(100, st.passPct)}%`, backgroundColor: c.green }]} />
+            <View style={[s.goalMk, { left: '80%' }]} />
+          </View>
+          <View style={s.goalScale}><Text style={s.goalScaleT}>いま {st.passPct}%</Text><Text style={s.goalScaleT}>合格圏 80%</Text></View>
+        </View>
+
+        {/* ⑥ 継続・学習量 */}
+        <View style={s.strip}>
+          <StripCell s={s} n={`${d.st.streakDays}`} unit="日" tt="連続学習" c={c} />
+          <StripCell s={s} n={`${d.h}`} unit={`時間${d.m}分`} tt="学習時間" c={c} border />
+          <StripCell s={s} n={`${d.learned}`} unit="語" tt="覚えた語 合計" c={c} />
+        </View>
+
+        {/* コーチの一言 ＋ 導線 */}
+        <View style={s.voice}>
+          <View style={s.voiceB}><Text style={s.voiceBt}>◇</Text></View>
+          <Text style={s.voiceT}>着実に前進しています。今日は「{cat}」を少し。弱点がひとつ埋まるたび、合格率は面白いほど動きます。</Text>
+        </View>
+        <Pressable style={({ pressed }) => [s.cta, pressed && { opacity: 0.9 }]} onPress={startLearn}>
+          <Ionicons name="refresh" size={16} color="#fff" />
+          <Text style={s.ctaT}>{t('review.start')}</Text>
+        </Pressable>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.35)', justifyContent: 'flex-start', alignItems: 'center', paddingHorizontal: 24 },
-  scrollBody: { paddingRight: 4 },
-  card: {
-    flexDirection: 'row', width: '100%', maxWidth: 360, borderRadius: 18, borderWidth: 1, overflow: 'hidden',
-    shadowColor: '#000', shadowOpacity: 0.25, shadowRadius: 16, shadowOffset: { width: 0, height: 6 }, elevation: 10,
-  },
-  accentBar: { width: 6 },
-  body: { flex: 1, paddingVertical: 16, paddingLeft: 16, paddingRight: 34 },
-  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  title: { fontSize: 13, fontWeight: '800', letterSpacing: 0.5 },
-  hl: { fontSize: 17, fontWeight: '900', marginTop: 6, lineHeight: 23 },
-  line: { fontSize: 13.5, fontWeight: '600', marginTop: 6, lineHeight: 19 },
-  reviewBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 14, paddingVertical: 11, borderRadius: 12 },
-  reviewBtnTxt: { color: '#ffffff', fontSize: 14, fontWeight: '800' },
-  close: { position: 'absolute', top: 10, right: 10 },
+function SecLabel({ c, s, text }: { c: ThemeColors; s: Styles; text: string }) {
+  return (
+    <View style={s.secLabel}>
+      <View style={[s.tick, { backgroundColor: c.blue }]} />
+      <Text style={s.secLabelT}>{text}</Text>
+    </View>
+  );
+}
+
+function Stat({ s, tt, v, unit, up, c, color }: { s: Styles; tt: string; v: string; unit: string; up: boolean; c: ThemeColors; color?: string }) {
+  return (
+    <View style={s.stat}>
+      <Text style={s.statT}>{tt}</Text>
+      <View style={s.statN}>
+        <Text style={[s.statV, up && { color: c.green }, color ? { color, fontSize: ty.body } : null]}>{v}</Text>
+        {!!unit && <Text style={s.statU}>{unit}</Text>}
+      </View>
+    </View>
+  );
+}
+
+function StripCell({ s, n, unit, tt, c, border }: { s: Styles; n: string; unit: string; tt: string; c: ThemeColors; border?: boolean }) {
+  return (
+    <View style={[s.stripCell, border && { borderLeftWidth: 1, borderRightWidth: 1, borderColor: c.line }]}>
+      <Text style={s.stripN}>{n}<Text style={s.stripU}>{unit}</Text></Text>
+      <Text style={s.stripT}>{tt}</Text>
+    </View>
+  );
+}
+
+type Styles = ReturnType<typeof makeStyles>;
+const makeStyles = (c: ThemeColors) => StyleSheet.create({
+  c: { flex: 1, backgroundColor: c.bg },
+  head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xs },
+  brand: { flexDirection: 'row', alignItems: 'center', gap: 9 },
+  sigil: { width: 30, height: 30, borderRadius: 9, backgroundColor: c.blue, alignItems: 'center', justifyContent: 'center' },
+  brandT: { fontSize: 15.5, fontWeight: '800', color: c.ink },
+  brandS: { fontSize: 10.5, color: c.faint, fontWeight: '600', marginTop: 1 },
+  body: { padding: spacing.lg, paddingTop: spacing.xs, gap: spacing.sm },
+
+  secLabel: { flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: spacing.sm },
+  tick: { width: 5, height: 14, borderRadius: 3 },
+  secLabelT: { fontSize: 11, letterSpacing: 1.4, color: c.ink2, fontWeight: '800' },
+
+  hero: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.md, ...shadow1(c) },
+  heroRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
+  ringBig: { fontSize: 34, fontWeight: '900', fontVariant: ['tabular-nums'] },
+  ringPct: { fontSize: 16, fontWeight: '800' },
+  ringCap: { fontSize: 10.5, color: c.mute, fontWeight: '700', marginTop: 2 },
+  heroSide: { flex: 1, gap: spacing.sm },
+  mK: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  dot: { width: 7, height: 7, borderRadius: 4 },
+  mKt: { fontSize: 11, color: c.ink2, fontWeight: '700' },
+  mV: { fontSize: 22, fontWeight: '900', color: c.ink, marginTop: 2, fontVariant: ['tabular-nums'] },
+  mVs: { fontSize: 12, color: c.faint, fontWeight: '600' },
+  mNote: { fontSize: 10.5, color: c.faint, marginTop: 3, fontWeight: '600' },
+  passbar: { height: 6, borderRadius: 6, backgroundColor: c.bgSoft, marginTop: 6, position: 'relative', overflow: 'hidden' },
+  passbarFill: { position: 'absolute', top: 0, bottom: 0, left: 0, borderRadius: 6 },
+  passbarGoal: { position: 'absolute', top: -2, bottom: -2, width: 2, backgroundColor: c.ink2, borderRadius: 2 },
+  diff: { fontSize: 10.5, color: c.faint, marginTop: spacing.sm, lineHeight: 15, textAlign: 'center' },
+
+  card: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.md, ...shadow1(c) },
+  facets: { flexDirection: 'row', justifyContent: 'space-between' },
+
+  growthRow: { flexDirection: 'row', gap: spacing.sm },
+  stat: { flex: 1, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 9, paddingHorizontal: 10 },
+  statT: { fontSize: 10.5, color: c.ink2, fontWeight: '700' },
+  statN: { flexDirection: 'row', alignItems: 'baseline', gap: 3, marginTop: 3 },
+  statV: { fontSize: 21, fontWeight: '900', color: c.ink, fontVariant: ['tabular-nums'] },
+  statU: { fontSize: 11, color: c.faint, fontWeight: '600' },
+  spark: { marginTop: spacing.md },
+  sparkCap: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
+  sparkCapT: { fontSize: 10, color: c.faint, fontWeight: '700', letterSpacing: 0.5 },
+  sparkEnd: { fontSize: 10, fontWeight: '800' },
+
+  weakCard: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  chip: { paddingVertical: 4, paddingHorizontal: 10, borderRadius: 999, borderWidth: 1 },
+  chipT: { fontSize: 11, fontWeight: '800' },
+  weakT: { flex: 1, fontSize: 12.5, color: c.ink, lineHeight: 19 },
+
+  goalT: { fontSize: 12.5, color: c.ink, lineHeight: 20, marginBottom: spacing.sm },
+  goalEm: { color: c.green, fontWeight: '800' },
+  goalbar: { height: 8, borderRadius: 8, backgroundColor: c.bgSoft, position: 'relative', overflow: 'hidden' },
+  goalbarFill: { position: 'absolute', top: 0, bottom: 0, left: 0, borderRadius: 8 },
+  goalMk: { position: 'absolute', top: -3, bottom: -3, width: 2, backgroundColor: c.ink2 },
+  goalScale: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 },
+  goalScaleT: { fontSize: 9.5, color: c.faint, fontWeight: '700' },
+
+  strip: { flexDirection: 'row', backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, overflow: 'hidden', ...shadow1(c) },
+  stripCell: { flex: 1, paddingVertical: 12, paddingHorizontal: 6, alignItems: 'center' },
+  stripN: { fontSize: 19, fontWeight: '900', color: c.ink, fontVariant: ['tabular-nums'] },
+  stripU: { fontSize: 11, color: c.faint, fontWeight: '600' },
+  stripT: { fontSize: 10, color: c.ink2, fontWeight: '700', marginTop: 5 },
+
+  voice: { flexDirection: 'row', gap: 10, alignItems: 'flex-start', backgroundColor: c.blueLight, borderWidth: 1, borderColor: c.blue + '3a', borderLeftWidth: 3, borderLeftColor: c.blue, borderRadius: radius.md, padding: spacing.sm },
+  voiceB: { width: 22, height: 22, borderRadius: 7, backgroundColor: c.blue, alignItems: 'center', justifyContent: 'center' },
+  voiceBt: { color: '#fff', fontSize: 12, fontWeight: '900' },
+  voiceT: { flex: 1, fontSize: 12.5, color: c.ink, lineHeight: 19 },
+  cta: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: 14, marginTop: 2 },
+  ctaT: { color: '#fff', fontSize: 15, fontWeight: '800' },
 });
+
+function shadow1(c: ThemeColors) {
+  return { shadowColor: '#000', shadowOpacity: 0.06, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 1 } as const;
+}

@@ -42,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/home/HomeCoach.tsx
-- 画像/キャラクター/桜_短髪_不透明_開き目.png
-- assets/mywords/guide_open_short.png
 - memory/session-summary-LATEST.md
 - memory/handoff.md
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
+- src/home/HomeCoach.tsx
+- 画像/キャラクター/桜_短髪_不透明_開き目.png
+- assets/mywords/guide_open_short.png
 - 画像/キャラクター/桜_長髪_不透明_まばたき.png
 
-_自動更新: 2026-08-02 06:54_
+_自動更新: 2026-08-02 11:00_
 <!-- AUTO:END -->
