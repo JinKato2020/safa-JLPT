@@ -15,6 +15,9 @@ const OPEN = require('../../assets/mywords/guide_open.png');
 const BLINK = require('../../assets/mywords/guide_blink.png');
 // 髪型「短髪」を装備中(かつ筆/衣装なし)の既定桜=短髪版(hair3を不透明化)。短髪用の閉じ目は無いのでまばたきは静止。
 const SHORT_OPEN = require('../../assets/mywords/guide_open_short.png');
+// 柴1(pet_shiba1)だけ尻尾を振る=尻尾を別レイヤーに切り出し(尻尾=後/胴体=前・付け根を胴体で隠す)。
+const SHIBA1_BODY = require('../../assets/shop/companion/shiba1_body.png');
+const SHIBA1_TAIL = require('../../assets/shop/companion/shiba1_tail.png');
 
 export default function HomeCoach({ status, learned }: { status: HomeStatus; learned: number }) {
   const t = useT();
@@ -46,6 +49,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const bob = useRef(new Animated.Value(0)).current;
   const dogSway = useRef(new Animated.Value(0)).current; // 犬: 体を左右にゆらす
   const dogHop = useRef(new Animated.Value(0)).current;  // 犬: 時々ぴょこっと跳ねる
+  const tailWag = useRef(new Animated.Value(0)).current; // 柴1: 尻尾を振る
 
   // 常時: ふわふわ浮遊＋まばたき。
   useEffect(() => {
@@ -66,6 +70,12 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       Animated.timing(dogHop, { toValue: 0, duration: 300, useNativeDriver: true }),
     ]));
     hop.start();
+    // 柴1: 尻尾を左右にフリフリ(付け根を軸に回転)。
+    const wag = Animated.loop(Animated.sequence([
+      Animated.timing(tailWag, { toValue: 1, duration: 300, useNativeDriver: true }),
+      Animated.timing(tailWag, { toValue: 0, duration: 300, useNativeDriver: true }),
+    ]));
+    wag.start();
     let bAlive = true;
     const bt: ReturnType<typeof setTimeout>[] = [];
     const blink = () => {
@@ -75,8 +85,8 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       bt.push(setTimeout(blink, 2600 + Math.random() * 3200));
     };
     bt.push(setTimeout(blink, 1600));
-    return () => { loop.stop(); sway.stop(); hop.stop(); bAlive = false; bt.forEach(clearTimeout); };
-  }, [bob, dogSway, dogHop]);
+    return () => { loop.stop(); sway.stop(); hop.stop(); wag.stop(); bAlive = false; bt.forEach(clearTimeout); };
+  }, [bob, dogSway, dogHop, tailWag]);
 
   // 民族衣装/背負い筆の全身絵は縦長(≒864x1184)なので少し大きめ＋縦横比を変える。
   // 既定の案内キャラ(桜=長髪hair_long・896x1152)は縦長だが、巨大化を避けるため控えめな枠(0.40幅×1.12)にcontainで収める。
@@ -85,6 +95,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
   const dogSwayDeg = dogSway.interpolate({ inputRange: [0, 1], outputRange: ['-3deg', '3deg'] });
   const dogHopY = dogHop.interpolate({ inputRange: [0, 1], outputRange: [0, -14] });
+  // 尻尾は「開いた空間側へ持ち上がる」-方向のみで振る(胴体側へ振ると付け根に隙間が出るため)。
+  const tailWagDeg = tailWag.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '-9deg'] });
+  const isShiba1 = state.equipped?.companion === 'pet_shiba1'; // 柴1だけ尻尾フリフリ
   // 仲間の表示サイズ=桜の幅×homeScale(柴1=0.50=桜の半分・番号が上がるほど大きい)。
   const compW = compImg ? Math.round(charW * compScale * 2 / 3 * 1.3) : 0; // ホームの見かけ=元の1/3×2、さらに×1.3倍(ユーザー指定・全犬画像へ一律)
   const compH = Math.round(compW * compAspect);
@@ -120,7 +133,15 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
         {compImg ? (
           <Pressable onPress={() => setShowPicker(true)} hitSlop={6} style={[styles.compWrap, { marginRight: -compOverlap, zIndex: dogInFront ? 2 : 0 }]}>
             <Animated.View style={{ transform: [{ translateY: dogHopY }, { rotate: dogSwayDeg }] }}>
-              <Image source={compImg} style={{ width: compW, height: compH }} resizeMode="contain" />
+              {isShiba1 ? (
+                // 柴1: 尻尾レイヤー(後)を付け根(41%,57%)を軸に振る＋胴体(前)で付け根の切れ目を隠す。
+                <View style={{ width: compW, height: compH }}>
+                  <Animated.Image source={SHIBA1_TAIL} style={[StyleSheet.absoluteFill, { width: compW, height: compH, transformOrigin: '36% 52%', transform: [{ rotate: tailWagDeg }] }]} resizeMode="contain" />
+                  <Image source={SHIBA1_BODY} style={{ width: compW, height: compH }} resizeMode="contain" />
+                </View>
+              ) : (
+                <Image source={compImg} style={{ width: compW, height: compH }} resizeMode="contain" />
+              )}
             </Animated.View>
           </Pressable>
         ) : null}
