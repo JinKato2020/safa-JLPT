@@ -3,8 +3,9 @@
 // 新規側は Authorization(JWT)で本人特定する(付与先の user_id が必要なため)。
 //   - コード存在確認 / 自己紹介ブロック / new_user_ref 一意(1新規1報酬)
 //   - サーバー側で「14日以内に別々7日」をクライアント値から再計算(自己申告のboolを信用しない)
-//   - 成立: 拡散側+新規側の entitlements.pro_until += 7日 / referrals.status='rewarded'
-//   - 冪等(同じ new_user_ref が既に rewarded なら何もしない)
+//   - 成立: **拡散側は即時 +7日**(未ログインでもブロックしない)。新規側はアカウントがあれば +7日、
+//     無ければ status='qualified'(拡散側は付与済み)で置き、登録後の再報告で新規側だけ確定=ソフト誘導。
+//   - 冪等(rewarded は noop / qualified は拡散側を二重付与しない)
 // 付与上限は当面チェックしない(reward_grant_count は集計のみ+1)。
 // service_role はこの関数のサーバ環境変数からのみ参照(アプリには絶対に置かない)。
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -131,36 +132,27 @@ Deno.serve(async (req) => {
     return json({ status: 'pending', reason: 'trigger_not_met' });
   }
 
-  // 新規側の付与にはアカウント(uuid)が必要。未ログインなら受取導線で登録を促す(ソフト誘導)。
-  // ここでは rewarded にせず pending のまま置き、登録後の再報告で確定させる。
-  if (!newUserId) {
-    await admin.from('referrals').upsert(
-      { code, referrer_user_id: referrerId, new_user_ref: newUserRef, status: 'qualified', install_at: payload.install_at ?? null, qualified_at: new Date().toISOString() },
-      { onConflict: 'new_user_ref' },
-    );
-    return json({ status: 'pending', reason: 'new_user_account_required' });
-  }
-
-  // 5) 成立: 両者に +7日。付与を先に行い、成功したら rewarded で確定(冪等ガードは上の prior 判定)。
+  // 5) 成立。**拡散側は即時+7日(未ログインでもブロックしない)**。新規側はアカウントがあれば+7日、
+  //    無ければ status='qualified'(拡散側は付与済み)で置き、登録後の再報告で新規側だけ確定=ソフト誘導。
+  //    冪等: status='qualified'(=拡散側は前回付与済み)なら拡散側を二重付与しない。'rewarded' は冒頭で noop 済み。
+  const referrerAlreadyGranted = prior.data?.status === 'qualified';
+  const nowIso = new Date().toISOString();
   try {
-    await grantPro(admin, referrerId, true);   // 拡散側 +7日 / reward_grant_count +1
-    await grantPro(admin, newUserId, false);    // 新規側 +7日
+    if (!referrerAlreadyGranted) await grantPro(admin, referrerId, true); // 拡散側 +7日 / reward_grant_count +1 (初回のみ)
+    if (newUserId) await grantPro(admin, newUserId, false);                // 新規側 +7日 (アカウントあれば)
   } catch (e) {
     return json({ status: 'pending', error: String((e as Error)?.message ?? e) }, 500);
   }
 
+  const finalStatus = newUserId ? 'rewarded' : 'qualified';
   const { error: refErr } = await admin.from('referrals').upsert(
-    {
-      code,
-      referrer_user_id: referrerId,
-      new_user_ref: newUserRef,
-      status: 'rewarded',
-      install_at: payload.install_at ?? null,
-      qualified_at: new Date().toISOString(),
-    },
+    { code, referrer_user_id: referrerId, new_user_ref: newUserRef, status: finalStatus, install_at: payload.install_at ?? null, qualified_at: nowIso },
     { onConflict: 'new_user_ref' },
   );
-  if (refErr) return json({ status: 'rewarded', warning: refErr.message });
+  if (refErr) return json({ status: finalStatus, warning: refErr.message });
 
-  return json({ status: 'rewarded' });
+  // 拡散側は付与済み。新規側は未ログインなら「登録で受取」(ソフト誘導)。
+  return json(newUserId
+    ? { status: 'rewarded' }
+    : { status: 'referrer_rewarded', reason: 'new_user_registers_to_claim' });
 });
