@@ -1,18 +1,18 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 15 回・37 ターン
-- 往復 1222 回
+- ツール呼び出し 4 回・11 ターン
+- 往復 1243 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/screens/AICoachScreen.tsx
-- docs/supabase/functions/referral-qualify/index.ts
-- src/components/AfterStudyReward.tsx
+- docs/supabase/README.md
 - memory/session-summary-LATEST.md
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
 
 ## ⚠️ 注意
-- - 🔴 文脈 63万／70万（90%）・1222往復 — まもなく強制圧縮。区切りをつけて /clear を
+- - 🔴 文脈 64万／70万（92%）・1243往復 — まもなく強制圧縮。区切りをつけて /clear を
 - - 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
 
 ## 次の一手
