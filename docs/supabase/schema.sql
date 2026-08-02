@@ -68,6 +68,10 @@ alter table public.entitlements enable row level security;
 
 -- 本人の行だけ read。書き込みポリシーは張らない=クライアントからの insert/update/delete は不可
 -- (service_role は RLS を素通りするので Edge Function からの付与は影響を受けない)。
+-- 再実行しても「already exists」で止まらないよう、drop してから作り直す(冪等)。
+drop policy if exists rc_read on public.referral_codes;
+drop policy if exists rf_read on public.referrals;
+drop policy if exists en_read on public.entitlements;
 create policy rc_read on public.referral_codes for select using (owner_user_id = auth.uid());
 create policy rf_read on public.referrals     for select using (referrer_user_id = auth.uid());
 create policy en_read on public.entitlements  for select using (user_id = auth.uid());
