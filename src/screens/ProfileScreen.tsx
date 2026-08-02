@@ -4,6 +4,8 @@ import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/types';
 import * as StoreReview from 'expo-store-review';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
@@ -45,7 +47,7 @@ export default function ProfileScreen() {
   const [langOpen, setLangOpen] = useState(false);
   const [legal, setLegal] = useState<'privacy' | 'terms' | null>(null);
   const [showDl, setShowDl] = useState(false);
-  const nav = useNavigation();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { session } = useSync();
 
   // 今の状態(Pro / お試し中 / 無料)。判定は proStatus ただ1つに任せる(画面では判定しない)。
@@ -236,6 +238,17 @@ export default function ProfileScreen() {
               thumbColor={c.faint}
             />
           </View>
+        </View>
+
+        {/* 友だち紹介(常設の導線)。2人とも1週間Pro。 */}
+        <View style={s.card}>
+          <Pressable style={s.linkRow} onPress={() => nav.navigate('Referral')}>
+            <View style={{ flex: 1 }}>
+              <Text style={s.linkTxt}>{t('referral.title')}</Text>
+              <Text style={s.subtle}>{t('referral.subhead')}</Text>
+            </View>
+            <Text style={s.chev}>›</Text>
+          </Pressable>
         </View>
 
         {/* 聴解音声の取得方式(配信=都度ストリーミング / 一括DL=オフライン)＋一括DL導線 */}

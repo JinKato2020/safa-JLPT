@@ -93,6 +93,10 @@ export interface AppState {
     proUntil?: number;          // 期限つきPro(紹介など)の終了時刻 epoch ms
   };
   dailyQuota?: { day: string; used: number; bonus: number }; // 1日の練習回数。day=YYYY-MM-DD / used=今日始めた回数 / bonus=広告で足した回数
+  referral?: {                    // 紹介制度。未設定→未参加。継続の起点は installedAt を流用。
+    qualifyingDays?: string[];    // 適格学習日(その日に1セット≒60問以上完了)ISO(YYYY-MM-DD)配列
+    enteredCode?: string;         // 新規が初回入力した紹介コード(成立時にこのコードで報告)
+  };
   mastery?: MasterySlice;   // 単語×面(read/write/mean/listen/grammar)の統合苦手度。統合復習/予想得点の正本。旧stateには無い→移行で構築。
   masteryMigrated?: boolean; // 旧キー(items/kakitori)→面の一度きり移行を済ませたか。undefined/false=未移行。
   updatedAt?: number; // 最終更新(epoch ms)。クラウド同期のLWW比較基準。旧stateには無い→0扱い。

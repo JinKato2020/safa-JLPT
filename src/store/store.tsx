@@ -20,6 +20,7 @@ import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket } from './
 import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
 import { setPurchaseActive as proSetPurchase, grantProDays as proGrantDays } from '../pro/entitlement';
 import { recordDecay } from '../story/decay';
+import { recordQualifyingDay } from '../referral/trigger';
 
 type Action =
   | { type: 'HYDRATE'; state: AppState }
@@ -42,6 +43,8 @@ type Action =
   | { type: 'SET_PURCHASE_ACTIVE'; active: boolean; now: number }
   | { type: 'GRANT_PRO_DAYS'; days: number; now: number }
   | { type: 'MARK_STORY_SHOWN'; id: string; now: number; skipped?: boolean }
+  | { type: 'SET_COMPLETED'; day: string; qualifying: boolean }
+  | { type: 'SET_ENTERED_CODE'; code: string }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -130,6 +133,15 @@ export function reducer(state: AppState, action: Action): AppState {
     case 'MARK_STORY_SHOWN':
       // 出迎え(daily_greet)を「今日出した」と記録=減衰レイヤーで1日1回に絞る。付与ロジックには一切触れない。
       return { ...state, storyDecay: recordDecay(state.storyDecay, action.id, action.now, { skipped: action.skipped }) };
+    case 'SET_COMPLETED': {
+      // セット完了(約60問)＝適格学習日。qualifyingの時だけ当日を distinct 追加(水増し防止)。
+      if (!action.qualifying) return state;
+      const days = recordQualifyingDay(state.referral?.qualifyingDays ?? [], action.day);
+      return { ...state, referral: { ...state.referral, qualifyingDays: days } };
+    }
+    case 'SET_ENTERED_CODE':
+      // 新規が初回に入力した紹介コードを保存(成立時にこのコードで報告する)。
+      return { ...state, referral: { ...state.referral, enteredCode: action.code } };
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -213,6 +225,8 @@ export function useAppActions() {
     setPurchaseActive: (active: boolean) => dispatch({ type: 'SET_PURCHASE_ACTIVE', active, now: Date.now() }),
     grantProDays: (days: number) => dispatch({ type: 'GRANT_PRO_DAYS', days, now: Date.now() }),
     markStoryShown: (id: string, skipped = false) => dispatch({ type: 'MARK_STORY_SHOWN', id, now: Date.now(), skipped }),
+    markStudyDay: (qualifying: boolean) => dispatch({ type: 'SET_COMPLETED', day: dayStr(Date.now()), qualifying }),
+    setEnteredCode: (code: string) => dispatch({ type: 'SET_ENTERED_CODE', code }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     reset: () => {
       clearState();

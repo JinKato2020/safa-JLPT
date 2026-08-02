@@ -42,6 +42,7 @@ import NotificationsScreen from './src/screens/NotificationsScreen';
 import ShopScreen from './src/screens/ShopScreen';
 import AICoachScreen from './src/screens/AICoachScreen';
 import PaywallScreen from './src/screens/PaywallScreen';
+import ReferralScreen from './src/screens/ReferralScreen';
 import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './src/pro/purchases';
 import { initAds } from './src/pro/ads';
 import { walletPoints } from './src/store/wallet';
@@ -332,6 +333,7 @@ function Root() {
             <RootStack.Screen name="Paywall" component={PaywallScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Referral" component={ReferralScreen} options={{ presentation: 'modal' }} />
           </>
         )}
       </RootStack.Navigator>

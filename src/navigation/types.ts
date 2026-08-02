@@ -9,6 +9,7 @@ export type RootStackParamList = {
   AICoach: undefined; // AIコーチの助言(全タブ共通の上部アイコン✦から開くモーダル)
   Paywall: undefined; // Pro購入画面(上限画面や🔒Proから開く。商品はRevenueCat Offeringsから取得)
   Notifications: undefined; // 通知(リマインド)
+  Referral: undefined; // 友だち紹介(自分のコード共有＋コード手入力)。上部/設定から開くモーダル
   Inventory: undefined; // アイテム(所持品・道具・バッジ一覧。上部の袋アイコンから開く)
   Shop: undefined; // ショップ(桜貝で着せ替え購入)
   // 診断クイズ / 弱点ドリル(itemIds 指定でその語だけを出題) / 大問学習(daimon 指定=本番の大問を固定形式で連続出題)

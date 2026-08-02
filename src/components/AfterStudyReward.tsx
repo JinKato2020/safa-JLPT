@@ -7,9 +7,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, useWindowDimensions, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { isInMyList, dayStr } from '../store/state';
+import { recordQualifyingDay, isTriggerMet } from '../referral/trigger';
+import { reportQualified, getDeviceRef } from '../referral/referralClient';
 import { composeVoice } from '../story/voice';
 import { pickAfterStudyImage } from '../data/afterStudyArt';
 import { homeStatus } from '../home/homeStatus';
@@ -34,8 +39,9 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
   review?: boolean;     // 私の単語帳の「復習する」= true。記憶した(正解)語だけ確認の上で外せる。
 }) {
   const state = useAppState();
-  const { addToMyList, setSettings, awardOnce, addPoints } = useAppActions();
+  const { addToMyList, setSettings, awardOnce, addPoints, markStudyDay } = useAppActions();
   const t = useT();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const { width, height } = useWindowDimensions();
@@ -61,6 +67,24 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
     setSettings({ afterStudyCount: (state.settings.afterStudyCount ?? 0) + 1 });
     if (topUp > 0) addPoints(topUp, { cap: true }); // 全問正解=20貝へ正規化(不足分だけ上乗せ)
     if (grantedDaily) awardOnce(dailyKey, 30);
+
+    // 紹介の継続トリガー: 1セット(約60問=distinct scored)以上完了した日だけを適格学習日に記録(水増し防止)。
+    const now = Date.now();
+    const qualifying = scored >= 60;
+    markStudyDay(qualifying);
+    // 新規(=コード入力済み)の人だけ、「今回で成立した」瞬間に1回だけサーバーへ報告(冪等・失敗は握る)。
+    const code = state.referral?.enteredCode;
+    if (code) {
+      const before = state.referral?.qualifyingDays ?? [];
+      const after = qualifying ? recordQualifyingDay(before, dayStr(now)) : before;
+      const installAt = state.installedAt ?? now;
+      if (!isTriggerMet(installAt, before, now) && isTriggerMet(installAt, after, now)) {
+        void (async () => {
+          const ref = await getDeviceRef();
+          await reportQualified(code, ref, after, installAt); // 成立でサーバーが両者のpro_untilを延長→次回同期で反映
+        })();
+      }
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ①イラスト(毎回)=学習ごとに1枚ずつ順送り(afterStudyCount が種)。マンネリ防止(気分転換)。
@@ -112,6 +136,18 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
         <Text style={s.shellNote}>全問正解で20貝</Text>
         {grantedDaily && <Text style={s.shellBonus}>＋ 毎日はじめての学習ボーナス 30貝</Text>}
       </View>
+
+      {/* 友だち紹介カード=達成直後に「誘いたくなる瞬間」で出す。2人とも1週間Pro。 */}
+      <Pressable style={s.inviteCard} onPress={() => nav.navigate('Referral')}>
+        <View style={s.inviteTextWrap}>
+          <Text style={s.inviteTitle}>{t('referral.invite_title')}</Text>
+          <Text style={s.inviteBody}>{t('referral.invite_body')}</Text>
+        </View>
+        <View style={s.inviteBtn}>
+          <Ionicons name="gift-outline" size={16} color="#fff" />
+          <Text style={s.inviteBtnTxt}>{t('referral.invite_cta')}</Text>
+        </View>
+      </Pressable>
 
       {/* ③ 単語ごとの登録チェック＋正誤(毎回)。復習モードは記憶した(正解)語だけ確認の上で外せる。 */}
       {words.length > 0 ? (
@@ -189,6 +225,13 @@ const makeStyles = (c: ThemeColors) =>
     shellL: { fontSize: ty.small, fontWeight: '800', color: c.mute },
     shellPlus: { fontSize: ty.body, fontWeight: '800', color: c.mute, marginHorizontal: 2 },
     voice: { fontSize: ty.body, fontWeight: '700', color: c.ink, lineHeight: 24, textAlign: 'center', paddingHorizontal: spacing.md },
+    // 友だち紹介カード=達成直後の勧誘。桜(青)を効かせて誘いたくなる見た目に。
+    inviteCard: { width: '100%', flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.blueLight, borderRadius: radius.lg, borderWidth: 1, borderColor: c.blue, padding: spacing.md },
+    inviteTextWrap: { flex: 1, gap: 2 },
+    inviteTitle: { fontSize: ty.small, fontWeight: '900', color: c.blueDark, lineHeight: 20 },
+    inviteBody: { fontSize: ty.tiny, color: c.ink2, lineHeight: 16, fontWeight: '600' },
+    inviteBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: c.blue, borderRadius: radius.pill, paddingVertical: spacing.sm, paddingHorizontal: spacing.md },
+    inviteBtnTxt: { fontSize: ty.small, fontWeight: '800', color: '#fff' },
     listCard: { width: '100%', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: 2 },
     listHead: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: spacing.xs },
     listH: { fontSize: ty.small, fontWeight: '800', color: c.ink2 },

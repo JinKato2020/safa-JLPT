@@ -24,3 +24,55 @@ create policy "user_state own delete" on public.user_state
 -- upsert(同期の保存)が 42501 permission denied で黙って弾かれ、user_state が空のままになる。
 -- RLSで「自分の行のみ」に限定済みなので、全CRUDを付与しても他人の行は一切触れない。
 grant select, insert, update, delete on public.user_state to authenticated;
+
+
+-- ============================================================================
+-- 紹介制度(リファラル) — referral_codes / referrals / entitlements
+-- 設計書 docs/superpowers/specs/2026-08-02-referral-program-design.md §5-§7
+-- クライアントは本人 read のみ(RLS)。付与・成立判定は Edge Function(service_role)だけが書く。
+-- ============================================================================
+
+-- 紹介コード(1ユーザー1コード・発行時採番)。owner を一意にして重複発行を防ぐ。
+create table if not exists public.referral_codes (
+  code text primary key,                                    -- 短い一意コード(8文字・混同文字除外)
+  owner_user_id uuid not null references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+create unique index if not exists referral_codes_owner_uniq on public.referral_codes(owner_user_id);
+
+-- 付与台帳。new_user_ref を一意にして「1新規=1報酬」(二重取り防止)。
+-- referrer_user_id は台帳のため FK を張らない(拡散側アカウント削除後も履歴を残す)。
+create table if not exists public.referrals (
+  id uuid primary key default gen_random_uuid(),
+  code text not null,
+  referrer_user_id uuid not null,
+  new_user_ref text not null unique,                        -- 新規の匿名端末ID(後でアカウントへ昇格)
+  status text not null default 'pending',                   -- pending|qualified|rewarded|rejected
+  install_at timestamptz,
+  qualified_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+-- Pro権利(自前フラグ)。付与=pro_until = max(now, pro_until) + interval '7 days'(重ねがけ=延長)。
+-- reward_grant_count は拡散側の累計付与回数(集計のみ。付与上限は当面課さない=無制限)。
+create table if not exists public.entitlements (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  pro_until timestamptz,
+  reward_grant_count int not null default 0,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.referral_codes enable row level security;
+alter table public.referrals enable row level security;
+alter table public.entitlements enable row level security;
+
+-- 本人の行だけ read。書き込みポリシーは張らない=クライアントからの insert/update/delete は不可
+-- (service_role は RLS を素通りするので Edge Function からの付与は影響を受けない)。
+create policy rc_read on public.referral_codes for select using (owner_user_id = auth.uid());
+create policy rf_read on public.referrals     for select using (referrer_user_id = auth.uid());
+create policy en_read on public.entitlements  for select using (user_id = auth.uid());
+
+-- テーブルレベルの GRANT(RLSとは別)。SQLで手作りしたテーブルは anon/authenticated へ自動GRANT
+-- されないため、これが無いと本人 read すら 42501 permission denied になる([[supabase-raw-sql-tables-need-grant]])。
+-- select だけ付与(書き込みは service_role のみ=クライアントは付与を偽装できない)。
+grant select on public.referral_codes, public.referrals, public.entitlements to anon, authenticated;
