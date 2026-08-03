@@ -1,5 +1,6 @@
 import type { Category } from '../engine/engine';
 import type { Daimon } from '../data/examBlueprint';
+import type { StudiedQuestion } from '../data/studiedWords';
 
 export type RootStackParamList = {
   Onboarding: undefined;
@@ -7,6 +8,7 @@ export type RootStackParamList = {
   Account: undefined; // アカウント作成/ログイン(段階1: メール+パスワード)
   Settings: undefined; // 設定(旧・設定タブ=ProfileScreen をモーダル化。上部の歯車から開く)
   AICoach: undefined; // AIコーチの助言(全タブ共通の上部アイコン✦から開くモーダル)
+  QuestionReview: { q: StudiedQuestion }; // 学習後の正誤表から開く「問題の見直し」全画面(本文/台本/問題/選択肢)
   Paywall: undefined; // Pro購入画面(上限画面や🔒Proから開く。商品はRevenueCat Offeringsから取得)
   Notifications: undefined; // 通知(リマインド)
   Referral: undefined; // 友だち紹介(自分のコード共有＋コード手入力)。上部/設定から開くモーダル

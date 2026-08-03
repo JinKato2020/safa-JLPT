@@ -10,6 +10,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from '../components/AfterStudyReward';
+import type { StudiedQuestion } from '../data/studiedWords';
 import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
 import ExamHeader from '../components/ExamHeader';
@@ -117,19 +118,37 @@ export default function ListeningScreen() {
   };
 
   if (!step) {
+    const after = progressSnapshot(state, Date.now());
+    // 問題の見直し(台本つき)。再挿入で重複したクリップは除外し、各設問に台本＋問題＋選択肢＋正誤を持たせて全画面へ。
+    const seenClip = new Set<string>();
+    const reviewList: StudiedQuestion[] = [];
+    for (const st of steps) {
+      if (seenClip.has(st.clip.id)) continue;
+      seenClip.add(st.clip.id);
+      for (const q of st.clip.questions) {
+        reviewList.push({
+          clipTitle: st.clip.title,
+          script: st.clip.script,
+          question: q.q ?? '',
+          choices: q.choices,
+          answerIndex: q.answerIndex,
+          correct: (state.items[q.id]?.reps ?? 0) > 0,
+          label: q.q && q.q.trim() ? q.q : st.clip.title,
+        });
+      }
+    }
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
-          {(() => { const after = progressSnapshot(state, Date.now()); return (
-            <AfterStudyReward
-              shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
-              scored={after.touched - before.touched}
-              accuracy={answered ? Math.round((correct / answered) * 100) : 0}
+          <AfterStudyReward
+            reviewList={reviewList}
+            shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
+            scored={after.touched - before.touched}
+            accuracy={answered ? Math.round((correct / answered) * 100) : 0}
             correct={correct}
             total={answered}
-              mode="choukai"
-            />
-          ); })()}
+            mode="choukai"
+          />
           <Pressable style={s.cta} onPress={() => nav.goBack()}>
             <Text style={s.ctaTxt}>{t('listening.go_home')}</Text>
           </Pressable>

@@ -205,6 +205,7 @@ export default function QuizScreen() {
     if (question.saveRef) setStudiedRefs((r) => [...r, { ref: question.saveRef!, correct: isCorrect, q: {
       prompt: question.prompt, example: question.example, furi: question.furi, furiTarget: question.furiTarget,
       noTargetRuby: question.noTargetRuby, question: question.question, choices: question.choices, answerIndex: question.answerIndex,
+      picked: choiceIdx, explain: question.explain, correct: isCorrect,
     } }]); // 学習語＋正誤＋問題スナップショット(正誤表から問題・選択肢を振り返れるように)を蓄積
     if (answerId) quizAnswer(answerId, isCorrect);
     setAnswered((a) => a + 1);

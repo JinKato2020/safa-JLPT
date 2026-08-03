@@ -10,7 +10,7 @@ import { useT } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from '../components/AfterStudyReward';
 import { walletPoints } from '../store/wallet';
-import { resolveStudiedWords } from '../data/studiedWords';
+import { resolveStudiedWords, type StudiedQuestion } from '../data/studiedWords';
 import ExamHeader from '../components/ExamHeader';
 import { readingItemsFor, readingItemsForSub } from '../data';
 import PassageSetPlayer from '../components/PassageSetPlayer';
@@ -63,11 +63,25 @@ export default function ReadingScreen() {
     const after = progressSnapshot(state, Date.now());
     // 読解の設問に文法点(pointId)があれば学習語として拾う(正誤=reps>0。無ければ単語リストは空=同UI)。
     const studiedRefs = sets.flatMap((st) => st.questions).filter((q) => q.pointId).map((q) => ({ ref: { type: 'grammar' as const, id: q.pointId! }, correct: (state.items[q.id]?.reps ?? 0) > 0 }));
+    // 問題の見直し(本文つき)。設問ごとに本文＋問題＋選択肢＋正誤を持たせて全画面へ。
+    const reviewList: StudiedQuestion[] = sets.flatMap((st) => {
+      const passage = st.passages.map((p) => (p.title ? p.title + '\n' : '') + (p.body ?? '')).join('\n\n').trim();
+      return st.questions.map((q, qi) => ({
+        passage: passage || undefined,
+        question: q.q ?? '',
+        choices: q.choices,
+        answerIndex: q.answerIndex,
+        explain: q.explain,
+        correct: (state.items[q.id]?.reps ?? 0) > 0,
+        label: q.q && q.q.trim() ? q.q : st.passages[0]?.title || `問題 ${qi + 1}`,
+      }));
+    });
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
           <AfterStudyReward
             words={resolveStudiedWords(studiedRefs, state.settings.l1)}
+            reviewList={reviewList}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
             accuracy={answered ? Math.round((correct / answered) * 100) : 0}

@@ -6,17 +6,24 @@ import type { SaveRef } from '../store/state';
 
 export interface StudiedWord { ref: SaveRef; word: string; meaning?: string; correct?: boolean }
 
-// 学習後の正誤表から「問題と選択肢」を振り返るための、出題時スナップショット(QuizScreenが捕捉)。
-// 出題時の実際の問題文・選択肢・正解位置をそのまま保持する(再生成せず、見たものをそのまま見せる)。
+// 学習後の正誤表から「問題の見直し(全画面)」を開くための、出題時スナップショット。
+// 出題時の実際の本文/台本/問題文/選択肢/正解位置をそのまま保持する(再生成せず、見たものをそのまま見せる)。
 export interface StudiedQuestion {
   prompt?: string;
   example?: { text: string; hit: boolean }[];
   furi?: string;
   furiTarget?: string;
   noTargetRuby?: boolean;
+  passage?: string;    // 読解の本文(見出し＋段落)
+  script?: string;     // 聴解の台本(話者ターンは全角空白区切り)
+  clipTitle?: string;  // 聴解クリップの見出し
   question: string;
   choices: string[];
   answerIndex: number;
+  picked?: number;     // 選んだ選択肢(不正解の×表示用)
+  explain?: string;    // 解説(あれば)
+  correct?: boolean;   // この回の正誤(一覧のバッジ用)
+  label?: string;      // 見直し一覧の行ラベル
 }
 
 const V = new Map(VOCAB.map((v) => [v.id, v]));

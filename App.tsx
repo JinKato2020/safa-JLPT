@@ -41,6 +41,7 @@ import AccountScreen from './src/screens/AccountScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import ShopScreen from './src/screens/ShopScreen';
 import AICoachScreen from './src/screens/AICoachScreen';
+import QuestionReviewScreen from './src/screens/QuestionReviewScreen';
 import PaywallScreen from './src/screens/PaywallScreen';
 import ReferralScreen from './src/screens/ReferralScreen';
 import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './src/pro/purchases';
@@ -323,6 +324,7 @@ function Root() {
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="AICoach" component={AICoachScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="QuestionReview" component={QuestionReviewScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Paywall" component={PaywallScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
