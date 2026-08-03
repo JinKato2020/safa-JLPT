@@ -12,7 +12,7 @@ import { useT } from '../i18n';
 import AfterStudyReward from '../components/AfterStudyReward';
 import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
-import { resolveStudiedWords } from '../data/studiedWords';
+import { resolveStudiedWords, type StudiedQuestion } from '../data/studiedWords';
 import ExamHeader from '../components/ExamHeader';
 import { itemsFor, allWordsFor, rubyNeeded } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
@@ -122,7 +122,7 @@ export default function QuizScreen() {
   const [answered, setAnswered] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
   const [walletStart] = useState(() => walletPoints(state));
-  const [studiedRefs, setStudiedRefs] = useState<{ ref: SaveRef; correct: boolean }[]>([]); // この回に学習した語(終了時にまとめて私の単語帳へ・正誤も)
+  const [studiedRefs, setStudiedRefs] = useState<{ ref: SaveRef; correct: boolean; q?: StudiedQuestion }[]>([]); // この回に学習した語(終了時にまとめて私の単語帳へ・正誤も)＋問題スナップショット(正誤表の振り返り用)
 
   const item = queue[idx];
   const answerId = typeof item === 'string' ? item : item?.id; // quizAnswer/SRSのキー(大問=項目#大問)
@@ -183,6 +183,7 @@ export default function QuizScreen() {
         <ScrollView contentContainerStyle={{ padding: spacing.lg, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' }}>
           <AfterStudyReward
             words={resolveStudiedWords(studiedRefs, settings.l1)}
+            reviewByRef={Object.fromEntries(studiedRefs.filter((r) => r.q).map((r) => [r.ref.type + ':' + r.ref.id, r.q!]))}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
             accuracy={answered ? Math.round((correctCount / answered) * 100) : 0}
@@ -201,7 +202,10 @@ export default function QuizScreen() {
     if (picked !== null) return;
     const isCorrect = choiceIdx === question.answerIndex;
     setPicked(choiceIdx);
-    if (question.saveRef) setStudiedRefs((r) => [...r, { ref: question.saveRef!, correct: isCorrect }]); // 学習語＋正誤を蓄積
+    if (question.saveRef) setStudiedRefs((r) => [...r, { ref: question.saveRef!, correct: isCorrect, q: {
+      prompt: question.prompt, example: question.example, furi: question.furi, furiTarget: question.furiTarget,
+      noTargetRuby: question.noTargetRuby, question: question.question, choices: question.choices, answerIndex: question.answerIndex,
+    } }]); // 学習語＋正誤＋問題スナップショット(正誤表から問題・選択肢を振り返れるように)を蓄積
     if (answerId) quizAnswer(answerId, isCorrect);
     setAnswered((a) => a + 1);
     if (isCorrect) setCorrectCount((c) => c + 1);

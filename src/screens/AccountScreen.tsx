@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
@@ -22,7 +24,7 @@ export default function AccountScreen() {
   const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
-  const nav = useNavigation();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { session, email: acctEmail, lastSyncedAt } = useSync();
   // 上部キャラ＝ホーム(HomeCoach)と同じ選択: 民族衣装 > 背負い筆 > 既定の案内キャラ。装備なしはGUIDE。
   const appState = useAppState();
@@ -112,6 +114,15 @@ export default function AccountScreen() {
           </View>
           {/* 最終同期の下に試験情報カード(試験日/残日数/申込期間/費用)。ホームのリングシートから移設。 */}
           <ExamInfoCard />
+          {/* 友だち紹介(設定画面から移設)。コード発行にアカウントが要るのでログイン中だけ表示。 */}
+          <Pressable style={s.referralRow} onPress={() => nav.navigate('Referral')}>
+            <View style={s.referralIco}><Ionicons name="gift-outline" size={20} color={c.blue} /></View>
+            <View style={{ flex: 1 }}>
+              <Text style={s.referralTitle}>{t('referral.title')}</Text>
+              <Text style={s.referralSub}>{t('referral.subhead')}</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={c.faint} />
+          </Pressable>
           {/* ログアウトは一番下へ押し下げる */}
           <View style={s.spacer} />
           <Pressable style={s.manageBtn} onPress={() => { void signOut(); }}>
@@ -225,6 +236,10 @@ const makeStyles = (c: ThemeColors) =>
     benefitTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
     benefitSub: { fontSize: ty.small, color: c.mute, textAlign: 'center' },
     acctEmail: { fontSize: ty.body, fontWeight: '800', color: c.ink, textAlign: 'center' },
+    referralRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
+    referralIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: c.blueLight, alignItems: 'center', justifyContent: 'center' },
+    referralTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    referralSub: { fontSize: ty.small, color: c.mute, marginTop: 1 },
     manageBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.md, marginTop: spacing.md },
     manageTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink },
     deleteRow: { alignItems: 'center', paddingVertical: spacing.md, marginTop: spacing.sm },

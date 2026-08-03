@@ -240,17 +240,6 @@ export default function ProfileScreen() {
           </View>
         </View>
 
-        {/* 友だち紹介(常設の導線)。2人とも1週間Pro。 */}
-        <View style={s.card}>
-          <Pressable style={s.linkRow} onPress={() => nav.navigate('Referral')}>
-            <View style={{ flex: 1 }}>
-              <Text style={s.linkTxt}>{t('referral.title')}</Text>
-              <Text style={s.subtle}>{t('referral.subhead')}</Text>
-            </View>
-            <Text style={s.chev}>›</Text>
-          </Pressable>
-        </View>
-
         {/* 聴解音声の取得方式(配信=都度ストリーミング / 一括DL=オフライン)＋一括DL導線 */}
         <View style={s.card}>
           <Text style={s.setLbl}>{t('profile.listeningAudio')}</Text>

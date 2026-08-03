@@ -89,6 +89,28 @@ KW.animate=function(){if(writer)writer.animateCharacter();};
 KW.showAnswer=function(){if(!writer)return;writer.showOutline();writer.animateCharacter();};
 KW.clear=function(){if(writer&&writer.cancelQuiz){writer.cancelQuiz();} if(free){KW.setFreeStep(curStep);} else {KW.setStep(curStep);}};
 window.KW=KW;
+// あ/ぬ等「自分の線が交差する」筆画の交差点欠け対策の"本命"。
+// iOS WKWebView は <clipPath> 内 path の fill-rule/clip-rule を CSS では無視し、属性のみ従う。
+// HanziWriter が動的生成する全 path に nonzero+round を属性で付け直し続ける(生成の度に反映)。
+function fixPath(p){
+  if(!p||p.nodeType!==1)return;
+  p.setAttribute('clip-rule','nonzero');
+  p.setAttribute('fill-rule','nonzero');
+  p.setAttribute('stroke-linejoin','round');
+  p.setAttribute('stroke-linecap','round');
+}
+function fixAll(root){
+  if(!root||root.nodeType!==1)return;
+  if(root.tagName&&root.tagName.toLowerCase()==='path')fixPath(root);
+  if(root.querySelectorAll){var ps=root.querySelectorAll('path');for(var i=0;i<ps.length;i++)fixPath(ps[i]);}
+}
+try{
+  var _t=document.getElementById('t');
+  var _mo=new MutationObserver(function(muts){
+    for(var i=0;i<muts.length;i++){var a=muts[i].addedNodes;for(var j=0;j<a.length;j++)fixAll(a[j]);}
+  });
+  _mo.observe(_t,{childList:true,subtree:true});
+}catch(e){}
 window.addEventListener('resize',function(){if(window._grid)drawGrid(window._grid);});
 post({type:'ready'});
 </script>

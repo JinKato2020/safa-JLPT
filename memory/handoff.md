@@ -34,10 +34,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 85ターン（文脈 31万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 85ターン・ツール36回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -46,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/screens/AICoachScreen.tsx
-- src/screens/HomeScreen.tsx
-- App.tsx
+- src/components/AfterStudyReward.tsx
+- src/screens/QuizScreen.tsx
+- src/data/studiedWords.ts
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/components/AfterStudyReward.tsx
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
+- src/kakitori/engineHtml.ts
+- src/screens/AccountScreen.tsx
+- src/screens/ProfileScreen.tsx
 
-_自動更新: 2026-08-03 12:35_
+_自動更新: 2026-08-03 14:16_
 <!-- AUTO:END -->

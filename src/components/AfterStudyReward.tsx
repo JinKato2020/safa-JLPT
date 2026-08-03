@@ -21,14 +21,15 @@ import { homeStatus } from '../home/homeStatus';
 import RubyText from './RubyText';
 import { useT } from '../i18n';
 import { sendEvent, sendFirstSessionOnce } from '../telemetry/telemetry';
-import type { StudiedWord } from '../data/studiedWords';
+import type { StudiedWord, StudiedQuestion } from '../data/studiedWords';
 
 export type { StudiedWord } from '../data/studiedWords';
 
 const FULL_SESSION_SHELLS = 20; // 全問正解=20貝(問題数に依らず正規化)
 
-export default function AfterStudyReward({ words = [], shellsEarned = 0, scored = 0, accuracy, correct, total, mode, seed, review = false }: {
+export default function AfterStudyReward({ words = [], reviewByRef, shellsEarned = 0, scored = 0, accuracy, correct, total, mode, seed, review = false }: {
   words?: StudiedWord[];
+  reviewByRef?: Record<string, StudiedQuestion>; // ref(type:id) → 出題時の問題スナップショット(正誤表から問題・選択肢を振り返る)
   shellsEarned?: number;
   scored?: number;      // 計測用(session_complete)。画面には出さない。
   accuracy?: number;    // 正解率%(◯問正解 と 貝 の正規化に使う)
@@ -51,6 +52,8 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
   // 今日はじめての学習=30貝。この学習が今日の最初か(=まだ未付与か)をマウント時に固定。
   const dailyKey = 'dailyFirst-' + dayStr(Date.now());
   const [grantedDaily] = useState(() => !(state.claimedMilestones ?? []).includes(dailyKey));
+  // 正誤表で「問題を見る」を開いている行(ref key)。1行ずつ開閉。
+  const [openKey, setOpenKey] = useState<string | null>(null);
 
   // ②貝の正規化: 全問正解=20貝。acc=正解率%なので、この学習で得るべき貝 = round(20×acc/100)。
   //  ・1問あたり=20÷問題数(=acc に内包)。10問ない大問でも全問正解なら20になる。
@@ -168,10 +171,14 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
         <View style={s.listCard}>
           <View style={s.listHead}>
             <Text style={s.listH}>{review ? '覚えた単語は単語帳から外せます' : '単語帳に入れる'}</Text>
+            {reviewByRef && Object.keys(reviewByRef).length > 0 ? <Text style={s.listHint}>▽ 問題を確認</Text> : null}
           </View>
           {words.map((w) => {
             const saved = isInMyList(state.myList ?? [], w.ref);
             const memorized = review && w.correct === true; // 復習で正解=記憶したと判定
+            const rkey = w.ref.type + ':' + w.ref.id;
+            const rq = reviewByRef?.[rkey];
+            const open = openKey === rkey;
             const onRow = () => {
               if (review) {
                 if (memorized) {
@@ -186,16 +193,25 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
               }
             };
             return (
-              <Pressable key={w.ref.type + w.ref.id} style={s.wrow} onPress={onRow} hitSlop={4} disabled={review && !memorized}>
-                <Ionicons name={saved ? 'checkbox' : 'square-outline'} size={22} color={!saved ? c.mute : review && !memorized ? c.mute : c.blue} />
-                <View style={s.wtextWrap}>
-                  <RubyText text={w.word} style={s.wword} rubyStyle={s.wruby} />
-                  {!!w.meaning && <Text style={s.wmean} numberOfLines={1}>{w.meaning}</Text>}
-                </View>
-                {w.correct != null && (
-                  <Ionicons name={w.correct ? 'checkmark-circle' : 'close-circle'} size={18} color={w.correct ? c.green : c.red} />
-                )}
-              </Pressable>
+              <View key={w.ref.type + w.ref.id}>
+                <Pressable style={s.wrow} onPress={onRow} hitSlop={4} disabled={review && !memorized}>
+                  <Ionicons name={saved ? 'checkbox' : 'square-outline'} size={22} color={!saved ? c.mute : review && !memorized ? c.mute : c.blue} />
+                  <View style={s.wtextWrap}>
+                    <RubyText text={w.word} style={s.wword} rubyStyle={s.wruby} />
+                    {!!w.meaning && <Text style={s.wmean} numberOfLines={1}>{w.meaning}</Text>}
+                  </View>
+                  {w.correct != null && (
+                    <Ionicons name={w.correct ? 'checkmark-circle' : 'close-circle'} size={18} color={w.correct ? c.green : c.red} />
+                  )}
+                  {/* 出題時の問題スナップショットがあれば「問題を見る」トグル(独立の押下先＝行の登録操作とは別) */}
+                  {rq ? (
+                    <Pressable onPress={() => setOpenKey(open ? null : rkey)} hitSlop={8} style={s.wexpand} accessibilityLabel="問題と選択肢を見る">
+                      <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={18} color={c.blue} />
+                    </Pressable>
+                  ) : null}
+                </Pressable>
+                {open && rq ? <ReviewPanel q={rq} s={s} c={c} /> : null}
+              </View>
             );
           })}
         </View>
@@ -218,6 +234,45 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
         ) : (
           <Text style={s.coachLine}>{t('afterstudy.coach_early')}</Text>
         )}
+      </View>
+    </View>
+  );
+}
+
+type Styles = ReturnType<typeof makeStyles>;
+
+// 正誤表の行を開いた時に出す「出題時そのままの問題文＋選択肢(正解を✓で明示)」。
+function ReviewPanel({ q, s, c }: { q: StudiedQuestion; s: Styles; c: ThemeColors }) {
+  const hasFuri = (x: string) => /[（(][^）)]*[）)]/.test(x);
+  return (
+    <View style={s.reviewPanel}>
+      {/* 問題文(ふりがな/下線付き文/素の提示文のいずれか) */}
+      {q.furi ? (
+        <RubyText text={q.furi} target={q.furiTarget} style={s.reviewStem} hitStyle={s.reviewHit} rubyStyle={s.reviewRuby} noRubyOnHit={q.noTargetRuby} />
+      ) : q.example && q.example.length ? (
+        <Text style={s.reviewStem}>{q.example.map((sg, i) => <Text key={i} style={sg.hit ? s.reviewHit : undefined}>{sg.text}</Text>)}</Text>
+      ) : q.prompt ? (
+        hasFuri(q.prompt)
+          ? <RubyText text={q.prompt} style={s.reviewStem} rubyStyle={s.reviewRuby} />
+          : <Text style={s.reviewStem}>{q.prompt}</Text>
+      ) : null}
+      {!!q.question ? <Text style={s.reviewQ}>{q.question}</Text> : null}
+      <View style={s.reviewChoices}>
+        {q.choices.map((ch, i) => {
+          const ok = i === q.answerIndex;
+          return (
+            <View key={i} style={[s.reviewChoice, ok && s.reviewChoiceOk]}>
+              <View style={[s.reviewBadge, ok && s.reviewBadgeOk]}>
+                <Text style={[s.reviewBadgeT, ok && s.reviewBadgeTOk]}>{ok ? '✓' : String(i + 1)}</Text>
+              </View>
+              {hasFuri(ch) ? (
+                <View style={{ flex: 1 }}><RubyText text={ch} style={s.reviewChoiceT} rubyStyle={s.reviewRuby} /></View>
+              ) : (
+                <Text style={[s.reviewChoiceT, ok && s.reviewChoiceTOk]}>{ch}</Text>
+              )}
+            </View>
+          );
+        })}
       </View>
     </View>
   );
@@ -261,6 +316,23 @@ const makeStyles = (c: ThemeColors) =>
     wword: { fontSize: ty.body, fontWeight: '800', color: c.ink },
     wruby: { color: c.mute },
     wmean: { flex: 1, fontSize: ty.small, color: c.mute },
+    wexpand: { padding: 4, marginLeft: 2 },
+    listHint: { fontSize: ty.tiny, color: c.blue, fontWeight: '800' },
+    // 正誤表の展開パネル(問題文＋選択肢・正解を✓/緑で明示)
+    reviewPanel: { backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, padding: spacing.sm, marginTop: 4, marginBottom: spacing.xs, gap: spacing.xs },
+    reviewStem: { fontSize: ty.body, color: c.ink, fontWeight: '700', lineHeight: 24 },
+    reviewRuby: { fontSize: 9, lineHeight: 11, color: c.mute, textAlign: 'center' },
+    reviewHit: { color: c.ink, fontWeight: '800', textDecorationLine: 'underline' },
+    reviewQ: { fontSize: ty.small, color: c.mute, fontWeight: '600' },
+    reviewChoices: { gap: 5, marginTop: 2 },
+    reviewChoice: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.surface, borderRadius: 8, borderWidth: 1, borderColor: c.line, paddingVertical: 7, paddingHorizontal: 9 },
+    reviewChoiceOk: { borderColor: c.green, backgroundColor: c.okBg },
+    reviewBadge: { width: 20, height: 20, borderRadius: 10, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, alignItems: 'center', justifyContent: 'center' },
+    reviewBadgeOk: { backgroundColor: c.green, borderColor: c.green },
+    reviewBadgeT: { fontSize: 11, fontWeight: '800', color: c.mute },
+    reviewBadgeTOk: { color: '#fff' },
+    reviewChoiceT: { flex: 1, fontSize: ty.small, color: c.ink2, fontWeight: '600' },
+    reviewChoiceTOk: { color: c.green, fontWeight: '800' },
     // ③AIコーチ枠=無機質(桜の温かさと視覚的に分ける)。左に細い青帯＋◇バッジ。淡々。
     coachCard: { width: '100%', backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, borderLeftWidth: 3, borderLeftColor: c.blue, padding: spacing.md, gap: spacing.xs },
     coachHead: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 2 },

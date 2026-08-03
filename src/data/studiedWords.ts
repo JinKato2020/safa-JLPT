@@ -6,6 +6,19 @@ import type { SaveRef } from '../store/state';
 
 export interface StudiedWord { ref: SaveRef; word: string; meaning?: string; correct?: boolean }
 
+// 学習後の正誤表から「問題と選択肢」を振り返るための、出題時スナップショット(QuizScreenが捕捉)。
+// 出題時の実際の問題文・選択肢・正解位置をそのまま保持する(再生成せず、見たものをそのまま見せる)。
+export interface StudiedQuestion {
+  prompt?: string;
+  example?: { text: string; hit: boolean }[];
+  furi?: string;
+  furiTarget?: string;
+  noTargetRuby?: boolean;
+  question: string;
+  choices: string[];
+  answerIndex: number;
+}
+
 const V = new Map(VOCAB.map((v) => [v.id, v]));
 const G = new Map(GRAMMAR.map((g) => [g.id, g]));
 const K = new Map(KANJI.map((k) => [k.id, k]));
