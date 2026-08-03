@@ -35,8 +35,8 @@
 <!-- AUTO:BEGIN -->
 
 ## ⚠ 会話が重くなっている（自動）
-- 🔴 文脈 64万／70万（92%）・1243往復 — まもなく強制圧縮。区切りをつけて /clear を
-- 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
+- ⚠ 連続 54ターン（文脈 21万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 54ターン・ツール21回）— まとめ方を変える
 
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
@@ -46,14 +46,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- docs/supabase/README.md
+- src/screens/QuizScreen.tsx
+- src/components/ExamHeader.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- docs/supabase/schema.sql
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- src/screens/AICoachScreen.tsx
-- src/review/selectReview.test.ts
-- src/store/selectors.ts
+- src/home/HomeCoach.tsx
 
-_自動更新: 2026-08-02 15:10_
+_自動更新: 2026-08-03 08:34_
 <!-- AUTO:END -->

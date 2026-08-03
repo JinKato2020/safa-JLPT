@@ -76,7 +76,11 @@ create policy rc_read on public.referral_codes for select using (owner_user_id =
 create policy rf_read on public.referrals     for select using (referrer_user_id = auth.uid());
 create policy en_read on public.entitlements  for select using (user_id = auth.uid());
 
--- テーブルレベルの GRANT(RLSとは別)。SQLで手作りしたテーブルは anon/authenticated へ自動GRANT
--- されないため、これが無いと本人 read すら 42501 permission denied になる([[supabase-raw-sql-tables-need-grant]])。
--- select だけ付与(書き込みは service_role のみ=クライアントは付与を偽装できない)。
+-- テーブルレベルの GRANT(RLSとは別)。SQLで手作りしたテーブルは anon/authenticated/service_role へ
+-- 自動GRANTされないため、これが無いと本人 read すら 42501 permission denied になる
+-- ([[supabase-raw-sql-tables-need-grant]])。
+-- クライアント(anon/authenticated)= select のみ(書き込みは Edge Function 経由=偽装不可)。
 grant select on public.referral_codes, public.referrals, public.entitlements to anon, authenticated;
+-- Edge Function(service_role)= 発行/成立判定で insert/update/select する。手作りテーブルには
+-- 自動付与されないので明示。これが無いと関数のテーブル書き込みが 42501 で落ち、コード発行が失敗する。
+grant select, insert, update on public.referral_codes, public.referrals, public.entitlements to service_role;

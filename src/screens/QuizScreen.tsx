@@ -220,7 +220,7 @@ export default function QuizScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={title} onClose={() => nav.goBack()} right={`${idx + 1} / ${total}`} />
+        <ExamHeader title={title} sub={question.itemId ?? answerId} onClose={() => nav.goBack()} right={`${idx + 1} / ${total}`} />
 
         <View style={s.promptCard}>
           {question.furi ? (
