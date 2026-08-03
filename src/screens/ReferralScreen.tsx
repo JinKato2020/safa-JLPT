@@ -105,10 +105,10 @@ export default function ReferralScreen() {
           )}
         </View>
 
-        {/* もらえる条件 */}
+        {/* もらえる条件はあえて明記しない(曖昧化)。純粋に学習を続ける人が自然にごほうびを得る設計＝
+            Pro目当てだけのユーザーを寄せ付けない。一言だけ添える。 */}
         <View style={s.card}>
-          <Text style={s.lbl}>{t('referral.how_title')}</Text>
-          <Text style={s.hint}>{t('referral.how_body')}</Text>
+          <Text style={s.hint}>ふたりで学習を続けると、いいことがあります。</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -25,7 +25,7 @@ import type { StudiedWord, StudiedQuestion } from '../data/studiedWords';
 
 export type { StudiedWord } from '../data/studiedWords';
 
-const FULL_SESSION_SHELLS = 20; // 全問正解=20貝(問題数に依らず正規化)
+const SHELLS_PER_CORRECT = 2; // 正解1問=2貝・不正解0貝(10問なら満点20貝)
 
 export default function AfterStudyReward({ words = [], reviewByRef, reviewList, shellsEarned = 0, scored = 0, accuracy, correct, total, mode, seed, review = false }: {
   words?: StudiedWord[];
@@ -54,11 +54,10 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
   const dailyKey = 'dailyFirst-' + dayStr(Date.now());
   const [grantedDaily] = useState(() => !(state.claimedMilestones ?? []).includes(dailyKey));
 
-  // ②貝の正規化: 全問正解=20貝。acc=正解率%なので、この学習で得るべき貝 = round(20×acc/100)。
-  //  ・1問あたり=20÷問題数(=acc に内包)。10問ない大問でも全問正解なら20になる。
+  // ②貝: 正解1問=2貝・不正解0貝。10問なら 2×正解数(満点20貝)。問題数に依らず「正解数×2」で明快。
   const acc = accuracy ?? 0;
-  const targetShells = Math.round((FULL_SESSION_SHELLS * acc) / 100);
   const correctN = correct ?? Math.round(((total ?? scored) * acc) / 100);
+  const targetShells = correctN * SHELLS_PER_CORRECT;
   // 毎問付与ぶん(shellsEarned)との差だけを上乗せ=最終的にこの学習の貝が targetShells になる(不足時のみ加算)。
   const topUp = Math.max(0, targetShells - shellsEarned);
 
@@ -149,21 +148,9 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
             </View>
           </View>
         ) : (
-          <Text style={s.shellNote}>全問正解で20桜貝</Text>
+          <Text style={s.shellNote}>正解1問＝2桜貝</Text>
         )}
       </View>
-
-      {/* 友だち紹介カード=達成直後に「誘いたくなる瞬間」で出す。2人とも1週間Pro。 */}
-      <Pressable style={s.inviteCard} onPress={() => nav.navigate('Referral')}>
-        <View style={s.inviteTextWrap}>
-          <Text style={s.inviteTitle}>{t('referral.invite_title')}</Text>
-          <Text style={s.inviteBody}>{t('referral.invite_body')}</Text>
-        </View>
-        <View style={s.inviteBtn}>
-          <Ionicons name="gift-outline" size={16} color="#fff" />
-          <Text style={s.inviteBtnTxt}>{t('referral.invite_cta')}</Text>
-        </View>
-      </Pressable>
 
       {/* ③ 単語ごとの登録チェック＋正誤(毎回)。復習モードは記憶した(正解)語だけ確認の上で外せる。 */}
       {words.length > 0 ? (
@@ -277,13 +264,6 @@ const makeStyles = (c: ThemeColors) =>
     shellTotalLbl: { fontSize: ty.small, color: c.ink, fontWeight: '900' },
     shellTotalVal: { fontSize: ty.body, color: c.blue, fontWeight: '900', fontVariant: ['tabular-nums'] },
     voice: { fontSize: ty.body, fontWeight: '700', color: c.ink, lineHeight: 24, textAlign: 'center', paddingHorizontal: spacing.md },
-    // 友だち紹介カード=達成直後の勧誘。桜(青)を効かせて誘いたくなる見た目に。
-    inviteCard: { width: '100%', flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.blueLight, borderRadius: radius.lg, borderWidth: 1, borderColor: c.blue, padding: spacing.md },
-    inviteTextWrap: { flex: 1, gap: 2 },
-    inviteTitle: { fontSize: ty.small, fontWeight: '900', color: c.blueDark, lineHeight: 20 },
-    inviteBody: { fontSize: ty.tiny, color: c.ink2, lineHeight: 16, fontWeight: '600' },
-    inviteBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: c.blue, borderRadius: radius.pill, paddingVertical: spacing.sm, paddingHorizontal: spacing.md },
-    inviteBtnTxt: { fontSize: ty.small, fontWeight: '800', color: '#fff' },
     listCard: { width: '100%', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: 2 },
     listHead: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: spacing.xs },
     listH: { fontSize: ty.small, fontWeight: '800', color: c.ink2 },

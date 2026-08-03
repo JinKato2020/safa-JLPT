@@ -89,15 +89,18 @@ KW.animate=function(){if(writer)writer.animateCharacter();};
 KW.showAnswer=function(){if(!writer)return;writer.showOutline();writer.animateCharacter();};
 KW.clear=function(){if(writer&&writer.cancelQuiz){writer.cancelQuiz();} if(free){KW.setFreeStep(curStep);} else {KW.setStep(curStep);}};
 window.KW=KW;
-// あ/ぬ等「自分の線が交差する」筆画の交差点欠け対策の"本命"。
-// iOS WKWebView は <clipPath> 内 path の fill-rule/clip-rule を CSS では無視し、属性のみ従う。
-// HanziWriter が動的生成する全 path に nonzero+round を属性で付け直し続ける(生成の度に反映)。
+// あ/ぬ等「自分の線が交差する」筆画で、交差から先が途切れる(最後まで筆が続かない)問題の"本命"対策。
+// HanziWriter は中心線を stroke-dasharray="L,L" で伸ばして描く(L=内部計算の線長)が、path に
+// pathLength 属性を付けていない。iOS WKWebView は自己交差する曲線の"実測長"が L とズレるため、
+// dash 1本(=L)が全長に届かず、余り(=交差より先)が dash の空白に落ちて消える。
+// → 生成される dash 付き path に pathLength=L を与えて path 長を L に正規化。dash が常に全長を
+//   覆い、端まで描画される(アニメの伸び方=dashoffset は維持されるので描画演出はそのまま)。
 function fixPath(p){
   if(!p||p.nodeType!==1)return;
-  p.setAttribute('clip-rule','nonzero');
-  p.setAttribute('fill-rule','nonzero');
   p.setAttribute('stroke-linejoin','round');
   p.setAttribute('stroke-linecap','round');
+  var da=p.getAttribute('stroke-dasharray');
+  if(da){var L=parseFloat(da);if(L>0&&!p.hasAttribute('pathLength'))p.setAttribute('pathLength',String(L));}
 }
 function fixAll(root){
   if(!root||root.nodeType!==1)return;

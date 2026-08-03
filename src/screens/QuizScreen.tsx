@@ -15,7 +15,7 @@ import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords, type StudiedQuestion } from '../data/studiedWords';
 import ExamHeader from '../components/ExamHeader';
 import { itemsFor, allWordsFor, rubyNeeded } from '../data';
-import { buildQueue, buildUnitQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
+import { buildQueue, buildUnitQueue, makeQuestion, EXAM_FORMATS } from '../quiz/quiz';
 import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, MOJI_DAIMON, BUNPOU_DAIMON, type LearnCard } from '../data/daimon';
 import { selectReview } from '../review/selectReview';
 import { unitForPick } from '../review/reviewQuestion';
@@ -41,8 +41,6 @@ function LearnText({ text, target: explicitTarget, style, hitStyle, rubyStyle, r
 }
 
 const SESSION_SIZE = 10;
-const RELEARN_GAP = 3;
-const MAX_QUESTIONS = 30; // 再挿入の上限(無限ループ防止)
 // 文法ミックス出題用の大問(passage_grammarはセット形式=questionForUnitで単問化できないため除外。専用画面PassageGrammarScreenへ)。
 const MIX_BUNPOU_DAIMON = BUNPOU_DAIMON.filter((d) => d !== 'passage_grammar');
 
@@ -88,7 +86,7 @@ export default function QuizScreen() {
   // 誤答プール＆弱点ドリルの照合は全語(学習＋模試専用)。出題キュー(category)は学習のみ=poolFor。
   const pool = useMemo(() => [...allWordsFor(settings.level, 'moji_goi'), ...allWordsFor(settings.level, 'bunpou')], [settings.level]);
   // 大問モードはユニットid(string)、それ以外はStudyItemのキュー。
-  const [queue, setQueue] = useState<(StudyItem | string)[]>(() => {
+  const [queue] = useState<(StudyItem | string)[]>(() => {
     if (review) {
       // 面別マスタリー統合復習: 既習の苦手な面を弱い順に選び、描ける面だけを unit にして出題。
       // listen/漢字書き取り等の描けない面は読み飛ばすため多めに選んで先頭 SESSION_SIZE 件。
@@ -210,17 +208,10 @@ export default function QuizScreen() {
     if (answerId) quizAnswer(answerId, isCorrect);
     setAnswered((a) => a + 1);
     if (isCorrect) setCorrectCount((c) => c + 1);
-    // 不正解は数問後に再挿入(分散学習)
-    if (!isCorrect && queue.length < MAX_QUESTIONS) {
-      setQueue((q) => {
-        const head = q.slice(0, idx + 1);
-        const tail = reinsertForRelearn(q.slice(idx + 1), item, RELEARN_GAP);
-        return [...head, ...tail];
-      });
-    }
+    // 不正解でも同じ問題をこの回に再出題しない(＝多くは10問固定)。苦手は次回以降にSRSで自然に戻る。
   };
 
-  const total = Math.min(queue.length, MAX_QUESTIONS);
+  const total = queue.length;
 
   return (
     <SafeAreaView style={s.c}>
