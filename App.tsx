@@ -46,7 +46,6 @@ import ReferralScreen from './src/screens/ReferralScreen';
 import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './src/pro/purchases';
 import { initAds } from './src/pro/ads';
 import { walletPoints } from './src/store/wallet';
-import { mockTicketCount } from './src/store/tickets';
 import SafeBoundary from './src/components/SafeBoundary';
 import { DesignThemeProvider } from './src/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers, sendLifecycleMetrics } from './src/telemetry/telemetry';
@@ -167,21 +166,15 @@ function MainTabs() {
           ※持ち物(アイテム一覧)は「桜/柴のタップで購入済みを確認」に集約したため上部アイコンは廃止。 */}
       {!hideTopBar && (
       <View style={[topBar.row, { top: insets.top + 6 }]}>
-        {/* 上部操作列は全アイコン等間隔(space-between)。左→右: アカウント / 貝殻 / チケット / AIコーチ / 設定。
-            以前は左4つを1グループに束ねていたため、左に固まって設定だけ遠くに離れ不均等に見えた。 */}
+        {/* 上部操作列は全アイコン等間隔(space-between)。左→右: アカウント / 貝殻 / 設定。
+            ・AIコーチ=ホームの合格リングをタップで開く(ヘッダーの✨は廃止)。
+            ・模試チケット🎫は廃止(模試は学習タブの「試」カードから。残数はショップ/持ち物で確認)。 */}
         <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="person-circle-outline" size={26} color={c.ink} />
         </Pressable>
-        {/* 貝殻ポイントと模試チケットは別々のアイコンに分離(どちらもタップでショップへ)。 */}
+        {/* 貝殻ポイント(タップでショップへ)。 */}
         <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.points_label')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
           <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
-        </Pressable>
-        <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.name_tool_mock_ticket')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
-          <Text style={[topBar.pillTxt, { color: c.ink }]}>🎫 {mockTicketCount(state)}</Text>
-        </Pressable>
-        {/* AIコーチ=全タブ共通の上部アイコン。他の上部アイコンと同じ挙動(タップでモーダル助言)。 */}
-        <Pressable onPress={() => nav.navigate('AICoach')} accessibilityLabel={t('home.ai_title')} hitSlop={6} style={iconBtn}>
-          <Ionicons name="sparkles-outline" size={22} color={c.ink} />
         </Pressable>
         {/* 設定(歯車)は必ず一番右。今後も動かさない(固定・ユーザー指定)。 */}
         <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>

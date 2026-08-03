@@ -7,14 +7,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
-import Svg, { Path, Circle, Rect } from 'react-native-svg';
+import Svg, { Path, Circle, Rect, Defs, LinearGradient, Stop } from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { useAppState } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
 import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
-import { dayStr } from '../store/state';
+import { dayStr, lastNDays } from '../store/state';
 import { expectedScoreFor, categoryCoveragePct, SECTION_LABEL } from '../store/selectors';
 import { dueCount } from '../review/selectReview';
 import type { Category } from '../engine/engine';
@@ -55,10 +55,16 @@ export default function AICoachScreen() {
     const RING_CATS: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
     const CAT_LABEL: Record<string, string> = { moji_goi: 'home.cat_moji_goi', bunpou: 'home.cat_bunpou', dokkai: 'home.cat_dokkai', choukai: 'home.cat_choukai' };
     const coverage = RING_CATS.map((cat) => ({ cat, labelKey: CAT_LABEL[cat], pct: categoryCoveragePct(state, now, cat) }));
-    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, due, daily, coverage };
+    // 継続(継続カードから統合): 連続/最長/フリーズ＋直近7/28日の学習ドット。
+    const streak = state.streak;
+    const week = lastNDays(today, 7);
+    const month = lastNDays(today, 28);
+    const studied = new Set(streak.history);
+    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, due, daily, coverage, streak, week, month, studied, today };
   }, [state]);
 
   const { st } = d;
+  const levelLabel = (state.settings.targetExam ?? 'jlpt') === 'jft' ? 'JFT' : state.settings.level;
   const passColor = st.passPct >= 70 ? c.green : st.passPct >= 45 ? c.blue : c.amber;
   const scorePct = st.predMax > 0 ? Math.round((st.predScore / st.predMax) * 100) : 0;
   const goalPct = st.predMax > 0 ? Math.round((st.passTotal / st.predMax) * 100) : 50;
@@ -97,25 +103,40 @@ export default function AICoachScreen() {
       </View>
 
       <ScrollView contentContainerStyle={s.body} showsVerticalScrollIndicator={false}>
-        {/* ① 合格の見込み */}
+        {/* ① 合格の見込み(ヒーロー)。淡いグラデ地に予想得点リングを主役で置く。 */}
         <View style={s.hero}>
-          <SecLabel c={c} s={s} text="合格の見込み" />
-          <View style={s.heroRow}>
-            {/* 主役=予想得点。リングの塗り=得点率、｜印=合格ライン。 */}
-            <RingGauge value={scorePct} color={scoreColor} size={124} stroke={11} mark={goalPct}>
-              <Text style={[s.ringBig, { color: scoreColor }]}>{st.predScore}<Text style={s.ringPct}>/{st.predMax}</Text></Text>
-              <Text style={s.ringCap}>予想得点</Text>
-            </RingGauge>
-            <View style={s.heroSide}>
-              {/* 主役=予想得点はリング中央。ここは合格率(補足)＋合格ラインだけ(得点の重複表示を撤去)。 */}
-              <View>
-                <Text style={s.subMetricT}>合格率（実際に受かる確率）</Text>
-                <Text style={[s.subMetricV, { color: passColor }]}>{st.passPct}<Text style={s.subMetricU}>％</Text></Text>
-              </View>
-              <Text style={s.mNote}>合格ライン {st.passTotal}点（リングの｜印）</Text>
+          <Svg style={StyleSheet.absoluteFill} width="100%" height="100%">
+            <Defs>
+              <LinearGradient id="aiHeroBg" x1="0" y1="0" x2="1" y2="1">
+                <Stop offset="0" stopColor={c.blueLight} stopOpacity={1} />
+                <Stop offset="1" stopColor={c.surface} stopOpacity={1} />
+              </LinearGradient>
+            </Defs>
+            <Rect x="0" y="0" width="100%" height="100%" fill="url(#aiHeroBg)" />
+          </Svg>
+          <View style={s.heroInner}>
+            <View style={s.heroEyebrow}>
+              <View style={[s.heroBadge, { backgroundColor: scoreColor }]}><Text style={s.heroBadgeT}>{levelLabel}</Text></View>
+              <Text style={s.heroEyebrowT}>合格の見込み</Text>
             </View>
+            <View style={s.heroRow}>
+              {/* 主役=予想得点。リングの塗り=得点率、｜印=合格ライン。 */}
+              <RingGauge value={scorePct} color={scoreColor} size={134} stroke={12} mark={goalPct}>
+                <Text style={[s.ringBig, { color: scoreColor }]}>{st.predScore}<Text style={s.ringPct}>/{st.predMax}</Text></Text>
+                <Text style={s.ringCap}>予想得点</Text>
+              </RingGauge>
+              <View style={s.heroSide}>
+                {/* 主役=予想得点はリング中央。ここは合格率(補足)＋合格ラインだけ(得点の重複表示を撤去)。 */}
+                <View style={s.passChip}>
+                  <Text style={s.passChipLbl}>合格率</Text>
+                  <Text style={[s.passChipV, { color: passColor }]}>{st.passPct}<Text style={s.passChipU}>％</Text></Text>
+                  <Text style={s.passChipSub}>実際に受かる確率</Text>
+                </View>
+                <Text style={s.mNote}>合格ライン {st.passTotal}点（リングの｜印）</Text>
+              </View>
+            </View>
+            <Text style={s.diff}>💡 予想得点＝取れそうな点／合格率＝実際に受かる確率。1科目でも基準点割れだと合格率は下がります。</Text>
           </View>
-          <Text style={s.diff}>💡 予想得点＝取れそうな点／合格率＝実際に受かる確率。1科目でも基準点割れだと合格率は下がります。</Text>
         </View>
 
         {/* ② 分野別の到達度 */}
@@ -241,6 +262,18 @@ export default function AICoachScreen() {
           <StripCell s={s} n={`${d.learned}`} unit="語" tt="覚えた語 合計" c={c} />
         </View>
 
+        {/* ⑥-b 継続カレンダー(継続カードを統合: 最長・フリーズ＋直近7日/28日の学習ドット) */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="継続カレンダー" />
+          <Text style={s.calMeta}>最長 <Text style={s.calMetaEm}>{d.streak.longest}日</Text>　　❄️ フリーズ {d.streak.freezes}</Text>
+          <View style={s.week}>
+            {d.week.map((day) => <View key={day} style={[s.wdot, d.studied.has(day) && { backgroundColor: c.amber, borderColor: c.amber }, day === d.today && { borderWidth: 2, borderColor: c.ink }]} />)}
+          </View>
+          <View style={s.heat}>
+            {d.month.map((day) => <View key={day} style={[s.hdot, d.studied.has(day) && { backgroundColor: c.amber, borderColor: c.amber }, day === d.today && { borderWidth: 1.5, borderColor: c.ink }]} />)}
+          </View>
+        </View>
+
         {/* コーチの一言 ＋ 導線 */}
         <View style={s.voice}>
           <View style={s.voiceB}><Text style={s.voiceBt}>◇</Text></View>
@@ -316,9 +349,19 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   tick: { width: 5, height: 14, borderRadius: 3 },
   secLabelT: { fontSize: 11, letterSpacing: 1.4, color: c.ink2, fontWeight: '800' },
 
-  hero: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.md, ...shadow1(c) },
+  hero: { borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, overflow: 'hidden', backgroundColor: c.blueLight, ...shadow1(c) },
+  heroInner: { padding: spacing.md },
+  heroEyebrow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: spacing.sm },
+  heroBadge: { paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6 },
+  heroBadgeT: { color: '#fff', fontSize: 11, fontWeight: '900', letterSpacing: 0.5 },
+  heroEyebrowT: { fontSize: 11, letterSpacing: 1.4, color: c.ink2, fontWeight: '800' },
+  passChip: { alignSelf: 'stretch', backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 9, paddingHorizontal: 12 },
+  passChipLbl: { fontSize: 10.5, color: c.ink2, fontWeight: '700' },
+  passChipV: { fontSize: 26, fontWeight: '900', marginTop: 1, fontVariant: ['tabular-nums'] },
+  passChipU: { fontSize: 12, color: c.faint, fontWeight: '700' },
+  passChipSub: { fontSize: 9.5, color: c.faint, fontWeight: '600', marginTop: 1 },
   heroRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
-  ringBig: { fontSize: 29, fontWeight: '900', fontVariant: ['tabular-nums'] },
+  ringBig: { fontSize: 30, fontWeight: '900', fontVariant: ['tabular-nums'] },
   ringPct: { fontSize: 13, fontWeight: '800' },
   ringCap: { fontSize: 10.5, color: c.mute, fontWeight: '700', marginTop: 2 },
   subMetric: { borderTopWidth: 1, borderTopColor: c.line, paddingTop: spacing.sm },
@@ -399,6 +442,14 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   stripN: { fontSize: 19, fontWeight: '900', color: c.ink, fontVariant: ['tabular-nums'] },
   stripU: { fontSize: 11, color: c.faint, fontWeight: '600' },
   stripT: { fontSize: 10, color: c.ink2, fontWeight: '700', marginTop: 5 },
+
+  // 継続カレンダー(継続カードから統合)
+  calMeta: { fontSize: 11.5, color: c.ink2, fontWeight: '700', marginBottom: spacing.sm },
+  calMetaEm: { color: c.ink, fontWeight: '900' },
+  week: { flexDirection: 'row', gap: 6, marginBottom: spacing.sm },
+  wdot: { flex: 1, height: 16, borderRadius: 5, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line },
+  heat: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
+  hdot: { width: 12, height: 12, borderRadius: 3, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line },
 
   voice: { flexDirection: 'row', gap: 10, alignItems: 'flex-start', backgroundColor: c.blueLight, borderWidth: 1, borderColor: c.blue + '3a', borderLeftWidth: 3, borderLeftColor: c.blue, borderRadius: radius.md, padding: spacing.sm },
   voiceB: { width: 22, height: 22, borderRadius: 7, backgroundColor: c.blue, alignItems: 'center', justifyContent: 'center' },

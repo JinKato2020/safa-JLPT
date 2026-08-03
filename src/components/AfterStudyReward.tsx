@@ -123,18 +123,32 @@ export default function AfterStudyReward({ words = [], shellsEarned = 0, scored 
         </View>
       )}
 
-      {/* ② 獲得した貝(毎回)=「◯問正解 ＋◯貝」。全問正解=20貝(＋今日はじめての学習なら30貝)。 */}
+      {/* ② 獲得した貝(毎回)。獲得桜貝を主役に大きく→正解内訳→(今日はじめてなら)ボーナス＋合計。 */}
       <View style={s.shellCard}>
-        <View style={s.shellRow}>
-          <Text style={s.shellIco}>🐚</Text>
-          <Text style={s.shellN}>{correctN}</Text>
-          <Text style={s.shellL}>問正解</Text>
+        <Text style={s.shellHeroIco}>🐚</Text>
+        <View style={s.shellHeroRow}>
           <Text style={s.shellPlus}>＋</Text>
-          <Text style={s.shellN}>{targetShells}</Text>
-          <Text style={s.shellL}>貝</Text>
+          <Text style={s.shellHeroN}>{targetShells}</Text>
+          <Text style={s.shellHeroUnit}>桜貝</Text>
         </View>
-        <Text style={s.shellNote}>全問正解で20貝</Text>
-        {grantedDaily && <Text style={s.shellBonus}>＋ 毎日はじめての学習ボーナス 30貝</Text>}
+        <Text style={s.shellSub}>
+          {total != null ? `${correctN} / ${total}問 正解` : `${correctN}問 正解`}
+          {acc > 0 ? `（${acc}%）` : ''}
+        </Text>
+        {grantedDaily ? (
+          <View style={s.shellBreak}>
+            <View style={s.shellBonusRow}>
+              <Text style={s.shellBonusLbl}>今日はじめてのボーナス</Text>
+              <Text style={s.shellBonusVal}>＋30</Text>
+            </View>
+            <View style={s.shellTotalRow}>
+              <Text style={s.shellTotalLbl}>合計</Text>
+              <Text style={s.shellTotalVal}>＋{targetShells + 30} 桜貝</Text>
+            </View>
+          </View>
+        ) : (
+          <Text style={s.shellNote}>全問正解で20桜貝</Text>
+        )}
       </View>
 
       {/* 友だち紹介カード=達成直後に「誘いたくなる瞬間」で出す。2人とも1週間Pro。 */}
@@ -215,15 +229,22 @@ const makeStyles = (c: ThemeColors) =>
     imgFrame: { borderRadius: radius.lg, overflow: 'hidden', backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line },
     img: { width: '100%', height: '100%' },
     rewardBlock: { width: '100%', alignItems: 'center', gap: spacing.xs },
-    // 貝カード=毎回表示。「◯問正解 ＋◯貝」＋「全問正解で20貝」の説明を添える。
-    shellCard: { width: '100%', alignItems: 'center', gap: 2, backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.sm },
-    shellNote: { fontSize: ty.tiny, color: c.mute, fontWeight: '700' },
-    shellBonus: { fontSize: ty.tiny, color: c.blue, fontWeight: '800' },
-    shellRow: { flexDirection: 'row', alignItems: 'baseline', gap: 4 },
-    shellIco: { fontSize: ty.h2 },
-    shellN: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
-    shellL: { fontSize: ty.small, fontWeight: '800', color: c.mute },
-    shellPlus: { fontSize: ty.body, fontWeight: '800', color: c.mute, marginHorizontal: 2 },
+    // 貝カード=毎回表示。獲得桜貝を主役(大)に→正解内訳→(今日はじめてなら)ボーナス＋合計。
+    shellCard: { width: '100%', alignItems: 'center', gap: 3, backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.md, paddingHorizontal: spacing.md },
+    shellHeroIco: { fontSize: 30, lineHeight: 34 },
+    shellHeroRow: { flexDirection: 'row', alignItems: 'flex-end', gap: 2 },
+    shellPlus: { fontSize: ty.h2, fontWeight: '900', color: c.blue, marginBottom: 5 },
+    shellHeroN: { fontSize: 44, lineHeight: 48, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
+    shellHeroUnit: { fontSize: ty.body, fontWeight: '800', color: c.blue, marginBottom: 6, marginLeft: 2 },
+    shellSub: { fontSize: ty.small, color: c.ink2, fontWeight: '800' },
+    shellNote: { fontSize: ty.tiny, color: c.mute, fontWeight: '700', marginTop: 2 },
+    shellBreak: { width: '100%', borderTopWidth: 1, borderTopColor: c.line, marginTop: spacing.xs, paddingTop: spacing.sm, gap: 5 },
+    shellBonusRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+    shellBonusLbl: { fontSize: ty.small, color: c.ink2, fontWeight: '700' },
+    shellBonusVal: { fontSize: ty.small, color: c.blue, fontWeight: '900', fontVariant: ['tabular-nums'] },
+    shellTotalRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
+    shellTotalLbl: { fontSize: ty.small, color: c.ink, fontWeight: '900' },
+    shellTotalVal: { fontSize: ty.body, color: c.blue, fontWeight: '900', fontVariant: ['tabular-nums'] },
     voice: { fontSize: ty.body, fontWeight: '700', color: c.ink, lineHeight: 24, textAlign: 'center', paddingHorizontal: spacing.md },
     // 友だち紹介カード=達成直後の勧誘。桜(青)を効かせて誘いたくなる見た目に。
     inviteCard: { width: '100%', flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.blueLight, borderRadius: radius.lg, borderWidth: 1, borderColor: c.blue, padding: spacing.md },
