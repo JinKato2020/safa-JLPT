@@ -34,10 +34,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 文脈 45万／70万（64%）・4100往復 — そろそろ /clear の頃合い
-- ツール呼び出しループが長い（指示1件に対し 47ターン・ツール18回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -46,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- memory/session-summary-LATEST.md
+- memory/handoff.md
 - src/screens/KotobaTownScreen.tsx
 - assets/kotoba/map/night.jpg
 - assets/kotoba/map/day.jpg
 - src/plaza/mapCollision.ts
-- 画像/MAP/正方形 昼夏MAP.png
-- 画像/MAP/正方形 夜夏MAP.png
-- 画像/MAP/old/正方形友人MAP.png
-- 画像/MAP/old/正方形無人MAP.png
 
-_自動更新: 2026-08-05 00:49_
+_自動更新: 2026-08-05 05:45_
 <!-- AUTO:END -->

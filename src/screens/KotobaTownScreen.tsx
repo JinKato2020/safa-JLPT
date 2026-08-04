@@ -1,10 +1,9 @@
-// おさんぽ(散歩マップ)。実マップ画像(昼/夜)＋自分のアバターを十字キーで4方向移動＋当たり判定＋カメラ追従。
-//  ・当たり判定=src/plaza/mapCollision.ts(地図の色解析で自動生成した MAP_G×MAP_G グリッド。'.'歩ける/'#'止まる)。
-//  ・描画: マップ画像は1枚。移動は world/player の transform を毎フレーム setValue で動かす(Reactの再描画なし=軽い)。
-//    向きが変わった時だけ player 画像を差し替え(state)。※十字キーは関数内で定義せず直接置く(再マウントで
-//    onPressOut が飛ばず「止まらない」不具合を防ぐ)。
+// おさんぽ(散歩マップ)。実マップ画像(昼/夜)＋自分のアバターをバーチャルスティックで自由移動(斜めOK)＋当たり判定＋カメラ追従。
+//  ・操作=アナログスティック(360度)。移動ベクトルは常に単位長に正規化=斜めでも速度は一定。向きは近い4方向の絵。
+//  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
+//  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
+import { View, Text, Image, Animated, Pressable, PanResponder, StyleSheet, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -23,9 +22,10 @@ const MAP_NIGHT = require('../../assets/kotoba/map/night.jpg');
 const WORLD = 1024;            // マップ表示サイズ(正方)。当たり判定グリッドはこの中を MAP_G 等分。
 const CELL = WORLD / MAP_G;
 const SPRITE = 52;
-const SPEED = 150;            // px/秒
-// スタート地点(自動生成の seed セル付近=中央広場)。
+const SPEED = 160;            // px/秒
 const START_COL = 24, START_ROW = 29;
+const STICK_R = 54;          // スティック外周半径
+const DEADZONE = 10;
 
 export default function KotobaTownScreen() {
   const nav = useNavigation();
@@ -35,8 +35,7 @@ export default function KotobaTownScreen() {
 
   const start = useRef({ x: (START_COL + 0.5) * CELL - SPRITE / 2, y: (START_ROW + 0.5) * CELL - SPRITE * 0.82 }).current;
   const pos = useRef({ x: start.x, y: start.y });
-  const input = useRef({ dx: 0, dy: 0 });
-  const activeDir = useRef<Dir | null>(null);
+  const input = useRef({ dx: 0, dy: 0 }); // 単位ベクトル(斜め対応)
   const [dir, setDir] = useState<Dir>('down');
   const dirRef = useRef<Dir>('down');
   const [moving, setMoving] = useState(false);
@@ -44,13 +43,13 @@ export default function KotobaTownScreen() {
   const worldOff = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   const playerPos = useRef(new Animated.ValueXY({ x: start.x, y: start.y })).current;
   const bob = useRef(new Animated.Value(0)).current;
+  const knob = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
 
   const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
   const walkable = (px: number, py: number): boolean => {
-    // 足元(中心やや下)で判定
     const fx = px + SPRITE / 2;
-    const fy = py + SPRITE * 0.82;
+    const fy = py + SPRITE * 0.82; // 足元
     const c = Math.floor(fx / CELL), r = Math.floor(fy / CELL);
     if (r < 0 || r >= MAP_G || c < 0 || c >= MAP_G) return false;
     return MAP_WALK[r][c] === '.';
@@ -64,7 +63,7 @@ export default function KotobaTownScreen() {
 
   useEffect(() => { applyCamera(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // 移動ループ(requestAnimationFrame)。位置は ref、描画は Animated.setValue で再描画なし。
+  // 移動ループ。input は単位ベクトル→斜めでも一定速度。X/Yを別々に当たり判定=壁ずり。
   useEffect(() => {
     let raf = 0; let last = 0; let wasMoving = false;
     const frame = (ts: number) => {
@@ -87,7 +86,7 @@ export default function KotobaTownScreen() {
     return () => cancelAnimationFrame(raf);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // 移動中のぴょこ(上下に軽く跳ねる)。
+  // 移動中のぴょこ。
   useEffect(() => {
     if (moving) {
       const loop = Animated.loop(Animated.sequence([
@@ -100,11 +99,24 @@ export default function KotobaTownScreen() {
   }, [moving, bob]);
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -5] });
 
-  const press = (d: Dir, dx: number, dy: number) => () => {
-    input.current = { dx, dy }; activeDir.current = d;
-    if (dirRef.current !== d) { dirRef.current = d; setDir(d); }
-  };
-  const release = (d: Dir) => () => { if (activeDir.current === d) { input.current = { dx: 0, dy: 0 }; activeDir.current = null; } };
+  // アナログスティック。指の変位→単位ベクトル(斜めOK)。向きは近い4方向。
+  const pan = useMemo(() => PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderMove: (_e, g) => {
+      const dx = g.dx, dy = g.dy;
+      const mag = Math.hypot(dx, dy);
+      const cl = Math.min(mag, STICK_R);
+      knob.setValue({ x: mag > 0 ? (dx / mag) * cl : 0, y: mag > 0 ? (dy / mag) * cl : 0 });
+      if (mag < DEADZONE) { input.current = { dx: 0, dy: 0 }; return; }
+      const ux = dx / mag, uy = dy / mag;
+      input.current = { dx: ux, dy: uy };
+      const d: Dir = Math.abs(ux) > Math.abs(uy) ? (ux < 0 ? 'left' : 'right') : (uy < 0 ? 'up' : 'down');
+      if (dirRef.current !== d) { dirRef.current = d; setDir(d); }
+    },
+    onPanResponderRelease: () => { input.current = { dx: 0, dy: 0 }; Animated.spring(knob, { toValue: { x: 0, y: 0 }, useNativeDriver: false }).start(); },
+    onPanResponderTerminate: () => { input.current = { dx: 0, dy: 0 }; Animated.spring(knob, { toValue: { x: 0, y: 0 }, useNativeDriver: false }).start(); },
+  }), [knob]);
 
   return (
     <View style={s.c}>
@@ -126,31 +138,15 @@ export default function KotobaTownScreen() {
         </View>
       </SafeAreaView>
 
-      {/* 操作(十字キー) */}
+      {/* 操作(アナログスティック・斜めOK) */}
       <SafeAreaView edges={['bottom']} style={s.bottom} pointerEvents="box-none">
-        <View style={s.dpad}>
-          <View style={s.dpadRow}>
-            <Btn icon="chevron-up" onIn={press('up', 0, -1)} onOut={release('up')} />
-          </View>
-          <View style={s.dpadRow}>
-            <Btn icon="chevron-back" onIn={press('left', -1, 0)} onOut={release('left')} />
-            <View style={s.dpadGap} />
-            <Btn icon="chevron-forward" onIn={press('right', 1, 0)} onOut={release('right')} />
-          </View>
-          <View style={s.dpadRow}>
-            <Btn icon="chevron-down" onIn={press('down', 0, 1)} onOut={release('down')} />
+        <View style={s.stickWrap}>
+          <View style={s.stickBase} {...pan.panHandlers}>
+            <Animated.View style={[s.stickKnob, { transform: [{ translateX: knob.x }, { translateY: knob.y }] }]} />
           </View>
         </View>
       </SafeAreaView>
     </View>
-  );
-}
-
-function Btn({ icon, onIn, onOut }: { icon: keyof typeof Ionicons.glyphMap; onIn: () => void; onOut: () => void }) {
-  return (
-    <Pressable onPressIn={onIn} onPressOut={onOut} hitSlop={8} style={({ pressed }) => [s.btn, pressed && s.btnOn]}>
-      <Ionicons name={icon} size={32} color="#fff" />
-    </Pressable>
   );
 }
 
@@ -163,9 +159,7 @@ const s = StyleSheet.create({
   pillT: { fontSize: 13, fontWeight: '900', color: '#3a3128' },
   close: { width: 38, height: 38, borderRadius: 19, backgroundColor: 'rgba(255,253,248,0.9)', alignItems: 'center', justifyContent: 'center' },
   bottom: { position: 'absolute', left: 0, right: 0, bottom: 0 },
-  dpad: { alignItems: 'center', paddingBottom: 20, paddingLeft: 12, alignSelf: 'flex-start' },
-  dpadRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
-  dpadGap: { width: 60 },
-  btn: { width: 64, height: 64, margin: 3, borderRadius: 18, backgroundColor: 'rgba(58,49,40,0.66)', alignItems: 'center', justifyContent: 'center' },
-  btnOn: { backgroundColor: 'rgba(58,49,40,0.9)' },
+  stickWrap: { alignSelf: 'flex-start', paddingBottom: 26, paddingLeft: 22 },
+  stickBase: { width: STICK_R * 2, height: STICK_R * 2, borderRadius: STICK_R, backgroundColor: 'rgba(58,49,40,0.28)', borderWidth: 2, borderColor: 'rgba(255,255,255,0.35)', alignItems: 'center', justifyContent: 'center' },
+  stickKnob: { width: 60, height: 60, borderRadius: 30, backgroundColor: 'rgba(255,253,248,0.9)', borderWidth: 2, borderColor: 'rgba(58,49,40,0.4)' },
 });
