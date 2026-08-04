@@ -239,6 +239,13 @@ export function passageMasteryCounts(state: AppState, now: number): { key: strin
 export function categoryCoveragePct(state: AppState, now: number, cat: Category): number | null {
   return coverPct(state, now, ringItemIdsFor(state.settings.level, cat));
 }
+/** 区分別カバー率の内訳(習得済み数/全項目数)。分数表示用。effectiveP>=0.6 を習得済みとする(coverPctと同基準)。 */
+export function categoryCoverageFrac(state: AppState, now: number, cat: Category): { learned: number; total: number } {
+  const ids = ringItemIdsFor(state.settings.level, cat);
+  let learned = 0;
+  for (const id of ids) { const st = state.items[id]; if (st && effectiveP(st, now) >= 0.6) learned++; }
+  return { learned, total: ids.length };
+}
 /** id集合のカバー率%(読解/聴解サブ種別の別指標)。 */
 export function idsCoveragePct(state: AppState, now: number, ids: string[]): number | null {
   return coverPct(state, now, ids);

@@ -15,7 +15,7 @@ import { useAppState } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
 import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
 import { dayStr, lastNDays } from '../store/state';
-import { expectedScoreFor, categoryCoveragePct, SECTION_LABEL } from '../store/selectors';
+import { expectedScoreFor, categoryCoveragePct, categoryCoverageFrac, SECTION_LABEL } from '../store/selectors';
 import { dueCount } from '../review/selectReview';
 import type { Category } from '../engine/engine';
 import RingGauge from '../components/RingGauge';
@@ -54,7 +54,7 @@ export default function AICoachScreen() {
     // カバー率(学んだ範囲の割合): 4区分ごとの習得済み/全項目。正答率(質)と別の「量」の指標。
     const RING_CATS: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
     const CAT_LABEL: Record<string, string> = { moji_goi: 'home.cat_moji_goi', bunpou: 'home.cat_bunpou', dokkai: 'home.cat_dokkai', choukai: 'home.cat_choukai' };
-    const coverage = RING_CATS.map((cat) => ({ cat, labelKey: CAT_LABEL[cat], pct: categoryCoveragePct(state, now, cat) }));
+    const coverage = RING_CATS.map((cat) => ({ cat, labelKey: CAT_LABEL[cat], pct: categoryCoveragePct(state, now, cat), ...categoryCoverageFrac(state, now, cat) }));
     // 継続(継続カードから統合): 連続/最長/フリーズ＋直近7/28日の学習ドット。
     const streak = state.streak;
     const week = lastNDays(today, 7);
@@ -65,27 +65,12 @@ export default function AICoachScreen() {
 
   const { st } = d;
   const levelLabel = (state.settings.targetExam ?? 'jlpt') === 'jft' ? 'JFT' : state.settings.level;
-  const passColor = st.passPct >= 70 ? c.green : st.passPct >= 45 ? c.blue : c.amber;
+  // 合格率(passPct)はユーザー指定で非表示(計算は残す=あとで復活可)。表示は予想得点＋科目別基準点に集約。
   const scorePct = st.predMax > 0 ? Math.round((st.predScore / st.predMax) * 100) : 0;
   const goalPct = st.predMax > 0 ? Math.round((st.passTotal / st.predMax) * 100) : 50;
   // 予想得点=主役。合格ラインに届いていれば緑・未満は橙。
   const scoreColor = st.predScore >= st.passTotal && st.passTotal > 0 ? c.green : c.amber;
   const startLearn = () => { nav.goBack(); nav.navigate('Quiz', { review: true }); };
-
-  // 14日の合格率スパークライン(0-100の絶対スケール)。
-  const spark = useMemo(() => {
-    const n = d.curve.length;
-    if (n < 2) return null;
-    const W = 320, H = 60, pad = 6;
-    const pts = d.curve.map((v, i) => {
-      const x = (i / (n - 1)) * W;
-      const y = pad + (1 - Math.max(0, Math.min(100, v)) / 100) * (H - 2 * pad);
-      return [x, y] as const;
-    });
-    const line = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
-    const area = `${line} L${W} ${H} L0 ${H} Z`;
-    return { line, area, end: pts[n - 1], W, H };
-  }, [d.curve]);
 
   const cat = t(d.weakest.labelKey);
 
@@ -116,26 +101,42 @@ export default function AICoachScreen() {
           </Svg>
           <View style={s.heroInner}>
             <View style={s.heroEyebrow}>
-              <View style={[s.heroBadge, { backgroundColor: scoreColor }]}><Text style={s.heroBadgeT}>{levelLabel}</Text></View>
               <Text style={s.heroEyebrowT}>合格の見込み</Text>
             </View>
-            <View style={s.heroRow}>
-              {/* 主役=予想得点。リングの塗り=得点率、｜印=合格ライン。 */}
-              <RingGauge value={scorePct} color={scoreColor} size={134} stroke={12} mark={goalPct}>
+            {/* 主役=予想得点リング。中央にレベル(N4など)＋予想得点。｜印=合格ライン。 */}
+            <View style={s.heroCenter}>
+              <RingGauge value={scorePct} color={scoreColor} size={150} stroke={13} mark={goalPct}>
+                <View style={[s.ringLevel, { backgroundColor: scoreColor }]}><Text style={s.ringLevelT}>{levelLabel}</Text></View>
                 <Text style={[s.ringBig, { color: scoreColor }]}>{st.predScore}<Text style={s.ringPct}>/{st.predMax}</Text></Text>
                 <Text style={s.ringCap}>予想得点</Text>
               </RingGauge>
-              <View style={s.heroSide}>
-                {/* 主役=予想得点はリング中央。ここは合格率(補足)＋合格ラインだけ(得点の重複表示を撤去)。 */}
-                <View style={s.passChip}>
-                  <Text style={s.passChipLbl}>合格率</Text>
-                  <Text style={[s.passChipV, { color: passColor }]}>{st.passPct}<Text style={s.passChipU}>％</Text></Text>
-                  <Text style={s.passChipSub}>実際に受かる確率</Text>
-                </View>
-                <Text style={s.mNote}>合格ライン {st.passTotal}点（リングの｜印）</Text>
-              </View>
+              <Text style={s.mNote}>合格ライン {st.passTotal}点（リングの｜印）</Text>
             </View>
-            <Text style={s.diff}>💡 予想得点＝取れそうな点／合格率＝実際に受かる確率。1科目でも基準点割れだと合格率は下がります。</Text>
+            {/* 科目別の予想得点＋基準点(合否の見通し=合格率の代わりにここで示す) */}
+            {d.score && d.score.sections.length > 0 && (
+              <View style={s.scoreList}>
+                {d.score.sections.map((sec) => {
+                  const cleared = sec.score >= sec.minPoint;
+                  const col = cleared ? c.green : c.red;
+                  const fillW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.score) / sec.max)) : 0;
+                  const markW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.minPoint) / sec.max)) : 0;
+                  return (
+                    <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
+                      <View style={s.scoreHead}>
+                        <Text style={s.scoreLabel}>{SECTION_LABEL[sec.key] ?? sec.key}</Text>
+                        <Text style={[s.scoreStatus, { color: col }]}>{cleared ? 'クリア✓' : `基準点まであと${sec.minPoint - sec.score}点`}</Text>
+                      </View>
+                      <View style={s.scoreBar}>
+                        <View style={[s.scoreBarFill, { width: `${fillW}%`, backgroundColor: col }]} />
+                        <View style={[s.scoreMk, { left: `${markW}%` }]} />
+                      </View>
+                      <Text style={s.scoreSub}>予想 <Text style={s.scoreSubEm}>{sec.score}</Text> / {sec.max}点（基準点 {sec.minPoint}点 ＝ ｜印）</Text>
+                    </View>
+                  );
+                })}
+              </View>
+            )}
+            <Text style={s.diff}>💡 予想得点＝取れそうな点。1科目でも基準点（各科目の最低ライン）を割ると不合格です。赤い科目を最優先で。</Text>
           </View>
         </View>
 
@@ -149,79 +150,7 @@ export default function AICoachScreen() {
           </View>
         </View>
 
-        {/* ②-b 科目別の予想得点＋基準点(合格率が予想得点より低い理由=科目落ちを可視化) */}
-        {d.score && d.score.sections.length > 0 && (
-          <View style={s.card}>
-            <SecLabel c={c} s={s} text="科目別の予想得点と基準点" />
-            <View style={s.scoreList}>
-              {d.score.sections.map((sec) => {
-                const cleared = sec.score >= sec.minPoint;
-                const col = cleared ? c.green : c.red;
-                const fillW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.score) / sec.max)) : 0;
-                const markW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.minPoint) / sec.max)) : 0;
-                return (
-                  <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
-                    <View style={s.scoreHead}>
-                      <Text style={s.scoreLabel}>{SECTION_LABEL[sec.key] ?? sec.key}</Text>
-                      <Text style={[s.scoreStatus, { color: col }]}>{cleared ? 'クリア✓' : `基準点まであと${sec.minPoint - sec.score}点`}</Text>
-                    </View>
-                    <View style={s.scoreBar}>
-                      <View style={[s.scoreBarFill, { width: `${fillW}%`, backgroundColor: col }]} />
-                      <View style={[s.scoreMk, { left: `${markW}%` }]} />
-                    </View>
-                    <Text style={s.scoreSub}>予想 <Text style={s.scoreSubEm}>{sec.score}</Text> / {sec.max}点（基準点 {sec.minPoint}点 ＝ ｜印）</Text>
-                  </View>
-                );
-              })}
-            </View>
-            <Text style={s.diff}>💡 1科目でも基準点（各科目の最低ライン）を割ると不合格です。赤い科目を最優先で上げましょう。</Text>
-          </View>
-        )}
-
-        {/* ③ この7日の成長 */}
-        <View style={s.card}>
-          <SecLabel c={c} s={s} text="この7日の成長" />
-          <View style={s.growthRow}>
-            <Stat s={s} tt="合格率" v={`${d.pg > 0 ? '+' : ''}${d.pg}`} unit="pt" up={d.pg > 0} c={c} />
-            <Stat s={s} tt="覚えた語" v={`+${d.wg}`} unit="語" up={d.wg > 0} c={c} />
-            <Stat s={s} tt="伸びた分野" v={t(d.strongest.labelKey)} unit="" up={false} c={c} color={d.strongest.color} />
-          </View>
-          {spark && (
-            <View style={s.spark}>
-              <View style={s.sparkCap}><Text style={s.sparkCapT}>合格率 14日</Text><Text style={[s.sparkEnd, { color: c.green }]}>{st.passPct}%</Text></View>
-              <Svg width="100%" height={60} viewBox={`0 0 ${spark.W} ${spark.H}`} preserveAspectRatio="none">
-                <Path d={spark.area} fill={c.green} fillOpacity={0.14} />
-                <Path d={spark.line} fill="none" stroke={c.green} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
-                <Circle cx={spark.end[0]} cy={spark.end[1]} r={3.4} fill={c.green} />
-              </Svg>
-            </View>
-          )}
-        </View>
-
-        {/* ④ いちばんの弱点 */}
-        <View style={[s.card, s.weakCard]}>
-          <View style={[s.chip, { backgroundColor: c.red + '22', borderColor: c.red + '55' }]}><Text style={[s.chipT, { color: c.red }]}>弱点</Text></View>
-          <Text style={s.weakT}>いちばんの伸びしろは <Text style={{ color: c.red, fontWeight: '800' }}>{cat}（{d.weakest.pct}%）</Text>。ここを上げると合格率が大きく動きます。</Text>
-        </View>
-
-        {/* ⑤ ゴールまでの見通し */}
-        <View style={s.card}>
-          <SecLabel c={c} s={s} text="ゴールまでの見通し" />
-          {st.passPct >= 80 ? (
-            <Text style={s.goalT}>すでに合格圏です。いまの力を保ちながら、弱点を仕上げれば安心です。</Text>
-          ) : d.weeks != null ? (
-            <Text style={s.goalT}>このペースなら <Text style={s.goalEm}>約{d.weeks}週間</Text> で合格率 <Text style={s.goalEm}>80%</Text> に届く見込みです。</Text>
-          ) : (
-            <Text style={s.goalT}>学習を続けると、合格までの見通し（あと何週間か）がここに出ます。</Text>
-          )}
-          <View style={s.goalbar}>
-            <View style={[s.goalbarFill, { width: `${Math.min(100, st.passPct)}%`, backgroundColor: c.green }]} />
-            <View style={[s.goalMk, { left: '80%' }]} />
-          </View>
-          <View style={s.goalScale}><Text style={s.goalScaleT}>いま {st.passPct}%</Text><Text style={s.goalScaleT}>合格圏 80%</Text></View>
-        </View>
-
-        {/* ⑤-b カバー率(学んだ範囲=量。正答率=質とは別軸) */}
+        {/* ③ カバー率(学んだ範囲=量)。習得/全体の分数＋%。分野別正解率の直下。 */}
         <View style={s.card}>
           <SecLabel c={c} s={s} text="カバー率（学んだ範囲）" />
           <View style={s.covList}>
@@ -231,15 +160,16 @@ export default function AICoachScreen() {
                 <View key={cv.cat} style={s.covRow}>
                   <Text style={s.covLabel}>{t(cv.labelKey)}</Text>
                   <View style={s.covBar}><View style={[s.covBarFill, { width: `${pct}%`, backgroundColor: c.blue }]} /></View>
+                  <Text style={s.covFrac}>{cv.total > 0 ? `${cv.learned}/${cv.total}` : '—'}</Text>
                   <Text style={s.covPct}>{cv.pct === null ? '—' : `${pct}%`}</Text>
                 </View>
               );
             })}
           </View>
-          <Text style={s.diff}>💡 「どれだけ広く学んだか（量）」の目安です。正解率（うまさ・質）とは別の指標です。</Text>
+          <Text style={s.diff}>💡 分数＝覚えた数／全部の数。「どれだけ広く学んだか（量）」の目安で、正解率（質）とは別の指標です。</Text>
         </View>
 
-        {/* ⑤-c 復習の待ち(忘れかけ) */}
+        {/* ④ 復習の待ち(忘れかけ) */}
         <View style={s.card}>
           <SecLabel c={c} s={s} text="復習の待ち（忘れかけ）" />
           <View style={s.dueRow}>
@@ -248,7 +178,46 @@ export default function AICoachScreen() {
           </View>
         </View>
 
-        {/* ⑤-d 学習量の推移(覚えた語/日・直近14日) */}
+        {/* ⑤ 今日のおすすめ問題(主導線) */}
+        <Pressable style={({ pressed }) => [s.cta, pressed && { opacity: 0.9 }]} onPress={startLearn}>
+          <Ionicons name="sparkles" size={16} color="#fff" />
+          <Text style={s.ctaT}>{t('home.cta_title')}</Text>
+        </Pressable>
+
+        {/* ⑥ この7日の成長(合格率は非表示。覚えた語・予想得点・伸びた分野で示す) */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="この7日の成長" />
+          <View style={s.growthRow}>
+            <Stat s={s} tt="覚えた語" v={`+${d.wg}`} unit="語" up={d.wg > 0} c={c} />
+            <Stat s={s} tt="予想得点" v={`${st.predScore}`} unit={`/${st.predMax}`} up={false} c={c} />
+            <Stat s={s} tt="伸びた分野" v={t(d.strongest.labelKey)} unit="" up={false} c={c} color={d.strongest.color} />
+          </View>
+        </View>
+
+        {/* いちばんの弱点 */}
+        <View style={[s.card, s.weakCard]}>
+          <View style={[s.chip, { backgroundColor: c.red + '22', borderColor: c.red + '55' }]}><Text style={[s.chipT, { color: c.red }]}>弱点</Text></View>
+          <Text style={s.weakT}>いちばんの伸びしろは <Text style={{ color: c.red, fontWeight: '800' }}>{cat}（{d.weakest.pct}%）</Text>。ここを上げると予想得点が大きく動きます。</Text>
+        </View>
+
+        {/* ⑧ ゴールまでの見通し(合格率は非表示。予想得点と合格ラインで示す) */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="ゴールまでの見通し" />
+          {st.predScore >= st.passTotal && st.passTotal > 0 ? (
+            <Text style={s.goalT}>いまの予想得点は合格ラインを超えています。この力を保ち、弱点を仕上げれば安心です。</Text>
+          ) : d.weeks != null ? (
+            <Text style={s.goalT}>このペースなら <Text style={s.goalEm}>約{d.weeks}週間</Text> で合格圏に届く見込みです。</Text>
+          ) : (
+            <Text style={s.goalT}>学習を続けると、合格までの見通し（あと何週間か）がここに出ます。</Text>
+          )}
+          <View style={s.goalbar}>
+            <View style={[s.goalbarFill, { width: `${Math.min(100, scorePct)}%`, backgroundColor: c.green }]} />
+            <View style={[s.goalMk, { left: `${goalPct}%` }]} />
+          </View>
+          <View style={s.goalScale}><Text style={s.goalScaleT}>予想 {st.predScore}点</Text><Text style={s.goalScaleT}>合格ライン {st.passTotal}点</Text></View>
+        </View>
+
+        {/* ⑦ 学習量の推移(覚えた語/日・直近14日) */}
         <View style={s.card}>
           <SecLabel c={c} s={s} text="学習量（覚えた語/日・直近14日）" />
           <BarChart s={s} c={c} data={d.daily} />
@@ -274,15 +243,11 @@ export default function AICoachScreen() {
           </View>
         </View>
 
-        {/* コーチの一言 ＋ 導線 */}
+        {/* コーチの一言(締め) */}
         <View style={s.voice}>
           <View style={s.voiceB}><Text style={s.voiceBt}>◇</Text></View>
-          <Text style={s.voiceT}>着実に前進しています。今日は「{cat}」を少し。弱点がひとつ埋まるたび、合格率は面白いほど動きます。</Text>
+          <Text style={s.voiceT}>着実に前進しています。今日は「{cat}」を少し。弱点がひとつ埋まるたび、予想得点は面白いほど動きます。</Text>
         </View>
-        <Pressable style={({ pressed }) => [s.cta, pressed && { opacity: 0.9 }]} onPress={startLearn}>
-          <Ionicons name="refresh" size={16} color="#fff" />
-          <Text style={s.ctaT}>{t('review.start')}</Text>
-        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
@@ -351,6 +316,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
 
   hero: { borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, overflow: 'hidden', backgroundColor: c.blueLight, ...shadow1(c) },
   heroInner: { padding: spacing.md },
+  heroCenter: { alignItems: 'center', gap: 6, marginBottom: spacing.sm },
+  ringLevel: { paddingHorizontal: 7, paddingVertical: 1, borderRadius: 5, marginBottom: 3 },
+  ringLevelT: { color: '#fff', fontSize: 10, fontWeight: '900', letterSpacing: 0.5 },
   heroEyebrow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: spacing.sm },
   heroBadge: { paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6 },
   heroBadgeT: { color: '#fff', fontSize: 11, fontWeight: '900', letterSpacing: 0.5 },
@@ -398,7 +366,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   // カバー率(量)
   covList: { gap: spacing.xs },
   covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  covLabel: { width: 62, fontSize: 11.5, color: c.ink2, fontWeight: '700' },
+  covLabel: { width: 58, fontSize: 11.5, color: c.ink2, fontWeight: '700' },
+  covFrac: { minWidth: 52, textAlign: 'right', fontSize: 11, color: c.mute, fontWeight: '700', fontVariant: ['tabular-nums'] },
   covBar: { flex: 1, height: 8, borderRadius: 8, backgroundColor: c.bgSoft, overflow: 'hidden' },
   covBarFill: { height: '100%', borderRadius: 8 },
   covPct: { width: 40, textAlign: 'right', fontSize: 12, fontWeight: '800', color: c.ink, fontVariant: ['tabular-nums'] },
