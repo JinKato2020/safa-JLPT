@@ -55,12 +55,22 @@ export default function AICoachScreen() {
     const RING_CATS: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
     const CAT_LABEL: Record<string, string> = { moji_goi: 'home.cat_moji_goi', bunpou: 'home.cat_bunpou', dokkai: 'home.cat_dokkai', choukai: 'home.cat_choukai' };
     const coverage = RING_CATS.map((cat) => ({ cat, labelKey: CAT_LABEL[cat], pct: categoryCoveragePct(state, now, cat), ...categoryCoverageFrac(state, now, cat) }));
+    // カバー率は「覚えた数」を主役に。総数＋次の目標(10語区切りで最短に届く区分)。
+    const covLearned = coverage.reduce((a, b) => a + (b.learned || 0), 0);
+    const covTotalAll = coverage.reduce((a, b) => a + (b.total || 0), 0);
+    let nextGoal: { labelKey: string; goal: number; remain: number } | null = null;
+    for (const cv of coverage) {
+      if (!cv.total || cv.learned >= cv.total) continue;
+      const goal = Math.min(cv.total, Math.floor(cv.learned / 10) * 10 + 10);
+      const remain = goal - cv.learned;
+      if (!nextGoal || remain < nextGoal.remain) nextGoal = { labelKey: cv.labelKey, goal, remain };
+    }
     // 継続(継続カードから統合): 連続/最長/フリーズ＋直近7/28日の学習ドット。
     const streak = state.streak;
     const week = lastNDays(today, 7);
     const month = lastNDays(today, 28);
     const studied = new Set(streak.history);
-    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, due, daily, coverage, streak, week, month, studied, today };
+    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, due, daily, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today };
   }, [state]);
 
   const { st } = d;
@@ -150,9 +160,22 @@ export default function AICoachScreen() {
           </View>
         </View>
 
-        {/* ③ カバー率(学んだ範囲=量)。習得/全体の分数＋%。分野別正解率の直下。 */}
+        {/* ③ カバー率 — 語数(覚えた数)を主役＋小さな目標(次の10語)。%は補足。分野別正解率の直下。 */}
         <View style={s.card}>
-          <SecLabel c={c} s={s} text="カバー率（学んだ範囲）" />
+          <SecLabel c={c} s={s} text="カバー率（覚えた数）" />
+          {/* 主役=覚えた総数 */}
+          <View style={s.covHero}>
+            <View style={s.covHeroLeft}>
+              <Text style={s.covHeroN}>{d.covLearned}<Text style={s.covHeroSub}> / {d.covTotalAll}</Text></Text>
+              <Text style={s.covHeroLbl}>覚えた項目</Text>
+            </View>
+            <Text style={s.covHeroPct}>{d.covTotalAll > 0 ? Math.round((100 * d.covLearned) / d.covTotalAll) : 0}%</Text>
+          </View>
+          {d.nextGoal && (
+            <View style={s.covGoal}>
+              <Text style={s.covGoalT}>🎯 {t(d.nextGoal.labelKey)} は あと<Text style={s.covGoalEm}>{d.nextGoal.remain}語</Text>で {d.nextGoal.goal}語</Text>
+            </View>
+          )}
           <View style={s.covList}>
             {d.coverage.map((cv) => {
               const pct = cv.pct ?? 0;
@@ -161,12 +184,11 @@ export default function AICoachScreen() {
                   <Text style={s.covLabel}>{t(cv.labelKey)}</Text>
                   <View style={s.covBar}><View style={[s.covBarFill, { width: `${pct}%`, backgroundColor: c.blue }]} /></View>
                   <Text style={s.covFrac}>{cv.total > 0 ? `${cv.learned}/${cv.total}` : '—'}</Text>
-                  <Text style={s.covPct}>{cv.pct === null ? '—' : `${pct}%`}</Text>
                 </View>
               );
             })}
           </View>
-          <Text style={s.diff}>💡 分数＝覚えた数／全部の数。「どれだけ広く学んだか（量）」の目安で、正解率（質）とは別の指標です。</Text>
+          <Text style={s.diff}>💡 「覚えた数」が主役。1問ずつ確実に増えます。まずは次の目標まであと少し。</Text>
         </View>
 
         {/* ④ 復習の待ち(忘れかけ) */}
@@ -363,7 +385,16 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   scoreSub: { fontSize: 10.5, color: c.faint, fontWeight: '600' },
   scoreSubEm: { fontSize: 12, color: c.ink, fontWeight: '900' },
 
-  // カバー率(量)
+  // カバー率(覚えた数)
+  covHero: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 10, paddingHorizontal: 12, marginBottom: spacing.sm },
+  covHeroLeft: { flexDirection: 'column' },
+  covHeroN: { fontSize: 28, fontWeight: '900', color: c.ink, fontVariant: ['tabular-nums'] },
+  covHeroSub: { fontSize: 14, fontWeight: '700', color: c.faint },
+  covHeroLbl: { fontSize: 10.5, color: c.ink2, fontWeight: '700', marginTop: 1 },
+  covHeroPct: { fontSize: 22, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
+  covGoal: { backgroundColor: c.blueLight, borderRadius: radius.md, paddingVertical: 7, paddingHorizontal: 10, marginBottom: spacing.sm },
+  covGoalT: { fontSize: 12, color: c.ink2, fontWeight: '700' },
+  covGoalEm: { color: c.blue, fontWeight: '900' },
   covList: { gap: spacing.xs },
   covRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   covLabel: { width: 58, fontSize: 11.5, color: c.ink2, fontWeight: '700' },
