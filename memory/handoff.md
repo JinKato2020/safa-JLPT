@@ -42,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/screens/ReferralScreen.tsx
-- src/screens/AICoachScreen.tsx
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- memory/session-summary-LATEST.md
-- memory/handoff.md
-- src/store/selectors.ts
-- delete.html
+- src/screens/ProfileScreen.tsx
+- App.tsx
+- src/navigation/types.ts
+- src/screens/KotobaTownScreen.tsx
+- assets/kotoba/hero/right.png
+- assets/kotoba/hero/left.png
+- assets/kotoba/hero/up.png
+- assets/kotoba/hero/down.png
 
-_自動更新: 2026-08-04 12:39_
+_自動更新: 2026-08-04 23:21_
 <!-- AUTO:END -->

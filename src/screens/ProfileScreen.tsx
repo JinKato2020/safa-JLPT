@@ -337,6 +337,13 @@ export default function ProfileScreen() {
         {/* 開発用トグル(テスト用途)。ポイント無限＝ショップ無制限購入 / Pro課金・無料ユーザー＝状態の切替(排他) */}
         <Text style={s.sectionH}>開発用</Text>
         <View style={s.card}>
+          <Pressable style={s.telemRow} onPress={() => nav.navigate('KotobaTown')}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>言葉の都（テスト）を開く</Text>
+              <Text style={s.subtle}>タイルマップ＋4方向移動＋当たり判定のエンジン検証</Text>
+            </View>
+            <Text style={[s.telemLbl, { color: c.faint, fontSize: 20 }]}>›</Text>
+          </Pressable>
           <View style={s.telemRow}>
             <View style={s.telemTxt}>
               <Text style={s.telemLbl}>ポイント無限</Text>

@@ -44,6 +44,7 @@ import AICoachScreen from './src/screens/AICoachScreen';
 import QuestionReviewScreen from './src/screens/QuestionReviewScreen';
 import PaywallScreen from './src/screens/PaywallScreen';
 import ReferralScreen from './src/screens/ReferralScreen';
+import KotobaTownScreen from './src/screens/KotobaTownScreen';
 import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './src/pro/purchases';
 import { initAds } from './src/pro/ads';
 import { walletPoints } from './src/store/wallet';
@@ -329,6 +330,7 @@ function Root() {
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Referral" component={ReferralScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="KotobaTown" component={KotobaTownScreen} options={{ presentation: 'card' }} />
           </>
         )}
       </RootStack.Navigator>
