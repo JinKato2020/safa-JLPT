@@ -143,22 +143,6 @@ export default function KotobaTownScreen() {
     return out;
   }, [map, ROWS, COLS]);
 
-  const Dpad = () => (
-    <View style={s.dpad}>
-      <View style={s.dpadRow}>
-        <Btn icon="chevron-up" onIn={press('up', 0, -1)} onOut={release('up')} />
-      </View>
-      <View style={s.dpadRow}>
-        <Btn icon="chevron-back" onIn={press('left', -1, 0)} onOut={release('left')} />
-        <View style={s.dpadGap} />
-        <Btn icon="chevron-forward" onIn={press('right', 1, 0)} onOut={release('right')} />
-      </View>
-      <View style={s.dpadRow}>
-        <Btn icon="chevron-down" onIn={press('down', 0, 1)} onOut={release('down')} />
-      </View>
-    </View>
-  );
-
   return (
     <View style={s.c}>
       {/* マップ(カメラで動く世界。プレイヤーも world 内に置く) */}
@@ -174,14 +158,26 @@ export default function KotobaTownScreen() {
       {/* 上部バー */}
       <SafeAreaView edges={['top']} style={s.top} pointerEvents="box-none">
         <View style={s.topBar} pointerEvents="box-none">
-          <View style={s.pill}><Text style={s.pillT}>言葉の都（テスト）</Text></View>
+          <View style={s.pill}><Text style={s.pillT}>おさんぽ</Text></View>
           <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.close}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
         </View>
       </SafeAreaView>
 
-      {/* 操作(十字キー) */}
+      {/* 操作(十字キー)。※部品を関数内で定義せず直接置く=再マウントで onPressOut が飛ばず「止まらない」不具合を防ぐ。 */}
       <SafeAreaView edges={['bottom']} style={s.bottom} pointerEvents="box-none">
-        <Dpad />
+        <View style={s.dpad}>
+          <View style={s.dpadRow}>
+            <Btn icon="chevron-up" onIn={press('up', 0, -1)} onOut={release('up')} />
+          </View>
+          <View style={s.dpadRow}>
+            <Btn icon="chevron-back" onIn={press('left', -1, 0)} onOut={release('left')} />
+            <View style={s.dpadGap} />
+            <Btn icon="chevron-forward" onIn={press('right', 1, 0)} onOut={release('right')} />
+          </View>
+          <View style={s.dpadRow}>
+            <Btn icon="chevron-down" onIn={press('down', 0, 1)} onOut={release('down')} />
+          </View>
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -189,8 +185,8 @@ export default function KotobaTownScreen() {
 
 function Btn({ icon, onIn, onOut }: { icon: keyof typeof Ionicons.glyphMap; onIn: () => void; onOut: () => void }) {
   return (
-    <Pressable onPressIn={onIn} onPressOut={onOut} style={({ pressed }) => [s.btn, pressed && s.btnOn]}>
-      <Ionicons name={icon} size={30} color="#fff" />
+    <Pressable onPressIn={onIn} onPressOut={onOut} hitSlop={8} style={({ pressed }) => [s.btn, pressed && s.btnOn]}>
+      <Ionicons name={icon} size={32} color="#fff" />
     </Pressable>
   );
 }
@@ -204,9 +200,9 @@ const s = StyleSheet.create({
   pillT: { fontSize: 13, fontWeight: '900', color: '#3a3128' },
   close: { width: 38, height: 38, borderRadius: 19, backgroundColor: 'rgba(255,253,248,0.9)', alignItems: 'center', justifyContent: 'center' },
   bottom: { position: 'absolute', left: 0, right: 0, bottom: 0 },
-  dpad: { alignItems: 'center', paddingBottom: 18, paddingLeft: 8, alignSelf: 'flex-start' },
+  dpad: { alignItems: 'center', paddingBottom: 20, paddingLeft: 12, alignSelf: 'flex-start' },
   dpadRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
-  dpadGap: { width: 52 },
-  btn: { width: 58, height: 58, margin: 3, borderRadius: 16, backgroundColor: 'rgba(58,49,40,0.62)', alignItems: 'center', justifyContent: 'center' },
-  btnOn: { backgroundColor: 'rgba(58,49,40,0.85)' },
+  dpadGap: { width: 60 },
+  btn: { width: 64, height: 64, margin: 3, borderRadius: 18, backgroundColor: 'rgba(58,49,40,0.66)', alignItems: 'center', justifyContent: 'center' },
+  btnOn: { backgroundColor: 'rgba(58,49,40,0.9)' },
 });
