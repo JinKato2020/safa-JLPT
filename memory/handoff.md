@@ -42,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- memory/session-summary-LATEST.md
-- memory/handoff.md
+- 画像/キャラクター/アバター/男の子右 - コピー.png
 - src/screens/KotobaTownScreen.tsx
-- assets/kotoba/map/night.jpg
-- assets/kotoba/map/day.jpg
-- src/plaza/mapCollision.ts
+- src/plaza/virtualLearners.ts
+- 画像/キャラクター/アバター/男の子右.png
+- assets/kotoba/npc/amber_right.png
+- assets/kotoba/npc/amber_left.png
+- assets/kotoba/npc/amber_up.png
+- assets/kotoba/npc/amber_down.png
 
-_自動更新: 2026-08-05 05:45_
+_自動更新: 2026-08-05 08:00_
 <!-- AUTO:END -->
