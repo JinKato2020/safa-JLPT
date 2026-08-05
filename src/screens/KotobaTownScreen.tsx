@@ -122,11 +122,12 @@ const DEADZONE = 10;
 
 // ワープ枠(WORLD=1024座標)。足元がこの小さな石段矩形に乗って初めて発火(反応距離ほぼ0)。全建物共通で石段のみ。
 type WarpTarget = 'Shop' | 'MockIntro' | 'Words' | 'Dict';
+// ワープ枠=各入口の「奥」に小さく置く。受付前/石段の最上段に触れて初めて発火(手前では反応しない)。
 const WARP_ZONES: { x: number; y: number; w: number; h: number; t: WarpTarget }[] = [
-  { x: 190, y: 300, w: 98, h: 48, t: 'Shop' },       // 左上・女の子の受付前=ショップ
-  { x: 702, y: 330, w: 98, h: 48, t: 'MockIntro' },  // 右上・模試会場の石段=模試(説明画面から)
-  { x: 818, y: 700, w: 90, h: 48, t: 'Words' },      // 右下・書斎(本棚)の開いた側の石段=単語タブ
-  { x: 452, y: 796, w: 108, h: 50, t: 'Dict' },      // 下・書庫の石段=辞書タブ
+  { x: 235, y: 299, w: 85, h: 43, t: 'Shop' },       // 左・受付(女の子)のカウンター前まで来たら=ショップ
+  { x: 725, y: 277, w: 85, h: 43, t: 'MockIntro' },  // 右上・模試会場の石段を上りきった扉口=模試(説明画面から)
+  { x: 811, y: 683, w: 64, h: 43, t: 'Words' },      // 右・書斎の石段を上りきった所=単語タブ
+  { x: 469, y: 896, w: 107, h: 43, t: 'Dict' },      // 下・書庫の石段を上りきった所=辞書タブ
 ];
 
 // 中央の木レイヤー(ユーザー提供のきれいな切り抜き tree.png)を最前面に重ねる。幹の付け根をマップの木に合わせて配置。
@@ -369,8 +370,11 @@ export default function KotobaTownScreen() {
     const tick = (ts: number) => {
       if (!last) last = ts;
       const dt = Math.min(0.05, (ts - last) / 1000); last = ts;
+      // 会話中(仮想学習者/桜)は入力を完全に無視して停止する。指が乗ったままでも勝手に進まない。
+      // カーソルを離せば input=0 になり止まる。この2条件を移動の前提にして徹底する。
+      const talking = talkRef.current || sakuraTalkRef.current;
       const { dx, dy } = input.current;
-      const isMoving = !!(dx || dy);
+      const isMoving = !talking && !!(dx || dy);
       if (isMoving) {
         const nx = pos.current.x + dx * SPEED * dt;
         const ny = pos.current.y + dy * SPEED * dt;
