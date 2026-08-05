@@ -47,8 +47,53 @@ const HERO_F2: Record<Dir, number[]> = {
   upleft: [require('../../assets/kotoba/hero_f2/upleft.png'), require('../../assets/kotoba/hero_f2/upleft_r.png'), require('../../assets/kotoba/hero_f2/upleft_l.png')],
   upright: [require('../../assets/kotoba/hero_f2/upright.png'), require('../../assets/kotoba/hero_f2/upright_r.png'), require('../../assets/kotoba/hero_f2/upright_l.png')],
 };
+// 男の子2アバター。8方向×各[立ち,右足,左足]。
+const HERO_M2: Record<Dir, number[]> = {
+  down: [require('../../assets/kotoba/hero_m2/down.png'), require('../../assets/kotoba/hero_m2/down_r.png'), require('../../assets/kotoba/hero_m2/down_l.png')],
+  up: [require('../../assets/kotoba/hero_m2/up.png'), require('../../assets/kotoba/hero_m2/up_r.png'), require('../../assets/kotoba/hero_m2/up_l.png')],
+  left: [require('../../assets/kotoba/hero_m2/left.png'), require('../../assets/kotoba/hero_m2/left_r.png'), require('../../assets/kotoba/hero_m2/left_l.png')],
+  right: [require('../../assets/kotoba/hero_m2/right.png'), require('../../assets/kotoba/hero_m2/right_r.png'), require('../../assets/kotoba/hero_m2/right_l.png')],
+  downleft: [require('../../assets/kotoba/hero_m2/downleft.png'), require('../../assets/kotoba/hero_m2/downleft_r.png'), require('../../assets/kotoba/hero_m2/downleft_l.png')],
+  downright: [require('../../assets/kotoba/hero_m2/downright.png'), require('../../assets/kotoba/hero_m2/downright_r.png'), require('../../assets/kotoba/hero_m2/downright_l.png')],
+  upleft: [require('../../assets/kotoba/hero_m2/upleft.png'), require('../../assets/kotoba/hero_m2/upleft_r.png'), require('../../assets/kotoba/hero_m2/upleft_l.png')],
+  upright: [require('../../assets/kotoba/hero_m2/upright.png'), require('../../assets/kotoba/hero_m2/upright_r.png'), require('../../assets/kotoba/hero_m2/upright_l.png')],
+};
 // アバターコード→歩行スプライト。男子(色違い含む)は既定の男の子で歩く。
-const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { f_g1: HERO_F, f_g2: HERO_F2 };
+const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { m_boy1: HERO, m_boy2: HERO_M2, f_g1: HERO_F, f_g2: HERO_F2 };
+
+// 桜(マスコット)。8方向・静止画のみ(右足/左足の歩行フレーム切替なし)。近づいて話すと努力を褒めてくれる。
+const SAKURA: Record<Dir, number> = {
+  down: require('../../assets/kotoba/sakura/down.png'),
+  up: require('../../assets/kotoba/sakura/up.png'),
+  left: require('../../assets/kotoba/sakura/left.png'),
+  right: require('../../assets/kotoba/sakura/right.png'),
+  downleft: require('../../assets/kotoba/sakura/downleft.png'),
+  downright: require('../../assets/kotoba/sakura/downright.png'),
+  upleft: require('../../assets/kotoba/sakura/upleft.png'),
+  upright: require('../../assets/kotoba/sakura/upright.png'),
+};
+const SAKURA_HOME = { col: 27, row: 27 }; // 広場の歩けるマス(スポーン近く)
+
+// 柴犬(マスコット犬)。8方向・静止画のみ。会話なし=町を歩き回るだけ。桜のそばに配置。
+const SHIBA: Record<Dir, number> = {
+  down: require('../../assets/kotoba/shiba/down.png'),
+  up: require('../../assets/kotoba/shiba/up.png'),
+  left: require('../../assets/kotoba/shiba/left.png'),
+  right: require('../../assets/kotoba/shiba/right.png'),
+  downleft: require('../../assets/kotoba/shiba/downleft.png'),
+  downright: require('../../assets/kotoba/shiba/downright.png'),
+  upleft: require('../../assets/kotoba/shiba/upleft.png'),
+  upright: require('../../assets/kotoba/shiba/upright.png'),
+};
+const SHIBA_HOME = { col: 29, row: 28 };
+// 桜のほめ言葉(努力を褒める)。連続日数があれば1つに織り込む。
+const sakuraPraise = (streak: number): string[] => [
+  '毎日よくがんばってるね。えらい！🌸',
+  'コツコツ続けるあなたは素敵。ずっと応援してるよ。',
+  streak > 0 ? `${streak}日も続けてるなんて、本当にすごい！` : '今日から一緒にがんばろうね🌸',
+  '少しずつでも前に進んでるよ。自信を持って。',
+  '努力はちゃんと実になるからね。今日もおつかれさま🌸',
+];
 const WALK_CYCLE = [0, 1, 0, 2]; // 立ち→右足→立ち→左足
 const WALK_STEP = 0.15;          // 1コマの秒数
 // 8方向スナップ表(入力角 atan2 の 45度セクタ→向きと単位ベクトル)。画面yは下向き正。
@@ -80,7 +125,7 @@ type WarpTarget = 'Shop' | 'MockIntro' | 'Words' | 'Dict';
 const WARP_ZONES: { x: number; y: number; w: number; h: number; t: WarpTarget }[] = [
   { x: 190, y: 300, w: 98, h: 48, t: 'Shop' },       // 左上・女の子の受付前=ショップ
   { x: 702, y: 330, w: 98, h: 48, t: 'MockIntro' },  // 右上・模試会場の石段=模試(説明画面から)
-  { x: 702, y: 556, w: 96, h: 50, t: 'Words' },      // 右中・書斎の石段=単語タブ
+  { x: 818, y: 700, w: 90, h: 48, t: 'Words' },      // 右下・書斎(本棚)の開いた側の石段=単語タブ
   { x: 452, y: 796, w: 108, h: 50, t: 'Dict' },      // 下・書庫の石段=辞書タブ
 ];
 
@@ -179,12 +224,75 @@ function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: n
   );
 }
 
+// マスコット(桜・柴犬)。home周辺をゆっくり8方向で徘徊。歩行フレーム切替なし(方向ごとに1枚)。
+// sink+sinkKey を渡すと現在位置を共有(親が近接判定に使う)。桜=会話あり / 柴犬=なし。
+function AmbientNpc({ sprites, spot, tag, sink, sinkKey }: {
+  sprites: Record<Dir, number>; spot: { col: number; row: number }; tag: string;
+  sink?: Record<string, { x: number; y: number }>; sinkKey?: string;
+}) {
+  const home = useRef({ x: (spot.col + 0.5) * CELL - SPRITE / 2, y: (spot.row + 0.5) * CELL - SPRITE * 0.82 }).current;
+  const pos = useRef({ x: home.x, y: home.y });
+  const target = useRef({ x: home.x, y: home.y });
+  const anim = useRef(new Animated.ValueXY({ x: home.x, y: home.y })).current;
+  const [dir, setSDir] = useState<Dir>('down');
+  const bob = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(Animated.sequence([
+      Animated.timing(bob, { toValue: 1, duration: 1000, useNativeDriver: true }),
+      Animated.timing(bob, { toValue: 0, duration: 1000, useNativeDriver: true }),
+    ]));
+    loop.start();
+    return () => loop.stop();
+  }, [bob]);
+  useEffect(() => {
+    if (sink && sinkKey) sink[sinkKey] = pos.current;
+    let raf = 0, last = 0, wait = 600 + Math.random() * 2600;
+    const NSPEED = 32, R = 2.0 * CELL;
+    const frame = (ts: number) => {
+      if (!last) last = ts;
+      const dt = Math.min(0.05, (ts - last) / 1000); last = ts;
+      const dx = target.current.x - pos.current.x, dy = target.current.y - pos.current.y, dist = Math.hypot(dx, dy);
+      if (dist < 2) {
+        wait -= dt * 1000;
+        if (wait <= 0) {
+          let nx = home.x, ny = home.y;
+          for (let i = 0; i < 8; i++) {
+            const ang = Math.random() * Math.PI * 2, rr = Math.random() * R;
+            const tx = home.x + Math.cos(ang) * rr, ty = home.y + Math.sin(ang) * rr;
+            if (walkable(tx, ty)) { nx = tx; ny = ty; break; }
+          }
+          target.current = { x: nx, y: ny };
+          wait = 1400 + Math.random() * 3200;
+        }
+      } else {
+        const ux = dx / dist, uy = dy / dist, step = NSPEED * dt;
+        if (walkable(pos.current.x + ux * step, pos.current.y)) pos.current.x += ux * step;
+        if (walkable(pos.current.x, pos.current.y + uy * step)) pos.current.y += uy * step;
+        anim.setValue({ x: pos.current.x, y: pos.current.y });
+        let sec = Math.round(Math.atan2(uy, ux) / (Math.PI / 4)); sec = ((sec % 8) + 8) % 8;
+        const nd = DIR8[sec].d; setSDir((p) => (p === nd ? p : nd));
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+    return () => { cancelAnimationFrame(raf); if (sink && sinkKey) delete sink[sinkKey]; };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const by = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -3] });
+  return (
+    <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
+      <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{tag}</Text></View>
+      <Animated.Image source={sprites[dir]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: by }] }} resizeMode="contain" />
+    </Animated.View>
+  );
+}
+
 export default function KotobaTownScreen() {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { width: VW, height: VH } = useWindowDimensions();
   // 選んだアバターで自分の見た目を切替(女の子1/女の子2 は専用スプライト、それ以外=男の子)。
   const avatarCode = useAppState().settings.avatar;
   const SPRITES = (avatarCode && AVATAR_SETS[avatarCode]) || HERO;
+  const streakCur = useAppState().streak?.current ?? 0; // 桜のほめ言葉に使う連続日数
   const isDay = useMemo(() => { const h = new Date().getHours(); return h >= 6 && h < 18; }, []);
   const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
 
@@ -211,6 +319,18 @@ export default function KotobaTownScreen() {
     closeTimer.current = setTimeout(() => closeTalk(), 1800);
   };
   useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
+
+  // 桜との会話(努力をほめる)。応援コメントとは別カード。
+  const [sakuraTalk, setSakuraTalk] = useState(false);
+  const [praise, setPraise] = useState('');
+  const sakuraTalkRef = useRef(false);
+  const sakuraArmed = useRef(true);
+  const openSakura = () => {
+    const lines = sakuraPraise(streakCur);
+    setPraise(lines[Math.floor(Math.random() * lines.length)]);
+    sakuraTalkRef.current = true; setSakuraTalk(true);
+  };
+  const closeSakura = () => { sakuraTalkRef.current = false; setSakuraTalk(false); };
 
   const worldOff = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   const playerPos = useRef(new Animated.ValueXY({ x: start.x, y: start.y })).current;
@@ -274,6 +394,15 @@ export default function KotobaTownScreen() {
           if (near && best < 26 && talkArmed.current) { talkArmed.current = false; input.current = { dx: 0, dy: 0 }; openTalk(near); }
           else if (!near || best > 52) talkArmed.current = true;
         }
+        // 桜に触れたら「努力をほめる」カードを開く(応援とは別)。
+        if (!talkRef.current && !sakuraTalkRef.current) {
+          const p = npcPos['sakura'];
+          if (p) {
+            const d = Math.hypot(fx - (p.x + SPRITE / 2), fy - (p.y + SPRITE * 0.82));
+            if (d < 26 && sakuraArmed.current) { sakuraArmed.current = false; input.current = { dx: 0, dy: 0 }; openSakura(); }
+            else if (d > 52) sakuraArmed.current = true;
+          }
+        }
       }
       if (isMoving !== wasMoving) { wasMoving = isMoving; setMoving(isMoving); if (!isMoving) { walkPhase = 0; setPoseIdx(0); } }
       raf = requestAnimationFrame(tick);
@@ -325,6 +454,10 @@ export default function KotobaTownScreen() {
           <Image source={MAP_IMG} style={{ position: 'absolute', width: WORLD, height: WORLD }} resizeMode="cover" />
           {/* 中: 仮想の学習者(NPC) */}
           {VIRTUAL_LEARNERS.map((v) => <NpcSprite key={v.id} v={v} sink={npcPos} />)}
+          {/* 中: マスコット(桜=会話あり / 柴犬=会話なし) */}
+          <AmbientNpc sprites={SHIBA} spot={SHIBA_HOME} tag="🐕 柴犬" />
+          <AmbientNpc sprites={SAKURA} spot={SAKURA_HOME} tag="🌸 桜" sink={npcPos} sinkKey="sakura" />
+
           {/* 中: 自分(NPCより手前) */}
           <Animated.View style={{ position: 'absolute', width: SPRITE, height: SPRITE, transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
             <Animated.Image source={SPRITES[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: bobY }] }} resizeMode="contain" />
@@ -343,7 +476,7 @@ export default function KotobaTownScreen() {
       </SafeAreaView>
 
       {/* 操作(アナログスティック・斜めOK)。会話中は隠す=足を止めて話す。 */}
-      {!talk && (
+      {!talk && !sakuraTalk && (
       <SafeAreaView edges={['bottom']} style={s.bottom} pointerEvents="box-none">
         <View style={s.stickWrap}>
           <View style={s.stickBase} {...pan.panHandlers}>
@@ -392,6 +525,25 @@ export default function KotobaTownScreen() {
           </View>
         </View>
       )}
+
+      {/* 桜の会話カード(努力をほめる) */}
+      {sakuraTalk && (
+        <View style={s.talkWrap}>
+          <Pressable style={StyleSheet.absoluteFill} onPress={closeSakura} />
+          <View style={s.talkCard}>
+            <Pressable onPress={closeSakura} hitSlop={10} style={s.talkClose}><Ionicons name="close" size={20} color="#3a3128" /></Pressable>
+            <View style={s.talkHead}>
+              <View style={s.talkAvatar}><Image source={SAKURA.down} style={{ width: 54, height: 54 }} resizeMode="contain" /></View>
+              <View style={{ flex: 1 }}>
+                <Text style={s.talkName}>🌸 桜</Text>
+                <Text style={s.talkStatT}>あなたの努力を見てるよ</Text>
+              </View>
+            </View>
+            <Text style={s.praiseMsg}>{praise}</Text>
+            <Pressable onPress={closeSakura} style={s.praiseBtn}><Text style={s.praiseBtnT}>ありがとう🌸</Text></Pressable>
+          </View>
+        </View>
+      )}
     </View>
   );
 }
@@ -429,4 +581,7 @@ const s = StyleSheet.create({
   sentEmoji: { fontSize: 42 },
   sentT: { fontSize: 15, fontWeight: '900', color: '#3a3128' },
   sentReply: { fontSize: 13, color: '#6b5d4d', fontWeight: '600' },
+  praiseMsg: { fontSize: 15.5, lineHeight: 24, fontWeight: '700', color: '#3a3128', paddingVertical: 6 },
+  praiseBtn: { marginTop: 12, alignSelf: 'center', backgroundColor: '#f6d9e2', borderRadius: 14, paddingVertical: 10, paddingHorizontal: 22 },
+  praiseBtnT: { fontSize: 14.5, fontWeight: '900', color: '#a13b5c' },
 });

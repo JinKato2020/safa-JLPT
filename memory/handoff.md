@@ -34,6 +34,10 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 149ターン（文脈 17万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 149ターン・ツール73回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -42,14 +46,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/plaza/avatars.ts
 - src/screens/KotobaTownScreen.tsx
-- assets/kotoba/hero_f2/upleft_l.png
-- assets/kotoba/hero_f2/upright_l.png
-- assets/kotoba/hero_f2/downright_l.png
-- assets/kotoba/hero_f2/downleft_l.png
-- assets/kotoba/hero_f2/right_l.png
-- assets/kotoba/hero_f2/left_l.png
+- src/plaza/avatars.ts
+- src/plaza/countries.ts
+- src/screens/OnboardingScreen.tsx
+- assets/kotoba/shiba/upleft.png
+- assets/kotoba/shiba/upright.png
+- assets/kotoba/shiba/downright.png
+- assets/kotoba/shiba/downleft.png
 
-_自動更新: 2026-08-05 14:05_
+_自動更新: 2026-08-05 15:08_
 <!-- AUTO:END -->

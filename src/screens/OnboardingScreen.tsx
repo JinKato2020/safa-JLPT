@@ -5,12 +5,12 @@ import Svg, { Defs, LinearGradient, Stop, Rect } from 'react-native-svg';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppActions } from '../store/store';
 import { detectL1 } from '../store/locale';
-import { useT } from '../i18n';
+import { useT, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { sendEvent } from '../telemetry/telemetry';
 import { upcomingExams } from '../data/jlptDates';
 import { avatarsByGender, DEFAULT_AVATAR } from '../plaza/avatars';
-import { COUNTRIES, flagOf, detectCountry } from '../plaza/countries';
+import { COUNTRIES, flagOf, detectCountry, countryLabel } from '../plaza/countries';
 import { scheduleDailyReminder } from '../store/notifications';
 import type { Level } from '../engine/engine';
 import type { TargetExam } from '../store/state';
@@ -35,6 +35,7 @@ export default function OnboardingScreen() {
   const { width: W, height: H } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const t = useT();
+  const uiLang = useUiLang();
 
   const today = new Date().toISOString().slice(0, 10);
   const exams = useMemo(() => upcomingExams(today), [today]);
@@ -162,7 +163,7 @@ export default function OnboardingScreen() {
             {COUNTRIES.map((co) => (
               <Pressable key={co.code} onPress={() => setCountry(co.code)} style={[s.flagChip, country === co.code && s.chipOn]}>
                 <Text style={s.flagEmoji}>{co.code === 'XX' ? '🏳️' : flagOf(co.code)}</Text>
-                <Text style={[s.flagTxt, country === co.code && s.chipTxtOn]}>{co.name}</Text>
+                <Text style={[s.flagTxt, country === co.code && s.chipTxtOn]}>{countryLabel(co.code, uiLang)}</Text>
               </Pressable>
             ))}
           </View>
