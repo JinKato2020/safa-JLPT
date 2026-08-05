@@ -44,12 +44,12 @@
 ## 直近24時間の変更ファイル（自動）
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
+- src/screens/KotobaTownScreen.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
 - src/screens/HomeScreen.tsx
-- src/screens/KotobaTownScreen.tsx
 - assets/kotoba/sit/m_white_front.png
 - assets/kotoba/sit/m_navy_front.png
 
-_自動更新: 2026-08-06 07:28_
+_自動更新: 2026-08-06 07:34_
 <!-- AUTO:END -->

@@ -152,16 +152,20 @@ export function reducer(state: AppState, action: Action): AppState {
 const StateCtx = createContext<AppState>(INITIAL_STATE);
 const DispatchCtx = createContext<Dispatch<Action>>(() => undefined);
 const HydratedCtx = createContext<boolean>(false);
+// このセッションのローカル state が「ディスクの永続データから復元された」か。
+// false=まっさらな新規/再インストール(保持すべきローカルデータ無し)。クラウド同期の統合判断で使う。
+const HydratedFromDiskCtx = createContext<boolean>(false);
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const [hydrated, setHydrated] = useState(false);
+  const [fromDisk, setFromDisk] = useState(false);
 
   // 起動時に永続状態を復元
   useEffect(() => {
     (async () => {
       const saved = await loadState();
-      if (saved) dispatch({ type: 'HYDRATE', state: saved });
+      if (saved) { dispatch({ type: 'HYDRATE', state: saved }); setFromDisk(true); }
       dispatch({ type: 'SYNC_TICKETS', now: Date.now() }); // 初回=インストール日+歓迎1枚 / 以降=30日ごと+1(上限3)
       setHydrated(true);
     })();
@@ -175,7 +179,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   return (
     <StateCtx.Provider value={state}>
       <DispatchCtx.Provider value={dispatch}>
-        <HydratedCtx.Provider value={hydrated}>{children}</HydratedCtx.Provider>
+        <HydratedCtx.Provider value={hydrated}>
+          <HydratedFromDiskCtx.Provider value={fromDisk}>{children}</HydratedFromDiskCtx.Provider>
+        </HydratedCtx.Provider>
       </DispatchCtx.Provider>
     </StateCtx.Provider>
   );
@@ -187,6 +193,11 @@ export function useAppState(): AppState {
 
 export function useHydrated(): boolean {
   return useContext(HydratedCtx);
+}
+
+/** ローカル state がディスクの永続データから復元されたか。false=新規/再インストール。 */
+export function useHydratedFromDisk(): boolean {
+  return useContext(HydratedFromDiskCtx);
 }
 
 export function useAppActions() {
