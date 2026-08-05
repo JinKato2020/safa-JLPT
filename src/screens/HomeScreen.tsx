@@ -14,6 +14,7 @@ import { homeStatus } from '../home/homeStatus';
 import HomeCoach from '../home/HomeCoach';
 import SakuraSpeech from '../home/SakuraSpeech';
 import SafeBoundary from '../components/SafeBoundary';
+import { avatarOf } from '../plaza/avatars';
 
 const RING = require('../../assets/home/pass_ring.png');
 const GLOW = require('../../assets/home/ring_glow.png');
@@ -67,10 +68,19 @@ export default function HomeScreen() {
   // リング中央=受験レベルの「予想得点 / 総得点(180)」。リングの塗り(素材画像)は合格率のまま。
   const predScore = status.predScore;
   const predMax = status.predMax;
+  // リングの左に自分のアバター(オンボードで選択)。立ち絵(down)を表示。
+  const myAvatar = avatarOf(state.settings.avatar).image;
+  const avaH = Math.round(ringW * 0.62);           // アバター表示の高さ(リング比)
+  const avaW = Math.round(avaH * 0.66);            // スプライトの縦横比に合わせる
+  const avaLeft = Math.max(6, left - avaW - Math.round(ringW * 0.06)); // リングの少し左
+  const avaTop = Math.round(top + (ringW - avaH) / 2 + ringW * 0.06);  // リング中央に足元寄せ
 
   return (
     <View style={styles.c}>
       <TabBackground source={homeBg}>
+        {myAvatar != null && (
+          <Image source={myAvatar} style={{ position: 'absolute', left: avaLeft, top: avaTop, width: avaW, height: avaH }} resizeMode="contain" />
+        )}
         <SafeBoundary tag="homering" fallback={null}>
           {/* リングをタップ=AIコーチ(分析ホーム)を開く。成長/継続の詳細分析はそこへ集約。 */}
           <Pressable style={[styles.wrap, { top, left, width: ringW, height: ringW }]} onPress={() => nav.navigate('AICoach')} accessibilityLabel="分析ホームを開く">

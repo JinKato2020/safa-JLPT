@@ -120,18 +120,18 @@ const SHIBA: Record<Dir, number> = {
 };
 const SHIBA_HOME = { col: 29, row: 28 };
 
-// ベンチに座る/勉強するアバター(装飾・動かない)。読む=勉強/座る の男女ミックス。x,y=ワールド左上, w,h=表示サイズ。
+// ベンチに座るアバター(装飾・動かない)。正面向き=長手方向のベンチに足を垂直に垂らして座る姿。x,y=ワールド左上, w,h=表示サイズ。
 const SIT = {
-  g1_read_r: require('../../assets/kotoba/sit/g1_read_r.png'),
-  g2_read_r: require('../../assets/kotoba/sit/g2_read_r.png'),
-  m1_sit_l: require('../../assets/kotoba/sit/m1_sit_l.png'),
-  m2_sit_l: require('../../assets/kotoba/sit/m2_sit_l.png'),
+  g_light: require('../../assets/kotoba/sit/g_light_front.png'),
+  g_dark: require('../../assets/kotoba/sit/g_dark_front.png'),
+  m_navy: require('../../assets/kotoba/sit/m_navy_front.png'),
+  m_white: require('../../assets/kotoba/sit/m_white_front.png'),
 };
 const SITTERS: { img: number; x: number; y: number; w: number; h: number }[] = [
-  { img: SIT.g1_read_r, x: 330, y: 420, w: 40, h: 60 }, // 左上ベンチ・女の子1(勉強・右向き)
-  { img: SIT.m1_sit_l, x: 638, y: 410, w: 27, h: 60 },  // 右上ベンチ・男の子1(座る・左向き)
-  { img: SIT.g2_read_r, x: 323, y: 470, w: 43, h: 60 }, // 左下ベンチ・女の子2(勉強・右向き)
-  { img: SIT.m2_sit_l, x: 538, y: 496, w: 28, h: 60 },  // 下ベンチ・男の子2(座る・左向き)
+  { img: SIT.g_light, x: 362, y: 423, w: 32, h: 58 }, // 左上ベンチ・女の子(正面・足を垂らす)
+  { img: SIT.m_navy,  x: 639, y: 417, w: 25, h: 58 }, // 右上ベンチ・男の子(正面・足を垂らす)
+  { img: SIT.g_dark,  x: 355, y: 489, w: 37, h: 58 }, // 左下ベンチ・女の子(正面・足を垂らす)
+  { img: SIT.m_white, x: 515, y: 505, w: 26, h: 58 }, // 下ベンチ・男の子(正面・足を垂らす)
 ];
 // 桜のほめ言葉(努力を褒める)。連続日数があれば1つに織り込む。
 const sakuraPraise = (streak: number): string[] => [
@@ -343,6 +343,8 @@ export default function KotobaTownScreen() {
   // 選んだアバターで自分の見た目を切替(女の子1/女の子2 は専用スプライト、それ以外=男の子)。
   const avatarCode = useAppState().settings.avatar;
   const SPRITES = (avatarCode && AVATAR_SETS[avatarCode]) || HERO;
+  const handed = useAppState().settings.handed ?? 'right'; // カーソル(スティック)を置く側。既定=右利き(右)
+  const stickSide = handed === 'left' ? { alignSelf: 'flex-start' as const, paddingLeft: 22 } : { alignSelf: 'flex-end' as const, paddingRight: 22 };
   const streakCur = useAppState().streak?.current ?? 0; // 桜のほめ言葉に使う連続日数
   const isDay = useMemo(() => { const h = new Date().getHours(); return h >= 6 && h < 18; }, []);
   const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
@@ -541,7 +543,7 @@ export default function KotobaTownScreen() {
       {/* 操作(アナログスティック・斜めOK)。会話中は隠す=足を止めて話す。 */}
       {!talk && !sakuraTalk && (
       <SafeAreaView edges={['bottom']} style={s.bottom} pointerEvents="box-none">
-        <View style={s.stickWrap}>
+        <View style={[s.stickWrap, stickSide]}>
           <View style={s.stickBase} {...pan.panHandlers}>
             <Animated.View style={[s.stickKnob, { transform: [{ translateX: knob.x }, { translateY: knob.y }] }]} />
           </View>
@@ -620,7 +622,7 @@ const s = StyleSheet.create({
   pillT: { fontSize: 13, fontWeight: '900', color: '#3a3128' },
   close: { width: 38, height: 38, borderRadius: 19, backgroundColor: 'rgba(255,253,248,0.9)', alignItems: 'center', justifyContent: 'center' },
   bottom: { position: 'absolute', left: 0, right: 0, bottom: 0 },
-  stickWrap: { alignSelf: 'flex-start', paddingBottom: 26, paddingLeft: 22 },
+  stickWrap: { paddingBottom: 26 }, // 左右はhandedで付与(右利き=右)
   stickBase: { width: STICK_R * 2, height: STICK_R * 2, borderRadius: STICK_R, backgroundColor: 'rgba(58,49,40,0.28)', borderWidth: 2, borderColor: 'rgba(255,255,255,0.35)', alignItems: 'center', justifyContent: 'center' },
   stickKnob: { width: 60, height: 60, borderRadius: 30, backgroundColor: 'rgba(255,253,248,0.9)', borderWidth: 2, borderColor: 'rgba(58,49,40,0.4)' },
   npcTag: { position: 'absolute', top: -14, backgroundColor: 'rgba(58,49,40,0.8)', borderRadius: 7, paddingHorizontal: 5, paddingVertical: 1, maxWidth: 130 },

@@ -280,6 +280,22 @@ export default function ProfileScreen() {
           <Text style={s.subtle}>{t('profile.listeningRateHint')}</Text>
         </View>
 
+        {/* 町の操作カーソル(スティック)を置く側。右利き=右手の親指で操作(既定)。 */}
+        <View style={s.card}>
+          <Text style={s.setLbl}>おさんぽの操作カーソル</Text>
+          <View style={s.chipRow}>
+            {(['right', 'left'] as const).map((hd) => {
+              const on = (state.settings.handed ?? 'right') === hd;
+              return (
+                <Pressable key={hd} onPress={() => setSettings({ handed: hd })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{hd === 'right' ? '右利き（カーソルを右に）' : '左利き（カーソルを左に）'}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <Text style={s.subtle}>日本語学習者の町で、移動スティックを画面のどちら側に置くかを選べます。</Text>
+        </View>
+
         {/* 漢字書き取りの設定(グリッド/速度/読み上げ)は「漢字書き取り」画面内へ移設。 */}
 
         {/* サポート・規約 */}

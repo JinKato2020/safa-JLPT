@@ -29,6 +29,7 @@ export interface Settings {
   country?: string;        // 国コード(ISO2, 例 'VN'。'XX'=その他)
   gender?: 'm' | 'f';      // アバターの性別
   avatar?: string;         // アバターのコード(avatars.ts)
+  handed?: 'right' | 'left'; // 町のカーソル(スティック)を置く側。未設定→right(右利き=右手の親指で操作)
   accountPromptSeen?: boolean; // 初回のアカウント登録案内を表示済み(旧stateには無い→未表示)
   uiLang?: string;         // UI表示言語(未設定→端末言語を自動判定)
   telemetry?: boolean;     // 利用状況の匿名送信(未設定/true=ON, false=停止)
