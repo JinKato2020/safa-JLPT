@@ -8,7 +8,7 @@ import AppButton from '../components/AppButton';
 import { useAppState, useAppActions } from '../store/store';
 import { type SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import AfterStudyReward from '../components/AfterStudyReward';
 import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
@@ -180,7 +180,7 @@ export default function QuizScreen() {
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={{ padding: spacing.lg, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' }}>
           <AfterStudyReward
-            words={resolveStudiedWords(studiedRefs, settings.l1)}
+            words={resolveStudiedWords(studiedRefs, meaningL1(settings))}
             reviewByRef={Object.fromEntries(studiedRefs.filter((r) => r.q).map((r) => [r.ref.type + ':' + r.ref.id, r.q!]))}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}

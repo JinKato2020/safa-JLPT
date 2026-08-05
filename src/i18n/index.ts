@@ -63,6 +63,14 @@ export function translate(lang: string, key: string, p?: Record<string, string |
   return fmt(s, p);
 }
 
+/** 意味(訳)の表示言語。日本語UIのときは英語を既定にする(ネパール語などのL1を出さない)。
+ *  それ以外は設定の母語(l1)を使う。学習後の正誤表・辞書・単語カード等、意味を出す全箇所で使う。 */
+export function meaningL1(settings: { l1?: string; uiLang?: string }): string {
+  const ui = settings.uiLang && SUPPORTED.has(settings.uiLang) ? settings.uiLang : detectUiLang();
+  if (ui === 'ja') return 'en';
+  return settings.l1 || 'en';
+}
+
 /** 現在のUI言語。設定(settings.uiLang)優先→端末判定。対応外は en。 */
 export function useUiLang(): string {
   const st = useAppState();

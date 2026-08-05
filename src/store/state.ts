@@ -24,6 +24,11 @@ export interface Settings {
   theme: ThemeMode;
   reminder: string | null; // 学習リマインド "HH:MM"
   onboarded: boolean;      // オンボーディング(自己チェック)完了
+  // 広場/町のプロフィール(オンボーディングで入力)。未設定=未入力(旧stateにも無い)
+  nickname?: string;       // 表示名(自由入力)
+  country?: string;        // 国コード(ISO2, 例 'VN'。'XX'=その他)
+  gender?: 'm' | 'f';      // アバターの性別
+  avatar?: string;         // アバターのコード(avatars.ts)
   accountPromptSeen?: boolean; // 初回のアカウント登録案内を表示済み(旧stateには無い→未表示)
   uiLang?: string;         // UI表示言語(未設定→端末言語を自動判定)
   telemetry?: boolean;     // 利用状況の匿名送信(未設定/true=ON, false=停止)

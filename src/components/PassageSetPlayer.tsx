@@ -12,7 +12,7 @@ import { shuffleChoices } from '../quiz/quiz';
 import { type PassageSet, type Figure } from '../quiz/passageSet';
 import { PASSAGE_TRANS_NE } from '../data';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import AnswerFooter from './AnswerFooter';
 
 // 本文のネパール語訳(回答後トグル表示・l1=ne時のみ)。key=PassageSet.id → 本文ごとの訳配列。
@@ -64,7 +64,7 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
   const [showTrans, setShowTrans] = useState(false);
   // 全問回答したら自動で答え合わせ(採点)。それまでは各問いつでも選び直せる。
   const revealed = answers.length > 0 && answers.every((a) => a !== null);
-  const trans = state.settings.l1 === 'ne' ? TRANS_NE[set.id] : undefined; // 本文ごとのネパール語訳(無ければundefined)
+  const trans = meaningL1(state.settings) === 'ne' ? TRANS_NE[set.id] : undefined; // 本文ごとのネパール語訳(無ければundefined)
 
   // 全問回答した瞬間に一括採点＝各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)の集計も同時に1回だけ発火。
   useEffect(() => {

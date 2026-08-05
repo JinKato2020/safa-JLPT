@@ -735,5 +735,19 @@
   "referral.how_body": "紹介された人が14日以内に別々の7日、それぞれ1セット（約60問）学習すると成立。成立した瞬間に2人とも1週間Proが延長されます。",
   "referral.invite_title": "友だちを誘って、2人とも1週間Pro",
   "referral.invite_body": "一緒に続ければ合格はもっと近い。あなたのコードを送ろう。",
-  "referral.invite_cta": "友だちを誘う"
+  "referral.invite_cta": "友だちを誘う",
+  "onboarding.greet1": "はじめまして。桜です。",
+  "onboarding.greet2": "一緒に日本語の勉強、\n頑張りましょう",
+  "onboarding.tap_start": "タップして始める",
+  "onboarding.next": "次へ",
+  "onboarding.profile_title": "町でのあなた",
+  "onboarding.profile_sub": "「日本語学習者の町」で表示される、あなたのプロフィールです。",
+  "onboarding.nickname_label": "ニックネーム",
+  "onboarding.nickname_ph": "例: さくら",
+  "onboarding.gender_label": "性別",
+  "onboarding.gender_m": "男の子",
+  "onboarding.gender_f": "女の子",
+  "onboarding.avatar_label": "アバターを選ぶ",
+  "onboarding.female_soon": "女の子のイラストは近日追加予定です。",
+  "onboarding.country_label": "国"
 }

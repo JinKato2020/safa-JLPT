@@ -17,7 +17,7 @@ import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { loadSharedDict, syncDictCache, type SharedDict } from '../data/dict/dictRemote';
 import { buildDictMaps, sharedVocabItems, sharedKanjiItems } from '../data/dictView';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import { highlightSegments } from '../quiz/highlight';
 import RubyText from '../components/RubyText';
 import { rubyForWord } from '../kakitori/furigana';
@@ -73,7 +73,7 @@ export default function BrowseScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
-  const l1 = settings.l1; // 母語コード
+  const l1 = meaningL1(settings); // 母語コード(日本語UIは英語)
   // 母語(l1)の意味。無ければ undefined(=英語表示)。
   const nm = (key: string): string | undefined => (l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined);
 

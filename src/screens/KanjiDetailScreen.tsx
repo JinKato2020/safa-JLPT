@@ -11,7 +11,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { isInMyList } from '../store/state';
 import { KANJI, KANJI_CARDS, meaningIn, readingAboveUserLevel } from '../data';
 import type { KanjiCard } from '../data';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import RubyText from '../components/RubyText';
 import { rubyForWord } from '../kakitori/furigana';
 import { Ionicons } from '@expo/vector-icons';
@@ -52,7 +52,7 @@ export default function KanjiDetailScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
 
-  const l1 = settings.l1;
+  const l1 = meaningL1(settings);
   const info = useMemo(() => KANJI.find((k) => k.char === char), [char]);
   const card = KANJI_CARDS[char] as KanjiCard | undefined;
   // 意味: 母語(l1) > カードの簡潔意味(glossShort) > 同梱の全義。母語訳がある時は英語の全義を併記しない(二言語併記はしない)。

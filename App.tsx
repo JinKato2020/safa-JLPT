@@ -178,8 +178,8 @@ function MainTabs() {
         <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.points_label')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
           <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
         </Pressable>
-        {/* おさんぽ(外の世界を歩く入口)。設定より左に置く(設定は右端固定)。 */}
-        <Pressable onPress={() => nav.navigate('KotobaTown')} accessibilityLabel="おさんぽ" hitSlop={6} style={iconBtn}>
+        {/* 日本語学習者の町(外の世界を歩く入口)。設定より左に置く(設定は右端固定)。 */}
+        <Pressable onPress={() => nav.navigate('KotobaTown')} accessibilityLabel="日本語学習者の町" hitSlop={6} style={iconBtn}>
           <Ionicons name="footsteps-outline" size={22} color={c.ink} />
         </Pressable>
         {/* 設定(歯車)は必ず一番右。今後も動かさない(固定・ユーザー指定)。 */}

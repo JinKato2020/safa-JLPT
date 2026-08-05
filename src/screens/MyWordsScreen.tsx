@@ -13,7 +13,7 @@ import { useAppState, useAppActions } from '../store/store';
 import type { SaveRef } from '../store/state';
 import { VOCAB, GRAMMAR, KANJI, meaningIn } from '../data';
 import type { BookKind } from '../data/mywordsArt';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import type { DictStackParamList } from '../navigation/types';
 
 type Nav = NativeStackNavigationProp<DictStackParamList>;
@@ -29,7 +29,7 @@ export default function MyWordsScreen() {
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
 
-  const l1 = state.settings.l1;
+  const l1 = meaningL1(state.settings);
   const nm = (key: string, fallback: string) => (l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined) ?? fallback;
   const accentOf = (_k: BookKind) => c.blue; // 色分けしない(区分共通の単色。ユーザー指定)
   const bookTitle = (k: BookKind) => t(k === 'vocab' ? 'mywords.book_vocab' : k === 'kanji' ? 'mywords.book_kanji' : 'mywords.book_grammar');

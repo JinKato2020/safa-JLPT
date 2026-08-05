@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from '../components/AfterStudyReward';
 import { walletPoints } from '../store/wallet';
@@ -65,7 +65,7 @@ export default function PassageGrammarScreen() {
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
           <AfterStudyReward
-            words={resolveStudiedWords(studiedRefs, state.settings.l1)}
+            words={resolveStudiedWords(studiedRefs, meaningL1(state.settings))}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
             accuracy={answered ? Math.round((correct / answered) * 100) : 0}

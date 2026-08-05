@@ -15,7 +15,7 @@ import { resolveStudiedWords } from '../data/studiedWords';
 import type { SaveRef } from '../store/state';
 import { buildQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
 import type { StudyItem } from '../data';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 
 const RELEARN_GAP = 3;
 
@@ -108,7 +108,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.doneBody}>
           <AfterStudyReward
-            words={resolveStudiedWords(studiedRefs, state.settings.l1)}
+            words={resolveStudiedWords(studiedRefs, meaningL1(state.settings))}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
             accuracy={answered ? Math.round((correct / answered) * 100) : 0}

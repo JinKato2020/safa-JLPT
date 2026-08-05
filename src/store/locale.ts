@@ -10,12 +10,12 @@ export const L1_LIST: { code: string; name: string }[] = [
   // { code: 'my', name: 'မြန်မာ' },
 ];
 
-/** 母語コード判定。端末言語がネパール語なら 'ne'、それ以外は 'en'。 */
+/** 母語コード判定。端末の「主要」言語がネパール語なら 'ne'、それ以外(日本語・英語含む)は 'en'。
+ *  ※以前は locale 一覧の"どれか"が ne なら ne にしていたため、日本語端末でもテスト用の ne を拾う不具合があった。 */
 export function detectL1(): string {
   try {
-    for (const loc of Localization.getLocales()) {
-      if ((loc.languageCode || '').toLowerCase() === 'ne') return 'ne';
-    }
+    const primary = (Localization.getLocales()[0]?.languageCode || '').toLowerCase();
+    return primary === 'ne' ? 'ne' : 'en';
   } catch { /* 取得失敗時は en */ }
   return 'en';
 }

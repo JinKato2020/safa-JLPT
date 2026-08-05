@@ -5,7 +5,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, PanResponder, StyleSheet, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
@@ -59,8 +59,8 @@ const WARP_ZONES: { x: number; y: number; w: number; h: number; t: WarpTarget }[
   { x: 452, y: 796, w: 108, h: 50, t: 'Dict' },      // 下・書庫の石段=辞書タブ
 ];
 
-// 中央の木レイヤーの配置(day.jpgから切り出した tree.png を最前面に同位置で重ねる)。
-const TREE = { x: 340, y: 178, w: 266, h: 320 };
+// 中央の木レイヤー(ユーザー提供のきれいな切り抜き tree.png)を最前面に重ねる。幹の付け根をマップの木に合わせて配置。
+const TREE = { x: 259, y: 165, w: 437, h: 285 };
 
 // 応援コメント(固定6種・自由入力なし=荒らし不可)。仮想学習者にも送れる(ローカル反応のみ)。
 const CHEERS: { key: string; emoji: string; label: string; reply: string }[] = [
@@ -201,12 +201,18 @@ export default function KotobaTownScreen() {
 
   // ワープ: 足元がゾーンに入ったら対応画面へ。一度ゾーン外に出るまで再発火しない(戻ってきた直後の連続発火を防ぐ)。
   const warpArmed = useRef(true);
+  // タブの並び(App.tsx の TABS と一致させる)。書斎=単語 / 書庫=辞書。
+  const TAB_ORDER = ['ホーム', '単語', '学習', '辞書'];
   const warp = (t: WarpTarget) => {
-    if (t === 'Shop') nav.navigate('Shop');
-    else if (t === 'MockIntro') nav.navigate('MockIntro');
-    // タブ(単語=書斎 / 辞書=書庫)へは Main の入れ子タブを指定。型が複雑なので navigate を any 経由で呼ぶ。
-    else if (t === 'Words') (nav.navigate as (n: string, p?: object) => void)('Main', { screen: '単語' });
-    else if (t === 'Dict') (nav.navigate as (n: string, p?: object) => void)('Main', { screen: '辞書' });
+    if (t === 'Shop') { nav.navigate('Shop'); return; }
+    if (t === 'MockIntro') { nav.navigate('MockIntro'); return; }
+    // タブ(書斎=単語 / 書庫=辞書)へ。入れ子navigateだとマウント済みタブが切り替わらない端末があるため、
+    // reset で Main＋全タブの状態を作り直し、対象タブをアクティブにする(町も確実に閉じる)。
+    const tab = t === 'Dict' ? '辞書' : '単語';
+    nav.dispatch(CommonActions.reset({
+      index: 0,
+      routes: [{ name: 'Main', state: { index: TAB_ORDER.indexOf(tab), routes: TAB_ORDER.map((n) => ({ name: n })) } }],
+    }));
   };
 
   // 移動ループ。input は単位ベクトル→斜めでも一定速度。X/Yを別々に当たり判定=壁ずり。
@@ -303,7 +309,7 @@ export default function KotobaTownScreen() {
       {/* 上部バー */}
       <SafeAreaView edges={['top']} style={s.top} pointerEvents="box-none">
         <View style={s.topBar} pointerEvents="box-none">
-          <View style={s.pill}><Text style={s.pillT}>おさんぽ</Text></View>
+          <View style={s.pill}><Text style={s.pillT}>日本語学習者の町</Text></View>
           <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.close}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
         </View>
       </SafeAreaView>

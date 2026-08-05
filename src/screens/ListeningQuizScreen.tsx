@@ -21,7 +21,7 @@ import { playVocab, playKanjiRep } from '../data/vocabAudio';
 import kanjiDrillReps from '../data/words/kanjiDrillReps.json';
 import { pickItems, buildVocabQuiz, buildKanjiQuiz, type LQItem, type KanjiRep } from '../listening/listeningQuiz';
 import type { RootStackParamList } from '../navigation/types';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import { useSessionGate } from '../pro/useSessionGate';
 import LimitReachedSheet from '../pro/LimitReachedSheet';
 
@@ -42,7 +42,7 @@ export default function ListeningQuizScreen() {
   const c = useColors();
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
-  const l1 = state.settings.l1;
+  const l1 = meaningL1(state.settings);
   const level = state.settings.level;
 
   useEffect(() => { Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {}); }, []);

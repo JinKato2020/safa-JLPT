@@ -5,6 +5,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
+import { meaningL1 } from '../i18n';
 import { itemsFor, allWordsFor, VOCAB, KANJI, GRAMMAR, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
 import { effectiveP } from '../engine/engine';
 
@@ -22,7 +23,7 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
   const c = useColors();
   const s = useMemo(() => cardStyles(c), [c]);
   const { settings } = useAppState();
-  const l1 = settings.l1; // 母語コード
+  const l1 = meaningL1(settings); // 母語コード(日本語UIは英語を既定)
   // レベル適応ルビ: ユーザーのレベル以上(同レベル含む)の漢字群にだけ読みを振る。
   const rubyGate = (run: string) => rubyNeeded(run, settings.level);
   // 母語(l1)の意味があれば主表示、英語は補助。無ければ英語を主表示。
