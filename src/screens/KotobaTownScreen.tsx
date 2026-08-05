@@ -80,8 +80,19 @@ const HERO_M2: Record<Dir, number[]> = {
   upleft: [require('../../assets/kotoba/hero_m2/upleft.png'), require('../../assets/kotoba/hero_m2/upleft_r.png'), require('../../assets/kotoba/hero_m2/upleft_l.png')],
   upright: [require('../../assets/kotoba/hero_m2/upright.png'), require('../../assets/kotoba/hero_m2/upright_r.png'), require('../../assets/kotoba/hero_m2/upright_l.png')],
 };
+// 男の子3アバター。8方向×各[立ち,右足,左足]。
+const HERO_M3: Record<Dir, number[]> = {
+  down: [require('../../assets/kotoba/hero_m3/down.png'), require('../../assets/kotoba/hero_m3/down_r.png'), require('../../assets/kotoba/hero_m3/down_l.png')],
+  up: [require('../../assets/kotoba/hero_m3/up.png'), require('../../assets/kotoba/hero_m3/up_r.png'), require('../../assets/kotoba/hero_m3/up_l.png')],
+  left: [require('../../assets/kotoba/hero_m3/left.png'), require('../../assets/kotoba/hero_m3/left_r.png'), require('../../assets/kotoba/hero_m3/left_l.png')],
+  right: [require('../../assets/kotoba/hero_m3/right.png'), require('../../assets/kotoba/hero_m3/right_r.png'), require('../../assets/kotoba/hero_m3/right_l.png')],
+  downleft: [require('../../assets/kotoba/hero_m3/downleft.png'), require('../../assets/kotoba/hero_m3/downleft_r.png'), require('../../assets/kotoba/hero_m3/downleft_l.png')],
+  downright: [require('../../assets/kotoba/hero_m3/downright.png'), require('../../assets/kotoba/hero_m3/downright_r.png'), require('../../assets/kotoba/hero_m3/downright_l.png')],
+  upleft: [require('../../assets/kotoba/hero_m3/upleft.png'), require('../../assets/kotoba/hero_m3/upleft_r.png'), require('../../assets/kotoba/hero_m3/upleft_l.png')],
+  upright: [require('../../assets/kotoba/hero_m3/upright.png'), require('../../assets/kotoba/hero_m3/upright_r.png'), require('../../assets/kotoba/hero_m3/upright_l.png')],
+};
 // アバターコード→歩行スプライト。男子(色違い含む)は既定の男の子で歩く。
-const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { m_boy1: HERO, m_boy2: HERO_M2, f_g1: HERO_F, f_g2: HERO_F2, f_g3: HERO_F3, f_g4: HERO_F4 };
+const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { m_boy1: HERO, m_boy2: HERO_M2, m_boy3: HERO_M3, f_g1: HERO_F, f_g2: HERO_F2, f_g3: HERO_F3, f_g4: HERO_F4 };
 
 // 桜(マスコット)。8方向・静止画のみ(右足/左足の歩行フレーム切替なし)。近づいて話すと努力を褒めてくれる。
 const SAKURA: Record<Dir, number> = {

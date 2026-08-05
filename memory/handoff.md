@@ -42,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/plaza/avatars.ts
 - src/screens/KotobaTownScreen.tsx
-- src/plaza/virtualLearners.ts
-- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_13 (6).png
-- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_13 (5).png
-- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_13 (4).png
-- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_13 (3).png
-- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_12 (2).png
-- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_12 (1).png
+- assets/kotoba/hero_m3/upleft_l.png
+- assets/kotoba/hero_m3/upright_l.png
+- assets/kotoba/hero_m3/downright_l.png
+- assets/kotoba/hero_m3/downleft_l.png
+- assets/kotoba/hero_m3/right_l.png
+- assets/kotoba/hero_m3/left_l.png
 
-_自動更新: 2026-08-06 01:04_
+_自動更新: 2026-08-06 01:28_
 <!-- AUTO:END -->
