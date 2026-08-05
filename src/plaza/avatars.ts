@@ -14,6 +14,8 @@ export const AVATARS: AvatarDef[] = [
   { code: 'm_boy2', gender: 'm', emoji: '🧑', image: require('../../assets/kotoba/hero_m2/down.png') },
   { code: 'f_g1', gender: 'f', emoji: '👧', image: require('../../assets/kotoba/hero_f/down.png') },
   { code: 'f_g2', gender: 'f', emoji: '👧', image: require('../../assets/kotoba/hero_f2/down.png') },
+  { code: 'f_g3', gender: 'f', emoji: '👧', image: require('../../assets/kotoba/hero_f3/down.png') },
+  { code: 'f_g4', gender: 'f', emoji: '👧', image: require('../../assets/kotoba/hero_f4/down.png') },
 ];
 
 export const AVATAR_CODES = AVATARS.map((a) => a.code);

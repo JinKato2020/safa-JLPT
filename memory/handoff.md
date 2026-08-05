@@ -42,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- 画像/キャラクター/アバター/女の子4/女の子4左.png
-- 画像/キャラクター/アバター/女の子3/女の子3左.png
 - src/screens/KotobaTownScreen.tsx
-- src/plaza/mapCollision.ts
-- assets/kotoba/map/house_shosai_night.png
-- assets/kotoba/map/house_shosai_day.png
-- memory/session-summary-LATEST.md
-- memory/handoff.md
+- src/plaza/virtualLearners.ts
+- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_13 (6).png
+- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_13 (5).png
+- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_13 (4).png
+- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_13 (3).png
+- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_12 (2).png
+- 画像/キャラクター/old/ChatGPT Image 2026年8月6日 00_59_12 (1).png
 
-_自動更新: 2026-08-06 00:46_
+_自動更新: 2026-08-06 01:04_
 <!-- AUTO:END -->

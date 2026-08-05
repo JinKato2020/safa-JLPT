@@ -11,7 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
 import { useAppState } from '../store/store';
 import type { RootStackParamList } from '../navigation/types';
-import { VIRTUAL_LEARNERS, type VirtualLearner, type NpcColor } from '../plaza/virtualLearners';
+import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
 
 type Dir = 'down' | 'up' | 'left' | 'right' | 'downleft' | 'downright' | 'upleft' | 'upright';
 // 各方向 [両足立ち, 右足前, 左足前]。歩行時に 立ち→右→立ち→左 で切り替え=歩いて見える。
@@ -47,6 +47,28 @@ const HERO_F2: Record<Dir, number[]> = {
   upleft: [require('../../assets/kotoba/hero_f2/upleft.png'), require('../../assets/kotoba/hero_f2/upleft_r.png'), require('../../assets/kotoba/hero_f2/upleft_l.png')],
   upright: [require('../../assets/kotoba/hero_f2/upright.png'), require('../../assets/kotoba/hero_f2/upright_r.png'), require('../../assets/kotoba/hero_f2/upright_l.png')],
 };
+// 女の子3アバター。8方向×各[立ち,右足,左足]。
+const HERO_F3: Record<Dir, number[]> = {
+  down: [require('../../assets/kotoba/hero_f3/down.png'), require('../../assets/kotoba/hero_f3/down_r.png'), require('../../assets/kotoba/hero_f3/down_l.png')],
+  up: [require('../../assets/kotoba/hero_f3/up.png'), require('../../assets/kotoba/hero_f3/up_r.png'), require('../../assets/kotoba/hero_f3/up_l.png')],
+  left: [require('../../assets/kotoba/hero_f3/left.png'), require('../../assets/kotoba/hero_f3/left_r.png'), require('../../assets/kotoba/hero_f3/left_l.png')],
+  right: [require('../../assets/kotoba/hero_f3/right.png'), require('../../assets/kotoba/hero_f3/right_r.png'), require('../../assets/kotoba/hero_f3/right_l.png')],
+  downleft: [require('../../assets/kotoba/hero_f3/downleft.png'), require('../../assets/kotoba/hero_f3/downleft_r.png'), require('../../assets/kotoba/hero_f3/downleft_l.png')],
+  downright: [require('../../assets/kotoba/hero_f3/downright.png'), require('../../assets/kotoba/hero_f3/downright_r.png'), require('../../assets/kotoba/hero_f3/downright_l.png')],
+  upleft: [require('../../assets/kotoba/hero_f3/upleft.png'), require('../../assets/kotoba/hero_f3/upleft_r.png'), require('../../assets/kotoba/hero_f3/upleft_l.png')],
+  upright: [require('../../assets/kotoba/hero_f3/upright.png'), require('../../assets/kotoba/hero_f3/upright_r.png'), require('../../assets/kotoba/hero_f3/upright_l.png')],
+};
+// 女の子4アバター。8方向×各[立ち,右足,左足]。
+const HERO_F4: Record<Dir, number[]> = {
+  down: [require('../../assets/kotoba/hero_f4/down.png'), require('../../assets/kotoba/hero_f4/down_r.png'), require('../../assets/kotoba/hero_f4/down_l.png')],
+  up: [require('../../assets/kotoba/hero_f4/up.png'), require('../../assets/kotoba/hero_f4/up_r.png'), require('../../assets/kotoba/hero_f4/up_l.png')],
+  left: [require('../../assets/kotoba/hero_f4/left.png'), require('../../assets/kotoba/hero_f4/left_r.png'), require('../../assets/kotoba/hero_f4/left_l.png')],
+  right: [require('../../assets/kotoba/hero_f4/right.png'), require('../../assets/kotoba/hero_f4/right_r.png'), require('../../assets/kotoba/hero_f4/right_l.png')],
+  downleft: [require('../../assets/kotoba/hero_f4/downleft.png'), require('../../assets/kotoba/hero_f4/downleft_r.png'), require('../../assets/kotoba/hero_f4/downleft_l.png')],
+  downright: [require('../../assets/kotoba/hero_f4/downright.png'), require('../../assets/kotoba/hero_f4/downright_r.png'), require('../../assets/kotoba/hero_f4/downright_l.png')],
+  upleft: [require('../../assets/kotoba/hero_f4/upleft.png'), require('../../assets/kotoba/hero_f4/upleft_r.png'), require('../../assets/kotoba/hero_f4/upleft_l.png')],
+  upright: [require('../../assets/kotoba/hero_f4/upright.png'), require('../../assets/kotoba/hero_f4/upright_r.png'), require('../../assets/kotoba/hero_f4/upright_l.png')],
+};
 // 男の子2アバター。8方向×各[立ち,右足,左足]。
 const HERO_M2: Record<Dir, number[]> = {
   down: [require('../../assets/kotoba/hero_m2/down.png'), require('../../assets/kotoba/hero_m2/down_r.png'), require('../../assets/kotoba/hero_m2/down_l.png')],
@@ -59,7 +81,7 @@ const HERO_M2: Record<Dir, number[]> = {
   upright: [require('../../assets/kotoba/hero_m2/upright.png'), require('../../assets/kotoba/hero_m2/upright_r.png'), require('../../assets/kotoba/hero_m2/upright_l.png')],
 };
 // アバターコード→歩行スプライト。男子(色違い含む)は既定の男の子で歩く。
-const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { m_boy1: HERO, m_boy2: HERO_M2, f_g1: HERO_F, f_g2: HERO_F2 };
+const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { m_boy1: HERO, m_boy2: HERO_M2, f_g1: HERO_F, f_g2: HERO_F2, f_g3: HERO_F3, f_g4: HERO_F4 };
 
 // 桜(マスコット)。8方向・静止画のみ(右足/左足の歩行フレーム切替なし)。近づいて話すと努力を褒めてくれる。
 const SAKURA: Record<Dir, number> = {
@@ -172,25 +194,16 @@ function walkable(px: number, py: number): boolean {
   return MAP_WALK[r][c] === '.';
 }
 
-// NPC(仮想学習者)スプライト表: 着物色×4方向。動的requireは不可なので静的表を持つ。
-type Card4 = 'down' | 'up' | 'left' | 'right';
-const NPC_SPRITES: Record<NpcColor, Record<Card4, number>> = {
-  blue: { down: require('../../assets/kotoba/npc/blue_down.png'), up: require('../../assets/kotoba/npc/blue_up.png'), left: require('../../assets/kotoba/npc/blue_left.png'), right: require('../../assets/kotoba/npc/blue_right.png') },
-  green: { down: require('../../assets/kotoba/npc/green_down.png'), up: require('../../assets/kotoba/npc/green_up.png'), left: require('../../assets/kotoba/npc/green_left.png'), right: require('../../assets/kotoba/npc/green_right.png') },
-  crimson: { down: require('../../assets/kotoba/npc/crimson_down.png'), up: require('../../assets/kotoba/npc/crimson_up.png'), left: require('../../assets/kotoba/npc/crimson_left.png'), right: require('../../assets/kotoba/npc/crimson_right.png') },
-  purple: { down: require('../../assets/kotoba/npc/purple_down.png'), up: require('../../assets/kotoba/npc/purple_up.png'), left: require('../../assets/kotoba/npc/purple_left.png'), right: require('../../assets/kotoba/npc/purple_right.png') },
-  teal: { down: require('../../assets/kotoba/npc/teal_down.png'), up: require('../../assets/kotoba/npc/teal_up.png'), left: require('../../assets/kotoba/npc/teal_left.png'), right: require('../../assets/kotoba/npc/teal_right.png') },
-  amber: { down: require('../../assets/kotoba/npc/amber_down.png'), up: require('../../assets/kotoba/npc/amber_up.png'), left: require('../../assets/kotoba/npc/amber_left.png'), right: require('../../assets/kotoba/npc/amber_right.png') },
-};
-
-// 1体のNPC: home周辺(半径約2.4マス)をゆっくり4方向で徘徊。頭上に国旗+名前+レベルの名札。表示専用。
-// sink: 親が近接判定に使う現在位置の共有先(pos.current の参照を渡し、毎フレーム親から読める)。
+// 1体のNPC: home周辺(半径約2.4マス)をゆっくり8方向で歩き回る。見た目は町のアバター6種(プレイヤーと同じ歩行アニメ)。
+// 頭上に国旗+名前+レベルの名札。表示専用。sink: 親が近接判定に使う現在位置の共有先(参照共有=毎フレーム最新)。
 function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: number; y: number }> }) {
+  const SET = AVATAR_SETS[v.avatar] || HERO;
   const home = useRef({ x: (v.home.col + 0.5) * CELL - SPRITE / 2, y: (v.home.row + 0.5) * CELL - SPRITE * 0.82 }).current;
   const pos = useRef({ x: home.x, y: home.y });
   const target = useRef({ x: home.x, y: home.y });
   const anim = useRef(new Animated.ValueXY({ x: home.x, y: home.y })).current;
-  const [dir, setNpcDir] = useState<Card4>('down');
+  const [dir, setNpcDir] = useState<Dir>('down');
+  const [poseIdx, setPoseIdx] = useState(0); // 0=立ち/1=右足/2=左足
   const bob = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -203,8 +216,8 @@ function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: n
   }, [bob]);
 
   useEffect(() => {
-    sink[v.id] = pos.current; // 親が近接判定に読む(参照共有=毎フレーム最新)
-    let raf = 0, last = 0, wait = 400 + Math.random() * 2600;
+    sink[v.id] = pos.current;
+    let raf = 0, last = 0, wait = 400 + Math.random() * 2600, walkPhase = 0;
     const NSPEED = 40, R = 2.4 * CELL; // ゆっくり・home周辺だけ
     const frame = (ts: number) => {
       if (!last) last = ts;
@@ -212,6 +225,7 @@ function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: n
       const dx = target.current.x - pos.current.x, dy = target.current.y - pos.current.y;
       const dist = Math.hypot(dx, dy);
       if (dist < 2) {
+        setPoseIdx((p) => (p === 0 ? p : 0)); // 立ち止まったら立ちポーズ
         wait -= dt * 1000;
         if (wait <= 0) {
           let nx = home.x, ny = home.y;
@@ -228,8 +242,12 @@ function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: n
         if (walkable(pos.current.x + ux * step, pos.current.y)) pos.current.x += ux * step;
         if (walkable(pos.current.x, pos.current.y + uy * step)) pos.current.y += uy * step;
         anim.setValue({ x: pos.current.x, y: pos.current.y });
-        const nd: Card4 = Math.abs(ux) > Math.abs(uy) ? (ux < 0 ? 'left' : 'right') : (uy < 0 ? 'up' : 'down');
-        setNpcDir((p) => (p === nd ? p : nd));
+        // 8方向スナップ＋歩行アニメ(立ち→右→立ち→左)
+        let sec = Math.round(Math.atan2(uy, ux) / (Math.PI / 4)); sec = ((sec % 8) + 8) % 8;
+        const nd = DIR8[sec].d; setNpcDir((p) => (p === nd ? p : nd));
+        walkPhase += dt;
+        const wf = WALK_CYCLE[Math.floor(walkPhase / WALK_STEP) % WALK_CYCLE.length];
+        setPoseIdx((p) => (p === wf ? p : wf));
       }
       raf = requestAnimationFrame(frame);
     };
@@ -241,7 +259,7 @@ function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: n
   return (
     <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
       <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{v.flag} {v.nick} · {v.level}</Text></View>
-      <Animated.Image source={NPC_SPRITES[v.color][dir]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: by }] }} resizeMode="contain" />
+      <Animated.Image source={SET[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: by }] }} resizeMode="contain" />
     </Animated.View>
   );
 }
@@ -527,7 +545,7 @@ export default function KotobaTownScreen() {
           <View style={s.talkCard}>
             <Pressable onPress={closeTalk} hitSlop={10} style={s.talkClose}><Ionicons name="close" size={20} color="#3a3128" /></Pressable>
             <View style={s.talkHead}>
-              <View style={s.talkAvatar}><Image source={NPC_SPRITES[talk.color].down} style={{ width: 54, height: 54 }} resizeMode="contain" /></View>
+              <View style={s.talkAvatar}><Image source={(AVATAR_SETS[talk.avatar] || HERO).down[0]} style={{ width: 54, height: 54 }} resizeMode="contain" /></View>
               <View style={{ flex: 1 }}>
                 <Text style={s.talkName}>{talk.flag} {talk.nick}</Text>
                 <View style={s.talkStats}>
