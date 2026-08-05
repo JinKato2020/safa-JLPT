@@ -481,10 +481,20 @@ export default function KotobaTownScreen() {
   }, [moving, bob]);
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -5] });
 
+  // スティックを初期位置へ戻す(入力ゼロ＋ノブを中心へ)。指を離した/会話が始まった等で必ず呼ぶ。
+  const homeStick = () => {
+    input.current = { dx: 0, dy: 0 };
+    knob.stopAnimation();
+    knob.setValue({ x: 0, y: 0 });
+  };
+  const homeStickRef = useRef(homeStick);
+  homeStickRef.current = homeStick;
   // アナログスティック。指の変位→単位ベクトル(斜めOK)。向きは近い4方向。
   const pan = useMemo(() => PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onMoveShouldSetPanResponder: () => true,
+    // 指を離すまで他のレスポンダに奪わせない=Release/Terminateを確実に発火させ、ノブの張り付き/勝手移動を防ぐ。
+    onPanResponderTerminationRequest: () => false,
     onPanResponderMove: (_e, g) => {
       const dx = g.dx, dy = g.dy;
       const mag = Math.hypot(dx, dy);
@@ -498,9 +508,13 @@ export default function KotobaTownScreen() {
       input.current = { dx: sd.ux, dy: sd.uy };
       if (dirRef.current !== sd.d) { dirRef.current = sd.d; setDir(sd.d); }
     },
-    onPanResponderRelease: () => { input.current = { dx: 0, dy: 0 }; Animated.spring(knob, { toValue: { x: 0, y: 0 }, useNativeDriver: false }).start(); },
-    onPanResponderTerminate: () => { input.current = { dx: 0, dy: 0 }; Animated.spring(knob, { toValue: { x: 0, y: 0 }, useNativeDriver: false }).start(); },
+    onPanResponderRelease: () => homeStickRef.current(),
+    onPanResponderTerminate: () => homeStickRef.current(),
   }), [knob]);
+
+  // 会話(仮想学習者/桜)が始まったらスティックを確実に初期化。指を乗せたまま会話が開いても、
+  // ノブが円周に張り付いたり入力が残って勝手に進むことがないようにする。
+  useEffect(() => { if (talk || sakuraTalk) homeStickRef.current(); }, [talk, sakuraTalk]);
 
   return (
     <View style={s.c}>
@@ -540,16 +554,15 @@ export default function KotobaTownScreen() {
         </View>
       </SafeAreaView>
 
-      {/* 操作(アナログスティック・斜めOK)。会話中は隠す=足を止めて話す。 */}
-      {!talk && !sakuraTalk && (
+      {/* 操作(アナログスティック・斜めOK)。会話中は"消さずに"隠して触れなくする(アンマウントすると指を離す前に
+          消えてノブが張り付く/入力が残って勝手に進む原因になる)。opacityで隠し、pointerEvents=noneで操作不可にする。 */}
       <SafeAreaView edges={['bottom']} style={s.bottom} pointerEvents="box-none">
-        <View style={[s.stickWrap, stickSide]}>
+        <View style={[s.stickWrap, stickSide, { opacity: (talk || sakuraTalk) ? 0 : 1 }]} pointerEvents={(talk || sakuraTalk) ? 'none' : 'auto'}>
           <View style={s.stickBase} {...pan.panHandlers}>
             <Animated.View style={[s.stickKnob, { transform: [{ translateX: knob.x }, { translateY: knob.y }] }]} />
           </View>
         </View>
       </SafeAreaView>
-      )}
 
       {/* 仮想学習者の会話カード(データ表示＋応援コメント) */}
       {talk && (

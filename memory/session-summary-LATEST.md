@@ -1,19 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 53 回・113 ターン
-- 往復 12526 回
+- ツール呼び出し 1 回・2 ターン
+- 往復 12528 回
 
 ## 何が変わったか
 - memory/handoff.md
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- memory/session-summary-LATEST.md
 - src/screens/HomeScreen.tsx
-- src/screens/KotobaTownScreen.tsx
-- assets/kotoba/sit/m_white_front.png
-- assets/kotoba/sit/m_navy_front.png
-
-## ⚠️ 注意
-- - ⚠ 連続 113ターン（文脈 19万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 113ターン・ツール53回）— まとめ方を変える
 
 ## 次の一手
 - **🎯 面別マスタリー統合復習＝P1-P6完了・ビルド2654 both dispatch=run`30700408364`（監視しない・2026-08-01）**: 苦手度を単語×面(read/write/mean/listen/grammar)に一本化し忘却曲線で「今日のおすすめ(=試験問題の復習)」を出す統合復習。設計=`docs/superpowers/specs/2026-08-01-unified-facet-review-design.md`／実装プラン=`docs/superpowers/plans/2026-08-01-unified-facet-review.md`／詳細inflight=`memory/facet-review-inflight.md`。**入口=ホーム(AIコーチのアドバイス末尾CTA)＋書斎タブ(桜tap/トップカード)。試験・辞書には出さない(ユーザー方針)。試験タブの全部混ぜは撤去**。用法→語のmean/文法系→文法pointのgrammarへ統合(設計§3.1)。生データ(items/テレメトリ)は不変=面は要約層(additive)。予想得点は面参照。新規テスト52件・全372緑・tsc0。コミット=P1`18bce99`/P2`ea015d4`/P3`14f2093`/P4`6fa3976`/P5`c09dee5`/P5.5`c988b30`/P6`03a274a8`＋ラベル変更(「今日のおすすめ」)。**✅P7書き取り2ターン化=実装済(学習5字[なぞり/見て書くスイッチ]→見ずにテスト5字・合格でwrite面へ)**。**残=P8実機検証**。**✅ビルド2662 both dispatch=run`30701715650`（監視しない・2026-08-01）に今セッション全変更を反映**(統合復習P1-P7・試験タブのミックス撤去・新ラベル「今日のオススメ問題に挑戦する」・書き取り2ターン化・類義語是正・貝二重加算修正等)。build.ps1 -NoCommit -NoWatchで投入(番号=2000+662commit)。**別件確認済**=予想得点の大問重みは既に本番出題数重み(均等割りでない)＝是正不要。**✅build.ps1修正済**(コミット済・push済)=`$APP`をリポジトリルート(tools/の親)へ・前提チェックはapp.json存在・`-NoWatch`追加(dispatch後監視しない運用に合わせた口)。`-DryRun`で34緑/tsc0確認。以後は`tools\build.ps1 -Message "..." -NoWatch`でビルド可(番号=2000+commit)。**⚠ラベル変更(「今日のおすすめ」)はビルド2654に未反映=次ビルドで入る**。
