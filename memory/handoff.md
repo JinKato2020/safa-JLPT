@@ -34,10 +34,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 91ターン（文脈 25万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 91ターン・ツール43回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -46,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/plaza/mapCollision.ts
+- 画像/キャラクター/アバター/女の子4/女の子4左.png
+- 画像/キャラクター/アバター/女の子3/女の子3左.png
 - src/screens/KotobaTownScreen.tsx
-- 画像/MAP/ChatGPT Image 2026年8月5日 17_53_30.png
+- src/plaza/mapCollision.ts
+- assets/kotoba/map/house_shosai_night.png
+- assets/kotoba/map/house_shosai_day.png
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- src/plaza/avatars.ts
 
-_自動更新: 2026-08-05 17:55_
+_自動更新: 2026-08-06 00:46_
 <!-- AUTO:END -->

@@ -86,6 +86,20 @@ const SHIBA: Record<Dir, number> = {
   upright: require('../../assets/kotoba/shiba/upright.png'),
 };
 const SHIBA_HOME = { col: 29, row: 28 };
+
+// ベンチに座る/勉強するアバター(装飾・動かない)。読む=勉強/座る の男女ミックス。x,y=ワールド左上, w,h=表示サイズ。
+const SIT = {
+  g1_read_r: require('../../assets/kotoba/sit/g1_read_r.png'),
+  g2_read_r: require('../../assets/kotoba/sit/g2_read_r.png'),
+  m1_sit_l: require('../../assets/kotoba/sit/m1_sit_l.png'),
+  m2_sit_l: require('../../assets/kotoba/sit/m2_sit_l.png'),
+};
+const SITTERS: { img: number; x: number; y: number; w: number; h: number }[] = [
+  { img: SIT.g1_read_r, x: 330, y: 420, w: 40, h: 60 }, // 左上ベンチ・女の子1(勉強・右向き)
+  { img: SIT.m1_sit_l, x: 638, y: 410, w: 27, h: 60 },  // 右上ベンチ・男の子1(座る・左向き)
+  { img: SIT.g2_read_r, x: 323, y: 470, w: 43, h: 60 }, // 左下ベンチ・女の子2(勉強・右向き)
+  { img: SIT.m2_sit_l, x: 538, y: 496, w: 28, h: 60 },  // 下ベンチ・男の子2(座る・左向き)
+];
 // 桜のほめ言葉(努力を褒める)。連続日数があれば1つに織り込む。
 const sakuraPraise = (streak: number): string[] => [
   '毎日よくがんばってるね。えらい！🌸',
@@ -110,7 +124,14 @@ const DIR8: { d: Dir; ux: number; uy: number }[] = [
 ];
 const MAP_DAY = require('../../assets/kotoba/map/day.jpg');
 const MAP_NIGHT = require('../../assets/kotoba/map/night.jpg');
-const MAP_TREE = require('../../assets/kotoba/map/tree.png'); // 中央の木だけの透過レイヤー(最前面=人が裏に隠れる)
+const MAP_TREE_DAY = require('../../assets/kotoba/map/tree.png'); // 昼: 中央の木だけの透過レイヤー(最前面=人が裏に隠れる)
+const MAP_TREE_NIGHT = require('../../assets/kotoba/map/tree_night.png'); // 夜: 同じ形で夜マップの木の色に合わせた透過レイヤー
+// 家の前面レイヤー(木と同じ最前面=屋根+壁の下を歩く=入口に入ると家の前に隠れる「建物に入る」演出)。書斎/書庫×昼夜。
+// 家の躯体は当たり判定で塞がっているため、屋根だけだと下に入れない→屋根+壁の家シルエットを最前面にして入口で隠す。
+const ROOFS = [
+  { day: require('../../assets/kotoba/map/house_shosai_day.png'), night: require('../../assets/kotoba/map/house_shosai_night.png'), x: 742, y: 446, w: 256, h: 254 }, // 書斎(右)
+  { day: require('../../assets/kotoba/map/house_shoko_day.png'), night: require('../../assets/kotoba/map/house_shoko_night.png'), x: 360, y: 682, w: 272, h: 164 }, // 書庫(下)
+];
 
 const WORLD = 1024;            // マップ表示サイズ(正方)。当たり判定グリッドはこの中を MAP_G 等分。
 const CELL = WORLD / MAP_G;
@@ -126,8 +147,8 @@ type WarpTarget = 'Shop' | 'MockIntro' | 'Words' | 'Dict';
 const WARP_ZONES: { x: number; y: number; w: number; h: number; t: WarpTarget }[] = [
   { x: 235, y: 299, w: 85, h: 43, t: 'Shop' },       // 左・受付(女の子)のカウンター前まで来たら=ショップ
   { x: 725, y: 277, w: 85, h: 43, t: 'MockIntro' },  // 右上・模試会場の石段を上りきった扉口=模試(説明画面から)
-  { x: 811, y: 683, w: 64, h: 43, t: 'Words' },      // 右・書斎の石段を上りきった所=単語タブ
-  { x: 469, y: 896, w: 107, h: 43, t: 'Dict' },      // 下・書庫の石段を上りきった所=辞書タブ
+  { x: 811, y: 640, w: 64, h: 43, t: 'Words' },      // 右・書斎の玄関ポケット(家前レイヤの下=入ると隠れる)=単語タブ
+  { x: 469, y: 789, w: 85, h: 43, t: 'Dict' },       // 下・書庫の玄関ポケット(家前レイヤの下=入ると隠れる)=辞書タブ
 ];
 
 // 中央の木レイヤー(ユーザー提供のきれいな切り抜き tree.png)を最前面に重ねる。幹の付け根をマップの木に合わせて配置。
@@ -296,6 +317,7 @@ export default function KotobaTownScreen() {
   const streakCur = useAppState().streak?.current ?? 0; // 桜のほめ言葉に使う連続日数
   const isDay = useMemo(() => { const h = new Date().getHours(); return h >= 6 && h < 18; }, []);
   const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
+  const MAP_TREE = isDay ? MAP_TREE_DAY : MAP_TREE_NIGHT; // 木の最前面レイヤーも昼夜で切替(夜も木の裏を通れる)
 
   const start = useRef({ x: (START_COL + 0.5) * CELL - SPRITE / 2, y: (START_ROW + 0.5) * CELL - SPRITE * 0.82 }).current;
   const pos = useRef({ x: start.x, y: start.y });
@@ -456,6 +478,10 @@ export default function KotobaTownScreen() {
         <Animated.View style={{ position: 'absolute', width: WORLD, height: WORLD, transform: [{ translateX: worldOff.x }, { translateY: worldOff.y }] }}>
           {/* 下: マップ本体 */}
           <Image source={MAP_IMG} style={{ position: 'absolute', width: WORLD, height: WORLD }} resizeMode="cover" />
+          {/* 下寄り: ベンチに座るアバター(装飾・動かない) */}
+          {SITTERS.map((si, i) => (
+            <Image key={i} source={si.img} style={{ position: 'absolute', left: si.x, top: si.y, width: si.w, height: si.h }} resizeMode="contain" />
+          ))}
           {/* 中: 仮想の学習者(NPC) */}
           {VIRTUAL_LEARNERS.map((v) => <NpcSprite key={v.id} v={v} sink={npcPos} />)}
           {/* 中: マスコット(桜=会話あり / 柴犬=会話なし) */}
@@ -468,6 +494,10 @@ export default function KotobaTownScreen() {
           </Animated.View>
           {/* 上: 木のレイヤー(人より前面=木の裏に回ると隠れる)。day.jpgと同じ位置に重ねる。 */}
           <Image source={MAP_TREE} style={{ position: 'absolute', left: TREE.x, top: TREE.y, width: TREE.w, height: TREE.h }} resizeMode="stretch" />
+          {/* 上: 家の屋根レイヤー(人より前面=屋根の下を歩くと隠れる)。昼夜で切替。 */}
+          {ROOFS.map((rf, i) => (
+            <Image key={i} source={isDay ? rf.day : rf.night} style={{ position: 'absolute', left: rf.x, top: rf.y, width: rf.w, height: rf.h }} resizeMode="stretch" />
+          ))}
         </Animated.View>
       </View>
 
