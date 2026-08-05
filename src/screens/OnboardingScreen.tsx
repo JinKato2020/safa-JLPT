@@ -147,7 +147,6 @@ export default function OnboardingScreen() {
           </View>
 
           <Text style={s.label}>{t('onboarding.avatar_label')}</Text>
-          {gender === 'f' && <Text style={s.hintTxt}>{t('onboarding.female_soon')}</Text>}
           <View style={s.avGrid}>
             {avs.map((a) => (
               <Pressable key={a.code} onPress={() => setAvatar(a.code)} style={[s.avCell, avatar === a.code && s.avCellOn]}>

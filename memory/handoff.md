@@ -42,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/screens/FlashcardScreen.tsx
-- src/components/PassageSetPlayer.tsx
-- src/screens/MyWordsScreen.tsx
-- src/screens/ListeningQuizScreen.tsx
-- src/screens/BrowseScreen.tsx
-- src/screens/KanjiDetailScreen.tsx
-- src/components/LearnTestSession.tsx
-- src/screens/PassageGrammarScreen.tsx
+- src/plaza/avatars.ts
+- src/screens/KotobaTownScreen.tsx
+- assets/kotoba/hero_f2/upleft_l.png
+- assets/kotoba/hero_f2/upright_l.png
+- assets/kotoba/hero_f2/downright_l.png
+- assets/kotoba/hero_f2/downleft_l.png
+- assets/kotoba/hero_f2/right_l.png
+- assets/kotoba/hero_f2/left_l.png
 
-_自動更新: 2026-08-05 13:23_
+_自動更新: 2026-08-05 14:05_
 <!-- AUTO:END -->

@@ -9,6 +9,7 @@ import { useNavigation, CommonActions } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
+import { useAppState } from '../store/store';
 import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner, type NpcColor } from '../plaza/virtualLearners';
 
@@ -24,6 +25,30 @@ const HERO: Record<Dir, number[]> = {
   upleft: [require('../../assets/kotoba/hero/upleft.png'), require('../../assets/kotoba/hero/upleft_r.png'), require('../../assets/kotoba/hero/upleft_l.png')],
   upright: [require('../../assets/kotoba/hero/upright.png'), require('../../assets/kotoba/hero/upright_r.png'), require('../../assets/kotoba/hero/upright_l.png')],
 };
+// 女の子アバター(女の子1)。男の子と同じ 各方向[立ち,右足,左足]。
+const HERO_F: Record<Dir, number[]> = {
+  down: [require('../../assets/kotoba/hero_f/down.png'), require('../../assets/kotoba/hero_f/down_r.png'), require('../../assets/kotoba/hero_f/down_l.png')],
+  up: [require('../../assets/kotoba/hero_f/up.png'), require('../../assets/kotoba/hero_f/up_r.png'), require('../../assets/kotoba/hero_f/up_l.png')],
+  left: [require('../../assets/kotoba/hero_f/left.png'), require('../../assets/kotoba/hero_f/left_r.png'), require('../../assets/kotoba/hero_f/left_l.png')],
+  right: [require('../../assets/kotoba/hero_f/right.png'), require('../../assets/kotoba/hero_f/right_r.png'), require('../../assets/kotoba/hero_f/right_l.png')],
+  downleft: [require('../../assets/kotoba/hero_f/downleft.png'), require('../../assets/kotoba/hero_f/downleft_r.png'), require('../../assets/kotoba/hero_f/downleft_l.png')],
+  downright: [require('../../assets/kotoba/hero_f/downright.png'), require('../../assets/kotoba/hero_f/downright_r.png'), require('../../assets/kotoba/hero_f/downright_l.png')],
+  upleft: [require('../../assets/kotoba/hero_f/upleft.png'), require('../../assets/kotoba/hero_f/upleft_r.png'), require('../../assets/kotoba/hero_f/upleft_l.png')],
+  upright: [require('../../assets/kotoba/hero_f/upright.png'), require('../../assets/kotoba/hero_f/upright_r.png'), require('../../assets/kotoba/hero_f/upright_l.png')],
+};
+// 女の子2アバター。
+const HERO_F2: Record<Dir, number[]> = {
+  down: [require('../../assets/kotoba/hero_f2/down.png'), require('../../assets/kotoba/hero_f2/down_r.png'), require('../../assets/kotoba/hero_f2/down_l.png')],
+  up: [require('../../assets/kotoba/hero_f2/up.png'), require('../../assets/kotoba/hero_f2/up_r.png'), require('../../assets/kotoba/hero_f2/up_l.png')],
+  left: [require('../../assets/kotoba/hero_f2/left.png'), require('../../assets/kotoba/hero_f2/left_r.png'), require('../../assets/kotoba/hero_f2/left_l.png')],
+  right: [require('../../assets/kotoba/hero_f2/right.png'), require('../../assets/kotoba/hero_f2/right_r.png'), require('../../assets/kotoba/hero_f2/right_l.png')],
+  downleft: [require('../../assets/kotoba/hero_f2/downleft.png'), require('../../assets/kotoba/hero_f2/downleft_r.png'), require('../../assets/kotoba/hero_f2/downleft_l.png')],
+  downright: [require('../../assets/kotoba/hero_f2/downright.png'), require('../../assets/kotoba/hero_f2/downright_r.png'), require('../../assets/kotoba/hero_f2/downright_l.png')],
+  upleft: [require('../../assets/kotoba/hero_f2/upleft.png'), require('../../assets/kotoba/hero_f2/upleft_r.png'), require('../../assets/kotoba/hero_f2/upleft_l.png')],
+  upright: [require('../../assets/kotoba/hero_f2/upright.png'), require('../../assets/kotoba/hero_f2/upright_r.png'), require('../../assets/kotoba/hero_f2/upright_l.png')],
+};
+// アバターコード→歩行スプライト。男子(色違い含む)は既定の男の子で歩く。
+const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { f_g1: HERO_F, f_g2: HERO_F2 };
 const WALK_CYCLE = [0, 1, 0, 2]; // 立ち→右足→立ち→左足
 const WALK_STEP = 0.15;          // 1コマの秒数
 // 8方向スナップ表(入力角 atan2 の 45度セクタ→向きと単位ベクトル)。画面yは下向き正。
@@ -157,6 +182,9 @@ function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: n
 export default function KotobaTownScreen() {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { width: VW, height: VH } = useWindowDimensions();
+  // 選んだアバターで自分の見た目を切替(女の子1/女の子2 は専用スプライト、それ以外=男の子)。
+  const avatarCode = useAppState().settings.avatar;
+  const SPRITES = (avatarCode && AVATAR_SETS[avatarCode]) || HERO;
   const isDay = useMemo(() => { const h = new Date().getHours(); return h >= 6 && h < 18; }, []);
   const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
 
@@ -299,7 +327,7 @@ export default function KotobaTownScreen() {
           {VIRTUAL_LEARNERS.map((v) => <NpcSprite key={v.id} v={v} sink={npcPos} />)}
           {/* 中: 自分(NPCより手前) */}
           <Animated.View style={{ position: 'absolute', width: SPRITE, height: SPRITE, transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
-            <Animated.Image source={HERO[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: bobY }] }} resizeMode="contain" />
+            <Animated.Image source={SPRITES[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: bobY }] }} resizeMode="contain" />
           </Animated.View>
           {/* 上: 木のレイヤー(人より前面=木の裏に回ると隠れる)。day.jpgと同じ位置に重ねる。 */}
           <Image source={MAP_TREE} style={{ position: 'absolute', left: TREE.x, top: TREE.y, width: TREE.w, height: TREE.h }} resizeMode="stretch" />
