@@ -12,7 +12,8 @@ import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
 import { useAppState } from '../store/store';
 import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
-import { moodOf, toeicEquiv } from '../plaza/moods';
+import { moodOf, toeicEquiv, moodLineOf } from '../plaza/moods';
+import { personalityOf, moodMsgOf } from '../plaza/persona';
 
 type Dir = 'down' | 'up' | 'left' | 'right' | 'downleft' | 'downright' | 'upleft' | 'upright';
 // 各方向 [両足立ち, 右足前, 左足前]。歩行時に 立ち→右→立ち→左 で切り替え=歩いて見える。
@@ -70,6 +71,16 @@ const HERO_F4: Record<Dir, number[]> = {
   upleft: [require('../../assets/kotoba/hero_f4/upleft.png'), require('../../assets/kotoba/hero_f4/upleft_r.png'), require('../../assets/kotoba/hero_f4/upleft_l.png')],
   upright: [require('../../assets/kotoba/hero_f4/upright.png'), require('../../assets/kotoba/hero_f4/upright_r.png'), require('../../assets/kotoba/hero_f4/upright_l.png')],
 };
+const HERO_F5: Record<Dir, number[]> = {
+  down: [require('../../assets/kotoba/hero_f5/down.png'), require('../../assets/kotoba/hero_f5/down_r.png'), require('../../assets/kotoba/hero_f5/down_l.png')],
+  up: [require('../../assets/kotoba/hero_f5/up.png'), require('../../assets/kotoba/hero_f5/up_r.png'), require('../../assets/kotoba/hero_f5/up_l.png')],
+  left: [require('../../assets/kotoba/hero_f5/left.png'), require('../../assets/kotoba/hero_f5/left_r.png'), require('../../assets/kotoba/hero_f5/left_l.png')],
+  right: [require('../../assets/kotoba/hero_f5/right.png'), require('../../assets/kotoba/hero_f5/right_r.png'), require('../../assets/kotoba/hero_f5/right_l.png')],
+  downleft: [require('../../assets/kotoba/hero_f5/downleft.png'), require('../../assets/kotoba/hero_f5/downleft_r.png'), require('../../assets/kotoba/hero_f5/downleft_l.png')],
+  downright: [require('../../assets/kotoba/hero_f5/downright.png'), require('../../assets/kotoba/hero_f5/downright_r.png'), require('../../assets/kotoba/hero_f5/downright_l.png')],
+  upleft: [require('../../assets/kotoba/hero_f5/upleft.png'), require('../../assets/kotoba/hero_f5/upleft_r.png'), require('../../assets/kotoba/hero_f5/upleft_l.png')],
+  upright: [require('../../assets/kotoba/hero_f5/upright.png'), require('../../assets/kotoba/hero_f5/upright_r.png'), require('../../assets/kotoba/hero_f5/upright_l.png')],
+};
 // 男の子2アバター。8方向×各[立ち,右足,左足]。
 const HERO_M2: Record<Dir, number[]> = {
   down: [require('../../assets/kotoba/hero_m2/down.png'), require('../../assets/kotoba/hero_m2/down_r.png'), require('../../assets/kotoba/hero_m2/down_l.png')],
@@ -113,7 +124,7 @@ const HERO_M5: Record<Dir, number[]> = {
   upright: [require('../../assets/kotoba/hero_m5/upright.png'), require('../../assets/kotoba/hero_m5/upright_r.png'), require('../../assets/kotoba/hero_m5/upright_l.png')],
 };
 // アバターコード→歩行スプライト。男子(色違い含む)は既定の男の子で歩く。
-const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { m_boy1: HERO, m_boy2: HERO_M2, m_boy3: HERO_M3, m_boy4: HERO_M4, m_boy5: HERO_M5, f_g1: HERO_F, f_g2: HERO_F2, f_g3: HERO_F3, f_g4: HERO_F4 };
+const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { m_boy1: HERO, m_boy2: HERO_M2, m_boy3: HERO_M3, m_boy4: HERO_M4, m_boy5: HERO_M5, f_g1: HERO_F, f_g2: HERO_F2, f_g3: HERO_F3, f_g4: HERO_F4, f_g5: HERO_F5 };
 
 // 桜(マスコット)。8方向・歩行アニメ付き([立ち, 右足, 左足])。近づいて話すと努力を褒めてくれる。
 const SAKURA: Record<Dir, number[]> = {
@@ -151,10 +162,10 @@ const SIT = {
 // ベンチの真ん中に正面向きで座るアバター。会話も可(v=会話カード用プロフィール。歩くNPCと同形式・home未使用)。
 type Sitter = { img: number; x: number; y: number; w: number; h: number; v: VirtualLearner };
 const SITTERS: Sitter[] = [
-  { img: SIT.g_light, x: 336, y: 430, w: 32, h: 58, v: { id: 's1', nick: 'Yuki', flag: '🇹🇼', level: 'N5', streak: 9, today: 16, avatar: 'f_g1', home: { col: 0, row: 0 }, studying: '語彙', learned: 240, weekLearned: 38, todayMin: 30, strong: '語彙', mood: 'kotsu' } },   // 左上ベンチ
-  { img: SIT.m_navy,  x: 612, y: 424, w: 25, h: 58, v: { id: 's2', nick: 'Diego', flag: '🇲🇽', level: 'N4', streak: 6, today: 14, avatar: 'm_boy1', home: { col: 0, row: 0 }, studying: '聴解', learned: 430, weekLearned: 52, todayMin: 40, strong: '聴解', mood: 'mattari' } }, // 右上ベンチ
-  { img: SIT.g_dark,  x: 328, y: 500, w: 37, h: 58, v: { id: 's3', nick: 'Hana', flag: '🇵🇭', level: 'N3', streak: 21, today: 28, avatar: 'f_g2', home: { col: 0, row: 0 }, studying: '文法', learned: 980, weekLearned: 96, todayMin: 55, strong: '文法', mood: 'doryoku' } },  // 左下ベンチ
-  { img: SIT.m_white, x: 529, y: 500, w: 26, h: 58, v: { id: 's4', nick: 'Omar', flag: '🇪🇬', level: 'N4', streak: 11, today: 22, avatar: 'm_boy2', home: { col: 0, row: 0 }, studying: '漢字', learned: 560, weekLearned: 61, todayMin: 35, strong: '漢字', mood: 'oikomi' } }, // 下ベンチ
+  { img: SIT.g_light, x: 336, y: 430, w: 32, h: 58, v: { id: 's1', nick: 'Yuki', flag: '🇹🇼', level: 'N5', streak: 9, today: 16, avatar: 'f_g1', home: { col: 0, row: 0 }, studying: '語彙', learned: 240, weekLearned: 38, todayMin: 30, strong: '語彙', mood: 'kotsu', personality: 'ottori', moodMsg: 'tanoshii' } },   // 左上ベンチ
+  { img: SIT.m_navy,  x: 612, y: 424, w: 25, h: 58, v: { id: 's2', nick: 'Diego', flag: '🇲🇽', level: 'N4', streak: 6, today: 14, avatar: 'm_boy1', home: { col: 0, row: 0 }, studying: '聴解', learned: 430, weekLearned: 52, todayMin: 40, strong: '聴解', mood: 'mattari', personality: 'ochoshi', moodMsg: 'listening' } }, // 右上ベンチ
+  { img: SIT.g_dark,  x: 328, y: 500, w: 37, h: 58, v: { id: 's3', nick: 'Hana', flag: '🇵🇭', level: 'N3', streak: 21, today: 28, avatar: 'f_g2', home: { col: 0, row: 0 }, studying: '文法', learned: 980, weekLearned: 96, todayMin: 55, strong: '文法', mood: 'doryoku', personality: 'shikkari', moodMsg: 'bunpo' } },  // 左下ベンチ
+  { img: SIT.m_white, x: 529, y: 500, w: 26, h: 58, v: { id: 's4', nick: 'Omar', flag: '🇪🇬', level: 'N4', streak: 11, today: 22, avatar: 'm_boy2', home: { col: 0, row: 0 }, studying: '漢字', learned: 560, weekLearned: 61, todayMin: 35, strong: '漢字', mood: 'oikomi', personality: 'reisei', moodMsg: 'kanji' } }, // 下ベンチ
 ];
 // 桜のほめ言葉(努力を褒める)。連続日数があれば1つに織り込む。
 const sakuraPraise = (streak: number): string[] => [
@@ -595,55 +606,66 @@ export default function KotobaTownScreen() {
         </View>
       </SafeAreaView>
 
-      {/* 仮想学習者の会話カード(データ表示＋応援コメント) */}
-      {talk && (
-        <View style={s.talkWrap}>
-          <Pressable style={StyleSheet.absoluteFill} onPress={closeTalk} />
-          <View style={s.talkCard}>
-            <Pressable onPress={closeTalk} hitSlop={10} style={s.talkClose}><Ionicons name="close" size={20} color="#ffffff" /></Pressable>
-            <View style={s.talkHead}>
-              <View style={s.talkAvatar}><Image source={(AVATAR_SETS[talk.avatar] || HERO).down[0]} style={{ width: 54, height: 54 }} resizeMode="contain" /></View>
-              <View style={{ flex: 1 }}>
-                <Text style={s.talkName}>{talk.flag} {talk.nick}</Text>
-                <View style={s.talkStats}>
-                  <View style={s.lvlBadge}><Text style={s.lvlBadgeT}>{talk.level}</Text></View>
-                  <Text style={s.talkStatT}>🔥 連続{talk.streak}日</Text>
-                  <Text style={s.talkStatT}>✏️ 今日{talk.today}問</Text>
-                </View>
+      {/* 仮想学習者との会話(ノベル風・立ち絵フルスクリーン)。町を暗く残し、大きな立ち絵＋名前プレート＋セリフ窓。 */}
+      {talk && (() => {
+        const SET = AVATAR_SETS[talk.avatar] || HERO;
+        const standH = Math.min(250, Math.round(VH * 0.42));
+        const md = moodOf(talk.mood);
+        return (
+          <View style={s.nvWrap}>
+            <Pressable style={StyleSheet.absoluteFill} onPress={closeTalk} />
+            <View style={s.nvScrim} pointerEvents="none" />
+            <Pressable onPress={closeTalk} hitSlop={10} style={s.nvClose}><Ionicons name="close" size={26} color="#ffffff" /></Pressable>
+            <View style={s.nvStage} pointerEvents="box-none">
+              <View style={s.nvStandWrap} pointerEvents="none">
+                <Image source={SET.down[0]} style={{ width: standH, height: standH }} resizeMode="contain" />
+              </View>
+              {moodMsgOf(talk.moodMsg) ? (
+                <View style={s.nvMoodMsg}><Text style={s.nvMoodMsgT}>💭 {moodMsgOf(talk.moodMsg)}</Text></View>
+              ) : null}
+              <View style={s.nvPlate}>
+                <Text style={s.nvName}>{talk.flag} {talk.nick}</Text>
+                <View style={s.lvlBadge}><Text style={s.lvlBadgeT}>{talk.level}</Text></View>
+                {personalityOf(talk.personality) ? (
+                  <Text style={s.nvPersona}>{personalityOf(talk.personality)!.emoji} {personalityOf(talk.personality)!.label}</Text>
+                ) : null}
+              </View>
+              <View style={s.nvBox}>
+                {sent ? (
+                  <View style={s.sentBox}>
+                    <Text style={s.sentEmoji}>{sent.emoji}</Text>
+                    <Text style={s.sentT}>応援を送りました！</Text>
+                    <Text style={s.sentReply}>{talk.nick}「{sent.reply}」</Text>
+                  </View>
+                ) : (
+                  <>
+                    <Text style={s.nvText}>
+                      やあ、{talk.nick}だよ！{'\n'}
+                      {talk.studying ? <>いまは<Text style={s.nvEm}>「{talk.studying}」</Text>を特訓中。</> : null}
+                      {talk.weekLearned ? <>この7日で<Text style={s.nvEm}>{talk.weekLearned}語</Text>おぼえたよ。</> : null}
+                      {moodLineOf(talk.mood)}
+                    </Text>
+                    <View style={s.nvChips}>
+                      <View style={s.nvChip}><Text style={s.nvChipT}>🔥 連続<Text style={s.nvChipEm}>{talk.streak}</Text>日</Text></View>
+                      <View style={s.nvChip}><Text style={s.nvChipT}>🎯 TOEIC<Text style={s.nvChipEm}>約{toeicEquiv(talk.level)}</Text></Text></View>
+                      <View style={s.nvChip}><Text style={s.nvChipT}>{md.emoji} <Text style={s.nvChipEm}>{md.label}</Text></Text></View>
+                      {talk.learned ? <View style={s.nvChip}><Text style={s.nvChipT}>📖 <Text style={s.nvChipEm}>{talk.learned}</Text>語</Text></View> : null}
+                      {talk.strong ? <View style={s.nvChip}><Text style={s.nvChipT}>🌟 <Text style={s.nvChipEm}>{talk.strong}</Text>が得意</Text></View> : null}
+                    </View>
+                    <View style={s.nvPills}>
+                      {CHEERS.map((c) => (
+                        <Pressable key={c.key} style={s.nvPill} onPress={() => sendCheer(c)}>
+                          <Text style={s.nvPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
+                        </Pressable>
+                      ))}
+                    </View>
+                  </>
+                )}
               </View>
             </View>
-            {/* 具体的な頑張り(勉強分野・TOEIC換算のめやす・努力タイプ・覚えた語数)。〇〇さんは聴解を勉強しています、を表示。 */}
-            <View style={s.effortBox}>
-              {talk.studying ? <Text style={s.effortT}>📚 {talk.nick}さんは いま<Text style={s.effortEm}>「{talk.studying}」</Text>を勉強しています</Text> : null}
-              <Text style={s.effortT}>🎯 実力のめやす：TOEICなら <Text style={s.effortEm}>約{toeicEquiv(talk.level)}点</Text></Text>
-              <Text style={s.effortT}>{moodOf(talk.mood).emoji} 努力タイプは <Text style={s.effortEm}>「{moodOf(talk.mood).label}」</Text></Text>
-              {talk.todayMin ? <Text style={s.effortT}>⏱️ 今日は <Text style={s.effortEm}>{talk.todayMin}分</Text> 勉強しました</Text> : null}
-              {talk.weekLearned ? <Text style={s.effortT}>🔥 この7日で <Text style={s.effortEm}>{talk.weekLearned}語</Text> おぼえました</Text> : null}
-              {talk.learned ? <Text style={s.effortT}>📖 これまで <Text style={s.effortEm}>{talk.learned}語</Text> おぼえました</Text> : null}
-              {talk.strong ? <Text style={s.effortT}>🌟 <Text style={s.effortEm}>{talk.strong}</Text> が得意です</Text> : null}
-            </View>
-            {sent ? (
-              <View style={s.sentBox}>
-                <Text style={s.sentEmoji}>{sent.emoji}</Text>
-                <Text style={s.sentT}>応援を送りました！</Text>
-                <Text style={s.sentReply}>{talk.nick}「{sent.reply}」</Text>
-              </View>
-            ) : (
-              <>
-                <Text style={s.cheerTitle}>応援コメントを送る</Text>
-                <View style={s.cheerGrid}>
-                  {CHEERS.map((c) => (
-                    <Pressable key={c.key} style={s.cheerBtn} onPress={() => sendCheer(c)}>
-                      <Text style={s.cheerEmoji}>{c.emoji}</Text>
-                      <Text style={s.cheerLabel} numberOfLines={1}>{c.label}</Text>
-                    </Pressable>
-                  ))}
-                </View>
-              </>
-            )}
           </View>
-        </View>
-      )}
+        );
+      })()}
 
       {/* 桜の会話カード(努力をほめる) */}
       {sakuraTalk && (
@@ -708,4 +730,25 @@ const s = StyleSheet.create({
   praiseMsg: { fontSize: 15.5, lineHeight: 24, fontWeight: '700', color: '#ffffff', paddingVertical: 6 },
   praiseBtn: { marginTop: 12, alignSelf: 'center', backgroundColor: '#172054', borderRadius: 8, borderWidth: 2, borderColor: '#ffd76b', paddingVertical: 10, paddingHorizontal: 22 },
   praiseBtnT: { fontSize: 14.5, fontWeight: '900', color: '#ffd76b' },
+  // ノベル風の会話(立ち絵フルスクリーン)
+  nvWrap: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
+  nvScrim: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(6,8,20,0.66)' },
+  nvClose: { position: 'absolute', top: 46, right: 16, width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(0,0,0,0.38)', alignItems: 'center', justifyContent: 'center', zIndex: 6 },
+  nvStage: { ...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', paddingBottom: 28 },
+  nvStandWrap: { alignItems: 'center', marginBottom: -6, zIndex: 1 },
+  nvPlate: { flexDirection: 'row', alignItems: 'center', gap: 8, alignSelf: 'flex-start', marginLeft: 16, marginBottom: 8, backgroundColor: '#0c1d49', borderWidth: 2, borderColor: '#ffffff', borderRadius: 9, paddingHorizontal: 12, paddingVertical: 5, zIndex: 3 },
+  nvName: { color: '#ffffff', fontWeight: '900', fontSize: 16, letterSpacing: 0.3 },
+  nvMoodMsg: { alignSelf: 'flex-start', marginLeft: 22, marginBottom: 6, backgroundColor: 'rgba(255,255,255,0.92)', borderRadius: 13, paddingHorizontal: 12, paddingVertical: 5 },
+  nvMoodMsgT: { color: '#1b2440', fontWeight: '800', fontSize: 12.5 },
+  nvPersona: { color: '#ffd76b', fontWeight: '800', fontSize: 12, marginLeft: 2 },
+  nvBox: { marginHorizontal: 12, backgroundColor: '#0b1230', borderWidth: 3, borderColor: '#ffffff', borderRadius: 14, padding: 14, zIndex: 3 },
+  nvText: { color: '#eef2ff', fontSize: 15, lineHeight: 25, fontWeight: '600' },
+  nvEm: { color: '#ffd76b', fontWeight: '900' },
+  nvChips: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 12 },
+  nvChip: { backgroundColor: '#182357', borderWidth: 1, borderColor: '#3c4c96', borderRadius: 7, paddingHorizontal: 8, paddingVertical: 3 },
+  nvChipT: { color: '#eef2ff', fontSize: 11.5, fontWeight: '800' },
+  nvChipEm: { color: '#ffd76b', fontWeight: '900' },
+  nvPills: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12 },
+  nvPill: { backgroundColor: '#172054', borderWidth: 1.5, borderColor: '#5566b0', borderRadius: 999, paddingHorizontal: 13, paddingVertical: 9 },
+  nvPillT: { color: '#ffffff', fontWeight: '800', fontSize: 12.5 },
 });

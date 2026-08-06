@@ -17,16 +17,18 @@ export interface VirtualLearner {
   strong?: string;                    // 得意な分野(前向きに得意だけ。苦手は載せない)。会話カードに表示
   note?: string;                      // 一言(自由コメント。会話カードに表示)
   mood?: string;                      // 定型ムード(努力タイプ)のキー。moods.ts の MOODS から選択。会話カードに表示
+  personality?: string;               // 性格(persona.ts PERSONALITIES)のキー。会話カードに表示
+  moodMsg?: string;                   // ムードメッセージ(persona.ts MOOD_MESSAGES)のキー。頭上/会話カードに表示
 }
 
 // 国はボーダーレスに散らす。home は当たり判定で歩けるマスから選定済み。アバター6種をばらけて割当。
 export const VIRTUAL_LEARNERS: VirtualLearner[] = [
-  { id: 'v1', nick: 'Mina', flag: '🇻🇳', level: 'N5', streak: 12, today: 20, avatar: 'f_g1', home: { col: 18, row: 19 }, studying: '漢字', learned: 210, weekLearned: 45, todayMin: 25, strong: '語彙', mood: 'kotsu' },
-  { id: 'v2', nick: 'Leo', flag: '🇧🇷', level: 'N4', streak: 5, today: 15, avatar: 'm_boy1', home: { col: 30, row: 18 }, studying: '聴解', learned: 480, weekLearned: 60, todayMin: 40, strong: '聴解', mood: 'mattari' },
-  { id: 'v3', nick: 'Sora', flag: '🇰🇷', level: 'N3', streak: 33, today: 40, avatar: 'f_g2', home: { col: 15, row: 26 }, studying: '読解', learned: 1200, weekLearned: 120, todayMin: 60, strong: '読解', mood: 'endless' },
-  { id: 'v4', nick: 'Aria', flag: '🇮🇹', level: 'N5', streak: 2, today: 10, avatar: 'f_g3', home: { col: 31, row: 26 }, studying: '語彙', learned: 150, weekLearned: 28, todayMin: 15, strong: 'ひらがな', mood: 'mikka' },
-  { id: 'v5', nick: 'Kai', flag: '🇺🇸', level: 'N4', streak: 8, today: 25, avatar: 'm_boy2', home: { col: 12, row: 23 }, studying: '文法', learned: 520, weekLearned: 72, todayMin: 35, strong: '漢字', mood: 'kotsu' },
-  { id: 'v6', nick: 'Nina', flag: '🇫🇷', level: 'N4', streak: 19, today: 30, avatar: 'f_g4', home: { col: 34, row: 24 }, studying: '聴解', learned: 600, weekLearned: 90, todayMin: 45, strong: '聴解', mood: 'doryoku' },
-  { id: 'v7', nick: 'Tan', flag: '🇹🇭', level: 'N5', streak: 4, today: 12, avatar: 'f_g2', home: { col: 19, row: 32 }, studying: '漢字', learned: 180, weekLearned: 34, todayMin: 20, strong: '漢字', mood: 'weekend' },
-  { id: 'v8', nick: 'Ren', flag: '🇨🇳', level: 'N3', streak: 27, today: 35, avatar: 'm_boy1', home: { col: 30, row: 33 }, studying: '読解', learned: 1100, weekLearned: 105, todayMin: 50, strong: '文法', mood: 'oikomi' },
+  { id: 'v1', nick: 'Mina', flag: '🇻🇳', level: 'N5', streak: 12, today: 20, avatar: 'f_g1', home: { col: 18, row: 19 }, studying: '漢字', learned: 210, weekLearned: 45, todayMin: 25, strong: '語彙', mood: 'kotsu', personality: 'majime', moodMsg: 'kotsu' },
+  { id: 'v2', nick: 'Leo', flag: '🇧🇷', level: 'N4', streak: 5, today: 15, avatar: 'm_boy1', home: { col: 30, row: 18 }, studying: '聴解', learned: 480, weekLearned: 60, todayMin: 40, strong: '聴解', mood: 'mattari', personality: 'akarui', moodMsg: 'listening' },
+  { id: 'v3', nick: 'Sora', flag: '🇰🇷', level: 'N3', streak: 33, today: 40, avatar: 'f_g2', home: { col: 15, row: 26 }, studying: '読解', learned: 1200, weekLearned: 120, todayMin: 60, strong: '読解', mood: 'endless', personality: 'doryoku', moodMsg: 'goukaku' },
+  { id: 'v4', nick: 'Aria', flag: '🇮🇹', level: 'N5', streak: 2, today: 10, avatar: 'f_g3', home: { col: 31, row: 26 }, studying: '語彙', learned: 150, weekLearned: 28, todayMin: 15, strong: 'ひらがな', mood: 'mikka', personality: 'tennen', moodMsg: 'tango' },
+  { id: 'v5', nick: 'Kai', flag: '🇺🇸', level: 'N4', streak: 8, today: 25, avatar: 'm_boy2', home: { col: 12, row: 23 }, studying: '文法', learned: 520, weekLearned: 72, todayMin: 35, strong: '漢字', mood: 'kotsu', personality: 'positive', moodMsg: 'ganbaru' },
+  { id: 'v6', nick: 'Nina', flag: '🇫🇷', level: 'N4', streak: 19, today: 30, avatar: 'f_g4', home: { col: 34, row: 24 }, studying: '聴解', learned: 600, weekLearned: 90, todayMin: 45, strong: '聴解', mood: 'doryoku', personality: 'yasashii', moodMsg: 'issho' },
+  { id: 'v7', nick: 'Tan', flag: '🇹🇭', level: 'N5', streak: 4, today: 12, avatar: 'f_g2', home: { col: 19, row: 32 }, studying: '漢字', learned: 180, weekLearned: 34, todayMin: 20, strong: '漢字', mood: 'weekend', personality: 'koukishin', moodMsg: 'kanji' },
+  { id: 'v8', nick: 'Ren', flag: '🇨🇳', level: 'N3', streak: 27, today: 35, avatar: 'm_boy1', home: { col: 30, row: 33 }, studying: '読解', learned: 1100, weekLearned: 105, todayMin: 50, strong: '文法', mood: 'oikomi', personality: 'makezu', moodMsg: 'oikomi' },
 ];

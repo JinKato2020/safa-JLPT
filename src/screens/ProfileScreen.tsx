@@ -26,6 +26,7 @@ import { deleteAccount } from '../auth/authClient';
 import { proStatus } from '../pro/entitlement';
 import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
 import { MOODS, toeicEquiv } from '../plaza/moods';
+import { PERSONALITIES, MOOD_MESSAGES } from '../plaza/persona';
 
 const STUDY_FIELDS = ['漢字', '語彙', '文法', '読解', '聴解'];
 
@@ -323,6 +324,30 @@ export default function ProfileScreen() {
               return (
                 <Pressable key={m.key} onPress={() => setSettings({ mood: m.key })} style={[s.chip, on && s.chipOn]}>
                   <Text style={[s.chipTxt, on && s.chipTxtOn]}>{m.emoji} {m.label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={[s.setLbl, { fontSize: ty.small, marginTop: spacing.md }]}>性格</Text>
+          <View style={s.chipRow}>
+            {PERSONALITIES.map((p) => {
+              const on = state.settings.personality === p.key;
+              return (
+                <Pressable key={p.key} onPress={() => setSettings({ personality: p.key })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{p.emoji} {p.label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={[s.setLbl, { fontSize: ty.small, marginTop: spacing.md }]}>ムードメッセージ（いまの気分）</Text>
+          <View style={s.chipRow}>
+            {MOOD_MESSAGES.map((m) => {
+              const on = state.settings.moodMsg === m.key;
+              return (
+                <Pressable key={m.key} onPress={() => setSettings({ moodMsg: m.key })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{m.text}</Text>
                 </Pressable>
               );
             })}

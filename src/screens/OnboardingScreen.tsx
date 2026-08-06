@@ -10,6 +10,7 @@ import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { sendEvent } from '../telemetry/telemetry';
 import { upcomingExams } from '../data/jlptDates';
 import { avatarsByGender, DEFAULT_AVATAR } from '../plaza/avatars';
+import { PERSONALITIES, MOOD_MESSAGES } from '../plaza/persona';
 import { COUNTRIES, flagOf, detectCountry, countryLabel } from '../plaza/countries';
 import { scheduleDailyReminder } from '../store/notifications';
 import type { Level } from '../engine/engine';
@@ -47,6 +48,8 @@ export default function OnboardingScreen() {
   const [gender, setGender] = useState<'m' | 'f'>('m');
   const [avatar, setAvatar] = useState<string>(DEFAULT_AVATAR);
   const [country, setCountry] = useState<string>(() => detectCountry());
+  const [personality, setPersonality] = useState<string>(PERSONALITIES[0].key); // 性格(20種)
+  const [moodMsg, setMoodMsg] = useState<string>(MOOD_MESSAGES[0].key);          // ムードメッセージ(20種)
   const [level, setLevel] = useState<Level>('N4');                // 2段目: JLPTのみ級指定
   const [examDate, setExamDate] = useState<string | null>(exams[0] ?? null); // 受験予定日=既定は直近のJLPT
   const [reminderOn, setReminderOn] = useState(false);            // 毎日のリマインド(任意)
@@ -110,6 +113,8 @@ export default function OnboardingScreen() {
             country,
             gender,
             avatar,
+            personality,
+            moodMsg,
             onboarded: true,
           });
           if (rem) void scheduleDailyReminder(rem);
@@ -166,6 +171,30 @@ export default function OnboardingScreen() {
                 <Text style={[s.flagTxt, country === co.code && s.chipTxtOn]}>{countryLabel(co.code, uiLang)}</Text>
               </Pressable>
             ))}
+          </View>
+
+          <Text style={s.label}>性格</Text>
+          <View style={s.personaWrap}>
+            {PERSONALITIES.map((p) => {
+              const on = personality === p.key;
+              return (
+                <Pressable key={p.key} onPress={() => setPersonality(p.key)} style={[s.pChip, on && s.chipOn]}>
+                  <Text style={[s.pChipTxt, on && s.chipTxtOn]}>{p.emoji} {p.label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={s.label}>ムードメッセージ（いまの気分）</Text>
+          <View style={s.personaWrap}>
+            {MOOD_MESSAGES.map((m) => {
+              const on = moodMsg === m.key;
+              return (
+                <Pressable key={m.key} onPress={() => setMoodMsg(m.key)} style={[s.pChip, on && s.chipOn]}>
+                  <Text style={[s.pChipTxt, on && s.chipTxtOn]}>{m.text}</Text>
+                </Pressable>
+              );
+            })}
           </View>
 
           <Pressable style={[s.cta, !canGo && s.ctaOff]} disabled={!canGo} onPress={() => setPending(true)}>
@@ -307,6 +336,9 @@ const makeStyles = (c: ThemeColors) =>
     avCell: { width: 100, height: 108, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, alignItems: 'center', justifyContent: 'center' },
     avCellOn: { borderColor: c.blue, borderWidth: 2, backgroundColor: c.blueLight },
     avImg: { width: 96, height: 96 },
+    personaWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.sm },
+    pChip: { borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, borderRadius: radius.pill, paddingVertical: 6, paddingHorizontal: 11 },
+    pChipTxt: { fontSize: ty.small, color: c.ink, fontWeight: '700' },
     avEmoji: { fontSize: 30 },
     flagWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.sm },
     flagChip: { flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, borderRadius: radius.pill, paddingVertical: 6, paddingHorizontal: 10 },

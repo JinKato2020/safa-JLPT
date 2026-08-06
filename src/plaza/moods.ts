@@ -18,6 +18,19 @@ export const MOODS: Mood[] = [
 
 export const DEFAULT_MOOD = 'kotsu';
 
+// ノベル風の会話で、努力タイプに合わせて本人がしゃべる一言(定型)。自由入力ではない=キーごとに固定。
+export const MOOD_LINE: Record<string, string> = {
+  beginner: 'まだ始めたばかりで手さぐりだけど、毎日たのしいよ。',
+  mikka: '実はちょっと三日坊主ぎみ…でも今日はちゃんと来たよ！',
+  mattari: 'のんびり、自分のペースでやってるんだ。',
+  weekend: '平日はいそがしくて、週末にまとめて特訓してる。',
+  kotsu: 'コツコツ毎日つづけるのが、わたし流。',
+  oikomi: '試験がちかいから、いまは追い込みモード！',
+  doryoku: '毎日ちゃんと時間をとって、がんばってるよ。',
+  endless: '終わりなき修行の日々さ…！いっしょに強くなろう。',
+};
+export const moodLineOf = (key: string | undefined | null): string => MOOD_LINE[key ?? DEFAULT_MOOD] ?? MOOD_LINE[DEFAULT_MOOD];
+
 export function moodOf(key: string | undefined | null): Mood {
   return MOODS.find((m) => m.key === key) ?? MOODS.find((m) => m.key === DEFAULT_MOOD)!;
 }

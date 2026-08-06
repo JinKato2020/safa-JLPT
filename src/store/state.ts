@@ -32,6 +32,8 @@ export interface Settings {
   handed?: 'right' | 'left'; // 町のカーソル(スティック)を置く側。未設定→right(右利き=右手の親指で操作)
   mood?: string;           // 町アバターの定型ムード(努力タイプ)のキー(moods.ts)。会話カードで相手に見える。未設定→既定
   studying?: string;       // 町アバターに表示する「いま勉強している分野」の定型選択。未設定→非表示
+  personality?: string;    // 性格(20種・persona.ts)のキー。最初のアバター設定で選ぶ。会話カードに表示
+  moodMsg?: string;        // ムードメッセージ(20種・persona.ts)のキー。いまの気分の定型ひとこと。会話カード/頭上に表示
   accountPromptSeen?: boolean; // 初回のアカウント登録案内を表示済み(旧stateには無い→未表示)
   uiLang?: string;         // UI表示言語(未設定→端末言語を自動判定)
   telemetry?: boolean;     // 利用状況の匿名送信(未設定/true=ON, false=停止)
