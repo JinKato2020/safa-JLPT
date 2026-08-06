@@ -66,6 +66,7 @@ export default function ListeningScreen() {
   const [showScript, setShowScript] = useState(false);
   const [playing, setPlaying] = useState(false);
   const soundRef = useRef<Audio.Sound | null>(null);
+  const playGen = useRef(0); // 再生の世代。新しいタップ/停止で+1し、進行中の古い再生を無効化(2度押しの音重なり防止)。
 
   useEffect(() => {
     Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => undefined);
@@ -91,6 +92,7 @@ export default function ListeningScreen() {
   const step = steps[idx];
 
   const stopSound = async () => {
+    playGen.current++; // 進行中の再生(まだsoundRefに入っていない読込中のものも含む)を無効化
     if (soundRef.current) {
       await soundRef.current.unloadAsync().catch(() => undefined);
       soundRef.current = null;
@@ -98,15 +100,19 @@ export default function ListeningScreen() {
     setPlaying(false);
   };
 
+  // 2度押し対策: タップの度に世代(playGen)を進め、直前の音を止めてから読み込む。読込/生成の途中で
+  // 新しいタップ(または停止)が来たら、この再生は「古い」と判断して破棄する=最後に押したタップだけが鳴る。
   const play = async () => {
     if (!step) return;
+    await stopSound();                 // 直前の音を停止(+世代を進めて進行中の再生を無効化)
+    const myGen = playGen.current;      // このタップの世代を確定
     const src = await listeningSource(step.clip.id, { stream });
-    if (!src) return;
-    await stopSound();
+    if (!src || myGen !== playGen.current) return; // 読込中に新しいタップ/停止→破棄
     try {
       const rate = state.settings.listeningRate ?? 1;
       // shouldCorrectPitch=速度を変えても声の高さを保つ / High=iOSのSpectralアルゴリズム(声を最も自然に引き伸ばす。0.5倍でも人声の質感を維持)
       const { sound } = await Audio.Sound.createAsync(src, { shouldPlay: true, rate, shouldCorrectPitch: true, pitchCorrectionQuality: Audio.PitchCorrectionQuality.High });
+      if (myGen !== playGen.current) { sound.unloadAsync().catch(() => undefined); return; } // 生成中に新タップ→即停止して捨てる
       soundRef.current = sound;
       setPlaying(true);
       sound.setOnPlaybackStatusUpdate((st: AVPlaybackStatus) => {

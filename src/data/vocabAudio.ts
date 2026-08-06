@@ -96,9 +96,11 @@ async function resolveKanjiSource(char: string): Promise<{ uri: string }> {
 }
 
 let current: Audio.Sound | null = null;
+let gen = 0; // 再生の世代。連打/停止で+1し、読込中の古い再生を破棄=音の重なりを防ぐ。
 
 /** 再生中の音を停止・解放。 */
 export async function stopVocab(): Promise<void> {
+  gen++; // 進行中(まだcurrentに入っていない読込中も含む)を無効化
   const s = current;
   current = null;
   if (s) { try { await s.unloadAsync(); } catch { /* 解放失敗は無視 */ } }
@@ -106,11 +108,14 @@ export async function stopVocab(): Promise<void> {
 
 /** id の語を再生。成功=true / 音源なし・デコード失敗=false(呼び出し側がTTSフォールバック)。 */
 export async function playVocab(id: string): Promise<boolean> {
+  await stopVocab();              // 直前の音を止める(+世代を進める)
+  const my = gen;                 // このタップの世代
   const src = await resolveSource(id);
-  await stopVocab();
+  if (my !== gen) return false;   // 読込中に新しいタップ/停止→破棄
   try {
     const { sound, status } = await Audio.Sound.createAsync(src, { shouldPlay: true });
     if (!status.isLoaded) { try { await sound.unloadAsync(); } catch { /* noop */ } return false; }
+    if (my !== gen) { sound.unloadAsync().catch(() => {}); return false; } // 生成中に新タップ→即停止
     current = sound;
     sound.setOnPlaybackStatusUpdate((st) => {
       if (st.isLoaded && st.didJustFinish) { sound.unloadAsync().catch(() => {}); if (current === sound) current = null; }
@@ -123,11 +128,14 @@ export async function playVocab(id: string): Promise<boolean> {
 
 /** char(漢字1字)の代表音声を再生。成功=true / 音源なし・デコード失敗=false(呼び出し側がTTSフォールバック)。 */
 export async function playKanjiRep(char: string): Promise<boolean> {
-  const src = await resolveKanjiSource(char);
   await stopVocab();
+  const my = gen;
+  const src = await resolveKanjiSource(char);
+  if (my !== gen) return false;
   try {
     const { sound, status } = await Audio.Sound.createAsync(src, { shouldPlay: true });
     if (!status.isLoaded) { try { await sound.unloadAsync(); } catch { /* noop */ } return false; }
+    if (my !== gen) { sound.unloadAsync().catch(() => {}); return false; }
     current = sound;
     sound.setOnPlaybackStatusUpdate((st) => {
       if (st.isLoaded && st.didJustFinish) { sound.unloadAsync().catch(() => {}); if (current === sound) current = null; }

@@ -127,11 +127,13 @@ const SIT = {
   m_navy: require('../../assets/kotoba/sit/m_navy_front.png'),
   m_white: require('../../assets/kotoba/sit/m_white_front.png'),
 };
-const SITTERS: { img: number; x: number; y: number; w: number; h: number }[] = [
-  { img: SIT.g_light, x: 362, y: 423, w: 32, h: 58 }, // 左上ベンチ・女の子(正面・足を垂らす)
-  { img: SIT.m_navy,  x: 639, y: 417, w: 25, h: 58 }, // 右上ベンチ・男の子(正面・足を垂らす)
-  { img: SIT.g_dark,  x: 355, y: 489, w: 37, h: 58 }, // 左下ベンチ・女の子(正面・足を垂らす)
-  { img: SIT.m_white, x: 515, y: 505, w: 26, h: 58 }, // 下ベンチ・男の子(正面・足を垂らす)
+// ベンチの真ん中に正面向きで座るアバター。会話も可(v=会話カード用プロフィール。歩くNPCと同形式・home未使用)。
+type Sitter = { img: number; x: number; y: number; w: number; h: number; v: VirtualLearner };
+const SITTERS: Sitter[] = [
+  { img: SIT.g_light, x: 336, y: 430, w: 32, h: 58, v: { id: 's1', nick: 'Yuki', flag: '🇹🇼', level: 'N5', streak: 9, today: 16, avatar: 'f_g1', home: { col: 0, row: 0 }, studying: '語彙', learned: 240, weekLearned: 38, todayMin: 30, strong: '語彙', note: 'ベンチで単語カード中📖' } },   // 左上ベンチ
+  { img: SIT.m_navy,  x: 612, y: 424, w: 25, h: 58, v: { id: 's2', nick: 'Diego', flag: '🇲🇽', level: 'N4', streak: 6, today: 14, avatar: 'm_boy1', home: { col: 0, row: 0 }, studying: '聴解', learned: 430, weekLearned: 52, todayMin: 40, strong: '聴解', note: '毎日ラジオを聞いてます' } }, // 右上ベンチ
+  { img: SIT.g_dark,  x: 328, y: 500, w: 37, h: 58, v: { id: 's3', nick: 'Hana', flag: '🇵🇭', level: 'N3', streak: 21, today: 28, avatar: 'f_g2', home: { col: 0, row: 0 }, studying: '文法', learned: 980, weekLearned: 96, todayMin: 55, strong: '文法', note: '文法ノートまとめ中' } },  // 左下ベンチ
+  { img: SIT.m_white, x: 529, y: 500, w: 26, h: 58, v: { id: 's4', nick: 'Omar', flag: '🇪🇬', level: 'N4', streak: 11, today: 22, avatar: 'm_boy2', home: { col: 0, row: 0 }, studying: '漢字', learned: 560, weekLearned: 61, todayMin: 35, strong: '漢字', note: '漢字の書き取り練習' } }, // 下ベンチ
 ];
 // 桜のほめ言葉(努力を褒める)。連続日数があれば1つに織り込む。
 const sakuraPraise = (streak: number): string[] => [
@@ -174,14 +176,13 @@ const START_COL = 24, START_ROW = 28;
 const STICK_R = 54;          // スティック外周半径
 const DEADZONE = 10;
 
-// ワープ枠(WORLD=1024座標)。足元がこの小さな石段矩形に乗って初めて発火(反応距離ほぼ0)。全建物共通で石段のみ。
+// ワープ枠(WORLD=1024座標)。位置=ユーザーが手塗りした「赤」＝各建物の玄関の石段。足元が乗ると発火。
 type WarpTarget = 'Shop' | 'MockIntro' | 'Words' | 'Dict';
-// ワープ枠=各入口の「奥」に小さく置く。受付前/石段の最上段に触れて初めて発火(手前では反応しない)。
 const WARP_ZONES: { x: number; y: number; w: number; h: number; t: WarpTarget }[] = [
-  { x: 235, y: 299, w: 85, h: 43, t: 'Shop' },       // 左・受付(女の子)のカウンター前まで来たら=ショップ
-  { x: 725, y: 277, w: 85, h: 43, t: 'MockIntro' },  // 右上・模試会場の石段を上りきった扉口=模試(説明画面から)
-  { x: 811, y: 640, w: 64, h: 43, t: 'Words' },      // 右・書斎の玄関ポケット(家前レイヤの下=入ると隠れる)=単語タブ
-  { x: 469, y: 789, w: 85, h: 43, t: 'Dict' },       // 下・書庫の玄関ポケット(家前レイヤの下=入ると隠れる)=辞書タブ
+  { x: 202, y: 308, w: 112, h: 61, t: 'Shop' },      // 左上・受付(女の子)前の赤い石段=ショップ
+  { x: 725, y: 273, w: 64, h: 53, t: 'MockIntro' },  // 右上・模試会場の赤い石段=模試(説明画面から)
+  { x: 820, y: 662, w: 67, h: 55, t: 'Words' },      // 右・書斎の赤い玄関石段=単語タブ
+  { x: 439, y: 842, w: 82, h: 41, t: 'Dict' },       // 下・書庫の赤い玄関石段=辞書タブ
 ];
 
 // 中央の木レイヤー(ユーザー提供のきれいな切り抜き tree.png)を最前面に重ねる。幹の付け根をマップの木に合わせて配置。
@@ -446,10 +447,13 @@ export default function KotobaTownScreen() {
         else if (!z) warpArmed.current = true;
         // 仮想学習者に触れたら会話カードを開く(接触=距離ほぼ0)。一度離れるまで再オープンしない。
         if (!talkRef.current) {
-          let near: VirtualLearner | null = null, best = 1e9;
-          for (const vl of VIRTUAL_LEARNERS) { const p = npcPos[vl.id]; if (!p) continue; const d = Math.hypot(fx - (p.x + SPRITE / 2), fy - (p.y + SPRITE * 0.82)); if (d < best) { best = d; near = vl; } }
-          if (near && best < 26 && talkArmed.current) { talkArmed.current = false; input.current = { dx: 0, dy: 0 }; openTalk(near); }
-          else if (!near || best > 52) talkArmed.current = true;
+          // 歩くNPCと、ベンチに座るアバターの両方から一番近い相手を選ぶ。座り手はベンチが当たり判定で塞がり
+          // 密着できないので、少し広めのしきい値(thresh/rearm)で会話できるようにする。
+          let near: VirtualLearner | null = null, best = 1e9, thresh = 26, rearm = 52;
+          for (const vl of VIRTUAL_LEARNERS) { const p = npcPos[vl.id]; if (!p) continue; const d = Math.hypot(fx - (p.x + SPRITE / 2), fy - (p.y + SPRITE * 0.82)); if (d < best) { best = d; near = vl; thresh = 26; rearm = 52; } }
+          for (const st of SITTERS) { const d = Math.hypot(fx - (st.x + st.w / 2), fy - (st.y + st.h * 0.72)); if (d < best) { best = d; near = st.v; thresh = 54; rearm = 95; } }
+          if (near && best < thresh && talkArmed.current) { talkArmed.current = false; input.current = { dx: 0, dy: 0 }; openTalk(near); }
+          else if (!near || best > rearm) talkArmed.current = true;
         }
         // 桜に触れたら「努力をほめる」カードを開く(応援とは別)。
         if (!talkRef.current && !sakuraTalkRef.current) {
@@ -569,7 +573,7 @@ export default function KotobaTownScreen() {
         <View style={s.talkWrap}>
           <Pressable style={StyleSheet.absoluteFill} onPress={closeTalk} />
           <View style={s.talkCard}>
-            <Pressable onPress={closeTalk} hitSlop={10} style={s.talkClose}><Ionicons name="close" size={20} color="#3a3128" /></Pressable>
+            <Pressable onPress={closeTalk} hitSlop={10} style={s.talkClose}><Ionicons name="close" size={20} color="#ffffff" /></Pressable>
             <View style={s.talkHead}>
               <View style={s.talkAvatar}><Image source={(AVATAR_SETS[talk.avatar] || HERO).down[0]} style={{ width: 54, height: 54 }} resizeMode="contain" /></View>
               <View style={{ flex: 1 }}>
@@ -581,6 +585,17 @@ export default function KotobaTownScreen() {
                 </View>
               </View>
             </View>
+            {/* 具体的な頑張り(いま勉強している分野・覚えた語数・一言)。〇〇さんは聴解を勉強しています、を表示。 */}
+            {(talk.studying || talk.learned || talk.todayMin || talk.strong || talk.note) && (
+              <View style={s.effortBox}>
+                {talk.studying ? <Text style={s.effortT}>📚 {talk.nick}さんは いま<Text style={s.effortEm}>「{talk.studying}」</Text>を勉強しています</Text> : null}
+                {talk.todayMin ? <Text style={s.effortT}>⏱️ 今日は <Text style={s.effortEm}>{talk.todayMin}分</Text> 勉強しました</Text> : null}
+                {talk.weekLearned ? <Text style={s.effortT}>🔥 この7日で <Text style={s.effortEm}>{talk.weekLearned}語</Text> おぼえました</Text> : null}
+                {talk.learned ? <Text style={s.effortT}>📖 これまで <Text style={s.effortEm}>{talk.learned}語</Text> おぼえました</Text> : null}
+                {talk.strong ? <Text style={s.effortT}>🌟 <Text style={s.effortEm}>{talk.strong}</Text> が得意です</Text> : null}
+                {talk.note ? <Text style={s.effortNote}>💬「{talk.note}」</Text> : null}
+              </View>
+            )}
             {sent ? (
               <View style={s.sentBox}>
                 <Text style={s.sentEmoji}>{sent.emoji}</Text>
@@ -609,7 +624,7 @@ export default function KotobaTownScreen() {
         <View style={s.talkWrap}>
           <Pressable style={StyleSheet.absoluteFill} onPress={closeSakura} />
           <View style={s.talkCard}>
-            <Pressable onPress={closeSakura} hitSlop={10} style={s.talkClose}><Ionicons name="close" size={20} color="#3a3128" /></Pressable>
+            <Pressable onPress={closeSakura} hitSlop={10} style={s.talkClose}><Ionicons name="close" size={20} color="#ffffff" /></Pressable>
             <View style={s.talkHead}>
               <View style={s.talkAvatar}><Image source={SAKURA.down} style={{ width: 54, height: 54 }} resizeMode="contain" /></View>
               <View style={{ flex: 1 }}>
@@ -640,26 +655,31 @@ const s = StyleSheet.create({
   stickKnob: { width: 60, height: 60, borderRadius: 30, backgroundColor: 'rgba(255,253,248,0.9)', borderWidth: 2, borderColor: 'rgba(58,49,40,0.4)' },
   npcTag: { position: 'absolute', top: -14, backgroundColor: 'rgba(58,49,40,0.8)', borderRadius: 7, paddingHorizontal: 5, paddingVertical: 1, maxWidth: 130 },
   npcTagT: { color: '#fff', fontSize: 9, fontWeight: '700' },
-  talkWrap: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.28)' },
-  talkCard: { width: '86%', maxWidth: 360, backgroundColor: '#fffdf8', borderRadius: 18, padding: 16, borderWidth: 1, borderColor: 'rgba(58,49,40,0.15)' },
+  // 会話カード=ドラクエ風メッセージウィンドウ(濃紺の地＋白い角丸フレーム＋白文字＋金の強調)。
+  talkWrap: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' },
+  talkCard: { width: '88%', maxWidth: 360, backgroundColor: '#0b1233', borderRadius: 14, padding: 16, borderWidth: 3, borderColor: '#ffffff' },
   talkClose: { position: 'absolute', top: 8, right: 8, width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center', zIndex: 2 },
   talkHead: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 14, paddingRight: 24 },
-  talkAvatar: { width: 62, height: 62, borderRadius: 31, backgroundColor: 'rgba(58,49,40,0.06)', alignItems: 'center', justifyContent: 'center' },
-  talkName: { fontSize: 17, fontWeight: '900', color: '#3a3128', marginBottom: 5 },
+  talkAvatar: { width: 62, height: 62, borderRadius: 31, backgroundColor: 'rgba(255,255,255,0.08)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.25)', alignItems: 'center', justifyContent: 'center' },
+  talkName: { fontSize: 17, fontWeight: '900', color: '#ffffff', marginBottom: 5, letterSpacing: 0.3 },
   talkStats: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
-  lvlBadge: { backgroundColor: '#3a6ea5', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 1 },
+  lvlBadge: { backgroundColor: '#4f86c6', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 1 },
   lvlBadgeT: { color: '#fff', fontSize: 11, fontWeight: '900' },
-  talkStatT: { fontSize: 12, color: '#6b5d4d', fontWeight: '700' },
-  cheerTitle: { fontSize: 13, fontWeight: '800', color: '#6b5d4d', marginBottom: 8 },
+  talkStatT: { fontSize: 12, color: '#b9c6f2', fontWeight: '700' },
+  effortBox: { backgroundColor: '#172054', borderRadius: 10, padding: 11, marginBottom: 12, gap: 4, borderWidth: 1, borderColor: '#3a4a92' },
+  effortT: { fontSize: 13, color: '#eaf0ff', fontWeight: '700', lineHeight: 19 },
+  effortEm: { color: '#ffd76b', fontWeight: '900' },
+  effortNote: { fontSize: 12.5, color: '#b9c6f2', fontWeight: '600', fontStyle: 'italic', marginTop: 2 },
+  cheerTitle: { fontSize: 13, fontWeight: '800', color: '#b9c6f2', marginBottom: 8 },
   cheerGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  cheerBtn: { width: '47%', flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: '#f3ece0', borderRadius: 12, paddingVertical: 11, paddingHorizontal: 10 },
+  cheerBtn: { width: '47%', flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: '#172054', borderRadius: 8, borderWidth: 1.5, borderColor: '#5566b0', paddingVertical: 11, paddingHorizontal: 10 },
   cheerEmoji: { fontSize: 18 },
-  cheerLabel: { fontSize: 12.5, fontWeight: '800', color: '#3a3128', flexShrink: 1 },
+  cheerLabel: { fontSize: 12.5, fontWeight: '800', color: '#ffffff', flexShrink: 1 },
   sentBox: { alignItems: 'center', paddingVertical: 16, gap: 6 },
   sentEmoji: { fontSize: 42 },
-  sentT: { fontSize: 15, fontWeight: '900', color: '#3a3128' },
-  sentReply: { fontSize: 13, color: '#6b5d4d', fontWeight: '600' },
-  praiseMsg: { fontSize: 15.5, lineHeight: 24, fontWeight: '700', color: '#3a3128', paddingVertical: 6 },
-  praiseBtn: { marginTop: 12, alignSelf: 'center', backgroundColor: '#f6d9e2', borderRadius: 14, paddingVertical: 10, paddingHorizontal: 22 },
-  praiseBtnT: { fontSize: 14.5, fontWeight: '900', color: '#a13b5c' },
+  sentT: { fontSize: 15, fontWeight: '900', color: '#ffffff' },
+  sentReply: { fontSize: 13, color: '#b9c6f2', fontWeight: '600' },
+  praiseMsg: { fontSize: 15.5, lineHeight: 24, fontWeight: '700', color: '#ffffff', paddingVertical: 6 },
+  praiseBtn: { marginTop: 12, alignSelf: 'center', backgroundColor: '#172054', borderRadius: 8, borderWidth: 2, borderColor: '#ffd76b', paddingVertical: 10, paddingHorizontal: 22 },
+  praiseBtnT: { fontSize: 14.5, fontWeight: '900', color: '#ffd76b' },
 });

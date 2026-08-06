@@ -2,7 +2,7 @@
 // 弱点・ゴールまでの見通し・継続/学習量 を1画面に集約。癒し(桜)とは分け、淡々とした分析専用画面。
 //  ・データは homeStatus / growthStats の実データ。数値ロジックには触れない(表示のみ)。
 import { useMemo } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -15,9 +15,9 @@ import { useAppState } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
 import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
 import { dayStr, lastNDays } from '../store/state';
-import { expectedScoreFor, categoryCoveragePct, categoryCoverageFrac, SECTION_LABEL } from '../store/selectors';
+import { expectedScoreFor, coverageBars, SECTION_LABEL } from '../store/selectors';
 import { dueCount } from '../review/selectReview';
-import type { Category } from '../engine/engine';
+import { avatarOf } from '../plaza/avatars';
 import RingGauge from '../components/RingGauge';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -51,10 +51,16 @@ export default function AICoachScreen() {
     // 学習量の推移: 累積「覚えた語」の日次差分=その日の新規習得数(15点→14本のバー)。
     const cum = growthBars(state, today, 15);
     const daily = cum.slice(1).map((v, i) => Math.max(0, v - cum[i]));
-    // カバー率(学んだ範囲の割合): 4区分ごとの習得済み/全項目。正答率(質)と別の「量」の指標。
-    const RING_CATS: Category[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
-    const CAT_LABEL: Record<string, string> = { moji_goi: 'home.cat_moji_goi', bunpou: 'home.cat_bunpou', dokkai: 'home.cat_dokkai', choukai: 'home.cat_choukai' };
-    const coverage = RING_CATS.map((cat) => ({ cat, labelKey: CAT_LABEL[cat], pct: categoryCoveragePct(state, now, cat), ...categoryCoverageFrac(state, now, cat) }));
+    // カバー率(覚えた数)=書庫の3辞書(漢字/語彙/文法)の当該レベル総数を分母にする。
+    // 読解・聴解はスキル(般化)で「語数」ではないため、覚えた数/カバー率の分母には含めない(単語タブの3カードと一致)。
+    const CAT_LABEL: Record<string, string> = { kanji: 'cards.kanji', vocab: 'cards.vocab', grammar: 'cards.grammar' };
+    const coverage = coverageBars(state, now).map((b) => ({
+      cat: b.key,
+      labelKey: CAT_LABEL[b.key],
+      pct: b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0,
+      learned: b.learned,
+      total: b.total,
+    }));
     // カバー率は「覚えた数」を主役に。総数＋次の目標(10語区切りで最短に届く区分)。
     const covLearned = coverage.reduce((a, b) => a + (b.learned || 0), 0);
     const covTotalAll = coverage.reduce((a, b) => a + (b.total || 0), 0);
@@ -83,6 +89,8 @@ export default function AICoachScreen() {
   const startLearn = () => { nav.goBack(); nav.navigate('Quiz', { review: true }); };
 
   const cat = t(d.weakest.labelKey);
+  // 予想得点リングの左横に出す自分のアバター(立ち絵)。未選択時は出さない。
+  const myAvatar = avatarOf(state.settings.avatar).image;
 
   return (
     <SafeAreaView style={s.c} edges={['top', 'bottom']}>
@@ -113,13 +121,16 @@ export default function AICoachScreen() {
             <View style={s.heroEyebrow}>
               <Text style={s.heroEyebrowT}>合格の見込み</Text>
             </View>
-            {/* 主役=予想得点リング。中央にレベル(N4など)＋予想得点。｜印=合格ライン。 */}
+            {/* 主役=予想得点リング。左横に自分のアバター(オンボードで選択)。中央にレベル(N4など)＋予想得点。｜印=合格ライン。 */}
             <View style={s.heroCenter}>
-              <RingGauge value={scorePct} color={scoreColor} size={150} stroke={13} mark={goalPct}>
-                <View style={[s.ringLevel, { backgroundColor: scoreColor }]}><Text style={s.ringLevelT}>{levelLabel}</Text></View>
-                <Text style={[s.ringBig, { color: scoreColor }]}>{st.predScore}<Text style={s.ringPct}>/{st.predMax}</Text></Text>
-                <Text style={s.ringCap}>予想得点</Text>
-              </RingGauge>
+              <View style={s.heroRingRow}>
+                {myAvatar != null && <Image source={myAvatar} style={s.heroAvatar} resizeMode="contain" />}
+                <RingGauge value={scorePct} color={scoreColor} size={150} stroke={13} mark={goalPct}>
+                  <View style={[s.ringLevel, { backgroundColor: scoreColor }]}><Text style={s.ringLevelT}>{levelLabel}</Text></View>
+                  <Text style={[s.ringBig, { color: scoreColor }]}>{st.predScore}<Text style={s.ringPct}>/{st.predMax}</Text></Text>
+                  <Text style={s.ringCap}>予想得点</Text>
+                </RingGauge>
+              </View>
               <Text style={s.mNote}>合格ライン {st.passTotal}点（リングの｜印）</Text>
             </View>
             {/* 科目別の予想得点＋基準点(合否の見通し=合格率の代わりにここで示す) */}
@@ -339,6 +350,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   hero: { borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, overflow: 'hidden', backgroundColor: c.blueLight, ...shadow1(c) },
   heroInner: { padding: spacing.md },
   heroCenter: { alignItems: 'center', gap: 6, marginBottom: spacing.sm },
+  heroRingRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 4 },
+  heroAvatar: { width: 84, height: 126, marginLeft: -8 }, // リングの左横。立ち絵(縦長)。
+
   ringLevel: { paddingHorizontal: 7, paddingVertical: 1, borderRadius: 5, marginBottom: 3 },
   ringLevelT: { color: '#fff', fontSize: 10, fontWeight: '900', letterSpacing: 0.5 },
   heroEyebrow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: spacing.sm },
