@@ -25,7 +25,6 @@ import { useSync } from '../auth/SyncProvider';
 import { deleteAccount } from '../auth/authClient';
 import { proStatus } from '../pro/entitlement';
 import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
-import { MOODS, toeicEquiv } from '../plaza/moods';
 import { PERSONALITIES, MOOD_MESSAGES } from '../plaza/persona';
 
 const STUDY_FIELDS = ['漢字', '語彙', '文法', '読解', '聴解'];
@@ -317,18 +316,6 @@ export default function ProfileScreen() {
             })}
           </View>
 
-          <Text style={[s.setLbl, { fontSize: ty.small, marginTop: spacing.md }]}>努力タイプ（ムード）</Text>
-          <View style={s.chipRow}>
-            {MOODS.map((m) => {
-              const on = state.settings.mood === m.key;
-              return (
-                <Pressable key={m.key} onPress={() => setSettings({ mood: m.key })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{m.emoji} {m.label}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
           <Text style={[s.setLbl, { fontSize: ty.small, marginTop: spacing.md }]}>性格</Text>
           <View style={s.chipRow}>
             {PERSONALITIES.map((p) => {
@@ -353,7 +340,6 @@ export default function ProfileScreen() {
             })}
           </View>
 
-          <Text style={[s.subtle, { marginTop: spacing.sm }]}>実力のめやす：あなたの級（{state.settings.level}）は TOEICなら 約{toeicEquiv(state.settings.level)}点くらい。</Text>
         </View>
 
         {/* 漢字書き取りの設定(グリッド/速度/読み上げ)は「漢字書き取り」画面内へ移設。 */}

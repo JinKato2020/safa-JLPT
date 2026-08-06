@@ -31,6 +31,33 @@ export function personalityOf(key: string | undefined | null): Trait | null {
   return PERSONALITIES.find((p) => p.key === key) ?? null;
 }
 
+// ノベル会話で、性格に合わせて本人がしゃべる一言(定型)。努力タイプ廃止に伴い、会話の“らしさ”は性格が担う。
+export const PERSONA_LINE: Record<string, string> = {
+  akarui: 'いつも笑顔でいたいんだ〜！',
+  majime: 'コツコツやるのが性に合ってるみたい。',
+  ottori: 'あわてず、のんびりいこうね。',
+  makezu: '負けたくないから、つい頑張っちゃう！',
+  mypace: '自分のリズムを大事にしてるよ。',
+  doryoku: '努力は裏切らないって、信じてる。',
+  koukishin: '新しいことを知るのが楽しくてね！',
+  samishi: '一人だと心細いから、会えてうれしいな。',
+  ochoshi: 'ノリで乗り切るタイプなんだ〜！',
+  reisei: '落ち着いて、ひとつずつ片づけるよ。',
+  yasashii: '困ってたら、いつでも声かけてね。',
+  tennen: 'たまにボーッとしちゃうけど、楽しいよ。',
+  shikkari: '計画を立ててから動く派なんだ。',
+  awate: 'ついあわてちゃうけど、がんばる！',
+  roman: '夢を見ながら勉強するのが好き。',
+  kodawari: '納得いくまで、とことんやりたいの。',
+  positive: 'なんとかなるって、いつも思ってる！',
+  uchiki: 'ちょっと人見知りだけど…よろしくね。',
+  leader: 'みんなを引っぱるの、まかせて！',
+  jiyu: '気の向くままに学んでるよ〜。',
+};
+export function personaLineOf(key: string | undefined | null): string {
+  return (key && PERSONA_LINE[key]) || '一緒にがんばろうね！';
+}
+
 // ムードメッセージ(20種)。いまの気分・ひとことを定型から選ぶ。頭上や会話カードに表示。
 export const MOOD_MESSAGES: { key: string; text: string }[] = [
   { key: 'ganbaru', text: '今日もがんばるぞ！' },

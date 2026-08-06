@@ -7,13 +7,26 @@ import { Animated, Pressable, StyleSheet, Text, View, useWindowDimensions } from
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import type { AppState } from '../store/state';
-import { composeVoice } from '../story/voice';
+import { composeVoice, pickFlavor } from '../story/voice';
 
-const MIN_GAP_MS = 30 * 60 * 1000;     // 30分に1度くらい(ユーザー方針 2026-08-06)
+// 桜の締めの温かい一言(数字/日付/合否/願い/物語=かけら は言わない)。長さ・変化づけ用に末尾へ添える。
+const SAKURA_CLOSERS = [
+  'あなたのペースで大丈夫だからね。',
+  '無理はしないで、少しずついこう。',
+  'ここまで続けてきたこと、ちゃんとえらいよ。',
+  'わたしはいつでも、そばで応援してるからね。',
+  'ふっと一息ついて、また一歩ね。',
+  'あなたが今日も来てくれて、うれしいな。',
+  'あわてなくていいの、ゆっくりでいいんだよ。',
+  'あなたの頑張り、ちゃんと見てるからね。',
+];
+
+const MIN_GAP_MS = 20 * 60 * 1000;     // 20分に1度くらい(ユーザー方針 2026-08-06)
 const INITIAL_MS = 3500;               // ホームに着いて少し落ち着いてから
-const SHOW_MS = 11_000;                // 表示時間(タップでも即消える)
+const SHOW_MS = 18_000;                // 表示時間(文が約2倍に伸びたので長めに。タップでも即消える)
 
 // 癒し・励ましの一言(出迎え daily ＋ 季節/時間の flavor)。世界のかけら(物語)は出さない。
+// 長さは従来の約2倍: 基本(core+flavor)＋もう1つ別のflavor＋温かい締め、を重ねて“ありきたり感”を薄める。
 function pickBubble(state: AppState, now: number): string {
   const seed = ((now / 1000) % 97) / 97; // 時刻でばらけさせる
   const res = composeVoice({
@@ -23,7 +36,11 @@ function pickBubble(state: AppState, now: number): string {
     seed,
     seedFlavor: (seed + 0.37) % 1,
   });
-  return res.text || 'また会えたね。';
+  const usedIds = res.ids ?? [];
+  const extra = pickFlavor(now, (seed + 0.61) % 1, usedIds); // もう1つ別の季節/時間flavor(重複回避)
+  const closer = SAKURA_CLOSERS[Math.floor(((seed + 0.5) % 1) * SAKURA_CLOSERS.length)];
+  const text = [res.text, extra?.text, closer].filter(Boolean).join('');
+  return text || 'また会えたね。今日も、あなたのペースで大丈夫だからね。';
 }
 
 export default function SakuraSpeech() {
@@ -40,7 +57,7 @@ export default function SakuraSpeech() {
 
   useEffect(() => {
     const last = state.settings.lastSakuraSpeechAt ?? 0;
-    if (Date.now() - last < MIN_GAP_MS) return; // まだ5時間たっていない→今回は出さない
+    if (Date.now() - last < MIN_GAP_MS) return; // まだ20分たっていない→今回は出さない
     const hide = () => {
       if (hideTimer.current) { clearTimeout(hideTimer.current); hideTimer.current = null; }
       Animated.timing(fade, { toValue: 0, duration: 380, useNativeDriver: true }).start(({ finished }) => { if (finished) setVisible(false); });

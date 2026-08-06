@@ -1,20 +1,21 @@
 // アカウント作成/ログイン(段階1)。メール+パスワード。確認メールON=新規作成後は確認案内→ログイン。
 // 案内=桜の巫女(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
-import { useT } from '../i18n';
+import { useT, useUiLang } from '../i18n';
 import { signUp, signIn, signOut } from '../auth/authClient';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
-import { GUIDE } from '../data/mywordsArt';
-import { useAppState } from '../store/store';
-import { SHOP_BY_ID } from '../data/shop';
+import { useAppState, useAppActions } from '../store/store';
+import { avatarOf } from '../plaza/avatars';
+import { flagOf, countryLabel } from '../plaza/countries';
+import { PERSONALITIES, MOOD_MESSAGES, personalityOf, moodMsgOf } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
 
@@ -26,16 +27,65 @@ export default function AccountScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { session, email: acctEmail, lastSyncedAt } = useSync();
-  // 上部キャラ＝ホーム(HomeCoach)と同じ選択: 民族衣装 > 背負い筆 > 既定の案内キャラ。装備なしはGUIDE。
+  // 最上部プロフィール: 桜ではなく自分のアバター立ち絵＋ステータス(レベル/国/性別/性格/ムード)。性格・ムードは変更可。
   const appState = useAppState();
-  const eqBrush = appState.equipped?.brush;
-  const isShort = appState.equipped?.hair === 'hair_short';
-  const bItem = eqBrush ? SHOP_BY_ID[eqBrush] : undefined;
-  const brushImg = bItem ? (isShort ? bItem.homeShort : bItem.homeLong) : undefined;
-  const eqCostume = appState.equipped?.costume;
-  const costumeImg = eqCostume ? SHOP_BY_ID[eqCostume]?.asset : undefined;
-  const heroChar = costumeImg ?? brushImg ?? GUIDE.open;
-  const heroFull = !!(costumeImg ?? brushImg); // 全身立ち絵(縦長)か
+  const { setSettings } = useAppActions();
+  const uiLang = useUiLang();
+  const st0 = appState.settings;
+  const myAvatarImg = avatarOf(st0.avatar).image;
+  const per = personalityOf(st0.personality);
+  const moodTxt = moodMsgOf(st0.moodMsg);
+  const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood'>(null);
+  const profileHeader = (
+    <View style={s.profHeader}>
+      {myAvatarImg != null
+        ? <Image source={myAvatarImg} style={s.profAvatar} resizeMode="contain" />
+        : <View style={s.profAvatar} />}
+      <View style={s.profStats}>
+        {st0.nickname ? <Text style={s.profName}>{flagOf(st0.country ?? 'XX')} {st0.nickname}</Text> : null}
+        <View style={s.profRow}><Text style={s.profK}>レベル</Text><Text style={s.profV}>{st0.level}</Text></View>
+        <View style={s.profRow}><Text style={s.profK}>国</Text><Text style={s.profV}>{flagOf(st0.country ?? 'XX')} {countryLabel(st0.country, uiLang)}</Text></View>
+        <View style={s.profRow}><Text style={s.profK}>性別</Text><Text style={s.profV}>{t(st0.gender === 'f' ? 'onboarding.gender_f' : 'onboarding.gender_m')}</Text></View>
+        <Pressable style={s.profRow} onPress={() => setPickerOpen('personality')}>
+          <Text style={s.profK}>性格</Text>
+          <View style={s.profVrow}><Text style={s.profV}>{per ? `${per.emoji} ${per.label}` : '選ぶ'}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
+        <Pressable style={s.profRow} onPress={() => setPickerOpen('mood')}>
+          <Text style={s.profK}>ムード</Text>
+          <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{moodTxt ?? '選ぶ'}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
+      </View>
+    </View>
+  );
+  const pickerModal = (
+    <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
+      <Pressable style={s.pickBackdrop} onPress={() => setPickerOpen(null)} />
+      <View style={s.pickSheet}>
+        <Text style={s.pickTitle}>{pickerOpen === 'personality' ? '性格を選ぶ' : 'ムードメッセージを選ぶ'}</Text>
+        <ScrollView style={{ maxHeight: 380 }} contentContainerStyle={{ paddingBottom: 8 }}>
+          {pickerOpen === 'personality'
+            ? PERSONALITIES.map((p) => {
+                const on = st0.personality === p.key;
+                return (
+                  <Pressable key={p.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ personality: p.key }); setPickerOpen(null); }}>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{p.emoji} {p.label}</Text>
+                    {on && <Text style={s.pickCheck}>✓</Text>}
+                  </Pressable>
+                );
+              })
+            : MOOD_MESSAGES.map((m) => {
+                const on = st0.moodMsg === m.key;
+                return (
+                  <Pressable key={m.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ moodMsg: m.key }); setPickerOpen(null); }}>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{m.text}</Text>
+                    {on && <Text style={s.pickCheck}>✓</Text>}
+                  </Pressable>
+                );
+              })}
+        </ScrollView>
+      </View>
+    </Modal>
+  );
   const [tab, setTab] = useState<Tab>('signup');
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
@@ -105,9 +155,9 @@ export default function AccountScreen() {
       <SafeAreaView style={s.c} edges={['top']}>
         <ScrollView contentContainerStyle={s.body}>
           <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}><Text style={s.closeTxt}>✕</Text></Pressable>
-          {/* 最上部: 桜(ホームと同じ装備キャラ) + ログイン中 + メールアドレス */}
-          <View style={s.hero}>
-            <Image source={heroChar} style={heroFull ? s.guideFull : s.guide} resizeMode="contain" />
+          {/* 最上部: 自分のアバター＋ステータス(左にアバター/右にレベル・国・性別・性格・ムード) */}
+          {profileHeader}
+          <View style={s.loginMeta}>
             <Text style={s.benefitTitle}>{t('account.logged_in_title')}</Text>
             <Text style={s.acctEmail}>{acctEmail}</Text>
             <Text style={s.benefitSub}>{t('account.synced_at', { t: syncedLabel })}</Text>
@@ -130,6 +180,7 @@ export default function AccountScreen() {
             <Text style={s.manageTxt}>{t('account.logout')}</Text>
           </Pressable>
         </ScrollView>
+        {pickerModal}
       </SafeAreaView>
     );
   }
@@ -142,8 +193,8 @@ export default function AccountScreen() {
             <Text style={s.closeTxt}>✕</Text>
           </Pressable>
 
-          <View style={s.hero}>
-            <Image source={heroChar} style={heroFull ? s.guideFull : s.guide} resizeMode="contain" />
+          {profileHeader}
+          <View style={s.loginMeta}>
             <Text style={s.benefitTitle}>{t('account.benefit_title')}</Text>
             <Text style={s.benefitSub}>{t('account.benefit_sub')}</Text>
           </View>
@@ -219,6 +270,7 @@ export default function AccountScreen() {
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
+      {pickerModal}
     </SafeAreaView>
   );
 }
@@ -233,6 +285,25 @@ const makeStyles = (c: ThemeColors) =>
     hero: { alignItems: 'center', gap: spacing.xs, marginBottom: spacing.md },
     guide: { width: 120, height: 134 },
     guideFull: { width: 168, height: 230 }, // 全身立ち絵(民族衣装/背負い筆)は縦長(≒864x1184)
+    // 最上部プロフィール(アバター左＋ステータス右)
+    profHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, marginTop: spacing.sm, marginBottom: spacing.md },
+    profAvatar: { width: 108, height: 116 },
+    profStats: { flex: 1, gap: 2 },
+    profName: { fontSize: ty.body, fontWeight: '900', color: c.ink, marginBottom: 4 },
+    profRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 5, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: c.line },
+    profK: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
+    profV: { fontSize: ty.body, color: c.ink, fontWeight: '800', flexShrink: 1, textAlign: 'right' },
+    profVrow: { flexDirection: 'row', alignItems: 'center', gap: 2, flexShrink: 1 },
+    loginMeta: { alignItems: 'center', gap: spacing.xs, marginBottom: spacing.md },
+    // 性格/ムードのリスト選択
+    pickBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
+    pickSheet: { backgroundColor: c.bg, borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 16, paddingTop: 14, paddingBottom: 24 },
+    pickTitle: { fontSize: ty.body, fontWeight: '900', color: c.ink, marginBottom: 10, textAlign: 'center' },
+    pickRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 13, paddingHorizontal: 14, borderRadius: radius.lg, marginBottom: 4 },
+    pickRowOn: { backgroundColor: c.blueLight },
+    pickRowTxt: { fontSize: ty.body, color: c.ink, fontWeight: '700' },
+    pickRowTxtOn: { color: c.blue, fontWeight: '900' },
+    pickCheck: { fontSize: 16, color: c.blue, fontWeight: '900' },
     benefitTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
     benefitSub: { fontSize: ty.small, color: c.mute, textAlign: 'center' },
     acctEmail: { fontSize: ty.body, fontWeight: '800', color: c.ink, textAlign: 'center' },

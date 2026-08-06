@@ -89,6 +89,13 @@ export default function AICoachScreen() {
   const startLearn = () => { nav.goBack(); nav.navigate('Quiz', { review: true }); };
 
   const cat = t(d.weakest.labelKey);
+  const strong = t(d.strongest.labelKey);
+  // コーチの締めの一言。実データ(この7日の伸び・予想得点・弱点・次の目標・得意)を織り込んだ長めの励まし。
+  const coachMsg =
+    `この7日で${d.wg > 0 ? `${d.wg}語ふえて、` : 'コツコツ積み上げて、'}予想得点はいま${scorePct}%。合格ラインの${goalPct}%まで、道のりは着実に縮まっています。` +
+    `いちばん伸びしろが大きいのは「${cat}」です。ここは弱点であると同時に、いちばん点数が動く場所。ひとつ埋めるたびに、予想得点が面白いほど上がっていきます。` +
+    (d.nextGoal ? `まずは「${t(d.nextGoal.labelKey)}」を あと${d.nextGoal.remain}語 で ${d.nextGoal.goal}語 まで。小さな区切りを越えるたびに、自信がひとつずつ積み上がります。` : '') +
+    `「${strong}」が得意なあなたなら、弱点にもきっと追いつけます。今日は「${cat}」をほんの少しだけ。焦らず、毎日の一歩を積み重ねていきましょう。`;
   // 予想得点リングの左横に出す自分のアバター(立ち絵)。未選択時は出さない。
   const myAvatar = avatarOf(state.settings.avatar).image;
 
@@ -279,7 +286,7 @@ export default function AICoachScreen() {
         {/* コーチの一言(締め) */}
         <View style={s.voice}>
           <View style={s.voiceB}><Text style={s.voiceBt}>◇</Text></View>
-          <Text style={s.voiceT}>着実に前進しています。今日は「{cat}」を少し。弱点がひとつ埋まるたび、予想得点は面白いほど動きます。</Text>
+          <Text style={s.voiceT}>{coachMsg}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -351,7 +358,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   heroInner: { padding: spacing.md },
   heroCenter: { alignItems: 'center', gap: 6, marginBottom: spacing.sm },
   heroRingRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 4 },
-  heroAvatar: { width: 84, height: 126, marginLeft: -8 }, // リングの左横。立ち絵(縦長)。
+  heroAvatar: { width: 140, height: 150, marginLeft: -6 }, // リングの左横。立ち絵。リング(150)より少し小さいくらい。
 
   ringLevel: { paddingHorizontal: 7, paddingVertical: 1, borderRadius: 5, marginBottom: 3 },
   ringLevelT: { color: '#fff', fontSize: 10, fontWeight: '900', letterSpacing: 0.5 },

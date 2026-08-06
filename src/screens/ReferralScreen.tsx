@@ -3,13 +3,15 @@
 // 演出強化: コードはギフトチケット風＋淡い発光の呼吸、受け取り時はお祝い、ごほうびの予感カード。
 // もらえる条件はあえて明記しない(曖昧化)＝純粋に続ける人が自然にごほうびを得る／Pro目当てだけを寄せ付けない。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, TextInput, Share, ActivityIndicator, Animated } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, TextInput, Share, ActivityIndicator, Animated, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
 import { getMyCode } from '../referral/referralClient';
+
+const ENTRANCE = require('../../assets/referral/entrance.png'); // 紹介の入口=多様な学習者が一緒に学ぶ絵
 
 export default function ReferralScreen() {
   const t = useT();
@@ -73,9 +75,9 @@ export default function ReferralScreen() {
           </Pressable>
         </View>
 
-        {/* 見出し=誘いたくなるお祝い感 */}
+        {/* 見出し=みんなで日本語を学ぼう(多様な学習者の入口絵) */}
         <View style={s.hero}>
-          <Text style={s.heroEmoji}>🌸</Text>
+          <Image source={ENTRANCE} style={s.heroImg} resizeMode="cover" />
           <Text style={s.heroTitle}>{t('referral.headline')}</Text>
           <Text style={s.heroSub}>{t('referral.subhead')}</Text>
         </View>
@@ -149,7 +151,8 @@ const makeStyles = (c: ThemeColors) =>
     title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, marginTop: spacing.xs },
     closeX: { fontSize: 30, color: c.mute, fontWeight: '700', paddingHorizontal: spacing.xs },
 
-    hero: { alignItems: 'center', marginTop: spacing.xs, marginBottom: spacing.xs, gap: 4 },
+    hero: { alignItems: 'center', marginTop: spacing.xs, marginBottom: spacing.xs, gap: 8 },
+    heroImg: { width: 232, height: 232, borderRadius: 20, marginBottom: 2 },
     heroEmoji: { fontSize: 40 },
     heroTitle: { fontSize: ty.h2, fontWeight: '900', color: c.ink, lineHeight: 30, textAlign: 'center' },
     heroSub: { fontSize: ty.body, fontWeight: '700', color: c.ink2, lineHeight: 22, textAlign: 'center' },

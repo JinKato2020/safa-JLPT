@@ -14,7 +14,8 @@ import { useT } from '../i18n';
 
 const MOCK_TICKET_ID = 'tool_mock_ticket';
 
-const BANNER = require('../../assets/shop/shop_banner.png');
+const BANNER_DAY = require('../../assets/shop/shop_banner_day.png');
+const BANNER_NIGHT = require('../../assets/shop/shop_banner_night.png');
 
 // ショップのカテゴリタブ。順=髪型/筆/民族衣装/道具/仲間。各タブは単一種別なので小見出しは不要。
 const TABS: { key: string; labelKey: string; match: (i: ShopItem) => boolean }[] = [
@@ -52,6 +53,7 @@ export default function ShopScreen() {
   // アイテム名はi18n(shop.name_<id>)で解決。未登録キーはデータのnameにフォールバック。
   const nameOf = (i: ShopItem) => { const k = 'shop.name_' + i.id; const v = t(k); return v === k ? i.name : v; };
   const points = walletPoints(state);
+  const isDay = (() => { const h = new Date().getHours(); return h >= 6 && h < 18; })(); // 上部バナーを昼/夜で使い分け
   const ownedItem = (i: ShopItem) => isOwned(state, i.id);
   const equippedItem = (i: ShopItem) => isEquipped(state, { id: i.id, kind: i.kind });
   const canBuyItem = (i: ShopItem) => !ownedItem(i) && (devUnlimited || points >= i.price);
@@ -80,11 +82,11 @@ export default function ShopScreen() {
     equipItem({ id: i.id, kind: i.kind });                         // 着せ替え/仲間=装備
   };
   const statusOf = (i: ShopItem) =>
-    i.id === MOCK_TICKET_ID ? (ticketFull ? t('shop.st_max') : canBuyTicket ? `🌸 ${MOCK_TICKET_PRICE}` : t('shop.st_insufficient'))
+    i.id === MOCK_TICKET_ID ? (ticketFull ? t('shop.st_max') : canBuyTicket ? `🐚 ${MOCK_TICKET_PRICE}` : t('shop.st_insufficient'))
       : equippedItem(i) ? t('shop.st_equipped')
         : ownedItem(i) ? (i.kind === 'tool' ? t('shop.st_owned') : t('shop.st_equip'))
           : i.price === 0 ? t('shop.st_get')
-            : canBuyItem(i) ? `🌸 ${i.price}` : t('shop.st_insufficient');
+            : canBuyItem(i) ? `🐚 ${i.price}` : t('shop.st_insufficient');
   const disabled = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? !canBuyTicket : equippedItem(i) || (ownedItem(i) && i.kind === 'tool') || (!ownedItem(i) && !canBuyItem(i)));
   const pill = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.pillBuy : ticketFull ? s.pillOwn : s.pillNo) : equippedItem(i) ? s.pillOn : ownedItem(i) ? s.pillOwn : canBuyItem(i) ? s.pillBuy : s.pillNo);
   const pillTxt = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.txtBuy : ticketFull ? s.txtOwn : s.txtNo) : equippedItem(i) ? s.txtOn : ownedItem(i) ? s.txtOwn : canBuyItem(i) ? s.txtBuy : s.txtNo);
@@ -114,10 +116,10 @@ export default function ShopScreen() {
 
   return (
     <View style={s.c}>
-      <ImageBackground source={BANNER} style={{ height: bannerH }} resizeMode="cover">
+      <ImageBackground source={isDay ? BANNER_DAY : BANNER_NIGHT} style={{ height: bannerH }} resizeMode="cover">
         <SafeAreaView edges={['top']}>
           <View style={s.top}>
-            <View style={s.bal}><Text style={s.balIco}>🌸</Text><Text style={s.balN}>{points.toLocaleString()}</Text><Text style={s.balL}>{t('shop.points_label')}</Text></View>
+            <View style={s.bal}><Text style={s.balIco}>🐚</Text><Text style={s.balN}>{points.toLocaleString()}</Text><Text style={s.balL}>{t('shop.points_label')}</Text></View>
             <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.x}><Text style={s.xTxt}>×</Text></Pressable>
           </View>
         </SafeAreaView>

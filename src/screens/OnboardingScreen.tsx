@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, ImageBackground, Switch, Animated, Image, TextInput, useWindowDimensions } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, ImageBackground, Switch, Animated, Image, TextInput, Modal, useWindowDimensions } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Defs, LinearGradient, Stop, Rect } from 'react-native-svg';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -50,6 +50,7 @@ export default function OnboardingScreen() {
   const [country, setCountry] = useState<string>(() => detectCountry());
   const [personality, setPersonality] = useState<string>(PERSONALITIES[0].key); // 性格(20種)
   const [moodMsg, setMoodMsg] = useState<string>(MOOD_MESSAGES[0].key);          // ムードメッセージ(20種)
+  const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood'>(null); // タップで開くリスト選択
   const [level, setLevel] = useState<Level>('N4');                // 2段目: JLPTのみ級指定
   const [examDate, setExamDate] = useState<string | null>(exams[0] ?? null); // 受験予定日=既定は直近のJLPT
   const [reminderOn, setReminderOn] = useState(false);            // 毎日のリマインド(任意)
@@ -174,33 +175,50 @@ export default function OnboardingScreen() {
           </View>
 
           <Text style={s.label}>性格</Text>
-          <View style={s.personaWrap}>
-            {PERSONALITIES.map((p) => {
-              const on = personality === p.key;
-              return (
-                <Pressable key={p.key} onPress={() => setPersonality(p.key)} style={[s.pChip, on && s.chipOn]}>
-                  <Text style={[s.pChipTxt, on && s.chipTxtOn]}>{p.emoji} {p.label}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
+          <Pressable style={s.pickField} onPress={() => setPickerOpen('personality')}>
+            <Text style={s.pickFieldTxt}>{(() => { const p = PERSONALITIES.find((x) => x.key === personality); return p ? `${p.emoji} ${p.label}` : '選ぶ'; })()}</Text>
+            <Text style={s.pickCaret}>▾</Text>
+          </Pressable>
 
           <Text style={s.label}>ムードメッセージ（いまの気分）</Text>
-          <View style={s.personaWrap}>
-            {MOOD_MESSAGES.map((m) => {
-              const on = moodMsg === m.key;
-              return (
-                <Pressable key={m.key} onPress={() => setMoodMsg(m.key)} style={[s.pChip, on && s.chipOn]}>
-                  <Text style={[s.pChipTxt, on && s.chipTxtOn]}>{m.text}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
+          <Pressable style={s.pickField} onPress={() => setPickerOpen('mood')}>
+            <Text style={s.pickFieldTxt}>{MOOD_MESSAGES.find((x) => x.key === moodMsg)?.text ?? '選ぶ'}</Text>
+            <Text style={s.pickCaret}>▾</Text>
+          </Pressable>
 
           <Pressable style={[s.cta, !canGo && s.ctaOff]} disabled={!canGo} onPress={() => setPending(true)}>
             <Text style={[s.ctaTxt, !canGo && s.ctaOffTxt]}>{t('onboarding.start')}</Text>
           </Pressable>
         </ScrollView>
+
+        {/* 性格/ムードのリスト選択(タップで開く) */}
+        <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
+          <Pressable style={s.pickBackdrop} onPress={() => setPickerOpen(null)} />
+          <View style={s.pickSheet}>
+            <Text style={s.pickTitle}>{pickerOpen === 'personality' ? '性格を選ぶ' : 'ムードメッセージを選ぶ'}</Text>
+            <ScrollView style={{ maxHeight: Math.round(H * 0.5) }} contentContainerStyle={{ paddingBottom: 8 }}>
+              {pickerOpen === 'personality'
+                ? PERSONALITIES.map((p) => {
+                    const on = personality === p.key;
+                    return (
+                      <Pressable key={p.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setPersonality(p.key); setPickerOpen(null); }}>
+                        <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{p.emoji} {p.label}</Text>
+                        {on && <Text style={s.pickCheck}>✓</Text>}
+                      </Pressable>
+                    );
+                  })
+                : MOOD_MESSAGES.map((m) => {
+                    const on = moodMsg === m.key;
+                    return (
+                      <Pressable key={m.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setMoodMsg(m.key); setPickerOpen(null); }}>
+                        <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{m.text}</Text>
+                        {on && <Text style={s.pickCheck}>✓</Text>}
+                      </Pressable>
+                    );
+                  })}
+            </ScrollView>
+          </View>
+        </Modal>
       </SafeAreaView>
     );
   }
@@ -339,6 +357,17 @@ const makeStyles = (c: ThemeColors) =>
     personaWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.sm },
     pChip: { borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, borderRadius: radius.pill, paddingVertical: 6, paddingHorizontal: 11 },
     pChipTxt: { fontSize: ty.small, color: c.ink, fontWeight: '700' },
+    pickField: { marginTop: spacing.sm, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, borderRadius: radius.lg, paddingVertical: 12, paddingHorizontal: 14 },
+    pickFieldTxt: { fontSize: ty.body, color: c.ink, fontWeight: '700' },
+    pickCaret: { fontSize: 14, color: c.mute, fontWeight: '900' },
+    pickBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
+    pickSheet: { backgroundColor: c.bg, borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 16, paddingTop: 14, paddingBottom: 24 },
+    pickTitle: { fontSize: ty.body, fontWeight: '900', color: c.ink, marginBottom: 10, textAlign: 'center' },
+    pickRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 13, paddingHorizontal: 14, borderRadius: radius.lg, marginBottom: 4 },
+    pickRowOn: { backgroundColor: c.blueLight },
+    pickRowTxt: { fontSize: ty.body, color: c.ink, fontWeight: '700' },
+    pickRowTxtOn: { color: c.blue, fontWeight: '900' },
+    pickCheck: { fontSize: 16, color: c.blue, fontWeight: '900' },
     avEmoji: { fontSize: 30 },
     flagWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.sm },
     flagChip: { flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, borderRadius: radius.pill, paddingVertical: 6, paddingHorizontal: 10 },

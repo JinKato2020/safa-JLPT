@@ -12,8 +12,7 @@ import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
 import { useAppState } from '../store/store';
 import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
-import { moodOf, toeicEquiv, moodLineOf } from '../plaza/moods';
-import { personalityOf, moodMsgOf } from '../plaza/persona';
+import { personalityOf, moodMsgOf, personaLineOf } from '../plaza/persona';
 
 type Dir = 'down' | 'up' | 'left' | 'right' | 'downleft' | 'downright' | 'upleft' | 'upright';
 // 各方向 [両足立ち, 右足前, 左足前]。歩行時に 立ち→右→立ち→左 で切り替え=歩いて見える。
@@ -401,11 +400,12 @@ export default function KotobaTownScreen() {
   const npcPos = useRef<Record<string, { x: number; y: number }>>({}).current;
   const [talk, setTalk] = useState<VirtualLearner | null>(null);
   const [sent, setSent] = useState<{ emoji: string; reply: string } | null>(null);
+  const [talkStep, setTalkStep] = useState<'info' | 'message'>('info'); // info=台詞+ステータス / message=メッセージ送信
   const talkRef = useRef<VirtualLearner | null>(null);
   const talkArmed = useRef(true);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const openTalk = (v: VirtualLearner) => { talkRef.current = v; setSent(null); setTalk(v); };
-  const closeTalk = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } talkRef.current = null; setTalk(null); setSent(null); };
+  const openTalk = (v: VirtualLearner) => { talkRef.current = v; setSent(null); setTalkStep('info'); setTalk(v); };
+  const closeTalk = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } talkRef.current = null; setTalk(null); setSent(null); setTalkStep('info'); };
   const sendCheer = (c: { emoji: string; reply: string }) => {
     setSent({ emoji: c.emoji, reply: c.reply });
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -594,6 +594,12 @@ export default function KotobaTownScreen() {
           <View style={s.pill}><Text style={s.pillT}>日本語学習者の町</Text></View>
           <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.close}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
         </View>
+        {/* 友だちを招待(みんなで学ぼう)。町=社交の世界観に最も合う入口。押すと紹介画面へ。 */}
+        <View style={s.inviteRow} pointerEvents="box-none">
+          <Pressable style={s.inviteBtn} onPress={() => nav.navigate('Referral')}>
+            <Text style={s.inviteT}>🎁 友だちを招待</Text>
+          </Pressable>
+        </View>
       </SafeAreaView>
 
       {/* 操作(アナログスティック・斜めOK)。会話中は"消さずに"隠して触れなくする(アンマウントすると指を離す前に
@@ -609,8 +615,9 @@ export default function KotobaTownScreen() {
       {/* 仮想学習者との会話(ノベル風・立ち絵フルスクリーン)。町を暗く残し、大きな立ち絵＋名前プレート＋セリフ窓。 */}
       {talk && (() => {
         const SET = AVATAR_SETS[talk.avatar] || HERO;
-        const standH = Math.min(250, Math.round(VH * 0.42));
-        const md = moodOf(talk.mood);
+        const standH = Math.min(200, Math.round(VH * 0.30));
+        const per = personalityOf(talk.personality);
+        const mm = moodMsgOf(talk.moodMsg);
         return (
           <View style={s.nvWrap}>
             <Pressable style={StyleSheet.absoluteFill} onPress={closeTalk} />
@@ -620,48 +627,66 @@ export default function KotobaTownScreen() {
               <View style={s.nvStandWrap} pointerEvents="none">
                 <Image source={SET.down[0]} style={{ width: standH, height: standH }} resizeMode="contain" />
               </View>
-              {moodMsgOf(talk.moodMsg) ? (
-                <View style={s.nvMoodMsg}><Text style={s.nvMoodMsgT}>💭 {moodMsgOf(talk.moodMsg)}</Text></View>
-              ) : null}
-              <View style={s.nvPlate}>
-                <Text style={s.nvName}>{talk.flag} {talk.nick}</Text>
-                <View style={s.lvlBadge}><Text style={s.lvlBadgeT}>{talk.level}</Text></View>
-                {personalityOf(talk.personality) ? (
-                  <Text style={s.nvPersona}>{personalityOf(talk.personality)!.emoji} {personalityOf(talk.personality)!.label}</Text>
-                ) : null}
-              </View>
-              <View style={s.nvBox}>
-                {sent ? (
-                  <View style={s.sentBox}>
-                    <Text style={s.sentEmoji}>{sent.emoji}</Text>
-                    <Text style={s.sentT}>応援を送りました！</Text>
-                    <Text style={s.sentReply}>{talk.nick}「{sent.reply}」</Text>
-                  </View>
-                ) : (
-                  <>
+
+              {talkStep === 'message' ? (
+                /* メッセージ送信画面 */
+                <View style={s.nvBox}>
+                  {sent ? (
+                    <View style={s.sentBox}>
+                      <Text style={s.sentEmoji}>{sent.emoji}</Text>
+                      <Text style={s.sentT}>応援を送りました！</Text>
+                      <Text style={s.sentReply}>{talk.nick}「{sent.reply}」</Text>
+                    </View>
+                  ) : (
+                    <>
+                      <Text style={s.nvMsgTitle}>{talk.nick}にメッセージを送る</Text>
+                      <View style={s.nvPills}>
+                        {CHEERS.map((c) => (
+                          <Pressable key={c.key} style={s.nvPill} onPress={() => sendCheer(c)}>
+                            <Text style={s.nvPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
+                          </Pressable>
+                        ))}
+                      </View>
+                      <Pressable style={s.nvBack} onPress={() => setTalkStep('info')}><Text style={s.nvBackT}>‹ 戻る</Text></Pressable>
+                    </>
+                  )}
+                </View>
+              ) : (
+                <>
+                  {/* 台詞(アバターのセリフだけ) */}
+                  <View style={s.nvSayBox}>
+                    <Text style={s.nvSayName}>{talk.flag} {talk.nick}</Text>
                     <Text style={s.nvText}>
                       やあ、{talk.nick}だよ！{'\n'}
                       {talk.studying ? <>いまは<Text style={s.nvEm}>「{talk.studying}」</Text>を特訓中。</> : null}
                       {talk.weekLearned ? <>この7日で<Text style={s.nvEm}>{talk.weekLearned}語</Text>おぼえたよ。</> : null}
-                      {moodLineOf(talk.mood)}
+                      {personaLineOf(talk.personality)}
                     </Text>
-                    <View style={s.nvChips}>
-                      <View style={s.nvChip}><Text style={s.nvChipT}>🔥 連続<Text style={s.nvChipEm}>{talk.streak}</Text>日</Text></View>
-                      <View style={s.nvChip}><Text style={s.nvChipT}>🎯 TOEIC<Text style={s.nvChipEm}>約{toeicEquiv(talk.level)}</Text></Text></View>
-                      <View style={s.nvChip}><Text style={s.nvChipT}>{md.emoji} <Text style={s.nvChipEm}>{md.label}</Text></Text></View>
-                      {talk.learned ? <View style={s.nvChip}><Text style={s.nvChipT}>📖 <Text style={s.nvChipEm}>{talk.learned}</Text>語</Text></View> : null}
-                      {talk.strong ? <View style={s.nvChip}><Text style={s.nvChipT}>🌟 <Text style={s.nvChipEm}>{talk.strong}</Text>が得意</Text></View> : null}
+                  </View>
+
+                  {/* ステータス(台詞とは別枠) */}
+                  <View style={s.nvStatus}>
+                    <Text style={s.nvStatusTitle}>ステータス</Text>
+                    <View style={s.nvStatRows}>
+                      <View style={s.nvStatRow}><Text style={s.nvStatK}>名前</Text><Text style={s.nvStatV}>{talk.nick}</Text></View>
+                      <View style={s.nvStatRow}><Text style={s.nvStatK}>国</Text><Text style={s.nvStatV}>{talk.flag}</Text></View>
+                      <View style={s.nvStatRow}><Text style={s.nvStatK}>レベル</Text><Text style={s.nvStatV}>{talk.level}</Text></View>
+                      {per ? <View style={s.nvStatRow}><Text style={s.nvStatK}>性格</Text><Text style={s.nvStatV}>{per.emoji} {per.label}</Text></View> : null}
+                      <View style={s.nvStatRow}><Text style={s.nvStatK}>連続</Text><Text style={s.nvStatV}>🔥 {talk.streak}日</Text></View>
+                      {talk.strong ? <View style={s.nvStatRow}><Text style={s.nvStatK}>得意</Text><Text style={s.nvStatV}>🌟 {talk.strong}</Text></View> : null}
+                      {talk.learned ? <View style={s.nvStatRow}><Text style={s.nvStatK}>覚えた語</Text><Text style={s.nvStatV}>📖 {talk.learned}語</Text></View> : null}
+                      {mm ? <View style={s.nvStatRow}><Text style={s.nvStatK}>気分</Text><Text style={s.nvStatV}>💭 {mm}</Text></View> : null}
                     </View>
-                    <View style={s.nvPills}>
-                      {CHEERS.map((c) => (
-                        <Pressable key={c.key} style={s.nvPill} onPress={() => sendCheer(c)}>
-                          <Text style={s.nvPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
-                        </Pressable>
-                      ))}
-                    </View>
-                  </>
-                )}
-              </View>
+                  </View>
+
+                  {/* メッセージ送信画面へ */}
+                  <View style={s.nvSendWrap}>
+                    <Pressable style={s.nvSendBtn} onPress={() => setTalkStep('message')}>
+                      <Text style={s.nvSendT}>✉️ メッセージを送る</Text>
+                    </Pressable>
+                  </View>
+                </>
+              )}
             </View>
           </View>
         );
@@ -697,6 +722,9 @@ const s = StyleSheet.create({
   pill: { backgroundColor: 'rgba(255,253,248,0.9)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7 },
   pillT: { fontSize: 13, fontWeight: '900', color: '#3a3128' },
   close: { width: 38, height: 38, borderRadius: 19, backgroundColor: 'rgba(255,253,248,0.9)', alignItems: 'center', justifyContent: 'center' },
+  inviteRow: { paddingHorizontal: 12, marginTop: 4, alignItems: 'flex-start' },
+  inviteBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#e2588f', borderRadius: 999, paddingVertical: 8, paddingHorizontal: 15, borderWidth: 2, borderColor: '#ffffff', shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
+  inviteT: { color: '#ffffff', fontWeight: '900', fontSize: 13, letterSpacing: 0.3 },
   bottom: { position: 'absolute', left: 0, right: 0, bottom: 0 },
   stickWrap: { paddingBottom: 26 }, // 左右はhandedで付与(右利き=右)
   stickBase: { width: STICK_R * 2, height: STICK_R * 2, borderRadius: STICK_R, backgroundColor: 'rgba(58,49,40,0.28)', borderWidth: 2, borderColor: 'rgba(255,255,255,0.35)', alignItems: 'center', justifyContent: 'center' },
@@ -743,6 +771,22 @@ const s = StyleSheet.create({
   nvPersona: { color: '#ffd76b', fontWeight: '800', fontSize: 12, marginLeft: 2 },
   nvBox: { marginHorizontal: 12, backgroundColor: '#0b1230', borderWidth: 3, borderColor: '#ffffff', borderRadius: 14, padding: 14, zIndex: 3 },
   nvText: { color: '#eef2ff', fontSize: 15, lineHeight: 25, fontWeight: '600' },
+  // 台詞ブロック
+  nvSayBox: { marginHorizontal: 12, marginBottom: 8, backgroundColor: '#0b1230', borderWidth: 3, borderColor: '#ffffff', borderRadius: 14, padding: 13, zIndex: 3 },
+  nvSayName: { color: '#ffd76b', fontWeight: '900', fontSize: 14, marginBottom: 5 },
+  // ステータスブロック(台詞とは別枠)
+  nvStatus: { marginHorizontal: 12, marginBottom: 8, backgroundColor: 'rgba(23,32,84,0.96)', borderWidth: 1.5, borderColor: '#3c4c96', borderRadius: 14, paddingHorizontal: 12, paddingVertical: 10, zIndex: 3 },
+  nvStatusTitle: { color: '#9fb0ec', fontSize: 11, fontWeight: '900', letterSpacing: 1, marginBottom: 7 },
+  nvStatRows: { flexDirection: 'row', flexWrap: 'wrap' },
+  nvStatRow: { width: '50%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 3, paddingRight: 10 },
+  nvStatK: { color: '#8f9ed6', fontSize: 11.5, fontWeight: '700' },
+  nvStatV: { color: '#ffffff', fontSize: 12.5, fontWeight: '800', flexShrink: 1, textAlign: 'right', marginLeft: 6 },
+  nvSendWrap: { marginHorizontal: 12, zIndex: 3 },
+  nvSendBtn: { backgroundColor: '#e2588f', borderRadius: 999, borderWidth: 2, borderColor: '#ffffff', paddingVertical: 13, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
+  nvSendT: { color: '#ffffff', fontWeight: '900', fontSize: 15, letterSpacing: 0.5 },
+  nvMsgTitle: { color: '#ffffff', fontWeight: '900', fontSize: 15, marginBottom: 10, textAlign: 'center' },
+  nvBack: { alignSelf: 'center', marginTop: 12, paddingVertical: 6, paddingHorizontal: 16 },
+  nvBackT: { color: '#9fb0ec', fontWeight: '800', fontSize: 14 },
   nvEm: { color: '#ffd76b', fontWeight: '900' },
   nvChips: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 12 },
   nvChip: { backgroundColor: '#182357', borderWidth: 1, borderColor: '#3c4c96', borderRadius: 7, paddingHorizontal: 8, paddingVertical: 3 },
