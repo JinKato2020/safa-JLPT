@@ -42,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/screens/KotobaTownScreen.tsx
-- src/plaza/virtualLearners.ts
-- memory/session-summary-LATEST.md
-- memory/handoff.md
-- 画像/MAP/正方形 夜夏MAP.jpg
-- src/data/vocabAudio.ts
-- src/screens/ListeningScreen.tsx
-- src/screens/AICoachScreen.tsx
+- assets/kotoba/hero_f/upleft_l.png
+- assets/kotoba/hero_f/upleft_r.png
+- assets/kotoba/hero_f/upleft.png
+- assets/kotoba/hero_f/upright_l.png
+- assets/kotoba/hero_f/upright_r.png
+- assets/kotoba/hero_f/upright.png
+- assets/kotoba/hero_f/downright_l.png
+- assets/kotoba/hero_f/downright_r.png
 
-_自動更新: 2026-08-06 19:30_
+_自動更新: 2026-08-06 22:24_
 <!-- AUTO:END -->

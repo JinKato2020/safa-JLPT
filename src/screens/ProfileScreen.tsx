@@ -25,6 +25,9 @@ import { useSync } from '../auth/SyncProvider';
 import { deleteAccount } from '../auth/authClient';
 import { proStatus } from '../pro/entitlement';
 import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
+import { MOODS, toeicEquiv } from '../plaza/moods';
+
+const STUDY_FIELDS = ['漢字', '語彙', '文法', '読解', '聴解'];
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -294,6 +297,38 @@ export default function ProfileScreen() {
             })}
           </View>
           <Text style={s.subtle}>日本語学習者の町で、移動スティックを画面のどちら側に置くかを選べます。</Text>
+        </View>
+
+        {/* 町のアバターに表示するプロフィール(定型から選ぶだけ・自由入力なし)。話しかけた相手に見える。 */}
+        <View style={s.card}>
+          <Text style={s.setLbl}>町のアバターのプロフィール</Text>
+          <Text style={s.subtle}>友だちが町であなたに話しかけると見えます。決まった選択肢から選ぶだけ（自由入力なし）。</Text>
+
+          <Text style={[s.setLbl, { fontSize: ty.small, marginTop: spacing.md }]}>いま勉強している分野</Text>
+          <View style={s.chipRow}>
+            {STUDY_FIELDS.map((f) => {
+              const on = state.settings.studying === f;
+              return (
+                <Pressable key={f} onPress={() => setSettings({ studying: on ? undefined : f })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{f}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={[s.setLbl, { fontSize: ty.small, marginTop: spacing.md }]}>努力タイプ（ムード）</Text>
+          <View style={s.chipRow}>
+            {MOODS.map((m) => {
+              const on = state.settings.mood === m.key;
+              return (
+                <Pressable key={m.key} onPress={() => setSettings({ mood: m.key })} style={[s.chip, on && s.chipOn]}>
+                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{m.emoji} {m.label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={[s.subtle, { marginTop: spacing.sm }]}>実力のめやす：あなたの級（{state.settings.level}）は TOEICなら 約{toeicEquiv(state.settings.level)}点くらい。</Text>
         </View>
 
         {/* 漢字書き取りの設定(グリッド/速度/読み上げ)は「漢字書き取り」画面内へ移設。 */}

@@ -1,6 +1,6 @@
-// 桜の吹き出し。ホーム常駐中、約5時間に1度だけ、そっと励まし・応援の一言を出す。
+// 桜の吹き出し。ホーム常駐中、約30分に1度だけ、そっと励まし・応援の一言を出す。
 //  ・寄り添い口調=AIコーチ風ではない(voice.ts の daily＋季節/時間flavor)。数字/日付/合否/願い/物語世界(かけら)は言わない。
-//  ・前回表示から5時間たっていれば、ホームを開いて数秒後に1回だけ出す→約11秒で自然に消える。タップでも即消える。
+//  ・前回表示から30分たっていれば、ホームを開いて数秒後に1回だけ出す→約11秒で自然に消える。タップでも即消える。
 //  ・付与・課金・出題ロジックには一切触れない。分析・アドバイスは別空間(ご褒美/AIコーチ)が担当。
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
@@ -9,7 +9,7 @@ import { useAppState, useAppActions } from '../store/store';
 import type { AppState } from '../store/state';
 import { composeVoice } from '../story/voice';
 
-const MIN_GAP_MS = 5 * 60 * 60 * 1000; // 5時間に1度くらい(ユーザー方針 2026-07-31)
+const MIN_GAP_MS = 30 * 60 * 1000;     // 30分に1度くらい(ユーザー方針 2026-08-06)
 const INITIAL_MS = 3500;               // ホームに着いて少し落ち着いてから
 const SHOW_MS = 11_000;                // 表示時間(タップでも即消える)
 
