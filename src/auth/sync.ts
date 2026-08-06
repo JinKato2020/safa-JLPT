@@ -1,7 +1,23 @@
 // 同期の純粋ロジック(Supabaseクライアントを import しない=node テスト可)。
-import type { AppState } from '../store/state';
+import type { AppState, Settings } from '../store/state';
 
 export const SYNC_TABLE = 'user_state';
+
+// 復元(restore)で「上書きしてはいけない」プロフィール/アイデンティティ項目。
+// 旧いバックアップ(=アバター機能より前)を復元すると、これらが欠けていてアバターが既定(男の子1)に戻る事故があった。
+// リモートに値が在ればリモート優先(=正しく引き継ぎ)。リモートに"無い項目だけ"ローカルを残す。
+const PROFILE_KEYS: (keyof Settings)[] = ['nickname', 'country', 'gender', 'avatar', 'handed', 'mood', 'studying', 'personality', 'moodMsg'];
+
+/** 復元するリモート state に、リモート側で欠けているプロフィール項目だけローカルから補完して返す(純関数・入力は不変)。 */
+export function mergeRestoredState(local: AppState, remote: AppState): AppState {
+  const settings: Settings = { ...remote.settings };
+  for (const k of PROFILE_KEYS) {
+    if (settings[k] === undefined && local.settings?.[k] !== undefined) {
+      Object.assign(settings, { [k]: local.settings[k] });
+    }
+  }
+  return { ...remote, settings };
+}
 
 /** LWW: リモートが厳密に新しい時だけ remote。無い/同値/古い時は local。 */
 export function chooseNewer(local: AppState, remote: AppState | null): 'local' | 'remote' {

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { chooseNewer, decideLoginSync } from './sync';
+import { chooseNewer, decideLoginSync, mergeRestoredState } from './sync';
 import { INITIAL_STATE, type AppState } from '../store/state';
 
 const at = (ts?: number): AppState => ({ ...INITIAL_STATE, updatedAt: ts });
@@ -37,4 +37,21 @@ test('実データあり(ディスク復元済)は LWW', () => {
   assert.equal(decideLoginSync(at(300), at(200), true), 'push');    // ローカルが新しい
   assert.equal(decideLoginSync(at(100), at(200), true), 'restore'); // リモートが新しい
   assert.equal(decideLoginSync(at(200), at(200), true), 'push');    // 同値は既存(ローカル)優先
+});
+
+// --- mergeRestoredState: 復元時のプロフィール補完(アバターが男の子1に戻らない) ---
+const withSettings = (s: Partial<AppState['settings']>): AppState => ({ ...INITIAL_STATE, settings: { ...INITIAL_STATE.settings, ...s } });
+
+test('リモートにアバターが無ければローカルのアバターを残す(古いバックアップ対策)', () => {
+  const local = withSettings({ avatar: 'm_boy3', nickname: 'エリック', personality: 'majime' });
+  const remote = withSettings({}); // 旧バックアップ=avatar等が無い
+  const merged = mergeRestoredState(local, remote);
+  assert.equal(merged.settings.avatar, 'm_boy3');
+  assert.equal(merged.settings.nickname, 'エリック');
+  assert.equal(merged.settings.personality, 'majime');
+});
+test('リモートにアバターが在ればリモート優先(=正しく引き継ぐ)', () => {
+  const local = withSettings({ avatar: 'm_boy3' });
+  const remote = withSettings({ avatar: 'f_g2' });
+  assert.equal(mergeRestoredState(local, remote).settings.avatar, 'f_g2');
 });

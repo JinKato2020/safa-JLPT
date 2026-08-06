@@ -15,7 +15,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { isInMyList, dayStr } from '../store/state';
 import { recordQualifyingDay, isTriggerMet } from '../referral/trigger';
 import { reportQualified, getDeviceRef } from '../referral/referralClient';
-import { composeVoice } from '../story/voice';
+import { composeVoice, pickFlavor } from '../story/voice';
 import { pickAfterStudyImage } from '../data/afterStudyArt';
 import { homeStatus } from '../home/homeStatus';
 import RubyText from './RubyText';
@@ -26,6 +26,19 @@ import type { StudiedWord, StudiedQuestion } from '../data/studiedWords';
 export type { StudiedWord } from '../data/studiedWords';
 
 const SHELLS_PER_CORRECT = 2; // 正解1問=2貝・不正解0貝(10問なら満点20貝)
+
+// 学習後の桜コメントの締め(ねぎらい)。基本(core+flavor)にもう1つのflavor＋この締めを重ねて約2倍に伸ばす。
+// 桜の口調=癒し・ねぎらい専用(数字/日付/合否/能力評価は言わない)。
+const AFTER_STUDY_CLOSERS = [
+  '今日のぶん、ちゃんとここに残ったよ。',
+  'よく手を動かしたね。ゆっくり休んでね。',
+  'あなたのペースで大丈夫、あわてないでいいからね。',
+  '一歩ずつでいいの、それで十分だよ。',
+  'また来てくれるのを、待っているね。',
+  'ここまで来たこと、ちゃんとえらいよ。',
+  'ふっと一息ついて、また今度ね。',
+  'あなたの頑張り、そばで見ているからね。',
+];
 
 export default function AfterStudyReward({ words = [], reviewByRef, reviewList, shellsEarned = 0, scored = 0, accuracy, correct, total, mode, seed, review = false }: {
   words?: StudiedWord[];
@@ -95,11 +108,16 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
   const frameW = width - spacing.lg * 2;
   const frameH = Math.min(frameW / aspect, Math.round(height * 0.46));
 
-  // ①桜のねぎらい(session_end)。願い非依存・短い一言。台詞はstory/voice.tsが正本。
-  const line = useMemo(
-    () => composeVoice({ occasion: { kind: 'session_end' }, variant: 'full', now: Date.now(), seed: seedV }).text,
-    [seedV],
-  );
+  // ①桜のねぎらい(session_end)。台詞はstory/voice.tsが正本。従来の約2倍の長さ:
+  //   基本(core+flavor)＋別のflavor＋温かい締め、を重ねる。seedVは整数フォールバックもあるので0..1へ正規化して変化を出す。
+  const line = useMemo(() => {
+    const now = Date.now();
+    const frac = (x: number) => { const v = Math.abs(x) * 0.618033988749895; return v - Math.floor(v); };
+    const res = composeVoice({ occasion: { kind: 'session_end' }, variant: 'full', now, seed: frac(seedV), seedFlavor: frac(seedV + 11) });
+    const extra = pickFlavor(now, frac(seedV + 23), res.ids); // もう1つ別の季節/時間flavor(重複回避)
+    const closer = AFTER_STUDY_CLOSERS[Math.floor(frac(seedV + 41) * AFTER_STUDY_CLOSERS.length)];
+    return [res.text, extra?.text, closer].filter(Boolean).join('') || 'お疲れさま。今日のぶん、ちゃんと残ったよ。';
+  }, [seedV]);
 
   // ③AIコーチ=成長データ中心の励まし＋弱点の冷静分析。到達度%＋一番伸びてる分野＋一番の課題。
   const coach = useMemo(() => {
@@ -124,12 +142,13 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
         </View>
       )}
 
-      {/* ② 獲得した貝(毎回)。獲得桜貝を主役に大きく→正解内訳→(今日はじめてなら)ボーナス＋合計。 */}
+      {/* ② 獲得した貝(毎回)。合計を主役に大きく→正解内訳/ボーナスは小さな数字の小計で下に添える。 */}
       <View style={s.shellCard}>
         <Text style={s.shellHeroIco}>🐚</Text>
+        {/* 合計(=正解ぶん＋ボーナス)を大きく主役に */}
         <View style={s.shellHeroRow}>
           <Text style={s.shellPlus}>＋</Text>
-          <Text style={s.shellHeroN}>{targetShells}</Text>
+          <Text style={s.shellHeroN}>{targetShells + (grantedDaily ? 30 : 0)}</Text>
           <Text style={s.shellHeroUnit}>桜貝</Text>
         </View>
         <Text style={s.shellSub}>
@@ -137,14 +156,15 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
           {acc > 0 ? `（${acc}%）` : ''}
         </Text>
         {grantedDaily ? (
+          /* 小計=小さな数字。正解ぶんと今日はじめてのボーナスの内訳。 */
           <View style={s.shellBreak}>
+            <View style={s.shellBonusRow}>
+              <Text style={s.shellBonusLbl}>正解ぶん（{correctN}問×2）</Text>
+              <Text style={s.shellBonusVal}>＋{targetShells}</Text>
+            </View>
             <View style={s.shellBonusRow}>
               <Text style={s.shellBonusLbl}>今日はじめてのボーナス</Text>
               <Text style={s.shellBonusVal}>＋30</Text>
-            </View>
-            <View style={s.shellTotalRow}>
-              <Text style={s.shellTotalLbl}>合計</Text>
-              <Text style={s.shellTotalVal}>＋{targetShells + 30} 桜貝</Text>
             </View>
           </View>
         ) : (
@@ -260,9 +280,6 @@ const makeStyles = (c: ThemeColors) =>
     shellBonusRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
     shellBonusLbl: { fontSize: ty.small, color: c.ink2, fontWeight: '700' },
     shellBonusVal: { fontSize: ty.small, color: c.blue, fontWeight: '900', fontVariant: ['tabular-nums'] },
-    shellTotalRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
-    shellTotalLbl: { fontSize: ty.small, color: c.ink, fontWeight: '900' },
-    shellTotalVal: { fontSize: ty.body, color: c.blue, fontWeight: '900', fontVariant: ['tabular-nums'] },
     voice: { fontSize: ty.body, fontWeight: '700', color: c.ink, lineHeight: 24, textAlign: 'center', paddingHorizontal: spacing.md },
     listCard: { width: '100%', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: 2 },
     listHead: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: spacing.xs },

@@ -618,6 +618,9 @@ export default function KotobaTownScreen() {
         const standH = Math.min(200, Math.round(VH * 0.30));
         const per = personalityOf(talk.personality);
         const mm = moodMsgOf(talk.moodMsg);
+        const learned = talk.learned ?? 0;
+        const vocabPct = Math.max(8, Math.min(100, Math.round((learned / 2000) * 100)));
+        const streakPct = Math.max(8, Math.min(100, Math.round(((talk.streak ?? 0) / 60) * 100)));
         return (
           <View style={s.nvWrap}>
             <Pressable style={StyleSheet.absoluteFill} onPress={closeTalk} />
@@ -653,9 +656,9 @@ export default function KotobaTownScreen() {
                 </View>
               ) : (
                 <>
-                  {/* 台詞(アバターのセリフだけ) */}
-                  <View style={s.nvSayBox}>
-                    <Text style={s.nvSayName}>{talk.flag} {talk.nick}</Text>
+                  {/* 台詞(アバターのセリフだけ・ステータスと同じRPG枠) */}
+                  <View style={s.rpgCard}>
+                    <View style={s.rpgNamePlate}><Text style={s.rpgNameT}>{talk.flag} {talk.nick}</Text></View>
                     <Text style={s.nvText}>
                       やあ、{talk.nick}だよ！{'\n'}
                       {talk.studying ? <>いまは<Text style={s.nvEm}>「{talk.studying}」</Text>を特訓中。</> : null}
@@ -664,19 +667,45 @@ export default function KotobaTownScreen() {
                     </Text>
                   </View>
 
-                  {/* ステータス(台詞とは別枠) */}
-                  <View style={s.nvStatus}>
-                    <Text style={s.nvStatusTitle}>ステータス</Text>
-                    <View style={s.nvStatRows}>
-                      <View style={s.nvStatRow}><Text style={s.nvStatK}>名前</Text><Text style={s.nvStatV}>{talk.nick}</Text></View>
-                      <View style={s.nvStatRow}><Text style={s.nvStatK}>国</Text><Text style={s.nvStatV}>{talk.flag}</Text></View>
-                      <View style={s.nvStatRow}><Text style={s.nvStatK}>レベル</Text><Text style={s.nvStatV}>{talk.level}</Text></View>
-                      {per ? <View style={s.nvStatRow}><Text style={s.nvStatK}>性格</Text><Text style={s.nvStatV}>{per.emoji} {per.label}</Text></View> : null}
-                      <View style={s.nvStatRow}><Text style={s.nvStatK}>連続</Text><Text style={s.nvStatV}>🔥 {talk.streak}日</Text></View>
-                      {talk.strong ? <View style={s.nvStatRow}><Text style={s.nvStatK}>得意</Text><Text style={s.nvStatV}>🌟 {talk.strong}</Text></View> : null}
-                      {talk.learned ? <View style={s.nvStatRow}><Text style={s.nvStatK}>覚えた語</Text><Text style={s.nvStatV}>📖 {talk.learned}語</Text></View> : null}
-                      {mm ? <View style={s.nvStatRow}><Text style={s.nvStatK}>気分</Text><Text style={s.nvStatV}>💭 {mm}</Text></View> : null}
+                  {/* ステータス(RPG風・台詞とは別枠) */}
+                  <View style={s.rpgCard}>
+                    <View style={s.rpgTop}>
+                      <View style={s.rpgPortrait}>
+                        <Image source={SET.down[0]} style={s.rpgFace} resizeMode="contain" />
+                      </View>
+                      <View style={s.rpgMeta}>
+                        <Text style={s.rpgName} numberOfLines={1}>{talk.flag} {talk.nick}</Text>
+                        {per ? <Text style={s.rpgClass} numberOfLines={1}>{per.emoji} {per.label}</Text> : null}
+                        <View style={s.rpgLvRow}>
+                          <Text style={s.rpgLvLabel}>Lv</Text>
+                          <Text style={s.rpgLvVal}>{talk.level}</Text>
+                        </View>
+                      </View>
                     </View>
+
+                    <View style={s.rpgBar}>
+                      <Text style={s.rpgBarKey}>語彙</Text>
+                      <View style={s.rpgTrack}>
+                        <View style={[s.rpgFill, { width: (`${vocabPct}%` as `${number}%`), backgroundColor: '#37cc74' }]} />
+                        <View style={s.rpgGloss} pointerEvents="none" />
+                        <Text style={s.rpgBarVal}>{learned} 語</Text>
+                      </View>
+                    </View>
+                    <View style={s.rpgBar}>
+                      <Text style={s.rpgBarKey}>連続</Text>
+                      <View style={s.rpgTrack}>
+                        <View style={[s.rpgFill, { width: (`${streakPct}%` as `${number}%`), backgroundColor: '#4aa3ff' }]} />
+                        <View style={s.rpgGloss} pointerEvents="none" />
+                        <Text style={s.rpgBarVal}>{talk.streak} 日</Text>
+                      </View>
+                    </View>
+
+                    {(talk.strong || mm) ? (
+                      <View style={s.rpgNext}>
+                        {talk.strong ? <Text style={s.rpgNextT}>得意 ▸ 🌟 {talk.strong}</Text> : null}
+                        {mm ? <Text style={s.rpgNextT}>気分 ▸ 💭 {mm}</Text> : null}
+                      </View>
+                    ) : null}
                   </View>
 
                   {/* メッセージ送信画面へ */}
@@ -771,16 +800,32 @@ const s = StyleSheet.create({
   nvPersona: { color: '#ffd76b', fontWeight: '800', fontSize: 12, marginLeft: 2 },
   nvBox: { marginHorizontal: 12, backgroundColor: '#0b1230', borderWidth: 3, borderColor: '#ffffff', borderRadius: 14, padding: 14, zIndex: 3 },
   nvText: { color: '#eef2ff', fontSize: 15, lineHeight: 25, fontWeight: '600' },
-  // 台詞ブロック
-  nvSayBox: { marginHorizontal: 12, marginBottom: 8, backgroundColor: '#0b1230', borderWidth: 3, borderColor: '#ffffff', borderRadius: 14, padding: 13, zIndex: 3 },
-  nvSayName: { color: '#ffd76b', fontWeight: '900', fontSize: 14, marginBottom: 5 },
-  // ステータスブロック(台詞とは別枠)
-  nvStatus: { marginHorizontal: 12, marginBottom: 8, backgroundColor: 'rgba(23,32,84,0.96)', borderWidth: 1.5, borderColor: '#3c4c96', borderRadius: 14, paddingHorizontal: 12, paddingVertical: 10, zIndex: 3 },
-  nvStatusTitle: { color: '#9fb0ec', fontSize: 11, fontWeight: '900', letterSpacing: 1, marginBottom: 7 },
-  nvStatRows: { flexDirection: 'row', flexWrap: 'wrap' },
-  nvStatRow: { width: '50%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 3, paddingRight: 10 },
-  nvStatK: { color: '#8f9ed6', fontSize: 11.5, fontWeight: '700' },
-  nvStatV: { color: '#ffffff', fontSize: 12.5, fontWeight: '800', flexShrink: 1, textAlign: 'right', marginLeft: 6 },
+  // RPG風フレーム(青メタルの立体枠)。台詞・ステータス共通の意匠。
+  // ベベル=左上を明色/右下を暗色にして"盛り上がった金属パネル"に見せる(グラデ不要)。
+  rpgCard: { marginHorizontal: 12, marginBottom: 8, zIndex: 3, backgroundColor: '#20295c', borderRadius: 10, borderWidth: 2, borderTopColor: '#8496e0', borderLeftColor: '#8496e0', borderBottomColor: '#0a0f2e', borderRightColor: '#0a0f2e', padding: 11, shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 6, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
+  // 台詞の名前プレート(金文字)
+  rpgNamePlate: { alignSelf: 'flex-start', backgroundColor: '#101740', borderRadius: 6, borderWidth: 1, borderColor: '#4a5aa8', paddingHorizontal: 10, paddingVertical: 3, marginBottom: 8 },
+  rpgNameT: { color: '#ffd76b', fontWeight: '900', fontSize: 14, letterSpacing: 0.3 },
+  // ステータス上段: 顔+名前+職業(性格)+Lv
+  rpgTop: { flexDirection: 'row', alignItems: 'center', marginBottom: 8 },
+  rpgPortrait: { width: 66, height: 66, borderRadius: 8, backgroundColor: '#0c1236', borderWidth: 2, borderTopColor: '#0a0f2e', borderLeftColor: '#0a0f2e', borderBottomColor: '#8496e0', borderRightColor: '#8496e0', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginRight: 12 },
+  rpgFace: { width: 62, height: 62 },
+  rpgMeta: { flex: 1 },
+  rpgName: { color: '#ffd76b', fontWeight: '900', fontSize: 17, letterSpacing: 0.3 },
+  rpgClass: { color: '#b9c6f5', fontWeight: '800', fontSize: 12.5, marginTop: 1 },
+  rpgLvRow: { flexDirection: 'row', alignItems: 'baseline', marginTop: 5 },
+  rpgLvLabel: { color: '#9fb0ec', fontWeight: '900', fontSize: 12, marginRight: 5 },
+  rpgLvVal: { color: '#ffffff', fontWeight: '900', fontSize: 18, letterSpacing: 0.5 },
+  // HP/SP風バー
+  rpgBar: { flexDirection: 'row', alignItems: 'center', marginTop: 6 },
+  rpgBarKey: { width: 34, color: '#9fb0ec', fontSize: 11, fontWeight: '900', letterSpacing: 1 },
+  rpgTrack: { flex: 1, height: 17, borderRadius: 5, backgroundColor: '#0a0f30', borderWidth: 1, borderColor: '#05081f', overflow: 'hidden', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 7 },
+  rpgFill: { position: 'absolute', left: 0, top: 0, bottom: 0, borderRadius: 4 },
+  rpgGloss: { position: 'absolute', left: 0, right: 0, top: 0, height: 7, backgroundColor: 'rgba(255,255,255,0.22)' },
+  rpgBarVal: { color: '#ffffff', fontSize: 10.5, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.9)', textShadowRadius: 2, textShadowOffset: { width: 0, height: 1 } },
+  // Next Base 風の下段(得意/気分)
+  rpgNext: { marginTop: 9, borderTopWidth: 1, borderTopColor: '#3a4790', paddingTop: 7, gap: 2 },
+  rpgNextT: { color: '#c8d2f5', fontSize: 11.5, fontWeight: '800' },
   nvSendWrap: { marginHorizontal: 12, zIndex: 3 },
   nvSendBtn: { backgroundColor: '#e2588f', borderRadius: 999, borderWidth: 2, borderColor: '#ffffff', paddingVertical: 13, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
   nvSendT: { color: '#ffffff', fontWeight: '900', fontSize: 15, letterSpacing: 0.5 },

@@ -13,7 +13,7 @@ import { signUp, signIn, signOut } from '../auth/authClient';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { useAppState, useAppActions } from '../store/store';
-import { avatarOf } from '../plaza/avatars';
+import { avatarOf, AVATARS } from '../plaza/avatars';
 import { flagOf, countryLabel } from '../plaza/countries';
 import { PERSONALITIES, MOOD_MESSAGES, personalityOf, moodMsgOf } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
@@ -35,12 +35,15 @@ export default function AccountScreen() {
   const myAvatarImg = avatarOf(st0.avatar).image;
   const per = personalityOf(st0.personality);
   const moodTxt = moodMsgOf(st0.moodMsg);
-  const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood'>(null);
+  const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'avatar'>(null);
   const profileHeader = (
     <View style={s.profHeader}>
-      {myAvatarImg != null
-        ? <Image source={myAvatarImg} style={s.profAvatar} resizeMode="contain" />
-        : <View style={s.profAvatar} />}
+      <Pressable onPress={() => setPickerOpen('avatar')} style={s.profAvatarWrap} accessibilityLabel="アバターを変更">
+        {myAvatarImg != null
+          ? <Image source={myAvatarImg} style={s.profAvatar} resizeMode="contain" />
+          : <View style={s.profAvatar} />}
+        <View style={s.profAvatarEdit}><Ionicons name="pencil" size={12} color="#fff" /></View>
+      </Pressable>
       <View style={s.profStats}>
         {st0.nickname ? <Text style={s.profName}>{flagOf(st0.country ?? 'XX')} {st0.nickname}</Text> : null}
         <View style={s.profRow}><Text style={s.profK}>レベル</Text><Text style={s.profV}>{st0.level}</Text></View>
@@ -61,9 +64,21 @@ export default function AccountScreen() {
     <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
       <Pressable style={s.pickBackdrop} onPress={() => setPickerOpen(null)} />
       <View style={s.pickSheet}>
-        <Text style={s.pickTitle}>{pickerOpen === 'personality' ? '性格を選ぶ' : 'ムードメッセージを選ぶ'}</Text>
+        <Text style={s.pickTitle}>{pickerOpen === 'avatar' ? 'アバターを選ぶ' : pickerOpen === 'personality' ? '性格を選ぶ' : 'ムードメッセージを選ぶ'}</Text>
         <ScrollView style={{ maxHeight: 380 }} contentContainerStyle={{ paddingBottom: 8 }}>
-          {pickerOpen === 'personality'
+          {pickerOpen === 'avatar' ? (
+            <View style={s.avGrid}>
+              {AVATARS.map((a) => {
+                const on = st0.avatar === a.code;
+                return (
+                  <Pressable key={a.code} style={[s.avCell, on && s.avCellOn]} onPress={() => { setSettings({ avatar: a.code, gender: a.gender }); setPickerOpen(null); }}>
+                    {a.image != null ? <Image source={a.image} style={s.avImg} resizeMode="contain" /> : <Text style={s.avEmoji}>{a.emoji}</Text>}
+                    {on && <View style={s.avCheck}><Text style={s.avCheckT}>✓</Text></View>}
+                  </Pressable>
+                );
+              })}
+            </View>
+          ) : pickerOpen === 'personality'
             ? PERSONALITIES.map((p) => {
                 const on = st0.personality === p.key;
                 return (
@@ -287,7 +302,17 @@ const makeStyles = (c: ThemeColors) =>
     guideFull: { width: 168, height: 230 }, // 全身立ち絵(民族衣装/背負い筆)は縦長(≒864x1184)
     // 最上部プロフィール(アバター左＋ステータス右)
     profHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, marginTop: spacing.sm, marginBottom: spacing.md },
+    profAvatarWrap: { width: 108, height: 116 },
     profAvatar: { width: 108, height: 116 },
+    profAvatarEdit: { position: 'absolute', right: 2, bottom: 2, width: 26, height: 26, borderRadius: 13, backgroundColor: c.blue, borderWidth: 2, borderColor: c.bg, alignItems: 'center', justifyContent: 'center' },
+    // アバター選択グリッド
+    avGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, justifyContent: 'center', paddingVertical: 4 },
+    avCell: { width: 92, height: 100, borderRadius: radius.lg, borderWidth: 2, borderColor: c.line, backgroundColor: c.surface, alignItems: 'center', justifyContent: 'center' },
+    avCellOn: { borderColor: c.blue, backgroundColor: c.blueLight },
+    avImg: { width: 84, height: 92 },
+    avEmoji: { fontSize: 44 },
+    avCheck: { position: 'absolute', right: 4, top: 4, width: 22, height: 22, borderRadius: 11, backgroundColor: c.blue, alignItems: 'center', justifyContent: 'center' },
+    avCheckT: { color: '#fff', fontSize: 13, fontWeight: '900' },
     profStats: { flex: 1, gap: 2 },
     profName: { fontSize: ty.body, fontWeight: '900', color: c.ink, marginBottom: 4 },
     profRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 5, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: c.line },

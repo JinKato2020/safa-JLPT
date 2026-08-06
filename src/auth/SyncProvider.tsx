@@ -6,7 +6,7 @@ import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../config/supabase';
 import { getSession, onAuthStateChange } from './authClient';
 import { pullState, pushState } from './syncClient';
-import { decideLoginSync } from './sync';
+import { decideLoginSync, mergeRestoredState } from './sync';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { setTelemetryAccount } from '../telemetry/telemetry';
 
@@ -65,7 +65,9 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       if (cancelled) return;
       const local = stateRef.current;
       if (decideLoginSync(local, remote, fromDisk) === 'restore' && remote) {
-        hydrate(remote); // クラウドのバックアップを復元(データ引き継ぎ)
+        // 復元。ただしリモートに欠けているプロフィール項目(アバター等)はローカルで補完し、
+        // 古いバックアップでアバターが既定(男の子1)に戻る事故を防ぐ。
+        hydrate(mergeRestoredState(local, remote));
       } else {
         await pushState(session.user.id, { ...local, updatedAt: local.updatedAt ?? Date.now() });
       }
