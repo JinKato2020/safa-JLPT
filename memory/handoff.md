@@ -47,14 +47,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/screens/AccountScreen.tsx
-- src/screens/ReferralScreen.tsx
+- src/screens/KotobaTownScreen.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/screens/KotobaTownScreen.tsx
-- docs/supabase/dashboard.html
-- docs/supabase/dashboard_views.sql
-- src/telemetry/telemetry.ts
+- src/screens/HomeScreen.tsx
+- web/invite/index.html
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- src/screens/AccountScreen.tsx
 
-_自動更新: 2026-08-07 23:35_
+_自動更新: 2026-08-08 01:24_
 <!-- AUTO:END -->

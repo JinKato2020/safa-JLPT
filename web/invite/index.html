@@ -4,6 +4,15 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>まいにちJLPT — 町への招待</title>
+<!-- ブラウザタブ/ホーム追加用アイコン -->
+<link rel="icon" href="./icon.png" />
+<link rel="apple-touch-icon" href="./icon.png" />
+<!-- SNS/メッセージで共有した時のプレビュー画像=アプリアイコン -->
+<meta property="og:title" content="まいにちJLPT — 町への招待" />
+<meta property="og:description" content="「日本語学習者の町」に招待されています。いっしょに毎日、日本語を学びましょう。" />
+<meta property="og:image" content="https://jinkato2020.github.io/safa-JLPT/invite/icon.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://jinkato2020.github.io/safa-JLPT/invite/icon.png" />
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -22,7 +31,7 @@
     width: 100%; max-width: 420px; background: #fff; border-radius: 22px; padding: 30px 24px 26px;
     box-shadow: 0 18px 50px rgba(60,40,80,.18); text-align: center;
   }
-  .emoji { font-size: 58px; line-height: 1; margin-bottom: 6px; }
+  .appicon { width: 92px; height: 92px; border-radius: 21px; margin: 0 auto 10px; display: block; box-shadow: 0 8px 22px rgba(60,40,80,.22); }
   h1 { font-size: 21px; font-weight: 800; margin: 8px 0 6px; line-height: 1.5; }
   .who { color: #e2588f; }
   .meta { color: #6a6472; font-size: 14px; line-height: 1.6; margin: 0 0 22px; }
@@ -42,7 +51,7 @@
 </head>
 <body>
   <div class="card">
-    <div class="emoji">🏘️</div>
+    <img class="appicon" src="./icon.png" alt="まいにちJLPT" />
     <h1><span class="who" id="who">お友だち</span>が<br>「日本語学習者の町」に招待しています</h1>
     <p class="meta">参加すると、あなたが相手の町に住人としてあらわれます。<br>いっしょに毎日、日本語を学びましょう。</p>
     <a class="cta" id="open" href="#">アプリで開く</a>

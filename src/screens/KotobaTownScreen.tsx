@@ -784,8 +784,9 @@ export default function KotobaTownScreen() {
         const INSET = Math.round(VW * 0.05); // フレーム/応援を画面縁から内側へ(金枠が縁に近づかないよう余白)
         const FW = VW - INSET * 2;
         const FH = Math.round(FW * frameSrc.height / frameSrc.width);
-        const sceneH = FW; // 会話背景=正方形(1:1)。フレームと同じ幅で角丸表示(左右の余白は町が見える)
-        const avH = Math.min(Math.round(sceneH * 0.80), Math.round(VW * 0.62)); // 立ち絵は小さめ=背景画像が全面しっかり見える
+        // 会話ヒーローの縮尺=すべて画面幅(FW)基準の比例で決める(端末非依存で堅牢)。背景と立ち絵は連動して拡縮。
+        const sceneH = FW; // 会話背景=正方形(1:1)。フレームと同じ幅=画面幅に応じて自動拡縮。左右の余白は町が見える。
+        const avH = Math.round(sceneH * 0.7); // 立ち絵=背景の高さに比例(背景と連動)。背景と一緒に画面サイズへ最適化。
         // 台詞ページ(各ページ最大3行程度)。
         const lines: string[] = [`やあ、${talk.nick}だよ！`];
         if (talk.studying) lines.push(`いまは「${talk.studying}」を特訓中。`);
@@ -808,12 +809,13 @@ export default function KotobaTownScreen() {
         const FS_NAME = Math.round(FW * 0.046);
         const FS_SAY = Math.round(FW * 0.040), LH_SAY = Math.round(FW * 0.056);
         const FS_FIELD = Math.round(FW * 0.037), LH_FIELD = Math.round(FW * 0.052);
-        const FS_BAR = Math.round(FW * 0.033), FS_NUM = Math.round(FW * 0.034), LH_BAR = Math.round(FW * 0.048);
+        // バー行のラベル・数字も6項目と同じサイズ/行高に統一(ステータス文字サイズ一定)。
+        const FS_BAR = FS_FIELD, FS_NUM = FS_FIELD, LH_BAR = LH_FIELD;
         const barH = Math.round(FW * 0.038);
         const midOf = (bd: readonly number[]) => (bd[0] + bd[1]) / 2;
         // 6項目=「ラベル：値」を左右2列×3帯に。b=帯index(rowBands)。
         const FIELDS: { x: number; b: number; lab: string; val: string }[] = [
-          { x: CS.xL, b: 0, lab: 'ニックネーム', val: talk.nick },
+          { x: CS.xL, b: 0, lab: '名前', val: talk.nick },
           { x: CS.xR, b: 0, lab: 'Lv', val: String(talk.level) },
           { x: CS.xL, b: 1, lab: '国名', val: (talk.flag ?? '').trim() || '-' },
           { x: CS.xR, b: 1, lab: '得意', val: talk.strong ?? '-' },
@@ -872,43 +874,42 @@ export default function KotobaTownScreen() {
                       <View style={{ position: 'absolute', left: CS.barX0 * FW, top: mid * FH - barH / 2, width: (CS.barX1 - CS.barX0) * FW, height: barH, borderRadius: 7, backgroundColor: barTrack, overflow: 'hidden' }}>
                         <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: (`${b.pct}%` as `${number}%`), backgroundColor: b.col, borderRadius: 7 }} />
                       </View>
-                      <Text numberOfLines={1} style={{ position: 'absolute', left: CS.numX * FW, top: mid * FH - LH_BAR / 2, width: (0.9 - CS.numX) * FW, height: LH_BAR, lineHeight: LH_BAR, color: valCol, fontWeight: '900', fontSize: FS_NUM }}>{b.num}</Text>
+                      <Text numberOfLines={1} style={{ position: 'absolute', left: CS.numX * FW, top: mid * FH - LH_BAR / 2, width: (0.9 - CS.numX) * FW, height: LH_BAR, lineHeight: LH_BAR, color: valCol, fontWeight: '800', fontSize: FS_NUM }}>{b.num}</Text>
                     </View>
                   );
                 })}
               </View>
-              {/* 下: 応援を送る(スクロールで表示)。背景=フレームと同系のグラデ・幅はフレームに合わせ中央寄せ。 */}
-              <View style={{ width: FW, alignSelf: 'center', paddingHorizontal: 14, paddingTop: 16, paddingBottom: 46, borderBottomLeftRadius: 14, borderBottomRightRadius: 14, overflow: 'hidden' }}>
-                <Svg style={StyleSheet.absoluteFill} width="100%" height="100%">
-                  <Defs>
-                    <SvgGrad id="cheerG" x1="0" y1="0" x2="0" y2="1">
-                      <Stop offset="0" stopColor={cheerG0} />
-                      <Stop offset="1" stopColor={cheerG1} />
-                    </SvgGrad>
-                  </Defs>
-                  <Rect x="0" y="0" width="100%" height="100%" fill="url(#cheerG)" />
-                </Svg>
-                {!talk.id.startsWith('friend:') ? (
-                  // 友だちでない(仮想アバター)には応援を送れない。理由を添える。
-                  <Text style={{ color: labCol, fontWeight: '800', fontSize: 13, textAlign: 'center', lineHeight: 21, opacity: 0.95 }}>🔒 応援は「町に招待した友だち」にだけ送れます。{'\n'}友だちを町に招待しよう。</Text>
-                ) : sent ? (
-                  <View style={s.sentBox}>
-                    <Text style={s.sentEmoji}>{sent.emoji}</Text>
-                    <Text style={[s.sentT, { color: valCol }]}>応援を届けました！🌸</Text>
-                  </View>
-                ) : (
-                  <>
-                    <Text style={{ color: labCol, fontWeight: '900', fontSize: 15, textAlign: 'center', marginBottom: 10 }}>✉️ {talk.nick}に応援を送る</Text>
-                    <View style={s.nvPills}>
-                      {CHEERS.map((c) => (
-                        <Pressable key={c.key} style={s.nvPill} onPress={() => sendCheer(c)}>
-                          <Text style={s.nvPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
-                        </Pressable>
-                      ))}
+              {/* 下: 応援を送る。招待した友だち(id=friend:)にだけ表示。仮想アバターには応援欄ごと出さない(ロック文言も無し)。 */}
+              {talk.id.startsWith('friend:') && (
+                <View style={{ width: FW, alignSelf: 'center', paddingHorizontal: 14, paddingTop: 16, paddingBottom: 46, borderBottomLeftRadius: 14, borderBottomRightRadius: 14, overflow: 'hidden' }}>
+                  <Svg style={StyleSheet.absoluteFill} width="100%" height="100%">
+                    <Defs>
+                      <SvgGrad id="cheerG" x1="0" y1="0" x2="0" y2="1">
+                        <Stop offset="0" stopColor={cheerG0} />
+                        <Stop offset="1" stopColor={cheerG1} />
+                      </SvgGrad>
+                    </Defs>
+                    <Rect x="0" y="0" width="100%" height="100%" fill="url(#cheerG)" />
+                  </Svg>
+                  {sent ? (
+                    <View style={s.sentBox}>
+                      <Text style={s.sentEmoji}>{sent.emoji}</Text>
+                      <Text style={[s.sentT, { color: valCol }]}>応援を届けました！🌸</Text>
                     </View>
-                  </>
-                )}
-              </View>
+                  ) : (
+                    <>
+                      <Text style={{ color: labCol, fontWeight: '900', fontSize: 15, textAlign: 'center', marginBottom: 10 }}>✉️ {talk.nick}に応援を送る</Text>
+                      <View style={s.nvPills}>
+                        {CHEERS.map((c) => (
+                          <Pressable key={c.key} style={s.nvPill} onPress={() => sendCheer(c)}>
+                            <Text style={s.nvPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
+                          </Pressable>
+                        ))}
+                      </View>
+                    </>
+                  )}
+                </View>
+              )}
             </ScrollView>
             {/* 閉じる(はっきり見える白フチの丸)。下スワイプでも抜けられる。 */}
             <Pressable onPress={closeTalk} hitSlop={12} style={s.nvClose}><Ionicons name="close" size={26} color="#ffffff" /></Pressable>

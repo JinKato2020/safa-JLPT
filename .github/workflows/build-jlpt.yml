@@ -111,7 +111,8 @@ jobs:
           # 問題コンテンツ(大問×レベル・i18n inline)を /content/ で配信=逐次OTAの取得元。
           [ -d content ] && cp -r content _site/content || true
           # 友だち招待ページ(/invite/)。リンクを開くと「アプリで開く」→ safajlpt://invite でアプリ起動。
-          [ -d web/invite ] && mkdir -p _site/invite && cp web/invite/index.html _site/invite/index.html || true
+          # index.html だけでなく icon.png 等も一緒に配信(ページのアイコン/OG画像に使う)。
+          [ -d web/invite ] && cp -r web/invite _site/invite || true
           echo "::notice::_site contents:"; find _site -maxdepth 3 | head -40
       - name: Configure Pages
         uses: actions/configure-pages@v5

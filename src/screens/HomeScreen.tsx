@@ -88,8 +88,9 @@ export default function HomeScreen() {
                   フォント下余白(ディセント)が残って離れて見えた。→ 数字を高さ固定の overflow:hidden で包み、
                   下の空白を物理的にクリップしてラベルとの隙間(≈5px)を確実に詰める。 */}
               <View style={styles.pctInner}>
-                <View style={{ height: Math.round(ringW * 0.30 * 0.81), overflow: 'hidden' }}>
-                  <Text style={[styles.num, { fontSize: Math.round(ringW * 0.30), lineHeight: Math.round(ringW * 0.30) }]}>
+                {/* リングの穴幅(≈62%)に収める。長い得点(例 180/180)やフォント幅差でも自動縮小=はみ出さない。 */}
+                <View style={{ width: Math.round(ringW * 0.62), height: Math.round(ringW * 0.30 * 0.81), overflow: 'hidden', alignItems: 'center' }}>
+                  <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5} style={[styles.num, { width: '100%', fontSize: Math.round(ringW * 0.30), lineHeight: Math.round(ringW * 0.30) }]}>
                     {predScore}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.13) }]}>/{predMax}</Text>
                   </Text>
                 </View>
