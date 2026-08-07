@@ -39,10 +39,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 73ターン（文脈 31万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 73ターン・ツール34回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -51,14 +47,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/screens/KotobaTownScreen.tsx
-- 画像/会話/会話+ステータス_ダーク.png
-- src/theme/useColors.ts
+- 画像/会話/会話+ステータス_テンプレ_ライト.png
+- 画像/会話/会話+ステータス_テンプレ_ダーク.png
 - assets/kotoba/ui/csframe_light.png
 - assets/kotoba/ui/csframe_dark.png
-- 画像/会話/old/会話+ステータス_ダーク.png
-- 画像/会話/会話+ステータス_ライト.png
-- 画像/会話/old/ステータス_ダーク.png
+- src/screens/KotobaTownScreen.tsx
+- memory/session-summary-LATEST.md
+- memory/handoff.md
+- content/_manifest.json
 
-_自動更新: 2026-08-07 19:02_
+_自動更新: 2026-08-07 19:39_
 <!-- AUTO:END -->

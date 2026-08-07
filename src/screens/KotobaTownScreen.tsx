@@ -142,15 +142,16 @@ const DIALOGBOX = require('../../assets/kotoba/ui/dialogbox.png');
 // 会話+ステータス一体フレーム(上=台詞窓/下=ステータス6枠+バー2行)。ダーク/ライトは同一ジオメトリ(座標表CSは共通)。テーマで切替。
 const CSFRAME_DARK = require('../../assets/kotoba/ui/csframe_dark.png');
 const CSFRAME_LIGHT = require('../../assets/kotoba/ui/csframe_light.png');
-// フレーム内の各要素の分率座標 [x0,y0,x1,y1](素材の枠を機械検出)。名前枠/台詞窓/6枠/バー2行/数字マス。
+// フレーム内の分率座標(サンプル配置を機械検出→トリム後の最終フレーム基準)。
+//  name=話者枠 / say=台詞窓 / 6項目は「ラベル：値」を xL(左列)・xR(右列) の各行(rowY)へ / バー2行(barRowY)＝ラベル+バー(barX0..barX1)+数字(numX)。
 const CS = {
-  name: [0.039, 0.026, 0.323, 0.084],
-  say: [0.05, 0.10, 0.92, 0.28],
-  nick: [0.114, 0.381, 0.455, 0.435], strong: [0.533, 0.381, 0.879, 0.435],
-  lv: [0.114, 0.470, 0.455, 0.526], per: [0.533, 0.470, 0.879, 0.526],
-  country: [0.113, 0.558, 0.455, 0.614], mood: [0.533, 0.558, 0.879, 0.614],
-  bar1: [0.220, 0.682, 0.709, 0.722], num1: [0.749, 0.676, 0.866, 0.730],
-  bar2: [0.222, 0.771, 0.708, 0.810], num2: [0.749, 0.762, 0.866, 0.817],
+  name: [0.021, 0.006, 0.304, 0.079],
+  say: [0.05, 0.11, 0.93, 0.27],
+  xL: 0.09, xR: 0.566,
+  rowY: [0.411, 0.521, 0.629],
+  barLabelX: 0.09,
+  barRowY: [0.744, 0.834],
+  barX0: 0.258, barX1: 0.662, numX: 0.702,
 } as const;
 // 会話を始めるたびにシーンをランダムに選ぶ(固定ではなく多様性を持たせる)。昼夜は実時刻(isDay)で切替。
 
@@ -684,17 +685,12 @@ export default function KotobaTownScreen() {
       {/* 上部バー */}
       <SafeAreaView edges={['top']} style={s.top} pointerEvents="box-none">
         <View style={s.topBar} pointerEvents="box-none">
-          <View style={s.pill}><Text style={s.pillT}>日本語学習者の町</Text></View>
+          <View style={s.topLeft} pointerEvents="box-none">
+            <View style={s.pill}><Text style={s.pillT}>日本語学習者の町</Text></View>
+            {/* 友だちを町に招待(リンク共有→相手が参加で住人に)。白・アイコン無しでタイトル横に。 */}
+            <Pressable style={s.inviteWhite} onPress={onInvite}><Text style={s.inviteWhiteT}>友だちを町に招待</Text></Pressable>
+          </View>
           <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.close}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
-        </View>
-        {/* 友だちを町に招待(リンク共有→相手が参加で住人に)＋紹介コード。町=社交の世界観に最も合う入口。 */}
-        <View style={s.inviteRow} pointerEvents="box-none">
-          <Pressable style={[s.inviteBtn, s.inviteBtnSearch]} onPress={onInvite}>
-            <Text style={s.inviteT}>🏘️ 友だちを町に招待</Text>
-          </Pressable>
-          <Pressable style={s.inviteBtn} onPress={() => nav.navigate('Referral')}>
-            <Text style={s.inviteT}>🎁 紹介コード</Text>
-          </Pressable>
         </View>
       </SafeAreaView>
 
@@ -714,8 +710,8 @@ export default function KotobaTownScreen() {
         const per = personalityOf(talk.personality);
         const mm = moodMsgOf(talk.moodMsg);
         const learned = talk.learned ?? 0;
-        const vocabPct = Math.max(6, Math.min(100, Math.round((learned / 2000) * 100)));
-        const streakPct = Math.max(6, Math.min(100, Math.round(((talk.streak ?? 0) / 60) * 100)));
+        const vocabPct = Math.max(4, Math.min(100, Math.round((learned / 1000) * 100)));
+        const streakPct = Math.max(4, Math.min(100, Math.round(((talk.streak ?? 0) / 30) * 100)));
         const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
         // 一体フレーム(素材はテーマで切替・座標CSは共通)。全幅で高さ=素材比。
         const frameSrc = Image.resolveAssetSource(isDark ? CSFRAME_DARK : CSFRAME_LIGHT);
@@ -740,17 +736,19 @@ export default function KotobaTownScreen() {
         const barTrack = isDark ? 'rgba(9,14,42,0.9)' : '#cdc7b6';
         const panelBg = isDark ? '#132048' : '#f5f1e6';
         const fbox = (r: readonly number[]) => ({ position: 'absolute' as const, left: r[0] * FW, top: r[1] * FH, width: (r[2] - r[0]) * FW, height: (r[3] - r[1]) * FH });
-        const FIELDS: { r: readonly number[]; lab: string; val: string }[] = [
-          { r: CS.nick, lab: 'ニックネーム', val: talk.nick },
-          { r: CS.strong, lab: '得意', val: talk.strong ?? '-' },
-          { r: CS.lv, lab: 'Lv', val: String(talk.level) },
-          { r: CS.per, lab: '性格', val: per ? per.label : '-' },
-          { r: CS.country, lab: '国名', val: (talk.flag ?? '').trim() || '-' },
-          { r: CS.mood, lab: '気分', val: mm ?? '-' },
+        // 6項目=「ラベル：値」を左右2列×3行に。x=列開始, y=行の中心。
+        const FIELDS: { x: number; y: number; lab: string; val: string }[] = [
+          { x: CS.xL, y: CS.rowY[0], lab: 'ニックネーム', val: talk.nick },
+          { x: CS.xR, y: CS.rowY[0], lab: 'Lv', val: String(talk.level) },
+          { x: CS.xL, y: CS.rowY[1], lab: '国名', val: (talk.flag ?? '').trim() || '-' },
+          { x: CS.xR, y: CS.rowY[1], lab: '得意', val: talk.strong ?? '-' },
+          { x: CS.xL, y: CS.rowY[2], lab: '性格', val: per ? per.label : '-' },
+          { x: CS.xR, y: CS.rowY[2], lab: '気分', val: mm ?? '-' },
         ];
-        const bars: { r: readonly number[]; numR: readonly number[]; lab: string; pct: number; num: number; col: string }[] = [
-          { r: CS.bar1, numR: CS.num1, lab: '覚えた単語', pct: vocabPct, num: learned, col: '#37cc74' },
-          { r: CS.bar2, numR: CS.num2, lab: '継続日数', pct: streakPct, num: talk.streak ?? 0, col: '#4aa3ff' },
+        // バー2行=ラベル(左)＋バー(barX0..barX1)＋数字(numX)。覚えた単語=青 / 連続日数=緑(サンプル準拠)。
+        const bars: { lab: string; pct: number; num: string; col: string; y: number }[] = [
+          { lab: '覚えた単語', pct: vocabPct, num: `${learned} / 1000`, col: '#4aa3ff', y: CS.barRowY[0] },
+          { lab: '連続日数', pct: streakPct, num: `${talk.streak ?? 0} 日`, col: '#37cc74', y: CS.barRowY[1] },
         ];
         return (
           <View style={[s.cvWrap, { backgroundColor: panelBg }]}>
@@ -776,31 +774,18 @@ export default function KotobaTownScreen() {
                 </Pressable>
                 {pages.length > 1 && <Text style={{ position: 'absolute', right: FW * 0.14, top: CS.say[3] * FH - FW * 0.075, color: labCol, fontSize: Math.round(FW * 0.03), fontWeight: '800' }}>{page + 1}/{pages.length}</Text>}
                 <Animated.Text style={{ position: 'absolute', right: FW * 0.05, top: CS.say[3] * FH - FW * 0.085, color: labCol, fontSize: Math.round(FW * 0.045), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>
-                {/* 6枠: ラベル(枠上・金)＋値(枠内中央) */}
+                {/* 6項目=「ラベル：値」(2列×3行) */}
                 {FIELDS.map((f, i) => (
-                  <View key={i} pointerEvents="none">
-                    <View style={{ position: 'absolute', left: f.r[0] * FW, top: f.r[1] * FH - FW * 0.048, width: (f.r[2] - f.r[0]) * FW, alignItems: 'center' }}>
-                      <Text style={{ color: labCol, fontWeight: '800', fontSize: Math.round(FW * 0.028) }} numberOfLines={1}>{f.lab}</Text>
-                    </View>
-                    <View style={[fbox(f.r), { alignItems: 'center', justifyContent: 'center' }]}>
-                      <Text style={{ color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.037) }} numberOfLines={1}>{f.val}</Text>
-                    </View>
-                  </View>
+                  <Text key={i} pointerEvents="none" numberOfLines={1} style={{ position: 'absolute', left: f.x * FW, top: f.y * FH - FW * 0.03, color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.036) }}>{f.lab}：{f.val}</Text>
                 ))}
-                {/* バー2行: ラベル(左余白)＋バー(枠内fill)＋数字(小マス) */}
+                {/* バー2行: ラベル(左)＋バー(barX0..barX1)＋数字(numX) */}
                 {bars.map((b, i) => (
                   <View key={i} pointerEvents="none">
-                    <View style={{ position: 'absolute', left: FW * 0.045, top: b.r[1] * FH, height: (b.r[3] - b.r[1]) * FH, justifyContent: 'center' }}>
-                      <Text style={{ color: labCol, fontWeight: '800', fontSize: Math.round(FW * 0.03) }} numberOfLines={1}>{b.lab}</Text>
+                    <Text numberOfLines={1} style={{ position: 'absolute', left: CS.barLabelX * FW, top: b.y * FH - FW * 0.028, color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.032) }}>{b.lab}</Text>
+                    <View style={{ position: 'absolute', left: CS.barX0 * FW, top: b.y * FH - FW * 0.019, width: (CS.barX1 - CS.barX0) * FW, height: FW * 0.038, borderRadius: 7, backgroundColor: barTrack, overflow: 'hidden' }}>
+                      <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: (`${b.pct}%` as `${number}%`), backgroundColor: b.col, borderRadius: 7 }} />
                     </View>
-                    <View style={[fbox(b.r), { paddingHorizontal: FW * 0.014, justifyContent: 'center' }]}>
-                      <View style={{ height: (b.r[3] - b.r[1]) * FH * 0.5, borderRadius: 7, backgroundColor: barTrack, overflow: 'hidden' }}>
-                        <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: (`${b.pct}%` as `${number}%`), backgroundColor: b.col, borderRadius: 7 }} />
-                      </View>
-                    </View>
-                    <View style={[fbox(b.numR), { alignItems: 'center', justifyContent: 'center' }]}>
-                      <Text style={{ color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.036) }} numberOfLines={1}>{b.num}</Text>
-                    </View>
+                    <Text numberOfLines={1} style={{ position: 'absolute', left: CS.numX * FW, top: b.y * FH - FW * 0.028, color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.034) }}>{b.num}</Text>
                   </View>
                 ))}
               </View>
@@ -873,13 +858,13 @@ const s = StyleSheet.create({
   viewport: { ...StyleSheet.absoluteFillObject, overflow: 'hidden' },
   top: { position: 'absolute', top: 0, left: 0, right: 0 },
   topBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 12 },
+  topLeft: { flexDirection: 'row', alignItems: 'center', gap: 8, flexShrink: 1 },
   pill: { backgroundColor: 'rgba(255,253,248,0.9)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7 },
   pillT: { fontSize: 13, fontWeight: '900', color: '#3a3128' },
+  // 友だちを町に招待=白ボタン(アイコン無し)。タイトル横。
+  inviteWhite: { backgroundColor: 'rgba(255,253,248,0.95)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7, borderWidth: 1, borderColor: 'rgba(58,49,40,0.15)' },
+  inviteWhiteT: { fontSize: 13, fontWeight: '900', color: '#3a3128', letterSpacing: 0.2 },
   close: { width: 38, height: 38, borderRadius: 19, backgroundColor: 'rgba(255,253,248,0.9)', alignItems: 'center', justifyContent: 'center' },
-  inviteRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, paddingHorizontal: 12, marginTop: 4, alignItems: 'flex-start' },
-  inviteBtnSearch: { backgroundColor: '#3f7bd6' },
-  inviteBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#e2588f', borderRadius: 999, paddingVertical: 8, paddingHorizontal: 15, borderWidth: 2, borderColor: '#ffffff', shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
-  inviteT: { color: '#ffffff', fontWeight: '900', fontSize: 13, letterSpacing: 0.3 },
   bottom: { position: 'absolute', left: 0, right: 0, bottom: 0 },
   stickWrap: { paddingBottom: 26 }, // 左右はhandedで付与(右利き=右)
   stickBase: { width: STICK_R * 2, height: STICK_R * 2, borderRadius: STICK_R, backgroundColor: 'rgba(58,49,40,0.28)', borderWidth: 2, borderColor: 'rgba(255,255,255,0.35)', alignItems: 'center', justifyContent: 'center' },
