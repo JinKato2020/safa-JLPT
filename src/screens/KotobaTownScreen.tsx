@@ -8,7 +8,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-import Svg, { Defs, LinearGradient as SvgGrad, Stop, Rect } from 'react-native-svg';
 import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
 import { useAppState } from '../store/store';
 import type { RootStackParamList } from '../navigation/types';
@@ -137,6 +136,10 @@ const SCENES: Record<string, { day: number; night: number }> = {
   town: { day: require('../../assets/kotoba/scene/town_day.jpg'), night: require('../../assets/kotoba/scene/town_night.jpg') },
 };
 const SCENE_KEYS = ['forest', 'pond', 'town'];
+// 会話ステータスの装飾枠(大外の外＋バー窓が透過)。ラベル/値/バー/数字はアプリが動的に重ねる。
+const STATUSFRAME = require('../../assets/kotoba/ui/statusframe.png');
+// 台詞の装飾ダイアログボックス(左上プレート＋右下▼が内蔵)。全幅・白文字で名前/台詞を重ねる。
+const DIALOGBOX = require('../../assets/kotoba/ui/dialogbox.png');
 // 会話を始めるたびにシーンをランダムに選ぶ(固定ではなく多様性を持たせる)。昼夜は実時刻(isDay)で切替。
 
 // 桜(マスコット)。8方向・歩行アニメ付き([立ち, 右足, 左足])。近づいて話すと努力を褒めてくれる。
@@ -218,10 +221,10 @@ const DEADZONE = 10;
 // ワープ枠(WORLD=1024座標)。位置=ユーザーが手塗りした「赤」＝各建物の玄関の石段。足元が乗ると発火。
 type WarpTarget = 'Shop' | 'MockIntro' | 'Words' | 'Dict';
 const WARP_ZONES: { x: number; y: number; w: number; h: number; t: WarpTarget }[] = [
-  { x: 202, y: 308, w: 112, h: 61, t: 'Shop' },      // 左上・受付(女の子)前の赤い石段=ショップ
-  { x: 725, y: 273, w: 64, h: 53, t: 'MockIntro' },  // 右上・模試会場の赤い石段=模試(説明画面から)
-  { x: 820, y: 662, w: 67, h: 55, t: 'Words' },      // 右・書斎の赤い玄関石段=単語タブ
-  { x: 439, y: 842, w: 82, h: 41, t: 'Dict' },       // 下・書庫の赤い玄関石段=辞書タブ
+  { x: 192, y: 299, w: 107, h: 43, t: 'Shop' },      // ショップ(緑塗り位置)
+  { x: 704, y: 277, w: 85, h: 43, t: 'MockIntro' },  // 試験会場(緑塗り位置)
+  { x: 811, y: 661, w: 85, h: 43, t: 'Words' },      // 書斎(緑塗り位置)=単語タブ
+  { x: 427, y: 853, w: 85, h: 43, t: 'Dict' },       // 書庫(緑塗り位置)=辞書タブ
 ];
 
 // 中央の木レイヤー(ユーザー提供のきれいな切り抜き tree.png)を最前面に重ねる。幹の付け根をマップの木に合わせて配置。
@@ -695,8 +698,9 @@ export default function KotobaTownScreen() {
         const vocabPct = Math.max(8, Math.min(100, Math.round((learned / 2000) * 100)));
         const streakPct = Math.max(8, Math.min(100, Math.round(((talk.streak ?? 0) / 60) * 100)));
         const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
-        // 立ち絵=左寄り。画面の左半分に大きく。
-        const standW = Math.min(Math.round(VW * 0.5), Math.round(VH * 0.5));
+        // ダイアログ(全幅・下寄せ)＋立ち絵は背景の右に乗せる。
+        const dlgH = Math.round(VW * 385 / 960);
+        const avH = Math.min(Math.round(VH * 0.44), Math.round(VW * 0.95));
         // 台詞ページ(各ページ最大3行程度)。中身のある行だけ2文ずつまとめる。
         const lines: string[] = [`やあ、${talk.nick}だよ！`];
         if (talk.studying) lines.push(`いまは「${talk.studying}」を特訓中。`);
@@ -718,87 +722,74 @@ export default function KotobaTownScreen() {
             <Pressable style={StyleSheet.absoluteFill} onPress={closeTalk} />
             <Pressable onPress={closeTalk} hitSlop={10} style={s.nvClose}><Ionicons name="close" size={26} color="#ffffff" /></Pressable>
 
-            {/* 立ち絵(真ん中より左)。会話中のみ表示。 */}
-            <View style={[s.cvAvatar, { width: Math.round(VW * 0.52) }]} pointerEvents="none">
-              <Image source={SET.down[0]} style={{ width: standW, height: standW }} resizeMode="contain" />
-            </View>
-
             {talkStep === 'info' && (
-              /* 台詞パネル=右側。黒〜濃紺のグラデ(上端フェード)＋名前プレート＋白文字＋▼。 */
-              <Pressable style={[s.cvPanel, { left: Math.round(VW * 0.44) }]} onPress={onNext}>
-                <Svg style={StyleSheet.absoluteFill} pointerEvents="none">
-                  <Defs>
-                    <SvgGrad id="cvg" x1="0" y1="0" x2="0" y2="1">
-                      <Stop offset="0" stopColor="#0a0f2e" stopOpacity="0" />
-                      <Stop offset="0.16" stopColor="#0a0f2e" stopOpacity="0.62" />
-                      <Stop offset="0.34" stopColor="#0a0f2e" stopOpacity="0.8" />
-                      <Stop offset="1" stopColor="#080b22" stopOpacity="0.82" />
-                    </SvgGrad>
-                  </Defs>
-                  <Rect x="0" y="0" width="100%" height="100%" rx="14" ry="14" fill="url(#cvg)" />
-                </Svg>
-                <View style={s.cvNamePlate}><Text style={s.cvNameT}>{talk.flag} {talk.nick}</Text></View>
-                <Text style={s.cvText} numberOfLines={3}>{pages[page]}</Text>
-                <View style={s.cvNextRow} pointerEvents="none">
-                  {pages.length > 1 && (
-                    <Text style={s.cvPageDots}>{page + 1}/{pages.length}</Text>
-                  )}
-                  <Animated.Text style={[s.cvNext, { opacity: nextOp, transform: [{ translateY: nextY }] }]}>▼</Animated.Text>
+              <>
+                {/* 立ち絵=背景の右に乗せる(足元はダイアログ上端あたり)。 */}
+                <View style={[s.cvAvatarR, { right: Math.round(VW * 0.02), bottom: dlgH + 4, width: avH, height: avH }]} pointerEvents="none">
+                  <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
-              </Pressable>
+                {/* 台詞=装飾ダイアログボックス(全幅・白文字・名前は上枠・▼は内蔵＋発光重ね)。 */}
+                <Pressable style={[s.cvDlg, { height: dlgH }]} onPress={onNext}>
+                  <Image source={DIALOGBOX} style={StyleSheet.absoluteFill} resizeMode="stretch" />
+                  <Text style={[s.cvDlgName, { top: dlgH * 0.05, width: '34%' }]} numberOfLines={1}>{talk.flag} {talk.nick}</Text>
+                  <Text style={[s.cvDlgSay, { top: dlgH * 0.29 }]} numberOfLines={3}>{pages[page]}</Text>
+                  {pages.length > 1 && <Text style={[s.cvDlgDots, { bottom: dlgH * 0.12 }]}>{page + 1}/{pages.length}</Text>}
+                  <Animated.Text style={[s.cvDlgNext, { bottom: dlgH * 0.08, opacity: nextOp, transform: [{ translateY: nextY }] }]}>▼</Animated.Text>
+                </Pressable>
+              </>
             )}
 
-            {talkStep === 'status' && (
-              <View style={s.cvStatusWrap} pointerEvents="box-none">
-                {/* ステータス(RPG風) */}
-                <View style={s.rpgCard}>
-                  <View style={s.rpgTop}>
-                    <View style={s.rpgPortrait}>
-                      <Image source={SET.down[0]} style={s.rpgFace} resizeMode="contain" />
+            {talkStep === 'status' && (() => {
+              // 装飾枠(1000x740)にラベル(枠上・金)＋値(枠内中央・白)＋バー(枠背後=透過窓に透ける)＋数字を動的に重ねる。
+              const FW = Math.min(VW, Math.round(VH * 0.72 / 0.74)); // 横幅=iPhone全幅(高さで頭打ちのみ)
+              const FH = Math.round(FW * 0.74);
+              const fs = (x: number) => Math.round(FW * x);
+              const box = (cx: number, y: number, h: number, w = 0.42) => ({ position: 'absolute' as const, left: cx * FW - (w * FW) / 2, top: y * FH - h / 2, width: w * FW, height: h, alignItems: 'center' as const, justifyContent: 'center' as const });
+              const FIELDS = [
+                { lab: 'ニックネーム', val: talk.nick, cx: 0.272, ly: 0.118, vy: 0.180 },
+                { lab: 'Lv', val: String(talk.level), cx: 0.725, ly: 0.118, vy: 0.180 },
+                { lab: '国名', val: talk.flag ?? '-', cx: 0.272, ly: 0.276, vy: 0.338 },
+                { lab: '得意', val: talk.strong ?? '-', cx: 0.725, ly: 0.276, vy: 0.338 },
+                { lab: '性格', val: per ? per.label : '-', cx: 0.272, ly: 0.435, vy: 0.497 },
+                { lab: '気分', val: mm ?? '-', cx: 0.725, ly: 0.435, vy: 0.497 },
+              ];
+              return (
+                <View style={s.cvStatusWrap} pointerEvents="box-none">
+                  <View style={{ width: FW, height: FH, alignSelf: 'center' }}>
+                    {/* バー(枠の背後=透過窓に透ける) */}
+                    <View style={[s.sBarTrack, { left: 0.293 * FW, width: 0.483 * FW, top: 0.630 * FH, height: 0.040 * FH }]}>
+                      <View style={[s.sBarFill, { width: (`${vocabPct}%` as `${number}%`), backgroundColor: '#37cc74' }]} />
+                      <View style={s.sBarGloss} pointerEvents="none" />
                     </View>
-                    <View style={s.rpgMeta}>
-                      <Text style={s.rpgName} numberOfLines={1}>{talk.flag} {talk.nick}</Text>
-                      <View style={s.rpgLvRow}>
-                        <Text style={s.rpgLvLabel}>Lv</Text>
-                        <Text style={s.rpgLvVal}>{talk.level}</Text>
+                    <View style={[s.sBarTrack, { left: 0.293 * FW, width: 0.482 * FW, top: 0.761 * FH, height: 0.039 * FH }]}>
+                      <View style={[s.sBarFill, { width: (`${streakPct}%` as `${number}%`), backgroundColor: '#4aa3ff' }]} />
+                      <View style={s.sBarGloss} pointerEvents="none" />
+                    </View>
+                    {/* 装飾枠 */}
+                    <Image source={STATUSFRAME} style={{ position: 'absolute', left: 0, top: 0, width: FW, height: FH }} resizeMode="stretch" />
+                    {/* 上段6項目: ラベル(枠上・金)＋値(枠内中央・白) */}
+                    {FIELDS.map((f, i) => (
+                      <View key={i} pointerEvents="none">
+                        <View style={box(f.cx, f.ly, fs(0.05))}><Text style={[s.sLabel, { fontSize: fs(0.030) }]} numberOfLines={1}>{f.lab}</Text></View>
+                        <View style={box(f.cx, f.vy, fs(0.06))}><Text style={[s.sVal, { fontSize: fs(0.040) }]} numberOfLines={1}>{f.val}</Text></View>
                       </View>
-                    </View>
+                    ))}
+                    {/* 下段ラベル＋数字 */}
+                    <View style={box(0.158, 0.650, fs(0.06), 0.26)} pointerEvents="none"><Text style={[s.sVal, { fontSize: fs(0.032) }]} numberOfLines={1}>覚えた単語</Text></View>
+                    <View style={box(0.158, 0.780, fs(0.06), 0.26)} pointerEvents="none"><Text style={[s.sVal, { fontSize: fs(0.032) }]} numberOfLines={1}>連続日数</Text></View>
+                    <View style={box(0.860, 0.653, fs(0.06), 0.14)} pointerEvents="none"><Text style={[s.sVal, { fontSize: fs(0.036) }]} numberOfLines={1}>{learned}</Text></View>
+                    <View style={box(0.860, 0.782, fs(0.06), 0.14)} pointerEvents="none"><Text style={[s.sVal, { fontSize: fs(0.036) }]} numberOfLines={1}>{talk.streak}</Text></View>
                   </View>
 
-                  <View style={s.rpgBar}>
-                    <Text style={s.rpgBarKey}>覚えた単語</Text>
-                    <View style={s.rpgTrack}>
-                      <View style={[s.rpgFill, { width: (`${vocabPct}%` as `${number}%`), backgroundColor: '#37cc74' }]} />
-                      <View style={s.rpgGloss} pointerEvents="none" />
-                      <Text style={s.rpgBarVal}>{learned} 語</Text>
-                    </View>
+                  <View style={[s.nvSendWrap, { marginTop: 14 }]}>
+                    <Pressable style={s.nvSendBtn} onPress={() => setTalkStep('message')}>
+                      <Text style={s.nvSendT}>✉️ メッセージを送る</Text>
+                    </Pressable>
                   </View>
-                  <View style={s.rpgBar}>
-                    <Text style={s.rpgBarKey}>連続</Text>
-                    <View style={s.rpgTrack}>
-                      <View style={[s.rpgFill, { width: (`${streakPct}%` as `${number}%`), backgroundColor: '#4aa3ff' }]} />
-                      <View style={s.rpgGloss} pointerEvents="none" />
-                      <Text style={s.rpgBarVal}>{talk.streak} 日</Text>
-                    </View>
-                  </View>
-
-                  {(per || talk.strong || mm) ? (
-                    <View style={s.rpgNext}>
-                      {per ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>性格</Text><Text style={s.rpgKvV}>{per.label}</Text></View> : null}
-                      {talk.strong ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>得意分野</Text><Text style={s.rpgKvV}>{talk.strong}</Text></View> : null}
-                      {mm ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>気分</Text><Text style={s.rpgKvV}>{mm}</Text></View> : null}
-                    </View>
-                  ) : null}
+                  <Pressable style={s.nvBack} onPress={() => { setTalkStep('info'); setTalkPage(0); }}><Text style={s.nvBackT}>‹ 会話にもどる</Text></Pressable>
                 </View>
-
-                <View style={s.nvSendWrap}>
-                  <Pressable style={s.nvSendBtn} onPress={() => setTalkStep('message')}>
-                    <Text style={s.nvSendT}>✉️ メッセージを送る</Text>
-                  </Pressable>
-                </View>
-                <Pressable style={s.nvBack} onPress={() => { setTalkStep('info'); setTalkPage(0); }}><Text style={s.nvBackT}>‹ 会話にもどる</Text></Pressable>
-              </View>
-            )}
+              );
+            })()}
 
             {talkStep === 'message' && (
               <View style={s.cvStatusWrap} pointerEvents="box-none">
@@ -911,6 +902,19 @@ const s = StyleSheet.create({
   cvNext: { color: '#ffe08a', fontSize: 16, fontWeight: '900', textShadowColor: 'rgba(255,196,60,0.9)', textShadowRadius: 8, textShadowOffset: { width: 0, height: 0 } },
   // ステータス/送信カードを画面中央に置く器(舞台の上に重ねる)
   cvStatusWrap: { ...StyleSheet.absoluteFillObject, justifyContent: 'center', zIndex: 4 },
+  // A案: 立ち絵=背景の右 / 台詞=全幅の装飾ダイアログ(白文字)
+  cvAvatarR: { position: 'absolute', alignItems: 'center', justifyContent: 'flex-end', zIndex: 2 },
+  cvDlg: { position: 'absolute', left: 0, right: 0, bottom: 18, zIndex: 3 },
+  cvDlgName: { position: 'absolute', left: '2%', textAlign: 'center', color: '#ffffff', fontWeight: '900', fontSize: 14, letterSpacing: 0.3, textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 2, textShadowOffset: { width: 0, height: 1 } },
+  cvDlgSay: { position: 'absolute', left: '7%', right: '8%', color: '#ffffff', fontSize: 15, lineHeight: 23, fontWeight: '600', textShadowColor: 'rgba(0,0,0,0.75)', textShadowRadius: 3, textShadowOffset: { width: 0, height: 1 } },
+  cvDlgDots: { position: 'absolute', right: '13%', color: '#b9c6f2', fontSize: 11, fontWeight: '800' },
+  cvDlgNext: { position: 'absolute', right: '5%', color: '#ffe08a', fontSize: 15, fontWeight: '900', textShadowColor: 'rgba(255,196,60,0.9)', textShadowRadius: 8, textShadowOffset: { width: 0, height: 0 } },
+  // 装飾枠に重ねる動的レイヤー(バー=枠背後の透過窓に透ける / ラベル=金 / 値=白)
+  sBarTrack: { position: 'absolute', borderRadius: 6, backgroundColor: '#0a0f30', overflow: 'hidden', justifyContent: 'center' },
+  sBarFill: { position: 'absolute', left: 0, top: 0, bottom: 0, borderRadius: 6 },
+  sBarGloss: { position: 'absolute', left: 0, right: 0, top: 0, height: '42%', backgroundColor: 'rgba(255,255,255,0.16)' },
+  sLabel: { color: '#ffd76b', fontWeight: '800', letterSpacing: 0.3, textShadowColor: 'rgba(0,0,0,0.55)', textShadowRadius: 2, textShadowOffset: { width: 0, height: 1 } },
+  sVal: { color: '#ffffff', fontWeight: '800', textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 2, textShadowOffset: { width: 0, height: 1 } },
   // ノベル風の会話(立ち絵フルスクリーン)
   nvWrap: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
   nvScrim: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(6,8,20,0.66)' },
