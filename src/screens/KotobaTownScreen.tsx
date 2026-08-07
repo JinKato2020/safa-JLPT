@@ -717,7 +717,7 @@ export default function KotobaTownScreen() {
         const frameSrc = Image.resolveAssetSource(isDark ? CSFRAME_DARK : CSFRAME_LIGHT);
         const FW = VW;
         const FH = Math.round(FW * frameSrc.height / frameSrc.width);
-        const sceneH = Math.max(Math.round(VH * 0.40), VH - FH); // 上の背景+立ち絵の高さ(フレームと合わせて約1画面)
+        const sceneH = VW; // 会話背景=正方形(1:1)。全面を画面上部にトリムなしで表示
         const avH = Math.min(Math.round(sceneH * 0.98), Math.round(VW * 0.86));
         // 台詞ページ(各ページ最大3行程度)。
         const lines: string[] = [`やあ、${talk.nick}だよ！`];
