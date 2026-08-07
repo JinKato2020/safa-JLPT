@@ -5,7 +5,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Svg, { Defs, LinearGradient as SvgGrad, Stop, Rect } from 'react-native-svg';
 import { useIsDarkTheme } from '../theme';
+
+// 絵文字/アイコン除去(気分などデータに含まれる絵文字を会話表示から外す)。国旗(talk.flag)は別扱いなので影響なし。
+const EMOJI_RE = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{2190}-\u{21FF}]/gu;
+const stripIcons = (s: string | null | undefined) => (s ?? '').replace(EMOJI_RE, '').trim();
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -708,16 +713,17 @@ export default function KotobaTownScreen() {
       {talk && (() => {
         const SET = AVATAR_SETS[talk.avatar] || HERO;
         const per = personalityOf(talk.personality);
-        const mm = moodMsgOf(talk.moodMsg);
+        const mm = stripIcons(moodMsgOf(talk.moodMsg)) || null; // 気分の絵文字アイコンを除去
         const learned = talk.learned ?? 0;
         const vocabPct = Math.max(4, Math.min(100, Math.round((learned / 1000) * 100)));
         const streakPct = Math.max(4, Math.min(100, Math.round(((talk.streak ?? 0) / 30) * 100)));
         const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
         // 一体フレーム(素材はテーマで切替・座標CSは共通)。全幅で高さ=素材比。
         const frameSrc = Image.resolveAssetSource(isDark ? CSFRAME_DARK : CSFRAME_LIGHT);
-        const FW = VW;
+        const INSET = Math.round(VW * 0.05); // フレーム/応援を画面縁から内側へ(金枠が縁に近づかないよう余白)
+        const FW = VW - INSET * 2;
         const FH = Math.round(FW * frameSrc.height / frameSrc.width);
-        const sceneH = VW; // 会話背景=正方形(1:1)。全面を画面上部にトリムなしで表示
+        const sceneH = VW; // 会話背景=正方形(1:1)。全面を画面上部にトリムなしで表示(横幅=画面幅)
         const avH = Math.min(Math.round(sceneH * 0.98), Math.round(VW * 0.86));
         // 台詞ページ(各ページ最大3行程度)。
         const lines: string[] = [`やあ、${talk.nick}だよ！`];
@@ -735,6 +741,9 @@ export default function KotobaTownScreen() {
         const valCol = isDark ? '#ffffff' : '#2d2113';
         const barTrack = isDark ? 'rgba(9,14,42,0.9)' : '#cdc7b6';
         const panelBg = isDark ? '#132048' : '#f5f1e6';
+        // 応援欄の背景=フレームと同系のグラデ(上→下)。
+        const cheerG0 = isDark ? '#18244f' : '#f7f2e6';
+        const cheerG1 = isDark ? '#080f30' : '#e6ddc9';
         const fbox = (r: readonly number[]) => ({ position: 'absolute' as const, left: r[0] * FW, top: r[1] * FH, width: (r[2] - r[0]) * FW, height: (r[3] - r[1]) * FH });
         // 6項目=「ラベル：値」を左右2列×3行に。x=列開始, y=行の中心。
         const FIELDS: { x: number; y: number; lab: string; val: string }[] = [
@@ -752,8 +761,10 @@ export default function KotobaTownScreen() {
         ];
         return (
           <View style={[s.cvWrap, { backgroundColor: panelBg }]}>
-            <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
-              {/* 上: 会話背景(昼夜ランダム)＋立ち絵 */}
+            {/* 下に引っ張る(オーバースクロール)で会話を抜ける。 */}
+            <ScrollView showsVerticalScrollIndicator={false} bounces scrollEventThrottle={16}
+              onScroll={(e) => { if (e.nativeEvent.contentOffset.y < -72) closeTalk(); }}>
+              {/* 上: 会話背景(昼夜ランダム・横幅=画面幅で全面)＋立ち絵 */}
               <View style={{ width: VW, height: sceneH }}>
                 <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="cover" />
                 <View style={s.cvVignette} pointerEvents="none" />
@@ -761,12 +772,12 @@ export default function KotobaTownScreen() {
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
               </View>
-              {/* 中: 会話+ステータス一体フレーム(素材=テーマ切替) */}
-              <View style={{ width: FW, height: FH }}>
+              {/* 中: 会話+ステータス一体フレーム(素材=テーマ切替)。画面縁から少し内側へ(中央寄せ)。 */}
+              <View style={{ width: FW, height: FH, alignSelf: 'center' }}>
                 <Image source={isDark ? CSFRAME_DARK : CSFRAME_LIGHT} style={{ width: FW, height: FH }} resizeMode="stretch" />
-                {/* ニックネーム(上枠) */}
-                <View style={[fbox(CS.name), { alignItems: 'center', justifyContent: 'center' }]} pointerEvents="none">
-                  <Text style={{ color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.038) }} numberOfLines={1}>{talk.flag} {talk.nick}</Text>
+                {/* ニックネーム(上枠)。枠幅内で自動縮小。 */}
+                <View style={[fbox(CS.name), { alignItems: 'center', justifyContent: 'center', paddingHorizontal: FW * 0.01 }]} pointerEvents="none">
+                  <Text style={{ color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.038) }} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6}>{talk.nick}</Text>
                 </View>
                 {/* 台詞(タップで送り。送り切ると先頭へ) */}
                 <Pressable style={fbox(CS.say)} onPress={onNext}>
@@ -774,23 +785,36 @@ export default function KotobaTownScreen() {
                 </Pressable>
                 {pages.length > 1 && <Text style={{ position: 'absolute', right: FW * 0.14, top: CS.say[3] * FH - FW * 0.075, color: labCol, fontSize: Math.round(FW * 0.03), fontWeight: '800' }}>{page + 1}/{pages.length}</Text>}
                 <Animated.Text style={{ position: 'absolute', right: FW * 0.05, top: CS.say[3] * FH - FW * 0.085, color: labCol, fontSize: Math.round(FW * 0.045), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>
-                {/* 6項目=「ラベル：値」(2列×3行) */}
-                {FIELDS.map((f, i) => (
-                  <Text key={i} pointerEvents="none" numberOfLines={1} style={{ position: 'absolute', left: f.x * FW, top: f.y * FH - FW * 0.03, color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.036) }}>{f.lab}：{f.val}</Text>
-                ))}
-                {/* バー2行: ラベル(左)＋バー(barX0..barX1)＋数字(numX) */}
+                {/* 6項目=「ラベル：値」(2列×3行)。列幅を与えて左寄せ＋自動縮小=長い言語でも枠内に収める。 */}
+                {FIELDS.map((f, i) => {
+                  const isLeft = f.x === CS.xL;
+                  const w = (isLeft ? (CS.xR - CS.xL - 0.02) : (0.925 - CS.xR)) * FW;
+                  return (
+                    <Text key={i} pointerEvents="none" numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.55} style={{ position: 'absolute', left: f.x * FW, top: f.y * FH - FW * 0.032, width: w, color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.036) }}>{f.lab}：{f.val}</Text>
+                  );
+                })}
+                {/* バー2行: ラベル(左)＋バー(barX0..barX1)＋数字(numX)。ラッパーはabsoluteFill=子の絶対座標をフレーム基準にする。 */}
                 {bars.map((b, i) => (
-                  <View key={i} pointerEvents="none">
-                    <Text numberOfLines={1} style={{ position: 'absolute', left: CS.barLabelX * FW, top: b.y * FH - FW * 0.028, color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.032) }}>{b.lab}</Text>
+                  <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
+                    <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: CS.barLabelX * FW, top: b.y * FH - FW * 0.028, width: (CS.barX0 - CS.barLabelX - 0.012) * FW, color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.032) }}>{b.lab}</Text>
                     <View style={{ position: 'absolute', left: CS.barX0 * FW, top: b.y * FH - FW * 0.019, width: (CS.barX1 - CS.barX0) * FW, height: FW * 0.038, borderRadius: 7, backgroundColor: barTrack, overflow: 'hidden' }}>
                       <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: (`${b.pct}%` as `${number}%`), backgroundColor: b.col, borderRadius: 7 }} />
                     </View>
-                    <Text numberOfLines={1} style={{ position: 'absolute', left: CS.numX * FW, top: b.y * FH - FW * 0.028, color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.034) }}>{b.num}</Text>
+                    <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: CS.numX * FW, top: b.y * FH - FW * 0.028, width: (0.9 - CS.numX) * FW, color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.034) }}>{b.num}</Text>
                   </View>
                 ))}
               </View>
-              {/* 下: 応援を送る(スクロールで表示) */}
-              <View style={{ paddingHorizontal: 16, paddingTop: 14, paddingBottom: 44, backgroundColor: panelBg }}>
+              {/* 下: 応援を送る(スクロールで表示)。背景=フレームと同系のグラデ・幅はフレームに合わせ中央寄せ。 */}
+              <View style={{ width: FW, alignSelf: 'center', paddingHorizontal: 14, paddingTop: 16, paddingBottom: 46, borderBottomLeftRadius: 14, borderBottomRightRadius: 14, overflow: 'hidden' }}>
+                <Svg style={StyleSheet.absoluteFill} width="100%" height="100%">
+                  <Defs>
+                    <SvgGrad id="cheerG" x1="0" y1="0" x2="0" y2="1">
+                      <Stop offset="0" stopColor={cheerG0} />
+                      <Stop offset="1" stopColor={cheerG1} />
+                    </SvgGrad>
+                  </Defs>
+                  <Rect x="0" y="0" width="100%" height="100%" fill="url(#cheerG)" />
+                </Svg>
                 {sent ? (
                   <View style={s.sentBox}>
                     <Text style={s.sentEmoji}>{sent.emoji}</Text>
@@ -811,8 +835,8 @@ export default function KotobaTownScreen() {
                 )}
               </View>
             </ScrollView>
-            {/* 閉じる */}
-            <Pressable onPress={closeTalk} hitSlop={10} style={s.nvClose}><Ionicons name="close" size={26} color={isDark ? '#ffffff' : '#3a2f1c'} /></Pressable>
+            {/* 閉じる(はっきり見える白フチの丸)。下スワイプでも抜けられる。 */}
+            <Pressable onPress={closeTalk} hitSlop={12} style={s.nvClose}><Ionicons name="close" size={26} color="#ffffff" /></Pressable>
           </View>
         );
       })()}
@@ -929,7 +953,7 @@ const s = StyleSheet.create({
   // ノベル風の会話(立ち絵フルスクリーン)
   nvWrap: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
   nvScrim: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(6,8,20,0.66)' },
-  nvClose: { position: 'absolute', top: 46, right: 16, width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(0,0,0,0.38)', alignItems: 'center', justifyContent: 'center', zIndex: 6 },
+  nvClose: { position: 'absolute', top: 52, right: 14, width: 42, height: 42, borderRadius: 21, backgroundColor: 'rgba(12,16,28,0.6)', borderWidth: 2, borderColor: 'rgba(255,255,255,0.92)', alignItems: 'center', justifyContent: 'center', zIndex: 8, shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5 },
   nvStage: { ...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', paddingBottom: 28 },
   nvStandWrap: { alignItems: 'center', marginBottom: -6, zIndex: 1 },
   nvPlate: { flexDirection: 'row', alignItems: 'center', gap: 8, alignSelf: 'flex-start', marginLeft: 16, marginBottom: 8, backgroundColor: '#0c1d49', borderWidth: 2, borderColor: '#ffffff', borderRadius: 9, paddingHorizontal: 12, paddingVertical: 5, zIndex: 3 },
