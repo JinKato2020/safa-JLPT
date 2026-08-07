@@ -50,6 +50,11 @@ test('seasonOf/timeBandOf: ローカル月/時で判定', () => {
   assert.equal(timeBandOf(new Date(2026, 0, 1, 8).getTime()), 'morning');
   assert.equal(timeBandOf(new Date(2026, 0, 1, 13).getTime()), 'noon');
   assert.equal(timeBandOf(new Date(2026, 0, 1, 21).getTime()), 'night');
+  // 昼夜境界(daylight.tsと一致): 17時は昼・18時から夜・5時は夜・6時は朝
+  assert.equal(timeBandOf(new Date(2026, 0, 1, 17).getTime()), 'noon');
+  assert.equal(timeBandOf(new Date(2026, 0, 1, 18).getTime()), 'night');
+  assert.equal(timeBandOf(new Date(2026, 0, 1, 5).getTime()), 'night');
+  assert.equal(timeBandOf(new Date(2026, 0, 1, 6).getTime()), 'morning');
 });
 
 test('pickCore: streak棚から正しいプールを引く', () => {

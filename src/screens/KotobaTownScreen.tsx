@@ -468,17 +468,23 @@ export default function KotobaTownScreen() {
     return () => { cancelled = true; };
   }, [session]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // 桜との会話(努力をほめる)。応援コメントとは別カード。
+  // 桜との会話(努力をほめる)。学習者と同じノベル演出(全画面ランダム背景＋立ち絵＋ダイアログボックス)。
   const [sakuraTalk, setSakuraTalk] = useState(false);
-  const [praise, setPraise] = useState('');
+  const [sakuraLines, setSakuraLines] = useState<string[]>([]); // 台詞ページ(▼で進む)
+  const [sakuraPage, setSakuraPage] = useState(0);
   const sakuraTalkRef = useRef(false);
   const sakuraArmed = useRef(true);
   const openSakura = () => {
-    const lines = sakuraPraise(streakCur);
-    setPraise(lines[Math.floor(Math.random() * lines.length)]);
+    const all = sakuraPraise(streakCur);
+    // 2つ選んで2ページに(重複しないように)。
+    const i = Math.floor(Math.random() * all.length);
+    const j = (i + 1 + Math.floor(Math.random() * (all.length - 1))) % all.length;
+    setSakuraLines([all[i], all[j]]);
+    setSakuraPage(0);
+    setTalkScene(SCENE_KEYS[Math.floor(Math.random() * SCENE_KEYS.length)]); // 背景も町の会話と同じ3種ランダム
     sakuraTalkRef.current = true; setSakuraTalk(true);
   };
-  const closeSakura = () => { sakuraTalkRef.current = false; setSakuraTalk(false); };
+  const closeSakura = () => { sakuraTalkRef.current = false; setSakuraTalk(false); setSakuraPage(0); };
 
   // 友だちを町に招待: 自分のuserIdを載せた招待リンクをSNSで共有。相手がリンクを開くと「参加/断る」→参加でこの町に住人として出る。
   const onInvite = async () => {
@@ -820,24 +826,38 @@ export default function KotobaTownScreen() {
         );
       })()}
 
-      {/* 桜の会話カード(努力をほめる) */}
-      {sakuraTalk && (
-        <View style={s.talkWrap}>
-          <Pressable style={StyleSheet.absoluteFill} onPress={closeSakura} />
-          <View style={s.talkCard}>
-            <Pressable onPress={closeSakura} hitSlop={10} style={s.talkClose}><Ionicons name="close" size={20} color="#ffffff" /></Pressable>
-            <View style={s.talkHead}>
-              <View style={s.talkAvatar}><Image source={SAKURA.down[0]} style={{ width: 54, height: 54 }} resizeMode="contain" /></View>
-              <View style={{ flex: 1 }}>
-                <Text style={s.talkName}>🌸 桜</Text>
-                <Text style={s.talkStatT}>あなたの努力を見てるよ</Text>
-              </View>
+      {/* 桜の会話(ノベル風・立ち絵フルスクリーン)。学習者と同じ演出=全画面ランダム背景＋桜の立ち絵＋ダイアログボックス。 */}
+      {sakuraTalk && (() => {
+        const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
+        const dlgH = Math.round(VW * 385 / 960);
+        const avH = Math.min(Math.round(VH * 0.44), Math.round(VW * 0.95));
+        const pages = sakuraLines.length ? sakuraLines : ['また会えたね🌸'];
+        const page = Math.min(sakuraPage, pages.length - 1);
+        const onNext = () => { if (page < pages.length - 1) setSakuraPage(page + 1); else closeSakura(); };
+        const nextY = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0, 4] });
+        const nextOp = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0.55, 1] });
+        return (
+          <View style={s.cvWrap}>
+            {/* 背景=会話シーン(全画面)。会話ごとにランダム・昼夜で切替。 */}
+            <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="cover" />
+            <View style={s.cvVignette} pointerEvents="none" />
+            <Pressable style={StyleSheet.absoluteFill} onPress={closeSakura} />
+            <Pressable onPress={closeSakura} hitSlop={10} style={s.nvClose}><Ionicons name="close" size={26} color="#ffffff" /></Pressable>
+            {/* 桜の立ち絵=背景の右に乗せる(足元はダイアログ上端あたり)。 */}
+            <View style={[s.cvAvatarR, { right: Math.round(VW * 0.02), bottom: dlgH + 4, width: avH, height: avH }]} pointerEvents="none">
+              <Image source={SAKURA.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
             </View>
-            <Text style={s.praiseMsg}>{praise}</Text>
-            <Pressable onPress={closeSakura} style={s.praiseBtn}><Text style={s.praiseBtnT}>ありがとう🌸</Text></Pressable>
+            {/* 台詞=装飾ダイアログボックス(全幅・白文字・名前は上枠・▼発光)。 */}
+            <Pressable style={[s.cvDlg, { height: dlgH }]} onPress={onNext}>
+              <Image source={DIALOGBOX} style={StyleSheet.absoluteFill} resizeMode="stretch" />
+              <Text style={[s.cvDlgName, { top: dlgH * 0.05, width: '34%' }]} numberOfLines={1}>🌸 桜</Text>
+              <Text style={[s.cvDlgSay, { top: dlgH * 0.29 }]} numberOfLines={3}>{pages[page]}</Text>
+              {pages.length > 1 && <Text style={[s.cvDlgDots, { bottom: dlgH * 0.12 }]}>{page + 1}/{pages.length}</Text>}
+              <Animated.Text style={[s.cvDlgNext, { bottom: dlgH * 0.08, opacity: nextOp, transform: [{ translateY: nextY }] }]}>▼</Animated.Text>
+            </Pressable>
           </View>
-        </View>
-      )}
+        );
+      })()}
     </View>
   );
 }

@@ -47,14 +47,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- 画像/MAP/当たり判定_理解_v7.png
-- 画像/MAP/当たり判定_理解_v6.png
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- src/plaza/mapCollision.ts
+- src/screens/KotobaTownScreen.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- 画像/MAP/当たり判定_理解_v5.png
-- 画像/MAP/当たり判定_理解_v4.png
-- 画像/MAP/当たり判定_理解_v3.png
-- 画像/MAP/当たり判定_理解_v2.png
+- 画像/MAP/当たり判定_理解_v7.png
+- 画像/MAP/当たり判定_理解_v6.png
 
-_自動更新: 2026-08-07 16:59_
+_自動更新: 2026-08-07 17:06_
 <!-- AUTO:END -->

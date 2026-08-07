@@ -221,9 +221,10 @@ export function seasonOf(now: number): Season {
 }
 export function timeBandOf(now: number): TimeBand {
   const h = new Date(now).getHours();
+  // 昼夜の境界(daylight.ts)に合わせる: 夜=18:00〜5:59。朝=6:00〜10:59・昼=11:00〜17:59。
+  if (h >= 18 || h < 6) return 'night';
   if (h < 11) return 'morning';
-  if (h < 17) return 'noon';
-  return 'night';
+  return 'noon';
 }
 
 /** core を1本選ぶ。daily は目標棚→下位棚の順で最初の非空プールを使う(後払い棚のフォールバック)。 */
