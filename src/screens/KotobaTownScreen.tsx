@@ -3,7 +3,7 @@
 //  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
 //  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share } from 'react-native';
+import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Defs, LinearGradient as SvgGrad, Stop, Rect } from 'react-native-svg';
 import { useIsDarkTheme } from '../theme';
@@ -20,8 +20,9 @@ import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
 import { personalityOf, moodMsgOf, personaLineOf } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
-import { friendPublish, townMembers } from '../plaza/friendsClient';
+import { friendPublish, townMembers, cheerSend, cheerUnreadCount, type FriendProfile } from '../plaza/friendsClient';
 import { friendToLearner, pickFriendHomes } from '../plaza/friendResidents';
+import { flagOf } from '../plaza/countries';
 import { daimonMasteryCounts } from '../store/selectors';
 
 type Dir = 'down' | 'up' | 'left' | 'right' | 'downleft' | 'downright' | 'upleft' | 'upright';
@@ -150,13 +151,15 @@ const CSFRAME_LIGHT = require('../../assets/kotoba/ui/csframe_light.png');
 // フレーム内の分率座標(サンプル配置を機械検出→トリム後の最終フレーム基準)。
 //  name=話者枠 / say=台詞窓 / 6項目は「ラベル：値」を xL(左列)・xR(右列) の各行(rowY)へ / バー2行(barRowY)＝ラベル+バー(barX0..barX1)+数字(numX)。
 const CS = {
-  name: [0.021, 0.006, 0.304, 0.079],
-  say: [0.05, 0.11, 0.93, 0.27],
-  xL: 0.09, xR: 0.566,
-  rowY: [0.411, 0.521, 0.629],
-  barLabelX: 0.09,
-  barRowY: [0.744, 0.834],
-  barX0: 0.258, barX1: 0.662, numX: 0.702,
+  // 実測(1254² フレーム)。各テキストは「帯の中で縦中央・固定フォント」で描く。
+  // nameBox=ネームプレート内側(上端タブ) / sayBand=台詞帯(プレート下〜主仕切り) /
+  // rowBands=ステータス3帯(仕切り0.3525/0.473/0.583/0.693の間) / barBands=バー2帯(0.693〜飾り手前)。
+  nameBox: [0.026, 0.024, 0.299, 0.09],
+  sayBand: [0.065, 0.10, 0.935, 0.345],
+  xL: 0.09, xR: 0.566, colRightEdge: 0.925,
+  rowBands: [[0.3525, 0.473], [0.473, 0.583], [0.583, 0.693]],
+  barBands: [[0.693, 0.789], [0.789, 0.885]],
+  barLabelX: 0.09, barX0: 0.258, barX1: 0.662, numX: 0.702,
 } as const;
 // 会話を始めるたびにシーンをランダムに選ぶ(固定ではなく多様性を持たせる)。昼夜は実時刻(isDay)で切替。
 
@@ -418,6 +421,8 @@ export default function KotobaTownScreen() {
   const meState = useAppState();
   const { session } = useSync();
   const [friends, setFriends] = useState<VirtualLearner[]>([]);
+  const [members, setMembers] = useState<FriendProfile[]>([]); // 町の住人(招待して参加した友だち)。見出しタップの一覧＝メッセージ可能な相手。
+  const [membersOpen, setMembersOpen] = useState(false);
   const residents = useMemo(() => [...VIRTUAL_LEARNERS, ...friends], [friends]); // 仮想学習者＋実在の友だち
   const residentsRef = useRef<VirtualLearner[]>(VIRTUAL_LEARNERS);
   residentsRef.current = residents; // 移動ループ(閉包)から最新の住人を参照するため
@@ -455,16 +460,29 @@ export default function KotobaTownScreen() {
   }, [nextPulse]);
   const openTalk = (v: VirtualLearner) => { talkRef.current = v; setSent(null); setTalkStep('info'); setTalkPage(0); setTalkScene(SCENE_KEYS[Math.floor(Math.random() * SCENE_KEYS.length)]); setTalk(v); };
   const closeTalk = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } talkRef.current = null; setTalk(null); setSent(null); setTalkStep('info'); };
-  const sendCheer = (c: { emoji: string; reply: string }) => {
-    setSent({ emoji: c.emoji, reply: c.reply });
+  // 応援は「自分の町の住人(招待して参加した友だち)」にだけ送れる。相手の id は 'friend:<userId>'。
+  const sendCheer = (c: { key: string; emoji: string; reply: string }) => {
+    const id = talkRef.current?.id ?? '';
+    const fid = id.startsWith('friend:') ? id.slice('friend:'.length) : null;
+    if (fid) cheerSend(fid, c.key); // サーバー配信(結果は待たない=UXを止めない)。相手は受信箱で受け取る。
+    setSent({ emoji: c.emoji, reply: '' }); // 実際の相手なので、その場の作り物の返事は出さない
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => closeTalk(), 1800);
+    closeTimer.current = setTimeout(() => closeTalk(), 1600);
   };
   useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
+  // 受信箱(友だちから届いた応援)の未読数=バッジ。町を開いた時に取得。
+  const [cheerUnread, setCheerUnread] = useState(0);
+  useEffect(() => {
+    if (!session) { setCheerUnread(0); return; }
+    let alive = true;
+    cheerUnreadCount().then((n) => { if (alive) setCheerUnread(n); });
+    return () => { alive = false; };
+  }, [session]);
+  const openInbox = () => { setCheerUnread(0); nav.navigate('CheerInbox'); };
 
   // 友だち: ログイン中なら自分を公開(検索対象＋友だちの町に出る)し、友だち一覧を町の住人へ変換して置く。
   useEffect(() => {
-    if (!session) { setFriends([]); return; }
+    if (!session) { setFriends([]); setMembers([]); return; }
     let cancelled = false;
     (async () => {
       const st = meState.settings;
@@ -480,6 +498,8 @@ export default function KotobaTownScreen() {
       }
       const list = await townMembers();
       if (cancelled) return;
+      setMembers(list); // 見出しタップの「町の友だち」一覧に使う(全員)。
+
       const isWalkable = (col: number, row: number) => MAP_WALK[row]?.[col] === '.';
       const homes = pickFriendHomes(list.length, isWalkable, VIRTUAL_LEARNERS.map((v) => v.home));
       setFriends(list.slice(0, homes.length).map((p, i) => friendToLearner(p, homes[i])));
@@ -691,13 +711,54 @@ export default function KotobaTownScreen() {
       <SafeAreaView edges={['top']} style={s.top} pointerEvents="box-none">
         <View style={s.topBar} pointerEvents="box-none">
           <View style={s.topLeft} pointerEvents="box-none">
-            <View style={s.pill}><Text style={s.pillT}>日本語学習者の町</Text></View>
+            {/* 見出しタップ=町の友だち一覧(招待して参加した人)。この一覧の相手にはメッセージ(応援)を送れる。 */}
+            <Pressable style={s.pill} onPress={() => setMembersOpen(true)}>
+              <Text style={s.pillT}>日本語学習者の町</Text>
+              <Ionicons name="people" size={13} color="#3a3128" style={{ marginLeft: 5 }} />
+            </Pressable>
             {/* 友だちを町に招待(リンク共有→相手が参加で住人に)。白・アイコン無しでタイトル横に。 */}
             <Pressable style={s.inviteWhite} onPress={onInvite}><Text style={s.inviteWhiteT}>友だちを町に招待</Text></Pressable>
           </View>
-          <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.close}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
+          <View style={s.topRight} pointerEvents="box-none">
+            {/* 受信箱(友だちから届いた応援)。未読があれば赤バッジ。 */}
+            {session && (
+              <Pressable onPress={openInbox} hitSlop={10} style={s.close}>
+                <Ionicons name="notifications" size={20} color="#3a3128" />
+                {cheerUnread > 0 && <View style={s.bellBadge}><Text style={s.bellBadgeT}>{cheerUnread > 99 ? '99+' : cheerUnread}</Text></View>}
+              </Pressable>
+            )}
+            <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.close}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
+          </View>
         </View>
       </SafeAreaView>
+
+      {/* 町の友だち一覧(見出しタップ)。招待して参加した人＝メッセージ(応援)を送れる相手。行タップで会話を開く。 */}
+      <Modal visible={membersOpen} transparent animationType="slide" onRequestClose={() => setMembersOpen(false)}>
+        <Pressable style={s.memberBackdrop} onPress={() => setMembersOpen(false)} />
+        <View style={s.memberSheet}>
+          <View style={s.memberHead}>
+            <Text style={s.memberTitle}>町の友だち{members.length > 0 ? `（${members.length}）` : ''}</Text>
+            <Pressable onPress={() => setMembersOpen(false)} hitSlop={10}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
+          </View>
+          {!session ? (
+            <Text style={s.memberEmpty}>ログインすると、招待した友だちがここに表示されます。</Text>
+          ) : members.length === 0 ? (
+            <Text style={s.memberEmpty}>まだ町に友だちがいません。{'\n'}「友だちを町に招待」から招待しよう。</Text>
+          ) : (
+            <ScrollView style={{ maxHeight: 380 }} showsVerticalScrollIndicator={false}>
+              {members.map((m) => (
+                <Pressable key={m.user_id} style={s.memberRow} onPress={() => { setMembersOpen(false); openTalk(friendToLearner(m, { col: 16, row: 16 })); }}>
+                  <Text style={s.memberName} numberOfLines={1}>{flagOf(m.country ?? 'XX')} {m.nickname}</Text>
+                  <View style={s.memberRight}>
+                    <Text style={s.memberMeta}>{m.level}・{Math.max(0, m.streak ?? 0)}日</Text>
+                    <View style={s.memberSend}><Ionicons name="chatbubble-ellipses" size={13} color="#fff" /><Text style={s.memberSendT}>応援</Text></View>
+                  </View>
+                </Pressable>
+              ))}
+            </ScrollView>
+          )}
+        </View>
+      </Modal>
 
       {/* 操作(アナログスティック・斜めOK)。会話中は"消さずに"隠して触れなくする(アンマウントすると指を離す前に
           消えてノブが張り付く/入力が残って勝手に進む原因になる)。opacityで隠し、pointerEvents=noneで操作不可にする。 */}
@@ -723,8 +784,8 @@ export default function KotobaTownScreen() {
         const INSET = Math.round(VW * 0.05); // フレーム/応援を画面縁から内側へ(金枠が縁に近づかないよう余白)
         const FW = VW - INSET * 2;
         const FH = Math.round(FW * frameSrc.height / frameSrc.width);
-        const sceneH = VW; // 会話背景=正方形(1:1)。全面を画面上部にトリムなしで表示(横幅=画面幅)
-        const avH = Math.min(Math.round(sceneH * 0.98), Math.round(VW * 0.86));
+        const sceneH = FW; // 会話背景=正方形(1:1)。フレームと同じ幅で角丸表示(左右の余白は町が見える)
+        const avH = Math.min(Math.round(sceneH * 0.80), Math.round(VW * 0.62)); // 立ち絵は小さめ=背景画像が全面しっかり見える
         // 台詞ページ(各ページ最大3行程度)。
         const lines: string[] = [`やあ、${talk.nick}だよ！`];
         if (talk.studying) lines.push(`いまは「${talk.studying}」を特訓中。`);
@@ -740,69 +801,81 @@ export default function KotobaTownScreen() {
         const labCol = isDark ? '#ffd66e' : '#9a6e1b';
         const valCol = isDark ? '#ffffff' : '#2d2113';
         const barTrack = isDark ? 'rgba(9,14,42,0.9)' : '#cdc7b6';
-        const panelBg = isDark ? '#132048' : '#f5f1e6';
         // 応援欄の背景=フレームと同系のグラデ(上→下)。
         const cheerG0 = isDark ? '#18244f' : '#f7f2e6';
         const cheerG1 = isDark ? '#080f30' : '#e6ddc9';
-        const fbox = (r: readonly number[]) => ({ position: 'absolute' as const, left: r[0] * FW, top: r[1] * FH, width: (r[2] - r[0]) * FW, height: (r[3] - r[1]) * FH });
-        // 6項目=「ラベル：値」を左右2列×3行に。x=列開始, y=行の中心。
-        const FIELDS: { x: number; y: number; lab: string; val: string }[] = [
-          { x: CS.xL, y: CS.rowY[0], lab: 'ニックネーム', val: talk.nick },
-          { x: CS.xR, y: CS.rowY[0], lab: 'Lv', val: String(talk.level) },
-          { x: CS.xL, y: CS.rowY[1], lab: '国名', val: (talk.flag ?? '').trim() || '-' },
-          { x: CS.xR, y: CS.rowY[1], lab: '得意', val: talk.strong ?? '-' },
-          { x: CS.xL, y: CS.rowY[2], lab: '性格', val: per ? per.label : '-' },
-          { x: CS.xR, y: CS.rowY[2], lab: '気分', val: mm ?? '-' },
+        // 固定フォント(自動縮小しない=サイズ一定)。帯の中で縦中央に描く。
+        const FS_NAME = Math.round(FW * 0.046);
+        const FS_SAY = Math.round(FW * 0.040), LH_SAY = Math.round(FW * 0.056);
+        const FS_FIELD = Math.round(FW * 0.037), LH_FIELD = Math.round(FW * 0.052);
+        const FS_BAR = Math.round(FW * 0.033), FS_NUM = Math.round(FW * 0.034), LH_BAR = Math.round(FW * 0.048);
+        const barH = Math.round(FW * 0.038);
+        const midOf = (bd: readonly number[]) => (bd[0] + bd[1]) / 2;
+        // 6項目=「ラベル：値」を左右2列×3帯に。b=帯index(rowBands)。
+        const FIELDS: { x: number; b: number; lab: string; val: string }[] = [
+          { x: CS.xL, b: 0, lab: 'ニックネーム', val: talk.nick },
+          { x: CS.xR, b: 0, lab: 'Lv', val: String(talk.level) },
+          { x: CS.xL, b: 1, lab: '国名', val: (talk.flag ?? '').trim() || '-' },
+          { x: CS.xR, b: 1, lab: '得意', val: talk.strong ?? '-' },
+          { x: CS.xL, b: 2, lab: '性格', val: per ? per.label : '-' },
+          { x: CS.xR, b: 2, lab: '気分', val: mm ?? '-' },
         ];
-        // バー2行=ラベル(左)＋バー(barX0..barX1)＋数字(numX)。覚えた単語=青 / 連続日数=緑(サンプル準拠)。
-        const bars: { lab: string; pct: number; num: string; col: string; y: number }[] = [
-          { lab: '覚えた単語', pct: vocabPct, num: `${learned} / 1000`, col: '#4aa3ff', y: CS.barRowY[0] },
-          { lab: '連続日数', pct: streakPct, num: `${talk.streak ?? 0} 日`, col: '#37cc74', y: CS.barRowY[1] },
+        // バー2行=ラベル(左)＋バー(barX0..barX1)＋数字(numX)。覚えた単語=青 / 連続日数=緑。b=帯index(barBands)。
+        const bars: { lab: string; pct: number; num: string; col: string; b: number }[] = [
+          { lab: '覚えた単語', pct: vocabPct, num: `${learned} / 1000`, col: '#4aa3ff', b: 0 },
+          { lab: '連続日数', pct: streakPct, num: `${talk.streak ?? 0} 日`, col: '#37cc74', b: 1 },
         ];
         return (
-          <View style={[s.cvWrap, { backgroundColor: panelBg }]}>
+          <View style={s.cvWrap}>
+            {/* 余白に町を見せる: 全画面は透過。町を少しだけ暗くして会話に集中させる。 */}
+            <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(4,6,16,0.38)' }]} pointerEvents="none" />
             {/* 下に引っ張る(オーバースクロール)で会話を抜ける。 */}
             <ScrollView showsVerticalScrollIndicator={false} bounces scrollEventThrottle={16}
+              style={{ backgroundColor: 'transparent' }} contentContainerStyle={{ paddingTop: INSET, paddingBottom: 40 }}
               onScroll={(e) => { if (e.nativeEvent.contentOffset.y < -72) closeTalk(); }}>
-              {/* 上: 会話背景(昼夜ランダム・横幅=画面幅で全面)＋立ち絵 */}
-              <View style={{ width: VW, height: sceneH }}>
+              {/* 上: 会話背景(昼夜ランダム)。フレームと同じ幅で角丸表示。左右の余白は町が見える。 */}
+              <View style={{ width: FW, height: sceneH, alignSelf: 'center', borderRadius: 18, overflow: 'hidden' }}>
                 <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="cover" />
                 <View style={s.cvVignette} pointerEvents="none" />
                 <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, alignItems: 'center' }} pointerEvents="none">
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
               </View>
-              {/* 中: 会話+ステータス一体フレーム(素材=テーマ切替)。画面縁から少し内側へ(中央寄せ)。 */}
-              <View style={{ width: FW, height: FH, alignSelf: 'center' }}>
+              {/* 中: 会話+ステータス一体フレーム(素材=テーマ切替)。会話背景と同じ幅で中央寄せ。 */}
+              <View style={{ width: FW, height: FH, alignSelf: 'center', marginTop: 10 }}>
                 <Image source={isDark ? CSFRAME_DARK : CSFRAME_LIGHT} style={{ width: FW, height: FH }} resizeMode="stretch" />
-                {/* ニックネーム(上枠)。枠幅内で自動縮小。 */}
-                <View style={[fbox(CS.name), { alignItems: 'center', justifyContent: 'center', paddingHorizontal: FW * 0.01 }]} pointerEvents="none">
-                  <Text style={{ color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.038) }} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6}>{talk.nick}</Text>
+                {/* ニックネーム: ネームプレート内側で中央(固定フォント)。 */}
+                <View style={{ position: 'absolute', left: CS.nameBox[0] * FW, top: CS.nameBox[1] * FH, width: (CS.nameBox[2] - CS.nameBox[0]) * FW, height: (CS.nameBox[3] - CS.nameBox[1]) * FH, alignItems: 'center', justifyContent: 'center' }} pointerEvents="none">
+                  <Text numberOfLines={1} style={{ color: valCol, fontWeight: '900', fontSize: FS_NAME }}>{talk.nick}</Text>
                 </View>
-                {/* 台詞(タップで送り。送り切ると先頭へ) */}
-                <Pressable style={fbox(CS.say)} onPress={onNext}>
-                  <Text style={{ color: valCol, fontSize: Math.round(FW * 0.038), lineHeight: Math.round(FW * 0.058), fontWeight: '600' }} numberOfLines={3}>{pages[page]}</Text>
+                {/* 台詞: 台詞帯の中で縦中央(固定フォント)。タップで送り。 */}
+                <Pressable style={{ position: 'absolute', left: CS.sayBand[0] * FW, top: CS.sayBand[1] * FH, width: (CS.sayBand[2] - CS.sayBand[0]) * FW, height: (CS.sayBand[3] - CS.sayBand[1]) * FH, justifyContent: 'center' }} onPress={onNext}>
+                  <Text style={{ color: valCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={3}>{pages[page]}</Text>
                 </Pressable>
-                {pages.length > 1 && <Text style={{ position: 'absolute', right: FW * 0.14, top: CS.say[3] * FH - FW * 0.075, color: labCol, fontSize: Math.round(FW * 0.03), fontWeight: '800' }}>{page + 1}/{pages.length}</Text>}
-                <Animated.Text style={{ position: 'absolute', right: FW * 0.05, top: CS.say[3] * FH - FW * 0.085, color: labCol, fontSize: Math.round(FW * 0.045), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>
-                {/* 6項目=「ラベル：値」(2列×3行)。列幅を与えて左寄せ＋自動縮小=長い言語でも枠内に収める。 */}
+                {pages.length > 1 && <Text style={{ position: 'absolute', right: FW * 0.14, top: CS.sayBand[3] * FH - FW * 0.075, color: labCol, fontSize: Math.round(FW * 0.03), fontWeight: '800' }}>{page + 1}/{pages.length}</Text>}
+                <Animated.Text style={{ position: 'absolute', right: FW * 0.05, top: CS.sayBand[3] * FH - FW * 0.085, color: labCol, fontSize: Math.round(FW * 0.045), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>
+                {/* 6項目=「ラベル：値」(2列×3帯)。各帯の中で縦中央・固定フォント。列幅で右端をそろえ、あふれは…で省略。 */}
                 {FIELDS.map((f, i) => {
                   const isLeft = f.x === CS.xL;
-                  const w = (isLeft ? (CS.xR - CS.xL - 0.02) : (0.925 - CS.xR)) * FW;
+                  const w = (isLeft ? (CS.xR - CS.xL - 0.02) : (CS.colRightEdge - CS.xR)) * FW;
+                  const mid = midOf(CS.rowBands[f.b]);
                   return (
-                    <Text key={i} pointerEvents="none" numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.55} style={{ position: 'absolute', left: f.x * FW, top: f.y * FH - FW * 0.032, width: w, color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.036) }}>{f.lab}：{f.val}</Text>
+                    <Text key={i} pointerEvents="none" numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: f.x * FW, top: mid * FH - LH_FIELD / 2, width: w, height: LH_FIELD, lineHeight: LH_FIELD, color: valCol, fontWeight: '800', fontSize: FS_FIELD }}>{f.lab}：{f.val}</Text>
                   );
                 })}
-                {/* バー2行: ラベル(左)＋バー(barX0..barX1)＋数字(numX)。ラッパーはabsoluteFill=子の絶対座標をフレーム基準にする。 */}
-                {bars.map((b, i) => (
-                  <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                    <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: CS.barLabelX * FW, top: b.y * FH - FW * 0.028, width: (CS.barX0 - CS.barLabelX - 0.012) * FW, color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.032) }}>{b.lab}</Text>
-                    <View style={{ position: 'absolute', left: CS.barX0 * FW, top: b.y * FH - FW * 0.019, width: (CS.barX1 - CS.barX0) * FW, height: FW * 0.038, borderRadius: 7, backgroundColor: barTrack, overflow: 'hidden' }}>
-                      <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: (`${b.pct}%` as `${number}%`), backgroundColor: b.col, borderRadius: 7 }} />
+                {/* バー2行: 各バー帯の中で縦中央。ラベル(左)＋バー＋数字。 */}
+                {bars.map((b, i) => {
+                  const mid = midOf(CS.barBands[b.b]);
+                  return (
+                    <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
+                      <Text numberOfLines={1} style={{ position: 'absolute', left: CS.barLabelX * FW, top: mid * FH - LH_BAR / 2, width: (CS.barX0 - CS.barLabelX - 0.012) * FW, height: LH_BAR, lineHeight: LH_BAR, color: valCol, fontWeight: '800', fontSize: FS_BAR }}>{b.lab}</Text>
+                      <View style={{ position: 'absolute', left: CS.barX0 * FW, top: mid * FH - barH / 2, width: (CS.barX1 - CS.barX0) * FW, height: barH, borderRadius: 7, backgroundColor: barTrack, overflow: 'hidden' }}>
+                        <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: (`${b.pct}%` as `${number}%`), backgroundColor: b.col, borderRadius: 7 }} />
+                      </View>
+                      <Text numberOfLines={1} style={{ position: 'absolute', left: CS.numX * FW, top: mid * FH - LH_BAR / 2, width: (0.9 - CS.numX) * FW, height: LH_BAR, lineHeight: LH_BAR, color: valCol, fontWeight: '900', fontSize: FS_NUM }}>{b.num}</Text>
                     </View>
-                    <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: CS.numX * FW, top: b.y * FH - FW * 0.028, width: (0.9 - CS.numX) * FW, color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.034) }}>{b.num}</Text>
-                  </View>
-                ))}
+                  );
+                })}
               </View>
               {/* 下: 応援を送る(スクロールで表示)。背景=フレームと同系のグラデ・幅はフレームに合わせ中央寄せ。 */}
               <View style={{ width: FW, alignSelf: 'center', paddingHorizontal: 14, paddingTop: 16, paddingBottom: 46, borderBottomLeftRadius: 14, borderBottomRightRadius: 14, overflow: 'hidden' }}>
@@ -815,11 +888,13 @@ export default function KotobaTownScreen() {
                   </Defs>
                   <Rect x="0" y="0" width="100%" height="100%" fill="url(#cheerG)" />
                 </Svg>
-                {sent ? (
+                {!talk.id.startsWith('friend:') ? (
+                  // 友だちでない(仮想アバター)には応援を送れない。理由を添える。
+                  <Text style={{ color: labCol, fontWeight: '800', fontSize: 13, textAlign: 'center', lineHeight: 21, opacity: 0.95 }}>🔒 応援は「町に招待した友だち」にだけ送れます。{'\n'}友だちを町に招待しよう。</Text>
+                ) : sent ? (
                   <View style={s.sentBox}>
                     <Text style={s.sentEmoji}>{sent.emoji}</Text>
-                    <Text style={[s.sentT, { color: valCol }]}>応援を送りました！</Text>
-                    <Text style={[s.sentReply, { color: labCol }]}>{talk.nick}「{sent.reply}」</Text>
+                    <Text style={[s.sentT, { color: valCol }]}>応援を届けました！🌸</Text>
                   </View>
                 ) : (
                   <>
@@ -883,8 +958,23 @@ const s = StyleSheet.create({
   top: { position: 'absolute', top: 0, left: 0, right: 0 },
   topBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 12 },
   topLeft: { flexDirection: 'row', alignItems: 'center', gap: 8, flexShrink: 1 },
-  pill: { backgroundColor: 'rgba(255,253,248,0.9)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7 },
+  topRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  bellBadge: { position: 'absolute', top: -3, right: -3, minWidth: 18, height: 18, borderRadius: 9, backgroundColor: '#e23b3b', borderWidth: 1.5, borderColor: '#ffffff', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 },
+  bellBadgeT: { color: '#ffffff', fontSize: 10, fontWeight: '900' },
+  pill: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,253,248,0.9)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7 },
   pillT: { fontSize: 13, fontWeight: '900', color: '#3a3128' },
+  // 町の友だち一覧(ボトムシート)。
+  memberBackdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)' },
+  memberSheet: { position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: '#fbf7ef', borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 18, paddingTop: 14, paddingBottom: 30 },
+  memberHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 },
+  memberTitle: { fontSize: 17, fontWeight: '900', color: '#3a3128' },
+  memberEmpty: { color: '#6b6256', fontSize: 14, lineHeight: 22, textAlign: 'center', paddingVertical: 24 },
+  memberRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: 'rgba(58,49,40,0.08)' },
+  memberName: { flex: 1, fontSize: 15, fontWeight: '800', color: '#3a3128', marginRight: 10 },
+  memberRight: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  memberMeta: { fontSize: 12, fontWeight: '700', color: '#8a8072' },
+  memberSend: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: '#e0803c', borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6 },
+  memberSendT: { color: '#fff', fontSize: 12, fontWeight: '900' },
   // 友だちを町に招待=白ボタン(アイコン無し)。タイトル横。
   inviteWhite: { backgroundColor: 'rgba(255,253,248,0.95)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7, borderWidth: 1, borderColor: 'rgba(58,49,40,0.15)' },
   inviteWhiteT: { fontSize: 13, fontWeight: '900', color: '#3a3128', letterSpacing: 0.2 },

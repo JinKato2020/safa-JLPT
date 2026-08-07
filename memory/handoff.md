@@ -47,14 +47,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/screens/KotobaTownScreen.tsx
+- src/screens/AccountScreen.tsx
+- src/screens/ReferralScreen.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- 画像/会話/会話+ステータス_テンプレ_ライト.png
-- 画像/会話/会話+ステータス_テンプレ_ダーク.png
-- assets/kotoba/ui/csframe_light.png
-- assets/kotoba/ui/csframe_dark.png
-- content/_manifest.json
+- src/screens/KotobaTownScreen.tsx
+- docs/supabase/dashboard.html
+- docs/supabase/dashboard_views.sql
+- src/telemetry/telemetry.ts
 
-_自動更新: 2026-08-07 20:36_
+_自動更新: 2026-08-07 23:35_
 <!-- AUTO:END -->

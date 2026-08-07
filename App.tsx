@@ -45,6 +45,7 @@ import QuestionReviewScreen from './src/screens/QuestionReviewScreen';
 import PaywallScreen from './src/screens/PaywallScreen';
 import ReferralScreen from './src/screens/ReferralScreen';
 import KotobaTownScreen from './src/screens/KotobaTownScreen';
+import CheerInboxScreen from './src/screens/CheerInboxScreen';
 import InviteScreen from './src/screens/InviteScreen';
 import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './src/pro/purchases';
 import { initAds } from './src/pro/ads';
@@ -344,6 +345,7 @@ function Root() {
             <RootStack.Screen name="Referral" component={ReferralScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Invite" component={InviteScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="KotobaTown" component={KotobaTownScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="CheerInbox" component={CheerInboxScreen} options={{ presentation: 'modal' }} />
           </>
         )}
       </RootStack.Navigator>

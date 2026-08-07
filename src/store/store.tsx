@@ -45,6 +45,7 @@ type Action =
   | { type: 'MARK_STORY_SHOWN'; id: string; now: number; skipped?: boolean }
   | { type: 'SET_COMPLETED'; day: string; qualifying: boolean }
   | { type: 'SET_ENTERED_CODE'; code: string }
+  | { type: 'SET_REFERRAL_STATS'; qualified: number }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -142,6 +143,9 @@ export function reducer(state: AppState, action: Action): AppState {
     case 'SET_ENTERED_CODE':
       // 新規が初回に入力した紹介コードを保存(成立時にこのコードで報告する)。
       return { ...state, referral: { ...state.referral, enteredCode: action.code } };
+    case 'SET_REFERRAL_STATS':
+      // 自分が紹介した継続人数(サーバー集計)をキャッシュ。テレメトリ/アカウント画面が参照。
+      return { ...state, referral: { ...state.referral, referredQualified: action.qualified } };
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -238,6 +242,7 @@ export function useAppActions() {
     markStoryShown: (id: string, skipped = false) => dispatch({ type: 'MARK_STORY_SHOWN', id, now: Date.now(), skipped }),
     markStudyDay: (qualifying: boolean) => dispatch({ type: 'SET_COMPLETED', day: dayStr(Date.now()), qualifying }),
     setEnteredCode: (code: string) => dispatch({ type: 'SET_ENTERED_CODE', code }),
+    setReferralStats: (qualified: number) => dispatch({ type: 'SET_REFERRAL_STATS', qualified }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     reset: () => {
       clearState();

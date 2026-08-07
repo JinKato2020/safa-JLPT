@@ -62,6 +62,8 @@ from (
       then round(100*(data->'coverage'->'grammar'->>'learned')::numeric/(data->'coverage'->'grammar'->>'total')::numeric) end as cov_grammar,
     -- 私の単語帳 登録単語数(v3〜)。
     coalesce((data->>'myListCount')::int, 0)                    as mylist_count,
+    -- 自分が紹介して継続(qualified/rewarded)に達した人数(紹介制度)。旧データ/未ログインは0。
+    coalesce((data->>'referredQualified')::int, 0)             as referred_qualified,
     -- 大問別 [習得,母数] の生JSON(8大問)＋合計(v3〜。旧データはnull)。
     data->'daimonMastery'                                       as daimon,
     -- 在庫 {キー: [未出題の残り, 母数]}(v4〜。8大問＋単語タブのドリル3種)。旧データはnull。
@@ -105,6 +107,7 @@ select
   round(avg(d.cov_pct))                                 as avg_cov_pct,
   round(avg(d.study_min))                               as avg_study_min,
   round(avg(d.streak), 1)                               as avg_streak,
+  coalesce(sum(d.referred_qualified), 0)                as referred_total,
   count(*) filter (where d.passing)                     as passing_users
 from public.v_admin_devices d
 left join (

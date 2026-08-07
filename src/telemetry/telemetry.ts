@@ -145,6 +145,7 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
     daimonMastery: daimonMap, // 大問別 [習得数,母数]（8大問: 文字語彙5＋文法3）
     stock: stockCounts(state, level), // 在庫 [未出題の残り,母数]（8大問＋単語タブのドリル3種）
     myListCount: (state.myList ?? []).length, // 私の単語帳 登録単語数
+    referredQualified: state.referral?.referredQualified ?? 0, // 自分が紹介して継続に達した人数(管理ダッシュボード用)
     learned: learnedNow(state, now),
     streak: state.streak.current, streakLongest: state.streak.longest, freezes: state.streak.freezes,
     mockCount: (state.mockHistory ?? []).length, studyDays: (state.growth ?? []).length,

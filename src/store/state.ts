@@ -106,6 +106,7 @@ export interface AppState {
   referral?: {                    // 紹介制度。未設定→未参加。継続の起点は installedAt を流用。
     qualifyingDays?: string[];    // 適格学習日(その日に1セット≒60問以上完了)ISO(YYYY-MM-DD)配列
     enteredCode?: string;         // 新規が初回入力した紹介コード(成立時にこのコードで報告)
+    referredQualified?: number;   // 自分が紹介して「継続(qualified/rewarded)」に達した人数。サーバーから取得しキャッシュ(テレメトリ/アカウント画面で参照)。
   };
   mastery?: MasterySlice;   // 単語×面(read/write/mean/listen/grammar)の統合苦手度。統合復習/予想得点の正本。旧stateには無い→移行で構築。
   masteryMigrated?: boolean; // 旧キー(items/kakitori)→面の一度きり移行を済ませたか。undefined/false=未移行。

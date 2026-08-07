@@ -14,6 +14,8 @@ export type RootStackParamList = {
   Referral: { focus?: 'share' | 'enter' } | undefined; // 友だち紹介(自分のコード共有＋コード手入力)。focus=どちらの用途で開いたか(該当箇所へスクロール)
   Invite: { u?: string } | undefined; // 招待リンク(safajlpt://invite?u=ownerのuserId)から開く「町に参加/断る」画面
   KotobaTown: undefined; // 言葉の都(テスト): タイルマップ＋4方向移動＋当たり判定(エンジン検証用)
+  CheerInbox: undefined; // 受信箱(友だちから届いた応援の一覧)。町の🔔から開く
+
   Inventory: undefined; // アイテム(所持品・道具・バッジ一覧。上部の袋アイコンから開く)
   Shop: undefined; // ショップ(桜貝で着せ替え購入)
   // 診断クイズ / 弱点ドリル(itemIds 指定でその語だけを出題) / 大問学習(daimon 指定=本番の大問を固定形式で連続出題)

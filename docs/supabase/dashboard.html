@@ -199,10 +199,10 @@ const byLevel = (a,b) => (LV_ORDER[a.level]||9) - (LV_ORDER[b.level]||9);
 function renderLevel(level){
   simpleTbl($('tLevel'),
     [{label:'レベル'},{label:'人数',num:1},{label:'今日のアクティブ',num:1},{label:'学習回数',num:1},{label:'学習時間(合計)',num:1},
-     {label:'平均 合格率',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'合格圏',num:1}],
+     {label:'平均 合格率',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
     (level||[]).slice().sort(byLevel),
     [ r=>`<b>${r.level}</b>`, r=>`${r.users}人`, r=>`${r.dau ?? 0}人`, r=>`${r.sessions ?? 0}回`, r=>hm(r.study_min),
-      r=>pct(r.avg_pass_pct), r=>pct(r.avg_cov_pct), r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.passing_users}人` ]
+      r=>pct(r.avg_pass_pct), r=>pct(r.avg_cov_pct), r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.referred_total ?? 0}人`, r=>`${r.passing_users}人` ]
   );
 }
 
@@ -325,6 +325,7 @@ const COLS = [
     val:r=>numOr(r.daimon_learned),
     cell:r=> r.daimon ? `${r.daimon_learned ?? 0}/${r.daimon_total ?? 0}` : '<span class="off">—</span>' },
   { g:'活動', key:'mylist_count', label:'単語帳', num:1, title:'私の単語帳に入れた語数', val:r=>numOr(r.mylist_count), cell:r=> (r.mylist_count ?? 0) },
+  { g:'活動', key:'referred_qualified', label:'紹介', num:1, title:'自分が紹介して継続に達した人数', val:r=>numOr(r.referred_qualified), cell:r=> (r.referred_qualified ?? 0) },
   { g:'活動', key:'learned',    label:'履修',   num:1, title:'覚えた語・文法の数',   val:r=>numOr(r.learned),    cell:r=> (r.learned ?? 0) },
   { g:'活動', key:'mock_count', label:'模試',   num:1, title:'模試の実施回数',       val:r=>numOr(r.mock_count), cell:r=> (r.mock_count ?? 0) },
   { g:'活動', key:'streak',     label:'継続',   num:1, title:'連続学習日数',         val:r=>numOr(r.streak),     cell:r=> (r.streak ?? 0) },

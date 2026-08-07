@@ -37,6 +37,21 @@ export async function getMyCode(): Promise<string> {
   }
 }
 
+/** 自分が紹介して「継続(qualified/rewarded)」に達した人数を取得。
+ *  referrals は RLS で referrer_user_id = auth.uid() の行だけ読めるので、状態で絞って件数を数えるだけ。
+ *  未ログイン/未デプロイ/通信失敗は 0 を返す(安全側)。 */
+export async function getReferredQualifiedCount(): Promise<number> {
+  try {
+    const { count, error } = await supabase
+      .from('referrals')
+      .select('new_user_ref', { count: 'exact', head: true })
+      .in('status', ['qualified', 'rewarded']);
+    return !error && typeof count === 'number' ? count : 0;
+  } catch {
+    return 0;
+  }
+}
+
 /** 継続トリガー成立をサーバーへ報告。サーバーが再計算し、成立で両者に7日Pro。冪等。
  *  ネットワーク失敗は握って 'pending'(=未確定・次回同期で再試行)。 */
 export async function reportQualified(

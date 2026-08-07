@@ -68,3 +68,33 @@ export async function townLeave(ownerId: string): Promise<boolean> {
 export async function townKick(memberId: string): Promise<boolean> {
   try { const { error } = await supabase.rpc('town_kick', { p_member: memberId }); return !error; } catch { return false; }
 }
+
+// --- 応援(固定6種)の配信。送れるのは「自分の町の住人(招待して参加した友だち)」だけ。受信箱方式(docs/supabase/cheers.sql)。 ---
+export type CheerInboxItem = {
+  id: number; from_user: string; from_nick: string | null; from_avatar: string | null;
+  cheer_key: string; created_at: string; read_at: string | null;
+};
+
+/** 友だち(自分の町の住人)に応援を送る。成功で true(関係外/回数制限などは false)。 */
+export async function cheerSend(toUserId: string, cheerKey: string): Promise<boolean> {
+  try { const { error } = await supabase.rpc('cheer_send', { p_to: toUserId, p_key: cheerKey }); return !error; } catch { return false; }
+}
+
+/** 自分宛の応援一覧(送り主付き・新しい順)。失敗時は空配列。 */
+export async function cheerInbox(): Promise<CheerInboxItem[]> {
+  try {
+    const { data, error } = await supabase.rpc('cheer_inbox');
+    if (error || !Array.isArray(data)) return [];
+    return data as CheerInboxItem[];
+  } catch { return []; }
+}
+
+/** 未読の応援数(バッジ用)。失敗時は 0。 */
+export async function cheerUnreadCount(): Promise<number> {
+  try { const { data, error } = await supabase.rpc('cheer_unread_count'); return (!error && typeof data === 'number') ? data : 0; } catch { return 0; }
+}
+
+/** 受信箱を開いた時に未読を既読化。 */
+export async function cheerMarkRead(): Promise<void> {
+  try { await supabase.rpc('cheer_mark_read'); } catch { /* 失敗は無視(次回開いた時に再試行) */ }
+}

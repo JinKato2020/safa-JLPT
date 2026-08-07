@@ -18,6 +18,7 @@ import { flagOf, countryLabel, COUNTRIES } from '../plaza/countries';
 import { PERSONALITIES, MOOD_MESSAGES, personalityOf, moodMsgOf } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
+import { getReferredQualifiedCount } from '../referral/referralClient';
 
 type Tab = 'signup' | 'login';
 
@@ -29,12 +30,24 @@ export default function AccountScreen() {
   const { session, email: acctEmail, lastSyncedAt } = useSync();
   // 最上部プロフィール: 桜ではなく自分のアバター立ち絵＋ステータス(レベル/国/性別/性格/ムード)。性格・ムードは変更可。
   const appState = useAppState();
-  const { setSettings } = useAppActions();
+  const { setSettings, setReferralStats, setEnteredCode } = useAppActions();
   const uiLang = useUiLang();
   const st0 = appState.settings;
   const myAvatarImg = avatarOf(st0.avatar).image;
   const per = personalityOf(st0.personality);
   const moodTxt = moodMsgOf(st0.moodMsg);
+  const referredQualified = appState.referral?.referredQualified ?? 0;
+  // 自分が紹介して継続に達した人数をサーバーから取得(ログイン中のみ意味を持つ)。アカウント画面とテレメトリで参照。
+  useEffect(() => {
+    let alive = true;
+    getReferredQualifiedCount().then((n) => { if (alive) setReferralStats(n); });
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
+  // 紹介コード入力(この画面でそのまま登録。別画面へ遷移しない)。
+  const enteredCode = appState.referral?.enteredCode;
+  const [refInput, setRefInput] = useState('');
+  const onSaveRefCode = () => { const v = refInput.trim().toUpperCase(); if (!v) return; setEnteredCode(v); setRefInput(''); };
   const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'avatar' | 'country' | 'gender'>(null);
   const profileHeader = (
     <View style={s.profHeader}>
@@ -63,6 +76,10 @@ export default function AccountScreen() {
           <Text style={s.profK}>ムード</Text>
           <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{moodTxt ?? '選ぶ'}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
         </Pressable>
+        <View style={s.profRow}>
+          <Text style={s.profK}>紹介人数</Text>
+          <Text style={s.profV}>{referredQualified}人</Text>
+        </View>
       </View>
     </View>
   );
@@ -211,7 +228,7 @@ export default function AccountScreen() {
           </View>
           {/* 最終同期の下に試験情報カード(試験日/残日数/申込期間/費用)。ホームのリングシートから移設。 */}
           <ExamInfoCard />
-          {/* 友だち紹介は「紹介する」と「コードを入力」を分けて表示(同じ画面の該当箇所へ)。 */}
+          {/* 友だちを紹介: 遷移先で自分の紹介コードを共有する。 */}
           <Pressable style={s.referralRow} onPress={() => nav.navigate('Referral', { focus: 'share' })}>
             <View style={s.referralIco}><Ionicons name="gift-outline" size={20} color={c.blue} /></View>
             <View style={{ flex: 1 }}>
@@ -220,14 +237,32 @@ export default function AccountScreen() {
             </View>
             <Ionicons name="chevron-forward" size={18} color={c.faint} />
           </Pressable>
-          <Pressable style={s.referralRow} onPress={() => nav.navigate('Referral', { focus: 'enter' })}>
-            <View style={s.referralIco}><Ionicons name="ticket-outline" size={20} color={c.blue} /></View>
-            <View style={{ flex: 1 }}>
-              <Text style={s.referralTitle}>紹介コードを入力</Text>
-              <Text style={s.referralSub}>友だちからもらったコードを登録する</Text>
-            </View>
-            <Ionicons name="chevron-forward" size={18} color={c.faint} />
-          </Pressable>
+          {/* 紹介コードを入力(遷移せずこの場で登録)。 */}
+          <View style={s.referralEnter}>
+            <Text style={s.referralTitle}>{t('referral.enter_title')}</Text>
+            <Text style={s.referralSub}>{t('referral.enter_hint')}</Text>
+            {enteredCode ? (
+              <View style={s.referralEnteredBox}>
+                <Text style={s.referralEnteredEmoji}>🎉</Text>
+                <Text style={s.referralEntered}>{t('referral.entered', { code: enteredCode })}</Text>
+              </View>
+            ) : (
+              <View style={s.referralInputRow}>
+                <TextInput
+                  style={s.referralInput}
+                  value={refInput}
+                  onChangeText={setRefInput}
+                  placeholder={t('referral.enter_placeholder')}
+                  placeholderTextColor={c.faint}
+                  autoCapitalize="characters"
+                  autoCorrect={false}
+                />
+                <Pressable style={[s.referralSaveBtn, !refInput.trim() && s.referralSaveOff]} onPress={onSaveRefCode} disabled={!refInput.trim()}>
+                  <Text style={s.referralSaveTxt}>{t('referral.enter_save')}</Text>
+                </Pressable>
+              </View>
+            )}
+          </View>
           {/* ログアウトは一番下へ押し下げる */}
           <View style={s.spacer} />
           <Pressable style={s.manageBtn} onPress={() => { void signOut(); }}>
@@ -375,7 +410,17 @@ const makeStyles = (c: ThemeColors) =>
     referralRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
     referralIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: c.blueLight, alignItems: 'center', justifyContent: 'center' },
     referralTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
-    referralSub: { fontSize: ty.small, color: c.mute, marginTop: 1 },
+    referralSub: { fontSize: ty.small, color: c.mute, marginTop: 1, lineHeight: 19 },
+    // 紹介コード入力(インライン・遷移なし)
+    referralEnter: { borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm, gap: spacing.sm },
+    referralInputRow: { flexDirection: 'row', gap: spacing.sm, alignItems: 'center' },
+    referralInput: { flex: 1, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: spacing.sm, paddingHorizontal: spacing.md, fontSize: ty.body, fontWeight: '800', color: c.ink, letterSpacing: 2, backgroundColor: c.bgSoft },
+    referralSaveBtn: { paddingVertical: spacing.sm, paddingHorizontal: spacing.md, borderRadius: radius.md, backgroundColor: c.blue },
+    referralSaveOff: { opacity: 0.4 },
+    referralSaveTxt: { fontSize: ty.small, fontWeight: '800', color: '#fff' },
+    referralEnteredBox: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.green + '14', borderRadius: radius.md, padding: spacing.md },
+    referralEnteredEmoji: { fontSize: 22 },
+    referralEntered: { flex: 1, fontSize: ty.body, fontWeight: '800', color: c.green },
     manageBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.md, marginTop: spacing.md },
     manageTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink },
     deleteRow: { alignItems: 'center', paddingVertical: spacing.md, marginTop: spacing.sm },
