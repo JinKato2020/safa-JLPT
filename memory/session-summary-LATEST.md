@@ -1,17 +1,19 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 13 回・30 ターン
-- 往復 21757 回
+- ツール呼び出し 3 回・7 ターン
+- 往復 26943 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/screens/KotobaTownScreen.tsx
 - memory/session-summary-LATEST.md
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
+- assets/kotoba/map/house_shoko_night.png
+- assets/kotoba/map/house_shoko_day.png
+- 画像/MAP/書庫_夜.png
 
 ## 次の一手
+- **🏯 書庫の屋根 前面レイヤー修正＋会話UI素材化＝素材/コード済・未ビルド（2026-08-07）**: (1)書庫の屋根がアバターに被さらない件=`assets/kotoba/map/house_shoko_{day,night}.png`(＝`画像/MAP/書庫_{昼,夜}.png`)を背景から屋根を切り出して再生成。**上・左右に12px大膨張し境界を石畳の上へ→屋根内部の透過侵食を原理的にゼロ化**(半透明px=0検査済)・下は軒先クリップで建物本体は覆わない。コード`ROOFS`の書庫を x=349 y=625 w=356 h=180 nightY=623(夜は勾配相関-2px)に更新。生成手順=scratchpadのbuild_roof_front5.py。(2)会話UI素材=`assets/kotoba/ui/dialogbox.png`(台詞枠・名前左上プレート/▼右下)と`statusframe.png`(＝`画像/会話/ステータス.png`大外枠の外を透過・半透明0)を用意。**HTMLプレビューまで提示済・アプリ本体へは未組込(ユーザー確認待ち)**。ステータス新枠は下段右端の旧0/0が残存・中央バー窓は未適用=ユーザーに適用可否を質問中。
+- **🗺️ 町の会話画面を舞台化＝実装済・tsc0・未ビルド（2026-08-07）**: 町でアバターに話しかけると全画面の会話シーンになる。背景=`assets/kotoba/scene/{forest,pond,town}_{day,night}.jpg`(画像\会話\の6枚を1200px/JPG化・学習者idハッシュで固定シーン・昼夜は既存isDay)。立ち絵=真ん中より左、台詞=右パネル(react-native-svg縦グラデで上端フェード・黒〜濃紺≈80%・金ネームプレート・白文字最大3行・▼発光ページ送り)。▼で台詞ページ→最後にステータス(既存RPG枠)→メッセージ送信の3ステップ(talkStep=info/status/message)。KotobaTownScreen.tsxのみ変更＋scene6枚追加。**次=次ビルドで配信(OTA可)**。
 - **🎯 面別マスタリー統合復習＝P1-P6完了・ビルド2654 both dispatch=run`30700408364`（監視しない・2026-08-01）**: 苦手度を単語×面(read/write/mean/listen/grammar)に一本化し忘却曲線で「今日のおすすめ(=試験問題の復習)」を出す統合復習。設計=`docs/superpowers/specs/2026-08-01-unified-facet-review-design.md`／実装プラン=`docs/superpowers/plans/2026-08-01-unified-facet-review.md`／詳細inflight=`memory/facet-review-inflight.md`。**入口=ホーム(AIコーチのアドバイス末尾CTA)＋書斎タブ(桜tap/トップカード)。試験・辞書には出さない(ユーザー方針)。試験タブの全部混ぜは撤去**。用法→語のmean/文法系→文法pointのgrammarへ統合(設計§3.1)。生データ(items/テレメトリ)は不変=面は要約層(additive)。予想得点は面参照。新規テスト52件・全372緑・tsc0。コミット=P1`18bce99`/P2`ea015d4`/P3`14f2093`/P4`6fa3976`/P5`c09dee5`/P5.5`c988b30`/P6`03a274a8`＋ラベル変更(「今日のおすすめ」)。**✅P7書き取り2ターン化=実装済(学習5字[なぞり/見て書くスイッチ]→見ずにテスト5字・合格でwrite面へ)**。**残=P8実機検証**。**✅ビルド2662 both dispatch=run`30701715650`（監視しない・2026-08-01）に今セッション全変更を反映**(統合復習P1-P7・試験タブのミックス撤去・新ラベル「今日のオススメ問題に挑戦する」・書き取り2ターン化・類義語是正・貝二重加算修正等)。build.ps1 -NoCommit -NoWatchで投入(番号=2000+662commit)。**別件確認済**=予想得点の大問重みは既に本番出題数重み(均等割りでない)＝是正不要。**✅build.ps1修正済**(コミット済・push済)=`$APP`をリポジトリルート(tools/の親)へ・前提チェックはapp.json存在・`-NoWatch`追加(dispatch後監視しない運用に合わせた口)。`-DryRun`で34緑/tsc0確認。以後は`tools\build.ps1 -Message "..." -NoWatch`でビルド可(番号=2000+commit)。**⚠ラベル変更(「今日のおすすめ」)はビルド2654に未反映=次ビルドで入る**。
 - **🧩 学習後画面の共通テンプレ化＋類義語是正＝コミット`d284383`/`740c094`・push済・未ビルド（2026-07-31）**: AfterStudyRewardを上から①ご褒美イラスト(通常学習は非表示)②貝の取得情報③単語帳チェック＋正誤に統一(全ドリル共通・AIコーチはご褒美時のみ最下部)。復習モード(`review`=FlashcardScreen ids有→LearnTestSession→AfterStudyReward)では記憶した(正解)語だけ確認ダイアログの上で単語帳から外せる(削除は既存`addToMyList`=toggle流用)。「聞える」=非標準送り仮名→「聞こえる」是正、さらに聞こえるの類義語が自己参照だったため正解を「音がする」に(ユーザー指定)。自己参照8語に正解付与＝解消済(コミット`9c18a91`)=聞こえる→音がする・うまい→おいしい／上手・共同→一緒に行う・割る→壊す・経緯→流れ・設備→装置・地位→立場・程度→度合い(src/data/dict/vocabSynonyms.json＋dict/ja-synonyms.json)。**✅synonym問題の誤答を正解と同形態に=完了・コミット`37a71e1`・push済・未ビルド(2026-08-01)**：`quiz.ts`の`makeQuestion`で`format==='synonym'`のとき誤答を`pool.map(vWord)`(生の見出し語=名詞/動詞混在)ではなく、検証済み類義語(VOCAB_SYN全2317値)を語形別にグループ化(`SYN_BY_FORM`=動詞/い形容詞/名詞・う段かな終わり=動詞・…い=い形容詞・他=名詞の表層分類)し、正解と同語形のプールから採るよう変更。exam(SYNONYM_BANK未登録ユニットの`makeQuestion`フォールバック=daimon.ts:236)＋単語タブ両方に反映。SYNONYM_BANKの試験タブ本線は元から`sy.choices`使用で無関係。検証=全2316問で重複0・異形の誤答0(例 会う→損なう/食う/出会う/手伝う、朝→危険/降雨/午前/今後)。tsc0/test330緑。※shared submoduleのja-synonyms/ja-kanjiは別管理(未commit)。
 - **🐛 貝の二重加算修正＋テーマ水彩撤去＝コミット`ec66ebd`・push済・未ビルド（2026-07-31）**: 原因=`quizAnswer`がQUIZ_ANSWER(reducer 78行・私が⑤で追加)とADD_POINTS(176行・元から)の両方で+2貝＝**1正解4貝の二重取り**→日次上限300貝を倍速消費→本日は上限到達で+0。修正=reducer側加算を削除しADD_POINTS一本(MOCK_ANSWERと同経路)＝1正解2貝。加えて開発用「ポイント無限」ON時は`addPoints`の日次上限を無視(`!state.settings.devUnlimitedPoints`ガード・wallet.ts)＝テスト時に即検証可。テーマ撤去=ProfileScreenのpicker配列から`sakura/sky/green/fuji/akane`削除(light/dark/autoのみ・水彩選択中でも3択押下で即反映しスタックしない)。tsc0/test330緑。**未ビルド**(壊れ=貝0はビルド2633/2635に残存→次ビルドで解消)。

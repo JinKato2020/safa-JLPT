@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
+import Svg, { Defs, LinearGradient as SvgGrad, Stop, Rect } from 'react-native-svg';
 import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
 import { useAppState } from '../store/store';
 import type { RootStackParamList } from '../navigation/types';
@@ -129,6 +130,15 @@ const HERO_M5: Record<Dir, number[]> = {
 // アバターコード→歩行スプライト。男子(色違い含む)は既定の男の子で歩く。
 const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { m_boy1: HERO, m_boy2: HERO_M2, m_boy3: HERO_M3, m_boy4: HERO_M4, m_boy5: HERO_M5, f_g1: HERO_F, f_g2: HERO_F2, f_g3: HERO_F3, f_g4: HERO_F4, f_g5: HERO_F5 };
 
+// 会話画面の背景(3シーン×昼夜)。町で話しかけると全画面の舞台になる。学習者ごとに固定シーン(idハッシュ)。
+const SCENES: Record<string, { day: number; night: number }> = {
+  forest: { day: require('../../assets/kotoba/scene/forest_day.jpg'), night: require('../../assets/kotoba/scene/forest_night.jpg') },
+  pond: { day: require('../../assets/kotoba/scene/pond_day.jpg'), night: require('../../assets/kotoba/scene/pond_night.jpg') },
+  town: { day: require('../../assets/kotoba/scene/town_day.jpg'), night: require('../../assets/kotoba/scene/town_night.jpg') },
+};
+const SCENE_KEYS = ['forest', 'pond', 'town'];
+// 会話を始めるたびにシーンをランダムに選ぶ(固定ではなく多様性を持たせる)。昼夜は実時刻(isDay)で切替。
+
 // 桜(マスコット)。8方向・歩行アニメ付き([立ち, 右足, 左足])。近づいて話すと努力を褒めてくれる。
 const SAKURA: Record<Dir, number[]> = {
   down: [require('../../assets/kotoba/sakura/down.png'), require('../../assets/kotoba/sakura/down_r.png'), require('../../assets/kotoba/sakura/down_l.png')],
@@ -194,7 +204,7 @@ const MAP_TREE_NIGHT = require('../../assets/kotoba/map/tree_night.png'); // 夜
 // 家の躯体は当たり判定で塞がっているため、屋根だけだと下に入れない→屋根+壁の家シルエットを最前面にして入口で隠す。
 const ROOFS = [
   { day: require('../../assets/kotoba/map/house_shosai_day.png'), night: require('../../assets/kotoba/map/house_shosai_night.png'), x: 742, y: 448, w: 256, h: 160 }, // 書斎(右) 屋根のみ=ユーザー仕上げ・背景と厳密一致(SSD=0)
-  { day: require('../../assets/kotoba/map/house_shoko_day.png'), night: require('../../assets/kotoba/map/house_shoko_night.png'), x: 360, y: 630, w: 272, h: 151, nightY: 627 }, // 書庫(下) 屋根のみ=ユーザー仕上げ・背景と厳密一致(昼SSD=0/夜best)。夜は建物位置が3px上でシャープに合うためnightYで別指定
+  { day: require('../../assets/kotoba/map/house_shoko_day.png'), night: require('../../assets/kotoba/map/house_shoko_night.png'), x: 349, y: 625, w: 356, h: 180, nightY: 623 }, // 書庫(下) 屋根全体=前面レイヤー。上・左右へ12px大膨張し周囲の景色ごと余裕被覆(軒先の凹凸窪みも消す)・下は軒先でクリップし建物本体は覆わない・半透明なし。夜は勾配相関で-2px(nightY)
 ];
 
 const WORLD = 1024;            // マップ表示サイズ(正方)。当たり判定グリッドはこの中を MAP_G 等分。
@@ -405,11 +415,23 @@ export default function KotobaTownScreen() {
   const npcPos = useRef<Record<string, { x: number; y: number }>>({}).current;
   const [talk, setTalk] = useState<VirtualLearner | null>(null);
   const [sent, setSent] = useState<{ emoji: string; reply: string } | null>(null);
-  const [talkStep, setTalkStep] = useState<'info' | 'message'>('info'); // info=台詞+ステータス / message=メッセージ送信
+  const [talkStep, setTalkStep] = useState<'info' | 'status' | 'message'>('info'); // info=台詞(舞台) / status=ステータス / message=メッセージ送信
+  const [talkPage, setTalkPage] = useState(0); // 台詞のページ送り(▼で進む)
+  const [talkScene, setTalkScene] = useState<string>('forest'); // 会話ごとにランダムで選ぶ背景シーン
   const talkRef = useRef<VirtualLearner | null>(null);
   const talkArmed = useRef(true);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const openTalk = (v: VirtualLearner) => { talkRef.current = v; setSent(null); setTalkStep('info'); setTalk(v); };
+  // 「▼ 次へ」のほんのりした発光(上下に小さく脈打つ)。
+  const nextPulse = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(Animated.sequence([
+      Animated.timing(nextPulse, { toValue: 1, duration: 700, useNativeDriver: true }),
+      Animated.timing(nextPulse, { toValue: 0, duration: 700, useNativeDriver: true }),
+    ]));
+    loop.start();
+    return () => loop.stop();
+  }, [nextPulse]);
+  const openTalk = (v: VirtualLearner) => { talkRef.current = v; setSent(null); setTalkStep('info'); setTalkPage(0); setTalkScene(SCENE_KEYS[Math.floor(Math.random() * SCENE_KEYS.length)]); setTalk(v); };
   const closeTalk = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } talkRef.current = null; setTalk(null); setSent(null); setTalkStep('info'); };
   const sendCheer = (c: { emoji: string; reply: string }) => {
     setSent({ emoji: c.emoji, reply: c.reply });
@@ -667,24 +689,119 @@ export default function KotobaTownScreen() {
       {/* 仮想学習者との会話(ノベル風・立ち絵フルスクリーン)。町を暗く残し、大きな立ち絵＋名前プレート＋セリフ窓。 */}
       {talk && (() => {
         const SET = AVATAR_SETS[talk.avatar] || HERO;
-        const standH = Math.min(200, Math.round(VH * 0.30));
         const per = personalityOf(talk.personality);
         const mm = moodMsgOf(talk.moodMsg);
         const learned = talk.learned ?? 0;
         const vocabPct = Math.max(8, Math.min(100, Math.round((learned / 2000) * 100)));
         const streakPct = Math.max(8, Math.min(100, Math.round(((talk.streak ?? 0) / 60) * 100)));
+        const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
+        // 立ち絵=左寄り。画面の左半分に大きく。
+        const standW = Math.min(Math.round(VW * 0.5), Math.round(VH * 0.5));
+        // 台詞ページ(各ページ最大3行程度)。中身のある行だけ2文ずつまとめる。
+        const lines: string[] = [`やあ、${talk.nick}だよ！`];
+        if (talk.studying) lines.push(`いまは「${talk.studying}」を特訓中。`);
+        if (talk.weekLearned) lines.push(`この7日で${talk.weekLearned}語おぼえたよ。`);
+        lines.push(personaLineOf(talk.personality));
+        const pages: string[] = [];
+        for (let i = 0; i < lines.length; i += 2) pages.push(lines.slice(i, i + 2).join('\n'));
+        const page = Math.min(talkPage, pages.length - 1);
+        const onNext = () => { if (page < pages.length - 1) setTalkPage(page + 1); else setTalkStep('status'); };
+        const nextY = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0, 4] });
+        const nextOp = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0.55, 1] });
         return (
-          <View style={s.nvWrap}>
+          <View style={s.cvWrap}>
+            {/* 背景=会話シーン(全画面)。学習者ごとに固定・昼夜で切替。 */}
+            <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="cover" />
+            <View style={s.cvVignette} pointerEvents="none" />
+            {/* ステータス/メッセージ画面は文字量が多いので少し暗くして読みやすく */}
+            {talkStep !== 'info' && <View style={s.cvDim} pointerEvents="none" />}
             <Pressable style={StyleSheet.absoluteFill} onPress={closeTalk} />
-            <View style={s.nvScrim} pointerEvents="none" />
             <Pressable onPress={closeTalk} hitSlop={10} style={s.nvClose}><Ionicons name="close" size={26} color="#ffffff" /></Pressable>
-            <View style={s.nvStage} pointerEvents="box-none">
-              <View style={s.nvStandWrap} pointerEvents="none">
-                <Image source={SET.down[0]} style={{ width: standH, height: standH }} resizeMode="contain" />
-              </View>
 
-              {talkStep === 'message' ? (
-                /* メッセージ送信画面 */
+            {/* 立ち絵(真ん中より左)。会話中のみ表示。 */}
+            <View style={[s.cvAvatar, { width: Math.round(VW * 0.52) }]} pointerEvents="none">
+              <Image source={SET.down[0]} style={{ width: standW, height: standW }} resizeMode="contain" />
+            </View>
+
+            {talkStep === 'info' && (
+              /* 台詞パネル=右側。黒〜濃紺のグラデ(上端フェード)＋名前プレート＋白文字＋▼。 */
+              <Pressable style={[s.cvPanel, { left: Math.round(VW * 0.44) }]} onPress={onNext}>
+                <Svg style={StyleSheet.absoluteFill} pointerEvents="none">
+                  <Defs>
+                    <SvgGrad id="cvg" x1="0" y1="0" x2="0" y2="1">
+                      <Stop offset="0" stopColor="#0a0f2e" stopOpacity="0" />
+                      <Stop offset="0.16" stopColor="#0a0f2e" stopOpacity="0.62" />
+                      <Stop offset="0.34" stopColor="#0a0f2e" stopOpacity="0.8" />
+                      <Stop offset="1" stopColor="#080b22" stopOpacity="0.82" />
+                    </SvgGrad>
+                  </Defs>
+                  <Rect x="0" y="0" width="100%" height="100%" rx="14" ry="14" fill="url(#cvg)" />
+                </Svg>
+                <View style={s.cvNamePlate}><Text style={s.cvNameT}>{talk.flag} {talk.nick}</Text></View>
+                <Text style={s.cvText} numberOfLines={3}>{pages[page]}</Text>
+                <View style={s.cvNextRow} pointerEvents="none">
+                  {pages.length > 1 && (
+                    <Text style={s.cvPageDots}>{page + 1}/{pages.length}</Text>
+                  )}
+                  <Animated.Text style={[s.cvNext, { opacity: nextOp, transform: [{ translateY: nextY }] }]}>▼</Animated.Text>
+                </View>
+              </Pressable>
+            )}
+
+            {talkStep === 'status' && (
+              <View style={s.cvStatusWrap} pointerEvents="box-none">
+                {/* ステータス(RPG風) */}
+                <View style={s.rpgCard}>
+                  <View style={s.rpgTop}>
+                    <View style={s.rpgPortrait}>
+                      <Image source={SET.down[0]} style={s.rpgFace} resizeMode="contain" />
+                    </View>
+                    <View style={s.rpgMeta}>
+                      <Text style={s.rpgName} numberOfLines={1}>{talk.flag} {talk.nick}</Text>
+                      <View style={s.rpgLvRow}>
+                        <Text style={s.rpgLvLabel}>Lv</Text>
+                        <Text style={s.rpgLvVal}>{talk.level}</Text>
+                      </View>
+                    </View>
+                  </View>
+
+                  <View style={s.rpgBar}>
+                    <Text style={s.rpgBarKey}>覚えた単語</Text>
+                    <View style={s.rpgTrack}>
+                      <View style={[s.rpgFill, { width: (`${vocabPct}%` as `${number}%`), backgroundColor: '#37cc74' }]} />
+                      <View style={s.rpgGloss} pointerEvents="none" />
+                      <Text style={s.rpgBarVal}>{learned} 語</Text>
+                    </View>
+                  </View>
+                  <View style={s.rpgBar}>
+                    <Text style={s.rpgBarKey}>連続</Text>
+                    <View style={s.rpgTrack}>
+                      <View style={[s.rpgFill, { width: (`${streakPct}%` as `${number}%`), backgroundColor: '#4aa3ff' }]} />
+                      <View style={s.rpgGloss} pointerEvents="none" />
+                      <Text style={s.rpgBarVal}>{talk.streak} 日</Text>
+                    </View>
+                  </View>
+
+                  {(per || talk.strong || mm) ? (
+                    <View style={s.rpgNext}>
+                      {per ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>性格</Text><Text style={s.rpgKvV}>{per.label}</Text></View> : null}
+                      {talk.strong ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>得意分野</Text><Text style={s.rpgKvV}>{talk.strong}</Text></View> : null}
+                      {mm ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>気分</Text><Text style={s.rpgKvV}>{mm}</Text></View> : null}
+                    </View>
+                  ) : null}
+                </View>
+
+                <View style={s.nvSendWrap}>
+                  <Pressable style={s.nvSendBtn} onPress={() => setTalkStep('message')}>
+                    <Text style={s.nvSendT}>✉️ メッセージを送る</Text>
+                  </Pressable>
+                </View>
+                <Pressable style={s.nvBack} onPress={() => { setTalkStep('info'); setTalkPage(0); }}><Text style={s.nvBackT}>‹ 会話にもどる</Text></Pressable>
+              </View>
+            )}
+
+            {talkStep === 'message' && (
+              <View style={s.cvStatusWrap} pointerEvents="box-none">
                 <View style={s.nvBox}>
                   {sent ? (
                     <View style={s.sentBox}>
@@ -702,73 +819,12 @@ export default function KotobaTownScreen() {
                           </Pressable>
                         ))}
                       </View>
-                      <Pressable style={s.nvBack} onPress={() => setTalkStep('info')}><Text style={s.nvBackT}>‹ 戻る</Text></Pressable>
+                      <Pressable style={s.nvBack} onPress={() => setTalkStep('status')}><Text style={s.nvBackT}>‹ 戻る</Text></Pressable>
                     </>
                   )}
                 </View>
-              ) : (
-                <>
-                  {/* 台詞(アバターのセリフだけ・ステータスと同じRPG枠) */}
-                  <View style={s.rpgCard}>
-                    <View style={s.rpgNamePlate}><Text style={s.rpgNameT}>{talk.flag} {talk.nick}</Text></View>
-                    <Text style={s.nvText}>
-                      やあ、{talk.nick}だよ！{'\n'}
-                      {talk.studying ? <>いまは<Text style={s.nvEm}>「{talk.studying}」</Text>を特訓中。</> : null}
-                      {talk.weekLearned ? <>この7日で<Text style={s.nvEm}>{talk.weekLearned}語</Text>おぼえたよ。</> : null}
-                      {personaLineOf(talk.personality)}
-                    </Text>
-                  </View>
-
-                  {/* ステータス(RPG風・台詞とは別枠) */}
-                  <View style={s.rpgCard}>
-                    <View style={s.rpgTop}>
-                      <View style={s.rpgPortrait}>
-                        <Image source={SET.down[0]} style={s.rpgFace} resizeMode="contain" />
-                      </View>
-                      <View style={s.rpgMeta}>
-                        <Text style={s.rpgName} numberOfLines={1}>{talk.flag} {talk.nick}</Text>
-                        <View style={s.rpgLvRow}>
-                          <Text style={s.rpgLvLabel}>Lv</Text>
-                          <Text style={s.rpgLvVal}>{talk.level}</Text>
-                        </View>
-                      </View>
-                    </View>
-
-                    <View style={s.rpgBar}>
-                      <Text style={s.rpgBarKey}>覚えた単語</Text>
-                      <View style={s.rpgTrack}>
-                        <View style={[s.rpgFill, { width: (`${vocabPct}%` as `${number}%`), backgroundColor: '#37cc74' }]} />
-                        <View style={s.rpgGloss} pointerEvents="none" />
-                        <Text style={s.rpgBarVal}>{learned} 語</Text>
-                      </View>
-                    </View>
-                    <View style={s.rpgBar}>
-                      <Text style={s.rpgBarKey}>連続</Text>
-                      <View style={s.rpgTrack}>
-                        <View style={[s.rpgFill, { width: (`${streakPct}%` as `${number}%`), backgroundColor: '#4aa3ff' }]} />
-                        <View style={s.rpgGloss} pointerEvents="none" />
-                        <Text style={s.rpgBarVal}>{talk.streak} 日</Text>
-                      </View>
-                    </View>
-
-                    {(per || talk.strong || mm) ? (
-                      <View style={s.rpgNext}>
-                        {per ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>性格</Text><Text style={s.rpgKvV}>{per.label}</Text></View> : null}
-                        {talk.strong ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>得意分野</Text><Text style={s.rpgKvV}>{talk.strong}</Text></View> : null}
-                        {mm ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>気分</Text><Text style={s.rpgKvV}>{mm}</Text></View> : null}
-                      </View>
-                    ) : null}
-                  </View>
-
-                  {/* メッセージ送信画面へ */}
-                  <View style={s.nvSendWrap}>
-                    <Pressable style={s.nvSendBtn} onPress={() => setTalkStep('message')}>
-                      <Text style={s.nvSendT}>✉️ メッセージを送る</Text>
-                    </Pressable>
-                  </View>
-                </>
-              )}
-            </View>
+              </View>
+            )}
           </View>
         );
       })()}
@@ -840,6 +896,21 @@ const s = StyleSheet.create({
   praiseMsg: { fontSize: 15.5, lineHeight: 24, fontWeight: '700', color: '#ffffff', paddingVertical: 6 },
   praiseBtn: { marginTop: 12, alignSelf: 'center', backgroundColor: '#172054', borderRadius: 8, borderWidth: 2, borderColor: '#ffd76b', paddingVertical: 10, paddingHorizontal: 22 },
   praiseBtnT: { fontSize: 14.5, fontWeight: '900', color: '#ffd76b' },
+  // 会話シーン(背景イラスト＋立ち絵左＋台詞パネル右)
+  cvWrap: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
+  cvVignette: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(6,8,20,0.16)' }, // 全体を少しだけ落として立ち絵と文字を締める
+  cvDim: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(6,8,20,0.5)' }, // ステータス/送信時だけ濃くして読みやすく
+  cvAvatar: { position: 'absolute', left: 0, bottom: 0, alignItems: 'center', justifyContent: 'flex-end', zIndex: 1 },
+  // 台詞パネル=右側。背景はSvgの縦グラデ(上端フェード)で描く。ここは枠と余白だけ。
+  cvPanel: { position: 'absolute', right: 12, bottom: 30, paddingHorizontal: 16, paddingTop: 20, paddingBottom: 16, borderRadius: 14, zIndex: 3, shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 8, shadowOffset: { width: 0, height: 4 }, elevation: 5 },
+  cvNamePlate: { position: 'absolute', top: -12, left: 14, backgroundColor: '#101740', borderRadius: 7, borderWidth: 1.5, borderColor: '#ffd76b', paddingHorizontal: 11, paddingVertical: 4, zIndex: 2 },
+  cvNameT: { color: '#ffd76b', fontWeight: '900', fontSize: 13.5, letterSpacing: 0.3 },
+  cvText: { color: '#ffffff', fontSize: 15.5, lineHeight: 25, fontWeight: '700', textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 3, textShadowOffset: { width: 0, height: 1 } },
+  cvNextRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 8, marginTop: 8, height: 16 },
+  cvPageDots: { color: '#b9c6f2', fontSize: 11, fontWeight: '800' },
+  cvNext: { color: '#ffe08a', fontSize: 16, fontWeight: '900', textShadowColor: 'rgba(255,196,60,0.9)', textShadowRadius: 8, textShadowOffset: { width: 0, height: 0 } },
+  // ステータス/送信カードを画面中央に置く器(舞台の上に重ねる)
+  cvStatusWrap: { ...StyleSheet.absoluteFillObject, justifyContent: 'center', zIndex: 4 },
   // ノベル風の会話(立ち絵フルスクリーン)
   nvWrap: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
   nvScrim: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(6,8,20,0.66)' },
