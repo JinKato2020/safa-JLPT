@@ -42,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- 画像/キャラクター/アバター/男の子4/男の子4左前.png
-- assets/kotoba/hero_m5/upright_r.png
-- assets/kotoba/hero_m5/upright_l.png
-- assets/kotoba/hero_m5/upright.png
-- assets/kotoba/hero_m5/upleft_r.png
-- assets/kotoba/hero_m5/upleft_l.png
-- assets/kotoba/hero_m5/upleft.png
-- assets/kotoba/hero_m5/up_r.png
+- src/screens/KotobaTownScreen.tsx
+- memory/session-summary-LATEST.md
+- memory/handoff.md
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- assets/kotoba/hero_m4/upleft_r.png
+- assets/kotoba/hero_m4/upleft_l.png
+- assets/kotoba/hero_m4/upleft.png
 
-_自動更新: 2026-08-07 13:08_
+_自動更新: 2026-08-07 13:25_
 <!-- AUTO:END -->

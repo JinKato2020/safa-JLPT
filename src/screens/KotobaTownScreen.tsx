@@ -155,20 +155,14 @@ const SHIBA: Record<Dir, number[]> = {
 };
 const SHIBA_HOME = { col: 29, row: 28 };
 
-// ベンチに座るアバター(装飾・動かない)。正面向き=長手方向のベンチに足を垂直に垂らして座る姿。x,y=ワールド左上, w,h=表示サイズ。
-const SIT = {
-  g_light: require('../../assets/kotoba/sit/g_light_front.png'),
-  g_dark: require('../../assets/kotoba/sit/g_dark_front.png'),
-  m_navy: require('../../assets/kotoba/sit/m_navy_front.png'),
-  m_white: require('../../assets/kotoba/sit/m_white_front.png'),
-};
-// ベンチの真ん中に正面向きで座るアバター。会話も可(v=会話カード用プロフィール。歩くNPCと同形式・home未使用)。
-type Sitter = { img: number; x: number; y: number; w: number; h: number; v: VirtualLearner };
+// ベンチ付近の仮想学習者(動かない)。座り専用の旧画像(旧女の子1等が混入)は廃止し、立ちと同じ現行アバターの
+// スプライトを SPRITE サイズで表示=大きさ正規化。x,y,w,h=元のベンチ位置(近接判定と足元合わせに使う)。
+type Sitter = { x: number; y: number; w: number; h: number; v: VirtualLearner };
 const SITTERS: Sitter[] = [
-  { img: SIT.g_light, x: 336, y: 430, w: 32, h: 58, v: { id: 's1', nick: 'Yuki', flag: '🇹🇼', level: 'N5', streak: 9, today: 16, avatar: 'f_g1', home: { col: 0, row: 0 }, studying: '語彙', learned: 240, weekLearned: 38, todayMin: 30, strong: '語彙', mood: 'kotsu', personality: 'ottori', moodMsg: 'tanoshii' } },   // 左上ベンチ
-  { img: SIT.m_navy,  x: 612, y: 424, w: 25, h: 58, v: { id: 's2', nick: 'Diego', flag: '🇲🇽', level: 'N4', streak: 6, today: 14, avatar: 'm_boy1', home: { col: 0, row: 0 }, studying: '聴解', learned: 430, weekLearned: 52, todayMin: 40, strong: '聴解', mood: 'mattari', personality: 'ochoshi', moodMsg: 'listening' } }, // 右上ベンチ
-  { img: SIT.g_dark,  x: 328, y: 500, w: 37, h: 58, v: { id: 's3', nick: 'Hana', flag: '🇵🇭', level: 'N3', streak: 21, today: 28, avatar: 'f_g2', home: { col: 0, row: 0 }, studying: '文法', learned: 980, weekLearned: 96, todayMin: 55, strong: '文法', mood: 'doryoku', personality: 'shikkari', moodMsg: 'bunpo' } },  // 左下ベンチ
-  { img: SIT.m_white, x: 529, y: 500, w: 26, h: 58, v: { id: 's4', nick: 'Omar', flag: '🇪🇬', level: 'N4', streak: 11, today: 22, avatar: 'm_boy2', home: { col: 0, row: 0 }, studying: '漢字', learned: 560, weekLearned: 61, todayMin: 35, strong: '漢字', mood: 'oikomi', personality: 'reisei', moodMsg: 'kanji' } }, // 下ベンチ
+  { x: 336, y: 430, w: 32, h: 58, v: { id: 's1', nick: 'Yuki', flag: '🇹🇼', level: 'N5', streak: 9, today: 16, avatar: 'f_g1', home: { col: 0, row: 0 }, studying: '語彙', learned: 240, weekLearned: 38, todayMin: 30, strong: '語彙', mood: 'kotsu', personality: 'ottori', moodMsg: 'tanoshii' } },   // 左上ベンチ
+  { x: 612, y: 424, w: 25, h: 58, v: { id: 's2', nick: 'Diego', flag: '🇲🇽', level: 'N4', streak: 6, today: 14, avatar: 'm_boy1', home: { col: 0, row: 0 }, studying: '聴解', learned: 430, weekLearned: 52, todayMin: 40, strong: '聴解', mood: 'mattari', personality: 'ochoshi', moodMsg: 'listening' } }, // 右上ベンチ
+  { x: 328, y: 500, w: 37, h: 58, v: { id: 's3', nick: 'Hana', flag: '🇵🇭', level: 'N3', streak: 21, today: 28, avatar: 'f_g2', home: { col: 0, row: 0 }, studying: '文法', learned: 980, weekLearned: 96, todayMin: 55, strong: '文法', mood: 'doryoku', personality: 'shikkari', moodMsg: 'bunpo' } },  // 左下ベンチ
+  { x: 529, y: 500, w: 26, h: 58, v: { id: 's4', nick: 'Omar', flag: '🇪🇬', level: 'N4', streak: 11, today: 22, avatar: 'm_boy2', home: { col: 0, row: 0 }, studying: '漢字', learned: 560, weekLearned: 61, todayMin: 35, strong: '漢字', mood: 'oikomi', personality: 'reisei', moodMsg: 'kanji' } }, // 下ベンチ
 ];
 // 桜のほめ言葉(努力を褒める)。連続日数があれば1つに織り込む。
 const sakuraPraise = (streak: number): string[] => [
@@ -305,7 +299,7 @@ function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: n
   const by = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -3] });
   return (
     <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
-      <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{v.flag} {v.nick} · {v.level}</Text></View>
+      <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{v.nick} · {v.level}</Text></View>
       <Animated.Image source={SET[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: by }] }} resizeMode="contain" />
     </Animated.View>
   );
@@ -612,10 +606,18 @@ export default function KotobaTownScreen() {
         <Animated.View style={{ position: 'absolute', width: WORLD, height: WORLD, transform: [{ translateX: worldOff.x }, { translateY: worldOff.y }] }}>
           {/* 下: マップ本体 */}
           <Image source={MAP_IMG} style={{ position: 'absolute', width: WORLD, height: WORLD }} resizeMode="cover" />
-          {/* 下寄り: ベンチに座るアバター(装飾・動かない) */}
-          {SITTERS.map((si, i) => (
-            <Image key={i} source={si.img} style={{ position: 'absolute', left: si.x, top: si.y, width: si.w, height: si.h }} resizeMode="contain" />
-          ))}
+          {/* ベンチ付近の仮想学習者(動かない)。立ちと同じ現行スプライトを SPRITE サイズで表示＋名前/Lv名札。 */}
+          {SITTERS.map((si, i) => {
+            const SET = AVATAR_SETS[si.v.avatar] || HERO;
+            const left = si.x + si.w / 2 - SPRITE / 2;        // ベンチ位置の中心にそろえる
+            const top = si.y + si.h - SPRITE;                 // 足元を元のベンチ座面下端にそろえる=立ちと同じ大きさ
+            return (
+              <View key={i} style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center' }} pointerEvents="none">
+                <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{si.v.nick} · {si.v.level}</Text></View>
+                <Image source={SET.down[0]} style={{ width: SPRITE, height: SPRITE }} resizeMode="contain" />
+              </View>
+            );
+          })}
           {/* 中: 学習者(NPC)＝仮想学習者＋実在の友だち */}
           {residents.map((v) => <NpcSprite key={v.id} v={v} sink={npcPos} />)}
           {/* 中: マスコット(桜=会話あり / 柴犬=会話なし) */}
