@@ -12,3 +12,12 @@ export function useColors(): ThemeColors {
   const mode = settings.theme === 'auto' ? (sys ?? 'light') : settings.theme;
   return mode === 'dark' ? darkColors : lightColors;
 }
+
+// 現在のテーマが「ダーク」かどうか(水彩=ライト扱い)。会話+ステータス枠の昼夜(素材)切替に使う。
+export function useIsDarkTheme(): boolean {
+  const { settings } = useAppState();
+  const sys = useColorScheme();
+  if (isWatercolor(settings.theme)) return false;
+  const mode = settings.theme === 'auto' ? (sys ?? 'light') : settings.theme;
+  return mode === 'dark';
+}

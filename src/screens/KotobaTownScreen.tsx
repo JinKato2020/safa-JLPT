@@ -3,8 +3,9 @@
 //  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
 //  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, PanResponder, StyleSheet, useWindowDimensions, Share } from 'react-native';
+import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useIsDarkTheme } from '../theme';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -136,10 +137,21 @@ const SCENES: Record<string, { day: number; night: number }> = {
   town: { day: require('../../assets/kotoba/scene/town_day.jpg'), night: require('../../assets/kotoba/scene/town_night.jpg') },
 };
 const SCENE_KEYS = ['forest', 'pond', 'town'];
-// 会話ステータスの装飾枠(大外の外＋バー窓が透過)。ラベル/値/バー/数字はアプリが動的に重ねる。
-const STATUSFRAME = require('../../assets/kotoba/ui/statusframe.png');
-// 台詞の装飾ダイアログボックス(左上プレート＋右下▼が内蔵)。全幅・白文字で名前/台詞を重ねる。
+// 台詞の装飾ダイアログボックス(左上プレート＋右下▼が内蔵)。桜の会話で使用。全幅・白文字で名前/台詞を重ねる。
 const DIALOGBOX = require('../../assets/kotoba/ui/dialogbox.png');
+// 会話+ステータス一体フレーム(上=台詞窓/下=ステータス6枠+バー2行)。ダーク/ライトは同一ジオメトリ(座標表CSは共通)。テーマで切替。
+const CSFRAME_DARK = require('../../assets/kotoba/ui/csframe_dark.png');
+const CSFRAME_LIGHT = require('../../assets/kotoba/ui/csframe_light.png');
+// フレーム内の各要素の分率座標 [x0,y0,x1,y1](素材の枠を機械検出)。名前枠/台詞窓/6枠/バー2行/数字マス。
+const CS = {
+  name: [0.039, 0.026, 0.323, 0.084],
+  say: [0.05, 0.10, 0.92, 0.28],
+  nick: [0.114, 0.381, 0.455, 0.435], strong: [0.533, 0.381, 0.879, 0.435],
+  lv: [0.114, 0.470, 0.455, 0.526], per: [0.533, 0.470, 0.879, 0.526],
+  country: [0.113, 0.558, 0.455, 0.614], mood: [0.533, 0.558, 0.879, 0.614],
+  bar1: [0.220, 0.682, 0.709, 0.722], num1: [0.749, 0.676, 0.866, 0.730],
+  bar2: [0.222, 0.771, 0.708, 0.810], num2: [0.749, 0.762, 0.866, 0.817],
+} as const;
 // 会話を始めるたびにシーンをランダムに選ぶ(固定ではなく多様性を持たせる)。昼夜は実時刻(isDay)で切替。
 
 // 桜(マスコット)。8方向・歩行アニメ付き([立ち, 右足, 左足])。近づいて話すと努力を褒めてくれる。
@@ -389,6 +401,7 @@ function AmbientNpc({ sprites, spot, tag, sink, sinkKey }: {
 export default function KotobaTownScreen() {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { width: VW, height: VH } = useWindowDimensions();
+  const isDark = useIsDarkTheme(); // 会話+ステータス枠の素材(ダーク/ライト)切替=アプリのテーマ設定に連動
   // 選んだアバターで自分の見た目を切替(女の子1/女の子2 は専用スプライト、それ以外=男の子)。
   const avatarCode = useAppState().settings.avatar;
   const SPRITES = (avatarCode && AVATAR_SETS[avatarCode]) || HERO;
@@ -695,19 +708,22 @@ export default function KotobaTownScreen() {
         </View>
       </SafeAreaView>
 
-      {/* 仮想学習者との会話(ノベル風・立ち絵フルスクリーン)。町を暗く残し、大きな立ち絵＋名前プレート＋セリフ窓。 */}
+      {/* 仮想学習者との会話。下=会話+ステータス一体フレーム / 上=会話背景＋立ち絵 / さらに下へスクロールで応援。 */}
       {talk && (() => {
         const SET = AVATAR_SETS[talk.avatar] || HERO;
         const per = personalityOf(talk.personality);
         const mm = moodMsgOf(talk.moodMsg);
         const learned = talk.learned ?? 0;
-        const vocabPct = Math.max(8, Math.min(100, Math.round((learned / 2000) * 100)));
-        const streakPct = Math.max(8, Math.min(100, Math.round(((talk.streak ?? 0) / 60) * 100)));
+        const vocabPct = Math.max(6, Math.min(100, Math.round((learned / 2000) * 100)));
+        const streakPct = Math.max(6, Math.min(100, Math.round(((talk.streak ?? 0) / 60) * 100)));
         const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
-        // ダイアログ(全幅・下寄せ)＋立ち絵は背景の右に乗せる。
-        const dlgH = Math.round(VW * 385 / 960);
-        const avH = Math.min(Math.round(VH * 0.44), Math.round(VW * 0.95));
-        // 台詞ページ(各ページ最大3行程度)。中身のある行だけ2文ずつまとめる。
+        // 一体フレーム(素材はテーマで切替・座標CSは共通)。全幅で高さ=素材比。
+        const frameSrc = Image.resolveAssetSource(isDark ? CSFRAME_DARK : CSFRAME_LIGHT);
+        const FW = VW;
+        const FH = Math.round(FW * frameSrc.height / frameSrc.width);
+        const sceneH = Math.max(Math.round(VH * 0.40), VH - FH); // 上の背景+立ち絵の高さ(フレームと合わせて約1画面)
+        const avH = Math.min(Math.round(sceneH * 0.98), Math.round(VW * 0.86));
+        // 台詞ページ(各ページ最大3行程度)。
         const lines: string[] = [`やあ、${talk.nick}だよ！`];
         if (talk.studying) lines.push(`いまは「${talk.studying}」を特訓中。`);
         if (talk.weekLearned) lines.push(`この7日で${talk.weekLearned}語おぼえたよ。`);
@@ -715,113 +731,103 @@ export default function KotobaTownScreen() {
         const pages: string[] = [];
         for (let i = 0; i < lines.length; i += 2) pages.push(lines.slice(i, i + 2).join('\n'));
         const page = Math.min(talkPage, pages.length - 1);
-        const onNext = () => { if (page < pages.length - 1) setTalkPage(page + 1); else setTalkStep('status'); };
+        const onNext = () => setTalkPage(page < pages.length - 1 ? page + 1 : 0); // 送り切ったら先頭へ(ステータスは常時表示)
         const nextY = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0, 4] });
-        const nextOp = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0.55, 1] });
+        const nextOp = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0.5, 1] });
+        // テーマ色(ダーク=白字/金 ・ ライト=濃字/深金)
+        const labCol = isDark ? '#ffd66e' : '#9a6e1b';
+        const valCol = isDark ? '#ffffff' : '#2d2113';
+        const barTrack = isDark ? 'rgba(9,14,42,0.9)' : '#cdc7b6';
+        const panelBg = isDark ? '#132048' : '#f5f1e6';
+        const fbox = (r: readonly number[]) => ({ position: 'absolute' as const, left: r[0] * FW, top: r[1] * FH, width: (r[2] - r[0]) * FW, height: (r[3] - r[1]) * FH });
+        const FIELDS: { r: readonly number[]; lab: string; val: string }[] = [
+          { r: CS.nick, lab: 'ニックネーム', val: talk.nick },
+          { r: CS.strong, lab: '得意', val: talk.strong ?? '-' },
+          { r: CS.lv, lab: 'Lv', val: String(talk.level) },
+          { r: CS.per, lab: '性格', val: per ? per.label : '-' },
+          { r: CS.country, lab: '国名', val: (talk.flag ?? '').trim() || '-' },
+          { r: CS.mood, lab: '気分', val: mm ?? '-' },
+        ];
+        const bars: { r: readonly number[]; numR: readonly number[]; lab: string; pct: number; num: number; col: string }[] = [
+          { r: CS.bar1, numR: CS.num1, lab: '覚えた単語', pct: vocabPct, num: learned, col: '#37cc74' },
+          { r: CS.bar2, numR: CS.num2, lab: '継続日数', pct: streakPct, num: talk.streak ?? 0, col: '#4aa3ff' },
+        ];
         return (
-          <View style={s.cvWrap}>
-            {/* 背景=会話シーン(全画面)。学習者ごとに固定・昼夜で切替。 */}
-            <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="cover" />
-            <View style={s.cvVignette} pointerEvents="none" />
-            {/* ステータス/メッセージ画面は文字量が多いので少し暗くして読みやすく */}
-            {talkStep !== 'info' && <View style={s.cvDim} pointerEvents="none" />}
-            <Pressable style={StyleSheet.absoluteFill} onPress={closeTalk} />
-            <Pressable onPress={closeTalk} hitSlop={10} style={s.nvClose}><Ionicons name="close" size={26} color="#ffffff" /></Pressable>
-
-            {talkStep === 'info' && (
-              <>
-                {/* 立ち絵=背景の右に乗せる(足元はダイアログ上端あたり)。 */}
-                <View style={[s.cvAvatarR, { right: Math.round(VW * 0.02), bottom: dlgH + 4, width: avH, height: avH }]} pointerEvents="none">
+          <View style={[s.cvWrap, { backgroundColor: panelBg }]}>
+            <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+              {/* 上: 会話背景(昼夜ランダム)＋立ち絵 */}
+              <View style={{ width: VW, height: sceneH }}>
+                <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="cover" />
+                <View style={s.cvVignette} pointerEvents="none" />
+                <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, alignItems: 'center' }} pointerEvents="none">
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
-                {/* 台詞=装飾ダイアログボックス(全幅・白文字・名前は上枠・▼は内蔵＋発光重ね)。 */}
-                <Pressable style={[s.cvDlg, { height: dlgH }]} onPress={onNext}>
-                  <Image source={DIALOGBOX} style={StyleSheet.absoluteFill} resizeMode="stretch" />
-                  <Text style={[s.cvDlgName, { top: dlgH * 0.05, width: '34%' }]} numberOfLines={1}>{talk.flag} {talk.nick}</Text>
-                  <Text style={[s.cvDlgSay, { top: dlgH * 0.29 }]} numberOfLines={3}>{pages[page]}</Text>
-                  {pages.length > 1 && <Text style={[s.cvDlgDots, { bottom: dlgH * 0.12 }]}>{page + 1}/{pages.length}</Text>}
-                  <Animated.Text style={[s.cvDlgNext, { bottom: dlgH * 0.08, opacity: nextOp, transform: [{ translateY: nextY }] }]}>▼</Animated.Text>
-                </Pressable>
-              </>
-            )}
-
-            {talkStep === 'status' && (() => {
-              // 装飾枠(1000x740)にラベル(枠上・金)＋値(枠内中央・白)＋バー(枠背後=透過窓に透ける)＋数字を動的に重ねる。
-              const FW = Math.min(VW, Math.round(VH * 0.72 / 0.74)); // 横幅=iPhone全幅(高さで頭打ちのみ)
-              const FH = Math.round(FW * 0.74);
-              const fs = (x: number) => Math.round(FW * x);
-              const box = (cx: number, y: number, h: number, w = 0.42) => ({ position: 'absolute' as const, left: cx * FW - (w * FW) / 2, top: y * FH - h / 2, width: w * FW, height: h, alignItems: 'center' as const, justifyContent: 'center' as const });
-              const FIELDS = [
-                { lab: 'ニックネーム', val: talk.nick, cx: 0.272, ly: 0.118, vy: 0.180 },
-                { lab: 'Lv', val: String(talk.level), cx: 0.725, ly: 0.118, vy: 0.180 },
-                { lab: '国名', val: talk.flag ?? '-', cx: 0.272, ly: 0.276, vy: 0.338 },
-                { lab: '得意', val: talk.strong ?? '-', cx: 0.725, ly: 0.276, vy: 0.338 },
-                { lab: '性格', val: per ? per.label : '-', cx: 0.272, ly: 0.435, vy: 0.497 },
-                { lab: '気分', val: mm ?? '-', cx: 0.725, ly: 0.435, vy: 0.497 },
-              ];
-              return (
-                <View style={s.cvStatusWrap} pointerEvents="box-none">
-                  <View style={{ width: FW, height: FH, alignSelf: 'center' }}>
-                    {/* バー(枠の背後=透過窓に透ける) */}
-                    <View style={[s.sBarTrack, { left: 0.293 * FW, width: 0.483 * FW, top: 0.630 * FH, height: 0.040 * FH }]}>
-                      <View style={[s.sBarFill, { width: (`${vocabPct}%` as `${number}%`), backgroundColor: '#37cc74' }]} />
-                      <View style={s.sBarGloss} pointerEvents="none" />
-                    </View>
-                    <View style={[s.sBarTrack, { left: 0.293 * FW, width: 0.482 * FW, top: 0.761 * FH, height: 0.039 * FH }]}>
-                      <View style={[s.sBarFill, { width: (`${streakPct}%` as `${number}%`), backgroundColor: '#4aa3ff' }]} />
-                      <View style={s.sBarGloss} pointerEvents="none" />
-                    </View>
-                    {/* 装飾枠 */}
-                    <Image source={STATUSFRAME} style={{ position: 'absolute', left: 0, top: 0, width: FW, height: FH }} resizeMode="stretch" />
-                    {/* 上段6項目: ラベル(枠上・金)＋値(枠内中央・白) */}
-                    {FIELDS.map((f, i) => (
-                      <View key={i} pointerEvents="none">
-                        <View style={box(f.cx, f.ly, fs(0.05))}><Text style={[s.sLabel, { fontSize: fs(0.030) }]} numberOfLines={1}>{f.lab}</Text></View>
-                        <View style={box(f.cx, f.vy, fs(0.06))}><Text style={[s.sVal, { fontSize: fs(0.040) }]} numberOfLines={1}>{f.val}</Text></View>
-                      </View>
-                    ))}
-                    {/* 下段ラベル＋数字 */}
-                    <View style={box(0.158, 0.650, fs(0.06), 0.26)} pointerEvents="none"><Text style={[s.sVal, { fontSize: fs(0.032) }]} numberOfLines={1}>覚えた単語</Text></View>
-                    <View style={box(0.158, 0.780, fs(0.06), 0.26)} pointerEvents="none"><Text style={[s.sVal, { fontSize: fs(0.032) }]} numberOfLines={1}>連続日数</Text></View>
-                    <View style={box(0.860, 0.653, fs(0.06), 0.14)} pointerEvents="none"><Text style={[s.sVal, { fontSize: fs(0.036) }]} numberOfLines={1}>{learned}</Text></View>
-                    <View style={box(0.860, 0.782, fs(0.06), 0.14)} pointerEvents="none"><Text style={[s.sVal, { fontSize: fs(0.036) }]} numberOfLines={1}>{talk.streak}</Text></View>
-                  </View>
-
-                  <View style={[s.nvSendWrap, { marginTop: 14 }]}>
-                    <Pressable style={s.nvSendBtn} onPress={() => setTalkStep('message')}>
-                      <Text style={s.nvSendT}>✉️ メッセージを送る</Text>
-                    </Pressable>
-                  </View>
-                  <Pressable style={s.nvBack} onPress={() => { setTalkStep('info'); setTalkPage(0); }}><Text style={s.nvBackT}>‹ 会話にもどる</Text></Pressable>
-                </View>
-              );
-            })()}
-
-            {talkStep === 'message' && (
-              <View style={s.cvStatusWrap} pointerEvents="box-none">
-                <View style={s.nvBox}>
-                  {sent ? (
-                    <View style={s.sentBox}>
-                      <Text style={s.sentEmoji}>{sent.emoji}</Text>
-                      <Text style={s.sentT}>応援を送りました！</Text>
-                      <Text style={s.sentReply}>{talk.nick}「{sent.reply}」</Text>
-                    </View>
-                  ) : (
-                    <>
-                      <Text style={s.nvMsgTitle}>{talk.nick}にメッセージを送る</Text>
-                      <View style={s.nvPills}>
-                        {CHEERS.map((c) => (
-                          <Pressable key={c.key} style={s.nvPill} onPress={() => sendCheer(c)}>
-                            <Text style={s.nvPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
-                          </Pressable>
-                        ))}
-                      </View>
-                      <Pressable style={s.nvBack} onPress={() => setTalkStep('status')}><Text style={s.nvBackT}>‹ 戻る</Text></Pressable>
-                    </>
-                  )}
-                </View>
               </View>
-            )}
+              {/* 中: 会話+ステータス一体フレーム(素材=テーマ切替) */}
+              <View style={{ width: FW, height: FH }}>
+                <Image source={isDark ? CSFRAME_DARK : CSFRAME_LIGHT} style={{ width: FW, height: FH }} resizeMode="stretch" />
+                {/* ニックネーム(上枠) */}
+                <View style={[fbox(CS.name), { alignItems: 'center', justifyContent: 'center' }]} pointerEvents="none">
+                  <Text style={{ color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.038) }} numberOfLines={1}>{talk.flag} {talk.nick}</Text>
+                </View>
+                {/* 台詞(タップで送り。送り切ると先頭へ) */}
+                <Pressable style={fbox(CS.say)} onPress={onNext}>
+                  <Text style={{ color: valCol, fontSize: Math.round(FW * 0.038), lineHeight: Math.round(FW * 0.058), fontWeight: '600' }} numberOfLines={3}>{pages[page]}</Text>
+                </Pressable>
+                {pages.length > 1 && <Text style={{ position: 'absolute', right: FW * 0.14, top: CS.say[3] * FH - FW * 0.075, color: labCol, fontSize: Math.round(FW * 0.03), fontWeight: '800' }}>{page + 1}/{pages.length}</Text>}
+                <Animated.Text style={{ position: 'absolute', right: FW * 0.05, top: CS.say[3] * FH - FW * 0.085, color: labCol, fontSize: Math.round(FW * 0.045), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>
+                {/* 6枠: ラベル(枠上・金)＋値(枠内中央) */}
+                {FIELDS.map((f, i) => (
+                  <View key={i} pointerEvents="none">
+                    <View style={{ position: 'absolute', left: f.r[0] * FW, top: f.r[1] * FH - FW * 0.048, width: (f.r[2] - f.r[0]) * FW, alignItems: 'center' }}>
+                      <Text style={{ color: labCol, fontWeight: '800', fontSize: Math.round(FW * 0.028) }} numberOfLines={1}>{f.lab}</Text>
+                    </View>
+                    <View style={[fbox(f.r), { alignItems: 'center', justifyContent: 'center' }]}>
+                      <Text style={{ color: valCol, fontWeight: '800', fontSize: Math.round(FW * 0.037) }} numberOfLines={1}>{f.val}</Text>
+                    </View>
+                  </View>
+                ))}
+                {/* バー2行: ラベル(左余白)＋バー(枠内fill)＋数字(小マス) */}
+                {bars.map((b, i) => (
+                  <View key={i} pointerEvents="none">
+                    <View style={{ position: 'absolute', left: FW * 0.045, top: b.r[1] * FH, height: (b.r[3] - b.r[1]) * FH, justifyContent: 'center' }}>
+                      <Text style={{ color: labCol, fontWeight: '800', fontSize: Math.round(FW * 0.03) }} numberOfLines={1}>{b.lab}</Text>
+                    </View>
+                    <View style={[fbox(b.r), { paddingHorizontal: FW * 0.014, justifyContent: 'center' }]}>
+                      <View style={{ height: (b.r[3] - b.r[1]) * FH * 0.5, borderRadius: 7, backgroundColor: barTrack, overflow: 'hidden' }}>
+                        <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: (`${b.pct}%` as `${number}%`), backgroundColor: b.col, borderRadius: 7 }} />
+                      </View>
+                    </View>
+                    <View style={[fbox(b.numR), { alignItems: 'center', justifyContent: 'center' }]}>
+                      <Text style={{ color: valCol, fontWeight: '900', fontSize: Math.round(FW * 0.036) }} numberOfLines={1}>{b.num}</Text>
+                    </View>
+                  </View>
+                ))}
+              </View>
+              {/* 下: 応援を送る(スクロールで表示) */}
+              <View style={{ paddingHorizontal: 16, paddingTop: 14, paddingBottom: 44, backgroundColor: panelBg }}>
+                {sent ? (
+                  <View style={s.sentBox}>
+                    <Text style={s.sentEmoji}>{sent.emoji}</Text>
+                    <Text style={[s.sentT, { color: valCol }]}>応援を送りました！</Text>
+                    <Text style={[s.sentReply, { color: labCol }]}>{talk.nick}「{sent.reply}」</Text>
+                  </View>
+                ) : (
+                  <>
+                    <Text style={{ color: labCol, fontWeight: '900', fontSize: 15, textAlign: 'center', marginBottom: 10 }}>✉️ {talk.nick}に応援を送る</Text>
+                    <View style={s.nvPills}>
+                      {CHEERS.map((c) => (
+                        <Pressable key={c.key} style={s.nvPill} onPress={() => sendCheer(c)}>
+                          <Text style={s.nvPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
+                        </Pressable>
+                      ))}
+                    </View>
+                  </>
+                )}
+              </View>
+            </ScrollView>
+            {/* 閉じる */}
+            <Pressable onPress={closeTalk} hitSlop={10} style={s.nvClose}><Ionicons name="close" size={26} color={isDark ? '#ffffff' : '#3a2f1c'} /></Pressable>
           </View>
         );
       })()}
