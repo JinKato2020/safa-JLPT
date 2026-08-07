@@ -11,7 +11,8 @@ export type RootStackParamList = {
   QuestionReview: { q: StudiedQuestion }; // 学習後の正誤表から開く「問題の見直し」全画面(本文/台本/問題/選択肢)
   Paywall: undefined; // Pro購入画面(上限画面や🔒Proから開く。商品はRevenueCat Offeringsから取得)
   Notifications: undefined; // 通知(リマインド)
-  Referral: undefined; // 友だち紹介(自分のコード共有＋コード手入力)。上部/設定から開くモーダル
+  Referral: { focus?: 'share' | 'enter' } | undefined; // 友だち紹介(自分のコード共有＋コード手入力)。focus=どちらの用途で開いたか(該当箇所へスクロール)
+  Invite: { u?: string } | undefined; // 招待リンク(safajlpt://invite?u=ownerのuserId)から開く「町に参加/断る」画面
   KotobaTown: undefined; // 言葉の都(テスト): タイルマップ＋4方向移動＋当たり判定(エンジン検証用)
   Inventory: undefined; // アイテム(所持品・道具・バッジ一覧。上部の袋アイコンから開く)
   Shop: undefined; // ショップ(桜貝で着せ替え購入)

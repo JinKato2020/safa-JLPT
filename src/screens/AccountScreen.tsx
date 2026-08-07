@@ -14,7 +14,7 @@ import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/o
 import { mapAuthError } from '../auth/authErrors';
 import { useAppState, useAppActions } from '../store/store';
 import { avatarOf, AVATARS } from '../plaza/avatars';
-import { flagOf, countryLabel } from '../plaza/countries';
+import { flagOf, countryLabel, COUNTRIES } from '../plaza/countries';
 import { PERSONALITIES, MOOD_MESSAGES, personalityOf, moodMsgOf } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
@@ -35,7 +35,7 @@ export default function AccountScreen() {
   const myAvatarImg = avatarOf(st0.avatar).image;
   const per = personalityOf(st0.personality);
   const moodTxt = moodMsgOf(st0.moodMsg);
-  const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'avatar'>(null);
+  const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'avatar' | 'country' | 'gender'>(null);
   const profileHeader = (
     <View style={s.profHeader}>
       <Pressable onPress={() => setPickerOpen('avatar')} style={s.profAvatarWrap} accessibilityLabel="アバターを変更">
@@ -47,8 +47,14 @@ export default function AccountScreen() {
       <View style={s.profStats}>
         {st0.nickname ? <Text style={s.profName}>{flagOf(st0.country ?? 'XX')} {st0.nickname}</Text> : null}
         <View style={s.profRow}><Text style={s.profK}>レベル</Text><Text style={s.profV}>{st0.level}</Text></View>
-        <View style={s.profRow}><Text style={s.profK}>国</Text><Text style={s.profV}>{flagOf(st0.country ?? 'XX')} {countryLabel(st0.country, uiLang)}</Text></View>
-        <View style={s.profRow}><Text style={s.profK}>性別</Text><Text style={s.profV}>{t(st0.gender === 'f' ? 'onboarding.gender_f' : 'onboarding.gender_m')}</Text></View>
+        <Pressable style={s.profRow} onPress={() => setPickerOpen('country')}>
+          <Text style={s.profK}>国</Text>
+          <View style={s.profVrow}><Text style={s.profV}>{flagOf(st0.country ?? 'XX')} {countryLabel(st0.country, uiLang)}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
+        <Pressable style={s.profRow} onPress={() => setPickerOpen('gender')}>
+          <Text style={s.profK}>性別</Text>
+          <View style={s.profVrow}><Text style={s.profV}>{t(st0.gender === 'f' ? 'onboarding.gender_f' : 'onboarding.gender_m')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
         <Pressable style={s.profRow} onPress={() => setPickerOpen('personality')}>
           <Text style={s.profK}>性格</Text>
           <View style={s.profVrow}><Text style={s.profV}>{per ? `${per.emoji} ${per.label}` : '選ぶ'}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
@@ -64,7 +70,13 @@ export default function AccountScreen() {
     <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
       <Pressable style={s.pickBackdrop} onPress={() => setPickerOpen(null)} />
       <View style={s.pickSheet}>
-        <Text style={s.pickTitle}>{pickerOpen === 'avatar' ? 'アバターを選ぶ' : pickerOpen === 'personality' ? '性格を選ぶ' : 'ムードメッセージを選ぶ'}</Text>
+        <Text style={s.pickTitle}>{
+          pickerOpen === 'avatar' ? 'アバターを選ぶ'
+          : pickerOpen === 'country' ? '国を選ぶ'
+          : pickerOpen === 'gender' ? '性別を選ぶ'
+          : pickerOpen === 'personality' ? '性格を選ぶ'
+          : 'ムードメッセージを選ぶ'
+        }</Text>
         <ScrollView style={{ maxHeight: 380 }} contentContainerStyle={{ paddingBottom: 8 }}>
           {pickerOpen === 'avatar' ? (
             <View style={s.avGrid}>
@@ -78,7 +90,27 @@ export default function AccountScreen() {
                 );
               })}
             </View>
-          ) : pickerOpen === 'personality'
+          ) : pickerOpen === 'country'
+            ? COUNTRIES.map((cn) => {
+                const on = (st0.country ?? 'XX') === cn.code;
+                return (
+                  <Pressable key={cn.code} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ country: cn.code }); setPickerOpen(null); }}>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{flagOf(cn.code)} {countryLabel(cn.code, uiLang)}</Text>
+                    {on && <Text style={s.pickCheck}>✓</Text>}
+                  </Pressable>
+                );
+              })
+          : pickerOpen === 'gender'
+            ? (['m', 'f'] as const).map((g) => {
+                const on = (st0.gender ?? 'm') === g;
+                return (
+                  <Pressable key={g} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ gender: g }); setPickerOpen(null); }}>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{t(g === 'f' ? 'onboarding.gender_f' : 'onboarding.gender_m')}</Text>
+                    {on && <Text style={s.pickCheck}>✓</Text>}
+                  </Pressable>
+                );
+              })
+          : pickerOpen === 'personality'
             ? PERSONALITIES.map((p) => {
                 const on = st0.personality === p.key;
                 return (
@@ -179,12 +211,20 @@ export default function AccountScreen() {
           </View>
           {/* 最終同期の下に試験情報カード(試験日/残日数/申込期間/費用)。ホームのリングシートから移設。 */}
           <ExamInfoCard />
-          {/* 友だち紹介(設定画面から移設)。コード発行にアカウントが要るのでログイン中だけ表示。 */}
-          <Pressable style={s.referralRow} onPress={() => nav.navigate('Referral')}>
+          {/* 友だち紹介は「紹介する」と「コードを入力」を分けて表示(同じ画面の該当箇所へ)。 */}
+          <Pressable style={s.referralRow} onPress={() => nav.navigate('Referral', { focus: 'share' })}>
             <View style={s.referralIco}><Ionicons name="gift-outline" size={20} color={c.blue} /></View>
             <View style={{ flex: 1 }}>
-              <Text style={s.referralTitle}>{t('referral.title')}</Text>
-              <Text style={s.referralSub}>{t('referral.subhead')}</Text>
+              <Text style={s.referralTitle}>友だちを紹介</Text>
+              <Text style={s.referralSub}>あなたの紹介コードを友だちに送る</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={c.faint} />
+          </Pressable>
+          <Pressable style={s.referralRow} onPress={() => nav.navigate('Referral', { focus: 'enter' })}>
+            <View style={s.referralIco}><Ionicons name="ticket-outline" size={20} color={c.blue} /></View>
+            <View style={{ flex: 1 }}>
+              <Text style={s.referralTitle}>紹介コードを入力</Text>
+              <Text style={s.referralSub}>友だちからもらったコードを登録する</Text>
             </View>
             <Ionicons name="chevron-forward" size={18} color={c.faint} />
           </Pressable>

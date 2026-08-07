@@ -5,7 +5,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, TextInput, Share, ActivityIndicator, Animated, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
+import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { useT } from '../i18n';
@@ -18,12 +19,22 @@ export default function ReferralScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation();
+  const route = useRoute<RouteProp<RootStackParamList, 'Referral'>>();
   const state = useAppState();
   const { setEnteredCode } = useAppActions();
 
   const [code, setCode] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState('');
+
+  // アカウント画面から「紹介コードを入力」で開いた時は、入力カードまでスクロールする。
+  const scrollRef = useRef<ScrollView>(null);
+  const enterY = useRef(0);
+  useEffect(() => {
+    if (route.params?.focus !== 'enter') return;
+    const id = setTimeout(() => scrollRef.current?.scrollTo({ y: Math.max(0, enterY.current - 12), animated: true }), 350);
+    return () => clearTimeout(id);
+  }, [route.params?.focus]);
 
   // 自分の紹介コードをサーバーから取得(無ければ採番)。失敗時は空文字→エラー表示。
   useEffect(() => {
@@ -67,7 +78,7 @@ export default function ReferralScreen() {
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
-      <ScrollView contentContainerStyle={s.body}>
+      <ScrollView ref={scrollRef} contentContainerStyle={s.body}>
         <View style={s.headRow}>
           <Text style={s.title}>{t('referral.title')}</Text>
           <Pressable onPress={() => nav.goBack()} hitSlop={12} accessibilityLabel={t('nav.close')}>
@@ -113,7 +124,7 @@ export default function ReferralScreen() {
         </View>
 
         {/* 新規=友だちのコードを手入力(受取にアカウント不要) */}
-        <View style={s.card}>
+        <View style={s.card} onLayout={(e) => { enterY.current = e.nativeEvent.layout.y; }}>
           <Text style={s.lbl}>{t('referral.enter_title')}</Text>
           <Text style={s.hint}>{t('referral.enter_hint')}</Text>
           {entered ? (

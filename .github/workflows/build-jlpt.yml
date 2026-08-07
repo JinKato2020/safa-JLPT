@@ -110,6 +110,8 @@ jobs:
           [ -d dict ] && cp -r dict _site/dict || true
           # 問題コンテンツ(大問×レベル・i18n inline)を /content/ で配信=逐次OTAの取得元。
           [ -d content ] && cp -r content _site/content || true
+          # 友だち招待ページ(/invite/)。リンクを開くと「アプリで開く」→ safajlpt://invite でアプリ起動。
+          [ -d web/invite ] && mkdir -p _site/invite && cp web/invite/index.html _site/invite/index.html || true
           echo "::notice::_site contents:"; find _site -maxdepth 3 | head -40
       - name: Configure Pages
         uses: actions/configure-pages@v5

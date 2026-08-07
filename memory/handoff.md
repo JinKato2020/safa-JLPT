@@ -34,10 +34,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 44ターン（文脈 16万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 44ターン・ツール19回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -46,14 +42,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/components/AfterStudyReward.tsx
-- memory/session-summary-LATEST.md
-- memory/handoff.md
-- src/auth/sync.ts
-- src/screens/AccountScreen.tsx
-- src/auth/sync.test.ts
-- src/auth/SyncProvider.tsx
-- src/screens/KotobaTownScreen.tsx
+- 画像/キャラクター/アバター/男の子4/男の子4左前.png
+- assets/kotoba/hero_m5/upright_r.png
+- assets/kotoba/hero_m5/upright_l.png
+- assets/kotoba/hero_m5/upright.png
+- assets/kotoba/hero_m5/upleft_r.png
+- assets/kotoba/hero_m5/upleft_l.png
+- assets/kotoba/hero_m5/upleft.png
+- assets/kotoba/hero_m5/up_r.png
 
-_自動更新: 2026-08-07 01:58_
+_自動更新: 2026-08-07 13:08_
 <!-- AUTO:END -->

@@ -45,6 +45,7 @@ import QuestionReviewScreen from './src/screens/QuestionReviewScreen';
 import PaywallScreen from './src/screens/PaywallScreen';
 import ReferralScreen from './src/screens/ReferralScreen';
 import KotobaTownScreen from './src/screens/KotobaTownScreen';
+import InviteScreen from './src/screens/InviteScreen';
 import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './src/pro/purchases';
 import { initAds } from './src/pro/ads';
 import { walletPoints } from './src/store/wallet';
@@ -62,6 +63,13 @@ function activeRouteName(navState: unknown): string | undefined {
 
 const Tab = createMaterialTopTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
+
+// ディープリンク: 招待リンク safajlpt://invite?u=<owner> を Invite 画面へ。u はルートパラメータへ自動マッピング。
+// https は配信サイトの招待ページ経由(ページの「アプリで開く」ボタンが safajlpt:// を呼ぶ)。
+const LINKING = {
+  prefixes: ['safajlpt://', 'https://jinkato2020.github.io/safa-JLPT'],
+  config: { screens: { Invite: 'invite' } },
+};
 const WordsStack = createNativeStackNavigator<WordsStackParamList>();
 function WordsTab() {
   // 単語タブ: 世界観ハブ(WordsHome) → 区分の練習ホーム(WordKubun=CardsScreen) → 学習リスト(WordList=BrowseScreen)。
@@ -305,7 +313,7 @@ function Root() {
     <DesignThemeProvider scheme={scheme}>
     <View style={{ flex: 1, backgroundColor: c.bg }}>
     {skin ? <WatercolorBackground skin={skin} /> : null}
-    <NavigationContainer ref={navigationRef} key={`${settings.font ?? 'maru'}-${settings.theme ?? 'auto'}`} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
+    <NavigationContainer ref={navigationRef} linking={LINKING} key={`${settings.font ?? 'maru'}-${settings.theme ?? 'auto'}`} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!settings.onboarded ? (
           <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
@@ -334,6 +342,7 @@ function Root() {
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Referral" component={ReferralScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Invite" component={InviteScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="KotobaTown" component={KotobaTownScreen} options={{ presentation: 'card' }} />
           </>
         )}

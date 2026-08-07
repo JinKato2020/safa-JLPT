@@ -3,7 +3,7 @@
 //  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
 //  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, PanResponder, StyleSheet, useWindowDimensions } from 'react-native';
+import { View, Text, Image, Animated, Pressable, PanResponder, StyleSheet, useWindowDimensions, Share } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -13,6 +13,10 @@ import { useAppState } from '../store/store';
 import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
 import { personalityOf, moodMsgOf, personaLineOf } from '../plaza/persona';
+import { useSync } from '../auth/SyncProvider';
+import { friendPublish, townMembers } from '../plaza/friendsClient';
+import { friendToLearner, pickFriendHomes } from '../plaza/friendResidents';
+import { daimonMasteryCounts } from '../store/selectors';
 
 type Dir = 'down' | 'up' | 'left' | 'right' | 'downleft' | 'downright' | 'upleft' | 'upright';
 // 各方向 [両足立ち, 右足前, 左足前]。歩行時に 立ち→右→立ち→左 で切り替え=歩いて見える。
@@ -384,6 +388,13 @@ export default function KotobaTownScreen() {
   const handed = useAppState().settings.handed ?? 'right'; // カーソル(スティック)を置く側。既定=右利き(右)
   const stickSide = handed === 'left' ? { alignSelf: 'flex-start' as const, paddingLeft: 22 } : { alignSelf: 'flex-end' as const, paddingRight: 22 };
   const streakCur = useAppState().streak?.current ?? 0; // 桜のほめ言葉に使う連続日数
+  // 友だち(段階2): ログイン中は自分を公開＋友だちを町の住人として取り込む。
+  const meState = useAppState();
+  const { session } = useSync();
+  const [friends, setFriends] = useState<VirtualLearner[]>([]);
+  const residents = useMemo(() => [...VIRTUAL_LEARNERS, ...friends], [friends]); // 仮想学習者＋実在の友だち
+  const residentsRef = useRef<VirtualLearner[]>(VIRTUAL_LEARNERS);
+  residentsRef.current = residents; // 移動ループ(閉包)から最新の住人を参照するため
   const isDay = useMemo(() => { const h = new Date().getHours(); return h >= 6 && h < 18; }, []);
   const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
   const MAP_TREE = isDay ? MAP_TREE_DAY : MAP_TREE_NIGHT; // 木の最前面レイヤーも昼夜で切替(夜も木の裏を通れる)
@@ -413,6 +424,31 @@ export default function KotobaTownScreen() {
   };
   useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
 
+  // 友だち: ログイン中なら自分を公開(検索対象＋友だちの町に出る)し、友だち一覧を町の住人へ変換して置く。
+  useEffect(() => {
+    if (!session) { setFriends([]); return; }
+    let cancelled = false;
+    (async () => {
+      const st = meState.settings;
+      if (st.nickname) {
+        const learnedTotal = daimonMasteryCounts(meState, Date.now()).reduce((a, b) => a + b.learned, 0);
+        await friendPublish({
+          nickname: st.nickname, country: st.country ?? null, gender: st.gender ?? null,
+          avatar: st.avatar ?? 'm_boy1', level: st.level, streak: meState.streak?.current ?? 0,
+          learned: learnedTotal, weekLearned: 0,
+          studying: st.studying ?? null, strong: null,
+          personality: st.personality ?? null, moodMsg: st.moodMsg ?? null,
+        });
+      }
+      const list = await townMembers();
+      if (cancelled) return;
+      const isWalkable = (col: number, row: number) => MAP_WALK[row]?.[col] === '.';
+      const homes = pickFriendHomes(list.length, isWalkable, VIRTUAL_LEARNERS.map((v) => v.home));
+      setFriends(list.slice(0, homes.length).map((p, i) => friendToLearner(p, homes[i])));
+    })();
+    return () => { cancelled = true; };
+  }, [session]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // 桜との会話(努力をほめる)。応援コメントとは別カード。
   const [sakuraTalk, setSakuraTalk] = useState(false);
   const [praise, setPraise] = useState('');
@@ -424,6 +460,17 @@ export default function KotobaTownScreen() {
     sakuraTalkRef.current = true; setSakuraTalk(true);
   };
   const closeSakura = () => { sakuraTalkRef.current = false; setSakuraTalk(false); };
+
+  // 友だちを町に招待: 自分のuserIdを載せた招待リンクをSNSで共有。相手がリンクを開くと「参加/断る」→参加でこの町に住人として出る。
+  const onInvite = async () => {
+    if (!session) { nav.navigate('Account'); return; } // 招待にはログイン(=安定したuserId)が必要
+    const u = session.user.id;
+    const n = encodeURIComponent(meState.settings.nickname ?? '');
+    const url = `https://jinkato2020.github.io/safa-JLPT/invite/?u=${u}&n=${n}`;
+    try {
+      await Share.share({ message: `いっしょに日本語を学ぼう！わたしの町に遊びにきてね🏘️\n${url}` });
+    } catch { /* 共有シートを閉じただけ等は無視 */ }
+  };
 
   const worldOff = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   const playerPos = useRef(new Animated.ValueXY({ x: start.x, y: start.y })).current;
@@ -488,7 +535,7 @@ export default function KotobaTownScreen() {
           // 歩くNPCと、ベンチに座るアバターの両方から一番近い相手を選ぶ。座り手はベンチが当たり判定で塞がり
           // 密着できないので、少し広めのしきい値(thresh/rearm)で会話できるようにする。
           let near: VirtualLearner | null = null, best = 1e9, thresh = 26, rearm = 52;
-          for (const vl of VIRTUAL_LEARNERS) { const p = npcPos[vl.id]; if (!p) continue; const d = Math.hypot(fx - (p.x + SPRITE / 2), fy - (p.y + SPRITE * 0.82)); if (d < best) { best = d; near = vl; thresh = 26; rearm = 52; } }
+          for (const vl of residentsRef.current) { const p = npcPos[vl.id]; if (!p) continue; const d = Math.hypot(fx - (p.x + SPRITE / 2), fy - (p.y + SPRITE * 0.82)); if (d < best) { best = d; near = vl; thresh = 26; rearm = 52; } }
           for (const st of SITTERS) { const d = Math.hypot(fx - (st.x + st.w / 2), fy - (st.y + st.h * 0.72)); if (d < best) { best = d; near = st.v; thresh = 54; rearm = 95; } }
           if (near && best < thresh && talkArmed.current) { talkArmed.current = false; input.current = { dx: 0, dy: 0 }; openTalk(near); }
           else if (!near || best > rearm) talkArmed.current = true;
@@ -569,8 +616,8 @@ export default function KotobaTownScreen() {
           {SITTERS.map((si, i) => (
             <Image key={i} source={si.img} style={{ position: 'absolute', left: si.x, top: si.y, width: si.w, height: si.h }} resizeMode="contain" />
           ))}
-          {/* 中: 仮想の学習者(NPC) */}
-          {VIRTUAL_LEARNERS.map((v) => <NpcSprite key={v.id} v={v} sink={npcPos} />)}
+          {/* 中: 学習者(NPC)＝仮想学習者＋実在の友だち */}
+          {residents.map((v) => <NpcSprite key={v.id} v={v} sink={npcPos} />)}
           {/* 中: マスコット(桜=会話あり / 柴犬=会話なし) */}
           <AmbientNpc sprites={SHIBA} spot={SHIBA_HOME} tag="🐕 柴犬" />
           <AmbientNpc sprites={SAKURA} spot={SAKURA_HOME} tag="🌸 桜" sink={npcPos} sinkKey="sakura" />
@@ -594,10 +641,13 @@ export default function KotobaTownScreen() {
           <View style={s.pill}><Text style={s.pillT}>日本語学習者の町</Text></View>
           <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.close}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
         </View>
-        {/* 友だちを招待(みんなで学ぼう)。町=社交の世界観に最も合う入口。押すと紹介画面へ。 */}
+        {/* 友だちを町に招待(リンク共有→相手が参加で住人に)＋紹介コード。町=社交の世界観に最も合う入口。 */}
         <View style={s.inviteRow} pointerEvents="box-none">
+          <Pressable style={[s.inviteBtn, s.inviteBtnSearch]} onPress={onInvite}>
+            <Text style={s.inviteT}>🏘️ 友だちを町に招待</Text>
+          </Pressable>
           <Pressable style={s.inviteBtn} onPress={() => nav.navigate('Referral')}>
-            <Text style={s.inviteT}>🎁 友だちを招待</Text>
+            <Text style={s.inviteT}>🎁 紹介コード</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -675,7 +725,6 @@ export default function KotobaTownScreen() {
                       </View>
                       <View style={s.rpgMeta}>
                         <Text style={s.rpgName} numberOfLines={1}>{talk.flag} {talk.nick}</Text>
-                        {per ? <Text style={s.rpgClass} numberOfLines={1}>{per.emoji} {per.label}</Text> : null}
                         <View style={s.rpgLvRow}>
                           <Text style={s.rpgLvLabel}>Lv</Text>
                           <Text style={s.rpgLvVal}>{talk.level}</Text>
@@ -684,7 +733,7 @@ export default function KotobaTownScreen() {
                     </View>
 
                     <View style={s.rpgBar}>
-                      <Text style={s.rpgBarKey}>語彙</Text>
+                      <Text style={s.rpgBarKey}>覚えた単語</Text>
                       <View style={s.rpgTrack}>
                         <View style={[s.rpgFill, { width: (`${vocabPct}%` as `${number}%`), backgroundColor: '#37cc74' }]} />
                         <View style={s.rpgGloss} pointerEvents="none" />
@@ -700,10 +749,11 @@ export default function KotobaTownScreen() {
                       </View>
                     </View>
 
-                    {(talk.strong || mm) ? (
+                    {(per || talk.strong || mm) ? (
                       <View style={s.rpgNext}>
-                        {talk.strong ? <Text style={s.rpgNextT}>得意 ▸ 🌟 {talk.strong}</Text> : null}
-                        {mm ? <Text style={s.rpgNextT}>気分 ▸ 💭 {mm}</Text> : null}
+                        {per ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>性格</Text><Text style={s.rpgKvV}>{per.label}</Text></View> : null}
+                        {talk.strong ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>得意分野</Text><Text style={s.rpgKvV}>{talk.strong}</Text></View> : null}
+                        {mm ? <View style={s.rpgKvRow}><Text style={s.rpgKvK}>気分</Text><Text style={s.rpgKvV}>{mm}</Text></View> : null}
                       </View>
                     ) : null}
                   </View>
@@ -751,7 +801,8 @@ const s = StyleSheet.create({
   pill: { backgroundColor: 'rgba(255,253,248,0.9)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7 },
   pillT: { fontSize: 13, fontWeight: '900', color: '#3a3128' },
   close: { width: 38, height: 38, borderRadius: 19, backgroundColor: 'rgba(255,253,248,0.9)', alignItems: 'center', justifyContent: 'center' },
-  inviteRow: { paddingHorizontal: 12, marginTop: 4, alignItems: 'flex-start' },
+  inviteRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, paddingHorizontal: 12, marginTop: 4, alignItems: 'flex-start' },
+  inviteBtnSearch: { backgroundColor: '#3f7bd6' },
   inviteBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#e2588f', borderRadius: 999, paddingVertical: 8, paddingHorizontal: 15, borderWidth: 2, borderColor: '#ffffff', shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
   inviteT: { color: '#ffffff', fontWeight: '900', fontSize: 13, letterSpacing: 0.3 },
   bottom: { position: 'absolute', left: 0, right: 0, bottom: 0 },
@@ -812,20 +863,21 @@ const s = StyleSheet.create({
   rpgFace: { width: 62, height: 62 },
   rpgMeta: { flex: 1 },
   rpgName: { color: '#ffd76b', fontWeight: '900', fontSize: 17, letterSpacing: 0.3 },
-  rpgClass: { color: '#b9c6f5', fontWeight: '800', fontSize: 12.5, marginTop: 1 },
   rpgLvRow: { flexDirection: 'row', alignItems: 'baseline', marginTop: 5 },
   rpgLvLabel: { color: '#9fb0ec', fontWeight: '900', fontSize: 12, marginRight: 5 },
   rpgLvVal: { color: '#ffffff', fontWeight: '900', fontSize: 18, letterSpacing: 0.5 },
   // HP/SP風バー
   rpgBar: { flexDirection: 'row', alignItems: 'center', marginTop: 6 },
-  rpgBarKey: { width: 34, color: '#9fb0ec', fontSize: 11, fontWeight: '900', letterSpacing: 1 },
+  rpgBarKey: { width: 66, color: '#9fb0ec', fontSize: 11, fontWeight: '900', letterSpacing: 0.3 },
   rpgTrack: { flex: 1, height: 17, borderRadius: 5, backgroundColor: '#0a0f30', borderWidth: 1, borderColor: '#05081f', overflow: 'hidden', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 7 },
   rpgFill: { position: 'absolute', left: 0, top: 0, bottom: 0, borderRadius: 4 },
   rpgGloss: { position: 'absolute', left: 0, right: 0, top: 0, height: 7, backgroundColor: 'rgba(255,255,255,0.22)' },
   rpgBarVal: { color: '#ffffff', fontSize: 10.5, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.9)', textShadowRadius: 2, textShadowOffset: { width: 0, height: 1 } },
-  // Next Base 風の下段(得意/気分)
-  rpgNext: { marginTop: 9, borderTopWidth: 1, borderTopColor: '#3a4790', paddingTop: 7, gap: 2 },
-  rpgNextT: { color: '#c8d2f5', fontSize: 11.5, fontWeight: '800' },
+  // 下段の「ラベル：値」行(性格/得意分野/気分)。アイコンは付けない(ユーザー指定)。
+  rpgNext: { marginTop: 9, borderTopWidth: 1, borderTopColor: '#3a4790', paddingTop: 8, gap: 5 },
+  rpgKvRow: { flexDirection: 'row', alignItems: 'baseline' },
+  rpgKvK: { width: 72, color: '#9fb0ec', fontSize: 12, fontWeight: '800' },
+  rpgKvV: { flex: 1, color: '#ffffff', fontSize: 13, fontWeight: '800' },
   nvSendWrap: { marginHorizontal: 12, zIndex: 3 },
   nvSendBtn: { backgroundColor: '#e2588f', borderRadius: 999, borderWidth: 2, borderColor: '#ffffff', paddingVertical: 13, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
   nvSendT: { color: '#ffffff', fontWeight: '900', fontSize: 15, letterSpacing: 0.5 },
