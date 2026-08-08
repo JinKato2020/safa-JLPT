@@ -414,8 +414,7 @@ export default function KotobaTownScreen() {
   // 選んだアバターで自分の見た目を切替(女の子1/女の子2 は専用スプライト、それ以外=男の子)。
   const avatarCode = useAppState().settings.avatar;
   const SPRITES = (avatarCode && AVATAR_SETS[avatarCode]) || HERO;
-  const handed = useAppState().settings.handed ?? 'right'; // カーソル(スティック)を置く側。既定=右利き(右)
-  const stickSide = handed === 'left' ? { alignSelf: 'flex-start' as const, paddingLeft: 22 } : { alignSelf: 'flex-end' as const, paddingRight: 22 };
+  const stickSide = { alignSelf: 'center' as const }; // 操作カーソルは画面下部の中央に固定(左右設定は廃止)
   const streakCur = useAppState().streak?.current ?? 0; // 桜のほめ言葉に使う連続日数
   // 友だち(段階2): ログイン中は自分を公開＋友だちを町の住人として取り込む。
   const meState = useAppState();
@@ -781,7 +780,7 @@ export default function KotobaTownScreen() {
         const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
         // 一体フレーム(素材はテーマで切替・座標CSは共通)。全幅で高さ=素材比。
         const frameSrc = Image.resolveAssetSource(isDark ? CSFRAME_DARK : CSFRAME_LIGHT);
-        const INSET = Math.round(VW * 0.05); // フレーム/応援を画面縁から内側へ(金枠が縁に近づかないよう余白)
+        const INSET = Math.round(VW * 0.025); // フレーム/応援を画面縁から内側へ(左右の余白=町が見える。半分に縮小)
         const FW = VW - INSET * 2;
         const FH = Math.round(FW * frameSrc.height / frameSrc.width);
         // 会話ヒーローの縮尺=すべて画面幅(FW)基準の比例で決める(端末非依存で堅牢)。背景と立ち絵は連動して拡縮。
@@ -813,18 +812,24 @@ export default function KotobaTownScreen() {
         const FS_BAR = FS_FIELD, FS_NUM = FS_FIELD, LH_BAR = LH_FIELD;
         const barH = Math.round(FW * 0.038);
         const midOf = (bd: readonly number[]) => (bd[0] + bd[1]) / 2;
-        // 6項目=「ラベル：値」を左右2列×3帯に。b=帯index(rowBands)。
-        const FIELDS: { x: number; b: number; lab: string; val: string }[] = [
-          { x: CS.xL, b: 0, lab: '名前', val: talk.nick },
-          { x: CS.xR, b: 0, lab: 'Lv', val: String(talk.level) },
-          { x: CS.xL, b: 1, lab: '国名', val: (talk.flag ?? '').trim() || '-' },
-          { x: CS.xR, b: 1, lab: '得意', val: talk.strong ?? '-' },
-          { x: CS.xL, b: 2, lab: '性格', val: per ? per.label : '-' },
-          { x: CS.xR, b: 2, lab: '気分', val: mm ?? '-' },
+        // ステータス6項目=左列(文字が長め)・右列(短め)を3行に。
+        //  名前|Lv / 性格|国名 / 気分|得意。左が長い時は中央で切らず、右列全体を右へズラして左に幅を確保。
+        const ROWS: { b: number; L: { lab: string; val: string }; R: { lab: string; val: string } }[] = [
+          { b: 0, L: { lab: '名前', val: talk.nick }, R: { lab: 'Lv', val: String(talk.level) } },
+          { b: 1, L: { lab: '性格', val: per ? per.label : '-' }, R: { lab: '国名', val: (talk.flag ?? '').trim() || '-' } },
+          { b: 2, L: { lab: '気分', val: mm ?? '-' }, R: { lab: '得意', val: talk.strong ?? '-' } },
         ];
+        // 左テキスト幅を概算(全角=1/半角≈0.55×フォント)。最長に合わせて右列開始x(rightX)を決め、右列は揃える。
+        const estPx = (s: string) => { let u = 0; for (const ch of s) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u * FS_FIELD; };
+        const gapPx = FW * 0.03;
+        const maxLeftPx = Math.max(...ROWS.map((r) => estPx(`${r.L.lab}：${r.L.val}`)));
+        const minRightW = FW * 0.16;
+        const rightX = Math.min(Math.max(CS.xR * FW, CS.xL * FW + maxLeftPx + gapPx), CS.colRightEdge * FW - minRightW);
+        const leftW = rightX - CS.xL * FW - gapPx * 0.6;
+        const rightW = CS.colRightEdge * FW - rightX;
         // バー2行=ラベル(左)＋バー(barX0..barX1)＋数字(numX)。覚えた単語=青 / 連続日数=緑。b=帯index(barBands)。
         const bars: { lab: string; pct: number; num: string; col: string; b: number }[] = [
-          { lab: '覚えた単語', pct: vocabPct, num: `${learned} / 1000`, col: '#4aa3ff', b: 0 },
+          { lab: '覚えた単語', pct: vocabPct, num: `${learned} 語`, col: '#4aa3ff', b: 0 },
           { lab: '連続日数', pct: streakPct, num: `${talk.streak ?? 0} 日`, col: '#37cc74', b: 1 },
         ];
         return (
@@ -837,12 +842,15 @@ export default function KotobaTownScreen() {
               contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingVertical: INSET }}
               onScroll={(e) => { if (e.nativeEvent.contentOffset.y < -72) closeTalk(); }}>
               {/* 上: 会話背景(昼夜ランダム)。フレームと同じ幅で角丸表示。左右の余白は町が見える。 */}
-              <View style={{ width: FW, height: sceneH, alignSelf: 'center', borderRadius: 18, overflow: 'hidden' }}>
-                <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="contain" />
+              <View style={{ width: FW, height: sceneH, alignSelf: 'center', borderRadius: 18, overflow: 'hidden', backgroundColor: '#0a0a14' }}>
+                {/* 背景=正方形画像を明示サイズで敷く(absoluteFill+resizeModeのFabric描画差を排除)。contain=全体表示。 */}
+                <Image source={scene} style={{ position: 'absolute', width: FW, height: sceneH }} resizeMode="contain" />
                 <View style={s.cvVignette} pointerEvents="none" />
                 <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, alignItems: 'center' }} pointerEvents="none">
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
+                {/* 実機で動くJS版の確認用マーカー(次のスクショで版を判別)。目立たない小さな表示。 */}
+                <Text style={{ position: 'absolute', top: 3, left: 6, color: 'rgba(255,255,255,0.55)', fontSize: 10, fontWeight: '800' }}>js2720</Text>
               </View>
               {/* 中: 会話+ステータス一体フレーム(素材=テーマ切替)。会話背景と同じ幅で中央寄せ。 */}
               <View style={{ width: FW, height: FH, alignSelf: 'center', marginTop: 10 }}>
@@ -857,13 +865,14 @@ export default function KotobaTownScreen() {
                 </Pressable>
                 {pages.length > 1 && <Text style={{ position: 'absolute', right: FW * 0.14, top: CS.sayBand[3] * FH - FW * 0.075, color: labCol, fontSize: Math.round(FW * 0.03), fontWeight: '800' }}>{page + 1}/{pages.length}</Text>}
                 <Animated.Text style={{ position: 'absolute', right: FW * 0.05, top: CS.sayBand[3] * FH - FW * 0.085, color: labCol, fontSize: Math.round(FW * 0.045), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>
-                {/* 6項目=「ラベル：値」(2列×3帯)。各帯の中で縦中央・固定フォント。列幅で右端をそろえ、あふれは…で省略。 */}
-                {FIELDS.map((f, i) => {
-                  const isLeft = f.x === CS.xL;
-                  const w = (isLeft ? (CS.xR - CS.xL - 0.02) : (CS.colRightEdge - CS.xR)) * FW;
-                  const mid = midOf(CS.rowBands[f.b]);
+                {/* 6項目=左列「ラベル：値」＋右列。左が長い時は右列を右へズラす(rightX)。右列は揃える。 */}
+                {ROWS.map((r, i) => {
+                  const top = midOf(CS.rowBands[r.b]) * FH - LH_FIELD / 2;
                   return (
-                    <Text key={i} pointerEvents="none" numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: f.x * FW, top: mid * FH - LH_FIELD / 2, width: w, height: LH_FIELD, lineHeight: LH_FIELD, color: valCol, fontWeight: '800', fontSize: FS_FIELD }}>{f.lab}：{f.val}</Text>
+                    <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: CS.xL * FW, top, width: leftW, height: LH_FIELD, lineHeight: LH_FIELD, color: valCol, fontWeight: '800', fontSize: FS_FIELD }}>{r.L.lab}：{r.L.val}</Text>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: rightX, top, width: rightW, height: LH_FIELD, lineHeight: LH_FIELD, color: valCol, fontWeight: '800', fontSize: FS_FIELD }}>{r.R.lab}：{r.R.val}</Text>
+                    </View>
                   );
                 })}
                 {/* バー2行: 各バー帯の中で縦中央。ラベル(左)＋バー＋数字。 */}

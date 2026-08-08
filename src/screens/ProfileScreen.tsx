@@ -25,9 +25,6 @@ import { useSync } from '../auth/SyncProvider';
 import { deleteAccount } from '../auth/authClient';
 import { proStatus } from '../pro/entitlement';
 import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
-import { PERSONALITIES, MOOD_MESSAGES } from '../plaza/persona';
-
-const STUDY_FIELDS = ['漢字', '語彙', '文法', '読解', '聴解'];
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -283,66 +280,9 @@ export default function ProfileScreen() {
           <Text style={s.subtle}>{t('profile.listeningRateHint')}</Text>
         </View>
 
-        {/* 町の操作カーソル(スティック)を置く側。右利き=右手の親指で操作(既定)。 */}
-        <View style={s.card}>
-          <Text style={s.setLbl}>おさんぽの操作カーソル</Text>
-          <View style={s.chipRow}>
-            {(['right', 'left'] as const).map((hd) => {
-              const on = (state.settings.handed ?? 'right') === hd;
-              return (
-                <Pressable key={hd} onPress={() => setSettings({ handed: hd })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{hd === 'right' ? '右利き（カーソルを右に）' : '左利き（カーソルを左に）'}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-          <Text style={s.subtle}>日本語学習者の町で、移動スティックを画面のどちら側に置くかを選べます。</Text>
-        </View>
-
-        {/* 町のアバターに表示するプロフィール(定型から選ぶだけ・自由入力なし)。話しかけた相手に見える。 */}
-        <View style={s.card}>
-          <Text style={s.setLbl}>町のアバターのプロフィール</Text>
-          <Text style={s.subtle}>友だちが町であなたに話しかけると見えます。決まった選択肢から選ぶだけ（自由入力なし）。</Text>
-
-          <Text style={[s.setLbl, { fontSize: ty.small, marginTop: spacing.md }]}>いま勉強している分野</Text>
-          <View style={s.chipRow}>
-            {STUDY_FIELDS.map((f) => {
-              const on = state.settings.studying === f;
-              return (
-                <Pressable key={f} onPress={() => setSettings({ studying: on ? undefined : f })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{f}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-          <Text style={[s.setLbl, { fontSize: ty.small, marginTop: spacing.md }]}>性格</Text>
-          <View style={s.chipRow}>
-            {PERSONALITIES.map((p) => {
-              const on = state.settings.personality === p.key;
-              return (
-                <Pressable key={p.key} onPress={() => setSettings({ personality: p.key })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{p.emoji} {p.label}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-          <Text style={[s.setLbl, { fontSize: ty.small, marginTop: spacing.md }]}>ムードメッセージ（いまの気分）</Text>
-          <View style={s.chipRow}>
-            {MOOD_MESSAGES.map((m) => {
-              const on = state.settings.moodMsg === m.key;
-              return (
-                <Pressable key={m.key} onPress={() => setSettings({ moodMsg: m.key })} style={[s.chip, on && s.chipOn]}>
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{m.text}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-
-        </View>
-
-        {/* 漢字書き取りの設定(グリッド/速度/読み上げ)は「漢字書き取り」画面内へ移設。 */}
+        {/* おさんぽの操作カーソルは画面下部の中央に固定(左右の設定は廃止)。
+            町のアバターのプロフィール(勉強分野/性格/ムード/ニックネーム/国/性別/アバター)は
+            アカウント画面(上部の人アイコン)に集約。設定タブには重複カードを置かない。 */}
 
         {/* サポート・規約 */}
         <Text style={s.sectionH}>{t('profile.supportSection')}</Text>
