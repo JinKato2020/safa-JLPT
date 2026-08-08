@@ -1,15 +1,19 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 11 回・24 ターン
-- 往復 39302 回
+- ツール呼び出し 29 回・67 ターン
+- 往復 39376 回
 
 ## 何が変わったか
 - memory/handoff.md
 - src/screens/KotobaTownScreen.tsx
-- memory/session-summary-LATEST.md
 - src/screens/HomeScreen.tsx
+- src/screens/AccountScreen.tsx
 - web/invite/index.html
+
+## ⚠️ 注意
+- - ⚠ 連続 67ターン（文脈 11万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 67ターン・ツール29回）— まとめ方を変える
 
 ## 次の一手
 - **🎴 ステータス枠をアプリ組み込み＝実装済・tsc0・未ビルド（2026-08-07）**: 会話の'status'ステップを旧RPGカードから装飾枠`assets/kotoba/ui/statusframe.png`(大外の外＋長ボックス2つを透過窓化)へ置換。枠は1000x740、FW=min(VW*0.98,VH*0.60/0.74)。上段6項目=ラベル(枠上・金sLabel)+値(枠内中央・白sVal)、座標frac: L=cx0.272/R0.725, labelY[0.118,0.276,0.435]/valY[0.180,0.338,0.497]。下段バー=枠背後(先に描画→枠Image→ラベル)で透過窓に透ける(A窓x0.293-0.776 y0.630-0.670緑vocab/B y0.761-0.800青streak)、数字cx0.86。KotobaTownScreen.tsxのみ。旧rpg*スタイルは未使用のまま残置。**次ビルドで実機確認**。

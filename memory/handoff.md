@@ -39,6 +39,10 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 67ターン（文脈 11万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 67ターン・ツール29回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -48,13 +52,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - src/screens/KotobaTownScreen.tsx
+- src/screens/HomeScreen.tsx
+- src/screens/AccountScreen.tsx
+- web/invite/index.html
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/screens/HomeScreen.tsx
-- web/invite/index.html
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- src/screens/AccountScreen.tsx
 
-_自動更新: 2026-08-08 01:24_
+_自動更新: 2026-08-08 14:52_
 <!-- AUTO:END -->

@@ -833,11 +833,12 @@ export default function KotobaTownScreen() {
             <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(4,6,16,0.38)' }]} pointerEvents="none" />
             {/* 下に引っ張る(オーバースクロール)で会話を抜ける。 */}
             <ScrollView showsVerticalScrollIndicator={false} bounces scrollEventThrottle={16}
-              style={{ backgroundColor: 'transparent' }} contentContainerStyle={{ paddingTop: INSET, paddingBottom: 40 }}
+              style={{ backgroundColor: 'transparent' }}
+              contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingVertical: INSET }}
               onScroll={(e) => { if (e.nativeEvent.contentOffset.y < -72) closeTalk(); }}>
               {/* 上: 会話背景(昼夜ランダム)。フレームと同じ幅で角丸表示。左右の余白は町が見える。 */}
               <View style={{ width: FW, height: sceneH, alignSelf: 'center', borderRadius: 18, overflow: 'hidden' }}>
-                <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="cover" />
+                <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="contain" />
                 <View style={s.cvVignette} pointerEvents="none" />
                 <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, alignItems: 'center' }} pointerEvents="none">
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />

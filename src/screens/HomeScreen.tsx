@@ -67,6 +67,14 @@ export default function HomeScreen() {
   // リング中央=受験レベルの「予想得点 / 総得点(180)」。リングの塗り(素材画像)は合格率のまま。
   const predScore = status.predScore;
   const predMax = status.predMax;
+  // リング穴(≈幅62%)に必ず収める得点表示。自動縮小(adjustsFontSizeToFit)は「入れ子サイズ×iOS」で
+  //  分母「/満点」が消える不具合があったため、文字数から実フォントサイズをJSで決める確定方式にする。
+  const holeW = ringW * 0.66;
+  const sLen = String(predScore).length;   // 得点の桁数(例 120=3)
+  const mLen = String(predMax).length + 1; // 「/満点」の文字数(例 /180=4)
+  const AV = 0.60;                          // 太字1文字の実効幅 ≈ 0.60×フォント
+  const bigFs = Math.min(ringW * 0.30, holeW / (sLen * AV + mLen * AV * 0.5));
+  const smallFs = Math.round(bigFs * 0.5);
 
   return (
     <View style={styles.c}>
@@ -89,10 +97,9 @@ export default function HomeScreen() {
                   下の空白を物理的にクリップしてラベルとの隙間(≈5px)を確実に詰める。 */}
               <View style={styles.pctInner}>
                 {/* リングの穴幅(≈62%)に収める。長い得点(例 180/180)やフォント幅差でも自動縮小=はみ出さない。 */}
-                <View style={{ width: Math.round(ringW * 0.62), height: Math.round(ringW * 0.30 * 0.81), overflow: 'hidden', alignItems: 'center' }}>
-                  <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5} style={[styles.num, { width: '100%', fontSize: Math.round(ringW * 0.30), lineHeight: Math.round(ringW * 0.30) }]}>
-                    {predScore}<Text style={[styles.numSmall, { fontSize: Math.round(ringW * 0.13) }]}>/{predMax}</Text>
-                  </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'baseline', justifyContent: 'center' }}>
+                  <Text numberOfLines={1} style={[styles.num, { fontSize: Math.round(bigFs), lineHeight: Math.round(bigFs) }]}>{predScore}</Text>
+                  <Text numberOfLines={1} style={[styles.numSmall, { fontSize: smallFs, lineHeight: Math.round(bigFs) }]}>/{predMax}</Text>
                 </View>
                 {/* 現在レベル(N5/N4/N3 or JFT)＋「予想得点」。中央=受験レベルの予想得点/総得点。 */}
                 <View style={[styles.lblRow, { marginTop: 5 }]}>
