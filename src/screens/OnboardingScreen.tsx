@@ -58,6 +58,7 @@ export default function OnboardingScreen() {
   const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'lang'>(null); // タップで開くリスト選択
   const [level, setLevel] = useState<Level>('N4');                // JLPTの目標級
   const [examDate, setExamDate] = useState<string | null>(exams[0] ?? null); // 受験予定日=既定は直近のJLPT
+  const [audioMode, setAudioMode] = useState<'download' | 'stream'>('download'); // 聴解音声=一括DL / 都度DL(この画面の最後で選択)
   const [pending, setPending] = useState(false);
   const [ready, setReady] = useState(false);                      // オープニングは2秒固定→タップ受付
   const fade = useRef(new Animated.Value(0)).current;
@@ -98,32 +99,29 @@ export default function OnboardingScreen() {
     );
   }
 
-  // ── 完了→そのレベルの聴解音声を一括DL(スキップ可)。完了/スキップでオンボード完了。 ──
-  if (pending) {
-    return (
-      <ListeningDownloadGate
-        level={level}
-        allowSkip
-        onComplete={() => {
-          sendEvent('onboarding_complete', { exam: EXAM, level });
-          setSettings({
-            targetExam: EXAM,
-            level,
-            l1: nativeLang, // 母語=翻訳言語(デバイス言語が既定)
-            examDate,
-            reminder: null, // リマインドは設定画面で入力(オンボでは尋ねない)
-            nickname: nickname.trim() || undefined,
-            country: nativeLangCC(nativeLang), // アバターの国旗は母語の国旗(英語=アメリカ)
-            gender,
-            avatar,
-            personality,
-            moodMsg,
-            onboarded: true, // トラッキング許可は既定ON(未設定=許可)。オフは設定画面で。
+  // オンボード完了=全設定を保存(聴解音声の取得方式を含む)。都度DLなら即完了 / 一括DLはゲートでDL後に呼ぶ。
+  const finish = () => {
+    sendEvent('onboarding_complete', { exam: EXAM, level });
+    setSettings({
+      targetExam: EXAM,
+      level,
+      l1: nativeLang, // 母語=翻訳言語(デバイス言語が既定)
+      examDate,
+      reminder: null, // リマインドは設定画面で入力(オンボでは尋ねない)
+      nickname: nickname.trim() || undefined,
+      country: nativeLangCC(nativeLang), // アバターの国旗は母語の国旗(英語=アメリカ)
+      gender,
+      avatar,
+      personality,
+      moodMsg,
+      listeningAudioMode: audioMode, // 聴解音声の取得方式(この画面の最後で選択)
+      onboarded: true, // トラッキング許可は既定ON(未設定=許可)。オフは設定画面で。
+    });
+  };
 
-          });
-        }}
-      />
-    );
+  // ── 一括DLを選んだ場合のみ、そのレベルの聴解音声をDL(方式は選択済み=確認を出さず即DL・失敗時のみスキップ可)。完了でオンボ確定。 ──
+  if (pending) {
+    return <ListeningDownloadGate level={level} allowSkip autoStart onComplete={finish} />;
   }
 
   // ── 1画面で全設定（試験＝JLPTのレベル/受験日 ＋ 町のプロフィール ＋ リマインド ＋ トラッキング許可） ──
@@ -217,8 +215,20 @@ export default function OnboardingScreen() {
           <Text style={s.pickCaret}>▾</Text>
         </Pressable>
 
+        {/* 4. 聴解音声の取得方式(この画面の最後で選択・別画面にしない)。一括DL=オフライン / 都度DL=容量節約。 */}
+        <Text style={s.label}>{t('profile.listeningAudio')}</Text>
+        <View style={s.row}>
+          {(['download', 'stream'] as const).map((m) => (
+            <Pressable key={m} onPress={() => setAudioMode(m)} style={[s.chip, audioMode === m && s.chipOn]}>
+              <Text style={[s.chipTxt, audioMode === m && s.chipTxtOn]}>{t(m === 'download' ? 'profile.listeningAudio_download' : 'profile.listeningAudio_stream')}</Text>
+            </Pressable>
+          ))}
+        </View>
+        <Text style={s.levelDesc}>{t(audioMode === 'stream' ? 'profile.listeningAudioHint_stream' : 'profile.listeningAudioHint_download')}</Text>
+
         {/* 学習リマインド・トラッキング許可は設定画面で入力(オンボでは尋ねない)。 */}
-        <Pressable style={[s.cta, !canGo && s.ctaOff]} disabled={!canGo} onPress={() => setPending(true)}>
+        {/* 完了: 都度DL=そのまま完了 / 一括DL=次にゲートで音声をDLしてから完了。 */}
+        <Pressable style={[s.cta, !canGo && s.ctaOff]} disabled={!canGo} onPress={() => { if (audioMode === 'stream') finish(); else setPending(true); }}>
           <Text style={[s.ctaTxt, !canGo && s.ctaOffTxt]}>{t('onboarding.start')}</Text>
         </Pressable>
       </ScrollView>

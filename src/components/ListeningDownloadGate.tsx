@@ -9,19 +9,13 @@ import type { Level } from '../engine/engine';
 import { listeningAudioIdsFor } from '../data';
 import { LISTENING_CACHEABLE, listeningReady, prefetchListening, listeningBytesEstimate } from '../data/listeningAudio';
 
-export default function ListeningDownloadGate({ level, allowSkip, manual, onComplete }: { level: Level; allowSkip: boolean; manual?: boolean; onComplete: () => void }) {
+// autoStart=true: 事前に方式を選択済み(=一括DL確定)なので、確認画面を出さずそのままDLへ進む。
+export default function ListeningDownloadGate({ level, allowSkip, manual, autoStart, onComplete }: { level: Level; allowSkip: boolean; manual?: boolean; autoStart?: boolean; onComplete: () => void }) {
   const c = useColors();
   const t = useT();
   const ids = useMemo(() => listeningAudioIdsFor(level), [level]);
   const [phase, setPhase] = useState<'check' | 'consent' | 'dl' | 'error'>('check');
   const [pct, setPct] = useState(0);
-
-  useEffect(() => {
-    let alive = true;
-    if (!LISTENING_CACHEABLE) { onComplete(); return; } // web等=ストリーミング、DL不要
-    listeningReady(ids).then((r) => { if (!alive) return; if (r && !manual) onComplete(); else setPhase('consent'); }).catch(() => { if (alive) setPhase('consent'); });
-    return () => { alive = false; };
-  }, [ids]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const mb = Math.max(1, Math.round(listeningBytesEstimate(ids) / 1048576));
   const start = async () => {
@@ -31,6 +25,17 @@ export default function ListeningDownloadGate({ level, allowSkip, manual, onComp
       onComplete();
     } catch { setPhase('error'); }
   };
+
+  useEffect(() => {
+    let alive = true;
+    if (!LISTENING_CACHEABLE) { onComplete(); return; } // web等=ストリーミング、DL不要
+    listeningReady(ids).then((r) => {
+      if (!alive) return;
+      if (r && !manual) { onComplete(); return; }      // 既にDL済み=そのまま完了
+      if (autoStart) { void start(); } else { setPhase('consent'); } // 選択済みなら即DL / 未選択なら確認
+    }).catch(() => { if (alive) { if (autoStart) void start(); else setPhase('consent'); } });
+    return () => { alive = false; };
+  }, [ids]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (phase === 'check') {
     return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: c.bg }}><ActivityIndicator color={c.blue} /></View>;

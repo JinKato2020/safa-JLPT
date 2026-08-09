@@ -49,14 +49,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/pro/ads.ts
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
 - src/auth/SyncProvider.tsx
 - src/geo/geoClient.ts
 - docs/supabase/functions/geo-country/index.ts
-- docs/supabase/geo.sql
-- src/screens/KotobaTownScreen.tsx
-- src/plaza/friendResidents.ts
 
-_自動更新: 2026-08-10 00:16_
+_自動更新: 2026-08-10 00:54_
 <!-- AUTO:END -->
