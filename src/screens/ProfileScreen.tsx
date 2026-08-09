@@ -15,6 +15,7 @@ import { META } from '../data';
 import type { Level } from '../engine/engine';
 import type { ThemeMode } from '../store/state';
 import { useT, UI_LANGS, useUiLang } from '../i18n';
+import { legalUrl } from '../config/legal';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import Slider from '../components/Slider';
 import MiniCalendar from '../components/MiniCalendar';
@@ -45,7 +46,6 @@ export default function ProfileScreen() {
   const stepPass = (d: number) => { const cur = state.settings.devPassPct ?? 0; setSettings({ devPassPct: Math.max(0, Math.min(100, cur + d)) }); };
   const [confirmReset, setConfirmReset] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [legal, setLegal] = useState<'privacy' | 'terms' | null>(null);
   const [showDl, setShowDl] = useState(false);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { session } = useSync();
@@ -282,20 +282,17 @@ export default function ProfileScreen() {
             <Text style={s.linkTxt}>{t('profile.rateApp')}</Text>
             <Text style={s.chev}>›</Text>
           </Pressable>
+          {/* プライバシーポリシー/利用規約=本番URL(各言語)をブラウザで開く。アプリ内本文は持たない(内容が実態と乖離しないよう一元管理)。 */}
           <View style={s.linkDiv} />
-          <Pressable style={s.linkRow} onPress={() => setLegal((v) => (v === 'privacy' ? null : 'privacy'))}>
+          <Pressable style={s.linkRow} onPress={() => Linking.openURL(legalUrl('privacy', uiLang))}>
             <Text style={s.linkTxt}>{t('profile.privacy')}</Text>
-            <Text style={s.chev}>{legal === 'privacy' ? '▲' : '›'}</Text>
+            <Text style={s.chev}>↗</Text>
           </Pressable>
-          {legal === 'privacy' ? (
-            <Text style={s.legal}>{t('profile.privacyBody')}{'\n\n'}{t('profile.privacyAccount')}</Text>
-          ) : null}
           <View style={s.linkDiv} />
-          <Pressable style={s.linkRow} onPress={() => setLegal((v) => (v === 'terms' ? null : 'terms'))}>
+          <Pressable style={s.linkRow} onPress={() => Linking.openURL(legalUrl('terms', uiLang))}>
             <Text style={s.linkTxt}>{t('profile.terms')}</Text>
-            <Text style={s.chev}>{legal === 'terms' ? '▲' : '›'}</Text>
+            <Text style={s.chev}>↗</Text>
           </Pressable>
-          {legal === 'terms' ? <Text style={s.legal}>{t('profile.termsBody')}</Text> : null}
           {/* JLPT公式サンプル問題(外部リンク)。本番の出題形式を公式サイトで確認できる。 */}
           <Pressable style={s.linkRow} onPress={() => Linking.openURL('https://www.jlpt.jp/samples/forlearners.html')}>
             <Text style={s.linkTxt}>{t('profile.jlptSamples')}</Text>
@@ -525,7 +522,6 @@ const makeStyles = (c: ThemeColors) =>
     linkTxt: { fontSize: ty.body, color: c.ink2, fontWeight: '600' },
     chev: { fontSize: ty.h2, color: c.trace, fontWeight: '700' },
     linkDiv: { height: 1, backgroundColor: c.line },
-    legal: { fontSize: ty.tiny, color: c.mute, lineHeight: 18, paddingBottom: spacing.sm },
     subtle: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.sm, lineHeight: 15 },
     examSel: { fontSize: ty.body, fontWeight: '800', color: c.blue, marginTop: spacing.xs },
     toggleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: spacing.md },

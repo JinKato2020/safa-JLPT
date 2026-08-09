@@ -25,6 +25,7 @@ export function friendToLearner(p: FriendProfile, home: Home): VirtualLearner {
     studying: p.studying ?? undefined,
     learned: p.learned ? p.learned : undefined,
     weekLearned: p.week_learned ? p.week_learned : undefined,
+    studySeconds: p.study_seconds ? p.study_seconds : undefined,
     strong: p.strong ?? undefined,
     personality: p.personality ?? undefined,
     moodMsg: p.mood_msg ?? undefined,

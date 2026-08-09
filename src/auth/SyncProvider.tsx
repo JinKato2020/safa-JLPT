@@ -9,6 +9,7 @@ import { pullState, pushState } from './syncClient';
 import { decideLoginSync, mergeRestoredState } from './sync';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { setTelemetryAccount } from '../telemetry/telemetry';
+import { recordGeoCountry } from '../geo/geoClient';
 
 type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null };
 const Ctx = createContext<SyncCtx>({ session: null, email: null, lastSyncedAt: null });
@@ -50,6 +51,16 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   // テレメトリにアカウントID(=紐づけ)を注入。未ログイン→null(匿名)。ログイン/ログアウトで切替。
   useEffect(() => {
     setTelemetryAccount(session?.user?.id ?? null);
+  }, [session]);
+
+  // 接続国(IP由来)をログインごとに1回だけ記録(統計・課金計算用)。トークン更新では再実行しない(user_id 変化のみ)。
+  const geoUserRef = useRef<string | null>(null);
+  useEffect(() => {
+    const uid = session?.user?.id ?? null;
+    if (!uid) { geoUserRef.current = null; return; }
+    if (geoUserRef.current === uid) return;
+    geoUserRef.current = uid;
+    void recordGeoCountry();
   }, [session]);
 
   // ログイン確立時: リモートを引いて安全に統合する。

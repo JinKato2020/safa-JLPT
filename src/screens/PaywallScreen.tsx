@@ -2,14 +2,15 @@
 // Apple審査の必須要素: 各商品の価格・期間・自動更新の明示 / 「購入を復元」 / 規約・プライバシーへの導線。
 // キー未設定・商品未登録のうちは offering=null → 「まもなく提供」を出して閉じるだけ(壊れない)。
 import { useEffect, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { PACKAGE_TYPE, type PurchasesOffering, type PurchasesPackage } from 'react-native-purchases';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
-import { useT } from '../i18n';
+import { useT, useUiLang } from '../i18n';
+import { legalUrl } from '../config/legal';
 import { useAppActions } from '../store/store';
 import { getCurrentOffering, purchase, restore, syncEntitlement } from '../pro/purchases';
 
@@ -28,6 +29,7 @@ function periodKey(t: PACKAGE_TYPE): string | null {
 export default function PaywallScreen() {
   const c = useColors();
   const t = useT();
+  const uiLang = useUiLang();
   const s = styles(c);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { setPurchaseActive } = useAppActions();
@@ -119,11 +121,11 @@ export default function PaywallScreen() {
         </Pressable>
 
         <View style={s.links}>
-          <Pressable onPress={() => nav.navigate('Settings')} hitSlop={8}>
+          <Pressable onPress={() => Linking.openURL(legalUrl('terms', uiLang))} hitSlop={8}>
             <Text style={s.linkTxt}>{t('paywall.terms')}</Text>
           </Pressable>
           <Text style={s.linkSep}>·</Text>
-          <Pressable onPress={() => nav.navigate('Settings')} hitSlop={8}>
+          <Pressable onPress={() => Linking.openURL(legalUrl('privacy', uiLang))} hitSlop={8}>
             <Text style={s.linkTxt}>{t('paywall.privacy')}</Text>
           </Pressable>
         </View>

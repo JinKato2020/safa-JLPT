@@ -13,6 +13,7 @@ export interface VirtualLearner {
   studying?: string;                  // いま勉強している分野(聴解/漢字/語彙/文法/読解)。会話カードに具体的な頑張りとして表示
   learned?: number;                   // これまで覚えた語数(会話カードに表示)
   weekLearned?: number;               // この7日で覚えた語数(直近の頑張りが見える)。会話カードに表示
+  studySeconds?: number;              // 累計学習時間(秒)。実データ(友だち)。町ステータスの「総時間」に使う。NPCは未設定→語数から概算
   todayMin?: number;                  // 今日の学習時間(分)。会話カードに表示
   strong?: string;                    // 得意な分野(前向きに得意だけ。苦手は載せない)。会話カードに表示
   note?: string;                      // 一言(自由コメント。会話カードに表示)

@@ -538,7 +538,7 @@ export default function KotobaTownScreen() {
         await friendPublish({
           nickname: st.nickname, country: st.country ?? null, gender: st.gender ?? null,
           avatar: st.avatar ?? 'm_boy1', level: st.level, streak: meState.streak?.current ?? 0,
-          learned: learnedTotal, weekLearned: 0,
+          learned: learnedTotal, weekLearned: 0, studySeconds: meState.studySeconds ?? 0,
           studying: st.studying ?? null, strong: null,
           personality: st.personality ?? null, moodMsg: st.moodMsg ?? null,
         });
@@ -931,8 +931,9 @@ export default function KotobaTownScreen() {
         const FS_LAB = Math.round(FW * 0.035), FS_VAL = Math.round(FW * 0.034);
         // 6項目(名前|Lv / 性格|得意 / 気分|総時間)=ステータス正方形の上半分。名前は「名前+母語国旗」。右列=Lv→得意→総時間。
         // 総時間=累計学習時間の目安。覚えた語数から概算(1語≈2分)して時間表示にする。
-        const totalMin = Math.round(learned * 2);
-        const totalTimeStr = `${Math.floor(totalMin / 60)}:${String(totalMin % 60).padStart(2, '0')}`; // ◯:◯(時:分)
+        // 総時間: 友だちは公開された実データ(studySeconds)を使う。仮想NPCは実データが無いので語数から概算(1語≈2分)。
+        const totalSec = (talk.studySeconds && talk.studySeconds > 0) ? talk.studySeconds : Math.round(learned * 2) * 60;
+        const totalTimeStr = `${Math.floor(totalSec / 3600)}:${String(Math.floor((totalSec % 3600) / 60)).padStart(2, '0')}`; // ◯:◯(時:分)
         const FIELDS: { lab: string; val: string; lab2: string; val2: string }[] = [
           { lab: '名前', val: `${talk.nick} ${(talk.flag ?? '').trim()}`.trim(), lab2: 'Lv', val2: String(talk.level) },
           { lab: '性格', val: per ? per.label : '-', lab2: '得意', val2: talk.strong ?? '-' },

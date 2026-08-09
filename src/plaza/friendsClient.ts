@@ -13,6 +13,7 @@ export type FriendProfile = {
   streak: number;
   learned: number;             // 覚えた語数
   week_learned: number;
+  study_seconds: number;       // 累計学習時間(秒)。町ステータスの「総時間」を実データで表示
   studying: string | null;
   strong: string | null;
   personality: string | null;
@@ -22,13 +23,13 @@ export type FriendProfile = {
 /** 自分の公開プロフィールを publish(町に表示するために必要)。成功で true。 */
 export async function friendPublish(p: {
   nickname: string; country: string | null; gender: string | null; avatar: string; level: string;
-  streak: number; learned: number; weekLearned: number;
+  streak: number; learned: number; weekLearned: number; studySeconds?: number;
   studying?: string | null; strong?: string | null; personality?: string | null; moodMsg?: string | null;
 }): Promise<boolean> {
   try {
     const { error } = await supabase.rpc('friend_publish', {
       p_nickname: p.nickname, p_country: p.country, p_gender: p.gender, p_avatar: p.avatar, p_level: p.level,
-      p_streak: p.streak, p_learned: p.learned, p_week_learned: p.weekLearned,
+      p_streak: p.streak, p_learned: p.learned, p_week_learned: p.weekLearned, p_study_seconds: p.studySeconds ?? 0,
       p_studying: p.studying ?? null, p_strong: p.strong ?? null,
       p_personality: p.personality ?? null, p_mood_msg: p.moodMsg ?? null,
     });
