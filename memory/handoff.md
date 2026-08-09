@@ -51,12 +51,12 @@
 ## 直近24時間の変更ファイル（自動）
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- memory/session-summary-LATEST.md
-- memory/handoff.md
 - src/screens/MockScreen.tsx
-- src/screens/ProfileScreen.tsx
 - src/i18n/ja.json
-- src/navigation/types.ts
+- assets/mock/mock_cert_fail.jpg
+- assets/mock/mock_cert_pass.jpg
+- assets/mock/mock_end.jpg
+- memory/session-summary-LATEST.md
 
-_自動更新: 2026-08-09 17:16_
+_自動更新: 2026-08-09 17:53_
 <!-- AUTO:END -->

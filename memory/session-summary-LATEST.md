@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 1 回・5 ターン
-- 往復 41749 回
+- ツール呼び出し 14 回・36 ターン
+- 往復 41785 回
 
 ## 何が変わったか
 - memory/handoff.md
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- memory/session-summary-LATEST.md
 - src/screens/MockScreen.tsx
+- src/i18n/ja.json
 
 ## 次の一手
 - **📜 プライバシーポリシー/利用規約の改訂＝引き継ぎ資料あり・未着手（2026-08-09）**: 現行`privacy.html`は「収集しない」前提で**内容が古い**（その後アカウント/クラウド同期/AdMob広告/友だち・紹介が入った）→全面改訂＋`terms.html`新規作成＋App Store/Google Playのプライバシー申告更新が必要。**記載すべき全項目＝`md\プライバシーポリシー_利用規約_記載事項.md`**（第三者=Supabase東京/AdMob/Apple・Google認証/GitHub Pages、ATT、削除依頼、EEA向けUMP等）。次セッションはこのmdから着手。

@@ -457,10 +457,13 @@ export default function MockScreen() {
       <View style={s.fullImgWrap}>
         <Image source={IMG_END} style={{ width: winW, height: winH }} resizeMode="cover" />
         <SafeAreaView edges={['top', 'bottom']} style={StyleSheet.absoluteFill}>
-          <View style={s.endOverlay}>
+          {/* 桜のねぎらいは画面の中ほど(空〜社の辺り)に。桜の絵(下部)にはかぶらない。 */}
+          <View style={s.endMid}>
             <View style={s.endBubble}>
               {t('mock.end_sakura').split('\n').map((ln, i) => (<Text key={i} style={s.endBubbleT}>{ln}</Text>))}
             </View>
+          </View>
+          <View style={s.endBtnBar}>
             <Pressable style={s.breakBtn} onPress={startCalc}><Text style={s.breakBtnT}>{t('mock.end_calc')}</Text></Pressable>
           </View>
         </SafeAreaView>
@@ -497,6 +500,11 @@ export default function MockScreen() {
     const elapsed = (endedAt ?? Date.now()) - startedAt;
     // 合否: 開発者プレビューは指定どおり / 本番はJFT=jftScore・JLPT=passJlpt(総合＋各区分の足切り)。
     const passed = preview ? preview === 'pass' : (isJft ? !!jftSc?.pass : passJlpt(answers, level));
+    // 証明書サイズは画面の縦横の両方で必ず収める(はみ出し防止)。証明書=縦長(3:4=750/1000)。
+    const heroW = winW - spacing.lg * 2;                       // 本文パディング内の実幅
+    const certH = Math.round(Math.min(winH * 0.30, heroW * 0.9)); // 高さは画面の30%以内かつ幅からも制限
+    const certW = Math.round(certH * 0.75);                    // 3:4
+    const heroH = Math.round(winH * 0.42);                     // ヒーローの高さ(画面の42%以内・証明書より必ず高い)
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.body}>
@@ -506,10 +514,11 @@ export default function MockScreen() {
             </Pressable>
             <Text style={s.progress}>{t('mock.result_label')}</Text>
           </View>
-          {/* 模試終了画面を背景に、合否証明書を上部(空の辺り)へ重ねる。証明書は画面に収まる大きさに最適化。 */}
-          <View style={[s.certHero, { height: Math.round(winH * 0.5) }]}>
+          {/* 模試終了画面(空)を背景に、合否証明書を上部へ重ねる。サイズは縦横とも画面内に収まるよう確定計算。 */}
+          <View style={[s.certHero, { height: heroH }]}>
+            {/* 終了画像はヒーロー枠と同サイズ(cover)。枠外へはみ出さない(Androidの overflow 事情に依存しない安全策)。 */}
             <Image source={IMG_END} style={StyleSheet.absoluteFill} resizeMode="cover" />
-            <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={[s.cert, { width: Math.round(winW * 0.54) }]} resizeMode="contain" />
+            <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={{ width: certW, height: certH, marginTop: spacing.md }} resizeMode="contain" />
           </View>
           {preview ? <Text style={s.previewNote}>{t('mock.preview_note')}</Text> : null}
           {!preview && (<>
@@ -758,8 +767,9 @@ const makeStyles = (c: ThemeColors) =>
     breakWarn: { fontSize: ty.small, color: '#b4531f', fontWeight: '800', textAlign: 'center', marginTop: spacing.sm, lineHeight: 22 },
     breakBtn: { width: '100%', backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.sm },
     breakBtnT: { color: '#fff', fontSize: ty.body, fontWeight: '900', letterSpacing: 1 },
-    // 模試終了(桜のねぎらい吹き出しは上部=空へ / 計算ボタンは下部)
-    endOverlay: { flex: 1, justifyContent: 'space-between', padding: spacing.lg },
+    // 模試終了(桜のねぎらい吹き出しは中ほどへ / 計算ボタンは下部)
+    endMid: { flex: 1, justifyContent: 'center', paddingHorizontal: spacing.lg },
+    endBtnBar: { paddingHorizontal: spacing.lg, paddingBottom: spacing.md },
     endBubble: { backgroundColor: 'rgba(255,255,255,0.93)', borderRadius: radius.lg, paddingVertical: spacing.md, paddingHorizontal: spacing.lg, gap: 3, alignSelf: 'center', maxWidth: 360 },
     endBubbleT: { fontSize: ty.body, color: '#241a10', fontWeight: '700', lineHeight: 25, textAlign: 'center' },
     // 結果計算バー(模試終了画面の上に半透明パネル)
@@ -771,7 +781,6 @@ const makeStyles = (c: ThemeColors) =>
     calcPct: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
     // 合否証明書(結果画面上部・模試終了画面を背景に空の辺りへ重ねる)
     certHero: { width: '100%', borderRadius: radius.lg, overflow: 'hidden', backgroundColor: '#cfe3f5', alignItems: 'center', justifyContent: 'flex-start', marginBottom: spacing.md },
-    cert: { marginTop: spacing.lg, aspectRatio: 750 / 1000 },
     previewNote: { fontSize: ty.small, color: c.amber, fontWeight: '800', textAlign: 'center', marginTop: spacing.xs },
     promptCard: {
       backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,
