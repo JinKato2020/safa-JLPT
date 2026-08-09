@@ -1,7 +1,7 @@
 // ミニ模試(言語知識20問) / フル模試(全区分=漢字語彙＋文法＋読解＋聴解)。本番形式・客観採点(重み5)。
 // 採点後: 区分別の弱点ヒートマップ → 語彙/文法の弱点だけ復習(Quiz)へ。掲示板§5(UWorld閉ループ)。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Image, Animated, useWindowDimensions, Alert } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Image, Animated, useWindowDimensions, Alert, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -509,9 +509,11 @@ export default function MockScreen() {
     const passed = preview ? preview === 'pass' : (isJft ? !!jftSc?.pass : passJlpt(answers, level));
     // 証明書サイズは画面の縦横の両方で必ず収める(はみ出し防止)。証明書=縦長(3:4=750/1000)。
     const heroW = winW - spacing.lg * 2;                       // 本文パディング内の実幅
-    const certH = Math.round(Math.min(winH * 0.30, heroW * 0.9)); // 高さは画面の30%以内かつ幅からも制限
-    const certW = Math.round(certH * 0.75);                    // 3:4
-    const heroH = Math.round(winH * 0.42);                     // ヒーローの高さ(画面の42%以内・証明書より必ず高い)
+    const certH = Math.round(Math.min(winH * 0.30, heroW * 0.85)); // 程よい大きさ(画面の30%以内かつ幅からも制限)
+    const certW = Math.round(certH * 0.738);                   // 証明書画像の実アスペクト(余白統一後 738/1000)
+    const heroH = Math.round(winH * 0.52);                     // ヒーロー高さ(証明書を中央やや上に置ける縦を確保)
+    const certTop = Math.max(spacing.md, Math.round(heroH * 0.44 - certH / 2)); // 真ん中より少し上
+    const lvlFs = Math.round(certH * 0.105);                   // 証明書に重ねるレベル文字(元N3と同位置・同程度)
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.body}>
@@ -525,7 +527,11 @@ export default function MockScreen() {
           <View style={[s.certHero, { height: heroH }]}>
             {/* 終了画像はヒーロー枠と同サイズ(cover)。枠外へはみ出さない(Androidの overflow 事情に依存しない安全策)。 */}
             <Image source={IMG_END} style={StyleSheet.absoluteFill} resizeMode="cover" />
-            <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={{ width: certW, height: certH, marginTop: spacing.md }} resizeMode="contain" />
+            {/* 証明書＋レベル文字。証明書はN3を消してあり、ここにレベルを重ねる(元N3と同位置)。 */}
+            <View style={{ width: certW, height: certH, marginTop: certTop }}>
+              <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={StyleSheet.absoluteFill} resizeMode="contain" />
+              <Text style={[s.certLevel, { fontSize: lvlFs, lineHeight: lvlFs, top: Math.round(certH * 0.462 - lvlFs * 0.62) }]}>{level}</Text>
+            </View>
           </View>
           {preview ? <Text style={s.previewNote}>{t('mock.preview_note')}</Text> : null}
           {!preview && (<>
@@ -788,6 +794,8 @@ const makeStyles = (c: ThemeColors) =>
     calcPct: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
     // 合否証明書(結果画面上部・模試終了画面を背景に空の辺りへ重ねる)
     certHero: { width: '100%', borderRadius: radius.lg, overflow: 'hidden', backgroundColor: '#cfe3f5', alignItems: 'center', justifyContent: 'flex-start', marginBottom: spacing.md },
+    // 証明書に重ねるレベル文字(元N3の位置・濃紺のセリフ体で証明書に馴染ませる)
+    certLevel: { position: 'absolute', left: 0, right: 0, textAlign: 'center', color: '#1e1e3c', fontWeight: '800', letterSpacing: 1, fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif' },
     previewNote: { fontSize: ty.small, color: c.amber, fontWeight: '800', textAlign: 'center', marginTop: spacing.xs },
     promptCard: {
       backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,

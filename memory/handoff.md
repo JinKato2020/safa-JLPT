@@ -49,14 +49,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/session-summary-LATEST.md
+- memory/handoff.md
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- src/screens/MockScreen.tsx
+- src/screens/MockIntroScreen.tsx
 - src/i18n/ja.json
-- assets/mock/mock_cert_fail.jpg
-- assets/mock/mock_cert_pass.jpg
-- assets/mock/mock_end.jpg
-- memory/session-summary-LATEST.md
+- src/screens/ProfileScreen.tsx
+- src/screens/MockScreen.tsx
 
-_自動更新: 2026-08-09 17:53_
+_自動更新: 2026-08-09 19:16_
 <!-- AUTO:END -->
