@@ -825,7 +825,7 @@ const makeStyles = (c: ThemeColors) =>
     calcOverlay: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.lg },
     calcPanel: { width: '90%', backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: spacing.md },
     calcH: { fontSize: ty.h2, fontWeight: '900', color: '#241a10' },
-    calcTrack: { width: '100%', height: 16, borderRadius: 999, backgroundColor: '#e9e1d3', overflow: 'hidden' },
+    calcTrack: { width: '100%', height: 9, borderRadius: 999, backgroundColor: '#e9e1d3', overflow: 'hidden' },
     calcFill: { height: '100%', backgroundColor: c.blue, borderRadius: 999 },
     calcPct: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
     // 合否証明書(結果画面上部・模試終了画面を背景に空の辺りへ重ねる)

@@ -8,6 +8,17 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState, useAppActions } from '../store/store';
 import type { AppState } from '../store/state';
 import { composeVoice, pickFlavor } from '../story/voice';
+import { learnedNow } from '../store/selectors';
+
+// はじめて開いた人(まだ1語も覚えていない)向けの一言。「続けてきた」など“過去の積み重ね”を前提にした言葉は使わない。
+// 数字/日付/合否/物語は言わない=通常の桜と同じ方針。出迎え・これから一緒に、の温度。
+const NEWCOMER_BUBBLES = [
+  'はじめまして。わたしは桜。これから一緒にがんばろうね。',
+  'ようこそ！まずは「今日のオススメ」から、気軽に始めてみよう。',
+  'あなたのペースで大丈夫。少しずつ、はじめていこうね。',
+  'ここから一歩ずつ。わたしがそばで、ずっと応援してるからね。',
+  'あなたが来てくれて、うれしいな。さあ、はじめよう。',
+];
 
 // 桜の締めの温かい一言(数字/日付/合否/願い/物語=かけら は言わない)。長さ・変化づけ用に末尾へ添える。
 const SAKURA_CLOSERS = [
@@ -69,8 +80,13 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
     const now = Date.now();
     const d = new Date(now);
     const today = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    // まだ1語も覚えていない“はじめての人”には、過去の積み重ねを前提にした言葉(「続けてきた」等)を出さず、出迎えの一言にする。
+    const isNewcomer = learnedNow(state, now) === 0;
     let text: string;
-    if (state.settings.sakuraRecoDay !== today) {
+    if (isNewcomer) {
+      text = NEWCOMER_BUBBLES[Math.floor((now / 1000) % NEWCOMER_BUBBLES.length)];
+      setSettings({ lastSakuraSpeechAt: now }); // sakuraRecoDayはまだ立てない(1語覚えたら通常導線へ)
+    } else if (state.settings.sakuraRecoDay !== today) {
       text = '「今日のオススメ」を学習すると、苦手な単語の復習ができるよ。';
       setSettings({ sakuraRecoDay: today, lastSakuraSpeechAt: now });
     } else {

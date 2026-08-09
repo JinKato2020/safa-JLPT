@@ -220,6 +220,7 @@ const ROOFS = [
 const WORLD = 1024;            // マップ表示サイズ(正方)。当たり判定グリッドはこの中を MAP_G 等分。
 const CELL = WORLD / MAP_G;
 const SPRITE = 64;            // マップ上のアバター背丈(従来値。表示・当たり判定・名札・配置すべて連動)
+const PLATE_W = 170;         // 名札の容器幅。SPRITE(64)だと絶対配置の名札が64pxに測られ長い名前が⋯で切れる→広い容器にしてアバター中心へ寄せる
 const SPEED = 160;            // px/秒
 const START_COL = 24, START_ROW = 28;
 const STICK_R = 54;          // スティック外周半径
@@ -326,7 +327,7 @@ function NpcSprite({ v, sink, animSink }: { v: VirtualLearner; sink: Record<stri
   const by = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -3] });
   // 重なり順=足元が下(画面手前)ほど上レイヤ。足元yをそのままzIndexに(木/屋根=2000より必ず下:最大でもWORLD=1024)。
   return (
-    <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: Math.round(pos.current.y), transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
+    <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: Math.round(pos.current.y + SPRITE * 0.82), transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
       {/* 名札(名前・Lv)は前面レイヤより上へ別描画するのでここには置かない(裏に隠れても位置が分かる) */}
       <Animated.Image source={SET[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: by }] }} resizeMode="contain" />
     </Animated.View>
@@ -394,7 +395,7 @@ function AmbientNpc({ sprites, spot, tag, sink, sinkKey }: {
   const by = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -3] });
   const fr = sprites[dir]; const src = Array.isArray(fr) ? fr[poseIdx] : fr; // 配列=歩行フレーム/単一=静止
   return (
-    <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: Math.round(pos.current.y), transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
+    <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: Math.round(pos.current.y + SPRITE * 0.82), transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
       <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{tag}</Text></View>
       <Animated.Image source={src} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: by }] }} resizeMode="contain" />
     </Animated.View>
@@ -734,7 +735,7 @@ export default function KotobaTownScreen() {
             const left = si.x + si.w / 2 - SPRITE / 2;        // ベンチ位置の中心にそろえる
             const top = si.y + si.h - SPRITE;                 // 足元を元のベンチ座面下端にそろえる=立ちと同じ大きさ
             return (
-              <View key={i} style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center', zIndex: Math.round(si.y + si.h) }} pointerEvents="none">
+              <View key={i} style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center', zIndex: Math.round(si.y + si.h - SPRITE * 0.18) }} pointerEvents="none">
                 {/* 名札(名前・Lv)は前面レイヤより上へ別描画する(木/屋根の裏に隠れても消えないように) */}
                 <Image source={SET.down[0]} style={{ width: SPRITE, height: SPRITE }} resizeMode="contain" />
               </View>
@@ -747,7 +748,7 @@ export default function KotobaTownScreen() {
           <AmbientNpc sprites={SAKURA} spot={SAKURA_HOME} tag="🌸 桜" sink={npcPos} sinkKey="sakura" />
 
           {/* 中: 自分(NPCより手前) */}
-          <Animated.View style={{ position: 'absolute', width: SPRITE, height: SPRITE, zIndex: Math.round(pos.current.y), transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
+          <Animated.View style={{ position: 'absolute', width: SPRITE, height: SPRITE, zIndex: Math.round(pos.current.y + SPRITE * 0.82), transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
             <Animated.Image source={SPRITES[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: bobY }] }} resizeMode="contain" />
           </Animated.View>
           {/* 上: 木のレイヤー(人より前面=木の裏に回ると隠れる)。day.jpgと同じ位置に重ねる。zIndex=2000でアバター(最大WORLD=1024)より必ず前面。 */}
@@ -762,7 +763,7 @@ export default function KotobaTownScreen() {
             const left = si.x + si.w / 2 - SPRITE / 2;
             const top = si.y + si.h - SPRITE;
             return (
-              <View key={'splate:' + i} pointerEvents="none" style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center', zIndex: 3000 }}>
+              <View key={'splate:' + i} pointerEvents="none" style={{ position: 'absolute', left: left + SPRITE / 2 - PLATE_W / 2, top, width: PLATE_W, alignItems: 'center', zIndex: 3000 }}>
                 <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{si.v.nick} · {si.v.level}</Text></View>
               </View>
             );
@@ -773,13 +774,13 @@ export default function KotobaTownScreen() {
             if (!a) return null;
             const isFriend = v.id.startsWith('friend:'); // 友だちは名前に☆を付けて区別
             return (
-              <Animated.View key={'plate:' + v.id} pointerEvents="none" style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: 3000, transform: [{ translateX: a.x }, { translateY: a.y }] }}>
+              <Animated.View key={'plate:' + v.id} pointerEvents="none" style={{ position: 'absolute', left: SPRITE / 2 - PLATE_W / 2, width: PLATE_W, alignItems: 'center', zIndex: 3000, transform: [{ translateX: a.x }, { translateY: a.y }] }}>
                 <View style={[s.npcTag, isFriend && s.friendTag]}><Text style={s.npcTagT} numberOfLines={1}>{isFriend ? '☆ ' : ''}{v.nick} · {v.level}</Text></View>
               </Animated.View>
             );
           })}
           {/* 自分の名札(名前・Lv)も前面に。青い名札で「自分」と分かるように。 */}
-          <Animated.View pointerEvents="none" style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: 3000, transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
+          <Animated.View pointerEvents="none" style={{ position: 'absolute', left: SPRITE / 2 - PLATE_W / 2, width: PLATE_W, alignItems: 'center', zIndex: 3000, transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
             <View style={[s.npcTag, s.meTag]}><Text style={s.npcTagT} numberOfLines={1}>{(meState.settings.nickname || 'あなた')} · {meState.settings.level}</Text></View>
           </Animated.View>
         </Animated.View>
