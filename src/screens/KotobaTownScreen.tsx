@@ -324,8 +324,9 @@ function NpcSprite({ v, sink, animSink }: { v: VirtualLearner; sink: Record<stri
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const by = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -3] });
+  // 重なり順=足元が下(画面手前)ほど上レイヤ。足元yをそのままzIndexに(木/屋根=2000より必ず下:最大でもWORLD=1024)。
   return (
-    <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
+    <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: Math.round(pos.current.y), transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
       {/* 名札(名前・Lv)は前面レイヤより上へ別描画するのでここには置かない(裏に隠れても位置が分かる) */}
       <Animated.Image source={SET[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: by }] }} resizeMode="contain" />
     </Animated.View>
@@ -393,7 +394,7 @@ function AmbientNpc({ sprites, spot, tag, sink, sinkKey }: {
   const by = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -3] });
   const fr = sprites[dir]; const src = Array.isArray(fr) ? fr[poseIdx] : fr; // 配列=歩行フレーム/単一=静止
   return (
-    <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
+    <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: Math.round(pos.current.y), transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
       <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{tag}</Text></View>
       <Animated.Image source={src} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: by }] }} resizeMode="contain" />
     </Animated.View>
@@ -733,7 +734,7 @@ export default function KotobaTownScreen() {
             const left = si.x + si.w / 2 - SPRITE / 2;        // ベンチ位置の中心にそろえる
             const top = si.y + si.h - SPRITE;                 // 足元を元のベンチ座面下端にそろえる=立ちと同じ大きさ
             return (
-              <View key={i} style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center' }} pointerEvents="none">
+              <View key={i} style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center', zIndex: Math.round(si.y + si.h) }} pointerEvents="none">
                 {/* 名札(名前・Lv)は前面レイヤより上へ別描画する(木/屋根の裏に隠れても消えないように) */}
                 <Image source={SET.down[0]} style={{ width: SPRITE, height: SPRITE }} resizeMode="contain" />
               </View>
@@ -746,14 +747,14 @@ export default function KotobaTownScreen() {
           <AmbientNpc sprites={SAKURA} spot={SAKURA_HOME} tag="🌸 桜" sink={npcPos} sinkKey="sakura" />
 
           {/* 中: 自分(NPCより手前) */}
-          <Animated.View style={{ position: 'absolute', width: SPRITE, height: SPRITE, transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
+          <Animated.View style={{ position: 'absolute', width: SPRITE, height: SPRITE, zIndex: Math.round(pos.current.y), transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
             <Animated.Image source={SPRITES[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: bobY }] }} resizeMode="contain" />
           </Animated.View>
-          {/* 上: 木のレイヤー(人より前面=木の裏に回ると隠れる)。day.jpgと同じ位置に重ねる。 */}
-          <Image source={MAP_TREE} style={{ position: 'absolute', left: TREE.x, top: TREE.y, width: TREE.w, height: TREE.h }} resizeMode="stretch" />
+          {/* 上: 木のレイヤー(人より前面=木の裏に回ると隠れる)。day.jpgと同じ位置に重ねる。zIndex=2000でアバター(最大WORLD=1024)より必ず前面。 */}
+          <Image source={MAP_TREE} style={{ position: 'absolute', left: TREE.x, top: TREE.y, width: TREE.w, height: TREE.h, zIndex: 2000 }} resizeMode="stretch" />
           {/* 上: 家の屋根レイヤー(人より前面=屋根の下を歩くと隠れる)。昼夜で切替。 */}
           {ROOFS.map((rf, i) => (
-            <Image key={i} source={isDay ? rf.day : rf.night} style={{ position: 'absolute', left: rf.x, top: isDay ? rf.y : ((rf as { nightY?: number }).nightY ?? rf.y), width: rf.w, height: rf.h }} resizeMode="stretch" />
+            <Image key={i} source={isDay ? rf.day : rf.night} style={{ position: 'absolute', left: rf.x, top: isDay ? rf.y : ((rf as { nightY?: number }).nightY ?? rf.y), width: rf.w, height: rf.h, zIndex: 2000 }} resizeMode="stretch" />
           ))}
           {/* 最前面: 名前・Lvの名札は前面レイヤ(木/屋根)より上に描く=裏に隠れても位置が分かる。 */}
           {/* 座りキャラ(ベンチ)の名札。動かないので固定座標で。 */}
@@ -761,7 +762,7 @@ export default function KotobaTownScreen() {
             const left = si.x + si.w / 2 - SPRITE / 2;
             const top = si.y + si.h - SPRITE;
             return (
-              <View key={'splate:' + i} pointerEvents="none" style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center' }}>
+              <View key={'splate:' + i} pointerEvents="none" style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center', zIndex: 3000 }}>
                 <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{si.v.nick} · {si.v.level}</Text></View>
               </View>
             );
@@ -772,13 +773,13 @@ export default function KotobaTownScreen() {
             if (!a) return null;
             const isFriend = v.id.startsWith('friend:'); // 友だちは名前に☆を付けて区別
             return (
-              <Animated.View key={'plate:' + v.id} pointerEvents="none" style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: a.x }, { translateY: a.y }] }}>
+              <Animated.View key={'plate:' + v.id} pointerEvents="none" style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: 3000, transform: [{ translateX: a.x }, { translateY: a.y }] }}>
                 <View style={[s.npcTag, isFriend && s.friendTag]}><Text style={s.npcTagT} numberOfLines={1}>{isFriend ? '☆ ' : ''}{v.nick} · {v.level}</Text></View>
               </Animated.View>
             );
           })}
           {/* 自分の名札(名前・Lv)も前面に。青い名札で「自分」と分かるように。 */}
-          <Animated.View pointerEvents="none" style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
+          <Animated.View pointerEvents="none" style={{ position: 'absolute', width: SPRITE, alignItems: 'center', zIndex: 3000, transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
             <View style={[s.npcTag, s.meTag]}><Text style={s.npcTagT} numberOfLines={1}>{(meState.settings.nickname || 'あなた')} · {meState.settings.level}</Text></View>
           </Animated.View>
         </Animated.View>
@@ -954,7 +955,9 @@ export default function KotobaTownScreen() {
         //  標準=中央(0.50)→左の値が収まらなければ分割を右へずらし→それでも無理ならフォント縮小(言語で可変)。
         const estEm = (s: string) => { let u = 0; for (const ch of s) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u; };
         const emVal = FS_VAL / FW;             // 全角1文字の幅(FW比)
-        const xValL = 0.225, xLab2 = 0.10;     // 左値の開始x / 右ラベルの幅(分)
+        // 左値の開始x / 右ラベルの幅(分)。右ラベルは「総時間」(3文字)が最長。ラベル実幅+空きを確保して値と密着させない。
+        const xValL = 0.225;
+        const xLab2 = Math.max(0.10, Math.max(...FIELDS.map((f) => estEm(f.lab2))) * (FS_LAB / FW) + 0.6 * (FS_LAB / FW));
         const leftValEm = Math.max(...FIELDS.map((f) => estEm(f.val)));
         const rightValEm = Math.max(...FIELDS.map((f) => estEm(f.val2)));
         const splitX = Math.min(0.66, Math.max(0.50, xValL + leftValEm * emVal + 0.03)); // 左が長い時だけ右へ
@@ -1079,7 +1082,8 @@ export default function KotobaTownScreen() {
           { lab: '気分', val: '桜貝大好き', lab2: '得意', val2: '応援' },
         ];
         const estEm = (t: string) => { let u = 0; for (const ch of t) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u; };
-        const emVal = FS_VAL / FW; const xValL = 0.225, xLab2 = 0.10;
+        const emVal = FS_VAL / FW; const xValL = 0.225;
+        const xLab2 = Math.max(0.10, Math.max(...SFIELDS.map((f) => estEm(f.lab2))) * (FS_LAB / FW) + 0.6 * (FS_LAB / FW)); // ラベル(総時間=3文字)と値を密着させない
         const leftValEm = Math.max(...SFIELDS.map((f) => estEm(f.val)));
         const rightValEm = Math.max(...SFIELDS.map((f) => estEm(f.val2)));
         const splitX = Math.min(0.66, Math.max(0.50, xValL + leftValEm * emVal + 0.03));
@@ -1194,7 +1198,7 @@ const s = StyleSheet.create({
   stickWrap: { paddingBottom: 26 }, // 左右はhandedで付与(右利き=右)
   stickBase: { width: STICK_R * 2, height: STICK_R * 2, borderRadius: STICK_R, backgroundColor: 'rgba(58,49,40,0.28)', borderWidth: 2, borderColor: 'rgba(255,255,255,0.35)', alignItems: 'center', justifyContent: 'center' },
   stickKnob: { width: 60, height: 60, borderRadius: 30, backgroundColor: 'rgba(255,253,248,0.9)', borderWidth: 2, borderColor: 'rgba(58,49,40,0.4)' },
-  npcTag: { position: 'absolute', top: -14, backgroundColor: 'rgba(58,49,40,0.8)', borderRadius: 7, paddingHorizontal: 5, paddingVertical: 1, maxWidth: 130 },
+  npcTag: { position: 'absolute', top: -14, backgroundColor: 'rgba(58,49,40,0.8)', borderRadius: 7, paddingHorizontal: 5, paddingVertical: 1 }, // 名前+Lvは⋯で切らず全表示(maxWidth無し=中身ぶん伸びる)
   npcTagT: { color: '#fff', fontSize: 9, fontWeight: '700' },
   friendTag: { backgroundColor: 'rgba(224,128,60,0.9)' }, // 友だち=橙(☆付き)で目立たせる
   meTag: { backgroundColor: 'rgba(47,98,216,0.9)' },       // 自分=青の名札で区別

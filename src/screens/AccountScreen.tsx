@@ -8,13 +8,13 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
-import { useT } from '../i18n';
+import { useT, useUiLang } from '../i18n';
 import { signUp, signIn, signOut } from '../auth/authClient';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { useAppState, useAppActions } from '../store/store';
 import { avatarOf, AVATARS } from '../plaza/avatars';
-import { flagOf, NATIVE_LANGS, nativeLangFlag, nativeLangCC } from '../plaza/countries';
+import { NATIVE_LANGS, nativeLangFlag, nativeLangCC } from '../plaza/countries';
 import { PERSONALITIES, MOOD_MESSAGES, personalityOf, moodMsgOf } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
@@ -49,7 +49,8 @@ export default function AccountScreen() {
   const onSaveRefCode = () => { const v = refInput.trim().toUpperCase(); if (!v) return; setEnteredCode(v); setRefInput(''); };
   const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'avatar' | 'nativelang' | 'gender' | 'name'>(null);
   const [nameInput, setNameInput] = useState('');
-  const nativeLabel = NATIVE_LANGS.find((l) => l.code === (st0.l1 ?? 'en'))?.label ?? 'English';
+  const uiLang = useUiLang(); // 母語=アプリ表示言語(uiLang)を唯一の正本に(設定画面の母語と連動)
+  const nativeLabel = NATIVE_LANGS.find((l) => l.code === uiLang)?.label ?? 'English';
   const profileHeader = (
     <View style={s.profHeader}>
       <Pressable onPress={() => setPickerOpen('avatar')} style={s.profAvatarWrap} accessibilityLabel="アバターを変更">
@@ -59,7 +60,7 @@ export default function AccountScreen() {
         <View style={s.profAvatarEdit}><Ionicons name="pencil" size={12} color="#fff" /></View>
       </Pressable>
       <View style={s.profStats}>
-        {st0.nickname ? <Text style={s.profName}>{flagOf(st0.country ?? 'XX')} {st0.nickname}</Text> : null}
+        {/* 先頭の「名前+国旗」は下の「名前」行と重複するため削除(上詰め) */}
         <Pressable style={s.profRow} onPress={() => { setNameInput(st0.nickname ?? ''); setPickerOpen('name'); }}>
           <Text style={s.profK}>名前</Text>
           <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{st0.nickname || '未設定'}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
@@ -67,7 +68,7 @@ export default function AccountScreen() {
         <View style={s.profRow}><Text style={s.profK}>レベル</Text><Text style={s.profV}>{st0.level}</Text></View>
         <Pressable style={s.profRow} onPress={() => setPickerOpen('nativelang')}>
           <Text style={s.profK}>母語</Text>
-          <View style={s.profVrow}><Text style={s.profV}>{nativeLangFlag(st0.l1 ?? 'en')} {nativeLabel}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+          <View style={s.profVrow}><Text style={s.profV}>{nativeLangFlag(uiLang)} {nativeLabel}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
         </Pressable>
         <Pressable style={s.profRow} onPress={() => setPickerOpen('gender')}>
           <Text style={s.profK}>性別</Text>
@@ -131,9 +132,9 @@ export default function AccountScreen() {
             </View>
           ) : pickerOpen === 'nativelang'
             ? NATIVE_LANGS.map((ln) => {
-                const on = (st0.l1 ?? 'en') === ln.code;
+                const on = uiLang === ln.code;
                 return (
-                  <Pressable key={ln.code} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ l1: ln.code, country: nativeLangCC(ln.code) }); setPickerOpen(null); }}>
+                  <Pressable key={ln.code} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ uiLang: ln.code, l1: ln.code === 'ne' ? 'ne' : 'en', country: nativeLangCC(ln.code) }); setPickerOpen(null); }}>
                     <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{nativeLangFlag(ln.code)} {ln.label}</Text>
                     {on && <Text style={s.pickCheck}>✓</Text>}
                   </Pressable>
@@ -412,7 +413,6 @@ const makeStyles = (c: ThemeColors) =>
     avCheck: { position: 'absolute', right: 4, top: 4, width: 22, height: 22, borderRadius: 11, backgroundColor: c.blue, alignItems: 'center', justifyContent: 'center' },
     avCheckT: { color: '#fff', fontSize: 13, fontWeight: '900' },
     profStats: { flex: 1, gap: 2 },
-    profName: { fontSize: ty.body, fontWeight: '900', color: c.ink, marginBottom: 4 },
     profRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 5, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: c.line },
     profK: { width: 76, fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'left' },
     profV: { flex: 1, fontSize: ty.body, color: c.ink, fontWeight: '800', textAlign: 'center' },

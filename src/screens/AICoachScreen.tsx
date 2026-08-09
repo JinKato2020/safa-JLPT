@@ -216,10 +216,10 @@ export default function AICoachScreen() {
           </View>
         </View>
 
-        {/* ⑤ 今日のおすすめ問題(主導線) */}
+        {/* ⑤ 苦手な単語に挑戦(主導線)。練習画面のボタンと同じ文言(cards.reco)を使う。 */}
         <Pressable style={({ pressed }) => [s.cta, pressed && { opacity: 0.9 }]} onPress={startLearn}>
           <Ionicons name="sparkles" size={16} color="#fff" />
-          <Text style={s.ctaT}>{t('home.cta_title')}</Text>
+          <Text style={s.ctaT}>{t('cards.reco')}</Text>
         </Pressable>
 
         {/* ⑥ この7日の成長(合格率は非表示。覚えた語・予想得点・伸びた分野で示す) */}
