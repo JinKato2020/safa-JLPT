@@ -189,11 +189,6 @@ export default function AICoachScreen() {
             </View>
             <Text style={s.covHeroPct}>{d.covTotalAll > 0 ? Math.round((100 * d.covLearned) / d.covTotalAll) : 0}%</Text>
           </View>
-          {d.nextGoal && (
-            <View style={s.covGoal}>
-              <Text style={s.covGoalT}>🎯 {t(d.nextGoal.labelKey)} は あと<Text style={s.covGoalEm}>{d.nextGoal.remain}語</Text>で {d.nextGoal.goal}語</Text>
-            </View>
-          )}
           <View style={s.covList}>
             {d.coverage.map((cv) => {
               const pct = cv.pct ?? 0;
@@ -206,7 +201,6 @@ export default function AICoachScreen() {
               );
             })}
           </View>
-          <Text style={s.diff}>💡 「覚えた数」が主役。1問ずつ確実に増えます。まずは次の目標まであと少し。</Text>
         </View>
 
         {/* ④ 復習の待ち(忘れかけ) */}

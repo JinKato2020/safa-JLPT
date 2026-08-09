@@ -63,13 +63,23 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
     Animated.timing(fade, { toValue: 0, duration: 380, useNativeDriver: true }).start(({ finished }) => { if (finished) setVisible(false); });
   };
   // 桜の一言を出す(表示中なら何もしない)。
+  //  毎日「最初の一言」は必ず『今日のオススメ』の案内にする(苦手単語の復習ができることを伝える)。2回目以降は通常の癒し。
   const reveal = () => {
     if (visibleRef.current) return;
     const now = Date.now();
-    setText(pickBubble(state, now));
+    const d = new Date(now);
+    const today = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    let text: string;
+    if (state.settings.sakuraRecoDay !== today) {
+      text = '「今日のオススメ」を学習すると、苦手な単語の復習ができるよ。';
+      setSettings({ sakuraRecoDay: today, lastSakuraSpeechAt: now });
+    } else {
+      text = pickBubble(state, now);
+      setSettings({ lastSakuraSpeechAt: now });
+    }
+    setText(text);
     setVisible(true);
     Animated.timing(fade, { toValue: 1, duration: 420, useNativeDriver: true }).start();
-    setSettings({ lastSakuraSpeechAt: now });
     lastShownRef.current = now;
     hideTimer.current = setTimeout(hide, SHOW_MS);
   };

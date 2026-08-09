@@ -62,17 +62,8 @@ export default function StudyCategoryScreen() {
       return readingSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, readingItemsForSub(lv, sub.key).flatMap((x) => x.questions.map((q) => q.id))), onPress: () => nav.navigate('Reading', { subtype: sub.key, title: t(sub.labelKey) }) }));
     return listeningSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, listeningItemsForSub(lv, sub.key).flatMap((x) => x.questions.map((q) => q.id))), onPress: () => nav.navigate('Listening', { subtype: sub.key, title: t(sub.labelKey) }) }));
   };
-  const mixPress = (cc: Category) => {
-    if (cc === 'dokkai') return nav.navigate('Reading', { title: catName('dokkai') });
-    if (cc === 'choukai') return nav.navigate('Listening', { title: catName('choukai') });
-    if (isJft && cc === 'bunpou') return nav.navigate('Quiz', { expression: true, title: catName('bunpou') });
-    return nav.navigate('Quiz', { category: cc, title: catName(cc) });
-  };
-
   const subs = subRingsFor(cat);
-  // 語彙/文法のミックス出題は統合復習(今日のオススメ問題)へ移行=試験タブからは撤去。
-  // 読解/聴解はReading/Listeningの入口・JFT文法は会話と表現の入口なので残す。
-  const showMix = cat === 'dokkai' || cat === 'choukai' || (cat === 'bunpou' && isJft);
+  // ミックス出題(全部混ぜ)は撤去済み(語彙/文法=統合復習へ・読解/聴解=大問リングから開く)。ここには置かない。
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
@@ -86,13 +77,6 @@ export default function StudyCategoryScreen() {
             <Text style={s.cardTitle}>{catName(cat)}</Text>
             <RingGauge value={rings[cat]} color={ringColor(rings[cat])} size={54} stroke={6} label={t('study.accuracy')} />
           </View>
-
-          {showMix && (
-            <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => mixPress(cat)}>
-              <Text style={s.mixTitle}>{t('study.mix')}</Text>
-              <Text style={s.mixSub}>{t('study.q_each')} ›</Text>
-            </Pressable>
-          )}
 
           {subs.length ? (
             <>
@@ -126,10 +110,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   card: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.sm, ...shadow(1) },
   cardHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   cardTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
-  mixBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: c.bgSoft, borderRadius: radius.md, paddingVertical: spacing.sm, paddingHorizontal: spacing.md },
-  mixBtnPressed: { opacity: 0.9, transform: [{ scale: 0.99 }] },
-  mixTitle: { fontSize: ty.body, fontWeight: '800', color: c.blue },
-  mixSub: { fontSize: ty.small, fontWeight: '700', color: c.mute },
   tapHint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
   subRingRow: { flexDirection: 'row', justifyContent: 'space-around', marginTop: spacing.xs, flexWrap: 'wrap', rowGap: spacing.sm },
   subRingBtn: { alignItems: 'center', paddingVertical: spacing.xs, borderRadius: radius.md, minWidth: 56 },

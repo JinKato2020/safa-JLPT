@@ -1,5 +1,5 @@
 // 試験タブの1カテゴリ(文字語彙/文法/読解/聴解)カードをインライン表示する自己完結コンポーネント。
-// 全体正答率リング＋ミックス出題＋大問毎リング(タップで個別出題)。タブ画面の背景の下に差し込む。
+// 全体正答率リング＋大問毎リング(タップで個別出題)。タブ画面の背景の下に差し込む。
 import { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -54,16 +54,8 @@ export default function CategoryCard({ cat }: { cat: Category }) {
       return readingSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, readingItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Reading', { subtype: sub.key, title: t(sub.labelKey) }) }));
     return listeningSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, listeningItemsForSub(lv, sub.key).map((x) => x.id)), onPress: () => nav.navigate('Listening', { subtype: sub.key, title: t(sub.labelKey) }) }));
   };
-  const mixPress = (cc: Category) => {
-    if (cc === 'dokkai') return nav.navigate('Reading', { title: catName('dokkai') });
-    if (cc === 'choukai') return nav.navigate('Listening', { title: catName('choukai') });
-    if (isJft && cc === 'bunpou') return nav.navigate('Quiz', { expression: true, title: catName('bunpou') });
-    return nav.navigate('Quiz', { category: cc, title: catName(cc) });
-  };
   const subs = subRingsFor(cat);
-  // 語彙/文法のミックス出題は統合復習(今日のオススメ問題)へ移行=試験タブからは撤去。
-  // 読解/聴解のボタンはReading/Listeningへの入口・JFT文法は会話と表現の入口なので残す。
-  const showMix = cat === 'dokkai' || cat === 'choukai' || (cat === 'bunpou' && isJft);
+  // ミックス出題(全部混ぜ)は撤去済み(語彙/文法=統合復習へ・読解/聴解=大問リングから開く)。ここには置かない。
 
   return (
     <View style={s.card}>
@@ -71,12 +63,6 @@ export default function CategoryCard({ cat }: { cat: Category }) {
         <Text style={s.cardTitle}>{catName(cat)}</Text>
         <RingGauge value={rings[cat]} color={ringColor(rings[cat])} size={54} stroke={6} label={t('study.accuracy')} />
       </View>
-      {showMix && (
-        <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => mixPress(cat)}>
-          <Text style={s.mixTitle}>{t('study.mix')}</Text>
-          <Text style={s.mixSub}>{t('study.q_each')} ›</Text>
-        </Pressable>
-      )}
       {subs.length ? (
         <>
           <Text style={s.tapHint}>{t('study.tap_daimon')}</Text>
@@ -102,10 +88,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   card: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.sm, ...shadow(1) },
   cardHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   cardTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
-  mixBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: c.bgSoft, borderRadius: radius.md, paddingVertical: spacing.sm, paddingHorizontal: spacing.md },
-  mixBtnPressed: { opacity: 0.9, transform: [{ scale: 0.99 }] },
-  mixTitle: { fontSize: ty.body, fontWeight: '800', color: c.blue },
-  mixSub: { fontSize: ty.small, fontWeight: '700', color: c.mute },
   tapHint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
   subRingRow: { flexDirection: 'row', justifyContent: 'space-around', marginTop: spacing.xs, flexWrap: 'wrap', rowGap: spacing.sm },
   subRingBtn: { alignItems: 'center', paddingVertical: spacing.xs, borderRadius: radius.md, minWidth: 56 },

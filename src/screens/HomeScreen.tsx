@@ -4,6 +4,7 @@
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 import { View, Text, Image, Animated, StyleSheet, useWindowDimensions, Pressable } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useT } from '../i18n';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { useAppState, useAppActions } from '../store/store';
@@ -24,6 +25,7 @@ export default function HomeScreen() {
   const { width, height } = useWindowDimensions();
   const homeBg = useHomeBg(); // 昼/夜で自動切替
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const t = useT();
   // 到達度の左に出す現在レベル(JFT目標はレベル無し=「JFT」)。
   const levelLabel = (state.settings.targetExam ?? 'jlpt') === 'jft' ? 'JFT' : state.settings.level;
 
@@ -130,6 +132,10 @@ export default function HomeScreen() {
         <SafeBoundary tag="sakuraspeech" fallback={null}>
           <SakuraSpeech idleTick={idleTick} />
         </SafeBoundary>
+        {/* 今日のおすすめ(統合復習=苦手単語の復習)。桜/柴犬の下・ボトムナビの上に常設。分析はAIコーチにも有り。 */}
+        <Pressable style={styles.reco} onPress={() => nav.navigate('Quiz', { review: true })} accessibilityLabel={t('cards.reco')}>
+          <Text style={styles.recoTxt}>{t('cards.reco')}</Text>
+        </Pressable>
       </TabBackground>
     </View>
   );
@@ -145,4 +151,7 @@ const styles = StyleSheet.create({
   lbl: { fontWeight: '700', letterSpacing: 1.5, color: '#dbe4ff', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4, includeFontPadding: false },
   num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(160,200,255,0.9)', textShadowRadius: 14, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
   numSmall: { fontWeight: '800', color: '#eaf0ff' },
+  // 今日のおすすめボタン(画面最下部・ボトムナビの上)。背景イラストの上でも読めるよう濃い青の不透明ピル。
+  reco: { position: 'absolute', left: 32, right: 32, bottom: 14, backgroundColor: '#2f62d8', borderRadius: 999, paddingVertical: 14, alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 5 },
+  recoTxt: { color: '#ffffff', fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },
 });

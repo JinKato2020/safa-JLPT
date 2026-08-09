@@ -91,7 +91,11 @@ export default function QuizScreen() {
       // 面別マスタリー統合復習: 既習の苦手な面を弱い順に選び、描ける面だけを unit にして出題。
       // listen/漢字書き取り等の描けない面は読み飛ばすため多めに選んで先頭 SESSION_SIZE 件。
       const picks = selectReview(state.mastery ?? {}, Date.now(), SESSION_SIZE * 2);
-      return picks.map((p) => unitForPick(p.itemId, p.facet, Math.random)).filter((u): u is string => !!u).slice(0, SESSION_SIZE);
+      const reviewQ = picks.map((p) => unitForPick(p.itemId, p.facet, Math.random)).filter((u): u is string => !!u).slice(0, SESSION_SIZE);
+      if (reviewQ.length > 0) return reviewQ;
+      // 苦手な単語がまだ無い(未学習 or 期限内)=その級の頻出単語(語彙)を順番に出す。
+      //  buildQueueが未習・低習得を優先=自然に頻出順の先頭から進み、解くほど苦手が記録され次回の復習の種になる。
+      return buildQueue(itemsFor(settings.level, 'moji_goi'), items, Date.now(), SESSION_SIZE);
     }
     if (expression) return buildUnitQueue(expressionUnitIds(), items, Date.now(), SESSION_SIZE);
     if (daimon) return buildUnitQueue(daimonUnitIds(settings.level, daimon, 'learn'), items, Date.now(), SESSION_SIZE);

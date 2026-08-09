@@ -3,7 +3,7 @@
 //  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
 //  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert } from 'react-native';
+import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // 絵文字/アイコン除去(気分などデータに含まれる絵文字を会話表示から外す)。国旗(talk.flag)は別扱いなので影響なし。
@@ -582,8 +582,12 @@ export default function KotobaTownScreen() {
     const u = session.user.id;
     const n = encodeURIComponent(meState.settings.nickname ?? '');
     const url = `https://jinkato2020.github.io/safa-JLPT/invite/?u=${u}&n=${n}`;
+    const text = 'いっしょに日本語を学ぼう！わたしの町に遊びにきてね🏘️';
     try {
-      await Share.share({ message: `いっしょに日本語を学ぼう！わたしの町に遊びにきてね🏘️\n${url}` });
+      // iOS: url を独立フィールドで渡す→共有シートがリンク扱いになり、招待ページのog:image(アプリアイコン)がプレビューに出る。
+      //      (URLを本文に混ぜると"テキスト"扱いで汎用アイコン(あI)になる)。Android: url は無視されるので本文にURLを含める。
+      if (Platform.OS === 'ios') await Share.share({ message: text, url });
+      else await Share.share({ message: `${text}\n${url}` });
     } catch { /* 共有シートを閉じただけ等は無視 */ }
   };
 
@@ -759,12 +763,17 @@ export default function KotobaTownScreen() {
           {residents.map((v) => {
             const a = npcAnim[v.id];
             if (!a) return null;
+            const isFriend = v.id.startsWith('friend:'); // 友だちは名前に☆を付けて区別
             return (
               <Animated.View key={'plate:' + v.id} pointerEvents="none" style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: a.x }, { translateY: a.y }] }}>
-                <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{v.nick} · {v.level}</Text></View>
+                <View style={[s.npcTag, isFriend && s.friendTag]}><Text style={s.npcTagT} numberOfLines={1}>{isFriend ? '☆ ' : ''}{v.nick} · {v.level}</Text></View>
               </Animated.View>
             );
           })}
+          {/* 自分の名札(名前・Lv)も前面に。青い名札で「自分」と分かるように。 */}
+          <Animated.View pointerEvents="none" style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
+            <View style={[s.npcTag, s.meTag]}><Text style={s.npcTagT} numberOfLines={1}>{(meState.settings.nickname || 'あなた')} · {meState.settings.level}</Text></View>
+          </Animated.View>
         </Animated.View>
       </View>
 
@@ -892,9 +901,9 @@ export default function KotobaTownScreen() {
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
         const dlgBottom = Math.round(SW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
         const stH = FW; // ステータス枠=正方形
-        // 台詞=必ず2ページ(▽で送る)。1p=あいさつ＋いま特訓中 / 2p=最近の学び＋性格の一言。
-        const p1 = [`やあ、${talk.nick}だよ！`, talk.studying ? `いまは「${talk.studying}」を特訓中。` : 'コツコツ勉強を続けてるよ。'].join('\n');
-        const p2 = [talk.weekLearned ? `この7日で${talk.weekLearned}語おぼえたよ。` : '少しずつ言葉が増えてきたよ。', personaLineOf(talk.personality)].join('\n');
+        // 台詞=必ず2ページ(▽で送る)。1p=あいさつ＋いま特訓中 / 2p=最近の学び＋性格の一言＋またね。
+        const p1 = [`やあ、${talk.nick}だよ！会えてうれしいな。`, talk.studying ? `いまは「${talk.studying}」を特訓してるんだ。` : '毎日コツコツ勉強を続けてるよ。'].join('\n');
+        const p2 = [talk.weekLearned ? `この7日で${talk.weekLearned}語もおぼえたよ！` : '少しずつ言葉が増えてきた気がする。', `${personaLineOf(talk.personality)} また町で会おうね。`].join('\n');
         const pages: string[] = [p1, p2];
         const page = Math.min(talkPage, pages.length - 1);
         // 最後まで読んだら(▽をもう一度)会話ダイアログを消す。
@@ -1172,6 +1181,8 @@ const s = StyleSheet.create({
   stickKnob: { width: 60, height: 60, borderRadius: 30, backgroundColor: 'rgba(255,253,248,0.9)', borderWidth: 2, borderColor: 'rgba(58,49,40,0.4)' },
   npcTag: { position: 'absolute', top: -14, backgroundColor: 'rgba(58,49,40,0.8)', borderRadius: 7, paddingHorizontal: 5, paddingVertical: 1, maxWidth: 130 },
   npcTagT: { color: '#fff', fontSize: 9, fontWeight: '700' },
+  friendTag: { backgroundColor: 'rgba(224,128,60,0.9)' }, // 友だち=橙(☆付き)で目立たせる
+  meTag: { backgroundColor: 'rgba(47,98,216,0.9)' },       // 自分=青の名札で区別
   // 会話カード=ドラクエ風メッセージウィンドウ(濃紺の地＋白い角丸フレーム＋白文字＋金の強調)。
   talkWrap: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' },
   talkCard: { width: '88%', maxWidth: 360, backgroundColor: '#0b1233', borderRadius: 14, padding: 16, borderWidth: 3, borderColor: '#ffffff' },

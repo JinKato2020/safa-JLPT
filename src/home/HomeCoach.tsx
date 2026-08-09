@@ -200,8 +200,8 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
-  // bottom を下げて桜/犬を画面のより下へ(ユーザー要望)。
-  wrap: { position: 'absolute', left: 0, right: 0, bottom: 20, alignItems: 'center' },
+  // 桜/犬は画面下部。ただし最下部の「今日のおすすめ」ボタンの上に収まるよう少し持ち上げる。
+  wrap: { position: 'absolute', left: 0, right: 0, bottom: 74, alignItems: 'center' },
   row: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' },
   compWrap: { marginBottom: 2 },
   shopList: { paddingHorizontal: 16, gap: 24 },

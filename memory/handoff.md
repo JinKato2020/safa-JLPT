@@ -42,8 +42,8 @@
 <!-- AUTO:BEGIN -->
 
 ## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 73ターン（文脈 39万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 73ターン・ツール33回）— まとめ方を変える
+- ⚠ 文脈 56万／70万（80%）・40676往復 — そろそろ /clear の頃合い
+- ツール呼び出しループが長い（指示1件に対し 63ターン・ツール27回）— まとめ方を変える
 
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
@@ -53,14 +53,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/screens/AICoachScreen.tsx
 - src/screens/KotobaTownScreen.tsx
-- docs/supabase/cheers.sql
-- src/screens/CheerInboxScreen.tsx
-- src/plaza/friendsClient.ts
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- src/screens/QuizScreen.tsx
+- src/home/HomeCoach.tsx
 - src/screens/HomeScreen.tsx
 - src/home/SakuraSpeech.tsx
 
-_自動更新: 2026-08-09 14:21_
+_自動更新: 2026-08-09 15:07_
 <!-- AUTO:END -->
