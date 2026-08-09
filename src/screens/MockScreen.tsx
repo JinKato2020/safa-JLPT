@@ -529,7 +529,8 @@ export default function MockScreen() {
         <ScrollView showsVerticalScrollIndicator={!preview}>
           {/* 第1レイヤ: 模試終了(空〜桜)の全画面。画面遷移はさせず、この上に合否証明書を「空の辺り」へ別レイヤで重ねる。 */}
           <View style={{ width: winW, height: winH }}>
-            <Image source={IMG_END} style={StyleSheet.absoluteFill} resizeMode="cover" />
+            {/* 背景の空。※absoluteFillだけだと新アーキで画像の実寸(intrinsic)に化ける端末があるため、必ず明示のwidth/heightで固定する。 */}
+            <Image source={IMG_END} style={{ position: 'absolute', left: 0, top: 0, width: winW, height: winH }} resizeMode="cover" />
             <SafeAreaView edges={['top', 'bottom']} style={StyleSheet.absoluteFill}>
               <View style={s.topOnImg}>
                 <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12}>
@@ -539,7 +540,9 @@ export default function MockScreen() {
               {/* 証明書は上部(空の辺り)へ。縦横とも画面内に必ず収まる確定サイズ。N3を消した位置にレベルを重ねる。 */}
               <View style={{ alignItems: 'center', marginTop: certTop }}>
                 <View style={{ width: certW, height: certH }}>
-                  <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={StyleSheet.absoluteFill} resizeMode="contain" />
+                  {/* ⚠️証明書が画面いっぱいに巨大化する不具合の真因: absoluteFill+contain だと端末により画像の実寸(738×1000)で描画される。
+                      → 必ず明示の width/height(=certW×certH)で固定する。これで枠を超えて大きくなることは原理的に起きない。 */}
+                  <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={{ position: 'absolute', left: 0, top: 0, width: certW, height: certH }} resizeMode="contain" />
                   {/* 中央軸=実測0.507。縦は「日本語能力試験(下端0.40)」と「金の飾り線(0.485)」の隙間の中央へ。金の線に被らない。 */}
                   <Text style={[s.certLevel, { fontSize: lvlFs, lineHeight: lvlFs, top: Math.round(certH * 0.452 - lvlFs * 0.62), transform: [{ translateX: Math.round(certW * 0.0074) }] }]}>{level}</Text>
                 </View>
