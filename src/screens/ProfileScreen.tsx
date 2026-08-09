@@ -435,6 +435,20 @@ export default function ProfileScreen() {
               <Text style={s.ppChipTxt}>不合格版</Text>
             </Pressable>
           </View>
+          {/* 模試を無制限に(開発用): ON=チケットを消費せず何回でも受験できる。 */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>模試を無制限にする</Text>
+              <Text style={s.subtle}>ON＝模試チケットを消費せず、何回でも受験できる（開発用）</Text>
+            </View>
+            <Switch
+              style={s.telemSwitch}
+              value={state.settings.devUnlimitedMock === true}
+              onValueChange={(v) => setSettings({ devUnlimitedMock: v })}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+          </View>
         </View>
 
         {/* アカウント削除(ログイン中のみ・設定の一番下)。誤タップ防止に確認ダイアログ。 */}

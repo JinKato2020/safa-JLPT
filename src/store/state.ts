@@ -51,6 +51,7 @@ export interface Settings {
   devFree?: boolean;                        // 【開発用】ON=無料ユーザー扱い(お試し中でも無料・1日の上限も実際にかける)
   devPassPct?: number | null;               // 【開発用】0-100を設定するとhomeStatus.passPctを固定(辞書背景/AIコーチ等の挙動確認)。null/未設定=自動計算
   devRewardHalf?: boolean;                   // 【開発用】ON=ご褒美イラストを1/2(2回に1回)出す。通常は約1/10(REWARD_EVERY=10)
+  devUnlimitedMock?: boolean;                // 【開発用】ON=模試チケットを消費せず無制限に受験できる(チケット0でも開始可)
   lastSakuraSpeechAt?: number | null;       // 桜の癒し吹き出しを最後に出した時刻(ms)。約5時間に1度に絞るためのゲート
   sakuraRecoDay?: string;                    // 桜が「今日のオススメ」案内を出した日(YYYY-M-D)。毎日最初の一言だけこの案内にする
   afterStudyCount?: number;                  // 学習後のご褒美(イラスト＋励まし＋AIコーチ)を約10回に1度出すためのカウンタ

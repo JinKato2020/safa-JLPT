@@ -1,7 +1,7 @@
 // ミニ模試(言語知識20問) / フル模試(全区分=漢字語彙＋文法＋読解＋聴解)。本番形式・客観採点(重み5)。
 // 採点後: 区分別の弱点ヒートマップ → 語彙/文法の弱点だけ復習(Quiz)へ。掲示板§5(UWorld閉ループ)。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Image, Animated, useWindowDimensions } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Image, Animated, useWindowDimensions, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -19,6 +19,7 @@ import PassageSetPlayer from '../components/PassageSetPlayer';
 import AnswerFooter from '../components/AnswerFooter';
 import { readingToSet, type PassageSet } from '../quiz/passageSet';
 import { listeningSource } from '../data/listeningAudio';
+import { mockTicketCount } from '../store/tickets';
 import { sendMock } from '../telemetry/telemetry';
 import { sample, shuffleChoices, type ExampleHint, type SaveRef } from '../quiz/quiz';
 import { blueprintCounts, daimonCounts, DAIMON_SEC, DAIMON_LABEL, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, type Daimon } from '../data/examBlueprint';
@@ -400,9 +401,15 @@ export default function MockScreen() {
     return () => clearInterval(iv);
   }, [phase, blockIdx, blockStartedAt]); // eslint-disable-line react-hooks/exhaustive-deps
   // これから始める科目(=現ブロック)を開始する。最初の科目スタートでチケットを1回だけ消費。
+  //  開発用の無制限モード(devUnlimitedMock)はチケット不要・消費なし。通常はチケット0なら開始不可。
+  const unlimitedMock = state.settings.devUnlimitedMock === true;
   const startSection = async () => {
+    if (!ticketSpentRef.current && !unlimitedMock && mockTicketCount(state) <= 0) {
+      Alert.alert(t('mock.no_ticket_title'), t('mock.no_ticket_body'));
+      return;
+    }
     await stopSound();
-    if (!ticketSpentRef.current) { ticketSpentRef.current = true; spendMockTicket(); }
+    if (!ticketSpentRef.current) { ticketSpentRef.current = true; if (!unlimitedMock) spendMockTicket(); }
     setIdx(curBlock.from);
     setPicked(null);
     setReveal2(false);

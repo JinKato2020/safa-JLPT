@@ -2,7 +2,7 @@
 //  1画面に: 大きなイラスト(全体表示)＋(試験時間/合格の目安/足切り＋各分野の制限時間)＋チケット残数＋[また今度][模試を始める]。
 //  背景・文字・カードはアプリのライト/ダークテーマに統一(useColors)。
 import { useMemo } from 'react';
-import { View, Text, Image, Pressable, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
+import { View, Text, Image, Pressable, StyleSheet, ScrollView, useWindowDimensions, Alert } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -37,7 +37,12 @@ export default function MockIntroScreen() {
   const level = (state.settings.level as Level) ?? 'N5';
   const info = MOCK_INFO[level] ?? MOCK_INFO.N5;
   const tickets = mockTicketCount(state);
-  const begin = () => nav.replace('Mock', { full: route.params?.full ?? true });
+  const unlimitedMock = state.settings.devUnlimitedMock === true;
+  // チケットが無い時は模試を始めさせない(開発用の無制限モードは除く)。
+  const begin = () => {
+    if (!unlimitedMock && tickets <= 0) { Alert.alert(t('mock.no_ticket_title'), t('mock.no_ticket_body')); return; }
+    nav.replace('Mock', { full: route.params?.full ?? true });
+  };
   // 模試イラストは「全体表示(トリムなし)」。幅いっぱいの縦横比で出し、画面に収まるよう高さは60%で頭打ち。
   const topSrc = Image.resolveAssetSource(TOP);
   const topAsp = (topSrc?.width && topSrc?.height) ? topSrc.width / topSrc.height : 0.755;
@@ -96,7 +101,7 @@ export default function MockIntroScreen() {
         </View>
 
         {/* 模試チケット残数は「模試を始める」ボタンのすぐ上に置く(ボタンごとスクロール表示)。 */}
-        <Text style={s.ticketAbove}>{t('mockintro.tickets', { n: tickets })}</Text>
+        <Text style={s.ticketAbove}>{unlimitedMock ? '模試チケット：無制限（開発）' : t('mockintro.tickets', { n: tickets })}</Text>
         <View style={s.btnRow}>
           <Pressable style={s.later} onPress={() => nav.goBack()}><Text style={s.laterTxt}>{t('mockintro.later')}</Text></Pressable>
           <Pressable style={s.start} onPress={begin}><Text style={s.startTxt}>{t('mockintro.start')}</Text></Pressable>

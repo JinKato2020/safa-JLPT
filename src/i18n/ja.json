@@ -303,6 +303,8 @@
   "mock.auto_next": "まもなく次へ…",
   "mock.auto_result": "まもなく結果へ…",
   "mock.close": "閉じる",
+  "mock.no_ticket_title": "模試チケットがありません",
+  "mock.no_ticket_body": "模試を受けるにはチケットが必要です。ショップで交換するか、日をおいてためてから挑戦してください。",
   "mock.break_next": "これから始める科目",
   "mock.break_meta": "{n}問 ・ 制限 {m}分",
   "mock.break_back": "戻る",
