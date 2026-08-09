@@ -22,14 +22,19 @@ function sdk(): any {
 }
 
 let inited = false;
+let personalized = true; // オンボの「トラッキングを許可する」がOFF→非パーソナライズ広告(ATTも尋ねない)。
 
-/** 起動時に1回。iOSは先に ATT(トラッキング許可)を尋ねてから初期化。失敗してもアプリは止めない。 */
-export async function initAds(): Promise<void> {
+/**
+ * 起動時に1回。iOSは先に ATT(トラッキング許可)を尋ねてから初期化。失敗してもアプリは止めない。
+ * optIn=false(ユーザーがトラッキング拒否)なら ATT を尋ねず、広告は非パーソナライズで配信。
+ */
+export async function initAds(optIn = true): Promise<void> {
+  personalized = optIn; // 設定でトグル→次に読み込む広告から反映(inited済でも更新)
   if (inited) return;
   const m = sdk();
   if (!m) return;
   try {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === 'ios' && optIn) {
       try {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const tt = require('expo-tracking-transparency');
@@ -64,7 +69,7 @@ export function showRewardedAd(): Promise<boolean> {
     try {
       const { RewardedAd, RewardedAdEventType, AdEventType } = m;
       const ad = RewardedAd.createForAdRequest(rewardedAdUnitId(), {
-        requestNonPersonalizedAdsOnly: false,
+        requestNonPersonalizedAdsOnly: !personalized, // 拒否した人には非パーソナライズ広告
       });
       let earned = false;
       let settled = false;

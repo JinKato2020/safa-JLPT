@@ -1,6 +1,8 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+- **📜 プライバシーポリシー/利用規約の改訂＝引き継ぎ資料あり・未着手（2026-08-09）**: 現行`privacy.html`は「収集しない」前提で**内容が古い**（その後アカウント/クラウド同期/AdMob広告/友だち・紹介が入った）→全面改訂＋`terms.html`新規作成＋App Store/Google Playのプライバシー申告更新が必要。**記載すべき全項目＝`md\プライバシーポリシー_利用規約_記載事項.md`**（第三者=Supabase東京/AdMob/Apple・Google認証/GitHub Pages、ATT、削除依頼、EEA向けUMP等）。次セッションはこのmdから着手。
+- **🧭 オンボ刷新＋聴解48k化＝実装済・tsc0・未ビルド（2026-08-09）**: (1)オンボ「はじめましょう」＝JLPT/JFT質問を廃止しレベル選択から開始・試験設定と町プロフィールを1画面に統合・学習リマインドはオンボから削除(設定画面で入力)・「気分」表記(旧ムードメッセージ)・**母語プルダウン**(国選択を廃止/英語=米国旗/デバイス言語を先頭＆既定・`plaza/countries.ts`のNATIVE_LANGS)＝l1とcountry(旗)を保存。(2)**トラッキング許可はオンボから外し設定画面のトグルへ**(既定ON・OFFで非パーソナライズ広告)＝`ProfileScreen`＋`ads.ts`(personalized)＋`App.tsx`(onboarded後にinitAds)。(3)アカウント案内文を「友だちと一緒に…」へ。(4)**聴解音声520本を48kbpsモノラルへ再エンコード=272.5MB→102.2MB(-62.5%)**＋`LISTENING_CACHE_VER v2→v3`＋DL見積りを級別実測平均に是正。**次ビルドで配信**(音声は同名差替=v3で既存ユーザーも再DL)。
 - **🎴 ステータス枠をアプリ組み込み＝実装済・tsc0・未ビルド（2026-08-07）**: 会話の'status'ステップを旧RPGカードから装飾枠`assets/kotoba/ui/statusframe.png`(大外の外＋長ボックス2つを透過窓化)へ置換。枠は1000x740、FW=min(VW*0.98,VH*0.60/0.74)。上段6項目=ラベル(枠上・金sLabel)+値(枠内中央・白sVal)、座標frac: L=cx0.272/R0.725, labelY[0.118,0.276,0.435]/valY[0.180,0.338,0.497]。下段バー=枠背後(先に描画→枠Image→ラベル)で透過窓に透ける(A窓x0.293-0.776 y0.630-0.670緑vocab/B y0.761-0.800青streak)、数字cx0.86。KotobaTownScreen.tsxのみ。旧rpg*スタイルは未使用のまま残置。**次ビルドで実機確認**。
 - **🧱 当たり判定「書庫左の行燈付近」追加＝提案提示・未適用（2026-08-07）**: 書庫の建物本体は既に壁。行燈=col17 rows35-36。提案=行燈わき歩けるポケット(35,17)(35,16)(36,16)(36,15)(37,16)(37,15)(38,16)を壁化(scratchpad/proposal.jpg提示)。**ユーザーのセル確定待ち**(道を兼ねるので塞ぎ過ぎ注意)。確定後 src/plaza/mapCollision.ts の該当行を'#'化+spawn(24,28)BFS連結確認。※新当たり判定画像は別明るさ再描画で自動差分不可=場所は口頭確定で進める。
 - **🚀 Build 2710 both dispatch=run`31154828963`（監視しない・2026-08-07）**: コミット`b7684135`。中身=会話画面の舞台化(背景シーン6枚+立ち絵左+台詞/ステータス/送信3段)・書庫屋根の前面レイヤーをユーザー手直し版へ差し替え・会話UI枠素材追加(未配線)。テスト34/34・tsc0。**保留(未ビルド/未配線)**=①ステータス枠(ラベル上/値中央/バー動的)のアプリ組み込み(ユーザーOK待ち・プレビュー=scratchpad/status_labels_preview.py)②当たり判定の一部追加(追加場所の指定待ち・新画像は別明るさ再描画で自動差分不可)。
@@ -40,8 +42,8 @@
 <!-- AUTO:BEGIN -->
 
 ## ⚠ 会話が重くなっている（自動）
-- 🔴 文脈 65万／70万（93%）・39995往復 — まもなく強制圧縮。区切りをつけて /clear を
-- 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
+- ⚠ 連続 115ターン（文脈 19万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 115ターン・ツール51回）— まとめ方を変える
 
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
@@ -51,14 +53,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/screens/ShopScreen.tsx
-- src/screens/ReferralScreen.tsx
-- src/screens/MockIntroScreen.tsx
-- src/data/afterStudyArt.ts
-- assets/shop/shop_banner_night.jpg
-- assets/shop/shop_banner_day.jpg
-- assets/referral/entrance.jpg
-- assets/mock/mock_intro_top.jpg
+- memory/handoff.md
+- md/プライバシーポリシー_利用規約_記載事項.md
+- src/screens/OnboardingScreen.tsx
+- src/plaza/countries.ts
+- src/data/listeningAudio.ts
+- assets/audio/N5-C-S-040.mp3
+- assets/audio/N5-C-S-039.mp3
+- assets/audio/N5-C-S-038.mp3
 
-_自動更新: 2026-08-09 12:17_
+_自動更新: 2026-08-09 13:00_
 <!-- AUTO:END -->

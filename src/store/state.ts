@@ -37,6 +37,7 @@ export interface Settings {
   accountPromptSeen?: boolean; // 初回のアカウント登録案内を表示済み(旧stateには無い→未表示)
   uiLang?: string;         // UI表示言語(未設定→端末言語を自動判定)
   telemetry?: boolean;     // 利用状況の匿名送信(未設定/true=ON, false=停止)
+  adTracking?: boolean;    // 広告トラッキング許可(オンボの既定ON。未設定/true=許可, false=拒否→ATTを尋ねず非パーソナライズ広告)
   badgeSet?: 'natural' | 'gorgeous'; // バッジ/勲章のデザインセット(未設定→natural)
   listeningAudioMode?: 'stream' | 'download'; // 聴解音声: 都度配信(stream)/レベル一括DL(download)。未設定→download(従来挙動)
   listeningRate?: number;  // 聴解音声の再生スピード(0.5〜1.5。未設定→1.0=等速)

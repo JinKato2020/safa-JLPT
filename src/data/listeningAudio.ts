@@ -23,7 +23,8 @@ const FS = FileSystemNS as unknown as {
 // 配信済み音声の内容を差し替えた時はこの版を上げる→旧キャッシュ(別フォルダ)を捨てて全音声を再DLさせる。
 // 同名{id}.mp3はキャッシュ優先で再DLされないため、内容更新はこの版上げが唯一の伝達手段。
 // v2(2026-07-25): 発話001-010を差し替え(All Chirp3-HD・正解位置シャッフル)。
-const LISTENING_CACHE_VER = 'v2';
+// v3(2026-08-09): 全520本を48kbpsモノラルへ再エンコード=配信容量 272.5MB→102.2MB(-62.5%)。話し声は聞き分け不可の劣化のみ。
+const LISTENING_CACHE_VER = 'v3';
 const cacheDir = Platform.OS !== 'web' && FS.documentDirectory ? `${FS.documentDirectory}listening_${LISTENING_CACHE_VER}/` : null;
 /** キャッシュ可能な端末か(web等はストリーミングのみ=事前DL不要)。 */
 export const LISTENING_CACHEABLE = !!cacheDir && typeof FS.downloadAsync === 'function' && typeof FS.getInfoAsync === 'function';
@@ -84,7 +85,10 @@ export async function prefetchListening(ids: string[], onProgress?: (done: numbe
   }
 }
 
-/** DL前のサイズ概算(bytes)。1本≈360KB×件数(同意画面の目安用。厳密なHEAD合計は省略)。 */
+// DL前のサイズ概算に使う「1本あたり平均KB」。48kbpsモノラル再エンコード後の実測平均(級で長さが違う)。
+// idは "N3-…"/"N4-…"/"N5-…" と級で始まるので、先頭2文字で級別平均を当てる。
+const AVG_KB_BY_LEVEL: Record<string, number> = { N3: 250, N4: 193, N5: 148 };
+/** DL前のサイズ概算(bytes)。級別の実測平均×件数(同意画面の目安用。厳密なHEAD合計は省略)。 */
 export function listeningBytesEstimate(ids: string[]): number {
-  return ids.length * 360 * 1024;
+  return ids.reduce((sum, id) => sum + (AVG_KB_BY_LEVEL[id.slice(0, 2)] ?? 197) * 1024, 0);
 }

@@ -238,6 +238,21 @@ export default function ProfileScreen() {
               thumbColor={c.faint}
             />
           </View>
+
+          {/* 広告トラッキング許可: 既定ON。オフにすると広告が非パーソナライズになる。 */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>{t('profile.adTracking')}</Text>
+              <Text style={s.subtle}>{t('profile.adTrackingHint')}</Text>
+            </View>
+            <Switch
+              style={s.telemSwitch}
+              value={state.settings.adTracking !== false}
+              onValueChange={(v) => { setSettings({ adTracking: v }); }}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+          </View>
         </View>
 
         {/* 聴解音声の取得方式(配信=都度ストリーミング / 一括DL=オフライン)＋一括DL導線 */}

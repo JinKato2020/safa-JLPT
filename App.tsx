@@ -287,10 +287,11 @@ function Root() {
     return () => { cancelled = true; };
   }, [hydrated, userId]); // eslint-disable-line react-hooks/exhaustive-deps
   // 広告(AdMob)の初期化。iOSはATT(トラッキング許可)を尋ねてから。SDK未リンクなら安全に no-op。
+  // オンボ完了後に初回だけ実行=「トラッキングを許可する」チェックの結果でATTを尋ねる/尋ねない。
   useEffect(() => {
-    if (!hydrated) return;
-    void initAds();
-  }, [hydrated]);
+    if (!hydrated || !settings.onboarded) return;
+    void initAds(settings.adTracking !== false);
+  }, [hydrated, settings.onboarded, settings.adTracking]);
   // 現在フォントを設定値に同期(このレンダー→配下の全Textが新フォントで描画)。既定=maru(丸ゴシック)。
   setActiveFont(settings.font ?? 'maru');
   const sys = useColorScheme();

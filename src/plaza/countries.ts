@@ -36,6 +36,40 @@ export const countryLabel = (code: string | undefined | null, lang?: string): st
 // 後方互換(英語名)。
 export const countryName = (code: string | undefined | null): string => countryLabel(code, 'en');
 
+// ── 母語(ネイティブ言語)の選択肢。オンボの「母語」プルダウン用。────────────────────
+//  code=言語コード(l1/翻訳に使用) / label=その言語での表記 / cc=国旗に使う国コード(英語=アメリカ)。
+export type NativeLang = { code: string; label: string; cc: string };
+export const NATIVE_LANGS: NativeLang[] = [
+  { code: 'en', label: 'English', cc: 'US' },
+  { code: 'zh', label: '中文', cc: 'CN' },
+  { code: 'ko', label: '한국어', cc: 'KR' },
+  { code: 'vi', label: 'Tiếng Việt', cc: 'VN' },
+  { code: 'ne', label: 'नेपाली', cc: 'NP' },
+  { code: 'id', label: 'Bahasa Indonesia', cc: 'ID' },
+  { code: 'my', label: 'မြန်မာ', cc: 'MM' },
+  { code: 'th', label: 'ไทย', cc: 'TH' },
+  { code: 'bn', label: 'বাংলা', cc: 'BD' },
+  { code: 'ja', label: '日本語', cc: 'JP' },
+];
+
+/** 母語コード→国旗絵文字(その他=🏳️、英語=アメリカ国旗)。 */
+export const nativeLangFlag = (code: string): string => {
+  const cc = NATIVE_LANGS.find((l) => l.code === code)?.cc ?? 'XX';
+  return cc === 'XX' ? '🏳️' : flagOf(cc);
+};
+
+/** 母語コード→国旗に使う国コード(保存用。avatarのflag表示に使う)。 */
+export const nativeLangCC = (code: string): string => NATIVE_LANGS.find((l) => l.code === code)?.cc ?? 'XX';
+
+/** 端末の言語から母語を推定(=デバイスの言語をデフォルト選択)。対応外は英語。 */
+export function detectNativeLang(): string {
+  try {
+    const lang = (Localization.getLocales?.()[0]?.languageCode || '').toLowerCase();
+    if (NATIVE_LANGS.some((l) => l.code === lang)) return lang;
+  } catch { /* noop */ }
+  return 'en';
+}
+
 /** 端末の「言語」から国を推定(=デバイスの言語で自動選択)。
  *  ・英語/中国語など複数国で使う言語は端末の地域で判定(en+AU→豪, zh+TW→台湾)。
  *  ・それ以外は言語→代表国(ベトナム語→ベトナム 等)。取れなければ地域→'XX'。 */
