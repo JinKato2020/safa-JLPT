@@ -1,18 +1,18 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 10 回・19 ターン
-- 往復 39943 回
+- ツール呼び出し 13 回・39 ターン
+- 往復 39995 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/screens/KotobaTownScreen.tsx
-- memory/session-summary-LATEST.md
-- assets/kotoba/ui/dlg_dark.png
-- assets/kotoba/ui/dlg_light.png
+- src/screens/ShopScreen.tsx
+- src/screens/ReferralScreen.tsx
+- src/screens/MockIntroScreen.tsx
+- src/data/afterStudyArt.ts
 
 ## ⚠️ 注意
-- - 🔴 文脈 61万／70万（87%）・39943往復 — まもなく強制圧縮。区切りをつけて /clear を
+- - 🔴 文脈 65万／70万（93%）・39995往復 — まもなく強制圧縮。区切りをつけて /clear を
 - - 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
 
 ## 次の一手

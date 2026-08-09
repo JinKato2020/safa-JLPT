@@ -269,7 +269,7 @@ function pickSpaced(cells: readonly { col: number; row: number }[], count: numbe
 
 // 1体のNPC: home周辺(半径約2.4マス)をゆっくり8方向で歩き回る。見た目は町のアバター6種(プレイヤーと同じ歩行アニメ)。
 // 頭上に国旗+名前+レベルの名札。表示専用。sink: 親が近接判定に使う現在位置の共有先(参照共有=毎フレーム最新)。
-function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: number; y: number }> }) {
+function NpcSprite({ v, sink, animSink }: { v: VirtualLearner; sink: Record<string, { x: number; y: number }>; animSink: Record<string, Animated.ValueXY> }) {
   const SET = AVATAR_SETS[v.avatar] || HERO;
   const home = useRef({ x: (v.home.col + 0.5) * CELL - SPRITE / 2, y: (v.home.row + 0.5) * CELL - SPRITE * 0.82 }).current;
   const pos = useRef({ x: home.x, y: home.y });
@@ -290,6 +290,7 @@ function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: n
 
   useEffect(() => {
     sink[v.id] = pos.current;
+    animSink[v.id] = anim; // 名札を前面レイヤより上に描くため、現在アニメ位置を共有
     let raf = 0, last = 0, wait = 400 + Math.random() * 2600, walkPhase = 0;
     const NSPEED = 40, R = 2.4 * CELL; // ゆっくり・home周辺だけ
     const frame = (ts: number) => {
@@ -325,13 +326,13 @@ function NpcSprite({ v, sink }: { v: VirtualLearner; sink: Record<string, { x: n
       raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);
-    return () => { cancelAnimationFrame(raf); delete sink[v.id]; };
+    return () => { cancelAnimationFrame(raf); delete sink[v.id]; delete animSink[v.id]; };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const by = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -3] });
   return (
     <Animated.View style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: anim.x }, { translateY: anim.y }] }} pointerEvents="none">
-      <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{v.nick} · {v.level}</Text></View>
+      {/* 名札(名前・Lv)は前面レイヤより上へ別描画するのでここには置かない(裏に隠れても位置が分かる) */}
       <Animated.Image source={SET[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: by }] }} resizeMode="contain" />
     </Animated.View>
   );
@@ -470,6 +471,9 @@ export default function KotobaTownScreen() {
 
   // 仮想学習者との会話。npcPos=各NPCの現在位置(子から共有)。talk=会話中の相手。sent=送信後の反応。
   const npcPos = useRef<Record<string, { x: number; y: number }>>({}).current;
+  const npcAnim = useRef<Record<string, Animated.ValueXY>>({}).current; // 各NPCのアニメ位置(名札を前面レイヤより上に描くため共有)
+  const [, setPlateTick] = useState(0); // NpcSprite登録後に名札パスを1度描き直すためのトリガ
+  useEffect(() => { const t = setTimeout(() => setPlateTick((x) => x + 1), 60); return () => clearTimeout(t); }, [residents]);
   const [talk, setTalk] = useState<VirtualLearner | null>(null);
   const [sent, setSent] = useState<{ emoji: string; reply: string } | null>(null);
   const [talkStep, setTalkStep] = useState<'info' | 'status' | 'message'>('info'); // info=台詞(舞台) / status=ステータス / message=メッセージ送信
@@ -719,7 +723,7 @@ export default function KotobaTownScreen() {
             );
           })}
           {/* 中: 学習者(NPC)＝仮想学習者＋実在の友だち */}
-          {residents.map((v) => <NpcSprite key={v.id} v={v} sink={npcPos} />)}
+          {residents.map((v) => <NpcSprite key={v.id} v={v} sink={npcPos} animSink={npcAnim} />)}
           {/* 中: マスコット(桜=会話あり / 柴犬=会話なし) */}
           <AmbientNpc sprites={SHIBA} spot={SHIBA_HOME} tag="🐕 柴犬" />
           <AmbientNpc sprites={SAKURA} spot={SAKURA_HOME} tag="🌸 桜" sink={npcPos} sinkKey="sakura" />
@@ -734,6 +738,16 @@ export default function KotobaTownScreen() {
           {ROOFS.map((rf, i) => (
             <Image key={i} source={isDay ? rf.day : rf.night} style={{ position: 'absolute', left: rf.x, top: isDay ? rf.y : ((rf as { nightY?: number }).nightY ?? rf.y), width: rf.w, height: rf.h }} resizeMode="stretch" />
           ))}
+          {/* 最前面: 名前・Lvの名札は前面レイヤ(木/屋根)より上に描く=裏に隠れても位置が分かる。位置は各NPCのアニメ値に追従。 */}
+          {residents.map((v) => {
+            const a = npcAnim[v.id];
+            if (!a) return null;
+            return (
+              <Animated.View key={'plate:' + v.id} pointerEvents="none" style={{ position: 'absolute', width: SPRITE, alignItems: 'center', transform: [{ translateX: a.x }, { translateY: a.y }] }}>
+                <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{v.nick} · {v.level}</Text></View>
+              </Animated.View>
+            );
+          })}
         </Animated.View>
       </View>
 

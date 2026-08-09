@@ -8,7 +8,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useT } from '../i18n';
 import { getMyCode } from '../referral/referralClient';
 
-const ENTRANCE = require('../../assets/referral/entrance.png'); // 紹介の入口=多様な学習者が一緒に学ぶ絵
+const ENTRANCE = require('../../assets/referral/entrance.jpg'); // 紹介の入口=多様な学習者が一緒に学ぶ絵
 
 export default function ReferralScreen() {
   const t = useT();

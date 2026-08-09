@@ -1,7 +1,5 @@
-// 模試イントロ。試験タブの「模試」をタップ→いきなり始めず、まず2ステップで説明。
-//  1) 入口: 大きなイラスト＋チケット残数＋[また今度][模試を始める] だけ(情報は最小)。
-//  2) 詳細: 試験時間・合格の目安・足切り(基準点)を伝えてから、本当に開始。
-import { useState } from 'react';
+// 模試イントロ「模試に挑戦」。試験タブの「模試」をタップ→いきなり始めず、1画面で説明してから開始。
+//  1画面に: 大きなイラスト＋チケット残数＋試験時間・合格の目安・足切り(基準点)＋[また今度][模試を始める]。
 import { View, Text, ImageBackground, Pressable, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
@@ -12,7 +10,7 @@ import { useT } from '../i18n';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 
-const TOP = require('../../assets/mock/mock_intro_top.png');
+const TOP = require('../../assets/mock/mock_intro_top.jpg');
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 // 級別の目安(本番JLPTの試験時間=分・合格点・各科目の足切り=基準点)。模試の心構え用の参考値。
@@ -31,57 +29,33 @@ export default function MockIntroScreen() {
   const level = (state.settings.level as Level) ?? 'N5';
   const info = MOCK_INFO[level] ?? MOCK_INFO.N5;
   const tickets = mockTicketCount(state);
-  const [step, setStep] = useState<'intro' | 'detail'>('intro');
   const begin = () => nav.replace('Mock', { full: route.params?.full ?? true });
-
-  // ── 1) 入口: イラスト＋チケット残数＋2ボタンだけ ──
-  if (step === 'intro') {
-    const illusH = Math.round(height * 0.62);
-    return (
-      <View style={s.c}>
-        <ImageBackground source={TOP} style={{ height: illusH }} resizeMode="cover">
-          <SafeAreaView edges={['top']}>
-            <View style={s.head}>
-              <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.x}><Text style={s.xTxt}>×</Text></Pressable>
-            </View>
-          </SafeAreaView>
-          <View style={s.titleWrap}>
-            <Text style={s.title}>{t('mockintro.title')}</Text>
-            <Text style={s.subt}>{t('mockintro.subtitle')}</Text>
-          </View>
-        </ImageBackground>
-
-        <SafeAreaView style={s.info} edges={['bottom']}>
-          <View style={s.ticketRow}>
-            <Text style={s.ticketTxt}>{t('mockintro.tickets', { n: tickets })}</Text>
-          </View>
-          <View style={s.btnRow}>
-            <Pressable style={s.later} onPress={() => nav.goBack()}><Text style={s.laterTxt}>{t('mockintro.later')}</Text></Pressable>
-            <Pressable style={s.start} onPress={() => setStep('detail')}>
-              <Text style={s.startTxt}>{t('mockintro.start')}</Text>
-            </Pressable>
-          </View>
-        </SafeAreaView>
-      </View>
-    );
-  }
-
-  // ── 2) 詳細: 試験時間・合格の目安・足切り(基準点)を伝えてから開始 ──
+  const illusH = Math.round(height * 0.30); // イラストは小さめ=下に時間/合格目安/足切りを載せる
   const chips = [
     { ico: '🗓', label: t('mockintro.chip_pace'), val: t('mockintro.pace_val') },
     { ico: '⏱', label: t('mockintro.chip_time'), val: t('mockintro.time_val', { n: info.min }) },
     { ico: '🎯', label: t('mockintro.chip_pass'), val: info.pass },
   ];
+
+  // 1画面: イラスト＋チケット＋(時間/合格目安/足切り)＋[また今度][模試を始める]。「はじめる前に」ステップは廃止。
   return (
     <View style={s.c}>
-      <SafeAreaView edges={['top']}>
-        <View style={s.detailHead}>
-          <Pressable onPress={() => setStep('intro')} hitSlop={12} style={s.backBtn}><Text style={s.backTxt}>‹ {t('mockintro.back')}</Text></Pressable>
+      <ImageBackground source={TOP} style={{ height: illusH }} resizeMode="cover">
+        <SafeAreaView edges={['top']}>
+          <View style={s.head}>
+            <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.x}><Text style={s.xTxt}>×</Text></Pressable>
+          </View>
+        </SafeAreaView>
+        <View style={s.titleWrap}>
+          <Text style={s.title}>{t('mockintro.title')}</Text>
+          <Text style={s.subt}>{t('mockintro.subtitle')}</Text>
         </View>
-      </SafeAreaView>
+      </ImageBackground>
+
       <ScrollView style={{ flex: 1 }} contentContainerStyle={s.detailBody}>
-        <Text style={s.detailTitle}>{t('mockintro.detail_title')}</Text>
-        <Text style={s.detailSub}>{t('mockintro.detail_sub')}</Text>
+        <View style={s.ticketRow}>
+          <Text style={s.ticketTxt}>{t('mockintro.tickets', { n: tickets })}</Text>
+        </View>
 
         <View style={s.chips}>
           {chips.map((ch) => (
@@ -112,7 +86,7 @@ export default function MockIntroScreen() {
 
       <SafeAreaView edges={['bottom']} style={{ paddingHorizontal: 18 }}>
         <View style={s.btnRow}>
-          <Pressable style={s.later} onPress={() => setStep('intro')}><Text style={s.laterTxt}>{t('mockintro.back')}</Text></Pressable>
+          <Pressable style={s.later} onPress={() => nav.goBack()}><Text style={s.laterTxt}>{t('mockintro.later')}</Text></Pressable>
           <Pressable style={s.start} onPress={begin}><Text style={s.startTxt}>{t('mockintro.start')}</Text></Pressable>
         </View>
       </SafeAreaView>

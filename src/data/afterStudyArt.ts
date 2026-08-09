@@ -4,17 +4,17 @@
 //  ・旧・季節絵(spring/summer/autumn/winter.png)はご褒美から除外＝削除済み(ユーザー指定2026-08-01)。
 
 // ご褒美イラスト(桜と柴犬)。1枚を上下2分割して登録=昼の庭/夜の書斎。
-const REWARD_DAY = require('../../assets/afterstudy/reward_day.png');   // 昼(庭・滝)
-const REWARD_NIGHT = require('../../assets/afterstudy/reward_night.png'); // 夜(書斎・灯り)
+const REWARD_DAY = require('../../assets/afterstudy/reward_day.jpg');   // 昼(庭・滝)
+const REWARD_NIGHT = require('../../assets/afterstudy/reward_night.jpg'); // 夜(書斎・灯り)
 // 夏の絵。2×2の1枚を4分割×2セット=計8枚。
-const SUMMER_GARDEN = require('../../assets/afterstudy/summer_garden.png');   // 庭(あじさい・すいか)
-const SUMMER_SEA = require('../../assets/afterstudy/summer_sea.png');       // 海辺
-const SUMMER_RIVER = require('../../assets/afterstudy/summer_river.png');     // 川遊び(五重塔)
-const SUMMER_FESTIVAL = require('../../assets/afterstudy/summer_festival.png'); // 夜祭り(灯り・花火)
-const SUMMER_VERANDA = require('../../assets/afterstudy/summer_veranda.png');   // 縁側(海の見える庭)
-const SUMMER_BOATS = require('../../assets/afterstudy/summer_boats.png');       // 海辺(ヨット)
-const SUMMER_STREET = require('../../assets/afterstudy/summer_street.png');     // 夏の小道
-const SUMMER_FIREWORKS = require('../../assets/afterstudy/summer_fireworks.png'); // 夜空の花火
+const SUMMER_GARDEN = require('../../assets/afterstudy/summer_garden.jpg');   // 庭(あじさい・すいか)
+const SUMMER_SEA = require('../../assets/afterstudy/summer_sea.jpg');       // 海辺
+const SUMMER_RIVER = require('../../assets/afterstudy/summer_river.jpg');     // 川遊び(五重塔)
+const SUMMER_FESTIVAL = require('../../assets/afterstudy/summer_festival.jpg'); // 夜祭り(灯り・花火)
+const SUMMER_VERANDA = require('../../assets/afterstudy/summer_veranda.jpg');   // 縁側(海の見える庭)
+const SUMMER_BOATS = require('../../assets/afterstudy/summer_boats.jpg');       // 海辺(ヨット)
+const SUMMER_STREET = require('../../assets/afterstudy/summer_street.jpg');     // 夏の小道
+const SUMMER_FIREWORKS = require('../../assets/afterstudy/summer_fireworks.jpg'); // 夜空の花火
 
 // ご褒美画像のローテーション(10枚)。学習ごとに1枚ずつ順番に回る。並び順=この配列のまま。
 export const AFTER_STUDY_IMAGES = [

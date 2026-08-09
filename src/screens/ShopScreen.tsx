@@ -14,8 +14,8 @@ import { useT } from '../i18n';
 
 const MOCK_TICKET_ID = 'tool_mock_ticket';
 
-const BANNER_DAY = require('../../assets/shop/shop_banner_day.png');
-const BANNER_NIGHT = require('../../assets/shop/shop_banner_night.png');
+const BANNER_DAY = require('../../assets/shop/shop_banner_day.jpg');
+const BANNER_NIGHT = require('../../assets/shop/shop_banner_night.jpg');
 
 // ショップのカテゴリタブ。順=髪型/筆/民族衣装/道具/仲間。各タブは単一種別なので小見出しは不要。
 const TABS: { key: string; labelKey: string; match: (i: ShopItem) => boolean }[] = [
