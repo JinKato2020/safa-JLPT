@@ -22,8 +22,11 @@ Deno.serve(async (req) => {
   const { data: { user } } = await userClient.auth.getUser();
   if (!user) return json({ error: 'auth_required' }, 401);
 
-  // Cloudflare が付ける国ヘッダ。'XX'(不明)/'T1'(Tor) は国として扱わない。IPは読まない/保存しない。
-  const raw = req.headers.get('cf-ipcountry') ?? req.headers.get('x-country') ?? '';
+  // 国コードの決定順: ①Cloudflareの国ヘッダ(前段が付ける) ②リクエストbodyのcountry(アプリがCloudflare traceで取得して渡す保険)。
+  // 'XX'(不明)/'T1'(Tor) は国として扱わない。IPは読まない/保存しない。
+  let bodyCc: string | null = null;
+  try { const b = await req.json(); if (b && typeof b.country === 'string') bodyCc = b.country; } catch { /* body無し=OK */ }
+  const raw = req.headers.get('cf-ipcountry') || bodyCc || req.headers.get('x-country') || '';
   const cc = /^[A-Za-z]{2}$/.test(raw) ? raw.toUpperCase() : null;
   if (!cc || cc === 'XX' || cc === 'T1') return json({ country: null, reason: 'no_country_header' });
 
