@@ -49,14 +49,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/screens/KotobaTownScreen.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- src/screens/AccountScreen.tsx
+- src/screens/MockScreen.tsx
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- src/screens/MockIntroScreen.tsx
-- src/i18n/ja.json
-- src/screens/ProfileScreen.tsx
-- src/screens/MockScreen.tsx
+- 画像/アプリ画像/合格証明書_不合格.png
 
-_自動更新: 2026-08-09 19:16_
+_自動更新: 2026-08-09 19:50_
 <!-- AUTO:END -->

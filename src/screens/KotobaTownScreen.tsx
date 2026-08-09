@@ -219,7 +219,7 @@ const ROOFS = [
 
 const WORLD = 1024;            // マップ表示サイズ(正方)。当たり判定グリッドはこの中を MAP_G 等分。
 const CELL = WORLD / MAP_G;
-const SPRITE = 64;            // マップ上のアバター背丈(≒基準の女の子。赤枠 約70x67 より少し小さめ)
+const SPRITE = 43;            // マップ上のアバター背丈(従来64の2/3=表示を小さく。表示・当たり判定・名札・配置すべて連動)
 const SPEED = 160;            // px/秒
 const START_COL = 24, START_ROW = 28;
 const STICK_R = 54;          // スティック外周半径
@@ -908,10 +908,13 @@ export default function KotobaTownScreen() {
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
         const dlgBottom = Math.round(SW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
         const stH = FW; // ステータス枠=正方形
-        // 台詞=必ず2ページ(▽で送る)。1p=あいさつ＋いま特訓中 / 2p=最近の学び＋性格の一言＋またね。
-        const p1 = [`やあ、${talk.nick}だよ！会えてうれしいな。`, talk.studying ? `いまは「${talk.studying}」を特訓してるんだ。` : '毎日コツコツ勉強を続けてるよ。'].join('\n');
-        const p2 = [talk.weekLearned ? `この7日で${talk.weekLearned}語もおぼえたよ！` : '少しずつ言葉が増えてきた気がする。', `${personaLineOf(talk.personality)} また町で会おうね。`].join('\n');
-        const pages: string[] = [p1, p2];
+        // 台詞は「1文=1ページ」で分割し、…で切れないようにする(長い名前で折り返しても3行まで収まる)。▽で送る。
+        const pages: string[] = [
+          `やあ、${talk.nick}だよ！会えてうれしいな。`,
+          talk.studying ? `いまは「${talk.studying}」を特訓してるんだ。` : '毎日コツコツ勉強を続けてるよ。',
+          talk.weekLearned ? `この7日で${talk.weekLearned}語もおぼえたよ！` : '少しずつ言葉が増えてきた気がする。',
+          `${personaLineOf(talk.personality)}\nまた町で会おうね。`,
+        ];
         const page = Math.min(talkPage, pages.length - 1);
         // 最後まで読んだら(▽をもう一度)会話ダイアログを消す。
         const onNext = () => { if (page < pages.length - 1) setTalkPage(page + 1); else setTalkDlgDone(true); };
@@ -926,11 +929,14 @@ export default function KotobaTownScreen() {
         const FS_SAY = Math.round(SW * 0.041), LH_SAY = Math.round(SW * 0.058);
         const FS_NAME = Math.round(FW * 0.044);
         const FS_LAB = Math.round(FW * 0.035), FS_VAL = Math.round(FW * 0.034);
-        // 6項目(名前|Lv / 性格|国名 / 気分|得意)=ステータス正方形の上半分。
+        // 6項目(名前|Lv / 性格|得意 / 気分|総時間)=ステータス正方形の上半分。名前は「名前+母語国旗」。右列=Lv→得意→総時間。
+        // 総時間=累計学習時間の目安。覚えた語数から概算(1語≈2分)して時間表示にする。
+        const totalMin = Math.round(learned * 2);
+        const totalTimeStr = totalMin >= 60 ? `${Math.floor(totalMin / 60)}時間` : `${totalMin}分`;
         const FIELDS: { lab: string; val: string; lab2: string; val2: string }[] = [
-          { lab: '名前', val: talk.nick, lab2: 'Lv', val2: String(talk.level) },
-          { lab: '性格', val: per ? per.label : '-', lab2: '国名', val2: (talk.flag ?? '').trim() || '-' },
-          { lab: '気分', val: mm ?? '-', lab2: '得意', val2: talk.strong ?? '-' },
+          { lab: '名前', val: `${talk.nick} ${(talk.flag ?? '').trim()}`.trim(), lab2: 'Lv', val2: String(talk.level) },
+          { lab: '性格', val: per ? per.label : '-', lab2: '得意', val2: talk.strong ?? '-' },
+          { lab: '気分', val: mm ?? '-', lab2: '総時間', val2: totalTimeStr },
         ];
         // 「覚えた単語」の内訳(漢字/語彙/文法)。総learnedを決定的に3分割(学習者ごとに少しだけ変える)。
         const hsum = [...(talk.id || 'x')].reduce((a, c) => a + c.charCodeAt(0), 0);
@@ -972,7 +978,7 @@ export default function KotobaTownScreen() {
                 <Pressable onPress={onNext} style={{ position: 'absolute', bottom: dlgBottom, left: Math.round((SW - dlgW) / 2), width: dlgW, height: dlgH }}>
                   <Image source={dlgImg} style={{ position: 'absolute', width: dlgW, height: dlgH }} resizeMode="contain" />
                   <View style={{ position: 'absolute', left: dlgW * 0.06, right: dlgW * 0.12, top: 0, bottom: 0, justifyContent: 'center' }}>
-                    <Text style={{ color: sayCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={2}>{pages[page]}</Text>
+                    <Text style={{ color: sayCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={3}>{pages[page]}</Text>
                   </View>
                   {pages.length > 1 && <Animated.Text style={{ position: 'absolute', right: dlgW * 0.045, bottom: dlgH * 0.12, color: sayName, fontSize: Math.round(SW * 0.05), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>}
                 </Pressable>
@@ -1092,7 +1098,7 @@ export default function KotobaTownScreen() {
                 <Pressable onPress={onNext} style={{ position: 'absolute', bottom: dlgBottom, left: Math.round((SW - dlgW) / 2), width: dlgW, height: dlgH }}>
                   <Image source={dlgImg} style={{ position: 'absolute', width: dlgW, height: dlgH }} resizeMode="contain" />
                   <View style={{ position: 'absolute', left: dlgW * 0.06, right: dlgW * 0.12, top: 0, bottom: 0, justifyContent: 'center' }}>
-                    <Text style={{ color: sayCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={2}>{pages[page]}</Text>
+                    <Text style={{ color: sayCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={3}>{pages[page]}</Text>
                   </View>
                   {pages.length > 1 && <Animated.Text style={{ position: 'absolute', right: dlgW * 0.045, bottom: dlgH * 0.12, color: sayName, fontSize: Math.round(SW * 0.05), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>}
                 </Pressable>

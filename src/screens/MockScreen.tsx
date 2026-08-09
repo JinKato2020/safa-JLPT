@@ -513,7 +513,7 @@ export default function MockScreen() {
     const certW = Math.round(certH * 0.738);                   // 証明書画像の実アスペクト(余白統一後 738/1000)
     const heroH = Math.round(winH * 0.52);                     // ヒーロー高さ(証明書を中央やや上に置ける縦を確保)
     const certTop = Math.max(spacing.md, Math.round(heroH * 0.44 - certH / 2)); // 真ん中より少し上
-    const lvlFs = Math.round(certH * 0.105);                   // 証明書に重ねるレベル文字(元N3と同位置・同程度)
+    const lvlFs = Math.round(certH * 0.09);                    // 証明書に重ねるレベル文字(元N3と同大)
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.body}>
@@ -530,7 +530,8 @@ export default function MockScreen() {
             {/* 証明書＋レベル文字。証明書はN3を消してあり、ここにレベルを重ねる(元N3と同位置)。 */}
             <View style={{ width: certW, height: certH, marginTop: certTop }}>
               <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={StyleSheet.absoluteFill} resizeMode="contain" />
-              <Text style={[s.certLevel, { fontSize: lvlFs, lineHeight: lvlFs, top: Math.round(certH * 0.462 - lvlFs * 0.62) }]}>{level}</Text>
+              {/* 証明書の中央軸は画像中心(0.5)ではなく実測0.507・レベル行は0.476。実素材で位置合わせ済。 */}
+              <Text style={[s.certLevel, { fontSize: lvlFs, lineHeight: lvlFs, top: Math.round(certH * 0.4755 - lvlFs * 0.6), transform: [{ translateX: Math.round(certW * 0.0074) }] }]}>{level}</Text>
             </View>
           </View>
           {preview ? <Text style={s.previewNote}>{t('mock.preview_note')}</Text> : null}

@@ -8,13 +8,13 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
-import { useT, useUiLang } from '../i18n';
+import { useT } from '../i18n';
 import { signUp, signIn, signOut } from '../auth/authClient';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { useAppState, useAppActions } from '../store/store';
 import { avatarOf, AVATARS } from '../plaza/avatars';
-import { flagOf, countryLabel, COUNTRIES } from '../plaza/countries';
+import { flagOf, NATIVE_LANGS, nativeLangFlag, nativeLangCC } from '../plaza/countries';
 import { PERSONALITIES, MOOD_MESSAGES, personalityOf, moodMsgOf } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
@@ -31,7 +31,6 @@ export default function AccountScreen() {
   // 最上部プロフィール: 桜ではなく自分のアバター立ち絵＋ステータス(レベル/国/性別/性格/ムード)。性格・ムードは変更可。
   const appState = useAppState();
   const { setSettings, setReferralStats, setEnteredCode } = useAppActions();
-  const uiLang = useUiLang();
   const st0 = appState.settings;
   const myAvatarImg = avatarOf(st0.avatar).image;
   const per = personalityOf(st0.personality);
@@ -48,7 +47,9 @@ export default function AccountScreen() {
   const enteredCode = appState.referral?.enteredCode;
   const [refInput, setRefInput] = useState('');
   const onSaveRefCode = () => { const v = refInput.trim().toUpperCase(); if (!v) return; setEnteredCode(v); setRefInput(''); };
-  const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'avatar' | 'country' | 'gender'>(null);
+  const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'avatar' | 'nativelang' | 'gender' | 'name'>(null);
+  const [nameInput, setNameInput] = useState('');
+  const nativeLabel = NATIVE_LANGS.find((l) => l.code === (st0.l1 ?? 'en'))?.label ?? 'English';
   const profileHeader = (
     <View style={s.profHeader}>
       <Pressable onPress={() => setPickerOpen('avatar')} style={s.profAvatarWrap} accessibilityLabel="アバターを変更">
@@ -59,10 +60,14 @@ export default function AccountScreen() {
       </Pressable>
       <View style={s.profStats}>
         {st0.nickname ? <Text style={s.profName}>{flagOf(st0.country ?? 'XX')} {st0.nickname}</Text> : null}
+        <Pressable style={s.profRow} onPress={() => { setNameInput(st0.nickname ?? ''); setPickerOpen('name'); }}>
+          <Text style={s.profK}>名前</Text>
+          <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{st0.nickname || '未設定'}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
         <View style={s.profRow}><Text style={s.profK}>レベル</Text><Text style={s.profV}>{st0.level}</Text></View>
-        <Pressable style={s.profRow} onPress={() => setPickerOpen('country')}>
-          <Text style={s.profK}>国</Text>
-          <View style={s.profVrow}><Text style={s.profV}>{flagOf(st0.country ?? 'XX')} {countryLabel(st0.country, uiLang)}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        <Pressable style={s.profRow} onPress={() => setPickerOpen('nativelang')}>
+          <Text style={s.profK}>母語</Text>
+          <View style={s.profVrow}><Text style={s.profV}>{nativeLangFlag(st0.l1 ?? 'en')} {nativeLabel}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
         </Pressable>
         <Pressable style={s.profRow} onPress={() => setPickerOpen('gender')}>
           <Text style={s.profK}>性別</Text>
@@ -89,11 +94,28 @@ export default function AccountScreen() {
       <View style={s.pickSheet}>
         <Text style={s.pickTitle}>{
           pickerOpen === 'avatar' ? 'アバターを選ぶ'
-          : pickerOpen === 'country' ? '国を選ぶ'
+          : pickerOpen === 'name' ? '名前を入力'
+          : pickerOpen === 'nativelang' ? '母語を選ぶ'
           : pickerOpen === 'gender' ? '性別を選ぶ'
           : pickerOpen === 'personality' ? '性格を選ぶ'
           : 'ムードメッセージを選ぶ'
         }</Text>
+        {pickerOpen === 'name' ? (
+          <View style={{ paddingTop: spacing.sm, gap: spacing.md }}>
+            <TextInput
+              value={nameInput}
+              onChangeText={setNameInput}
+              maxLength={20}
+              placeholder="名前"
+              placeholderTextColor={c.faint}
+              style={s.nameInput}
+              autoFocus
+            />
+            <Pressable style={[s.nameSave, !nameInput.trim() && { opacity: 0.5 }]} disabled={!nameInput.trim()} onPress={() => { const v = nameInput.trim(); if (v) setSettings({ nickname: v }); setPickerOpen(null); }}>
+              <Text style={s.nameSaveT}>保存</Text>
+            </Pressable>
+          </View>
+        ) : (
         <ScrollView style={{ maxHeight: 380 }} contentContainerStyle={{ paddingBottom: 8 }}>
           {pickerOpen === 'avatar' ? (
             <View style={s.avGrid}>
@@ -107,12 +129,12 @@ export default function AccountScreen() {
                 );
               })}
             </View>
-          ) : pickerOpen === 'country'
-            ? COUNTRIES.map((cn) => {
-                const on = (st0.country ?? 'XX') === cn.code;
+          ) : pickerOpen === 'nativelang'
+            ? NATIVE_LANGS.map((ln) => {
+                const on = (st0.l1 ?? 'en') === ln.code;
                 return (
-                  <Pressable key={cn.code} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ country: cn.code }); setPickerOpen(null); }}>
-                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{flagOf(cn.code)} {countryLabel(cn.code, uiLang)}</Text>
+                  <Pressable key={ln.code} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ l1: ln.code, country: nativeLangCC(ln.code) }); setPickerOpen(null); }}>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{nativeLangFlag(ln.code)} {ln.label}</Text>
                     {on && <Text style={s.pickCheck}>✓</Text>}
                   </Pressable>
                 );
@@ -147,6 +169,7 @@ export default function AccountScreen() {
                 );
               })}
         </ScrollView>
+        )}
       </View>
     </Modal>
   );
@@ -399,6 +422,9 @@ const makeStyles = (c: ThemeColors) =>
     pickBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
     pickSheet: { backgroundColor: c.bg, borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 16, paddingTop: 14, paddingBottom: 24 },
     pickTitle: { fontSize: ty.body, fontWeight: '900', color: c.ink, marginBottom: 10, textAlign: 'center' },
+    nameInput: { borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, color: c.ink, fontSize: ty.body, fontWeight: '700', paddingHorizontal: spacing.md, paddingVertical: spacing.md, textAlign: 'center' },
+    nameSave: { backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.md, alignItems: 'center' },
+    nameSaveT: { color: '#fff', fontSize: ty.body, fontWeight: '900' },
     pickRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 13, paddingHorizontal: 14, borderRadius: radius.lg, marginBottom: 4 },
     pickRowOn: { backgroundColor: c.blueLight },
     pickRowTxt: { fontSize: ty.body, color: c.ink, fontWeight: '700' },
