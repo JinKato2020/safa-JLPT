@@ -305,6 +305,8 @@ export default function MockScreen() {
   const ticketSpentRef = useRef(false); // チケットは最初の科目スタートで1回だけ消費
   const calcProg = useRef(new Animated.Value(0)).current; // 結果計算バー(0→1で約5秒)
   const [calcPct, setCalcPct] = useState(0);
+  const [showBubble, setShowBubble] = useState(false);   // 合否証明書の表示後、少し遅れて桜の吹き出しを出す
+  const bubbleOp = useRef(new Animated.Value(0)).current; // 桜吹き出しのフェードイン
   const [playing, setPlaying] = useState(false);
   const [playCount, setPlayCount] = useState(0); // 現在の聴解問題の再生回数(JFTは2回まで)
   const [reveal2, setReveal2] = useState(false); // 解答後のスクリプト/解説
@@ -337,6 +339,15 @@ export default function MockScreen() {
 
   const cur = exam[idx];
   useEffect(() => { setPlayCount(0); }, [idx]); // 問題が変わったら再生回数リセット
+  // 合否画面へ入ったら、証明書を見せてから約2秒後に桜の吹き出し(合否に合わせた一言)をふわっと出す。
+  useEffect(() => {
+    if (phase !== 'result') { setShowBubble(false); bubbleOp.setValue(0); return; }
+    const id = setTimeout(() => {
+      setShowBubble(true);
+      Animated.timing(bubbleOp, { toValue: 1, duration: 450, useNativeDriver: true }).start();
+    }, 2000);
+    return () => clearTimeout(id);
+  }, [phase, bubbleOp]);
   const byCat = useMemo(() => {
     const out: Record<string, { c: number; t: number }> = {};
     for (const a of answers) { (out[a.section] ||= { c: 0, t: 0 }).t++; if (a.correct) out[a.section].c++; }
@@ -507,35 +518,55 @@ export default function MockScreen() {
     const elapsed = (endedAt ?? Date.now()) - startedAt;
     // 合否: 開発者プレビューは指定どおり / 本番はJFT=jftScore・JLPT=passJlpt(総合＋各区分の足切り)。
     const passed = preview ? preview === 'pass' : (isJft ? !!jftSc?.pass : passJlpt(answers, level));
-    // 証明書サイズは画面の縦横の両方で必ず収める(はみ出し防止)。証明書=縦長(3:4=750/1000)。
-    const heroW = winW - spacing.lg * 2;                       // 本文パディング内の実幅
-    const certH = Math.round(Math.min(winH * 0.30, heroW * 0.85)); // 程よい大きさ(画面の30%以内かつ幅からも制限)
+    // 証明書サイズは画面の縦横の両方で必ず収める(はみ出し防止)。証明書=縦長(0.738=738/1000)。
+    //  高さは画面の34%以内、かつ横幅からも制限(縦横どちらでもはみ出さない)。空の辺り(上部)へ置く。
+    const certH = Math.round(Math.min(winH * 0.34, (winW - spacing.lg * 4) / 0.738)); // 程よい大きさ
     const certW = Math.round(certH * 0.738);                   // 証明書画像の実アスペクト(余白統一後 738/1000)
-    const heroH = Math.round(winH * 0.52);                     // ヒーロー高さ(証明書を中央やや上に置ける縦を確保)
-    const certTop = Math.max(spacing.md, Math.round(heroH * 0.44 - certH / 2)); // 真ん中より少し上
-    const lvlFs = Math.round(certH * 0.09);                    // 証明書に重ねるレベル文字(元N3と同大)
+    const certTop = Math.round(winH * 0.02);                   // 上部バーのすぐ下(空の辺り)
+    const lvlFs = Math.round(certH * 0.075);                   // レベル文字(「日本語能力試験」と金の飾り線の隙間に収まる大きさ)
     return (
-      <SafeAreaView style={s.c}>
-        <ScrollView contentContainerStyle={s.body}>
-          <View style={s.top}>
-            <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12}>
-              <Text style={s.close}>✕</Text>
-            </Pressable>
-            <Text style={s.progress}>{t('mock.result_label')}</Text>
-          </View>
-          {/* 模試終了画面(空)を背景に、合否証明書を上部へ重ねる。サイズは縦横とも画面内に収まるよう確定計算。 */}
-          <View style={[s.certHero, { height: heroH }]}>
-            {/* 終了画像はヒーロー枠と同サイズ(cover)。枠外へはみ出さない(Androidの overflow 事情に依存しない安全策)。 */}
+      <View style={s.fullImgWrap}>
+        <ScrollView showsVerticalScrollIndicator={!preview}>
+          {/* 第1レイヤ: 模試終了(空〜桜)の全画面。画面遷移はさせず、この上に合否証明書を「空の辺り」へ別レイヤで重ねる。 */}
+          <View style={{ width: winW, height: winH }}>
             <Image source={IMG_END} style={StyleSheet.absoluteFill} resizeMode="cover" />
-            {/* 証明書＋レベル文字。証明書はN3を消してあり、ここにレベルを重ねる(元N3と同位置)。 */}
-            <View style={{ width: certW, height: certH, marginTop: certTop }}>
-              <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={StyleSheet.absoluteFill} resizeMode="contain" />
-              {/* 証明書の中央軸は画像中心(0.5)ではなく実測0.507・レベル行は0.476。実素材で位置合わせ済。 */}
-              <Text style={[s.certLevel, { fontSize: lvlFs, lineHeight: lvlFs, top: Math.round(certH * 0.4755 - lvlFs * 0.6), transform: [{ translateX: Math.round(certW * 0.0074) }] }]}>{level}</Text>
-            </View>
+            <SafeAreaView edges={['top', 'bottom']} style={StyleSheet.absoluteFill}>
+              <View style={s.topOnImg}>
+                <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12}>
+                  <Text style={s.closeOnImg}>✕</Text>
+                </Pressable>
+              </View>
+              {/* 証明書は上部(空の辺り)へ。縦横とも画面内に必ず収まる確定サイズ。N3を消した位置にレベルを重ねる。 */}
+              <View style={{ alignItems: 'center', marginTop: certTop }}>
+                <View style={{ width: certW, height: certH }}>
+                  <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={StyleSheet.absoluteFill} resizeMode="contain" />
+                  {/* 中央軸=実測0.507。縦は「日本語能力試験(下端0.40)」と「金の飾り線(0.485)」の隙間の中央へ。金の線に被らない。 */}
+                  <Text style={[s.certLevel, { fontSize: lvlFs, lineHeight: lvlFs, top: Math.round(certH * 0.452 - lvlFs * 0.62), transform: [{ translateX: Math.round(certW * 0.0074) }] }]}>{level}</Text>
+                </View>
+              </View>
+              <View style={{ flex: 1 }} />
+              {preview ? (
+                <View style={s.previewFooter}>
+                  <Text style={s.previewNote}>{t('mock.preview_note')}</Text>
+                  <Pressable style={s.imgCloseBtn} onPress={() => nav.goBack()}><Text style={s.imgCloseT}>{t('mock.close')}</Text></Pressable>
+                </View>
+              ) : (
+                <View style={s.scrollHint}><Text style={s.scrollHintT}>{t('mock.see_details')}</Text></View>
+              )}
+            </SafeAreaView>
+            {/* 桜の吹き出し(証明書表示の少し後にふわっと出る)。合否に合わせた一言。桜の頭上・下向きの尻尾で「桜が話す」感じに。 */}
+            {showBubble && (
+              <Animated.View pointerEvents="none" style={[s.sakuraSpeech, { top: Math.round(winH * 0.5), opacity: bubbleOp }]}>
+                <View style={s.sakuraBubble}>
+                  <Text style={s.sakuraBubbleT}>{t(passed ? 'mock.sakura_pass' : 'mock.sakura_fail')}</Text>
+                </View>
+                <View style={s.sakuraTail} />
+              </Animated.View>
+            )}
           </View>
-          {preview ? <Text style={s.previewNote}>{t('mock.preview_note')}</Text> : null}
-          {!preview && (<>
+
+          {!preview && (
+          <View style={s.statsSheet}>
           <View style={s.resultHero}>
             {isJft && jftSc ? (
               <>
@@ -580,12 +611,13 @@ export default function MockScreen() {
           ) : (
             <Text style={s.allOk}>{t('mock.all_ok')}</Text>
           )}
-          </>)}
           <Pressable style={s.ghost} onPress={() => nav.goBack()}>
             <Text style={s.ghostTxt}>{t('mock.close')}</Text>
           </Pressable>
+          </View>
+          )}
         </ScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -796,8 +828,24 @@ const makeStyles = (c: ThemeColors) =>
     // 合否証明書(結果画面上部・模試終了画面を背景に空の辺りへ重ねる)
     certHero: { width: '100%', borderRadius: radius.lg, overflow: 'hidden', backgroundColor: '#cfe3f5', alignItems: 'center', justifyContent: 'flex-start', marginBottom: spacing.md },
     // 証明書に重ねるレベル文字(元N3の位置・濃紺のセリフ体で証明書に馴染ませる)
-    certLevel: { position: 'absolute', left: 0, right: 0, textAlign: 'center', color: '#1e1e3c', fontWeight: '800', letterSpacing: 1, fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif' },
-    previewNote: { fontSize: ty.small, color: c.amber, fontWeight: '800', textAlign: 'center', marginTop: spacing.xs },
+    // レベル文字。数字が下がらない字形(ライニング数字)のセリフ体にする=NとN以外の数字が同じ高さ・同じベースラインで揃う(Georgiaは旧字体数字でズレる)。
+    certLevel: { position: 'absolute', left: 0, right: 0, textAlign: 'center', color: '#1e1e3c', fontWeight: '700', letterSpacing: 1, fontFamily: Platform.OS === 'ios' ? 'Times New Roman' : 'serif' },
+    previewNote: { fontSize: ty.small, color: '#fff', fontWeight: '800', textAlign: 'center', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
+    // 結果画面(模試終了の全画面＋証明書オーバーレイ)。上部バー・スクロール誘導は空の上に載るので白＋影で視認性確保。
+    topOnImg: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
+    closeOnImg: { fontSize: ty.h2, color: '#fff', fontWeight: '800', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
+    progressOnImg: { fontSize: ty.small, color: '#fff', fontWeight: '800', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
+    previewFooter: { paddingHorizontal: spacing.lg, paddingBottom: spacing.lg, alignItems: 'center', gap: spacing.sm },
+    imgCloseBtn: { alignSelf: 'stretch', backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center' },
+    imgCloseT: { color: '#241a10', fontSize: ty.body, fontWeight: '900', letterSpacing: 1 },
+    scrollHint: { paddingBottom: spacing.md, alignItems: 'center' },
+    scrollHintT: { fontSize: ty.small, color: '#fff', fontWeight: '800', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
+    statsSheet: { backgroundColor: c.bg, padding: spacing.lg, gap: spacing.md, paddingBottom: spacing.xl },
+    // 桜の吹き出し(合否コメント)。桜の頭上に浮かせ、下向きの尻尾で発話者=桜を示す。
+    sakuraSpeech: { position: 'absolute', left: spacing.lg, right: spacing.lg, alignItems: 'center' },
+    sakuraBubble: { backgroundColor: 'rgba(255,255,255,0.96)', borderRadius: radius.lg, paddingVertical: spacing.sm, paddingHorizontal: spacing.md, maxWidth: 340, shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
+    sakuraBubbleT: { fontSize: ty.body, color: '#241a10', fontWeight: '700', lineHeight: 23, textAlign: 'center' },
+    sakuraTail: { width: 0, height: 0, borderLeftWidth: 9, borderRightWidth: 9, borderTopWidth: 12, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderTopColor: 'rgba(255,255,255,0.96)', marginTop: -1 },
     promptCard: {
       backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,
       paddingVertical: spacing.xl, paddingHorizontal: spacing.lg, alignItems: 'center', gap: spacing.xs, minHeight: 130, justifyContent: 'center',

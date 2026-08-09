@@ -90,11 +90,15 @@ export default function AICoachScreen() {
 
   const cat = t(d.weakest.labelKey);
   const strong = t(d.strongest.labelKey);
-  // コーチの締めの一言。実データ(この7日の伸び・予想得点・弱点・次の目標・得意)を織り込んだ長めの励まし。
+  // コーチの締めの一言。実データ(この7日の伸び・予想得点[点]・弱点・得意)を織り込んだ長めの励まし。
+  //  指標は現行の「予想得点＝点（満点/合格ライン）」に統一。％や「あと◯語で◯語まで」の旧指標は使わない。
+  const cleared = st.predScore >= st.passTotal && st.passTotal > 0;
   const coachMsg =
-    `この7日で${d.wg > 0 ? `${d.wg}語ふえて、` : 'コツコツ積み上げて、'}予想得点はいま${scorePct}%。合格ラインの${goalPct}%まで、道のりは着実に縮まっています。` +
+    `この7日で${d.wg > 0 ? `${d.wg}語ふえて、` : 'コツコツ積み上げて、'}` +
+    (cleared
+      ? `予想得点は${st.predScore}点（満点${st.predMax}点）。合格ライン${st.passTotal}点を超えています。この力をしっかり保っていきましょう。`
+      : `予想得点はいま${st.predScore}点（合格ライン${st.passTotal}点）。道のりは着実に縮まっています。`) +
     `いちばん伸びしろが大きいのは「${cat}」です。ここは弱点であると同時に、いちばん点数が動く場所。ひとつ埋めるたびに、予想得点が面白いほど上がっていきます。` +
-    (d.nextGoal ? `まずは「${t(d.nextGoal.labelKey)}」を あと${d.nextGoal.remain}語 で ${d.nextGoal.goal}語 まで。小さな区切りを越えるたびに、自信がひとつずつ積み上がります。` : '') +
     `「${strong}」が得意なあなたなら、弱点にもきっと追いつけます。今日は「${cat}」をほんの少しだけ。焦らず、毎日の一歩を積み重ねていきましょう。`;
   // 予想得点リングの左横に出す自分のアバター(立ち絵)。未選択時は出さない。
   const myAvatar = avatarOf(state.settings.avatar).image;

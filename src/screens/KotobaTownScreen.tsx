@@ -219,7 +219,7 @@ const ROOFS = [
 
 const WORLD = 1024;            // マップ表示サイズ(正方)。当たり判定グリッドはこの中を MAP_G 等分。
 const CELL = WORLD / MAP_G;
-const SPRITE = 43;            // マップ上のアバター背丈(従来64の2/3=表示を小さく。表示・当たり判定・名札・配置すべて連動)
+const SPRITE = 64;            // マップ上のアバター背丈(従来値。表示・当たり判定・名札・配置すべて連動)
 const SPEED = 160;            // px/秒
 const START_COL = 24, START_ROW = 28;
 const STICK_R = 54;          // スティック外周半径
@@ -902,7 +902,7 @@ export default function KotobaTownScreen() {
         const sceneAsp = (sceneSrc.width / sceneSrc.height) || 0.714;
         const SW = Math.round(FW * 0.88);         // 会話背景(MAP)=ステータス枠の見える幅に合わせて小さく=上左右に余白
         const sceneH = Math.round(SW / sceneAsp); // 縦長背景を全体表示(トリム無し)
-        const avH = Math.round(sceneH * 0.52);    // 立ち絵=背景内。会話ダイアログの上端に足元が重なる高さ
+        const avH = Math.round(sceneH * 0.52 * 2 / 3); // 会話画面に別レイヤで乗せる立ち絵=従来の2/3(足元は会話ダイアログ上端のまま)
         const dlgSrc = Image.resolveAssetSource(dlgImg);
         const dlgW = Math.round(SW * 0.95);       // 会話ダイアログ幅=左右に少し余白
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
@@ -932,7 +932,7 @@ export default function KotobaTownScreen() {
         // 6項目(名前|Lv / 性格|得意 / 気分|総時間)=ステータス正方形の上半分。名前は「名前+母語国旗」。右列=Lv→得意→総時間。
         // 総時間=累計学習時間の目安。覚えた語数から概算(1語≈2分)して時間表示にする。
         const totalMin = Math.round(learned * 2);
-        const totalTimeStr = totalMin >= 60 ? `${Math.floor(totalMin / 60)}時間` : `${totalMin}分`;
+        const totalTimeStr = `${Math.floor(totalMin / 60)}:${String(totalMin % 60).padStart(2, '0')}`; // ◯:◯(時:分)
         const FIELDS: { lab: string; val: string; lab2: string; val2: string }[] = [
           { lab: '名前', val: `${talk.nick} ${(talk.flag ?? '').trim()}`.trim(), lab2: 'Lv', val2: String(talk.level) },
           { lab: '性格', val: per ? per.label : '-', lab2: '得意', val2: talk.strong ?? '-' },
@@ -998,7 +998,8 @@ export default function KotobaTownScreen() {
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
                       <Text style={{ position: 'absolute', left: FW * 0.10, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab}</Text>
-                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val}</Text>
+                      {/* 名前(＋母語国旗)は文字数が多くても全部見せる=枠内で自動縮小(⋯で切らない)。 */}
+                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5} style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val}</Text>
                       <View style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
                       <Text style={{ position: 'absolute', left: FW * splitX, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab2}</Text>
                       <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: FW * (splitX + xLab2), width: FW * rightAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val2}</Text>
