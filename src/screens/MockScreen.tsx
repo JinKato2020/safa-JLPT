@@ -1,7 +1,7 @@
 // ミニ模試(言語知識20問) / フル模試(全区分=漢字語彙＋文法＋読解＋聴解)。本番形式・客観採点(重み5)。
 // 採点後: 区分別の弱点ヒートマップ → 語彙/文法の弱点だけ復習(Quiz)へ。掲示板§5(UWorld閉ループ)。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Image, Animated, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -12,7 +12,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { isInMyList } from '../store/state';
 import { guessCorrect, jftMockScore } from '../store/selectors';
 import { dayStr } from '../store/state';
-import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor } from '../data';
+import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor, readingItemsForSub, listeningItemsForSub, READING_SUBTYPES, LISTENING_SUBTYPES, type ReadingSubtype, type ListeningSubtype } from '../data';
 import RubyText from '../components/RubyText';
 import AppButton from '../components/AppButton';
 import PassageSetPlayer from '../components/PassageSetPlayer';
@@ -21,11 +21,16 @@ import { readingToSet, type PassageSet } from '../quiz/passageSet';
 import { listeningSource } from '../data/listeningAudio';
 import { sendMock } from '../telemetry/telemetry';
 import { sample, shuffleChoices, type ExampleHint, type SaveRef } from '../quiz/quiz';
-import { blueprintCounts, daimonCounts, DAIMON_SEC, type Daimon } from '../data/examBlueprint';
+import { blueprintCounts, daimonCounts, DAIMON_SEC, DAIMON_LABEL, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, type Daimon } from '../data/examBlueprint';
 import { daimonUnitIds, questionForUnit, MOJI_DAIMON } from '../data/daimon';
 import { JFT_EXPRESSION } from '../data';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
+
+const IMG_BREAK = require('../../assets/mock/mock_break.jpg');
+const IMG_END = require('../../assets/mock/mock_end.jpg');
+const IMG_CERT_PASS = require('../../assets/mock/mock_cert_pass.jpg');
+const IMG_CERT_FAIL = require('../../assets/mock/mock_cert_fail.jpg');
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 type Sec = 'moji_goi' | 'bunpou' | 'dokkai' | 'choukai';
@@ -35,8 +40,59 @@ const SEC_ORDER: Sec[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 const SEC_LABEL: Record<Sec, string> = { moji_goi: 'mock.sec_moji_goi', bunpou: 'mock.sec_bunpou', dokkai: 'mock.sec_dokkai', choukai: 'mock.sec_choukai' };
 // JFTのセクション名(①文字と語彙②会話と表現③聴解④読解)。
 const JFT_SEC_LABEL: Record<Sec, string> = { moji_goi: 'exam.jft_cat_moji', bunpou: 'exam.jft_cat_hyougen', dokkai: 'mock.sec_dokkai', choukai: 'mock.sec_choukai' };
-// 1問あたりの持ち時間(秒)。総時間=Σ(区分の出題数×秒)で本番に概ね一致(例: N4フル=35×40+25×40+10×110+28×90≈100分)。
+// 1問あたりの持ち時間(秒)。JFT/ミニのタイマー算出に使用(JLPTフルは科目別ブロック時間=BLOCK_MINで計る)。
 const SEC_SECONDS: Record<Sec, number> = { moji_goi: 40, bunpou: 40, dokkai: 110, choukai: 90 };
+
+// 本番の「試験科目(時間の区切り)」= 全級3ブロック。各ブロックの間に休憩が入る。分は現行(2022改定後)規定。
+//  ①言語知識(文字・語彙)  ②言語知識(文法)・読解  ③聴解  合計= N5:90 / N4:115 / N3:140。
+const BLOCK_MIN: Record<Level, [number, number, number]> = {
+  N5: [20, 40, 30],
+  N4: [25, 55, 35],
+  N3: [30, 70, 40],
+};
+const BLOCK_LABELS = ['言語知識（文字・語彙）', '言語知識（文法）・読解', '聴解'] as const;
+// 小区分キー→i18nラベルキー(大問分野の見出し用)。
+const READING_SUB_LABEL: Record<string, string> = Object.fromEntries(READING_SUBTYPES.map((x) => [x.key, x.labelKey]));
+const LISTEN_SUB_LABEL: Record<string, string> = Object.fromEntries(LISTENING_SUBTYPES.map((x) => [x.key, x.labelKey]));
+// exam(区分順に並ぶ)を3ブロックへ割る: moji_goi=①, bunpou+dokkai=②, choukai=③。
+const blockOf = (sec: Sec): 0 | 1 | 2 => (sec === 'moji_goi' ? 0 : sec === 'choukai' ? 2 : 1);
+interface ExamBlock { label: string; from: number; to: number; ms: number }
+function buildBlocks(exam: MockItem[], isJft: boolean, level: Level): ExamBlock[] {
+  const mins = BLOCK_MIN[level] ?? BLOCK_MIN.N4;
+  // JFT = 休憩なしの1ブロック(通しタイマー)。JLPTは下で3科目に分割。
+  if (isJft) {
+    const ms = exam.reduce((a, it) => a + stepSeconds(it) * 1000, 0);
+    return [{ label: 'JFT模試', from: 0, to: exam.length, ms }];
+  }
+  const blocks: ExamBlock[] = [];
+  for (let g = 0 as 0 | 1 | 2; g < 3; g++) {
+    const from = exam.findIndex((it) => blockOf(it.section) === g);
+    if (from < 0) continue;
+    let to = from;
+    while (to < exam.length && blockOf(exam[to].section) === g) to++;
+    blocks.push({ label: BLOCK_LABELS[g], from, to, ms: mins[g] * 60_000 });
+  }
+  return blocks.length ? blocks : [{ label: '', from: 0, to: exam.length, ms: (mins[0] + mins[1] + mins[2]) * 60_000 }];
+}
+
+// 合格判定(近似)。本番は尺度得点だが、模試は正答率で近似: 総合(合格点/180)と各得点区分の足切り(基準点/満点)を両方満たせば合格。
+//  得点区分の束ね方は本番どおり(N4/N5=言語知識・読解＋聴解の2区分 / N3=言語知識＋読解＋聴解の3区分)。
+const PASS_RULE: Record<string, { overall: number; sections: { secs: Sec[]; min: number }[] }> = {
+  N5: { overall: 80 / 180, sections: [{ secs: ['moji_goi', 'bunpou', 'dokkai'], min: 38 / 120 }, { secs: ['choukai'], min: 19 / 60 }] },
+  N4: { overall: 90 / 180, sections: [{ secs: ['moji_goi', 'bunpou', 'dokkai'], min: 38 / 120 }, { secs: ['choukai'], min: 19 / 60 }] },
+  N3: { overall: 95 / 180, sections: [{ secs: ['moji_goi', 'bunpou'], min: 19 / 60 }, { secs: ['dokkai'], min: 19 / 60 }, { secs: ['choukai'], min: 19 / 60 }] },
+};
+function passJlpt(answers: { section: Sec; correct: boolean }[], level: Level): boolean {
+  const rule = PASS_RULE[level];
+  if (!rule || answers.length === 0) return false;
+  const overallOk = answers.filter((a) => a.correct).length / answers.length >= rule.overall;
+  const secOk = rule.sections.every((g) => {
+    const items = answers.filter((a) => g.secs.includes(a.section));
+    if (items.length === 0) return true; // その区分が無ければスキップ
+    return items.filter((a) => a.correct).length / items.length >= g.min;
+  });
+  return overallOk && secOk;
+}
 
 interface MockItem {
   kind: 'word' | 'listening' | 'passageSet';
@@ -58,6 +114,7 @@ interface MockItem {
   explain?: string;
   itemId?: string;
   daimon?: Daimon; // 大問(知識区分の内訳集計用)
+  grpKey?: string; // 大問分野のi18nラベルキー(聴解の区分ラベル等・ヘッダ表示用)
   saveRef?: SaveRef; // my単語帳への保存対象(questionForUnit経由の語daimonのみ)
   set?: PassageSet; // kind==='passageSet'用: 読解1文章 or 文章の文法1文章＋複数設問を一括提示(PassageSetPlayer)
 }
@@ -135,6 +192,45 @@ function listeningItems(levels: Level[], nClips: number, seen: Seen): MockItem[]
     }),
   );
 }
+// JLPT読解=本番の小区分構成(DOKKAI_BLUEPRINT)どおりに組む。各小区分の目安“設問数”に達するまで本文を採る
+//  (短文=1問/本、中文=数問/本、長文=数問/本、情報検索=1問/本)。プールは学習と共有し pickFresh で未出題優先。
+function readingByBlueprint(levels: Level[], level: Level, full: boolean, seen: Seen): MockItem[] {
+  const bp = DOKKAI_BLUEPRINT[level] ?? {};
+  const out: MockItem[] = [];
+  for (const sub of Object.keys(bp) as ReadingSubtype[]) {
+    const targetQ = full ? bp[sub] : Math.max(1, Math.round(bp[sub] / 3));
+    const pool = levels.flatMap((lv) => readingItemsForSub(lv, sub));
+    const picked = pickFresh(pool, (p) => p.questions.some((q) => !!seen[q.id]), pool.length);
+    let q = 0;
+    for (const p of picked) {
+      if (q >= targetQ) break;
+      out.push({ kind: 'passageSet', id: p.id, section: 'dokkai' as Sec, question: '', choices: [], answerIndex: -1, set: readingToSet(p) });
+      q += p.questions.length;
+    }
+  }
+  return out;
+}
+// JLPT聴解=本番の区分構成(CHOUKAI_BLUEPRINT)どおり。音声(mp3)を持つクリップのみ。区分ごとに目安数まで採る。
+function listeningByBlueprint(levels: Level[], level: Level, full: boolean, seen: Seen): MockItem[] {
+  const bp = CHOUKAI_BLUEPRINT[level] ?? {};
+  const out: MockItem[] = [];
+  for (const sub of Object.keys(bp) as ListeningSubtype[]) {
+    const targetQ = full ? bp[sub] : Math.max(1, Math.round(bp[sub] / 3));
+    const pool = levels.flatMap((lv) => listeningItemsForSub(lv, sub)).filter((cl) => !!cl.audio);
+    const picked = pickFresh(pool, (cl) => cl.questions.some((q) => !!seen[q.id]), pool.length);
+    let q = 0;
+    for (const cl of picked) {
+      if (q >= targetQ) break;
+      for (const qq of cl.questions) {
+        const sc = shuffleChoices(qq.choices, qq.answerIndex);
+        out.push({ kind: 'listening' as const, id: qq.id, section: 'choukai' as Sec, grpKey: LISTEN_SUB_LABEL[sub], title: cl.title, clipId: cl.id, script: cl.script, question: qq.q, choices: sc.choices, answerIndex: sc.answerIndex, explain: qq.explain });
+      }
+      q += cl.questions.length;
+    }
+  }
+  return out;
+}
+
 // JFT模試は4セクションを必ず含む＝本番構成。出題はJFT公式順 ①文字と語彙②会話と表現③聴解④読解 にグループ化(セクション不可逆の本番再現)。
 const JFT_SEC_ORDER: Record<Sec, number> = { moji_goi: 0, bunpou: 1, choukai: 2, dokkai: 3 };
 // 比率駆動: フル=本番の出題数、ミニ=round(÷3)。JLPTは大問内訳まで本番比率、JFTは区分(セクション)比率。
@@ -146,8 +242,9 @@ function buildExam(levels: Level[], full: boolean, jft: boolean, seen: Seen): Mo
     ? [...jftKnowledgeItems(levels, 'moji_goi', bp.moji_goi, seen), ...jftKnowledgeItems(levels, 'bunpou', bp.bunpou, seen)]
     : daimonCounts(levels[0], full).filter((d) => d.daimon !== 'passage_grammar').flatMap((d) => knowledgeForDaimon(levels, d.daimon, d.count, seen));
   const passageGrammar = jft ? [] : passageGrammarItems(levels, seen); // JFTにJLPTの文章の文法は無い
-  const reading = readingSetItems(levels, bp.dokkai, seen);
-  const listening = listeningItems(levels, bp.choukai, seen);
+  // JLPT=本番の小区分構成どおりに読解/聴解を組む(短文/中文/長文/情報検索・課題/ポイント/概要/発話/即時)。JFTは従来の予約枠。
+  const reading = jft ? readingSetItems(levels, bp.dokkai, seen) : readingByBlueprint(levels, levels[0], full, seen);
+  const listening = jft ? listeningItems(levels, bp.choukai, seen) : listeningByBlueprint(levels, levels[0], full, seen);
   if (jft) {
     // JFT=公式セクション順(①文字語彙②会話表現③聴解④読解)
     return [...knowledge, ...reading, ...listening].sort((a, b) => JFT_SEC_ORDER[a.section] - JFT_SEC_ORDER[b.section]);
@@ -180,23 +277,36 @@ function stepQuestionIds(it: MockItem): { id: string; section: Sec; label: strin
 export default function MockScreen() {
   const nav = useNavigation<Nav>();
   const route = useRoute<RouteProp<RootStackParamList, 'Mock'>>();
-  const full = route.params?.full ?? false;
+  const full = route.params?.full ?? true; // ミニ模試は廃止。既定はフル(全区分)。
+  const preview = route.params?.preview; // 開発者確認用: 'pass'/'fail' で終了→合否画面を直接表示
   const state = useAppState();
-  const { mockAnswer, recordMockResult, addToMyList } = useAppActions();
+  const { mockAnswer, recordMockResult, addToMyList, spendMockTicket } = useAppActions();
   const c = useColors();
   const t = useT();
+  const { width: winW, height: winH } = useWindowDimensions();
   const s = useMemo(() => makeStyles(c), [c]);
   // レベル適応ルビ: ユーザーのレベル以上(同レベル含む)の漢字群にだけ読みを振る。
   const rubyGate = (run: string) => rubyNeeded(run, state.settings.level);
 
   const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
+  const level = (state.settings.level as Level) ?? 'N4';
   const [exam] = useState<MockItem[]>(() => buildExam(isJft ? ['N5', 'N4'] : [state.settings.level], full, isJft, state.items));
+  // 本番の試験科目=時間の区切り(JLPTフルは3ブロック＋間に休憩 / JFT・ミニは1ブロック通し)。
+  const blocks = useMemo(() => buildBlocks(exam, isJft, level), [exam, isJft, level]);
+  const [blockIdx, setBlockIdx] = useState(0);
+  const [blockStartedAt, setBlockStartedAt] = useState(() => Date.now());
+  const curBlock = blocks[blockIdx] ?? blocks[0];
+  const multiBlock = blocks.length > 1;
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [startedAt] = useState(() => Date.now());
   const [endedAt, setEndedAt] = useState<number | null>(null);
-  const [phase, setPhase] = useState<'exam' | 'result'>('exam');
+  // フロー: break(各科目の前=模試休憩画面) → exam(出題) →(科目終わり)→ 次の科目の break … 最後の科目後 → end(模試終了) → calc(計算演出) → result(合否)
+  const [phase, setPhase] = useState<'exam' | 'break' | 'end' | 'calc' | 'result'>(preview ? 'end' : 'break');
+  const ticketSpentRef = useRef(false); // チケットは最初の科目スタートで1回だけ消費
+  const calcProg = useRef(new Animated.Value(0)).current; // 結果計算バー(0→1で約5秒)
+  const [calcPct, setCalcPct] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [playCount, setPlayCount] = useState(0); // 現在の聴解問題の再生回数(JFTは2回まで)
   const [reveal2, setReveal2] = useState(false); // 解答後のスクリプト/解説
@@ -257,21 +367,19 @@ export default function MockScreen() {
     } catch { setPlaying(false); }
   };
 
-  // 制限時間: 公式規定の試験時間で計る(イントロ表示と一致)。フル=本番規定どおり／ミニ=その1/3。
-  //  JLPT本番: N5=105分 / N4=125分 / N3=140分(文字語彙＋文法読解＋聴解の合計)。
-  //  ※問題数×秒の合算だと生成数に左右されて規定時間からズレるため、規定時間を正本にする。
-  //  JFTは公式構成が別のため従来どおり問題数ベース。
-  const limitMs = useMemo(() => {
-    if (isJft) return exam.reduce((acc, it) => acc + stepSeconds(it) * 1000, 0);
-    const OFFICIAL_MIN: Record<Level, number> = { N5: 105, N4: 125, N3: 140 };
-    const totalMs = (OFFICIAL_MIN[state.settings.level] ?? 125) * 60_000;
-    return full ? totalMs : Math.round(totalMs / 3);
-  }, [exam, isJft, full, state.settings.level]);
-  const [remainingMs, setRemainingMs] = useState(limitMs);
+  // 制限時間: 本番の試験科目ごと(=ブロック)に計る。JLPTフル=科目別(BLOCK_MIN)・間に休憩 / JFT・ミニ=1ブロック通し。
+  //  ブロックの時間が切れたら、そのブロックの未回答を不正解にして次の科目(休憩)へ。最後の科目なら結果へ。
+  const [remainingMs, setRemainingMs] = useState(() => blocks[0]?.ms ?? 0);
   const [timedOut, setTimedOut] = useState(false);
+  // 現ブロック(科目)を終える(時間切れ or 最終問題の回答後)。最後の科目なら模試終了へ、そうでなければ次の科目を進めて休憩へ。
+  const sectionDone = () => {
+    void stopSound();
+    if (blockIdx + 1 >= blocks.length) { setEndedAt(Date.now()); setPhase('end'); }
+    else { setBlockIdx((b) => b + 1); setPhase('break'); }
+  };
   useEffect(() => {
-    if (phase !== 'exam') return;
-    const deadline = startedAt + limitMs;
+    if (phase !== 'exam' || !curBlock) return;
+    const deadline = blockStartedAt + curBlock.ms;
     const tick = () => {
       const r = deadline - Date.now();
       if (r > 0) { setRemainingMs(r); return; }
@@ -280,21 +388,103 @@ export default function MockScreen() {
       void stopSound();
       setAnswers((prev) => {
         const done = new Set(prev.map((a) => a.id));
-        // passage-setは「セット丸ごと」ではなく内包する設問ごとに未回答判定(部分回答中のセットも残り全問を不正解に)。
-        const miss = exam.flatMap((it) =>
+        // このブロック(科目)の未回答だけを不正解に(まだ到達していない後続科目は対象外)。passage-setは設問ごとに判定。
+        const miss = exam.slice(curBlock.from, curBlock.to).flatMap((it) =>
           stepQuestionIds(it)
             .filter((q) => !done.has(q.id))
             .map((q) => ({ id: q.id, section: q.section, correct: false, label: q.label, drillable: it.kind === 'word' })),
         );
         return [...prev, ...miss];
       });
-      setEndedAt(Date.now());
-      setPhase('result');
+      sectionDone(); // ★制限時間に達したら休憩画面へ強制移動(最後の科目なら模試終了へ)
     };
     tick();
     const iv = setInterval(tick, 500);
     return () => clearInterval(iv);
-  }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [phase, blockIdx, blockStartedAt]); // eslint-disable-line react-hooks/exhaustive-deps
+  // これから始める科目(=現ブロック)を開始する。最初の科目スタートでチケットを1回だけ消費。
+  const startSection = async () => {
+    await stopSound();
+    if (!ticketSpentRef.current) { ticketSpentRef.current = true; spendMockTicket(); }
+    setIdx(curBlock.from);
+    setPicked(null);
+    setReveal2(false);
+    setRemainingMs(curBlock.ms);
+    setBlockStartedAt(Date.now());
+    setPhase('exam');
+  };
+  // 「結果を計算する」→ 約5秒でバーを0→100%に(実際の計算は一瞬だが、ドキドキ感の演出)→ 合否画面へ。
+  const startCalc = () => {
+    setPhase('calc');
+    setCalcPct(0);
+    calcProg.setValue(0);
+    const lid = calcProg.addListener(({ value }) => setCalcPct(Math.round(value * 100)));
+    Animated.timing(calcProg, { toValue: 1, duration: 5000, useNativeDriver: false }).start(() => {
+      calcProg.removeListener(lid);
+      setCalcPct(100);
+      setPhase('result');
+    });
+  };
+
+  // 休憩画面(各科目の前・科目と科目の間)。休憩画像＋分野/制限時間＋「(分野)をスタート」。開始まで待てる。
+  if (phase === 'break') {
+    const bLabel = curBlock?.label ?? '';
+    const bMin = Math.round((curBlock?.ms ?? 0) / 60_000);
+    const bN = (curBlock?.to ?? 0) - (curBlock?.from ?? 0);
+    return (
+      <View style={s.fullImgWrap}>
+        <Image source={IMG_BREAK} style={{ width: winW, height: winH }} resizeMode="cover" />
+        <SafeAreaView edges={['top', 'bottom']} style={StyleSheet.absoluteFill}>
+          <View style={s.breakOverlay}>
+            <View style={s.breakTop}>
+              <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12} style={s.breakBack}>
+                <Text style={s.breakBackT}>← {t('mock.break_back')}</Text>
+              </Pressable>
+            </View>
+            <View style={s.breakPanel}>
+              <Text style={s.breakNextLbl}>{multiBlock ? `${blockIdx + 1} / ${blocks.length}　${t('mock.break_next')}` : t('mock.break_next')}</Text>
+              <Text style={s.breakNext}>{bLabel}</Text>
+              <Text style={s.breakMeta}>{t('mock.break_meta', { n: bN, m: bMin })}</Text>
+              <Text style={s.breakWarn}>{t('mock.break_warn')}</Text>
+              <Pressable style={s.breakBtn} onPress={startSection}><Text style={s.breakBtnT}>{t('mock.break_start_named', { s: bLabel })}</Text></Pressable>
+            </View>
+          </View>
+        </SafeAreaView>
+      </View>
+    );
+  }
+
+  // 模試終了画面(最後の科目のあと)。桜のねぎらい＋「結果を計算する」。
+  if (phase === 'end') {
+    return (
+      <View style={s.fullImgWrap}>
+        <Image source={IMG_END} style={{ width: winW, height: winH }} resizeMode="cover" />
+        <SafeAreaView edges={['top', 'bottom']} style={StyleSheet.absoluteFill}>
+          <View style={s.endOverlay}>
+            <View style={s.endBubble}>
+              {t('mock.end_sakura').split('\n').map((ln, i) => (<Text key={i} style={s.endBubbleT}>{ln}</Text>))}
+            </View>
+            <Pressable style={s.breakBtn} onPress={startCalc}><Text style={s.breakBtnT}>{t('mock.end_calc')}</Text></Pressable>
+          </View>
+        </SafeAreaView>
+      </View>
+    );
+  }
+
+  // 結果計算の演出(約5秒でバー100%)。
+  if (phase === 'calc') {
+    return (
+      <SafeAreaView style={s.c}>
+        <View style={s.calcWrap}>
+          <Text style={s.calcH}>{t('mock.calc_title')}</Text>
+          <View style={s.calcTrack}>
+            <Animated.View style={[s.calcFill, { width: calcProg.interpolate({ inputRange: [0, 1], outputRange: ['0%', '100%'] }) }]} />
+          </View>
+          <Text style={s.calcPct}>{calcPct}%</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   if (phase === 'result' || !cur) {
     const correct = answers.filter((a) => a.correct).length;
@@ -303,6 +493,8 @@ export default function MockScreen() {
     const jftSc = isJft ? jftMockScore(answers.map((a) => ({ id: a.id, section: a.section, correct: a.correct }))) : null;
     const wrongDrill = answers.filter((a) => !a.correct && a.drillable);
     const elapsed = (endedAt ?? Date.now()) - startedAt;
+    // 合否: 開発者プレビューは指定どおり / 本番はJFT=jftScore・JLPT=passJlpt(総合＋各区分の足切り)。
+    const passed = preview ? preview === 'pass' : (isJft ? !!jftSc?.pass : passJlpt(answers, level));
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.body}>
@@ -312,6 +504,10 @@ export default function MockScreen() {
             </Pressable>
             <Text style={s.progress}>{t('mock.result_label')}</Text>
           </View>
+          {/* 合否の証明書(画面上部)。合格=合格証明書 / 不合格=不合格証明書。 */}
+          <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={s.cert} resizeMode="contain" />
+          {preview ? <Text style={s.previewNote}>{t('mock.preview_note')}</Text> : null}
+          {!preview && (<>
           <View style={s.resultHero}>
             {isJft && jftSc ? (
               <>
@@ -325,7 +521,7 @@ export default function MockScreen() {
               </>
             )}
             <Text style={s.resultFrac}>{t('mock.result_frac', { n: correct, m: answers.length, t: mmss(elapsed) })}</Text>
-            <Text style={s.resultCap}>{full ? t('mock.full_exam') : t('mock.mini_exam')}</Text>
+            <Text style={s.resultCap}>{t('mock.full_exam')}</Text>
             {timedOut ? <Text style={s.timeup}>{t('mock.timeup')}</Text> : null}
             {prevMock ? (
               <Text style={[s.resultDelta, { color: pct - prevMock.pct > 0 ? c.green : pct - prevMock.pct < 0 ? c.red : c.mute }]}>
@@ -356,6 +552,7 @@ export default function MockScreen() {
           ) : (
             <Text style={s.allOk}>{t('mock.all_ok')}</Text>
           )}
+          </>)}
           <Pressable style={s.ghost} onPress={() => nav.goBack()}>
             <Text style={s.ghostTxt}>{t('mock.close')}</Text>
           </Pressable>
@@ -379,7 +576,9 @@ export default function MockScreen() {
     await stopSound();
     setPicked(null);
     setReveal2(false);
-    if (idx + 1 >= exam.length) { setEndedAt(Date.now()); setPhase('result'); } else setIdx((i) => i + 1);
+    // ブロック(科目)内はまだ次の問題へ。科目の最後まで解いたら休憩(または結果)へ。
+    if (idx + 1 < curBlock.to) setIdx((i) => i + 1);
+    else sectionDone();
   };
   // passage-setステップ(読解/文章の文法)が全問回答された時にPassageSetPlayerから1回だけ呼ばれる。設問ごとにmock集計へ加算(採点は
   // PassageSetPlayer内のquizAnswerが既に記録済み=ここではMockScreenローカルの正誤集計(結果画面/区分ヒートマップ/JFT得点)のみ行う)。
@@ -391,22 +590,48 @@ export default function MockScreen() {
 
   const reveal = picked !== null;
 
+  // 大問分野(ヘッダ表示)と、その大問内での現在位置。知識=大問ラベル/読解=小区分/文章の文法/聴解=区分。
+  const sigOf = (it: MockItem): string =>
+    it.kind === 'listening' ? 'L:' + (it.grpKey ?? '')
+      : it.daimon ? 'K:' + it.daimon
+        : it.kind === 'passageSet' ? (it.section === 'bunpou' ? 'PG' : 'R:' + (it.set?.subtype ?? ''))
+          : 'S:' + it.section;
+  const grpKeyOf = (it: MockItem): string | undefined =>
+    it.kind === 'listening' ? it.grpKey
+      : it.daimon ? DAIMON_LABEL[it.daimon]
+        : it.kind === 'passageSet' ? (it.section === 'bunpou' ? DAIMON_LABEL.passage_grammar : READING_SUB_LABEL[it.set?.subtype ?? ''])
+          : (isJft ? JFT_SEC_LABEL : SEC_LABEL)[it.section];
+  const curSig = sigOf(cur);
+  let gStart = idx; while (gStart > curBlock.from && sigOf(exam[gStart - 1]) === curSig) gStart--;
+  let gEnd = idx; while (gEnd + 1 < curBlock.to && sigOf(exam[gEnd + 1]) === curSig) gEnd++;
+  const grpLabelKey = grpKeyOf(cur);
+  const grpLabel = grpLabelKey ? t(grpLabelKey) : (multiBlock ? curBlock.label : '');
+
   return (
     <SafeAreaView style={s.c}>
       <View style={s.topWrap}>
-        <View style={s.top}>
+        <View style={s.topRow}>
           <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12}>
             <Text style={s.close}>✕</Text>
           </Pressable>
-          <Text style={[s.timer, remainingMs <= 60000 ? s.timerLow : null]}>⏱ {mmss(remainingMs)}</Text>
-          <Text style={s.progress}>{idx + 1} / {exam.length}</Text>
+          {multiBlock ? <Text style={s.blockTag}>{curBlock.label}</Text> : <View />}
+          <View style={{ width: 20 }} />
         </View>
-        <Text style={s.secTag}>{t((isJft ? JFT_SEC_LABEL : SEC_LABEL)[cur.section])}</Text>
+        {/* ★制限時間を最上部に大きく目立たせる */}
+        <View style={[s.timerBox, remainingMs <= 60000 ? s.timerBoxLow : null]}>
+          <Text style={s.timerBoxLbl}>{t('mock.time_left')}</Text>
+          <Text style={[s.timerBig, remainingMs <= 60000 ? s.timerLow : null]}>{mmss(remainingMs)}</Text>
+        </View>
+        {/* 大問分野（大問内の 現在/総数）＋ 問題IDを小さく */}
+        <View style={s.daimonRow}>
+          <Text style={s.secTag} numberOfLines={1}>{grpLabel}　{idx - gStart + 1} / {gEnd - gStart + 1}</Text>
+          <Text style={s.qidText}>ID: {cur.id}</Text>
+        </View>
       </View>
 
       {cur.kind === 'passageSet' && cur.set ? (
         // 読解/文章の文法=1文章＋全設問を一括提示。採点は設問単位(PassageSetPlayerのonGraded)。「次へ」もPassageSetPlayer側で統一。
-        <PassageSetPlayer key={cur.set.id} set={cur.set} isLast={idx + 1 >= exam.length} onNext={next} onGraded={accumulateScore} />
+        <PassageSetPlayer key={cur.set.id} set={cur.set} isLast={idx + 1 >= curBlock.to && blockIdx + 1 >= blocks.length} onNext={next} onGraded={accumulateScore} />
       ) : (
         <ScrollView contentContainerStyle={s.body}>
           {cur.kind === 'word' ? (
@@ -469,7 +694,7 @@ export default function MockScreen() {
 
           {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問の私の単語帳登録は廃止(模試は結果重視)。 */}
           {reveal ? (
-            <AnswerFooter correct={picked === cur.answerIndex} onNext={next} nextKind={idx + 1 >= exam.length ? 'result' : 'next'} />
+            <AnswerFooter correct={picked === cur.answerIndex} onNext={next} nextKind={idx + 1 >= curBlock.to && blockIdx + 1 >= blocks.length ? 'result' : 'next'} />
           ) : (
             <Text style={s.hint}>{t('mock.hint')}</Text>
           )}
@@ -506,7 +731,41 @@ const makeStyles = (c: ThemeColors) =>
     timer: { fontSize: ty.small, color: c.ink2, fontWeight: '800' },
     timerLow: { color: c.red },
     timeup: { fontSize: ty.small, color: c.red, fontWeight: '800', marginTop: spacing.xs },
-    secTag: { fontSize: ty.tiny, fontWeight: '800', color: c.blue, letterSpacing: 1 },
+    secTag: { fontSize: ty.tiny, fontWeight: '800', color: c.blue, letterSpacing: 1, flexShrink: 1 },
+    topRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+    blockTag: { fontSize: ty.tiny, color: c.mute, fontWeight: '800', flex: 1, textAlign: 'center' },
+    timerBox: { alignSelf: 'center', alignItems: 'center', backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, paddingVertical: spacing.xs, paddingHorizontal: spacing.xl, marginTop: spacing.xs },
+    timerBoxLow: { backgroundColor: c.ngBg, borderColor: c.red },
+    timerBoxLbl: { fontSize: ty.tiny, color: c.mute, fontWeight: '800', letterSpacing: 1 },
+    timerBig: { fontSize: 30, fontWeight: '900', color: c.ink, fontVariant: ['tabular-nums'], lineHeight: 34 },
+    daimonRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: spacing.sm, gap: spacing.sm },
+    qidText: { fontSize: ty.tiny, color: c.faint, fontWeight: '700' },
+    // 休憩/開始画面・模試終了画面(全画面イラスト＋半透明パネル)
+    fullImgWrap: { flex: 1, backgroundColor: '#000' },
+    breakOverlay: { flex: 1, justifyContent: 'space-between', padding: spacing.lg },
+    breakTop: { flexDirection: 'row' },
+    breakBack: { backgroundColor: 'rgba(20,16,10,0.55)', borderRadius: 999, paddingVertical: 6, paddingHorizontal: 14 },
+    breakBackT: { color: '#fff', fontSize: ty.small, fontWeight: '800' },
+    breakPanel: { backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: 4 },
+    breakNextLbl: { fontSize: ty.tiny, color: '#6b5b45', fontWeight: '800', letterSpacing: 1 },
+    breakNext: { fontSize: ty.h2, color: '#241a10', fontWeight: '900', textAlign: 'center' },
+    breakMeta: { fontSize: ty.small, color: '#3a2f20', fontWeight: '800', fontVariant: ['tabular-nums'], marginTop: 2 },
+    breakWarn: { fontSize: ty.small, color: '#b4531f', fontWeight: '800', textAlign: 'center', marginTop: spacing.sm, lineHeight: 22 },
+    breakBtn: { width: '100%', backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.sm },
+    breakBtnT: { color: '#fff', fontSize: ty.body, fontWeight: '900', letterSpacing: 1 },
+    // 模試終了(桜のねぎらい吹き出し＋計算ボタン)
+    endOverlay: { flex: 1, justifyContent: 'flex-end', padding: spacing.lg, gap: spacing.md },
+    endBubble: { backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, padding: spacing.lg, gap: 4 },
+    endBubbleT: { fontSize: ty.body, color: '#241a10', fontWeight: '700', lineHeight: 26 },
+    // 結果計算バー
+    calcWrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: spacing.md },
+    calcH: { fontSize: ty.h2, fontWeight: '900', color: c.ink },
+    calcTrack: { width: '100%', height: 16, borderRadius: 999, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, overflow: 'hidden' },
+    calcFill: { height: '100%', backgroundColor: c.blue, borderRadius: 999 },
+    calcPct: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
+    // 合否証明書(結果画面上部)
+    cert: { width: '100%', aspectRatio: 1050 / 1400, alignSelf: 'center' },
+    previewNote: { fontSize: ty.small, color: c.amber, fontWeight: '800', textAlign: 'center', marginTop: spacing.xs },
     promptCard: {
       backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,
       paddingVertical: spacing.xl, paddingHorizontal: spacing.lg, alignItems: 'center', gap: spacing.xs, minHeight: 130, justifyContent: 'center',

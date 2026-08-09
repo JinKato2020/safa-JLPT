@@ -239,12 +239,8 @@ const TREE = { x: 259, y: 165, w: 437, h: 285 };
 
 // 応援コメント(固定6種・自由入力なし=荒らし不可)。仮想学習者にも送れる(ローカル反応のみ)。
 const CHEERS: { key: string; emoji: string; label: string; reply: string }[] = [
-  { key: 'flower', emoji: '🌷', label: 'お花をおくる', reply: 'わあ、ありがとう！' },
-  { key: 'ganbare', emoji: '💪', label: 'がんばって', reply: 'うん、がんばる！' },
-  { key: 'sugoi', emoji: '🎉', label: 'すごい！', reply: 'えへへ、うれしい！' },
-  { key: 'issho', emoji: '🤝', label: '一緒にがんばろう', reply: 'こちらこそ、一緒に！' },
-  { key: 'otsukare', emoji: '☕', label: 'おつかれさま', reply: 'ありがとう、ひと休みするね' },
-  { key: 'nice', emoji: '🌸', label: 'いいね', reply: 'ありがとう！' },
+  { key: 'ganbaro', emoji: '📖', label: '今日も勉強、一緒に頑張ろう！', reply: '' },
+  { key: 'homeru', emoji: '🎉', label: '沢山勉強しているね。凄い！', reply: '' },
 ];
 
 // 当たり判定(足元がマップの'.'か)。プレイヤー・NPC共通。座標=スプライト左上。
@@ -738,7 +734,7 @@ export default function KotobaTownScreen() {
             const top = si.y + si.h - SPRITE;                 // 足元を元のベンチ座面下端にそろえる=立ちと同じ大きさ
             return (
               <View key={i} style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center' }} pointerEvents="none">
-                <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{si.v.nick} · {si.v.level}</Text></View>
+                {/* 名札(名前・Lv)は前面レイヤより上へ別描画する(木/屋根の裏に隠れても消えないように) */}
                 <Image source={SET.down[0]} style={{ width: SPRITE, height: SPRITE }} resizeMode="contain" />
               </View>
             );
@@ -759,7 +755,18 @@ export default function KotobaTownScreen() {
           {ROOFS.map((rf, i) => (
             <Image key={i} source={isDay ? rf.day : rf.night} style={{ position: 'absolute', left: rf.x, top: isDay ? rf.y : ((rf as { nightY?: number }).nightY ?? rf.y), width: rf.w, height: rf.h }} resizeMode="stretch" />
           ))}
-          {/* 最前面: 名前・Lvの名札は前面レイヤ(木/屋根)より上に描く=裏に隠れても位置が分かる。位置は各NPCのアニメ値に追従。 */}
+          {/* 最前面: 名前・Lvの名札は前面レイヤ(木/屋根)より上に描く=裏に隠れても位置が分かる。 */}
+          {/* 座りキャラ(ベンチ)の名札。動かないので固定座標で。 */}
+          {SITTERS.map((si, i) => {
+            const left = si.x + si.w / 2 - SPRITE / 2;
+            const top = si.y + si.h - SPRITE;
+            return (
+              <View key={'splate:' + i} pointerEvents="none" style={{ position: 'absolute', left, top, width: SPRITE, alignItems: 'center' }}>
+                <View style={s.npcTag}><Text style={s.npcTagT} numberOfLines={1}>{si.v.nick} · {si.v.level}</Text></View>
+              </View>
+            );
+          })}
+          {/* 立ちキャラ(NPC・友だち)の名札。位置は各NPCのアニメ値に追従。 */}
           {residents.map((v) => {
             const a = npcAnim[v.id];
             if (!a) return null;
@@ -843,7 +850,7 @@ export default function KotobaTownScreen() {
             </View>
           ) : (
             <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-              {/* 定型6種 */}
+              {/* 定型2種 */}
               <View style={s.msgPills}>
                 {CHEERS.map((c) => (
                   <Pressable key={c.key} style={s.msgPill} onPress={() => sendCheer(c)}>
@@ -1013,7 +1020,7 @@ export default function KotobaTownScreen() {
               </View>
               {/* 下: 「メッセージを送る」ボタンだけ(友だち=id=friend: にだけ表示)。押すと応援メッセージ画面へ。 */}
               {talk.id.startsWith('friend:') && (
-                <View style={{ width: FW, alignSelf: 'center', paddingTop: 14, paddingBottom: 40 }}>
+                <View style={{ width: FW, alignSelf: 'center', paddingTop: 2, paddingBottom: 40 }}>
                   <Pressable style={s.msgSendBtn} onPress={openMsg}>
                     <Ionicons name="chatbubble-ellipses" size={18} color="#fff" />
                     <Text style={s.msgSendBtnT}>メッセージを送る</Text>

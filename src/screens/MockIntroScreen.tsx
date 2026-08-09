@@ -3,7 +3,7 @@
 //  背景・文字・カードはアプリのライト/ダークテーマに統一(useColors)。
 import { useMemo } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAppState } from '../store/store';
@@ -33,6 +33,7 @@ export default function MockIntroScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const { width, height } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const level = (state.settings.level as Level) ?? 'N5';
   const info = MOCK_INFO[level] ?? MOCK_INFO.N5;
   const tickets = mockTicketCount(state);
@@ -60,8 +61,8 @@ export default function MockIntroScreen() {
         </SafeAreaView>
       </View>
 
-      {/* 画像以外の情報はここをスクロールして表示。 */}
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={s.detailBody}>
+      {/* 画像以外の情報(チケット残数・ボタン含む)はここをスクロールして表示。 */}
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={[s.detailBody, { paddingBottom: 20 + insets.bottom }]}>
         <Text style={s.titleC}>{level}{t('mockintro.title')}</Text>
         <Text style={s.subtC}>{t('mockintro.subtitle')}</Text>
 
@@ -93,16 +94,14 @@ export default function MockIntroScreen() {
           </View>
           <Text style={s.cutoffDesc}>{t('mockintro.cutoff_desc')}</Text>
         </View>
-      </ScrollView>
 
-      <SafeAreaView edges={['bottom']} style={{ paddingHorizontal: 18 }}>
-        {/* 模試チケット残数は「模試を始める」ボタンのすぐ上に置く。 */}
+        {/* 模試チケット残数は「模試を始める」ボタンのすぐ上に置く(ボタンごとスクロール表示)。 */}
         <Text style={s.ticketAbove}>{t('mockintro.tickets', { n: tickets })}</Text>
         <View style={s.btnRow}>
           <Pressable style={s.later} onPress={() => nav.goBack()}><Text style={s.laterTxt}>{t('mockintro.later')}</Text></Pressable>
           <Pressable style={s.start} onPress={begin}><Text style={s.startTxt}>{t('mockintro.start')}</Text></Pressable>
         </View>
-      </SafeAreaView>
+      </ScrollView>
     </View>
   );
 }
@@ -131,7 +130,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   cutoffTime: { width: 66, textAlign: 'right', fontSize: 13, color: c.ink2, fontWeight: '800', fontVariant: ['tabular-nums'] },
   cutoffVal: { width: 66, textAlign: 'right', fontSize: 14, color: c.blue, fontWeight: '900', fontVariant: ['tabular-nums'] },
   cutoffDesc: { fontSize: 12.5, color: c.mute, lineHeight: 19, marginTop: 10 },
-  ticketAbove: { fontSize: 13, color: c.ink2, fontWeight: '800', textAlign: 'center', marginBottom: 8 },
+  ticketAbove: { fontSize: 13, color: c.ink2, fontWeight: '800', textAlign: 'center', marginTop: 18, marginBottom: 8 },
   btnRow: { flexDirection: 'row', gap: 10, paddingTop: 4, paddingBottom: 4, alignItems: 'stretch' },
   start: { flex: 1, backgroundColor: c.blue, borderRadius: 16, paddingVertical: 15, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.25, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
   startTxt: { color: '#fff', fontSize: 18, fontWeight: '900', letterSpacing: 1 },

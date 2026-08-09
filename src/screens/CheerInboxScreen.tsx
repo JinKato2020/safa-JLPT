@@ -10,6 +10,10 @@ import { cheerInbox, cheerMarkRead, type CheerInboxItem } from '../plaza/friends
 import { useColors, type ThemeColors } from '../theme';
 
 const CHEER_INFO: Record<string, { emoji: string; label: string }> = {
+  // 現行の定型2種
+  ganbaro: { emoji: '📖', label: '今日も勉強、一緒に頑張ろう！' },
+  homeru: { emoji: '🎉', label: '沢山勉強しているね。凄い！' },
+  // 旧定型(過去に受け取った応援の表示用に残す)
   flower: { emoji: '🌷', label: 'お花をおくる' },
   ganbare: { emoji: '💪', label: 'がんばって' },
   sugoi: { emoji: '🎉', label: 'すごい！' },

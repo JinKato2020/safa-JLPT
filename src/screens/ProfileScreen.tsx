@@ -420,6 +420,21 @@ export default function ProfileScreen() {
               <Text style={[s.ppChipTxt, devPass == null && s.ppChipTxtOn]}>自動</Text>
             </Pressable>
           </View>
+          {/* 模試終了後の画面を確認(開発用): 模試終了→計算演出→合否の証明書を直接開く。 */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>模試終了後の画面へ</Text>
+              <Text style={s.subtle}>模試終了→結果計算→合否の証明書を確認（開発用）</Text>
+            </View>
+          </View>
+          <View style={s.ppChips}>
+            <Pressable onPress={() => nav.navigate('Mock', { full: true, preview: 'pass' })} style={[s.ppChip, { flex: 1 }]}>
+              <Text style={s.ppChipTxt}>合格版</Text>
+            </Pressable>
+            <Pressable onPress={() => nav.navigate('Mock', { full: true, preview: 'fail' })} style={[s.ppChip, { flex: 1 }]}>
+              <Text style={s.ppChipTxt}>不合格版</Text>
+            </Pressable>
+          </View>
         </View>
 
         {/* アカウント削除(ログイン中のみ・設定の一番下)。誤タップ防止に確認ダイアログ。 */}
