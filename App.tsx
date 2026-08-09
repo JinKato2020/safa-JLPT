@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, AppState, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
@@ -11,6 +11,7 @@ import { useAppFonts, setActiveFont } from './src/theme/fonts';
 import WatercolorBackground from './src/components/WatercolorBackground';
 import { AppProvider, useAppState, useAppActions, useHydrated } from './src/store/store';
 import { SyncProvider, useSync } from './src/auth/SyncProvider';
+import { cheerUnreadCount } from './src/plaza/friendsClient';
 import { navigationRef } from './src/navigation/navRef';
 import AccountPrompt from './src/components/AccountPrompt';
 import { isWatercolor } from './src/store/state';
@@ -122,7 +123,18 @@ function MainTabs() {
   const insets = useSafeAreaInsets();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const state = useAppState();
+  const { session } = useSync();
   const hideTopBar = useNavigationState((s) => HIDE_TOPBAR.has(activeRouteName(s) ?? ''));
+  // 友だちからの応援メッセージの未読数(ヘッダーの鐘に赤バッジ)。ログイン中だけ・60秒ごとに確認して「届いたら知らせる」。
+  const [cheerUnread, setCheerUnread] = useState(0);
+  useEffect(() => {
+    if (!session) { setCheerUnread(0); return; }
+    let alive = true;
+    const tick = () => { cheerUnreadCount().then((n) => { if (alive) setCheerUnread(n); }).catch(() => { /* 取得失敗は無視 */ }); };
+    tick();
+    const id = setInterval(tick, 60000);
+    return () => { alive = false; clearInterval(id); };
+  }, [session]);
   // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
   // 設定タブは廃止 → 画面上部に共通の操作列(左から): アカウント/JLPTレベル/設定/通知。
   const iconBtn = [topBar.btn, { backgroundColor: c.surface, borderColor: c.line }];
@@ -191,6 +203,13 @@ function MainTabs() {
         <Pressable onPress={() => nav.navigate('KotobaTown')} accessibilityLabel="日本語学習者の町" hitSlop={6} style={iconBtn}>
           <Ionicons name="footsteps-outline" size={22} color={c.ink} />
         </Pressable>
+        {/* 友だちからの応援メッセージ(受信箱)。設定の左に固定。未読があれば赤バッジで知らせる。ログイン中のみ。 */}
+        {session && (
+          <Pressable onPress={() => { setCheerUnread(0); nav.navigate('CheerInbox'); }} accessibilityLabel="友だちからの応援" hitSlop={6} style={iconBtn}>
+            <Ionicons name="notifications-outline" size={22} color={c.ink} />
+            {cheerUnread > 0 && <View style={[topBar.badge, { borderColor: c.surface }]}><Text style={topBar.badgeT}>{cheerUnread > 99 ? '99+' : cheerUnread}</Text></View>}
+          </Pressable>
+        )}
         {/* 設定(歯車)は必ず一番右。今後も動かさない(固定・ユーザー指定)。 */}
         <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="settings-outline" size={22} color={c.ink} />
@@ -212,6 +231,8 @@ const topBar = StyleSheet.create({
     shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
   },
   pillTxt: { fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },
+  badge: { position: 'absolute', top: -3, right: -3, minWidth: 16, height: 16, borderRadius: 8, backgroundColor: '#e23b3b', borderWidth: 1.5, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 },
+  badgeT: { color: '#fff', fontSize: 9, fontWeight: '900' },
   backdrop: { flex: 1 },
   menu: { position: 'absolute', left: 60, minWidth: 92, borderRadius: 14, borderWidth: 1, paddingVertical: 4, overflow: 'hidden', elevation: 8, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } },
   menuItem: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10, paddingHorizontal: 16 },

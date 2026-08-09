@@ -3,10 +3,8 @@
 //  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
 //  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal } from 'react-native';
+import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Svg, { Defs, LinearGradient as SvgGrad, Stop, Rect } from 'react-native-svg';
-import { useIsDarkTheme } from '../theme';
 
 // 絵文字/アイコン除去(気分などデータに含まれる絵文字を会話表示から外す)。国旗(talk.flag)は別扱いなので影響なし。
 const EMOJI_RE = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{2190}-\u{21FF}]/gu;
@@ -20,7 +18,7 @@ import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
 import { personalityOf, moodMsgOf, personaLineOf } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
-import { friendPublish, townMembers, cheerSend, cheerUnreadCount, type FriendProfile } from '../plaza/friendsClient';
+import { friendPublish, townMembers, cheerSend, townKick, type FriendProfile } from '../plaza/friendsClient';
 import { friendToLearner } from '../plaza/friendResidents';
 import { flagOf } from '../plaza/countries';
 import { daimonMasteryCounts } from '../store/selectors';
@@ -409,7 +407,6 @@ function AmbientNpc({ sprites, spot, tag, sink, sinkKey }: {
 export default function KotobaTownScreen() {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { width: VW, height: VH } = useWindowDimensions();
-  const isDark = useIsDarkTheme(); // 会話+ステータス枠の素材(ダーク/ライト)切替=アプリのテーマ設定に連動
   // 選んだアバターで自分の見た目を切替(女の子1/女の子2 は専用スプライト、それ以外=男の子)。
   const avatarCode = useAppState().settings.avatar;
   const SPRITES = (avatarCode && AVATAR_SETS[avatarCode]) || HERO;
@@ -478,6 +475,7 @@ export default function KotobaTownScreen() {
   const [sent, setSent] = useState<{ emoji: string; reply: string } | null>(null);
   const [talkStep, setTalkStep] = useState<'info' | 'status' | 'message'>('info'); // info=台詞(舞台) / status=ステータス / message=メッセージ送信
   const [talkPage, setTalkPage] = useState(0); // 台詞のページ送り(▼で進む)
+  const [talkDlgDone, setTalkDlgDone] = useState(false); // 台詞を最後まで読んだ→会話ダイアログを消す
   const [talkScene, setTalkScene] = useState<string>('town'); // 会話ごとにランダムで選ぶ背景シーン
   const talkRef = useRef<VirtualLearner | null>(null);
   const talkArmed = useRef(true);
@@ -492,27 +490,46 @@ export default function KotobaTownScreen() {
     loop.start();
     return () => loop.stop();
   }, [nextPulse]);
-  const openTalk = (v: VirtualLearner) => { talkRef.current = v; setSent(null); setTalkStep('info'); setTalkPage(0); setTalkScene(SCENE_KEYS[Math.floor(Math.random() * SCENE_KEYS.length)]); setTalk(v); };
+  const openTalk = (v: VirtualLearner) => { talkRef.current = v; setSent(null); setTalkStep('info'); setTalkPage(0); setTalkDlgDone(false); setTalkScene(SCENE_KEYS[Math.floor(Math.random() * SCENE_KEYS.length)]); setTalk(v); };
   const closeTalk = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } talkRef.current = null; setTalk(null); setSent(null); setTalkStep('info'); };
-  // 応援は「自分の町の住人(招待して参加した友だち)」にだけ送れる。相手の id は 'friend:<userId>'。
+  // 応援メッセージ画面(定型＋自由文)。相手の id は 'friend:<userId>'。
+  const [msgOpen, setMsgOpen] = useState(false);   // 応援メッセージ画面の開閉
+  const [msgText, setMsgText] = useState('');        // 自由メッセージ入力
+  const openMsg = () => { setSent(null); setMsgText(''); setMsgOpen(true); };
+  const afterSend = () => { // 送信後: 少し「届けました」を見せてから画面を閉じる。
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => { setMsgOpen(false); setSent(null); }, 1400);
+  };
   const sendCheer = (c: { key: string; emoji: string; reply: string }) => {
     const id = talkRef.current?.id ?? '';
     const fid = id.startsWith('friend:') ? id.slice('friend:'.length) : null;
-    if (fid) cheerSend(fid, c.key); // サーバー配信(結果は待たない=UXを止めない)。相手は受信箱で受け取る。
-    setSent({ emoji: c.emoji, reply: '' }); // 実際の相手なので、その場の作り物の返事は出さない
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => closeTalk(), 1600);
+    if (fid) cheerSend(fid, c.key); // サーバー配信(結果は待たない)。相手は受信箱で受け取る。
+    setSent({ emoji: c.emoji, reply: '' });
+    afterSend();
+  };
+  const sendCheerText = () => {
+    const id = talkRef.current?.id ?? '';
+    const fid = id.startsWith('friend:') ? id.slice('friend:'.length) : null;
+    const text = msgText.trim();
+    if (!text) return;
+    if (fid) cheerSend(fid, 'custom', text); // 自由メッセージ(80字までサーバー側で切る)
+    setMsgText('');
+    setSent({ emoji: '💬', reply: '' });
+    afterSend();
+  };
+  // 荒らし対策: 「日本語学習者の町」の一覧から相手を削除(town_kick)。以後その人はメッセージを送れない。
+  const kickMember = (m: FriendProfile) => {
+    Alert.alert('町から削除', `${m.nickname}さんを町から削除しますか？\n削除すると、この人はあなたにメッセージを送れなくなります。`, [
+      { text: 'キャンセル', style: 'cancel' },
+      { text: '削除', style: 'destructive', onPress: () => {
+        void townKick(m.user_id);
+        setMembers((ms) => ms.filter((x) => x.user_id !== m.user_id));       // 一覧から即消す
+        setFriends((fs) => fs.filter((f) => f.id !== 'friend:' + m.user_id)); // 町の住人からも消す
+      } },
+    ]);
   };
   useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
-  // 受信箱(友だちから届いた応援)の未読数=バッジ。町を開いた時に取得。
-  const [cheerUnread, setCheerUnread] = useState(0);
-  useEffect(() => {
-    if (!session) { setCheerUnread(0); return; }
-    let alive = true;
-    cheerUnreadCount().then((n) => { if (alive) setCheerUnread(n); });
-    return () => { alive = false; };
-  }, [session]);
-  const openInbox = () => { setCheerUnread(0); nav.navigate('CheerInbox'); };
+  // 受信箱(友だちからの応援)は共通ヘッダー(設定の左の鐘)へ移設した。
 
   // 友だち: ログイン中なら自分を公開(検索対象＋友だちの町に出る)し、友だち一覧を町の住人へ変換して置く。
   useEffect(() => {
@@ -764,13 +781,7 @@ export default function KotobaTownScreen() {
             <Pressable style={s.inviteWhite} onPress={onInvite}><Text style={s.inviteWhiteT}>友だちを町に招待</Text></Pressable>
           </View>
           <View style={s.topRight} pointerEvents="box-none">
-            {/* 受信箱(友だちから届いた応援)。未読があれば赤バッジ。 */}
-            {session && (
-              <Pressable onPress={openInbox} hitSlop={10} style={s.close}>
-                <Ionicons name="notifications" size={20} color="#3a3128" />
-                {cheerUnread > 0 && <View style={s.bellBadge}><Text style={s.bellBadgeT}>{cheerUnread > 99 ? '99+' : cheerUnread}</Text></View>}
-              </Pressable>
-            )}
+            {/* 受信箱(友だちからの応援)は共通ヘッダー(設定の左の鐘)へ移設。ここには置かない。 */}
             <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.close}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
           </View>
         </View>
@@ -791,14 +802,60 @@ export default function KotobaTownScreen() {
           ) : (
             <ScrollView style={{ maxHeight: 380 }} showsVerticalScrollIndicator={false}>
               {members.map((m) => (
-                <Pressable key={m.user_id} style={s.memberRow} onPress={() => { setMembersOpen(false); openTalk(friendToLearner(m, { col: 16, row: 16 })); }}>
-                  <Text style={s.memberName} numberOfLines={1}>{flagOf(m.country ?? 'XX')} {m.nickname}</Text>
-                  <View style={s.memberRight}>
-                    <Text style={s.memberMeta}>{m.level}・{Math.max(0, m.streak ?? 0)}日</Text>
-                    <View style={s.memberSend}><Ionicons name="chatbubble-ellipses" size={13} color="#fff" /><Text style={s.memberSendT}>応援</Text></View>
-                  </View>
-                </Pressable>
+                <View key={m.user_id} style={s.memberRow}>
+                  <Pressable style={s.memberTapArea} onPress={() => { setMembersOpen(false); openTalk(friendToLearner(m, { col: 16, row: 16 })); }}>
+                    <Text style={s.memberName} numberOfLines={1}>{flagOf(m.country ?? 'XX')} {m.nickname}</Text>
+                    <View style={s.memberRight}>
+                      <Text style={s.memberMeta}>{m.level}・{Math.max(0, m.streak ?? 0)}日</Text>
+                      <View style={s.memberSend}><Ionicons name="chatbubble-ellipses" size={13} color="#fff" /><Text style={s.memberSendT}>応援</Text></View>
+                    </View>
+                  </Pressable>
+                  {/* 荒らし対策: 町から削除(以後この人はメッセージを送れない)。 */}
+                  <Pressable onPress={() => kickMember(m)} hitSlop={8} style={s.memberDel}><Ionicons name="trash-outline" size={18} color="#b34a4a" /></Pressable>
+                </View>
               ))}
+            </ScrollView>
+          )}
+        </View>
+      </Modal>
+
+      {/* 応援メッセージ画面: 定型(6種)＋自由メッセージ(80字まで)。友だちにだけ送れる。 */}
+      <Modal visible={msgOpen} transparent animationType="slide" onRequestClose={() => setMsgOpen(false)}>
+        <Pressable style={s.memberBackdrop} onPress={() => setMsgOpen(false)} />
+        <View style={s.memberSheet}>
+          <View style={s.memberHead}>
+            <Text style={s.memberTitle}>✉️ {talk?.nick ?? '友だち'}に応援を送る</Text>
+            <Pressable onPress={() => setMsgOpen(false)} hitSlop={10}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
+          </View>
+          {sent ? (
+            <View style={{ alignItems: 'center', paddingVertical: 28, gap: 8 }}>
+              <Text style={{ fontSize: 40 }}>{sent.emoji}</Text>
+              <Text style={{ fontSize: 16, fontWeight: '900', color: '#3a3128' }}>応援を届けました！🌸</Text>
+            </View>
+          ) : (
+            <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+              {/* 定型6種 */}
+              <View style={s.msgPills}>
+                {CHEERS.map((c) => (
+                  <Pressable key={c.key} style={s.msgPill} onPress={() => sendCheer(c)}>
+                    <Text style={s.msgPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
+                  </Pressable>
+                ))}
+              </View>
+              {/* 自由メッセージ */}
+              <Text style={s.msgLabel}>自由メッセージ（80字まで）</Text>
+              <TextInput
+                value={msgText}
+                onChangeText={setMsgText}
+                placeholder="やさしい言葉で応援しよう"
+                placeholderTextColor="#a99f8f"
+                maxLength={80}
+                multiline
+                style={s.msgInput}
+              />
+              <Pressable style={[s.msgSubmit, !msgText.trim() && { opacity: 0.5 }]} disabled={!msgText.trim()} onPress={sendCheerText}>
+                <Text style={s.msgSubmitT}>このメッセージを送る</Text>
+              </Pressable>
             </ScrollView>
           )}
         </View>
@@ -835,15 +892,13 @@ export default function KotobaTownScreen() {
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
         const dlgBottom = Math.round(SW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
         const stH = FW; // ステータス枠=正方形
-        // 台詞ページ(各ページ最大2行)。
-        const lines: string[] = [`やあ、${talk.nick}だよ！`];
-        if (talk.studying) lines.push(`いまは「${talk.studying}」を特訓中。`);
-        if (talk.weekLearned) lines.push(`この7日で${talk.weekLearned}語おぼえたよ。`);
-        lines.push(personaLineOf(talk.personality));
-        const pages: string[] = [];
-        for (let i = 0; i < lines.length; i += 2) pages.push(lines.slice(i, i + 2).join('\n'));
+        // 台詞=必ず2ページ(▽で送る)。1p=あいさつ＋いま特訓中 / 2p=最近の学び＋性格の一言。
+        const p1 = [`やあ、${talk.nick}だよ！`, talk.studying ? `いまは「${talk.studying}」を特訓中。` : 'コツコツ勉強を続けてるよ。'].join('\n');
+        const p2 = [talk.weekLearned ? `この7日で${talk.weekLearned}語おぼえたよ。` : '少しずつ言葉が増えてきたよ。', personaLineOf(talk.personality)].join('\n');
+        const pages: string[] = [p1, p2];
         const page = Math.min(talkPage, pages.length - 1);
-        const onNext = () => setTalkPage(page < pages.length - 1 ? page + 1 : 0);
+        // 最後まで読んだら(▽をもう一度)会話ダイアログを消す。
+        const onNext = () => { if (page < pages.length - 1) setTalkPage(page + 1); else setTalkDlgDone(true); };
         const nextY = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0, 4] });
         const nextOp = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0.5, 1] });
         // 台詞窓の文字色=昼(クリーム)は濃字/夜(紺)は白字。話者名は金系。
@@ -851,11 +906,6 @@ export default function KotobaTownScreen() {
         const sayName = isDay ? '#9a6e1b' : '#ffd66e';
         // ステータス枠(クリーム)=濃字で統一。ラベルは少し淡く。
         const inkCol = '#2d2113', subCol = '#7a5f2e';
-        // 応援欄(テーマ連動のまま)。
-        const cheerG0 = isDark ? '#18244f' : '#f7f2e6';
-        const cheerG1 = isDark ? '#080f30' : '#e6ddc9';
-        const labCol = isDark ? '#ffd66e' : '#9a6e1b';
-        const valCol = isDark ? '#ffffff' : '#2d2113';
         // フォント(FW基準・固定サイズ)。
         const FS_SAY = Math.round(SW * 0.041), LH_SAY = Math.round(SW * 0.058);
         const FS_NAME = Math.round(FW * 0.044);
@@ -901,7 +951,8 @@ export default function KotobaTownScreen() {
               {/* ① 会話画像=背景(縦長)＋下部に会話ダイアログを重ね＋その上端にアバターを重ねる(ノベル風)。四隅は丸め。 */}
               <View style={{ width: SW, height: sceneH, alignSelf: 'center', borderRadius: 24, overflow: 'hidden', backgroundColor: '#0a0a14' }}>
                 <Image source={scene} style={{ position: 'absolute', width: SW, height: sceneH }} resizeMode="cover" />
-                {/* 会話ダイアログ: 背景の下端にくっつけて重ねる(枠だけにトリミング済)。台詞は中央寄せ・タップで送り。 */}
+                {/* 会話ダイアログ: 背景の下端にくっつけて重ねる。台詞を最後まで読む(▽)と消える。 */}
+                {!talkDlgDone && (
                 <Pressable onPress={onNext} style={{ position: 'absolute', bottom: dlgBottom, left: Math.round((SW - dlgW) / 2), width: dlgW, height: dlgH }}>
                   <Image source={dlgImg} style={{ position: 'absolute', width: dlgW, height: dlgH }} resizeMode="contain" />
                   <View style={{ position: 'absolute', left: dlgW * 0.06, right: dlgW * 0.12, top: 0, bottom: 0, justifyContent: 'center' }}>
@@ -909,6 +960,7 @@ export default function KotobaTownScreen() {
                   </View>
                   {pages.length > 1 && <Animated.Text style={{ position: 'absolute', right: dlgW * 0.045, bottom: dlgH * 0.12, color: sayName, fontSize: Math.round(SW * 0.05), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>}
                 </Pressable>
+                )}
                 {/* 立ち絵: 会話ダイアログの上端に足元が重なる位置に立たせる(ダイアログの前面)。タップは下のダイアログへ透過。 */}
                 <View pointerEvents="none" style={{ position: 'absolute', width: avH, height: avH, left: Math.round((SW - avH) / 2), bottom: Math.round(dlgBottom + dlgH + SW * 0.02) }}>
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
@@ -950,35 +1002,13 @@ export default function KotobaTownScreen() {
                   );
                 })}
               </View>
-              {/* 下: 応援を送る。招待した友だち(id=friend:)にだけ表示。仮想アバターには応援欄ごと出さない(ロック文言も無し)。 */}
+              {/* 下: 「メッセージを送る」ボタンだけ(友だち=id=friend: にだけ表示)。押すと応援メッセージ画面へ。 */}
               {talk.id.startsWith('friend:') && (
-                <View style={{ width: FW, alignSelf: 'center', paddingHorizontal: 14, paddingTop: 16, paddingBottom: 46, borderBottomLeftRadius: 14, borderBottomRightRadius: 14, overflow: 'hidden' }}>
-                  <Svg style={StyleSheet.absoluteFill} width="100%" height="100%">
-                    <Defs>
-                      <SvgGrad id="cheerG" x1="0" y1="0" x2="0" y2="1">
-                        <Stop offset="0" stopColor={cheerG0} />
-                        <Stop offset="1" stopColor={cheerG1} />
-                      </SvgGrad>
-                    </Defs>
-                    <Rect x="0" y="0" width="100%" height="100%" fill="url(#cheerG)" />
-                  </Svg>
-                  {sent ? (
-                    <View style={s.sentBox}>
-                      <Text style={s.sentEmoji}>{sent.emoji}</Text>
-                      <Text style={[s.sentT, { color: valCol }]}>応援を届けました！🌸</Text>
-                    </View>
-                  ) : (
-                    <>
-                      <Text style={{ color: labCol, fontWeight: '900', fontSize: 15, textAlign: 'center', marginBottom: 10 }}>✉️ {talk.nick}に応援を送る</Text>
-                      <View style={s.nvPills}>
-                        {CHEERS.map((c) => (
-                          <Pressable key={c.key} style={s.nvPill} onPress={() => sendCheer(c)}>
-                            <Text style={s.nvPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
-                          </Pressable>
-                        ))}
-                      </View>
-                    </>
-                  )}
+                <View style={{ width: FW, alignSelf: 'center', paddingTop: 14, paddingBottom: 40 }}>
+                  <Pressable style={s.msgSendBtn} onPress={openMsg}>
+                    <Ionicons name="chatbubble-ellipses" size={18} color="#fff" />
+                    <Text style={s.msgSendBtnT}>メッセージを送る</Text>
+                  </Pressable>
                 </View>
               )}
             </ScrollView>
@@ -1114,12 +1144,24 @@ const s = StyleSheet.create({
   memberHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 },
   memberTitle: { fontSize: 17, fontWeight: '900', color: '#3a3128' },
   memberEmpty: { color: '#6b6256', fontSize: 14, lineHeight: 22, textAlign: 'center', paddingVertical: 24 },
-  memberRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: 'rgba(58,49,40,0.08)' },
+  memberRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: 'rgba(58,49,40,0.08)' },
+  memberTapArea: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  memberDel: { marginLeft: 12, padding: 4 },
   memberName: { flex: 1, fontSize: 15, fontWeight: '800', color: '#3a3128', marginRight: 10 },
   memberRight: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   memberMeta: { fontSize: 12, fontWeight: '700', color: '#8a8072' },
   memberSend: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: '#e0803c', borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6 },
   memberSendT: { color: '#fff', fontSize: 12, fontWeight: '900' },
+  // 「メッセージを送る」ボタン(会話のステータス下)＋応援メッセージ画面。
+  msgSendBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, alignSelf: 'center', backgroundColor: '#e0803c', borderRadius: 999, paddingVertical: 13, paddingHorizontal: 28, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
+  msgSendBtnT: { color: '#fff', fontSize: 15, fontWeight: '900', letterSpacing: 0.5 },
+  msgPills: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 6 },
+  msgPill: { backgroundColor: '#fff5e8', borderWidth: 1, borderColor: '#e6c79a', borderRadius: 999, paddingHorizontal: 13, paddingVertical: 9 },
+  msgPillT: { fontSize: 13, fontWeight: '800', color: '#7a5a34' },
+  msgLabel: { fontSize: 13, fontWeight: '800', color: '#6b6256', marginTop: 14, marginBottom: 6 },
+  msgInput: { minHeight: 64, maxHeight: 120, borderWidth: 1, borderColor: '#e0d6c4', borderRadius: 12, backgroundColor: '#fffdf8', paddingHorizontal: 12, paddingVertical: 10, fontSize: 15, color: '#3a3128', textAlignVertical: 'top' },
+  msgSubmit: { marginTop: 12, backgroundColor: '#e2588f', borderRadius: 12, paddingVertical: 14, alignItems: 'center' },
+  msgSubmitT: { color: '#fff', fontSize: 15, fontWeight: '900' },
   // 友だちを町に招待=白ボタン(アイコン無し)。タイトル横。
   inviteWhite: { backgroundColor: 'rgba(255,253,248,0.95)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7, borderWidth: 1, borderColor: 'rgba(58,49,40,0.15)' },
   inviteWhiteT: { fontSize: 13, fontWeight: '900', color: '#3a3128', letterSpacing: 0.2 },

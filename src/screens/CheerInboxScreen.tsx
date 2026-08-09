@@ -64,14 +64,17 @@ export default function CheerInboxScreen() {
       ) : (
         <ScrollView contentContainerStyle={s.list} showsVerticalScrollIndicator={false}>
           {items.map((it) => {
+            // 自由メッセージ(body有)はその本文を表示。定型は6種の絵文字＋ラベル。
+            const custom = (it.body ?? '').trim();
             const info = CHEER_INFO[it.cheer_key] ?? { emoji: '🌸', label: '応援' };
+            const emoji = custom ? '💬' : info.emoji;
             const unread = !it.read_at;
             return (
               <View key={it.id} style={[s.row, unread && s.rowUnread]}>
-                <Text style={s.emoji}>{info.emoji}</Text>
+                <Text style={s.emoji}>{emoji}</Text>
                 <View style={{ flex: 1 }}>
                   <Text style={s.name} numberOfLines={1}>{it.from_nick ?? '友だち'}</Text>
-                  <Text style={s.msg} numberOfLines={1}>{info.label}</Text>
+                  <Text style={s.msg} numberOfLines={2}>{custom || info.label}</Text>
                 </View>
                 <Text style={s.time}>{ago(it.created_at)}</Text>
               </View>

@@ -43,7 +43,8 @@ function pickBubble(state: AppState, now: number): string {
   return text || 'また会えたね。今日も、あなたのペースで大丈夫だからね。';
 }
 
-export default function SakuraSpeech() {
+// idleTick: ホームで静止(無操作)10秒ごとに親が +1 する合図。増えたら桜を出す(起動後表示とは別トリガー)。
+export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
   const state = useAppState();
   const { setSettings } = useAppActions();
   const c = useColors();
@@ -54,24 +55,39 @@ export default function SakuraSpeech() {
   const [visible, setVisible] = useState(false);
   const fade = useRef(new Animated.Value(0)).current;
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const visibleRef = useRef(false); visibleRef.current = visible;
+  const lastShownRef = useRef(0);
 
+  const hide = () => {
+    if (hideTimer.current) { clearTimeout(hideTimer.current); hideTimer.current = null; }
+    Animated.timing(fade, { toValue: 0, duration: 380, useNativeDriver: true }).start(({ finished }) => { if (finished) setVisible(false); });
+  };
+  // 桜の一言を出す(表示中なら何もしない)。
+  const reveal = () => {
+    if (visibleRef.current) return;
+    const now = Date.now();
+    setText(pickBubble(state, now));
+    setVisible(true);
+    Animated.timing(fade, { toValue: 1, duration: 420, useNativeDriver: true }).start();
+    setSettings({ lastSakuraSpeechAt: now });
+    lastShownRef.current = now;
+    hideTimer.current = setTimeout(hide, SHOW_MS);
+  };
+
+  // ① 起動後: ホーム到着の少しあとに1回(前回表示から20分あいていれば)。
   useEffect(() => {
     const last = state.settings.lastSakuraSpeechAt ?? 0;
-    if (Date.now() - last < MIN_GAP_MS) return; // まだ20分たっていない→今回は出さない
-    const hide = () => {
-      if (hideTimer.current) { clearTimeout(hideTimer.current); hideTimer.current = null; }
-      Animated.timing(fade, { toValue: 0, duration: 380, useNativeDriver: true }).start(({ finished }) => { if (finished) setVisible(false); });
-    };
-    const t = setTimeout(() => {
-      const now = Date.now();
-      setText(pickBubble(state, now));
-      setVisible(true);
-      Animated.timing(fade, { toValue: 1, duration: 420, useNativeDriver: true }).start();
-      setSettings({ lastSakuraSpeechAt: now }); // 記録=次は5時間後まで出さない
-      hideTimer.current = setTimeout(hide, SHOW_MS);
-    }, INITIAL_MS);
+    if (Date.now() - last < MIN_GAP_MS) return;
+    const t = setTimeout(reveal, INITIAL_MS);
     return () => { clearTimeout(t); if (hideTimer.current) clearTimeout(hideTimer.current); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ② ホームで静止10秒(idleTickが増える)でも出す。直近表示から15秒は連発を防ぐ。
+  useEffect(() => {
+    if (idleTick <= 0) return;
+    if (Date.now() - lastShownRef.current < 15_000) return;
+    reveal();
+  }, [idleTick]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const dismiss = () => {
     if (hideTimer.current) { clearTimeout(hideTimer.current); hideTimer.current = null; }

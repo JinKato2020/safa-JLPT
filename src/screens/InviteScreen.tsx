@@ -27,7 +27,6 @@ export default function InviteScreen() {
   const [inviter, setInviter] = useState<FriendProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [joining, setJoining] = useState(false);
-  const [joined, setJoined] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -53,7 +52,8 @@ export default function InviteScreen() {
           personality: st.personality ?? null, moodMsg: st.moodMsg ?? null,
         });
       }
-      if (await townJoin(owner)) setJoined(true);
+      // 参加できたら「参加しました」中継画面を挟まず、そのまま町へ移動(この画面は不要・ユーザー要望)。
+      if (await townJoin(owner)) nav.reset({ index: 1, routes: [{ name: 'Main' }, { name: 'KotobaTown' }] });
     } finally { setJoining(false); }
   };
 
@@ -66,15 +66,6 @@ export default function InviteScreen() {
       <View style={s.body}>
         {loading ? (
           <ActivityIndicator color={c.blue} />
-        ) : joined ? (
-          <>
-            <Text style={s.emoji}>🎉</Text>
-            <Text style={s.title}>{name}の町に参加しました！</Text>
-            <Text style={s.sub}>これからあなたは、{inviter?.nickname ?? '友だち'}さんの町に住人として現れます。</Text>
-            <Pressable style={s.primary} onPress={() => nav.navigate('KotobaTown')}>
-              <Text style={s.primaryT}>町を見にいく</Text>
-            </Pressable>
-          </>
         ) : (
           <>
             {img != null ? <Image source={img} style={s.av} resizeMode="contain" /> : <Text style={s.emoji}>🏘️</Text>}

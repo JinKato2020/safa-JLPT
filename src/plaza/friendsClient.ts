@@ -72,12 +72,15 @@ export async function townKick(memberId: string): Promise<boolean> {
 // --- 応援(固定6種)の配信。送れるのは「自分の町の住人(招待して参加した友だち)」だけ。受信箱方式(docs/supabase/cheers.sql)。 ---
 export type CheerInboxItem = {
   id: number; from_user: string; from_nick: string | null; from_avatar: string | null;
-  cheer_key: string; created_at: string; read_at: string | null;
+  cheer_key: string; body: string | null; created_at: string; read_at: string | null;
 };
 
-/** 友だち(自分の町の住人)に応援を送る。成功で true(関係外/回数制限などは false)。 */
-export async function cheerSend(toUserId: string, cheerKey: string): Promise<boolean> {
-  try { const { error } = await supabase.rpc('cheer_send', { p_to: toUserId, p_key: cheerKey }); return !error; } catch { return false; }
+/**
+ * 友だち(自分の町の住人)に応援を送る。成功で true(関係外/回数制限などは false)。
+ * text を渡すと自由メッセージ(cheerKey='custom')。渡さなければ固定6種のキー。
+ */
+export async function cheerSend(toUserId: string, cheerKey: string, text?: string): Promise<boolean> {
+  try { const { error } = await supabase.rpc('cheer_send', { p_to: toUserId, p_key: cheerKey, p_text: text ?? null }); return !error; } catch { return false; }
 }
 
 /** 自分宛の応援一覧(送り主付き・新しい順)。失敗時は空配列。 */

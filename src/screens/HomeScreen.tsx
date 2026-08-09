@@ -1,9 +1,9 @@
 // ホーム = 星屑リングを主役に。背景=HOME.png 全画面／上部に合格リング(星屑リング)＋中央に合格率。
 //  リング画像は段階素材(到達度で差し替え)。中央の合格率は動的。グローは呼吸するようにゆっくり明滅(Animated)。
 //  ※DQ風ステータスカードは不採用(ユーザー指定)。上部の共通バーは MainTabs のオーバーレイ。
-import { useMemo, useEffect, useRef } from 'react';
+import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 import { View, Text, Image, Animated, StyleSheet, useWindowDimensions, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { useAppState, useAppActions } from '../store/store';
@@ -45,6 +45,19 @@ export default function HomeScreen() {
   }, [state, status.passPct]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 呼吸グロー(0→1→0 をゆっくりループ・useNativeDriver で軽量)。
+  // ホームで静止(無操作)10秒ごとに桜の一言を出すための合図。画面のどこかに触れると10秒を測り直す。
+  const [idleTick, setIdleTick] = useState(0);
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const armIdle = useCallback(() => {
+    if (idleTimer.current) clearTimeout(idleTimer.current);
+    idleTimer.current = setTimeout(() => setIdleTick((x) => x + 1), 10000);
+  }, []);
+  // ホームが見えている間だけ計測(他タブへ行ったら止める)。
+  useFocusEffect(useCallback(() => {
+    armIdle();
+    return () => { if (idleTimer.current) clearTimeout(idleTimer.current); };
+  }, [armIdle]));
+
   const glow = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     const loop = Animated.loop(Animated.sequence([
@@ -77,7 +90,7 @@ export default function HomeScreen() {
   const smallFs = Math.round(bigFs * 0.5);
 
   return (
-    <View style={styles.c}>
+    <View style={styles.c} onStartShouldSetResponderCapture={() => { armIdle(); return false; }}>
       <TabBackground source={homeBg}>
         <SafeBoundary tag="homering" fallback={null}>
           {/* リングをタップ=AIコーチ(分析ホーム)を開く。成長/継続の詳細分析はそこへ集約。 */}
@@ -115,7 +128,7 @@ export default function HomeScreen() {
         </SafeBoundary>
         {/* 桜の今日の一言(受験日 > 出迎え)。1日1回・タップで消える。減衰レイヤーが頻度を絞る。 */}
         <SafeBoundary tag="sakuraspeech" fallback={null}>
-          <SakuraSpeech />
+          <SakuraSpeech idleTick={idleTick} />
         </SafeBoundary>
       </TabBackground>
     </View>
