@@ -21,7 +21,7 @@ import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners'
 import { personalityOf, moodMsgOf, personaLineOf } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
 import { friendPublish, townMembers, cheerSend, cheerUnreadCount, type FriendProfile } from '../plaza/friendsClient';
-import { friendToLearner, pickFriendHomes } from '../plaza/friendResidents';
+import { friendToLearner } from '../plaza/friendResidents';
 import { flagOf } from '../plaza/countries';
 import { daimonMasteryCounts } from '../store/selectors';
 
@@ -138,29 +138,17 @@ const AVATAR_SETS: Record<string, Record<Dir, number[]>> = { m_boy1: HERO, m_boy
 
 // 会話画面の背景(3シーン×昼夜)。町で話しかけると全画面の舞台になる。学習者ごとに固定シーン(idハッシュ)。
 const SCENES: Record<string, { day: number; night: number }> = {
-  forest: { day: require('../../assets/kotoba/scene/forest_day.jpg'), night: require('../../assets/kotoba/scene/forest_night.jpg') },
-  pond: { day: require('../../assets/kotoba/scene/pond_day.jpg'), night: require('../../assets/kotoba/scene/pond_night.jpg') },
   town: { day: require('../../assets/kotoba/scene/town_day.jpg'), night: require('../../assets/kotoba/scene/town_night.jpg') },
+  tree: { day: require('../../assets/kotoba/scene/tree_day.jpg'), night: require('../../assets/kotoba/scene/tree_night.jpg') },
+  pond: { day: require('../../assets/kotoba/scene/pond_day.jpg'), night: require('../../assets/kotoba/scene/pond_night.jpg') },
 };
-const SCENE_KEYS = ['forest', 'pond', 'town'];
+const SCENE_KEYS = ['town', 'tree', 'pond'];
 // 台詞の装飾ダイアログボックス(左上プレート＋右下▼が内蔵)。桜の会話で使用。全幅・白文字で名前/台詞を重ねる。
-const DIALOGBOX = require('../../assets/kotoba/ui/dialogbox.png');
 // 会話+ステータス一体フレーム(上=台詞窓/下=ステータス6枠+バー2行)。ダーク/ライトは同一ジオメトリ(座標表CSは共通)。テーマで切替。
-const CSFRAME_DARK = require('../../assets/kotoba/ui/csframe_dark.png');
-const CSFRAME_LIGHT = require('../../assets/kotoba/ui/csframe_light.png');
-// フレーム内の分率座標(サンプル配置を機械検出→トリム後の最終フレーム基準)。
-//  name=話者枠 / say=台詞窓 / 6項目は「ラベル：値」を xL(左列)・xR(右列) の各行(rowY)へ / バー2行(barRowY)＝ラベル+バー(barX0..barX1)+数字(numX)。
-const CS = {
-  // 実測(1254² フレーム)。各テキストは「帯の中で縦中央・固定フォント」で描く。
-  // nameBox=ネームプレート内側(上端タブ) / sayBand=台詞帯(プレート下〜主仕切り) /
-  // rowBands=ステータス3帯(仕切り0.3525/0.473/0.583/0.693の間) / barBands=バー2帯(0.693〜飾り手前)。
-  nameBox: [0.026, 0.024, 0.299, 0.09],
-  sayBand: [0.065, 0.10, 0.935, 0.345],
-  xL: 0.09, xR: 0.566, colRightEdge: 0.925,
-  rowBands: [[0.3525, 0.473], [0.473, 0.583], [0.583, 0.693]],
-  barBands: [[0.693, 0.789], [0.789, 0.885]],
-  barLabelX: 0.09, barX0: 0.258, barX1: 0.662, numX: 0.702,
-} as const;
+// 会話ダイアログ(台詞窓)=昼ライト/夜ダーク・ステータス枠=クリーム1種。3段構成(背景→ダイアログ→ステータス)。
+const DLG_LIGHT = require('../../assets/kotoba/ui/dlg_light.png');
+const DLG_DARK = require('../../assets/kotoba/ui/dlg_dark.png');
+const STATUSBOX = require('../../assets/kotoba/ui/statusbox.png');
 // 会話を始めるたびにシーンをランダムに選ぶ(固定ではなく多様性を持たせる)。昼夜は実時刻(isDay)で切替。
 
 // 桜(マスコット)。8方向・歩行アニメ付き([立ち, 右足, 左足])。近づいて話すと努力を褒めてくれる。
@@ -267,6 +255,16 @@ function walkable(px: number, py: number): boolean {
   const c = Math.floor(fx / CELL), r = Math.floor(fy / CELL);
   if (r < 0 || r >= MAP_G || c < 0 || c >= MAP_G) return false;
   return MAP_WALK[r][c] === '.';
+}
+
+// セル列(優先順)から、マンハッタン距離 gap 以上を空けて count 個選ぶ(くっつけない散らし)。
+function pickSpaced(cells: readonly { col: number; row: number }[], count: number, gap: number): { col: number; row: number }[] {
+  const out: { col: number; row: number }[] = [];
+  for (const c of cells) {
+    if (out.length >= count) break;
+    if (out.every((o) => Math.abs(o.col - c.col) + Math.abs(o.row - c.row) >= gap)) out.push({ col: c.col, row: c.row });
+  }
+  return out;
 }
 
 // 1体のNPC: home周辺(半径約2.4マス)をゆっくり8方向で歩き回る。見た目は町のアバター6種(プレイヤーと同じ歩行アニメ)。
@@ -422,8 +420,41 @@ export default function KotobaTownScreen() {
   const [friends, setFriends] = useState<VirtualLearner[]>([]);
   const [members, setMembers] = useState<FriendProfile[]>([]); // 町の住人(招待して参加した友だち)。見出しタップの一覧＝メッセージ可能な相手。
   const [membersOpen, setMembersOpen] = useState(false);
-  const residents = useMemo(() => [...VIRTUAL_LEARNERS, ...friends], [friends]); // 仮想学習者＋実在の友だち
-  const residentsRef = useRef<VirtualLearner[]>(VIRTUAL_LEARNERS);
+  // 木(前面レイヤー)の裏に隠れるセル群=仮想学習者の初期配置から除外する領域。
+  const treeCellSet = useMemo(() => {
+    const s = new Set<string>();
+    const c0 = Math.floor(TREE.x / CELL), c1 = Math.floor((TREE.x + TREE.w) / CELL);
+    const r0 = Math.floor(TREE.y / CELL), r1 = Math.floor((TREE.y + TREE.h) / CELL);
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) s.add(`${c},${r}`);
+    return s;
+  }, []);
+  // 出現プール=木の下を中心とした半径内の歩けるマス(木の裏・遠い隅は除外)。ユーザー(START)に近い順に並べる。
+  //  NPC・友だちは同じこのプールから配置。合計 = ベンチ4 + (歩行NPC + 友だち)=最大8 = 12。友だちはユーザー付近を優先。
+  const pool = useMemo(() => {
+    const CX = 22, CY = 24, RMAX = 18;
+    const cells: { col: number; row: number; du: number }[] = [];
+    for (let r = 5; r < MAP_G - 5; r++) for (let c = 4; c < MAP_G - 4; c++) {
+      if (MAP_WALK[r]?.[c] !== '.' || treeCellSet.has(`${c},${r}`)) continue;
+      if ((c - CX) * (c - CX) + (r - CY) * (r - CY) > RMAX * RMAX) continue;
+      if (Math.abs(c - START_COL) <= 1 && Math.abs(r - START_ROW) <= 1) continue; // ユーザーの初期マス周辺は空ける
+      cells.push({ col: c, row: r, du: Math.hypot(c - START_COL, r - START_ROW) });
+    }
+    cells.sort((a, b) => a.du - b.du); // ユーザーに近い順
+    return cells;
+  }, [treeCellSet]);
+  const MAX_WALK = 8; // 歩行NPC+友だちの合計上限(ベンチ4と足して12)。
+  // 友だち=ユーザー付近の近いマスから優先的に(2マス間隔で自然に)。
+  const friendCells = useMemo(() => pickSpaced(pool, Math.min(friends.length, MAX_WALK), 2), [pool, friends.length]);
+  // 歩行NPC=友だちが取らなかった残り(ユーザーから遠い側)を散らす。友だちが多いほどNPCは減る(合計8)。
+  const scattered = useMemo(() => {
+    const F = Math.min(friends.length, MAX_WALK);
+    const fset = new Set(friendCells.map((c) => `${c.col},${c.row}`));
+    const rest = pool.filter((c) => !fset.has(`${c.col},${c.row}`)).slice().reverse(); // ユーザーから遠い順
+    const spots = pickSpaced(rest, Math.max(0, MAX_WALK - F), 3);
+    return VIRTUAL_LEARNERS.slice(0, spots.length).map((v, i) => ({ ...v, home: spots[i] }));
+  }, [pool, friendCells, friends.length]);
+  const residents = useMemo(() => [...scattered, ...friends], [scattered, friends]); // 歩行NPC(散布)＋友だち(ユーザー付近)
+  const residentsRef = useRef<VirtualLearner[]>(scattered);
   residentsRef.current = residents; // 移動ループ(閉包)から最新の住人を参照するため
   const isDay = useMemo(() => { const h = new Date().getHours(); return h >= 6 && h < 18; }, []);
   const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
@@ -443,7 +474,7 @@ export default function KotobaTownScreen() {
   const [sent, setSent] = useState<{ emoji: string; reply: string } | null>(null);
   const [talkStep, setTalkStep] = useState<'info' | 'status' | 'message'>('info'); // info=台詞(舞台) / status=ステータス / message=メッセージ送信
   const [talkPage, setTalkPage] = useState(0); // 台詞のページ送り(▼で進む)
-  const [talkScene, setTalkScene] = useState<string>('forest'); // 会話ごとにランダムで選ぶ背景シーン
+  const [talkScene, setTalkScene] = useState<string>('town'); // 会話ごとにランダムで選ぶ背景シーン
   const talkRef = useRef<VirtualLearner | null>(null);
   const talkArmed = useRef(true);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -499,8 +530,8 @@ export default function KotobaTownScreen() {
       if (cancelled) return;
       setMembers(list); // 見出しタップの「町の友だち」一覧に使う(全員)。
 
-      const isWalkable = (col: number, row: number) => MAP_WALK[row]?.[col] === '.';
-      const homes = pickFriendHomes(list.length, isWalkable, VIRTUAL_LEARNERS.map((v) => v.home));
+      // 紹介した友だち=ユーザー付近の近いマスへ優先配置(NPCと同じプール・2マス間隔)。合計上限=MAX_WALK(8)。
+      const homes = pickSpaced(pool, Math.min(list.length, MAX_WALK), 2);
       setFriends(list.slice(0, homes.length).map((p, i) => friendToLearner(p, homes[i])));
     })();
     return () => { cancelled = true; };
@@ -775,18 +806,21 @@ export default function KotobaTownScreen() {
         const per = personalityOf(talk.personality);
         const mm = stripIcons(moodMsgOf(talk.moodMsg)) || null; // 気分の絵文字アイコンを除去
         const learned = talk.learned ?? 0;
-        const vocabPct = Math.max(4, Math.min(100, Math.round((learned / 1000) * 100)));
-        const streakPct = Math.max(4, Math.min(100, Math.round(((talk.streak ?? 0) / 30) * 100)));
         const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
-        // 一体フレーム(素材はテーマで切替・座標CSは共通)。全幅で高さ=素材比。
-        const frameSrc = Image.resolveAssetSource(isDark ? CSFRAME_DARK : CSFRAME_LIGHT);
-        const INSET = Math.round(VW * 0.025); // フレーム/応援を画面縁から内側へ(左右の余白=町が見える。半分に縮小)
+        const dlgImg = isDay ? DLG_LIGHT : DLG_DARK; // 会話ダイアログ=昼ライト/夜ダーク(実時刻で切替)
+        // 3段の縮尺=画面幅(FW)基準。背景=縦長(素材比・全体表示)/ダイアログ=横長(素材比)/ステータス=正方形。
+        const INSET = Math.round(VW * 0.025);
         const FW = VW - INSET * 2;
-        const FH = Math.round(FW * frameSrc.height / frameSrc.width);
-        // 会話ヒーローの縮尺=すべて画面幅(FW)基準の比例で決める(端末非依存で堅牢)。背景と立ち絵は連動して拡縮。
-        const sceneH = FW; // 会話背景=正方形(1:1)。フレームと同じ幅=画面幅に応じて自動拡縮。左右の余白は町が見える。
-        const avH = Math.round(sceneH * 0.7); // 立ち絵=背景の高さに比例(背景と連動)。背景と一緒に画面サイズへ最適化。
-        // 台詞ページ(各ページ最大3行程度)。
+        const sceneSrc = Image.resolveAssetSource(scene);
+        const sceneAsp = (sceneSrc.width / sceneSrc.height) || 0.714;
+        const sceneH = Math.round(FW / sceneAsp); // 縦長背景を幅いっぱい＝全体表示(トリム無し)
+        const avH = Math.round(sceneH * 0.52);    // 立ち絵=背景内。会話ダイアログの上端に足元が重なる高さ
+        const dlgSrc = Image.resolveAssetSource(dlgImg);
+        const dlgW = Math.round(FW * 0.95);       // 会話ダイアログ幅=左右に少し余白
+        const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
+        const dlgBottom = Math.round(FW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
+        const stH = FW; // ステータス枠=正方形
+        // 台詞ページ(各ページ最大2行)。
         const lines: string[] = [`やあ、${talk.nick}だよ！`];
         if (talk.studying) lines.push(`いまは「${talk.studying}」を特訓中。`);
         if (talk.weekLearned) lines.push(`この7日で${talk.weekLearned}語おぼえたよ。`);
@@ -794,97 +828,109 @@ export default function KotobaTownScreen() {
         const pages: string[] = [];
         for (let i = 0; i < lines.length; i += 2) pages.push(lines.slice(i, i + 2).join('\n'));
         const page = Math.min(talkPage, pages.length - 1);
-        const onNext = () => setTalkPage(page < pages.length - 1 ? page + 1 : 0); // 送り切ったら先頭へ(ステータスは常時表示)
+        const onNext = () => setTalkPage(page < pages.length - 1 ? page + 1 : 0);
         const nextY = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0, 4] });
         const nextOp = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0.5, 1] });
-        // テーマ色(ダーク=白字/金 ・ ライト=濃字/深金)
-        const labCol = isDark ? '#ffd66e' : '#9a6e1b';
-        const valCol = isDark ? '#ffffff' : '#2d2113';
-        const barTrack = isDark ? 'rgba(9,14,42,0.9)' : '#cdc7b6';
-        // 応援欄の背景=フレームと同系のグラデ(上→下)。
+        // 台詞窓の文字色=昼(クリーム)は濃字/夜(紺)は白字。話者名は金系。
+        const sayCol = isDay ? '#2d2113' : '#eaf1ff';
+        const sayName = isDay ? '#9a6e1b' : '#ffd66e';
+        // ステータス枠(クリーム)=濃字で統一。ラベルは少し淡く。
+        const inkCol = '#2d2113', subCol = '#7a5f2e';
+        // 応援欄(テーマ連動のまま)。
         const cheerG0 = isDark ? '#18244f' : '#f7f2e6';
         const cheerG1 = isDark ? '#080f30' : '#e6ddc9';
-        // 固定フォント(自動縮小しない=サイズ一定)。帯の中で縦中央に描く。
-        const FS_NAME = Math.round(FW * 0.046);
-        const FS_SAY = Math.round(FW * 0.040), LH_SAY = Math.round(FW * 0.056);
-        const FS_FIELD = Math.round(FW * 0.037), LH_FIELD = Math.round(FW * 0.052);
-        // バー行のラベル・数字も6項目と同じサイズ/行高に統一(ステータス文字サイズ一定)。
-        const FS_BAR = FS_FIELD, FS_NUM = FS_FIELD, LH_BAR = LH_FIELD;
-        const barH = Math.round(FW * 0.038);
-        const midOf = (bd: readonly number[]) => (bd[0] + bd[1]) / 2;
-        // ステータス6項目=左列(文字が長め)・右列(短め)を3行に。
-        //  名前|Lv / 性格|国名 / 気分|得意。左が長い時は中央で切らず、右列全体を右へズラして左に幅を確保。
-        const ROWS: { b: number; L: { lab: string; val: string }; R: { lab: string; val: string } }[] = [
-          { b: 0, L: { lab: '名前', val: talk.nick }, R: { lab: 'Lv', val: String(talk.level) } },
-          { b: 1, L: { lab: '性格', val: per ? per.label : '-' }, R: { lab: '国名', val: (talk.flag ?? '').trim() || '-' } },
-          { b: 2, L: { lab: '気分', val: mm ?? '-' }, R: { lab: '得意', val: talk.strong ?? '-' } },
+        const labCol = isDark ? '#ffd66e' : '#9a6e1b';
+        const valCol = isDark ? '#ffffff' : '#2d2113';
+        // フォント(FW基準・固定サイズ)。
+        const FS_SAY = Math.round(FW * 0.041), LH_SAY = Math.round(FW * 0.058);
+        const FS_NAME = Math.round(FW * 0.044);
+        const FS_LAB = Math.round(FW * 0.035), FS_VAL = Math.round(FW * 0.034);
+        // 6項目(名前|Lv / 性格|国名 / 気分|得意)=ステータス正方形の上半分。
+        const FIELDS: { lab: string; val: string; lab2: string; val2: string }[] = [
+          { lab: '名前', val: talk.nick, lab2: 'Lv', val2: String(talk.level) },
+          { lab: '性格', val: per ? per.label : '-', lab2: '国名', val2: (talk.flag ?? '').trim() || '-' },
+          { lab: '気分', val: mm ?? '-', lab2: '得意', val2: talk.strong ?? '-' },
         ];
-        // 左テキスト幅を概算(全角=1/半角≈0.55×フォント)。最長に合わせて右列開始x(rightX)を決め、右列は揃える。
-        const estPx = (s: string) => { let u = 0; for (const ch of s) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u * FS_FIELD; };
-        const gapPx = FW * 0.03;
-        const maxLeftPx = Math.max(...ROWS.map((r) => estPx(`${r.L.lab}：${r.L.val}`)));
-        const minRightW = FW * 0.16;
-        const rightX = Math.min(Math.max(CS.xR * FW, CS.xL * FW + maxLeftPx + gapPx), CS.colRightEdge * FW - minRightW);
-        const leftW = rightX - CS.xL * FW - gapPx * 0.6;
-        const rightW = CS.colRightEdge * FW - rightX;
-        // バー2行=ラベル(左)＋バー(barX0..barX1)＋数字(numX)。覚えた単語=青 / 連続日数=緑。b=帯index(barBands)。
-        const bars: { lab: string; pct: number; num: string; col: string; b: number }[] = [
-          { lab: '覚えた単語', pct: vocabPct, num: `${learned} 語`, col: '#4aa3ff', b: 0 },
-          { lab: '連続日数', pct: streakPct, num: `${talk.streak ?? 0} 日`, col: '#37cc74', b: 1 },
+        // 「覚えた単語」の内訳(漢字/語彙/文法)。総learnedを決定的に3分割(学習者ごとに少しだけ変える)。
+        const hsum = [...(talk.id || 'x')].reduce((a, c) => a + c.charCodeAt(0), 0);
+        const kanji = Math.round(learned * (0.26 + (hsum % 10) / 100));
+        const vocab = Math.round(learned * (0.46 + (hsum % 7) / 100));
+        const grammar = Math.max(0, learned - kanji - vocab);
+        const catMax = Math.max(1, kanji, vocab, grammar);
+        const CATS: { lab: string; n: number; col: string }[] = [
+          { lab: '漢字', n: kanji, col: '#4a7fc0' },
+          { lab: '語彙', n: vocab, col: '#6f9a3f' },
+          { lab: '文法', n: grammar, col: '#c0603a' },
         ];
+        // 6項目の左右分割を動的に。左列(名前/性格/気分)=長め・右列(Lv/国名/得意)=短め。
+        //  標準=中央(0.50)→左の値が収まらなければ分割を右へずらし→それでも無理ならフォント縮小(言語で可変)。
+        const estEm = (s: string) => { let u = 0; for (const ch of s) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u; };
+        const emVal = FS_VAL / FW;             // 全角1文字の幅(FW比)
+        const xValL = 0.225, xLab2 = 0.10;     // 左値の開始x / 右ラベルの幅(分)
+        const leftValEm = Math.max(...FIELDS.map((f) => estEm(f.val)));
+        const rightValEm = Math.max(...FIELDS.map((f) => estEm(f.val2)));
+        const splitX = Math.min(0.66, Math.max(0.50, xValL + leftValEm * emVal + 0.03)); // 左が長い時だけ右へ
+        const leftAvail = splitX - 0.03 - xValL;
+        const rightAvail = 0.90 - (splitX + xLab2);
+        const need = Math.max(leftValEm * emVal / Math.max(leftAvail, 0.001), rightValEm * emVal / Math.max(rightAvail, 0.001));
+        const stScale = need > 1 ? Math.max(0.72, 1 / need) : 1; // 分割を右へずらしても収まらなければ縮小
+        const fsVal = Math.round(FS_VAL * stScale), fsLab = Math.round(FS_LAB * stScale);
         return (
           <View style={s.cvWrap}>
-            {/* 余白に町を見せる: 全画面は透過。町を少しだけ暗くして会話に集中させる。 */}
-            <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(4,6,16,0.38)' }]} pointerEvents="none" />
+            {/* 会話画像・ステータス以外の背景=歩行中の町をそのまま見せる(暗幕なし・透過オーバーレイ)。 */}
             {/* 下に引っ張る(オーバースクロール)で会話を抜ける。 */}
             <ScrollView showsVerticalScrollIndicator={false} bounces scrollEventThrottle={16}
               style={{ backgroundColor: 'transparent' }}
               contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingVertical: INSET }}
               onScroll={(e) => { if (e.nativeEvent.contentOffset.y < -72) closeTalk(); }}>
-              {/* 上: 会話背景(昼夜ランダム)。フレームと同じ幅で角丸表示。左右の余白は町が見える。 */}
-              <View style={{ width: FW, height: sceneH, alignSelf: 'center', borderRadius: 18, overflow: 'hidden', backgroundColor: '#0a0a14' }}>
-                {/* 背景=正方形画像を明示サイズで敷く(absoluteFill+resizeModeのFabric描画差を排除)。contain=全体表示。 */}
-                <Image source={scene} style={{ position: 'absolute', width: FW, height: sceneH }} resizeMode="contain" />
-                <View style={s.cvVignette} pointerEvents="none" />
-                <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, alignItems: 'center' }} pointerEvents="none">
+              {/* ① 会話画像=背景(縦長)＋下部に会話ダイアログを重ね＋その上端にアバターを重ねる(ノベル風)。四隅は丸め。 */}
+              <View style={{ width: FW, height: sceneH, alignSelf: 'center', borderRadius: 24, overflow: 'hidden', backgroundColor: '#0a0a14' }}>
+                <Image source={scene} style={{ position: 'absolute', width: FW, height: sceneH }} resizeMode="cover" />
+                {/* 会話ダイアログ: 背景の下端にくっつけて重ねる(枠だけにトリミング済)。台詞は中央寄せ・タップで送り。 */}
+                <Pressable onPress={onNext} style={{ position: 'absolute', bottom: dlgBottom, left: Math.round((FW - dlgW) / 2), width: dlgW, height: dlgH }}>
+                  <Image source={dlgImg} style={{ position: 'absolute', width: dlgW, height: dlgH }} resizeMode="contain" />
+                  <View style={{ position: 'absolute', left: dlgW * 0.06, right: dlgW * 0.12, top: 0, bottom: 0, justifyContent: 'center' }}>
+                    <Text style={{ color: sayCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={2}>{pages[page]}</Text>
+                  </View>
+                  {pages.length > 1 && <Animated.Text style={{ position: 'absolute', right: dlgW * 0.045, bottom: dlgH * 0.12, color: sayName, fontSize: Math.round(FW * 0.05), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>}
+                </Pressable>
+                {/* 立ち絵: 会話ダイアログの上端に足元が重なる位置に立たせる(ダイアログの前面)。タップは下のダイアログへ透過。 */}
+                <View pointerEvents="none" style={{ position: 'absolute', width: avH, height: avH, left: Math.round((FW - avH) / 2), bottom: Math.round(dlgBottom + dlgH + FW * 0.02) }}>
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
-                {/* 実機で動くJS版の確認用マーカー(次のスクショで版を判別)。目立たない小さな表示。 */}
-                <Text style={{ position: 'absolute', top: 3, left: 6, color: 'rgba(255,255,255,0.55)', fontSize: 10, fontWeight: '800' }}>js2720</Text>
               </View>
-              {/* 中: 会話+ステータス一体フレーム(素材=テーマ切替)。会話背景と同じ幅で中央寄せ。 */}
-              <View style={{ width: FW, height: FH, alignSelf: 'center', marginTop: 10 }}>
-                <Image source={isDark ? CSFRAME_DARK : CSFRAME_LIGHT} style={{ width: FW, height: FH }} resizeMode="stretch" />
-                {/* ニックネーム: ネームプレート内側で中央(固定フォント)。 */}
-                <View style={{ position: 'absolute', left: CS.nameBox[0] * FW, top: CS.nameBox[1] * FH, width: (CS.nameBox[2] - CS.nameBox[0]) * FW, height: (CS.nameBox[3] - CS.nameBox[1]) * FH, alignItems: 'center', justifyContent: 'center' }} pointerEvents="none">
-                  <Text numberOfLines={1} style={{ color: valCol, fontWeight: '900', fontSize: FS_NAME }}>{talk.nick}</Text>
-                </View>
-                {/* 台詞: 台詞帯の中で縦中央(固定フォント)。タップで送り。 */}
-                <Pressable style={{ position: 'absolute', left: CS.sayBand[0] * FW, top: CS.sayBand[1] * FH, width: (CS.sayBand[2] - CS.sayBand[0]) * FW, height: (CS.sayBand[3] - CS.sayBand[1]) * FH, justifyContent: 'center' }} onPress={onNext}>
-                  <Text style={{ color: valCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={3}>{pages[page]}</Text>
-                </Pressable>
-                {pages.length > 1 && <Text style={{ position: 'absolute', right: FW * 0.14, top: CS.sayBand[3] * FH - FW * 0.075, color: labCol, fontSize: Math.round(FW * 0.03), fontWeight: '800' }}>{page + 1}/{pages.length}</Text>}
-                <Animated.Text style={{ position: 'absolute', right: FW * 0.05, top: CS.sayBand[3] * FH - FW * 0.085, color: labCol, fontSize: Math.round(FW * 0.045), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>
-                {/* 6項目=左列「ラベル：値」＋右列。左が長い時は右列を右へズラす(rightX)。右列は揃える。 */}
-                {ROWS.map((r, i) => {
-                  const top = midOf(CS.rowBands[r.b]) * FH - LH_FIELD / 2;
+              {/* ② ステータス枠(正方形・会話画像の下)。上半分=6項目 / 下半分=覚えた単語(漢字/語彙/文法) 3バー。 */}
+              <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: 8 }}>
+                <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
+                {/* 6項目: 2列×3行(名前|Lv / 性格|国名 / 気分|得意)。値は下線に乗せる。 */}
+                {FIELDS.map((f, i) => {
+                  const y = stH * (0.15 + i * 0.115);
+                  const uy = y + fsVal * 1.35;
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: CS.xL * FW, top, width: leftW, height: LH_FIELD, lineHeight: LH_FIELD, color: valCol, fontWeight: '800', fontSize: FS_FIELD }}>{r.L.lab}：{r.L.val}</Text>
-                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: rightX, top, width: rightW, height: LH_FIELD, lineHeight: LH_FIELD, color: valCol, fontWeight: '800', fontSize: FS_FIELD }}>{r.R.lab}：{r.R.val}</Text>
+                      <Text style={{ position: 'absolute', left: FW * 0.10, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab}</Text>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val}</Text>
+                      <View style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                      <Text style={{ position: 'absolute', left: FW * splitX, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab2}</Text>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: FW * (splitX + xLab2), width: FW * rightAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val2}</Text>
+                      <View style={{ position: 'absolute', left: FW * (splitX + xLab2), width: FW * rightAvail, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
                     </View>
                   );
                 })}
-                {/* バー2行: 各バー帯の中で縦中央。ラベル(左)＋バー＋数字。 */}
-                {bars.map((b, i) => {
-                  const mid = midOf(CS.barBands[b.b]);
+                {/* 見出し「覚えた単語」(中央・区切り線の下)。 */}
+                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '900', letterSpacing: 2 }}>覚えた単語</Text>
+                {/* 3バー: 漢字/語彙/文法 = 内訳(色分け)＋語数。 */}
+                {CATS.map((c, i) => {
+                  const y = stH * (0.63 + i * 0.105);
+                  const bx0 = FW * 0.28, bx1 = FW * 0.76, bw = bx1 - bx0;
+                  const fill = Math.max(0.04, Math.min(1, 0.82 * c.n / catMax));
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      <Text numberOfLines={1} style={{ position: 'absolute', left: CS.barLabelX * FW, top: mid * FH - LH_BAR / 2, width: (CS.barX0 - CS.barLabelX - 0.012) * FW, height: LH_BAR, lineHeight: LH_BAR, color: valCol, fontWeight: '800', fontSize: FS_BAR }}>{b.lab}</Text>
-                      <View style={{ position: 'absolute', left: CS.barX0 * FW, top: mid * FH - barH / 2, width: (CS.barX1 - CS.barX0) * FW, height: barH, borderRadius: 7, backgroundColor: barTrack, overflow: 'hidden' }}>
-                        <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: (`${b.pct}%` as `${number}%`), backgroundColor: b.col, borderRadius: 7 }} />
+                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y, color: subCol, fontSize: FS_LAB, fontWeight: '800' }}>{c.lab}</Text>
+                      <View style={{ position: 'absolute', left: bx0, top: y + 1, width: bw, height: Math.round(FW * 0.036), borderRadius: 6, backgroundColor: 'rgba(120,100,70,0.16)', borderWidth: 1, borderColor: 'rgba(120,100,70,0.4)', overflow: 'hidden' }}>
+                        <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: Math.round(bw * fill), backgroundColor: c.col, borderRadius: 6 }} />
                       </View>
-                      <Text numberOfLines={1} style={{ position: 'absolute', left: CS.numX * FW, top: mid * FH - LH_BAR / 2, width: (0.9 - CS.numX) * FW, height: LH_BAR, lineHeight: LH_BAR, color: valCol, fontWeight: '800', fontSize: FS_NUM }}>{b.num}</Text>
+                      <Text style={{ position: 'absolute', left: bx1 + FW * 0.025, top: y, color: inkCol, fontSize: FS_VAL, fontWeight: '800' }}>{c.n}</Text>
                     </View>
                   );
                 })}
@@ -922,40 +968,112 @@ export default function KotobaTownScreen() {
               )}
             </ScrollView>
             {/* 閉じる(はっきり見える白フチの丸)。下スワイプでも抜けられる。 */}
-            <Pressable onPress={closeTalk} hitSlop={12} style={s.nvClose}><Ionicons name="close" size={26} color="#ffffff" /></Pressable>
+            <Pressable onPress={closeTalk} hitSlop={12} style={s.nvClose}><Ionicons name="close" size={19} color="#ffffff" /></Pressable>
           </View>
         );
       })()}
 
       {/* 桜の会話(ノベル風・立ち絵フルスクリーン)。学習者と同じ演出=全画面ランダム背景＋桜の立ち絵＋ダイアログボックス。 */}
       {sakuraTalk && (() => {
+        // 桜の会話も他アバターと同じノベル構成＋ステータス枠。桜は学習者でないので覚えた単語バーは出さない・Lvは非表示。
         const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
-        const dlgH = Math.round(VW * 385 / 960);
-        const avH = Math.min(Math.round(VH * 0.44), Math.round(VW * 0.95));
+        const dlgImg = isDay ? DLG_LIGHT : DLG_DARK;
+        const INSET = Math.round(VW * 0.025);
+        const FW = VW - INSET * 2;
+        const sceneSrc = Image.resolveAssetSource(scene);
+        const sceneAsp = (sceneSrc.width / sceneSrc.height) || 0.714;
+        const sceneH = Math.round(FW / sceneAsp);
+        const avH = Math.round(sceneH * 0.52);
+        const dlgSrc = Image.resolveAssetSource(dlgImg);
+        const dlgW = Math.round(FW * 0.95);       // 会話ダイアログ幅=左右に少し余白
+        const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
+        const dlgBottom = Math.round(FW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
+        const stH = FW;
+        const sayCol = isDay ? '#2d2113' : '#eaf1ff';
+        const sayName = isDay ? '#9a6e1b' : '#ffd66e';
+        const inkCol = '#2d2113', subCol = '#7a5f2e';
+        const FS_SAY = Math.round(FW * 0.041), LH_SAY = Math.round(FW * 0.058);
+        const FS_NAME = Math.round(FW * 0.044);
+        const FS_LAB = Math.round(FW * 0.035), FS_VAL = Math.round(FW * 0.034);
         const pages = sakuraLines.length ? sakuraLines : ['また会えたね🌸'];
         const page = Math.min(sakuraPage, pages.length - 1);
         const onNext = () => { if (page < pages.length - 1) setSakuraPage(page + 1); else closeSakura(); };
         const nextY = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0, 4] });
         const nextOp = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0.55, 1] });
+        // 桜のステータス: 性格=3種からランダム(会話ごと=talkScene由来で安定)・気分固定・Lv非表示。
+        const SPERS = ['マイペース', 'おっとり', '優しい'];
+        const sakuraPer = SPERS[[...talkScene].reduce((a, c) => a + c.charCodeAt(0), 0) % SPERS.length];
+        const SFIELDS: { lab: string; val: string; lab2: string; val2: string }[] = [
+          { lab: '名前', val: '桜', lab2: '', val2: '' }, // Lvは非表示(右列なし)
+          { lab: '性格', val: sakuraPer, lab2: '国名', val2: '🇯🇵' },
+          { lab: '気分', val: '桜貝大好き', lab2: '得意', val2: '応援' },
+        ];
+        const estEm = (t: string) => { let u = 0; for (const ch of t) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u; };
+        const emVal = FS_VAL / FW; const xValL = 0.225, xLab2 = 0.10;
+        const leftValEm = Math.max(...SFIELDS.map((f) => estEm(f.val)));
+        const rightValEm = Math.max(...SFIELDS.map((f) => estEm(f.val2)));
+        const splitX = Math.min(0.66, Math.max(0.50, xValL + leftValEm * emVal + 0.03));
+        const leftAvail = splitX - 0.03 - xValL; const rightAvail = 0.90 - (splitX + xLab2);
+        const need = Math.max(leftValEm * emVal / Math.max(leftAvail, 0.001), rightValEm * emVal / Math.max(rightAvail, 0.001));
+        const stScale = need > 1 ? Math.max(0.72, 1 / need) : 1;
+        const fsVal = Math.round(FS_VAL * stScale), fsLab = Math.round(FS_LAB * stScale);
         return (
           <View style={s.cvWrap}>
-            {/* 背景=会話シーン(全画面)。会話ごとにランダム・昼夜で切替。 */}
-            <Image source={scene} style={StyleSheet.absoluteFill} resizeMode="cover" />
-            <View style={s.cvVignette} pointerEvents="none" />
-            <Pressable style={StyleSheet.absoluteFill} onPress={closeSakura} />
-            <Pressable onPress={closeSakura} hitSlop={10} style={s.nvClose}><Ionicons name="close" size={26} color="#ffffff" /></Pressable>
-            {/* 桜の立ち絵=背景の右に乗せる(足元はダイアログ上端あたり)。 */}
-            <View style={[s.cvAvatarR, { right: Math.round(VW * 0.02), bottom: dlgH + 4, width: avH, height: avH }]} pointerEvents="none">
-              <Image source={SAKURA.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
-            </View>
-            {/* 台詞=装飾ダイアログボックス(全幅・白文字・名前は上枠・▼発光)。 */}
-            <Pressable style={[s.cvDlg, { height: dlgH }]} onPress={onNext}>
-              <Image source={DIALOGBOX} style={StyleSheet.absoluteFill} resizeMode="stretch" />
-              <Text style={[s.cvDlgName, { top: dlgH * 0.05, width: '34%' }]} numberOfLines={1}>🌸 桜</Text>
-              <Text style={[s.cvDlgSay, { top: dlgH * 0.29 }]} numberOfLines={3}>{pages[page]}</Text>
-              {pages.length > 1 && <Text style={[s.cvDlgDots, { bottom: dlgH * 0.12 }]}>{page + 1}/{pages.length}</Text>}
-              <Animated.Text style={[s.cvDlgNext, { bottom: dlgH * 0.08, opacity: nextOp, transform: [{ translateY: nextY }] }]}>▼</Animated.Text>
-            </Pressable>
+            {/* 会話画像・ステータス以外の背景=歩行中の町をそのまま(暗幕なし)。下に引くと閉じる。 */}
+            <ScrollView showsVerticalScrollIndicator={false} bounces scrollEventThrottle={16}
+              style={{ backgroundColor: 'transparent' }}
+              contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingVertical: INSET }}
+              onScroll={(e) => { if (e.nativeEvent.contentOffset.y < -72) closeSakura(); }}>
+              {/* ① 会話画像=背景(縦長)＋下部にダイアログ＋その上端に桜の立ち絵。四隅丸め。話者名は出さない。 */}
+              <View style={{ width: FW, height: sceneH, alignSelf: 'center', borderRadius: 24, overflow: 'hidden', backgroundColor: '#0a0a14' }}>
+                <Image source={scene} style={{ position: 'absolute', width: FW, height: sceneH }} resizeMode="cover" />
+                <Pressable onPress={onNext} style={{ position: 'absolute', bottom: dlgBottom, left: Math.round((FW - dlgW) / 2), width: dlgW, height: dlgH }}>
+                  <Image source={dlgImg} style={{ position: 'absolute', width: dlgW, height: dlgH }} resizeMode="contain" />
+                  <View style={{ position: 'absolute', left: dlgW * 0.06, right: dlgW * 0.12, top: 0, bottom: 0, justifyContent: 'center' }}>
+                    <Text style={{ color: sayCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={2}>{pages[page]}</Text>
+                  </View>
+                  {pages.length > 1 && <Animated.Text style={{ position: 'absolute', right: dlgW * 0.045, bottom: dlgH * 0.12, color: sayName, fontSize: Math.round(FW * 0.05), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>}
+                </Pressable>
+                <View pointerEvents="none" style={{ position: 'absolute', width: avH, height: avH, left: Math.round((FW - avH) / 2), bottom: Math.round(dlgBottom + dlgH + FW * 0.02) }}>
+                  <Image source={SAKURA.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
+                </View>
+              </View>
+              {/* ② ステータス枠(桜用)。上半分=項目(名前/性格/気分＋国名/得意・Lvは非表示)。下半分=覚えた単語(桜はマックス)。 */}
+              <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: 8 }}>
+                <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
+                {SFIELDS.map((f, i) => {
+                  const y = stH * (0.15 + i * 0.115); const uy = y + fsVal * 1.35;
+                  return (
+                    <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
+                      <Text style={{ position: 'absolute', left: FW * 0.10, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab}</Text>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val}</Text>
+                      <View style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                      {f.lab2 ? (<>
+                        <Text style={{ position: 'absolute', left: FW * splitX, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab2}</Text>
+                        <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: FW * (splitX + xLab2), width: FW * rightAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val2}</Text>
+                        <View style={{ position: 'absolute', left: FW * (splitX + xLab2), width: FW * rightAvail, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                      </>) : null}
+                    </View>
+                  );
+                })}
+                {/* 覚えた単語=桜はマックス(3バー満タン)。 */}
+                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '900', letterSpacing: 2 }}>覚えた単語</Text>
+                {[{ lab: '漢字', col: '#4a7fc0' }, { lab: '語彙', col: '#6f9a3f' }, { lab: '文法', col: '#c0603a' }].map((c, i) => {
+                  const y = stH * (0.63 + i * 0.105);
+                  const bx0 = FW * 0.28, bx1 = FW * 0.76, bw = bx1 - bx0;
+                  return (
+                    <View key={`sc${i}`} pointerEvents="none" style={StyleSheet.absoluteFill}>
+                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y, color: subCol, fontSize: FS_LAB, fontWeight: '800' }}>{c.lab}</Text>
+                      <View style={{ position: 'absolute', left: bx0, top: y + 1, width: bw, height: Math.round(FW * 0.036), borderRadius: 6, backgroundColor: 'rgba(120,100,70,0.16)', borderWidth: 1, borderColor: 'rgba(120,100,70,0.4)', overflow: 'hidden' }}>
+                        <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: bw, backgroundColor: c.col, borderRadius: 6 }} />
+                      </View>
+                      <Text style={{ position: 'absolute', left: bx1 + FW * 0.025, top: y, color: inkCol, fontSize: FS_VAL, fontWeight: '900' }}>MAX</Text>
+                    </View>
+                  );
+                })}
+              </View>
+            </ScrollView>
+            <Pressable onPress={closeSakura} hitSlop={12} style={s.nvClose}><Ionicons name="close" size={19} color="#ffffff" /></Pressable>
           </View>
         );
       })()}
@@ -1054,7 +1172,7 @@ const s = StyleSheet.create({
   // ノベル風の会話(立ち絵フルスクリーン)
   nvWrap: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
   nvScrim: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(6,8,20,0.66)' },
-  nvClose: { position: 'absolute', top: 52, right: 14, width: 42, height: 42, borderRadius: 21, backgroundColor: 'rgba(12,16,28,0.6)', borderWidth: 2, borderColor: 'rgba(255,255,255,0.92)', alignItems: 'center', justifyContent: 'center', zIndex: 8, shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5 },
+  nvClose: { position: 'absolute', top: 52, right: 14, width: 32, height: 32, borderRadius: 16, backgroundColor: 'rgba(12,16,28,0.6)', borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.92)', alignItems: 'center', justifyContent: 'center', zIndex: 8, shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5 },
   nvStage: { ...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', paddingBottom: 28 },
   nvStandWrap: { alignItems: 'center', marginBottom: -6, zIndex: 1 },
   nvPlate: { flexDirection: 'row', alignItems: 'center', gap: 8, alignSelf: 'flex-start', marginLeft: 16, marginBottom: 8, backgroundColor: '#0c1d49', borderWidth: 2, borderColor: '#ffffff', borderRadius: 9, paddingHorizontal: 12, paddingVertical: 5, zIndex: 3 },

@@ -39,6 +39,10 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- 🔴 文脈 61万／70万（87%）・39943往復 — まもなく強制圧縮。区切りをつけて /clear を
+- 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -47,14 +51,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/screens/KotobaTownScreen.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/screens/KotobaTownScreen.tsx
-- src/screens/ProfileScreen.tsx
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- src/screens/HomeScreen.tsx
-- src/screens/AccountScreen.tsx
+- assets/kotoba/ui/dlg_dark.png
+- assets/kotoba/ui/dlg_light.png
+- assets/kotoba/scene/town_day.jpg
+- assets/kotoba/scene/town_night.jpg
+- assets/kotoba/scene/pond_day.jpg
 
-_自動更新: 2026-08-08 21:45_
+_自動更新: 2026-08-09 12:01_
 <!-- AUTO:END -->
