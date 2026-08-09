@@ -1,7 +1,6 @@
 // AdMob(リワード広告)の薄いラッパー。UI・起動処理はこの関数だけを呼ぶ(SDKを直接触らない)。
 // 【重要】ネイティブSDKが無い環境(Expo Go・古いOTAで届いた場合)でも決して落とさない＝全て安全に no-op(広告なし)。
 //         本番IDが未設定なら Google テスト広告が出る(src/config/admob.ts)。
-import { Platform } from 'react-native';
 import { rewardedAdUnitId, TEST_DEVICE_IDS } from '../config/admob';
 
 // ネイティブSDKは遅延require(未リンクでも import 時に落ちない)。
@@ -25,8 +24,10 @@ let inited = false;
 let personalized = true; // オンボの「トラッキングを許可する」がOFF→非パーソナライズ広告(ATTも尋ねない)。
 
 /**
- * 起動時に1回。iOSは先に ATT(トラッキング許可)を尋ねてから初期化。失敗してもアプリは止めない。
- * optIn=false(ユーザーがトラッキング拒否)なら ATT を尋ねず、広告は非パーソナライズで配信。
+ * 起動時に1回。広告SDKを初期化する。失敗してもアプリは止めない。
+ * ※ATT(トラッキング許可)の確認ダイアログは出さない方針(ユーザー指定)。
+ *   トラッキング可否は設定画面のトグル(=optIn)で扱い、広告のパーソナライズ有無だけを切り替える。
+ *   iOSでATT未許可なら Google SDK 側で自動的にIDFAを使わない(=個別追跡なし)ので、これで整合する。
  */
 export async function initAds(optIn = true): Promise<void> {
   personalized = optIn; // 設定でトグル→次に読み込む広告から反映(inited済でも更新)
@@ -34,16 +35,6 @@ export async function initAds(optIn = true): Promise<void> {
   const m = sdk();
   if (!m) return;
   try {
-    if (Platform.OS === 'ios' && optIn) {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const tt = require('expo-tracking-transparency');
-        const cur = await tt.getTrackingPermissionsAsync();
-        if (cur.status === 'undetermined') await tt.requestTrackingPermissionsAsync();
-      } catch {
-        /* ATTモジュールが無くても広告初期化は続ける(非パーソナライズで動く) */
-      }
-    }
     // テスト端末を登録(空なら本番広告)。本物IDでもここに載る端末はテスト広告=自分でタップしても安全。
     try {
       if (TEST_DEVICE_IDS.length > 0) {

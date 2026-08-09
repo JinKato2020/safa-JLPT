@@ -99,39 +99,15 @@ export default function ProfileScreen() {
 
         {/* 学習設定 */}
         <View style={s.card}>
-          {/* 目標試験(JLPT / JFT-Basic) */}
-          <Text style={s.setLbl}>{t('profile.targetExam')}</Text>
+          {/* JLPTの目標レベル(目標試験の選択はJLPTのみ実装のため廃止) */}
+          <Text style={s.setLbl}>{t('profile.targetLevel')}</Text>
           <View style={s.chipRow}>
-            {(['jlpt', 'jft'] as const).map((ex) => {
-              if (ex === 'jft') return null; // JFTは準備中のため非表示(準備完了でこの行を消す)
-              const on = (state.settings.targetExam ?? 'jlpt') === ex;
-              return (
-                <Pressable
-                  key={ex}
-                  onPress={() => setSettings({ targetExam: 'jlpt' })}
-                  style={[s.chip, on && s.chipOn]}
-                >
-                  <Text style={[s.chipTxt, on && s.chipTxtOn]}>{t('profile.exam_jlpt')}</Text>
-                </Pressable>
-              );
-            })}
+            {LEVELS.map((lv) => (
+              <Pressable key={lv} onPress={() => setSettings({ level: lv })} style={[s.chip, state.settings.level === lv && s.chipOn]}>
+                <Text style={[s.chipTxt, state.settings.level === lv && s.chipTxtOn]}>{lv}</Text>
+              </Pressable>
+            ))}
           </View>
-
-          {/* 目標級(JLPTのみ。JFTは単一試験=レベル選択なし) */}
-          {(state.settings.targetExam ?? 'jlpt') === 'jlpt' ? (
-            <>
-              <Text style={s.setLbl}>{t('profile.targetLevel')}</Text>
-              <View style={s.chipRow}>
-                {LEVELS.map((lv) => (
-                  <Pressable key={lv} onPress={() => setSettings({ level: lv })} style={[s.chip, state.settings.level === lv && s.chipOn]}>
-                    <Text style={[s.chipTxt, state.settings.level === lv && s.chipTxtOn]}>{lv}</Text>
-                  </Pressable>
-                ))}
-              </View>
-            </>
-          ) : (
-            <Text style={{ fontSize: ty.tiny, color: c.faint, marginTop: 4, lineHeight: 16 }}>{t('profile.jft_note')}</Text>
-          )}
 
           <Text style={s.setLbl}>{t('profile.nativeLang')}</Text>
           <Pressable style={s.dropdown} onPress={() => setLangOpen((o) => !o)}>

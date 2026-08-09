@@ -149,7 +149,7 @@ export const DEFAULT_OWNED = [DEFAULT_HAIR_ID, NONE_BRUSH_ID, NONE_COSTUME_ID, D
 
 export const INITIAL_STATE: AppState = {
   version: STATE_VERSION,
-  settings: { level: 'N4', l1: 'vi', examDate: null, theme: 'dark', reminder: null, onboarded: false, font: 'mincho' },
+  settings: { level: 'N4', l1: 'vi', examDate: null, theme: 'light', reminder: null, onboarded: false, font: 'mincho', telemetry: true, adTracking: true },
   items: {},
   streak: { current: 0, longest: 0, lastStudyDay: null, freezes: 2, history: [] },
   growth: [],

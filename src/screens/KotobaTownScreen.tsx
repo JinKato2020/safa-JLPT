@@ -827,12 +827,13 @@ export default function KotobaTownScreen() {
         const FW = VW - INSET * 2;
         const sceneSrc = Image.resolveAssetSource(scene);
         const sceneAsp = (sceneSrc.width / sceneSrc.height) || 0.714;
-        const sceneH = Math.round(FW / sceneAsp); // 縦長背景を幅いっぱい＝全体表示(トリム無し)
+        const SW = Math.round(FW * 0.88);         // 会話背景(MAP)=ステータス枠の見える幅に合わせて小さく=上左右に余白
+        const sceneH = Math.round(SW / sceneAsp); // 縦長背景を全体表示(トリム無し)
         const avH = Math.round(sceneH * 0.52);    // 立ち絵=背景内。会話ダイアログの上端に足元が重なる高さ
         const dlgSrc = Image.resolveAssetSource(dlgImg);
-        const dlgW = Math.round(FW * 0.95);       // 会話ダイアログ幅=左右に少し余白
+        const dlgW = Math.round(SW * 0.95);       // 会話ダイアログ幅=左右に少し余白
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
-        const dlgBottom = Math.round(FW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
+        const dlgBottom = Math.round(SW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
         const stH = FW; // ステータス枠=正方形
         // 台詞ページ(各ページ最大2行)。
         const lines: string[] = [`やあ、${talk.nick}だよ！`];
@@ -856,7 +857,7 @@ export default function KotobaTownScreen() {
         const labCol = isDark ? '#ffd66e' : '#9a6e1b';
         const valCol = isDark ? '#ffffff' : '#2d2113';
         // フォント(FW基準・固定サイズ)。
-        const FS_SAY = Math.round(FW * 0.041), LH_SAY = Math.round(FW * 0.058);
+        const FS_SAY = Math.round(SW * 0.041), LH_SAY = Math.round(SW * 0.058);
         const FS_NAME = Math.round(FW * 0.044);
         const FS_LAB = Math.round(FW * 0.035), FS_VAL = Math.round(FW * 0.034);
         // 6項目(名前|Lv / 性格|国名 / 気分|得意)=ステータス正方形の上半分。
@@ -898,23 +899,23 @@ export default function KotobaTownScreen() {
               contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingVertical: INSET }}
               onScroll={(e) => { if (e.nativeEvent.contentOffset.y < -72) closeTalk(); }}>
               {/* ① 会話画像=背景(縦長)＋下部に会話ダイアログを重ね＋その上端にアバターを重ねる(ノベル風)。四隅は丸め。 */}
-              <View style={{ width: FW, height: sceneH, alignSelf: 'center', borderRadius: 24, overflow: 'hidden', backgroundColor: '#0a0a14' }}>
-                <Image source={scene} style={{ position: 'absolute', width: FW, height: sceneH }} resizeMode="cover" />
+              <View style={{ width: SW, height: sceneH, alignSelf: 'center', borderRadius: 24, overflow: 'hidden', backgroundColor: '#0a0a14' }}>
+                <Image source={scene} style={{ position: 'absolute', width: SW, height: sceneH }} resizeMode="cover" />
                 {/* 会話ダイアログ: 背景の下端にくっつけて重ねる(枠だけにトリミング済)。台詞は中央寄せ・タップで送り。 */}
-                <Pressable onPress={onNext} style={{ position: 'absolute', bottom: dlgBottom, left: Math.round((FW - dlgW) / 2), width: dlgW, height: dlgH }}>
+                <Pressable onPress={onNext} style={{ position: 'absolute', bottom: dlgBottom, left: Math.round((SW - dlgW) / 2), width: dlgW, height: dlgH }}>
                   <Image source={dlgImg} style={{ position: 'absolute', width: dlgW, height: dlgH }} resizeMode="contain" />
                   <View style={{ position: 'absolute', left: dlgW * 0.06, right: dlgW * 0.12, top: 0, bottom: 0, justifyContent: 'center' }}>
                     <Text style={{ color: sayCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={2}>{pages[page]}</Text>
                   </View>
-                  {pages.length > 1 && <Animated.Text style={{ position: 'absolute', right: dlgW * 0.045, bottom: dlgH * 0.12, color: sayName, fontSize: Math.round(FW * 0.05), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>}
+                  {pages.length > 1 && <Animated.Text style={{ position: 'absolute', right: dlgW * 0.045, bottom: dlgH * 0.12, color: sayName, fontSize: Math.round(SW * 0.05), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>}
                 </Pressable>
                 {/* 立ち絵: 会話ダイアログの上端に足元が重なる位置に立たせる(ダイアログの前面)。タップは下のダイアログへ透過。 */}
-                <View pointerEvents="none" style={{ position: 'absolute', width: avH, height: avH, left: Math.round((FW - avH) / 2), bottom: Math.round(dlgBottom + dlgH + FW * 0.02) }}>
+                <View pointerEvents="none" style={{ position: 'absolute', width: avH, height: avH, left: Math.round((SW - avH) / 2), bottom: Math.round(dlgBottom + dlgH + SW * 0.02) }}>
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
               </View>
               {/* ② ステータス枠(正方形・会話画像の下)。上半分=6項目 / 下半分=覚えた単語(漢字/語彙/文法) 3バー。 */}
-              <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: 8 }}>
+              <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: -Math.round(FW * 0.045) }}>
                 <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
                 {/* 6項目: 2列×3行(名前|Lv / 性格|国名 / 気分|得意)。値は下線に乗せる。 */}
                 {FIELDS.map((f, i) => {
@@ -996,17 +997,18 @@ export default function KotobaTownScreen() {
         const FW = VW - INSET * 2;
         const sceneSrc = Image.resolveAssetSource(scene);
         const sceneAsp = (sceneSrc.width / sceneSrc.height) || 0.714;
-        const sceneH = Math.round(FW / sceneAsp);
+        const SW = Math.round(FW * 0.88);         // 会話背景(MAP)=ステータス枠の見える幅に合わせて小さく=上左右に余白
+        const sceneH = Math.round(SW / sceneAsp);
         const avH = Math.round(sceneH * 0.52);
         const dlgSrc = Image.resolveAssetSource(dlgImg);
-        const dlgW = Math.round(FW * 0.95);       // 会話ダイアログ幅=左右に少し余白
+        const dlgW = Math.round(SW * 0.95);       // 会話ダイアログ幅=左右に少し余白
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
-        const dlgBottom = Math.round(FW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
+        const dlgBottom = Math.round(SW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
         const stH = FW;
         const sayCol = isDay ? '#2d2113' : '#eaf1ff';
         const sayName = isDay ? '#9a6e1b' : '#ffd66e';
         const inkCol = '#2d2113', subCol = '#7a5f2e';
-        const FS_SAY = Math.round(FW * 0.041), LH_SAY = Math.round(FW * 0.058);
+        const FS_SAY = Math.round(SW * 0.041), LH_SAY = Math.round(SW * 0.058);
         const FS_NAME = Math.round(FW * 0.044);
         const FS_LAB = Math.round(FW * 0.035), FS_VAL = Math.round(FW * 0.034);
         const pages = sakuraLines.length ? sakuraLines : ['また会えたね🌸'];
@@ -1039,21 +1041,21 @@ export default function KotobaTownScreen() {
               contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingVertical: INSET }}
               onScroll={(e) => { if (e.nativeEvent.contentOffset.y < -72) closeSakura(); }}>
               {/* ① 会話画像=背景(縦長)＋下部にダイアログ＋その上端に桜の立ち絵。四隅丸め。話者名は出さない。 */}
-              <View style={{ width: FW, height: sceneH, alignSelf: 'center', borderRadius: 24, overflow: 'hidden', backgroundColor: '#0a0a14' }}>
-                <Image source={scene} style={{ position: 'absolute', width: FW, height: sceneH }} resizeMode="cover" />
-                <Pressable onPress={onNext} style={{ position: 'absolute', bottom: dlgBottom, left: Math.round((FW - dlgW) / 2), width: dlgW, height: dlgH }}>
+              <View style={{ width: SW, height: sceneH, alignSelf: 'center', borderRadius: 24, overflow: 'hidden', backgroundColor: '#0a0a14' }}>
+                <Image source={scene} style={{ position: 'absolute', width: SW, height: sceneH }} resizeMode="cover" />
+                <Pressable onPress={onNext} style={{ position: 'absolute', bottom: dlgBottom, left: Math.round((SW - dlgW) / 2), width: dlgW, height: dlgH }}>
                   <Image source={dlgImg} style={{ position: 'absolute', width: dlgW, height: dlgH }} resizeMode="contain" />
                   <View style={{ position: 'absolute', left: dlgW * 0.06, right: dlgW * 0.12, top: 0, bottom: 0, justifyContent: 'center' }}>
                     <Text style={{ color: sayCol, fontSize: FS_SAY, lineHeight: LH_SAY, fontWeight: '600' }} numberOfLines={2}>{pages[page]}</Text>
                   </View>
-                  {pages.length > 1 && <Animated.Text style={{ position: 'absolute', right: dlgW * 0.045, bottom: dlgH * 0.12, color: sayName, fontSize: Math.round(FW * 0.05), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>}
+                  {pages.length > 1 && <Animated.Text style={{ position: 'absolute', right: dlgW * 0.045, bottom: dlgH * 0.12, color: sayName, fontSize: Math.round(SW * 0.05), fontWeight: '900', opacity: nextOp, transform: [{ translateY: nextY }] }}>▽</Animated.Text>}
                 </Pressable>
-                <View pointerEvents="none" style={{ position: 'absolute', width: avH, height: avH, left: Math.round((FW - avH) / 2), bottom: Math.round(dlgBottom + dlgH + FW * 0.02) }}>
+                <View pointerEvents="none" style={{ position: 'absolute', width: avH, height: avH, left: Math.round((SW - avH) / 2), bottom: Math.round(dlgBottom + dlgH + SW * 0.02) }}>
                   <Image source={SAKURA.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
               </View>
               {/* ② ステータス枠(桜用)。上半分=項目(名前/性格/気分＋国名/得意・Lvは非表示)。下半分=覚えた単語(桜はマックス)。 */}
-              <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: 8 }}>
+              <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: -Math.round(FW * 0.045) }}>
                 <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
                 {SFIELDS.map((f, i) => {
                   const y = stH * (0.15 + i * 0.115); const uy = y + fsVal * 1.35;
