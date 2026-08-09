@@ -41,10 +41,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 123ターン（文脈 31万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 123ターン・ツール58回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -53,14 +49,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- memory/session-summary-LATEST.md
+- memory/handoff.md
 - src/screens/MockScreen.tsx
 - src/screens/ProfileScreen.tsx
 - src/i18n/ja.json
 - src/navigation/types.ts
-- assets/mock/mock_cert_fail.jpg
-- assets/mock/mock_cert_pass.jpg
-- assets/mock/mock_end.jpg
-- assets/mock/mock_break.jpg
 
-_自動更新: 2026-08-09 17:14_
+_自動更新: 2026-08-09 17:16_
 <!-- AUTO:END -->

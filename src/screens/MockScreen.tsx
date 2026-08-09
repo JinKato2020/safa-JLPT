@@ -43,36 +43,33 @@ const JFT_SEC_LABEL: Record<Sec, string> = { moji_goi: 'exam.jft_cat_moji', bunp
 // 1問あたりの持ち時間(秒)。JFT/ミニのタイマー算出に使用(JLPTフルは科目別ブロック時間=BLOCK_MINで計る)。
 const SEC_SECONDS: Record<Sec, number> = { moji_goi: 40, bunpou: 40, dokkai: 110, choukai: 90 };
 
-// 本番の「試験科目(時間の区切り)」= 全級3ブロック。各ブロックの間に休憩が入る。分は現行(2022改定後)規定。
-//  ①言語知識(文字・語彙)  ②言語知識(文法)・読解  ③聴解  合計= N5:90 / N4:115 / N3:140。
-const BLOCK_MIN: Record<Level, [number, number, number]> = {
-  N5: [20, 40, 30],
-  N4: [25, 55, 35],
-  N3: [30, 70, 40],
+// 本番の「試験科目(時間の区切り)」= 模試の休憩ブロック。イントロの足切りカードと同じ束ね方・同じ制限時間で一致させる。
+//  N5/N4=2ブロック(言語知識・読解 / 聴解) ・ N3=3ブロック(文字語彙 / 文法・読解 / 聴解)。合計= N5:90 N4:115 N3:140。
+const MOCK_TIME_SECTIONS: Record<string, { label: string; secs: Sec[]; min: number }[]> = {
+  N5: [{ label: '言語知識・読解', secs: ['moji_goi', 'bunpou', 'dokkai'], min: 60 }, { label: '聴解', secs: ['choukai'], min: 30 }],
+  N4: [{ label: '言語知識・読解', secs: ['moji_goi', 'bunpou', 'dokkai'], min: 80 }, { label: '聴解', secs: ['choukai'], min: 35 }],
+  N3: [{ label: '言語知識（文字・語彙）', secs: ['moji_goi'], min: 30 }, { label: '言語知識（文法）・読解', secs: ['bunpou', 'dokkai'], min: 70 }, { label: '聴解', secs: ['choukai'], min: 40 }],
 };
-const BLOCK_LABELS = ['言語知識（文字・語彙）', '言語知識（文法）・読解', '聴解'] as const;
 // 小区分キー→i18nラベルキー(大問分野の見出し用)。
 const READING_SUB_LABEL: Record<string, string> = Object.fromEntries(READING_SUBTYPES.map((x) => [x.key, x.labelKey]));
 const LISTEN_SUB_LABEL: Record<string, string> = Object.fromEntries(LISTENING_SUBTYPES.map((x) => [x.key, x.labelKey]));
-// exam(区分順に並ぶ)を3ブロックへ割る: moji_goi=①, bunpou+dokkai=②, choukai=③。
-const blockOf = (sec: Sec): 0 | 1 | 2 => (sec === 'moji_goi' ? 0 : sec === 'choukai' ? 2 : 1);
 interface ExamBlock { label: string; from: number; to: number; ms: number }
 function buildBlocks(exam: MockItem[], isJft: boolean, level: Level): ExamBlock[] {
-  const mins = BLOCK_MIN[level] ?? BLOCK_MIN.N4;
-  // JFT = 休憩なしの1ブロック(通しタイマー)。JLPTは下で3科目に分割。
+  // JFT = 休憩なしの1ブロック(通しタイマー)。JLPTは試験科目に分割。
   if (isJft) {
     const ms = exam.reduce((a, it) => a + stepSeconds(it) * 1000, 0);
     return [{ label: 'JFT模試', from: 0, to: exam.length, ms }];
   }
+  const specs = MOCK_TIME_SECTIONS[level] ?? MOCK_TIME_SECTIONS.N4;
   const blocks: ExamBlock[] = [];
-  for (let g = 0 as 0 | 1 | 2; g < 3; g++) {
-    const from = exam.findIndex((it) => blockOf(it.section) === g);
+  for (const sp of specs) {
+    const from = exam.findIndex((it) => sp.secs.includes(it.section));
     if (from < 0) continue;
     let to = from;
-    while (to < exam.length && blockOf(exam[to].section) === g) to++;
-    blocks.push({ label: BLOCK_LABELS[g], from, to, ms: mins[g] * 60_000 });
+    while (to < exam.length && sp.secs.includes(exam[to].section)) to++;
+    blocks.push({ label: sp.label, from, to, ms: sp.min * 60_000 });
   }
-  return blocks.length ? blocks : [{ label: '', from: 0, to: exam.length, ms: (mins[0] + mins[1] + mins[2]) * 60_000 }];
+  return blocks.length ? blocks : [{ label: '', from: 0, to: exam.length, ms: specs.reduce((a, x) => a + x.min, 0) * 60_000 }];
 }
 
 // 合格判定(近似)。本番は尺度得点だが、模試は正答率で近似: 総合(合格点/180)と各得点区分の足切り(基準点/満点)を両方満たせば合格。
@@ -454,7 +451,7 @@ export default function MockScreen() {
     );
   }
 
-  // 模試終了画面(最後の科目のあと)。桜のねぎらい＋「結果を計算する」。
+  // 模試終了画面(最後の科目のあと)。桜のねぎらい(上部=空)＋「結果を計算する」(下部)。桜の絵(下部中央)にかぶらない。
   if (phase === 'end') {
     return (
       <View style={s.fullImgWrap}>
@@ -471,18 +468,23 @@ export default function MockScreen() {
     );
   }
 
-  // 結果計算の演出(約5秒でバー100%)。
+  // 結果計算の演出(約5秒でバー100%)。背景は模試終了画面のまま。
   if (phase === 'calc') {
     return (
-      <SafeAreaView style={s.c}>
-        <View style={s.calcWrap}>
-          <Text style={s.calcH}>{t('mock.calc_title')}</Text>
-          <View style={s.calcTrack}>
-            <Animated.View style={[s.calcFill, { width: calcProg.interpolate({ inputRange: [0, 1], outputRange: ['0%', '100%'] }) }]} />
+      <View style={s.fullImgWrap}>
+        <Image source={IMG_END} style={{ width: winW, height: winH }} resizeMode="cover" />
+        <SafeAreaView edges={['top', 'bottom']} style={StyleSheet.absoluteFill}>
+          <View style={s.calcOverlay}>
+            <View style={s.calcPanel}>
+              <Text style={s.calcH}>{t('mock.calc_title')}</Text>
+              <View style={s.calcTrack}>
+                <Animated.View style={[s.calcFill, { width: calcProg.interpolate({ inputRange: [0, 1], outputRange: ['0%', '100%'] }) }]} />
+              </View>
+              <Text style={s.calcPct}>{calcPct}%</Text>
+            </View>
           </View>
-          <Text style={s.calcPct}>{calcPct}%</Text>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
+      </View>
     );
   }
 
@@ -504,8 +506,11 @@ export default function MockScreen() {
             </Pressable>
             <Text style={s.progress}>{t('mock.result_label')}</Text>
           </View>
-          {/* 合否の証明書(画面上部)。合格=合格証明書 / 不合格=不合格証明書。 */}
-          <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={s.cert} resizeMode="contain" />
+          {/* 模試終了画面を背景に、合否証明書を上部(空の辺り)へ重ねる。証明書は画面に収まる大きさに最適化。 */}
+          <View style={[s.certHero, { height: Math.round(winH * 0.5) }]}>
+            <Image source={IMG_END} style={StyleSheet.absoluteFill} resizeMode="cover" />
+            <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={[s.cert, { width: Math.round(winW * 0.54) }]} resizeMode="contain" />
+          </View>
           {preview ? <Text style={s.previewNote}>{t('mock.preview_note')}</Text> : null}
           {!preview && (<>
           <View style={s.resultHero}>
@@ -753,18 +758,20 @@ const makeStyles = (c: ThemeColors) =>
     breakWarn: { fontSize: ty.small, color: '#b4531f', fontWeight: '800', textAlign: 'center', marginTop: spacing.sm, lineHeight: 22 },
     breakBtn: { width: '100%', backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.sm },
     breakBtnT: { color: '#fff', fontSize: ty.body, fontWeight: '900', letterSpacing: 1 },
-    // 模試終了(桜のねぎらい吹き出し＋計算ボタン)
-    endOverlay: { flex: 1, justifyContent: 'flex-end', padding: spacing.lg, gap: spacing.md },
-    endBubble: { backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, padding: spacing.lg, gap: 4 },
-    endBubbleT: { fontSize: ty.body, color: '#241a10', fontWeight: '700', lineHeight: 26 },
-    // 結果計算バー
-    calcWrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: spacing.md },
-    calcH: { fontSize: ty.h2, fontWeight: '900', color: c.ink },
-    calcTrack: { width: '100%', height: 16, borderRadius: 999, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, overflow: 'hidden' },
+    // 模試終了(桜のねぎらい吹き出しは上部=空へ / 計算ボタンは下部)
+    endOverlay: { flex: 1, justifyContent: 'space-between', padding: spacing.lg },
+    endBubble: { backgroundColor: 'rgba(255,255,255,0.93)', borderRadius: radius.lg, paddingVertical: spacing.md, paddingHorizontal: spacing.lg, gap: 3, alignSelf: 'center', maxWidth: 360 },
+    endBubbleT: { fontSize: ty.body, color: '#241a10', fontWeight: '700', lineHeight: 25, textAlign: 'center' },
+    // 結果計算バー(模試終了画面の上に半透明パネル)
+    calcOverlay: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.lg },
+    calcPanel: { width: '90%', backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: spacing.md },
+    calcH: { fontSize: ty.h2, fontWeight: '900', color: '#241a10' },
+    calcTrack: { width: '100%', height: 16, borderRadius: 999, backgroundColor: '#e9e1d3', overflow: 'hidden' },
     calcFill: { height: '100%', backgroundColor: c.blue, borderRadius: 999 },
     calcPct: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
-    // 合否証明書(結果画面上部)
-    cert: { width: '100%', aspectRatio: 1050 / 1400, alignSelf: 'center' },
+    // 合否証明書(結果画面上部・模試終了画面を背景に空の辺りへ重ねる)
+    certHero: { width: '100%', borderRadius: radius.lg, overflow: 'hidden', backgroundColor: '#cfe3f5', alignItems: 'center', justifyContent: 'flex-start', marginBottom: spacing.md },
+    cert: { marginTop: spacing.lg, aspectRatio: 750 / 1000 },
     previewNote: { fontSize: ty.small, color: c.amber, fontWeight: '800', textAlign: 'center', marginTop: spacing.xs },
     promptCard: {
       backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,
