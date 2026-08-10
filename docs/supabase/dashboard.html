@@ -238,9 +238,10 @@ function renderGeo(geo){
 function renderLevel(level){
   simpleTbl($('tLevel'),
     [{label:'レベル'},{label:'人数',num:1},{label:'今日のアクティブ',num:1},{label:'学習回数',num:1},{label:'学習時間(合計)',num:1},
-     {label:'平均 合格率',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
+     {label:'平均 予想得点',num:1},{label:'平均 合格率',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
     (level||[]).slice().sort(byLevel),
     [ r=>`<b>${r.level}</b>`, r=>`${r.users}人`, r=>`${r.dau ?? 0}人`, r=>`${r.sessions ?? 0}回`, r=>hm(r.study_min),
+      r=> (r.avg_pred_score==null?'<span class="empty">—</span>':`${r.avg_pred_score}<span class="muted">/${r.pred_max ?? 180}</span>`),
       r=>pct(r.avg_pass_pct), r=>pct(r.avg_cov_pct), r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.referred_total ?? 0}人`, r=>`${r.passing_users}人` ]
   );
 }

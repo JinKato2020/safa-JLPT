@@ -117,6 +117,9 @@ select
   count(*) filter (where d.last_day = current_date)     as dau,
   coalesce(sum(s.sessions), 0)                          as sessions,
   coalesce(sum(d.study_min), 0)                         as study_min,
+  round(avg(d.pred_score))                              as avg_pred_score,  -- 平均 予想得点(現行の主指標)
+  max(d.pred_max)                                       as pred_max,        -- 満点(JLPTは180)
+  round(avg(d.pass_total))                              as pass_total,      -- 平均 合格ライン
   round(avg(d.pass_pct))                                as avg_pass_pct,
   round(avg(d.cov_pct))                                 as avg_cov_pct,
   round(avg(d.study_min))                               as avg_study_min,
