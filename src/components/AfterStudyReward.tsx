@@ -25,7 +25,7 @@ import type { StudiedWord, StudiedQuestion } from '../data/studiedWords';
 
 export type { StudiedWord } from '../data/studiedWords';
 
-const SHELLS_PER_CORRECT = 2; // 正解1問=2貝・不正解0貝(10問なら満点20貝)
+const SHELLS_PER_SESSION = 20; // 1学習=満点20貝。問題数に依らず「正解数/問題数×20」を切り上げ・上限20(10問=1問2貝, 4問=1問5貝)
 
 // 学習後の桜コメントの締め(ねぎらい)。基本(core+flavor)にもう1つのflavor＋この締めを重ねて約2倍に伸ばす。
 // 桜の口調=癒し・ねぎらい専用(数字/日付/合否/能力評価は言わない)。
@@ -67,10 +67,11 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
   const dailyKey = 'dailyFirst-' + dayStr(Date.now());
   const [grantedDaily] = useState(() => !(state.claimedMilestones ?? []).includes(dailyKey));
 
-  // ②貝: 正解1問=2貝・不正解0貝。10問なら 2×正解数(満点20貝)。問題数に依らず「正解数×2」で明快。
+  // ②貝: 1学習=満点20貝。正解数/問題数×20を最後に切り上げ・上限20(全問正解ならどの大問でも20貝。10問なら1問2貝, 4問なら1問5貝)。
   const acc = accuracy ?? 0;
-  const correctN = correct ?? Math.round(((total ?? scored) * acc) / 100);
-  const targetShells = correctN * SHELLS_PER_CORRECT;
+  const totalN = total ?? scored ?? 0;
+  const correctN = correct ?? Math.round((totalN * acc) / 100);
+  const targetShells = totalN > 0 ? Math.min(SHELLS_PER_SESSION, Math.ceil((correctN * SHELLS_PER_SESSION) / totalN)) : 0;
   // 毎問付与ぶん(shellsEarned)との差だけを上乗せ=最終的にこの学習の貝が targetShells になる(不足時のみ加算)。
   const topUp = Math.max(0, targetShells - shellsEarned);
 
