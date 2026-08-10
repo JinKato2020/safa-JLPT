@@ -11,7 +11,8 @@ Notifications.setNotificationHandler({
   }),
 });
 
-async function ensurePermission(): Promise<boolean> {
+/** 通知許可を確認し、無ければ一度だけ要求。許可されたら true。リマインドとプッシュで共用。 */
+export async function ensureNotificationPermission(): Promise<boolean> {
   if (Platform.OS === 'web') return false;
   try {
     const cur = await Notifications.getPermissionsAsync();
@@ -26,7 +27,7 @@ async function ensurePermission(): Promise<boolean> {
 /** 毎日 time("HH:MM") にリマインド。既存をクリアして1件だけ登録。成功で true。 */
 export async function scheduleDailyReminder(time: string): Promise<boolean> {
   if (Platform.OS === 'web') return false;
-  if (!(await ensurePermission())) return false;
+  if (!(await ensureNotificationPermission())) return false;
   try {
     if (Platform.OS === 'android') {
       await Notifications.setNotificationChannelAsync('reminder', {

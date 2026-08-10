@@ -1,7 +1,8 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
-- **🤝 B-1 友だち相互登録＝SQL更新済・ユーザーが実行待ち（2026-08-10）**: `docs/supabase/friends.sql`のtown_join/leave/kickを相互化(joinで両方向insert・leave/kickは両方向delete＝完全解除)。**アプリ改修/ビルド不要**(townMembers()を読むだけで相互反映)。ユーザーへ「関数3つ差し替え＋既存を相互化するバックフィル(insert select member,owner ... on conflict do nothing)」のSQLを提示済＝**Supabase SQL Editorで実行待ち**。実行後B-1完了。※town_leave(自分が抜ける)とtown_kick(相手を外す)は相互化で動作同一・入口(ボタン)違いだけ・両方残す。Google Playデータセーフティ「アカウント削除不要の一部データ削除窓口」は無し=「いいえ」で回答。**次=B-2プッシュ通知の要否→B-3プライバシー本文→C当たり判定**の順(ユーザー指示「順番に」)。
+- **🤝 B-1 友だち相互登録＝Build2742(run`31345510279`)＋SQL実行待ち（2026-08-10）**: 相互化。town_join=両方向insert。**解除はtown_kick 1本に統合**(相互化でtown_leaveと同一動作→town_leaveはSQL drop＋client wrapper除去)。KotobaTownの解除ダイアログを『友だちを解除／相互に解除されます』注記へ(コミット`4c284399`=Build2742)。**ユーザーが最終SQL実行待ち**(town_join/kick相互化＋`drop function town_leave(uuid)`＋既存バックフィル`insert select member,owner ... on conflict do nothing`)=Supabase SQL Editor。実行後B-1完了。Google Playデータセーフティ「アカ削除不要の一部データ削除窓口」=「いいえ」。**次=B-2プッシュ通知の要否→B-3プライバシー本文→C当たり判定**(ユーザー「順番に」)。
+- **📋 Google Play データセーフティ データ種類(2026-08-10)**: App Storeと揃える。=位置情報(おおよその現在地=IP国)／個人情報(メール・ユーザーID・名前=ニックネーム・その他=性別)／**アプリのアクティビティ:その他のユーザー生成コンテンツ(ニックネーム/ひとこと/応援メッセージ)**←抜けやすい／アプリの情報とパフォーマンス:診断情報(AdMob・App Storeのクラッシュ申告と整合)／デバイスID(広告ID)。共有=広告IDのみGoogle(第三者)へ「共有はい」。他ユーザーに見えるだけの項目は「収集」。クラッシュ専用SDKは無し(AdMobのみ)。
 - **🚀 Build 2741 both dispatch＝run`31344538729`（監視しない・2026-08-10）＝geo直書き**: コミット`754f75f0`。接続国の記録をEdge Function経由→**クライアント直書き**へ(「呼び出しは来るのにuser_geoが空」＝関数側で書けず)。`geoClient.recordGeoCountry`がCloudflare trace(loc)で国を取り`user_geo`へ本人ぶんupsert。**ユーザーがSQL実行済**(grant select/insert/update to authenticated＋RLS`user_geo_self`＝本人の行のみ・docs/supabase/geo.sql)。**次=2741でログインしuser_geoに国(JP)が入るか実機確認だけ**。geo-country関数は不要(消してOK)。
 - **✅ アカウント削除=完了(2026-08-10)**: `delete-account`関数はSupabaseにデプロイ済(確認済)。削除ページ(safa-lang.com/jlpt/*/delete/)のメールは`contact@safa-lang.com`(件名自動入力・プライバシー連絡先と一致)で本番反映済。App/Google要件(アプリ内でアカウント削除)を満たす。残なし。
 - **🚀 Build 2740 both dispatch＝run`31344084110`（監視しない・2026-08-10）**: コミット`e6dd8809`。(1)**合格証明書のレベル(N5/N4/N3)を画像へ焼き込み**=pass/fail×3級の6枚(`assets/mock/mock_cert_{pass,fail}_{n5,n4,n3}.jpg`)を生成し、アプリ側の文字レイヤ重ねを廃止。端末(iOS/Android)フォント差でのレベル文字ズレを根絶。生成=`tools/bake_cert_levels.py`(テンプレ`mock_cert_{pass,fail}.jpg`の隙間へTimes New Roman Bold・濃紺#1e1e3c・中心x0.5074/y0.443/文字高0.075Hで焼込。ライブ文字と同配置)。※旧2枚テンプレはbake用に残置(Metro未require=バンドル外)。certLevelスタイル/Platform import除去。(2)試験タブの模試ボタン`test.full_title`を『フル模試』→『模試』(ミニ廃止で冗長)。2739で証明書の大きさOK確認済。**次=2740実機で①各級の焼込レベルが枠内中央 ②模試ボタン名**。
@@ -58,12 +59,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- docs/supabase/friends.sql
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
+- src/screens/KotobaTownScreen.tsx
+- src/plaza/friendsClient.ts
+- docs/supabase/friends.sql
 - docs/supabase/geo.sql
-- src/geo/geoClient.ts
-- src/i18n/ja.json
 
-_自動更新: 2026-08-10 09:47_
+_自動更新: 2026-08-10 09:54_
 <!-- AUTO:END -->

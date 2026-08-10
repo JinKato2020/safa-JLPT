@@ -10,6 +10,7 @@ import { decideLoginSync, mergeRestoredState } from './sync';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { setTelemetryAccount } from '../telemetry/telemetry';
 import { recordGeoCountry } from '../geo/geoClient';
+import { registerPushToken } from '../push/pushClient';
 
 type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null };
 const Ctx = createContext<SyncCtx>({ session: null, email: null, lastSyncedAt: null });
@@ -61,6 +62,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     if (geoUserRef.current === uid) return;
     geoUserRef.current = uid;
     void recordGeoCountry();
+    void registerPushToken(); // 友だちの応援などをスマホへ届けるための端末登録(許可があれば)
   }, [session]);
 
   // ログイン確立時: リモートを引いて安全に統合する。
