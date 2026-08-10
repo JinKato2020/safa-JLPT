@@ -6,7 +6,7 @@
   "source": "gemini-3-flash-preview",
   "items": [
     {
-      "id": "N5-joho-b001",
+      "id": "N5-D-J-001",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -66,7 +66,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b001-q",
+          "id": "N5-D-J-001-q1",
           "q": "留学生（りゅうがくせい）は、どの　コースに　行（い）きますか。",
           "choices": [
             "A：おにぎり",
@@ -84,7 +84,7 @@
       ]
     },
     {
-      "id": "N5-joho-b002",
+      "id": "N5-D-J-002",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -142,7 +142,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b002-q",
+          "id": "N5-D-J-002-q1",
           "q": "学生（がくせい）は、どの　クラスを　選（えら）びますか。",
           "choices": [
             "1：インドの　カレー",
@@ -160,7 +160,7 @@
       ]
     },
     {
-      "id": "N5-joho-b003",
+      "id": "N5-D-J-003",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -220,7 +220,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b003-q",
+          "id": "N5-D-J-003-q1",
           "q": "会社員（かいしゃいん）は、どの　クラスに　行（い）きますか。",
           "choices": [
             "①：野菜（やさい）クラス",
@@ -238,7 +238,7 @@
       ]
     },
     {
-      "id": "N5-joho-b004",
+      "id": "N5-D-J-004",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -293,7 +293,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b004-q",
+          "id": "N5-D-J-004-q1",
           "q": "お母（かあ）さんと　子供（こども）は、どの　クラスに　行（い）きますか。",
           "choices": [
             "A：クッキーの　クラス",
@@ -311,7 +311,7 @@
       ]
     },
     {
-      "id": "N5-joho-b005",
+      "id": "N5-D-J-005",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -371,7 +371,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b005-q",
+          "id": "N5-D-J-005-q1",
           "q": "利用（りよう）者（しゃ）は、どの　コースを　選（えら）びますか。",
           "choices": [
             "コース1",
@@ -389,7 +389,7 @@
       ]
     },
     {
-      "id": "N5-joho-b006",
+      "id": "N5-D-J-006",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -444,7 +444,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b006-q",
+          "id": "N5-D-J-006-q1",
           "q": "学生（がくせい）は、どの　クラスを　選（えら）びますか。",
           "choices": [
             "A：白（しろ）いパン",
@@ -462,7 +462,7 @@
       ]
     },
     {
-      "id": "N5-joho-b007",
+      "id": "N5-D-J-007",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -522,7 +522,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b007-q",
+          "id": "N5-D-J-007-q1",
           "q": "留学生（りゅうがくせい）は、どの　クラスを　選（えら）びますか。",
           "choices": [
             "①",
@@ -540,7 +540,7 @@
       ]
     },
     {
-      "id": "N5-joho-b008",
+      "id": "N5-D-J-008",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -595,7 +595,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b008-q",
+          "id": "N5-D-J-008-q1",
           "q": "会社員（かいしゃいん）は、どの　クラスに　行（い）きますか。",
           "choices": [
             "A：たまごの　スープ",
@@ -613,7 +613,7 @@
       ]
     },
     {
-      "id": "N5-joho-b009",
+      "id": "N5-D-J-009",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -673,7 +673,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b009-q",
+          "id": "N5-D-J-009-q1",
           "q": "留学生（りゅうがくせい）は、どの　クラスを　選（えら）びますか。",
           "choices": [
             "①",
@@ -691,7 +691,7 @@
       ]
     },
     {
-      "id": "N5-joho-b010",
+      "id": "N5-D-J-010",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -746,7 +746,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b010-q",
+          "id": "N5-D-J-010-q1",
           "q": "学生（がくせい）は、どの　教室（きょうしつ）に　行（い）きますか。",
           "choices": [
             "A：町（まち）の　うどん教室（きょうしつ）",
@@ -764,7 +764,7 @@
       ]
     },
     {
-      "id": "N5-joho-b011",
+      "id": "N5-D-J-011",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -824,7 +824,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b011-q",
+          "id": "N5-D-J-011-q1",
           "q": "留学生（りゅうがくせい）は、どの　コースを　選（えら）びますか。",
           "choices": [
             "A：カレー",
@@ -842,7 +842,7 @@
       ]
     },
     {
-      "id": "N5-joho-b012",
+      "id": "N5-D-J-012",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -902,7 +902,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b012-q",
+          "id": "N5-D-J-012-q1",
           "q": "親子（おやこ）は、どの　イベントを　選（えら）びますか。",
           "choices": [
             "① サッカー",
@@ -920,7 +920,7 @@
       ]
     },
     {
-      "id": "N5-joho-b013",
+      "id": "N5-D-J-013",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -980,7 +980,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b013-q",
+          "id": "N5-D-J-013-q1",
           "q": "学生（がくせい）は、どの　コンサートを　選（えら）びますか。",
           "choices": [
             "ピアノ",
@@ -998,7 +998,7 @@
       ]
     },
     {
-      "id": "N5-joho-b014",
+      "id": "N5-D-J-014",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1058,7 +1058,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b014-q",
+          "id": "N5-D-J-014-q1",
           "q": "学生（がくせい）は、どの　クラスに　行（い）きますか。",
           "choices": [
             "① 水彩画（すいさいが）",
@@ -1076,7 +1076,7 @@
       ]
     },
     {
-      "id": "N5-joho-b015",
+      "id": "N5-D-J-015",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1136,7 +1136,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b015-q",
+          "id": "N5-D-J-015-q1",
           "q": "利用者（りようしゃ）は、どの　相談（そうだん）会（かい）に　行（い）きますか。",
           "choices": [
             "バラの　育（そだ）て方（かた）",
@@ -1154,7 +1154,7 @@
       ]
     },
     {
-      "id": "N5-joho-b016",
+      "id": "N5-D-J-016",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1214,7 +1214,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b016-q",
+          "id": "N5-D-J-016-q1",
           "q": "留学生（りゅうがくせい）は、どの　イベントに　参加（さんか）しますか。",
           "choices": [
             "① 中国語（ちゅうごくご）",
@@ -1232,7 +1232,7 @@
       ]
     },
     {
-      "id": "N5-joho-b017",
+      "id": "N5-D-J-017",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1292,7 +1292,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b017-q",
+          "id": "N5-D-J-017-q1",
           "q": "利用者（りようしゃ）は、いつ　行（い）きますか。",
           "choices": [
             "10日（とおか）",
@@ -1310,7 +1310,7 @@
       ]
     },
     {
-      "id": "N5-joho-b018",
+      "id": "N5-D-J-018",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1370,7 +1370,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b018-q",
+          "id": "N5-D-J-018-q1",
           "q": "留学生（りゅうがくせい）は、どこへ　行（い）きますか。",
           "choices": [
             "① 中央（ちゅうおう）公園（こうえん）",
@@ -1388,7 +1388,7 @@
       ]
     },
     {
-      "id": "N5-joho-b019",
+      "id": "N5-D-J-019",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1448,7 +1448,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b019-q",
+          "id": "N5-D-J-019-q1",
           "q": "学生（がくせい）は、どの　映画（えいが）を　見（み）ますか。",
           "choices": [
             "① 海（うみ）の　物語（ものがたり）",
@@ -1466,7 +1466,7 @@
       ]
     },
     {
-      "id": "N5-joho-b020",
+      "id": "N5-D-J-020",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1526,7 +1526,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b020-q",
+          "id": "N5-D-J-020-q1",
           "q": "留学生（りゅうがくせい）は、どの　会（かい）に　参加（さんか）しますか。",
           "choices": [
             "① 南（みなみ）公園（こうえん）",
@@ -1544,7 +1544,7 @@
       ]
     },
     {
-      "id": "N5-joho-b021",
+      "id": "N5-D-J-021",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1599,7 +1599,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b021-q",
+          "id": "N5-D-J-021-q1",
           "q": "学生（がくせい）は、どの　図書館（としょかん）に　行（い）きますか。",
           "choices": [
             "中央（ちゅうおう）図書館（としょかん）",
@@ -1617,7 +1617,7 @@
       ]
     },
     {
-      "id": "N5-joho-b022",
+      "id": "N5-D-J-022",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1673,7 +1673,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b022-q",
+          "id": "N5-D-J-022-q1",
           "q": "親子（おやこ）は、どの　部屋（へや）に　行（い）きますか。",
           "choices": [
             "A：青（あお）い部屋（へや）",
@@ -1691,7 +1691,7 @@
       ]
     },
     {
-      "id": "N5-joho-b023",
+      "id": "N5-D-J-023",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1751,7 +1751,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b023-q",
+          "id": "N5-D-J-023-q1",
           "q": "学生（がくせい）は、どの　部屋（へや）を　選（えら）びますか。",
           "choices": [
             "1号室（ごうしつ）",
@@ -1769,7 +1769,7 @@
       ]
     },
     {
-      "id": "N5-joho-b024",
+      "id": "N5-D-J-024",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1824,7 +1824,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b024-q",
+          "id": "N5-D-J-024-q1",
           "q": "利用者（りようしゃ）は、どこへ　行（い）きますか。",
           "choices": [
             "北口（きたぐち）分室（ぶんしつ）",
@@ -1842,7 +1842,7 @@
       ]
     },
     {
-      "id": "N5-joho-b025",
+      "id": "N5-D-J-025",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1897,7 +1897,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b025-q",
+          "id": "N5-D-J-025-q1",
           "q": "利用（りよう）者（もの）は、どこで　本（ほん）を　返（かえ）しますか。",
           "choices": [
             "図書館（としょかん）の　前（まえ）",
@@ -1915,7 +1915,7 @@
       ]
     },
     {
-      "id": "N5-joho-b026",
+      "id": "N5-D-J-026",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -1975,7 +1975,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b026-q",
+          "id": "N5-D-J-026-q1",
           "q": "学生（がくせい）は、どの　映画（えいが）を　見（み）ますか。",
           "choices": [
             "A：海（うみ）の　歌（うた）",
@@ -1993,7 +1993,7 @@
       ]
     },
     {
-      "id": "N5-joho-b027",
+      "id": "N5-D-J-027",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2048,7 +2048,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b027-q",
+          "id": "N5-D-J-027-q1",
           "q": "今日（きょう）　借（か）りることができる　雑誌（ざっし）は　どれですか。",
           "choices": [
             "おいしい　パン",
@@ -2066,7 +2066,7 @@
       ]
     },
     {
-      "id": "N5-joho-b028",
+      "id": "N5-D-J-028",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2126,7 +2126,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b028-q",
+          "id": "N5-D-J-028-q1",
           "q": "留学生（りゅうがくせい）は、どこへ　行（い）きますか。",
           "choices": [
             "山（やま）の　図書館（としょかん）",
@@ -2144,7 +2144,7 @@
       ]
     },
     {
-      "id": "N5-joho-b029",
+      "id": "N5-D-J-029",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2204,7 +2204,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b029-q",
+          "id": "N5-D-J-029-q1",
           "q": "親子（おやこ）は、どの　イベントに　行（い）きますか。",
           "choices": [
             "あかちゃん会（かい）",
@@ -2222,7 +2222,7 @@
       ]
     },
     {
-      "id": "N5-joho-b030",
+      "id": "N5-D-J-030",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2282,7 +2282,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b030-q",
+          "id": "N5-D-J-030-q1",
           "q": "利用者（りようしゃ）は、どの　席（せき）に　座（すわ）りますか。",
           "choices": [
             "A：読書（どくしょ）席（せき）",
@@ -2300,7 +2300,7 @@
       ]
     },
     {
-      "id": "N5-joho-b031",
+      "id": "N5-D-J-031",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2356,7 +2356,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b031-q",
+          "id": "N5-D-J-031-q1",
           "q": "留学生（りゅうがくせい）は、どの　バスに　乗（の）りますか。",
           "choices": [
             "1号（ごう）",
@@ -2374,7 +2374,7 @@
       ]
     },
     {
-      "id": "N5-joho-b032",
+      "id": "N5-D-J-032",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2430,7 +2430,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b032-q",
+          "id": "N5-D-J-032-q1",
           "q": "会社員（かいしゃいん）は、どの　バスに　乗（の）りますか。",
           "choices": [
             "Aバス",
@@ -2448,7 +2448,7 @@
       ]
     },
     {
-      "id": "N5-joho-b033",
+      "id": "N5-D-J-033",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2504,7 +2504,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b033-q",
+          "id": "N5-D-J-033-q1",
           "q": "学生（がくせい）は、どの　バスを　選（えら）びますか。",
           "choices": [
             "9:30の　普通（ふつう）",
@@ -2522,7 +2522,7 @@
       ]
     },
     {
-      "id": "N5-joho-b034",
+      "id": "N5-D-J-034",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2579,7 +2579,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b034-q",
+          "id": "N5-D-J-034-q1",
           "q": "留学生（りゅうがくせい）は、どの　バスに　乗（の）りますか。",
           "choices": [
             "赤（あか）バス",
@@ -2597,7 +2597,7 @@
       ]
     },
     {
-      "id": "N5-joho-b035",
+      "id": "N5-D-J-035",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2658,7 +2658,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b035-q",
+          "id": "N5-D-J-035-q1",
           "q": "学生（がくせい）は、どの　バスを　選（えら）びますか。",
           "choices": [
             "あさひバス",
@@ -2676,7 +2676,7 @@
       ]
     },
     {
-      "id": "N5-joho-b036",
+      "id": "N5-D-J-036",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2732,7 +2732,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b036-q",
+          "id": "N5-D-J-036-q1",
           "q": "親子（おやこ）は、どの　バスに　乗（の）りますか。",
           "choices": [
             "101便（びん）",
@@ -2750,7 +2750,7 @@
       ]
     },
     {
-      "id": "N5-joho-b037",
+      "id": "N5-D-J-037",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2806,7 +2806,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b037-q",
+          "id": "N5-D-J-037-q1",
           "q": "留学生（りゅうがくせい）は、どの　バスに　乗（の）りますか。",
           "choices": [
             "カモメ号（ごう）",
@@ -2824,7 +2824,7 @@
       ]
     },
     {
-      "id": "N5-joho-b038",
+      "id": "N5-D-J-038",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2880,7 +2880,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b038-q",
+          "id": "N5-D-J-038-q1",
           "q": "学生（がくせい）は、どの　バスに　乗（の）りますか。",
           "choices": [
             "10番（ばん）",
@@ -2898,7 +2898,7 @@
       ]
     },
     {
-      "id": "N5-joho-b039",
+      "id": "N5-D-J-039",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -2954,7 +2954,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b039-q",
+          "id": "N5-D-J-039-q1",
           "q": "会社員（かいしゃいん）は、どの　バスに　乗（の）りますか。",
           "choices": [
             "スカイバス",
@@ -2972,7 +2972,7 @@
       ]
     },
     {
-      "id": "N5-joho-b040",
+      "id": "N5-D-J-040",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3028,7 +3028,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b040-q",
+          "id": "N5-D-J-040-q1",
           "q": "留学生（りゅうがくせい）は、どの　バスに　乗（の）りますか。",
           "choices": [
             "あおぞら1号（ごう）",
@@ -3046,7 +3046,7 @@
       ]
     },
     {
-      "id": "N5-joho-b041",
+      "id": "N5-D-J-041",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3101,7 +3101,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b041-q",
+          "id": "N5-D-J-041-q1",
           "q": "利用者（りようしゃ）は、何曜日（なんようび）に　行（い）きますか。",
           "choices": [
             "月曜日（げつようび）",
@@ -3119,7 +3119,7 @@
       ]
     },
     {
-      "id": "N5-joho-b042",
+      "id": "N5-D-J-042",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3174,7 +3174,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b042-q",
+          "id": "N5-D-J-042-q1",
           "q": "利用者（りようしゃ）は、どの　部屋（へや）に　行（い）きますか。",
           "choices": [
             "第（だい）1（だいいち）ルーム",
@@ -3192,7 +3192,7 @@
       ]
     },
     {
-      "id": "N5-joho-b043",
+      "id": "N5-D-J-043",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3242,7 +3242,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b043-q",
+          "id": "N5-D-J-043-q1",
           "q": "学生（がくせい）は、いくら　払（はら）いますか。",
           "choices": [
             "800円（えん）",
@@ -3260,7 +3260,7 @@
       ]
     },
     {
-      "id": "N5-joho-b044",
+      "id": "N5-D-J-044",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3310,7 +3310,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b044-q",
+          "id": "N5-D-J-044-q1",
           "q": "二人（ふたり）は、今日（きょう）　プールで　泳（およ）ぐことが　できますか。",
           "choices": [
             "はい、午後（ごご）6時（じ）まで　泳（およ）ぐことができます。",
@@ -3328,7 +3328,7 @@
       ]
     },
     {
-      "id": "N5-joho-b045",
+      "id": "N5-D-J-045",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3378,7 +3378,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b045-q",
+          "id": "N5-D-J-045-q1",
           "q": "利用者（りようしゃ）の　チケットは、いくらですか。",
           "choices": [
             "1,200円（えん）",
@@ -3396,7 +3396,7 @@
       ]
     },
     {
-      "id": "N5-joho-b046",
+      "id": "N5-D-J-046",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3451,7 +3451,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b046-q",
+          "id": "N5-D-J-046-q1",
           "q": "どの　部屋（へや）に　行（い）きますか。",
           "choices": [
             "わんぱくルーム",
@@ -3469,7 +3469,7 @@
       ]
     },
     {
-      "id": "N5-joho-b047",
+      "id": "N5-D-J-047",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3524,7 +3524,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b047-q",
+          "id": "N5-D-J-047-q1",
           "q": "どの　プログラムに　参加（さんか）しますか。",
           "choices": [
             "ロボットを　作（つく）ろう",
@@ -3542,7 +3542,7 @@
       ]
     },
     {
-      "id": "N5-joho-b048",
+      "id": "N5-D-J-048",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3602,7 +3602,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b048-q",
+          "id": "N5-D-J-048-q1",
           "q": "利用者（りようしゃ）は、どの　部屋（へや）を　選（えら）びますか。",
           "choices": [
             "A（エー）室（しつ）",
@@ -3620,7 +3620,7 @@
       ]
     },
     {
-      "id": "N5-joho-b049",
+      "id": "N5-D-J-049",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3675,7 +3675,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b049-q",
+          "id": "N5-D-J-049-q1",
           "q": "どの　動物（どうぶつ）の　ところへ　行（い）きますか。",
           "choices": [
             "ペンギン",
@@ -3693,7 +3693,7 @@
       ]
     },
     {
-      "id": "N5-joho-b050",
+      "id": "N5-D-J-050",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3748,7 +3748,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b050-q",
+          "id": "N5-D-J-050-q1",
           "q": "どの　ショーを　見（み）ますか。",
           "choices": [
             "太陽（たいよう）の　旅（たび）",
@@ -3766,7 +3766,7 @@
       ]
     },
     {
-      "id": "N5-joho-b051",
+      "id": "N5-D-J-051",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3826,7 +3826,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b051-q",
+          "id": "N5-D-J-051-q1",
           "q": "留学生（りゅうがくせい）は、どの　クラスに　行（い）きますか。",
           "choices": [
             "すしクラス",
@@ -3844,7 +3844,7 @@
       ]
     },
     {
-      "id": "N5-joho-b052",
+      "id": "N5-D-J-052",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3904,7 +3904,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b052-q",
+          "id": "N5-D-J-052-q1",
           "q": "会社員（かいしゃいん）は、どの　クラスに　行（い）きますか。",
           "choices": [
             "ヨガA",
@@ -3922,7 +3922,7 @@
       ]
     },
     {
-      "id": "N5-joho-b053",
+      "id": "N5-D-J-053",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -3982,7 +3982,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b053-q",
+          "id": "N5-D-J-053-q1",
           "q": "大学生（だいがくせい）は、どの　コースを　選（えら）びますか。",
           "choices": [
             "ピアノ1",
@@ -4000,7 +4000,7 @@
       ]
     },
     {
-      "id": "N5-joho-b054",
+      "id": "N5-D-J-054",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4060,7 +4060,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b054-q",
+          "id": "N5-D-J-054-q1",
           "q": "子供（こども）は、どの　クラスに　入（い）りますか。",
           "choices": [
             "キッズ英語（えいご）A",
@@ -4078,7 +4078,7 @@
       ]
     },
     {
-      "id": "N5-joho-b055",
+      "id": "N5-D-J-055",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4138,7 +4138,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b055-q",
+          "id": "N5-D-J-055-q1",
           "q": "留学生（りゅうがくせい）は、どの　クラスに　行（い）きますか。",
           "choices": [
             "油絵（あぶらえ）A",
@@ -4156,7 +4156,7 @@
       ]
     },
     {
-      "id": "N5-joho-b056",
+      "id": "N5-D-J-056",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4216,7 +4216,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b056-q",
+          "id": "N5-D-J-056-q1",
           "q": "会社員（かいしゃいん）は、どの　クラスを　選（えら）びますか。",
           "choices": [
             "ワード1",
@@ -4234,7 +4234,7 @@
       ]
     },
     {
-      "id": "N5-joho-b057",
+      "id": "N5-D-J-057",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4294,7 +4294,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b057-q",
+          "id": "N5-D-J-057-q1",
           "q": "大学生（だいがくせい）は、どの　コースに　行（い）きますか。",
           "choices": [
             "ジャズダンス",
@@ -4312,7 +4312,7 @@
       ]
     },
     {
-      "id": "N5-joho-b058",
+      "id": "N5-D-J-058",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4372,7 +4372,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b058-q",
+          "id": "N5-D-J-058-q1",
           "q": "留学生（りゅうがくせい）は、どの　クラスを　選（えら）びますか。",
           "choices": [
             "お茶（ちゃ）クラス1",
@@ -4390,7 +4390,7 @@
       ]
     },
     {
-      "id": "N5-joho-b059",
+      "id": "N5-D-J-059",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4450,7 +4450,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b059-q",
+          "id": "N5-D-J-059-q1",
           "q": "子供（こども）は、どの　クラスに　行（い）きますか。",
           "choices": [
             "算数（さんすう）A",
@@ -4468,7 +4468,7 @@
       ]
     },
     {
-      "id": "N5-joho-b060",
+      "id": "N5-D-J-060",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4528,7 +4528,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b060-q",
+          "id": "N5-D-J-060-q1",
           "q": "会社員（かいしゃいん）は、どの　イベントに　行（い）きますか。",
           "choices": [
             "公園（こうえん）の花（はな）",
@@ -4546,7 +4546,7 @@
       ]
     },
     {
-      "id": "N5-joho-b061",
+      "id": "N5-D-J-061",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4597,7 +4597,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b061-q",
+          "id": "N5-D-J-061-q1",
           "q": "留学生（りゅうがくせい）は、どの　階（かい）に　行（い）きますか。",
           "choices": [
             "1階（いっかい）",
@@ -4615,7 +4615,7 @@
       ]
     },
     {
-      "id": "N5-joho-b062",
+      "id": "N5-D-J-062",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4666,7 +4666,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b062-q",
+          "id": "N5-D-J-062-q1",
           "q": "利用客（りようきゃく）は、どの　階（かい）へ　行（い）きますか。",
           "choices": [
             "1階（いっかい）",
@@ -4684,7 +4684,7 @@
       ]
     },
     {
-      "id": "N5-joho-b063",
+      "id": "N5-D-J-063",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4735,7 +4735,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b063-q",
+          "id": "N5-D-J-063-q1",
           "q": "親子（おやこ）は、どの　階（かい）へ　行（い）きますか。",
           "choices": [
             "2階（にかい）",
@@ -4753,7 +4753,7 @@
       ]
     },
     {
-      "id": "N5-joho-b064",
+      "id": "N5-D-J-064",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4804,7 +4804,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b064-q",
+          "id": "N5-D-J-064-q1",
           "q": "留学生（りゅうがくせい）は、どの　階（かい）へ　行（い）きますか。",
           "choices": [
             "2階（にかい）",
@@ -4822,7 +4822,7 @@
       ]
     },
     {
-      "id": "N5-joho-b065",
+      "id": "N5-D-J-065",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4877,7 +4877,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b065-q",
+          "id": "N5-D-J-065-q1",
           "q": "利用客（りようきゃく）は、どの　店（みせ）に　行（い）きますか。",
           "choices": [
             "A店（てん）",
@@ -4895,7 +4895,7 @@
       ]
     },
     {
-      "id": "N5-joho-b066",
+      "id": "N5-D-J-066",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -4950,7 +4950,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b066-q",
+          "id": "N5-D-J-066-q1",
           "q": "学生（がくせい）は、どの　階（かい）に　行（い）きますか。",
           "choices": [
             "1階（いっかい）",
@@ -4968,7 +4968,7 @@
       ]
     },
     {
-      "id": "N5-joho-b067",
+      "id": "N5-D-J-067",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5019,7 +5019,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b067-q",
+          "id": "N5-D-J-067-q1",
           "q": "利用客（りようきゃく）は、どの　階（かい）へ　行（い）きますか。",
           "choices": [
             "地下（ちか）1階（いっかい）",
@@ -5037,7 +5037,7 @@
       ]
     },
     {
-      "id": "N5-joho-b068",
+      "id": "N5-D-J-068",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5092,7 +5092,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b068-q",
+          "id": "N5-D-J-068-q1",
           "q": "留学生（りゅうがくせい）は、どの　店（みせ）に　行（い）きますか。",
           "choices": [
             "海（うみ）の店（みせ）",
@@ -5110,7 +5110,7 @@
       ]
     },
     {
-      "id": "N5-joho-b069",
+      "id": "N5-D-J-069",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5161,7 +5161,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b069-q",
+          "id": "N5-D-J-069-q1",
           "q": "利用客（りようきゃく）は、まず　どの　階（かい）に　行（い）きますか。",
           "choices": [
             "3階（さんがい）",
@@ -5179,7 +5179,7 @@
       ]
     },
     {
-      "id": "N5-joho-b070",
+      "id": "N5-D-J-070",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5234,7 +5234,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b070-q",
+          "id": "N5-D-J-070-q1",
           "q": "利用客（りようきゃく）は、どの　店（みせ）に　行（い）きますか。",
           "choices": [
             "赤（あか）い店（みせ）",
@@ -5252,7 +5252,7 @@
       ]
     },
     {
-      "id": "N5-joho-b071",
+      "id": "N5-D-J-071",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5302,7 +5302,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b071-q",
+          "id": "N5-D-J-071-q1",
           "q": "学生（がくせい）は、いつ　ゴミを　出（だ）しますか。",
           "choices": [
             "11月（がつ）14日（か）（火曜日（かようび））",
@@ -5320,7 +5320,7 @@
       ]
     },
     {
-      "id": "N5-joho-b072",
+      "id": "N5-D-J-072",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5370,7 +5370,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b072-q",
+          "id": "N5-D-J-072-q1",
           "q": "この人（ひと）は、いつ　ゴミを　出（だ）しますか。",
           "choices": [
             "今（いま）（月曜日（げつようび）の　夜（よる））",
@@ -5388,7 +5388,7 @@
       ]
     },
     {
-      "id": "N5-joho-b073",
+      "id": "N5-D-J-073",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5438,7 +5438,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b073-q",
+          "id": "N5-D-J-073-q1",
           "q": "留学生（りゅうがくせい）は、どうしますか。",
           "choices": [
             "500円（えん）の　シールを　貼（は）って、第（だい）2土曜日（どようび）に　出（だ）す。",
@@ -5456,7 +5456,7 @@
       ]
     },
     {
-      "id": "N5-joho-b074",
+      "id": "N5-D-J-074",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5505,7 +5505,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b074-q",
+          "id": "N5-D-J-074-q1",
           "q": "学生（がくせい）は、どうしますか。",
           "choices": [
             "今日（きょう）、ひもで　しばって　出（だ）す。",
@@ -5523,7 +5523,7 @@
       ]
     },
     {
-      "id": "N5-joho-b075",
+      "id": "N5-D-J-075",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5572,7 +5572,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b075-q",
+          "id": "N5-D-J-075-q1",
           "q": "この人（ひと）は、いつ　ゴミを　出（だ）しますか。",
           "choices": [
             "月曜日（げつようび）",
@@ -5590,7 +5590,7 @@
       ]
     },
     {
-      "id": "N5-joho-b076",
+      "id": "N5-D-J-076",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5649,7 +5649,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b076-q",
+          "id": "N5-D-J-076-q1",
           "q": "12月（がつ）31日（にち）に　ゴミを　出（だ）すことが　できますか。",
           "choices": [
             "はい、朝（あさ）なら　出（だ）せます。",
@@ -5667,7 +5667,7 @@
       ]
     },
     {
-      "id": "N5-joho-b077",
+      "id": "N5-D-J-077",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5712,7 +5712,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b077-q",
+          "id": "N5-D-J-077-q1",
           "q": "牛乳（ぎゅうにゅう）パックを　どうやって　捨（す）てますか。",
           "choices": [
             "ひもで　しばって、水曜日（すいようび）に　出（だ）す。",
@@ -5730,7 +5730,7 @@
       ]
     },
     {
-      "id": "N5-joho-b078",
+      "id": "N5-D-J-078",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5779,7 +5779,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b078-q",
+          "id": "N5-D-J-078-q1",
           "q": "11月（がつ）に　電球（でんきゅう）を　出（だ）せる　日（ひ）は　いつですか。",
           "choices": [
             "11月（がつ）4日（よっか）と　18日（にち）",
@@ -5797,7 +5797,7 @@
       ]
     },
     {
-      "id": "N5-joho-b079",
+      "id": "N5-D-J-079",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5846,7 +5846,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b079-q",
+          "id": "N5-D-J-079-q1",
           "q": "201号室（ごうしつ）の　掃除（そうじ）の　期間（きかん）は　いつですか。",
           "choices": [
             "5月（がつ）4日（よっか）から　10日（とおか）まで",
@@ -5864,7 +5864,7 @@
       ]
     },
     {
-      "id": "N5-joho-b080",
+      "id": "N5-D-J-080",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5909,7 +5909,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b080-q",
+          "id": "N5-D-J-080-q1",
           "q": "学生（がくせい）は、今日（きょう）　服（ふく）を　出（だ）せますか。",
           "choices": [
             "はい、第（だい）2火曜日（かようび）で　天気（てんき）が　いいので　出（だ）せます。",
@@ -5927,7 +5927,7 @@
       ]
     },
     {
-      "id": "N5-joho-b081",
+      "id": "N5-D-J-081",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -5981,7 +5981,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b081-q",
+          "id": "N5-D-J-081-q1",
           "q": "男（おとこ）の　人（ひと）は、いくら　払（はら）いますか。",
           "choices": [
             "500円（えん）",
@@ -5999,7 +5999,7 @@
       ]
     },
     {
-      "id": "N5-joho-b082",
+      "id": "N5-D-J-082",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6053,7 +6053,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b082-q",
+          "id": "N5-D-J-082-q1",
           "q": "留学生（りゅうがくせい）は、いくら　払（はら）いますか。",
           "choices": [
             "100円（えん）",
@@ -6071,7 +6071,7 @@
       ]
     },
     {
-      "id": "N5-joho-b083",
+      "id": "N5-D-J-083",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6119,7 +6119,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b083-q",
+          "id": "N5-D-J-083-q1",
           "q": "二（ふた）り（親子（おやこ））は、いつ　泳（およ）ぐことが　できますか。",
           "choices": [
             "8月（がつ）15日（にち）の　10時（じ）から　12時（じ）まで",
@@ -6137,7 +6137,7 @@
       ]
     },
     {
-      "id": "N5-joho-b084",
+      "id": "N5-D-J-084",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6197,7 +6197,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b084-q",
+          "id": "N5-D-J-084-q1",
           "q": "この　男（おとこ）の　人（ひと）は、いくら　払（はら）いますか。",
           "choices": [
             "300円（えん）",
@@ -6215,7 +6215,7 @@
       ]
     },
     {
-      "id": "N5-joho-b085",
+      "id": "N5-D-J-085",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6270,7 +6270,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b085-q",
+          "id": "N5-D-J-085-q1",
           "q": "男（おとこ）の　人（ひと）は、全部（ぜんぶ）で　いくら　払（はら）いますか。",
           "choices": [
             "400円（えん）",
@@ -6288,7 +6288,7 @@
       ]
     },
     {
-      "id": "N5-joho-b086",
+      "id": "N5-D-J-086",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6347,7 +6347,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b086-q",
+          "id": "N5-D-J-086-q1",
           "q": "女（おんな）の　人（ひと）は、どの　コースを　使（つか）いますか。",
           "choices": [
             "コース1だけ",
@@ -6365,7 +6365,7 @@
       ]
     },
     {
-      "id": "N5-joho-b087",
+      "id": "N5-D-J-087",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6415,7 +6415,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b087-q",
+          "id": "N5-D-J-087-q1",
           "q": "3人（にん）は、全部（ぜんぶ）で　いくら　払（はら）いますか。",
           "choices": [
             "2,100円（えん）",
@@ -6433,7 +6433,7 @@
       ]
     },
     {
-      "id": "N5-joho-b088",
+      "id": "N5-D-J-088",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6483,7 +6483,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b088-q",
+          "id": "N5-D-J-088-q1",
           "q": "男（おとこ）の　人（ひと）は、どこで　チケットを　買（か）いますか。",
           "choices": [
             "北口（きたぐち）窓口（まどぐち）",
@@ -6501,7 +6501,7 @@
       ]
     },
     {
-      "id": "N5-joho-b089",
+      "id": "N5-D-J-089",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6555,7 +6555,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b089-q",
+          "id": "N5-D-J-089-q1",
           "q": "女（おんな）の　人（ひと）が　10時（じ）に　行（い）くとき、どの　コースで　歩（ある）けますか。",
           "choices": [
             "Aコース",
@@ -6573,7 +6573,7 @@
       ]
     },
     {
-      "id": "N5-joho-b090",
+      "id": "N5-D-J-090",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6627,7 +6627,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b090-q",
+          "id": "N5-D-J-090-q1",
           "q": "二（ふた）り（親子（おやこ））は、全部（ぜんぶ）で　いくら　払（はら）いますか。",
           "choices": [
             "400円（えん）",
@@ -6645,7 +6645,7 @@
       ]
     },
     {
-      "id": "N5-joho-b091",
+      "id": "N5-D-J-091",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6701,7 +6701,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b091-q",
+          "id": "N5-D-J-091-q1",
           "q": "留学生（りゅうがくせい）は、どの　部屋（へや）を　選（えら）びますか。",
           "choices": [
             "Aルーム",
@@ -6719,7 +6719,7 @@
       ]
     },
     {
-      "id": "N5-joho-b092",
+      "id": "N5-D-J-092",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6779,7 +6779,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b092-q",
+          "id": "N5-D-J-092-q1",
           "q": "グループは、どの　部屋（へや）を　予約（よやく）しますか。",
           "choices": [
             "第（だい）1室（しつ）",
@@ -6797,7 +6797,7 @@
       ]
     },
     {
-      "id": "N5-joho-b093",
+      "id": "N5-D-J-093",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6857,7 +6857,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b093-q",
+          "id": "N5-D-J-093-q1",
           "q": "どの　部屋（へや）を　選（えら）びますか。",
           "choices": [
             "さくら",
@@ -6875,7 +6875,7 @@
       ]
     },
     {
-      "id": "N5-joho-b094",
+      "id": "N5-D-J-094",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -6935,7 +6935,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b094-q",
+          "id": "N5-D-J-094-q1",
           "q": "親子（おやこ）は、どの　コースに　参加（さんか）しますか。",
           "choices": [
             "朝（あさ）の　テニス",
@@ -6953,7 +6953,7 @@
       ]
     },
     {
-      "id": "N5-joho-b095",
+      "id": "N5-D-J-095",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7013,7 +7013,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b095-q",
+          "id": "N5-D-J-095-q1",
           "q": "学生（がくせい）は、どの　部屋（へや）を　使（つか）いますか。",
           "choices": [
             "第（だい）1道場（どうじょう）",
@@ -7031,7 +7031,7 @@
       ]
     },
     {
-      "id": "N5-joho-b096",
+      "id": "N5-D-J-096",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7091,7 +7091,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b096-q",
+          "id": "N5-D-J-096-q1",
           "q": "この　人（ひと）は、どの　クラスに　行（い）きますか。",
           "choices": [
             "はじめての　ヨガ",
@@ -7109,7 +7109,7 @@
       ]
     },
     {
-      "id": "N5-joho-b097",
+      "id": "N5-D-J-097",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7169,7 +7169,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b097-q",
+          "id": "N5-D-J-097-q1",
           "q": "どの　部屋（へや）を　予約（よやく）しますか。",
           "choices": [
             "Aホール",
@@ -7187,7 +7187,7 @@
       ]
     },
     {
-      "id": "N5-joho-b098",
+      "id": "N5-D-J-098",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7247,7 +7247,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b098-q",
+          "id": "N5-D-J-098-q1",
           "q": "学生（がくせい）は、どの　コースを　選（えら）びますか。",
           "choices": [
             "A（朝（あさ））",
@@ -7265,7 +7265,7 @@
       ]
     },
     {
-      "id": "N5-joho-b099",
+      "id": "N5-D-J-099",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7325,7 +7325,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b099-q",
+          "id": "N5-D-J-099-q1",
           "q": "グループは、どの　コートを　予約（よやく）しますか。",
           "choices": [
             "1番（ばん）コート",
@@ -7343,7 +7343,7 @@
       ]
     },
     {
-      "id": "N5-joho-b100",
+      "id": "N5-D-J-100",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7403,7 +7403,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b100-q",
+          "id": "N5-D-J-100-q1",
           "q": "親子（おやこ）は、どの　台（だい）を　予約（よやく）しますか。",
           "choices": [
             "1号（ごう）台（だい）",
@@ -7421,7 +7421,7 @@
       ]
     },
     {
-      "id": "N5-joho-b101",
+      "id": "N5-D-J-101",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7516,7 +7516,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b101-q",
+          "id": "N5-D-J-101-q1",
           "q": "留学生（りゅうがくせい）は、どの　イベントに　行（い）きますか。",
           "choices": [
             "A",
@@ -7534,7 +7534,7 @@
       ]
     },
     {
-      "id": "N5-joho-b102",
+      "id": "N5-D-J-102",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7594,7 +7594,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b102-q",
+          "id": "N5-D-J-102-q1",
           "q": "利用者（りゅうようしゃ）は、どの　コンサートに　行（い）きますか。",
           "choices": [
             "①",
@@ -7612,7 +7612,7 @@
       ]
     },
     {
-      "id": "N5-joho-b103",
+      "id": "N5-D-J-103",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7706,7 +7706,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b103-q",
+          "id": "N5-D-J-103-q1",
           "q": "親子（おやこ）は、どの　教室（きょうしつ）に　行（い）きますか。",
           "choices": [
             "サッカー教室（きょうしつ）",
@@ -7724,7 +7724,7 @@
       ]
     },
     {
-      "id": "N5-joho-b104",
+      "id": "N5-D-J-104",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7784,7 +7784,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b104-q",
+          "id": "N5-D-J-104-q1",
           "q": "会員（かいいん）の　人（ひと）は、どの　場所（ばしょ）を　借（か）りますか。",
           "choices": [
             "スペースA",
@@ -7802,7 +7802,7 @@
       ]
     },
     {
-      "id": "N5-joho-b105",
+      "id": "N5-D-J-105",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7896,7 +7896,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b105-q",
+          "id": "N5-D-J-105-q1",
           "q": "学生（がくせい）は、どの　コースに　行（い）きますか。",
           "choices": [
             "①",
@@ -7914,7 +7914,7 @@
       ]
     },
     {
-      "id": "N5-joho-b106",
+      "id": "N5-D-J-106",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -7974,7 +7974,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b106-q",
+          "id": "N5-D-J-106-q1",
           "q": "利用者（りゅうようしゃ）は、どの　料理（りょうり）を　買（か）いますか。",
           "choices": [
             "A",
@@ -7992,7 +7992,7 @@
       ]
     },
     {
-      "id": "N5-joho-b107",
+      "id": "N5-D-J-107",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -8052,7 +8052,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b107-q",
+          "id": "N5-D-J-107-q1",
           "q": "留学生（りゅうがくせい）は、どの　イベントに　行（い）きますか。",
           "choices": [
             "①",
@@ -8070,7 +8070,7 @@
       ]
     },
     {
-      "id": "N5-joho-b108",
+      "id": "N5-D-J-108",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -8165,7 +8165,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b108-q",
+          "id": "N5-D-J-108-q1",
           "q": "会員（かいいん）の　人（ひと）は、どの　教室（きょうしつ）に　行（い）きますか。",
           "choices": [
             "A",
@@ -8183,7 +8183,7 @@
       ]
     },
     {
-      "id": "N5-joho-b109",
+      "id": "N5-D-J-109",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -8243,7 +8243,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b109-q",
+          "id": "N5-D-J-109-q1",
           "q": "親子（おやこ）は、どの　コースに　行（い）きますか。",
           "choices": [
             "①",
@@ -8261,7 +8261,7 @@
       ]
     },
     {
-      "id": "N5-joho-b110",
+      "id": "N5-D-J-110",
       "level": "N5",
       "category": "dokkai",
       "type": "reading",
@@ -8356,7 +8356,7 @@
       },
       "questions": [
         {
-          "id": "N5-joho-b110-q",
+          "id": "N5-D-J-110-q1",
           "q": "学生（がくせい）は、どの　ワークショップに　行（い）きますか。",
           "choices": [
             "ワークショップA",

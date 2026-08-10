@@ -2,7 +2,7 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 - **🆕 2026-08-10 設定/開発用の追加3件(コミット済・未ビルド)**: ①読解の大問名を短縮=「内容理解(短文/中文/長文)」→`短文/中文/長文`(情報検索は据置・聴解は元から短名)・i18n study.sub_naiyou_tan/chu/choubun のja/en/ne値だけ変更(キー・データ不変)。②開発用トグル`devMockSkip`=ONで模試中に右上「⏭ 次の休憩」→現ブロックの設問全カットで`sectionDone()`(次休憩/最終は終了)。③設定「解禁演出を確認」=UNLOCKSの4ボタンでUnlockCelebrationを単体プレビュー。設定UIは全部ProfileScreenの「開発用」カード内。
-- **🆔 次にやる(ユーザー決定2026-08-10=fresh sessionで実行)=読解の問題ID修正**: /clear後に**読解(D)だけ**着手。手順=memory/id-rename-inflight.md。読解=実データ置換+進捗移行(文章`Lv-D-{S/M/L/J}-NNN`・設問`<文章ID>-qK`)＋PASSAGE_TRANS_NEキー更新＋state migration(kbIdMigration方式踏襲)＋rebuild.tsで_manifest再生成(OTA)。文字語彙(V)/文法(G)=表示IDのみ(別途)。
+- **✅ 読解の問題ID刷新 完了(2026-08-10・コミット済/未ビルド)**: 文章=`Lv-D-{S/M/L/J}-NNN`(短S/中M/長L/情報J)・設問=`<文章ID>-qK`に統一(670文章/889問)。content/problems/dokkai/*.json をスクリプト書換→rebuild.tsで_manifest再生成(OTA)。PASSAGE_TRANS_NEはit.id由来で**自動追従**(手修正不要)。state移行=`src/data/exam/readingIdMigration.json`(旧設問id→新)＋storage.ts `migrateReadingIds`(kbId方式・冪等・新旧重複0)。読解idはsrcから参照されず(rehydrate.test以外)＝低リスク。テスト387緑。**次にやる=文字語彙(V)/文法(G)は表示IDのみ**(内部不変・手順=id-rename-inflight.md)。**要ビルド**で実機反映(移行はアプリコード)。
 - **🆕 2026-08-10 このセッションで実装・コミット済(未ビルド)**: 退会で端末内もreset＋①利用ログは残す(`33b00fde`)／**無料お試し7日をアカウントベース化**=サーバー`entitlements.trial_claimed_at`で1回のみ・再ログインで再付与しない(`583dbf1e`、**要デプロイ**=schema.sqlのalter＋Edge`trial-claim`貼付。[[trial-account-based-server]])／en・ne UI全訳779完全＋陳腐化修正＋`i18n_backlog.py --drift`追加(`3ff126e7`他)／書斎ボタンを解禁順に整列＋意味から単語→語彙パズル・文をつくる→文法パズル改名(`60d13e4c`)／解禁お祝い画像4枚取り込み(`501dbdbf`)。
 - **✅ 2機能 完了(2026-08-10・未ビルド)**: **A 解禁演出=全体カバー率ベース**(5/10/15/20%→聞き取り/漢字書き取り/語彙パズル/文法パズル・専用画像＋桜の上に「◯◯解禁」・演出とボタンゲートを全体基準に統一・commit `376bfd40`)。**B 模試休憩**(2回目以降=桜がねぎらい→休憩→準備→分野/問題数/制限時間/警告/開始・1回目は開始の一言のみ・N5N4=2ブロック/N3=3ブロックで指示一致・commit `6482395f`)。詳細=memory/features-inflight.md。
 - **✅ 2026-08-10 セッション完了分＝Build 2761/2762 で提出済（TestFlightアップロード成功=90382出ず）**: このビルドに入った=カバー率バグ修正(coverageBarsを面別マスタリー正本に)／柴犬ジャンプ停止／ショップ刷新(再挑戦券・連続フリーズ削除→すがた変えドリンク2000・所持数表示・残高不足でも価格表示・タブ名仲間→柴犬・アバター登録後ロック)／**Bug C**(大問別正答率が反映+学習画面に大問ID表示)／**段階解禁**(分野カバー率5/10/15/20%でモード解禁+お祝い演出・state.unlocksSeen)／筆「天の霊筆→輝く光筆」。**OTA(ビルド不要)で配信**=**Bug B**(ふりがな重複「飼って→かって」90箇所修正)／**Bug A**(文の組み立てpointId 224問をAIマッチング+独立検証で紐づけ・残34は該当文法なしでnull)。→ A/B/C・貝ルール・ダッシュボードの旧バグ項目は**すべて完了**(下の古い記述は済)。
@@ -59,20 +59,24 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 91ターン（文脈 12万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 91ターン・ツール50回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a47ab6769b1b9a288 general-purpose
 - ae9c448fbd26954a9 general-purpose
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- 問題作成の参考/~$JLPT出題傾向_N5N4N3.xlsx
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- memory/session-summary-LATEST.md
 - memory/handoff.md
-- memory/features-inflight.md
+- src/screens/ProfileScreen.tsx
 - src/screens/MockScreen.tsx
+- src/store/state.ts
 - src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
+- memory/session-summary-LATEST.md
 
-_自動更新: 2026-08-10 21:27_
+_自動更新: 2026-08-10 21:42_
 <!-- AUTO:END -->

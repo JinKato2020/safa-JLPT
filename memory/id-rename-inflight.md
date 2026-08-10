@@ -20,9 +20,17 @@
   → **平坦IDに実置換すると全部壊れる**。安全案=内部IDは維持し「表示IDだけ」きれいにする。
 
 ## 確定方式（ユーザー決定 2026-08-10）
-- **読解(D)= 実データ置換 ＋ 進捗移行**（文章ID・設問IDともJSONを書き換え）。
-- **文字語彙(V)・文法(G)= 表示IDのみ**（内部データ/状態/仕組みは不変・画面表示だけ整形）。
+- **読解(D)= 実データ置換 ＋ 進捗移行**（文章ID・設問IDともJSONを書き換え）。→ **✅完了 2026-08-10**。
+- **文字語彙(V)・文法(G)= 表示IDのみ**（内部データ/状態/仕組みは不変・画面表示だけ整形）。→ **未着手**。
 - 文法形式は G-G（区分G＋大問G）で確定。
+
+## ✅ 読解(D) 実装済み（2026-08-10・コミット済/未ビルド）
+- 文章id=`Lv-D-{S/M/L/J}-NNN`（S=短文/M=中文/L=長文/J=情報検索・ファイル配列順で連番）、設問id=`<文章ID>-qK`（K=1..）。670文章/889問・衝突0・新旧id重複0。
+- 書換=Pythonスクリプト(json.dumps indent=1 ensure_ascii=Falseで元整形維持=id行だけdiff)。→ `node --import tsx tools/content/rebuild.ts` で bundled.generated.ts と content/_manifest.json 再生成。
+- PASSAGE_TRANS_NE は rehydrate が `it.id`(文章id)から実行時生成＝**自動追従**（手修正・キー更新は不要だった）。
+- 状態移行: `src/data/exam/readingIdMigration.json`（旧設問id→新設問id）＋ `src/store/storage.ts` の `migrateReadingIds`（loadStateでmigrateBankIdsの次に適用・冪等）。回帰テスト `src/store/readingIdMigration.test.ts`（package.jsonのtestに登録済）。
+- 読解idはアプリ全体で **状態キーのみ**（idsRingPct/coverPct等が `state.items[qid]` 参照・passage idは状態キーでない）。src他所からの参照なし＝低リスク。
+- **要ビルド**で実機反映（migrateReadingIdsはアプリコード）。content-OTA単独だと旧バイナリで一時的に読解進捗が合わない可能性→ビルドと同時配信が安全。
 
 ## 実行手順（次セッションで）
 ### 読解（実データ置換＋移行）

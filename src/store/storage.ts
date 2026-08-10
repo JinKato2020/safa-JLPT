@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { type AppState, STATE_VERSION, DEFAULT_HAIR_ID, DEFAULT_OWNED, DEFAULT_COMPANION_ID, COMPANION_IDS } from './state';
 import { KANJI, VOCAB, GRAMMAR } from '../data';
 import KB_ID_MIGRATION from '../data/exam/kbIdMigration.json';
+import READING_ID_MIGRATION from '../data/exam/readingIdMigration.json';
 import { migrateMastery } from '../review/migrateMastery';
 
 const KEY = 'safa-jlpt:state:v1';
@@ -35,6 +36,15 @@ export function migrateBankIds<T>(items: Record<string, T>): Record<string, T> {
   return out;
 }
 
+// 読解 設問id刷新(2026-08-10): 旧id(r-…/…-D-[TCL]-…/…-joho-…-q)を新id「<文章ID(Lv-D-{S/M/L/J}-NNN)>-qK」へ改名。
+// 状態(items)は設問idをキーにするため、進捗を保つには改名が必要。map値は一意・新旧idの重複なし=冪等(既に新idは保持)。
+const READING_ID_MAP = READING_ID_MIGRATION as Record<string, string>;
+export function migrateReadingIds<T>(items: Record<string, T>): Record<string, T> {
+  const out: Record<string, T> = {};
+  for (const key in items) { const to = READING_ID_MAP[key]; out[to ?? key] = items[key]; }
+  return out;
+}
+
 export async function loadState(): Promise<AppState | null> {
   try {
     const raw = await AsyncStorage.getItem(KEY);
@@ -43,6 +53,7 @@ export async function loadState(): Promise<AppState | null> {
     if (parsed.version !== STATE_VERSION) return null; // 将来のマイグレーション地点
     if (parsed.items) parsed.items = migrateDaimonKeys(parsed.items);
     if (parsed.items) parsed.items = migrateBankIds(parsed.items);
+    if (parsed.items) parsed.items = migrateReadingIds(parsed.items);
     // 既定アイテム(ロング髪・筆なし・民族衣装なし)を既存ユーザーにも補完: 所持に無ければ追加(装備を外せるように)。
     // 髪型が未装備なら標準=ロングを装備(既にショート等を装備中なら本人の選択を尊重して上書きしない)。
     const own = new Set(parsed.owned ?? []);

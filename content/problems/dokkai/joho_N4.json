@@ -6,7 +6,7 @@
   "source": "gemini-3-flash-preview",
   "items": [
     {
-      "id": "N4-joho-b001",
+      "id": "N4-D-J-001",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -73,7 +73,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b001-q",
+          "id": "N4-D-J-001-q1",
           "q": "留学生（りゅうがくせい）が受（う）けることができる講座（こうざ）はどれですか。",
           "choices": [
             "書道（しょどう）",
@@ -91,7 +91,7 @@
       ]
     },
     {
-      "id": "N4-joho-b002",
+      "id": "N4-D-J-002",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -158,7 +158,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b002-q",
+          "id": "N4-D-J-002-q1",
           "q": "会社員（かいしゃいん）は、どのコースに申（もう）し込（こ）みますか。",
           "choices": [
             "ワード初級（しょきゅう）",
@@ -176,7 +176,7 @@
       ]
     },
     {
-      "id": "N4-joho-b003",
+      "id": "N4-D-J-003",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -243,7 +243,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b003-q",
+          "id": "N4-D-J-003-q1",
           "q": "大学生（だいがくせい）は、どのグループに参加（さんか）しますか。",
           "choices": [
             "英語（えいご）A",
@@ -261,7 +261,7 @@
       ]
     },
     {
-      "id": "N4-joho-b004",
+      "id": "N4-D-J-004",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -328,7 +328,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b004-q",
+          "id": "N4-D-J-004-q1",
           "q": "親子（おやこ）は、どのイベントに参加（さんか）しますか。",
           "choices": [
             "絵本（えほん）の読（よ）み聞（き）かせ",
@@ -346,7 +346,7 @@
       ]
     },
     {
-      "id": "N4-joho-b005",
+      "id": "N4-D-J-005",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -413,7 +413,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b005-q",
+          "id": "N4-D-J-005-q1",
           "q": "利用者（りようしゃ）は、どのセミナーに参加（さんか）しますか。",
           "choices": [
             "江戸時代（えどじだい）の道（みち）",
@@ -431,7 +431,7 @@
       ]
     },
     {
-      "id": "N4-joho-b006",
+      "id": "N4-D-J-006",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -498,7 +498,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b006-q",
+          "id": "N4-D-J-006-q1",
           "q": "学生（がくせい）は、どのクラスに申（もう）し込（こ）みますか。",
           "choices": [
             "小物（こもの）入（い）れ",
@@ -516,7 +516,7 @@
       ]
     },
     {
-      "id": "N4-joho-b007",
+      "id": "N4-D-J-007",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -583,7 +583,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b007-q",
+          "id": "N4-D-J-007-q1",
           "q": "高齢者（こうれいしゃ）は、どの講座（こうざ）に参加（さんか）しますか。",
           "choices": [
             "朝（あさ）のラジオ体操（たいそう）",
@@ -601,7 +601,7 @@
       ]
     },
     {
-      "id": "N4-joho-b008",
+      "id": "N4-D-J-008",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -668,7 +668,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b008-q",
+          "id": "N4-D-J-008-q1",
           "q": "利用者（りようしゃ）は、どのセミナーに参加（さんか）しますか。",
           "choices": [
             "伝（つた）わる文章（ぶんしょう）術（じゅつ）",
@@ -686,7 +686,7 @@
       ]
     },
     {
-      "id": "N4-joho-b009",
+      "id": "N4-D-J-009",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -753,7 +753,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b009-q",
+          "id": "N4-D-J-009-q1",
           "q": "利用者（りようしゃ）は、どのクラスに申（もう）し込（こ）みますか。",
           "choices": [
             "土（つち）づくり",
@@ -771,7 +771,7 @@
       ]
     },
     {
-      "id": "N4-joho-b010",
+      "id": "N4-D-J-010",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -838,7 +838,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b010-q",
+          "id": "N4-D-J-010-q1",
           "q": "利用者（りようしゃ）は、どのイベントに行（い）きますか。",
           "choices": [
             "ピアノの名曲（めいきょく）",
@@ -856,7 +856,7 @@
       ]
     },
     {
-      "id": "N4-joho-b011",
+      "id": "N4-D-J-011",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -918,7 +918,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b011-q",
+          "id": "N4-D-J-011-q1",
           "q": "留学生（りゅうがくせい）が一人（ひとり）で払（はら）う料金（りょうきん）はいくらですか。",
           "choices": [
             "300円（えん）",
@@ -936,7 +936,7 @@
       ]
     },
     {
-      "id": "N4-joho-b012",
+      "id": "N4-D-J-012",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -998,7 +998,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b012-q",
+          "id": "N4-D-J-012-q1",
           "q": "会社員（かいしゃいん）が支払（しはら）う料金（りょうきん）が一番（いちばん）安（やす）い部屋（へや）はどれですか。",
           "choices": [
             "学習（がくしゅう）室（しつ）Ａ",
@@ -1016,7 +1016,7 @@
       ]
     },
     {
-      "id": "N4-joho-b013",
+      "id": "N4-D-J-013",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1078,7 +1078,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b013-q",
+          "id": "N4-D-J-013-q1",
           "q": "この家族（かぞく）５人（にん）の合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "3,300円（えん）",
@@ -1096,7 +1096,7 @@
       ]
     },
     {
-      "id": "N4-joho-b014",
+      "id": "N4-D-J-014",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1158,7 +1158,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b014-q",
+          "id": "N4-D-J-014-q1",
           "q": "大学生（だいがくせい）のグループが支払（しはら）う合計（ごうけい）金額（きんがく）はいくらですか。",
           "choices": [
             "900円（えん）",
@@ -1176,7 +1176,7 @@
       ]
     },
     {
-      "id": "N4-joho-b015",
+      "id": "N4-D-J-015",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1233,7 +1233,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b015-q",
+          "id": "N4-D-J-015-q1",
           "q": "この利用者（りようしゃ）が支払（しはら）う合計（ごうけい）金額（きんがく）はいくらですか。",
           "choices": [
             "300円（えん）",
@@ -1251,7 +1251,7 @@
       ]
     },
     {
-      "id": "N4-joho-b016",
+      "id": "N4-D-J-016",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1313,7 +1313,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b016-q",
+          "id": "N4-D-J-016-q1",
           "q": "このグループが支払（しはら）う合計（ごうけい）金額（きんがく）はいくらですか（ゴミは捨（す）てないものとします）。",
           "choices": [
             "3,500円（えん）",
@@ -1331,7 +1331,7 @@
       ]
     },
     {
-      "id": "N4-joho-b017",
+      "id": "N4-D-J-017",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1388,7 +1388,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b017-q",
+          "id": "N4-D-J-017-q1",
           "q": "高校生（こうこうせい）一人（ひとり）のチケット代（だい）はいくらですか。",
           "choices": [
             "300円（えん）",
@@ -1406,7 +1406,7 @@
       ]
     },
     {
-      "id": "N4-joho-b018",
+      "id": "N4-D-J-018",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1453,7 +1453,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b018-q",
+          "id": "N4-D-J-018-q1",
           "q": "このグループが支払（しはら）う合計（ごうけい）金額（きんがく）はいくらですか。",
           "choices": [
             "1,600円（えん）",
@@ -1471,7 +1471,7 @@
       ]
     },
     {
-      "id": "N4-joho-b019",
+      "id": "N4-D-J-019",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1539,7 +1539,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b019-q",
+          "id": "N4-D-J-019-q1",
           "q": "この人（ひと）が支払（しはら）う合計（ごうけい）金額（きんがく）はいくらですか。",
           "choices": [
             "1,200円（えん）",
@@ -1557,7 +1557,7 @@
       ]
     },
     {
-      "id": "N4-joho-b020",
+      "id": "N4-D-J-020",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1609,7 +1609,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b020-q",
+          "id": "N4-D-J-020-q1",
           "q": "この二人（ふたり）が支払（しはら）う合計（ごうけい）金額（きんがく）はいくらですか。",
           "choices": [
             "2,000円（えん）",
@@ -1627,7 +1627,7 @@
       ]
     },
     {
-      "id": "N4-joho-b021",
+      "id": "N4-D-J-021",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1693,7 +1693,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b021-q",
+          "id": "N4-D-J-021-q1",
           "q": "留学生（りゅうがくせい）が　選（えら）ぶ　クラスは　どれですか。",
           "choices": [
             "和食（わしょく）Ａ",
@@ -1711,7 +1711,7 @@
       ]
     },
     {
-      "id": "N4-joho-b022",
+      "id": "N4-D-J-022",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1777,7 +1777,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b022-q",
+          "id": "N4-D-J-022-q1",
           "q": "利用（りよう）者（しゃ）が　参加（さんか）できる　教室（きょうしつ）は　どれですか。",
           "choices": [
             "バドミントン",
@@ -1795,7 +1795,7 @@
       ]
     },
     {
-      "id": "N4-joho-b023",
+      "id": "N4-D-J-023",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1861,7 +1861,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b023-q",
+          "id": "N4-D-J-023-q1",
           "q": "社会人（しゃかいじん）が　申（もう）し込（こ）む　クラスは　どれですか。",
           "choices": [
             "基本（きほん）Ａ",
@@ -1879,7 +1879,7 @@
       ]
     },
     {
-      "id": "N4-joho-b024",
+      "id": "N4-D-J-024",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -1945,7 +1945,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b024-q",
+          "id": "N4-D-J-024-q1",
           "q": "学生（がくせい）が　入（はい）る　クラスは　どれですか。",
           "choices": [
             "英語（えいご）入門（にゅうもん）",
@@ -1963,7 +1963,7 @@
       ]
     },
     {
-      "id": "N4-joho-b025",
+      "id": "N4-D-J-025",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2029,7 +2029,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b025-q",
+          "id": "N4-D-J-025-q1",
           "q": "利用者（りようしゃ）が　選（えら）ぶ　レッスンは　どれですか。",
           "choices": [
             "ピアノ",
@@ -2047,7 +2047,7 @@
       ]
     },
     {
-      "id": "N4-joho-b026",
+      "id": "N4-D-J-026",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2113,7 +2113,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b026-q",
+          "id": "N4-D-J-026-q1",
           "q": "会社員（かいしゃいん）が　選（えら）ぶ　クラスは　どれですか。",
           "choices": [
             "ヒップホップ",
@@ -2131,7 +2131,7 @@
       ]
     },
     {
-      "id": "N4-joho-b027",
+      "id": "N4-D-J-027",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2197,7 +2197,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b027-q",
+          "id": "N4-D-J-027-q1",
           "q": "利用者（りようしゃ）が　参加（さんか）する　教室（きょうしつ）は　どれですか。",
           "choices": [
             "編（あ）み物（あみもの）",
@@ -2215,7 +2215,7 @@
       ]
     },
     {
-      "id": "N4-joho-b028",
+      "id": "N4-D-J-028",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2281,7 +2281,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b028-q",
+          "id": "N4-D-J-028-q1",
           "q": "利用者（りようしゃ）が　受（う）ける　講座（こうざ）は　どれですか。",
           "choices": [
             "朝（あさ）のヨガ",
@@ -2299,7 +2299,7 @@
       ]
     },
     {
-      "id": "N4-joho-b029",
+      "id": "N4-D-J-029",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2365,7 +2365,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b029-q",
+          "id": "N4-D-J-029-q1",
           "q": "親子（おやこ）が　行（い）く　教室（きょうしつ）は　どれですか。",
           "choices": [
             "スケッチ教室（きょうしつ）",
@@ -2383,7 +2383,7 @@
       ]
     },
     {
-      "id": "N4-joho-b030",
+      "id": "N4-D-J-030",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2449,7 +2449,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b030-q",
+          "id": "N4-D-J-030-q1",
           "q": "学生（がくせい）が　受（う）ける　講座（こうざ）は　どれですか。",
           "choices": [
             "挨拶（あいさつ）の基本（きほん）",
@@ -2467,7 +2467,7 @@
       ]
     },
     {
-      "id": "N4-joho-b031",
+      "id": "N4-D-J-031",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2535,7 +2535,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b031-q",
+          "id": "N4-D-J-031-q1",
           "q": "留学生（りゅうがくせい）が選（えら）ぶコースはどれですか。",
           "choices": [
             "B：土曜午前（どようごぜん）コース",
@@ -2553,7 +2553,7 @@
       ]
     },
     {
-      "id": "N4-joho-b032",
+      "id": "N4-D-J-032",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2621,7 +2621,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b032-q",
+          "id": "N4-D-J-032-q1",
           "q": "この親子（おやこ）が参加（さんか）できるのは、どのクラスですか。",
           "choices": [
             "１．パン作（つく）り",
@@ -2639,7 +2639,7 @@
       ]
     },
     {
-      "id": "N4-joho-b033",
+      "id": "N4-D-J-033",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2707,7 +2707,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b033-q",
+          "id": "N4-D-J-033-q1",
           "q": "利用（りよう）者（しゃ）が選（えら）ぶクラスはどれですか。",
           "choices": [
             "はじめてクラス",
@@ -2725,7 +2725,7 @@
       ]
     },
     {
-      "id": "N4-joho-b034",
+      "id": "N4-D-J-034",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2793,7 +2793,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b034-q",
+          "id": "N4-D-J-034-q1",
           "q": "この女性（じょせい）が払（はら）う料金（りょうきん）はいくらですか。",
           "choices": [
             "2300円（えん）",
@@ -2811,7 +2811,7 @@
       ]
     },
     {
-      "id": "N4-joho-b035",
+      "id": "N4-D-J-035",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2879,7 +2879,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b035-q",
+          "id": "N4-D-J-035-q1",
           "q": "学生（がくせい）は、どのクラスを選（えら）びますか。",
           "choices": [
             "A．基礎（きそ）クラス",
@@ -2897,7 +2897,7 @@
       ]
     },
     {
-      "id": "N4-joho-b036",
+      "id": "N4-D-J-036",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -2965,7 +2965,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b036-q",
+          "id": "N4-D-J-036-q1",
           "q": "子供（こども）が参加（さんか）するクラスはどれですか。",
           "choices": [
             "月曜（げつよう）クラス",
@@ -2983,7 +2983,7 @@
       ]
     },
     {
-      "id": "N4-joho-b037",
+      "id": "N4-D-J-037",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3051,7 +3051,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b037-q",
+          "id": "N4-D-J-037-q1",
           "q": "大学生（だいがくせい）が参加（さんか）するのは、どの回（かい）ですか。",
           "choices": [
             "第（だい）２回（かい）",
@@ -3069,7 +3069,7 @@
       ]
     },
     {
-      "id": "N4-joho-b038",
+      "id": "N4-D-J-038",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3137,7 +3137,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b038-q",
+          "id": "N4-D-J-038-q1",
           "q": "この女性（じょせい）が参加（さんか）するクラスはどれですか。",
           "choices": [
             "日曜朝（にちようあさ）クラス",
@@ -3155,7 +3155,7 @@
       ]
     },
     {
-      "id": "N4-joho-b039",
+      "id": "N4-D-J-039",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3223,7 +3223,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b039-q",
+          "id": "N4-D-J-039-q1",
           "q": "夫婦（ふうふ）が選（えら）ぶコースはどれですか。",
           "choices": [
             "月曜（げつよう）コース",
@@ -3241,7 +3241,7 @@
       ]
     },
     {
-      "id": "N4-joho-b040",
+      "id": "N4-D-J-040",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3309,7 +3309,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b040-q",
+          "id": "N4-D-J-040-q1",
           "q": "利用（りよう）者（しゃ）が選（えら）ぶ体験（たいけん）はどれですか。",
           "choices": [
             "ペン立（た）て",
@@ -3327,7 +3327,7 @@
       ]
     },
     {
-      "id": "N4-joho-b041",
+      "id": "N4-D-J-041",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3393,7 +3393,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b041-q",
+          "id": "N4-D-J-041-q1",
           "q": "２人（ふたり）は、どのコートを予約（よやく）しますか。",
           "choices": [
             "コートＡ",
@@ -3411,7 +3411,7 @@
       ]
     },
     {
-      "id": "N4-joho-b042",
+      "id": "N4-D-J-042",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3472,7 +3472,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b042-q",
+          "id": "N4-D-J-042-q1",
           "q": "会社員（かいしゃいん）は、どのプランを選（えら）びますか。",
           "choices": [
             "モーニング",
@@ -3490,7 +3490,7 @@
       ]
     },
     {
-      "id": "N4-joho-b043",
+      "id": "N4-D-J-043",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3556,7 +3556,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b043-q",
+          "id": "N4-D-J-043-q1",
           "q": "チームはどのエリアを予約（よやく）すればいいですか。",
           "choices": [
             "エリア北（きた）",
@@ -3574,7 +3574,7 @@
       ]
     },
     {
-      "id": "N4-joho-b044",
+      "id": "N4-D-J-044",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3640,7 +3640,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b044-q",
+          "id": "N4-D-J-044-q1",
           "q": "学生（がくせい）は、どのグラウンドを予約（よやく）しますか。",
           "choices": [
             "第（だい）１",
@@ -3658,7 +3658,7 @@
       ]
     },
     {
-      "id": "N4-joho-b045",
+      "id": "N4-D-J-045",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3724,7 +3724,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b045-q",
+          "id": "N4-D-J-045-q1",
           "q": "利用者（りようしゃ）はどの台（だい）を予約（よやく）しますか。",
           "choices": [
             "台（だい）Ａ",
@@ -3742,7 +3742,7 @@
       ]
     },
     {
-      "id": "N4-joho-b046",
+      "id": "N4-D-J-046",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3808,7 +3808,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b046-q",
+          "id": "N4-D-J-046-q1",
           "q": "グループは、どのコートを予約（よやく）しますか。",
           "choices": [
             "１番（ばん）",
@@ -3826,7 +3826,7 @@
       ]
     },
     {
-      "id": "N4-joho-b047",
+      "id": "N4-D-J-047",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3892,7 +3892,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b047-q",
+          "id": "N4-D-J-047-q1",
           "q": "大学生（だいがくせい）は、どのコースを選（えら）びますか。",
           "choices": [
             "平日（へいじつ）コース",
@@ -3910,7 +3910,7 @@
       ]
     },
     {
-      "id": "N4-joho-b048",
+      "id": "N4-D-J-048",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -3976,7 +3976,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b048-q",
+          "id": "N4-D-J-048-q1",
           "q": "仲間（なかま）たちは、どの部屋（へや）を予約（よやく）しますか。",
           "choices": [
             "ルーム１",
@@ -3994,7 +3994,7 @@
       ]
     },
     {
-      "id": "N4-joho-b049",
+      "id": "N4-D-J-049",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4060,7 +4060,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b049-q",
+          "id": "N4-D-J-049-q1",
           "q": "チームはどのグラウンドを予約（よやく）しますか。",
           "choices": [
             "Ａグラウンド",
@@ -4078,7 +4078,7 @@
       ]
     },
     {
-      "id": "N4-joho-b050",
+      "id": "N4-D-J-050",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4144,7 +4144,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b050-q",
+          "id": "N4-D-J-050-q1",
           "q": "利用者（りようしゃ）はどの場所（ばしょ）を利用（りよう）しますか。",
           "choices": [
             "スペースＡ",
@@ -4162,7 +4162,7 @@
       ]
     },
     {
-      "id": "N4-joho-b051",
+      "id": "N4-D-J-051",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4225,7 +4225,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b051-q",
+          "id": "N4-D-J-051-q1",
           "q": "大学生（だいがくせい）は、どの　チケットを　買（か）いますか。",
           "choices": [
             "①　１日（いちにち）券（けん）",
@@ -4243,7 +4243,7 @@
       ]
     },
     {
-      "id": "N4-joho-b052",
+      "id": "N4-D-J-052",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4306,7 +4306,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b052-q",
+          "id": "N4-D-J-052-q1",
           "q": "お父（とう）さんと　子供（こども）は、どの　時間（じかん）の　イベントに　行（い）きますか。",
           "choices": [
             "10:00〜11:30",
@@ -4324,7 +4324,7 @@
       ]
     },
     {
-      "id": "N4-joho-b053",
+      "id": "N4-D-J-053",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4380,7 +4380,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b053-q",
+          "id": "N4-D-J-053-q1",
           "q": "会社員（かいしゃいん）は、いくら　払（はら）いますか。",
           "choices": [
             "1,200円（えん）",
@@ -4398,7 +4398,7 @@
       ]
     },
     {
-      "id": "N4-joho-b054",
+      "id": "N4-D-J-054",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4455,7 +4455,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b054-q",
+          "id": "N4-D-J-054-q1",
           "q": "一人（ひとり）いくら　払（はら）えば　いいですか。",
           "choices": [
             "1,000円（えん）",
@@ -4473,7 +4473,7 @@
       ]
     },
     {
-      "id": "N4-joho-b055",
+      "id": "N4-D-J-055",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4525,7 +4525,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b055-q",
+          "id": "N4-D-J-055-q1",
           "q": "この人（ひと）は、いくら　払（はら）いますか。",
           "choices": [
             "1,200円（えん）",
@@ -4543,7 +4543,7 @@
       ]
     },
     {
-      "id": "N4-joho-b056",
+      "id": "N4-D-J-056",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4595,7 +4595,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b056-q",
+          "id": "N4-D-J-056-q1",
           "q": "この男性（だんせい）は、いくら　払（はら）えば　いいですか。",
           "choices": [
             "1,000円（えん）",
@@ -4613,7 +4613,7 @@
       ]
     },
     {
-      "id": "N4-joho-b057",
+      "id": "N4-D-J-057",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4665,7 +4665,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b057-q",
+          "id": "N4-D-J-057-q1",
           "q": "二人（ふたり）で　いくら　払（はら）いますか。",
           "choices": [
             "1,400円（えん）",
@@ -4683,7 +4683,7 @@
       ]
     },
     {
-      "id": "N4-joho-b058",
+      "id": "N4-D-J-058",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4745,7 +4745,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b058-q",
+          "id": "N4-D-J-058-q1",
           "q": "留学生（りゅうがくせい）は、どの　クラスに　参加（さんか）できますか。",
           "choices": [
             "A. カレー教室（きょうしつ）",
@@ -4763,7 +4763,7 @@
       ]
     },
     {
-      "id": "N4-joho-b059",
+      "id": "N4-D-J-059",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4815,7 +4815,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b059-q",
+          "id": "N4-D-J-059-q1",
           "q": "会社員（かいしゃいん）は、クレジットカードを　使（つか）って　買（か）うことが　できますか。",
           "choices": [
             "はい、1,500円（えん）　払（はら）って　買（か）えます。",
@@ -4833,7 +4833,7 @@
       ]
     },
     {
-      "id": "N4-joho-b060",
+      "id": "N4-D-J-060",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4890,7 +4890,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b060-q",
+          "id": "N4-D-J-060-q1",
           "q": "二人（ふたり）が　一緒（いっしょ）に　乗（の）れるのは　どれですか。",
           "choices": [
             "① スカイ・カー",
@@ -4908,7 +4908,7 @@
       ]
     },
     {
-      "id": "N4-joho-b061",
+      "id": "N4-D-J-061",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -4981,7 +4981,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b061-q",
+          "id": "N4-D-J-061-q1",
           "q": "留学生（りゅうがくせい）が、参加（さんか）できる日本語（にほんご）ボランティアはどこですか。",
           "choices": [
             "中央（ちゅうおう）館（かん）",
@@ -4999,7 +4999,7 @@
       ]
     },
     {
-      "id": "N4-joho-b062",
+      "id": "N4-D-J-062",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5072,7 +5072,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b062-q",
+          "id": "N4-D-J-062-q1",
           "q": "会社員（かいしゃいん）は、どのグループのボランティアに行（い）きますか。",
           "choices": [
             "Aグループ",
@@ -5090,7 +5090,7 @@
       ]
     },
     {
-      "id": "N4-joho-b063",
+      "id": "N4-D-J-063",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5163,7 +5163,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b063-q",
+          "id": "N4-D-J-063-q1",
           "q": "高校生（こうこうせい）は、どの活動（かつどう）に参加（さんか）しますか。",
           "choices": [
             "① 店（みせ）の手伝（てつだ）い（かき氷（ごおり））",
@@ -5181,7 +5181,7 @@
       ]
     },
     {
-      "id": "N4-joho-b064",
+      "id": "N4-D-J-064",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5254,7 +5254,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b064-q",
+          "id": "N4-D-J-064-q1",
           "q": "大学生（だいがくせい）は、どのコースを選（えら）びますか。",
           "choices": [
             "ラベル貼（は）り",
@@ -5272,7 +5272,7 @@
       ]
     },
     {
-      "id": "N4-joho-b065",
+      "id": "N4-D-J-065",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5345,7 +5345,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b065-q",
+          "id": "N4-D-J-065-q1",
           "q": "主婦（しゅふ）は、どの地区（ちく）のボランティアに参加（さんか）しますか。",
           "choices": [
             "あおい地区（ちく）",
@@ -5363,7 +5363,7 @@
       ]
     },
     {
-      "id": "N4-joho-b066",
+      "id": "N4-D-J-066",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5430,7 +5430,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b066-q",
+          "id": "N4-D-J-066-q1",
           "q": "この家族（かぞく）は、どこに行（い）きますか。",
           "choices": [
             "北（きた）海岸（かいがん）",
@@ -5448,7 +5448,7 @@
       ]
     },
     {
-      "id": "N4-joho-b067",
+      "id": "N4-D-J-067",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5515,7 +5515,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b067-q",
+          "id": "N4-D-J-067-q1",
           "q": "大学生（だいがくせい）は、どの役割（やくわり）を選（えら）びますか。",
           "choices": [
             "給水（きゅうすい）係（がかり）",
@@ -5533,7 +5533,7 @@
       ]
     },
     {
-      "id": "N4-joho-b068",
+      "id": "N4-D-J-068",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5606,7 +5606,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b068-q",
+          "id": "N4-D-J-068-q1",
           "q": "大学生（だいがくせい）は、どのチームに入（はい）りますか。",
           "choices": [
             "調理（ちょうり）補助（ほじょ）A",
@@ -5624,7 +5624,7 @@
       ]
     },
     {
-      "id": "N4-joho-b069",
+      "id": "N4-D-J-069",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5702,7 +5702,7 @@
       "footer": "みどり市（し） 公園管理課（こうえんかんりか）",
       "questions": [
         {
-          "id": "N4-joho-b069-q",
+          "id": "N4-D-J-069-q1",
           "q": "利用者（りようしゃ）は、どの公園（こうえん）に行（い）きますか。",
           "choices": [
             "中央（ちゅうおう）公園（こうえん）",
@@ -5720,7 +5720,7 @@
       ]
     },
     {
-      "id": "N4-joho-b070",
+      "id": "N4-D-J-070",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5793,7 +5793,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b070-q",
+          "id": "N4-D-J-070-q1",
           "q": "留学生（りゅうがくせい）は、どのコースを選（えら）びますか。",
           "choices": [
             "A：お城（しろ）ガイド",
@@ -5811,7 +5811,7 @@
       ]
     },
     {
-      "id": "N4-joho-b071",
+      "id": "N4-D-J-071",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5884,7 +5884,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b071-q",
+          "id": "N4-D-J-071-q1",
           "q": "留学生（りゅうがくせい）の条件（じょうけん）に合（あ）うクラスはどれですか。",
           "choices": [
             "英語（えいご）Ａ",
@@ -5902,7 +5902,7 @@
       ]
     },
     {
-      "id": "N4-joho-b072",
+      "id": "N4-D-J-072",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -5975,7 +5975,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b072-q",
+          "id": "N4-D-J-072-q1",
           "q": "会社員（かいしゃいん）は、どのクラスを選（えら）びますか。",
           "choices": [
             "ビジネス１",
@@ -5993,7 +5993,7 @@
       ]
     },
     {
-      "id": "N4-joho-b073",
+      "id": "N4-D-J-073",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6066,7 +6066,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b073-q",
+          "id": "N4-D-J-073-q1",
           "q": "大学生（だいがくせい）は、どのコースを選（えら）びますか。",
           "choices": [
             "Ａコース",
@@ -6084,7 +6084,7 @@
       ]
     },
     {
-      "id": "N4-joho-b074",
+      "id": "N4-D-J-074",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6151,7 +6151,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b074-q",
+          "id": "N4-D-J-074-q1",
           "q": "利用者（りようしゃ）は、どのクラスを選（えら）びますか。",
           "choices": [
             "韓国語（かんこくご）あ",
@@ -6169,7 +6169,7 @@
       ]
     },
     {
-      "id": "N4-joho-b075",
+      "id": "N4-D-J-075",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6242,7 +6242,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b075-q",
+          "id": "N4-D-J-075-q1",
           "q": "留学生（りゅうがくせい）の条件（じょうけん）に合（あ）うクラスはどれですか。",
           "choices": [
             "お菓子（かし）クラス",
@@ -6260,7 +6260,7 @@
       ]
     },
     {
-      "id": "N4-joho-b076",
+      "id": "N4-D-J-076",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6333,7 +6333,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b076-q",
+          "id": "N4-D-J-076-q1",
           "q": "会社員（かいしゃいん）の条件（じょうけん）に合（あ）うクラスはどれですか。",
           "choices": [
             "スペインＡ",
@@ -6351,7 +6351,7 @@
       ]
     },
     {
-      "id": "N4-joho-b077",
+      "id": "N4-D-J-077",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6424,7 +6424,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b077-q",
+          "id": "N4-D-J-077-q1",
           "q": "学生（がくせい）は、どのクラスを選（えら）びますか。",
           "choices": [
             "ドイツ１",
@@ -6442,7 +6442,7 @@
       ]
     },
     {
-      "id": "N4-joho-b078",
+      "id": "N4-D-J-078",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6515,7 +6515,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b078-q",
+          "id": "N4-D-J-078-q1",
           "q": "利用者（りようしゃ）は、どの会（かい）に参加（さんか）しますか。",
           "choices": [
             "アフタヌーン会（かい）",
@@ -6533,7 +6533,7 @@
       ]
     },
     {
-      "id": "N4-joho-b079",
+      "id": "N4-D-J-079",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6606,7 +6606,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b079-q",
+          "id": "N4-D-J-079-q1",
           "q": "親子（おやこ）は、どのクラスを選（えら）びますか。",
           "choices": [
             "わくわくイタリア",
@@ -6624,7 +6624,7 @@
       ]
     },
     {
-      "id": "N4-joho-b080",
+      "id": "N4-D-J-080",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6697,7 +6697,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b080-q",
+          "id": "N4-D-J-080-q1",
           "q": "会社員（かいしゃいん）の条件（じょうけん）に合（あ）うクラスはどれですか。",
           "choices": [
             "タイ語（ご）Ａ",
@@ -6715,7 +6715,7 @@
       ]
     },
     {
-      "id": "N4-joho-b081",
+      "id": "N4-D-J-081",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6789,7 +6789,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b081-q",
+          "id": "N4-D-J-081-q1",
           "q": "親子（おやこ）が参加（さんか）できる教室（きょうしつ）はどれですか。",
           "choices": [
             "木（き）の車（くるま）",
@@ -6807,7 +6807,7 @@
       ]
     },
     {
-      "id": "N4-joho-b082",
+      "id": "N4-D-J-082",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6881,7 +6881,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b082-q",
+          "id": "N4-D-J-082-q1",
           "q": "子（こ）どもが参加（さんか）できる種目（しゅもく）はどれですか。",
           "choices": [
             "サッカー大会（たいかい）",
@@ -6899,7 +6899,7 @@
       ]
     },
     {
-      "id": "N4-joho-b083",
+      "id": "N4-D-J-083",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -6973,7 +6973,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b083-q",
+          "id": "N4-D-J-083-q1",
           "q": "親子（おやこ）が参加（さんか）できる実験（じっけん）はどれですか。",
           "choices": [
             "スライム作（つく）り",
@@ -6991,7 +6991,7 @@
       ]
     },
     {
-      "id": "N4-joho-b084",
+      "id": "N4-D-J-084",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7065,7 +7065,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b084-q",
+          "id": "N4-D-J-084-q1",
           "q": "利用者（りようしゃ）は、どのおはなし会（かい）に行（ぎょう）きますか。",
           "choices": [
             "あかちゃん会（かい）",
@@ -7083,7 +7083,7 @@
       ]
     },
     {
-      "id": "N4-joho-b085",
+      "id": "N4-D-J-085",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7157,7 +7157,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b085-q",
+          "id": "N4-D-J-085-q1",
           "q": "親子（おやこ）は、どの教室（きょうしつ）を選（えら）びますか。",
           "choices": [
             "手作（てづく）りピザ",
@@ -7175,7 +7175,7 @@
       ]
     },
     {
-      "id": "N4-joho-b086",
+      "id": "N4-D-J-086",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7249,7 +7249,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b086-q",
+          "id": "N4-D-J-086-q1",
           "q": "利用者（りようしゃ）は、どのコンサートを選（えら）びますか。",
           "choices": [
             "ピアノの調（しらべ）べ",
@@ -7267,7 +7267,7 @@
       ]
     },
     {
-      "id": "N4-joho-b087",
+      "id": "N4-D-J-087",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7341,7 +7341,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b087-q",
+          "id": "N4-D-J-087-q1",
           "q": "親子（おやこ）は、どのツアーを選（えら）びますか。",
           "choices": [
             "森（もり）の花（はな）ツアー",
@@ -7359,7 +7359,7 @@
       ]
     },
     {
-      "id": "N4-joho-b088",
+      "id": "N4-D-J-088",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7433,7 +7433,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b088-q",
+          "id": "N4-D-J-088-q1",
           "q": "利用者（りようしゃ）は、どのクラスを選（えら）びますか。",
           "choices": [
             "キッズA",
@@ -7451,7 +7451,7 @@
       ]
     },
     {
-      "id": "N4-joho-b089",
+      "id": "N4-D-J-089",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7525,7 +7525,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b089-q",
+          "id": "N4-D-J-089-q1",
           "q": "親子（おやこ）は、どのコースを選（えら）びますか。",
           "choices": [
             "あひる",
@@ -7543,7 +7543,7 @@
       ]
     },
     {
-      "id": "N4-joho-b090",
+      "id": "N4-D-J-090",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7617,7 +7617,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b090-q",
+          "id": "N4-D-J-090-q1",
           "q": "利用者（りようしゃ）は、どの劇（げき）を見（み）ますか。",
           "choices": [
             "うさぎとカメ",
@@ -7635,7 +7635,7 @@
       ]
     },
     {
-      "id": "N4-joho-b091",
+      "id": "N4-D-J-091",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7703,7 +7703,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b091-q",
+          "id": "N4-D-J-091-q1",
           "q": "学生（がくせい）たちは、どの部屋（へや）に泊（と）まりますか。",
           "choices": [
             "シングル",
@@ -7721,7 +7721,7 @@
       ]
     },
     {
-      "id": "N4-joho-b092",
+      "id": "N4-D-J-092",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7778,7 +7778,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b092-q",
+          "id": "N4-D-J-092-q1",
           "q": "この家族（かぞく）は、どのプランを選（えら）びますか。",
           "choices": [
             "食事（しょくじ）なし",
@@ -7796,7 +7796,7 @@
       ]
     },
     {
-      "id": "N4-joho-b093",
+      "id": "N4-D-J-093",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7858,7 +7858,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b093-q",
+          "id": "N4-D-J-093-q1",
           "q": "この会社員（かいしゃいん）が、朝（あさ）ごはんを食（た）べて一番（いちばん）安（やす）く泊（と）まれるのはどの方法（ほうほう）ですか。",
           "choices": [
             "早（はや）割（わり）プランを予約（よやく）する",
@@ -7876,7 +7876,7 @@
       ]
     },
     {
-      "id": "N4-joho-b094",
+      "id": "N4-D-J-094",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -7938,7 +7938,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b094-q",
+          "id": "N4-D-J-094-q1",
           "q": "利用者（りようしゃ）たちは、どのプランを選（えら）びますか。",
           "choices": [
             "Ａ：入浴（にゅうよく）のみ",
@@ -7956,7 +7956,7 @@
       ]
     },
     {
-      "id": "N4-joho-b095",
+      "id": "N4-D-J-095",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8032,7 +8032,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b095-q",
+          "id": "N4-D-J-095-q1",
           "q": "この旅行者（りょこうしゃ）が払（はら）うお金（かね）はいくらですか。",
           "choices": [
             "５,５００円（えん）",
@@ -8050,7 +8050,7 @@
       ]
     },
     {
-      "id": "N4-joho-b096",
+      "id": "N4-D-J-096",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8130,7 +8130,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b096-q",
+          "id": "N4-D-J-096-q1",
           "q": "このグループが払（はら）う合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "２８,０００円（えん）",
@@ -8148,7 +8148,7 @@
       ]
     },
     {
-      "id": "N4-joho-b097",
+      "id": "N4-D-J-097",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8223,7 +8223,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b097-q",
+          "id": "N4-D-J-097-q1",
           "q": "一人（ひとり）が払（はら）うお金（かね）はいくらですか。",
           "choices": [
             "７,０００円（えん）",
@@ -8241,7 +8241,7 @@
       ]
     },
     {
-      "id": "N4-joho-b098",
+      "id": "N4-D-J-098",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8303,7 +8303,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b098-q",
+          "id": "N4-D-J-098-q1",
           "q": "この旅行者（りょこうしゃ）が払（はら）う料金（りょうきん）はいくらですか。",
           "choices": [
             "２,０００円（えん）",
@@ -8321,7 +8321,7 @@
       ]
     },
     {
-      "id": "N4-joho-b099",
+      "id": "N4-D-J-099",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8439,7 +8439,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b099-q",
+          "id": "N4-D-J-099-q1",
           "q": "この利用者（りようしゃ）たちは、どの部屋（へや）を選（えら）びますか。",
           "choices": [
             "森（もり）のツイン",
@@ -8457,7 +8457,7 @@
       ]
     },
     {
-      "id": "N4-joho-b100",
+      "id": "N4-D-J-100",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8509,7 +8509,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b100-q",
+          "id": "N4-D-J-100-q1",
           "q": "学生（がくせい）たちは、どの部屋（へや）に泊（と）まりますか。",
           "choices": [
             "シングル",
@@ -8527,7 +8527,7 @@
       ]
     },
     {
-      "id": "N4-joho-b101",
+      "id": "N4-D-J-101",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8583,7 +8583,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b101-q",
+          "id": "N4-D-J-101-q1",
           "q": "利用者（りようしゃ）と友達（ともだち）の二人（ふたり）分（ぶん）の、３時間（じかん）の合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "１,２００円（えん）",
@@ -8601,7 +8601,7 @@
       ]
     },
     {
-      "id": "N4-joho-b102",
+      "id": "N4-D-J-102",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8667,7 +8667,7 @@
       "footer": "みどり森（もり）キャンプ場（じょう）　管理（かんり）棟（とう）",
       "questions": [
         {
-          "id": "N4-joho-b102-q",
+          "id": "N4-D-J-102-q1",
           "q": "４人（にん）が払（はら）う一番（いちばん）安（やす）い合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "７,０００円（えん）",
@@ -8685,7 +8685,7 @@
       ]
     },
     {
-      "id": "N4-joho-b103",
+      "id": "N4-D-J-103",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8746,7 +8746,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b103-q",
+          "id": "N4-D-J-103-q1",
           "q": "学生（がくせい）が払（はら）う合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "４,５００円（えん）",
@@ -8764,7 +8764,7 @@
       ]
     },
     {
-      "id": "N4-joho-b104",
+      "id": "N4-D-J-104",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8825,7 +8825,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b104-q",
+          "id": "N4-D-J-104-q1",
           "q": "利用者（りようしゃ）が払（はら）う合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "８,８００円（えん）",
@@ -8843,7 +8843,7 @@
       ]
     },
     {
-      "id": "N4-joho-b105",
+      "id": "N4-D-J-105",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8904,7 +8904,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b105-q",
+          "id": "N4-D-J-105-q1",
           "q": "親子（おやこ）二人（ふたり）が払（はら）う合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "５,０００円（えん）",
@@ -8922,7 +8922,7 @@
       ]
     },
     {
-      "id": "N4-joho-b106",
+      "id": "N4-D-J-106",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -8983,7 +8983,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b106-q",
+          "id": "N4-D-J-106-q1",
           "q": "利用者（りようしゃ）が払（はら）う合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "５００円（えん）",
@@ -9001,7 +9001,7 @@
       ]
     },
     {
-      "id": "N4-joho-b107",
+      "id": "N4-D-J-107",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9057,7 +9057,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b107-q",
+          "id": "N4-D-J-107-q1",
           "q": "利用者（りようしゃ）が払（はら）う合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "１,０００円（えん）",
@@ -9075,7 +9075,7 @@
       ]
     },
     {
-      "id": "N4-joho-b108",
+      "id": "N4-D-J-108",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9142,7 +9142,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b108-q",
+          "id": "N4-D-J-108-q1",
           "q": "利用者（りようしゃ）はどのモデルを選（えら）びますか。",
           "choices": [
             "Ａタイプ",
@@ -9160,7 +9160,7 @@
       ]
     },
     {
-      "id": "N4-joho-b109",
+      "id": "N4-D-J-109",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9221,7 +9221,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b109-q",
+          "id": "N4-D-J-109-q1",
           "q": "学生（がくせい）グループが払（はら）う合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "０円（えん）",
@@ -9239,7 +9239,7 @@
       ]
     },
     {
-      "id": "N4-joho-b110",
+      "id": "N4-D-J-110",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9300,7 +9300,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b110-q",
+          "id": "N4-D-J-110-q1",
           "q": "利用者（りようしゃ）が今日（きょう）払（はら）う合計（ごうけい）料金（りょうきん）はいくらですか。",
           "choices": [
             "１,０００円（えん）",
@@ -9318,7 +9318,7 @@
       ]
     },
     {
-      "id": "N4-joho-b111",
+      "id": "N4-D-J-111",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9432,7 +9432,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b111-q",
+          "id": "N4-D-J-111-q1",
           "q": "会社員（かいしゃいん）は、どのコースを選（えら）びますか。",
           "choices": [
             "モーニングコース",
@@ -9450,7 +9450,7 @@
       ]
     },
     {
-      "id": "N4-joho-b112",
+      "id": "N4-D-J-112",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9517,7 +9517,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b112-q",
+          "id": "N4-D-J-112-q1",
           "q": "学生（がくせい）は、どの図書館（としょかん）に行（い）けばいいですか。",
           "choices": [
             "中央（ちゅうおう）図書館（としょかん）",
@@ -9535,7 +9535,7 @@
       ]
     },
     {
-      "id": "N4-joho-b113",
+      "id": "N4-D-J-113",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9602,7 +9602,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b113-q",
+          "id": "N4-D-J-113-q1",
           "q": "高校生（こうこうせい）たちは、どのチケットを一人（ひとり）いくらで買（か）いますか。",
           "choices": [
             "ふつうの券（けん）を８００円（えん）で買（か）う",
@@ -9620,7 +9620,7 @@
       ]
     },
     {
-      "id": "N4-joho-b114",
+      "id": "N4-D-J-114",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9734,7 +9734,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b114-q",
+          "id": "N4-D-J-114-q1",
           "q": "利用者（りようしゃ）は、どのクラスに入（はい）りますか。",
           "choices": [
             "ピアノＡ（朝（あさ）クラス）",
@@ -9752,7 +9752,7 @@
       ]
     },
     {
-      "id": "N4-joho-b115",
+      "id": "N4-D-J-115",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9866,7 +9866,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b115-q",
+          "id": "N4-D-J-115-q1",
           "q": "利用者（りようしゃ）は、どのコースを選（えら）びますか。",
           "choices": [
             "Ａ：お花（はな）お届（とど）けコース",
@@ -9884,7 +9884,7 @@
       ]
     },
     {
-      "id": "N4-joho-b116",
+      "id": "N4-D-J-116",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -9945,7 +9945,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b116-q",
+          "id": "N4-D-J-116-q1",
           "q": "親（おや）はどのパスポートをいくらで買（か）いますか。",
           "choices": [
             "大人（おとな）パス１枚（まい）とこどもパス２枚（まい）を９,０００円（えん）で買（か）う",
@@ -9963,7 +9963,7 @@
       ]
     },
     {
-      "id": "N4-joho-b117",
+      "id": "N4-D-J-117",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10077,7 +10077,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b117-q",
+          "id": "N4-D-J-117-q1",
           "q": "利用者（りようしゃ）は、どのクラスを選（えら）びますか。",
           "choices": [
             "和食（わしょく）クラス",
@@ -10095,7 +10095,7 @@
       ]
     },
     {
-      "id": "N4-joho-b118",
+      "id": "N4-D-J-118",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10209,7 +10209,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b118-q",
+          "id": "N4-D-J-118-q1",
           "q": "留学生（りゅうがくせい）は、どのクラスを選（えら）びますか。",
           "choices": [
             "クラス１：初級（しょきゅう）会話（かいわ）",
@@ -10227,7 +10227,7 @@
       ]
     },
     {
-      "id": "N4-joho-b119",
+      "id": "N4-D-J-119",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10294,7 +10294,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b119-q",
+          "id": "N4-D-J-119-q1",
           "q": "利用者（りようしゃ）は、どのコースを選（えら）びますか。",
           "choices": [
             "ライトコース",
@@ -10312,7 +10312,7 @@
       ]
     },
     {
-      "id": "N4-joho-b120",
+      "id": "N4-D-J-120",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10426,7 +10426,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b120-q",
+          "id": "N4-D-J-120-q1",
           "q": "利用者（りようしゃ）は、どのカードを作（つく）りますか。",
           "choices": [
             "一般（いっぱん）カード",
@@ -10444,7 +10444,7 @@
       ]
     },
     {
-      "id": "N4-joho-b121",
+      "id": "N4-D-J-121",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10511,7 +10511,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b121-q",
+          "id": "N4-D-J-121-q1",
           "q": "会社員（かいしゃいん）は、どのクラスを選（えら）びますか。",
           "choices": [
             "表（ひょう）計算（けいさん）Ｂ",
@@ -10529,7 +10529,7 @@
       ]
     },
     {
-      "id": "N4-joho-b122",
+      "id": "N4-D-J-122",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10596,7 +10596,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b122-q",
+          "id": "N4-D-J-122-q1",
           "q": "二（ふた）りは、どの講座（こうざ）に申（もう）し込（こ）みますか。",
           "choices": [
             "手作（てづく）りパン",
@@ -10614,7 +10614,7 @@
       ]
     },
     {
-      "id": "N4-joho-b123",
+      "id": "N4-D-J-123",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10681,7 +10681,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b123-q",
+          "id": "N4-D-J-123-q1",
           "q": "留学生（りゅうがくせい）は、どのサロンに行（い）きますか。",
           "choices": [
             "やさしい日本語（にほんご）",
@@ -10699,7 +10699,7 @@
       ]
     },
     {
-      "id": "N4-joho-b124",
+      "id": "N4-D-J-124",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10766,7 +10766,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b124-q",
+          "id": "N4-D-J-124-q1",
           "q": "大学生（だいがくせい）は、どの講演（こうえん）会（かい）に行（い）きますか。",
           "choices": [
             "お城（しろ）の秘密（ひみつ）",
@@ -10784,7 +10784,7 @@
       ]
     },
     {
-      "id": "N4-joho-b125",
+      "id": "N4-D-J-125",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10851,7 +10851,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b125-q",
+          "id": "N4-D-J-125-q1",
           "q": "利用（りよう）者（しゃ）は、どのクラスを選（えら）びますか。",
           "choices": [
             "革（かわ）の小物（こもの）",
@@ -10869,7 +10869,7 @@
       ]
     },
     {
-      "id": "N4-joho-b126",
+      "id": "N4-D-J-126",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -10936,7 +10936,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b126-q",
+          "id": "N4-D-J-126-q1",
           "q": "利用（りよう）者（しゃ）は、どの講座（こうざ）に行（い）きますか。",
           "choices": [
             "バラの育（そだ）て方（かた）",
@@ -10954,7 +10954,7 @@
       ]
     },
     {
-      "id": "N4-joho-b127",
+      "id": "N4-D-J-127",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11021,7 +11021,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b127-q",
+          "id": "N4-D-J-127-q1",
           "q": "男性（だんせい）は、どのクラスを選（えら）びますか。",
           "choices": [
             "元気（げんき）にダンス",
@@ -11039,7 +11039,7 @@
       ]
     },
     {
-      "id": "N4-joho-b128",
+      "id": "N4-D-J-128",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11106,7 +11106,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b128-q",
+          "id": "N4-D-J-128-q1",
           "q": "利用（りよう）者（しゃ）は、どの講座（こうざ）に申（もう）し込（こ）みますか。",
           "choices": [
             "一眼（いちがん）レフ入門（にゅうもん）",
@@ -11124,7 +11124,7 @@
       ]
     },
     {
-      "id": "N4-joho-b129",
+      "id": "N4-D-J-129",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11191,7 +11191,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b129-q",
+          "id": "N4-D-J-129-q1",
           "q": "利用（りよう）者（しゃ）は、どの鑑賞（かんしょう）会（かい）に行（い）きますか。",
           "choices": [
             "ピアノの詩人（しじん）",
@@ -11209,7 +11209,7 @@
       ]
     },
     {
-      "id": "N4-joho-b130",
+      "id": "N4-D-J-130",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11276,7 +11276,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b130-q",
+          "id": "N4-D-J-130-q1",
           "q": "この親子（おやこ）は、どのイベントに行（い）きますか。",
           "choices": [
             "絵本（えほん）の読（よ）み聞（き）かせ",
@@ -11294,7 +11294,7 @@
       ]
     },
     {
-      "id": "N4-joho-b131",
+      "id": "N4-D-J-131",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11346,7 +11346,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b131-q",
+          "id": "N4-D-J-131-q1",
           "q": "高校生（こうこうせい）が　日曜日（にちようび）の　夜（よる）に　払（はら）う　お金（かね）は　いくらですか。",
           "choices": [
             "３００円（えん）",
@@ -11364,7 +11364,7 @@
       ]
     },
     {
-      "id": "N4-joho-b132",
+      "id": "N4-D-J-132",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11426,7 +11426,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b132-q",
+          "id": "N4-D-J-132-q1",
           "q": "この　グループは、どの　部屋（へや）を　選（えら）びますか。",
           "choices": [
             "会議室（かいぎしつ）Ａ",
@@ -11444,7 +11444,7 @@
       ]
     },
     {
-      "id": "N4-joho-b133",
+      "id": "N4-D-J-133",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11496,7 +11496,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b133-q",
+          "id": "N4-D-J-133-q1",
           "q": "一人（ひとり）あたりの　チケットの　料金（りょうきん）は　いくらですか。",
           "choices": [
             "８００円（えん）",
@@ -11514,7 +11514,7 @@
       ]
     },
     {
-      "id": "N4-joho-b134",
+      "id": "N4-D-J-134",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11576,7 +11576,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b134-q",
+          "id": "N4-D-J-134-q1",
           "q": "この　学生（がくせい）が　入（はい）ることが　できるのは　どの　教室（きょうしつ）ですか。",
           "choices": [
             "テニス",
@@ -11594,7 +11594,7 @@
       ]
     },
     {
-      "id": "N4-joho-b135",
+      "id": "N4-D-J-135",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11641,7 +11641,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b135-q",
+          "id": "N4-D-J-135-q1",
           "q": "全部（ぜんぶ）で　かかる　料金（りょうきん）は　いくらですか。",
           "choices": [
             "２,０００円（えん）",
@@ -11659,7 +11659,7 @@
       ]
     },
     {
-      "id": "N4-joho-b136",
+      "id": "N4-D-J-136",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11711,7 +11711,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b136-q",
+          "id": "N4-D-J-136-q1",
           "q": "家族（かぞく）３人（にん）で　払（はら）う　お金（かね）は　いくらですか。",
           "choices": [
             "２,２００円（えん）",
@@ -11729,7 +11729,7 @@
       ]
     },
     {
-      "id": "N4-joho-b137",
+      "id": "N4-D-J-137",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11773,7 +11773,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b137-q",
+          "id": "N4-D-J-137-q1",
           "q": "この　利用者（りようしゃ）が　払（はら）う　お金（かね）は　いくらですか。",
           "choices": [
             "２５０円（えん）",
@@ -11791,7 +11791,7 @@
       ]
     },
     {
-      "id": "N4-joho-b138",
+      "id": "N4-D-J-138",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11843,7 +11843,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b138-q",
+          "id": "N4-D-J-138-q1",
           "q": "二人（ふたり）で　払（はら）う　お金（かね）は　いくらですか。",
           "choices": [
             "１,６００円（えん）",
@@ -11861,7 +11861,7 @@
       ]
     },
     {
-      "id": "N4-joho-b139",
+      "id": "N4-D-J-139",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11908,7 +11908,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b139-q",
+          "id": "N4-D-J-139-q1",
           "q": "全部（ぜんぶ）で　払（はら）う　お金（かね）は　いくらですか。",
           "choices": [
             "２,１００円（えん）",
@@ -11926,7 +11926,7 @@
       ]
     },
     {
-      "id": "N4-joho-b140",
+      "id": "N4-D-J-140",
       "level": "N4",
       "category": "dokkai",
       "type": "reading",
@@ -11978,7 +11978,7 @@
       },
       "questions": [
         {
-          "id": "N4-joho-b140-q",
+          "id": "N4-D-J-140-q1",
           "q": "この　利用者（りようしゃ）が　買（か）う　チケットの　料金（りょうきん）は　いくらですか。",
           "choices": [
             "７００円（えん）",
