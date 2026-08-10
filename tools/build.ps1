@@ -21,6 +21,7 @@ param(
   [switch]$NoCommit,
   [switch]$DryRun,
   [switch]$NoWatch,
+  [switch]$Force,
   [ValidateSet('both', 'ios', 'android')]
   [string]$Platforms = 'both'
 )
@@ -28,6 +29,9 @@ param(
 $ErrorActionPreference = 'Stop'
 # アプリの実体はリポジトリ直下（app/ は独立化で廃止）。build.ps1 は tools/ 配下なので親＝リポジトリルート。
 $APP = Split-Path $PSScriptRoot -Parent
+# 1日のTestFlightアップロード上限ガード用の台帳（public repo に入れない＝~/.claude 配下・全セッション共有）。
+$DISPATCH_LEDGER = Join-Path $env:USERPROFILE '.claude\jlpt-build-dispatch.jsonl'
+$IOS_DAILY_CAP = 3
 
 function Step($n, $t) { Write-Host "`n[$n] $t" -ForegroundColor Cyan }
 function Die($m) { Write-Host "`n中止: $m" -ForegroundColor Red; exit 1 }
@@ -48,6 +52,26 @@ if (-not $NoCommit -and $dirty -and -not $Message) {
   Die '未コミットの変更があります。-Message "..." でコミット文を渡すか、-NoCommit を付けてください。'
 }
 Write-Host "  branch=main / 未コミット $((($dirty | Measure-Object).Count)) 件"
+
+# 1日のTestFlightアップロード上限ガード（Apple error 90382 の再発防止・2026-08-10 実害: iOS7回で当日提出不可に）。
+# iOSを含む dispatch(both/ios)を1日 $IOS_DAILY_CAP 回まで。超える時は本当に必要なら -Force で明示的に上書き。
+# ここ(コミット/push 前)で止めるので、当てても作業ツリーは汚れない。
+if (-not $DryRun -and $Platforms -ne 'android') {
+  $today = (Get-Date).ToString('yyyy-MM-dd')
+  $iosToday = 0
+  if (Test-Path $DISPATCH_LEDGER) {
+    $iosToday = @(Get-Content $DISPATCH_LEDGER | Where-Object { $_ -match "`"date`":`"$today`"" -and $_ -match '"ios":true' }).Count
+  }
+  if ($iosToday -ge $IOS_DAILY_CAP) {
+    if (-not $Force) {
+      Die "今日すでに iOS を $iosToday 回ビルド済み。これ以上上げると Apple の1日アップロード上限(error 90382 = Upload limit reached)に当たり、当日は提出できなくなります。修正はためて明日まとめるのが安全です。どうしても必要なら -Force を付けて再実行してください。"
+    }
+    Write-Host "  ⚠ 今日 $($iosToday + 1) 回目の iOS ビルド。-Force 指定のため続行しますが 90382 の恐れあり。" -ForegroundColor Yellow
+  }
+  else {
+    Write-Host "  1日ガード: iOS 本日 $iosToday/$IOS_DAILY_CAP 回"
+  }
+}
 
 # ---- 2. manifest 再生成 ----------------------------------------------------
 # content を触っていなくても常に走らせる。忘れると OTA の sha256 照合が壊れるため。
@@ -127,6 +151,12 @@ Start-Sleep -Seconds 8
 $runId = gh run list --workflow=build-jlpt.yml --event workflow_dispatch --limit 1 --json databaseId -q '.[0].databaseId'
 if (-not $runId) { Die 'run-id を取得できませんでした。gh run list で確認してください。' }
 Write-Host "  run $runId — https://github.com/JinKato2020/safa-JLPT/actions/runs/$runId"
+
+# 1日ガード用の台帳へ記録（iOSを含む=both/ios を ios:true で残す。翌日リセットは日付で自然に）。
+try {
+  $iosFlag = if ($Platforms -eq 'android') { 'false' } else { 'true' }
+  Add-Content -Path $DISPATCH_LEDGER -Encoding utf8 -Value "{`"date`":`"$((Get-Date).ToString('yyyy-MM-dd'))`",`"build`":$build,`"platforms`":`"$Platforms`",`"ios`":$iosFlag,`"run`":`"$runId`"}"
+} catch { Write-Host "  (台帳記録は失敗しましたが続行) $($_.Exception.Message)" -ForegroundColor DarkYellow }
 
 if ($NoWatch) {
   $ver = (Get-Content app.json -Raw | ConvertFrom-Json).expo.version

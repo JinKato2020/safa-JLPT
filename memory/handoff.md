@@ -1,6 +1,7 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+- **🔔 B-2 応援プッシュ通知＝Build2743(run`31346093050`)・サーバー設定待ち（2026-08-10）**: コミット`642782c3`。アプリ側=`src/push/pushClient.ts`(ログイン時にExpoプッシュトークンをpush_tokensへ直書き・許可あれば/projectId=3590a434-...)＋SyncProviderで登録＋`cheerSend`成功直後に`supabase.functions.invoke('cheer-notify')`＋notifications.tsの`ensureNotificationPermission`を共用export。**ユーザー手作業3つ待ち**=①`docs/supabase/push.sql`実行(push_tokens+RLS+grant)②Edge Function`cheer-notify`デプロイ(`docs/supabase/functions/cheer-notify/index.ts`・相互友だちのみ・Expo Push API)③**配信資格情報**(iOS=eas credentials→Push鍵は比較的簡単でiOSは即配信可/Android=Firebase作成→google-services.json→app.jsonのandroid.googleServicesFile→FCMキー→**再ビルド**)。現状app.jsonにgoogleServicesFile無し・APNs鍵未登録。**まず①②③iOSでiPhone確認→Android後**。**次=B-3プライバシー本文→C当たり判定**。
 - **🤝 B-1 友だち相互登録＝Build2742(run`31345510279`)＋SQL実行待ち（2026-08-10）**: 相互化。town_join=両方向insert。**解除はtown_kick 1本に統合**(相互化でtown_leaveと同一動作→town_leaveはSQL drop＋client wrapper除去)。KotobaTownの解除ダイアログを『友だちを解除／相互に解除されます』注記へ(コミット`4c284399`=Build2742)。**ユーザーが最終SQL実行待ち**(town_join/kick相互化＋`drop function town_leave(uuid)`＋既存バックフィル`insert select member,owner ... on conflict do nothing`)=Supabase SQL Editor。実行後B-1完了。Google Playデータセーフティ「アカ削除不要の一部データ削除窓口」=「いいえ」。**次=B-2プッシュ通知の要否→B-3プライバシー本文→C当たり判定**(ユーザー「順番に」)。
 - **📋 Google Play データセーフティ データ種類(2026-08-10)**: App Storeと揃える。=位置情報(おおよその現在地=IP国)／個人情報(メール・ユーザーID・名前=ニックネーム・その他=性別)／**アプリのアクティビティ:その他のユーザー生成コンテンツ(ニックネーム/ひとこと/応援メッセージ)**←抜けやすい／アプリの情報とパフォーマンス:診断情報(AdMob・App Storeのクラッシュ申告と整合)／デバイスID(広告ID)。共有=広告IDのみGoogle(第三者)へ「共有はい」。他ユーザーに見えるだけの項目は「収集」。クラッシュ専用SDKは無し(AdMobのみ)。
 - **🚀 Build 2741 both dispatch＝run`31344538729`（監視しない・2026-08-10）＝geo直書き**: コミット`754f75f0`。接続国の記録をEdge Function経由→**クライアント直書き**へ(「呼び出しは来るのにuser_geoが空」＝関数側で書けず)。`geoClient.recordGeoCountry`がCloudflare trace(loc)で国を取り`user_geo`へ本人ぶんupsert。**ユーザーがSQL実行済**(grant select/insert/update to authenticated＋RLS`user_geo_self`＝本人の行のみ・docs/supabase/geo.sql)。**次=2741でログインしuser_geoに国(JP)が入るか実機確認だけ**。geo-country関数は不要(消してOK)。
@@ -59,12 +60,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- app.json
+- tools/build.ps1
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- src/screens/KotobaTownScreen.tsx
-- src/plaza/friendsClient.ts
-- docs/supabase/friends.sql
-- docs/supabase/geo.sql
+- docs/supabase/functions/cheer-notify/index.ts
+- docs/supabase/push.sql
 
-_自動更新: 2026-08-10 09:54_
+_自動更新: 2026-08-10 11:43_
 <!-- AUTO:END -->
