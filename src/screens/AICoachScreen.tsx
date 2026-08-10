@@ -76,7 +76,12 @@ export default function AICoachScreen() {
     const week = lastNDays(today, 7);
     const month = lastNDays(today, 28);
     const studied = new Set(streak.history);
-    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, due, daily, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today };
+    // 模試の記録(実戦の予想得点): フル模試で予想得点を保存した回だけ。最新＋前回＋直近8回の推移。
+    const scoredMocks = (state.mockHistory ?? []).filter((mk) => mk.full && typeof mk.predScore === 'number');
+    const latestMock = scoredMocks.length ? scoredMocks[scoredMocks.length - 1] : null;
+    const prevMock = scoredMocks.length > 1 ? scoredMocks[scoredMocks.length - 2] : null;
+    const mockTrend = scoredMocks.slice(-8).map((mk) => ({ day: mk.day, score: mk.predScore as number, max: mk.predMax ?? 180 }));
+    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, due, daily, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
   }, [state]);
 
   const { st } = d;
@@ -170,6 +175,68 @@ export default function AICoachScreen() {
             )}
             <Text style={s.diff}>💡 予想得点＝取れそうな点。1科目でも基準点（各科目の最低ライン）を割ると不合格です。赤い科目を最優先で。</Text>
           </View>
+        </View>
+
+        {/* ①' 模試の記録(実戦の予想得点) */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text="模試の記録（実戦の予想得点）" />
+          {d.latestMock ? (
+            <>
+              <View style={s.mockHero}>
+                <View style={{ flex: 1 }}>
+                  <Text style={s.mockScore}>{d.latestMock.predScore}<Text style={s.mockScoreMax}> / {d.latestMock.predMax ?? 180}点</Text></Text>
+                  <Text style={s.mockMeta}>合格ライン {d.latestMock.passTotal ?? '—'}点 ・ {d.latestMock.day}</Text>
+                </View>
+                {(() => {
+                  const pass = (d.latestMock!.predScore ?? 0) >= (d.latestMock!.passTotal ?? Number.MAX_SAFE_INTEGER);
+                  return <Text style={[s.mockJudge, { color: pass ? c.green : c.amber, borderColor: (pass ? c.green : c.amber) + '88' }]}>{pass ? '合格圏' : 'あと少し'}</Text>;
+                })()}
+              </View>
+              {d.prevMock ? (() => {
+                const delta = (d.latestMock!.predScore ?? 0) - (d.prevMock!.predScore ?? 0);
+                return <Text style={[s.mockDelta, { color: delta > 0 ? c.green : delta < 0 ? c.red : c.mute }]}>前回 {d.prevMock!.predScore}点 → 今回 {d.latestMock!.predScore}点（{delta > 0 ? `▲${delta}` : delta < 0 ? `▼${-delta}` : '±0'}点）</Text>;
+              })() : null}
+              {d.latestMock.sections?.length ? (
+                <View style={s.mockSecs}>
+                  {d.latestMock.sections.map((sec) => {
+                    const cleared = sec.score >= sec.min;
+                    const col = cleared ? c.green : c.red;
+                    const fillW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.score) / sec.max)) : 0;
+                    const markW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.min) / sec.max)) : 0;
+                    return (
+                      <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
+                        <View style={s.scoreHead}>
+                          <Text style={s.scoreLabel}>{SECTION_LABEL[sec.key] ?? sec.key}</Text>
+                          <Text style={[s.scoreStatus, { color: col }]}>{cleared ? 'クリア✓' : `基準点まであと${sec.min - sec.score}点`}</Text>
+                        </View>
+                        <View style={s.scoreBar}>
+                          <View style={[s.scoreBarFill, { width: `${fillW}%`, backgroundColor: col }]} />
+                          <View style={[s.scoreMk, { left: `${markW}%` }]} />
+                        </View>
+                        <Text style={s.scoreSub}>予想 <Text style={s.scoreSubEm}>{sec.score}</Text> / {sec.max}点（基準点 {sec.min}点 ＝ ｜印）</Text>
+                      </View>
+                    );
+                  })}
+                </View>
+              ) : null}
+              {d.mockTrend.length > 1 ? (
+                <View style={s.mockTrendRow}>
+                  {d.mockTrend.map((mt, i) => (
+                    <View key={i} style={s.mockTrendItem}>
+                      <Text style={[s.mockTrendScore, i === d.mockTrend.length - 1 && { color: c.blue }]}>{mt.score}</Text>
+                      <Text style={s.mockTrendDay}>{mt.day.slice(5)}</Text>
+                    </View>
+                  ))}
+                </View>
+              ) : null}
+              <Text style={s.diff}>💡 これは直近の模試（実戦）での予想得点。上の「予想得点」は普段の学習からの推定です。</Text>
+            </>
+          ) : (
+            <Pressable style={s.mockEmpty} onPress={() => nav.navigate('Mock', { full: true })}>
+              <Text style={s.mockEmptyT}>まだ模試の記録がありません。模試を受けると、実戦での予想得点がここに出ます。</Text>
+              <Text style={s.mockEmptyCta}>模試を受ける →</Text>
+            </Pressable>
+          )}
         </View>
 
         {/* ② 分野別の到達度 */}
@@ -403,6 +470,21 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   scoreMk: { position: 'absolute', top: -3, bottom: -3, width: 2, backgroundColor: c.ink2 },
   scoreSub: { fontSize: 10.5, color: c.faint, fontWeight: '600' },
   scoreSubEm: { fontSize: 12, color: c.ink, fontWeight: '900' },
+  // 模試の記録カード
+  mockHero: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  mockScore: { fontSize: 34, fontWeight: '900', color: c.ink, lineHeight: 38 },
+  mockScoreMax: { fontSize: 15, fontWeight: '800', color: c.faint },
+  mockMeta: { fontSize: 11.5, color: c.mute, fontWeight: '700', marginTop: 2 },
+  mockJudge: { fontSize: 12, fontWeight: '900', borderWidth: 1.5, borderRadius: radius.pill, paddingVertical: 4, paddingHorizontal: 12, overflow: 'hidden' },
+  mockDelta: { fontSize: 12, fontWeight: '800', marginTop: spacing.xs },
+  mockSecs: { gap: 8, marginTop: spacing.sm },
+  mockTrendRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.sm, paddingTop: spacing.sm, borderTopWidth: 1, borderTopColor: c.line },
+  mockTrendItem: { alignItems: 'center', flex: 1 },
+  mockTrendScore: { fontSize: 13, fontWeight: '800', color: c.ink2, fontVariant: ['tabular-nums'] },
+  mockTrendDay: { fontSize: 9, color: c.faint, marginTop: 1 },
+  mockEmpty: { alignItems: 'center', gap: 6, paddingVertical: spacing.md },
+  mockEmptyT: { fontSize: 12, color: c.mute, textAlign: 'center', lineHeight: 18 },
+  mockEmptyCta: { fontSize: 13, fontWeight: '900', color: c.blue },
 
   // カバー率(覚えた数)
   covHero: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 10, paddingHorizontal: 12, marginBottom: spacing.sm },

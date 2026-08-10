@@ -81,6 +81,12 @@ export interface MockResult {
   correct: number;
   total: number;
   full: boolean; // フル模試(true)/ミニ(false)
+  // 予想得点(客観)。旧stateには無い=省略可。AIコーチ「模試の記録」で最新値・推移・区分別を可視化。
+  level?: string;                 // 受験級(N5/N4/N3)
+  predScore?: number;             // 予想得点(得点)
+  predMax?: number;               // 満点(JLPTは180)
+  passTotal?: number;             // 合格ライン(点)
+  sections?: { key: string; score: number; max: number; min: number; below: boolean }[]; // 区分別の予想得点
 }
 
 export interface AppState {
