@@ -9,7 +9,7 @@ import { pullState, pushState } from './syncClient';
 import { decideLoginSync, mergeRestoredState } from './sync';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { setTelemetryAccount } from '../telemetry/telemetry';
-import { recordGeoCountry } from '../geo/geoClient';
+import { recordGeoCountry, bumpGeoCountOnce } from '../geo/geoClient';
 import { registerPushToken } from '../push/pushClient';
 
 type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null };
@@ -53,6 +53,11 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setTelemetryAccount(session?.user?.id ?? null);
   }, [session]);
+
+  // 匿名を含む「国ごとの人数カウント」を起動時に1回だけ(端末内フラグで1インストール1回)。個人は一切送らない/保存しない。
+  useEffect(() => {
+    void bumpGeoCountOnce();
+  }, []);
 
   // 接続国(IP由来)をログインごとに1回だけ記録(統計・課金計算用)。トークン更新では再実行しない(user_id 変化のみ)。
   const geoUserRef = useRef<string | null>(null);
