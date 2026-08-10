@@ -1,6 +1,9 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+- **🤝 B-1 友だち相互登録＝SQL更新済・ユーザーが実行待ち（2026-08-10）**: `docs/supabase/friends.sql`のtown_join/leave/kickを相互化(joinで両方向insert・leave/kickは両方向delete＝完全解除)。**アプリ改修/ビルド不要**(townMembers()を読むだけで相互反映)。ユーザーへ「関数3つ差し替え＋既存を相互化するバックフィル(insert select member,owner ... on conflict do nothing)」のSQLを提示済＝**Supabase SQL Editorで実行待ち**。実行後B-1完了。※town_leave(自分が抜ける)とtown_kick(相手を外す)は相互化で動作同一・入口(ボタン)違いだけ・両方残す。Google Playデータセーフティ「アカウント削除不要の一部データ削除窓口」は無し=「いいえ」で回答。**次=B-2プッシュ通知の要否→B-3プライバシー本文→C当たり判定**の順(ユーザー指示「順番に」)。
+- **🚀 Build 2741 both dispatch＝run`31344538729`（監視しない・2026-08-10）＝geo直書き**: コミット`754f75f0`。接続国の記録をEdge Function経由→**クライアント直書き**へ(「呼び出しは来るのにuser_geoが空」＝関数側で書けず)。`geoClient.recordGeoCountry`がCloudflare trace(loc)で国を取り`user_geo`へ本人ぶんupsert。**ユーザーがSQL実行済**(grant select/insert/update to authenticated＋RLS`user_geo_self`＝本人の行のみ・docs/supabase/geo.sql)。**次=2741でログインしuser_geoに国(JP)が入るか実機確認だけ**。geo-country関数は不要(消してOK)。
+- **✅ アカウント削除=完了(2026-08-10)**: `delete-account`関数はSupabaseにデプロイ済(確認済)。削除ページ(safa-lang.com/jlpt/*/delete/)のメールは`contact@safa-lang.com`(件名自動入力・プライバシー連絡先と一致)で本番反映済。App/Google要件(アプリ内でアカウント削除)を満たす。残なし。
 - **🚀 Build 2740 both dispatch＝run`31344084110`（監視しない・2026-08-10）**: コミット`e6dd8809`。(1)**合格証明書のレベル(N5/N4/N3)を画像へ焼き込み**=pass/fail×3級の6枚(`assets/mock/mock_cert_{pass,fail}_{n5,n4,n3}.jpg`)を生成し、アプリ側の文字レイヤ重ねを廃止。端末(iOS/Android)フォント差でのレベル文字ズレを根絶。生成=`tools/bake_cert_levels.py`(テンプレ`mock_cert_{pass,fail}.jpg`の隙間へTimes New Roman Bold・濃紺#1e1e3c・中心x0.5074/y0.443/文字高0.075Hで焼込。ライブ文字と同配置)。※旧2枚テンプレはbake用に残置(Metro未require=バンドル外)。certLevelスタイル/Platform import除去。(2)試験タブの模試ボタン`test.full_title`を『フル模試』→『模試』(ミニ廃止で冗長)。2739で証明書の大きさOK確認済。**次=2740実機で①各級の焼込レベルが枠内中央 ②模試ボタン名**。
 - **🚀 Build 2739 both dispatch＝run`31342293549`（監視しない・2026-08-10）＝2738を包含する“全部入り”。実機はこれで確認**: コミット`5c8937de`。(1)**名札の⋯を真に解消**=maxWidth撤去だけでは不足(2737で⋯残存)。真因は名札の絶対配置pillが容器幅SPRITE(64)で測られ切れる→容器を`PLATE_W=170`にしアバター中心へ寄せて全表示。(2)**重なり順を全アバター足元y基準に統一**(座りキャラにも適用)=movers`pos.y+0.82*SPRITE`/座り`si下端-0.18*SPRITE`。従来moversはtop基準・座りは足元基準でズレ→player↔座りが誤順だった。(3)結果計算バーを細く(16→9)。(4)ホーム桜=未学習(learnedNow=0)の初回ユーザーには『続けてきた』等の過去前提を出さずNEWCOMER_BUBBLESの出迎え文。**次=2739実機で ①証明書が枠内 ②名札⋯解消 ③player↔座りの重なり ④計算バー細 ⑤初回桜の文言 ⑥総時間の間隔 ⑦アカウント上詰め ⑧CTA『苦手な単語に挑戦する』**。※2738(cert-only)は2739に包含され破棄扱い。
 - **🚀 Build 2738 both dispatch＝run`31341786522`（監視しない・2026-08-10）＝合格証明書 巨大化の“真因”修正**: コミット`387f9c1d`。真因=結果画面の証明書と空背景のImageが`absoluteFill+contain`で、新アーキ一部端末で**画像の実寸(738×1000)に化けて枠を無視**していた(親に`{width:certW,height:certH}`があっても効かない)→**Imageに明示width/height**を付けて固定。削除再インストールでも巨大だった件はこれで解消見込み。※2737で上げた`runtimeVersion1.2.1`は的外れだったが害無しで維持。詳細/教訓=memory[[preview-not-proof-stale-ota-js]](PILプレビューは実機の証拠でない・Imageは明示寸法必須)。**次=2738実機で①証明書が枠に収まるか②名札の⋯解消③総時間の間隔④アカウント上詰め⑤CTA『苦手な単語に挑戦する』を目視**。
@@ -45,10 +48,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 46ターン（文脈 31万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 46ターン・ツール21回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a24a55339e7688334 general-purpose
 - a299080a95b15e8d3 general-purpose
@@ -57,14 +56,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/session-summary-LATEST.md
 - memory/handoff.md
+- docs/supabase/friends.sql
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
+- docs/supabase/geo.sql
+- src/geo/geoClient.ts
 - src/i18n/ja.json
-- tools/bake_cert_levels.py
-- src/screens/MockScreen.tsx
-- assets/mock/mock_cert_fail_n3.jpg
-- assets/mock/mock_cert_fail_n4.jpg
 
-_自動更新: 2026-08-10 09:18_
+_自動更新: 2026-08-10 09:47_
 <!-- AUTO:END -->

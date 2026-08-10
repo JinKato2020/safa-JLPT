@@ -60,12 +60,7 @@ export async function townMembers(): Promise<FriendProfile[]> {
   } catch { return []; }
 }
 
-/** owner の町から自分が抜ける。成功で true。 */
-export async function townLeave(ownerId: string): Promise<boolean> {
-  try { const { error } = await supabase.rpc('town_leave', { p_owner: ownerId }); return !error; } catch { return false; }
-}
-
-/** 自分の町から member を外す。成功で true。 */
+/** 友だち解除(唯一の解除口)。相互なので双方の町から相手が消える。成功で true。 */
 export async function townKick(memberId: string): Promise<boolean> {
   try { const { error } = await supabase.rpc('town_kick', { p_member: memberId }); return !error; } catch { return false; }
 }

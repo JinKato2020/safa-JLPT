@@ -91,14 +91,16 @@ language sql security definer set search_path = public as $$
   from public.friend_profiles f where f.user_id = p_owner;
 $$;
 
--- --- 招待を受けて owner の町に参加(片方向)。自分の町には owner は出ない。 ---
+-- --- 招待を受けて参加=相互登録。両方向((owner,me)と(me,owner))を作り、互いの町に相手が出る。 ---
 create or replace function public.town_join(p_owner uuid)
 returns void language plpgsql security definer set search_path = public as $$
 declare uid uuid := auth.uid();
 begin
   if uid is null then raise exception 'auth required'; end if;
   if uid = p_owner then raise exception 'cannot join own town'; end if;
-  insert into public.town_members(owner, member) values (p_owner, uid) on conflict do nothing;
+  insert into public.town_members(owner, member)
+    values (p_owner, uid), (uid, p_owner)
+    on conflict do nothing;
 end $$;
 
 -- --- 自分の町の住人(=参加してくれた人たち)のプロフィール。 ---
@@ -116,20 +118,18 @@ language sql security definer set search_path = public as $$
   order by f.updated_at desc;
 $$;
 
--- --- owner の町から自分が抜ける。 ---
-create or replace function public.town_leave(p_owner uuid)
-returns void language plpgsql security definer set search_path = public as $$
-begin
-  if auth.uid() is null then raise exception 'auth required'; end if;
-  delete from public.town_members where owner = p_owner and member = auth.uid();
-end $$;
+-- --- 友だち解除は town_kick 1本に統合。相互なので両方向を削除=双方の町から相手が消える。 ---
+--     (旧 town_leave は「自分が抜ける」入口だったが、相互化で town_kick と同一動作になり不要=drop。)
+drop function if exists public.town_leave(uuid);
 
--- --- 自分の町から member を外す。 ---
+-- --- 相手(p_member)との友だち関係を解除(唯一の解除口)。相互なので両方向を削除。 ---
 create or replace function public.town_kick(p_member uuid)
 returns void language plpgsql security definer set search_path = public as $$
+declare uid uuid := auth.uid();
 begin
-  if auth.uid() is null then raise exception 'auth required'; end if;
-  delete from public.town_members where owner = auth.uid() and member = p_member;
+  if uid is null then raise exception 'auth required'; end if;
+  delete from public.town_members
+   where (owner = uid and member = p_member) or (owner = p_member and member = uid);
 end $$;
 
 -- --- 実行権限。テーブルへの GRANT は不要(関数が definer で代行)。 ---
@@ -137,5 +137,4 @@ grant execute on function public.friend_publish(text,text,text,text,text,int,int
 grant execute on function public.town_inviter(uuid) to anon, authenticated; -- 招待画面はログイン前でも表示
 grant execute on function public.town_join(uuid)    to authenticated;
 grant execute on function public.town_members()     to authenticated;
-grant execute on function public.town_leave(uuid)   to authenticated;
 grant execute on function public.town_kick(uuid)    to authenticated;

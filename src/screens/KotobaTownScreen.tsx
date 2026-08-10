@@ -515,11 +515,11 @@ export default function KotobaTownScreen() {
     setSent({ emoji: '💬', reply: '' });
     afterSend();
   };
-  // 荒らし対策: 「日本語学習者の町」の一覧から相手を削除(town_kick)。以後その人はメッセージを送れない。
+  // 友だち解除(town_kick=唯一の解除口)。相互なので双方の町から相手が消え、どちらもメッセージを送れなくなる。
   const kickMember = (m: FriendProfile) => {
-    Alert.alert('町から削除', `${m.nickname}さんを町から削除しますか？\n削除すると、この人はあなたにメッセージを送れなくなります。`, [
+    Alert.alert('友だちを解除', `${m.nickname}さんとの友だちを解除しますか？\n解除すると、お互いの町から相手が消え、どちらもメッセージを送れなくなります（相互に解除されます）。`, [
       { text: 'キャンセル', style: 'cancel' },
-      { text: '削除', style: 'destructive', onPress: () => {
+      { text: '解除', style: 'destructive', onPress: () => {
         void townKick(m.user_id);
         setMembers((ms) => ms.filter((x) => x.user_id !== m.user_id));       // 一覧から即消す
         setFriends((fs) => fs.filter((f) => f.id !== 'friend:' + m.user_id)); // 町の住人からも消す
