@@ -101,6 +101,7 @@ export interface AppState {
   mockTickets?: number;                 // 模試チケット所持数(上限3)。未設定→0(初回起動で1付与)。
   mockGrantsClaimed?: number;           // 消化済み月次付与数(installedAtからの経過月と比較して差分を付与)。
   avatarChangeTokens?: number;          // アバター変更券の所持数。登録後アバターは既定で変更不可。「すがた変えドリンク」購入で+1、変更実行で-1。未設定→0
+  unlocksSeen?: string[];               // 書斎タブの段階解禁で「解禁演出を見せ済み」のモードキー。未設定→初回に現解禁分を無音でseed(既存ユーザーが一斉に演出されないように)
   entitlements?: {              // Pro(有料)の権利。未設定→無料
     purchaseActive?: boolean;   // RevenueCat同期結果のキャッシュ(正本はストアのレシート)
     purchaseCheckedAt?: number; // 最後に同期できた時刻 epoch ms

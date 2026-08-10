@@ -7,6 +7,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { coverageBars } from '../store/selectors';
+import { UNLOCK_NEED } from '../store/unlocks';
 import Badge from './Badge';
 import BadgeCollection from './BadgeCollection';
 import { badgeTierIndex } from '../data/badges';
@@ -36,6 +37,19 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
   const [collPct, setCollPct] = useState<number | null>(null);
   const m = META[kubun];
 
+  // 段階解禁: このカードのkubunカバー率(pct)がしきい値に達すると学習モードが解禁。
+  // (漢字聞き取り/書き取りは漢字pct、語彙系は語彙pct、文法系は文法pctで判定=カード内pctと一致。)
+  const dev = state.settings.devUnlimitedPoints === true;
+  const gated = (labelKey: string, onPress: () => void, need = 0) => {
+    const ok = need === 0 || dev || pct >= need;
+    return (
+      <Pressable key={labelKey} disabled={!ok} style={({ pressed }) => [s.linkBtn, ok && pressed && s.pressed, !ok && s.linkLocked]} onPress={ok ? onPress : undefined}>
+        <Text style={[s.linkTxt, !ok && s.linkTxtLocked]}>{t(labelKey)}</Text>
+        {ok ? <Text style={s.chevron}>›</Text> : <Text style={s.lockHint}>🔒 {t('unlock.needpct', { pct: String(need) })}</Text>}
+      </Pressable>
+    );
+  };
+
   return (
     <View style={s.card}>
       <View style={s.cardHead}>
@@ -51,49 +65,30 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
         <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
       </View>
 
-      <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordList', { view: kubun, mode: 'study' })}>
-        <Text style={s.linkTxt}>{t(m.listKey)}</Text><Text style={s.chevron}>›</Text>
-      </Pressable>
+      {/* 辞書リストは常時解禁(参照・学習の土台)。 */}
+      {gated(m.listKey, () => nav.navigate('WordList', { view: kubun, mode: 'study' }), 0)}
 
-      {kubun === 'vocab' ? (
-        <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordDrill', { kind: 'vProduce' })}>
-          <Text style={s.linkTxt}>{t('cards.produce')}</Text><Text style={s.chevron}>›</Text>
-        </Pressable>
-      ) : null}
+      {/* 語彙: 意味から単語(産出)=語彙15%で解禁。 */}
+      {kubun === 'vocab' ? gated('cards.produce', () => nav.navigate('WordDrill', { kind: 'vProduce' }), UNLOCK_NEED.vproduce) : null}
+      {/* 文法: 意味を選ぶ(認識)=初期解禁 / 組み立て(産出)=文法20%で解禁。 */}
       {kubun === 'grammar' ? (
         <>
-          <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordDrill', { kind: 'gMeaning' })}>
-            <Text style={s.linkTxt}>{t('cards.gmeaning')}</Text><Text style={s.chevron}>›</Text>
-          </Pressable>
-          <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('WordDrill', { kind: 'gBuild' })}>
-            <Text style={s.linkTxt}>{t('cards.gorder')}</Text><Text style={s.chevron}>›</Text>
-          </Pressable>
+          {gated('cards.gmeaning', () => nav.navigate('WordDrill', { kind: 'gMeaning' }), 0)}
+          {gated('cards.gorder', () => nav.navigate('WordDrill', { kind: 'gBuild' }), UNLOCK_NEED.gbuild)}
         </>
       ) : null}
-      {(kubun === 'vocab' || kubun === 'kanji') ? (
-        <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('ListeningQuiz', { kind: kubun })}>
-          <Text style={s.linkTxt}>{t('cards.listening')}</Text><Text style={s.chevron}>›</Text>
-        </Pressable>
-      ) : null}
+      {/* 聞き取り(漢字/語彙)=その分野5%で解禁。 */}
+      {(kubun === 'vocab' || kubun === 'kanji') ? gated('cards.listening', () => nav.navigate('ListeningQuiz', { kind: kubun }), UNLOCK_NEED.listen) : null}
       {kubun === 'kanji' ? (
         <>
-          {kakitoriDueToday(state.kakitori, todayStr()).length ? (
-            <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { mode: 'review' })}>
-              <Text style={s.linkTxt}>{t('cards.kakitori_review')}</Text><Text style={s.chevron}>›</Text>
-            </Pressable>
-          ) : null}
-          <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill', script: 'kanji' })}>
-            <Text style={s.linkTxt}>{t('cards.kakitori_entry')}</Text><Text style={s.chevron}>›</Text>
-          </Pressable>
-          {/* カタカナ/ひらがな書き取りはN5のみ。N4/N3では非表示(ユーザー方針)。 */}
+          {/* 漢字書き取り(産出)=漢字10%で解禁。復習も同条件。 */}
+          {kakitoriDueToday(state.kakitori, todayStr()).length ? gated('cards.kakitori_review', () => nav.navigate('Kakitori', { mode: 'review' }), UNLOCK_NEED.kakitori) : null}
+          {gated('cards.kakitori_entry', () => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill', script: 'kanji' }), UNLOCK_NEED.kakitori)}
+          {/* カタカナ/ひらがな書き取りはN5のみ・初期から解禁(土台)。 */}
           {state.settings.level === 'N5' && (
             <>
-              <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { mode: 'drill', script: 'katakana' })}>
-                <Text style={s.linkTxt}>{t('cards.kakitori_kata')}</Text><Text style={s.chevron}>›</Text>
-              </Pressable>
-              <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { mode: 'drill', script: 'hiragana' })}>
-                <Text style={s.linkTxt}>{t('cards.kakitori_hira')}</Text><Text style={s.chevron}>›</Text>
-              </Pressable>
+              {gated('cards.kakitori_kata', () => nav.navigate('Kakitori', { mode: 'drill', script: 'katakana' }), 0)}
+              {gated('cards.kakitori_hira', () => nav.navigate('Kakitori', { mode: 'drill', script: 'hiragana' }), 0)}
             </>
           )}
         </>
@@ -119,4 +114,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   linkTxt: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
   chevron: { fontSize: 24, color: c.trace, fontWeight: '700' },
   pressed: { backgroundColor: c.bgSoft, opacity: 0.85 },
+  // 未解禁ボタン: グレーアウト＋鍵＋「◯%で解禁」。
+  linkLocked: { backgroundColor: c.bg, borderStyle: 'dashed', opacity: 0.7 },
+  linkTxtLocked: { color: c.faint },
+  lockHint: { fontSize: ty.tiny, fontWeight: '800', color: c.mute },
 });

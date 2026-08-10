@@ -48,6 +48,8 @@ type Action =
   | { type: 'SET_COMPLETED'; day: string; qualifying: boolean }
   | { type: 'SET_ENTERED_CODE'; code: string }
   | { type: 'SET_REFERRAL_STATS'; qualified: number }
+  | { type: 'MARK_UNLOCK_SEEN'; key: string }
+  | { type: 'SEED_UNLOCKS_SEEN'; keys: string[] }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -152,6 +154,11 @@ export function reducer(state: AppState, action: Action): AppState {
     case 'SET_REFERRAL_STATS':
       // 自分が紹介した継続人数(サーバー集計)をキャッシュ。テレメトリ/アカウント画面が参照。
       return { ...state, referral: { ...state.referral, referredQualified: action.qualified } };
+    case 'MARK_UNLOCK_SEEN':
+      return (state.unlocksSeen ?? []).includes(action.key) ? state : { ...state, unlocksSeen: [...(state.unlocksSeen ?? []), action.key] };
+    case 'SEED_UNLOCKS_SEEN':
+      // 初回のみ(未定義時)現解禁分を無音記録。既存ユーザーが更新直後に一斉演出されるのを防ぐ。
+      return state.unlocksSeen === undefined ? { ...state, unlocksSeen: action.keys } : state;
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -251,6 +258,8 @@ export function useAppActions() {
     markStudyDay: (qualifying: boolean) => dispatch({ type: 'SET_COMPLETED', day: dayStr(Date.now()), qualifying }),
     setEnteredCode: (code: string) => dispatch({ type: 'SET_ENTERED_CODE', code }),
     setReferralStats: (qualified: number) => dispatch({ type: 'SET_REFERRAL_STATS', qualified }),
+    markUnlockSeen: (key: string) => dispatch({ type: 'MARK_UNLOCK_SEEN', key }),
+    seedUnlocksSeen: (keys: string[]) => dispatch({ type: 'SEED_UNLOCKS_SEEN', keys }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     reset: () => {
       clearState();
