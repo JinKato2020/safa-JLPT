@@ -1,7 +1,7 @@
 // ミニ模試(言語知識20問) / フル模試(全区分=漢字語彙＋文法＋読解＋聴解)。本番形式・客観採点(重み5)。
 // 採点後: 区分別の弱点ヒートマップ → 語彙/文法の弱点だけ復習(Quiz)へ。掲示板§5(UWorld閉ループ)。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Image, Animated, useWindowDimensions, Alert, Platform } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Image, Animated, useWindowDimensions, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -30,8 +30,20 @@ import type { RootStackParamList } from '../navigation/types';
 
 const IMG_BREAK = require('../../assets/mock/mock_break.jpg');
 const IMG_END = require('../../assets/mock/mock_end.jpg');
-const IMG_CERT_PASS = require('../../assets/mock/mock_cert_pass.jpg');
-const IMG_CERT_FAIL = require('../../assets/mock/mock_cert_fail.jpg');
+// 合否証明書は「レベル(N5/N4/N3)を画像に焼き込んだ」6枚から選ぶ。端末ごとのフォント差でレベル文字がズレないよう、
+// 文字レイヤ重ねをやめ画像の一部にした(tools/bake_cert_levels.py で mock_cert_{pass,fail}.jpg の隙間へ焼き込み生成)。
+const IMG_CERT: Record<'pass' | 'fail', Record<Level, number>> = {
+  pass: {
+    N5: require('../../assets/mock/mock_cert_pass_n5.jpg'),
+    N4: require('../../assets/mock/mock_cert_pass_n4.jpg'),
+    N3: require('../../assets/mock/mock_cert_pass_n3.jpg'),
+  },
+  fail: {
+    N5: require('../../assets/mock/mock_cert_fail_n5.jpg'),
+    N4: require('../../assets/mock/mock_cert_fail_n4.jpg'),
+    N3: require('../../assets/mock/mock_cert_fail_n3.jpg'),
+  },
+};
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 type Sec = 'moji_goi' | 'bunpou' | 'dokkai' | 'choukai';
@@ -523,7 +535,7 @@ export default function MockScreen() {
     const certH = Math.round(Math.min(winH * 0.34, (winW - spacing.lg * 4) / 0.738)); // 程よい大きさ
     const certW = Math.round(certH * 0.738);                   // 証明書画像の実アスペクト(余白統一後 738/1000)
     const certTop = Math.round(winH * 0.02);                   // 上部バーのすぐ下(空の辺り)
-    const lvlFs = Math.round(certH * 0.075);                   // レベル文字(「日本語能力試験」と金の飾り線の隙間に収まる大きさ)
+    const certSrc = IMG_CERT[passed ? 'pass' : 'fail'][level];  // レベルは画像に焼き込み済(端末フォント差でズレない)
     return (
       <View style={s.fullImgWrap}>
         <ScrollView showsVerticalScrollIndicator={!preview}>
@@ -537,15 +549,10 @@ export default function MockScreen() {
                   <Text style={s.closeOnImg}>✕</Text>
                 </Pressable>
               </View>
-              {/* 証明書は上部(空の辺り)へ。縦横とも画面内に必ず収まる確定サイズ。N3を消した位置にレベルを重ねる。 */}
+              {/* 証明書は上部(空の辺り)へ。縦横とも画面内に必ず収まる確定サイズ。レベル(N5/N4/N3)は画像に焼き込み済。 */}
               <View style={{ alignItems: 'center', marginTop: certTop }}>
-                <View style={{ width: certW, height: certH }}>
-                  {/* ⚠️証明書が画面いっぱいに巨大化する不具合の真因: absoluteFill+contain だと端末により画像の実寸(738×1000)で描画される。
-                      → 必ず明示の width/height(=certW×certH)で固定する。これで枠を超えて大きくなることは原理的に起きない。 */}
-                  <Image source={passed ? IMG_CERT_PASS : IMG_CERT_FAIL} style={{ position: 'absolute', left: 0, top: 0, width: certW, height: certH }} resizeMode="contain" />
-                  {/* 中央軸=実測0.507。縦は「日本語能力試験(下端0.40)」と「金の飾り線(0.485)」の隙間の中央へ。金の線に被らない。 */}
-                  <Text style={[s.certLevel, { fontSize: lvlFs, lineHeight: lvlFs, top: Math.round(certH * 0.452 - lvlFs * 0.62), transform: [{ translateX: Math.round(certW * 0.0074) }] }]}>{level}</Text>
-                </View>
+                {/* ⚠️巨大化の真因対策: Imageは必ず明示の width/height(=certW×certH)で固定する(absoluteFill+containだと端末により実寸738×1000に化ける)。 */}
+                <Image source={certSrc} style={{ width: certW, height: certH }} resizeMode="contain" />
               </View>
               <View style={{ flex: 1 }} />
               {preview ? (
@@ -832,7 +839,6 @@ const makeStyles = (c: ThemeColors) =>
     certHero: { width: '100%', borderRadius: radius.lg, overflow: 'hidden', backgroundColor: '#cfe3f5', alignItems: 'center', justifyContent: 'flex-start', marginBottom: spacing.md },
     // 証明書に重ねるレベル文字(元N3の位置・濃紺のセリフ体で証明書に馴染ませる)
     // レベル文字。数字が下がらない字形(ライニング数字)のセリフ体にする=NとN以外の数字が同じ高さ・同じベースラインで揃う(Georgiaは旧字体数字でズレる)。
-    certLevel: { position: 'absolute', left: 0, right: 0, textAlign: 'center', color: '#1e1e3c', fontWeight: '700', letterSpacing: 1, fontFamily: Platform.OS === 'ios' ? 'Times New Roman' : 'serif' },
     previewNote: { fontSize: ty.small, color: '#fff', fontWeight: '800', textAlign: 'center', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
     // 結果画面(模試終了の全画面＋証明書オーバーレイ)。上部バー・スクロール誘導は空の上に載るので白＋影で視認性確保。
     topOnImg: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },

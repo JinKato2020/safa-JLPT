@@ -1,6 +1,7 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+- **🚀 Build 2739 both dispatch＝run`31342293549`（監視しない・2026-08-10）＝2738を包含する“全部入り”。実機はこれで確認**: コミット`5c8937de`。(1)**名札の⋯を真に解消**=maxWidth撤去だけでは不足(2737で⋯残存)。真因は名札の絶対配置pillが容器幅SPRITE(64)で測られ切れる→容器を`PLATE_W=170`にしアバター中心へ寄せて全表示。(2)**重なり順を全アバター足元y基準に統一**(座りキャラにも適用)=movers`pos.y+0.82*SPRITE`/座り`si下端-0.18*SPRITE`。従来moversはtop基準・座りは足元基準でズレ→player↔座りが誤順だった。(3)結果計算バーを細く(16→9)。(4)ホーム桜=未学習(learnedNow=0)の初回ユーザーには『続けてきた』等の過去前提を出さずNEWCOMER_BUBBLESの出迎え文。**次=2739実機で ①証明書が枠内 ②名札⋯解消 ③player↔座りの重なり ④計算バー細 ⑤初回桜の文言 ⑥総時間の間隔 ⑦アカウント上詰め ⑧CTA『苦手な単語に挑戦する』**。※2738(cert-only)は2739に包含され破棄扱い。
 - **🚀 Build 2738 both dispatch＝run`31341786522`（監視しない・2026-08-10）＝合格証明書 巨大化の“真因”修正**: コミット`387f9c1d`。真因=結果画面の証明書と空背景のImageが`absoluteFill+contain`で、新アーキ一部端末で**画像の実寸(738×1000)に化けて枠を無視**していた(親に`{width:certW,height:certH}`があっても効かない)→**Imageに明示width/height**を付けて固定。削除再インストールでも巨大だった件はこれで解消見込み。※2737で上げた`runtimeVersion1.2.1`は的外れだったが害無しで維持。詳細/教訓=memory[[preview-not-proof-stale-ota-js]](PILプレビューは実機の証拠でない・Imageは明示寸法必須)。**次=2738実機で①証明書が枠に収まるか②名札の⋯解消③総時間の間隔④アカウント上詰め⑤CTA『苦手な単語に挑戦する』を目視**。
 - **🚀 Build 2737 both dispatch＝run`31325858957`（監視しない・2026-08-10）**: コミット`70684905`。中身=(1)町名札のmaxWidth撤去で友だち名+Lvを⋯無し全表示 (2)アバター重なりは足元yをzIndexにして手前(下)を前面・木/屋根はz2000で常に前・名札はz3000 (3)会話ステータスの「総時間」ラベルと値の間隔をラベル実幅から確保 (4)アカウント最上部の重複「名前+国旗」を削除し上詰め (5)練習(cards.reco)とAIコーチのCTAを『苦手な単語に挑戦する』に統一(AIコーチは旧home.cta_titleからcards.recoへ) (6)**runtimeVersion 1.2.0→1.2.1**＝合格証明書が実機で画面いっぱいに巨大化する不具合の**配信対策**(実機が古いOTAのJSを走らせていた/詳細memory[[preview-not-proof-stale-ota-js]])。**次=実機で①証明書が小さく収まるか②各修正を目視確認**。他9言語のcards.recoは旧文言のまま(ja-only方針・指示時に翻訳)。**未着手の残**=友だちの相互登録・友だちメッセージのOSプッシュ通知・プライバシー/規約の全面改訂(下記)。
 - **📜 プライバシーポリシー/利用規約の改訂＝引き継ぎ資料あり・未着手（2026-08-09）**: 現行`privacy.html`は「収集しない」前提で**内容が古い**（その後アカウント/クラウド同期/AdMob広告/友だち・紹介が入った）→全面改訂＋`terms.html`新規作成＋App Store/Google Playのプライバシー申告更新が必要。**記載すべき全項目＝`md\プライバシーポリシー_利用規約_記載事項.md`**（第三者=Supabase東京/AdMob/Apple・Google認証/GitHub Pages、ATT、削除依頼、EEA向けUMP等）。次セッションはこのmdから着手。
@@ -51,14 +52,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/session-summary-LATEST.md
 - memory/handoff.md
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
+- src/screens/KotobaTownScreen.tsx
+- src/home/SakuraSpeech.tsx
 - src/screens/MockScreen.tsx
-- memory/session-summary-LATEST.md
 - app.json
-- src/screens/AICoachScreen.tsx
-- src/i18n/ja.json
 
-_自動更新: 2026-08-10 08:25_
+_自動更新: 2026-08-10 09:09_
 <!-- AUTO:END -->

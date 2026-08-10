@@ -470,7 +470,7 @@
   "test.foot": "※ ミニ＝全区分（言語知識・読解・聴解）から本番の約1/3を出題する簡易診断。フル模試は本番と同数・同時間で精度が上がります。いずれも合格を保証するものではありません。",
   "test.full_note": "本番と全く同じ区分・出題数・時間で、あなたの合格率をリアルに診断",
   "test.full_time": "月1回・約60〜100分",
-  "test.full_title": "フル模試",
+  "test.full_title": "模試",
   "test.history_cap": "直近{n}回の正答率（右が最新・高いほど合格に近い）",
   "test.history_latest": "最新 {n}%",
   "test.history_section": "模試の記録",
