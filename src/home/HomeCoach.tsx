@@ -48,7 +48,6 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const [eyesClosed, setEyesClosed] = useState(false);
   const bob = useRef(new Animated.Value(0)).current;
   const dogSway = useRef(new Animated.Value(0)).current; // 犬: 体を左右にゆらす
-  const dogHop = useRef(new Animated.Value(0)).current;  // 犬: 時々ぴょこっと跳ねる
   const tailWag = useRef(new Animated.Value(0)).current; // 柴1: 尻尾を振る
 
   // 常時: ふわふわ浮遊＋まばたき。
@@ -58,18 +57,12 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       Animated.timing(bob, { toValue: 0, duration: 2000, useNativeDriver: true }),
     ]));
     loop.start();
-    // 犬: ゆっくり左右にゆらす ＋ 数秒ごとにぴょこっと跳ねる。
+    // 犬: ゆっくり左右にゆらす(ジャンプ=hopは廃止・体のゆらぎのみ)。
     const sway = Animated.loop(Animated.sequence([
       Animated.timing(dogSway, { toValue: 1, duration: 1600, useNativeDriver: true }),
       Animated.timing(dogSway, { toValue: 0, duration: 1600, useNativeDriver: true }),
     ]));
     sway.start();
-    const hop = Animated.loop(Animated.sequence([
-      Animated.delay(2600),
-      Animated.timing(dogHop, { toValue: 1, duration: 160, useNativeDriver: true }),
-      Animated.timing(dogHop, { toValue: 0, duration: 300, useNativeDriver: true }),
-    ]));
-    hop.start();
     // 柴1: 尻尾を左右にフリフリ(付け根を軸に回転)。
     const wag = Animated.loop(Animated.sequence([
       Animated.timing(tailWag, { toValue: 1, duration: 300, useNativeDriver: true }),
@@ -85,8 +78,8 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       bt.push(setTimeout(blink, 2600 + Math.random() * 3200));
     };
     bt.push(setTimeout(blink, 1600));
-    return () => { loop.stop(); sway.stop(); hop.stop(); wag.stop(); bAlive = false; bt.forEach(clearTimeout); };
-  }, [bob, dogSway, dogHop, tailWag]);
+    return () => { loop.stop(); sway.stop(); wag.stop(); bAlive = false; bt.forEach(clearTimeout); };
+  }, [bob, dogSway, tailWag]);
 
   // 民族衣装/背負い筆の全身絵は縦長(≒864x1184)なので少し大きめ＋縦横比を変える。
   // 既定の案内キャラ(桜=長髪hair_long・896x1152)は縦長だが、巨大化を避けるため控えめな枠(0.40幅×1.12)にcontainで収める。
@@ -94,7 +87,6 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const charH = Math.round(charW * (charImg ? 1.370 : 1.12));
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
   const dogSwayDeg = dogSway.interpolate({ inputRange: [0, 1], outputRange: ['-3deg', '3deg'] });
-  const dogHopY = dogHop.interpolate({ inputRange: [0, 1], outputRange: [0, -14] });
   // 尻尾は「開いた空間側へ持ち上がる」-方向のみで振る(胴体側へ振ると付け根に隙間が出るため)。
   const tailWagDeg = tailWag.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '-9deg'] });
   const isShiba1 = state.equipped?.companion === 'pet_shiba1'; // 柴1だけ尻尾フリフリ
@@ -132,7 +124,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
         {/* 仲間(柴犬)=桜の左に常駐。タップで購入済みの柴だけ選べる。 */}
         {compImg ? (
           <Pressable onPress={() => setShowPicker(true)} hitSlop={6} style={[styles.compWrap, { marginRight: -compOverlap, zIndex: dogInFront ? 2 : 0 }]}>
-            <Animated.View style={{ transform: [{ translateY: dogHopY }, { rotate: dogSwayDeg }] }}>
+            <Animated.View style={{ transform: [{ rotate: dogSwayDeg }] }}>
               {isShiba1 ? (
                 // 柴1: 尻尾レイヤー(後)を付け根(41%,57%)を軸に振る＋胴体(前)で付け根の切れ目を隠す。
                 <View style={{ width: compW, height: compH }}>

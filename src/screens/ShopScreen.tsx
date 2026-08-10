@@ -6,13 +6,14 @@ import { View, Text, Pressable, StyleSheet, ScrollView, Image, ImageBackground, 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useAppState, useAppActions } from '../store/store';
-import { walletPoints, isOwned, isEquipped } from '../store/wallet';
+import { walletPoints, isOwned, isEquipped, avatarChangeTokens, canBuyAvatarDrink, AVATAR_DRINK_PRICE } from '../store/wallet';
 import { mockTicketCount, canBuyMockTicket, MAX_MOCK_TICKETS, MOCK_TICKET_PRICE } from '../store/tickets';
 import { SHOP, type ShopItem } from '../data/shop';
 import { useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
 const MOCK_TICKET_ID = 'tool_mock_ticket';
+const AVATAR_DRINK_ID = 'tool_avatar_drink';
 
 const BANNER_DAY = require('../../assets/shop/shop_banner_day.jpg');
 const BANNER_NIGHT = require('../../assets/shop/shop_banner_night.jpg');
@@ -33,7 +34,7 @@ export default function ShopScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const { height } = useWindowDimensions();
   const state = useAppState();
-  const { buyItem, equipItem, addPoints, buyMockTicket } = useAppActions();
+  const { buyItem, equipItem, addPoints, buyMockTicket, buyAvatarDrink } = useAppActions();
   const devUnlimited = state.settings.devUnlimitedPoints === true;
   const [cat, setCat] = useState<string>('hair');
   // 購入直後の演出(桜が筆を持つ絵を2秒表示)。
@@ -62,11 +63,20 @@ export default function ShopScreen() {
   const ticketFull = tickets >= MAX_MOCK_TICKETS;
   const canBuyTicket = !ticketFull && (devUnlimited || canBuyMockTicket(state));
 
+  const avatarTokens = avatarChangeTokens(state);
+  const canBuyDrink = devUnlimited || canBuyAvatarDrink(state);
+
   const act = (i: ShopItem) => {
     if (i.id === MOCK_TICKET_ID) {
       if (!canBuyTicket) return;
       if (devUnlimited && points < MOCK_TICKET_PRICE) addPoints(1_000_000);
       buyMockTicket();
+      return;
+    }
+    if (i.id === AVATAR_DRINK_ID) {
+      if (!canBuyDrink) return;
+      if (devUnlimited && points < AVATAR_DRINK_PRICE) addPoints(1_000_000);
+      buyAvatarDrink();
       return;
     }
     if (!ownedItem(i)) {
@@ -81,15 +91,17 @@ export default function ShopScreen() {
     if (equippedItem(i)) return;                                   // 装備中→何もしない
     equipItem({ id: i.id, kind: i.kind });                         // 着せ替え/仲間=装備
   };
+  // 残高不足でも「足りない」ではなく価格(🐚 数値)を常に表示=いくら必要か・上部の所持数と見比べられる。
   const statusOf = (i: ShopItem) =>
-    i.id === MOCK_TICKET_ID ? (ticketFull ? t('shop.st_max') : canBuyTicket ? `🐚 ${MOCK_TICKET_PRICE}` : t('shop.st_insufficient'))
-      : equippedItem(i) ? t('shop.st_equipped')
-        : ownedItem(i) ? (i.kind === 'tool' ? t('shop.st_owned') : t('shop.st_equip'))
-          : i.price === 0 ? t('shop.st_get')
-            : canBuyItem(i) ? `🐚 ${i.price}` : t('shop.st_insufficient');
-  const disabled = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? !canBuyTicket : equippedItem(i) || (ownedItem(i) && i.kind === 'tool') || (!ownedItem(i) && !canBuyItem(i)));
-  const pill = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.pillBuy : ticketFull ? s.pillOwn : s.pillNo) : equippedItem(i) ? s.pillOn : ownedItem(i) ? s.pillOwn : canBuyItem(i) ? s.pillBuy : s.pillNo);
-  const pillTxt = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.txtBuy : ticketFull ? s.txtOwn : s.txtNo) : equippedItem(i) ? s.txtOn : ownedItem(i) ? s.txtOwn : canBuyItem(i) ? s.txtBuy : s.txtNo);
+    i.id === MOCK_TICKET_ID ? (ticketFull ? t('shop.st_max') : `🐚 ${MOCK_TICKET_PRICE}`)
+      : i.id === AVATAR_DRINK_ID ? `🐚 ${AVATAR_DRINK_PRICE}`
+        : equippedItem(i) ? t('shop.st_equipped')
+          : ownedItem(i) ? (i.kind === 'tool' ? t('shop.st_owned') : t('shop.st_equip'))
+            : i.price === 0 ? t('shop.st_get')
+              : `🐚 ${i.price}`;
+  const disabled = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? !canBuyTicket : i.id === AVATAR_DRINK_ID ? !canBuyDrink : equippedItem(i) || (ownedItem(i) && i.kind === 'tool') || (!ownedItem(i) && !canBuyItem(i)));
+  const pill = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.pillBuy : ticketFull ? s.pillOwn : s.pillNo) : i.id === AVATAR_DRINK_ID ? (canBuyDrink ? s.pillBuy : s.pillNo) : equippedItem(i) ? s.pillOn : ownedItem(i) ? s.pillOwn : canBuyItem(i) ? s.pillBuy : s.pillNo);
+  const pillTxt = (i: ShopItem) => (i.id === MOCK_TICKET_ID ? (canBuyTicket ? s.txtBuy : ticketFull ? s.txtOwn : s.txtNo) : i.id === AVATAR_DRINK_ID ? (canBuyDrink ? s.txtBuy : s.txtNo) : equippedItem(i) ? s.txtOn : ownedItem(i) ? s.txtOwn : canBuyItem(i) ? s.txtBuy : s.txtNo);
 
   const bannerH = Math.max(280, Math.round(height * 0.40));
 
@@ -106,6 +118,7 @@ export default function ShopScreen() {
       )}
       <Text style={s.name} numberOfLines={1}>{nameOf(i)}</Text>
       {i.id === MOCK_TICKET_ID ? <Text style={s.remain} numberOfLines={1}>残り {tickets} / {MAX_MOCK_TICKETS}</Text> : null}
+      {i.id === AVATAR_DRINK_ID ? <Text style={s.remain} numberOfLines={1}>{t('shop.drink_held')} {avatarTokens}</Text> : null}
       {i.rarity ? <Text style={s.rarity} numberOfLines={1}>{'★'.repeat(i.rarity)}<Text style={s.rarityOff}>{'★'.repeat(5 - i.rarity)}</Text></Text> : null}
       <Pressable disabled={disabled(i)} onPress={() => act(i)} style={[s.btn, pill(i)]}>
         <Text style={[s.btnTxt, pillTxt(i)]}>{statusOf(i)}</Text>

@@ -49,3 +49,20 @@ export function equip(state: AppState, item: { id: string; kind: ShopKind }): Ap
   if (!isOwned(state, item.id)) return state;
   return { ...state, equipped: { ...(state.equipped ?? {}), [item.kind]: item.id } };
 }
+
+// ── すがた変えドリンク(アバター変更券) ──
+// 登録後アバターは既定で変更不可。ドリンク購入で券を1枚得て、アバター変更を1回だけ許可する(何度でも購入可・上限なし)。
+export const AVATAR_DRINK_PRICE = 2000;
+export function avatarChangeTokens(state: AppState): number { return Math.max(0, state.avatarChangeTokens ?? 0); }
+export function canBuyAvatarDrink(state: AppState, price = AVATAR_DRINK_PRICE): boolean { return walletPoints(state) >= price; }
+/** 貝ポイントで1枚購入(残高必要・上限なし)。不可なら不変。 */
+export function buyAvatarDrink(state: AppState, now: number, price = AVATAR_DRINK_PRICE): AppState {
+  if (!canBuyAvatarDrink(state, price)) return state;
+  return withUpdatedAt({ ...state, wallet: { points: walletPoints(state) - price }, avatarChangeTokens: avatarChangeTokens(state) + 1 }, now);
+}
+/** アバター変更券を1枚消費(変更確定時)。0枚なら不変。 */
+export function spendAvatarChange(state: AppState, now: number): AppState {
+  const cur = avatarChangeTokens(state);
+  if (cur <= 0) return state;
+  return withUpdatedAt({ ...state, avatarChangeTokens: cur - 1 }, now);
+}

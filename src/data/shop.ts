@@ -54,8 +54,8 @@ export const SHOP: ShopItem[] = [
   { id: 'pet_kuro6',  cat: 'companion', kind: 'companion', price: 2600, name: '黒柴⑥', rarity: 5, asset: require('../../assets/shop/companion/kuro6.png'), homeScale: 0.90 },
   // 道具 — 学習を助ける消耗品・お守り(所持。消費/効果は順次実装)。
   { id: 'tool_mock_ticket', cat: 'tool', kind: 'tool', price: 300, name: '模試チケット', emoji: '📝' },
-  { id: 'tool_retry', cat: 'tool', kind: 'tool', price: 200, name: '再挑戦券', emoji: '🔁' },
-  { id: 'tool_freeze', cat: 'tool', kind: 'tool', price: 250, name: '連続フリーズ', emoji: '❄️' },
+  // すがた変えドリンク: 購入すると「アバターを1回だけ変更できる権利」を得る(消耗品・何度でも購入可)。
+  { id: 'tool_avatar_drink', cat: 'tool', kind: 'tool', price: 2000, name: 'すがた変えドリンク', emoji: '🧪' },
 ];
 export const SHOP_BY_ID: Record<string, ShopItem> = Object.fromEntries(SHOP.map((i) => [i.id, i]));
 

@@ -1,7 +1,7 @@
 // アカウント作成/ログイン(段階1)。メール+パスワード。確認メールON=新規作成後は確認案内→ログイン。
 // 案内=桜の巫女(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Modal } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Modal, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -13,6 +13,7 @@ import { signUp, signIn, signOut } from '../auth/authClient';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { useAppState, useAppActions } from '../store/store';
+import { avatarChangeTokens } from '../store/wallet';
 import { avatarOf, AVATARS } from '../plaza/avatars';
 import { NATIVE_LANGS, nativeLangFlag, nativeLangCC } from '../plaza/countries';
 import { PERSONALITIES, MOOD_MESSAGES, personalityOf, moodMsgOf } from '../plaza/persona';
@@ -30,9 +31,11 @@ export default function AccountScreen() {
   const { session, email: acctEmail, lastSyncedAt } = useSync();
   // 最上部プロフィール: 桜ではなく自分のアバター立ち絵＋ステータス(レベル/国/性別/性格/ムード)。性格・ムードは変更可。
   const appState = useAppState();
-  const { setSettings, setReferralStats, setEnteredCode } = useAppActions();
+  const { setSettings, setReferralStats, setEnteredCode, spendAvatarChange } = useAppActions();
   const st0 = appState.settings;
   const myAvatarImg = avatarOf(st0.avatar).image;
+  // アバターは登録後は既定で変更不可。ショップの「すがた変えドリンク」を買うと券が増え、1回だけ変更できる。
+  const avatarTokens = avatarChangeTokens(appState);
   const per = personalityOf(st0.personality);
   const moodTxt = moodMsgOf(st0.moodMsg);
   const referredQualified = appState.referral?.referredQualified ?? 0;
@@ -49,15 +52,29 @@ export default function AccountScreen() {
   const onSaveRefCode = () => { const v = refInput.trim().toUpperCase(); if (!v) return; setEnteredCode(v); setRefInput(''); };
   const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'avatar' | 'nativelang' | 'gender' | 'name'>(null);
   const [nameInput, setNameInput] = useState('');
+  const openAvatarPicker = () => {
+    if (avatarTokens > 0) { setPickerOpen('avatar'); return; }
+    Alert.alert(
+      'アバターは変更できません',
+      'アバターは最初の登録後は変えられません。ショップの「すがた変えドリンク」(🐚2000)を買うと、1回だけ変更できます。',
+      [{ text: '閉じる', style: 'cancel' }, { text: 'ショップへ', onPress: () => nav.navigate('Shop') }],
+    );
+  };
+  // アバター確定: 別のアバターを選んだ時だけ券を1枚消費(同じ選択は無消費)。
+  const chooseAvatar = (code: string, gender: 'm' | 'f') => {
+    if (code !== st0.avatar && avatarTokens > 0) { setSettings({ avatar: code, gender }); spendAvatarChange(); }
+    setPickerOpen(null);
+  };
   const uiLang = useUiLang(); // 母語=アプリ表示言語(uiLang)を唯一の正本に(設定画面の母語と連動)
   const nativeLabel = NATIVE_LANGS.find((l) => l.code === uiLang)?.label ?? 'English';
   const profileHeader = (
     <View style={s.profHeader}>
-      <Pressable onPress={() => setPickerOpen('avatar')} style={s.profAvatarWrap} accessibilityLabel="アバターを変更">
+      <Pressable onPress={openAvatarPicker} style={s.profAvatarWrap} accessibilityLabel="アバターを変更">
         {myAvatarImg != null
           ? <Image source={myAvatarImg} style={s.profAvatar} resizeMode="contain" />
           : <View style={s.profAvatar} />}
-        <View style={s.profAvatarEdit}><Ionicons name="pencil" size={12} color="#fff" /></View>
+        {/* 券がある=変更可(鉛筆) / 無い=変更不可(鍵)。 */}
+        <View style={s.profAvatarEdit}><Ionicons name={avatarTokens > 0 ? 'pencil' : 'lock-closed'} size={12} color="#fff" /></View>
       </Pressable>
       <View style={s.profStats}>
         {/* 先頭の「名前+国旗」は下の「名前」行と重複するため削除(上詰め) */}
@@ -123,7 +140,7 @@ export default function AccountScreen() {
               {AVATARS.map((a) => {
                 const on = st0.avatar === a.code;
                 return (
-                  <Pressable key={a.code} style={[s.avCell, on && s.avCellOn]} onPress={() => { setSettings({ avatar: a.code, gender: a.gender }); setPickerOpen(null); }}>
+                  <Pressable key={a.code} style={[s.avCell, on && s.avCellOn]} onPress={() => chooseAvatar(a.code, a.gender)}>
                     {a.image != null ? <Image source={a.image} style={s.avImg} resizeMode="contain" /> : <Text style={s.avEmoji}>{a.emoji}</Text>}
                     {on && <View style={s.avCheck}><Text style={s.avCheckT}>✓</Text></View>}
                   </Pressable>

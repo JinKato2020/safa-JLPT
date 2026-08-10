@@ -15,7 +15,7 @@ import { loadState, saveState, clearState } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
 import { recordFacet } from '../review/facetMastery';
 import { facetsForUnit, facetsForKakitori } from '../review/facetMap';
-import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, type ShopKind } from './wallet';
+import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, buyAvatarDrink as walletBuyAvatarDrink, spendAvatarChange as walletSpendAvatarChange, type ShopKind } from './wallet';
 import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket } from './tickets';
 import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
 import { setPurchaseActive as proSetPurchase, grantProDays as proGrantDays } from '../pro/entitlement';
@@ -38,6 +38,8 @@ type Action =
   | { type: 'SYNC_TICKETS'; now: number }
   | { type: 'BUY_TICKET'; now: number }
   | { type: 'SPEND_TICKET'; now: number }
+  | { type: 'BUY_AVATAR_DRINK'; now: number }
+  | { type: 'SPEND_AVATAR_CHANGE'; now: number }
   | { type: 'CONSUME_SESSION'; now: number }
   | { type: 'GRANT_AD_BONUS'; now: number }
   | { type: 'SET_PURCHASE_ACTIVE'; active: boolean; now: number }
@@ -123,6 +125,10 @@ export function reducer(state: AppState, action: Action): AppState {
       return ticketBuy(state, action.now);
     case 'SPEND_TICKET':
       return spendMockTicket(state, action.now);
+    case 'BUY_AVATAR_DRINK':
+      return walletBuyAvatarDrink(state, action.now);
+    case 'SPEND_AVATAR_CHANGE':
+      return walletSpendAvatarChange(state, action.now);
     case 'CONSUME_SESSION':
       return quotaConsume(state, action.now);
     case 'GRANT_AD_BONUS':
@@ -235,6 +241,8 @@ export function useAppActions() {
     syncTickets: () => dispatch({ type: 'SYNC_TICKETS', now: Date.now() }),
     buyMockTicket: () => dispatch({ type: 'BUY_TICKET', now: Date.now() }),
     spendMockTicket: () => dispatch({ type: 'SPEND_TICKET', now: Date.now() }),
+    buyAvatarDrink: () => dispatch({ type: 'BUY_AVATAR_DRINK', now: Date.now() }),
+    spendAvatarChange: () => dispatch({ type: 'SPEND_AVATAR_CHANGE', now: Date.now() }),
     consumeSession: () => dispatch({ type: 'CONSUME_SESSION', now: Date.now() }),
     grantAdBonus: () => dispatch({ type: 'GRANT_AD_BONUS', now: Date.now() }),
     setPurchaseActive: (active: boolean) => dispatch({ type: 'SET_PURCHASE_ACTIVE', active, now: Date.now() }),
