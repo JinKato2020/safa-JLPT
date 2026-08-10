@@ -169,8 +169,8 @@ create view public.v_admin_geo as
 select
   coalesce(g.country, c.country)                                   as country,
   coalesce(g.registered, 0)                                        as registered,      -- ログイン済みアカウント数
-  coalesce(c.total, 0)                                             as total_installs,  -- インストール概算(匿名含む全体)
-  greatest(coalesce(c.total, 0) - coalesce(g.registered, 0), 0)    as anonymous_est    -- 匿名の概算=全体−登録
+  greatest(coalesce(c.total, 0), coalesce(g.registered, 0))        as total_installs,  -- 全体(概算)。登録を下回らないよう max をとる(全体≥登録)。匿名カウント未蓄積(ビルド前)は登録数を表示
+  greatest(coalesce(c.total, 0) - coalesce(g.registered, 0), 0)    as anonymous_est    -- 匿名の概算=全体−登録(マイナスは0)
 from (select country, count(*) as registered from public.user_geo group by country) g
 full outer join (select country, sum(count) as total from public.geo_country_counts group by country) c
   on g.country = c.country

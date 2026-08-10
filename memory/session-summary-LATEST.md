@@ -1,15 +1,14 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 2 回・7 ターン
-- 往復 48880 回
+- 往復 48904 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/session-summary-LATEST.md
-- src/telemetry/telemetry.ts
 - docs/supabase/dashboard.html
 - docs/supabase/dashboard_views.sql
+- src/telemetry/telemetry.ts
 
 ## 次の一手
 - **🔔 B-2 応援プッシュ通知＝Build2743(run`31346093050`)・サーバー設定待ち（2026-08-10）**: コミット`642782c3`。アプリ側=`src/push/pushClient.ts`(ログイン時にExpoプッシュトークンをpush_tokensへ直書き・許可あれば/projectId=3590a434-...)＋SyncProviderで登録＋`cheerSend`成功直後に`supabase.functions.invoke('cheer-notify')`＋notifications.tsの`ensureNotificationPermission`を共用export。**ユーザー手作業3つ待ち**=①`docs/supabase/push.sql`実行(push_tokens+RLS+grant)②Edge Function`cheer-notify`デプロイ(`docs/supabase/functions/cheer-notify/index.ts`・相互友だちのみ・Expo Push API)③**配信資格情報**(iOS=eas credentials→Push鍵は比較的簡単でiOSは即配信可/Android=Firebase作成→google-services.json→app.jsonのandroid.googleServicesFile→FCMキー→**再ビルド**)。現状app.jsonにgoogleServicesFile無し・APNs鍵未登録。**まず①②③iOSでiPhone確認→Android後**。**次=B-3プライバシー本文→C当たり判定**。
