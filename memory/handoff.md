@@ -59,13 +59,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - docs/supabase/dashboard.html
+- docs/supabase/dashboard_views.sql
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- docs/supabase/dashboard_views.sql
 - src/telemetry/telemetry.ts
 - src/auth/SyncProvider.tsx
 - docs/supabase/geo_counts.sql
 - src/geo/geoClient.ts
 
-_自動更新: 2026-08-10 13:12_
+_自動更新: 2026-08-10 13:14_
 <!-- AUTO:END -->

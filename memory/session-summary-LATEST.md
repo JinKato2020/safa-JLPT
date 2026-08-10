@@ -1,14 +1,14 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 10 回・26 ターン
-- 往復 48976 回
+- ツール呼び出し 3 回・6 ターン
+- 往復 48982 回
 
 ## 何が変わったか
 - memory/handoff.md
 - docs/supabase/dashboard.html
-- memory/session-summary-LATEST.md
 - docs/supabase/dashboard_views.sql
+- memory/session-summary-LATEST.md
 - src/telemetry/telemetry.ts
 
 ## 次の一手
