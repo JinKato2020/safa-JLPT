@@ -58,14 +58,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- docs/supabase/dashboard.html
+- docs/supabase/dashboard_views.sql
+- src/telemetry/telemetry.ts
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- docs/supabase/dashboard_views.sql
-- docs/supabase/dashboard.html
-- src/telemetry/telemetry.ts
 - src/auth/SyncProvider.tsx
 - docs/supabase/geo_counts.sql
 - src/geo/geoClient.ts
 
-_自動更新: 2026-08-10 12:59_
+_自動更新: 2026-08-10 13:09_
 <!-- AUTO:END -->

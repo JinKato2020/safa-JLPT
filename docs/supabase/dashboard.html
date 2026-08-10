@@ -261,13 +261,11 @@ const STOCK_COLS = [
   { g:'読解(大問)',      k:'dokkai_naiyou_chu', l:'中文', t:'内容理解（中文）' },
   { g:'読解(大問)',      k:'dokkai_choubun',    l:'長文', t:'内容理解（長文）＝N3のみ' },
   { g:'読解(大問)',      k:'dokkai_joho',       l:'情報検索', t:'情報検索' },
-  { g:'読解(大問)',      k:'dokkai',            l:'計',   t:'読解ぜんぶの合計' },
   { g:'聴解(大問)',      k:'choukai_kadai',     l:'課題',  t:'課題理解' },
   { g:'聴解(大問)',      k:'choukai_point',     l:'ポイント', t:'ポイント理解' },
   { g:'聴解(大問)',      k:'choukai_gaiyou',    l:'概要',  t:'概要理解＝N3のみ' },
   { g:'聴解(大問)',      k:'choukai_hatsuwa',   l:'発話',  t:'発話表現' },
   { g:'聴解(大問)',      k:'choukai_sokuji',    l:'即時',  t:'即時応答' },
-  { g:'聴解(大問)',      k:'choukai',           l:'計',   t:'聴解ぜんぶの合計' },
   { g:'単語タブ',        k:'w_produce',       l:'語つくり',   t:'単語タブ: 語をかなタイルで作る' },
   { g:'単語タブ',        k:'w_gbuild',        l:'文くみたて', t:'単語タブ: 文法をかなタイルで作る' },
   { g:'単語タブ',        k:'w_gmeaning',      l:'意味えらび', t:'単語タブ: 文法の意味を4択' },
@@ -376,7 +374,7 @@ const COLS = [
     cell:r=> r.daimon ? `${r.daimon_learned ?? 0}/${r.daimon_total ?? 0}` : '<span class="off">—</span>' },
   { g:'活動', key:'mylist_count', label:'単語帳', num:1, title:'私の単語帳に入れた語数', val:r=>numOr(r.mylist_count), cell:r=> (r.mylist_count ?? 0) },
   { g:'活動', key:'referred_qualified', label:'紹介', num:1, title:'自分が紹介して継続に達した人数', val:r=>numOr(r.referred_qualified), cell:r=> (r.referred_qualified ?? 0) },
-  { g:'活動', key:'learned',    label:'履修',   num:1, title:'覚えた語・文法の数',   val:r=>numOr(r.learned),    cell:r=> (r.learned ?? 0) },
+  { g:'活動', key:'learned',    label:'覚えた数', num:1, title:'これまでに覚えた語・文法の数(累計)', val:r=>numOr(r.learned),    cell:r=> (r.learned ?? 0) },
   { g:'活動', key:'mock_count', label:'模試',   num:1, title:'模試の実施回数',       val:r=>numOr(r.mock_count), cell:r=> (r.mock_count ?? 0) },
   { g:'活動', key:'streak',     label:'継続',   num:1, title:'連続学習日数',         val:r=>numOr(r.streak),     cell:r=> (r.streak ?? 0) },
   { g:'活動', key:'study_min',  label:'学習時間', num:1, title:'累計の学習時間(アプリを前面で使った時間の合計)', val:r=>numOr(r.study_min),  cell:r=> hm(r.study_min ?? 0) },
@@ -385,6 +383,10 @@ const COLS = [
   { g:'活動', key:'last_ts',    label:'最終日時', title:'最後に記録した日時(日本時間)', val:r=>r.last_ts||'', cell:r=> fmtDateTime(r.last_ts) },
 ];
 const isFirstOfGroup = (i) => i===0 || COLS[i-1].g !== COLS[i].g;
+// 同じグループ内でも罫線を入れたい境界(大問の意味の切れ目)。この列の左に縦罫線を引く。
+//  d_grammar_form=文字語彙|文法 / d_choukai_kadai=読解|聴解 / daimon_learned=聴解|合計
+const SEP_KEYS = new Set(['d_grammar_form','d_choukai_kadai','daimon_learned']);
+const needsSep = (i) => isFirstOfGroup(i) || SEP_KEYS.has(COLS[i].key);
 
 function filtered(){
   const q = $('search').value.trim().toLowerCase();
@@ -402,7 +404,7 @@ function headHtml(){
   }
   const cols = COLS.map((c,i)=>{
     const arw = c.key===sortKey ? `<span class="arw">${sortDir<0?'▼':'▲'}</span>` : '';
-    return `<th class="sortable ${c.num?'num ':''}${isFirstOfGroup(i)?'gsep':''}" data-k="${c.key}" title="${esc(c.title||c.label)}">${c.label}${arw}</th>`;
+    return `<th class="sortable ${c.num?'num ':''}${needsSep(i)?'gsep':''}" data-k="${c.key}" title="${esc(c.title||c.label)}">${c.label}${arw}</th>`;
   }).join('');
   return `<tr>${grp}</tr><tr>${cols}</tr>`;
 }
@@ -432,7 +434,7 @@ function renderDevices(){
   }
   el.innerHTML = headHtml() + rows.map(r =>
     '<tr class="row"><td class="selcol"><input type="checkbox" class="rowchk" data-k="'+esc(rowKey(r))+'"'+(selected.has(rowKey(r))?' checked':'')+'></td>'
-    + COLS.map((c,i)=>`<td class="${c.num?'num ':''}${isFirstOfGroup(i)?'gsep':''}">${c.cell(r)}</td>`).join('') + '</tr>'
+    + COLS.map((c,i)=>`<td class="${c.num?'num ':''}${needsSep(i)?'gsep':''}">${c.cell(r)}</td>`).join('') + '</tr>'
   ).join('');
   updateSelBar();
 }
