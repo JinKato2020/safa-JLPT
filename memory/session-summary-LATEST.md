@@ -1,19 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 21 回・59 ターン
-- 往復 56129 回
+- ツール呼び出し 5 回・15 ターン
+- 往復 56144 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/features-inflight.md
-- src/screens/MockScreen.tsx
-- src/i18n/ne.json
-- src/i18n/en.json
-
-## ⚠️ 注意
-- - ⚠ 文脈 40万／70万（57%）・56129往復 — そろそろ /clear の頃合い
-- - ツール呼び出しループが長い（指示1件に対し 59ターン・ツール21回）— まとめ方を変える
+- 問題作成の参考/~$JLPT出題傾向_N5N4N3.xlsx
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- memory/session-summary-LATEST.md
 
 ## 次の一手
 - **🆕 2026-08-10 このセッションで実装・コミット済(未ビルド)**: 退会で端末内もreset＋①利用ログは残す(`33b00fde`)／**無料お試し7日をアカウントベース化**=サーバー`entitlements.trial_claimed_at`で1回のみ・再ログインで再付与しない(`583dbf1e`、**要デプロイ**=schema.sqlのalter＋Edge`trial-claim`貼付。[[trial-account-based-server]])／en・ne UI全訳779完全＋陳腐化修正＋`i18n_backlog.py --drift`追加(`3ff126e7`他)／書斎ボタンを解禁順に整列＋意味から単語→語彙パズル・文をつくる→文法パズル改名(`60d13e4c`)／解禁お祝い画像4枚取り込み(`501dbdbf`)。

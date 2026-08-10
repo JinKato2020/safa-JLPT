@@ -27,6 +27,8 @@ import { useSync } from '../auth/SyncProvider';
 import { deleteAccount } from '../auth/authClient';
 import { proStatus } from '../pro/entitlement';
 import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
+import UnlockCelebration from '../components/UnlockCelebration';
+import { UNLOCKS, type UnlockKey } from '../store/unlocks';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -46,6 +48,9 @@ export default function ProfileScreen() {
   const devPass = state.settings.devPassPct ?? null;
   const stepPass = (d: number) => { const cur = state.settings.devPassPct ?? 0; setSettings({ devPassPct: Math.max(0, Math.min(100, cur + d)) }); };
   const [confirmReset, setConfirmReset] = useState(false);
+  // 【開発用】書斎の解禁演出を単体プレビューする(全体カバー率に達しなくても各画面を確認)。
+  const [unlockPreview, setUnlockPreview] = useState<UnlockKey | null>(null);
+  const previewUnlock = unlockPreview ? UNLOCKS.find((u) => u.key === unlockPreview) ?? null : null;
   const [langOpen, setLangOpen] = useState(false);
   const [showDl, setShowDl] = useState(false);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -449,6 +454,34 @@ export default function ProfileScreen() {
               thumbColor={c.faint}
             />
           </View>
+          {/* 模試スキップ(開発用): ON=模試中に「⏭ 次の休憩」ボタンを表示。現ブロックの設問を全カットして次の休憩(最終ブロックは模試終了)へワープ。 */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>模試の設問をスキップ</Text>
+              <Text style={s.subtle}>ON＝模試中に「⏭ 次の休憩」ボタンを表示。設問を全部飛ばして次の休憩画面（最後の科目なら終了）へ進む（開発用）</Text>
+            </View>
+            <Switch
+              style={s.telemSwitch}
+              value={state.settings.devMockSkip === true}
+              onValueChange={(v) => setSettings({ devMockSkip: v })}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+          </View>
+          {/* 書斎の解禁演出を確認(開発用): 各しきい値の解禁画面を単体で表示。 */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>解禁演出を確認</Text>
+              <Text style={s.subtle}>書斎タブの各学習の解禁画面（画像＋「◯◯ 解禁」）を表示する（開発用）</Text>
+            </View>
+          </View>
+          <View style={s.ppChips}>
+            {UNLOCKS.map((u) => (
+              <Pressable key={u.key} onPress={() => setUnlockPreview(u.key)} style={[s.ppChip, { flex: 1 }]}>
+                <Text style={s.ppChipTxt} numberOfLines={1}>{t(u.labelKey)}</Text>
+              </Pressable>
+            ))}
+          </View>
         </View>
 
         {/* アカウント削除(ログイン中のみ・設定の一番下)。誤タップ防止に確認ダイアログ。 */}
@@ -468,6 +501,14 @@ export default function ProfileScreen() {
           <ListeningDownloadGate level={state.settings.level} allowSkip manual onComplete={() => setShowDl(false)} />
         </View>
       ) : null}
+      {/* 開発用: 解禁演出の単体プレビュー(全体カバー率に達しなくても各画面を確認)。 */}
+      <UnlockCelebration
+        visible={previewUnlock !== null}
+        unlockKey={previewUnlock?.key ?? null}
+        modeLabel={previewUnlock ? t(previewUnlock.labelKey) : ''}
+        need={previewUnlock?.need ?? 0}
+        onClose={() => setUnlockPreview(null)}
+      />
     </SafeAreaView>
   );
 }

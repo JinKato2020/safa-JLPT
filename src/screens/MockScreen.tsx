@@ -699,7 +699,10 @@ export default function MockScreen() {
             <Text style={s.close}>✕</Text>
           </Pressable>
           {multiBlock ? <Text style={s.blockTag}>{curBlock.label}</Text> : <View />}
-          <View style={{ width: 20 }} />
+          {/* 【開発用】現ブロックの設問を全カットして次の休憩(最終ブロックなら模試終了)へワープ。 */}
+          {state.settings.devMockSkip === true
+            ? <Pressable onPress={sectionDone} hitSlop={8} style={s.devSkip}><Text style={s.devSkipT}>⏭ 次の休憩</Text></Pressable>
+            : <View style={{ width: 20 }} />}
         </View>
         {/* ★制限時間を最上部に大きく目立たせる */}
         <View style={[s.timerBox, remainingMs <= 60000 ? s.timerBoxLow : null]}>
@@ -818,6 +821,8 @@ const makeStyles = (c: ThemeColors) =>
     secTag: { fontSize: ty.tiny, fontWeight: '800', color: c.blue, letterSpacing: 1, flexShrink: 1 },
     topRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
     blockTag: { fontSize: ty.tiny, color: c.mute, fontWeight: '800', flex: 1, textAlign: 'center' },
+    devSkip: { backgroundColor: c.amber, borderRadius: 999, paddingVertical: 4, paddingHorizontal: 10 },
+    devSkipT: { fontSize: ty.tiny, color: '#fff', fontWeight: '900' },
     timerBox: { alignSelf: 'center', alignItems: 'center', backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, paddingVertical: spacing.xs, paddingHorizontal: spacing.xl, marginTop: spacing.xs },
     timerBoxLow: { backgroundColor: c.ngBg, borderColor: c.red },
     timerBoxLbl: { fontSize: ty.tiny, color: c.mute, fontWeight: '800', letterSpacing: 1 },
