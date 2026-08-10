@@ -350,7 +350,12 @@ const COLS = [
   { g:'利用者', key:'platform', label:'端末', val:r=>r.platform||'', cell:r=> esc(r.platform||'—') },
   { g:'利用者', key:'app',   label:'アプリ版', title:'その端末が動かしているアプリの版(古いと母数も古い)',
     val:r=>r.app||'', cell:r=> `<span class="mono">${esc(r.app||'—')}</span>` },
-  { g:'到達度', key:'pass_pct', label:'合格率', num:1, val:r=>numOr(r.pass_pct), cell:r=> pct(r.pass_pct) },
+  { g:'到達度', key:'pred_score', label:'予想得点', num:1, title:'アプリの主指標＝いまの実力での予想得点(満点／合格ライン)。緑＝合格ライン到達',
+    val:r=>numOr(r.pred_score),
+    cell:r=> (r.pred_score==null ? '<span class="empty">—</span>'
+      : `<b style="${(r.pass_total!=null && r.pred_score>=r.pass_total)?'color:#2e7d32':''}">${r.pred_score}</b><span class="muted">/${r.pred_max ?? 180}</span>`
+        + (r.pass_total!=null ? `<span class="muted" title="合格ライン"> 合${r.pass_total}</span>` : '')) },
+  { g:'到達度', key:'pass_pct', label:'合格率', num:1, title:'参考(アプリでは非表示)。予想得点が主指標', val:r=>numOr(r.pass_pct), cell:r=> pct(r.pass_pct) },
   { g:'カバー率', key:'cov_kanji',   label:'漢字', num:1, val:r=>numOr(r.cov_kanji),   cell:r=> pct(r.cov_kanji) },
   { g:'カバー率', key:'cov_vocab',   label:'語彙', num:1, val:r=>numOr(r.cov_vocab),   cell:r=> pct(r.cov_vocab) },
   { g:'カバー率', key:'cov_grammar', label:'文法', num:1, val:r=>numOr(r.cov_grammar), cell:r=> pct(r.cov_grammar) },

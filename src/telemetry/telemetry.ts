@@ -5,7 +5,7 @@
 // テーブル未作成時はinsert失敗→キューに滞留(無害・作成後にflushで再送)。RLSは anon/authenticated の INSERT のみ許可。
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dayStr, type AppState } from '../store/state';
-import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts, passageMasteryCounts } from '../store/selectors';
+import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts, passageMasteryCounts, expectedScoreFor } from '../store/selectors';
 import { stockCounts } from './stock';
 import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
@@ -139,12 +139,16 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
   const FACET_JA: Record<string, string> = { moji_goi: '文字・語彙', bunpou: '文法', dokkai: '読解', choukai: '聴解' };
   const facetVals: Record<string, number> = { moji_goi: rings.moji_goi ?? 0, bunpou: rings.bunpou ?? 0, dokkai: rings.dokkai ?? 0, choukai: rings.choukai ?? 0 };
   const strongKey = Object.keys(facetVals).reduce((a, b) => (facetVals[b] > facetVals[a] ? b : a), 'moji_goi');
+  // 予想得点(アプリの主指標)。expectedScoreFor: { score(得点), max(満点), passTotal(合格ライン) }。失敗時はnull。
+  const est = (() => { try { return expectedScoreFor(state, now); } catch { return null; } })();
   return {
     v: 4, anonId: anon, app: APP_VERSION, platform: getPlatform().OS, osVersion: String(getPlatform().Version ?? ''),
     uiLang: state.settings.uiLang || '', level, exam, day: dayStr(now),
     // 質(正解率リング)＋合格率＋信頼幅
     readiness: { total: r.score, passProb: r.passProbability, band: r.band, passing: r.passing,
-      moji_goi: rings.moji_goi, bunpou: rings.bunpou, dokkai: rings.dokkai, choukai: rings.choukai },
+      moji_goi: rings.moji_goi, bunpou: rings.bunpou, dokkai: rings.dokkai, choukai: rings.choukai,
+      // 予想得点(現行の主指標)。管理ダッシュボードの「到達度」列を予想得点に更新するため。
+      predScore: est?.score ?? null, predMax: est?.max ?? null, passTotal: est?.passTotal ?? null },
     // 量(カバー率)＋達成ランク
     coverage: covMap, rankPct: rank.pct, rankIndex: rank.rankIndex,
     daimonMastery: daimonMap, // 大問別 [習得数,母数]（8大問: 文字語彙5＋文法3）

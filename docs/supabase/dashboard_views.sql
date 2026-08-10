@@ -56,6 +56,10 @@ from (
     data->'profile'->>'strong'                                  as strong,
     round(coalesce((data->'readiness'->>'passProb')::numeric,0)) as pass_pct,
     (data->'readiness'->>'passing')::boolean                    as passing,
+    -- 予想得点(アプリの主指標。旧スナップショットには無い=null→ダッシュボードで「—」)。
+    (data->'readiness'->>'predScore')::int                      as pred_score,
+    (data->'readiness'->>'predMax')::int                        as pred_max,
+    (data->'readiness'->>'passTotal')::int                      as pass_total,
     -- 折りたたみカバー率(レベル別ビュー用に残す=漢字/語彙/文法の総合)
     (select case when sum((v->>'total')::numeric) > 0
         then round(100 * sum((v->>'learned')::numeric) / sum((v->>'total')::numeric)) else 0 end
