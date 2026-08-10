@@ -50,6 +50,35 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
     );
   };
 
+  // 入口ボタンを「解禁しきい値(need)の昇順=アンロック順」で上から並べる(同値は追加順を維持)。
+  //  漢字: 漢字リスト(0)→聞き取り(5)→漢字書き取り(10) / 語彙: 語彙リスト(0)→聞き取り(5)→語彙パズル(15)
+  //  文法: 文法リスト(0)→意味を選ぶ(0)→文法パズル(20)。カタカナ/ひらがな(N5・0)はリストと同じ0で上位。
+  const entries: { need: number; el: React.ReactNode }[] = [];
+  const add = (labelKey: string, onPress: () => void, need = 0) => entries.push({ need, el: gated(labelKey, onPress, need) });
+
+  add(m.listKey, () => nav.navigate('WordList', { view: kubun, mode: 'study' }), 0); // 辞書リストは常時解禁(土台)
+  if (kubun === 'grammar') {
+    add('cards.gmeaning', () => nav.navigate('WordDrill', { kind: 'gMeaning' }), 0);          // 意味を選ぶ(認識)=初期解禁
+    add('cards.gorder', () => nav.navigate('WordDrill', { kind: 'gBuild' }), UNLOCK_NEED.gbuild); // 文法パズル(産出)=文法20%
+  }
+  if (kubun === 'vocab') {
+    add('cards.produce', () => nav.navigate('WordDrill', { kind: 'vProduce' }), UNLOCK_NEED.vproduce); // 語彙パズル(産出)=語彙15%
+  }
+  if (kubun === 'vocab' || kubun === 'kanji') {
+    add('cards.listening', () => nav.navigate('ListeningQuiz', { kind: kubun }), UNLOCK_NEED.listen); // 聞き取り=その分野5%
+  }
+  if (kubun === 'kanji') {
+    if (kakitoriDueToday(state.kakitori, todayStr()).length) {
+      add('cards.kakitori_review', () => nav.navigate('Kakitori', { mode: 'review' }), UNLOCK_NEED.kakitori); // 今日の書き取り(復習)=漢字10%
+    }
+    add('cards.kakitori_entry', () => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill', script: 'kanji' }), UNLOCK_NEED.kakitori); // 漢字書き取り(産出)=漢字10%
+    if (state.settings.level === 'N5') { // カタカナ/ひらがな書き取りはN5のみ・初期から解禁(土台=need0)
+      add('cards.kakitori_kata', () => nav.navigate('Kakitori', { mode: 'drill', script: 'katakana' }), 0);
+      add('cards.kakitori_hira', () => nav.navigate('Kakitori', { mode: 'drill', script: 'hiragana' }), 0);
+    }
+  }
+  const ordered = entries.map((e, i) => ({ ...e, i })).sort((a, b) => a.need - b.need || a.i - b.i);
+
   return (
     <View style={s.card}>
       <View style={s.cardHead}>
@@ -65,34 +94,7 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
         <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
       </View>
 
-      {/* 辞書リストは常時解禁(参照・学習の土台)。 */}
-      {gated(m.listKey, () => nav.navigate('WordList', { view: kubun, mode: 'study' }), 0)}
-
-      {/* 語彙: 意味から単語(産出)=語彙15%で解禁。 */}
-      {kubun === 'vocab' ? gated('cards.produce', () => nav.navigate('WordDrill', { kind: 'vProduce' }), UNLOCK_NEED.vproduce) : null}
-      {/* 文法: 意味を選ぶ(認識)=初期解禁 / 組み立て(産出)=文法20%で解禁。 */}
-      {kubun === 'grammar' ? (
-        <>
-          {gated('cards.gmeaning', () => nav.navigate('WordDrill', { kind: 'gMeaning' }), 0)}
-          {gated('cards.gorder', () => nav.navigate('WordDrill', { kind: 'gBuild' }), UNLOCK_NEED.gbuild)}
-        </>
-      ) : null}
-      {/* 聞き取り(漢字/語彙)=その分野5%で解禁。 */}
-      {(kubun === 'vocab' || kubun === 'kanji') ? gated('cards.listening', () => nav.navigate('ListeningQuiz', { kind: kubun }), UNLOCK_NEED.listen) : null}
-      {kubun === 'kanji' ? (
-        <>
-          {/* 漢字書き取り(産出)=漢字10%で解禁。復習も同条件。 */}
-          {kakitoriDueToday(state.kakitori, todayStr()).length ? gated('cards.kakitori_review', () => nav.navigate('Kakitori', { mode: 'review' }), UNLOCK_NEED.kakitori) : null}
-          {gated('cards.kakitori_entry', () => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill', script: 'kanji' }), UNLOCK_NEED.kakitori)}
-          {/* カタカナ/ひらがな書き取りはN5のみ・初期から解禁(土台)。 */}
-          {state.settings.level === 'N5' && (
-            <>
-              {gated('cards.kakitori_kata', () => nav.navigate('Kakitori', { mode: 'drill', script: 'katakana' }), 0)}
-              {gated('cards.kakitori_hira', () => nav.navigate('Kakitori', { mode: 'drill', script: 'hiragana' }), 0)}
-            </>
-          )}
-        </>
-      ) : null}
+      {ordered.map((o) => o.el)}
       <BadgeCollection visible={collPct !== null} onClose={() => setCollPct(null)} set={badgeSet} metric="cover" pct={collPct} />
     </View>
   );
