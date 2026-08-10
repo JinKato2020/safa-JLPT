@@ -8,7 +8,7 @@ import { getSession, onAuthStateChange } from './authClient';
 import { pullState, pushState } from './syncClient';
 import { decideLoginSync, mergeRestoredState } from './sync';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
-import { setTelemetryAccount } from '../telemetry/telemetry';
+import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, bumpGeoCountOnce } from '../geo/geoClient';
 import { registerPushToken } from '../push/pushClient';
 
@@ -68,6 +68,8 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     geoUserRef.current = uid;
     void recordGeoCountry();
     void registerPushToken(); // 友だちの応援などをスマホへ届けるための端末登録(許可があれば)
+    // ログイン確立時に account_id 付きスナップショットを即送信。ダッシュボードは最新行を見るので「匿名→登録」が即反映される。
+    void sendDailySnapshot(stateRef.current, Date.now(), true);
   }, [session]);
 
   // ログイン確立時: リモートを引いて安全に統合する。

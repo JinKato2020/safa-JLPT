@@ -11,6 +11,7 @@ import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
 import type { Category } from '../engine/engine';
 import { supabase } from '../config/supabase';
+import { personalityOf, moodMsgOf } from '../plaza/persona';
 
 const APP_VERSION = '1.1.0';
 
@@ -134,6 +135,10 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
     ...daimonMasteryCounts(state, now).map((d) => [d.daimon, [d.learned, d.total]]),
     ...passageMasteryCounts(state, now).map((p) => [p.key, [p.learned, p.total]]),
   ]);
+  // 得意(=いちばん出来ている区分)を正解率リングから求める。管理ダッシュボードのプロフィール列用。
+  const FACET_JA: Record<string, string> = { moji_goi: '文字・語彙', bunpou: '文法', dokkai: '読解', choukai: '聴解' };
+  const facetVals: Record<string, number> = { moji_goi: rings.moji_goi ?? 0, bunpou: rings.bunpou ?? 0, dokkai: rings.dokkai ?? 0, choukai: rings.choukai ?? 0 };
+  const strongKey = Object.keys(facetVals).reduce((a, b) => (facetVals[b] > facetVals[a] ? b : a), 'moji_goi');
   return {
     v: 4, anonId: anon, app: APP_VERSION, platform: getPlatform().OS, osVersion: String(getPlatform().Version ?? ''),
     uiLang: state.settings.uiLang || '', level, exam, day: dayStr(now),
@@ -150,6 +155,15 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
     streak: state.streak.current, streakLongest: state.streak.longest, freezes: state.streak.freezes,
     mockCount: (state.mockHistory ?? []).length, studyDays: (state.growth ?? []).length,
     studySeconds: state.studySeconds ?? 0, // 累計学習時間(秒)＝前面滞在の合算
+    // 管理ダッシュボードのプロフィール列(名前/母語/国名/気分/性格/得意)。読める日本語で送る(気分/性格はキー→ラベル解決済み)。
+    profile: {
+      nickname: state.settings.nickname ?? null,
+      l1: state.settings.l1 ?? null,
+      country: state.settings.country ?? null,
+      mood: moodMsgOf(state.settings.moodMsg),
+      personality: personalityOf(state.settings.personality)?.label ?? null,
+      strong: FACET_JA[strongKey] ?? null,
+    },
 
     daysToExam, badgeSet: state.settings.badgeSet ?? 'gorgeous', theme: state.settings.theme,
     reminderOn: !!state.settings.reminder,

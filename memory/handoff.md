@@ -58,14 +58,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
+- docs/supabase/geo_counts.sql
+- src/auth/SyncProvider.tsx
+- src/geo/geoClient.ts
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
 - app.json
-- tools/build.ps1
-- docs/supabase/functions/cheer-notify/index.ts
-- docs/supabase/push.sql
 
-_自動更新: 2026-08-10 11:48_
+_自動更新: 2026-08-10 11:58_
 <!-- AUTO:END -->

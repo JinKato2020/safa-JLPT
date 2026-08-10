@@ -47,6 +47,13 @@ from (
     data->>'app'                                                as app,
     data->>'osVersion'                                          as os_version,
     data->>'uiLang'                                             as ui_lang,
+    -- プロフィール(名前/母語/国名/気分/性格/得意)。旧スナップショット(profile無し)はnull=ダッシュボードで「—」。
+    data->'profile'->>'nickname'                                as nickname,
+    data->'profile'->>'l1'                                      as l1,
+    data->'profile'->>'country'                                 as prof_country,
+    data->'profile'->>'mood'                                    as mood,
+    data->'profile'->>'personality'                             as personality,
+    data->'profile'->>'strong'                                  as strong,
     round(coalesce((data->'readiness'->>'passProb')::numeric,0)) as pass_pct,
     (data->'readiness'->>'passing')::boolean                    as passing,
     -- 折りたたみカバー率(レベル別ビュー用に残す=漢字/語彙/文法の総合)
@@ -78,9 +85,12 @@ from (
     data->'remaining'                                           as remaining,
     data->'exhausted'                                           as exhausted,
     day                                                         as last_day,
+    created_at                                                  as last_ts,   -- 最終「日時」= この行(最新スナップショット)の記録時刻
     -- 初回日/利用日数は「そのレベルを使っていた期間」で数える(行=レベルなので行の中で辻褄が合う)。
     (select min(s2.day)            from public.tel_snapshot s2
        where s2.anon_id = s.anon_id and s2.data->>'level' is not distinct from s.data->>'level') as first_day,
+    (select min(s2.created_at)     from public.tel_snapshot s2
+       where s2.anon_id = s.anon_id and s2.data->>'level' is not distinct from s.data->>'level') as first_ts,  -- 初回「日時」
     (select count(distinct s2.day) from public.tel_snapshot s2
        where s2.anon_id = s.anon_id and s2.data->>'level' is not distinct from s.data->>'level') as days
   from public.tel_snapshot s
