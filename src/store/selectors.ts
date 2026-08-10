@@ -5,7 +5,7 @@ import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BAN
 import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT, type Daimon } from '../data/examBlueprint';
 import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits, bankLevelOf } from '../data/daimon';
 import { hasKanji } from '../quiz/quiz';
-import { facetsForUnit } from '../review/facetMap';
+import { facetsForUnit, type Facet } from '../review/facetMap';
 import { facetEffectiveP } from '../review/facetMastery';
 import { passProbability as ladderPassProbability, itemP as ladderItemP, expectedScore as ladderExpectedScore, type DaimonExpectation, type ScoreEstimate } from '../ladder/passRate';
 import { type Level as LadderLevel } from '../ladder/facets';
@@ -350,24 +350,51 @@ export function learnedNow(state: AppState, now: number): number {
 }
 
 /** 漢字/語彙/文法 のカバー率(覚えた数/全体)。レベル(JFT=N5+N4)スコープ。"量"の指標=3バー表示用。
- *  漢字は漢字1字で計測(79/166/367)。習得は語/文法がいずれかの大問で≥0.6(基底集約)。 */
+ *  習得の正本は面別マスタリー(state.mastery)＝リング/合格率と同じソース。
+ *  ・語彙 = 認識面(意味/読み/表記/聞き取り)のいずれか≥0.6。学習した語(vocabId)に紐づく。
+ *  ・文法 = 文法面≥0.6。文法point(GRAMMAR.id)に紐づく(組み立て/文法形式/文章の文法は pointId へ統合済)。
+ *  ・漢字 = 漢字1字で計測。①書き取り等でその字の読み/書き面≥0.6、②習得した語に含まれる漢字、のどちらか。
+ *  ※旧実装は state.items の生キー(バンクid・vocabId)を基底集約していたため、文法(バンクid≠pointId)と
+ *    漢字(語の習得は字idに一致しない)がカバー率に反映されないバグがあった。 */
 export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vocab' | 'grammar'; learned: number; total: number }[] {
   const jft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const inScope = (lv: string) => (jft ? lv === 'N5' || lv === 'N4' : lv === state.settings.level);
-  const mastered = masteredBases(state, now);
-  const cov = (items: { id: string; level: string }[]) => {
-    let learned = 0, total = 0;
-    for (const it of items) {
-      if (!inScope(it.level)) continue;
-      total++;
-      if (mastered.has(it.id)) learned++;
-    }
-    return { learned, total };
-  };
+  const m = state.mastery ?? {};
+  const learnedFacet = (itemId: string, facets: Facet[]) =>
+    facets.some((f) => { const p = facetEffectiveP(m, itemId, f, now); return p !== null && p >= 0.6; });
+
+  const kanjiCharSet = new Set(KANJI.filter((k) => k.type === 'kanji').map((k) => k.char));
+  const masteredKanjiChars = new Set<string>();
+  for (const ch of kanjiCharSet) if (learnedFacet(ch, ['read', 'write'])) masteredKanjiChars.add(ch); // ①書き取り等で字を習得
+
+  // 語彙カバー率＋習得語に含まれる漢字の回収(②)
+  const VOCAB_FACETS: Facet[] = ['mean', 'read', 'write', 'listen'];
+  let vLearned = 0, vTotal = 0;
+  for (const v of VOCAB) {
+    const isLearned = learnedFacet(v.id, VOCAB_FACETS);
+    if (isLearned) for (const ch of v.word) if (kanjiCharSet.has(ch)) masteredKanjiChars.add(ch);
+    if (!inScope(v.level)) continue;
+    vTotal++; if (isLearned) vLearned++;
+  }
+
+  // 漢字カバー率(字1字・in-scope)
+  let kLearned = 0, kTotal = 0;
+  for (const k of KANJI) {
+    if (k.type !== 'kanji' || !inScope(k.level)) continue;
+    kTotal++; if (masteredKanjiChars.has(k.char)) kLearned++;
+  }
+
+  // 文法カバー率(文法面・in-scope)
+  let gLearned = 0, gTotal = 0;
+  for (const g of GRAMMAR) {
+    if (!inScope(g.level)) continue;
+    gTotal++; if (learnedFacet(g.id, ['grammar'])) gLearned++;
+  }
+
   return [
-    { key: 'kanji' as const, ...cov(KANJI.filter((k) => k.type === 'kanji').map((k) => ({ id: k.id, level: k.level }))) }, // 漢字1字(79/166/367)
-    { key: 'vocab' as const, ...cov(VOCAB) },
-    { key: 'grammar' as const, ...cov(GRAMMAR) },
+    { key: 'kanji' as const, learned: kLearned, total: kTotal },
+    { key: 'vocab' as const, learned: vLearned, total: vTotal },
+    { key: 'grammar' as const, learned: gLearned, total: gTotal },
   ];
 }
 
