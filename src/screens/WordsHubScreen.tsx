@@ -65,6 +65,7 @@ export default function WordsHubScreen() {
       />
       <UnlockCelebration
         visible={celebrate !== null}
+        unlockKey={celebrate?.key ?? null}
         modeLabel={celebrate ? t(celebrate.labelKey) : ''}
         need={celebrate?.need ?? 0}
         onClose={closeCelebrate}

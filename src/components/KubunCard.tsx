@@ -7,7 +7,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { coverageBars } from '../store/selectors';
-import { UNLOCK_NEED } from '../store/unlocks';
+import { UNLOCK_NEED, overallCoveragePct } from '../store/unlocks';
 import Badge from './Badge';
 import BadgeCollection from './BadgeCollection';
 import { badgeTierIndex } from '../data/badges';
@@ -37,11 +37,12 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
   const [collPct, setCollPct] = useState<number | null>(null);
   const m = META[kubun];
 
-  // 段階解禁: このカードのkubunカバー率(pct)がしきい値に達すると学習モードが解禁。
-  // (漢字聞き取り/書き取りは漢字pct、語彙系は語彙pct、文法系は文法pctで判定=カード内pctと一致。)
+  // 段階解禁: 【全体カバー率】(3辞書合計)がしきい値に達すると学習モードが解禁(演出=UnlockCelebrationと同基準)。
+  // カード内のpct/バッジ/バーは分野別カバー率の表示のまま。解禁ゲートだけ overallPct を使う。
+  const overallPct = useMemo(() => overallCoveragePct(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
   const dev = state.settings.devUnlimitedPoints === true;
   const gated = (labelKey: string, onPress: () => void, need = 0) => {
-    const ok = need === 0 || dev || pct >= need;
+    const ok = need === 0 || dev || overallPct >= need;
     return (
       <Pressable key={labelKey} disabled={!ok} style={({ pressed }) => [s.linkBtn, ok && pressed && s.pressed, !ok && s.linkLocked]} onPress={ok ? onPress : undefined}>
         <Text style={[s.linkTxt, !ok && s.linkTxtLocked]}>{t(labelKey)}</Text>
