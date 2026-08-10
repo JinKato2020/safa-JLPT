@@ -69,7 +69,28 @@ export async function saveState(state: AppState): Promise<void> {
 export async function clearState(): Promise<void> {
   try {
     await AsyncStorage.removeItem(KEY);
+    // 注意: TRIAL_KEY は消さない。お試し起点は端末で一度きり=退会/リセットでも保持し、再取得(荒稼ぎ)を防ぐ。
   } catch {
     /* noop */
+  }
+}
+
+// 無料お試しの起点(epoch ms)を保持する「消えない別キー」。匿名ID(safa-jlpt:anonId)と同じ思想で、
+// アプリ状態(KEY)とは別に持つ。clearState では消さない=退会/リセットしてもお試しは復活しない。
+// 完全アンインストールでのみ消える(=新品端末扱い。これは匿名IDと同じ限界)。
+const TRIAL_KEY = 'safa-jlpt:trialStart';
+
+/** お試し起点を返す。未保存なら seed(既存ユーザーは installedAt、無ければ now)で確定して保存。 */
+export async function ensureTrialStart(now: number, fallbackInstalledAt?: number): Promise<number> {
+  try {
+    const raw = await AsyncStorage.getItem(TRIAL_KEY);
+    const saved = raw != null ? Number(raw) : NaN;
+    if (Number.isFinite(saved) && saved > 0) return saved;
+    const seed = fallbackInstalledAt && fallbackInstalledAt > 0 ? fallbackInstalledAt : now;
+    await AsyncStorage.setItem(TRIAL_KEY, String(seed));
+    return seed;
+  } catch {
+    // 読み書き失敗時は now を起点扱い(お試しを不当に消さない安全側)。
+    return fallbackInstalledAt && fallbackInstalledAt > 0 ? fallbackInstalledAt : now;
   }
 }

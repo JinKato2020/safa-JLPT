@@ -65,7 +65,8 @@ export default function ProfileScreen() {
     const uid = session.user.id;
     Alert.alert(t('account.delete'), t('account.delete_confirm'), [
       { text: t('account.delete_no'), style: 'cancel' },
-      { text: t('account.delete_yes'), style: 'destructive', onPress: () => { void deleteAccount(uid); } },
+      // 退会=クラウド(②③)を消した後、端末内(名前・進捗)もまっさらにする。①利用ログ(匿名ID)は分析用に残す。
+      { text: t('account.delete_yes'), style: 'destructive', onPress: () => { void deleteAccount(uid).finally(() => reset()); } },
     ]);
   };
 

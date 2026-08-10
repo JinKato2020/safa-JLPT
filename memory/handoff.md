@@ -1,6 +1,11 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+- **✅ 2026-08-10 セッション完了分＝Build 2761/2762 で提出済（TestFlightアップロード成功=90382出ず）**: このビルドに入った=カバー率バグ修正(coverageBarsを面別マスタリー正本に)／柴犬ジャンプ停止／ショップ刷新(再挑戦券・連続フリーズ削除→すがた変えドリンク2000・所持数表示・残高不足でも価格表示・タブ名仲間→柴犬・アバター登録後ロック)／**Bug C**(大問別正答率が反映+学習画面に大問ID表示)／**段階解禁**(分野カバー率5/10/15/20%でモード解禁+お祝い演出・state.unlocksSeen)／筆「天の霊筆→輝く光筆」。**OTA(ビルド不要)で配信**=**Bug B**(ふりがな重複「飼って→かって」90箇所修正)／**Bug A**(文の組み立てpointId 224問をAIマッチング+独立検証で紐づけ・残34は該当文法なしでnull)。→ A/B/C・貝ルール・ダッシュボードの旧バグ項目は**すべて完了**(下の古い記述は済)。
+- **🆔 次にやる=問題IDの命名統一（決定済・未着手）**: 詳細と手順=**memory/id-rename-inflight.md**。読解=実データ置換+進捗移行(Lv-D-{S/M/L/J}-NNN(-qK))／文字語彙(V)・文法(G)=表示IDのみ(内部不変)。文法形式=G-G。大改修のため**fresh session推奨**。
+- **⏳ 保留=Androidナビ①（透明+背景を裏まで）**: 全画面レイアウトに影響するため、Build2761動作確認後に実機を見ながら安全に実装(下タブバーを浮かせる+各画面の下余白)。
+- **🧭 管理ダッシュボード大改修＋貝ルール刷新 完了・Build待ち（2026-08-10）**: 全push済・**未ビルド**。ダッシュボード(docs/supabase/dashboard.html+dashboard_views.sql)=利用者一覧にプロフィール列(名前/母語/国名/気分/性格/得意)・予想得点列(合格率は参考)・大問境界の縦罫線・履修→覚えた数／国別セクション(v_admin_geo:登録=user_geo・全体=geo_country_counts匿名含む・全体=max(実,登録))／紹介セクション(v_admin_referrals:誰が誰を)／初回日時・最終日時(JST)／レベル別の平均は**直近7日アクティブ限定**+アクティブ列／学習分→学習時間(h/m)。アプリ側=telemetryがprofile/予想得点(readiness.predScore等)送信＋ログイン時sendDailySnapshot(force)で即「登録」化＋geo匿名カウント(bumpGeoCountOnce・端末ID保存なし)。**貝=1学習満点20貝**(AfterStudyReward: min(20,ceil(correctN*20/totalN)))。allowBackup=false(app.json)。build.ps1に1日iOSアップロード上限ガード(3回/-Force)。**ユーザー要SQL再実行**(geo_counts.sql→dashboard_views.sql)。**要ビルド2745**(iOS本日90382上限→明日 or Android先行)で: プロフィール列/予想得点/匿名→登録/匿名カウント/allowBackup/貝ルールが実データ化。
+- **🐛 アプリ内 未修正バグ3つ（ユーザー指示・2026-08-10）**: **A(データ根本修正・ユーザー選択)**=`order`(文の組み立て)問題の`pointId`が文法辞書に未紐づけ→学習後の単語リストに~4件しか出ない(N4:184問中95のみ紐づく・distinct54/ N5:117→75/39・N3:264→173/126)。[daimon.ts:27 saveRefForBank]。全level分の未紐づけpointIdをgrammar.jsonへ正しく対応付ける。**B**=文章の文法(passage_grammar)の文ふりがなが自動生成で誤る例「飼って（かって）」←送りがな込みの読み。正しくは飼(か)って。文はデータに素で無く実行時生成→**生成源(RubyText/furi engine)を特定して修正**([[sentence-furigana-needs-llm]])。**C**=読解 内容理解短文を学習しても**大問別正答率に反映されない**＋学習画面に**大問別ID非表示**(reading答えの記録キーがpassageMasteryCountsの期待キーと不一致の疑い)。
 - **🔔 B-2 応援プッシュ通知＝Build2743(run`31346093050`)・サーバー設定待ち（2026-08-10）**: コミット`642782c3`。アプリ側=`src/push/pushClient.ts`(ログイン時にExpoプッシュトークンをpush_tokensへ直書き・許可あれば/projectId=3590a434-...)＋SyncProviderで登録＋`cheerSend`成功直後に`supabase.functions.invoke('cheer-notify')`＋notifications.tsの`ensureNotificationPermission`を共用export。**ユーザー手作業3つ待ち**=①`docs/supabase/push.sql`実行(push_tokens+RLS+grant)②Edge Function`cheer-notify`デプロイ(`docs/supabase/functions/cheer-notify/index.ts`・相互友だちのみ・Expo Push API)③**配信資格情報**(iOS=eas credentials→Push鍵は比較的簡単でiOSは即配信可/Android=Firebase作成→google-services.json→app.jsonのandroid.googleServicesFile→FCMキー→**再ビルド**)。現状app.jsonにgoogleServicesFile無し・APNs鍵未登録。**まず①②③iOSでiPhone確認→Android後**。**次=B-3プライバシー本文→C当たり判定**。
 - **🤝 B-1 友だち相互登録＝Build2742(run`31345510279`)＋SQL実行待ち（2026-08-10）**: 相互化。town_join=両方向insert。**解除はtown_kick 1本に統合**(相互化でtown_leaveと同一動作→town_leaveはSQL drop＋client wrapper除去)。KotobaTownの解除ダイアログを『友だちを解除／相互に解除されます』注記へ(コミット`4c284399`=Build2742)。**ユーザーが最終SQL実行待ち**(town_join/kick相互化＋`drop function town_leave(uuid)`＋既存バックフィル`insert select member,owner ... on conflict do nothing`)=Supabase SQL Editor。実行後B-1完了。Google Playデータセーフティ「アカ削除不要の一部データ削除窓口」=「いいえ」。**次=B-2プッシュ通知の要否→B-3プライバシー本文→C当たり判定**(ユーザー「順番に」)。
 - **📋 Google Play データセーフティ データ種類(2026-08-10)**: App Storeと揃える。=位置情報(おおよその現在地=IP国)／個人情報(メール・ユーザーID・名前=ニックネーム・その他=性別)／**アプリのアクティビティ:その他のユーザー生成コンテンツ(ニックネーム/ひとこと/応援メッセージ)**←抜けやすい／アプリの情報とパフォーマンス:診断情報(AdMob・App Storeのクラッシュ申告と整合)／デバイスID(広告ID)。共有=広告IDのみGoogle(第三者)へ「共有はい」。他ユーザーに見えるだけの項目は「収集」。クラッシュ専用SDKは無し(AdMobのみ)。
@@ -51,8 +56,6 @@
 <!-- AUTO:BEGIN -->
 
 ## 走行中の run（自動・完了通知が来ていないもの）
-- a24a55339e7688334 general-purpose
-- a299080a95b15e8d3 general-purpose
 - a47ab6769b1b9a288 general-purpose
 - ae9c448fbd26954a9 general-purpose
 - a83565e1b69fe6554 general-purpose
@@ -60,12 +63,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- docs/supabase/dashboard.html
-- docs/supabase/dashboard_views.sql
-- src/telemetry/telemetry.ts
-- src/auth/SyncProvider.tsx
-- docs/supabase/geo_counts.sql
-- src/geo/geoClient.ts
+- src/screens/ProfileScreen.tsx
+- memory/id-rename-inflight.md
+- src/i18n/ja.json
+- src/data/shop.ts
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
 
-_自動更新: 2026-08-10 14:04_
+_自動更新: 2026-08-10 18:17_
 <!-- AUTO:END -->

@@ -11,7 +11,7 @@ import type { AppState } from './state';
 import { readinessFor } from './selectors';
 import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
-import { loadState, saveState, clearState } from './storage';
+import { loadState, saveState, clearState, ensureTrialStart } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
 import { recordFacet } from '../review/facetMastery';
 import { facetsForUnit, facetsForKakitori } from '../review/facetMap';
@@ -50,6 +50,7 @@ type Action =
   | { type: 'SET_REFERRAL_STATS'; qualified: number }
   | { type: 'MARK_UNLOCK_SEEN'; key: string }
   | { type: 'SEED_UNLOCKS_SEEN'; keys: string[] }
+  | { type: 'SET_TRIAL_START'; at: number }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -159,6 +160,9 @@ export function reducer(state: AppState, action: Action): AppState {
     case 'SEED_UNLOCKS_SEEN':
       // 初回のみ(未定義時)現解禁分を無音記録。既存ユーザーが更新直後に一斉演出されるのを防ぐ。
       return state.unlocksSeen === undefined ? { ...state, unlocksSeen: action.keys } : state;
+    case 'SET_TRIAL_START':
+      // 「消えない別キー」由来のお試し起点を注入。既に同値なら不変(不要な再保存を避ける)。
+      return state.trialStartedAt === action.at ? state : { ...state, trialStartedAt: action.at };
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -183,6 +187,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     (async () => {
       const saved = await loadState();
       if (saved) { dispatch({ type: 'HYDRATE', state: saved }); setFromDisk(true); }
+      // お試し起点を「消えない別キー」から注入(未保存なら既存installedAt→無ければnowでseed)。
+      // これで退会/リセット後もお試しは復活しない(荒稼ぎ防止)。完全アンインストール時のみ新品扱い。
+      const trialStart = await ensureTrialStart(Date.now(), saved?.installedAt);
+      dispatch({ type: 'SET_TRIAL_START', at: trialStart });
       dispatch({ type: 'SYNC_TICKETS', now: Date.now() }); // 初回=インストール日+歓迎1枚 / 以降=30日ごと+1(上限3)
       setHydrated(true);
     })();

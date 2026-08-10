@@ -13,6 +13,22 @@ test('お試し: 初回起動から7日以内は Pro', () => {
   assert.equal(r.trialDaysLeft, 6);
 });
 
+test('お試し起点は trialStartedAt(消えない別キー)を優先する', () => {
+  // installedAt は「今リセットされた」= now 相当でも、trialStartedAt が過去(=お試し済み)なら Pro にしない。
+  const now = T0 + 100 * DAY_MS;
+  const s = base({ trialStartedAt: T0, installedAt: now }); // 端末リセット直後を想定(installedAtだけ更新)
+  const r = proStatus(s, now);
+  assert.equal(trialEndsAt(s), T0 + TRIAL_DAYS * DAY_MS); // 起点は古い trialStartedAt
+  assert.equal(r.isPro, false); // お試しは復活しない=荒稼ぎ防止
+  assert.equal(r.source, 'none');
+});
+
+test('trialStartedAt が無い旧データは installedAt で代替(後方互換)', () => {
+  const s = base({ installedAt: T0 }); // trialStartedAt 未設定
+  assert.equal(trialEndsAt(s), T0 + TRIAL_DAYS * DAY_MS);
+  assert.equal(proStatus(s, T0 + 1 * DAY_MS).source, 'trial');
+});
+
 test('お試し: 7日を過ぎたら無料に戻る(データは消えない)', () => {
   const s = base();
   const r = proStatus(s, T0 + TRIAL_DAYS * DAY_MS + 1);

@@ -15,9 +15,12 @@ export interface ProStatus {
   trialDaysLeft: number; // お試しの残り日数(切り上げ)。終了後は0
 }
 
-/** お試しの終了時刻。installedAt 未確定(旧データ)なら undefined。 */
+/** お試しの終了時刻。起点は「消えない別キー」由来の trialStartedAt を最優先。
+ *  旧データ(未注入)は installedAt で代替。どちらも無ければ undefined。
+ *  ※ trialStartedAt は退会/リセットでも消えない=お試しの再取得(荒稼ぎ)を防ぐ。 */
 export function trialEndsAt(state: AppState): number | undefined {
-  return state.installedAt ? state.installedAt + TRIAL_DAYS * DAY_MS : undefined;
+  const start = state.trialStartedAt ?? state.installedAt;
+  return start ? start + TRIAL_DAYS * DAY_MS : undefined;
 }
 
 export function proStatus(state: AppState, now: number): ProStatus {
