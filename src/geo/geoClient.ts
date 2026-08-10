@@ -1,6 +1,7 @@
-// 接続国(IP由来)の記録。Cloudflare(=safa-lang.com の前段)の trace から接続国を取り、Edge Function `geo-country` に渡して保存する。
-// Cloudflare基盤はプライバシーポリシーに既載=第三者を増やさない。IPは扱わず国コードのみ。国コードはサーバー(user_geo)に保存。
-// ※Edge Function側は cf-ipcountry があればそれを優先し、無ければここで渡す国を使う(環境差の保険)。
+// 接続国(IP由来)の記録。Cloudflare(=safa-lang.com の前段)の trace から接続国コードだけ取り、`user_geo` に本人ぶんを直接 upsert する。
+// Cloudflare基盤はプライバシーポリシーに既載=第三者を増やさない。IPは扱わず国コードのみ保存。
+// ※以前は Edge Function `geo-country` 経由だったが「呼び出しは来るのに user_geo が空」＝関数側で書けていなかったため、
+//   関数を介さずクライアントから直接書く方式へ変更(RLSで本人の行だけ・grant要=docs/supabase/geo.sql)。関数は不要に。
 import { supabase } from '../config/supabase';
 
 // Cloudflare trace から2文字の国コードを取る。失敗/未取得は null(その場合は関数側のヘッダ判定に任せる)。
@@ -19,10 +20,16 @@ async function cfCountry(): Promise<string | null> {
   }
 }
 
-/** ログイン確立時に呼ぶ。接続国をサーバーへ記録(統計・課金計算用)。通信失敗は握る(次回ログインで再試行)。 */
+/** ログイン確立時に呼ぶ。接続国を user_geo へ本人ぶん記録(統計・課金計算用)。通信失敗は握る(次回ログインで再試行)。 */
 export async function recordGeoCountry(): Promise<void> {
   try {
     const country = await cfCountry();
-    await supabase.functions.invoke('geo-country', country ? { body: { country } } : undefined);
+    if (!country) return; // 国が取れなければ何もしない(次回ログインで再試行)
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;    // 未ログインなら記録しない(RLSで弾かれる)
+    await supabase.from('user_geo').upsert(
+      { user_id: user.id, country, updated_at: new Date().toISOString() },
+      { onConflict: 'user_id' },
+    );
   } catch { /* 失敗は無視 */ }
 }
