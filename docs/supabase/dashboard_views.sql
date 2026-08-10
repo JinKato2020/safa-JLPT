@@ -176,6 +176,33 @@ full outer join (select country, sum(count) as total from public.geo_country_cou
   on g.country = c.country
 order by coalesce(c.total, 0) desc, coalesce(g.registered, 0) desc;
 
+-- ⑦ 紹介(誰が誰を紹介したか)。referrals の new_user_ref はテレメトリ匿名IDと同じキーなので、
+--    紹介された人の身元(アカウント/メール/名前)まで辿れる。紹介者はメールで表示。
+--    ※紹介された人がログインしていれば new_user_email が出る。未ログインなら匿名IDの先頭＋名前(あれば)。
+--    ※名前(nickname)はアプリ更新後のスナップショットから。メール/状態/日時はいまのデータで出る。
+drop view if exists public.v_admin_referrals;
+create view public.v_admin_referrals as
+with new_ident as (      -- 匿名IDごとに最新スナップショットの身元(アカウント/名前)
+  select distinct on (anon_id) anon_id, account_id, data->'profile'->>'nickname' as nickname
+  from public.tel_snapshot
+  order by anon_id, created_at desc
+)
+select
+  r.referrer_user_id,
+  ru.email                                        as referrer_email,
+  r.new_user_ref,
+  n.account_id                                    as new_user_account,
+  nu.email                                        as new_user_email,
+  n.nickname                                      as new_user_nickname,
+  r.status,                                       -- pending|qualified|rewarded|rejected
+  r.install_at,
+  r.qualified_at
+from public.referrals r
+left join auth.users ru on ru.id = r.referrer_user_id
+left join new_ident  n  on n.anon_id = r.new_user_ref
+left join auth.users nu on nu.id = n.account_id
+order by r.referrer_user_id, r.qualified_at desc nulls last, r.install_at desc nulls last;
+
 -- 旧「アカウント別 横並び」ビューは撤去(登録者は上の v_admin_devices に統合済み=メール＋合格率まで1表で見える)。
 drop view if exists public.v_admin_accounts;
 
@@ -185,7 +212,8 @@ grant select on
   public.v_admin_devices,
   public.v_admin_level,
   public.v_admin_stock,
-  public.v_admin_geo
+  public.v_admin_geo,
+  public.v_admin_referrals
 to service_role;
 
 -- ダッシュボードの「ごみ箱」ボタンは、これらの元表を service_role で REST DELETE する。

@@ -1,13 +1,12 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- 往復 48904 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/session-summary-LATEST.md
-- docs/supabase/dashboard.html
 - docs/supabase/dashboard_views.sql
+- docs/supabase/dashboard.html
 - src/telemetry/telemetry.ts
 
 ## 次の一手

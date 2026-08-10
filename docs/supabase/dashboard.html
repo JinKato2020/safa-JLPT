@@ -100,6 +100,11 @@
   </section>
 
   <section>
+    <h2>紹介（誰が誰を紹介したか） <span class="note">紹介者＝ログイン済みメール／紹介された人＝メール（未ログインなら匿名IDの先頭＋名前）／状態＝保留・継続達成・報酬付与済・無効</span></h2>
+    <div class="scroll"><table id="tReferrals"></table></div>
+  </section>
+
+  <section>
     <h2>レベル別 合計 <span class="note">人数・今日のアクティブ・学習回数・学習時間はレベルごとの合計／合格率などは平均</span></h2>
     <div class="scroll"><table id="tLevel"></table></div>
   </section>
@@ -162,15 +167,17 @@ async function loadAll(){
   localStorage.setItem('dash_url', url);
   localStorage.setItem('dash_key', key);
   try{
-    const [summary, geo, level, stock, devices] = await Promise.all([
+    const [summary, geo, referrals, level, stock, devices] = await Promise.all([
       api(url,key,'v_admin_summary'),
       api(url,key,'v_admin_geo'),
+      api(url,key,'v_admin_referrals'),
       api(url,key,'v_admin_level'),
       api(url,key,'v_admin_stock'),
       api(url,key,'v_admin_devices'),
     ]);
     renderSummary(summary[0]||{});
     renderGeo(geo);
+    renderReferrals(referrals);
     renderLevel(level);
     renderStock(stock);
     devData = devices || [];
@@ -203,6 +210,22 @@ function hm(min){
 }
 const LV_ORDER = { N5:1, N4:2, N3:3, N2:4, N1:5 };
 const byLevel = (a,b) => (LV_ORDER[a.level]||9) - (LV_ORDER[b.level]||9);
+
+const REF_STATUS = { pending:'保留', qualified:'継続達成', rewarded:'報酬付与済', rejected:'無効' };
+function refWho(r){
+  if(r.new_user_email) return esc(r.new_user_email) + (r.new_user_nickname? ` <span class="muted">(${esc(r.new_user_nickname)})</span>`:'');
+  const id = `<span class="mono">${esc(String(r.new_user_ref||'').slice(0,8))}</span>`;
+  return r.new_user_nickname ? `${id} <span class="muted">(${esc(r.new_user_nickname)})</span>` : id + ' <span class="muted">(未ログイン)</span>';
+}
+function renderReferrals(refs){
+  simpleTbl($('tReferrals'),
+    [{label:'紹介した人'},{label:'紹介された人'},{label:'状態'},{label:'継続達成日時'}],
+    (refs||[]).slice(),
+    [ r=>esc(r.referrer_email||'—'), r=>refWho(r),
+      r=>pill(REF_STATUS[r.status]||r.status||'—', (r.status==='qualified'||r.status==='rewarded')?'good':''),
+      r=>fmtDateTime(r.qualified_at) ]
+  );
+}
 
 function renderGeo(geo){
   simpleTbl($('tGeo'),
