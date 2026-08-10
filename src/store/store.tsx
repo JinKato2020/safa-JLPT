@@ -11,7 +11,7 @@ import type { AppState } from './state';
 import { readinessFor } from './selectors';
 import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
-import { loadState, saveState, clearState, ensureTrialStart } from './storage';
+import { loadState, saveState, clearState } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
 import { recordFacet } from '../review/facetMastery';
 import { facetsForUnit, facetsForKakitori } from '../review/facetMap';
@@ -187,10 +187,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     (async () => {
       const saved = await loadState();
       if (saved) { dispatch({ type: 'HYDRATE', state: saved }); setFromDisk(true); }
-      // お試し起点を「消えない別キー」から注入(未保存なら既存installedAt→無ければnowでseed)。
-      // これで退会/リセット後もお試しは復活しない(荒稼ぎ防止)。完全アンインストール時のみ新品扱い。
-      const trialStart = await ensureTrialStart(Date.now(), saved?.installedAt);
-      dispatch({ type: 'SET_TRIAL_START', at: trialStart });
       dispatch({ type: 'SYNC_TICKETS', now: Date.now() }); // 初回=インストール日+歓迎1枚 / 以降=30日ごと+1(上限3)
       setHydrated(true);
     })();
@@ -269,6 +265,8 @@ export function useAppActions() {
     markUnlockSeen: (key: string) => dispatch({ type: 'MARK_UNLOCK_SEEN', key }),
     seedUnlocksSeen: (keys: string[]) => dispatch({ type: 'SEED_UNLOCKS_SEEN', keys }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
+    setTrialStart: (at: number) => dispatch({ type: 'SET_TRIAL_START', at }), // サーバー確定のお試し受取日(アカウント単位)を反映
+
     reset: () => {
       clearState();
       dispatch({ type: 'RESET' });

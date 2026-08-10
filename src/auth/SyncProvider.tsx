@@ -8,6 +8,7 @@ import { getSession, onAuthStateChange } from './authClient';
 import { pullState, pushState } from './syncClient';
 import { decideLoginSync, mergeRestoredState } from './sync';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
+import { claimTrial } from '../pro/trialClient';
 import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, bumpGeoCountOnce } from '../geo/geoClient';
 import { registerPushToken } from '../push/pushClient';
@@ -24,7 +25,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   const state = useAppState();
   const hydrated = useHydrated();
   const fromDisk = useHydratedFromDisk();
-  const { hydrate } = useAppActions();
+  const { hydrate, setTrialStart } = useAppActions();
   const [session, setSession] = useState<Session | null>(null);
   const [lastSyncedAt, setLastSyncedAt] = useState<number | null>(null);
   const stateRef = useRef(state);
@@ -94,6 +95,10 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       if (!cancelled) {
         initialSyncDone.current = true; // 統合完了=以降のローカル変更を push してよい
         setLastSyncedAt(Date.now());
+        // 無料お試し(7日)をアカウント単位で受取。初回=サーバーが受取日を確定/以降=既存日を返す(再ログインで再付与しない)。
+        // 状態統合の後に実行=復元(hydrate)で受取日が上書きされるレースを避ける。未ログイン扱いにはならない(session確定済み)。
+        const claimedAt = await claimTrial();
+        if (!cancelled && claimedAt) setTrialStart(claimedAt);
       }
     })();
     return () => {

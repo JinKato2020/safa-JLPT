@@ -63,12 +63,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- src/pro/entitlement.test.ts
+- src/store/store.tsx
+- src/pro/entitlement.ts
+- src/store/storage.ts
+- src/store/state.ts
 - src/screens/ProfileScreen.tsx
-- memory/id-rename-inflight.md
-- src/i18n/ja.json
-- src/data/shop.ts
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
 
-_自動更新: 2026-08-10 18:17_
+_自動更新: 2026-08-10 18:49_
 <!-- AUTO:END -->

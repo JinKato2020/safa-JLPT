@@ -59,8 +59,11 @@ create table if not exists public.entitlements (
   user_id uuid primary key references auth.users(id) on delete cascade,
   pro_until timestamptz,
   reward_grant_count int not null default 0,
+  trial_claimed_at timestamptz,  -- 無料お試し(7日)をこのアカウントが受け取った日時。1回だけ発行=再ログイン/再インストールで再付与しない(Edge Function 'trial-claim' が確定)。null=未受取。
   updated_at timestamptz not null default now()
 );
+-- 既存テーブルへの後付けマイグレーション(列が無いと trial-claim の update が失敗する)。デプロイ前に必ず実行。
+alter table public.entitlements add column if not exists trial_claimed_at timestamptz;
 
 alter table public.referral_codes enable row level security;
 alter table public.referrals enable row level security;

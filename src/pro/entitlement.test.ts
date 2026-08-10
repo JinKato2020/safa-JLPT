@@ -4,7 +4,8 @@ import { INITIAL_STATE, type AppState } from '../store/state';
 import { proStatus, grantProDays, setPurchaseActive, trialEndsAt, TRIAL_DAYS, DAY_MS } from './entitlement';
 
 const T0 = 1_800_000_000_000; // 固定の基準時刻(テストを実時計に依存させない)
-const base = (over: Partial<AppState> = {}): AppState => ({ ...INITIAL_STATE, installedAt: T0, ...over });
+// 既定=ログイン済みでお試し受取済み(trialStartedAt=T0)のユーザー。未ログイン相当は trialStartedAt を外して表現。
+const base = (over: Partial<AppState> = {}): AppState => ({ ...INITIAL_STATE, installedAt: T0, trialStartedAt: T0, ...over });
 
 test('お試し: 初回起動から7日以内は Pro', () => {
   const r = proStatus(base(), T0 + 1 * DAY_MS);
@@ -13,20 +14,21 @@ test('お試し: 初回起動から7日以内は Pro', () => {
   assert.equal(r.trialDaysLeft, 6);
 });
 
-test('お試し起点は trialStartedAt(消えない別キー)を優先する', () => {
-  // installedAt は「今リセットされた」= now 相当でも、trialStartedAt が過去(=お試し済み)なら Pro にしない。
+test('再インストール→再ログインでも お試しは復活しない(サーバー受取日が起点)', () => {
+  // サーバーは既受取アカウントに「元の受取日(T0)」を返す。installedAt が新しくても関係ない。
   const now = T0 + 100 * DAY_MS;
-  const s = base({ trialStartedAt: T0, installedAt: now }); // 端末リセット直後を想定(installedAtだけ更新)
+  const s = base({ trialStartedAt: T0, installedAt: now }); // 再インストール直後=installedAtは新しいが受取日は古い
   const r = proStatus(s, now);
-  assert.equal(trialEndsAt(s), T0 + TRIAL_DAYS * DAY_MS); // 起点は古い trialStartedAt
-  assert.equal(r.isPro, false); // お試しは復活しない=荒稼ぎ防止
+  assert.equal(trialEndsAt(s), T0 + TRIAL_DAYS * DAY_MS); // 起点はサーバー受取日 T0
+  assert.equal(r.isPro, false); // 既に切れている=再付与されない(荒稼ぎ防止)
   assert.equal(r.source, 'none');
 });
 
-test('trialStartedAt が無い旧データは installedAt で代替(後方互換)', () => {
-  const s = base({ installedAt: T0 }); // trialStartedAt 未設定
-  assert.equal(trialEndsAt(s), T0 + TRIAL_DAYS * DAY_MS);
-  assert.equal(proStatus(s, T0 + 1 * DAY_MS).source, 'trial');
+test('未ログイン/未受取(trialStartedAt無し)は お試しなし', () => {
+  const s = base({ trialStartedAt: undefined }); // installedAt はあるが受取日は無い
+  assert.equal(trialEndsAt(s), undefined);
+  assert.equal(proStatus(s, T0 + 1 * DAY_MS).source, 'none'); // installedAt では付与されない
+  assert.equal(proStatus(s, T0 + 1 * DAY_MS).isPro, false);
 });
 
 test('お試し: 7日を過ぎたら無料に戻る(データは消えない)', () => {

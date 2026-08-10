@@ -1,14 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- 往復 55800 回
+- ツール呼び出し 2 回・6 ターン
+- 往復 55857 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/session-summary-LATEST.md
-- src/screens/ProfileScreen.tsx
-- memory/id-rename-inflight.md
-- src/i18n/ja.json
+- src/pro/entitlement.test.ts
+- src/store/store.tsx
+- src/pro/entitlement.ts
 
 ## 次の一手
 - **✅ 2026-08-10 セッション完了分＝Build 2761/2762 で提出済（TestFlightアップロード成功=90382出ず）**: このビルドに入った=カバー率バグ修正(coverageBarsを面別マスタリー正本に)／柴犬ジャンプ停止／ショップ刷新(再挑戦券・連続フリーズ削除→すがた変えドリンク2000・所持数表示・残高不足でも価格表示・タブ名仲間→柴犬・アバター登録後ロック)／**Bug C**(大問別正答率が反映+学習画面に大問ID表示)／**段階解禁**(分野カバー率5/10/15/20%でモード解禁+お祝い演出・state.unlocksSeen)／筆「天の霊筆→輝く光筆」。**OTA(ビルド不要)で配信**=**Bug B**(ふりがな重複「飼って→かって」90箇所修正)／**Bug A**(文の組み立てpointId 224問をAIマッチング+独立検証で紐づけ・残34は該当文法なしでnull)。→ A/B/C・貝ルール・ダッシュボードの旧バグ項目は**すべて完了**(下の古い記述は済)。

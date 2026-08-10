@@ -61,8 +61,9 @@ test('Proは無制限・消費も記録しない', () => {
   assert.equal(consumeSession(pro, FREE_NOW).dailyQuota, undefined);
 });
 
-test('お試し中(初回7日)は無制限', () => {
-  assert.equal(quotaFor(st(), T0 + DAY_MS).unlimited, true);
+test('お試し中(受取から7日)は無制限', () => {
+  // お試しはログイン時にサーバー確定の受取日(trialStartedAt)が起点。
+  assert.equal(quotaFor(st({ trialStartedAt: T0 }), T0 + DAY_MS).unlimited, true);
 });
 
 test('保存される day は端末のローカル日付', () => {
