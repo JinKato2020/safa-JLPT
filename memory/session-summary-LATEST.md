@@ -1,21 +1,23 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 41 回・85 ターン
-- 往復 60064 回
+- ツール呼び出し 73 回・156 ターン
+- 往復 60220 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/在庫問題数.txt
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- src/data/exam/readingIdMigration.json
+- src/screens/AICoachScreen.tsx
+- src/screens/MockScreen.tsx
+- src/store/state.ts
 
 ## ⚠️ 注意
-- - ⚠ 連続 85ターン（文脈 18万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 85ターン・ツール41回）— まとめ方を変える
+- - ⚠ 連続 156ターン（文脈 29万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 156ターン・ツール73回）— まとめ方を変える
 
 ## 次の一手
+- **🆕 2026-08-11 模試/解禁/類義の4修正(コミット`ec6b4fb2`・未ビルド)**: ①模試結果ヘッダーを「予想得点 X/180＋合格ライン＋合否」に刷新(selectors.mockScoreEstimate=区分別正答×配点・足切り｜・テスト有)＋区分別の予想得点＋詳細弱点(区分別正答率)併記。②休憩画面の桜の吹き出しを上部グループ化(顔に被らない)。③**解禁をポイント無限から分離**=専用トグル`devUnlockAll`(既定OFF)。5/10/15/20%の全体カバー率ゲート厳守(unlocks.ts devBypass・KubunCard dev)。④類義`sy:n4-v-623`正解を「乗ります」→「移ります」(解説と一致)＋_manifest再生成。
+- **✅ AIコーチ「模試の記録」カード 完了(2026-08-11・未ビルド)**: MockResultにlevel/predScore/predMax/passTotal/sectionsを追加保存(recordMockResult・JLPTのみ・旧stateは省略可)。AICoachに新カード=最新模試の予想得点(X/180)＋合格圏判定＋前回比＋区分別(足切り｜・既存score*スタイル流用)＋直近8回の推移＋空状態は「模試を受ける→」。マスタリー由来の予想得点カードは別に残置(実戦=模試/普段=学習の2本立て)。RECORD_MOCKは全fields保存・last60。
 - **🆕 2026-08-10 設定/開発用の追加3件(コミット済・未ビルド)**: ①読解の大問名を短縮=「内容理解(短文/中文/長文)」→`短文/中文/長文`(情報検索は据置・聴解は元から短名)・i18n study.sub_naiyou_tan/chu/choubun のja/en/ne値だけ変更(キー・データ不変)。②開発用トグル`devMockSkip`=ONで模試中に右上「⏭ 次の休憩」→現ブロックの設問全カットで`sectionDone()`(次休憩/最終は終了)。③設定「解禁演出を確認」=UNLOCKSの4ボタンでUnlockCelebrationを単体プレビュー。設定UIは全部ProfileScreenの「開発用」カード内。
 - **✅ 読解の問題ID刷新 完了(2026-08-10・コミット済/未ビルド)**: 文章=`Lv-D-{S/M/L/J}-NNN`(短S/中M/長L/情報J)・設問=`<文章ID>-qK`に統一(670文章/889問)。content/problems/dokkai/*.json をスクリプト書換→rebuild.tsで_manifest再生成(OTA)。PASSAGE_TRANS_NEはit.id由来で**自動追従**(手修正不要)。state移行=`src/data/exam/readingIdMigration.json`(旧設問id→新)＋storage.ts `migrateReadingIds`(kbId方式・冪等・新旧重複0)。読解idはsrcから参照されず(rehydrate.test以外)＝低リスク。テスト387緑。**次にやる=文字語彙(V)/文法(G)は表示IDのみ**(内部不変・手順=id-rename-inflight.md)。**要ビルド**で実機反映(移行はアプリコード)。
 - **🆕 2026-08-10 このセッションで実装・コミット済(未ビルド)**: 退会で端末内もreset＋①利用ログは残す(`33b00fde`)／**無料お試し7日をアカウントベース化**=サーバー`entitlements.trial_claimed_at`で1回のみ・再ログインで再付与しない(`583dbf1e`、**要デプロイ**=schema.sqlのalter＋Edge`trial-claim`貼付。[[trial-account-based-server]])／en・ne UI全訳779完全＋陳腐化修正＋`i18n_backlog.py --drift`追加(`3ff126e7`他)／書斎ボタンを解禁順に整列＋意味から単語→語彙パズル・文をつくる→文法パズル改名(`60d13e4c`)／解禁お祝い画像4枚取り込み(`501dbdbf`)。

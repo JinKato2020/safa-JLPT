@@ -1,6 +1,7 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+- **🆕 2026-08-11 母語表示バグ＋ダッシュボード予想得点統一(未ビルド/未commitはこのターンで)**: ①ダッシュボード母語が英語/vi=誤り。原因=profile.l1は「意味の翻訳言語(en/neのみ)」で母語でない(日本語UIでもl1=en・既定l1='vi')。修正=telemetry profile.l1を`nativeLangOf(settings)=uiLang優先`に変更＋App.tsxの言語同期effectで`!settings.uiLang`なら解決uiLangを保存(匿名の初回も端末言語で確定)。expo-localizationのtelemetry静的importはRN巻き込みでtsxテスト2件が壊れるため不採用→uiLang保存方式。dashboard.htmlは母語をlangLabel(コード→日本語名)表示。②ダッシュボード=**到達度/合格率を廃止し予想得点に統一**(pass_pct列・平均合格率列を削除・群名到達度→予想得点)。SQL再実行不要(表示のみ)。テスト390緑。
 - **🆕 2026-08-11 模試/解禁/類義の4修正(コミット`ec6b4fb2`・未ビルド)**: ①模試結果ヘッダーを「予想得点 X/180＋合格ライン＋合否」に刷新(selectors.mockScoreEstimate=区分別正答×配点・足切り｜・テスト有)＋区分別の予想得点＋詳細弱点(区分別正答率)併記。②休憩画面の桜の吹き出しを上部グループ化(顔に被らない)。③**解禁をポイント無限から分離**=専用トグル`devUnlockAll`(既定OFF)。5/10/15/20%の全体カバー率ゲート厳守(unlocks.ts devBypass・KubunCard dev)。④類義`sy:n4-v-623`正解を「乗ります」→「移ります」(解説と一致)＋_manifest再生成。
 - **✅ AIコーチ「模試の記録」カード 完了(2026-08-11・未ビルド)**: MockResultにlevel/predScore/predMax/passTotal/sectionsを追加保存(recordMockResult・JLPTのみ・旧stateは省略可)。AICoachに新カード=最新模試の予想得点(X/180)＋合格圏判定＋前回比＋区分別(足切り｜・既存score*スタイル流用)＋直近8回の推移＋空状態は「模試を受ける→」。マスタリー由来の予想得点カードは別に残置(実戦=模試/普段=学習の2本立て)。RECORD_MOCKは全fields保存・last60。
 - **🆕 2026-08-10 設定/開発用の追加3件(コミット済・未ビルド)**: ①読解の大問名を短縮=「内容理解(短文/中文/長文)」→`短文/中文/長文`(情報検索は据置・聴解は元から短名)・i18n study.sub_naiyou_tan/chu/choubun のja/en/ne値だけ変更(キー・データ不変)。②開発用トグル`devMockSkip`=ONで模試中に右上「⏭ 次の休憩」→現ブロックの設問全カットで`sectionDone()`(次休憩/最終は終了)。③設定「解禁演出を確認」=UNLOCKSの4ボタンでUnlockCelebrationを単体プレビュー。設定UIは全部ProfileScreenの「開発用」カード内。
@@ -62,8 +63,8 @@
 <!-- AUTO:BEGIN -->
 
 ## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 85ターン（文脈 18万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 85ターン・ツール41回）— まとめ方を変える
+- ⚠ 連続 156ターン（文脈 29万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 156ターン・ツール73回）— まとめ方を変える
 
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a47ab6769b1b9a288 general-purpose
@@ -72,13 +73,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - memory/在庫問題数.txt
+- memory/handoff.md
+- src/screens/AICoachScreen.tsx
+- src/screens/MockScreen.tsx
+- src/store/state.ts
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- src/data/exam/readingIdMigration.json
-- content/problems/dokkai/naiyou_tan_N5.json
-- content/problems/dokkai/naiyou_tan_N4.json
-- content/problems/dokkai/naiyou_tan_N3.json
-- content/problems/dokkai/naiyou_chu_N5.json
+- package.json
 
-_自動更新: 2026-08-10 21:53_
+_自動更新: 2026-08-11 00:12_
 <!-- AUTO:END -->

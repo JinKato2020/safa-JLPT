@@ -238,11 +238,11 @@ function renderGeo(geo){
 function renderLevel(level){
   simpleTbl($('tLevel'),
     [{label:'レベル'},{label:'人数',num:1},{label:'アクティブ(7日)',num:1},{label:'今日のアクティブ',num:1},{label:'学習回数',num:1},{label:'学習時間(合計)',num:1},
-     {label:'平均 予想得点',num:1},{label:'平均 合格率',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
+     {label:'平均 予想得点',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
     (level||[]).slice().sort(byLevel),
     [ r=>`<b>${r.level}</b>`, r=>`${r.users}人`, r=>`${r.active_users ?? 0}人`, r=>`${r.dau ?? 0}人`, r=>`${r.sessions ?? 0}回`, r=>hm(r.study_min),
       r=> (r.avg_pred_score==null?'<span class="empty">—</span>':`${r.avg_pred_score}<span class="muted">/${r.pred_max ?? 180}</span>`),
-      r=>pct(r.avg_pass_pct), r=>pct(r.avg_cov_pct), r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.referred_total ?? 0}人`, r=>`${r.passing_users}人` ]
+      r=>pct(r.avg_cov_pct), r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.referred_total ?? 0}人`, r=>`${r.passing_users}人` ]
   );
 }
 
@@ -331,12 +331,15 @@ const dmCol = (k, label, full, grp) => ({ g:grp||'大問別 正解/母数（文�
 // 読解・聴解の大問(公式の区分)。文字語彙/文法と同じ [正解,母数] で並べる。
 const RD = '大問別 正解/母数（読解・聴解）';
 
+// 母語コード→日本語名(読みやすさ用)。未知コードはそのまま表示。
+const LANG_JA = { ja:'日本語', en:'英語', ne:'ネパール語', vi:'ベトナム語', my:'ミャンマー語', id:'インドネシア語', ko:'韓国語', zh:'中国語', bn:'ベンガル語', th:'タイ語' };
+const langLabel = code => { const c=String(code||'').toLowerCase(); return LANG_JA[c] || code; };
 const COLS = [
   { g:'利用者', key:'who',   label:'ID / メール', val:r=>(r.email||r.anon_id||''),
     cell:r=> r.email ? esc(r.email) : `<span class="mono">${esc(String(r.anon_id||'').slice(0,8))}</span>` },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
-  { g:'プロフィール', key:'l1',          label:'母語', title:'母語コード(vi/ne/id/my/en/zh 等)', val:r=>r.l1||'', cell:r=> esc(r.l1||'—') },
+  { g:'プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
   { g:'プロフィール', key:'prof_country',label:'国名', title:'本人が選んだ国(ISO2)', val:r=>r.prof_country||'', cell:r=> esc(r.prof_country||'—') },
   { g:'プロフィール', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
   { g:'プロフィール', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
@@ -349,12 +352,11 @@ const COLS = [
   { g:'利用者', key:'platform', label:'端末', val:r=>r.platform||'', cell:r=> esc(r.platform||'—') },
   { g:'利用者', key:'app',   label:'アプリ版', title:'その端末が動かしているアプリの版(古いと母数も古い)',
     val:r=>r.app||'', cell:r=> `<span class="mono">${esc(r.app||'—')}</span>` },
-  { g:'到達度', key:'pred_score', label:'予想得点', num:1, title:'アプリの主指標＝いまの実力での予想得点(満点／合格ライン)。緑＝合格ライン到達',
+  { g:'予想得点', key:'pred_score', label:'予想得点', num:1, title:'アプリの主指標＝いまの実力での予想得点(満点／合格ライン)。緑＝合格ライン到達',
     val:r=>numOr(r.pred_score),
     cell:r=> (r.pred_score==null ? '<span class="empty">—</span>'
       : `<b style="${(r.pass_total!=null && r.pred_score>=r.pass_total)?'color:#2e7d32':''}">${r.pred_score}</b><span class="muted">/${r.pred_max ?? 180}</span>`
         + (r.pass_total!=null ? `<span class="muted" title="合格ライン"> 合${r.pass_total}</span>` : '')) },
-  { g:'到達度', key:'pass_pct', label:'合格率', num:1, title:'参考(アプリでは非表示)。予想得点が主指標', val:r=>numOr(r.pass_pct), cell:r=> pct(r.pass_pct) },
   { g:'カバー率', key:'cov_kanji',   label:'漢字', num:1, val:r=>numOr(r.cov_kanji),   cell:r=> pct(r.cov_kanji) },
   { g:'カバー率', key:'cov_vocab',   label:'語彙', num:1, val:r=>numOr(r.cov_vocab),   cell:r=> pct(r.cov_vocab) },
   { g:'カバー率', key:'cov_grammar', label:'文法', num:1, val:r=>numOr(r.cov_grammar), cell:r=> pct(r.cov_grammar) },

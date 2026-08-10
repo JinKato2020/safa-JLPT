@@ -259,7 +259,10 @@ function Root() {
   useEffect(() => {
     if (!hydrated) return;
     if (settings.l1 !== meaningLang) setSettings({ l1: meaningLang });
-  }, [hydrated, meaningLang]); // eslint-disable-line react-hooks/exhaustive-deps
+    // 母語(ダッシュボード計測用)= 実際に解決したUI言語。未保存(匿名の初回等)なら端末言語で確定させ、
+    // l1(=意味の翻訳言語 en/ne)や既定'vi'ではなく本当の母語を送れるようにする。
+    if (!settings.uiLang && uiLang) setSettings({ uiLang });
+  }, [hydrated, meaningLang, uiLang]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 匿名計測: 日次スナップショット＋アプリ往来/滞在＋回答flush＋クラッシュ報告。
   useEffect(() => {

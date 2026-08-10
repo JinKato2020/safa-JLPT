@@ -20,6 +20,11 @@ const M_INSTALL = 'install';
 const M_FIRST_SESSION = 'first_session';
 const M_NEXT_DAY_OPEN = 'next_day_open';
 const LIFECYCLE_DAY_MS = 24 * 3600 * 1000;
+// 母語(ダッシュボード表示用)=ユーザーが選んだUI言語(=学習者の母語)。settings.uiLangは起動時に端末言語で必ず初期化される
+// (App起動effect)。※ settings.l1 は「意味の翻訳言語(en/neのみ)」用で母語ではない(日本語UIでもl1=en)。既定l1='vi'に引っ張られない。
+function nativeLangOf(settings: { uiLang?: string }): string | null {
+  return settings.uiLang || null;
+}
 function installDayStr(state: AppState): string | null { return state.installedAt ? dayStr(state.installedAt) : null; }
 function daysSinceInstall(state: AppState, now: number): number | null {
   if (!state.installedAt) return null;
@@ -162,7 +167,7 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
     // 管理ダッシュボードのプロフィール列(名前/母語/国名/気分/性格/得意)。読める日本語で送る(気分/性格はキー→ラベル解決済み)。
     profile: {
       nickname: state.settings.nickname ?? null,
-      l1: state.settings.l1 ?? null,
+      l1: nativeLangOf(state.settings),
       country: state.settings.country ?? null,
       mood: moodMsgOf(state.settings.moodMsg),
       personality: personalityOf(state.settings.personality)?.label ?? null,
