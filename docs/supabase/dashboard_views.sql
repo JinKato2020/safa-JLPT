@@ -161,6 +161,21 @@ from (
 ) x
 group by level, unit;
 
+-- ⑥ 国別(接続国)。登録=user_geo(ログイン済みアカウントのIP国) / 全体=geo_country_counts(インストール概算・匿名含む)。
+--    匿名の概算 = 全体 − 登録(マイナスは0に丸め)。国はIP由来のおおよその判定。
+--    ※全体(geo_country_counts)はアプリ更新後に溜まる。登録(user_geo)は既にデータあり。
+drop view if exists public.v_admin_geo;
+create view public.v_admin_geo as
+select
+  coalesce(g.country, c.country)                                   as country,
+  coalesce(g.registered, 0)                                        as registered,      -- ログイン済みアカウント数
+  coalesce(c.total, 0)                                             as total_installs,  -- インストール概算(匿名含む全体)
+  greatest(coalesce(c.total, 0) - coalesce(g.registered, 0), 0)    as anonymous_est    -- 匿名の概算=全体−登録
+from (select country, count(*) as registered from public.user_geo group by country) g
+full outer join (select country, sum(count) as total from public.geo_country_counts group by country) c
+  on g.country = c.country
+order by coalesce(c.total, 0) desc, coalesce(g.registered, 0) desc;
+
 -- 旧「アカウント別 横並び」ビューは撤去(登録者は上の v_admin_devices に統合済み=メール＋合格率まで1表で見える)。
 drop view if exists public.v_admin_accounts;
 
@@ -169,7 +184,8 @@ grant select on
   public.v_admin_summary,
   public.v_admin_devices,
   public.v_admin_level,
-  public.v_admin_stock
+  public.v_admin_stock,
+  public.v_admin_geo
 to service_role;
 
 -- ダッシュボードの「ごみ箱」ボタンは、これらの元表を service_role で REST DELETE する。

@@ -95,6 +95,11 @@
   </section>
 
   <section>
+    <h2>国別（接続国） <span class="note">登録＝ログイン済みアカウント数／全体＝インストール概算（匿名含む・アプリ更新後に増える）／匿名＝全体−登録の概算。国はIPからのおおよその判定</span></h2>
+    <div class="scroll"><table id="tGeo"></table></div>
+  </section>
+
+  <section>
     <h2>レベル別 合計 <span class="note">人数・今日のアクティブ・学習回数・学習時間はレベルごとの合計／合格率などは平均</span></h2>
     <div class="scroll"><table id="tLevel"></table></div>
   </section>
@@ -157,13 +162,15 @@ async function loadAll(){
   localStorage.setItem('dash_url', url);
   localStorage.setItem('dash_key', key);
   try{
-    const [summary, level, stock, devices] = await Promise.all([
+    const [summary, geo, level, stock, devices] = await Promise.all([
       api(url,key,'v_admin_summary'),
+      api(url,key,'v_admin_geo'),
       api(url,key,'v_admin_level'),
       api(url,key,'v_admin_stock'),
       api(url,key,'v_admin_devices'),
     ]);
     renderSummary(summary[0]||{});
+    renderGeo(geo);
     renderLevel(level);
     renderStock(stock);
     devData = devices || [];
@@ -196,6 +203,14 @@ function hm(min){
 }
 const LV_ORDER = { N5:1, N4:2, N3:3, N2:4, N1:5 };
 const byLevel = (a,b) => (LV_ORDER[a.level]||9) - (LV_ORDER[b.level]||9);
+
+function renderGeo(geo){
+  simpleTbl($('tGeo'),
+    [{label:'国'},{label:'登録',num:1},{label:'匿名(概算)',num:1},{label:'全体(概算)',num:1}],
+    (geo||[]).slice(),
+    [ r=>`<b>${esc(r.country||'—')}</b>`, r=>`${r.registered ?? 0}人`, r=>`${r.anonymous_est ?? 0}人`, r=>`${r.total_installs ?? 0}人` ]
+  );
+}
 
 function renderLevel(level){
   simpleTbl($('tLevel'),
