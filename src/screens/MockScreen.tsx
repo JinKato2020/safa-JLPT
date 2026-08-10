@@ -458,6 +458,8 @@ export default function MockScreen() {
     const bLabel = curBlock?.label ?? '';
     const bMin = Math.round((curBlock?.ms ?? 0) / 60_000);
     const bN = (curBlock?.to ?? 0) - (curBlock?.from ?? 0);
+    // 1回目(blockIdx 0)=休憩不要=開始の一言のみ。2回目以降=前の科目終わり→桜が ①ねぎらい ②休憩 ③準備できたら開始。
+    const isFirst = blockIdx === 0;
     return (
       <View style={s.fullImgWrap}>
         <Image source={IMG_BREAK} style={{ width: winW, height: winH }} resizeMode="cover" />
@@ -467,6 +469,18 @@ export default function MockScreen() {
               <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12} style={s.breakBack}>
                 <Text style={s.breakBackT}>← {t('mock.break_back')}</Text>
               </Pressable>
+            </View>
+            {/* 桜の吹き出し(前の科目後=ねぎらい→休憩→準備 / 1回目=開始の一言のみ)。 */}
+            <View style={s.restBubble}>
+              {isFirst ? (
+                <Text style={s.restLine}>{t('mock.start_first')}</Text>
+              ) : (
+                <>
+                  <Text style={s.restLine}>{t('mock.rest_greet')}</Text>
+                  <Text style={s.restLine}>{t('mock.rest_relax')}</Text>
+                  <Text style={s.restLine}>{t('mock.rest_ready')}</Text>
+                </>
+              )}
             </View>
             <View style={s.breakPanel}>
               <Text style={s.breakNextLbl}>{multiBlock ? `${blockIdx + 1} / ${blocks.length}　${t('mock.break_next')}` : t('mock.break_next')}</Text>
@@ -816,6 +830,9 @@ const makeStyles = (c: ThemeColors) =>
     breakTop: { flexDirection: 'row' },
     breakBack: { backgroundColor: 'rgba(20,16,10,0.55)', borderRadius: 999, paddingVertical: 6, paddingHorizontal: 14 },
     breakBackT: { color: '#fff', fontSize: ty.small, fontWeight: '800' },
+    // 桜の吹き出し(休憩画面の中ほど=桜の上あたり)。ねぎらい/休憩/準備の台詞。
+    restBubble: { alignSelf: 'center', maxWidth: 460, backgroundColor: 'rgba(255,255,255,0.92)', borderRadius: radius.lg, paddingVertical: spacing.md, paddingHorizontal: spacing.lg, gap: 6, alignItems: 'center' },
+    restLine: { fontSize: ty.body, color: '#3a2e1f', fontWeight: '800', textAlign: 'center', lineHeight: 24 },
     breakPanel: { backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: 4 },
     breakNextLbl: { fontSize: ty.tiny, color: '#6b5b45', fontWeight: '800', letterSpacing: 1 },
     breakNext: { fontSize: ty.h2, color: '#241a10', fontWeight: '900', textAlign: 'center' },
