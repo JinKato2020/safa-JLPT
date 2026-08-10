@@ -228,7 +228,7 @@ export default function ListeningScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={route.params?.title} onClose={async () => { await stopSound(); nav.goBack(); }} right={`${idx + 1} / ${steps.length}`} />
+        <ExamHeader title={route.params?.title} sub={step?.clip.id} onClose={async () => { await stopSound(); nav.goBack(); }} right={`${idx + 1} / ${steps.length}`} />
 
         <View style={s.clipCard}>
           <Text style={s.clipTitle}>{step.clip.title}</Text>
