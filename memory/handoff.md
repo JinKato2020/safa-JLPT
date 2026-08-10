@@ -60,8 +60,8 @@
 <!-- AUTO:BEGIN -->
 
 ## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 91ターン（文脈 12万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 91ターン・ツール50回）— まとめ方を変える
+- ⚠ 連続 85ターン（文脈 18万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 85ターン・ツール41回）— まとめ方を変える
 
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a47ab6769b1b9a288 general-purpose
@@ -69,14 +69,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
-- src/screens/ProfileScreen.tsx
-- src/screens/MockScreen.tsx
-- src/store/state.ts
-- src/i18n/ne.json
-- src/i18n/en.json
-- src/i18n/ja.json
-- memory/session-summary-LATEST.md
+- memory/在庫問題数.txt
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- src/data/exam/readingIdMigration.json
+- content/problems/dokkai/naiyou_tan_N5.json
+- content/problems/dokkai/naiyou_tan_N4.json
+- content/problems/dokkai/naiyou_tan_N3.json
+- content/problems/dokkai/naiyou_chu_N5.json
 
-_自動更新: 2026-08-10 21:42_
+_自動更新: 2026-08-10 21:53_
 <!-- AUTO:END -->

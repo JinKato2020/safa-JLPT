@@ -26,8 +26,8 @@ export function overallCoveragePct(state: AppState, now: number): number {
   return total > 0 ? Math.round((100 * learned) / total) : 0;
 }
 
-/** 開発用(無限ポイント)は全解禁扱いで動作確認しやすく。 */
-const devBypass = (state: AppState) => state.settings.devUnlimitedPoints === true;
+/** 開発用の「全モード解禁」トグルON時だけ全解禁扱い(ポイント無限とは独立=混同を避ける)。 */
+const devBypass = (state: AppState) => state.settings.devUnlockAll === true;
 
 /** いま解禁済みのモードキー集合。 */
 export function unlockedKeys(state: AppState, now: number): Set<UnlockKey> {

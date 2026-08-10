@@ -468,6 +468,20 @@ export default function ProfileScreen() {
               thumbColor={c.faint}
             />
           </View>
+          {/* 全モード解禁(開発用): ON=書斎の学習を全体カバー率に関係なく全解禁。ポイント無限とは独立(混同を避ける)。 */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>全モードを解禁</Text>
+              <Text style={s.subtle}>ON＝書斎の学習（聞き取り・書き取り・語彙/文法パズル）を全体カバー率に関係なく全部解禁。通常は5/10/15/20%で順に解禁（開発用・ポイント無限とは別）</Text>
+            </View>
+            <Switch
+              style={s.telemSwitch}
+              value={state.settings.devUnlockAll === true}
+              onValueChange={(v) => setSettings({ devUnlockAll: v })}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+          </View>
           {/* 書斎の解禁演出を確認(開発用): 各しきい値の解禁画面を単体で表示。 */}
           <View style={s.telemRow}>
             <View style={s.telemTxt}>

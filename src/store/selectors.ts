@@ -1,5 +1,5 @@
 // ストア状態 → JLPTエンジンへの橋渡し(派生値)。UI はこれを useMemo で呼ぶ。
-import { computeReadiness, effectiveP, type Category, type SectionInput } from '../engine/engine';
+import { computeReadiness, effectiveP, type Category, type Level, type SectionInput } from '../engine/engine';
 import { examOf } from '../engine/examProfile';
 import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR, VOCAB_FREQ, readingIdsBySub, listeningIdsBySub } from '../data';
 import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT, type Daimon } from '../data/examBlueprint';
@@ -302,6 +302,28 @@ function ladderPassPct(state: AppState, now: number): number {
 /** 予想得点(受験レベルの 予想得点/総得点180)。合格率と同じ大問配点で期待値算出。 */
 export function expectedScoreFor(state: AppState, now: number): ScoreEstimate {
   return ladderExpectedScore(state.settings.level as LadderLevel, ladderPassEntries(state, now));
+}
+
+/** 模試の実際の区分別正答から、客観的な予想得点(得点/満点・区分別・足切り)を出す。
+ *  各得点区分の点=（その区分に含まれる大問カテゴリの合計正答/合計出題）×区分満点。総得点=区分満点の和(JLPT=180)。 */
+export interface MockScoreEstimate {
+  score: number; max: number; passTotal: number;
+  sections: { key: string; label: string; score: number; max: number; min: number; total: number; below: boolean }[];
+}
+export function mockScoreEstimate(level: Level, byCat: Record<string, { c: number; t: number }>): MockScoreEstimate {
+  const pm = META.passMarks[level];
+  let score = 0;
+  let max = 0;
+  const sections = Object.entries(pm.sections).map(([key, sec]) => {
+    let c = 0;
+    let t = 0;
+    for (const cat of SECTION_CATS[key] ?? []) { const b = byCat[cat]; if (b) { c += b.c; t += b.t; } }
+    const pts = t > 0 ? Math.round((c / t) * sec.max) : 0;
+    score += pts;
+    max += sec.max;
+    return { key, label: SECTION_LABEL[key] ?? key, score: pts, max: sec.max, min: sec.min, total: t, below: t > 0 && pts < sec.min };
+  });
+  return { score, max, passTotal: pm.overall, sections };
 }
 
 export function readinessFor(state: AppState, now: number) {

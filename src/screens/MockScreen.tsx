@@ -10,7 +10,7 @@ import { useT } from '../i18n';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { isInMyList } from '../store/state';
-import { guessCorrect, jftMockScore } from '../store/selectors';
+import { guessCorrect, jftMockScore, mockScoreEstimate } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor, readingItemsForSub, listeningItemsForSub, READING_SUBTYPES, LISTENING_SUBTYPES, type ReadingSubtype, type ListeningSubtype } from '../data';
 import RubyText from '../components/RubyText';
@@ -465,22 +465,25 @@ export default function MockScreen() {
         <Image source={IMG_BREAK} style={{ width: winW, height: winH }} resizeMode="cover" />
         <SafeAreaView edges={['top', 'bottom']} style={StyleSheet.absoluteFill}>
           <View style={s.breakOverlay}>
-            <View style={s.breakTop}>
-              <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12} style={s.breakBack}>
-                <Text style={s.breakBackT}>← {t('mock.break_back')}</Text>
-              </Pressable>
-            </View>
-            {/* 桜の吹き出し(前の科目後=ねぎらい→休憩→準備 / 1回目=開始の一言のみ)。 */}
-            <View style={s.restBubble}>
-              {isFirst ? (
-                <Text style={s.restLine}>{t('mock.start_first')}</Text>
-              ) : (
-                <>
-                  <Text style={s.restLine}>{t('mock.rest_greet')}</Text>
-                  <Text style={s.restLine}>{t('mock.rest_relax')}</Text>
-                  <Text style={s.restLine}>{t('mock.rest_ready')}</Text>
-                </>
-              )}
+            {/* 桜の顔にかぶらないよう、戻る＋吹き出しは画面上部にまとめる(中央=桜の顔を空ける)。 */}
+            <View style={s.breakTopGroup}>
+              <View style={s.breakTop}>
+                <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12} style={s.breakBack}>
+                  <Text style={s.breakBackT}>← {t('mock.break_back')}</Text>
+                </Pressable>
+              </View>
+              {/* 桜の吹き出し(前の科目後=ねぎらい→休憩→準備 / 1回目=開始の一言のみ)。 */}
+              <View style={s.restBubble}>
+                {isFirst ? (
+                  <Text style={s.restLine}>{t('mock.start_first')}</Text>
+                ) : (
+                  <>
+                    <Text style={s.restLine}>{t('mock.rest_greet')}</Text>
+                    <Text style={s.restLine}>{t('mock.rest_relax')}</Text>
+                    <Text style={s.restLine}>{t('mock.rest_ready')}</Text>
+                  </>
+                )}
+              </View>
             </View>
             <View style={s.breakPanel}>
               <Text style={s.breakNextLbl}>{multiBlock ? `${blockIdx + 1} / ${blocks.length}　${t('mock.break_next')}` : t('mock.break_next')}</Text>
@@ -540,6 +543,8 @@ export default function MockScreen() {
     const pct = Math.round((100 * correct) / (answers.length || 1));
     const pctTrue = Math.round(100 * guessCorrect(pct / 100)); // 当て推量補正後の実力(4択偶然25%を除去)
     const jftSc = isJft ? jftMockScore(answers.map((a) => ({ id: a.id, section: a.section, correct: a.correct }))) : null;
+    // 予想得点(客観): この模試の区分別正答→得点区分の点(得点/満点・足切り)。JLPTのみ。
+    const est = isJft ? null : mockScoreEstimate(level, byCat);
     const wrongDrill = answers.filter((a) => !a.correct && a.drillable);
     const elapsed = (endedAt ?? Date.now()) - startedAt;
     // 合否: 開発者プレビューは指定どおり / 本番はJFT=jftScore・JLPT=passJlpt(総合＋各区分の足切り)。
@@ -597,6 +602,16 @@ export default function MockScreen() {
                 <Text style={s.resultPct}>{jftSc.total}<Text style={s.resultMax}> / 250</Text></Text>
                 <Text style={[s.resultTrue, jftSc.pass && { color: c.green }]}>{t(jftSc.bandKey)}{jftSc.pass ? '' : ` ・ ${t('mock.jft_pass_at')}`}</Text>
               </>
+            ) : est ? (
+              <>
+                {/* 予想得点を客観提示(得点/満点)＋合格ライン＋合否。実力%は補足で下に小さく。 */}
+                <Text style={s.predLbl}>{t('mock.pred_label')}</Text>
+                <Text style={s.resultPct}>{est.score}<Text style={s.resultMax}> / {est.max}</Text></Text>
+                <Text style={[s.resultTrue, passed && { color: c.green }]}>
+                  {t('mock.pred_passline', { n: est.passTotal })}　・　{t(passed ? 'mock.judge_pass' : 'mock.judge_fail')}
+                </Text>
+                <Text style={s.predSub}>{t('mock.result_true', { n: pctTrue })}</Text>
+              </>
             ) : (
               <>
                 <Text style={s.resultPct}>{pct}%</Text>
@@ -618,12 +633,33 @@ export default function MockScreen() {
             ) : null}
           </View>
 
-          <Text style={s.sectionH}>{t('mock.section_weakness')}</Text>
-          <View style={s.heatCard}>
-            {SEC_ORDER.filter((k) => byCat[k]).map((k) => (
-              <Bar key={k} label={SEC_LABEL[k]} correct={byCat[k].c} total={byCat[k].t} tc={c} s={s} />
-            ))}
-          </View>
+          {est ? (
+            <>
+              <Text style={s.sectionH}>{t('mock.pred_sections')}</Text>
+              <View style={s.heatCard}>
+                {est.sections.map((sec) => (
+                  <PointBar key={sec.key} label={sec.label} sec={sec} tc={c} s={s} />
+                ))}
+                <Text style={s.predNote}>{t('mock.pred_note')}</Text>
+              </View>
+              {/* 参考: 大問カテゴリ別の正答率(どの分野が弱いかの詳細)。 */}
+              <Text style={s.sectionH}>{t('mock.section_accuracy')}</Text>
+              <View style={s.heatCard}>
+                {SEC_ORDER.filter((k) => byCat[k]).map((k) => (
+                  <Bar key={k} label={SEC_LABEL[k]} correct={byCat[k].c} total={byCat[k].t} tc={c} s={s} />
+                ))}
+              </View>
+            </>
+          ) : (
+            <>
+              <Text style={s.sectionH}>{t('mock.section_weakness')}</Text>
+              <View style={s.heatCard}>
+                {SEC_ORDER.filter((k) => byCat[k]).map((k) => (
+                  <Bar key={k} label={SEC_LABEL[k]} correct={byCat[k].c} total={byCat[k].t} tc={c} s={s} />
+                ))}
+              </View>
+            </>
+          )}
 
           {wrongDrill.length > 0 ? (
             <Pressable
@@ -805,6 +841,23 @@ function Bar({ label, correct, total, tc, s }: { label: string; correct: number;
   );
 }
 
+// 得点区分の予想得点バー: 得点/満点＋足切りライン(｜)。足切り未満は赤＋⚠。
+function PointBar({ label, sec, tc, s }: { label: string; sec: { score: number; max: number; min: number; below: boolean }; tc: ThemeColors; s: Styles }) {
+  const frac = sec.max > 0 ? sec.score / sec.max : 0;
+  const minFrac = sec.max > 0 ? sec.min / sec.max : 0;
+  const color = sec.below ? tc.red : frac >= minFrac * 1.3 ? tc.green : tc.amber;
+  return (
+    <View style={s.barRow}>
+      <Text style={s.pbLabel} numberOfLines={1}>{label}</Text>
+      <View style={s.barTrack}>
+        <View style={[s.barFill, { width: `${Math.round(frac * 100)}%`, backgroundColor: color }]} />
+        <View style={[s.pbCut, { left: `${Math.round(minFrac * 100)}%` }]} />
+      </View>
+      <Text style={[s.pbPts, sec.below && { color: tc.red }]}>{sec.score}/{sec.max}{sec.below ? ' ⚠' : ''}</Text>
+    </View>
+  );
+}
+
 const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     c: { flex: 1, backgroundColor: c.bg },
@@ -832,6 +885,7 @@ const makeStyles = (c: ThemeColors) =>
     // 休憩/開始画面・模試終了画面(全画面イラスト＋半透明パネル)
     fullImgWrap: { flex: 1, backgroundColor: '#000' },
     breakOverlay: { flex: 1, justifyContent: 'space-between', padding: spacing.lg },
+    breakTopGroup: { gap: spacing.md },
     breakTop: { flexDirection: 'row' },
     breakBack: { backgroundColor: 'rgba(20,16,10,0.55)', borderRadius: 999, paddingVertical: 6, paddingHorizontal: 14 },
     breakBackT: { color: '#fff', fontSize: ty.small, fontWeight: '800' },
@@ -918,6 +972,12 @@ const makeStyles = (c: ThemeColors) =>
     resultPct: { fontSize: 64, fontWeight: '800', color: c.ink, lineHeight: 70 },
     resultTrue: { fontSize: ty.body, fontWeight: '800', color: c.blue, marginTop: 2 },
     resultMax: { fontSize: ty.h2, fontWeight: '800', color: c.faint },
+    predLbl: { fontSize: ty.small, fontWeight: '800', color: c.mute, letterSpacing: 1, marginBottom: 2 },
+    predSub: { fontSize: ty.small, color: c.faint, fontWeight: '700', marginTop: 2 },
+    predNote: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs, lineHeight: 15 },
+    pbLabel: { fontSize: ty.small, color: c.ink2, width: 92 },
+    pbCut: { position: 'absolute', top: 0, bottom: 0, width: 2, backgroundColor: c.ink2, opacity: 0.55 },
+    pbPts: { fontSize: ty.small, fontWeight: '800', color: c.ink2, width: 66, textAlign: 'right', fontVariant: ['tabular-nums'] },
     resultFrac: { fontSize: ty.body, color: c.mute, marginTop: spacing.xs },
     resultCap: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs, letterSpacing: 1 },
     resultDelta: { fontSize: ty.small, color: c.mute, fontWeight: '700', marginTop: spacing.sm },

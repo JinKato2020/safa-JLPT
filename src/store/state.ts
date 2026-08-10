@@ -53,6 +53,7 @@ export interface Settings {
   devRewardHalf?: boolean;                   // 【開発用】ON=ご褒美イラストを1/2(2回に1回)出す。通常は約1/10(REWARD_EVERY=10)
   devUnlimitedMock?: boolean;                // 【開発用】ON=模試チケットを消費せず無制限に受験できる(チケット0でも開始可)
   devMockSkip?: boolean;                      // 【開発用】ON=模試中に「次の休憩へ」スキップボタンを表示(現ブロックの設問を全カットして次の休憩/終了へ)
+  devUnlockAll?: boolean;                      // 【開発用】ON=書斎の学習モードを全体カバー率に関係なく全解禁(動作確認用)。ポイント無限とは独立
   lastSakuraSpeechAt?: number | null;       // 桜の癒し吹き出しを最後に出した時刻(ms)。約5時間に1度に絞るためのゲート
   sakuraRecoDay?: string;                    // 桜が「今日のオススメ」案内を出した日(YYYY-M-D)。毎日最初の一言だけこの案内にする
   afterStudyCount?: number;                  // 学習後のご褒美(イラスト＋励まし＋AIコーチ)を約10回に1度出すためのカウンタ

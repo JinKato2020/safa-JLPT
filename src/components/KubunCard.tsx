@@ -40,7 +40,7 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
   // 段階解禁: 【全体カバー率】(3辞書合計)がしきい値に達すると学習モードが解禁(演出=UnlockCelebrationと同基準)。
   // カード内のpct/バッジ/バーは分野別カバー率の表示のまま。解禁ゲートだけ overallPct を使う。
   const overallPct = useMemo(() => overallCoveragePct(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
-  const dev = state.settings.devUnlimitedPoints === true;
+  const dev = state.settings.devUnlockAll === true; // 全解禁は専用トグルのみ(ポイント無限では解禁しない)
   const gated = (labelKey: string, onPress: () => void, need = 0) => {
     const ok = need === 0 || dev || overallPct >= need;
     return (
