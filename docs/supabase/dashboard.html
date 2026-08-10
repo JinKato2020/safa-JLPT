@@ -105,7 +105,7 @@
   </section>
 
   <section>
-    <h2>レベル別 合計 <span class="note">人数・学習回数・学習時間は合計／<b>平均は「直近30日に使ったアクティブ人だけ」で計算</b>（インストールしただけの幽霊ユーザーは平均から除外）</span></h2>
+    <h2>レベル別 合計 <span class="note">人数・学習回数・学習時間は合計／<b>平均は「直近7日に使ったアクティブ人だけ」で計算</b>（インストールしただけの幽霊ユーザーは平均から除外）</span></h2>
     <div class="scroll"><table id="tLevel"></table></div>
   </section>
 
@@ -237,7 +237,7 @@ function renderGeo(geo){
 
 function renderLevel(level){
   simpleTbl($('tLevel'),
-    [{label:'レベル'},{label:'人数',num:1},{label:'アクティブ(30日)',num:1},{label:'今日のアクティブ',num:1},{label:'学習回数',num:1},{label:'学習時間(合計)',num:1},
+    [{label:'レベル'},{label:'人数',num:1},{label:'アクティブ(7日)',num:1},{label:'今日のアクティブ',num:1},{label:'学習回数',num:1},{label:'学習時間(合計)',num:1},
      {label:'平均 予想得点',num:1},{label:'平均 合格率',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
     (level||[]).slice().sort(byLevel),
     [ r=>`<b>${r.level}</b>`, r=>`${r.users}人`, r=>`${r.active_users ?? 0}人`, r=>`${r.dau ?? 0}人`, r=>`${r.sessions ?? 0}回`, r=>hm(r.study_min),

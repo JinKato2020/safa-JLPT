@@ -114,20 +114,20 @@ create view public.v_admin_level as
 select
   coalesce(d.level, '?')                                as level,
   count(*)                                              as users,           -- 総数(is_latest)
-  count(*) filter (where d.last_day >= current_date - 29) as active_users,  -- 直近30日に利用=平均の母数
+  count(*) filter (where d.last_day >= current_date - 6) as active_users,  -- 直近7日に利用=平均の母数
   count(*) filter (where d.last_day = current_date)     as dau,
   coalesce(sum(s.sessions), 0)                          as sessions,
   coalesce(sum(d.study_min), 0)                         as study_min,
-  -- ★平均は「アクティブ(直近30日に利用)」だけで計算。インストールしただけ/離脱した幽霊ユーザーで平均が薄まらないように。
-  round(avg(d.pred_score) filter (where d.last_day >= current_date - 29))  as avg_pred_score,  -- 平均 予想得点(現行の主指標)
+  -- ★平均は「アクティブ(直近7日に利用)」だけで計算。インストールしただけ/離脱した幽霊ユーザーで平均が薄まらないように。
+  round(avg(d.pred_score) filter (where d.last_day >= current_date - 6))  as avg_pred_score,  -- 平均 予想得点(現行の主指標)
   max(d.pred_max)                                       as pred_max,        -- 満点(JLPTは180)
-  round(avg(d.pass_total) filter (where d.last_day >= current_date - 29))  as pass_total,      -- 平均 合格ライン
-  round(avg(d.pass_pct)  filter (where d.last_day >= current_date - 29))   as avg_pass_pct,
-  round(avg(d.cov_pct)   filter (where d.last_day >= current_date - 29))   as avg_cov_pct,
-  round(avg(d.study_min) filter (where d.last_day >= current_date - 29))   as avg_study_min,
-  round(avg(d.streak)    filter (where d.last_day >= current_date - 29), 1) as avg_streak,
+  round(avg(d.pass_total) filter (where d.last_day >= current_date - 6))  as pass_total,      -- 平均 合格ライン
+  round(avg(d.pass_pct)  filter (where d.last_day >= current_date - 6))   as avg_pass_pct,
+  round(avg(d.cov_pct)   filter (where d.last_day >= current_date - 6))   as avg_cov_pct,
+  round(avg(d.study_min) filter (where d.last_day >= current_date - 6))   as avg_study_min,
+  round(avg(d.streak)    filter (where d.last_day >= current_date - 6), 1) as avg_streak,
   coalesce(sum(d.referred_qualified), 0)                as referred_total,
-  count(*) filter (where d.passing and d.last_day >= current_date - 29)    as passing_users
+  count(*) filter (where d.passing and d.last_day >= current_date - 6)    as passing_users
 from public.v_admin_devices d
 left join (
   select anon_id, count(*) as sessions

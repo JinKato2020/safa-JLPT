@@ -67,5 +67,5 @@
 - docs/supabase/geo_counts.sql
 - src/geo/geoClient.ts
 
-_自動更新: 2026-08-10 13:14_
+_自動更新: 2026-08-10 13:18_
 <!-- AUTO:END -->
