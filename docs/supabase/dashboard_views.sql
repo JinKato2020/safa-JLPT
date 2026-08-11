@@ -34,7 +34,13 @@ select
   t.*,
   (row_number() over (partition by t.anon_id order by t.last_day desc)) = 1 as is_latest,
   case when t.account_id is not null then '登録' else '匿名' end as kind,
-  u.email
+  u.email,
+  -- 課金状態(アカウント単位。匿名は entitlements 行が無い=null)。
+  --   pro_until=紹介/お試しで延ばした期間つきProの終了時刻 / trial_claimed_at=お試し(7日)を受け取った日時 /
+  --   reward_grant_count=紹介の継続達成でのべ +7日 された回数。※有料課金(1年/1月)はサーバー未同期=ここには出ない。
+  en.pro_until,
+  en.trial_claimed_at,
+  en.reward_grant_count
 from (
   select distinct on (anon_id, data->>'level')
     anon_id,
@@ -101,6 +107,7 @@ from (
   order by anon_id, data->>'level', day desc, created_at desc
 ) t
 left join auth.users u on u.id = t.account_id
+left join public.entitlements en on en.user_id = t.account_id
 order by (t.account_id is null), t.last_day desc, t.level;
 
 -- ③ レベル別 合計・平均(利用者別ビューを N5/N4/N3 で集計)。

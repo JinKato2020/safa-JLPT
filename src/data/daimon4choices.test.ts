@@ -66,8 +66,8 @@ test('正解が誤答プールに混入していても重複しない', () => {
 });
 
 test('実データ結線: 言い換えの実バンクから4択が組める', () => {
-  const e = SYNONYM_BANK[0];
-  const q = questionForUnit(`${e.id.slice(3)}#synonym`, seeded(3));
+  const e = SYNONYM_BANK[0] as { id: string; vocabId?: string; answer: string };
+  const q = questionForUnit(`${e.vocabId ?? e.id.slice(3)}#synonym`, seeded(3));
   assert.ok(q, '問題が生成される');
   assert.equal(q.choices.length, 4);
   assert.equal(q.choices[q.answerIndex], e.answer, '正解が answerIndex にある');

@@ -62,19 +62,22 @@ const BANK_INDEX = new Map(BANK.map((b) => [b.id, b] as const));
 const BANK_LEVEL = new Map(BANK.map((b) => [b.id, b.level] as const));
 export function bankLevelOf(id: string): string | undefined { return BANK_LEVEL.get(id); }
 
+// 固定問題集(漢字読み/表記/文脈規定/類義)の語id。新ID=vocabIdフィールド / 旧ID=先頭3文字(kr:等)を除去。
+// これで問題IDは自由な連番にでき、単語との連携(ユニットキー <vocabId>#daimon)は保たれる。
+const vocabOf = (x: { id: string; vocabId?: string }) => x.vocabId ?? x.id.slice(3);
 // 漢字読み/表記の対象語=固定問題集(KANJI_READ_BANK)にエントリがある語。交ぜ書き方式で作成済み。
 // ユニットキー <vocabId>#kanji_read / #orthography の集合を単一ソースにする。
-const KR_UNIT_SET = new Set(KANJI_READ_BANK.map((e) => `${e.id.slice(3)}#${e.daimon}`));
+const KR_UNIT_SET = new Set(KANJI_READ_BANK.map((e) => `${vocabOf(e)}#${e.daimon}`));
 // 表記(公式形式)=固定問題集(ORTHOGRAPHY_BANK)にエントリがある語。ユニットキー <vocabId>#orthography。
-const OG_UNIT_SET = new Set(ORTHOGRAPHY_BANK.map((e) => `${e.id.slice(3)}#orthography`));
+const OG_UNIT_SET = new Set(ORTHOGRAPHY_BANK.map((e) => `${vocabOf(e)}#orthography`));
 // 文脈規定=固定問題集(CONTEXT_BANK)にエントリがある語。id cx:<vid> → ユニット <vid>#context。
-const CTX_UNIT_SET = new Set(CONTEXT_BANK.map((e) => `${e.id.slice(3)}#context`));
+const CTX_UNIT_SET = new Set(CONTEXT_BANK.map((e) => `${vocabOf(e)}#context`));
 // 文脈規定は verified(作り直し＋独立の反証2回＋揃い監査を通過)だけを出題する級がある。
 // 旧データの誤答は分野違いで当てずっぽうに消せる(例 作法→湿度/酸素/時刻)ため測定にならない。
 // 【重要】級を絞ること。全級に一律で掛けると、まだ作り直していない級の文脈規定が丸ごと消滅する。
 const CTX_GATED_LEVELS = new Set<string>(['N5', 'N4', 'N3']); // 作り直し済みの級だけ。N5=揃え直し599問verified済(2026-07-18)・残73は手作り待ちで非表示
 const CTX_VERIFIED_SET = new Set(
-  CONTEXT_BANK.filter((e) => e.verified === true).map((e) => `${e.id.slice(3)}#context`),
+  CONTEXT_BANK.filter((e) => e.verified === true).map((e) => `${vocabOf(e)}#context`),
 );
 // その級に verified が1問でもある級だけを記録(実際に読み込まれたデータに基づく)。
 const CTX_VERIFIED_LEVELS = new Set(CONTEXT_BANK.filter((e) => e.verified === true).map((e) => e.level));
@@ -86,7 +89,7 @@ export function contextGated(level: string, gatedLevels = CTX_GATED_LEVELS, veri
   return gatedLevels.has(level) && verifiedLevels.has(level);
 }
 // 言い換え類義=固定問題集(SYNONYM_BANK)にエントリがある語。id sy:<vid> → ユニット <vid>#synonym。
-const SY_UNIT_SET = new Set(SYNONYM_BANK.map((e) => `${e.id.slice(3)}#synonym`));
+const SY_UNIT_SET = new Set(SYNONYM_BANK.map((e) => `${vocabOf(e)}#synonym`));
 
 // 大問に適格な「項目(語彙/文法)」。漢字読み/表記=固定問題集に在る語、文脈=固定問題集に在る語、言い換え=類義あり、文法形式=cloze可文法。
 function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
@@ -139,19 +142,19 @@ const ITEM_INDEX = new Map<string, StudyItem>([...VOCAB, ...GRAMMAR].map((it) =>
 
 // 漢字読み/表記の固定問題集(id kr:<vid>/og:<vid> → ユニット <vid>#kanji_read / #orthography)。
 const KR_BANK_INDEX = new Map<string, (typeof KANJI_READ_BANK)[number]>(
-  KANJI_READ_BANK.filter((e) => e.daimon === 'kanji_read').map((e) => [`${e.id.slice(3)}#kanji_read`, e]),
+  KANJI_READ_BANK.filter((e) => e.daimon === 'kanji_read').map((e) => [`${vocabOf(e)}#kanji_read`, e]),
 );
 // 表記(大問2・公式形式)の固定問題集(id og:<vid> → ユニット <vid>#orthography)。
 const OG_BANK_INDEX = new Map<string, (typeof ORTHOGRAPHY_BANK)[number]>(
-  ORTHOGRAPHY_BANK.map((e) => [`${e.id.slice(3)}#orthography`, e]),
+  ORTHOGRAPHY_BANK.map((e) => [`${vocabOf(e)}#orthography`, e]),
 );
 // 文脈規定の固定問題集(id cx:<vid> → ユニット <vid>#context)。
 const CTX_BANK_INDEX = new Map<string, (typeof CONTEXT_BANK)[number]>(
-  CONTEXT_BANK.map((e) => [`${e.id.slice(3)}#context`, e]),
+  CONTEXT_BANK.map((e) => [`${vocabOf(e)}#context`, e]),
 );
 // 言い換え類義の固定問題集(id sy:<vid> → ユニット <vid>#synonym)。
 const SY_BANK_INDEX = new Map<string, (typeof SYNONYM_BANK)[number]>(
-  SYNONYM_BANK.map((e) => [`${e.id.slice(3)}#synonym`, e]),
+  SYNONYM_BANK.map((e) => [`${vocabOf(e)}#synonym`, e]),
 );
 // 言い換えは verified(誤答を作り直し独立の反証で一意性を確認済)の有無にかかわらず全て出題する。
 // 未検証(旧データ=分野違いの易しすぎるダミー。例 作法→天気/音楽/地図)も出す方針:

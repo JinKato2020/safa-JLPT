@@ -11,6 +11,8 @@ const UNGATED: string[] = [];        // 全級ゲート済み。未着手の級�
 const bank = (level: string) => CONTEXT_BANK.filter((e) => e.level === level);
 const verified = (level: string) => bank(level).filter((e) => e.verified === true);
 const units = (level: string) => daimonUnitIds(level as never, 'context' as never);
+// 新ID=vocabIdフィールド / 旧ID=先頭3文字除去。ユニットキー <vocabId>#context を作る(daimon.ts と同じ)。
+const vocabOf = (x: { id: string; vocabId?: string }) => x.vocabId ?? x.id.slice(3);
 
 for (const lv of GATED) {
   test(`文脈規定${lv}: verifiedだけを出題する(旧データの分野違いダミーは出さない)`, () => {
@@ -19,7 +21,7 @@ for (const lv of GATED) {
     assert.ok(v.length <= bank(lv).length, `${lv}のverified数がbankを超えるのは異常`); // 全問検証済みも許容(N4は完了)
     const ids = units(lv);
     assert.equal(ids.length, v.length);
-    const want = new Set(v.map((e) => `${e.id.slice(3)}#context`));
+    const want = new Set(v.map((e) => `${vocabOf(e)}#context`));
     for (const id of ids) assert.ok(want.has(id), `verifiedでない問題が出題されている: ${id}`);
   });
 }
@@ -53,7 +55,7 @@ test('誤答が足りずタグを付けた語は出題されない', () => {
   const tagged = CONTEXT_BANK.filter((e) => (e as { needsWork?: string }).needsWork);
   for (const e of tagged) {
     assert.ok(!e.verified, `${e.id}: 誤答不足なのにverifiedが付いている`);
-    assert.ok(!units(e.level).includes(`${e.id.slice(3)}#context`), `${e.id}: 誤答不足なのに出題されている`);
+    assert.ok(!units(e.level).includes(`${vocabOf(e)}#context`), `${e.id}: 誤答不足なのに出題されている`);
   }
 });
 

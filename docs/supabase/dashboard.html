@@ -334,16 +334,39 @@ const RD = '大問別 正解/母数（読解・聴解）';
 // 母語コード→日本語名(読みやすさ用)。未知コードはそのまま表示。
 const LANG_JA = { ja:'日本語', en:'英語', ne:'ネパール語', vi:'ベトナム語', my:'ミャンマー語', id:'インドネシア語', ko:'韓国語', zh:'中国語', bn:'ベンガル語', th:'タイ語' };
 const langLabel = code => { const c=String(code||'').toLowerCase(); return LANG_JA[c] || code; };
+
+// ── 課金の状態(状態列) ──
+// サーバー(entitlements)に保存があるのは pro_until(紹介/お試しで延ばした終了時刻)と trial_claimed_at(お試し受取日)だけ。
+// 有料課金(1年Pro/1月Pro)はストアのフラグをサーバーへ同期していない=今は判別できない(将来 r.pro_plan 等が入れば追加する)。
+// お試し・紹介はどちらも「期間つきPro」なので状態は「7日Pro」の1本にまとめ、実際の残り日数を併記する(紹介が続くと7日を超えて延びる)。
+function proEnd(r){
+  const until = r.pro_until ? Date.parse(r.pro_until) : 0;
+  const trialEnd = r.trial_claimed_at ? Date.parse(r.trial_claimed_at) + 7*864e5 : 0;
+  return Math.max(until||0, trialEnd||0);
+}
+function proCell(r){
+  const end = proEnd(r), now = Date.now();
+  if(end > now){
+    const days = Math.ceil((end - now)/864e5);
+    const g = Number(r.reward_grant_count||0);
+    const extra = g>0 ? ` <span class="muted" title="紹介の継続達成でのべ${g}回 ＋7日された">紹介${g}</span>` : '';
+    return pill('7日Pro','good') + ` <span class="muted">残${days}日</span>` + extra;
+  }
+  return pill('無料');
+}
 const COLS = [
   { g:'利用者', key:'who',   label:'ID / メール', val:r=>(r.email||r.anon_id||''),
     cell:r=> r.email ? esc(r.email) : `<span class="mono">${esc(String(r.anon_id||'').slice(0,8))}</span>` },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
+  { g:'利用者', key:'pro_state', label:'状態',
+    title:'課金の状態。無料＝Pro無し／7日Pro＝お試し・紹介の期間つきPro（紹介が続くと7日を超えて延びる。残り日数を併記）。※1年Pro・1月Proはストア課金をサーバーへ同期したら表示（同期は未実装）',
+    val:r=>proEnd(r), cell:r=>proCell(r) },
   { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
   { g:'プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
   { g:'プロフィール', key:'prof_country',label:'国名', title:'本人が選んだ国(ISO2)', val:r=>r.prof_country||'', cell:r=> esc(r.prof_country||'—') },
   { g:'プロフィール', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
   { g:'プロフィール', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
-  { g:'プロフィール', key:'strong',      label:'得意', title:'いちばん正解率が高い区分', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },
+  { g:'プロフィール', key:'strong',      label:'得意', title:'いちばん正答率が高い区分（漢字／語彙／文法／読解／聴解の5区分）', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },
   // レベルを切り替えて使った人は、レベルごとに1行ずつ出る(同じメール/IDが複数行に並ぶ=正常)。
   // 「今」＝その人がいま使っているレベル。印の無い行は過去に使っていたレベルの記録。
   { g:'利用者', key:'level', label:'レベル', title:'レベルごとに1行。「今」＝現在のレベル／印なし＝過去に使ったレベル',

@@ -62,24 +62,20 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 69ターン（文脈 34万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 69ターン・ツール33回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a47ab6769b1b9a288 general-purpose
 - ae9c448fbd26954a9 general-purpose
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
-- docs/supabase/dashboard.html
-- App.tsx
-- src/telemetry/telemetry.ts
 - memory/session-summary-LATEST.md
+- memory/handoff.md
 - memory/在庫問題数.txt
-- src/screens/AICoachScreen.tsx
-- src/screens/MockScreen.tsx
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- content/problems/choukai/sokuji_N5.json
+- content/problems/choukai/sokuji_N4.json
+- content/problems/choukai/sokuji_N3.json
 
-_自動更新: 2026-08-11 00:23_
+_自動更新: 2026-08-11 09:19_
 <!-- AUTO:END -->

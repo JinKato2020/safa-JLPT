@@ -6,9 +6,9 @@ import migration from './kbIdMigration.json';
 const B = bank as { id: string }[];
 const M = migration as Record<string, string>;
 
-test('全 bank エントリは一意で妥当な id 形式(kb-NNNNNN / usg[34]-NNN)', () => {
+test('全 bank エントリは一意で妥当な id 形式(N?-{V-Y|G-B|G-N|G-S}-NNNN)', () => {
   assert.ok(B.length > 0);
-  for (const b of B) assert.match(b.id, /^(kb-\d{6}|usg[34]-\d{3})$/);
+  for (const b of B) assert.match(b.id, /^N[345]-(V-Y|G-B|G-N|G-S)-\d{4}$/); // 用法/文法形式/並べ替え/文章の文法
   const ids = new Set(B.map((b) => b.id));
   assert.equal(ids.size, B.length); // 一意
 });

@@ -18,5 +18,5 @@ test('daimonUnitIds(passage_grammar) はセットの全設問idを返す(母数=
   const expected = n3.flatMap((s) => s.questions.map((q) => q.id));
   assert.equal(ids.length, expected.length);
   assert.deepEqual([...ids].sort(), [...expected].sort());
-  assert.ok(ids.every((id) => /^pg-N3-\d{3}-q\d$/.test(id)));
+  assert.ok(ids.every((id) => /^N3-G-S-\d{4}-q\d$/.test(id)));
 });

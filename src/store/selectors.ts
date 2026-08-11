@@ -187,6 +187,27 @@ export function ringsFor(state: AppState, now: number): Record<Category, number 
   for (const c of RING_CATS) out[c] = categoryPct(state, now, c, false);
   return out;
 }
+// 得意(5区分)の大問割り: 漢字(文字)=漢字読み+表記 / 語彙=文脈規定+類義+用法。
+const KANJI_DAIMON: Daimon[] = ['kanji_read', 'orthography'];
+const VOCAB_DAIMON: Daimon[] = ['context', 'synonym', 'usage'];
+/** 得意(5区分: 漢字/語彙/文法/読解/聴解)のうち、いちばん正答率が高い区分の日本語ラベル。未測定はnull。
+ *  文字・語彙リングを大問で漢字/語彙に割る(式は categoryPct の moji_goi と同じ=本番出題数で加重した正答率)。管理ダッシュボードのプロフィール「得意」用。 */
+export function strongFacetJa(state: AppState, now: number): string | null {
+  const lv = state.settings.level;
+  const bp = DAIMON_BLUEPRINT[lv] ?? {};
+  const ringOf = (ds: Daimon[]) => wAvgPct(ds.map((d) => [pctOfIds(state, now, daimonUnitIds(lv, d)), bp[d] ?? 0]));
+  const rings = ringsFor(state, now);
+  const vals: [string, number | null][] = [
+    ['漢字', ringOf(KANJI_DAIMON)],
+    ['語彙', ringOf(VOCAB_DAIMON)],
+    ['文法', rings.bunpou],
+    ['読解', rings.dokkai],
+    ['聴解', rings.choukai],
+  ];
+  const measured = vals.filter((v): v is [string, number] => v[1] !== null);
+  if (!measured.length) return null;
+  return measured.reduce((a, b) => (b[1] > a[1] ? b : a))[0];
+}
 /** 小リング(大問): 正答率(解いた問題の当て推量補正済み正答率)。文字語彙/文法の各大問用。 */
 export function daimonRingPct(state: AppState, now: number, daimon: Daimon): number | null {
   return pctOfIds(state, now, daimonUnitIds(state.settings.level, daimon));

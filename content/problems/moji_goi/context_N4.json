@@ -8,7 +8,8 @@
  ],
  "items": [
   {
-   "id": "cx:n4-v-1",
+   "id": "N4-V-B-0001",
+   "vocabId": "n4-v-1",
    "prompt": "満員電車がゆれて、うっかりとなりの人の足を〔　〕しまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "踏んで",
@@ -21,7 +22,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-2",
+   "id": "N4-V-B-0002",
+   "vocabId": "n4-v-2",
    "prompt": "東京の「みなと〔　〕」には、大きな会社がたくさんあります。",
    "question": "〔　〕に入る言葉は？",
    "answer": "区",
@@ -33,7 +35,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-3",
+   "id": "N4-V-B-0003",
+   "vocabId": "n4-v-3",
    "prompt": "言いたいことを全部言ったら、気持ちが〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "すっと",
@@ -47,7 +50,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-4",
+   "id": "N4-V-B-0004",
+   "vocabId": "n4-v-4",
    "prompt": "店の品物を、お金をはらわずに〔　〕人がいるそうだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "盗む",
@@ -59,7 +63,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-5",
+   "id": "N4-V-B-0005",
+   "vocabId": "n4-v-5",
    "prompt": "日曜日は〔　〕家で休むが、たまに出かけることもある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "大抵",
@@ -72,7 +77,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-6",
+   "id": "N4-V-B-0006",
+   "vocabId": "n4-v-6",
    "prompt": "三時間もバスを待って、〔　〕あきらめて歩いて帰った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "とうとう",
@@ -84,7 +90,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-7",
+   "id": "N4-V-B-0007",
+   "vocabId": "n4-v-7",
    "prompt": "遠くまで走ったので、車の〔　〕がもう少ししかない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ガソリン",
@@ -98,7 +105,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-8",
+   "id": "N4-V-B-0008",
+   "vocabId": "n4-v-8",
    "prompt": "朝、目覚まし時計が〔　〕と、私はすぐに起きる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "鳴る",
@@ -111,7 +119,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-9",
+   "id": "N4-V-B-0009",
+   "vocabId": "n4-v-9",
    "prompt": "つくえの上の荷物を、ひもで〔　〕むすんでおいた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "しっかり",
@@ -123,7 +132,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-10",
+   "id": "N4-V-B-0010",
+   "vocabId": "n4-v-10",
    "prompt": "その人は病気と戦いながら、九十歳まで〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "生きた",
@@ -137,7 +147,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-11",
+   "id": "N4-V-B-0011",
+   "vocabId": "n4-v-11",
    "prompt": "このコーヒーは、さとうを入れないととても〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "苦い",
@@ -150,7 +161,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-12",
+   "id": "N4-V-B-0012",
+   "vocabId": "n4-v-12",
    "prompt": "お茶を入れるので、やかんのお湯が〔　〕まで待った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "沸く",
@@ -164,7 +176,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-13",
+   "id": "N4-V-B-0013",
+   "vocabId": "n4-v-13",
    "prompt": "会議で、自分の〔　〕をはっきり言うことは大切だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "意見",
@@ -178,7 +191,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-14",
+   "id": "N4-V-B-0014",
+   "vocabId": "n4-v-14",
    "prompt": "天気よほうの通り、午後から〔　〕雨がふってきた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "やはり",
@@ -190,7 +204,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-15",
+   "id": "N4-V-B-0015",
+   "vocabId": "n4-v-15",
    "prompt": "この〔　〕は絵が多いので、日本語がまだ上手でなくても話がわかる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "漫画",
@@ -204,7 +219,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-16",
+   "id": "N4-V-B-0016",
+   "vocabId": "n4-v-16",
    "prompt": "古いレコードを大きな音で聞くために、新しい〔　〕を買った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ステレオ",
@@ -218,7 +234,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-17",
+   "id": "N4-V-B-0017",
+   "vocabId": "n4-v-17",
    "prompt": "病気の人を助けたくて、大学で〔　〕を勉強している。",
    "question": "〔　〕に入る言葉は？",
    "answer": "医学",
@@ -231,7 +248,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-18",
+   "id": "N4-V-B-0018",
+   "vocabId": "n4-v-18",
    "prompt": "先生が「この〔　〕の十ページの練習問題をやりましょう」と言った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "テキスト",
@@ -245,7 +263,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-19",
+   "id": "N4-V-B-0019",
+   "vocabId": "n4-v-19",
    "prompt": "この仕事は、あと一〔　〕で終わります。",
    "question": "〔　〕に入る言葉は？",
    "answer": "月",
@@ -257,7 +276,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-20",
+   "id": "N4-V-B-0020",
+   "vocabId": "n4-v-20",
    "prompt": "手紙をふうとうに入れるために、三つに〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "折った",
@@ -270,7 +290,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-21",
+   "id": "N4-V-B-0021",
+   "vocabId": "n4-v-21",
    "prompt": "クラスで、先生の送べつ〔　〕を開いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "会",
@@ -282,7 +303,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-22",
+   "id": "N4-V-B-0022",
+   "vocabId": "n4-v-22",
    "prompt": "分からないことがあったら、先生に〔　〕ほうがいい。",
    "question": "〔　〕に入る言葉は？",
    "answer": "うかがう",
@@ -294,7 +316,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-23",
+   "id": "N4-V-B-0023",
+   "vocabId": "n4-v-23",
    "prompt": "夜、静かになると、遠くの電車の音が小さく〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "聞こえる",
@@ -307,7 +330,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-25",
+   "id": "N4-V-B-0024",
+   "vocabId": "n4-v-25",
    "prompt": "受験票がないと試験が受けられませんので、〔　〕持ってきてください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "必ず",
@@ -321,7 +345,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-26",
+   "id": "N4-V-B-0025",
+   "vocabId": "n4-v-26",
    "prompt": "らんぼうに使うと、機械を〔　〕ことがある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "壊す",
@@ -334,7 +359,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-27",
+   "id": "N4-V-B-0026",
+   "vocabId": "n4-v-27",
    "prompt": "何度注意しても子どもがいたずらをやめないので、母はとうとう大きな声で〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "怒った",
@@ -347,7 +373,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-28",
+   "id": "N4-V-B-0027",
+   "vocabId": "n4-v-28",
    "prompt": "かみの毛が長くなったので、〔　〕へ切りに行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "床屋",
@@ -361,7 +388,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-29",
+   "id": "N4-V-B-0028",
+   "vocabId": "n4-v-29",
    "prompt": "〔　〕に乗るときは、必ずヘルメットをかぶらなければならない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "オートバイ",
@@ -373,7 +401,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-30",
+   "id": "N4-V-B-0029",
+   "vocabId": "n4-v-30",
    "prompt": "健康のために、毎朝すこし〔　〕をするようにしている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "運動",
@@ -387,7 +416,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-31",
+   "id": "N4-V-B-0030",
+   "vocabId": "n4-v-31",
    "prompt": "雨が〔　〕まで、駅で待つことにした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "止む",
@@ -401,7 +431,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-32",
+   "id": "N4-V-B-0031",
+   "vocabId": "n4-v-32",
    "prompt": "〔　〕あした雨がふったら、うんどう会は中止です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "もし",
@@ -413,7 +444,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-33",
+   "id": "N4-V-B-0032",
+   "vocabId": "n4-v-33",
    "prompt": "この紙の〔　〕には名前を、うらには住所を書いてください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "表",
@@ -425,7 +457,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-34",
+   "id": "N4-V-B-0033",
+   "vocabId": "n4-v-34",
    "prompt": "姉は今年高校を卒業して、四月から〔　〕になる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "大学生",
@@ -438,7 +471,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-35",
+   "id": "N4-V-B-0034",
+   "vocabId": "n4-v-35",
    "prompt": "バスの〔　〕さんに、駅までいくらかかるか聞いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "運転手",
@@ -451,7 +485,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-36",
+   "id": "N4-V-B-0035",
+   "vocabId": "n4-v-36",
    "prompt": "明日ならう新しい文法を、前の日に家で〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "予習",
@@ -464,7 +499,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-37",
+   "id": "N4-V-B-0036",
+   "vocabId": "n4-v-37",
    "prompt": "子どもが夜になっても帰ってこないので、母は〔　〕している。",
    "question": "〔　〕に入る言葉は？",
    "answer": "心配",
@@ -478,7 +514,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-38",
+   "id": "N4-V-B-0037",
+   "vocabId": "n4-v-38",
    "prompt": "これとそれは、〔　〕の問題だから、分けて考えよう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "別",
@@ -490,7 +527,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-39",
+   "id": "N4-V-B-0038",
+   "vocabId": "n4-v-39",
    "prompt": "この本は〔　〕むずかしくて、わたしには一ページも読めなかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "非常に",
@@ -502,7 +540,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-40",
+   "id": "N4-V-B-0039",
+   "vocabId": "n4-v-40",
    "prompt": "日曜日に先生の〔　〕にうかがって、おくさんにお茶をごちそうになった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "お宅",
@@ -516,7 +555,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-41",
+   "id": "N4-V-B-0040",
+   "vocabId": "n4-v-41",
    "prompt": "このパンは、手でおすとゆっくりしずむくらい〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "柔らかい",
@@ -529,7 +569,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-42",
+   "id": "N4-V-B-0041",
+   "vocabId": "n4-v-42",
    "prompt": "道におさいふが落ちていたので、〔　〕交番にとどけた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "拾って",
@@ -542,7 +583,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-43",
+   "id": "N4-V-B-0042",
+   "vocabId": "n4-v-43",
    "prompt": "エレベーターは、右のほうに〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ございます",
@@ -554,7 +596,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-44",
+   "id": "N4-V-B-0043",
+   "vocabId": "n4-v-44",
    "prompt": "車が来るから、〔　〕をつけて渡ってね。",
    "question": "〔　〕に入る言葉は？",
    "answer": "気",
@@ -566,7 +609,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-45",
+   "id": "N4-V-B-0044",
+   "vocabId": "n4-v-45",
    "prompt": "兄と弟は顔がよく似ているが、性格を〔　〕と、ぜんぜんちがう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "比べる",
@@ -580,7 +624,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-46",
+   "id": "N4-V-B-0045",
+   "vocabId": "n4-v-46",
    "prompt": "しゅくだいは〔　〕終わったので、あとは少しだけだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ほとんど",
@@ -592,7 +637,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-47",
+   "id": "N4-V-B-0046",
+   "vocabId": "n4-v-47",
    "prompt": "来年、日本語のしけんを受ける〔　〕で、今がんばっている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "つもり",
@@ -604,7 +650,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-48",
+   "id": "N4-V-B-0047",
+   "vocabId": "n4-v-48",
    "prompt": "都会は人が多くてうるさいので、しずかな〔　〕に引っこした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "郊外",
@@ -618,7 +665,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-49",
+   "id": "N4-V-B-0048",
+   "vocabId": "n4-v-49",
    "prompt": "何度やってもうまくいかなくて、もう〔　〕だと思った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "だめ",
@@ -630,7 +678,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-50",
+   "id": "N4-V-B-0049",
+   "vocabId": "n4-v-50",
    "prompt": "客「くつを買いたいのですが。」店員「くつの〔　〕は三階でございます。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "売り場",
@@ -642,7 +691,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-51",
+   "id": "N4-V-B-0050",
+   "vocabId": "n4-v-51",
    "prompt": "一年の初めの〔　〕には、家族みんなで集まってごちそうを食べる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "正月",
@@ -655,7 +705,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-52",
+   "id": "N4-V-B-0051",
+   "vocabId": "n4-v-52",
    "prompt": "この学校の〔　〕では、教室で携帯電話を使ってはいけないことになっている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "規則",
@@ -667,7 +718,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-54",
+   "id": "N4-V-B-0052",
+   "vocabId": "n4-v-54",
    "prompt": "日本語を習っている外国人にとって、「らりるれろ」の〔　〕はとても難しいそうだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "発音",
@@ -680,7 +732,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-55",
+   "id": "N4-V-B-0053",
+   "vocabId": "n4-v-55",
    "prompt": "この魚は生では食べられないので、フライパンでよく〔　〕ください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "焼いて",
@@ -694,7 +747,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-56",
+   "id": "N4-V-B-0054",
+   "vocabId": "n4-v-56",
    "prompt": "このビルの〔　〕に出ると、町ぜんたいが遠くまでよく見える。",
    "question": "〔　〕に入る言葉は？",
    "answer": "屋上",
@@ -707,7 +761,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-57",
+   "id": "N4-V-B-0055",
+   "vocabId": "n4-v-57",
    "prompt": "話している人の言葉を最後まで聞かないで帰るのは、〔　〕だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "失礼",
@@ -720,7 +775,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-58",
+   "id": "N4-V-B-0056",
+   "vocabId": "n4-v-58",
    "prompt": "部屋のゆかに〔　〕がたくさん落ちているので、そうじをしよう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ごみ",
@@ -732,7 +788,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-59",
+   "id": "N4-V-B-0057",
+   "vocabId": "n4-v-59",
    "prompt": "キリンやライオンは、〔　〕の草原にすんでいる大きな動物です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "アフリカ",
@@ -744,7 +801,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-60",
+   "id": "N4-V-B-0058",
+   "vocabId": "n4-v-60",
    "prompt": "数学のテストで85〔　〕を取ることができた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "点",
@@ -756,7 +814,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-61",
+   "id": "N4-V-B-0059",
+   "vocabId": "n4-v-61",
    "prompt": "コーチにしかられないように、選手はみんな〔　〕走った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "一生懸命",
@@ -769,7 +828,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-62",
+   "id": "N4-V-B-0060",
+   "vocabId": "n4-v-62",
    "prompt": "今日は時間がないので、〔　〕ゆっくり話しましょう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "今度",
@@ -783,7 +843,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-63",
+   "id": "N4-V-B-0061",
+   "vocabId": "n4-v-63",
    "prompt": "またこんないい〔　〕があるかどうか分からないから、今すぐ申し込むことにした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "機会",
@@ -796,7 +857,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-64",
+   "id": "N4-V-B-0062",
+   "vocabId": "n4-v-64",
    "prompt": "来年、この土地に新しい家を〔　〕予定です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "建てる",
@@ -808,7 +870,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-65",
+   "id": "N4-V-B-0063",
+   "vocabId": "n4-v-65",
    "prompt": "この機械の使い方は〔　〕で、なかなか覚えられない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "複雑",
@@ -821,7 +884,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-67",
+   "id": "N4-V-B-0064",
+   "vocabId": "n4-v-67",
    "prompt": "社長は今、会議室に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "いらっしゃる",
@@ -833,7 +897,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-68",
+   "id": "N4-V-B-0065",
+   "vocabId": "n4-v-68",
    "prompt": "夜になったので、〔　〕をしいて寝る準備をした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "布団",
@@ -845,7 +910,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-69",
+   "id": "N4-V-B-0066",
+   "vocabId": "n4-v-69",
    "prompt": "これは母からもらった指輪で、私にとっていちばん〔　〕な物だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "大事",
@@ -857,7 +923,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-70",
+   "id": "N4-V-B-0067",
+   "vocabId": "n4-v-70",
    "prompt": "友だちの誕生日に、〔　〕を買いに店へ行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "贈り物",
@@ -869,7 +936,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-71",
+   "id": "N4-V-B-0068",
+   "vocabId": "n4-v-71",
    "prompt": "昨夜、となりの家に〔　〕が入って、お金がぬすまれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "泥棒",
@@ -881,7 +949,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-72",
+   "id": "N4-V-B-0069",
+   "vocabId": "n4-v-72",
    "prompt": "この時計はスイス〔　〕で、とても高い。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～製",
@@ -893,7 +962,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-73",
+   "id": "N4-V-B-0070",
+   "vocabId": "n4-v-73",
    "prompt": "車が多い道なので、渡るときは十分に〔　〕してください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "注意",
@@ -907,7 +977,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-74",
+   "id": "N4-V-B-0071",
+   "vocabId": "n4-v-74",
    "prompt": "今年いちばん大きな〔　〕が、あしたの夜にこの町に近づくそうだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "台風",
@@ -919,7 +990,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-75",
+   "id": "N4-V-B-0072",
+   "vocabId": "n4-v-75",
    "prompt": "〔　〕が東からのぼって、朝になった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "日",
@@ -931,7 +1003,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-76",
+   "id": "N4-V-B-0073",
+   "vocabId": "n4-v-76",
    "prompt": "この村には店が3〔　〕しかない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～軒",
@@ -943,7 +1016,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-77",
+   "id": "N4-V-B-0074",
+   "vocabId": "n4-v-77",
    "prompt": "A「あしたは学校が休みですよ。」B「〔　〕ですか。知りませんでした。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "そう",
@@ -955,7 +1029,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-78",
+   "id": "N4-V-B-0075",
+   "vocabId": "n4-v-78",
    "prompt": "長い山道のトンネルを〔　〕と、目の前に青い海が広がった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "通る",
@@ -968,7 +1043,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-79",
+   "id": "N4-V-B-0076",
+   "vocabId": "n4-v-79",
    "prompt": "楽しい時間は、あっという間に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "過ぎる",
@@ -981,7 +1057,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-80",
+   "id": "N4-V-B-0077",
+   "vocabId": "n4-v-80",
    "prompt": "先生に出す〔　〕を、今晩中に書かなければならない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "レポート",
@@ -993,7 +1070,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-81",
+   "id": "N4-V-B-0078",
+   "vocabId": "n4-v-81",
    "prompt": "秋になると、木の〔　〕が赤や黄色になる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "葉",
@@ -1005,7 +1083,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-82",
+   "id": "N4-V-B-0079",
+   "vocabId": "n4-v-82",
    "prompt": "まだ時間があるので、そんなに急ぐ〔　〕はない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "必要",
@@ -1018,7 +1097,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-83",
+   "id": "N4-V-B-0080",
+   "vocabId": "n4-v-83",
    "prompt": "この会社では、係長の上が〔　〕で、その上が部長だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "課長",
@@ -1031,7 +1111,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-84",
+   "id": "N4-V-B-0081",
+   "vocabId": "n4-v-84",
    "prompt": "〔　〕のときは、まず机の下に入って、頭を守りましょう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "地震",
@@ -1045,7 +1126,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-85",
+   "id": "N4-V-B-0082",
+   "vocabId": "n4-v-85",
    "prompt": "へやのまどを開けた。〔　〕、大きなねこが中に入ってきた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "すると",
@@ -1057,7 +1139,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-86",
+   "id": "N4-V-B-0083",
+   "vocabId": "n4-v-86",
    "prompt": "体に悪いので、来月からたばこを〔　〕ことにした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "やめる",
@@ -1071,7 +1154,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-87",
+   "id": "N4-V-B-0084",
+   "vocabId": "n4-v-87",
    "prompt": "ボールが当たって、窓の〔　〕がわれてしまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ガラス",
@@ -1083,7 +1167,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-88",
+   "id": "N4-V-B-0085",
+   "vocabId": "n4-v-88",
    "prompt": "姉は法律を学びたくて、大学の法〔　〕に進んだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～学部",
@@ -1095,7 +1180,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-89",
+   "id": "N4-V-B-0086",
+   "vocabId": "n4-v-89",
    "prompt": "あの先生はとても〔　〕から、宿題を忘れると本当に怒られる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "厳しい",
@@ -1108,7 +1194,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-90",
+   "id": "N4-V-B-0087",
+   "vocabId": "n4-v-90",
    "prompt": "デパートで〔　〕に乗り、一段ずつゆっくり上の階へ上がった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "エスカレーター",
@@ -1120,7 +1207,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-91",
+   "id": "N4-V-B-0088",
+   "vocabId": "n4-v-91",
    "prompt": "東京は〔　〕が多くて、電車がいつもこんでいる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "人口",
@@ -1134,7 +1222,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-92",
+   "id": "N4-V-B-0089",
+   "vocabId": "n4-v-92",
    "prompt": "夜空に丸い〔　〕が明るく光っていた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "月",
@@ -1146,7 +1235,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-93",
+   "id": "N4-V-B-0090",
+   "vocabId": "n4-v-93",
    "prompt": "このスカーフは〔　〕でできていて、手ざわりがとてもなめらかだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "絹",
@@ -1158,7 +1248,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-94",
+   "id": "N4-V-B-0091",
+   "vocabId": "n4-v-94",
    "prompt": "毎日練習しているのに、ピアノが〔　〕上手にならない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ちっとも",
@@ -1170,7 +1261,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-95",
+   "id": "N4-V-B-0092",
+   "vocabId": "n4-v-95",
    "prompt": "この川は〔　〕から、大人でも足がとどかない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "深い",
@@ -1183,7 +1275,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-96",
+   "id": "N4-V-B-0093",
+   "vocabId": "n4-v-96",
    "prompt": "長く使っていた洗濯機が、今朝ついに〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "壊れた",
@@ -1196,7 +1289,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-97",
+   "id": "N4-V-B-0094",
+   "vocabId": "n4-v-97",
    "prompt": "バスが古い道を走ると、体が左右に大きく〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "揺れた",
@@ -1209,7 +1303,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-98",
+   "id": "N4-V-B-0095",
+   "vocabId": "n4-v-98",
    "prompt": "木になっていたりんごが、強い風で地面に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "落ちた",
@@ -1222,7 +1317,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-99",
+   "id": "N4-V-B-0096",
+   "vocabId": "n4-v-99",
    "prompt": "試験に合格するために、〔　〕たくさん問題を解くようにしている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "できるだけ",
@@ -1234,7 +1330,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-100",
+   "id": "N4-V-B-0097",
+   "vocabId": "n4-v-100",
    "prompt": "大切にしていた犬が死んで、とても〔　〕気持ちになった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "悲しい",
@@ -1247,7 +1344,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-101",
+   "id": "N4-V-B-0098",
+   "vocabId": "n4-v-101",
    "prompt": "弟は今年、小学校を卒業して〔　〕に入学した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "中学校",
@@ -1261,7 +1359,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-102",
+   "id": "N4-V-B-0099",
+   "vocabId": "n4-v-102",
    "prompt": "料理が終わったら、〔　〕の火を必ず消してください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ガス",
@@ -1273,7 +1372,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-103",
+   "id": "N4-V-B-0100",
+   "vocabId": "n4-v-103",
    "prompt": "試験に合格できるように、神社で〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "祈った",
@@ -1286,7 +1386,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-104",
+   "id": "N4-V-B-0101",
+   "vocabId": "n4-v-104",
    "prompt": "この町ではサッカーが〔　〕で、どの学校にもチームがある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "盛ん",
@@ -1298,7 +1399,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-105",
+   "id": "N4-V-B-0102",
+   "vocabId": "n4-v-105",
    "prompt": "学費をかせぐために、レストランで〔　〕をしている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "アルバイト",
@@ -1310,7 +1412,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-106",
+   "id": "N4-V-B-0103",
+   "vocabId": "n4-v-106",
    "prompt": "朝、ぐっすり寝ている子どもを、やさしく声をかけて〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "起こした",
@@ -1323,7 +1426,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-107",
+   "id": "N4-V-B-0104",
+   "vocabId": "n4-v-107",
    "prompt": "くわしいご説明は、のちほど私が〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "致します",
@@ -1336,7 +1440,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-108",
+   "id": "N4-V-B-0105",
+   "vocabId": "n4-v-108",
    "prompt": "とてもかたい肉だったので、口の中で何度もよく〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "噛んだ",
@@ -1350,7 +1455,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-109",
+   "id": "N4-V-B-0106",
+   "vocabId": "n4-v-109",
    "prompt": "妹の家の〔　〕は先月生まれたばかりで、まだ歩けない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "赤ちゃん",
@@ -1363,7 +1469,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-110",
+   "id": "N4-V-B-0107",
+   "vocabId": "n4-v-110",
    "prompt": "このプールは子どもの足でも立てるほど〔　〕から、安全だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "浅い",
@@ -1376,7 +1483,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-111",
+   "id": "N4-V-B-0108",
+   "vocabId": "n4-v-111",
    "prompt": "彼はいつも〔　〕をつくので、話をあまり信じられない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "嘘",
@@ -1388,7 +1496,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-112",
+   "id": "N4-V-B-0109",
+   "vocabId": "n4-v-112",
    "prompt": "長い〔　〕を読んで、最後に主人公が死ぬところで泣いてしまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "小説",
@@ -1402,7 +1511,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-113",
+   "id": "N4-V-B-0110",
+   "vocabId": "n4-v-113",
    "prompt": "子どものとき、〔　〕によく本を読んでもらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "親",
@@ -1414,7 +1524,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-115",
+   "id": "N4-V-B-0111",
+   "vocabId": "n4-v-115",
    "prompt": "ナイフとフォークを使って食べる〔　〕の料理が好きだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "西洋",
@@ -1428,7 +1539,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-116",
+   "id": "N4-V-B-0112",
+   "vocabId": "n4-v-116",
    "prompt": "今日は連絡がないから、あの人はたぶん来ないと〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "思う",
@@ -1441,7 +1553,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-117",
+   "id": "N4-V-B-0113",
+   "vocabId": "n4-v-117",
    "prompt": "子どもが小学校に入ったので、母は近所のスーパーで〔　〕を始めた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "パート (タイム)",
@@ -1453,7 +1566,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-118",
+   "id": "N4-V-B-0114",
+   "vocabId": "n4-v-118",
    "prompt": "授業で、江戸〔　〕の武士の生活について習った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "時代",
@@ -1467,7 +1581,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-119",
+   "id": "N4-V-B-0115",
+   "vocabId": "n4-v-119",
    "prompt": "お世話になった先生に、心から感謝の気持ちを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "申し上げた",
@@ -1480,7 +1595,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-120",
+   "id": "N4-V-B-0116",
+   "vocabId": "n4-v-120",
    "prompt": "来月、姉の結婚〔　〕に出席します。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～式",
@@ -1492,7 +1608,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-121",
+   "id": "N4-V-B-0117",
+   "vocabId": "n4-v-121",
    "prompt": "病気が治ったので、明日の会議には〔　〕できると思います。",
    "question": "〔　〕に入る言葉は？",
    "answer": "出席",
@@ -1506,7 +1623,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-122",
+   "id": "N4-V-B-0118",
+   "vocabId": "n4-v-122",
    "prompt": "彼は有名な小説〔　〕で、たくさんの本を書いている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～家",
@@ -1518,7 +1636,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-123",
+   "id": "N4-V-B-0119",
+   "vocabId": "n4-v-123",
    "prompt": "友だちが電車から降りてきたので、笑顔でその友だちを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "迎えました",
@@ -1530,7 +1649,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-124",
+   "id": "N4-V-B-0120",
+   "vocabId": "n4-v-124",
    "prompt": "かべのペンキがまだかわいていないので、〔　〕いけません。",
    "question": "〔　〕に入る言葉は？",
    "answer": "触っては",
@@ -1543,7 +1663,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-125",
+   "id": "N4-V-B-0121",
+   "vocabId": "n4-v-125",
    "prompt": "私の家は二階〔　〕で、部屋が六つある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "建て",
@@ -1555,7 +1676,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-126",
+   "id": "N4-V-B-0122",
+   "vocabId": "n4-v-126",
    "prompt": "会社で一番上の立場にいて、最後にすべてを決める人を〔　〕という。",
    "question": "〔　〕に入る言葉は？",
    "answer": "社長",
@@ -1569,7 +1691,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-127",
+   "id": "N4-V-B-0123",
+   "vocabId": "n4-v-127",
    "prompt": "日曜日に子どもと〔　〕へ行って、ぞうやライオンを見た。",
    "question": "〔　〕に入る言葉は？",
    "answer": "動物園",
@@ -1583,7 +1706,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-128",
+   "id": "N4-V-B-0124",
+   "vocabId": "n4-v-128",
    "prompt": "へやをにげ回るうさぎを、やっと両手で〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "捕まえた",
@@ -1596,7 +1720,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-129",
+   "id": "N4-V-B-0125",
+   "vocabId": "n4-v-129",
    "prompt": "桜がさく春は、一年でいちばん好きな〔　〕だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "季節",
@@ -1610,7 +1735,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-130",
+   "id": "N4-V-B-0126",
+   "vocabId": "n4-v-130",
    "prompt": "仕事の帰りに、飲み物を買おうと思って、コンビニにちょっと〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "寄った",
@@ -1623,7 +1749,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-131",
+   "id": "N4-V-B-0127",
+   "vocabId": "n4-v-131",
    "prompt": "会議でいろいろな意見を出し合って、来年の計画がやっと〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "決まった",
@@ -1636,7 +1763,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-132",
+   "id": "N4-V-B-0128",
+   "vocabId": "n4-v-132",
    "prompt": "来週、市の体育館で子どものためのコンサートを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "開きます",
@@ -1650,7 +1778,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-133",
+   "id": "N4-V-B-0129",
+   "vocabId": "n4-v-133",
    "prompt": "どろぼうは、警察が来る前に、うらの窓から外へ〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "逃げた",
@@ -1662,7 +1791,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-135",
+   "id": "N4-V-B-0130",
+   "vocabId": "n4-v-135",
    "prompt": "楽しみにしていたコンサートが中止になって、とても〔　〕だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "残念",
@@ -1674,7 +1804,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-136",
+   "id": "N4-V-B-0131",
+   "vocabId": "n4-v-136",
    "prompt": "この部屋は〔　〕がしいてあって、すわると気持ちがいい。",
    "question": "〔　〕に入る言葉は？",
    "answer": "畳",
@@ -1686,7 +1817,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-137",
+   "id": "N4-V-B-0132",
+   "vocabId": "n4-v-137",
    "prompt": "あの人は字を〔　〕に書くので、だれにでもすぐ読める。",
    "question": "〔　〕に入る言葉は？",
    "answer": "丁寧",
@@ -1699,7 +1831,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-138",
+   "id": "N4-V-B-0133",
+   "vocabId": "n4-v-138",
    "prompt": "〔　〕の授業で、日本の川や山の名前を覚えた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "地理",
@@ -1713,7 +1846,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-139",
+   "id": "N4-V-B-0134",
+   "vocabId": "n4-v-139",
    "prompt": "〔　〕電話をくれた人は、だれですか。",
    "question": "〔　〕に入る言葉は？",
    "answer": "さっき",
@@ -1725,7 +1859,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-140",
+   "id": "N4-V-B-0135",
+   "vocabId": "n4-v-140",
    "prompt": "子どものころ、夜に一人でトイレに行くのが〔　〕、いつも母について来てもらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "怖くて",
@@ -1738,7 +1873,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-141",
+   "id": "N4-V-B-0136",
+   "vocabId": "n4-v-141",
    "prompt": "店の人が、プレゼントをきれいな紙で〔　〕くれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "包んで",
@@ -1752,7 +1888,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-142",
+   "id": "N4-V-B-0137",
+   "vocabId": "n4-v-142",
    "prompt": "体によくないので、〔　〕たばこをすわないほうがいい。",
    "question": "〔　〕に入る言葉は？",
    "answer": "なるべく",
@@ -1764,7 +1901,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-143",
+   "id": "N4-V-B-0138",
+   "vocabId": "n4-v-143",
    "prompt": "この量の仕事を一日で全部終わらせるのは〔　〕なので、あしたも会社へ来ます。",
    "question": "〔　〕に入る言葉は？",
    "answer": "無理",
@@ -1777,7 +1915,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-144",
+   "id": "N4-V-B-0139",
+   "vocabId": "n4-v-144",
    "prompt": "お昼に、パンでハムやたまごをはさんだ〔　〕を食べた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "サンドイッチ",
@@ -1791,7 +1930,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-145",
+   "id": "N4-V-B-0140",
+   "vocabId": "n4-v-145",
    "prompt": "来月の旅行について打ち合わせをするので、三階の〔　〕を借りた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "会議室",
@@ -1803,7 +1943,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-146",
+   "id": "N4-V-B-0141",
+   "vocabId": "n4-v-146",
    "prompt": "この店の〔　〕はどれも新しくて、ねだんも安い。",
    "question": "〔　〕に入る言葉は？",
    "answer": "品物",
@@ -1816,7 +1957,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-147",
+   "id": "N4-V-B-0142",
+   "vocabId": "n4-v-147",
    "prompt": "子どもは、小さな服を着せた〔　〕を大切にしている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "人形",
@@ -1830,7 +1972,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-148",
+   "id": "N4-V-B-0143",
+   "vocabId": "n4-v-148",
    "prompt": "図書館を〔　〕して、レポートに必要な本を借りた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "利用",
@@ -1842,7 +1985,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-149",
+   "id": "N4-V-B-0144",
+   "vocabId": "n4-v-149",
    "prompt": "クリスマスなので、へやに星やリボンを〔　〕、はなやかにした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "飾って",
@@ -1855,7 +1999,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-150",
+   "id": "N4-V-B-0145",
+   "vocabId": "n4-v-150",
    "prompt": "急に子どもが道に出てきたので、あわてて車を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "止めました",
@@ -1868,7 +2013,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-151",
+   "id": "N4-V-B-0146",
+   "vocabId": "n4-v-151",
    "prompt": "大勢の前で名前をまちがえて呼ばれ、顔が赤くなるほど〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "恥ずかしい",
@@ -1881,7 +2027,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-152",
+   "id": "N4-V-B-0147",
+   "vocabId": "n4-v-152",
    "prompt": "〔　〕練習しても、なかなかピアノが上手にならない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "いくら",
@@ -1893,7 +2040,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-153",
+   "id": "N4-V-B-0148",
+   "vocabId": "n4-v-153",
    "prompt": "今日は午後から〔　〕があるので、早く帰らせてください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "用事",
@@ -1906,7 +2054,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-154",
+   "id": "N4-V-B-0149",
+   "vocabId": "n4-v-154",
    "prompt": "駅の前に高い〔　〕がたくさん建っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ビル",
@@ -1918,7 +2067,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-155",
+   "id": "N4-V-B-0150",
+   "vocabId": "n4-v-155",
    "prompt": "兄と弟は、テレビのチャンネルのことでよく〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "けんかする",
@@ -1930,7 +2080,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-156",
+   "id": "N4-V-B-0151",
+   "vocabId": "n4-v-156",
    "prompt": "仕事は大変だけど、家族のために〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "頑張る",
@@ -1943,7 +2094,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-157",
+   "id": "N4-V-B-0152",
+   "vocabId": "n4-v-157",
    "prompt": "ピッチャーが、バッターに向かってボールを力いっぱい〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "投げた",
@@ -1956,7 +2108,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-158",
+   "id": "N4-V-B-0153",
+   "vocabId": "n4-v-158",
    "prompt": "エアコンが〔　〕して、この暑いのにつめたい風が出なくなった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "故障",
@@ -1968,7 +2121,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-159",
+   "id": "N4-V-B-0154",
+   "vocabId": "n4-v-159",
    "prompt": "重い荷物を持ち上げるには、かなりの〔　〕がいる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "力",
@@ -1980,7 +2134,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-160",
+   "id": "N4-V-B-0155",
+   "vocabId": "n4-v-160",
    "prompt": "大学に入るために、来月、日本語の試験を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "受ける",
@@ -1993,7 +2148,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-161",
+   "id": "N4-V-B-0156",
+   "vocabId": "n4-v-161",
    "prompt": "〔　〕を変えたいので、外を少し散歩してきます。",
    "question": "〔　〕に入る言葉は？",
    "answer": "気分",
@@ -2007,7 +2163,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-162",
+   "id": "N4-V-B-0157",
+   "vocabId": "n4-v-162",
    "prompt": "大事な書類の数字を〔　〕と、大変なことになる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "間違える",
@@ -2020,7 +2177,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-163",
+   "id": "N4-V-B-0158",
+   "vocabId": "n4-v-163",
    "prompt": "「同僚が会社をやめるそうですよ。」「え、〔　〕話は聞いていません。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "そんな",
@@ -2033,7 +2191,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-164",
+   "id": "N4-V-B-0159",
+   "vocabId": "n4-v-164",
    "prompt": "空がとてもきれいで、〔　〕がたくさん光っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "星",
@@ -2045,7 +2204,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-165",
+   "id": "N4-V-B-0160",
+   "vocabId": "n4-v-165",
    "prompt": "大雨で電車が止まった〔　〕は、駅からバスに乗ってください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "場合",
@@ -2059,7 +2219,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-166",
+   "id": "N4-V-B-0161",
+   "vocabId": "n4-v-166",
    "prompt": "三時間も歩いて、〔　〕山の上に着いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "やっと",
@@ -2071,7 +2232,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-167",
+   "id": "N4-V-B-0162",
+   "vocabId": "n4-v-167",
    "prompt": "この料理は6人分作ったので、6人で食べてもちょうど〔　〕だろう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "足りる",
@@ -2084,7 +2246,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-168",
+   "id": "N4-V-B-0163",
+   "vocabId": "n4-v-168",
    "prompt": "先生は、来週の月曜日に、わたしたちにかん字のテストを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "行います",
@@ -2097,7 +2260,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-169",
+   "id": "N4-V-B-0164",
+   "vocabId": "n4-v-169",
    "prompt": "秋になると、あまくて紫色の〔　〕がたくさんとれる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ぶどう",
@@ -2109,7 +2273,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-170",
+   "id": "N4-V-B-0165",
+   "vocabId": "n4-v-170",
    "prompt": "さいふの中のお金が、いつのまにか全部〔　〕いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "無くなって",
@@ -2123,7 +2288,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-171",
+   "id": "N4-V-B-0166",
+   "vocabId": "n4-v-171",
    "prompt": "旅行の〔　〕で、かばんに服や歯ブラシを入れた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "準備",
@@ -2137,7 +2303,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-172",
+   "id": "N4-V-B-0167",
+   "vocabId": "n4-v-172",
    "prompt": "この飛行機に乗れば、〔　〕のいろいろな国へ行ける。",
    "question": "〔　〕に入る言葉は？",
    "answer": "世界",
@@ -2151,7 +2318,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-173",
+   "id": "N4-V-B-0168",
+   "vocabId": "n4-v-173",
    "prompt": "荷物を送るので、この紙に名前と〔　〕を書いてください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "住所",
@@ -2165,7 +2333,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-174",
+   "id": "N4-V-B-0169",
+   "vocabId": "n4-v-174",
    "prompt": "今月は七月ですから、〔　〕の九月に旅行する予定です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "再来月",
@@ -2178,7 +2347,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-175",
+   "id": "N4-V-B-0170",
+   "vocabId": "n4-v-175",
    "prompt": "家の近くの〔　〕には、たくさんの木が生えている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "林",
@@ -2190,7 +2360,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-176",
+   "id": "N4-V-B-0171",
+   "vocabId": "n4-v-176",
    "prompt": "この店のパンは前より大きくなって、ねだんも〔　〕になった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "倍",
@@ -2202,7 +2373,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-177",
+   "id": "N4-V-B-0172",
+   "vocabId": "n4-v-177",
    "prompt": "あまい物をやめたら、体重が三キロ減って少し〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "痩せた",
@@ -2216,7 +2388,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-178",
+   "id": "N4-V-B-0173",
+   "vocabId": "n4-v-178",
    "prompt": "ノートに定規で、まっすぐな〔　〕を引いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "線",
@@ -2228,7 +2401,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-179",
+   "id": "N4-V-B-0174",
+   "vocabId": "n4-v-179",
    "prompt": "二つの国が〔　〕を始め、多くの人が国をはなれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "戦争",
@@ -2242,7 +2416,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-180",
+   "id": "N4-V-B-0175",
+   "vocabId": "n4-v-180",
    "prompt": "みんなで話し合って、旅行の行き先を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "決めました",
@@ -2255,7 +2430,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-181",
+   "id": "N4-V-B-0176",
+   "vocabId": "n4-v-181",
    "prompt": "事故の原因を、係の人が詳しく〔　〕いる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "調べて",
@@ -2267,7 +2443,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-182",
+   "id": "N4-V-B-0177",
+   "vocabId": "n4-v-182",
    "prompt": "夜おそくまで起きていたので、今朝〔　〕してしまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "寝坊",
@@ -2280,7 +2457,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-183",
+   "id": "N4-V-B-0178",
+   "vocabId": "n4-v-183",
    "prompt": "小さい子どもが「〔　〕、だっこして」と言って、父親の方へ走っていった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "パパ",
@@ -2294,7 +2472,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-184",
+   "id": "N4-V-B-0179",
+   "vocabId": "n4-v-184",
    "prompt": "よるの空に、星がきれいに〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "光る",
@@ -2307,7 +2486,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-185",
+   "id": "N4-V-B-0180",
+   "vocabId": "n4-v-185",
    "prompt": "わたしの〔　〕は銀行で働いていて、毎晩おそく家に帰ってくる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "夫",
@@ -2319,7 +2499,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-186",
+   "id": "N4-V-B-0181",
+   "vocabId": "n4-v-186",
    "prompt": "今日は空に〔　〕がたくさんあって、太陽が見えない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "雲",
@@ -2331,7 +2512,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-187",
+   "id": "N4-V-B-0182",
+   "vocabId": "n4-v-187",
    "prompt": "この〔　〕はとても急で、自転車で上るのが大変だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "坂",
@@ -2343,7 +2525,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-189",
+   "id": "N4-V-B-0183",
+   "vocabId": "n4-v-189",
    "prompt": "外国へ行くために、〔　〕から飛行機に乗った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "飛行場",
@@ -2356,7 +2539,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-190",
+   "id": "N4-V-B-0184",
+   "vocabId": "n4-v-190",
    "prompt": "兄は〔　〕を習っていて、黒い帯を取るために毎日練習している。",
    "question": "〔　〕に入る言葉は？",
    "answer": "柔道",
@@ -2370,7 +2554,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-191",
+   "id": "N4-V-B-0185",
+   "vocabId": "n4-v-191",
    "prompt": "みんなでした大切な約束ですから、〔　〕忘れないでください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "決して",
@@ -2384,7 +2569,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-192",
+   "id": "N4-V-B-0186",
+   "vocabId": "n4-v-192",
    "prompt": "書類を出すために、会社の〔　〕へ行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "事務所",
@@ -2398,7 +2584,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-193",
+   "id": "N4-V-B-0187",
+   "vocabId": "n4-v-193",
    "prompt": "むかえに行くので、駅に着いたら電話で〔　〕してください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "連絡",
@@ -2412,7 +2599,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-194",
+   "id": "N4-V-B-0188",
+   "vocabId": "n4-v-194",
    "prompt": "うちの子は今年六さいになって、四月から〔　〕に通っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "小学校",
@@ -2426,7 +2614,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-195",
+   "id": "N4-V-B-0189",
+   "vocabId": "n4-v-195",
    "prompt": "レストランで〔　〕が料理を注文した。店員はすぐに持ってきた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "客",
@@ -2438,7 +2627,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-196",
+   "id": "N4-V-B-0190",
+   "vocabId": "n4-v-196",
    "prompt": "〔　〕、ここには古いお城があったそうだ。今は何もない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "昔",
@@ -2450,7 +2640,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-197",
+   "id": "N4-V-B-0191",
+   "vocabId": "n4-v-197",
    "prompt": "山の上から見た海の景色は、写真のように〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "美しかった",
@@ -2462,7 +2653,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-198",
+   "id": "N4-V-B-0192",
+   "vocabId": "n4-v-198",
    "prompt": "いらなくなった古い雑誌を、ごみ箱に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "捨てた",
@@ -2475,7 +2667,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-199",
+   "id": "N4-V-B-0193",
+   "vocabId": "n4-v-199",
    "prompt": "先生は毎朝、公園でさんぽを〔　〕そうです。",
    "question": "〔　〕に入る言葉は？",
    "answer": "なさる",
@@ -2487,7 +2680,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-200",
+   "id": "N4-V-B-0194",
+   "vocabId": "n4-v-200",
    "prompt": "日本へ来て、いろいろな〔　〕を経験しました。",
    "question": "〔　〕に入る言葉は？",
    "answer": "事",
@@ -2499,7 +2693,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-201",
+   "id": "N4-V-B-0195",
+   "vocabId": "n4-v-201",
    "prompt": "遠慮しないで、〔　〕食べてください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "どんどん",
@@ -2512,7 +2707,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-202",
+   "id": "N4-V-B-0196",
+   "vocabId": "n4-v-202",
    "prompt": "あしたは他の学校とサッカーの〔　〕をするので、今日は早く寝る。",
    "question": "〔　〕に入る言葉は？",
    "answer": "試合",
@@ -2526,7 +2722,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-203",
+   "id": "N4-V-B-0197",
+   "vocabId": "n4-v-203",
    "prompt": "この箱は大きすぎず小さすぎず、荷物を入れるのに〔　〕な大きさだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "適当",
@@ -2540,7 +2737,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-204",
+   "id": "N4-V-B-0198",
+   "vocabId": "n4-v-204",
    "prompt": "この歌手の歌は本当に〔　〕、聞いた人はみんな感動した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "素晴らしくて",
@@ -2553,7 +2751,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-205",
+   "id": "N4-V-B-0199",
+   "vocabId": "n4-v-205",
    "prompt": "有名な絵を見るために、休みの日に〔　〕へ行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "美術館",
@@ -2567,7 +2766,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-206",
+   "id": "N4-V-B-0200",
+   "vocabId": "n4-v-206",
    "prompt": "この文は〔　〕がまちがっている。「きのう、映画を見ます」ではなく「見ました」が正しい。",
    "question": "〔　〕に入る言葉は？",
    "answer": "文法",
@@ -2580,7 +2780,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-207",
+   "id": "N4-V-B-0201",
+   "vocabId": "n4-v-207",
    "prompt": "この映画は〔　〕まで見ないと、話の意味がわからない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "終わり",
@@ -2593,7 +2794,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-208",
+   "id": "N4-V-B-0202",
+   "vocabId": "n4-v-208",
    "prompt": "部屋の〔　〕に、家族の写真をかざった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "壁",
@@ -2605,7 +2807,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-209",
+   "id": "N4-V-B-0203",
+   "vocabId": "n4-v-209",
    "prompt": "その店には〔　〕しか行ったことがないので、道をよく覚えていない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "一度",
@@ -2619,7 +2822,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-210",
+   "id": "N4-V-B-0204",
+   "vocabId": "n4-v-210",
    "prompt": "先生に手伝ってもらったので、〔　〕を言いに行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "お礼",
@@ -2632,7 +2836,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-211",
+   "id": "N4-V-B-0205",
+   "vocabId": "n4-v-211",
    "prompt": "駅で道が分からず困っていたら、知らない人が地図をかいて教えてくれて、とても〔　〕だった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "親切",
@@ -2645,7 +2850,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-212",
+   "id": "N4-V-B-0206",
+   "vocabId": "n4-v-212",
    "prompt": "電車が遅れることを、駅員が放送で乗客に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "知らせました",
@@ -2658,7 +2864,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-213",
+   "id": "N4-V-B-0207",
+   "vocabId": "n4-v-213",
    "prompt": "歯がとても痛いので、〔　〕に見てもらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "歯医者",
@@ -2671,7 +2878,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-214",
+   "id": "N4-V-B-0208",
+   "vocabId": "n4-v-214",
    "prompt": "その学生は〔　〕に先生の話を聞いて、たくさんメモをとっていた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "熱心",
@@ -2684,7 +2892,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-215",
+   "id": "N4-V-B-0209",
+   "vocabId": "n4-v-215",
    "prompt": "来月から、この会社で新しい仕事を〔　〕ことになった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "始める",
@@ -2697,7 +2906,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-216",
+   "id": "N4-V-B-0210",
+   "vocabId": "n4-v-216",
    "prompt": "たんじょう日に、友だちからプレゼントを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "もらう",
@@ -2709,7 +2919,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-217",
+   "id": "N4-V-B-0211",
+   "vocabId": "n4-v-217",
    "prompt": "弟は転んでけがをして、大きな声で〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "泣きました",
@@ -2722,7 +2933,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-218",
+   "id": "N4-V-B-0212",
+   "vocabId": "n4-v-218",
    "prompt": "ひどいかぜも、薬を飲んで休めばすぐに〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "治る",
@@ -2735,7 +2947,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-219",
+   "id": "N4-V-B-0213",
+   "vocabId": "n4-v-219",
    "prompt": "風邪をひいて体が熱く、〔　〕が三十九度もある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "熱",
@@ -2747,7 +2960,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-220",
+   "id": "N4-V-B-0214",
+   "vocabId": "n4-v-220",
    "prompt": "夏になると、この町では大きな〔　〕があって、花火が上がる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "お祭り",
@@ -2759,7 +2973,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-221",
+   "id": "N4-V-B-0215",
+   "vocabId": "n4-v-221",
    "prompt": "台所で〔　〕の水を出して、コップに入れた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "水道",
@@ -2772,7 +2987,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-222",
+   "id": "N4-V-B-0216",
+   "vocabId": "n4-v-222",
    "prompt": "台所からカレーのいい〔　〕がしてきて、おなかがすいた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "匂い",
@@ -2785,7 +3001,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-223",
+   "id": "N4-V-B-0217",
+   "vocabId": "n4-v-223",
    "prompt": "授業の終わりの〔　〕が鳴って、みんな教室を出た。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ベル",
@@ -2797,7 +3014,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-224",
+   "id": "N4-V-B-0218",
+   "vocabId": "n4-v-224",
    "prompt": "〔　〕がおなかをすかせて泣いていたので、ミルクをのませた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "赤ん坊",
@@ -2810,7 +3028,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-225",
+   "id": "N4-V-B-0219",
+   "vocabId": "n4-v-225",
    "prompt": "この時計は動いたり止まったりして、少し〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "おかしい",
@@ -2822,7 +3041,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-226",
+   "id": "N4-V-B-0220",
+   "vocabId": "n4-v-226",
    "prompt": "車が二台ぶつかる〔　〕があって、道が込んでいる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "事故",
@@ -2835,7 +3055,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-227",
+   "id": "N4-V-B-0221",
+   "vocabId": "n4-v-227",
    "prompt": "この料理は〔　〕な味がする。くさっているのかもしれない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "変",
@@ -2847,7 +3068,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-228",
+   "id": "N4-V-B-0222",
+   "vocabId": "n4-v-228",
    "prompt": "知らない言葉の意味を、〔　〕で引いて調べた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "辞典",
@@ -2861,7 +3083,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-229",
+   "id": "N4-V-B-0223",
+   "vocabId": "n4-v-229",
    "prompt": "授業が終わってみんな帰ったが、私は宿題があるので教室に一人〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "残った",
@@ -2874,7 +3097,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-230",
+   "id": "N4-V-B-0224",
+   "vocabId": "n4-v-230",
    "prompt": "皿をたなにしまうときは、横にしないで〔　〕入れる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "立てて",
@@ -2888,7 +3112,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-231",
+   "id": "N4-V-B-0225",
+   "vocabId": "n4-v-231",
    "prompt": "たんじょう日に、友だちがいつも私にプレゼントを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "くれる",
@@ -2900,7 +3125,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-232",
+   "id": "N4-V-B-0226",
+   "vocabId": "n4-v-232",
    "prompt": "兄はデパートで服を売る店〔　〕です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "員",
@@ -2912,7 +3138,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-233",
+   "id": "N4-V-B-0227",
+   "vocabId": "n4-v-233",
    "prompt": "火事の〔　〕は、だれかが捨てたたばこの火だった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "原因",
@@ -2926,7 +3153,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-234",
+   "id": "N4-V-B-0228",
+   "vocabId": "n4-v-234",
    "prompt": "テストの点数が思ったよりずっとよくて、自分でも〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "驚いた",
@@ -2940,7 +3168,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-235",
+   "id": "N4-V-B-0229",
+   "vocabId": "n4-v-235",
    "prompt": "わからない言葉は、先生に教えて〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "いただく",
@@ -2952,7 +3181,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-236",
+   "id": "N4-V-B-0230",
+   "vocabId": "n4-v-236",
    "prompt": "母の母、つまり私の〔　〕は今年で八十歳だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "祖母",
@@ -2966,7 +3196,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-237",
+   "id": "N4-V-B-0231",
+   "vocabId": "n4-v-237",
    "prompt": "駅前の広場を、待ち合わせの〔　〕に決めた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "場所",
@@ -2980,7 +3211,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-238",
+   "id": "N4-V-B-0232",
+   "vocabId": "n4-v-238",
    "prompt": "テストの〔　〕を先生に聞いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "答",
@@ -2992,7 +3224,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-239",
+   "id": "N4-V-B-0233",
+   "vocabId": "n4-v-239",
    "prompt": "「日本語が話せますか。」「〔　〕、話せます。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "もちろん",
@@ -3004,7 +3237,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-240",
+   "id": "N4-V-B-0234",
+   "vocabId": "n4-v-240",
    "prompt": "冬の間も食べられるように、野菜をしおに〔　〕、長い間ほぞんしている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "漬けて",
@@ -3017,7 +3251,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-241",
+   "id": "N4-V-B-0235",
+   "vocabId": "n4-v-241",
    "prompt": "病院に着いたら、まず〔　〕で名前を書いて待ってください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "受付",
@@ -3029,7 +3264,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-242",
+   "id": "N4-V-B-0236",
+   "vocabId": "n4-v-242",
    "prompt": "この工場〔　〕では、ヘルメットをかぶらなければならない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "内",
@@ -3041,7 +3277,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-243",
+   "id": "N4-V-B-0237",
+   "vocabId": "n4-v-243",
    "prompt": "映画館が暗くなって、前の大きな〔　〕に絵が映った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "スクリーン",
@@ -3053,7 +3290,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-244",
+   "id": "N4-V-B-0238",
+   "vocabId": "n4-v-244",
    "prompt": "あまい物ばかり食べていたら、体重が先月より3キロも〔　〕しまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "増えて",
@@ -3066,7 +3304,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-246",
+   "id": "N4-V-B-0239",
+   "vocabId": "n4-v-246",
    "prompt": "そんな高い所から飛ぶと、〔　〕よ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "けがする",
@@ -3078,7 +3317,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-247",
+   "id": "N4-V-B-0240",
+   "vocabId": "n4-v-247",
    "prompt": "まだ小さい三さい〔　〕の子どもは、電車のお金がいりません。",
    "question": "〔　〕に入る言葉は？",
    "answer": "以下",
@@ -3091,7 +3331,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-248",
+   "id": "N4-V-B-0241",
+   "vocabId": "n4-v-248",
    "prompt": "テストでは、四つの答えの中から正しいものを一つ〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "選ぶ",
@@ -3105,7 +3346,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-250",
+   "id": "N4-V-B-0242",
+   "vocabId": "n4-v-250",
    "prompt": "彼女のしんせつに、〔　〕からかんしゃしている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "心",
@@ -3117,7 +3359,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-251",
+   "id": "N4-V-B-0243",
+   "vocabId": "n4-v-251",
    "prompt": "その話はおもしろくて、聞くとみんな急に笑い〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "だす",
@@ -3129,7 +3372,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-252",
+   "id": "N4-V-B-0244",
+   "vocabId": "n4-v-252",
    "prompt": "生の野菜にドレッシングをかけて、〔　〕を作った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "サラダ",
@@ -3143,7 +3387,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-253",
+   "id": "N4-V-B-0245",
+   "vocabId": "n4-v-253",
    "prompt": "注文した品物を、店の人が家まで〔　〕くれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "届けて",
@@ -3157,7 +3402,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-254",
+   "id": "N4-V-B-0246",
+   "vocabId": "n4-v-254",
    "prompt": "朝、先生に会ったら、元気に〔　〕をしましょう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "挨拶",
@@ -3170,7 +3416,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-255",
+   "id": "N4-V-B-0247",
+   "vocabId": "n4-v-255",
    "prompt": "山の上から見た〔　〕は、とてもきれいだった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "景色",
@@ -3182,7 +3429,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-256",
+   "id": "N4-V-B-0248",
+   "vocabId": "n4-v-256",
    "prompt": "〔　〕来週の月曜日は休みだったと思うけど、あとでカレンダーを見て確認します。",
    "question": "〔　〕に入る言葉は？",
    "answer": "確か",
@@ -3195,7 +3443,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-257",
+   "id": "N4-V-B-0249",
+   "vocabId": "n4-v-257",
    "prompt": "牛肉を厚く切って焼いた〔　〕は、とてもやわらかかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ステーキ",
@@ -3209,7 +3458,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-258",
+   "id": "N4-V-B-0250",
+   "vocabId": "n4-v-258",
    "prompt": "スーパーで、肉や野菜などの〔　〕をたくさん買った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "食料品",
@@ -3223,7 +3473,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-259",
+   "id": "N4-V-B-0251",
+   "vocabId": "n4-v-259",
    "prompt": "たくさんの木がある〔　〕を、ゆっくり歩いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "森",
@@ -3235,7 +3486,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-260",
+   "id": "N4-V-B-0252",
+   "vocabId": "n4-v-260",
    "prompt": "図書館の本は、借りてから二週間〔　〕に返さなければなりません。",
    "question": "〔　〕に入る言葉は？",
    "answer": "以内",
@@ -3249,7 +3501,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-261",
+   "id": "N4-V-B-0253",
+   "vocabId": "n4-v-261",
    "prompt": "バスがおくれたので、〔　〕より三十分遅く着いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "予定",
@@ -3262,7 +3515,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-262",
+   "id": "N4-V-B-0254",
+   "vocabId": "n4-v-262",
    "prompt": "雪がふっているので、スーツの上に〔　〕を着て出かけた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "オーバー",
@@ -3274,7 +3528,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-263",
+   "id": "N4-V-B-0255",
+   "vocabId": "n4-v-263",
    "prompt": "天気がよかったので、洗たく物がすぐに〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "乾いた",
@@ -3288,7 +3543,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-264",
+   "id": "N4-V-B-0256",
+   "vocabId": "n4-v-264",
    "prompt": "川で、丸くて重い〔　〕を拾った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "石",
@@ -3300,7 +3556,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-265",
+   "id": "N4-V-B-0257",
+   "vocabId": "n4-v-265",
    "prompt": "古い写真を見ると、子どものころのことを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "思い出す",
@@ -3313,7 +3570,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-266",
+   "id": "N4-V-B-0258",
+   "vocabId": "n4-v-266",
    "prompt": "音楽に合わせて足を動かして、ステージの上で〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "踊った",
@@ -3326,7 +3584,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-267",
+   "id": "N4-V-B-0259",
+   "vocabId": "n4-v-267",
    "prompt": "千円札しかないので、駅の店で〔　〕お金にかえてもらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "細かい",
@@ -3339,7 +3598,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-268",
+   "id": "N4-V-B-0260",
+   "vocabId": "n4-v-268",
    "prompt": "あした、この部屋のかべを青く〔　〕つもりだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "塗る",
@@ -3352,7 +3612,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-269",
+   "id": "N4-V-B-0261",
+   "vocabId": "n4-v-269",
    "prompt": "A「あの女の先生、けっこんしているんですか。」B「ええ、〔　〕はお医者さんだそうですよ。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "ご主人",
@@ -3365,7 +3626,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-270",
+   "id": "N4-V-B-0262",
+   "vocabId": "n4-v-270",
    "prompt": "今日は朝から雪だ。あたたかいこの町では〔　〕ことだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "珍しい",
@@ -3377,7 +3639,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-271",
+   "id": "N4-V-B-0263",
+   "vocabId": "n4-v-271",
    "prompt": "急な〔　〕ができて、パーティーに行けなくなった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "用",
@@ -3389,7 +3652,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-272",
+   "id": "N4-V-B-0264",
+   "vocabId": "n4-v-272",
    "prompt": "兄は市役所で働く〔　〕です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "公務員",
@@ -3402,7 +3666,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-273",
+   "id": "N4-V-B-0265",
+   "vocabId": "n4-v-273",
    "prompt": "となりの家の〔　〕は、来年小学校に入る、とてもかわいい女の子です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "お嬢さん",
@@ -3415,7 +3680,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-274",
+   "id": "N4-V-B-0266",
+   "vocabId": "n4-v-274",
    "prompt": "あしたは朝早く出るので、夜のうちに荷物の〔　〕をした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "用意",
@@ -3429,7 +3695,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-275",
+   "id": "N4-V-B-0267",
+   "vocabId": "n4-v-275",
    "prompt": "大切なゆびわをなくして、毎日いっしょうけんめい〔　〕いる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "探して",
@@ -3442,7 +3709,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-276",
+   "id": "N4-V-B-0268",
+   "vocabId": "n4-v-276",
    "prompt": "この雲は、動物のような〔　〕に見える。",
    "question": "〔　〕に入る言葉は？",
    "answer": "形",
@@ -3454,7 +3722,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-277",
+   "id": "N4-V-B-0269",
+   "vocabId": "n4-v-277",
    "prompt": "兄は毎朝、会社まで車を〔　〕して通っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "運転",
@@ -3468,7 +3737,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-278",
+   "id": "N4-V-B-0270",
+   "vocabId": "n4-v-278",
    "prompt": "大事な約束を〔　〕忘れていて、はずかしかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "すっかり",
@@ -3482,7 +3752,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-279",
+   "id": "N4-V-B-0271",
+   "vocabId": "n4-v-279",
    "prompt": "テレビの〔　〕は、はっきりした声でニュースを読む。",
    "question": "〔　〕に入る言葉は？",
    "answer": "アナウンサー",
@@ -3496,7 +3767,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-280",
+   "id": "N4-V-B-0272",
+   "vocabId": "n4-v-280",
    "prompt": "京都へ旅行に行ってきたので、〔　〕におかしを買って帰った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "お土産",
@@ -3508,7 +3780,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-281",
+   "id": "N4-V-B-0273",
+   "vocabId": "n4-v-281",
    "prompt": "字をまちがえたので、〔　〕できれいに消した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "消しゴム",
@@ -3521,7 +3794,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-282",
+   "id": "N4-V-B-0274",
+   "vocabId": "n4-v-282",
    "prompt": "温泉に行って、川の見える古い〔　〕に一晩とまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "旅館",
@@ -3535,7 +3809,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-283",
+   "id": "N4-V-B-0275",
+   "vocabId": "n4-v-283",
    "prompt": "夏休みに〔　〕を歩いて、波にぬれた貝をひろった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "海岸",
@@ -3549,7 +3824,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-284",
+   "id": "N4-V-B-0276",
+   "vocabId": "n4-v-284",
    "prompt": "友だちがみんな遠くへ引っこして、とても〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "寂しい",
@@ -3562,7 +3838,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-285",
+   "id": "N4-V-B-0277",
+   "vocabId": "n4-v-285",
    "prompt": "マッチで〔　〕をつけて、ろうそくにうつした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "火",
@@ -3574,7 +3851,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-286",
+   "id": "N4-V-B-0278",
+   "vocabId": "n4-v-286",
    "prompt": "毎日水をやって、きれいな花を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "育てた",
@@ -3588,7 +3866,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-287",
+   "id": "N4-V-B-0279",
+   "vocabId": "n4-v-287",
    "prompt": "おわんのお湯に〔　〕を溶かして作るしるは、日本の朝ごはんの定番だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "味噌",
@@ -3601,7 +3880,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-288",
+   "id": "N4-V-B-0280",
+   "vocabId": "n4-v-288",
    "prompt": "兄が大学の試験にうかったので、家族で〔　〕をした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "お祝い",
@@ -3614,7 +3894,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-289",
+   "id": "N4-V-B-0281",
+   "vocabId": "n4-v-289",
    "prompt": "弟は、電車やバスなどの〔　〕が大好きで、いつも写真をとっている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "乗り物",
@@ -3627,7 +3908,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-290",
+   "id": "N4-V-B-0282",
+   "vocabId": "n4-v-290",
    "prompt": "駅で道がわからず困っていたら、係の人が出口まで〔　〕してくれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "案内",
@@ -3641,7 +3923,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-291",
+   "id": "N4-V-B-0283",
+   "vocabId": "n4-v-291",
    "prompt": "父は、家から会社まで遠いので、毎朝1時間半かけて電車で〔　〕います。",
    "question": "〔　〕に入る言葉は？",
    "answer": "通って",
@@ -3654,7 +3937,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-292",
+   "id": "N4-V-B-0284",
+   "vocabId": "n4-v-292",
    "prompt": "旅行のとき、母はいつも小さい妹を〔　〕行く。",
    "question": "〔　〕に入る言葉は？",
    "answer": "連れて",
@@ -3667,7 +3951,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-293",
+   "id": "N4-V-B-0285",
+   "vocabId": "n4-v-293",
    "prompt": "この工場の職人は、こわれた機械を直す高い〔　〕を持っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "技術",
@@ -3681,7 +3966,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-294",
+   "id": "N4-V-B-0286",
+   "vocabId": "n4-v-294",
    "prompt": "庭の木に小さな〔　〕がとまって、きれいな声で鳴いている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "小鳥",
@@ -3693,7 +3979,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-295",
+   "id": "N4-V-B-0287",
+   "vocabId": "n4-v-295",
    "prompt": "私は大学の近くで〔　〕して、毎日学校まで歩いて通っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "下宿",
@@ -3706,7 +3993,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-296",
+   "id": "N4-V-B-0288",
+   "vocabId": "n4-v-296",
    "prompt": "朝はパンにイチゴの〔　〕をぬって食べるのが好きだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ジャム",
@@ -3719,7 +4007,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-297",
+   "id": "N4-V-B-0289",
+   "vocabId": "n4-v-297",
    "prompt": "近所の人の結婚式に〔　〕されたので、新しい服を買った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "招待",
@@ -3732,7 +4021,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-298",
+   "id": "N4-V-B-0290",
+   "vocabId": "n4-v-298",
    "prompt": "出かける前に〔　〕を見て、かみのけを直した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "鏡",
@@ -3744,7 +4034,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-299",
+   "id": "N4-V-B-0291",
+   "vocabId": "n4-v-299",
    "prompt": "彼にはもう伝えてあるから、この件を知っている〔　〕だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "はず",
@@ -3756,7 +4047,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-300",
+   "id": "N4-V-B-0292",
+   "vocabId": "n4-v-300",
    "prompt": "この国では、二十歳になるまでお酒を飲んではいけないと〔　〕で決められている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "法律",
@@ -3769,7 +4061,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-301",
+   "id": "N4-V-B-0293",
+   "vocabId": "n4-v-301",
    "prompt": "話し合いは、みんなの意見が合って、どんどん〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "進みました",
@@ -3782,7 +4075,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-302",
+   "id": "N4-V-B-0294",
+   "vocabId": "n4-v-302",
    "prompt": "友達と遊んで、一日中〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "楽しんだ",
@@ -3795,7 +4089,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-303",
+   "id": "N4-V-B-0295",
+   "vocabId": "n4-v-303",
    "prompt": "あの会社は、品物を外国へ売ったり外国から買ったりする〔　〕で大きくなった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "貿易",
@@ -3808,7 +4103,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-304",
+   "id": "N4-V-B-0296",
+   "vocabId": "n4-v-304",
    "prompt": "私はその計画に〔　〕で、来月から始めることはできないと思う。",
    "question": "〔　〕に入る言葉は？",
    "answer": "反対",
@@ -3821,7 +4117,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-305",
+   "id": "N4-V-B-0297",
+   "vocabId": "n4-v-305",
    "prompt": "私は毎晩、九時ごろまで会社に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "おる",
@@ -3833,7 +4130,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-306",
+   "id": "N4-V-B-0298",
+   "vocabId": "n4-v-306",
    "prompt": "自分の名前を目上の人に言うときは、「言う」ではなく、へりくだった言い方の「〔　〕」を使う。",
    "question": "〔　〕に入る言葉は？",
    "answer": "申す",
@@ -3846,7 +4144,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-307",
+   "id": "N4-V-B-0299",
+   "vocabId": "n4-v-307",
    "prompt": "来週の〔　〕に合格したら、次の学年に進むことができる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "試験",
@@ -3860,7 +4159,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-308",
+   "id": "N4-V-B-0300",
+   "vocabId": "n4-v-308",
    "prompt": "あの学生は〔　〕で、宿題を一度もわすれたことがない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "真面目",
@@ -3873,7 +4173,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-309",
+   "id": "N4-V-B-0301",
+   "vocabId": "n4-v-309",
    "prompt": "先生、こちらの写真をもう〔　〕ましたか。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ごらんになる",
@@ -3885,7 +4186,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-310",
+   "id": "N4-V-B-0302",
+   "vocabId": "n4-v-310",
    "prompt": "この店の〔　〕は、商品の使い方を丁寧に説明してくれる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "店員",
@@ -3898,7 +4200,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-311",
+   "id": "N4-V-B-0303",
+   "vocabId": "n4-v-311",
    "prompt": "旅行のとき、駅の近くのホテルに一晩〔　〕予定だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "泊まる",
@@ -3911,7 +4214,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-312",
+   "id": "N4-V-B-0304",
+   "vocabId": "n4-v-312",
    "prompt": "「もう帰っても〔　〕ですか」と、先生にていねいに聞いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "よろしい",
@@ -3923,7 +4227,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-313",
+   "id": "N4-V-B-0305",
+   "vocabId": "n4-v-313",
    "prompt": "〔　〕は星がよく見えそうだから、屋上に上がって星を見よう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "今夜",
@@ -3936,7 +4241,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-314",
+   "id": "N4-V-B-0306",
+   "vocabId": "n4-v-314",
    "prompt": "五百円のものを千円札で買ったので、〔　〕を五百円もらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "おつり",
@@ -3948,7 +4254,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-315",
+   "id": "N4-V-B-0307",
+   "vocabId": "n4-v-315",
    "prompt": "出発の前に、忘れ物がないか荷物をもう一度〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "チェックする",
@@ -3960,7 +4267,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-316",
+   "id": "N4-V-B-0308",
+   "vocabId": "n4-v-316",
    "prompt": "留学して、日本人との〔　〕に少しずつなれてきた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "会話",
@@ -3974,7 +4282,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-317",
+   "id": "N4-V-B-0309",
+   "vocabId": "n4-v-317",
    "prompt": "山の上は〔　〕がきれいで、深呼吸すると気持ちがいい。",
    "question": "〔　〕に入る言葉は？",
    "answer": "空気",
@@ -3988,7 +4297,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-318",
+   "id": "N4-V-B-0310",
+   "vocabId": "n4-v-318",
    "prompt": "この町は電車もバスもたくさん通っているので、〔　〕がとても便利だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "交通",
@@ -4002,7 +4312,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-319",
+   "id": "N4-V-B-0311",
+   "vocabId": "n4-v-319",
    "prompt": "今のパソコンとちがって、〔　〕は文字を打って印刷することしかできなかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ワープロ",
@@ -4016,7 +4327,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-320",
+   "id": "N4-V-B-0312",
+   "vocabId": "n4-v-320",
    "prompt": "大学に合格したと伝えると、両親はとても〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "喜んだ",
@@ -4029,7 +4341,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-321",
+   "id": "N4-V-B-0313",
+   "vocabId": "n4-v-321",
    "prompt": "この電車は〔　〕なので、小さな駅は通り過ぎて、大きな駅にしか止まりません。",
    "question": "〔　〕に入る言葉は？",
    "answer": "急行",
@@ -4042,7 +4355,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-322",
+   "id": "N4-V-B-0314",
+   "vocabId": "n4-v-322",
    "prompt": "パーティーには〔　〕が集まって、部屋はとてもにぎやかだった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "皆",
@@ -4054,7 +4368,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-323",
+   "id": "N4-V-B-0315",
+   "vocabId": "n4-v-323",
    "prompt": "このスープは〔　〕がうすかったので、塩を少し足した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "味",
@@ -4066,7 +4381,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-324",
+   "id": "N4-V-B-0316",
+   "vocabId": "n4-v-324",
    "prompt": "外国へ行く飛行機に乗るため、朝早く〔　〕に着いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "空港",
@@ -4078,7 +4394,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-325",
+   "id": "N4-V-B-0317",
+   "vocabId": "n4-v-325",
    "prompt": "冬の朝は手がとても冷たいので、外に出るとき〔　〕をして手を温めている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "手袋",
@@ -4091,7 +4408,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-326",
+   "id": "N4-V-B-0318",
+   "vocabId": "n4-v-326",
    "prompt": "卒業式で、〔　〕先生が生徒たちにお話をした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "校長",
@@ -4105,7 +4423,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-327",
+   "id": "N4-V-B-0319",
+   "vocabId": "n4-v-327",
    "prompt": "誕生日に、母がたくさんの〔　〕を作ってくれて、みんなで食べた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ごちそう",
@@ -4117,7 +4436,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-328",
+   "id": "N4-V-B-0320",
+   "vocabId": "n4-v-328",
    "prompt": "広場で太鼓の音に合わせて手足を動かす〔　〕がはじまり、みんなが輪になった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "踊り",
@@ -4129,7 +4449,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-329",
+   "id": "N4-V-B-0321",
+   "vocabId": "n4-v-329",
    "prompt": "私は日本の歴史に〔　〕があるので、その時代の本をよく読む。",
    "question": "〔　〕に入る言葉は？",
    "answer": "興味",
@@ -4143,7 +4464,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-330",
+   "id": "N4-V-B-0322",
+   "vocabId": "n4-v-330",
    "prompt": "今のアパートはせまいので、来月もっと広い部屋に〔　〕ことにした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "引っ越す",
@@ -4156,7 +4478,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-331",
+   "id": "N4-V-B-0323",
+   "vocabId": "n4-v-331",
    "prompt": "へやが暑くてたまらないので、〔　〕をつけてすずしくした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "冷房",
@@ -4169,7 +4492,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-332",
+   "id": "N4-V-B-0324",
+   "vocabId": "n4-v-332",
    "prompt": "その日は用事があって〔　〕が悪いので、次の日に会いませんか。",
    "question": "〔　〕に入る言葉は？",
    "answer": "都合",
@@ -4183,7 +4507,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-333",
+   "id": "N4-V-B-0325",
+   "vocabId": "n4-v-333",
    "prompt": "授業でわからないことがあったら、〔　〕なく質問してください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "遠慮",
@@ -4195,7 +4520,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-334",
+   "id": "N4-V-B-0326",
+   "vocabId": "n4-v-334",
    "prompt": "祖父が〔　〕ので、今日は家族でお葬式に行きます。",
    "question": "〔　〕に入る言葉は？",
    "answer": "亡くなった",
@@ -4208,7 +4534,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-335",
+   "id": "N4-V-B-0327",
+   "vocabId": "n4-v-335",
    "prompt": "大学で〔　〕を勉強して、宇宙のことを研究したいと思っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "科学",
@@ -4222,7 +4549,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-336",
+   "id": "N4-V-B-0328",
+   "vocabId": "n4-v-336",
    "prompt": "となりの声が小さくて、何を言っているのか〔　〕聞こえなかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "はっきり",
@@ -4236,7 +4564,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-337",
+   "id": "N4-V-B-0329",
+   "vocabId": "n4-v-337",
    "prompt": "お世話になった先生に、お礼として、私が絵をかいて〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "差し上げた",
@@ -4249,7 +4578,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-338",
+   "id": "N4-V-B-0330",
+   "vocabId": "n4-v-338",
    "prompt": "手紙には、助けてくれたことへの感謝の〔　〕が書かれていた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "気持ち",
@@ -4263,7 +4593,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-339",
+   "id": "N4-V-B-0331",
+   "vocabId": "n4-v-339",
    "prompt": "父の父、つまり私の〔　〕は今年で八十歳になる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "祖父",
@@ -4277,7 +4608,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-340",
+   "id": "N4-V-B-0332",
+   "vocabId": "n4-v-340",
    "prompt": "船がゆっくりと〔　〕を出て、広い海へ向かっていった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "港",
@@ -4289,7 +4621,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-341",
+   "id": "N4-V-B-0333",
+   "vocabId": "n4-v-341",
    "prompt": "旅行に行く前に、インターネットでホテルの部屋を〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "予約",
@@ -4303,7 +4636,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-342",
+   "id": "N4-V-B-0334",
+   "vocabId": "n4-v-342",
    "prompt": "台風で〔　〕風がふいて、庭の木が何本も倒れてしまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "すごい",
@@ -4316,7 +4650,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-343",
+   "id": "N4-V-B-0335",
+   "vocabId": "n4-v-343",
    "prompt": "妹は今年の四月に高校に〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "入学",
@@ -4330,7 +4665,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-344",
+   "id": "N4-V-B-0336",
+   "vocabId": "n4-v-344",
    "prompt": "おもちゃがゆかにちらかっているから、はこに入れて〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "片付けなさい",
@@ -4343,7 +4679,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-345",
+   "id": "N4-V-B-0337",
+   "vocabId": "n4-v-345",
    "prompt": "授業中、先生が黒板に書いた字をノートに〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "写しました",
@@ -4356,7 +4693,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-346",
+   "id": "N4-V-B-0338",
+   "vocabId": "n4-v-346",
    "prompt": "レポートを書くために、新しい〔　〕を買った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "パソコン",
@@ -4368,7 +4706,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-347",
+   "id": "N4-V-B-0339",
+   "vocabId": "n4-v-347",
    "prompt": "父は課長から一つ上の〔　〕になり、部下がさらに増えた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "部長",
@@ -4382,7 +4721,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-348",
+   "id": "N4-V-B-0340",
+   "vocabId": "n4-v-348",
    "prompt": "となりの家から白いけむりが上がり、大きな〔　〕になった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "火事",
@@ -4396,7 +4736,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-349",
+   "id": "N4-V-B-0341",
+   "vocabId": "n4-v-349",
    "prompt": "5に3を〔　〕と、答えは8になる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "足す",
@@ -4409,7 +4750,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-350",
+   "id": "N4-V-B-0342",
+   "vocabId": "n4-v-350",
    "prompt": "日曜日の朝、〔　〕から鐘の音とうたう声が聞こえてくる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "教会",
@@ -4422,7 +4764,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-352",
+   "id": "N4-V-B-0343",
+   "vocabId": "n4-v-352",
    "prompt": "疲れたので、あたたかいコーヒーを〔　〕飲んで休んだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "一杯",
@@ -4434,7 +4777,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-353",
+   "id": "N4-V-B-0344",
+   "vocabId": "n4-v-353",
    "prompt": "兄は英語を勉強するために〔　〕へ留学した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "アメリカ",
@@ -4446,7 +4790,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-354",
+   "id": "N4-V-B-0345",
+   "vocabId": "n4-v-354",
    "prompt": "その仕事は昔〔　〕の仕事と言われたが、今は女性もたくさん働いている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "男性",
@@ -4460,7 +4805,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-355",
+   "id": "N4-V-B-0346",
+   "vocabId": "n4-v-355",
    "prompt": "学校を休んだ〔　〕を、先生にきちんと説明した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "理由",
@@ -4474,7 +4820,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-356",
+   "id": "N4-V-B-0347",
+   "vocabId": "n4-v-356",
    "prompt": "この工場では、新しい車を1日に100台〔　〕している。",
    "question": "〔　〕に入る言葉は？",
    "answer": "生産",
@@ -4488,7 +4835,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-357",
+   "id": "N4-V-B-0348",
+   "vocabId": "n4-v-357",
    "prompt": "お正月に、姉は花のもようの〔　〕を着て神社へ行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "着物",
@@ -4502,7 +4850,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-358",
+   "id": "N4-V-B-0349",
+   "vocabId": "n4-v-358",
    "prompt": "子どもはお店で見つけた〔　〕がほしくて泣いていた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "おもちゃ",
@@ -4514,7 +4863,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-359",
+   "id": "N4-V-B-0350",
+   "vocabId": "n4-v-359",
    "prompt": "冬は夕方になると早く日が〔　〕、外がすぐに暗くなる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "暮れて",
@@ -4527,7 +4877,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-360",
+   "id": "N4-V-B-0351",
+   "vocabId": "n4-v-360",
    "prompt": "休みの日に、川でさおを使って魚を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "釣った",
@@ -4540,7 +4891,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-361",
+   "id": "N4-V-B-0352",
+   "vocabId": "n4-v-361",
    "prompt": "となりの小さい女の子を、みんな「はな〔　〕」と呼んでいる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ちゃん",
@@ -4552,7 +4904,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-362",
+   "id": "N4-V-B-0353",
+   "vocabId": "n4-v-362",
    "prompt": "バッターが、ピッチャーの投げたボールをバットで強く〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "打った",
@@ -4566,7 +4919,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-363",
+   "id": "N4-V-B-0354",
+   "vocabId": "n4-v-363",
    "prompt": "向こうに見える山を指さして、「私もいつか〔　〕高い山に登りたい」と言った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "あんな",
@@ -4579,7 +4933,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-364",
+   "id": "N4-V-B-0355",
+   "vocabId": "n4-v-364",
    "prompt": "友だちを怒らせてしまったので、電話で「ごめんね」と〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "謝った",
@@ -4592,7 +4947,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-365",
+   "id": "N4-V-B-0356",
+   "vocabId": "n4-v-365",
    "prompt": "母は〔　〕はずっと働いているので、家にいるのは夜だけだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "昼間",
@@ -4606,7 +4962,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-366",
+   "id": "N4-V-B-0357",
+   "vocabId": "n4-v-366",
    "prompt": "国は、すべての子どもが学校で〔　〕を受けられるようにした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "教育",
@@ -4620,7 +4977,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-367",
+   "id": "N4-V-B-0358",
+   "vocabId": "n4-v-367",
    "prompt": "その大学は昔、〔　〕は入ることができず、男性しかいなかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "女性",
@@ -4634,7 +4992,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-368",
+   "id": "N4-V-B-0359",
+   "vocabId": "n4-v-368",
    "prompt": "日本人は昔から〔　〕を作って、ごはんとして食べてきた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "米",
@@ -4646,7 +5005,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-369",
+   "id": "N4-V-B-0360",
+   "vocabId": "n4-v-369",
    "prompt": "荷物を通路に置いておくと、通る人の〔　〕になってしまう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "邪魔",
@@ -4659,7 +5019,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-370",
+   "id": "N4-V-B-0361",
+   "vocabId": "n4-v-370",
    "prompt": "たくさんの国が集まる〔　〕的なスポーツ大会が開かれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "国際",
@@ -4673,7 +5034,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-371",
+   "id": "N4-V-B-0362",
+   "vocabId": "n4-v-371",
    "prompt": "机を部屋の〔　〕に置いて、真ん中を広く使った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "隅",
@@ -4685,7 +5047,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-372",
+   "id": "N4-V-B-0363",
+   "vocabId": "n4-v-372",
    "prompt": "来週、お客様のところへ〔　〕、詳しい話をするつもりです。",
    "question": "〔　〕に入る言葉は？",
    "answer": "伺って",
@@ -4698,7 +5061,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-373",
+   "id": "N4-V-B-0364",
+   "vocabId": "n4-v-373",
    "prompt": "今週も来週も忙しいので、〔　〕の土曜日に会いませんか。",
    "question": "〔　〕に入る言葉は？",
    "answer": "再来週",
@@ -4712,7 +5076,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-374",
+   "id": "N4-V-B-0365",
+   "vocabId": "n4-v-374",
    "prompt": "子どものころの〔　〕は、パイロットになることだった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "夢",
@@ -4724,7 +5089,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-375",
+   "id": "N4-V-B-0366",
+   "vocabId": "n4-v-375",
    "prompt": "かぜをひいて、〔　〕が痛くて声が出ない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "喉",
@@ -4736,7 +5102,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-376",
+   "id": "N4-V-B-0367",
+   "vocabId": "n4-v-376",
    "prompt": "この町は〔　〕、駅の前に新しいパン屋ができて、にぎやかになった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "最近",
@@ -4749,7 +5116,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-377",
+   "id": "N4-V-B-0368",
+   "vocabId": "n4-v-377",
    "prompt": "公園の池の〔　〕を、犬といっしょに一周した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "周り",
@@ -4763,7 +5131,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-378",
+   "id": "N4-V-B-0369",
+   "vocabId": "n4-v-378",
    "prompt": "この寺は千年前に建てられた、長い〔　〕を持つ建物だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "歴史",
@@ -4777,7 +5146,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-379",
+   "id": "N4-V-B-0370",
+   "vocabId": "n4-v-379",
    "prompt": "この村にはバスも電車もないので、とても〔　〕だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "不便",
@@ -4790,7 +5160,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-380",
+   "id": "N4-V-B-0371",
+   "vocabId": "n4-v-380",
    "prompt": "転んでひざをけがして、〔　〕が出た。",
    "question": "〔　〕に入る言葉は？",
    "answer": "血",
@@ -4802,7 +5173,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-381",
+   "id": "N4-V-B-0372",
+   "vocabId": "n4-v-381",
    "prompt": "彼女はピアノが好きで、子どものときから今まで20年間ひき〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "続ける",
@@ -4814,7 +5186,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-382",
+   "id": "N4-V-B-0373",
+   "vocabId": "n4-v-382",
    "prompt": "うちのねこは白い〔　〕がたくさん抜けるので、そうじが大変だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "毛",
@@ -4826,7 +5199,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-383",
+   "id": "N4-V-B-0374",
+   "vocabId": "n4-v-383",
    "prompt": "あの人は約束を守らないし、うそもつく。本当に〔　〕人だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ひどい",
@@ -4838,7 +5212,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-384",
+   "id": "N4-V-B-0375",
+   "vocabId": "n4-v-384",
    "prompt": "スポーツなら何でも好きです。〔　〕、サッカーやテニスをよくします。",
    "question": "〔　〕に入る言葉は？",
    "answer": "例えば",
@@ -4852,7 +5227,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-385",
+   "id": "N4-V-B-0376",
+   "vocabId": "n4-v-385",
    "prompt": "この店のケーキは〔　〕おいしくて、いつも昼までに売り切れる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "なかなか",
@@ -4865,7 +5241,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-386",
+   "id": "N4-V-B-0377",
+   "vocabId": "n4-v-386",
    "prompt": "久しぶりに会ったら、弟は〔　〕背が高くなっていて、おどろいた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "随分",
@@ -4877,7 +5254,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-387",
+   "id": "N4-V-B-0378",
+   "vocabId": "n4-v-387",
    "prompt": "このペンは軽くて、とても書き〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "やすい",
@@ -4889,7 +5267,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-388",
+   "id": "N4-V-B-0379",
+   "vocabId": "n4-v-388",
    "prompt": "使わないふとんは〔　〕にしまってください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "押し入れ",
@@ -4901,7 +5280,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-389",
+   "id": "N4-V-B-0380",
+   "vocabId": "n4-v-389",
    "prompt": "部屋が暗くなったので、〔　〕をつけて明るくした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "電灯",
@@ -4914,7 +5294,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-390",
+   "id": "N4-V-B-0381",
+   "vocabId": "n4-v-390",
    "prompt": "弟がうそをついたので、母は大きな声で弟を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "叱りました",
@@ -4928,7 +5309,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-391",
+   "id": "N4-V-B-0382",
+   "vocabId": "n4-v-391",
    "prompt": "暑い日はくつよりも〔　〕のほうがすずしくて楽だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "サンダル",
@@ -4942,7 +5324,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-392",
+   "id": "N4-V-B-0383",
+   "vocabId": "n4-v-392",
    "prompt": "後ろから急に大きな声で名前を呼ばれて、〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "びっくりする",
@@ -4954,7 +5337,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-393",
+   "id": "N4-V-B-0384",
+   "vocabId": "n4-v-393",
    "prompt": "兄はサッカーが〔　〕、いつも試合で活やくする。",
    "question": "〔　〕に入る言葉は？",
    "answer": "うまい",
@@ -4966,7 +5350,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-394",
+   "id": "N4-V-B-0385",
+   "vocabId": "n4-v-394",
    "prompt": "ヘアスタイルを長い間同じにしていたので、そろそろ〔　〕みたい。",
    "question": "〔　〕に入る言葉は？",
    "answer": "変えて",
@@ -4978,7 +5363,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-395",
+   "id": "N4-V-B-0386",
+   "vocabId": "n4-v-395",
    "prompt": "卒業式は、学校でいちばん大きい〔　〕で行われた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "講堂",
@@ -4991,7 +5377,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-396",
+   "id": "N4-V-B-0387",
+   "vocabId": "n4-v-396",
    "prompt": "あの犬は先月、3びきの〔　〕を産んだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "子",
@@ -5003,7 +5390,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-397",
+   "id": "N4-V-B-0388",
+   "vocabId": "n4-v-397",
    "prompt": "お茶を入れるために、やかんでお湯を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "沸かしました",
@@ -5016,7 +5404,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-398",
+   "id": "N4-V-B-0389",
+   "vocabId": "n4-v-398",
    "prompt": "スーパーで買い物をして、〔　〕でお金をはらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "レジ",
@@ -5030,7 +5419,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-399",
+   "id": "N4-V-B-0390",
+   "vocabId": "n4-v-399",
    "prompt": "母は「〔　〕待っていてね」と言って、店の中に入って行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "しばらく",
@@ -5042,7 +5432,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-400",
+   "id": "N4-V-B-0391",
+   "vocabId": "n4-v-400",
    "prompt": "スポーツは何でも好きですが、〔　〕サッカーが大好きです。",
    "question": "〔　〕に入る言葉は？",
    "answer": "特に",
@@ -5054,7 +5445,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-401",
+   "id": "N4-V-B-0392",
+   "vocabId": "n4-v-401",
    "prompt": "お昼の時間が過ぎて、こんでいたレストランの席が〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "空きました",
@@ -5067,7 +5459,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-402",
+   "id": "N4-V-B-0393",
+   "vocabId": "n4-v-402",
    "prompt": "夏休みの旅行の〔　〕を、みんなで話し合って立てた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "計画",
@@ -5081,7 +5474,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-403",
+   "id": "N4-V-B-0394",
+   "vocabId": "n4-v-403",
    "prompt": "駅前の〔　〕は車が多くて、いつもこんでいる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "通り",
@@ -5094,7 +5488,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-404",
+   "id": "N4-V-B-0395",
+   "vocabId": "n4-v-404",
    "prompt": "おふろから出たあと、はだに直接着る〔　〕を新しいものにかえた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "下着",
@@ -5107,7 +5502,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-405",
+   "id": "N4-V-B-0396",
+   "vocabId": "n4-v-405",
    "prompt": "物の値段が上がりつづけて、この国の〔　〕は悪くなっている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "経済",
@@ -5121,7 +5517,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-406",
+   "id": "N4-V-B-0397",
+   "vocabId": "n4-v-406",
    "prompt": "ペンは 〔　〕 持つと 書きやすいですよ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "こう",
@@ -5133,7 +5530,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-407",
+   "id": "N4-V-B-0398",
+   "vocabId": "n4-v-407",
    "prompt": "今度の日曜日、〔　〕わたしの家へ遊びに来てください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "是非",
@@ -5147,7 +5545,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-408",
+   "id": "N4-V-B-0399",
+   "vocabId": "n4-v-408",
    "prompt": "この 紙の 〔　〕に 名前を 書いて ください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "裏",
@@ -5159,7 +5558,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-409",
+   "id": "N4-V-B-0400",
+   "vocabId": "n4-v-409",
    "prompt": "けんこうの 〔　〕に、毎日 やさいを 食べる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "為",
@@ -5171,7 +5571,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-410",
+   "id": "N4-V-B-0401",
+   "vocabId": "n4-v-410",
    "prompt": "社長は 明日 東京から こちらに 〔　〕そうです。",
    "question": "〔　〕に入る言葉は？",
    "answer": "おいでになる",
@@ -5183,7 +5584,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-411",
+   "id": "N4-V-B-0402",
+   "vocabId": "n4-v-411",
    "prompt": "信号が赤から青に〔　〕ので、ゆっくり歩き出した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "変わった",
@@ -5197,7 +5599,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-412",
+   "id": "N4-V-B-0403",
+   "vocabId": "n4-v-412",
    "prompt": "日曜日〔　〕は毎日会社に行きます。",
    "question": "〔　〕に入る言葉は？",
    "answer": "以外",
@@ -5210,7 +5613,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-413",
+   "id": "N4-V-B-0404",
+   "vocabId": "n4-v-413",
    "prompt": "銀行の用事が思ったより早く〔　〕ので、昼までに家に帰れた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "済んだ",
@@ -5223,7 +5627,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-414",
+   "id": "N4-V-B-0405",
+   "vocabId": "n4-v-414",
    "prompt": "レストランで〔　〕を注文して、ナイフで切って食べた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ハンバーグ",
@@ -5236,7 +5641,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-415",
+   "id": "N4-V-B-0406",
+   "vocabId": "n4-v-415",
    "prompt": "わたしの 町は 去年 〔　〕に なりました。",
    "question": "〔　〕に入る言葉は？",
    "answer": "市",
@@ -5248,7 +5654,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-416",
+   "id": "N4-V-B-0407",
+   "vocabId": "n4-v-416",
    "prompt": "はさみは、この机の一番上の〔　〕の中に入っています。",
    "question": "〔　〕に入る言葉は？",
    "answer": "引き出し",
@@ -5261,7 +5668,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-417",
+   "id": "N4-V-B-0408",
+   "vocabId": "n4-v-417",
    "prompt": "日曜日は友だちの家へ〔　〕に行くやくそくをした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "遊び",
@@ -5275,7 +5683,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-418",
+   "id": "N4-V-B-0409",
+   "vocabId": "n4-v-418",
    "prompt": "出かける 〔　〕が できたら、教えて ください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "支度",
@@ -5287,7 +5696,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-419",
+   "id": "N4-V-B-0410",
+   "vocabId": "n4-v-419",
    "prompt": "空が 暗く なって、雨が 降り〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "始める",
@@ -5299,7 +5709,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-420",
+   "id": "N4-V-B-0411",
+   "vocabId": "n4-v-420",
    "prompt": "今日は空気がきれいで、遠くの山がはっきり〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "見える",
@@ -5312,7 +5723,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-421",
+   "id": "N4-V-B-0412",
+   "vocabId": "n4-v-421",
    "prompt": "電車の時間まで、まだ〔　〕あるから、急がなくてもいいよ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "十分",
@@ -5325,7 +5737,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-422",
+   "id": "N4-V-B-0413",
+   "vocabId": "n4-v-422",
    "prompt": "となりの 部屋から 大きな 〔　〕が 聞こえる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "音",
@@ -5337,7 +5750,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-423",
+   "id": "N4-V-B-0414",
+   "vocabId": "n4-v-423",
    "prompt": "あの 人は まじめだから、〔　〕 成功する でしょう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "きっと",
@@ -5349,7 +5763,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-424",
+   "id": "N4-V-B-0415",
+   "vocabId": "n4-v-424",
    "prompt": "料理を 作る ときは、〔　〕 手を 洗いましょう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "まず",
@@ -5361,7 +5776,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-425",
+   "id": "N4-V-B-0416",
+   "vocabId": "n4-v-425",
    "prompt": "よく晴れた日には、〔　〕に小さく富士山が見える。",
    "question": "〔　〕に入る言葉は？",
    "answer": "遠く",
@@ -5373,7 +5789,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-426",
+   "id": "N4-V-B-0417",
+   "vocabId": "n4-v-426",
    "prompt": "この作文は〔　〕書けたが、まだ少し直すところがある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "だいたい",
@@ -5386,7 +5803,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-427",
+   "id": "N4-V-B-0418",
+   "vocabId": "n4-v-427",
    "prompt": "強い風がふいて、庭の木の枝が〔　〕しまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "折れて",
@@ -5399,7 +5817,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-428",
+   "id": "N4-V-B-0419",
+   "vocabId": "n4-v-428",
    "prompt": "答えが〔　〕かどうか、もう一度計算して確かめた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "正しい",
@@ -5412,7 +5831,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-429",
+   "id": "N4-V-B-0420",
+   "vocabId": "n4-v-429",
    "prompt": "この果物は日本ではとれないので、外国から〔　〕している。",
    "question": "〔　〕に入る言葉は？",
    "answer": "輸入",
@@ -5426,7 +5846,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-430",
+   "id": "N4-V-B-0421",
+   "vocabId": "n4-v-430",
    "prompt": "メールで質問を送ったが、一週間たっても〔　〕が来ない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "返事",
@@ -5440,7 +5861,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-431",
+   "id": "N4-V-B-0422",
+   "vocabId": "n4-v-431",
    "prompt": "京都は むかし 日本の 〔　〕でした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "都",
@@ -5452,7 +5874,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-432",
+   "id": "N4-V-B-0423",
+   "vocabId": "n4-v-432",
    "prompt": "この町は、車を作る〔　〕がさかんだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "産業",
@@ -5466,7 +5889,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-433",
+   "id": "N4-V-B-0424",
+   "vocabId": "n4-v-433",
    "prompt": "会議の時間が変わったことを、休んでいる同僚に電話で〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "伝えました",
@@ -5480,7 +5904,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-434",
+   "id": "N4-V-B-0425",
+   "vocabId": "n4-v-434",
    "prompt": "あの人は大きな家に住んでいて、車を三台も持っている〔　〕だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "お金持ち",
@@ -5493,7 +5918,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-435",
+   "id": "N4-V-B-0426",
+   "vocabId": "n4-v-435",
    "prompt": "意味が分からなかったので、先生がもう一度〔　〕してくれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "説明",
@@ -5507,7 +5933,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-436",
+   "id": "N4-V-B-0427",
+   "vocabId": "n4-v-436",
    "prompt": "船で 小さな 〔　〕に 渡った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "島",
@@ -5519,7 +5946,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-437",
+   "id": "N4-V-B-0428",
+   "vocabId": "n4-v-437",
    "prompt": "この店では、料理を作るときに使うなべやほうちょうなどの〔　〕を売っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "道具",
@@ -5533,7 +5961,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-438",
+   "id": "N4-V-B-0429",
+   "vocabId": "n4-v-438",
    "prompt": "きれいにみがいた廊下は〔　〕やすいので、走らないでください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "滑り",
@@ -5546,7 +5975,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-440",
+   "id": "N4-V-B-0430",
+   "vocabId": "n4-v-440",
    "prompt": "この宿題は思ったより多くて、終わるのに三時間〔　〕かかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "以上",
@@ -5558,7 +5988,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-442",
+   "id": "N4-V-B-0431",
+   "vocabId": "n4-v-442",
    "prompt": "とても急いでいるので、止まる駅が一番少なくて速い〔　〕に乗った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "特急",
@@ -5571,7 +6002,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-443",
+   "id": "N4-V-B-0432",
+   "vocabId": "n4-v-443",
    "prompt": "たんじょうびの〔　〕に、ほしかった本をもらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "プレゼント",
@@ -5583,7 +6015,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-445",
+   "id": "N4-V-B-0433",
+   "vocabId": "n4-v-445",
    "prompt": "わたしの 〔　〕は 料理が とても 上手です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "妻",
@@ -5595,7 +6028,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-446",
+   "id": "N4-V-B-0434",
+   "vocabId": "n4-v-446",
    "prompt": "授業が終わって、学校の〔　〕に駅前の本屋によった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "帰り",
@@ -5609,7 +6043,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-447",
+   "id": "N4-V-B-0435",
+   "vocabId": "n4-v-447",
    "prompt": "朝から頭が痛くて、体の〔　〕が悪いので今日は休みます。",
    "question": "〔　〕に入る言葉は？",
    "answer": "具合",
@@ -5622,7 +6057,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-448",
+   "id": "N4-V-B-0436",
+   "vocabId": "n4-v-448",
    "prompt": "この パンは 古くて、石の ように 〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "かたい",
@@ -5634,7 +6070,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-449",
+   "id": "N4-V-B-0437",
+   "vocabId": "n4-v-449",
    "prompt": "デパートの〔　〕がいっぱいで、車をとめる場所が見つからない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "駐車場",
@@ -5648,7 +6085,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-450",
+   "id": "N4-V-B-0438",
+   "vocabId": "n4-v-450",
    "prompt": "会社の面接には、黒い〔　〕を着て行きます。",
    "question": "〔　〕に入る言葉は？",
    "answer": "スーツ",
@@ -5661,7 +6099,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-451",
+   "id": "N4-V-B-0439",
+   "vocabId": "n4-v-451",
    "prompt": "この道は車がスピードを出して走るので、夜は特に〔　〕です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "危険",
@@ -5675,7 +6114,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-452",
+   "id": "N4-V-B-0440",
+   "vocabId": "n4-v-452",
    "prompt": "美容院で 〔　〕を 短く 切って もらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "髪",
@@ -5687,7 +6127,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-453",
+   "id": "N4-V-B-0441",
+   "vocabId": "n4-v-453",
    "prompt": "〔　〕によると、明日は雨がふるそうだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "天気予報",
@@ -5701,7 +6142,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-455",
+   "id": "N4-V-B-0442",
+   "vocabId": "n4-v-455",
    "prompt": "夏休みの 〔　〕、毎日 プールで 泳いだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "間",
@@ -5713,7 +6155,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-456",
+   "id": "N4-V-B-0443",
+   "vocabId": "n4-v-456",
    "prompt": "四年間しっかり勉強したので、来年の三月に大学を〔　〕します。",
    "question": "〔　〕に入る言葉は？",
    "answer": "卒業",
@@ -5727,7 +6170,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-458",
+   "id": "N4-V-B-0444",
+   "vocabId": "n4-v-458",
    "prompt": "鳥が 木の 〔　〕に とまって いる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "枝",
@@ -5739,7 +6183,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-459",
+   "id": "N4-V-B-0445",
+   "vocabId": "n4-v-459",
    "prompt": "大学院で五年間研究したので、わたしの〔　〕は日本の古い文学です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "専門",
@@ -5751,7 +6196,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-460",
+   "id": "N4-V-B-0446",
+   "vocabId": "n4-v-460",
    "prompt": "もう九時ですね。〔　〕帰りましょうか。",
    "question": "〔　〕に入る言葉は？",
    "answer": "そろそろ",
@@ -5765,7 +6211,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-461",
+   "id": "N4-V-B-0447",
+   "vocabId": "n4-v-461",
    "prompt": "外国にいる友だちに、たんじょうびのプレゼントを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "送りました",
@@ -5778,7 +6225,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-462",
+   "id": "N4-V-B-0448",
+   "vocabId": "n4-v-462",
    "prompt": "わたしは 妹に この 本を 〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "あげる",
@@ -5790,7 +6238,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-463",
+   "id": "N4-V-B-0449",
+   "vocabId": "n4-v-463",
    "prompt": "先生が話しているのに、後ろの席の人たちが〔　〕いて、話が聞こえなかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "騒いで",
@@ -5803,7 +6252,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-464",
+   "id": "N4-V-B-0450",
+   "vocabId": "n4-v-464",
    "prompt": "分からないことがあったら、遠慮せず先生に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "尋ねる",
@@ -5816,7 +6266,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-465",
+   "id": "N4-V-B-0451",
+   "vocabId": "n4-v-465",
    "prompt": "その野球の試合は、テレビで全国に〔　〕された。",
    "question": "〔　〕に入る言葉は？",
    "answer": "放送",
@@ -5830,7 +6281,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-466",
+   "id": "N4-V-B-0452",
+   "vocabId": "n4-v-466",
    "prompt": "選挙で選ばれた人たちが、国の〔　〕を行っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "政治",
@@ -5844,7 +6296,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-467",
+   "id": "N4-V-B-0453",
+   "vocabId": "n4-v-467",
    "prompt": "この図書館は、この市に住んでいる〔　〕なら、だれでも無料で使える。",
    "question": "〔　〕に入る言葉は？",
    "answer": "市民",
@@ -5856,7 +6309,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-468",
+   "id": "N4-V-B-0454",
+   "vocabId": "n4-v-468",
    "prompt": "この書類を、今すぐそちらへ〔　〕します。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ファックス",
@@ -5868,7 +6322,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-469",
+   "id": "N4-V-B-0455",
+   "vocabId": "n4-v-469",
    "prompt": "サッカーの試合は、一対三でざんねんながら〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "負けた",
@@ -5881,7 +6336,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-470",
+   "id": "N4-V-B-0456",
+   "vocabId": "n4-v-470",
    "prompt": "結婚を決めたとき、彼は彼女の指に美しい〔　〕をはめた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "指輪",
@@ -5894,7 +6350,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-471",
+   "id": "N4-V-B-0457",
+   "vocabId": "n4-v-471",
    "prompt": "祖父母は、駅も店も遠い静かな〔　〕に住んでいる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "田舎",
@@ -5908,7 +6365,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-472",
+   "id": "N4-V-B-0458",
+   "vocabId": "n4-v-472",
    "prompt": "へやのそうじをしていたら、なくしたと思っていた写真を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "見つけた",
@@ -5921,7 +6379,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-473",
+   "id": "N4-V-B-0459",
+   "vocabId": "n4-v-473",
    "prompt": "兄は今年十六歳になって、四月から〔　〕になった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "高校生",
@@ -5934,7 +6393,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-474",
+   "id": "N4-V-B-0460",
+   "vocabId": "n4-v-474",
    "prompt": "大学の教室で先生の〔　〕を聞きながら、ノートを取った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "講義",
@@ -5947,7 +6407,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-475",
+   "id": "N4-V-B-0461",
+   "vocabId": "n4-v-475",
    "prompt": "A「わたしは毎日3時間も勉強しているんです。」B「えっ、〔　〕勉強しているんですか。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "そんなに",
@@ -5960,7 +6421,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-476",
+   "id": "N4-V-B-0462",
+   "vocabId": "n4-v-476",
    "prompt": "午前の授業が終わって、〔　〕にみんなで食堂へ行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "昼休み",
@@ -5972,7 +6434,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-477",
+   "id": "N4-V-B-0463",
+   "vocabId": "n4-v-477",
    "prompt": "電車を降りるときは、〔　〕がないかよく確認しましょう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "忘れ物",
@@ -5985,7 +6448,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-478",
+   "id": "N4-V-B-0464",
+   "vocabId": "n4-v-478",
    "prompt": "エレベーターを使わずに、階段で五階から一階まで〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "下りた",
@@ -5998,7 +6462,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-479",
+   "id": "N4-V-B-0465",
+   "vocabId": "n4-v-479",
    "prompt": "重い荷物を持ちすぎて、〔　〕が痛くなった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "腕",
@@ -6010,7 +6475,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-480",
+   "id": "N4-V-B-0466",
+   "vocabId": "n4-v-480",
    "prompt": "彼が急に会社を辞めた〔　〕を、誰も知らない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "訳",
@@ -6022,7 +6488,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-481",
+   "id": "N4-V-B-0467",
+   "vocabId": "n4-v-481",
    "prompt": "客「これ、金曜日までにお願いします。」店員「はい、たしかに〔　〕いたしました。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "承知",
@@ -6035,7 +6502,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-482",
+   "id": "N4-V-B-0468",
+   "vocabId": "n4-v-482",
    "prompt": "毎晩寝る前に、その日にあったことを〔　〕に書いている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "日記",
@@ -6049,7 +6517,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-483",
+   "id": "N4-V-B-0469",
+   "vocabId": "n4-v-483",
    "prompt": "兄は今〔　〕の三年生で、来年は大学を受験する。",
    "question": "〔　〕に入る言葉は？",
    "answer": "高校; 高等学校",
@@ -6061,7 +6530,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-484",
+   "id": "N4-V-B-0470",
+   "vocabId": "n4-v-484",
    "prompt": "子どもは、顔も声も親に〔　〕ものだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "似る",
@@ -6074,7 +6544,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-485",
+   "id": "N4-V-B-0471",
+   "vocabId": "n4-v-485",
    "prompt": "この本を読み〔　〕たら、弟に貸してあげるつもりだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～おわる",
@@ -6086,7 +6557,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-486",
+   "id": "N4-V-B-0472",
+   "vocabId": "n4-v-486",
    "prompt": "冬になって部屋がとても寒いので、〔　〕をつけて部屋を暖かくした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "暖房",
@@ -6099,7 +6571,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-487",
+   "id": "N4-V-B-0473",
+   "vocabId": "n4-v-487",
    "prompt": "昼間、となりの家に行ったが、〔　〕で誰もいなかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "留守",
@@ -6112,7 +6585,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-488",
+   "id": "N4-V-B-0474",
+   "vocabId": "n4-v-488",
    "prompt": "このクラスでめがねをかけている人の〔　〕は、四十パーセントだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "割合",
@@ -6126,7 +6600,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-489",
+   "id": "N4-V-B-0475",
+   "vocabId": "n4-v-489",
    "prompt": "京都には、古くて有名な〔　〕がたくさんある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "寺",
@@ -6138,7 +6613,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-490",
+   "id": "N4-V-B-0476",
+   "vocabId": "n4-v-490",
    "prompt": "日本の食べ物は、最初は苦手だったが、少しずつ〔　〕、今はおいしく食べられる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "慣れて",
@@ -6151,7 +6627,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-491",
+   "id": "N4-V-B-0477",
+   "vocabId": "n4-v-491",
    "prompt": "この電車は〔　〕なので、どの駅にも止まります。",
    "question": "〔　〕に入る言葉は？",
    "answer": "普通",
@@ -6164,7 +6641,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-492",
+   "id": "N4-V-B-0478",
+   "vocabId": "n4-v-492",
    "prompt": "母が忙しそうだったので、私は夕食の準備を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "手伝った",
@@ -6177,7 +6655,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-493",
+   "id": "N4-V-B-0479",
+   "vocabId": "n4-v-493",
    "prompt": "「〔　〕、そういう理由だったんですね。よく分かりました。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "なるほど",
@@ -6189,7 +6668,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-494",
+   "id": "N4-V-B-0480",
+   "vocabId": "n4-v-494",
    "prompt": "先生が私に、すてきな辞書を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "くださる",
@@ -6201,7 +6681,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-495",
+   "id": "N4-V-B-0481",
+   "vocabId": "n4-v-495",
    "prompt": "私の〔　〕は、今年から小学校に通っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "息子",
@@ -6215,7 +6696,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-496",
+   "id": "N4-V-B-0482",
+   "vocabId": "n4-v-496",
    "prompt": "「お宅の〔　〕は、もう学校に通っていますか。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "お子さん",
@@ -6227,7 +6709,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-497",
+   "id": "N4-V-B-0483",
+   "vocabId": "n4-v-497",
    "prompt": "音楽会の〔　〕は、五千人も入れる大きなホールです。",
    "question": "〔　〕に入る言葉は？",
    "answer": "会場",
@@ -6241,7 +6724,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-498",
+   "id": "N4-V-B-0484",
+   "vocabId": "n4-v-498",
    "prompt": "その話はとてもおもしろくて、みんな大きな声で〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "笑いました",
@@ -6254,7 +6738,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-499",
+   "id": "N4-V-B-0485",
+   "vocabId": "n4-v-499",
    "prompt": "友だちと二人で、この重い机を隣の部屋へ〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "運びました",
@@ -6267,7 +6752,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-500",
+   "id": "N4-V-B-0486",
+   "vocabId": "n4-v-500",
    "prompt": "大学で日本の〔　〕を勉強して、有名な小説をたくさん読んだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "文学",
@@ -6281,7 +6767,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-501",
+   "id": "N4-V-B-0487",
+   "vocabId": "n4-v-501",
    "prompt": "暗い部屋の中に、窓から明るい〔　〕が差し込んできた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "光",
@@ -6293,7 +6780,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-502",
+   "id": "N4-V-B-0488",
+   "vocabId": "n4-v-502",
    "prompt": "友だちが入院したので、病院へ〔　〕に行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "お見舞い",
@@ -6305,7 +6793,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-503",
+   "id": "N4-V-B-0489",
+   "vocabId": "n4-v-503",
    "prompt": "電車がとてもこんでいて、座る〔　〕が一つもなかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "席",
@@ -6317,7 +6806,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-504",
+   "id": "N4-V-B-0490",
+   "vocabId": "n4-v-504",
    "prompt": "「田中〔　〕、お荷物が届いております。」",
    "question": "〔　〕に入る言葉は？",
    "answer": "～様",
@@ -6329,7 +6819,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-505",
+   "id": "N4-V-B-0491",
+   "vocabId": "n4-v-505",
    "prompt": "先生、この本のことをもう〔　〕ですか。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ご存じ",
@@ -6342,7 +6833,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-506",
+   "id": "N4-V-B-0492",
+   "vocabId": "n4-v-506",
    "prompt": "船で川を〔　〕と、海に出た。",
    "question": "〔　〕に入る言葉は？",
    "answer": "下る",
@@ -6355,7 +6847,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-507",
+   "id": "N4-V-B-0493",
+   "vocabId": "n4-v-507",
    "prompt": "彼はいつも、大きくてきれいな〔　〕を書く。",
    "question": "〔　〕に入る言葉は？",
    "answer": "字",
@@ -6367,7 +6860,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-508",
+   "id": "N4-V-B-0494",
+   "vocabId": "n4-v-508",
    "prompt": "日本や中国、韓国は〔　〕にある国だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "アジア",
@@ -6379,7 +6873,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-509",
+   "id": "N4-V-B-0495",
+   "vocabId": "n4-v-509",
    "prompt": "百点を取ったら、先生は「よくがんばったね」と〔　〕くれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "褒めて",
@@ -6392,7 +6887,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-510",
+   "id": "N4-V-B-0496",
+   "vocabId": "n4-v-510",
    "prompt": "お昼の時間を過ぎると、このレストランは席が〔　〕きます。",
    "question": "〔　〕に入る言葉は？",
    "answer": "空いて",
@@ -6405,7 +6901,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-512",
+   "id": "N4-V-B-0497",
+   "vocabId": "n4-v-512",
    "prompt": "一年の中で、八月が〔　〕暑い月だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "最も",
@@ -6419,7 +6916,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-513",
+   "id": "N4-V-B-0498",
+   "vocabId": "n4-v-513",
    "prompt": "このぼうしは私の頭の大きさにちょうど〔　〕ので、気に入っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "合う",
@@ -6433,7 +6931,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-514",
+   "id": "N4-V-B-0499",
+   "vocabId": "n4-v-514",
    "prompt": "私の父は今、五十〔　〕で、まだ元気に働いている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～代",
@@ -6445,7 +6944,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-515",
+   "id": "N4-V-B-0500",
+   "vocabId": "n4-v-515",
    "prompt": "マラソンで、その選手はあきらめずに〔　〕まで走りきった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "最後",
@@ -6459,7 +6959,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-516",
+   "id": "N4-V-B-0501",
+   "vocabId": "n4-v-516",
    "prompt": "この店は品物がいいのに、〔　〕が安くて驚いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "値段",
@@ -6472,7 +6973,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-517",
+   "id": "N4-V-B-0502",
+   "vocabId": "n4-v-517",
    "prompt": "一か月入院していたが、病気がよくなったので来週〔　〕することになった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "退院",
@@ -6485,7 +6987,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-518",
+   "id": "N4-V-B-0503",
+   "vocabId": "n4-v-518",
    "prompt": "美術館で、有名な画家の絵の〔　〕が開かれている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "展覧会",
@@ -6498,7 +7001,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-519",
+   "id": "N4-V-B-0504",
+   "vocabId": "n4-v-519",
    "prompt": "十年ぶりに国へ帰って、〔　〕に家族に会えた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "久しぶり",
@@ -6512,7 +7016,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-520",
+   "id": "N4-V-B-0505",
+   "vocabId": "n4-v-520",
    "prompt": "朝、日がまぶしくて目がさめたので、まどの〔　〕を閉めた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "カーテン",
@@ -6526,7 +7031,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-521",
+   "id": "N4-V-B-0506",
+   "vocabId": "n4-v-521",
    "prompt": "昔の人は、石炭をもやして黒いけむりを出しながら走る〔　〕で、遠くの町まで旅をした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "汽車",
@@ -6539,7 +7045,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-522",
+   "id": "N4-V-B-0507",
+   "vocabId": "n4-v-522",
    "prompt": "電車が事故で止まってしまい、会社に30分〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "遅れた",
@@ -6552,7 +7059,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-523",
+   "id": "N4-V-B-0508",
+   "vocabId": "n4-v-523",
    "prompt": "なくしたと思っていたかぎが、机の下から〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "見つかりました",
@@ -6565,7 +7073,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-524",
+   "id": "N4-V-B-0509",
+   "vocabId": "n4-v-524",
    "prompt": "どうぞ、温かいうちにこのお茶を〔　〕ください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "召し上がって",
@@ -6578,7 +7087,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-525",
+   "id": "N4-V-B-0510",
+   "vocabId": "n4-v-525",
    "prompt": "毎日あまいものばかり食べていたら、少し〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "太った",
@@ -6591,7 +7101,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-526",
+   "id": "N4-V-B-0511",
+   "vocabId": "n4-v-526",
    "prompt": "熱が下がらないので、病院でうでに〔　〕をしてもらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "注射",
@@ -6605,7 +7116,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-527",
+   "id": "N4-V-B-0512",
+   "vocabId": "n4-v-527",
    "prompt": "この〔　〕に書けば、だれでも分かります。",
    "question": "〔　〕に入る言葉は？",
    "answer": "様",
@@ -6617,7 +7129,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-528",
+   "id": "N4-V-B-0513",
+   "vocabId": "n4-v-528",
    "prompt": "この薬は、六時間〔　〕に飲んでください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～おき",
@@ -6629,7 +7142,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-529",
+   "id": "N4-V-B-0514",
+   "vocabId": "n4-v-529",
    "prompt": "この本は、〔　〕は難しかったが、読んでいるうちに面白くなった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "最初",
@@ -6642,7 +7156,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-530",
+   "id": "N4-V-B-0515",
+   "vocabId": "n4-v-530",
    "prompt": "先生の〔　〕家族は、みなさんお元気ですか。",
    "question": "〔　〕に入る言葉は？",
    "answer": "御～",
@@ -6654,7 +7169,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-531",
+   "id": "N4-V-B-0516",
+   "vocabId": "n4-v-531",
    "prompt": "むずかしいテストが終わって、やっと〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "安心",
@@ -6667,7 +7183,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-532",
+   "id": "N4-V-B-0517",
+   "vocabId": "n4-v-532",
    "prompt": "こわれた時計を修理に出したら、きれいに〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "直った",
@@ -6679,7 +7196,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-533",
+   "id": "N4-V-B-0518",
+   "vocabId": "n4-v-533",
    "prompt": "弟は子どものころから外国のコインを〔　〕いて、今は千まい以上ある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "集めて",
@@ -6693,7 +7211,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-534",
+   "id": "N4-V-B-0519",
+   "vocabId": "n4-v-534",
    "prompt": "まちがった漢字を、先生に言われて赤いペンで〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "直した",
@@ -6706,7 +7225,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-535",
+   "id": "N4-V-B-0520",
+   "vocabId": "n4-v-535",
    "prompt": "先週から雨の日が〔　〕、今日でもう十日目だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "続いて",
@@ -6720,7 +7240,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-536",
+   "id": "N4-V-B-0521",
+   "vocabId": "n4-v-536",
    "prompt": "大学に入ったとき、二年上の〔　〕がサークルに案内してくれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "先輩",
@@ -6734,7 +7255,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-537",
+   "id": "N4-V-B-0522",
+   "vocabId": "n4-v-537",
    "prompt": "十時に駅で会う〔　〕をしたのに、友だちは来なかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "約束",
@@ -6746,7 +7268,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-538",
+   "id": "N4-V-B-0523",
+   "vocabId": "n4-v-538",
    "prompt": "旅行の間、となりの家の人がねこの〔　〕をしてくれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "世話",
@@ -6760,7 +7283,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-539",
+   "id": "N4-V-B-0524",
+   "vocabId": "n4-v-539",
    "prompt": "うちの〔　〕にできたパン屋は、歩いて三分で行ける。",
    "question": "〔　〕に入る言葉は？",
    "answer": "近所",
@@ -6774,7 +7298,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-540",
+   "id": "N4-V-B-0525",
+   "vocabId": "n4-v-540",
    "prompt": "まだ子どもだが、〔　〕は医者になりたいと思っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "将来",
@@ -6788,7 +7313,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-541",
+   "id": "N4-V-B-0526",
+   "vocabId": "n4-v-541",
    "prompt": "日本の人口は、約一〔　〕二千万人です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "億",
@@ -6800,7 +7326,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-542",
+   "id": "N4-V-B-0527",
+   "vocabId": "n4-v-542",
    "prompt": "私は計算が好きなので、学校では〔　〕の時間がいちばん楽しい。",
    "question": "〔　〕に入る言葉は？",
    "answer": "数学",
@@ -6814,7 +7341,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-543",
+   "id": "N4-V-B-0528",
+   "vocabId": "n4-v-543",
    "prompt": "着物やお茶を体験して、日本の〔　〕を学んだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "文化",
@@ -6828,7 +7356,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-544",
+   "id": "N4-V-B-0529",
+   "vocabId": "n4-v-544",
    "prompt": "買い物のあと、レジで店員さんに代金の千円を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "払った",
@@ -6841,7 +7370,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-545",
+   "id": "N4-V-B-0530",
+   "vocabId": "n4-v-545",
    "prompt": "毎朝六時に起きるのは、子どものころから続いているわたしの〔　〕だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "習慣",
@@ -6855,7 +7385,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-546",
+   "id": "N4-V-B-0531",
+   "vocabId": "n4-v-546",
    "prompt": "オーブンに入れて三十分、パンがおいしそうに〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "焼けた",
@@ -6869,7 +7400,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-548",
+   "id": "N4-V-B-0532",
+   "vocabId": "n4-v-548",
    "prompt": "夜になると、足が急に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "冷える",
@@ -6882,7 +7414,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-549",
+   "id": "N4-V-B-0533",
+   "vocabId": "n4-v-549",
    "prompt": "暗かったので、かべのスイッチを押すと部屋の電気が〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "点いた",
@@ -6896,7 +7429,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-551",
+   "id": "N4-V-B-0534",
+   "vocabId": "n4-v-551",
    "prompt": "山に登るのに、サンダルにTシャツという〔　〕では危ない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "格好",
@@ -6910,7 +7444,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-552",
+   "id": "N4-V-B-0535",
+   "vocabId": "n4-v-552",
    "prompt": "わたしのことは〔　〕な、先に行け。",
    "question": "〔　〕に入る言葉は？",
    "answer": "かまう",
@@ -6922,7 +7457,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-553",
+   "id": "N4-V-B-0536",
+   "vocabId": "n4-v-553",
    "prompt": "上手になりたいので、毎日三十分ずつピアノの練習を〔　〕いる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "続けて",
@@ -6935,7 +7471,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-554",
+   "id": "N4-V-B-0537",
+   "vocabId": "n4-v-554",
    "prompt": "電車の中で、うっかり大事なさいふを〔　〕しまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "落として",
@@ -6948,7 +7485,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-555",
+   "id": "N4-V-B-0538",
+   "vocabId": "n4-v-555",
    "prompt": "今日は店が休みなので、〔　〕また来てください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "明日",
@@ -6962,7 +7500,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-556",
+   "id": "N4-V-B-0539",
+   "vocabId": "n4-v-556",
    "prompt": "飛行機の〔　〕の時間に遅れないように、三時間前に空港へ行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "出発",
@@ -6976,7 +7515,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-557",
+   "id": "N4-V-B-0540",
+   "vocabId": "n4-v-557",
    "prompt": "旅行の写真を〔　〕して、とても楽しかったです。",
    "question": "〔　〕に入る言葉は？",
    "answer": "拝見",
@@ -6989,7 +7529,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-558",
+   "id": "N4-V-B-0541",
+   "vocabId": "n4-v-558",
    "prompt": "テーブルから落ちたガラスのコップが、細かく〔　〕しまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "割れて",
@@ -7003,7 +7544,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-559",
+   "id": "N4-V-B-0542",
+   "vocabId": "n4-v-559",
    "prompt": "自分では手がとどかないので、かゆい〔　〕を母にかいてもらった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "背中",
@@ -7017,7 +7559,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-560",
+   "id": "N4-V-B-0543",
+   "vocabId": "n4-v-560",
    "prompt": "兄は〔　〕で記者として働き、毎日ニュースを書いている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "新聞社",
@@ -7031,7 +7574,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-561",
+   "id": "N4-V-B-0544",
+   "vocabId": "n4-v-561",
    "prompt": "弱い子を〔　〕のは、絶対にいけないことだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "いじめる",
@@ -7043,7 +7587,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-562",
+   "id": "N4-V-B-0545",
+   "vocabId": "n4-v-562",
    "prompt": "地球は太陽の周りを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "回る",
@@ -7055,7 +7600,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-564",
+   "id": "N4-V-B-0546",
+   "vocabId": "n4-v-564",
    "prompt": "先生が今、大事なことを〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "おっしゃる",
@@ -7067,7 +7613,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-565",
+   "id": "N4-V-B-0547",
+   "vocabId": "n4-v-565",
    "prompt": "ゆうべあまり寝なかったので、朝からとても〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "眠い",
@@ -7080,7 +7627,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-566",
+   "id": "N4-V-B-0548",
+   "vocabId": "n4-v-566",
    "prompt": "コップの水をこぼして、大切なノートが〔　〕しまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "濡れて",
@@ -7092,7 +7640,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-567",
+   "id": "N4-V-B-0549",
+   "vocabId": "n4-v-567",
    "prompt": "大きな地震で、古くて弱くなっていた家が〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "倒れた",
@@ -7105,7 +7654,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-568",
+   "id": "N4-V-B-0550",
+   "vocabId": "n4-v-568",
    "prompt": "夕ごはんの材料を買いに、近くの〔　〕へ行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "スーパー (マーケット)",
@@ -7117,7 +7667,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-569",
+   "id": "N4-V-B-0551",
+   "vocabId": "n4-v-569",
    "prompt": "パーティーに行くので、首や指にきれいな〔　〕をつけた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "アクセサリー",
@@ -7131,7 +7682,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-570",
+   "id": "N4-V-B-0552",
+   "vocabId": "n4-v-570",
    "prompt": "大学を出たあとどんな仕事をするか、毎日〔　〕いる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "考えて",
@@ -7144,7 +7696,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-571",
+   "id": "N4-V-B-0553",
+   "vocabId": "n4-v-571",
    "prompt": "今、会社から駅へ〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "向かっています",
@@ -7157,7 +7710,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-572",
+   "id": "N4-V-B-0554",
+   "vocabId": "n4-v-572",
    "prompt": "この部屋にあるパソコンは、だれでも〔　〕に使ってよい。",
    "question": "〔　〕に入る言葉は？",
    "answer": "自由",
@@ -7171,7 +7725,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-573",
+   "id": "N4-V-B-0555",
+   "vocabId": "n4-v-573",
    "prompt": "先生が、正しいおじぎの〔　〕を見せてくれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "仕方",
@@ -7183,7 +7738,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-574",
+   "id": "N4-V-B-0556",
+   "vocabId": "n4-v-574",
    "prompt": "寒いので、マフラーを〔　〕に巻いて出かけた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "首",
@@ -7195,7 +7751,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-576",
+   "id": "N4-V-B-0557",
+   "vocabId": "n4-v-576",
    "prompt": "病気で休んだ同僚の〔　〕に、私が会議に出た。",
    "question": "〔　〕に入る言葉は？",
    "answer": "代わり",
@@ -7209,7 +7766,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-577",
+   "id": "N4-V-B-0558",
+   "vocabId": "n4-v-577",
    "prompt": "よく練習しなかったので、発表は〔　〕してしまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "失敗",
@@ -7222,7 +7780,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-578",
+   "id": "N4-V-B-0559",
+   "vocabId": "n4-v-578",
    "prompt": "この町は、車を作る〔　〕がさかんだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "工業",
@@ -7236,7 +7795,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-579",
+   "id": "N4-V-B-0560",
+   "vocabId": "n4-v-579",
    "prompt": "まどのそばの席が空いたので、そちらへ〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "移った",
@@ -7249,7 +7809,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-580",
+   "id": "N4-V-B-0561",
+   "vocabId": "n4-v-580",
    "prompt": "一週間の旅行なので、服がたくさん入る大きな〔　〕を買った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "スーツケース",
@@ -7263,7 +7824,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-581",
+   "id": "N4-V-B-0562",
+   "vocabId": "n4-v-581",
    "prompt": "父は毎朝、顔の〔　〕をそっている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ひげ",
@@ -7275,7 +7837,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-582",
+   "id": "N4-V-B-0563",
+   "vocabId": "n4-v-582",
    "prompt": "レポートについて質問があったので、大学の先生の〔　〕をたずねた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "研究室",
@@ -7289,7 +7852,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-583",
+   "id": "N4-V-B-0564",
+   "vocabId": "n4-v-583",
    "prompt": "この町には、車を作る大きな〔　〕がある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "工場",
@@ -7303,7 +7867,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-584",
+   "id": "N4-V-B-0565",
+   "vocabId": "n4-v-584",
    "prompt": "会議の前に、新しく入った社員を部の全員に〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "紹介",
@@ -7317,7 +7882,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-586",
+   "id": "N4-V-B-0566",
+   "vocabId": "n4-v-586",
    "prompt": "海の上を、白い〔　〕がゆっくり進んでいる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "舟",
@@ -7329,7 +7895,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-587",
+   "id": "N4-V-B-0567",
+   "vocabId": "n4-v-587",
    "prompt": "この机は重くて、一人ではぜんぜん〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "動かない",
@@ -7341,7 +7908,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-589",
+   "id": "N4-V-B-0568",
+   "vocabId": "n4-v-589",
    "prompt": "好きな歌手の歌を聞きに、友だちと〔　〕へ行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "コンサート",
@@ -7354,7 +7922,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-590",
+   "id": "N4-V-B-0569",
+   "vocabId": "n4-v-590",
    "prompt": "夏の夜、部屋の中に小さな〔　〕が入ってきた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "虫",
@@ -7366,7 +7935,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-591",
+   "id": "N4-V-B-0570",
+   "vocabId": "n4-v-591",
    "prompt": "重そうな荷物を持つお年寄りを見て、その人はすぐに手伝ってあげた。〔　〕人だと思った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "優しい",
@@ -7379,7 +7949,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-592",
+   "id": "N4-V-B-0571",
+   "vocabId": "n4-v-592",
    "prompt": "レポートを書くために、〔　〕でインターネットを調べた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "コンピューター",
@@ -7391,7 +7962,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-593",
+   "id": "N4-V-B-0572",
+   "vocabId": "n4-v-593",
    "prompt": "春になったので、庭に小さな木を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "植えた",
@@ -7403,7 +7975,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-594",
+   "id": "N4-V-B-0573",
+   "vocabId": "n4-v-594",
    "prompt": "コーヒーも紅茶もどちらも好きなので、〔　〕注文した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "両方",
@@ -7416,7 +7989,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-595",
+   "id": "N4-V-B-0574",
+   "vocabId": "n4-v-595",
    "prompt": "泥の上で遊んだので、服がすっかり〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "汚れた",
@@ -7428,7 +8002,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-596",
+   "id": "N4-V-B-0575",
+   "vocabId": "n4-v-596",
    "prompt": "泳げるようになりたくて、近くの教室で〔　〕を習っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "水泳",
@@ -7442,7 +8017,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-597",
+   "id": "N4-V-B-0576",
+   "vocabId": "n4-v-597",
    "prompt": "三年間外国で働いた〔　〕があるので、英語で話すのは平気だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "経験",
@@ -7456,7 +8032,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-598",
+   "id": "N4-V-B-0577",
+   "vocabId": "n4-v-598",
    "prompt": "試合の最後まであきらめず、ついに強い相手に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "勝った",
@@ -7469,7 +8046,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-599",
+   "id": "N4-V-B-0578",
+   "vocabId": "n4-v-599",
    "prompt": "海で遊んでいたら、くつの中に〔　〕が入った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "砂",
@@ -7481,7 +8059,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-600",
+   "id": "N4-V-B-0579",
+   "vocabId": "n4-v-600",
    "prompt": "どろぼうを見たので、すぐに〔　〕に電話した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "警察",
@@ -7494,7 +8073,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-601",
+   "id": "N4-V-B-0580",
+   "vocabId": "n4-v-601",
    "prompt": "電池が切れたら、新しい電池に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "取り替える",
@@ -7507,7 +8087,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-602",
+   "id": "N4-V-B-0581",
+   "vocabId": "n4-v-602",
    "prompt": "しめきりが近いので、仕事を〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "急ぎました",
@@ -7520,7 +8101,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-603",
+   "id": "N4-V-B-0582",
+   "vocabId": "n4-v-603",
    "prompt": "この問題はとても〔　〕で、すぐに答えられた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "簡単",
@@ -7532,7 +8114,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-604",
+   "id": "N4-V-B-0583",
+   "vocabId": "n4-v-604",
    "prompt": "本日は係の者がそちらへ〔　〕ので、少々お待ちください。",
    "question": "〔　〕に入る言葉は？",
    "answer": "参ります",
@@ -7545,7 +8128,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-605",
+   "id": "N4-V-B-0584",
+   "vocabId": "n4-v-605",
    "prompt": "一生けんめい勉強したのに、テストの問題が〔　〕わからなかった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "全然",
@@ -7558,7 +8142,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-606",
+   "id": "N4-V-B-0585",
+   "vocabId": "n4-v-606",
    "prompt": "今日は母の誕生日なので、〔　〕なケーキを作った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "特別",
@@ -7572,7 +8157,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-607",
+   "id": "N4-V-B-0586",
+   "vocabId": "n4-v-607",
    "prompt": "授業で習ったことを、家で〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "復習",
@@ -7584,7 +8170,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-608",
+   "id": "N4-V-B-0587",
+   "vocabId": "n4-v-608",
    "prompt": "レポートのしめ切りに〔　〕ように、今日中に全部書いてしまおう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "間に合う",
@@ -7597,7 +8184,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-609",
+   "id": "N4-V-B-0588",
+   "vocabId": "n4-v-609",
    "prompt": "この辞書は、知らない言葉をすぐに調べられるので、とても〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "役に立つ",
@@ -7610,7 +8198,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-610",
+   "id": "N4-V-B-0589",
+   "vocabId": "n4-v-610",
    "prompt": "〔　〕春になるので、あたたかくなるだろう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "もうすぐ",
@@ -7622,7 +8211,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-611",
+   "id": "N4-V-B-0590",
+   "vocabId": "n4-v-611",
    "prompt": "みんなで写真をとるとき、私は列の〔　〕に立った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "真ん中",
@@ -7634,7 +8224,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-612",
+   "id": "N4-V-B-0591",
+   "vocabId": "n4-v-612",
    "prompt": "授業が終わって教室を出たあと、ノートを忘れたことに気づいて、すぐに教室に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "戻った",
@@ -7647,7 +8238,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-613",
+   "id": "N4-V-B-0592",
+   "vocabId": "n4-v-613",
    "prompt": "大学で、日本の古い言葉について〔　〕して、論文を書いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "研究",
@@ -7661,7 +8253,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-614",
+   "id": "N4-V-B-0593",
+   "vocabId": "n4-v-614",
    "prompt": "妹の誕生日に、ろうそくを立てた〔　〕をみんなで食べた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ケーキ",
@@ -7674,7 +8267,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-615",
+   "id": "N4-V-B-0594",
+   "vocabId": "n4-v-615",
    "prompt": "庭の〔　〕がのびたので、切らなければならない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "草",
@@ -7686,7 +8280,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-616",
+   "id": "N4-V-B-0595",
+   "vocabId": "n4-v-616",
    "prompt": "日曜日のデパートは、たくさんの人で〔　〕いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "込んで",
@@ -7699,7 +8294,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-617",
+   "id": "N4-V-B-0596",
+   "vocabId": "n4-v-617",
    "prompt": "毎日練習しているので、〔　〕は日本語で電話ができるようになった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "このごろ",
@@ -7713,7 +8309,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-618",
+   "id": "N4-V-B-0597",
+   "vocabId": "n4-v-618",
    "prompt": "先月引っ越した友人の新しい家を、今度の日曜日に〔　〕つもりだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "訪ねる",
@@ -7726,7 +8323,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-619",
+   "id": "N4-V-B-0598",
+   "vocabId": "n4-v-619",
    "prompt": "部屋が暑いので、エアコンの温度を少し〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "下げました",
@@ -7738,7 +8336,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-620",
+   "id": "N4-V-B-0599",
+   "vocabId": "n4-v-620",
    "prompt": "春になってさくらがさいたので、公園で〔　〕をした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "花見",
@@ -7751,7 +8350,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-621",
+   "id": "N4-V-B-0600",
+   "vocabId": "n4-v-621",
    "prompt": "駅へ向かう〔　〕で雨が降ってきたので、コンビニで傘を買った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "途中",
@@ -7765,7 +8365,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-622",
+   "id": "N4-V-B-0601",
+   "vocabId": "n4-v-622",
    "prompt": "事故で足の骨を折って、一か月〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "入院",
@@ -7777,7 +8378,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-623",
+   "id": "N4-V-B-0602",
+   "vocabId": "n4-v-623",
    "prompt": "毎朝、東京駅で電車から地下鉄に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "乗り換えます",
@@ -7790,7 +8392,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-624",
+   "id": "N4-V-B-0603",
+   "vocabId": "n4-v-624",
    "prompt": "大学を卒業して、なかよしの友だちと〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "別れる",
@@ -7802,7 +8405,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-625",
+   "id": "N4-V-B-0604",
+   "vocabId": "n4-v-625",
    "prompt": "この〔　〕には古いお寺やきれいな川があって、しずかだ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "町",
@@ -7814,7 +8418,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-626",
+   "id": "N4-V-B-0605",
+   "vocabId": "n4-v-626",
    "prompt": "この道は車が多くて危ないから、〔　〕な道をえらんで歩こう。",
    "question": "〔　〕に入る言葉は？",
    "answer": "安全",
@@ -7828,7 +8433,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-627",
+   "id": "N4-V-B-0606",
+   "vocabId": "n4-v-627",
    "prompt": "病院で、〔　〕さんが注射をしてくれた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "看護婦",
@@ -7841,7 +8447,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-628",
+   "id": "N4-V-B-0607",
+   "vocabId": "n4-v-628",
    "prompt": "町の大きなお祭りを、道の両側にたくさんの人が集まって〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "見物",
@@ -7854,7 +8461,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-629",
+   "id": "N4-V-B-0608",
+   "vocabId": "n4-v-629",
    "prompt": "アルバイトを続けるかどうか迷っていたので、先生に〔　〕した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "相談",
@@ -7866,7 +8474,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-630",
+   "id": "N4-V-B-0609",
+   "vocabId": "n4-v-630",
    "prompt": "メーターを見るとガソリンがもうすぐなくなりそうなので、〔　〕に寄った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ガソリンスタンド",
@@ -7880,7 +8489,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-631",
+   "id": "N4-V-B-0610",
+   "vocabId": "n4-v-631",
    "prompt": "ラケットを持って、公園のコートへ〔　〕をしに行った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "テニス",
@@ -7894,7 +8504,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-632",
+   "id": "N4-V-B-0611",
+   "vocabId": "n4-v-632",
    "prompt": "赤ちゃんはミルクを飲んで、ベッドの中でぐっすり〔　〕いる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "眠って",
@@ -7907,7 +8518,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-633",
+   "id": "N4-V-B-0612",
+   "vocabId": "n4-v-633",
    "prompt": "今年の夏はとても暑くて、気温が三十五度まで〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "上がった",
@@ -7920,7 +8532,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-634",
+   "id": "N4-V-B-0613",
+   "vocabId": "n4-v-634",
    "prompt": "英語で書かれた小説を日本語に〔　〕する仕事をしている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "翻訳",
@@ -7934,7 +8547,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-635",
+   "id": "N4-V-B-0614",
+   "vocabId": "n4-v-635",
    "prompt": "レストランで、家族といっしょにおいしい〔　〕をした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "食事",
@@ -7948,7 +8562,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-636",
+   "id": "N4-V-B-0615",
+   "vocabId": "n4-v-636",
    "prompt": "先生の〔　〕で、試験に合格することができました。",
    "question": "〔　〕に入る言葉は？",
    "answer": "お陰",
@@ -7960,7 +8575,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-637",
+   "id": "N4-V-B-0616",
+   "vocabId": "n4-v-637",
    "prompt": "私の〔　〕は今年5さいになって、ようちえんに通っている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "娘",
@@ -7972,7 +8588,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-638",
+   "id": "N4-V-B-0617",
+   "vocabId": "n4-v-638",
    "prompt": "寒いので、あたたかい〔　〕を入れたおふろにゆっくり入った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "湯",
@@ -7984,7 +8601,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-639",
+   "id": "N4-V-B-0618",
+   "vocabId": "n4-v-639",
    "prompt": "二人はどちらが先に着くか〔　〕して、駅まで走った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "競争",
@@ -7998,7 +8616,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-640",
+   "id": "N4-V-B-0619",
+   "vocabId": "n4-v-640",
    "prompt": "新しい商品について話し合うため、部屋に集まって〔　〕を開いた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "会議",
@@ -8012,7 +8631,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-641",
+   "id": "N4-V-B-0620",
+   "vocabId": "n4-v-641",
    "prompt": "この〔　〕は魚がたくさんいて、周りを高い山が囲んでいる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "湖",
@@ -8024,7 +8644,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-642",
+   "id": "N4-V-B-0621",
+   "vocabId": "n4-v-642",
    "prompt": "駅前の広場では今夜お祭りがあるので、夕方から人がおおぜい〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "集まった",
@@ -8037,7 +8658,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-643",
+   "id": "N4-V-B-0622",
+   "vocabId": "n4-v-643",
    "prompt": "この字は小さくて、読み〔　〕です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～にくい",
@@ -8049,7 +8671,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-644",
+   "id": "N4-V-B-0623",
+   "vocabId": "n4-v-644",
    "prompt": "都会での〔　〕は便利だが、家賃が高くてお金がかかる。",
    "question": "〔　〕に入る言葉は？",
    "answer": "生活",
@@ -8063,7 +8686,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-645",
+   "id": "N4-V-B-0624",
+   "vocabId": "n4-v-645",
    "prompt": "ボタンがとれたので、針と〔　〕でつけ直した。",
    "question": "〔　〕に入る言葉は？",
    "answer": "糸",
@@ -8075,7 +8699,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-646",
+   "id": "N4-V-B-0625",
+   "vocabId": "n4-v-646",
    "prompt": "その人とは、仕事の〔　〕で知り合いました。",
    "question": "〔　〕に入る言葉は？",
    "answer": "関係",
@@ -8088,7 +8713,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-647",
+   "id": "N4-V-B-0626",
+   "vocabId": "n4-v-647",
    "prompt": "妹は足でペダルをふみながら、きれいな音で〔　〕をひいている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ピアノ",
@@ -8101,7 +8727,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-648",
+   "id": "N4-V-B-0627",
+   "vocabId": "n4-v-648",
    "prompt": "右から二番〔　〕の人が、わたしの兄です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "～目",
@@ -8113,7 +8740,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-649",
+   "id": "N4-V-B-0628",
+   "vocabId": "n4-v-649",
    "prompt": "夜八時から始まる音楽の〔　〕を毎週見ている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "番組",
@@ -8127,7 +8755,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-650",
+   "id": "N4-V-B-0629",
+   "vocabId": "n4-v-650",
    "prompt": "〔　〕に雨がふってきたので、走って家に帰った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "急",
@@ -8139,7 +8768,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-651",
+   "id": "N4-V-B-0630",
+   "vocabId": "n4-v-651",
    "prompt": "読み終わった本を〔　〕にきれいにならべた。",
    "question": "〔　〕に入る言葉は？",
    "answer": "棚",
@@ -8151,7 +8781,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-652",
+   "id": "N4-V-B-0631",
+   "vocabId": "n4-v-652",
    "prompt": "あせをよくすう〔　〕のタオルは、洗ってなんども使えて便利だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "木綿",
@@ -8164,7 +8795,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-653",
+   "id": "N4-V-B-0632",
+   "vocabId": "n4-v-653",
    "prompt": "この国で作られた車は、世界の国々へたくさん〔　〕されている。",
    "question": "〔　〕に入る言葉は？",
    "answer": "輸出",
@@ -8176,7 +8808,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-654",
+   "id": "N4-V-B-0633",
+   "vocabId": "n4-v-654",
    "prompt": "明るくてよく笑う人が好きだが、彼女はまさにわたしの好きな〔　〕だ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "タイプ",
@@ -8188,7 +8821,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-655",
+   "id": "N4-V-B-0634",
+   "vocabId": "n4-v-655",
    "prompt": "人が多い電車の中で、〔　〕にさいふをとられてしまった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "すり",
@@ -8200,7 +8834,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-656",
+   "id": "N4-V-B-0635",
+   "vocabId": "n4-v-656",
    "prompt": "行きたかった大学に合格できて、本当に〔　〕。",
    "question": "〔　〕に入る言葉は？",
    "answer": "嬉しい",
@@ -8213,7 +8848,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-657",
+   "id": "N4-V-B-0636",
+   "vocabId": "n4-v-657",
    "prompt": "これから車を運転するので、今日は〔　〕を飲みません。",
    "question": "〔　〕に入る言葉は？",
    "answer": "アルコール",
@@ -8227,7 +8863,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-658",
+   "id": "N4-V-B-0637",
+   "vocabId": "n4-v-658",
    "prompt": "新しい〔　〕をパソコンに入れたら、仕事がとても速くなった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ソフト",
@@ -8241,7 +8878,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-659",
+   "id": "N4-V-B-0638",
+   "vocabId": "n4-v-659",
    "prompt": "お正月に家族で〔　〕の鳥居をくぐって、今年の健康をお願いした。",
    "question": "〔　〕に入る言葉は？",
    "answer": "神社",
@@ -8253,7 +8891,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-660",
+   "id": "N4-V-B-0639",
+   "vocabId": "n4-v-660",
    "prompt": "一週間まいにち練習したら、ピアノが〔　〕上手になった。",
    "question": "〔　〕に入る言葉は？",
    "answer": "だいぶ",
@@ -8266,7 +8905,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-661",
+   "id": "N4-V-B-0640",
+   "vocabId": "n4-v-661",
    "prompt": "早く来月になってほしい。旅行が〔　〕でしかたがない。",
    "question": "〔　〕に入る言葉は？",
    "answer": "楽しみ",
@@ -8278,7 +8918,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-662",
+   "id": "N4-V-B-0641",
+   "vocabId": "n4-v-662",
    "prompt": "わたしの〔　〕は、休みの日に古い切手を集めることです。",
    "question": "〔　〕に入る言葉は？",
    "answer": "趣味",
@@ -8292,7 +8933,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-663",
+   "id": "N4-V-B-0642",
+   "vocabId": "n4-v-663",
    "prompt": "友だちの結婚のお祝いに、〔　〕を送った。",
    "question": "〔　〕に入る言葉は？",
    "answer": "電報",
@@ -8304,7 +8946,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-664",
+   "id": "N4-V-B-0643",
+   "vocabId": "n4-v-664",
    "prompt": "父は、母のことを人に話すとき、いつも「〔　〕」とよぶ。",
    "question": "〔　〕に入る言葉は？",
    "answer": "家内",
@@ -8317,7 +8960,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-665",
+   "id": "N4-V-B-0644",
+   "vocabId": "n4-v-665",
    "prompt": "ピアノをひくとき、両手の十本の〔　〕を上手に使う。",
    "question": "〔　〕に入る言葉は？",
    "answer": "指",
@@ -8329,7 +8973,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-667",
+   "id": "N4-V-B-0645",
+   "vocabId": "n4-v-667",
    "prompt": "ふだんは自分で料理をするが、〔　〕外で食べることもある。",
    "question": "〔　〕に入る言葉は？",
    "answer": "たまに",
@@ -8341,7 +8986,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-668",
+   "id": "N4-V-B-0646",
+   "vocabId": "n4-v-668",
    "prompt": "学校を出て〔　〕に出て働くと、いろいろな人に出会う。",
    "question": "〔　〕に入る言葉は？",
    "answer": "社会",
@@ -8354,7 +9000,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-669",
+   "id": "N4-V-B-0647",
+   "vocabId": "n4-v-669",
    "prompt": "くろい いろの、あまくて つめたい のみものは〔　〕です。",
    "question": "〔　〕に入る言葉は？",
    "answer": "コーラ",
@@ -8366,7 +9013,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-670",
+   "id": "N4-V-B-0648",
+   "vocabId": "n4-v-670",
    "prompt": "リビングに おく、ゆったり すわれる ながい いすを〔　〕と いいます。",
    "question": "〔　〕に入る言葉は？",
    "answer": "ソファ",
@@ -8378,7 +9026,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-671",
+   "id": "N4-V-B-0649",
+   "vocabId": "n4-v-671",
    "prompt": "あさ、〔　〕を しぼって ジュースを 作ります。",
    "question": "〔　〕に入る言葉は？",
    "answer": "オレンジ",
@@ -8390,7 +9039,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-672",
+   "id": "N4-V-B-0650",
+   "vocabId": "n4-v-672",
    "prompt": "レストランで〔　〕を 見て、りょうりを えらびました。",
    "question": "〔　〕に入る言葉は？",
    "answer": "メニュー",
@@ -8402,7 +9052,8 @@
    "verified": true
   },
   {
-   "id": "cx:n4-v-673",
+   "id": "N4-V-B-0651",
+   "vocabId": "n4-v-673",
    "prompt": "ざっしの しゃしんで ふくを 見せる しごとの 人を〔　〕と いいます。",
    "question": "〔　〕に入る言葉は？",
    "answer": "モデル",

@@ -1,19 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 33 回・69 ターン
-- 往復 60289 回
+- ツール呼び出し 1 回・5 ターン
+- 往復 64742 回
 
 ## 何が変わったか
 - memory/handoff.md
-- docs/supabase/dashboard.html
-- App.tsx
-- src/telemetry/telemetry.ts
 - memory/session-summary-LATEST.md
-
-## ⚠️ 注意
-- - ⚠ 連続 69ターン（文脈 34万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 69ターン・ツール33回）— まとめ方を変える
+- memory/在庫問題数.txt
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
 
 ## 次の一手
 - **🆕 2026-08-11 母語表示バグ＋ダッシュボード予想得点統一(未ビルド/未commitはこのターンで)**: ①ダッシュボード母語が英語/vi=誤り。原因=profile.l1は「意味の翻訳言語(en/neのみ)」で母語でない(日本語UIでもl1=en・既定l1='vi')。修正=telemetry profile.l1を`nativeLangOf(settings)=uiLang優先`に変更＋App.tsxの言語同期effectで`!settings.uiLang`なら解決uiLangを保存(匿名の初回も端末言語で確定)。expo-localizationのtelemetry静的importはRN巻き込みでtsxテスト2件が壊れるため不採用→uiLang保存方式。dashboard.htmlは母語をlangLabel(コード→日本語名)表示。②ダッシュボード=**到達度/合格率を廃止し予想得点に統一**(pass_pct列・平均合格率列を削除・群名到達度→予想得点)。SQL再実行不要(表示のみ)。テスト390緑。

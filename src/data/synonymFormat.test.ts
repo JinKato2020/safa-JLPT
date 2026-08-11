@@ -7,7 +7,7 @@ import { daimonUnitIds, questionForUnit } from './daimon.ts';
 import { SYNONYM_BANK, SENTENCE_FURI } from './index.ts';
 
 const rng = () => 0.5;
-const unitOf = (e: { id: string }) => `${e.id.slice(3)}#synonym`;
+const unitOf = (e: { id: string; vocabId?: string }) => `${e.vocabId ?? e.id.slice(3)}#synonym`;
 const LEVELS = ['N5', 'N4', 'N3'] as const;
 
 test('文レベル(stem有)は「同じ意味の文」を問い、選択肢が文になる', () => {

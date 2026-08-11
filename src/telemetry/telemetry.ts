@@ -5,7 +5,7 @@
 // テーブル未作成時はinsert失敗→キューに滞留(無害・作成後にflushで再送)。RLSは anon/authenticated の INSERT のみ許可。
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dayStr, type AppState } from '../store/state';
-import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts, passageMasteryCounts, expectedScoreFor } from '../store/selectors';
+import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts, passageMasteryCounts, expectedScoreFor, strongFacetJa } from '../store/selectors';
 import { stockCounts } from './stock';
 import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
@@ -140,10 +140,8 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
     ...daimonMasteryCounts(state, now).map((d) => [d.daimon, [d.learned, d.total]]),
     ...passageMasteryCounts(state, now).map((p) => [p.key, [p.learned, p.total]]),
   ]);
-  // 得意(=いちばん出来ている区分)を正解率リングから求める。管理ダッシュボードのプロフィール列用。
-  const FACET_JA: Record<string, string> = { moji_goi: '文字・語彙', bunpou: '文法', dokkai: '読解', choukai: '聴解' };
-  const facetVals: Record<string, number> = { moji_goi: rings.moji_goi ?? 0, bunpou: rings.bunpou ?? 0, dokkai: rings.dokkai ?? 0, choukai: rings.choukai ?? 0 };
-  const strongKey = Object.keys(facetVals).reduce((a, b) => (facetVals[b] > facetVals[a] ? b : a), 'moji_goi');
+  // 得意(=いちばん正答率が高い区分)。5区分(漢字/語彙/文法/読解/聴解)で最も出来ている区分を送る。管理ダッシュボードのプロフィール列用。
+  const strong = strongFacetJa(state, now);
   // 予想得点(アプリの主指標)。expectedScoreFor: { score(得点), max(満点), passTotal(合格ライン) }。失敗時はnull。
   const est = (() => { try { return expectedScoreFor(state, now); } catch { return null; } })();
   return {
@@ -171,7 +169,7 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
       country: state.settings.country ?? null,
       mood: moodMsgOf(state.settings.moodMsg),
       personality: personalityOf(state.settings.personality)?.label ?? null,
-      strong: FACET_JA[strongKey] ?? null,
+      strong,
     },
 
     daysToExam, badgeSet: state.settings.badgeSet ?? 'gorgeous', theme: state.settings.theme,
