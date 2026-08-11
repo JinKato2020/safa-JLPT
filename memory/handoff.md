@@ -1,6 +1,10 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+- **🆕 2026-08-11 UI日本語ベタ書きのi18n化(進行中・未コミット/未ビルド)**: t()未経由の日本語UI(約772行/67ファイル)を ja/en/ne キー化。**済**=AICoach(coach.* 59)/Mock+Account(31)/Home+Onboard+MockIntro(12)/AfterStudyRewardのごほうびUI(reward.* 18)。**ProfileScreen開発用=隠しゲート化**(設定最下部バージョンを7回タップでdevUnlocked=true・__DEV__は既定true・実ユーザー非表示なので翻訳不要)。**桜ボイス多言語化=完了(end-to-end)**(voice.ts に `renderVoice(ids,tr)`＋`voice.<id>`キー・`voice.sep`(ja=''/en・ne=' ')。**AfterStudyReward**＝`renderVoice([...res.ids,extra?.id,closerId],t)`経由。**SakuraSpeech**＝`pickBubble`→`pickBubbleIds`(id列返し)にしt注入で`renderVoice`化・`NEWCOMER_BUBBLES`(5)→`voice.newcomer.*`・`SAKURA_CLOSERS`(8)→`voice.close_daily.*`・オススメ案内→`sakura.reco_hint`。**en/ne 全156キー翻訳投入済**(voice全句＋newcomer5＋reco・桜の癒し口調で創作寄り訳・en^ne差0・ja全在=フォールバック安全)=**tsc0・テスト390緑・en/ne実レンダリング確認済**(scratchpad/voice_translate.py)。**桜ボイス=完了**。**persona.ts(町)=完了(end-to-end)**=性格20＋セリフ20＋気分20＋会話バブル4ページ＋「また町で会おうね」を i18n(persona.trait/line/mood/talk・**67キーja/en/ne**・絵文字はmoodにそのまま)。persona.ts に t解決版 `traitLabel/moodMsgText/personaLine`＋有効キーガード追加(既存 personalityOf/moodMsgOf/label は**ja正本=テレメトリ/管理画面用に残置**)。差し替え=Account/Onboarding/KotobaTown(useT追加・timeout局所t→tm改名)=**tsc0・テスト390緑・en/ne実レンダリング確認済**(scratchpad/persona_translate.py＋talk_keys.py)。**KotobaTown本体=完了(end-to-end)**=上部バー/友だち一覧/解除Alert/共有文/応援送信シート/会話ステータス(名前・性格・得意・気分・国名・総時間)/覚えた単語バー(漢字語彙文法)/桜ほめ言葉6/桜ステータス/マスコットtag/CHEERS定型 を i18n(**town.* 49キー ja/en/ne**)。`sakuraPraise(streak,t)`＋module `facetLabel(t,ja)`(漢字語彙文法読解聴解→現在語)追加。CHEERS.labelは表示のみ→`t('town.cheer.'+key)`化(送信は`cheerSend(fid,key)`=受信側が母語解決)。`TAB_ORDER=['ホーム'…]`は**遷移route名=非翻訳(据置)**。personalityOf撤去→`traitLabel`、estEm局所t→s改名。=tsc0・テスト390緑・en/ne実レンダリング確認済(scratchpad/town_translate.py)。**CheerInbox/Browse/Invite=完了**=CheerInbox(応援キー→`t('town.cheer.'+key)`・旧定型6もtown.cheer.*追加・相対時刻`time.*`・受信箱UI`cheerinbox.*`・CHEER_INFO→CHEER_EMOJI化で幽霊ラベル排除)/Invite(useT+useUiLang・題/meta/sub/参加/断る/countryLabel(,'ja')→uiLang)/Browse(音訓tag=データを'on'/'kun'保持し描画時解決`browse.tag_on/kun`・再生a11y)。**Cards=変更不要**(既にlabelKey・残りは漢語文グリフとコメントのみ)。town.cheer legacy6+cheerinbox3+time4+invite10+browse3=+26キー。tsc0/テスト390緑。**問題関連(出題文・選択肢・解説・kana.ts・quiz.ts出題文)は対象外(日本語のまま)**。i18nキー=フラットなドットキー・CRLF維持・末尾追記のみ(全体再整形しない)。`tools/i18n_backlog.py`はjson差分専用でベタ書きは検出不可(コード走査は`scan_jp.py`方式)。
+- **🆕 2026-08-11 書庫の段階成長廃止＋桜正面切り抜き(未コミット/未ビルド)**: ①辞書タブ書庫=**予想得点5段階復元を全廃**し**昼/夜2枚**に(`画像/アプリ画像/書庫_{昼,夜}.png`→JPG化して`assets/tabs/dict_bg_{day,night}.jpg`上書き)。tabArt.tsから`DICT_DAY_STAGES/dictStageIndex/useDictBg`削除・DictHomeScreenを`useTabBg('dict')`へ(homeStatus依存も除去)。**幽霊掃除**=`dict_bg_day_s1..s5.jpg`5枚削除・参照0(grep確認)。②`画像/キャラクター/アバター/桜/桜.png`(8ポーズ表・1448x1086)から**正面直立ポーズ(R2C2)をαカット**(背景マゼンタ202,18,129を距離αで透過・302x500)→**`画像/キャラクター/アバター/桜/桜_正面.png`**保存(未配線=素材のみ)。tsc0/テスト390緑。
+- **🆕 2026-08-11 解禁演出の画像/文言修正(未コミット/未ビルド)**: UnlockCelebration=①絵を**上寄せ表示**(hero aspect760/1100・img absolute top:0 aspect760/1350=下側だけ切れる)にし、絵に描かれた上部モード名(聞き取り等)の**切れを解消**。②画像に重ねていた「◯◯解禁」オーバーレイを**撤去**し画面下部テキストへ集約=「カバー率◯％達成！／〇〇解禁」(新キー`unlock.mode_unlocked`=ja`{mode}解禁`/en`{mode} Unlocked`/ne`{mode} खुल्यो`・言語別スペース対応)。画像4枚はモード名のみ焼き込み(解禁の語は元から無し)=**画像差し替え不要**。tsc0・テスト390緑・実クロップをPIL検証(聞き取り/文法パズルとも全文表示・桜の顔残る)。
+- **🆕 2026-08-11 このセッションの他対応(未コミット/一部Build2779)**: ①模試タブ「動かない」=**月1フル模試ロックが原因**(IDリネームと無関係)・`devUnlockAll`ONでロックも外す(StudyHomeScreen)②**得意5分割**(漢字/語彙/文法/読解/聴解・`selectors.strongFacetJa`・漢字読み系に`vocabId`明示追加でid=単語鍵を解消・daimon.ts slice(3)→vocabOf)③**文字語彙/文法ID統一**(`N?-V/G-{K/H/B/I/Y/N/S}-NNNN`)＋**読解/聴解を4桁化**(`…-0001`・聴解mp3 520本も`assets/audio/{id}.mp3`改名=URL一致確認済)=**Build2779提出済**④AIコーチ「模試の記録」カードを「この7日の成長」直後へ移動⑤ダッシュボードに**状態列**(無料/7日Pro・view要再実行)。バックアップ=`../_backup_JLPT_id-rename_mojibunpou/`。
 - **🆕 2026-08-11 母語表示バグ＋ダッシュボード予想得点統一(未ビルド/未commitはこのターンで)**: ①ダッシュボード母語が英語/vi=誤り。原因=profile.l1は「意味の翻訳言語(en/neのみ)」で母語でない(日本語UIでもl1=en・既定l1='vi')。修正=telemetry profile.l1を`nativeLangOf(settings)=uiLang優先`に変更＋App.tsxの言語同期effectで`!settings.uiLang`なら解決uiLangを保存(匿名の初回も端末言語で確定)。expo-localizationのtelemetry静的importはRN巻き込みでtsxテスト2件が壊れるため不採用→uiLang保存方式。dashboard.htmlは母語をlangLabel(コード→日本語名)表示。②ダッシュボード=**到達度/合格率を廃止し予想得点に統一**(pass_pct列・平均合格率列を削除・群名到達度→予想得点)。SQL再実行不要(表示のみ)。テスト390緑。
 - **🆕 2026-08-11 模試/解禁/類義の4修正(コミット`ec6b4fb2`・未ビルド)**: ①模試結果ヘッダーを「予想得点 X/180＋合格ライン＋合否」に刷新(selectors.mockScoreEstimate=区分別正答×配点・足切り｜・テスト有)＋区分別の予想得点＋詳細弱点(区分別正答率)併記。②休憩画面の桜の吹き出しを上部グループ化(顔に被らない)。③**解禁をポイント無限から分離**=専用トグル`devUnlockAll`(既定OFF)。5/10/15/20%の全体カバー率ゲート厳守(unlocks.ts devBypass・KubunCard dev)。④類義`sy:n4-v-623`正解を「乗ります」→「移ります」(解説と一致)＋_manifest再生成。
 - **✅ AIコーチ「模試の記録」カード 完了(2026-08-11・未ビルド)**: MockResultにlevel/predScore/predMax/passTotal/sectionsを追加保存(recordMockResult・JLPTのみ・旧stateは省略可)。AICoachに新カード=最新模試の予想得点(X/180)＋合格圏判定＋前回比＋区分別(足切り｜・既存score*スタイル流用)＋直近8回の推移＋空状態は「模試を受ける→」。マスタリー由来の予想得点カードは別に残置(実戦=模試/普段=学習の2本立て)。RECORD_MOCKは全fields保存・last60。
@@ -68,14 +72,14 @@
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/session-summary-LATEST.md
 - memory/handoff.md
-- memory/在庫問題数.txt
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- content/problems/choukai/sokuji_N5.json
-- content/problems/choukai/sokuji_N4.json
-- content/problems/choukai/sokuji_N3.json
+- src/screens/BrowseScreen.tsx
+- src/screens/InviteScreen.tsx
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
+- 画像/キャラクター/アバター/桜/桜_正面.png
+- src/screens/CheerInboxScreen.tsx
 
-_自動更新: 2026-08-11 09:19_
+_自動更新: 2026-08-11 13:17_
 <!-- AUTO:END -->

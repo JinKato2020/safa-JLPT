@@ -15,7 +15,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { isInMyList, dayStr } from '../store/state';
 import { recordQualifyingDay, isTriggerMet } from '../referral/trigger';
 import { reportQualified, getDeviceRef } from '../referral/referralClient';
-import { composeVoice, pickFlavor } from '../story/voice';
+import { composeVoice, pickFlavor, renderVoice } from '../story/voice';
 import { pickAfterStudyImage } from '../data/afterStudyArt';
 import { homeStatus } from '../home/homeStatus';
 import RubyText from './RubyText';
@@ -27,18 +27,8 @@ export type { StudiedWord } from '../data/studiedWords';
 
 const SHELLS_PER_SESSION = 20; // 1学習=満点20貝。問題数に依らず「正解数/問題数×20」を切り上げ・上限20(10問=1問2貝, 4問=1問5貝)
 
-// 学習後の桜コメントの締め(ねぎらい)。基本(core+flavor)にもう1つのflavor＋この締めを重ねて約2倍に伸ばす。
-// 桜の口調=癒し・ねぎらい専用(数字/日付/合否/能力評価は言わない)。
-const AFTER_STUDY_CLOSERS = [
-  '今日のぶん、ちゃんとここに残ったよ。',
-  'よく手を動かしたね。ゆっくり休んでね。',
-  'あなたのペースで大丈夫、あわてないでいいからね。',
-  '一歩ずつでいいの、それで十分だよ。',
-  'また来てくれるのを、待っているね。',
-  'ここまで来たこと、ちゃんとえらいよ。',
-  'ふっと一息ついて、また今度ね。',
-  'あなたの頑張り、そばで見ているからね。',
-];
+// 学習後の桜コメントの締め(ねぎらい)。多言語化: 台詞は i18n キー voice.close_end.1..8(ja正本)。renderVoice で解決。
+const AFTER_CLOSER_COUNT = 8;
 
 export default function AfterStudyReward({ words = [], reviewByRef, reviewList, shellsEarned = 0, scored = 0, accuracy, correct, total, mode, seed, review = false }: {
   words?: StudiedWord[];
@@ -111,14 +101,15 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
 
   // ①桜のねぎらい(session_end)。台詞はstory/voice.tsが正本。従来の約2倍の長さ:
   //   基本(core+flavor)＋別のflavor＋温かい締め、を重ねる。seedVは整数フォールバックもあるので0..1へ正規化して変化を出す。
-  const line = useMemo(() => {
+  const lineIds = useMemo(() => {
     const now = Date.now();
     const frac = (x: number) => { const v = Math.abs(x) * 0.618033988749895; return v - Math.floor(v); };
     const res = composeVoice({ occasion: { kind: 'session_end' }, variant: 'full', now, seed: frac(seedV), seedFlavor: frac(seedV + 11) });
     const extra = pickFlavor(now, frac(seedV + 23), res.ids); // もう1つ別の季節/時間flavor(重複回避)
-    const closer = AFTER_STUDY_CLOSERS[Math.floor(frac(seedV + 41) * AFTER_STUDY_CLOSERS.length)];
-    return [res.text, extra?.text, closer].filter(Boolean).join('') || 'お疲れさま。今日のぶん、ちゃんと残ったよ。';
+    const closerId = `close_end.${1 + Math.floor(frac(seedV + 41) * AFTER_CLOSER_COUNT)}`;
+    return [...res.ids, extra?.id, closerId];
   }, [seedV]);
+  const line = renderVoice(lineIds, t) || t('voice.fallback_end'); // 現在言語で解決(未訳はjaへフォールバック)
 
   // ③AIコーチ=成長データ中心の励まし＋弱点の冷静分析。到達度%＋一番伸びてる分野＋一番の課題。
   const coach = useMemo(() => {
@@ -150,26 +141,26 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
         <View style={s.shellHeroRow}>
           <Text style={s.shellPlus}>＋</Text>
           <Text style={s.shellHeroN}>{targetShells + (grantedDaily ? 30 : 0)}</Text>
-          <Text style={s.shellHeroUnit}>桜貝</Text>
+          <Text style={s.shellHeroUnit}>{t('reward.shell')}</Text>
         </View>
         <Text style={s.shellSub}>
-          {total != null ? `${correctN} / ${total}問 正解` : `${correctN}問 正解`}
-          {acc > 0 ? `（${acc}%）` : ''}
+          {total != null ? t('reward.correct_frac', { correct: correctN, total }) : t('reward.correct_n', { correct: correctN })}
+          {acc > 0 ? t('reward.acc_paren', { n: acc }) : ''}
         </Text>
         {grantedDaily ? (
           /* 小計=小さな数字。正解ぶんと今日はじめてのボーナスの内訳。 */
           <View style={s.shellBreak}>
             <View style={s.shellBonusRow}>
-              <Text style={s.shellBonusLbl}>正解ぶん（{correctN}問×2）</Text>
+              <Text style={s.shellBonusLbl}>{t('reward.bonus_correct', { n: correctN })}</Text>
               <Text style={s.shellBonusVal}>＋{targetShells}</Text>
             </View>
             <View style={s.shellBonusRow}>
-              <Text style={s.shellBonusLbl}>今日はじめてのボーナス</Text>
+              <Text style={s.shellBonusLbl}>{t('reward.bonus_first')}</Text>
               <Text style={s.shellBonusVal}>＋30</Text>
             </View>
           </View>
         ) : (
-          <Text style={s.shellNote}>正解1問＝2桜貝</Text>
+          <Text style={s.shellNote}>{t('reward.note_rate')}</Text>
         )}
       </View>
 
@@ -177,8 +168,8 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
       {words.length > 0 ? (
         <View style={s.listCard}>
           <View style={s.listHead}>
-            <Text style={s.listH}>{review ? '覚えた単語は単語帳から外せます' : '単語帳に入れる'}</Text>
-            {reviewByRef && Object.keys(reviewByRef).length > 0 ? <Text style={s.listHint}>›で問題を見直す</Text> : null}
+            <Text style={s.listH}>{review ? t('reward.list_review') : t('reward.list_add')}</Text>
+            {reviewByRef && Object.keys(reviewByRef).length > 0 ? <Text style={s.listHint}>{t('reward.list_hint_review')}</Text> : null}
           </View>
           {words.map((w) => {
             const saved = isInMyList(state.myList ?? [], w.ref);
@@ -187,9 +178,9 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
             const onRow = () => {
               if (review) {
                 if (memorized) {
-                  Alert.alert('覚えましたか？', 'この単語を「私の単語帳」から外しますか？', [
-                    { text: 'まだ残す', style: 'cancel' },
-                    { text: '外す', style: 'destructive', onPress: () => addToMyList(w.ref) }, // toggleで外れる
+                  Alert.alert(t('reward.alert_memorized_title'), t('reward.alert_memorized_msg'), [
+                    { text: t('reward.alert_keep'), style: 'cancel' },
+                    { text: t('reward.alert_remove'), style: 'destructive', onPress: () => addToMyList(w.ref) }, // toggleで外れる
                   ]);
                 }
                 // 復習でまだ(未正解)の語は外せない=何もしない
@@ -209,7 +200,7 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
                 )}
                 {/* 出題時スナップショットがあれば「問題の見直し」全画面へ(行の登録操作とは別の押下先) */}
                 {rq ? (
-                  <Pressable onPress={() => nav.navigate('QuestionReview', { q: rq })} hitSlop={8} style={s.wexpand} accessibilityLabel="問題を見直す">
+                  <Pressable onPress={() => nav.navigate('QuestionReview', { q: rq })} hitSlop={8} style={s.wexpand} accessibilityLabel={t('reward.a11y_review_q')}>
                     <Ionicons name="chevron-forward" size={18} color={c.blue} />
                   </Pressable>
                 ) : null}
@@ -223,8 +214,8 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
       {reviewList && reviewList.length > 0 ? (
         <View style={s.listCard}>
           <View style={s.listHead}>
-            <Text style={s.listH}>問題の見直し</Text>
-            <Text style={s.listHint}>タップで全画面</Text>
+            <Text style={s.listH}>{t('reward.review_title')}</Text>
+            <Text style={s.listHint}>{t('reward.review_hint')}</Text>
           </View>
           {reviewList.map((rq, i) => (
             <Pressable key={i} style={s.qrow} onPress={() => nav.navigate('QuestionReview', { q: rq })}>
@@ -233,7 +224,7 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
                 size={18}
                 color={rq.correct === false ? c.red : rq.correct === true ? c.green : c.mute}
               />
-              <Text style={s.qrowLabel} numberOfLines={1}>{rq.label || rq.question || rq.prompt || `問題 ${i + 1}`}</Text>
+              <Text style={s.qrowLabel} numberOfLines={1}>{rq.label || rq.question || rq.prompt || t('reward.q_n', { n: i + 1 })}</Text>
               <Ionicons name="chevron-forward" size={18} color={c.faint} />
             </Pressable>
           ))}

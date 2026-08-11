@@ -7,38 +7,21 @@ import { Animated, Pressable, StyleSheet, Text, View, useWindowDimensions } from
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import type { AppState } from '../store/state';
-import { composeVoice, pickFlavor } from '../story/voice';
+import { composeVoice, pickFlavor, renderVoice } from '../story/voice';
 import { learnedNow } from '../store/selectors';
+import { useT } from '../i18n';
 
-// はじめて開いた人(まだ1語も覚えていない)向けの一言。「続けてきた」など“過去の積み重ね”を前提にした言葉は使わない。
-// 数字/日付/合否/物語は言わない=通常の桜と同じ方針。出迎え・これから一緒に、の温度。
-const NEWCOMER_BUBBLES = [
-  'はじめまして。わたしは桜。これから一緒にがんばろうね。',
-  'ようこそ！まずは「今日のオススメ」から、気軽に始めてみよう。',
-  'あなたのペースで大丈夫。少しずつ、はじめていこうね。',
-  'ここから一歩ずつ。わたしがそばで、ずっと応援してるからね。',
-  'あなたが来てくれて、うれしいな。さあ、はじめよう。',
-];
-
-// 桜の締めの温かい一言(数字/日付/合否/願い/物語=かけら は言わない)。長さ・変化づけ用に末尾へ添える。
-const SAKURA_CLOSERS = [
-  'あなたのペースで大丈夫だからね。',
-  '無理はしないで、少しずついこう。',
-  'ここまで続けてきたこと、ちゃんとえらいよ。',
-  'わたしはいつでも、そばで応援してるからね。',
-  'ふっと一息ついて、また一歩ね。',
-  'あなたが今日も来てくれて、うれしいな。',
-  'あわてなくていいの、ゆっくりでいいんだよ。',
-  'あなたの頑張り、ちゃんと見てるからね。',
-];
+// はじめて開いた人向けの一言(voice.newcomer.1〜5)＋締め(voice.close_daily.1〜8)の本数。表示は i18n キーで解決。
+const NEWCOMER_COUNT = 5;
+const CLOSER_COUNT = 8;
 
 const MIN_GAP_MS = 20 * 60 * 1000;     // 20分に1度くらい(ユーザー方針 2026-08-06)
 const INITIAL_MS = 3500;               // ホームに着いて少し落ち着いてから
 const SHOW_MS = 18_000;                // 表示時間(文が約2倍に伸びたので長めに。タップでも即消える)
 
-// 癒し・励ましの一言(出迎え daily ＋ 季節/時間の flavor)。世界のかけら(物語)は出さない。
-// 長さは従来の約2倍: 基本(core+flavor)＋もう1つ別のflavor＋温かい締め、を重ねて“ありきたり感”を薄める。
-function pickBubble(state: AppState, now: number): string {
+// 癒し・励ましの一言(出迎え daily ＋ 季節/時間の flavor)の id 列。世界のかけら(物語)は出さない。
+// 長さは従来の約2倍: 基本(core+flavor)＋もう1つ別のflavor＋温かい締め。表示言語は renderVoice が id→台詞で解決。
+function pickBubbleIds(state: AppState, now: number): (string | undefined)[] {
   const seed = ((now / 1000) % 97) / 97; // 時刻でばらけさせる
   const res = composeVoice({
     occasion: { kind: 'daily', streakDays: state.streak?.current ?? 0 },
@@ -49,15 +32,15 @@ function pickBubble(state: AppState, now: number): string {
   });
   const usedIds = res.ids ?? [];
   const extra = pickFlavor(now, (seed + 0.61) % 1, usedIds); // もう1つ別の季節/時間flavor(重複回避)
-  const closer = SAKURA_CLOSERS[Math.floor(((seed + 0.5) % 1) * SAKURA_CLOSERS.length)];
-  const text = [res.text, extra?.text, closer].filter(Boolean).join('');
-  return text || 'また会えたね。今日も、あなたのペースで大丈夫だからね。';
+  const closerN = 1 + Math.floor(((seed + 0.5) % 1) * CLOSER_COUNT);
+  return [...usedIds, extra?.id, `close_daily.${closerN}`];
 }
 
 // idleTick: ホームで静止(無操作)10秒ごとに親が +1 する合図。増えたら桜を出す(起動後表示とは別トリガー)。
 export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
   const state = useAppState();
   const { setSettings } = useAppActions();
+  const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const { height } = useWindowDimensions();
@@ -84,13 +67,14 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
     const isNewcomer = learnedNow(state, now) === 0;
     let text: string;
     if (isNewcomer) {
-      text = NEWCOMER_BUBBLES[Math.floor((now / 1000) % NEWCOMER_BUBBLES.length)];
+      const n = 1 + Math.floor((now / 1000) % NEWCOMER_COUNT);
+      text = t('voice.newcomer.' + n);
       setSettings({ lastSakuraSpeechAt: now }); // sakuraRecoDayはまだ立てない(1語覚えたら通常導線へ)
     } else if (state.settings.sakuraRecoDay !== today) {
-      text = '「今日のオススメ」を学習すると、苦手な単語の復習ができるよ。';
+      text = t('sakura.reco_hint');
       setSettings({ sakuraRecoDay: today, lastSakuraSpeechAt: now });
     } else {
-      text = pickBubble(state, now);
+      text = renderVoice(pickBubbleIds(state, now), t) || t('voice.fallback_daily');
       setSettings({ lastSakuraSpeechAt: now });
     }
     setText(text);

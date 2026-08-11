@@ -16,7 +16,8 @@ import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
 import { useAppState } from '../store/store';
 import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
-import { personalityOf, moodMsgOf, personaLineOf } from '../plaza/persona';
+import { moodMsgText, personaLine, traitLabel } from '../plaza/persona';
+import { useT } from '../i18n';
 import { useSync } from '../auth/SyncProvider';
 import { friendPublish, townMembers, cheerSend, townKick, type FriendProfile } from '../plaza/friendsClient';
 import { friendToLearner } from '../plaza/friendResidents';
@@ -184,14 +185,18 @@ const SITTERS: Sitter[] = [
   { x: 328, y: 500, w: 37, h: 58, v: { id: 's3', nick: 'Hana', flag: '🇵🇭', level: 'N3', streak: 21, today: 28, avatar: 'f_g2', home: { col: 0, row: 0 }, studying: '文法', learned: 980, weekLearned: 96, todayMin: 55, strong: '文法', mood: 'doryoku', personality: 'shikkari', moodMsg: 'bunpo' } },  // 左下ベンチ
   { x: 529, y: 500, w: 26, h: 58, v: { id: 's4', nick: 'Omar', flag: '🇪🇬', level: 'N4', streak: 11, today: 22, avatar: 'm_boy2', home: { col: 0, row: 0 }, studying: '漢字', learned: 560, weekLearned: 61, todayMin: 35, strong: '漢字', mood: 'oikomi', personality: 'reisei', moodMsg: 'kanji' } }, // 下ベンチ
 ];
-// 桜のほめ言葉(努力を褒める)。連続日数があれば1つに織り込む。
-const sakuraPraise = (streak: number): string[] => [
-  '毎日よくがんばってるね。えらい！🌸',
-  'コツコツ続けるあなたは素敵。ずっと応援してるよ。',
-  streak > 0 ? `${streak}日も続けてるなんて、本当にすごい！` : '今日から一緒にがんばろうね🌸',
-  '少しずつでも前に進んでるよ。自信を持って。',
-  '努力はちゃんと実になるからね。今日もおつかれさま🌸',
+// 桜のほめ言葉(努力を褒める)。連続日数があれば1つに織り込む。表示言語は t で解決。
+const sakuraPraise = (streak: number, t: (k: string, p?: Record<string, string | number>) => string): string[] => [
+  t('town.sakura_praise.1'),
+  t('town.sakura_praise.2'),
+  streak > 0 ? t('town.sakura_praise.streak', { n: streak }) : t('town.sakura_praise.start'),
+  t('town.sakura_praise.3'),
+  t('town.sakura_praise.4'),
 ];
+
+// 面の日本語名(データ由来: 漢字/語彙/文法/読解/聴解)→現在言語。未知はそのまま返す。
+const FACET_KEY: Record<string, string> = { '漢字': 'kanji', '語彙': 'vocab', '文法': 'grammar', '読解': 'reading', '聴解': 'listening' };
+const facetLabel = (t: (k: string) => string, ja: string | undefined | null): string => (ja && FACET_KEY[ja]) ? t('town.facet.' + FACET_KEY[ja]) : (ja || '-');
 const WALK_CYCLE = [0, 1, 0, 2]; // 立ち→右足→立ち→左足
 const WALK_STEP = 0.15;          // 1コマの秒数
 // 8方向スナップ表(入力角 atan2 の 45度セクタ→向きと単位ベクトル)。画面yは下向き正。
@@ -404,6 +409,7 @@ function AmbientNpc({ sprites, spot, tag, sink, sinkKey }: {
 
 export default function KotobaTownScreen() {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const t = useT();
   const { width: VW, height: VH } = useWindowDimensions();
   // 選んだアバターで自分の見た目を切替(女の子1/女の子2 は専用スプライト、それ以外=男の子)。
   const avatarCode = useAppState().settings.avatar;
@@ -468,7 +474,7 @@ export default function KotobaTownScreen() {
   const npcPos = useRef<Record<string, { x: number; y: number }>>({}).current;
   const npcAnim = useRef<Record<string, Animated.ValueXY>>({}).current; // 各NPCのアニメ位置(名札を前面レイヤより上に描くため共有)
   const [, setPlateTick] = useState(0); // NpcSprite登録後に名札パスを1度描き直すためのトリガ
-  useEffect(() => { const t = setTimeout(() => setPlateTick((x) => x + 1), 60); return () => clearTimeout(t); }, [residents]);
+  useEffect(() => { const tm = setTimeout(() => setPlateTick((x) => x + 1), 60); return () => clearTimeout(tm); }, [residents]);
   const [talk, setTalk] = useState<VirtualLearner | null>(null);
   const [sent, setSent] = useState<{ emoji: string; reply: string } | null>(null);
   const [talkStep, setTalkStep] = useState<'info' | 'status' | 'message'>('info'); // info=台詞(舞台) / status=ステータス / message=メッセージ送信
@@ -517,9 +523,9 @@ export default function KotobaTownScreen() {
   };
   // 友だち解除(town_kick=唯一の解除口)。相互なので双方の町から相手が消え、どちらもメッセージを送れなくなる。
   const kickMember = (m: FriendProfile) => {
-    Alert.alert('友だちを解除', `${m.nickname}さんとの友だちを解除しますか？\n解除すると、お互いの町から相手が消え、どちらもメッセージを送れなくなります（相互に解除されます）。`, [
-      { text: 'キャンセル', style: 'cancel' },
-      { text: '解除', style: 'destructive', onPress: () => {
+    Alert.alert(t('town.unfriend_title'), t('town.unfriend_body', { nick: m.nickname }), [
+      { text: t('town.cancel'), style: 'cancel' },
+      { text: t('town.remove'), style: 'destructive', onPress: () => {
         void townKick(m.user_id);
         setMembers((ms) => ms.filter((x) => x.user_id !== m.user_id));       // 一覧から即消す
         setFriends((fs) => fs.filter((f) => f.id !== 'friend:' + m.user_id)); // 町の住人からも消す
@@ -563,7 +569,7 @@ export default function KotobaTownScreen() {
   const sakuraTalkRef = useRef(false);
   const sakuraArmed = useRef(true);
   const openSakura = () => {
-    const all = sakuraPraise(streakCur);
+    const all = sakuraPraise(streakCur, t);
     // 2つ選んで2ページに(重複しないように)。
     const i = Math.floor(Math.random() * all.length);
     const j = (i + 1 + Math.floor(Math.random() * (all.length - 1))) % all.length;
@@ -580,7 +586,7 @@ export default function KotobaTownScreen() {
     const u = session.user.id;
     const n = encodeURIComponent(meState.settings.nickname ?? '');
     const url = `https://jinkato2020.github.io/safa-JLPT/invite/?u=${u}&n=${n}`;
-    const text = 'いっしょに日本語を学ぼう！わたしの町に遊びにきてね🏘️';
+    const text = t('town.share_text');
     try {
       // iOS: url を独立フィールドで渡す→共有シートがリンク扱いになり、招待ページのog:image(アプリアイコン)がプレビューに出る。
       //      (URLを本文に混ぜると"テキスト"扱いで汎用アイコン(あI)になる)。Android: url は無視されるので本文にURLを含める。
@@ -744,8 +750,8 @@ export default function KotobaTownScreen() {
           {/* 中: 学習者(NPC)＝仮想学習者＋実在の友だち */}
           {residents.map((v) => <NpcSprite key={v.id} v={v} sink={npcPos} animSink={npcAnim} />)}
           {/* 中: マスコット(桜=会話あり / 柴犬=会話なし) */}
-          <AmbientNpc sprites={SHIBA} spot={SHIBA_HOME} tag="🐕 柴犬" />
-          <AmbientNpc sprites={SAKURA} spot={SAKURA_HOME} tag="🌸 桜" sink={npcPos} sinkKey="sakura" />
+          <AmbientNpc sprites={SHIBA} spot={SHIBA_HOME} tag={t('town.tag_shiba')} />
+          <AmbientNpc sprites={SAKURA} spot={SAKURA_HOME} tag={t('town.tag_sakura')} sink={npcPos} sinkKey="sakura" />
 
           {/* 中: 自分(NPCより手前) */}
           <Animated.View style={{ position: 'absolute', width: SPRITE, height: SPRITE, zIndex: Math.round(pos.current.y + SPRITE * 0.82), transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
@@ -781,7 +787,7 @@ export default function KotobaTownScreen() {
           })}
           {/* 自分の名札(名前・Lv)も前面に。青い名札で「自分」と分かるように。 */}
           <Animated.View pointerEvents="none" style={{ position: 'absolute', left: SPRITE / 2 - PLATE_W / 2, width: PLATE_W, alignItems: 'center', zIndex: 3000, transform: [{ translateX: playerPos.x }, { translateY: playerPos.y }] }}>
-            <View style={[s.npcTag, s.meTag]}><Text style={s.npcTagT} numberOfLines={1}>{(meState.settings.nickname || 'あなた')} · {meState.settings.level}</Text></View>
+            <View style={[s.npcTag, s.meTag]}><Text style={s.npcTagT} numberOfLines={1}>{(meState.settings.nickname || t('town.you'))} · {meState.settings.level}</Text></View>
           </Animated.View>
         </Animated.View>
       </View>
@@ -792,11 +798,11 @@ export default function KotobaTownScreen() {
           <View style={s.topLeft} pointerEvents="box-none">
             {/* 見出しタップ=町の友だち一覧(招待して参加した人)。この一覧の相手にはメッセージ(応援)を送れる。 */}
             <Pressable style={s.pill} onPress={() => setMembersOpen(true)}>
-              <Text style={s.pillT}>日本語学習者の町</Text>
+              <Text style={s.pillT}>{t('town.title')}</Text>
               <Ionicons name="people" size={13} color="#3a3128" style={{ marginLeft: 5 }} />
             </Pressable>
             {/* 友だちを町に招待(リンク共有→相手が参加で住人に)。白・アイコン無しでタイトル横に。 */}
-            <Pressable style={s.inviteWhite} onPress={onInvite}><Text style={s.inviteWhiteT}>友だちを町に招待</Text></Pressable>
+            <Pressable style={s.inviteWhite} onPress={onInvite}><Text style={s.inviteWhiteT}>{t('town.invite')}</Text></Pressable>
           </View>
           <View style={s.topRight} pointerEvents="box-none">
             {/* 受信箱(友だちからの応援)は共通ヘッダー(設定の左の鐘)へ移設。ここには置かない。 */}
@@ -810,13 +816,13 @@ export default function KotobaTownScreen() {
         <Pressable style={s.memberBackdrop} onPress={() => setMembersOpen(false)} />
         <View style={s.memberSheet}>
           <View style={s.memberHead}>
-            <Text style={s.memberTitle}>町の友だち{members.length > 0 ? `（${members.length}）` : ''}</Text>
+            <Text style={s.memberTitle}>{t('town.friends')}{members.length > 0 ? `（${members.length}）` : ''}</Text>
             <Pressable onPress={() => setMembersOpen(false)} hitSlop={10}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
           </View>
           {!session ? (
-            <Text style={s.memberEmpty}>ログインすると、招待した友だちがここに表示されます。</Text>
+            <Text style={s.memberEmpty}>{t('town.friends_login')}</Text>
           ) : members.length === 0 ? (
-            <Text style={s.memberEmpty}>まだ町に友だちがいません。{'\n'}「友だちを町に招待」から招待しよう。</Text>
+            <Text style={s.memberEmpty}>{t('town.friends_empty')}</Text>
           ) : (
             <ScrollView style={{ maxHeight: 380 }} showsVerticalScrollIndicator={false}>
               {members.map((m) => (
@@ -824,8 +830,8 @@ export default function KotobaTownScreen() {
                   <Pressable style={s.memberTapArea} onPress={() => { setMembersOpen(false); openTalk(friendToLearner(m, { col: 16, row: 16 })); }}>
                     <Text style={s.memberName} numberOfLines={1}>{flagOf(m.country ?? 'XX')} {m.nickname}</Text>
                     <View style={s.memberRight}>
-                      <Text style={s.memberMeta}>{m.level}・{Math.max(0, m.streak ?? 0)}日</Text>
-                      <View style={s.memberSend}><Ionicons name="chatbubble-ellipses" size={13} color="#fff" /><Text style={s.memberSendT}>応援</Text></View>
+                      <Text style={s.memberMeta}>{t('town.member_meta', { lv: m.level, n: Math.max(0, m.streak ?? 0) })}</Text>
+                      <View style={s.memberSend}><Ionicons name="chatbubble-ellipses" size={13} color="#fff" /><Text style={s.memberSendT}>{t('town.cheer_btn')}</Text></View>
                     </View>
                   </Pressable>
                   {/* 荒らし対策: 町から削除(以後この人はメッセージを送れない)。 */}
@@ -842,13 +848,13 @@ export default function KotobaTownScreen() {
         <Pressable style={s.memberBackdrop} onPress={() => setMsgOpen(false)} />
         <View style={s.memberSheet}>
           <View style={s.memberHead}>
-            <Text style={s.memberTitle}>✉️ {talk?.nick ?? '友だち'}に応援を送る</Text>
+            <Text style={s.memberTitle}>{t('town.cheer_to', { nick: talk?.nick ?? t('town.friend') })}</Text>
             <Pressable onPress={() => setMsgOpen(false)} hitSlop={10}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
           </View>
           {sent ? (
             <View style={{ alignItems: 'center', paddingVertical: 28, gap: 8 }}>
               <Text style={{ fontSize: 40 }}>{sent.emoji}</Text>
-              <Text style={{ fontSize: 16, fontWeight: '900', color: '#3a3128' }}>応援を届けました！🌸</Text>
+              <Text style={{ fontSize: 16, fontWeight: '900', color: '#3a3128' }}>{t('town.cheer_sent')}</Text>
             </View>
           ) : (
             <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
@@ -856,23 +862,23 @@ export default function KotobaTownScreen() {
               <View style={s.msgPills}>
                 {CHEERS.map((c) => (
                   <Pressable key={c.key} style={s.msgPill} onPress={() => sendCheer(c)}>
-                    <Text style={s.msgPillT} numberOfLines={1}>{c.emoji} {c.label}</Text>
+                    <Text style={s.msgPillT} numberOfLines={1}>{c.emoji} {t('town.cheer.' + c.key)}</Text>
                   </Pressable>
                 ))}
               </View>
               {/* 自由メッセージ */}
-              <Text style={s.msgLabel}>自由メッセージ（80字まで）</Text>
+              <Text style={s.msgLabel}>{t('town.free_msg')}</Text>
               <TextInput
                 value={msgText}
                 onChangeText={setMsgText}
-                placeholder="やさしい言葉で応援しよう"
+                placeholder={t('town.msg_placeholder')}
                 placeholderTextColor="#a99f8f"
                 maxLength={80}
                 multiline
                 style={s.msgInput}
               />
               <Pressable style={[s.msgSubmit, !msgText.trim() && { opacity: 0.5 }]} disabled={!msgText.trim()} onPress={sendCheerText}>
-                <Text style={s.msgSubmitT}>このメッセージを送る</Text>
+                <Text style={s.msgSubmitT}>{t('town.msg_send')}</Text>
               </Pressable>
             </ScrollView>
           )}
@@ -892,8 +898,7 @@ export default function KotobaTownScreen() {
       {/* 仮想学習者との会話。下=会話+ステータス一体フレーム / 上=会話背景＋立ち絵 / さらに下へスクロールで応援。 */}
       {talk && (() => {
         const SET = AVATAR_SETS[talk.avatar] || HERO;
-        const per = personalityOf(talk.personality);
-        const mm = stripIcons(moodMsgOf(talk.moodMsg)) || null; // 気分の絵文字アイコンを除去
+        const mm = stripIcons(moodMsgText(t, talk.moodMsg)) || null; // 気分の絵文字アイコンを除去
         const learned = talk.learned ?? 0;
         const scene = SCENES[talkScene][isDay ? 'day' : 'night'];
         const dlgImg = isDay ? DLG_LIGHT : DLG_DARK; // 会話ダイアログ=昼ライト/夜ダーク(実時刻で切替)
@@ -912,10 +917,10 @@ export default function KotobaTownScreen() {
         const stH = FW; // ステータス枠=正方形
         // 台詞は「1文=1ページ」で分割し、…で切れないようにする(長い名前で折り返しても3行まで収まる)。▽で送る。
         const pages: string[] = [
-          `やあ、${talk.nick}だよ！会えてうれしいな。`,
-          talk.studying ? `いまは「${talk.studying}」を特訓してるんだ。` : '毎日コツコツ勉強を続けてるよ。',
-          talk.weekLearned ? `この7日で${talk.weekLearned}語もおぼえたよ！` : '少しずつ言葉が増えてきた気がする。',
-          `${personaLineOf(talk.personality)}\nまた町で会おうね。`,
+          t('persona.talk.greet', { nick: talk.nick }),
+          talk.studying ? t('persona.talk.studying', { topic: facetLabel(t, talk.studying) }) : t('persona.talk.studying_none'),
+          talk.weekLearned ? t('persona.talk.week', { n: talk.weekLearned }) : t('persona.talk.week_none'),
+          `${personaLine(t, talk.personality)}\n${t('persona.see_you_town')}`,
         ];
         const page = Math.min(talkPage, pages.length - 1);
         // 最後まで読んだら(▽をもう一度)会話ダイアログを消す。
@@ -937,9 +942,9 @@ export default function KotobaTownScreen() {
         const totalSec = (talk.studySeconds && talk.studySeconds > 0) ? talk.studySeconds : Math.round(learned * 2) * 60;
         const totalTimeStr = `${Math.floor(totalSec / 3600)}:${String(Math.floor((totalSec % 3600) / 60)).padStart(2, '0')}`; // ◯:◯(時:分)
         const FIELDS: { lab: string; val: string; lab2: string; val2: string }[] = [
-          { lab: '名前', val: `${talk.nick} ${(talk.flag ?? '').trim()}`.trim(), lab2: 'Lv', val2: String(talk.level) },
-          { lab: '性格', val: per ? per.label : '-', lab2: '得意', val2: talk.strong ?? '-' },
-          { lab: '気分', val: mm ?? '-', lab2: '総時間', val2: totalTimeStr },
+          { lab: t('town.lbl_name'), val: `${talk.nick} ${(talk.flag ?? '').trim()}`.trim(), lab2: 'Lv', val2: String(talk.level) },
+          { lab: t('town.lbl_personality'), val: traitLabel(t, talk.personality) || '-', lab2: t('town.lbl_strong'), val2: facetLabel(t, talk.strong) },
+          { lab: t('town.lbl_mood'), val: mm ?? '-', lab2: t('town.lbl_time'), val2: totalTimeStr },
         ];
         // 「覚えた単語」の内訳(漢字/語彙/文法)。総learnedを決定的に3分割(学習者ごとに少しだけ変える)。
         const hsum = [...(talk.id || 'x')].reduce((a, c) => a + c.charCodeAt(0), 0);
@@ -948,9 +953,9 @@ export default function KotobaTownScreen() {
         const grammar = Math.max(0, learned - kanji - vocab);
         const catMax = Math.max(1, kanji, vocab, grammar);
         const CATS: { lab: string; n: number; col: string }[] = [
-          { lab: '漢字', n: kanji, col: '#4a7fc0' },
-          { lab: '語彙', n: vocab, col: '#6f9a3f' },
-          { lab: '文法', n: grammar, col: '#c0603a' },
+          { lab: t('town.facet.kanji'), n: kanji, col: '#4a7fc0' },
+          { lab: t('town.facet.vocab'), n: vocab, col: '#6f9a3f' },
+          { lab: t('town.facet.grammar'), n: grammar, col: '#c0603a' },
         ];
         // 6項目の左右分割を動的に。左列(名前/性格/気分)=長め・右列(Lv/国名/得意)=短め。
         //  標準=中央(0.50)→左の値が収まらなければ分割を右へずらし→それでも無理ならフォント縮小(言語で可変)。
@@ -1013,7 +1018,7 @@ export default function KotobaTownScreen() {
                   );
                 })}
                 {/* 見出し「覚えた単語」(中央・区切り線の下)。 */}
-                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '900', letterSpacing: 2 }}>覚えた単語</Text>
+                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '900', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
                 {/* 3バー: 漢字/語彙/文法 = 内訳(色分け)＋語数。 */}
                 {CATS.map((c, i) => {
                   const y = stH * (0.63 + i * 0.105);
@@ -1035,7 +1040,7 @@ export default function KotobaTownScreen() {
                 <View style={{ width: FW, alignSelf: 'center', paddingTop: 2, paddingBottom: 40 }}>
                   <Pressable style={s.msgSendBtn} onPress={openMsg}>
                     <Ionicons name="chatbubble-ellipses" size={18} color="#fff" />
-                    <Text style={s.msgSendBtnT}>メッセージを送る</Text>
+                    <Text style={s.msgSendBtnT}>{t('town.msg_send_btn')}</Text>
                   </Pressable>
                 </View>
               )}
@@ -1069,20 +1074,20 @@ export default function KotobaTownScreen() {
         const FS_SAY = Math.round(SW * 0.041), LH_SAY = Math.round(SW * 0.058);
         const FS_NAME = Math.round(FW * 0.044);
         const FS_LAB = Math.round(FW * 0.035), FS_VAL = Math.round(FW * 0.034);
-        const pages = sakuraLines.length ? sakuraLines : ['また会えたね🌸'];
+        const pages = sakuraLines.length ? sakuraLines : [t('town.sakura_hello')];
         const page = Math.min(sakuraPage, pages.length - 1);
         const onNext = () => { if (page < pages.length - 1) setSakuraPage(page + 1); else closeSakura(); };
         const nextY = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0, 4] });
         const nextOp = nextPulse.interpolate({ inputRange: [0, 1], outputRange: [0.55, 1] });
         // 桜のステータス: 性格=3種からランダム(会話ごと=talkScene由来で安定)・気分固定・Lv非表示。
-        const SPERS = ['マイペース', 'おっとり', '優しい'];
+        const SPERS = [t('town.sakura_pers.1'), t('town.sakura_pers.2'), t('town.sakura_pers.3')];
         const sakuraPer = SPERS[[...talkScene].reduce((a, c) => a + c.charCodeAt(0), 0) % SPERS.length];
         const SFIELDS: { lab: string; val: string; lab2: string; val2: string }[] = [
-          { lab: '名前', val: '桜', lab2: '', val2: '' }, // Lvは非表示(右列なし)
-          { lab: '性格', val: sakuraPer, lab2: '国名', val2: '🇯🇵' },
-          { lab: '気分', val: '桜貝大好き', lab2: '得意', val2: '応援' },
+          { lab: t('town.lbl_name'), val: t('town.sakura_name'), lab2: '', val2: '' }, // Lvは非表示(右列なし)
+          { lab: t('town.lbl_personality'), val: sakuraPer, lab2: t('town.lbl_country'), val2: '🇯🇵' },
+          { lab: t('town.lbl_mood'), val: t('town.sakura_mood'), lab2: t('town.lbl_strong'), val2: t('town.sakura_strong') },
         ];
-        const estEm = (t: string) => { let u = 0; for (const ch of t) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u; };
+        const estEm = (s: string) => { let u = 0; for (const ch of s) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u; };
         const emVal = FS_VAL / FW; const xValL = 0.225;
         const xLab2 = Math.max(0.10, Math.max(...SFIELDS.map((f) => estEm(f.lab2))) * (FS_LAB / FW) + 0.6 * (FS_LAB / FW)); // ラベル(総時間=3文字)と値を密着させない
         const leftValEm = Math.max(...SFIELDS.map((f) => estEm(f.val)));
@@ -1132,8 +1137,8 @@ export default function KotobaTownScreen() {
                   );
                 })}
                 {/* 覚えた単語=桜はマックス(3バー満タン)。 */}
-                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '900', letterSpacing: 2 }}>覚えた単語</Text>
-                {[{ lab: '漢字', col: '#4a7fc0' }, { lab: '語彙', col: '#6f9a3f' }, { lab: '文法', col: '#c0603a' }].map((c, i) => {
+                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '900', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
+                {[{ lab: t('town.facet.kanji'), col: '#4a7fc0' }, { lab: t('town.facet.vocab'), col: '#6f9a3f' }, { lab: t('town.facet.grammar'), col: '#c0603a' }].map((c, i) => {
                   const y = stH * (0.63 + i * 0.105);
                   const bx0 = FW * 0.28, bx1 = FW * 0.76, bw = bx1 - bx0;
                   return (

@@ -30,17 +30,12 @@ export default function UnlockCelebration({ visible, unlockKey, modeLabel, need,
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <Pressable style={s.backdrop} onPress={onClose}>
         <Animated.View style={[s.card, { transform: [{ scale: anim.interpolate({ inputRange: [0, 1], outputRange: [0.85, 1] }) }] }]}>
-          {/* 立ち絵(桜)を全面に。中央(桜の上)へ「◯◯ 解禁」を重ねる。 */}
+          {/* 立ち絵(桜)は上寄せ表示。絵に描かれた上部のモード名を必ず残し、はみ出す下側だけ切る。「◯◯解禁」は画像に重ねず下のテキストへ。 */}
           <View style={s.hero}>
             {img ? <Image source={img} style={s.img} resizeMode="cover" /> : null}
-            <View style={s.overlay} pointerEvents="none">
-              <View style={s.banner}>
-                <Text style={s.mode}>{modeLabel}</Text>
-                <Text style={s.kicker}>{t('unlock.kicker')}</Text>
-              </View>
-            </View>
           </View>
-          <Text style={s.pct}>{t('unlock.reached', { pct: String(need) })}</Text>
+          <Text style={s.reached}>{t('unlock.reached', { pct: String(need) })}</Text>
+          <Text style={s.unlockLine}>{t('unlock.mode_unlocked', { mode: modeLabel })}</Text>
           <Text style={s.praise}>{t('unlock.praise')}</Text>
           <Pressable style={s.cta} onPress={onClose}><Text style={s.ctaTxt}>{t('unlock.ok')}</Text></Pressable>
         </Animated.View>
@@ -52,14 +47,11 @@ export default function UnlockCelebration({ visible, unlockKey, modeLabel, need,
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   backdrop: { flex: 1, backgroundColor: 'rgba(15,23,42,0.72)', alignItems: 'center', justifyContent: 'center', padding: spacing.xl },
   card: { width: '100%', maxWidth: 340, backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, alignItems: 'center', gap: spacing.sm },
-  hero: { width: '100%', aspectRatio: 760 / 1000, borderRadius: radius.md, overflow: 'hidden', backgroundColor: c.bgSoft },
-  img: { width: '100%', height: '100%' },
-  // 中央(桜の上)に配置する見出し。可読性のため半透明の帯を敷く。
-  overlay: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
-  banner: { backgroundColor: 'rgba(15,23,42,0.55)', borderRadius: radius.lg, paddingVertical: spacing.sm, paddingHorizontal: spacing.lg, alignItems: 'center', gap: 2 },
-  mode: { fontSize: ty.h1, fontWeight: '900', color: '#fff', textAlign: 'center', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 6 },
-  kicker: { fontSize: ty.h2, fontWeight: '900', color: c.amber, letterSpacing: 4, textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 6 },
-  pct: { fontSize: ty.body, fontWeight: '900', color: c.green },
+  // 絵は上寄せ(top:0)で表示し、はみ出す下側だけ hero が切る=上部の描き文字(モード名)を必ず残す。
+  hero: { width: '100%', aspectRatio: 760 / 1100, borderRadius: radius.md, overflow: 'hidden', backgroundColor: c.bgSoft },
+  img: { position: 'absolute', top: 0, left: 0, width: '100%', aspectRatio: 760 / 1350 },
+  reached: { fontSize: ty.body, fontWeight: '900', color: c.green, marginTop: 2 },
+  unlockLine: { fontSize: ty.h1, fontWeight: '900', color: c.amber, textAlign: 'center' },
   praise: { fontSize: ty.small, color: c.mute, textAlign: 'center' },
   cta: { alignSelf: 'stretch', backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.sm + 2, alignItems: 'center', marginTop: 2 },
   ctaTxt: { color: '#fff', fontSize: ty.body, fontWeight: '800' },

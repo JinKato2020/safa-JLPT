@@ -59,9 +59,9 @@ const SEC_SECONDS: Record<Sec, number> = { moji_goi: 40, bunpou: 40, dokkai: 110
 // 本番の「試験科目(時間の区切り)」= 模試の休憩ブロック。イントロの足切りカードと同じ束ね方・同じ制限時間で一致させる。
 //  N5/N4=2ブロック(言語知識・読解 / 聴解) ・ N3=3ブロック(文字語彙 / 文法・読解 / 聴解)。合計= N5:90 N4:115 N3:140。
 const MOCK_TIME_SECTIONS: Record<string, { label: string; secs: Sec[]; min: number }[]> = {
-  N5: [{ label: '言語知識・読解', secs: ['moji_goi', 'bunpou', 'dokkai'], min: 60 }, { label: '聴解', secs: ['choukai'], min: 30 }],
-  N4: [{ label: '言語知識・読解', secs: ['moji_goi', 'bunpou', 'dokkai'], min: 80 }, { label: '聴解', secs: ['choukai'], min: 35 }],
-  N3: [{ label: '言語知識（文字・語彙）', secs: ['moji_goi'], min: 30 }, { label: '言語知識（文法）・読解', secs: ['bunpou', 'dokkai'], min: 70 }, { label: '聴解', secs: ['choukai'], min: 40 }],
+  N5: [{ label: 'mock.block_gengo_dokkai', secs: ['moji_goi', 'bunpou', 'dokkai'], min: 60 }, { label: 'mock.block_choukai', secs: ['choukai'], min: 30 }],
+  N4: [{ label: 'mock.block_gengo_dokkai', secs: ['moji_goi', 'bunpou', 'dokkai'], min: 80 }, { label: 'mock.block_choukai', secs: ['choukai'], min: 35 }],
+  N3: [{ label: 'mock.block_moji_goi', secs: ['moji_goi'], min: 30 }, { label: 'mock.block_bunpou_dokkai', secs: ['bunpou', 'dokkai'], min: 70 }, { label: 'mock.block_choukai', secs: ['choukai'], min: 40 }],
 };
 // 小区分キー→i18nラベルキー(大問分野の見出し用)。
 const READING_SUB_LABEL: Record<string, string> = Object.fromEntries(READING_SUBTYPES.map((x) => [x.key, x.labelKey]));
@@ -71,7 +71,7 @@ function buildBlocks(exam: MockItem[], isJft: boolean, level: Level): ExamBlock[
   // JFT = 休憩なしの1ブロック(通しタイマー)。JLPTは試験科目に分割。
   if (isJft) {
     const ms = exam.reduce((a, it) => a + stepSeconds(it) * 1000, 0);
-    return [{ label: 'JFT模試', from: 0, to: exam.length, ms }];
+    return [{ label: 'mock.block_jft', from: 0, to: exam.length, ms }];
   }
   const specs = MOCK_TIME_SECTIONS[level] ?? MOCK_TIME_SECTIONS.N4;
   const blocks: ExamBlock[] = [];
@@ -459,7 +459,7 @@ export default function MockScreen() {
 
   // 休憩画面(各科目の前・科目と科目の間)。休憩画像＋分野/制限時間＋「(分野)をスタート」。開始まで待てる。
   if (phase === 'break') {
-    const bLabel = curBlock?.label ?? '';
+    const bLabel = curBlock?.label ? t(curBlock.label) : '';
     const bMin = Math.round((curBlock?.ms ?? 0) / 60_000);
     const bN = (curBlock?.to ?? 0) - (curBlock?.from ?? 0);
     // 1回目(blockIdx 0)=休憩不要=開始の一言のみ。2回目以降=前の科目終わり→桜が ①ねぎらい ②休憩 ③準備できたら開始。
@@ -668,7 +668,7 @@ export default function MockScreen() {
           {wrongDrill.length > 0 ? (
             <Pressable
               style={s.cta}
-              onPress={() => nav.replace('Quiz', { itemIds: wrongDrill.map((w) => w.id), title: '弱点ドリル' })}
+              onPress={() => nav.replace('Quiz', { itemIds: wrongDrill.map((w) => w.id), title: t('mock.weak_drill') })}
             >
               <Text style={s.ctaTxt}>{t('mock.drill_cta', { n: wrongDrill.length })}</Text>
             </Pressable>
@@ -729,7 +729,7 @@ export default function MockScreen() {
   let gStart = idx; while (gStart > curBlock.from && sigOf(exam[gStart - 1]) === curSig) gStart--;
   let gEnd = idx; while (gEnd + 1 < curBlock.to && sigOf(exam[gEnd + 1]) === curSig) gEnd++;
   const grpLabelKey = grpKeyOf(cur);
-  const grpLabel = grpLabelKey ? t(grpLabelKey) : (multiBlock ? curBlock.label : '');
+  const grpLabel = grpLabelKey ? t(grpLabelKey) : (multiBlock ? t(curBlock.label) : '');
 
   return (
     <SafeAreaView style={s.c}>
@@ -738,10 +738,10 @@ export default function MockScreen() {
           <Pressable onPress={async () => { await stopSound(); nav.goBack(); }} hitSlop={12}>
             <Text style={s.close}>✕</Text>
           </Pressable>
-          {multiBlock ? <Text style={s.blockTag}>{curBlock.label}</Text> : <View />}
+          {multiBlock ? <Text style={s.blockTag}>{t(curBlock.label)}</Text> : <View />}
           {/* 【開発用】現ブロックの設問を全カットして次の休憩(最終ブロックなら模試終了)へワープ。 */}
           {state.settings.devMockSkip === true
-            ? <Pressable onPress={sectionDone} hitSlop={8} style={s.devSkip}><Text style={s.devSkipT}>⏭ 次の休憩</Text></Pressable>
+            ? <Pressable onPress={sectionDone} hitSlop={8} style={s.devSkip}><Text style={s.devSkipT}>{t('mock.dev_next_break')}</Text></Pressable>
             : <View style={{ width: 20 }} />}
         </View>
         {/* ★制限時間を最上部に大きく目立たせる */}

@@ -8,33 +8,28 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { cheerInbox, cheerMarkRead, type CheerInboxItem } from '../plaza/friendsClient';
 import { useColors, type ThemeColors } from '../theme';
+import { useT } from '../i18n';
 
-const CHEER_INFO: Record<string, { emoji: string; label: string }> = {
-  // 現行の定型2種
-  ganbaro: { emoji: '📖', label: '今日も勉強、一緒に頑張ろう！' },
-  homeru: { emoji: '🎉', label: '沢山勉強しているね。凄い！' },
-  // 旧定型(過去に受け取った応援の表示用に残す)
-  flower: { emoji: '🌷', label: 'お花をおくる' },
-  ganbare: { emoji: '💪', label: 'がんばって' },
-  sugoi: { emoji: '🎉', label: 'すごい！' },
-  issho: { emoji: '🤝', label: '一緒にがんばろう' },
-  otsukare: { emoji: '☕', label: 'おつかれさま' },
-  nice: { emoji: '🌸', label: 'いいね' },
+// 応援キー→絵文字(ラベルは i18n town.cheer.<key> で解決)。旧定型も過去受信の表示用に残す。
+const CHEER_EMOJI: Record<string, string> = {
+  ganbaro: '📖', homeru: '🎉', // 現行2種
+  flower: '🌷', ganbare: '💪', sugoi: '🎉', issho: '🤝', otsukare: '☕', nice: '🌸', // 旧定型
 };
 
-// 相対時刻(◯分前/◯時間前/◯日前)。厳密でなくてよい。
-function ago(iso: string): string {
-  const t = Date.parse(iso);
-  if (isNaN(t)) return '';
-  const s = Math.max(0, Math.floor((Date.now() - t) / 1000));
-  if (s < 60) return 'たった今';
-  if (s < 3600) return `${Math.floor(s / 60)}分前`;
-  if (s < 86400) return `${Math.floor(s / 3600)}時間前`;
-  return `${Math.floor(s / 86400)}日前`;
+// 相対時刻(◯分前/◯時間前/◯日前)。厳密でなくてよい。表示言語は t で解決。
+function ago(iso: string, t: (k: string, p?: Record<string, string | number>) => string): string {
+  const ts = Date.parse(iso);
+  if (isNaN(ts)) return '';
+  const s = Math.max(0, Math.floor((Date.now() - ts) / 1000));
+  if (s < 60) return t('time.just_now');
+  if (s < 3600) return t('time.min_ago', { n: Math.floor(s / 60) });
+  if (s < 86400) return t('time.hour_ago', { n: Math.floor(s / 3600) });
+  return t('time.day_ago', { n: Math.floor(s / 86400) });
 }
 
 export default function CheerInboxScreen() {
   const nav = useNavigation();
+  const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const [items, setItems] = useState<CheerInboxItem[] | null>(null);
@@ -53,7 +48,7 @@ export default function CheerInboxScreen() {
   return (
     <SafeAreaView style={s.wrap} edges={['top', 'bottom']}>
       <View style={s.head}>
-        <Text style={s.title}>とどいた応援</Text>
+        <Text style={s.title}>{t('cheerinbox.title')}</Text>
         <Pressable onPress={() => nav.goBack()} hitSlop={12} style={s.close}><Ionicons name="close" size={22} color={c.ink} /></Pressable>
       </View>
 
@@ -62,25 +57,24 @@ export default function CheerInboxScreen() {
       ) : items.length === 0 ? (
         <View style={s.center}>
           <Text style={s.emptyEmoji}>📭</Text>
-          <Text style={s.emptyT}>まだ応援は届いていません</Text>
-          <Text style={s.emptySub}>友だちを町に招待して、いっしょに応援し合おう。</Text>
+          <Text style={s.emptyT}>{t('cheerinbox.empty')}</Text>
+          <Text style={s.emptySub}>{t('cheerinbox.empty_sub')}</Text>
         </View>
       ) : (
         <ScrollView contentContainerStyle={s.list} showsVerticalScrollIndicator={false}>
           {items.map((it) => {
             // 自由メッセージ(body有)はその本文を表示。定型は6種の絵文字＋ラベル。
             const custom = (it.body ?? '').trim();
-            const info = CHEER_INFO[it.cheer_key] ?? { emoji: '🌸', label: '応援' };
-            const emoji = custom ? '💬' : info.emoji;
+            const emoji = custom ? '💬' : (CHEER_EMOJI[it.cheer_key] ?? '🌸');
             const unread = !it.read_at;
             return (
               <View key={it.id} style={[s.row, unread && s.rowUnread]}>
                 <Text style={s.emoji}>{emoji}</Text>
                 <View style={{ flex: 1 }}>
-                  <Text style={s.name} numberOfLines={1}>{it.from_nick ?? '友だち'}</Text>
-                  <Text style={s.msg} numberOfLines={2}>{custom || info.label}</Text>
+                  <Text style={s.name} numberOfLines={1}>{it.from_nick ?? t('town.friend')}</Text>
+                  <Text style={s.msg} numberOfLines={2}>{custom || t('town.cheer.' + it.cheer_key)}</Text>
                 </View>
-                <Text style={s.time}>{ago(it.created_at)}</Text>
+                <Text style={s.time}>{ago(it.created_at, t)}</Text>
               </View>
             );
           })}

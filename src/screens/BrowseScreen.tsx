@@ -55,7 +55,7 @@ function cardReadingLines(char: string, userLevel: string): CardLine[] {
   return cardFaceReadings(char, userLevel).map((r) => {
     const ex = r.examples[0];
     return {
-      tag: r.type === 'on' ? '音' : '訓',
+      tag: r.type, // 'on'|'kun'。表示は i18n(browse.tag_on/kun)でレンダリング時に解決。
       label: r.type === 'on' ? hiraToKata(r.reading) : r.reading,
       furiWord: ex ? rubyForWord(ex.word, ex.reading) : r.reading,
       gloss: ex?.gloss ?? '',
@@ -223,7 +223,7 @@ export default function BrowseScreen() {
                 <View style={s.readBox}>
                   {lines.map((e, i) => (
                     <View key={i} style={s.readLine}>
-                      <Text style={s.readTag}>{e.tag}</Text>
+                      <Text style={s.readTag}>{t(e.tag === 'on' ? 'browse.tag_on' : 'browse.tag_kun')}</Text>
                       <Text style={s.readLabel}>{e.label}</Text>
                       <View style={s.rubyWord}>
                         <RubyText text={e.furiWord} style={s.readWord} rubyStyle={s.exampleRuby} rubyGate={rubyGate} />
@@ -283,7 +283,7 @@ export default function BrowseScreen() {
               style={s.playBtn}
               hitSlop={10}
               onPress={() => playWord(item.id, item.reading)}
-              accessibilityLabel={`${item.word} を再生`}
+              accessibilityLabel={t('browse.play_a11y', { word: item.word })}
             >
               <Ionicons name="play" size={20} color={c.mute} />
             </Pressable>

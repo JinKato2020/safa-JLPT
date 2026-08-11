@@ -1,6 +1,6 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useRef } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -53,6 +53,9 @@ export default function ProfileScreen() {
   const previewUnlock = unlockPreview ? UNLOCKS.find((u) => u.key === unlockPreview) ?? null : null;
   const [langOpen, setLangOpen] = useState(false);
   const [showDl, setShowDl] = useState(false);
+  // 開発用セクションの隠しゲート: 一番下のバージョン表示を7回タップで表示(TestFlight/本番でも使える・実ユーザーには見えない)。開発クライアントは既定で表示。
+  const [devUnlocked, setDevUnlocked] = useState(__DEV__);
+  const devTapRef = useRef(0);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { session } = useSync();
 
@@ -332,7 +335,8 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
 
-        {/* 開発用トグル(テスト用途)。ポイント無限＝ショップ無制限購入 / Pro課金・無料ユーザー＝状態の切替(排他) */}
+        {/* 開発用トグル(テスト用途)。隠しゲート devUnlocked=本番でも非表示(バージョン7回タップで表示)。実ユーザーには出さないので翻訳も不要。 */}
+        {devUnlocked && (<>
         <Text style={s.sectionH}>開発用</Text>
         <View style={s.card}>
           <View style={s.telemRow}>
@@ -497,6 +501,7 @@ export default function ProfileScreen() {
             ))}
           </View>
         </View>
+        </>)}
 
         {/* アカウント削除(ログイン中のみ・設定の一番下)。誤タップ防止に確認ダイアログ。 */}
         {session ? (
@@ -505,10 +510,12 @@ export default function ProfileScreen() {
           </Pressable>
         ) : null}
 
-        {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示) */}
-        <Text style={s.version}>
-          v{Application.nativeApplicationVersion ?? '1.1.0'} (build {Application.nativeBuildVersion ?? '—'})
-        </Text>
+        {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示)。7回タップで開発用セクションを表示(隠しゲート)。 */}
+        <Pressable onPress={() => { devTapRef.current += 1; if (devTapRef.current >= 7) setDevUnlocked(true); }}>
+          <Text style={s.version}>
+            v{Application.nativeApplicationVersion ?? '1.1.0'} (build {Application.nativeBuildVersion ?? '—'})
+          </Text>
+        </Pressable>
       </ScrollView>
       {showDl ? (
         <View style={StyleSheet.absoluteFill}>

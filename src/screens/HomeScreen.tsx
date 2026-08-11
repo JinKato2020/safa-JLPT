@@ -96,7 +96,7 @@ export default function HomeScreen() {
       <TabBackground source={homeBg}>
         <SafeBoundary tag="homering" fallback={null}>
           {/* リングをタップ=AIコーチ(分析ホーム)を開く。成長/継続の詳細分析はそこへ集約。 */}
-          <Pressable style={[styles.wrap, { top, left, width: ringW, height: ringW }]} onPress={() => nav.navigate('AICoach')} accessibilityLabel="分析ホームを開く">
+          <Pressable style={[styles.wrap, { top, left, width: ringW, height: ringW }]} onPress={() => nav.navigate('AICoach')} accessibilityLabel={t('home.a11y_open_coach')}>
             {/* 画像は必ず明示サイズ(=ringW)で拘束する。absoluteFill+containは実機で実寸化する事故があるため使わない。 */}
             {/* グロー(1重) */}
             <Animated.Image
@@ -119,7 +119,7 @@ export default function HomeScreen() {
                 {/* 現在レベル(N5/N4/N3 or JFT)＋「予想得点」。中央=受験レベルの予想得点/総得点。 */}
                 <View style={[styles.lblRow, { marginTop: 5 }]}>
                   <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>{levelLabel}</Text>
-                  <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>予想得点</Text>
+                  <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>{t('coach.pred_score')}</Text>
                 </View>
               </View>
             </View>

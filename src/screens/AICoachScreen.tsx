@@ -99,12 +99,12 @@ export default function AICoachScreen() {
   //  指標は現行の「予想得点＝点（満点/合格ライン）」に統一。％や「あと◯語で◯語まで」の旧指標は使わない。
   const cleared = st.predScore >= st.passTotal && st.passTotal > 0;
   const coachMsg =
-    `この7日で${d.wg > 0 ? `${d.wg}語ふえて、` : 'コツコツ積み上げて、'}` +
+    (d.wg > 0 ? t('coach.msg_grew', { n: d.wg }) : t('coach.msg_steady')) +
     (cleared
-      ? `予想得点は${st.predScore}点（満点${st.predMax}点）。合格ライン${st.passTotal}点を超えています。この力をしっかり保っていきましょう。`
-      : `予想得点はいま${st.predScore}点（合格ライン${st.passTotal}点）。道のりは着実に縮まっています。`) +
-    `いちばん伸びしろが大きいのは「${cat}」です。ここは弱点であると同時に、いちばん点数が動く場所。ひとつ埋めるたびに、予想得点が面白いほど上がっていきます。` +
-    `「${strong}」が得意なあなたなら、弱点にもきっと追いつけます。今日は「${cat}」をほんの少しだけ。焦らず、毎日の一歩を積み重ねていきましょう。`;
+      ? t('coach.msg_pred_over', { score: st.predScore, max: st.predMax, pass: st.passTotal })
+      : t('coach.msg_pred_under', { score: st.predScore, pass: st.passTotal })) +
+    t('coach.msg_weak', { cat }) +
+    t('coach.msg_close', { strong, cat });
   // 予想得点リングの左横に出す自分のアバター(立ち絵)。未選択時は出さない。
   const myAvatar = avatarOf(state.settings.avatar).image;
 
@@ -135,7 +135,7 @@ export default function AICoachScreen() {
           </Svg>
           <View style={s.heroInner}>
             <View style={s.heroEyebrow}>
-              <Text style={s.heroEyebrowT}>合格の見込み</Text>
+              <Text style={s.heroEyebrowT}>{t('coach.hero_eyebrow')}</Text>
             </View>
             {/* 主役=予想得点リング。左横に自分のアバター(オンボードで選択)。中央にレベル(N4など)＋予想得点。｜印=合格ライン。 */}
             <View style={s.heroCenter}>
@@ -144,10 +144,10 @@ export default function AICoachScreen() {
                 <RingGauge value={scorePct} color={scoreColor} size={150} stroke={13} mark={goalPct}>
                   <View style={[s.ringLevel, { backgroundColor: scoreColor }]}><Text style={s.ringLevelT}>{levelLabel}</Text></View>
                   <Text style={[s.ringBig, { color: scoreColor }]}>{st.predScore}<Text style={s.ringPct}>/{st.predMax}</Text></Text>
-                  <Text style={s.ringCap}>予想得点</Text>
+                  <Text style={s.ringCap}>{t('coach.pred_score')}</Text>
                 </RingGauge>
               </View>
-              <Text style={s.mNote}>合格ライン {st.passTotal}点（リングの｜印）</Text>
+              <Text style={s.mNote}>{t('coach.pass_line_ring', { n: st.passTotal })}</Text>
             </View>
             {/* 科目別の予想得点＋基準点(合否の見通し=合格率の代わりにここで示す) */}
             {d.score && d.score.sections.length > 0 && (
@@ -161,87 +161,25 @@ export default function AICoachScreen() {
                     <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
                       <View style={s.scoreHead}>
                         <Text style={s.scoreLabel}>{SECTION_LABEL[sec.key] ?? sec.key}</Text>
-                        <Text style={[s.scoreStatus, { color: col }]}>{cleared ? 'クリア✓' : `基準点まであと${sec.minPoint - sec.score}点`}</Text>
+                        <Text style={[s.scoreStatus, { color: col }]}>{cleared ? t('coach.sec_cleared') : t('coach.sec_need', { n: sec.minPoint - sec.score })}</Text>
                       </View>
                       <View style={s.scoreBar}>
                         <View style={[s.scoreBarFill, { width: `${fillW}%`, backgroundColor: col }]} />
                         <View style={[s.scoreMk, { left: `${markW}%` }]} />
                       </View>
-                      <Text style={s.scoreSub}>予想 <Text style={s.scoreSubEm}>{sec.score}</Text> / {sec.max}点（基準点 {sec.minPoint}点 ＝ ｜印）</Text>
+                      <Text style={s.scoreSub}>{t('coach.sec_sub', { score: sec.score, max: sec.max, min: sec.minPoint })}</Text>
                     </View>
                   );
                 })}
               </View>
             )}
-            <Text style={s.diff}>💡 予想得点＝取れそうな点。1科目でも基準点（各科目の最低ライン）を割ると不合格です。赤い科目を最優先で。</Text>
+            <Text style={s.diff}>{t('coach.hero_note')}</Text>
           </View>
-        </View>
-
-        {/* ①' 模試の記録(実戦の予想得点) */}
-        <View style={s.card}>
-          <SecLabel c={c} s={s} text="模試の記録（実戦の予想得点）" />
-          {d.latestMock ? (
-            <>
-              <View style={s.mockHero}>
-                <View style={{ flex: 1 }}>
-                  <Text style={s.mockScore}>{d.latestMock.predScore}<Text style={s.mockScoreMax}> / {d.latestMock.predMax ?? 180}点</Text></Text>
-                  <Text style={s.mockMeta}>合格ライン {d.latestMock.passTotal ?? '—'}点 ・ {d.latestMock.day}</Text>
-                </View>
-                {(() => {
-                  const pass = (d.latestMock!.predScore ?? 0) >= (d.latestMock!.passTotal ?? Number.MAX_SAFE_INTEGER);
-                  return <Text style={[s.mockJudge, { color: pass ? c.green : c.amber, borderColor: (pass ? c.green : c.amber) + '88' }]}>{pass ? '合格圏' : 'あと少し'}</Text>;
-                })()}
-              </View>
-              {d.prevMock ? (() => {
-                const delta = (d.latestMock!.predScore ?? 0) - (d.prevMock!.predScore ?? 0);
-                return <Text style={[s.mockDelta, { color: delta > 0 ? c.green : delta < 0 ? c.red : c.mute }]}>前回 {d.prevMock!.predScore}点 → 今回 {d.latestMock!.predScore}点（{delta > 0 ? `▲${delta}` : delta < 0 ? `▼${-delta}` : '±0'}点）</Text>;
-              })() : null}
-              {d.latestMock.sections?.length ? (
-                <View style={s.mockSecs}>
-                  {d.latestMock.sections.map((sec) => {
-                    const cleared = sec.score >= sec.min;
-                    const col = cleared ? c.green : c.red;
-                    const fillW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.score) / sec.max)) : 0;
-                    const markW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.min) / sec.max)) : 0;
-                    return (
-                      <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
-                        <View style={s.scoreHead}>
-                          <Text style={s.scoreLabel}>{SECTION_LABEL[sec.key] ?? sec.key}</Text>
-                          <Text style={[s.scoreStatus, { color: col }]}>{cleared ? 'クリア✓' : `基準点まであと${sec.min - sec.score}点`}</Text>
-                        </View>
-                        <View style={s.scoreBar}>
-                          <View style={[s.scoreBarFill, { width: `${fillW}%`, backgroundColor: col }]} />
-                          <View style={[s.scoreMk, { left: `${markW}%` }]} />
-                        </View>
-                        <Text style={s.scoreSub}>予想 <Text style={s.scoreSubEm}>{sec.score}</Text> / {sec.max}点（基準点 {sec.min}点 ＝ ｜印）</Text>
-                      </View>
-                    );
-                  })}
-                </View>
-              ) : null}
-              {d.mockTrend.length > 1 ? (
-                <View style={s.mockTrendRow}>
-                  {d.mockTrend.map((mt, i) => (
-                    <View key={i} style={s.mockTrendItem}>
-                      <Text style={[s.mockTrendScore, i === d.mockTrend.length - 1 && { color: c.blue }]}>{mt.score}</Text>
-                      <Text style={s.mockTrendDay}>{mt.day.slice(5)}</Text>
-                    </View>
-                  ))}
-                </View>
-              ) : null}
-              <Text style={s.diff}>💡 これは直近の模試（実戦）での予想得点。上の「予想得点」は普段の学習からの推定です。</Text>
-            </>
-          ) : (
-            <Pressable style={s.mockEmpty} onPress={() => nav.navigate('Mock', { full: true })}>
-              <Text style={s.mockEmptyT}>まだ模試の記録がありません。模試を受けると、実戦での予想得点がここに出ます。</Text>
-              <Text style={s.mockEmptyCta}>模試を受ける →</Text>
-            </Pressable>
-          )}
         </View>
 
         {/* ② 分野別の到達度 */}
         <View style={s.card}>
-          <SecLabel c={c} s={s} text="分野別の正解率" />
+          <SecLabel c={c} s={s} text={t('coach.facet_title')} />
           <View style={s.facets}>
             {d.subs.map((sub) => (
               <RingGauge key={sub.key} value={sub.pct} color={sub.color} size={52} stroke={6} label={t(sub.labelKey)} />
@@ -251,12 +189,12 @@ export default function AICoachScreen() {
 
         {/* ③ カバー率 — 語数(覚えた数)を主役＋小さな目標(次の10語)。%は補足。分野別正解率の直下。 */}
         <View style={s.card}>
-          <SecLabel c={c} s={s} text="カバー率（覚えた数）" />
+          <SecLabel c={c} s={s} text={t('coach.cov_title')} />
           {/* 主役=覚えた総数 */}
           <View style={s.covHero}>
             <View style={s.covHeroLeft}>
               <Text style={s.covHeroN}>{d.covLearned}<Text style={s.covHeroSub}> / {d.covTotalAll}</Text></Text>
-              <Text style={s.covHeroLbl}>覚えた項目</Text>
+              <Text style={s.covHeroLbl}>{t('coach.cov_learned')}</Text>
             </View>
             <Text style={s.covHeroPct}>{d.covTotalAll > 0 ? Math.round((100 * d.covLearned) / d.covTotalAll) : 0}%</Text>
           </View>
@@ -276,10 +214,10 @@ export default function AICoachScreen() {
 
         {/* ④ 復習の待ち(忘れかけ) */}
         <View style={s.card}>
-          <SecLabel c={c} s={s} text="復習の待ち（忘れかけ）" />
+          <SecLabel c={c} s={s} text={t('coach.due_title')} />
           <View style={s.dueRow}>
-            <Text style={[s.dueBig, { color: d.due > 0 ? c.amber : c.green }]}>{d.due}<Text style={s.dueUnit}>語</Text></Text>
-            <Text style={s.dueNote}>{d.due > 0 ? '復習のタイミングが来た語です。今日はここから始めると、忘れる前に定着します。' : 'いまは忘れかけなし。よく復習できています。'}</Text>
+            <Text style={[s.dueBig, { color: d.due > 0 ? c.amber : c.green }]}>{d.due}<Text style={s.dueUnit}>{t('coach.due_unit')}</Text></Text>
+            <Text style={s.dueNote}>{d.due > 0 ? t('coach.due_has') : t('coach.due_none')}</Text>
           </View>
         </View>
 
@@ -291,55 +229,118 @@ export default function AICoachScreen() {
 
         {/* ⑥ この7日の成長(合格率は非表示。覚えた語・予想得点・伸びた分野で示す) */}
         <View style={s.card}>
-          <SecLabel c={c} s={s} text="この7日の成長" />
+          <SecLabel c={c} s={s} text={t('coach.week_title')} />
           <View style={s.growthRow}>
-            <Stat s={s} tt="覚えた語" v={`+${d.wg}`} unit="語" up={d.wg > 0} c={c} />
-            <Stat s={s} tt="予想得点" v={`${st.predScore}`} unit={`/${st.predMax}`} up={false} c={c} />
-            <Stat s={s} tt="伸びた分野" v={t(d.strongest.labelKey)} unit="" up={false} c={c} color={d.strongest.color} />
+            <Stat s={s} tt={t('coach.stat_learned')} v={`+${d.wg}`} unit={t('coach.due_unit')} up={d.wg > 0} c={c} />
+            <Stat s={s} tt={t('coach.pred_score')} v={`${st.predScore}`} unit={`/${st.predMax}`} up={false} c={c} />
+            <Stat s={s} tt={t('coach.stat_grew')} v={t(d.strongest.labelKey)} unit="" up={false} c={c} color={d.strongest.color} />
           </View>
+        </View>
+
+        {/* ⑥' 模試の記録(実戦の予想得点)。この7日の成長のすぐ後に置く。 */}
+        <View style={s.card}>
+          <SecLabel c={c} s={s} text={t('coach.mock_title')} />
+          {d.latestMock ? (
+            <>
+              <View style={s.mockHero}>
+                <View style={{ flex: 1 }}>
+                  <Text style={s.mockScore}>{d.latestMock.predScore}<Text style={s.mockScoreMax}>{t('coach.score_of', { n: d.latestMock.predMax ?? 180 })}</Text></Text>
+                  <Text style={s.mockMeta}>{t('coach.mock_meta', { n: d.latestMock.passTotal ?? '—', day: d.latestMock.day })}</Text>
+                </View>
+                {(() => {
+                  const pass = (d.latestMock!.predScore ?? 0) >= (d.latestMock!.passTotal ?? Number.MAX_SAFE_INTEGER);
+                  return <Text style={[s.mockJudge, { color: pass ? c.green : c.amber, borderColor: (pass ? c.green : c.amber) + '88' }]}>{pass ? t('coach.mock_pass') : t('coach.mock_close')}</Text>;
+                })()}
+              </View>
+              {d.prevMock ? (() => {
+                const delta = (d.latestMock!.predScore ?? 0) - (d.prevMock!.predScore ?? 0);
+                const deltaStr = delta > 0 ? `▲${delta}` : delta < 0 ? `▼${-delta}` : '±0';
+                return <Text style={[s.mockDelta, { color: delta > 0 ? c.green : delta < 0 ? c.red : c.mute }]}>{t('coach.mock_delta', { prev: d.prevMock!.predScore ?? 0, cur: d.latestMock!.predScore ?? 0, delta: deltaStr })}</Text>;
+              })() : null}
+              {d.latestMock.sections?.length ? (
+                <View style={s.mockSecs}>
+                  {d.latestMock.sections.map((sec) => {
+                    const cleared = sec.score >= sec.min;
+                    const col = cleared ? c.green : c.red;
+                    const fillW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.score) / sec.max)) : 0;
+                    const markW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.min) / sec.max)) : 0;
+                    return (
+                      <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
+                        <View style={s.scoreHead}>
+                          <Text style={s.scoreLabel}>{SECTION_LABEL[sec.key] ?? sec.key}</Text>
+                          <Text style={[s.scoreStatus, { color: col }]}>{cleared ? t('coach.sec_cleared') : t('coach.sec_need', { n: sec.min - sec.score })}</Text>
+                        </View>
+                        <View style={s.scoreBar}>
+                          <View style={[s.scoreBarFill, { width: `${fillW}%`, backgroundColor: col }]} />
+                          <View style={[s.scoreMk, { left: `${markW}%` }]} />
+                        </View>
+                        <Text style={s.scoreSub}>{t('coach.sec_sub', { score: sec.score, max: sec.max, min: sec.min })}</Text>
+                      </View>
+                    );
+                  })}
+                </View>
+              ) : null}
+              {d.mockTrend.length > 1 ? (
+                <View style={s.mockTrendRow}>
+                  {d.mockTrend.map((mt, i) => (
+                    <View key={i} style={s.mockTrendItem}>
+                      <Text style={[s.mockTrendScore, i === d.mockTrend.length - 1 && { color: c.blue }]}>{mt.score}</Text>
+                      <Text style={s.mockTrendDay}>{mt.day.slice(5)}</Text>
+                    </View>
+                  ))}
+                </View>
+              ) : null}
+              <Text style={s.diff}>{t('coach.mock_note')}</Text>
+            </>
+          ) : (
+            <Pressable style={s.mockEmpty} onPress={() => nav.navigate('Mock', { full: true })}>
+              <Text style={s.mockEmptyT}>{t('coach.mock_empty')}</Text>
+              <Text style={s.mockEmptyCta}>{t('coach.mock_empty_cta')}</Text>
+            </Pressable>
+          )}
         </View>
 
         {/* いちばんの弱点 */}
         <View style={[s.card, s.weakCard]}>
-          <View style={[s.chip, { backgroundColor: c.red + '22', borderColor: c.red + '55' }]}><Text style={[s.chipT, { color: c.red }]}>弱点</Text></View>
-          <Text style={s.weakT}>いちばんの伸びしろは <Text style={{ color: c.red, fontWeight: '800' }}>{cat}（{d.weakest.pct}%）</Text>。ここを上げると予想得点が大きく動きます。</Text>
+          <View style={[s.chip, { backgroundColor: c.red + '22', borderColor: c.red + '55' }]}><Text style={[s.chipT, { color: c.red }]}>{t('coach.weak_chip')}</Text></View>
+          <Text style={s.weakT}>{t('coach.weak_text', { cat, pct: d.weakest.pct })}</Text>
         </View>
 
         {/* ⑧ ゴールまでの見通し(合格率は非表示。予想得点と合格ラインで示す) */}
         <View style={s.card}>
-          <SecLabel c={c} s={s} text="ゴールまでの見通し" />
+          <SecLabel c={c} s={s} text={t('coach.goal_title')} />
           {st.predScore >= st.passTotal && st.passTotal > 0 ? (
-            <Text style={s.goalT}>いまの予想得点は合格ラインを超えています。この力を保ち、弱点を仕上げれば安心です。</Text>
+            <Text style={s.goalT}>{t('coach.goal_cleared')}</Text>
           ) : d.weeks != null ? (
-            <Text style={s.goalT}>このペースなら <Text style={s.goalEm}>約{d.weeks}週間</Text> で合格圏に届く見込みです。</Text>
+            <Text style={s.goalT}>{t('coach.goal_weeks', { n: d.weeks })}</Text>
           ) : (
-            <Text style={s.goalT}>学習を続けると、合格までの見通し（あと何週間か）がここに出ます。</Text>
+            <Text style={s.goalT}>{t('coach.goal_none')}</Text>
           )}
           <View style={s.goalbar}>
             <View style={[s.goalbarFill, { width: `${Math.min(100, scorePct)}%`, backgroundColor: c.green }]} />
             <View style={[s.goalMk, { left: `${goalPct}%` }]} />
           </View>
-          <View style={s.goalScale}><Text style={s.goalScaleT}>予想 {st.predScore}点</Text><Text style={s.goalScaleT}>合格ライン {st.passTotal}点</Text></View>
+          <View style={s.goalScale}><Text style={s.goalScaleT}>{t('coach.pts_pred', { n: st.predScore })}</Text><Text style={s.goalScaleT}>{t('coach.pts_pass', { n: st.passTotal })}</Text></View>
         </View>
 
         {/* ⑦ 学習量の推移(覚えた語/日・直近14日) */}
         <View style={s.card}>
-          <SecLabel c={c} s={s} text="学習量（覚えた語/日・直近14日）" />
+          <SecLabel c={c} s={s} text={t('coach.vol_title')} />
           <BarChart s={s} c={c} data={d.daily} />
-          <Text style={s.barCap}>直近14日で ＋{d.daily.reduce((a, b) => a + b, 0)}語</Text>
+          <Text style={s.barCap}>{t('coach.vol_recent', { n: d.daily.reduce((a, b) => a + b, 0) })}</Text>
         </View>
 
         {/* ⑥ 継続・学習量 */}
         <View style={s.strip}>
-          <StripCell s={s} n={`${d.st.streakDays}`} unit="日" tt="連続学習" c={c} />
-          <StripCell s={s} n={`${d.h}`} unit={`時間${d.m}分`} tt="学習時間" c={c} border />
-          <StripCell s={s} n={`${d.learned}`} unit="語" tt="覚えた語 合計" c={c} />
+          <StripCell s={s} n={`${d.st.streakDays}`} unit={t('coach.unit_days')} tt={t('coach.strip_streak')} c={c} />
+          <StripCell s={s} n={`${d.h}`} unit={t('coach.unit_hm', { m: d.m })} tt={t('coach.strip_time')} c={c} border />
+          <StripCell s={s} n={`${d.learned}`} unit={t('coach.due_unit')} tt={t('coach.strip_total')} c={c} />
         </View>
 
         {/* ⑥-b 継続カレンダー(継続カードを統合: 最長・フリーズ＋直近7日/28日の学習ドット) */}
         <View style={s.card}>
-          <SecLabel c={c} s={s} text="継続カレンダー" />
-          <Text style={s.calMeta}>最長 <Text style={s.calMetaEm}>{d.streak.longest}日</Text>　　❄️ フリーズ {d.streak.freezes}</Text>
+          <SecLabel c={c} s={s} text={t('coach.cal_title')} />
+          <Text style={s.calMeta}>{t('coach.cal_meta', { n: d.streak.longest, f: d.streak.freezes })}</Text>
           <View style={s.week}>
             {d.week.map((day) => <View key={day} style={[s.wdot, d.studied.has(day) && { backgroundColor: c.amber, borderColor: c.amber }, day === d.today && { borderWidth: 2, borderColor: c.ink }]} />)}
           </View>

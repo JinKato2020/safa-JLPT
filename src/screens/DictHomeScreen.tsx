@@ -5,9 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList, DictStackParamList, Kubun } from '../navigation/types';
 import { ImmersiveTab, StartCard, type TabEntry } from '../components/TabScene';
-import { useDictBg, useTabBlink } from '../data/tabArt';
+import { useTabBg, useTabBlink } from '../data/tabArt';
 import { useAppState } from '../store/store';
-import { homeStatus } from '../home/homeStatus';
 import { useColors } from '../theme';
 import { useT } from '../i18n';
 
@@ -25,9 +24,8 @@ export default function DictHomeScreen() {
   const c = useColors();
   const state = useAppState();
   const { myList } = state;
-  // 書庫の復元段階=予想得点で切替(昼夜の区別なし)。しきい値=合格点×1.1でs5、未満は4分割。ホーム中央の予想得点と同じ。
-  const st = homeStatus(state, Date.now());
-  const bg = useDictBg(st.predScore, st.passTotal);
+  // 書庫の背景=昼/夜で切替(段階成長は廃止・ユーザー指定2026-08-11)。
+  const bg = useTabBg('dict');
   const blinkBg = useTabBlink('dict');
   // 復習対象=my単語帳に保存した語彙＋漢字＋文法のid(該当データが無いidはFlashcard側で自動除外)。
   const reviewIds = (myList ?? []).map((r) => r.id);

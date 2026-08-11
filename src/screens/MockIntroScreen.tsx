@@ -19,10 +19,11 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 // 級別の目安(本番JLPTの試験時間=分・合格点・各科目の足切り=基準点)。模試の心構え用の参考値。
 // 試験時間(min)＝現行(2022年改定後)の合計。各分野(cutoff)の time は試験科目の時間で、合計=min になる。
 //  ※N3の「言語知識(30分)/読解(70分)」は試験科目(文字語彙/文法・読解)の時間割り当て。文法の採点は言語知識側。
-const MOCK_INFO: Record<Level, { min: number; pass: string; cutoff: { label: string; val: string; time: string }[] }> = {
-  N5: { min: 90,  pass: '80/180', cutoff: [{ label: '言語知識・読解', val: '38/120', time: '60分' }, { label: '聴解', val: '19/60', time: '30分' }] },
-  N4: { min: 115, pass: '90/180', cutoff: [{ label: '言語知識・読解', val: '38/120', time: '80分' }, { label: '聴解', val: '19/60', time: '35分' }] },
-  N3: { min: 140, pass: '95/180', cutoff: [{ label: '言語知識', val: '19/60', time: '30分' }, { label: '読解', val: '19/60', time: '70分' }, { label: '聴解', val: '19/60', time: '40分' }] },
+// label は i18n キー(mock.block_*)、time は分(数値)。表示時に t() で解決。
+const MOCK_INFO: Record<Level, { min: number; pass: string; cutoff: { label: string; val: string; time: number }[] }> = {
+  N5: { min: 90,  pass: '80/180', cutoff: [{ label: 'mock.block_gengo_dokkai', val: '38/120', time: 60 }, { label: 'mock.block_choukai', val: '19/60', time: 30 }] },
+  N4: { min: 115, pass: '90/180', cutoff: [{ label: 'mock.block_gengo_dokkai', val: '38/120', time: 80 }, { label: 'mock.block_choukai', val: '19/60', time: 35 }] },
+  N3: { min: 140, pass: '95/180', cutoff: [{ label: 'mock.block_gengo', val: '19/60', time: 30 }, { label: 'mock.block_dokkai', val: '19/60', time: 70 }, { label: 'mock.block_choukai', val: '19/60', time: 40 }] },
 };
 
 export default function MockIntroScreen() {
@@ -85,14 +86,14 @@ export default function MockIntroScreen() {
           <Text style={s.cutoffTitle}>{t('mockintro.cutoff_title')}</Text>
           <View style={s.cutoffRows}>
             <View style={s.cutoffHead}>
-              <Text style={s.cutoffHeadL}>分野</Text>
-              <Text style={s.cutoffHeadC}>制限時間</Text>
-              <Text style={s.cutoffHeadC}>基準点</Text>
+              <Text style={s.cutoffHeadL}>{t('mockintro.col_field')}</Text>
+              <Text style={s.cutoffHeadC}>{t('mockintro.col_time')}</Text>
+              <Text style={s.cutoffHeadC}>{t('mockintro.col_cutoff')}</Text>
             </View>
             {info.cutoff.map((cu) => (
               <View key={cu.label} style={s.cutoffRow}>
-                <Text style={s.cutoffLbl}>{cu.label}</Text>
-                <Text style={s.cutoffTime}>{cu.time}</Text>
+                <Text style={s.cutoffLbl}>{t(cu.label)}</Text>
+                <Text style={s.cutoffTime}>{t('mockintro.minutes', { n: cu.time })}</Text>
                 <Text style={s.cutoffVal}>{cu.val}</Text>
               </View>
             ))}
@@ -101,7 +102,7 @@ export default function MockIntroScreen() {
         </View>
 
         {/* 模試チケット残数は「模試を始める」ボタンのすぐ上に置く(ボタンごとスクロール表示)。 */}
-        <Text style={s.ticketAbove}>{unlimitedMock ? '模試チケット：無制限（開発）' : t('mockintro.tickets', { n: tickets })}</Text>
+        <Text style={s.ticketAbove}>{unlimitedMock ? t('mockintro.tickets_unlimited') : t('mockintro.tickets', { n: tickets })}</Text>
         <View style={s.btnRow}>
           <Pressable style={s.later} onPress={() => nav.goBack()}><Text style={s.laterTxt}>{t('mockintro.later')}</Text></Pressable>
           <Pressable style={s.start} onPress={begin}><Text style={s.startTxt}>{t('mockintro.start')}</Text></Pressable>

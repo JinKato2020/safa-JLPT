@@ -85,3 +85,22 @@ export const MOOD_MESSAGES: { key: string; text: string }[] = [
 export function moodMsgOf(key: string | undefined | null): string | null {
   return MOOD_MESSAGES.find((m) => m.key === key)?.text ?? null;
 }
+
+// ── i18n(母語表示)。上の label/text/PERSONA_LINE は ja 正本(テレメトリ=管理画面は日本語のまま)。
+//    UI表示は下の t 解決版を使う: persona.trait.<key> / persona.mood.<key> / persona.line.<key>。
+//    未知キーは null/既定へ落とすため、有効キー集合で先にガードする(t は未知キーだと key 文字列を返すため)。
+const TRAIT_KEYS = new Set(PERSONALITIES.map((p) => p.key));
+const MOOD_KEYS = new Set(MOOD_MESSAGES.map((m) => m.key));
+
+/** 性格ラベルを現在言語で返す(絵文字は付けない)。無効キーは空文字。 */
+export function traitLabel(t: (k: string) => string, key: string | undefined | null): string {
+  return key && TRAIT_KEYS.has(key) ? t('persona.trait.' + key) : '';
+}
+/** 気分メッセージを現在言語で返す(絵文字込み)。無効キーは null(=未設定表示に落とす)。 */
+export function moodMsgText(t: (k: string) => string, key: string | undefined | null): string | null {
+  return key && MOOD_KEYS.has(key) ? t('persona.mood.' + key) : null;
+}
+/** 会話で本人がしゃべる一言を現在言語で返す。無効キーは既定の一言。 */
+export function personaLine(t: (k: string) => string, key: string | undefined | null): string {
+  return key && TRAIT_KEYS.has(key) ? t('persona.line.' + key) : t('persona.line.default');
+}

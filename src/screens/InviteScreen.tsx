@@ -14,9 +14,12 @@ import { avatarOf } from '../plaza/avatars';
 import { flagOf, countryLabel } from '../plaza/countries';
 import { daimonMasteryCounts } from '../store/selectors';
 import { townInviter, townJoin, friendPublish, type FriendProfile } from '../plaza/friendsClient';
+import { useT, useUiLang } from '../i18n';
 
 export default function InviteScreen() {
   const c = useColors();
+  const t = useT();
+  const uiLang = useUiLang();
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'Invite'>>();
@@ -57,7 +60,7 @@ export default function InviteScreen() {
     } finally { setJoining(false); }
   };
 
-  const name = inviter ? `${flagOf(inviter.country ?? 'XX')} ${inviter.nickname}` : 'お友だち';
+  const name = inviter ? `${flagOf(inviter.country ?? 'XX')} ${inviter.nickname}` : t('invite.friend_fallback');
   const img = inviter ? avatarOf(inviter.avatar).image : null;
 
   return (
@@ -69,18 +72,18 @@ export default function InviteScreen() {
         ) : (
           <>
             {img != null ? <Image source={img} style={s.av} resizeMode="contain" /> : <Text style={s.emoji}>🏘️</Text>}
-            <Text style={s.title}>{name}が{'\n'}町にあなたを招待しています</Text>
+            <Text style={s.title}>{t('invite.title', { name })}</Text>
             {inviter ? (
-              <Text style={s.meta}>{inviter.level}・{countryLabel(inviter.country, 'ja')}・覚えた単語 {inviter.learned}語</Text>
+              <Text style={s.meta}>{t('invite.meta', { lv: inviter.level, country: countryLabel(inviter.country, uiLang), n: inviter.learned })}</Text>
             ) : (
-              <Text style={s.meta}>この招待は少し前のものか、無効かもしれません。</Text>
+              <Text style={s.meta}>{t('invite.invalid')}</Text>
             )}
-            <Text style={s.sub}>参加すると、あなたが{inviter?.nickname ?? '相手'}さんの町に住人として現れます。{!session ? '\n(参加にはログインが必要です)' : ''}</Text>
+            <Text style={s.sub}>{t('invite.sub', { nick: inviter?.nickname ?? t('invite.someone') })}{!session ? '\n' + t('invite.need_login') : ''}</Text>
             <Pressable style={[s.primary, (joining || !owner) && s.off]} disabled={joining || !owner} onPress={onJoin}>
-              {joining ? <ActivityIndicator color="#fff" /> : <Text style={s.primaryT}>{session ? '町に参加する' : 'ログインして参加'}</Text>}
+              {joining ? <ActivityIndicator color="#fff" /> : <Text style={s.primaryT}>{session ? t('invite.join') : t('invite.login_join')}</Text>}
             </Pressable>
             <Pressable style={s.ghost} onPress={() => nav.goBack()}>
-              <Text style={s.ghostT}>断る</Text>
+              <Text style={s.ghostT}>{t('invite.decline')}</Text>
             </Pressable>
           </>
         )}

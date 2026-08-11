@@ -9,7 +9,7 @@ import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { sendEvent } from '../telemetry/telemetry';
 import { upcomingExams } from '../data/jlptDates';
 import { avatarsByGender, DEFAULT_AVATAR } from '../plaza/avatars';
-import { PERSONALITIES, MOOD_MESSAGES } from '../plaza/persona';
+import { PERSONALITIES, MOOD_MESSAGES, traitLabel } from '../plaza/persona';
 import { NATIVE_LANGS, nativeLangFlag, nativeLangCC, detectNativeLang } from '../plaza/countries';
 import type { Level } from '../engine/engine';
 import type { TargetExam } from '../store/state';
@@ -27,8 +27,6 @@ const LEVEL_DESC_KEYS: Record<Level, string> = {
 // 現状 実装済みは JLPT のみ(JFTは未対応)。試験選択は廃止し、常に JLPT のレベル選択から始める。
 const EXAM: TargetExam = 'jlpt';
 
-// "2026-12-06" → "2026年12月6日"
-const jfmt = (d: string) => `${d.slice(0, 4)}年${Number(d.slice(5, 7))}月${Number(d.slice(8, 10))}日`;
 
 export default function OnboardingScreen() {
   const { setSettings } = useAppActions();
@@ -155,7 +153,7 @@ export default function OnboardingScreen() {
         <View style={s.dateWrap}>
           {exams.map((d) => (
             <Pressable key={d} onPress={() => setExamDate(examDate === d ? null : d)} style={[s.dateChip, examDate === d && s.chipOn]}>
-              <Text style={[s.dateTxt, examDate === d && s.chipTxtOn]}>{jfmt(d)}</Text>
+              <Text style={[s.dateTxt, examDate === d && s.chipTxtOn]}>{t('onboarding.date_ymd', { y: d.slice(0, 4), m: Number(d.slice(5, 7)), d: Number(d.slice(8, 10)) })}</Text>
             </Pressable>
           ))}
           <Pressable onPress={() => setExamDate(null)} style={[s.dateChip, examDate === null && s.chipOn]}>
@@ -197,21 +195,21 @@ export default function OnboardingScreen() {
           ))}
         </View>
 
-        <Text style={s.label}>母語</Text>
+        <Text style={s.label}>{t('account.k_native')}</Text>
         <Pressable style={s.pickField} onPress={() => setPickerOpen('lang')}>
-          <Text style={s.pickFieldTxt}>{(() => { const l = NATIVE_LANGS.find((x) => x.code === nativeLang); return l ? `${nativeLangFlag(l.code)}  ${l.label}` : '選ぶ'; })()}</Text>
+          <Text style={s.pickFieldTxt}>{(() => { const l = NATIVE_LANGS.find((x) => x.code === nativeLang); return l ? `${nativeLangFlag(l.code)}  ${l.label}` : t('account.choose'); })()}</Text>
           <Text style={s.pickCaret}>▾</Text>
         </Pressable>
 
-        <Text style={s.label}>性格</Text>
+        <Text style={s.label}>{t('account.k_personality')}</Text>
         <Pressable style={s.pickField} onPress={() => setPickerOpen('personality')}>
-          <Text style={s.pickFieldTxt}>{(() => { const p = PERSONALITIES.find((x) => x.key === personality); return p ? `${p.emoji} ${p.label}` : '選ぶ'; })()}</Text>
+          <Text style={s.pickFieldTxt}>{(() => { const p = PERSONALITIES.find((x) => x.key === personality); return p ? `${p.emoji} ${traitLabel(t, p.key)}` : t('account.choose'); })()}</Text>
           <Text style={s.pickCaret}>▾</Text>
         </Pressable>
 
-        <Text style={s.label}>気分</Text>
+        <Text style={s.label}>{t('onboarding.mood_label')}</Text>
         <Pressable style={s.pickField} onPress={() => setPickerOpen('mood')}>
-          <Text style={s.pickFieldTxt}>{MOOD_MESSAGES.find((x) => x.key === moodMsg)?.text ?? '選ぶ'}</Text>
+          <Text style={s.pickFieldTxt}>{MOOD_MESSAGES.find((x) => x.key === moodMsg) ? t('persona.mood.' + moodMsg) : t('account.choose')}</Text>
           <Text style={s.pickCaret}>▾</Text>
         </Pressable>
 
@@ -237,7 +235,7 @@ export default function OnboardingScreen() {
       <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
         <Pressable style={s.pickBackdrop} onPress={() => setPickerOpen(null)} />
         <View style={s.pickSheet}>
-          <Text style={s.pickTitle}>{pickerOpen === 'personality' ? '性格を選ぶ' : pickerOpen === 'lang' ? '母語を選ぶ' : '気分を選ぶ'}</Text>
+          <Text style={s.pickTitle}>{pickerOpen === 'personality' ? t('account.pick_personality') : pickerOpen === 'lang' ? t('account.pick_native') : t('onboarding.pick_mood')}</Text>
           <ScrollView style={{ maxHeight: Math.round(H * 0.5) }} contentContainerStyle={{ paddingBottom: 8 }}>
             {pickerOpen === 'lang'
               ? langList.map((l) => {
@@ -254,7 +252,7 @@ export default function OnboardingScreen() {
                   const on = personality === p.key;
                   return (
                     <Pressable key={p.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setPersonality(p.key); setPickerOpen(null); }}>
-                      <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{p.emoji} {p.label}</Text>
+                      <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{p.emoji} {traitLabel(t, p.key)}</Text>
                       {on && <Text style={s.pickCheck}>✓</Text>}
                     </Pressable>
                   );
@@ -263,7 +261,7 @@ export default function OnboardingScreen() {
                   const on = moodMsg === m.key;
                   return (
                     <Pressable key={m.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setMoodMsg(m.key); setPickerOpen(null); }}>
-                      <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{m.text}</Text>
+                      <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{t('persona.mood.' + m.key)}</Text>
                       {on && <Text style={s.pickCheck}>✓</Text>}
                     </Pressable>
                   );

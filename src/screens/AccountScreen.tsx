@@ -16,7 +16,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { avatarChangeTokens } from '../store/wallet';
 import { avatarOf, AVATARS } from '../plaza/avatars';
 import { NATIVE_LANGS, nativeLangFlag, nativeLangCC } from '../plaza/countries';
-import { PERSONALITIES, MOOD_MESSAGES, personalityOf, moodMsgOf } from '../plaza/persona';
+import { PERSONALITIES, MOOD_MESSAGES, personalityOf, traitLabel, moodMsgText } from '../plaza/persona';
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
 import { getReferredQualifiedCount } from '../referral/referralClient';
@@ -37,7 +37,7 @@ export default function AccountScreen() {
   // アバターは登録後は既定で変更不可。ショップの「すがた変えドリンク」を買うと券が増え、1回だけ変更できる。
   const avatarTokens = avatarChangeTokens(appState);
   const per = personalityOf(st0.personality);
-  const moodTxt = moodMsgOf(st0.moodMsg);
+  const moodTxt = moodMsgText(t, st0.moodMsg);
   const referredQualified = appState.referral?.referredQualified ?? 0;
   // 自分が紹介して継続に達した人数をサーバーから取得(ログイン中のみ意味を持つ)。アカウント画面とテレメトリで参照。
   useEffect(() => {
@@ -55,9 +55,9 @@ export default function AccountScreen() {
   const openAvatarPicker = () => {
     if (avatarTokens > 0) { setPickerOpen('avatar'); return; }
     Alert.alert(
-      'アバターは変更できません',
-      'アバターは最初の登録後は変えられません。ショップの「すがた変えドリンク」(🐚2000)を買うと、1回だけ変更できます。',
-      [{ text: '閉じる', style: 'cancel' }, { text: 'ショップへ', onPress: () => nav.navigate('Shop') }],
+      t('account.avatar_locked_title'),
+      t('account.avatar_locked_msg'),
+      [{ text: t('account.close'), style: 'cancel' }, { text: t('account.to_shop'), onPress: () => nav.navigate('Shop') }],
     );
   };
   // アバター確定: 別のアバターを選んだ時だけ券を1枚消費(同じ選択は無消費)。
@@ -69,7 +69,7 @@ export default function AccountScreen() {
   const nativeLabel = NATIVE_LANGS.find((l) => l.code === uiLang)?.label ?? 'English';
   const profileHeader = (
     <View style={s.profHeader}>
-      <Pressable onPress={openAvatarPicker} style={s.profAvatarWrap} accessibilityLabel="アバターを変更">
+      <Pressable onPress={openAvatarPicker} style={s.profAvatarWrap} accessibilityLabel={t('account.a11y_change_avatar')}>
         {myAvatarImg != null
           ? <Image source={myAvatarImg} style={s.profAvatar} resizeMode="contain" />
           : <View style={s.profAvatar} />}
@@ -79,29 +79,29 @@ export default function AccountScreen() {
       <View style={s.profStats}>
         {/* 先頭の「名前+国旗」は下の「名前」行と重複するため削除(上詰め) */}
         <Pressable style={s.profRow} onPress={() => { setNameInput(st0.nickname ?? ''); setPickerOpen('name'); }}>
-          <Text style={s.profK}>名前</Text>
-          <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{st0.nickname || '未設定'}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+          <Text style={s.profK}>{t('account.k_name')}</Text>
+          <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{st0.nickname || t('account.unset')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
         </Pressable>
-        <View style={s.profRow}><Text style={s.profK}>レベル</Text><Text style={s.profV}>{st0.level}</Text></View>
+        <View style={s.profRow}><Text style={s.profK}>{t('account.k_level')}</Text><Text style={s.profV}>{st0.level}</Text></View>
         <Pressable style={s.profRow} onPress={() => setPickerOpen('nativelang')}>
-          <Text style={s.profK}>母語</Text>
+          <Text style={s.profK}>{t('account.k_native')}</Text>
           <View style={s.profVrow}><Text style={s.profV}>{nativeLangFlag(uiLang)} {nativeLabel}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
         </Pressable>
         <Pressable style={s.profRow} onPress={() => setPickerOpen('gender')}>
-          <Text style={s.profK}>性別</Text>
+          <Text style={s.profK}>{t('account.k_gender')}</Text>
           <View style={s.profVrow}><Text style={s.profV}>{t(st0.gender === 'f' ? 'onboarding.gender_f' : 'onboarding.gender_m')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
         </Pressable>
         <Pressable style={s.profRow} onPress={() => setPickerOpen('personality')}>
-          <Text style={s.profK}>性格</Text>
-          <View style={s.profVrow}><Text style={s.profV}>{per ? `${per.emoji} ${per.label}` : '選ぶ'}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+          <Text style={s.profK}>{t('account.k_personality')}</Text>
+          <View style={s.profVrow}><Text style={s.profV}>{per ? `${per.emoji} ${traitLabel(t, per.key)}` : t('account.choose')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
         </Pressable>
         <Pressable style={s.profRow} onPress={() => setPickerOpen('mood')}>
-          <Text style={s.profK}>ムード</Text>
-          <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{moodTxt ?? '選ぶ'}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+          <Text style={s.profK}>{t('account.k_mood')}</Text>
+          <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{moodTxt ?? t('account.choose')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
         </Pressable>
         <View style={s.profRow}>
-          <Text style={s.profK}>紹介人数</Text>
-          <Text style={s.profV}>{referredQualified}人</Text>
+          <Text style={s.profK}>{t('account.k_referred')}</Text>
+          <Text style={s.profV}>{t('account.people', { n: referredQualified })}</Text>
         </View>
       </View>
     </View>
@@ -111,12 +111,12 @@ export default function AccountScreen() {
       <Pressable style={s.pickBackdrop} onPress={() => setPickerOpen(null)} />
       <View style={s.pickSheet}>
         <Text style={s.pickTitle}>{
-          pickerOpen === 'avatar' ? 'アバターを選ぶ'
-          : pickerOpen === 'name' ? '名前を入力'
-          : pickerOpen === 'nativelang' ? '母語を選ぶ'
-          : pickerOpen === 'gender' ? '性別を選ぶ'
-          : pickerOpen === 'personality' ? '性格を選ぶ'
-          : 'ムードメッセージを選ぶ'
+          pickerOpen === 'avatar' ? t('account.pick_avatar')
+          : pickerOpen === 'name' ? t('account.pick_name')
+          : pickerOpen === 'nativelang' ? t('account.pick_native')
+          : pickerOpen === 'gender' ? t('account.pick_gender')
+          : pickerOpen === 'personality' ? t('account.pick_personality')
+          : t('account.pick_mood')
         }</Text>
         {pickerOpen === 'name' ? (
           <View style={{ paddingTop: spacing.sm, gap: spacing.md }}>
@@ -124,13 +124,13 @@ export default function AccountScreen() {
               value={nameInput}
               onChangeText={setNameInput}
               maxLength={20}
-              placeholder="名前"
+              placeholder={t('account.k_name')}
               placeholderTextColor={c.faint}
               style={s.nameInput}
               autoFocus
             />
             <Pressable style={[s.nameSave, !nameInput.trim() && { opacity: 0.5 }]} disabled={!nameInput.trim()} onPress={() => { const v = nameInput.trim(); if (v) setSettings({ nickname: v }); setPickerOpen(null); }}>
-              <Text style={s.nameSaveT}>保存</Text>
+              <Text style={s.nameSaveT}>{t('account.save')}</Text>
             </Pressable>
           </View>
         ) : (
@@ -172,7 +172,7 @@ export default function AccountScreen() {
                 const on = st0.personality === p.key;
                 return (
                   <Pressable key={p.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ personality: p.key }); setPickerOpen(null); }}>
-                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{p.emoji} {p.label}</Text>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{p.emoji} {traitLabel(t, p.key)}</Text>
                     {on && <Text style={s.pickCheck}>✓</Text>}
                   </Pressable>
                 );
@@ -181,7 +181,7 @@ export default function AccountScreen() {
                 const on = st0.moodMsg === m.key;
                 return (
                   <Pressable key={m.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ moodMsg: m.key }); setPickerOpen(null); }}>
-                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{m.text}</Text>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{t('persona.mood.' + m.key)}</Text>
                     {on && <Text style={s.pickCheck}>✓</Text>}
                   </Pressable>
                 );
@@ -273,8 +273,8 @@ export default function AccountScreen() {
           <Pressable style={s.referralRow} onPress={() => nav.navigate('Referral', { focus: 'share' })}>
             <View style={s.referralIco}><Ionicons name="gift-outline" size={20} color={c.blue} /></View>
             <View style={{ flex: 1 }}>
-              <Text style={s.referralTitle}>友だちを紹介</Text>
-              <Text style={s.referralSub}>あなたの紹介コードを友だちに送る</Text>
+              <Text style={s.referralTitle}>{t('account.referral_title')}</Text>
+              <Text style={s.referralSub}>{t('account.referral_sub')}</Text>
             </View>
             <Ionicons name="chevron-forward" size={18} color={c.faint} />
           </Pressable>

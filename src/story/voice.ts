@@ -278,3 +278,11 @@ export function composeVoice(opts: {
 export function pickFragment(seed: number, recent: readonly string[] = []): Line | null {
   return pickLine(FRAGMENTS, seed, recent);
 }
+
+// ── 多言語化(i18n)。各 Line の id を `voice.<id>` キーで解決し、区切りは voice.sep(ja='' / en・ne=' ')。
+//    ja 未訳キーは i18n フォールバックで上の text(正本)に自動で落ちる。UIは renderVoice の返り値を表示する。
+/** id列を現在言語の台詞へ解決して連結する。tr=useT() の t。空文字は除いて結合。 */
+export function renderVoice(ids: ReadonlyArray<string | undefined | null>, tr: (k: string) => string): string {
+  const sep = tr('voice.sep');
+  return ids.filter((id): id is string => !!id).map((id) => tr('voice.' + id)).filter(Boolean).join(sep);
+}

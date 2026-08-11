@@ -34,6 +34,8 @@ export default function StudyHomeScreen() {
   const prof = useMemo(() => examOf(state.settings.targetExam), [state.settings.targetExam]);
   const isJft = prof.exam === 'jft';
   const lock = fullMockLocked(state.mockHistory ?? [], now);
+  // 【開発用】「全モードを解禁」ONのときはフル模試の月1ロックも外す(繰り返しテスト用)。
+  const mockLocked = lock.locked && state.settings.devUnlockAll !== true;
   const bg = useTabBg('exam');
 
   return (
@@ -45,7 +47,7 @@ export default function StudyHomeScreen() {
           // 試験タブ=大問別(字/文/読/聴)＋模試のみ。旧「全部混ぜ(今日のオススメ)」は統合復習へ移行し撤去(復習は
           // ホーム/書斎の入口へ。試験タブには復習を置かない=ユーザー方針2026-08-01)。
           ...CATS.map((x) => ({ key: x.cat, glyph: x.glyph, label: t(prof.catLabel[x.cat]), accent: x.accent, renderCard: () => <CategoryCard cat={x.cat} /> })),
-          { key: 'mock', glyph: '試', label: isJft ? t('test.jft_title') : t('test.full_title'), accent: lock.locked ? '#a89a86' : '#b8924a', disabled: lock.locked, onGo: () => { if (!lock.locked) nav.navigate('MockIntro', { full: true }); } },
+          { key: 'mock', glyph: '試', label: isJft ? t('test.jft_title') : t('test.full_title'), accent: mockLocked ? '#a89a86' : '#b8924a', disabled: mockLocked, onGo: () => { if (!mockLocked) nav.navigate('MockIntro', { full: true }); } },
         ] as TabEntry[]}
       />
     </View>
