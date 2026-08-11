@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, passageGrammarSetsFor, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, passageGrammarSetsFor, meaningIn, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, sample, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -48,7 +48,7 @@ export const MOJI_DAIMON: Daimon[] = ['kanji_read', 'orthography', 'context', 's
 export const BUNPOU_DAIMON: Daimon[] = ['grammar_form', 'order', 'passage_grammar'];
 
 // 知識バンクの安定id(状態キー/重複排除用)。id = kb-NNNNNN(data由来・knowledgeBank.jsonに焼き込み済み。Task 1)。
-export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; pointId?: string; }
+export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; pointId?: string; explain?: string; explainEn?: string; explainNe?: string; }
 // 並べ替え(order)のうち一意性監査で「複数正解=曖昧」と判定された問題(ambiguous:true・108問)は出題プールから恒久除外。
 // 日本語は副詞・主語の位置が自由で★の答えが一意にならないため。監査=LLM一括(2026-07-10)。id は data由来なので filter後も安定。
 export const BANK: BankUnit[] = (KNOWLEDGE_BANK as BankUnit[])
@@ -192,7 +192,9 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
     const { choices, answerIndex } = build4Choices(bank.answer, bank.choices, rng);
     // 文法形式判断・文の組み立ては文中の漢字にレベル適応ルビを出す(カッコふりがな→上付きルビ)。stemをfuriとして渡す。
     const useFuri = bank.daimon === 'grammar_form' || bank.daimon === 'order';
-    return { itemId: unit, prompt: bank.stem, question: bank.question, ...(useFuri ? { furi: bank.stem } : {}), format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, saveRef: saveRefForBank(bank) };
+    // 文の組み立て=回答後に正しい文＋母語の意味を出す(データがある問題のみ)。
+    const orderX = bank.daimon === 'order' && bank.explain ? { orderSentence: bank.explain, orderMeaningEn: bank.explainEn, orderMeaningNe: bank.explainNe } : {};
+    return { itemId: unit, prompt: bank.stem, question: bank.question, ...(useFuri ? { furi: bank.stem } : {}), format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, saveRef: saveRefForBank(bank), ...orderX };
   }
   // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
   const og = OG_BANK_INDEX.get(unit);
@@ -254,7 +256,9 @@ function markFuri(furi: string, target: string): string {
   try { return furi.replace(new RegExp(pat), (m) => `【${m}】`); } catch { return furi; }
 }
 /** 学習ユニットid → 学習カード。項目系=語/文法の情報、バンク系=正解＋文脈＋解説。 */
-export function learnCardFor(unit: string): LearnCard | null {
+export function learnCardFor(unit: string, l1?: string): LearnCard | null {
+  // 意味(body)は母語(l1)訳があればそれを、無ければ英語glossを出す。語彙=item.id / 文法=item.id をキーに引く。
+  const mean = (id: string, en: string) => ((l1 && l1 !== 'en' ? meaningIn(id, l1) : undefined) ?? en);
   const bank = BANK_INDEX.get(unit);
   if (bank) {
     // 用法=対象語＋正しい使い方の文。文法(⑥⑦⑧)=正解＋空所を埋めた例文のみ(解説は学習カードでは出さない)。
@@ -291,19 +295,19 @@ export function learnCardFor(unit: string): LearnCard | null {
       const cx = CTX_BANK_INDEX.get(unit);
       const base = cx ? (SENTENCE_FURI[cx.id]?.includes('〔　〕') ? SENTENCE_FURI[cx.id] : cx.prompt) : '';
       const filled = cx ? base.replace('〔　〕', `【${cx.answer}】`) : ex?.ja;
-      return { title: item.word, sub: item.reading, body: item.meaning, note: filled };
+      return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: filled };
     }
     // ①漢字読み・②表記: クイズと同じ固定問題集の例文を使い、対象語(下線)を【】で囲って下線＋ルビ表示する。
     if (daimon === 'kanji_read') {
       const kr = KR_BANK_INDEX.get(unit);
-      return { title: item.word, sub: item.reading, body: item.meaning, note: kr ? markFuri(SENTENCE_FURI[kr.id] ?? kr.sentence, kr.underline) : ex?.ja };
+      return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: kr ? markFuri(SENTENCE_FURI[kr.id] ?? kr.sentence, kr.underline) : ex?.ja };
     }
     if (daimon === 'orthography') {
       const og = OG_BANK_INDEX.get(unit);
-      return { title: item.word, sub: item.reading, body: item.meaning, note: og ? markFuri(SENTENCE_FURI[og.id] ?? og.sentence, og.underline) : ex?.ja };
+      return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: og ? markFuri(SENTENCE_FURI[og.id] ?? og.sentence, og.underline) : ex?.ja };
     }
-    return { title: item.word, sub: item.reading, body: item.meaning, note: ex?.ja };
+    return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: ex?.ja };
   }
-  if (item.type === 'grammar') return { title: item.point, sub: item.romaji, body: item.meaning, note: item.exampleJa };
+  if (item.type === 'grammar') return { title: item.point, sub: item.romaji, body: mean(item.id, item.meaning), note: item.exampleJa };
   return null;
 }

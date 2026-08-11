@@ -24,7 +24,8 @@ export function rehydrateBanks(files: Record<string, Any>) {
   // (文脈規定は moji_goi/context_*.json のみ・文章の文法は passage_grammar_*.json のセット形式へ移行済)。
   const BANK_DAIMON = ['usage', 'grammar_form', 'order'] as const;
   const KNOWLEDGE_BANK = BANK_DAIMON.flatMap((daimon) =>
-    bankItems(files, daimon, (it, level) => ({ ...stripI18n(it), level, daimon })));
+    // order(文の組み立て)は回答後表示用に「正しい文(ja)＋母語の意味(en/ne)」を i18n.{lang}.explain から復元。
+    bankItems(files, daimon, (it, level) => ({ ...stripI18n(it), level, daimon, explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain })));
 
   const READING_SUBTYPES = ['naiyou_tan', 'naiyou_chu', 'choubun', 'joho'];
   const LISTENING_SUBTYPES = ['kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji'];

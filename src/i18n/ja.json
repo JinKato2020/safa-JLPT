@@ -1280,5 +1280,6 @@
   "cat.think": "思考・判断",
   "cat.abstract": "抽象概念",
   "cat.expression": "あいさつ・表現",
-  "cat.function": "機能語"
+  "cat.function": "機能語",
+  "quiz.correct_sentence": "正しい文"
 }

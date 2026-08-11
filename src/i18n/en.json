@@ -1273,5 +1273,6 @@
   "cat.think": "Thinking & judgment",
   "cat.abstract": "Abstract concepts",
   "cat.expression": "Greetings & expressions",
-  "cat.function": "Function words"
+  "cat.function": "Function words",
+  "quiz.correct_sentence": "Correct sentence"
 }

@@ -1,11 +1,14 @@
-// 試験タブの全問題画面で共通の最上部ヘッダー。大問名を中央に固定表示し、UIを統一する。
-//  左=閉じる(✕) / 中央=大問名 / 右=進捗など(任意)。すべての大問画面(Quiz/読解/聴解/文章の文法)で同一。
+// 試験タブの全問題画面で共通の最上部ヘッダー。全大問でUIを完全統一する。
+//  レイアウト(統一仕様):
+//   1行目 = 大問名 ＋ 分数(現在問題 / 総問題)  ← 中央に並べる
+//   2行目 = 問題ID(バグ報告時にどの問題か一意に特定できる)
+//  左端に閉じる(✕)、右端は対称のための余白。すべての大問画面(Quiz/読解/聴解/文章の文法/単語ドリル)で同一。
 import { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { spacing, type as ty, useColors, type ThemeColors } from '../theme';
 
-// sub=問題ID(kb-… / vid#daimon 等)。大問名と進捗(分数)の間に小さく出す=バグ報告時にどの問題か一意に特定できる。
-export default function ExamHeader({ title, onClose, right, sub }: { title?: string; onClose: () => void; right?: string; sub?: string }) {
+// count=分数文字列("3 / 10" 等) / id=問題ID。どちらも無い画面では省略可(存在すれば必ず同じ位置に出る)。
+export default function ExamHeader({ title, count, id, onClose }: { title?: string; count?: string; id?: string; onClose: () => void }) {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   return (
@@ -14,12 +17,15 @@ export default function ExamHeader({ title, onClose, right, sub }: { title?: str
         <Text style={s.close}>✕</Text>
       </Pressable>
       <View style={s.center}>
-        <Text style={s.title} numberOfLines={1}>{title ?? ''}</Text>
-        {sub ? <Text style={s.sub} numberOfLines={1}>{sub}</Text> : null}
+        {/* 1行目: 大問名 + 分数。名前が長い時は名前だけ縮め、分数は必ず見える。 */}
+        <View style={s.line1}>
+          <Text style={s.title} numberOfLines={1}>{title ?? ''}</Text>
+          {count ? <Text style={s.count}>{count}</Text> : null}
+        </View>
+        {/* 2行目: 問題ID。 */}
+        {id ? <Text style={s.sub} numberOfLines={1}>{id}</Text> : null}
       </View>
-      <View style={[s.side, s.right]}>
-        <Text style={s.prog}>{right ?? ''}</Text>
-      </View>
+      <View style={s.side} />
     </View>
   );
 }
@@ -28,11 +34,12 @@ const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     wrap: { flexDirection: 'row', alignItems: 'center', paddingBottom: spacing.sm },
     side: { minWidth: 48, justifyContent: 'center' },
-    right: { alignItems: 'flex-end' },
     close: { fontSize: ty.h2, color: c.mute },
     center: { flex: 1, alignItems: 'center' },
-    title: { alignSelf: 'stretch', textAlign: 'center', fontSize: ty.body, fontWeight: '800', color: c.ink },
-    // 問題ID(バグ特定用)。大問名の直下・進捗の手前に小さく等幅寄りで出す。
+    // 1行目=大問名+分数を横並び・中央寄せ。名前は flexShrink で縮み、分数は縮まない。
+    line1: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'center', gap: 8, maxWidth: '100%' },
+    title: { flexShrink: 1, textAlign: 'center', fontSize: ty.body, fontWeight: '800', color: c.ink },
+    count: { fontSize: ty.small, fontWeight: '700', color: c.mute },
+    // 問題ID(バグ特定用)。大問名の直下に小さく。
     sub: { textAlign: 'center', fontSize: ty.tiny, color: c.faint, fontWeight: '700', marginTop: 1 },
-    prog: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
   });

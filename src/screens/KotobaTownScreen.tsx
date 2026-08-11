@@ -957,21 +957,13 @@ export default function KotobaTownScreen() {
           { lab: t('town.facet.vocab'), n: vocab, col: '#6f9a3f' },
           { lab: t('town.facet.grammar'), n: grammar, col: '#c0603a' },
         ];
-        // 6項目の左右分割を動的に。左列(名前/性格/気分)=長め・右列(Lv/国名/得意)=短め。
-        //  標準=中央(0.50)→左の値が収まらなければ分割を右へずらし→それでも無理ならフォント縮小(言語で可変)。
-        const estEm = (s: string) => { let u = 0; for (const ch of s) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u; };
-        const emVal = FS_VAL / FW;             // 全角1文字の幅(FW比)
-        // 左値の開始x / 右ラベルの幅(分)。右ラベルは「総時間」(3文字)が最長。ラベル実幅+空きを確保して値と密着させない。
-        const xValL = 0.225;
-        const xLab2 = Math.max(0.10, Math.max(...FIELDS.map((f) => estEm(f.lab2))) * (FS_LAB / FW) + 0.6 * (FS_LAB / FW));
-        const leftValEm = Math.max(...FIELDS.map((f) => estEm(f.val)));
-        const rightValEm = Math.max(...FIELDS.map((f) => estEm(f.val2)));
-        const splitX = Math.min(0.66, Math.max(0.50, xValL + leftValEm * emVal + 0.03)); // 左が長い時だけ右へ
-        const leftAvail = splitX - 0.03 - xValL;
-        const rightAvail = 0.90 - (splitX + xLab2);
-        const need = Math.max(leftValEm * emVal / Math.max(leftAvail, 0.001), rightValEm * emVal / Math.max(rightAvail, 0.001));
-        const stScale = need > 1 ? Math.max(0.72, 1 / need) : 1; // 分割を右へずらしても収まらなければ縮小
-        const fsVal = Math.round(FS_VAL * stScale), fsLab = Math.round(FS_LAB * stScale);
+        // 6項目=2列×3行。各セルは「ラベル(上・小)＋値(下・大)」の縦積み。
+        // 英語/ネパール語はラベルも値も長いため、横並び(ラベル：値)だと右列がはみ出して消える・文字が極小になる。
+        // → 縦積みにして各値へ列幅いっぱい(≈38%)を与え、収まらない時だけ自動縮小(⋯で切らない)。左右対称でバランスも改善。
+        const L_X = 0.09, R_X = 0.53;          // 左列/右列の開始x(FW比)
+        const COL_W = 0.38;                    // 各列の値・下線の幅(FW比)
+        const fsLab = Math.round(FW * 0.033);  // ラベル(小)
+        const fsVal = Math.round(FW * 0.046);  // 値(大きめ=見やすく)
         return (
           <View style={s.cvWrap}>
             {/* 会話画像・ステータス以外の背景=歩行中の町をそのまま見せる(暗幕なし・透過オーバーレイ)。 */}
@@ -1001,19 +993,22 @@ export default function KotobaTownScreen() {
               {/* ② ステータス枠(正方形・会話画像の下)。上半分=6項目 / 下半分=覚えた単語(漢字/語彙/文法) 3バー。 */}
               <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: -Math.round(FW * 0.045) }}>
                 <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
-                {/* 6項目: 2列×3行(名前|Lv / 性格|国名 / 気分|得意)。値は下線に乗せる。 */}
+                {/* 6項目: 2列×3行。各セル=ラベル(上)＋値(下・列幅いっぱい・自動縮小)＋下線。英語/ネパール語でも消えない。 */}
                 {FIELDS.map((f, i) => {
-                  const y = stH * (0.15 + i * 0.115);
-                  const uy = y + fsVal * 1.35;
+                  const y = stH * (0.15 + i * 0.118);   // 行の上端(ラベル)
+                  const vy = y + fsLab * 1.15;          // 値(ラベルの下)
+                  const uy = vy + fsVal * 1.25;         // 下線(値の下)
+                  const cell = (x: number, lab: string, val: string) => (
+                    <>
+                      <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{lab}</Text>
+                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: vy, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{val}</Text>
+                      <View style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                    </>
+                  );
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      <Text style={{ position: 'absolute', left: FW * 0.10, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab}</Text>
-                      {/* 名前(＋母語国旗)は文字数が多くても全部見せる=枠内で自動縮小(⋯で切らない)。 */}
-                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5} style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val}</Text>
-                      <View style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
-                      <Text style={{ position: 'absolute', left: FW * splitX, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab2}</Text>
-                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: FW * (splitX + xLab2), width: FW * rightAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val2}</Text>
-                      <View style={{ position: 'absolute', left: FW * (splitX + xLab2), width: FW * rightAvail, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                      {cell(L_X, f.lab, f.val)}
+                      {cell(R_X, f.lab2, f.val2)}
                     </View>
                   );
                 })}
@@ -1087,16 +1082,11 @@ export default function KotobaTownScreen() {
           { lab: t('town.lbl_personality'), val: sakuraPer, lab2: t('town.lbl_country'), val2: '🇯🇵' },
           { lab: t('town.lbl_mood'), val: t('town.sakura_mood'), lab2: t('town.lbl_strong'), val2: t('town.sakura_strong') },
         ];
-        const estEm = (s: string) => { let u = 0; for (const ch of s) u += ch.charCodeAt(0) < 0x100 ? 0.55 : 1; return u; };
-        const emVal = FS_VAL / FW; const xValL = 0.225;
-        const xLab2 = Math.max(0.10, Math.max(...SFIELDS.map((f) => estEm(f.lab2))) * (FS_LAB / FW) + 0.6 * (FS_LAB / FW)); // ラベル(総時間=3文字)と値を密着させない
-        const leftValEm = Math.max(...SFIELDS.map((f) => estEm(f.val)));
-        const rightValEm = Math.max(...SFIELDS.map((f) => estEm(f.val2)));
-        const splitX = Math.min(0.66, Math.max(0.50, xValL + leftValEm * emVal + 0.03));
-        const leftAvail = splitX - 0.03 - xValL; const rightAvail = 0.90 - (splitX + xLab2);
-        const need = Math.max(leftValEm * emVal / Math.max(leftAvail, 0.001), rightValEm * emVal / Math.max(rightAvail, 0.001));
-        const stScale = need > 1 ? Math.max(0.72, 1 / need) : 1;
-        const fsVal = Math.round(FS_VAL * stScale), fsLab = Math.round(FS_LAB * stScale);
+        // 縦積み(ラベル上・値下)＝英語/ネパール語でも右列が消えない・文字を大きく(NPC枠と同一仕様)。
+        const L_X = 0.09, R_X = 0.53;
+        const COL_W = 0.38;
+        const fsLab = Math.round(FW * 0.033);
+        const fsVal = Math.round(FW * 0.046);
         return (
           <View style={s.cvWrap}>
             {/* 会話画像・ステータス以外の背景=歩行中の町をそのまま(暗幕なし)。下に引くと閉じる。 */}
@@ -1122,17 +1112,20 @@ export default function KotobaTownScreen() {
               <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: -Math.round(FW * 0.045) }}>
                 <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
                 {SFIELDS.map((f, i) => {
-                  const y = stH * (0.15 + i * 0.115); const uy = y + fsVal * 1.35;
+                  const y = stH * (0.15 + i * 0.118);
+                  const vy = y + fsLab * 1.15;
+                  const uy = vy + fsVal * 1.25;
+                  const cell = (x: number, lab: string, val: string) => (
+                    <>
+                      <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{lab}</Text>
+                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: vy, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{val}</Text>
+                      <View style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                    </>
+                  );
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      <Text style={{ position: 'absolute', left: FW * 0.10, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab}</Text>
-                      <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val}</Text>
-                      <View style={{ position: 'absolute', left: FW * xValL, width: FW * leftAvail, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
-                      {f.lab2 ? (<>
-                        <Text style={{ position: 'absolute', left: FW * splitX, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{f.lab2}</Text>
-                        <Text numberOfLines={1} ellipsizeMode="tail" style={{ position: 'absolute', left: FW * (splitX + xLab2), width: FW * rightAvail, top: y, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{f.val2}</Text>
-                        <View style={{ position: 'absolute', left: FW * (splitX + xLab2), width: FW * rightAvail, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
-                      </>) : null}
+                      {cell(L_X, f.lab, f.val)}
+                      {f.lab2 ? cell(R_X, f.lab2, f.val2) : null}
                     </View>
                   );
                 })}

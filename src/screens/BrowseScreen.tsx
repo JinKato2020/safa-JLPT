@@ -243,7 +243,7 @@ export default function BrowseScreen() {
             ) : (
               <Text style={s.term}>{item.point}</Text>
             )}
-            <Text style={s.meaning}>{item.meaning}</Text>
+            <Text style={s.meaning}>{nm(item.id) ?? item.meaning}</Text>
             {(() => {
               // 文法点を例文で下線。ふりがな除去・〜分割・活用語尾の前方一致は RubyText(highlightHits)側が担う。
               // ここでは①変種(/・)を解いて「例文に実在する変種」を選ぶ(A〜B型は〜を保持)②どの変種も前方一致しない

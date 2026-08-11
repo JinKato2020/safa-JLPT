@@ -106,11 +106,6 @@ export default function HomeScreen() {
             />
             <Image source={RING} style={{ width: ringW, height: ringW }} resizeMode="contain" />
             <View style={styles.pct} pointerEvents="none">
-              {/* 読みやすさ用の敷き=リング穴の中央に半透明の暗い円をそっと敷く(背景イラストが明るくても文字が沈まない)。
-                  柔らかい影で縁をぼかし“ステッカー感”を出さない。文字塊(pctInner)より先に置く=背面。 */}
-              <View style={[StyleSheet.absoluteFillObject, styles.center]}>
-                <View style={[styles.scrim, { width: Math.round(holeW * 0.92), height: Math.round(holeW * 0.92), borderRadius: holeW }]} />
-              </View>
               {/* 数字＋ラベル(到達度)を縦に積み、その塊の中心を穴の中心に合わせる。ラベルは数字の下。
                   iOSは lineHeight<fontSize や textAlignVertical/includeFontPadding を無視するため、数字の
                   フォント下余白(ディセント)が残って離れて見えた。→ 数字を高さ固定の overflow:hidden で包み、
@@ -152,8 +147,6 @@ const styles = StyleSheet.create({
   pct: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
   center: { alignItems: 'center', justifyContent: 'center' },
   pctInner: { alignItems: 'center', justifyContent: 'center' },
-  // 読みやすさ用の敷き=暗い半透明の円。柔らかい影で縁をぼかす(iOS=shadow / Android=elevation)。
-  scrim: { backgroundColor: 'rgba(8,12,24,0.46)', shadowColor: '#05070f', shadowOpacity: 0.55, shadowRadius: 12, shadowOffset: { width: 0, height: 0 }, elevation: 6 },
   lbl: { fontWeight: '800', letterSpacing: 1.5, color: '#f2f6ff', textShadowColor: 'rgba(0,0,0,0.85)', textShadowRadius: 5, textShadowOffset: { width: 0, height: 1 }, includeFontPadding: false },
   num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 7, textShadowOffset: { width: 0, height: 1 }, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
   numSmall: { fontWeight: '800', color: '#eef3ff', textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 6, textShadowOffset: { width: 0, height: 1 } },

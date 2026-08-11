@@ -37,6 +37,10 @@ export interface Question {
   answerIndex: number;
   explain?: string;   // 解説(バンク問題のみ。模試の採点後表示用)
   explainNe?: string; // 解説の母語(ネパール語)訳。l1=neのとき解答後に併記。
+  // 文の組み立て(order)専用: 回答後に「正しい文(日本語)＋母語の意味」を表示する。
+  orderSentence?: string;   // 正しく並べた文(ふりがな付き・日本語)
+  orderMeaningEn?: string;  // その文の意味(英語)
+  orderMeaningNe?: string;  // その文の意味(ネパール語)
   furi?: string;      // ふりがな付き問題文(漢字（かな）)。レベル適応ルビで描画。
   furiTarget?: string; // 下線対象語(furi中で下線を引く語)。
   noTargetRuby?: boolean; // ①漢字読み: 対象語にはふりがなを出さない(読みが問題)。

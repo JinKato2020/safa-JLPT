@@ -99,7 +99,7 @@ export default function ReadingScreen() {
 
   return (
     <SafeAreaView style={s.c}>
-      <ExamHeader title={route.params?.title} sub={set.id} onClose={() => nav.goBack()} right={`${idx + 1} / ${sets.length}`} />
+      <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} />
       <PassageSetPlayer key={set.id} set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
     </SafeAreaView>
   );

@@ -410,13 +410,17 @@
    "question": "★ に入るものはどれですか。",
    "answer": "とても",
    "choices": [
-    "冬（ふゆ）に",
+    "昔（むかし）から",
     "とても",
     "寒（さむ）がりです",
     "私（わたし）の妹（いもうと）は"
    ],
    "pointId": "n5-g-77",
-   "i18n": {}
+   "i18n": {
+    "ja": { "explain": "私（わたし）の妹（いもうと）は昔（むかし）からとても寒（さむ）がりです。" },
+    "en": { "explain": "My younger sister has always been very sensitive to the cold." },
+    "ne": { "explain": "मेरी बहिनीलाई पहिलेदेखि नै धेरै जाडो लाग्छ।" }
+   }
   },
   {
    "id": "N4-G-N-0030",

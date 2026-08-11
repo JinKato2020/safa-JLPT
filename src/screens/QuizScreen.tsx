@@ -112,7 +112,7 @@ export default function QuizScreen() {
   const [learnList] = useState<{ unit: string; card: LearnCard }[]>(() =>
     daimon
       ? (queue.filter((x): x is string => typeof x === 'string'))
-          .map((u) => ({ unit: u, card: learnCardFor(u) }))
+          .map((u) => ({ unit: u, card: learnCardFor(u, meaningL1(settings)) }))
           .filter((x): x is { unit: string; card: LearnCard } => !!x.card)
       : [],
   );
@@ -150,7 +150,7 @@ export default function QuizScreen() {
     return (
       <SafeAreaView style={s.c}>
         <ScrollView contentContainerStyle={s.body}>
-          <ExamHeader title={title} onClose={() => nav.goBack()} right={`${t('quiz.learn_tag')} ${learnIdx + 1} / ${learnList.length}`} />
+          <ExamHeader title={title} onClose={() => nav.goBack()} count={`${t('quiz.learn_tag')} ${learnIdx + 1} / ${learnList.length}`} />
           <View style={s.promptCard}>
             {lc?.title ? <LearnText text={lc.title} style={[s.prompt, lc.title.length > 10 && s.promptLong]} hitStyle={s.learnHit} rubyStyle={s.promptRuby} rubyGate={rubyGate} /> : null}
             {lc?.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
@@ -220,7 +220,7 @@ export default function QuizScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={title} sub={question.itemId ?? answerId} onClose={() => nav.goBack()} right={`${idx + 1} / ${total}`} />
+        <ExamHeader title={title} id={question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} />
 
         <View style={s.promptCard}>
           {question.furi ? (
@@ -287,6 +287,16 @@ export default function QuizScreen() {
           })}
         </View>
 
+        {/* 文の組み立て: 回答後に「正しい文(日本語順)＋母語の意味」を表示(データのある問題のみ)。 */}
+        {picked !== null && question.orderSentence ? (
+          <View style={{ marginTop: 12, padding: 12, borderRadius: 12, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, gap: 6 }}>
+            <Text style={{ fontSize: 12, fontWeight: '800', color: c.blue, textAlign: 'center', letterSpacing: 1 }}>{t('quiz.correct_sentence')}</Text>
+            <RubyText text={question.orderSentence} style={{ fontSize: 18, fontWeight: '700', color: c.ink, textAlign: 'center' }} rubyStyle={s.qRuby} rubyGate={rubyGate} center />
+            {(meaningL1(settings) === 'ne' ? question.orderMeaningNe : question.orderMeaningEn) ? (
+              <Text style={{ fontSize: 14, color: c.ink2, textAlign: 'center' }}>{meaningL1(settings) === 'ne' ? question.orderMeaningNe : question.orderMeaningEn}</Text>
+            ) : null}
+          </View>
+        ) : null}
         {picked === null && <Text style={s.hint}>{t('quiz.hint')}</Text>}
       </ScrollView>
       {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(学習後にまとめて)。 */}
