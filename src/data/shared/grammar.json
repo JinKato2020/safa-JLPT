@@ -3670,8 +3670,8 @@
   "point": "たって",
   "romaji": "tatte",
   "meaning": "even if ~ (casual ても)",
-  "exampleJa": "今（いま）から急（いそ）いだって、間（ま）に合（あ）わないよ。",
-  "exampleEn": "Even if you hurry now, you won't make it."
+  "exampleJa": "今（いま）から走（はし）ったって、間（ま）に合（あ）わないよ。",
+  "exampleEn": "Even if you run now, you won't make it."
  },
  {
   "id": "n3-g-124",
@@ -3912,7 +3912,7 @@
   "point": "と共（とも）に",
   "romaji": "to tomo ni",
   "meaning": "together with ~; as ~",
-  "exampleJa": "経済（けいざい）の発展（はってん）とともに、生活（せいかつ）が便利（べんり）になった。",
+  "exampleJa": "経済（けいざい）の発展（はってん）と共（とも）に、生活（せいかつ）が便利（べんり）になった。",
   "exampleEn": "Along with economic development, life became more convenient."
  },
  {
@@ -4286,8 +4286,8 @@
   "point": "ようとする",
   "romaji": "you to suru",
   "meaning": "try to ~; be about to ~",
-  "exampleJa": "家（いえ）を出（で）ようとしたとき、電話（でんわ）が鳴（な）った。",
-  "exampleEn": "Just as I was about to leave home, the phone rang."
+  "exampleJa": "家（いえ）を出（で）ようとすると、電話（でんわ）が鳴（な）った。",
+  "exampleEn": "When I tried to leave home, the phone rang."
  },
  {
   "id": "n3-g-180",

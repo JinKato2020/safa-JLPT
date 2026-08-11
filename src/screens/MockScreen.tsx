@@ -642,7 +642,7 @@ export default function MockScreen() {
               <Text style={s.sectionH}>{t('mock.pred_sections')}</Text>
               <View style={s.heatCard}>
                 {est.sections.map((sec) => (
-                  <PointBar key={sec.key} label={sec.label} sec={sec} tc={c} s={s} />
+                  <PointBar key={sec.key} label={t('mock.block_' + sec.key)} sec={sec} tc={c} s={s} />
                 ))}
                 <Text style={s.predNote}>{t('mock.pred_note')}</Text>
               </View>

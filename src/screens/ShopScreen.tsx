@@ -21,7 +21,6 @@ const BANNER_NIGHT = require('../../assets/shop/shop_banner_night.jpg');
 // ショップのカテゴリタブ。順=髪型/筆/民族衣装/道具/仲間。各タブは単一種別なので小見出しは不要。
 const TABS: { key: string; labelKey: string; match: (i: ShopItem) => boolean }[] = [
   { key: 'hair', labelKey: 'shop.tab_hair', match: (i) => i.kind === 'hair' },
-  { key: 'brush', labelKey: 'shop.tab_brush', match: (i) => i.kind === 'brush' },
   { key: 'costume', labelKey: 'shop.tab_costume', match: (i) => i.kind === 'costume' },
   { key: 'tool', labelKey: 'shop.tab_tool', match: (i) => i.cat === 'tool' },
   { key: 'companion', labelKey: 'shop.tab_companion', match: (i) => i.cat === 'companion' },

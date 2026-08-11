@@ -11,10 +11,9 @@ import SwipeSheet from '../components/SwipeSheet';
 import { useColors, type ThemeColors } from '../theme';
 import type { HomeStatus } from './homeStatus';
 
-const OPEN = require('../../assets/mywords/guide_open.png');
-const BLINK = require('../../assets/mywords/guide_blink.png');
-// 髪型「短髪」を装備中(かつ筆/衣装なし)の既定桜=短髪版(hair3を不透明化)。短髪用の閉じ目は無いのでまばたきは静止。
-const SHORT_OPEN = require('../../assets/mywords/guide_open_short.png');
+// 既定の桜(案内キャラ)=正面の立ち絵。髪型で長髪/短髪を出し分ける。筆は背負わない(筆キャラは廃止)。
+const SAKURA_LONG = require('../../assets/home/sakura_front_long.png');
+const SAKURA_SHORT = require('../../assets/home/sakura_front_short.png');
 // 柴1(pet_shiba1)だけ尻尾を振る=尻尾を別レイヤーに切り出し(尻尾=後/胴体=前・付け根を胴体で隠す)。
 const SHIBA1_BODY = require('../../assets/shop/companion/shiba1_body.png');
 const SHIBA1_TAIL = require('../../assets/shop/companion/shiba1_tail.png');
@@ -26,15 +25,12 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const { width } = useWindowDimensions();
   const state = useAppState();
   const { equipItem } = useAppActions();
-  // 装備中の筆があれば、その「桜が筆を背負う絵」で出現。髪型がショートなら短髪版・標準はロング版。
-  const eqBrush = state.equipped?.brush;
+  // 筆キャラは廃止。桜は筆を背負わない。髪型(ショート/ロング)で既定の立ち絵を出し分ける。
   const isShort = state.equipped?.hair === 'hair_short';
-  const bItem = eqBrush ? SHOP_BY_ID[eqBrush] : undefined;
-  const brushImg = bItem ? (isShort ? bItem.homeShort : bItem.homeLong) : undefined;
-  // 民族衣装を装備中はその全身アバターを優先表示(髪型/筆より上位)。桜が各国の衣装をまとう。
+  // 民族衣装を装備中はその全身アバターを優先表示(髪型より上位)。桜が各国の衣装をまとう。
   const eqCostume = state.equipped?.costume;
   const costumeImg = eqCostume ? SHOP_BY_ID[eqCostume]?.asset : undefined;
-  const charImg = costumeImg ?? brushImg; // 優先: 民族衣装 > 筆(背負い) > 既定の案内キャラ
+  const charImg = costumeImg; // 優先: 民族衣装 > 既定の桜(長髪/短髪)
   // 仲間(柴犬): 装備中の1体を桜の左に常駐。番号が上がるほど大きい(homeScale)。
   const eqComp = state.equipped?.companion;
   const compItem = eqComp ? SHOP_BY_ID[eqComp] : undefined;
@@ -45,7 +41,6 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const compAspect = compSrc?.width ? compSrc.height / compSrc.width : 1.08;
   const [showShop, setShowShop] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
-  const [eyesClosed, setEyesClosed] = useState(false);
   const bob = useRef(new Animated.Value(0)).current;
   const dogSway = useRef(new Animated.Value(0)).current; // 犬: 体を左右にゆらす
   const tailWag = useRef(new Animated.Value(0)).current; // 柴1: 尻尾を振る
@@ -69,16 +64,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
       Animated.timing(tailWag, { toValue: 0, duration: 300, useNativeDriver: true }),
     ]));
     wag.start();
-    let bAlive = true;
-    const bt: ReturnType<typeof setTimeout>[] = [];
-    const blink = () => {
-      if (!bAlive) return;
-      setEyesClosed(true);
-      bt.push(setTimeout(() => setEyesClosed(false), 130));
-      bt.push(setTimeout(blink, 2600 + Math.random() * 3200));
-    };
-    bt.push(setTimeout(blink, 1600));
-    return () => { loop.stop(); sway.stop(); wag.stop(); bAlive = false; bt.forEach(clearTimeout); };
+    return () => { loop.stop(); sway.stop(); wag.stop(); };
   }, [bob, dogSway, tailWag]);
 
   // 民族衣装/背負い筆の全身絵は縦長(≒864x1184)なので少し大きめ＋縦横比を変える。
@@ -105,7 +91,6 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const itemsByKind = {
     hair: SHOP.filter((item) => item.kind === 'hair' && owned.has(item.id)),
     costume: SHOP.filter((item) => item.kind === 'costume' && owned.has(item.id)),
-    brush: SHOP.filter((item) => item.kind === 'brush' && owned.has(item.id)),
   };
   // 柴タップ=購入済みの仲間(柴犬)だけを並べて着せ替え。
   const ownedCompanions = SHOP.filter((item) => item.cat === 'companion' && owned.has(item.id));
@@ -140,7 +125,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
         {/* 桜(案内キャラ)=右。タップで購入済みの着せ替え一覧。 */}
         <Animated.View style={{ transform: [{ translateY: bobY }], zIndex: dogInFront ? 1 : 0 }}>
           <Pressable onPress={() => setShowShop(true)} hitSlop={4}>
-            <Image source={charImg ?? (isShort ? SHORT_OPEN : (eyesClosed ? BLINK : OPEN))} style={{ width: charW, height: charH }} resizeMode="contain" />
+            <Image source={charImg ?? (isShort ? SAKURA_SHORT : SAKURA_LONG)} style={{ width: charW, height: charH }} resizeMode="contain" />
           </Pressable>
         </Animated.View>
       </View>
@@ -149,7 +134,6 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
             {([
               { key: 'hair', title: t('shop.tab_hair'), items: itemsByKind.hair, slot: 'hair' as const },
               { key: 'costume', title: t('shop.tab_costume'), items: itemsByKind.costume, slot: 'costume' as const },
-              { key: 'brush', title: t('shop.tab_brush'), items: itemsByKind.brush, slot: 'brush' as const },
             ]).map((sec) => (
               <View key={sec.key} style={styles.section}>
                 <Text style={styles.sectionTitle}>{sec.title}</Text>

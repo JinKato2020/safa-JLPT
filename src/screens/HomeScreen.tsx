@@ -121,11 +121,10 @@ export default function HomeScreen() {
                   <Text numberOfLines={1} style={[styles.num, { fontSize: Math.round(bigFs), lineHeight: Math.round(bigFs) }]}>{predScore}</Text>
                   <Text numberOfLines={1} style={[styles.numSmall, { fontSize: smallFs, lineHeight: Math.round(bigFs) }]}>/{predMax}</Text>
                 </View>
-                {/* 現在レベル(N5/N4/N3 or JFT)＋「予想得点」。中央=受験レベルの予想得点/総得点。 */}
-                <View style={[styles.lblRow, { marginTop: 5 }]}>
-                  <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>{levelLabel}</Text>
-                  <Text style={[styles.lbl, { fontSize: Math.round(ringW * 0.085) }]}>{t('coach.pred_score')}</Text>
-                </View>
+                {/* 2行目=「予想得点」ラベル。母語で長い言語は穴幅(holeW)内で自動縮小=溢れさせない。 */}
+                <Text numberOfLines={1} adjustsFontSizeToFit style={[styles.lbl, { fontSize: Math.round(ringW * 0.085), width: holeW, textAlign: 'center', marginTop: 5 }]}>{t('coach.pred_score')}</Text>
+                {/* 3行目=受験レベル(N5/N4/N3 or JFT)。 */}
+                <Text numberOfLines={1} adjustsFontSizeToFit style={[styles.lbl, { fontSize: Math.round(ringW * 0.10), width: holeW, textAlign: 'center', marginTop: 1 }]}>{levelLabel}</Text>
               </View>
             </View>
           </Pressable>
@@ -155,7 +154,6 @@ const styles = StyleSheet.create({
   pctInner: { alignItems: 'center', justifyContent: 'center' },
   // 読みやすさ用の敷き=暗い半透明の円。柔らかい影で縁をぼかす(iOS=shadow / Android=elevation)。
   scrim: { backgroundColor: 'rgba(8,12,24,0.46)', shadowColor: '#05070f', shadowOpacity: 0.55, shadowRadius: 12, shadowOffset: { width: 0, height: 0 }, elevation: 6 },
-  lblRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   lbl: { fontWeight: '800', letterSpacing: 1.5, color: '#f2f6ff', textShadowColor: 'rgba(0,0,0,0.85)', textShadowRadius: 5, textShadowOffset: { width: 0, height: 1 }, includeFontPadding: false },
   num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 7, textShadowOffset: { width: 0, height: 1 }, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
   numSmall: { fontWeight: '800', color: '#eef3ff', textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 6, textShadowOffset: { width: 0, height: 1 } },

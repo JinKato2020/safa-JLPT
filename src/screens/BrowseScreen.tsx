@@ -245,11 +245,20 @@ export default function BrowseScreen() {
             )}
             <Text style={s.meaning}>{item.meaning}</Text>
             {(() => {
-              // 文法点を例文中で下線。活用等で辞書形がそのまま無い時は文法点の漢字にフォールバック(合う→合)。
-              const pt = item.point.replace(/[（(][^）)]*[）)]/g, '').replace(/[〜～]/g, '');
-              const plainEx = item.exampleJa.replace(/[（(][^）)]*[）)]/g, '');
-              const tgt = pt && plainEx.includes(pt) ? pt : (pt.match(/[一-鿿々〆〇ヶ]+/)?.[0] ?? pt);
-              return renderSentence(item.exampleJa, tgt);
+              // 文法点を例文で下線。ふりがな除去・〜分割・活用語尾の前方一致は RubyText(highlightHits)側が担う。
+              // ここでは①変種(/・)を解いて「例文に実在する変種」を選ぶ(A〜B型は〜を保持)②どの変種も前方一致しない
+              // (先頭活用差: た→だ/て→で/よう→こう 等)時は最長の後方一致片を代表下線にフォールバックする。
+              const stripFuri = (x: string) => x.replace(/[（(][^）)]*[）)]/g, '');
+              const plainEx = stripFuri(item.exampleJa);
+              const variants = stripFuri(item.point).split(/[/・･／]/).map((v) => v.trim()).filter(Boolean);
+              const prefixHit = (seg: string) => { for (let L = seg.length; L >= Math.min(2, seg.length); L--) if (plainEx.includes(seg.slice(0, L))) return true; return false; };
+              const variantOk = (v: string) => v.split(/[〜～]/).map((s) => s.trim()).filter(Boolean).every(prefixHit);
+              let tgt = variants.find(variantOk);
+              if (!tgt) {
+                const flat = (variants[0] ?? stripFuri(item.point)).replace(/[〜～]/g, '');
+                for (let s = 0; s < flat.length - 1 && !tgt; s++) { const suf = flat.slice(s); if (suf.length >= 2 && plainEx.includes(suf)) tgt = suf; }
+              }
+              return renderSentence(item.exampleJa, tgt ?? item.point);
             })()}
           </>
         )}

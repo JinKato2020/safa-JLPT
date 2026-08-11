@@ -798,11 +798,11 @@ export default function KotobaTownScreen() {
           <View style={s.topLeft} pointerEvents="box-none">
             {/* 見出しタップ=町の友だち一覧(招待して参加した人)。この一覧の相手にはメッセージ(応援)を送れる。 */}
             <Pressable style={s.pill} onPress={() => setMembersOpen(true)}>
-              <Text style={s.pillT}>{t('town.title')}</Text>
+              <Text style={s.pillT} numberOfLines={2}>{t('town.title')}</Text>
               <Ionicons name="people" size={13} color="#3a3128" style={{ marginLeft: 5 }} />
             </Pressable>
             {/* 友だちを町に招待(リンク共有→相手が参加で住人に)。白・アイコン無しでタイトル横に。 */}
-            <Pressable style={s.inviteWhite} onPress={onInvite}><Text style={s.inviteWhiteT}>{t('town.invite')}</Text></Pressable>
+            <Pressable style={s.inviteWhite} onPress={onInvite}><Text style={s.inviteWhiteT} numberOfLines={2}>{t('town.invite')}</Text></Pressable>
           </View>
           <View style={s.topRight} pointerEvents="box-none">
             {/* 受信箱(友だちからの応援)は共通ヘッダー(設定の左の鐘)へ移設。ここには置かない。 */}
@@ -1166,12 +1166,12 @@ const s = StyleSheet.create({
   viewport: { ...StyleSheet.absoluteFillObject, overflow: 'hidden' },
   top: { position: 'absolute', top: 0, left: 0, right: 0 },
   topBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 12 },
-  topLeft: { flexDirection: 'row', alignItems: 'center', gap: 8, flexShrink: 1 },
+  topLeft: { flexDirection: 'row', alignItems: 'center', gap: 8, flex: 1, marginRight: 8 },
   topRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   bellBadge: { position: 'absolute', top: -3, right: -3, minWidth: 18, height: 18, borderRadius: 9, backgroundColor: '#e23b3b', borderWidth: 1.5, borderColor: '#ffffff', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 },
   bellBadgeT: { color: '#ffffff', fontSize: 10, fontWeight: '900' },
-  pill: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,253,248,0.9)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7 },
-  pillT: { fontSize: 13, fontWeight: '900', color: '#3a3128' },
+  pill: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,253,248,0.9)', borderRadius: 16, paddingHorizontal: 14, paddingVertical: 7, flexShrink: 1 },
+  pillT: { fontSize: 13, fontWeight: '900', color: '#3a3128', flexShrink: 1 },
   // 町の友だち一覧(ボトムシート)。
   memberBackdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)' },
   memberSheet: { position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: '#fbf7ef', borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 18, paddingTop: 14, paddingBottom: 30 },
@@ -1197,8 +1197,8 @@ const s = StyleSheet.create({
   msgSubmit: { marginTop: 12, backgroundColor: '#e2588f', borderRadius: 12, paddingVertical: 14, alignItems: 'center' },
   msgSubmitT: { color: '#fff', fontSize: 15, fontWeight: '900' },
   // 友だちを町に招待=白ボタン(アイコン無し)。タイトル横。
-  inviteWhite: { backgroundColor: 'rgba(255,253,248,0.95)', borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7, borderWidth: 1, borderColor: 'rgba(58,49,40,0.15)' },
-  inviteWhiteT: { fontSize: 13, fontWeight: '900', color: '#3a3128', letterSpacing: 0.2 },
+  inviteWhite: { backgroundColor: 'rgba(255,253,248,0.95)', borderRadius: 16, paddingHorizontal: 14, paddingVertical: 7, borderWidth: 1, borderColor: 'rgba(58,49,40,0.15)', flexShrink: 1 },
+  inviteWhiteT: { fontSize: 13, fontWeight: '900', color: '#3a3128', letterSpacing: 0.2, textAlign: 'center', flexShrink: 1 },
   close: { width: 38, height: 38, borderRadius: 19, backgroundColor: 'rgba(255,253,248,0.9)', alignItems: 'center', justifyContent: 'center' },
   bottom: { position: 'absolute', left: 0, right: 0, bottom: 0 },
   stickWrap: { paddingBottom: 26 }, // 左右はhandedで付与(右利き=右)

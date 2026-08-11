@@ -50,7 +50,6 @@ export interface Settings {
   devPro?: boolean;                         // 【開発用】ON=Pro課金状態 / OFF=無課金として扱う
   devFree?: boolean;                        // 【開発用】ON=無料ユーザー扱い(お試し中でも無料・1日の上限も実際にかける)
   devPassPct?: number | null;               // 【開発用】0-100を設定するとhomeStatus.passPctを固定(辞書背景/AIコーチ等の挙動確認)。null/未設定=自動計算
-  devRewardHalf?: boolean;                   // 【開発用】ON=ご褒美イラストを1/2(2回に1回)出す。通常は約1/10(REWARD_EVERY=10)
   devUnlimitedMock?: boolean;                // 【開発用】ON=模試チケットを消費せず無制限に受験できる(チケット0でも開始可)
   devMockSkip?: boolean;                      // 【開発用】ON=模試中に「次の休憩へ」スキップボタンを表示(現ブロックの設問を全カットして次の休憩/終了へ)
   devUnlockAll?: boolean;                      // 【開発用】ON=書斎の学習モードを全体カバー率に関係なく全解禁(動作確認用)。ポイント無限とは独立
