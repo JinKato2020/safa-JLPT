@@ -65,6 +65,15 @@ create table if not exists public.entitlements (
 -- 既存テーブルへの後付けマイグレーション(列が無いと trial-claim の update が失敗する)。デプロイ前に必ず実行。
 alter table public.entitlements add column if not exists trial_claimed_at timestamptz;
 
+-- 有料サブスク(1月/1年Pro)の状態。RevenueCat Webhook(EF 'revenuecat-webhook')が service_role で更新する。
+--   pro_store_until が未来 = 課金が有効。plan で 1月/1年 を見分ける。紹介/お試しの pro_until とは別物(独立)。
+alter table public.entitlements add column if not exists pro_plan text;            -- 'monthly' | 'yearly' | null(商品IDから推定)
+alter table public.entitlements add column if not exists pro_product_id text;       -- 店の商品ID(生)
+alter table public.entitlements add column if not exists pro_store_until timestamptz; -- 課金の有効期限(store expiration)
+alter table public.entitlements add column if not exists pro_will_renew boolean;     -- 自動更新が続く見込みか(解約でfalse)
+alter table public.entitlements add column if not exists pro_store_event text;       -- 最後に受けたイベント種別(監査用)
+alter table public.entitlements add column if not exists pro_store_updated_at timestamptz; -- 最後にWebhookで更新した時刻
+
 alter table public.referral_codes enable row level security;
 alter table public.referrals enable row level security;
 alter table public.entitlements enable row level security;

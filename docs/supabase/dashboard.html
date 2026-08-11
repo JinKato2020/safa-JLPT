@@ -336,18 +336,32 @@ const LANG_JA = { ja:'日本語', en:'英語', ne:'ネパール語', vi:'ベト�
 const langLabel = code => { const c=String(code||'').toLowerCase(); return LANG_JA[c] || code; };
 
 // ── 課金の状態(状態列) ──
-// サーバー(entitlements)に保存があるのは pro_until(紹介/お試しで延ばした終了時刻)と trial_claimed_at(お試し受取日)だけ。
-// 有料課金(1年Pro/1月Pro)はストアのフラグをサーバーへ同期していない=今は判別できない(将来 r.pro_plan 等が入れば追加する)。
-// お試し・紹介はどちらも「期間つきPro」なので状態は「7日Pro」の1本にまとめ、実際の残り日数を併記する(紹介が続くと7日を超えて延びる)。
-function proEnd(r){
+// 2種類のProがある。①有料サブスク(1月/1年Pro)=RevenueCat Webhookで pro_store_until/pro_plan に同期。
+// ②期間つきPro(7日Pro)=お試し(trial_claimed_at)・紹介(pro_until)。どちらも「期間つき」なので1本にまとめ残日数を併記。
+// 表示優先は 有料 > 期間つき > 無料。有料と期間つきを両方持つ人は有料を主表示し、期間つきの残りは注記に回す。
+function paidEnd(r){ return r.pro_store_until ? Date.parse(r.pro_store_until) : 0; }        // 有料サブスクの期限
+function grantEnd(r){                                                                         // お試し/紹介の期限
   const until = r.pro_until ? Date.parse(r.pro_until) : 0;
   const trialEnd = r.trial_claimed_at ? Date.parse(r.trial_claimed_at) + 7*864e5 : 0;
   return Math.max(until||0, trialEnd||0);
 }
+function proEnd(r){ return Math.max(paidEnd(r), grantEnd(r)); }  // 並べ替え用(いちばん先の期限)
+function planLabel(r){
+  if(r.pro_plan === 'yearly')  return '1年Pro';
+  if(r.pro_plan === 'monthly') return '1月Pro';
+  return '課金Pro';  // 商品IDから月/年を判別できなくても、課金Proである事は分かる
+}
 function proCell(r){
-  const end = proEnd(r), now = Date.now();
-  if(end > now){
-    const days = Math.ceil((end - now)/864e5);
+  const now = Date.now(), paid = paidEnd(r), grant = grantEnd(r);
+  if(paid > now){  // ① 有料サブスクが有効(最優先表示)
+    const days = Math.ceil((paid - now)/864e5);
+    const renew = r.pro_will_renew === false ? ' <span class="muted" title="自動更新オフ。期限までは有効">更新オフ</span>' : '';
+    const pidT = r.pro_product_id ? ` title="${esc(String(r.pro_product_id))}"` : '';
+    const g = grant > now ? ` <span class="muted" title="お試し/紹介の期間つきProも保有">＋7日Pro</span>` : '';
+    return `<span${pidT}>${pill(planLabel(r),'good')}</span> <span class="muted">残${days}日</span>` + renew + g;
+  }
+  if(grant > now){  // ② お試し/紹介の期間つきPro
+    const days = Math.ceil((grant - now)/864e5);
     const g = Number(r.reward_grant_count||0);
     const extra = g>0 ? ` <span class="muted" title="紹介の継続達成でのべ${g}回 ＋7日された">紹介${g}</span>` : '';
     return pill('7日Pro','good') + ` <span class="muted">残${days}日</span>` + extra;
@@ -359,7 +373,7 @@ const COLS = [
     cell:r=> r.email ? esc(r.email) : `<span class="mono">${esc(String(r.anon_id||'').slice(0,8))}</span>` },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'利用者', key:'pro_state', label:'状態',
-    title:'課金の状態。無料＝Pro無し／7日Pro＝お試し・紹介の期間つきPro（紹介が続くと7日を超えて延びる。残り日数を併記）。※1年Pro・1月Proはストア課金をサーバーへ同期したら表示（同期は未実装）',
+    title:'課金の状態。無料＝Pro無し／1年Pro・1月Pro＝有料サブスク（RevenueCat課金・残り日数と自動更新の有無を併記）／7日Pro＝お試し・紹介の期間つきPro（紹介が続くと7日を超えて延びる）。有料と期間つきを両方持つ人は有料を主表示',
     val:r=>proEnd(r), cell:r=>proCell(r) },
   { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
   { g:'プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },

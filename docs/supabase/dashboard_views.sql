@@ -37,10 +37,15 @@ select
   u.email,
   -- 課金状態(アカウント単位。匿名は entitlements 行が無い=null)。
   --   pro_until=紹介/お試しで延ばした期間つきProの終了時刻 / trial_claimed_at=お試し(7日)を受け取った日時 /
-  --   reward_grant_count=紹介の継続達成でのべ +7日 された回数。※有料課金(1年/1月)はサーバー未同期=ここには出ない。
+  --   reward_grant_count=紹介の継続達成でのべ +7日 された回数。
+  --   pro_*=有料サブスク(RevenueCat Webhookで同期)。pro_store_until が未来なら課金有効、pro_plan で 1月/1年 を判別。
   en.pro_until,
   en.trial_claimed_at,
-  en.reward_grant_count
+  en.reward_grant_count,
+  en.pro_plan,
+  en.pro_product_id,
+  en.pro_store_until,
+  en.pro_will_renew
 from (
   select distinct on (anon_id, data->>'level')
     anon_id,
