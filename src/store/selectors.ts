@@ -519,11 +519,12 @@ export function pacePrediction(state: AppState, now: number): PacePrediction {
   return { passing: false, perDay: Math.round(perDay * 10) / 10, itemsNeeded: needed, daysToPass };
 }
 
-const NBA_MAP: Record<Category, { label: string; route: 'Flashcard' | 'Quiz' | 'Reading' | 'Listening' }> = {
-  moji_goi: { label: '漢字・語彙', route: 'Flashcard' },
-  bunpou: { label: '文法', route: 'Quiz' }, // 文法は大問フロー(学習→四択)へ。旧Grammar画面は廃止。
-  dokkai: { label: '読解', route: 'Reading' },
-  choukai: { label: '聴解', route: 'Listening' },
+// route のみ(表示ラベルは reasonKey で画面側 i18n。旧 label フィールドは未使用のため撤去)。
+const NBA_MAP: Record<Category, { route: 'Flashcard' | 'Quiz' | 'Reading' | 'Listening' }> = {
+  moji_goi: { route: 'Flashcard' },
+  bunpou: { route: 'Quiz' }, // 文法は大問フロー(学習→四択)へ。旧Grammar画面は廃止。
+  dokkai: { route: 'Reading' },
+  choukai: { route: 'Listening' },
 };
 
 export interface NextAction {

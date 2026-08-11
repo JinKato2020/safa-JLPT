@@ -259,7 +259,7 @@ export default function KakitoriScreen() {
           <KomeCell ch={effStep === 2 ? '？' : char} s={s} />
           <View style={{ flex: 1 }}>
             <Text style={s.infoReading}>{isKana ? romajiOf(char) : readingLine(char)}</Text>
-            <Text style={s.infoMeaning} numberOfLines={1}>{isKana ? (script === 'hiragana' ? 'ひらがな' : 'カタカナ') : (info?.meaning ?? '')}</Text>
+            <Text style={s.infoMeaning} numberOfLines={1}>{isKana ? t(script === 'hiragana' ? 'common.hiragana' : 'common.katakana') : (info?.meaning ?? '')}</Text>
             {!isKana && !!exampleWord(char) && effStep !== 2 && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
           </View>
           <Pressable onPress={() => (isKana ? (Speech.stop(), Speech.speak(char, { language: 'ja-JP' })) : speak(char, { manual: true }))} hitSlop={10}><Ionicons name="headset-outline" size={26} color={c.blue} /></Pressable>

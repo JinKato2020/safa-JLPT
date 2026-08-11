@@ -75,7 +75,7 @@ export default function KanjiDetailScreen() {
   const readingRow = (r: RdLine, i: number) => (
     <View style={s.readRow} key={i}>
       <View style={s.readHead}>
-        <Text style={s.readTag}>{r.type === 'on' ? '音' : '訓'}</Text>
+        <Text style={s.readTag}>{t(r.type === 'on' ? 'browse.tag_on' : 'browse.tag_kun')}</Text>
         <Text style={s.readLabel}>{r.label}</Text>
         {readingAboveUserLevel(r.level, settings.level) && <Text style={s.readLevelBadge}>{r.level}</Text>}
         <Text style={s.readGloss} numberOfLines={2}>{r.gloss}</Text>

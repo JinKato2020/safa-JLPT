@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
-import { meaningL1 } from '../i18n';
+import { meaningL1, useT } from '../i18n';
 import { itemsFor, allWordsFor, VOCAB, KANJI, GRAMMAR, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
 import { effectiveP } from '../engine/engine';
 
@@ -21,6 +21,7 @@ import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 function VocabKanjiCard({ item }: { item: StudyItem }) {
   const c = useColors();
+  const t = useT();
   const s = useMemo(() => cardStyles(c), [c]);
   const { settings } = useAppState();
   const l1 = meaningL1(settings); // 母語コード(日本語UIは英語を既定)
@@ -43,7 +44,7 @@ function VocabKanjiCard({ item }: { item: StudyItem }) {
         {native ? <Text style={s.meaningEn}>{item.meaning}</Text> : null}
         {rows.map((r, i) => (
           <View key={i} style={s.exRow}>
-            <Text style={s.readTag}>{r.on ? '音' : '訓'} {r.on ? hiraToKata(r.reading) : r.reading}　</Text>
+            <Text style={s.readTag}>{t(r.on ? 'browse.tag_on' : 'browse.tag_kun')} {r.on ? hiraToKata(r.reading) : r.reading}　</Text>
             <View style={s.rubyWord}>
               <Text style={s.exRuby} numberOfLines={1}>{rubyGate(r.word) ? r.wordReading : ' '}</Text>
               <Text style={s.ex}>{r.word}</Text>

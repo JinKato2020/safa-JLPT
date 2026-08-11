@@ -90,7 +90,7 @@ export default function ProfileScreen() {
   const reminderOn = state.settings.reminder != null;
   const [remH, setRemH] = useState(() => Number((state.settings.reminder ?? '19:00').split(':')[0]));
   const [remM, setRemM] = useState(() => Number((state.settings.reminder ?? '19:00').split(':')[1]));
-  const applyReminder = (hh: number, mm: number) => { const v = `${pad2(hh)}:${pad2(mm)}`; setSettings({ reminder: v }); void scheduleDailyReminder(v); };
+  const applyReminder = (hh: number, mm: number) => { const v = `${pad2(hh)}:${pad2(mm)}`; setSettings({ reminder: v }); void scheduleDailyReminder(v, uiLang); };
   const stepH = (d: number) => { const nh = (remH + d + 24) % 24; setRemH(nh); if (reminderOn) applyReminder(nh, remM); };
   const stepM = (d: number) => { const nm = (remM + d * 5 + 60) % 60; setRemM(nm); if (reminderOn) applyReminder(remH, nm); };
   const toggleReminder = (v: boolean) => { if (v) applyReminder(remH, remM); else { setSettings({ reminder: null }); void cancelReminder(); } };

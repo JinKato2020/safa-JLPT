@@ -106,6 +106,11 @@ export default function HomeScreen() {
             />
             <Image source={RING} style={{ width: ringW, height: ringW }} resizeMode="contain" />
             <View style={styles.pct} pointerEvents="none">
+              {/* 読みやすさ用の敷き=リング穴の中央に半透明の暗い円をそっと敷く(背景イラストが明るくても文字が沈まない)。
+                  柔らかい影で縁をぼかし“ステッカー感”を出さない。文字塊(pctInner)より先に置く=背面。 */}
+              <View style={[StyleSheet.absoluteFillObject, styles.center]}>
+                <View style={[styles.scrim, { width: Math.round(holeW * 0.92), height: Math.round(holeW * 0.92), borderRadius: holeW }]} />
+              </View>
               {/* 数字＋ラベル(到達度)を縦に積み、その塊の中心を穴の中心に合わせる。ラベルは数字の下。
                   iOSは lineHeight<fontSize や textAlignVertical/includeFontPadding を無視するため、数字の
                   フォント下余白(ディセント)が残って離れて見えた。→ 数字を高さ固定の overflow:hidden で包み、
@@ -146,11 +151,14 @@ const styles = StyleSheet.create({
   wrap: { position: 'absolute', alignItems: 'center', justifyContent: 'center' },
   glow: { position: 'absolute' },
   pct: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
+  center: { alignItems: 'center', justifyContent: 'center' },
   pctInner: { alignItems: 'center', justifyContent: 'center' },
+  // 読みやすさ用の敷き=暗い半透明の円。柔らかい影で縁をぼかす(iOS=shadow / Android=elevation)。
+  scrim: { backgroundColor: 'rgba(8,12,24,0.46)', shadowColor: '#05070f', shadowOpacity: 0.55, shadowRadius: 12, shadowOffset: { width: 0, height: 0 }, elevation: 6 },
   lblRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  lbl: { fontWeight: '700', letterSpacing: 1.5, color: '#dbe4ff', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4, includeFontPadding: false },
-  num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(160,200,255,0.9)', textShadowRadius: 14, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
-  numSmall: { fontWeight: '800', color: '#eaf0ff' },
+  lbl: { fontWeight: '800', letterSpacing: 1.5, color: '#f2f6ff', textShadowColor: 'rgba(0,0,0,0.85)', textShadowRadius: 5, textShadowOffset: { width: 0, height: 1 }, includeFontPadding: false },
+  num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 7, textShadowOffset: { width: 0, height: 1 }, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
+  numSmall: { fontWeight: '800', color: '#eef3ff', textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 6, textShadowOffset: { width: 0, height: 1 } },
   // 今日のおすすめボタン(画面最下部・ボトムナビの上)。背景イラストの上でも読めるよう濃い青の不透明ピル。
   reco: { position: 'absolute', left: 32, right: 32, bottom: 14, backgroundColor: '#2f62d8', borderRadius: 999, paddingVertical: 14, alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 5 },
   recoTxt: { color: '#ffffff', fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },

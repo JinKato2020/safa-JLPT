@@ -7,6 +7,7 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
+import { useT } from '../i18n';
 import { rubyNeeded } from '../data';
 import RubyText from '../components/RubyText';
 import type { RootStackParamList } from '../navigation/types';
@@ -19,6 +20,7 @@ function scriptLines(sc: string): string[] {
 
 export default function QuestionReviewScreen() {
   const c = useColors();
+  const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation();
   const state = useAppState();
@@ -30,14 +32,14 @@ export default function QuestionReviewScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top', 'bottom']}>
       <View style={s.head}>
-        <Text style={s.headT}>問題の見直し</Text>
+        <Text style={s.headT}>{t('qreview.title')}</Text>
         <Pressable onPress={() => nav.goBack()} hitSlop={12}><Ionicons name="close" size={24} color={c.mute} /></Pressable>
       </View>
       <ScrollView contentContainerStyle={s.body} showsVerticalScrollIndicator={false}>
         {/* 読解の本文 */}
         {q.passage ? (
           <View style={s.card}>
-            <Text style={s.cardLabel}>本文</Text>
+            <Text style={s.cardLabel}>{t('qreview.passage')}</Text>
             <RubyText text={q.passage} style={s.passage} rubyStyle={s.ruby} rubyGate={rubyGate} />
           </View>
         ) : null}
@@ -45,7 +47,7 @@ export default function QuestionReviewScreen() {
         {/* 聴解の台本 */}
         {q.script ? (
           <View style={s.card}>
-            <Text style={s.cardLabel}>{q.clipTitle ? `台本（${q.clipTitle}）` : '台本'}</Text>
+            <Text style={s.cardLabel}>{q.clipTitle ? t('qreview.script_titled', { title: q.clipTitle }) : t('qreview.script')}</Text>
             <View style={s.scriptBox}>
               {scriptLines(q.script).map((line, i) => (
                 <RubyText key={i} text={line} style={s.script} rubyStyle={s.ruby} rubyGate={rubyGate} />
@@ -89,7 +91,7 @@ export default function QuestionReviewScreen() {
         {/* 解説 */}
         {q.explain ? (
           <View style={[s.card, s.explainCard]}>
-            <Text style={s.cardLabel}>解説</Text>
+            <Text style={s.cardLabel}>{t('qreview.explanation')}</Text>
             <Text style={s.explain}>{q.explain}</Text>
           </View>
         ) : null}

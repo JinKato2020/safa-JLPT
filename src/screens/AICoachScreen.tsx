@@ -15,7 +15,7 @@ import { useAppState } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
 import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
 import { dayStr, lastNDays } from '../store/state';
-import { expectedScoreFor, coverageBars, SECTION_LABEL } from '../store/selectors';
+import { expectedScoreFor, coverageBars } from '../store/selectors';
 import { dueCount } from '../review/selectReview';
 import { avatarOf } from '../plaza/avatars';
 import RingGauge from '../components/RingGauge';
@@ -160,7 +160,7 @@ export default function AICoachScreen() {
                   return (
                     <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
                       <View style={s.scoreHead}>
-                        <Text style={s.scoreLabel}>{SECTION_LABEL[sec.key] ?? sec.key}</Text>
+                        <Text style={s.scoreLabel}>{t('mock.block_' + sec.key)}</Text>
                         <Text style={[s.scoreStatus, { color: col }]}>{cleared ? t('coach.sec_cleared') : t('coach.sec_need', { n: sec.minPoint - sec.score })}</Text>
                       </View>
                       <View style={s.scoreBar}>
@@ -267,7 +267,7 @@ export default function AICoachScreen() {
                     return (
                       <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
                         <View style={s.scoreHead}>
-                          <Text style={s.scoreLabel}>{SECTION_LABEL[sec.key] ?? sec.key}</Text>
+                          <Text style={s.scoreLabel}>{t('mock.block_' + sec.key)}</Text>
                           <Text style={[s.scoreStatus, { color: col }]}>{cleared ? t('coach.sec_cleared') : t('coach.sec_need', { n: sec.min - sec.score })}</Text>
                         </View>
                         <View style={s.scoreBar}>

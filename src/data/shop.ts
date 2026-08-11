@@ -58,15 +58,4 @@ export const SHOP: ShopItem[] = [
   { id: 'tool_avatar_drink', cat: 'tool', kind: 'tool', price: 2000, name: 'すがた変えドリンク', emoji: '🧪' },
 ];
 export const SHOP_BY_ID: Record<string, ShopItem> = Object.fromEntries(SHOP.map((i) => [i.id, i]));
-
-// タブ定義。順=着せ替え→仲間→道具。
-export const SHOP_CATS: { cat: ShopCat; label: string }[] = [
-  { cat: 'dressup', label: '着せ替え' },
-  { cat: 'companion', label: '仲間' },
-  { cat: 'tool', label: '道具' },
-];
-
-// 着せ替えタブ内の小見出し(スロット別)。
-export const KIND_LABEL: Record<ShopKind, string> = {
-  hair: '髪型', outfit: '服', brush: '筆', costume: '民族衣装', companion: '仲間', tool: '道具',
-};
+// タブ/スロットの表示名は画面側の i18n(shop.tab_*)で解決するため、ここには持たない。

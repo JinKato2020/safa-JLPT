@@ -24,7 +24,6 @@ import { rubyForWord } from '../kakitori/furigana';
 import Dropdown from '../components/Dropdown';
 import { levelListFor } from '../words/levelList';
 import { studySections } from '../words/sections';
-import { CAT_BY_ID } from '../data/categories';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -352,8 +351,8 @@ export default function BrowseScreen() {
           renderItem={renderItem}
           renderSectionHeader={({ section }) => (
             <View style={s.catHeaderWrap}>
-              {section.umbrella ? <Text style={s.catUmbrella}>{CAT_BY_ID[section.umbrella]?.label}</Text> : null}
-              <Text style={s.catHeader}>{section.label}</Text>
+              {section.umbrella ? <Text style={s.catUmbrella}>{t('cat.' + section.umbrella)}</Text> : null}
+              <Text style={s.catHeader}>{t('cat.' + section.catId)}</Text>
             </View>
           )}
           stickySectionHeadersEnabled={false}

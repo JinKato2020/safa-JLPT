@@ -47,9 +47,10 @@ export default function UnlockCelebration({ visible, unlockKey, modeLabel, need,
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   backdrop: { flex: 1, backgroundColor: 'rgba(15,23,42,0.72)', alignItems: 'center', justifyContent: 'center', padding: spacing.xl },
   card: { width: '100%', maxWidth: 340, backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, alignItems: 'center', gap: spacing.sm },
-  // 絵は上寄せ(top:0)で表示し、はみ出す下側だけ hero が切る=上部の描き文字(モード名)を必ず残す。
-  hero: { width: '100%', aspectRatio: 760 / 1100, borderRadius: radius.md, overflow: 'hidden', backgroundColor: c.bgSoft },
-  img: { position: 'absolute', top: 0, left: 0, width: '100%', aspectRatio: 760 / 1350 },
+  // 枠は従来サイズ(760/1000)。絵(素材=760×1350)を「上寄せ」で置き、はみ出す下側だけ切る=上部の描き文字(モード名)を必ず残す。
+  //  img.height='135%'(=1350/1000)で枠より縦に長くし top:0 で上端そろえ。幅100%×高さ135%=素材と同比のため cover でも拡大されない。
+  hero: { width: '100%', aspectRatio: 760 / 1000, borderRadius: radius.md, overflow: 'hidden', backgroundColor: c.bgSoft },
+  img: { position: 'absolute', top: 0, left: 0, width: '100%', height: '135%' },
   reached: { fontSize: ty.body, fontWeight: '900', color: c.green, marginTop: 2 },
   unlockLine: { fontSize: ty.h1, fontWeight: '900', color: c.amber, textAlign: 'center' },
   praise: { fontSize: ty.small, color: c.mute, textAlign: 'center' },

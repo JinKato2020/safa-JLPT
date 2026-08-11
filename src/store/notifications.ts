@@ -1,6 +1,7 @@
 // 学習リマインドのローカル通知(無料・expo-notifications)。Web/一部Expo Goは制限→try/catchで安全に。
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
+import { translate } from '../i18n';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -24,21 +25,21 @@ export async function ensureNotificationPermission(): Promise<boolean> {
   }
 }
 
-/** 毎日 time("HH:MM") にリマインド。既存をクリアして1件だけ登録。成功で true。 */
-export async function scheduleDailyReminder(time: string): Promise<boolean> {
+/** 毎日 time("HH:MM") にリマインド。既存をクリアして1件だけ登録。成功で true。lang=登録時のUI言語で本文を母語化。 */
+export async function scheduleDailyReminder(time: string, lang = 'ja'): Promise<boolean> {
   if (Platform.OS === 'web') return false;
   if (!(await ensureNotificationPermission())) return false;
   try {
     if (Platform.OS === 'android') {
       await Notifications.setNotificationChannelAsync('reminder', {
-        name: '学習リマインド',
+        name: translate(lang, 'notif.channel'),
         importance: Notifications.AndroidImportance.DEFAULT,
       });
     }
     await Notifications.cancelAllScheduledNotificationsAsync();
     const [h, m] = time.split(':').map(Number);
     await Notifications.scheduleNotificationAsync({
-      content: { title: 'まいにちJLPT', body: '今日の一手で到達度を伸ばそう 🔥' },
+      content: { title: 'まいにちJLPT', body: translate(lang, 'notif.body') },
       trigger: { type: Notifications.SchedulableTriggerInputTypes.DAILY, hour: h, minute: m },
     });
     return true;

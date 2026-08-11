@@ -6,6 +6,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
+import { useT } from '../i18n';
 import { dayStr, daysBetween } from '../store/state';
 
 // 7月・12月の「第1日曜」= JLPT実施日(ProfileScreenと同じ算出)。
@@ -26,17 +27,9 @@ function nextJlpt(today: string): string {
   );
 }
 
-// 国内(日本)JLPTの受付期間。例年ほぼ固定(インターネット申込=MyJLPT)。7月回/12月回で分ける。
-//  7月回=3月下旬〜4月中旬 / 12月回=8月下旬〜9月中旬。年度により数日前後するため画面で注記＋公式確認を促す。
-const APPLY_PERIOD_JP: Record<'jul' | 'dec', string> = {
-  jul: '3月下旬〜4月中旬',
-  dec: '8月下旬〜9月中旬',
-};
-// 国内(日本)JLPTの受験料(全レベル共通)。※改定される場合があるため公式最新値に要更新。
-const FEE_JP = '7,500円';
-
 export default function ExamInfoCard() {
   const c = useColors();
+  const t = useT();
   const s = makeStyles(c);
   const state = useAppState();
 
@@ -51,16 +44,14 @@ export default function ExamInfoCard() {
   const isJft = (state.settings.targetExam ?? 'jlpt') === 'jft';
 
   const rows: { label: string; value: string }[] = [
-    { label: '試験日', value: examDate.replace(/-/g, '/') },
-    { label: '試験までの日数', value: `あと ${days} 日` },
+    { label: t('examinfo.exam_date'), value: examDate.replace(/-/g, '/') },
+    { label: t('examinfo.days_left'), value: t('examinfo.days_val', { n: days }) },
   ];
   if (!isJft) {
-    rows.push({ label: '受験申込み期間', value: APPLY_PERIOD_JP[season] });
-    rows.push({ label: '受験費用', value: FEE_JP });
+    rows.push({ label: t('examinfo.apply_period'), value: t(season === 'jul' ? 'examinfo.period_jul' : 'examinfo.period_dec') });
+    rows.push({ label: t('examinfo.fee'), value: t('examinfo.fee_val') });
   }
-  const note = isJft
-    ? '※JFT-Basicは通年CBT。申込みは随時、受験料は会場・国により異なります。'
-    : '※国内（日本）の受付期間・費用です。年度により数日前後し費用も改定される場合があります。海外は国により異なるため、最新は公式サイトでご確認ください。';
+  const note = isJft ? t('examinfo.note_jft') : t('examinfo.note_jlpt');
 
   return (
     <View style={s.card}>
