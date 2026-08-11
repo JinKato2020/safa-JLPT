@@ -67,24 +67,20 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 文脈 40万／70万（58%）・76123往復 — そろそろ /clear の頃合い
-- ツール呼び出しループが長い（指示1件に対し 66ターン・ツール26回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a47ab6769b1b9a288 general-purpose
 - ae9c448fbd26954a9 general-purpose
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/session-summary-LATEST.md
+- memory/handoff.md
 - memory/在庫問題数.txt
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- src/i18n/ne.json
-- src/i18n/en.json
-- src/i18n/ja.json
-- src/screens/QuizScreen.tsx
-- src/data/daimon.ts
+- content/problems/bunpou/order_N5.json
+- content/problems/bunpou/order_N4.json
+- content/problems/bunpou/order_N3.json
 
-_自動更新: 2026-08-11 23:36_
+_自動更新: 2026-08-12 01:55_
 <!-- AUTO:END -->

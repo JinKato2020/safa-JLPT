@@ -172,10 +172,11 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
             {reviewByRef && Object.keys(reviewByRef).length > 0 ? <Text style={s.listHint}>{t('reward.list_hint_review')}</Text> : null}
           </View>
           {words.map((w) => {
-            const saved = isInMyList(state.myList ?? [], w.ref);
+            const saved = !w.noSave && isInMyList(state.myList ?? [], w.ref);
             const memorized = review && w.correct === true; // 復習で正解=記憶したと判定
-            const rq = reviewByRef?.[w.ref.type + ':' + w.ref.id];
+            const rq = w.q ?? reviewByRef?.[w.ref.type + ':' + w.ref.id];
             const onRow = () => {
+              if (w.noSave) { if (rq) nav.navigate('QuestionReview', { q: rq }); return; } // 意味を持たない問題=保存不可。行タップで見直しへ。
               if (review) {
                 if (memorized) {
                   Alert.alert(t('reward.alert_memorized_title'), t('reward.alert_memorized_msg'), [
@@ -189,10 +190,20 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
               }
             };
             return (
-              <Pressable key={w.ref.type + w.ref.id} style={s.wrow} onPress={onRow} hitSlop={4} disabled={review && !memorized}>
-                <Ionicons name={saved ? 'checkbox' : 'square-outline'} size={22} color={!saved ? c.mute : review && !memorized ? c.mute : c.blue} />
+              <Pressable key={w.ref.type + w.ref.id} style={s.wrow} onPress={onRow} hitSlop={4} disabled={!w.noSave && review && !memorized}>
+                {w.noSave ? (
+                  // 意味を持たない問題=単語帳に保存できない。チェックの代わりに問題アイコン(見直し用)。
+                  <Ionicons name="document-text-outline" size={20} color={c.mute} />
+                ) : (
+                  <Ionicons name={saved ? 'checkbox' : 'square-outline'} size={22} color={!saved ? c.mute : review && !memorized ? c.mute : c.blue} />
+                )}
                 <View style={s.wtextWrap}>
-                  <RubyText text={w.word} style={s.wword} rubyStyle={s.wruby} />
+                  {w.noSave ? (
+                    // ラベル=問題文(長い)。ルビ括弧を外して1行に省略(「問題は何だったか」が分かればよい)。
+                    <Text style={[s.wword, s.wwordSub]} numberOfLines={1}>{w.word.replace(/[（(][ぁ-ゖァ-ヶー]+[）)]/g, '')}</Text>
+                  ) : (
+                    <RubyText text={w.word} style={s.wword} rubyStyle={s.wruby} />
+                  )}
                   {!!w.meaning && <Text style={s.wmean} numberOfLines={1}>{w.meaning}</Text>}
                 </View>
                 {w.correct != null && (
@@ -279,6 +290,7 @@ const makeStyles = (c: ThemeColors) =>
     wrow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, paddingVertical: 7 },
     wtextWrap: { flex: 1, flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm },
     wword: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    wwordSub: { flex: 1, fontWeight: '700', color: c.ink2 }, // 意味を持たない問題のラベル(問題文)。やや控えめ・1行省略。
     wruby: { color: c.mute },
     wmean: { flex: 1, fontSize: ty.small, color: c.mute },
     wexpand: { padding: 4, marginLeft: 2 },

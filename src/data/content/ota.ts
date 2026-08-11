@@ -2,11 +2,23 @@
 // SDK54 は expo-file-system/legacy を使う([expo-fs-legacy-sdk54] default importの新APIは無反応の罠)。
 import * as FileSystem from 'expo-file-system/legacy';
 import { diffManifest } from './otaDiff';
+import bundledManifest from '../../../content/_manifest.json';
 
 const BASE = 'https://jinkato2020.github.io/safa-JLPT/content/';
 const DIR = FileSystem.cacheDirectory + 'content/';
 const SHA_PATH = DIR + '_shas.json';
+const BUNDLE_TAG_PATH = DIR + '_bundle.tag';
 const enc = (p: string) => encodeURIComponent(p); // パス→安全なローカル名(セグメントの'_'も壊さない)
+
+// バンドル同梱コンテンツの識別子(全file→shaから決定的に算出)。アプリ更新でバンドルが変わると値が変わる。
+// これが変わったら「端末の古いOTAキャッシュは新バンドルより古い可能性」=そのキャッシュで新バンドルを上書きしない。
+function bundleTag(): string {
+  const files = (bundledManifest as { files?: Record<string, { sha256: string }> }).files ?? {};
+  const s = Object.keys(files).sort().map((k) => k + ':' + files[k].sha256).join('|');
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
+  return h.toString(16);
+}
 
 async function readJson<T>(uri: string, fallback: T): Promise<T> {
   try { return JSON.parse(await FileSystem.readAsStringAsync(uri)) as T; } catch { return fallback; }
@@ -17,6 +29,11 @@ export async function loadCachedFiles(): Promise<Record<string, unknown>> {
   try {
     const info = await FileSystem.getInfoAsync(DIR);
     if (!info.exists) return {};
+    // アプリ(バンドル)が更新されていたら、古いOTAキャッシュは使わない(バンドル=そのバージョンの正を優先)。
+    // 直後に syncContent が Pages から最新を取り直し、タグを更新する。これで「新バンドルの新規コンテンツが
+    // 旧OTAキャッシュに隠される」問題を無くす(例: 文法の母語訳が英語のまま出る)。失敗時も return{}=バンドルで安全。
+    const storedTag = await FileSystem.readAsStringAsync(BUNDLE_TAG_PATH).catch(() => '');
+    if (storedTag !== bundleTag()) return {};
     const names = await FileSystem.readDirectoryAsync(DIR);
     const out: Record<string, unknown> = {};
     for (const name of names) {
@@ -45,5 +62,6 @@ export async function syncContent(): Promise<void> {
       } catch { /* 個別失敗はスキップ(次回再取得) */ }
     }
     await FileSystem.writeAsStringAsync(SHA_PATH, JSON.stringify(cachedShas));
+    await FileSystem.writeAsStringAsync(BUNDLE_TAG_PATH, bundleTag()); // このバンドル版で同期完了=次回からキャッシュ有効
   } catch { /* オフライン/失敗は無害 */ }
 }

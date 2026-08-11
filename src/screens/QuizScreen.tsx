@@ -28,7 +28,9 @@ import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 // 学習カードの例文を表示。ふりがな「漢字（かな）」はレベル適応ルビ、対象部「【…】」は括弧を外して下線に統一。
 function LearnText({ text, target: explicitTarget, style, hitStyle, rubyStyle, rubyGate }: { text: string; target?: string; style: StyleProp<TextStyle>; hitStyle: StyleProp<TextStyle>; rubyStyle: StyleProp<TextStyle>; rubyGate: (run: string) => boolean }) {
-  const hasFuri = /[（(][^）)]*[）)]/.test(text); // 全角・半角どちらのふりがな括弧も対象
+  // ふりがな=「かな」が入った括弧のみルビ化する。訳文中の半角(補足)…例: ネパール語 "(आदरार्थी)" や英語 "(honorific)"…は
+  // かな以外なのでルビ化しない(Devanagari等はルビ処理で母音記号が土台から外れ ◌ に化けるため)。全角・半角どちらの括弧も対象。
+  const hasFuri = /[（(][ぁ-ゖァ-ヶー]+[）)]/.test(text);
   if (hasFuri) {
     const m = text.match(/【([\s\S]+?)】/);
     // 【…】があればそれを下線対象に、無ければ明示targetを使う(⑤用法=活用語も追従)。
@@ -124,7 +126,7 @@ export default function QuizScreen() {
   const [answered, setAnswered] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
   const [walletStart] = useState(() => walletPoints(state));
-  const [studiedRefs, setStudiedRefs] = useState<{ ref: SaveRef; correct: boolean; q?: StudiedQuestion }[]>([]); // この回に学習した語(終了時にまとめて私の単語帳へ・正誤も)＋問題スナップショット(正誤表の振り返り用)
+  const [studiedRefs, setStudiedRefs] = useState<{ ref?: SaveRef; correct: boolean; q?: StudiedQuestion }[]>([]); // この回に学習した語(終了時にまとめて私の単語帳へ・正誤も)＋問題スナップショット(正誤表の振り返り用)。refが無い(辞書に無い)問題も記録する
 
   const item = queue[idx];
   const answerId = typeof item === 'string' ? item : item?.id; // quizAnswer/SRSのキー(大問=項目#大問)
@@ -185,7 +187,7 @@ export default function QuizScreen() {
         <ScrollView contentContainerStyle={{ padding: spacing.lg, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' }}>
           <AfterStudyReward
             words={resolveStudiedWords(studiedRefs, meaningL1(settings))}
-            reviewByRef={Object.fromEntries(studiedRefs.filter((r) => r.q).map((r) => [r.ref.type + ':' + r.ref.id, r.q!]))}
+            reviewByRef={Object.fromEntries(studiedRefs.filter((r) => r.q && r.ref).map((r) => [r.ref!.type + ':' + r.ref!.id, r.q!]))}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={after.touched - before.touched}
             accuracy={answered ? Math.round((correctCount / answered) * 100) : 0}
@@ -204,11 +206,11 @@ export default function QuizScreen() {
     if (picked !== null) return;
     const isCorrect = choiceIdx === question.answerIndex;
     setPicked(choiceIdx);
-    if (question.saveRef) setStudiedRefs((r) => [...r, { ref: question.saveRef!, correct: isCorrect, q: {
-      prompt: question.prompt, example: question.example, furi: question.furi, furiTarget: question.furiTarget,
+    setStudiedRefs((r) => [...r, { ref: question.saveRef, correct: isCorrect, q: {
+      itemId: question.itemId, prompt: question.prompt, example: question.example, furi: question.furi, furiTarget: question.furiTarget,
       noTargetRuby: question.noTargetRuby, question: question.question, choices: question.choices, answerIndex: question.answerIndex,
-      picked: choiceIdx, explain: question.explain, correct: isCorrect,
-    } }]); // 学習語＋正誤＋問題スナップショット(正誤表から問題・選択肢を振り返れるように)を蓄積
+      picked: choiceIdx, explain: question.explain ?? question.orderSentence, correct: isCorrect,
+    } }]); // 全問=正誤＋問題スナップショットを蓄積(辞書に無い問題も残す=学習後リストに意味空欄で出す)
     if (answerId) quizAnswer(answerId, isCorrect);
     setAnswered((a) => a + 1);
     if (isCorrect) setCorrectCount((c) => c + 1);

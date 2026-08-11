@@ -960,8 +960,8 @@ export default function KotobaTownScreen() {
         // 6項目=2列×3行。各セルは「ラベル(上・小)＋値(下・大)」の縦積み。
         // 英語/ネパール語はラベルも値も長いため、横並び(ラベル：値)だと右列がはみ出して消える・文字が極小になる。
         // → 縦積みにして各値へ列幅いっぱい(≈38%)を与え、収まらない時だけ自動縮小(⋯で切らない)。左右対称でバランスも改善。
-        const L_X = 0.09, R_X = 0.53;          // 左列/右列の開始x(FW比)
-        const COL_W = 0.38;                    // 各列の値・下線の幅(FW比)
+        const L_X = 0.12, R_X = 0.53;          // 左列/右列の開始x(FW比)
+        const COL_W = 0.35;                    // 各列の値・下線の幅(FW比)
         const fsLab = Math.round(FW * 0.033);  // ラベル(小)
         const fsVal = Math.round(FW * 0.046);  // 値(大きめ=見やすく)
         return (
@@ -1083,8 +1083,8 @@ export default function KotobaTownScreen() {
           { lab: t('town.lbl_mood'), val: t('town.sakura_mood'), lab2: t('town.lbl_strong'), val2: t('town.sakura_strong') },
         ];
         // 縦積み(ラベル上・値下)＝英語/ネパール語でも右列が消えない・文字を大きく(NPC枠と同一仕様)。
-        const L_X = 0.09, R_X = 0.53;
-        const COL_W = 0.38;
+        const L_X = 0.12, R_X = 0.53;
+        const COL_W = 0.35;
         const fsLab = Math.round(FW * 0.033);
         const fsVal = Math.round(FW * 0.046);
         return (
