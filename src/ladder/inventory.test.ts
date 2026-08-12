@@ -6,10 +6,12 @@ const INV = buildInventory();
 
 // 在庫数は語彙を足すたびに動く。3525→3541 は表記のカタカナ孤児16問(コーラ/サッカー等)を
 // 救うため語彙を追加したもの(2026-07-17)。増減した時はここを更新する＝意図しない増減を検知する番人。
-test('inventory has vocab 3541 / kanji 612 / grammar 393', () => {
+test('inventory has vocab 3541 / kanji 612 / grammar 409', () => {
   assert.equal(INV.filter(i => i.type === 'vocab').length, 3541);
   assert.equal(INV.filter(i => i.type === 'kanji').length, 612);
-  assert.equal(INV.filter(i => i.type === 'grammar').length, 393);
+  // 393→403→408→409: pointId未割当の実在文法を辞書化＋passage null解消でN5点追加。
+  // 409 は本文非依存の活用ドリルを分離した指標対象外点 n5-g-92 を追加(2026-08-12)。
+  assert.equal(INV.filter(i => i.type === 'grammar').length, 409);
 });
 
 test('vocab items have 2 facets: on, meaning', () => {

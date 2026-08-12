@@ -14,7 +14,7 @@ import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
 import { recordFacet } from '../review/facetMastery';
-import { facetsForUnit, facetsForKakitori } from '../review/facetMap';
+import { facetsForUnit, facetsForKakitori, grammarFormatOf, GRAMMAR_NOVELTY_LAMBDA } from '../review/facetMap';
 import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, buyAvatarDrink as walletBuyAvatarDrink, spendAvatarChange as walletSpendAvatarChange, type ShopKind } from './wallet';
 import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket } from './tickets';
 import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
@@ -73,6 +73,20 @@ function withStudyDay(state: AppState, now: number): AppState {
   return { ...state, streak, growth };
 }
 
+// 文法の「出題形式novelty」重み。同じ文法点でも未着手/回答の少ない形式(穴埋め/組み立て/文章の文法)ほど
+// 1回の正誤を強く反映する(ソフト)。到達自体はどの形式でも可能=減点で塞がない。倍率=1+λ/(1+その形式の回答数)。
+function grammarNovelty(state: AppState, unit: string): { mul: number; gFmt: Record<string, number> } {
+  const gFmt = state.gFmt ?? {};
+  const fmt = grammarFormatOf(unit);
+  if (!fmt) return { mul: 1, gFmt };
+  const gt = facetsForUnit(unit).find((t) => t.facet === 'grammar' && t.weight >= 1);
+  if (!gt) return { mul: 1, gFmt };
+  const key = `${gt.itemId}#${fmt}`;
+  const n = gFmt[key] ?? 0;
+  const mul = 1 + GRAMMAR_NOVELTY_LAMBDA / (1 + n);
+  return { mul, gFmt: { ...gFmt, [key]: n + 1 } };
+}
+
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'HYDRATE':
@@ -85,8 +99,10 @@ export function reducer(state: AppState, action: Action): AppState {
       const immediate = action.itemId.endsWith('#kanji_read') || action.itemId.endsWith('#orthography');
       const next = recordQuiz(prev, action.correct, action.now, immediate);
       // 面別マスタリーへも合流(additive・従来のitems記録は維持)。統合復習/予想得点の正本。
-      const mastery = recordFacet(state.mastery ?? {}, facetsForUnit(action.itemId), action.correct, 'practice', action.now);
-      const withDay = withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next }, mastery }, action.now);
+      // 文法は出題形式noveltyで更新強度を可変(少ない形式ほど強く)。
+      const { mul: gMul, gFmt } = grammarNovelty(state, action.itemId);
+      const mastery = recordFacet(state.mastery ?? {}, facetsForUnit(action.itemId), action.correct, 'practice', action.now, gMul);
+      const withDay = withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next }, mastery, gFmt }, action.now);
       // 1問正解=2貝は quizAnswer 側の ADD_POINTS で付与(MOCK_ANSWERと同経路)。ここで足すと二重取りになるため学習日の記録だけ返す。
       return withDay;
     }
@@ -95,9 +111,10 @@ export function reducer(state: AppState, action: Action): AppState {
       // 既出(万一の再出題)は学習日のみ→暗記/再出題の水増しを防ぐ。台帳/非台帳(kb-/usg-/moji)を問わず統一。
       if (state.items[action.itemId]) return withStudyDay(state, action.now);
       const next = recordMock(newItemState(action.now), action.correct, action.now);
-      // 面へも合流(初見時のみ=itemsと同条件。mockは重み5)。
-      const mastery = recordFacet(state.mastery ?? {}, facetsForUnit(action.itemId), action.correct, 'mock', action.now);
-      return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next }, mastery }, action.now);
+      // 面へも合流(初見時のみ=itemsと同条件。mockは重み5)。文法は形式noveltyで更新強度を可変。
+      const { mul: gMul, gFmt } = grammarNovelty(state, action.itemId);
+      const mastery = recordFacet(state.mastery ?? {}, facetsForUnit(action.itemId), action.correct, 'mock', action.now, gMul);
+      return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next }, mastery, gFmt }, action.now);
     }
     case 'RECORD_MOCK':
       return { ...state, mockHistory: [...(state.mockHistory ?? []), action.result].slice(-60) };

@@ -1,7 +1,7 @@
 // 文章の文法(passage_grammar)の新経路配線テスト(Task 5)。旧BANKから除外＋passageGrammar.json経路が正しく繋がっているか。
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { BANK, daimonUnitIds } from './daimon';
+import { BANK, daimonUnitIds, METRIC_EXCLUDED_POINTS } from './daimon';
 import { PASSAGE_GRAMMAR, passageGrammarSetsFor } from './index';
 
 test('BANK に passage_grammar が含まれない(新経路へ移行)', () => {
@@ -12,10 +12,13 @@ test('passageGrammarSetsFor は級で絞る', () => {
   const n3 = passageGrammarSetsFor('N3');
   assert.ok(n3.length === 40 && n3.every((s) => s.level === 'N3'));
 });
-test('daimonUnitIds(passage_grammar) はセットの全設問idを返す(母数=リング/カバー率分母)', () => {
+test('daimonUnitIds(passage_grammar) は設問idを返す(指標対象外点は母数から除外)', () => {
   const ids = daimonUnitIds('N3', 'passage_grammar', 'all');
   const n3 = passageGrammarSetsFor('N3');
-  const expected = n3.flatMap((s) => s.questions.map((q) => q.id));
+  const expected = n3
+    .flatMap((s) => s.questions)
+    .filter((q) => !METRIC_EXCLUDED_POINTS.has((q as { pointId?: string }).pointId ?? ''))
+    .map((q) => q.id);
   assert.equal(ids.length, expected.length);
   assert.deepEqual([...ids].sort(), [...expected].sort());
   assert.ok(ids.every((id) => /^N3-G-S-\d{4}-q\d$/.test(id)));

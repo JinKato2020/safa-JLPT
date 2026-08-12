@@ -914,7 +914,7 @@ export default function KotobaTownScreen() {
         const dlgW = Math.round(SW * 0.95);       // 会話ダイアログ幅=左右に少し余白
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
         const dlgBottom = Math.round(SW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
-        const stH = FW; // ステータス枠=正方形
+        const stH = Math.round(FW * 1.2); // ステータス枠=縦20%拡大の枠に合わせる(母語の長い文字を収める・比率配置は保たれる)
         // 台詞は「1文=1ページ」で分割し、…で切れないようにする(長い名前で折り返しても3行まで収まる)。▽で送る。
         const pages: string[] = [
           t('persona.talk.greet', { nick: talk.nick }),
@@ -960,8 +960,8 @@ export default function KotobaTownScreen() {
         // 6項目=2列×3行。各セルは「ラベル(上・小)＋値(下・大)」の縦積み。
         // 英語/ネパール語はラベルも値も長いため、横並び(ラベル：値)だと右列がはみ出して消える・文字が極小になる。
         // → 縦積みにして各値へ列幅いっぱい(≈38%)を与え、収まらない時だけ自動縮小(⋯で切らない)。左右対称でバランスも改善。
-        const L_X = 0.12, R_X = 0.53;          // 左列/右列の開始x(FW比)
-        const COL_W = 0.35;                    // 各列の値・下線の幅(FW比)
+        const L_X = 0.12, R_X = 0.55;          // 左列/右列の開始x(FW比)
+        const LCOL_W = 0.40, RCOL_W = 0.33;                    // 各列の値・下線の幅(FW比)
         const fsLab = Math.round(FW * 0.033);  // ラベル(小)
         const fsVal = Math.round(FW * 0.046);  // 値(大きめ=見やすく)
         return (
@@ -998,22 +998,22 @@ export default function KotobaTownScreen() {
                   const y = stH * (0.15 + i * 0.118);   // 行の上端(ラベル)
                   const vy = y + fsLab * 1.15;          // 値(ラベルの下)
                   const uy = vy + fsVal * 1.25;         // 下線(値の下)
-                  const cell = (x: number, lab: string, val: string) => (
+                  const cell = (x: number, lab: string, val: string, w: number) => (
                     <>
-                      <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{lab}</Text>
-                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: vy, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{val}</Text>
-                      <View style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                      <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, color: subCol, fontSize: fsLab, fontWeight: '600' }}>{lab}</Text>
+                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, fontWeight: '600' }}>{val}</Text>
+                      <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
                     </>
                   );
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      {cell(L_X, f.lab, f.val)}
-                      {cell(R_X, f.lab2, f.val2)}
+                      {cell(L_X, f.lab, f.val, LCOL_W)}
+                      {cell(R_X, f.lab2, f.val2, RCOL_W)}
                     </View>
                   );
                 })}
                 {/* 見出し「覚えた単語」(中央・区切り線の下)。 */}
-                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '900', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
+                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '600', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
                 {/* 3バー: 漢字/語彙/文法 = 内訳(色分け)＋語数。 */}
                 {CATS.map((c, i) => {
                   const y = stH * (0.63 + i * 0.105);
@@ -1021,11 +1021,11 @@ export default function KotobaTownScreen() {
                   const fill = Math.max(0.04, Math.min(1, 0.82 * c.n / catMax));
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y, color: subCol, fontSize: FS_LAB, fontWeight: '800' }}>{c.lab}</Text>
+                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y, color: subCol, fontSize: FS_LAB, fontWeight: '600' }}>{c.lab}</Text>
                       <View style={{ position: 'absolute', left: bx0, top: y + 1, width: bw, height: Math.round(FW * 0.036), borderRadius: 6, backgroundColor: 'rgba(120,100,70,0.16)', borderWidth: 1, borderColor: 'rgba(120,100,70,0.4)', overflow: 'hidden' }}>
                         <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: Math.round(bw * fill), backgroundColor: c.col, borderRadius: 6 }} />
                       </View>
-                      <Text style={{ position: 'absolute', left: bx1 + FW * 0.025, top: y, color: inkCol, fontSize: FS_VAL, fontWeight: '800' }}>{c.n}</Text>
+                      <Text style={{ position: 'absolute', left: bx1 + FW * 0.025, top: y, color: inkCol, fontSize: FS_VAL, fontWeight: '600' }}>{c.n}</Text>
                     </View>
                   );
                 })}
@@ -1062,7 +1062,7 @@ export default function KotobaTownScreen() {
         const dlgW = Math.round(SW * 0.95);       // 会話ダイアログ幅=左右に少し余白
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
         const dlgBottom = Math.round(SW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
-        const stH = FW;
+        const stH = Math.round(FW * 1.2); // ステータス枠=縦20%拡大の枠に合わせる(桜側・母語の長い文字を収める)
         const sayCol = isDay ? '#2d2113' : '#eaf1ff';
         const sayName = isDay ? '#9a6e1b' : '#ffd66e';
         const inkCol = '#2d2113', subCol = '#7a5f2e';
@@ -1083,8 +1083,8 @@ export default function KotobaTownScreen() {
           { lab: t('town.lbl_mood'), val: t('town.sakura_mood'), lab2: t('town.lbl_strong'), val2: t('town.sakura_strong') },
         ];
         // 縦積み(ラベル上・値下)＝英語/ネパール語でも右列が消えない・文字を大きく(NPC枠と同一仕様)。
-        const L_X = 0.12, R_X = 0.53;
-        const COL_W = 0.35;
+        const L_X = 0.12, R_X = 0.55;
+        const LCOL_W = 0.40, RCOL_W = 0.33;
         const fsLab = Math.round(FW * 0.033);
         const fsVal = Math.round(FW * 0.046);
         return (
@@ -1115,32 +1115,32 @@ export default function KotobaTownScreen() {
                   const y = stH * (0.15 + i * 0.118);
                   const vy = y + fsLab * 1.15;
                   const uy = vy + fsVal * 1.25;
-                  const cell = (x: number, lab: string, val: string) => (
+                  const cell = (x: number, lab: string, val: string, w: number) => (
                     <>
-                      <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: y, color: subCol, fontSize: fsLab, fontWeight: '800' }}>{lab}</Text>
-                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: vy, color: inkCol, fontSize: fsVal, fontWeight: '800' }}>{val}</Text>
-                      <View style={{ position: 'absolute', left: FW * x, width: FW * COL_W, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                      <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, color: subCol, fontSize: fsLab, fontWeight: '600' }}>{lab}</Text>
+                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, fontWeight: '600' }}>{val}</Text>
+                      <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
                     </>
                   );
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      {cell(L_X, f.lab, f.val)}
-                      {f.lab2 ? cell(R_X, f.lab2, f.val2) : null}
+                      {cell(L_X, f.lab, f.val, LCOL_W)}
+                      {f.lab2 ? cell(R_X, f.lab2, f.val2, RCOL_W) : null}
                     </View>
                   );
                 })}
                 {/* 覚えた単語=桜はマックス(3バー満タン)。 */}
-                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '900', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
+                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '600', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
                 {[{ lab: t('town.facet.kanji'), col: '#4a7fc0' }, { lab: t('town.facet.vocab'), col: '#6f9a3f' }, { lab: t('town.facet.grammar'), col: '#c0603a' }].map((c, i) => {
                   const y = stH * (0.63 + i * 0.105);
                   const bx0 = FW * 0.28, bx1 = FW * 0.76, bw = bx1 - bx0;
                   return (
                     <View key={`sc${i}`} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y, color: subCol, fontSize: FS_LAB, fontWeight: '800' }}>{c.lab}</Text>
+                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y, color: subCol, fontSize: FS_LAB, fontWeight: '600' }}>{c.lab}</Text>
                       <View style={{ position: 'absolute', left: bx0, top: y + 1, width: bw, height: Math.round(FW * 0.036), borderRadius: 6, backgroundColor: 'rgba(120,100,70,0.16)', borderWidth: 1, borderColor: 'rgba(120,100,70,0.4)', overflow: 'hidden' }}>
                         <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: bw, backgroundColor: c.col, borderRadius: 6 }} />
                       </View>
-                      <Text style={{ position: 'absolute', left: bx1 + FW * 0.025, top: y, color: inkCol, fontSize: FS_VAL, fontWeight: '900' }}>MAX</Text>
+                      <Text style={{ position: 'absolute', left: bx1 + FW * 0.025, top: y, color: inkCol, fontSize: FS_VAL, fontWeight: '600' }}>MAX</Text>
                     </View>
                   );
                 })}

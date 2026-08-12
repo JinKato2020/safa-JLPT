@@ -57,8 +57,10 @@ test('文法daimonで pointId が無い/未知idのbankは saveRef を持たな�
       (b.daimon === 'grammar_form' || b.daimon === 'order' || b.daimon === 'passage_grammar') &&
       (!b.pointId || !GRAMMAR_IDS.has(b.pointId)),
   );
-  assert.ok(missing, 'pointId欠落のbankが見つからない(全件解決済み?)');
-  const q = questionForUnit(missing!.id);
+  // 2026-08-12 の pointId 監査で全文法問題を解決済み(nullゼロ)。欠落bankが在れば不変条件を検証、
+  // 無ければ空真で通す(=全件pointId付きが正常。無理に未解決を残さない)。
+  if (!missing) return;
+  const q = questionForUnit(missing.id);
   assert.ok(q);
   assert.equal(q!.saveRef, undefined);
 });

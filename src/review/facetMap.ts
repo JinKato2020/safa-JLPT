@@ -95,6 +95,23 @@ export function facetsForUnit(unit: string): FacetTarget[] {
   return [];
 }
 
+/** ソフトnovelty重みの強さ。1回の更新倍率 = 1 + λ/(1+その形式の回答数)。λ=1 なら初回≈2倍・以後1へ。 */
+export const GRAMMAR_NOVELTY_LAMBDA = 1;
+
+/** 文法の「出題形式(daimon)」を返す。文法面に統合される3形式のみ対象、それ以外は null。
+ *  novelty重み(pointId×形式の回答数)の集計キー用。gbuild/gmeaning(補強)や listen 由来は対象外(null)。 */
+export function grammarFormatOf(unit: string): string | null {
+  const hash = unit.lastIndexOf('#');
+  if (hash >= 0) {
+    const suffix = unit.slice(hash + 1);
+    return DAIMON_FACET[suffix] === 'grammar' ? suffix : null;
+  }
+  const kb = KB_RESOLVE.get(unit);
+  if (kb && DAIMON_FACET[kb.daimon] === 'grammar') return kb.daimon;
+  if (PASSAGE_Q_IDS.has(unit)) return 'passage_grammar';
+  return null;
+}
+
 /** 書き取り(漢字1字)の合否 → write(副 read) を底上げ(補強・成功のみ)。設計§3.3/§6。 */
 export function facetsForKakitori(char: string): FacetTarget[] {
   return [{ itemId: char, facet: 'write', weight: 0.85 }, { itemId: char, facet: 'read', weight: 0.6 }];

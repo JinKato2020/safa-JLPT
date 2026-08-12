@@ -3,7 +3,7 @@ import { computeReadiness, effectiveP, type Category, type Level, type SectionIn
 import { examOf } from '../engine/examProfile';
 import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR, VOCAB_FREQ, readingIdsBySub, listeningIdsBySub } from '../data';
 import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT, type Daimon } from '../data/examBlueprint';
-import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits, bankLevelOf } from '../data/daimon';
+import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits, bankLevelOf, METRIC_EXCLUDED_POINTS } from '../data/daimon';
 import { hasKanji } from '../quiz/quiz';
 import { facetsForUnit, type Facet } from '../review/facetMap';
 import { facetEffectiveP } from '../review/facetMastery';
@@ -427,10 +427,10 @@ export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vo
     kTotal++; if (masteredKanjiChars.has(k.char)) kLearned++;
   }
 
-  // 文法カバー率(文法面・in-scope)
+  // 文法カバー率(文法面・in-scope)。指標対象外の点(本文非依存の活用ドリル)は分母・分子から除外。
   let gLearned = 0, gTotal = 0;
   for (const g of GRAMMAR) {
-    if (!inScope(g.level)) continue;
+    if (!inScope(g.level) || METRIC_EXCLUDED_POINTS.has(g.id)) continue;
     gTotal++; if (learnedFacet(g.id, ['grammar'])) gLearned++;
   }
 

@@ -1,15 +1,19 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 1 回・5 ターン
-- 往復 82400 回
+- ツール呼び出し 23 回・54 ターン
+- 往復 96806 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
 - memory/在庫問題数.txt
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
+- md/聴解_作問フロー.md
+- tools/choukai/merge_and_gate.py
+- content/problems/choukai/sokuji_N5.json
+
+## ⚠️ 注意
+- - ⚠ 連続 54ターン（文脈 21万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 54ターン・ツール23回）— まとめ方を変える
 
 ## 次の一手
 - **🆕 2026-08-11 UI日本語ベタ書きのi18n化(進行中・未コミット/未ビルド)**: t()未経由の日本語UI(約772行/67ファイル)を ja/en/ne キー化。**済**=AICoach(coach.* 59)/Mock+Account(31)/Home+Onboard+MockIntro(12)/AfterStudyRewardのごほうびUI(reward.* 18)。**ProfileScreen開発用=隠しゲート化**(設定最下部バージョンを7回タップでdevUnlocked=true・__DEV__は既定true・実ユーザー非表示なので翻訳不要)。**桜ボイス多言語化=完了(end-to-end)**(voice.ts に `renderVoice(ids,tr)`＋`voice.<id>`キー・`voice.sep`(ja=''/en・ne=' ')。**AfterStudyReward**＝`renderVoice([...res.ids,extra?.id,closerId],t)`経由。**SakuraSpeech**＝`pickBubble`→`pickBubbleIds`(id列返し)にしt注入で`renderVoice`化・`NEWCOMER_BUBBLES`(5)→`voice.newcomer.*`・`SAKURA_CLOSERS`(8)→`voice.close_daily.*`・オススメ案内→`sakura.reco_hint`。**en/ne 全156キー翻訳投入済**(voice全句＋newcomer5＋reco・桜の癒し口調で創作寄り訳・en^ne差0・ja全在=フォールバック安全)=**tsc0・テスト390緑・en/ne実レンダリング確認済**(scratchpad/voice_translate.py)。**桜ボイス=完了**。**persona.ts(町)=完了(end-to-end)**=性格20＋セリフ20＋気分20＋会話バブル4ページ＋「また町で会おうね」を i18n(persona.trait/line/mood/talk・**67キーja/en/ne**・絵文字はmoodにそのまま)。persona.ts に t解決版 `traitLabel/moodMsgText/personaLine`＋有効キーガード追加(既存 personalityOf/moodMsgOf/label は**ja正本=テレメトリ/管理画面用に残置**)。差し替え=Account/Onboarding/KotobaTown(useT追加・timeout局所t→tm改名)=**tsc0・テスト390緑・en/ne実レンダリング確認済**(scratchpad/persona_translate.py＋talk_keys.py)。**KotobaTown本体=完了(end-to-end)**=上部バー/友だち一覧/解除Alert/共有文/応援送信シート/会話ステータス(名前・性格・得意・気分・国名・総時間)/覚えた単語バー(漢字語彙文法)/桜ほめ言葉6/桜ステータス/マスコットtag/CHEERS定型 を i18n(**town.* 49キー ja/en/ne**)。`sakuraPraise(streak,t)`＋module `facetLabel(t,ja)`(漢字語彙文法読解聴解→現在語)追加。CHEERS.labelは表示のみ→`t('town.cheer.'+key)`化(送信は`cheerSend(fid,key)`=受信側が母語解決)。`TAB_ORDER=['ホーム'…]`は**遷移route名=非翻訳(据置)**。personalityOf撤去→`traitLabel`、estEm局所t→s改名。=tsc0・テスト390緑・en/ne実レンダリング確認済(scratchpad/town_translate.py)。**CheerInbox/Browse/Invite=完了**=CheerInbox(応援キー→`t('town.cheer.'+key)`・旧定型6もtown.cheer.*追加・相対時刻`time.*`・受信箱UI`cheerinbox.*`・CHEER_INFO→CHEER_EMOJI化で幽霊ラベル排除)/Invite(useT+useUiLang・題/meta/sub/参加/断る/countryLabel(,'ja')→uiLang)/Browse(音訓tag=データを'on'/'kun'保持し描画時解決`browse.tag_on/kun`・再生a11y)。**Cards=変更不要**(既にlabelKey・残りは漢語文グリフとコメントのみ)。town.cheer legacy6+cheerinbox3+time4+invite10+browse3=+26キー。tsc0/テスト390緑。**i18n残り第2弾=完了**: ExamInfoCard(examinfo.* 10・期間/費用/注記も母語化)/QuestionReview(qreview.* 5)/Kakitori(common.hiragana/katakana)/KanjiDetail・Flashcard(音訓→browse.tag_*)/notifications(notif.channel/body・scheduleDailyReminder(time,lang)にlang追加・ProfileScreen callerでuiLang渡す)/**shop(柴犬12種shop.name_pet_{shiba,kuro}1-6追加＋旧pet_dog/fox/cat/tanuki 4幽霊キー削除＋未使用SHOP_CATS/KIND_LABEL削除)**/**categories(cat.<id> 55カテゴリをja/en/ne・BrowseScreenの見出しをt('cat.'+catId/umbrella)へ配線・CAT_BY_ID import除去)**。**MiniCalendar=対応不要**(profile.weekdays 3言語済)。**ProfileScreen開発用26=翻訳不要**(隠しゲート・実ユーザー非表示)。**badges.ts=未配線(computeBadges/BadgeGridはtestのみ参照=非表示)→スキップ**。**selectors.ts得意/科目ラベル=保留**(テレメトリ=ja正本と絡む・要精査)。+19+12+55=+86キー。tsc0/テスト390緑。**i18n以外の対象外**=wordDrill(かな)/index.ts(大問名→内部マップ)/virtualLearners(facetLabelで解決済)/countries(母語名=自称で正)/daimon.ts(出題文=問題)/dictView(読み区切り)。**問題関連(出題文・選択肢・解説・kana.ts・quiz.ts出題文)は対象外(日本語のまま)**。i18nキー=フラットなドットキー・CRLF維持・末尾追記のみ(全体再整形しない)。`tools/i18n_backlog.py`はjson差分専用でベタ書きは検出不可(コード走査は`scan_jp.py`方式)。

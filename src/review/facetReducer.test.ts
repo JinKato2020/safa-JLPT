@@ -46,3 +46,31 @@ test('スコープ外id(読解等)は面を作らない=mastery 空のまま', (
   assert.deepEqual(s.mastery, {}, '未知idは面ゼロ');
   assert.ok(s.items['reading-N3-xyz'], 'items へは従来通り記録');
 });
+
+// ── 文法の出題形式novelty(ソフト重み) ──
+const seedG = (p: number) => ({ 'n5-g-2': { grammar: { p, evidence: 3, updatedAt: NOW, reps: 1, intervalDays: 1, ease: 2.5, dueAt: NOW } } });
+
+test('gFmt: 文法回答で pointId#形式 の回答数を数える(形式別)', () => {
+  let s = reducer(base(), { type: 'QUIZ_ANSWER', itemId: 'n5-g-2#order', correct: true, now: NOW } as never);
+  assert.equal(s.gFmt!['n5-g-2#order'], 1, '組み立て1回目');
+  s = reducer(s, { type: 'QUIZ_ANSWER', itemId: 'n5-g-2#order', correct: true, now: NOW } as never);
+  assert.equal(s.gFmt!['n5-g-2#order'], 2, '組み立て2回目');
+  s = reducer(s, { type: 'QUIZ_ANSWER', itemId: 'n5-g-2#grammar_form', correct: true, now: NOW } as never);
+  assert.equal(s.gFmt!['n5-g-2#grammar_form'], 1, '穴埋めは別カウント');
+  assert.equal(s.gFmt!['n5-g-2#order'], 2, '組み立ては据え置き');
+});
+
+test('novelty: 未着手の形式で間違えるほうが、慣れた形式で間違えるより大きく下がる', () => {
+  // 同じ開始習得(p=1)から、同じ形式で不正解。片方は回答数0(mul≈2)、片方は回答数20(mul≈1)。
+  const fresh = reducer({ ...base(), mastery: seedG(1), gFmt: {} }, { type: 'QUIZ_ANSWER', itemId: 'n5-g-2#order', correct: false, now: NOW } as never);
+  const grind = reducer({ ...base(), mastery: seedG(1), gFmt: { 'n5-g-2#order': 20 } }, { type: 'QUIZ_ANSWER', itemId: 'n5-g-2#order', correct: false, now: NOW } as never);
+  const pFresh = facetEffectiveP(fresh.mastery!, 'n5-g-2', 'grammar', NOW)!;
+  const pGrind = facetEffectiveP(grind.mastery!, 'n5-g-2', 'grammar', NOW)!;
+  assert.ok(pFresh < pGrind, `未着手形式の誤答が大きく効く: fresh ${pFresh} < grind ${pGrind}`);
+});
+
+test('novelty: 非文法(語彙)の面は倍率の影響を受けない', () => {
+  // #context(mean面)は grammar でないので gFmt を触らない。
+  const s = reducer(base(), { type: 'QUIZ_ANSWER', itemId: 'n5-v-2#context', correct: true, now: NOW } as never);
+  assert.deepEqual(s.gFmt ?? {}, {}, '語彙回答は gFmt を作らない');
+});

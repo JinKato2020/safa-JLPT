@@ -67,20 +67,24 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 54ターン（文脈 21万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 54ターン・ツール23回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a47ab6769b1b9a288 general-purpose
 - ae9c448fbd26954a9 general-purpose
 - a83565e1b69fe6554 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/session-summary-LATEST.md
-- memory/handoff.md
 - memory/在庫問題数.txt
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- content/problems/bunpou/order_N5.json
-- content/problems/bunpou/order_N4.json
-- content/problems/bunpou/order_N3.json
+- md/聴解_作問フロー.md
+- tools/choukai/merge_and_gate.py
+- content/problems/choukai/sokuji_N5.json
+- content/problems/choukai/sokuji_N4.json
+- content/problems/choukai/sokuji_N3.json
+- content/problems/choukai/hatsuwa_N5.json
+- content/problems/choukai/hatsuwa_N4.json
 
-_自動更新: 2026-08-12 01:55_
+_自動更新: 2026-08-12 23:35_
 <!-- AUTO:END -->

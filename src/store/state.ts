@@ -123,6 +123,7 @@ export interface AppState {
   };
   mastery?: MasterySlice;   // 単語×面(read/write/mean/listen/grammar)の統合苦手度。統合復習/予想得点の正本。旧stateには無い→移行で構築。
   masteryMigrated?: boolean; // 旧キー(items/kakitori)→面の一度きり移行を済ませたか。undefined/false=未移行。
+  gFmt?: Record<string, number>; // 文法点×出題形式(pointId#daimon)の回答回数。少ない形式ほど1回の正誤を強く反映(ソフト・novelty重み)。旧stateには無い→{}扱い。
   updatedAt?: number; // 最終更新(epoch ms)。クラウド同期のLWW比較基準。旧stateには無い→0扱い。
 }
 
@@ -171,6 +172,7 @@ export const INITIAL_STATE: AppState = {
   equipped: { hair: DEFAULT_HAIR_ID, brush: NONE_BRUSH_ID, costume: NONE_COSTUME_ID, companion: DEFAULT_COMPANION_ID },
   mastery: {},
   masteryMigrated: true, // 新規インストールは移行対象の旧データが無い＝済み扱い。旧ユーザーはloadStateの移行が偽→実行。
+  gFmt: {},
 };
 
 /** epoch ms → ローカル日付 YYYY-MM-DD */

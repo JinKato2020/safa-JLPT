@@ -26,8 +26,15 @@ QA(合否):
 import json, os, re, sys, copy, glob, argparse, statistics
 from collections import defaultdict
 import pykakasi
+sys.path.insert(0, os.path.dirname(__file__))
+from scene_ledger import classify as scene_classify, SCENE as SCENE_KEYS   # 場面(scenario)の確定に再利用
 try: sys.stdout.reconfigure(encoding='utf-8')
 except Exception: pass
+
+def resolve_scene(r):
+    """新規レコードの場面を確定。scenario_tag が正規カテゴリならそれ、無効/未指定なら台本から分類。"""
+    st = (r.get('scenario_tag') or '').strip()
+    return st if st in SCENE_KEYS else scene_classify(r.get('script') or '')
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 CDIR = os.path.join(REPO, 'content', 'problems', 'choukai')
@@ -118,11 +125,14 @@ def main():
                     problems.append(f'{tag} [{lv}] 本文mora={bm} < 下限{lo}(不足{lo-bm}) → 自然文を加筆(答え/一意性不変)'); redo_ids.add(rid)
                 elif bm > hi:
                     problems.append(f'{tag} [{lv}] 本文mora={bm} > 上限{hi}(超過{bm-hi}) → 作り直し(短縮は一意性を壊す恐れ)'); redo_ids.add(rid)
-            # 場面タグ重複(参考)
+            # 場面(scenario)= データに保存される確定値。scenario_tag が無効/未指定なら台本から自動確定。
             st = (r.get('scenario_tag') or '').strip()
-            if st:
-                if st in seen_scene[(cat, lv)]: problems.append(f'{tag}: 場面タグ重複 <{st}>(多様性・参考)')
-                seen_scene[(cat, lv)].add(st)
+            scene = resolve_scene(r)
+            if st and st not in SCENE_KEYS:
+                problems.append(f'{tag}: scenario_tag <{st}> は正規カテゴリ外→台本から自動確定=<{scene}>(参考)')
+            if scene in seen_scene[(cat, lv)]:
+                problems.append(f'{tag}: 場面重複 <{scene}>(多様性・参考)')
+            seen_scene[(cat, lv)].add(scene)
             ac = audio_chars(cat, sc, ch)
             stats.append((cat, lv, bm, ac, band))
         plan[cat] = recs
@@ -160,6 +170,7 @@ def main():
             for r in recs:
                 it = copy.deepcopy(tmpl)
                 it['id'], it['level'], it['script'] = r['id'], lv, r['script']
+                it['scenario'] = resolve_scene(r)   # 場面をデータに保存(tmplの継承値を上書き)
                 q = it['questions'][0]
                 q['id'], q['q'], q['choices'], q['answerIndex'] = r['id']+'-q1', r.get('question','') or '', r['choices'], 0
                 data['items'].append(it)

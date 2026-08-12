@@ -7,6 +7,10 @@ import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE,
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, sample, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
+import METRIC_EXCLUDED_ARR from './exam/metricExcludedPoints.json';
+
+// 学習指標(母数/カバー率/予想得点)から除外する文法点。本文非依存の活用ドリル等=出題はするが数えない。
+export const METRIC_EXCLUDED_POINTS = new Set<string>(METRIC_EXCLUDED_ARR as string[]);
 
 // my単語帳 saveRef 解決用の索引。
 // 文法daimon(grammar_form/order/passage_grammar)の bank.pointId → grammar.json 実在id のみ採用(欠落/不整合は無視)。
@@ -116,7 +120,8 @@ function split(all: string[], mode: 'all' | 'learn' | 'exam'): string[] {
 export function daimonUnitIds(level: Level, daimon: Daimon, mode: 'all' | 'learn' | 'exam' = 'all'): string[] {
   // 文章の文法=BANKから除外済(Task 5)。母数/リング/カバー率は passageGrammar.json の全設問idを分母にする
   // (PassageGrammarScreen+PassageSetPlayerが quizAnswer(q.id,...) を記録=同じ状態キー空間に乗る)。
-  if (daimon === 'passage_grammar') return split(passageGrammarSetsFor(level).flatMap((s) => s.questions.map((q) => q.id)), mode);
+  // 文章の文法=設問idを母数に。ただし指標対象外の点(本文非依存の活用ドリル)は分母から除外(出題自体はセットで継続)。
+  if (daimon === 'passage_grammar') return split(passageGrammarSetsFor(level).flatMap((s) => s.questions.filter((q) => !METRIC_EXCLUDED_POINTS.has((q as { pointId?: string }).pointId ?? '')).map((q) => q.id)), mode);
   const items = eligibleItems(level, daimon).map((it) => `${it.id}#${daimon}`);
   const fmt = DAIMON_FORMAT[daimon];
   const all = fmt === 'bank'

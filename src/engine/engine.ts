@@ -80,16 +80,17 @@ function scheduleAfterGrade(state: ItemState, grade: Grade, now: number, immedia
 
 /** 診断クイズ(客観採点・重み3)。正解=間隔↑、不正解=習得度↓＋再出題。
  *  immediateAgain=true(漢字読み/表記)は数分後に即再出題、false(他)は翌日以降。 */
-export function recordQuiz(state: ItemState, correct: boolean, now: number, immediateAgain = false): ItemState {
+export function recordQuiz(state: ItemState, correct: boolean, now: number, immediateAgain = false, weightMul = 1): ItemState {
   const grade: Grade = correct ? 'good' : 'again';
-  const updated = updateMastery(state, correct ? 1 : 0, SIGNAL_WEIGHT.practice, now);
+  const updated = updateMastery(state, correct ? 1 : 0, SIGNAL_WEIGHT.practice * weightMul, now);
   return { ...updated, ...scheduleAfterGrade(state, grade, now, immediateAgain) };
 }
 
-/** 本番形式テスト(客観採点・重み5=最も信頼度が高く±を狭める)。スケジュールも更新。 */
-export function recordMock(state: ItemState, correct: boolean, now: number): ItemState {
+/** 本番形式テスト(客観採点・重み5=最も信頼度が高く±を狭める)。スケジュールも更新。
+ *  weightMul: 更新強度の倍率(既定1)。文法の未着手形式ほど1回を強く反映する novelty 重み用。 */
+export function recordMock(state: ItemState, correct: boolean, now: number, weightMul = 1): ItemState {
   const grade: Grade = correct ? 'good' : 'again';
-  const updated = updateMastery(state, correct ? 1 : 0, SIGNAL_WEIGHT.mock, now);
+  const updated = updateMastery(state, correct ? 1 : 0, SIGNAL_WEIGHT.mock * weightMul, now);
   return { ...updated, ...scheduleAfterGrade(state, grade, now) };
 }
 
