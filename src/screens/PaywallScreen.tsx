@@ -2,7 +2,7 @@
 // Apple審査の必須要素: 各商品の価格・期間・自動更新の明示 / 「購入を復元」 / 規約・プライバシーへの導線。
 // キー未設定・商品未登録のうちは offering=null → 「まもなく提供」を出して閉じるだけ(壊れない)。
 import { useEffect, useRef, useState } from 'react';
-import { View, Text, Image, Pressable, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking, Animated, PanResponder } from 'react-native';
+import { View, Text, Image, Pressable, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking, Animated, PanResponder, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -44,6 +44,7 @@ export default function PaywallScreen() {
   const s = styles(c);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { setPurchaseActive } = useAppActions();
+  const { width: SW, height: SH } = useWindowDimensions(); // 画面いっぱいの大迫力バナー(高さ=画面の約40%)
 
   const [offering, setOffering] = useState<PurchasesOffering | null>(null);
   const [loading, setLoading] = useState(true);
@@ -104,8 +105,8 @@ export default function PaywallScreen() {
     <SafeAreaView style={s.c}>
       <Animated.View style={[s.sheet, { transform: [{ translateY: dragY }] }]}>
       <ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
-        {/* 画面上部: 桜のイラストバナー */}
-        <Image source={BANNER} style={s.banner} resizeMode="cover" />
+        {/* 画面上部: 桜のイラストバナー(画面幅いっぱい×画面高の約40%=大迫力ヒーロー) */}
+        <Image source={BANNER} style={[s.banner, { width: SW, height: Math.round(SH * 0.40) }]} resizeMode="cover" />
         <Text style={s.title}>{t('paywall.title')}</Text>
         <Text style={s.subtitle}>{t('paywall.subtitle')}</Text>
 
@@ -179,8 +180,8 @@ const styles = (c: ThemeColors) => StyleSheet.create({
   xBtn: { position: 'absolute', top: 10, right: 12, width: 34, height: 34, borderRadius: 17, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.38)', zIndex: 30 },
   xTxt: { fontSize: 22, lineHeight: 24, color: '#fff', fontWeight: '700' },
   scroll: { padding: spacing.lg, gap: spacing.md, flexGrow: 1 },
-  // 上部ヒーロー: 画面幅いっぱい＋上/左右を余白の外まで出す(edge-to-edge)＝映える大きな一枚。画像は3:2でトリミング無し。
-  banner: { alignSelf: 'stretch', marginTop: -spacing.lg, marginHorizontal: -spacing.lg, aspectRatio: 3 / 2, backgroundColor: c.surface },
+  // 上部ヒーロー: 画面幅いっぱい＋上/左右を余白の外まで出す(edge-to-edge)。高さ/幅はJSXで実寸指定(画面の約40%)=大迫力。
+  banner: { marginTop: -spacing.lg, marginHorizontal: -spacing.lg, backgroundColor: c.surface },
   title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
   subtitle: { fontSize: ty.body, color: c.ink2, textAlign: 'center', lineHeight: 22 },
   benefits: { gap: spacing.sm, marginVertical: spacing.md },
