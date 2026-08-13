@@ -1,6 +1,8 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+- **🆕🆕 2026-08-13(最新) 課題理解100問化=テスト＋本番51問まで完了／次=0061-0080(各20問)**: 課題理解を各レベル100問へ。**完了済=0041-0043(テスト9問)＋0044-0060(51問)を正本 `content/problems/choukai/kadai_{N5,N4,N3}.json` へ適用済(各60問)＋音声生成済**(実費 0041-43=$0.19/0044-60=$1.08=計約191円・pilot=`問題/聴解/パイロット_課題テスト0041`と`_0044`)。**確立した作問フロー(この順)**=①素で作問(**話者ラベルは男/女始まり必須**=`女1：`/`男1：`・**導入行＋空行必須**・**係→スタッフ**・漢数字・正解を先頭・**非手順型=物/場所/数時/放送を均等**・**N3は間接**)→②`python tools/choukai/mora_check.py <file>`で帯内化(短→加筆/長→作り直し)→③帯確定後に**同一エージェントでフルルビ付与**(全漢字・FORCE_KANA語=日付/助数詞は文脈読み・**熟字訓日付＋接尾語のユニットルビ禁止**=三日後(みっかご)✗→三日(みっか)で✓)→`python tools/choukai/fix_blank.py <files>`(導入直後の空行を自動挿入)→`merge_and_gate.py --new <dir>`(致命/帯外/係)＋`qtype_ledger.py --only <dir>`(手順0/型分布/N3ネタバレ)→`--apply`で正本追記→`python 問題/tools/gen_choukai_json.py --ids <csv> --pilot <dir>`で音声。正本の話者=`女（おんな）1（役割）：`形式。**次=0061-0080(各20問=計60)を同フロー・同設計で**(手順ゼロ・物/場所/数時/放送均等・N3間接・既出テンプレ回避=病院初診/銀行口座/図書館/遠足/研修/プレゼント消去法/かばん/花/たまご/会議室)。**⚠未コミット**=正本kadai 0041-0060・`assets/audio`のmp3(0041-0060)・tools(qtype_ledger.py/fix_blank.py/merge_and_gate.py)・md(聴解_作問フロー/音声作成フロー)。**`bundled.generated`/`_manifest`未再生成＝アプリ未反映**(作問完了後に tts_script台帳更新→manifest再生成(OTA)→ビルドは指示時)。**UIビルド2787(会話ステータス枠を新素材へ差替+『メッセージを送る』を会話画像とステータスの間へ移動)はcommit+push+CI成功済**(iOS TestFlight/Android Play alpha)。作問フロー正本=`md/聴解_作問フロー.md`(§2設問型+レベル差/ルビ3段階・§6ツール)。詳細=`memory/choukai-test-inflight.md`。
+- **⛔[旧・無効=上の最新に置換済] 2026-08-13 課題理解 各レベル100問に到達(新規60問完成)・正本未適用**: 目標=課題理解を各レベル100問(既存40＋新規60)。**新規60問(id 0041〜0100)を3ディレクトリに作成完了**=`scratchpad/newq20`(0041-0060)＋`scratchpad/newq_0061`(0061-0080)＋`scratchpad/newq_0081`(0081-0100)、各 `new_kadai_{N5,N4,N3}.json`。**実ゲート全通過(帯外0/構造0/選択肢重複0)**=新規モーラ N5 114/128/157・N4 215/251/305・N3 266/328/384(いずれも公式帯内)。**場面=適用後100問で8カテゴリ均等**(N5 9〜14/N4 11〜14/N3 10〜14)。**素の漢字=ふりがな無し**で生成しモーラ帯に整合(帯=公式STT由来で素・既存はふりがな込み約1.87倍)。全問「このあとまず何をしますか」＝正解[0]＋どんでん返しで一意・漢数字のみ・性別ラベル最大2人・役割注記ラベル禁止。**merge_and_gateにstrip_furi実装済**(素で比較)。3体のサブエージェント(a8fb.. N5/a5ef.. N4/abb7.. N3)で生成→帯外を短縮/加筆で修正済。**係→スタッフ置換済**(音声のアクセント対策・ユーザー指示「係の職員を全部」)=係員/係(話者ラベル)/係の人/係の男女の人/係の者→スタッフ(分かち書き係の 人も)・当番の2件は別語(N5-0099 運ぶ係ですよ→運んでくださいね/N4-0084 遠足の係→遠足のこと/N4-0056選択肢 係に見せる→スタッフに見せる)・「係」全問0・再ゲート帯外0。merge_and_gate.py SPK/LABELに「スタッフ」登録済(未コミット)=**音声化前にgen_choukai_json.py/tts_scriptのLABEL側もスタッフ話者対応を要確認**。**次の一手=ユーザーが適合確認(新40問=0061-0100はExcel未提示)→OKなら**①正本へ適用(`merge_and_gate.py --new <各dir> --apply` を3ディレクトリ分)②**表示用ふりがな(ルビ)を各レベルのルビ規則で付与(音声の読みの正本になるため必須・先に付ける)**③_manifest再生成④音声生成(tts_script.to_ttsがふりがなを読みに使う)⑤ビルド。作問フロー正本に「各レベルで場面バランス」追記済(md/聴解_作問フロー.md §2/§3)。**⚠品質再評価(2026-08-13・公式stt_N{3,4,5}.jsonと1問ずつ照合)＝新60問も既存40問も『まず何を』100%偏重で不十分**。公式の課題理解は設問型が均等(手順/物/場所/数時/放送)・N3は間接(消去法/本音後半/『まずは〜』ネタバレ無し)。**作問テクニックを恒久記録済**=md/聴解_作問フロー.md §2に新節「課題理解の設問型＋レベル差＝間接性」＋1問チェックリスト8/9＋§3の渡すもの/自己検証を追記。**機械点検ツール新規=tools/choukai/qtype_ledger.py**(手順偏重/独話件数/N3直接ネタバレを警告・`--add`/`--only`・utf-8出力・テスト済)。**次の一手=0041-0100(各60/計180)を新設計で作り直す**(既存40は全部手順なので新60は手順を作らず 物/場所/数時/放送 を各15＋N3間接化＋病院初診/銀行口座の反復排除)。今のscratchpad60/レベル(newq20/newq_0061/newq_0081)は破棄予定。**ユーザー承認済の設計**=型配分(物15/場所15/数時15/放送15)＋N3間接必須。
 - **🆕 2026-08-11 UI日本語ベタ書きのi18n化(進行中・未コミット/未ビルド)**: t()未経由の日本語UI(約772行/67ファイル)を ja/en/ne キー化。**済**=AICoach(coach.* 59)/Mock+Account(31)/Home+Onboard+MockIntro(12)/AfterStudyRewardのごほうびUI(reward.* 18)。**ProfileScreen開発用=隠しゲート化**(設定最下部バージョンを7回タップでdevUnlocked=true・__DEV__は既定true・実ユーザー非表示なので翻訳不要)。**桜ボイス多言語化=完了(end-to-end)**(voice.ts に `renderVoice(ids,tr)`＋`voice.<id>`キー・`voice.sep`(ja=''/en・ne=' ')。**AfterStudyReward**＝`renderVoice([...res.ids,extra?.id,closerId],t)`経由。**SakuraSpeech**＝`pickBubble`→`pickBubbleIds`(id列返し)にしt注入で`renderVoice`化・`NEWCOMER_BUBBLES`(5)→`voice.newcomer.*`・`SAKURA_CLOSERS`(8)→`voice.close_daily.*`・オススメ案内→`sakura.reco_hint`。**en/ne 全156キー翻訳投入済**(voice全句＋newcomer5＋reco・桜の癒し口調で創作寄り訳・en^ne差0・ja全在=フォールバック安全)=**tsc0・テスト390緑・en/ne実レンダリング確認済**(scratchpad/voice_translate.py)。**桜ボイス=完了**。**persona.ts(町)=完了(end-to-end)**=性格20＋セリフ20＋気分20＋会話バブル4ページ＋「また町で会おうね」を i18n(persona.trait/line/mood/talk・**67キーja/en/ne**・絵文字はmoodにそのまま)。persona.ts に t解決版 `traitLabel/moodMsgText/personaLine`＋有効キーガード追加(既存 personalityOf/moodMsgOf/label は**ja正本=テレメトリ/管理画面用に残置**)。差し替え=Account/Onboarding/KotobaTown(useT追加・timeout局所t→tm改名)=**tsc0・テスト390緑・en/ne実レンダリング確認済**(scratchpad/persona_translate.py＋talk_keys.py)。**KotobaTown本体=完了(end-to-end)**=上部バー/友だち一覧/解除Alert/共有文/応援送信シート/会話ステータス(名前・性格・得意・気分・国名・総時間)/覚えた単語バー(漢字語彙文法)/桜ほめ言葉6/桜ステータス/マスコットtag/CHEERS定型 を i18n(**town.* 49キー ja/en/ne**)。`sakuraPraise(streak,t)`＋module `facetLabel(t,ja)`(漢字語彙文法読解聴解→現在語)追加。CHEERS.labelは表示のみ→`t('town.cheer.'+key)`化(送信は`cheerSend(fid,key)`=受信側が母語解決)。`TAB_ORDER=['ホーム'…]`は**遷移route名=非翻訳(据置)**。personalityOf撤去→`traitLabel`、estEm局所t→s改名。=tsc0・テスト390緑・en/ne実レンダリング確認済(scratchpad/town_translate.py)。**CheerInbox/Browse/Invite=完了**=CheerInbox(応援キー→`t('town.cheer.'+key)`・旧定型6もtown.cheer.*追加・相対時刻`time.*`・受信箱UI`cheerinbox.*`・CHEER_INFO→CHEER_EMOJI化で幽霊ラベル排除)/Invite(useT+useUiLang・題/meta/sub/参加/断る/countryLabel(,'ja')→uiLang)/Browse(音訓tag=データを'on'/'kun'保持し描画時解決`browse.tag_on/kun`・再生a11y)。**Cards=変更不要**(既にlabelKey・残りは漢語文グリフとコメントのみ)。town.cheer legacy6+cheerinbox3+time4+invite10+browse3=+26キー。tsc0/テスト390緑。**i18n残り第2弾=完了**: ExamInfoCard(examinfo.* 10・期間/費用/注記も母語化)/QuestionReview(qreview.* 5)/Kakitori(common.hiragana/katakana)/KanjiDetail・Flashcard(音訓→browse.tag_*)/notifications(notif.channel/body・scheduleDailyReminder(time,lang)にlang追加・ProfileScreen callerでuiLang渡す)/**shop(柴犬12種shop.name_pet_{shiba,kuro}1-6追加＋旧pet_dog/fox/cat/tanuki 4幽霊キー削除＋未使用SHOP_CATS/KIND_LABEL削除)**/**categories(cat.<id> 55カテゴリをja/en/ne・BrowseScreenの見出しをt('cat.'+catId/umbrella)へ配線・CAT_BY_ID import除去)**。**MiniCalendar=対応不要**(profile.weekdays 3言語済)。**ProfileScreen開発用26=翻訳不要**(隠しゲート・実ユーザー非表示)。**badges.ts=未配線(computeBadges/BadgeGridはtestのみ参照=非表示)→スキップ**。**selectors.ts得意/科目ラベル=保留**(テレメトリ=ja正本と絡む・要精査)。+19+12+55=+86キー。tsc0/テスト390緑。**i18n以外の対象外**=wordDrill(かな)/index.ts(大問名→内部マップ)/virtualLearners(facetLabelで解決済)/countries(母語名=自称で正)/daimon.ts(出題文=問題)/dictView(読み区切り)。**問題関連(出題文・選択肢・解説・kana.ts・quiz.ts出題文)は対象外(日本語のまま)**。i18nキー=フラットなドットキー・CRLF維持・末尾追記のみ(全体再整形しない)。`tools/i18n_backlog.py`はjson差分専用でベタ書きは検出不可(コード走査は`scan_jp.py`方式)。
 - **🆕 2026-08-11 桜立ち絵差替＋筆キャラ廃止(未コミット/未ビルド)**: ①ホームの桜=既定立ち絵を**新・正面立ち絵**に差替(`assets/home/sakura_front_{long,short}.png`=画像/…/桜_正面_{L,S}.pngをαPNGで取込・短髪は高さ500へ縮小)。HomeCoachの`SAKURA_LONG/SHORT`。②**筆キャラ全廃**=筆の背負い姿(homeLong/homeShort)を桜に一切出さない(brushImgロジック撤去・charImg=costumeImgのみ)＋まばたき機構(eyesClosed/BLINK/blinkタイマ)撤去。③**筆を非表示**=ShopScreenのbrushタブ削除／HomeCoach着せ替えシートのbrush節削除／InventoryScreenのKIND_ORDER・KIND_LABEL_KEYからbrush除去。※SHOPのbrushデータ(homeLong等)・guide_open_short.pngは未参照で残置(データ/素材・害なし)。guide_open/blinkはmywordsArt.tsで現用。tsc0/テスト390緑。
 - **🆕 2026-08-11 書庫の段階成長廃止＋桜正面切り抜き(未コミット/未ビルド)**: ①辞書タブ書庫=**予想得点5段階復元を全廃**し**昼/夜2枚**に(`画像/アプリ画像/書庫_{昼,夜}.png`→JPG化して`assets/tabs/dict_bg_{day,night}.jpg`上書き)。tabArt.tsから`DICT_DAY_STAGES/dictStageIndex/useDictBg`削除・DictHomeScreenを`useTabBg('dict')`へ(homeStatus依存も除去)。**幽霊掃除**=`dict_bg_day_s1..s5.jpg`5枚削除・参照0(grep確認)。②`画像/キャラクター/アバター/桜/桜.png`(8ポーズ表・1448x1086)から**正面直立ポーズ(R2C2)をαカット**(背景マゼンタ202,18,129を距離αで透過・302x500)→**`画像/キャラクター/アバター/桜/桜_正面.png`**保存(未配線=素材のみ)。tsc0/テスト390緑。
@@ -67,24 +69,21 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 54ターン（文脈 21万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 54ターン・ツール23回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a47ab6769b1b9a288 general-purpose
 - ae9c448fbd26954a9 general-purpose
 - a83565e1b69fe6554 general-purpose
+- a8f75f058eaa367f7 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/在庫問題数.txt
-- md/聴解_作問フロー.md
-- tools/choukai/merge_and_gate.py
-- content/problems/choukai/sokuji_N5.json
-- content/problems/choukai/sokuji_N4.json
-- content/problems/choukai/sokuji_N3.json
-- content/problems/choukai/hatsuwa_N5.json
-- content/problems/choukai/hatsuwa_N4.json
+- memory/choukai_gen_done.txt
+- 問題/聴解/パイロット_課題0061/N3-C-K-0070.mp3
+- assets/audio/N3-C-K-0070.mp3
+- 問題/聴解/N3/1_課題理解/N3-C-K-0070.mp3
+- 問題/聴解/N3/_master/1_課題理解/N3-C-K-0070-3.wav
+- 問題/聴解/N3/_master/1_課題理解/N3-C-K-0070-2.wav
+- 問題/聴解/N3/_master/1_課題理解/N3-C-K-0070-1.wav
+- docs/supabase/dashboard.html
 
-_自動更新: 2026-08-12 23:35_
+_自動更新: 2026-08-13 13:19_
 <!-- AUTO:END -->

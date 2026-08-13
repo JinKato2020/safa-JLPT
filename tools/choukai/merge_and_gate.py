@@ -43,11 +43,17 @@ kks = pykakasi.kakasi(); SMALL = set("ゃゅょぁぃぅぇぉゎ")
 def mora(s):
     h = "".join(x['hira'] for x in kks.convert(s))
     return sum(1 for c in h if ('ぁ' <= c <= 'ん' or c == 'ー') and c not in SMALL)
-# 行頭の話者ラベル(会話の台詞行か)を判定/除去
-SPK = re.compile(r'^\s*(?:[男女][12]?|店員|先生|学生|客|係|係員|母|父|司会|アナウンス|店長|部長|課長|先輩|後輩|医者|受付)\s*[：:]')
-LABEL = re.compile(r'^\s*(?:ナレ(?:ーション)?|[男女][12]?|店員|先生|学生|客|係|係員|母|父|司会|アナウンス|店長|部長|課長|先輩|後輩|医者|受付)?\s*[：:]\s*')
+# 行頭の話者ラベル(会話の台詞行か)を判定/除去。役割注記「女1（客）：」も剥がす(strip_furi 後に (…) が残るため。
+# 音声側 build_choukai3.turns_of は ^[男女][^：]*： で剥がすので、ゲートもそれに合わせて (…) を任意で消費する)。
+SPK = re.compile(r'^\s*(?:[男女][12]?|店員|スタッフ|先生|学生|客|係|係員|母|父|司会|アナウンス|店長|部長|課長|先輩|後輩|医者|受付)(?:（[^）]*）)?\s*[：:]')
+LABEL = re.compile(r'^\s*(?:ナレ(?:ーション)?|[男女][12]?|店員|スタッフ|先生|学生|客|係|係員|母|父|司会|アナウンス|店長|部長|課長|先輩|後輩|医者|受付)?(?:（[^）]*）)?\s*[：:]\s*')
+# ふりがな＝漢字直後の（かな）。モーラ/字数は必ず「ふりがな無しの素の本文」で比較する
+# （公式基準=STT由来で素のため）。中身が仮名だけ かつ 直前が漢字 の括弧のみ除去＝役割注記 女1（先生）は残す。
+FURI = re.compile(r'(?<=[一-龥々])（[ぁ-んァ-ヶーゝゞ・]+?）')
+def strip_furi(s):
+    return FURI.sub('', s or '')
 def _lines(script):
-    return [l.strip() for l in re.split(r'[\n　]+', script or '') if l.strip()]
+    return [l.strip() for l in re.split(r'[\n　]+', strip_furi(script)) if l.strip()]
 def spoken(script):
     return ''.join(LABEL.sub('', l) for l in _lines(script))
 def body_text(cat, script):
@@ -133,6 +139,12 @@ def main():
             if scene in seen_scene[(cat, lv)]:
                 problems.append(f'{tag}: 場面重複 <{scene}>(多様性・参考)')
             seen_scene[(cat, lv)].add(scene)
+            # 係→スタッフ(TTSが「係」のアクセントを外す)。新規に「係/係員」が残れば参考警告。
+            # 『〜する係』の当番語は動詞句へ言い換える判断が要るので致命にしない(人手判断)。
+            kb = strip_furi(sc) + strip_furi(r.get('question') or '') + ''.join(strip_furi(str(x)) for x in ch)
+            # 関係(かんけい)/連係/係数/係長 等の複合語は 係=けい/かかりちょう で誤検出。担当語「係(かかり)/係員」だけ拾う。
+            if re.search(r'(?<![関連])係(?!数|長|わり)', kb):
+                problems.append(f'{tag}: 「係」が残存→スタッフに置換推奨(TTSがアクセントを外す・『〜する係』の当番語は動詞句へ言い換え)(参考)')
             ac = audio_chars(cat, sc, ch)
             stats.append((cat, lv, bm, ac, band))
         plan[cat] = recs
