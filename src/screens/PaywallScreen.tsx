@@ -2,7 +2,7 @@
 // Apple審査の必須要素: 各商品の価格・期間・自動更新の明示 / 「購入を復元」 / 規約・プライバシーへの導線。
 // キー未設定・商品未登録のうちは offering=null → 「まもなく提供」を出して閉じるだけ(壊れない)。
 import { useEffect, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking } from 'react-native';
+import { View, Text, Image, Pressable, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -13,6 +13,9 @@ import { useT, useUiLang } from '../i18n';
 import { legalUrl } from '../config/legal';
 import { useAppActions } from '../store/store';
 import { getCurrentOffering, purchase, restore, syncEntitlement } from '../pro/purchases';
+
+// 画面上部のバナー(桜が書斎で迎えるイラスト)。course/UIアセットなのでassets配下にASCII名で配置。
+const BANNER = require('../../assets/pro/subscribe.jpg');
 
 /** パッケージ種別 → 期間ラベルのi18nキー。無ければ商品タイトルを使う。 */
 function periodKey(t: PACKAGE_TYPE): string | null {
@@ -78,6 +81,8 @@ export default function PaywallScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
+        {/* 画面上部: 桜のイラストバナー */}
+        <Image source={BANNER} style={s.banner} resizeMode="cover" />
         <Text style={s.title}>{t('paywall.title')}</Text>
         <Text style={s.subtitle}>{t('paywall.subtitle')}</Text>
 
@@ -104,7 +109,7 @@ export default function PaywallScreen() {
                 hitSlop={4}
               >
                 <View style={s.pkgTxt}>
-                  <Text style={s.pkgPeriod}>{period}</Text>
+                  <Text style={s.pkgPeriod}>{`Pro ${period}`}</Text>
                   <Text style={s.pkgPrice}>{pkg.product.priceString}</Text>
                 </View>
                 <Text style={s.pkgGo}>{'›'}</Text>
@@ -140,7 +145,8 @@ export default function PaywallScreen() {
 
 const styles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
-  scroll: { padding: spacing.lg, gap: spacing.md, flexGrow: 1, justifyContent: 'center' },
+  scroll: { padding: spacing.lg, gap: spacing.md, flexGrow: 1 },
+  banner: { width: '100%', aspectRatio: 3 / 2, borderRadius: radius.lg, backgroundColor: c.surface },
   title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
   subtitle: { fontSize: ty.body, color: c.ink2, textAlign: 'center', lineHeight: 22 },
   benefits: { gap: spacing.sm, marginVertical: spacing.md },

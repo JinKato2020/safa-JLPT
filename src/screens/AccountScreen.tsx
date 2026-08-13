@@ -20,6 +20,7 @@ import { PERSONALITIES, MOOD_MESSAGES, personalityOf, traitLabel, moodMsgText } 
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
 import { getReferredQualifiedCount } from '../referral/referralClient';
+import { proStatus } from '../pro/entitlement';
 
 type Tab = 'signup' | 'login';
 
@@ -105,6 +106,20 @@ export default function AccountScreen() {
         </View>
       </View>
     </View>
+  );
+  // Pro課金への入口。既にProなら「有効中」を出し、未加入なら購入画面(Paywall)へ。
+  const isPro = proStatus(appState, Date.now()).isPro;
+  const proCard = (
+    <Pressable style={s.proRow} onPress={() => nav.navigate('Paywall')} disabled={isPro} hitSlop={4}>
+      <View style={s.proIco}><Ionicons name="star" size={20} color="#fff" /></View>
+      <View style={{ flex: 1 }}>
+        <Text style={s.proTitle}>{t('account.pro_title')}</Text>
+        <Text style={s.proSub}>{isPro ? t('account.pro_active') : t('account.pro_sub')}</Text>
+      </View>
+      {isPro
+        ? <Ionicons name="checkmark-circle" size={22} color={c.green} />
+        : <View style={s.proCta}><Text style={s.proCtaTxt}>{t('account.pro_cta')}</Text></View>}
+    </Pressable>
   );
   const pickerModal = (
     <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
@@ -269,6 +284,8 @@ export default function AccountScreen() {
           </View>
           {/* 最終同期の下に試験情報カード(試験日/残日数/申込期間/費用)。ホームのリングシートから移設。 */}
           <ExamInfoCard />
+          {/* Pro課金への入口 */}
+          {proCard}
           {/* 友だちを紹介: 遷移先で自分の紹介コードを共有する。 */}
           <Pressable style={s.referralRow} onPress={() => nav.navigate('Referral', { focus: 'share' })}>
             <View style={s.referralIco}><Ionicons name="gift-outline" size={20} color={c.blue} /></View>
@@ -332,6 +349,8 @@ export default function AccountScreen() {
 
           {/* 未ログインでも直近の試験情報カードを表示(試験日/残日数/申込期間/費用)。 */}
           <ExamInfoCard />
+          {/* Pro課金への入口(ログイン前でも購入は可能) */}
+          {proCard}
 
           <Pressable style={[s.googleBtn, busy && s.ctaOff]} onPress={onGoogle} disabled={busy}>
             <Ionicons name="logo-google" size={20} color="#EA4335" />
@@ -450,6 +469,13 @@ const makeStyles = (c: ThemeColors) =>
     benefitTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
     benefitSub: { fontSize: ty.small, color: c.mute, textAlign: 'center' },
     acctEmail: { fontSize: ty.body, fontWeight: '800', color: c.ink, textAlign: 'center' },
+    // Pro課金カード(プレミアム=金アクセント。地色/文字はテーマ追従、アクセントのみ固定色)
+    proRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: '#D8B65A', borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
+    proIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: '#C9A24B', alignItems: 'center', justifyContent: 'center' },
+    proTitle: { fontSize: ty.body, fontWeight: '900', color: c.ink },
+    proSub: { fontSize: ty.small, color: c.mute, marginTop: 1 },
+    proCta: { paddingVertical: spacing.xs, paddingHorizontal: spacing.md, borderRadius: radius.pill, backgroundColor: '#C9A24B' },
+    proCtaTxt: { fontSize: ty.small, fontWeight: '900', color: '#fff' },
     referralRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
     referralIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: c.blueLight, alignItems: 'center', justifyContent: 'center' },
     referralTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
