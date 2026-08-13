@@ -156,7 +156,8 @@ export default function PaywallScreen() {
 const styles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
   scroll: { padding: spacing.lg, gap: spacing.md, flexGrow: 1 },
-  banner: { width: 260, height: 173, alignSelf: 'center', borderRadius: radius.lg, backgroundColor: c.surface },
+  // 上部ヒーロー: 画面幅いっぱい＋上/左右を余白の外まで出す(edge-to-edge)＝映える大きな一枚。画像は3:2でトリミング無し。
+  banner: { alignSelf: 'stretch', marginTop: -spacing.lg, marginHorizontal: -spacing.lg, aspectRatio: 3 / 2, backgroundColor: c.surface },
   title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
   subtitle: { fontSize: ty.body, color: c.ink2, textAlign: 'center', lineHeight: 22 },
   benefits: { gap: spacing.sm, marginVertical: spacing.md },
