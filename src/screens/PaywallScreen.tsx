@@ -1,8 +1,8 @@
 // 購入画面(Paywall)。ストアに登録した価格を RevenueCat 経由で受け取って表示する(アプリに金額を書かない)。
 // Apple審査の必須要素: 各商品の価格・期間・自動更新の明示 / 「購入を復元」 / 規約・プライバシーへの導線。
 // キー未設定・商品未登録のうちは offering=null → 「まもなく提供」を出して閉じるだけ(壊れない)。
-import { useEffect, useState } from 'react';
-import { View, Text, Image, Pressable, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { View, Text, Image, Pressable, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking, Animated, PanResponder } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -49,6 +49,18 @@ export default function PaywallScreen() {
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
 
+  // 下スワイプで閉じる(上部の帯をドラッグ)。× は常時右上に表示。iOSはmodalの標準スワイプにも対応。
+  const dragY = useRef(new Animated.Value(0)).current;
+  const pan = useRef(PanResponder.create({
+    onStartShouldSetPanResponder: () => false,                                   // タップ(×)は奪わない
+    onMoveShouldSetPanResponder: (_e, g) => g.dy > 4 && g.dy > Math.abs(g.dx),    // 下方向のドラッグだけ拾う
+    onPanResponderMove: (_e, g) => { if (g.dy > 0) dragY.setValue(g.dy); },
+    onPanResponderRelease: (_e, g) => {
+      if (g.dy > 110 || g.vy > 0.6) Animated.timing(dragY, { toValue: 900, duration: 200, useNativeDriver: true }).start(() => nav.goBack());
+      else Animated.spring(dragY, { toValue: 0, bounciness: 4, useNativeDriver: true }).start();
+    },
+  })).current;
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -90,6 +102,7 @@ export default function PaywallScreen() {
 
   return (
     <SafeAreaView style={s.c}>
+      <Animated.View style={[s.sheet, { transform: [{ translateY: dragY }] }]}>
       <ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
         {/* 画面上部: 桜のイラストバナー */}
         <Image source={BANNER} style={s.banner} resizeMode="cover" />
@@ -149,12 +162,22 @@ export default function PaywallScreen() {
           <Text style={s.closeTxt}>{t('paywall.close')}</Text>
         </Pressable>
       </ScrollView>
+        {/* 上部の下スワイプ帯(バナーに重ねる)=下へドラッグで閉じる。グラブバーで“つかめる”ことを示す。 */}
+        <View style={s.swipeZone} {...pan.panHandlers}><View style={s.grabber} /></View>
+        {/* 右上×(常に最前面)=タップで閉じる。 */}
+        <Pressable style={s.xBtn} onPress={() => nav.goBack()} hitSlop={12} accessibilityLabel={t('paywall.close')}><Text style={s.xTxt}>×</Text></Pressable>
+      </Animated.View>
     </SafeAreaView>
   );
 }
 
 const styles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
+  sheet: { flex: 1 },
+  swipeZone: { position: 'absolute', top: 0, left: 0, right: 0, height: 72, alignItems: 'center', paddingTop: 8, zIndex: 20 },
+  grabber: { width: 44, height: 5, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.92)' },
+  xBtn: { position: 'absolute', top: 10, right: 12, width: 34, height: 34, borderRadius: 17, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.38)', zIndex: 30 },
+  xTxt: { fontSize: 22, lineHeight: 24, color: '#fff', fontWeight: '700' },
   scroll: { padding: spacing.lg, gap: spacing.md, flexGrow: 1 },
   // 上部ヒーロー: 画面幅いっぱい＋上/左右を余白の外まで出す(edge-to-edge)＝映える大きな一枚。画像は3:2でトリミング無し。
   banner: { alignSelf: 'stretch', marginTop: -spacing.lg, marginHorizontal: -spacing.lg, aspectRatio: 3 / 2, backgroundColor: c.surface },
