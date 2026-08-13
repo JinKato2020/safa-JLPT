@@ -914,7 +914,7 @@ export default function KotobaTownScreen() {
         const dlgW = Math.round(SW * 0.95);       // 会話ダイアログ幅=左右に少し余白
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
         const dlgBottom = Math.round(SW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
-        const stH = Math.round(FW * 1.2); // ステータス枠=縦20%拡大の枠に合わせる(母語の長い文字を収める・比率配置は保たれる)
+        const stH = Math.round(FW * 1.4); // ステータス枠=新素材(1024x1434=縦横比1.4)に合わせる。中央仕切り線(0.506)で上=6項目/下=覚えた単語。母語の長文を収める縦余裕。
         // 台詞は「1文=1ページ」で分割し、…で切れないようにする(長い名前で折り返しても3行まで収まる)。▽で送る。
         const pages: string[] = [
           t('persona.talk.greet', { nick: talk.nick }),
@@ -990,18 +990,27 @@ export default function KotobaTownScreen() {
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
               </View>
-              {/* ② ステータス枠(正方形・会話画像の下)。上半分=6項目 / 下半分=覚えた単語(漢字/語彙/文法) 3バー。 */}
+              {/* 「メッセージを送る」ボタン=会話画像とステータスの間(友だち=id=friend: にだけ表示)。押すと応援メッセージ画面へ。 */}
+              {talk.id.startsWith('friend:') && (
+                <View style={{ width: FW, alignSelf: 'center', alignItems: 'center', marginTop: Math.round(FW * 0.025), marginBottom: Math.round(FW * 0.055), zIndex: 5 }}>
+                  <Pressable style={s.msgSendBtn} onPress={openMsg}>
+                    <Ionicons name="chatbubble-ellipses" size={18} color="#fff" />
+                    <Text style={s.msgSendBtnT}>{t('town.msg_send_btn')}</Text>
+                  </Pressable>
+                </View>
+              )}
+              {/* ② ステータス枠(新素材・会話画像の下)。上半分=6項目 / 下半分=覚えた単語(漢字/語彙/文法) 3バー。 */}
               <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: -Math.round(FW * 0.045) }}>
                 <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
-                {/* 6項目: 2列×3行。各セル=ラベル(上)＋値(下・列幅いっぱい・自動縮小)＋下線。英語/ネパール語でも消えない。 */}
+                {/* 6項目: 2列×3行=上半分(仕切り線0.506の上)。各セル=ラベル(上)＋値(下・列幅いっぱい・母語の長文は2行まで＋自動縮小)＋下線(行下端固定)。 */}
                 {FIELDS.map((f, i) => {
-                  const y = stH * (0.15 + i * 0.118);   // 行の上端(ラベル)
-                  const vy = y + fsLab * 1.15;          // 値(ラベルの下)
-                  const uy = vy + fsVal * 1.25;         // 下線(値の下)
+                  const y = stH * (0.10 + i * 0.128);   // 行の上端(ラベル)。上半分を3行で使う。
+                  const vy = y + fsLab * 1.3;           // 値(ラベルの下)
+                  const uy = y + stH * 0.112;           // 下線=行の下端(値の行数に依らず固定)
                   const cell = (x: number, lab: string, val: string, w: number) => (
                     <>
                       <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, color: subCol, fontSize: fsLab, fontWeight: '600' }}>{lab}</Text>
-                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, fontWeight: '600' }}>{val}</Text>
+                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.5} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.08), fontWeight: '600' }}>{val}</Text>
                       <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
                     </>
                   );
@@ -1012,11 +1021,11 @@ export default function KotobaTownScreen() {
                     </View>
                   );
                 })}
-                {/* 見出し「覚えた単語」(中央・区切り線の下)。 */}
-                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '600', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
-                {/* 3バー: 漢字/語彙/文法 = 内訳(色分け)＋語数。 */}
+                {/* 見出し「覚えた単語」(中央・仕切り線0.506の下)。 */}
+                <Text style={{ position: 'absolute', top: stH * 0.55, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '600', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
+                {/* 3バー: 漢字/語彙/文法 = 内訳(色分け)＋語数=下半分。 */}
                 {CATS.map((c, i) => {
-                  const y = stH * (0.63 + i * 0.105);
+                  const y = stH * (0.63 + i * 0.093);
                   const bx0 = FW * 0.28, bx1 = FW * 0.76, bw = bx1 - bx0;
                   const fill = Math.max(0.04, Math.min(1, 0.82 * c.n / catMax));
                   return (
@@ -1030,15 +1039,8 @@ export default function KotobaTownScreen() {
                   );
                 })}
               </View>
-              {/* 下: 「メッセージを送る」ボタンだけ(友だち=id=friend: にだけ表示)。押すと応援メッセージ画面へ。 */}
-              {talk.id.startsWith('friend:') && (
-                <View style={{ width: FW, alignSelf: 'center', paddingTop: 2, paddingBottom: 40 }}>
-                  <Pressable style={s.msgSendBtn} onPress={openMsg}>
-                    <Ionicons name="chatbubble-ellipses" size={18} color="#fff" />
-                    <Text style={s.msgSendBtnT}>{t('town.msg_send_btn')}</Text>
-                  </Pressable>
-                </View>
-              )}
+              {/* 下端の余白(スクロール終端)。 */}
+              <View style={{ height: 40 }} />
             </ScrollView>
             {/* 閉じる(はっきり見える白フチの丸)。下スワイプでも抜けられる。 */}
             <Pressable onPress={closeTalk} hitSlop={12} style={s.nvClose}><Ionicons name="close" size={19} color="#ffffff" /></Pressable>
@@ -1062,7 +1064,7 @@ export default function KotobaTownScreen() {
         const dlgW = Math.round(SW * 0.95);       // 会話ダイアログ幅=左右に少し余白
         const dlgH = Math.round(dlgW * dlgSrc.height / dlgSrc.width);
         const dlgBottom = Math.round(SW * 0.025); // 会話ダイアログの下端=会話画像の下端から少し上(下に余白)
-        const stH = Math.round(FW * 1.2); // ステータス枠=縦20%拡大の枠に合わせる(桜側・母語の長い文字を収める)
+        const stH = Math.round(FW * 1.4); // ステータス枠=新素材(縦横比1.4)に合わせる(桜側・中央仕切り線で上下分割・母語の長文を収める)
         const sayCol = isDay ? '#2d2113' : '#eaf1ff';
         const sayName = isDay ? '#9a6e1b' : '#ffd66e';
         const inkCol = '#2d2113', subCol = '#7a5f2e';
@@ -1112,13 +1114,13 @@ export default function KotobaTownScreen() {
               <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: -Math.round(FW * 0.045) }}>
                 <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
                 {SFIELDS.map((f, i) => {
-                  const y = stH * (0.15 + i * 0.118);
-                  const vy = y + fsLab * 1.15;
-                  const uy = vy + fsVal * 1.25;
+                  const y = stH * (0.10 + i * 0.128);
+                  const vy = y + fsLab * 1.3;
+                  const uy = y + stH * 0.112;
                   const cell = (x: number, lab: string, val: string, w: number) => (
                     <>
                       <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, color: subCol, fontSize: fsLab, fontWeight: '600' }}>{lab}</Text>
-                      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, fontWeight: '600' }}>{val}</Text>
+                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.5} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.08), fontWeight: '600' }}>{val}</Text>
                       <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
                     </>
                   );
@@ -1129,10 +1131,10 @@ export default function KotobaTownScreen() {
                     </View>
                   );
                 })}
-                {/* 覚えた単語=桜はマックス(3バー満タン)。 */}
-                <Text style={{ position: 'absolute', top: stH * 0.53, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '600', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
+                {/* 覚えた単語=桜はマックス(3バー満タン)=下半分。 */}
+                <Text style={{ position: 'absolute', top: stH * 0.55, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '600', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
                 {[{ lab: t('town.facet.kanji'), col: '#4a7fc0' }, { lab: t('town.facet.vocab'), col: '#6f9a3f' }, { lab: t('town.facet.grammar'), col: '#c0603a' }].map((c, i) => {
-                  const y = stH * (0.63 + i * 0.105);
+                  const y = stH * (0.63 + i * 0.093);
                   const bx0 = FW * 0.28, bx1 = FW * 0.76, bw = bx1 - bx0;
                   return (
                     <View key={`sc${i}`} pointerEvents="none" style={StyleSheet.absoluteFill}>
