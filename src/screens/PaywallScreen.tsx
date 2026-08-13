@@ -29,6 +29,14 @@ function periodKey(t: PACKAGE_TYPE): string | null {
   }
 }
 
+// 画面の表示順を固定(12ヶ月→6ヶ月→3ヶ月→1ヶ月)。RevenueCatのオファリング内の並びに依存しない。
+const PERIOD_RANK: Partial<Record<PACKAGE_TYPE, number>> = {
+  [PACKAGE_TYPE.ANNUAL]: 0,
+  [PACKAGE_TYPE.SIX_MONTH]: 1,
+  [PACKAGE_TYPE.THREE_MONTH]: 2,
+  [PACKAGE_TYPE.MONTHLY]: 3,
+};
+
 export default function PaywallScreen() {
   const c = useColors();
   const t = useT();
@@ -76,7 +84,9 @@ export default function PaywallScreen() {
     if (ok) nav.goBack();
   }
 
-  const packages = offering?.availablePackages ?? [];
+  const packages = [...(offering?.availablePackages ?? [])].sort(
+    (a, b) => (PERIOD_RANK[a.packageType] ?? 99) - (PERIOD_RANK[b.packageType] ?? 99),
+  );
 
   return (
     <SafeAreaView style={s.c}>
