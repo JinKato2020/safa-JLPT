@@ -3,7 +3,7 @@
 //  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
 //  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert, Platform } from 'react-native';
+import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert, Platform, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // 絵文字/アイコン除去(気分などデータに含まれる絵文字を会話表示から外す)。国旗(talk.flag)は別扱いなので影響なし。
@@ -897,7 +897,9 @@ export default function KotobaTownScreen() {
       {/* 応援メッセージ画面: 定型(6種)＋自由メッセージ(80字まで)。友だちにだけ送れる。 */}
       <Modal visible={msgOpen} transparent animationType="slide" onRequestClose={() => setMsgOpen(false)}>
         <Pressable style={s.memberBackdrop} onPress={() => setMsgOpen(false)} />
-        <View style={s.memberSheet}>
+        {/* iOSでキーボードが出た時に送信ボタンが隠れないよう、シートをキーボードの上へ持ち上げる。 */}
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={s.sheetKav} pointerEvents="box-none">
+        <View style={[s.memberSheet, s.sheetInKav]}>
           <View style={s.memberHead}>
             <Text style={s.memberTitle}>{t('town.cheer_to', { nick: talk?.nick ?? t('town.friend') })}</Text>
             <Pressable onPress={() => setMsgOpen(false)} hitSlop={10}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
@@ -934,6 +936,7 @@ export default function KotobaTownScreen() {
             </ScrollView>
           )}
         </View>
+        </KeyboardAvoidingView>
       </Modal>
 
       {/* 操作(アナログスティック・斜めOK)。会話中は"消さずに"隠して触れなくする(アンマウントすると指を離す前に
@@ -1230,6 +1233,10 @@ const s = StyleSheet.create({
   // 町の友だち一覧(ボトムシート)。
   memberBackdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)' },
   memberSheet: { position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: '#fbf7ef', borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 18, paddingTop: 14, paddingBottom: 30 },
+  // メッセージ入力シートをキーボードの上へ持ち上げるためのラッパ(画面下に固定し、KAVのpaddingで持ち上がる)。
+  sheetKav: { position: 'absolute', left: 0, right: 0, bottom: 0 },
+  sheetInKav: { position: 'relative' }, // KAV内では絶対配置を解除(KAVが下端固定・シートは通常フロー)
+
   memberHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 },
   memberTitle: { fontSize: 17, fontWeight: '900', color: '#3a3128' },
   memberEmpty: { color: '#6b6256', fontSize: 14, lineHeight: 22, textAlign: 'center', paddingVertical: 24 },

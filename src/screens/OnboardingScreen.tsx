@@ -1,9 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, ImageBackground, Animated, Image, TextInput, Modal, useWindowDimensions, Linking } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, ImageBackground, Animated, Image, TextInput, Modal, ActivityIndicator, useWindowDimensions, Linking } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import Svg, { Defs, LinearGradient, Stop, Rect } from 'react-native-svg';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppActions } from '../store/store';
+import { signIn } from '../auth/authClient';
+import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
+import { mapAuthError } from '../auth/authErrors';
 import { useT, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { legalUrl } from '../config/legal';
@@ -70,6 +74,95 @@ export default function OnboardingScreen() {
     return () => clearTimeout(id);
   }, [fade]);
 
+  // ── 既存アカウントの人向けログイン(オンボの最初で復元)。 ──
+  // 先にログインすれば、クラウドから学習データが戻り onboarded も復元されて画面が自動でホームへ抜ける。
+  // = 無駄なプロフィールを作らせない・「入力→ログインで上書き」の事故を防ぐ。
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [appleOk, setAppleOk] = useState(false);
+  const [lgEmail, setLgEmail] = useState('');
+  const [lgPw, setLgPw] = useState('');
+  const [lgBusy, setLgBusy] = useState(false);
+  const [lgErr, setLgErr] = useState<string | null>(null);
+  useEffect(() => { void isAppleAvailable().then(setAppleOk); }, []);
+  // 成功時: 復元があればオンボは自動で閉じる。バックアップが無い新規アカウントならモーダルだけ閉じて通常のオンボを続行。
+  const doGoogle = async () => {
+    setLgErr(null); setLgBusy(true);
+    try {
+      const r = await signInWithProvider('google');
+      if (r.error === 'cancelled') return;
+      if (r.error) { setLgErr(r.error.startsWith('account.') ? r.error : 'account.err_oauth'); return; }
+      setLoginOpen(false);
+    } finally { setLgBusy(false); }
+  };
+  const doApple = async () => {
+    setLgErr(null); setLgBusy(true);
+    try {
+      const r = await signInWithApple();
+      if (r.error === 'cancelled') return;
+      if (r.error) { setLgErr(r.error.startsWith('account.') ? r.error : 'account.err_oauth'); return; }
+      setLoginOpen(false);
+    } finally { setLgBusy(false); }
+  };
+  const doEmail = async () => {
+    setLgErr(null); setLgBusy(true);
+    try {
+      const r = await signIn(lgEmail.trim(), lgPw);
+      if (r.error) { setLgErr(mapAuthError(r.error)); return; }
+      setLoginOpen(false);
+    } catch { setLgErr('account.err_network'); }
+    finally { setLgBusy(false); }
+  };
+  const canLogin = lgEmail.trim().length > 3 && lgPw.length >= 8 && !lgBusy;
+
+  // ログイン用ボトムシート(挨拶・設定の両画面で共通表示)。
+  const loginModal = (
+    <Modal visible={loginOpen} transparent animationType="slide" onRequestClose={() => setLoginOpen(false)}>
+      <Pressable style={s.pickBackdrop} onPress={() => setLoginOpen(false)} />
+      <View style={s.pickSheet}>
+        <Text style={s.pickTitle}>{t('onboarding.login_title')}</Text>
+        <Text style={s.levelDesc}>{t('onboarding.login_sub')}</Text>
+        <Pressable style={[s.googleBtn, lgBusy && { opacity: 0.5 }]} onPress={doGoogle} disabled={lgBusy}>
+          <Ionicons name="logo-google" size={20} color="#EA4335" />
+          <Text style={s.googleTxt}>{t('account.google')}</Text>
+        </Pressable>
+        {appleOk ? (
+          <Pressable style={[s.appleBtn, lgBusy && { opacity: 0.5 }]} onPress={doApple} disabled={lgBusy}>
+            <Ionicons name="logo-apple" size={20} color="#fff" />
+            <Text style={s.appleTxt}>{t('account.apple')}</Text>
+          </Pressable>
+        ) : null}
+        <View style={s.divider}>
+          <View style={s.divLine} />
+          <Text style={s.divTxt}>{t('account.or')}</Text>
+          <View style={s.divLine} />
+        </View>
+        <TextInput
+          value={lgEmail}
+          onChangeText={setLgEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          autoCorrect={false}
+          placeholder="you@example.com"
+          placeholderTextColor={c.faint}
+          style={s.input}
+        />
+        <TextInput
+          value={lgPw}
+          onChangeText={setLgPw}
+          secureTextEntry
+          autoCapitalize="none"
+          placeholder={t('account.password')}
+          placeholderTextColor={c.faint}
+          style={[s.input, { marginTop: spacing.sm }]}
+        />
+        {lgErr ? <Text style={s.loginErr}>{t(lgErr)}</Text> : null}
+        <Pressable style={[s.loginCta, !canLogin && s.ctaOff]} onPress={doEmail} disabled={!canLogin}>
+          {lgBusy ? <ActivityIndicator color="#fff" /> : <Text style={s.ctaTxt}>{t('account.cta_login')}</Text>}
+        </Pressable>
+      </View>
+    </Modal>
+  );
+
   // ── 0. オープニング（画像に台詞をレイヤー。桜と重ならないよう上部表示） ──
   if (step === 'greet') {
     const scrimH = Math.round(H * 0.52);
@@ -95,6 +188,15 @@ export default function OnboardingScreen() {
             <Animated.Text style={[g.tap, { bottom: insets.bottom + 34, opacity: fade }]}>{t('onboarding.tap_start')}</Animated.Text>
           )}
         </Pressable>
+        {/* 既存アカウントの人向け: 先にログイン=クラウドから復元(プロフィール入力を通らず自動でホームへ)。 */}
+        {ready && (
+          <Animated.View style={[g.loginLinkWrap, { top: insets.top + 14, opacity: fade }]}>
+            <Pressable onPress={() => setLoginOpen(true)} hitSlop={8} style={g.loginLink}>
+              <Text style={g.loginLinkTxt}>{t('onboarding.login_restore')}</Text>
+            </Pressable>
+          </Animated.View>
+        )}
+        {loginModal}
       </ImageBackground>
     );
   }
@@ -135,6 +237,12 @@ export default function OnboardingScreen() {
           <Text style={s.coachLbl}>AI COACH</Text>
         </View>
         <Text style={s.title}>{t('onboarding.title')}</Text>
+
+        {/* 既存アカウントの人向け: 入力せずログインで復元。 */}
+        <Pressable style={s.loginHint} onPress={() => setLoginOpen(true)} hitSlop={6}>
+          <Ionicons name="log-in-outline" size={16} color={c.blue} />
+          <Text style={s.loginHintTxt}>{t('onboarding.have_account')} <Text style={s.loginHintLink}>{t('onboarding.login_restore')}</Text></Text>
+        </Pressable>
 
         {/* 1. 目標の級(JLPT)。JFTは未対応=試験選択は廃止。 */}
         <Text style={s.label}>{t('onboarding.level_label')}</Text>
@@ -278,6 +386,7 @@ export default function OnboardingScreen() {
           </ScrollView>
         </View>
       </Modal>
+      {loginModal}
     </SafeAreaView>
   );
 }
@@ -296,6 +405,10 @@ const g = StyleSheet.create({
     textShadowColor: 'rgba(0,0,0,0.55)', textShadowOffset: { width: 0, height: 2 }, textShadowRadius: 12,
   },
   tap: { position: 'absolute', left: 0, right: 0, textAlign: 'center', color: 'rgba(255,255,255,0.9)', fontSize: 15, letterSpacing: 3 },
+  // 既存アカウントのログイン導線(挨拶画面・右上)。背景画像上なので白文字＋半透明の下地で視認性を確保。
+  loginLinkWrap: { position: 'absolute', right: 14, alignItems: 'flex-end' },
+  loginLink: { backgroundColor: 'rgba(0,0,0,0.32)', borderRadius: 999, paddingVertical: 7, paddingHorizontal: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.35)' },
+  loginLinkTxt: { color: '#fff', fontSize: 13, fontWeight: '800', letterSpacing: 0.3 },
 });
 
 const makeStyles = (c: ThemeColors) =>
@@ -348,4 +461,18 @@ const makeStyles = (c: ThemeColors) =>
     ctaOff: { backgroundColor: c.bgSoft },
     ctaTxt: { color: '#ffffff', fontSize: ty.h2, fontWeight: '800' },
     ctaOffTxt: { color: c.faint },
+    // 設定画面の「アカウントをお持ちの方は ログイン」リンク
+    loginHint: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: spacing.sm },
+    loginHintTxt: { fontSize: ty.small, color: c.ink2, fontWeight: '600' },
+    loginHintLink: { color: c.blue, fontWeight: '800', textDecorationLine: 'underline' },
+    // ログイン用ボトムシート内のボタン類
+    googleBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.md, marginTop: spacing.sm },
+    googleTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    appleBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderRadius: radius.md, backgroundColor: '#000', paddingVertical: spacing.md, marginTop: spacing.sm },
+    appleTxt: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
+    divider: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.md, marginBottom: spacing.xs },
+    divLine: { flex: 1, height: 1, backgroundColor: c.line },
+    divTxt: { fontSize: ty.small, color: c.faint },
+    loginErr: { fontSize: ty.small, color: c.red, marginTop: spacing.xs },
+    loginCta: { marginTop: spacing.md, backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.md, alignItems: 'center' },
   });

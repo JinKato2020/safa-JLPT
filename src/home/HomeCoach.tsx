@@ -11,9 +11,9 @@ import SwipeSheet from '../components/SwipeSheet';
 import { useColors, type ThemeColors } from '../theme';
 import type { HomeStatus } from './homeStatus';
 
-// 既定の桜(案内キャラ)=正面の立ち絵。髪型で長髪/短髪を出し分ける。筆は背負わない(筆キャラは廃止)。
-const SAKURA_LONG = require('../../assets/home/sakura_front_long.png');
-const SAKURA_SHORT = require('../../assets/home/sakura_front_short.png');
+// 既定の桜(案内キャラ)=正面の立ち絵。装備中の髪型(10種)の立ち絵を表示。筆は背負わない(筆キャラは廃止)。
+// 髪型未装備時の保険(通常は hair_long が初期装備なので使われない)。
+const SAKURA_FALLBACK = require('../../assets/home/hair/hair_long.png');
 // 柴1(pet_shiba1)だけ尻尾を振る=尻尾を別レイヤーに切り出し(尻尾=後/胴体=前・付け根を胴体で隠す)。
 const SHIBA1_BODY = require('../../assets/shop/companion/shiba1_body.png');
 const SHIBA1_TAIL = require('../../assets/shop/companion/shiba1_tail.png');
@@ -25,8 +25,9 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const { width } = useWindowDimensions();
   const state = useAppState();
   const { equipItem } = useAppActions();
-  // 筆キャラは廃止。桜は筆を背負わない。髪型(ショート/ロング)で既定の立ち絵を出し分ける。
-  const isShort = state.equipped?.hair === 'hair_short';
+  // 筆キャラは廃止。桜は筆を背負わない。装備中の髪型(10種)の立ち絵を表示する。
+  const eqHair = state.equipped?.hair;
+  const hairImg = (eqHair ? SHOP_BY_ID[eqHair]?.asset : undefined) ?? SAKURA_FALLBACK;
   // 民族衣装を装備中はその全身アバターを優先表示(髪型より上位)。桜が各国の衣装をまとう。
   const eqCostume = state.equipped?.costume;
   const costumeImg = eqCostume ? SHOP_BY_ID[eqCostume]?.asset : undefined;
@@ -125,7 +126,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
         {/* 桜(案内キャラ)=右。タップで購入済みの着せ替え一覧。 */}
         <Animated.View style={{ transform: [{ translateY: bobY }], zIndex: dogInFront ? 1 : 0 }}>
           <Pressable onPress={() => setShowShop(true)} hitSlop={4}>
-            <Image source={charImg ?? (isShort ? SAKURA_SHORT : SAKURA_LONG)} style={{ width: charW, height: charH }} resizeMode="contain" />
+            <Image source={charImg ?? hairImg} style={{ width: charW, height: charH }} resizeMode="contain" />
           </Pressable>
         </Animated.View>
       </View>

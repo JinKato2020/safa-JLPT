@@ -76,14 +76,14 @@
 - a8f75f058eaa367f7 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
+- src/screens/AccountScreen.tsx
+- src/screens/ReferralScreen.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/screens/PaywallScreen.tsx
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- src/plaza/friendsClient.ts
-- docs/supabase/functions/report-notify/index.ts
-- src/screens/ShopScreen.tsx
+- memory/模試ストック数.txt
 
-_自動更新: 2026-08-13 21:28_
+_自動更新: 2026-08-14 01:35_
 <!-- AUTO:END -->

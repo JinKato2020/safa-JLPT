@@ -1,7 +1,7 @@
 // アカウント作成/ログイン(段階1)。メール+パスワード。確認メールON=新規作成後は確認案内→ログイン。
 // 案内=桜(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Modal, Alert } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Modal, Alert, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -109,17 +109,33 @@ export default function AccountScreen() {
   );
   // Pro課金への入口。既にProなら「有効中」を出し、未加入なら購入画面(Paywall)へ。
   const isPro = proStatus(appState, Date.now()).isPro;
+  // サブスクの解約はApple/Google側で行う(アプリ内で直接は解約できない仕様)。加入者はここからストアの管理画面へ。
+  const openManageSub = () => {
+    const url = Platform.OS === 'android'
+      ? 'https://play.google.com/store/account/subscriptions'
+      : 'https://apps.apple.com/account/subscriptions';
+    Linking.openURL(url).catch(() => { /* 開けなくてもアプリは落とさない */ });
+  };
   const proCard = (
-    <Pressable style={s.proRow} onPress={() => nav.navigate('Paywall')} disabled={isPro} hitSlop={4}>
-      <View style={s.proIco}><Ionicons name="star" size={20} color={c.pink} /></View>
-      <View style={{ flex: 1 }}>
-        <Text style={s.proTitle}>{t('account.pro_title')}</Text>
-        <Text style={s.proSub}>{isPro ? t('account.pro_active') : t('account.pro_sub')}</Text>
-      </View>
-      {isPro
-        ? <Ionicons name="checkmark-circle" size={22} color={c.green} />
-        : <View style={s.proCta}><Text style={s.proCtaTxt}>{t('account.pro_cta')}</Text></View>}
-    </Pressable>
+    <>
+      <Pressable style={s.proRow} onPress={() => nav.navigate('Paywall')} disabled={isPro} hitSlop={4}>
+        <View style={s.proIco}><Ionicons name="star" size={20} color={c.pink} /></View>
+        <View style={{ flex: 1 }}>
+          <Text style={s.proTitle}>{t('account.pro_title')}</Text>
+          <Text style={s.proSub}>{isPro ? t('account.pro_active') : t('account.pro_sub')}</Text>
+        </View>
+        {isPro
+          ? <Ionicons name="checkmark-circle" size={22} color={c.green} />
+          : <View style={s.proCta}><Text style={s.proCtaTxt}>{t('account.pro_cta')}</Text></View>}
+      </Pressable>
+      {/* 加入者向け: サブスクの管理・解約(ストアの管理画面を開く)。Apple/Googleの仕様で解約はストア側で行う。 */}
+      {isPro && (
+        <Pressable style={s.manageSubRow} onPress={openManageSub} hitSlop={6}>
+          <Ionicons name="settings-outline" size={15} color={c.mute} />
+          <Text style={s.manageSubTxt}>{t('account.manage_sub')}</Text>
+        </Pressable>
+      )}
+    </>
   );
   const pickerModal = (
     <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
@@ -476,6 +492,8 @@ const makeStyles = (c: ThemeColors) =>
     proSub: { fontSize: ty.small, color: c.mute, marginTop: 1 },
     proCta: { paddingVertical: spacing.xs, paddingHorizontal: spacing.md, borderRadius: radius.pill, backgroundColor: c.pink },
     proCtaTxt: { fontSize: ty.small, fontWeight: '900', color: '#fff' },
+    manageSubRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: spacing.sm, marginTop: spacing.xs },
+    manageSubTxt: { fontSize: ty.small, color: c.mute, fontWeight: '700', textDecorationLine: 'underline' },
     referralRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
     referralIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: c.blueLight, alignItems: 'center', justifyContent: 'center' },
     referralTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },

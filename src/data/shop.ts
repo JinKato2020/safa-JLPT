@@ -20,8 +20,16 @@ export type ShopItem = {
 export const SHOP: ShopItem[] = [
   // 着せ替え(髪型/服/筆) — 桜の見た目。髪型・服・筆はそれぞれ別スロットで同時装備できる。
   // ロング=標準髪型。初期から所持＋装備(INITIAL_STATE)。ショートを装備した後もここから戻せる。
-  { id: 'hair_long', cat: 'dressup', kind: 'hair', price: 0, name: 'ロング', asset: require('../../assets/home/sakura_front_long.png') },
-  { id: 'hair_short', cat: 'dressup', kind: 'hair', price: 800, name: 'ショート', asset: require('../../assets/home/sakura_front_short.png') },
+  { id: 'hair_long', cat: 'dressup', kind: 'hair', price: 0, name: 'ロング', asset: require('../../assets/home/hair/hair_long.png') },
+  { id: 'hair_short', cat: 'dressup', kind: 'hair', price: 800, name: 'ボブ', asset: require('../../assets/home/hair/hair_bob.png') },
+  { id: 'hair_halfup', cat: 'dressup', kind: 'hair', price: 800, name: 'ハーフアップ', asset: require('../../assets/home/hair/hair_halfup.png') },
+  { id: 'hair_low_twintail', cat: 'dressup', kind: 'hair', price: 800, name: '低めツインテール', asset: require('../../assets/home/hair/hair_low_twintail.png') },
+  { id: 'hair_sidepony', cat: 'dressup', kind: 'hair', price: 800, name: 'サイドポニー', asset: require('../../assets/home/hair/hair_sidepony.png') },
+  { id: 'hair_hime', cat: 'dressup', kind: 'hair', price: 800, name: '姫カット', asset: require('../../assets/home/hair/hair_hime.png') },
+  { id: 'hair_wave', cat: 'dressup', kind: 'hair', price: 800, name: 'ウェーブロング', asset: require('../../assets/home/hair/hair_wave.png') },
+  { id: 'hair_braid_half', cat: 'dressup', kind: 'hair', price: 800, name: '三つ編みハーフアップ', asset: require('../../assets/home/hair/hair_braid_half.png') },
+  { id: 'hair_low_pony', cat: 'dressup', kind: 'hair', price: 800, name: '低めロングポニー', asset: require('../../assets/home/hair/hair_low_pony.png') },
+  { id: 'hair_side_braid', cat: 'dressup', kind: 'hair', price: 800, name: '片側三つ編み', asset: require('../../assets/home/hair/hair_side_braid.png') },
   { id: 'brush_none', cat: 'dressup', kind: 'brush', price: 0, name: '筆なし', emoji: '🚫' },
   { id: 'brush_take', cat: 'dressup', kind: 'brush', price: 0, name: '竹の筆', rarity: 1, asset: require('../../assets/shop/brush/brush_take.png'), celebrate: require('../../assets/shop/celebrate/brush_take.png'), homeLong: require('../../assets/home/seoi/long/take.png'), homeShort: require('../../assets/home/seoi/short/take.png') },
   { id: 'brush_sakura', cat: 'dressup', kind: 'brush', price: 400, name: '桜染めの筆', rarity: 2, asset: require('../../assets/shop/brush/brush_sakura.png'), celebrate: require('../../assets/shop/celebrate/brush_sakura.png'), homeLong: require('../../assets/home/seoi/long/sakura.png'), homeShort: require('../../assets/home/seoi/short/sakura.png') },

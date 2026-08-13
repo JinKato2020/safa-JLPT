@@ -1,7 +1,7 @@
 // 友だち紹介の遷移先画面: 入口イラスト＋「自分の紹介コードを共有する」だけ。
 // コード入力(受け取り)はアカウント画面にインライン移設したので、この画面には入力欄を置かない。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Share, ActivityIndicator, Animated, Image } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Share, ActivityIndicator, Animated, Image, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -15,6 +15,7 @@ export default function ReferralScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation();
+  const { width: SW } = useWindowDimensions(); // 上端の入口イラストを画面幅いっぱいの大ヒーローで表示
 
   const [code, setCode] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -61,9 +62,9 @@ export default function ReferralScreen() {
           </Pressable>
         </View>
 
-        {/* 見出し=みんなで日本語を学ぼう(多様な学習者の入口絵) */}
+        {/* 見出し=みんなで日本語を学ぼう(多様な学習者の入口絵)。画面幅いっぱいの大ヒーロー(正方形・実寸指定)。 */}
         <View style={s.hero}>
-          <Image source={ENTRANCE} style={s.heroImg} resizeMode="cover" />
+          <Image source={ENTRANCE} style={[s.heroImg, { width: SW, height: SW, marginHorizontal: -spacing.lg }]} resizeMode="cover" />
           <Text style={s.heroTitle}>{t('referral.headline')}</Text>
           <Text style={s.heroSub}>{t('referral.subhead')}</Text>
         </View>
@@ -101,7 +102,7 @@ const makeStyles = (c: ThemeColors) =>
     closeX: { fontSize: 30, color: c.mute, fontWeight: '700', paddingHorizontal: spacing.xs },
 
     hero: { alignItems: 'center', marginTop: spacing.xs, marginBottom: spacing.xs, gap: 8 },
-    heroImg: { width: 232, height: 232, borderRadius: 20, marginBottom: 2 },
+    heroImg: { marginBottom: spacing.sm, backgroundColor: c.surface }, // 実寸(幅=画面幅・正方形)はJSXで指定。edge-to-edge。
     heroTitle: { fontSize: ty.h2, fontWeight: '900', color: c.ink, lineHeight: 30, textAlign: 'center' },
     heroSub: { fontSize: ty.body, fontWeight: '700', color: c.ink2, lineHeight: 22, textAlign: 'center' },
 
