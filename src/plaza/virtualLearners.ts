@@ -1,6 +1,11 @@
 // マップに配置する仮想の学習者(NPC)。リリース初期に実ユーザーが少なくても町が無人にならないよう置く。
 // 表示専用: 会話も操作もなし。頭上に「国旗+ニックネーム+レベル」を出し、home周辺をゆっくり8方向で歩き回る。
-// スプライトは町のアバター6種(男の子1,2・女の子1〜4)を使い回す。実ユーザーが増えたら表示数を絞って自然に置換する想定。
+// スプライトは町のアバター10種(男の子1〜5・女の子1〜5)を使い回す。
+// ── 運用(2026-08-13 ユーザー確定) ──
+//   ・名簿は100人。町ではその中から毎回シャッフルして数人だけ登場させる(顔ぶれが毎回変わる)。
+//   ・友だち(実在)が居れば友だちを優先表示。
+//   ・実ユーザーが増えるほど登場数を自動で絞る(app_user_count → fakeFactor)。100人超で架空は0=自然に置換。
+//   ・生成は決定的(モジュール読み込み時にランダムを使わない)。並び替えは表示側で行う。
 export interface VirtualLearner {
   id: string;
   nick: string;                       // ニックネーム(自由名。実在の特定個人ではない)
@@ -8,28 +13,80 @@ export interface VirtualLearner {
   level: 'N5' | 'N4' | 'N3';
   streak: number;                     // 連続日数
   today: number;                      // 今日の問題数
-  avatar: string;                     // アバターコード(m_boy1/m_boy2/f_g1/f_g2/f_g3/f_g4)
-  home: { col: number; row: number }; // 配置マス(当たり判定グリッド=MAP_G座標)
-  studying?: string;                  // いま勉強している分野(聴解/漢字/語彙/文法/読解)。会話カードに具体的な頑張りとして表示
+  avatar: string;                     // アバターコード(m_boy1..m_boy5 / f_g1..f_g5)
+  home: { col: number; row: number }; // 配置マス(表示側で歩けるマスに再割当=この値自体は使われない)
+  studying?: string;                  // いま勉強している分野(聴解/漢字/語彙/文法/読解)。会話カードに表示
   learned?: number;                   // これまで覚えた語数(会話カードに表示)
-  weekLearned?: number;               // この7日で覚えた語数(直近の頑張りが見える)。会話カードに表示
-  studySeconds?: number;              // 累計学習時間(秒)。実データ(友だち)。町ステータスの「総時間」に使う。NPCは未設定→語数から概算
+  weekLearned?: number;               // この7日で覚えた語数(直近の頑張り)。会話カードに表示
+  studySeconds?: number;              // 累計学習時間(秒)。実データ(友だち)用。NPCは未設定→語数から概算
   todayMin?: number;                  // 今日の学習時間(分)。会話カードに表示
-  strong?: string;                    // 得意な分野(前向きに得意だけ。苦手は載せない)。会話カードに表示
+  strong?: string;                    // 得意な分野(前向きに得意だけ)。会話カードに表示
   note?: string;                      // 一言(自由コメント。会話カードに表示)
-  mood?: string;                      // 定型ムード(努力タイプ)のキー。moods.ts の MOODS から選択。会話カードに表示
-  personality?: string;               // 性格(persona.ts PERSONALITIES)のキー。会話カードに表示
-  moodMsg?: string;                   // ムードメッセージ(persona.ts MOOD_MESSAGES)のキー。頭上/会話カードに表示
+  mood?: string;                      // (旧)努力タイプ。廃止済み=未使用。型互換のため残置
+  personality?: string;              // 性格(persona.ts PERSONALITIES)のキー。会話カードに表示
+  moodMsg?: string;                   // 気分メッセージ(persona.ts MOOD_MESSAGES)のキー。頭上/会話カードに表示
 }
 
-// 国はボーダーレスに散らす。home は当たり判定で歩けるマスから選定済み。アバター6種をばらけて割当。
-export const VIRTUAL_LEARNERS: VirtualLearner[] = [
-  { id: 'v1', nick: 'Mina', flag: '🇻🇳', level: 'N5', streak: 12, today: 20, avatar: 'f_g1', home: { col: 18, row: 19 }, studying: '漢字', learned: 210, weekLearned: 45, todayMin: 25, strong: '語彙', mood: 'kotsu', personality: 'majime', moodMsg: 'kotsu' },
-  { id: 'v2', nick: 'Leo', flag: '🇧🇷', level: 'N4', streak: 5, today: 15, avatar: 'm_boy1', home: { col: 30, row: 18 }, studying: '聴解', learned: 480, weekLearned: 60, todayMin: 40, strong: '聴解', mood: 'mattari', personality: 'akarui', moodMsg: 'listening' },
-  { id: 'v3', nick: 'Sora', flag: '🇰🇷', level: 'N3', streak: 33, today: 40, avatar: 'f_g2', home: { col: 15, row: 26 }, studying: '読解', learned: 1200, weekLearned: 120, todayMin: 60, strong: '読解', mood: 'endless', personality: 'doryoku', moodMsg: 'goukaku' },
-  { id: 'v4', nick: 'Aria', flag: '🇮🇹', level: 'N5', streak: 2, today: 10, avatar: 'f_g3', home: { col: 31, row: 26 }, studying: '語彙', learned: 150, weekLearned: 28, todayMin: 15, strong: 'ひらがな', mood: 'mikka', personality: 'tennen', moodMsg: 'tango' },
-  { id: 'v5', nick: 'Kai', flag: '🇺🇸', level: 'N4', streak: 8, today: 25, avatar: 'm_boy2', home: { col: 12, row: 23 }, studying: '文法', learned: 520, weekLearned: 72, todayMin: 35, strong: '漢字', mood: 'kotsu', personality: 'positive', moodMsg: 'ganbaru' },
-  { id: 'v6', nick: 'Nina', flag: '🇫🇷', level: 'N4', streak: 19, today: 30, avatar: 'f_g4', home: { col: 34, row: 24 }, studying: '聴解', learned: 600, weekLearned: 90, todayMin: 45, strong: '聴解', mood: 'doryoku', personality: 'yasashii', moodMsg: 'issho' },
-  { id: 'v7', nick: 'Tan', flag: '🇹🇭', level: 'N5', streak: 4, today: 12, avatar: 'f_g2', home: { col: 19, row: 32 }, studying: '漢字', learned: 180, weekLearned: 34, todayMin: 20, strong: '漢字', mood: 'weekend', personality: 'koukishin', moodMsg: 'kanji' },
-  { id: 'v8', nick: 'Ren', flag: '🇨🇳', level: 'N3', streak: 27, today: 35, avatar: 'm_boy1', home: { col: 30, row: 33 }, studying: '読解', learned: 1100, weekLearned: 105, todayMin: 50, strong: '文法', mood: 'oikomi', personality: 'makezu', moodMsg: 'oikomi' },
+// ── 素材(決定的生成の元) ────────────────────────────────────────────────
+// ニックネーム100(国際・ボーダーレス。実在の特定個人ではない自由なハンドル名)。
+const NICKS = [
+  'Mina', 'Leo', 'Sora', 'Aria', 'Kai', 'Nina', 'Tan', 'Ren', 'Yuki', 'Diego',
+  'Hana', 'Omar', 'Lucas', 'Sofia', 'Anh', 'Mei', 'Noah', 'Lena', 'Ravi', 'Emma',
+  'Jun', 'Bella', 'Ivan', 'Clara', 'Duc', 'Priya', 'Marco', 'Yuna', 'Sam', 'Elena',
+  'Toby', 'Maya', 'Nur', 'Felix', 'Lin', 'Adam', 'Rina', 'Oscar', 'Thu', 'Gina',
+  'Hugo', 'Sana', 'Nabil', 'Vera', 'Long', 'Amara', 'Pablo', 'Kira', 'Yusuf', 'Nadia',
+  'Theo', 'Lucia', 'Minh', 'Rosa', 'Emir', 'Chloe', 'Aran', 'Suki', 'Karim', 'Nora',
+  'Dami', 'Ines', 'Viet', 'Talia', 'Bao', 'Aya', 'Enzo', 'Lily', 'Fahad', 'Zoe',
+  'Bina', 'Mira', 'Hoa', 'Nate', 'Selin', 'Arjun', 'Paz', 'Kenji', 'Dina', 'Iker',
+  'Trang', 'Milan', 'Sena', 'Cruz', 'Lan', 'Reza', 'Nell', 'Idris', 'Yara', 'Piotr',
+  'Cami', 'Huy', 'Alma', 'Bruno', 'Thao', 'Nils', 'Sara', 'Quan', 'Elif', 'Diya',
 ];
+// 国旗40(ボーダーレスに散らす)。
+const FLAGS = [
+  '🇻🇳', '🇧🇷', '🇰🇷', '🇮🇹', '🇺🇸', '🇫🇷', '🇹🇭', '🇨🇳', '🇹🇼', '🇲🇽',
+  '🇵🇭', '🇪🇬', '🇮🇩', '🇮🇳', '🇳🇵', '🇧🇩', '🇲🇲', '🇱🇰', '🇵🇰', '🇹🇷',
+  '🇩🇪', '🇪🇸', '🇬🇧', '🇷🇺', '🇺🇦', '🇵🇱', '🇳🇬', '🇰🇪', '🇪🇹', '🇲🇦',
+  '🇵🇪', '🇨🇴', '🇦🇷', '🇨🇱', '🇨🇦', '🇦🇺', '🇲🇳', '🇰🇭', '🇱🇦', '🇺🇿',
+];
+const AVA = ['m_boy1', 'm_boy2', 'm_boy3', 'm_boy4', 'm_boy5', 'f_g1', 'f_g2', 'f_g3', 'f_g4', 'f_g5'];
+const LV = ['N5', 'N5', 'N5', 'N4', 'N4', 'N3'] as const; // 初級寄りに重み付け
+const FIELDS = ['聴解', '漢字', '語彙', '文法', '読解'];
+const FIELD_MOOD: Record<string, string> = { '聴解': 'listening', '漢字': 'kanji', '語彙': 'tango', '文法': 'bunpo', '読解': 'goukaku' };
+const PERSONAS = [
+  'akarui', 'majime', 'ottori', 'makezu', 'mypace', 'doryoku', 'koukishin', 'samishi', 'ochoshi', 'reisei',
+  'yasashii', 'tennen', 'shikkari', 'awate', 'roman', 'kodawari', 'positive', 'uchiki', 'leader', 'jiyu',
+];
+const MOODS = [
+  'ganbaru', 'goukaku', 'kotsu', 'yasumi', 'max', 'nemui', 'tanoshii', 'oikomi', 'kokomade', 'issho',
+  'kanji', 'listening', 'tango', 'bunpo', 'slump', 'sotsugyo', 'best', 'daisuki', 'dokidoki', 'mypace',
+];
+
+// ニックネームから重複サフィックス(数字)を落として表示名にする(素材の一意化用サフィックスを消す)。
+const cleanNick = (n: string) => n.replace(/[0-9]+$/, '');
+
+// 100人を決定的に生成(規則的に各フィールドを散らす。互いに素な係数で偏りを抑える)。
+export const VIRTUAL_LEARNERS: VirtualLearner[] = NICKS.map((rawNick, i) => {
+  const level = LV[i % LV.length];
+  const studying = FIELDS[i % FIELDS.length];
+  const strong = FIELDS[(i * 3 + 1) % FIELDS.length];
+  const base = level === 'N3' ? 900 : level === 'N4' ? 420 : 150;
+  const learned = base + ((i * 37) % 400);
+  const moodMsg = i % 3 === 0 ? FIELD_MOOD[studying] : MOODS[(i * 13) % MOODS.length];
+  return {
+    id: 'v' + (i + 1),
+    nick: cleanNick(rawNick),
+    flag: FLAGS[(i * 7) % FLAGS.length],
+    level,
+    streak: 1 + ((i * 3) % 45),
+    today: 8 + ((i * 5) % 34),
+    avatar: AVA[(i * 3) % AVA.length],
+    home: { col: 0, row: 0 },
+    studying,
+    learned,
+    weekLearned: 25 + ((i * 7) % 90),
+    todayMin: 10 + ((i * 6) % 50),
+    strong,
+    personality: PERSONAS[(i * 11) % PERSONAS.length],
+    moodMsg,
+  };
+});

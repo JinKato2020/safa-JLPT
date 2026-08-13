@@ -69,6 +69,10 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 94ターン（文脈 19万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 94ターン・ツール46回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a47ab6769b1b9a288 general-purpose
 - ae9c448fbd26954a9 general-purpose
@@ -76,14 +80,14 @@
 - a8f75f058eaa367f7 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/choukai_gen_done.txt
-- 問題/聴解/パイロット_課題0061/N3-C-K-0070.mp3
-- assets/audio/N3-C-K-0070.mp3
-- 問題/聴解/N3/1_課題理解/N3-C-K-0070.mp3
-- 問題/聴解/N3/_master/1_課題理解/N3-C-K-0070-3.wav
-- 問題/聴解/N3/_master/1_課題理解/N3-C-K-0070-2.wav
-- 問題/聴解/N3/_master/1_課題理解/N3-C-K-0070-1.wav
-- docs/supabase/dashboard.html
+- src/plaza/virtualLearners.ts
+- docs/supabase/app_population.sql
+- src/screens/KotobaTownScreen.tsx
+- src/plaza/appPopulation.ts
+- src/screens/PaywallScreen.tsx
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/screens/AccountScreen.tsx
 
-_自動更新: 2026-08-13 13:19_
+_自動更新: 2026-08-13 18:57_
 <!-- AUTO:END -->

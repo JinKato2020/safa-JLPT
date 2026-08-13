@@ -43,6 +43,19 @@
 - 既出テンプレ回避（0001-0060で使用済）＝病院初診/銀行口座/図書館貸出/遠足持ち物/研修受付/プレゼント消去法/バス集合/かばん/花/たまご数/会議室荷物。
 - **⚠未コミット（別トラック）**：正本kadai 0041-0060・assets/audio mp3(0041-0060)・tools・md。bundled.generated/_manifest未再生成＝アプリ未反映。UI修正(ステータス枠)はbuild2788で提出済(コミットf4c0d847)。
 
+## 次のバッチ＝0081-0100（各20問=計60）★走行中（2026-08-13起動）
+- 前バッチ0061-0080は完了・コミット済（15cf966f・音声60本¥236・正本80/80/80）。
+- **作問サブエージェント3体（general-purpose/opus・素→自己mora_check→ルビ完結・各レベル20問）起動**：出力＝`scratchpad_choukai/newq_0081/new_kadai_{N5,N4,N3}.json`。参照＝`batches/batch_kadai.json`＋`newq_0081/avoid_{LV}.txt`（既存80問の状況一覧＝重複回避）。完了通知で回収（A4ポーリング禁止）。
+  - N5 → agentId aea4096fe335af21a ／ N4 → a5e11d3c23235e5a5 ／ N3 → a5b06c629993efabf
+- **型の狙い（全問非手順・手順40固定を維持し40%へ）**：現状分布 N5[物10/何を4/場所12/数時9/放送9] N4[物9/何を7/場所14/数時7/放送11] N3[物8/何を7/場所14/数時3/放送10]。薄い型を優先＝N5:何を/物/放送、N4:数時/物/何を、N3:数時いつ/物/何を。各20問≒物5/何を4/場所2/数時5/放送独話4。
+- モーラ帯(下寄り狙い)＝N5 110-135(中131)・N4 220-270(中261)・N3 270-330(中322)。場面8カテゴリ均等（薄い＝地域近所/学校学習優先）。N3は間接（消去法・本音後半・『まずは〜』ネタバレ禁止）。係→スタッフ。
+- **3体そろったら**：`fix_blank.py`→統合`new_kadai.json`→`merge_and_gate.py --new newq_0081`→`qtype_ledger.py --only newq_0081`→帯外/偏りはSendMessageで直させ→`--apply`(80→100)→`tts_lint.py --new`→音声`gen_choukai_json.py --ids <60> --pilot 問題/聴解/パイロット_課題0081`→rebuild.ts→tts_script.py→コミット。
+- **3体完了・ゲート済(2026-08-13)**：fix_blank修正0/導入欠落なし。統合60。merge_and_gate=**致命0/帯外0**(モーラ N5 105-140・N4 219-274・N3 294-360 全帯内)。qtype=全問非手順(N5物6/何5/場4/数4/放4・N4物5/何4/場5/数4/放4・N3物5/何5/場5/数3/放5)。場面重複/scenario_tag外は参考のみ(非ブロック)。**残1件**：N3-0097『まず〜てください』直接指示→N3 agent(a5b06c629993efabf)へ言い換え依頼・完了通知待ち。
+- **0097戻り次第**：new_kadai_N3.json再統合→merge_and_gate --new再確認→**--apply(80→100)**→tts_lint --new→音声60本(pilot 問題/聴解/パイロット_課題0081)→rebuild.ts→tts_script.py→コミット。
+- **0097言い換え済→再ゲート致命0/帯外0/ネタバレ0→--apply完了(正本 N5/N4/N3 各100・末尾-0100)**。tts_lint=新60問0件(生残り8件は全て旧0005-0020の係/三日＝据え置き・別件)。
+- **音声生成 走行中**：run `bjsrkiadw`（`gen_choukai_json.py --ids-file _ids.txt(60) --pilot 問題/聴解/パイロット_課題0081`）。ログ=`memory/choukai_gen_log_0081.txt`。完了通知で実費回収(A4)。60問≈¥190-240見込。
+- **音声後**：`node --import tsx tools/content/rebuild.ts`(→_manifest.json)→`python 問題/tools/tts_script.py`(音声台帳)→コミット。これでアプリに0081-0100が出る。
+
 ## （旧）テストバッチ走行 run
 - 3レベル並列サブエージェント（general-purpose）。各自 素→mora_check→修正→フルルビ を完結し書き出す：
   - N5 → agentId ab5b13c7370020e1b

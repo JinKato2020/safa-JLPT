@@ -111,7 +111,7 @@ export default function AccountScreen() {
   const isPro = proStatus(appState, Date.now()).isPro;
   const proCard = (
     <Pressable style={s.proRow} onPress={() => nav.navigate('Paywall')} disabled={isPro} hitSlop={4}>
-      <View style={s.proIco}><Ionicons name="star" size={20} color="#fff" /></View>
+      <View style={s.proIco}><Ionicons name="star" size={20} color={c.pink} /></View>
       <View style={{ flex: 1 }}>
         <Text style={s.proTitle}>{t('account.pro_title')}</Text>
         <Text style={s.proSub}>{isPro ? t('account.pro_active') : t('account.pro_sub')}</Text>
@@ -469,12 +469,12 @@ const makeStyles = (c: ThemeColors) =>
     benefitTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
     benefitSub: { fontSize: ty.small, color: c.mute, textAlign: 'center' },
     acctEmail: { fontSize: ty.body, fontWeight: '800', color: c.ink, textAlign: 'center' },
-    // Pro課金カード(プレミアム=金アクセント。地色/文字はテーマ追従、アクセントのみ固定色)
-    proRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: '#D8B65A', borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
-    proIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: '#C9A24B', alignItems: 'center', justifyContent: 'center' },
+    // Pro課金カード(枠は標準カードに統一=友だち招待/コード入力と同じ。アクセントのみ桜ピンク=アイコン/ボタン)
+    proRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
+    proIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: c.pinkLight, alignItems: 'center', justifyContent: 'center' },
     proTitle: { fontSize: ty.body, fontWeight: '900', color: c.ink },
     proSub: { fontSize: ty.small, color: c.mute, marginTop: 1 },
-    proCta: { paddingVertical: spacing.xs, paddingHorizontal: spacing.md, borderRadius: radius.pill, backgroundColor: '#C9A24B' },
+    proCta: { paddingVertical: spacing.xs, paddingHorizontal: spacing.md, borderRadius: radius.pill, backgroundColor: c.pink },
     proCtaTxt: { fontSize: ty.small, fontWeight: '900', color: '#fff' },
     referralRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
     referralIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: c.blueLight, alignItems: 'center', justifyContent: 'center' },

@@ -33,6 +33,7 @@ import { useSync } from '../auth/SyncProvider';
 import { friendPublish, townMembers, cheerSend, townKick, type FriendProfile } from '../plaza/friendsClient';
 import { friendToLearner } from '../plaza/friendResidents';
 import { flagOf } from '../plaza/countries';
+import { getAppUserCount, fakeFactor } from '../plaza/appPopulation';
 import { daimonMasteryCounts } from '../store/selectors';
 
 type Dir = 'down' | 'up' | 'left' | 'right' | 'downleft' | 'downright' | 'upleft' | 'upright';
@@ -187,15 +188,25 @@ const SHIBA: Record<Dir, number[]> = {
 };
 const SHIBA_HOME = { col: 29, row: 28 };
 
-// ベンチ付近の仮想学習者(動かない)。座り専用の旧画像(旧女の子1等が混入)は廃止し、立ちと同じ現行アバターの
-// スプライトを SPRITE サイズで表示=大きさ正規化。x,y,w,h=元のベンチ位置(近接判定と足元合わせに使う)。
+// ベンチ位置(動かない座り枠)。x,y,w,h=元のベンチ位置(近接判定と足元合わせに使う)。座る人は町側で
+// 毎回シャッフルした名簿から割り当てる(顔ぶれが毎回変わる。実ユーザーが増えると数を絞る)。
 type Sitter = { x: number; y: number; w: number; h: number; v: VirtualLearner };
-const SITTERS: Sitter[] = [
-  { x: 336, y: 430, w: 32, h: 58, v: { id: 's1', nick: 'Yuki', flag: '🇹🇼', level: 'N5', streak: 9, today: 16, avatar: 'f_g1', home: { col: 0, row: 0 }, studying: '語彙', learned: 240, weekLearned: 38, todayMin: 30, strong: '語彙', mood: 'kotsu', personality: 'ottori', moodMsg: 'tanoshii' } },   // 左上ベンチ
-  { x: 612, y: 424, w: 25, h: 58, v: { id: 's2', nick: 'Diego', flag: '🇲🇽', level: 'N4', streak: 6, today: 14, avatar: 'm_boy1', home: { col: 0, row: 0 }, studying: '聴解', learned: 430, weekLearned: 52, todayMin: 40, strong: '聴解', mood: 'mattari', personality: 'ochoshi', moodMsg: 'listening' } }, // 右上ベンチ
-  { x: 328, y: 500, w: 37, h: 58, v: { id: 's3', nick: 'Hana', flag: '🇵🇭', level: 'N3', streak: 21, today: 28, avatar: 'f_g2', home: { col: 0, row: 0 }, studying: '文法', learned: 980, weekLearned: 96, todayMin: 55, strong: '文法', mood: 'doryoku', personality: 'shikkari', moodMsg: 'bunpo' } },  // 左下ベンチ
-  { x: 529, y: 500, w: 26, h: 58, v: { id: 's4', nick: 'Omar', flag: '🇪🇬', level: 'N4', streak: 11, today: 22, avatar: 'm_boy2', home: { col: 0, row: 0 }, studying: '漢字', learned: 560, weekLearned: 61, todayMin: 35, strong: '漢字', mood: 'oikomi', personality: 'reisei', moodMsg: 'kanji' } }, // 下ベンチ
+type BenchPos = { x: number; y: number; w: number; h: number };
+const BENCH_POS: BenchPos[] = [
+  { x: 336, y: 430, w: 32, h: 58 }, // 左上ベンチ
+  { x: 612, y: 424, w: 25, h: 58 }, // 右上ベンチ
+  { x: 328, y: 500, w: 37, h: 58 }, // 左下ベンチ
+  { x: 529, y: 500, w: 26, h: 58 }, // 下ベンチ
 ];
+
+// 決定的シャッフル(seed固定=同一マウント内では安定。マウントごとに seed が変わり顔ぶれが入れ替わる)。
+function seededShuffle<T>(arr: readonly T[], seed: number): T[] {
+  const a = arr.slice();
+  let s = (seed >>> 0) || 1;
+  const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 0x100000000; };
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
 // 桜のほめ言葉(努力を褒める)。連続日数があれば1つに織り込む。表示言語は t で解決。
 const sakuraPraise = (streak: number, t: (k: string, p?: Record<string, string | number>) => string): string[] => [
   t('town.sakura_praise.1'),
@@ -456,19 +467,35 @@ export default function KotobaTownScreen() {
     return cells;
   }, [treeCellSet]);
   const MAX_WALK = 8; // 歩行NPC+友だちの合計上限(ベンチ4と足して12)。
+  // 架空アバター: 名簿(100人)を毎回シャッフルし、数人だけ登場させる。実ユーザーが増えるほど登場数を自動で絞る。
+  const shuffleSeed = useRef(Math.floor(Math.random() * 1e9)).current;
+  const shuffledPool = useMemo(() => seededShuffle(VIRTUAL_LEARNERS, shuffleSeed), [shuffleSeed]);
+  const [realUsers, setRealUsers] = useState(0);
+  useEffect(() => { let ok = true; getAppUserCount().then((n) => { if (ok) setRealUsers(n); }); return () => { ok = false; }; }, []);
+  const fakeF = fakeFactor(realUsers); // 1=最大 … 0=架空を出さない(実ユーザーが100超)
   // 友だち=ユーザー付近の近いマスから優先的に(2マス間隔で自然に)。
   const friendCells = useMemo(() => pickSpaced(pool, Math.min(friends.length, MAX_WALK), 2), [pool, friends.length]);
-  // 歩行NPC=友だちが取らなかった残り(ユーザーから遠い側)を散らす。友だちが多いほどNPCは減る(合計8)。
+  // 歩行NPC=友だちが取らなかった残り(ユーザーから遠い側)を散らす。友だち/実ユーザーが多いほどNPCは減る。
   const scattered = useMemo(() => {
     const F = Math.min(friends.length, MAX_WALK);
+    const walkFakeCap = Math.round(MAX_WALK * fakeF);           // フェード: 実ユーザーが増えるほど小さく
     const fset = new Set(friendCells.map((c) => `${c.col},${c.row}`));
     const rest = pool.filter((c) => !fset.has(`${c.col},${c.row}`)).slice().reverse(); // ユーザーから遠い順
-    const spots = pickSpaced(rest, Math.max(0, MAX_WALK - F), 3);
-    return VIRTUAL_LEARNERS.slice(0, spots.length).map((v, i) => ({ ...v, home: spots[i] }));
-  }, [pool, friendCells, friends.length]);
+    const nFakes = Math.max(0, Math.min(MAX_WALK - F, walkFakeCap));
+    const spots = pickSpaced(rest, nFakes, 3);
+    return shuffledPool.slice(0, spots.length).map((v, i) => ({ ...v, home: spots[i] }));
+  }, [pool, friendCells, friends.length, fakeF, shuffledPool]);
   const residents = useMemo(() => [...scattered, ...friends], [scattered, friends]); // 歩行NPC(散布)＋友だち(ユーザー付近)
   const residentsRef = useRef<VirtualLearner[]>(scattered);
   residentsRef.current = residents; // 移動ループ(閉包)から最新の住人を参照するため
+  // ベンチ(座り)も名簿から毎回割り当てる。歩行スライス(先頭)と重ならない位置から取り、実ユーザー増で数を絞る。
+  const benchCap = Math.round(BENCH_POS.length * fakeF);
+  const sitters = useMemo(() => {
+    const n = Math.max(0, Math.min(BENCH_POS.length, benchCap));
+    return BENCH_POS.slice(0, n).map((p, i) => ({ ...p, v: shuffledPool[(MAX_WALK + i) % shuffledPool.length] }));
+  }, [benchCap, shuffledPool]);
+  const sittersRef = useRef<Sitter[]>(sitters);
+  sittersRef.current = sitters; // 移動ループ(閉包)から最新の座り手を参照するため
   const isDay = useMemo(() => { const h = new Date().getHours(); return h >= 6 && h < 18; }, []);
   const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
   const MAP_TREE = isDay ? MAP_TREE_DAY : MAP_TREE_NIGHT; // 木の最前面レイヤーも昼夜で切替(夜も木の裏を通れる)
@@ -670,7 +697,7 @@ export default function KotobaTownScreen() {
           // 密着できないので、少し広めのしきい値(thresh/rearm)で会話できるようにする。
           let near: VirtualLearner | null = null, best = 1e9, thresh = 26, rearm = 52;
           for (const vl of residentsRef.current) { const p = npcPos[vl.id]; if (!p) continue; const d = Math.hypot(fx - (p.x + SPRITE / 2), fy - (p.y + SPRITE * 0.82)); if (d < best) { best = d; near = vl; thresh = 26; rearm = 52; } }
-          for (const st of SITTERS) { const d = Math.hypot(fx - (st.x + st.w / 2), fy - (st.y + st.h * 0.72)); if (d < best) { best = d; near = st.v; thresh = 54; rearm = 95; } }
+          for (const st of sittersRef.current) { const d = Math.hypot(fx - (st.x + st.w / 2), fy - (st.y + st.h * 0.72)); if (d < best) { best = d; near = st.v; thresh = 54; rearm = 95; } }
           if (near && best < thresh && talkArmed.current) { talkArmed.current = false; input.current = { dx: 0, dy: 0 }; openTalk(near); }
           else if (!near || best > rearm) talkArmed.current = true;
         }
@@ -747,7 +774,7 @@ export default function KotobaTownScreen() {
           {/* 下: マップ本体 */}
           <Image source={MAP_IMG} style={{ position: 'absolute', width: WORLD, height: WORLD }} resizeMode="cover" />
           {/* ベンチ付近の仮想学習者(動かない)。立ちと同じ現行スプライトを SPRITE サイズで表示＋名前/Lv名札。 */}
-          {SITTERS.map((si, i) => {
+          {sitters.map((si, i) => {
             const SET = AVATAR_SETS[si.v.avatar] || HERO;
             const left = si.x + si.w / 2 - SPRITE / 2;        // ベンチ位置の中心にそろえる
             const top = si.y + si.h - SPRITE;                 // 足元を元のベンチ座面下端にそろえる=立ちと同じ大きさ
@@ -776,7 +803,7 @@ export default function KotobaTownScreen() {
           ))}
           {/* 最前面: 名前・Lvの名札は前面レイヤ(木/屋根)より上に描く=裏に隠れても位置が分かる。 */}
           {/* 座りキャラ(ベンチ)の名札。動かないので固定座標で。 */}
-          {SITTERS.map((si, i) => {
+          {sitters.map((si, i) => {
             const left = si.x + si.w / 2 - SPRITE / 2;
             const top = si.y + si.h - SPRITE;
             return (

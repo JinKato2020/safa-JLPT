@@ -1,15 +1,19 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 13 回・30 ターン
-- 往復 112939 回
+- ツール呼び出し 46 回・94 ターン
+- 往復 115900 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/choukai_gen_done.txt
-- 問題/聴解/パイロット_課題0061/N3-C-K-0070.mp3
-- assets/audio/N3-C-K-0070.mp3
-- 問題/聴解/N3/1_課題理解/N3-C-K-0070.mp3
+- src/plaza/virtualLearners.ts
+- docs/supabase/app_population.sql
+- src/screens/KotobaTownScreen.tsx
+- src/plaza/appPopulation.ts
+
+## ⚠️ 注意
+- - ⚠ 連続 94ターン（文脈 19万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 94ターン・ツール46回）— まとめ方を変える
 
 ## 次の一手
 - **🆕🆕 2026-08-13(最新) 課題理解100問化=テスト＋本番51問まで完了／次=0061-0080(各20問)**: 課題理解を各レベル100問へ。**完了済=0041-0043(テスト9問)＋0044-0060(51問)を正本 `content/problems/choukai/kadai_{N5,N4,N3}.json` へ適用済(各60問)＋音声生成済**(実費 0041-43=$0.19/0044-60=$1.08=計約191円・pilot=`問題/聴解/パイロット_課題テスト0041`と`_0044`)。**確立した作問フロー(この順)**=①素で作問(**話者ラベルは男/女始まり必須**=`女1：`/`男1：`・**導入行＋空行必須**・**係→スタッフ**・漢数字・正解を先頭・**非手順型=物/場所/数時/放送を均等**・**N3は間接**)→②`python tools/choukai/mora_check.py <file>`で帯内化(短→加筆/長→作り直し)→③帯確定後に**同一エージェントでフルルビ付与**(全漢字・FORCE_KANA語=日付/助数詞は文脈読み・**熟字訓日付＋接尾語のユニットルビ禁止**=三日後(みっかご)✗→三日(みっか)で✓)→`python tools/choukai/fix_blank.py <files>`(導入直後の空行を自動挿入)→`merge_and_gate.py --new <dir>`(致命/帯外/係)＋`qtype_ledger.py --only <dir>`(手順0/型分布/N3ネタバレ)→`--apply`で正本追記→`python 問題/tools/gen_choukai_json.py --ids <csv> --pilot <dir>`で音声。正本の話者=`女（おんな）1（役割）：`形式。**次=0061-0080(各20問=計60)を同フロー・同設計で**(手順ゼロ・物/場所/数時/放送均等・N3間接・既出テンプレ回避=病院初診/銀行口座/図書館/遠足/研修/プレゼント消去法/かばん/花/たまご/会議室)。**⚠未コミット**=正本kadai 0041-0060・`assets/audio`のmp3(0041-0060)・tools(qtype_ledger.py/fix_blank.py/merge_and_gate.py)・md(聴解_作問フロー/音声作成フロー)。**`bundled.generated`/`_manifest`未再生成＝アプリ未反映**(作問完了後に tts_script台帳更新→manifest再生成(OTA)→ビルドは指示時)。**UIビルド2787(会話ステータス枠を新素材へ差替+『メッセージを送る』を会話画像とステータスの間へ移動)はcommit+push+CI成功済**(iOS TestFlight/Android Play alpha)。作問フロー正本=`md/聴解_作問フロー.md`(§2設問型+レベル差/ルビ3段階・§6ツール)。詳細=`memory/choukai-test-inflight.md`。

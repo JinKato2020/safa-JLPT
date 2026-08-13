@@ -156,7 +156,7 @@ export default function PaywallScreen() {
 const styles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
   scroll: { padding: spacing.lg, gap: spacing.md, flexGrow: 1 },
-  banner: { width: '100%', aspectRatio: 3 / 2, borderRadius: radius.lg, backgroundColor: c.surface },
+  banner: { width: 260, height: 173, alignSelf: 'center', borderRadius: radius.lg, backgroundColor: c.surface },
   title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
   subtitle: { fontSize: ty.body, color: c.ink2, textAlign: 'center', lineHeight: 22 },
   benefits: { gap: spacing.sm, marginVertical: spacing.md },

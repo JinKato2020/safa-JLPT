@@ -16,6 +16,10 @@ export interface ThemeColors {
   blue: string;
   blueDark: string;  // blueLight 上の文字色
   blueLight: string; // 選択チップ背景
+  // Pro(桜ピンク)。Pro課金カードのアクセント専用(アイコン/ボタン)。青と同じ3点セット。
+  pink: string;      // ボタン地・アイコン色
+  pinkDark: string;  // pinkLight 上の文字色
+  pinkLight: string; // アイコンチップ背景
   // 状態色
   green: string;
   amber: string;
@@ -48,6 +52,9 @@ export const lightColors: ThemeColors = {
   blue: '#2563eb',
   blueDark: '#1e40af',
   blueLight: '#dbeafe',
+  pink: '#e0568a',
+  pinkDark: '#9d2f5b',
+  pinkLight: '#fbe4ee',
   green: '#16a34a',
   amber: '#f59e0b',
   orange: '#f97316',
@@ -77,6 +84,9 @@ export const darkColors: ThemeColors = {
   blue: '#3b82f6',
   blueDark: '#bfdbfe',
   blueLight: '#1e3a8a',
+  pink: '#f472b6',
+  pinkDark: '#fbcfe8',
+  pinkLight: '#6d2447',
   green: '#22c55e',
   amber: '#fbbf24',
   orange: '#fb923c',
