@@ -962,8 +962,8 @@ export default function KotobaTownScreen() {
         // → 縦積みにして各値へ列幅いっぱい(≈38%)を与え、収まらない時だけ自動縮小(⋯で切らない)。左右対称でバランスも改善。
         const L_X = 0.12, R_X = 0.55;          // 左列/右列の開始x(FW比)
         const LCOL_W = 0.40, RCOL_W = 0.33;                    // 各列の値・下線の幅(FW比)
-        const fsLab = Math.round(FW * 0.033);  // ラベル(小)
-        const fsVal = Math.round(FW * 0.046);  // 値(大きめ=見やすく)
+        const fsLab = Math.round(FW * 0.030);  // ラベル(小)
+        const fsVal = FS_SAY;                  // 値=会話ダイアログの文字と同サイズに揃える。母語が長い時だけ2行/自動縮小で収める
         return (
           <View style={s.cvWrap}>
             {/* 会話画像・ステータス以外の背景=歩行中の町をそのまま見せる(暗幕なし・透過オーバーレイ)。 */}
@@ -1004,14 +1004,15 @@ export default function KotobaTownScreen() {
                 <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
                 {/* 6項目: 2列×3行=上半分(仕切り線0.506の上)。各セル=ラベル(上)＋値(下・列幅いっぱい・母語の長文は2行まで＋自動縮小)＋下線(行下端固定)。 */}
                 {FIELDS.map((f, i) => {
+                  const isLast = i === FIELDS.length - 1; // 最終行(気分/総時間)=直下に装飾の仕切り線があるので下線なし
                   const y = stH * (0.10 + i * 0.128);   // 行の上端(ラベル)。上半分を3行で使う。
-                  const vy = y + fsLab * 1.3;           // 値(ラベルの下)
+                  const vy = y + fsLab * 1.6;           // 値(ラベルの下・少し余裕を持たせる)
                   const uy = y + stH * 0.112;           // 下線=行の下端(値の行数に依らず固定)
                   const cell = (x: number, lab: string, val: string, w: number) => (
                     <>
                       <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, color: subCol, fontSize: fsLab, fontWeight: '600' }}>{lab}</Text>
-                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.5} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.08), fontWeight: '600' }}>{val}</Text>
-                      <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
+                      {!isLast && <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />}
                     </>
                   );
                   return (
@@ -1087,8 +1088,8 @@ export default function KotobaTownScreen() {
         // 縦積み(ラベル上・値下)＝英語/ネパール語でも右列が消えない・文字を大きく(NPC枠と同一仕様)。
         const L_X = 0.12, R_X = 0.55;
         const LCOL_W = 0.40, RCOL_W = 0.33;
-        const fsLab = Math.round(FW * 0.033);
-        const fsVal = Math.round(FW * 0.046);
+        const fsLab = Math.round(FW * 0.030);
+        const fsVal = FS_SAY;                  // 値=会話ダイアログの文字と同サイズに揃える
         return (
           <View style={s.cvWrap}>
             {/* 会話画像・ステータス以外の背景=歩行中の町をそのまま(暗幕なし)。下に引くと閉じる。 */}
@@ -1114,14 +1115,15 @@ export default function KotobaTownScreen() {
               <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: -Math.round(FW * 0.045) }}>
                 <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
                 {SFIELDS.map((f, i) => {
+                  const isLast = i === SFIELDS.length - 1; // 最終行(気分/得意)=直下に装飾の仕切り線があるので下線なし
                   const y = stH * (0.10 + i * 0.128);
-                  const vy = y + fsLab * 1.3;
+                  const vy = y + fsLab * 1.6;
                   const uy = y + stH * 0.112;
                   const cell = (x: number, lab: string, val: string, w: number) => (
                     <>
                       <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, color: subCol, fontSize: fsLab, fontWeight: '600' }}>{lab}</Text>
-                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.5} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.08), fontWeight: '600' }}>{val}</Text>
-                      <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />
+                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
+                      {!isLast && <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />}
                     </>
                   );
                   return (

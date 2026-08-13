@@ -1,4 +1,4 @@
-// ホーム下部の案内キャラ(桜の巫女)。ふわふわ＋瞬き(6秒に2回)＋AIコーチの吹き出し。
+// ホーム下部の案内キャラ(桜)。ふわふわ＋瞬き(6秒に2回)＋AIコーチの吹き出し。
 // 吹き出しは時々自動で出る／消えている時はキャラをタップで出す。目だけ差し替えの重ね替えで瞬き。
 import { useEffect, useRef, useState } from 'react';
 import { View, Text, Pressable, Image, Animated, Easing, StyleSheet } from 'react-native';

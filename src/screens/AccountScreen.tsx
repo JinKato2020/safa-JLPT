@@ -1,5 +1,5 @@
 // アカウント作成/ログイン(段階1)。メール+パスワード。確認メールON=新規作成後は確認案内→ログイン。
-// 案内=桜の巫女(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
+// 案内=桜(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Modal, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
