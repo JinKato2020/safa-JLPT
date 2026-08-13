@@ -9,6 +9,7 @@ import { useAppState, useAppActions } from '../store/store';
 import type { AppState } from '../store/state';
 import { composeVoice, pickFlavor, renderVoice } from '../story/voice';
 import { learnedNow } from '../store/selectors';
+import { SHOP_BY_ID } from '../data/shop';
 import { useT } from '../i18n';
 
 // はじめて開いた人向けの一言(voice.newcomer.1〜5)＋締め(voice.close_daily.1〜8)の本数。表示は i18n キーで解決。
@@ -43,7 +44,7 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
   const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
-  const { height } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
 
   const [text, setText] = useState('');
   const [visible, setVisible] = useState(false);
@@ -106,9 +107,17 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
 
   if (!visible || !text) return null;
 
-  // 桜(HomeCoach)は画面下部に立つ。その頭上あたりにそっと浮かべる。タップで消える。
+  // 桜(HomeCoach)の立ち絵の高さを同じ式で再現し、その“頭の少し上”に吹き出しを置く。
+  //  端末の縦横比が違っても顔に被らず、常に「リングと桜の間」に出る(iPadでの顔かぶり対策)。
+  const costumeImg = state.equipped?.costume ? SHOP_BY_ID[state.equipped.costume]?.asset : undefined;
+  const charW = Math.round(width * (costumeImg ? 0.60 : 0.40));
+  const charH = Math.round(charW * (costumeImg ? 1.37 : 1.12)); // HomeCoach と同式
+  const ringBottomY = Math.round(height * 0.15 + width * 0.40);  // リング下端(HomeScreen と同式)
+  const headBottom = 74 + charH + Math.round(height * 0.02);      // 桜の頭上(画面下からの距離)。wrap.bottom=74 と一致
+  const maxBottom = height - ringBottomY - 96;                    // これ以上上げるとリングに被る
+  const bubbleBottom = Math.max(Math.round(height * 0.14), Math.min(headBottom, maxBottom));
   return (
-    <Animated.View style={[s.wrap, { bottom: Math.round(height * 0.30), opacity: fade }]} pointerEvents="box-none">
+    <Animated.View style={[s.wrap, { bottom: bubbleBottom, opacity: fade }]} pointerEvents="box-none">
       <Pressable onPress={dismiss} style={s.bubble} hitSlop={8}>
         <Text style={s.text}>{text}</Text>
         <View style={s.tail} />

@@ -14,6 +14,17 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
 import { useAppState } from '../store/store';
+import { KANJI, VOCAB, GRAMMAR } from '../data';
+// 「覚えた単語」の分母＝そのレベルの全単語数(漢字/語彙/文法)。exact-level(§4カバー率と同じ定義)で1度だけ集計。
+const LEVEL_TOTALS: Record<string, { kanji: number; vocab: number; grammar: number }> = (() => {
+  const tot: Record<string, { kanji: number; vocab: number; grammar: number }> = {
+    N5: { kanji: 0, vocab: 0, grammar: 0 }, N4: { kanji: 0, vocab: 0, grammar: 0 }, N3: { kanji: 0, vocab: 0, grammar: 0 },
+  };
+  KANJI.forEach((k) => { if (tot[k.level]) tot[k.level].kanji++; });
+  VOCAB.forEach((v) => { if (tot[v.level]) tot[v.level].vocab++; });
+  GRAMMAR.forEach((g) => { if (tot[g.level]) tot[g.level].grammar++; });
+  return tot;
+})();
 import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
 import { moodMsgText, personaLine, traitLabel } from '../plaza/persona';
@@ -951,11 +962,12 @@ export default function KotobaTownScreen() {
         const kanji = Math.round(learned * (0.26 + (hsum % 10) / 100));
         const vocab = Math.round(learned * (0.46 + (hsum % 7) / 100));
         const grammar = Math.max(0, learned - kanji - vocab);
-        const catMax = Math.max(1, kanji, vocab, grammar);
-        const CATS: { lab: string; n: number; col: string }[] = [
-          { lab: t('town.facet.kanji'), n: kanji, col: '#4a7fc0' },
-          { lab: t('town.facet.vocab'), n: vocab, col: '#6f9a3f' },
-          { lab: t('town.facet.grammar'), n: grammar, col: '#c0603a' },
+        // 分母＝そのレベルの全単語数(漢字/語彙/文法)。覚えた数は総数を超えないよう丸める。
+        const lvTot = LEVEL_TOTALS[talk.level] ?? { kanji: 1, vocab: 1, grammar: 1 };
+        const CATS: { lab: string; n: number; total: number; col: string }[] = [
+          { lab: t('town.facet.kanji'), n: Math.min(kanji, lvTot.kanji), total: lvTot.kanji, col: '#4a7fc0' },
+          { lab: t('town.facet.vocab'), n: Math.min(vocab, lvTot.vocab), total: lvTot.vocab, col: '#6f9a3f' },
+          { lab: t('town.facet.grammar'), n: Math.min(grammar, lvTot.grammar), total: lvTot.grammar, col: '#c0603a' },
         ];
         // 6項目=2列×3行。各セルは「ラベル(上・小)＋値(下・大)」の縦積み。
         // 英語/ネパール語はラベルも値も長いため、横並び(ラベル：値)だと右列がはみ出して消える・文字が極小になる。
@@ -1005,20 +1017,21 @@ export default function KotobaTownScreen() {
                 {/* 6項目: 2列×3行=上半分(仕切り線0.506の上)。各セル=ラベル(上)＋値(下・列幅いっぱい・母語の長文は2行まで＋自動縮小)＋下線(行下端固定)。 */}
                 {FIELDS.map((f, i) => {
                   const isLast = i === FIELDS.length - 1; // 最終行(気分/総時間)=直下に装飾の仕切り線があるので下線なし
-                  const y = stH * (0.10 + i * 0.128);   // 行の上端(ラベル)。上半分を3行で使う。
-                  const vy = y + fsLab * 1.6;           // 値(ラベルの下・少し余裕を持たせる)
-                  const uy = y + stH * 0.112;           // 下線=行の下端(値の行数に依らず固定)
+                  const y = stH * (0.10 + i * 0.128);   // 行の上端
+                  const bandH = stH * 0.112;            // ラベル+値を収める帯(下線まで)。この帯の上下中央に寄せる。
+                  // 帯の縦中央にラベル+値を寄せる=日本語(1行)は中央にゆったり、母語(2行)は詰まって収まる。
                   const cell = (x: number, lab: string, val: string, w: number) => (
-                    <>
-                      <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, color: subCol, fontSize: fsLab, fontWeight: '600' }}>{lab}</Text>
-                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
-                      {!isLast && <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />}
-                    </>
+                    <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, height: bandH, justifyContent: 'center' }}>
+                      <Text numberOfLines={1} style={{ color: subCol, fontSize: fsLab, fontWeight: '600', marginBottom: Math.round(fsLab * 0.3) }}>{lab}</Text>
+                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.6} style={{ color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
+                    </View>
                   );
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
                       {cell(L_X, f.lab, f.val, LCOL_W)}
                       {cell(R_X, f.lab2, f.val2, RCOL_W)}
+                      {!isLast && <View style={{ position: 'absolute', left: FW * L_X, width: FW * LCOL_W, top: y + bandH, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />}
+                      {!isLast && <View style={{ position: 'absolute', left: FW * R_X, width: FW * RCOL_W, top: y + bandH, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />}
                     </View>
                   );
                 })}
@@ -1026,16 +1039,19 @@ export default function KotobaTownScreen() {
                 <Text style={{ position: 'absolute', top: stH * 0.55, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '600', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
                 {/* 3バー: 漢字/語彙/文法 = 内訳(色分け)＋語数=下半分。 */}
                 {CATS.map((c, i) => {
-                  const y = stH * (0.63 + i * 0.093);
-                  const bx0 = FW * 0.28, bx1 = FW * 0.76, bw = bx1 - bx0;
-                  const fill = Math.max(0.04, Math.min(1, 0.82 * c.n / catMax));
+                  const y = stH * (0.625 + i * 0.108);   // バーの下に分数を置くため行間を少し広げる
+                  const bx0 = FW * 0.30, bx1 = FW * 0.80, bw = bx1 - bx0;
+                  const barH = Math.round(FW * 0.034);
+                  const fill = Math.max(0.03, Math.min(1, c.n / Math.max(1, c.total))); // 覚えた/総単語 の割合
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y, color: subCol, fontSize: FS_LAB, fontWeight: '600' }}>{c.lab}</Text>
-                      <View style={{ position: 'absolute', left: bx0, top: y + 1, width: bw, height: Math.round(FW * 0.036), borderRadius: 6, backgroundColor: 'rgba(120,100,70,0.16)', borderWidth: 1, borderColor: 'rgba(120,100,70,0.4)', overflow: 'hidden' }}>
+                      {/* ラベル(漢字/語彙/文法)=バーと縦中央そろえ */}
+                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y + (barH - FS_LAB) / 2 - 1, color: subCol, fontSize: FS_LAB, fontWeight: '600' }}>{c.lab}</Text>
+                      <View style={{ position: 'absolute', left: bx0, top: y, width: bw, height: barH, borderRadius: 6, backgroundColor: 'rgba(120,100,70,0.16)', borderWidth: 1, borderColor: 'rgba(120,100,70,0.4)', overflow: 'hidden' }}>
                         <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: Math.round(bw * fill), backgroundColor: c.col, borderRadius: 6 }} />
                       </View>
-                      <Text style={{ position: 'absolute', left: bx1 + FW * 0.025, top: y, color: inkCol, fontSize: FS_VAL, fontWeight: '600' }}>{c.n}</Text>
+                      {/* 分数=バーの下(覚えた単語数 / 総単語=そのレベルの全単語数) */}
+                      <Text style={{ position: 'absolute', left: bx0, width: bw, top: y + barH + Math.round(FW * 0.006), textAlign: 'right', color: inkCol, fontSize: Math.round(FW * 0.030), fontWeight: '600' }}>{c.n} / {c.total}</Text>
                     </View>
                   );
                 })}
@@ -1117,34 +1133,36 @@ export default function KotobaTownScreen() {
                 {SFIELDS.map((f, i) => {
                   const isLast = i === SFIELDS.length - 1; // 最終行(気分/得意)=直下に装飾の仕切り線があるので下線なし
                   const y = stH * (0.10 + i * 0.128);
-                  const vy = y + fsLab * 1.6;
-                  const uy = y + stH * 0.112;
+                  const bandH = stH * 0.112;            // ラベル+値を収める帯(下線まで)。上下中央に寄せる。
                   const cell = (x: number, lab: string, val: string, w: number) => (
-                    <>
-                      <Text numberOfLines={1} style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, color: subCol, fontSize: fsLab, fontWeight: '600' }}>{lab}</Text>
-                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.6} style={{ position: 'absolute', left: FW * x, width: FW * w, top: vy, color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
-                      {!isLast && <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: uy, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />}
-                    </>
+                    <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, height: bandH, justifyContent: 'center' }}>
+                      <Text numberOfLines={1} style={{ color: subCol, fontSize: fsLab, fontWeight: '600', marginBottom: Math.round(fsLab * 0.3) }}>{lab}</Text>
+                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.6} style={{ color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
+                    </View>
                   );
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
                       {cell(L_X, f.lab, f.val, LCOL_W)}
                       {f.lab2 ? cell(R_X, f.lab2, f.val2, RCOL_W) : null}
+                      {!isLast && <View style={{ position: 'absolute', left: FW * L_X, width: FW * LCOL_W, top: y + bandH, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} />}
+                      {!isLast && f.lab2 ? <View style={{ position: 'absolute', left: FW * R_X, width: FW * RCOL_W, top: y + bandH, height: 1, backgroundColor: 'rgba(120,95,46,0.35)' }} /> : null}
                     </View>
                   );
                 })}
                 {/* 覚えた単語=桜はマックス(3バー満タン)=下半分。 */}
                 <Text style={{ position: 'absolute', top: stH * 0.55, left: 0, right: 0, textAlign: 'center', color: subCol, fontSize: FS_LAB, fontWeight: '600', letterSpacing: 2 }}>{t('town.learned_words')}</Text>
                 {[{ lab: t('town.facet.kanji'), col: '#4a7fc0' }, { lab: t('town.facet.vocab'), col: '#6f9a3f' }, { lab: t('town.facet.grammar'), col: '#c0603a' }].map((c, i) => {
-                  const y = stH * (0.63 + i * 0.093);
-                  const bx0 = FW * 0.28, bx1 = FW * 0.76, bw = bx1 - bx0;
+                  const y = stH * (0.625 + i * 0.108);
+                  const bx0 = FW * 0.30, bx1 = FW * 0.80, bw = bx1 - bx0;
+                  const barH = Math.round(FW * 0.034);
                   return (
                     <View key={`sc${i}`} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y, color: subCol, fontSize: FS_LAB, fontWeight: '600' }}>{c.lab}</Text>
-                      <View style={{ position: 'absolute', left: bx0, top: y + 1, width: bw, height: Math.round(FW * 0.036), borderRadius: 6, backgroundColor: 'rgba(120,100,70,0.16)', borderWidth: 1, borderColor: 'rgba(120,100,70,0.4)', overflow: 'hidden' }}>
+                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y + (barH - FS_LAB) / 2 - 1, color: subCol, fontSize: FS_LAB, fontWeight: '600' }}>{c.lab}</Text>
+                      <View style={{ position: 'absolute', left: bx0, top: y, width: bw, height: barH, borderRadius: 6, backgroundColor: 'rgba(120,100,70,0.16)', borderWidth: 1, borderColor: 'rgba(120,100,70,0.4)', overflow: 'hidden' }}>
                         <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: bw, backgroundColor: c.col, borderRadius: 6 }} />
                       </View>
-                      <Text style={{ position: 'absolute', left: bx1 + FW * 0.025, top: y, color: inkCol, fontSize: FS_VAL, fontWeight: '600' }}>MAX</Text>
+                      {/* 桜はマックス=バーの下に MAX 表示(学習者の分数と同じ位置) */}
+                      <Text style={{ position: 'absolute', left: bx0, width: bw, top: y + barH + Math.round(FW * 0.006), textAlign: 'right', color: inkCol, fontSize: Math.round(FW * 0.030), fontWeight: '600' }}>MAX</Text>
                     </View>
                   );
                 })}
