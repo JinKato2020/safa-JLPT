@@ -9,7 +9,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { walletPoints, isOwned, isEquipped, avatarChangeTokens, canBuyAvatarDrink, AVATAR_DRINK_PRICE } from '../store/wallet';
 import { mockTicketCount, canBuyMockTicket, MAX_MOCK_TICKETS, MOCK_TICKET_PRICE } from '../store/tickets';
 import { SHOP, type ShopItem } from '../data/shop';
-import { useColors, type ThemeColors } from '../theme';
+import { spacing, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
 const MOCK_TICKET_ID = 'tool_mock_ticket';
@@ -147,6 +147,8 @@ export default function ShopScreen() {
         </ScrollView>
         <ScrollView style={s.content} contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
           <View style={s.grid}>{items.map(renderCard)}</View>
+          {/* 消耗品の明示: 貝殻は学習で貯まる仮想通貨=現金と交換/払い戻し不可(3.1対策。実弾IAPは無いが明示)。 */}
+          <Text style={{ fontSize: ty.small, color: c.mute, textAlign: 'center', marginTop: spacing.md, lineHeight: 18, paddingHorizontal: spacing.md }}>{t('shop.currency_note')}</Text>
         </ScrollView>
       </View>
 

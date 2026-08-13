@@ -2,11 +2,11 @@
 //  ・町の上部🔔から開く。開いた時点で未読を既読化(バッジが消える)。
 //  ・固定6種の応援のみ(自由入力なし)。送り主のニックネームと種類・時刻を表示。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, ScrollView, Pressable, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, Pressable, ActivityIndicator, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { cheerInbox, cheerMarkRead, type CheerInboxItem } from '../plaza/friendsClient';
+import { cheerInbox, cheerMarkRead, friendReport, type CheerInboxItem } from '../plaza/friendsClient';
 import { useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
@@ -45,6 +45,17 @@ export default function CheerInboxScreen() {
     return () => { alive = false; };
   }, []);
 
+  // 通報(この送り主を報告＝サーバー記録＋即ブロック)。以後この人からのメッセージは届かない。UGC対策(Apple 1.2)。
+  const onReport = (it: CheerInboxItem) => {
+    Alert.alert(t('town.report_title'), t('town.report_body', { nick: it.from_nick ?? t('town.friend') }), [
+      { text: t('town.cancel'), style: 'cancel' },
+      { text: t('town.report_do'), style: 'destructive', onPress: () => {
+        void friendReport(it.from_user);
+        setItems((xs) => (xs ?? []).filter((x) => x.from_user !== it.from_user)); // この人の受信をその場で全て隠す
+      } },
+    ]);
+  };
+
   return (
     <SafeAreaView style={s.wrap} edges={['top', 'bottom']}>
       <View style={s.head}>
@@ -75,6 +86,9 @@ export default function CheerInboxScreen() {
                   <Text style={s.msg} numberOfLines={2}>{custom || t('town.cheer.' + it.cheer_key)}</Text>
                 </View>
                 <Text style={s.time}>{ago(it.created_at, t)}</Text>
+                <Pressable onPress={() => onReport(it)} hitSlop={8} style={s.report} accessibilityLabel={t('town.report_title')}>
+                  <Ionicons name="flag-outline" size={16} color={c.mute} />
+                </Pressable>
               </View>
             );
           })}
@@ -100,4 +114,5 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   name: { fontSize: 15, fontWeight: '900', color: c.ink },
   msg: { fontSize: 13, color: c.mute, marginTop: 2, fontWeight: '700' },
   time: { fontSize: 12, color: c.mute, fontWeight: '700' },
+  report: { padding: 4, marginLeft: 2 },
 });

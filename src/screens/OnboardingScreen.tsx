@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, ImageBackground, Animated, Image, TextInput, Modal, useWindowDimensions } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, ImageBackground, Animated, Image, TextInput, Modal, useWindowDimensions, Linking } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Defs, LinearGradient, Stop, Rect } from 'react-native-svg';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppActions } from '../store/store';
-import { useT } from '../i18n';
+import { useT, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
+import { legalUrl } from '../config/legal';
 import { sendEvent } from '../telemetry/telemetry';
 import { upcomingExams } from '../data/jlptDates';
 import { avatarsByGender, DEFAULT_AVATAR } from '../plaza/avatars';
@@ -45,6 +46,7 @@ export default function OnboardingScreen() {
     return top ? [top, ...NATIVE_LANGS.filter((l) => l.code !== d)] : NATIVE_LANGS;
   }, []);
 
+  const uiLang = useUiLang(); // 規約/プライバシーのリンク言語(端末UI言語)
   const [step, setStep] = useState<'greet' | 'setup'>('greet'); // 0=挨拶 / setup=試験＋町のプロフィールを1画面で入力
   // 町のプロフィール(ニックネーム/母語/性別/アバター/性格/気分)
   const [nickname, setNickname] = useState('');
@@ -226,6 +228,13 @@ export default function OnboardingScreen() {
 
         {/* 学習リマインド・トラッキング許可は設定画面で入力(オンボでは尋ねない)。 */}
         {/* 完了: 都度DL=そのまま完了 / 一括DL=次にゲートで音声をDLしてから完了。 */}
+        {/* 規約同意(UGC前の明示同意): 「スタート」で暗黙同意=Apple許容パターン。規約/プライバシーへのリンク付き。 */}
+        <Text style={{ fontSize: ty.small, color: c.mute, textAlign: 'center', marginTop: spacing.sm, lineHeight: 18 }}>{t('onboarding.agree_note')}</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: spacing.sm, marginTop: 2, marginBottom: spacing.xs }}>
+          <Text style={{ fontSize: ty.small, color: c.blue, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(legalUrl('terms', uiLang))}>{t('paywall.terms')}</Text>
+          <Text style={{ fontSize: ty.small, color: c.mute }}>·</Text>
+          <Text style={{ fontSize: ty.small, color: c.blue, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(legalUrl('privacy', uiLang))}>{t('paywall.privacy')}</Text>
+        </View>
         <Pressable style={[s.cta, !canGo && s.ctaOff]} disabled={!canGo} onPress={() => { if (audioMode === 'stream') finish(); else setPending(true); }}>
           <Text style={[s.ctaTxt, !canGo && s.ctaOffTxt]}>{t('onboarding.start')}</Text>
         </Pressable>

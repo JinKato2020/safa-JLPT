@@ -65,6 +65,17 @@ export async function townKick(memberId: string): Promise<boolean> {
   try { const { error } = await supabase.rpc('town_kick', { p_member: memberId }); return !error; } catch { return false; }
 }
 
+/** 友だちを通報(理由任意)。通報＝サーバー記録＋即ブロック(相互解除)。成功で true。 */
+export async function friendReport(reportedUserId: string, reason?: string): Promise<boolean> {
+  try {
+    const { error } = await supabase.rpc('friend_report', { p_reported: reportedUserId, p_reason: reason ?? null });
+    if (error) return false;
+    // 開発者(管理者)へプッシュで知らせる(見逃し防止・ベストエフォート。未デプロイ/未設定でも通報は成功扱い)。
+    void supabase.functions.invoke('report-notify', { body: { reported: reportedUserId, reason: reason ?? null } });
+    return true;
+  } catch { return false; }
+}
+
 // --- 応援(固定6種)の配信。送れるのは「自分の町の住人(招待して参加した友だち)」だけ。受信箱方式(docs/supabase/cheers.sql)。 ---
 export type CheerInboxItem = {
   id: number; from_user: string; from_nick: string | null; from_avatar: string | null;

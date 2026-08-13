@@ -70,8 +70,8 @@
 <!-- AUTO:BEGIN -->
 
 ## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 94ターン（文脈 19万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 94ターン・ツール46回）— まとめ方を変える
+- ⚠ 連続 46ターン（文脈 30万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 46ターン・ツール25回）— まとめ方を変える
 
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a47ab6769b1b9a288 general-purpose
@@ -80,14 +80,14 @@
 - a8f75f058eaa367f7 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/plaza/virtualLearners.ts
-- docs/supabase/app_population.sql
-- src/screens/KotobaTownScreen.tsx
-- src/plaza/appPopulation.ts
-- src/screens/PaywallScreen.tsx
+- src/screens/ShopScreen.tsx
 - src/i18n/ne.json
 - src/i18n/en.json
-- src/screens/AccountScreen.tsx
+- src/i18n/ja.json
+- src/screens/OnboardingScreen.tsx
+- memory/session-summary-LATEST.md
+- memory/handoff.md
+- docs/supabase/friend_reports.sql
 
-_自動更新: 2026-08-13 18:57_
+_自動更新: 2026-08-13 19:37_
 <!-- AUTO:END -->

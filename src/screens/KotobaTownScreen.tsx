@@ -30,7 +30,7 @@ import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners'
 import { moodMsgText, personaLine, traitLabel } from '../plaza/persona';
 import { useT } from '../i18n';
 import { useSync } from '../auth/SyncProvider';
-import { friendPublish, townMembers, cheerSend, townKick, type FriendProfile } from '../plaza/friendsClient';
+import { friendPublish, townMembers, cheerSend, townKick, friendReport, type FriendProfile } from '../plaza/friendsClient';
 import { friendToLearner } from '../plaza/friendResidents';
 import { flagOf } from '../plaza/countries';
 import { getAppUserCount, fakeFactor } from '../plaza/appPopulation';
@@ -570,6 +570,17 @@ export default function KotobaTownScreen() {
       } },
     ]);
   };
+  // 通報(不適切なユーザー/メッセージを報告)。通報=サーバー記録＋即ブロック(相互解除)。Apple審査要件(UGC 1.2)。
+  const reportMember = (m: FriendProfile) => {
+    Alert.alert(t('town.report_title'), t('town.report_body', { nick: m.nickname }), [
+      { text: t('town.cancel'), style: 'cancel' },
+      { text: t('town.report_do'), style: 'destructive', onPress: () => {
+        void friendReport(m.user_id);
+        setMembers((ms) => ms.filter((x) => x.user_id !== m.user_id));       // 一覧から即消す
+        setFriends((fs) => fs.filter((f) => f.id !== 'friend:' + m.user_id)); // 町の住人からも消す
+      } },
+    ]);
+  };
   useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
   // 受信箱(友だちからの応援)は共通ヘッダー(設定の左の鐘)へ移設した。
 
@@ -872,6 +883,8 @@ export default function KotobaTownScreen() {
                       <View style={s.memberSend}><Ionicons name="chatbubble-ellipses" size={13} color="#fff" /><Text style={s.memberSendT}>{t('town.cheer_btn')}</Text></View>
                     </View>
                   </Pressable>
+                  {/* 通報(不適切なユーザー/内容を報告→記録＋即ブロック)。UGC対策(Apple 1.2)。 */}
+                  <Pressable onPress={() => reportMember(m)} hitSlop={8} style={s.memberDel} accessibilityLabel={t('town.report_title')}><Ionicons name="flag-outline" size={17} color="#b3892f" /></Pressable>
                   {/* 荒らし対策: 町から削除(以後この人はメッセージを送れない)。 */}
                   <Pressable onPress={() => kickMember(m)} hitSlop={8} style={s.memberDel}><Ionicons name="trash-outline" size={18} color="#b34a4a" /></Pressable>
                 </View>
