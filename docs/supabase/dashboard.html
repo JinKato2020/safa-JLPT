@@ -377,7 +377,7 @@ const COLS = [
     val:r=>proEnd(r), cell:r=>proCell(r) },
   { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
   { g:'プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
-  { g:'プロフィール', key:'prof_country',label:'国名', title:'本人が選んだ国(ISO2)', val:r=>r.prof_country||'', cell:r=> esc(r.prof_country||'—') },
+  { g:'プロフィール', key:'geo_country',label:'国名', title:'接続国=IP由来のおおよその国(user_geo)。母語とは独立=英語話者でも日本にいれば JP。ログイン者のみ・匿名は—', val:r=>r.geo_country||'', cell:r=> esc(r.geo_country||'—') },
   { g:'プロフィール', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
   { g:'プロフィール', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
   { g:'プロフィール', key:'strong',      label:'得意', title:'いちばん正答率が高い区分（漢字／語彙／文法／読解／聴解の5区分）', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },

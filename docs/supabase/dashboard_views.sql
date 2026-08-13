@@ -45,7 +45,9 @@ select
   en.pro_plan,
   en.pro_product_id,
   en.pro_store_until,
-  en.pro_will_renew
+  en.pro_will_renew,
+  -- 接続国=IP由来のおおよその国(user_geo)。母語(l1)とは独立=英語話者でも日本にいれば JP。ログイン者のみ(匿名はnull)。
+  ug.country as geo_country
 from (
   select distinct on (anon_id, data->>'level')
     anon_id,
@@ -113,6 +115,7 @@ from (
 ) t
 left join auth.users u on u.id = t.account_id
 left join public.entitlements en on en.user_id = t.account_id
+left join public.user_geo ug on ug.user_id = t.account_id   -- 接続国(IP)を1人1件で結合
 order by (t.account_id is null), t.last_day desc, t.level;
 
 -- ③ レベル別 合計・平均(利用者別ビューを N5/N4/N3 で集計)。
