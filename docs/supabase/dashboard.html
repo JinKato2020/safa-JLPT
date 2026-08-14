@@ -110,6 +110,11 @@
   </section>
 
   <section>
+    <h2>相対位置（本番受験者の中での位置） <span class="note">予想得点を公式の受験者データ（2025年 第2回）と比べた「上位◯%相当」。<b>★＝上位%の区分</b>（★5＝上位15%以内／★4＝~30%／★3＝~50%／★2＝~70%／★1＝70%超）。人数は直近7日のアクティブのみ</span></h2>
+    <div class="scroll"><table id="tRelpos"></table></div>
+  </section>
+
+  <section>
     <h2>レベル別 在庫（新規の残り） <span class="note">行＝レベル／列＝大問・単語タブの学習。数字＝<b>いちばん学習が進んでいる人</b>から見た残り＝アプリの問題数−その大問を最も多くやった人の学習数（誰も手を付けていなければ問題数そのもの／誰か1人がやり切れば0）。赤 ≦3＝在庫切れ・橙 ≦20＝要増産。マウスを乗せると問題数と平均も出ます</span></h2>
     <div class="scroll"><table id="tStock"></table></div>
   </section>
@@ -179,6 +184,7 @@ async function loadAll(){
     renderGeo(geo);
     renderReferrals(referrals);
     renderLevel(level);
+    renderRelpos(level);
     renderStock(stock);
     devData = devices || [];
     renderDevices();
@@ -243,6 +249,18 @@ function renderLevel(level){
     [ r=>`<b>${r.level}</b>`, r=>`${r.users}人`, r=>`${r.active_users ?? 0}人`, r=>`${r.dau ?? 0}人`, r=>`${r.sessions ?? 0}回`, r=>hm(r.study_min),
       r=> (r.avg_pred_score==null?'<span class="empty">—</span>':`${r.avg_pred_score}<span class="muted">/${r.pred_max ?? 180}</span>`),
       r=>pct(r.avg_cov_pct), r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.referred_total ?? 0}人`, r=>`${r.passing_users}人` ]
+  );
+}
+
+// ── 相対位置(本番受験者の中での位置)。v_admin_level の rel_* を再利用(追加取得なし) ──
+function renderRelpos(level){
+  simpleTbl($('tRelpos'),
+    [{label:'レベル'},{label:'平均 上位%',num:1},{label:'★5 上位15%内',num:1},{label:'★4 ~30%',num:1},{label:'★3 ~50%',num:1},{label:'★2 ~70%',num:1},{label:'★1 70%超',num:1},{label:'集計人数',num:1}],
+    (level||[]).slice().sort(byLevel),
+    [ r=>`<b>${r.level}</b>`,
+      r=> (r.avg_rel_top==null ? '<span class="empty">—</span>' : `上位 ${r.avg_rel_top}%`),
+      r=>`${r.rel_s5 ?? 0}人`, r=>`${r.rel_s4 ?? 0}人`, r=>`${r.rel_s3 ?? 0}人`, r=>`${r.rel_s2 ?? 0}人`, r=>`${r.rel_s1 ?? 0}人`,
+      r=>`${(r.rel_s5??0)+(r.rel_s4??0)+(r.rel_s3??0)+(r.rel_s2??0)+(r.rel_s1??0)}人` ]
   );
 }
 

@@ -192,6 +192,10 @@ def main():
                 it['scenario'] = resolve_scene(r)   # 場面をデータに保存(tmplの継承値を上書き)
                 q = it['questions'][0]
                 q['id'], q['q'], q['choices'], q['answerIndex'] = r['id']+'-q1', r.get('question','') or '', r['choices'], 0
+                # 聴解に解説は持たせない(2026-08-14 方針=解説廃止)。テンプレ items[0] から継承した explain を全言語で除去。
+                for _lang in list((q.get('i18n') or {}).keys()):
+                    if isinstance(q['i18n'][_lang], dict):
+                        q['i18n'][_lang].pop('explain', None)
                 data['items'].append(it)
             json.dump(data, open(fp, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
             total += len(recs); print(f'APPLIED {cat}_{lv}: +{len(recs)} -> {len(data["items"])}')

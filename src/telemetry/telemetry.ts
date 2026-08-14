@@ -6,6 +6,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dayStr, type AppState } from '../store/state';
 import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts, passageMasteryCounts, expectedScoreFor, strongFacetJa } from '../store/selectors';
+import { relativePositionFor, isOfficialLevel } from '../ladder/relativePosition';
 import { stockCounts } from './stock';
 import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
@@ -144,6 +145,9 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
   const strong = strongFacetJa(state, now);
   // 予想得点(アプリの主指標)。expectedScoreFor: { score(得点), max(満点), passTotal(合格ライン) }。失敗時はnull。
   const est = (() => { try { return expectedScoreFor(state, now); } catch { return null; } })();
+  // 相対的な位置(本番受験者の中で上位何%相当か)。管理ダッシュボードの「相対位置」集計用。JLPT・公式統計を持つレベルのみ。
+  const rel = est && isOfficialLevel(level) ? relativePositionFor(level, est.sections, est.score) : null;
+  const relSections = rel ? Object.fromEntries(rel.sections.map((sc) => [sc.key, Math.round(sc.top * 10) / 10])) : {};
   return {
     v: 4, anonId: anon, app: APP_VERSION, platform: getPlatform().OS, osVersion: String(getPlatform().Version ?? ''),
     uiLang: state.settings.uiLang || '', level, exam, day: dayStr(now),
@@ -152,6 +156,10 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
       moji_goi: rings.moji_goi, bunpou: rings.bunpou, dokkai: rings.dokkai, choukai: rings.choukai,
       // 予想得点(現行の主指標)。管理ダッシュボードの「到達度」列を予想得点に更新するため。
       predScore: est?.score ?? null, predMax: est?.max ?? null, passTotal: est?.passTotal ?? null },
+    // 相対位置(本番受験者の中で上位何%相当)。total=総合の上位%、stars=★(1-5)、sections=区分別 上位%。
+    relTop: rel?.total ? Math.round(rel.total.top * 10) / 10 : null,
+    relStars: rel?.total?.stars ?? null,
+    relSections,
     // 量(カバー率)＋達成ランク
     coverage: covMap, rankPct: rank.pct, rankIndex: rank.rankIndex,
     daimonMastery: daimonMap, // 大問別 [習得数,母数]（8大問: 文字語彙5＋文法3）

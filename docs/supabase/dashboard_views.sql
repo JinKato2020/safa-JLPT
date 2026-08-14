@@ -73,6 +73,9 @@ from (
     (data->'readiness'->>'predScore')::int                      as pred_score,
     (data->'readiness'->>'predMax')::int                        as pred_max,
     (data->'readiness'->>'passTotal')::int                      as pass_total,
+    -- 相対位置(本番受験者の中で上位何%相当)。v4後半〜。旧スナップショットはnull。
+    (data->>'relTop')::numeric                                  as rel_top,
+    (data->>'relStars')::int                                    as rel_stars,
     -- 折りたたみカバー率(レベル別ビュー用に残す=漢字/語彙/文法の総合)
     (select case when sum((v->>'total')::numeric) > 0
         then round(100 * sum((v->>'learned')::numeric) / sum((v->>'total')::numeric)) else 0 end
@@ -142,7 +145,14 @@ select
   round(avg(d.study_min) filter (where d.last_day >= current_date - 6))   as avg_study_min,
   round(avg(d.streak)    filter (where d.last_day >= current_date - 6), 1) as avg_streak,
   coalesce(sum(d.referred_qualified), 0)                as referred_total,
-  count(*) filter (where d.passing and d.last_day >= current_date - 6)    as passing_users
+  count(*) filter (where d.passing and d.last_day >= current_date - 6)    as passing_users,
+  -- 相対位置(本番受験者の中で上位何%相当)。平均＋★区分の分布(アクティブのみ)。閾値=starsFromTop(15/30/50/70%)。
+  round(avg(d.rel_top) filter (where d.last_day >= current_date - 6), 1)                        as avg_rel_top,
+  count(*) filter (where d.rel_top <= 15 and d.last_day >= current_date - 6)                    as rel_s5,
+  count(*) filter (where d.rel_top > 15 and d.rel_top <= 30 and d.last_day >= current_date - 6) as rel_s4,
+  count(*) filter (where d.rel_top > 30 and d.rel_top <= 50 and d.last_day >= current_date - 6) as rel_s3,
+  count(*) filter (where d.rel_top > 50 and d.rel_top <= 70 and d.last_day >= current_date - 6) as rel_s2,
+  count(*) filter (where d.rel_top > 70 and d.last_day >= current_date - 6)                     as rel_s1
 from public.v_admin_devices d
 left join (
   select anon_id, count(*) as sessions

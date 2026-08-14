@@ -7,7 +7,8 @@
   python tools/choukai/build_batches.py --scope new      --out <DIR>   # 新規(連番>=11)
   python tools/choukai/build_batches.py --scope all      --out <DIR>
 出力: <DIR>/batch_{kadai,point,gaiyou,hatsuwa,sokuji}.json
-各レコード: id, level, daimon, daimon_jp, audioChoices, script, question, choices, correct_text, distractors, explain
+各レコード: id, level, daimon, daimon_jp, audioChoices, script, question, choices, correct_text, distractors
+（2026-08-14 方針: 聴解に解説は不要＝explain は出力しない）
 """
 import json, os, re, glob, argparse
 DLBL = {'kadai':'課題理解','point':'ポイント理解','gaiyou':'概要理解','hatsuwa':'発話表現','sokuji':'即時応答'}
@@ -38,7 +39,7 @@ def main():
                 'audioChoices': bool(it.get('audioChoices')), 'script': it.get('script') or '',
                 'question': q.get('q') or '', 'choices': ch,
                 'correct_text': ch[ai] if ai < len(ch) else '',
-                'distractors': [c for i, c in enumerate(ch) if i != ai], 'explain': q.get('explain') or ''})
+                'distractors': [c for i, c in enumerate(ch) if i != ai]})
     for cat, recs in byd.items():
         json.dump(recs, open(os.path.join(a.out, f'batch_{cat}.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         print(f'{cat}: {len(recs)} -> {a.out}/batch_{cat}.json')

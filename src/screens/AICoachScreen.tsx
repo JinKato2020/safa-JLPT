@@ -16,6 +16,8 @@ import { homeStatus, studyHM } from '../home/homeStatus';
 import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
 import { dayStr, lastNDays } from '../store/state';
 import { expectedScoreFor, coverageBars } from '../store/selectors';
+import { relativePositionFor, isOfficialLevel } from '../ladder/relativePosition';
+import { OFFICIAL_TOTAL_STAT, OFFICIAL_PASS_RATE, OFFICIAL_BASE_LABEL } from '../data/officialStats';
 import { dueCount } from '../review/selectReview';
 import { avatarOf } from '../plaza/avatars';
 import RingGauge from '../components/RingGauge';
@@ -46,6 +48,13 @@ export default function AICoachScreen() {
     // 科目別の予想得点＋基準点(合格率が予想得点より低い理由=科目落ちの可視化)。
     let score: ReturnType<typeof expectedScoreFor> | null = null;
     try { score = expectedScoreFor(state, now); } catch { score = null; }
+    // 相対的な位置(本番受験者の中で上位何%相当か)。JLPTのみ・公式統計を持つレベルのみ。
+    const lv = state.settings.level;
+    const isJlpt = (state.settings.targetExam ?? 'jlpt') !== 'jft';
+    const rel = isJlpt && score ? relativePositionFor(lv, score.sections, score.score) : null;
+    const official = isJlpt && isOfficialLevel(lv)
+      ? { mean: OFFICIAL_TOTAL_STAT[lv].mean, passRate: OFFICIAL_PASS_RATE[lv], base: OFFICIAL_BASE_LABEL }
+      : null;
     // 復習待ち(忘れかけ)の面数=面別マスタリーの due 数。
     const due = state.mastery ? dueCount(state.mastery, now) : 0;
     // 学習量の推移: 累積「覚えた語」の日次差分=その日の新規習得数(15点→14本のバー)。
@@ -81,7 +90,7 @@ export default function AICoachScreen() {
     const latestMock = scoredMocks.length ? scoredMocks[scoredMocks.length - 1] : null;
     const prevMock = scoredMocks.length > 1 ? scoredMocks[scoredMocks.length - 2] : null;
     const mockTrend = scoredMocks.slice(-8).map((mk) => ({ day: mk.day, score: mk.predScore as number, max: mk.predMax ?? 180 }));
-    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, due, daily, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
+    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, rel, official, due, daily, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
   }, [state]);
 
   const { st } = d;
@@ -176,6 +185,35 @@ export default function AICoachScreen() {
             <Text style={s.diff}>{t('coach.hero_note')}</Text>
           </View>
         </View>
+
+        {/* ①' 本番受験者の中での位置(相対位置)。予想得点を公式の受験者データと比較。 */}
+        {d.rel && (d.rel.total || d.rel.sections.length > 0) && (
+          <View style={s.card}>
+            <SecLabel c={c} s={s} text={t('coach.rel_title')} />
+            {d.rel.total && (
+              <View style={s.relHero}>
+                <View style={{ flex: 1 }}>
+                  <Text style={s.relHeroCap}>{t('coach.rel_examinees')}</Text>
+                  <Text style={s.relHeroTop}>{t('coach.rel_topline', { n: Math.round(d.rel.total.top) })}<Text style={s.relHeroRel}> {t('coach.rel_relative')}</Text></Text>
+                </View>
+                <Stars n={d.rel.total.stars} c={c} size={19} />
+              </View>
+            )}
+            <View style={s.relList}>
+              {d.rel.sections.map((sec) => (
+                <View key={sec.key} style={s.relRow}>
+                  <Text style={s.relLabel}>{t('mock.block_' + sec.key)}</Text>
+                  <Stars n={sec.stars} c={c} size={13} />
+                  <Text style={s.relTop}>{t('coach.rel_topline', { n: Math.round(sec.top) })}</Text>
+                </View>
+              ))}
+            </View>
+            {d.official && (
+              <Text style={s.relRef}>{t('coach.rel_ref', { label: d.official.base, mean: Math.round(d.official.mean), rate: d.official.passRate })}</Text>
+            )}
+            <Text style={s.diff}>{t('coach.rel_note')}</Text>
+          </View>
+        )}
 
         {/* ② 分野別の到達度 */}
         <View style={s.card}>
@@ -368,6 +406,16 @@ function SecLabel({ c, s, text }: { c: ThemeColors; s: Styles; text: string }) {
   );
 }
 
+function Stars({ n, c, size }: { n: number; c: ThemeColors; size: number }) {
+  return (
+    <View style={{ flexDirection: 'row', gap: 1 }}>
+      {[1, 2, 3, 4, 5].map((i) => (
+        <Ionicons key={i} name={i <= n ? 'star' : 'star-outline'} size={size} color={i <= n ? c.amber : c.faint} />
+      ))}
+    </View>
+  );
+}
+
 function Stat({ s, tt, v, unit, up, c, color }: { s: Styles; tt: string; v: string; unit: string; up: boolean; c: ThemeColors; color?: string }) {
   return (
     <View style={s.stat}>
@@ -471,6 +519,16 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   scoreMk: { position: 'absolute', top: -3, bottom: -3, width: 2, backgroundColor: c.ink2 },
   scoreSub: { fontSize: 10.5, color: c.faint, fontWeight: '600' },
   scoreSubEm: { fontSize: 12, color: c.ink, fontWeight: '900' },
+  // 本番受験者の中での位置(相対位置)
+  relHero: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 10, paddingHorizontal: 12, marginBottom: spacing.sm },
+  relHeroCap: { fontSize: 10.5, color: c.ink2, fontWeight: '700' },
+  relHeroTop: { fontSize: 24, fontWeight: '900', color: c.ink, marginTop: 1, fontVariant: ['tabular-nums'] },
+  relHeroRel: { fontSize: 13, fontWeight: '700', color: c.faint },
+  relList: { gap: spacing.xs },
+  relRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  relLabel: { width: 72, fontSize: 12, color: c.ink2, fontWeight: '700' },
+  relTop: { flex: 1, textAlign: 'right', fontSize: 12, color: c.ink, fontWeight: '800', fontVariant: ['tabular-nums'] },
+  relRef: { fontSize: 10.5, color: c.faint, fontWeight: '600', marginTop: spacing.sm, lineHeight: 15 },
   // 模試の記録カード
   mockHero: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   mockScore: { fontSize: 34, fontWeight: '900', color: c.ink, lineHeight: 38 },

@@ -6,7 +6,7 @@ export const EXAM_SECS: ExamSec[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 
 // JLPT 本番の区分別 出題数(典型構成)。文字語彙=漢字読み+表記+文脈規定+言い換え類義(+用法)、文法=文法形式+組み立て+文章の文法。
 export const JLPT_BLUEPRINT: Record<string, Record<ExamSec, number>> = {
-  N5: { moji_goi: 21, bunpou: 17, dokkai: 5, choukai: 24 }, // 計67
+  N5: { moji_goi: 21, bunpou: 17, dokkai: 6, choukai: 24 }, // 計68
   N4: { moji_goi: 35, bunpou: 25, dokkai: 10, choukai: 28 }, // 計98
   N3: { moji_goi: 35, bunpou: 23, dokkai: 16, choukai: 28 }, // 計102
 };
@@ -55,7 +55,7 @@ export function daimonCounts(level: string, full: boolean): { daimon: Daimon; co
 // ── 読解/聴解の 大問(区分)別 出題数(本番典型構成)。区分合計は JLPT_BLUEPRINT と一致 ──
 // 読解の小区分: 内容理解 短文/中文/長文・情報検索(reading.ts の ReadingSubtype キー)。
 export const DOKKAI_BLUEPRINT: Record<string, Record<string, number>> = {
-  N5: { naiyou_tan: 3, naiyou_chu: 2 },                               // 計5
+  N5: { naiyou_tan: 3, naiyou_chu: 2, joho: 1 },                      // 計6（情報検索＝本番の問題6・1問。2026-08-14 追加）
   N4: { naiyou_tan: 4, naiyou_chu: 4, joho: 2 },                      // 計10
   N3: { naiyou_tan: 4, naiyou_chu: 6, choubun: 4, joho: 2 },          // 計16
 };
