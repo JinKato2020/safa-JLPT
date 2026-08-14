@@ -112,11 +112,16 @@ def main():
             counts = {s: c.get(s, 0) for s in list(SCENE) + ['その他']}
             thin = [s for s in SCENE if 0 < counts[s] <= a.thin]
             empty = [s for s in SCENE if counts[s] == 0]
+            # 目安=場面付き件数/8。目安×1.5超=厚すぎ(偏り)＝新規ではこの場面を足さない。
+            base_n = sum(counts[s] for s in SCENE)
+            guide = base_n / len(SCENE) if base_n else 0
+            heavy = [s for s in SCENE if guide and counts[s] > guide * 1.5]
             # 割当= 空→薄い の順(その他は割当しない=場面を具体化させる)
             assign = empty + thin
-            out[f'{cat}_{lv}'] = {'counts': counts, 'thin': thin, 'empty': empty, 'assign': assign}
+            out[f'{cat}_{lv}'] = {'counts': counts, 'thin': thin, 'empty': empty, 'heavy': heavy, 'assign': assign}
             mark = ' '.join(f'{s}{counts[s]}' for s in SCENE if counts[s] > 0)
-            print(f'  {cat:8} {lv} (計{sum(c.values())}): {mark}  | 空={",".join(empty) or "なし"}')
+            hv = f'  ⚠厚={",".join(heavy)}' if heavy else ''
+            print(f'  {cat:8} {lv} (計{sum(c.values())}): {mark}  | 空={",".join(empty) or "なし"}{hv}')
     json.dump(out, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'\n書き出し: {OUT}')
     print('→ 新規作問では out[<daimon>_<level>].assign の薄い/空の場面から埋める(既存の場面と重複させない)')

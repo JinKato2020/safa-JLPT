@@ -43,6 +43,31 @@ def qtype(q):
     return "その他"
 
 
+# ポイント理解の「観点」（公式は なぜ/いつ/いくつ/気持ち/どれ を回す。気持ち＝感情問題は必須）
+KANTEN = ["なぜ", "いつ", "いくつ", "気持ち", "どれ"]
+
+
+def kanten(q):
+    q = strip_furi(q or "").replace(" ", "").replace("　", "")
+    if not q:
+        return "無"
+    # 気持ち・感情を最優先（「どうして心配」等は理由より感情として拾う）。
+    # ⚠N5はひらがな設問（きもち/きぶん）＝漢字だけで判定すると取りこぼす（2026-08-14 実害）。
+    if re.search(r"気持ち|きもち|気分|きぶん|どう思|どうおも|どう感じ|どうかんじ|心配|しんぱい|不安|うれし|嬉し|楽しみ|たのしみ|残念|ざんねん|怒|おこ|さび|寂し|安心|あんしん|困っ|こまっ|喜|よろこ", q):
+        return "気持ち"
+    # ⚠N5はひらがな設問（なんようび/なんじ/なんさつ/なんまい 等）＝漢字だけで判定すると取りこぼす（2026-08-14 実害）。
+    if re.search(r"いつ|いつまで|何日|何曜|何時|なんにち|なんよう|なんじ|なんぷん", q):
+        return "いつ"
+    if re.search(r"いくつ|いくら|どのくらい|どれくらい"
+                 r"|何個|何枚|何人|何回|何冊|何本|何部|何匹|何杯|何通|何台|何軒|何名|何品|何箱|何束"
+                 r"|なんこ|なんまい|なんにん|なんかい|なんさつ|なんぼん|なんぶ|なんびき|なんばい|なんぷ"
+                 r"|なんつう|なんだい|なんけん|なんめい|なんばこ", q):
+        return "いくつ"
+    if re.search(r"なぜ|どうして|理由", q):
+        return "なぜ"
+    return "どれ"  # どれ/どの/何を/どこ/何が 等＝観点「どれ」
+
+
 def speaker_labels(script):
     # ふりがな入りラベル（女（おんな）1：等）も拾えるよう素化してから判定
     labs = set()
@@ -74,17 +99,46 @@ def load_bank():
     return out
 
 
-def load_new(d):
+def _load_combined(d, daimon, want_script):
+    # 正本と同じ結合ファイル new_<daimon>.json（全レベル1ファイル・各recに level）を読む。
     out = {lv: [] for lv in LEVELS}
+    f = os.path.join(d, f"new_{daimon}.json")
+    if not os.path.exists(f):
+        return out
+    j = json.load(open(f, encoding="utf-8"))
+    recs = j if isinstance(j, list) else j.get("items", j.get("records", []))
+    for r in recs:
+        lv = r.get("level")
+        if lv not in out:
+            continue
+        rec = {"id": r.get("id", ""), "q": r.get("question", r.get("q", ""))}
+        if want_script:
+            rec["script"] = r.get("script", "")
+        out[lv].append(rec)
+    return out
+
+
+def load_new(d):
+    return _load_combined(d, "kadai", want_script=True)
+
+
+def load_point_bank():
+    out = {lv: [] for lv in LEVELS}
+    base = os.path.join(ROOT, "content", "problems", "choukai")
     for lv in LEVELS:
-        f = os.path.join(d, f"new_kadai_{lv}.json")
+        f = os.path.join(base, f"point_{lv}.json")
         if not os.path.exists(f):
             continue
-        j = json.load(open(f, encoding="utf-8"))
-        recs = j if isinstance(j, list) else j.get("items", j.get("records", []))
-        for r in recs:
-            out[lv].append({"id": r["id"], "q": r.get("question", r.get("q", "")), "script": r.get("script", "")})
+        d = json.load(open(f, encoding="utf-8"))
+        for it in d.get("items", []):
+            qs = it.get("questions", [{}])
+            q = qs[0].get("q", "") if qs else ""
+            out[lv].append({"id": it["id"], "q": q})
     return out
+
+
+def load_point_new(d):
+    return _load_combined(d, "point", want_script=False)
 
 
 def merge(a, b):
@@ -99,13 +153,16 @@ def main():
 
     if args.only:
         data = load_new(args.only)
+        pdata = load_point_new(args.only)
         src = f"新規のみ {args.only}"
     elif args.add:
         data = merge(load_bank(), load_new(args.add))
+        pdata = merge(load_point_bank(), load_point_new(args.add))
         src = f"正本＋新規 {args.add}"
     else:
         data = load_bank()
-        src = "正本(kadai_*.json)"
+        pdata = load_point_bank()
+        src = "正本(kadai_*/point_*.json)"
 
     print(f"=== 課題理解 設問型の分布 [{src}] ===")
     for lv in LEVELS:
@@ -125,6 +182,24 @@ def main():
             if tells:
                 print(f"   ⚠N3 直接ネタバレ『まずは〜ください/ましょう』 {len(tells)}件: " + " ".join(tells[:20]))
     print("目安＝手順3〜4割・残り(物/場所/数時/放送)を均等。N3は直接ネタバレ0が理想。")
+
+    # ポイント理解の観点の分布（なぜ/いつ/いくつ/気持ち/どれ）
+    print(f"\n=== ポイント理解 観点の分布 [{src}] ===")
+    for lv in LEVELS:
+        recs = pdata.get(lv, [])
+        if not recs:
+            continue
+        kc = Counter(kanten(r["q"]) for r in recs)
+        n = len(recs)
+        dist = " ".join(f"{k}:{kc.get(k,0)}" for k in KANTEN if kc.get(k, 0))
+        warns = []
+        if kc.get("なぜ", 0) >= n * 0.4:
+            warns.append("⚠なぜ偏重(>40%)")
+        if kc.get("気持ち", 0) == 0:
+            warns.append("⚠気持ち観点0(感情問題が無い)")
+        tail = ("  " + " ".join(warns)) if warns else ""
+        print(f"{lv} 計{n} | {dist}{tail}")
+    print("目安＝5観点(なぜ/いつ/いくつ/気持ち/どれ)をほぼ均等・気持ちを必ず数問・なぜは最大3〜4割。")
 
 
 if __name__ == "__main__":
