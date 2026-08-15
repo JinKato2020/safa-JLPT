@@ -4415,9 +4415,9 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N5-C-S-0051": {
-"dur": 16.9,
+"dur": 17.7,
 "model": "Gemini 2.5 Flash TTS",
-"voice": "本文・選択肢=Orus(男)／番号=Chirp3-HD Orus"
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N5-C-S-0052": {
 "dur": 16.6,
@@ -4670,7 +4670,7 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N5-C-S-0028": {
-"dur": 17.2,
+"dur": 16.8,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
@@ -4985,12 +4985,12 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N5-C-S-0071": {
-"dur": 18.2,
+"dur": 18.1,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N5-C-S-0072": {
-"dur": 18.6,
+"dur": 18.7,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
@@ -5190,7 +5190,7 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N4-C-S-0072": {
-"dur": 19.0,
+"dur": 18.5,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
@@ -5215,7 +5215,7 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N4-C-S-0077": {
-"dur": 17.0,
+"dur": 18.5,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },

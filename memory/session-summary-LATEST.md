@@ -1,13 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
+- ツール呼び出し 1 回・2 ターン
+- 往復 125940 回
 
 ## 何が変わったか
 - memory/handoff.md
+- memory/在庫・模試ストックまとめ.xlsx
+- memory/session-summary-LATEST.md
 - memory/在庫問題数.txt
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- memory/choukai_gen_log.txt
+- memory/choukai_gen_done.txt
 
 ## 次の一手
 - **🚀🚀🚀 2026-08-14 Build 2805 both dispatch＝run`31773750491`（監視しない）＝下記“未push”を全部入り**: コミット`4c1d24be`・push済(=Pages/OTAも更新)。中身＝①相対位置カード(AIコーチ)＋ダッシュボード集計 ②聴解の解説全廃(574件除去) ③ポイント理解0061-0080(各20=計60)＋音声60本 ④情報検索N5をblueprintに追加(N5予想得点の母数) ⑤在庫・模試ストック統合Excel(`memory/在庫・模試ストックまとめ.xlsx`)＋生成器`tools/stock_excel.py`。事前検証=テスト34/34緑・tsc0・manifest再生成済。**⚠残作業=ユーザーがSupabase SQL Editorで`docs/supabase/dashboard_views.sql`を再実行**しないとダッシュボードの相対位置集計は出ない(アプリ側は2805で反映)。公開リリースはしていない(TestFlight/Play alphaのみ)。**以下の各“未push/未コミット”行はすべて2805に入った=解消済**。
