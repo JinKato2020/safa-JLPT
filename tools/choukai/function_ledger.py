@@ -12,8 +12,12 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 CJSON = os.path.join(ROOT, "content", "problems", "choukai")
+# 2026-08-15 公式の多彩さに合わせ15分類へ拡張。配分は"等分でなく本番頻度に寄せる"(ユーザー方針)ため、
+# 下の target(=n/機能数)と heavy/zero 警告は等分基準の参考値。頻度配分では厚い機能(依頼/確認/質問系)・
+# ゼロ機能(謝罪/感想は各数問)が想定内=警告が出ても即是正ではなく分布の目安として読む。
 TAX = ["依頼", "許可求め", "申し出", "誘い", "断り・辞退", "催促",
-       "苦情・指摘", "確認", "報告・知らせ", "感想・共感", "お礼", "謝罪"]
+       "苦情・指摘", "確認", "報告・知らせ", "感想・共感", "お礼", "謝罪",
+       "忠告・注意", "相談・意見求め", "伝聞・情報伝達"]
 
 def tally(lv, add_dir=None):
     d = json.load(open(os.path.join(CJSON, f"sokuji_{lv}.json"), encoding="utf-8"))

@@ -78,14 +78,14 @@
 - a8f75f058eaa367f7 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/sokuji-authoring-inflight.md
-- 問題/聴解/N3_即時応答_0001-0020.mp3
+- memory/在庫問題数.txt
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
 - memory/choukai_gen_log.txt
 - memory/choukai_audio_rec.json
 - memory/choukai_gen_done.txt
-- assets/audio/N3-C-S-0063.mp3
+- assets/audio/N4-C-S-0003.mp3
+- 問題/聴解/N4/_master/4_即時応答/N4-C-S-0003-4.wav
 
-_自動更新: 2026-08-15 09:39_
+_自動更新: 2026-08-15 16:11_
 <!-- AUTO:END -->

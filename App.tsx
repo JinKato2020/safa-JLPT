@@ -12,6 +12,7 @@ import WatercolorBackground from './src/components/WatercolorBackground';
 import { AppProvider, useAppState, useAppActions, useHydrated } from './src/store/store';
 import { SyncProvider, useSync } from './src/auth/SyncProvider';
 import { cheerUnreadCount } from './src/plaza/friendsClient';
+import { fetchAnnouncements, announceReadAtMs, markAnnounceRead, announceUnread } from './src/plaza/announceClient';
 import { navigationRef } from './src/navigation/navRef';
 import AccountPrompt from './src/components/AccountPrompt';
 import { isWatercolor } from './src/store/state';
@@ -135,6 +136,21 @@ function MainTabs() {
     const id = setInterval(tick, 60000);
     return () => { alive = false; clearInterval(id); };
   }, [session]);
+  // 運営からのお知らせの未読数(全員一律・未ログインでも表示)。60秒ごとに確認。既読基準は端末ローカル。
+  const [announceN, setAnnounceN] = useState(0);
+  useEffect(() => {
+    let alive = true;
+    const tick = async () => {
+      const [list, readAt] = await Promise.all([fetchAnnouncements(), announceReadAtMs()]);
+      if (alive) setAnnounceN(announceUnread(list, readAt));
+    };
+    void tick();
+    const id = setInterval(() => { void tick(); }, 60000);
+    return () => { alive = false; clearInterval(id); };
+  }, []);
+  // ベルに出す合計未読 = 運営のお知らせ + (ログイン中なら)友だちの応援。
+  const bellUnread = announceN + (session ? cheerUnread : 0);
+  const openInbox = () => { setCheerUnread(0); setAnnounceN(0); void markAnnounceRead(); nav.navigate('CheerInbox'); };
   // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
   // 設定タブは廃止 → 画面上部に共通の操作列(左から): アカウント/JLPTレベル/設定/通知。
   const iconBtn = [topBar.btn, { backgroundColor: c.surface, borderColor: c.line }];
@@ -203,13 +219,12 @@ function MainTabs() {
         <Pressable onPress={() => nav.navigate('KotobaTown')} accessibilityLabel="日本語学習者の町" hitSlop={6} style={iconBtn}>
           <Ionicons name="footsteps-outline" size={22} color={c.ink} />
         </Pressable>
-        {/* 友だちからの応援メッセージ(受信箱)。設定の左に固定。未読があれば赤バッジで知らせる。ログイン中のみ。 */}
-        {session && (
-          <Pressable onPress={() => { setCheerUnread(0); nav.navigate('CheerInbox'); }} accessibilityLabel="友だちからの応援" hitSlop={6} style={iconBtn}>
-            <Ionicons name="notifications-outline" size={22} color={c.ink} />
-            {cheerUnread > 0 && <View style={[topBar.badge, { borderColor: c.surface }]}><Text style={topBar.badgeT}>{cheerUnread > 99 ? '99+' : cheerUnread}</Text></View>}
-          </Pressable>
-        )}
+        {/* 通知(受信箱): 運営からのお知らせ＋友だちの応援。設定の左に固定。未読があれば赤バッジ。
+            運営のお知らせは全員一律で未ログインでも出すため、ベル自体は常時表示する。 */}
+        <Pressable onPress={openInbox} accessibilityLabel={t('inbox.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="notifications-outline" size={22} color={c.ink} />
+          {bellUnread > 0 && <View style={[topBar.badge, { borderColor: c.surface }]}><Text style={topBar.badgeT}>{bellUnread > 99 ? '99+' : bellUnread}</Text></View>}
+        </Pressable>
         {/* 設定(歯車)は必ず一番右。今後も動かさない(固定・ユーザー指定)。 */}
         <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="settings-outline" size={22} color={c.ink} />
