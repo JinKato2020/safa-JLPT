@@ -1,1 +1,3909 @@
-{"schema":1,"daimon":"sokuji","level":"N3","languages":["ja","ne"],"items":[{"id":"N3-C-S-0001","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"会社仕事","script":"この資料（しりょう）、明日（あした）までにお願（ねが）いって言（い）われたんだけど、量（りょう）が多（おお）くて一人（ひとり）じゃちょっと無理（むり）そうなんだ。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0001-q1","q":"","choices":["大変（たいへん）そうだね。よかったら手伝（てつだ）おうか。","じゃあ、一人（ひとり）で頑張（がんば）ってね。","明日（あした）まででよかったね。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0002","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"悪（わる）い、今日（きょう）の飲（の）み会（かい）、急（きゅう）に行（い）けなくなっちゃって。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0002-q1","q":"","choices":["うん、楽（たの）しかったね。","そっか、残念（ざんねん）。じゃあまた今度（こんど）ね。","じゃあ、行（い）ってらっしゃい。"],"answerIndex":1,"i18n":{"ja":{}}}],"i18n":{}},{"id":"N3-C-S-0003","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"この企画（きかく）、思（おも）ったより時間（じかん）がかかりそうなんだよね。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0003-q1","q":"","choices":["だったら、締（し）め切（き）りを延（の）ばしてもらえないか聞（き）いてみたら？","うん、もう終（お）わったんだね。","時間（じかん）が余（あま）って大変（たいへん）だね。"],"answerIndex":0,"i18n":{"ja":{}}}],"i18n":{}},{"id":"N3-C-S-0004","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"さっきの話（はなし）、ちょっと言（い）い過（す）ぎたかも。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0004-q1","q":"","choices":["気（き）にしてないよ。誰（だれ）だってああいう時（とき）はあるし。","うん、もっと言（い）ったほうがいいよ。","そんなに少（すく）なかった？"],"answerIndex":0,"i18n":{"ja":{}}}],"i18n":{}},{"id":"N3-C-S-0005","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"会社仕事","script":"最近（さいきん）、残業（ざんぎょう）続（つづ）きで全然（ぜんぜん）休（やす）めてないんだ。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0005-q1","q":"","choices":["いいね、ゆっくり休（やす）めて。","無理（むり）しすぎないようにね。たまには休（やす）んだら？","残業（ざんぎょう）がなくて暇（ひま）だね。"],"answerIndex":1,"i18n":{"ja":{}}}],"i18n":{}},{"id":"N3-C-S-0006","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"これ、よかったら使（つか）って。前（まえ）に話（はな）してたやつ。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0006-q1","q":"","choices":["うん、使（つか）ってあげるよ。","え、いいの？ありがとう、助（たす）かるよ。","いや、まだ話（はな）してないよ。"],"answerIndex":1,"i18n":{"ja":{}}}],"i18n":{}},{"id":"N3-C-S-0007","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"すみません、この席（せき）、空（あ）いてますか。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0007-q1","q":"","choices":["ええ、どうぞ。空（あ）いてますよ。","はい、座（すわ）ってきました。","いいえ、空（あ）けておきます。"],"answerIndex":0,"i18n":{"ja":{}}}],"i18n":{}},{"id":"N3-C-S-0008","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"交通旅行","script":"ごめん、待（ま）った？道（みち）が混（こ）んでて。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0008-q1","q":"","choices":["うん、もう帰（かえ）るところ。","いいえ、待（ま）ってあげたよ。","ううん、私（わたし）も今（いま）来（き）たところ。"],"answerIndex":2,"i18n":{"ja":{}}}],"i18n":{}},{"id":"N3-C-S-0009","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"会社仕事","script":"来週（らいしゅう）の出張（しゅっちょう）、結局（けっきょく）どうなったの？","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0009-q1","q":"","choices":["うん、出張（しゅっちょう）に行（い）ってらっしゃい。","それが、来月（らいげつ）に延（の）びたんだ。","先週（せんしゅう）、無事（ぶじ）に終（お）わったよ。"],"answerIndex":1,"i18n":{"ja":{}}}],"i18n":{}},{"id":"N3-C-S-0010","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"もしよかったら、この後（あと）ごはんでもどう？","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0010-q1","q":"","choices":["いいですね、ぜひ。何（なに）か食（た）べたいものありますか？","はい、もう食（た）べてきました。","いいえ、食（た）べないでください。"],"answerIndex":0,"i18n":{"ja":{}}}],"i18n":{}},{"id":"N3-C-S-0011","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"会社仕事","script":"恐（おそ）れ入（い）りますが、こちらの資料（しりょう）、目（め）を通（とお）していただけますか。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0011-q1","q":"","choices":["ええ、もう目（め）が覚（さ）めました。","はい、後（のち）ほど確認（かくにん）しておきます。","では、私（わたし）が通（とお）らせていただきます。"],"answerIndex":1,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0012","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"もうこんな時間（じかん）か。そろそろ…。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0012-q1","q":"","choices":["うん、まだ早（はや）いから始（はじ）めよう。","あ、その時計（とけい）、進（すす）んでいるよ。","あ、じゃあ、また連絡（れんらく）するね。"],"answerIndex":2,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0013","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"会社仕事","script":"来週（らいしゅう）の懇親会（こんしんかい）、部長（ぶちょう）も参加（さんか）されるそうですよ。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0013-q1","q":"","choices":["ええ、懇親会（こんしんかい）は盛（も）り上（あ）がりましたね。","はい、部長（ぶちょう）にお伝（つた）えします。","そうなんですね。じゃあ、私（わたし）も顔（かお）を出（だ）そうかな。"],"answerIndex":2,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0014","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"ちょっと今（いま）、手伝（てつだ）ってほしいんだけど、いい？","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0014-q1","q":"","choices":["うん、手伝（てつだ）ってくれてありがとう。","じゃあ、手伝（てつだ）ってあげてね。","ごめん、今（いま）ちょっと手（て）が離（はな）せなくて。"],"answerIndex":2,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0015","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"例（れい）の案件（あんけん）、先方（せんぽう）はなんて言（い）ってた？","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0015-q1","q":"","choices":["うん、先方（せんぽう）に伝（つた）えておくよ。","じゃあ、こちらから連絡（れんらく）してみて。","それが、もう少（すこ）し考（かんが）えたいとのことでした。"],"answerIndex":2,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0016","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"顔色（かおいろ）よくないよ。無理（むり）しないほうがいいんじゃない？","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0016-q1","q":"","choices":["うん、今日（きょう）は早（はや）めに帰（かえ）ることにするよ。","そうだね、君（きみ）も無理（むり）しないでね。","うん、昨日（きのう）はよく休（やす）めたよ。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0017","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"会社仕事","script":"申（もう）し訳（わけ）ないんだけど、この仕事（しごと）、代（か）わってもらえないかな。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0017-q1","q":"","choices":["いいですよ。私（わたし）でよければ引（ひ）き受（う）けます。","はい、代（か）わってくれてありがとう。","じゃあ、代（か）わりに謝（あやま）っておいてね。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0018","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"今度（こんど）の休（やす）み、みんなでキャンプ行（い）こうって話（はなし）なんだけど。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0018-q1","q":"","choices":["うん、キャンプ楽（たの）しかったね。","いいね。でも、外（そと）は苦手（にがて）だから考（かんが）えとくよ。","じゃあ、みんなを誘（さそ）っておいてね。"],"answerIndex":1,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0019","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"家家庭","script":"そういえば、先週（せんしゅう）お願（ねが）いした件（けん）、どうなってる？","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0019-q1","q":"","choices":["はい、先週（せんしゅう）お願（ねが）いしておきました。","すみません、まだ手（て）をつけられていなくて。","じゃあ、お願（ねが）いしてみます。"],"answerIndex":1,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0020","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"家家庭","script":"よかったら、今度（こんど）うちで一杯（いっぱい）どう？","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0020-q1","q":"","choices":["うん、昨日（きのう）飲（の）みすぎちゃった。","じゃあ、一杯（いっぱい）ついであげるね。","いいね、ぜひ。都合（つごう）のいい日（ひ）、教（おし）えてよ。"],"answerIndex":2,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0021","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"この課題（かだい）、一人（ひとり）で全部（ぜんぶ）やるのは大変（たいへん）そうだね。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0021-q1","q":"","choices":["じゃあ、二人（ふたり）で分担（ぶんたん）してやろうか。","課題（かだい）を出（だ）してくれてありがとう。","一人暮（ひとりぐ）らしは大変（たいへん）だよね。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0022","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"ノート、後（あと）で少（すこ）しだけ見（み）せてもらえたりする？","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0022-q1","q":"","choices":["いいよ、あとで写真（しゃしん）送（おく）ろうか。","ノートに書（か）くのを忘（わす）れた。","あとでゲームしようよ。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0023","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"学校学習","script":"発表（はっぴょう）の声（こえ）、後（うし）ろまで届（とど）いてなかったかも。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0023-q1","q":"","choices":["そっか、次（つぎ）はもっと大（おお）きい声（こえ）で話（はな）すね。","発表（はっぴょう）が終（お）わってほっとした。","後（うし）ろの席（せき）は静（しず）かだよね。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0024","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"これ、もう少（すこ）し安（やす）くなったりしませんか。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0024-q1","q":"","choices":["では、少（すこ）しだけお値引（ねび）きします。","安（やす）いお店（みせ）を教（おし）えてください。","これは私（わたし）のではありません。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0025","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"サイズが合（あ）わなかったら、交換（こうかん）できますか。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0025-q1","q":"","choices":["はい、レシートがあれば大丈夫（だいじょうぶ）ですよ。","サイズを教（おし）えてくれてありがとう。","交換留学（こうかんりゅうがく）に行（い）きたいです。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0026","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"店買い物","script":"よかったら、新商品（しんしょうひん）のご試食（ししょく）などいかがですか。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0026-q1","q":"","choices":["じゃあ、少（すこ）しいただいてみようかな。","その商品（しょうひん）は私（わたし）が作（つく）りました。","昼（ひる）ごはんはもう食（た）べました。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0027","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"家家庭","script":"そろそろ部屋（へや）、片（かた）づけてくれると助（たす）かるんだけどな。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0027-q1","q":"","choices":["ごめん、今（いま）からやるよ。","この部屋（へや）、広（ひろ）くていいね。","そろそろ帰（かえ）る時間（じかん）だね。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0028","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"家家庭","script":"たまには家族（かぞく）みんなで、出（で）かけられたらいいのにね。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0028-q1","q":"","choices":["そうだね、今度（こんど）の休（やす）みに計画（けいかく）してみようか。","家族（かぞく）が増（ふ）えたんだって。","一人（ひとり）で出（で）かけてきたよ。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0029","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"このお皿（さら）、洗（あら）うのちょっと手伝（てつだ）ってもらえたりする？","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0029-q1","q":"","choices":["いいよ、じゃあ僕（ぼく）がふくね。","お皿（さら）を割（わ）っちゃったんだ。","手（て）が冷（つめ）たくなってきた。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0030","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"痛（いた）みがひどいときは、無理（むり）をなさらないでくださいね。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0030-q1","q":"","choices":["はい、気（き）をつけて休（やす）みます。","無理（むり）なお願（ねが）いをしてすみません。","今日（きょう）はひどい雨（あめ）でしたね。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0031","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"会社仕事","script":"お仕事（しごと）が忙（いそが）しいと、なかなか休（やす）めないですよね。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0031-q1","q":"","choices":["ええ、でも少（すこ）し休（やす）むようにします。","仕事（しごと）を辞（や）めたそうですよ。","忙（いそが）しい人（ひと）が好（す）きです。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0032","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"食事（しょくじ）、少（すこ）し気（き）をつけるといいかもしれませんね。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0032-q1","q":"","choices":["そうですね、野菜（やさい）を増（ふ）やしてみます。","食事（しょくじ）はおいしかったです。","風邪（かぜ）に気（き）をつけてください。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0033","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"会社仕事","script":"この書類（しょるい）、できれば今日中（きょうじゅう）にお願（ねが）いできますか。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0033-q1","q":"","choices":["はい、夕方（ゆうがた）までにお出（だ）しします。","書類（しょるい）が見（み）つかりません。","今日（きょう）はいい天気（てんき）ですね。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0034","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"もう少（すこ）しだけ、こちらでお待（ま）ちいただけますか。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0034-q1","q":"","choices":["はい、大丈夫（だいじょうぶ）です。待（ま）ちます。","少（すこ）しだけ食（た）べました。","こちらのペンを借（か）ります。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0035","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"こちらの欄（らん）、書（か）き間違（まちが）いがあるようなんですが。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0035-q1","q":"","choices":["あ、すみません。書（か）き直（なお）します。","欄（らん）が足（た）りないですね。","道（みち）を間違（まちが）えました。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0036","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"夜（よる）の物音（ものおと）、少（すこ）し気（き）になることがありまして。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0036-q1","q":"","choices":["すみません、これから気（き）をつけます。","夜（よる）は星（ほし）がきれいですね。","物音（ものおと）がして目（め）が覚（さ）めた。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0037","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"その他","script":"お車（くるま）、もう少（すこ）し前（まえ）に停（と）めていただけますか。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0037-q1","q":"","choices":["あ、失礼（しつれい）しました。すぐ動（うご）かします。","車（くるま）を買（か）い替（か）えたんです。","前（まえ）の道（みち）は狭（せま）いですね。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0038","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"地域近所","script":"回覧板（かいらんばん）、そちらで止（と）まっているみたいですよ。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0038-q1","q":"","choices":["あ、本当（ほんとう）だ。すぐ次（つぎ）に回（まわ）します。","回覧板（かいらんばん）を読（よ）むのが楽（たの）しみです。","バスが止（と）まっていました。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0039","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"交通旅行","script":"この道（みち）、混（こ）んでいて着（つ）くのが遅（おく）れそうです。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0039-q1","q":"","choices":["わかりました、では急（いそ）がなくて大丈夫（だいじょうぶ）です。","この道（みち）は覚（おぼ）えています。","電車（でんしゃ）が遅（おく）れていました。"],"answerIndex":0,"i18n":{}}],"i18n":{}},{"id":"N3-C-S-0040","level":"N3","category":"choukai","type":"listening","subtype":"sokuji","qtype":"即時応答","title":"即時応答","scenario":"交通旅行","script":"予約（よやく）の時間（じかん）、少（すこ）し遅（おく）らせることはできますか。","audio":true,"audioChoices":true,"questions":[{"id":"N3-C-S-0040-q1","q":"","choices":["はい、では三十分（さんじゅっぷん）ずらしておきますね。","予約（よやく）の名前（なまえ）を忘（わす）れました。","時計（とけい）が少（すこ）し遅（おく）れています。"],"answerIndex":0,"i18n":{}}],"i18n":{}}]}
+{
+ "schema": 1,
+ "daimon": "sokuji",
+ "level": "N3",
+ "languages": [
+  "ja",
+  "ne"
+ ],
+ "items": [
+  {
+   "id": "N3-C-S-0501",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この資料（しりょう）、明日（あした）までにお願（ねが）いって言（い）われたんだけど、量（りょう）が多（おお）くて一人（ひとり）じゃちょっと無理（むり）そうなんだ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0501-q1",
+     "q": "",
+     "choices": [
+      "大変（たいへん）そうだね。よかったら手伝（てつだ）おうか。",
+      "じゃあ、一人（ひとり）で頑張（がんば）ってね。",
+      "明日（あした）まででよかったね。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0502",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "悪（わる）い、今日（きょう）の飲（の）み会（かい）、急（きゅう）に行（い）けなくなっちゃって。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0502-q1",
+     "q": "",
+     "choices": [
+      "うん、楽（たの）しかったね。",
+      "そっか、残念（ざんねん）。じゃあまた今度（こんど）ね。",
+      "じゃあ、行（い）ってらっしゃい。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {}
+     }
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0503",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この企画（きかく）、思（おも）ったより時間（じかん）がかかりそうなんだよね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0503-q1",
+     "q": "",
+     "choices": [
+      "だったら、締（し）め切（き）りを延（の）ばしてもらえないか聞（き）いてみたら？",
+      "うん、もう終（お）わったんだね。",
+      "時間（じかん）が余（あま）って大変（たいへん）だね。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {}
+     }
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0504",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "さっきの話（はなし）、ちょっと言（い）い過（す）ぎたかも。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0504-q1",
+     "q": "",
+     "choices": [
+      "気（き）にしてないよ。誰（だれ）だってああいう時（とき）はあるし。",
+      "うん、もっと言（い）ったほうがいいよ。",
+      "そんなに少（すく）なかった？"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {}
+     }
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0505",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "最近（さいきん）、残業（ざんぎょう）続（つづ）きで全然（ぜんぜん）休（やす）めてないんだ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0505-q1",
+     "q": "",
+     "choices": [
+      "いいね、ゆっくり休（やす）めて。",
+      "無理（むり）しすぎないようにね。たまには休（やす）んだら？",
+      "残業（ざんぎょう）がなくて暇（ひま）だね。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {}
+     }
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0506",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "これ、よかったら使（つか）って。前（まえ）に話（はな）してたやつ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0506-q1",
+     "q": "",
+     "choices": [
+      "うん、使（つか）ってあげるよ。",
+      "え、いいの？ありがとう、助（たす）かるよ。",
+      "いや、まだ話（はな）してないよ。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {}
+     }
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0507",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "すみません、この席（せき）、空（あ）いてますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0507-q1",
+     "q": "",
+     "choices": [
+      "ええ、どうぞ。空（あ）いてますよ。",
+      "はい、座（すわ）ってきました。",
+      "いいえ、空（あ）けておきます。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {}
+     }
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0508",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "ごめん、待（ま）った？道（みち）が混（こ）んでて。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0508-q1",
+     "q": "",
+     "choices": [
+      "うん、もう帰（かえ）るところ。",
+      "いいえ、待（ま）ってあげたよ。",
+      "ううん、私（わたし）も今（いま）来（き）たところ。"
+     ],
+     "answerIndex": 2,
+     "i18n": {
+      "ja": {}
+     }
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0509",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "来週（らいしゅう）の出張（しゅっちょう）、結局（けっきょく）どうなったの？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0509-q1",
+     "q": "",
+     "choices": [
+      "うん、出張（しゅっちょう）に行（い）ってらっしゃい。",
+      "それが、来月（らいげつ）に延（の）びたんだ。",
+      "先週（せんしゅう）、無事（ぶじ）に終（お）わったよ。"
+     ],
+     "answerIndex": 1,
+     "i18n": {
+      "ja": {}
+     }
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0510",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "もしよかったら、この後（あと）ごはんでもどう？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0510-q1",
+     "q": "",
+     "choices": [
+      "いいですね、ぜひ。何（なに）か食（た）べたいものありますか？",
+      "はい、もう食（た）べてきました。",
+      "いいえ、食（た）べないでください。"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {}
+     }
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0511",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "恐（おそ）れ入（い）りますが、こちらの資料（しりょう）、目（め）を通（とお）していただけますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0511-q1",
+     "q": "",
+     "choices": [
+      "ええ、もう目（め）が覚（さ）めました。",
+      "はい、後（のち）ほど確認（かくにん）しておきます。",
+      "では、私（わたし）が通（とお）らせていただきます。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0512",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "もうこんな時間（じかん）か。そろそろ…。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0512-q1",
+     "q": "",
+     "choices": [
+      "うん、まだ早（はや）いから始（はじ）めよう。",
+      "あ、その時計（とけい）、進（すす）んでいるよ。",
+      "あ、じゃあ、また連絡（れんらく）するね。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0513",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "来週（らいしゅう）の懇親会（こんしんかい）、部長（ぶちょう）も参加（さんか）されるそうですよ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0513-q1",
+     "q": "",
+     "choices": [
+      "ええ、懇親会（こんしんかい）は盛（も）り上（あ）がりましたね。",
+      "はい、部長（ぶちょう）にお伝（つた）えします。",
+      "そうなんですね。じゃあ、私（わたし）も顔（かお）を出（だ）そうかな。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0514",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "ちょっと今（いま）、手伝（てつだ）ってほしいんだけど、いい？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0514-q1",
+     "q": "",
+     "choices": [
+      "うん、手伝（てつだ）ってくれてありがとう。",
+      "じゃあ、手伝（てつだ）ってあげてね。",
+      "ごめん、今（いま）ちょっと手（て）が離（はな）せなくて。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0515",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "例（れい）の案件（あんけん）、先方（せんぽう）はなんて言（い）ってた？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0515-q1",
+     "q": "",
+     "choices": [
+      "うん、先方（せんぽう）に伝（つた）えておくよ。",
+      "じゃあ、こちらから連絡（れんらく）してみて。",
+      "それが、もう少（すこ）し考（かんが）えたいとのことでした。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0516",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "顔色（かおいろ）よくないよ。無理（むり）しないほうがいいんじゃない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0516-q1",
+     "q": "",
+     "choices": [
+      "うん、今日（きょう）は早（はや）めに帰（かえ）ることにするよ。",
+      "そうだね、君（きみ）も無理（むり）しないでね。",
+      "うん、昨日（きのう）はよく休（やす）めたよ。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0517",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "申（もう）し訳（わけ）ないんだけど、この仕事（しごと）、代（か）わってもらえないかな。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0517-q1",
+     "q": "",
+     "choices": [
+      "いいですよ。私（わたし）でよければ引（ひ）き受（う）けます。",
+      "はい、代（か）わってくれてありがとう。",
+      "じゃあ、代（か）わりに謝（あやま）っておいてね。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0518",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今度（こんど）の休（やす）み、みんなでキャンプ行（い）こうって話（はなし）なんだけど。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0518-q1",
+     "q": "",
+     "choices": [
+      "うん、キャンプ楽（たの）しかったね。",
+      "いいね。でも、外（そと）は苦手（にがて）だから考（かんが）えとくよ。",
+      "じゃあ、みんなを誘（さそ）っておいてね。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0519",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "そういえば、先週（せんしゅう）お願（ねが）いした件（けん）、どうなってる？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0519-q1",
+     "q": "",
+     "choices": [
+      "はい、先週（せんしゅう）お願（ねが）いしておきました。",
+      "すみません、まだ手（て）をつけられていなくて。",
+      "じゃあ、お願（ねが）いしてみます。"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0520",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "よかったら、今度（こんど）うちで一杯（いっぱい）どう？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0520-q1",
+     "q": "",
+     "choices": [
+      "うん、昨日（きのう）飲（の）みすぎちゃった。",
+      "じゃあ、一杯（いっぱい）ついであげるね。",
+      "いいね、ぜひ。都合（つごう）のいい日（ひ）、教（おし）えてよ。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0521",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この課題（かだい）、一人（ひとり）で全部（ぜんぶ）やるのは大変（たいへん）そうだね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0521-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、二人（ふたり）で分担（ぶんたん）してやろうか。",
+      "課題（かだい）を出（だ）してくれてありがとう。",
+      "一人暮（ひとりぐ）らしは大変（たいへん）だよね。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0522",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "ノート、後（あと）で少（すこ）しだけ見（み）せてもらえたりする？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0522-q1",
+     "q": "",
+     "choices": [
+      "いいよ、あとで写真（しゃしん）送（おく）ろうか。",
+      "ノートに書（か）くのを忘（わす）れた。",
+      "あとでゲームしようよ。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0523",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "発表（はっぴょう）の声（こえ）、後（うし）ろまで届（とど）いてなかったかも。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0523-q1",
+     "q": "",
+     "choices": [
+      "そっか、次（つぎ）はもっと大（おお）きい声（こえ）で話（はな）すね。",
+      "発表（はっぴょう）が終（お）わってほっとした。",
+      "後（うし）ろの席（せき）は静（しず）かだよね。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0524",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "これ、もう少（すこ）し安（やす）くなったりしませんか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0524-q1",
+     "q": "",
+     "choices": [
+      "では、少（すこ）しだけお値引（ねび）きします。",
+      "安（やす）いお店（みせ）を教（おし）えてください。",
+      "これは私（わたし）のではありません。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0525",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "サイズが合（あ）わなかったら、交換（こうかん）できますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0525-q1",
+     "q": "",
+     "choices": [
+      "はい、レシートがあれば大丈夫（だいじょうぶ）ですよ。",
+      "サイズを教（おし）えてくれてありがとう。",
+      "交換留学（こうかんりゅうがく）に行（い）きたいです。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0526",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "よかったら、新商品（しんしょうひん）のご試食（ししょく）などいかがですか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0526-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、少（すこ）しいただいてみようかな。",
+      "その商品（しょうひん）は私（わたし）が作（つく）りました。",
+      "昼（ひる）ごはんはもう食（た）べました。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0527",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "そろそろ部屋（へや）、片（かた）づけてくれると助（たす）かるんだけどな。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0527-q1",
+     "q": "",
+     "choices": [
+      "ごめん、今（いま）からやるよ。",
+      "この部屋（へや）、広（ひろ）くていいね。",
+      "そろそろ帰（かえ）る時間（じかん）だね。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0528",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "たまには家族（かぞく）みんなで、出（で）かけられたらいいのにね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0528-q1",
+     "q": "",
+     "choices": [
+      "そうだね、今度（こんど）の休（やす）みに計画（けいかく）してみようか。",
+      "家族（かぞく）が増（ふ）えたんだって。",
+      "一人（ひとり）で出（で）かけてきたよ。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0529",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "このお皿（さら）、洗（あら）うのちょっと手伝（てつだ）ってもらえたりする？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0529-q1",
+     "q": "",
+     "choices": [
+      "いいよ、じゃあ僕（ぼく）がふくね。",
+      "お皿（さら）を割（わ）っちゃったんだ。",
+      "手（て）が冷（つめ）たくなってきた。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0530",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "痛（いた）みがひどいときは、無理（むり）をなさらないでくださいね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0530-q1",
+     "q": "",
+     "choices": [
+      "はい、気（き）をつけて休（やす）みます。",
+      "無理（むり）なお願（ねが）いをしてすみません。",
+      "今日（きょう）はひどい雨（あめ）でしたね。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0531",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "お仕事（しごと）が忙（いそが）しいと、なかなか休（やす）めないですよね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0531-q1",
+     "q": "",
+     "choices": [
+      "ええ、でも少（すこ）し休（やす）むようにします。",
+      "仕事（しごと）を辞（や）めたそうですよ。",
+      "忙（いそが）しい人（ひと）が好（す）きです。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0532",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "食事（しょくじ）、少（すこ）し気（き）をつけるといいかもしれませんね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0532-q1",
+     "q": "",
+     "choices": [
+      "そうですね、野菜（やさい）を増（ふ）やしてみます。",
+      "食事（しょくじ）はおいしかったです。",
+      "風邪（かぜ）に気（き）をつけてください。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0533",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この書類（しょるい）、できれば今日中（きょうじゅう）にお願（ねが）いできますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0533-q1",
+     "q": "",
+     "choices": [
+      "はい、夕方（ゆうがた）までにお出（だ）しします。",
+      "書類（しょるい）が見（み）つかりません。",
+      "今日（きょう）はいい天気（てんき）ですね。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0534",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "もう少（すこ）しだけ、こちらでお待（ま）ちいただけますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0534-q1",
+     "q": "",
+     "choices": [
+      "はい、大丈夫（だいじょうぶ）です。待（ま）ちます。",
+      "少（すこ）しだけ食（た）べました。",
+      "こちらのペンを借（か）ります。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0535",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "こちらの欄（らん）、書（か）き間違（まちが）いがあるようなんですが。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0535-q1",
+     "q": "",
+     "choices": [
+      "あ、すみません。書（か）き直（なお）します。",
+      "欄（らん）が足（た）りないですね。",
+      "道（みち）を間違（まちが）えました。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0536",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "夜（よる）の物音（ものおと）、少（すこ）し気（き）になることがありまして。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0536-q1",
+     "q": "",
+     "choices": [
+      "すみません、これから気（き）をつけます。",
+      "夜（よる）は星（ほし）がきれいですね。",
+      "物音（ものおと）がして目（め）が覚（さ）めた。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0537",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "お車（くるま）、もう少（すこ）し前（まえ）に停（と）めていただけますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0537-q1",
+     "q": "",
+     "choices": [
+      "あ、失礼（しつれい）しました。すぐ動（うご）かします。",
+      "車（くるま）を買（か）い替（か）えたんです。",
+      "前（まえ）の道（みち）は狭（せま）いですね。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0538",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "回覧板（かいらんばん）、そちらで止（と）まっているみたいですよ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0538-q1",
+     "q": "",
+     "choices": [
+      "あ、本当（ほんとう）だ。すぐ次（つぎ）に回（まわ）します。",
+      "回覧板（かいらんばん）を読（よ）むのが楽（たの）しみです。",
+      "バスが止（と）まっていました。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0539",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この道（みち）、混（こ）んでいて着（つ）くのが遅（おく）れそうです。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0539-q1",
+     "q": "",
+     "choices": [
+      "わかりました、では急（いそ）がなくて大丈夫（だいじょうぶ）です。",
+      "この道（みち）は覚（おぼ）えています。",
+      "電車（でんしゃ）が遅（おく）れていました。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0540",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "予約（よやく）の時間（じかん）、少（すこ）し遅（おく）らせることはできますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0540-q1",
+     "q": "",
+     "choices": [
+      "はい、では三十分（さんじゅっぷん）ずらしておきますね。",
+      "予約（よやく）の名前（なまえ）を忘（わす）れました。",
+      "時計（とけい）が少（すこ）し遅（おく）れています。"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": ""
+  },
+  {
+   "id": "N3-C-S-0001",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "悪（わる）いんだけど、この資料（しりょう）を明日（あした）までにコピーしておいてくれる？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0001-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、コピーしてもらえるんだね",
+      "もう返（かえ）しておいたから大丈夫（だいじょうぶ）だよ",
+      "うん、いいよ。何部（なんぶ）いる？"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0002",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "重（おも）くて一人（ひとり）じゃ動（うご）かせないんだ。ちょっと手（て）を貸（か）してくれない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0002-q1",
+     "q": "",
+     "choices": [
+      "うん、手（て）を貸（か）してもらえて助（たす）かるよ",
+      "いいよ、どこに運（はこ）べばいい？",
+      "じゃあ、一人（ひとり）で動（うご）かしたんだね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0003",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "来週（らいしゅう）の会議（かいぎ）、私（わたし）の代（か）わりに出席（しゅっせき）してもらえないかな？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0003-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、代（か）わりに出席（しゅっせき）してくださるんですね",
+      "はい、代（か）わりに出席（しゅっせき）していただけて安心（あんしん）です",
+      "いいですよ。何時（なんじ）からですか？"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0004",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あのう、明日（あした）の集合（しゅうごう）は駅（えき）の北口（きたぐち）でしたよね？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0004-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、南口（みなみぐち）に変（か）えておこうか。",
+      "うん、北口（きたぐち）で合（あ）ってるよ。",
+      "あれ、もう北口（きたぐち）に集（あつ）まったの？"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0005",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あれ、明日（あした）の会議（かいぎ）って、午後（ごご）二時（にじ）からで合（あ）ってましたっけ？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0005-q1",
+     "q": "",
+     "choices": [
+      "うん、二時（にじ）に始（はじ）めて、無事（ぶじ）終（お）わったね",
+      "さあ、二時（にじ）に集（あつ）まれるかどうかは分（わ）からないな",
+      "あ、三時（さんじ）に変（か）わったって連絡（れんらく）が来（き）てたよ"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0006",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "先週（せんしゅう）注文（ちゅうもん）した部品（ぶひん）、まだ届（とど）いていないんですか？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0006-q1",
+     "q": "",
+     "choices": [
+      "はい、注文（ちゅうもん）しておいてもらえますか",
+      "ええ、来週（らいしゅう）になるそうです",
+      "そうですね、もう送（おく）り返（かえ）しました"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0007",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "さっき駅前（えきまえ）の道路（どうろ）で事故（じこ）があって、今（いま）渋滞（じゅうたい）してるよ",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0007-q1",
+     "q": "",
+     "choices": [
+      "へえ、渋滞（じゅうたい）が終（お）わってよかったね",
+      "そうだね、道（みち）が空（す）いてて助（たす）かるよ",
+      "じゃあ、電車（でんしゃ）で行（い）ったほうがいいね"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0008",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "すみません、会議（かいぎ）の場所（ばしょ）が三階（さんがい）に変更（へんこう）になりました",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0008-q1",
+     "q": "",
+     "choices": [
+      "そうですか、わざわざありがとうございます",
+      "では、二階（にかい）のままなんですね",
+      "はい、変更（へんこう）しておいてもらえますか"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0009",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この前（まえ）借（か）りた傘（かさ）、まだ返（かえ）してもらってないんだけど",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0009-q1",
+     "q": "",
+     "choices": [
+      "うん、返（かえ）してくれてありがとう",
+      "あ、ごめん、明日（あした）持（も）ってくるね",
+      "じゃあ、傘（かさ）を貸（か）してあげるよ"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0010",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "昨日（きのう）お願（ねが）いした資料（しりょう）、数字（すうじ）が間違（まちが）っていましたよ",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0010-q1",
+     "q": "",
+     "choices": [
+      "はい、間違（まちが）えないように気（き）をつけてください",
+      "そうですか、正（ただ）しくて安心（あんしん）しました",
+      "申（もう）し訳（わけ）ありません、すぐ直（なお）します"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0011",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "体調（たいちょう）が悪（わる）いので、少（すこ）し早（はや）く帰（かえ）らせていただけませんか",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0011-q1",
+     "q": "",
+     "choices": [
+      "ええ、無理（むり）しないで。お大事（だいじ）に",
+      "じゃあ、早（はや）く帰（かえ）らせてもらえるんですね",
+      "はい、帰（かえ）ってきてくださいね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0012",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あのう、こちらの席（せき）、空（あ）いていたら座（すわ）ってもよろしいでしょうか",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0012-q1",
+     "q": "",
+     "choices": [
+      "ええ、座（すわ）らせていただきますね",
+      "どうぞ、空（あ）いていますよ",
+      "はい、私（わたし）も座（すわ）ってもいいですか"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0013",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "顔色（かおいろ）が悪（わる）いですよ。よかったら、誰（だれ）か呼（よ）んできましょうか",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0013-q1",
+     "q": "",
+     "choices": [
+      "では、私（わたし）が呼（よ）んできてあげましょうか",
+      "はい、顔色（かおいろ）をよくしておきますね",
+      "ありがとうございます。でも、少（すこ）し休（やす）めば大丈夫（だいじょうぶ）です"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0014",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "車（くるま）で駅（えき）まで行（い）くので、よかったら乗（の）せていきましょうか",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0014-q1",
+     "q": "",
+     "choices": [
+      "本当（ほんとう）ですか、助（たす）かります。お願（ねが）いします",
+      "では、私（わたし）が乗（の）せていってあげましょうか",
+      "いえ、車（くるま）はもう返（かえ）してしまいました"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0015",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今度（こんど）の連休（れんきゅう）、よかったらみんなで山（やま）に登（のぼ）りに行（い）かない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0015-q1",
+     "q": "",
+     "choices": [
+      "うん、山（やま）に登（のぼ）ってきて楽（たの）しかったよ",
+      "いいね、久（ひさ）しぶりに体（からだ）を動（うご）かしたいし",
+      "そうだね、誘（さそ）ってくれてよかったね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "誘い",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0016",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "駅前（えきまえ）に新（あたら）しいカフェができたって。今度（こんど）行（い）ってみない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0016-q1",
+     "q": "",
+     "choices": [
+      "へえ、もう行（い）ってきたの？よかったね",
+      "うん、カフェを作（つく）るのは大変（たいへん）そうだね",
+      "いいね、週末（しゅうまつ）にでも行（い）ってみようか"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "誘い",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0017",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "せっかくですが、その日（ひ）は先約（せんやく）があって行（い）けそうにないんです",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0017-q1",
+     "q": "",
+     "choices": [
+      "そうですか、残念（ざんねん）です。また今度（こんど）誘（さそ）いますね",
+      "よかった、来（き）てくれるんですね",
+      "では、先約（せんやく）はいつだったんですか"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "断り・辞退",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0018",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "先週（せんしゅう）貸（か）した本（ほん）、そろそろ読（よ）み終（お）わった頃（ころ）かなと思（おも）って",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0018-q1",
+     "q": "",
+     "choices": [
+      "うん、貸（か）してくれてありがとう。楽（たの）しみだね",
+      "あ、ごめん。もう少（すこ）しで読（よ）み終（お）わるから待（ま）ってて",
+      "じゃあ、本（ほん）を貸（か）してあげようか"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "催促",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0019",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "昨日（きのう）は遅（おそ）くまで手伝（てつだ）ってくれて、本当（ほんとう）に助（たす）かりました",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0019-q1",
+     "q": "",
+     "choices": [
+      "こちらこそ、手伝（てつだ）っていただいて感謝（かんしゃ）しています",
+      "はい、また今度（こんど）手伝（てつだ）ってもらえますか",
+      "いえいえ、お役（やく）に立（た）ててよかったです"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "お礼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0020",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "先日（せんじつ）は珍（めずら）しいお菓子（かし）をいただき、ありがとうございました",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0020-q1",
+     "q": "",
+     "choices": [
+      "お口（くち）に合（あ）ったなら、よかったです",
+      "こちらこそ、おいしいお菓子（かし）をありがとうございました",
+      "はい、今度（こんど）お菓子（かし）を買（か）ってきてくださいね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "お礼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0021",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "すみません、この上着（うわぎ）、色違（いろちが）いを取（と）り寄（よ）せてもらえますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0021-q1",
+     "q": "",
+     "choices": [
+      "はい、確認（かくにん）してまいります",
+      "はい、取（と）り寄（よ）せていただけますか",
+      "もう取（と）り寄（よ）せてしまったんですね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0022",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あの、さっきの注文（ちゅうもん）なんですが、まだ変更（へんこう）は間（ま）に合（あ）いますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0022-q1",
+     "q": "",
+     "choices": [
+      "はい、まだ大丈夫（だいじょうぶ）ですよ",
+      "では、変（か）えていただけますか",
+      "はい、もう変（か）えておきましたよ"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0023",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "運転手（うんてんしゅ）さん、次（つぎ）の信号（しんごう）を右（みぎ）に曲（ま）がってもらえますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0023-q1",
+     "q": "",
+     "choices": [
+      "はい、右（みぎ）ですね、承知（しょうち）しました",
+      "左（ひだり）に曲（ま）がりたいんですね",
+      "ええ、もう曲（ま）がってきましたよ"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0024",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あの、チェックアウトの時間（じかん）って、朝（あさ）の十時（じゅうじ）まででしたよね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0024-q1",
+     "q": "",
+     "choices": [
+      "いいえ、朝食（ちょうしょく）は九時（くじ）までですよ",
+      "はい、十時（じゅうじ）まででございます",
+      "では、もうチェックインなさいますか"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0025",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "予約（よやく）した商品（しょうひん）、今日（きょう）の午後（ごご）に受（う）け取（と）りに来（き）てもいいんですよね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0025-q1",
+     "q": "",
+     "choices": [
+      "はい、お待（ま）ちしております",
+      "はい、お届（とど）けにあがりますね",
+      "もうお受（う）け取（と）りは、お済（す）みですよね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0026",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あの、この電車（でんしゃ）って、次（つぎ）の駅（えき）で急行（きゅうこう）に変（か）わりますよね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0026-q1",
+     "q": "",
+     "choices": [
+      "はい、次（つぎ）の駅（えき）で降（お）りますよ",
+      "ええ、次（つぎ）から急行（きゅうこう）になりますよ",
+      "いいえ、各駅（かくえき）から急行（きゅうこう）に乗（の）り換（か）えるんです"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0027",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "お客様（きゃくさま）、ご注文（ちゅうもん）のお料理（りょうり）、少々（しょうしょう）お時間（じかん）をいただきます。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0027-q1",
+     "q": "",
+     "choices": [
+      "あ、もう食（た）べ終（お）わったんですね",
+      "では、注文（ちゅうもん）をお願（ねが）いします",
+      "はい、待（ま）っていますね"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0028",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "恐（おそ）れ入（い）りますが、大浴場（だいよくじょう）は夜（よる）十一時（じゅういちじ）で閉（し）まります。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0028-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、早（はや）めに入（はい）っておきますね",
+      "では、朝（あさ）まで入（はい）れるんですね",
+      "はい、部屋（へや）の鍵（かぎ）を閉（し）めておきます"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0029",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "ただいま、事故（じこ）の影響（えいきょう）で、この電車（でんしゃ）は少（すこ）し遅（おく）れております。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0029-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、もう着（つ）いたんですね",
+      "そうですか、急（いそ）いでいたのに困（こま）ったなあ",
+      "へえ、いつもより早（はや）いんですね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0030",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "すみません、さっき買（か）ったパン、賞味期限（しょうみきげん）が切（き）れているんですが。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0030-q1",
+     "q": "",
+     "choices": [
+      "では、温（あたた）めてお出（だ）ししますね",
+      "あ、そのパンはもう売（う）り切（き）れなんです",
+      "申（もう）し訳（わけ）ございません、すぐお取（と）り替（か）えします"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0031",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あの、頼（たの）んだ料理（りょうり）とちがうものが来（き）たみたいなんですが。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0031-q1",
+     "q": "",
+     "choices": [
+      "失礼（しつれい）しました、すぐお持（も）ち替（か）えします",
+      "はい、こちらでご注文（ちゅうもん）を承（うけたまわ）ります",
+      "では、お口（くち）に合（あ）ってよかったです"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0032",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あの、こちらの窓側（まどがわ）の席（せき）に、移（うつ）ってもよろしいでしょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0032-q1",
+     "q": "",
+     "choices": [
+      "はい、こちらへ移（うつ）していただけますか",
+      "はい、どうぞお使（つか）いください",
+      "はい、もう移（うつ）られたんですね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0033",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あの、この荷物（にもつ）、こちらの棚（たな）に置（お）かせてもらってもいいですか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0033-q1",
+     "q": "",
+     "choices": [
+      "はい、こちらでお預（あず）かりしましょうか",
+      "はい、私（わたし）の荷物（にもつ）はもう下（お）ろしました",
+      "ええ、どうぞ置（お）いてください"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0034",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "よろしければ、そちらの重（おも）い荷物（にもつ）、お車（くるま）までお持（も）ちしましょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0034-q1",
+     "q": "",
+     "choices": [
+      "ありがとうございます、助（たす）かります",
+      "はい、私（わたし）がお持（も）ちいたします",
+      "もう車（くるま）に積（つ）んでくれたんですね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0035",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "道（みち）に迷（まよ）われたんですか。駅（えき）まででしたら、ご案内（あんない）しましょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0035-q1",
+     "q": "",
+     "choices": [
+      "もう駅（えき）に着（つ）いてしまったんですね",
+      "本当（ほんとう）ですか、お願（ねが）いします",
+      "では、私（わたし）が案内（あんない）いたしましょう"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0036",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この前（まえ）話（はな）してた、新（あたら）しくできたパン屋（や）さん、行（い）ってみない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0036-q1",
+     "q": "",
+     "choices": [
+      "へえ、もう行（い）ってきたんだ、よかったね",
+      "え、パン屋（や）さんが閉（し）まっちゃうの？",
+      "いいね、今度（こんど）の休（やす）みに行（い）ってみようよ"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "誘い",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0037",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今夜（こんや）の食事会（しょくじかい）、体調（たいちょう）がよくないから、遠慮（えんりょ）しておくね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0037-q1",
+     "q": "",
+     "choices": [
+      "そっか、無理（むり）しないで、また今度（こんど）ね",
+      "うん、じゃあお店（みせ）で待（ま）ってるね",
+      "そうなんだ、じゃあ元気（げんき）になったんだね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "断り・辞退",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0038",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "さっきのコート、すてきだけど予算（よさん）を超（こ）えるから、今日（きょう）はやめとくね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0038-q1",
+     "q": "",
+     "choices": [
+      "え、もう買（か）っちゃったの？",
+      "うん、また今度（こんど）ゆっくり考（かんが）えようね",
+      "そうだね、安（やす）くていい買（か）い物（もの）だったね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "断り・辞退",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0039",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "さっき頼（たの）んだタクシー、そろそろ来（く）る時間（じかん）だと思（おも）うんですが。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0039-q1",
+     "q": "",
+     "choices": [
+      "では、タクシーを呼（よ）んでいただけますか",
+      "はい、もうお乗（の）りになったんですね",
+      "確認（かくにん）してまいりますね、少々（しょうしょう）お待（ま）ちください"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "催促",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0040",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "昨日（きのう）は急（きゅう）なお願（ねが）いだったのに、助（たす）けてくれて、ありがとう。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0040-q1",
+     "q": "",
+     "choices": [
+      "いいえ、お役（やく）に立（た）ててよかったです",
+      "こちらこそ、助（たす）けていただいて感謝（かんしゃ）です",
+      "では、これからお願（ねが）いしてもいいですか"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "お礼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0041",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この会議室（かいぎしつ）の予約（よやく）、私（わたし）の代（か）わりに取（と）っておいてもらえる？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0041-q1",
+     "q": "",
+     "choices": [
+      "ありがとう、助（たす）かるよ",
+      "うん、わかった。取（と）っておくね",
+      "じゃあ、キャンセルしておくね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0042",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "悪（わる）いんだけど、この英語（えいご）のメール、確（たし）かめてもらえないかな。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0042-q1",
+     "q": "",
+     "choices": [
+      "メール、まだ届（とど）いてないよ",
+      "じゃあ、送（おく）っておくね",
+      "いいよ。どのメール？"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0043",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "明日（あした）のプレゼン、プロジェクターの準備（じゅんび）を頼（たの）んでもいいかな。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0043-q1",
+     "q": "",
+     "choices": [
+      "うん、いいよ。何時（なんじ）まで？",
+      "プレゼン、もう終（お）わったの？",
+      "じゃあ、片付（かたづ）けておくね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0044",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この報告書（ほうこくしょ）の締（し）め切（き）り、今週（こんしゅう）の金曜（きんよう）で合（あ）ってましたよね？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0044-q1",
+     "q": "",
+     "choices": [
+      "うん、先週（せんしゅう）出（だ）したよ",
+      "うん、金曜（きんよう）で合（あ）ってるよ",
+      "会議（かいぎ）は火曜（かよう）だよ"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0045",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "さっき送（おく）ったメール、資料（しりょう）のファイル、ちゃんと付（つ）いてましたか？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0045-q1",
+     "q": "",
+     "choices": [
+      "はい、今（いま）から送（おく）りますね",
+      "いえ、メールは届（とど）いてませんよ",
+      "はい、ちゃんと付（つ）いてましたよ"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0046",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "例（れい）の予算（よさん）の件（けん）、部長（ぶちょう）の許可（きょか）はもう下（お）りたんでしたっけ？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0046-q1",
+     "q": "",
+     "choices": [
+      "うん、昨日（きのう）下（お）りたよ",
+      "うん、私（わたし）が許可（きょか）しておいたよ",
+      "出張（しゅっちょう）は来週（らいしゅう）だよ"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0047",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "取引先（とりひきさき）から、打（う）ち合（あ）わせを延（の）ばしたいと連絡（れんらく）がありました。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0047-q1",
+     "q": "",
+     "choices": [
+      "え、こちらが延（の）ばしたんですか？",
+      "そうですか、では日程（にってい）を調整（ちょうせい）しましょう",
+      "では、予定通（よていどお）り進（すす）めますね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0048",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今夜（こんや）九時（くじ）から、社内（しゃない）のシステムが使（つか）えなくなるそうですよ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0048-q1",
+     "q": "",
+     "choices": [
+      "今（いま）使（つか）えないのは困（こま）りますね",
+      "じゃあ、九時（くじ）に集合（しゅうごう）ですね",
+      "じゃあ、それまでに作業（さぎょう）を終（お）わらせないと"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0049",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この議事録（ぎじろく）、会議（かいぎ）の日付（ひづけ）が先月（せんげつ）のままになってますよ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0049-q1",
+     "q": "",
+     "choices": [
+      "あ、本当（ほんとう）だ。すぐ直（なお）します",
+      "場所（ばしょ）は会議室（かいぎしつ）で合（あ）ってますよ",
+      "じゃあ、先月（せんげつ）の分（ぶん）でいいんですね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0050",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この前（まえ）の会議（かいぎ）、予定（よてい）より一時間（いちじかん）も長引（ながび）いて困（こま）りました。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0050-q1",
+     "q": "",
+     "choices": [
+      "では、次回（じかい）はもっと長（なが）くしましょう",
+      "すみません、次（つぎ）は時間（じかん）を守（まも）ります",
+      "はい、遅刻（ちこく）しないようにします"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0051",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "さっきのメール、宛先（あてさき）が別（べつ）の担当（たんとう）の人（ひと）になってましたよ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0051-q1",
+     "q": "",
+     "choices": [
+      "件名（けんめい）を直（なお）しておきますね",
+      "じゃあ、その人（ひと）に送（おく）ればいいんですね",
+      "え、本当（ほんとう）ですか。すぐ送（おく）り直（なお）します"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0052",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "部長（ぶちょう）、来週（らいしゅう）の金曜（きんよう）、お休（やす）みをいただくことはできますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0052-q1",
+     "q": "",
+     "choices": [
+      "ええ、大丈夫（だいじょうぶ）ですよ",
+      "はい、休（やす）ませていただきます",
+      "先週（せんしゅう）の金曜（きんよう）は休（やす）みでしたよ"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0053",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "電車（でんしゃ）の都合（つごう）で、少（すこ）し早（はや）めに失礼（しつれい）してもよろしいでしょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0053-q1",
+     "q": "",
+     "choices": [
+      "はい、お先（さき）に失礼（しつれい）します",
+      "ええ、どうぞ。お疲（つか）れさまでした",
+      "じゃあ、明日（あした）は早（はや）く来（き）てくださいね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0054",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "お昼（ひる）の間（あいだ）、電話（でんわ）は代（か）わりに私（わたし）が受（う）けておきましょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0054-q1",
+     "q": "",
+     "choices": [
+      "うん、私（わたし）が受（う）けておくよ",
+      "じゃあ、お昼（ひる）は一緒（いっしょ）に行（い）こう",
+      "ありがとう、助（たす）かるよ"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0055",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "新（あたら）しいソフトの使（つか）い方（かた）、私（わたし）が説明（せつめい）しましょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0055-q1",
+     "q": "",
+     "choices": [
+      "うん、お願（ねが）いできる？助（たす）かるよ",
+      "じゃあ、私（わたし）が教（おし）えてあげるね",
+      "ソフト、もう買（か）っておいたよ"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0056",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今度（こんど）の金曜（きんよう）、プロジェクトの打（う）ち上（あ）げがあるんだけど、来（こ）ない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0056-q1",
+     "q": "",
+     "choices": [
+      "うん、この前（まえ）は楽（たの）しかったね",
+      "いいね、ぜひ行（い）きたい",
+      "打（う）ち合（あ）わせなら、もう終（お）わったよ"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "誘い",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0057",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "来週（らいしゅう）、仕事（しごと）に役立（やくだ）つセミナーがあるんだけど、行（い）ってみない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0057-q1",
+     "q": "",
+     "choices": [
+      "へえ、どんな話（はなし）だったの？",
+      "セミナー室（しつ）なら三階（さんがい）だよ",
+      "面白（おもしろ）そう、行（い）ってみたいな"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "誘い",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0058",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "せっかくですが、今（いま）は別（べつ）の仕事（しごと）で手（て）が離（はな）せないんです。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0058-q1",
+     "q": "",
+     "choices": [
+      "そうですか、では他（ほか）の人（ひと）に頼（たの）みますね",
+      "じゃあ、手伝（てつだ）ってもらえるんですね",
+      "もう終（お）わったなら良（よ）かったです"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "断り・辞退",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0059",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "お願（ねが）いした見積（みつ）もりの件（けん）、そろそろできあがりそうですか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0059-q1",
+     "q": "",
+     "choices": [
+      "請求書（せいきゅうしょ）なら、もう送（おく）りました",
+      "すみません、明日（あした）までには仕上（しあ）げます",
+      "では、これから頼（たの）んでみますね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "催促",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0060",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "先日（せんじつ）はいいアドバイスをいただいて、本当（ほんとう）に助（たす）かりました。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0060-q1",
+     "q": "",
+     "choices": [
+      "こちらこそ、教（おし）えていただいて感謝（かんしゃ）です",
+      "では、これからアドバイスしますね",
+      "いえいえ、お役（やく）に立（た）てて良（よ）かったです"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "お礼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0061",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "ゼミの発表（はっぴょう）の資料（しりょう）、人数分（にんずうぶん）コピーしておいてくれる？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0061-q1",
+     "q": "",
+     "choices": [
+      "いいよ、何部（なんぶ）必要（ひつよう）？",
+      "うん、コピー、ありがとう",
+      "発表（はっぴょう）、緊張（きんちょう）するね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0062",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "来週（らいしゅう）のレッスン、少（すこ）し早（はや）い時間（じかん）に変（か）えていただけますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0062-q1",
+     "q": "",
+     "choices": [
+      "はい、遅（おそ）い時間（じかん）は空（あ）いていますよ",
+      "ええ、何時（なんじ）がご希望（きぼう）ですか。",
+      "では、早（はや）めに伺（うかが）いますね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0063",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "悪（わる）いんだけど、この参考書（さんこうしょ）、明日（あした）まで貸（か）してもらえないかな。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0063-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、借（か）りに行（い）ってくるね。",
+      "うん、返（かえ）しておくね。",
+      "いいよ、どうぞ。明日（あした）返（かえ）してね。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0064",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あのう、来週（らいしゅう）の試験（しけん）って、教科書（きょうかしょ）を見（み）てもいいんでしたっけ？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0064-q1",
+     "q": "",
+     "choices": [
+      "うん、持（も）ち込（こ）みできるって。",
+      "ええ、教科書（きょうかしょ）、忘（わす）れちゃった",
+      "いや、見（み）てないと思（おも）うよ"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0065",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "先生（せんせい）、先週（せんしゅう）出（だ）したレポート、もう返却（へんきゃく）されましたっけ？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0065-q1",
+     "q": "",
+     "choices": [
+      "うん、もう出（だ）しておいたよ",
+      "ああ、まだ採点中（さいてんちゅう）だよ。",
+      "いや、まだ書（か）いてないんだ"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0066",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "来週（らいしゅう）月曜（げつよう）の授業（じゅぎょう）、急（きゅう）に休講（きゅうこう）になったらしいよ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0066-q1",
+     "q": "",
+     "choices": [
+      "うん、私（わたし）も休（やす）むつもり",
+      "そう、じゃあ教室（きょうしつ）で待（ま）ってるね",
+      "え、そうなの？知（し）らなかった。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0067",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今日（きょう）の部活（ぶかつ）、雨（あめ）だからグラウンドじゃなくて体育館（たいいくかん）だって。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0067-q1",
+     "q": "",
+     "choices": [
+      "わかった、体育館（たいいくかん）に行（い）くね。",
+      "へえ、グラウンド、乾（かわ）いてるんだ",
+      "じゃあ、今日（きょう）は外（そと）でやるんだね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0068",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今度（こんど）の遠足（えんそく）、雨（あめ）で来月（らいげつ）に延期（えんき）になったって。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0068-q1",
+     "q": "",
+     "choices": [
+      "え、もう終（お）わっちゃったの？",
+      "そうなんだ、楽（たの）しみにしてたのに。",
+      "じゃあ、来週（らいしゅう）行（い）くんだね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0069",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あのう、後（うし）ろの席（せき）、話（はな）し声（ごえ）がちょっと気（き）になるんですが。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0069-q1",
+     "q": "",
+     "choices": [
+      "はい、もっと大（おお）きな声（こえ）で話（はな）します",
+      "ええ、どうぞお話（はな）しください",
+      "あ、すみません、静（しず）かにします。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0070",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この答（こた）え、模範解答（もはんかいとう）と違（ちが）っているようなんですが。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0070-q1",
+     "q": "",
+     "choices": [
+      "あ、本当（ほんとう）だ。確認（かくにん）しておくね。",
+      "うん、合（あ）っていると思（おも）うよ",
+      "じゃあ、答（こた）えを写（うつ）しておいて"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0071",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あのう、この資料（しりょう）、写真（しゃしん）を撮（と）ってもよろしいでしょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0071-q1",
+     "q": "",
+     "choices": [
+      "はい、撮（と）ってきますね",
+      "ええ、どうぞ。ご自由（じゆう）に。",
+      "いえ、写真（しゃしん）はもう見（み）ました"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0072",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "来週（らいしゅう）のゼミ、都合（つごう）が悪（わる）くて欠席（けっせき）してもよろしいですか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0072-q1",
+     "q": "",
+     "choices": [
+      "では、出席（しゅっせき）お待（ま）ちしています",
+      "はい、私（わたし）も休（やす）ませてもらいます",
+      "いいですよ、資料（しりょう）は後（あと）で渡（わた）します。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0073",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "その荷物（にもつ）、重（おも）そうだね。教室（きょうしつ）まで持（も）つのを手伝（てつだ）おうか？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0073-q1",
+     "q": "",
+     "choices": [
+      "ありがとう、助（たす）かるよ。",
+      "うん、持（も）ってきてあげるね",
+      "そうだね、重（おも）くなさそうだね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0074",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "よかったら、テスト範囲（はんい）のノート、まとめたのを送（おく）ろうか？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0074-q1",
+     "q": "",
+     "choices": [
+      "うん、送（おく）ってくれてありがとう",
+      "本当（ほんとう）？すごく助（たす）かる。",
+      "じゃあ、まとめておくね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0075",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今度（こんど）の日曜（にちよう）、大学（だいがく）の学園祭（がくえんさい）、一緒（いっしょ）に行（い）ってみない？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0075-q1",
+     "q": "",
+     "choices": [
+      "え、もう終（お）わっちゃったの？残念（ざんねん）",
+      "そうだね、去年（きょねん）は楽（たの）しかったね",
+      "いいね、行（い）こう行（い）こう。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "誘い",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0076",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "せっかく誘（さそ）ってくれたのに、その日（ひ）はバイトがあって行（い）けないんだ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0076-q1",
+     "q": "",
+     "choices": [
+      "そっか、じゃあまた今度（こんど）誘（さそ）うね。",
+      "よかった、来（こ）られるんだね",
+      "うん、バイト、行（い）ってらっしゃい"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "断り・辞退",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0077",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "例（れい）の発表（はっぴょう）の担当（たんとう）、まだ決（き）まってないけど大丈夫（だいじょうぶ）？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0077-q1",
+     "q": "",
+     "choices": [
+      "うん、もう発表（はっぴょう）、終（お）わったよ",
+      "あ、そうだった。すぐ決（き）めるよ。",
+      "へえ、誰（だれ）が決（き）めたの？"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "催促",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0078",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "アンケートの提出（ていしゅつ）、締（し）め切（き）り今日（きょう）までだけど、もう出（だ）した？",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0078-q1",
+     "q": "",
+     "choices": [
+      "うん、もう届（とど）いてたよ",
+      "じゃあ、明日（あした）まで待（ま）ってね",
+      "あ、忘（わす）れてた。今（いま）出（だ）すね。"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "催促",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0079",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "昨日（きのう）はテスト勉強（べんきょう）、遅（おそ）くまで付（つ）き合（あ）ってくれてありがとう。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0079-q1",
+     "q": "",
+     "choices": [
+      "ううん、こっちも集中（しゅうちゅう）できてよかったよ。",
+      "いいえ、また付（つ）き合（あ）ってもらうね",
+      "じゃあ、今日（きょう）も遅（おそ）くまで頑張（がんば）ろう"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "お礼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0080",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この間（あいだ）は私（わたし）の代（か）わりに仕事（しごと）を引（ひ）き受（う）けてくれて、ありがとう",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0080-q1",
+     "q": "",
+     "choices": [
+      "では、代（か）わりに引（ひ）き受（う）けておきますね",
+      "いえ、困（こま）った時（とき）はお互（たが）いさまですから",
+      "こちらこそ、仕事（しごと）を代（か）わってもらって助（たす）かったよ"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "お礼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0081",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "検査（けんさ）の結果（けっか）、今日中（きょうじゅう）に電話（でんわ）でお知（し）らせいただけますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0081-q1",
+     "q": "",
+     "choices": [
+      "では、結果（けっか）が出（で）たらお電話（でんわ）ください",
+      "もう結果（けっか）はお伝（つた）えしましたよ",
+      "はい、わかり次第（しだい）ご連絡（れんらく）します"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0082",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "留守（るす）にする間（あいだ）、植木（うえき）の水（みず）やりをお願（ねが）いできますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0082-q1",
+     "q": "",
+     "choices": [
+      "いいですよ、毎日（まいにち）あげておきますね",
+      "先週（せんしゅう）、水（みず）をあげておきましたよ",
+      "では、留守中（るすちゅう）はよろしくお願（ねが）いします"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "依頼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0083",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "市役所（しやくしょ）の受付（うけつけ）は、午前（ごぜん）九時（くじ）からで合（あ）っていましたよね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0083-q1",
+     "q": "",
+     "choices": [
+      "ええ、もう九人（くにん）も並（なら）んでいますよ",
+      "はい、九時（くじ）からで間違（まちが）いないですよ",
+      "いいえ、受付（うけつけ）で会（あ）いましたよね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0084",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "図書館（としょかん）の本（ほん）って、一度（いちど）に二週間（にしゅうかん）借（か）りられるんでしたよね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0084-q1",
+     "q": "",
+     "choices": [
+      "もう返却（へんきゃく）したから、心配（しんぱい）ないよ",
+      "いや、その本（ほん）は今（いま）、貸（か）し出（だ）し中（ちゅう）だよ",
+      "うん、二週間（にしゅうかん）まで大丈夫（だいじょうぶ）だよ"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0085",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "明日（あした）の子供（こども）の予防（よぼう）接種（せっしゅ）、予約（よやく）は要（い）らないんですよね。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0085-q1",
+     "q": "",
+     "choices": [
+      "ええ、直接（ちょくせつ）来（き）ていただいて大丈夫（だいじょうぶ）です",
+      "ええ、母子（ぼし）手帳（てちょう）をお持（も）ちくださいね",
+      "こちらで予約（よやく）を入（い）れておきますね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "確認",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0086",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "町内会（ちょうないかい）の掃除（そうじ）、来週（らいしゅう）の日曜（にちよう）に変（か）わったそうですよ。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0086-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、掃除（そうじ）は先週（せんしゅう）で終（お）わったんですね",
+      "そうなんですね、教（おし）えてくれてありがとう",
+      "え、じゃあ今週（こんしゅう）の日曜（にちよう）なんですね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0087",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "先生（せんせい）、さっきの患者（かんじゃ）さん、無事（ぶじ）に検査（けんさ）が終（お）わりました。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0087-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、検査（けんさ）はこれから始（はじ）めるんだね",
+      "うん、私（わたし）が検査（けんさ）を受（う）けてくるよ",
+      "そうか、お疲（つか）れさま。結果（けっか）はどうだった？"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "報告・知らせ",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0088",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "この間（あいだ）借（か）りた本（ほん）、最後（さいご）のページが破（やぶ）れていたんですが。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0088-q1",
+     "q": "",
+     "choices": [
+      "大変（たいへん）失礼（しつれい）しました、すぐに確認（かくにん）いたします",
+      "では、破（やぶ）らないように気（き）をつけてくださいね",
+      "はい、では新（あたら）しい本（ほん）をお借（か）りしますね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0089",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "窓口（まどぐち）で頼（たの）んだ住所（じゅうしょ）の変更（へんこう）、まだ直（なお）っていないようです。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0089-q1",
+     "q": "",
+     "choices": [
+      "では、ご自分（じぶん）で書（か）き直（なお）してくださいね",
+      "申（もう）し訳（わけ）ありません、すぐに調（しら）べ直（なお）します",
+      "はい、変更（へんこう）はまだ受（う）け付（つ）けていませんよ"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0090",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "公園（こうえん）のごみ、集（あつ）める日（ひ）を過（す）ぎてもそのままなんです。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0090-q1",
+     "q": "",
+     "choices": [
+      "では、ごみは各自（かくじ）で持（も）ち帰（かえ）ってくださいね",
+      "ええ、もうきれいに片付（かたづ）きましたよ",
+      "それは失礼（しつれい）しました、担当（たんとう）の者（もの）に伝（つた）えます"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "苦情・指摘",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0091",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あのう、病室（びょうしつ）で少（すこ）し携帯（けいたい）を使（つか）ってもいいですか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0091-q1",
+     "q": "",
+     "choices": [
+      "ええ、こちらのお部屋（へや）なら大丈夫（だいじょうぶ）ですよ",
+      "はい、私（わたし）が代（か）わりにかけておきますね",
+      "携帯（けいたい）の充電（じゅうでん）は、あちらでできますよ"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0092",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "あのう、こちらの駐車場（ちゅうしゃじょう）、少（すこ）しの間（あいだ）停（と）めてもよろしいですか",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0092-q1",
+     "q": "",
+     "choices": [
+      "はい、車（くるま）はもう移動（いどう）させました",
+      "ええ、そちらの空（あ）いている所（ところ）にどうぞ",
+      "では、私（わたし）が停（と）めておきましょうか"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "許可求め",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0093",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "重（おも）そうな荷物（にもつ）ですね。よかったら、車（くるま）までお持（も）ちしましょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0093-q1",
+     "q": "",
+     "choices": [
+      "じゃあ、私（わたし）が持（も）って差（さ）し上（あ）げますね",
+      "いいえ、車（くるま）はまだ着（つ）いていませんよ",
+      "まあ、助（たす）かります。お願（ねが）いできますか"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0094",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "雨（あめ）が降（ふ）ってきましたね。傘（かさ）、一本（いっぽん）お貸（か）ししましょうか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0094-q1",
+     "q": "",
+     "choices": [
+      "本当（ほんとう）ですか、では遠慮（えんりょ）なくお借（か）りします",
+      "ええ、では私（わたし）の傘（かさ）を使（つか）ってください",
+      "いいえ、傘（かさ）はさっき返（かえ）しておきましたよ"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "申し出",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0095",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "今度（こんど）の週末（しゅうまつ）、地域（ちいき）のお祭（まつ）りに一緒（いっしょ）に行（い）きませんか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0095-q1",
+     "q": "",
+     "choices": [
+      "去年（きょねん）のお祭（まつ）りも、楽（たの）しかったですね",
+      "いいですね、ぜひご一緒（いっしょ）させてください",
+      "ええ、お祭（まつ）りはもう終（お）わってしまいましたね"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "誘い",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0096",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "新（あたら）しくできた市民（しみん）プール、今度（こんど）泳（およ）ぎに行（い）ってみませんか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0096-q1",
+     "q": "",
+     "choices": [
+      "ええ、泳（およ）ぎ方（かた）なら教（おし）えてあげますよ",
+      "この前（まえ）行（い）ったプールは、混（こ）んでいましたね",
+      "いいですね、暑（あつ）いし気持（きも）ちよさそうです"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "誘い",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0097",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "来月（らいげつ）の当番（とうばん）なんですが、どうしても都合（つごう）がつかなくて。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0097-q1",
+     "q": "",
+     "choices": [
+      "そうですか、では別（べつ）の人（ひと）に頼（たの）んでみますね",
+      "では、私（わたし）の代（か）わりに出（で）てもらえますか",
+      "よかった、では当番（とうばん）をお願（ねが）いしますね"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "断り・辞退",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0098",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "申（もう）し込（こ）んだ補助金（ほじょきん）の件（けん）、そろそろ返事（へんじ）をいただけますか。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0098-q1",
+     "q": "",
+     "choices": [
+      "では、こちらから催促（さいそく）しておきますね",
+      "お待（ま）たせしました、来週（らいしゅう）にはお返事（へんじ）できそうです",
+      "はい、まだ申（もう）し込（こ）まれていませんよ"
+     ],
+     "answerIndex": 1,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "催促",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0099",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "先日（せんじつ）、留守中（るすちゅう）に荷物（にもつ）を預（あず）かっていただいて、助（たす）かりました。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0099-q1",
+     "q": "",
+     "choices": [
+      "こちらこそ、預（あず）かってもらって助（たす）かりました",
+      "では、荷物（にもつ）は後（あと）で届（とど）けておきますね",
+      "いいえ、お安（やす）いご用（よう）ですよ。気（き）にしないで"
+     ],
+     "answerIndex": 2,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "お礼",
+   "answer_type": "audio"
+  },
+  {
+   "id": "N3-C-S-0100",
+   "level": "N3",
+   "category": "choukai",
+   "type": "listening",
+   "subtype": "sokuji",
+   "qtype": "即時応答",
+   "title": "即時応答",
+   "script": "先日（せんじつ）は、病院（びょういん）の場所（ばしょ）を教（おし）えてくださって、助（たす）かりました。",
+   "audio": true,
+   "audioChoices": true,
+   "questions": [
+    {
+     "id": "N3-C-S-0100-q1",
+     "q": "",
+     "choices": [
+      "いいえ、無事（ぶじ）に着（つ）けたようで何（なに）よりです",
+      "こちらこそ、道（みち）を教（おし）えていただいて助（たす）かりました",
+      "では、病院（びょういん）までご案内（あんない）しましょうか"
+     ],
+     "answerIndex": 0,
+     "i18n": {}
+    }
+   ],
+   "i18n": {},
+   "function": "お礼",
+   "answer_type": "audio"
+  }
+ ]
+}

@@ -55,6 +55,8 @@ export default function AICoachScreen() {
     const official = isJlpt && isOfficialLevel(lv)
       ? { mean: OFFICIAL_TOTAL_STAT[lv].mean, passRate: OFFICIAL_PASS_RATE[lv], base: OFFICIAL_BASE_LABEL }
       : null;
+    // N4/N5 は公式配点で「言語知識・読解」が合算1区分(N3以上は別区分)。相対位置カードのラベルを合算表記に。
+    const relGengoCombined = lv === 'N4' || lv === 'N5';
     // 復習待ち(忘れかけ)の面数=面別マスタリーの due 数。
     const due = state.mastery ? dueCount(state.mastery, now) : 0;
     // 学習量の推移: 累積「覚えた語」の日次差分=その日の新規習得数(15点→14本のバー)。
@@ -90,7 +92,7 @@ export default function AICoachScreen() {
     const latestMock = scoredMocks.length ? scoredMocks[scoredMocks.length - 1] : null;
     const prevMock = scoredMocks.length > 1 ? scoredMocks[scoredMocks.length - 2] : null;
     const mockTrend = scoredMocks.slice(-8).map((mk) => ({ day: mk.day, score: mk.predScore as number, max: mk.predMax ?? 180 }));
-    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, rel, official, due, daily, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
+    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, rel, official, relGengoCombined, due, daily, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
   }, [state]);
 
   const { st } = d;
@@ -202,7 +204,7 @@ export default function AICoachScreen() {
             <View style={s.relList}>
               {d.rel.sections.map((sec) => (
                 <View key={sec.key} style={s.relRow}>
-                  <Text style={s.relLabel}>{t('mock.block_' + sec.key)}</Text>
+                  <Text style={s.relLabel}>{t(sec.key === 'gengo' && d.relGengoCombined ? 'mock.block_gengo_dokkai' : 'mock.block_' + sec.key)}</Text>
                   <Stars n={sec.stars} c={c} size={13} />
                   <Text style={s.relTop}>{t('coach.rel_topline', { n: Math.round(sec.top) })}</Text>
                 </View>

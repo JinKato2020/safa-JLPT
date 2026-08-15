@@ -1296,5 +1296,19 @@
   "cat.abstract": "Abstract concepts",
   "cat.expression": "Greetings & expressions",
   "cat.function": "Function words",
-  "quiz.correct_sentence": "Correct sentence"
+  "quiz.correct_sentence": "Correct sentence",
+  "mock.section_accuracy": "Accuracy by section (detailed weak points)",
+  "mock.pred_label": "Predicted score",
+  "mock.pred_passline": "Pass line: {n} pts",
+  "mock.pred_sections": "Predicted score by section",
+  "mock.pred_note": "Points = that section's accuracy × its allotted points. ｜ = minimum cutoff (falling short in even one section means fail).",
+  "mock.judge_pass": "Pass",
+  "mock.judge_fail": "Fail",
+  "coach.rel_title": "Your standing among real test-takers",
+  "coach.rel_examinees": "Among real test-takers",
+  "coach.rel_topline": "Top ~{n}%",
+  "coach.rel_relative": "equivalent",
+  "coach.rel_total": "Overall",
+  "coach.rel_ref": "Basis: {label} (avg. score at this level {mean} pts / pass rate {rate}%)",
+  "coach.rel_note": "💡 Your predicted score compared with official test-taker data, shown as an approximate percentile. It's a rough guide, not your actual rank."
 }

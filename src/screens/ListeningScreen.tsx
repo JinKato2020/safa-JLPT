@@ -14,9 +14,11 @@ import type { StudiedQuestion } from '../data/studiedWords';
 import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
 import ExamHeader from '../components/ExamHeader';
+import DevIdPicker from '../components/DevIdPicker';
 import RubyText from '../components/RubyText';
 import Slider from '../components/Slider';
 import { listeningItemsFor, listeningItemsForSub, listeningSubtype, rubyNeeded, type ListeningItem, type PassageQuestion } from '../data';
+import { practicePool } from '../listening/pool';
 import type { RootStackParamList } from '../navigation/types';
 import { listeningSource } from '../data/listeningAudio';
 import { illustSource } from '../data/listeningImage';
@@ -48,7 +50,9 @@ export default function ListeningScreen() {
 
   const [steps, setSteps] = useState<ClipStep[]>(() => {
     const now = Date.now();
-    const all = subtype ? listeningItemsForSub(state.settings.level, subtype) : listeningItemsFor(state.settings.level);
+    const rawAll = subtype ? listeningItemsForSub(state.settings.level, subtype) : listeningItemsFor(state.settings.level);
+    // ID帯で出題プールを制御: 模試帯(0701-)除外／予備帯(0501-)は一般帯を一巡したら解放。§src/listening/pool.ts
+    const all = practicePool(rawAll, (qid) => !!state.items[qid]);
     // 未習得(未回答 or p<0.6)の設問を含むクリップを優先→カバー率が確実に進みリングが満ちる。
     const needy = all.filter((cl) => cl.questions.some((q) => { const st = state.items[q.id]; return !st || effectiveP(st, now) < 0.6; }));
     const rest = all.filter((cl) => !needy.includes(cl));
@@ -58,6 +62,7 @@ export default function ListeningScreen() {
     return clips.map((cl) => ({ clip: cl, qs: cl.questions.map((q) => (cl.audioChoices ? { ...q } : { ...q, ...shuffleChoices(q.choices, q.answerIndex) })) }));
   });
   const [idx, setIdx] = useState(0);
+  const [pickerOpen, setPickerOpen] = useState(false); // 開発用: 問題IDタップで同じ大問の全問へジャンプ
   const [picked, setPicked] = useState<(number | null)[]>([]); // 現クリップの設問ごとの選択(qIndex→choiceIndex)
   const [answered, setAnswered] = useState(0);
   const [correct, setCorrect] = useState(0);
@@ -98,6 +103,25 @@ export default function ListeningScreen() {
       soundRef.current = null;
     }
     setPlaying(false);
+  };
+
+  // 【開発専用】同じ大問(小区分)の全問リストと、任意IDへのジャンプ。__DEV__ のみ。
+  const devSub = subtype ?? (step ? listeningSubtype(step.clip) : undefined);
+  const devList = useMemo(
+    () => (__DEV__ ? (devSub ? listeningItemsForSub(state.settings.level, devSub) : listeningItemsFor(state.settings.level)) : []),
+    [devSub, state.settings.level],
+  );
+  const devIds = useMemo(() => devList.map((cl) => cl.id), [devList]);
+  const jumpTo = (id: string) => {
+    const pos = devList.findIndex((cl) => cl.id === id);
+    if (pos < 0) return;
+    stopSound();
+    // 一巡できるよう大問の全問を steps に載せ替え、選んだ問題へ移動(即時/発話は選択肢音声順のためシャッフルしない)。
+    setSteps(devList.map((cl) => ({ clip: cl, qs: cl.questions.map((q) => (cl.audioChoices ? { ...q } : { ...q, ...shuffleChoices(q.choices, q.answerIndex) })) })));
+    setIdx(pos);
+    setPicked([]);
+    setShowScript(false);
+    setPickerOpen(false);
   };
 
   // 2度押し対策: タップの度に世代(playGen)を進め、直前の音を止めてから読み込む。読込/生成の途中で
@@ -228,7 +252,8 @@ export default function ListeningScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={route.params?.title} id={step?.clip.id} onClose={async () => { await stopSound(); nav.goBack(); }} count={`${idx + 1} / ${steps.length}`} />
+        <ExamHeader title={route.params?.title} id={step?.clip.id} onClose={async () => { await stopSound(); nav.goBack(); }} count={`${idx + 1} / ${steps.length}`} onPressId={__DEV__ ? () => setPickerOpen(true) : undefined} />
+        {__DEV__ ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={step?.clip.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
 
         <View style={s.clipCard}>
           <Text style={s.clipTitle}>{step.clip.title}</Text>

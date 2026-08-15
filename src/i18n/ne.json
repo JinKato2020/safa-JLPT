@@ -1296,5 +1296,19 @@
   "cat.abstract": "अमूर्त अवधारणा",
   "cat.expression": "अभिवादन र अभिव्यक्ति",
   "cat.function": "कार्यशब्द",
-  "quiz.correct_sentence": "सही वाक्य"
+  "quiz.correct_sentence": "सही वाक्य",
+  "mock.section_accuracy": "खण्ड अनुसार शुद्धता (विस्तृत कमजोरी)",
+  "mock.pred_label": "अनुमानित अंक",
+  "mock.pred_passline": "उत्तीर्ण रेखा {n} अंक",
+  "mock.pred_sections": "खण्ड अनुसार अनुमानित अंक",
+  "mock.pred_note": "अंक = त्यो खण्डको शुद्धता × निर्धारित अंक। ｜ = न्यूनतम कट (एउटै खण्डमा पनि नपुगे अनुत्तीर्ण)।",
+  "mock.judge_pass": "उत्तीर्ण",
+  "mock.judge_fail": "अनुत्तीर्ण",
+  "coach.rel_title": "वास्तविक परीक्षार्थीहरूमाझ तपाईंको स्थान",
+  "coach.rel_examinees": "वास्तविक परीक्षार्थीहरूमाझ",
+  "coach.rel_topline": "शीर्ष ~{n}%",
+  "coach.rel_relative": "बराबर",
+  "coach.rel_total": "समग्र",
+  "coach.rel_ref": "आधार: {label} (यस तहको औसत अंक {mean} अंक / उत्तीर्ण दर {rate}%)",
+  "coach.rel_note": "💡 तपाईंको अनुमानित अंकलाई आधिकारिक परीक्षार्थी तथ्याङ्कसँग तुलना गरी देखाइएको 'शीर्ष ~% बराबर' हो। यो वास्तविक श्रेणी होइन, अनुमानित स्थान मात्र हो।"
 }

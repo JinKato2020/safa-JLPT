@@ -12,6 +12,7 @@ import AfterStudyReward from '../components/AfterStudyReward';
 import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords } from '../data/studiedWords';
 import ExamHeader from '../components/ExamHeader';
+import DevIdPicker from '../components/DevIdPicker';
 import type { RootStackParamList } from '../navigation/types';
 import { passageGrammarSetsFor } from '../data';
 import PassageSetPlayer from '../components/PassageSetPlayer';
@@ -35,7 +36,7 @@ export default function PassageGrammarScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
 
-  const [sets] = useState<PassageSet[]>(() => {
+  const [sets, setSets] = useState<PassageSet[]>(() => {
     const now = Date.now();
     const all = passageGrammarSetsFor(state.settings.level);
     // 未習得(未回答 or p<0.6)の設問を含むセットを優先→カバー率が確実に進みリングが満ちる。
@@ -45,10 +46,22 @@ export default function PassageGrammarScreen() {
     return picked;
   });
   const [idx, setIdx] = useState(0);
+  const [pickerOpen, setPickerOpen] = useState(false); // 開発用: 問題IDタップで同じ大問の全問へジャンプ
   const [before] = useState(() => progressSnapshot(state, Date.now()));
   const [walletStart] = useState(() => walletPoints(state));
 
   const set = sets[idx];
+
+  // 【開発専用】文章の文法の全問へジャンプ。__DEV__ のみ。
+  const devSets = useMemo(() => (__DEV__ ? passageGrammarSetsFor(state.settings.level) : []), [state.settings.level]);
+  const devIds = useMemo(() => devSets.map((st) => st.id), [devSets]);
+  const jumpTo = (id: string) => {
+    const pos = devSets.findIndex((st) => st.id === id);
+    if (pos < 0) return;
+    setSets(devSets);
+    setIdx(pos);
+    setPickerOpen(false);
+  };
 
   if (gateAllowed === null) return null;
   if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
@@ -83,7 +96,8 @@ export default function PassageGrammarScreen() {
 
   return (
     <SafeAreaView style={s.c}>
-      <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} />
+      <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} onPressId={__DEV__ ? () => setPickerOpen(true) : undefined} />
+      {__DEV__ ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={set.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
       <PassageSetPlayer key={set.id} set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
     </SafeAreaView>
   );

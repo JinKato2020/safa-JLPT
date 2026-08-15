@@ -8,7 +8,8 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { spacing, type as ty, useColors, type ThemeColors } from '../theme';
 
 // count=分数文字列("3 / 10" 等) / id=問題ID。どちらも無い画面では省略可(存在すれば必ず同じ位置に出る)。
-export default function ExamHeader({ title, count, id, onClose }: { title?: string; count?: string; id?: string; onClose: () => void }) {
+// onPressId=問題IDをタップした時の処理(開発用のID選択を開く等)。渡された時だけIDが押せる見た目になる。
+export default function ExamHeader({ title, count, id, onClose, onPressId }: { title?: string; count?: string; id?: string; onClose: () => void; onPressId?: () => void }) {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   return (
@@ -22,8 +23,12 @@ export default function ExamHeader({ title, count, id, onClose }: { title?: stri
           <Text style={s.title} numberOfLines={1}>{title ?? ''}</Text>
           {count ? <Text style={s.count}>{count}</Text> : null}
         </View>
-        {/* 2行目: 問題ID。 */}
-        {id ? <Text style={s.sub} numberOfLines={1}>{id}</Text> : null}
+        {/* 2行目: 問題ID。onPressId があればタップで開発用ID選択を開く(下線+▾で押せると示す)。 */}
+        {id ? (
+          onPressId
+            ? <Pressable onPress={onPressId} hitSlop={8}><Text style={[s.sub, s.subTap]} numberOfLines={1}>{id} ▾</Text></Pressable>
+            : <Text style={s.sub} numberOfLines={1}>{id}</Text>
+        ) : null}
       </View>
       <View style={s.side} />
     </View>
@@ -42,4 +47,6 @@ const makeStyles = (c: ThemeColors) =>
     count: { fontSize: ty.small, fontWeight: '700', color: c.mute },
     // 問題ID(バグ特定用)。大問名の直下に小さく。
     sub: { textAlign: 'center', fontSize: ty.tiny, color: c.faint, fontWeight: '700', marginTop: 1 },
+    // 開発用にタップ可能な時: 押せると分かるよう色を強め下線を付ける。
+    subTap: { color: c.blue, textDecorationLine: 'underline' },
   });
