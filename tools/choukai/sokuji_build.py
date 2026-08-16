@@ -59,8 +59,9 @@ TAXONOMY = {"依頼", "許可求め", "申し出", "誘い", "断り・辞退", 
             "忠告・注意", "相談・意見求め", "伝聞・情報伝達"}
 CJSON = os.path.join(ROOT, "content", "problems", "choukai")
 
-def norm(s):  # 半角括弧→全角(ふりがなデリミタ)
-    return (s or "").replace("(", "（").replace(")", "）")
+def norm(s):  # 半角括弧→全角(ふりがなデリミタ)＋係→スタッフ(TTSがアクセントを外す・全大問共通ルール2026-08-16)
+    s = (s or "").replace("(", "（").replace(")", "）")
+    return s.replace("係員（かかりいん）", "スタッフ").replace("係（かかり）", "スタッフ").replace("係員", "スタッフ")
 
 def load_master(lv):
     return json.load(open(os.path.join(CJSON, f"sokuji_{lv}.json"), encoding="utf-8"))

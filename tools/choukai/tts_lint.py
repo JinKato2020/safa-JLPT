@@ -25,6 +25,8 @@ except Exception: pass
 LEVELS = ['N5', 'N4', 'N3']
 LAB = re.compile(r'^\s*[男女][^：:\n]*[：:]')   # 音声側 turns_of と同じ：男/女始まりの話者ラベルを剥がす
 CHSP = {'gaiyou', 'hatsuwa', 'sokuji'}          # 選択肢も音声化される大問
+# アクセント崩れ語＝AI(Gemini TTS)がアクセントを外す語→言い換え必須（係は tts_script/norm で自動変換・全大問共通2026-08-16）。
+ACCENT_AVOID = {'留守': '出かけている間／出かけていた間 等'}
 
 def audio_text(cat, script, question, choices):
     """gen が読み上げる素材（導入＋本文＋設問〔＋選択肢〕）を to_tts 済みで返す。"""
@@ -59,11 +61,12 @@ def raw_force_kana(text):
 def load_bank():
     out = []
     base = os.path.join(ROOT, 'content', 'problems', 'choukai')
-    for f in sorted(glob.glob(os.path.join(base, 'kadai_*.json'))):
+    for f in sorted(glob.glob(os.path.join(base, '*.json'))):   # 全大問（2026-08-16 kadai限定→全体へ）
         d = json.load(open(f, encoding='utf-8'))
         for it in d.get('items', []):
+            cat = it.get('subtype') or 'kadai'
             q = (it.get('questions') or [{}])[0]
-            out.append(('kadai', it['id'], it.get('script', ''), q.get('q', ''), q.get('choices', [])))
+            out.append((cat, it['id'], it.get('script', ''), q.get('q', ''), q.get('choices', [])))
     return out
 
 def load_new(dirpath):
@@ -91,10 +94,15 @@ def main():
     print(f'=== TTS誤読リント [{src}] n={len(recs)} ===')
     for cat, rid, script, q, ch in recs:
         raw = raw_force_kana(audio_text(cat, script, q, ch))
-        if raw:
+        bare = strip_furi(str(script)) + ''.join(strip_furi(str(c)) for c in (ch or []))
+        acc = [w for w in ACCENT_AVOID if w in bare]
+        if raw or acc:
             flagged += 1
-            print(f'  ⚠{rid}: 生のFORCE_KANA語 {raw} → ルビ欠落/ユニットルビ不一致。熟字訓は単位でルビ or 言い換え')
-    print(f'--- 生残り {flagged}/{len(recs)} 件 ---' + ('' if flagged else '  ✅誤読源なし'))
+            msgs = []
+            if raw: msgs.append(f'生FORCE_KANA {raw}→ルビ欠落/言い換え')
+            if acc: msgs.append('アクセント崩れ語' + str(acc) + '→言い換え必須')
+            print(f'  ⚠{rid}: ' + ' / '.join(msgs))
+    print(f'--- 要修正 {flagged}/{len(recs)} 件 ---' + ('' if flagged else '  ✅誤読源・アクセント崩れ語なし'))
 
 if __name__ == '__main__':
     main()

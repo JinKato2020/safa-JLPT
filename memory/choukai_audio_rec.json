@@ -5440,7 +5440,7 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N3-C-S-0082": {
-"dur": 17.5,
+"dur": 18.6,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
@@ -5525,7 +5525,7 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N3-C-S-0099": {
-"dur": 20.6,
+"dur": 19.6,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
@@ -5960,7 +5960,7 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N4-C-S-0169": {
-"dur": 17.5,
+"dur": 18.7,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
@@ -5975,7 +5975,7 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N4-C-S-0172": {
-"dur": 16.8,
+"dur": 17.5,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
@@ -6165,7 +6165,7 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N5-C-S-0136": {
-"dur": 17.5,
+"dur": 17.7,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
@@ -7136,6 +7136,3066 @@
 },
 "N4-C-S-0003": {
 "dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0001": {
+"dur": 24.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0002": {
+"dur": 21.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0003": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0004": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0005": {
+"dur": 20.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0006": {
+"dur": 22.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0007": {
+"dur": 21.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0008": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0009": {
+"dur": 23.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0010": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0011": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0012": {
+"dur": 20.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0013": {
+"dur": 16.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0014": {
+"dur": 16.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0015": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0016": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0017": {
+"dur": 24.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0018": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0019": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0020": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0021": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0022": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0023": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0024": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0025": {
+"dur": 21.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0026": {
+"dur": 20.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0027": {
+"dur": 22.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0028": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0029": {
+"dur": 21.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0030": {
+"dur": 22.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0031": {
+"dur": 23.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0032": {
+"dur": 20.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0033": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0034": {
+"dur": 19.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0035": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0036": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0037": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0038": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0039": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0040": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0041": {
+"dur": 16.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0042": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0043": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0044": {
+"dur": 20.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0045": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-K-0005": {
+"dur": 49.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-K-0010": {
+"dur": 54.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-K-0013": {
+"dur": 40.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-K-0014": {
+"dur": 51.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-K-0017": {
+"dur": 44.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-K-0018": {
+"dur": 44.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-K-0019": {
+"dur": 48.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-K-0020": {
+"dur": 53.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-K-0014": {
+"dur": 41.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-G-0014": {
+"dur": 55.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／独話=Leda／選択肢=Leda／番号=Chirp3-HD Leda"
+},
+"N3-C-G-0017": {
+"dur": 64.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／独話=Orus／選択肢=Orus／番号=Chirp3-HD Orus"
+},
+"N4-C-H-0017": {
+"dur": 16.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-G-0035": {
+"dur": 64.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／独話=Leda／選択肢=Leda／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0001": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0002": {
+"dur": 17.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0003": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0004": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0005": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0006": {
+"dur": 16.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0007": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0008": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0009": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0010": {
+"dur": 16.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0011": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0012": {
+"dur": 17.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0013": {
+"dur": 16.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0014": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0015": {
+"dur": 16.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0016": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0018": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0019": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0020": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0021": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0022": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0023": {
+"dur": 13.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0024": {
+"dur": 15.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0025": {
+"dur": 14.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0026": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0027": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0028": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0029": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0030": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0031": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0032": {
+"dur": 17.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0033": {
+"dur": 17.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0034": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0035": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0036": {
+"dur": 20.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0037": {
+"dur": 21.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0038": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0039": {
+"dur": 22.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0040": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0001": {
+"dur": 14.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0002": {
+"dur": 17.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0003": {
+"dur": 16.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0004": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0005": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0006": {
+"dur": 16.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0007": {
+"dur": 15.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0008": {
+"dur": 15.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0009": {
+"dur": 13.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0010": {
+"dur": 13.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0011": {
+"dur": 16.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0012": {
+"dur": 12.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0013": {
+"dur": 13.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0014": {
+"dur": 16.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0015": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0016": {
+"dur": 15.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0017": {
+"dur": 16.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0018": {
+"dur": 16.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0019": {
+"dur": 17.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0020": {
+"dur": 15.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0021": {
+"dur": 15.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0022": {
+"dur": 16.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0023": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0024": {
+"dur": 15.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0025": {
+"dur": 17.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0026": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0027": {
+"dur": 17.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0028": {
+"dur": 17.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0029": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0030": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0031": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0032": {
+"dur": 17.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0033": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0034": {
+"dur": 16.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0035": {
+"dur": 15.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0036": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0037": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0038": {
+"dur": 17.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0039": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0040": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0041": {
+"dur": 16.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0042": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0043": {
+"dur": 16.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0044": {
+"dur": 16.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0045": {
+"dur": 19.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0046": {
+"dur": 17.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0047": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0048": {
+"dur": 15.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0049": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0050": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0051": {
+"dur": 14.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0052": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0053": {
+"dur": 19.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0054": {
+"dur": 17.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0055": {
+"dur": 18.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0056": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0057": {
+"dur": 15.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0058": {
+"dur": 15.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0059": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0060": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0061": {
+"dur": 14.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0062": {
+"dur": 15.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0063": {
+"dur": 15.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0064": {
+"dur": 16.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0065": {
+"dur": 14.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0066": {
+"dur": 16.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0067": {
+"dur": 14.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0068": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0069": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0070": {
+"dur": 17.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0071": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0072": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0073": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0074": {
+"dur": 16.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0075": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0076": {
+"dur": 20.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0077": {
+"dur": 16.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0078": {
+"dur": 17.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0079": {
+"dur": 16.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0080": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0081": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0082": {
+"dur": 16.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0083": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0084": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0085": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0086": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0087": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0088": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0089": {
+"dur": 16.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0090": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0091": {
+"dur": 14.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0092": {
+"dur": 14.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0093": {
+"dur": 17.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0094": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0095": {
+"dur": 13.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0096": {
+"dur": 14.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0097": {
+"dur": 13.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0098": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0099": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0100": {
+"dur": 17.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0041": {
+"dur": 18.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0042": {
+"dur": 18.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0043": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0044": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0045": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0046": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0047": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0048": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0049": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0050": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0051": {
+"dur": 17.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0052": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0053": {
+"dur": 17.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0054": {
+"dur": 21.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0055": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0056": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0057": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0058": {
+"dur": 21.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0059": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0060": {
+"dur": 22.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0061": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0062": {
+"dur": 16.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0063": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0064": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0065": {
+"dur": 15.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0066": {
+"dur": 15.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0067": {
+"dur": 13.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0068": {
+"dur": 17.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0069": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0070": {
+"dur": 15.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0071": {
+"dur": 21.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0072": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0073": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0074": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0075": {
+"dur": 20.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0076": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0077": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0078": {
+"dur": 19.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0079": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0080": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0081": {
+"dur": 22.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0082": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0083": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0084": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0085": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0086": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0087": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0088": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0089": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0090": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0091": {
+"dur": 18.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0092": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0093": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0094": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0095": {
+"dur": 15.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0096": {
+"dur": 14.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0097": {
+"dur": 15.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0098": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0099": {
+"dur": 19.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0100": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0046": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0047": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0048": {
+"dur": 20.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0049": {
+"dur": 21.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0050": {
+"dur": 21.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0051": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0052": {
+"dur": 20.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0053": {
+"dur": 20.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0054": {
+"dur": 20.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0055": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0056": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0057": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0058": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0059": {
+"dur": 22.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0060": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0061": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0062": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0063": {
+"dur": 21.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0064": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0065": {
+"dur": 20.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0066": {
+"dur": 19.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0067": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0068": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0069": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0070": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0071": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0072": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0073": {
+"dur": 22.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0074": {
+"dur": 16.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0075": {
+"dur": 15.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0076": {
+"dur": 20.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0077": {
+"dur": 21.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0078": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0079": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0080": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0081": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0082": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0083": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0084": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0085": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0086": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0087": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0088": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0089": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0090": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0091": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0092": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0093": {
+"dur": 21.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0094": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0095": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0096": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0097": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0098": {
+"dur": 16.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0099": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0100": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0101": {
+"dur": 22.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0102": {
+"dur": 17.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0103": {
+"dur": 17.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0104": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0105": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0106": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0107": {
+"dur": 17.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0108": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0109": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0110": {
+"dur": 16.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0111": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0112": {
+"dur": 22.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0113": {
+"dur": 17.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0114": {
+"dur": 18.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0115": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0116": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0117": {
+"dur": 17.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0118": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0119": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0120": {
+"dur": 18.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0121": {
+"dur": 16.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0122": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0123": {
+"dur": 20.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0124": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0125": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0126": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0127": {
+"dur": 17.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0128": {
+"dur": 17.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0129": {
+"dur": 16.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0130": {
+"dur": 15.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0131": {
+"dur": 16.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0132": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0133": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0134": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0135": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0136": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0137": {
+"dur": 20.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0138": {
+"dur": 20.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0139": {
+"dur": 17.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0140": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0141": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0142": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0143": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0144": {
+"dur": 18.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0145": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0146": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0147": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0148": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0149": {
+"dur": 17.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0150": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0151": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0152": {
+"dur": 16.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0153": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0154": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0155": {
+"dur": 21.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0156": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0157": {
+"dur": 21.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0158": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0159": {
+"dur": 15.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0160": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0161": {
+"dur": 14.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0162": {
+"dur": 14.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0163": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0164": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0165": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0166": {
+"dur": 17.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0167": {
+"dur": 17.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0168": {
+"dur": 21.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0169": {
+"dur": 21.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0170": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0171": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0172": {
+"dur": 21.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0173": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0174": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0175": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0176": {
+"dur": 23.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0177": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0178": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0179": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0180": {
+"dur": 19.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0181": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0182": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0183": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0184": {
+"dur": 17.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0185": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0186": {
+"dur": 20.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0187": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0188": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0189": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0190": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0191": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0192": {
+"dur": 16.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0193": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0194": {
+"dur": 13.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0195": {
+"dur": 18.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0196": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0197": {
+"dur": 17.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0198": {
+"dur": 16.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0199": {
+"dur": 17.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N5-C-H-0200": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0101": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0102": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0103": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0104": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0105": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0106": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0107": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0108": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0109": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0110": {
+"dur": 16.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0111": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0112": {
+"dur": 22.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0113": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0114": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0115": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0116": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0117": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0118": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0119": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0120": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0121": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0122": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0123": {
+"dur": 22.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0124": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0125": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0126": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0127": {
+"dur": 18.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0128": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0129": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0130": {
+"dur": 17.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0131": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0132": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0133": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0134": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0135": {
+"dur": 21.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0136": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0137": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0138": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0139": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0140": {
+"dur": 21.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0141": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0142": {
+"dur": 21.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0143": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0144": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0145": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0146": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0147": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0148": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0149": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0150": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0151": {
+"dur": 19.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0152": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0153": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0154": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0155": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0156": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0157": {
+"dur": 21.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0158": {
+"dur": 17.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0159": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0160": {
+"dur": 14.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0161": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0162": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0163": {
+"dur": 20.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0164": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0165": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0166": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0167": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0168": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0169": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0170": {
+"dur": 18.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0171": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0172": {
+"dur": 22.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0173": {
+"dur": 20.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0174": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0175": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0176": {
+"dur": 21.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0177": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0178": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0179": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0180": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0181": {
+"dur": 22.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0182": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0183": {
+"dur": 20.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0184": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0185": {
+"dur": 21.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0186": {
+"dur": 22.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0187": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0188": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0189": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0190": {
+"dur": 21.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0191": {
+"dur": 21.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0192": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0193": {
+"dur": 16.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0194": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0195": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0196": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0197": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0198": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0199": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N4-C-H-0200": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0101": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0102": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0103": {
+"dur": 21.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0104": {
+"dur": 21.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0105": {
+"dur": 22.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0106": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0107": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0108": {
+"dur": 20.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0109": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0110": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0111": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0112": {
+"dur": 20.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0113": {
+"dur": 17.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0114": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0115": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0116": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0117": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0118": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0119": {
+"dur": 20.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0120": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0121": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0122": {
+"dur": 25.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0123": {
+"dur": 23.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0124": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0125": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0126": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0127": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0128": {
+"dur": 19.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0129": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0130": {
+"dur": 16.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0131": {
+"dur": 16.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0132": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0133": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0134": {
+"dur": 21.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0135": {
+"dur": 19.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0136": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0137": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0138": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0139": {
+"dur": 21.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0140": {
+"dur": 21.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0141": {
+"dur": 19.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0142": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0143": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0144": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0145": {
+"dur": 21.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0146": {
+"dur": 20.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0147": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0148": {
+"dur": 20.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0149": {
+"dur": 20.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0150": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0151": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0152": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0153": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0154": {
+"dur": 18.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0155": {
+"dur": 22.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0156": {
+"dur": 22.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0157": {
+"dur": 17.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0158": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0159": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0160": {
+"dur": 20.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0161": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0162": {
+"dur": 21.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0163": {
+"dur": 18.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0164": {
+"dur": 18.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0165": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0166": {
+"dur": 20.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0167": {
+"dur": 17.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0168": {
+"dur": 18.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0169": {
+"dur": 22.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0170": {
+"dur": 21.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0171": {
+"dur": 20.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0172": {
+"dur": 20.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0173": {
+"dur": 20.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0174": {
+"dur": 21.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0175": {
+"dur": 20.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0176": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0177": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0178": {
+"dur": 19.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0179": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0180": {
+"dur": 19.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0181": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0182": {
+"dur": 18.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0183": {
+"dur": 19.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0184": {
+"dur": 19.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0185": {
+"dur": 19.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0186": {
+"dur": 21.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0187": {
+"dur": 20.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0188": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0189": {
+"dur": 21.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0190": {
+"dur": 19.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0191": {
+"dur": 17.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0192": {
+"dur": 16.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0193": {
+"dur": 17.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0194": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0195": {
+"dur": 19.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0196": {
+"dur": 21.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0197": {
+"dur": 18.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0198": {
+"dur": 18.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0199": {
+"dur": 18.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
+},
+"N3-C-H-0200": {
+"dur": 20.6,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 }
