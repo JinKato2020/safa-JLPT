@@ -79,14 +79,14 @@
 - a8f75f058eaa367f7 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- docs/supabase/dashboard_views.sql
+- memory/session-summary-LATEST.md
 - memory/handoff.md
-- memory/sokuji-authoring-inflight.md
-- memory/在庫・模試ストックまとめ.xlsx
-- memory/模試ストック数.txt
-- memory/在庫問題数.txt
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- memory/choukai_gen_log.txt
+- src/screens/PassageGrammarScreen.tsx
+- src/screens/ReadingScreen.tsx
+- src/screens/ListeningScreen.tsx
+- src/screens/ProfileScreen.tsx
+- src/store/state.ts
 
-_自動更新: 2026-08-16 23:26_
+_自動更新: 2026-08-17 00:54_
 <!-- AUTO:END -->

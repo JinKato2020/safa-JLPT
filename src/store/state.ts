@@ -46,6 +46,7 @@ export interface Settings {
   kakitoriSpeed?: 'slow' | 'normal' | 'fast'; // 書き順アニメ速度(未設定→normal)
   kakitoriSound?: boolean;                  // 合格時の読み上げTTS(未設定→ON)
   kakitoriMode?: 'drill' | 'free';          // ドリル/自由練習(未設定→drill)
+  devToolsUnlocked?: boolean;               // 【開発用】ON=本番アプリでも開発用UI(設定の開発セクション・大問の問題ID選択)を表示(バージョン7回タップで解禁)
   devUnlimitedPoints?: boolean;             // 【開発用】ON=桜貝を無限に扱い、ショップで無制限購入
   devPro?: boolean;                         // 【開発用】ON=Pro課金状態 / OFF=無課金として扱う
   devFree?: boolean;                        // 【開発用】ON=無料ユーザー扱い(お試し中でも無料・1日の上限も実際にかける)

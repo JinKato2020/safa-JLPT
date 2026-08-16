@@ -23,6 +23,9 @@
     "android": {
       "package": "com.safa.english",
       "versionCode": 2001,
+      "permissions": [
+        "com.google.android.gms.permission.AD_ID"
+      ],
       "allowBackup": false,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

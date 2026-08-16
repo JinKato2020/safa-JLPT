@@ -53,8 +53,9 @@ export default function ProfileScreen() {
   const previewUnlock = unlockPreview ? UNLOCKS.find((u) => u.key === unlockPreview) ?? null : null;
   const [langOpen, setLangOpen] = useState(false);
   const [showDl, setShowDl] = useState(false);
-  // 開発用セクションの隠しゲート: 一番下のバージョン表示を7回タップで表示(TestFlight/本番でも使える・実ユーザーには見えない)。開発クライアントは既定で表示。
-  const [devUnlocked, setDevUnlocked] = useState(__DEV__);
+  // 開発用セクションの隠しゲート: 一番下のバージョン表示を7回タップで解禁(TestFlight/本番でも使える・実ユーザーには見えない)。開発クライアントは既定で表示。
+  // 解禁状態は state.settings.devToolsUnlocked に保存=全体で共有(大問の問題ID選択もこのフラグで表示)＋再起動後も維持。
+  const devUnlocked = __DEV__ || state.settings.devToolsUnlocked === true;
   const devTapRef = useRef(0);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { session } = useSync();
@@ -498,7 +499,7 @@ export default function ProfileScreen() {
         ) : null}
 
         {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示)。7回タップで開発用セクションを表示(隠しゲート)。 */}
-        <Pressable onPress={() => { devTapRef.current += 1; if (devTapRef.current >= 7) setDevUnlocked(true); }}>
+        <Pressable onPress={() => { devTapRef.current += 1; if (devTapRef.current >= 7) setSettings({ devToolsUnlocked: true }); }}>
           <Text style={s.version}>
             v{Application.nativeApplicationVersion ?? '1.1.0'} (build {Application.nativeBuildVersion ?? '—'})
           </Text>

@@ -29,10 +29,27 @@ select
 --    カバー率は 漢字/語彙/文法 の3本を個別%で出す。大問別[習得,母数]は生JSON(daimon)＋合計を出す。
 --    列を増やすため create or replace 不可 → 依存ビュー(level/exhaust)ごと drop→再作成(cascade)。
 drop view if exists public.v_admin_devices cascade;
+-- 統合方針: 同じ人の複数インストール/端末を1行にまとめる。
+--   端末(anon_id)が「一度でもログインしたアカウント」を割り出し、その端末の全スナップショット(ログイン前=account_id null も含む)を本人に寄せる。
+--   →ログインした匿名は登録者として吸収され、初回/最終/日数は本人の全記録の通算になる。
+--   ※一度もログインしていない匿名端末は結び付ける相手が無いので端末単位のまま(誰の物か判定不能)。端末→アカウントは1対1想定。
 create view public.v_admin_devices as
+with snap as (
+  select s.*,
+    coalesce(
+      (select s2.account_id from public.tel_snapshot s2
+         where s2.anon_id = s.anon_id and s2.account_id is not null
+         order by s2.created_at desc limit 1),
+      s.account_id
+    )                                                          as eff_account   -- 端末が一度でもログインしたアカウント(無ければnull=純粋な匿名)
+  from public.tel_snapshot s
+), keyed as (
+  select snap.*, coalesce(eff_account::text, anon_id)          as merge_key     -- 統合単位: 端末が紐づくアカウント / 未ログイン端末はその端末
+  from snap
+)
 select
   t.*,
-  (row_number() over (partition by t.anon_id order by t.last_day desc)) = 1 as is_latest,
+  (row_number() over (partition by t.merge_key order by t.last_day desc)) = 1 as is_latest,
   case when t.account_id is not null then '登録' else '匿名' end as kind,
   u.email,
   -- 課金状態(アカウント単位。匿名は entitlements 行が無い=null)。
@@ -49,9 +66,10 @@ select
   -- 接続国=IP由来のおおよその国(user_geo)。母語(l1)とは独立=英語話者でも日本にいれば JP。ログイン者のみ(匿名はnull)。
   ug.country as geo_country
 from (
-  select distinct on (anon_id, data->>'level')
+  select distinct on (merge_key, data->>'level')
     anon_id,
-    account_id,
+    eff_account                                                as account_id,  -- 表示・結合は解決済みアカウント(ログインした匿名も本人=登録として1人に統合)
+    merge_key,
     data->>'level'                                              as level,
     data->>'exam'                                               as exam,
     data->>'platform'                                           as platform,
@@ -107,14 +125,14 @@ from (
     day                                                         as last_day,
     created_at                                                  as last_ts,   -- 最終「日時」= この行(最新スナップショット)の記録時刻
     -- 初回日/利用日数は「そのレベルを使っていた期間」で数える(行=レベルなので行の中で辻褄が合う)。
-    (select min(s2.day)            from public.tel_snapshot s2
-       where s2.anon_id = s.anon_id and s2.data->>'level' is not distinct from s.data->>'level') as first_day,
-    (select min(s2.created_at)     from public.tel_snapshot s2
-       where s2.anon_id = s.anon_id and s2.data->>'level' is not distinct from s.data->>'level') as first_ts,  -- 初回「日時」
-    (select count(distinct s2.day) from public.tel_snapshot s2
-       where s2.anon_id = s.anon_id and s2.data->>'level' is not distinct from s.data->>'level') as days
-  from public.tel_snapshot s
-  order by anon_id, data->>'level', day desc, created_at desc
+    (select min(s2.day)            from keyed s2
+       where s2.merge_key = s.merge_key and s2.data->>'level' is not distinct from s.data->>'level') as first_day,
+    (select min(s2.created_at)     from keyed s2
+       where s2.merge_key = s.merge_key and s2.data->>'level' is not distinct from s.data->>'level') as first_ts,  -- 初回「日時」
+    (select count(distinct s2.day) from keyed s2
+       where s2.merge_key = s.merge_key and s2.data->>'level' is not distinct from s.data->>'level') as days
+  from keyed s
+  order by merge_key, data->>'level', day desc, created_at desc
 ) t
 left join auth.users u on u.id = t.account_id
 left join public.entitlements en on en.user_id = t.account_id

@@ -54,10 +54,11 @@ export default function ReadingScreen() {
 
   const set = sets[idx];
 
-  // 【開発専用】同じ大問(小区分 sub。無い時=読解全体)の全問へジャンプ。__DEV__ のみ。
+  // 【開発用】同じ大問(小区分 sub。無い時=読解全体)の全問へジャンプ。開発ビルド or バージョン7回タップで解禁した端末のみ。
+  const devTools = __DEV__ || state.settings.devToolsUnlocked === true;
   const devSets = useMemo(
-    () => (__DEV__ ? (sub ? readingItemsForSub(state.settings.level, sub) : readingItemsFor(state.settings.level)).map(readingToSet) : []),
-    [sub, state.settings.level],
+    () => (devTools ? (sub ? readingItemsForSub(state.settings.level, sub) : readingItemsFor(state.settings.level)).map(readingToSet) : []),
+    [devTools, sub, state.settings.level],
   );
   const devIds = useMemo(() => devSets.map((st) => st.id), [devSets]);
   const jumpTo = (id: string) => {
@@ -115,8 +116,8 @@ export default function ReadingScreen() {
 
   return (
     <SafeAreaView style={s.c}>
-      <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} onPressId={__DEV__ ? () => setPickerOpen(true) : undefined} />
-      {__DEV__ ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={set.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
+      <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} />
+      {devTools ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={set.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
       <PassageSetPlayer key={set.id} set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
     </SafeAreaView>
   );

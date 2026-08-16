@@ -105,11 +105,12 @@ export default function ListeningScreen() {
     setPlaying(false);
   };
 
-  // 【開発専用】同じ大問(小区分)の全問リストと、任意IDへのジャンプ。__DEV__ のみ。
+  // 【開発用】同じ大問(小区分)の全問リストと、任意IDへのジャンプ。開発ビルド or バージョン7回タップで解禁した端末のみ。
+  const devTools = __DEV__ || state.settings.devToolsUnlocked === true;
   const devSub = subtype ?? (step ? listeningSubtype(step.clip) : undefined);
   const devList = useMemo(
-    () => (__DEV__ ? (devSub ? listeningItemsForSub(state.settings.level, devSub) : listeningItemsFor(state.settings.level)) : []),
-    [devSub, state.settings.level],
+    () => (devTools ? (devSub ? listeningItemsForSub(state.settings.level, devSub) : listeningItemsFor(state.settings.level)) : []),
+    [devTools, devSub, state.settings.level],
   );
   const devIds = useMemo(() => devList.map((cl) => cl.id), [devList]);
   const jumpTo = (id: string) => {
@@ -252,8 +253,8 @@ export default function ListeningScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={route.params?.title} id={step?.clip.id} onClose={async () => { await stopSound(); nav.goBack(); }} count={`${idx + 1} / ${steps.length}`} onPressId={__DEV__ ? () => setPickerOpen(true) : undefined} />
-        {__DEV__ ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={step?.clip.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
+        <ExamHeader title={route.params?.title} id={step?.clip.id} onClose={async () => { await stopSound(); nav.goBack(); }} count={`${idx + 1} / ${steps.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} />
+        {devTools ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={step?.clip.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
 
         <View style={s.clipCard}>
           <Text style={s.clipTitle}>{step.clip.title}</Text>
