@@ -223,7 +223,10 @@ export function makeQuestion(item: StudyItem, pool: StudyItem[], rng: Rng = Math
   const b = builders[Math.floor(rng() * builders.length)] ?? builders[0];
   // 類義語の誤答は「他の検証済み類義語のうち正解と同じ語形(動詞/い形容詞/名詞)」から採る。
   // 従来は pool の生の見出し語(名詞/動詞が混在)を使ったため、動詞句の正解(例 音がする)だけ浮いていた。
-  const cands = b.format === 'synonym' ? synonymCandidates(b.answer) : pool.map(b.valueOf);
+  let cands = b.format === 'synonym' ? synonymCandidates(b.answer) : pool.map(b.valueOf);
+  // 穴埋め(cloze)の誤答に「◯〜◯型」(たり〜たり・あまり〜ない等、範囲パターンの文法見出し)が混ざると、
+  // 単一の空所には絶対に入らない=明らかな誤答になる。cloze の誤答からは 〜/～ を含む見出しを除外する。
+  if (b.format === 'cloze') cands = cands.filter((v) => !/[〜～]/.test(v));
   const wrongs = distractors(cands.filter((v) => v !== b.prompt), b.answer, 3, rng);
   const choices = shuffle([b.answer, ...wrongs], rng);
   return { itemId: item.id, prompt: b.prompt, reading: b.reading, example: b.example, question: b.question, format: b.format, choices, answerIndex: choices.indexOf(b.answer) };

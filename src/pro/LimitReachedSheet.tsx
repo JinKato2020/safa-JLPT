@@ -51,6 +51,10 @@ export default function LimitReachedSheet({ onClose }: { onClose: () => void }) 
         <Pressable style={s.upgrade} onPress={() => { onClose(); nav.navigate('Paywall'); }} hitSlop={8}>
           <Text style={s.upgradeTxt}>{t('limit.upgrade')}</Text>
         </Pressable>
+        {/* 友だちを紹介(続けたら2人とも1週間Pro=無料のまま無制限に近づく別の道) */}
+        <Pressable style={s.refer} onPress={() => { onClose(); nav.navigate('Referral', { focus: 'share' }); }} hitSlop={8}>
+          <Text style={s.referTxt}>{t('limit.refer')}</Text>
+        </Pressable>
         <Pressable style={s.btn} onPress={onClose} hitSlop={8}>
           <Text style={s.btnTxt}>{t('limit.close')}</Text>
         </Pressable>
@@ -73,6 +77,8 @@ const styles = (c: ThemeColors) => StyleSheet.create({
   adTxt: { fontSize: ty.body, fontWeight: '700', color: c.blueDark },
   upgrade: { backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.md, alignItems: 'center' },
   upgradeTxt: { fontSize: ty.body, fontWeight: '700', color: '#fff' },
+  refer: { borderWidth: 1, borderColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.md, alignItems: 'center' },
+  referTxt: { fontSize: ty.body, fontWeight: '700', color: c.blue },
   btn: { paddingVertical: spacing.md, alignItems: 'center' },
   btnTxt: { fontSize: ty.body, color: c.mute },
 });

@@ -1,15 +1,14 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 5 回・13 ターン
-- 往復 129576 回
+- 往復 131435 回
 
 ## 何が変わったか
 - memory/handoff.md
-- docs/supabase/dashboard_views.sql
 - memory/session-summary-LATEST.md
-- src/screens/PassageGrammarScreen.tsx
-- src/screens/ReadingScreen.tsx
+- memory/在庫問題数.txt
+- content/problems/moji_goi/orthography_N4.json
+- content/problems/bunpou/grammar_form_N5.json
 
 ## 次の一手
 - **🆕🆕🆕 2026-08-16 聴解 作問キャンペーン＝弱点を薄める（引き継ぎ正本＝`memory/sokuji-authoring-inflight.md`）**: 順番＝発話(✅済)→**概要**→ポイント→課題。**次の一手＝概要理解N3を40→80増作**(最優先弱点=語彙マッチ50%/最長78%)。内容大問ゲート＝`python tools/choukai/daimon_solvability.py --draft <file> <大問> <レベル>`。**✅発話表現＝各ID0100まで(各100問・+175)完了**＝N5/N4/N3とも`hatsuwa_build.py --apply`で追記・全バッチ攻略耐性ゲート通過・**全ファイル合算も良好**(最長N5 25/N4 30/N3 32%・依頼形6-11%・形分離52-57%・機能max19-20%・位置均等)。**✅発話表現＝各レベル200問(0001-0200)完了**＝0041-0100(+175)に続き0101-0200(+300)も作問・音声化済。合算攻略耐性 最長N5 29/N4 26/N3 28%・依頼形5-11%・形分離49-56%。**音声475本生成済**(Gemini2.5Flash・女Leda・失敗0・計$2.84≒¥425)＋`rebuild.ts`済(assets/audio=各200本)＋在庫Excel再生成済(発話各200/模試換算40-50回分/在庫合計15399)。**⚠未ビルド＝区切りで「ビルド」でTestFlight/Play反映**(build.ps1が1日3回ガード)。**在庫記録はExcel正本**＝再生成チェーン(stock_report→mock_stock→stock_excel→daimon --xlsx)を回し反映済＝発話各100/模試換算20-25回分/在庫合計15099/聴解律速N5 14 N4 12 N3 13。方針=[[stock-record-to-excel-not-txt]]。**課題N5-0022/0033の実重複**(本文90%一致)は作り直すか要判断。手順・ベースライン・音声後工程は inflight に集約。

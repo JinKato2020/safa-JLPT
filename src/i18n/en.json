@@ -723,6 +723,7 @@
   "pro.state_trial": "Free trial ({n} days left)",
   "pro.state_free": "Free ({n} sessions/day)",
   "limit.upgrade": "Go Pro (unlimited)",
+  "limit.refer": "Invite a friend (1 week Pro for both)",
   "limit.watch_ad": "Watch an ad for 1 more session",
   "limit.ad_loading": "Loading ad…",
   "limit.ad_failed": "Couldn't show the ad. Please try again later.",

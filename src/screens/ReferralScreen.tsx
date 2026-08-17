@@ -55,16 +55,18 @@ export default function ReferralScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <ScrollView contentContainerStyle={s.body}>
+        {/* 閉じるだけ右上。タイトルは画像の下へ(ホームと同じ 画像→タイトル→本文の順)。 */}
         <View style={s.headRow}>
-          <Text style={s.title}>{t('referral.title')}</Text>
+          <View style={{ flex: 1 }} />
           <Pressable onPress={() => nav.goBack()} hitSlop={12} accessibilityLabel={t('nav.close')}>
             <Text style={s.closeX}>×</Text>
           </Pressable>
         </View>
 
-        {/* 見出し=みんなで日本語を学ぼう(多様な学習者の入口絵)。画面幅いっぱいの大ヒーロー(正方形・実寸指定)。 */}
+        {/* 画像→タイトル→本文(まいにちJLPT画面と同じ構成)。画像=画面幅いっぱいの大ヒーロー(正方形・実寸指定)。 */}
         <View style={s.hero}>
           <Image source={ENTRANCE} style={[s.heroImg, { width: SW, height: SW, marginHorizontal: -spacing.lg }]} resizeMode="cover" />
+          <Text style={s.title}>{t('referral.title')}</Text>
           <Text style={s.heroTitle}>{t('referral.headline')}</Text>
           <Text style={s.heroSub}>{t('referral.subhead')}</Text>
         </View>
@@ -98,7 +100,7 @@ const makeStyles = (c: ThemeColors) =>
     c: { flex: 1, backgroundColor: c.bg },
     body: { padding: spacing.lg, gap: spacing.sm, paddingBottom: spacing.lg },
     headRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-    title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, marginTop: spacing.xs },
+    title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
     closeX: { fontSize: 30, color: c.mute, fontWeight: '700', paddingHorizontal: spacing.xs },
 
     hero: { alignItems: 'center', marginTop: spacing.xs, marginBottom: spacing.xs, gap: 8 },

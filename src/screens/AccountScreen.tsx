@@ -289,7 +289,9 @@ export default function AccountScreen() {
     const syncedLabel = lastSyncedAt ? new Date(lastSyncedAt).toLocaleTimeString() : t('account.not_synced');
     return (
       <SafeAreaView style={s.c} edges={['top']}>
-        <ScrollView contentContainerStyle={s.body}>
+        {/* 紹介コード入力欄がキーボードに隠れないよう、ログイン済みビューもKAVで包む(iOS=padding)。 */}
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
           <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}><Text style={s.closeTxt}>✕</Text></Pressable>
           {/* 最上部: 自分のアバター＋ステータス(左にアバター/右にレベル・国・性別・性格・ムード) */}
           {profileHeader}
@@ -344,6 +346,7 @@ export default function AccountScreen() {
             <Text style={s.manageTxt}>{t('account.logout')}</Text>
           </Pressable>
         </ScrollView>
+        </KeyboardAvoidingView>
         {pickerModal}
       </SafeAreaView>
     );

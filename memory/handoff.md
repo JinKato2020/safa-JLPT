@@ -79,14 +79,14 @@
 - a8f75f058eaa367f7 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- docs/supabase/dashboard_views.sql
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/screens/PassageGrammarScreen.tsx
-- src/screens/ReadingScreen.tsx
-- src/screens/ListeningScreen.tsx
-- src/screens/ProfileScreen.tsx
-- src/store/state.ts
+- memory/在庫問題数.txt
+- content/problems/moji_goi/orthography_N4.json
+- content/problems/bunpou/grammar_form_N5.json
+- src/quiz/quiz.ts
+- src/data/dict/vocabSynonyms.json
+- content/problems/bunpou/grammar_form_N4.json
 
-_自動更新: 2026-08-17 00:54_
+_自動更新: 2026-08-17 19:43_
 <!-- AUTO:END -->
