@@ -17,11 +17,10 @@ export function rehydrateBanks(files: Record<string, Any>) {
   const ORTHOGRAPHY_BANK = bankItems(files, 'orthography', (it, level) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain }));
   const CONTEXT_BANK = bankItems(files, 'context', (it, level) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain }));
   const SYNONYM_BANK = bankItems(files, 'synonym', (it, level) => ({ ...stripI18n(it), level, reason: it.i18n?.ja?.explain, reasonNe: it.i18n?.ne?.explain }));
-  // 旧バンク(knowledgebank_*.json)は解体済み(2026-07-17)。全大問が「大問×レベル=1ファイル」になった。
+  // 全大問が「大問×レベル=1ファイル」構成(content/problems/<section>/<daimon>_<level>.json)。
   // 分割ファイルの item は level/daimon を持たない(ファイルヘッダ側にある)ので、ここで復元して
   // BankUnit(data/daimon.ts)が要る shape に揃える。pointId/ambiguous は item 側に入っている。
-  // 旧バンクにあった context(653)と passage_grammar(842)は【一度も出題されない死蔵】だったので削除した
-  // (文脈規定は moji_goi/context_*.json のみ・文章の文法は passage_grammar_*.json のセット形式へ移行済)。
+  // 文脈規定は moji_goi/context_*.json のみ、文章の文法は passage_grammar_*.json のセット形式で持つ。
   const BANK_DAIMON = ['usage', 'grammar_form', 'order'] as const;
   const KNOWLEDGE_BANK = BANK_DAIMON.flatMap((daimon) =>
     // order(文の組み立て)は回答後表示用に「正しい文(ja)＋母語の意味(en/ne)」を i18n.{lang}.explain から復元。

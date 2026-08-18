@@ -22,6 +22,12 @@ const TEST_REWARDED_ANDROID = 'ca-app-pub-3940256099942544/5224354917';
 // と表示される。その "XXXX" をここに足して再ビルドする。空のままなら全員に本番広告(=本番挙動)。
 export const TEST_DEVICE_IDS: string[] = [];
 
+// 【一時・公開前の動作確認用】true の間は、本物のユニットIDが入っていても Google のテスト広告を出す。
+// 理由: アプリがストア未公開(AdMob承認状況=要審査)の間は本番広告が配信されない。テスト広告なら公開前でも出るので
+//       「広告の読み込み〜表示までアプリ側が正常に動くか」を確認できる。テスト広告が出れば残る原因はAdMob審査だけ。
+// ⚠ 一般公開の前に必ず false に戻すこと(本番アプリでテスト広告を出すのはポリシー違反)。
+export const FORCE_TEST_ADS = true;
+
 /** 本番のリワードIDが設定済みか(=テストでなく本物の広告を出す状態か)。UIの表示切替に使える。 */
 export function adsConfigured(): boolean {
   const id = Platform.OS === 'ios' ? IOS_REWARDED_ID : ANDROID_REWARDED_ID;
@@ -30,6 +36,7 @@ export function adsConfigured(): boolean {
 
 /** いま使うリワード広告ユニットID(本番が空ならテストID)。 */
 export function rewardedAdUnitId(): string {
+  if (FORCE_TEST_ADS) return Platform.OS === 'ios' ? TEST_REWARDED_IOS : TEST_REWARDED_ANDROID;
   if (Platform.OS === 'ios') return IOS_REWARDED_ID.trim() || TEST_REWARDED_IOS;
   return ANDROID_REWARDED_ID.trim() || TEST_REWARDED_ANDROID;
 }

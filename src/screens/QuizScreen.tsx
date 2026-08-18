@@ -14,6 +14,7 @@ import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords, type StudiedQuestion } from '../data/studiedWords';
 import ExamHeader from '../components/ExamHeader';
+import DevIdPicker from '../components/DevIdPicker';
 import { itemsFor, allWordsFor, rubyNeeded } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, EXAM_FORMATS } from '../quiz/quiz';
 import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, MOJI_DAIMON, BUNPOU_DAIMON, type LearnCard } from '../data/daimon';
@@ -88,7 +89,7 @@ export default function QuizScreen() {
   // 誤答プール＆弱点ドリルの照合は全語(学習＋模試専用)。出題キュー(category)は学習のみ=poolFor。
   const pool = useMemo(() => [...allWordsFor(settings.level, 'moji_goi'), ...allWordsFor(settings.level, 'bunpou')], [settings.level]);
   // 大問モードはユニットid(string)、それ以外はStudyItemのキュー。
-  const [queue] = useState<(StudyItem | string)[]>(() => {
+  const [queue, setQueue] = useState<(StudyItem | string)[]>(() => {
     if (review) {
       // 面別マスタリー統合復習: 既習の苦手な面を弱い順に選び、描ける面だけを unit にして出題。
       // listen/漢字書き取り等の描けない面は読み飛ばすため多めに選んで先頭 SESSION_SIZE 件。
@@ -102,8 +103,9 @@ export default function QuizScreen() {
     if (expression) return buildUnitQueue(expressionUnitIds(), items, Date.now(), SESSION_SIZE);
     if (daimon) return buildUnitQueue(daimonUnitIds(settings.level, daimon, 'learn'), items, Date.now(), SESSION_SIZE);
     if (itemIds && itemIds.length) {
-      const byId = new Map(pool.map((i) => [i.id, i]));
-      return itemIds.map((id) => byId.get(id)).filter((x): x is StudyItem => Boolean(x));
+      // 模試の弱点ドリルも復習/学習と同じ検証済みバンクから出す。idは模試が daimonUnitIds→questionForUnit で
+      // 出した検証済みユニット＝文字列のまま questionForUnit で描く(makeQuestionの自動生成＝文法2正解バグ源を通さない)。
+      return itemIds.filter((id) => !!questionForUnit(id));
     }
     // 学習(バランス/カテゴリ)も検証済の大問バンクから出題(makeQuestionの曖昧な意味当てクイズを廃止＝一意性確保)。
     // 文章の文法(passage_grammar)は questionForUnit で解決できないセット形式なので、ミックス出題からは除外(専用のPassageGrammarScreenへ)。
@@ -121,12 +123,31 @@ export default function QuizScreen() {
   const [phase, setPhase] = useState<'learn' | 'test'>(() => (daimon && learnList.length ? 'learn' : 'test'));
   const [learnIdx, setLearnIdx] = useState(0);
   const [idx, setIdx] = useState(0);
+  const [pickerOpen, setPickerOpen] = useState(false); // 開発用: 問題IDタップで同じ大問の全問へジャンプ
   const [picked, setPicked] = useState<number | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [answered, setAnswered] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
   const [walletStart] = useState(() => walletPoints(state));
   const [studiedRefs, setStudiedRefs] = useState<{ ref?: SaveRef; correct: boolean; q?: StudiedQuestion }[]>([]); // この回に学習した語(終了時にまとめて私の単語帳へ・正誤も)＋問題スナップショット(正誤表の振り返り用)。refが無い(辞書に無い)問題も記録する
+
+  // 【開発用】同じ大問の全問へジャンプ(問題IDタップ)。開発ビルド or 7回タップで解禁した端末のみ。大問モードのみ有効。
+  const devTools = __DEV__ || state.settings.devToolsUnlocked === true;
+  const canDevPick = devTools && !!daimon;
+  const devIds = useMemo(
+    () => (canDevPick && daimon ? daimonUnitIds(settings.level, daimon, 'all') : []),
+    [canDevPick, daimon, settings.level],
+  );
+  const jumpTo = (unit: string) => {
+    if (!daimon) return;
+    const all = daimonUnitIds(settings.level, daimon, 'all');
+    const pos = all.indexOf(unit);
+    if (pos < 0) return;
+    setQueue(all);
+    setIdx(pos);
+    setPicked(null);
+    setPickerOpen(false);
+  };
 
   const item = queue[idx];
   const answerId = typeof item === 'string' ? item : item?.id; // quizAnswer/SRSのキー(大問=項目#大問)
@@ -222,7 +243,8 @@ export default function QuizScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={title} id={question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} />
+        <ExamHeader title={title} id={question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} onPressId={canDevPick ? () => setPickerOpen(true) : undefined} />
+        {canDevPick ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={(question.itemId ?? answerId) as string} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
 
         <View style={s.promptCard}>
           {question.furi ? (

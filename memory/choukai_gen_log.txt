@@ -1,3 +1,3 @@
-生成 103/103  失敗 0
-TTS calls=1082 in=186266 out=193377  STT calls=103 in=146285 out=13602  chirp_chars=0
-実費: Gemini 2.5 Flash TTS  $2.10 = 約316円
+生成 154/154  失敗 0
+TTS calls=1940 in=338874 out=444851  STT calls=150 in=286436 out=26988  chirp_chars=0
+実費: Gemini 2.5 Flash TTS  $4.77 = 約716円

@@ -53,19 +53,11 @@ export default function ReferralScreen() {
   };
 
   return (
-    <SafeAreaView style={s.c} edges={['top']}>
+    <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        {/* 閉じるだけ右上。タイトルは画像の下へ(ホームと同じ 画像→タイトル→本文の順)。 */}
-        <View style={s.headRow}>
-          <View style={{ flex: 1 }} />
-          <Pressable onPress={() => nav.goBack()} hitSlop={12} accessibilityLabel={t('nav.close')}>
-            <Text style={s.closeX}>×</Text>
-          </Pressable>
-        </View>
-
-        {/* 画像→タイトル→本文(まいにちJLPT画面と同じ構成)。画像=画面幅いっぱいの大ヒーロー(正方形・実寸指定)。 */}
-        <View style={s.hero}>
-          <Image source={ENTRANCE} style={[s.heroImg, { width: SW, height: SW, marginHorizontal: -spacing.lg }]} resizeMode="cover" />
+        {/* 画像=画面上端いっぱいの大ヒーロー(edge-to-edge)。×は画像に重ねる(まいにちJLPT Pro画面と統一)。 */}
+        <Image source={ENTRANCE} style={[s.heroImg, { width: SW, height: SW }]} resizeMode="cover" />
+        <View style={s.heroText}>
           <Text style={s.title}>{t('referral.title')}</Text>
           <Text style={s.heroTitle}>{t('referral.headline')}</Text>
           <Text style={s.heroSub}>{t('referral.subhead')}</Text>
@@ -91,6 +83,10 @@ export default function ReferralScreen() {
           </View>
         </View>
       </ScrollView>
+      {/* 右上×(画像に重ねる・最前面)=タップで閉じる。Pro画面と統一。 */}
+      <Pressable style={s.xBtn} onPress={() => nav.goBack()} hitSlop={12} accessibilityLabel={t('nav.close')}>
+        <Text style={s.xTxt}>×</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }
@@ -99,12 +95,14 @@ const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     c: { flex: 1, backgroundColor: c.bg },
     body: { padding: spacing.lg, gap: spacing.sm, paddingBottom: spacing.lg },
-    headRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
     title: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
-    closeX: { fontSize: 30, color: c.mute, fontWeight: '700', paddingHorizontal: spacing.xs },
+    // 右上×(Pro画面と同じ・画像に重ねる半透明の丸ボタン)。ScrollViewの外・最前面。
+    xBtn: { position: 'absolute', top: 10, right: 12, width: 34, height: 34, borderRadius: 17, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.38)', zIndex: 30 },
+    xTxt: { fontSize: 22, lineHeight: 24, color: '#fff', fontWeight: '700' },
 
-    hero: { alignItems: 'center', marginTop: spacing.xs, marginBottom: spacing.xs, gap: 8 },
-    heroImg: { marginBottom: spacing.sm, backgroundColor: c.surface }, // 実寸(幅=画面幅・正方形)はJSXで指定。edge-to-edge。
+    // 上端ヒーロー: 画面幅いっぱい＋上/左右を余白の外まで出す(edge-to-edge)。実寸(幅=画面幅・正方形)はJSXで指定。
+    heroImg: { marginTop: -spacing.lg, marginHorizontal: -spacing.lg, marginBottom: spacing.sm, backgroundColor: c.surface },
+    heroText: { alignItems: 'center', gap: 8, marginBottom: spacing.xs },
     heroTitle: { fontSize: ty.h2, fontWeight: '900', color: c.ink, lineHeight: 30, textAlign: 'center' },
     heroSub: { fontSize: ty.body, fontWeight: '700', color: c.ink2, lineHeight: 22, textAlign: 'center' },
 
