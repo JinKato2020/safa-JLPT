@@ -11,6 +11,10 @@ import { mockTicketCount, canBuyMockTicket, MAX_MOCK_TICKETS, MOCK_TICKET_PRICE 
 import { SHOP, type ShopItem } from '../data/shop';
 import { spacing, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
+import * as Haptics from 'expo-haptics';
+
+// 購入演出のキラキラ(中心から放射するように弾ける絵文字)。
+const SPARKLES = ['✨', '🎉', '🌸', '⭐', '💖', '✨', '🌸', '⭐'];
 
 const MOCK_TICKET_ID = 'tool_mock_ticket';
 const AVATAR_DRINK_ID = 'tool_avatar_drink';
@@ -45,8 +49,10 @@ export default function ShopScreen() {
     setCelebrate(i);
     celAnim.setValue(0);
     Animated.spring(celAnim, { toValue: 1, useNativeDriver: true, friction: 6, tension: 80 }).start();
+    // 触覚フィードバック=手に入れた実感(端末が対応しない時は無視)。
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
     if (celTimer.current) clearTimeout(celTimer.current);
-    celTimer.current = setTimeout(() => setCelebrate(null), 2000);
+    celTimer.current = setTimeout(() => setCelebrate(null), 2200);
   };
   const items = SHOP.filter((TABS.find((tb) => tb.key === cat) ?? TABS[0]).match);
 
@@ -82,7 +88,7 @@ export default function ShopScreen() {
       if (canBuyItem(i)) {
         if (devUnlimited && points < i.price) addPoints(1_000_000); // 【開発用】無限ポイント: 残高を確保して必ず購入
         buyItem(i);
-        if (i.celebrate) showCelebrate(i);
+        showCelebrate(i); // 全アイテムで「手に入れた!」演出を出す(専用の祝い絵が無い品はアイテム画像で祝う)
       }
       return; // 未所持(無料含む)→取得。演出あり品は2秒表示
     }
@@ -152,16 +158,45 @@ export default function ShopScreen() {
         </ScrollView>
       </View>
 
-      {/* 購入演出: 桜が手に入れた筆を持って2秒登場(タップで即閉じ)。 */}
+      {/* 購入演出: 手に入れた品が弾むように登場＋キラキラが放射(2.2秒・タップで即閉じ)。
+          専用の祝い絵(celebrate)が無い品は、その品のアイテム画像/絵文字で祝う。 */}
       {celebrate && (
-        <Animated.View style={[s.celOverlay, { opacity: celAnim }]}>
+        <Animated.View style={[s.celOverlay, { opacity: celAnim.interpolate({ inputRange: [0, 1], outputRange: [0, 1], extrapolate: 'clamp' }) }]}>
           <Pressable style={s.celFill} onPress={() => setCelebrate(null)}>
-            <Text style={s.celGot}>{t('shop.got')}</Text>
-            <Animated.Image
-              source={celebrate.celebrate!}
-              resizeMode="contain"
-              style={[s.celImg, { transform: [{ scale: celAnim.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1] }) }] }]}
-            />
+            <Animated.Text style={[s.celGot, { transform: [{ scale: celAnim.interpolate({ inputRange: [0, 1], outputRange: [0.4, 1] }) }] }]}>{t('shop.got')}</Animated.Text>
+            <View style={s.celStage}>
+              {/* キラキラの放射(画像の中心から外へ弾ける) */}
+              <View style={s.celBurst} pointerEvents="none">
+                <View style={s.celOrigin}>
+                  {SPARKLES.map((e, idx) => {
+                    const ang = (Math.PI * 2 * idx) / SPARKLES.length;
+                    const dist = celAnim.interpolate({ inputRange: [0, 1], outputRange: [8, 150], extrapolate: 'clamp' });
+                    return (
+                      <Animated.Text
+                        key={idx}
+                        style={[s.spark, {
+                          opacity: celAnim.interpolate({ inputRange: [0, 0.55, 1], outputRange: [0, 1, 0], extrapolate: 'clamp' }),
+                          transform: [
+                            { translateX: Animated.multiply(dist, Math.cos(ang)) },
+                            { translateY: Animated.multiply(dist, Math.sin(ang)) },
+                            { scale: celAnim.interpolate({ inputRange: [0, 1], outputRange: [0.4, 1.5], extrapolate: 'clamp' }) },
+                          ],
+                        }]}
+                      >{e}</Animated.Text>
+                    );
+                  })}
+                </View>
+              </View>
+              {celebrate.celebrate || celebrate.asset ? (
+                <Animated.Image
+                  source={(celebrate.celebrate ?? celebrate.asset)!}
+                  resizeMode="contain"
+                  style={[s.celImg, { transform: [{ scale: celAnim.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1] }) }] }]}
+                />
+              ) : (
+                <Animated.Text style={[s.celEmoji, { transform: [{ scale: celAnim.interpolate({ inputRange: [0, 1], outputRange: [0.5, 1] }) }] }]}>{celebrate.emoji ?? '🎁'}</Animated.Text>
+              )}
+            </View>
             <Text style={s.celName}>{nameOf(celebrate)}</Text>
           </Pressable>
         </Animated.View>
@@ -211,8 +246,14 @@ const makeStyles = (c: ThemeColors) =>
     pillBuy: { backgroundColor: c.blue }, txtBuy: { color: '#fff' },
     pillNo: { backgroundColor: c.bgSoft }, txtNo: { color: c.faint },
     celOverlay: { ...StyleSheet.absoluteFillObject, zIndex: 20 },
-    celFill: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(15,23,42,0.66)', gap: 8 },
-    celGot: { color: '#fff', fontSize: 22, fontWeight: '900', letterSpacing: 2, textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
-    celImg: { width: '72%', height: '50%', alignSelf: 'center' },
-    celName: { color: '#fff', fontSize: 18, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
+    celFill: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(15,23,42,0.66)', gap: 10 },
+    celGot: { color: '#fff', fontSize: 26, fontWeight: '900', letterSpacing: 3, textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 8 },
+    celStage: { width: '80%', height: '50%', alignItems: 'center', justifyContent: 'center' },
+    celImg: { width: '100%', height: '100%' },
+    celEmoji: { fontSize: 120, textAlign: 'center' },
+    // キラキラ放射: ステージ中心を原点(サイズ0)にして、各絵文字を外へ飛ばす。
+    celBurst: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
+    celOrigin: { width: 0, height: 0, alignItems: 'center', justifyContent: 'center' },
+    spark: { position: 'absolute', left: -15, top: -18, fontSize: 30 },
+    celName: { color: '#fff', fontSize: 20, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 6 },
   });

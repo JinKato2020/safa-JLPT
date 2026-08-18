@@ -55,3 +55,13 @@ test('equip: 所有品のみ・kind別スロット', () => {
   s = equip(s, { id: 'hair_y', kind: 'hair' }); // 未所有は装備されない
   assert.equal(s.equipped?.hair, 'hair_x');
 });
+
+test('equip: 髪型を選ぶと民族衣装は自動で「なし」に戻る', () => {
+  let s = buy(addPoints(INITIAL_STATE, 3000, NOW), { id: 'hair_x', price: 500 }, NOW);
+  s = buy(s, { id: 'costume_x', price: 1200 }, NOW);
+  s = equip(s, { id: 'costume_x', kind: 'costume' });
+  assert.equal(s.equipped?.costume, 'costume_x');
+  s = equip(s, { id: 'hair_x', kind: 'hair' }); // 髪型に切替
+  assert.equal(s.equipped?.hair, 'hair_x');
+  assert.equal(s.equipped?.costume, 'costume_none'); // 民族衣装(髪型を隠す全身絵)は自動でなしに
+});

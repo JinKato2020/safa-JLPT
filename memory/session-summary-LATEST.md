@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 2 回・7 ターン
-- 往復 133746 回
+- ツール呼び出し 4 回・10 ターン
+- 往復 136013 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
-- memory/在庫問題数.txt
 - memory/choukai-kadai-point-audit-inflight.md
-- memory/在庫・模試ストックまとめ.xlsx
+- memory/choukai_gen_log.txt
+- memory/choukai_audio_rec.json
+- memory/choukai_gen_done.txt
 
 ## 次の一手
 - **🆕🆕🆕 2026-08-18 聴解 品質＝概要80問化＋課題/ポイントPhase1 完了（正本＝`memory/choukai-kadai-point-audit-inflight.md`／`memory/gaiyou-rebuild-inflight.md`／監査全記録＝`memory/choukai_kadai_point_audit_2026-08-18.md`）**: ①**概要理解N3=40→80問 完了**（全ゲート緑・独立監査済・音声80本 assets/audio・実費 3本修正¥8＋40本¥102）。②**課題・ポイント 全600問の攻略耐性 深掘り監査＋Phase1 完了**＝機械(長さ・語マッチ)＋Opus6体で「聞かず解ける型」を特定→**選択肢だけ**書き換え(正解は全600問 一字一句不変・音声不要=実費¥0)で6ファイル全緑（最長: 課題30/26/33・ポイント38/4/5／語彙: 20/17/10・14/17/6）。在庫Excel攻略耐性シート更新済・scratchpad掃除済。**次の一手＝ユーザー判断待ち**：Phase2(音声再生成要=末尾逐語ぼかし/気持ち・なぜテンプレ多様化/近接重複ペア~15組差別化)・Phase3(課題N5種別違い4問0045/0047/0059/0099の移設・課題0041-0100の大問純度方針)。**⚠アプリ反映は次ビルド時**(manifest/bundled再生成→OTA・ビルドは指示時のみ)。**在庫合計15439**(概要+40)。

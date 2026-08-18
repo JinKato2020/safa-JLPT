@@ -1,6 +1,6 @@
 // 桜貝(内部通貨)の付与・購入・装備の純関数。reducerから呼ぶ。副作用なし・入力は不変。
 import type { AppState } from './state';
-import { dayStr, withUpdatedAt } from './state';
+import { dayStr, withUpdatedAt, NONE_COSTUME_ID } from './state';
 
 // 装備スロット/種別: 着せ替え(髪型/服/筆)・仲間(companion)・道具(tool)。背景テーマ・フォントは設定画面へ移設。
 export type ShopKind = 'hair' | 'outfit' | 'brush' | 'costume' | 'companion' | 'tool';
@@ -47,7 +47,11 @@ export function buy(state: AppState, item: { id: string; price: number }, now: n
 }
 export function equip(state: AppState, item: { id: string; kind: ShopKind }): AppState {
   if (!isOwned(state, item.id)) return state;
-  return { ...state, equipped: { ...(state.equipped ?? {}), [item.kind]: item.id } };
+  const equipped = { ...(state.equipped ?? {}), [item.kind]: item.id };
+  // 髪型を選んだら、全身アバターの民族衣装(髪型を隠して優先表示される)を自動で「なし」に戻す。
+  // これで「民族衣装を手で外さないと髪型が変えられない」状態を解消し、選んだ髪型がすぐ反映される。
+  if (item.kind === 'hair') equipped.costume = NONE_COSTUME_ID;
+  return { ...state, equipped };
 }
 
 // ── すがた変えドリンク(アバター変更券) ──
