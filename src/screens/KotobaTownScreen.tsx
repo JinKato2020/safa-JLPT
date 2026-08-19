@@ -248,7 +248,7 @@ const WORLD = 1024;            // マップ表示サイズ(正方)。当たり�
 const CELL = WORLD / MAP_G;
 const SPRITE = 64;            // マップ上のアバター背丈(従来値。表示・当たり判定・名札・配置すべて連動)
 const PLATE_W = 170;         // 名札の容器幅。SPRITE(64)だと絶対配置の名札が64pxに測られ長い名前が⋯で切れる→広い容器にしてアバター中心へ寄せる
-const SPEED = 160;            // px/秒
+const SPEED = 120;            // px/秒（操作しやすさ優先で 160→120 に減速。速すぎると微調整が効かない）
 const START_COL = 24, START_ROW = 28;
 const STICK_R = 54;          // スティック外周半径
 const DEADZONE = 10;

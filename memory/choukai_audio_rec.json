@@ -11623,5 +11623,735 @@
 "dur": 70.2,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0105": {
+"dur": 45.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0106": {
+"dur": 53.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0107": {
+"dur": 46.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0108": {
+"dur": 47.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0109": {
+"dur": 43.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0110": {
+"dur": 50.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0111": {
+"dur": 51.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0112": {
+"dur": 41.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0113": {
+"dur": 42.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0114": {
+"dur": 42.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0115": {
+"dur": 49.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0116": {
+"dur": 44.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0117": {
+"dur": 43.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0118": {
+"dur": 43.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0119": {
+"dur": 44.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0120": {
+"dur": 43.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0121": {
+"dur": 44.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0122": {
+"dur": 42.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0123": {
+"dur": 44.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0124": {
+"dur": 43.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0125": {
+"dur": 48.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0126": {
+"dur": 45.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0127": {
+"dur": 49.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0128": {
+"dur": 46.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0129": {
+"dur": 39.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0130": {
+"dur": 43.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0131": {
+"dur": 42.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0132": {
+"dur": 45.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0133": {
+"dur": 50.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0134": {
+"dur": 42.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0135": {
+"dur": 50.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0136": {
+"dur": 43.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0137": {
+"dur": 46.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0138": {
+"dur": 41.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0139": {
+"dur": 48.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0140": {
+"dur": 50.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0141": {
+"dur": 44.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0142": {
+"dur": 47.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0143": {
+"dur": 46.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0144": {
+"dur": 44.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0145": {
+"dur": 45.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0146": {
+"dur": 47.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N5-C-P-0147": {
+"dur": 42.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0148": {
+"dur": 43.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0149": {
+"dur": 47.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N5-C-P-0150": {
+"dur": 42.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0101": {
+"dur": 60.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0102": {
+"dur": 55.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0103": {
+"dur": 52.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0104": {
+"dur": 56.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0105": {
+"dur": 54.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0106": {
+"dur": 57.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0107": {
+"dur": 52.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0108": {
+"dur": 184.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0109": {
+"dur": 60.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0110": {
+"dur": 59.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0111": {
+"dur": 60.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0112": {
+"dur": 57.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0113": {
+"dur": 53.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0114": {
+"dur": 58.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0115": {
+"dur": 53.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0116": {
+"dur": 55.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0117": {
+"dur": 56.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0118": {
+"dur": 54.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0119": {
+"dur": 55.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0120": {
+"dur": 55.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0121": {
+"dur": 62.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0122": {
+"dur": 58.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0123": {
+"dur": 49.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0124": {
+"dur": 54.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0125": {
+"dur": 53.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0126": {
+"dur": 54.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0127": {
+"dur": 52.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0128": {
+"dur": 50.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0129": {
+"dur": 54.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0130": {
+"dur": 53.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0131": {
+"dur": 49.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0132": {
+"dur": 52.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0133": {
+"dur": 51.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0134": {
+"dur": 45.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0135": {
+"dur": 57.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0136": {
+"dur": 49.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0137": {
+"dur": 49.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0138": {
+"dur": 51.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0139": {
+"dur": 45.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0140": {
+"dur": 47.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0141": {
+"dur": 48.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0142": {
+"dur": 47.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0143": {
+"dur": 47.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0144": {
+"dur": 47.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0145": {
+"dur": 56.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0146": {
+"dur": 45.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・女2=Kore"
+},
+"N4-C-P-0147": {
+"dur": 46.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0148": {
+"dur": 46.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-P-0149": {
+"dur": 46.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N4-C-P-0150": {
+"dur": 48.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0101": {
+"dur": 58.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0102": {
+"dur": 64.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0103": {
+"dur": 52.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0104": {
+"dur": 61.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0105": {
+"dur": 56.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0106": {
+"dur": 62.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0107": {
+"dur": 61.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0108": {
+"dur": 61.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0109": {
+"dur": 58.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0110": {
+"dur": 60.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0111": {
+"dur": 63.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0112": {
+"dur": 60.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0113": {
+"dur": 61.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0114": {
+"dur": 58.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0115": {
+"dur": 58.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0116": {
+"dur": 59.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0117": {
+"dur": 64.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0118": {
+"dur": 56.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0119": {
+"dur": 58.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0120": {
+"dur": 64.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0121": {
+"dur": 53.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0122": {
+"dur": 60.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0123": {
+"dur": 65.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0124": {
+"dur": 58.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0125": {
+"dur": 64.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0126": {
+"dur": 61.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0127": {
+"dur": 59.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0128": {
+"dur": 62.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0129": {
+"dur": 58.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0130": {
+"dur": 57.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0131": {
+"dur": 56.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0132": {
+"dur": 59.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0133": {
+"dur": 55.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0134": {
+"dur": 60.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0135": {
+"dur": 44.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0136": {
+"dur": 51.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0137": {
+"dur": 53.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0138": {
+"dur": 52.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0139": {
+"dur": 48.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0140": {
+"dur": 53.1,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0141": {
+"dur": 60.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0142": {
+"dur": 56.0,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0143": {
+"dur": 52.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0144": {
+"dur": 52.2,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0145": {
+"dur": 56.8,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0146": {
+"dur": 56.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0147": {
+"dur": 53.4,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0148": {
+"dur": 55.3,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N3-C-P-0149": {
+"dur": 60.7,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
+},
+"N3-C-P-0150": {
+"dur": 58.6,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 }
 }

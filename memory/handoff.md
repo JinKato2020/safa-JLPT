@@ -1,7 +1,9 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
-- **🆕🆕🆕 2026-08-18 課題理解 各レベル150問へ増作＝作問・全ゲート完了（¥0・音声未生成・未コミット）／次＝音声生成の承認待ち**: 正本＝`memory/課題増作-inflight.md`。**やったこと**＝kadai N5+54(0045/0047/0059/0099＋0101-0150)・N4+50(0101-0150)・N3+50(0101-0150)＝**各150問**。6サブエージェント(各レベル2体・disjointなID/場面/develop)で素作問→`mora_check`自己ゲート→ルビ。**偏り是正**＝develop最大 N5 22%/N4 22%/**N3 消去46%→31%**(全レベル≤35%・skeleton check✅)。設問型 手順36%前後(3-4割内)・場面8カテゴリ均等。**レベル差**＝間接性(N5直接→N3消去法・本音後半・ネタバレ禁止)＋モーラ帯(N5 105-157/N4 209-313/N3 258-386・全問帯内)。**修正した2点**＝N3a(0101-0125)ルビ未付与→全漢字ルビ再付与(文言不変を機械確認)・N5-0144が既存0025と病院会計近似0.90→別状況の二者択一へ差し替え(近似0.07)。**NG**＝係/留守/役割ラベル/〇=全0(tts_lintの一日/眼鏡/三日はグループルビ済の誤検出)。**検証**＝merge致命0帯外0・daimon新規重複0・rebuild済・TSテスト19/19緑・tsc0。**未コミット**＝kadai_N3/N4/N5.json＋content/_manifest.json。**次の一手＝音声生成の承認**(Gemini Flash TTS・実測~3-4円/本×154≒約450-650円・¥1000未満・D2で実費報告)→承認後 gen_choukai_json.py→rebuild→manifest→コミット。**まだ有料は一切していない**。
+- **▶ 2026-08-19 次はコレ＝ポイント理解 各レベル150問へ増作（+146・未着手・¥0）**: 正本＝`memory/ポイント増作-inflight.md`。現状 N5=104/N4=100/N3=100→各150（各観点30ちょうど）。6エージェントで素作問→ゲート→報告→**承認後に音声(146本・1回生成・約¥350前後・¥716/154はbest-of-2=2回生成の禁止値ゆえ根拠に使わない)**。まだエージェント0体・生成物なし＝compact安全。未コミット＝build.ps1(iOS上限3→8)・在庫Excel(新シート「習得の仕組み(ID×面)」)。
+- **✅ 2026-08-19 課題理解150問＋弱点ドリル/文法復習をバンク統一＝コミット`401306a0`・Build 2814 both dispatch(run`32196846868`・iOS本日1/3・監視しない)**: 弱点ドリルを復習と同じ検証済バンクへ統一(QuizScreen itemIds→unitで questionForUnit＝makeQuestion自動生成の文法2正解バグ源を通さない)／文法復習バンク化(reviewQuestion GRAMMAR_BANK_BY_POINT)＋grammarClozeOk n4-g-55/105除外／課題理解+154問+音声154本($4.77既報)／骨組みタグ(develop/kanten/genre/q_type)+番人skeletonBalance／設定聴解を「DLのみ」化／友だち紹介UIをPro画面と統一／AdMob FORCE_TEST_ADS追加(TestFlight検証用・**公開前にfalse**)／旧knowledgebank残骸駆逐。tsc0・テスト412/412＋ビルド用37/37緑・manifest再生成済・push済(OTA起動)。**残(ユーザー判断待ち)**＝①配信の完全撤去(オンボ選択肢/内部stream分岐がまだ残る)②n5-g-32番人fix(既存の赤・私の変更と無関係)③公開前にFORCE_TEST_ADS=false。以下は旧LIVE(参考):
+- **🗄 2026-08-18 課題理解 各レベル150問へ増作＝作問・全ゲート完了（上記でコミット済）**: 正本＝`memory/課題増作-inflight.md`。**やったこと**＝kadai N5+54(0045/0047/0059/0099＋0101-0150)・N4+50(0101-0150)・N3+50(0101-0150)＝**各150問**。6サブエージェント(各レベル2体・disjointなID/場面/develop)で素作問→`mora_check`自己ゲート→ルビ。**偏り是正**＝develop最大 N5 22%/N4 22%/**N3 消去46%→31%**(全レベル≤35%・skeleton check✅)。設問型 手順36%前後(3-4割内)・場面8カテゴリ均等。**レベル差**＝間接性(N5直接→N3消去法・本音後半・ネタバレ禁止)＋モーラ帯(N5 105-157/N4 209-313/N3 258-386・全問帯内)。**修正した2点**＝N3a(0101-0125)ルビ未付与→全漢字ルビ再付与(文言不変を機械確認)・N5-0144が既存0025と病院会計近似0.90→別状況の二者択一へ差し替え(近似0.07)。**NG**＝係/留守/役割ラベル/〇=全0(tts_lintの一日/眼鏡/三日はグループルビ済の誤検出)。**検証**＝merge致命0帯外0・daimon新規重複0・rebuild済・TSテスト19/19緑・tsc0。**未コミット**＝kadai_N3/N4/N5.json＋content/_manifest.json。**次の一手＝音声生成の承認**(Gemini Flash TTS・実測~3-4円/本×154≒約450-650円・¥1000未満・D2で実費報告)→承認後 gen_choukai_json.py→rebuild→manifest→コミット。**まだ有料は一切していない**。
 - **🆕🆕🆕 2026-08-18 聴解 骨組みパラメータ Phase-α 完了（¥0・未コミット・未ビルド）**: ワンパターン化を機械で止める仕組み。設計正本＝`md/聴解_作問フロー.md`「骨組みパラメータの最適化」、経緯＝`memory/骨組みパラメータ実装-inflight.md`。**やったこと**＝課題に`develop`(くぐり方8値)・ポイントに`kanten`(観点・推定→保存)・概要に`genre`(話題8値)＋`q_type`(聞き方)をフィールド追加し全問タグ付け(develop296はLLM4体で分類・kanten304/q_type80は決定的regex・genre80はLLM)。**ツール**=`tools/choukai/skeleton_tag.py`(backfill/apply-map/census/check/--xlsx)。**番人**=`src/data/skeletonBalance.test.ts`(欠落0・過半50%禁止・気持ち必須)を`build.ps1`の$testsに登録→3/3緑・ビルド用テスト37/37緑・tsc0。安全確認済(rebuild.tsは各JSON丸ごと埋込=フィールド追加は無害)。**実測の偏り(=薄める対象・在庫Excelの新シート「聴解 骨組みパラメータ分布」に記録)**＝課題N3 develop消去46%⚠(→まず次/断って代案等を増作)・概要N3 q_type主張75%❌(→何について型を増作・質問は音声焼込みで新規分のみ有料)・genre薄い=モノサービス1/文化行事2。**kanten・課題N5N4・genre最大は良好**。**重要方針＝既存音声の焼き直しは不要・薄い型を新規追加する分だけTTS(安い)・今後の作問を薄い型に向ければ追加コストほぼゼロで自然是正**。発話/即時応答は既に完備(偏りmax17-23%)＝変更しない。**未コミット**=content(kadai×3/point×3/gaiyou)・skeleton_tag.py・build.ps1・skeletonBalance.test.ts・md・Excel。**次の一手＝ユーザー判断**(①区切る②Phase-βの是正=薄い型を新規追加、着手前に本数と概算¥提示③次ビルドで載せる)。有料は一切していない。
 - **🚀🚀🚀 2026-08-18 Build 2813 both dispatch＝run`32094725147`（v1.1.0(2813)・iOS本日2/3・監視しない）＝Phase2＋UI2点を全部入り／コミット`d1ba401c`**: 事前検証テスト34/34緑・tsc0・manifest再生成済(push=OTA/Pages起動)。中身＝①**聴解 課題/ポイント 攻略耐性Phase2 完了**(末尾逐語ぼかし41問＋観点定位置くずし62問＝台本改稿103・**音声103本再生成 $2.10≒¥316** Gemini2.5Flash・全ゲート緑)②**課題N5種別違い4問を移設**(0045/0047/0059/0099→N5-C-P-0101..0104・音声リネームで流用¥0・kadai_N5=96/point_N5=104)③**髪型タップ→民族衣装を自動でなしに**(`wallet.ts equip`・全身アバターが髪型を隠す問題を解消・番人テスト+1)④**ショップ購入演出**(`ShopScreen.tsx`・全アイテムでキラキラ放射+触覚+GET!ポップ・祝い絵無い品はアイテム画像で祝う)。**正本**＝`memory/choukai-kadai-point-audit-inflight.md`(Phase1/2/3全記録)／`memory/choukai_kadai_point_audit_2026-08-18.md`(監査)／`memory/gaiyou-rebuild-inflight.md`(概要80問化)。**残(ユーザー判断待ち)**＝優先度2の近接重複ペア~15組差別化(特に課題N5 0021-0040同骨格20問・課題N4放送テンプレ7問=変化量大で保留)／N3-C-P-0030は観点1件を安全弁で据え置き(正解肢変化)。**公開リリースはしていない**(TestFlight/Play alphaのみ)。在庫Excel(攻略耐性シート含む)更新済・在庫合計15439。
 - **✅[2813で解消] 2026-08-18 概要80問化＋課題/ポイントPhase1**: ①概要理解N3=40→80問(全ゲート緑・独立監査済・音声80本・実費¥110)。②課題・ポイント全600問の攻略耐性 深掘り監査＋Phase1(選択肢だけ書換=正解一字一句不変・音声不要¥0で6ファイル全緑)。→Phase2/3も2813で反映済(上行)。
@@ -83,14 +85,14 @@
 - a8f75f058eaa367f7 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- 問題/tools/gen_choukai_json.py
-- memory/choukai-hatsuwa-inflight.md
-- md/聴解_音声作成フロー.md
-- memory/session-summary-LATEST.md
-- memory/handoff.md
-- memory/課題増作-inflight.md
+- memory/ポイント増作-inflight.md
+- memory/読解修正-inflight.md
 - memory/choukai_gen_log.txt
 - memory/choukai_audio_rec.json
+- memory/choukai_gen_done.txt
+- assets/audio/N3-C-P-0150.mp3
+- 問題/聴解/N3/2_ポイント理解/N3-C-P-0150.mp3
+- 問題/聴解/N3/_master/2_ポイント理解/N3-C-P-0150-3.wav
 
-_自動更新: 2026-08-19 08:00_
+_自動更新: 2026-08-19 12:57_
 <!-- AUTO:END -->

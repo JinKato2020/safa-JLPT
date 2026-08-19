@@ -31,7 +31,7 @@ $ErrorActionPreference = 'Stop'
 $APP = Split-Path $PSScriptRoot -Parent
 # 1日のTestFlightアップロード上限ガード用の台帳（public repo に入れない＝~/.claude 配下・全セッション共有）。
 $DISPATCH_LEDGER = Join-Path $env:USERPROFILE '.claude\jlpt-build-dispatch.jsonl'
-$IOS_DAILY_CAP = 3
+$IOS_DAILY_CAP = 8
 
 function Step($n, $t) { Write-Host "`n[$n] $t" -ForegroundColor Cyan }
 function Die($m) { Write-Host "`n中止: $m" -ForegroundColor Red; exit 1 }
