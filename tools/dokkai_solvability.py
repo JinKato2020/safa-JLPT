@@ -34,6 +34,15 @@ SPEC = {
     'joho':       ('情報検索',   {'N5': 250, 'N4': 400, 'N3': 600}, {'N5': 1, 'N4': 2, 'N3': 2}),
 }
 
+# 1本文あたりの設問数(公式固定・09_読解.md)。番人=設問数がこれと不一致なら fail。
+SPEC_QN = {'naiyou_tan': {'N5': 1, 'N4': 1, 'N3': 1},
+           'naiyou_chu': {'N5': 2, 'N4': 4, 'N3': 3},
+           'choubun':    {'N3': 4}}
+# 指示語同定が公式仕様に含まれる大問(中文=全級 N5/N4/N3・長文N3)。必須ゲート(全本文に指示語問題1問以上)。
+# ※中N5も公式もんだい5の指示内容問に相当するため必須(2026-08-20 追加・従来はWARN扱いだった)。短文は指示語を要件としない。
+SHIJI_REQ = {'naiyou_chu': ('N5', 'N4', 'N3'), 'choubun': ('N3',)}
+NAME2DAIMON = {'内容理解短': 'naiyou_tan', '内容理解中': 'naiyou_chu', '内容理解長': 'choubun', '情報検索': 'joho'}
+
 def strip_ruby(s):
     return re.sub(r'（[^）]*）', '', s or '')
 
@@ -55,9 +64,11 @@ def content_bigrams(s):
 
 def classify(q):
     q = strip_ruby(q)
+    # 指示語同定を最優先(引用符内の指示詞＋何/どんな…／指す・指し／下線)。引用文の「当てはまる」等に条件照合が先取りされるのを防ぐ。
+    if re.search(r'指す|指し|指して|下線|＿＿|___', q): return '指示語'
+    if re.search(r'[「『](?:それ|これ|その|この|そう|こう|あれ|あの)[^」』]*[」』][^。]*(?:何|どんな|どういう|どのような|指|表す|意味)', q): return '指示語'
     if re.search(r'いくら|何時|何曜|どれ|どちら|条件|料金|いつ|申し?込|予約|参加できる|当てはまる', q): return '条件照合'
     if re.search(r'なぜ|どうして|理由|わけ', q): return '理由'
-    if re.search(r'(それ|これ|この|その|あの)は?何|指し|下線|＿＿|___', q): return '指示語'
     if re.search(r'筆者|言いたい|考え|主張|一番|もっとも|なぜかというと|どんなこと.*言', q): return '主張主旨'
     if re.search(r'合って|正し|本文の内容|内容と', q): return '内容一致'
     if re.search(r'次に|まず|何をす|どうす|しなければ', q): return '行動'
@@ -68,6 +79,7 @@ def norm_body(s):
 
 def main():
     show_ex = '--examples' in sys.argv
+    check = '--check' in sys.argv   # 番人: 最長%>35 or 語彙マッチ%>45 の大問があれば exit 1
     seen_bodies = defaultdict(list)   # norm_body -> ids (bank-wide dup)
     rows = []
     for daimon, (name, chars, counts) in SPEC.items():
@@ -115,6 +127,35 @@ def main():
                          longest, verbat, lexmatch, dupchoice, i18n_miss, stock, qt))
     # bank-wide passage dup
     dupsets = {k: v for k, v in seen_bodies.items() if len(v) > 1 and k}
+    if check:
+        # 情報検索(joho)は本文=図版で bigram一致が構造的に高いため攻略耐性は対象外(joho_figure_check.py側)
+        LONG_MAX, LEX_MAX = 35, 45
+        viol = []; warn = []
+        for (name, lv, npass, nq, med, mn, mx, tgt, lo, hi, os_, ol, lng, vb, lx, dc, i18n, stock, qt) in rows:
+            if not nq: continue
+            daimon = NAME2DAIMON.get(name)
+            m = re.search(r'指示語(\d+)', qt); shiji = int(m.group(1)) if m else 0
+            if name != '情報検索':
+                lp = 100 * lng // nq; xp = 100 * lx // nq
+                if lp > LONG_MAX: viol.append(f'{name}{lv}: 最長={lp}%>{LONG_MAX}')
+                if xp > LEX_MAX: viol.append(f'{name}{lv}: 語彙マッチ={xp}%>{LEX_MAX}')
+                if (os_ + ol) > 0: warn.append(f'{name}{lv}: 字数帯外 短{os_}/長{ol}')
+            # 設問数/本文 固定(全大問)
+            spec = SPEC_QN.get(daimon, {}).get(lv)
+            if spec and nq != npass * spec:
+                viol.append(f'{name}{lv}: 設問数/本文不一致 (総設問{nq}≠本文{npass}×{spec})')
+            # 指示語必須(中文全級 N5/N4/N3・長文N3)
+            if lv in SHIJI_REQ.get(daimon, ()):
+                if shiji < 1: viol.append(f'{name}{lv}: 指示語0(必須)')
+        if warn:
+            print('⚠ 読解 参考(非致命):')
+            for w in warn: print('  -', w)
+        if viol:
+            print('NG 読解 番人:')
+            for v in viol: print('  -', v)
+            sys.exit(1)
+        print(f'OK 読解 番人: 最長≤{LONG_MAX}% 語彙≤{LEX_MAX}% 設問数固定 指示語必須(中文全級/長文N3) (情報検索は字数/図版のみ別ツール)')
+        return
     print('=== 読解 攻略耐性・品質 (content/problems/dokkai) ===')
     print('大問       Lv  設問 字数med(min/max) 目標[許容]  帯外(短/長) 最長%(基25) verbatim% 語彙マッチ% 選択肢重複 en訳欠落 在庫/回')
     for (name, lv, npass, nq, med, mn, mx, tgt, lo, hi, os_, ol, lng, vb, lx, dc, i18n, stock, qt) in rows:

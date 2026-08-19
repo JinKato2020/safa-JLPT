@@ -4,7 +4,7 @@
    使い方: python tools/stock_excel.py
    出力: 問題/在庫・模試ストックまとめ.xlsx"""
 import io, os, re
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
@@ -103,10 +103,16 @@ def kaisu_fill(k):
     if k <= 15: return 'FCE7C0'     # 橙=要増産
     return 'CDE8D4'                 # 緑=十分
 
-wb = Workbook()
-
-# Sheet1: 大問別まとめ
-ws = wb.active; ws.title = '大問別まとめ'
+# 既存ブックがあれば読み込み、自分の3シートだけ差し替える（習得シート等の手作りシートを保全）。
+_OWN = ('大問別まとめ', '模試ストック換算', '参考')
+if os.path.exists(OUT):
+    wb = load_workbook(OUT)
+    for _nm in _OWN:
+        if _nm in wb.sheetnames: del wb[_nm]
+    ws = wb.create_sheet('大問別まとめ', 0)  # 在庫まとめを先頭に
+else:
+    wb = Workbook()
+    ws = wb.active; ws.title = '大問別まとめ'
 cols = ['セクション', '大問', 'レベル', '在庫問題数', 'セット数', '未検証', '本番出題数', '模試換算(何回分)', '誤答数の内訳', 'シャッフル']
 ws.append(cols); style_header(ws, len(cols))
 for (sec, dai, lv, st, se, uv, hb, k, ed, sh) in rows:
@@ -129,7 +135,7 @@ for i, w in enumerate(widths, 1): ws.column_dimensions[get_column_letter(i)].wid
 ws.auto_filter.ref = f'A1:{get_column_letter(len(cols))}1'
 
 # Sheet2: 模試ストック（律速・フル模試）
-ws2 = wb.create_sheet('模試ストック換算')
+ws2 = wb.create_sheet('模試ストック換算', 1)
 ws2.append(['◆ 模試換算 = 在庫 ÷ 本番出題数 = その大問だけで組めるフル模試の回数（floor）'])
 ws2.cell(1, 1).font = Font(bold=True, size=12, color=NAVY)
 ws2.append([])
@@ -162,7 +168,7 @@ ws2.cell(ws2.max_row, 1).font = Font(italic=True, color='7A756C')
 for i, w in enumerate([14, 8, 8, 8], 1): ws2.column_dimensions[get_column_letter(i)].width = w
 
 # Sheet3: 参考（辞書母数・在庫外・合計）
-ws3 = wb.create_sheet('参考')
+ws3 = wb.create_sheet('参考', 2)
 ws3.append(['◆ 参考データ']); ws3.cell(1, 1).font = Font(bold=True, size=12, color=NAVY)
 ws3.append([])
 total_stock = sum(st for (_, _, _, st, _, _, _, _, _, _) in rows)
