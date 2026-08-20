@@ -1,7 +1,6 @@
 // app/src/data/content/ota.ts — Pagesから変更/新規ファイルを逐次DLして端末キャッシュへ。読込はキャッシュ優先。
 // SDK54 は expo-file-system/legacy を使う([expo-fs-legacy-sdk54] default importの新APIは無反応の罠)。
 import * as FileSystem from 'expo-file-system/legacy';
-import * as Network from 'expo-network';
 import { diffManifest } from './otaDiff';
 import bundledManifest from '../../../content/_manifest.json';
 
@@ -47,16 +46,10 @@ export async function loadCachedFiles(): Promise<Record<string, unknown>> {
 }
 
 /** Pagesのmanifestを見て、sha変化/新規のファイルだけ逐次DL→キャッシュ保存。失敗/オフラインは無害(baselineで継続)。
- *  既定(自動)はモバイル通信(セルラー)では走らせない=ギガを使わない。force=true(設定の手動更新)はセルラーでも実行。
- *  戻り値=今回DLしたファイル数(手動更新の結果表示に使う)。反映は次回起動(手動更新はreloadで即反映)。 */
-export async function syncContent(opts?: { force?: boolean }): Promise<number> {
+ *  ※自動(裏)同期は廃止。呼び出しは設定の手動「今すぐ更新」のみ(ユーザー方針 2026-08-20)。
+ *  戻り値=今回DLしたファイル数(手動更新の結果表示に使う)。反映は呼び出し側の reload で即時。 */
+export async function syncContent(): Promise<number> {
   try {
-    if (!opts?.force) {
-      try {
-        const st = await Network.getNetworkStateAsync();
-        if (st.type === Network.NetworkStateType.CELLULAR) return 0; // 自動同期はWi-Fi/有線/不明の時だけ
-      } catch { /* 判定不可なら従来どおり続行 */ }
-    }
     await FileSystem.makeDirectoryAsync(DIR, { intermediates: true }).catch(() => {});
     const cachedShas = await readJson<Record<string, string>>(SHA_PATH, {});
     const remote = JSON.parse(await (await fetch(BASE + '_manifest.json')).text()) as { files: Record<string, { sha256: string }> };

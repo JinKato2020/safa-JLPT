@@ -444,7 +444,7 @@
   "content.section": "コンテンツ",
   "content.updateContent": "問題・翻訳を今すぐ更新",
   "content.updating": "更新中…",
-  "content.updateWifiNote": "自動更新はWi-Fi接続時のみ行われます。",
+  "content.updateWifiNote": "更新はこのボタンからのみ行われます。押すと最新の問題・翻訳を取得します。",
   "content.update_title": "コンテンツ更新",
   "content.update_done": "新しい内容を{n}件ダウンロードしました。今すぐ反映しますか？",
   "content.update_reload": "今すぐ反映",

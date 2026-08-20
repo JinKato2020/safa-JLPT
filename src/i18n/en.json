@@ -437,7 +437,7 @@
   "content.section": "Content",
   "content.updateContent": "Update questions & translations now",
   "content.updating": "Updating…",
-  "content.updateWifiNote": "Automatic updates run only on Wi-Fi.",
+  "content.updateWifiNote": "Updates happen only from this button. Tap to get the latest questions & translations.",
   "content.update_title": "Content update",
   "content.update_done": "Downloaded {n} updated file(s). Apply now?",
   "content.update_reload": "Apply now",

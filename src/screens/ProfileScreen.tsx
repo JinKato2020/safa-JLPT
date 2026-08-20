@@ -95,7 +95,7 @@ export default function ProfileScreen() {
     if (updating) return;
     setUpdating(true);
     try {
-      const n = await syncContent({ force: true });
+      const n = await syncContent();
       if (n > 0) {
         Alert.alert(t('content.update_title'), t('content.update_done', { n }), [
           { text: t('content.update_later'), style: 'cancel' },

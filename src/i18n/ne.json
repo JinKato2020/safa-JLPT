@@ -437,7 +437,7 @@
   "content.section": "सामग्री",
   "content.updateContent": "प्रश्न र अनुवाद अहिले नै अपडेट गर्नुहोस्",
   "content.updating": "अपडेट हुँदैछ…",
-  "content.updateWifiNote": "स्वचालित अपडेट Wi-Fi मा मात्र हुन्छ।",
+  "content.updateWifiNote": "अपडेट यो बटनबाट मात्र हुन्छ। थिच्दा नयाँ प्रश्न र अनुवाद लिन्छ।",
   "content.update_title": "सामग्री अपडेट",
   "content.update_done": "{n} नयाँ फाइल डाउनलोड भयो। अहिले नै लागू गर्ने?",
   "content.update_reload": "अहिले लागू गर्नुहोस्",

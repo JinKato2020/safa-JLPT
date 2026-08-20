@@ -12,13 +12,13 @@ export default function BootGate() {
     let alive = true;
     (async () => {
       try {
-        const { loadCachedFiles, syncContent } = await import('./data/content/ota');
+        // 起動時はキャッシュ済み(手動更新でDL済み)のcontentを適用するだけ。自動(裏)DLは廃止=設定の手動更新のみ。
+        const { loadCachedFiles } = await import('./data/content/ota');
         const cached = await loadCachedFiles();
         if (Object.keys(cached).length) {
           const { setContentFiles } = await import('./data/content/source');
           setContentFiles(cached);
         }
-        void syncContent(); // 次回用に最新を逐次DL(背景・待たない)
       } catch { /* OTA不調は無害 */ }
       try {
         const mod = await import('../App');
