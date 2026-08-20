@@ -22,6 +22,7 @@ param(
   [switch]$DryRun,
   [switch]$NoWatch,
   [switch]$Force,
+  [switch]$Approved,           # ★勝手にBuild厳禁ゲート。ユーザーが明示的に「ビルドして」と言った時だけ付ける。
   [ValidateSet('both', 'ios', 'android')]
   [string]$Platforms = 'both'
 )
@@ -35,6 +36,20 @@ $IOS_DAILY_CAP = 8
 
 function Step($n, $t) { Write-Host "`n[$n] $t" -ForegroundColor Cyan }
 function Die($m) { Write-Host "`n中止: $m" -ForegroundColor Red; exit 1 }
+
+# ---- 0. 勝手にBuild厳禁ゲート（ユーザー厳命 2026-08-20・永久ルール）--------
+# ユーザーが明示的に「ビルドして」と言った時だけ Claude は -Approved を付ける。
+# 付いていなければ push も dispatch もせずここで中止（＝AIが自己判断で本番ビルドを流す事故を構造で封じる）。
+# DryRun は push/dispatch しない検証専用なので承認不要。
+if (-not $DryRun -and -not $Approved -and $env:JLPT_BUILD_OK -ne '1') {
+  Die @'
+このビルドは承認されていません（勝手にBuild厳禁・ユーザー厳命の永久ルール）。
+ユーザーが明示的に「ビルドして」と言った時だけ実行できます。
+  検証だけ   : -DryRun（push も dispatch もしない）
+  承認して実行: -Approved を付ける（例: tools\build.ps1 -NoWatch -Approved -Message "..."）
+Claude はユーザーの明示指示なしに -Approved を付けないこと。
+'@
+}
 
 # ---- 1. 前提チェック -------------------------------------------------------
 Step 1 '前提チェック'
