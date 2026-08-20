@@ -65,7 +65,8 @@ Step 4 'コミット'
 if ($NoCommit) { Write-Host '  -NoCommit のため飛ばします' }
 elseif (-not (git status --porcelain)) { Write-Host '  変更なし。飛ばします' }
 else {
-  git add -A
+  git add content/                                     # content配信は content/ だけをコミット(memory等の巻き込み防止)
+  if (-not (git diff --cached --name-only)) { Die 'content/ にステージ対象がありません。content 以外の変更は build.ps1 か手動commitで。' }
   git commit -q -m "$Message`n`nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
   if ($LASTEXITCODE -ne 0) { Die 'commit に失敗しました。' }
   Write-Host "  $(git log --oneline -1)"

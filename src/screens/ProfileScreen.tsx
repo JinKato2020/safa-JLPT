@@ -23,6 +23,8 @@ import MiniCalendar from '../components/MiniCalendar';
 import { upcomingExams } from '../data/jlptDates';
 import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
+import * as Updates from 'expo-updates';
+import { syncContent } from '../data/content/ota';
 import { useSync } from '../auth/SyncProvider';
 import { deleteAccount } from '../auth/authClient';
 import { proStatus } from '../pro/entitlement';
@@ -85,6 +87,26 @@ export default function ProfileScreen() {
     } catch {
       // レビュー機能が使えない環境では何もしない
     }
+  };
+
+  // 問題・翻訳の手動更新(聞いてからDL)。force=セルラーでも実行。DL後は反映のため再読み込みを提案。
+  const [updating, setUpdating] = useState(false);
+  const onUpdateContent = async () => {
+    if (updating) return;
+    setUpdating(true);
+    try {
+      const n = await syncContent({ force: true });
+      if (n > 0) {
+        Alert.alert(t('content.update_title'), t('content.update_done', { n }), [
+          { text: t('content.update_later'), style: 'cancel' },
+          { text: t('content.update_reload'), onPress: () => { Updates.reloadAsync().catch(() => {}); } },
+        ]);
+      } else {
+        Alert.alert(t('content.update_title'), t('content.update_latest'));
+      }
+    } catch {
+      Alert.alert(t('content.update_title'), t('content.update_fail'));
+    } finally { setUpdating(false); }
   };
 
   // 学習リマインド: 時:分をカウンター(±)で指定するシンプルUI。ONで通知を予約、OFFで解除。
@@ -271,6 +293,16 @@ export default function ProfileScreen() {
         {/* おさんぽの操作カーソルは画面下部の中央に固定(左右の設定は廃止)。
             町のアバターのプロフィール(勉強分野/性格/ムード/ニックネーム/国/性別/アバター)は
             アカウント画面(上部の人アイコン)に集約。設定タブには重複カードを置かない。 */}
+
+        {/* コンテンツ更新(問題・翻訳の追加ダウンロード)。自動同期はWi-Fiのみ・ここは手動で今すぐ取得。 */}
+        <Text style={s.sectionH}>{t('content.section')}</Text>
+        <View style={s.card}>
+          <Pressable style={s.linkRow} onPress={onUpdateContent} disabled={updating}>
+            <Text style={s.linkTxt}>{updating ? t('content.updating') : t('content.updateContent')}</Text>
+            <Text style={s.chev}>›</Text>
+          </Pressable>
+          <Text style={s.updNote}>{t('content.updateWifiNote')}</Text>
+        </View>
 
         {/* サポート・規約 */}
         <Text style={s.sectionH}>{t('profile.supportSection')}</Text>
@@ -568,6 +600,7 @@ const makeStyles = (c: ThemeColors) =>
     telemLbl: { fontSize: ty.tiny, fontWeight: '600', color: c.mute },
     telemSwitch: { transform: [{ scale: 0.72 }] },
     credit: { fontSize: ty.tiny, color: c.mute, lineHeight: 16 },
+    updNote: { fontSize: ty.tiny, color: c.mute, lineHeight: 16, paddingHorizontal: spacing.md, paddingBottom: spacing.sm },
     resetBtn: {
       marginTop: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: c.line,
       paddingVertical: spacing.sm, alignItems: 'center',
