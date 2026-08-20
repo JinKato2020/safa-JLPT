@@ -10,13 +10,10 @@ import { rubyNeeded } from '../data';
 import { useAppState, useAppActions } from '../store/store';
 import { shuffleChoices } from '../quiz/quiz';
 import { type PassageSet, type Figure } from '../quiz/passageSet';
-import { PASSAGE_TRANS_NE } from '../data';
+import { PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN } from '../data';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT, meaningL1 } from '../i18n';
 import AnswerFooter from './AnswerFooter';
-
-// 本文のネパール語訳(回答後トグル表示・l1=ne時のみ)。key=PassageSet.id → 本文ごとの訳配列。
-const TRANS_NE = PASSAGE_TRANS_NE;
 
 // 旧・情報検索テーブル(Record<列,値>[])を figure(表1枚)へ変換する後方互換ヘルパ。新形式は figure を直接持つ。
 function tableToFigure(rows: Record<string, string | number>[]): Figure {
@@ -64,7 +61,10 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
   const [showTrans, setShowTrans] = useState(false);
   // 全問回答したら自動で答え合わせ(採点)。それまでは各問いつでも選び直せる。
   const revealed = answers.length > 0 && answers.every((a) => a !== null);
-  const trans = meaningL1(state.settings) === 'ne' ? TRANS_NE[set.id] : undefined; // 本文ごとのネパール語訳(無ければundefined)
+  const useNe = meaningL1(state.settings) === 'ne'; // ne母語=ネパール語訳／それ以外(ja UI/en/他言語)=英語訳
+  const trans = useNe ? PASSAGE_TRANS_NE[set.id] : PASSAGE_TRANS_EN[set.id]; // 本文ごとの訳(無ければundefined)
+  const qtr = useNe ? Q_TRANS_NE : Q_TRANS_EN; // 設問・選択肢の訳(内容理解のみ・key=設問id)
+  const hasTrans = !!trans || set.questions.some((q) => qtr[q.id]); // 訳トグルを出すか
 
   // 全問回答した瞬間に一括採点＝各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)の集計も同時に1回だけ発火。
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
         </View>
       ))}
 
-      {revealed && trans ? (
+      {revealed && hasTrans ? (
         <Pressable style={s.transBtn} onPress={() => setShowTrans((v) => !v)}>
           <Text style={s.transBtnTxt}>{showTrans ? t('passage.hideTrans') : t('passage.showTrans')}</Text>
         </Pressable>
@@ -107,13 +107,18 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
           <View key={q.id} style={s.qBlock}>
             <Text style={s.qLabel}>{q.blankNo != null ? t('passage.blankLabel', { n: q.blankNo }) : t('passage.qLabel', { n: qi + 1 })}</Text>
             {q.q ? <RubyText text={q.q} style={s.qText} rubyStyle={s.rubyS} rubyGate={rubyGate} /> : null}
+            {revealed && showTrans && qtr[q.id]?.q ? <Text style={s.qTrans}>{qtr[q.id]!.q}</Text> : null}
             <View style={s.choices}>
               {qs[qi].sh.choices.map((ch, ci) => {
                 const isAns = ci === qs[qi].sh.answerIndex;
                 const isPicked = ci === picked;
+                const ctr = revealed && showTrans ? qtr[q.id]?.choices[qs[qi].q.choices.indexOf(ch)] : undefined;
                 return (
                   <Pressable key={ci} style={[s.choice, revealed && isAns && s.choiceOk, revealed && isPicked && !isAns && s.choiceNg, !revealed && isPicked && s.choicePicked]} onPress={() => pick(qi, ci)} disabled={revealed}>
-                    <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.rubyS} rubyGate={rubyGate} /></View>
+                    <View style={s.choiceTxtWrap}>
+                      <RubyText text={ch} style={s.choiceTxt} rubyStyle={s.rubyS} rubyGate={rubyGate} />
+                      {ctr ? <Text style={s.choiceTrans}>{ctr}</Text> : null}
+                    </View>
                     {revealed && isAns ? <Text style={s.mark}>✓</Text> : null}
                   </Pressable>
                 );
@@ -143,6 +148,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   blankLine: { height: spacing.sm },
   rubyS: { fontSize: 10, color: c.mute },
   transTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 22, marginTop: spacing.sm, paddingTop: spacing.sm, borderTopWidth: 1, borderTopColor: c.line },
+  qTrans: { fontSize: ty.small, color: c.ink2, lineHeight: 20, marginTop: 4 },
+  choiceTrans: { fontSize: ty.small, color: c.ink2, marginTop: 3 },
   transBtn: { alignSelf: 'flex-start', backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: 6, paddingHorizontal: spacing.md, marginTop: -spacing.xs },
   transBtnTxt: { fontSize: ty.small, fontWeight: '700', color: c.blueDark },
   qBlock: { gap: spacing.sm },

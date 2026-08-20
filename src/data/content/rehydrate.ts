@@ -29,9 +29,18 @@ export function rehydrateBanks(files: Record<string, Any>) {
   const READING_SUBTYPES = ['naiyou_tan', 'naiyou_chu', 'choubun', 'joho'];
   const LISTENING_SUBTYPES = ['kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji'];
   const PASSAGE_TRANS_NE: Record<string, string[]> = {};
+  const PASSAGE_TRANS_EN: Record<string, string[]> = {};
+  // 設問・選択肢の訳(内容理解のみ)。key=設問id → { q, choices[](元の順序) }。回答後に母語/英語で表示。
+  const Q_TRANS_NE: Record<string, { q: string; choices: string[] }> = {};
+  const Q_TRANS_EN: Record<string, { q: string; choices: string[] }> = {};
   const READING = READING_SUBTYPES.flatMap((st) => bankItems(files, st, (it, level) => {
     const { i18n, questions, ...rest } = it;
     if (i18n?.ne?.body) PASSAGE_TRANS_NE[it.id] = i18n.ne.body;
+    if (i18n?.en?.body) PASSAGE_TRANS_EN[it.id] = i18n.en.body;
+    for (const q of (questions ?? [])) {
+      if (q.i18n?.ne?.q) Q_TRANS_NE[q.id] = { q: q.i18n.ne.q, choices: q.i18n.ne.choices ?? [] };
+      if (q.i18n?.en?.q) Q_TRANS_EN[q.id] = { q: q.i18n.en.q, choices: q.i18n.en.choices ?? [] };
+    }
     return { ...rest, level, subtype: st, questions: (questions ?? []).map(restoreQ) };
   }));
   const LISTENING = LISTENING_SUBTYPES.flatMap((st) => bankItems(files, st, (it, level) => {
@@ -49,5 +58,5 @@ export function rehydrateBanks(files: Record<string, Any>) {
     for (const [p, f] of Object.entries(files)) if (p.startsWith('lexicon/') && (f as Any).kind === kind) Object.assign(out, (f as Any).items);
     return out;
   };
-  return { KANJI_READ_BANK, ORTHOGRAPHY_BANK, CONTEXT_BANK, SYNONYM_BANK, KNOWLEDGE_BANK, READING, LISTENING, PASSAGE_GRAMMAR, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), PASSAGE_TRANS_NE };
+  return { KANJI_READ_BANK, ORTHOGRAPHY_BANK, CONTEXT_BANK, SYNONYM_BANK, KNOWLEDGE_BANK, READING, LISTENING, PASSAGE_GRAMMAR, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
 }

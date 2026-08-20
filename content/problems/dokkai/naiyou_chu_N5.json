@@ -4,7 +4,8 @@
  "level": "N5",
  "languages": [
   "ja",
-  "ne"
+  "ne",
+  "en"
  ],
  "audit": {
   "status": "監査済み",
@@ -37,6 +38,24 @@
      "i18n": {
       "ja": {
        "explain": "「けさは 雨が ふって いたので、自転車に 乗りませんでした」。"
+      },
+      "ne": {
+       "q": "आज बिहान किन बसमा जानुभयो?",
+       "choices": [
+        "पानी परेकोले",
+        "बाटो जाम भएकोले",
+        "समय नभएकोले",
+        "साथीसँग जाने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did you go by bus this morning?",
+       "choices": [
+        "Because it was raining",
+        "Because the road was crowded",
+        "Because there was no time",
+        "Because I'm going with a friend"
+       ]
       }
      }
     },
@@ -53,6 +72,24 @@
      "i18n": {
       "ja": {
        "explain": "「また 自転車で 行きたい」は、いつものように 自転車で 通うことを 表しています。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『また 自転車で 行きたいです』 ले कस्तो कुरालाई संकेत गर्छ?",
+       "choices": [
+        "घमाइलो दिनमा फेरि साइकल चढेर जाने कुरा",
+        "बस चढेर हतारमा विश्वविद्यालय जाने कुरा",
+        "पानी परेको दिनमा हिँडेर विश्वविद्यालय जाने कुरा",
+        "कक्षामा ढिलो नहुनको लागि चाँडै उठ्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does 『また 自転車で 行きたいです』 in the text refer to?",
+       "choices": [
+        "Going by bicycle again on a sunny day",
+        "Going to university in a hurry by bus",
+        "Walking to university on a rainy day",
+        "Waking up early so as not to be late for class"
+       ]
       }
      }
     }
@@ -61,6 +98,11 @@
     "ne": {
      "body": [
       "म हरेक दिन साइकलमा विश्वविद्यालय जान्छु। घरदेखि विश्वविद्यालयसम्म करिब ३० मिनेट लाग्छ। तर आज बिहान पानी परिरहेको थियो, त्यसैले साइकल चलाइनँ। बसमा गएँ। बसमा मानिसहरू धेरै थिए, त्यसैले बस्न पाइनँ। त्यसमाथि, बाटोमा गाडीहरूको भीड थियो, त्यसैले विश्वविद्यालय पुग्न १ घण्टा लाग्यो। कक्षामा अलिकति ढिला भएँ। भोलि घाम लाग्ने रे। फेरि साइकलमा जान चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I go to university by bicycle every day. It takes about 30 minutes from my house to the university. However, it was raining this morning, so I didn't ride my bicycle. I went by bus. The bus was crowded, and I couldn't sit down. Moreover, the road was congested, so it took me an hour to get to the university. I was a little late for class. I heard it will be sunny tomorrow. I want to go by bicycle again."
      ]
     }
    }
@@ -88,6 +130,24 @@
      "i18n": {
       "ja": {
        "explain": "「そこ」は、こうじを して いる 池の 近くの 道を 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『いまは そこを 通る ことが できません』 को 「そこ」 ले कहाँलाई संकेत गर्छ?",
+       "choices": [
+        "पोखरीको ठिक छेउमा भएको बाटो",
+        "पार्कको प्रवेशद्वारमा भएको ठूलो गेट",
+        "बच्चाहरू बल खेल्ने चौर",
+        "टाढा भएको अर्को बाटो"
+       ]
+      },
+      "en": {
+       "q": "What does 「そこ」 in 『いまは そこを 通る ことが できません』 in the text refer to?",
+       "choices": [
+        "The road very close to the pond",
+        "The big gate at the entrance of the park",
+        "The plaza where children play with a ball",
+        "Another road far away"
+       ]
       }
      }
     },
@@ -104,6 +164,24 @@
      "i18n": {
       "ja": {
        "explain": "「早く 終わって ほしいです」と あります。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति के चाहन्छ?",
+       "choices": [
+        "चाँडै निर्माण कार्य सकियोस् भन्ने कुरा",
+        "पार्क ठूलो होस् भन्ने कुरा",
+        "पोखरी हराओस् भन्ने कुरा",
+        "चराहरू बढून् भन्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does this person wish for?",
+       "choices": [
+        "For the construction to finish quickly",
+        "For the park to become bigger",
+        "For the pond to disappear",
+        "For the birds to increase"
+       ]
       }
      }
     }
@@ -112,6 +190,11 @@
     "ne": {
      "body": [
       "मेरो सहरमा एउटा ठूलो पार्क छ। पार्कभित्र एउटा पोखरी छ, र त्यहाँ धेरै चराहरू छन्। आइतबारका दिन बालबालिकाहरू बलले खेलिरहेका हुन्छन्। म हरेक बिहान यहाँ हिँडडुल गर्छु। तर गएको हप्तादेखि पोखरीनजिकको बाटोमा निर्माणकार्य भइरहेकोले, अहिले त्यहाँबाट जान सकिँदैन। अलि टाढाको बाटोबाट हिँड्नुपर्छ। निर्माणकार्य अर्को महिना सकिने रे। चाँडै सकियोस् भन्ने चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "There is a big park in my town. There is a pond in the park, and there are many birds. On Sundays, children play with balls. I take a walk here every morning. However, since last week, there has been construction on the path near the pond, so I cannot pass through there now. I have to walk a slightly longer way. I heard the construction will finish next month. I hope it finishes soon."
      ]
     }
    }
@@ -139,6 +222,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「あさごはんはパンとぎゅうにゅうです」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति बिहान के खान्छ?",
+       "choices": [
+        "रोटी र दूध",
+        "भात र अण्डा",
+        "रोटी र कफी",
+        "केही पनि खाँदैन"
+       ]
+      },
+      "en": {
+       "q": "What does this person eat in the morning?",
+       "choices": [
+        "「パンとぎゅうにゅう」",
+        "「ごはんとたまご」",
+        "「パンとコーヒー」",
+        "「なにも食べません」"
+       ]
       }
      }
     },
@@ -155,6 +256,24 @@
      "i18n": {
       "ja": {
        "explain": "「たのしい まいにち」は、いそがしいけれど 楽しい、よていの つまった 一日を 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『たのしい まいにち』 ले कस्तो दिनचर्यालाई संकेत गर्छ?",
+       "choices": [
+        "बिहानदेखि बेलुकासम्म तालिकाले भरिएको दिनचर्या",
+        "छ बजे उठेर तुरुन्तै विद्यालय जाने दिनचर्या",
+        "पुस्तकालयमा दिनभर सुत्ने दिनचर्या",
+        "साथीहरू नभएर एक्लो दिनचर्या"
+       ]
+      },
+      "en": {
+       "q": "In the text, what kind of daily life does 『たのしい まいにち』 refer to?",
+       "choices": [
+        "「朝から 夜まで よていが つまった 毎日」",
+        "「六時に おきて すぐ 学校へ 行く 毎日」",
+        "「としょかんで 一日じゅう ねて いる 毎日」",
+        "「ともだちが いなくて さびしい 毎日」"
+       ]
       }
      }
     }
@@ -163,6 +282,11 @@
     "ne": {
      "body": [
       "म हरेक बिहान छ बजे उठ्छु। मुख धोएपछि, बिहानको खाना खान्छु। बिहानको खाना रोटी र दूध हो। साढे सात बजे घरबाट निस्केर, रेलमा विद्यालय जान्छु। विद्यालयसम्म तीस मिनेट लाग्छ। कक्षा साढे आठ बजेदेखि सुरु हुन्छ। दिउँसोको खाना विद्यालयमा साथीहरूसँग खान्छु। विद्यालय सकिएपछि, पुस्तकालयमा अध्ययन गर्छु। घर फर्कने बेला करिब छ बजे हुन्छ। बेलुकाको खाना खाएर, अलिकति टेलिभिजन हेरेर, एघार बजे सुत्छु। धेरै व्यस्त तर रमाइलो दिनचर्या हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I wake up at six every morning. After washing my face, I eat breakfast. Breakfast is bread and milk. I leave home at 7:30 and go to school by train. It takes 30 minutes to get to school. Classes start at 8:30. I eat lunch with my friends at school. After school, I study at the library. I go home around six o'clock. I eat dinner, watch a little TV, and go to bed at eleven. It's very busy, but every day is fun."
      ]
     }
    }
@@ -190,6 +314,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「母はびょういんで、かんごしをしています」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिको आमाको काम के हो?",
+       "choices": [
+        "नर्स",
+        "कम्पनी कर्मचारी",
+        "विश्वविद्यालयको प्राध्यापक",
+        "अस्पतालको डाक्टर"
+       ]
+      },
+      "en": {
+       "q": "What is this person's mother's job?",
+       "choices": [
+        "「かんごし」",
+        "「かいしゃいん」",
+        "「大学のせんせい」",
+        "「びょういんのいしゃ」"
+       ]
       }
      }
     },
@@ -206,6 +348,24 @@
      "i18n": {
       "ja": {
        "explain": "「マロ」は、この 家で かって いる ちゃいろの 犬の 名前です。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『マロ』ले केलाई संकेत गर्छ?",
+       "choices": [
+        "यो घरमा पालेको कुकुर",
+        "अस्पतालमा काम गर्ने आमा",
+        "अंग्रेजी पढ्ने दिदी",
+        "ढिलो सम्म काम गर्ने बुबा"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『マロ』 refer to?",
+       "choices": [
+        "「この 家で かって いる 犬」",
+        "「びょういんで はたらいて いる お母さん」",
+        "「えいごを べんきょう する あね」",
+        "「おそくまで はたらく お父さん」"
+       ]
       }
      }
     }
@@ -214,6 +374,11 @@
     "ne": {
      "body": [
       "मेरो परिवारमा चार जना छौं। बुबा, आमा, दिदी र म। बुबा कम्पनीमा काम गर्नुहुन्छ र हरेक दिन ढिलोसम्म काम गर्नुहुन्छ। आमा अस्पतालमा नर्सको काम गर्नुहुन्छ। दिदी विश्वविद्यालयकी विद्यार्थी हुनुहुन्छ र अंग्रेजी पढ्दै हुनुहुन्छ। दिदी धेरै दयालु हुनुहुन्छ र प्रायः मेरो गृहकार्य हेरिदिनुहुन्छ। हामीले एउटा कुकुर पालेका छौं। नाम मारो हो। मारो खैरो रङको, फूर्तिलो कुकुर हो। आइतबार सबैजना मिलेर मारोलाई लिएर पार्कमा हिँड्न जान्छौं। मेरो परिवारमा सबैको सम्बन्ध राम्रो छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "There are four people in my family: my father, my mother, my older sister, and me. My father is a company employee and works late every day. My mother is a nurse at a hospital. My older sister is a university student and is studying English. My older sister is very kind and often helps me with my homework. We have one dog. Its name is Maro. Maro is a brown and energetic dog. On Sundays, we all take Maro for a walk in the park. My family all gets along well."
      ]
     }
    }
@@ -241,6 +406,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「りんごは高かったので、かいませんでした」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले सुपरमार्केटमा स्याउ किन किनिनन्?",
+       "choices": [
+        "महँगो भएकोले",
+        "मिठो नभएकोले",
+        "घरमा पहिले नै भएकोले",
+        "बिक्रीमा नभएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why didn't this person buy apples at the supermarket?",
+       "choices": [
+        "「高かったから」",
+        "「おいしくなかったから」",
+        "「もう家にあったから」",
+        "「うっていなかったから」"
+       ]
       }
      }
     },
@@ -257,6 +440,24 @@
      "i18n": {
       "ja": {
        "explain": "父の 「おいしいね」は、母が 作った カレーの ことを 言って います。"
+      },
+      "ne": {
+       "q": "पाठमा बुबाको 『おいしいね』ले केलाई संकेत गर्छ?",
+       "choices": [
+        "आमाले घरमा बनाएको करी",
+        "सुपरमार्केटमा सस्तोमा किनेको केरा",
+        "सबैले धोएको धेरै तरकारी",
+        "महँगो भएर नकिनेको स्याउ"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does father's 『おいしいね』 refer to?",
+       "choices": [
+        "「母が 家で 作った カレー」",
+        "「スーパーで 安く 買った バナナ」",
+        "「みんなで あらった たくさんの やさい」",
+        "「高くて 買わなかった りんご」"
+       ]
       }
      }
     }
@@ -265,6 +466,11 @@
     "ne": {
      "body": [
       "हिजो साँझ, म आमासँग सुपरमार्केट गएँ। बेलुकाको खानाको करी बनाउनका लागि हो। सुपरमार्केटमा, मासु, आलु, गाजर र प्याज किन्यौं। फलफूल पनि किन्न मन थियो, तर स्याउ महँगो भएकाले किनिनँ। केरा सस्तो भएकाले, दुई घर्ती किनें। क्यासियरमा पैसा तिरेपछि, घर फर्कियौं। घरमा मैले तरकारी धोएँ र आमाले करी बनाउनुभयो। करी धेरै मीठो थियो। बुबाले पनि 'मीठो छ' भन्नुभयो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Yesterday evening, my mother and I went to the supermarket. It was to make curry for dinner. At the supermarket, we bought meat, potatoes, carrots, and onions. I wanted to buy fruit too, but apples were expensive, so I didn't buy any. Bananas were cheap, so I bought two bunches. After paying at the register, we went home. At home, I washed the vegetables, and my mother made the curry. The curry was very delicious. My father also said, \"It's delicious.\""
      ]
     }
    }
@@ -292,6 +498,24 @@
      "i18n": {
       "ja": {
        "explain": "「その 家」は、先月 となりに ひっこして きた 家を 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『その 家』ले कुन घरलाई संकेत गर्छ?",
+       "choices": [
+        "छिमेकमा बस्ने केटाको घर",
+        "फुटबल अभ्यास गर्ने फराकिलो पार्क",
+        "शनिबार खेल्ने विद्यालय",
+        "चित्रकला सिकाउने कक्षा"
+       ]
+      },
+      "en": {
+       "q": "Which house does 『その 家』 in the text refer to?",
+       "choices": [
+        "The house of the boy living next door",
+        "A wide park where soccer practice takes place",
+        "The school where they play on Saturdays",
+        "The classroom where they learn to draw"
+       ]
       }
      }
     },
@@ -308,6 +532,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「Aくんに絵をおしえてもらいたいです」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले अर्को पटक A-कुनले के गरिदियोस् भन्ने चाहन्छ?",
+       "choices": [
+        "चित्रकला सिकाइदियोस्",
+        "फुटबल सिकाइदियोस्",
+        "गीत सिकाइदियोस्",
+        "पढाइमा हेरिदियोस्"
+       ]
+      },
+      "en": {
+       "q": "What does this person want A-kun to do next time?",
+       "choices": [
+        "Teach them how to draw",
+        "Teach them how to play soccer",
+        "Teach them how to sing",
+        "Help them with their studies"
+       ]
       }
      }
     }
@@ -316,6 +558,11 @@
     "ne": {
      "body": [
       "गएको महिना, छिमेकी घरमा नयाँ परिवार सरेर आयो। त्यो घरमा मेरै उमेरको केटो छ। नाम केन्ता हो। केन्ता फुटबल धेरै राम्रो खेल्छ। मलाई पनि फुटबल मन पर्ने भएकाले, चाँडै मित्रता भयो। विद्यालय फरक भए पनि, शनिबार सँगै पार्कमा फुटबल खेल्छौं। हिजो पनि सँगै खेल्यौं। केन्तालाई फुटबलबाहेक चित्र कोर्न पनि मन पर्छ रे। अर्को पटक, केन्ताबाट चित्र सिक्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last month, a new family moved into the house next door. There's a boy in that family who is the same age as me. His name is A-kun. A-kun is very good at soccer. I also like soccer, so we quickly became good friends. Although we go to different schools, we play soccer together in the park on Saturdays. We played together yesterday too. Besides soccer, A-kun also likes to draw. Next time, I'd like to ask A-kun to teach me how to draw."
      ]
     }
    }
@@ -343,6 +590,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「あめなので行けませんでした」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति किन पार्कमा गएन?",
+       "choices": [
+        "पानी परेकोले",
+        "किताब पढ्न मन लागेकोले",
+        "बिरामी भएकोले",
+        "साथी आएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why didn't this person go to the park?",
+       "choices": [
+        "Because it was raining",
+        "Because they wanted to read a book",
+        "Because they were sick",
+        "Because a friend came over"
+       ]
       }
      }
     },
@@ -359,6 +624,24 @@
      "i18n": {
       "ja": {
        "explain": "「とても おもしろかった」は、家で 読んだ どうぶつの 本の ことです。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『とても おもしろかった』ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "घरमा पढेको जनावरको किताब",
+        "साथीको घरमा हेरेको डरलाग्दो चलचित्र",
+        "दिउँसो आएको फोन",
+        "पार्कमा खेलेको खेल"
+       ]
+      },
+      "en": {
+       "q": "What does 『とても おもしろかった』 in the text refer to?",
+       "choices": [
+        "The animal book read at home",
+        "The scary movie watched at a friend's house",
+        "The phone call received around noon",
+        "The games played at the park"
+       ]
       }
      }
     }
@@ -367,6 +650,11 @@
     "ne": {
      "body": [
       "आज बिहानैदेखि पानी परिरहेको छ। म पार्कमा खेल्ने योजना थियो, तर पानी परेकाले जान सकिनँ। त्यसैले, घरमा किताब पढें। पढेको किताब जनावरको बारेमा थियो। धेरै रोचक थियो। दिउँसोतिर, साथी युमीको फोन आयो। 'सँगै घरमा फिल्म हेर्ने हो?' भनिन्। म युमीको घरमा गएँ र दुईजनाले फिल्म हेर्यौं। फिल्म डरलाग्दो कथा भए पनि, रमाइलो थियो। पानी परेको दिनमा पनि, घरभित्र रमाइलोसँग बित्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "It has been raining since this morning. I was planning to play in the park, but I couldn't go because of the rain. So, I read a book at home. The book I read was about animals. It was very interesting. Around noon, my friend A-san called me. She said, \"Do you want to watch a movie together at my house?\" I went to A-san's house, and we watched a movie together. The movie was a scary story, but it was fun. Even on a rainy day, I had a good time indoors."
      ]
     }
    }
@@ -394,6 +682,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「スーパーのとなりにはゆうびんきょくがあります」とあります。"
+      },
+      "ne": {
+       "q": "सुपरमार्केटको छेउमा के छ?",
+       "choices": [
+        "हुलाक कार्यालय",
+        "स्टेशन",
+        "नदी",
+        "रुख"
+       ]
+      },
+      "en": {
+       "q": "What is next to the supermarket?",
+       "choices": [
+        "A post office",
+        "A station",
+        "A river",
+        "A tree"
+       ]
       }
      }
     },
@@ -410,6 +716,24 @@
      "i18n": {
       "ja": {
        "explain": "「その 木」は、まちを ながれる 川の そばに ある 木を 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『その 木に きれいな 花が さきます』को 「その 木」ले कहाँ भएको रुखलाई सङ्केत गर्छ?",
+       "choices": [
+        "सानो नदीको छेउमा भएको रुख",
+        "स्टेशनको अगाडि भएको ठूलो सुपरमार्केटको छेउमा",
+        "वसन्त ऋतुमा फूल झर्ने बगैंचा",
+        "शहरका मानिसहरू हिँड्ने बाटोमाथि"
+       ]
+      },
+      "en": {
+       "q": "Where is the tree referred to as 「その 木」 in the sentence 『その 木に きれいな 花が さきます』 in the text?",
+       "choices": [
+        "A tree right next to a small river",
+        "Next to a big supermarket in front of the station",
+        "A garden where flowers fall in spring",
+        "On the path where townspeople walk"
+       ]
       }
      }
     }
@@ -418,6 +742,11 @@
     "ne": {
      "body": [
       "मेरो सहर धेरै ठूलो छैन, तर बस्नको लागि धेरै राम्रो छ। स्टेसनको अगाडि ठूलो सुपरमार्केट छ। सुपरमार्केटको छेउमा हुलाक कार्यालय छ। सहरभित्र सानो नदी बगिरहेको छ, र नदीको छेउमा धेरै रूखहरू छन्। बसन्तमा, त्यो रूखमा सुन्दर फूलहरू फुल्छन्। सहरका मानिसहरू प्रायः नदीको छेउमा हिँड्छन्। मलाई पनि बिहान यहाँ हिँड्न मन पर्छ। राति, सहर धेरै शान्त हुन्छ। चहलपहल भएको ठूलो सहर पनि राम्रो हो, तर मलाई यो शान्त सहर धेरै मन पर्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My town is not very big, but it's very easy to live in. In front of the station, there's a large supermarket. Next to the supermarket, there's a post office. A small river flows through the town, and there are many trees along the river. In spring, beautiful flowers bloom on those trees. The people of the town often take walks along the river. I also like to walk here in the morning. At night, the town becomes very quiet. A bustling big city is nice too, but I love this quiet town."
      ]
     }
    }
@@ -445,6 +774,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「海までは車で三時間かかりました」とあります。"
+      },
+      "ne": {
+       "q": "समुद्रसम्म पुग्न कति समय लाग्यो?",
+       "choices": [
+        "कारमा तीन घण्टा",
+        "कारमा एक घण्टा",
+        "रेलमा तीन घण्टा",
+        "हिँडेर तीन घण्टा"
+       ]
+      },
+      "en": {
+       "q": "How long did it take to get to the sea?",
+       "choices": [
+        "Three hours by car",
+        "One hour by car",
+        "Three hours by train",
+        "Three hours on foot"
+       ]
       }
      }
     },
@@ -461,6 +808,24 @@
      "i18n": {
       "ja": {
        "explain": "「あの 海」は、去年の なつに かぞくで 行った あの きれいな 海を 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『また あの 海へ 行きたい』को 「あの 海」ले कुन समुद्रलाई सङ्केत गर्छ?",
+       "choices": [
+        "गत गर्मीमा परिवारसँग गएको समुद्र",
+        "भाइसँग पहिलो पटक पौडी खेलेको नजिकको नदी",
+        "आकाश रातो हुने साँझको बन्दरगाह",
+        "माछा खाएको पसलको अगाडि"
+       ]
+      },
+      "en": {
+       "q": "In the text, what sea does 「あの 海」 in 『また あの 海へ 行きたい』 refer to?",
+       "choices": [
+        "The sea where the family went last summer",
+        "The nearby river where I first swam with my brother",
+        "The port in the evening when the sky turns red",
+        "In front of the restaurant where we ate fish"
+       ]
       }
      }
     }
@@ -469,6 +834,11 @@
     "ne": {
      "body": [
       "गएको वर्ष गर्मी बिदामा, म परिवारसँग समुद्र गएँ। समुद्रसम्म गाडीमा तीन घण्टा लाग्यो। टाढा भए पनि, समुद्र धेरै सुन्दर थियो। निलो आकाश र निलो समुद्र फैलिएको थियो। मैले भाइसँगै समुद्रमा पौडी खेलें। पानी चिसो थियो, तर आनन्ददायी थियो। दिउँसो, समुद्र नजिकैको पसलमा माछा खायौं। त्यो माछा धेरै ताजा र मीठो थियो। साँझ, आकाश रातो भयो, धेरै सुन्दर थियो। यस वर्ष गर्मीमा पनि, फेरि त्यो समुद्रमा जान चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last summer vacation, my family and I went to the beach. It took three hours by car to get to the beach. It was far, but the beach was very beautiful. A blue sky and a blue sea stretched out before us. My younger brother and I swam in the sea. The water was cold and felt good. At lunchtime, we ate fish at a shop near the sea. The fish was very fresh and delicious. In the evening, the sky turned red and was very beautiful. I want to go to that beach again this summer."
      ]
     }
    }
@@ -496,6 +866,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「父があたらしいじてんしゃを買ってくれました」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिलाई कसले साइकल किनिदियो?",
+       "choices": [
+        "बुबा",
+        "आमा",
+        "दाइ",
+        "हजुरबुबा"
+       ]
+      },
+      "en": {
+       "q": "Who bought this person a bicycle?",
+       "choices": [
+        "Father",
+        "Mother",
+        "Older brother",
+        "Grandfather"
+       ]
       }
      }
     },
@@ -512,6 +900,24 @@
      "i18n": {
       "ja": {
        "explain": "「この じてんしゃ」は、たんじょう日に 父が 買って くれた あおい ものを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『まいにち この じてんしゃで 学校へ 行きます』 मा रहेको 「この じてんしゃ」 ले कुन साइकललाई सङ्केत गर्छ?",
+       "choices": [
+        "बुबाले दिनुभएको निलो र हल्का साइकल",
+        "सानो र पुरानो भइसकेको अघिल्लो साइकल",
+        "पानी पर्ने दिनमा प्रयोग गरिने गह्रौँ साइकल",
+        "आमाले किन्नुभएको नयाँ साइकल"
+       ]
+      },
+      "en": {
+       "q": "In the text, what bicycle does 「この じてんしゃ」 in 『まいにち この じてんしゃで 学校へ 行きます』 refer to?",
+       "choices": [
+        "The blue and light one given by my father",
+        "The small and old bicycle I had before",
+        "The heavy bicycle used on rainy days",
+        "The new bicycle bought by my mother"
+       ]
       }
      }
     }
@@ -520,6 +926,11 @@
     "ne": {
      "body": [
       "गएको हप्ता जन्मदिनमा, बुबाले नयाँ साइकल किनिदिनुभयो। निलो साइकल हो। धेरै खुसी लाग्यो। पुरानो साइकल सानो र पुरानो भएकाले, नयाँ चाहिन्थ्यो। नयाँ साइकल हल्का छ र छिटो गुड्छ। अहिले, म हरेक दिन यही साइकलमा विद्यालय जान्छु। साइकलमा जाँदा, पन्ध्र मिनेटमा पुगिन्छ। बसभन्दा छिटो हो। पानी परेको दिन बसमा जान्छु, तर घमाइलो दिन जहिले पनि साइकलमा। यसलाई राम्रोसँग प्रयोग गर्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last week, for my birthday, my father bought me a new bicycle. It's a blue bicycle. I was very happy. My old bicycle was small and old, so I wanted a new one. The new bicycle is light and I can ride it fast. Now, I go to school every day with this bicycle. It takes fifteen minutes to get there by bicycle. It's faster than the bus. On rainy days, I go by bus, but on sunny days, I always use my bicycle. I want to use it carefully."
      ]
     }
    }
@@ -547,6 +958,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「きょうしつは毎週日よう日の午前中にあります」とあります。"
+      },
+      "ne": {
+       "q": "खाना पकाउने कक्षा कहिले हुन्छ?",
+       "choices": [
+        "हरेक आइतबार बिहान",
+        "हरेक शनिबार दिउँसो",
+        "हरेक दिन साँझ",
+        "हरेक सोमबार बिहान"
+       ]
+      },
+      "en": {
+       "q": "When is the cooking class?",
+       "choices": [
+        "Every Sunday morning",
+        "Every Saturday afternoon",
+        "Every evening",
+        "Every Monday morning"
+       ]
       }
      }
     },
@@ -563,6 +992,24 @@
      "i18n": {
       "ja": {
        "explain": "「とても たのしみです」は、来週 すしの 作り方を ならう ことを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『とても たのしみです』 ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "अर्को हप्ता सुशी बनाउन सिक्ने कुरा",
+        "शिक्षकलाई टेम्पुरा बनाउने तरिका देखाउने कुरा",
+        "बुबा र आमालाई खाना बनाएर दिने कुरा",
+        "हरेक हप्ता कक्षामा जाने कुरा"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『とても たのしみです』 refer to?",
+       "choices": [
+        "Learning how to make sushi next week",
+        "Showing the teacher how to make tempura",
+        "Cooking for my father and mother",
+        "Attending the class every week"
+       ]
       }
      }
     }
@@ -571,6 +1018,11 @@
     "ne": {
      "body": [
       "मलाई खाना पकाउन मन पर्छ। त्यसैले, गएको महिनादेखि सहरको पाकशाला कक्षामा गइरहेको छु। कक्षा हरेक आइतबार बिहान हुन्छ। शिक्षक तानाका भन्ने महिला हुनुहुन्छ, धेरै दयालु हुनुहुन्छ। कक्षामा, विभिन्न जापानी परिकार सिकिन्छ। गएको हप्ता टेम्पुरा बनायौं। गाह्रो थियो, तर राम्रोसँग बनाउन सकें। घर फर्केर, बुबा र आमालाई पनि बनाइदिएँ। दुवैजनाले 'मीठो छ' भन्नुभयो। अर्को हप्ता सुशी बनाउने तरिका सिकिनेछ। धेरै पर्खिरहेको छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I like cooking. So, since last month, I've been going to a cooking class in town. The class is every Sunday morning. The teacher is a woman named Ms. A, and she is very kind. In the class, I learn various Japanese dishes. Last week, I made tempura. It was difficult, but I did it well. When I went home, I made it for my father and mother too. Both of them told me it was delicious. Next week, I will learn how to make sushi. I'm really looking forward to it."
      ]
     }
    }
@@ -598,6 +1050,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「ひるま、よくまどのそばでねています」とあります。"
+      },
+      "ne": {
+       "q": "तामा दिउँसो प्रायः कहाँ सुत्छ?",
+       "choices": [
+        "झ्यालको छेउमा",
+        "मेरो ओछ्यानमा",
+        "भान्सामा",
+        "बाहिरको बगैँचामा"
+       ]
+      },
+      "en": {
+       "q": "Where does Tama often sleep during the day?",
+       "choices": [
+        "まどのそば",
+        "わたしのベッド",
+        "だいどころ",
+        "そとのにわ"
+       ]
       }
      }
     },
@@ -614,6 +1084,24 @@
      "i18n": {
       "ja": {
        "explain": "「タマ」は、この 家で かって いる 白い ねこの 名前です。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『タマ』 ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "यो घरमा पालेको बिरालो",
+        "झ्यालको छेउमा सुतेको सेतो कुकुर",
+        "रातमा सक्रिय हुने माछाको नाम",
+        "घामको किरण पर्ने झ्यालको ठाउँ"
+       ]
+      },
+      "en": {
+       "q": "What does 『タマ』 in the text refer to?",
+       "choices": [
+        "この 家で かって いる ねこ",
+        "まどの そばで ねて いる 白い 犬",
+        "よる 元気に なる さかなの 名前",
+        "日の 光が あたる まどの 場所"
+       ]
       }
      }
     }
@@ -622,6 +1110,11 @@
     "ne": {
      "body": [
       "मेरो घरमा, एउटा बिरालो छ। नाम तामा हो। तामा सेतो रङको हो र आँखा निलो छ। तीन वर्ष अघि, घरको अगाडि रहेकोलाई टिपेर ल्याएका थियौं। तामा दिउँसो, प्रायः झ्यालको छेउमा सुतिरहन्छ। घामको ताप लागेकाले न्यानो हुन्छ। राति भएपछि, फूर्तिलो भएर घरभित्र दौडन्छ। तामालाई माछा धेरै मन पर्छ। मैले माछा खाइरहेको बेला, जहिले पनि छेउमा आउँछ। तामा मेरो प्यारो साथी हो। अबदेखि पनि सधैं सँगै रहन चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I have a cat at my house. Its name is Tama. Tama is white and has blue eyes. Three years ago, I found her in front of my house and took her in. During the day, Tama often sleeps by the window. That's because the sunlight hits it and it's warm. At night, she becomes energetic and runs around the house. Tama loves fish. When I'm eating fish, she always comes next to me. Tama is my precious friend. I want to be with her forever."
      ]
     }
    }
@@ -649,6 +1142,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「まどのそばには、小さな花をおいています」とあります。"
+      },
+      "ne": {
+       "q": "झ्यालको छेउमा के छ?",
+       "choices": [
+        "सानो फूल",
+        "ओछ्यान",
+        "कम्प्युटर",
+        "पोस्टर"
+       ]
+      },
+      "en": {
+       "q": "What is by the window?",
+       "choices": [
+        "小さな花",
+        "ベッド",
+        "パソコン",
+        "ポスター"
+       ]
       }
      }
     },
@@ -665,6 +1176,24 @@
      "i18n": {
       "ja": {
        "explain": "「この へや」は、二かいに ある せまいけれど きれいな 部屋を 指します。"
+      },
+      "ne": {
+       "q": "पाठमा रहेको 『わたしは この へやで、べんきょうしたり…』मा रहेको 「この へや」ले कस्तो कोठालाई सङ्केत गर्छ?",
+       "choices": [
+        "दोस्रो तल्लामा रहेको सफा कोठा",
+        "किताब र कम्प्युटर राख्ने ठूलो टेबलमाथि",
+        "आमाले दिनुभएको फूल सजाउने झ्यालको छेउ",
+        "मनपर्ने गायकको पोस्टर बेच्ने पसल"
+       ]
+      },
+      "en": {
+       "q": "What kind of room does \"この へや\" in the text, 『わたしは この へやで、べんきょうしたり…』, refer to?",
+       "choices": [
+        "二かいに ある きれいな 部屋",
+        "本や パソコンを おく 大きな つくえの 上",
+        "母が くれた 花を かざる まどの そば",
+        "すきな うたいての ポスターを うる 店"
+       ]
       }
      }
     }
@@ -673,6 +1202,11 @@
     "ne": {
      "body": [
       "मेरो कोठा दोस्रो तलामा छ। धेरै फराकिलो छैन, तर सफा कोठा हो। कोठामा, ओछ्यान, टेबल र कुर्सी छन्। टेबलमाथि, किताब र कम्प्युटर छन्। झ्यालको छेउमा, सानो फूल राखेको छु। आमाले दिनुभएको फूल हो। कोठाको भित्तामा, मन पर्ने गायकको पोस्टर टाँसेको छु। म यो कोठामा, अध्ययन गर्छु र संगीत सुन्छु। राति, कोठामा एक्लै किताब पढ्ने समय, सबैभन्दा मन पर्छ। मेरो कोठा मलाई सबैभन्दा मन पर्ने ठाउँ हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My room is on the second floor. It's not very spacious, but it's a clean room. In my room, there is a bed, a desk, and a chair. On the desk, there are books and a computer. By the window, I keep a small flower. It's a flower my mother gave me. On the wall of my room, I have posters of my favorite singers. In this room, I study and listen to music. At night, the time I spend reading a book alone in my room is what I like the most. My room is my favorite place."
      ]
     }
    }
@@ -700,6 +1234,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「二ばんでした」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति सय मिटर दौडमा कति नम्बरमा थियो?",
+       "choices": [
+        "दोस्रो नम्बर",
+        "पहिलो नम्बर",
+        "तेस्रो नम्बर",
+        "चौथो नम्बर"
+       ]
+      },
+      "en": {
+       "q": "What place was this person in the 100-meter race?",
+       "choices": [
+        "二ばん",
+        "一ばん",
+        "三ばん",
+        "四ばん"
+       ]
       }
      }
     },
@@ -716,6 +1268,24 @@
      "i18n": {
       "ja": {
        "explain": "「すこし ざんねんでした」は、百メートルそうで 一番に なれなかった ことを 指します。"
+      },
+      "ne": {
+       "q": "पाठको 『すこし ざんねんでした』ले के कुरा दुःखलाग्दो थियो भनी सङ्केत गर्छ?",
+       "choices": [
+        "दौडमा पहिलो हुन नसकेको कुरा",
+        "डोरी तान्ने खेलमा कक्षाले हारेको कुरा",
+        "आमाको खाजा खान नपाएको कुरा",
+        "परिवार हेर्न नआएको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does 『すこし ざんねんでした』 in the text refer to as regrettable?",
+       "choices": [
+        "かけっこで 一番に なれなかった こと",
+        "つなひきで クラスが まけて しまった こと",
+        "母の おべんとうが 食べられなかった こと",
+        "かぞくが 見に 来なかった こと"
+       ]
       }
      }
     }
@@ -724,6 +1294,11 @@
     "ne": {
      "body": [
       "गएको हप्ता शनिबार, विद्यालयमा खेलकुद प्रतियोगिता भयो। मौसम धेरै राम्रो थियो। बिहानैदेखि धेरै मानिसहरू विद्यालयमा आए। मेरो परिवार पनि सबैजना हेर्न आइदिनुभयो। मैले सय मिटर दौड प्रतियोगितामा भाग लिएँ। धेरै प्रयास गरें, तर दोस्रो भएँ। पहिलो हुन नसकेकोमा, अलिक निराश भयो। तर, दिउँसो खाएको आमाको खाजा, धेरै मीठो थियो। दिउँसोपछि, मेरो कक्षाले डोरी तान्ने खेलमा जित्यो। सबैले ठूलो स्वरमा कराएर, धेरै रमाइलो भयो। अर्को वर्ष पनि फेरि प्रयास गर्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last Saturday, there was a sports day at school. The weather was very good. Many people came to school from the morning. All of my family came to watch. I participated in the 100-meter race. I tried very hard, but I came in second place. I was a little disappointed that I couldn't be first. However, my mother's bento lunch that I ate at noon was very delicious. In the afternoon, my class won the tug-of-war. We all cheered loudly, and it was a lot of fun. I want to try my best again next year."
      ]
     }
    }
@@ -751,6 +1326,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「でんしゃで二時間かかりました」とあります。"
+      },
+      "ne": {
+       "q": "हजुरबुबाको घरसम्म कसरी गयो?",
+       "choices": [
+        "रेलमा दुई घण्टा",
+        "गाडीमा दुई घण्टा",
+        "बसमा एक घण्टा",
+        "हिँडेर दुई घण्टा"
+       ]
+      },
+      "en": {
+       "q": "How did you get to your grandfather's house?",
+       "choices": [
+        "Two hours by train",
+        "Two hours by car",
+        "One hour by bus",
+        "Two hours on foot"
+       ]
       }
      }
     },
@@ -767,6 +1360,24 @@
      "i18n": {
       "ja": {
        "explain": "「こんなに」は、田舎の よぞらに たくさんの 星が 見える ようすを 指します。"
+      },
+      "ne": {
+       "q": "पाठको 『こんなに たくさんの 星は 見られません』ले कस्तो अवस्थालाई सङ्केत गर्छ?",
+       "choices": [
+        "गाउँको रातको आकाशमा धेरै ताराहरू देखिने कुरा",
+        "शहरको उज्यालो आकाशमा थोरै मात्र ताराहरू मधुरो देखिने कुरा",
+        "धानखेतमाथि चराहरू उडेर जाने कुरा",
+        "हावा प्रदूषित भएको कुरा"
+       ]
+      },
+      "en": {
+       "q": "In the text, what kind of situation does 『こんなに たくさんの 星は 見られません』 refer to?",
+       "choices": [
+        "Seeing many stars in the night sky in the countryside",
+        "Seeing only a few faint stars in the bright city sky",
+        "Birds flying over the rice fields",
+        "The air being polluted"
+       ]
       }
      }
     }
@@ -775,6 +1386,11 @@
     "ne": {
      "body": [
       "मेरो हजुरबुबा, गाउँमा बस्नुहुन्छ। गर्मी बिदामा, म एक्लै हजुरबुबाको घर गएँ। रेलमा दुई घण्टा लाग्यो। हजुरबुबाको घर वरिपरि, धेरै धान खेतहरू छन्। हावा धेरै सफा छ। राति, धेरै ताराहरू देखिन्छन्। सहरमा यत्ति धेरै ताराहरू देखिँदैनन्। हजुरबुबाले, मलाई तरकारी उब्जाउने तरिका सिकाउनुभयो। सँगै टमाटर उमारेका थियौं। रातो टमाटर गुलियो र धेरै मीठो थियो। फेरि, हजुरबुबाको घर जान चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My grandfather lives in the countryside. During summer vacation, I went to my grandfather's house alone. It took two hours by train. Around my grandfather's house, there are many rice fields. The air is very clean. At night, many stars are visible. You can't see so many stars in the city. My grandfather taught me how to grow vegetables. We grew tomatoes together. The red tomatoes were sweet and very delicious. I want to go to my grandfather's house again."
      ]
     }
    }
@@ -802,6 +1418,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「日本のアニメが大すきで、日本語をならいはじめました」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले किन जापानी भाषा सिक्न थाल्यो?",
+       "choices": [
+        "जापानी एनिमे धेरै मन पर्ने भएकोले",
+        "जापानमा साथीहरू भएकोले",
+        "विद्यालयमा सिक्ने भएकोले",
+        "यात्रामा जान चाहेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did this person start learning Japanese?",
+       "choices": [
+        "Because they love Japanese anime",
+        "Because they have friends in Japan",
+        "Because they learn it at school",
+        "Because they want to travel"
+       ]
       }
      }
     },
@@ -818,6 +1452,24 @@
      "i18n": {
       "ja": {
        "explain": "「そう」は、先生が 言った「毎日 つづける ことが 大切」という 考えを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा रहेको 『わたしも そう 思います』 मा भएको 「そう」 ले कस्तो विचारलाई सङ्केत गर्छ?",
+       "choices": [
+        "हरेक दिन नछुटाई अध्ययन जारी राख्ने कुरा",
+        "हरेक दिन धेरै गाह्रो कान्जीहरूलाई कडा परिश्रम गरेर सम्झने कुरा",
+        "हरेक दिन जापानी एनिमे हेर्ने कुरा",
+        "भविष्यमा जापानमा काम गर्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "In the text, what kind of idea does the \"そう\" in 『わたしも そう 思います』 refer to?",
+       "choices": [
+        "Continuing to study every day without rest",
+        "Working hard to memorize many difficult kanji every day",
+        "Watching Japanese anime every day",
+        "Working in Japan in the future"
+       ]
       }
      }
     }
@@ -826,6 +1478,11 @@
     "ne": {
      "body": [
       "म विदेशबाट आएको हुँ। अहिले, जापानी भाषा एक वर्षदेखि पढ्दै छु। जापानी भाषा गाह्रो छ, तर धेरै रोचक छ। विशेष गरी, कान्जी गाह्रो छ। तर, हरेक दिन थोरै-थोरै सम्झिरहेको छु। मलाई जापानी एनिमे धेरै मन पर्ने भएकाले, जापानी भाषा सिक्न सुरु गरें। अहिले, एनिमेका शब्दहरू अलिअलि बुझ्न सक्ने भएको छु। धेरै खुसी लाग्छ। शिक्षकले भन्नुभयो, 'हरेक दिन निरन्तरता दिनु महत्त्वपूर्ण छ।' मलाई पनि त्यस्तै लाग्छ। भविष्यमा, जापानमा काम गर्न चाहने भएकाले, अझ बढी प्रयास गर्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I came from a foreign country. Currently, I have been studying Japanese for one year. Japanese is difficult, but it is very interesting. Kanji, in particular, is difficult. But I am memorizing a little bit every day. I started learning Japanese because I love Japanese anime. Now, I can understand some of the words in anime. I am very happy. My teacher said, \"It is important to continue every day.\" I think so too. I want to work in Japan in the future, so I will try even harder."
      ]
     }
    }
@@ -853,6 +1510,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「わたしは本をあげました」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले ए-सानलाई के दियो?",
+       "choices": [
+        "किताब",
+        "केक",
+        "फूल",
+        "कलम"
+       ]
+      },
+      "en": {
+       "q": "What did this person give to A?",
+       "choices": [
+        "A book",
+        "A cake",
+        "Flowers",
+        "A pen"
+       ]
       }
      }
     },
@@ -869,6 +1544,24 @@
      "i18n": {
       "ja": {
        "explain": "「とても おいしかった」は、お母さんが 作った チョコレートの ケーキを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा रहेको 『とても おいしかったです』 ले के स्वादिष्ट थियो भनी सङ्केत गर्छ?",
+       "choices": [
+        "आमाले बनाएको गुलियो केक",
+        "सबैले दिएको जन्मदिनको उपहार",
+        "मैले छानेर दिएको किताब",
+        "छ जनाले गाएको रमाइलो गीत"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『とても おいしかったです』 refer to as being delicious?",
+       "choices": [
+        "The sweet cake made by my mother",
+        "The birthday present we all gave",
+        "The book I chose and gave",
+        "The fun song sung by six people"
+       ]
       }
      }
     }
@@ -877,6 +1570,11 @@
     "ne": {
      "body": [
       "हिजो, साथी आकीको जन्मदिन थियो। आकीको घरमा, पार्टी गर्यौं। हामी छ जना जम्मा भयौं। सबैले मिलेर आकीलाई उपहार दियौं। मैले किताब दिएँ। आकीलाई किताब पढ्न मन पर्ने भएकाले हो। आकी धेरै खुसी भइन्। आमाले ठूलो केक बनाइदिनुभयो। चकलेटको केक थियो, धेरै मीठो थियो। सबैले मिलेर गीत गाएर, केक खायौं। रमाइलो पार्टी थियो। आकी, जन्मदिनको शुभकामना।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Yesterday was my friend A's birthday. We had a party at A's house. Six of us gathered. We all gave A a present. I gave a book because A likes to read books. A was very happy. A's mother made a big cake. It was a chocolate cake and it was very delicious. We all sang songs and ate cake. It was a fun party. Happy birthday, A."
      ]
     }
    }
@@ -904,6 +1602,24 @@
      "i18n": {
       "ja": {
        "explain": "「それで」は、かぜを ひいて あたまが いたく、ねつが 出た ことを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा रहेको 『それで、会社を 休んで…』 मा भएको 「それで」 ले कस्तो कुरालाई सङ्केत गर्छ?",
+       "choices": [
+        "कडा रुघा लागेर ज्वरो आएको कुरा",
+        "अस्पतालमा एक घण्टासम्म पर्खनुपरेको कुरा",
+        "आमाले सुप बनाइदिनुभएको कुरा",
+        "औषधि खाएर सुतिरहेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 「それで」 in 『それで、会社を 休んで…』 refer to?",
+       "choices": [
+        "Having a terrible cold and a fever",
+        "Being made to wait for an hour at the hospital",
+        "My mother making soup for me",
+        "Taking medicine and sleeping continuously"
+       ]
       }
      }
     },
@@ -920,6 +1636,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「三日間、ゆっくり休んでください」と言ったとあります。"
+      },
+      "ne": {
+       "q": "डाक्टरले के भन्नुभयो?",
+       "choices": [
+        "तीन दिनसम्म आराम गर्नुहोस्",
+        "भोलि फेरि अस्पताल आउनुहोस्",
+        "तत्काल कम्पनीमा जानुहोस्",
+        "तातो सुप पिउनुहोस्"
+       ]
+      },
+      "en": {
+       "q": "What did the doctor say?",
+       "choices": [
+        "Please rest well for three days.",
+        "Please come back to the hospital tomorrow.",
+        "Please go to work immediately.",
+        "Please drink warm soup."
+       ]
       }
      }
     }
@@ -928,6 +1662,11 @@
     "ne": {
      "body": [
       "गएको हप्ता, मलाई रुघा लाग्यो। टाउको दुख्यो र ज्वरो पनि आयो। त्यसैले, कम्पनीबाट बिदा लिएर, अस्पताल गएँ। अस्पतालमा धेरै मानिसहरू भएकाले, एक घण्टा पर्खें। डाक्टरले, मलाई औषधि दिनुभयो। 'तीन दिन, राम्ररी आराम गर्नुहोस्' भन्नुभयो। घर फर्केर, औषधि खाएर, लामो समय सुतें। आमाले न्यानो सुप बनाइदिनुभयो। तीन दिनपछि, ज्वरो घटेर, स्वस्थ भएँ। साँच्चै, स्वास्थ्य नै सबैभन्दा महत्त्वपूर्ण हो भन्ने लाग्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last week, I caught a cold. I had a headache and a fever. So, I took a day off from work and went to the hospital. The hospital was very crowded, and I waited for an hour. The doctor gave me medicine and told me, \"Please rest well for three days.\" I went home, took the medicine, and slept a lot. My mother made me warm soup. Three days later, my fever went down, and I felt better. I realized that health is indeed the most important thing."
      ]
     }
    }
@@ -955,6 +1694,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「本は二週間かりることができます」とあります。"
+      },
+      "ne": {
+       "q": "किताब कति समयसम्म उधारो लिन सकिन्छ?",
+       "choices": [
+        "दुई हप्ता",
+        "एक हप्ता",
+        "तीन दिन",
+        "एक महिना"
+       ]
+      },
+      "en": {
+       "q": "How long can you borrow books for?",
+       "choices": [
+        "Two weeks",
+        "One week",
+        "Three days",
+        "One month"
+       ]
       }
      }
     },
@@ -971,6 +1728,24 @@
      "i18n": {
       "ja": {
        "explain": "「そこ」は、学校の 近くに ある 大きな 図書館を 指します。"
+      },
+      "ne": {
+       "q": "पाठमा रहेको 『わたしは よく そこへ 行きます』 मा \"そこ\" ले कुन ठाउँलाई सङ्केत गर्छ?",
+       "choices": [
+        "विद्यालयबाट हिँडेर जान सकिने पुस्तकालय",
+        "अध्ययनका पुस्तकहरू बेच्ने ठूलो पसल",
+        "शान्त र धेरै पुस्तक भएको कक्षा कोठा",
+        "झ्यालबाट बाहिरका रूखहरू देखिने कोठा"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 「そこ」 in 『わたしは よく そこへ 行きます』 refer to?",
+       "choices": [
+        "A library within walking distance from school",
+        "A large store selling study books",
+        "A quiet classroom with many books",
+        "A room where you can see trees outside the window"
+       ]
       }
      }
     }
@@ -979,6 +1754,11 @@
     "ne": {
      "body": [
       "मेरो विद्यालय नजिकै, ठूलो पुस्तकालय छ। म प्रायः त्यहाँ जान्छु। पुस्तकालयमा धेरै किताबहरू छन्। अध्ययनका किताब, उपन्यास, तस्बिरका किताब आदि। पुस्तकालय धेरै शान्त भएकाले, अध्ययनका लागि राम्रो छ। किताब दुई हप्तासम्म ऋणमा लिन सकिन्छ। म जहिले पनि करिब तीन वटा किताब लिन्छु। पुस्तकालय सोमबार बन्द हुन्छ। मंगलबारदेखि आइतबारसम्म खुल्छ। बिहान नौ बजेदेखि साँझ आठ बजेसम्म। अध्ययन गर्दा थाकेपछि, झ्यालबाट बाहिरको रूख हेर्छु। मन शान्त हुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "There is a big library near my school. I often go there. The library has many books, such as study books, novels, and photo books. The library is very quiet, so it's good for studying. You can borrow books for two weeks. I usually borrow about three books. The library is closed on Mondays. It is open from Tuesday to Sunday, from 9 AM to 8 PM. When I get tired of studying, I look at the trees outside the window. It calms my mind."
      ]
     }
    }
@@ -1006,6 +1786,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「アルバイトは週に三日です」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति हप्तामा कति दिन पार्ट-टाइम काम गर्छ?",
+       "choices": [
+        "तीन दिन",
+        "दुई दिन",
+        "चार दिन",
+        "पाँच दिन"
+       ]
+      },
+      "en": {
+       "q": "How many days a week does this person work part-time?",
+       "choices": [
+        "Three days",
+        "Two days",
+        "Four days",
+        "Five days"
+       ]
       }
      }
     },
@@ -1022,6 +1820,24 @@
      "i18n": {
       "ja": {
        "explain": "「なれました」は、さいしょは むずかしかった コンビニの 仕事に なれた ことを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा रहेको 『今は なれました』 ले केमा अभ्यस्त भएको कुरालाई सङ्केत गर्छ?",
+       "choices": [
+        "सुविधा स्टोरमा पार्ट-टाइम काम",
+        "बेलुका पाँच बजेदेखि राति दस बजेसम्मको समय",
+        "ग्राहकको पैसा लिने कुरा",
+        "सामान दराजमा मिलाएर राख्ने अभ्यास"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『今は なれました』 refer to becoming accustomed to?",
+       "choices": [
+        "The part-time job at the convenience store",
+        "The time from 5 PM to 10 PM",
+        "Receiving money from customers",
+        "The practice of arranging products on shelves"
+       ]
       }
      }
     }
@@ -1030,6 +1846,11 @@
     "ne": {
      "body": [
       "म विश्वविद्यालयको विद्यार्थी हुँ। अहिले, सुविधा पसलमा अंशकालीन काम गर्दै छु। अंशकालीन काम हप्तामा तीन दिन हो। मंगलबार, बिहीबार र शनिबार जान्छु। समय साँझ पाँच बजेदेखि राति दस बजेसम्म हो। काम भनेको, ग्राहकको पैसा लिने र सामान राख्ने हो। सुरुमा गाह्रो थियो, तर अहिले बानी परिसकेको छु। पसलका मालिक दयालु हुनुहुन्छ र प्रायः मलाई प्रशंसा गर्नुहुन्छ। अंशकालीन कामबाट पाएको पैसाले, म नयाँ कम्प्युटर किन्न चाहन्छु। अहिले, थोरै-थोरै पैसा बचत गर्दै छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I am a university student. Currently, I work part-time at a convenience store. I work three days a week: Tuesday, Thursday, and Saturday. The hours are from 5 PM to 10 PM. My job involves receiving money from customers and arranging products. It was difficult at first, but now I'm used to it. The store manager is kind and often praises me. With the money I earn from my part-time job, I want to buy a new computer. I am saving money little by little now."
      ]
     }
    }
@@ -1057,6 +1878,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「外は雪でした」とあります。"
+      },
+      "ne": {
+       "q": "आज बिहान बाहिर कस्तो थियो?",
+       "choices": [
+        "हिउँ परेको थियो",
+        "पानी परेको थियो",
+        "घाम लागेको थियो",
+        "बादल लागेको थियो"
+       ]
+      },
+      "en": {
+       "q": "How was it outside this morning?",
+       "choices": [
+        "It was snowy.",
+        "It was rainy.",
+        "It was sunny.",
+        "It was cloudy."
+       ]
       }
      }
     },
@@ -1073,6 +1912,24 @@
      "i18n": {
       "ja": {
        "explain": "「とても きれいでした」は、雪で 白く なった まちの ようすを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा रहेको 『とても きれいでした』 ले के सुन्दर थियो भनी सङ्केत गर्छ?",
+       "choices": [
+        "हिउँले सेतो भएको सहरको दृश्य",
+        "चिसो हातले बनाएको ठूलो हिउँमान्छे",
+        "न्यानो ज्याकेट लगाएका बच्चाहरू",
+        "तातो चिया"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『とても きれいでした』 refer to?",
+       "choices": [
+        "The appearance of the town, which had turned white with snow.",
+        "A big snowman made with cold hands.",
+        "Children wearing warm jackets.",
+        "Warm tea."
+       ]
       }
      }
     }
@@ -1081,6 +1938,11 @@
     "ne": {
      "body": [
       "जाडोको बिहान, धेरै जाडो हुन्छ। आज बिहान, झ्याल हेर्दा, बाहिर हिउँ थियो। सहर सेतो भएको थियो, धेरै सुन्दर थियो। मलाई हिउँ धेरै मन पर्छ। तातो ज्याकेट लगाएर, बाहिर निस्किएँ। हिउँ छोउँदा, धेरै चिसो थियो। विद्यालय जाने बाटोमा, साना बालबालिकाहरू हिउँमा खेलिरहेका थिए। हिउँको मान्छे बनाइरहेका थिए। म पनि बच्चा हुँदा, प्रायः हिउँको मान्छे बनाउँथें। विद्यालय पुगेपछि, हात धेरै चिसो भएकाले, तुरुन्तै न्यानो चिया पिएँ। जाडो भए पनि, मन पर्ने ऋतु हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Winter mornings are very cold. This morning, when I looked out the window, it was snowing outside. The town was white and very beautiful. I love snow. I put on a warm jacket and went outside. When I touched the snow, it was very cold. On my way to school, small children were playing in the snow. They were making snowmen. I also used to make snowmen often when I was a child. When I arrived at school, my hands were very cold, so I immediately drank some warm tea. Winter is cold, but it is my favorite season."
      ]
     }
    }
@@ -1108,6 +1970,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「わたしたちはたこやきを食べました」とあります。"
+      },
+      "ne": {
+       "q": "चाडमा दुई जनाले के खाए?",
+       "choices": [
+        "ताकोयाकी",
+        "याकिसोबा",
+        "रामेन",
+        "आइस"
+       ]
+      },
+      "en": {
+       "q": "What did the two people eat at the festival?",
+       "choices": [
+        "たこやき",
+        "やきそば",
+        "ラーメン",
+        "アイス"
+       ]
       }
      }
     },
@@ -1124,6 +2004,24 @@
      "i18n": {
       "ja": {
        "explain": "「とても きれいでした」は、よる 空に 上がった 大きな はなびを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा \"とても きれいでした\" ले के सुन्दर थियो भनी सङ्केत गर्छ?",
+       "choices": [
+        "आकाशमा उडेको ठूलो आतिशबाजी",
+        "धेरै पसलहरूमा बेचिएको ताकोयाकी",
+        "दुई जनाले लगाएको युकाता",
+        "याकिसोबा बनाउने पसलको मान्छे"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『とても きれいでした』 refer to?",
+       "choices": [
+        "The big fireworks that went up into the sky.",
+        "たこやき sold at many shops.",
+        "The ゆかた that the two people were wearing.",
+        "The shopkeeper grilling やきそば."
+       ]
       }
      }
     }
@@ -1132,6 +2030,11 @@
     "ne": {
      "body": [
       "हरेक वर्ष गर्मीमा, मेरो सहरमा ठूलो चाड हुन्छ। गएको हप्ता शनिबार, यस वर्षको चाड भयो। म साथी युकासँग गएँ। दुईजनाले युकाता लगायौं। चाडमा, धेरै पसलहरू थिए। याकिसोबा र ताकोयाकी जस्ता मीठा चीजहरू धेरै थिए। हामीले ताकोयाकी खायौं। धेरै मीठो थियो। राति, आतिशबाजी भयो। आकाशमा ठूला आतिशबाजी उठे, धेरै सुन्दर थियो। सबैले 'वाह' भनेर, आकाश हेरिरहेका थिए। धेरै रमाइलो रात थियो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Every summer, there is a big festival in my town. Last Saturday, this year's festival was held. I went with my friend, A-san. We both wore yukata. There were many stalls at the festival. There were many delicious foods like yakisoba and takoyaki. We ate takoyaki. It was very delicious. In the evening, there were fireworks. Big fireworks went up into the sky and were very beautiful. Everyone said \"Wow!\" and looked up at the sky. It was a very enjoyable night."
      ]
     }
    }
@@ -1159,6 +2062,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「わたしのしゅみは、しゃしんをとることです」とあります。"
+      },
+      "ne": {
+       "q": "यस व्यक्तिको रुचि के हो?",
+       "choices": [
+        "फोटो खिच्नु",
+        "चित्र बनाउनु",
+        "पहाड चढ्नु",
+        "यात्रा गर्नु"
+       ]
+      },
+      "en": {
+       "q": "What is this person's hobby?",
+       "choices": [
+        "しゃしんをとること",
+        "絵をかくこと",
+        "山にのぼること",
+        "りょこうをすること"
+       ]
       }
      }
     },
@@ -1175,6 +2096,24 @@
      "i18n": {
       "ja": {
        "explain": "「その しゃしん」は、先月 山で とった 朝日の しゃしんを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा \"その しゃしんは、今…かべに はって あります\" मा \"その しゃしん\" ले कुन फोटोलाई सङ्केत गर्छ?",
+       "choices": [
+        "गत महिना पहाडमा खिचिएको सूर्योदयको एउटा तस्बिर",
+        "बिदाको दिनमा फूल र आकाशको खिचिएको तस्बिर",
+        "अर्को महिना समुद्रमा गएर खिच्ने तस्बिर",
+        "बुबाबाट पाएको पुरानो क्यामेरा"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 「その しゃしん」 in 『その しゃしんは、今…かべに はって あります』 refer to?",
+       "choices": [
+        "A photo of the morning sun taken in the mountains last month.",
+        "Photos of flowers and the sky taken on a day off.",
+        "Photos to be taken when going to the sea next month.",
+        "An old camera received from father."
+       ]
       }
      }
     }
@@ -1183,6 +2122,11 @@
     "ne": {
      "body": [
       "मेरो सोख, फोटो खिच्ने हो। तीन वर्ष अघि, बुबाबाट क्यामेरा पाएँ। त्यसदेखि निरन्तर, फोटो खिचिरहेको छु। बिदाको दिनमा, क्यामेरा लिएर, विभिन्न ठाउँमा जान्छु। विशेष गरी, फूल र आकाशको फोटो खिच्न मन पर्छ। राम्रो फोटो खिचिएपछि, धेरै खुसी लाग्छ। गएको महिना, पहाड गएर, बिहानको सूर्यको फोटो खिचें। धेरै राम्रोसँग खिचियो। त्यो फोटो, अहिले मेरो कोठाको भित्तामा टाँसिएको छ। अर्को महिना, समुद्र गएर, फोटो खिच्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My hobby is taking pictures. Three years ago, my father gave me a camera. Since then, I have been taking pictures. On my days off, I take my camera and go to various places. I especially like taking pictures of flowers and the sky. I am very happy when I can take beautiful pictures. Last month, I went to the mountains and took a picture of the sunrise. It turned out very beautifully. That picture is now pasted on the wall of my room. Next month, I want to go to the sea and take pictures."
      ]
     }
    }
@@ -1210,6 +2154,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「わたしはピザを、母はパスタをたのみました」とあります。"
+      },
+      "ne": {
+       "q": "यस व्यक्तिले के अर्डर गर्यो?",
+       "choices": [
+        "पिज्जा",
+        "पास्ता",
+        "सलाद",
+        "सूप"
+       ]
+      },
+      "en": {
+       "q": "What did this person order?",
+       "choices": [
+        "ピザ",
+        "パスタ",
+        "サラダ",
+        "スープ"
+       ]
       }
      }
     },
@@ -1226,6 +2188,24 @@
      "i18n": {
       "ja": {
        "explain": "「その レストラン」は、家の 近くに 新しく できた イタリア料理の 店を 指します。"
+      },
+      "ne": {
+       "q": "पाठमा \"その レストランは、イタリアの…\" मा \"その レストラン\" ले कुन पसललाई सङ्केत गर्छ?",
+       "choices": [
+        "घर नजिकै नयाँ खुलेको पसल",
+        "इटाली गएर भेट्टाएको प्रसिद्ध पसल",
+        "आमा प्रायः जाने जापानी खानाको पसल",
+        "बुबालाई लिएर गएको चिनियाँ पसल"
+       ]
+      },
+      "en": {
+       "q": "In the text, 『その レストランは、イタリアの…』, which store does 「その レストラン」 refer to?",
+       "choices": [
+        "A new store that opened near home",
+        "A famous store found by going all the way to Italy",
+        "A Japanese restaurant that my mother often goes to",
+        "A Chinese restaurant I took my father to"
+       ]
       }
      }
     }
@@ -1234,6 +2214,11 @@
     "ne": {
      "body": [
       "मेरो घर नजिकै, नयाँ रेस्टुरेन्ट खुल्यो। गएको आइतबार, आमासँगै गएँ। त्यो रेस्टुरेन्ट, इटालियन खानाको पसल हो। पसलभित्र सफा र शान्त थियो। मैले पिज्जा, आमाले पास्ता मगाउनुभयो। पिज्जा तातो थियो, चीज धेरै राखिएको थियो, धेरै मीठो थियो। आमाको पास्ता पनि मीठो देखिन्थ्यो। मूल्य पनि खासै महँगो थिएन। पसलका मानिसहरू पनि दयालु थिए। आमाले पनि 'फेरि आउन मन छ' भन्नुभयो। अर्को पटक, बुबालाई पनि लिएर, सबैजना मिलेर जान चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "A new restaurant opened near my house. Last Sunday, I went there with my mother. That restaurant serves Italian cuisine. The inside of the restaurant was clean and quiet. I ordered pizza, and my mother ordered pasta. The pizza was hot, had a lot of cheese, and was very delicious. My mother's pasta also looked delicious. The prices were not too high either. The staff were also kind. My mother also said, \"I want to come again.\" Next time, I want to bring my father and go with everyone."
      ]
     }
    }
@@ -1261,6 +2246,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「半年まえからはじめました」とあります。"
+      },
+      "ne": {
+       "q": "यस व्यक्तिले कहिलेदेखि दौडन सुरु गर्यो?",
+       "choices": [
+        "छ महिना अघि",
+        "एक वर्ष अघि",
+        "गत महिना",
+        "गत हप्ता"
+       ]
+      },
+      "en": {
+       "q": "When did this person start running?",
+       "choices": [
+        "Half a year ago",
+        "One year ago",
+        "Last month",
+        "Last week"
+       ]
       }
      }
     },
@@ -1277,6 +2280,24 @@
      "i18n": {
       "ja": {
        "explain": "「とても きもちが いいです」は、空気の きれいな 朝の 公園を 走る ことを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『とても きもちが いいです』ले कस्तो कुरालाई सङ्केत गर्छ?",
+       "choices": [
+        "सफा हावा भएको बिहानको पार्कमा दौडनु",
+        "कुकुरसँगै हिँडिरहेको मान्छे",
+        "दौडिएपछि नुहाउने चिसो नुहाउने पानी",
+        "पहिलेभन्दा स्वस्थ भएको शरीर"
+       ]
+      },
+      "en": {
+       "q": "In the text, 『とても きもちが いいです』, what does this refer to?",
+       "choices": [
+        "Running in the park on a morning with clean air",
+        "People walking with their dogs",
+        "A cold shower after running",
+        "A body that has become healthier than before"
+       ]
       }
      }
     }
@@ -1285,6 +2306,11 @@
     "ne": {
      "body": [
       "म हरेक बिहान, घर नजिकैको पार्कमा दौडन्छु। आधा वर्ष अघिदेखि सुरु गरें। सुरुमा अलिकति दौडेरै थाकिन्थ्यो, तर अहिले तीस मिनेट दौडन सक्ने भएको छु। बिहानको पार्क, हावा सफा हुन्छ, धेरै आनन्ददायी लाग्छ। पार्कमा, अरू पनि व्यायाम गरिरहेका धेरै मानिसहरू छन्। कुकुरसँग हिँडिरहेका मानिस, वा व्यायाम गरिरहेका मानिस पनि छन्। दौडेपछि, नुहाएर, बिहानको खाना खान्छु। व्यायाम सुरु गरेदेखि, राम्रोसँग निद्रा लाग्न थालेको छ। शरीर पनि पहिलेभन्दा फूर्तिलो भएको छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Every morning, I run in the park near my house. I started about half a year ago. At first, I got tired after running only a short distance, but now I can run for thirty minutes. The air in the park in the morning is clean, and it feels very pleasant. In the park, many other people are exercising. Some people are walking their dogs, and others are doing calisthenics. After running, I take a shower and eat breakfast. Since I started exercising, I've been able to sleep well. My body also feels healthier than before."
      ]
     }
    }
@@ -1312,6 +2338,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「あねのたんじょう日のプレゼントをさがすためです」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति किन डिपार्टमेन्ट स्टोर गयो?",
+       "choices": [
+        "दिदीको उपहार खोज्न",
+        "आफ्नो लुगा किन्न",
+        "साथीलाई भेट्न",
+        "खानेकुरा किन्न"
+       ]
+      },
+      "en": {
+       "q": "Why did this person go to the department store?",
+       "choices": [
+        "To look for a present for her older sister",
+        "To buy clothes for herself",
+        "To meet a friend",
+        "To buy food"
+       ]
       }
      }
     },
@@ -1328,6 +2372,24 @@
      "i18n": {
       "ja": {
        "explain": "「それ」は、四かいで 見つけた 赤い マフラーを 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『それを 買いました』को 「それ」ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "चौथो तलामा भएको रातो रङको मफलर",
+        "सुन्दर कागजले बेरिएको जन्मदिनको उपहार",
+        "पहिलो तल्लादेखि तेस्रो तल्लासम्म खोजिएको सामान",
+        "दिदीको जन्मदिनमा दिने सुन्दर कागज"
+       ]
+      },
+      "en": {
+       "q": "In the text, 『それを 買いました』, what does 「それ」 refer to?",
+       "choices": [
+        "A red scarf that was on the fourth floor",
+        "A birthday present wrapped in beautiful paper",
+        "An item searched for from the first to the third floor",
+        "Beautiful paper to give for her older sister's birthday"
+       ]
       }
      }
     }
@@ -1336,6 +2398,11 @@
     "ne": {
      "body": [
       "हिजो, म डिपार्टमेन्ट स्टोरमा किनमेल गर्न गएँ। दिदीको जन्मदिनको उपहार खोज्नका लागि हो। दिदीलाई रातो रङ मन पर्ने भएकाले, रातो मफलर किन्ने सोचें। पहिलो तलादेखि तेस्रो तलासम्म, बिस्तारै हेरें। तर, सजिलै राम्रो सामान भेटिएन। चौथो तलामा, अन्ततः सुन्दर रातो मफलर भेट्टाएँ। मूल्य पनि ठीकै थियो, त्यसैले त्यो किनें। घर फर्केर, राम्रो कागजले बेरें। दिदीको जन्मदिन अर्को हप्ता हो। खुसी हुनेछिन् जस्तो लाग्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Yesterday, I went shopping at a department store. I was looking for a birthday present for my older sister. My sister likes red, so I thought I'd buy a red scarf. I looked slowly from the first floor to the third floor. But I couldn't find anything good. On the fourth floor, I finally found a beautiful red scarf. The price was just right, so I bought it. I went home and wrapped it in pretty paper. My sister's birthday is next week. I hope she'll be happy."
      ]
     }
    }
@@ -1363,6 +2430,24 @@
      "i18n": {
       "ja": {
        "explain": "「ここ」は、手紙を 書いた 人が いる 北海道の おじさんの 家を 指します。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『ここは とても すずしくて…』को 「ここ」ले कुन ठाउँलाई सङ्केत गर्छ?",
+       "choices": [
+        "चिसो उत्तरी सहरमा रहेको काकाको घर",
+        "गर्मी भएको भनिएको टोकियोमा बस्ने साथीको सहर",
+        "धेरै गाईहरू भएको फराकिलो गोठ",
+        "मिठाई किनेको होक्काइडोको पसल"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 「ここ」 in 『ここは とても すずしくて…』 refer to?",
+       "choices": [
+        "My uncle's house in a cool northern town",
+        "A friend's town in Tokyo, which I heard is hot",
+        "A wide pasture with many cows",
+        "A shop in Hokkaido where I bought sweets"
+       ]
       }
      }
     },
@@ -1379,6 +2464,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「おみやげに、北海道のおかしを買って行きます」とあります。"
+      },
+      "ne": {
+       "q": "B-सानले उपहारको रूपमा के किनेर जान्छ?",
+       "choices": [
+        "होक्काइडोको मिठाई",
+        "गाईको दूध",
+        "फलफूल",
+        "लुगा"
+       ]
+      },
+      "en": {
+       "q": "What will B buy as a souvenir?",
+       "choices": [
+        "Hokkaido sweets",
+        "Milk",
+        "Fruit",
+        "Clothes"
+       ]
       }
      }
     }
@@ -1387,6 +2490,11 @@
     "ne": {
      "body": [
       "नात्सुमीजीलाई। कस्तो हुनुहुन्छ? म अहिले, होक्काइदोमा काकाको घरमा छु। यहाँ धेरै चिसो छ, बस्नको लागि आरामदायी छ। टोकियो तातो छ भनेर सुनें। स्वास्थ्यको ख्याल राख्नुहोला। हिजो, काकासँग गोठ (फार्म) गएँ। धेरै गाईहरू थिए, अचम्म लाग्यो। काकाको फार्ममा बनेको दूध, धेरै मीठो थियो। अर्को हप्ता, म टोकियो फर्किन्छु। सुभेनियरको रूपमा, होक्काइदोको मिठाई किनेर लैजान्छु। नात्सुमीजीसँगै खान चाहन्छु। त्यसो भए, फेरि भेटौंला। यामादाबाट।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To A. How are you? I am currently at my uncle's house in Hokkaido. It's very cool and comfortable here. I heard Tokyo is hot. Please take care of yourself. Yesterday, my uncle and I went to a farm. I was surprised to see so many cows. The milk made at my uncle's farm was very delicious. Next week, I will return to Tokyo. I will buy some Hokkaido sweets as a souvenir. I want to eat them with you, A. Well then, let's meet again. From B."
      ]
     }
    }
@@ -1414,6 +2522,24 @@
      "i18n": {
       "ja": {
        "explain": "「雪だるまを 作りました」「それを 見て、母も よろこびました」。それ＝作った 雪だるま。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『それ』ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "दुई जनाले बनाएको हिउँमानव",
+        "बाहिर जमेको सेतो हिउँ",
+        "आमाले बनाएको तातो सूप",
+        "चिसो भएको मेरो हात"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『それ』 refer to?",
+       "choices": [
+        "The snowman we made together",
+        "The white snow piled up outside",
+        "The warm soup my mother made",
+        "My cold hands"
+       ]
       }
      }
     },
@@ -1430,6 +2556,24 @@
      "i18n": {
       "ja": {
        "explain": "「外は さむいですが、家の 中は あたたかいです」と あります。"
+      },
+      "ne": {
+       "q": "हिउँ परेको दिनको बारेमा, पाठसँग मिल्ने कुन हो?",
+       "choices": [
+        "बाहिर चिसो थियो तर घर भित्र न्यानो थियो",
+        "दिनभरि बाहिर धेरै ठूलो हिउँमानव बनाइरहेको थियो",
+        "सुप भाइले एक्लै बनाएको थियो",
+        "हात चिसो भएर केही गर्न सकिएन"
+       ]
+      },
+      "en": {
+       "q": "Regarding the snowy day, which statement is consistent with the text?",
+       "choices": [
+        "It was cold outside, but warm inside the house",
+        "We spent all day outside making a very big snowman",
+        "My younger brother made the soup by himself",
+        "My hands were so cold I couldn't do anything"
+       ]
       }
      }
     }
@@ -1438,6 +2582,11 @@
     "ne": {
      "body": [
       "आज बिहानदेखि हिउँ परिरहेको छ।\nझ्याल बाहिर सेताम्मे छ।\nम भाइसँग बगैँचामा गएर हिउँमान्छे बनाएँ।\nत्यो ठूलो र भव्य छ।\nत्यो देखेर आमा पनि धेरै खुसी हुनुभयो।\nहात चिसो भयो तर रमाइलो थियो।\nदिउँसोको खानामा आमाले तातो सुप बनाइदिनुभयो।\nशरीर न्यानो भयो।\nहिउँ परेको दिन बाहिर चिसो हुन्छ तर घर भित्र न्यानो हुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "It has been snowing since this morning. Outside the window, everything is pure white. My younger brother and I went out into the garden and made a snowman. It's big and magnificent. Seeing it, my mother was also very happy. My hands got cold, but it was fun. For lunch, my mother made us warm soup. My body warmed up. On snowy days, it's cold outside, but it's warm inside the house."
      ]
     }
    }
@@ -1465,6 +2614,24 @@
      "i18n": {
       "ja": {
        "explain": "「その ことば」＝先生の「すこしずつ 練習すれば、かならず 泳げます」。"
+      },
+      "ne": {
+       "q": "पाठको 『その ことば』ले केलाई संकेत गर्छ?",
+       "choices": [
+        "हरेक पटक अभ्यास गरे पौडी खेल्न सकिन्छ भन्ने शिक्षकको कुरा",
+        "पानीसँग डर लागे पनि पौडी पोखरीमा गइरहनुहोस् भन्ने चेतावनी",
+        "बीस मिटर पौडी खेल्न सके कक्षा छोड्न सकिन्छ",
+        "मंगलबार र बिहीबार अनिवार्य आउनुहोस्"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『その ことば』 refer to?",
+       "choices": [
+        "The teacher's words that I can swim if I practice every time",
+        "A warning to keep attending the pool even if I'm afraid of water",
+        "You can quit the class if you can swim 20 meters",
+        "You must come on Tuesdays and Thursdays"
+       ]
       }
      }
     },
@@ -1481,6 +2648,24 @@
      "i18n": {
       "ja": {
        "explain": "「今は 顔を 水に つける ことが できます」と あります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले अहिले के गर्न सक्ने भएको छ?",
+       "choices": [
+        "पानीमा अनुहार डुबाउने कुरा",
+        "बीस मिटर पौडी खेल्ने कुरा",
+        "पौडी पोखरीमा छिटो पौडी खेल्ने कुरा",
+        "पानी भित्र आँखा खोल्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What can this person do now?",
+       "choices": [
+        "Put their face in the water",
+        "Swim 20 meters",
+        "Swim fast in the pool",
+        "Open their eyes underwater"
+       ]
       }
      }
     }
@@ -1489,6 +2674,11 @@
     "ne": {
      "body": [
       "मलाई पौडी खेल्न आउँदैनथ्यो। त्यसैले, गत महिनादेखि म शहरको पौडी कक्षामा गइरहेको छु। कक्षा मंगलबार र बिहीबार साँझमा हुन्छ। शिक्षक एक जवान पुरुष हुनुहुन्छ र उहाँको सिकाउने तरिका धेरै राम्रो छ। सुरुमा मलाई पानीदेखि डर लाग्थ्यो, तर अहिले म आफ्नो अनुहार पानीमा डुबाउन सक्छु। शिक्षकले भन्नुभयो, \"हरेक पटक अलिअलि अभ्यास गरेमा, पक्कै पनि पौडी खेल्न सकिन्छ।\" ती कुरा सुनेर, मैले मेहनत गर्ने विचार गरें। आगामी महिना म बीस मिटर पौडी खेल्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I used to be bad at swimming. So, since last month, I've been attending a swimming class at the city pool. The classes are held on Tuesday and Thursday evenings. The teacher is a young man, and he's very good at teaching. At first, I was scared of the water, but now I can put my face in the water. The teacher said, \"If you practice little by little each time, you will definitely be able to swim.\" Hearing those words, I decided to do my best. Next month, I want to swim twenty meters."
      ]
     }
    }
@@ -1516,6 +2706,24 @@
      "i18n": {
       "ja": {
        "explain": "「セーターを 送って くれて」「それを 着て」。それ＝セーター。"
+      },
+      "ne": {
+       "q": "पाठको 『それを 着て』को 『それ』ले केलाई संकेत गर्छ?",
+       "choices": [
+        "हजुरआमाले पठाएको स्वेटर",
+        "साथीले दिएको राम्रो टोपी",
+        "सकुराका फूलहरू फुलेको पार्क",
+        "हजुरआमाले बनाउने स्वादिष्ट खाना"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『それ』 in 『それを 着て』 refer to?",
+       "choices": [
+        "おばあさんが 送って くれた セーター",
+        "友だちが くれた かわいい ぼうし",
+        "さくらの 花が さいて いる 公園",
+        "おばあさんが 作る おいしい りょうり"
+       ]
       }
      }
     },
@@ -1532,6 +2740,24 @@
      "i18n": {
       "ja": {
        "explain": "「家族で おばあさんの 家へ 遊びに 行きたい」と あります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले आउँदो बिदामा के गर्न चाहन्छ जस्तो लाग्छ?",
+       "choices": [
+        "सबै मिलेर हजुरआमाको घर जाने कुरा",
+        "साथीहरूसँग पार्कमा खेल्ने कुरा",
+        "हजुरआमालाई नयाँ स्वेटर पठाउने कुरा",
+        "एक्लै सकुरा हेर्न जाने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does this person want to do during the upcoming holiday?",
+       "choices": [
+        "みんなで そぼの 家を たずねる こと",
+        "友だちと 公園で あそぶ こと",
+        "おばあさんに 新しい セーターを 送る こと",
+        "一人で さくらを 見に 行く こと"
+       ]
       }
      }
     }
@@ -1540,6 +2766,11 @@
     "ne": {
      "body": [
       "हजुरआमालाई। सन्चै हुनुहुन्छ? म हरेक दिन सन्चै छु। अघिल्लो पटक न्यानो स्वेटर पठाइदिनुभएकोमा धेरै धन्यवाद। त्यो लगाएर स्कुल जाँदा, साथीहरूले \"कति राम्रो छ!\" भन्नुभयो। मलाई धेरै खुसी लाग्यो। यहाँ अहिले साकुराका फूलहरू फुलेका छन्। आगामी बिदामा, म परिवारसँग हजुरआमाको घरमा घुम्न जान चाहन्छु। त्यसबेला, हामी सँगै नजिकैको पार्कमा घुम्न जाऔँला। हजुरआमाले बनाउनुहुने खानाको मलाई प्रतीक्षा छ। आफ्नो स्वास्थ्यको ख्याल राख्नुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To Grandma. How are you? I'm fine every day. Thank you for sending me the warm sweater the other day. When I wore it to school, my friends told me, \"It's cute!\" I was very happy. Here, the cherry blossoms are blooming now. I'm thinking of visiting your house with my family during the next holiday. At that time, let's take a walk together in the nearby park. I'm looking forward to your cooking. Please take care of yourself."
      ]
     }
    }
@@ -1567,6 +2798,24 @@
      "i18n": {
       "ja": {
        "explain": "「この 日」＝店の たん生日で セールを する 土よう日。"
+      },
+      "ne": {
+       "q": "पाठको 『この 日』ले कहिलेलाई संकेत गर्छ?",
+       "choices": [
+        "सेल हुने शनिबार",
+        "विशेष सेल सकिने आइतबार",
+        "अण्डा सस्तोमा बेच्ने हरेक शुक्रबार",
+        "पसल बन्द हुने सोमबार"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『この 日』 refer to?",
+       "choices": [
+        "セールを する 土よう日",
+        "特別な セールが 終わる 日よう日",
+        "たまごを 安く 売る 毎週の 金よう日",
+        "店が 休みに なる 月よう日"
+       ]
       }
      }
     },
@@ -1583,6 +2832,24 @@
      "i18n": {
       "ja": {
        "explain": "「二千円より 多く 買った お客さまには、たまごを 一パック プレゼント」。"
+      },
+      "ne": {
+       "q": "दुई हजार येनभन्दा धेरै किन्ने व्यक्तिले के पाउँछन्?",
+       "choices": [
+        "「たまご 一パック」",
+        "「半分の ねだんの トマト」",
+        "「安く なった りんご」",
+        "「店の わりびき券」"
+       ]
+      },
+      "en": {
+       "q": "What do people who buy more than 2,000 yen receive?",
+       "choices": [
+        "たまご 一パック",
+        "半分の ねだんの トマト",
+        "安く なった りんご",
+        "店の わりびき券"
+       ]
       }
      }
     }
@@ -1591,6 +2858,11 @@
     "ne": {
      "body": [
       "मिदोरी तरकारी पसलको सूचना।\nसधैँ धन्यवाद छ।\nभोलि शनिबार, पसलको वार्षिकोत्सव हो। त्यसैले, बिहान नौ बजेदेखि विशेष सेल गर्नेछौँ। गोलभेडा र काँक्रो सधैँको भन्दा आधा मूल्यमा पाइनेछ। स्याउ पनि सस्तो हुनेछ। यस दिन मात्र, दुई हजार येनभन्दा बढी सामान किन्ने ग्राहकहरूलाई एक प्याकेट अण्डा उपहार दिइनेछ। पसल बिहान नौ बजे खुल्नेछ र बेलुका सात बजे बन्द हुनेछ। यहाँहरू सबैजना पसलमा आउनुहोला। हामी पर्खिरहेका छौँ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice from Midori Greengrocer. Thank you always. Tomorrow, Saturday, is the store's birthday. Therefore, we will have a special sale starting at 9 AM. Tomatoes and cucumbers will be half their usual price. Apples will also be cheaper. Only on this day, customers who spend more than 2,000 yen will receive a pack of eggs as a gift. The store opens at 9 AM and closes at 7 PM. Everyone, please come to our store. We look forward to seeing you."
      ]
     }
    }
@@ -1618,6 +2890,24 @@
      "i18n": {
       "ja": {
        "explain": "「川ぞいの 道です。そこは 車が 通らない」。そこ＝川ぞいの 道。"
+      },
+      "ne": {
+       "q": "पाठको 『そこ』ले कुन ठाउँलाई संकेत गर्छ?",
+       "choices": [
+        "「川の となりを 走る 道」",
+        "「車が 多く 通る 大きな 道」",
+        "「医者が すすめた 公園の 中の 道」",
+        "「家から とおい 山の ふもとの 道」"
+       ]
+      },
+      "en": {
+       "q": "In the text, what does 『そこ』 refer to?",
+       "choices": [
+        "川の となりを 走る 道",
+        "車が 多く 通る 大きな 道",
+        "医者が すすめた 公園の 中の 道",
+        "家から とおい 山の ふもとの 道"
+       ]
       }
      }
     },
@@ -1634,6 +2924,24 @@
      "i18n": {
       "ja": {
        "explain": "「走ると、一日 元気に すごせます」と あります。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति दौडिँदा के हुन्छ भन्छन्?",
+       "choices": [
+        "「一日を 元気に すごせる」",
+        "「すぐに つかれて しまう」",
+        "「あさごはんが 食べられなく なる」",
+        "「夜 よく ねむれなく なる」"
+       ]
+      },
+      "en": {
+       "q": "What does this person say happens when they run?",
+       "choices": [
+        "一日を 元気に すごせる",
+        "すぐに つかれて しまう",
+        "あさごはんが 食べられなく なる",
+        "夜 よく ねむれなく なる"
+       ]
       }
      }
     }
@@ -1642,6 +2950,11 @@
     "ne": {
      "body": [
       "म छ महिना अघिदेखि हरेक बिहान दौडिरहेको छु। सुरुमा थोरै दौड्दा मात्रै पनि थाक्थेँ, तर अहिले तीन किलोमिटर दौड्न सक्छु। म दौड्ने बाटो घर नजिकैको नदी किनारको बाटो हो। त्यहाँ गाडीहरू नगुड्ने हुनाले, यो सुरक्षित र रमाइलो छ। बिहानको चिसो हावामा सास फेर्दै दौड्दा, दिनभरि स्फूर्तिसाथ बिताउन सकिन्छ। दौडिएपछि खाने बिहानको खाना धेरै स्वादिष्ट हुन्छ। डाक्टरले पनि \"व्यायाम शरीरको लागि राम्रो हुन्छ\" भन्नुभएको थियो। म यसलाई अब पनि हरेक बिहान जारी राख्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "For the past six months, I've been running every morning. At first, I would get tired after running just a little, but now I can run three kilometers. The path I run on is along the river near my house. No cars pass there, so it's safe and pleasant. Breathing in the cool morning air and running helps me stay energetic all day. Breakfast after running is very delicious. My doctor also told me, \"Exercise is good for your body.\" I want to continue doing this every morning."
      ]
     }
    }
@@ -1669,6 +2982,24 @@
      "i18n": {
       "ja": {
        "explain": "「見たかったのは、パンダです。それは、白と 黒の…」。それ＝パンダ。"
+      },
+      "ne": {
+       "q": "पाठको 『それ』ले केलाई संकेत गर्छ?",
+       "choices": [
+        "「白と 黒の どうぶつ」",
+        "「ぞうの 大きな からだ」",
+        "「竹を 売って いる 店」",
+        "「パンダの 絵の ハンカチ」"
+       ]
+      },
+      "en": {
+       "q": "What does 『それ』 in the text refer to?",
+       "choices": [
+        "白と 黒の どうぶつ",
+        "ぞうの 大きな からだ",
+        "竹を 売って いる 店",
+        "パンダの 絵の ハンカチ"
+       ]
       }
      }
     },
@@ -1685,6 +3016,24 @@
      "i18n": {
       "ja": {
        "explain": "「パンダの 絵の ついた ハンカチを 買いました」と あります。"
+      },
+      "ne": {
+       "q": "फर्किने बेलामा, यो व्यक्तिले के किन्यो?",
+       "choices": [
+        "「パンダが かかれた ハンカチ」",
+        "「ぞうの 形を した 大きな ぼうし」",
+        "「どうぶつの 本」",
+        "「竹で 作った おもちゃ」"
+       ]
+      },
+      "en": {
+       "q": "What did this person buy on the way home?",
+       "choices": [
+        "パンダが かかれた ハンカチ",
+        "ぞうの 形を した 大きな ぼうし",
+        "どうぶつの 本",
+        "竹で 作った おもちゃ"
+       ]
       }
      }
     }
@@ -1693,6 +3042,11 @@
     "ne": {
      "body": [
       "आइतबार, परिवारसँग चिडियाघरमा गयौँ।\nचिडियाघरमा धेरै जनावरहरू छन्।\nमैले सबैभन्दा धेरै हेर्न चाहेको पाण्डा थियो।\nत्यो सेतो र कालो ठूलो जनावर थियो, र बाँस खाइरहेको थियो।\nबिस्तारै हिँड्ने त्यसको चाल धेरै प्यारो थियो।\nमेरी बहिनी हात्तीको आकार देखेर छक्क परेकी थिइन्।\nदिउँसो, चिडियाघर भित्रको पसलमा स्यान्डविच खायौँ।\nफर्किने बेलामा, पाण्डाको चित्र भएको रुमाल किन्यौँ।\nत्यो धेरै रमाइलो दिन थियो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "On Sunday, my family went to the zoo. There are many animals at the zoo. The animal I wanted to see most was the panda. It was a large black and white animal, and it was eating bamboo. Its slow movements were very cute. My sister was surprised by the size of the elephant. For lunch, we ate sandwiches at a shop inside the zoo. On the way home, I bought a handkerchief with a panda drawing on it. It was a very fun day."
      ]
     }
    }
@@ -1720,6 +3074,24 @@
      "i18n": {
       "ja": {
        "explain": "「新しい めがねを 作りました…それを かけると」。それ＝新しい めがね。"
+      },
+      "ne": {
+       "q": "पाठको 『それを かけると』को 『それ』ले केलाई संकेत गर्छ?",
+       "choices": [
+        "「新しく 作った 青い めがね」",
+        "「目が わるく なって 見えなく なった 黒板」",
+        "「学校の 黒板に 書いた 字」",
+        "「木の 葉の 細かい 形」"
+       ]
+      },
+      "en": {
+       "q": "What does 『それ』 in 『それを かけると』 in the text refer to?",
+       "choices": [
+        "新しく 作った 青い めがね",
+        "目が わるく なって 見えなく なった 黒板",
+        "学校の 黒板に 書いた 字",
+        "木の 葉の 細かい 形"
+       ]
       }
      }
     },
@@ -1736,6 +3108,24 @@
      "i18n": {
       "ja": {
        "explain": "「とおくの ものが はっきり 見えます」と あります。"
+      },
+      "ne": {
+       "q": "नयाँ चश्मा लगाएपछि के भयो?",
+       "choices": [
+        "टाढाका चीजहरू राम्ररी देखिन्छन्",
+        "आँखा झन् खराब भयो",
+        "अक्षर लेख्नमा निपुण भयो",
+        "किताब पढ्न नसक्ने भयो"
+       ]
+      },
+      "en": {
+       "q": "What happened after putting on the new glasses?",
+       "choices": [
+        "はなれた ものが よく 見える",
+        "目が もっと わるく なった",
+        "字を 書くのが 上手に なった",
+        "本が 読めなく なった"
+       ]
       }
      }
     }
@@ -1744,6 +3134,11 @@
     "ne": {
      "body": [
       "मेरो आँखा कमजोर भएर श्यामपटमा लेखेको अक्षर राम्ररी देख्न सकिनँ।\nत्यसैले, गत हप्ता चश्मा पसलमा गएर नयाँ चश्मा बनाएँ। नीलो रङको चश्मा हो।\nत्यो लगाउँदा टाढाका चीजहरू स्पष्ट देखिन्छन्। अहिलेसम्म नदेखिएको रूखको पातको आकारसम्म पनि देख्न सकिन्छ।\nस्कुलमा पनि श्यामपटको अक्षर राम्ररी देखिने भयो। कक्षा पहिलेभन्दा बुझ्न सजिलो भएर म खुसी छु।\nचश्मालाई जतन गरेर प्रयोग गर्नेछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My eyesight got worse, and I couldn't see the writing on the blackboard well. So, last week, I went to an optician and had new glasses made. They are blue glasses. When I wear them, I can see distant objects clearly. I can even make out the shapes of tree leaves that I couldn't see before. At school, I can now see the writing on the blackboard well. I'm happy because classes are easier to understand than before. I intend to take good care of my glasses."
      ]
     }
    }
@@ -1771,6 +3166,24 @@
      "i18n": {
       "ja": {
        "explain": "「駅の 近くに、小さな きっさてん…そこへ 入りました」。そこ＝きっさてん。"
+      },
+      "ne": {
+       "q": "पाठको 『そこへ 入りました』 मा रहेको 『そこ』 ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "स्टेशन नजिकको कफी पसल",
+        "धेरै किताब बेच्ने ठूलो पसल",
+        "शान्त संगीत मन पराउने साथी",
+        "झ्याल छेउको सिट"
+       ]
+      },
+      "en": {
+       "q": "What does 『そこ』 in 『そこへ 入りました』 in the text refer to?",
+       "choices": [
+        "駅の 近くの きっさてん",
+        "本を たくさん 売って いる 大きな 店",
+        "しずかな 音楽が すきな 友だち",
+        "まどの そばの せき"
+       ]
       }
      }
     },
@@ -1787,6 +3200,24 @@
      "i18n": {
       "ja": {
        "explain": "「こんどは 紅茶を のみたいです」と あります。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति अब के पिउन चाहन्छ?",
+       "choices": [
+        "चिया",
+        "तातो कफी",
+        "चिसो जुस",
+        "गुलियो दूध"
+       ]
+      },
+      "en": {
+       "q": "What does this person want to drink next?",
+       "choices": [
+        "紅茶",
+        "あたたかい コーヒー",
+        "つめたい ジュース",
+        "あまい ミルク"
+       ]
       }
      }
     }
@@ -1795,6 +3226,11 @@
     "ne": {
      "body": [
       "स्टेशन नजिकै एउटा सानो कफी पसल छ। गत हप्ता म पहिलो पटक त्यहाँ गएँ। पसल भित्र शान्त थियो र शान्त संगीत बजिरहेको थियो। मैले तातो कफी र चिजकेक अर्डर गरेँ। केक गुलियो थियो र कफीसँग राम्रोसँग मिल्यो। झ्याल नजिकको सिटमा बस्दा बाहिर हिँडिरहेका मानिसहरू राम्ररी देखिन्छन्। किताब पढ्दै आरामले समय बिताएँ। त्यो धेरै राम्रो समय थियो। फेरि त्यो कफी पसलमा गएर, अर्को पटक चिया पिउन चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "There is a small coffee shop near the station. Last week, I went in there for the first time. The shop was quiet, and soft music was playing. I ordered a warm coffee and cheesecake. The cake was sweet and went well with the coffee. Sitting at a window seat, I could clearly see people walking outside. I spent my time slowly, reading a book. It was a very good time. I want to go to that coffee shop again and try black tea next time."
      ]
     }
    }
@@ -1822,6 +3258,24 @@
      "i18n": {
       "ja": {
        "explain": "「金魚すくいを しました。それは、水の 中の 金魚を…」。それ＝金魚すくい。"
+      },
+      "ne": {
+       "q": "पाठको 『それは、水の 中の 金魚を すくう あそびです』 मा रहेको 『それ』 ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "साथीसँग गरेको सुनौलो माछा समात्ने खेल",
+        "आकाशमा जाने ठूलो आतिशबाजी",
+        "गुलियो कपास क्यान्डी किन्नु",
+        "याकिसोबा बनाउनु"
+       ]
+      },
+      "en": {
+       "q": "What does \"それ\" in the sentence \"それは、水の 中の 金魚を すくう あそびです\" in the text refer to?",
+       "choices": [
+        "\"友だちと した 金魚すくい\"",
+        "\"空に 上がる 大きな 花火\"",
+        "\"あまい わたがしを 買う こと\"",
+        "\"やきそばを 作る こと\""
+       ]
       }
      }
     },
@@ -1838,6 +3292,24 @@
      "i18n": {
       "ja": {
        "explain": "「むずかしかったですが、一ぴき とる ことが できました」と あります。"
+      },
+      "ne": {
+       "q": "सुनौलो माछा समात्ने खेलमा यो व्यक्तिलाई के भयो?",
+       "choices": [
+        "एउटा सुनौलो माछा समात्न सक्यो",
+        "एउटा पनि समात्न सकेन",
+        "धेरै सुनौलो माछा घरमा लिएर गयो",
+        "सुनौलो माछालाई नदीमा छोडिदियो"
+       ]
+      },
+      "en": {
+       "q": "What happened to this person at the goldfish scooping game?",
+       "choices": [
+        "\"金魚を 一ぴき とれた\"",
+        "\"一ぴきも とる ことが できなかった\"",
+        "\"たくさんの 金魚を 家に もって かえった\"",
+        "\"金魚を 川に にがして しまった\""
+       ]
       }
      }
     }
@@ -1846,6 +3318,11 @@
     "ne": {
      "body": [
       "हिजो राति, सहरको मन्दिरमा गर्मी मेला थियो। म साथीहरूसँग गएँ। मेलामा धेरै पसलहरू सजिएका थिए। याकिसोबा र गुलियो कटन क्यान्डी बेचिरहेका थिए। मैले गोल्डेनफिश समात्ने खेल खेलेँ। त्यो पानीभित्रको गोल्डेनफिशलाई समात्ने खेल हो। गाह्रो थियो, तर मैले एउटा समात्न सफल भएँ। राति अबेर भएपछि, ठूला आतिशबाजीहरू आकाशमा उडे। रातो र नीलो आतिशबाजी धेरै सुन्दर थिए। अर्को वर्ष पनि जान चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last night, there was a summer festival at the town shrine. I went with my friends. There were many stalls lined up at the festival. They were selling yakisoba and sweet cotton candy. I played goldfish scooping. It's a game where you scoop goldfish out of the water. It was difficult, but I managed to catch one. As it got late at night, large fireworks went up into the sky. The red and blue fireworks were very beautiful. I want to go again next year too."
      ]
     }
    }
@@ -1873,6 +3350,24 @@
      "i18n": {
       "ja": {
        "explain": "「おべんとうを 食べました。それは、朝 早く おきて 作った…」。それ＝おべんとう。"
+      },
+      "ne": {
+       "q": "पाठको 『それは、朝 早く おきて 作った』 मा रहेको 『それ』 ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "बिहान सबेरै तयार पारेको खाजा",
+        "साथीले ल्याएको मिठाई",
+        "पार्कमा किनेको पेय पदार्थ",
+        "फुलेको साकुराको फूल"
+       ]
+      },
+      "en": {
+       "q": "What does \"それ\" in the sentence \"それは、朝 早く おきて 作った\" in the text refer to?",
+       "choices": [
+        "\"朝 早く 用意した おべんとう\"",
+        "\"友だちが 持って きた おかし\"",
+        "\"公園で 買った 飲みもの\"",
+        "\"満開に なった さくらの 花\""
+       ]
       }
      }
     },
@@ -1889,6 +3384,24 @@
      "i18n": {
       "ja": {
        "explain": "「風が ふくと、さくらの 花びらが ゆっくり おちて きて」と あります。"
+      },
+      "ne": {
+       "q": "हावा चल्दा के भयो?",
+       "choices": [
+        "रुखबाट \"花びらが おりて きた\"",
+        "बनाएको \"おべんとうが 風で とんで いった\"",
+        "\"さくらの 花が もっと さいた\"",
+        "आकाश अचानक \"くらく なった\""
+       ]
+      },
+      "en": {
+       "q": "What happened when the wind blew?",
+       "choices": [
+        "\"木から 花びらが おりて きた\"",
+        "\"作った おべんとうが 風で とんで いった\"",
+        "\"さくらの 花が もっと さいた\"",
+        "\"空が 急に くらく なった\""
+       ]
       }
      }
     }
@@ -1897,6 +3410,11 @@
     "ne": {
      "body": [
       "वसन्त ऋतुमा जापानमा साकुराका फूलहरू फुल्छन्।\nगत आइतबार म साथीहरूसँग पार्कमा फूल हेर्न गएँ। पार्कका साकुराहरू पूरै फुलेका थिए। रूखमुनि सिट बिछ्याएर, हामी सबैले बेन्तो खायौँ। त्यो बिहान सबेरै उठेर मैले आफैँले बनाएको बेन्तो थियो। मैले ओनिगिरी र तामागोयाकी राखेको थिएँ। साथीहरूले पनि \"स्वादिष्ट छ\" भने। हावा चल्दा, साकुराका फूलका पत्रहरू बिस्तारै खसेर आउँदा, धेरै सुन्दर देखिन्थ्यो। त्यो अविस्मरणीय दिन बन्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "In spring, cherry blossoms bloom in Japan. Last Sunday, my friends and I went to the park to see the cherry blossoms. The cherry trees in the park were already in full bloom. We spread a sheet under a tree and all ate lunch together. It was a bento box that I woke up early to make myself. I put onigiri and tamagoyaki in it. My friends also told me it was delicious. When the wind blew, the cherry blossom petals slowly fell, and it was very beautiful. It became an unforgettable day."
      ]
     }
    }
@@ -1924,6 +3442,24 @@
      "i18n": {
       "ja": {
        "explain": "「青い かさを 見せて くれました。それは、まさに わたしの かさ」。それ＝青い かさ。"
+      },
+      "ne": {
+       "q": "पाठको \"それは、まさに わたしの かさでした\" मा, \"それ\" ले केलाई जनाउँछ?",
+       "choices": [
+        "स्टेशनका कर्मचारीले देखाएको नीलो छाता",
+        "कम्पनीसम्म सावधानीपूर्वक लगेको कालो झोला",
+        "स्टेशन कार्यालयको डेस्क",
+        "स्टेशनका कर्मचारीले खसालेको छाता"
+       ]
+      },
+      "en": {
+       "q": "What does \"それ\" in the sentence \"それは、まさに わたしの かさでした\" in the text refer to?",
+       "choices": [
+        "\"えきいんさんが 見せた 青い かさ\"",
+        "\"会社まで 大切に 持って いった 黒い かばん\"",
+        "\"駅の じむしょの つくえ\"",
+        "\"えきいんさんが 落とした かさ\""
+       ]
       }
      }
     },
@@ -1940,6 +3476,24 @@
      "i18n": {
       "ja": {
        "explain": "「電車の 中に わすれた…それを 取りに、駅の じむしょへ」と あります。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति किन स्टेशन कार्यालयमा गयो?",
+       "choices": [
+        "बिर्सेको छाता लिनको लागि",
+        "कम्पनीमा बिर्सेको झोला खोज्न लगाउनको लागि",
+        "रेलको समय सोध्नको लागि",
+        "नयाँ छाता किन्नको लागि"
+       ]
+      },
+      "en": {
+       "q": "Why did this person go to the station office?",
+       "choices": [
+        "\"わすれた かさを 取りに 行く ため\"",
+        "\"会社に わすれた かばんを 探して もらう ため\"",
+        "\"電車の 時間を きく ため\"",
+        "\"新しい かさを 買う ため\""
+       ]
       }
      }
     }
@@ -1948,6 +3502,11 @@
     "ne": {
      "body": [
       "हिजो पानी परिरहेकोले गर्दा म छाता लिएर निस्किएँ।\nरेल चढेर कम्पनी गएँ।\nकम्पनी पुगेपछि छाता नभएको कुरा याद आयो। रेलभित्र बिर्सेको रहेछु।\nत्यो लिन म स्टेशनको कार्यालयमा गएँ। स्टेशनका कर्मचारीले \"यो हो?\" भन्दै एउटा निलो छाता देखाउनुभयो।\nत्यो ठ्याक्कै मेरो छाता थियो। धेरै खुसी लाग्यो।\nस्टेशनका कर्मचारीलाई धन्यवाद दिएर छाता लिएँ। अब सामान नबिर्सने गरी ध्यान दिनेछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Yesterday, it was raining, so I took an umbrella with me when I went out. I took the train and went to work. After arriving at the office, I realized that my umbrella was gone. I had left it on the train. To retrieve it, I went to the station office. The station attendant showed me a blue umbrella and asked, \"Is this it?\" It was indeed my umbrella. I was very happy. I thanked the station attendant and received my umbrella. I will be careful not to forget things again."
      ]
     }
    }
@@ -1975,6 +3534,24 @@
      "i18n": {
       "ja": {
        "explain": "「あたらしい 曲を 練習…それは、少し むずかしい 曲」。それ＝あたらしい 曲。"
+      },
+      "ne": {
+       "q": "पाठको \"それは、少し むずかしい 曲です\" मा, \"それ\" ले केलाई जनाउँछ?",
+       "choices": [
+        "प्रस्तुतिमा बजाउने सुन्दर धुन",
+        "छ वर्षको हुँदा पहिलो पटक सिकेको सजिलो धुन",
+        "आमालाई मनपर्ने शान्त धुन",
+        "विद्यालयमा सबैले गाएको धुन"
+       ]
+      },
+      "en": {
+       "q": "What does \"それ\" in the text's \"それは、少し むずかしい 曲です\" refer to?",
+       "choices": [
+        "A beautiful song to play at the recital",
+        "An easy song I first learned when I was six",
+        "A quiet song my mother likes",
+        "A song everyone sang at school"
+       ]
       }
      }
     },
@@ -1991,6 +3568,24 @@
      "i18n": {
       "ja": {
        "explain": "「学校から 帰ると、一時間 ピアノを 練習します」と あります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले हरेक दिन कति पियानो अभ्यास गर्छ?",
+       "choices": [
+        "विद्यालयबाट फर्केपछि एक घण्टा",
+        "बिहान सबेरै विद्यालय जानुअघि तीस-तीस मिनेट",
+        "राति सुत्नुअघि दुई घण्टा",
+        "शनिबार मात्र एक घण्टा"
+       ]
+      },
+      "en": {
+       "q": "How long does this person practice the piano every day?",
+       "choices": [
+        "One hour after returning from school",
+        "Thirty minutes each before going to school early in the morning",
+        "Two hours before going to bed at night",
+        "One hour only on Saturdays"
+       ]
       }
      }
     }
@@ -1999,6 +3594,11 @@
     "ne": {
      "body": [
       "मेरो रुचि पियानो हो।\nम छ वर्षको हुँदादेखि सिक्दै आएको छु।\nहरेक दिन, स्कुलबाट फर्केपछि, म एक घण्टा पियानो अभ्यास गर्छु।\nअहिले, म एउटा नयाँ गीत अभ्यास गर्दैछु।\nत्यो अलि गाह्रो गीत हो, तर यसको धुन धेरै सुन्दर छ।\nराम्ररी बजाउन नसक्ने ठाउँहरू छन्, त्यसैले म धेरै पटक अभ्यास गर्छु।\nआगामी महिना, हलमा एउटा प्रस्तुति कार्यक्रम छ।\nत्यहाँ, म यो गीत बजाउनेछु।\nधेरै मानिसहरूको अगाडि बजाउनु डरलाग्दो हुन्छ, तर म सक्दो प्रयास गर्न चाहन्छु।\nमेरी आमा पनि सुन्न आउनुहुनेछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My hobby is playing the piano. I have been learning since I was six years old. Every day, when I come home from school, I practice the piano for an hour. Currently, I am practicing a new song. It is a bit difficult, but it has a very beautiful melody. There are parts I can't play well, so I practice them many times. Next month, there will be a recital at the hall. I will play this song there. I get nervous playing in front of many people, but I want to do my best. My mother will also come to listen."
      ]
     }
    }
@@ -2026,6 +3626,24 @@
      "i18n": {
       "ja": {
        "explain": "「大きな みずうみが 見えました。それは、空の 色を うつして」。それ＝みずうみ。"
+      },
+      "ne": {
+       "q": "पाठको \"それは、空の 色を うつして\" मा, \"それ\" ले केलाई जनाउँछ?",
+       "choices": [
+        "पहाडको माथि रहेको ताल",
+        "पहाडी बाटोमा सुनेको चराको आवाज",
+        "दुई घण्टा हिँडेको ठाडो पहाडी बाटो",
+        "पानीको छेउमा रहेको ठूलो रुख"
+       ]
+      },
+      "en": {
+       "q": "What does \"それ\" in the text's \"それは、空の 色を うつして\" refer to?",
+       "choices": [
+        "The lake on top of the mountain",
+        "The sound of birds heard along the mountain path",
+        "The steep mountain path walked for two hours",
+        "A large tree by the water"
+       ]
       }
      }
     },
@@ -2042,6 +3660,24 @@
      "i18n": {
       "ja": {
        "explain": "「電車に のって、それから 二時間 山道を あるきました」と あります。"
+      },
+      "ne": {
+       "q": "पहाडको टुप्पोसम्म कसरी जानुभयो?",
+       "choices": [
+        "रेल चढेपछि दुई घण्टा हिँडेर चढें",
+        "बस र 'ロープウェー' प्रयोग गरेर माथि गएँ",
+        "गाडीले तालको नजिकसम्म गएँ",
+        "साइकलले पहाडी बाटो चढें"
+       ]
+      },
+      "en": {
+       "q": "How did they get to the top of the mountain?",
+       "choices": [
+        "After the train, they walked up for two hours",
+        "They used a bus and a ropeway to go to the top",
+        "They drove by car close to the lake",
+        "They climbed the mountain path by bicycle"
+       ]
       }
      }
     }
@@ -2050,6 +3686,11 @@
     "ne": {
      "body": [
       "गत शनिबार म साथीसँग पहाडमाथिको तालमा हाइकिङ गर्न गएँ।\nबिहान सबेरै रेल चढेर, त्यसपछि दुई घण्टा पहाडी बाटो हिँड्यौँ। बाटो अलि अप्ठ्यारो थियो, तर चराको आवाज सुन्दै हिँड्न रमाइलो थियो। पहाडको टुप्पोमा पुग्दा, एउटा ठूलो ताल देखियो। त्यो आकाशको रङ्ग प्रतिबिम्बित गरेर नीलो चम्किरहेको थियो। हामीले पानीको छेउमा खाजा खायौँ। थकित थियौँ, तर सुन्दर दृश्य देखेर आएकोमा खुसी लाग्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last Saturday, my friends and I went hiking to a lake on top of a mountain. We took the train early in the morning, and then walked for two hours along the mountain path. The path was a bit steep, but it was fun to walk while listening to the birds. When we reached the top of the mountain, we saw a large lake. It reflected the color of the sky and glowed blue. We ate our lunch by the water. We were tired, but seeing the beautiful scenery, I thought it was worth coming."
      ]
     }
    }

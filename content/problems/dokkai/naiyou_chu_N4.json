@@ -4,7 +4,8 @@
  "level": "N4",
  "languages": [
   "ja",
-  "ne"
+  "ne",
+  "en"
  ],
  "audit": {
   "status": "監査済み",
@@ -37,6 +38,24 @@
      "i18n": {
       "ja": {
        "explain": "「近所のおじいさんがいろいろ教えてくれたから」。"
+      },
+      "ne": {
+       "q": "① तैपनि जारी राख्न किन सम्भव भयो?",
+       "choices": [
+        "छिमेकी हजुरबुबाले सिकाउनुभएकोले",
+        "माटो बनाउन र पानी हाल्न सजिलो भएकोले",
+        "हजुरबुबा ४० वर्षदेखि तरकारी खेती गर्दै आउनुभएको व्यक्ति भएकोले",
+        "आफैले बनाएको तरकारी स्वादिष्ट भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why was ①「それでも続けられた」 possible?",
+       "choices": [
+        "Because an old man in the neighborhood taught me.",
+        "Because making soil and watering were easy.",
+        "Because the old man had been growing vegetables for 40 years.",
+        "Because the vegetables I grew myself were delicious."
+       ]
       }
      }
     },
@@ -53,6 +72,24 @@
      "i18n": {
       "ja": {
        "explain": "「おじいさんは40年も野菜を作っている人」とある。"
+      },
+      "ne": {
+       "q": "हजुरबुबा कस्तो व्यक्ति हुनुहुन्छ?",
+       "choices": [
+        "४० वर्षदेखि तरकारी खेती गर्दै आउनुभएको व्यक्ति",
+        "पानी हाल्ने तरिका र किरा समात्ने तरिका सिकिरहेको व्यक्ति",
+        "हरेक बिहान बगैंचामा तरकारी बेच्ने व्यक्ति",
+        "यस वर्षदेखि तरकारी खेती गर्न थालेको व्यक्ति"
+       ]
+      },
+      "en": {
+       "q": "What kind of person is the old man?",
+       "choices": [
+        "A person who has been growing vegetables for 40 years.",
+        "A person who is learning how to water and remove insects.",
+        "A person who sells vegetables in his garden every morning.",
+        "A person who started growing vegetables this year."
+       ]
       }
      }
     },
@@ -69,6 +106,24 @@
      "i18n": {
       "ja": {
        "explain": "「その言葉で、わたしは気が楽になりました」。"
+      },
+      "ne": {
+       "q": "हजुरबुबाको कुरा सुनेर यो व्यक्तिलाई कस्तो लाग्यो?",
+       "choices": [
+        "मन हलुका भयो",
+        "तरकारी खेती छोड्ने सोच्यो",
+        "४० वर्षसम्म जारी राख्ने सोच्यो",
+        "पसलमा किन्नु राम्रो हुन्छ भन्ने सोच्यो"
+       ]
+      },
+      "en": {
+       "q": "After hearing the old man's words, what did this person think?",
+       "choices": [
+        "They felt relieved.",
+        "They thought about quitting growing vegetables.",
+        "They thought about continuing for 40 years.",
+        "They thought it would be better to buy them at a store."
+       ]
       }
      }
     },
@@ -85,6 +140,24 @@
      "i18n": {
       "ja": {
        "explain": "直前（ちょくぜん）でおじいさんが言（い）った「失敗（しっぱい）してもいいんだよ。野菜（やさい）はゆっくり育（そだ）てればいい」を指（さ）す。"
+      },
+      "ne": {
+       "q": "「その言葉で、わたしは気が楽になりました」 भनिएको छ, तर 「その言葉」 कस्तो शब्द हो?",
+       "choices": [
+        "「失敗してもいい、野菜はゆっくり育てればいい」 भन्ने शब्द",
+        "「水のやり方や虫のとり方をていねいに教える」 भन्ने शब्द",
+        "「毎朝庭に出て野菜のようすを見るとよい」 भन्ने शब्द",
+        "「自分で作った野菜は店のものよりおいしい」 भन्ने शब्द"
+       ]
+      },
+      "en": {
+       "q": "It says, \"その言葉で、わたしは気が楽になりました\" (Those words made me feel relieved), but what kind of words were \"その言葉\" (those words)?",
+       "choices": [
+        "The words \"失敗してもいい、野菜はゆっくり育てればいい\" (It's okay to fail, you can grow vegetables slowly).",
+        "The words \"水のやり方や虫のとり方をていねいに教える\" (I will carefully teach you how to water and remove insects).",
+        "The words \"毎朝庭に出て野菜のようすを見るとよい\" (It's good to go out into the garden every morning and check on the vegetables).",
+        "The words \"自分で作った野菜は店のものよりおいしい\" (Vegetables you grow yourself are more delicious than those from a store)."
+       ]
       }
      }
     }
@@ -93,6 +166,11 @@
     "ne": {
      "body": [
       "मैले गएको वर्षदेखि घरको सानो बगैंचामा तरकारी उब्जाउन सुरु गरेँ। सुरुमा, माटो तयार गर्नु र पानी हाल्नु पनि गाह्रो थियो, धेरैपटक छोड्न मन लाग्यो। ①तैपनि जारी राख्न सकेको कारण, छिमेकका हजुरबाजेले धेरै कुरा सिकाइदिनुभएकोले हो। हजुरबाजे ४० वर्षदेखि तरकारी उब्जाइरहनुभएको मानिस हुनुहुन्थ्यो, उहाँले पानी हाल्ने तरिका र किरा हटाउने तरिका ध्यानपूर्वक सिकाइदिनुभयो। र, 'असफल भए पनि हुन्छ। तरकारीलाई बिस्तारै हुर्काए पुग्छ' भनेर भन्नुभयो। त्यो कुराले, मलाई मन हलुका भयो। हरेक बिहान बगैंचामा गएर तरकारीको अवस्था हेर्नु, कहिले हो कहिले एक दिनको आनन्द बन्यो। यस वर्षको गर्मीमा, पहिलो पटक धेरै गोलभेंडा फल्यो। आफैंले उब्जाएको तरकारी, पसलबाट किनेको भन्दा धेरै मीठो लाग्यो। अब पनि बिस्तारै, विभिन्न तरकारीहरूमा प्रयास गर्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last year, I started growing vegetables in my small garden at home. At first, it was tough preparing the soil and watering, and I often thought about giving up. ①The reason I was able to continue was because an elderly neighbor taught me many things. He had been growing vegetables for 40 years and carefully taught me how to water and remove insects. He also told me, \"It's okay to make mistakes. You can grow vegetables slowly.\" Those words put my mind at ease. Before I knew it, checking on my vegetables in the garden every morning became my daily pleasure. This summer, I harvested a lot of tomatoes for the first time. The vegetables I grew myself tasted much better than those bought at the store. I want to try growing various vegetables little by little from now on."
      ]
     }
    }
@@ -120,6 +198,24 @@
      "i18n": {
       "ja": {
        "explain": "「①これ」は、直前（ちょくぜん）の「そうしたお弁当（べんとう）の写真（しゃしん）」を指（さ）す。"
+      },
+      "ne": {
+       "q": "「①これ」 ले केलाई जनाउँछ?",
+       "choices": [
+        "राम्ररी बनाइएको बेन्टोको फोटो",
+        "विद्यालय वा कार्यालयमा लैजाने बेन्टो",
+        "आफ्नो मनपर्ने चीजहरू राखेको बेन्टो",
+        "जनावरको आकारमा बनाएको भात"
+       ]
+      },
+      "en": {
+       "q": "What does \"①これ\" refer to?",
+       "choices": [
+        "A photo of a beautifully made bento.",
+        "A bento to take to school or work.",
+        "A bento filled with one's favorite things.",
+        "Rice shaped like an animal."
+       ]
       }
      }
     },
@@ -136,6 +232,24 @@
      "i18n": {
       "ja": {
        "explain": "「自分の好きなものを入れられること、そしてお金があまりかからないこと」とある。"
+      },
+      "ne": {
+       "q": "「お弁当」को राम्रो पक्षको रूपमा, पाठमा के उल्लेख गरिएको छ?",
+       "choices": [
+        "मनपर्ने कुराहरू राख्न सकिने र धेरै पैसा नलाग्ने कुरा",
+        "बाहिरको पसलमा खानुभन्दा मूल्य महँगो हुने कुरा",
+        "इन्टरनेटमा धेरै तस्बिरहरू राखिएको कुरा",
+        "कसैको लागि समय खर्च नगरी बाहिरको पसलमा किन्न सकिने कुरा"
+       ]
+      },
+      "en": {
+       "q": "According to the text, what is a good point about bento?",
+       "choices": [
+        "You can put your favorite things in it, and it doesn't cost much money.",
+        "The price becomes higher than eating at an outside restaurant.",
+        "There are many photos posted on the internet.",
+        "You can buy it at an outside restaurant without spending much time for someone."
+       ]
       }
      }
     },
@@ -152,6 +266,24 @@
      "i18n": {
       "ja": {
        "explain": "「いろいろな色をならべたり、ごはんを動物の形にしたり」とある。"
+      },
+      "ne": {
+       "q": "देख्नमा सुन्दर 「お弁当」 कस्तो हुन्छ?",
+       "choices": [
+        "रंगहरू मिलाएर वा भातलाई जनावरको आकार दिएको कुरा",
+        "तरकारी र अण्डा प्रयोग नगरी, बाहिरको पसलबाट किनेको 「お弁当」",
+        "कसैको लागि समय लगाएर तयार पारिएको 「お弁当」",
+        "बाहिर खानुभन्दा सस्तो र रंगीन 「お弁当」"
+       ]
+      },
+      "en": {
+       "q": "What kind of bento is a visually appealing bento?",
+       "choices": [
+        "One with arranged colors or rice shaped like animals.",
+        "A bento bought from an outside restaurant, without using vegetables or eggs.",
+        "A bento prepared with time for someone.",
+        "A bento that is cheaper and more colorful than eating outside."
+       ]
       }
      }
     },
@@ -168,6 +300,24 @@
      "i18n": {
       "ja": {
        "explain": "「作る楽しみもある」「作った人の気持ちがつまっている」が主旨。"
+      },
+      "ne": {
+       "q": "यस लेखमा, लेखकले सबैभन्दा बढी के भन्न चाहन्छन्?",
+       "choices": [
+        "「お弁当」मा बनाउने आनन्द र भावना भरिएको हुन्छ",
+        "देख्नमा सुन्दर 「お弁当」 बनाउने मानिसहरू बढिरहेका छन्",
+        "इन्टरनेटमा 「弁当」का धेरै तस्बिरहरू छन्",
+        "बाहिर खाँदा पैसा महँगो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "Bento is filled with the joy of making it and feelings.",
+        "The number of people making visually appealing bento is increasing.",
+        "There are many bento photos on the internet.",
+        "Eating out costs more money."
+       ]
       }
      }
     }
@@ -176,6 +326,11 @@
     "ne": {
      "body": [
       "जापानमा, धेरै मानिसहरू बेन्तो (खाजाको बाकस) लिएर विद्यालय वा कार्यालय जान्छन्। बेन्तोको राम्रो कुरा भनेको, आफूलाई मनपर्ने चीज राख्न सकिनु, र पैसा धेरै नलाग्नु हो। बाहिर खाँदा महँगो हुन्छ, तर बेन्तो भए सस्तोमा पुग्छ।\nहालसालै, हेर्दा राम्रो देखिने बेन्तो बनाउने मानिसहरू पनि बढिरहेका छन्। तरकारी र अण्डा प्रयोग गरेर, विभिन्न रङहरू सजाउने वा भातलाई जनावरको आकार दिने गर्छन्। इन्टरनेटमा, त्यस्ता बेन्तोका धेरै तस्बिरहरू राखिएका छन्। ①यो हेरेर, खाना पकाउन सुरु गर्ने युवाहरू पनि हुन्छन् रे।\nबेन्तो केवल भात खानका लागि मात्र होइन। बनाउनेका लागि आनन्द बन्छ, र खानेका लागि खुसीको कुरा हुन्छ। कसैको लागि समय खर्च गरेर तयार पार्ने भन्ने कुरामा, बेन्तोको राम्रोपन हुन्छ होला। सानो बाकसभित्र, बनाउने मानिसको भावना भरिएको हुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "In Japan, many people take bento boxes to school or work. The good things about bento are that you can put whatever you like in them, and they don't cost much money. Eating out can be expensive, but bento is cheap.\nRecently, more people are making visually appealing bento boxes. They use vegetables and eggs to arrange various colors, or shape rice into animal forms. There are many photos of such bento boxes on the internet. ①It is said that some young people start cooking after seeing these.\nBento is not just for eating a meal. It becomes a pleasure for the person making it and a joy for the person eating it. The goodness of bento probably lies in the fact that someone takes the time to prepare it for someone else. The feelings of the person who made it are packed into that small box."
      ]
     }
    }
@@ -203,6 +358,24 @@
      "i18n": {
       "ja": {
        "explain": "前（まえ）の文（ぶん）で述（の）べた電車（でんしゃ）の悪（わる）い点（てん）を指（さ）し、それを受（う）けて自転車（じてんしゃ）の良（よ）さを言（い）っている。"
+      },
+      "ne": {
+       "q": "①「でも」भनिएको छ, तर लेखकले कस्तो कुरालाई संकेत गरेर 「でも」 भनिरहेका छन्?",
+       "choices": [
+        "रेलमा धेरै मानिस हुने र लामो समयसम्म उभिनुपर्ने कुरा",
+        "साइकलमा दृष्य हेर्दै बसेर जान सकिने कुरा",
+        "वसन्तको बाटोमा फूलहरू फुलेर धेरै सुन्दर भएको कुरा",
+        "घमाइलो दिनमा सधैं साइकल चढ्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "Regarding ①「でも」, what is the author referring to when they say 「でも」?",
+       "choices": [
+        "The train is crowded with many people and you have to stand for a long time.",
+        "If you ride a bicycle, you can sit and enjoy the scenery.",
+        "The spring road is very beautiful with flowers blooming.",
+        "Always riding a bicycle on sunny days."
+       ]
       }
      }
     },
@@ -219,6 +392,24 @@
      "i18n": {
       "ja": {
        "explain": "「雨の日は電車を使います」とある。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति कस्तो दिनमा रेल प्रयोग गर्छ?",
+       "choices": [
+        "पानी परेको दिन",
+        "घमाइलो दिन",
+        "फूल फुलेको दिन",
+        "शरीर स्वस्थ भएको दिन"
+       ]
+      },
+      "en": {
+       "q": "On what kind of day does this person use the train?",
+       "choices": [
+        "On a rainy day.",
+        "On a sunny day.",
+        "On a day when flowers are blooming.",
+        "On a day when their body is energetic."
+       ]
       }
      }
     },
@@ -235,6 +426,24 @@
      "i18n": {
       "ja": {
        "explain": "「自転車に乗ると、体も元気になります」とある。"
+      },
+      "ne": {
+       "q": "साइकल चलाउँदा शरीर कस्तो हुन्छ भनिएको छ?",
+       "choices": [
+        "स्वस्थ हुन्छ",
+        "थकित हुन्छ",
+        "भारी हुन्छ",
+        "परिवर्तन हुँदैन"
+       ]
+      },
+      "en": {
+       "q": "What does it say happens to the body when riding a bicycle?",
+       "choices": [
+        "It becomes energetic.",
+        "It becomes tired.",
+        "It becomes heavy.",
+        "It doesn't change."
+       ]
       }
      }
     },
@@ -251,6 +460,24 @@
      "i18n": {
       "ja": {
        "explain": "景色が見られ、気持ちがすっきりすると述べている点が理由。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले साइकलमा यात्रा गर्न चाहनुको सबैभन्दा नजिकको कारण कुन हो?",
+       "choices": [
+        "दृश्यहरू हेरेर दिनको राम्रो सुरुवात गर्न सकिने भएकोले",
+        "रेलमा सधैं धेरै मानिसहरू हुने र उभिन गाह्रो हुने भएकोले",
+        "हरेक दिन यात्रा गर्दा पनि दृश्य उस्तै भएर कहिल्यै नरमाइलो नलाग्ने भएकोले",
+        "साइकल नयाँ र छिटो कुद्ने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is closest to the main reason this person wants to commute by bicycle?",
+       "choices": [
+        "Because they can see the scenery and start the day feeling good.",
+        "Because the train is always crowded and standing is tiring.",
+        "Because the scenery is the same every day but they don't get bored.",
+        "Because the bicycle is new and can run fast."
+       ]
       }
      }
     }
@@ -259,6 +486,11 @@
     "ne": {
      "body": [
       "म हरेक दिन साइकलमा अफिस जान्छु। घरबाट अफिससम्म रेलमा पनि जान सकिन्छ, तर मलाई साइकल नै मन पर्छ। रेलमा सधैं धेरै मानिसहरू हुन्छन् र लामो समय उभिनुपर्छ। ①तर साइकलमा भने बसेर जान सकिन्छ, र वरिपरिको दृश्य पनि हेर्न सकिन्छ। वसन्तमा बाटोमा फूलहरू फुलेका हुन्छन्, जुन धेरै सुन्दर हुन्छ। गर्मीमा हरियाली चम्किलो हुन्छ, र शरदमा पातको रङ रातो र पहेंलो हुन्छ। ऋतु अनुसार दृश्य परिवर्तन हुने भएकाले, हरेक दिन गए पनि वाक्क लाग्दैन। पानी परेको दिन रेल प्रयोग गर्छु, तर घाम लागेको दिन सधैं साइकल नै हुन्छ। साइकल चलाउँदा शरीर पनि सक्रिय हुन्छ। अफिस पुग्दासम्ममा मन पनि ताजा भइसकेको हुन्छ, र दिनलाई रमाइलोसँग सुरु गर्न सकिन्छ। हरेक दिन थोरै-थोरै शरीर चलाउने भएकाले स्वास्थ्यका लागि पनि राम्रो लाग्छ। त्यसैले, म अब पनि साइकलमा नै अफिस जान चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I go to work by bicycle every day. I could take the train from home to work, but I prefer cycling. The train is always crowded, and I have to stand for a long time. ①But with a bicycle, I can sit and also enjoy the scenery around me. In spring, the flowers blooming along the road are very beautiful. In summer, the greenery is dazzling, and in autumn, the leaves change color to red and yellow. The scenery changes with each season, so I never get tired of the commute. I use the train on rainy days, but on sunny days, I always cycle. Riding a bicycle also energizes my body. By the time I arrive at work, my mind feels refreshed, and I can start the day happily. I feel that moving my body a little bit every day is good for my health. That's why I want to continue commuting by bicycle."
      ]
     }
    }
@@ -286,6 +518,24 @@
      "i18n": {
       "ja": {
        "explain": "直前に母が病気で起きられないとあり、それが理由。"
+      },
+      "ne": {
+       "q": "①「そこで」 भनिएको छ, तर मैले किन 「おべんとう」 बनाउने निर्णय गरें?",
+       "choices": [
+        "आमा बिरामी भएर उठ्न नसक्नुभएकोले",
+        "बहिनीले जसरी पनि 「おべんとう」 बनाइदिन आग्रह गरेकीले",
+        "अलिकति डढे पनि 「たまご焼き」 बनाउन प्रयास गर्न चाहेकोले",
+        "बहिनीलाई विद्यालयमा समस्या नहोस् भन्ने चाहेकोले"
+       ]
+      },
+      "en": {
+       "q": "Regarding ①「そこで」, why did I decide to make a bento?",
+       "choices": [
+        "Because my mother was sick and couldn't get up.",
+        "Because my sister really wanted me to make a bento.",
+        "Because I wanted to try making tamagoyaki, even if it was a little burnt.",
+        "Because I wanted to prevent my sister from having trouble at school."
+       ]
       }
      }
     },
@@ -302,6 +552,24 @@
      "i18n": {
       "ja": {
        "explain": "「うれしくて、少しはずかしい気持ちにもなりました」とある。"
+      },
+      "ne": {
+       "q": "बहिनीको कुरा सुनेर मलाई कस्तो लाग्यो?",
+       "choices": [
+        "खुसी र अलिकति लाज लागेको महसुस",
+        "धेरै दुःखी महसुस",
+        "आमाले गाली गर्नुहोला भन्ने डर लागेको महसुस",
+        "अब खाना पकाउन मन नलागेको महसुस"
+       ]
+      },
+      "en": {
+       "q": "How did I feel after hearing my sister's words?",
+       "choices": [
+        "Happy and a little embarrassed.",
+        "Very sad.",
+        "Scared that my mother would get angry.",
+        "No longer wanting to cook."
+       ]
       }
      }
     },
@@ -318,6 +586,24 @@
      "i18n": {
       "ja": {
        "explain": "最後に「母の手伝いをもっとしようと思いました」とある。"
+      },
+      "ne": {
+       "q": "यो पाठबाट के बुझ्न सकिन्छ?",
+       "choices": [
+        "म अब आमालाई मद्दत गर्ने सोचमा छु",
+        "म अब हरेक दिन आफैं 「おべんとう」 बनाउने सोचमा छु",
+        "मैले 「たまご焼き」 राम्रोसँग बनाउन सकें",
+        "आमाले हरेक बिहान 「おべんとう」 बनाउन छोड्नुभयो"
+       ]
+      },
+      "en": {
+       "q": "What can be understood from this text?",
+       "choices": [
+        "I am thinking of helping my mother from now on.",
+        "I am thinking of making my own \"おべんとう\" every day from now on.",
+        "I was able to make \"たまご焼き\" well.",
+        "My mother has stopped making \"おべんとう\" every morning."
+       ]
       }
      }
     },
@@ -334,6 +620,24 @@
      "i18n": {
       "ja": {
        "explain": "文章（ぶんしょう）の初（はじ）めに「母（はは）は毎朝（まいあさ）…おべんとうを作（つく）ります」とあり、「これ」はそのおべんとうを指（さ）す。"
+      },
+      "ne": {
+       "q": "「毎朝これを作ってくれる母は、本当にすごい」 भनिएको छ, तर 「これ」 ले केलाई जनाउँछ?",
+       "choices": [
+        "「おべんとう」",
+        "「たまご焼き」",
+        "तरकारी र 「おにぎり」",
+        "चपस्टिक र पेय पदार्थ"
+       ]
+      },
+      "en": {
+       "q": "It says, \"毎朝これを作ってくれる母は、本当にすごい\" (My mother, who makes this every morning, is truly amazing). What does \"これ\" refer to?",
+       "choices": [
+        "おべんとう",
+        "たまご焼き",
+        "Vegetables and \"おにぎり\"",
+        "Chopsticks and drinks"
+       ]
       }
      }
     }
@@ -342,6 +646,11 @@
     "ne": {
      "body": [
       "मेरो सानी बहिनी छिन्। बहिनी यस वर्ष प्राथमिक विद्यालयमा भर्ना भइन्। आमाले हरेक बिहान बहिनीका लागि खाजा बनाउनुहुन्छ। एक दिन, आमा बिरामी भएर उठ्न सक्नुभएन। ①त्यसैले, मैले पहिलोपटक खाजा बनाउने निर्णय गरें। अमलेट बनाउने प्रयास गरें, तर अलिकति डढ्यो। तैपनि, सकेसम्म राम्रो देखियोस् भनेर तरकारी र अनिगिरी सजाएं। बहिनीलाई स्कूलमा समस्या नहोस् भनेर चपस्टिक र पिउने कुरा पनि नबिर्सी तयार गरें। साँझ, बहिनी घर फर्किन् र दिदीको खाजा मीठो थियो भनिन्। मलाई धेरै खुसी लाग्यो, र अलि लाज पनि लाग्यो। खाना पकाउनु सजिलो होइन भन्ने थाहा भयो। हरेक बिहान यो बनाइदिने आमा साँच्चै अद्भुत लाग्नुभयो। अबदेखि, आमालाई अझ बढी सघाउने सोच्दैछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I have a younger sister. She started elementary school this year. My mother makes a bento box for her every morning. One day, my mother was sick and couldn't get up. ①So, I decided to make a bento box for the first time. I tried to make tamagoyaki (rolled omelet), but it got a little burnt. Still, I arranged vegetables and rice balls to make it look as nice as possible. I also remembered to prepare chopsticks and a drink so my sister wouldn't have any trouble at school. In the evening, my sister came home and told me, \"Big sister's bento was delicious.\" I was very happy and also felt a little shy. I realized that cooking is not easy. I thought my mother, who makes this every morning, is truly amazing. From now on, I decided to help my mother more."
      ]
     }
    }
@@ -369,6 +678,24 @@
      "i18n": {
       "ja": {
        "explain": "直前に冊数と期間のきまりが書かれており、それを指す。"
+      },
+      "ne": {
+       "q": "①「このルール」 भनिएको छ, तर यसले केलाई जनाउँछ?",
+       "choices": [
+        "एक पटकमा पाँचवटासम्म पुस्तक दुई हप्तासम्मका लागि उधारो लिन सकिने",
+        "पुस्तक उधारो लिनको लागि पहिले कार्ड बनाउनुपर्ने",
+        "नाम र ठेगाना खुल्ने कागजात लिएर जानुपर्ने",
+        "उधारो लिएका पुस्तकहरू फोहोर नगरी सावधानीपूर्वक राख्नुपर्ने"
+       ]
+      },
+      "en": {
+       "q": "①This rule, what does it refer to?",
+       "choices": [
+        "That you can borrow up to five books at a time for up to two weeks.",
+        "That you must make a card first to borrow books.",
+        "That you must bring something that shows your name and address.",
+        "That you must handle borrowed books carefully so as not to dirty them."
+       ]
       }
      }
     },
@@ -385,6 +712,24 @@
      "i18n": {
       "ja": {
        "explain": "「名前と住所が分かるものを持って行きます」とある。"
+      },
+      "ne": {
+       "q": "किताब उधार लिने कार्ड बनाउँदा के चाहिन्छ?",
+       "choices": [
+        "नाम र ठेगाना थाहा हुने कुरा",
+        "पैसा",
+        "पाँचवटा किताब",
+        "विद्यालयका शिक्षकको चिठी"
+       ]
+      },
+      "en": {
+       "q": "What do you need when making a card to borrow books?",
+       "choices": [
+        "Something that shows your name and address",
+        "Money",
+        "Five books",
+        "A letter from a school teacher"
+       ]
       }
      }
     },
@@ -401,6 +746,24 @@
      "i18n": {
       "ja": {
        "explain": "「みんなが同じように本を読めるようにするため」と説明されている。"
+      },
+      "ne": {
+       "q": "यो नियम हुनुको कारण कुन हो?",
+       "choices": [
+        "सबैले एउटै तरिकाले किताब पढ्न सकून् भनेर",
+        "एक जनाले धेरै किताब लामो समयसम्म उधारो लिन सकून् भनेर",
+        "फर्काउने दिनमा ढिलो गर्ने मानिसलाई पैसा तिराउनका लागि",
+        "किताब फोहोर नगरी अर्को पढ्ने मानिसले प्रयोग गर्न सकून् भनेर"
+       ]
+      },
+      "en": {
+       "q": "What is the reason for this rule?",
+       "choices": [
+        "To allow everyone to read books equally.",
+        "To allow one person to borrow many books for a long time.",
+        "To make people who are late returning books pay money.",
+        "To keep books clean so the next person can use them."
+       ]
       }
      }
     },
@@ -417,6 +780,24 @@
      "i18n": {
       "ja": {
        "explain": "「返す日におくれると、しばらく次の本が借りられなくなる」とある。"
+      },
+      "ne": {
+       "q": "फर्काउने दिनमा ढिलो भएमा के हुन्छ?",
+       "choices": [
+        "केही समयसम्म अर्को किताब उधारो लिन सकिँदैन",
+        "पैसा तिर्नुपर्छ",
+        "कार्ड प्रयोग गर्न सकिँदैन",
+        "केही हुँदैन"
+       ]
+      },
+      "en": {
+       "q": "What happens if you are late returning a book?",
+       "choices": [
+        "You won't be able to borrow the next book for a while.",
+        "You will have to pay money.",
+        "Your card will become unusable.",
+        "Nothing will happen."
+       ]
       }
      }
     }
@@ -425,6 +806,11 @@
     "ne": {
      "body": [
       "मेरो सहरमा एउटा ठूलो पुस्तकालय छ। त्यहाँ धेरै किताबहरू छन्, र जो कोहीले पनि निःशुल्क प्रयोग गर्न सक्छ। किताब सापटी लिनका लागि, पहिले कार्ड बनाउनुपर्छ। कार्ड बनाउँदा, नाम र ठेगाना देखिने कुरा लिएर जानुपर्छ। एकपटकमा सापटी लिन सकिने किताब पाँचवटासम्म हो, र दुई हप्तासम्म राख्न सकिन्छ। ①यो नियम सबैले समान रूपमा किताब पढ्न सकून् भनेर बनाइएको हो। यदि एक जनाले धेरै किताब लामो समयसम्म राखिराख्यो भने, अरूले पढ्न पाउँदैनन्। फिर्ता गर्ने दिन ढिलो भयो भने, केही समयसम्म अर्को किताब सापटी लिन नपाइने भएकाले, ध्यान दिऔं। साथै, सापटी लिएको किताब फोहोर नबनाइकन सावधानीपूर्वक प्रयोग गर्ने र अर्को पढ्ने व्यक्तिले पनि रमाइलोसँग प्रयोग गर्न सकोस् भन्ने चाहना राख्नुपर्छ। किनकि किताब सहरका सबैले बाँडेर प्रयोग गर्ने महत्त्वपूर्ण कुरा हो। पुस्तकालय सबैको साझा सम्पत्ति हो। नियम पालना गरेर रमाइलोसँग प्रयोग गरौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "There is a large library in my town. It has many books, and anyone can use them for free. To borrow books, you must first get a card. When you get a card, you need to bring something that shows your name and address. You can borrow up to five books at a time for two weeks. ①This rule is to ensure that everyone can read books equally. If one person borrows many books for a long time, others will not be able to read them. Be careful, as if you are late returning books, you will not be able to borrow the next book for a while. Also, please handle borrowed books with care so as not to soil them, and so that the next person who reads them can use them comfortably. This is because books are precious things that everyone in the town shares. The library belongs to everyone. Let's follow the rules and use it pleasantly."
      ]
     }
    }
@@ -452,6 +838,24 @@
      "i18n": {
       "ja": {
        "explain": "直後に「土が手につくのがいやでした」とある。"
+      },
+      "ne": {
+       "q": "①सुरुमा, भनिएको छ, मलाई सुरुमा कस्तो लागेको थियो?",
+       "choices": [
+        "हातमा माटो लाग्ने कुरा मन परेको थिएन",
+        "तरकारी खान मन थिएन",
+        "हजुरबुबालाई भेट्न मन थिएन",
+        "खेतमा जान मन थिएन"
+       ]
+      },
+      "en": {
+       "q": "①最初は、とあるが, what did I initially think?",
+       "choices": [
+        "I didn't like getting \"土が手につく\" on my hands.",
+        "I didn't want to \"野菜を食べたくなかった\".",
+        "I didn't want to \"祖父に会いたくなかった\".",
+        "I didn't want to \"畑に行きたくなかった\"."
+       ]
       }
      }
     },
@@ -468,6 +872,24 @@
      "i18n": {
       "ja": {
        "explain": "「お店で買うものよりずっとおいしく感じました」とある。"
+      },
+      "ne": {
+       "q": "आफैंले उब्जाएको तरकारी खाएर कस्तो महसुस भयो?",
+       "choices": [
+        "पसलमा किनेको भन्दा धेरै स्वादिष्ट लाग्यो",
+        "पसलमा किनेको तरकारी जस्तै स्वाद लाग्यो",
+        "हरेक दिन पानी नहाले हुर्कँदैन जस्तो लाग्यो",
+        "हातमा माटो लागेर खान गाह्रो भयो जस्तो लाग्यो"
+       ]
+      },
+      "en": {
+       "q": "How did I feel after eating the vegetables I grew myself?",
+       "choices": [
+        "I felt they tasted much better than those bought at the store.",
+        "I felt they tasted exactly the same as vegetables bought at the store.",
+        "I felt they wouldn't grow without daily watering.",
+        "I felt they were hard to eat because of the \"土が手について食べにくい\"."
+       ]
       }
      }
     },
@@ -484,6 +906,24 @@
      "i18n": {
       "ja": {
        "explain": "祖父の言葉に「毎日水をやって、よく見てあげると」とある。"
+      },
+      "ne": {
+       "q": "हजुरबुबाले तरकारीलाई स्वस्थ राख्न के महत्त्वपूर्ण छ भन्नुभयो?",
+       "choices": [
+        "हरेक दिन पानी हालेर राम्ररी हेरचाह गर्नु",
+        "सानो बीउबाट ठूलो तरकारी उब्जाउनु",
+        "गर्मी बिदामा मात्र खेतमा मद्दत गर्नु",
+        "रातो भएको टमाटर देखेर खुसी भई तुरुन्तै टिप्नु"
+       ]
+      },
+      "en": {
+       "q": "What did my grandfather say was important for growing healthy vegetables?",
+       "choices": [
+        "\"毎日水をやって、よく見てあげること\"",
+        "\"小さな種から大きな野菜を育てること\"",
+        "\"夏休みのあいだだけ畑の手伝いをすること\"",
+        "\"赤くなったトマトを見てうれしくなり、すぐにとること\""
+       ]
       }
      }
     },
@@ -500,6 +940,24 @@
      "i18n": {
       "ja": {
        "explain": "「そこ」は、祖父（そふ）が家（いえ）の近（ちか）くに持（も）っている小（ちい）さな畑（はたけ）を指（さ）す。"
+      },
+      "ne": {
+       "q": "「そこ」 भन्नाले कुन ठाउँलाई बुझाउँछ?",
+       "choices": [
+        "हजुरबुबाको घर नजिकै भएको सानो बारी",
+        "सस्तोमा तरकारी बेच्ने पसल",
+        "हजुरबुबा गर्मी बिदामा मसँग जाने पार्क",
+        "धेरै साना बीउहरू किनेको ठाउँ"
+       ]
+      },
+      "en": {
+       "q": "「そこ」とありますが, where does it refer to?",
+       "choices": [
+        "\"祖父が家の近くに持っている小さな畑\"",
+        "\"野菜を安く売っているお店\"",
+        "\"祖父が夏休みにわたしと出かける公園\"",
+        "\"小さな種をたくさん買った場所\""
+       ]
       }
      }
     }
@@ -508,6 +966,11 @@
     "ne": {
      "body": [
       "मेरो हजुरबुबाको घरनजिकै सानो खेत छ। त्यहाँ उहाँले टमाटर, काक्रो जस्ता विभिन्न तरकारीहरू उब्जाउनुहुन्छ। गर्मी बिदा हुँदा, म हजुरबुबाको घरमा गएर खेतमा सघाउँछु। ①सुरुमा, हातमा माटो लाग्नु मन परेन। तर आफैले उब्जाएको तरकारी खाएर हेर्दा, पसलबाट किनेको भन्दा धेरै मीठो लाग्यो। हजुरबुबाले तरकारीलाई हरेक दिन पानी दिएर राम्रोसँग हेरचाह गर्दा राम्रोसँग बढ्छ भनेर सिकाउनुभयो। रातो भएको टमाटर देख्दा धेरै खुसी लाग्छ। सानो बीउबाट यति ठूलो र मीठो तरकारी उब्जिनु साँच्चै अचम्मको र अद्भुत कुरा हो जस्तो लाग्छ। हरेक दिन खेतमा जाने हजुरबुबा सधैं फुर्तिलो हुनुहुने कारण अलि बुझेको जस्तो लाग्यो। अहिले, माटो छुनु पनि मन पर्न थालेको छ। आउने वर्षको गर्मीमा पनि, फेरि हजुरबुबाको खेतमा सघाउन जान चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My grandfather has a small field near his house. He grows various vegetables there, such as tomatoes and cucumbers. During summer vacation, I go to my grandfather's house and help him in the field. ①At first, I didn't like getting dirt on my hands. But when I ate the vegetables I grew myself, they tasted much better than those bought at the store. My grandfather taught me, \"If you water vegetables every day and watch them carefully, they will grow strong.\" Seeing the red tomatoes makes me very happy. It's truly amazing and wonderful that such large and delicious vegetables can grow from tiny seeds. I felt I understood a little why my grandfather, who goes out to the field every day, is always energetic. Now, I even like touching the soil. I want to go help in my grandfather's field again next summer."
      ]
     }
    }
@@ -535,6 +998,24 @@
      "i18n": {
       "ja": {
        "explain": "重そうなかばんを持った年配の人に席をゆずろうとした行動。"
+      },
+      "ne": {
+       "q": "① म तुरुन्तै उठेँ भनिएको छ, किन उठेको होला?",
+       "choices": [
+        "वृद्ध महिलालाई सिट दिनको लागि",
+        "रेलबाट ओर्लनको लागि",
+        "झोला समात्नको लागि",
+        "थकित भएकोले"
+       ]
+      },
+      "en": {
+       "q": "①わたしはすぐに立って、とあるが, why did I stand up?",
+       "choices": [
+        "To give my seat to an \"年を取った女の人\".",
+        "To \"電車をおりるため\".",
+        "To \"かばんを持つため\".",
+        "Because I was \"つかれたから\"."
+       ]
       }
      }
     },
@@ -551,6 +1032,24 @@
      "i18n": {
       "ja": {
        "explain": "直前（ちょくぜん）に、女（おんな）の人（ひと）が「ありがとう」と言（い）って「にっこり笑（わら）いました」とあり、「その笑顔（えがお）」はその笑顔（えがお）を指（さ）す。"
+      },
+      "ne": {
+       "q": "「その笑顔を見て、わたしも温かい気持ちになりました」 भनिएको छ, 「その笑顔」 कस्तो मुस्कान हो?",
+       "choices": [
+        "महिलाले 'धन्यवाद' भनेर मुस्कुराएको मुस्कान",
+        "रेलबाट ओर्लने बेलामा फेरि 'धन्यवाद' भनेको बेलाको अनुहार",
+        "भारी झोला बोकेर चढेको बेलाको अनुहार",
+        "मैले सिट दिएर उठ्दाको अनुहार"
+       ]
+      },
+      "en": {
+       "q": "「その笑顔を見て、わたしも温かい気持ちになりました」とありますが, what kind of smile was \"その笑顔\"?",
+       "choices": [
+        "The smile when the woman said \"ありがとう\" and smiled brightly.",
+        "The face when she said \"ありがとう\" again when getting off the train.",
+        "The face when she got on board carrying a heavy-looking bag.",
+        "The face when I stood up to offer my seat."
+       ]
       }
      }
     },
@@ -567,6 +1066,24 @@
      "i18n": {
       "ja": {
        "explain": "「その笑顔を見て、わたしも温かい気持ちになりました」とある。"
+      },
+      "ne": {
+       "q": "महिलाको मुस्कान देखेर मलाई कस्तो लाग्यो?",
+       "choices": [
+        "न्यानो महसुस भयो",
+        "लज्जित भएँ",
+        "थकित भएर पछुताएँ",
+        "दुःखी भएँ"
+       ]
+      },
+      "en": {
+       "q": "How did I feel after seeing the woman's smile?",
+       "choices": [
+        "I felt warm inside.",
+        "I felt embarrassed.",
+        "I felt tired and regretted it.",
+        "I felt sad."
+       ]
       }
      }
     },
@@ -583,6 +1100,24 @@
      "i18n": {
       "ja": {
        "explain": "最後に「人に親切にするのは大切だ」とまとめている。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी के भन्न चाहेका छन्?",
+       "choices": [
+        "साना कुरामा पनि मानिसलाई दयालु हुनु महत्त्वपूर्ण छ",
+        "कसैले दयालु व्यवहार गर्दा दिनभरि राम्रो महसुस हुन्छ",
+        "भारी झोला बोकेका वृद्ध व्यक्तिलाई सिट दिनुपर्छ",
+        "रेल सधैं भीडभाड हुन्छ र बस्ने ठाउँ नभएर उभिनु थकाइलाग्दो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "It is important to be kind to people even in small ways.",
+        "When someone is kind to you, you can feel good all day.",
+        "You should give up your seat to an elderly person with a heavy-looking bag.",
+        "Trains are always crowded, and it's tiring to stand because there's nowhere to sit."
+       ]
       }
      }
     }
@@ -591,6 +1126,11 @@
     "ne": {
      "body": [
       "गएको हप्ता, म रेलमा टाढाको सहर गएँ। रेल एकदमै भरिएको थियो, बस्ने ठाउँ थिएन। अर्को स्टेशनमा, उमेर पुगेकी एक महिला चढिन्। गह्रौं देखिने झोला बोकेकी उनी अलि गाह्रो अवस्थामा देखिन्थिन्। ①मैले तुरुन्तै उठेर यहाँ बस्नुहोस् भनें। महिलाले धन्यवाद भन्दै मुस्कुराइन्। त्यो मुस्कान देखेर, मलाई पनि न्यानो महसुस भयो। उभिनु अलि थकित भए पनि, राम्रो काम गरेको लाग्यो। रेलबाट झर्दा, उनले फेरि एकपटक धन्यवाद भनिन्। त्यो दिन, म दिनभरि खुसीसँग बिताउन सकें। कसैलाई दयालु व्यवहार गर्दा, वास्तवमा आफैलाई पनि खुसी लाग्छ भन्ने थाहा भयो। सानो कुरा भए पनि, मानिसहरूलाई दयालु व्यवहार गर्नु महत्त्वपूर्ण हो भन्ने फेरि महसुस भयो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last week, I went to a distant town by train. The train was very crowded, and there was no place to sit. At the next station, an elderly woman got on. She was carrying a heavy bag and seemed to be having a bit of trouble. ①I immediately stood up and said, \"Please sit here.\" The woman said, \"Thank you,\" and smiled. Seeing her smile made me feel warm too. Standing was a little tiring, but I think I did a good deed. When I got off the train, she thanked me again. I felt good all day long. I realized that when you are kind to someone, you actually become happy yourself. I felt anew that it is important to be kind to people, even in small ways."
      ]
     }
    }
@@ -618,6 +1158,24 @@
      "i18n": {
       "ja": {
        "explain": "前の文で兄がカメラをくれたとあり、それがきっかけ。"
+      },
+      "ne": {
+       "q": "① त्यसपछि भनिएको छ, के भएपछिको कुरा हो?",
+       "choices": [
+        "दाइले क्यामेरा दिएपछि",
+        "पार्कमा फूल देखेर",
+        "राम्रो फोटो खिचेपछि",
+        "साँझ परेपछि"
+       ]
+      },
+      "en": {
+       "q": "Regarding 「①それから」, what happened before that?",
+       "choices": [
+        "After my brother gave me a camera.",
+        "After seeing flowers in the park.",
+        "After taking a good photo.",
+        "After it became evening."
+       ]
       }
      }
     },
@@ -634,6 +1192,24 @@
      "i18n": {
       "ja": {
        "explain": "「朝と夕方では色がちがって見えます」とある。"
+      },
+      "ne": {
+       "q": "एउटै ठाउँमा पनि, बिहान र बेलुकामा के फरक हुन्छ भनिएको छ?",
+       "choices": [
+        "रङ फरक देखिन्छ",
+        "मानिसको संख्या फरक हुन्छ",
+        "फूलको आकार फरक हुन्छ",
+        "बिल्कुलै उस्तै देखिन्छ"
+       ]
+      },
+      "en": {
+       "q": "How does the same place differ between morning and evening?",
+       "choices": [
+        "The colors look different.",
+        "The number of people is different.",
+        "The shape of the flowers is different.",
+        "They look exactly the same."
+       ]
       }
      }
     },
@@ -650,6 +1226,24 @@
      "i18n": {
       "ja": {
        "explain": "「まわりの景色をもっとよく見るようになりました」とある。"
+      },
+      "ne": {
+       "q": "क्यामेरा चलाउन थालेपछि, म कसरी परिवर्तन भएँ?",
+       "choices": [
+        "वरपरको दृश्य राम्ररी हेर्न थालेँ",
+        "बिदाको दिन क्यामेरा लिएर बाहिर जान छोडेँ",
+        "बिहान र बेलुकाको फोटो परिवारलाई देखाएँ",
+        "एउटै ठाउँको बिहान र बेलुकाको फोटो खिच्न छोडेँ"
+       ]
+      },
+      "en": {
+       "q": "How did I change after starting photography?",
+       "choices": [
+        "I started to observe the surrounding scenery more closely.",
+        "I stopped going out with my camera on my days off.",
+        "I showed my family photos from the morning and evening.",
+        "I stopped taking photos of the same place in the morning and evening."
+       ]
       }
      }
     },
@@ -666,6 +1260,24 @@
      "i18n": {
       "ja": {
        "explain": "直前（ちょくぜん）の「自分（じぶん）で気（き）に入（い）った一枚（いちまい）がとれたとき」を受（う）け、その一枚（いちまい）を指（さ）す。"
+      },
+      "ne": {
+       "q": "「そんなとき、その写真を家族や友だちに見せて」 भनिएको छ, तर 「その写真」 कस्तो फोटो हो?",
+       "choices": [
+        "मैले मन पराएको एउटा फोटो",
+        "पार्कको फूल र आकाशको बादल, सहरमा हिँड्ने मानिसको फोटो",
+        "सहरमा हिँड्ने मानिसको एउटा फोटो",
+        "एउटै ठाउँको बिहान र बेलुका खिचिएको फोटो"
+       ]
+      },
+      "en": {
+       "q": "It says, 「そんなとき、その写真を家族や友だちに見せて」, but what kind of photo is 「その写真」?",
+       "choices": [
+        "A single photo I liked myself.",
+        "Photos of flowers in the park, clouds in the sky, and people walking in town.",
+        "A single photo of people walking in town.",
+        "Photos taken of the same place in the morning and evening."
+       ]
       }
      }
     }
@@ -674,6 +1286,11 @@
     "ne": {
      "body": [
       "यस वर्षको वसन्तमा, मैले नयाँ सोख सुरु गरें। त्यो हो फोटो खिच्ने। जन्मदिनको दिन, दाजुले सानो क्यामेरा दिनुभएको नै यसको कारण हो। ①त्यसपछि, बिदाको दिन हुँदा, म क्यामेरा लिएर बाहिर निस्कने भएँ। पार्कका फूलहरू, आकासका बादलहरू, सहरमा हिँड्ने मानिसहरू जस्ता विभिन्न कुराहरू खिच्छु। उही ठाउँ भए पनि, बिहान र साँझमा रङ फरक देखिन्छ। त्यो थाहा पाएपछि, वरिपरिको दृश्य अझ राम्रोसँग हेर्न थालें। राम्रा फोटोहरू अझै खिच्न सकेको छैन, तर आफैले मन पराएको एउटा फोटो खिच्न सक्दा, साँच्चै खुसी लाग्छ। त्यस्तो बेला, त्यो फोटो परिवार र साथीहरूलाई देखाएर सँगै खुसी हुन्छु। फोटोले खुसीको भावना अरूलाई पनि सुनाउन सक्छ भन्ने महसुस हुन्छ। अबदेखि पनि विभिन्न ठाउँहरूमा गएर धेरै फोटो खिच्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This spring, I started a new hobby: taking photos. It all started when my brother gave me a small camera for my birthday. ①Since then, on my days off, I started going out with my camera. I take pictures of various things, such as flowers in the park, clouds in the sky, and people walking in town. Even in the same place, the colors look different in the morning and evening. After noticing that, I started to look at the surrounding scenery more closely. I can't take good photos yet, but when I manage to take a shot I like, I'm truly happy. At such times, I show the photos to my family and friends, and we share the joy. I feel that photos can also convey happy feelings to others. I want to go to various places and take many more photos in the future."
      ]
     }
    }
@@ -701,6 +1318,24 @@
      "i18n": {
       "ja": {
        "explain": "直前に葉が雨で光っているとあり、それを指す。"
+      },
+      "ne": {
+       "q": "①「そんなこと」 भनिएको छ, त्यसले केलाई संकेत गर्छ?",
+       "choices": [
+        "रुखका पातहरू पानीले सुन्दर रूपमा चम्किरहेको कुरा",
+        "पानीको आवाज चर्को र मधुरो भएर संगीतजस्तै सुनिने कुरा",
+        "छाता बोक्न र जुत्ता भिज्न मन नलाग्ने कुरा",
+        "सुक्खा जमिनमा पानी भिज्दै गएको कुरा"
+       ]
+      },
+      "en": {
+       "q": "In \"①そんなこと\", what does it refer to?",
+       "choices": [
+        "That the tree leaves are shining beautifully with rain",
+        "That the sound of rain sounds like music, strong and weak",
+        "That I dislike holding an umbrella and my shoes getting wet",
+        "That the rain soaks into the dry ground"
+       ]
       }
      }
     },
@@ -717,6 +1352,24 @@
      "i18n": {
       "ja": {
        "explain": "「音楽のように聞こえました」とある。"
+      },
+      "ne": {
+       "q": "पानीको आवाज कसरी सुनियो?",
+       "choices": [
+        "संगीतजस्तै सुनियो",
+        "कोलाहलपूर्ण सुनियो",
+        "केही सुनिएन",
+        "मानिसको आवाजजस्तै सुनियो"
+       ]
+      },
+      "en": {
+       "q": "How did the sound of the rain seem?",
+       "choices": [
+        "It sounded like music",
+        "It sounded noisy",
+        "Nothing was heard",
+        "It sounded like human voices"
+       ]
       }
      }
     },
@@ -733,6 +1386,24 @@
      "i18n": {
       "ja": {
        "explain": "「ゆっくり外をながめる時間を楽しんでいます」とある。"
+      },
+      "ne": {
+       "q": "अहिले, पानी परेको दिनमा लेखकले केको आनन्द लिइरहेका छन्?",
+       "choices": [
+        "बिस्तारै बाहिर हेर्ने समय",
+        "चर्को पानी र मधुरो पानीको आवाज तुलना गर्ने कुरा",
+        "सुक्खा जमिनमा पानी हाल्ने कुरा",
+        "चर्को पानी र मधुरो पानीको आवाज सुन्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What is the author enjoying on a rainy day now?",
+       "choices": [
+        "Time to slowly look outside",
+        "Comparing the sound of strong rain and weak rain",
+        "Watering the dry ground",
+        "Listening to the sound of strong rain and weak rain"
+       ]
       }
      }
     },
@@ -749,6 +1420,24 @@
      "i18n": {
       "ja": {
        "explain": "最後に「見方を変えると…ちがって見える」とまとめている。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले के भन्न खोजेका छन्?",
+       "choices": [
+        "दृष्टिकोण परिवर्तन गर्दा एउटै कुरा पनि फरक देखिन्छ",
+        "पानी पर्दा हावा सफा हुन्छ र फूल तथा रूखहरू पनि ताजा हुन्छन्",
+        "पानीको आवाज सधैं कोलाहलपूर्ण हुन्छ र यसले सताउँछ",
+        "छाता बोक्न मन नलाग्ने हुनाले पानी परेको दिन बाहिर ननिस्कने"
+       ]
+      },
+      "en": {
+       "q": "What does the author want to convey in this text?",
+       "choices": [
+        "If you change your perspective, the same thing can look different",
+        "When it rains, the air becomes clean and flowers and trees become lively",
+        "The sound of rain is always noisy and bothersome",
+        "I don't go out on rainy days because I dislike holding an umbrella"
+       ]
       }
      }
     }
@@ -757,6 +1446,11 @@
     "ne": {
      "body": [
       "मलाई पानी परेको दिन धेरै मन पर्दैनथ्यो। छाता बोक्नु पनि, जुत्ता भिज्नु पनि मन नपर्ने कारणले। एक पानी परेको दिन, म झ्यालबाट बाहिर हेर्दै थिएँ। त्यसबेला, आँगनको रुखको पात पानीले सुन्दर चम्किएको देखें। ①मैले त्यससम्म त्यस्तो कुरा कहिल्यै थाहा पाएको थिइनँ। राम्रोसँग हेर्दा, पानीको आवाज पनि, बलियो र कमजोर हुँदा हुँदा, संगीत जस्तै सुनियो। त्यसपछि, पानी परेको दिन पनि नराम्रो होइन भन्ने लाग्यो। पानी पर्दा, हावा सफा हुन्छ, र फूल र रुखहरू पनि फुर्तिला हुन्छन्। सुकेको जमिनमा पानी बिस्तारै मिसिँदै जाने देख्दा, कसरी हो मनसम्म पनि अलि शान्त हुँदै आउने जस्तो लाग्छ। अहिले, पानी परेको दिन बाहिर बिस्तारै हेर्ने समय आनन्द लिन्छु। हेर्ने तरिका फेरियो भने, उही कुरा पनि फरक देखिन्छ भन्ने महसुस भयो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I didn't really like rainy days. That's because I disliked carrying an umbrella and getting my shoes wet. One rainy day, I was looking out the window. Then, I saw the leaves on the trees in the garden shining beautifully with the rain. ①I had never noticed such a thing before. When I looked closely, the sound of the rain also varied between strong and weak, sounding like music. After that, I started to think that rainy days weren't so bad. When it rains, the air becomes clean, and flowers and trees also become lively. Watching the rain slowly soak into the dry ground somehow makes my mind feel a little calmer. Now, on rainy days, I enjoy taking the time to slowly gaze outside. I felt that if you change your perspective, the same things can look different."
      ]
     }
    }
@@ -784,6 +1478,24 @@
      "i18n": {
       "ja": {
        "explain": "前に「なかなか会えません」とあり、それでも守っている。"
+      },
+      "ne": {
+       "q": "①「それでも」भनिएको छ, तर जुनसुकै अवस्थामा पनि वाचा पूरा गरिन्छ?",
+       "choices": [
+        "टाढाको सहरमा बस्ने हुनाले भेट्न गाह्रो भए पनि",
+        "कुरा गर्न धेरै कुरा भएकोले समय छिट्टै बिते पनि",
+        "छुट्टिने बेला अलि दुःखी महसुस भए पनि",
+        "बाल्यकालमा गरेको पुरानो वाचा भए पनि"
+       ]
+      },
+      "en": {
+       "q": "In \"①それでも\", what kind of situation is it that the promise is still kept?",
+       "choices": [
+        "Even if we live in distant towns and can't meet easily",
+        "Even if there's a lot to talk about and time passes quickly",
+        "Even if parting feels a little sad",
+        "Even if it's an old promise made in childhood"
+       ]
       }
      }
     },
@@ -800,6 +1512,24 @@
      "i18n": {
       "ja": {
        "explain": "「二人のちょうど真ん中あたりの町で会いました」とある。"
+      },
+      "ne": {
+       "q": "गत वर्ष, दुई जना कहाँ भेटेका थिए?",
+       "choices": [
+        "दुई जनाको ठ्याक्कै बीचमा पर्ने सहरमा",
+        "दुई जनाले बाल्यकालमा पढेको विद्यालय नजिकै",
+        "त्यो साथी अहिले बस्ने टाढाको सहरमा",
+        "म जन्मेको र हुर्केको र अहिले पनि बसिरहेको सहरमा"
+       ]
+      },
+      "en": {
+       "q": "Where did the two meet last year?",
+       "choices": [
+        "A town roughly in the middle of the two",
+        "Near the school they attended as children",
+        "The distant town where that friend lives now",
+        "The town where I was born and raised and still live"
+       ]
       }
      }
     },
@@ -816,6 +1546,24 @@
      "i18n": {
       "ja": {
        "explain": "「すぐに子どものころのように話せました」とある。"
+      },
+      "ne": {
+       "q": "लामो समयपछि भेट्दा, दुई जना कस्ता थिए?",
+       "choices": [
+        "बाल्यकालमा जस्तै तुरुन्तै कुरा गर्न सके",
+        "के कुरा गर्ने भनेर थाहा नभएर समस्यामा परे",
+        "समय नभएकोले अभिवादन मात्र गरेर छुट्टिए",
+        "कुरा गर्ने विषय नभएकोले हाँसो पनि थिएन"
+       ]
+      },
+      "en": {
+       "q": "When they met after a long time, how were the two of them?",
+       "choices": [
+        "They could talk like children right away.",
+        "They were troubled because they didn't know what to talk about.",
+        "They parted with just a greeting due to lack of time.",
+        "They couldn't find a topic and there was no laughter."
+       ]
       }
      }
     },
@@ -832,6 +1580,24 @@
      "i18n": {
       "ja": {
        "explain": "子（こ）どものころにした「大人（おとな）になっても毎年（まいとし）会（あ）おう」という約束（やくそく）を指（さ）す。"
+      },
+      "ne": {
+       "q": "「わたしたちは今もその約束を守っています」भनिएको छ, तर 「その約束」कस्तो वाचा हो?",
+       "choices": [
+        "「ठूलो भएपछि पनि हरेक वर्ष भेट्ने」भन्ने वाचा",
+        "दुई जनाको ठ्याक्कै बीचमा पर्ने सहरमा भेट्ने वाचा",
+        "लामो समयपछि भेट्दा पनि तुरुन्तै पहिले जस्तै कुरा गर्ने वाचा",
+        "टाढाको सहरमा बस्ने वाचा"
+       ]
+      },
+      "en": {
+       "q": "It says, 「わたしたちは今もその約束を守っています」, but what kind of promise is 「その約束」?",
+       "choices": [
+        "The promise 「大人になっても毎年会おう」",
+        "The promise to meet in a town roughly in the middle of the two.",
+        "The promise to talk like old times right away, even after a long time.",
+        "The promise to live in a distant town."
+       ]
       }
      }
     }
@@ -840,6 +1606,11 @@
     "ne": {
      "body": [
       "मेरो प्राथमिक विद्यालयदेखिको साथी छिन्। बालापनमा, हामीले ठूला भएपछि पनि हरेक वर्ष भेटौंला भनेर वाचा गरेका थियौं। अहिले, त्यो साथी टाढाको सहरमा बस्छिन्, र सजिलै भेट्न सकिँदैन। ①तैपनि, हामी अझै पनि त्यो वाचा पालना गरिरहेका छौं। गएको वर्ष, हामी दुई जनाको ठीक बीचमा पर्ने सहरमा भेटियौं। लामो समयपछि भेटे पनि, तुरुन्तै बालापनको जस्तै कुरा गर्न सकियो। भन्न मन लागेका कुराहरू धेरै भएर, समय एकैछिनमा बित्यो। बालापनका सम्झनाका कुरा, अहिलेको कामको कुरा जस्ता विषयहरू असंख्य भएर, दुई जनाको हाँसो कहिल्यै रोकिएन। छुट्टिँदा अलि दुखेको जस्तो लाग्यो, तर फेरि अर्को वर्ष है भन्यौं। टाढा भए पनि, यसरी निरन्तर रहिरहने साथी हुनु, म साँच्चै भाग्यमानी ठान्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I have a friend from elementary school. When we were children, we promised to \"meet every year even when we become adults.\" Now, that friend lives in a distant town, and it's hard to meet. ①Nevertheless, we still keep that promise. Last year, we met in a town roughly halfway between us. Even after a long time, we could talk as if we were children again. There was so much we wanted to talk about that time flew by in an instant. There were endless topics, such as childhood memories and our current jobs, and our laughter never ceased. It was a little sad when we parted ways, but we said, \"See you again next year.\" I feel very happy to have a friend who continues like this, even when we are far apart."
      ]
     }
    }
@@ -867,6 +1638,24 @@
      "i18n": {
       "ja": {
        "explain": "下線（かせん）の一文（いちぶん）は、日曜（にちよう）の朝（あさ）だけ早（はや）く起（お）きる理由（りゆう）を指（さ）している。"
+      },
+      "ne": {
+       "q": "「①朝市は朝六時に始まって、九時には終わってしまうからです」कुन कारणलाई जनाउँछ?",
+       "choices": [
+        "आइतबार बिहान मात्र चाँडै उठ्नुको कारण",
+        "बिहान मन नपर्नुको कारण",
+        "गत हप्ता टमाटर किन्न नसक्नुको कारण",
+        "बिहानको बजार धेरै मानिसले भरिभराउ हुनुको कारण"
+       ]
+      },
+      "en": {
+       "q": "「①朝市は朝六時に始まって、九時には終わってしまうからです」 refers to the reason for what?",
+       "choices": [
+        "The reason for waking up early only on Sunday mornings.",
+        "The reason for not being good at mornings.",
+        "The reason why I couldn't buy tomatoes last week.",
+        "The reason why the morning market is bustling with many people."
+       ]
       }
      }
     },
@@ -883,6 +1672,24 @@
      "i18n": {
       "ja": {
        "explain": "「スーパーより少し安くて…とても新しいので」にぎわうと書かれている。"
+      },
+      "ne": {
+       "q": "बिहानको बजारमा धेरै मानिसहरू किन आउँछन्?",
+       "choices": [
+        "सुपरमार्केटभन्दा अलि सस्तो र धेरै नयाँ भएकोले",
+        "छिमेकी किसानहरूसँग स्वतन्त्र रूपमा कुरा गर्न सकिने भएकोले",
+        "राति अबेरसम्म स्टेशन अगाडिको चोकमा खुल्ने भएकोले",
+        "सुपरमार्केटभन्दा मूल्य महँगो र सामान राम्रो भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why do many people come to the morning market?",
+       "choices": [
+        "Because it's a little cheaper than the supermarket and very fresh.",
+        "Because you can talk freely with local farmers.",
+        "Because it opens late at night in front of the station.",
+        "Because the prices are higher than the supermarket and the goods are better."
+       ]
       }
      }
     },
@@ -899,6 +1706,24 @@
      "i18n": {
       "ja": {
        "explain": "八時ごろに行ったらトマトがもうなく、買えなかった。"
+      },
+      "ne": {
+       "q": "गत आइतबार, 「わたし」लाई के भयो?",
+       "choices": [
+        "चाहिएको टमाटर किन्न सकेन",
+        "ठीक छ बजे बिहानको बजारमा पुग्यो",
+        "धेरै तरकारी किन्न पाएर सन्तुष्ट भयो",
+        "बिहानको बजार खुलेको थिएन"
+       ]
+      },
+      "en": {
+       "q": "What happened to 「わたし」 last Sunday?",
+       "choices": [
+        "I couldn't buy the tomatoes I wanted.",
+        "I arrived at the morning market exactly at six o'clock.",
+        "I was satisfied because I bought a lot of vegetables.",
+        "The morning market was not open."
+       ]
       }
      }
     },
@@ -915,6 +1740,24 @@
      "i18n": {
       "ja": {
        "explain": "「来週はぜったいに六時に行こうと思います」とある。"
+      },
+      "ne": {
+       "q": "「わたし」ले अर्को हप्ता के गर्ने सोचिरहेको छ?",
+       "choices": [
+        "पक्कै पनि छ बजे जाने सोचिरहेको छ",
+        "अब बिहानको बजारमा नगई सुपरमार्केटमा किन्ने सोचिरहेको छ",
+        "गत हप्ता जस्तै आठ बजेतिर जाने सोचिरहेको छ",
+        "टमाटर किन्न नौ बजे बजार बन्द हुने बेला जाने सोचिरहेको छ"
+       ]
+      },
+      "en": {
+       "q": "What does 「わたし」 plan to do next week?",
+       "choices": [
+        "I'm thinking of definitely going at six o'clock.",
+        "I'm thinking of not going to the morning market anymore and buying at the supermarket.",
+        "I'm thinking of going around eight o'clock, the same as last week.",
+        "I'm thinking of going around nine o'clock when it ends to buy tomatoes."
+       ]
       }
      }
     }
@@ -923,6 +1766,11 @@
     "ne": {
      "body": [
       "म बस्ने सहरमा, हरेक आइतबार बिहान \"बिहानको बजार\" लाग्छ। रेल स्टेसनअगाडिको चोकमा, नजिकैका किसानहरूले तरकारी र फलफूल ल्याएर बेच्छन्। सुपरमार्केटमा बिक्ने सामानभन्दा अलि सस्तो हुन्छ, र भर्खरै टिपेको भएकाले एकदम ताजा हुन्छ, त्यसैले सधैं धेरै मानिसहरूले भरिन्छ।\nम बिहान उठ्न मन नपराउने मान्छे हुँ, बिदाको दिन सधैं ढिलोसम्म सुत्छु। तर बिहानको बजार लाग्ने दिन मात्र चाँडै उठ्छु। ①किनभने बिहानको बजार बिहान छ बजे सुरु भएर नौ बजेसम्म सकिन्छ। राम्रा सामान चाँडै सकिने भएकाले, ढिलो गएर किन्न पाइँदैन।\nगएको आइतबार, म आठ बजेतिर गएँ। टमाटर किन्ने सोचेको थिएँ, तर पहिले नै सकिइसकेको रहेछ। पसले हाँस्दै \"अर्को हप्ता अझ चाँडै आउनुहोस् है\" भन्नुभयो। अर्को हप्ता म निश्चय नै छ बजे जान्छु भन्ने सोचें।"
+     ]
+    },
+    "en": {
+     "body": [
+      "In the town where I live, a \"morning market\" is held every Sunday morning. Farmers from nearby bring vegetables and fruits to sell in the plaza in front of the station. They are a little cheaper than what's sold in supermarkets, and since they are freshly picked and very new, it's always bustling with many people.\nI'm not a morning person and usually sleep late on my days off. However, only on morning market days do I wake up early. ①That's because the morning market starts at 6 AM and ends by 9 AM. Good items sell out quickly, so if you go late, you can't buy them.\nLast Sunday, I went around 8 AM. I had intended to buy tomatoes, but they were already gone. The shopkeeper smiled and said, \"Please come earlier next week!\" I definitely plan to go at 6 AM next week."
      ]
     }
    }
@@ -950,6 +1798,24 @@
      "i18n": {
       "ja": {
        "explain": "「毎朝とても込んでいて、つかれてしまうことが多かった」ため。"
+      },
+      "ne": {
+       "q": "「わたし」ले रेल छोड्नुको कारण के हो?",
+       "choices": [
+        "रेल भीडभाड हुने र धेरै थकाइ लाग्ने भएकोले",
+        "हरेक बिहानको रेलको भाडा महँगो भएकोले",
+        "कम्पनी सरेर घरबाट नजिक भएकोले",
+        "साइकलमा तीस मिनेट लाग्ने भए पनि रेलभन्दा छिटो भएकोले"
+       ]
+      },
+      "en": {
+       "q": "What is the reason why 「わたし」 stopped taking the train?",
+       "choices": [
+        "電車が込んでいてつかれることが多かったから",
+        "毎朝の電車の料金が高くなってしまったから",
+        "会社が引っこして家から近くなったから",
+        "自転車で三十分かかるが電車より速かったから"
+       ]
       }
      }
     },
@@ -966,6 +1832,24 @@
      "i18n": {
       "ja": {
        "explain": "「いちばんいいところ」は、直後（ちょくご）の「体（からだ）の調子（ちょうし）がよくなったこと」を指（さ）す。"
+      },
+      "ne": {
+       "q": "「①自転車で通ういちばんいいところ」ले कुन कुरालाई जनाउँछ?",
+       "choices": [
+        "शरीरको अवस्था राम्रो भएको कुरा",
+        "आवतजावतको समय छोटो भएको कुरा",
+        "नयाँ साथीहरू बनेको कुरा",
+        "कम्पनीमा ढिलो पुग्न सकिने भएको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does 「①自転車で通ういちばんいいところ」 refer to?",
+       "choices": [
+        "体の具合がよくなったこと",
+        "通勤の時間が短くなったこと",
+        "新しい友だちができたこと",
+        "会社におそく着けるようになったこと"
+       ]
       }
      }
     },
@@ -982,6 +1866,24 @@
      "i18n": {
       "ja": {
        "explain": "「電車のお金がかからないのもうれしい点です」とある。"
+      },
+      "ne": {
+       "q": "साइकलमा आवतजावत गर्नुका अन्य राम्रा पक्षहरू के-के हुन्?",
+       "choices": [
+        "रेलको पैसा नलाग्ने कुरा",
+        "पानी परेको दिन वा हावा चलेको दिन पनि छिटो जान सकिने कुरा",
+        "हरेक बिहान धेरै भीडभाड हुने रेलमा आरामले चढ्न सकिने कुरा",
+        "कम्पनीसम्म तीस मिनेटमा पुगेर थकाइ लाग्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What are the other good points about commuting by bicycle?",
+       "choices": [
+        "電車のお金がかからないこと",
+        "雨の日や風の強い日も速く行けること",
+        "毎朝とても込んだ電車にゆっくり乗れること",
+        "会社まで三十分で着いてつかれてしまうこと"
+       ]
       }
      }
     },
@@ -998,6 +1900,24 @@
      "i18n": {
       "ja": {
        "explain": "「そんな日はバスで行きます」とある。"
+      },
+      "ne": {
+       "q": "पानी परेको वा हावा चलेको दिनमा, 「わたし」 के गर्छ?",
+       "choices": [
+        "बसमा जान्छ",
+        "साइकलमा जान्mछ",
+        "कम्पनीबाट बिदा लिन्छ",
+        "हिँडेर जान्छ"
+       ]
+      },
+      "en": {
+       "q": "What does 「わたし」 do on rainy or windy days?",
+       "choices": [
+        "バスで行く",
+        "自転車で行く",
+        "会社を休む",
+        "歩いて行く"
+       ]
       }
      }
     }
@@ -1006,6 +1926,11 @@
     "ne": {
      "body": [
       "म गएको वर्षदेखि साइकलमा अफिस जान्छु। त्यसअघि रेल प्रयोग गर्थें, तर बिहान सधैं एकदम भीड हुन्थ्यो र धेरैजसो थाकिन्थें। घरदेखि अफिससम्म साइकलमा करिब तीस मिनेट लाग्छ। अलि टाढा भए पनि, यो यात्रा मलाई मन पर्छ।\n①साइकलमा हिँड्दा सबैभन्दा राम्रो कुरा भनेको शरीरको अवस्था सुधारिएको हो। पहिले बिदाको दिन पनि थाकेको हुन्थें र सुतेरै बस्थें। तर अहिले, हरेक दिन शरीर चलाउने भएकाले, बिदाको दिन पनि उत्साहपूर्वक बाहिर निस्कन सक्छु। साथै, रेलको पैसा नलाग्ने कुराले पनि खुसी लाग्छ।\nपक्कै, पानी परेको दिन र हावा चलेको दिन गाह्रो हुन्छ। त्यस्तो दिन बसमा जान्छु। तर घमाइलो बिहान साइकल चलाउँदा साँच्चै मन प्रफुल्ल हुन्छ, र मलाई दिनको सुरुवात रमाइलो लाग्न थालेको छ। आगामी दिनमा पनि, राम्रो मौसम भएको दिन साइकलमै हिँड्न जारी राख्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Since last year, I've been commuting to work by bicycle. Before that, I used the train, but it was very crowded every morning, and I often felt tired. It takes about thirty minutes to get from my house to the company by bicycle. Although it's a bit far, I like this commute.\n①The best thing about commuting by bicycle is that my physical condition has improved. Before, I was tired even on my days off and just slept a lot. But now, since I exercise every day, I can go out energetically even on my days off. Also, not having to pay for train fare is another happy point.\nOf course, rainy days and windy days are tough. On such days, I go by bus. But cycling on a clear morning is truly pleasant, and I've come to look forward to the start of the day. I want to continue commuting by bicycle on good weather days from now on."
      ]
     }
    }
@@ -1033,6 +1958,24 @@
      "i18n": {
       "ja": {
        "explain": "「もっと話せるようになりたくて」一か月とまることにした。"
+      },
+      "ne": {
+       "q": "A ले मेरो घरमा बस्ने निर्णय किन गर्यो?",
+       "choices": [
+        "जापानी भाषा अझ बढी बोल्न सक्ने हुन चाहेकोले",
+        "आफ्नो देशको खाना जापानमा बनाउन चाहेकोले",
+        "विश्वविद्यालयमा जापानी भाषा पढाउने भएकोले",
+        "मेरो आमासँग साथी बन्न चाहेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did A decide to stay at my house?",
+       "choices": [
+        "日本語をもっと話せるようになりたかったから",
+        "自分の国の料理を日本で作りたかったから",
+        "大学で日本語を教えることになったから",
+        "わたしの母と友だちになりたかったから"
+       ]
       }
      }
     },
@@ -1049,6 +1992,24 @@
      "i18n": {
       "ja": {
        "explain": "母の「まちがえてもいいから、どんどん話してね」という言葉のあと話すようになった。"
+      },
+      "ne": {
+       "q": "①A बिस्तारै बोल्न थाल्यो भनिएको छ, त्यो किन हो?",
+       "choices": [
+        "आमाले गल्ती भए पनि ठीक छ भन्नुभएकोले",
+        "परिवारका सबै सदस्यहरूसँग हरेक दिन रमाइलो कुराकानी गर्न चाहेकोले",
+        "आफ्नो देशको खाना बनाएर सबैले प्रशंसा गरेकोले",
+        "विश्वविद्यालयको कक्षामा जापानी भाषामा राम्रो भएकोले"
+       ]
+      },
+      "en": {
+       "q": "It says 「①Aさんは少しずつ話すようになりました」, but why is that?",
+       "choices": [
+        "母がまちがえてもいいと言ってくれたから",
+        "家族みんなと毎日楽しくおしゃべりをしたかったから",
+        "自分の国の料理を作ってみんなにほめられたから",
+        "大学の授業で日本語が上手になったから"
+       ]
       }
      }
     },
@@ -1065,6 +2026,24 @@
      "i18n": {
       "ja": {
        "explain": "「わたしたちはみんなさびしくなりました」とある。"
+      },
+      "ne": {
+       "q": "A फर्कने दिनमा, हामी कस्तो थियौं?",
+       "choices": [
+        "सबै दुःखी भयौं",
+        "खुसी भयौं",
+        "राहत महसुस गर्यौं",
+        "रिसायौं"
+       ]
+      },
+      "en": {
+       "q": "How did we feel on the day Mr. A went home?",
+       "choices": [
+        "みんなさびしくなった",
+        "うれしくなった",
+        "ほっとした",
+        "おこった"
+       ]
       }
      }
     },
@@ -1081,6 +2060,24 @@
      "i18n": {
       "ja": {
        "explain": "直前（ちょくぜん）の「自分（じぶん）の国（くに）の料理（りょうり）を作（つく）ってくれました」を受（う）け、その料理（りょうり）を指（さ）す。"
+      },
+      "ne": {
+       "q": "「それはとてもからくて、わたしは水をたくさん飲みました」 भनिएको छ, 「それ」 ले केलाई संकेत गर्छ?",
+       "choices": [
+        "A ले बनाएको आफ्नो देशको खाना",
+        "मेरो आमाले A लाई गल्ती भए पनि बोल्दै जानु भन्नुभएको शब्द",
+        "A ले विश्वविद्यालयमा अध्ययन गरिरहेको जापानी भाषा",
+        "मैले पिरो भएर धेरै पिएको पानी"
+       ]
+      },
+      "en": {
+       "q": "It says, \"それはとてもからくて、わたしは水をたくさん飲みました\" What does \"それ\" refer to?",
+       "choices": [
+        "Aさんが作った自分の国の料理",
+        "わたしの母がAさんにまちがえてもいいからどんどん話してと言った言葉",
+        "Aさんが大学で勉強している日本語",
+        "わたしがからくてたくさん飲んだ水"
+       ]
       }
      }
     }
@@ -1089,6 +2086,11 @@
     "ne": {
      "body": [
       "गएको महिना, मेरो घरमा विदेशबाट लिन नामकी विद्यार्थी आइन्। लिनले विश्वविद्यालयमा जापानी भाषा पढ्दै छिन्, तर अझ राम्रोसँग बोल्न सक्ने भएको इच्छाले, एक महिनासम्म मेरो घरमा बस्ने निर्णय गरिन्।\nसुरुमा, लिनले धेरै कुरा गर्दिनथिन्। जापानी गल्ती गर्नु लाजको कुरा हो भन्ने उनी सोच्थिन् जस्तो थियो। तर मेरी आमाले \"गल्ती भए पनि हुन्छ, धेरै बोल है\" भनेपछि, ①लिन बिस्तारै बोल्न थालिन्। अहिले, परिवार सबैसँग रमाइलोसँग कुराकानी गर्छिन्।\nलिन खाना बनाउनमा दक्ष छिन्, आफ्नो देशको खाना पकाएर खुवाइन्। त्यो एकदमै पिरो थियो, मैले धेरै पानी खाएँ, तर एकदमै मीठो थियो। लिन फर्किने दिन, हामी सबैलाई नरमाइलो लाग्यो। फेरि भेटौंला भन्दै वाचा गरेर, लिन आफ्नो देश फर्किन्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last month, a foreign exchange student named A came to stay at my house. A is studying Japanese at university, but wanted to be able to speak more, so she decided to stay at my house for a month.\nAt first, A didn't talk much. She seemed to be embarrassed about making mistakes in Japanese. But after my mother told her, \"It's okay to make mistakes, so just keep talking,\" A gradually started to speak more. Now, she enjoys chatting with everyone in the family.\nA is a good cook and made us dishes from her country. They were very spicy, and I drank a lot of water, but they were delicious. On the day A was leaving, we all felt sad. We promised to meet again, and A returned to her country."
      ]
     }
    }
@@ -1116,6 +2118,24 @@
      "i18n": {
       "ja": {
        "explain": "「大変（たいへん）」なのは、図書館（としょかん）にたくさんある本（ほん）の置（お）き場所（ばしょ）を覚（おぼ）えることを指（さ）す。"
+      },
+      "ne": {
+       "q": "「①本がどこにあるか覚えるのは大変でした」 भनिएको छ, लेखकले केलाई गाह्रो भन्न खोजेका हुन्?",
+       "choices": [
+        "धेरै पुस्तकहरूको स्थान याद राख्नु",
+        "नयाँ पुस्तकहरूमा राम्रोसँग कभर लगाउनु",
+        "फर्किएका पुस्तकहरूलाई पुरानो दराजमा फर्काउनु",
+        "पुस्तकालयमा आउने विभिन्न मानिसहरूको नाम याद राख्नु"
+       ]
+      },
+      "en": {
+       "q": "It says, \"①本がどこにあるか覚えるのは大変でした\" What is the author referring to as difficult?",
+       "choices": [
+        "たくさんある本の置き場所を覚えること",
+        "新しい本にきれいにカバーをつけること",
+        "返ってきた本をもとのたなへ運ぶこと",
+        "図書館に来るいろいろな人の名前を覚えること"
+       ]
       }
      }
     },
@@ -1132,6 +2152,24 @@
      "i18n": {
       "ja": {
        "explain": "「いちばんおどろいたのは、図書館にいろいろな人が来ること」とある。"
+      },
+      "ne": {
+       "q": "यो काम सुरु गरेपछि, तपाईलाई सबैभन्दा अचम्म लागेको कुरा के हो?",
+       "choices": [
+        "पुस्तकालयमा विभिन्न मानिसहरू आउने कुरा",
+        "फर्काइएका पुस्तकहरूलाई तिनीहरूको मूल स्थानमा फर्काउने काम",
+        "पुस्तकहरू कहाँ छन् भनेर सम्झन गाह्रो हुने कुरा",
+        "वृद्धवृद्धाले धन्यवाद दिँदा खुसी लाग्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What was the most surprising thing after starting this job?",
+       "choices": [
+        "図書館にいろいろな人が来ること",
+        "返ってきた本をもとの場所にもどす仕事のこと",
+        "本がどこにあるか覚えるのが大変なこと",
+        "お年よりに感謝されてうれしいこと"
+       ]
       }
      }
     },
@@ -1148,6 +2186,24 @@
      "i18n": {
       "ja": {
        "explain": "本を見つけて「ありがとう」と言われるとうれしくなり、好きになった。"
+      },
+      "ne": {
+       "q": "「わたし」ले यो काम किन मन पराउन थाले?",
+       "choices": [
+        "मानिसहरूले धन्यवाद दिँदा खुसी लाग्ने भएकोले",
+        "धेरै पैसा कमाउन पाइने भएकोले",
+        "पुस्तकहरू सित्तैमा उधारो लिन पाइने भएकोले",
+        "काम धेरै सजिलो भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did \"わたし\" come to like this job?",
+       "choices": [
+        "人に感謝されるとうれしいから",
+        "お金がたくさんもらえるから",
+        "本をただで借りられるから",
+        "仕事がとてもかんたんだから"
+       ]
       }
      }
     },
@@ -1164,6 +2220,24 @@
      "i18n": {
       "ja": {
        "explain": "「図書館はみんなにとって大切な場所なんだ」と思ったとある。"
+      },
+      "ne": {
+       "q": "「わたし」ले पुस्तकालयलाई कस्तो ठाउँ ठान्नुभयो?",
+       "choices": [
+        "सबैका लागि महत्त्वपूर्ण ठाउँ",
+        "पुस्तक खोज्ने मानिसहरू मात्र भेला हुने ठाउँ",
+        "शान्तसँग आराम गर्न चाहने मानिसहरूका लागि मात्रको ठाउँ",
+        "विद्यालय सकिएपछि बालबालिकाहरू मात्र आउने ठाउँ"
+       ]
+      },
+      "en": {
+       "q": "What kind of place did \"わたし\" think the library was?",
+       "choices": [
+        "みんなにとって大切な場所",
+        "本を探している人だけが集まる場所",
+        "静かにやすみたい人のためだけの場所",
+        "学校が終わった子どもだけが来る場所"
+       ]
       }
      }
     }
@@ -1172,6 +2246,11 @@
     "ne": {
      "body": [
       "म हप्तामा दुई पटक सहरको पुस्तकालयमा पार्ट-टाइम काम गर्छु। काम भनेको फर्केर आएका किताबहरू आफ्नो ठाउँमा राख्ने, नयाँ किताबमा कभर लगाउने आदि हो। गाह्रो काम त होइन, तर ①कुन किताब कहाँ छ भन्ने सम्झनु गाह्रो थियो। किनभने पुस्तकालयमा धेरै किताबहरू छन्।\nयो काम सुरु गरेपछि, सबैभन्दा अचम्मित बनाउने कुरा भनेको पुस्तकालयमा विभिन्न मानिसहरू आउँछन् भन्ने हो। स्कुल सकिएका बालबालिकाहरू, काम खोज्दै हिँडेका मानिसहरू, केवल शान्त ठाउँमा आराम गर्न चाहनेहरू पनि हुन्छन्। पुस्तकालय सबैका लागि महत्त्वपूर्ण ठाउँ रहेछ भन्ने मलाई लाग्यो।\nकहिलेकाहीं, वृद्धवृद्धाहरूले \"यो किताब खोज्दै छु\" भनेर सोध्न आउँछन्। सँगै किताब भेट्टाएर \"धन्यवाद\" भनिँदा, एकदमै खुसी लाग्छ। पैसाका लागि सुरु गरेको पार्ट-टाइम काम भए पनि, अहिले यो काम मन पर्न थालेको छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I work part-time at the town library twice a week. My job is to return books to their original places and put covers on new books. It's not a difficult job, but it was hard to remember where all the books were because there are so many in the library.\nWhat surprised me most when I started this job was the variety of people who come to the library. There are children after school, people looking for jobs, and even people who just want to relax in a quiet place. I realized that the library is an important place for everyone.\nSometimes, elderly people come and ask, \"I'm looking for this book.\" When I find the book with them and they say \"Thank you,\" it makes me very happy. I started this part-time job for money, but now I've come to love it."
      ]
     }
    }
@@ -1199,6 +2278,24 @@
      "i18n": {
       "ja": {
        "explain": "「いつも梅ぼしか、こんぶか、しゃけでした」とある。"
+      },
+      "ne": {
+       "q": "बाल्यकालमा, आमाको ओनिगिरी भित्र के हुन्थ्यो?",
+       "choices": [
+        "「梅ぼし」 वा 「こんぶ」 वा 「しゃけ」",
+        "मासु र अण्डा",
+        "तरकारी",
+        "चीज"
+       ]
+      },
+      "en": {
+       "q": "What was inside the rice balls made by the mother when the child was little?",
+       "choices": [
+        "「梅ぼし」 or 「こんぶ」 or 「しゃけ」",
+        "「にくやたまご」",
+        "「やさい」",
+        "「チーズ」"
+       ]
       }
      }
     },
@@ -1215,6 +2312,24 @@
      "i18n": {
       "ja": {
        "explain": "「同じ材料を使っているのに、何かがちがう」ため母の味にならなかった。"
+      },
+      "ne": {
+       "q": "①「なぜか母の味になりません」 भनिएको छ, यसको अर्थ के हो?",
+       "choices": [
+        "एउटै सामग्री प्रयोग गर्दा पनि आमाको जस्तो स्वाद भएन",
+        "एउटै सामग्री प्रयोग गर्दा पहिले भन्दा स्वादिष्ट भयो",
+        "सामग्री अपुग भएर राम्ररी बनाउन सकिएन",
+        "「梅ぼし」 र 「こんぶ」 हाल्न बिर्सियो"
+       ]
+      },
+      "en": {
+       "q": "It says \"①なぜか母の味になりません\" (For some reason, it doesn't taste like my mother's cooking), but what does that mean?",
+       "choices": [
+        "Even with the same ingredients, it didn't taste the same as her mother's.",
+        "Even though she used the same ingredients, it turned out more delicious than before.",
+        "She couldn't make it well because she didn't have enough ingredients.",
+        "She forgot to put in 「梅ぼし」 or 「こんぶ」."
+       ]
       }
      }
     },
@@ -1231,6 +2346,24 @@
      "i18n": {
       "ja": {
        "explain": "母のおにぎりには「わたしのことを思う気持ちが入っていたのかもしれない」と結んでいる。"
+      },
+      "ne": {
+       "q": "यस लेखमा 「わたし」ले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "आमाको ओनिगिरीमा भावनाहरू भरिएका थिए होलान्",
+        "एउटै सामग्री प्रयोग गरेमा जो कोहीले पनि एउटै स्वाद बनाउन सक्छ",
+        "ओनिगिरीको भित्री भागमा अनौठा चीजहरू सबैभन्दा राम्रो हुन्छन्",
+        "एक्लै बस्न थालेपछि खाना पकाउन सिपालु भइन्छ"
+       ]
+      },
+      "en": {
+       "q": "What does \"わたし\" (I) most want to convey in this passage?",
+       "choices": [
+        "Her mother's rice balls might have been filled with feelings.",
+        "Anyone can achieve the same taste by using the same ingredients.",
+        "Unusual fillings are the best for rice balls.",
+        "One becomes good at cooking when living alone."
+       ]
       }
      }
     },
@@ -1247,6 +2380,24 @@
      "i18n": {
       "ja": {
        "explain": "子（こ）どものころに母（はは）が作（つく）ってくれた、梅（うめ）ぼしやこんぶの入（はい）ったおにぎりを指（さ）す。"
+      },
+      "ne": {
+       "q": "「わたしにはそれが世界でいちばんおいしいおにぎりでした」भनेर लेखिएको छ, तर \"それ\" ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "आमाले बनाइदिनुभएको ओनिगिरी",
+        "ठूलो भएपछि आफैले बनाएको ओनिगिरी",
+        "अनौठा सामग्रीहरू भएको ओनिगिरी",
+        "उमेबोशी र कोम्बु नभएको ओनिगिरी"
+       ]
+      },
+      "en": {
+       "q": "It says \"わたしにはそれが世界でいちばんおいしいおにぎりでした\" (To me, those were the most delicious rice balls in the world), but what does \"それ\" (those) refer to?",
+       "choices": [
+        "The rice balls her mother made for her.",
+        "The rice balls she made herself after becoming an adult.",
+        "Rice balls with unusual ingredients.",
+        "Rice balls without 「梅ぼし」 or 「こんぶ」."
+       ]
       }
      }
     }
@@ -1255,6 +2406,11 @@
     "ne": {
      "body": [
       "म सानो हुँदा, आमाले प्रायः ओनिगिरी (चामलको डल्लो) बनाइदिनुहुन्थ्यो। भ्रमणको दिन पनि, खेलकुद प्रतियोगिताको दिन पनि, आमाको ओनिगिरी हुन्थ्यो। भित्र राखिने चीज सधैं उमेबोसी (अचार गरिएको प्लम), कोम्बु (समुद्री सेवार) वा स्याल्मन हुन्थ्यो। त्यति खासै अनौठो केही थिएन, तर मेरो लागि त्यो संसारकै सबैभन्दा मीठो ओनिगिरी थियो।\nठूलो भएपछि, म एक्लै बस्न थालें। एक दिन, आफैं ओनिगिरी बनाएर हेरें, तर ①किन हो थाहा छैन आमाको स्वाद बनेन। उही सामग्री प्रयोग गरेको भए पनि, केही फरक थियो। जति पटक बनाए पनि, त्यो स्वाद बनेन।\nआमालाई फोन गरेर सोध्दा, \"हातको न्यानोपन फरक हुन्छ नि\" भन्दै हाँस्नुभयो। राम्ररी बुझिनँ, तर आमाको ओनिगिरीमा, मलाई सम्झेर बनाइएको भावना पनि सामेल भएको हुन सक्छ। अर्को पटक माइती घर फर्केपछि, फेरि बनाइदिन भन्ने सोचें।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When I was a child, my mother often made me onigiri (rice balls). On picnic days, on sports day, my mother's onigiri were always there. The fillings were always umeboshi (pickled plum), konbu (kelp), or sake (salmon). They weren't particularly unusual, but to me, they were the most delicious onigiri in the world.\nAs an adult, I started living alone. One day, I tried making onigiri myself, but for some reason, they didn't taste like my mother's. Even though I used the same ingredients, something was different. No matter how many times I made them, they never had that taste.\nWhen I called my mother and asked her, she laughed and said, \"The warmth of your hands is different.\" I didn't quite understand, but perhaps my mother's onigiri contained her feelings of care for me. Next time I go back to my parents' house, I think I'll ask her to make them for me again."
      ]
     }
    }
@@ -1282,6 +2438,24 @@
      "i18n": {
       "ja": {
        "explain": "行（い）きたくなかった理由（りゆう）は、日曜（にちよう）の朝（あさ）早（はや）く起（お）きるのがいやだったことを指（さ）す。"
+      },
+      "ne": {
+       "q": "「①はじめは…あまり行きたくありませんでした」भनेर लेखिएको छ, तर त्यसको कारणको रूपमा लेखकले केलाई सङ्केत गरेका छन्?",
+       "choices": [
+        "आइतबार बिहान सबेरै उठ्न नचाहेकोले",
+        "महिनामा एक पटक पार्क सफा गर्न झन्झट लागेकोले",
+        "छिमेकीहरूसँग कुरा गर्न गाह्रो भएकोले",
+        "फोहोर उठाउन वा झार उखेल्न नचाहेकोले"
+       ]
+      },
+      "en": {
+       "q": "It says \"①はじめは…あまり行きたくありませんでした\" (At first, I didn't really want to go...), but which of the following reasons does the author indicate?",
+       "choices": [
+        "Not wanting to wake up early on Sunday mornings.",
+        "Finding the monthly park cleaning troublesome.",
+        "Being bad at talking to neighbors.",
+        "Not wanting to pick up trash or pull weeds."
+       ]
       }
      }
     },
@@ -1298,6 +2472,24 @@
      "i18n": {
       "ja": {
        "explain": "「近所の人たちと話すのが楽しくなってきました」とある。"
+      },
+      "ne": {
+       "q": "केही पटक गएपछि, के कुरा रमाइलो हुन थाल्यो?",
+       "choices": [
+        "छिमेकीहरूसँग कुरा गर्न",
+        "झार उखेल्न",
+        "चाँडै उठ्न",
+        "पार्कमा खेल्न"
+       ]
+      },
+      "en": {
+       "q": "After going several times, what became enjoyable?",
+       "choices": [
+        "Talking with the neighbors.",
+        "Pulling weeds.",
+        "Waking up early.",
+        "Playing in the park."
+       ]
       }
      }
     },
@@ -1314,6 +2506,24 @@
      "i18n": {
       "ja": {
        "explain": "「知らなかったことがたくさんわかりました」とある。"
+      },
+      "ne": {
+       "q": "सफाई गर्दा, \"わたし\" लाई कस्तो कुरा थाहा भयो?",
+       "choices": [
+        "छिमेकीहरूको बारेमा धेरै कुरा थाहा थिएन, त्यो थाहा भयो",
+        "एउटै अपार्टमेन्टमा बस्ने मानिसहरूसँग अभिवादन मात्र गरिन्छ भन्ने कुरा",
+        "पार्कको फोहोर र झार सोचेभन्दा धेरै छ भन्ने कुरा",
+        "महिनामा एक पटक फोहोर उठाएर र झार उखेलेर पनि सफा हुँदैन भन्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "While cleaning, what did 「わたし」 learn?",
+       "choices": [
+        "近所の人について、知らなかったことがたくさんわかった",
+        "同じマンションに住む人とはあいさつしかしないということ",
+        "公園のごみや草が思ったより多いということ",
+        "月に一回ごみをひろい草をぬいてもきれいにならないこと"
+       ]
       }
      }
     },
@@ -1330,6 +2540,24 @@
      "i18n": {
       "ja": {
        "explain": "「公園がきれいになることより、みんなと会えることのほうが楽しみ」とある。"
+      },
+      "ne": {
+       "q": "अहिले, \"わたし\" लाई सफाईमा सबैभन्दा बढी के कुराको प्रतीक्षा छ?",
+       "choices": [
+        "सबै छिमेकीहरूसँग भेट्न",
+        "पार्क सफा हुने कुरा",
+        "झार उखेलेर व्यायाम हुने कुरा",
+        "धेरै फोहोर उठाउने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What is 「わたし」 most looking forward to about cleaning now?",
+       "choices": [
+        "近所のみんなと会えること",
+        "公園がきれいになること",
+        "草をぬいて運動になること",
+        "ごみをたくさんひろうこと"
+       ]
       }
      }
     }
@@ -1338,6 +2566,11 @@
     "ne": {
      "body": [
       "म बस्ने क्षेत्रमा, महिनामा एक पटक, छिमेकीहरू भेला भएर पार्क सफा गर्छन्। आइतबार बिहान, फोहोर टिप्ने, झारपात उखेल्ने काम गरिन्छ। ①सुरुमा, बिदाको दिन चाँडै उठ्नु दिक्क लाग्थ्यो, त्यसैले म खासै जान मन गर्दिनथें।\nतर, केही पटक गएपछि, छिमेकीहरूसँग कुरा गर्न रमाइलो लाग्न थाल्यो। एउटै अपार्टमेन्टमा बसे पनि, सामान्यतया अभिवादनमात्र गर्थें। तर सँगै सफाइ गर्दा, विभिन्न कुराहरू गर्न पाइन्छ। \"तपाईं कहाँ बस्नुहुन्छ\", \"तपाईंको बच्चा कति वर्षको हो\" जस्ता, थाहा नभएका धेरै कुरा थाहा भयो।\nअहिले, पार्क सफा हुनुभन्दा, सबैसँग भेट्न पाउनु नै बढी रमाइलो लाग्छ। एउटै सहरमा बस्ने मानिसहरू यसरी अनुहार जुधाएर कुरा गर्नु, एकदमै महत्त्वपूर्ण कुरा हो जस्तो लाग्छ। सफाइ भनेको केवल पार्क सफा राख्ने कुरामात्र होइन रहेछ भन्ने मलाई लाग्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "In the district where I live, neighbors gather once a month to clean the park. On Sunday mornings, we pick up trash and pull weeds. At first, I didn't really want to go because I disliked waking up early on my day off.\nHowever, after going a few times, I started to enjoy talking with my neighbors. Even though we live in the same apartment building, we usually only exchange greetings. But when we clean together, we can have various conversations. I learned many things I didn't know, such as \"Where do you live?\" and \"How old are your children?\"\nNow, I look forward to meeting everyone more than the park becoming clean. I think it's very important for people living in the same town to meet and talk like this. I realized that cleaning is not just about making the park clean."
      ]
     }
    }
@@ -1365,6 +2598,24 @@
      "i18n": {
       "ja": {
        "explain": "晴れた日と対比して、雨の日は「お客さんが少ないので…すわることができます」とある。"
+      },
+      "ne": {
+       "q": "①晴れた日はいつも人が多くて、なかなか席が空きません भनेर लेखिएको छ, तर पानी परेको दिन कस्तो हुन्छ?",
+       "choices": [
+        "ग्राहकहरू कम हुन्छन् र मनपर्ने झ्यालको छेउको सिटमा बस्न सकिन्छ",
+        "घाम लागेको दिनभन्दा पनि धेरै ग्राहकहरू हुन्छन्",
+        "स्टेशनबाट हिँडेर पसलसम्म जान गाह्रो हुन्छ",
+        "तातो कफी पिउन पाइँदैन"
+       ]
+      },
+      "en": {
+       "q": "It says, 「①晴れた日はいつも人が多くて、なかなか席が空きません」, but what about rainy days?",
+       "choices": [
+        "お客さんが少なく、好きな窓ぎわの席にすわれる",
+        "晴れた日よりもさらにお客さんが多くなってしまう",
+        "駅から歩いてお店まで行くのが大変になる",
+        "あたたかいコーヒーが飲めなくなってしまう"
+       ]
       }
      }
     },
@@ -1381,6 +2632,24 @@
      "i18n": {
       "ja": {
        "explain": "「新しいケーキの話を聞かせてもらいました」とある。"
+      },
+      "ne": {
+       "q": "गत हप्ता, \"わたし\" ले पसलको मान्छेसँग कस्तो कुरा गर्नुभयो?",
+       "choices": [
+        "नयाँ केकको कुरा",
+        "मौसमको कुरा",
+        "स्टेशनसम्मको बाटोको कुरा",
+        "कफीको मूल्यको कुरा"
+       ]
+      },
+      "en": {
+       "q": "Last week, what did 「わたし」 talk about with the shop staff?",
+       "choices": [
+        "新しいケーキの話",
+        "天気の話",
+        "駅までの道の話",
+        "コーヒーのねだんの話"
+       ]
       }
      }
     },
@@ -1397,6 +2666,24 @@
      "i18n": {
       "ja": {
        "explain": "最後に「雨の日こそ外に出たくなる、特別な日」と述べている。"
+      },
+      "ne": {
+       "q": "\"わたし\" को लागि वर्षाको दिन कस्तो दिन हो?",
+       "choices": [
+        "बाहिर जान मन लाग्ने विशेष दिन",
+        "दिनभरि घरमा बस्न मन लाग्ने दिन",
+        "काम व्यस्त हुने दिन",
+        "कफी पिउन नसकिने दिन"
+       ]
+      },
+      "en": {
+       "q": "What kind of day is a rainy day for 「わたし」?",
+       "choices": [
+        "外に出たくなる特別な日",
+        "一日中家にいたい日",
+        "仕事がいそがしくなる日",
+        "コーヒーが飲めない日"
+       ]
       }
      }
     },
@@ -1413,6 +2700,24 @@
      "i18n": {
       "ja": {
        "explain": "前（まえ）の文（ぶん）で「新（あたら）しいケーキの話（はなし）を聞（き）かせてもらいました」とあり、「そのケーキ」はその新（あたら）しいケーキを指（さ）す。"
+      },
+      "ne": {
+       "q": "「今度お店に行ったら、そのケーキも食べてみよう」 भनिएको छ, \"そのケーキ\" कस्तो केक हो?",
+       "choices": [
+        "गत हप्ता पसलको मान्छेले कुरा गरेको नयाँ केक",
+        "वर्षाको दिनमा पसलमा सधैं अर्डर गर्ने केक",
+        "झ्यालको छेउमा बसेर पिउने तातो कफी",
+        "स्टेशन नजिकको क्याफेमा पहिले खाएको केक"
+       ]
+      },
+      "en": {
+       "q": "It says, 「今度お店に行ったら、そのケーキも食べてみよう」, but what kind of cake is 「そのケーキ」?",
+       "choices": [
+        "先週お店の人が話してくれた新しいケーキ",
+        "雨の日にお店で毎回注文するケーキ",
+        "窓ぎわの席で飲むあたたかいコーヒー",
+        "駅の近くのカフェで昔食べたケーキ"
+       ]
       }
      }
     }
@@ -1421,6 +2726,11 @@
     "ne": {
      "body": [
       "पानी परेको दिन, बाहिर निस्कन झन्झट लाग्ने मानिस धेरै होलान्। तर, मलाई पानी परेको दिन मन पर्छ। विशेष गरी, पानी परेको दिन छिमेकको क्याफेमा जानु, मेरो सानो आनन्द हो।\nत्यो क्याफे, रेल स्टेसनबाट अलि हिँडेको ठाउँमा छ। ①घाम लागेको दिन सधैं मानिसहरू धेरै हुन्छन्, सिट खाली हुन गाह्रो हुन्छ। तर पानी परेको दिन ग्राहक थोरै हुने भएकाले, मलाई मन पर्ने झ्यालछेउको सिटमा बस्न सकिन्छ। न्यानो कफी पिउँदै, झ्यालबाहिरको पानी हेर्दा, मन शान्त हुन्छ।\nपसलेसँग पनि, पानी परेको दिन फुर्सदसाथ कुरा गर्न सकिन्छ। गएको हप्ता, नयाँ केकको कुरा सुनाइदिनुभयो। अर्को पटक पसलमा गएपछि, त्यो केक पनि खाएर हेर्ने सोचमा छु। पानी परेको दिन सबैले घरमै बस्न मन पराउलान्, तर मेरो लागि, पानी परेको दिन नै बाहिर जान मन लाग्ने विशेष दिन हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Many people probably find it bothersome to go out on rainy days. But I like rainy days. In particular, going to a neighborhood cafe on a rainy day is my small pleasure.\nThe cafe is a short walk from the station. ①On sunny days, it's always crowded, and it's hard to find an empty seat. But on rainy days, there are fewer customers, so I can sit at my favorite window seat. My mind calms down as I drink warm coffee and watch the rain outside the window.\nI can also talk slowly with the staff on rainy days. Last week, they told me about a new cake. I'm thinking of trying that cake next time I go to the cafe. Everyone might want to stay home on rainy days, but for me, rainy days are special days that make me want to go out."
      ]
     }
    }
@@ -1448,6 +2758,24 @@
      "i18n": {
       "ja": {
        "explain": "「思っていたよりずっと大変でした」とある。"
+      },
+      "ne": {
+       "q": "तरकारी उब्जाउन कस्तो थियो?",
+       "choices": [
+        "सोचेभन्दा धेरै गाह्रो थियो",
+        "धेरै सजिलो थियो",
+        "चाँडै वाक्क लाग्यो",
+        "केही गर्नुपर्ने थिएन"
+       ]
+      },
+      "en": {
+       "q": "How was growing vegetables?",
+       "choices": [
+        "It was much harder than I thought.",
+        "It was very easy.",
+        "I got bored quickly.",
+        "There was nothing to do."
+       ]
       }
      }
     },
@@ -1464,6 +2792,24 @@
      "i18n": {
       "ja": {
        "explain": "「毎日見てやらないと育たない」と続いており、毎日の世話が必要という意味。"
+      },
+      "ne": {
+       "q": "हजुरबुबाले \"①野菜は子どもと同じだ\" भन्नुभएको अर्थ के हो?",
+       "choices": [
+        "हरेक दिन हेरचाह नगरे हुर्कँदैन भन्ने कुरा",
+        "तरकारी साना र प्यारा बच्चाहरू जस्तै हुन्छन् भन्ने कुरा",
+        "बच्चाहरूले हरेक दिन तरकारी खानुपर्छ भन्ने कुरा",
+        "तरकारी बच्चाहरूसँगै उब्जाउनुपर्छ भन्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does it mean when the grandfather said, \"①野菜は子どもと同じだ\"?",
+       "choices": [
+        "It means they won't grow if you don't take care of them every day.",
+        "It means vegetables are like small, cute children.",
+        "It means children should eat vegetables every day.",
+        "It means vegetables should be grown together with children."
+       ]
       }
      }
     },
@@ -1480,6 +2826,24 @@
      "i18n": {
       "ja": {
        "explain": "「毎日の世話がその味を作っているのだ」と考えている。"
+      },
+      "ne": {
+       "q": "\"わたし\" ले हजुरबुबाको तरकारी स्वादिष्ट हुनुको कारण के सोच्नुहुन्छ?",
+       "choices": [
+        "हरेक दिनको हेरचाहले त्यो स्वाद बनाउँछ",
+        "बारी घर नजिकै छ र तुरुन्तै जान सकिन्छ",
+        "हजुरबुबा अस्सी वर्षको हुनुहुन्छ र हरेक बिहान बारीमा जानुहुन्छ",
+        "गर्मीमा रातो हुने टमाटर र भन्टा बारीमा उब्जाउनुहुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What does \"わたし\" think is the reason the grandfather's vegetables are delicious?",
+       "choices": [
+        "Because daily care creates that taste.",
+        "Because the field is near his house and he can go there quickly.",
+        "Because the grandfather is already eighty years old and goes to the field every morning.",
+        "Because he grows tomatoes and eggplants that turn red in the summer in the field."
+       ]
       }
      }
     },
@@ -1496,6 +2860,24 @@
      "i18n": {
       "ja": {
        "explain": "直前（ちょくぜん）に「おじいさんの育（そだ）てた野菜（やさい）は、お店（みせ）のものよりずっとおいしい」とあり、「その味（あじ）」はそのおいしさを指（さ）す。"
+      },
+      "ne": {
+       "q": "「毎日の世話がその味を作っているのだ」भनेर भनिएको छ, तर \"その味\" कस्तो स्वाद हो?",
+       "choices": [
+        "हजुरबुबाले उब्जाउनुभएको तरकारीको, पसलको भन्दा स्वादिष्ट स्वाद",
+        "हरेक दिन पानी हालेर र किराहरू हटाएर हुर्काउने स्याहारको स्वाद",
+        "पसलमा बेच्ने सामान्य तरकारीको स्वाद",
+        "गर्मीमा रातो भएको गोलभेडाको मात्र स्वाद"
+       ]
+      },
+      "en": {
+       "q": "It says, \"毎日の世話がその味を作っているのだ\" (Daily care creates that taste). What kind of taste is \"その味\" (that taste)?",
+       "choices": [
+        "The taste of the vegetables grown by the grandfather, which are more delicious than those from the store.",
+        "The taste of care, which involves watering every day and removing insects.",
+        "The taste of ordinary vegetables sold in stores.",
+        "The taste of only tomatoes that have turned red in the summer."
+       ]
       }
      }
     }
@@ -1504,6 +2886,11 @@
     "ne": {
      "body": [
       "मेरा हजुरबुबाले घरनजिकै सानो खेत गर्नुहुन्छ। अहिले असी वर्षको उमेर भइसक्यो, तर हरेक बिहान अनिवार्य रूपमा खेतमा गएर तरकारीको हेरचाह गर्नुहुन्छ। टमाटर, बैंगन, काँक्रो लगायत विभिन्न तरकारी उमार्नुहुन्छ। गर्मी आउँदा टमाटर रातो हुन्छ, हेर्दा मात्रै पनि खुसी लाग्छ।\nगएको वर्ष गर्मीमा, मैले हजुरबुबाको खेतमा सघाएँ। तरकारी उमार्नु सोचेभन्दा धेरै गाह्रो थियो। हरेक दिन पानी हाल्नुपर्ने, किरा टिप्नुपर्ने, झारपात उखेल्नुपर्ने हुन्छ। एक दिन पनि छुट्यो भने, तरकारी झट्टै कमजोर भइहाल्छ।\nहजुरबुबाले \"①तरकारी बच्चा जस्तै हो। हरेक दिन हेरचाह नगरे बढ्दैन\" भन्नुभयो। साँच्चै, हजुरबुबाले उमार्नुभएको तरकारी, पसलको भन्दा धेरै मीठो हुन्छ। पक्कै, दैनिक हेरचाहले नै त्यो स्वाद बनाउँछ भन्ने मलाई लाग्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My grandfather has a small vegetable patch near his house. He is already eighty years old, but he goes to the field every morning without fail to tend to the vegetables. He grows various vegetables such as tomatoes, eggplants, and cucumbers. When summer comes, the tomatoes turn red, and just looking at them makes me happy.\nLast summer, I helped my grandfather in his field. Growing vegetables was much harder than I expected. I had to water them every day, remove insects, and pull out weeds. If I rested even for a day, the vegetables would quickly lose their vitality.\nMy grandfather said, \"①Vegetables are like children. They won't grow if you don't look after them every day.\" Indeed, the vegetables my grandfather grew are much more delicious than those from the store. I thought that the daily care must be what creates that taste."
      ]
     }
    }
@@ -1531,6 +2918,24 @@
      "i18n": {
       "ja": {
        "explain": "本文に「一人で行くのは少しこわかった」とあり、それまで一人で行ったことがなかったため。"
+      },
+      "ne": {
+       "q": "\"म\" पहिलो पटक एक्लै यात्रामा जाँदा कस्तो महसुस भयो?",
+       "choices": [
+        "त्यसअघि कहिल्यै एक्लै नगएकोले अलि डर लागेको थियो",
+        "पहाड नजिकको सानो सहरमा जान उत्साहित थियो",
+        "सधैं साथीभाइ र परिवारसँग भएकोले धेरै ढुक्क थियो",
+        "एक्लै भए पनि बाटो नहराउनेमा विश्वस्त थियो"
+       ]
+      },
+      "en": {
+       "q": "How did \"わたし\" feel when going on a trip alone for the first time?",
+       "choices": [
+        "I had never gone alone before, so I was a little scared.",
+        "I was looking forward to going to a small town near the mountains.",
+        "I always felt very confident when I was with friends or family.",
+        "I was confident that I wouldn't get lost even alone."
+       ]
       }
      }
     },
@@ -1547,6 +2952,24 @@
      "i18n": {
       "ja": {
        "explain": "「自分のすきな時間に、すきなことができる」と気づいた。"
+      },
+      "ne": {
+       "q": "① एक्लो यात्रामा के कुरा थाहा भयो?",
+       "choices": [
+        "आफ्नो मनपर्ने समयमा, मनपर्ने कुरा गर्न सकिने कुरा",
+        "कसैसँग हुँदा अर्को व्यक्तिसँग मिल्नुपर्ने कुरा",
+        "सुन्दर दृश्य एक्लै हेर्नु दुःखलाग्दो कुरा",
+        "थकित भए पनि तुरुन्तै आराम गर्न नसकिने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What is \"①一人旅で気づいたこと\" (what I realized on my solo trip)?",
+       "choices": [
+        "That I can do what I like at the time I like.",
+        "That when you are with someone, you have to adjust to them.",
+        "That it is lonely to see beautiful scenery alone.",
+        "That even if you get tired, you cannot rest immediately."
+       ]
       }
      }
     },
@@ -1563,6 +2986,24 @@
      "i18n": {
       "ja": {
        "explain": "「一人旅も、思っていたよりずっといいものでした」とある。"
+      },
+      "ne": {
+       "q": "यस अनुच्छेदको सामग्रीसँग मिल्ने कुन हो?",
+       "choices": [
+        "एक्लो यात्रा सोचेभन्दा धेरै राम्रो थियो",
+        "यात्रा गरेको सहरमा कसैले पनि दयालु व्यवहार गरेनन्",
+        "एक्लो यात्रा दुःखलाग्दो भएकोले अब कहिल्यै गर्न चाहन्न",
+        "सधैं साथीभाइ र परिवारसँग यात्रामा जान्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of this passage?",
+       "choices": [
+        "一人旅は思っていたよりずっとよいものだった",
+        "旅先の町ではだれも親切にしてくれなかった",
+        "一人旅はさびしいのでもう二度としたくない",
+        "いつも友だちや家族と旅行に行っている"
+       ]
       }
      }
     },
@@ -1579,6 +3020,24 @@
      "i18n": {
       "ja": {
        "explain": "直前（ちょくぜん）に「その町（まち）で会（あ）ったおばあさんが親切（しんせつ）にしてくれて」とあり、その親切（しんせつ）を指（さ）す。"
+      },
+      "ne": {
+       "q": "「その親切は、今でもわすれられません」भनेर भनिएको छ, तर \"その親切\" कस्तो कुरा हो?",
+       "choices": [
+        "यात्रा गरेको सहरमा भेटिएकी हजुरआमाले दयालु व्यवहार गर्नुभएको कुरा",
+        "आफ्नो मनपर्ने समयमा मनपर्ने कुराको आनन्द लिन सकेको कुरा",
+        "सुन्दर दृश्य एक्लै आरामले हेर्न सकेको कुरा",
+        "साथीभाइ र परिवारले सधैं यात्रामा बोलाउने कुरा"
+       ]
+      },
+      "en": {
+       "q": "It says, 「その親切は、今でもわすれられません」. What does 「その親切」 refer to?",
+       "choices": [
+        "旅先の町で会ったおばあさんが親切にしてくれたこと",
+        "自分のすきな時間にすきなことを楽しめたこと",
+        "きれいな景色をゆっくり一人でながめられたこと",
+        "友だちや家族がいつも旅行にさそってくれたこと"
+       ]
       }
      }
     }
@@ -1587,6 +3046,11 @@
     "ne": {
      "body": [
       "गएको वसन्तमा, मैले पहिलो पटक एक्लै यात्रा गएँ। त्योभन्दा अघि, सधैं साथी वा परिवारसँगै हुन्थें। एक्लै जानु अलि डरलाग्दो थियो, तर हिम्मत गरेर पहाडनजिकको सानो सहरमा गएर हेर्ने निर्णय गरें।\n①एक्लो यात्रामा एउटा कुरा थाहा भयो। त्यो के हो भने, आफ्नै मनपर्ने समयमा, मनपर्ने काम गर्न सकिन्छ भन्ने हो। कसैसँगै भएमा, अर्को व्यक्तिसँग मिलाउनुपर्छ। तर एक्लै भएमा, हेर्न मन लागेको ठाउँ फुर्सदसाथ हेर्न, थाकेको बेला तुरुन्तै आराम गर्न सकिन्छ।\nपक्कै, नरमाइलो लाग्ने बेला पनि थियो। सुन्दर दृश्य हेर्दा पनि, सँगै \"कति सुन्दर छ नि\" भन्ने मान्छे नभएकाले। तर, त्यो सहरमा भेटिएकी एक वृद्धाले दयालु व्यवहार गर्नुभयो, मन न्यानो भयो। त्यो दयालुता, अझै पनि बिर्सन सकिँदैन। एक्लो यात्रा पनि, सोचेभन्दा धेरै राम्रो कुरा रहेछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last spring, I went on a trip alone for the first time. Before that, I had always been with friends or family. I was a little scared to go alone, but I decided to take the plunge and visit a small town near the mountains.\n①I realized something on my solo trip. It's that I can do what I like, at the time I like. When you're with someone, you have to adjust to them. But when you're alone, you can take your time seeing the places you want to see, or rest immediately if you get tired.\nOf course, there were times when I felt lonely. That's because even when I saw beautiful scenery, there was no one to say \"It's beautiful, isn't it?\" with. But an old woman I met in that town was kind to me, and it warmed my heart. I can never forget that kindness. Traveling alone was much better than I had expected."
      ]
     }
    }
@@ -1614,6 +3078,24 @@
      "i18n": {
       "ja": {
        "explain": "「近所の人が『子犬が生まれたから、もらってくれませんか』と言ってきた」とある。"
+      },
+      "ne": {
+       "q": "मारो \"म\" को घरमा कसरी आयो?",
+       "choices": [
+        "छिमेकीले कुकुरको बच्चा लिन आग्रह गरे",
+        "छिमेकीको पाल्तु जनावर पसलमा जन्मेको कुकुरको बच्चा किनेर ल्याए",
+        "हिँड्ने बाटोमा हराएको कुकुरको बच्चा भेट्टाए",
+        "टाढा बस्ने साथीले दिए"
+       ]
+      },
+      "en": {
+       "q": "How did Maro come to \"my\" house?",
+       "choices": [
+        "近所の人が子犬をもらってほしいと言ってきた",
+        "近所のペットショップで生まれた子犬を買ってきた",
+        "散歩の道でまよっていた子犬をひろってきた",
+        "遠くに住む友だちがゆずってくれた"
+       ]
       }
      }
     },
@@ -1630,6 +3112,24 @@
      "i18n": {
       "ja": {
        "explain": "「犬をかうのは思っていたとおり大変でした」とある。"
+      },
+      "ne": {
+       "q": "कुकुर पाल्नु कस्तो थियो?",
+       "choices": [
+        "सोचेजस्तै गाह्रो थियो",
+        "सोचेभन्दा सजिलो थियो",
+        "पैसा पटक्कै लागेन",
+        "घुम्न जानु परेन"
+       ]
+      },
+      "en": {
+       "q": "How was it to own a dog?",
+       "choices": [
+        "思っていたとおり大変だった",
+        "思っていたよりかんたんだった",
+        "お金がまったくかからなかった",
+        "さんぽに行かなくてよかった"
+       ]
       }
      }
     },
@@ -1646,6 +3146,24 @@
      "i18n": {
       "ja": {
        "explain": "「変（か）わった」は、あまり話（はな）さなかった父（ちち）がよく笑（わら）うようになったことを指（さ）す。"
+      },
+      "ne": {
+       "q": "「①とくに変わったのは、わたしの父です」 भनिएको छ, यहाँको 「変わった」 ले बुबाको कस्तो अवस्थालाई जनाउँछ?",
+       "choices": [
+        "धेरै नबोल्ने भए पनि धेरै हाँस्न थालेको कुरा",
+        "कम्पनीबाट ढिलो फर्केर कुकुरसँग नखेल्ने भएको कुरा",
+        "कुकुरलाई घुमाउन गाह्रो भएर कम्पनीबाट बिदा लिन थालेको कुरा",
+        "शान्त घर मन पराउने र पहिलेभन्दा कम बोल्न थालेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "It says, 「①とくに変わったのは、わたしの父です」. What kind of change in the father does 「変わった」 refer to here?",
+       "choices": [
+        "あまり話さなかったのに、よく笑うようになったこと",
+        "会社から帰るのがおそくなり犬と遊ばなくなったこと",
+        "犬のさんぽが大変で会社を休むようになったこと",
+        "しずかな家がすきで前よりも話さなくなったこと"
+       ]
       }
      }
     },
@@ -1662,6 +3180,24 @@
      "i18n": {
       "ja": {
        "explain": "マロのおかげで家族が仲よくなり、大切な家族の一員だと結んでいる。"
+      },
+      "ne": {
+       "q": "यस लेखमा 「わたし」 ले सबैभन्दा बढी के भन्न चाहन्छ?",
+       "choices": [
+        "मारोको कारणले परिवार पहिलेभन्दा बढी नजिक भएको कुरा",
+        "कुकुर पाल्दा हरेक दिन घुमाउन र पैसाको समस्या हुने कुरा",
+        "बुबा कम्पनीबाट फर्केपछि तुरुन्तै मारोसँग खेल्ने कुरा",
+        "शान्त घरमा अब खुसीको आवाज गुन्जिन थालेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does \"I\" most want to convey in this passage?",
+       "choices": [
+        "マロのおかげで家族が前より仲よくなったこと",
+        "犬をかうと毎日のさんぽやお金が大変なこと",
+        "父は会社から帰るとすぐにマロと遊ぶこと",
+        "しずかだった家に元気な声がひびくようになったこと"
+       ]
       }
      }
     }
@@ -1670,6 +3206,11 @@
     "ne": {
      "body": [
       "तीन वर्षअघि, मेरो घरमा कुकुर आयो। नाम मारो हो। छिमेकीले \"बच्चा कुकुर जन्मेको छ, लिनुहुन्छ कि\" भनेर भनेका थिए। परिवार सबैले, सुरुमा कुकुर पाल्नु गाह्रो हुन्छ भनेर चिन्ता गरेका थिए।\nसाँच्चै, कुकुर पाल्नु सोचेजस्तै गाह्रो थियो। हरेक दिन घुमाउन लैजानुपर्ने, बिरामी परे पैसा पनि लाग्ने। तर, मारो आएपछि, घरभित्र पहिलेभन्दा चहलपहल भयो। शान्त रहेको घरमा, सधैं उत्साहित आवाज गुन्जिन थाल्यो।\n①विशेष गरी परिवर्तन भएको भनेको मेरा बुबा हुनुहुन्छ। बुबा खासै नबोल्ने मान्छे हुनुहुन्थ्यो, तर मारो आएपछि, प्रायः हाँस्न थाल्नुभयो। अफिसबाट फर्केपछि, तुरुन्तै मारोसँग खेल्नुहुन्छ। परिवार सबै, मारोको कारणले पहिलेभन्दा मिलेर बस्न थालेको जस्तो लाग्छ। मारो हाम्रो महत्त्वपूर्ण परिवारको सदस्य हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Three years ago, a dog came to my house. Its name is Maro. A neighbor asked, \"A puppy was born, would you like to have it?\" At first, everyone in my family was worried that owning a dog would be difficult.\nIndeed, owning a dog was as difficult as I had expected. I have to take it for walks every day, and if it gets sick, it costs money. But since Maro came, the house has become livelier than before. The quiet house is now always filled with energetic sounds.\n①What changed most notably was my father. My father was a man of few words, but since Maro came, he started to laugh a lot. When he comes home from work, he immediately plays with Maro. Everyone in the family feels like we've become closer thanks to Maro. Maro is a precious member of our family."
      ]
     }
    }
@@ -1697,6 +3238,24 @@
      "i18n": {
       "ja": {
        "explain": "「スマートフォンがあれば、いつでもすぐに…見られるから」と理由が書かれている。"
+      },
+      "ne": {
+       "q": "किताब पढ्ने मानिसहरू घट्नुको कारणको रूपमा पाठमा के उल्लेख गरिएको छ?",
+       "choices": [
+        "स्मार्टफोनमा समाचार र भिडियो तुरुन्तै हेर्न सकिने भएकोले",
+        "रेलमा किताब पढ्ने मानिसहरू कम भएकोले",
+        "सुत्नुअघि किताब पढ्दा निद्रा हराउने भएकोले",
+        "छिमेकबाट पुस्तकालय हराएकोले"
+       ]
+      },
+      "en": {
+       "q": "What is mentioned in the text as a reason why fewer people are reading books?",
+       "choices": [
+        "スマートフォンでニュースやどうががすぐ見られるから",
+        "電車の中で本を読む人が少なくなったから",
+        "ねる前に本を読むと目がさえてしまうから",
+        "図書館が近所からなくなってしまったから"
+       ]
       }
      }
     },
@@ -1713,6 +3272,24 @@
      "i18n": {
       "ja": {
        "explain": "「電車の中で本を読んでいる人を見て、なんだか落ち着いて見えました。それで…」とある。"
+      },
+      "ne": {
+       "q": "「わたし」 ले किताब पढ्ने विचार किन गर्यो?",
+       "choices": [
+        "रेलमा किताब पढ्ने मानिसहरू शान्त देखिएकोले",
+        "हरेक रात सुत्नुअघि तीस मिनेट मात्र समय मिलेकोले",
+        "स्मार्टफोनमा समाचार हेर्न वाक्क लागेकोले",
+        "किताब पढ्दा राम्रो निद्रा लाग्छ भनी साथीले भनेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did 「わたし」 decide to read a book?",
+       "choices": [
+        "電車で本を読む人が落ち着いて見えたから",
+        "毎晩ねる前に三十分だけ時間ができたから",
+        "スマートフォンでニュースを見るのにあきてしまったから",
+        "本を読むとよく眠れると友だちに聞いたから"
+       ]
       }
      }
     },
@@ -1729,6 +3306,24 @@
      "i18n": {
       "ja": {
        "explain": "「そう」は、ねる前（まえ）にスマートフォンを見（み）ると目（め）がさえてねむれなくなることを指（さ）す。"
+      },
+      "ne": {
+       "q": "「①本を読むようになって…本だとそうなりません」 भनिएको छ, 「そう」 ले केलाई जनाउँछ?",
+       "choices": [
+        "निद्रा हराएर सुत्न नसक्ने कुरा",
+        "स्मार्टफोनमा समाचार र भिडियो हेर्ने कुरा",
+        "सुत्नुअघि तीस मिनेट मात्र किताब पढ्ने कुरा",
+        "किताबमा थाहा नभएका कुराहरू लेखिएको कुरा"
+       ]
+      },
+      "en": {
+       "q": "In \"①本を読むようになって…本だとそうなりません\", what does 「そう」 refer to?",
+       "choices": [
+        "目がさえてねむれなくなること",
+        "スマートフォンでニュースやどうがを見ること",
+        "ねる前に三十分だけ本を読むこと",
+        "知らなかったことが本に書いてあること"
+       ]
       }
      }
     },
@@ -1745,6 +3340,24 @@
      "i18n": {
       "ja": {
        "explain": "「よく眠れるようになりました」「毎日が前より楽しくなりました」とある。"
+      },
+      "ne": {
+       "q": "किताब पढ्न थालेपछि «わたし» मा कस्तो परिवर्तन आयो?",
+       "choices": [
+        "राम्रोसँग सुत्न सक्ने भयो र हरेक दिन पहिलेभन्दा रमाइलो भयो",
+        "स्मार्टफोनमा समाचार र भिडियो हेर्ने कुरा पहिलेभन्दा धेरै भयो",
+        "रेलमा किताब पढ्न लाज लाग्न थाल्यो",
+        "सुत्नुअघिको समय छोटो भयो र थकित भयो"
+       ]
+      },
+      "en": {
+       "q": "What changes occurred in 「わたし」 after starting to read books?",
+       "choices": [
+        "よく眠れるようになり、毎日が前より楽しくなった",
+        "スマートフォンでニュースやどうがを見ることが前より多くなった",
+        "電車の中で本を読むのがはずかしくなった",
+        "ねる前の時間が短くなってつかれてしまった"
+       ]
       }
      }
     }
@@ -1753,6 +3366,11 @@
     "ne": {
      "body": [
       "भर्खरैका दिनहरूमा, किताब पढ्ने मानिस घट्दै गइरहेको भनिन्छ। स्मार्टफोन भएपछि, जुनसुकै बेला पनि तुरुन्तै समाचार वा भिडियो हेर्न सकिने भएकाले होला। मैले पनि, पहिले स्मार्टफोनमात्र हेर्थें, किताब झन्डै पढ्दिनथें।\nतर, एक दिन, रेलभित्र किताब पढिरहेको मानिस देखेर, कसो कसो शान्त देखिएझैं लाग्यो। त्यसैले, मैले पनि किताब पढेर हेर्ने सोचें। अहिले, हरेक रात सुत्नुअघि तीस मिनेटमात्र किताब पढ्ने गर्छु।\n①किताब पढ्न थालेपछि, राम्ररी निदाउन सक्ने भएको छु। सुत्नुअघि स्मार्टफोन हेर्दा, आँखा जागृत भइहाल्छ, तर किताबले त्यसो हुँदैन। साथै, थाहा नभएका धेरै कुराहरू किताबमा लेखिएका हुन्छन्, हरेक दिन पहिलेभन्दा रमाइलो हुन थालेको छ। किताबभित्र, कहिल्यै नगएको ठाउँ, कहिल्यै नभेटेको मानिसको विचार फैलिएको हुन्छ। तपाईंहरू पनि, दिनको अलिकति मात्र किताब पढेर हेर्नुहोस् न?"
+     ]
+    },
+    "en": {
+     "body": [
+      "Recently, it seems that fewer people are reading books. This is probably because with a smartphone, you can instantly watch news and videos anytime. I, too, used to only look at my smartphone and hardly read any books.\nBut one day, I saw someone reading a book on the train and they looked so calm. That made me want to try reading a book myself. Now, I make sure to read a book for thirty minutes every night before going to sleep.\nSince I started reading books, I've been sleeping better. Looking at my smartphone before bed keeps me awake, but books don't do that. Plus, I've learned so many new things from books, and my daily life has become more enjoyable than before. Books contain vast worlds of places I've never been and thoughts of people I've never met. Why don't you all try reading a book for a little while each day?"
      ]
     }
    }
@@ -1780,6 +3398,24 @@
      "i18n": {
       "ja": {
        "explain": "本文（ほんぶん）に「前（まえ）の会社（かいしゃ）では何（なん）でも知（し）っていたのに」「わからないことばかり」とあり、新（あたら）しい会社（かいしゃ）では知（し）らないことばかりなので一（いち）から覚（おぼ）える必要（ひつよう）がある。"
+      },
+      "ne": {
+       "q": "①「一から覚えなければなりません」 भनिएको छ, त्यो किन हो?",
+       "choices": [
+        "नयाँ कम्पनीमा थाहा नभएका कुराहरू मात्रै छन्",
+        "पुरानो कम्पनीमा फेरि फर्कनुपर्ने भयो",
+        "वरपरका कसैले पनि काम सिकाउँदैनन्",
+        "पुरानो कम्पनीमा सबै कुरा थाहा थियो र एउटै काम मात्रै थियो"
+       ]
+      },
+      "en": {
+       "q": "It says \"①一から覚えなければなりません\", but why is that?",
+       "choices": [
+        "新しい会社では、わからないことばかりだから",
+        "前の会社にもう一度もどることになったから",
+        "まわりの人がだれも仕事を教えてくれないから",
+        "前の会社では何でも知っていて同じ仕事ばかりだから"
+       ]
       }
      }
     },
@@ -1796,6 +3432,24 @@
      "i18n": {
       "ja": {
        "explain": "「家から近くてべんりでしたが、ずっと同じ仕事ばかりで、あまり楽しくありませんでした」とある。"
+      },
+      "ne": {
+       "q": "पुरानो कम्पनी कस्तो कम्पनी थियो?",
+       "choices": [
+        "घरबाट नजिक थियो, तर एउटै काम मात्रै भएकोले खासै रमाइलो थिएन",
+        "घरबाट टाढा थियो र हरेक बिहान जान धेरै गाह्रो थियो",
+        "हरेक दिन नयाँ काम हुन्थ्यो र सिक्न गाह्रो थियो",
+        "वरपरका मानिसहरूले दयालु भई काम सिकाउने कम्पनी थियो"
+       ]
+      },
+      "en": {
+       "q": "What kind of company was the previous one?",
+       "choices": [
+        "家から近いが、同じ仕事ばかりであまり楽しくなかった",
+        "家から遠くて毎朝通うのがとても大変だった",
+        "毎日新しい仕事があって覚えるのが大変だった",
+        "まわりの人がやさしく仕事を教えてくれる会社だった"
+       ]
       }
      }
     },
@@ -1812,6 +3466,24 @@
      "i18n": {
       "ja": {
        "explain": "「大変ですが、新しいことを覚えるのは、やっぱりおもしろい」と述べている。"
+      },
+      "ne": {
+       "q": "नयाँ कम्पनीको बारेमा «わたし» कस्तो महसुस गर्छ?",
+       "choices": [
+        "गाह्रो छ तर नयाँ कुरा सिक्न रमाइलो छ",
+        "हरेक दिन पुरानो कम्पनीमा छिट्टै फर्कन चाहन्छु भन्ने सोच्छ",
+        "पुरानो कम्पनीजस्तै काम सजिलो र बोरिंग छ भन्ने महसुस गर्छ",
+        "वरपरका मानिसहरूले काम सिकाउँदैनन् र हरेक दिन दुखी छु भन्ने सोच्छ"
+       ]
+      },
+      "en": {
+       "q": "How does 「わたし」 feel about the new company?",
+       "choices": [
+        "It's tough, but learning new things is interesting.",
+        "Every day, I wish I could go back to my old company soon.",
+        "I feel that the work is easy and boring, like at my old company.",
+        "I feel that every day is hard because the people around me don't teach me the work."
+       ]
       }
      }
     },
@@ -1828,6 +3500,24 @@
      "i18n": {
       "ja": {
        "explain": "直前（ちょくぜん）の「家（いえ）に帰（かえ）るとつかれて、すぐに眠（ねむ）ってしまいました」を指（さ）す。"
+      },
+      "ne": {
+       "q": "「でも、それも新しいことを覚えているしるしだと思い、がんばりました」 भनिएको छ, «それ» ले केलाई जनाउँछ?",
+       "choices": [
+        "घर फर्कँदा थकित भएर तुरुन्तै निदाउने कुरा",
+        "पुरानो कम्पनीमा सबै कुरा थाहा भएको कुरा",
+        "वरपरका मानिसहरूले दयालु भई काम सिकाउने कुरा",
+        "थाहा नभएका कुराहरू सोध्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "It says, 「でも、それも新しいことを覚えているしるしだと思い、がんばりました」. What does 「それ」 refer to?",
+       "choices": [
+        "Getting tired and falling asleep immediately upon returning home.",
+        "Knowing everything at the previous company.",
+        "The people around me kindly teaching me the work.",
+        "Asking about things I don't understand."
+       ]
       }
      }
     }
@@ -1836,6 +3526,11 @@
     "ne": {
      "body": [
       "मैले गएको महिना, नयाँ कम्पनीमा प्रवेश गरें। अघिको कम्पनी घरनजिक भएकाले सुविधाजनक थियो, तर सधैं उस्तै काममात्र गर्नुपर्ने भएकाले, खासै रमाइलो थिएन। नयाँ कुरामा चुनौती लिन चाहेर, हिम्मत गरेर कम्पनी परिवर्तन गरें।\nनयाँ कम्पनीमा, थाहा नभएका कुराहरूमात्र छन्, हरेक दिन गाह्रो छ। अघिको कम्पनीमा सबै कुरा थाहा थियो, तर अहिले नयाँ कर्मचारीको रूपमा ①सुरुदेखि सिक्नुपर्छ। सुरुको एक हप्ता, घर फर्केपछि थाकेर, तुरुन्तै निदाइहाल्थें। तर, त्यो पनि नयाँ कुरा सिकिरहेको संकेत हो भनेर सोचेर, मेहनत गरें।\nतर, गाह्रो कुरामात्र होइन। वरपरका मानिसहरूले, दयालुतापूर्वक काम सिकाइदिन्छन्। नबुझेको कुरा सोध्दा, ध्यानपूर्वक सिकाइदिने भएकाले, बिस्तारै गर्न सक्ने कुराहरू बढ्दै गएको छ। गाह्रो छ, तर नयाँ कुरा सिक्नु, साँच्चै रोचक कुरा हो जस्तो लाग्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last month, I joined a new company. My previous company was close to home and convenient, but I was always doing the same work and it wasn't very enjoyable. I wanted to challenge myself with something new, so I decided to change companies.\nAt the new company, everything is unfamiliar, and every day is tough. At my old company, I knew everything, but now I have to learn everything from scratch as a newcomer. For the first week, I was so tired when I got home that I fell asleep immediately. But I told myself that this was a sign that I was learning new things, and I kept trying my best.\nHowever, it's not all difficult. The people around me kindly teach me the work. When I ask about things I don't understand, they explain them carefully, so I'm gradually becoming able to do more. It's tough, but I still think learning new things is interesting."
      ]
     }
    }
@@ -1863,6 +3558,24 @@
      "i18n": {
       "ja": {
        "explain": "「店はせまくて、置いてあるパンの種類も多くありません」とある。"
+      },
+      "ne": {
+       "q": "हजुरआमाको बेकरी कस्तो पसल हो?",
+       "choices": [
+        "साँघुरो र पाउरोटीका प्रकारहरू पनि धेरै नभएको सानो पसल",
+        "हरेक बिहान हजुरआमाले हातले पाउरोटी बनाउने ठूलो पसल",
+        "सुपरमार्केटभन्दा सस्तो र धेरै प्रकारका नयाँ पसल",
+        "स्टेशन अगाडि युवाहरूले चलाएको पसल"
+       ]
+      },
+      "en": {
+       "q": "What kind of shop is the old woman's bakery?",
+       "choices": [
+        "A small shop that is narrow and doesn't have many types of bread.",
+        "A large shop where the old woman makes bread by hand every morning.",
+        "A new shop that is cheaper and has more variety than a supermarket.",
+        "A shop run by young people in front of the station."
+       ]
       }
      }
     },
@@ -1879,6 +3592,24 @@
      "i18n": {
       "ja": {
        "explain": "「ここ」は、わたしが小（ちい）さいころから通（かよ）っているおばあさんのパン屋（や）を指（さ）す。"
+      },
+      "ne": {
+       "q": "「①なぜなら、ここのパンは…」भनेर लेखिएको छ, \"ここ\" ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "मैले सानो छँदादेखि जाने गरेको बेकरी",
+        "सस्तो र विभिन्न प्रकारका रोटी किन्न सकिने ठूलो सुपरमार्केट",
+        "यो सहरमा बढ्दै गएका ठूला पसलहरू",
+        "स्टेशन अगाडि युवाहरूले चलाएको बेकरी"
+       ]
+      },
+      "en": {
+       "q": "It says, 「①なぜなら、ここのパンは…」. What does 「ここ」 refer to?",
+       "choices": [
+        "The bakery I've been going to since I was little.",
+        "A large supermarket where you can buy cheap and various breads.",
+        "The large shops increasing in this town.",
+        "The bakery run by young people in front of the station."
+       ]
       }
      }
     },
@@ -1895,6 +3626,24 @@
      "i18n": {
       "ja": {
        "explain": "「おばあさんがいつも『今日はさむいね』などと声をかけてくれます」とある。"
+      },
+      "ne": {
+       "q": "पसलमा जाँदा हजुरआमाले के गर्नुहुन्छ?",
+       "choices": [
+        "सधैँ मलाई बोलाउनुहुन्छ",
+        "रोटी सस्तोमा दिनुहुन्छ",
+        "केही भन्नुहुन्न",
+        "नयाँ रोटी दिनुहुन्छ"
+       ]
+      },
+      "en": {
+       "q": "When I go to the shop, what does the old woman do for me?",
+       "choices": [
+        "She always speaks to me.",
+        "She makes the bread cheaper for me.",
+        "She doesn't say anything.",
+        "She gives me new bread."
+       ]
       }
      }
     },
@@ -1911,6 +3660,24 @@
      "i18n": {
       "ja": {
        "explain": "前の文に「小さな店がどんどんなくなっています」とあり、それをさびしいと感じている。"
+      },
+      "ne": {
+       "q": "「さびしいことだ」भनेर लेखिएको छ, के कुरा दुखद छ?",
+       "choices": [
+        "सहरका साना पसलहरू एकपछि अर्को गर्दै हराउँदै जानु",
+        "हजुरआमाको बेकरीमा रोटीका प्रकारहरू कम हुँदै जानु",
+        "ठूला सुपरमार्केटहरू टाढा मात्र हुनु",
+        "हजुरआमाले पहिले जस्तो मलाई नबोलाउनु"
+       ]
+      },
+      "en": {
+       "q": "It says, 「さびしいことだ」. What is sad?",
+       "choices": [
+        "That small shops in town are disappearing one after another.",
+        "That the variety of bread at the old woman's bakery has decreased.",
+        "That large supermarkets are only in distant locations.",
+        "That the old woman doesn't speak to me as much as before."
+       ]
       }
      }
     }
@@ -1919,6 +3686,11 @@
     "ne": {
      "body": [
       "मेरो घरनजिकै, एक वृद्धाले एक्लै चलाउने सानो बेकरी छ। पसल साँघुरो छ, राखिएको रोटीको प्रकार पनि धेरै छैन। तर, म यो पसलको रोटी एकदमै मन पराउँछु, सानो छँदादेखि नै खाँदै आएको छु।\nठूलो सुपरमार्केटमा जाने हो भने, अझ सस्तो र विभिन्न किसिमका रोटी किन्न पाइन्छ। तैपनि, म यही पसलमा नियमित जान्छु। ①किनभने, यहाँको रोटी हरेक बिहान वृद्धाले हातले बनाउनुहुन्छ, अरू कतै नपाइने स्वाद हुन्छ। साथै, पसलमा जाँदा, वृद्धाले सधैं \"आज त जाडो छ है\" भन्दै कुरा गर्नुहुन्छ।\nभर्खरैका दिनहरूमा, यो सहरमा पनि ठूला पसलहरू बढेर, साना पसलहरू क्रमशः हराउँदै गइरहेका छन्। नरमाइलो कुरा हो जस्तो लाग्छ। म, यो बेकरी सधैंभरि रहिरहोस् भनेर मनैदेखि चाहन्छु, अबदेखि पनि सधैं जान्छु भन्ने सोचमा छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Near my house, there's a small bakery run by an old woman all by herself. The shop is small, and there aren't many types of bread available. But I love the bread from this shop and have been eating it since I was little.\nIf I go to a large supermarket, I can buy cheaper and a wider variety of bread. Even so, I still go to this shop. That's because the old woman makes the bread by hand every morning, and it has a unique taste that you can't find anywhere else. Also, when I go to the shop, the old woman always greets me with words like, \"It's cold today, isn't it?\"\nRecently, more large stores have been appearing in this town, and small shops are disappearing one after another. I think it's a sad thing. I sincerely hope this bakery continues forever, and I intend to keep going there."
      ]
     }
    }
@@ -1946,6 +3718,24 @@
      "i18n": {
       "ja": {
        "explain": "「下を向いて通りすぎていました」とある。"
+      },
+      "ne": {
+       "q": "भर्खरै सरेको बेला, \"わたし\" ले के गरिरहेको थियो?",
+       "choices": [
+        "टाउको झुकाएर मानिसहरूको अगाडिबाट हिँडिरहेको थियो",
+        "एउटै अपार्टमेन्टका मानिसहरूसँग हरेक दिन रमाइलो कुरा गरिरहेको थियो",
+        "आफैँ पहिले मुस्कुराएर अभिवादन गरिरहेको थियो",
+        "समस्या पर्दा छिमेकीहरूले मद्दत गरिरहेका थिए"
+       ]
+      },
+      "en": {
+       "q": "When \"わたし\" had just moved in, what was she doing?",
+       "choices": [
+        "She was looking down and passing in front of people.",
+        "She was happily talking with people in the same apartment building every day.",
+        "She was smiling and greeting people first.",
+        "When she was in trouble, her neighbors helped her."
+       ]
       }
      }
     },
@@ -1962,6 +3752,24 @@
      "i18n": {
       "ja": {
        "explain": "「それ」は、おばさんと「おはようございます」とあいさつをかわしたことを指（さ）す。"
+      },
+      "ne": {
+       "q": "「①それだけのこと」भनेर लेखिएको छ, \"それ\" ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "आन्टीसँग अभिवादन गरेको कुरा",
+        "सरुवा भएको कुरा",
+        "टाउको झुकाएर हिँडेको कुरा",
+        "समस्या पर्दा एकअर्कालाई मद्दत गरेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "It says \"①それだけのこと\", but what does \"それ\" refer to?",
+       "choices": [
+        "Greeting the old lady.",
+        "Moving to a new place.",
+        "Passing by looking down.",
+        "Helping each other when in trouble."
+       ]
       }
      }
     },
@@ -1978,6 +3786,24 @@
      "i18n": {
       "ja": {
        "explain": "「だんだん近所の人と話せるようになり…助け合えるようになりました」とある。"
+      },
+      "ne": {
+       "q": "पहिले अभिवादन गर्न थालेपछि के भयो?",
+       "choices": [
+        "छिमेकीहरूसँग कुरा गर्न सकिने भयो र एकअर्कालाई मद्दत गर्न सकिने भयो",
+        "टाउको झुकाएर हिँड्ने छिमेकीहरूको सङ्ख्या बढ्यो",
+        "आन्टीले हरेक बिहान आफैँ अभिवादन गर्न थालिन्",
+        "दुख लागेर पुरानो सहरमा सर्ने निर्णय गरियो"
+       ]
+      },
+      "en": {
+       "q": "What happened after she started greeting people first?",
+       "choices": [
+        "She became able to talk with her neighbors and help each other.",
+        "The number of neighbors who passed by looking down increased.",
+        "The old lady started greeting her every morning.",
+        "She became lonely and decided to move back to her old town."
+       ]
       }
      }
     },
@@ -1994,6 +3820,24 @@
      "i18n": {
       "ja": {
        "explain": "最後に「あいさつは大きな力を持っている」とまとめている。"
+      },
+      "ne": {
+       "q": "यस लेखमा 「わたし」ले सबैभन्दा बढी के भन्न चाहन्छ?",
+       "choices": [
+        "「あいさつは人と人を近づける大きな力を持っている」",
+        "「引っこしたばかりのころはさびしくて下を向いてばかりいた」",
+        "「同じマンションでもふだんはあいさつぐらいしかしないものだ」",
+        "「引っこしてきた新しい町に知っている人が一人もいないのはつらい」"
+       ]
+      },
+      "en": {
+       "q": "What does \"わたし\" most want to say in this passage?",
+       "choices": [
+        "Greetings have great power to bring people closer.",
+        "When she had just moved in, she was lonely and always looking down.",
+        "Even in the same apartment building, people usually only greet each other.",
+        "It's hard when there's no one you know in the new town you've moved to."
+       ]
       }
      }
     }
@@ -2002,6 +3846,11 @@
     "ne": {
      "body": [
       "म भर्खरै सरेर आएको बेला, छिमेकमा चिनेको एउटा पनि मानिस थिएन। अपार्टमेन्टमा कसैसँग भेट भए पनि, के कुरा गर्ने भन्ने थाहा नभएर, टाउको झुकाएर हिँडिहाल्थें। नयाँ सहर, कसो कसो एक्लो ठाउँ जस्तो लाग्थ्यो।\nएक दिन, उही अपार्टमेन्टमा बस्ने एक महिलाले, मुस्कुराएर \"नमस्कार\" भन्दै अभिवादन गर्नुभयो। मैले पनि \"नमस्कार\" भनें। ①त्यति मात्र भए पनि, अचानक यो सहर मन परेको जस्तो लाग्यो। अनौठो अनुभूति थियो।\nत्यसपछि, मैले पहिले नै अभिवादन गर्न थालें। त्यसो गर्दा, बिस्तारै छिमेकीसँग कुरा गर्न सक्ने भयो, अहिले समस्या पर्दा एकअर्कालाई सघाउन सक्ने भएको छ। एउटामात्र अभिवादनले, यति धेरै मानिसलाई नजिक ल्याउँछ भन्ने मैले सोचेकै थिइनँ। अभिवादनमा ठूलो शक्ति छ रहेछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When I first moved here, I didn't know anyone in the neighborhood. Even when I met someone in the apartment building, I didn't know what to say, so I would look down and pass by. The new town felt like a lonely place.\nOne day, an old woman from the same apartment building smiled and greeted me with \"Good morning.\" I replied, \"Good morning\" too. Even though it was just that, I suddenly felt like I liked this town. It was a strange feeling.\nAfter that, I started to greet people first. Then, I gradually became able to talk to my neighbors, and now we can help each other when we're in trouble. I never thought that just one word of greeting could bring people so close. Greetings have great power."
      ]
     }
    }
@@ -2029,6 +3878,24 @@
      "i18n": {
       "ja": {
        "explain": "両親は「ふつうの会社に入りなさい」と言っていた。"
+      },
+      "ne": {
+       "q": "आमाबुबाले सुरुमा भाइलाई कस्तो होस् भन्ने चाहनुहुन्थ्यो?",
+       "choices": [
+        "「ふつうの会社に入ってほしい」",
+        "「絵の勉強を大学で続けてほしい」",
+        "「すきな絵をかいて有名になってほしい」",
+        "「家でずっと絵をかいていてほしい」"
+       ]
+      },
+      "en": {
+       "q": "What did the parents initially want their younger brother to do?",
+       "choices": [
+        "They wanted him to join a regular company.",
+        "They wanted him to continue studying art at university.",
+        "They wanted him to draw his favorite pictures and become famous.",
+        "They wanted him to keep drawing pictures at home."
+       ]
       }
      }
     },
@@ -2045,6 +3912,24 @@
      "i18n": {
       "ja": {
        "explain": "「弟の気持ちが強いのを見て、最後はおうえんすることにしました」とある。"
+      },
+      "ne": {
+       "q": "①「両親は心配しましたが、…最後はおうえんすることにしました」 भनिएको छ, आमाबुबाले किन समर्थन गर्ने निर्णय गर्नुभयो?",
+       "choices": [
+        "「弟の気持ちが強いのを見たから」",
+        "「絵でお金がもうかると分かったから」",
+        "「会社に入れなかったから」",
+        "「弟が有名になったから」"
+       ]
+      },
+      "en": {
+       "q": "It says \"①両親は心配しましたが、…最後はおうえんすることにしました\" (The parents were worried, but in the end, they decided to support him). Why did the parents decide to support him?",
+       "choices": [
+        "Because they saw their brother's strong feelings.",
+        "Because they found out he could make money from art.",
+        "Because he couldn't get into a company.",
+        "Because their brother became famous."
+       ]
       }
      }
     },
@@ -2061,6 +3946,24 @@
      "i18n": {
       "ja": {
        "explain": "「まだ有名ではありませんが、絵をかく仕事をしながら、毎日楽しそうにくらしています」とある。"
+      },
+      "ne": {
+       "q": "अहिले भाइ कस्तो जीवन बिताइरहेको छ?",
+       "choices": [
+        "「有名ではないが、絵の仕事をして毎日楽しそうにくらしている」",
+        "「会社に入って絵はやめ、今はふつうにはたらいている」",
+        "「絵で有名になってお金持ちになった」",
+        "「両親に心配をかけて毎日なやんでいる」"
+       ]
+      },
+      "en": {
+       "q": "What kind of life is your younger brother living now?",
+       "choices": [
+        "He is not famous, but he works as a painter and seems to enjoy every day.",
+        "He joined a company, quit painting, and now works normally.",
+        "He became famous for his paintings and became rich.",
+        "He worries his parents and is troubled every day."
+       ]
       }
      }
     },
@@ -2077,6 +3980,24 @@
      "i18n": {
       "ja": {
        "explain": "「夢（ゆめ）」は、弟（おとうと）がすきな絵（え）をかいて生活（せいかつ）していくことを指（さ）す。"
+      },
+      "ne": {
+       "q": "「夢を持ち続けるのは、かんたんなことではない」 भनिएको छ, यहाँको 「夢」ले केलाई संकेत गर्छ?",
+       "choices": [
+        "「すきな絵をかいて生活していくこと」",
+        "「ふつうの会社に入ってはたらくこと」",
+        "「絵で有名になってお金持ちになること」",
+        "「両親の心配をなくして安心させること」"
+       ]
+      },
+      "en": {
+       "q": "It says, 「夢を持ち続けるのは、かんたんなことではない」, but what does 「夢」 refer to here?",
+       "choices": [
+        "living by drawing pictures he likes",
+        "working in a normal company",
+        "becoming famous and rich through painting",
+        "relieving his parents' worries and making them feel at ease"
+       ]
       }
      }
     }
@@ -2085,6 +4006,11 @@
     "ne": {
      "body": [
       "मेरो भाइलाई, बालककालदेखि नै चित्र कोर्न एकदमै मन पर्थ्यो। स्कुलको बिदाको समयमा पनि, घर फर्केपछि पनि, सधैं नोटबुकमा केही न केही कोरिरहन्थ्यो। आमाबुबाले \"चित्रले जीविका चल्दैन, सामान्य कम्पनीमा प्रवेश गर\" भन्नुहुन्थ्यो।\nविश्वविद्यालय सकिने बेला, भाइ कम्पनीमा प्रवेश गर्ने कि चित्रकलाको पढाइ जारी राख्ने भनेर एकदमै अलमलमा पर्‍यो। र, अन्तमा \"म चित्रै गर्छु\" भनेर निर्णय गर्‍यो। ①आमाबुबाले चिन्ता गर्नुभयो, तर भाइको इच्छा बलियो देखेर, अन्तमा साथ दिने निर्णय गर्नुभयो।\nत्यसपछि पाँच वर्ष बित्यो। भाइ अझै प्रख्यात छैन, तर चित्र कोर्ने काम गर्दै, हरेक दिन खुसीसाथ बाँचिरहेको छ। पैसा धेरै छैन, तर मनपर्ने काम गरेर बाँचिरहेको भाइलाई देखेर, मलाई अचम्म लाग्छ। सपना बोकिरहनु, सजिलो कुरा होइन नि।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My younger brother loved to draw pictures since he was a child. During school breaks and after returning home, he was always drawing something in his notebook. Our parents told him, \"You can't make a living from drawing, so you should join a regular company.\"\nWhen he was about to graduate from university, my brother was very troubled about whether to join a company or continue studying art. In the end, he decided, \"I really want to pursue art.\" ①Our parents were worried, but seeing his strong determination, they eventually decided to support him.\nFive years have passed since then. My brother is not famous yet, but he seems to be living happily every day, working as an artist. Although he doesn't earn a lot of money, I think it's amazing to see him living his life doing what he loves. Because it's not easy to keep pursuing a dream."
      ]
     }
    }
@@ -2112,6 +4038,24 @@
      "i18n": {
       "ja": {
        "explain": "本を借りるときは、はじめにカードを作らなければならないと書いてある。"
+      },
+      "ne": {
+       "q": "किताब उधारो लिँदा सुरुमा के गर्नुपर्छ?",
+       "choices": [
+        "「まず利用のカードを用意すること」",
+        "「六冊の本を先に自分で選んでおくこと」",
+        "「受付で自分の名前を紙に書いておくこと」",
+        "「駅の近くまで歩いて行くこと」"
+       ]
+      },
+      "en": {
+       "q": "What must you do first when borrowing a book?",
+       "choices": [
+        "First, prepare your library card.",
+        "Choose six books by yourself beforehand.",
+        "Write your name on a paper at the reception desk.",
+        "Walk near the station."
+       ]
       }
      }
     },
@@ -2128,6 +4072,24 @@
      "i18n": {
       "ja": {
        "explain": "「この部屋」は、その前の「静かに勉強できる部屋」を指している。"
+      },
+      "ne": {
+       "q": "पाठमा उल्लेखित 『この部屋』 ले कस्तो कोठालाई जनाउँछ?",
+       "choices": [
+        "आवाज नगरी पढ्ने कोठा",
+        "बच्चाहरूका लागि किताबहरू राखिएको कोठा",
+        "पेय पदार्थ पिउँदै आराम गर्न सकिने कोठा",
+        "रिसेप्सनिस्टले काम गर्ने कोठा"
+       ]
+      },
+      "en": {
+       "q": "What kind of room does 『この部屋』 in the text refer to?",
+       "choices": [
+        "a room for studying without making noise",
+        "a room where children's books are placed",
+        "a room where you can rest while drinking beverages",
+        "a room where the receptionists are working"
+       ]
       }
      }
     },
@@ -2144,6 +4106,24 @@
      "i18n": {
       "ja": {
        "explain": "ほかの人が同じ本を待っているときはのばせない、と書いてある。"
+      },
+      "ne": {
+       "q": "किताब फिर्ता गर्ने मिति कुन अवस्थामा बढाउन सकिँदैन?",
+       "choices": [
+        "अरू कोही व्यक्तिले उही किताब पढ्न चाहेमा",
+        "पुस्तकालय कार्ड अझै नबनाएको बेला",
+        "किताब लिएको दुई हप्ता नबित्दै",
+        "पुस्तकालय सोमबार बन्द भएको बेला"
+       ]
+      },
+      "en": {
+       "q": "When can you not extend the return date?",
+       "choices": [
+        "when there are other people who want to read the same book",
+        "when you haven't made a library card yet",
+        "when two weeks have not passed since you borrowed it",
+        "when the library is closed on Monday"
+       ]
       }
      }
     },
@@ -2160,6 +4140,24 @@
      "i18n": {
       "ja": {
        "explain": "飲み物はだめだが水だけは特別に許されている。冊数・料金・時間は本文と違う。"
+      },
+      "ne": {
+       "q": "पुस्तकालयको बारेमा कुन व्याख्या सही छ?",
+       "choices": [
+        "पानी भएमा पढ्ने कोठामा लैजान सकिन्छ",
+        "एकै पटकमा जति पनि किताबहरू लिन सकिन्छ",
+        "कार्ड बनाउँदा पैसा लाग्छ",
+        "पुस्तकालय हरेक दिन राति नौ बजेसम्म खुल्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following statements about the library is correct?",
+       "choices": [
+        "You can bring water into the study room.",
+        "You can borrow any number of books at once.",
+        "It costs money to make a card.",
+        "The library is open until 9 PM every day."
+       ]
       }
      }
     }
@@ -2168,6 +4166,11 @@
     "ne": {
      "body": [
       "यो सहरको पुस्तकालय स्टेशनको ठीक नजिकै छ। यो बिहान नौ बजेदेखि राति आठ बजेसम्म खुल्छ, र सोमबार मात्र बन्द हुन्छ।\nकिताब उधारो लिँदा, पहिले कार्ड बनाउनुपर्छ। कार्ड बनाउन पैसा लाग्दैन, तर ठेगाना खुल्ने कागजात लिएर जानुपर्छ। एक पटकमा छ वटासम्म किताब उधारो लिन सकिन्छ, र दुई हप्ताभित्र फिर्ता गर्नुपर्छ। फिर्ता गर्दा, प्रवेशद्वारको छेउमा रहेको बाकसमा राखेमा, रिसेप्सन बन्द भएपछि पनि ठीक हुन्छ। यदि पढिसक्नुभएन भने, एक पटक मात्र फिर्ता गर्ने मिति बढाउन सकिन्छ। तर, यदि अरू कोही त्यही किताबको प्रतीक्षा गरिरहेका छन् भने, बढाउन मिल्दैन।\nपुस्तकालयभित्र शान्तसँग अध्ययन गर्न मिल्ने कोठा पनि छ। यो कोठा प्रयोग गर्न चाहने व्यक्तिले रिसेप्सनमा नाम लेखेर मात्र प्रवेश गर्छन्। सिटको संख्या निश्चित छ, र भरिएको बेला कहिलेकाहीँ केही बेर कुर्नुपर्ने हुन सक्छ। पेय पदार्थ लिएर भित्र जान पाइँदैन, तर पानी मात्र विशेष रूपमा अनुमति दिइएको छ। बच्चाहरूका किताबहरू भएको कोठामा, सानो स्वरमा कुरा गर्न अनुमति छ। पढेका किताबहरूको समीक्षा लेखेर भित्तामा टाँस्ने ठाउँ पनि छ, र अरूका समीक्षा पढ्नु पनि एउटा रमाइलो हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "The library in this town is located very close to the station. It is open from 9 AM to 8 PM, and its only day off is Monday. To borrow books, you must first get a card. There is no charge to make a card, but you need to bring something that shows your address. You can borrow up to six books at a time, and they must be returned within two weeks. When returning books, you can put them in the box next to the entrance, even after the reception desk has closed. If you haven't finished reading them, you can extend the return date once. However, you cannot extend it if someone else is waiting for the same book. Inside the library, there is also a room where you can study quietly. People who wish to use this room must write their name at the reception desk before entering. The number of seats is limited, so you might have to wait a bit if it's full. You cannot bring drinks into the room, but water is specially permitted. In the room for children's books, it is allowed to talk in a low voice. There is also a place to write your thoughts on the books you've read and stick them on the wall, and reading other people's thoughts is one of the pleasures."
      ]
     }
    }
@@ -2195,6 +4198,24 @@
      "i18n": {
       "ja": {
        "explain": "新しい家は駅から歩いて五分で、買い物の店も近い。今の家は駅から遠かった。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले बसाइँ सर्ने निर्णय गर्नुको एउटा कारण के हो?",
+       "choices": [
+        "स्टेशन नजिक भएकोले जीवनयापनका लागि सुविधाजनक भएकोले",
+        "सबै साथीहरू टाढा सरेकोले",
+        "अहिलेको घरको भाडा अचानक महँगो भएकोले",
+        "अघिल्लो सहर चिसो र बस्न गाह्रो भएकोले"
+       ]
+      },
+      "en": {
+       "q": "What is one of the reasons this person decided to move?",
+       "choices": [
+        "Because it's close to the station and convenient for daily life.",
+        "Because all their friends are moving far away.",
+        "Because the rent for their current house suddenly became expensive.",
+        "Because the previous town was cold and difficult to live in."
+       ]
       }
      }
     },
@@ -2211,6 +4232,24 @@
      "i18n": {
       "ja": {
        "explain": "「これ」は直前の「料理の教室が家のすぐそばにある」ことを指す。"
+      },
+      "ne": {
+       "q": "「これ」 भन्नाले केलाई जनाउँछ?",
+       "choices": [
+        "सिक्न चाहेको कक्षा नजिकै हुनु",
+        "स्टेशनसम्म हिँडेर करिब पाँच मिनेटमा पुग्न सकिनु",
+        "किनमेल गर्ने पसलहरू तुरुन्तै नजिकै हुनु",
+        "नयाँ घर छिमेकी सहरमा हुनु"
+       ]
+      },
+      "en": {
+       "q": "「これ」 refers to what?",
+       "choices": [
+        "That the classroom they wanted to attend is nearby.",
+        "That they can walk to the station in about five minutes.",
+        "That there are shops for shopping very close by.",
+        "That the new house is in the next town."
+       ]
       }
      }
     },
@@ -2227,6 +4266,24 @@
      "i18n": {
       "ja": {
        "explain": "仲のよい友だちと会いにくくなるのがさびしいと書いてある。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले किन एक्लो महसुस गरिरहेको छ?",
+       "choices": [
+        "घनिष्ठ साथीहरूसँग भेट्ने अवसर कम हुने भएकोले",
+        "नयाँ सहरमा चिनेको कोही पनि नभएकोले",
+        "खाना पकाउने कक्षामा अब जान नसकिने भएकोले",
+        "चिठी लेख्ने व्यक्ति नहुने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why does this person feel lonely?",
+       "choices": [
+        "Because opportunities to meet close friends will decrease.",
+        "Because there is no one they know in the new town.",
+        "Because they can no longer attend the cooking class.",
+        "Because there will be no one to write letters to."
+       ]
       }
      }
     },
@@ -2243,6 +4300,24 @@
      "i18n": {
       "ja": {
        "explain": "電車ですぐ来られるので、休みの日にぜひ遊びに来てほしいと書いている。"
+      },
+      "ne": {
+       "q": "यस चिठीमा, लेखकले प्राप्तकर्तालाई सबैभन्दा बढी के भन्न चाहन्छन्?",
+       "choices": [
+        "बिदाको दिनमा मेरो घरमा आउनुहोस्",
+        "चिसो भएकाले छिटो अस्पताल जानु राम्रो हुन्छ",
+        "मेरो सट्टामा खाना पकाउने कक्षामा जानुहोस्",
+        "सामान सार्न मद्दत गर्नुहोस्"
+       ]
+      },
+      "en": {
+       "q": "What does this person most want to convey to the recipient in this letter?",
+       "choices": [
+        "They definitely want them to come to their house on a day off.",
+        "It's cold, so they should go to the hospital soon.",
+        "They want them to attend the cooking class instead of them.",
+        "They want them to help carry moving boxes."
+       ]
       }
      }
     }
@@ -2251,6 +4326,11 @@
     "ne": {
      "body": [
       "सन्चै हुनुहुन्छ?\nएक्कासि जाडो बढेको छ, कतै तपाईं बिरामी त पर्नुभएको छैन? वास्तवमा, आउँदो महिनाको सुरुमा, म छेउको सहरमा सर्ने भएको छु। अहिलेको घर स्टेसनबाट टाढा छ, र पानी परेको दिनमा स्टेसनसम्म हिँड्न गाह्रो हुन्थ्यो। छाता ओढे पनि खुट्टा भिज्थ्यो, र अफिस पुग्दा थकित हुने गर्थ्यो।\nनयाँ घर स्टेसनबाट हिँडेर पाँच मिनेटको दूरीमा छ, र किनमेल गर्ने पसलहरू पनि नजिकै छन्। अलिकति हिँडेपछि एउटा ठूलो पार्क पनि छ, जुन बिहानको हिँडडुलको लागि एकदमै राम्रो हुनेछ जस्तो लाग्छ। त्यसमाथि, मैले पहिलेदेखि सिक्न चाहेको खाना पकाउने कक्षा घरको ठ्याक्कै छेउमा छ। यो नै सबैभन्दा खुसीको कुरा हो। कामपछि पनि जान सकिने भएकोले, म अहिलेदेखि नै धेरै उत्साहित छु।\nतर, अहिलेको घर नजिकै मेरा धेरै मिल्ने साथीहरू छन्। उनीहरूसँग भेट्न गाह्रो हुने कुराले, साँच्चै नै दुःख लाग्छ। सँगै चिया पिएको दिनहरू सम्झँदा, मन अलिकति दुख्छ। तर, नयाँ सहरबाट पनि रेलमा तुरुन्तै आउन सकिने भएकोले, बिदाको दिनमा अवश्य भेट्न आउनुहोला। नजिकैका स्वादिष्ट पसलहरू सँगै खोज्न पनि रमाइलो हुनेछ। जब म बस्छु, फेरि चिठी लेख्नेछु। तपाईं पनि रुघाखोकी नलागोस् भनेर, न्यानो भएर बस्नुहोला है।"
+     ]
+    },
+    "en": {
+     "body": [
+      "How are you? It suddenly got cold, I hope you haven't caught a cold. Actually, I'm moving to the next town at the beginning of next month. My current house is far from the station, and it was tough walking to the station on rainy days. Even with an umbrella, my feet would get wet, and sometimes I'd be tired by the time I reached the office. My new house is a five-minute walk from the station, and there are shops nearby for groceries. There's also a large park a short walk away, which seems perfect for morning strolls. Plus, there's a cooking class right next to my house that I've wanted to take for a long time. This is what makes me happiest. I think I can attend even after work, so I'm really looking forward to it. However, there are several good friends near my current house. It's still sad that it will be harder to meet them. Remembering the days we had tea together makes my heart ache a little. But you can come by train quickly from the new town, so please do come visit on your days off. I'm also looking forward to exploring delicious restaurants nearby together. I'll write again once I've settled in. Please stay warm so you don't catch a cold either."
      ]
     }
    }
@@ -2278,6 +4358,24 @@
      "i18n": {
       "ja": {
        "explain": "レジが使えずお客さんを待たせ、しかられるのではと心配した。"
+      },
+      "ne": {
+       "q": "पहिलो दिन, यो व्यक्ति किन चिन्तित थियो?",
+       "choices": [
+        "किनभने उसले राम्रोसँग क्यास रजिस्टर प्रयोग गर्न सकेन र उसलाई गाली गरिनेछ भन्ने सोचेको थियो",
+        "किनभने उसले रोटीको नाम सम्झन सकेन",
+        "किनभने ऊ बिहान सबेरै उठ्न सकेन र पसलमा ढिलो भयो",
+        "किनभने क्यास रजिस्टरमा पैसा कम भयो"
+       ]
+      },
+      "en": {
+       "q": "Why was this person worried on the first day?",
+       "choices": [
+        "Because they thought they would be scolded for not being able to use the cash register well.",
+        "Because they absolutely couldn't remember the names of the breads.",
+        "Because they couldn't wake up early and were late for the store.",
+        "Because there wasn't enough money in the cash register."
+       ]
       }
      }
     },
@@ -2294,6 +4392,24 @@
      "i18n": {
       "ja": {
        "explain": "「はじめはみんなできない」と笑って教えてもらい、気持ちが楽になった。"
+      },
+      "ne": {
+       "q": "पसलका मानिसहरूको कुरा सुनेर, यो व्यक्तिलाई कस्तो लाग्यो?",
+       "choices": [
+        "मन हलुका भयो",
+        "पहिले भन्दा बढी लज्जित भयो",
+        "छिटो घर जान मन लाग्यो",
+        "काम छोड्न मन लाग्यो"
+       ]
+      },
+      "en": {
+       "q": "How did this person feel after hearing the store owner's words?",
+       "choices": [
+        "Their heart felt much lighter.",
+        "They felt more embarrassed than before.",
+        "They wanted to go home quickly.",
+        "They wanted to quit their job."
+       ]
       }
      }
     },
@@ -2310,6 +4426,24 @@
      "i18n": {
       "ja": {
        "explain": "「このひとこと」はお客さんの「あなたがいると気持ちがいいね」を指す。"
+      },
+      "ne": {
+       "q": "पाठमा 'このひとこと' ले कुन शब्दलाई जनाउँछ?",
+       "choices": [
+        "「あなたがいると気持ちがいいね」",
+        "「はじめは、だれでもできないものだよ」",
+        "「パンの名前をもう全部言えるね」",
+        "「朝早くからいつもよく働いているね」"
+       ]
+      },
+      "en": {
+       "q": "Which phrase does 『このひとこと』 in the text refer to?",
+       "choices": [
+        "あなたがいると気持ちがいいね",
+        "はじめは、だれでもできないものだよ",
+        "パンの名前をもう全部言えるね",
+        "朝早くからいつもよく働いているね"
+       ]
       }
      }
     },
@@ -2326,6 +4460,24 @@
      "i18n": {
       "ja": {
        "explain": "お金より人によろこんでもらえるほうがうれしいと分かった、とある。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले पार्ट-टाइम काम मार्फत के बुझ्यो?",
+       "choices": [
+        "पैसा भन्दा मानिसहरूलाई खुसी पार्नु बढी खुसीको कुरा हो",
+        "धेरै पैसा कमाउनु सबैभन्दा महत्त्वपूर्ण कुरा हो",
+        "बिहान सबेरैको काम छोड्नु राम्रो हुन्छ",
+        "बेकरीको काम आफूलाई सुहाउँदैन"
+       ]
+      },
+      "en": {
+       "q": "What did this person learn through their part-time job?",
+       "choices": [
+        "人によろこばれるほうがお金よりうれしいこと",
+        "お金をたくさんもらうのが一番だいじだということ",
+        "朝早い仕事はやめたほうがよいということ",
+        "パン屋の仕事は自分に合わないということ"
+       ]
       }
      }
     }
@@ -2334,6 +4486,11 @@
     "ne": {
      "body": [
       "म हाई स्कुलमा हुँदा, मैले पहिलो पटक पार्ट-टाइम काम गरें। यो नजिकैको बेकरीमा बिहान सबेरैदेखि दिउँसोसम्म काम गर्ने जागिर थियो। पहिलो दिन, मलाई नगद मेसिन चलाउन पनि आउँदैनथ्यो, र मैले ग्राहकहरूलाई कुराएँ। मलाई पसलको मान्छेले गाली गर्छ कि भनेर धेरै चिन्ता लागेको थियो। तर, त्यो मान्छेले हाँसेर भन्यो, 'सुरुमा कसैलाई पनि आउँदैन नि।' त्यो सुनेर, मेरो मन धेरै हलुका भयो। त्यसपछि, मैले हरेक दिन बिस्तारै काम सिक्दै गएँ, र सबै पाउरोटीको नाम भन्न सक्ने भएँ। बिहान सबेरै उठ्न गाह्रो हुने दिनहरू पनि थिए, तर भर्खरै पाकेको पाउरोटीको मिठो बास्नामा काम गर्नु सोचेभन्दा धेरै रमाइलो थियो।\n\nएक महिना बितिसकेपछि, एक जना ग्राहकले मलाई भन्नुभयो, 'तिमी हुँदा राम्रो लाग्छ नि।' यो एउटा कुरा मलाई अहिले पनि बिर्सन सकिँदैन। किनभने मैले बुझें कि पैसा पाउनुभन्दा मानिसहरूलाई खुसी पार्न पाउनु धेरै आनन्ददायक हुन्छ। त्यसपछि, मैले जुनसुकै काममा पनि अरूको भावना बुझ्ने प्रयास गर्न थालें। यो अनुभवले मेरो अहिलेको काममा पनि मद्दत गरिरहेको छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When I was in high school, I had my first part-time job. It was at a nearby bakery, working from early morning until noon. On the first day, I didn't even know how to use the cash register and kept customers waiting. I was very worried that the store owner would scold me. However, that person smiled and taught me, saying, \"Everyone can't do it at first.\" Hearing that made me feel much more at ease. After that, I gradually learned the job little by little every day and could even say all the names of the breads. There were days when it was tough to wake up early, but working amidst the wonderful smell of freshly baked bread was much more pleasant than I had imagined. About a month later, a customer told me, \"It's nice when you're here.\" I can never forget that single comment. Because I realized that making people happy was much more joyful than receiving money. Since then, I've started to consider other people's feelings in any job. This experience is also useful in my current job."
      ]
     }
    }
@@ -2361,6 +4518,24 @@
      "i18n": {
       "ja": {
        "explain": "家でもかんたんに用意できる、体にやさしい料理と書いてある。"
+      },
+      "ne": {
+       "q": "यो कक्षामा कस्तो प्रकारको खाना बनाइन्छ?",
+       "choices": [
+        "घरमा बनाउन सजिलो र शरीरको लागि राम्रो खाना",
+        "रेस्टुरेन्टमा दिइने, अनौठो खाना",
+        "बनाउन धेरै समय लाग्ने खाना",
+        "विदेशी अनौठो सामग्री प्रयोग गरेर बनाइएको खाना"
+       ]
+      },
+      "en": {
+       "q": "What kind of dishes are made in this class?",
+       "choices": [
+        "家でも作りやすく、体によい料理",
+        "レストランで出される、めずらしい料理",
+        "作るのにとても長い時間がかかる料理",
+        "外国のめずらしい材料を使う料理"
+       ]
       }
      }
     },
@@ -2377,6 +4552,24 @@
      "i18n": {
       "ja": {
        "explain": "材料はこちらで用意するので、エプロンとタオルだけ持って来る。"
+      },
+      "ne": {
+       "q": "पाठमा भएको 『この二つ』 ले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "एप्रन र तौलिया",
+        "खाना पकाउने सामग्री र घर लैजाने भाँडा",
+        "आफैले प्रयोग गर्ने चक्कु र काट्ने पाटी",
+        "प्लेट र चपस्टिक"
+       ]
+      },
+      "en": {
+       "q": "What do 『この二つ』 in the text refer to?",
+       "choices": [
+        "エプロンとタオル",
+        "料理の材料と持ち帰りの入れ物",
+        "自分で使う包丁とまな板",
+        "おさらとおはし"
+       ]
       }
      }
     },
@@ -2393,6 +4586,24 @@
      "i18n": {
       "ja": {
        "explain": "家族の分を持って帰りたい人は入れ物があると便利、とある。"
+      },
+      "ne": {
+       "q": "भाँडा लिएर आउँदा कुन व्यक्तिलाई सजिलो हुन्छ?",
+       "choices": [
+        "बनाएको खाना घर लैजान चाहने व्यक्ति",
+        "त्यही ठाउँमा तुरुन्तै खाना खान चाहने व्यक्ति",
+        "पहिलो पटक खाना पकाउने कक्षामा भाग लिने व्यक्ति",
+        "शिक्षकलाई खाना पकाउने तरिका सोध्न चाहने व्यक्ति"
+       ]
+      },
+      "en": {
+       "q": "For whom is it convenient to bring a container?",
+       "choices": [
+        "作った料理を家へ持ち帰りたい人",
+        "その場ですぐに料理を食べてしまいたい人",
+        "はじめて料理教室に参加する人",
+        "先生に料理のこつを聞きたい人"
+       ]
       }
      }
     },
@@ -2409,6 +4620,24 @@
      "i18n": {
       "ja": {
        "explain": "申し込みが多いときは先に申し込んだ方から順に決めると書いてある。"
+      },
+      "ne": {
+       "q": "धेरै मानिसले आवेदन दिएमा के हुन्छ?",
+       "choices": [
+        "छिटो आवेदन दिने व्यक्तिहरू छानिनेछन्",
+        "सबैले भाग लिन सकून् भनेर संख्या बढाइनेछ",
+        "पछि आवेदन दिने व्यक्तिहरू छानिनेछन्",
+        "त्यो पटक रद्द गरेर अर्को महिना गरिनेछ"
+       ]
+      },
+      "en": {
+       "q": "What happens when there are many applicants?",
+       "choices": [
+        "早く申しこんだ人から決まる",
+        "全員が参加できるように人数を増やす",
+        "後から申しこんだ人が選ばれる",
+        "その回はやめて次の月にする"
+       ]
       }
      }
     }
@@ -2417,6 +4646,11 @@
     "ne": {
      "body": [
       "आगामी महिनादेखि, नागरिक केन्द्रमा नयाँ खाना पकाउने कक्षा सुरु हुँदैछ। यो हरेक शनिबार दिउँसो दुई बजेदेखि चार बजेसम्म हुनेछ, र पहिलो पटक सहभागी हुनेहरूले पनि ढुक्क भएर भाग लिन सक्छन्। बनाइने परिकारहरू घरमै सजिलै तयार गर्न सकिने, शरीरका लागि स्वस्थकर हुनेछन्। बनाउने तरिकाको कागज पनि वितरण गरिनेछ, त्यसैले घर फर्किएपछि फेरि बनाउन सकिन्छ। सिकाउने शिक्षक लामो समयदेखि रेस्टुरेन्टमा काम गरेका व्यक्ति हुनुहुन्छ, त्यसैले उहाँले राम्ररी तरिकाहरू सिकाउनुहुनेछ। गाह्रो उपकरणहरू प्रयोग नगरिने हुनाले, खाना पकाउन नजान्नेहरूले पनि चिन्ता लिनु पर्दैन।\nसामग्रीहरू यहाँ सबै तयार गरिनेछन्, त्यसैले तपाईंहरूले धेरै सामान ल्याउनु पर्दैन। एप्रोन र तौलिया मात्र लिएर आउनुहोस्। यी दुई वस्तुहरू तपाईंले आफ्नै प्रयोग गर्नुपर्नेछ। बनाइएको खाना त्यहीँ खान सकिन्छ, तर परिवारका लागि घर लैजान चाहनेहरूले भाँडो लिएर आउँदा सजिलो हुन्छ।\nएक पटकमा पन्ध्र जनासम्मले भाग लिन सक्छन्। यो लोकप्रिय कक्षा भएकोले, चाँडै आवेदन दिन सिफारिस गरिन्छ। आवेदन धेरै आएमा, पहिले आवेदन दिनेहरूलाई प्राथमिकता दिइनेछ। सहभागी हुन चाहनेहरूले अर्को हप्ताको शुक्रबारसम्ममा, दर्ता फारममा आफ्नो नाम र फोन नम्बर लेख्नुहोस्। थप जानकारीका लागि, केन्द्रका कर्मचारीलाई सोध्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Starting next month, a new cooking class will begin at the community center. It will be held every Saturday from 2 PM to 4 PM, and even beginners can participate with ease. The class will teach how to make healthy dishes that can be easily prepared at home. Recipe sheets will also be distributed, so you can make the dishes again after returning home. The instructor has worked in restaurants for a long time, so they will carefully teach you the tricks of cooking. No difficult tools will be used, so even those who have never cooked before need not worry. We will prepare all the ingredients here, so you don't need to bring much. Please bring only an apron and a towel. You will use your own for these two items. You can eat the cooked food on the spot, but if you wish to take some home for your family, it's convenient to bring a container. Participation is limited to fifteen people per session. This is a popular class, so we recommend applying early. If there are many applications, participants will be decided in order of application. If you wish to participate, please write your name and phone number on the registration form at the reception by next Friday. For more details, please ask the staff at the center."
      ]
     }
    }
@@ -2444,6 +4678,24 @@
      "i18n": {
       "ja": {
        "explain": "朝まず空を見て、その日に洗うかどうかを決めると書いてある。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले लुगा धुने कि नधुने भनेर के हेरेर निर्णय गर्छ?",
+       "choices": [
+        "त्यो दिनको आकाशको अवस्था",
+        "त्यो समयको तापक्रमको उचाइ",
+        "त्यो दिन धुनुपर्ने लुगाको मात्रा",
+        "कोठाको सुक्ने अवस्था"
+       ]
+      },
+      "en": {
+       "q": "What does this person look at to decide whether or not to do laundry?",
+       "choices": [
+        "The appearance of the sky on that day",
+        "The degree of the temperature at that time",
+        "The amount of clothes to wash on that day",
+        "The dryness of the room"
+       ]
       }
      }
     },
@@ -2460,6 +4712,24 @@
      "i18n": {
       "ja": {
        "explain": "雲が多い日はかわきにくいので、部屋の中に干すことにしている。"
+      },
+      "ne": {
+       "q": "बादल लागेको दिन यो व्यक्तिले के गर्छ?",
+       "choices": [
+        "लुगा घरभित्र सुकाउँछ",
+        "ठूला सामानहरू मात्र बाहिर सुकाउँछ",
+        "त्यो दिन लुगा धुँदैन",
+        "रात परेपछि बाहिर सुकाउँछ"
+       ]
+      },
+      "en": {
+       "q": "What does this person do on a cloudy day?",
+       "choices": [
+        "Hang clothes inside the house",
+        "Hang only large items outside",
+        "Do not wash clothes on that day",
+        "Hang them outside after nightfall"
+       ]
       }
      }
     },
@@ -2476,6 +4746,24 @@
      "i18n": {
       "ja": {
        "explain": "「これだけで失敗が減った」の「これ」は、前の「天気を調べること」を指す。"
+      },
+      "ne": {
+       "q": "「これ」 भन्नाले केलाई सङ्केत गर्छ?",
+       "choices": [
+        "लुगा धुनुअघि त्यो दिनको मौसम जाँच गर्नु",
+        "घाम लागेको दिन ठूला सामानहरू एकैचोटि बाहिर धुनु",
+        "भिजेको लुगा फेरि धुनु",
+        "लुगा कोठाभित्र सुकाउनु"
+       ]
+      },
+      "en": {
+       "q": "It says 「これ」, but what does it refer to?",
+       "choices": [
+        "Checking the weather for the day before washing clothes",
+        "Washing large items all at once outside on a sunny day",
+        "Washing wet clothes again",
+        "Hanging clothes inside the room"
+       ]
       }
      }
     },
@@ -2492,6 +4780,24 @@
      "i18n": {
       "ja": {
        "explain": "天気を考えて動くのは洗濯だけでなく役立つ、と主張している。"
+      },
+      "ne": {
+       "q": "यस लेखमा, यो व्यक्ति के भन्न चाहन्छ?",
+       "choices": [
+        "पहिले नै मौसमको बारेमा सोचेमा गल्ती कम हुन्छ",
+        "लुगा घाम लागेको दिनमा मात्र धुनुपर्छ",
+        "लुगा सधैं कोठाभित्र सुकाउनु राम्रो हुन्छ",
+        "मौसम पूर्वानुमान प्रायः सही हुँदैन"
+       ]
+      },
+      "en": {
+       "q": "What does this person want to say in this text?",
+       "choices": [
+        "There are fewer failures if you consider the weather in advance",
+        "Laundry should only be done on sunny days",
+        "It is always good to hang clothes inside the room",
+        "Weather forecasts are not very accurate"
+       ]
       }
      }
     }
@@ -2500,6 +4806,11 @@
     "ne": {
      "body": [
       "घमाइलो दिनमा लुगा धुँदा मन आनन्दित हुन्छ। म बिदाको दिन बिहान सबभन्दा पहिले आकाश हेरेर त्यस दिन लुगा धुने कि नधुने निर्णय गर्छु। आकाश नीलो र हावा चलेको दिनमा लुगा राम्ररी सुक्ने हुनाले ठूला सामानहरू पनि ढुक्क भएर धुन सकिन्छ। सिरकका खोल र तौलिया जस्ता सुक्न गाह्रो हुने सामानहरू पनि यस्तो दिनमा तुरुन्तै सुक्छन्। बाहिर गएर हावाको गति जाँच गरेर मात्र के धुने हो, त्यो निर्णय गर्ने पनि गर्छु।\n\nयसको विपरीत, बादल लागेको दिनमा बाहिर सुकाउँदा पनि सजिलै सुक्दैन। त्यस्ता दिनमा म कोठाभित्रै सुकाउने गर्छु। पहिले, मौसम पूर्वानुमान नहेरी बाहिर सुकाउँदा अचानक पानी परेर लुगा भिज्ने कुरा धेरै हुन्थ्यो। कामबाट फर्किंदा लुगा तल खसेर हिलो लागेको पनि हुन्थ्यो। यति मेहनतले धोएको लुगा फेरि धुनु पर्दा गाह्रो हुन्छ। त्यसपछि, लुगा धुनुअघि सधैँ दिनभरिको मौसम जाँच गर्ने बानी बस्यो। अहिले त घरबाट निस्कनुअघि स्मार्टफोनमा पानी पर्ने समयसम्म हेर्छु। यो अलिकति झन्झट भए पनि, यसले गर्दा गल्तीहरू धेरै कम भएका छन्। बिहानको पाँच मिनेट मात्र खर्च गर्दा पनि दिनभरि आनन्दित भएर बिताउन सकिन्छ। मौसमको बारेमा सोचेर काम गर्दा लुगा धुने मात्र नभई अन्य कुराहरूमा पनि उपयोगी हुन्छ भन्ने मलाई लाग्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "It feels good to do laundry on a sunny day. On the morning of my day off, I first look at the sky to decide whether to do laundry that day. On days when the sky is blue and there's wind, clothes dry well, so I can confidently wash even large items. Even things that are difficult to dry, like sheets and towels, dry quickly on such days. Sometimes I go outside to check the wind strength before deciding what to wash. Conversely, on cloudy days, clothes don't dry easily even if hung outside. On such days, I hang them indoors. Before, I often hung clothes outside without checking the weather forecast, and they would get wet from sudden rain. Sometimes I'd come home from work to find my clothes fallen on the ground, covered in mud. It's a hassle to rewash clothes after having just washed them. Since then, I always check the day's weather before washing. Now, I even check the rain times on my smartphone before leaving the house. It's a small effort, but it has significantly reduced failures. Just spending five minutes in the morning allows me to have a pleasant day. I feel that considering the weather when planning activities is useful not only for laundry but for other things as well."
      ]
     }
    }
@@ -2527,6 +4838,24 @@
      "i18n": {
       "ja": {
        "explain": "前の日から楽しみで、なかなかねむれなかったと書いてある。"
+      },
+      "ne": {
+       "q": "अघिल्लो दिन किन राम्ररी सुत्न सकेन?",
+       "choices": [
+        "वनभोजको लागि उत्साहित भएकोले",
+        "भोलिपल्ट पानी पर्ने चिन्ताले गर्दा",
+        "पहाडी बाटो अप्ठ्यारो छ भन्ने सुनेकोले",
+        "ओनिगिरी बनाइरहेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why couldn't they sleep well the night before?",
+       "choices": [
+        "Because they were looking forward to the excursion",
+        "Because they were worried about the rain the next day",
+        "Because they heard the mountain path was steep",
+        "Because they were making rice balls"
+       ]
       }
      }
     },
@@ -2543,6 +4872,24 @@
      "i18n": {
       "ja": {
        "explain": "「あと少しだよ」と手を引いてくれた友だちの手を指す。"
+      },
+      "ne": {
+       "q": "पाठमा रहेको 'その手' ले कसको हातलाई जनाउँछ?",
+       "choices": [
+        "मद्दत गर्ने साथीको हात",
+        "बस चलाउने व्यक्तिको हात",
+        "शिक्षकले अगाडि बढाएको हात",
+        "सँगै हिँडेको परिवारको हात"
+       ]
+      },
+      "en": {
+       "q": "Whose hand does 『その手』 in the text refer to?",
+       "choices": [
+        "The hand of a friend who helped them",
+        "The hand of the person driving the bus",
+        "The hand that the teacher offered",
+        "The hand of a family member who walked with them"
+       ]
       }
      }
     },
@@ -2559,6 +4906,24 @@
      "i18n": {
       "ja": {
        "explain": "いつも大きく見える建物が、とても小さく見えたとある。"
+      },
+      "ne": {
+       "q": "शिखरबाट सहर हेरेर यो व्यक्तिलाई कस्तो लाग्यो?",
+       "choices": [
+        "ठूला भवनहरू साना देखिए",
+        "सहर धेरै टाढा भएको जस्तो लाग्यो",
+        "आफ्नो घर तुरुन्तै भेटियो",
+        "फेरि पानी पर्ने जस्तो देखियो"
+       ]
+      },
+      "en": {
+       "q": "Looking at the town from the summit, how did this person feel?",
+       "choices": [
+        "The big buildings looked small.",
+        "The town felt very far away.",
+        "They found their house right away.",
+        "It looked like it was going to rain again."
+       ]
       }
      }
     },
@@ -2575,6 +4940,24 @@
      "i18n": {
       "ja": {
        "explain": "大変なことも友だちといっしょならがんばれると思うようになった、とある。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले यस वनभोजबाट के थाहा पायो?",
+       "choices": [
+        "साथीहरूसँग भए गाह्रो भए पनि प्रयास गर्न सकिन्छ",
+        "पहाडमा जे खाए पनि स्वादिष्ट हुन्छ",
+        "वनभोजको अघिल्लो दिन राम्ररी सुत्नुपर्छ",
+        "मौसम बिहानै परिवर्तन हुने गर्छ"
+       ]
+      },
+      "en": {
+       "q": "What did this person realize on this excursion?",
+       "choices": [
+        "You can do your best even if it's tough, if you're with friends.",
+        "Anything you eat on top of a mountain tastes good.",
+        "It's better to sleep well the night before an excursion.",
+        "The weather often changes in the morning."
+       ]
       }
      }
     }
@@ -2583,6 +4966,11 @@
     "ne": {
      "body": [
       "जब म प्राथमिक विद्यालयमा थिएँ, हामी पहाडमा पिकनिक गएका थियौँ। अघिल्लो दिनदेखि नै उत्साहित थिएँ र राम्ररी निदाउन सकिनँ। पिकनिकको दिन बिहानदेखि पानी पर्ने चिन्ता थियो, तर बसमा चढ्ने बेलासम्ममा घाम लागिसकेको थियो र हामी सबैजना खुसी भयौँ।\nपहाडको बाटो सोचेभन्दा अप्ठ्यारो थियो र चढ्न गाह्रो भयो। ढुङ्गाले भरिएको बाटो थियो र हामी धेरै पटक रोकिएर आराम गर्यौँ। रूखहरूका बीचबाट चराहरूको आवाज सुनेर थोरै मात्र थकान कम भएको महसुस भयो। बाटोमा खुट्टा दुख्न थाल्यो र अब हिँड्न सक्दिनँ जस्तो लागेको बेला, साथीले \"अब थोरै मात्र बाँकी छ\" भन्दै मेरो हात समातेर डोर्यायो। त्यो हातको न्यानोपन मलाई अहिले पनि राम्ररी याद छ।\nचुचुरोमा पुगेर खाएको ओनिगिरी (भातको डल्लो) सधैँभन्दा धेरै स्वादिष्ट लाग्यो। सबैजना मिलेर खाँदा, एउटै ओनिगिरी भए पनि विशेष स्वाद लाग्यो। अग्लो ठाउँबाट सहर हेर्दा, सधैँ ठूलो देखिने भवनहरू धेरै सानो देखियो। टाढा नीलो समुद्र पनि देखियो र हामी सबैजना कराए। फर्कने बसमा, थकित भएर हामी सबैजना निदायौँ। त्यो दिनदेखि, गाह्रो कुराहरू पनि साथीहरूसँग भए प्रयास गर्न सकिन्छ जस्तो लाग्न थाल्यो। अहिले पनि गाह्रो परेको बेला, म त्यो हातको न्यानोपन सम्झन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When I was in elementary school, I went on a field trip to the mountains. I was so excited the day before that I couldn't sleep well. On the day of the trip, we were worried about rain in the morning, but it cleared up by the time we got on the bus, and everyone rejoiced. The mountain path was steeper than I expected, and climbing was tough. The path was full of rocks, and we stopped many times to rest. I could hear birds singing among the trees, and it felt like my fatigue lessened a little. When my legs started to hurt midway and I thought I couldn't walk anymore, a friend pulled my hand, saying, \"Just a little more.\" I still clearly remember the warmth of that hand. The rice balls we ate at the summit tasted much better than usual. Eating together made even the same rice balls taste special. Looking at the town from the high vantage point, buildings that usually looked large appeared very small. We could even see the blue sea in the distance, and everyone cheered. On the bus ride home, everyone was so tired they fell asleep. Since that day, I've come to believe that I can overcome difficulties if I'm with friends. Even now, when things are tough, I remember the warmth of that hand."
      ]
     }
    }
@@ -2610,6 +4998,24 @@
      "i18n": {
       "ja": {
        "explain": "十時のしんさつで、時間の十分前までに受付へ来る。九時五十分。"
+      },
+      "ne": {
+       "q": "त्यो दिन, कति बजेसम्म रिसेप्शनमा पुग्नुपर्छ?",
+       "choices": [
+        "बिहान नौ बजेर पचास मिनेटसम्म",
+        "बिहान दस बजे ठीक जब जाँच सुरु हुन्छ",
+        "बिहान दस बजेर दस मिनेटपछि",
+        "बिहान नौ बजे ठीकसम्म"
+       ]
+      },
+      "en": {
+       "q": "By what time should one arrive at the reception on the day?",
+       "choices": [
+        "By 9:50 AM",
+        "Exactly 10:00 AM, when the consultation begins",
+        "Around ten past ten in the morning",
+        "By exactly 9:00 AM"
+       ]
       }
      }
     },
@@ -2626,6 +5032,24 @@
      "i18n": {
       "ja": {
        "explain": "保険の証と、前に渡したカードをかならず持って来るよう書いてある。"
+      },
+      "ne": {
+       "q": "पाठमा उल्लेखित 『この二つ』 ले केलाई जनाउँछ?",
+       "choices": [
+        "पहिले पाएको कार्ड र बीमाको प्रमाण",
+        "तापक्रम नाप्ने उपकरण र खाइरहेको औषधि",
+        "आरक्षण गरिएको कुरा लेखिएको कागज मात्र",
+        "पार्किङको पैसा र कुनै प्रमाणपत्र"
+       ]
+      },
+      "en": {
+       "q": "What do 『この二つ』 in the text refer to?",
+       "choices": [
+        "The card received before and the insurance certificate",
+        "A tool to measure body temperature and the medicine being taken",
+        "Only the paper on which the reservation is written",
+        "Parking fee and some kind of identification"
+       ]
       }
      }
     },
@@ -2642,6 +5066,24 @@
      "i18n": {
       "ja": {
        "explain": "来られなくなった場合は、前の日までに電話で知らせる、とある。"
+      },
+      "ne": {
+       "q": "आउन नसक्ने अवस्थामा के गर्नुपर्छ?",
+       "choices": [
+        "अघिल्लो दिनसम्म फोन गरेर जानकारी गराउने",
+        "सोही दिन बिहान इमेल पठाउने",
+        "अर्को पटक जाँदा मुखले माफी माग्ने",
+        "केही नगरी त्यसै पर्खने"
+       ]
+      },
+      "en": {
+       "q": "If you cannot come, what should you do?",
+       "choices": [
+        "Inform by phone by the day before",
+        "Send an email on the morning of the day",
+        "Apologize verbally the next time you go",
+        "Do nothing and just wait"
+       ]
       }
      }
     },
@@ -2658,6 +5100,24 @@
      "i18n": {
       "ja": {
        "explain": "薬を飲んでいる人は、名前が分かる紙も持って来ると助かる、とある。"
+      },
+      "ne": {
+       "q": "औषधि सेवन गरिरहेका व्यक्तिले के लिएर जानु राम्रो हुन्छ?",
+       "choices": [
+        "औषधिको नाम लेखिएको कागज",
+        "अहिले खाइरहेको औषधि नै",
+        "डाक्टरले लेखिदिएको चिठी",
+        "औषधि किनेको पसलको कार्ड"
+       ]
+      },
+      "en": {
+       "q": "What should a person who is taking medicine bring?",
+       "choices": [
+        "A paper with the name of the medicine written on it",
+        "The medicine itself that is currently being taken",
+        "A letter written by the doctor",
+        "The card of the store where the medicine was bought"
+       ]
       }
      }
     }
@@ -2666,6 +5126,11 @@
     "ne": {
      "body": [
       "अग्रिम बुकिङ गर्नुभएका महानुभावहरूलाई जानकारी गराउन चाहन्छौँ।\nपर्सि बिहान दश बजे तपाईंको स्वास्थ्य परीक्षणको समय तोकिएको छ।\nनिर्धारित समयभन्दा दश मिनेट अगावै पहिलो तल्लाको रिसेप्सनमा आउनुहोला।\nरिसेप्सनमा, सुरुमा तपाईंलाई नम्बर लेखिएको कागज दिइनेछ, त्यसैले तपाईंको नाम नबोलाएसम्म कृपया पर्खनुहोला।\nकृपया आफ्नो बीमाको प्रमाणपत्र र पहिले दिइएको कार्ड अनिवार्य रूपमा ल्याउनुहोला।\nयी दुई स्वास्थ्य परीक्षण गराउँदा अनिवार्य चाहिने महत्त्वपूर्ण वस्तुहरू हुन्।\nयदि तपाईं कुनै औषधि सेवन गरिरहनुभएको छ भने, त्यसको नाम उल्लेख भएको कागज पनि सँगै ल्याउनुभयो भने सहयोग पुग्नेछ।\nनिर्धारित दिनमा, स्वास्थ्य परीक्षण गर्नुअघि तपाईंको शरीरको तापक्रम नापिनेछ, त्यसैले अलि चाँडै आउनुभयो भने ढुक्क हुनेछ।\nप्रतीक्षा कक्ष भीडभाड हुने समय पनि हुन सक्छ, त्यसैले पर्याप्त समय लिएर आउनुहोला।\nयदि तपाईं आउन नसक्ने हुनुभयो भने, अघिल्लो दिनसम्म फोन गरेर जानकारी गराउनुहोला।\nजानकारी नदिई नआउनुभएमा, अर्को बुकिङ गर्न गाह्रो हुन सक्छ।\nसाथै, गाडीमा आउनुहुनेहरूले अस्पतालको पछाडि रहेको पार्किङ प्रयोग गर्नुहोला।\nपार्किङ गर्ने ठाउँ सीमित भएकोले, सकेसम्म रेल वा बस प्रयोग गर्नुहोला।\nकुनै कुरा स्पष्ट नभएमा, रिसेप्सनका कर्मचारीलाई सोध्नुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice to those who have made reservations. Your examination time is scheduled for the day after tomorrow at 10:00 AM. On the day of your appointment, please come to the reception on the first floor at least ten minutes before your scheduled time. At the reception, we will first give you a paper with a number, so please wait until your name is called. Please be sure to bring your insurance card and the card we gave you previously. These two items are essential for receiving your examination. If you are taking any medication, it would be helpful if you could also bring a paper with the name of the medication. On the day of your appointment, we will take your temperature before the examination, so it would be reassuring to arrive a little early. The waiting room can be crowded at times, so please allow ample time for your visit. If you are unable to come, please notify us by phone by the day before. If you do not come without prior notice, it may be difficult to make your next reservation. Furthermore, for those coming by car, please use the parking lot behind the hospital. As the number of parking spaces is limited, please use trains or buses if possible. If you have any questions, please ask the reception staff."
      ]
     }
    }
@@ -2693,6 +5158,24 @@
      "i18n": {
       "ja": {
        "explain": "電車三十分、自転車二十五分で時間が変わらないから自転車がよいと思った。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले साइकल नै राम्रो हो भनी किन सोचेको होला?",
+       "choices": [
+        "रेलमा लाग्ने समय र साइकलमा लाग्ने समय लगभग उस्तै भएकोले",
+        "कम्पनीमा अरू कसैभन्दा चाँडो पुगेर प्रशंसा पाउने भएकोले",
+        "रेलमा यात्रा गर्नुभन्दा पैसा कम लाग्ने भएकोले",
+        "भर्खरै नयाँ साइकल किनेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did this person think that a bicycle would be better?",
+       "choices": [
+        "Because the time it takes is almost the same as by train.",
+        "Because they would arrive at the company earlier than anyone else and be praised.",
+        "Because it costs less money than commuting by train.",
+        "Because they had just bought a new bicycle."
+       ]
       }
      }
     },
@@ -2709,6 +5192,24 @@
      "i18n": {
       "ja": {
        "explain": "体を動かすので、前より元気になったと書いてある。"
+      },
+      "ne": {
+       "q": "साइकलमा यात्रा गर्दा राम्रो भएको कुरामध्ये एउटा के हो?",
+       "choices": [
+        "पहिलेभन्दा शरीर बलियो भएको कुरा",
+        "रेल भाडा पटक्कै नलागेको कुरा",
+        "कम्पनीका मानिसहरूसँग राम्रो सम्बन्ध बनेको कुरा",
+        "धेरै बाटोहरू याद गर्न सकेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What was one good thing about commuting by bicycle?",
+       "choices": [
+        "Their body became stronger than before.",
+        "They no longer needed any train fare.",
+        "They became good friends with people at the company.",
+        "They learned many roads."
+       ]
       }
      }
     },
@@ -2725,6 +5226,24 @@
      "i18n": {
       "ja": {
        "explain": "「そんな日」は前の「雨の日や風の強い日」を指す。"
+      },
+      "ne": {
+       "q": "पाठमा उल्लेखित 『そんな日』 ले कस्तो दिनलाई जनाउँछ?",
+       "choices": [
+        "पानी वा हावाहुरी चलेको दिन",
+        "कम्पनी बिदा भएको दिन",
+        "शरीरको अवस्था राम्रो नभएको दिन",
+        "रेल धेरै भीडभाड भएको दिन"
+       ]
+      },
+      "en": {
+       "q": "What kind of day does 『そんな日』 in the text refer to?",
+       "choices": [
+        "A day with strong rain or wind.",
+        "A day when the company is closed.",
+        "A day when one is not feeling well.",
+        "A day when the train is very crowded."
+       ]
       }
      }
     },
@@ -2741,6 +5260,24 @@
      "i18n": {
       "ja": {
        "explain": "無理をしないことが長く続けるいちばんのこつだと感じている、とある。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति लामो समयसम्म जारी राख्नको लागि के महत्त्वपूर्ण ठान्छ?",
+       "choices": [
+        "「むりをしないようにすること」",
+        "सकेसम्म छिटो दौडनु",
+        "हरेक दिन साइकल चलाउनु",
+        "फेरि कहिल्यै रेलमा नचढ्नु"
+       ]
+      },
+      "en": {
+       "q": "What does this person think is important for continuing for a long time?",
+       "choices": [
+        "To not overdo it.",
+        "To run at the fastest possible speed.",
+        "To definitely ride a bicycle every day.",
+        "To never ride a train again."
+       ]
       }
      }
     }
@@ -2749,6 +5286,11 @@
     "ne": {
      "body": [
       "म हरेक बिहान साइकलमा कम्पनी जान्छु। घरबाट कम्पनीसम्म रेलमा करिब तीस मिनेट लाग्छ, तर साइकलमा पच्चीस मिनेटमा पुगिन्छ। रेलमा स्टेशनसम्म हिँड्ने समय र पर्खने समय पनि लाग्ने हुनाले, सोचेजति छिटो हुँदैन। यदि समयमा खासै फरक पर्दैन भने, साइकल नै राम्रो हुन्छ भन्ने मलाई लाग्न थाल्यो।\n\nयसका दुईवटा कारण छन्। एउटा कारण यो हो कि, रेलजस्तो भीडभाड नहुने हुनाले, बिहानैदेखि आनन्दले यात्रा गर्न सकिन्छ। नदी किनारको बाटोमा साइकल चलाउँदा, मौसमी फूलहरू र चराहरू देखिन्छन्, जसले मन हलुका बनाउँछ। अर्को कारण यो हो कि, शरीर चलाउँदा पहिलेभन्दा बढी फुर्तिलो भएको छु। सिँढी चढ्दा पनि पहिले जति थकाइ लाग्दैन। रातमा पनि राम्ररी निदाउन सक्ने भएको छु।\n\nतर, पानी परेको दिन वा हावाहुरी चलेको दिन भने गाह्रो हुन्छ। त्यस्ता दिनहरूमा म जबरजस्ती नगरी रेलमा जान्छु। पहिले, हल्का पानी परेको भए केही हुँदैन होला भनेर साइकलमा निस्केको थिएँ, र बाटोमै पूरै भिजेको थिएँ। अहिले म त्यस दिनको आकाश हेरेर कुन माध्यमबाट जाने भनेर निर्णय गर्छु। जबरजस्ती नगर्नु नै कुनै पनि कामलाई लामो समयसम्म निरन्तरता दिने सबैभन्दा राम्रो तरिका हो भन्ने मलाई लाग्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Every morning, I commute to work by bicycle. It takes about thirty minutes by train from my house to the company, but only twenty-five minutes by bicycle. The train isn't as fast as I thought, because it takes time to walk to the station and wait for the train. If the time difference isn't significant, I've come to think that cycling is better. There are two reasons for this. First, it's not crowded like the train, so I can start my morning feeling refreshed. When I ride along the river, I can see seasonal flowers and birds, which lightens my heart. Second, I've become healthier than before because I'm exercising. I don't get as tired as I used to when climbing stairs. I also sleep better at night. However, rainy days and windy days are still tough. On such days, I don't push myself and decide to go by train. Once, I thought a little rain would be fine and went out on my bicycle, only to get drenched halfway. Now, I look at the sky that day and decide which way to go. I feel that not pushing myself is the best secret to continuing for a long time."
      ]
     }
    }
@@ -2776,6 +5318,24 @@
      "i18n": {
       "ja": {
        "explain": "いつも通る道や、店の前の花など、小さな物をとると書いてある。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति कस्ता वस्तुहरूको फोटो खिच्दछ?",
+       "choices": [
+        "हरेक दिन हिँड्ने बाटो र फूलहरू जस्ता साना वस्तुहरू",
+        "टाढाको सहरमा रहेका प्रसिद्ध भवनहरू र दृश्यहरू",
+        "परिवार र नजिकका साथीहरूको अनुहार",
+        "दुर्लभ चराहरू र जनावरहरूको रूप"
+       ]
+      },
+      "en": {
+       "q": "What kind of things does this person take pictures of?",
+       "choices": [
+        "Small things like roads and flowers they pass every day.",
+        "Famous buildings and scenery in distant towns.",
+        "Faces of family and close friends.",
+        "Rare birds and animals."
+       ]
       }
      }
     },
@@ -2792,6 +5352,24 @@
      "i18n": {
       "ja": {
        "explain": "「それに気づいてから」の「それ」は、朝と夜でちがって見えることを指す。"
+      },
+      "ne": {
+       "q": "पाठमा '『それ』' भनिएको छ, यसले के कुरामा ध्यान दिएको बुझाउँछ?",
+       "choices": [
+        "एउटै ठाउँ बिहान र बेलुका फरक देखिनु",
+        "फोटो खिच्न धेरै समय लाग्नु",
+        "सहरमा धेरै पसलहरू हुनु",
+        "हिँड्नु शरीरको लागि राम्रो हुनु"
+       ]
+      },
+      "en": {
+       "q": "The text mentions 『それ』, but what does it refer to noticing?",
+       "choices": [
+        "That the same place looks different in the morning and at night.",
+        "That taking pictures takes a lot of time.",
+        "That there are many shops in town.",
+        "That walking is good for the body."
+       ]
       }
      }
     },
@@ -2808,6 +5386,24 @@
      "i18n": {
       "ja": {
        "explain": "季節ごとの小さな変化に目がいくようになった、とある。"
+      },
+      "ne": {
+       "q": "फोटो खिच्न थालेपछि कसरी परिवर्तन भयो?",
+       "choices": [
+        "मौसमको सानो परिवर्तनहरूमा ध्यान दिन थाल्यो",
+        "पहिले भन्दा हतारमा हिँडेर पार गर्ने बानी बढ्यो",
+        "टाढाको सहरसम्म यात्रा गर्न थाल्यो",
+        "पहिले भन्दा धेरै साथीहरू बढ्यो"
+       ]
+      },
+      "en": {
+       "q": "How has the person changed since they started taking pictures?",
+       "choices": [
+        "季節の細かな移り変わりに気づくようになった",
+        "前よりも急いで歩いて通り過ぎることが多くなった",
+        "遠くの町まで出かけるようになった",
+        "友だちが前よりも増えた"
+       ]
       }
      }
     },
@@ -2824,6 +5420,24 @@
      "i18n": {
       "ja": {
        "explain": "上手にとることより、心が動いた物を残すことが大事だと述べている。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले फोटो खिच्दा सबैभन्दा महत्त्वपूर्ण के ठान्छ?",
+       "choices": [
+        "मनमा बसेका वस्तुहरू खिच्नु",
+        "अरू कसैले भन्दा राम्रो फोटो खिच्नु",
+        "धेरै मानिसहरूलाई फोटो देखाउनु",
+        "दुर्लभ ठाउँहरूमा जानु"
+       ]
+      },
+      "en": {
+       "q": "What is the most important thing for this person when taking pictures?",
+       "choices": [
+        "心に残った物を写しておくこと",
+        "だれよりも上手に写真をとること",
+        "多くの人に写真を見せること",
+        "めずらしい場所へ行くこと"
+       ]
       }
      }
     }
@@ -2832,6 +5446,11 @@
     "ne": {
      "body": [
       "मेरो सोख सहरका तस्बिरहरू खिच्नु हो। खासगरी कुनै विशेष वस्तुको होइन, सधैँ हिँड्ने बाटो वा पसलअगाडि फुलेका फूलहरू जस्ता साना-साना कुराहरू खिच्छु। एउटै ठाउँ पनि बिहान र बेलुका पूरै फरक देखिन्छ।\nत्यो कुरा थाहा पाएदेखि, मेरो हरेक दिनको हिँडाइ धेरै रमाइलो भएको छ। पहिले, त्यो हतार-हतार हिँडेर पार गर्ने बाटो मात्र थियो। म त्यही बाटोमा तल मात्र हेरेर हिँड्थेँ जस्तो लाग्छ।\nतर, तस्बिरहरू खिच्न थालेदेखि, म ऋतुअनुसारका साना-साना परिवर्तनहरूमा ध्यान दिन थालेको छु। रूखका पातहरूको रङ र आकाशको उज्यालो बिस्तारै-बिस्तारै परिवर्तन हुँदै गएको देख्न सक्छु। पानी परेको दिनको पनि आफ्नै राम्रो पक्ष हुन्छ भन्ने कुरा पनि मैले थाहा पाएँ। भिजेको बाटोमा चम्किने पसलका बत्तीहरूमा घाम लागेको दिनमा नदेखिने सुन्दरता हुन्छ।\nखिचेका तस्बिरहरू हरेक वर्ष सङ्कलन गरेर किताबजस्तै बनाउँछु। ती हेर्दा, त्यो बेलाको भावना पनि सम्झन सक्छु, त्यसैले ती मेरा लागि अमूल्य खजाना हुन्। पृष्ठ पल्टाउँदा, त्यो दिनको हावाको गन्ध पनि फर्केर आएजस्तो लाग्छ। कहिलेकाहीँ, परिवारसँग मिलेर त्यो किताब हेर्दै सम्झनाहरू सुनाउँछु। राम्रोसँग तस्बिर खिच्नुभन्दा, मन छोएको कुरालाई सुरक्षित राख्नु नै मेरा लागि महत्त्वपूर्ण छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My hobby is taking pictures of the town. I don't take pictures of anything special, just small things like the paths I always walk on, or flowers blooming in front of shops. The same place looks completely different in the morning and at night. Since I noticed that, my daily walks have become very enjoyable. Before, it was just a path I hurried through. I think I used to walk the same path looking down all the time. But since I started taking photos, I've begun to notice small seasonal changes. I can see the color of the leaves and the brightness of the sky changing little by little. I've also realized that rainy days have their own charm. The shop lights reflecting on the wet road have a beauty that cannot be seen on a clear day. I collect the photos I've taken each year and make them into a book. Looking at it reminds me of my feelings at that time, so it's a precious treasure to me. Each time I turn a page, it's as if the scent of the wind from that day comes back to life. Sometimes, I look at the book with my family and talk about our memories. For me, it's more important to preserve things that moved my heart than to take technically good photos."
      ]
     }
    }
@@ -2859,6 +5478,24 @@
      "i18n": {
       "ja": {
        "explain": "野菜とくだものは朝十時から昼までの間だけ安く売る、とある。"
+      },
+      "ne": {
+       "q": "तरकारी र फलफूल सस्तोमा कहिले किन्न सकिन्छ?",
+       "choices": [
+        "शनिबार र आइतबार बिहान दस बजेदेखि दिउँसो बाह्र बजेसम्म",
+        "शनिबार र आइतबार दुवै दिनभरि",
+        "आइतबार दिउँसो मात्र",
+        "आगामी महिनाको अन्त्यसम्म"
+       ]
+      },
+      "en": {
+       "q": "When can vegetables and fruits be bought cheaply?",
+       "choices": [
+        "土日の午前十時から正午までの間",
+        "土曜と日曜のどちらも一日じゅうずっと",
+        "日曜日の午後だけの時間",
+        "来月の終わりまでのあいだ"
+       ]
       }
      }
     },
@@ -2875,6 +5512,24 @@
      "i18n": {
       "ja": {
        "explain": "買い物をした方には、次に使える割引の券を配ると書いてある。"
+      },
+      "ne": {
+       "q": "यो दुई दिनमा किनमेल गर्ने व्यक्तिले के पाउँछ?",
+       "choices": [
+        "次の買い物で使える券",
+        "तरकारी र फलफूलका सामानहरू",
+        "पार्किङमा प्रयोग गर्न सकिने पैसा",
+        "पसलको धन्यवाद लेखिएको चिठी"
+       ]
+      },
+      "en": {
+       "q": "What will people who shopped during these two days receive?",
+       "choices": [
+        "次の買い物で使える券",
+        "野菜やくだものの品物",
+        "駐車場で使えるお金",
+        "店の感謝を書いた手紙"
+       ]
       }
      }
     },
@@ -2891,6 +5546,24 @@
      "i18n": {
       "ja": {
        "explain": "「この券」は割引の券のことで、来月の終わりまで使える。"
+      },
+      "ne": {
+       "q": "पाठमा उल्लेख गरिएको 『この券』ले संकेत गर्ने छुटको कुपन कहिलेसम्म प्रयोग गर्न सकिन्छ?",
+       "choices": [
+        "अर्को महिनाको अन्त्यसम्म",
+        "यो हप्ताको आइतबारसम्म",
+        "बिक्रीको दुई दिन मात्र",
+        "प्रयोग गर्ने दिन तोकिएको छैन"
+       ]
+      },
+      "en": {
+       "q": "Until when can the discount coupon referred to as 『この券』 in the text be used?",
+       "choices": [
+        "来月の末まで",
+        "今週の日曜日まで",
+        "セールの二日間だけ",
+        "使う日は決まっていない"
+       ]
       }
      }
     },
@@ -2907,6 +5580,24 @@
      "i18n": {
       "ja": {
        "explain": "日曜日は駐車場がこむので、近くの人は歩いて来ると安心、とある。"
+      },
+      "ne": {
+       "q": "आइतबार नजिकबाट आउने व्यक्तिहरूलाई कसरी सल्लाह दिइएको छ?",
+       "choices": [
+        "गाडी प्रयोग नगरी हिँडेर आउनु",
+        "बिहान सबेरै गाडीमा आउनु",
+        "ठूलो झोला लिएर आउनु",
+        "छुटको कुपन पहिले नै लिनु"
+       ]
+      },
+      "en": {
+       "q": "What is recommended for people coming from nearby on Sunday?",
+       "choices": [
+        "車を使わず歩いて来ること",
+        "朝の早い時間に車で来ること",
+        "大きなふくろを持って来ること",
+        "割引の券を先に受け取ること"
+       ]
       }
      }
     }
@@ -2915,6 +5606,11 @@
     "ne": {
      "body": [
       "सधैं हाम्रो पसलमा आउनुभएकोमा धन्यवाद। यस हप्ताको शनिबार र आइतबार दुई दिनसम्म हामी 'धन्यवाद सेल' आयोजना गर्दैछौं। यी दुई दिनमा, पसलका धेरैजसो सामानहरू सामान्यभन्दा सस्तो हुनेछन्। केही सामानहरू त आधा मूल्यमा पनि उपलब्ध हुनेछन्। दोस्रो तल्लामा रहेका कपडा र जुत्ताहरू पनि यस अवसरमा हेर्न नभुल्नुहोला। विशेषगरी, तरकारी र फलफूल बिहान १० बजेदेखि दिउँसोसम्म मात्रै धेरै सस्तो मूल्यमा बेच्नेछौं। संख्या सीमित भएकोले, कृपया चाँडै आउनुहोला। बिक्रि भइसकेका सामानहरू त्यस दिन फेरि उपलब्ध नहुन सक्छन्, त्यसैले बुझिदिनुहोला। साथै, यी दुई दिनमा किनमेल गर्ने ग्राहकहरूलाई अर्को पटक प्रयोग गर्न मिल्ने छुट कुपन दिनेछौं। यो कुपन अर्को महिनाको अन्त्यसम्म प्रयोग गर्न सकिन्छ। एकै पटकमा जतिसुकै कुपन प्रयोग गर्न सक्नुहुनेछ। आइतबार पार्किङ भरिने भएकोले, नजिकै बस्नेहरू हिँडेर आउनु सुरक्षित हुनेछ। धेरै सामान किन्न सक्ने ग्राहकहरूका लागि, प्रवेशद्वारमा ठूला झोलाहरू पनि उपलब्ध गराएका छौं। यी झोलाहरू धेरै पटक प्रयोग गर्न मिल्ने बलिया छन्। दुई दिनसम्म, हाम्रा सबै कर्मचारीहरू तपाईंहरूलाई पर्खिरहेका हुनेछन्। हामी तपाईंहरूको आगमनको हार्दिक प्रतीक्षामा छौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Thank you for always visiting our store. We will be holding a customer appreciation sale this Saturday and Sunday, for two days. During these two days, most items in the store will be cheaper than usual. Some items will even be half price. Please also take this opportunity to browse the clothes and shoes on the second floor. In particular, vegetables and fruits will be sold at very low prices only from 10 AM to noon. Quantities are limited, so please come early. Please understand that sold-out items may not be restocked on the same day. Additionally, customers who make purchases during these two days will receive discount coupons for future use. These coupons can be used until the end of next month. You can use any number of coupons at once. Please note that the parking lot will be crowded on Sunday, so if you live nearby, it would be safer to walk. For those who anticipate having many items, we have prepared large reusable bags at the entrance. These bags are durable and can be used multiple times. Our entire staff looks forward to serving you for these two days. We sincerely await your visit."
      ]
     }
    }
@@ -2942,6 +5638,24 @@
      "i18n": {
       "ja": {
        "explain": "とくに大変だったのは毎朝の散歩で、決まった時間に起きること、とある。"
+      },
+      "ne": {
+       "q": "कुकुर पाल्न थालेपछि विशेष गरी के गाह्रो भयो?",
+       "choices": [
+        "हरेक बिहान समयमा उठेर हिँड्न जानु",
+        "छिमेकी सबैलाई अभिवादन गर्दै हिँड्नु",
+        "जनावरको खाना हरेक दिन किन्न जानु",
+        "कुकुरलाई अस्पताल लैजानु"
+       ]
+      },
+      "en": {
+       "q": "What was particularly difficult after starting to keep a dog?",
+       "choices": [
+        "Waking up at a set time every morning and going for a walk",
+        "Greeting all the neighbors",
+        "Buying animal food every day",
+        "Taking the dog to the hospital"
+       ]
       }
      }
     },
@@ -2958,6 +5672,24 @@
      "i18n": {
       "ja": {
        "explain": "「その顔を見ると」の「その顔」は、うれしそうに走る犬の顔を指す。"
+      },
+      "ne": {
+       "q": "पाठमा उल्लेख गरिएको 『その顔』ले कसको अनुहारलाई संकेत गर्छ?",
+       "choices": [
+        "खुशीसाथ दौडिरहेको कुकुरको अनुहार",
+        "हिँड्दा भेटिने छिमेकीको अनुहार",
+        "बिहान सबेरै उठेको आफ्नो अनुहार",
+        "कुकुर लिएर हिँडेको अर्को व्यक्तिको अनुहार"
+       ]
+      },
+      "en": {
+       "q": "Whose face does 『その顔』 in the text refer to?",
+       "choices": [
+        "The face of the dog running happily",
+        "The faces of neighbors met during walks",
+        "My own face after waking up early",
+        "The face of another person with a dog"
+       ]
       }
      }
     },
@@ -2974,6 +5706,24 @@
      "i18n": {
       "ja": {
        "explain": "散歩の途中で犬をつれた人と話すようになったのが思いがけないこと、とある。"
+      },
+      "ne": {
+       "q": "अप्रत्याशित कुरा के थियो?",
+       "choices": [
+        "हिँड्ने क्रममा नयाँ परिचित व्यक्तिहरू बनेको कुरा",
+        "कुकुर बिहान सबेरैबाट फुर्तिलो भएर दौडिने कुरा",
+        "हिँड्नु हरेक दिन धेरै गाह्रो हुने कुरा",
+        "निद्रा लाग्ने दिनहरू बढेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What was unexpected?",
+       "choices": [
+        "Making new acquaintances during walks",
+        "The dog running energetically early in the morning",
+        "Walks being very difficult every day",
+        "The increase in sleepy days"
+       ]
       }
      }
     },
@@ -2990,6 +5740,24 @@
      "i18n": {
       "ja": {
        "explain": "世話をしているつもりが、自分のほうが元気をもらっている、と結んでいる。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले अन्तमा के महसुस गरिरहेको छ?",
+       "choices": [
+        "世話をする自分が犬から元気を受け取っている",
+        "犬をかうのはやはりやめておいたほうがよさそうだ",
+        "動物をかうのは思ったより楽なことだ",
+        "近所の人とは話さないほうが気が楽だ"
+       ]
+      },
+      "en": {
+       "q": "What is this person feeling at the end?",
+       "choices": [
+        "I, who take care of the dog, receive energy from it",
+        "It seems better not to keep a dog after all",
+        "Keeping an animal is easier than I thought",
+        "It's more comfortable not to talk to neighbors"
+       ]
       }
      }
     }
@@ -2998,6 +5766,11 @@
     "ne": {
      "body": [
       "छ महिनाअघिदेखि मैले घरमा कुकुर पाल्न थालेँ। त्यसअघि मैले कहिल्यै जनावर पालेको थिइनँ, त्यसैले सुरुमा मलाई केही पनि थाहा थिएन। खानाको मात्रा र बिरामी हुँदा के गर्ने जस्ता कुराहरू मैले किताब पढेर बिस्तारै सिकेँ। छिमेकीका कुकुर पाल्ने मानिसहरूबाट पनि मैले धेरै कुराहरू सिकेँ।\n\nखासगरी सबैभन्दा गाह्रो हरेक बिहानको हिँडडुल हो। पहिले म आफ्नो मन लागेको बेला उठ्थेँ, तर अहिले कुकुरको लागि निश्चित समयमा उठ्नुपर्छ। निद्रा लागेका दिनहरू पनि हुन्छन्, तर बाहिर निस्कँदा कुकुर एकदमै खुसी भएर दौडिन्छ। त्यसको अनुहार देख्दा मलाई पनि ऊर्जा मिल्छ। त्यसको कारणले मैले बिहानको हावाको आनन्द पनि महसुस गर्न थालेँ।\n\nहिँडडुलको क्रममा त्यसैगरी कुकुर लिएर हिँड्ने मानिसहरूसँग कुरा गर्न थाल्नु पनि अप्रत्याशित थियो। पहिले अभिवादन पनि नगर्ने छिमेकीहरूसँग अहिले म हाँसेर कुरा गर्छु। मौसमको कुरा र कुकुरको खानाको कुरा जस्ता कुराहरू हरेक दिन सकिँदैनन्।\n\nकुकुर पाल्नु धेरै गाह्रो काम भए पनि, त्योभन्दा बढी हरेक दिन नयाँ रमाइलो थपिएको छ। मैले त्यसको हेरचाह गरिरहेको छु भन्ने सोचेको थिएँ, तर वास्तवमा म आफैँ ऊर्जा पाइरहेको छु जस्तो लाग्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I started keeping a dog at home six months ago. I had never owned an animal before, so at first, I knew nothing. I gradually learned about things like the amount of food and what to do when it's sick by reading books. People in the neighborhood who own dogs also taught me a lot. The most challenging part was the morning walks. Before, I used to wake up whenever I wanted, but now I have to wake up at a set time for the dog. There are days when I'm sleepy, but when we go outside, the dog runs so happily. Seeing its face makes me feel energetic too. Thanks to this, I've also come to appreciate the pleasantness of the morning air. It was also unexpected that I started talking to other people walking their dogs during our walks. I now laugh and talk with neighbors I didn't even greet before. We talk endlessly every day about the weather, dog food, and more. While owning a dog can be challenging, it has brought even more new joys to my daily life. I thought I was taking care of it, but in reality, I might be the one receiving energy from it."
      ]
     }
    }
@@ -3025,6 +5798,24 @@
      "i18n": {
       "ja": {
        "explain": "どこで買い物をすればよいか分からずこまった、とある。"
+      },
+      "ne": {
+       "q": "भर्खरै आएको बेला, विशेष गरी के समस्या थियो?",
+       "choices": [
+        "किनमेल कहाँ गर्ने भन्ने थाहा नभएको",
+        "कुरा गर्ने साथी एकजना पनि नभएको",
+        "बस्ने घर सजिलै नभेटिएको",
+        "नयाँ काम नभेटिएको"
+       ]
+      },
+      "en": {
+       "q": "What was particularly troublesome when first arriving?",
+       "choices": [
+        "Not knowing where to shop",
+        "Not having a single friend to talk with",
+        "Not being able to decide on a house to live in for a while",
+        "Not being able to find a new job"
+       ]
       }
      }
     },
@@ -3041,6 +5832,24 @@
      "i18n": {
       "ja": {
        "explain": "「その話のおかげで」の「その話」は、店の人が教えてくれた町の話を指す。"
+      },
+      "ne": {
+       "q": "पाठमा रहेको 『その話』 ले कुन कुरालाई जनाउँछ?",
+       "choices": [
+        "पसलको मान्छेले बताएको सहरको कुरा",
+        "सरुवा हुँदाको धेरै गाह्रो कुरा",
+        "पहिले बसेको सहरको कुरा",
+        "पार्कमा साथीसँग गरेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What kind of story does 『その話』 in the text refer to?",
+       "choices": [
+        "The town information the shopkeeper told me",
+        "The very difficult story of moving",
+        "A story from the town I lived in before",
+        "A story I had with a friend in the park"
+       ]
       }
      }
     },
@@ -3057,6 +5866,24 @@
      "i18n": {
       "ja": {
        "explain": "歩けば歩くほど、前は気づかなかったよい所が見つかる、とある。"
+      },
+      "ne": {
+       "q": "सहरमा हिँड्न थालेपछि के भयो?",
+       "choices": [
+        "पहिले नदेखिएको राम्रो कुराहरू देख्न सकिने",
+        "किनमेल गर्ने पसल फेरि थाहा नभएको",
+        "बाटो हराउने कुरा पहिले भन्दा धेरै भएको",
+        "बाहिर हिँड्न बिस्तारै मन नलागेको"
+       ]
+      },
+      "en": {
+       "q": "What happened after he started walking around town?",
+       "choices": [
+        "He can notice the good things he couldn't see before.",
+        "He no longer knew which shops to buy from.",
+        "He got lost more often than before.",
+        "He gradually started to dislike walking outside."
+       ]
       }
      }
     },
@@ -3073,6 +5900,24 @@
      "i18n": {
       "ja": {
        "explain": "大切なのはこわがらずに一歩を出してみること、と結んでいる。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले के महत्त्वपूर्ण ठान्छ?",
+       "choices": [
+        "おそれずに自分から動いてみること",
+        "知らない町へは決して行かないようにすること",
+        "こまったらすぐ前の町にもどること",
+        "店の人にすべてを決めてもらうこと"
+       ]
+      },
+      "en": {
+       "q": "What does this person consider important?",
+       "choices": [
+        "To try to act on one's own without fear.",
+        "To never go to an unfamiliar town.",
+        "To return to the previous town immediately if in trouble.",
+        "To let the shop staff decide everything."
+       ]
       }
      }
     }
@@ -3081,6 +5926,11 @@
     "ne": {
      "body": [
       "नयाँ सहरमा सरेको तीन महिना भयो। भर्खरै आएको बेला बाटो र पसलहरू थाहा नभएर हरेक दिन चिन्तित थिएँ। खासगरी, कहाँ किनमेल गर्ने हो थाहा नभएर समस्या भयो। नक्सा हेर्दा पनि राम्ररी बुझ्न नसकेर एउटै बाटोमा ओहोरदोहोर गरेको पनि छु। रात पर्दा सहर शान्त हुन्थ्यो र कहिलेकाहीँ अलि एक्लो महसुस पनि हुन्थ्यो।\nएक दिन, नजिकैको एउटा सानो पसलमा पस्दा, पसलका मान्छेहरू धेरै दयालु थिए र उनीहरूले मलाई सहरका धेरै कुराहरू बताए। सस्तोमा सामान बेच्ने पसलहरू र शान्त तथा रमाइलो पार्कहरूको बारेमा आदि। त्यो कुराको कारणले गर्दा, मलाई सहरको बारेमा बिस्तारै थाहा हुँदै गयो।\nत्यसपछि, फुर्सद हुँदा म सहरमा हिँड्न थालेँ। जति हिँड्दै गएँ, त्यति नै पहिले ध्यान नदिएका राम्रा ठाउँहरू भेट्टाउन थालेँ। साना बेकरीहरू र फूलहरूले सजिएका सुन्दर बाटोहरू जस्ता धेरै खुसीका खोजहरू थिए। अभिवादन आदानप्रदान गर्ने मानिसहरू पनि बिस्तारै बढ्दै गए। अहिले त, मलाई यो सहर पहिलेभन्दा धेरै मन पर्न थालेको छ। थाहा नभएको सहरलाई पनि बिस्तारै चिन्दै गएपछि, त्यो आफ्नो ठाउँ बन्दै जाने रहेछ भन्ने कुरा बुझेँ। महत्त्वपूर्ण कुरा डर नमानी एक कदम अगाडि बढ्नु हो जस्तो लाग्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Three months have passed since I moved to a new town. When I first arrived, I didn't know the roads or the shops, and every day was a worry. In particular, I was troubled because I didn't know where to shop. I sometimes walked back and forth on the same road, even after looking at a map, because I couldn't understand it well. At night, the town was quiet, and I sometimes felt a little lonely. One day, I went into a small shop nearby, and the shopkeeper was very kind and told me many things about the town. For example, where to find shops selling things cheaply, and about quiet and pleasant parks. Thanks to that conversation, I gradually started to understand the town. After that, whenever I had time, I started walking around town. The more I walked, the more good places I found that I hadn't noticed before. There were many pleasant discoveries, such as small bakeries and streets with beautiful flowers. The number of people I exchanged greetings with also gradually increased. Now, I like this town much more than before. I realized that even an unfamiliar town can become my own place if I get to know it little by little. I think the important thing is to take the first step without being afraid."
      ]
     }
    }
@@ -3108,6 +5958,24 @@
      "i18n": {
       "ja": {
        "explain": "木曜の午後三時から、四階のいちばん広い部屋に変わったとある。"
+      },
+      "ne": {
+       "q": "बैठक कहिले र कहाँ हुनेछ?",
+       "choices": [
+        "बिहीबार दिउँसो तीन बजे सुरु भई, चौथो तल्लाको ठूलो कोठामा",
+        "बुधबार दिउँसो तीन बजेदेखि, तेस्रो तल्लाको सधैंको कोठामा",
+        "बिहीबार बिहान, सधैंको कोठामा",
+        "बुधबार दिउँसो, चौथो तल्लाको साँघुरो कोठामा"
+       ]
+      },
+      "en": {
+       "q": "When and where will the meeting be held?",
+       "choices": [
+        "Starting at 3 PM on Thursday, in the large room on the fourth floor.",
+        "From 3 PM on Wednesday, in the usual room on the third floor.",
+        "On Thursday morning, in the usual room.",
+        "On Wednesday afternoon, in the small room on the fourth floor."
+       ]
       }
      }
     },
@@ -3124,6 +5992,24 @@
      "i18n": {
       "ja": {
        "explain": "一人ずつ、自分の考えを紙一枚にまとめておくよう書いてある。"
+      },
+      "ne": {
+       "q": "बैठकको दिनसम्ममा सबैले के गर्नुपर्छ?",
+       "choices": [
+        "「自分の意見を紙一枚に書いておく」",
+        "धेरै पेय पदार्थ र खाना तयार पार्ने",
+        "चौथो तल्लाको ठूलो कोठा सफा गर्ने",
+        "बैठकको विवरण कागजमा तयार पार्ने"
+       ]
+      },
+      "en": {
+       "q": "What should everyone do by the day of the meeting?",
+       "choices": [
+        "Write down their opinions on one sheet of paper.",
+        "Prepare plenty of drinks and food.",
+        "Clean the large room on the fourth floor.",
+        "Summarize the meeting's progress on paper."
+       ]
       }
      }
     },
@@ -3140,6 +6026,24 @@
      "i18n": {
       "ja": {
        "explain": "「その紙」は各自の考えをまとめた紙で、会議が始まる前に集める。"
+      },
+      "ne": {
+       "q": "पाठमा उल्लेख गरिएको 『その紙』 कहिले सङ्कलन गरिन्छ?",
+       "choices": [
+        "बैठक सुरु हुनुअघि",
+        "बैठक सकिएपछि",
+        "अघिल्लो दिन",
+        "पेय पदार्थ पिउने समयमा"
+       ]
+      },
+      "en": {
+       "q": "When will 『その紙』 (that paper) mentioned in the text be collected?",
+       "choices": [
+        "Before the meeting starts.",
+        "After the meeting has completely finished.",
+        "By the day before.",
+        "During the time for drinks."
+       ]
       }
      }
     },
@@ -3156,6 +6060,24 @@
      "i18n": {
       "ja": {
        "explain": "会議の様子を紙にまとめて来られなかった人にも配るので心配ない、とある。"
+      },
+      "ne": {
+       "q": "बैठकमा आउन नसक्ने व्यक्तिले किन चिन्ता लिनु पर्दैन?",
+       "choices": [
+        "पछि बैठकको सामग्री कागजमा लेखेर वितरण गरिनेछ",
+        "पेय पदार्थ पिउने समयमा मात्र सहभागी हुन सकिनेछ",
+        "बैठक जहिले पनि र जति पटक पनि पुनः सुरु गर्न सकिन्छ",
+        "विचारहरू कागजमा तयार पार्नु पर्दैन"
+       ]
+      },
+      "en": {
+       "q": "Why don't people who cannot attend the meeting need to worry?",
+       "choices": [
+        "Because the contents of the meeting will be written down and distributed later.",
+        "Because they can participate only during the time for drinks.",
+        "Because the meeting can be redone any number of times.",
+        "Because they don't have to summarize their thoughts on paper."
+       ]
       }
      }
     }
@@ -3164,6 +6086,11 @@
     "ne": {
      "body": [
       "सबैलाई सूचित गरिन्छ। अर्को हप्ता बुधबारका लागि तय भएको बैठक, कोठाको उपलब्धताका कारणले गर्दा, बिहीबार दिउँसो तीन बजेदेखि हुने गरी परिवर्तन भएको छ। स्थान पनि, सधैँको तेस्रो तल्लाको कोठामा नभई, चौथो तल्लाको सबैभन्दा ठूलो कोठामा हुनेछ। झुक्किन सक्ने भएकाले, कृपया ध्यान दिनुहोला। लिफ्टबाट निस्केर दायाँतिर जानुभयो भने, त्यो कोठा पाउनुहुनेछ।\n\nबैठकमा, आउँदो महिनाको नयाँ काम कसरी अगाडि बढाउने भन्ने बारेमा छलफल गरिनेछ। यसपटक, हामी सबैको विचार सकेसम्म सुन्न चाहन्छौँ। बैठकको दिनसम्ममा, तपाईंहरू प्रत्येकले आ-आफ्नो विचार एक पाना कागजमा तयार पारेर राख्नुहोला। लेख्ने तरिका स्वतन्त्र छ, तर महत्त्वपूर्ण कुराहरू स्पष्ट हुने गरी लेख्नुहोला। ती कागजहरू बैठक सुरु हुनुअघि सङ्कलन गरिनेछन्।\n\nबैठकपछि, हामी सबैले पेय पदार्थ पिउँदै कुराकानी गर्ने समय पनि थोरै छुट्याएका छौँ। यो सामान्यतया कुराकानी नगर्ने व्यक्तिहरूसँग पनि आरामले कुरा गर्ने राम्रो अवसर हुनेछ भन्ने मलाई लाग्छ। सहभागी हुन नसक्ने व्यक्तिहरूले, अघिल्लो दिनसम्म मलाई इमेलमार्फत जानकारी गराउनुहोला। साथै, बैठकको विवरण पछि कागजमा तयार पारेर, आउन नसकेका व्यक्तिहरूलाई पनि वितरण गरिनेछ। त्यसैले, बैठकको दिन कुनै कारणवश आउन नसक्ने व्यक्तिहरूले पनि चिन्ता लिनुपर्दैन। केही बुझ्नुभएको छैन भने, जुनसुकै बेला सोध्न सक्नुहुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I have an announcement for everyone. The meeting scheduled for next Wednesday has been changed to Thursday at 3 PM due to room availability. The location will also be the largest room on the fourth floor, not the usual room on the third floor. Please be careful as it's easy to make a mistake. After exiting the elevator, proceed to the right, and you will find the room. During the meeting, we will discuss how to proceed with next month's new work. This time, I want to hear as many of your opinions as possible. Please summarize your thoughts on a single sheet of paper by the day of the meeting. The format is free, but please make sure the important points are clear. These papers will be collected before the meeting begins. After the meeting, we will also have a short time to talk while having drinks together. I think it will be a good opportunity to talk slowly with people you don't usually speak with. If you cannot attend, please inform me by email by the day before. Also, the details of the meeting will be summarized on paper afterward and distributed to those who couldn't attend. So, even if you absolutely cannot come on the day, there's no need to worry. If you have any questions, please ask anytime."
      ]
     }
    }
@@ -3191,6 +6118,24 @@
      "i18n": {
       "ja": {
        "explain": "本に変えてから自然にねむくなり、朝も気持ちよく起きられる、とある。"
+      },
+      "ne": {
+       "q": "किताब पढ्न थालेपछि कसरी परिवर्तन भयो?",
+       "choices": [
+        "सजिलै निदाउन सकिने र बिहान राम्रोसँग उठ्न सकिने भयो",
+        "राति अबेरसम्म जागा रहने भयो",
+        "कठिन किताबहरू मात्र पढ्न थालियो",
+        "स्क्रिन हेर्ने समय उल्टो बढ्यो"
+       ]
+      },
+      "en": {
+       "q": "How did things change after starting to read books?",
+       "choices": [
+        "I can sleep soundly and wake up better in the morning.",
+        "I started staying up late at night.",
+        "I started reading only difficult books.",
+        "The time I spend looking at screens actually increased."
+       ]
       }
      }
     },
@@ -3207,6 +6152,24 @@
      "i18n": {
       "ja": {
        "explain": "大人になって読むと前とちがう所がおもしろい、と書いてある。"
+      },
+      "ne": {
+       "q": "बाल्यकालको कथा फेरि पढ्दा कस्तो महसुस हुन्छ?",
+       "choices": [
+        "पहिलेभन्दा फरक भागहरू रोचक लाग्छन्",
+        "कथाको सामग्री पूरै बिर्सिएको हुन्छ",
+        "बाल्यकालमा भन्दा पढ्न ढिलो हुन्छ",
+        "कठिन लाग्छ र अर्थ बुझ्न सकिँदैन"
+       ]
+      },
+      "en": {
+       "q": "How do you feel when you read stories from your childhood again?",
+       "choices": [
+        "Different parts become interesting than before.",
+        "I completely forget the content of the story.",
+        "I read slower than when I was a child.",
+        "It becomes difficult and I can't understand the meaning."
+       ]
       }
      }
     },
@@ -3223,6 +6186,24 @@
      "i18n": {
       "ja": {
        "explain": "「それがまた楽しい」の「それ」は、前とちがう所がおもしろく感じられることを指す。"
+      },
+      "ne": {
+       "q": "「それ」 भन्नाले केलाई जनाउँछ?",
+       "choices": [
+        "एउटै कथा भए पनि पहिलेभन्दा फरक कुराको आनन्द लिनु",
+        "पन्ध्र मिनेटमा किताब पढ्न नसक्नु",
+        "सुत्नुअघि उज्यालो स्क्रिन नहेर्नु",
+        "एक वर्षमा धेरै किताब पढ्न सक्नु"
+       ]
+      },
+      "en": {
+       "q": "「それ」 is mentioned, but what does it refer to?",
+       "choices": [
+        "Being able to enjoy different points in the same story than before.",
+        "Not being able to finish reading a book in fifteen minutes.",
+        "Not looking at bright screens before going to bed.",
+        "Being able to read many books in a year."
+       ]
       }
      }
     },
@@ -3239,6 +6220,24 @@
      "i18n": {
       "ja": {
        "explain": "急いで読むより毎日少しずつ続けるほうが合っている、とある。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिलाई आफूलाई सुहाउँदो लाग्ने पढ्ने तरिका कुन हो?",
+       "choices": [
+        "थोरै-थोरै गरी हरेक दिन पढ्ने तरिका",
+        "एकै दिनमा धेरै पढ्ने तरिका",
+        "गाह्रो किताब मात्र पढ्ने तरिका",
+        "एउटै किताब पटक-पटक दोहोर्याएर पढ्ने तरिका"
+       ]
+      },
+      "en": {
+       "q": "Which reading method does this person think suits them?",
+       "choices": [
+        "A reading method of continuing little by little every day.",
+        "A reading method of reading a lot in one day.",
+        "A reading method of reading only difficult books.",
+        "A reading method of repeating the same book many times."
+       ]
       }
      }
     }
@@ -3247,6 +6246,11 @@
     "ne": {
      "body": [
       "म हरेक रात सुत्नुअघि किताब पढ्छु। धेरै बेर होइन, लगभग पन्ध्र मिनेट मात्र। पहिले, सुत्नुभन्दा ठीक अघिसम्म उज्यालो स्क्रिन हेर्ने गर्थेँ, त्यसैले सजिलै निद्रा लाग्दैनथ्यो। आँखा खुल्ला रहन्थ्यो र थाहा पाउँदा रात धेरै भइसकेको हुन्थ्यो। भोलिपल्ट, बिहानैदेखि टाउको भारी हुन्थ्यो र काममा प्रगति नहुने पनि हुन्थ्यो। किताब पढ्न थालेपछि, मलाई स्वाभाविक रूपमा निद्रा लाग्न थाल्यो र बिहान पनि आरामसँग उठ्न सक्ने भएँ।\nपढ्ने किताब गाह्रो हुनुपर्छ भन्ने छैन। कहिलेकाहीँ बाल्यकालमा मनपर्ने कथाहरू फेरि पढ्छु। ठूलो भएर पढ्दा, उही कथा भए पनि पहिलेभन्दा फरक ठाउँहरू रोचक लाग्छन्, र त्यो पनि रमाइलो हुन्छ। पन्ध्र मिनेटमा एउटा किताब पूरा पढ्न गाह्रो हुन्छ। तर, थोरै-थोरै भए पनि हरेक दिन जारी राख्दा, एक वर्षमा सोचेभन्दा धेरै किताबहरू पढ्न सकिन्छ। गनेर हेर्दा, म आफैँ पनि छक्क परेको छु। हतार-हतार धेरै पढ्नुभन्दा, हरेक दिन थोरै-थोरै जारी राख्नु मलाई सुहाउँदो लाग्छ। यो शान्त समय मेरो दिनको सबैभन्दा ठूलो आनन्द बनेको छ। ओछ्यानमा पढ्ने केही पृष्ठहरूले मेरो मनलाई शान्त बनाउँछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Every night, I read a book before going to bed. Not for a long time, just about fifteen minutes. Before, I used to look at a bright screen right up until I went to bed, so I had trouble falling asleep. My eyes would be wide awake, and I often found myself staying up late. The next day, my head would feel foggy from the morning, and my work wouldn't progress well. Since I switched to reading a book, I naturally feel sleepy and can wake up pleasantly in the morning. The book I read doesn't have to be a difficult one. Sometimes I reread stories I liked when I was a child. When I read them as an adult, I find different aspects of the same story interesting than before, which is also enjoyable. In fifteen minutes, it's hard to finish a whole book. But if I continue little by little every day, I can read more books in a year than I expected. I've even surprised myself when I counted them. Continuing a little bit every day seems to suit me better than rushing to read many books. This quiet time has become my greatest pleasure of the day. The few pages I read in bed calm my mind."
      ]
     }
    }
@@ -3274,6 +6278,24 @@
      "i18n": {
       "ja": {
        "explain": "友だちにさそわれて、あまり深く考えずに行ってみた、とある。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति किन स्वयंसेवामा सहभागी भयो?",
+       "choices": [
+        "साथीले बोलाएकोले",
+        "नदी सफा गर्न पहिलेदेखि नै मन पर्ने भएकोले",
+        "पहिलेदेखि नै सहभागी हुन चाहेकोले",
+        "घरमा गर्नुपर्ने केही काम नभएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did this person participate in the volunteer activity?",
+       "choices": [
+        "Because a friend invited them.",
+        "Because they originally liked cleaning rivers.",
+        "Because they had wanted to participate for a long time.",
+        "Because they had nothing to do at home."
+       ]
       }
      }
     },
@@ -3290,6 +6312,24 @@
      "i18n": {
       "ja": {
        "explain": "思ったよりたくさんの人が来ていておどろいた、とある。"
+      },
+      "ne": {
+       "q": "नदीको छेउमा जम्मा भएर यो व्यक्ति किन छक्क पर्यो?",
+       "choices": [
+        "सोचेभन्दा धेरै मानिसहरू जम्मा भएकाले",
+        "नदी धेरै फोहोर भएकोले",
+        "चिनेको कोही पनि नभएकोले",
+        "सफाईका उपकरणहरू अपुग भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why was this person surprised when they gathered by the river?",
+       "choices": [
+        "Because more people than expected had gathered.",
+        "Because the river was so terribly dirty.",
+        "Because there was no one they knew.",
+        "Because there weren't enough cleaning tools."
+       ]
       }
      }
     },
@@ -3306,6 +6346,24 @@
      "i18n": {
       "ja": {
        "explain": "いっしょに体を動かすうちに、自然に話すようになった、とある。"
+      },
+      "ne": {
+       "q": "नचिनेका मानिसहरूसँग पनि स्वाभाविक रूपमा कुरा गर्न थाल्नुको कारण के हो?",
+       "choices": [
+        "सबैले सँगै शारीरिक गतिविधि गरेकोले",
+        "साथीले परिचय गराइदिएकोले",
+        "सबै एउटै सहरमा बस्ने भएकोले",
+        "आराम गर्ने समय धेरै लामो भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did he start to naturally talk even with strangers?",
+       "choices": [
+        "Because everyone exercised together",
+        "Because a friend introduced them",
+        "Because everyone lived in the same town",
+        "Because the break time was very long"
+       ]
       }
      }
     },
@@ -3322,6 +6380,24 @@
      "i18n": {
       "ja": {
        "explain": "「この気持ち」は、川がもとのきれいな川にもどってうれしくなった気持ちを指す。"
+      },
+      "ne": {
+       "q": "पाठमा उल्लेखित 『この気持ち』 ले कस्तो भावनालाई जनाउँछ?",
+       "choices": [
+        "नदी सफा भएर खुसी लागेको भावना",
+        "नचिनेका मानिसहरू मात्र भएकोले धेरै चिन्तित भएको भावना",
+        "सहभागी हुन झन्झट लागेको भावना",
+        "छिट्टै घर जान चाहेको भावना"
+       ]
+      },
+      "en": {
+       "q": "What kind of feeling does 『この気持ち』 in the text refer to?",
+       "choices": [
+        "The feeling of being happy that the river became clean",
+        "The feeling of being very worried because there were only strangers",
+        "The feeling that participating was troublesome",
+        "The feeling of wanting to go home quickly"
+       ]
       }
      }
     }
@@ -3330,6 +6406,11 @@
     "ne": {
      "body": [
       "गत महिनाको बिदाको दिनमा, मैले पहिलो पटक स्वयंसेवामा भाग लिएँ। यो नजिकैको नदी सफा गर्ने गतिविधि थियो। साथीले बोलाएपछि, मैले धेरै नसोची गएँ। जानुअघि, साँचो भन्नुपर्दा, मलाई अलि झन्झटिलो लागेको थियो। बिदाको दिन भएकोले, घरमा आराम गर्ने मन पनि थियो। बिहान निद्रा लागेका आँखा मिच्दै, म नदीतिर लागें।\nतर, नदीको छेउमा जम्मा हुँदा, मैले सोचेभन्दा धेरै मानिसहरू आएको देखेर छक्क परें। बालबालिकादेखि वृद्धवृद्धासम्म, विभिन्न प्रकारका मानिसहरू थिए। सबैले मिलेर काम बाँडेर फोहोर टिप्न थाल्यौं। सुरुमा सबै अपरिचित मानिसहरू थिए, तर सँगै काम गर्दै जाँदा, हामी स्वाभाविक रूपमा कुरा गर्न थाल्यौं। करिब दुई घण्टामा, नदी पूरै सफा भयो। फोहोरले भरिएको ठाउँ पहिलेको सफा नदीमा फर्किएको देखेर मलाई हृदयदेखि खुसी लाग्यो। पानीमा साना माछाहरू पौडिरहेको पनि देखियो।\nफर्कने बाटोमा, शरीर थकित थियो, तर मन भने अनौठो रूपमा हल्का भएको थियो। यो भावना, यदि म घरमा एक्लै बसेको भए, कहिल्यै बुझ्न सक्ने थिइनँ होला। अर्को पटक पनि, म पक्कै भाग लिनेछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last month, on my day off, I participated in volunteer work for the first time. It was an activity to clean a nearby river. A friend invited me, and I went without thinking too deeply about it. To be honest, before going, I thought it would be a bit of a hassle. I also felt like relaxing at home since it was my precious day off. I rubbed my sleepy eyes in the morning and headed to the river. However, when we gathered by the river, I was surprised to see many more people than I expected. There were all kinds of people, from children to the elderly. We all divided the work and picked up trash. At first, everyone was a stranger, but as we worked together, we naturally started talking. In about two hours, the river became completely clean. Seeing the place that was full of trash return to its original clean state made me genuinely happy. I also saw small fish swimming in the water. On the way home, my body was tired, but my heart felt strangely light. I don't think I would have ever understood this feeling if I had spent the day alone at home. I definitely plan to participate again next time."
      ]
     }
    }

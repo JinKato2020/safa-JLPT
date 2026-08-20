@@ -310,6 +310,9 @@ export const READING = _R.READING as ReadingItem[];
 export const LISTENING = _R.LISTENING as ListeningItem[];
 /** 読解パッセージの母語(ne)訳。id→行配列。PassageSetPlayer 等で表示。 */
 export const PASSAGE_TRANS_NE = _R.PASSAGE_TRANS_NE as Record<string, string[]>;
+export const PASSAGE_TRANS_EN = _R.PASSAGE_TRANS_EN as Record<string, string[]>;
+export const Q_TRANS_NE = _R.Q_TRANS_NE as Record<string, { q: string; choices: string[] }>;
+export const Q_TRANS_EN = _R.Q_TRANS_EN as Record<string, { q: string; choices: string[] }>;
 
 // 文章の文法(大問⑧・セット形式=1文章＋5設問)。旧知識バンク(passage_grammar daimon)から本セットへ移行(BANKからは除外・daimon.ts)。
 // 生成: 問題/tools(文章の文法量産パイプライン)。id=pg-<Level>-<3桁連番>、設問id=pg-<Level>-<3桁>-q5..q9。

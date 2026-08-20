@@ -4,7 +4,8 @@
  "level": "N4",
  "languages": [
   "ja",
-  "ne"
+  "ne",
+  "en"
  ],
  "audit": {
   "status": "監査済み",
@@ -37,6 +38,24 @@
      "i18n": {
       "ja": {
        "explain": "入会金は今月無料、月会費は学生半額3,000円。計3,000円。"
+      },
+      "ne": {
+       "q": "यस महिना विद्यार्थी यस क्लबमा सामेल भएमा, सुरुमा कति तिर्नुपर्छ?",
+       "choices": [
+        "「3,000円」",
+        "「6,000円」",
+        "「9,000円」",
+        "「0円」"
+       ]
+      },
+      "en": {
+       "q": "If a student joins this club this month, how much will they pay initially?",
+       "choices": [
+        "3,000円",
+        "6,000円",
+        "9,000円",
+        "0円"
+       ]
       }
      }
     }
@@ -45,6 +64,11 @@
     "ne": {
      "body": [
       "साकुरा स्पोर्ट्स क्लबको जानकारी। भर्ना शुल्क ३,००० येन हो, तर यही महिनाभित्र आवेदन दिनुहुनेलाई निःशुल्क छ। मासिक शुल्क वयस्कका लागि ६,००० येन हो, विद्यार्थीका लागि आधा हो। पौडी पोखरी र जिम स्वतन्त्र रूपमा प्रयोग गर्न सकिन्छ। अवलोकन (हेर्न आउने) जहिलेसुकै गर्न सकिन्छ, त्यसैले निःसंकोच फोन गर्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Information about Sakura Sports Club. The admission fee is 3,000 yen, but it is free for those who apply this month. The monthly membership fee is 6,000 yen for adults, and half price for students. You can freely use the pool and gym. You can visit anytime, so please feel free to call us."
      ]
     }
    }
@@ -72,6 +96,24 @@
      "i18n": {
       "ja": {
        "explain": "土日が夜8時まで開くようになり、貸出も10冊に増える。"
+      },
+      "ne": {
+       "q": "अर्को महिनादेखि के परिवर्तन हुन्छ?",
+       "choices": [
+        "「土・日も夜8時まで開く」",
+        "「平日が夜8時までになる」",
+        "「本は5冊までになる」",
+        "「日曜日は休みになる」"
+       ]
+      },
+      "en": {
+       "q": "Which of these will change from next month?",
+       "choices": [
+        "Open until 8 PM on Saturdays and Sundays too",
+        "Weekdays will be until 8 PM",
+        "Books will be limited to 5 volumes",
+        "Sundays will be closed"
+       ]
       }
      }
     }
@@ -80,6 +122,11 @@
     "ne": {
      "body": [
       "पुस्तकालयबाट सूचना। अर्को महिनादेखि, शनिबार र आइतबार पनि साँझ ८ बजेसम्म खुला राखिने भएको छ। हालसम्म ५ बजेसम्म मात्र थियो। कामको दिनहरूमा हालसम्मकै जस्तै, बिहान ९ बजेदेखि साँझ ८ बजेसम्म हो। पुस्तक लिन सकिने संख्या पनि १० वटासम्म बढ्नेछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice from the library. Starting next month, we will be open until 8 PM on Saturdays and Sundays as well. Until now, we were open until 5 PM. Weekdays will remain the same, from 9 AM to 8 PM. The number of books you can borrow will also increase to 10."
      ]
     }
    }
@@ -107,6 +154,24 @@
      "i18n": {
       "ja": {
        "explain": "「雨がふったら、駅前の喫茶店に来てください」。"
+      },
+      "ne": {
+       "q": "भोलि पानी परेमा, कहाँ भेट्नुहुन्छ?",
+       "choices": [
+        "「駅前の喫茶店」",
+        "「公園の入口」",
+        "「図書館のとなり」",
+        "「駅の中」"
+       ]
+      },
+      "en": {
+       "q": "If it rains tomorrow, where will we meet?",
+       "choices": [
+        "駅前の喫茶店",
+        "公園の入口",
+        "図書館のとなり",
+        "駅の中"
+       ]
       }
      }
     }
@@ -115,6 +180,11 @@
     "ne": {
      "body": [
       "(साथीको इमेल) भोलिको योजनाको बारेमा हो, स्टेसनअगाडिको कफी पसलमा प्राय: भीड हुने भएकोले, पुस्तकालयको छेउको पार्कमा भेटौं न? म ११ बजे पार्कको प्रवेशद्वारमा पर्खिरहनेछु। यदि पानी पर्‍यो भने, स्टेसनअगाडिको कफी पसलमा आउनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "(Email from a friend) Regarding our meeting tomorrow, the coffee shop in front of the station is often crowded, so how about meeting at the park next to the library? I'll be waiting at the park entrance at 11 AM. If it rains, please come to the coffee shop in front of the station."
      ]
     }
    }
@@ -142,6 +212,24 @@
      "i18n": {
       "ja": {
        "explain": "「ひもでしばってください」。毎週でなく第2・第4水曜。"
+      },
+      "ne": {
+       "q": "पुरानो कागज फाल्ने तरिकामा, कुन सही छ?",
+       "choices": [
+        "「ひもでしばって出す」",
+        "「毎週水曜日に出す」",
+        "「ぬれた紙も出せる」",
+        "「ペットボトルと一緒に出す」"
+       ]
+      },
+      "en": {
+       "q": "Regarding how to dispose of waste paper, which one is correct?",
+       "choices": [
+        "ひもでしばって出す",
+        "毎週水曜日に出す",
+        "ぬれた紙も出せる",
+        "ペットボトルと一緒に出す"
+       ]
       }
      }
     }
@@ -150,6 +238,11 @@
     "ne": {
      "body": [
       "(अनुरोध) पुरानो कागज, पत्रिका, कार्डबोर्ड हरेक महिनाको दोस्रो र चौथो बुधबार बिहान ८ बजेभित्र सामुदायिक भवनअगाडि राख्नुहोस्। डोरीले बाँध्नुहोस्। भिजेको कागज राख्न पाइँदैन। प्लास्टिकको बोतल अर्को दिनमा राख्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "(Request) Please put out old paper, magazines, and cardboard in front of the community center by 8 AM on the second and fourth Wednesdays of every month. Please tie them with a string. Wet paper cannot be put out. Plastic bottles are put out on a different day."
      ]
     }
    }
@@ -177,6 +270,24 @@
      "i18n": {
       "ja": {
        "explain": "「その場で食べたり、持って帰ったりできます」。エプロンは用意あり。"
+      },
+      "ne": {
+       "q": "यस कक्षाको बारेमा, कुन सही छ?",
+       "choices": [
+        "「作った料理を食べられる」",
+        "「エプロンを持っていく」",
+        "「作った料理は持って帰れない」",
+        "「申し込みは当日でいい」"
+       ]
+      },
+      "en": {
+       "q": "Regarding this classroom, which one is correct?",
+       "choices": [
+        "作った料理を食べられる",
+        "エプロンを持っていく",
+        "作った料理は持って帰れない",
+        "申し込みは当日でいい"
+       ]
       }
      }
     }
@@ -185,6 +296,11 @@
     "ne": {
      "body": [
       "जापानी खाना पकाउने कक्षा। हरेक शुक्रबार दिउँसो ६ बजेदेखि २ घण्टा। सामग्री शुल्क प्रति पटक १,५०० येन। एप्रन हामीले तयार गर्नेछौं। बनाएको खाना त्यहीँ खान वा घर लैजान सकिन्छ। आवेदन अघिल्लो हप्ताको बुधबारसम्ममा दिनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Japanese cooking class. Every Friday from 6 PM for two hours. The cost of ingredients is 1,500 yen per session. Aprons will be provided here. You can eat the food you make on the spot or take it home. Please apply by Wednesday of the previous week."
      ]
     }
    }
@@ -212,6 +328,24 @@
      "i18n": {
       "ja": {
        "explain": "「お休みの間に返さなくてもいい」「木曜日以降に返してください」とあります。"
+      },
+      "ne": {
+       "q": "मैले लिएको किताब कहिले फर्काउनुपर्छ?",
+       "choices": [
+        "बिहीबारपछि फर्काउने",
+        "सोमबार फर्काउने",
+        "बुधबारसम्म फर्काउने",
+        "फर्काउनु पर्दैन"
+       ]
+      },
+      "en": {
+       "q": "When should I return the borrowed book?",
+       "choices": [
+        "木曜日以降に返す",
+        "月曜日に返す",
+        "水曜日までに返す",
+        "返さなくてもいい"
+       ]
       }
      }
     }
@@ -220,6 +354,11 @@
     "ne": {
      "body": [
       "नगरपालिका पुस्तकालयबाट सूचना हो। अर्को हप्ताको सोमबारदेखि बुधबारसम्म, पुस्तक व्यवस्थापन (मिलाउने काम) का लागि, पुस्तकालय बन्द रहनेछ। बिहीबारदेखि सधैंझैं खुला हुन्छ। ऋणमा लिइराखेको पुस्तक, बिदाको बीचमा फिर्ता नगरे पनि हुन्छ। बिहीबारपछि फिर्ता गर्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice from the City Library. From next Monday to Wednesday, the library will be closed for book organization. It will be open as usual from Thursday. You do not need to return borrowed books during the closure. Please return them on or after Thursday."
      ]
     }
    }
@@ -247,6 +386,24 @@
      "i18n": {
       "ja": {
        "explain": "「お弁当と飲み物を持ってきてください」とあり、かさは不要です。"
+      },
+      "ne": {
+       "q": "भोलि लैजाने सामान कुन हो?",
+       "choices": [
+        "「お弁当と飲み物」",
+        "「かさとお弁当」",
+        "「飲み物とかさ」",
+        "「お弁当だけ」"
+       ]
+      },
+      "en": {
+       "q": "What should I bring tomorrow?",
+       "choices": [
+        "お弁当と飲み物",
+        "かさとお弁当",
+        "飲み物とかさ",
+        "お弁当だけ"
+       ]
       }
      }
     }
@@ -255,6 +412,11 @@
     "ne": {
      "body": [
       "भोलिको भ्रमण (यात्रा) को बारेमा जानकारी गराउँछु। बेन्तो र पिउने कुरा लिएर आउनुहोस्। पानी परे रद्द हुनेछ। रद्द भएको बेला, बिहान ७ बजे इमेलद्वारा जानकारी दिइनेछ। छाता ल्याउनु पर्दैन।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Regarding tomorrow's excursion. Please bring your lunch and drinks. If it rains, the excursion will be canceled. In case of cancellation, we will notify you by email at 7 AM. You do not need to bring an umbrella."
      ]
     }
    }
@@ -282,6 +444,24 @@
      "i18n": {
       "ja": {
        "explain": "午前九時から午後三時まで使えないので、その時間は階段を使います。"
+      },
+      "ne": {
+       "q": "शनिबार बिहान दश बजे लिफ्ट प्रयोग गर्न चाहनुहुन्छ भने के गर्नुहुन्छ?",
+       "choices": [
+        "सिँढी प्रयोग गर्ने",
+        "लिफ्ट प्रयोग गर्ने",
+        "दिउँसो तीन बजेसम्म पर्खने",
+        "व्यवस्थापकलाई फोन गर्ने"
+       ]
+      },
+      "en": {
+       "q": "What should I do if I want to use the elevator at 10 AM on Saturday?",
+       "choices": [
+        "階段を使う",
+        "エレベーターを使う",
+        "午後三時まで待つ",
+        "管理人に電話する"
+       ]
       }
      }
     }
@@ -290,6 +470,11 @@
     "ne": {
      "body": [
       "यस अपार्टमेन्टको लिफ्ट, यस हप्ताको शनिबार बिहान ９ बजेदेखि दिउँसो ３ बजेसम्म जाँच हुनेछ। त्यो बीचमा, लिफ्ट प्रयोग गर्न सकिँदैन। सिँढी प्रयोग गर्नुहोस्। जाँच सकिएपछि, तुरुन्तै प्रयोग गर्न सकिने हुन्छ। सहयोगको लागि अनुरोध छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "The elevator in this apartment building will undergo inspection this Saturday from 9 AM to 3 PM. During this time, the elevator will be out of service. Please use the stairs. It will be available for use immediately after the inspection is completed. Thank you for your cooperation."
      ]
     }
    }
@@ -317,6 +502,24 @@
      "i18n": {
       "ja": {
        "explain": "「材料はこちらでよういします。エプロンだけ持ってきてください」とあります。"
+      },
+      "ne": {
+       "q": "यो कक्षामा सहभागी हुने व्यक्तिले के लैजान्छन्?",
+       "choices": [
+        "「エプロン」",
+        "「材料」",
+        "पैसा नलैजाने",
+        "「料理の本」"
+       ]
+      },
+      "en": {
+       "q": "What should people who participate in this class bring?",
+       "choices": [
+        "エプロン",
+        "材料",
+        "お金は持たない",
+        "料理の本"
+       ]
       }
      }
     }
@@ -325,6 +528,11 @@
     "ne": {
      "body": [
       "पहिलोपटकको खाना पकाउने कक्षा खोल्दैछौं। हरेक शनिबार दिउँसो २ बजेदेखि हो। सामग्री हामीले तयार गर्छौं। एप्रन मात्र लिएर आउनुहोस्। खाना पकाउन नजान्ने मानिस पनि ठिकै हुन्छ। सजिलैसँग सिकाइनेछ। एक पटकको १,000 येन हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I'm opening my first cooking class. It will be every Saturday from 2 PM. I will prepare the ingredients. Please just bring an apron. Even if you're not good at cooking, it's okay. I will teach you gently. It costs 1,000 yen per session."
      ]
     }
    }
@@ -352,6 +560,24 @@
      "i18n": {
       "ja": {
        "explain": "「夕ごはんはいりません。友だちの家で食べてきます」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले के भन्न चाहन्छ?",
+       "choices": [
+        "बेलुकाको खाना चाहिँदैन",
+        "केक खान मन छ",
+        "छ बजे बाहिर जाने",
+        "गृहकार्यमा मद्दत गर्न चाहन्छ"
+       ]
+      },
+      "en": {
+       "q": "What does this person want to say?",
+       "choices": [
+        "夕ごはんはいらない",
+        "ケーキを食べてほしい",
+        "六時に出かける",
+        "しゅくだいを手伝ってほしい"
+       ]
       }
      }
     }
@@ -360,6 +586,11 @@
     "ne": {
      "body": [
       "आमालाई। साथीको घरमा गृहकार्य गरेर फर्किन्छु। करिब ６ बजेतिर फर्किन्छु जस्तो लाग्छ। फ्रिजमा केक राखिएको छ, तर त्यो मेरो भएकोले नखानुहोस् है। रातिको खाना चाहिँदैन। साथीको घरमा खाएर आउँछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To Mom. I'll come home after doing my homework at my friend's house. I think I'll be home around 6 o'clock. There's a cake in the fridge, but it's mine, so don't eat it. I don't need dinner. I'll eat at my friend's house."
      ]
     }
    }
@@ -387,6 +618,24 @@
      "i18n": {
       "ja": {
        "explain": "「人が少ない冬の町が一番好きです」とあります。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिलाई कुन मौसमको सहर सबैभन्दा मन पर्छ?",
+       "choices": [
+        "जाडो",
+        "गर्मी",
+        "जब स्टेशन बन्यो",
+        "समुद्रमा पौडी खेल्दा"
+       ]
+      },
+      "en": {
+       "q": "Which season's town does this person like the most?",
+       "choices": [
+        "冬",
+        "夏",
+        "駅ができたとき",
+        "海で泳ぐとき"
+       ]
       }
      }
     }
@@ -395,6 +644,11 @@
     "ne": {
      "body": [
       "म बस्ने सहर, समुद्रको नजिकमा छ। गर्मी हुँदा, धेरै मानिसहरू पौडी खेल्न आउँछन्। नयाँ स्टेसन बनेदेखि, टोकियोबाट पनि नजिक भएको छ। जाडोमा मानिस कम भई शान्त हुन्छ। मलाई, मानिस कम भएको जाडोको सहर सबैभन्दा मनपर्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "The town I live in is near the sea. In summer, many people come to swim. Since the new station was built, it has become closer to Tokyo. In winter, there are fewer people and it's quiet. I like the town best in winter when there are fewer people."
      ]
     }
    }
@@ -422,6 +676,24 @@
      "i18n": {
       "ja": {
        "explain": "「小学生以下のお子さんは、おとなといっしょに入ってください」とあります。"
+      },
+      "ne": {
+       "q": "साना बच्चाहरू पौडी खेल्न जाँदा के गर्नुपर्छ?",
+       "choices": [
+        "ठूला मानिसहरूसँगै पौडी खेल्ने",
+        "अकेलै पौडी खेले पनि हुन्छ",
+        "नुहाइ नगरी पौडी खेल्ने",
+        "पौडी पोखरीभित्र दौडे पनि हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What must elementary school children do when entering the pool?",
+       "choices": [
+        "おとなといっしょに入る",
+        "一人で入ってもよい",
+        "シャワーをあびずに入る",
+        "プールの中を走ってもよい"
+       ]
       }
      }
     }
@@ -430,6 +702,11 @@
     "ne": {
      "body": [
       "नगरपालिका पौडी पोखरी प्रयोग गर्नुहुने सबैलाई। सुरक्षाका लागि, पोखरीमा पस्नुअघि, अवश्य सावर नुहाउनुहोस्। साथै, प्राथमिक विद्यालय वा त्योभन्दा कम उमेरका बालबालिका, वयस्कसँगै पस्नुहोस्। एक्लै पस्न पाइँदैन। पोखरीभित्र नदौडनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To all users of the public pool. For safety, please be sure to take a shower before entering the pool. Also, children of elementary school age or younger must enter with an adult. They cannot enter alone. Please do not run in the pool."
      ]
     }
    }
@@ -457,6 +734,24 @@
      "i18n": {
       "ja": {
        "explain": "「会議の時間が午前十時から午後二時に変わりました」とあり、場所は同じです。"
+      },
+      "ne": {
+       "q": "के परिवर्तन भयो?",
+       "choices": [
+        "बैठकको समय",
+        "बैठकको स्थान",
+        "「しりょう」 पठाउने तरिका",
+        "बैठक कोठाको तल्ला"
+       ]
+      },
+      "en": {
+       "q": "What has changed?",
+       "choices": [
+        "会議の時間",
+        "会議の場所",
+        "しりょうの送り方",
+        "会議室の階"
+       ]
       }
      }
     }
@@ -465,6 +760,11 @@
     "ne": {
      "body": [
       "भोलिको बैठकको बारेमा जानकारी गराउँछु। बैठकको समय बिहान １０ बजेबाट दिउँसो２ बजेमा परिवर्तन भएको छ। स्थान पहिलेकै जस्तै ３ तलाको बैठककक्ष हो। सामग्री बैठकअघि इमेलद्वारा पठाउनेछु। प्रिन्ट गरेर लिएर आउनुहोस्। धन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I am contacting you about tomorrow's meeting. The meeting time has changed from 10:00 AM to 2:00 PM. The location is the same as before, the meeting room on the third floor. The materials will be sent by email before the meeting. Please print them out and bring them with you. Thank you."
      ]
     }
    }
@@ -492,6 +792,24 @@
      "i18n": {
       "ja": {
        "explain": "「雨の場合は、次の週の日曜日にします」とあります。"
+      },
+      "ne": {
+       "q": "पानी परेमा के हुन्छ?",
+       "choices": [
+        "अर्को हप्ताको आइतबार गर्ने",
+        "त्यसैगरी दोस्रो आइतबार गर्ने",
+        "त्यो दिन रद्द गरी नगर्ने",
+        "भित्र सारेर गर्ने"
+       ]
+      },
+      "en": {
+       "q": "What will happen if it rains?",
+       "choices": [
+        "次の週の日曜日にする",
+        "そのまま第二日曜日に行う",
+        "その日は中止にして行わない",
+        "室内に変えて行う"
+       ]
       }
      }
     }
@@ -500,6 +818,11 @@
     "ne": {
      "body": [
       "यस वर्ष पनि खेलकुद प्रतियोगिता आयोजना गरिनेछ। अर्को महिनाको दोस्रो आइतबार हो। दौडमा छिटो हुने पनि, ढिलो हुने पनि, सबैले मिलेर रमाइलो गरौं। सजिलैसँग हिँडडुल गर्न मिल्ने लुगा र जुत्ता तयार गर्नुहोस्। पानी परेको खण्डमा, अर्को हप्ताको आइतबार गरिनेछ। सोही दिन पिउने कुरा धेरै लिएर आउनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This year, we will hold a sports festival again. It will be on the second Sunday of next month. Let's all have fun, whether you are a fast runner or a slow one. Please prepare comfortable clothes and shoes. In case of rain, it will be held on the following Sunday. Please bring plenty of drinks on the day."
      ]
     }
    }
@@ -527,6 +850,24 @@
      "i18n": {
       "ja": {
        "explain": "もえるごみは火・金の朝八時までなので、金曜日の朝七時が正しいです。"
+      },
+      "ne": {
+       "q": "जल्ने फोहोरलाई सही तरिकाले फाल्न मिल्ने कुन हो?",
+       "choices": [
+        "शुक्रबार बिहान सात बजे",
+        "मंगलबार बिहान नौ बजे",
+        "बुधबार बिहान आठ बजे",
+        "शुक्रबार दिउँसो"
+       ]
+      },
+      "en": {
+       "q": "Which of the following correctly describes when \"もえるごみ\" (burnable trash) can be put out?",
+       "choices": [
+        "Friday morning at 7 o'clock",
+        "Tuesday morning at 9 o'clock",
+        "Wednesday morning at 8 o'clock",
+        "Friday afternoon"
+       ]
       }
      }
     }
@@ -535,6 +876,11 @@
     "ne": {
      "body": [
       "एपार्टमेन्टमा बस्नुहुने सबैलाई। जल्ने फोहोर मङ्गलबार र शुक्रबार बिहान आठ बजेभित्र निकाल्नुहोस्। आठ बजे नाघेपछि, त्यस दिन फोहोर उठाइने छैन। बोतल र क्यान बुधबार हो। फोहोर तोकिएको ठाउँमा राख्नुहोस्। फरक ठाउँमा नराख्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To all residents of the apartment. Please put out burnable trash by 8:00 AM on Tuesdays and Fridays. If you put it out after 8:00 AM, it will not be collected on that day. Bottles and cans are on Wednesdays. Please put out trash in the designated area. Please do not put it out in a different location."
      ]
     }
    }
@@ -562,6 +908,24 @@
      "i18n": {
       "ja": {
        "explain": "「早い時間に行くのがおすすめ」とあり、お昼には売り切れることが多いです。"
+      },
+      "ne": {
+       "q": "यो बेकरीको बारेमा सही कुरा कुन हो?",
+       "choices": [
+        "बिहान सबेरै जानु राम्रो हुन्छ",
+        "रातिसम्म खुल्ला रहन्छ",
+        "आइतबार पनि खुल्ला रहन्छ",
+        "दिउँसो जानु राम्रो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is true about this bakery?",
+       "choices": [
+        "It's good to go early in the morning.",
+        "It's open until night.",
+        "It's open on Sundays too.",
+        "It's good to go at noon."
+       ]
       }
      }
     }
@@ -570,6 +934,11 @@
     "ne": {
      "body": [
       "स्टेशनको अगाडि नयाँ बेकरी खुलेको छ। बिहान सात बजेदेखि खुल्छ, र बिहान सबेरैदेखि ताजा पकाइएको रोटी किन्न सकिन्छ। धेरैजसो दिउँसोतिर सामान सकिन्छ। छिटो समयमा जानु राम्रो हुन्छ। आइतबार बिदा हुन्छ, त्यसैले याद राख्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "A new bakery has opened in front of the station. It opens at 7:00 AM, so you can buy freshly baked bread early in the morning. It often sells out around noon. It is recommended to go early. Please note that it is closed on Sundays."
      ]
     }
    }
@@ -597,6 +966,24 @@
      "i18n": {
       "ja": {
        "explain": "「サイズが分からない人は、わたし（店長）に聞いてください」とあります。"
+      },
+      "ne": {
+       "q": "साइज थाहा नभएका मानिसहरूले के गर्छन्?",
+       "choices": [
+        "पसलको प्रबन्धकलाई सोध्ने",
+        "कागजमा नलेख्ने",
+        "पुरानो युनिफर्म प्रयोग गर्ने",
+        "शुक्रबारसम्म पर्खने"
+       ]
+      },
+      "en": {
+       "q": "What should people who don't know their size do?",
+       "choices": [
+        "Ask the store manager.",
+        "Don't write it on paper.",
+        "Use an old uniform.",
+        "Wait until Friday."
+       ]
       }
      }
     }
@@ -605,6 +992,11 @@
     "ne": {
      "body": [
       "पार्ट-टाइम कामदार सबैलाई। आउँदो हप्तादेखि युनिफर्म नयाँ हुनेछ। पुरानो युनिफर्म आउँदो शुक्रबारसम्म फिर्ता गर्नुहोस्। नयाँ युनिफर्मको साइज कागजमा नाम र साइज लेखेर पेश गर्नुहोस्। साइज थाहा नभएकाहरूले मलाई सोध्नुहोस्। पसल प्रबन्धक"
+     ]
+    },
+    "en": {
+     "body": [
+      "To all part-time staff. New uniforms will be introduced starting next week. Please return your old uniforms by next Friday. For new uniforms, please write your name and size on a piece of paper and submit it. If you don't know your size, please ask me. Store Manager"
      ]
     }
    }
@@ -632,6 +1024,24 @@
      "i18n": {
       "ja": {
        "explain": "「十二時から二時までは受付はお休み」なので午後一時はできません。"
+      },
+      "ne": {
+       "q": "दिउँसो एक बजे स्वागत गर्न सकिन्छ?",
+       "choices": [
+        "बिदा भएकोले सकिँदैन",
+        "सकिन्छ",
+        "आरक्षण भएमा सकिन्छ",
+        "बीमा कार्ड भएमा सकिन्छ"
+       ]
+      },
+      "en": {
+       "q": "Can I register at 1 PM?",
+       "choices": [
+        "No, because it's a holiday.",
+        "Yes, you can.",
+        "Yes, if you have a reservation.",
+        "Yes, if you have your health insurance card."
+       ]
       }
      }
     }
@@ -640,6 +1050,11 @@
     "ne": {
      "body": [
       "यस अस्पतालमा, बिहान साढे आठ बजेदेखि रिसेप्शन सुरु हुन्छ। दिउँसो दुई बजेदेखि सुरु हुन्छ। दिउँसो बाह्र बजेदेखि दुई बजेसम्म रिसेप्शन बन्द हुन्छ। पहिलोपटक आउनेहरूले बीमा कार्ड लिएर आउनुहोस्। एपोइन्टमेन्ट नभए पनि जाँच गराउन सकिन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "At our hospital, reception hours begin at 8:30 AM in the morning. In the afternoon, they begin at 2:00 PM. Reception is closed from 12:00 PM to 2:00 PM for lunch. First-time visitors, please bring your health insurance card. You can be seen without an appointment."
      ]
     }
    }
@@ -667,6 +1082,24 @@
      "i18n": {
       "ja": {
        "explain": "「行ける人は、水曜日までに返事をください」とあります。"
+      },
+      "ne": {
+       "q": "जान चाहनेहरूले कहिलेसम्म जवाफ दिन्छन्?",
+       "choices": [
+        "बुधवारसम्म",
+        "लामो बिदासम्म",
+        "त्यो दिनको बिहान",
+        "साँझसम्म"
+       ]
+      },
+      "en": {
+       "q": "By when should people who want to go reply?",
+       "choices": [
+        "By Wednesday",
+        "By the long holiday",
+        "On the morning of the day",
+        "By evening"
+       ]
       }
      }
     }
@@ -675,6 +1108,11 @@
     "ne": {
      "body": [
       "आउने लामो बिदामा, पहाडमा हाइकिङ जाने हो? बिहान सबेरै निस्केर साँझसम्म फर्किने योजना छ। खाजा पहाडको माथि खानेछौं। हिँड्न सजिलो जुत्ता लगाएर आउनुहोस्। जान सक्नेहरूले बुधबारसम्म जवाफ दिनुहोस्। पर्खिरहेको छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Would you like to go hiking in the mountains during the upcoming long weekend? We plan to leave early in the morning and return by evening. Let's eat our lunch at the top of the mountain. Please come in comfortable walking shoes. If you can make it, please reply by Wednesday. I'm looking forward to it."
      ]
     }
    }
@@ -702,6 +1140,24 @@
      "i18n": {
       "ja": {
        "explain": "「お金はかかりません」とあり、木曜の夜に開いています。"
+      },
+      "ne": {
+       "q": "यो 「日本語クラブ」 बारे सही कुरा कुन हो?",
+       "choices": [
+        "पैसा लाग्दैन",
+        "हरेक दिन खुल्छ",
+        "सिपालु मानिसहरू मात्र आउन सक्छन्",
+        "दिउँसो खुल्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is true about this Japanese club?",
+       "choices": [
+        "It doesn't cost money.",
+        "It's open every day.",
+        "Only skilled people can come.",
+        "It's open in the afternoon."
+       ]
       }
      }
     }
@@ -710,6 +1166,11 @@
     "ne": {
      "body": [
       "यो विदेशबाट आएका मानिसहरूका लागि जापानी भाषा क्लब हो। हरेक हप्ता बिहीबार साँझ, स्थानीय सेन्टरमा सञ्चालन हुन्छ। कुनै पैसा लाग्दैन। जापानी भाषा अलिकति मात्र बोल्न सक्नेहरू पनि आउन सक्नुहुन्छ। जापानी स्वयंसेवकहरूले राम्रोसँग सिकाउनुहुन्छ। साथीहरू पनि बन्नेछन्। अवश्य आउनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is a Japanese club for people from overseas. It is held every Thursday evening at the community center. There is no charge. Even if you can only speak a little Japanese, it's fine. Japanese volunteers will teach kindly. You can also make friends. Please come and join us!"
      ]
     }
    }
@@ -737,6 +1198,24 @@
      "i18n": {
       "ja": {
        "explain": "「使っていない古い自転車は、来月までに持って帰ってください」とあります。"
+      },
+      "ne": {
+       "q": "पुरानो साइकल के गर्नुपर्छ?",
+       "choices": [
+        "अर्को महिनासम्म घर लैजानुपर्छ",
+        "तोकिएको रेखा बाहिर रोक्नुपर्छ",
+        "टाँसिएको नामको कागज हटाउनुपर्छ",
+        "त्यसै सधैं राखिरहनुपर्छ"
+       ]
+      },
+      "en": {
+       "q": "What should I do with the old bicycle?",
+       "choices": [
+        "Take it home by next month",
+        "Park it outside the designated line",
+        "Peel off the name tag that is stuck on it",
+        "Leave it as it is forever"
+       ]
       }
      }
     }
@@ -745,6 +1224,11 @@
     "ne": {
      "body": [
       "मंसनको साइकल राख्ने ठाउँको बारेमा अनुरोध। साइकल तोकिएको धर्साभित्र राख्नुहोस्। धर्साबाहिर राख्दा अरूलाई असजिलो हुन्छ। प्रयोग नगरिएका पुराना साइकलहरू आउँदो महिनासम्म लगेर जानुहोस्। नाम लेखिएको कागज टाँसिएको हुनेछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is a request regarding the bicycle parking area at the apartment building. Please park your bicycles within the designated lines. If you park outside the lines, it will inconvenience others. Please take home any old bicycles you are not using by next month. We will put a paper with your name on it."
      ]
     }
    }
@@ -772,6 +1256,24 @@
      "i18n": {
       "ja": {
        "explain": "「お客さんに『ありがとう』と言われると、うれしい」とあります。"
+      },
+      "ne": {
+       "q": "आमा कस्तो बेला खुसी हुनुहुन्छ भन्नुहुन्छ?",
+       "choices": [
+        "ग्राहकले धन्यवाद भनेको बेला",
+        "बिहान सबेरै बजारमा फूल किन्न जाँदा",
+        "घरभित्र फूल सजाउँदा",
+        "गाह्रो काम सकिएको बेला"
+       ]
+      },
+      "en": {
+       "q": "When does the mother say she is happy?",
+       "choices": [
+        "When customers thank her",
+        "When she goes to the market early in the morning to buy flowers",
+        "When she decorates the house with flowers",
+        "When a difficult job is finished"
+       ]
       }
      }
     }
@@ -780,6 +1282,11 @@
     "ne": {
      "body": [
       "मेरी आमा फूल पसलमा काम गर्नुहुन्छ। बिहान सबेरै बजारमा ताजा फूल किन्न जानुहुन्छ। आमालाई फूल धेरै मन पर्छ, घरमा पनि सधैं फूल सजाइएको हुन्छ। काम गाह्रो छ, तर ग्राहकहरूले धन्यवाद भन्दा खुसी लाग्छ भन्नुहुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My mother works at a flower shop. Early in the morning, she goes to the market to buy fresh flowers. My mother loves flowers very much, and there are always flowers displayed in our house. She says that although her job is tough, she is happy when customers say \"thank you\" to her."
      ]
     }
    }
@@ -807,6 +1314,24 @@
      "i18n": {
       "ja": {
        "explain": "「土曜日と日曜日は本数が少なく、朝と夕方しか走りません」とあります。"
+      },
+      "ne": {
+       "q": "शनिबारको बसबारे सही कुरा कुन हो?",
+       "choices": [
+        "बिहान र साँझ मात्र चल्छ",
+        "एक घण्टामा दुईवटा हुन्छ",
+        "हरेक घण्टाको तीस मिनेटमा छुट्छ",
+        "साताका दिनहरू भन्दा धेरै हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is true about the bus on Saturday?",
+       "choices": [
+        "It only runs in the morning and evening",
+        "There are two buses per hour",
+        "It departs at '三十分' past every hour",
+        "There are more buses than on weekdays"
+       ]
       }
      }
     }
@@ -815,6 +1340,11 @@
     "ne": {
      "body": [
       "स्टेशनअगाडिबाट अस्पताल जाने बस घण्टाको एउटा मात्र छ। हरेक घण्टाको तीस मिनेटमा प्रस्थान हुन्छ। शनिबार र आइतबार बसको संख्या कम हुन्छ। बिहान र साँझ मात्र चल्छ। नबिराउन राम्रोसँग समय जाँचेर आउनुहोस्। बस छुट्नबाट जोगिऔं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "The bus from the station square to the hospital runs once an hour. It departs at thirty minutes past every hour. On Saturdays and Sundays, the number of buses decreases. It only runs in the morning and evening. Please check the times carefully before coming so you don't make a mistake. Let's make sure not to miss the bus."
      ]
     }
    }
@@ -842,6 +1372,24 @@
      "i18n": {
       "ja": {
        "explain": "「この電話を聞いたら、わたしのけいたいに連絡してください」とあります。"
+      },
+      "ne": {
+       "q": "B ले A लाई के गर्न चाहन्छ?",
+       "choices": [
+        "「けいたい」に連絡する",
+        "「出張」に行く",
+        "「打ち合わせ」をやめる",
+        "「時間」を変える"
+       ]
+      },
+      "en": {
+       "q": "What does B want A to do?",
+       "choices": [
+        "Contact them on their cell phone",
+        "Go on a business trip",
+        "Cancel the meeting",
+        "Change the time"
+       ]
       }
      }
     }
@@ -850,6 +1398,11 @@
     "ne": {
      "body": [
       "तानाका जी, म यामादा हुँ। भोलिको बैठकको बारेमा हो, अचानक व्यापारिक यात्रा पर्न गयो। त्यसैले, त्यसको भोलिपल्टमा सार्न मिल्छ कि? समय उही राखे हुन्छ। यो फोन सुन्नुभएपछि, मेरो मोबाइलमा सम्पर्क गर्नुहोस्। अनुरोध छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To Mr. A and Mr. B. Regarding tomorrow's meeting, I suddenly have a business trip. So, would it be possible to change it to the day after tomorrow? The time can remain the same. Please contact my mobile phone after listening to this message. Thank you."
      ]
     }
    }
@@ -877,6 +1430,24 @@
      "i18n": {
       "ja": {
        "explain": "「ゆかたを着て来る人には、ジュースを一本プレゼントします」とあります。"
+      },
+      "ne": {
+       "q": "कुन व्यक्तिले जुस पाउँछ?",
+       "choices": [
+        "「ゆかた」を着て来た人",
+        "「花火」を見た人",
+        "午後 पाँच बजे आएको व्यक्ति",
+        "खेल खेलेको व्यक्ति"
+       ]
+      },
+      "en": {
+       "q": "Who can get juice?",
+       "choices": [
+        "People who came wearing a 'ゆかた'",
+        "People who watched the fireworks",
+        "People who came at '午後五時'",
+        "People who played games"
+       ]
       }
      }
     }
@@ -885,6 +1456,11 @@
     "ne": {
      "body": [
       "यस वर्षको गर्मी चाड आउँदो महिनाको शनिबार पार्कमा आयोजना हुनेछ। दिउँसो पाँच बजेदेखि राति नौ बजेसम्म हुनेछ। खानेकुरा र खेलका धेरै पसलहरू हुनेछन्। राति आठ बजेदेखि आतिशबाजी सुरु हुनेछ। युकाता लगाएर आउनेहरूलाई एक बोतल जुस उपहार दिइनेछ। सबैजना अवश्य आउनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This year's summer festival will be held at the park next month on Saturday. It will be from 5 PM to 9 PM. There will be many food stalls and game booths. Fireworks will start at 8 PM. Those who come wearing a yukata will receive a free juice. Everyone, please come and join us!"
      ]
     }
    }
@@ -912,6 +1488,24 @@
      "i18n": {
       "ja": {
        "explain": "店が休みになったので別の店に変えると書いており、時間は同じだと述べている。"
+      },
+      "ne": {
+       "q": "यो इमेलमा सबैभन्दा महत्त्वपूर्ण कुरा के हो?",
+       "choices": [
+        "「飲み会」の店が変わったこと",
+        "「飲み会」の時間が変わったこと",
+        "「飲み会」が休みになったこと",
+        "「飲み会」にAさんが来ないこと"
+       ]
+      },
+      "en": {
+       "q": "What is the most important thing to convey in this email?",
+       "choices": [
+        "That the restaurant for the drinking party has changed",
+        "That the time of the drinking party has changed",
+        "That the drinking party has been canceled",
+        "That A will not come to the drinking party"
+       ]
       }
      }
     }
@@ -920,6 +1514,11 @@
     "ne": {
      "body": [
       "तानाका जी, आउँदो शुक्रबारको पार्टीको बारेमा हो, स्टेशन अगाडिको पसल बन्द भएको छ। त्यसैले, उत्तरी गेटबाट निस्केर अलि हिँडेपछि पर्ने「आओजोरा」भन्ने पसलमा सार्छौं। समय पहिलेजस्तै ७ बजे नै हो। म नक्सा पठाउँछु है। कृपया मिलाउनुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Mr./Ms. A, regarding next Friday's get-together, the restaurant in front of the station is closed. So, we will change to a restaurant called \"Aozora,\" which is a short walk from the North Exit. The time remains the same, 7 PM. I will send you a map. Thank you for your understanding."
      ]
     }
    }
@@ -947,6 +1546,24 @@
      "i18n": {
       "ja": {
        "explain": "点検中はエレベーターが止まるので階段を使うようにと書かれている。"
+      },
+      "ne": {
+       "q": "भोलि बिहान बासिन्दाहरूले के गर्नुपर्छ?",
+       "choices": [
+        "सिँढी प्रयोग गर्ने",
+        "लिफ्ट प्रयोग गर्ने",
+        "बाहिर ननिस्कने",
+        "व्यवस्थापकलाई बोलाउने"
+       ]
+      },
+      "en": {
+       "q": "What should residents do tomorrow morning?",
+       "choices": [
+        "Use the stairs",
+        "Use the elevator",
+        "Do not go outside",
+        "Call the caretaker"
+       ]
       }
      }
     }
@@ -955,6 +1572,11 @@
     "ne": {
      "body": [
       "सबै बासिन्दाहरूलाई। भोलि ३ जुलाईको बिहान ९ बजेदेखि दिउँसो १२ बजेसम्म, निरीक्षणका लागि लिफ्ट बन्द गरिनेछ। सो समयमा कृपया भर्‍याङ प्रयोग गर्नुहोस्। असुविधाको लागि क्षमा चाहन्छौं, तर यो सुरक्षाका लागि हो, कृपया सहयोग गर्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To all residents: Tomorrow, July 3rd, from 9 AM to 12 PM, the elevators will be stopped for inspection. During this time, please use the stairs. We apologize for any inconvenience this may cause, but we ask for your cooperation for safety reasons."
      ]
     }
    }
@@ -982,6 +1604,24 @@
      "i18n": {
       "ja": {
        "explain": "犬が行きたそうにしていたので散歩に行ったと書かれている。虹は帰るころに見えたもの。"
+      },
+      "ne": {
+       "q": "म किन घुम्न गएँ?",
+       "choices": [
+        "कुकुर जान चाहन्थ्यो जस्तो लाग्यो",
+        "इन्द्रेणी हेर्न चाहन्थें",
+        "पानी रोकिएको थियो",
+        "छाता किनेको थिएँ"
+       ]
+      },
+      "en": {
+       "q": "Why did I go for a walk?",
+       "choices": [
+        "Because the dog seemed to want to go",
+        "Because I wanted to see a rainbow",
+        "Because the rain had stopped",
+        "Because I bought an umbrella"
+       ]
       }
      }
     }
@@ -990,6 +1630,11 @@
     "ne": {
      "body": [
       "आज बिहानैदेखि पानी परिरहेको थियो, त्यसैले बाहिर नजाने सोचेको थिएँ। तर कुकुर घुमाउन जान चाहेजस्तो देखिएकोले, छाता ओढेर पार्कसम्म गएँ। फर्कने बेलासम्म पानी रोकिइसकेको थियो र आकाशमा सानो इन्द्रेणी देखिन्थ्यो। गएकोमा राम्रो भयो जस्तो लाग्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "It had been raining since morning today, so I thought about not going out. But my dog looked like he wanted to go for a walk, so I took an umbrella and went to the park. By the time we were heading home, the rain had stopped, and a small rainbow appeared in the sky. I was glad I went."
      ]
     }
    }
@@ -1017,6 +1662,24 @@
      "i18n": {
       "ja": {
        "explain": "赤いボタンは止めるときだけ使うと説明されている。"
+      },
+      "ne": {
+       "q": "रातो बटन कहिले प्रयोग गरिन्छ?",
+       "choices": [
+        "मेसिन रोक्दा",
+        "पावर अन गर्दा",
+        "आवाज निकाल्दा",
+        "पावर अफ गर्दा"
+       ]
+      },
+      "en": {
+       "q": "When do you use the red button?",
+       "choices": [
+        "When stopping the machine",
+        "When turning on the power",
+        "When making a sound",
+        "When turning off the power"
+       ]
       }
      }
     }
@@ -1025,6 +1688,11 @@
     "ne": {
      "body": [
       "यो मेसिन प्रयोग गर्दा, पहिले हरियो बटन थिचेर पावर अन गर्नुहोस्। रातो बटन रोक्नका लागि मात्र प्रयोग गरिन्छ। चलिरहेको बेला रातो बटन थिच्दा, तुरुन्तै रोकिन्छ र अलि आवाज आउँछ, तर बिग्रेको होइन, त्यसैले चिन्ता गर्नु पर्दैन।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When using this machine, first press the green button to turn on the power. The red button is only used to stop it. If you press the red button while it is running, it will stop immediately and make a slight sound, but it is not broken, so there is no need to worry."
      ]
     }
    }
@@ -1052,6 +1720,24 @@
      "i18n": {
       "ja": {
        "explain": "白い線の中に前を入れてまっすぐとめるよう書かれている。"
+      },
+      "ne": {
+       "q": "यो पार्किङ स्थलको सही प्रयोग कुन हो?",
+       "choices": [
+        "सेतो रेखा भित्र सिधा पार्किङ गर्ने",
+        "जुनसुकै दिशामा पनि स्वतन्त्र रूपमा पार्किङ गर्न सकिन्छ",
+        "लामो समयसम्म पार्किङ गर्ने",
+        "किनमेल नगर्ने मानिसहरूले पनि पार्किङ गर्न सक्छन्"
+       ]
+      },
+      "en": {
+       "q": "Which is the correct way to use this parking space?",
+       "choices": [
+        "Park straight within the white lines",
+        "You can park freely in any direction you like",
+        "Park for a long time",
+        "People who are not shopping can also park"
+       ]
       }
      }
     }
@@ -1060,6 +1746,11 @@
     "ne": {
      "body": [
       "यो पसलका ग्राहकहरूका लागि साइकल राख्ने ठाउँ हो। किनमेल नगर्ने व्यक्तिले साइकल नराख्नुहोस्। राख्दा, अगाडिको भाग सेतो धर्काभित्र पारेर सीधा राख्नुहोस्। यो सबैले प्रयोग गर्ने ठाउँ भएकोले, लामो समयसम्म राखिराख्नु नगरौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is a bicycle parking area for store customers. Please do not park here if you are not shopping. When parking, please put the front wheel within the white line and park straight. This is a shared space, so please avoid parking for long periods."
      ]
     }
    }
@@ -1087,6 +1778,24 @@
      "i18n": {
       "ja": {
        "explain": "テーマは自由か確認しつつ、特に長さが決まっているか教えてほしいと聞いている。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले शिक्षकलाई के सोध्न चाहन्छ?",
+       "choices": [
+        "के निबन्धको लम्बाइ निश्चित छ?",
+        "निबन्धको विषय के हो?",
+        "गृहकार्य बुझाउने दिन कहिले हो?",
+        "के परिवारको बारेमा लेख्न सकिन्छ?"
+       ]
+      },
+      "en": {
+       "q": "What does this person want to ask the teacher?",
+       "choices": [
+        "Whether the length of the essay is decided",
+        "What is the theme of the essay?",
+        "When is the day to submit homework?",
+        "Whether it is okay to write about family"
+       ]
       }
      }
     }
@@ -1095,6 +1804,11 @@
     "ne": {
      "body": [
       "नमस्ते सर/म्याम। आउँदो हप्ताको निबन्धको गृहकार्यको बारेमा सोध्न चाहन्छु। विषय स्वतन्त्र राख्दा हुन्छ कि? मैले परिवारको बारेमा लेख्न चाहेको छु। लम्बाइ तोकिएको छ कि? यदि तोकिएको छ भने कृपया बताउनुहोस्। धन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Hello, teacher. I have a question about next week's essay homework. Is it okay to choose any theme? I would like to write about my family. Is there a set length? If so, please let me know. Thank you."
      ]
     }
    }
@@ -1122,6 +1836,24 @@
      "i18n": {
       "ja": {
        "explain": "ふだん月曜は開いているが、第３月曜だけ休むので注意と書かれている。"
+      },
+      "ne": {
+       "q": "यो सूचनामा सबैभन्दा बढी ध्यान दिनुपर्ने कुरा के हो?",
+       "choices": [
+        "तेस्रो सोमबार बिदा हुनेछ",
+        "पुस्तकालय सधैं सोमबार बन्द हुन्छ",
+        "यो महिनाभरि बन्द हुनेछ",
+        "किताबहरू उधारो लिन नसकिने"
+       ]
+      },
+      "en": {
+       "q": "What is the most important thing to be careful about in this notice?",
+       "choices": [
+        "That the third Monday is a holiday",
+        "That the library is always closed on Mondays",
+        "That it is closed all month",
+        "That you will not be able to borrow books"
+       ]
       }
      }
     }
@@ -1130,6 +1862,11 @@
     "ne": {
      "body": [
       "नगर पुस्तकालयबाट सूचना। यस महिना किताबहरूको व्यवस्थापनका लागि, तेस्रो सोमबार बिदा हुनेछ। सामान्यतया सोमबार पनि खुला हुन्छ, तर सोही दिन मात्र बन्द हुने भएकोले ध्यान दिनुहोला। अर्को हप्तादेखि फेरि सामान्यजस्तै खुला हुनेछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is an announcement from the Municipal Library. This month, due to book reorganization, we will be closed on the third Monday. Although we are usually open on Mondays, please note that we will be closed only on that day. From the following week, we will resume normal operating hours."
      ]
     }
    }
@@ -1157,6 +1894,24 @@
      "i18n": {
       "ja": {
        "explain": "少し焦がしたが自分で作ったカレーはおいしく感じたと書かれている。"
+      },
+      "ne": {
+       "q": "मैले करी बनाएर कस्तो महसुस गरें?",
+       "choices": [
+        "आफैंले बनाएकोले स्वादिष्ट लाग्यो",
+        "धेरै गाह्रो भएकोले फेरि बनाउन चाहन्नँ",
+        "सोचेभन्दा सजिलो र आरामदायी थियो",
+        "तरकारी काट्न मन पर्न थाल्यो"
+       ]
+      },
+      "en": {
+       "q": "What did I think after making curry?",
+       "choices": [
+        "I felt it was delicious because I made it myself.",
+        "It was so much work that I don't want to make it again.",
+        "It was easier and more enjoyable than I thought.",
+        "I started to like cutting vegetables."
+       ]
       }
      }
     }
@@ -1165,6 +1920,11 @@
     "ne": {
      "body": [
       "आज पहिलोपटक एक्लै करी बनाएँ। तरकारी काट्न समय लाग्यो, सोचेभन्दा गाह्रो भयो। अलिकति डढेको थियो, तर आफैंले बनाएको करी एकदमै मीठो लाग्यो। अर्कोपटक अझ छिटो बनाउन सक्ने प्रयास गर्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Today, I made curry by myself for the first time. It took a long time to cut the vegetables, and it was harder than I expected. I burned it a little, but the curry I made myself tasted very delicious. Next time, I want to try my best to make it faster."
      ]
     }
    }
@@ -1192,6 +1952,24 @@
      "i18n": {
       "ja": {
        "explain": "忘れたら気づいたときに飲んでよいが、まとめて二つは飲んではいけないと書かれている。"
+      },
+      "ne": {
+       "q": "औषधि खान बिर्सिएमा के गर्ने?",
+       "choices": [
+        "याद आएपछि एउटा खाने",
+        "अर्को पटक खाँदा दुईवटा खाने",
+        "त्यो दिन अब नखाने",
+        "पानीको सट्टा चियासँग खाने"
+       ]
+      },
+      "en": {
+       "q": "What should you do if you forget to take your medicine?",
+       "choices": [
+        "Take one when you notice.",
+        "Take two the next time you take it.",
+        "Don't take any more for that day.",
+        "Take it with tea instead of water."
+       ]
       }
      }
     }
@@ -1200,6 +1978,11 @@
     "ne": {
      "body": [
       "यो औषधि बिहान र राति खाना खाएपछि सेवन गर्नुहोस्। एक पटकमा एउटा मात्र। यदि खान बिर्सनुभयो भने, याद आउनासाथ खानुहोस्। तर एकैचोटि दुईवटा नखानुहोस्। पानी वा तातो पानीसँग सेवन गर्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Please take this medicine after breakfast and dinner. Take one at a time. If you forget to take it, you may take it when you remember. However, do not take two at once. Please take it with water or hot water."
      ]
     }
    }
@@ -1227,6 +2010,24 @@
      "i18n": {
       "ja": {
        "explain": "入る前にかならずシャワーをあびるように書かれている。"
+      },
+      "ne": {
+       "q": "पौडी खेल्नुअघि के गर्नुपर्छ?",
+       "choices": [
+        "नुहाउने",
+        "वरिपरि दौडने",
+        "पानी सफा गर्ने",
+        "जुत्ता फुकाल्ने"
+       ]
+      },
+      "en": {
+       "q": "What should you do before entering the pool?",
+       "choices": [
+        "Take a shower.",
+        "Run around the pool.",
+        "Clean the water.",
+        "Take off your shoes."
+       ]
       }
      }
     }
@@ -1235,6 +2036,11 @@
     "ne": {
      "body": [
       "पौडी पोखरीमा पस्नुअघि अनिवार्य रूपमा शावर लिनुहोस्। शरीर सफा गरेर पसेमा पानी फोहोर हुनबाट जोगिन्छ। साथै, दौडँदा खतरा हुने भएकोले पोखरीको वरिपरि हिँड्नुहोस्। सबैले सुखपूर्वक प्रयोग गर्न सकून् भनेर सहयोग गर्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Before entering the pool, please be sure to take a shower. By cleaning your body before entering, the water will be less likely to get dirty. Also, it is dangerous to run, so please walk around the pool. Please cooperate so that everyone can use it comfortably."
      ]
     }
    }
@@ -1262,6 +2068,24 @@
      "i18n": {
       "ja": {
        "explain": "前から食べてみたかったおかしをもらったのでうれしかったと書かれている。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति किन खुसी थियो?",
+       "choices": [
+        "किनभने यो एउटा \"おかし\" थियो जुन उसले पहिलेदेखि नै खान चाहन्थ्यो।",
+        "किनभने परिवारका सबै सदस्यहरू यात्रामा गएका थिए।",
+        "किनभने उसले आफैंले पसल छानेर किनेको थियो।",
+        "किनभने यो एउटा यस्तो चीज थियो जुन दुर्लभ पसलहरूमा मात्र किन्न सकिन्छ।"
+       ]
+      },
+      "en": {
+       "q": "Why was this person happy?",
+       "choices": [
+        "Because it was a snack they had wanted to try for a long time.",
+        "Because the whole family went on a trip together.",
+        "Because they chose the store and bought it themselves.",
+        "Because it was something that could only be bought at a rare store."
+       ]
       }
      }
     }
@@ -1270,6 +2094,11 @@
     "ne": {
      "body": [
       "हिजो यात्राको उपहारका लागि धन्यवाद। त्यो मिठाई पहिलेदेखि खाने इच्छा भएको थियो, त्यसैले धेरै खुसी लाग्यो। परिवारलाई पनि बाँडेको थिएँ, सबैले “मीठो छ” भने। अर्कोपटक म पनि कतै गएँ भने उपहार किनेर ल्याउँला है।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Thank you for the souvenir from your trip yesterday. I had wanted to try that snack for a while, so I was very happy. When I shared it with my family, everyone said it was delicious. Next time, if I go somewhere, I'll buy you a souvenir too."
      ]
     }
    }
@@ -1297,6 +2126,24 @@
      "i18n": {
       "ja": {
        "explain": "当日の朝に届くメールを見てから作るよう、早く作りすぎないようにと書かれている。"
+      },
+      "ne": {
+       "q": "\"お弁当\" कहिले बनाउनुपर्छ?",
+       "choices": [
+        "त्यही दिन बिहान इमेल हेरेपछि।",
+        "सुरुको योजना अनुसार पर्सिपल्ट बिहान।",
+        "शनिबार बिहान, पानी परे पनि रद्द नहुने।",
+        "अघिल्लो दिन राति नै चाँडै।"
+       ]
+      },
+      "en": {
+       "q": "When should I make the bento?",
+       "choices": [
+        "On the morning of the day, after checking the email.",
+        "On the morning of the day after tomorrow, as originally planned.",
+        "On Saturday morning, even if it rains, it won't be canceled.",
+        "Early on the night before."
+       ]
       }
      }
     }
@@ -1305,6 +2152,11 @@
     "ne": {
      "body": [
       "पर्सि हुने योजनाबद्ध खेलकुद प्रतियोगिता, पानी पर्ने पूर्वानुमानका कारण, शनिबारमा सारिनेछ। शनिबार पनि पानी परे, आउँदो हप्ताको आइतबारमा गरिनेछ। खाजा（बेन्तो）सोही दिन बिहान पठाइने सूचना इमेल हेरेपछि मात्र बनाउनुहोस्। धेरै अगाडि नबनाउनुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "The sports day scheduled for the day after tomorrow will be moved to Saturday due to the rain forecast. If it rains on Saturday as well, it will be held next Sunday. Please make your bento lunch after checking the email that will be sent on the morning of the event. Please do not make it too early."
      ]
     }
    }
@@ -1332,6 +2184,24 @@
      "i18n": {
       "ja": {
        "explain": "前に同じことをしてことわられて恥ずかしかったので、勇気がいったと書かれている。"
+      },
+      "ne": {
+       "q": "आज मलाई आवाज दिन किन हिम्मत लाग्यो?",
+       "choices": [
+        "किनभने पहिले अस्वीकार गरिएको थियो।",
+        "किनभने रेल धेरै भीडभाड थियो।",
+        "किनभने वृद्ध व्यक्तिहरूको संख्या धेरै थियो।",
+        "किनभने म मूलतः लजालु छु।"
+       ]
+      },
+      "en": {
+       "q": "Why did it take courage for me to speak up today?",
+       "choices": [
+        "Because I had been refused before.",
+        "Because the train was very crowded.",
+        "Because there were many elderly people.",
+        "Because I am shy by nature."
+       ]
       }
      }
     }
@@ -1340,6 +2210,11 @@
     "ne": {
      "body": [
       "आज रेलमा बुढाबुढीलाई सिट छोडिदिएँ। पहिले पनि यस्तै गर्दा अस्वीकार गरिएको थियो र अलि लाज लागेको थियो, त्यसैले बोल्न साहस चाहिएको थियो। तर आज “धन्यवाद” भनिदिनुभयो, र एकदमै राम्रो महसुस भयो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Today, I gave up my seat to an elderly person on the train. The last time I did the same thing, I was a little embarrassed when they declined, so it took courage to speak up. But today, they said \"thank you,\" and it made me feel very good."
      ]
     }
    }
@@ -1367,6 +2242,24 @@
      "i18n": {
       "ja": {
        "explain": "ふたとラベルは取ってもえるごみのほうに入れると書かれている。"
+      },
+      "ne": {
+       "q": "\"ペットボトル\" को बिर्को के गर्ने?",
+       "choices": [
+        "निकालेर \"もえるごみ\" मा हाल्ने।",
+        "\"ペットボトル\" सँगै फाल्ने।",
+        "पानीले धोएर राख्ने।",
+        "शुक्रबार बिहान छुट्टै फाल्ने।"
+       ]
+      },
+      "en": {
+       "q": "What should be done with the pet bottle lid?",
+       "choices": [
+        "Take it off and put it in the burnable trash.",
+        "Put it out with the pet bottle.",
+        "Wash it with water and keep it.",
+        "Put it out separately on Friday morning."
+       ]
       }
      }
     }
@@ -1375,6 +2268,11 @@
     "ne": {
      "body": [
       "जल्ने फोहोर मंगलबार र शुक्रबार बिहान ८ बजेभित्र निकाल्नुहोस्। प्लास्टिकको बोतल पानीले हल्का धोएर बेग्लै झोलामा राख्नुहोस्। बिर्को र लेबल निकालेर जल्ने फोहोरतिर राख्नुहोस्। गल्ती भयो भने, कहिलेकाहीँ लगिँदैन।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Please put out burnable trash by 8 AM on Tuesday and Friday mornings. For plastic bottles, lightly rinse the inside with water and then put them in a separate bag. Remove the caps and labels and put them in the burnable trash. If you make a mistake, your trash may not be collected."
      ]
     }
    }
@@ -1402,6 +2300,24 @@
      "i18n": {
       "ja": {
        "explain": "当日でも空いていれば使えるが、予約した人がいたらゆずると書かれている。"
+      },
+      "ne": {
+       "q": "कुन अवस्थामा \"予約\" नगरी \"会議室\" प्रयोग गर्न सकिन्छ?",
+       "choices": [
+        "त्यही दिन त्यो कोठा खाली हुँदा।",
+        "अघिल्लो दिनसम्म \"事務室\" मा जाँदा।",
+        "कुर्सी फिर्ता गर्दा।",
+        "साँचो हुँदा।"
+       ]
+      },
+      "en": {
+       "q": "When can you use the meeting room without a reservation?",
+       "choices": [
+        "When the room is empty on that day.",
+        "When you went to the office by the day before.",
+        "When you put the chairs back.",
+        "When you have the key."
+       ]
       }
      }
     }
@@ -1410,6 +2326,11 @@
     "ne": {
      "body": [
       "बैठक कक्ष प्रयोग गर्दा, अघिल्लो दिनसम्म कार्यालयमा बुकिङ गर्नुहोस्। सोही दिन पनि खाली भए प्रयोग गर्न सकिन्छ, तर बुकिङ गरेको व्यक्ति भए उसैलाई प्राथमिकता दिनुहोस्। प्रयोग गरेपछि, कुर्सीहरू पहिलेकै ठाउँमा राख्नुहोस्, झ्याल बन्द गरेर ताला लगाउनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When using the meeting room, please make a reservation at the office by the day before. You can use it on the same day if it's available, but please yield to anyone who has a reservation. After use, please return the chairs to their original positions, close the windows, and lock them."
      ]
     }
    }
@@ -1437,6 +2358,24 @@
      "i18n": {
       "ja": {
        "explain": "急に仕事が入ってしまったので来週にかえたいと書かれている。"
+      },
+      "ne": {
+       "q": "यो व्यक्ति किन \"約束\" परिवर्तन गर्न चाहन्छ?",
+       "choices": [
+        "किनभने अचानक काम आइपर्यो।",
+        "किनभने \"チケット\" पाउन सकिएन।",
+        "किनभने \"映画\" हेर्न मन लागेन।",
+        "किनभने अचानक बिरामी पर्यो।"
+       ]
+      },
+      "en": {
+       "q": "Why does this person want to change the appointment?",
+       "choices": [
+        "Because work suddenly came up.",
+        "Because they couldn't get tickets.",
+        "Because they no longer want to watch the movie.",
+        "Because they suddenly got sick."
+       ]
       }
      }
     }
@@ -1445,6 +2384,11 @@
     "ne": {
      "body": [
       "युकी जी, माफ गर्नुहोस्। भोलि सँगै चलचित्र हेर्न जाने वाचा थियो, तर अचानक काम आइपर्‍यो। सट्टामा आउँदो हप्ताको आइतबार कस्तो होला? टिकट म राखिदिन्छु। जे भए पनि, मीठो खानेकुरा पनि खान जाऔं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "A, I'm sorry. We had plans to go to the movies together tomorrow, but I suddenly have to work. How about next Sunday instead? I'll get the tickets. Since we're going out, let's also go eat something delicious."
      ]
     }
    }
@@ -1472,6 +2416,24 @@
      "i18n": {
       "ja": {
        "explain": "開く時間を十時から九時に早め、閉まる時間は同じだと書かれている。"
+      },
+      "ne": {
+       "q": "अर्को महिनादेखि पसल कसरी परिवर्तन हुन्छ?",
+       "choices": [
+        "खुल्ने समय एक घण्टा चाँडो हुन्छ",
+        "बन्द हुने समय एक घण्टा चाँडो हुन्छ",
+        "दिनभरि खुल्ने समय लामो हुन्छ",
+        "बिहान र बेलुका दुवै समय परिवर्तन हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "How will the store change from next month?",
+       "choices": [
+        "Opening time will be one hour earlier.",
+        "Closing time will be one hour earlier.",
+        "Opening hours will be longer all day.",
+        "Morning and evening hours will change."
+       ]
       }
      }
     }
@@ -1480,6 +2442,11 @@
     "ne": {
      "body": [
       "सधैं प्रयोग गर्नुभएकोमा धन्यवाद। आउँदो महिनादेखि, खुल्ने समय बिहान १० बजेबाट ९ बजेमा सारिनेछ। बन्द हुने समय पहिलेजस्तै राति ८ बजे नै हो। बिहान चाँडै आउने ग्राहकहरू धेरै भएकोले यस्तो निर्णय गरियो। अब पनि सहयोगको लागि धन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Thank you for your continued patronage. Starting next month, we will change our opening time from 10 AM to 9 AM. The closing time will remain 8 PM as before. We decided this because many customers came early in the morning. We look forward to your continued support."
      ]
     }
    }
@@ -1507,6 +2474,24 @@
      "i18n": {
       "ja": {
        "explain": "落ち込んでいたときに友だちの「次があるよ」という言葉でがんばる気持ちになった。"
+      },
+      "ne": {
+       "q": "म किन निको भएँ?",
+       "choices": [
+        "साथीको 'ひとこと' सुनेकोले",
+        "परीक्षाको नतिजा राम्रो भएकोले",
+        "पढाइ छोडेकोले",
+        "अर्को परीक्षा रद्द भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did I get better?",
+       "choices": [
+        "Because I heard a friend's 'ひとこと'.",
+        "Because my test scores were good.",
+        "Because I stopped studying.",
+        "Because the next test was cancelled."
+       ]
       }
      }
     }
@@ -1515,6 +2500,11 @@
     "ne": {
      "body": [
       "परीक्षाको अंक कमजोर भएकोले, धेरै समयदेखि निराश थिएँ। त्यस्तो बेला, साथीले “अर्को मौका पनि छ नि” भनिदियो। त्यही एक वाक्यले फेरि पढाइमा मेहनत गर्ने भावना जाग्यो। एउटै वाक्यले मानिसलाई हौसला दिन सकिन्छ भन्ने मैले पनि सोचें।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I was really down because I got a bad test score. At that time, my friend told me, \"There's always next time.\" With just that one word, I felt motivated to study hard again. I also realized that a single word can cheer someone up."
      ]
     }
    }
@@ -1542,6 +2532,24 @@
      "i18n": {
       "ja": {
        "explain": "力を入れすぎるとこわれやすいので、ゆっくり動かすよう書かれている。"
+      },
+      "ne": {
+       "q": "चाबी नभाँच्न के गर्ने?",
+       "choices": [
+        "बिस्तारै चलाउने",
+        "बलियो शक्तिले घुमाउने",
+        "दुवै हातले तल झार्ने",
+        "बटन नथिच्ने"
+       ]
+      },
+      "en": {
+       "q": "What should you do to avoid breaking the key?",
+       "choices": [
+        "Move it slowly.",
+        "Turn it with strong force.",
+        "Lower it with both hands.",
+        "Don't press the button."
+       ]
       }
      }
     }
@@ -1550,6 +2558,11 @@
     "ne": {
      "body": [
       "यो ताला घुमाउँदै तल झार्दा लाग्छ। खोल्दा, बटन थिच्दै त्यसैगरी घुमाउनुहोस्। धेरै जोड लगाउँदा सजिलै बिग्रने भएकोले, बिस्तारै चलाउनुहोस्। बानी परेपछि, एउटा हातले पनि सजिलै गर्न सकिन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To lock this key, turn it while pushing it down. To unlock it, press the button and turn it the same way. It breaks easily if you use too much force, so please move it slowly. Once you get used to it, you'll be able to do it easily with one hand."
      ]
     }
    }
@@ -1577,6 +2590,24 @@
      "i18n": {
       "ja": {
        "explain": "自分のものに名前を書いておくと見つけやすくなると書かれている。"
+      },
+      "ne": {
+       "q": "हराएको सामान सजिलै फेला पार्न के गर्ने?",
+       "choices": [
+        "आफ्नो सामानमा नाम लेख्ने",
+        "अगाडिको दराज खुला छोड्ने",
+        "एक महिनाभन्दा बढी पर्खने",
+        "फेला परेमा तुरुन्तै फ्याँकिदिने"
+       ]
+      },
+      "en": {
+       "q": "What should you do to make it easier for lost items to be found?",
+       "choices": [
+        "「自分のものに名前を書いておく」",
+        "「前の戸だなを開けたままにする」",
+        "「一か月すぎるまでずっと待つ」",
+        "「見つけたらすぐにすててしまう」"
+       ]
       }
      }
     }
@@ -1585,6 +2616,11 @@
     "ne": {
      "body": [
       "कक्षाकोठामा बिर्सिएका सामान प्रायः पाइन्छन्। भेटिएका सामान अस्थायी रूपमा अगाडिको दराजमा राखिन्छन्। एक महिनासम्म लिन नआएमा, कहिलेकाहीँ फालिन्छ। आफ्नो सामानमा नाम लेखेर राख्दा, फेला पार्न सजिलो हुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Items are often left behind in the classroom. Anything found will be placed in the cabinet at the front for a while. If it is not claimed after one month, it may be discarded. Writing your name on your belongings makes them easier to find."
      ]
     }
    }
@@ -1612,6 +2648,24 @@
      "i18n": {
       "ja": {
        "explain": "朝九時に新しい家の前に来てほしいと書かれている。"
+      },
+      "ne": {
+       "q": "A-कुन शनिबार कहाँ जानुपर्छ?",
+       "choices": [
+        "नयाँ घरको अगाडि",
+        "पुरानो घरको अगाडि",
+        "स्टेशनको अगाडि",
+        "ट्रक कम्पनी"
+       ]
+      },
+      "en": {
+       "q": "Where should A-kun go on Saturday?",
+       "choices": [
+        "「新しい家の前」",
+        "「古い家の前」",
+        "「駅前」",
+        "「トラックの会社」"
+       ]
       }
      }
     }
@@ -1620,6 +2674,11 @@
     "ne": {
      "body": [
       "साटोशी, आउँदो शनिबार सरसामान सर्न सहयोग गरिदिनुभएकोमा धन्यवाद। गह्रौं सामान धेरै भएकोले, साँच्चै सहयोग हुन्छ। बिहान ९ बजे नयाँ घर अगाडि आइदिनुभयो भने, ठीक त्यही बेला ट्रक आइपुग्छ। सकिएपछि धन्यवादस्वरूप खाना खुवाउँछु है।"
+     ]
+    },
+    "en": {
+     "body": [
+      "A-kun, thank you for helping me move this Saturday. There are many heavy items, so your help is truly appreciated. If you could come to the front of the new house at 9 AM, that's about when the truck will arrive. I'll treat you to a meal as a thank you when we're done."
      ]
     }
    }
@@ -1647,6 +2706,24 @@
      "i18n": {
       "ja": {
        "explain": "三時を過ぎてもにごっているときは少し流してから使うよう書かれている。"
+      },
+      "ne": {
+       "q": "पानी धमिलो हुँदा के गर्ने?",
+       "choices": [
+        "थोरै बगाएर प्रयोग गर्ने",
+        "तुरुन्तै पिउने",
+        "निर्माणकर्मीलाई बोलाउने",
+        "एक दिन पर्खने"
+       ]
+      },
+      "en": {
+       "q": "What should you do when the water is cloudy?",
+       "choices": [
+        "「少し流してから使う」",
+        "「すぐに飲む」",
+        "「工事の人を呼ぶ」",
+        "「一日待つ」"
+       ]
       }
      }
     }
@@ -1655,6 +2732,11 @@
     "ne": {
      "body": [
       "निर्माण कार्यका कारण, भोलि दिउँसो १ बजेदेखि ३ बजेसम्म, यस भवनमा पानी आउने छैन। शौचालय पनि प्रयोग गर्न सकिँदैन। आवश्यक पानी अगावै बाल्टिन आदिमा जम्मा गरेर राख्नुहोस्। ३ बजेपछि पनि पानी धमिलो भएमा, अलि बगाएर मात्र प्रयोग गर्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Due to construction, the water in this building will be shut off tomorrow from 1 PM to 3 PM. The toilets will also be unusable. Please store any necessary water in buckets or other containers beforehand. If the water is cloudy after 3 PM, please let it run for a bit before using it."
      ]
     }
    }
@@ -1682,6 +2764,24 @@
      "i18n": {
       "ja": {
        "explain": "少しがまんしてはきつづけると足になじむので、それが大事だと思ったと書かれている。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिलाई के महत्त्वपूर्ण लाग्यो?",
+       "choices": [
+        "「新しいくつをはきつづけること」",
+        "「いたくなったらすぐにかえること」",
+        "「少し大きめのくつを買うこと」",
+        "「いたいくつははかないでおくこと」"
+       ]
+      },
+      "en": {
+       "q": "What did this person think was important?",
+       "choices": [
+        "「新しいくつをはきつづけること」",
+        "「いたくなったらすぐにかえること」",
+        "「少し大きめのくつを買うこと」",
+        "「いたいくつははかないでおくこと」"
+       ]
       }
      }
     }
@@ -1690,6 +2790,11 @@
     "ne": {
      "body": [
       "गएको हप्ता किनेको नयाँ जुत्ता लगाएर स्कुल जाँदा, खुट्टा अलि दुख्यो। तर, करिब तीन दिनसम्म लगाइरहँदा, खुट्टामा बानी परेर दुख्न छाड्यो। साँच्चै, नयाँ जुत्ता अलि सहेर लगाइरहनु महत्त्वपूर्ण रहेछ भन्ने लाग्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My feet hurt a little when I went to school in the new shoes I bought last week. However, after wearing them for about three days, they became accustomed to my feet and stopped hurting. I realized that it's important to be a little patient with new shoes and continue wearing them."
      ]
     }
    }
@@ -1717,6 +2822,24 @@
      "i18n": {
       "ja": {
        "explain": "土がかわいたら水をあげ、毎日あげる必要はないと書かれている。"
+      },
+      "ne": {
+       "q": "कस्तो बेला पानी दिने?",
+       "choices": [
+        "「土がかわいたとき」",
+        "「毎日きまった時間」",
+        "「花がさいたとき」",
+        "「暑い日だけ」"
+       ]
+      },
+      "en": {
+       "q": "When should you water?",
+       "choices": [
+        "「土がかわいたとき」",
+        "「毎日きまった時間」",
+        "「花がさいたとき」",
+        "「暑い日だけ」"
+       ]
       }
      }
     }
@@ -1725,6 +2848,11 @@
     "ne": {
      "body": [
       "यो फूललाई माटो सुकेपछि मात्र पानी दिनुहोस्। हरेक दिन दिनु आवश्यक छैन। धेरै दिँदा, जरा कुहिन्छ। घाम राम्ररी लाग्ने ठाउँ मन पराउँछ, तर गर्मीको धेरै तातो दिनमा, चिसो ठाउँमा सारिदिनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Please water this flower when the soil is dry. You don't need to water it every day. If you water it too much, the roots will rot. It likes sunny places, but on very hot summer days, move it to a cool place."
      ]
     }
    }
@@ -1752,6 +2880,24 @@
      "i18n": {
       "ja": {
        "explain": "たながいっぱいのときは、はしのほうにきれいにならべるよう書かれている。"
+      },
+      "ne": {
+       "q": "जब र्याक भरिएको हुन्छ, तब के गर्ने?",
+       "choices": [
+        "「はしのほうにきれいにならべる」",
+        "「くつをはいたまま上がってよい」",
+        "「入り口のスリッパをぬいでおく」",
+        "「くつを持ったまま中を歩く」"
+       ]
+      },
+      "en": {
+       "q": "What should you do when the shelf is full?",
+       "choices": [
+        "「はしのほうにきれいにならべる」",
+        "「くつをはいたまま上がってよい」",
+        "「入り口のスリッパをぬいでおく」",
+        "「くつを持ったまま中を歩く」"
+       ]
       }
      }
     }
@@ -1760,6 +2906,11 @@
     "ne": {
      "body": [
       "यहाँदेखि अगाडि जुत्ता फुकालेर मात्र माथि उक्लनुहोस्। फुकालेको जुत्ता प्रवेशद्वारको दराजमा मिलाएर राख्नुहोस्। दराज भरिएको बेला, छेउतिर मिलाएर राख्नुहोस्। स्लिपर स्वतन्त्र रूपमा प्रयोग गर्न सकिन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Please take off your shoes before entering this area. Place your shoes neatly on the shelf at the entrance. If the shelf is full, please arrange them neatly along the edge. You are free to use the slippers."
      ]
     }
    }
@@ -1787,6 +2938,24 @@
      "i18n": {
       "ja": {
        "explain": "わすれた傘を取っておいてほしいとお願いするためのメール。"
+      },
+      "ne": {
+       "q": "यो व्यक्तिले किन इमेल पठाएको हो?",
+       "choices": [
+        "「わすれた傘を取っておいてほしいから」",
+        "「新しい青い傘を店で買いたいから」",
+        "「昨日仕事を休んだことをあやまるため」",
+        "「わすれた傘を家に送ってほしいから」"
+       ]
+      },
+      "en": {
+       "q": "Why did this person send the email?",
+       "choices": [
+        "わすれた傘を取っておいてほしいから",
+        "新しい青い傘を店で買いたいから",
+        "昨日仕事を休んだことをあやまるため",
+        "わすれた傘を家に送ってほしいから"
+       ]
       }
      }
     }
@@ -1795,6 +2964,11 @@
     "ne": {
      "body": [
       "पसल प्रमुखज्यू, धन्यवाद। हिजो पसलमा निलो छाता बिर्सेको जस्तो छ। लामो छ, र समात्ने ठाउँमा सेतो चिन्ह लागेको छ। यदि भेटियो भने, राखिदिन सक्नुहुन्छ कि? भोलि दिउँसोतिर लिन आउँछु। धन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Manager, thank you for your hard work. It seems I left a blue umbrella at the store yesterday. It's long and has a white mark on the handle. If you find it, could you please keep it for me? I'll come to pick it up around noon tomorrow. Thank you in advance."
      ]
     }
    }
@@ -1822,6 +2996,24 @@
      "i18n": {
       "ja": {
        "explain": "いそぐ方はいつもより早いバスに乗ることをすすめると書かれている。"
+      },
+      "ne": {
+       "q": "हतारमा भएका व्यक्तिले के गर्नुपर्छ?",
+       "choices": [
+        "「いつもより早いバスに乗る」",
+        "「工事をしている道路を歩く」",
+        "「来週になるまでバスを待つ」",
+        "「おくれてくるバスを使わない」"
+       ]
+      },
+      "en": {
+       "q": "What should people in a hurry do?",
+       "choices": [
+        "いつもより早いバスに乗る",
+        "工事をしている道路を歩く",
+        "来週になるまでバスを待つ",
+        "おくれてくるバスを使わない"
+       ]
       }
      }
     }
@@ -1830,6 +3022,11 @@
     "ne": {
      "body": [
       "सडक निर्माण कार्यको कारण, यस हप्ता बस पाँच देखि दस मिनेटसम्म ढिलो हुनसक्छ। हतार भएकाहरूले सधैंभन्दा अगाडिको बस समाउनुहोस् भन्ने सुझाव दिन्छौं। आउँदो हप्तादेखि सामान्य समयमा फर्किने योजना छ। सहयोगका लागि धन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Due to road construction, buses may be delayed by about five to ten minutes this week. If you are in a hurry, we recommend taking an earlier bus than usual. Service is expected to return to normal next week. Thank you for your cooperation."
      ]
     }
    }
@@ -1857,6 +3054,24 @@
      "i18n": {
       "ja": {
        "explain": "自分で育てるとおいしいと聞き、来年は手伝ってみたいと思ったと書かれている。"
+      },
+      "ne": {
+       "q": "मैले अर्को वर्ष के गर्न चाहेँ?",
+       "choices": [
+        "「畑の世話を手伝いたい」",
+        "「あまいトマトをたくさん買いたい」",
+        "「自分のお店を開きたい」",
+        "「新しい畑を作りたい」"
+       ]
+      },
+      "en": {
+       "q": "What did I want to do next year?",
+       "choices": [
+        "畑の世話を手伝いたい",
+        "あまいトマトをたくさん買いたい",
+        "自分のお店を開きたい",
+        "新しい畑を作りたい"
+       ]
       }
      }
     }
@@ -1865,6 +3080,11 @@
     "ne": {
      "body": [
       "गर्मी बिदामा हजुरआमाको घर गएँ। खेतबाट भर्खरै टिपेको टमाटर खाएपछि, पसलमा किन्नेभन्दा धेरै गुलियो थियो। हजुरआमाले \"आफैंले उमारेपछि झन् स्वादिलो लाग्छ नि\" भन्दै हाँस्नुभयो। अर्को वर्ष म पनि सघाउँछु भन्ने लाग्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "During summer vacation, I went to my grandmother's house. I ate freshly picked tomatoes from the field, and they were much sweeter than those bought at the store. My grandmother smiled and said, \"When you grow them yourself, they taste even better.\" I thought I'd like to help next year."
      ]
     }
    }
@@ -1892,6 +3112,24 @@
      "i18n": {
       "ja": {
        "explain": "ほかの人と点をくらべることはできないと書かれている。"
+      },
+      "ne": {
+       "q": "यो एपले के गर्न सक्दैन?",
+       "choices": [
+        "ほかの人と点をくらべること",
+        "勉強の時間をグラフにすること",
+        "自分のきろくを見ること",
+        "がんばった日を知ること"
+       ]
+      },
+      "en": {
+       "q": "What can't you do with this app?",
+       "choices": [
+        "ほかの人と点をくらべること",
+        "勉強の時間をグラフにすること",
+        "自分のきろくを見ること",
+        "がんばった日を知ること"
+       ]
       }
      }
     }
@@ -1900,6 +3138,11 @@
     "ne": {
      "body": [
       "यस एपमा, दैनिक अध्ययन गरेको समय स्वचालित रूपमा ग्राफमा देखिन्छ। ग्राफ हेर्दा, कहिले मेहनत गरियो भन्ने तुरुन्तै थाहा हुन्छ। अरूसँग अंक तुलना गर्न सकिँदैन, तर आफ्नै रेकर्ड फर्केर हेर्दा, हौसला बढाउन सकिन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "With this app, the time you study each day is automatically graphed. Looking at the graph, you can immediately see when you worked hard. Although you cannot compare your scores with others, you can review your own records and boost your motivation."
      ]
     }
    }
@@ -1927,6 +3170,24 @@
      "i18n": {
       "ja": {
        "explain": "急ぎの用がある方は係の者に声をかけるよう書かれている。"
+      },
+      "ne": {
+       "q": "हतारको काम भएका व्यक्तिले के गर्नुपर्छ?",
+       "choices": [
+        "係の者に声をかける",
+        "番号のふだを取る",
+        "席で名前を呼ばれるまで待つ",
+        "早く帰る"
+       ]
+      },
+      "en": {
+       "q": "What should people with urgent business do?",
+       "choices": [
+        "係の者に声をかける",
+        "番号のふだを取る",
+        "席で名前を呼ばれるまで待つ",
+        "早く帰る"
+       ]
       }
      }
     }
@@ -1935,6 +3196,11 @@
     "ne": {
      "body": [
       "तपाईंको नाम बोलाइनासम्म, कृपया यही सिटमा पर्खनुहोस्। नम्बर पर्ची लिनुभएकाहरूलाई नम्बरको क्रमअनुसार बोलाइनेछ। हतारको काम भएकाहरूले कृपया कर्मचारीलाई भन्नुहोस्। सकेसम्म चाँडो सेवा दिने प्रयास गरिनेछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Please wait in these seats until your name is called. If you have a numbered ticket, we will call you in numerical order. If you have an urgent matter, please speak to a staff member. We will do our best to assist you as quickly as possible."
      ]
     }
    }
@@ -1962,6 +3228,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्ति अब के गर्ने योजनामा ​​छ?",
+       "choices": [
+        "友を誘って山に登る",
+        "一人でまた山に登る",
+        "遠くの海へ行く",
+        "雨がやむのを待つ"
+       ]
+      },
+      "en": {
+       "q": "What does this person intend to do next time?",
+       "choices": [
+        "友を誘って山に登る",
+        "一人でまた山に登る",
+        "遠くの海へ行く",
+        "雨がやむのを待つ"
+       ]
       }
      }
     }
@@ -1970,6 +3254,11 @@
     "ne": {
      "body": [
       "गत हप्ता, म पहिलो पटक एक्लै पहाड चढेँ। बिहान पानी परिरहेको थियो तर दिउँसो रोकियो। टुप्पोबाट देखिने दृश्य धेरै सुन्दर थियो र टाढाको समुद्रसम्म देखिन्थ्यो। म थकित भएँ तर फेरि आउन मन लाग्यो। पहाडमाथि खाएको ओनिगिरी पनि सधैँभन्दा धेरै स्वादिष्ट थियो। यसपालि साथीहरूलाई निम्तो गर्नेछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last week, I climbed a mountain alone for the first time. It was raining in the morning, but it stopped by noon. The view from the summit was very beautiful, and I could see the distant sea. I was tired, but I wanted to come again. The onigiri I ate on the mountain was also much more delicious than usual. Next time, I plan to invite friends."
      ]
     }
    }
@@ -1997,6 +3286,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "मैले मेरी आमालाई के उपहार दिएँ?",
+       "choices": [
+        "手を温める手袋",
+        "手作りのケーキ",
+        "きれいな花",
+        "家族での旅行"
+       ]
+      },
+      "en": {
+       "q": "What did I give my mother as a present?",
+       "choices": [
+        "手を温める手袋",
+        "手作りのケーキ",
+        "きれいな花",
+        "家族での旅行"
+       ]
       }
      }
     }
@@ -2005,6 +3312,11 @@
     "ne": {
      "body": [
       "आज परिवारसँग आमाको जन्मदिन मनायौँ। दिदीले केक बनाउनुभयो, बुबाले फूल किनेर ल्याउनुभयो। मैले आमालाई न्यानो पन्जा उपहार दिएँ। आमाले \"सबैभन्दा खुसी छु\" भन्नुभयो र धेरै खुसी हुनुभयो। हामी सबैले धेरै फोटो पनि खिच्यौँ। अर्को वर्ष सँगै घुम्न जान चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Today, my family celebrated my mother's birthday. My older sister made a cake, and my father bought flowers. I gave my mother warm gloves as a present. My mother said, \"This is what makes me happiest,\" and she was very pleased. We also took many pictures together. Next year, I want to go on a trip with her."
      ]
     }
    }
@@ -2032,6 +3344,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यस गतिविधिमा आफैले लिएर जाने सामान के हो?",
+       "choices": [
+        "自分で飲む物",
+        "ごみ袋と手袋",
+        "手袋だけ",
+        "何も持っていかない"
+       ]
+      },
+      "en": {
+       "q": "What should I bring myself for this activity?",
+       "choices": [
+        "自分で飲む物",
+        "ごみ袋と手袋",
+        "手袋だけ",
+        "何も持っていかない"
+       ]
       }
      }
     }
@@ -2040,6 +3370,11 @@
     "ne": {
      "body": [
       "नगरपालिकाबाट सूचना छ।\nआउँदो आइतबार पार्कमा सरसफाइ कार्यक्रम हुनेछ।\nबिहान ९ बजे पार्कको प्रवेशद्वारमा जम्मा हुनुहोला।\nफोहोर फाल्ने झोला र पन्जा नगरपालिकाले व्यवस्था गर्नेछ।\nपिउने पानी सबैले आ-आफ्नो ल्याउनुहोला।\nपानी परेको दिन अर्को हप्तामा सारिनेछ।\nसफा शहर बनाउनका लागि, तपाईंहरूको सहयोगको अपेक्षा गर्दछौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is an announcement from the town. Next Sunday, there will be a cleaning activity at the park. Please gather at the park entrance at 9 AM. The town will provide garbage bags and gloves. Please bring your own drinks. If it rains, the event will be moved to the following week. We ask for everyone's cooperation to make our town beautiful."
      ]
     }
    }
@@ -2067,6 +3402,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो पसल कहिलेदेखि फेरि खुल्छ?",
+       "choices": [
+        "木曜日",
+        "月曜日",
+        "水曜日",
+        "金曜日"
+       ]
+      },
+      "en": {
+       "q": "When will this store open again?",
+       "choices": [
+        "木曜日",
+        "月曜日",
+        "水曜日",
+        "金曜日"
+       ]
       }
      }
     }
@@ -2075,6 +3428,11 @@
     "ne": {
      "body": [
       "यो पसलको सूचना हो।\nसधैं हामीलाई सहयोग गर्नुभएकोमा धन्यवाद।\nमर्मतसम्भार कार्यका कारण, आउँदो सोमबारदेखि बुधबारसम्म पसल बन्द रहनेछ।\nबिहीबारदेखि सधैंझैं खुल्नेछ।\nअर्डर गरिएका सामानहरू शुक्रबार लिन सक्नुहुनेछ।\nअसुविधा भएकोमा क्षमाप्रार्थी छौं, तर हामी हजुरको अर्को आगमनको हार्दिक प्रतीक्षामा छौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is a notice from the store. Thank you for your continued patronage. Due to construction, we will be closed from next Monday to Wednesday. We will resume normal business hours from Thursday. Ordered items can be picked up on Friday. We apologize for any inconvenience this may cause and sincerely look forward to your next visit."
      ]
     }
    }
@@ -2102,6 +3460,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "भोलिको बैठक कहाँ हुन्छ?",
+       "choices": [
+        "5階の小部屋",
+        "3階の部屋",
+        "午後2時の教室",
+        "資料のある部屋"
+       ]
+      },
+      "en": {
+       "q": "Where will tomorrow's meeting be held?",
+       "choices": [
+        "5階の小部屋",
+        "3階の部屋",
+        "午後2時の教室",
+        "資料のある部屋"
+       ]
       }
      }
     }
@@ -2110,6 +3486,11 @@
     "ne": {
      "body": [
       "विषय: बैठकको स्थानको बारेमा।\n\nसबैलाई नमस्कार।\nभोलिको बैठकको लागि, तेस्रो तल्लाको कोठा प्रयोग गर्न नमिल्ने भएको छ।\nत्यसैले, बैठक पाँचौँ तल्लाको सानो बैठक कोठामा सारिएको छ।\nसमय यथावत् दिउँसो २ बजेदेखि नै हो।\nआवश्यक कागजातहरू १० प्रति हामीले तयार पार्नेछौँ।\nधन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Subject: Regarding the meeting location. Good work today. Regarding tomorrow's meeting, the room on the 3rd floor is no longer available. Therefore, it has been changed to the small meeting room on the 5th floor. The time remains unchanged, starting at 2 PM. I will prepare 10 copies of the materials here. Thank you for your understanding."
      ]
     }
    }
@@ -2137,6 +3518,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिले अर्को महिना के गर्छ?",
+       "choices": [
+        "祖母の所を訪ねる",
+        "おばあちゃんにりんごを送る",
+        "家族におすしを作る",
+        "さむさをがまんする"
+       ]
+      },
+      "en": {
+       "q": "What will this person do next month?",
+       "choices": [
+        "祖母の所を訪ねる",
+        "おばあちゃんにりんごを送る",
+        "家族におすしを作る",
+        "さむさをがまんする"
+       ]
       }
      }
     }
@@ -2145,6 +3544,11 @@
     "ne": {
      "body": [
       "हजुरआमालाई। सन्चै हुनुहुन्छ?\nयता हरेक दिन चिसो छ, तर सबैजना सन्चै छन्।\nअघिल्लो पटक पठाउनुभएको स्याउ धेरै स्वादिष्ट थियो। धेरै धेरै धन्यवाद।\nअर्को महिनाको बिदामा, परिवारसँग हजुरकहाँ घुम्न आउँछौँ।\nहजुरआमाले बनाउनुहुने सुशी फेरि खान मन छ।\nखुसीसाथ पर्खनुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Dear Grandma,\nHow are you? It's cold here every day, but everyone is doing well. The apples you sent before were very delicious. Thank you very much. During next month's holiday, our family will come to visit you. I want to eat your sushi again. Please look forward to it."
      ]
     }
    }
@@ -2172,6 +3576,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिले फर्कने बेलामा के गर्छ?",
+       "choices": [
+        "ミルクを買う",
+        "カレーを温める",
+        "夜ごはんを作る",
+        "9時に家を出る"
+       ]
+      },
+      "en": {
+       "q": "What will this person do on the way home?",
+       "choices": [
+        "ミルクを買う",
+        "カレーを温める",
+        "夜ごはんを作る",
+        "9時に家を出る"
+       ]
       }
      }
     }
@@ -2180,6 +3602,11 @@
     "ne": {
      "body": [
       "भान्साको नोट। आमालाई।\nफ्रिजमा करी छ। रातिको खानामा तताएर खानुहोला।\nम आज राति साथीको घरमा पढेर फर्किन्छु। ९ बजेतिर होला जस्तो लाग्छ।\nदूध सकिएकोले, फर्कंदा किनेर आउँछु।\nमनपर्ने खाजा पनि टेबलमा राखिएको छ, त्यसैले खानु है।"
+     ]
+    },
+    "en": {
+     "body": [
+      "A note for the kitchen.\nTo Mom,\nThere's curry in the refrigerator. Please warm it up and eat it for dinner. I'll be studying at a friend's house tonight and will come home afterward. I think it will be around 9 o'clock. We ran out of milk, so I'll buy some on my way home. I also left your favorite snacks on the table, so please eat them."
      ]
     }
    }
@@ -2207,6 +3634,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिले भोलि के गर्छ?",
+       "choices": [
+        "遅れて出社する",
+        "会社を一日休む",
+        "病院へは行かない",
+        "3時に会社を出る"
+       ]
+      },
+      "en": {
+       "q": "What will this person do tomorrow?",
+       "choices": [
+        "Go to work late",
+        "Take a day off from work",
+        "Not go to the hospital",
+        "Leave the company at 3 o'clock"
+       ]
       }
      }
     }
@@ -2215,6 +3660,11 @@
     "ne": {
      "body": [
       "माफ गर्नुहोस्, मेरो एउटा अनुरोध छ।\nभोलि बिहान म अस्पताल जाने भएकोले, कम्पनीमा अलि ढिलो आउनेछु।\nयदि १० बजे ग्राहकबाट फोन आयो भने, बैठक ३ बजेबाट हो भनिदिनुहोला।\nकागजातहरू टेबलमा राखिएका छन्।\nसहयोगको लागि धन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Excuse me, but I have a favor to ask. I'm going to the hospital tomorrow morning, so I'll be a little late coming to the office. If a client calls at 10 o'clock, please tell them the meeting is at 3 o'clock. The documents are on my desk. Thank you for your cooperation."
      ]
     }
    }
@@ -2242,6 +3692,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "चिसो लाग्दा सबैभन्दा महत्त्वपूर्ण कुरा के हो?",
+       "choices": [
+        "体をゆっくり休ませる",
+        "薬をたくさん飲むこと",
+        "無理をして働くこと",
+        "つめたい水を飲むこと"
+       ]
+      },
+      "en": {
+       "q": "When you have a cold, what is the most important thing to do?",
+       "choices": [
+        "Rest your body slowly",
+        "Take a lot of medicine",
+        "Work too hard",
+        "Drink cold water"
+       ]
       }
      }
     }
@@ -2250,6 +3718,11 @@
     "ne": {
      "body": [
       "रुघा लाग्दा औषधि खानु पनि महत्त्वपूर्ण छ, तर सबैभन्दा महत्त्वपूर्ण कुरा आराम गर्नु हो।\nशरीरलाई न्यानो राखेर राम्ररी सुत्दा, शरीरले आफैँ रोगसँग लड्छ।\nसाथै, प्रशस्त पानी वा चिया पिउनु पनि राम्रो हुन्छ।\nजबरजस्ती काम गर्दा, छिट्टै निको हुँदैन।\nछिट्टै निको भएर, फेरि स्वस्थ भएर काम गरौँ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When you catch a cold, taking medicine is important, but the most important thing is to rest. If you keep your body warm and sleep soundly, your body will fight the illness on its own. Also, drinking plenty of water or tea is good. If you push yourself to work, it will take a long time to recover. Let's recover quickly and work energetically again."
      ]
     }
    }
@@ -2277,6 +3750,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "कला संग्रहालय कहाँ छ?",
+       "choices": [
+        "広い公園の中",
+        "駅の北口の前",
+        "二つ目の信号の角",
+        "バスていの近く"
+       ]
+      },
+      "en": {
+       "q": "Where is the art museum?",
+       "choices": [
+        "In a large park",
+        "In front of the north exit of the station",
+        "At the corner of the second traffic light",
+        "Near the bus stop"
+       ]
       }
      }
     }
@@ -2285,6 +3776,11 @@
     "ne": {
      "body": [
       "स्टेशनदेखि कला संग्रहालयसम्म जाने बाटो बताउँछौं।\nस्टेशनको उत्तरी ढोकाबाट निस्केर सिधा हिँड्नुहोस्।\nदोस्रो ट्राफिक लाइटमा दाहिने मोडिएपछि, एउटा ठूलो पार्क छ।\nकला संग्रहालय त्यो पार्कभित्र छ।\nस्टेशनबाट हिँडेर करिब १० मिनेट लाग्छ।\nबस पनि छ, तर हिँडेर जानु छिटो हुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "△I will guide you on how to get from the station to the museum. Exit the north gate of the station and walk straight. Turn right at the second traffic light, and you will see a large park. The museum is inside that park. It takes about 10 minutes to walk from the station. There is a bus, but walking is faster."
      ]
     }
    }
@@ -2312,6 +3808,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्ति सबैभन्दा खुसी कहिले हुन्छ?",
+       "choices": [
+        "ग्राहकले प्रशंसा गर्दा",
+        "बिहान सबेरै पसलमा पुग्दा",
+        "पाउरोटी पकाएको गन्ध आउँदा",
+        "काम गाह्रो हुँदा"
+       ]
+      },
+      "en": {
+       "q": "When is this person happiest?",
+       "choices": [
+        "When praised by a customer",
+        "When arriving at the shop early in the morning",
+        "When smelling bread baking",
+        "When work is difficult"
+       ]
       }
      }
     }
@@ -2320,6 +3834,11 @@
     "ne": {
      "body": [
       "म गत वर्षदेखि बेकरीमा काम गर्दैछु।\nबिहान सबेरै हुन्छ, र म अँध्यारो छँदै पसलमा पुग्छु।\nरोटी सेक्दाको मीठो गन्ध पसलभरि फैलिँदा, मलाई धेरै खुसी लाग्छ।\nग्राहकहरूले \"स्वादिष्ट छ\" भन्दा, मलाई सबैभन्दा धेरै खुसी लाग्छ।\nयो गाह्रो काम हो, तर म यसलाई जारी राख्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I have been working at a bakery since last year. Mornings are early, and I arrive at the shop while it's still dark. When the wonderful smell of baking bread fills the shop, I feel very happy. The happiest moment is when customers tell me the bread is delicious. It's a tough job, but I want to continue doing it."
      ]
     }
    }
@@ -2347,6 +3866,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "रिजर्भेसन परिवर्तन गर्नुपर्दा, कहिले फोन गर्ने?",
+       "choices": [
+        "रिजर्भेसनको अघिल्लो दिनसम्म",
+        "सोही दिनको ६ बजे",
+        "शनिबार बिहान",
+        "४ जना जम्मा भएपछि"
+       ]
+      },
+      "en": {
+       "q": "When should you call if you want to change your reservation?",
+       "choices": [
+        "Until the day before the reservation date",
+        "6 o'clock on the day",
+        "Saturday morning",
+        "After 4 people have gathered"
+       ]
       }
      }
     }
@@ -2355,6 +3892,11 @@
     "ne": {
      "body": [
       "विषय: आरक्षणको पुष्टि।\n\nतपाईंको आरक्षणको लागि धन्यवाद। यस हप्ताको शनिबार साँझ ६ बजेदेखि ४ जनाको लागि तपाईंको आरक्षण स्वीकार गरिएको छ। हामी तपाईंको लागि झ्याल छेउको सिटको व्यवस्था गर्नेछौं।\n\nहाम्रो पसल स्टेशनको दक्षिण गेटबाट बाहिर निस्कने बित्तिकै छ। यदि तपाईंको योजनामा परिवर्तन भएमा, कृपया अघिल्लो दिनसम्म फोन गर्नुहोस्।\n\nहामी तपाईंलाई पर्खिरहेका छौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Subject: Reservation Confirmation. Thank you for your reservation. We have accepted your reservation for 4 people this Saturday from 6 PM. We will prepare a window seat for you. The restaurant is right outside the south exit of the station. If your plans change, please call us by the day before. We look forward to seeing you."
      ]
     }
    }
@@ -2382,6 +3924,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "किताब पढिसक्नुभएन भने के गर्ने?",
+       "choices": [
+        "काउन्टरमा म्याद थप्न अनुरोध गर्ने",
+        "किताब तुरुन्तै फिर्ता गर्ने",
+        "फेरि कहिल्यै नलिने",
+        "तोकिएको दिन नाघ्ने"
+       ]
+      },
+      "en": {
+       "q": "What should you do if you can't finish reading the book?",
+       "choices": [
+        "Ask for an extension at the reception desk",
+        "Return the book immediately",
+        "Never borrow it again",
+        "Exceed the specified date"
+       ]
       }
      }
     }
@@ -2390,6 +3950,11 @@
     "ne": {
      "body": [
       "पुस्तकालयको सूचना।\nकिताब फिर्ता गर्ने मिति पालना गर्नुहोस्। तोकिएको मितिभित्र फिर्ता नगरेमा, अर्को पटक किताब उधारो लिन पाउनुहुने छैन।\nयदि पढिसक्नुभएको छैन भने, फिर्ता गर्नुअघि, तपाईंले थप एक हप्ताका लागि उधारो लिन सक्नुहुन्छ। त्यो अवस्थामा, कृपया काउन्टरका व्यक्तिलाई भन्नुहोस्।\nकिताबहरू सबैका साझा सम्पत्ति हुन्, त्यसैले कृपया तिनीहरूलाई सावधानीपूर्वक प्रयोग गर्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is an announcement from the library. Please return books by the due date. If you do not return them by the specified date, you will not be able to borrow books next time. If you haven't finished reading a book, you can borrow it for another week before returning it. In that case, please tell the person at the counter. Books belong to everyone, so please handle them with care."
      ]
     }
    }
@@ -2417,6 +3982,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्ति किन कम्पनीमा ढिलो भयो?",
+       "choices": [
+        "रेल दुर्घटनाले ढिलो भयो",
+        "चाँडै घरबाट निस्केकोले",
+        "विभाग प्रमुखलाई फोन गरेकोले",
+        "४० मिनेट चाँडै पुगेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why was this person late for work?",
+       "choices": [
+        "The train was delayed due to an accident.",
+        "Because they left home early.",
+        "Because they called the '部長'.",
+        "Because they arrived 40 minutes early."
+       ]
       }
      }
     }
@@ -2425,6 +4008,11 @@
     "ne": {
      "body": [
       "आज ट्रेन ढिलो भएर धेरै समस्या भयो।\nदुर्घटना भएर, ३० मिनेटसम्म स्टेशनमा पर्खें।\nकम्पनीमा ढिलो हुने जस्तो लागेकोले, हतारिएर फोन गरें।\nम्यानेजरले \"होसियार भएर आउनुहोस्\" भन्नुभयो।\nकम्पनीमा पुग्दा, सधैंभन्दा ४० मिनेट ढिलो भयो।\nभोलि चाँडै घरबाट निस्कौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Today, the train was delayed, and it was tough. There was an accident, and I waited at the station for 30 minutes. I was about to be late for work, so I hurriedly made a call. My manager told me, \"Come carefully.\" I arrived at the office 40 minutes later than usual. Tomorrow, I'll leave home early."
      ]
     }
    }
@@ -2452,6 +4040,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "१०० वर्षदेखि नबदलिएको कुरा के हो?",
+       "choices": [
+        "पुरानो पुल",
+        "नयाँ भवन",
+        "नदीका माछा",
+        "सहरका मानिस"
+       ]
+      },
+      "en": {
+       "q": "What has not changed for 100 years?",
+       "choices": [
+        "The old bridge",
+        "New buildings",
+        "River fish",
+        "The people of the town"
+       ]
       }
      }
     }
@@ -2460,6 +4066,11 @@
     "ne": {
      "body": [
       "मेरो सहरमा एउटा पुरानो पुल छ।\nयो १०० वर्षअघि बनाइएको भनिन्छ।\nबाल्यकालमा, म प्रायः यो पुलमाथिबाट नदीका माछाहरू हेर्थेँ।\nअहिले यसको वरिपरि नयाँ भवनहरू बढेका छन्, तर यो पुल मात्र पुरानै अवस्थामा छ।\nसहरका सबै मानिसहरूले यो पुललाई माया गर्छन्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "There is an old bridge in my town. It is said to have been built 100 years ago. When I was a child, I often watched fish in the river from this bridge. Now, new buildings have increased around it, but only this bridge remains as it was in the past. Everyone in town cherishes this bridge."
      ]
     }
    }
@@ -2487,6 +4098,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "कन्सर्टको दिन, दिउँसो के हुन्छ?",
+       "choices": [
+        "कक्षा हुँदैन",
+        "सामान्य रूपमा कक्षा हुन्छ",
+        "जिममा सरसफाइ गर्ने",
+        "बिहान पनि बिदा हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What will happen in the afternoon on the day of the concert?",
+       "choices": [
+        "Classes will be canceled.",
+        "Classes will be as usual.",
+        "They will clean the gymnasium.",
+        "The morning will also be a holiday."
+       ]
       }
      }
     }
@@ -2495,6 +4124,11 @@
     "ne": {
      "body": [
       "सबै विद्यार्थीहरूलाई।\nआउँदो बुधबार, व्यायामशालामा सङ्गीत कार्यक्रम छ। त्यसैले, त्यस दिन दिउँसोको कक्षा हुनेछैन। बिहानको कक्षा सधैँझैँ हुनेछ। वाद्ययन्त्र भएकाहरूले नबिर्सी ल्याउनुहोला। इनडोर जुत्ता पनि आवश्यक पर्नेछ।\nतपाईंहरूको जोसिलो गीतको प्रतीक्षामा छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To all students: Next Wednesday, there will be a concert in the gymnasium. Therefore, there will be no afternoon classes on that day. Morning classes will be held as usual. If you have an instrument, please remember to bring it. Indoor shoes are also required. We look forward to your lively singing."
      ]
     }
    }
@@ -2522,6 +4156,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "कपी मेसिन बिग्रिएको बेला के गर्नुहुन्छ?",
+       "choices": [
+        "निलो स्विच थिच्ने",
+        "नयाँ कागज निकाल्ने",
+        "छेउको कोठामा जाने",
+        "दराजमुनि हेर्ने"
+       ]
+      },
+      "en": {
+       "q": "What should you do when the copier is not working well?",
+       "choices": [
+        "Press the blue switch.",
+        "Take out new paper.",
+        "Go to the next room.",
+        "Look under the 'たな'."
+       ]
       }
      }
     }
@@ -2530,6 +4182,11 @@
     "ne": {
      "body": [
       "एउटै कोठाका मानिसहरूका लागि यो एउटा सूचना हो।\nफोटोकपी मेसिनको कागज सकिन लागेको छ।\nछेउको कोठाको दराजमुनि नयाँ कागज राखिएको छ।\nप्रयोग गरिसकेपछि, कृपया थोरै भए पनि निकालेर राखिदिनुहोला।\nअनि, मेसिन बिग्रिएको बेला, निलो बटन थिच्दा कहिलेकाहीँ ठीक हुन सक्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Memo to those in the same room: The copier paper is running out. New paper is stored under the shelf in the next room. When you use it, please take out a little bit. Also, if the machine is not working well, pressing the blue button sometimes fixes it."
      ]
     }
    }
@@ -2557,6 +4214,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो कक्षामा आफैले लिएर जाने सामान के हो?",
+       "choices": [
+        "एप्रन",
+        "मौसम अनुसारको सामग्री",
+        "यस महिनाको माछा",
+        "बनाएको खाना"
+       ]
+      },
+      "en": {
+       "q": "What should you bring yourself to this classroom?",
+       "choices": [
+        "An 'エプロン'",
+        "Seasonal ingredients",
+        "This month's fish",
+        "The cooked dish"
+       ]
       }
      }
     }
@@ -2565,6 +4240,11 @@
     "ne": {
      "body": [
       "खाना पकाउने कक्षाको जानकारी।\nहरेक महिनाको पहिलो शनिबार दिउँसो, हामी सबै मिलेर मौसमी परिकार बनाउँछौँ। यस महिना माछाको परिकार बनाइनेछ। सामग्रीहरू हामीले यहाँ तयार पार्नेछौँ, त्यसैले कृपया एप्रोन मात्र ल्याउनुहोस्। बनाउने तरिका शिक्षकले सजिलोसँग सिकाउनुहुनेछ। बनाएको परिकार हामी सबै मिलेर सँगै खानेछौँ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is an announcement for a cooking class. Every first Saturday afternoon of the month, we will all make seasonal dishes together. This month, we will be making fish dishes. We will prepare the ingredients, so please just bring your apron. The teacher will kindly show you how to cook. We will all eat the dishes we make together."
      ]
     }
    }
@@ -2592,6 +4272,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो चिठीमा सबैभन्दा भन्न खोजिएको कुरा के हो?",
+       "choices": [
+        "गर्मीको बिदामा भेट्न आओस्",
+        "नयाँ विद्यालय साँच्चै मन पर्दैन",
+        "अब समुद्रमा जान चाहँदैन",
+        "पुरानो साथी खोजिरहेको छ"
+       ]
+      },
+      "en": {
+       "q": "What is the main thing this letter wants to say?",
+       "choices": [
+        "They want you to visit during the summer vacation.",
+        "They really dislike the new school.",
+        "They don't want to go to the sea anymore.",
+        "They are looking for their old friends."
+       ]
       }
      }
     }
@@ -2600,6 +4298,11 @@
     "ne": {
      "body": [
       "नयाँ स्कुल कस्तो छ?\nमलाई पुरानो स्कुलको याद आउँछ।\nगत हप्ता हामी सबैले तपाईंको कुरा गर्यौं।\nयदि समय मिल्यो भने, गर्मी बिदामा यता घुम्न आउनुहुन्न?\nपुराना साथीहरूले पनि तपाईंलाई भेट्न चाहन्छन्।\nसँगै फेरि समुद्रमा जाऔं।\nजवाफको प्रतीक्षामा छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "How is your new school? I miss my old school. Last week, we all talked about you. If you have time, why don't you come visit us here during the summer vacation? Your old friends also want to see you. Let's go to the beach together again. I'm waiting for your reply."
      ]
     }
    }
@@ -2627,6 +4330,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "अस्पतालमा भर्ना हुँदा, यस व्यक्तिलाई के कुराले मद्दत गर्यो?",
+       "choices": [
+        "नर्सको दयालुपन",
+        "खुट्टाको चोट",
+        "एक्लैको कोठा",
+        "हिँड्ने अभ्यास"
+       ]
+      },
+      "en": {
+       "q": "What helped this person during their hospitalization?",
+       "choices": [
+        "The kindness of the nurses",
+        "Leg injury",
+        "A private room",
+        "Walking practice"
+       ]
       }
      }
     }
@@ -2635,6 +4356,11 @@
     "ne": {
      "body": [
       "गत महिना, म खुट्टामा चोट लागेर अस्पतालमा भर्ना भएँ।\nहिँड्न नसकेर, सुरुमा म धेरै चिन्तित थिएँ।\nतर, नर्सहरूले सधैँ मायालु बोली बोल्नुभयो।\nएउटै कोठाका मानिसहरूसँग पनि साथी बनेँ।\nअहिले म निको भएर घर फर्किएँ।\nत्यो दयालुपनलाई म बिर्सनेछैन।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last month, I injured my leg and was hospitalized. I couldn't walk, and at first, I was very anxious. But the nurses always spoke to me kindly. I also became good friends with the people in the same room. Now I'm well again and have returned home. I will never forget that kindness."
      ]
     }
    }
@@ -2662,6 +4388,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यस क्षेत्रमा धेरै हिउँ पर्दा के राम्रो हुन्छ?",
+       "choices": [
+        "स्वादिष्ट बाली उत्पादन हुन्छ",
+        "जाडो अझ गाह्रो हुन्छ",
+        "हिउँ वसन्तमा पनि पग्लिँदैन",
+        "सफा पानी हराउँछ"
+       ]
+      },
+      "en": {
+       "q": "What is good about heavy snow in this region?",
+       "choices": [
+        "Delicious crops can be grown",
+        "Winter becomes more difficult",
+        "The snow does not melt even in spring",
+        "Clean water disappears"
+       ]
       }
      }
     }
@@ -2670,6 +4414,11 @@
     "ne": {
      "body": [
       "यस क्षेत्रमा जाडोमा धेरै हिउँ पर्छ। हिउँ धेरै हुँदा गाह्रो हुन्छ भन्ने सोच्ने मानिसहरू भए पनि, राम्रा कुराहरू पनि छन्।\nहिउँ वसन्तमा पग्लिएर सफा पानी बन्छ। त्यो पानीले स्वादिष्ट चामल र तरकारीहरू उब्जिन्छन्। त्यसैले, यो सहरको खाना धेरै स्वादिष्ट हुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "In this region, it snows a lot in winter. Some people think that a lot of snow is difficult, but there are good things too. When spring comes, the snow melts and becomes beautiful water. With that water, delicious rice and vegetables grow. That's why the food in this town is very delicious."
      ]
     }
    }
@@ -2697,6 +4446,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "स्याउ कहिले आधा मूल्यमा पाइन्छ?",
+       "choices": [
+        "शनिबार",
+        "बिहीबार",
+        "आइतबार",
+        "बेलुका ५ बजेदेखि"
+       ]
+      },
+      "en": {
+       "q": "When will apples be half price?",
+       "choices": [
+        "Saturday",
+        "Thursday",
+        "Sunday",
+        "From 5 PM"
+       ]
       }
      }
     }
@@ -2705,6 +4472,11 @@
     "ne": {
      "body": [
       "सुपरबाट जानकारी।\n\nयस हप्ता बिहीबारदेखि आइतबारसम्म फलफूल सस्तो हुनेछ। खासगरी शनिबार स्याउमा ५०% छुट हुनेछ।\n\nसाथै, बेलुका ५ बजेपछि पाउरोटी र खाजा पनि सस्तो हुनेछ।\n\nकृपया यो अवसरको फाइदा उठाउँदै किनमेल गर्न आउनुहोला। हामी धेरै ग्राहकहरूको आगमनको अपेक्षा गर्दछौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is an announcement from the supermarket. Fruits will be on sale from this Thursday to Sunday. Especially on Saturday, apples will be half price. Also, after 5 PM, bread and bento boxes will be discounted. Please take this opportunity to come and shop. We look forward to seeing many customers."
      ]
     }
    }
@@ -2732,6 +4504,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिले अब फूलको लागि हरेक दिन के गर्छ?",
+       "choices": [
+        "पानी दिने",
+        "たねをまく",
+        "किताबमा खोज्ने",
+        "はちを買う"
+       ]
+      },
+      "en": {
+       "q": "What will this person do every day for the flowers from now on?",
+       "choices": [
+        "Water them",
+        "Sow seeds",
+        "Look it up in a book",
+        "Buy a pot"
+       ]
       }
      }
     }
@@ -2740,6 +4530,11 @@
     "ne": {
      "body": [
       "हिजो, मैले पहिलो पटक आफैँले फूल हुर्काउन सुरु गरेँ।\nसानो गमलामा, मैले रातो फूलको बीउ रोपेँ।\nहरेक दिन पानी हालेर, यसलाई माया गरेर हुर्काउन चाहन्छु।\nकिताबमा हेर्दा, फूल फुल्न एक महिना जति लाग्ने रहेछ।\nअलि लामो समय भए पनि, अहिलेदेखि नै फूल फुल्ने कुराको प्रतीक्षामा छु।\nराम्रो होस् भन्ने कामना गर्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Yesterday, I started growing flowers by myself for the first time. I sowed red flower seeds in a small pot. I want to water them every day and take good care of them. I looked it up in a book, and it seems to take about a month for the flowers to bloom. It's a bit long, but I'm already looking forward to them blooming. I hope it goes well."
      ]
     }
    }
@@ -2767,6 +4562,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "ढिलो नहुनको लागि, कति बजेसम्म स्टेशन अगाडि जानुहुन्छ?",
+       "choices": [
+        "बिहान ८ बजेसम्म",
+        "८ बजेर १५ मिनेट",
+        "दिउँसोतिर",
+        "अर्को महिनाको बिहान"
+       ]
+      },
+      "en": {
+       "q": "By what time should you go to the station front to avoid being late?",
+       "choices": [
+        "By 8 AM",
+        "8:15",
+        "Around noon",
+        "Next month in the morning"
+       ]
       }
      }
     }
@@ -2775,6 +4588,11 @@
     "ne": {
      "body": [
       "विषय: बस यात्राको बारेमा।\nआगामी महिनाको बस यात्राको बारेमा जानकारी दिन चाहन्छु।\nभेला हुने स्थान बिहान ८ बजे स्टेशन अगाडि छ।\nबस बिहान ८ बजेर १५ मिनेटमा छुट्नेछ, त्यसैले ढिलो नगर्नुहोला।\nदिउँसोको खाना हामीले व्यवस्था गर्नेछौं, तर पेय पदार्थहरू आफैं ल्याउनुहोला।\nपानी परे पनि यात्रा हुनेछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Subject: Regarding the bus trip. This is to inform you about next month's bus trip. The meeting point is in front of the station at 8 AM. The bus will depart at 8:15 AM, so please do not be late. Lunch will be provided, but please bring your own drinks. The trip will take place even if it rains."
      ]
     }
    }
@@ -2802,6 +4620,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो पार्कमा, बल प्रयोग गरेर कहाँ खेल्न सकिन्छ?",
+       "choices": [
+        "पार्कको पश्चिमतिर",
+        "पार्कको जुनसुकै ठाउँमा",
+        "साना बच्चाहरूको नजिक",
+        "कुकुर खेल्ने ठाउँ"
+       ]
+      },
+      "en": {
+       "q": "Where in this park can you play with a ball?",
+       "choices": [
+        "The west side of the park",
+        "Anywhere in the park",
+        "Near small children",
+        "Where dogs play"
+       ]
       }
      }
     }
@@ -2810,6 +4646,11 @@
     "ne": {
      "body": [
       "यो पार्कको सूचना हो।\nयस पार्कमा बल खेल्दा, कृपया ध्यान दिनुहोस्।\nसाना बालबालिका र वृद्धवृद्धा पनि हुनुहुन्छ।\nबल खेल्ने ठाउँ पार्कको पश्चिमपट्टि तोकिएको छ।\nकुकुर ल्याउँदा, कृपया सधैं पट्टा लगाउनुहोस्।\nसबै मिलेर रमाइलोसँग प्रयोग गरौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is a notice posted in the park. When playing with a ball in this park, please be careful. There are small children and elderly people here. The designated area for playing with a ball is on the west side of the park. If you bring a dog, please make sure to keep it on a leash. Let's all use the park pleasantly."
      ]
     }
    }
@@ -2837,6 +4678,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिले दिदीलाई के अनुरोध गर्दैछ?",
+       "choices": [
+        "कुकुरलाई घुमाउने कुरा",
+        "कोठा सफा गर्ने कुरा",
+        "क्लब जाने कुरा",
+        "कुकुरको खुट्टामा चोट नलाग्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What is this person asking their older sister to do?",
+       "choices": [
+        "犬を散歩させること",
+        "へやのそうじをすること",
+        "クラブに行くこと",
+        "犬の足をけがさせないこと"
+       ]
       }
      }
     }
@@ -2845,6 +4704,11 @@
     "ne": {
      "body": [
       "दिदी, एउटा काम गरिदिनुस् न!\nआज बेलुका, मेरो सट्टामा कुकुर डुलाइदिनुहुन्छ कि?\nस्कूलको क्लब ढिलो हुनेजस्तो छ।\n६ बजे खाना खुवाइदिनुभयो भने खुसी लाग्नेछ।\nडुलाइसकेपछि, यसको खुट्टा पुछिदिनुहोला है।\nम फर्केपछि, कोठा म सफा गर्छु।\nधेरै धेरै धन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Big sister, please! Could you take the dog for a walk instead of me this evening? My school club is going to run late. I'd be happy if you could feed him at 6 o'clock. After the walk, please wipe his paws. When I get back, I'll clean my room. Thank you so much."
      ]
     }
    }
@@ -2872,6 +4736,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "विद्यार्थीहरूले सरसफाइको समयमा के सिक्न सक्छन् भनिएको छ?",
+       "choices": [
+        "साथीहरूसँग मिलेर काम गर्ने",
+        "टेबल सही तरिकाले पुछ्ने तरिका",
+        "कुचो बनाउने तरिका",
+        "कक्षाकोठा कसरी भाडामा लिने"
+       ]
+      },
+      "en": {
+       "q": "What are students said to be able to learn during cleaning time?",
+       "choices": [
+        "仲間と力を合わせる",
+        "つくえの正しいふき方",
+        "ほうきの作り方",
+        "教室の借り方"
+       ]
       }
      }
     }
@@ -2880,6 +4762,11 @@
     "ne": {
      "body": [
       "जापानका धेरैजसो विद्यालयहरूमा, विद्यार्थीहरूले आफैँ कक्षाकोठा सफा गर्छन्।\nकुचोले भुइँ बढार्ने र डेस्क पुछ्ने गर्छन्।\nयो आफूले प्रयोग गर्ने ठाउँलाई माया गर्ने भावना विकास गर्नका लागि हो भनिन्छ।\nसरसफाइको समयमा, सबैले मिलेर सहयोग गर्न पनि सिक्छन्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "In many Japanese schools, students clean their own classrooms. They sweep the floors with brooms and wipe the desks. This is said to foster a sense of cherishing the places they use. During cleaning time, they also learn to cooperate with everyone."
      ]
     }
    }
@@ -2907,6 +4794,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो सभामा भाग लिन कति पैसा लाग्छ?",
+       "choices": [
+        "निःशुल्क भाग लिन सकिन्छ",
+        "शनिबार मात्र आवश्यक",
+        "दोस्रो तल्लामा थोरै तिर्ने",
+        "१० बजेसम्म तिर्ने"
+       ]
+      },
+      "en": {
+       "q": "How much money is required to participate in this meeting?",
+       "choices": [
+        "無料で参加できる",
+        "土曜日だけ必要",
+        "2階で少し払う",
+        "10時までに払う"
+       ]
       }
      }
     }
@@ -2915,6 +4820,11 @@
     "ne": {
      "body": [
       "पुस्तकालयमा बालबालिकाका लागि पुस्तक पढ्ने कार्यक्रम आयोजना गरिँदैछ।\nहरेक शनिबार बिहान १० बजेदेखि कर्मचारीहरूले चित्रकथाका पुस्तकहरू पढेर सुनाउनेछन्।\nस्थान दोस्रो तल्लाको बालबालिका खण्डमा छ।\nशुल्क लाग्दैन।\nजो कोही पनि स्वतन्त्र रूपमा सहभागी हुन सक्छन्।\nनजिकै बस्नेहरूले आफ्ना बालबालिकासँग अवश्य आउनुहोला।\nयो शान्तपूर्वक चित्रकथाको आनन्द लिन सकिने एउटा न्यानो कार्यक्रम हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "The library will hold a children's book reading event. Every Saturday from 10 AM, staff will read picture books. The location is the children's corner on the second floor. There is no charge. Anyone can participate freely. If you are nearby, please come with your children. It's a warm gathering where you can quietly enjoy picture books."
      ]
     }
    }
@@ -2942,6 +4852,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिले ग्राहकहरू बढाउन के गर्यो?",
+       "choices": [
+        "बस्ने ठाउँ बनाएर पेय पदार्थ दियो",
+        "नजिकै अझ ठूलो पसल बनायो",
+        "किताबको 'ねだん' सस्तो बनायो",
+        "पसल केही समयको लागि बन्द गर्यो"
+       ]
+      },
+      "en": {
+       "q": "What did this person do to increase the number of customers?",
+       "choices": [
+        "座る場所を作り飲み物を出した",
+        "近くにもっと大きな店を作った",
+        "本のねだんを安くした",
+        "店をしばらく閉めた"
+       ]
       }
      }
     }
@@ -2950,6 +4878,11 @@
     "ne": {
      "body": [
       "म एउटा सानो किताब पसल चलाउँछु। नजिकै एउटा ठूलो पसल खुलेपछि, ग्राहकहरू घटे। त्यसैले, मैले पसलभित्र सानो कुर्सी राखेर कफी बेच्ने निर्णय गरें। त्यसपछि, किताब पढ्दै आराम गर्ने मानिसहरू बढे। अहिले, पहिलेभन्दा धेरै ग्राहकहरू छन्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I run a small bookstore. After a large store opened nearby, my customers decreased. So, I decided to place small chairs in the store and serve coffee. As a result, more people started to relax while reading books. Now, I have more customers than before."
      ]
     }
    }
@@ -2977,6 +4910,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्ति कहिले हजुरबुबालाई भेट्न जान्छ?",
+       "choices": [
+        "आइतबार बिहान एक्लै",
+        "बुबासँगै",
+        "दिउँसोको काम पछि",
+        "आइतबार राति"
+       ]
+      },
+      "en": {
+       "q": "When will this person visit their grandfather?",
+       "choices": [
+        "日曜の朝に自分だけで",
+        "お父さんといっしょに",
+        "午後の用事のあとで",
+        "日曜日の夜"
+       ]
       }
      }
     }
@@ -2985,6 +4936,11 @@
     "ne": {
      "body": [
       "विषय: आइतबारको बारेमा। बुबालाई।\n\nआइतबार हजुरबुबालाई भेट्न जाने कुरा थियो, तर मलाई दिउँसोदेखि काम पर्यो।\nत्यसैले, म बिहान एक्लै पहिले जान्छु।\nबुबा, काम सकिएपछि आउनुहुन्छ?\nहजुरबुबालाई मनपर्ने चिया किनेर लैजान्छु है।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Subject: About Sunday. To Dad. Regarding visiting Grandpa on Sunday, I have plans in the afternoon. So, I will go ahead by myself in the morning. Can you come after you finish work, Dad? I'll buy Grandpa's favorite tea."
      ]
     }
    }
@@ -3012,6 +4968,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "वर्षाको दिनमा, 'アルバイト' गर्ने व्यक्तिले के धेरै बनाउँछ?",
+       "choices": [
+        "शरीरलाई न्यानो पार्ने पेय पदार्थ",
+        "पसल बाहिरको 'かんばん'",
+        "प्रवेशद्वारको 'かさ立て'",
+        "चिसो पेय पदार्थ"
+       ]
+      },
+      "en": {
+       "q": "On rainy days, what do part-time workers make more of?",
+       "choices": [
+        "体が温まる飲み物",
+        "店の外のかんばん",
+        "入口のかさ立て",
+        "つめたい飲み物"
+       ]
       }
      }
     }
@@ -3020,6 +4994,11 @@
     "ne": {
      "body": [
       "सहयोगीहरूका लागि सूचना।\n\nशुभ प्रभात। आज बिहानैदेखि पानी परिरहेकोले, पसल बाहिरको बोर्ड नराख्नुहोस्। छाता ओढेर आउने ग्राहकहरू धेरै हुने भएकोले, प्रवेशद्वारमा छाता राख्ने स्ट्यान्ड राखिदिएको छु। साथै, तातो पेय पदार्थहरू धेरै बिक्ने दिन भएकोले, अलि बढी बनाएर राख्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This is a memo for part-time staff. Good morning. It's raining from this morning, so please don't put out the signboard outside the store. Many customers will be coming with umbrellas, so I've placed an umbrella stand at the entrance. Also, since warm drinks sell well on days like this, please make extra."
      ]
     }
    }
@@ -3047,6 +5026,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "अर्को महिनादेखि, बिहानको '受付' कति बजे सुरु हुन्छ?",
+       "choices": [
+        "बिहान ८:३० बजे",
+        "पहिले जस्तै ९ बजे",
+        "दिउँसो ४ बजे",
+        "बिहान 'なし'"
+       ]
+      },
+      "en": {
+       "q": "From next month, what time will morning reception start?",
+       "choices": [
+        "8:30 AM",
+        "9 AM, same as before",
+        "4 PM",
+        "None in the morning"
+       ]
       }
      }
     }
@@ -3055,6 +5052,11 @@
     "ne": {
      "body": [
       "अस्पतालबाट सूचना।\nआगामी महिनादेखि, भर्ना समय परिवर्तन हुनेछ।\nबिहान ८:३० बजेदेखि सुरु हुनेछ। यो पहिलेभन्दा ३० मिनेट अगाडि हुनेछ।\nदिउँसोको भर्ना पहिले जस्तै ४ बजेसम्म हुनेछ।\nजसको अपोइन्टमेन्ट छैन, कृपया बिहानै आउनुहोला।\nयसले तपाईंहरूलाई केही असुविधा हुन सक्छ, तर तपाईंको सहयोगको अपेक्षा गर्दछौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice from the hospital. Starting next month, reception hours will change. Morning reception will begin at 8:30 AM. This is 30 minutes earlier than before. Afternoon reception will remain until 4:00 PM, same as before. For those without reservations, please come early in the morning. We apologize for any inconvenience this may cause and appreciate your understanding."
      ]
     }
    }
@@ -3082,6 +5084,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिले '切手' कसरी जम्मा गर्न थाल्यो?",
+       "choices": [
+        "बुबाबाट विरासतमा पायो",
+        "आफैं पसलहरूमा गएर किन्यो",
+        "५० वर्ष पहिले आफैंले बनायो",
+        "साथीहरूसँग साट्यो"
+       ]
+      },
+      "en": {
+       "q": "How did this person start collecting stamps?",
+       "choices": [
+        "Inherited from his father",
+        "Bought them himself by visiting stores",
+        "Made them himself 50 years ago",
+        "Exchanged them with friends"
+       ]
       }
      }
     }
@@ -3090,6 +5110,11 @@
     "ne": {
      "body": [
       "मेरो सोख पुरानो हुलाक टिकट जम्मा गर्नु हो। बुबाले जम्मा गर्नुभएका टिकटहरू मैले पाएँ। तीमध्ये, ५० वर्षअघिका टिकटहरू पनि छन्। साना चित्रहरूमा त्यस समयको अवस्था देख्न सकिन्छ, जुन धेरै रोचक छ। बिदाको दिनमा, म टिकटहरू हेर्दै घण्टौँ बिताउन सक्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My hobby is collecting old stamps. I received the ones my father used to collect. Some of them are 50 years old. It's very interesting to see glimpses of the era within the small pictures. On my days off, I can spend hours looking at stamps."
      ]
     }
    }
@@ -3117,6 +5142,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिले पहाड चढेर कस्तो महसुस गर्यो?",
+       "choices": [
+        "फेरि पहाड जान मन लाग्यो।",
+        "बिहानदेखि आकाश सफा थियो।",
+        "चुचुरोमा फोटो खिच्न बिर्सियो।",
+        "साथीहरूसँग जान चिन्ता लाग्यो।"
+       ]
+      },
+      "en": {
+       "q": "What did this person think after climbing the mountain?",
+       "choices": [
+        "He wanted to go to the mountains again.",
+        "The sky was clear and sunny from the morning.",
+        "He forgot to take a picture at the summit.",
+        "He thought it would be worrying to go with friends."
+       ]
       }
      }
     }
@@ -3125,6 +5168,11 @@
     "ne": {
      "body": [
       "गत आइतबार, मैले पहिलो पटक साथीहरूसँग पहाड चढें।\nबिहान आकाश अँध्यारो थियो र म अलि चिन्तित थिएँ, तर दिउँसोतिर मौसम राम्ररी सफा भयो।\nचुचुरोमा खाएको ओनिगिरी साँच्चै मिठो थियो।\nफोटो पनि धेरै खिचें।\nपहाडको माथिबाट देखेको दृश्य धेरै सुन्दर थियो।\nथाकेको थिएँ, तर फेरि अर्को हप्ता पनि चढ्न मन लाग्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last Sunday, I climbed a mountain with my friends for the first time. The sky was dark in the morning, which made me a little worried, but it cleared up nicely by noon. The onigiri I ate at the summit was truly delicious. I also took many pictures. The scenery from the top of the mountain was very beautiful. Although I was tired, I felt like climbing again next week."
      ]
     }
    }
@@ -3152,6 +5200,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "工事को समयमा, किताबहरू उधारो लिन चाहने व्यक्तिले के गर्नुपर्छ?",
+       "choices": [
+        "तलको तल्लाको काउन्टरमा जाने।",
+        "दोस्रो तल्लाको कोठा प्रयोग गर्ने।",
+        "प्रवेशद्वारको बाकसमा राख्ने।",
+        "अर्को महिनाको पहिलो दिनसम्म पर्खने।"
+       ]
+      },
+      "en": {
+       "q": "During the construction, what should people who want to borrow books do?",
+       "choices": [
+        "Go to the counter on the lower floor.",
+        "Use the room on the second floor.",
+        "Put them in the box at the entrance.",
+        "Wait until the first of next month."
+       ]
       }
      }
     }
@@ -3160,6 +5226,11 @@
     "ne": {
      "body": [
       "सूचना:\nअर्को महिनाको एक गतेदेखि, दोस्रो तल्लाको किताब पढ्ने कोठा नयाँ हुनेछ। मर्मतसम्भारको कारणले, यो महिनाको पच्चीस गतेदेखि तीस गतेसम्म, दोस्रो तल्ला प्रयोग गर्न सकिने छैन। किताब लिन चाहनेहरूले, पहिलो तल्लाको स्वागत कक्षमा आउनुहोला। फिर्ता गर्ने किताबहरू प्रवेशद्वारको बाकसमा राख्न सकिन्छ। तपाईंको सहयोगको लागि अनुरोध गर्दछौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice) From the first of next month, the reading room on the second floor will be renovated. Due to construction, the second floor will be unavailable from the 25th to the 30th of this month. Those who wish to borrow books should come to the reception desk on the first floor. Books to be returned can be placed in the box at the entrance. Thank you for your cooperation."
      ]
     }
    }
@@ -3187,6 +5258,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "भोलिको बैठकको बारेमा, कुन कुरा सही छ?",
+       "choices": [
+        "सुरु हुने समय तीन बजेसम्म सारियो।",
+        "बैठकको स्थान चौथो तल्लामा परिवर्तन भयो।",
+        "सबैले '資料' लिएर जानेछन्।",
+        "आउन सक्ने व्यक्तिहरूले मात्र जवाफ दिने।"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is correct about tomorrow's meeting?",
+       "choices": [
+        "The start time has been extended to 3 o'clock.",
+        "The meeting place has changed to the fourth floor.",
+        "Everyone will bring their own materials.",
+        "Only those who can come should reply."
+       ]
       }
      }
     }
@@ -3195,6 +5284,11 @@
     "ne": {
      "body": [
       "नमस्ते।\nभोलिको बैठकको समय दिउँसो २ बजेदेखि ३ बजेसम्म परिवर्तन भएको छ। स्थान पहिलेकै जस्तै चौथो तल्लाको बैठक कोठा हो। सामग्रीहरू मैले तयार पार्नेछु, त्यसैले तपाईंहरूले केही पनि ल्याउनु पर्दैन। यदि कोही आउन नसक्ने हुनुहुन्छ भने, कृपया आजैभित्र जवाफ दिनुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Email) Good work today. Regarding tomorrow's meeting, the time has changed from 2 PM to 3 PM. The location remains the same, the conference room on the fourth floor. I will prepare the materials, so you don't need to bring anything. If you cannot attend, please reply by the end of today."
      ]
     }
    }
@@ -3222,6 +5316,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो 'メモ' पढेको व्यक्तिले बेलुकाको खानामा के खान्छ?",
+       "choices": [
+        "तातो पारेको 'カレー'।",
+        "फ्रिजको 'たまご' खाने।",
+        "'牛乳' पिएर पर्खने।",
+        "फर्किने प्रतीक्षा गरेपछि खाने।"
+       ]
+      },
+      "en": {
+       "q": "What will the person who reads this memo eat for dinner?",
+       "choices": [
+        "Reheated curry.",
+        "Eat the eggs from the refrigerator.",
+        "Drink milk and wait.",
+        "Eat after waiting for their return."
+       ]
       }
      }
     }
@@ -3230,6 +5342,11 @@
     "ne": {
      "body": [
       "नोट)\nफ्रिजमा दूध र अण्डा राखिदिएको छु।\nआज मलाई फर्कन ढिलो हुनेछ, त्यसैले पहिले बेलुकाको खाना खानुहोला।\nटेबलमाथि भएको करी तताएर खानुहोस्।\nअनि, लुगाहरू बाहिर छन्, त्यसैले पानी पर्यो भने भित्र राख्नुहोला।\nधन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Memo) I put milk and eggs in the refrigerator. I'll be home late today, so please eat dinner first. Please warm up the curry on the table and eat it. Also, there's laundry outside, so please bring it in if it rains. Thank you."
      ]
     }
    }
@@ -3257,6 +5374,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "बिहान, यो बसमा चढ्दा, पैसा कहिले तिर्ने?",
+       "choices": [
+        "बसबाट ओर्लने बेला।",
+        "बसमा चढ्ने बेला।",
+        "पछाडिको ढोकाबाट ओर्लने बेला।",
+        "अगाडिको ढोकाबाट चढ्ने बेला।"
+       ]
+      },
+      "en": {
+       "q": "When you take this bus in the morning, when do you pay the fare?",
+       "choices": [
+        "バスを降りる時。",
+        "バスに乗るとき。",
+        "後ろのドアから降りるとき。",
+        "前のドアから乗るとき。"
+       ]
       }
      }
     }
@@ -3265,6 +5400,11 @@
     "ne": {
      "body": [
       "यस सहरका बसहरूमा बिहान र बेलुका चढ्ने तरिका फरक हुन्छ।\nबिहानको समयमा, पछाडिको ढोकाबाट चढेर अगाडिको ढोकाबाट ओर्लिन्छन्। पैसा ओर्लने बेलामा तिर्छन्।\nबेलुका मान्छे कम हुने भएकोले, अगाडिको ढोकाबाट चढेर चढ्ने बेलामा पैसा तिर्छन्।\nपहिलो पटक चढ्ने मानिसहरूले ध्यान दिनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "The way to ride the bus in this town differs between morning and night. In the morning, you board from the rear door and exit from the front door. You pay when you get off. At night, there are fewer people, so you board from the front door and pay when you get on. First-time riders, please be careful."
      ]
     }
    }
@@ -3292,6 +5432,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "पानी पर्यो भने, '夏祭り' कस्तो हुन्छ?",
+       "choices": [
+        "भोलिपल्ट आइतबार खुल्नेछ।",
+        "अगस्ट १० को साँझ पाँच बजे गरिनेछ।",
+        "'公園' को सट्टा '駅' मा गरिनेछ।",
+        "'花火' मात्र अर्को दिन हेर्ने।"
+       ]
+      },
+      "en": {
+       "q": "What happens to the summer festival if it rains?",
+       "choices": [
+        "翌日の日曜に開かれる。",
+        "八月十日の午後五時に行う。",
+        "公園ではなく駅で行う。",
+        "花火だけ次の日に見る。"
+       ]
       }
      }
     }
@@ -3300,6 +5458,11 @@
     "ne": {
      "body": [
       "(गर्मी चाडको सूचना)\nयस वर्ष पनि स्टेशन नजिकको पार्कमा गर्मी चाड आयोजना गरिँदैछ।\nमिति अगस्ट १० गते शनिबार, साँझ ५ बजेदेखि हो।\nखानेकुराका धेरै पसलहरू लाग्नेछन्।\nराति ८ बजेदेखि आतिशबाजी पनि हेर्न सकिन्छ।\nगत वर्ष पनि धेरै मानिसहरू जम्मा भएका थिए।\nपानी परेमा, भोलिपल्ट आइतबार आयोजना गरिनेछ।\nअवश्य आउनुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice) This year, the summer festival will again be held at the park near the station. It will be on Saturday, August 10th, starting from 5 PM. There will be many food stalls. From 8 PM, you can also see fireworks. Many people gathered last year as well. In case of rain, it will be held on the following Sunday. Please come and join us."
      ]
     }
    }
@@ -3327,6 +5490,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "'カレー' बनाउँदा, यो व्यक्तिलाई के गाह्रो भएको थियो?",
+       "choices": [
+        "'野菜' काट्ने काम।",
+        "आमाबाट '教わること'।",
+        "'家族を喜ばせること'।",
+        "'一人で作ること'।"
+       ]
+      },
+      "en": {
+       "q": "When making curry, what was difficult for this person?",
+       "choices": [
+        "野菜を切る作業。",
+        "母に教わること。",
+        "家族を喜ばせること。",
+        "一人で作ること。"
+       ]
       }
      }
     }
@@ -3335,6 +5516,11 @@
     "ne": {
      "body": [
       "आज आमाले सिकाउनुभएर, मैले पहिलो पटक करी बनाएँ।\nतरकारी काट्न गाह्रो भयो र समय लाग्यो। खासगरी प्याज काट्दा, मेरो आँखा धेरै दुख्यो।\nतर, बनेको करी सोचेभन्दा स्वादिष्ट थियो र परिवारका सबैजना खुसी हुनुभयो।\nअर्को पटक म एक्लै बनाउने प्रयास गर्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Today, I made curry for the first time, taught by my mother. Cutting the vegetables was difficult and took a long time. Especially when cutting onions, my eyes hurt a lot. However, the finished curry was more delicious than I expected, and my whole family was happy with it. Next time, I want to try making it by myself."
      ]
     }
    }
@@ -3362,6 +5548,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "आधा मूल्यमा स्याउ किन्न चाहने व्यक्ति कहिले जानुपर्छ?",
+       "choices": [
+        "शुक्रबार बिहान सबेरै जाने।",
+        "शनिबार नौ बजे जाने।",
+        "शुक्रबार राति जाने।",
+        "जहिले गए पनि किन्न सकिन्छ।"
+       ]
+      },
+      "en": {
+       "q": "If you want to buy apples at half price, when should you go?",
+       "choices": [
+        "金曜の朝早くに行く。",
+        "土曜日の九時に行く。",
+        "金曜日の夜に行く。",
+        "いつ行っても買える。"
+       ]
       }
      }
     }
@@ -3370,6 +5574,11 @@
     "ne": {
      "body": [
       "यो हप्ताको शुक्रबार र शनिबार सस्तो दिन हो। तरकारी र फलफूल सधैंभन्दा सस्तो हुन्छ। विशेष गरी शुक्रबार बिहान स्याउ आधा मूल्यमा पाइन्छ। थोरै मात्र भएकोले, पहिले आउनेले किन्न सक्छन्। पार्किङ पनि फराकिलो भएकोले, गाडीमा पनि आउन सकिन्छ। पसल बिहान नौ बजे खुल्छ। यहाँहरूलाई स्वागत छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice) This Friday and Saturday are discount days. Vegetables and fruits will be cheaper than usual. Especially on Friday morning, apples will be half price. Since quantities are limited, they will be sold on a first-come, first-served basis. The parking lot is also spacious, so you can come by car. The store opens at 9 AM. We look forward to seeing you all."
      ]
     }
    }
@@ -3397,6 +5606,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो चिठीमा सबैभन्दा भन्न खोजिएको कुरा के हो?",
+       "choices": [
+        "सहयोगको लागि धन्यवाद।",
+        "सामान भारी भएको कुरा।",
+        "नयाँ कोठाको फराकिलोपन।",
+        "चिया स्वादिष्ट भएको कुरा।"
+       ]
+      },
+      "en": {
+       "q": "What is the main thing this letter wants to convey?",
+       "choices": [
+        "助けてもらったお礼。",
+        "荷物が重かったこと。",
+        "新しい部屋の広さ。",
+        "お茶がおいしいこと。"
+       ]
       }
      }
     }
@@ -3405,6 +5632,11 @@
     "ne": {
      "body": [
       "केही दिनअघि मेरो बसाइँसराइमा सहयोग गर्नुभएकोमा धेरै धेरै धन्यवाद।\nतपाईंको सहयोगले गर्दा गह्रौँ सामानहरू पनि छिटो सार्न सकियो।\nनयाँ कोठा पहिलेभन्दा फराकिलो छ र मलाई असाध्यै मन परेको छ।\nअर्को पटक अवश्य घुम्न आउनुहोस्।\nमिठो चिया तयार पारेर पर्खिरहेको हुनेछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Thank you for helping me move the other day. Thanks to you, I was able to move the heavy luggage quickly. My new room is bigger than before, and I really like it. Please come visit me sometime. I'll have some delicious tea ready for you."
      ]
     }
    }
@@ -3432,6 +5664,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "पसल बन्द गर्दा, सबैभन्दा पहिले के गरिन्छ?",
+       "choices": [
+        "पसलका सबै बत्ती निभाउने।",
+        "झ्याल र ढोकाको ताला लगाउने।",
+        "पैसाको बाकस बोक्ने।",
+        "बाहिरको बोर्डको बत्ती निभाउने।"
+       ]
+      },
+      "en": {
+       "q": "When closing the store, what is the first thing to do?",
+       "choices": [
+        "店の明かりを全部消す。",
+        "窓とドアの鍵を閉める。",
+        "お金の箱を運ぶ。",
+        "外の看板の電気を消す。"
+       ]
       }
      }
     }
@@ -3440,6 +5690,11 @@
     "ne": {
      "body": [
       "नोट: पसल बन्द गर्दा, यी कुराहरू निश्चित गर्नुहोस्।\nपहिले, सबै बत्तीहरू निभाउनुहोस्।\nत्यसपछि, झ्याल र ढोकाको ताला लगाउनुहोस्।\nत्यसपछि, पैसाको बाकस कार्यालय भित्र लैजानुहोस्।\nअन्तमा, बाहिरको बोर्डको बत्ती पनि निभाउनुहोस्।\nनबिर्सनुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Memo) When closing the store, please check the following: First, turn off all the lights. Next, lock the windows and doors. Then, carry the money box into the office. Finally, please turn off the light on the outdoor sign. Please don't forget."
      ]
     }
    }
@@ -3467,6 +5722,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो अस्पतालमा औषधि लिने व्यक्तिले सुरुमा के गर्छ?",
+       "choices": [
+        "「受付」मा नम्बर लिने।",
+        "दुई नम्बरको काउन्टरमा पर्खने।",
+        "आफ्नो नाम भन्ने।",
+        "औषधि खाने तरिका सोध्ने।"
+       ]
+      },
+      "en": {
+       "q": "What do people who receive medicine at this hospital do first?",
+       "choices": [
+        "「受付で番号札を受け取る」。",
+        "「二番の窓口で待っている」。",
+        "「自分の名前を言う」。",
+        "「薬の飲み方を聞く」。"
+       ]
       }
      }
     }
@@ -3475,6 +5748,11 @@
     "ne": {
      "body": [
       "यो अस्पतालमा औषधि लिँदा, रिसेप्सनमा नम्बरको पर्ची लिनुहोस्।\nनामले होइन, नम्बरले बोलाइन्छ।\nआफ्नो नम्बर स्क्रिनमा आएपछि, दुई नम्बरको काउन्टरमा जानुहोस्।\nऔषधि खाने तरिका अस्पतालका कर्मचारीले बताउँछन्।\nनबुझेको कुरा भए, नहिचकिचाई सोध्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When receiving medicine at this hospital, please take a numbered ticket at the reception desk. You will be called by number, not by name. When your number appears on the screen, please go to window number two. A hospital staff member will explain how to take the medicine. If you have any questions, please don't hesitate to ask."
      ]
     }
    }
@@ -3502,6 +5780,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "विद्यालय अवलोकनमा सहभागी हुन चाहने व्यक्तिले के गर्नुपर्छ?",
+       "choices": [
+        "अगस्ट महिनाभित्र फोन गरेर आरक्षण गर्ने।",
+        "सेप्टेम्बर ५ सम्ममा फोन गर्ने।",
+        "त्यही दिन 「上ばき」 मात्र लिएर जाने।",
+        "शिक्षकसँग सिधै कुरा गर्न जाने।"
+       ]
+      },
+      "en": {
+       "q": "What should people who want to participate in the school tour do?",
+       "choices": [
+        "「八月のうちに電話で予約する」。",
+        "「九月五日までに電話する」。",
+        "「当日に上ばきだけ持って行く」。",
+        "「先生に直接話を聞きに行く」。"
+       ]
       }
      }
     }
@@ -3510,6 +5806,11 @@
     "ne": {
      "body": [
       "(सूचना)\nअर्को महिना, प्राथमिक विद्यालयका विद्यार्थीहरू र उनीहरूका अभिभावकहरूका लागि विद्यालय भ्रमण आयोजना गरिनेछ। मिति सेप्टेम्बर ५, शनिबार हो।\nतपाईंहरूले विद्यालय भित्र हेर्न र शिक्षकहरूको कुरा सुन्न सक्नुहुनेछ।\nसहभागी हुन चाहने व्यक्तिहरूले अगस्ट महिनाको अन्त्यसम्म फोनबाट आवेदन दिनुहोस्। कार्यक्रमको दिन, भित्री जुत्ता लिएर आउनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice) Next month, we will be holding a school tour for elementary school students and their parents. The date is Saturday, September 5th. You can see inside the school and listen to the teachers' talks. If you wish to participate, please apply by phone by the end of August. On the day, please bring your indoor shoes."
      ]
     }
    }
@@ -3537,6 +5838,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्ति आज बिहान किन स्टेशनसम्म हिँडेर गयो?",
+       "choices": [
+        "साइकलको हावा निस्किएकोले।",
+        "साइकल पसल बन्द भएकोले।",
+        "ट्रेन भ्याउन नसकेकोले।",
+        "सधैंभन्दा चाँडो घरबाट निस्किएकोले।"
+       ]
+      },
+      "en": {
+       "q": "Why did this person walk to the station this morning?",
+       "choices": [
+        "「自転車の空気が抜けていたから」。",
+        "「自転車の店が閉まっていたから」。",
+        "「電車に間に合わなかったから」。",
+        "「いつもより早く家を出たから」。"
+       ]
       }
      }
     }
@@ -3545,6 +5864,11 @@
     "ne": {
      "body": [
       "आज बिहान, सधैँझैँ साइकलमा स्टेसन जान खोज्दा, टायरको हावा निस्किएको रहेछ।\nनजिकको साइकल पसल अझै खुलेको थिएन, त्यसैले बाध्य भएर हिँडेरै स्टेसन गएँ।\nसधैँभन्दा बीस मिनेट छिटो घरबाट निस्केको थिएँ, तर पनि रेल छुट्यो।\nभोलि साइकल मर्मत गरेर मात्र निस्कनेछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This morning, when I tried to go to the station by bicycle as usual, the tire was flat. The nearby bicycle shop wasn't open yet, so I had no choice but to walk to the station. Even though I left home twenty minutes earlier than usual, I missed the train. Tomorrow, I'll fix my bicycle before I go out."
      ]
     }
    }
@@ -3572,6 +5896,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "बिदाको समयमा अचानक बिरामी परेमा के गर्नुपर्छ?",
+       "choices": [
+        "स्टेशन नजिकको ठूलो अस्पताल जाने।",
+        "शनिबारसम्म घरमा पर्खने।",
+        "विदेशी '院長' लाई फोन गर्ने।",
+        "बुधबार क्लिनिक जाने।"
+       ]
+      },
+      "en": {
+       "q": "What should you do if you suddenly feel unwell during your time off?",
+       "choices": [
+        "「駅の近くの大病院を訪ねる」。",
+        "「土曜日まで家で待つ」。",
+        "「外国の院長に電話する」。",
+        "「水曜日にクリニックへ行く」。"
+       ]
       }
      }
     }
@@ -3580,6 +5922,11 @@
     "ne": {
      "body": [
       "हाम्रो क्लिनिक अर्को हप्ताको बुधबारदेखि शुक्रबारसम्म बन्द रहनेछ। क्लिनिकका प्रमुख डाक्टर अध्ययनका लागि विदेश जानुहुने भएकोले यस्तो गरिएको हो।\n\nअचानक बिरामी पर्नुभएका व्यक्तिहरूले स्टेशन अगाडिको ठूलो अस्पतालमा जानुहोला।\n\nशनिबारदेखि क्लिनिक सामान्य रूपमा खुल्ला रहनेछ। यसबाट पर्न गएको असुविधाका लागि हामी क्षमाप्रार्थी छौँ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Our clinic will be closed from next Wednesday to Friday. This is because the director will be going abroad for study. If you suddenly feel unwell, please go to the large hospital in front of the station. We will be open as usual from Saturday. We apologize for any inconvenience."
      ]
     }
    }
@@ -3607,6 +5954,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यस हप्ताको अभ्यासको बारेमा कुन कुरा सही छ?",
+       "choices": [
+        "अभ्यास गर्ने ठाउँ '体育館' मा सारियो।",
+        "समय बिहान दश बजेमा परिवर्तन भयो।",
+        "अभ्यास रद्द भयो।",
+        "पार्कको 'コート' बुक गरियो।"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is correct about this week's practice?",
+       "choices": [
+        "「練習場所が体育館に移った」。",
+        "「時間が午前十時に変わった」。",
+        "「練習が休みになった」。",
+        "「公園のコートを予約した」。"
+       ]
       }
      }
     }
@@ -3615,6 +5980,11 @@
     "ne": {
      "body": [
       "नमस्ते सबैलाई।\nयस हप्ताको अभ्यासको लागि, पार्कको कोर्ट प्रयोग गर्न नमिल्ने भयो।\nअर्को समूहले पहिले नै बुकिङ गरिसकेको रहेछ।\nत्यसैले, यस हप्ता मात्र, स्कूल नजिकको व्यायामशालामा अभ्यास गर्छौं।\nसमय सधैं जस्तै, आइतबार बिहान दश बजेदेखि हो।\nर्‍याकेट नबिर्सनुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Hello everyone. For this week's practice, the court at the park is unavailable. It seems another group had already reserved it. Therefore, just for this week, we will practice at the gymnasium near the school. The time will be the same as usual, from 10 AM on Sunday. Please don't forget your rackets."
      ]
     }
    }
@@ -3642,6 +6012,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो मेमो पढेका व्यक्तिले ग्राहकहरू बढ्नुअघि के गर्छन्?",
+       "choices": [
+        "पेय पदार्थ चिसो पारेर राख्ने।",
+        "नयाँ मेनु कागजमा लेख्ने।",
+        "पसलमा फोन गर्ने।",
+        "टेबलको संख्या बढाउने।"
+       ]
+      },
+      "en": {
+       "q": "What will the person who reads this memo do before more customers arrive?",
+       "choices": [
+        "「ドリンクを冷やしておく」。",
+        "「新しいメニューを紙に書く」。",
+        "「お店に電話をかける」。",
+        "「テーブルの数を増やす」。"
+       ]
       }
      }
     }
@@ -3650,6 +6038,11 @@
     "ne": {
      "body": [
       "नमस्ते। आज अलि व्यस्त हुने जस्तो छ, त्यसैले एउटा अनुरोध छ। ग्राहकहरू बढ्नुअघि, पेय पदार्थहरू फ्रिजमा राखिदिनुहोस्। त्यसपछि, नयाँ मेनुका कागजहरू प्रत्येक टेबलमा राखिदिनुहोस्। केही नबुझेको भए, फोन गर्नुहोस्। धन्यवाद।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Good work. Today looks like it's going to be busy, so I have a request. Please put the drinks in the refrigerator before the customers increase. Also, please place the new menu papers on each table. If you have any questions, please call me. Thank you for your cooperation."
      ]
     }
    }
@@ -3677,6 +6070,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "बोतल र क्यान कहिले बाहिर राख्नुपर्छ?",
+       "choices": [
+        "बुधबार आठ बजेसम्म।",
+        "सोमबार र बिहीबार बिहान।",
+        "अघिल्लो दिनको रातमा।",
+        "जहिले राखे पनि हुन्छ।"
+       ]
+      },
+      "en": {
+       "q": "When should I put out the 「ビンやかん」?",
+       "choices": [
+        "By 8 o'clock on Wednesday.",
+        "Monday and Thursday mornings.",
+        "The night before.",
+        "Anytime is fine."
+       ]
       }
      }
     }
@@ -3685,6 +6096,11 @@
     "ne": {
      "body": [
       "यस क्षेत्रमा फोहोर फाल्ने तरिका तोकिएको छ।\nजल्ने फोहोर सोमबार र बिहीबार बिहान फाल्नुपर्छ। सिसाका बोतल र क्यान बुधबार मात्र फाल्नुपर्छ।\nफोहोर बिहान आठ बजेसम्म तोकिएको ठाउँमा फाल्नुहोस्। अघिल्लो दिनको राति फाल्दा जनावरहरू आएर फोहोर बनाउँछन्, त्यसैले कृपया नगर्नुहोस्।\nहामी सबै मिलेर टोललाई सफा राखौँ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "In this district, there are rules for how to dispose of garbage. Burnable garbage should be put out on Monday and Thursday mornings. Bottles and cans are only on Wednesdays. Please put out your garbage by 8 AM at the designated location. Please do not put it out the night before, as animals may come and make a mess. Let's all work together to keep our town clean."
      ]
     }
    }
@@ -3712,6 +6128,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो सभामा भाग लिन चाहने व्यक्तिले के गर्नुपर्छ?",
+       "choices": [
+        "त्यही दिन सिधै गए हुन्छ।",
+        "अगाडि नै फोन गरेर आवेदन दिने।",
+        "पैसा तिरेर प्रवेश गर्ने।",
+        "आफ्नो '絵本' लिएर जाने।"
+       ]
+      },
+      "en": {
+       "q": "What should people who want to participate in this meeting do?",
+       "choices": [
+        "Just go on the day.",
+        "Apply by phone in advance.",
+        "Enter after paying money.",
+        "Bring your own picture book."
+       ]
       }
      }
     }
@@ -3720,6 +6154,11 @@
     "ne": {
      "body": [
       "जानकारी) आउँदो आइतबार, बच्चाहरूका लागि पुस्तक पढ्ने कार्यक्रम आयोजना गर्दैछौँ।\nपुस्तकालयका कर्मचारीले चित्रकथा पढेर सुनाउनुहुनेछ।\nसमय दिउँसो २ बजेदेखि ३ बजेसम्म, दोस्रो तल्लाको कोठामा हो।\nसहभागिता निःशुल्क छ र दर्ता गर्नुपर्दैन।\nकार्यक्रमको दिन सिधै आउनुहोस्।\nसाना बच्चाहरूसँगै आउनुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "(Information from) This coming Sunday, we will hold a children's book reading event. A librarian will read picture books. It will be from 2 PM to 3 PM in the room on the second floor. Participation is free, and no application is required. Please come directly on the day. Feel free to bring your small children."
      ]
     }
    }
@@ -3747,6 +6186,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्ति आज कुन बेला सबैभन्दा खुसी भयो?",
+       "choices": [
+        "ग्राहकबाट धन्यवादको शब्द पाएको बेला।",
+        "'店長' ले काम सिकाएको बेला।",
+        "बिहानको खाना धेरै खाएको बेला।",
+        "सबै काम सिक्न सकेको बेला।"
+       ]
+      },
+      "en": {
+       "q": "When was this person happiest today?",
+       "choices": [
+        "When they received words of thanks from a customer.",
+        "When the store manager taught them work.",
+        "When they ate a lot for breakfast.",
+        "When they learned all the work."
+       ]
       }
      }
     }
@@ -3755,6 +6212,11 @@
     "ne": {
      "body": [
       "आजदेखि नयाँ पसलमा काम गर्न थालेँ।\nबिहान तनावमा थिएँ, त्यसैले धेरै खाना खान सकिनँ।\nपसलको मालिक धेरै दयालु हुनुहुन्थ्यो, उहाँले मलाई हरेक काम एक-एक गरेर राम्ररी सिकाउनुभयो।\nअझै धेरै कुरा सिक्न बाँकी छ र यो गाह्रो छ, तर ग्राहकले \"धन्यवाद\" भन्नुभएको बेला, मलाई धेरै खुसी लाग्यो।\nभोलि पनि मेहनत गर्नेछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I started working at a new store today. I was so nervous this morning that I couldn't eat much. The store manager was very kind and taught me each task carefully. There's still a lot to learn and it's tough, but when a customer said \"thank you,\" I was very happy. I'll do my best again tomorrow."
      ]
     }
    }
@@ -3782,6 +6244,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "अर्को महिनादेखि, बसको समय कसरी परिवर्तन हुन्छ?",
+       "choices": [
+        "बिहानको बस पहिलेभन्दा चाँडो हुनेछ।",
+        "दिउँसोको बस पहिलेभन्दा चाँडो हुनेछ।",
+        "रातिको बस पहिलेभन्दा चाँडो हुनेछ।",
+        "बिहानको बस पहिलेभन्दा ढिलो हुनेछ।"
+       ]
+      },
+      "en": {
+       "q": "How will the bus schedule change from next month?",
+       "choices": [
+        "The morning service will be earlier than before.",
+        "The midday bus will be earlier than now.",
+        "The night bus will be earlier than now.",
+        "The morning bus will be later than now."
+       ]
       }
      }
     }
@@ -3790,6 +6270,11 @@
     "ne": {
      "body": [
       "सूचना) आउँदो महिनाको एक गतेदेखि, स्टेसन अगाडि र अस्पताल जोड्ने बसको समय परिवर्तन हुनेछ।\nबिहानको बस अहिलेभन्दा दश मिनेट छिटो हुनेछ।\nरातिको बस अहिलेभन्दा तीस मिनेट ढिलो समयसम्म चल्नेछ।\nदिउँसोको बसको समय पहिले जस्तै हुनेछ।\nनयाँ समय तालिका स्टेसनमा राखिएको छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "(Notice from) Starting from the first of next month, the bus schedule connecting the station front and the hospital will change. The morning bus will be ten minutes earlier than now. The night bus will run until thirty minutes later than now. The daytime bus schedule will remain the same. The new timetable is available at the station."
      ]
     }
    }
@@ -3817,6 +6302,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिलाई सबैभन्दा अचम्म लागेको कुरा के थियो?",
+       "choices": [
+        "टमाटर एकदमै गुलियो भएको कुरा।",
+        "तरकारीहरू धेरै ताजा भएको कुरा।",
+        "परिवारका सबैजना स्वस्थ भएको कुरा।",
+        "गर्मी बिदामा घुम्न जाने कुरा।"
+       ]
+      },
+      "en": {
+       "q": "What was this person most surprised about?",
+       "choices": [
+        "That the tomatoes were very sweet.",
+        "That the vegetables were very fresh.",
+        "That all the family members were healthy.",
+        "That they would go out to play during summer vacation."
+       ]
       }
      }
     }
@@ -3825,6 +6328,11 @@
     "ne": {
      "body": [
       "हजुरआमा, सन्चै हुनुहुन्छ?\nयता हामी परिवारका सबै जना सन्चै छौँ।\nअघिल्लो पटक पठाउनुभएको तरकारीको लागि धेरै धेरै धन्यवाद। एकदमै ताजा थियो र परिवारका सबै जनाले मीठो मानेर खायौँ। खासगरी गोलभेडा गुलियो भएर हामी छक्क पर्यौँ।\nगर्मी बिदामा बच्चाहरूलाई लिएर हजुरलाई भेट्न आउनेछौँ।\nत्यतिन्जेलसम्म आफ्नो स्वास्थ्यको ख्याल राख्नुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Grandma, how are you? Everyone in our family is doing well here. Thank you very much for the vegetables you sent the other day. They were very fresh, and our whole family enjoyed them. I was especially surprised by how sweet the tomatoes were. We will come to visit you with the children during summer vacation. Until then, please take care of yourself."
      ]
     }
    }
@@ -3852,6 +6360,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "भोलि पानी पर्यो भने विज्ञानको कक्षा कसरी हुन्छ?",
+       "choices": [
+        "कोठामा पाठ्यपुस्तक पढेर सिक्ने।",
+        "बाहिर बगैंचामा फूल र कीराहरू अवलोकन गर्ने।",
+        "कक्षा बिदा हुनेछ।",
+        "सजिलो लुगा लगाएर परिवर्तन गर्ने।"
+       ]
+      },
+      "en": {
+       "q": "What will happen to the science class tomorrow if it rains?",
+       "choices": [
+        "They will learn by reading textbooks in the room.",
+        "They will observe flowers and insects in the garden outside.",
+        "The class will be canceled.",
+        "They will change into clothes that are easy to move in."
+       ]
       }
      }
     }
@@ -3860,6 +6386,11 @@
     "ne": {
      "body": [
       "विद्यार्थीहरूलाई सूचना: भोलिको विज्ञान कक्षा कक्षाकोठामा नभई बाहिर बगैँचामा हुनेछ। हामी फूल र कीराहरू अवलोकन गर्नेछौँ। आफ्नो नोटबुक र पेन्सिल ल्याउन नबिर्सनुहोला। यदि पानी पर्यो भने, हामी सधैँको कक्षाकोठामा किताब प्रयोग गरेर पढ्नेछौँ। हिँड्न सजिलो हुने लुगा लगाएर आउनुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Note to students) Tomorrow's science class will be held not in the classroom, but in the garden outside. This is because we will be observing flowers and insects. Please remember to bring your notebook and pencil. If it rains, we will study using books in our usual classroom. Please come in comfortable clothes."
      ]
     }
    }
@@ -3887,6 +6418,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "राम्रो फोटो खिच्नको लागि, सबैभन्दा महत्त्वपूर्ण कुरा के हो?",
+       "choices": [
+        "「光」मा ध्यान दिनु।",
+        "बिहान सबेरै उठ्नु।",
+        "सूर्यलाई पछाडि पार्नु।",
+        "एउटै ठाउँमा खिच्नु।"
+       ]
+      },
+      "en": {
+       "q": "What is the most important thing for taking beautiful pictures?",
+       "choices": [
+        "「光に気をつけること」。",
+        "「朝早く起きること」。",
+        "「太陽を後ろにすること」。",
+        "「同じ場所で撮ること」。"
+       ]
       }
      }
     }
@@ -3895,6 +6444,11 @@
     "ne": {
      "body": [
       "सुन्दर फोटो खिच्नका लागि, प्रकाश महत्त्वपूर्ण हुन्छ।\nएउटै ठाउँमा पनि, बिहान र दिउँसोमा फोटोको अनुभूति फरक हुन्छ। विशेषगरी बिहान सबेरैको समयमा, प्रकाश नरम हुन्छ र सुन्दर फोटोहरू खिच्न सकिन्छ।\nसाथै, सूर्यलाई पछाडि पारेर फोटो खिच्दा, अनुहार अँध्यारो हुन्छ। फोटो खिच्नुअघि, प्रकाशको दिशा जाँच गरौँ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Light is important for taking beautiful photos. Even in the same place, the feel of the photo changes between morning and noon. Especially in the early morning, the light is soft, allowing you to take beautiful pictures. Also, if you take a photo with the sun behind you, your face will appear dark. Before taking a photo, let's check the direction of the light."
      ]
     }
    }
@@ -3922,6 +6476,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "पसल खुलेको तीन दिनसम्म, पाउरोटी किन्ने मानिसले के पाउँछ?",
+       "choices": [
+        "एक कप तातो कफी।",
+        "एक नयाँ प्रकारको पाउरोटी।",
+        "पसलमा प्रयोग गर्न मिल्ने छुट कुपन।",
+        "बिहान सात बजेदेखि प्रवेश।"
+       ]
+      },
+      "en": {
+       "q": "For three days after opening, what will people who buy bread receive?",
+       "choices": [
+        "「ホットコーヒー一杯」。",
+        "「新しい種類のパン一つ」。",
+        "「店で使える割引券」。",
+        "「朝七時からの入店」。"
+       ]
       }
      }
     }
@@ -3930,6 +6502,11 @@
     "ne": {
      "body": [
       "सूचना:\nलामो समयदेखि बन्द रहेको हाम्रो पसल आउँदो सोमबारदेखि फेरि खुल्नेछ।\nपसलभित्र नयाँ सजावट गरिएको छ र पाउरोटीका प्रकारहरू पनि बढाइएको छ।\nखुलेको पहिलो तीन दिनसम्म, पाउरोटी किन्ने सबै ग्राहकहरूलाई एक कप तातो कफी निःशुल्क दिइनेछ।\nबिहान ७ बजेदेखि खुल्नेछ, त्यसैले कृपया अवश्य आउनुहोला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Announcement) We have been closed for a long time, but we will reopen the store next Monday. We have renovated the interior of the store and increased the variety of bread. For the first three days after reopening, everyone who buys bread will receive a free cup of warm coffee. We open at 7 AM, so please come and visit us."
      ]
     }
    }
@@ -3957,6 +6534,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "खुट्टा दुख्नुको कारण के हो भनेर डाक्टरले के भन्नुभयो?",
+       "choices": [
+        "धेरै भारी सामान बोकेको कारण।",
+        "मनपर्ने टेनिस धेरै खेलेको कारण।",
+        "हरेक दिन धेरै दौडेको कारण।",
+        "अस्पताल धेरै गएको कारण।"
+       ]
+      },
+      "en": {
+       "q": "What did the doctor say was the cause of the leg pain?",
+       "choices": [
+        "「重い物を運びすぎたこと」。",
+        "「好きなテニスをやりすぎたこと」。",
+        "「毎日走りすぎていたこと」。",
+        "「病院に通いすぎたこと」。"
+       ]
       }
      }
     }
@@ -3965,6 +6560,11 @@
     "ne": {
      "body": [
       "गत हप्तादेखि खुट्टा दुखेर अस्पताल गइरहेको छु।\nडाक्टरले \"धेरै गह्रौं सामान बोकेकोले होला\" भन्नुभयो।\nकेही समयसम्म दौडने वा गह्रौं सामान बोक्ने नगर्नु राम्रो हुन्छ रे।\nआज अलि दुखाइ कम भएको जस्तो लाग्छ।\nछिट्टै निको भएर फेरि मनपर्ने टेनिस खेल्न चाहन्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My leg has been hurting since last week, so I've been going to the hospital. The doctor told me, \"It's probably because you carried too many heavy things.\" I was told it's better not to run or carry heavy objects for a while. Today, I feel like the pain has eased a bit. I want to recover quickly so I can play my favorite sport, tennis, again."
      ]
     }
    }
@@ -3992,6 +6592,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "「工事」को समयमा, यो सडक कस्तो हुन्छ?",
+       "choices": [
+        "गाडीलाई अनुमति छैन तर साइकललाई अनुमति छ।",
+        "गाडी र साइकल दुवै जान सक्दैनन्।",
+        "रातमा पनि 「工事」को आवाज आउँछ।",
+        "मार्चको सुरुमा सकिन्छ।"
+       ]
+      },
+      "en": {
+       "q": "What will happen to this road during construction?",
+       "choices": [
+        "「車はだめだが自転車はよい」。",
+        "「車も自転車も両方通れない」。",
+        "「夜も工事の音がする」。",
+        "「三月の初めに終わる」。"
+       ]
       }
      }
     }
@@ -4000,6 +6618,11 @@
     "ne": {
      "body": [
       "सूचना:\nअर्को महिनाको सुरुदेखि, स्टेसन अगाडिको सडक मर्मत कार्य सुरु हुनेछ। मर्मत कार्यको अवधिमा, गाडीहरू चल्न पाउने छैनन्, तर पैदल यात्रु र साइकलहरू चल्न पाउनेछन्। मर्मत कार्य दिउँसो मात्र हुनेछ, र राति आवाज आउने छैन। यो मार्च महिनाको अन्त्यमा सकिने अपेक्षा गरिएको छ। यसबाट असुविधा हुन सक्नेछ, तर तपाईंको सहयोगको अपेक्षा गर्दछौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice) Road construction in front of the station will begin early next month. During the construction, cars will not be able to pass, but pedestrians and bicycles can. Construction will only take place during the day, and there will be no noise at night. It is scheduled to finish at the end of March. We apologize for any inconvenience this may cause and appreciate your understanding."
      ]
     }
    }
@@ -4027,6 +6650,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो इमेलमा सबैभन्दा बढी के भन्न खोजिएको छ?",
+       "choices": [
+        "छोरीलाई आज अनुपस्थित गराउने कुरा।",
+        "छोरी अस्पताल गएको कुरा।",
+        "गृहकार्य साथीलाई सोध्ने कुरा।",
+        "दुई-तीन दिनमा ज्वरो घट्ने कुरा।"
+       ]
+      },
+      "en": {
+       "q": "What is the most important thing this email wants to convey?",
+       "choices": [
+        "「娘を今日は欠席させること」。",
+        "「娘が病院に行ったこと」。",
+        "「宿題を友だちに聞くこと」。",
+        "「二、三日で熱が下がる」こと。"
+       ]
       }
      }
     }
@@ -4035,6 +6676,11 @@
     "ne": {
      "body": [
       "हजुरको निरन्तर सहयोगको लागि आभारी छु।\nमेरी छोरीलाई आज बिहानदेखि ज्वरो आएकोले, आज उनलाई विद्यालय पठाउन सकिनँ।\nअस्पतालमा जँचाउँदा, दुई-तीन दिन घरमै आराम गर्नु राम्रो हुन्छ भनियो।\nयदि गृहकार्य भएमा, पछि साथीहरूसँग बुझ्नेछौँ।\nयसले गर्दा हजुरहरूलाई चिन्ता लागेकोमा क्षमाप्रार्थी छु, र बुझिदिनुहुन अनुरोध गर्दछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Email to) Thank you for your continued support. My daughter developed a fever this morning, so she will be absent from school today. After being examined at the hospital, she was advised to rest at home for two or three days. If there is any homework, I will ask a friend about it later. We apologize for any concern this may cause and appreciate your understanding."
      ]
     }
    }
@@ -4062,6 +6708,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो मेमो लेख्ने व्यक्तिले छेउको सिटमा बस्ने व्यक्तिलाई के अनुरोध गर्नुभयो?",
+       "choices": [
+        "आइपुगेको सामान डेस्कमा राख्ने कुरा।",
+        "दुईवटा भारी बाकस बोकेर राख्ने कुरा।",
+        "दिउँसोको बैठकमा उपस्थित हुने कुरा।",
+        "धन्यवादको मिठाई किन्ने कुरा।"
+       ]
+      },
+      "en": {
+       "q": "What did the person who wrote this memo ask the person in the next seat to do?",
+       "choices": [
+        "「届いた品物を机に載せること」。",
+        "「重い箱を二つ運んでおくこと」。",
+        "「午後の会議に出ること」。",
+        "「お礼のお菓子を買うこと」。"
+       ]
       }
      }
     }
@@ -4070,6 +6734,11 @@
     "ne": {
      "body": [
       "एउटा अनुरोध छ। दिउँसोदेखि म मिटिङमा बाहिर जानेछु, त्यसैले त्यो बेला सामान आइपुग्न सक्छ। यदि आइपुग्यो भने, कृपया मेरो टेबुलमा राखिदिनुहोला। दुईवटा ठूला बाकसहरू हुनुपर्छ। ती गह्रौं छन्, त्यसैले जबरजस्ती बोक्नु पर्दैन। म फर्किएपछि, धन्यवाद स्वरूप मिठाई लिएर आउनेछु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To everyone) I have a request. I will be out for a meeting this afternoon, so a package might arrive while I'm gone. If it does, please place it on my desk. There should be two large boxes. They are heavy, so you don't need to force yourself to carry them. When I return, I will bring some sweets as a thank you."
      ]
     }
    }
@@ -4097,6 +6766,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "किताब फिर्ता गर्ने दिन बितिसकेपछि के हुन्छ?",
+       "choices": [
+        "केही समयको लागि उधारो रोकिन्छ।",
+        "अझ दुई हप्ता मात्र बढाउन सकिन्छ।",
+        "एकैचोटि दशवटासम्म किताब उधारो लिन सकिन्छ।",
+        "फेरि कहिल्यै किताब उधारो लिन सकिँदैन।"
+       ]
+      },
+      "en": {
+       "q": "What happens if you return a book after the due date?",
+       "choices": [
+        "Lending will be suspended for a while.",
+        "You can extend it for another two weeks.",
+        "You can borrow up to ten books at a time.",
+        "You will never be able to borrow books again."
+       ]
       }
      }
     }
@@ -4105,6 +6792,11 @@
     "ne": {
      "body": [
       "यो पुस्तकालयमा एकै पटकमा दस वटासम्म किताबहरू लिन सकिन्छ।\nउधारो लिने अवधि दुई हप्ता हो।\nयदि अझै पढिसक्नुभएको छैन भने, एक पटक मात्र थप दुई हप्ता बढाउन सकिन्छ।\nफिर्ता गर्ने मिति नाघ्यो भने, केही समयसम्म नयाँ किताबहरू लिन सकिँदैन।\nपढिसकेपछि, छिट्टै फिर्ता गर्नुहोस्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "At this library, you can borrow up to ten books at a time. The borrowing period is two weeks. If you haven't finished reading them yet, you can extend the period by another two weeks, but only once. If you return books after the due date, you will not be able to borrow new books for a while. Please return books as soon as you finish reading them."
      ]
     }
    }
@@ -4132,6 +6824,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "बैठक कोठा प्रयोग गरिसकेपछि के गर्नुपर्छ?",
+       "choices": [
+        "कुर्सी र टेबललाई पुरानै ठाउँमा फर्काउने।",
+        "अघिल्लो दिनसम्म कागजमा नाम लेख्ने।",
+        "अर्को प्रयोगकर्तालाई बोलाएर राख्ने।",
+        "झ्याल खुला छोड्ने।"
+       ]
+      },
+      "en": {
+       "q": "What must you do after you finish using the meeting room?",
+       "choices": [
+        "Return the chairs and desks to their original positions.",
+        "Write your name on the paper by the day before.",
+        "Call the next person who will use it.",
+        "Leave the windows open."
+       ]
       }
      }
     }
@@ -4140,6 +6850,11 @@
     "ne": {
      "body": [
       "प्रयोग गर्नेहरूका लागि)\nबैठक कोठा प्रयोग गर्न चाहनुहुन्छ भने, अघिल्लो दिनसम्म कागजमा आफ्नो नाम र समय लेख्नुहोस्।\nएउटै समयमा दुई समूहले प्रयोग गर्न नसकून् भनेर, पहिले लेख्ने व्यक्तिले प्रयोग गर्न पाउँछन्।\nप्रयोग गरिसकेपछि, टेबुल र कुर्सीहरूलाई तिनीहरूको पुरानो ठाउँमा फर्काउनुहोस् र झ्यालहरू बन्द गर्नुहोस्।\nअर्को व्यक्तिको लागि, यसलाई सफा राखौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "To those using the meeting room) If you wish to use the meeting room, please write your name and time on the paper by the day before. To prevent two groups from using it at the same time, the person who wrote first can use it. After you finish using it, please return the desks and chairs to their original places and close the windows. Please clean up for the next person."
      ]
     }
    }
@@ -4167,6 +6882,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो व्यक्तिलाई यो सहर किन मन पर्यो?",
+       "choices": [
+        "छिमेकी परिवारहरू दयालु भएकाले।",
+        "पहिलेदेखि चिनेका धेरै मानिसहरू भएकाले।",
+        "स्वादिष्ट बेकरी खोलेकाले।",
+        "पहिलेदेखि बसेको सहर भएकाले।"
+       ]
+      },
+      "en": {
+       "q": "Why did this person come to like this town?",
+       "choices": [
+        "Because the neighboring families were kind.",
+        "Because there were many people they knew from before.",
+        "Because they opened a delicious bakery.",
+        "Because it was the town they had lived in before."
+       ]
       }
      }
     }
@@ -4175,6 +6908,11 @@
     "ne": {
      "body": [
       "गत महिना म अहिलेको सहरमा सरेर आएँ।\nसुरुमा चिनेको मान्छे कोही पनि नभएर अलि एक्लो महसुस भयो।\nतर, छिमेकमा बस्ने परिवार धेरै दयालु हुनुहुन्थ्यो र उहाँहरूले मलाई सहरको बारेमा धेरै कुराहरू बताउनुभयो।\nनजिकै स्वादिष्ट बेकरी भएको कुरा पनि उहाँहरूलाई सोधेर थाहा पाएँ।\nम भर्खरै आएको भए पनि, मलाई यो सहर मन पर्न थालिसक्यो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last month, I moved to my current town. At first, I didn't know anyone, and I felt a little lonely. However, the family living next door was very kind and taught me many things about the town. I also learned from them that there is a delicious bakery nearby. Although I just arrived, I already like this town."
      ]
     }
    }
@@ -4202,6 +6940,24 @@
      "i18n": {
       "ja": {
        "explain": ""
+      },
+      "ne": {
+       "q": "यो खाना पकाउने कक्षामा आउने मानिसहरूले के ल्याउनुपर्छ?",
+       "choices": [
+        "「エプロン」 मात्र।",
+        "दुई घण्टाको खाना।",
+        "खाना पकाउने सामग्री।",
+        "「エプロン」 र सामग्री।"
+       ]
+      },
+      "en": {
+       "q": "What should people who come to this cooking class bring?",
+       "choices": [
+        "Only an apron.",
+        "Two hours' worth of food.",
+        "Cooking ingredients.",
+        "An apron and ingredients."
+       ]
       }
      }
     }
@@ -4210,6 +6966,11 @@
     "ne": {
      "body": [
       "अर्को महिनादेखि, साँझको खाना पकाउने कक्षा सुरु हुँदैछ। काम सकिएपछि पनि आउन सकियोस् भनेर, समय साँझ सात बजेदेखि राखिएको छ। हरेक मंगलबार, एक पटकमा दुई घण्टाको हुन्छ। बनाएको खाना त्यहीँ खान सकिन्छ। एप्रोन मात्र लिएर आउनुहोस्। सामग्री हामीले तयार पार्नेछौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Notice) Starting next month, we will begin evening cooking classes. The time has been set for 7 PM so that you can attend even after work. Classes are every Tuesday, two hours per session. You can eat the dishes you make on the spot. Please bring only an apron. We will prepare the ingredients here."
      ]
     }
    }
