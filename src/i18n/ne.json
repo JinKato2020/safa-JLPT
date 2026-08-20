@@ -433,6 +433,7 @@
   "passage.hint": "कृपया सबै प्रश्नको उत्तर दिनुहोस्।",
   "passage.showTrans": "अनुवाद हेर्नुहोस्",
   "passage.hideTrans": "अनुवाद लुकाउनुहोस्",
+  "passage.explainLabel": "व्याख्या",
   "passage.next": "अर्को",
   "passage.qLabel": "प्रश्न{n}",
   "passage.sessionComplete": "अनुच्छेद व्याकरण सत्र पूर्ण",

@@ -433,6 +433,7 @@
   "passage.hint": "Answer all questions.",
   "passage.showTrans": "Show translation (Nepali)",
   "passage.hideTrans": "Hide translation",
+  "passage.explainLabel": "Explanation",
   "passage.next": "Next",
   "passage.qLabel": "Q{n}",
   "passage.sessionComplete": "Text Grammar Session Complete",

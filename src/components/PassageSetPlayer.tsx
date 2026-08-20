@@ -124,7 +124,13 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
                 );
               })}
             </View>
-            {/* 毎問の私の単語帳登録は廃止。学習語は各画面の終了時(AfterStudyReward)でまとめて☑登録。 */}
+            {revealed && q.explain ? (
+              <View style={s.explainBox}>
+                <Text style={s.explainLabel}>{t('passage.explainLabel')}</Text>
+                <Text style={s.explainTxt}>{q.explain}</Text>
+              </View>
+            ) : null}
+            {/* 解説は難所(指示語・理由)のみ。それ以外は本文/設問/選択肢の母語・英語訳で理解を助ける。 */}
           </View>
         );
       })}
@@ -150,6 +156,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   transTxt: { fontSize: ty.small, color: c.ink2, lineHeight: 22, marginTop: spacing.sm, paddingTop: spacing.sm, borderTopWidth: 1, borderTopColor: c.line },
   qTrans: { fontSize: ty.small, color: c.ink2, lineHeight: 20, marginTop: 4 },
   choiceTrans: { fontSize: ty.small, color: c.ink2, marginTop: 3 },
+  explainBox: { marginTop: spacing.sm, padding: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.md, borderLeftWidth: 3, borderLeftColor: c.blue },
+  explainLabel: { fontSize: ty.small, fontWeight: '700', color: c.blueDark, marginBottom: 2 },
+  explainTxt: { fontSize: ty.small, color: c.ink, lineHeight: 21 },
   transBtn: { alignSelf: 'flex-start', backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: 6, paddingHorizontal: spacing.md, marginTop: -spacing.xs },
   transBtnTxt: { fontSize: ty.small, fontWeight: '700', color: c.blueDark },
   qBlock: { gap: spacing.sm },
