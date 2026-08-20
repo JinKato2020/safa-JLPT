@@ -624,18 +624,18 @@
       "ne": {
        "q": "「毎朝これを作ってくれる母は、本当にすごい」 भनिएको छ, तर 「これ」 ले केलाई जनाउँछ?",
        "choices": [
-        "「おべんとう」",
-        "「たまご焼き」",
-        "तरकारी र 「おにぎり」",
+        "खाजा",
+        "अण्डाको ओमलेट",
+        "तरकारी र ओनिगिरी",
         "चपस्टिक र पेय पदार्थ"
        ]
       },
       "en": {
        "q": "It says, \"毎朝これを作ってくれる母は、本当にすごい\" (My mother, who makes this every morning, is truly amazing). What does \"これ\" refer to?",
        "choices": [
-        "おべんとう",
-        "たまご焼き",
-        "Vegetables and \"おにぎり\"",
+        "Bento (lunchbox)",
+        "Tamagoyaki (Japanese rolled omelet)",
+        "Vegetables and onigiri (rice balls)",
         "Chopsticks and drinks"
        ]
       }
@@ -919,10 +919,10 @@
       "en": {
        "q": "What did my grandfather say was important for growing healthy vegetables?",
        "choices": [
-        "\"毎日水をやって、よく見てあげること\"",
-        "\"小さな種から大きな野菜を育てること\"",
-        "\"夏休みのあいだだけ畑の手伝いをすること\"",
-        "\"赤くなったトマトを見てうれしくなり、すぐにとること\""
+        "Watering them every day and watching them carefully",
+        "Growing large vegetables from small seeds",
+        "Helping out in the field only during summer vacation",
+        "Being happy to see red tomatoes and picking them immediately"
        ]
       }
      }
@@ -953,10 +953,10 @@
       "en": {
        "q": "「そこ」とありますが, where does it refer to?",
        "choices": [
-        "\"祖父が家の近くに持っている小さな畑\"",
-        "\"野菜を安く売っているお店\"",
-        "\"祖父が夏休みにわたしと出かける公園\"",
-        "\"小さな種をたくさん買った場所\""
+        "A small field my grandfather has near his house",
+        "A shop that sells vegetables cheaply",
+        "A park my grandfather takes me to during summer vacation",
+        "A place where I bought many small seeds"
        ]
       }
      }
@@ -1811,10 +1811,10 @@
       "en": {
        "q": "What is the reason why 「わたし」 stopped taking the train?",
        "choices": [
-        "電車が込んでいてつかれることが多かったから",
-        "毎朝の電車の料金が高くなってしまったから",
-        "会社が引っこして家から近くなったから",
-        "自転車で三十分かかるが電車より速かったから"
+        "Because the train was often crowded and tiring",
+        "Because the train fare every morning became expensive",
+        "Because the company moved closer to home",
+        "Because it took thirty minutes by bicycle, but it was faster than the train"
        ]
       }
      }
@@ -1845,10 +1845,10 @@
       "en": {
        "q": "What does 「①自転車で通ういちばんいいところ」 refer to?",
        "choices": [
-        "体の具合がよくなったこと",
-        "通勤の時間が短くなったこと",
-        "新しい友だちができたこと",
-        "会社におそく着けるようになったこと"
+        "My physical condition improved",
+        "My commuting time became shorter",
+        "I made new friends",
+        "I started being able to arrive late at work"
        ]
       }
      }
@@ -1879,10 +1879,10 @@
       "en": {
        "q": "What are the other good points about commuting by bicycle?",
        "choices": [
-        "電車のお金がかからないこと",
-        "雨の日や風の強い日も速く行けること",
-        "毎朝とても込んだ電車にゆっくり乗れること",
-        "会社まで三十分で着いてつかれてしまうこと"
+        "Not having to pay for the train",
+        "Being able to go quickly even on rainy or windy days",
+        "Being able to ride the very crowded train slowly every morning",
+        "Arriving at the company in thirty minutes and getting tired"
        ]
       }
      }
@@ -1913,10 +1913,10 @@
       "en": {
        "q": "What does 「わたし」 do on rainy or windy days?",
        "choices": [
-        "バスで行く",
-        "自転車で行く",
-        "会社を休む",
-        "歩いて行く"
+        "Go by bus",
+        "Go by bicycle",
+        "Take a day off from work",
+        "Go on foot"
        ]
       }
      }
@@ -1971,10 +1971,10 @@
       "en": {
        "q": "Why did A decide to stay at my house?",
        "choices": [
-        "日本語をもっと話せるようになりたかったから",
-        "自分の国の料理を日本で作りたかったから",
-        "大学で日本語を教えることになったから",
-        "わたしの母と友だちになりたかったから"
+        "Because I wanted to speak Japanese more",
+        "Because I wanted to cook my country's food in Japan",
+        "Because I was going to teach Japanese at university",
+        "Because I wanted to become friends with my mother"
        ]
       }
      }
@@ -2005,10 +2005,10 @@
       "en": {
        "q": "It says 「①Aさんは少しずつ話すようになりました」, but why is that?",
        "choices": [
-        "母がまちがえてもいいと言ってくれたから",
-        "家族みんなと毎日楽しくおしゃべりをしたかったから",
-        "自分の国の料理を作ってみんなにほめられたから",
-        "大学の授業で日本語が上手になったから"
+        "Because my mother told me it was okay to make mistakes.",
+        "Because I wanted to have fun chatting with my whole family every day.",
+        "Because I cooked my country's food and everyone praised it.",
+        "Because my Japanese improved in university classes."
        ]
       }
      }
@@ -2039,10 +2039,10 @@
       "en": {
        "q": "How did we feel on the day Mr. A went home?",
        "choices": [
-        "みんなさびしくなった",
-        "うれしくなった",
-        "ほっとした",
-        "おこった"
+        "Everyone became sad.",
+        "Became happy.",
+        "Felt relieved.",
+        "Got angry."
        ]
       }
      }
@@ -2073,10 +2073,10 @@
       "en": {
        "q": "It says, \"それはとてもからくて、わたしは水をたくさん飲みました\" What does \"それ\" refer to?",
        "choices": [
-        "Aさんが作った自分の国の料理",
-        "わたしの母がAさんにまちがえてもいいからどんどん話してと言った言葉",
-        "Aさんが大学で勉強している日本語",
-        "わたしがからくてたくさん飲んだ水"
+        "The food from A's country that A made.",
+        "My mother's words to A, telling her it's okay to make mistakes and to speak up.",
+        "The Japanese A is studying at university.",
+        "The water I drank a lot of because it was spicy."
        ]
       }
      }
@@ -2131,10 +2131,10 @@
       "en": {
        "q": "It says, \"①本がどこにあるか覚えるのは大変でした\" What is the author referring to as difficult?",
        "choices": [
-        "たくさんある本の置き場所を覚えること",
-        "新しい本にきれいにカバーをつけること",
-        "返ってきた本をもとのたなへ運ぶこと",
-        "図書館に来るいろいろな人の名前を覚えること"
+        "Remembering the locations of many books.",
+        "Putting nice covers on new books.",
+        "Returning books to their original shelves.",
+        "Remembering the names of various people who come to the library."
        ]
       }
      }
@@ -2165,10 +2165,10 @@
       "en": {
        "q": "What was the most surprising thing after starting this job?",
        "choices": [
-        "図書館にいろいろな人が来ること",
-        "返ってきた本をもとの場所にもどす仕事のこと",
-        "本がどこにあるか覚えるのが大変なこと",
-        "お年よりに感謝されてうれしいこと"
+        "That various people come to the library.",
+        "The job of returning books to their original places.",
+        "That it's hard to remember where books are.",
+        "That I'm happy to be thanked by elderly people."
        ]
       }
      }
@@ -2199,10 +2199,10 @@
       "en": {
        "q": "Why did \"わたし\" come to like this job?",
        "choices": [
-        "人に感謝されるとうれしいから",
-        "お金がたくさんもらえるから",
-        "本をただで借りられるから",
-        "仕事がとてもかんたんだから"
+        "Because I'm happy when people thank me.",
+        "Because I can get a lot of money.",
+        "Because I can borrow books for free.",
+        "Because the job is very easy."
        ]
       }
      }
@@ -2233,10 +2233,10 @@
       "en": {
        "q": "What kind of place did \"わたし\" think the library was?",
        "choices": [
-        "みんなにとって大切な場所",
-        "本を探している人だけが集まる場所",
-        "静かにやすみたい人のためだけの場所",
-        "学校が終わった子どもだけが来る場所"
+        "A place important to everyone",
+        "A place where only people looking for books gather",
+        "A place only for people who want to rest quietly",
+        "A place where only children who have finished school come"
        ]
       }
      }
@@ -2291,10 +2291,10 @@
       "en": {
        "q": "What was inside the rice balls made by the mother when the child was little?",
        "choices": [
-        "「梅ぼし」 or 「こんぶ」 or 「しゃけ」",
-        "「にくやたまご」",
-        "「やさい」",
-        "「チーズ」"
+        "Umeboshi, kelp, or salmon",
+        "Meat and eggs",
+        "Vegetables",
+        "Cheese"
        ]
       }
      }
@@ -2519,10 +2519,10 @@
       "en": {
        "q": "While cleaning, what did 「わたし」 learn?",
        "choices": [
-        "近所の人について、知らなかったことがたくさんわかった",
-        "同じマンションに住む人とはあいさつしかしないということ",
-        "公園のごみや草が思ったより多いということ",
-        "月に一回ごみをひろい草をぬいてもきれいにならないこと"
+        "I learned a lot about my neighbors that I didn't know",
+        "That I only greet people who live in the same apartment building",
+        "That there was more trash and weeds in the park than I thought",
+        "That even if I pick up trash and pull weeds once a month, it won't get clean"
        ]
       }
      }
@@ -2553,10 +2553,10 @@
       "en": {
        "q": "What is 「わたし」 most looking forward to about cleaning now?",
        "choices": [
-        "近所のみんなと会えること",
-        "公園がきれいになること",
-        "草をぬいて運動になること",
-        "ごみをたくさんひろうこと"
+        "Being able to meet everyone in the neighborhood",
+        "The park becoming clean",
+        "Getting exercise by pulling weeds",
+        "Picking up a lot of trash"
        ]
       }
      }
@@ -2611,10 +2611,10 @@
       "en": {
        "q": "It says, 「①晴れた日はいつも人が多くて、なかなか席が空きません」, but what about rainy days?",
        "choices": [
-        "お客さんが少なく、好きな窓ぎわの席にすわれる",
-        "晴れた日よりもさらにお客さんが多くなってしまう",
-        "駅から歩いてお店まで行くのが大変になる",
-        "あたたかいコーヒーが飲めなくなってしまう"
+        "There are few customers, so I can sit at my favorite window seat",
+        "There will be even more customers than on a sunny day",
+        "It will be difficult to walk from the station to the shop",
+        "I won't be able to drink warm coffee"
        ]
       }
      }
@@ -2645,10 +2645,10 @@
       "en": {
        "q": "Last week, what did 「わたし」 talk about with the shop staff?",
        "choices": [
-        "新しいケーキの話",
-        "天気の話",
-        "駅までの道の話",
-        "コーヒーのねだんの話"
+        "Talk about new cakes",
+        "Talk about the weather",
+        "Talk about the way to the station",
+        "Talk about the price of coffee"
        ]
       }
      }
@@ -2679,10 +2679,10 @@
       "en": {
        "q": "What kind of day is a rainy day for 「わたし」?",
        "choices": [
-        "外に出たくなる特別な日",
-        "一日中家にいたい日",
-        "仕事がいそがしくなる日",
-        "コーヒーが飲めない日"
+        "A special day when you want to go out",
+        "A day when you want to stay home all day",
+        "A day when work gets busy",
+        "A day when you can't drink coffee"
        ]
       }
      }
@@ -2713,10 +2713,10 @@
       "en": {
        "q": "It says, 「今度お店に行ったら、そのケーキも食べてみよう」, but what kind of cake is 「そのケーキ」?",
        "choices": [
-        "先週お店の人が話してくれた新しいケーキ",
-        "雨の日にお店で毎回注文するケーキ",
-        "窓ぎわの席で飲むあたたかいコーヒー",
-        "駅の近くのカフェで昔食べたケーキ"
+        "The new cake the shopkeeper told me about last week",
+        "The cake I order every time at the shop on a rainy day",
+        "Warm coffee drunk at a window seat",
+        "A cake I ate long ago at a cafe near the station"
        ]
       }
      }
@@ -2999,10 +2999,10 @@
       "en": {
        "q": "Which of the following matches the content of this passage?",
        "choices": [
-        "一人旅は思っていたよりずっとよいものだった",
-        "旅先の町ではだれも親切にしてくれなかった",
-        "一人旅はさびしいのでもう二度としたくない",
-        "いつも友だちや家族と旅行に行っている"
+        "Traveling alone was much better than I expected",
+        "No one in the town I visited was kind to me",
+        "Traveling alone is lonely, so I don't want to do it again",
+        "I always travel with friends and family"
        ]
       }
      }
@@ -3033,10 +3033,10 @@
       "en": {
        "q": "It says, 「その親切は、今でもわすれられません」. What does 「その親切」 refer to?",
        "choices": [
-        "旅先の町で会ったおばあさんが親切にしてくれたこと",
-        "自分のすきな時間にすきなことを楽しめたこと",
-        "きれいな景色をゆっくり一人でながめられたこと",
-        "友だちや家族がいつも旅行にさそってくれたこと"
+        "An old woman I met in the town I visited was kind to me",
+        "Being able to enjoy what I like at my own pace",
+        "Being able to slowly admire the beautiful scenery alone",
+        "Friends and family always invited me to travel"
        ]
       }
      }
@@ -3091,10 +3091,10 @@
       "en": {
        "q": "How did Maro come to \"my\" house?",
        "choices": [
-        "近所の人が子犬をもらってほしいと言ってきた",
-        "近所のペットショップで生まれた子犬を買ってきた",
-        "散歩の道でまよっていた子犬をひろってきた",
-        "遠くに住む友だちがゆずってくれた"
+        "A neighbor asked me to take a puppy",
+        "I bought a puppy born at a nearby pet shop",
+        "I picked up a lost puppy on my walk",
+        "A friend living far away gave it to me"
        ]
       }
      }
@@ -3125,10 +3125,10 @@
       "en": {
        "q": "How was it to own a dog?",
        "choices": [
-        "思っていたとおり大変だった",
-        "思っていたよりかんたんだった",
-        "お金がまったくかからなかった",
-        "さんぽに行かなくてよかった"
+        "It was as difficult as I expected",
+        "It was easier than I expected",
+        "It didn't cost any money at all",
+        "I didn't have to go for walks"
        ]
       }
      }
@@ -3159,10 +3159,10 @@
       "en": {
        "q": "It says, 「①とくに変わったのは、わたしの父です」. What kind of change in the father does 「変わった」 refer to here?",
        "choices": [
-        "あまり話さなかったのに、よく笑うようになったこと",
-        "会社から帰るのがおそくなり犬と遊ばなくなったこと",
-        "犬のさんぽが大変で会社を休むようになったこと",
-        "しずかな家がすきで前よりも話さなくなったこと"
+        "Even though I didn't talk much, I started to laugh a lot.",
+        "I started coming home late from work and stopped playing with my dog.",
+        "Walking the dog became so difficult that I started taking days off work.",
+        "I like quiet houses, so I started talking less than before."
        ]
       }
      }
@@ -3193,10 +3193,10 @@
       "en": {
        "q": "What does \"I\" most want to convey in this passage?",
        "choices": [
-        "マロのおかげで家族が前より仲よくなったこと",
-        "犬をかうと毎日のさんぽやお金が大変なこと",
-        "父は会社から帰るとすぐにマロと遊ぶこと",
-        "しずかだった家に元気な声がひびくようになったこと"
+        "Thanks to Maro, the family became closer than before.",
+        "Owning a dog means daily walks and expenses are a lot of work.",
+        "My father plays with Maro as soon as he comes home from work.",
+        "The quiet house became filled with lively voices."
        ]
       }
      }
@@ -3251,10 +3251,10 @@
       "en": {
        "q": "What is mentioned in the text as a reason why fewer people are reading books?",
        "choices": [
-        "スマートフォンでニュースやどうががすぐ見られるから",
-        "電車の中で本を読む人が少なくなったから",
-        "ねる前に本を読むと目がさえてしまうから",
-        "図書館が近所からなくなってしまったから"
+        "Because I can quickly watch news and videos on my smartphone.",
+        "Because fewer people read books on the train.",
+        "Because reading a book before bed makes me wide awake.",
+        "Because the library disappeared from my neighborhood."
        ]
       }
      }
@@ -3285,10 +3285,10 @@
       "en": {
        "q": "Why did 「わたし」 decide to read a book?",
        "choices": [
-        "電車で本を読む人が落ち着いて見えたから",
-        "毎晩ねる前に三十分だけ時間ができたから",
-        "スマートフォンでニュースを見るのにあきてしまったから",
-        "本を読むとよく眠れると友だちに聞いたから"
+        "Because people reading books on the train looked calm.",
+        "Because I had 30 minutes free every night before bed.",
+        "Because I got tired of watching the news on my smartphone.",
+        "Because a friend told me that reading helps you sleep well."
        ]
       }
      }
@@ -3319,10 +3319,10 @@
       "en": {
        "q": "In \"①本を読むようになって…本だとそうなりません\", what does 「そう」 refer to?",
        "choices": [
-        "目がさえてねむれなくなること",
-        "スマートフォンでニュースやどうがを見ること",
-        "ねる前に三十分だけ本を読むこと",
-        "知らなかったことが本に書いてあること"
+        "Becoming wide awake and unable to sleep.",
+        "Watching news and videos on a smartphone.",
+        "Reading a book for only 30 minutes before bed.",
+        "Finding things in books that I didn't know."
        ]
       }
      }
@@ -3353,10 +3353,10 @@
       "en": {
        "q": "What changes occurred in 「わたし」 after starting to read books?",
        "choices": [
-        "よく眠れるようになり、毎日が前より楽しくなった",
-        "スマートフォンでニュースやどうがを見ることが前より多くなった",
-        "電車の中で本を読むのがはずかしくなった",
-        "ねる前の時間が短くなってつかれてしまった"
+        "I started sleeping well, and every day became more enjoyable than before.",
+        "I started watching news and videos on my smartphone more than before.",
+        "I became embarrassed to read books on the train.",
+        "My time before bed became shorter, and I got tired."
        ]
       }
      }
@@ -3411,10 +3411,10 @@
       "en": {
        "q": "It says \"①一から覚えなければなりません\", but why is that?",
        "choices": [
-        "新しい会社では、わからないことばかりだから",
-        "前の会社にもう一度もどることになったから",
-        "まわりの人がだれも仕事を教えてくれないから",
-        "前の会社では何でも知っていて同じ仕事ばかりだから"
+        "Because I don't know anything in the new company.",
+        "Because I decided to go back to my previous company.",
+        "Because no one around me teaches me how to do the work.",
+        "Because I knew everything in my previous company and did only the same work."
        ]
       }
      }
@@ -3445,10 +3445,10 @@
       "en": {
        "q": "What kind of company was the previous one?",
        "choices": [
-        "家から近いが、同じ仕事ばかりであまり楽しくなかった",
-        "家から遠くて毎朝通うのがとても大変だった",
-        "毎日新しい仕事があって覚えるのが大変だった",
-        "まわりの人がやさしく仕事を教えてくれる会社だった"
+        "It was close to home, but I wasn't very happy because it was always the same work.",
+        "It was far from home and commuting every morning was very difficult.",
+        "There was new work every day and it was hard to remember.",
+        "It was a company where people around me kindly taught me the work."
        ]
       }
      }
@@ -3824,10 +3824,10 @@
       "ne": {
        "q": "यस लेखमा 「わたし」ले सबैभन्दा बढी के भन्न चाहन्छ?",
        "choices": [
-        "「あいさつは人と人を近づける大きな力を持っている」",
-        "「引っこしたばかりのころはさびしくて下を向いてばかりいた」",
-        "「同じマンションでもふだんはあいさつぐらいしかしないものだ」",
-        "「引っこしてきた新しい町に知っている人が一人もいないのはつらい」"
+        "अभिवादनले मानिसहरूलाई एकअर्काको नजिक ल्याउने ठूलो शक्ति राख्छ।",
+        "भर्खरै सरेको बेला म एक्लो महसुस गर्थे र सधैं तल हेर्थे।",
+        "एउटै अपार्टमेन्टमा भए पनि, सामान्यतया अभिवादन मात्र गरिन्छ।",
+        "नयाँ सरेको शहरमा एकजना पनि चिनेको मान्छे नहुनु पीडादायी हुन्छ।"
        ]
       },
       "en": {
@@ -3882,10 +3882,10 @@
       "ne": {
        "q": "आमाबुबाले सुरुमा भाइलाई कस्तो होस् भन्ने चाहनुहुन्थ्यो?",
        "choices": [
-        "「ふつうの会社に入ってほしい」",
-        "「絵の勉強を大学で続けてほしい」",
-        "「すきな絵をかいて有名になってほしい」",
-        "「家でずっと絵をかいていてほしい」"
+        "सामान्य कम्पनीमा काम गरोस्।",
+        "विश्वविद्यालयमा चित्रकलाको अध्ययन जारी राखोस्।",
+        "आफूलाई मनपर्ने चित्र बनाएर प्रसिद्ध होस्।",
+        "घरमा सधैं चित्र बनाइरहोस्।"
        ]
       },
       "en": {
@@ -3916,10 +3916,10 @@
       "ne": {
        "q": "①「両親は心配しましたが、…最後はおうえんすることにしました」 भनिएको छ, आमाबुबाले किन समर्थन गर्ने निर्णय गर्नुभयो?",
        "choices": [
-        "「弟の気持ちが強いのを見たから」",
-        "「絵でお金がもうかると分かったから」",
-        "「会社に入れなかったから」",
-        "「弟が有名になったから」"
+        "भाइको बलियो भावना देखेर।",
+        "चित्रकलाबाट पैसा कमाउन सकिन्छ भनेर थाहा पाएपछि।",
+        "कम्पनीमा प्रवेश गर्न नसकेकाले।",
+        "भाइ प्रसिद्ध भएपछि।"
        ]
       },
       "en": {
@@ -3950,10 +3950,10 @@
       "ne": {
        "q": "अहिले भाइ कस्तो जीवन बिताइरहेको छ?",
        "choices": [
-        "「有名ではないが、絵の仕事をして毎日楽しそうにくらしている」",
-        "「会社に入って絵はやめ、今はふつうにはたらいている」",
-        "「絵で有名になってお金持ちになった」",
-        "「両親に心配をかけて毎日なやんでいる」"
+        "प्रसिद्ध छैन, तर चित्रकलाको काम गरेर हरेक दिन खुसीसाथ बाँचिरहेको छ।",
+        "कम्पनीमा प्रवेश गरेर चित्रकला छोड्यो, अहिले सामान्य रूपमा काम गरिरहेको छ।",
+        "चित्रकलाबाट प्रसिद्ध भएर धनी भयो।",
+        "आमाबुबालाई चिन्तित बनाएर हरेक दिन चिन्तामा छ।"
        ]
       },
       "en": {
@@ -3984,10 +3984,10 @@
       "ne": {
        "q": "「夢を持ち続けるのは、かんたんなことではない」 भनिएको छ, यहाँको 「夢」ले केलाई संकेत गर्छ?",
        "choices": [
-        "「すきな絵をかいて生活していくこと」",
-        "「ふつうの会社に入ってはたらくこと」",
-        "「絵で有名になってお金持ちになること」",
-        "「両親の心配をなくして安心させること」"
+        "मनपर्ने चित्रहरू बनाएर जीवन बिताउनु।",
+        "सामान्य कम्पनीमा प्रवेश गरेर काम गर्नु।",
+        "चित्रकलाबाट प्रसिद्ध भएर धनी हुनु।",
+        "आमाबुबाको चिन्ता हटाएर उनीहरूलाई ढुक्क बनाउनु।"
        ]
       },
       "en": {
@@ -4042,10 +4042,10 @@
       "ne": {
        "q": "किताब उधारो लिँदा सुरुमा के गर्नुपर्छ?",
        "choices": [
-        "「まず利用のカードを用意すること」",
-        "「六冊の本を先に自分で選んでおくこと」",
-        "「受付で自分の名前を紙に書いておくこと」",
-        "「駅の近くまで歩いて行くこと」"
+        "पहिले प्रयोगको कार्ड तयार गर्नु।",
+        "छ वटा किताब पहिले नै आफैंले छनोट गर्नु।",
+        "कागजातमा आफ्नो नाम दर्तामा लेख्नु।",
+        "स्टेशन नजिकै हिँडेर जानु।"
        ]
       },
       "en": {
@@ -4430,19 +4430,19 @@
       "ne": {
        "q": "पाठमा 'このひとこと' ले कुन शब्दलाई जनाउँछ?",
        "choices": [
-        "「あなたがいると気持ちがいいね」",
-        "「はじめは、だれでもできないものだよ」",
-        "「パンの名前をもう全部言えるね」",
-        "「朝早くからいつもよく働いているね」"
+        "तिमी हुँदा राम्रो लाग्छ।",
+        "सुरुमा कसैले पनि गर्न सक्दैन।",
+        "तिमीले सबै रोटीको नाम भन्न सक्छौ।",
+        "बिहानैदेखि सधैं राम्रो काम गर्छौ।"
        ]
       },
       "en": {
        "q": "Which phrase does 『このひとこと』 in the text refer to?",
        "choices": [
-        "あなたがいると気持ちがいいね",
-        "はじめは、だれでもできないものだよ",
-        "パンの名前をもう全部言えるね",
-        "朝早くからいつもよく働いているね"
+        "It feels good to have you around.",
+        "At first, no one can do it.",
+        "You can already say all the names of the breads.",
+        "You always work hard from early in the morning."
        ]
       }
      }
@@ -4473,10 +4473,10 @@
       "en": {
        "q": "What did this person learn through their part-time job?",
        "choices": [
-        "人によろこばれるほうがお金よりうれしいこと",
-        "お金をたくさんもらうのが一番だいじだということ",
-        "朝早い仕事はやめたほうがよいということ",
-        "パン屋の仕事は自分に合わないということ"
+        "That making people happy is more joyful than money.",
+        "That getting a lot of money is the most important thing.",
+        "That it's better to quit early morning work.",
+        "That the job at the bakery doesn't suit me."
        ]
       }
      }
@@ -4531,10 +4531,10 @@
       "en": {
        "q": "What kind of dishes are made in this class?",
        "choices": [
-        "家でも作りやすく、体によい料理",
-        "レストランで出される、めずらしい料理",
-        "作るのにとても長い時間がかかる料理",
-        "外国のめずらしい材料を使う料理"
+        "Dishes that are easy to make at home and good for the body.",
+        "Unusual dishes served at restaurants.",
+        "Dishes that take a very long time to make.",
+        "Dishes that use unusual foreign ingredients."
        ]
       }
      }
@@ -4565,10 +4565,10 @@
       "en": {
        "q": "What do 『この二つ』 in the text refer to?",
        "choices": [
-        "エプロンとタオル",
-        "料理の材料と持ち帰りの入れ物",
-        "自分で使う包丁とまな板",
-        "おさらとおはし"
+        "Apron and towel",
+        "Cooking ingredients and containers for taking home",
+        "My own knife and cutting board",
+        "Plates and chopsticks"
        ]
       }
      }
@@ -4599,10 +4599,10 @@
       "en": {
        "q": "For whom is it convenient to bring a container?",
        "choices": [
-        "作った料理を家へ持ち帰りたい人",
-        "その場ですぐに料理を食べてしまいたい人",
-        "はじめて料理教室に参加する人",
-        "先生に料理のこつを聞きたい人"
+        "People who want to take home the food they made",
+        "People who want to eat the food right away on the spot",
+        "People who are participating in a cooking class for the first time",
+        "People who want to ask the teacher for cooking tips"
        ]
       }
      }
@@ -4633,10 +4633,10 @@
       "en": {
        "q": "What happens when there are many applicants?",
        "choices": [
-        "早く申しこんだ人から決まる",
-        "全員が参加できるように人数を増やす",
-        "後から申しこんだ人が選ばれる",
-        "その回はやめて次の月にする"
+        "Decided on a first-come, first-served basis",
+        "Increase the number of participants so that everyone can participate",
+        "Those who applied later will be selected",
+        "Cancel that session and do it next month"
        ]
       }
      }
@@ -5264,10 +5264,10 @@
       "ne": {
        "q": "यो व्यक्ति लामो समयसम्म जारी राख्नको लागि के महत्त्वपूर्ण ठान्छ?",
        "choices": [
-        "「むりをしないようにすること」",
-        "सकेसम्म छिटो दौडनु",
-        "हरेक दिन साइकल चलाउनु",
-        "फेरि कहिल्यै रेलमा नचढ्नु"
+        "धेरै प्रयास नगर्नु।",
+        "सकेसम्म छिटो गतिमा दौडनु।",
+        "हरेक दिन अनिवार्य रूपमा साइकल चलाउनु।",
+        "फेरि कहिल्यै रेलमा नचढ्नु।"
        ]
       },
       "en": {
@@ -5399,10 +5399,10 @@
       "en": {
        "q": "How has the person changed since they started taking pictures?",
        "choices": [
-        "季節の細かな移り変わりに気づくようになった",
-        "前よりも急いで歩いて通り過ぎることが多くなった",
-        "遠くの町まで出かけるようになった",
-        "友だちが前よりも増えた"
+        "I started to notice the subtle changes of the seasons.",
+        "I started walking past things more quickly than before.",
+        "I started traveling to distant towns.",
+        "I made more friends than before."
        ]
       }
      }
@@ -5433,10 +5433,10 @@
       "en": {
        "q": "What is the most important thing for this person when taking pictures?",
        "choices": [
-        "心に残った物を写しておくこと",
-        "だれよりも上手に写真をとること",
-        "多くの人に写真を見せること",
-        "めずらしい場所へ行くこと"
+        "To photograph things that left an impression on you",
+        "To take better photos than anyone else",
+        "To show your photos to many people",
+        "To go to unusual places"
        ]
       }
      }
@@ -5491,10 +5491,10 @@
       "en": {
        "q": "When can vegetables and fruits be bought cheaply?",
        "choices": [
-        "土日の午前十時から正午までの間",
-        "土曜と日曜のどちらも一日じゅうずっと",
-        "日曜日の午後だけの時間",
-        "来月の終わりまでのあいだ"
+        "Between 10 AM and noon on Saturdays and Sundays",
+        "All day long on both Saturday and Sunday",
+        "Only on Sunday afternoons",
+        "Until the end of next month"
        ]
       }
      }
@@ -5516,19 +5516,19 @@
       "ne": {
        "q": "यो दुई दिनमा किनमेल गर्ने व्यक्तिले के पाउँछ?",
        "choices": [
-        "次の買い物で使える券",
-        "तरकारी र फलफूलका सामानहरू",
-        "पार्किङमा प्रयोग गर्न सकिने पैसा",
-        "पसलको धन्यवाद लेखिएको चिठी"
+        "अर्को किनमेलमा प्रयोग गर्न सकिने कुपन।",
+        "तरकारी र फलफूलका सामानहरू।",
+        "पार्किङमा प्रयोग गर्न सकिने पैसा।",
+        "पसलको धन्यवाद लेखिएको चिठी।"
        ]
       },
       "en": {
        "q": "What will people who shopped during these two days receive?",
        "choices": [
-        "次の買い物で使える券",
-        "野菜やくだものの品物",
-        "駐車場で使えるお金",
-        "店の感謝を書いた手紙"
+        "A voucher that can be used for the next shopping trip",
+        "Vegetables and fruits",
+        "Money that can be used in the parking lot",
+        "A letter of thanks from the store"
        ]
       }
      }
@@ -5559,10 +5559,10 @@
       "en": {
        "q": "Until when can the discount coupon referred to as 『この券』 in the text be used?",
        "choices": [
-        "来月の末まで",
-        "今週の日曜日まで",
-        "セールの二日間だけ",
-        "使う日は決まっていない"
+        "Until the end of next month",
+        "Until this Sunday",
+        "Only for the two days of the sale",
+        "The day of use is not decided"
        ]
       }
      }
@@ -5593,10 +5593,10 @@
       "en": {
        "q": "What is recommended for people coming from nearby on Sunday?",
        "choices": [
-        "車を使わず歩いて来ること",
-        "朝の早い時間に車で来ること",
-        "大きなふくろを持って来ること",
-        "割引の券を先に受け取ること"
+        "Come on foot without using a car",
+        "Come by car early in the morning",
+        "Bring a large bag",
+        "Receive the discount coupon in advance"
        ]
       }
      }
@@ -5744,10 +5744,10 @@
       "ne": {
        "q": "यो व्यक्तिले अन्तमा के महसुस गरिरहेको छ?",
        "choices": [
-        "世話をする自分が犬から元気を受け取っている",
-        "犬をかうのはやはりやめておいたほうがよさそうだ",
-        "動物をかうのは思ったより楽なことだ",
-        "近所の人とは話さないほうが気が楽だ"
+        "कुकुरको हेरचाह गर्दा मलाई कुकुरबाट ऊर्जा मिल्छ।",
+        "कुकुर पाल्न छोड्नु राम्रो हुन्छ जस्तो लाग्छ।",
+        "जनावर पाल्नु सोचेभन्दा सजिलो काम हो।",
+        "छिमेकीहरूसँग कुरा नगर्नु नै सजिलो हुन्छ।"
        ]
       },
       "en": {
@@ -5904,10 +5904,10 @@
       "ne": {
        "q": "यो व्यक्तिले के महत्त्वपूर्ण ठान्छ?",
        "choices": [
-        "おそれずに自分から動いてみること",
-        "知らない町へは決して行かないようにすること",
-        "こまったらすぐ前の町にもどること",
-        "店の人にすべてを決めてもらうこと"
+        "नडराइकन आफैँ अगाडि बढ्ने प्रयास गर्नु।",
+        "नचिनेको सहरमा कहिल्यै नजानु।",
+        "समस्या परेमा तुरुन्तै अघिल्लो सहरमा फर्कनु।",
+        "पसलका मानिसहरूलाई सबै कुरा निर्णय गर्न दिनु।"
        ]
       },
       "en": {
@@ -5996,10 +5996,10 @@
       "ne": {
        "q": "बैठकको दिनसम्ममा सबैले के गर्नुपर्छ?",
        "choices": [
-        "「自分の意見を紙一枚に書いておく」",
-        "धेरै पेय पदार्थ र खाना तयार पार्ने",
-        "चौथो तल्लाको ठूलो कोठा सफा गर्ने",
-        "बैठकको विवरण कागजमा तयार पार्ने"
+        "आफ्नो विचार एक पाना कागजमा लेखेर राख्नु।",
+        "धेरै पेय पदार्थ र खानेकुरा तयार पार्नु।",
+        "चौथो तल्लाको ठूलो कोठा सफा गर्नु।",
+        "बैठकको विवरण कागजमा संक्षेपमा लेख्नु।"
        ]
       },
       "en": {

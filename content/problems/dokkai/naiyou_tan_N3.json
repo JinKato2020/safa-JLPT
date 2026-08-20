@@ -863,10 +863,10 @@
       "en": {
        "q": "What color is stated to be good for a place where one wants to rest slowly?",
        "choices": [
-        "青系の色",
-        "赤系の色",
-        "黄色系の色",
-        "白系の色"
+        "Blue-based colors",
+        "Red-based colors",
+        "Yellow-based colors",
+        "White-based colors"
        ]
       }
      }
@@ -921,10 +921,10 @@
       "en": {
        "q": "Where should bicycles be parked during construction?",
        "choices": [
-        "南の空き地",
-        "北側の駐輪場",
-        "建物の中",
-        "近くの駅前"
+        "The open space to the south",
+        "The bicycle parking lot on the north side",
+        "Inside the building",
+        "In front of the nearby station"
        ]
       }
      }
@@ -979,10 +979,10 @@
       "en": {
        "q": "Which of the following matches the author's opinion?",
        "choices": [
-        "物を使ってもよいが、自ら考えることも大切だ",
-        "便利な道具はできるだけ使わず、いつも自分の頭と手を使うべきだ",
-        "何でも機械に任せて考えなくても、豊かに暮らせるようになる",
-        "工夫する力は、便利な道具さえあれば少しも要らない"
+        "You can use tools, but it's also important to think for yourself.",
+        "You should use convenient tools as little as possible and always use your own head and hands.",
+        "You can live a rich life even if you let machines do everything and don't have to think.",
+        "The ability to innovate is not needed at all if you just have convenient tools."
        ]
       }
      }
@@ -1037,10 +1037,10 @@
       "en": {
        "q": "What is the function of river water explained in this text?",
        "choices": [
-        "土や石を運んで、大地の形を変えていく",
-        "山をけずって平らな土地を短い時間で作る",
-        "流れる水の量を自然に増やしていく",
-        "石や土を運ばずにそのまま積み上げる"
+        "Transporting soil and stones to change the shape of the land",
+        "Shaving mountains to create flat land in a short time",
+        "Naturally increasing the amount of flowing water",
+        "Piling up stones and soil without transporting them"
        ]
       }
      }
@@ -1095,10 +1095,10 @@
       "en": {
        "q": "What is Sasaki-san asking the teacher for in this email?",
        "choices": [
-        "配られるプリントを後日もらうこと",
-        "あすの夜の講座の時間を、別の日に変えてもらうこと",
-        "出席できない講座のようすを録音してもらうこと",
-        "急な用事で欠席するので料金を返してもらうこと"
+        "Receiving the distributed handouts at a later date",
+        "Changing the time of tomorrow night's lecture to a different day",
+        "Having the lecture I can't attend recorded",
+        "Getting a refund because I'm absent due to an urgent matter"
        ]
       }
      }
@@ -1153,10 +1153,10 @@
       "en": {
        "q": "What has become a treasure for the author?",
        "choices": [
-        "生きものの世話をする時間そのもの",
-        "毎朝たくさんの野菜を収穫できること",
-        "枯らさずに大きな実をならせること",
-        "狭いベランダで小さな野菜を育てること"
+        "The time spent caring for living things itself",
+        "Being able to harvest many vegetables every morning",
+        "Growing large fruits without letting them wither",
+        "Growing small vegetables on a narrow balcony"
        ]
       }
      }
@@ -3116,10 +3116,10 @@
       "ne": {
        "q": "यस लेखमा लेखकले सिफारिस गरेको विधि के हो?",
        "choices": [
-        "「よく使うかどうかで、物を置く所を決める」",
-        "「よく使う道具も遠くの場所にまとめてしまう」",
-        "「めったに使わない道具を手の届く場所に置く」",
-        "「使わない古い道具はできるだけ早く減らす」"
+        "कति प्रयोग गरिन्छ भन्ने आधारमा सामान राख्ने ठाउँ निर्धारण गर्ने",
+        "धेरै प्रयोग हुने उपकरणहरू पनि टाढाको ठाउँमा एकै ठाउँमा राख्ने",
+        "बिरलै प्रयोग हुने उपकरणहरू हातले पुग्ने ठाउँमा राख्ने",
+        "प्रयोग नहुने पुराना उपकरणहरू सकेसम्म चाँडो घटाउने"
        ]
       },
       "en": {
@@ -3174,10 +3174,10 @@
       "ne": {
        "q": "यस यात्राबाट लेखकले के थाहा पाए?",
        "choices": [
-        "「話す言語が違っても、伝えようとする思いがあれば心は通じ合える」",
-        "「こまったときは、身ぶりや笑顔よりも完璧な言葉のほうが大切だ」",
-        "「言葉がほとんど通じない外国では、こまってしまい何もできなくなる」",
-        "「外国を旅するなら、こまらないよう前もって言葉を学んでおくべきだ」"
+        "भाषा फरक भए पनि, यदि व्यक्त गर्ने इच्छा छ भने मनहरू जोडिन सक्छन्",
+        "समस्या पर्दा, इशारा र मुस्कान भन्दा पूर्ण शब्दहरू महत्त्वपूर्ण हुन्छन्",
+        "भाषा लगभग नबुझिने विदेशी देशमा, समस्यामा परेर केही गर्न सकिँदैन",
+        "यदि विदेश यात्रा गर्दै हुनुहुन्छ भने, समस्या नपरोस् भनेर पहिले नै भाषा सिक्नुपर्छ"
        ]
       },
       "en": {
@@ -3232,10 +3232,10 @@
       "ne": {
        "q": "यो व्यक्तिले किन धेरै तस्बिरहरू खिचे?",
        "choices": [
-        "「自力で得た魚が誇らしかったから」",
-        "「魚が思ったより小さくて残念だったから」",
-        "「昼を過ぎても一匹も釣れなかったから」",
-        "「初めて近所の川へ朝早く出かけたから」"
+        "आफैले समातेको माछामा गर्व लागेकोले",
+        "माछा सोचेभन्दा सानो भएकोले दुःख लागेकोले",
+        "दिउँसो भइसक्दा पनि एउटा पनि माछा समात्न नसकेकोले",
+        "पहिलो पटक बिहान सबेरै नजिकैको नदीमा गएकोले"
        ]
       },
       "en": {
@@ -3290,10 +3290,10 @@
       "ne": {
        "q": "यो व्यक्तिले हजुरआमाको स्वादको बारेमा के कुरा थाहा पाए?",
        "choices": [
-        "「手早く作ると祖母の味は出せないこと」",
-        "「豆を煮る甘い香りが家中に広がっていたこと」",
-        "「子どものころ祖母の家へ行くのが楽しみだったこと」",
-        "「祖母はいつも台所で料理を作っていたこと」"
+        "छिटो बनाउँदा हजुरआमाको जस्तो स्वाद नआउने कुरा",
+        "सिमी पकाउँदाको गुलियो बास्ना घरभरि फैलिएको कुरा",
+        "बाल्यकालमा हजुरआमाको घर जान रमाइलो लाग्ने कुरा",
+        "हजुरआमा सधैं भान्सामा खाना पकाउनुहुन्थ्यो भन्ने कुरा"
        ]
       },
       "en": {
@@ -3348,10 +3348,10 @@
       "ne": {
        "q": "यो व्यक्तिले बिहानको हिँडाइ जारी राखेर विशेष गरी के राम्रो लाग्यो भन्ने महसुस गर्छ?",
        "choices": [
-        "「気分が晴れて考えがまとまること」",
-        "「毎朝三十分ほど近所を歩くようにしたこと」",
-        "「始めたころは眠くてつらかったこと」",
-        "「前は仕事でよくいらいらしていたこと」"
+        "मन शान्त भएर विचारहरू स्पष्ट हुने कुरा",
+        "हरेक बिहान आधा घण्टा जति छिमेकमा हिँड्न थालेको कुरा",
+        "सुरु गर्दा निद्रा लागेर गाह्रो भएको कुरा",
+        "पहिले काममा प्रायः चिडचिडापन हुने कुरा"
        ]
       },
       "en": {
@@ -3406,10 +3406,10 @@
       "ne": {
        "q": "यो व्यक्तिले पहिलो दिनको गल्तीबाट के सिक्यो?",
        "choices": [
-        "「過ちより、その後に支えを得られるかが重要だ」",
-        "「書類の枚数を数え間違えてはいけないということ」",
-        "「気づいたときに顔が真っ青になったこと」",
-        "「先輩が確認のやり方を一つずつ教えてくれたこと」"
+        "गल्तीभन्दा त्यसपछि सहयोग पाउनु महत्त्वपूर्ण हुन्छ",
+        "कागजातको संख्या गल्ती गन्नु हुँदैन भन्ने कुरा",
+        "थाहा पाउँदा अनुहार निलो भएको कुरा",
+        "सिनियरले जाँच गर्ने तरिका एक-एक गरेर सिकाएको कुरा"
        ]
       },
       "en": {
@@ -3812,10 +3812,10 @@
       "ne": {
        "q": "स्वास्थ्य परीक्षणको दिन बिहान, के गर्न सकिन्छ?",
        "choices": [
-        "「水分をとってもよいこと」",
-        "हल्का बिहानको खाजा खाने",
-        "तेस्रो तल्लाको बैठक कोठामा खाना खाने",
-        "रगत परीक्षण नगर्ने"
+        "पानी पिउन सकिने कुरा",
+        "हल्का बिहानको खाजा खाने कुरा",
+        "तेस्रो तल्लाको बैठक कोठामा खाना खाने कुरा",
+        "रगत परीक्षण नगर्ने कुरा"
        ]
       },
       "en": {
@@ -4053,10 +4053,10 @@
       "en": {
        "q": "Where is the meeting place this time?",
        "choices": [
-        "「駅そばの会館」",
-        "「いつもの公園」",
-        "「ホールのロビー」",
-        "「受付の前」"
+        "Hall near the station",
+        "The usual park",
+        "Lobby of the hall",
+        "In front of the reception"
        ]
       }
      }
@@ -4343,10 +4343,10 @@
       "en": {
        "q": "What do you do when a cold package arrives?",
        "choices": [
-        "ただちに冷やす場所へしまう",
-        "台所のテーブルに置いておく",
-        "玄関で受け取らずに待つ",
-        "六時ごろまでそのままにする"
+        "Put it in a cool place immediately.",
+        "Leave it on the kitchen table.",
+        "Do not receive it at the entrance and wait.",
+        "Leave it as is until around six o'clock."
        ]
       }
      }
@@ -4401,10 +4401,10 @@
       "en": {
        "q": "What should you do if you want it assembled inside the room?",
        "choices": [
-        "追加でもう一度手続きする",
-        "玄関までの配達だけを頼む",
-        "午前と午後のどちらかを選ぶ",
-        "当日、通り道を空けて待つ"
+        "Go through the procedure again.",
+        "Request delivery only to the entrance.",
+        "Choose between morning and afternoon.",
+        "Clear the path and wait on the day of delivery."
        ]
       }
      }
@@ -4450,19 +4450,19 @@
       "ne": {
        "q": "ब्याट्री लामो समयसम्म टिकाउन सबैभन्दा बढी प्रभाव पार्ने कुरा के हो?",
        "choices": [
-        "वरपरको '暑さや涼しさ'",
-        "'画面の明るさ'",
-        "खुलेका 'アプリの数'",
-        "'スマートフォンの新しさ'"
+        "वरपरको गर्मी वा चिसोपन",
+        "स्क्रिनको चमक",
+        "खुलेका एपहरूको संख्या",
+        "स्मार्टफोनको नयाँपन"
        ]
       },
       "en": {
        "q": "What is the biggest factor affecting battery longevity?",
        "choices": [
-        "周りの暑さや涼しさ",
-        "画面の明るさ",
-        "開いているアプリの数",
-        "スマートフォンの新しさ"
+        "The surrounding heat or coolness",
+        "Screen brightness",
+        "Number of open apps",
+        "Newness of the smartphone."
        ]
       }
      }
@@ -4517,10 +4517,10 @@
       "en": {
        "q": "It says 「その秘密」, but what secret is it?",
        "choices": [
-        "一度も止まらず遠くまで渡れること",
-        "秋になると南の国へ飛んでいくこと",
-        "旅の前にたくさん食事をすること",
-        "小さな体で大きな旅をすること"
+        "Being able to cross a long distance without stopping.",
+        "Flying to southern countries in autumn.",
+        "Eating a lot before the journey.",
+        "Making a big journey with a small body."
        ]
       }
      }
@@ -4575,10 +4575,10 @@
       "en": {
        "q": "What does this person want to say the most?",
        "choices": [
-        "よく休んでから始めるほうが早く済む",
-        "忙しいと真っ先に睡眠の時間が削られる",
-        "やるべきことが多いと夜ふかしをしてしまう",
-        "眠りが足りないと頭がうまく働かない"
+        "It's quicker to start after getting enough rest.",
+        "When busy, sleep is the first thing to be cut.",
+        "You stay up late when there's a lot to do.",
+        "Your brain doesn't work well if you don't get enough sleep."
        ]
       }
      }
@@ -4633,10 +4633,10 @@
       "en": {
        "q": "What is said to be the good point of paper maps?",
        "choices": [
-        "全体をひと目でつかめること",
-        "行き先を入力すれば道を教えてくれること",
-        "自分のまわりのせまい範囲が見えること",
-        "多くの人が知らない場所で使っていること"
+        "Being able to grasp the whole at a glance.",
+        "It tells you the way if you enter your destination.",
+        "Being able to see a narrow area around you.",
+        "Many people use it in places they don't know."
        ]
       }
      }
@@ -6944,10 +6944,10 @@
       "ne": {
        "q": "यो व्यक्तिले अहिले शिक्षकलाई चिठी लेख्नुको कारण के हो?",
        "choices": [
-        "「昔の厳しさが愛情だったと気づき、感謝を伝えるため」",
-        "「十年前に叱られてばかりだったことを、今も苦手に思うため」",
-        "「自分が人に教える立場になり、教え方を相談するため」",
-        "「先生が最後まで見放さなかったことを、責めたいため」"
+        "पुरानो कठोरता प्रेम थियो भनी बुझेर कृतज्ञता व्यक्त गर्न",
+        "दश वर्षअघि गाली मात्र खाएको कुरालाई अझै पनि गाह्रो मान्ने भएकोले",
+        "आफू मानिसहरूलाई सिकाउने स्थितिमा पुगेर सिकाउने तरिकाबारे सल्लाह लिन",
+        "शिक्षकले अन्तिमसम्म पनि नत्यागेको कुरालाई दोष दिन"
        ]
       },
       "en": {

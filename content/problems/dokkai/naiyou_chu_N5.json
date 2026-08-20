@@ -235,10 +235,10 @@
       "en": {
        "q": "What does this person eat in the morning?",
        "choices": [
-        "「パンとぎゅうにゅう」",
-        "「ごはんとたまご」",
-        "「パンとコーヒー」",
-        "「なにも食べません」"
+        "Bread and milk",
+        "Rice and eggs",
+        "Bread and coffee",
+        "Don't eat anything"
        ]
       }
      }
@@ -269,10 +269,10 @@
       "en": {
        "q": "In the text, what kind of daily life does 『たのしい まいにち』 refer to?",
        "choices": [
-        "「朝から 夜まで よていが つまった 毎日」",
-        "「六時に おきて すぐ 学校へ 行く 毎日」",
-        "「としょかんで 一日じゅう ねて いる 毎日」",
-        "「ともだちが いなくて さびしい 毎日」"
+        "Every day packed with plans from morning till night",
+        "Every day waking up at six and immediately going to school",
+        "Every day sleeping all day long in the library",
+        "Every day feeling lonely because I have no friends"
        ]
       }
      }
@@ -327,10 +327,10 @@
       "en": {
        "q": "What is this person's mother's job?",
        "choices": [
-        "「かんごし」",
-        "「かいしゃいん」",
-        "「大学のせんせい」",
-        "「びょういんのいしゃ」"
+        "Nurse",
+        "Office worker",
+        "University professor",
+        "Doctor at a hospital"
        ]
       }
      }
@@ -361,10 +361,10 @@
       "en": {
        "q": "In the text, what does 『マロ』 refer to?",
        "choices": [
-        "「この 家で かって いる 犬」",
-        "「びょういんで はたらいて いる お母さん」",
-        "「えいごを べんきょう する あね」",
-        "「おそくまで はたらく お父さん」"
+        "The dog kept in this house",
+        "Mother working at the hospital",
+        "Older sister studying English",
+        "Father working late"
        ]
       }
      }
@@ -419,10 +419,10 @@
       "en": {
        "q": "Why didn't this person buy apples at the supermarket?",
        "choices": [
-        "「高かったから」",
-        "「おいしくなかったから」",
-        "「もう家にあったから」",
-        "「うっていなかったから」"
+        "Because it was expensive",
+        "Because it wasn't delicious",
+        "Because I already had it at home",
+        "Because it wasn't for sale"
        ]
       }
      }
@@ -453,10 +453,10 @@
       "en": {
        "q": "In the text, what does father's 『おいしいね』 refer to?",
        "choices": [
-        "「母が 家で 作った カレー」",
-        "「スーパーで 安く 買った バナナ」",
-        "「みんなで あらった たくさんの やさい」",
-        "「高くて 買わなかった りんご」"
+        "Curry my mother made at home",
+        "Bananas bought cheaply at the supermarket",
+        "Lots of vegetables everyone washed",
+        "Apples that were expensive and not bought"
        ]
       }
      }
@@ -1063,10 +1063,10 @@
       "en": {
        "q": "Where does Tama often sleep during the day?",
        "choices": [
-        "まどのそば",
-        "わたしのベッド",
-        "だいどころ",
-        "そとのにわ"
+        "By the window",
+        "My bed",
+        "Kitchen",
+        "Outdoor garden"
        ]
       }
      }
@@ -1097,10 +1097,10 @@
       "en": {
        "q": "What does 『タマ』 in the text refer to?",
        "choices": [
-        "この 家で かって いる ねこ",
-        "まどの そばで ねて いる 白い 犬",
-        "よる 元気に なる さかなの 名前",
-        "日の 光が あたる まどの 場所"
+        "The cat kept in this house",
+        "A white dog sleeping by the window",
+        "The name of a fish that becomes energetic at night",
+        "The place by the window where the sunlight hits"
        ]
       }
      }
@@ -1155,10 +1155,10 @@
       "en": {
        "q": "What is by the window?",
        "choices": [
-        "小さな花",
-        "ベッド",
-        "パソコン",
-        "ポスター"
+        "Small flowers",
+        "Bed",
+        "Computer",
+        "Poster"
        ]
       }
      }
@@ -1189,10 +1189,10 @@
       "en": {
        "q": "What kind of room does \"この へや\" in the text, 『わたしは この へやで、べんきょうしたり…』, refer to?",
        "choices": [
-        "二かいに ある きれいな 部屋",
-        "本や パソコンを おく 大きな つくえの 上",
-        "母が くれた 花を かざる まどの そば",
-        "すきな うたいての ポスターを うる 店"
+        "A beautiful room on the second floor",
+        "On a large desk where books and computers are placed",
+        "By the window where flowers given by my mother are displayed",
+        "A store that sells posters of my favorite singer"
        ]
       }
      }
@@ -1247,10 +1247,10 @@
       "en": {
        "q": "What place was this person in the 100-meter race?",
        "choices": [
-        "二ばん",
-        "一ばん",
-        "三ばん",
-        "四ばん"
+        "Number two",
+        "Number one",
+        "Number three",
+        "Number four"
        ]
       }
      }
@@ -1281,10 +1281,10 @@
       "en": {
        "q": "What does 『すこし ざんねんでした』 in the text refer to as regrettable?",
        "choices": [
-        "かけっこで 一番に なれなかった こと",
-        "つなひきで クラスが まけて しまった こと",
-        "母の おべんとうが 食べられなかった こと",
-        "かぞくが 見に 来なかった こと"
+        "Not being able to come in first in the race",
+        "His class losing the tug-of-war",
+        "Not being able to eat his mother's bento",
+        "His family not coming to watch"
        ]
       }
      }
@@ -1983,10 +1983,10 @@
       "en": {
        "q": "What did the two people eat at the festival?",
        "choices": [
-        "たこやき",
-        "やきそば",
-        "ラーメン",
-        "アイス"
+        "Takoyaki",
+        "Yakisoba",
+        "Ramen",
+        "Ice cream"
        ]
       }
      }
@@ -2075,10 +2075,10 @@
       "en": {
        "q": "What is this person's hobby?",
        "choices": [
-        "しゃしんをとること",
-        "絵をかくこと",
-        "山にのぼること",
-        "りょこうをすること"
+        "Taking pictures",
+        "Drawing pictures",
+        "Climbing mountains",
+        "Traveling"
        ]
       }
      }
@@ -2167,10 +2167,10 @@
       "en": {
        "q": "What did this person order?",
        "choices": [
-        "ピザ",
-        "パスタ",
-        "サラダ",
-        "スープ"
+        "Pizza",
+        "Pasta",
+        "Salad",
+        "Soup"
        ]
       }
      }
@@ -2719,10 +2719,10 @@
       "en": {
        "q": "In the text, what does 『それ』 in 『それを 着て』 refer to?",
        "choices": [
-        "おばあさんが 送って くれた セーター",
-        "友だちが くれた かわいい ぼうし",
-        "さくらの 花が さいて いる 公園",
-        "おばあさんが 作る おいしい りょうり"
+        "A sweater sent by his grandmother",
+        "A cute hat given by a friend",
+        "A park where cherry blossoms are blooming",
+        "Delicious food made by his grandmother"
        ]
       }
      }
@@ -2753,10 +2753,10 @@
       "en": {
        "q": "What does this person want to do during the upcoming holiday?",
        "choices": [
-        "みんなで そぼの 家を たずねる こと",
-        "友だちと 公園で あそぶ こと",
-        "おばあさんに 新しい セーターを 送る こと",
-        "一人で さくらを 見に 行く こと"
+        "Visiting grandmother's house with everyone",
+        "Playing in the park with friends",
+        "Sending a new sweater to grandmother",
+        "Going to see cherry blossoms alone"
        ]
       }
      }
@@ -2811,10 +2811,10 @@
       "en": {
        "q": "In the text, what does 『この 日』 refer to?",
        "choices": [
-        "セールを する 土よう日",
-        "特別な セールが 終わる 日よう日",
-        "たまごを 安く 売る 毎週の 金よう日",
-        "店が 休みに なる 月よう日"
+        "Saturday when there is a sale",
+        "Sunday when the special sale ends",
+        "Every Friday when eggs are sold cheaply",
+        "Monday when the store is closed"
        ]
       }
      }
@@ -2836,19 +2836,19 @@
       "ne": {
        "q": "दुई हजार येनभन्दा धेरै किन्ने व्यक्तिले के पाउँछन्?",
        "choices": [
-        "「たまご 一パック」",
-        "「半分の ねだんの トマト」",
-        "「安く なった りんご」",
-        "「店の わりびき券」"
+        "एक प्याक अण्डा",
+        "आधा मूल्यको टमाटर",
+        "सस्तो भएको स्याउ",
+        "पसलको छुट कुपन"
        ]
       },
       "en": {
        "q": "What do people who buy more than 2,000 yen receive?",
        "choices": [
-        "たまご 一パック",
-        "半分の ねだんの トマト",
-        "安く なった りんご",
-        "店の わりびき券"
+        "One pack of eggs",
+        "Tomatoes at half price",
+        "Discounted apples",
+        "Store discount coupon"
        ]
       }
      }
@@ -2894,19 +2894,19 @@
       "ne": {
        "q": "पाठको 『そこ』ले कुन ठाउँलाई संकेत गर्छ?",
        "choices": [
-        "「川の となりを 走る 道」",
-        "「車が 多く 通る 大きな 道」",
-        "「医者が すすめた 公園の 中の 道」",
-        "「家から とおい 山の ふもとの 道」"
+        "नदीको छेउमा दौडने बाटो",
+        "धेरै गाडी गुड्ने ठूलो बाटो",
+        "डाक्टरले सिफारिस गरेको पार्क भित्रको बाटो",
+        "घरबाट टाढा पहाडको फेदको बाटो"
        ]
       },
       "en": {
        "q": "In the text, what does 『そこ』 refer to?",
        "choices": [
-        "川の となりを 走る 道",
-        "車が 多く 通る 大きな 道",
-        "医者が すすめた 公園の 中の 道",
-        "家から とおい 山の ふもとの 道"
+        "A road running alongside the river",
+        "A large road with many cars",
+        "A path in the park recommended by a doctor",
+        "A road at the foot of a mountain far from home"
        ]
       }
      }
@@ -2928,19 +2928,19 @@
       "ne": {
        "q": "यो व्यक्ति दौडिँदा के हुन्छ भन्छन्?",
        "choices": [
-        "「一日を 元気に すごせる」",
-        "「すぐに つかれて しまう」",
-        "「あさごはんが 食べられなく なる」",
-        "「夜 よく ねむれなく なる」"
+        "दिनभरि ऊर्जावान रहन सकिन्छ",
+        "छिट्टै थाकिन्छ",
+        "बिहानको खाना खान सकिँदैन",
+        "राति राम्ररी सुत्न सकिँदैन"
        ]
       },
       "en": {
        "q": "What does this person say happens when they run?",
        "choices": [
-        "一日を 元気に すごせる",
-        "すぐに つかれて しまう",
-        "あさごはんが 食べられなく なる",
-        "夜 よく ねむれなく なる"
+        "You can spend the day energetically",
+        "You get tired quickly",
+        "You won't be able to eat breakfast",
+        "You won't be able to sleep well at night"
        ]
       }
      }
@@ -2986,19 +2986,19 @@
       "ne": {
        "q": "पाठको 『それ』ले केलाई संकेत गर्छ?",
        "choices": [
-        "「白と 黒の どうぶつ」",
-        "「ぞうの 大きな からだ」",
-        "「竹を 売って いる 店」",
-        "「パンダの 絵の ハンカチ」"
+        "सेतो र कालो जनावर",
+        "हात्तीको ठूलो शरीर",
+        "बाँस बेच्ने पसल",
+        "पान्डाको चित्र भएको रुमाल"
        ]
       },
       "en": {
        "q": "What does 『それ』 in the text refer to?",
        "choices": [
-        "白と 黒の どうぶつ",
-        "ぞうの 大きな からだ",
-        "竹を 売って いる 店",
-        "パンダの 絵の ハンカチ"
+        "Black and white animals",
+        "The large body of an elephant",
+        "A store selling bamboo",
+        "A handkerchief with a panda illustration"
        ]
       }
      }
@@ -3020,19 +3020,19 @@
       "ne": {
        "q": "फर्किने बेलामा, यो व्यक्तिले के किन्यो?",
        "choices": [
-        "「パンダが かかれた ハンカチ」",
-        "「ぞうの 形を した 大きな ぼうし」",
-        "「どうぶつの 本」",
-        "「竹で 作った おもちゃ」"
+        "पान्डाको चित्र भएको रुमाल",
+        "हात्तीको आकारको ठूलो टोपी",
+        "जनावरको किताब",
+        "बाँसबाट बनेको खेलौना"
        ]
       },
       "en": {
        "q": "What did this person buy on the way home?",
        "choices": [
-        "パンダが かかれた ハンカチ",
-        "ぞうの 形を した 大きな ぼうし",
-        "どうぶつの 本",
-        "竹で 作った おもちゃ"
+        "A handkerchief with a panda drawn on it",
+        "A large elephant-shaped hat",
+        "An animal book",
+        "A toy made of bamboo"
        ]
       }
      }
@@ -3078,19 +3078,19 @@
       "ne": {
        "q": "पाठको 『それを かけると』को 『それ』ले केलाई संकेत गर्छ?",
        "choices": [
-        "「新しく 作った 青い めがね」",
-        "「目が わるく なって 見えなく なった 黒板」",
-        "「学校の 黒板に 書いた 字」",
-        "「木の 葉の 細かい 形」"
+        "नयाँ बनेको नीलो चश्मा",
+        "आँखा कमजोर भएर नदेखिने कालोपाटी",
+        "विद्यालयको कालोपाटीमा लेखिएको अक्षर",
+        "रुखको पातको सानो आकार"
        ]
       },
       "en": {
        "q": "What does 『それ』 in 『それを かけると』 in the text refer to?",
        "choices": [
-        "新しく 作った 青い めがね",
-        "目が わるく なって 見えなく なった 黒板",
-        "学校の 黒板に 書いた 字",
-        "木の 葉の 細かい 形"
+        "Newly made blue glasses",
+        "A blackboard that became invisible due to poor eyesight",
+        "Letters written on the school blackboard",
+        "The detailed shape of tree leaves"
        ]
       }
      }
@@ -3121,10 +3121,10 @@
       "en": {
        "q": "What happened after putting on the new glasses?",
        "choices": [
-        "はなれた ものが よく 見える",
-        "目が もっと わるく なった",
-        "字を 書くのが 上手に なった",
-        "本が 読めなく なった"
+        "Can see distant objects well",
+        "Eyesight got worse",
+        "Became good at writing characters",
+        "Could not read books"
        ]
       }
      }
@@ -3179,10 +3179,10 @@
       "en": {
        "q": "What does 『そこ』 in 『そこへ 入りました』 in the text refer to?",
        "choices": [
-        "駅の 近くの きっさてん",
-        "本を たくさん 売って いる 大きな 店",
-        "しずかな 音楽が すきな 友だち",
-        "まどの そばの せき"
+        "A coffee shop near the station",
+        "A large store selling many books",
+        "A friend who likes quiet music",
+        "A seat by the window"
        ]
       }
      }
@@ -3213,10 +3213,10 @@
       "en": {
        "q": "What does this person want to drink next?",
        "choices": [
-        "紅茶",
-        "あたたかい コーヒー",
-        "つめたい ジュース",
-        "あまい ミルク"
+        "Black tea",
+        "Warm coffee",
+        "Cold juice",
+        "Sweet milk"
        ]
       }
      }
@@ -3271,10 +3271,10 @@
       "en": {
        "q": "What does \"それ\" in the sentence \"それは、水の 中の 金魚を すくう あそびです\" in the text refer to?",
        "choices": [
-        "\"友だちと した 金魚すくい\"",
-        "\"空に 上がる 大きな 花火\"",
-        "\"あまい わたがしを 買う こと\"",
-        "\"やきそばを 作る こと\""
+        "Goldfish scooping with a friend",
+        "Large fireworks going up in the sky",
+        "Buying sweet cotton candy",
+        "Making yakisoba"
        ]
       }
      }
@@ -3305,10 +3305,10 @@
       "en": {
        "q": "What happened to this person at the goldfish scooping game?",
        "choices": [
-        "\"金魚を 一ぴき とれた\"",
-        "\"一ぴきも とる ことが できなかった\"",
-        "\"たくさんの 金魚を 家に もって かえった\"",
-        "\"金魚を 川に にがして しまった\""
+        "I caught one goldfish.",
+        "I couldn't catch even one.",
+        "I took many goldfish home.",
+        "I released the goldfish into the river."
        ]
       }
      }
@@ -3363,10 +3363,10 @@
       "en": {
        "q": "What does \"それ\" in the sentence \"それは、朝 早く おきて 作った\" in the text refer to?",
        "choices": [
-        "\"朝 早く 用意した おべんとう\"",
-        "\"友だちが 持って きた おかし\"",
-        "\"公園で 買った 飲みもの\"",
-        "\"満開に なった さくらの 花\""
+        "A bento box prepared early in the morning",
+        "Snacks brought by a friend",
+        "Drinks bought at the park",
+        "Cherry blossoms in full bloom"
        ]
       }
      }
@@ -3388,19 +3388,19 @@
       "ne": {
        "q": "हावा चल्दा के भयो?",
        "choices": [
-        "रुखबाट \"花びらが おりて きた\"",
-        "बनाएको \"おべんとうが 風で とんで いった\"",
-        "\"さくらの 花が もっと さいた\"",
-        "आकाश अचानक \"くらく なった\""
+        "रुखबाट फूलका पातहरू झरे",
+        "बनाएको खाजा हावाले उडायो",
+        "सकुराका फूलहरू अझै फुले",
+        "आकाश अचानक अँध्यारो भयो"
        ]
       },
       "en": {
        "q": "What happened when the wind blew?",
        "choices": [
-        "\"木から 花びらが おりて きた\"",
-        "\"作った おべんとうが 風で とんで いった\"",
-        "\"さくらの 花が もっと さいた\"",
-        "\"空が 急に くらく なった\""
+        "Petals fell from the tree.",
+        "The bento I made was blown away by the wind.",
+        "More cherry blossoms bloomed.",
+        "The sky suddenly became dark."
        ]
       }
      }
@@ -3455,10 +3455,10 @@
       "en": {
        "q": "What does \"それ\" in the sentence \"それは、まさに わたしの かさでした\" in the text refer to?",
        "choices": [
-        "\"えきいんさんが 見せた 青い かさ\"",
-        "\"会社まで 大切に 持って いった 黒い かばん\"",
-        "\"駅の じむしょの つくえ\"",
-        "\"えきいんさんが 落とした かさ\""
+        "A blue umbrella shown by the station attendant",
+        "A black bag carefully carried to the company",
+        "The desk in the station office",
+        "An umbrella dropped by the station attendant"
        ]
       }
      }
@@ -3489,10 +3489,10 @@
       "en": {
        "q": "Why did this person go to the station office?",
        "choices": [
-        "\"わすれた かさを 取りに 行く ため\"",
-        "\"会社に わすれた かばんを 探して もらう ため\"",
-        "\"電車の 時間を きく ため\"",
-        "\"新しい かさを 買う ため\""
+        "To go pick up the forgotten umbrella",
+        "To ask them to look for the bag forgotten at the company",
+        "To ask for the train schedule",
+        "To buy a new umbrella"
        ]
       }
      }

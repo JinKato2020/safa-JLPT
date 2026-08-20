@@ -715,10 +715,10 @@
       "en": {
        "q": "How did things change after starting to greet people?",
        "choices": [
-        "『むこうも笑って応えてくれ、ちょっとした立ち話が生まれた』",
-        "Even when difficult topics were prepared, conversations no longer continued",
-        "Spending break time alone increased",
-        "The other person didn't smile and no conversation was born"
+        "They laughed back and responded, and a short chat was born.",
+        "Even if I prepared difficult topics, the conversation didn't continue.",
+        "I started spending more break times alone.",
+        "The other person didn't smile, and no conversation was born."
        ]
       }
      }
@@ -749,10 +749,10 @@
       "en": {
        "q": "In the text, it says 『相手もそれを感じて、こちらに心を開いてくれる』, what does 『それ』 refer to?",
        "choices": [
-        "『あいさつにこめられた、心を開いているという合図』",
-        "A long topic prepared by thinking difficultly",
-        "The loneliness of spending break time alone",
-        "『今日は寒いですね』といった、あいさつのあとに生まれる短い会話"
+        "A sign that one's heart is open, conveyed in a greeting.",
+        "A long topic that was prepared after much thought.",
+        "The loneliness of spending break time alone.",
+        "A short conversation that arises after a greeting, such as 'It's cold today, isn't it?'"
        ]
       }
      }
@@ -807,10 +807,10 @@
       "en": {
        "q": "In the text, 『そのものに、過ぎた時間がしみこんでいる』, what does 『そのもの』 refer to?",
        "choices": [
-        "『昔を思い出させる、古い手紙や写真など』",
-        "Something new that is about to be bought",
-        "A tool for checking the degree of color fading",
-        "A small souvenir seen at a travel destination but left unbought"
+        "Old letters, photos, etc., that remind one of the past.",
+        "Things one plans to buy anew from now on.",
+        "Tools for checking the degree of color fading.",
+        "Small souvenirs seen at a travel destination but left unbought."
        ]
       }
      }
@@ -841,10 +841,10 @@
       "en": {
        "q": "What does the author recall when looking at faded photographs?",
        "choices": [
-        "『そのときの空気や、いっしょにいた人の笑い声』",
-        "The name of the shop that took the faded photo and its location",
-        "The price when old letters and souvenirs were bought",
-        "The correct procedure for tidying up mementos"
+        "The atmosphere at that time and the laughter of the people who were together.",
+        "The name of the store that took the faded photo and its location.",
+        "The price when old letters or souvenirs were bought.",
+        "The correct procedure for tidying up mementos."
        ]
       }
      }
@@ -2135,10 +2135,10 @@
       "en": {
        "q": "What does the author think is important when starting something new?",
        "choices": [
-        "としのことではなく、やってみようという思い",
-        "何ごとも若いうちに早めに始めて、周りより先に上達すること",
-        "うまく描ける才能が生まれつきあること",
-        "始めたことを周りの人にほめられること"
+        "Not about age, but the desire to try.",
+        "Starting everything early when young and improving faster than others.",
+        "Having a natural talent for drawing well.",
+        "Being praised by others for what you started."
        ]
       }
      }
@@ -2193,10 +2193,10 @@
       "en": {
        "q": "What prompted the author to change their mind about garbage?",
        "choices": [
-        "ゴミの処理に多くのお金とエネルギーがかかると知ったこと",
-        "買い物に自分のふくろを持っていき、ものを最後まで大切に使うようにしたこと",
-        "この数年で町のゴミの量が減ったこと",
-        "食べ物を買いすぎて捨ててしまったこと"
+        "Learning that garbage disposal costs a lot of money and energy.",
+        "Bringing my own bag for shopping and using things carefully until the end.",
+        "The amount of garbage in the town has decreased in the past few years.",
+        "Buying too much food and throwing it away."
        ]
       }
      }
@@ -2227,10 +2227,10 @@
       "en": {
        "q": "What does ①『その小さな行動』 in the text refer to?",
        "choices": [
-        "ふくろを持参し、いる分だけ買うといった、身近な工夫",
-        "ゴミの処理に、多くのお金とエネルギーがかかること",
-        "町の集まりに出て、みんなで話し合うこと",
-        "この数年で、町ぜんたいのゴミの量がはっきりと減ったこと"
+        "Familiar efforts such as bringing your own bag and buying only what you need.",
+        "That garbage disposal costs a lot of money and energy.",
+        "Attending town meetings and discussing things with everyone.",
+        "That the amount of garbage in the entire town has clearly decreased in the past few years."
        ]
       }
      }
@@ -2252,19 +2252,19 @@
       "ne": {
        "q": "① \"その小さな行動が町じゅうに広がれば、大きな力になる\" भनी उल्लेख गरिएको छ, तर लेखकले सबैभन्दा बढी के भन्न चाहन्छन्?",
        "choices": [
-        "\"小さな行動でも、みんなで進めば大きな力になる\"",
-        "\"ゴミを処理する問題は、自分一人とはまったく関係がない\"",
-        "\"自分一人の力ではゴミは何も減らない\"",
-        "\"ゴミを処理するのにお金はかからない\""
+        "साना कार्यहरू पनि, यदि सबैले मिलेर गरेमा ठूलो शक्ति बन्छ।",
+        "फोहोर व्यवस्थापनको समस्याको आफूसँग कुनै सम्बन्ध छैन।",
+        "आफ्नो एक्लो प्रयासले फोहोर केही पनि घट्दैन।",
+        "फोहोर व्यवस्थापन गर्न पैसा लाग्दैन।"
        ]
       },
       "en": {
        "q": "It says that if ①その小さな行動 spreads throughout the town, it will become a great power. What does the author most want to convey?",
        "choices": [
-        "小さな行動でも、みんなで進めば大きな力になる",
-        "ゴミを処理する問題は、自分一人とはまったく関係がない",
-        "自分一人の力ではゴミは何も減らない",
-        "ゴミを処理するのにお金はかからない"
+        "Even small actions, when done by everyone, become a great force.",
+        "The problem of garbage disposal has nothing to do with me alone.",
+        "Garbage will not decrease at all with my own power.",
+        "It doesn't cost money to dispose of garbage."
        ]
       }
      }
@@ -2310,19 +2310,19 @@
       "ne": {
        "q": "बिरालोको अवस्था देखेर लेखकले के कुरा थाहा पाए?",
        "choices": [
-        "\"わたしはいつも周りに合わせてばかりで、ほんとうの思いをあとまわしにしている\"",
-        "\"ねこは犬のように、呼べばすぐに来て飼い主の言うことをよく聞く\"",
-        "\"ねこは先のことばかり心配して過ごしている\"",
-        "\"自分もねこのように気ままに生きている\""
+        "म सधैं अरूसँग मिल्ने प्रयास गर्छु र आफ्नो वास्तविक भावनालाई पछि पार्छु।",
+        "बिरालो कुकुरजस्तै हो, बोलाउँदा तुरुन्तै आउँछ र मालिकको कुरा राम्ररी सुन्छ।",
+        "बिरालो सधैं भविष्यको चिन्तामा बित्छ।",
+        "म पनि बिरालो जस्तै स्वतन्त्र रूपमा बाँचिरहेको छु।"
        ]
       },
       "en": {
        "q": "What did the author notice by observing the cat?",
        "choices": [
-        "わたしはいつも周りに合わせてばかりで、ほんとうの思いをあとまわしにしている",
-        "ねこは犬のように、呼べばすぐに来て飼い主の言うことをよく聞く",
-        "ねこは先のことばかり心配して過ごしている",
-        "自分もねこのように気ままに生きている"
+        "I always go along with others and put my true feelings aside.",
+        "Cats, like dogs, come immediately when called and listen well to their owners.",
+        "Cats spend their time worrying only about the future.",
+        "I also live as freely as a cat."
        ]
       }
      }
@@ -2344,19 +2344,19 @@
       "ne": {
        "q": "पाठमा \"それを見ていると…自分に気づかされる\" भनी उल्लेख गरिएको छ, \"それ\" ले केलाई जनाउँछ?",
        "choices": [
-        "\"眠いときに眠るなど、気持ちに正直なねこの様子\"",
-        "\"いつも周りに合わせ、自分の気持ちを後回しにする様子\"",
-        "\"過ぎたことをくよくよ考え、先のことを心配する様子\"",
-        "\"犬のように飼い主の言うことをよく聞き、呼べばすぐに来る様子\""
+        "निद्रा लाग्दा सुत्ने जस्ता बिरालोको इमानदार स्वभाव।",
+        "सधैं अरूसँग मिल्ने र आफ्नो भावनालाई पछि पार्ने स्वभाव।",
+        "बितेका कुराहरूमा पछुताउने र भविष्यको चिन्ता गर्ने स्वभाव।",
+        "कुकुरजस्तै मालिकको कुरा राम्ररी सुन्ने र बोलाउँदा तुरुन्तै आउने स्वभाव।"
        ]
       },
       "en": {
        "q": "In the text, it says 『それを見ていると…自分に気づかされる』. What does 『それ』 refer to?",
        "choices": [
-        "眠いときに眠るなど、気持ちに正直なねこの様子",
-        "いつも周りに合わせ、自分の気持ちを後回しにする様子",
-        "過ぎたことをくよくよ考え、先のことを心配する様子",
-        "犬のように飼い主の言うことをよく聞き、呼べばすぐに来る様子"
+        "The cat's honest demeanor, such as sleeping when sleepy.",
+        "Always going along with others and putting one's own feelings aside.",
+        "Worrying about past events and being anxious about the future.",
+        "Like a dog, listening well to its owner and coming immediately when called."
        ]
       }
      }
@@ -2378,10 +2378,10 @@
       "ne": {
        "q": "बिरालोको जीवनशैलीले लेखकलाई के सिकाउँछ?",
        "choices": [
-        "\"もっと肩の力をぬいて、今というときをだいじに生きていい\"",
-        "\"過ぎたことをくよくよ考え、先のことを心配すべきだ\"",
-        "\"いつも周りに合わせて自分を後回しにすべきだ\"",
-        "\"犬のように飼い主の言うことを聞くべきだ\""
+        "अझ बढी आराम गरेर, वर्तमान समयलाई महत्त्व दिएर बाँच्नुपर्छ।",
+        "बितेका कुराहरूमा पछुताउनुपर्छ र भविष्यको चिन्ता गर्नुपर्छ।",
+        "सधैं अरूसँग मिलेर आफूलाई पछि पार्नुपर्छ।",
+        "कुकुरजस्तै मालिकको कुरा सुन्नुपर्छ।"
        ]
       },
       "en": {
@@ -2436,10 +2436,10 @@
       "ne": {
        "q": "पाठमा \"その結果、運動不足になり\" भनी उल्लेख गरिएको छ, \"その\" ले केलाई जनाउँछ?",
        "choices": [
-        "\"車がふつうになり、人が歩かなくなったこと\"",
-        "\"手間をかけて料理をするようになったこと\"",
-        "\"エレベーターを使わず、階段を上るようになったこと\"",
-        "\"多少不便なくらいのほうが、かえってよいと考えるようになったこと\""
+        "गाडी सामान्य भयो र मानिसहरू हिँड्न छोडे।",
+        "खाना पकाउन धेरै समय लाग्न थाल्यो।",
+        "लिफ्ट प्रयोग नगरी सिँढी चढ्न थालियो।",
+        "अलिकति असुविधा भए पनि राम्रो हुन्छ भन्ने सोचाइ आयो।"
        ]
       },
       "en": {
@@ -2470,10 +2470,10 @@
       "ne": {
        "q": "लेखकले थोरै असुविधा राम्रो हुने उदाहरणको रूपमा के उल्लेख गरेका छन्?",
        "choices": [
-        "\"かいだんを上れば体を動かせ、手をかけて作れば食べ物のありがたみがわかる\"",
-        "\"ボタン一つで部屋を暖め、歩かず家にいながら買い物をすませてしまうこと\"",
-        "\"自動車を使って歩かずに移動すること\"",
-        "\"考えなくてもたいていのことが何とかなること\""
+        "सिँढी चढ्दा शरीर चलाउन सकिन्छ, र हातले बनाएको खानाको महत्त्व बुझिन्छ।",
+        "एउटा बटन थिचेर कोठा न्यानो पार्नु र घरमै बसेर हिँड्नु नपर्ने गरी किनमेल गर्नु।",
+        "गाडी प्रयोग गरेर नहिँडी यात्रा गर्नु।",
+        "नसोची धेरैजसो कुराहरू समाधान हुनु।"
        ]
       },
       "en": {
@@ -2639,10 +2639,10 @@
       "en": {
        "q": "Regarding smiles, what does the author state?",
        "choices": [
-        "ひとつのほほえみが、波のように周りへ広がっていく",
-        "笑顔は自分の気持ちにしか作用しない",
-        "笑顔を作るにはお金がかかる",
-        "落ちこんだときは笑わないほうがよい"
+        "One smile spreads like a wave to those around.",
+        "A smile only affects one's own feelings.",
+        "It costs money to make a smile.",
+        "It's better not to smile when you're feeling down."
        ]
       }
      }
@@ -2697,10 +2697,10 @@
       "en": {
        "q": "For the author, what kind of time is the preparation time before a trip?",
        "choices": [
-        "旅のもう一つの楽しみである",
-        "面倒で早く終わらせたい作業だ",
-        "旅とは関係のない時間だ",
-        "できればやりたくないことだ"
+        "It is another joy of traveling.",
+        "It is a troublesome task that I want to finish quickly.",
+        "It is time unrelated to the trip.",
+        "It is something I would rather not do if possible."
        ]
       }
      }
@@ -2731,10 +2731,10 @@
       "en": {
        "q": "In the text, it says ①『旅は何週間も前から始まっている』, but what does this refer to?",
        "choices": [
-        "準備をするひとときも、すでに旅の楽しみだということ",
-        "旅の日数が、実際に何週間もあるということ",
-        "宿の予約に、何週間もかかってしまうということ",
-        "思いえがいた計画のとおりに、旅が最後まで進んでいくということ"
+        "The time spent preparing is already part of the joy of the trip.",
+        "The trip actually lasts for several weeks.",
+        "It takes several weeks to book accommodation.",
+        "The trip proceeds exactly as planned until the very end."
        ]
       }
      }
@@ -2765,10 +2765,10 @@
       "en": {
        "q": "What good things does the author state will happen if one prepares carefully?",
        "choices": [
-        "計画が裏切られたときのおどろきが大きくなる",
-        "ていねいに思いえがいた計画のとおりに、旅が最後まで進むようになる",
-        "実際の旅の日数が何週間も長くなる",
-        "予定していた店が必ず開いている"
+        "The surprise when the plan is betrayed will be greater.",
+        "The trip will proceed exactly as carefully planned until the very end.",
+        "The actual number of travel days will be several weeks longer.",
+        "The scheduled stores will always be open."
        ]
       }
      }
@@ -2823,10 +2823,10 @@
       "en": {
        "q": "When the teacher said ①今のひびき、おもしろかったね, what did the author think?",
        "choices": [
-        "しかられると思っていたのに、ほめられておどろいた",
-        "また間違いをしかられるのだろうと思って、こわくて手が止まった",
-        "やっぱりしかられてしまったと思った",
-        "先生のほうが弾き間違えたと思った"
+        "I was surprised to be praised when I expected to be scolded.",
+        "I was afraid my hands would stop, thinking I would be scolded for another mistake.",
+        "I thought I was scolded after all.",
+        "I thought the teacher made a mistake in playing."
        ]
       }
      }
@@ -2857,10 +2857,10 @@
       "en": {
        "q": "In the text, it says 『この話を聞いてから…こわがらなくなった』, but what does 『この話』 refer to?",
        "choices": [
-        "間違いが、思いがけない発見のきっかけにもなるという話",
-        "正しく弾けるまで、何度もくり返して練習すべきだという話",
-        "なかなか上達しないなら、ピアノはやめたほうがよいという話",
-        "決められた道をはずれると、二度ともとの道にはもどれなくなるという話"
+        "A story about how mistakes can lead to unexpected discoveries.",
+        "A story about how one should practice repeatedly until they can play correctly.",
+        "A story about how one should quit piano if they are not improving.",
+        "A story about how once you deviate from the prescribed path, you can never return to the original path."
        ]
       }
      }
@@ -2891,10 +2891,10 @@
       "en": {
        "q": "From this experience, what did the author come to think?",
        "choices": [
-        "「まちがいをこわがらない心が、何かを生み出す力になる」",
-        "「間違えないように正しく弾く練習を、何よりも大切にすべきだ」",
-        "「間違いからは新しいものは何も生まれない」",
-        "「上達しないならピアノはやめたほうがよい」"
+        "A mind that is not afraid of mistakes becomes a power to create something.",
+        "Practicing to play correctly without making mistakes should be valued above all else.",
+        "Nothing new is born from mistakes.",
+        "If you don't improve, you should quit the piano."
        ]
       }
      }
@@ -2949,10 +2949,10 @@
       "en": {
        "q": "In the text, it says \"『そのほうが速く読めるし』\", but which reading method does \"『そのほう』\" refer to?",
        "choices": [
-        "「声を出さず、目で文字を追っていく読み方」",
-        "「声に出して、耳でも聞きながら読む読み方」",
-        "「ことばのリズムや、音のひびきを味わう読み方」",
-        "「一つの文章を、いくつもの方法で受け取りながら読む読み方」"
+        "A reading method where you follow the text with your eyes without vocalizing.",
+        "A reading method where you read aloud and listen with your ears.",
+        "A reading method where you savor the rhythm of words and the sound of their echoes.",
+        "A reading method where you receive a single text in multiple ways."
        ]
       }
      }
@@ -2983,10 +2983,10 @@
       "en": {
        "q": "What is stated to sometimes happen when reading difficult sentences aloud?",
        "choices": [
-        "「言いたいことが、すっと分かることがある」",
-        "「かえって分からなくなる」",
-        "「眠くなる」",
-        "「速く読める」"
+        "Sometimes I can quickly understand what I want to say.",
+        "On the contrary, it becomes difficult to understand.",
+        "I get sleepy.",
+        "I can read faster."
        ]
       }
      }
@@ -3017,10 +3017,10 @@
       "en": {
        "q": "What is another benefit of reading aloud?",
        "choices": [
-        "「ことばのリズムや音のひびきの美しさに気づける」",
-        "「黙って読むときよりも、むずかしい文章の内容が記おくに残りやすくなること」",
-        "「むずかしい文章の意味がすっと分かること」",
-        "「声に出すと周りの人と話せるようになること」"
+        "You can notice the beauty of the rhythm of words and the sound of their echoes.",
+        "The content of difficult sentences is more likely to remain in your memory than when you read silently.",
+        "You can quickly understand the meaning of difficult sentences.",
+        "You can talk to people around you by speaking out loud."
        ]
       }
      }
@@ -3075,10 +3075,10 @@
       "en": {
        "q": "It says, \"「一年前の自分にできなかったことが、今はできるようになっている。そのことに目を向ければ…」\", but what does \"「そのこと」\" refer to?",
        "choices": [
-        "「一年前できなかったことが、今はできるようになっていること」",
-        "「他人の生活がネットで手軽に見えるようになったこと」",
-        "「自分が人より劣っているように感じて落ちこんでしまうこと」",
-        "「人にはそれぞれちがう事情があり、みなちがう道を歩んでいること」"
+        "What I couldn't do a year ago, I can do now.",
+        "Other people's lives have become easily visible on the internet.",
+        "Feeling inferior to others and getting depressed.",
+        "Everyone has different circumstances and walks a different path."
        ]
       }
      }
@@ -3109,10 +3109,10 @@
       "en": {
        "q": "It says, \"①同じものさしで比べること自体が、もともとむりなのだ\", but why can that be said?",
        "choices": [
-        "「人にはそれぞれちがう事情があり、ちがう道を歩いているから」",
-        "「他人の生活が、インターネットを通してだれにでも簡単に見えるから」",
-        "「人と比べると心がつかれてしまうから」",
-        "「だれもが同じ事情で同じ道を歩いているから」"
+        "Because everyone has different circumstances and walks a different path.",
+        "Because other people's lives can be easily seen by anyone through the internet.",
+        "Because comparing yourself to others makes your heart tired.",
+        "Because everyone has the same circumstances and walks the same path."
        ]
       }
      }
@@ -4520,10 +4520,10 @@
       "ne": {
        "q": "पाठको सामग्रीसँग मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「服に触れると、それを着ていた当時の情景がよみがえる」",
-        "「衣替えは面倒なだけなので、筆者はやめようと思っている」",
-        "「箱の中から服が出てくることは一度もない」",
-        "「服には過ぎた日々の記憶はまったく残らない」"
+        "कपडा छुँदा, त्यो लगाएको बेलाको दृश्य मनमा आउँछ।",
+        "मौसम अनुसार कपडा फेर्न झन्झट लाग्ने भएकोले लेखकले यो बन्द गर्ने सोचिरहेका छन्।",
+        "बाकसबाट कहिल्यै कपडा निस्कँदैन।",
+        "कपडामा बितेका दिनहरूको कुनै सम्झना बाँकी रहँदैन।"
        ]
       },
       "en": {
@@ -4646,10 +4646,10 @@
       "ne": {
        "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
        "choices": [
-        "「物を繕う行いには、ただ長く使うこと以上の値打ちがある」",
-        "「一つの物と長く付き合うより、安く買って気軽に捨てる暮らしのほうが望ましい」",
-        "「いすは二十年でもう使えなくなってしまう」",
-        "「店の人との付き合いはわずらわしいだけだ」"
+        "वस्तु मर्मत गर्ने कार्यको लामो समयसम्म प्रयोग गर्नुभन्दा बढी मूल्य हुन्छ।",
+        "एउटै वस्तुसँग लामो समयसम्म बस्नुभन्दा सस्तोमा किनेर सजिलै फाल्ने जीवनशैली राम्रो हुन्छ।",
+        "कुर्सी बीस वर्षमा प्रयोग गर्न नसकिने हुन्छ।",
+        "पसलका मानिसहरूसँगको सम्बन्ध झन्झटिलो मात्र हुन्छ।"
        ]
       },
       "en": {
@@ -4907,10 +4907,10 @@
       "en": {
        "q": "Which of the following statements matches the content of the main text?",
        "choices": [
-        "子どもは支度を手伝うなかで、自分も町の仲間だと感じるようになる",
-        "子どもは祭りの準備にはいっさい加わらず、ただ遠くからながめているだけだ",
-        "祭りが終わると参加者の関係はかえって遠くなってしまう",
-        "太鼓のたたき方は次の世代へ伝えられずに消えていく"
+        "Children come to feel that they are also members of the town as they help with preparations.",
+        "Children do not participate in the festival preparations at all, but only watch from afar.",
+        "After the festival, the relationships between participants become more distant.",
+        "The way of beating the drums is not passed on to the next generation and disappears."
        ]
       }
      }
@@ -4965,10 +4965,10 @@
       "en": {
        "q": "Which of the following is closest to what the author realized?",
        "choices": [
-        "頭は使い続けるほど働くのではなく、ほどよく休ませると集中が戻る",
-        "休まず長く机に向かえば向かうほど、それだけ多くの仕事が確実に片づいていく",
-        "短い休みをはさむと、仕事はかえって遅く進んでしまう",
-        "簡単な計算を何度もまちがえるほうが結果としてよい"
+        "The brain does not work more the more you use it; concentration returns when you rest it appropriately.",
+        "The longer you sit at your desk without a break, the more work you will surely get done.",
+        "Taking short breaks actually slows down your work.",
+        "Making simple calculation mistakes repeatedly is better in the end."
        ]
       }
      }
@@ -4999,10 +4999,10 @@
       "en": {
        "q": "Why did the author start taking breaks?",
        "choices": [
-        "続けて作業するほど頭が鈍り、誤りが増えると気づいたから",
-        "短い休みを何度もはさむと、仕事がかえって前よりも遅く進んでしまったから",
-        "以前より長い時間、休まず集中できるようになったから",
-        "休むことはなまけることと同じだと考えていたから"
+        "Because he realized that the more he continued to work, the duller his mind became and the more errors he made.",
+        "Because taking many short breaks made his work progress even slower than before.",
+        "Because he became able to concentrate for longer periods without rest than before.",
+        "Because he thought that resting was the same as being lazy."
        ]
       }
      }
@@ -5033,10 +5033,10 @@
       "en": {
        "q": "At the beginning of the text, it says 'それだけ多くの仕事が片づく' (that much more work gets done). Which of the following is the most appropriate content that 'それだけ' (that much) refers to?",
        "choices": [
-        "休憩を取らずに机での作業を長く続けること",
-        "五十分ほど集中したあと、十分ほど席を立って体を伸ばすこと",
-        "同じところを何度も読み返し、簡単な計算をまちがえること",
-        "適度に休ませることで、次の集中がよみがえるということ"
+        "Continuing to work at a desk for a long time without taking a break.",
+        "Concentrating for about fifty minutes, then standing up and stretching for about ten minutes.",
+        "Rereading the same part many times and making mistakes in simple calculations.",
+        "That the next period of concentration will be revived by taking appropriate rest."
        ]
       }
      }
@@ -5091,10 +5091,10 @@
       "en": {
        "q": "What does 'それ' (it) in the text refer to?",
        "choices": [
-        "大型店と正面から張り合わず、小規模だからこそ可能な道を探し当てたこと",
-        "シャッターを下ろしたままの店が、元気のない駅前の通りにいくつも並んでいたこと",
-        "大きな店が郊外にできて、駅前の客足が遠のいたこと",
-        "古い建物をこわして新しい店に建て直したこと"
+        "They didn't compete head-on with large stores and found a path only possible for small businesses.",
+        "Many stores with their shutters down lined the unlively street in front of the station.",
+        "A large store was built in the suburbs, and foot traffic in front of the station decreased.",
+        "They demolished old buildings and rebuilt them into new stores."
        ]
       }
      }
@@ -5125,10 +5125,10 @@
       "en": {
        "q": "Why did people start visiting the shopping street from far away?",
        "choices": [
-        "よそにない品を扱う、個性のある店が集まったから",
-        "郊外に大きな店が新しくできて便利になったから",
-        "シャッターを下ろしたままの店が増えたから",
-        "商店街の古い建物をすべてこわして建て替えたから"
+        "Because unique stores that handled items not found elsewhere gathered there.",
+        "Because a new, large store in the suburbs made it more convenient.",
+        "Because the number of stores with their shutters down increased.",
+        "Because all the old buildings in the shopping street were demolished and rebuilt."
        ]
       }
      }
@@ -5159,10 +5159,10 @@
       "en": {
        "q": "Which of the following statements matches the content of the main text?",
        "choices": [
-        "古い建物を残し、持ち味を生かして修復したことも来訪者をひきつけた",
-        "大きな店とまったく同じやり方で、商品をとにかく安く売ったことで人が集まった",
-        "商店街のにぎわいは今もまったく戻っていない",
-        "若い人たちは商店街から次々に出て行ってしまった"
+        "Preserving old buildings and restoring them to make the most of their character also attracted visitors.",
+        "People gathered because they sold products at extremely low prices, using the exact same method as large stores.",
+        "The bustle of the shopping street has not returned at all even now.",
+        "Young people left the shopping street one after another."
        ]
       }
      }
@@ -5217,10 +5217,10 @@
       "en": {
        "q": "What does 「それだけ」 in the main text refer to?",
        "choices": [
-        "珍しい生き物を眺めて楽しむという役割",
-        "数が減った生き物を守り、増やす手助けをする役割",
-        "園で育った動物をもとの自然にかえす役割",
-        "生き物の厳しい状況を来た人に伝える役割"
+        "The role of enjoying rare creatures by observing them.",
+        "The role of protecting endangered creatures and helping them multiply.",
+        "The role of returning animals raised in the park to their original natural habitat.",
+        "The role of conveying the harsh conditions of living creatures to visitors."
        ]
       }
      }
@@ -5251,10 +5251,10 @@
       "en": {
        "q": "What is stated in the main text as something that zoos have been doing recently?",
        "choices": [
-        "数の減った生き物を保護し、その数をふやす手伝いをすること",
-        "めずらしい動物を、ただおりの中に閉じこめて見せるだけにとどめること",
-        "写真や映像だけを使って動物を紹介すること",
-        "動物園を批判する意見を人々から集めること"
+        "To protect endangered creatures and help them increase their numbers.",
+        "To merely confine rare animals in cages and display them.",
+        "To introduce animals only using photos and videos.",
+        "To collect opinions from people criticizing zoos."
        ]
       }
      }
@@ -5285,10 +5285,10 @@
       "en": {
        "q": "Which of the following is closest to the author's opinion?",
        "choices": [
-        "保護し伝え、若い世代の心を揺さぶる場なら動物園には値打ちがある",
-        "めずらしい動物を閉じこめて見せるだけでも、動物園には十分な意味がある",
-        "動物園はめずらしい動物を見せることだけが唯一の役目だ",
-        "本物より写真で動物を見るほうが、命を身近に感じられる"
+        "Zoos are valuable if they are places that protect, convey, and stir the hearts of younger generations.",
+        "Even just confining and displaying rare animals gives zoos sufficient meaning.",
+        "The only role of a zoo is to display rare animals.",
+        "Seeing animals in photos rather than in person makes one feel closer to life."
        ]
       }
      }
@@ -5343,10 +5343,10 @@
       "en": {
        "q": "What does 「それ」 in 「それは冬の煮物のにおいだ」 in the main text refer to?",
        "choices": [
-        "かぐと遠い過去がよみがえる、そのにおい",
-        "寒い台所で祖母のそばに立っていた、幼い日のなつかしい光景",
-        "久しぶりに食べた一皿そのものの味",
-        "写真を見て思い出す子どものころの記憶"
+        "The scent that brings back the distant past when smelled.",
+        "A nostalgic scene from childhood, standing by my grandmother in a cold kitchen.",
+        "The taste of the dish itself, eaten after a long time.",
+        "Memories from childhood recalled by looking at a photo."
        ]
       }
      }
@@ -5377,10 +5377,10 @@
       "en": {
        "q": "Which of the following is closest to the author's opinion?",
        "choices": [
-        "においや味は、頭より深い場所で記憶と結びついている",
-        "においよりも写真のほうが、記憶をはっきり呼び起こす",
-        "味は体を養うためだけのもので、記憶とは関わらない",
-        "煮物のにおいをかぐと、かえって何も思い出せなくなる"
+        "Smells and tastes are connected to memories at a deeper level than the head.",
+        "Photos evoke memories more clearly than smells.",
+        "Taste is only for nourishing the body and is not related to memory.",
+        "Smelling the scent of stew makes one unable to recall anything."
        ]
       }
      }
@@ -5663,10 +5663,10 @@
       "en": {
        "q": "Which of the following statements matches the content of the main text?",
        "choices": [
-        "たえず物音や通知に取り巻かれると、自分の気持ちすら見えなくなる",
-        "音や知らせが多ければ多いほど、かえって自分の気持ちがはっきり分かるようになる",
-        "静かな時間は一日の終わりに置くのがよいと述べている",
-        "朝はできるだけ多くの知らせを追いかけるのがよい"
+        "Constantly surrounded by noises and notifications, one can't even see their own feelings.",
+        "The more sounds and notifications there are, the clearer one's own feelings become.",
+        "It states that quiet time should be placed at the end of the day.",
+        "It is good to chase as many notifications as possible in the morning."
        ]
       }
      }
@@ -5721,10 +5721,10 @@
       "en": {
        "q": "Why do different people imagine different pictures even when reading the same book?",
        "choices": [
-        "文に記されていない箇所を、読む人それぞれが自分なりに補うから",
-        "映像とはちがい、本が細かいところまで示してくれてとても分かりやすいから",
-        "本に書かれた文字が、読む人によって違って見えるから",
-        "読む人の経験や気持ちが、みな同じものだから"
+        "Because each reader supplements the parts not written in the text in their own way.",
+        "Unlike videos, books show even the smallest details, making them very easy to understand.",
+        "Because the characters written in a book appear differently to each reader.",
+        "Because the experiences and feelings of all readers are the same."
        ]
       }
      }
@@ -5755,10 +5755,10 @@
       "en": {
        "q": "What does 「そのすき間」 in the text refer to?",
        "choices": [
-        "文字だけの物語に残る、読み手の想像が入り込む余白",
-        "映像が細かいところまで示してくれる、物語の場面の一つ一つ",
-        "登場する人の顔つきや声そのもの",
-        "一人ひとりが同じように思いえがく共通の絵"
+        "The blank space left in a text-only story, where the reader's imagination can enter.",
+        "Each scene of a story, where the video shows every detail.",
+        "The facial expressions and voices of the characters themselves.",
+        "A common image that each person envisions in the same way."
        ]
       }
      }
@@ -5780,19 +5780,19 @@
       "ne": {
        "q": "लेखकको विचारसँग सबैभन्दा मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「空白を自らの体験で満たしてこそ、その話は自分ひとりのものになる」",
-        "「文字よりも映像で見る物語のほうが、想像する力をずっと強く育ててくれる」",
-        "「文字だけの物語には、想像の入る余地がほとんどない」",
-        "「どの読者も同じ絵を思いえがくのがよい読書だ」"
+        "खाली ठाउँलाई आफ्नै अनुभवले भर्दा मात्र त्यो कथा आफ्नै हुन्छ।",
+        "अक्षरभन्दा भिडियोमा देखिने कथाले कल्पना गर्ने शक्तिलाई धेरै बलियो बनाउँछ।",
+        "अक्षर मात्र भएको कथामा कल्पनाको लागि धेरै ठाउँ हुँदैन।",
+        "सबै पाठकले एउटै चित्र कल्पना गर्नु राम्रो पढाइ हो।"
        ]
       },
       "en": {
        "q": "Which of the following is closest to the author's opinion?",
        "choices": [
-        "空白を自らの体験で満たしてこそ、その話は自分ひとりのものになる",
-        "文字よりも映像で見る物語のほうが、想像する力をずっと強く育ててくれる",
-        "文字だけの物語には、想像の入る余地がほとんどない",
-        "どの読者も同じ絵を思いえがくのがよい読書だ"
+        "Only by filling in the blanks with one's own experiences does the story become one's own.",
+        "Stories seen in video cultivate the power of imagination much more strongly than text.",
+        "There is almost no room for imagination in a text-only story.",
+        "Good reading is when every reader envisions the same image."
        ]
       }
      }
@@ -5838,19 +5838,19 @@
       "ne": {
        "q": "पाठमा रहेको 「それを当たり前だと思って」 को 「それ」 ले केलाई जनाउँछ?",
        "choices": [
-        "「栓を開ければ、いつでも清潔な水が得られるということ」",
-        "「水が家に届くまでに、多くの人の手間がかかっていること」",
-        "「ためた水を使って庭の草木に水をやるということ」",
-        "「歯をみがく間、水を出しっぱなしにしないということ」"
+        "धारा खोल्दा जुनसुकै बेला सफा पानी पाइन्छ भन्ने कुरा।",
+        "घरमा पानी आइपुग्न धेरै मानिसको मेहनत लाग्छ भन्ने कुरा।",
+        "जम्मा गरेको पानी प्रयोग गरेर बगैंचाका बोटबिरुवालाई पानी दिनु भन्ने कुरा।",
+        "दाँत माझ्ने बेला पानी बगिरहन नदिनु भन्ने कुरा।"
        ]
       },
       "en": {
        "q": "What does 「それ」 in 「それを当たり前だと思って」 in the text refer to?",
        "choices": [
-        "栓を開ければ、いつでも清潔な水が得られるということ",
-        "水が家に届くまでに、多くの人の手間がかかっていること",
-        "ためた水を使って庭の草木に水をやるということ",
-        "歯をみがく間、水を出しっぱなしにしないということ"
+        "That clean water can be obtained at any time by opening the tap.",
+        "That a lot of effort goes into getting water to your home.",
+        "That you water the plants in your garden using stored water.",
+        "That you don't leave the water running while brushing your teeth."
        ]
       }
      }
@@ -5872,19 +5872,19 @@
       "ne": {
        "q": "लेखकको विचारसँग सबैभन्दा मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「各自のわずかな節約も、大勢が続ければ大きな違いを生む」",
-        "「一人ひとりの節約はごくわずかなので、いくら続けても意味などない」",
-        "「水は無限にあるので、気にかける必要はない」",
-        "「蛇口の水は当たり前に出るので、大切にしなくてよい」"
+        "प्रत्येक व्यक्तिको सानो बचतले पनि धेरै मानिसहरूले निरन्तरता दिएमा ठूलो परिवर्तन ल्याउँछ।",
+        "प्रत्येक व्यक्तिको बचत धेरै सानो हुन्छ, त्यसैले जतिसुकै निरन्तरता दिए पनि यसको कुनै अर्थ छैन।",
+        "पानी असीमित छ, त्यसैले यसको चिन्ता लिनु पर्दैन।",
+        "धाराको पानी सामान्य रूपमा आउँछ, त्यसैले यसलाई महत्त्व दिनु पर्दैन।"
        ]
       },
       "en": {
        "q": "Which of the following is closest to the author's opinion?",
        "choices": [
-        "各自のわずかな節約も、大勢が続ければ大きな違いを生む",
-        "一人ひとりの節約はごくわずかなので、いくら続けても意味などない",
-        "水は無限にあるので、気にかける必要はない",
-        "蛇口の水は当たり前に出るので、大切にしなくてよい"
+        "Even small individual savings can make a big difference if many people continue them.",
+        "Individual savings are so small that there's no point in continuing them, no matter how much you do.",
+        "Water is infinite, so there's no need to worry about it.",
+        "Tap water comes out as a matter of course, so there's no need to value it."
        ]
       }
      }
@@ -5906,10 +5906,10 @@
       "ne": {
        "q": "पाठको सामग्रीसँग मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「身近で豊富に思えるものほど、その価値を見落としやすい」",
-        "「きれいな水が家に届くまでに、人の手間はほとんどかかっていない」",
-        "「水は無限にあるものだと筆者は考えている」",
-        "「水を出しっぱなしにしても、水はむだにならない」"
+        "जति नजिक र प्रशस्त देखिन्छ, त्यति नै त्यसको मूल्यलाई बेवास्ता गर्न सजिलो हुन्छ।",
+        "घरमा सफा पानी पुग्न मानिसको धेरै मेहनत लाग्दैन।",
+        "लेखक पानीलाई असीमित वस्तु मान्छन्।",
+        "पानी बगाइराखे पनि पानी खेर जाँदैन।"
        ]
       },
       "en": {
@@ -5964,10 +5964,10 @@
       "ne": {
        "q": "लेखकले हस्तकला मन पराउनुको कारण पाठमा के भनिएको छ?",
        "choices": [
-        "「こしらえる過程の楽しさや完成時の喜びは、金銭では得られないから」",
-        "「できあがった品を店で買えば、時間も手間もいっさいかからずにすむから」",
-        "「手作りのものは、店で売られている品より形が整っているから」",
-        "「何もかもを手作りにしなければならないと決めているから」"
+        "बनाउने प्रक्रियाको आनन्द र पूरा भएपछिको खुसी पैसाले किन्न सकिँदैन।",
+        "तयार वस्तु पसलमा किनेमा समय र मेहनत दुवै लाग्दैन।",
+        "हातले बनाएका वस्तुहरू पसलमा बेच्ने वस्तुहरू भन्दा बढी आकारमा व्यवस्थित हुन्छन्।",
+        "सबै कुरा हातले बनाउनुपर्छ भन्ने निर्णय गरिएकोले।"
        ]
       },
       "en": {
@@ -5998,10 +5998,10 @@
       "ne": {
        "q": "पाठमा 『それでも私は…好きだ』 भनिएको छ, यस 『それでも』 ले जनाउने सबैभन्दा उपयुक्त सामग्री कुन हो?",
        "choices": [
-        "「店で完成した品物を手に入れれば、手間も時間もかけずにすむこと」",
-        "「手作りの品は、店で売られている品ほど形が整っておらず、ふぞろいであること」",
-        "「自分で作ると、品にかかる手間の多さに気づくということ」",
-        "「作る人の苦労が見えて、物を粗末にできなくなること」"
+        "पसलबाट तयार वस्तु किनेमा मेहनत र समय दुवै लाग्दैन।",
+        "हातले बनाएका वस्तुहरू पसलमा बेच्ने वस्तुहरू जत्तिकै आकारमा व्यवस्थित हुँदैनन् र असमान हुन्छन्।",
+        "आफैंले बनाउँदा वस्तुमा लाग्ने मेहनतको मात्रा थाहा हुन्छ।",
+        "बनाउने व्यक्तिको मेहनत देखिन्छ र वस्तुलाई खेर फाल्न सकिँदैन।"
        ]
       },
       "en": {
@@ -6032,10 +6032,10 @@
       "ne": {
        "q": "लेखकको विचारसँग सबैभन्दा मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「すべてを手作りにせずとも、時に自ら作ることで気づくものがある」",
-        "「身のまわりの物は何もかもを手作りにするべきだと、筆者は考えている」",
-        "「手作りは時間の無駄でしかないので、やめるべきだ」",
-        "「作る人の苦労は、できるだけ見えないほうがよい」"
+        "सबै कुरा हातले नबनाए पनि, कहिलेकाहीँ आफैंले बनाउँदा केही कुरा थाहा हुन्छ।",
+        "लेखक आफ्नो वरपरका सबै कुरा हातले बनाउनुपर्छ भन्ने सोच्छन्।",
+        "हातले बनाउनु समयको बर्बादी मात्र हो, त्यसैले यसलाई त्याग्नुपर्छ।",
+        "बनाउने व्यक्तिको मेहनत सकेसम्म नदेखिएको राम्रो हुन्छ।"
        ]
       },
       "en": {
@@ -6090,10 +6090,10 @@
       "ne": {
        "q": "पाठमा रहेको 「それと引きかえに」 को 「それ」 ले केलाई जनाउँछ?",
        "choices": [
-        "「機械に頼って、速く正確に目的地へたどり着けるという便利さ」",
-        "「電池が切れて人に道をたずねたことで生まれた、思いがけないつながり」",
-        "「地図には出てこない、その町ならではの話」",
-        "「手のひらの機械の電池が切れてしまったこと」"
+        "मेसिनमा भर परेर छिटो र सही गन्तव्यमा पुग्न सकिने सुविधा।",
+        "ब्याट्री सकिएर मानिसलाई बाटो सोध्दा उत्पन्न भएको अप्रत्याशित सम्बन्ध।",
+        "नक्सामा नदेखिने, त्यो सहरको आफ्नै कथा।",
+        "हातमा भएको मेसिनको ब्याट्री सकिएको।"
        ]
       },
       "en": {
@@ -6124,10 +6124,10 @@
       "ne": {
        "q": "पाठको सामग्रीसँग मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「人に道を尋ねたことで、店の情報という思わぬ収穫があった」",
-        "「機械が目的地までの道を最後までていねいに案内してくれた」",
-        "「機械の電池が切れても、道に迷う心配はまったくなかった」",
-        "「画面を見ているだけで、その町の人と出会うことができた」"
+        "मानिसलाई बाटो सोध्दा पसलको जानकारी जस्तो अप्रत्याशित लाभ भयो।",
+        "मेसिनले गन्तव्यसम्मको बाटो अन्त्यसम्म राम्ररी देखायो।",
+        "मेसिनको ब्याट्री सकिए पनि बाटो हराउने चिन्ता पटक्कै थिएन।",
+        "स्क्रिन हेरेर मात्रै त्यो सहरका मानिसहरूसँग भेट्न सकियो।"
        ]
       },
       "en": {
@@ -6158,10 +6158,10 @@
       "ne": {
        "q": "यस घटनाबाट लेखकले बुझेको कुरासँग सबैभन्दा मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「便利さの陰で、失われているものもあるということ」",
-        "「機械に頼るほど、人とのつながりが増えていくということ」",
-        "「道は機械より人にたずねたほうが、速く正しいということ」",
-        "「便利さには、失うものが何もないということ」"
+        "सुविधाको आडमा केही कुराहरू हराइरहेका छन् भन्ने कुरा।",
+        "मेसिनमा जति भर पर्‍यो, मानिसहरूसँगको सम्बन्ध त्यति नै बढ्दै जान्छ भन्ने कुरा।",
+        "बाटो मेसिनभन्दा मानिसलाई सोध्दा छिटो र सही हुन्छ भन्ने कुरा।",
+        "सुविधामा हराउने केही पनि छैन भन्ने कुरा।"
        ]
       },
       "en": {
@@ -6216,10 +6216,10 @@
       "ne": {
        "q": "रुखको केही भाग काट्ने काममा लापरवाही गरेमा के हुन्छ?",
        "choices": [
-        "「どの木も細く弱って根を張れず、山の斜面がくずれやすくなる」",
-        "「切らずに残した木に日の光がよく当たるようになり、まっすぐ大きく育つ」",
-        "「森が雨水をたっぷりとたくわえるようになる」",
-        "「川下に住む人の暮らしが以前より豊かになる」"
+        "सबै रूखहरू पातलो र कमजोर भएर जरा गाड्न नसक्दा पहाडको ढलान भत्किने सम्भावना बढ्छ।",
+        "नकाटिएका रूखहरूमा घाम राम्ररी लाग्दा ती सीधा र ठूला हुन्छन्।",
+        "जंगलले प्रशस्त वर्षाको पानी सञ्चय गर्न थाल्छ।",
+        "नदीको तल्लो भागमा बस्ने मानिसहरूको जीवन पहिलेभन्दा समृद्ध हुन्छ।"
        ]
       },
       "en": {
@@ -6250,10 +6250,10 @@
       "ne": {
        "q": "पाठमा 「この作業をおこたると」 भनिएको छ, तर यो 「この作業」 ले जनाउने सामग्रीसँग सबैभन्दा उपयुक्त कुरा कुन हो?",
        "choices": [
-        "「混み合った木を間引き、残る木に日が届くようにすること」",
-        "「川下に住む人の暮らしを、上流の森が支えているということ」",
-        "「森が雨水をたっぷりとたくわえ、少しずつ川へ流すこと」",
-        "「大雨のときに土をささえきれず、山がくずれやすくなること」"
+        "घुस्रिएका रूखहरूलाई पातलो पारेर बाँकी रूखहरूमा घाम पुग्ने बनाउनु।",
+        "नदीको तल्लो भागमा बस्ने मानिसहरूको जीवनलाई माथिल्लो भागको जंगलले सहयोग गर्छ भन्ने कुरा।",
+        "जंगलले प्रशस्त वर्षाको पानी सञ्चय गरेर बिस्तारै नदीमा बगाउँछ।",
+        "ठूलो वर्षा हुँदा माटोलाई अड्याउन नसकेर पहाड भत्किने सम्भावना बढ्छ।"
        ]
       },
       "en": {
@@ -6284,10 +6284,10 @@
       "ne": {
        "q": "लेखकको विचारसँग सबैभन्दा मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「目立たぬ森の世話が、長い目で見て多くの人の生活を支えている」",
-        "「山の木は人が世話をせず放っておいても、ひとりでにまっすぐ大きく育っていく」",
-        "「森の世話はすぐに結果が出るので、成果が分かりやすい」",
-        "「川下の暮らしは、上流の森とは無関係に成り立っている」"
+        "जंगलको अदृश्य हेरचाहले लामो समयसम्म धेरै मानिसको जीवनलाई सहयोग गर्छ।",
+        "पहाडका रूखहरूलाई मानिसले हेरचाह नगरी छोडिदिए पनि आफैं सीधा र ठूला हुन्छन्।",
+        "जंगलको हेरचाहको नतिजा तुरुन्तै देखिने भएकाले यसको उपलब्धि बुझ्न सजिलो हुन्छ।",
+        "नदीको तल्लो भागको जीवन माथिल्लो भागको जंगलसँग असम्बन्धित छ।"
        ]
       },
       "en": {
@@ -6342,10 +6342,10 @@
       "ne": {
        "q": "पाठमा भएको 「それだけのこと」 भन्नाले कस्तो कुरा हो?",
        "choices": [
-        "「近所の年配者が、朝のあいさつの言葉をかけてくれたこと」",
-        "「それから自分のほうから先に、道で会う人に声をかけるようにしたこと」",
-        "「立ち話をする相手が、少しずつできてきたこと」",
-        "「引っ越してきて、まわりに知り合いがいなかったこと」"
+        "छिमेकका वृद्ध व्यक्तिले बिहानको अभिवादनको शब्द बोलेको कुरा।",
+        "त्यसपछि आफूबाटै पहिले बाटोमा भेट्ने मानिसहरूलाई बोल्न थालेको कुरा।",
+        "बिस्तारै कुरा गर्ने साथीहरू बन्न थालेको कुरा।",
+        "सरुवा भएर आएपछि वरपर कोही चिनेको मानिस नभएको कुरा।"
        ]
       },
       "en": {
@@ -6376,10 +6376,10 @@
       "ne": {
        "q": "लेखकको विचारसँग सबैभन्दा मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「わずか一言のあいさつがあるかどうかで、人どうしの雰囲気は大きく違ってくる」",
-        "「あいさつというものは、何かの品物のやりとりがあってこそ、はじめて意味を持つものだ」",
-        "「あいさつは何の役にも立たない、無駄な言葉である」",
-        "「知り合いがいなければ、あいさつはしないほうがよい」"
+        "एउटै शब्दको अभिवादनले पनि मानिसहरूको बीचको वातावरणमा ठूलो फरक पार्छ।",
+        "अभिवादनको अर्थ तब मात्र हुन्छ जब कुनै वस्तुको आदानप्रदान हुन्छ।",
+        "अभिवादन कुनै कामको छैन, यो बेकारको शब्द हो।",
+        "यदि कोही परिचित छैन भने, अभिवादन नगर्नु राम्रो हुन्छ।"
        ]
       },
       "en": {
@@ -6410,10 +6410,10 @@
       "ne": {
        "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
        "choices": [
-        "「筆者は自分から進んであいさつするうち、知り合いが増えたと述べる」",
-        "「筆者は引っ越してきてから最後まで、近所の誰にも自分から声をかけなかった」",
-        "「あいさつをしても、顔なじみはまったく増えなかった」",
-        "「引っ越した直後から、すでに多くの知り合いがいた」"
+        "लेखकले आफैंले अभिवादन गर्न थालेपछि परिचितहरूको संख्या बढेको बताएका छन्।",
+        "लेखक सरेर आएदेखि अन्त्यसम्म, छिमेकीहरूमध्ये कसैलाई पनि आफैंले बोलाएनन्।",
+        "अभिवादन गरे पनि, परिचित अनुहारहरू बिल्कुलै बढेका थिएनन्।",
+        "सरेर आएको तुरुन्तै, पहिले नै धेरै परिचितहरू थिए।"
        ]
       },
       "en": {
@@ -6468,10 +6468,10 @@
       "ne": {
        "q": "पाठमा भएको 「その違い」 भन्नाले के र के बीचको भिन्नता हो?",
        "choices": [
-        "「限られた一日で多くを成し遂げる人と、そうでない人との違い」",
-        "「一日の長さそのものが、人によって長かったり短かったりするということ」",
-        "「何をするかをたくさん決めている人どうしの間の差」",
-        "「時間がいくらでもあると思っている人の間の差」"
+        "सीमित एक दिनमा धेरै काम गर्ने व्यक्ति र नगर्ने व्यक्ति बीचको भिन्नता।",
+        "एक दिनको लम्बाइ नै व्यक्ति अनुसार लामो वा छोटो हुने कुरा।",
+        "धेरै कुरा गर्ने निर्णय गर्ने मानिसहरू बीचको भिन्नता।",
+        "समय जतिसुकै भए पनि छ भन्ने सोच्ने मानिसहरू बीचको भिन्नता।"
        ]
       },
       "en": {
@@ -6502,10 +6502,10 @@
       "ne": {
        "q": "लेखकको विचारसँग सबैभन्दा मिल्दोजुल्दो कुरा कुन हो?",
        "choices": [
-        "「最も重要なものを先に選び、残りを捨てる人こそ多くを成す」",
-        "「あれもこれもと手を広げようとする人ほど、結局は多くをなしとげていく」",
-        "「何をしないかより、何をするかを決めるほうが大切だ」",
-        "「時間は無限にあると考えて行動するのがよい」"
+        "सबैभन्दा महत्त्वपूर्ण कुरा पहिले छानेर बाँकीलाई त्याग्ने व्यक्तिले नै धेरै काम गर्छ।",
+        "यो पनि त्यो पनि गर्न खोज्ने व्यक्तिले नै अन्ततः धेरै काम गर्छ।",
+        "के नगर्ने भन्दा के गर्ने भन्ने निर्णय गर्नु महत्त्वपूर्ण छ।",
+        "समय असीमित छ भनी सोचेर काम गर्नु राम्रो हुन्छ।"
        ]
       },
       "en": {
@@ -8048,10 +8048,10 @@
       "ne": {
        "q": "लेखकले सबैभन्दा महत्त्वपूर्ण के ठान्छन्?",
        "choices": [
-        "「相手を大事に思う気持ちを、持ち続けること」",
-        "「一つもまちがえずに、完璧な敬語を使いこなすこと」",
-        "「失礼をおそれて、敬語をいっさい使わないでおくこと」",
-        "「形の正しさだけを、何よりも先に身につけること」"
+        "अर्को व्यक्तिलाई महत्त्व दिने भावना कायम राख्नु।",
+        "एउटा पनि गल्ती नगरी, पूर्ण रूपमा शिष्टाचार भाषा प्रयोग गर्नु।",
+        "अशिष्टताको डरले, शिष्टाचार भाषा बिल्कुलै प्रयोग नगर्नु।",
+        "रूपको शुद्धतालाई मात्र, अरू सबैभन्दा पहिले सिक्नु।"
        ]
       },
       "en": {
@@ -9056,10 +9056,10 @@
       "ne": {
        "q": "लेखकको विचारसँग मिल्ने कुरा कुन हो?",
        "choices": [
-        "「肉声で伝わる話には、ほかにない温もりがある」",
-        "सुविधाजनक उपकरण भएमा, अब सिधै कुरा गर्न आवश्यक छैन",
-        "पुरानो कथा पुरानो मात्र हो, अहिले सुनाउने कुनै मूल्य छैन",
-        "अक्षरमा पढ्नु, सुनाउनु भन्दा धेरै न्यानो हुन्छ"
+        "मानव आवाजबाट प्रसारित कथामा अद्वितीय न्यानोपन हुन्छ।",
+        "सुविधाजनक उपकरणहरू भएपछि, अब सिधै कुरा गर्न आवश्यक छैन।",
+        "पुराना कथाहरू पुरानो मात्र हुन्, तिनीहरूलाई अहिले सुनाउने कुनै मूल्य छैन।",
+        "लेखेर पढ्नु, सुनाउनु भन्दा धेरै न्यानो हुन्छ।"
        ]
       },
       "en": {
@@ -9560,10 +9560,10 @@
       "ne": {
        "q": "लेखकको विचारसँग मिल्ने कुरा कुन हो?",
        "choices": [
-        "「本は読み手を経るごとに、深みを増していく」",
-        "「新しくまっさらな本のほうが、いつでもすぐれている」",
-        "「書きこみのある古本は、汚れているだけで価値がない」",
-        "「本は、だれにも読まれないほうが長くもつ」"
+        "किताब जति धेरै पाठकहरूबाट गुज्रिन्छ, त्यति नै गहिरो हुँदै जान्छ।",
+        "नयाँ र सफा किताब सधैं राम्रो हुन्छ।",
+        "लेखिएको पुरानो किताब फोहोर मात्र हो, यसको कुनै मूल्य छैन।",
+        "किताब कसैले नपढेमा लामो समय टिक्छ।"
        ]
       },
       "en": {
@@ -9695,10 +9695,10 @@
       "en": {
        "q": "Regarding drawing pictures, which of the following best matches the author's opinion?",
        "choices": [
-        "身のまわりを、あらためて見直す手立てだ",
-        "絵は、うまいか下手かが、いちばん大切だ",
-        "見なれた景色は、絵にかいても変わらない",
-        "目の前のものは、よく見なくてもかける"
+        "It is a way to re-examine one's surroundings.",
+        "Whether a painting is good or bad is the most important thing.",
+        "Familiar scenery does not change even when painted.",
+        "You can draw what's in front of you without looking closely."
        ]
       }
      }
@@ -9753,10 +9753,10 @@
       "en": {
        "q": "Why was the author not reluctant to receive hand-me-down clothes from their cousin?",
        "choices": [
-        "したっているいとこと、同じ服を着られたから",
-        "新品の服を、いくらでも安く手に入れられたから",
-        "着なくなれば、すぐに捨てることができたから",
-        "前に着ていた人の思い出を、消せたと思ったから"
+        "Because I could wear the same clothes as my beloved cousin.",
+        "Because I could get brand new clothes for any cheap price.",
+        "Because I could throw them away as soon as I stopped wearing them.",
+        "Because I thought I could erase the memories of the person who wore them before."
        ]
       }
      }
@@ -9787,10 +9787,10 @@
       "en": {
        "q": "What does 『そんなこと』 in the text refer to?",
        "choices": [
-        "前の持ち主が、その服でどこへ出かけたのか",
-        "新品の服を、これからどこで買おうかということ",
-        "着なくなった服を、いつ捨てようかということ",
-        "あこがれのいとこに、いつ会えるのかということ"
+        "Where the previous owner went in those clothes",
+        "Where to buy new clothes from now on",
+        "When to throw away clothes that are no longer worn",
+        "When I can meet my admired cousin"
        ]
       }
      }
@@ -9812,19 +9812,19 @@
       "ne": {
        "q": "लेखकको विचारसँग मिल्ने कुरा कुन हो?",
        "choices": [
-        "「服を受けつぐとき、人どうしの温かい結びつきも渡される」",
-        "「新品を次々に買って捨てるほうが、ずっとよい」",
-        "「お下がりの服には、何のよさも思い出もない」",
-        "「服はできるだけ早く捨ててしまったほうが、ずっと気持ちがよい」"
+        "जब लुगाहरू हस्तान्तरण गरिन्छ, मानिसहरू बीचको न्यानो सम्बन्ध पनि हस्तान्तरण हुन्छ।",
+        "नयाँ लुगाहरू किनेर फ्याँक्नु धेरै राम्रो हुन्छ।",
+        "पुरानो लुगामा कुनै राम्रोपन वा सम्झना हुँदैन।",
+        "लुगाहरू सकेसम्म चाँडो फ्याँक्नु धेरै राम्रो महसुस हुन्छ।"
        ]
       },
       "en": {
        "q": "Which of the following best matches the author's opinion?",
        "choices": [
-        "服を受けつぐとき、人どうしの温かい結びつきも渡される",
-        "新品を次々に買って捨てるほうが、ずっとよい",
-        "お下がりの服には、何のよさも思い出もない",
-        "服はできるだけ早く捨ててしまったほうが、ずっと気持ちがよい"
+        "When clothes are handed down, warm human connections are also passed on",
+        "It's much better to buy new clothes one after another and throw them away",
+        "Hand-me-down clothes have no good qualities or memories",
+        "It's much more pleasant to throw away clothes as soon as possible"
        ]
       }
      }
@@ -9879,10 +9879,10 @@
       "en": {
        "q": "What does 「そう」 in 「私も以前はそうだった」 mean?",
        "choices": [
-        "手元ばかり見て、空をあおぐのを忘れていたこと",
-        "立ち止まって、毎日空を見上げていたということ",
-        "刻一刻と変わる雲を、いつもながめていたこと",
-        "空を見上げるのに、お金も準備もいらないこと"
+        "That I was only looking at my hands and forgot to look up at the sky",
+        "That I stopped and looked up at the sky every day",
+        "That I was always gazing at the clouds that changed from moment to moment",
+        "That looking up at the sky requires no money or preparation"
        ]
       }
      }
@@ -9913,10 +9913,10 @@
       "en": {
        "q": "It says 「同じ空は、二度と見られない」, but why?",
        "choices": [
-        "空は、時とともに違ったようすを見せるから",
-        "足元や手元ばかり見て、上を向かないから",
-        "空を見上げるのに、お金も準備もいらないから",
-        "うつむいて歩く日が、ずっと続いてしまうから"
+        "Because the sky shows different appearances with time",
+        "Because I only look at my feet and hands and don't look up",
+        "Because looking up at the sky requires no money or preparation",
+        "Because the days of walking with my head down will continue for a long time"
        ]
       }
      }

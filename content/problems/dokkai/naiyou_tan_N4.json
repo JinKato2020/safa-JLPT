@@ -42,19 +42,19 @@
       "ne": {
        "q": "यस महिना विद्यार्थी यस क्लबमा सामेल भएमा, सुरुमा कति तिर्नुपर्छ?",
        "choices": [
-        "「3,000円」",
-        "「6,000円」",
-        "「9,000円」",
-        "「0円」"
+        "३,००० येन",
+        "६,००० येन",
+        "९,००० येन",
+        "० येन"
        ]
       },
       "en": {
        "q": "If a student joins this club this month, how much will they pay initially?",
        "choices": [
-        "3,000円",
-        "6,000円",
-        "9,000円",
-        "0円"
+        "3,000 yen",
+        "6,000 yen",
+        "9,000 yen",
+        "0 yen"
        ]
       }
      }
@@ -100,10 +100,10 @@
       "ne": {
        "q": "अर्को महिनादेखि के परिवर्तन हुन्छ?",
        "choices": [
-        "「土・日も夜8時まで開く」",
-        "「平日が夜8時までになる」",
-        "「本は5冊までになる」",
-        "「日曜日は休みになる」"
+        "शनिबार र आइतबार पनि राति ८ बजेसम्म खुल्नेछ",
+        "हप्ताका दिनहरूमा राति ८ बजेसम्म खुल्नेछ",
+        "किताबहरू ५ वटासम्म हुनेछन्",
+        "आइतबार बन्द हुनेछ"
        ]
       },
       "en": {
@@ -158,19 +158,19 @@
       "ne": {
        "q": "भोलि पानी परेमा, कहाँ भेट्नुहुन्छ?",
        "choices": [
-        "「駅前の喫茶店」",
-        "「公園の入口」",
-        "「図書館のとなり」",
-        "「駅の中」"
+        "स्टेशन अगाडिको चिया पसल",
+        "पार्कको प्रवेशद्वार",
+        "पुस्तकालयको छेउमा",
+        "स्टेशन भित्र"
        ]
       },
       "en": {
        "q": "If it rains tomorrow, where will we meet?",
        "choices": [
-        "駅前の喫茶店",
-        "公園の入口",
-        "図書館のとなり",
-        "駅の中"
+        "Coffee shop in front of the station",
+        "Park entrance",
+        "Next to the library",
+        "Inside the station"
        ]
       }
      }
@@ -216,19 +216,19 @@
       "ne": {
        "q": "पुरानो कागज फाल्ने तरिकामा, कुन सही छ?",
        "choices": [
-        "「ひもでしばって出す」",
-        "「毎週水曜日に出す」",
-        "「ぬれた紙も出せる」",
-        "「ペットボトルと一緒に出す」"
+        "डोरीले बाँधेर फाल्ने",
+        "हरेक बुधबार फाल्ने",
+        "भिजेको कागज पनि फाल्न सकिने",
+        "पेट बोतलसँगै फाल्ने"
        ]
       },
       "en": {
        "q": "Regarding how to dispose of waste paper, which one is correct?",
        "choices": [
-        "ひもでしばって出す",
-        "毎週水曜日に出す",
-        "ぬれた紙も出せる",
-        "ペットボトルと一緒に出す"
+        "Tie it with a string and put it out",
+        "Put it out every Wednesday",
+        "Wet paper can also be put out",
+        "Put it out with plastic bottles"
        ]
       }
      }
@@ -274,19 +274,19 @@
       "ne": {
        "q": "यस कक्षाको बारेमा, कुन सही छ?",
        "choices": [
-        "「作った料理を食べられる」",
-        "「エプロンを持っていく」",
-        "「作った料理は持って帰れない」",
-        "「申し込みは当日でいい」"
+        "बनाएको खाना खान सकिनेछ",
+        "एप्रन लिएर जाने",
+        "बनाएको खाना घर लैजान सकिँदैन",
+        "आवेदन सोही दिन गरे पनि हुन्छ"
        ]
       },
       "en": {
        "q": "Regarding this classroom, which one is correct?",
        "choices": [
-        "作った料理を食べられる",
-        "エプロンを持っていく",
-        "作った料理は持って帰れない",
-        "申し込みは当日でいい"
+        "You can eat the food you made",
+        "Bring an apron",
+        "You cannot take home the food you made",
+        "You can apply on the day"
        ]
       }
      }
@@ -341,10 +341,10 @@
       "en": {
        "q": "When should I return the borrowed book?",
        "choices": [
-        "木曜日以降に返す",
-        "月曜日に返す",
-        "水曜日までに返す",
-        "返さなくてもいい"
+        "Return it after Thursday",
+        "Return it on Monday",
+        "Return it by Wednesday",
+        "You don't have to return it"
        ]
       }
      }
@@ -390,19 +390,19 @@
       "ne": {
        "q": "भोलि लैजाने सामान कुन हो?",
        "choices": [
-        "「お弁当と飲み物」",
-        "「かさとお弁当」",
-        "「飲み物とかさ」",
-        "「お弁当だけ」"
+        "लंच बक्स र पेय पदार्थ",
+        "छाता र लंच बक्स",
+        "पेय पदार्थ र छाता",
+        "लंच बक्स मात्र"
        ]
       },
       "en": {
        "q": "What should I bring tomorrow?",
        "choices": [
-        "お弁当と飲み物",
-        "かさとお弁当",
-        "飲み物とかさ",
-        "お弁当だけ"
+        "Lunch box and drink",
+        "Umbrella and lunch box",
+        "Drink and umbrella",
+        "Lunch box only"
        ]
       }
      }
@@ -457,10 +457,10 @@
       "en": {
        "q": "What should I do if I want to use the elevator at 10 AM on Saturday?",
        "choices": [
-        "階段を使う",
-        "エレベーターを使う",
-        "午後三時まで待つ",
-        "管理人に電話する"
+        "Use the stairs",
+        "Use the elevator",
+        "Wait until 3 PM",
+        "Call the manager"
        ]
       }
      }
@@ -506,19 +506,19 @@
       "ne": {
        "q": "यो कक्षामा सहभागी हुने व्यक्तिले के लैजान्छन्?",
        "choices": [
-        "「エプロン」",
-        "「材料」",
-        "पैसा नलैजाने",
-        "「料理の本」"
+        "एप्रन",
+        "सामग्री",
+        "पैसा नबोक्ने",
+        "खाना पकाउने किताब"
        ]
       },
       "en": {
        "q": "What should people who participate in this class bring?",
        "choices": [
-        "エプロン",
-        "材料",
-        "お金は持たない",
-        "料理の本"
+        "Apron",
+        "Ingredients",
+        "Don't bring money",
+        "Cookbook"
        ]
       }
      }
@@ -573,10 +573,10 @@
       "en": {
        "q": "What does this person want to say?",
        "choices": [
-        "夕ごはんはいらない",
-        "ケーキを食べてほしい",
-        "六時に出かける",
-        "しゅくだいを手伝ってほしい"
+        "Don't need dinner",
+        "Want me to eat the cake",
+        "Go out at 6 o'clock",
+        "Want me to help with homework"
        ]
       }
      }
@@ -631,10 +631,10 @@
       "en": {
        "q": "Which season's town does this person like the most?",
        "choices": [
-        "冬",
-        "夏",
-        "駅ができたとき",
-        "海で泳ぐとき"
+        "Winter",
+        "Summer",
+        "When the station was built",
+        "When swimming in the sea"
        ]
       }
      }
@@ -689,10 +689,10 @@
       "en": {
        "q": "What must elementary school children do when entering the pool?",
        "choices": [
-        "おとなといっしょに入る",
-        "一人で入ってもよい",
-        "シャワーをあびずに入る",
-        "プールの中を走ってもよい"
+        "Enter with an adult",
+        "May enter alone",
+        "Enter without showering",
+        "May run inside the pool"
        ]
       }
      }
@@ -747,10 +747,10 @@
       "en": {
        "q": "What has changed?",
        "choices": [
-        "会議の時間",
-        "会議の場所",
-        "しりょうの送り方",
-        "会議室の階"
+        "Meeting time",
+        "Meeting location",
+        "How to send materials",
+        "Floor of the meeting room"
        ]
       }
      }
@@ -805,10 +805,10 @@
       "en": {
        "q": "What will happen if it rains?",
        "choices": [
-        "次の週の日曜日にする",
-        "そのまま第二日曜日に行う",
-        "その日は中止にして行わない",
-        "室内に変えて行う"
+        "Do it on Sunday of next week",
+        "Proceed as scheduled on the second Sunday",
+        "Cancel and do not hold it on that day",
+        "Change to indoors"
        ]
       }
      }
@@ -1376,10 +1376,10 @@
       "ne": {
        "q": "B ले A लाई के गर्न चाहन्छ?",
        "choices": [
-        "「けいたい」に連絡する",
-        "「出張」に行く",
-        "「打ち合わせ」をやめる",
-        "「時間」を変える"
+        "मोबाइलमा सम्पर्क गर्ने",
+        "व्यापार यात्रामा जाने",
+        "बैठक रद्द गर्ने",
+        "समय परिवर्तन गर्ने"
        ]
       },
       "en": {
@@ -1434,10 +1434,10 @@
       "ne": {
        "q": "कुन व्यक्तिले जुस पाउँछ?",
        "choices": [
-        "「ゆかた」を着て来た人",
-        "「花火」を見た人",
-        "午後 पाँच बजे आएको व्यक्ति",
-        "खेल खेलेको व्यक्ति"
+        "युकाटा लगाएर आएका मानिसहरू",
+        "आतिशबाजी हेरेका मानिसहरू",
+        "बेलुका पाँच बजे आएका मानिसहरू",
+        "खेल खेलेका मानिसहरू"
        ]
       },
       "en": {
@@ -1492,10 +1492,10 @@
       "ne": {
        "q": "यो इमेलमा सबैभन्दा महत्त्वपूर्ण कुरा के हो?",
        "choices": [
-        "「飲み会」の店が変わったこと",
-        "「飲み会」の時間が変わったこと",
-        "「飲み会」が休みになったこと",
-        "「飲み会」にAさんが来ないこと"
+        "पार्टीको पसल परिवर्तन भएको",
+        "पार्टीको समय परिवर्तन भएको",
+        "पार्टी रद्द भएको",
+        "पार्टीमा ए-सान नआउने"
        ]
       },
       "en": {
@@ -2603,10 +2603,10 @@
       "en": {
        "q": "What should you do to make it easier for lost items to be found?",
        "choices": [
-        "「自分のものに名前を書いておく」",
-        "「前の戸だなを開けたままにする」",
-        "「一か月すぎるまでずっと待つ」",
-        "「見つけたらすぐにすててしまう」"
+        "Write your name on your belongings",
+        "Leave the front cabinet open",
+        "Wait until a month has passed",
+        "Throw it away as soon as you find it"
        ]
       }
      }
@@ -2661,10 +2661,10 @@
       "en": {
        "q": "Where should A-kun go on Saturday?",
        "choices": [
-        "「新しい家の前」",
-        "「古い家の前」",
-        "「駅前」",
-        "「トラックの会社」"
+        "In front of the new house",
+        "In front of the old house",
+        "In front of the station",
+        "Trucking company"
        ]
       }
      }
@@ -2719,10 +2719,10 @@
       "en": {
        "q": "What should you do when the water is cloudy?",
        "choices": [
-        "「少し流してから使う」",
-        "「すぐに飲む」",
-        "「工事の人を呼ぶ」",
-        "「一日待つ」"
+        "Use it after letting it run for a bit",
+        "Drink immediately",
+        "Call the construction worker",
+        "Wait one day"
        ]
       }
      }
@@ -2768,19 +2768,19 @@
       "ne": {
        "q": "यो व्यक्तिलाई के महत्त्वपूर्ण लाग्यो?",
        "choices": [
-        "「新しいくつをはきつづけること」",
-        "「いたくなったらすぐにかえること」",
-        "「少し大きめのくつを買うこと」",
-        "「いたいくつははかないでおくこと」"
+        "नयाँ जुत्ता लगाइराख्ने",
+        "दुखेमा तुरुन्तै परिवर्तन गर्ने",
+        "अलिकति ठूलो जुत्ता किन्ने",
+        "दुख्ने जुत्ता नलगाउने"
        ]
       },
       "en": {
        "q": "What did this person think was important?",
        "choices": [
-        "「新しいくつをはきつづけること」",
-        "「いたくなったらすぐにかえること」",
-        "「少し大きめのくつを買うこと」",
-        "「いたいくつははかないでおくこと」"
+        "Continue wearing new shoes",
+        "Change immediately if it hurts",
+        "Buy slightly larger shoes",
+        "Do not wear shoes that hurt"
        ]
       }
      }
@@ -2826,19 +2826,19 @@
       "ne": {
        "q": "कस्तो बेला पानी दिने?",
        "choices": [
-        "「土がかわいたとき」",
-        "「毎日きまった時間」",
-        "「花がさいたとき」",
-        "「暑い日だけ」"
+        "माटो सुकेपछि",
+        "हरेक दिन निश्चित समयमा",
+        "फूल फुल्दा",
+        "गर्मी दिनमा मात्र"
        ]
       },
       "en": {
        "q": "When should you water?",
        "choices": [
-        "「土がかわいたとき」",
-        "「毎日きまった時間」",
-        "「花がさいたとき」",
-        "「暑い日だけ」"
+        "When the soil is dry",
+        "At a fixed time every day",
+        "When the flowers bloom",
+        "Only on hot days"
        ]
       }
      }
@@ -2884,19 +2884,19 @@
       "ne": {
        "q": "जब र्याक भरिएको हुन्छ, तब के गर्ने?",
        "choices": [
-        "「はしのほうにきれいにならべる」",
-        "「くつをはいたまま上がってよい」",
-        "「入り口のスリッパをぬいでおく」",
-        "「くつを持ったまま中を歩く」"
+        "किनारमा राम्ररी मिलाएर राख्ने",
+        "जुत्ता लगाएर भित्र जान मिल्छ",
+        "प्रवेशद्वारको चप्पल फुकालेर राख्ने",
+        "जुत्ता समातेर भित्र हिँड्ने"
        ]
       },
       "en": {
        "q": "What should you do when the shelf is full?",
        "choices": [
-        "「はしのほうにきれいにならべる」",
-        "「くつをはいたまま上がってよい」",
-        "「入り口のスリッパをぬいでおく」",
-        "「くつを持ったまま中を歩く」"
+        "Arrange them neatly by the edge",
+        "You may enter with your shoes on",
+        "Take off the slippers at the entrance",
+        "Walk inside while holding your shoes"
        ]
       }
      }
@@ -2942,19 +2942,19 @@
       "ne": {
        "q": "यो व्यक्तिले किन इमेल पठाएको हो?",
        "choices": [
-        "「わすれた傘を取っておいてほしいから」",
-        "「新しい青い傘を店で買いたいから」",
-        "「昨日仕事を休んだことをあやまるため」",
-        "「わすれた傘を家に送ってほしいから」"
+        "बिर्सेको छाता राखिदिनुहोस् भनेर",
+        "पसलमा नयाँ निलो छाता किन्न चाहन्छु भनेर",
+        "हिजो काममा नआएकोमा माफी माग्न",
+        "बिर्सेको छाता घरमा पठाइदिनुहोस् भनेर"
        ]
       },
       "en": {
        "q": "Why did this person send the email?",
        "choices": [
-        "わすれた傘を取っておいてほしいから",
-        "新しい青い傘を店で買いたいから",
-        "昨日仕事を休んだことをあやまるため",
-        "わすれた傘を家に送ってほしいから"
+        "Because I want you to keep the umbrella I forgot",
+        "Because I want to buy a new blue umbrella at the store",
+        "To apologize for being absent from work yesterday",
+        "Because I want you to send the umbrella I forgot to my house"
        ]
       }
      }
@@ -3000,19 +3000,19 @@
       "ne": {
        "q": "हतारमा भएका व्यक्तिले के गर्नुपर्छ?",
        "choices": [
-        "「いつもより早いバスに乗る」",
-        "「工事をしている道路を歩く」",
-        "「来週になるまでバスを待つ」",
-        "「おくれてくるバスを使わない」"
+        "सामान्य भन्दा छिटो बस चढ्ने",
+        "निर्माण भइरहेको सडकमा हिँड्ने",
+        "अर्को हप्तासम्म बस पर्खने",
+        "ढिलो आउने बस प्रयोग नगर्ने"
        ]
       },
       "en": {
        "q": "What should people in a hurry do?",
        "choices": [
-        "いつもより早いバスに乗る",
-        "工事をしている道路を歩く",
-        "来週になるまでバスを待つ",
-        "おくれてくるバスを使わない"
+        "Take an earlier bus than usual",
+        "Walk on the road where construction is taking place",
+        "Wait for the bus until next week",
+        "Do not use the bus that comes late"
        ]
       }
      }
@@ -3058,19 +3058,19 @@
       "ne": {
        "q": "मैले अर्को वर्ष के गर्न चाहेँ?",
        "choices": [
-        "「畑の世話を手伝いたい」",
-        "「あまいトマトをたくさん買いたい」",
-        "「自分のお店を開きたい」",
-        "「新しい畑を作りたい」"
+        "खेतको हेरचाहमा मद्दत गर्न चाहन्छु",
+        "धेरै गुलियो टमाटर किन्न चाहन्छु",
+        "आफ्नै पसल खोल्न चाहन्छु",
+        "नयाँ खेत बनाउन चाहन्छु"
        ]
       },
       "en": {
        "q": "What did I want to do next year?",
        "choices": [
-        "畑の世話を手伝いたい",
-        "あまいトマトをたくさん買いたい",
-        "自分のお店を開きたい",
-        "新しい畑を作りたい"
+        "I want to help take care of the field",
+        "I want to buy a lot of sweet tomatoes",
+        "I want to open my own shop",
+        "I want to create a new field"
        ]
       }
      }
@@ -3116,19 +3116,19 @@
       "ne": {
        "q": "यो एपले के गर्न सक्दैन?",
        "choices": [
-        "ほかの人と点をくらべること",
-        "勉強の時間をグラフにすること",
-        "自分のきろくを見ること",
-        "がんばった日を知ること"
+        "अरू मानिसहरूसँग अंक तुलना गर्ने",
+        "अध्ययनको समयलाई ग्राफमा देखाउने",
+        "आफ्नो रेकर्ड हेर्ने",
+        "कडा परिश्रम गरेको दिन जान्ने"
        ]
       },
       "en": {
        "q": "What can't you do with this app?",
        "choices": [
-        "ほかの人と点をくらべること",
-        "勉強の時間をグラフにすること",
-        "自分のきろくを見ること",
-        "がんばった日を知ること"
+        "Comparing scores with others",
+        "Graphing study time",
+        "Looking at your own records",
+        "Knowing the days you worked hard"
        ]
       }
      }
@@ -3174,19 +3174,19 @@
       "ne": {
        "q": "हतारको काम भएका व्यक्तिले के गर्नुपर्छ?",
        "choices": [
-        "係の者に声をかける",
-        "番号のふだを取る",
-        "席で名前を呼ばれるまで待つ",
-        "早く帰る"
+        "कर्मचारीलाई बोलाउनुहोस्",
+        "नम्बर प्लेट लिनुहोस्",
+        "आफ्नो सिटमा नाम बोलाउन पर्खनुहोस्",
+        "चाँडै घर जानुहोस्"
        ]
       },
       "en": {
        "q": "What should people with urgent business do?",
        "choices": [
-        "係の者に声をかける",
-        "番号のふだを取る",
-        "席で名前を呼ばれるまで待つ",
-        "早く帰る"
+        "Speak to the person in charge",
+        "Take a numbered tag",
+        "Wait at your seat until your name is called",
+        "Go home early"
        ]
       }
      }
@@ -3232,19 +3232,19 @@
       "ne": {
        "q": "यो व्यक्ति अब के गर्ने योजनामा ​​छ?",
        "choices": [
-        "友を誘って山に登る",
-        "一人でまた山に登る",
-        "遠くの海へ行く",
-        "雨がやむのを待つ"
+        "साथीलाई पहाड चढ्न आमन्त्रित गर्नुहोस्",
+        "फेरि एक्लै पहाड चढ्नुहोस्",
+        "टाढाको समुद्रमा जानुहोस्",
+        "पानी रोकिने प्रतीक्षा गर्नुहोस्"
        ]
       },
       "en": {
        "q": "What does this person intend to do next time?",
        "choices": [
-        "友を誘って山に登る",
-        "一人でまた山に登る",
-        "遠くの海へ行く",
-        "雨がやむのを待つ"
+        "Invite a friend to climb a mountain",
+        "Climb the mountain alone again",
+        "Go to a distant sea",
+        "Wait for the rain to stop"
        ]
       }
      }
@@ -3290,19 +3290,19 @@
       "ne": {
        "q": "मैले मेरी आमालाई के उपहार दिएँ?",
        "choices": [
-        "手を温める手袋",
-        "手作りのケーキ",
-        "きれいな花",
-        "家族での旅行"
+        "हात न्यानो पार्ने पन्जा",
+        "घरमा बनाएको केक",
+        "सुन्दर फूलहरू",
+        "परिवारसँगको यात्रा"
        ]
       },
       "en": {
        "q": "What did I give my mother as a present?",
        "choices": [
-        "手を温める手袋",
-        "手作りのケーキ",
-        "きれいな花",
-        "家族での旅行"
+        "Gloves to warm hands",
+        "Handmade cake",
+        "Beautiful flowers",
+        "Family trip"
        ]
       }
      }
@@ -3348,19 +3348,19 @@
       "ne": {
        "q": "यस गतिविधिमा आफैले लिएर जाने सामान के हो?",
        "choices": [
-        "自分で飲む物",
-        "ごみ袋と手袋",
-        "手袋だけ",
-        "何も持っていかない"
+        "आफैले पिउने कुरा",
+        "फोहोरको झोला र पन्जा",
+        "पन्जा मात्र",
+        "केही पनि नलैजाने"
        ]
       },
       "en": {
        "q": "What should I bring myself for this activity?",
        "choices": [
-        "自分で飲む物",
-        "ごみ袋と手袋",
-        "手袋だけ",
-        "何も持っていかない"
+        "Something to drink for oneself",
+        "Garbage bags and gloves",
+        "Gloves only",
+        "Don't bring anything"
        ]
       }
      }
@@ -3406,19 +3406,19 @@
       "ne": {
        "q": "यो पसल कहिलेदेखि फेरि खुल्छ?",
        "choices": [
-        "木曜日",
-        "月曜日",
-        "水曜日",
-        "金曜日"
+        "बिहीबार",
+        "सोमबार",
+        "बुधबार",
+        "शुक्रबार"
        ]
       },
       "en": {
        "q": "When will this store open again?",
        "choices": [
-        "木曜日",
-        "月曜日",
-        "水曜日",
-        "金曜日"
+        "Thursday",
+        "Monday",
+        "Wednesday",
+        "Friday"
        ]
       }
      }
@@ -3464,19 +3464,19 @@
       "ne": {
        "q": "भोलिको बैठक कहाँ हुन्छ?",
        "choices": [
-        "5階の小部屋",
-        "3階の部屋",
-        "午後2時の教室",
-        "資料のある部屋"
+        "पाँचौं तल्लाको सानो कोठा",
+        "तेस्रो तल्लाको कोठा",
+        "दिउँसो २ बजेको कक्षाकोठा",
+        "सामग्री भएको कोठा"
        ]
       },
       "en": {
        "q": "Where will tomorrow's meeting be held?",
        "choices": [
-        "5階の小部屋",
-        "3階の部屋",
-        "午後2時の教室",
-        "資料のある部屋"
+        "Small room on the 5th floor",
+        "Room on the 3rd floor",
+        "Classroom at 2 PM",
+        "Room with materials"
        ]
       }
      }
@@ -3522,19 +3522,19 @@
       "ne": {
        "q": "यो व्यक्तिले अर्को महिना के गर्छ?",
        "choices": [
-        "祖母の所を訪ねる",
-        "おばあちゃんにりんごを送る",
-        "家族におすしを作る",
-        "さむさをがまんする"
+        "हजुरआमाको ठाउँमा भेट्न जाने",
+        "हजुरआमालाई स्याउ पठाउने",
+        "परिवारको लागि सुशी बनाउने",
+        "चिसो सहन गर्ने"
        ]
       },
       "en": {
        "q": "What will this person do next month?",
        "choices": [
-        "祖母の所を訪ねる",
-        "おばあちゃんにりんごを送る",
-        "家族におすしを作る",
-        "さむさをがまんする"
+        "Visit grandmother's place",
+        "Send apples to grandma",
+        "Make sushi for the family",
+        "Endure the cold"
        ]
       }
      }
@@ -3580,19 +3580,19 @@
       "ne": {
        "q": "यो व्यक्तिले फर्कने बेलामा के गर्छ?",
        "choices": [
-        "ミルクを買う",
-        "カレーを温める",
-        "夜ごはんを作る",
-        "9時に家を出る"
+        "दूध किन्ने",
+        "करी तताउने",
+        "बेलुकाको खाना बनाउने",
+        "९ बजे घरबाट निस्कने"
        ]
       },
       "en": {
        "q": "What will this person do on the way home?",
        "choices": [
-        "ミルクを買う",
-        "カレーを温める",
-        "夜ごはんを作る",
-        "9時に家を出る"
+        "Buy milk",
+        "Warm up curry",
+        "Make dinner",
+        "Leave home at 9 o'clock"
        ]
       }
      }
@@ -3638,10 +3638,10 @@
       "ne": {
        "q": "यो व्यक्तिले भोलि के गर्छ?",
        "choices": [
-        "遅れて出社する",
-        "会社を一日休む",
-        "病院へは行かない",
-        "3時に会社を出る"
+        "ढिलो गरी काममा जाने",
+        "एक दिन कम्पनीबाट बिदा लिने",
+        "अस्पताल नजाने",
+        "३ बजे कम्पनीबाट निस्कने"
        ]
       },
       "en": {
@@ -3696,10 +3696,10 @@
       "ne": {
        "q": "चिसो लाग्दा सबैभन्दा महत्त्वपूर्ण कुरा के हो?",
        "choices": [
-        "体をゆっくり休ませる",
-        "薬をたくさん飲むこと",
-        "無理をして働くこと",
-        "つめたい水を飲むこと"
+        "शरीरलाई बिस्तारै आराम दिने",
+        "धेरै औषधि खाने",
+        "जबरजस्ती काम गर्ने",
+        "चिसो पानी पिउने"
        ]
       },
       "en": {
@@ -3754,10 +3754,10 @@
       "ne": {
        "q": "कला संग्रहालय कहाँ छ?",
        "choices": [
-        "広い公園の中",
-        "駅の北口の前",
-        "二つ目の信号の角",
-        "バスていの近く"
+        "फराकिलो पार्क भित्र",
+        "स्टेशनको उत्तरी निकास अगाडि",
+        "दोस्रो ट्राफिक लाइटको कुनामा",
+        "बस स्टप नजिक"
        ]
       },
       "en": {
@@ -4508,10 +4508,10 @@
       "ne": {
        "q": "यो व्यक्तिले अब फूलको लागि हरेक दिन के गर्छ?",
        "choices": [
-        "पानी दिने",
-        "たねをまく",
-        "किताबमा खोज्ने",
-        "はちを買う"
+        "पानी हाल्ने",
+        "बीउ छर्ने",
+        "किताबमा हेर्ने",
+        "गमला किन्ने"
        ]
       },
       "en": {
@@ -4691,10 +4691,10 @@
       "en": {
        "q": "What is this person asking their older sister to do?",
        "choices": [
-        "犬を散歩させること",
-        "へやのそうじをすること",
-        "クラブに行くこと",
-        "犬の足をけがさせないこと"
+        "Walking the dog",
+        "Cleaning the room",
+        "Going to the club",
+        "Not hurting the dog's leg"
        ]
       }
      }
@@ -4749,10 +4749,10 @@
       "en": {
        "q": "What are students said to be able to learn during cleaning time?",
        "choices": [
-        "仲間と力を合わせる",
-        "つくえの正しいふき方",
-        "ほうきの作り方",
-        "教室の借り方"
+        "Working together with friends",
+        "The correct way to wipe a desk",
+        "How to make a broom",
+        "How to borrow a classroom"
        ]
       }
      }
@@ -4807,10 +4807,10 @@
       "en": {
        "q": "How much money is required to participate in this meeting?",
        "choices": [
-        "無料で参加できる",
-        "土曜日だけ必要",
-        "2階で少し払う",
-        "10時までに払う"
+        "Can participate for free",
+        "Only needed on Saturday",
+        "Pay a little on the second floor",
+        "Pay by 10 o'clock"
        ]
       }
      }
@@ -4865,10 +4865,10 @@
       "en": {
        "q": "What did this person do to increase the number of customers?",
        "choices": [
-        "座る場所を作り飲み物を出した",
-        "近くにもっと大きな店を作った",
-        "本のねだんを安くした",
-        "店をしばらく閉めた"
+        "Created a seating area and served drinks",
+        "Built a bigger store nearby",
+        "Lowered the price of books",
+        "Closed the store for a while"
        ]
       }
      }
@@ -4923,10 +4923,10 @@
       "en": {
        "q": "When will this person visit their grandfather?",
        "choices": [
-        "日曜の朝に自分だけで",
-        "お父さんといっしょに",
-        "午後の用事のあとで",
-        "日曜日の夜"
+        "By myself on Sunday morning",
+        "With my father",
+        "After afternoon errands",
+        "Sunday night"
        ]
       }
      }
@@ -4981,10 +4981,10 @@
       "en": {
        "q": "On rainy days, what do part-time workers make more of?",
        "choices": [
-        "体が温まる飲み物",
-        "店の外のかんばん",
-        "入口のかさ立て",
-        "つめたい飲み物"
+        "A warm drink",
+        "The signboard outside the store",
+        "The umbrella stand at the entrance",
+        "A cold drink"
        ]
       }
      }
@@ -5387,10 +5387,10 @@
       "en": {
        "q": "When you take this bus in the morning, when do you pay the fare?",
        "choices": [
-        "バスを降りる時。",
-        "バスに乗るとき。",
-        "後ろのドアから降りるとき。",
-        "前のドアから乗るとき。"
+        "When getting off the bus.",
+        "When getting on the bus.",
+        "When getting off from the back door.",
+        "When getting on from the front door."
        ]
       }
      }
@@ -5445,10 +5445,10 @@
       "en": {
        "q": "What happens to the summer festival if it rains?",
        "choices": [
-        "翌日の日曜に開かれる。",
-        "八月十日の午後五時に行う。",
-        "公園ではなく駅で行う。",
-        "花火だけ次の日に見る。"
+        "It will be held on Sunday the next day.",
+        "It will be held at 5 PM on August 10th.",
+        "It will be held at the station, not in the park.",
+        "Only the fireworks will be watched the next day."
        ]
       }
      }
@@ -5503,10 +5503,10 @@
       "en": {
        "q": "When making curry, what was difficult for this person?",
        "choices": [
-        "野菜を切る作業。",
-        "母に教わること。",
-        "家族を喜ばせること。",
-        "一人で作ること。"
+        "The task of cutting vegetables.",
+        "Learning from mother.",
+        "Making the family happy.",
+        "Making it alone."
        ]
       }
      }
@@ -5561,10 +5561,10 @@
       "en": {
        "q": "If you want to buy apples at half price, when should you go?",
        "choices": [
-        "金曜の朝早くに行く。",
-        "土曜日の九時に行く。",
-        "金曜日の夜に行く。",
-        "いつ行っても買える。"
+        "Go early on Friday morning.",
+        "Go at 9 AM on Saturday.",
+        "Go on Friday night.",
+        "You can buy it anytime you go."
        ]
       }
      }
@@ -5619,10 +5619,10 @@
       "en": {
        "q": "What is the main thing this letter wants to convey?",
        "choices": [
-        "助けてもらったお礼。",
-        "荷物が重かったこと。",
-        "新しい部屋の広さ。",
-        "お茶がおいしいこと。"
+        "Thanks for the help.",
+        "The luggage was heavy.",
+        "The size of the new room.",
+        "The tea is delicious."
        ]
       }
      }
@@ -5677,10 +5677,10 @@
       "en": {
        "q": "When closing the store, what is the first thing to do?",
        "choices": [
-        "店の明かりを全部消す。",
-        "窓とドアの鍵を閉める。",
-        "お金の箱を運ぶ。",
-        "外の看板の電気を消す。"
+        "Turn off all the store lights.",
+        "Lock the windows and doors.",
+        "Carry the money box.",
+        "Turn off the outdoor sign light."
        ]
       }
      }
@@ -5735,10 +5735,10 @@
       "en": {
        "q": "What do people who receive medicine at this hospital do first?",
        "choices": [
-        "「受付で番号札を受け取る」。",
-        "「二番の窓口で待っている」。",
-        "「自分の名前を言う」。",
-        "「薬の飲み方を聞く」。"
+        "Get a numbered ticket at the reception desk.",
+        "Wait at window number two.",
+        "Say your name.",
+        "Ask how to take the medicine."
        ]
       }
      }
@@ -5793,10 +5793,10 @@
       "en": {
        "q": "What should people who want to participate in the school tour do?",
        "choices": [
-        "「八月のうちに電話で予約する」。",
-        "「九月五日までに電話する」。",
-        "「当日に上ばきだけ持って行く」。",
-        "「先生に直接話を聞きに行く」。"
+        "Make a reservation by phone in August.",
+        "Call by September 5th.",
+        "Bring only indoor shoes on the day.",
+        "Go directly to talk to the teacher."
        ]
       }
      }
@@ -5851,10 +5851,10 @@
       "en": {
        "q": "Why did this person walk to the station this morning?",
        "choices": [
-        "「自転車の空気が抜けていたから」。",
-        "「自転車の店が閉まっていたから」。",
-        "「電車に間に合わなかったから」。",
-        "「いつもより早く家を出たから」。"
+        "Because the bicycle tire was flat.",
+        "Because the bicycle shop was closed.",
+        "Because I missed the train.",
+        "Because I left home earlier than usual."
        ]
       }
      }
@@ -5909,10 +5909,10 @@
       "en": {
        "q": "What should you do if you suddenly feel unwell during your time off?",
        "choices": [
-        "「駅の近くの大病院を訪ねる」。",
-        "「土曜日まで家で待つ」。",
-        "「外国の院長に電話する」。",
-        "「水曜日にクリニックへ行く」。"
+        "Visit a large hospital near the station.",
+        "Wait at home until Saturday.",
+        "Call the foreign director.",
+        "Go to the clinic on Wednesday."
        ]
       }
      }
@@ -5967,10 +5967,10 @@
       "en": {
        "q": "Which of the following is correct about this week's practice?",
        "choices": [
-        "「練習場所が体育館に移った」。",
-        "「時間が午前十時に変わった」。",
-        "「練習が休みになった」。",
-        "「公園のコートを予約した」。"
+        "The practice location moved to the gym.",
+        "The time changed to 10 AM.",
+        "Practice was canceled.",
+        "Booked a court at the park."
        ]
       }
      }
@@ -6025,10 +6025,10 @@
       "en": {
        "q": "What will the person who reads this memo do before more customers arrive?",
        "choices": [
-        "「ドリンクを冷やしておく」。",
-        "「新しいメニューを紙に書く」。",
-        "「お店に電話をかける」。",
-        "「テーブルの数を増やす」。"
+        "Keep the drinks cold.",
+        "Write new menu items on paper.",
+        "Call the store.",
+        "Increase the number of tables."
        ]
       }
      }
@@ -6431,10 +6431,10 @@
       "en": {
        "q": "What is the most important thing for taking beautiful pictures?",
        "choices": [
-        "「光に気をつけること」。",
-        "「朝早く起きること」。",
-        "「太陽を後ろにすること」。",
-        "「同じ場所で撮ること」。"
+        "Be careful with the light.",
+        "Wake up early in the morning.",
+        "Have the sun behind you.",
+        "Take pictures in the same place."
        ]
       }
      }
@@ -6489,10 +6489,10 @@
       "en": {
        "q": "For three days after opening, what will people who buy bread receive?",
        "choices": [
-        "「ホットコーヒー一杯」。",
-        "「新しい種類のパン一つ」。",
-        "「店で使える割引券」。",
-        "「朝七時からの入店」。"
+        "One cup of hot coffee.",
+        "One new type of bread.",
+        "A discount coupon usable at the store.",
+        "Entry from 7 AM."
        ]
       }
      }
@@ -6547,10 +6547,10 @@
       "en": {
        "q": "What did the doctor say was the cause of the leg pain?",
        "choices": [
-        "「重い物を運びすぎたこと」。",
-        "「好きなテニスをやりすぎたこと」。",
-        "「毎日走りすぎていたこと」。",
-        "「病院に通いすぎたこと」。"
+        "Carrying too many heavy things.",
+        "Playing too much of his favorite tennis.",
+        "Running too much every day.",
+        "Going to the hospital too often."
        ]
       }
      }
@@ -6605,10 +6605,10 @@
       "en": {
        "q": "What will happen to this road during construction?",
        "choices": [
-        "「車はだめだが自転車はよい」。",
-        "「車も自転車も両方通れない」。",
-        "「夜も工事の音がする」。",
-        "「三月の初めに終わる」。"
+        "Cars are not allowed, but bicycles are.",
+        "Neither cars nor bicycles can pass.",
+        "There will be construction noise at night too.",
+        "It will finish at the beginning of March."
        ]
       }
      }
@@ -6663,10 +6663,10 @@
       "en": {
        "q": "What is the most important thing this email wants to convey?",
        "choices": [
-        "「娘を今日は欠席させること」。",
-        "「娘が病院に行ったこと」。",
-        "「宿題を友だちに聞くこと」。",
-        "「二、三日で熱が下がる」こと。"
+        "To have her daughter absent today.",
+        "That her daughter went to the hospital.",
+        "To ask a friend about homework.",
+        "That the fever will go down in two or three days."
        ]
       }
      }
@@ -6721,10 +6721,10 @@
       "en": {
        "q": "What did the person who wrote this memo ask the person in the next seat to do?",
        "choices": [
-        "「届いた品物を机に載せること」。",
-        "「重い箱を二つ運んでおくこと」。",
-        "「午後の会議に出ること」。",
-        "「お礼のお菓子を買うこと」。"
+        "To put the delivered items on the desk.",
+        "To carry two heavy boxes.",
+        "To attend the afternoon meeting.",
+        "To buy thank-you sweets."
        ]
       }
      }
