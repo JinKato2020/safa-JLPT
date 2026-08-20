@@ -216,19 +216,19 @@
       "ne": {
        "q": "लेखकलाई किताब मन पर्नुको कारण के हो?",
        "choices": [
-        "「おもしろいところだけ読めばいい」 भनिएकोले",
-        "अक्षर पढ्ने गति बढेर अन्त्यसम्म पढ्न सक्ने भएपछि",
-        "माध्यमिक विद्यालयमा पुगेपछि स्वाभाविक रूपमा किताब मन पर्न थालेकोले",
-        "शिक्षकले रोचक किताबहरू दिनुभएकोले"
+        "मलाई भनिएको थियो, “तपाईंले रोचक भागहरू मात्र पढ्नुपर्छ।”",
+        "म छिटो पढ्न सक्ने भएँ र अन्त्यसम्म पढ्न सकें।",
+        "म माध्यमिक विद्यालयमा गएपछि स्वाभाविक रूपमा पुस्तकहरू मन पराउन थालें।",
+        "शिक्षकले मलाई एउटा रोचक पुस्तक दिनुभयो।"
        ]
       },
       "en": {
        "q": "Why did the author come to like books?",
        "choices": [
-        "Because they were told, 「おもしろいところだけ読めばいい」 (You only need to read the interesting parts).",
-        "Because they became faster at reading characters and could read to the end.",
-        "Because they naturally came to like books when they became a junior high school student.",
-        "Because their teacher lent them an interesting book."
+        "Because I was told, \"You only need to read the interesting parts.\"",
+        "Because I became a faster reader and could read to the end.",
+        "Because I naturally came to like books when I became a junior high school student.",
+        "Because the teacher lent me an interesting book."
        ]
       }
      }
@@ -1212,8 +1212,8 @@
        "q": "What does the author consider \"あいさつ\" to be?",
        "choices": [
         "An opportunity to connect people",
-        "Nothing more than a troublesome, superficial custom like \"あいさつ\"",
-        "Something necessary only in the morning, towards superiors",
+        "Just a troublesome, formal custom like greetings",
+        "Something only necessary for superiors in the morning",
         "Since it's a short phrase, there's no need to bother saying it"
        ]
       }
@@ -1560,9 +1560,9 @@
        "q": "Regarding changes in language, what does the author think?",
        "choices": [
         "Changing is not necessarily a bad thing.",
-        "Language 'の乱れ' should be quickly corrected to its old, proper form.",
-        "Even if times change, one should continue to preserve the old, proper way of speaking.",
-        "All language changes occur from mistakes made by the people who use it."
+        "Disordered language should be quickly corrected back to its old, proper form.",
+        "Even if times change, the old, correct way of speaking should be preserved.",
+        "All changes in language occur from mistakes made by the people who use it."
        ]
       }
      }
@@ -2304,19 +2304,19 @@
       "ne": {
        "q": "लेखकले 「知らない」 भन्नुलाई किन महत्त्वपूर्ण ठान्छन्?",
        "choices": [
-        "इमानदारीपूर्वक भन्दा मानिसहरूले सिकाउँछन् र सिक्न मद्दत गर्छ",
-        "जानेको जस्तो गर्दा नयाँ कुराहरू भित्र आउँछन्",
-        "「知らない」 भन्नु अलि लाजमर्दो कुरा हो",
-        "नजानेको भन्न सक्ने मानिसहरूको कुरा छोटो हुन्छ"
+        "इमानदारीपूर्वक भन्नुपर्दा, मानिसहरूले मलाई सिकाउँछन् र यसले सिक्न मद्दत गर्छ।",
+        "यदि मैले जान्दछु जस्तो गरेँ भने, नयाँ कुराहरू भित्र आउनेछन्।",
+        "“मलाई थाहा छैन” भन्नु अलि लाजमर्दो कुरा हो।",
+        "थाहा छैन भन्न सक्ने मानिसहरूको कुरा छोटो हुन्छ।"
        ]
       },
       "en": {
        "q": "Why does the author consider saying 「知らない」 (I don't know) to be important?",
        "choices": [
-        "Because if you say it honestly, people will teach you, leading to learning.",
+        "Because if you are honest, people will teach you, leading to learning.",
         "Because if you pretend to know, new things will come in.",
-        "Because saying 「知らない」 is a little embarrassing.",
-        "Because people who can say they don't know have shorter conversations."
+        "Because saying \"I don't know\" is a little embarrassing.",
+        "Because people who can say \"I don't know\" have shorter conversations."
        ]
       }
      }
@@ -2487,10 +2487,10 @@
       "en": {
        "q": "What part does the author especially want Mr. A to look at carefully?",
        "choices": [
-        "「三ページ目の表」 (the table on page 3)",
-        "「資料の表紙」 (the cover of the document)",
-        "「会議の場所」 (the meeting location)",
-        "「一ページ目の文章」 (the text on page 1)"
+        "The table on page three",
+        "The cover of the document",
+        "The meeting location",
+        "The text on page one"
        ]
       }
      }
@@ -2603,10 +2603,10 @@
       "en": {
        "q": "What does the author say is important about words?",
        "choices": [
-        "Paying attention not only to \"何を言うか\" (what to say) but also to \"どう言うか\" (how to say it)",
-        "Speaking clearly without considering the other person's position or the situation",
-        "Using the \"同じ言葉\" (same words) in the same way regardless of the other person or the situation",
-        "Choosing the most difficult words possible to avoid \"誤解\" (misunderstandings)"
+        "Pay attention not only to what you say, but also to how you say it.",
+        "Speak clearly without considering the other person's position or the situation.",
+        "Use the same words in the same way regardless of the other person or the situation.",
+        "Choose the most difficult words possible to avoid misunderstanding."
        ]
       }
      }
@@ -2661,10 +2661,10 @@
       "en": {
        "q": "What is the author's reason for recommending \"まね\" (imitation)?",
        "choices": [
-        "Because by repeating \"まね\" (imitation), one develops their own unique method and can improve quickly",
-        "Because it's better to express one's individuality from the start without \"まね\" (imitation) to improve faster",
-        "Because when learning, imitating skilled people feels \"自分らしくない\" (not like oneself)",
-        "Because continuing to \"まね\" (imitate) is more troublesome than creating one's own original ideas"
+        "Because by repeatedly imitating, you develop your own unique way and can improve quickly.",
+        "Because it's faster to improve by not imitating and expressing your own individuality from the beginning.",
+        "Because imitating skilled people when learning feels unnatural to oneself.",
+        "Because continuing to imitate is more troublesome than creating one's own innovations."
        ]
       }
      }
@@ -2719,10 +2719,10 @@
       "en": {
        "q": "What is written about what will happen if it rains?",
        "choices": [
-        "It will be held indoors, but there will be no \"花火\" (fireworks)",
-        "If the rain continues, the \"夏のお祭り\" (summer festival) itself will be canceled",
-        "The \"屋台\" (food stalls) and games will be canceled, but only the \"花火\" (fireworks) will proceed as scheduled",
-        "Both the \"お祭り\" (festival) and \"花火\" (fireworks) will all be postponed to the next day"
+        "It will be held indoors, but there will be no fireworks.",
+        "If the rain continues, the summer festival itself will be canceled.",
+        "Food stalls and games will be canceled, but fireworks will be held as scheduled.",
+        "Both the festival and fireworks will be postponed to the next day."
        ]
       }
      }
@@ -2777,10 +2777,10 @@
       "en": {
        "q": "Why did salt help preserve food for a long time in the past?",
        "choices": [
-        "Because it removes \"水気\" (moisture) and suppresses the action of what causes \"くさる\" (spoilage)",
-        "Because it adds a strong flavor to fish and meat dishes, making them \"食べやすくする\" (easier to eat)",
-        "Because salt lowers the temperature of food instead of a machine that keeps things cold",
-        "Because salt was used to lighten the weight of fish and meat, making them \"運びやすくする\" (easier to transport)"
+        "Because it removes moisture and suppresses the action of the source of spoilage.",
+        "Because it adds a strong flavor to fish and meat dishes, making them easier to eat.",
+        "Because salt lowers the temperature of food instead of a cooling machine.",
+        "Because salt is used to lighten the weight of fish and meat, making them easier to transport."
        ]
       }
      }
@@ -2835,10 +2835,10 @@
       "en": {
        "q": "What is the purpose of writing this email?",
        "choices": [
-        "To express gratitude for the \"相談にのってもらったこと\" (advice received)",
-        "To consult again about a problem one is still \"迷っている\" (hesitating about), following up from the other day",
-        "To reconfirm the \"教えてもらったやり方\" (method taught) that was given as advice",
-        "To arrange a day to meet in person and receive new \"助言\" (advice) on the problem one is \"迷う\" (hesitating about)"
+        "To express gratitude for the consultation.",
+        "To consult again about a problem you are still unsure about, following up on the previous day.",
+        "To reconfirm the method you were taught and advised on.",
+        "To set a date to meet in person and receive new advice on the problem you are unsure about."
        ]
       }
      }
@@ -2893,10 +2893,10 @@
       "en": {
        "q": "How does the author feel about photographs?",
        "choices": [
-        "Like a small box that \"閉じこめておく\" (locks away) the \"過ぎ去った日々\" (bygone days)",
-        "A piece of paper that came out of a drawer, \"色があせて\" (faded) and \"意味がなくなった\" (meaningless)",
-        "Just a record of a time when the family went to the sea, \"若く笑っていた\" (young and laughing)",
-        "Just a piece of paper that simply \"映しただけ\" (reflected) \"もう二度と戻らない過ぎた時間\" (past time that will never return)"
+        "A small box that encloses days gone by.",
+        "A faded, meaningless piece of paper that came out of a drawer.",
+        "Just a record of a family trip to the beach when we were young and laughing.",
+        "Just a piece of paper that simply reflects past time that will never return."
        ]
       }
      }
@@ -3299,10 +3299,10 @@
       "en": {
        "q": "What did this person realize about their grandmother's cooking?",
        "choices": [
-        "That \"祖母の味\" cannot be achieved by cooking quickly.",
-        "That the sweet aroma of simmering beans filled the entire house.",
-        "That they enjoyed going to their grandmother's house as a child.",
-        "That their grandmother was always cooking in the kitchen."
+        "You cannot reproduce your grandmother's taste if you make it quickly.",
+        "The sweet aroma of simmering beans filled the entire house.",
+        "Going to my grandmother's house was a joy when I was a child.",
+        "My grandmother was always cooking in the kitchen."
        ]
       }
      }
@@ -4160,10 +4160,10 @@
       "ne": {
        "q": "आमालाई किनिदिन आग्रह गरिरहेको चीज के हो?",
        "choices": [
-        "भोलिको बिहानको खाजाको लागि 'パン'",
-        "तातो पारेर खाने 'カレー'",
-        "गरुङ्गो र थोरै बाँकी रहेको '牛乳'",
-        "भित्र राख्नुपर्ने '洗濯物'"
+        "भोलिको बिहानको खाजाको लागि रोटी",
+        "तातो पारेर खाने करी",
+        "भारी र थोरै बाँकी रहेको दूध",
+        "भित्र ल्याउनुपर्ने लुगाहरू"
        ]
       },
       "en": {
@@ -4218,10 +4218,10 @@
       "ne": {
        "q": "ग्राहकले के बारेमा पुष्टि गर्न चाहेको थियो?",
        "choices": [
-        "अर्को बैठक गर्ने '場所'",
-        "फिर्ता फोन गर्ने '電話番号'",
-        "जिम्मेवार व्यक्तिको '名前'",
-        "आज साँझको '予定'"
+        "अर्को बैठक गर्ने ठाउँ",
+        "फिर्ता फोन नम्बर",
+        "जिम्मेवार व्यक्तिको नाम",
+        "आज साँझको योजना"
        ]
       },
       "en": {
@@ -4276,10 +4276,10 @@
       "ne": {
        "q": "मंगलबार बिदा लिने व्यक्तिले '作文' कसरी बुझाउँछ?",
        "choices": [
-        "अघिल्लो दिनसम्म '先生の部屋へ届ける'",
-        "अर्को हप्ताको कक्षामा एकैचोटि 'まとめて出す'",
-        "'テーマ' परिवर्तन गरेर '四百字で書き直す'",
-        "शिक्षकले वितरण गरेको नयाँ '用紙を新しくもらう'"
+        "अघिल्लो दिनसम्म शिक्षकको कोठामा पुर्‍याउने",
+        "अर्को हप्ताको कक्षामा एकैचोटि बुझाउने",
+        "विषय परिवर्तन गरी चार सय अक्षरमा पुनः लेख्ने",
+        "शिक्षकले वितरण गरेको नयाँ पाना लिने"
        ]
       },
       "en": {
@@ -4334,10 +4334,10 @@
       "ne": {
        "q": "चिसो सामान आइपुगेमा के गर्नुहुन्छ?",
        "choices": [
-        "तत्काल चिसो ठाउँमा 'しまう'",
-        "भान्साको 'テーブルに置いておく'",
-        "'玄関'मा नलिई '待つ'",
-        "छ बजेसम्म 'そのままにする'"
+        "तत्काल चिसो ठाउँमा राख्ने",
+        "भान्साको टेबलमा राख्ने",
+        "प्रवेशद्वारमा नलिई पर्खने",
+        "बेलुका ६ बजेसम्म त्यसै छोड्ने"
        ]
       },
       "en": {
@@ -4392,10 +4392,10 @@
       "ne": {
        "q": "कोठाभित्रै जडान गर्न चाहेमा के गर्नुहुन्छ?",
        "choices": [
-        "थप एक पटक '手続きする'",
-        "'玄関'सम्म मात्र डेलिभरीको लागि '頼む'",
-        "बिहान र दिउँसो मध्ये एउटा '選ぶ'",
-        "त्यही दिन '通り道を空けて待つ'"
+        "थप एक पटक प्रक्रिया पूरा गर्ने",
+        "ढोकासम्म मात्र डेलिभरीको लागि अनुरोध गर्ने",
+        "बिहान र दिउँसो मध्ये एउटा छनौट गर्ने",
+        "त्यो दिन, बाटो खाली गरेर पर्खने"
        ]
       },
       "en": {
@@ -4974,7 +4974,7 @@
        "choices": [
         "पढ्दाको समयका भावनाहरू ताजा भए",
         "कभर घामले डढेर रंग फिक्का भएको थियो",
-        "पृष्ठको कुनामा '落書き' बाँकी थियो",
+        "पृष्ठको कुनामा कोरेका चित्रहरू बाँकी थिए",
         "कथा आफैं सोचेभन्दा बढी रोचक थियो"
        ]
       },
@@ -5843,18 +5843,18 @@
        "q": "लेखकको लागि, बिहानको 「味噌汁」 कस्तो कुरा हो?",
        "choices": [
         "बिहानको सुरुवातको घोषणा गर्ने, अपरिहार्य बानी",
-        "अघिल्लो रातदेखि 'だし' निकाल्ने, झन्झटिलो परिकार",
-        "व्यस्त बिहानमा, प्रायः छुटाउन सकिने कुरा",
-        "सुतिरहेको शरीरलाई, जबरजस्ती उठाउनको लागि सहने कुरा"
+        "अघिल्लो रातदेखि झोल बनाउने, मेहनत लाग्ने परिकार",
+        "व्यस्त बिहानमा, प्रायः छुटाउन सकिने चीज",
+        "सुतिरहेको शरीरलाई जबरजस्ती उठाउनको लागि धैर्य"
        ]
       },
       "en": {
        "q": "For the author, what is morning 「味噌汁」 like?",
        "choices": [
         "An indispensable habit that signals the start of the morning.",
-        "A time-consuming dish for which dashi is prepared the night before.",
+        "A time-consuming dish that requires making dashi from the night before.",
         "Something that tends to be skipped on busy mornings.",
-        "A忍耐 to forcibly wake up a sleeping body."
+        "Patience to forcibly awaken a sleeping body."
        ]
       }
      }
@@ -5967,10 +5967,10 @@
       "en": {
        "q": "When does this announcement particularly ask for cooperation?",
        "choices": [
-        "In the early afternoon of summer, when power consumption is high.",
-        "During summer nights, when sunlight is weak.",
-        "During cool morning hours, when air conditioning is not used.",
-        "In the early afternoon of winter, when 「すだれ」 are not hung."
+        "After noon in summer, when power consumption increases.",
+        "During summer nights, when sunlight weakens.",
+        "Cool morning hours when air conditioning is not used.",
+        "Winter afternoon when sudare are not hung."
        ]
       }
      }
@@ -6364,9 +6364,9 @@
       "ne": {
        "q": "यो चिठी लेख्ने व्यक्तिले अर्को व्यक्तिलाई किन धन्यवाद दिइरहेको छ?",
        "choices": [
-        "अचानकको अनुरोध स्वीकार गरी त्यस दिन नजिकैबाट सहयोग गरेकोले",
+        "अचानकको अनुरोध स्वीकार गरी, त्यस दिन नजिकैबाट सहयोग गरेकोले",
         "अचानकको अनुरोधलाई स्पष्ट रूपमा अस्वीकार गरेकोले",
-        "कार्यक्रमको दिनमा '心ばかりの品' पठाएकोले",
+        "कार्यक्रमको दिनमा, सानो उपहार पठाएकोले",
         "अपरिचित कामलाई अन्त्यसम्म एक्लै पूरा गरेकोले"
        ]
       },
@@ -6431,10 +6431,10 @@
       "en": {
        "q": "What surprised the author at the mountain inn?",
        "choices": [
-        "That the city lights had obscured \"これほど無数の星\" (so many countless stars)",
-        "That there were far fewer city lights illuminating the night sky around the mountain inn",
-        "That only \"数えきれる程度の星\" (a countable number of stars) could be seen outside the window",
-        "That stars were clearly visible thanks to a convenient lifestyle"
+        "The city lights had obscured so many stars.",
+        "There were far fewer town lights illuminating the night sky around the mountain inn.",
+        "Only a countable number of stars were visible outside the window.",
+        "Thanks to convenient living, the stars were clearly visible."
        ]
       }
      }
@@ -6489,10 +6489,10 @@
       "en": {
        "q": "What does \"それ\" (it) refer to?",
        "choices": [
-        "\"表現は違っても指す一つの事実\" (a single fact pointed to, even if expressed differently)",
-        "\"受け取る側の変わっていく気持ち\" (the changing feelings of the receiver)",
-        "\"事実をただ運ぶ入れ物としての言葉\" (words as mere containers carrying facts)",
-        "\"話し手の心に入り込む見方\" (a perspective that enters the speaker's heart)"
+        "One fact, though expressed differently.",
+        "The changing feelings of the receiver.",
+        "Words as a vessel that simply carries facts.",
+        "A perspective that enters the speaker's heart."
        ]
       }
      }
@@ -6548,9 +6548,9 @@
        "q": "Which of the following is correct about this cooking class?",
        "choices": [
         "Even without cooking experience, you can learn from the basics.",
-        "Participants must prepare their own \"材料と包丁\" (ingredients and knives).",
-        "\"季節の材料費\" (seasonal ingredient fees) are paid all at once at the first session.",
-        "Since there is \"定員に限りがない\" (no limit to the number of participants), you can apply anytime."
+        "Participants must prepare their own ingredients and knives.",
+        "Seasonal ingredient fees are paid in a lump sum at the first session.",
+        "There is no limit to the number of participants, so you can apply anytime."
        ]
       }
      }
@@ -6605,10 +6605,10 @@
       "en": {
        "q": "What should the requested person do when the package arrives?",
        "choices": [
-        "Accept it with just a \"署名\" (signature) and leave it at the entrance.",
-        "Accept it by pressing a \"判こ\" (seal) and carry it to the back of the room.",
-        "Since it's heavy, wait until \"午後五時\" (5 PM) to accept it.",
-        "After accepting it, erase the \"書いた名前\" (written name) before leaving it."
+        "Receive it with just a signature and leave it at the entrance.",
+        "Stamp it to receive it and carry it to the back of the room.",
+        "It's heavy, so wait until 5 PM to receive it.",
+        "After receiving it, erase the written name before putting it down."
        ]
       }
      }
@@ -6663,10 +6663,10 @@
       "en": {
        "q": "What is the main point the author wants to convey in this text?",
        "choices": [
-        "Even just walking, if continued, yields \"十分な成果\" (sufficient results).",
-        "For health, \"激しい運動\" (intense exercise) is most necessary.",
-        "Walking requires \"特別な道具と広い場所\" (special equipment and a large space).",
-        "The more exercise you do at once, the greater the \"効果\" (effect)."
+        "Even just walking, if continued, will yield sufficient results.",
+        "For health, intense exercise is most necessary.",
+        "Walking requires special equipment and a wide space.",
+        "The more exercise you do at once, the greater the effect."
        ]
       }
      }
@@ -6721,10 +6721,10 @@
       "en": {
        "q": "What did the author strongly feel that day?",
        "choices": [
-        "Next time, I want to \"ためらわず、すぐに行動に移したい\" (act immediately without hesitation).",
-        "It's better not to carry \"大きな荷物\" (large luggage) on a crowded train.",
-        "\"席を譲る\" (giving up a seat) is more difficult than I thought.",
-        "\"相手が深く頭を下げたこと\" (the other person bowing deeply) made me feel awkward."
+        "Next time, I want to act immediately without hesitation.",
+        "It's better not to carry large luggage on crowded trains.",
+        "Giving up a seat is more difficult than I thought.",
+        "The other person bowing deeply made it awkward."
        ]
       }
      }

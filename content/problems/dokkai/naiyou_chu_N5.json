@@ -2017,10 +2017,10 @@
       "en": {
        "q": "In the text, what does 『とても きれいでした』 refer to?",
        "choices": [
-        "The big fireworks that went up into the sky.",
-        "たこやき sold at many shops.",
-        "The ゆかた that the two people were wearing.",
-        "The shopkeeper grilling やきそば."
+        "Large fireworks that went up in the sky",
+        "Takoyaki sold at many stores",
+        "The yukata that the two people were wearing",
+        "A person at a stall grilling yakisoba"
        ]
       }
      }
@@ -3664,10 +3664,10 @@
       "ne": {
        "q": "पहाडको टुप्पोसम्म कसरी जानुभयो?",
        "choices": [
-        "रेल चढेपछि दुई घण्टा हिँडेर चढें",
-        "बस र 'ロープウェー' प्रयोग गरेर माथि गएँ",
-        "गाडीले तालको नजिकसम्म गएँ",
-        "साइकलले पहाडी बाटो चढें"
+        "रेल पछि, दुई घण्टा हिँडेर चढें",
+        "बस र रोपवे प्रयोग गरेर माथि पुगें",
+        "गाडीमा तालको नजिकसम्म गएँ",
+        "साइकलमा पहाडी बाटो चढें"
        ]
       },
       "en": {

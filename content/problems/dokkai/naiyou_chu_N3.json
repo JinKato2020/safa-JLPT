@@ -168,19 +168,19 @@
       "ne": {
        "q": "\"世の中では『朝型のほうがよい』と言われがちだが、それがすべての人に当てはまるわけではない\" भनिएको छ, \"それ\" ले केलाई जनाउँछ?",
        "choices": [
-        "\"朝型のほうがよい\" भन्ने सोचाइ",
+        "“बिहान उठ्ने बानी राम्रो हुन्छ” भन्ने सोचाइ",
         "आफ्नो शरीरलाई सुहाउँदो जीवनशैली अपनाउनु",
-        "राति काम गर्ने मानिसहरू रातमा केन्द्रित हुन सक्नु",
-        "जबरजस्ती बिहान काम गर्ने बानीमा परिवर्तन गरेर शरीरको अवस्था बिग्रनु"
+        "राति अबेरसम्म बस्ने मानिसहरूले रातमा ध्यान केन्द्रित गर्न सक्नु",
+        "जबरजस्ती बिहान उठ्ने बानी परिवर्तन गर्दा शरीरको अवस्था बिग्रनु"
        ]
       },
       "en": {
        "q": "It says, \"世の中では『朝型のほうがよい』と言われがちだが、それがすべての人に当てはまるわけではない\" (It is often said in the world that 'being a morning person is better,' but that does not apply to everyone). What does \"それ\" (that) refer to?",
        "choices": [
-        "The idea that \"朝型のほうがよい\" (being a morning person is better)",
-        "Living a lifestyle that suits one's body",
+        "The idea that \"being a morning person is better\"",
+        "Living a lifestyle that suits one's own body",
         "Night owls being able to concentrate at night",
-        "Forcing oneself to become a morning person and disrupting one's physical condition"
+        "Forcing oneself to become a morning person and disrupting one's physical condition."
        ]
       }
      }
@@ -740,10 +740,10 @@
       "ne": {
        "q": "पाठमा भनिएको छ कि 『相手もそれを感じて、こちらに心を開いてくれる』, तर 『それ』 ले केलाई जनाउँछ?",
        "choices": [
-        "अभिवादनमा समावेश भएको, मन खोलेको संकेत",
-        "गाह्रो गरी सोचेर तयार पारिएको, लामो विषय",
-        "छुट्टीको समय एक्लै बिताउँदाको एक्लोपन",
-        "『今日は寒いですね』 जस्ता अभिवादन पछि हुने छोटो कुराकानी"
+        "अभिवादनमा लुकेको, मन खोलेको संकेत",
+        "कठिन रूपमा सोचेर तयार पारिएको, लामो विषय",
+        "आराम गर्ने समय एक्लै बिताउँदाको एक्लोपन",
+        "“आज चिसो छ नि” जस्ता अभिवादनपछि हुने छोटो कुराकानी"
        ]
       },
       "en": {
@@ -933,10 +933,10 @@
       "en": {
        "q": "Where does the author think the difference in how people use their time in a day comes from?",
        "choices": [
-        "Deciding \"何をしないか\" (what not to do)",
+        "Deciding what not to do",
         "Thinking about what to do",
         "Making a to-do list",
-        "Checking work emails frequently"
+        "Checking work emails frequently."
        ]
       }
      }
@@ -1370,8 +1370,8 @@
       "ne": {
        "q": "पाठमा ① मा वर्णन गरिएको व्यक्तिले कस्तो व्यक्तिलाई जनाउँछ?",
        "choices": [
-        "लेखकले भनेको 『聞き上手』 व्यक्ति",
-        "मानिसहरूको अगाडि आत्मविश्वासका साथ बोल्न सक्ने 『話し上手』 व्यक्ति",
+        "लेखकले भनेको “राम्रो श्रोता” व्यक्ति",
+        "मानिसहरूको अगाडि आत्मविश्वासका साथ बोल्न सक्ने “राम्रो वक्ता” व्यक्ति",
         "चुपचाप अरूको कुरा सुन्ने व्यक्ति",
         "आफ्नो कुरा मात्र गर्ने र अरूको कुरा सुन्न नचाहने व्यक्ति"
        ]
@@ -1379,10 +1379,10 @@
       "en": {
        "q": "In the text, what kind of person is described as ①?",
        "choices": [
-        "A person who is a good listener, what the author calls 『聞き上手』",
-        "A person who can speak confidently in front of others, a 『話し上手』",
+        "A person who is a good listener, as the author says",
+        "A person who is a good speaker and can speak confidently in front of others",
         "A person who just listens silently to the other person's story",
-        "A person who only talks about themselves and doesn't try to listen to others"
+        "A person who only talks about themselves and doesn't try to listen to the other person's story."
        ]
       }
      }
@@ -1588,10 +1588,10 @@
       "ne": {
        "q": "पाठमा ①『それは間違いだった』 (त्यो गल्ती थियो) भनिएको छ, 'それ' (त्यो) ले कुन विचारलाई जनाउँछ?",
        "choices": [
-        "भावना भएपछि 'ことば' (शब्द) जे भए पनि हुन्छ भन्ने विचार",
-        "नदेखिने भावनालाई स्पष्ट रूपमा 'ことば' (शब्द) मा व्यक्त गर्नुपर्छ भन्ने विचार",
-        "विनम्र 'ことば' (शब्द) प्रयोग गर्दा आफ्नो भावना पनि नरम हुन्छ भन्ने विचार",
-        "एउटै कुरा भए पनि 'ことば' (शब्द) को छनोटले अर्को व्यक्तिको बुझाइ फरक हुन्छ भन्ने विचार"
+        "भावना भए पुग्छ, शब्द जे भए पनि हुन्छ भन्ने सोचाइ",
+        "नदेखिने भावनालाई स्पष्ट शब्दमा व्यक्त गर्नुपर्छ भन्ने सोचाइ",
+        "विनम्र शब्दहरू प्रयोग गर्दा आफ्नो भावना पनि नरम हुन्छ भन्ने सोचाइ",
+        "एउटै कुरा भए पनि, शब्दको छनोटले अर्को व्यक्तिको बुझाइ फरक हुन्छ भन्ने सोचाइ"
        ]
       },
       "en": {
@@ -1622,19 +1622,19 @@
       "ne": {
        "q": "'ことば' (शब्द) बारे लेखकले अन्ततः के सोच्छन्?",
        "choices": [
-        "अर्को व्यक्तिलाई व्यक्त गर्नुका साथै बोल्ने व्यक्तिको मनको आकार पनि बनाउँछ",
-        "भावना भएपछि 'ことば' (शब्द) जे प्रयोग गरे पनि हुन्छ",
-        "सकेसम्म कम 'ことば' (शब्द) मा मुख्य कुरा मात्र बताउनुपर्छ",
-        "विनम्र 'ことば' (शब्द) अर्को व्यक्तिलाई बुझ्न गाह्रो हुने भएकोले आवश्यक छैन"
+        "अर्को व्यक्तिलाई जानकारी दिनु मात्र होइन, बोल्ने व्यक्तिको मनको आकार पनि बनाउँछ",
+        "भावना भए पुग्छ, शब्द जेसुकै प्रयोग गरे पनि हुन्छ भन्ने कुरा",
+        "सकेसम्म कम शब्दमा मात्र मुख्य कुरा बताउनुपर्छ",
+        "विनम्र शब्दहरू अर्को व्यक्तिलाई बुझ्न गाह्रो हुन्छ, त्यसैले आवश्यक छैन"
        ]
       },
       "en": {
        "q": "Regarding \"ことば\" (words/language), what is the author's final thought?",
        "choices": [
         "It not only conveys to the other person but also shapes the speaker's own heart.",
-        "As long as the feelings are sincere, any \"ことば\" can be used.",
-        "One should convey only the necessary information with as few \"ことば\" as possible.",
-        "Polite \"ことば\" are not necessary because they are difficult for the other person to understand."
+        "It means that as long as feelings are involved, any words can be used.",
+        "One should convey only the essentials with as few words as possible.",
+        "Polite language is not necessary because it is difficult to convey to the other person."
        ]
       }
      }
@@ -1806,10 +1806,10 @@
       "ne": {
        "q": "जब लेखकले आफ्ना अग्रजसँग सल्लाह मागे, अग्रज कस्ता देखिए?",
        "choices": [
-        "उनले कुनै पनि नराम्रो अनुहार नबनाई, सँगै समाधान खोज्न मद्दत गरे।",
-        "उनले धेरै असहज अनुहार बनाए र आफूलाई कुनै सरोकार नभएको भन्दै सल्लाह दिन अस्वीकार गरे।",
-        "उनले 'もっと早く言えばよかったのに' भन्दै कडा गाली गरे।",
-        "उनले आफैंले केही गर्न भने।"
+        "अलिकति पनि नरिसाई, सँगै समाधान खोजिदियो",
+        "धेरै दिक्क मान्दै, आफूलाई सम्बन्धित छैन भन्दै सल्लाह दिन अस्वीकार गर्यो",
+        "अझै चाँडै भन्नुपर्थ्यो भन्दै कडा गाली गर्यो",
+        "आफैंले केही गर्न भन्यो"
        ]
       },
       "en": {
@@ -3008,10 +3008,10 @@
       "ne": {
        "q": "「声に出して読むこと」को अर्को फाइदा के हो?",
        "choices": [
-        "「ことばのリズムや音のひびきの美しさ」मा ध्यान दिन सकिन्छ",
-        "चुपचाप पढ्दा भन्दा गाह्रो वाक्यको सामग्री सम्झन सजिलो हुन्छ",
-        "गाह्रो वाक्यको अर्थ तुरुन्तै बुझ्न सकिन्छ",
-        "ठूलो स्वरमा पढ्दा वरपरका मानिसहरूसँग कुरा गर्न सकिन्छ"
+        "शब्दको लय र ध्वनिको सुन्दरता महसुस गर्न सकिन्छ।",
+        "चुपचाप पढ्दा भन्दा गाह्रो वाक्यको सामग्री सम्झन सजिलो हुन्छ।",
+        "गाह्रो वाक्यको अर्थ तुरुन्तै बुझ्न सकिन्छ।",
+        "ठूलो स्वरमा बोल्दा वरपरका मानिसहरूसँग कुरा गर्न सकिन्छ।"
        ]
       },
       "en": {
@@ -4529,10 +4529,10 @@
       "en": {
        "q": "Which of the following matches the content of the text?",
        "choices": [
-        "When you touch clothes, the scenes from the time you wore them revive.",
-        "「衣替え」 is just troublesome, so the author intends to stop doing it.",
+        "When I touch the clothes, the scenes from the time I wore them come back to life.",
+        "The author thinks that changing clothes for the season is just troublesome, so they are going to stop doing it.",
         "Clothes never come out of the box.",
-        "No memories of past days remain in clothes at all."
+        "No memories of past days remain in the clothes at all."
        ]
       }
      }
@@ -5368,10 +5368,10 @@
       "ne": {
        "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
        "choices": [
-        "गन्ध र स्वाद दिमाग भन्दा गहिरो ठाउँमा यादहरूसँग जोडिएका हुन्छन्।",
-        "गन्ध भन्दा फोटोले यादहरूलाई स्पष्ट रूपमा जगाउँछ।",
-        "स्वाद शरीरलाई पोषण दिनको लागि मात्र हो, र यादहरूसँग सम्बन्धित छैन।",
-        "「煮物」 को गन्ध सुँघ्दा, उल्टो केही पनि याद आउँदैन।"
+        "गन्ध र स्वाद दिमाग भन्दा गहिरो ठाउँमा सम्झनासँग जोडिएको हुन्छ।",
+        "गन्ध भन्दा तस्बिरले सम्झनालाई स्पष्ट रूपमा जगाउँछ।",
+        "स्वाद शरीरलाई पोषण दिनको लागि मात्र हो र सम्झनासँग सम्बन्धित छैन।",
+        "उमालेको खानाको गन्धले केही पनि सम्झन नसकिने बनाउँछ।"
        ]
       },
       "en": {
@@ -5411,9 +5411,9 @@
       "en": {
        "q": "Which of the following statements matches the content of the main text?",
        "choices": [
-        "In addition to its function of sustaining the body, meals also provide an opportunity to \"遠い日と再び出会う機会にもなる\" (re-encounter distant days).",
-        "\"食べるということ\" (Eating) is merely a tasteless and simple act, solely for nourishing the body.",
-        "Only photographs, not taste, are linked to memories.",
+        "Meals, in addition to their function of sustaining the body, also provide an opportunity to reunite with distant days.",
+        "Eating is merely a tasteless act that serves only to nourish the body.",
+        "Only photographs, not tastes, are linked to memories.",
         "The dish eaten after a long time made the author feel nothing."
        ]
       }
@@ -5469,10 +5469,10 @@
       "en": {
        "q": "What is one of the reasons stated in the text for the author commuting by bicycle?",
        "choices": [
-        "Because as they pedal, their body warms up and their mind awakens.",
-        "Because taking the train is easier and gets them to work faster.",
-        "Because they have decided to always ride their bicycle even on rainy days.",
-        "Because they want to \"決まりを作って、自分の行動をしばりたいから\" (make rules and restrict their own actions)."
+        "Because as I pedal, my body warms up and my head wakes up.",
+        "Because taking the train is faster and easier to get to work.",
+        "Because I have decided to always ride my bicycle even on rainy days.",
+        "Because I want to make rules and restrict my own actions."
        ]
       }
      }
@@ -5537,10 +5537,10 @@
       "en": {
        "q": "In the main text, it says \"その日の都合に合わせて選ぶ\" (choose according to the convenience of that day). Which of the following is the most appropriate meaning of this \"その日\" (that day)?",
        "choices": [
-        "The specific days when one is commuting to work.",
-        "Days when it rains or one is in a hurry, and one doesn't overexert oneself.",
-        "Seasonal days when \"道ばたの花が開き、風のにおいが変わる\" (flowers by the roadside bloom and the scent of the wind changes).",
-        "Days when the scenery becomes new by changing the way one passes, even on the same road."
+        "The days when I am commuting to work.",
+        "Days when it rains or I'm in a hurry, and I don't push myself.",
+        "Days of the season when roadside flowers bloom and the scent of the wind changes.",
+        "Days when even on the same road, changing the way I pass makes the scenery new."
        ]
       }
      }
@@ -6981,10 +6981,10 @@
       "en": {
        "q": "Regarding money, what does the author consider most important?",
        "choices": [
-        "Not the amount received, but how it is used.",
+        "Not the amount of money obtained, but how it is used.",
         "The fact that daily life cannot be sustained without money.",
         "Buying what you want and having as much money as possible.",
-        "Even with the same \"千円\", using it casually without much thought."
+        "Spending the same 1,000 yen casually and without much thought."
        ]
       }
      }
@@ -7544,9 +7544,9 @@
       "ne": {
        "q": "लेखकको विचारसँग मिल्ने कुरा कुन हो?",
        "choices": [
-        "「知らない」भन्न सक्नु सिक्नको लागि बलियो आधार हो।",
+        "थाहा छैन भन्न सक्नु सिक्नको लागि बलियो आधार हो।",
         "प्रश्नले त्यहाँ उपस्थित आफूलाई मात्र फाइदा पुर्‍याउँछ।",
-        "नबुझेका कुराहरू लाजमर्दो भएकाले लुकाउनुपर्छ।",
+        "थाहा नभएको कुरा लाजमर्दो भएकोले लुकाउनुपर्छ।",
         "सबैले बुझेको ठाउँमा प्रश्न सोध्नु हुँदैन।"
        ]
       },
@@ -8024,9 +8024,9 @@
        "q": "What does 'それ' in \"それによって、たがいの間に…信頼が生まれる\" refer to?",
        "choices": [
         "Speaking to older people, etc., with polite language.",
-        "Making a small mistake in usage and being rude to the other person.",
-        "People saying that '敬語' is difficult and troublesome.",
-        "Using perfect '敬語' without making mistakes."
+        "Making a slight mistake in usage and being rude to the other person.",
+        "People saying that keigo is difficult and troublesome.",
+        "Using perfect keigo flawlessly."
        ]
       }
      }
@@ -8057,10 +8057,10 @@
       "en": {
        "q": "What does the author consider most important?",
        "choices": [
-        "Continuing to have the feeling of valuing the other person.",
-        "Using perfect '敬語' without making a single mistake.",
-        "Avoiding using '敬語' at all for fear of being rude.",
-        "Mastering only the correctness of the form above all else."
+        "To continue to have feelings of respect for the other person.",
+        "To use perfect keigo without making a single mistake.",
+        "To avoid using keigo at all for fear of being rude.",
+        "To prioritize mastering the correctness of form above all else."
        ]
       }
      }
@@ -8493,10 +8493,10 @@
       "en": {
        "q": "How did the room change after placing plants in it?",
        "choices": [
-        "The air felt softer",
-        "Only the effort of caring for them increased, and it felt colder than before",
-        "The soil dried up, the leaves' color worsened, and it looked dark",
-        "Since the '相手' doesn't speak, nothing changed"
+        "I felt like the air had softened.",
+        "The effort of caring for it only increased, and it felt colder than before.",
+        "The soil dried up, and the leaves' color worsened, making it look dark.",
+        "Since it was a silent companion, nothing changed."
        ]
       }
      }
@@ -8939,10 +8939,10 @@
       "en": {
        "q": "Which of the following matches the author's opinion?",
        "choices": [
-        "「片づけ」 not only tidies up the room but also organizes one's feelings.",
-        "Cleaning is a task solely for the purpose of making a room clean.",
-        "Organizing one's mind has nothing to do with a cluttered room.",
-        "The more cluttered a room is, the calmer one's mind becomes."
+        "Tidying up not only organizes the room but also one's feelings.",
+        "Cleaning is just a task to make the room clean.",
+        "Organizing one's mind has nothing to do with a messy room.",
+        "The messier the room, the calmer the mind becomes."
        ]
       }
      }
@@ -9434,19 +9434,19 @@
       "ne": {
        "q": "「そのことばが頭に浮かべば、次はもう少し落ち着こうと思える」को 「そのことば」 के हो?",
        "choices": [
-        "「急がば回れ」 भन्ने छोटो भनाइ",
-        "कठिन व्याख्यालाई लामो समयसम्म जारी राख्ने शिक्षकको कुरा",
-        "हतारमा गल्ती गर्दा अरूबाट पाएको सान्त्वना",
-        "पुरानो मानिसहरूले आफ्नो जीवनमा आदानप्रदान गरेको दैनिक कुराकानी"
+        "「इसागाबा मावारे (Isogaba maware)」 भन्ने छोटो भनाइ।",
+        "कठिन व्याख्या लामो समयसम्म जारी राख्ने शिक्षकको कुरा।",
+        "हतार गर्दा गल्ती भएपछि मानिसहरूले दिएको सान्त्वना।",
+        "पुरानो समयका मानिसहरूले आफ्नो दैनिक जीवनमा गरेका कुराकानी।"
        ]
       },
       "en": {
        "q": "What is \"そのことば\" in \"「そのことばが頭に浮かべば、次はもう少し落ち着こうと思える」\"?",
        "choices": [
-        "\"急がば回れ\", a short saying",
-        "The teacher's words, continuing a difficult explanation at length",
-        "Comforting words from someone when you made a mistake in a hurry",
-        "Daily conversations exchanged by people in the past in their lives"
+        "A short saying, \"Haste makes waste.\"",
+        "The teacher's words, continuing a difficult explanation at length.",
+        "Words of comfort from someone when I failed in a hurry.",
+        "Daily conversations exchanged by people in their lives in ancient times."
        ]
       }
      }

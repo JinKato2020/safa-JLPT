@@ -144,19 +144,19 @@
       "ne": {
        "q": "「その言葉で、わたしは気が楽になりました」 भनिएको छ, तर 「その言葉」 कस्तो शब्द हो?",
        "choices": [
-        "「失敗してもいい、野菜はゆっくり育てればいい」 भन्ने शब्द",
-        "「水のやり方や虫のとり方をていねいに教える」 भन्ने शब्द",
-        "「毎朝庭に出て野菜のようすを見るとよい」 भन्ने शब्द",
-        "「自分で作った野菜は店のものよりおいしい」 भन्ने शब्द"
+        "「गल्ती भए पनि ठीकै छ, तरकारी बिस्तारै हुर्काए हुन्छ」 भन्ने शब्द।",
+        "「पानी हाल्ने तरिका र किरा हटाउने तरिका राम्ररी सिकाउने」 भन्ने शब्द।",
+        "「हरेक बिहान बगैंचामा गएर तरकारीको अवस्था हेर्नु राम्रो हुन्छ」 भन्ने शब्द।",
+        "「आफैंले उब्जाएको तरकारी पसलको भन्दा स्वादिष्ट हुन्छ」 भन्ने शब्द।"
        ]
       },
       "en": {
        "q": "It says, \"その言葉で、わたしは気が楽になりました\" (Those words made me feel relieved), but what kind of words were \"その言葉\" (those words)?",
        "choices": [
-        "The words \"失敗してもいい、野菜はゆっくり育てればいい\" (It's okay to fail, you can grow vegetables slowly).",
-        "The words \"水のやり方や虫のとり方をていねいに教える\" (I will carefully teach you how to water and remove insects).",
-        "The words \"毎朝庭に出て野菜のようすを見るとよい\" (It's good to go out into the garden every morning and check on the vegetables).",
-        "The words \"自分で作った野菜は店のものよりおいしい\" (Vegetables you grow yourself are more delicious than those from a store)."
+        "The words, \"It's okay to fail, you can grow vegetables slowly.\"",
+        "The words, \"I will carefully teach you how to water and remove insects.\"",
+        "The words, \"It's good to go out to the garden every morning and check on the vegetables.\"",
+        "The words, \"Vegetables you grow yourself are more delicious than those from the store.\""
        ]
       }
      }
@@ -270,10 +270,10 @@
       "ne": {
        "q": "देख्नमा सुन्दर 「お弁当」 कस्तो हुन्छ?",
        "choices": [
-        "रंगहरू मिलाएर वा भातलाई जनावरको आकार दिएको कुरा",
-        "तरकारी र अण्डा प्रयोग नगरी, बाहिरको पसलबाट किनेको 「お弁当」",
-        "कसैको लागि समय लगाएर तयार पारिएको 「お弁当」",
-        "बाहिर खानुभन्दा सस्तो र रंगीन 「お弁当」"
+        "रंगहरू मिलाएर वा भातलाई जनावरको आकारमा बनाएको।",
+        "तरकारी र अण्डा प्रयोग नगरी बाहिरको पसलबाट किनेको खाजा।",
+        "कसैको लागि समय लगाएर तयार पारेको खाजा।",
+        "बाहिर खानु भन्दा सस्तो र रंगीन खाजा।"
        ]
       },
       "en": {
@@ -304,9 +304,9 @@
       "ne": {
        "q": "यस लेखमा, लेखकले सबैभन्दा बढी के भन्न चाहन्छन्?",
        "choices": [
-        "「お弁当」मा बनाउने आनन्द र भावना भरिएको हुन्छ",
-        "देख्नमा सुन्दर 「お弁当」 बनाउने मानिसहरू बढिरहेका छन्",
-        "इन्टरनेटमा 「弁当」का धेरै तस्बिरहरू छन्",
+        "खाजा बनाउनुमा रमाइलो र भावनाहरू भरिएका हुन्छन्",
+        "सुन्दर देखिने खाजा बनाउने मानिसहरूको संख्या बढिरहेको छ",
+        "इन्टरनेटमा खाजाका धेरै तस्बिरहरू छन्",
         "बाहिर खाँदा पैसा महँगो हुन्छ"
        ]
       },
@@ -522,10 +522,10 @@
       "ne": {
        "q": "①「そこで」 भनिएको छ, तर मैले किन 「おべんとう」 बनाउने निर्णय गरें?",
        "choices": [
-        "आमा बिरामी भएर उठ्न नसक्नुभएकोले",
-        "बहिनीले जसरी पनि 「おべんとう」 बनाइदिन आग्रह गरेकीले",
-        "अलिकति डढे पनि 「たまご焼き」 बनाउन प्रयास गर्न चाहेकोले",
-        "बहिनीलाई विद्यालयमा समस्या नहोस् भन्ने चाहेकोले"
+        "आमा बिरामी भएर उठ्न नसकेकोले",
+        "बहिनीले जसरी पनि खाजा बनाइदिनुहोस् भनेकोले",
+        "अलिकति डढे पनि अण्डाको ओमलेट बनाउन मन लागेकोले",
+        "बहिनीलाई स्कुलमा समस्या नहोस् भन्ने चाहेकोले"
        ]
       },
       "en": {
@@ -590,19 +590,19 @@
       "ne": {
        "q": "यो पाठबाट के बुझ्न सकिन्छ?",
        "choices": [
-        "म अब आमालाई मद्दत गर्ने सोचमा छु",
-        "म अब हरेक दिन आफैं 「おべんとう」 बनाउने सोचमा छु",
-        "मैले 「たまご焼き」 राम्रोसँग बनाउन सकें",
-        "आमाले हरेक बिहान 「おべんとう」 बनाउन छोड्नुभयो"
+        "म अब आमालाई सहयोग गर्ने सोचमा छु",
+        "म अब हरेक दिन आफैं खाजा बनाउने सोचमा छु",
+        "मैले अण्डाको ओमलेट राम्ररी बनाउन सकें",
+        "आमाले हरेक बिहान खाजा बनाउन छोड्नुभयो"
        ]
       },
       "en": {
        "q": "What can be understood from this text?",
        "choices": [
         "I am thinking of helping my mother from now on.",
-        "I am thinking of making my own \"おべんとう\" every day from now on.",
-        "I was able to make \"たまご焼き\" well.",
-        "My mother has stopped making \"おべんとう\" every morning."
+        "I am thinking of making my own bento every day from now on.",
+        "I was able to make tamagoyaki well.",
+        "My mother stopped making bento every morning."
        ]
       }
      }
@@ -851,10 +851,10 @@
       "en": {
        "q": "①最初は、とあるが, what did I initially think?",
        "choices": [
-        "I didn't like getting \"土が手につく\" on my hands.",
-        "I didn't want to \"野菜を食べたくなかった\".",
-        "I didn't want to \"祖父に会いたくなかった\".",
-        "I didn't want to \"畑に行きたくなかった\"."
+        "I didn't like getting soil on my hands.",
+        "I didn't want to eat vegetables.",
+        "I didn't want to see my grandfather.",
+        "I didn't want to go to the field."
        ]
       }
      }
@@ -885,10 +885,10 @@
       "en": {
        "q": "How did I feel after eating the vegetables I grew myself?",
        "choices": [
-        "I felt they tasted much better than those bought at the store.",
-        "I felt they tasted exactly the same as vegetables bought at the store.",
-        "I felt they wouldn't grow without daily watering.",
-        "I felt they were hard to eat because of the \"土が手について食べにくい\"."
+        "It tasted much better than what I buy at the store.",
+        "I felt it tasted exactly the same as vegetables bought at the store.",
+        "I felt that it wouldn't grow unless I watered it every day.",
+        "I felt that the soil on my hands made it difficult to eat."
        ]
       }
      }
@@ -1011,10 +1011,10 @@
       "en": {
        "q": "①わたしはすぐに立って、とあるが, why did I stand up?",
        "choices": [
-        "To give my seat to an \"年を取った女の人\".",
-        "To \"電車をおりるため\".",
-        "To \"かばんを持つため\".",
-        "Because I was \"つかれたから\"."
+        "To give up my seat to an elderly woman.",
+        "To get off the train.",
+        "To hold my bag.",
+        "Because I was tired."
        ]
       }
      }
@@ -1045,10 +1045,10 @@
       "en": {
        "q": "「その笑顔を見て、わたしも温かい気持ちになりました」とありますが, what kind of smile was \"その笑顔\"?",
        "choices": [
-        "The smile when the woman said \"ありがとう\" and smiled brightly.",
-        "The face when she said \"ありがとう\" again when getting off the train.",
-        "The face when she got on board carrying a heavy-looking bag.",
-        "The face when I stood up to offer my seat."
+        "The woman's smiling face when she said \"arigatou\".",
+        "Her face when she said \"arigatou\" again as she got off the train.",
+        "Her face when she boarded with a heavy-looking bag.",
+        "My face when I stood up to give her my seat."
        ]
       }
      }
@@ -1593,10 +1593,10 @@
       "en": {
        "q": "It says, 「わたしたちは今もその約束を守っています」, but what kind of promise is 「その約束」?",
        "choices": [
-        "The promise 「大人になっても毎年会おう」",
-        "The promise to meet in a town roughly in the middle of the two.",
-        "The promise to talk like old times right away, even after a long time.",
-        "The promise to live in a distant town."
+        "A promise to meet every year even after becoming adults.",
+        "A promise to meet in a town roughly in the middle of the two of them.",
+        "A promise to talk as if nothing had changed, even after a long time.",
+        "A promise to live in a distant town."
        ]
       }
      }
@@ -2282,10 +2282,10 @@
       "ne": {
        "q": "बाल्यकालमा, आमाको ओनिगिरी भित्र के हुन्थ्यो?",
        "choices": [
-        "「梅ぼし」 वा 「こんぶ」 वा 「しゃけ」",
+        "उमेबोशी, कोम्बु वा साके",
         "मासु र अण्डा",
         "तरकारी",
-        "चीज"
+        "चिजबर्गर"
        ]
       },
       "en": {
@@ -2316,19 +2316,19 @@
       "ne": {
        "q": "①「なぜか母の味になりません」 भनिएको छ, यसको अर्थ के हो?",
        "choices": [
-        "एउटै सामग्री प्रयोग गर्दा पनि आमाको जस्तो स्वाद भएन",
-        "एउटै सामग्री प्रयोग गर्दा पहिले भन्दा स्वादिष्ट भयो",
+        "एउटै सामग्री भए पनि आमाको जस्तो स्वाद भएन",
+        "एउटै सामग्री प्रयोग गरे पनि पहिलेभन्दा स्वादिष्ट बन्यो",
         "सामग्री अपुग भएर राम्ररी बनाउन सकिएन",
-        "「梅ぼし」 र 「こんぶ」 हाल्न बिर्सियो"
+        "उमेबोशी र कोम्बु हाल्न बिर्सिएँ"
        ]
       },
       "en": {
        "q": "It says \"①なぜか母の味になりません\" (For some reason, it doesn't taste like my mother's cooking), but what does that mean?",
        "choices": [
-        "Even with the same ingredients, it didn't taste the same as her mother's.",
-        "Even though she used the same ingredients, it turned out more delicious than before.",
-        "She couldn't make it well because she didn't have enough ingredients.",
-        "She forgot to put in 「梅ぼし」 or 「こんぶ」."
+        "Even with the same ingredients, it didn't taste the same as my mother's.",
+        "Even though I used the same ingredients, it turned out more delicious than before.",
+        "I didn't have enough ingredients and couldn't make it well.",
+        "I forgot to add umeboshi and konbu."
        ]
       }
      }
@@ -2393,10 +2393,10 @@
       "en": {
        "q": "It says \"わたしにはそれが世界でいちばんおいしいおにぎりでした\" (To me, those were the most delicious rice balls in the world), but what does \"それ\" (those) refer to?",
        "choices": [
-        "The rice balls her mother made for her.",
-        "The rice balls she made herself after becoming an adult.",
-        "Rice balls with unusual ingredients.",
-        "Rice balls without 「梅ぼし」 or 「こんぶ」."
+        "Onigiri made by my mother.",
+        "Onigiri I made myself as an adult.",
+        "Onigiri with unusual ingredients.",
+        "Onigiri without umeboshi or konbu."
        ]
       }
      }

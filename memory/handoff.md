@@ -1,6 +1,8 @@
 # handoff（/clear 耐性・上書き式・常に最新のみ）
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
+
+- **✅ 2026-08-20 読解 内容理解の母語カバレッジ拡充＝完了・コミット済(`4e7474c2`)・未ビルド**: 内容理解(短/中/長)の全設問970問に設問文＋選択肢の ne/en 訳、本文に en 訳(528/530本・日本語混入2本=N3-D-L-0020/N3-D-M-0010のみ保留)。回答後トグルで母語(ne)/英語(それ以外)表示・引用語句は保持・選択肢はindexOfで原順の訳へ対応。**情報検索(joho)は対象外**(ユーザーが別途修正)。gemini-2.5-flash実費 本作業≈¥94(+中断した初回runの一部・大半johoで破棄)。配線=rehydrate(PASSAGE_TRANS_EN/Q_TRANS_NE/Q_TRANS_EN)→index→PassageSetPlayer。スクリプト=`scratchpad/trans/{trans_all,apply_trans}`。**追加(6e620d57)＝解説を難所限定に刷新**＝古い薄い解説を非難所522問で廃止(空)、難所(指示語・理由)334問のみ残す(欠落16はGeminiで新規・¥1)・回答後にPassageSetPlayerで日本語解説表示・i18n passage.explainLabel(ja/en/ne)・保留en2本も補填(en530/530)。番人17/17緑・tsc0。**バグ修正(f4d2b3e8)＝**①選択肢が本文引用の設問で「引用内日本語は保持」指示が選択肢全体に効き未訳だった不具合をne141/en280問で完全翻訳し直し(日本語ゼロ検証・¥13)②翻訳ボタン「（ネパール語）/(Nepali)」固定表記を「翻訳を見る/Show translation」へ汎用化。**ビルド済＝v1.1.0(2820) iOS+Android dispatch(監視なし)・run 32337314589**(2819は旧・2820が最新)。iOS本日2/8。**次の一手＝ユーザー判断**(区切る/実機確認)。
 - **▶ 2026-08-19 LIVE＝読解 品質是正＋大量作問（正本＝`memory/読解修正-inflight.md`）**: ①既存読解の攻略是正＝**適用済・未コミット**（誤答266修正＋ルビ3＋正解言換67＋短N3最長是正22＋指示語差替4本）。番人＝`tools/dokkai_solvability.py --check`（最長≤35/語彙≤45/設問数固定/指示語必須 中N4中N3長N3）＋`tools/joho_figure_check.py --check`（情報検索の図版込み字数）。09_読解.mdに作問ルール＋番人一覧を記録済。②**Phase B 大量作問 ＝短文完成・中/長は上限で中断（正本＝inflight）**。✅短N4×65・短N3×65 生成+検品+**正解言い換え焼込み完了**(scratchpad/dokkai_gen/out_tan{N4,N3}_{A,B}.json・verbatim0%・最長N4 8%/N3 0%・語彙OK)。⚠**中/長4体は2026-08-19 13:19東京にセッション上限で中断(リセット17:00)**＝着地したのは 中N3-A×27(out_chuN3_A.json)・長N3×19(out_choN3.json)のみ、両方 verbatim0/語彙/指示語OKだが**最長71%/57%が要修正**(誤答を伸ばして単独最長を解消＝短N3と同手法)。**未着地=中N4×15(out_chuN4.json)・中N3-B×26(out_chuN3_B.json)は丸ごと再生成**。**17:00リセット後の再開手順はinflict「17:00リセット後の再開手順」に記載**(最長修正2体→中N4/中N3-B再生成→全6結合番人→Gemini Flash-Liteでne訳(要承認)→本体適用(固定フィールドはコピー付与)→passageTransNe/tsc/テスト→コミット)。**新規本文はまだ本体JSON未適用＝scratchpad保持**。**コミット/ビルドは指示待ち**。**未コミット多数**（inflight「未コミット一覧」参照）。
 - **✅ 2026-08-19 課題理解150問＋弱点ドリル/文法復習をバンク統一＝コミット`401306a0`・Build 2814 both dispatch(run`32196846868`・iOS本日1/3・監視しない)**: 弱点ドリルを復習と同じ検証済バンクへ統一(QuizScreen itemIds→unitで questionForUnit＝makeQuestion自動生成の文法2正解バグ源を通さない)／文法復習バンク化(reviewQuestion GRAMMAR_BANK_BY_POINT)＋grammarClozeOk n4-g-55/105除外／課題理解+154問+音声154本($4.77既報)／骨組みタグ(develop/kanten/genre/q_type)+番人skeletonBalance／設定聴解を「DLのみ」化／友だち紹介UIをPro画面と統一／AdMob FORCE_TEST_ADS追加(TestFlight検証用・**公開前にfalse**)／旧knowledgebank残骸駆逐。tsc0・テスト412/412＋ビルド用37/37緑・manifest再生成済・push済(OTA起動)。**残(ユーザー判断待ち)**＝①配信の完全撤去(オンボ選択肢/内部stream分岐がまだ残る)②n5-g-32番人fix(既存の赤・私の変更と無関係)③公開前にFORCE_TEST_ADS=false。以下は旧LIVE(参考):
 - **🗄 2026-08-18 課題理解 各レベル150問へ増作＝作問・全ゲート完了（上記でコミット済）**: 正本＝`memory/課題増作-inflight.md`。**やったこと**＝kadai N5+54(0045/0047/0059/0099＋0101-0150)・N4+50(0101-0150)・N3+50(0101-0150)＝**各150問**。6サブエージェント(各レベル2体・disjointなID/場面/develop)で素作問→`mora_check`自己ゲート→ルビ。**偏り是正**＝develop最大 N5 22%/N4 22%/**N3 消去46%→31%**(全レベル≤35%・skeleton check✅)。設問型 手順36%前後(3-4割内)・場面8カテゴリ均等。**レベル差**＝間接性(N5直接→N3消去法・本音後半・ネタバレ禁止)＋モーラ帯(N5 105-157/N4 209-313/N3 258-386・全問帯内)。**修正した2点**＝N3a(0101-0125)ルビ未付与→全漢字ルビ再付与(文言不変を機械確認)・N5-0144が既存0025と病院会計近似0.90→別状況の二者択一へ差し替え(近似0.07)。**NG**＝係/留守/役割ラベル/〇=全0(tts_lintの一日/眼鏡/三日はグループルビ済の誤検出)。**検証**＝merge致命0帯外0・daimon新規重複0・rebuild済・TSテスト19/19緑・tsc0。**未コミット**＝kadai_N3/N4/N5.json＋content/_manifest.json。**次の一手＝音声生成の承認**(Gemini Flash TTS・実測~3-4円/本×154≒約450-650円・¥1000未満・D2で実費報告)→承認後 gen_choukai_json.py→rebuild→manifest→コミット。**まだ有料は一切していない**。
@@ -91,12 +93,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- ne訳_AB比較.xlsx
-- memory/読解修正-inflight.md
-- memory/在庫・模試ストックまとめ.xlsx
-- 問題/読解/読解問題_N3.xlsx
-- 問題/読解/読解問題_N4.xlsx
-- 問題/読解/読解問題_N5.xlsx
+- tools/publish-content.ps1
+- memory/在庫問題数.txt
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- content/problems/dokkai/naiyou_tan_N5.json
+- content/problems/dokkai/naiyou_tan_N4.json
 
-_自動更新: 2026-08-20 08:24_
+_自動更新: 2026-08-20 15:10_
 <!-- AUTO:END -->

@@ -1331,10 +1331,10 @@
       "en": {
        "q": "It says, \"①その自転車をすてることができません\" (I cannot throw away that bicycle). Why?",
        "choices": [
-        "Because it is a precious memento that my father bought for me.",
-        "Because it was a convenient bicycle that I used to commute to school every day for four years.",
+        "Because it's a precious memento my father bought for me.",
+        "Because it's a convenient bicycle I used to commute to school every day for four years.",
         "Because its color has faded, rust has appeared, and I haven't ridden it for many years.",
-        "Because my family repeatedly tells me to throw it away, saying \"じゃまだから\" (it's in the way)."
+        "Because my family repeatedly tells me to throw it away, saying it's \"in the way.\""
        ]
       }
      }
@@ -1482,19 +1482,19 @@
       "ne": {
        "q": "①わたしは、なんとなく息苦しさを感じていました भनिएको छ, त्यतिबेलाको कार्यस्थल कस्तो थियो?",
        "choices": [
-        "सबै व्यस्त थिए र अभिवादन पनि गर्दैनथे",
-        "नयाँ म्यानेजरले हरेक बिहान ठूलो स्वरमा अभिवादन गर्थे",
-        "कर्मचारीहरूले एक-अर्कालाई स्वाभाविक रूपमा 'ओहायो' भन्थे",
-        "सानो कुराकानीबाट पनि कामको 'そうだん' गर्न सजिलो थियो"
+        "सबै व्यस्त थिए र अभिवादन पनि थिएन।",
+        "नयाँ हाकिमले हरेक बिहान ठूलो स्वरमा अभिवादन गर्थे।",
+        "कर्मचारीहरूले स्वाभाविक रूपमा एकअर्कालाई 'ओहायो' भन्थे।",
+        "सानो कुराकानीबाट कामको सल्लाह लिन पनि सजिलो भयो।"
        ]
       },
       "en": {
        "q": "①「わたしは、なんとなく息苦しさを感じていました」 (I felt somewhat suffocated) is stated, but what was the atmosphere like in the workplace at that time?",
        "choices": [
-        "Everyone was busy, and there were no greetings.",
+        "Everyone was busy and there were no greetings.",
         "The new manager greeted everyone loudly every morning.",
-        "Employees naturally greeted each other with \"おはよう\" (good morning).",
-        "It was easy to consult about work through casual conversations."
+        "Employees naturally greeted each other with \"Ohayou.\"",
+        "It was easier to discuss work through casual conversations."
        ]
       }
      }
@@ -1584,10 +1584,10 @@
       "ne": {
        "q": "④あいさつは、人と人をつなぐ、いちばん身近で、いちばん大きな力なのだ भनिएको छ, यस वाक्यमा लेखकले सबैभन्दा बढी के भन्न चाहेका छन्?",
        "choices": [
-        "एउटा सानो अभिवादनले कार्यस्थललाई उज्यालो बनाउने ठूलो शक्ति राख्छ",
-        "नयाँ म्यानेजर आएपछि कार्यस्थलको अँध्यारो वातावरण बिस्तारै उज्यालो भयो",
-        "हरेक दिन मुस्कुराउँदै अभिवादन गरिरहनु सजिलो कुरा होइन",
-        "अभिवादनभन्दा कामको 'そうだん' बढी महत्त्वपूर्ण हुन्छ"
+        "केवल एक शब्दको अभिवादनले कार्यस्थललाई उज्यालो बनाउने ठूलो शक्ति राख्छ।",
+        "नयाँ हाकिम आएपछि कार्यस्थलको अँध्यारो वातावरण बिस्तारै उज्यालो भयो।",
+        "हरेक दिन मुस्कुराउँदै अभिवादन गरिरहनु सजिलो कुरा होइन।",
+        "अभिवादन भन्दा कामको सल्लाह बढी महत्त्वपूर्ण छ।"
        ]
       },
       "en": {
@@ -2931,10 +2931,10 @@
       "en": {
        "q": "It says, \"①わたしのおべんとうは、いつも地味で、茶色いおかずばかりだった.\" Why did the author dislike her mother's bento when she was in elementary school?",
        "choices": [
-        "Because it was \"地味で、茶色いおかずばかりだったから\" (plain and only had brown side dishes).",
-        "Because her friends showed off their colorful side dishes.",
-        "Because her mother made the same side dishes every day.",
-        "Because the taste of the side dishes was not as good as her friends'."
+        "Because it was plain and only had brown side dishes.",
+        "Because my friends showed off their colorful side dishes.",
+        "Because my mother made the same side dishes every day.",
+        "Because the taste of my side dishes was not as good as my friends'."
        ]
       }
      }
@@ -4110,10 +4110,10 @@
       "ne": {
        "q": "छिटो सम्पर्कको बारेमा, लेखक के सोच्छन्?",
        "choices": [
-        "सुविधाजनक भए पनि, \"ことばが軽くなり、たちまち流れ去ってしまいやすい\"",
-        "चिठीभन्दा हरेक हिसाबले राम्रो छ, अब चिठी लेख्नु पर्दैन",
-        "भावनाहरू जस्ताको तस्तै आकारमा रहने भएकाले, चिठीभन्दा राम्रो छ",
-        "जवाफको प्रतीक्षा गर्ने झन्झट नभएकाले, यो बिल्कुलै स्वादहीन हुन्छ"
+        "सुविधाजनक भए पनि, शब्दहरू हल्का हुन्छन् र तुरुन्तै बगेर जान्छन्।",
+        "यो चिठीभन्दा हरेक हिसाबले उत्कृष्ट छ, त्यसैले अब चिठी लेख्नु पर्दैन।",
+        "भावनाहरू जस्ताको तस्तै रहन्छन् भन्ने हिसाबले यो चिठीभन्दा राम्रो छ।",
+        "जवाफको प्रतीक्षाको झन्झट नभएकोले यो बिल्कुलै नीरस छ।"
        ]
       },
       "en": {
@@ -4144,10 +4144,10 @@
       "ne": {
        "q": "पाठको सामग्रीसँग मिल्ने कुन हो?",
        "choices": [
-        "चिठीको ढिलोपन कमजोरी होइन, यसले \"相手を気づかう時間をことばに託して届けてくれる\"",
-        "चिठी लेख्दा गल्ती भए पनि सजिलै मेटाउन सकिन्छ, त्यसैले जो कोहीले पनि सजिलै शब्दहरू छनोट गर्न सक्छन्",
-        "लेखकले कुनै कामको जानकारी दिँदा सधैँ चिठी मात्र प्रयोग गर्छन्",
-        "जवाफको प्रतीक्षा गर्दाको झन्झटलाई लेखकले पीडादायी महसुस गर्छन्"
+        "चिठीको ढिलोपन कमजोरी होइन, यसले अरूको ख्याल गर्ने समयलाई शब्दमा राखेर पुर्याउँछ।",
+        "चिठी लेख्दा गल्ती भए पनि सजिलै मेटाउन सकिने भएकाले जो कोहीले पनि सजिलै शब्दहरू छनोट गर्न सक्छन्।",
+        "लेखकले आफ्नो कामको जानकारी दिँदा सधैँ चिठी मात्र प्रयोग गर्छन्।",
+        "जवाफको प्रतीक्षा गर्दाको झन्झटलाई लेखकले पीडादायी महसुस गर्छन्।"
        ]
       },
       "en": {
@@ -4602,7 +4602,7 @@
         "They seem to be doing nothing, but are quietly working while looking around.",
         "Their minds become so disturbed by boredom that they cannot think of anything.",
         "They only wish for time to pass quickly and become oblivious to their surroundings.",
-        "They are so irritated that they don't have the余裕 to notice the color of the sky."
+        "They are so irritated that they don't have themental space to notice the color of the sky."
        ]
       }
      }
@@ -4750,19 +4750,19 @@
       "ne": {
        "q": "पाठको 'それは、たくさんの色を一色にぬりつぶすのに似ている' मा 'それ' ले केलाई जनाउँछ?",
        "choices": [
-        "ठाउँ-ठाउँको भाषासँगै, त्यो भाषाले मात्र व्यक्त गर्न सकिने भावना पनि हराउनु",
-        "सबैले सुविधा मात्र खोजेर साझा भाषा मात्र प्रयोग गर्नु र कुराकानी अझ सजिलो हुनु",
-        "एउटै 'ありがとう' भए पनि, हुर्केको ठाउँको भाषाले मन छुने कुरा",
-        "साझा भाषा र हुर्केको ठाउँको भाषा दुवैलाई बचाउनु"
+        "प्रत्येक ठाउँको भाषासँगै, त्यो भाषाले मात्र व्यक्त गर्न सकिने भावनाहरू पनि हराउनु।",
+        "सबैले सुविधा मात्र खोजेर साझा भाषा मात्र प्रयोग गर्दा कुराकानी अझ सजिलो हुनु।",
+        "एउटै 'arigatou' भए पनि, हुर्केको ठाउँको भाषामा भए मन छुने।",
+        "साझा भाषा र हुर्केको ठाउँको भाषा दुवैको संरक्षण गर्नु।"
        ]
       },
       "en": {
        "q": "What does 『それ』 in 『それは、たくさんの色を一色にぬりつぶすのに似ている』 in the text refer to?",
        "choices": [
-        "Losing not only local languages but also the feelings that can only be expressed in those languages.",
-        "Everyone seeking only convenience and using only common words, making communication even easier.",
-        "Even if it's the same 『ありがとう』, if it's in the language of one's upbringing, it touches the heart.",
-        "Protecting both common language and the language of one's upbringing."
+        "Losing not only the language of each region but also the feelings that can only be expressed in that language.",
+        "Everyone seeking only convenience and using only a common language, making communication even easier.",
+        "Even the same 'arigatou' touches the heart if it's in the language of the land where one grew up.",
+        "Protecting both the common language and the language of the land where one grew up."
        ]
       }
      }
@@ -5550,19 +5550,19 @@
       "ne": {
        "q": "गन्ध र स्मृतिको सम्बन्धको बारेमा, पाठको सामग्रीसँग मिल्ने कुन हो?",
        "choices": [
-        "गन्धको नाम भन्न नसके पनि, स्मृति राम्ररी फर्किन्छ।",
-        "गन्धको नाम स्पष्ट र सही रूपमा भन्न नसकेसम्म, स्मृति फर्किँदैन।",
-        "「ことば」 मार्फत मात्र गन्ध र स्मृति जोडिएका हुन्छन्।",
-        "समय बित्दै जाँदा, गन्धको स्मृति अनिवार्य रूपमा मधुरो हुन्छ।"
+        "गन्धको नाम भन्न नसके पनि, सम्झनाहरू राम्ररी ताजा हुन्छन्।",
+        "गन्धको नाम स्पष्ट र सही रूपमा भन्न नसकेसम्म, सम्झनाहरू ताजा हुँदैनन्।",
+        "शब्दहरू मार्फत मात्र गन्ध र सम्झनाहरू जोडिएका हुन्छन्।",
+        "समय बित्दै जाँदा, गन्धको सम्झना अनिवार्य रूपमा फिक्का हुन्छ।"
        ]
       },
       "en": {
        "q": "Regarding the connection between smell and memory, which of the following matches the content of the main text?",
        "choices": [
-        "Even if you cannot identify the name of the smell, the memory will be clearly revived.",
-        "Memories will not be revived until you can clearly and correctly identify the name of the smell.",
-        "It is only through \"ことば\" (words) that smell and memory become connected.",
-        "As time passes, the memory of a smell will inevitably fade."
+        "Even if you can't name the scent, the memory will still be clearly revived.",
+        "Memories will not be revived until you can clearly and correctly name the scent.",
+        "It is only through words that scent and memory become connected.",
+        "Over time, the memory of a scent will inevitably fade."
        ]
       }
      }
@@ -5744,10 +5744,10 @@
       "ne": {
        "q": "पाठको सामग्रीसँग मिल्ने कुन हो?",
        "choices": [
-        "पुल बनाइएपछि, छुट्टिएका दुवै किनारका बीचमा मानिस र वस्तुहरूको आवतजावत सुरु हुन्छ।",
-        "पुल बने पनि, दुवै किनारका बीचको आवतजावत हुन सक्दैन।",
-        "नदीको विभाजन, पुल बन्ने बित्तिकै, पानीको बहाव रोकिँदा हराउँछ।",
-        "『橋のような役目の人』 कुनै एक किनारमा उभिएर त्यसैको पक्ष लिने व्यक्ति हो।"
+        "पुल बनेपछि छुट्टिएका दुई किनारका बीचमा मानिस र सामानको आवतजावत सुरु हुन्छ।",
+        "पुल बने पनि दुई किनारका बीचमा आवतजावत गर्न सकिँदैन।",
+        "पुल बन्नेबित्तिकै नदीको अवरोध, पानीको बहाव रोकिएर हराउँछ।",
+        "पुलजस्तै भूमिका खेल्ने व्यक्तिले कुनै एक किनारमा उभिएर समर्थन गर्छ।"
        ]
       },
       "en": {
@@ -5802,10 +5802,10 @@
       "ne": {
        "q": "पुरानो भवन भत्काएर नयाँ बनाउन किन मन लाग्छ?",
        "choices": [
-        "पुरानो अवस्थामा प्रयोग गर्न गाह्रो हुने र मर्मत गर्न पनि पैसा लाग्ने भएकोले",
-        "नयाँ बनेको भवनमा नै त्यस ठाउँका मानिसहरूको जीवनशैली 'しみこんでいるから'",
-        "एकपटक भत्काएपछि, '積み重ねた時間' फेरि कहिल्यै फर्केर नआउने भएकोले",
-        "पुरानो भवन नै बरु बढी सुविधाजनक र सुरक्षित हुने भएकोले"
+        "किनभने पुरानो अवस्थामा प्रयोग गर्न असहज हुन्छ र मर्मतमा पनि पैसा लाग्छ।",
+        "किनभने नयाँ बनेको भवनमा नै त्यस ठाउँका मानिसहरूको जीवनशैली घुलमिल भएको हुन्छ।",
+        "किनभने एकपटक भत्काएपछि, सञ्चित समय फेरि कहिल्यै फर्किँदैन।",
+        "किनभने पुरानो भवनमा बरु बढी सुविधाजनक र सुरक्षित रूपमा बस्न सकिन्छ।"
        ]
       },
       "en": {
@@ -5836,19 +5836,19 @@
       "ne": {
        "q": "भवन भत्काउँदा हराउने कुराको बारेमा लेखकले के भन्नुभएको छ?",
        "choices": [
-        "फोटोमा राखे पनि, त्यस ठाउँमा 'ただよっていた気配そのもの' बाँकी रहन नसकी हराएर जान्छ",
-        "फोटो र रेकर्ड दुवै, भत्काइएको भवनसँगै, 'あとかたもなくすべて消えてなくなってしまう'",
-        "सुविधाको बदलामा, '失われるものはひとつとしてない'",
-        "भत्काए पनि, '積み重ねた時間' त्यसै नयाँ भवनमा सर्छ"
+        "फोटोमा राखे पनि, त्यस ठाउँमा फैलिएको अनुभूति आफैँमा रहन सक्दैन र हराउँछ।",
+        "फोटो र रेकर्ड दुवै, भत्काइएको भवनसँगै, कुनै निशान नछोडी सबै हराउँछन्।",
+        "सुविधाको बदलामा, गुमाउने कुरा एउटा पनि छैन।",
+        "भत्काए पनि, सञ्चित समय त्यसै नयाँ भवनमा सर्छ।"
        ]
       },
       "en": {
        "q": "What does the author say about what is lost when a building is destroyed?",
        "choices": [
-        "Even if captured in photographs, the very '気配' (atmosphere/presence) that lingered in that place cannot remain and disappears.",
-        "Photographs and records, along with the destroyed building, all vanish without a trace.",
-        "In exchange for convenience, there is nothing at all that is lost.",
-        "Even if destroyed, the accumulated time simply transfers to the new building."
+        "Even if captured in a photograph, the atmosphere that lingered in that place will disappear without a trace.",
+        "Photographs and records, along with the destroyed building, will all vanish without a trace.",
+        "In exchange for convenience, nothing is lost.",
+        "Even if destroyed, the accumulated time will transfer to the new building."
        ]
       }
      }
@@ -5904,10 +5904,10 @@
       "ne": {
        "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
        "choices": [
-        "राख्ने वा भत्काउने भन्ने कुरालाई, सुविधाले मात्र निर्णय नगरी, राम्ररी सोच्ने '労をおしむべきではない'",
-        "पुरानो भवन प्रयोग गर्न गाह्रो र असुविधाजनक भएकोले, नहिचकिचाई भत्काएर नयाँ बनाउनुपर्छ",
-        "पुरानो भवन जुनसुकै अवस्थामा पनि सधैँ राख्नुपर्छ",
-        "भवन भत्काउने वा नभत्काउने भन्ने कुरा, लाग्ने खर्चको सस्तोपनले मात्र निर्णय गर्नुपर्छ"
+        "राख्ने वा भत्काउने भन्ने कुरालाई सुविधाको आधारमा मात्र निर्णय नगरी, राम्ररी सोच्ने प्रयास गर्नुपर्छ।",
+        "पुरानो भवन प्रयोग गर्न असहज र असुविधाजनक भएकाले, नहिचकिचाई भत्काएर नयाँ बनाउनुपर्छ।",
+        "पुरानो भवन जुनसुकै अवस्थामा पनि सधैँ राख्नुपर्छ।",
+        "भवन भत्काउने वा नभत्काउने भन्ने कुरा लाग्ने खर्चको सस्तोपनको आधारमा मात्र निर्णय गर्नुपर्छ।"
        ]
       },
       "en": {
@@ -5996,10 +5996,10 @@
       "ne": {
        "q": "चुप लागेको बेला, मानिसले के गर्छ भनी लेखकले भन्नुभएको छ?",
        "choices": [
-        "अर्काको कुरालाई बिस्तारै मनन गर्दै, 'みずからの思いをそっと整えている'",
-        "खासै केही नगरी, केवल समय बित्दै जाने प्रतीक्षामा बसिरहेको हुन्छ",
-        "अर्को के कुरा गर्ने भनेर, राम्रो शब्दको लागि '一生けんめいさがしている'",
-        "अर्काको कुरामा ध्यान नदिई, बिल्कुलै फरक कुरा सोचिरहेको हुन्छ"
+        "अर्काको कुरा बिस्तारै मनन गर्दै, आफ्ना भावनाहरूलाई बिस्तारै मिलाउँदै।",
+        "केही नगरी, केवल समय बित्दै जाने प्रतीक्षा गर्दै।",
+        "अर्को के कुरा गर्ने भनेर राम्रा शब्दहरू खोज्दै।",
+        "अर्काको कुरा नसुनी, अर्कै कुरा सोच्दै।"
        ]
       },
       "en": {
@@ -6064,10 +6064,10 @@
       "ne": {
        "q": "यस अनुच्छेदमा लेखक के भन्न चाहन्छन्?",
        "choices": [
-        "\"沈黙\" कुराकानीको अन्त्य होइन, तर शब्दहरू बिनाको अर्को प्रकारको कुराकानी पनि हो।",
-        "वास्तवमा राम्रो वक्ता त्यो व्यक्ति हो जसले एक क्षण पनि नरोकी लगातार बोल्छ।",
-        "\"沈黙\" असहज हुन्छ, त्यसैले यसलाई तुरुन्तै शब्दहरूले भर्नु राम्रो हुन्छ।",
-        "मौन बस्ने व्यक्तिसँग मनको कुरा गर्न सकिँदैन।"
+        "मौनता कुराकानीको अन्त्य होइन, बरु शब्दविहीन अर्को कुराकानी हो।",
+        "वास्तवमा राम्रो कुरा गर्ने व्यक्ति भनेको अलिकति पनि नरोकिई लगातार कुरा गर्ने व्यक्ति हो।",
+        "मौनता असहज हुन्छ, त्यसैले तुरुन्तै शब्दले भर्नु राम्रो हुन्छ।",
+        "चुप लाग्ने व्यक्तिसँग मनको कुरा गर्न सकिँदैन।"
        ]
       },
       "en": {
