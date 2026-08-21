@@ -123,6 +123,7 @@ Step 3 'テスト + tsc'
 $tests = @(
   'src/data/exam/passageGrammar.test.ts'
   'src/data/passageGrammarWire.test.ts'
+  'src/data/bunshouGrammarBalance.test.ts'
   'src/data/contextGate.test.ts'
   'src/data/daimon4choices.test.ts'
   'src/data/content/rehydrate.test.ts'

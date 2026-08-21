@@ -79,8 +79,11 @@ for lv in ('N5','N4','N3'):
     erabu_ok=sum(1 for it in erabu if js.choices_ok(it)[0])
     anyg=sum(1 for it in its if sum(1 for c in it['questions'][0]['choices'] if js.norm(c) and js.norm(c) in js.fig_text(it))>=3)
     scanC=(f'⚠図版由来不足{cbad}問／' if (hard and cbad) else '')+f'「選ぶ」型{len(erabu)}問中 図版に実在する誘惑肢≥3＝{erabu_ok}問（全型では{anyg}問が図版由来の紛らわしい肢）'+('' if hard else '（N5は対象外）')
-    whole=sum(1 for it in its if js.sources_ok(it)[0] and js.cond_count(it)>=2)
-    whole_str=f'{whole}/{len(its)}問（{round(whole/len(its)*100)}%）＝表の最有力行が罠・決め手は注記/条件＝図版全体の突き合わせが必要'
+    # 全体走査＝正解に必要な情報源数(answer_sources)の実数分布（ユーザー指示2026-08-21：OK/割合でなく「2源=◯問 3源=◯問」の具体表記）
+    asd=collections.Counter(it.get('skeleton',{}).get('answer_sources') for it in its)
+    ge2=sum(v for k,v in asd.items() if isinstance(k,int) and k>=2)
+    src_parts='　'.join(f'{k}源={asd[k]}問' for k in sorted(x for x in asd if isinstance(x,int)))
+    whole_str=f'{src_parts}（正解に必要な情報源数。2源以上={ge2}/{len(its)}問={round(ge2/len(its)*100)}%）'
     joho[lv]=dict(n=len(its), med=int(st.median(eff)), mn=min(eff), mx=max(eff),
                   tgt=TGT[lv], out=f'{short}/{long}', figratio=figratio, izon=izon, jisoku=jisoku,
                   div=div, sc=sc, scanS=scanS, scanC=scanC, whole=whole_str)
@@ -157,7 +160,7 @@ for r in range(1,ws.max_row+1):
         ws.cell(r,10,SCENE_HEADER)
         ws.cell(r,11,'走査S 情報源数の分布（参照＝表/注記/カード。多いほど掲示物全体を見る必要）')
         ws.cell(r,12,'走査C 誘惑肢（図版に実在する紛らわしい肢＝「選ぶ」型で必須）')
-        ws.cell(r,13,'全体走査（正解に図版全体の突合が要る問題数＝情報源≥2かつ条件≥2）')
+        ws.cell(r,13,'全体走査（正解に必要な情報源数 answer_sources の分布＝「1源=◯問／2源=◯問／3源=◯問」。源数が多いほど掲示物の複数箇所を突き合わせる必要）')
         for c in (10,11,12,13): ws.cell(r,c).alignment=Alignment(wrap_text=True, vertical='top')
         break
 # 情報検索セクションの説明を強化(2026-08-21・ユーザー指示: 説明が弱い)
@@ -165,7 +168,7 @@ for r in range(1,ws.max_row+1):
     if str(ws.cell(r,1).value or '').startswith('②情報検索'):
         ws.cell(r,1,'②情報検索（図版込み・掲示物1枚＝1問）　実効字数＝ルビ除き本文＋図版の全文字（目標±15%）。'
                     'figure比率＝全文字に占める図版の割合／図版依存%＝答えの根拠が図版側にある設問の割合／本文自足%＝本文だけで解ける設問の割合（低いほど図版を走査させる＝良い）。'
-                    'J列＝場面（全8種）の出題内訳%。走査S＝正解に必要な参照箇所（表/注記/カード）が何か所か＝多いほど掲示物全体を見る必要。走査C＝誘惑肢＝図版に実在して正解に見える紛らわしい選択肢（「選ぶ」型で必須。金額/時刻等は計算や言い換えの誘惑肢のため別枠）。全体走査＝表の最有力行が罠で決め手が注記/条件にあり、図版全体を突き合わせないと解けない問題数。N5は走査S/Cのハード判定は対象外（易しく）だが数値は参考表示。')
+                    'J列＝場面（全8種）の出題内訳%。走査S＝正解に必要な参照箇所（表/注記/カード）が何か所か＝多いほど掲示物全体を見る必要。走査C＝誘惑肢＝図版に実在して正解に見える紛らわしい選択肢（「選ぶ」型で必須。金額/時刻等は計算や言い換えの誘惑肢のため別枠）。全体走査＝正解に必要な情報源数(answer_sources)の分布（1源/2源/3源の問題数）。表の最有力行が罠で決め手が注記/別表/条件にあり、源数が多いほど掲示物の複数箇所を突き合わせないと解けない＝走査が重い。N5は走査S/Cのハード判定は対象外（易しく）だが数値は参考表示。')
         ws.cell(r,1).alignment=Alignment(wrap_text=True, vertical='top')
         break
 # (5) 着色: 内容理解「最新」行の品質セル  I(9)帯外 J(10)最長% K(11)丸写% L(12)語彙%
