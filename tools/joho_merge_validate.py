@@ -10,8 +10,8 @@ import os, re, json, sys, argparse
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 GEN = os.path.join(ROOT, 'scratchpad', 'joho_gen')
-BAND = {'N5': (200, 375), 'N4': (320, 600), 'N3': (480, 900)}
-START = {'N5': 11, 'N4': 11, 'N3': 31}
+BAND = {'N5': (200, 375), 'N4': (340, 460), 'N3': (510, 690)}  # N4/N3=目標±15%(2026-08-21)
+START = {'N5': 11, 'N4': 11, 'N3': 11}  # 2026-08-21: N3を新方式10問へ差替済ゆえ続きは0011から
 BATCHES = {'N5': ['N5_a', 'N5_b'], 'N4': ['N4_a', 'N4_b'], 'N3': ['N3_a', 'N3_b']}
 Q_TYPES = {'選ぶ', '金額', '時刻', '対象者', '正誤', '手続き'}
 FIGP = {'表のみ', '表+注記', 'プローズ', 'カード', '2表以上'}

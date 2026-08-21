@@ -16,9 +16,9 @@ const FILES = ['joho_N5', 'joho_N4', 'joho_N3'];
 function load(name: string): Item[] {
   return JSON.parse(readFileSync(DIR + name + '.json', 'utf8')).items as Item[];
 }
-// 字数(実効＝body＋figureの全テキスト・ルビ除く)。公式目標と帯[0.8×,1.5×]。全item必ず守る。
-const CHARS: Record<string, number> = { joho_N5: 250, joho_N4: 400, joho_N3: 600 };
-const CHAR_LO = 0.8, CHAR_HI = 1.5;
+// 字数(実効＝body＋figureの全テキスト・ルビ除く)。全item必ず守る。
+// N4/N3＝公式目標±15%に厳格化(ユーザー指示2026-08-21・過剰な長さ/短さを止める)。N5＝従来の緩い帯[0.8×,1.5×]を据置。
+const BAND: Record<string, [number, number]> = { joho_N5: [200, 375], joho_N4: [340, 460], joho_N3: [510, 690] };
 function collectText(v: unknown): string {
   if (typeof v === 'string') return v;
   if (Array.isArray(v)) return v.map(collectText).join('');
@@ -34,7 +34,7 @@ const AXES = ['q_type', 'notice', 'scene', 'figure_pattern', 'medium'] as const;
 // 作問で薄い型を足し終えたら true にして恒久ガードを起こす（md/09_読解.md 参照）。
 // 2026-08-21: N3/N4を新方式10問パイロットへ差し替え中。10問では絶対数要件(正誤5・場面6種等)を満たせないため
 //   バランス強制は一時 false（字数帯・骨組み存在の常時ガードは有効のまま）。N3/N4を本数まで戻したら true へ。
-const RUN_BALANCE = false;
+const RUN_BALANCE = true;  // 2026-08-21: N4/N3を各60問へ増作完了→偏り強制を有効化。
 const MONO_MAX = 0.55;                 // q_type/figure_pattern の偏り上限
 const MIN_KINDS: Record<string, number> = { q_type: 4, scene: 6, figure_pattern: 3, notice: 2, medium: 3 };
 const REQ_SEIGO = 5;                   // 各レベルの「正誤」最低数
@@ -59,7 +59,7 @@ test('骨組み4軸は全itemに付いている(タグ漏れ=作問がメタ抜�
 
 test('字数が公式帯[0.8×〜1.5×]内=激短/冗長を止める(常時有効・必ず守る)', () => {
   for (const name of FILES) {
-    const tgt = CHARS[name], lo = Math.floor(tgt * CHAR_LO), hi = Math.floor(tgt * CHAR_HI);
+    const [lo, hi] = BAND[name];
     const bad = load(name).map((it) => [it.id, effChars(it)] as const).filter(([, c]) => c < lo || c > hi);
     assert.equal(bad.length, 0, `${name} 字数帯外[${lo}-${hi}]: ${bad.slice(0, 5).map(([i, c]) => `${i}=${c}`).join(', ')}`);
   }

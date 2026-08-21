@@ -6,7 +6,9 @@
    ・単語×大問カバー率   … カバー率セルを着色＋「点検メモ」列に何が問題かを日本語で記載
    使い方: python tools/stock_analysis_color.py   （前提: 対象xlsxを閉じておくこと）
 """
-import os, re, json, subprocess, sys, statistics as st
+import os, re, json, subprocess, sys, statistics as st, collections
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import joho_solvability as js   # 走査性S/C・多様性の判定ロジックを単一ソースで再利用
 sys.setrecursionlimit(1000000)   # openpyxl delete_rows がスタイル複製で深く再帰する対策
 from openpyxl import load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment
@@ -43,8 +45,8 @@ def collect(v):
     if isinstance(v,list): return ''.join(collect(x) for x in v)
     if isinstance(v,dict): return ''.join(collect(x) for x in v.values())
     return ''
-BAND={'N5':(200,375),'N4':(320,600),'N3':(480,900)}
-TGT ={'N5':'250[200-375]','N4':'400[320-600]','N3':'600[480-900]'}
+BAND={'N5':(200,375),'N4':(340,460),'N3':(510,690)}  # N4/N3=目標±15%(2026-08-21)
+TGT ={'N5':'250[200-375]','N4':'400[340-460]','N3':'600[510-690]'}
 # figure比率/図版依存%/本文自足% は正本ツール joho_figure_check.py の出力を採用（指標定義を統一）。
 fc = subprocess.run([sys.executable,'-X','utf8', os.path.join(ROOT,'tools','joho_figure_check.py')],
                     capture_output=True, text=True, encoding='utf-8').stdout
@@ -59,8 +61,19 @@ for lv in ('N5','N4','N3'):
     lo,hi=BAND[lv]
     short=sum(1 for c in eff if c<lo); long=sum(1 for c in eff if c>hi)
     figratio,izon,jisoku = fcm.get(lv,(None,None,None))
+    # 走査性・多様性(番人 joho_solvability と同基準)
+    sc=collections.Counter(it.get('skeleton',{}).get('scene') for it in its)
+    kinds=len([k for k in sc if k not in ('その他',None)]); top,topc=sc.most_common(1)[0]
+    div=f"{kinds}種/最頻{round(topc/len(its)*100)}%"
+    hard=lv in ('N4','N3')   # 走査S/Cのハード対象(N5は易しく=対象外)
+    sbad=sum(1 for it in its if not js.sources_ok(it)[0])
+    cbad=sum(1 for it in its if not js.choices_ok(it)[0])
+    scanS='OK' if sbad==0 else f'NG{sbad}'
+    scanC='OK' if cbad==0 else f'NG{cbad}'
+    if not hard: scanS='対象外'; scanC='対象外'
     joho[lv]=dict(n=len(its), med=int(st.median(eff)), mn=min(eff), mx=max(eff),
-                  tgt=TGT[lv], out=f'{short}/{long}', figratio=figratio, izon=izon, jisoku=jisoku)
+                  tgt=TGT[lv], out=f'{short}/{long}', figratio=figratio, izon=izon, jisoku=jisoku,
+                  div=div, scanS=scanS, scanC=scanC)
 
 wb=load_workbook(XLSX)
 
@@ -114,6 +127,13 @@ for lv,r in info_rows.items():
     ws.cell(r,5,d['tgt']); ws.cell(r,6,d['out'])
     if d['figratio'] is not None:
         ws.cell(r,7,f"{d['figratio']}%"); ws.cell(r,8,f"{d['izon']}%"); ws.cell(r,9,f"{d['jisoku']}%")
+    # 走査性・多様性(2026-08-21 追加・番人 johoSolvability と同基準)
+    ws.cell(r,10,d['div']); ws.cell(r,11,d['scanS']); ws.cell(r,12,d['scanC'])
+# 情報検索の見出し行(級/掲示…)に走査性・多様性の列見出しを追加
+for r in range(1,ws.max_row+1):
+    if str(ws.cell(r,1).value or '').strip()=='級' and str(ws.cell(r,2).value or '').strip()=='掲示':
+        ws.cell(r,10,'多様性(種類/最頻)'); ws.cell(r,11,'走査S 情報源≥2'); ws.cell(r,12,'走査C 誘惑肢(選ぶ)')
+        break
 # (5) 着色: 内容理解「最新」行の品質セル  I(9)帯外 J(10)最長% K(11)丸写% L(12)語彙%
 for r in range(1,ws.max_row+1):
     if not str(ws.cell(r,1).value or '').startswith('内容理解'): continue
@@ -132,6 +152,10 @@ for lv,r in info_rows.items():
     ws.cell(r,4).fill=fill(GREEN)
     p=pct(ws.cell(r,9).value)
     if p is not None: ws.cell(r,9).fill=fill(GREEN if p<=50 else YELLOW if p<=70 else RED)
+    # 走査性・多様性の着色: OK/対象外=緑・NG=赤
+    for c in (10,11,12):
+        v=str(ws.cell(r,c).value or '')
+        ws.cell(r,c).fill=fill(RED if v.startswith('NG') else GREEN)
 add_legend(ws)
 
 # ══ Sheet: 聴解攻略耐性分析 (header r7, data r8-20) ══
