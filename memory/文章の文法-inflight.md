@@ -1,5 +1,32 @@
 # 文章の文法(passage_grammar) N4/N3 リビルド — inflight（/clear耐性）
 
+## 【2026-08-21 完了(未コミット/未ビルド)】N3 計50問＝live追記済・ビルド指示待ち
+- ルビ検算exit0→**live追記**: `passage_grammar_N3.json` items=20→**50**(0001-0050・全文ルビ・item形式)。
+- テスト更新: passageGrammar.test.ts(150→**180**・{N5:80,N4:50,N3:50})・passageGrammarWire.test.ts(150→180・N3 20→**50**)・passageTransNe.test.ts(借金150→**180**)。`_manifest`再生成(N3 count=50)。
+- **番人28/28緑・tsc0**・在庫チェーン再生成(在庫15900・N3満試25回)。
+- **確認用Excel(全50・ルビ付)**: `問題/N3_文章の文法_確認用_全50問.xlsx`(exporter=`tools/export_n3_passage_grammar_review.py`・旧`N3_文章の文法_確認用.xlsx`は開いてた為別名)。ユーザー確認中。
+- **通算カバー0001-0050＝126/186＝67.7%**。SOFT目視=N3-G-S-0030。
+- **未コミット/未ビルド**＝content(passage_grammar_N3.json)・_manifest・bundled.generated・3テスト・在庫Excel/txt・exporter。**ビルドはユーザー指示待ち**(前回2832でN4新50は端末反映済・今回のN3 21-50はまだ端末に無い→次ビルドで載る)。RUN_BALANCE=false据置(126点・全186未達)。
+- N3残り＝80問目標まであと30セット(0051-0080・alloc new_sets[50:80]・`build_specs_n3.py --start 51 --count 30 --prefix n3c`)。
+
+## 【2026-08-21 履歴】N3 21-50＝生成→機械ゲート→ルビ
+- 5体完了→結合`assembled_n3b_30.json`(30・N3-G-S-0021..0050)。機械ゲートexit0(HARD0)。SOFT1件=N3-G-S-0030(目視)。
+- **通算カバー0001-0050＝126/186＝67.7%**・cap max2・超えなし。
+- **ルビ走行中 run＝ae2091400cf4e4322**(general-purpose・Opus)。出力=`ruby_out_n3b_p1..p3.json`(各10・0021-30/0031-40/0041-50)。検算=`PG_ASSEMBLED=assembled_n3b_30.json PG_RUBY_GLOB="ruby_out_n3b_p*.json" PG_COUNT=30 PG_BAND="380,500" python validate_ruby.py`。
+- **ルビ後**: ①検算exit0 ②確認用Excel全50版を再生成しユーザーへ(exporter --include-drafts をルビ版で・またはlive追記後に通常出力) ③live追記(20→50・item形式・設問id={sid}-q{blankNo}) ④テスト(passageGrammar/Wire 150→180・N3 20→50／passageTransNe 借金150→180) ⑤_manifest再生成→番人/tsc→在庫 ⑥**ビルドはユーザー指示待ち**(前回2832でN4新50は端末反映済)。
+
+## 【2026-08-21 走行中→完了】N3 21-50（30セット追加・計50問へ）作問
+- ユーザー指示「n3 21-50問へ」。スペック=`build_specs_n3.py --start 21 --count 30 --prefix n3b`→`spec_n3b01..05.json`(7/7/7/7/2・id N3-G-S-0021..0050)。字数帯380-500。
+- **カバー見込み**: 21-50で新規66点・**計126/186=67.7%**(0001-0020の60→126)。cap≤3充足(max2)。
+- **走行中5体**(general-purpose・Opus・独立verify無し): out_n3b01(0021-0027)/b02(0028-0034)/b03(0035-0041)/b04(0042-0048)/b05(0049-0050)。
+- **再開手順(5体完了後)**:
+  1. 機械ゲート: `cd scratchpad/pg/gen && PG_BAND="380,500" PG_SELF_LEVEL="N3" python validate_out.py out_n3b01.json out_n3b02.json out_n3b03.json out_n3b04.json out_n3b05.json`。HARD>0は該当specだけregen→再ゲート。**加えて0001-0050通算のcap≤3を確認**(alloc設計上OKだが要検算)。
+  2. 目視HTML: `python make_review_html.py out_n3b01.json out_n3b02.json out_n3b03.json out_n3b04.json out_n3b05.json`→ユーザーへ送付(一意性はビルド後にユーザー目視の方針)。
+  3. ルビ: assemble→list→1エージェントで全30本インラインルビ(64k回避で3分割 `ruby_out_n3b_p1..p3.json`)→`PG_ASSEMBLED=assembled_n3b_30.json PG_RUBY_GLOB="ruby_out_n3b_p*.json" PG_COUNT=30 PG_BAND="380,500" python validate_ruby.py`。
+  4. live追記: `passage_grammar_N3.json` items=20→50(0021-0050をitem形式で追加・設問id={sid}-q{blankNo}・i18n空)。
+  5. テスト更新: passageGrammar.test.ts(150→180・N3 20→50)・passageGrammarWire.test.ts(150→180・N3 20→50)・passageTransNe.test.ts(借金150→180)。
+  6. `_manifest`再生成→番人/tsc→在庫チェーン→**ビルドはユーザー指示待ち**(前回2832でN4新50は端末に載る)。RUN_BALANCEはfalse据置(126点・全186未達)。
+
 ## 【2026-08-21 完了】N3 20セット＝live採用→ビルド（N4新50も同梱）
 - ルビ完了→検算exit0（`PG_ASSEMBLED=assembled_n3_20.json PG_RUBY_GLOB="ruby_out_n3_p*.json" PG_COUNT=20 PG_BAND="380,500" python validate_ruby.py`＝改変ゼロ・二重ルビ0・構造不変）。
 - **live差替**: `content/problems/bunpou/passage_grammar_N3.json` を旧40→新20（item形式・全文ルビ・設問id={sid}-q{blankNo}・i18n空・skeleton保持）。旧40は`没問題/文章の文法_旧_2026-08-21/passage_grammar_N3_旧40_2026-08-21.json`へ退避（可逆）。

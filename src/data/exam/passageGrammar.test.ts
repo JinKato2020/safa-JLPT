@@ -6,11 +6,11 @@ import grammar from '../shared/grammar.json';
 const S = sets as any[];
 const gids = new Set((grammar as any[]).map((g) => g.id));
 
-test('150セット・N5 80/N4 50/N3 20', () => {
-  assert.equal(S.length, 150); // 2026-08-21 N4を新方式50問へ全面差替・N3を新方式20問へ全面差替
+test('180セット・N5 80/N4 50/N3 50', () => {
+  assert.equal(S.length, 180); // 2026-08-21 N4新50・N3新50(0001-0050)へ全面差替
   const by: Record<string, number> = {};
   for (const s of S) by[s.level] = (by[s.level] || 0) + 1;
-  assert.deepEqual(by, { N5: 80, N4: 50, N3: 20 });
+  assert.deepEqual(by, { N5: 80, N4: 50, N3: 50 });
 });
 
 test('セットid一意', () => {

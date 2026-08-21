@@ -101,13 +101,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - memory/在庫問題数.txt
-- memory/handoff.md
-- memory/文章の文法N5カバー-inflight.md
+- memory/~$在庫・模試ストックまとめ.xlsx
+- memory/在庫・模試ストックまとめ.xlsx
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
 - content/problems/bunpou/passage_grammar_N5.json
-- scratchpad/pg/n5cov/gen_C.json
+- scratchpad/pg/n5cov/reuse_ids.py
 - memory/session-summary-LATEST.md
 
-_自動更新: 2026-08-21 23:37_
+_自動更新: 2026-08-21 23:43_
 <!-- AUTO:END -->

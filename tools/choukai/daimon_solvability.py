@@ -167,8 +167,45 @@ def write_xlsx(rows):
     sh = '聴解攻略耐性分析'
     if sh in wb.sheetnames: del wb[sh]
     ws = wb.create_sheet(sh)
+    GREEN = PatternFill('solid', fgColor='C6EFCE')   # 合格
+    YELLOW = PatternFill('solid', fgColor='FFEB9C')  # 境界・注意
+    RED = PatternFill('solid', fgColor='FFC7CE')     # 要改善
+    FG = {'C6EFCE': '006100', 'FFEB9C': '9C6500', 'FFC7CE': '9C0006'}
+    CONTENT_NAMES = {'課題理解', 'ポイント理解', '概要理解'}
+
+    def tri(v, g, y):
+        return GREEN if v <= g else (YELLOW if v <= y else RED)
+
+    def fill_for(col, r):
+        """列の値をしきい値で信号色に。該当しない列は None。"""
+        base = r['基準%']; name = r['大問']; content = name in CONTENT_NAMES
+        v = r.get(col, '')
+        if col == '最長を選ぶ的中%':
+            return tri(v, base + 15, base + 25)
+        if col == '語彙マッチ的中%' and content and v != '':
+            return tri(v, base + 10, base + 20)
+        if col == '正解−誤答 本文一致差' and content and v != '':
+            return tri(v, 1.0, 2.0)
+        if col == '設問テンプレ最大%' and content and v != '':
+            return tri(v, 30, 40)
+        if col == '台本重複(≥.60)':
+            return GREEN if v == 0 else RED
+        if col == '選択肢セット重複(≥.70)':
+            return GREEN if v == 0 else RED
+        if col == '帯外 短/長' and isinstance(v, str) and '/' in v:
+            s, l = v.split('/'); return GREEN if (s == '0' and l == '0') else YELLOW
+        if col == '位置最大%(有効時)' and isinstance(v, (int, float)):
+            return tri(v, base + 7, base + 15)
+        if col in ('係', '留守'):
+            return GREEN if v == 0 else RED
+        if col == '依頼形%' and name == '発話表現' and v != '':
+            return tri(v, 35, 45)
+        if col == '形分離%' and name == '発話表現' and v != '':
+            return tri(v, 65, 75)
+        return None
     notes = [
         '聴解 攻略耐性・モーラ・ワンパターン 分析（2026-08-16 自動集計｜daimon_solvability.py）',
+        '★セル色＝信号：緑=合格／黄=境界・注意／赤=要改善。しきい値＝最長≤基準+15・語彙マッチ≤基準+10・正誤差≤+1.0・設問テンプレ≤30%・台本/選択肢重複=0・帯外=0が理想・係/留守=0・(発話)依頼形≤35%/形分離≤65%・位置最大≤基準+7。',
         '本質3観点→ ①答えが本文/設問から予測できる ②誤答が弱い ③大問×レベル内でワンパターン/重複。',
         '語彙マッチ的中%=「本文と最も語が重なる選択肢」を選ぶと正解になる割合(基準=1/選択肢数)。高い=正解だけ本文語→聞かず語マッチで解ける(①②)。良い設計は正解を言い換え本文語は誤答へ罠として置く。',
         '正解−誤答 本文一致差=正解の本文一致語数−誤答平均。+大=正解だけ本文語(①②)。最長を選ぶ的中=正解が最長選択肢の割合(②)。',
@@ -181,6 +218,15 @@ def write_xlsx(rows):
     for c in ws[hr]:
         c.font = Font(bold=True); c.fill = PatternFill('solid', fgColor='DDEBF7'); c.alignment = Alignment(wrap_text=True, vertical='center')
     for r in rows: ws.append([r.get(c, '') for c in COLS])
+    # 信号色（緑/黄/赤）をしきい値で各指標セルへ
+    for i, r in enumerate(rows):
+        exr = hr + 1 + i
+        for ci, col in enumerate(COLS, start=1):
+            fl = fill_for(col, r)
+            if fl is not None:
+                cell = ws.cell(exr, ci)
+                cell.fill = fl
+                cell.font = Font(color=FG[fl.fgColor.rgb[-6:]])
     widths = [12, 6, 6, 6, 16, 15, 8, 8, 12, 6, 12, 14, 12, 12, 14, 12, 12, 5, 5, 8, 8, 8, 9]
     for i, w in enumerate(widths, 1):
         ws.column_dimensions[get_column_letter(i)].width = w
