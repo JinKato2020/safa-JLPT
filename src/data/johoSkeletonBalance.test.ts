@@ -32,7 +32,9 @@ function effChars(it: Item): number {
 const AXES = ['q_type', 'notice', 'scene', 'figure_pattern', 'medium'] as const;
 
 // 作問で薄い型を足し終えたら true にして恒久ガードを起こす（md/09_読解.md 参照）。
-const RUN_BALANCE = true;
+// 2026-08-21: N3/N4を新方式10問パイロットへ差し替え中。10問では絶対数要件(正誤5・場面6種等)を満たせないため
+//   バランス強制は一時 false（字数帯・骨組み存在の常時ガードは有効のまま）。N3/N4を本数まで戻したら true へ。
+const RUN_BALANCE = false;
 const MONO_MAX = 0.55;                 // q_type/figure_pattern の偏り上限
 const MIN_KINDS: Record<string, number> = { q_type: 4, scene: 6, figure_pattern: 3, notice: 2, medium: 3 };
 const REQ_SEIGO = 5;                   // 各レベルの「正誤」最低数

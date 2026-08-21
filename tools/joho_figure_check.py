@@ -84,7 +84,9 @@ def main():
                 if not ch or ai >= len(ch): continue
                 nq += 1
                 ans = ch[ai]
-                bg_a = content_bigrams(ans) | content_bigrams(q.get('q', ''))
+                # 図版依存/本文自足は「正解のみ」で判定する。設問文(q)は本文のシナリオを言い換える
+                # ため本文と大量に重なり、実際は図必須の設問まで“本文自足”に誤計上される（2026-08-21修正）。
+                bg_a = content_bigrams(ans)
                 ov_body = len(bg_a & bg_body)
                 ov_fig = len(bg_a & bg_fig)
                 if ov_fig > ov_body: figdep += 1

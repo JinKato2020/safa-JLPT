@@ -1,13 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
+- ツール呼び出し 6 回・15 ターン
+- 往復 171218 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/読解修正-inflight.md
-- 問題/読解/読解問題_N5.xlsx
-- 問題/読解/読解問題_N4.xlsx
-- 問題/読解/読解問題_N3.xlsx
+- scratchpad/joho_hard/joho_new_preview.html
+- scratchpad/joho_hard/gen_preview.py
+- memory/session-summary-LATEST.md
+- scratchpad/joho_hard/N3_new.json
 
 ## 次の一手
 - **▶▶ 2026-08-20 LIVE＝情報検索(joho) 全レベル作り直し＋仕組み実装（正本＝`memory/読解修正-inflight.md` 末尾「情報検索 joho」節）**: 旧405問は偏りで没(`没問題/情報検索_旧_2026-08-20/`・content外＝アプリ非表示)。**新規＝N5:10問(0001-0010)・N4:10問(0001-0010)・N3:20問(0001-0020) 完成・全検証済**(字数帯内／番人`src/data/johoSkeletonBalance.test.ts`緑＝骨組み付与+字数帯は常時有効・バランス強制はRUN_BALANCE=falseで作問完了後に有効化／構造0問・答え一意・5軸網羅・広告/パンフレットN3各5・時刻表/料金表も補充)。ビルダー=`scratchpad/joho_new/build_n{5,4,3}.py`＋`build_n3_add.py`(既存温存・id置換で追記式・二重実行OK)。**仕組み①字数**＝帯[0.8×〜1.5×]は不変、**作問の狙う目標字数を公式×1.05〜1.1(N3=640目安)にして一発で帯内に収める**運用(md/09_読解.md 116行に記録・過去=14回加筆で刻んだ実害)。**仕組み②Editバンドル・ゲート**＝`~/.claude/hooks/gate-edit-bundling.mjs`(PreToolUse Edit)。方式＝**`prompt_id`＋前回Editからの発火間隔**(バンドル=同一返信で連続発火し間隔<5秒→通す／刻み=別メッセージで数秒〜数十秒空く→**deny**)。安全弁 env `CLAUDE_EDIT_GATE_OFF=1`／窓 env `CLAUDE_EDIT_BUNDLE_WINDOW_MS`(既定5000)。番人`watch-edit-gate.mjs`(UserPromptSubmit・毎ターン、ゲート登録欠落を警告)。**フックはsettings.json保存で即ライブ再読み込み(/clear・再起動不要)＝実弾で発火確認済(バンドル通過/刻み10秒deny)**。※トランスクリプト読み方式は破綻(PreToolUse時点で現在メッセージが未反映＝バンドル件数を数えられず正当バンドルを誤拒否・旧実装は1.3GB丸読みで例外→fail-open)ゆえ間隔方式に変更。**✅ 情報検索 N3 21-30 作問完了(2026-08-20)**＝`build_n3_add2.py`(Write一発＋加筆4編集を1メッセージで束ね)・N3は計30問(0001-0030)・全band OK(481-538)・4択一意・選択肢セット重複0・骨組み/解説完備・番人緑・rebuild済。**仕組み②のスコープ限定を実装**＝Editバンドル・ゲートは`content/problems/`配下のEditのみ対象、他ファイルは無条件許可(ユーザー厳命2026-08-20・`normFile.includes('/content/problems/')`早期allow・selectors.ts payload→`{}`で検証済)。**次の一手＝ユーザー判断**(区切る／N3さらに増作／N4・N5増作)。**未コミット・未ビルド**(ビルドは`-Approved`明示指示待ち＝[[never-build-without-explicit-order]])。
