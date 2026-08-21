@@ -2,7 +2,10 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶▶ 2026-08-21 ✅N3 20問 live採用→ビルド中（正本＝`memory/文章の文法-inflight.md`）**: N3「文章の文法」を新方式**20問(N3-G-S-0001..0020・全文ルビ)**へ全面差替（旧40は`没問題/文章の文法_旧_2026-08-21/`へ退避＝可逆）。3体並列生成→機械ゲートexit0(HARD0)→ルビ検算exit0。**カバー率N3=60/186=32.3%**。テスト更新(passageGrammar/Wire 200→150・N3 40→20／passageTransNe 借金170→150／※N4差替時の更新漏れ赤も是正)・`_manifest`再生成(N3 count=20)・番人緑・tsc0・在庫チェーン(15750)。**N4新50はOTA配信のみで直近ビルド2829に未同梱→今回のビルドでN4新50・N3新20とも端末に載る**(bundled.generated.tsがcontent静的import)。ビルドはこのターンで dispatch(iOS本日3→4/8)。RUN_BALANCE=false据置(N3 60点のみ・全186点は未達)。翻訳en/neは後日(有料・見積承認後)。次の一手＝ビルドCI確認／N3残り(80問目標へ増作)はユーザー判断。以下は旧LIVE(参考):
+- **▶▶ 2026-08-21 ✅完了(未コミット/未push)＝文章の文法 N5 カバー率 52→91/91(100%)（正本＝`memory/文章の文法N5カバー-inflight.md`）**: 低カバー12問を没問題へ退避(可逆・退避後もカバー52維持を実測)＋新規12問(0081-0092・各2文章5空所・割当pointIdで未カバー39点を全網羅)。**品質＝機械ゲートHARD0＋独立盲反証を3ラウンド**（正解伏せで別エージェントが解答→非一意を検出→修正の反復。不要/禁止・申し出/希望・とき/あと・は/も の第2正解を全つぶし）。**適用(68→80)→rebuild→テスト緑(passageGrammar3/3・Wire3/3・transNe4/4・N5 80維持)→tsc0**。**未コミット**＝`content/problems/bunpou/passage_grammar_N5.json`(80)・`content/_manifest.json`・退避json。**次の一手＝ユーザー判断**（①OTA配信=commit+push②カバー率Excelはロック中で要再実行③翻訳en/ne後日）。作問=Opus本体・有料API無し。◀◀ 次セッションの起点。
+- **▶▶ 2026-08-21 ✅完了＝聴解 攻略耐性の赤を緑化＋OTA配信（正本＝`memory/聴解攻略耐性-inflight.md`）＝コミット`843f1df7`**: 在庫Excel「聴解攻略耐性分析」の赤2種を緑化。①**発話表現 台本重複(≥.60) N5 24→0・N4 8→0・N3 4→0**（近似ペアの片方を別場面へ多様化＝状況文＋選択肢を差替・機能/場面/軸は自動再分類・授受向き/時制/語彙の同形ダミーで攻略耐性維持）。②**即時応答N4「最長を選ぶ的中」52%→40%**（緑線≤48%・正解本文と位置は不変で誘惑肢1つを自然延長し正解を最長でなくす・30問）。**新規恒久ツール`tools/choukai/inplace_fix.py`**（既存idのまま現場修正＝audio名不変・作問フロー§6に記載）。**品質チェック済**（作問フロー2本に照合＝発話18全問一意・係/留守0・漢数字・長さ差≤5／即時30は正解不変で一意性維持／tts_lint新規誤読なし＝`何と`警告は全600発話の既存偽陽性）。**音声48本再生成**（発話18＋即時30・Gemini2.5Flash・48/48成功・**実費$0.19≒¥28**）→rebuild→daimon_solvability --xlsx（全緑確認）→**コミット`843f1df7`＋push＝OTA配信（Pages run`32487325472`・ビルド無し）**。UI変更なし・content+音声のみ。**次の一手＝ユーザー判断**（他の赤＝発話の帯外/即時N3・N5の選択肢重複2は今回対象外の既存事項）。◀◀ 次セッションの起点。
+- **▶▶ 2026-08-21 ✅完了＝N3文章の文法50問化＋一意性修正4件＝コミット`dfb27481`・OTA配信済(ビルド無し・Pages run 32476998760)**: N3を新方式50問(0001-0050・全文ルビ)へ。0021-0050の30問追加(3体並列→機械ゲートHARD0→ルビ検算exit0)＋ユーザー指摘の一意性修正4件(0001空所4 出した→直した/0002空所5 てもらって→直した/0016空所4 ために→ので/0018空所4 4択を丁寧形化し正解=ようとしません)。**カバー率N3=126/186=67.7%**。テスト180(N5:80/N4:50/N3:50)・借金180・_manifest再生成・番人緑・tsc0・在庫15900。**カバー率シート更新ツール新設**`tools/update_coverage_grammar.py`(単語×大問カバー率の文法ブロックを再計算・元は手集計スナップショットで自動更新無し=N4文章38→77%/N3文章3→68%修正・母数はn5-g-92除外でアプリ定義に統一)。**未コミット(app非影響)**=番人テスト3本(180/50期待)・確認用Excel出力ツール・在庫Excel/txt・update_coverage_grammar.py（次ビルドで載る）。ビルド2832にN4新50+N3新20は同梱済。以下は旧LIVE(参考):
+- **▶▶ 2026-08-21 ✅N3 20問 live採用→ビルド(2832)（正本＝`memory/文章の文法-inflight.md`）**: N3「文章の文法」を新方式**20問(N3-G-S-0001..0020・全文ルビ)**へ全面差替（旧40は`没問題/文章の文法_旧_2026-08-21/`へ退避＝可逆）。3体並列生成→機械ゲートexit0(HARD0)→ルビ検算exit0。**カバー率N3=60/186=32.3%**。テスト更新(passageGrammar/Wire 200→150・N3 40→20／passageTransNe 借金170→150／※N4差替時の更新漏れ赤も是正)・`_manifest`再生成(N3 count=20)・番人緑・tsc0・在庫チェーン(15750)。**N4新50はOTA配信のみで直近ビルド2829に未同梱→今回のビルドでN4新50・N3新20とも端末に載る**(bundled.generated.tsがcontent静的import)。ビルドはこのターンで dispatch(iOS本日3→4/8)。RUN_BALANCE=false据置(N3 60点のみ・全186点は未達)。翻訳en/neは後日(有料・見積承認後)。次の一手＝ビルドCI確認／N3残り(80問目標へ増作)はユーザー判断。以下は旧LIVE(参考):
 - **▶▶ 2026-08-21 旧LIVE＝文章の文法(passage_grammar) N4/N3 文法ID紐づけ・カバー率リビルド（設計正本＝`md/08_文章の文法.md`「★N4/N3 文法ID紐づけ・カバー率リビルド」）**: 狙い＝pointIdを級点へ広く紐づけ予想得点/カバー率を正確化。**方針決定＝N4・N3ともに全面新規（既存N4 80＋N3 40をまるごと没問題へ退避し、配分表から80本ずつ新規作成）**。到達目標＝**カバー100%**（N4 131/131・N3 186/186）。**①配分表 完成（無料）＝`scratchpad/pg/allocation/{n4_alloc.json,n3_alloc.json,配分表.md}`**（各本の自級主軸3点をid＋point付きで確定・cap≤3・各本≥3自級点で成立確認）。**番人 完成＝`src/data/bunshouGrammarBalance.test.ts`（build.ps1登録済・現状は`RUN_BALANCE=false`でskip・リビルド後にtrue）**＝カバー≥60%/級ミックス≥3/集中≤3/字数帯(N4 340-460・N3 380-500)/場面多様性(最頻≤20%・≥8系統・要`skeleton.scene`)。**進捗(2026-08-21・詳細=`memory/文章の文法-inflight.md`)＝N4 0001-0050 生成完了。「止まる関所」(機械ゲート=`scratchpad/pg/gen/validate_out.py`・HARD欠陥でexit非ゼロ+gate_fail.json)を実装し、生成→機械ゲート→目視HTML→安全スクリプトで狙い撃ち修正、の流れを確立。ユーザー目視で一意性の崩れを全つぶし済(0003#3/0027#2,3/0043#1/0046#3/0047#2+空所番号)。絶対パス強制フック(`~/.claude/hooks/emit-write-path.mjs`+settings.json PostToolUse Write)も実装([[always-cite-absolute-save-path]])。次=N4 0051-0080を10刻みで同型生成(build_specs --start N --count 10 --prefix …)→N3。** 全面新規で総セット200→**240**（採用時に`passageGrammar.test.ts`のS.length=200/N3=40固定・`passageGrammarWire.test.ts`のN3=40期待を更新）。作問=Opusのみ(有料API無し)・翻訳en/neは後日見積り承認後。
 - **▶▶ 2026-08-21 ✅適用完了＝情報検索(joho) 需要多源化リビルド（正本＝`memory/joho-multisource-inflight.md`）・未コミット/未ビルド**: 「走査性」を供給側(情報源数)と需要側(正解に必要な源数=answer_sources)に分離し需要を上げた。**N4差替26・N3差替31を本体適用**（旧問は`没問題/情報検索_多源化_2026-08-21/`へ退避＝可逆）。全180問に`skeleton.answer_sources`(1/2/3)。**分布**＝N4≥2源40/60・N3≥2源60/60＆≥3源30/60・N5据置(構造proxyでタグのみ)。番人新設`src/data/johoAnswerSources.test.ts`をbuild.ps1へ登録。**joho番人11/11緑・build用48/48緑・tsc0・_manifest再生成・読解/品質Excel再生成**。作問=Opusのみ(有料API不使用)。修正2件=N3-0059選択肢差別化・N3-0012選択肢を図版一致化。**✅コミット`426a1c9e`＋Build v1.1.2(2829) iOS/Android both dispatch(run`32453074988`・NoWatch・iOS本日3/8)＝2026-08-21**(push でOTA/Pages起動)。**残＝Build2829のCI結果確認(未確認)／翻訳(en/ne・新旧joho本文/設問/選択肢/解説)は後日・Gemini有料・見積り承認後**。**追記(2026-08-21・Build後・未コミット)＝品質Excel「読解 品質パラメータ」の全体走査(M列)を具体化**＝OK/割合でなく`answer_sources`実数分布「2源=◯問 3源=◯問」表記へ(`tools/stock_analysis_color.py`のwhole_str+見出し+説明を改修・Excel再生成済。N5=1源41/2源18/3源1・N4=1源20/2源39/3源1・N3=2源30/3源30)。tool/Excelは未コミット(app非影響・次ビルドで載る)。次の一手＝ユーザー判断。
 - **▶▶ 2026-08-21 ✅完了＝情報検索(joho) N4/N3を各60問へ増作＋解説簡潔化＋走査性/多様性ゲート化（正本＝`memory/joho-expand-inflight.md`）**: N4/N3各60問(0001-0060・新方式)を適用・本番相当難易度・**字数±15%**(N4[340-460]/N3[510-690])・**番人全緑でRUN_BALANCE=true化**(johoSkeletonBalance＋新設johoSolvability＝走査S情報源≥2/走査C誘惑肢/多様性・build.ps1登録)。解説は既存20＋新100とも簡潔スタイルへ。伸長時の本文取り違え3件(0020/0032/0033)を修正済。Excel「読解 品質パラメータ」に走査S/C・多様性の列追加＋在庫チェーン再生成(在庫16000)。tsc0・整合テスト緑。**✅コミット`c683060c`＋Build v1.1.1(2828) iOS/Android both dispatch(run`32443522123`・NoWatch)＝2026-08-21**（テスト45/45緑・push でOTA/Pages起動・iOS本日2/8）。版番号は新方式で1.1.0→1.1.1(マイナー相当)＝[[version-numbering-scheme]]。**残務＝①Build2828のCI結果確認(未確認)②情報検索の翻訳(joho本文/設問/選択肢/解説のen/ne・新旧計含む・Gemini有料・¥見積り承認要)。次の一手＝ユーザー判断**。
@@ -90,21 +93,21 @@
 <!-- AUTO:BEGIN -->
 
 ## 走行中の run（自動・完了通知が来ていないもの）
+- aad6970109b6cdbb7 general-purpose
 - af4686266a575b6b5 general-purpose
 - a0f90a27b7783f6f2 general-purpose
 - a4df5ab3f91b7baa3 general-purpose
 - a8531eca2414c47f4 general-purpose
-- add9bfb15a745e700 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/session-summary-LATEST.md
+- memory/在庫問題数.txt
 - memory/handoff.md
-- memory/文章の文法-inflight.md
-- scratchpad/pg/gen/validate_ruby.py
-- scratchpad/pg/gen/assembled_n3_20.json
-- scratchpad/pg/gen/review_N3-G-S-0001_N3-G-S-0020.html
-- scratchpad/pg/gen/gate_fail.json
-- scratchpad/pg/gen/out_n3_b01.json
+- memory/文章の文法N5カバー-inflight.md
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- content/problems/bunpou/passage_grammar_N5.json
+- scratchpad/pg/n5cov/gen_C.json
+- memory/session-summary-LATEST.md
 
-_自動更新: 2026-08-21 20:11_
+_自動更新: 2026-08-21 23:37_
 <!-- AUTO:END -->
