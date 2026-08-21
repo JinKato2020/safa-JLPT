@@ -12,10 +12,23 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 LEVELS = ['N3', 'N4', 'N5']
 SHEET = '情報検索'
 HDR = ['区分', '本文ID', 'タイトル', '字数', '本文', '図版', '設問ID', '設問',
-       '選択肢1', '選択肢2', '選択肢3', '選択肢4', '正解', '解説']
+       '選択肢1', '選択肢2', '選択肢3', '選択肢4', '正解', '解説', '場面']
 
-def eff_chars(body):
-    return len(re.sub(r'\s', '', re.sub(r'（[^）]*）', '', body or '')))
+def strip_ruby(s):
+    return re.sub(r'\s', '', re.sub(r'（[^）]*）', '', s or ''))
+
+def collect(v):
+    if isinstance(v, str):
+        return v
+    if isinstance(v, list):
+        return ''.join(collect(x) for x in v)
+    if isinstance(v, dict):
+        return ''.join(collect(x) for x in v.values())
+    return ''
+
+def eff_chars(it):
+    # 本文全体＝body＋figure の全テキストからルビ「（かな）」と空白を除いた実効字数（＝番人 joho_len_check と同じ測り方）
+    return len(strip_ruby(collect(it.get('body')) + collect(it.get('figure'))))
 
 def fig_text(fig):
     p = []
@@ -67,15 +80,16 @@ def main():
             q = it['questions'][0]
             ch = q['choices']
             ws.append([
-                '新規', it['id'], it.get('title', ''), eff_chars(it.get('body', '')),
+                '新規', it['id'], it.get('title', ''), eff_chars(it),
                 it.get('body', ''), fig_text(it.get('figure', {})),
                 q['id'], q['q'], ch[0], ch[1], ch[2], ch[3],
                 f"選択肢{q['answerIndex'] + 1}", q['i18n']['ja']['explain'],
+                it.get('skeleton', {}).get('scene', ''),
             ])
             n += 1
         # 見やすさ: 折り返し
         widths = {'A': 6, 'B': 14, 'C': 22, 'D': 6, 'E': 48, 'F': 60, 'G': 16, 'H': 30,
-                  'I': 20, 'J': 20, 'K': 20, 'L': 20, 'M': 8, 'N': 48}
+                  'I': 20, 'J': 20, 'K': 20, 'L': 20, 'M': 8, 'N': 48, 'O': 14}
         for col, w in widths.items():
             ws.column_dimensions[col].width = w
         for row in ws.iter_rows(min_row=2):

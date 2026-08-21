@@ -23,6 +23,7 @@ param(
   [switch]$NoWatch,
   [switch]$Force,
   [switch]$Approved,           # ★勝手にBuild厳禁ゲート。ユーザーが明示的に「ビルドして」と言った時だけ付ける。
+  [switch]$Major,              # バージョンをメジャー更新（中央+1・末尾を1へ）。既定はマイナー更新（末尾+1）。
   [ValidateSet('both', 'ios', 'android')]
   [string]$Platforms = 'both'
 )
@@ -88,6 +89,27 @@ if (-not $DryRun -and $Platforms -ne 'android') {
   }
 }
 
+# ---- 1.5 バージョン自動更新（版番号スキーム・ユーザー厳命 2026-08-21）--------
+# marketing version(app.json expo.version)を自動で上げる＝記憶頼みにしない。
+# 既定＝マイナー更新（末尾+1・例 1.1.1→1.1.2）／ -Major＝メジャー更新（中央+1・末尾を1へ・例 1.1.x→1.2.1）。
+# minor/major の判断（=-Major を付けるか）だけが人の仕事。Build番号(2000+commit)は別系統で自動。
+# DryRun は commit しないので app.json を汚さないようスキップ。
+if (-not $DryRun) {
+  Step '1.5' 'バージョン自動更新'
+  $appJson = Join-Path $APP 'app.json'
+  $raw = Get-Content $appJson -Raw
+  $rx = [regex]'("version":\s*")(\d+)\.(\d+)\.(\d+)(")'
+  $m = $rx.Match($raw)
+  if (-not $m.Success) { Die 'app.json の version(x.y.z) を認識できませんでした。' }
+  $maj = [int]$m.Groups[2].Value; $min = [int]$m.Groups[3].Value; $pat = [int]$m.Groups[4].Value
+  $old = "$maj.$min.$pat"
+  if ($Major) { $min++; $pat = 1 } else { $pat++ }
+  $newver = "$maj.$min.$pat"
+  $raw = $rx.Replace($raw, "`${1}$newver`${5}", 1)
+  Set-Content $appJson -Value $raw -NoNewline -Encoding utf8
+  Write-Host "  version $old -> $newver （$(if ($Major) { 'メジャー' } else { 'マイナー' })更新）"
+}
+
 # ---- 2. manifest 再生成 ----------------------------------------------------
 # content を触っていなくても常に走らせる。忘れると OTA の sha256 照合が壊れるため。
 Step 2 'content manifest 再生成'
@@ -110,6 +132,7 @@ $tests = @(
   'src/data/skeletonBalance.test.ts'
   'src/data/johoSkeletonBalance.test.ts'
   'src/data/johoSolvability.test.ts'
+  'src/data/johoAnswerSources.test.ts'
 )
 $log = Join-Path ([System.IO.Path]::GetTempPath()) 'jlpt-build-test.log'
 node --import tsx --test @tests > $log 2>&1

@@ -68,12 +68,31 @@ for lv in ('N5','N4','N3'):
     hard=lv in ('N4','N3')   # 走査S/Cのハード対象(N5は易しく=対象外)
     sbad=sum(1 for it in its if not js.sources_ok(it)[0])
     cbad=sum(1 for it in its if not js.choices_ok(it)[0])
-    scanS='OK' if sbad==0 else f'NG{sbad}'
-    scanC='OK' if cbad==0 else f'NG{cbad}'
-    if not hard: scanS='対象外'; scanC='対象外'
+    # 走査S＝情報源数(参照ブロック=表+注記+カード)の分布／走査C＝誘惑肢の採用／全体走査(2026-08-21 具体化・ユーザー指示：OKでなく実数)
+    def _blk(it):
+        b=it.get('figure',{}).get('blocks',[])
+        return sum(1 for x in b if x.get('type') in ('table','notice','card'))
+    srcd=collections.Counter(_blk(it) for it in its)
+    src_str='／'.join((f'1源(密):{srcd[k]}問' if k==1 else f'{k}源:{srcd[k]}問') for k in sorted(srcd, reverse=True))
+    scanS=(f'⚠情報源不足{sbad}問／' if (hard and sbad) else '')+src_str+(f'／全{len(its)}問が「表1行だけでは解けない」基準クリア' if hard else '（N5は走査ハード対象外＝参考値）')
+    erabu=[it for it in its if it.get('skeleton',{}).get('q_type')=='選ぶ']
+    erabu_ok=sum(1 for it in erabu if js.choices_ok(it)[0])
+    anyg=sum(1 for it in its if sum(1 for c in it['questions'][0]['choices'] if js.norm(c) and js.norm(c) in js.fig_text(it))>=3)
+    scanC=(f'⚠図版由来不足{cbad}問／' if (hard and cbad) else '')+f'「選ぶ」型{len(erabu)}問中 図版に実在する誘惑肢≥3＝{erabu_ok}問（全型では{anyg}問が図版由来の紛らわしい肢）'+('' if hard else '（N5は対象外）')
+    whole=sum(1 for it in its if js.sources_ok(it)[0] and js.cond_count(it)>=2)
+    whole_str=f'{whole}/{len(its)}問（{round(whole/len(its)*100)}%）＝表の最有力行が罠・決め手は注記/条件＝図版全体の突き合わせが必要'
     joho[lv]=dict(n=len(its), med=int(st.median(eff)), mn=min(eff), mx=max(eff),
                   tgt=TGT[lv], out=f'{short}/{long}', figratio=figratio, izon=izon, jisoku=jisoku,
-                  div=div, scanS=scanS, scanC=scanC)
+                  div=div, sc=sc, scanS=scanS, scanC=scanC, whole=whole_str)
+
+# 場面の全8種を共通順(全レベル合算の多い順)で確定し、ヘッダー＋各級の%内訳を作る(2026-08-21 ユーザー指示)
+_allsc=collections.Counter()
+for _lv in joho: _allsc.update(joho[_lv]['sc'])
+SCENE_ORDER=[k for k,_ in _allsc.most_common() if k not in (None,'その他')]
+SCENE_HEADER='場面内訳（全8種：'+'／'.join(SCENE_ORDER)+'）'
+def scene_break(lv):
+    sc=joho[lv]['sc']; n=joho[lv]['n']
+    return ' ／ '.join(f"{k}{round(sc.get(k,0)/n*100)}%" for k in SCENE_ORDER)
 
 wb=load_workbook(XLSX)
 
@@ -127,12 +146,27 @@ for lv,r in info_rows.items():
     ws.cell(r,5,d['tgt']); ws.cell(r,6,d['out'])
     if d['figratio'] is not None:
         ws.cell(r,7,f"{d['figratio']}%"); ws.cell(r,8,f"{d['izon']}%"); ws.cell(r,9,f"{d['jisoku']}%")
-    # 走査性・多様性(2026-08-21 追加・番人 johoSolvability と同基準)
-    ws.cell(r,10,d['div']); ws.cell(r,11,d['scanS']); ws.cell(r,12,d['scanC'])
-# 情報検索の見出し行(級/掲示…)に走査性・多様性の列見出しを追加
+    # J=場面内訳(全8種%)・K走査S=情報源数分布・L走査C=誘惑肢採用・M全体走査(2026-08-21 具体化)
+    ws.cell(r,10,scene_break(lv)); ws.cell(r,11,d['scanS']); ws.cell(r,12,d['scanC']); ws.cell(r,13,d['whole'])
+    for c in (10,11,12,13): ws.cell(r,c).alignment=Alignment(wrap_text=True, vertical='top')
+ws.column_dimensions['J'].width=44
+for col in ('K','L','M'): ws.column_dimensions[col].width=42
+# 情報検索の見出し行(級/掲示…)に場面(全8種)・走査S/C・全体走査の列見出しを追加
 for r in range(1,ws.max_row+1):
     if str(ws.cell(r,1).value or '').strip()=='級' and str(ws.cell(r,2).value or '').strip()=='掲示':
-        ws.cell(r,10,'多様性(種類/最頻)'); ws.cell(r,11,'走査S 情報源≥2'); ws.cell(r,12,'走査C 誘惑肢(選ぶ)')
+        ws.cell(r,10,SCENE_HEADER)
+        ws.cell(r,11,'走査S 情報源数の分布（参照＝表/注記/カード。多いほど掲示物全体を見る必要）')
+        ws.cell(r,12,'走査C 誘惑肢（図版に実在する紛らわしい肢＝「選ぶ」型で必須）')
+        ws.cell(r,13,'全体走査（正解に図版全体の突合が要る問題数＝情報源≥2かつ条件≥2）')
+        for c in (10,11,12,13): ws.cell(r,c).alignment=Alignment(wrap_text=True, vertical='top')
+        break
+# 情報検索セクションの説明を強化(2026-08-21・ユーザー指示: 説明が弱い)
+for r in range(1,ws.max_row+1):
+    if str(ws.cell(r,1).value or '').startswith('②情報検索'):
+        ws.cell(r,1,'②情報検索（図版込み・掲示物1枚＝1問）　実効字数＝ルビ除き本文＋図版の全文字（目標±15%）。'
+                    'figure比率＝全文字に占める図版の割合／図版依存%＝答えの根拠が図版側にある設問の割合／本文自足%＝本文だけで解ける設問の割合（低いほど図版を走査させる＝良い）。'
+                    'J列＝場面（全8種）の出題内訳%。走査S＝正解に必要な参照箇所（表/注記/カード）が何か所か＝多いほど掲示物全体を見る必要。走査C＝誘惑肢＝図版に実在して正解に見える紛らわしい選択肢（「選ぶ」型で必須。金額/時刻等は計算や言い換えの誘惑肢のため別枠）。全体走査＝表の最有力行が罠で決め手が注記/条件にあり、図版全体を突き合わせないと解けない問題数。N5は走査S/Cのハード判定は対象外（易しく）だが数値は参考表示。')
+        ws.cell(r,1).alignment=Alignment(wrap_text=True, vertical='top')
         break
 # (5) 着色: 内容理解「最新」行の品質セル  I(9)帯外 J(10)最長% K(11)丸写% L(12)語彙%
 for r in range(1,ws.max_row+1):
@@ -152,10 +186,10 @@ for lv,r in info_rows.items():
     ws.cell(r,4).fill=fill(GREEN)
     p=pct(ws.cell(r,9).value)
     if p is not None: ws.cell(r,9).fill=fill(GREEN if p<=50 else YELLOW if p<=70 else RED)
-    # 走査性・多様性の着色: OK/対象外=緑・NG=赤
-    for c in (10,11,12):
+    # 場面・走査S/C・全体走査の着色: 基準クリア=緑・不足(⚠/NG)=赤
+    for c in (10,11,12,13):
         v=str(ws.cell(r,c).value or '')
-        ws.cell(r,c).fill=fill(RED if v.startswith('NG') else GREEN)
+        ws.cell(r,c).fill=fill(RED if (v.startswith('NG') or '⚠' in v) else GREEN)
 add_legend(ws)
 
 # ══ Sheet: 聴解攻略耐性分析 (header r7, data r8-20) ══

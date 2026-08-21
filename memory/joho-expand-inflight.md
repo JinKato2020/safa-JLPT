@@ -52,9 +52,16 @@
 - **Excel**＝「読解 品質パラメータ」に走査S/走査C・多様性の列(J/K/L)追加＋着色(stock_analysis_color.py)・字数帯±15%表示。在庫チェーン再生成済(在庫16000・読解問題_N*も60問)。
 - **バージョン方針**＝[[version-numbering-scheme]]記録。
 
-## 次の一手（ユーザー判断）
-- ①この状態でコミット/ビルド(`-Approved`明示指示待ち・版番号は[[version-numbering-scheme]])／②情報検索180問+αのen/ne翻訳(Gemini・¥見積り承認要・別タスク)／③実機確認。
-- 未コミット＝content/problems/dokkai/joho_{N4,N3}.json・_manifest/bundled・src番人2本・build.ps1・tools(joho_solvability/len_check/merge_validate/stock_analysis_color)・md・Excel群。
+## ✅ コミット＆ビルド済(2026-08-21)
+- コミット`c683060c`(17ファイル)＋**Build v1.1.1(2828) iOS/Android both dispatch**(run`32443522123`・NoWatch)。テスト45/45緑・tsc0・push でOTA/Pages起動。版番号=1.1.0→1.1.1(新方式マイナー相当・app.json更新済)。iOS本日2/8。
+
+## ✅ 追加実装(2026-08-21・build 2828後・未コミット)
+- **バージョン自動更新を仕組み化**＝`tools/build.ps1` Step1.5。既定=マイナー(末尾+1)／`-Major`でメジャー(中央+1・末尾1)。DryRunは更新なし。ロジック検証済(1.1.1→minor 1.1.2 / major 1.2.1)。記憶頼みを廃止＝[[version-numbering-scheme]]更新済。**未コミット**（次ビルドで自動コミット＋その回から自動バンプ発火）。
+- 走査性/多様性の番人はビルド自動実行を確認済(build.ps1 $tests 111-112行・今回45テストで走行)＋md/09_読解.md記録済。
+
+## 残務（次の一手＝ユーザー判断）
+- **①Build 2828 のCI結果確認**（未確認・GitHub Actions run 32443522123・成否は未取得）。
+- **②情報検索の en/ne 翻訳**（joho 本文body/設問q/選択肢choices/解説explain。新方式でN3/N4は総入れ替えのため実質ほぼ全訳＋N5 60問。Gemini・有料＝¥見積り提示→承認要）。図版figure(表/注記/カード)の訳の持ち方はInfoSearchFigure.tsx/PassageSetPlayer.tsxを見て方式決定。配信はOTA(再ビルド不要)。
 
 ## 旧・残タスク(消化済)
 1. gen4体完了→`python tools/joho_merge_validate.py`（不良0確認）→`--apply`。不良は該当バッチへSendMessageで修正指示。

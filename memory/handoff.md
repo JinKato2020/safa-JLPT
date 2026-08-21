@@ -2,7 +2,8 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶▶ 2026-08-21 ✅完了＝情報検索(joho) N4/N3を各60問へ増作＋解説簡潔化＋走査性/多様性ゲート化（正本＝`memory/joho-expand-inflight.md`）**: N4/N3各60問(0001-0060・新方式)を適用・本番相当難易度・**字数±15%**(N4[340-460]/N3[510-690])・**番人全緑でRUN_BALANCE=true化**(johoSkeletonBalance＋新設johoSolvability＝走査S情報源≥2/走査C誘惑肢/多様性・build.ps1登録)。解説は既存20＋新100とも簡潔スタイルへ。伸長時の本文取り違え3件(0020/0032/0033)を修正済。Excel「読解 品質パラメータ」に走査S/C・多様性の列追加＋在庫チェーン再生成(在庫16000)。tsc0・整合テスト緑。**未コミット・未ビルド**。バージョン方針＝[[version-numbering-scheme]](マイナー=末尾+1・メジャー=中央+1)。**次の一手＝ユーザー判断**(コミット/ビルドは`-Approved`明示指示待ち／joho 180問+αのen/ne翻訳は別タスク・¥見積り承認要／実機確認)。
+- **▶▶ 2026-08-21 ✅適用完了＝情報検索(joho) 需要多源化リビルド（正本＝`memory/joho-multisource-inflight.md`）・未コミット/未ビルド**: 「走査性」を供給側(情報源数)と需要側(正解に必要な源数=answer_sources)に分離し需要を上げた。**N4差替26・N3差替31を本体適用**（旧問は`没問題/情報検索_多源化_2026-08-21/`へ退避＝可逆）。全180問に`skeleton.answer_sources`(1/2/3)。**分布**＝N4≥2源40/60・N3≥2源60/60＆≥3源30/60・N5据置(構造proxyでタグのみ)。番人新設`src/data/johoAnswerSources.test.ts`をbuild.ps1へ登録。**joho番人11/11緑・build用48/48緑・tsc0・_manifest再生成・読解/品質Excel再生成**。作問=Opusのみ(有料API不使用)。修正2件=N3-0059選択肢差別化・N3-0012選択肢を図版一致化。**残＝コミット/ビルド指示待ち／翻訳(en/ne)は後日・有料・承認後**。次の一手＝ユーザー判断。
+- **▶▶ 2026-08-21 ✅完了＝情報検索(joho) N4/N3を各60問へ増作＋解説簡潔化＋走査性/多様性ゲート化（正本＝`memory/joho-expand-inflight.md`）**: N4/N3各60問(0001-0060・新方式)を適用・本番相当難易度・**字数±15%**(N4[340-460]/N3[510-690])・**番人全緑でRUN_BALANCE=true化**(johoSkeletonBalance＋新設johoSolvability＝走査S情報源≥2/走査C誘惑肢/多様性・build.ps1登録)。解説は既存20＋新100とも簡潔スタイルへ。伸長時の本文取り違え3件(0020/0032/0033)を修正済。Excel「読解 品質パラメータ」に走査S/C・多様性の列追加＋在庫チェーン再生成(在庫16000)。tsc0・整合テスト緑。**✅コミット`c683060c`＋Build v1.1.1(2828) iOS/Android both dispatch(run`32443522123`・NoWatch)＝2026-08-21**（テスト45/45緑・push でOTA/Pages起動・iOS本日2/8）。版番号は新方式で1.1.0→1.1.1(マイナー相当)＝[[version-numbering-scheme]]。**残務＝①Build2828のCI結果確認(未確認)②情報検索の翻訳(joho本文/設問/選択肢/解説のen/ne・新旧計含む・Gemini有料・¥見積り承認要)。次の一手＝ユーザー判断**。
 
 - **▶▶ 2026-08-20 LIVE＝情報検索(joho) 全レベル作り直し＋仕組み実装（正本＝`memory/読解修正-inflight.md` 末尾「情報検索 joho」節）**: 旧405問は偏りで没(`没問題/情報検索_旧_2026-08-20/`・content外＝アプリ非表示)。**新規＝N5:10問(0001-0010)・N4:10問(0001-0010)・N3:20問(0001-0020) 完成・全検証済**(字数帯内／番人`src/data/johoSkeletonBalance.test.ts`緑＝骨組み付与+字数帯は常時有効・バランス強制はRUN_BALANCE=falseで作問完了後に有効化／構造0問・答え一意・5軸網羅・広告/パンフレットN3各5・時刻表/料金表も補充)。ビルダー=`scratchpad/joho_new/build_n{5,4,3}.py`＋`build_n3_add.py`(既存温存・id置換で追記式・二重実行OK)。**仕組み①字数**＝帯[0.8×〜1.5×]は不変、**作問の狙う目標字数を公式×1.05〜1.1(N3=640目安)にして一発で帯内に収める**運用(md/09_読解.md 116行に記録・過去=14回加筆で刻んだ実害)。**仕組み②Editバンドル・ゲート**＝`~/.claude/hooks/gate-edit-bundling.mjs`(PreToolUse Edit)。方式＝**`prompt_id`＋前回Editからの発火間隔**(バンドル=同一返信で連続発火し間隔<5秒→通す／刻み=別メッセージで数秒〜数十秒空く→**deny**)。安全弁 env `CLAUDE_EDIT_GATE_OFF=1`／窓 env `CLAUDE_EDIT_BUNDLE_WINDOW_MS`(既定5000)。番人`watch-edit-gate.mjs`(UserPromptSubmit・毎ターン、ゲート登録欠落を警告)。**フックはsettings.json保存で即ライブ再読み込み(/clear・再起動不要)＝実弾で発火確認済(バンドル通過/刻み10秒deny)**。※トランスクリプト読み方式は破綻(PreToolUse時点で現在メッセージが未反映＝バンドル件数を数えられず正当バンドルを誤拒否・旧実装は1.3GB丸読みで例外→fail-open)ゆえ間隔方式に変更。**✅ 情報検索 N3 21-30 作問完了(2026-08-20)**＝`build_n3_add2.py`(Write一発＋加筆4編集を1メッセージで束ね)・N3は計30問(0001-0030)・全band OK(481-538)・4択一意・選択肢セット重複0・骨組み/解説完備・番人緑・rebuild済。**仕組み②のスコープ限定を実装**＝Editバンドル・ゲートは`content/problems/`配下のEditのみ対象、他ファイルは無条件許可(ユーザー厳命2026-08-20・`normFile.includes('/content/problems/')`早期allow・selectors.ts payload→`{}`で検証済)。**【2026-08-21 更新＝公式忠実・難化パイロットをアプリ実装＋ビルド済】** N3/N4を旧60×2から**新方式10問ずつへ差し替え**(旧は`没問題/情報検索_旧2_2026-08-21/`へ退避＝可逆・content外)。設計=表の最有力行が罠・決め手は※注記(公式忠実/易しすぎ禁止)・字数狙いN3 660/N4 440(帯[480-900]/[320-600]内・実測N3 550-671/N4 321-450・全20問一意/罠成立検証済)。**図版UIを掲示物風に刷新**=`src/components/InfoSearchFigure.tsx`(紙+画びょう+印刷罫の表+※お知らせ枠・全レベル共通・紙色はダークでも固定・ロジック/ルビゲート不変・tsc0)。番人は**RUN_BALANCE=false**(10問では正誤5等の絶対数を満たせず一時off・字数帯/骨組み存在は常時緑)。導入ツール=`tools/joho_install_new.py`(退避+差替・冪等)。**ビルド=v1.1.0(2827) iOS/Android dispatch済(監視なし・run 32438035704・テスト37緑/tsc0・commit 7cad57dc・iOS本日1/8)**。N5は60問据置で見た目のみ掲示物風。**残務**=①en/ne翻訳(joho本文/設問/選択肢/解説+指示語53解説+丸写し修正44ID=`scratchpad/verbatim_fix/changed_ids.json`・Gemini・¥見積り承認要)②いずれN3/N4を本数まで戻してRUN_BALANCE=true。**次の一手＝ユーザー判断**(2827実機確認／翻訳へ進む／N3・N4増作／区切る)。**◀◀ 次セッションの起点＝情報検索の作問（新方式＝表の最有力行が罠・決め手は※注記・掲示物風・字数狙いN3 660/N4 440／設計正本=md/09_読解.md「★情報検索 難度・公式忠実化」／本数を増やしたらRUN_BALANCE=trueへ戻す）。**
 - **✅ 2026-08-20 読解 内容理解の母語カバレッジ拡充＝完了・コミット済(`4e7474c2`)・未ビルド**: 内容理解(短/中/長)の全設問970問に設問文＋選択肢の ne/en 訳、本文に en 訳(528/530本・日本語混入2本=N3-D-L-0020/N3-D-M-0010のみ保留)。回答後トグルで母語(ne)/英語(それ以外)表示・引用語句は保持・選択肢はindexOfで原順の訳へ対応。**情報検索(joho)は対象外**(ユーザーが別途修正)。gemini-2.5-flash実費 本作業≈¥94(+中断した初回runの一部・大半johoで破棄)。配線=rehydrate(PASSAGE_TRANS_EN/Q_TRANS_NE/Q_TRANS_EN)→index→PassageSetPlayer。スクリプト=`scratchpad/trans/{trans_all,apply_trans}`。**追加(6e620d57)＝解説を難所限定に刷新**＝古い薄い解説を非難所522問で廃止(空)、難所(指示語・理由)334問のみ残す(欠落16はGeminiで新規・¥1)・回答後にPassageSetPlayerで日本語解説表示・i18n passage.explainLabel(ja/en/ne)・保留en2本も補填(en530/530)。番人17/17緑・tsc0。**バグ修正(f4d2b3e8)＝**①選択肢が本文引用の設問で「引用内日本語は保持」指示が選択肢全体に効き未訳だった不具合をne141/en280問で完全翻訳し直し(日本語ゼロ検証・¥13)②翻訳ボタン「（ネパール語）/(Nepali)」固定表記を「翻訳を見る/Show translation」へ汎用化。**追加(6b4b59a1)＝選択肢の混在日本語(引用抜き出し)をen57/ne67+余裕1語で完全翻訳しビルド無しでOTA公開(publish-content.ps1)・配信済み実データで日本語ゼロ実証**(Pages sha一致確認)。**コンテンツ配信の仕組み(既存OTA=ota.ts/BootGate/source.ts)を確定**＝[[content-ota-vs-ui-build]]。**手動更新のみに変更(c33483de)**＝自動裏同期を撤去(expo-network撤去)、設定に「問題・翻訳を今すぐ更新」ボタン(押す→DL→expo-updates reloadで即反映)、起動時はキャッシュ適用のみ。幽霊xlsx2本をリポジトリから除外(b9cf3671)。**最新ビルド＝v1.1.0(2824) iOS+Android dispatch(監視なし)・run 32344876555**(2819/2820/2823は旧)。iOS本日4/8。**残務なし**(joho翻訳・UIはユーザーが別途対応)。**次の一手＝ユーザー判断**(区切る/2824実機確認)。
@@ -86,26 +87,22 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 117ターン（文脈 36万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 117ターン・ツール42回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
-- a5015642f97346581 general-purpose
-- af9c0cc1ca2168621 general-purpose
-- a904c06db4d054702 general-purpose
 - aad6970109b6cdbb7 general-purpose
 - af4686266a575b6b5 general-purpose
+- a0f90a27b7783f6f2 general-purpose
+- a4df5ab3f91b7baa3 general-purpose
+- a8531eca2414c47f4 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/在庫問題数.txt
 - memory/handoff.md
-- memory/joho-expand-inflight.md
+- memory/joho-multisource-inflight.md
+- memory/~$在庫・模試ストックまとめ.xlsx
 - memory/在庫・模試ストックまとめ.xlsx
 - 問題/読解/読解問題_N5.xlsx
 - 問題/読解/読解問題_N4.xlsx
 - 問題/読解/読解問題_N3.xlsx
-- memory/模試ストック数.txt
-- memory/在庫問題数.txt
 
-_自動更新: 2026-08-21 12:19_
+_自動更新: 2026-08-21 15:04_
 <!-- AUTO:END -->
