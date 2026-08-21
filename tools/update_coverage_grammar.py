@@ -5,6 +5,17 @@
 # 語彙単語/漢字単語ブロックは vocabId 実リンク集計(別ロジック)ゆえ本ツールの対象外(据置)。
 import json, os, re
 from openpyxl import load_workbook
+from openpyxl.styles import PatternFill
+
+# 信号色(カバー率%セル)= アプリ在庫シートの既存配色に一致
+#   緑 ≥80% / 黄 60-79% / 赤 <60%
+GREEN = PatternFill('solid', fgColor='CDE8D4')
+YELLOW = PatternFill('solid', fgColor='FCE7C0')
+RED = PatternFill('solid', fgColor='F6C9C4')
+
+
+def signal(pct):
+    return GREEN if pct >= 80 else (YELLOW if pct >= 60 else RED)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 XLSX = os.path.join(ROOT, 'memory', '在庫・模試ストックまとめ.xlsx')
@@ -55,9 +66,23 @@ for r in range(1, ws.max_row + 1):
         pctv = f'{round(cov / tot * 100)}%'
         old = [ws.cell(r, c).value for c in (3, 4, 5, 6)]
         ws.cell(r, 3, nq); ws.cell(r, 4, cov); ws.cell(r, 5, tot); ws.cell(r, 6, pctv)
+        ws.cell(r, 6).fill = signal(round(cov / tot * 100))  # 信号色を再適用
         new = [nq, cov, tot, pctv]
         if old != new:
             changed.append(f'{cur_lv} {daimon}: {old} -> {new}')
+
+# 文法ブロック以外も含め、%セル(col6)の信号色を現値に合わせて総ざらい(古い色を是正)
+recolored = 0
+for r in range(1, ws.max_row + 1):
+    v = ws.cell(r, 6).value
+    if isinstance(v, str) and v.strip().endswith('%'):
+        try:
+            pct = int(v.strip().rstrip('%'))
+        except ValueError:
+            continue
+        ws.cell(r, 6).fill = signal(pct)
+        recolored += 1
+print('信号色 再適用セル数:', recolored)
 
 wb.save(XLSX)
 print('WROTE', XLSX)
