@@ -31,9 +31,10 @@ const BLOCK_LABEL: Record<string, string> = {
   dokkai: 'mock.sec_dokkai',
   choukai: 'mock.sec_choukai',
 };
-// 分野別レーダーの4軸(実測正答率)。
+// 分野別レーダーの5軸(実測正答率)。漢字・語彙は大問で分割(byCatに kanji/vocab の追加キーがある)。
 const RADAR_CATS: { key: string; labelKey: string }[] = [
-  { key: 'moji_goi', labelKey: 'mock.sec_moji_goi' },
+  { key: 'kanji', labelKey: 'cards.kanji' },
+  { key: 'vocab', labelKey: 'cards.vocab' },
   { key: 'bunpou', labelKey: 'mock.sec_bunpou' },
   { key: 'dokkai', labelKey: 'mock.sec_dokkai' },
   { key: 'choukai', labelKey: 'mock.sec_choukai' },
@@ -110,7 +111,7 @@ function BellCurve({ level, score, passTotal, width, c, youLabel, passLabel }: {
   );
 }
 
-// ── 分野別レーダー(4軸=漢字語彙/文法/読解/聴解 の実測正答率) ──
+// ── 分野別レーダー(5軸=漢字/語彙/文法/読解/聴解 の実測正答率) ──
 function Radar({ data, width, c }: { data: { label: string; pct: number }[]; width: number; c: ThemeColors }) {
   const H = 220, cx = width / 2, cy = H / 2, R = Math.min(width, H) / 2 - 40;
   const n = data.length;

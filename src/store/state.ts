@@ -87,6 +87,8 @@ export interface MockResult {
   predMax?: number;               // 満点(JLPTは180)
   passTotal?: number;             // 合格ライン(点)
   sections?: { key: string; score: number; max: number; min: number; below: boolean }[]; // 区分別の予想得点
+  byCat?: Record<string, { c: number; t: number }>; // 区分別の実測正誤(成績表の再描画用・漢字/語彙の分割キー含む)。旧stateには無い=省略可
+  elapsedMs?: number;             // 所要時間(成績表の再描画用)。旧stateには無い=省略可
 }
 
 export interface AppState {

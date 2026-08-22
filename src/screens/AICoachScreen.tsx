@@ -7,14 +7,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
-import Svg, { Path, Circle, Rect, Defs, LinearGradient, Stop } from 'react-native-svg';
+import Svg, { Path, Circle, Rect, Defs, LinearGradient, Stop, Polygon, Line, Text as SvgText } from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { useAppState } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
 import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
-import { dayStr, lastNDays } from '../store/state';
+import { dayStr, lastNDays, type MockResult } from '../store/state';
+import type { Level } from '../engine/engine';
 import { expectedScoreFor, coverageBars } from '../store/selectors';
 import { relativePositionFor, isOfficialLevel } from '../ladder/relativePosition';
 import { OFFICIAL_TOTAL_STAT, OFFICIAL_PASS_RATE, OFFICIAL_BASE_LABEL } from '../data/officialStats';
@@ -64,9 +65,9 @@ export default function AICoachScreen() {
     const daily = cum.slice(1).map((v, i) => Math.max(0, v - cum[i]));
     // カバー率(覚えた数)=書庫の3辞書(漢字/語彙/文法)の当該レベル総数を分母にする。
     // 読解・聴解はスキル(般化)で「語数」ではないため、覚えた数/カバー率の分母には含めない(単語タブの3カードと一致)。
-    // 漢字は語彙に統合(ユーザー確定2026-08-22)＝漢字バーを出さず「漢字・語彙」1本に。漢字力は語彙の面(read/write)へ既に合流済。
-    const CAT_LABEL: Record<string, string> = { vocab: 'cards.moji_goi', grammar: 'cards.grammar' };
-    const coverage = coverageBars(state, now).filter((b) => b.key !== 'kanji').map((b) => ({
+    // 漢字ID有効化で漢字面が習得を持つため分割(ユーザー確定2026-08-23)＝漢字/語彙/文法の3バー。
+    const CAT_LABEL: Record<string, string> = { kanji: 'cards.kanji', vocab: 'cards.vocab', grammar: 'cards.grammar' };
+    const coverage = coverageBars(state, now).map((b) => ({
       cat: b.key,
       labelKey: CAT_LABEL[b.key],
       pct: b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0,
@@ -92,7 +93,7 @@ export default function AICoachScreen() {
     const scoredMocks = (state.mockHistory ?? []).filter((mk) => mk.full && typeof mk.predScore === 'number');
     const latestMock = scoredMocks.length ? scoredMocks[scoredMocks.length - 1] : null;
     const prevMock = scoredMocks.length > 1 ? scoredMocks[scoredMocks.length - 2] : null;
-    const mockTrend = scoredMocks.slice(-8).map((mk) => ({ day: mk.day, score: mk.predScore as number, max: mk.predMax ?? 180 }));
+    const mockTrend = scoredMocks.slice(-8); // フル記録を保持(タップで成績表を開くため)
     return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, rel, official, relGengoCombined, due, daily, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
   }, [state]);
 
@@ -104,6 +105,14 @@ export default function AICoachScreen() {
   // 予想得点=主役。合格ラインに届いていれば緑・未満は橙。
   const scoreColor = st.predScore >= st.passTotal && st.passTotal > 0 ? c.green : c.amber;
   const startLearn = () => { nav.goBack(); nav.navigate('Quiz', { review: true }); };
+  // 過去の模試を成績表(MockResultScreen)で開く。区分別実測(byCat)を保存している回のみ・JLPTのみ。
+  const isJlptExam = (state.settings.targetExam ?? 'jlpt') !== 'jft';
+  const canOpenMock = (mk: MockResult) => isJlptExam && !!mk.byCat && !!mk.level;
+  const openMock = (mk: MockResult) => {
+    if (!canOpenMock(mk)) return;
+    const passed = (mk.predScore ?? 0) >= (mk.passTotal ?? Number.MAX_SAFE_INTEGER) && !(mk.sections ?? []).some((sc) => sc.below);
+    nav.navigate('MockResultDetail', { level: mk.level as Level, byCat: mk.byCat!, passed, elapsedMs: mk.elapsedMs ?? 0 });
+  };
 
   const cat = t(d.weakest.labelKey);
   const strong = t(d.strongest.labelKey);
@@ -218,14 +227,10 @@ export default function AICoachScreen() {
           </View>
         )}
 
-        {/* ② 分野別の到達度 */}
+        {/* ② 分野別の到達度(5軸レーダー: 漢字/語彙/文法/読解/聴解) */}
         <View style={s.card}>
           <SecLabel c={c} s={s} text={t('coach.facet_title')} />
-          <View style={s.facets}>
-            {d.subs.map((sub) => (
-              <RingGauge key={sub.key} value={sub.pct} color={sub.color} size={52} stroke={6} label={t(sub.labelKey)} />
-            ))}
-          </View>
+          <FacetRadar data={d.subs.map((sub) => ({ label: t(sub.labelKey), pct: sub.pct, color: sub.color }))} c={c} />
         </View>
 
         {/* ③ カバー率 — 語数(覚えた数)を主役＋小さな目標(次の10語)。%は補足。分野別正解率の直下。 */}
@@ -283,7 +288,7 @@ export default function AICoachScreen() {
           <SecLabel c={c} s={s} text={t('coach.mock_title')} />
           {d.latestMock ? (
             <>
-              <View style={s.mockHero}>
+              <Pressable style={s.mockHero} onPress={() => openMock(d.latestMock!)} disabled={!canOpenMock(d.latestMock!)}>
                 <View style={{ flex: 1 }}>
                   <Text style={s.mockScore}>{d.latestMock.predScore}<Text style={s.mockScoreMax}>{t('coach.score_of', { n: d.latestMock.predMax ?? 180 })}</Text></Text>
                   <Text style={s.mockMeta}>{t('coach.mock_meta', { n: d.latestMock.passTotal ?? '—', day: d.latestMock.day })}</Text>
@@ -292,7 +297,8 @@ export default function AICoachScreen() {
                   const pass = (d.latestMock!.predScore ?? 0) >= (d.latestMock!.passTotal ?? Number.MAX_SAFE_INTEGER);
                   return <Text style={[s.mockJudge, { color: pass ? c.green : c.amber, borderColor: (pass ? c.green : c.amber) + '88' }]}>{pass ? t('coach.mock_pass') : t('coach.mock_close')}</Text>;
                 })()}
-              </View>
+                {canOpenMock(d.latestMock!) ? <Ionicons name="chevron-forward" size={20} color={c.mute} style={{ marginLeft: 2 }} /> : null}
+              </Pressable>
               {d.prevMock ? (() => {
                 const delta = (d.latestMock!.predScore ?? 0) - (d.prevMock!.predScore ?? 0);
                 const deltaStr = delta > 0 ? `▲${delta}` : delta < 0 ? `▼${-delta}` : '±0';
@@ -323,14 +329,18 @@ export default function AICoachScreen() {
               ) : null}
               {d.mockTrend.length > 1 ? (
                 <View style={s.mockTrendRow}>
-                  {d.mockTrend.map((mt, i) => (
-                    <View key={i} style={s.mockTrendItem}>
-                      <Text style={[s.mockTrendScore, i === d.mockTrend.length - 1 && { color: c.blue }]}>{mt.score}</Text>
-                      <Text style={s.mockTrendDay}>{mt.day.slice(5)}</Text>
-                    </View>
-                  ))}
+                  {d.mockTrend.map((mt, i) => {
+                    const open = canOpenMock(mt);
+                    return (
+                      <Pressable key={i} style={s.mockTrendItem} onPress={() => openMock(mt)} disabled={!open} hitSlop={6}>
+                        <Text style={[s.mockTrendScore, i === d.mockTrend.length - 1 && { color: c.blue }, open && { textDecorationLine: 'underline' }]}>{mt.predScore}</Text>
+                        <Text style={s.mockTrendDay}>{mt.day.slice(5)}</Text>
+                      </Pressable>
+                    );
+                  })}
                 </View>
               ) : null}
+              {d.mockTrend.some(canOpenMock) ? <Text style={s.mockTapHint}>{t('coach.mock_tap_hint')}</Text> : null}
               <Text style={s.diff}>{t('coach.mock_note')}</Text>
             </>
           ) : (
@@ -428,6 +438,34 @@ function Stat({ s, tt, v, unit, up, c, color }: { s: Styles; tt: string; v: stri
         {!!unit && <Text style={s.statU}>{unit}</Text>}
       </View>
     </View>
+  );
+}
+
+// 分野別到達度の5軸レーダー(漢字/語彙/文法/読解/聴解)。各頂点は区分色の点＋ラベル＋%。
+function FacetRadar({ data, c }: { data: { label: string; pct: number; color: string }[]; c: ThemeColors }) {
+  const W = 300, H = 230, cx = W / 2, cy = H / 2, R = 66;
+  const n = Math.max(1, data.length);
+  const ang = (i: number) => -Math.PI / 2 + (i * 2 * Math.PI) / n;
+  const pt = (i: number, r: number) => [cx + r * Math.cos(ang(i)), cy + r * Math.sin(ang(i))] as const;
+  const grid = [0.25, 0.5, 0.75, 1];
+  const poly = data.map((d, i) => pt(i, R * Math.max(0.02, d.pct / 100)).join(',')).join(' ');
+  return (
+    <Svg width="100%" height={H} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet">
+      {grid.map((rr, k) => (
+        <Polygon key={k} points={data.map((_, i) => pt(i, R * rr).join(',')).join(' ')} fill="none" stroke={c.line} strokeWidth={1} />
+      ))}
+      {data.map((_, i) => { const [x, y] = pt(i, R); return <Line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke={c.line} strokeWidth={1} />; })}
+      <Polygon points={poly} fill={c.blue} fillOpacity={0.2} stroke={c.blue} strokeWidth={2} />
+      {data.map((d, i) => { const [x, y] = pt(i, R * Math.max(0.02, d.pct / 100)); return <Circle key={i} cx={x} cy={y} r={3.5} fill={d.color} />; })}
+      {data.map((d, i) => {
+        const [x, y] = pt(i, R + 26);
+        return <SvgText key={`l${i}`} x={x} y={y} fontSize={12} fill={c.ink2} fontWeight="800" textAnchor="middle">{d.label}</SvgText>;
+      })}
+      {data.map((d, i) => {
+        const [x, y] = pt(i, R + 26);
+        return <SvgText key={`p${i}`} x={x} y={y + 15} fontSize={12} fill={d.color} fontWeight="800" textAnchor="middle">{`${Math.round(d.pct)}%`}</SvgText>;
+      })}
+    </Svg>
   );
 }
 
@@ -544,6 +582,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   mockTrendItem: { alignItems: 'center', flex: 1 },
   mockTrendScore: { fontSize: 13, fontWeight: '800', color: c.ink2, fontVariant: ['tabular-nums'] },
   mockTrendDay: { fontSize: 9, color: c.faint, marginTop: 1 },
+  mockTapHint: { fontSize: 10.5, color: c.blue, fontWeight: '700', textAlign: 'center', marginTop: 6 },
   mockEmpty: { alignItems: 'center', gap: 6, paddingVertical: spacing.md },
   mockEmptyT: { fontSize: 12, color: c.mute, textAlign: 'center', lineHeight: 18 },
   mockEmptyCta: { fontSize: 13, fontWeight: '900', color: c.blue },

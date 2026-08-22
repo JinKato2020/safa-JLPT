@@ -332,7 +332,7 @@
   "mock.preview_note": "(Preview for developer verification)",
   "mock.see_details": "▼ Scroll down for detailed results",
   "mock.see_details_btn": "See detailed results →",
-  "mock.block_gengo": "Language knowledge",
+  "mock.block_gengo": "Language Knowledge",
   "mockres.title": "Mock exam report",
   "mockres.header_score": "Total score",
   "mockres.grade_label": "Grade",
@@ -378,7 +378,7 @@
   "mock.next": "Next →",
   "mock.play_audio": "▶ Play Audio",
   "mock.play_jft": "🔊 Play ({n} left)",
-  "mock.play_used": "Played (2×)",
+  "mock.play_used": "Played ({n}×)",
   "mock.playing": "■ Playing…",
   "mock.result_delta_base": "Last {n}% → This time {m}%",
   "mock.result_delta_down": "　▼ Down {n}%",
@@ -936,7 +936,6 @@
   "onboarding.mood_label": "Mood",
   "onboarding.pick_mood": "Choose a mood",
   "onboarding.date_ymd": "{y}/{m}/{d}",
-  "mock.block_gengo": "Language Knowledge",
   "mock.block_dokkai": "Reading",
   "mockintro.col_field": "Section",
   "mockintro.col_time": "Time limit",
@@ -1370,5 +1369,6 @@
   "coach.rel_relative": "equivalent",
   "coach.rel_total": "Overall",
   "coach.rel_ref": "Basis: {label} (avg. score at this level {mean} pts / pass rate {rate}%)",
-  "coach.rel_note": "💡 Your predicted score compared with official test-taker data, shown as an approximate percentile. It's a rough guide, not your actual rank."
+  "coach.rel_note": "💡 Your predicted score compared with official test-taker data, shown as an approximate percentile. It's a rough guide, not your actual rank.",
+  "coach.mock_tap_hint": "Tap any result to open its full report card"
 }

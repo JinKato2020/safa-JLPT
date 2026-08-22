@@ -378,7 +378,7 @@
   "mock.next": "次へ →",
   "mock.play_audio": "▶ 音声を聞く",
   "mock.play_jft": "🔊 再生（あと{n}回）",
-  "mock.play_used": "再生済み（2回）",
+  "mock.play_used": "再生済み（{n}回）",
   "mock.playing": "■ 再生中…",
   "mock.result_delta_base": "前回 {n}% → 今回 {m}%",
   "mock.result_delta_down": "　▼ {n}%ダウン",
@@ -950,7 +950,6 @@
   "onboarding.mood_label": "気分",
   "onboarding.pick_mood": "気分を選ぶ",
   "onboarding.date_ymd": "{y}年{m}月{d}日",
-  "mock.block_gengo": "言語知識",
   "mock.block_dokkai": "読解",
   "mockintro.col_field": "分野",
   "mockintro.col_time": "制限時間",
@@ -1370,5 +1369,6 @@
   "cat.abstract": "抽象概念",
   "cat.expression": "あいさつ・表現",
   "cat.function": "機能語",
-  "quiz.correct_sentence": "正しい文"
+  "quiz.correct_sentence": "正しい文",
+  "coach.mock_tap_hint": "タップで各回の成績表を見る"
 }

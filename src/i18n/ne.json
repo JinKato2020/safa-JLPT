@@ -378,7 +378,7 @@
   "mock.next": "अर्को →",
   "mock.play_audio": "▶ अडियो सुन्नुहोस्",
   "mock.play_jft": "🔊 बजाउनुहोस् (अझै {n} पटक)",
-  "mock.play_used": "बजाइसकियो (2 पटक)",
+  "mock.play_used": "बजाइसकियो ({n} पटक)",
   "mock.playing": "■ बजाइँदैछ…",
   "mock.result_delta_base": "अघिल्लो {n}% → यसपटक {m}%",
   "mock.result_delta_down": "　▼ {n}% घट्यो",
@@ -936,7 +936,6 @@
   "onboarding.mood_label": "मुड",
   "onboarding.pick_mood": "मुड छान्नुहोस्",
   "onboarding.date_ymd": "{y}/{m}/{d}",
-  "mock.block_gengo": "भाषा ज्ञान",
   "mock.block_dokkai": "पठन",
   "mockintro.col_field": "खण्ड",
   "mockintro.col_time": "समय सीमा",
@@ -1370,5 +1369,6 @@
   "coach.rel_relative": "बराबर",
   "coach.rel_total": "समग्र",
   "coach.rel_ref": "आधार: {label} (यस तहको औसत अंक {mean} अंक / उत्तीर्ण दर {rate}%)",
-  "coach.rel_note": "💡 तपाईंको अनुमानित अंकलाई आधिकारिक परीक्षार्थी तथ्याङ्कसँग तुलना गरी देखाइएको 'शीर्ष ~% बराबर' हो। यो वास्तविक श्रेणी होइन, अनुमानित स्थान मात्र हो।"
+  "coach.rel_note": "💡 तपाईंको अनुमानित अंकलाई आधिकारिक परीक्षार्थी तथ्याङ्कसँग तुलना गरी देखाइएको 'शीर्ष ~% बराबर' हो। यो वास्तविक श्रेणी होइन, अनुमानित स्थान मात्र हो।",
+  "coach.mock_tap_hint": "कुनै पनि नतिजामा ट्याप गरी पूरा रिपोर्ट कार्ड खोल्नुहोस्"
 }

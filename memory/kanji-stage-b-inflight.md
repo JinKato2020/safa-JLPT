@@ -19,7 +19,7 @@
 ## 検証
 tsc0 / kanjiCoverage・kanjiRecognition・parity 緑 / build用テスト緑。UI変更ゆえ反映に要ビルド（指示待ち）。
 
-## 状態＝✅実装完了(未コミット・未ビルド・2026-08-22)
+## 状態＝✅実装完了・ビルド済(v1.1.7(2840)・commit 4f679c93・2026-08-22)
 **新規**＝`src/kanji/kanjiRecognition.ts`(純関数ビルダー)／`src/screens/KanjiRecognitionScreen.tsx`(音声なしテスト画面)／`src/kanji/kanjiRecognition.test.ts`(番人・build.ps1登録済)。
 **編集**＝`src/review/facetMap.ts`(krecog_mean→mean/krecog_read→read・weight1認識面)／`src/store/selectors.ts`(KANJI_FACETS=read/write/mean/listen＋mean は meaningClear のみ・kanjiFacets import)／`src/store/kanjiCoverage.test.ts`(mean/read加点・校=mean除外の3テスト追記)／`src/navigation/types.ts`＋`App.tsx`(KanjiRecognition画面登録)／`src/components/KubunCard.tsx`(漢字kubunに「漢字テスト」導線・最初から解禁0%・順=リスト→漢字テスト→聞取5%→書取10%)／i18n ja/en/ne(cards.kanji_recognition・krecog.prompt_mean/read/empty・surgical挿入で他行不変)。
 **設計判断(実装時)**＝読みQは訓読み優先だが1モーラ訓stem(食=た/会=あ/人=り)は紛らわしいので音へ退避／読みの誤答は答えと同種(音/訓)で字種を揃え字種で割れない／誤答から「答えと同音」「その字の全読み」を除外(二重正解防止)。認識結果はcharのmean/read面へ計上(mastery keyはchar・state.itemsの`字#krecog_*`はSRS/touched集計のみで既存listening/flashcardと同型)。

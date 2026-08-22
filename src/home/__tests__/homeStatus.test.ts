@@ -13,10 +13,10 @@ test('studyHM: 秒→時分', () => {
   assert.deepEqual(studyHM(-100), { h: 0, m: 0 });
 });
 
-test('homeStatus: 4区分(漢字は語彙へ統合)・順序・0-100・空stateで落ちない', () => {
+test('homeStatus: 5区分(漢字/語彙を分割)・順序・0-100・空stateで落ちない', () => {
   const s = homeStatus(INITIAL_STATE, Date.UTC(2026, 0, 1));
-  assert.equal(s.subjects.length, 4);
-  assert.deepEqual(s.subjects.map((x) => x.key), ['moji_goi', 'grammar', 'dokkai', 'choukai']);
+  assert.equal(s.subjects.length, 5);
+  assert.deepEqual(s.subjects.map((x) => x.key), ['kanji', 'vocab', 'grammar', 'dokkai', 'choukai']);
   for (const sub of s.subjects) assert.ok(sub.pct >= 0 && sub.pct <= 100);
   assert.ok(s.passPct >= 0 && s.passPct <= 100);
   assert.equal(typeof s.rankTitleKey, 'string');

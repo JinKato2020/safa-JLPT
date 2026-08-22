@@ -18,7 +18,7 @@ export type HomeStatus = {
   rankTitleKey: string; // ランク称号(合格率tierのタイトルキー)
   streakDays: number;
   studySeconds: number;
-  subjects: StatusSubject[]; // 並び=漢字・語彙→文法→読解→聴解(漢字は語彙へ統合)
+  subjects: StatusSubject[]; // 並び=漢字→語彙→文法→読解→聴解(5区分)
 };
 
 const clamp = (n: number | null | undefined) => Math.max(0, Math.min(100, Math.round(n ?? 0)));
@@ -44,9 +44,10 @@ export function homeStatus(state: AppState, now: number): HomeStatus {
   const predMax = est?.max ?? 180;
   const predScore = state.settings.devPassPct != null ? Math.round((clamp(state.settings.devPassPct) / 100) * predMax) : (est?.score ?? 0);
   const passTotal = est?.passTotal ?? 0;
-  // 漢字は語彙に統合(ユーザー確定2026-08-22)＝「漢字・語彙」1区分。習得は漢字読み/表記(漢字力)＋文脈規定/言い換え/用法(語彙)をまとめて正答率化。
+  // 5区分(漢字ID有効化で漢字面が習得を持つため分割・ユーザー確定2026-08-23)。漢字=漢字読み/表記、語彙=文脈規定/言い換え/用法。
   const subjects: StatusSubject[] = [
-    { key: 'moji_goi', labelKey: 'cards.moji_goi', color: COL.vocab, pct: clamp(acc(idsOf('kanji_read', 'orthography', 'context', 'synonym', 'usage'))) },
+    { key: 'kanji', labelKey: 'cards.kanji', color: COL.kanji, pct: clamp(acc(idsOf('kanji_read', 'orthography'))) },
+    { key: 'vocab', labelKey: 'cards.vocab', color: COL.vocab, pct: clamp(acc(idsOf('context', 'synonym', 'usage'))) },
     { key: 'grammar', labelKey: 'cards.grammar', color: COL.grammar, pct: clamp(rings.bunpou) },
     { key: 'dokkai', labelKey: 'home.cat_dokkai', color: COL.dokkai, pct: clamp(rings.dokkai) },
     { key: 'choukai', labelKey: 'home.cat_choukai', color: COL.choukai, pct: clamp(rings.choukai) },

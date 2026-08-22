@@ -1,7 +1,7 @@
 // ミニ模試(言語知識20問) / フル模試(全区分=漢字語彙＋文法＋読解＋聴解)。本番形式・客観採点(重み5)。
 // 採点後: 区分別の弱点ヒートマップ → 語彙/文法の弱点だけ復習(Quiz)へ。掲示板§5(UWorld閉ループ)。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Image, Animated, useWindowDimensions, Alert } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, FlatList, Image, Animated, useWindowDimensions, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -128,7 +128,20 @@ interface MockItem {
   saveRef?: SaveRef; // my単語帳への保存対象(questionForUnit経由の語daimonのみ)
   set?: PassageSet; // kind==='passageSet'用: 読解1文章 or 文章の文法1文章＋複数設問を一括提示(PassageSetPlayer)
 }
-interface Answer { id: string; section: Sec; correct: boolean; label: string; drillable: boolean; }
+interface Answer { id: string; section: Sec; correct: boolean; label: string; drillable: boolean; daimon?: Daimon; }
+
+// 区分別の実測正誤を集計。moji_goi は大問で漢字(①②)/語彙(③④⑤)へ分割した追加キーも持つ(成績表レーダー用)。
+//  moji_goi 自体は得点計算(mockScoreEstimate)のため従来どおり残す。結果画面と履歴保存で同じ集計を使う。
+const KANJI_DAIMON_SET = new Set<Daimon>(['kanji_read', 'orthography']);
+function tallyByCat(answers: { section: Sec; correct: boolean; daimon?: Daimon }[]): Record<string, { c: number; t: number }> {
+  const out: Record<string, { c: number; t: number }> = {};
+  const bump = (k: string, correct: boolean) => { (out[k] ||= { c: 0, t: 0 }).t++; if (correct) out[k].c++; };
+  for (const a of answers) {
+    bump(a.section, a.correct);
+    if (a.section === 'moji_goi' && a.daimon) bump(KANJI_DAIMON_SET.has(a.daimon) ? 'kanji' : 'vocab', a.correct);
+  }
+  return out;
+}
 
 type Seen = Record<string, unknown>; // state.items(学習済の項目)
 
@@ -325,6 +338,7 @@ export default function MockScreen() {
   const [picks, setPicks] = useState<Record<string, number>>({});
   const soundRef = useRef<Audio.Sound | null>(null);
   const recordedRef = useRef(false);
+  const pendingRef = useRef<Answer | null>(null); // 選択済み・未確定の回答(word/listening)。「次へ」で確定・時間切れ時もこの正誤で記録。
   const [prevMock] = useState(() => {
     const h = (state.mockHistory ?? []).filter((m) => m.full === full);
     return h.length ? h[h.length - 1] : null;
@@ -341,13 +355,14 @@ export default function MockScreen() {
     recordedRef.current = true;
     const correctN = answers.filter((a) => a.correct).length;
     const now = Date.now();
-    const byc: Record<string, { c: number; t: number }> = {};
-    for (const a of answers) { (byc[a.section] ||= { c: 0, t: 0 }).t++; if (a.correct) byc[a.section].c++; }
+    const byc = tallyByCat(answers);
     // 予想得点(客観)も履歴に保存=AIコーチ「模試の記録」で最新値・推移・区分別を可視化。JLPTのみ。
     const estRec = isJft ? null : mockScoreEstimate(state.settings.level as Level, byc);
+    // 成績表(MockResultScreen)を過去分から再描画できるよう、区分別実測(byc)と所要時間も保存。フル模試のみ。
     recordMockResult({ ts: now, day: dayStr(now), pct: Math.round((100 * correctN) / answers.length), correct: correctN, total: answers.length, full,
       level: state.settings.level, predScore: estRec?.score, predMax: estRec?.max, passTotal: estRec?.passTotal,
-      sections: estRec?.sections.map((sc) => ({ key: sc.key, score: sc.score, max: sc.max, min: sc.min, below: sc.below })) });
+      sections: estRec?.sections.map((sc) => ({ key: sc.key, score: sc.score, max: sc.max, min: sc.min, below: sc.below })),
+      byCat: full && !isJft ? byc : undefined, elapsedMs: (endedAt ?? now) - startedAt });
     // 匿名計測: 模試結果(区分別%・タイムオーバー・所要)を送信。
     const sections: Record<string, number | null> = {};
     for (const k of ['moji_goi', 'bunpou', 'dokkai', 'choukai']) sections[k] = byc[k] ? Math.round((100 * byc[k].c) / byc[k].t) : null;
@@ -365,20 +380,16 @@ export default function MockScreen() {
     }, 2000);
     return () => clearTimeout(id);
   }, [phase, bubbleOp]);
-  const byCat = useMemo(() => {
-    const out: Record<string, { c: number; t: number }> = {};
-    for (const a of answers) { (out[a.section] ||= { c: 0, t: 0 }).t++; if (a.correct) out[a.section].c++; }
-    return out;
-  }, [answers]);
+  const byCat = useMemo(() => tallyByCat(answers), [answers]);
 
   const stopSound = async () => {
     if (soundRef.current) { await soundRef.current.unloadAsync().catch(() => undefined); soundRef.current = null; }
     setPlaying(false);
   };
-  const JFT_LISTEN_MAX = 2; // JFT本番=聴解は2回まで再生
+  const LISTEN_MAX = isJft ? 2 : 1; // 本番の再生回数=JFT 2回・JLPT 1回(繰り返し不可)
   const play = async () => {
     if (!cur || !cur.clipId) return;
-    if (isJft && cur.kind === 'listening' && playCount >= JFT_LISTEN_MAX) return; // 2回制限
+    if (cur.kind === 'listening' && playCount >= LISTEN_MAX) return; // 再生回数の上限(本番仕様)
     const src = await listeningSource(cur.clipId);
     if (!src) return;
     await stopSound();
@@ -412,16 +423,18 @@ export default function MockScreen() {
       setRemainingMs(0);
       setTimedOut(true);
       void stopSound();
+      const pend = pendingRef.current; // 選択済み・未確定は、その正誤で記録(空欄=不正解にしない)。
       setAnswers((prev) => {
         const done = new Set(prev.map((a) => a.id));
         // このブロック(科目)の未回答だけを不正解に(まだ到達していない後続科目は対象外)。passage-setは設問ごとに判定。
         const miss = exam.slice(curBlock.from, curBlock.to).flatMap((it) =>
           stepQuestionIds(it)
             .filter((q) => !done.has(q.id))
-            .map((q) => ({ id: q.id, section: q.section, correct: false, label: q.label, drillable: it.kind === 'word' })),
+            .map((q) => (pend && q.id === pend.id ? pend : { id: q.id, section: q.section, correct: false, label: q.label, drillable: it.kind === 'word', daimon: it.daimon })),
         );
         return [...prev, ...miss];
       });
+      if (pend) { mockAnswer(pend.id, pend.correct); pendingRef.current = null; }
       sectionDone(); // ★制限時間に達したら休憩画面へ強制移動(最後の科目なら模試終了へ)
     };
     tick();
@@ -582,34 +595,41 @@ export default function MockScreen() {
         {explain ? (<View style={s.rvExplain}><Text style={s.rvExplainLbl}>{t('passage.explainLabel')}</Text><Text style={s.rvExplainTxt}>{explain}</Text></View>) : null}
       </View>
     );
-    const cards: React.ReactNode[] = [];
+    // 1文章(読解/文章の文法)ブロックの描画。FlatListの1行として遅延描画する(全問一括mountの重さ回避)。
+    const renderPassage = (it: MockItem) => (
+      <View style={s.rvPassage}>
+        {it.set!.passages.map((p, pi) => (
+          <View key={pi} style={s.rvPassageInner}>
+            {p.title ? <RubyText text={p.title} style={s.rvPassageTitle} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : null}
+            {p.body ? p.body.split('\n').map((ln, li) => (ln ? <RubyText key={li} text={ln} style={s.rvPassageBody} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : <View key={li} style={{ height: spacing.xs }} />)) : null}
+          </View>
+        ))}
+        {it.set!.questions.map((q, qi) => (
+          <QCard key={q.id} ck={q.id} qNo={q.blankNo != null ? t('passage.blankLabel', { n: q.blankNo }) : t('passage.qLabel', { n: qi + 1 })}
+            question={q.q} choices={q.choices} answerIndex={q.answerIndex} explain={q.explain} ok={correctById[q.id]} />
+        ))}
+      </View>
+    );
+    // 復習は全問を縦に並べると重い(数十〜百問＋ルビ解析)。FlatListで可視域だけ描画する“行データ”に変換。
+    type RvRow =
+      | { kind: 'group'; key: string; label: string }
+      | { kind: 'passage'; key: string; it: MockItem }
+      | { kind: 'q'; key: string; props: Parameters<typeof QCard>[0] };
+    const rows: RvRow[] = [];
     let lastG = '';
     exam.forEach((it, ii) => {
       const g = groupLabel(it);
-      if (g && g !== lastG) { lastG = g; cards.push(<Text key={`g${ii}`} style={s.rvGroup}>{g}</Text>); }
+      if (g && g !== lastG) { lastG = g; rows.push({ kind: 'group', key: `g${ii}`, label: g }); }
       if (it.kind === 'passageSet' && it.set) {
-        cards.push(
-          <View key={`p${ii}`} style={s.rvPassage}>
-            {it.set.passages.map((p, pi) => (
-              <View key={pi} style={s.rvPassageInner}>
-                {p.title ? <RubyText text={p.title} style={s.rvPassageTitle} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : null}
-                {p.body ? p.body.split('\n').map((ln, li) => (ln ? <RubyText key={li} text={ln} style={s.rvPassageBody} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : <View key={li} style={{ height: spacing.xs }} />)) : null}
-              </View>
-            ))}
-            {it.set.questions.map((q, qi) => (
-              <QCard key={q.id} ck={q.id} qNo={q.blankNo != null ? t('passage.blankLabel', { n: q.blankNo }) : t('passage.qLabel', { n: qi + 1 })}
-                question={q.q} choices={q.choices} answerIndex={q.answerIndex} explain={q.explain} ok={correctById[q.id]} />
-            ))}
-          </View>,
-        );
+        rows.push({ kind: 'passage', key: `p${ii}`, it });
       } else {
         const sentence = it.furi || it.prompt || it.reading || (it.example ? it.example.map((sg) => sg.text).join('') : '');
-        cards.push(
-          <QCard key={it.id} ck={it.id} qNo={it.title || undefined} sentence={sentence || undefined}
-            script={it.kind === 'listening' && it.script ? formatScript(it.script) : undefined}
-            question={it.question} choices={it.choices} answerIndex={it.answerIndex} pickedIndex={picks[it.id]}
-            explain={it.explain} ok={correctById[it.id]} />,
-        );
+        rows.push({ kind: 'q', key: it.id, props: {
+          ck: it.id, qNo: it.title || undefined, sentence: sentence || undefined,
+          script: it.kind === 'listening' && it.script ? formatScript(it.script) : undefined,
+          question: it.question, choices: it.choices, answerIndex: it.answerIndex, pickedIndex: picks[it.id],
+          explain: it.explain, ok: correctById[it.id],
+        } });
       }
     });
     return (
@@ -619,10 +639,22 @@ export default function MockScreen() {
           <Text style={s.rvTitle}>{t('mock.review_title')}</Text>
           <View style={{ width: 24 }} />
         </View>
-        <ScrollView contentContainerStyle={s.rvBody}>
-          {cards}
-          <Pressable style={s.reviewBtn} onPress={() => setPhase('result')}><Text style={s.reviewBtnT}>{t('mock.close')}</Text></Pressable>
-        </ScrollView>
+        <FlatList
+          style={{ flex: 1 }}
+          data={rows}
+          keyExtractor={(r) => r.key}
+          renderItem={({ item }) => {
+            if (item.kind === 'group') return <Text style={s.rvGroup}>{item.label}</Text>;
+            if (item.kind === 'passage') return renderPassage(item.it);
+            return <QCard {...item.props} />;
+          }}
+          contentContainerStyle={s.rvBody}
+          initialNumToRender={5}
+          maxToRenderPerBatch={5}
+          windowSize={7}
+          updateCellsBatchingPeriod={40}
+          ListFooterComponent={<Pressable style={s.reviewBtn} onPress={() => setPhase('result')}><Text style={s.reviewBtnT}>{t('mock.close')}</Text></Pressable>}
+        />
       </SafeAreaView>
     );
   }
@@ -789,19 +821,24 @@ export default function MockScreen() {
     );
   }
 
+  // 選択はハイライトのみ(確定は「次へ」)。何度でも選び直せる。確定用に選択内容を pendingRef に控える。
   const onPick = (choiceIdx: number) => {
-    if (picked !== null) return;
-    const isCorrect = choiceIdx === cur.answerIndex;
     setPicked(choiceIdx);
-    setPicks((p) => ({ ...p, [cur.id]: choiceIdx })); // 復習表示用に選択を保存(正誤はこの場では出さない)
-    mockAnswer(cur.id, isCorrect);
-    setAnswers((a) => [
-      ...a,
-      { id: cur.id, section: cur.section, correct: isCorrect, label: cur.prompt ?? cur.title ?? '', drillable: cur.kind === 'word' },
-    ]);
+    pendingRef.current = {
+      id: cur.id, section: cur.section, correct: choiceIdx === cur.answerIndex,
+      label: cur.prompt ?? cur.title ?? '', drillable: cur.kind === 'word', daimon: cur.daimon,
+    };
   };
   const next = async () => {
     await stopSound();
+    // 「次へ」で回答を確定(選び直し可・ここで採点/記録)。passage-setはPassageSetPlayer側で採点済み。
+    const pend = pendingRef.current;
+    if (pend && !answers.some((a) => a.id === pend.id)) {
+      setPicks((p) => ({ ...p, [pend.id]: picked ?? -1 })); // 復習表示用に最終選択を保存
+      mockAnswer(pend.id, pend.correct);
+      setAnswers((a) => [...a, pend]);
+    }
+    pendingRef.current = null;
     setPicked(null);
     // ブロック(科目)内はまだ次の問題へ。科目の最後まで解いたら休憩(または結果)へ。
     if (idx + 1 < curBlock.to) setIdx((i) => i + 1);
@@ -889,11 +926,12 @@ export default function MockScreen() {
             <View style={s.passageCard}>
               <Text style={s.passTitle}>{cur.title}</Text>
               {(() => {
-                const used = isJft && playCount >= JFT_LISTEN_MAX;
+                const remaining = LISTEN_MAX - playCount;
+                const used = remaining <= 0; // 上限に達したら再生不可(本番=JLPT 1回/JFT 2回)
                 return (
                   <Pressable style={[s.playBtn, playing && s.playBtnOn, used && !playing && s.playBtnUsed]} onPress={play} disabled={used && !playing}>
                     <Text style={[s.playTxt, playing && s.playTxtOn]}>
-                      {playing ? t('mock.playing') : isJft ? (used ? t('mock.play_used') : t('mock.play_jft', { n: JFT_LISTEN_MAX - playCount })) : t('mock.play_audio')}
+                      {playing ? t('mock.playing') : used ? t('mock.play_used', { n: LISTEN_MAX }) : isJft ? t('mock.play_jft', { n: remaining }) : t('mock.play_audio')}
                     </Text>
                   </Pressable>
                 );
@@ -911,10 +949,9 @@ export default function MockScreen() {
               return (
                 <Pressable
                   key={i}
-                  // 模試中は正誤(緑/赤)を出さない。選んだ肢だけ中立の色で示す。
-                  style={[s.choice, reveal && isPicked && s.choicePicked]}
+                  // 模試中は正誤(緑/赤)を出さない。選んだ肢だけ中立の色で示す。「次へ」まで何度でも選び直せる。
+                  style={[s.choice, isPicked && s.choicePicked]}
                   onPress={() => onPick(i)}
-                  disabled={reveal}
                 >
                   <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.mockRuby} rubyGate={rubyGate} /></View>
                 </Pressable>

@@ -1,22 +1,24 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 52 回・101 ターン
-- 往復 336 回
+- ツール呼び出し 2 回・6 ターン
+- 往復 243 回
 
 ## 何が変わったか
 - memory/handoff.md
+- memory/session-summary-LATEST.md
+- src/screens/MockScreen.tsx
 - src/i18n/ne.json
 - src/i18n/en.json
-- src/i18n/ja.json
-- src/components/InfoSearchFigure.tsx
-
-## ⚠️ 注意
-- - ⚠ 連続 101ターン（文脈 38万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 101ターン・ツール52回）— まとめ方を変える
 
 ## 次の一手
-- **▶▶ 2026-08-22 ✅実装完了＝模試の回答後挙動を変更＋書斎タブ2点（¥0・未コミット・未ビルド）**: ①**模試中は回答後に正誤・スクリプト・解説を出さない**（選んだ肢は中立色のみ・「次へ」だけ）→**最後に『解答・スクリプト・解説を見る』でまとめて表示**（新規=MockScreenの`phase:'review'`。大問ごとに全問の正解[緑✓]＋自分の誤答[赤]＋聴解スクリプト＋解説を一覧）。合否画面(JLPT/JFT)に導線ボタン追加。`picks`state追加で選択を保持。共有の`PassageSetPlayer`/`InfoSearchFigure`に`mock`prop追加し模試中は色/✓/解説/訳を抑止(採点記録は従来どおり)。②**書斎タブ 漢字カード=「今日の書き取り(復習)」を削除**（KubunCard・関連import/todayStr掃除）。③**語彙パズル=ヘッドホン音声再生を削除**（答えが聞けるため・WordDrillScreen・Ionicons/playVocab import掃除）。i18n mock.review_* を ja/en/ne追加。tsc0・parity緑・build登録テスト60/0(skip5)。**UI変更ゆえ端末反映に要ビルド＝実機での目視未確認**。**次の一手＝ユーザー判断**。以下は旧記録(参考):
+- **▶▶ 2026-08-23 ✅実装完了＝模試聴解の再生回数を本番仕様に（UI・未コミット・未ビルド）**: JLPTは従来無制限で繰り返し再生できたのを**1回のみ**に制限（`MockScreen.tsx` `LISTEN_MAX = isJft ? 2 : 1`・playガードをJFT限定から全体へ・再生ボタンのused/remaining表示をJLPTにも適用）。JFTは従来どおり2回。i18n `mock.play_used` を「再生済み（2回）」固定→`{n}`可変化(ja/en/ne・parity緑)。playCountは設問切替でリセット(既存)＝各設問で1回。tsc0。**次の一手＝ユーザー判断**(ビルドで端末反映)。以下は旧記録(参考):
+- **▶▶ 2026-08-23 ✅実装完了＝模試の回答時に選び直しできるように（UI・未コミット・未ビルド）**: 従来は一度選ぶと即確定・ロックで変更不可だった。**選択＝ハイライトのみに変更し「次へ」で確定**（`MockScreen.tsx` onPick=setPickedのみ＋pendingRefに控える／next()で採点mockAnswer+setAnswers+picks確定／選択肢のdisabled撤去で何度でも選び直せる）。**時間切れ時も選択済み(未確定)はその正誤で記録**（pendingRefをタイムアウトfillで反映＝空欄扱いにしない・stale closure回避のためref使用）。読解/文章の文法はPassageSetPlayer側採点で不変。tsc0・mockAnswer/mockScoreEstimate緑。**次の一手＝ユーザー判断**(ビルドで端末反映)。以下は旧記録(参考):
+- **▶▶ 2026-08-23 ✅実装完了＝模試の復習画面(phase:'review')を仮想化して軽量化（UI・未コミット・未ビルド）**: 全問(数十〜百問＋ルビ解析)を1つのScrollViewに一括mountしていたのが固着の原因。**FlatListへ置換**し可視域だけ描画(`MockScreen.tsx`・行データ`RvRow`=group/passage/q・`renderPassage`抽出・initialNumToRender5/maxToRenderPerBatch5/windowSize7)。挙動・レイアウトは同一(縦スクロールのまま)。tsc0。**次の一手＝ユーザー判断**(ビルドで端末反映)。以下は旧記録(参考):
+- **▶▶ 2026-08-23 ✅実装完了＝AIコーチ「模試の記録」から過去の模試成績表をタップで開けるように（UI・未コミット・未ビルド）**: 成績表(MockResultScreen)の再描画に必要な区分別実測`byCat`(漢字/語彙分割キー含む)＋`elapsedMs`を`MockResult`(state.ts)へ保存し、フル模試JLPT記録時に格納(`MockScreen`の記録effect・`tallyByCat`共通関数化＝結果画面と履歴で同一集計)。`AICoachScreen`の模試記録カードで**最新ヒーロー＋推移(直近8回)の各回をタップ→`MockResultDetail`へ遷移**(`openMock`/`canOpenMock`＝byCat保存済&JLPTのみ・合否はpredScore≥合格ライン&足切りなしで導出)。ヒーローに`chevron`、推移に下線＋ヒント文`coach.mock_tap_hint`(ja/en/ne追加・parity緑)。**旧記録(byCat無し)はタップ不可**(表示は従来どおり・クラッシュしない)＝今後のフル模試から開ける。**検証**＝tsc0・parity/mockScoreEstimate/mockAnswer 全緑。**次の一手＝ユーザー判断**(ビルドで端末反映)。以下は旧記録(参考):
+- **▶▶ 2026-08-23 ✅実装完了＝漢字IDを有効化したので「漢字・語彙」統合を巻き戻して漢字/語彙を再分割（UI・未コミット・未ビルド）**: ①**AIコーチ 分野別到達度**＝moji_goi統合(4区分)→**漢字/語彙/文法/読解/聴解の5区分**へ分割し、5つのリング→**5軸レーダーチャート**へ変更(`homeStatus.ts` subjects 4→5・`AICoachScreen.tsx` に`FacetRadar`新設=各頂点は区分色の点＋ラベル＋%)。②**AIコーチ カバー率**＝「漢字・語彙」1バー→**漢字/語彙/文法の3バー**へ(coverageBarsのkanjiフィルタ撤去・ラベルcards.kanji/cards.vocab)。③**模試詳細結果表(MockResultScreen)の分野別レーダー**＝moji_goi 4軸→**漢字/語彙/文法/読解/聴解 5軸**へ(byCatにkanji/vocab追加キー=answerにdaimon付与し大問①②=漢字/③④⑤=語彙で分割・moji_goi集計は得点計算のため維持)。ホームDQ風パネル(`StatusPanel`5バー化/`CoverageCard`3バー化)も一貫化。i18n新規キーなし(既存cards.kanji/vocab流用)。**検証**＝tsc0・homeStatus(5区分)/kanjiCoverage/parity/coachLines 全緑。**次の一手＝ユーザー判断**(ビルドで端末反映＝UI変更/未コミット)。以下は旧記録(参考):
+- **▶▶ 2026-08-22 🚀ビルド起動＝v1.1.7(2840) iOS/Android both dispatch（commit `4f679c93`・run 32579483011・-NoWatch・iOS本日3/8）**: 本日の全実装を同梱（下記の①漢字認識テスト＋カバー率4面化 ②模試の回答後正誤を隠し最後にまとめて解答/スクリプト/解説一覧 ③語彙聞き取り単語4択＋同音除外 ④漢字聞き取りlisten結線 ⑤書斎: 今日の書き取り復習削除・語彙パズル音声削除）。事前検証テスト60/0・tsc0・push済(OTA/Pages起動)。**監視しない(運用方針)**。設計書PDF04は実装反映版へ更新済(git外)。**次の一手＝ユーザー判断**(CI結果確認/翻訳en/neは新規UI分は同時対応済・他8言語backlogは後日)。以下は本ビルド同梱の実装記録(参考):
+- **▶▶ 2026-08-22 ✅実装完了＝模試の回答後挙動を変更＋書斎タブ2点（v1.1.7/2840に同梱済）**: ①**模試中は回答後に正誤・スクリプト・解説を出さない**（選んだ肢は中立色のみ・「次へ」だけ）→**最後に『解答・スクリプト・解説を見る』でまとめて表示**（新規=MockScreenの`phase:'review'`。大問ごとに全問の正解[緑✓]＋自分の誤答[赤]＋聴解スクリプト＋解説を一覧）。合否画面(JLPT/JFT)に導線ボタン追加。`picks`state追加で選択を保持。共有の`PassageSetPlayer`/`InfoSearchFigure`に`mock`prop追加し模試中は色/✓/解説/訳を抑止(採点記録は従来どおり)。②**書斎タブ 漢字カード=「今日の書き取り(復習)」を削除**（KubunCard・関連import/todayStr掃除）。③**語彙パズル=ヘッドホン音声再生を削除**（答えが聞けるため・WordDrillScreen・Ionicons/playVocab import掃除）。i18n mock.review_* を ja/en/ne追加。tsc0・parity緑・build登録テスト60/0(skip5)。**UI変更ゆえ端末反映に要ビルド＝実機での目視未確認**。**次の一手＝ユーザー判断**。以下は旧記録(参考):
 - **▶▶ 2026-08-22 ✅実装完了＝語彙の聞き取りドリルを「単語4択」化（¥0・未コミット・未ビルド）**: 音声(読み)を聞いて**書かれた単語**を選ぶ形へ(旧=意味の4択)。`src/listening/listeningQuiz.ts` buildVocabQuiz choices=`o.word`、nearDistractors に**同音語除外**(答えと同じ読みは誤答に入れない=音声で正解が割れないため・backfillも同音/意味除外)。i18n `listening2.prompt_vocab` を ja/en/ne とも「単語を選ぶ」へ。番人=listeningQuiz.test.ts(単語label・橋/箸の同音除外・distinct)。tsc0・35テスト緑。**※語彙パズル(vProduce→mean/read)・意味を選ぶ(gMeaning→grammar)・文法パズル(gBuild→grammar)は既にID点へ反映済=変更不要と確認**。**次の一手＝ユーザー判断**。以下は旧記録(参考):
 - **▶▶ 2026-08-22 ✅実装完了＝段階B② 漢字聞き取りドリルを％に結線（¥0・未コミット・未ビルド）**: `src/listening/listeningQuiz.ts` buildKanjiQuiz の answerId を `it.id`(n5-k-*)→**`it.char`** に変更＝char キーで listen 面へ計上(旧はfacet空でカバー率に反映されなかった／語彙聞き取りは元から反映済)。番人＝listeningQuiz.test.ts に「answerId=char→facetsForUnit=listen」追加。tsc0・関連21テスト緑。**①訓読み優先は一次確認の上で不採用(音声変更なし・課金なし)**＝bound 101字は音が主(校/会/時等)、unbound 511字は既に訓語(みず/ひと)で出題。音→訓に切替可能な12字は訓が全て非常用(性→さが/術→すべ/民→たみ 等)で品質低下＋新規TTS課金が要るため見送り(認識テストの訓優先はテキストで実装済)。**次の一手＝ユーザー判断**(ビルドで反映)。以下は旧記録(参考):
 - **▶▶ 2026-08-22 ✅実装完了＝段階B①漢字認識テスト新設＋カバー率反映（UI・未コミット・未ビルド／正本＝`memory/kanji-stage-b-inflight.md`）**: 字を単独提示→意味/読みを4択(文脈文なし)の新テスト。結果はcharのmean/read面へ計上し、カバー率式を read/write→**read/write/mean/listen**へ拡張(作れない面は除外＝校のmeanは分母から外す・kanjiFacets)。**新規**＝`src/kanji/kanjiRecognition.ts`(純関数)/`src/screens/KanjiRecognitionScreen.tsx`(音声なし)/番人`src/kanji/kanjiRecognition.test.ts`(build.ps1登録)。**編集**＝facetMap(krecog_mean/read→mean/read・weight1)/selectors(KANJI_FACETS拡張＋mean=meaningClear限定)/kanjiCoverage.test(＋3)/navigation types＋App.tsx(画面登録)/KubunCard(漢字kubunに「漢字テスト」導線＝最初から解禁0%・順=リスト→漢字テスト→聞取5%→書取10%)/i18n ja/en/ne(cards.kanji_recognition・krecog.*)。**読みQ設計**＝訓優先だが1モーラ訓stem(た/あ/り)は音へ退避・誤答は同種で字種を揃え・答えと同音/その字の全読みは除外(二重正解防止)。**既存データ不変**(mean/listenは従来皆無ゆえ回帰なし)。**検証**＝tsc0・計45テスト緑(kanjiRecognition/kanjiCoverage/parity/review系)。**次の一手＝ユーザー判断**(ビルドで端末反映＝UI変更/未コミット・段階B②聞き取り→listen接続は次パス)。以下は旧記録(参考):
