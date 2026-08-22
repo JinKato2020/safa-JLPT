@@ -583,6 +583,17 @@ export default function MockScreen() {
                   <Text style={s.previewNote}>{t('mock.preview_note')}</Text>
                   <Pressable style={s.imgCloseBtn} onPress={() => nav.goBack()}><Text style={s.imgCloseT}>{t('mock.close')}</Text></Pressable>
                 </View>
+              ) : est ? (
+                // JLPT: 合否画面から詳細結果(模試成績表)へ遷移。区分別実測(byCat)を渡し、遷移先で得点/相対位置/偏差値を算出。
+                <View style={s.detailBtnWrap}>
+                  <Pressable
+                    style={s.detailBtn}
+                    onPress={() => nav.navigate('MockResultDetail', { level, byCat, passed, elapsedMs: elapsed, wrongDrillIds: wrongDrill.map((w) => w.id) })}
+                  >
+                    <Text style={s.detailBtnT}>{t('mock.see_details_btn')}</Text>
+                  </Pressable>
+                  <View style={s.scrollHint}><Text style={s.scrollHintT}>{t('mock.see_details')}</Text></View>
+                </View>
               ) : (
                 <View style={s.scrollHint}><Text style={s.scrollHintT}>{t('mock.see_details')}</Text></View>
               )}
@@ -927,6 +938,9 @@ const makeStyles = (c: ThemeColors) =>
     previewFooter: { paddingHorizontal: spacing.lg, paddingBottom: spacing.lg, alignItems: 'center', gap: spacing.sm },
     imgCloseBtn: { alignSelf: 'stretch', backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center' },
     imgCloseT: { color: '#241a10', fontSize: ty.body, fontWeight: '900', letterSpacing: 1 },
+    detailBtnWrap: { alignItems: 'center', paddingBottom: spacing.sm },
+    detailBtn: { backgroundColor: c.pink, borderRadius: radius.pill, paddingVertical: 13, paddingHorizontal: 32, marginBottom: spacing.sm, shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
+    detailBtnT: { color: '#fff', fontWeight: '900', fontSize: ty.body },
     scrollHint: { paddingBottom: spacing.md, alignItems: 'center' },
     scrollHintT: { fontSize: ty.small, color: '#fff', fontWeight: '800', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
     statsSheet: { backgroundColor: c.bg, padding: spacing.lg, gap: spacing.md, paddingBottom: spacing.xl },

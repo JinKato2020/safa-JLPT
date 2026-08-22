@@ -1007,10 +1007,10 @@ export default function KotobaTownScreen() {
         const grammar = Math.max(0, learned - kanji - vocab);
         // 分母＝そのレベルの全単語数(漢字/語彙/文法)。覚えた数は総数を超えないよう丸める。
         const lvTot = LEVEL_TOTALS[talk.level] ?? { kanji: 1, vocab: 1, grammar: 1 };
+        // 漢字は語彙に統合(ユーザー確定2026-08-22)＝「漢字・語彙」(青)＋「文法」(緑)の2バー。ラベルは多言語で長くなるため2段表示。
         const CATS: { lab: string; n: number; total: number; col: string }[] = [
-          { lab: t('town.facet.kanji'), n: Math.min(kanji, lvTot.kanji), total: lvTot.kanji, col: '#4a7fc0' },
-          { lab: t('town.facet.vocab'), n: Math.min(vocab, lvTot.vocab), total: lvTot.vocab, col: '#6f9a3f' },
-          { lab: t('town.facet.grammar'), n: Math.min(grammar, lvTot.grammar), total: lvTot.grammar, col: '#c0603a' },
+          { lab: t('town.facet.moji_goi'), n: Math.min(kanji + vocab, lvTot.kanji + lvTot.vocab), total: lvTot.kanji + lvTot.vocab, col: '#4a7fc0' },
+          { lab: t('town.facet.grammar'), n: Math.min(grammar, lvTot.grammar), total: lvTot.grammar, col: '#6f9a3f' },
         ];
         // 6項目=2列×3行。各セルは「ラベル(上・小)＋値(下・大)」の縦積み。
         // 英語/ネパール語はラベルも値も長いため、横並び(ラベル：値)だと右列がはみ出して消える・文字が極小になる。
@@ -1088,8 +1088,10 @@ export default function KotobaTownScreen() {
                   const fill = Math.max(0.03, Math.min(1, c.n / Math.max(1, c.total))); // 覚えた/総単語 の割合
                   return (
                     <View key={i} pointerEvents="none" style={StyleSheet.absoluteFill}>
-                      {/* ラベル(漢字/語彙/文法)=バーと縦中央そろえ */}
-                      <Text style={{ position: 'absolute', left: FW * 0.12, top: y + (barH - FS_LAB) / 2 - 1, color: subCol, fontSize: FS_LAB, fontWeight: '600' }}>{c.lab}</Text>
+                      {/* ラベル(漢字・語彙/文法)=バーと縦中央そろえ。多言語で長いため2段(numberOfLines=2)に対応。 */}
+                      <View style={{ position: 'absolute', left: FW * 0.06, width: FW * 0.22, top: y - FS_LAB * 0.4, height: barH + FS_LAB * 0.8, justifyContent: 'center' }}>
+                        <Text numberOfLines={2} style={{ color: subCol, fontSize: FS_LAB, lineHeight: Math.round(FS_LAB * 1.12), fontWeight: '600' }}>{c.lab}</Text>
+                      </View>
                       <View style={{ position: 'absolute', left: bx0, top: y, width: bw, height: barH, borderRadius: 6, backgroundColor: 'rgba(120,100,70,0.16)', borderWidth: 1, borderColor: 'rgba(120,100,70,0.4)', overflow: 'hidden' }}>
                         <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: Math.round(bw * fill), backgroundColor: c.col, borderRadius: 6 }} />
                       </View>

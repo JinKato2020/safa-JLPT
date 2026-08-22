@@ -64,8 +64,9 @@ export default function AICoachScreen() {
     const daily = cum.slice(1).map((v, i) => Math.max(0, v - cum[i]));
     // カバー率(覚えた数)=書庫の3辞書(漢字/語彙/文法)の当該レベル総数を分母にする。
     // 読解・聴解はスキル(般化)で「語数」ではないため、覚えた数/カバー率の分母には含めない(単語タブの3カードと一致)。
-    const CAT_LABEL: Record<string, string> = { kanji: 'cards.kanji', vocab: 'cards.vocab', grammar: 'cards.grammar' };
-    const coverage = coverageBars(state, now).map((b) => ({
+    // 漢字は語彙に統合(ユーザー確定2026-08-22)＝漢字バーを出さず「漢字・語彙」1本に。漢字力は語彙の面(read/write)へ既に合流済。
+    const CAT_LABEL: Record<string, string> = { vocab: 'cards.moji_goi', grammar: 'cards.grammar' };
+    const coverage = coverageBars(state, now).filter((b) => b.key !== 'kanji').map((b) => ({
       cat: b.key,
       labelKey: CAT_LABEL[b.key],
       pct: b.total > 0 ? Math.round((100 * b.learned) / b.total) : 0,

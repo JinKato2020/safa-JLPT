@@ -1,4 +1,4 @@
-import type { Category } from '../engine/engine';
+import type { Category, Level } from '../engine/engine';
 import type { Daimon } from '../data/examBlueprint';
 import type { StudiedQuestion } from '../data/studiedWords';
 
@@ -23,6 +23,8 @@ export type RootStackParamList = {
   Flashcard: { ids?: string[] } | undefined; // 漢字・語彙 連続学習→連続テスト(個別漢字79字を含む)。ids指定時はその語id集合だけを復習(my単語帳の「復習する」)
   MockIntro: { full?: boolean } | undefined; // 模試の説明(いきなり始めず遷移)。案内キャラ＋目安
   Mock: { full?: boolean; preview?: 'pass' | 'fail' } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)。preview=開発者用に終了画面(合格/不合格)を直接表示
+  // 模試成績表(詳細結果)。合否画面の「詳細結果を見る」から遷移。JLPT専用。区分別実測(byCat)から得点/相対位置/偏差値をその場で算出。
+  MockResultDetail: { level: Level; byCat: Record<string, { c: number; t: number }>; passed: boolean; elapsedMs: number; wrongDrillIds: string[] };
   Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho'; title?: string } | undefined;   // 読解(小区分つき)。title=大問名ヘッダー
   PassageGrammar: { title?: string } | undefined; // 文章の文法(大問⑧・セット形式=1文章＋5設問。passageGrammar.json)。title=大問名ヘッダー
   Listening: { subtype?: 'kadai' | 'point' | 'gaiyou' | 'hatsuwa' | 'sokuji'; title?: string } | undefined; // 聴解(小区分つき)。title=大問名ヘッダー

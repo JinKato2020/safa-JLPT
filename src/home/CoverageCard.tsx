@@ -10,9 +10,9 @@ import FramedPanel, { AnimBar, PC, useReveal } from './FramedPanel';
 import StatusHeader from './StatusHeader';
 import MiniTrend from './MiniTrend';
 
+// 漢字は語彙に統合(ユーザー確定2026-08-22)＝「漢字・語彙」＋「文法」の2行(漢字バーは出さない)。
 const ROWS: { key: 'kanji' | 'vocab' | 'grammar'; labelKey: string; color: string }[] = [
-  { key: 'kanji', labelKey: 'cards.kanji', color: '#d9743f' },
-  { key: 'vocab', labelKey: 'cards.vocab', color: '#3f9d5a' },
+  { key: 'vocab', labelKey: 'cards.moji_goi', color: '#3f9d5a' },
   { key: 'grammar', labelKey: 'cards.grammar', color: '#7b6bd6' },
 ];
 
