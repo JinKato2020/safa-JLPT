@@ -1,15 +1,25 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
+- ツール呼び出し 52 回・101 ターン
+- 往復 336 回
 
 ## 何が変わったか
 - memory/handoff.md
-- tools/build.ps1
-- src/store/kanjiCoverage.test.ts
-- src/store/selectors.ts
-- memory/session-summary-LATEST.md
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
+- src/components/InfoSearchFigure.tsx
+
+## ⚠️ 注意
+- - ⚠ 連続 101ターン（文脈 38万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 101ターン・ツール52回）— まとめ方を変える
 
 ## 次の一手
+- **▶▶ 2026-08-22 ✅実装完了＝模試の回答後挙動を変更＋書斎タブ2点（¥0・未コミット・未ビルド）**: ①**模試中は回答後に正誤・スクリプト・解説を出さない**（選んだ肢は中立色のみ・「次へ」だけ）→**最後に『解答・スクリプト・解説を見る』でまとめて表示**（新規=MockScreenの`phase:'review'`。大問ごとに全問の正解[緑✓]＋自分の誤答[赤]＋聴解スクリプト＋解説を一覧）。合否画面(JLPT/JFT)に導線ボタン追加。`picks`state追加で選択を保持。共有の`PassageSetPlayer`/`InfoSearchFigure`に`mock`prop追加し模試中は色/✓/解説/訳を抑止(採点記録は従来どおり)。②**書斎タブ 漢字カード=「今日の書き取り(復習)」を削除**（KubunCard・関連import/todayStr掃除）。③**語彙パズル=ヘッドホン音声再生を削除**（答えが聞けるため・WordDrillScreen・Ionicons/playVocab import掃除）。i18n mock.review_* を ja/en/ne追加。tsc0・parity緑・build登録テスト60/0(skip5)。**UI変更ゆえ端末反映に要ビルド＝実機での目視未確認**。**次の一手＝ユーザー判断**。以下は旧記録(参考):
+- **▶▶ 2026-08-22 ✅実装完了＝語彙の聞き取りドリルを「単語4択」化（¥0・未コミット・未ビルド）**: 音声(読み)を聞いて**書かれた単語**を選ぶ形へ(旧=意味の4択)。`src/listening/listeningQuiz.ts` buildVocabQuiz choices=`o.word`、nearDistractors に**同音語除外**(答えと同じ読みは誤答に入れない=音声で正解が割れないため・backfillも同音/意味除外)。i18n `listening2.prompt_vocab` を ja/en/ne とも「単語を選ぶ」へ。番人=listeningQuiz.test.ts(単語label・橋/箸の同音除外・distinct)。tsc0・35テスト緑。**※語彙パズル(vProduce→mean/read)・意味を選ぶ(gMeaning→grammar)・文法パズル(gBuild→grammar)は既にID点へ反映済=変更不要と確認**。**次の一手＝ユーザー判断**。以下は旧記録(参考):
+- **▶▶ 2026-08-22 ✅実装完了＝段階B② 漢字聞き取りドリルを％に結線（¥0・未コミット・未ビルド）**: `src/listening/listeningQuiz.ts` buildKanjiQuiz の answerId を `it.id`(n5-k-*)→**`it.char`** に変更＝char キーで listen 面へ計上(旧はfacet空でカバー率に反映されなかった／語彙聞き取りは元から反映済)。番人＝listeningQuiz.test.ts に「answerId=char→facetsForUnit=listen」追加。tsc0・関連21テスト緑。**①訓読み優先は一次確認の上で不採用(音声変更なし・課金なし)**＝bound 101字は音が主(校/会/時等)、unbound 511字は既に訓語(みず/ひと)で出題。音→訓に切替可能な12字は訓が全て非常用(性→さが/術→すべ/民→たみ 等)で品質低下＋新規TTS課金が要るため見送り(認識テストの訓優先はテキストで実装済)。**次の一手＝ユーザー判断**(ビルドで反映)。以下は旧記録(参考):
+- **▶▶ 2026-08-22 ✅実装完了＝段階B①漢字認識テスト新設＋カバー率反映（UI・未コミット・未ビルド／正本＝`memory/kanji-stage-b-inflight.md`）**: 字を単独提示→意味/読みを4択(文脈文なし)の新テスト。結果はcharのmean/read面へ計上し、カバー率式を read/write→**read/write/mean/listen**へ拡張(作れない面は除外＝校のmeanは分母から外す・kanjiFacets)。**新規**＝`src/kanji/kanjiRecognition.ts`(純関数)/`src/screens/KanjiRecognitionScreen.tsx`(音声なし)/番人`src/kanji/kanjiRecognition.test.ts`(build.ps1登録)。**編集**＝facetMap(krecog_mean/read→mean/read・weight1)/selectors(KANJI_FACETS拡張＋mean=meaningClear限定)/kanjiCoverage.test(＋3)/navigation types＋App.tsx(画面登録)/KubunCard(漢字kubunに「漢字テスト」導線＝最初から解禁0%・順=リスト→漢字テスト→聞取5%→書取10%)/i18n ja/en/ne(cards.kanji_recognition・krecog.*)。**読みQ設計**＝訓優先だが1モーラ訓stem(た/あ/り)は音へ退避・誤答は同種で字種を揃え・答えと同音/その字の全読みは除外(二重正解防止)。**既存データ不変**(mean/listenは従来皆無ゆえ回帰なし)。**検証**＝tsc0・計45テスト緑(kanjiRecognition/kanjiCoverage/parity/review系)。**次の一手＝ユーザー判断**(ビルドで端末反映＝UI変更/未コミット・段階B②聞き取り→listen接続は次パス)。以下は旧記録(参考):
 - **▶▶ 2026-08-22 ✅実装完了＝漢字カバー率を語彙へ統合「漢字・語彙」化（UI・未コミット・未ビルド）**: 漢字は語彙に限りなく近い(試験の漢字力=漢字読み/表記は既に語のread/write面へ合流)ため、表示上の漢字バー/リングを廃し語彙へ統合。**変更**＝`src/home/homeStatus.ts`(subjects 5→4区分・漢字+語彙→`moji_goi`=`cards.moji_goi`「漢字・語彙」)＋テスト更新／`src/screens/AICoachScreen.tsx`(カバー率カード=漢字行除外・語彙をmoji_goiへ)／`src/screens/KotobaTownScreen.tsx`(会話ステータス3→2バー=漢字・語彙[青#4a7fc0]/文法[緑#6f9a3f]・ラベル多言語対策で2段`\n`)／`src/home/CoverageCard.tsx`(未使用だが一貫性)。**i18n ja/en/ne**に`cards.moji_goi`「漢字・語彙/Kanji & Vocab/कान्जी र शब्दावली」＋`town.facet.moji_goi`(2段)。**書斎タブの漢字カード/書き取りは機能存続**(`coverageBars`は3本返却のまま維持＝KubunCard/解禁/予想得点/リング不変)。**xlsx**`memory/在庫・模試ストックまとめ.xlsx`の「単語×大問カバー率」「単語数と紐づけ大問」から漢字単語行を削除・注記更新(生成ツール無し=直接編集)。**検証**＝tsc0・parity緑・homeStatus 4区分テスト緑。**分野別リングは漢字/語彙を1本化と解釈**(要確認なら戻せる)。**次の一手＝ユーザー判断**(ビルドするか＝UI変更ゆえ反映に要ビルド・未コミット)。以下は旧記録(参考):
 - **▶▶ 2026-08-21 ✅完了＝文章の文法 N5 カバー率 52→91/91(100%)＋OTA配信＋Build v1.1.4(2837)**: 新12問を退避IDへ再利用(0001/0035/0041/0042/0044/0045/0047/0048/0053/0062/0069/0075・0081-0092は廃止)＝ID連番維持。既存0043の半角括弧ルビを全角へ是正(ルビ100%)。カバー率シート信号色を是正(N5文章の文法=緑)＝`tools/update_coverage_grammar.py`に緑≥80/黄60-79/赤<60の自動彩色を実装。**コミット aee5e5f6(OTA)＋c7cd54e9(色)＋ad71f7a5(build)・push済＝Pages配信起動**。**Build v1.1.4(2837) iOS/Android both dispatch(run 32494154988・-NoWatch・iOS本日5/8)**＝聴解/情報検索など保留中の修正も同梱(git add -A)。テスト48/0・tsc0。**次の一手＝ユーザー判断**(CI結果確認/翻訳en/ne後日・有料)。以下は旧記録(参考):
 - **▶▶ 2026-08-21 ✅旧＝文章の文法 N5 カバー率 52→91/91(100%)（正本＝`memory/文章の文法N5カバー-inflight.md`）**: 低カバー12問を没問題へ退避(可逆・退避後もカバー52維持を実測)＋新規12問(0081-0092・各2文章5空所・割当pointIdで未カバー39点を全網羅)。**品質＝機械ゲートHARD0＋独立盲反証を3ラウンド**（正解伏せで別エージェントが解答→非一意を検出→修正の反復。不要/禁止・申し出/希望・とき/あと・は/も の第2正解を全つぶし）。**適用(68→80)→rebuild→テスト緑(passageGrammar3/3・Wire3/3・transNe4/4・N5 80維持)→tsc0**。**未コミット**＝`content/problems/bunpou/passage_grammar_N5.json`(80)・`content/_manifest.json`・退避json。**次の一手＝ユーザー判断**（①OTA配信=commit+push②カバー率Excelはロック中で要再実行③翻訳en/ne後日）。作問=Opus本体・有料API無し。◀◀ 次セッションの起点。

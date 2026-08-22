@@ -8,7 +8,6 @@ import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { walletPoints } from '../store/wallet';
@@ -16,7 +15,6 @@ import { buildDrill, type DrillProblem } from '../ladder/wordDrill';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward, { type StudiedWord } from '../components/AfterStudyReward';
 import AnswerFooter from '../components/AnswerFooter';
-import { playVocab } from '../data/vocabAudio';
 import RubyText from '../components/RubyText';
 import { useT } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
@@ -182,18 +180,12 @@ function ProduceView({ p, placed, setPlaced, judged, record, s, c, t }: {
       record(built === p.reading, p.itemId);
     }
   };
-  const vid = p.itemId.split('#')[0];
   return (
     <>
       <View style={s.prompt}>
         {p.kind === 'vProduce' ? (
-          <>
-            <Text style={s.promptEn}>{p.prompt}</Text>
-            <Pressable style={s.listen} onPress={() => playVocab(vid)}>
-              <Ionicons name="headset-outline" size={15} color={c.blueDark} />
-              <Text style={s.listenTxt}>{t('worddrill.listen')}</Text>
-            </Pressable>
-          </>
+          // 音声再生は置かない(読みを聞けると産出の答えになるため。ユーザー指示2026-08-22)。
+          <Text style={s.promptEn}>{p.prompt}</Text>
         ) : (
           <>
             <RubyText text={p.prompt} style={s.promptJa} rubyStyle={{ color: c.mute }} center />

@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { pickItems, nearDistractors, buildVocabQuiz, buildKanjiQuiz, type LQItem, type KanjiRep } from './listeningQuiz.ts';
+import { facetsForUnit } from '../review/facetMap.ts';
 
 const rng0 = () => 0;
 const seq = (a: number[]) => { let i = 0; return () => a[i++ % a.length]; };
@@ -22,13 +23,25 @@ test('nearDistractors: 正解除外・共通漢字優先(会社→会話/社会)
   assert.ok(d.every((x) => x.id !== 'a'));
   assert.ok(d.some((x) => x.id === 'b' || x.id === 'c'));
 });
-test('buildVocabQuiz: 4択・正解含む・label=意味', () => {
+test('buildVocabQuiz: 4択・正解含む・label=単語(音声→書かれた単語を選ぶ)', () => {
   const qs = buildVocabQuiz([VP[0]], VP, seq([0.1, 0.3, 0.6, 0.9]));
   const q = qs[0];
   assert.equal(q.choices.length, 4);
   assert.equal(new Set(q.choices).size, 4);
-  assert.equal(q.choices[q.answerIndex], 'company');
+  assert.equal(q.choices[q.answerIndex], '会社'); // 意味ではなく単語(書字)が選択肢
   assert.equal(q.audioReading, 'かいしゃ');
+});
+test('buildVocabQuiz: 同音語(橋/箸)は誤答に入らない=単語4択で音声とダブらせない', () => {
+  const pool: LQItem[] = [
+    { id: 'h1', word: '橋', reading: 'はし', meaning: 'bridge' },
+    { id: 'h2', word: '箸', reading: 'はし', meaning: 'chopsticks' }, // 橋と同音
+    { id: 'h3', word: '駅', reading: 'えき', meaning: 'station' },
+    { id: 'h4', word: '道', reading: 'みち', meaning: 'road' },
+    { id: 'h5', word: '町', reading: 'まち', meaning: 'town' },
+  ];
+  const q = buildVocabQuiz([pool[0]], pool, rng0)[0];
+  assert.ok(!q.choices.includes('箸'), '同音の箸を誤答に入れない');
+  assert.equal(q.choices[q.answerIndex], '橋');
 });
 
 test('nearDistractors: backfillでも意味重複を選ばない(小プールで強制backfill)', () => {
@@ -46,7 +59,7 @@ test('nearDistractors: backfillでも意味重複を選ばない(小プールで
   assert.equal(new Set(meanings).size, meanings.length); // 誤答同士も重複なし
   assert.ok(!meanings.includes('company')); // 正解の意味と重複しない
 });
-test('buildVocabQuiz: backfillが発生する小プールでも4択の意味labelが全て distinct', () => {
+test('buildVocabQuiz: backfillが発生する小プールでも4択の単語labelが全て distinct', () => {
   const pool: LQItem[] = [
     { id: 'c0', word: '会社', reading: 'かいしゃ', meaning: 'company' },
     { id: 'x1', word: '桜', reading: 'さくら', meaning: 'cherry' },
@@ -56,7 +69,7 @@ test('buildVocabQuiz: backfillが発生する小プールでも4択の意味labe
   const qs = buildVocabQuiz([pool[0]], pool, rng0);
   const q = qs[0];
   assert.equal(new Set(q.choices).size, q.choices.length);
-  assert.equal(q.choices[q.answerIndex], 'company');
+  assert.equal(q.choices[q.answerIndex], '会社');
 });
 
 const KP: KanjiRep[] = [
@@ -82,6 +95,12 @@ test('buildKanjiQuiz: 拘束字は音読みが audioReading・audioVocabId は n
   const qs = buildKanjiQuiz([KP[5]], KP, rng0); // 校(こう)
   assert.equal(qs[0].audioReading, 'こう');
   assert.equal(qs[0].audioVocabId, null);
+});
+// 段階B②の結線: answerId=char で listen 面(char キー)へ計上される。旧 it.id(n5-k-*)だと facet が空でカバー率に反映されなかった。
+test('buildKanjiQuiz: answerId=char で listen 面へ計上(段階B②)', () => {
+  const qs = buildKanjiQuiz([KP[1]], KP, rng0); // 水
+  assert.equal(qs[0].answerId, '水');
+  assert.deepEqual(facetsForUnit(qs[0].answerId), [{ itemId: '水', facet: 'listen', weight: 1 }]);
 });
 // 回帰: reading が null/欠損の語(かな見出し語 等)がプールに在っても throw しない。
 // これを踏むと built useMemo が例外→ルート防波堤で全画面クラッシュしていた(N4語彙で実際に発生)。

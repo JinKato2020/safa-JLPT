@@ -131,6 +131,7 @@ $tests = @(
   'tools/content/manifest.test.ts'
   'tools/content/validate.test.ts'
   'src/store/kanjiCoverage.test.ts'
+  'src/kanji/kanjiRecognition.test.ts'
   'src/data/skeletonBalance.test.ts'
   'src/data/johoSkeletonBalance.test.ts'
   'src/data/johoSolvability.test.ts'

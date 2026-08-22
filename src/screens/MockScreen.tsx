@@ -313,7 +313,7 @@ export default function MockScreen() {
   const [startedAt] = useState(() => Date.now());
   const [endedAt, setEndedAt] = useState<number | null>(null);
   // フロー: break(各科目の前=模試休憩画面) → exam(出題) →(科目終わり)→ 次の科目の break … 最後の科目後 → end(模試終了) → calc(計算演出) → result(合否)
-  const [phase, setPhase] = useState<'exam' | 'break' | 'end' | 'calc' | 'result'>(preview ? 'end' : 'break');
+  const [phase, setPhase] = useState<'exam' | 'break' | 'end' | 'calc' | 'result' | 'review'>(preview ? 'end' : 'break');
   const ticketSpentRef = useRef(false); // チケットは最初の科目スタートで1回だけ消費
   const calcProg = useRef(new Animated.Value(0)).current; // 結果計算バー(0→1で約5秒)
   const [calcPct, setCalcPct] = useState(0);
@@ -321,7 +321,8 @@ export default function MockScreen() {
   const bubbleOp = useRef(new Animated.Value(0)).current; // 桜吹き出しのフェードイン
   const [playing, setPlaying] = useState(false);
   const [playCount, setPlayCount] = useState(0); // 現在の聴解問題の再生回数(JFTは2回まで)
-  const [reveal2, setReveal2] = useState(false); // 解答後のスクリプト/解説
+  // 模試中は回答後の正誤・スクリプト・解説を出さない(最後に「解答・解説」でまとめて表示)。picks=各問の選択(復習表示用)。
+  const [picks, setPicks] = useState<Record<string, number>>({});
   const soundRef = useRef<Audio.Sound | null>(null);
   const recordedRef = useRef(false);
   const [prevMock] = useState(() => {
@@ -439,7 +440,6 @@ export default function MockScreen() {
     if (!ticketSpentRef.current) { ticketSpentRef.current = true; if (!unlimitedMock) spendMockTicket(); }
     setIdx(curBlock.from);
     setPicked(null);
-    setReveal2(false);
     setRemainingMs(curBlock.ms);
     setBlockStartedAt(Date.now());
     setPhase('exam');
@@ -542,6 +542,91 @@ export default function MockScreen() {
     );
   }
 
+  // 解答・スクリプト・解説のまとめ画面(模試終了後)。全問の正解＋(聴解)スクリプト＋解説を体裁よく一覧。
+  if (phase === 'review') {
+    const correctById: Record<string, boolean> = {};
+    for (const a of answers) correctById[a.id] = a.correct;
+    // 大問ラベル(グループ見出し用)。exam順に並べ、ラベルが変わったら見出しを挟む。
+    const groupLabel = (it: MockItem): string => {
+      const key = it.kind === 'listening' ? it.grpKey
+        : it.daimon ? DAIMON_LABEL[it.daimon]
+          : it.kind === 'passageSet' ? (it.section === 'bunpou' ? DAIMON_LABEL.passage_grammar : READING_SUB_LABEL[it.set?.subtype ?? ''])
+            : (isJft ? JFT_SEC_LABEL : SEC_LABEL)[it.section];
+      return key ? t(key) : '';
+    };
+    // 1設問カード。正解=緑(✓)、自分の誤答=赤。pickedはword/listeningのみ(passageは未追跡=正解と○×のみ)。
+    const QCard = ({ ck, qNo, sentence, script, question, choices, answerIndex, pickedIndex, explain, ok }: {
+      ck: string; qNo?: string; sentence?: string; script?: string; question?: string;
+      choices: string[]; answerIndex: number; pickedIndex?: number; explain?: string; ok?: boolean;
+    }) => (
+      <View key={ck} style={s.rvCard}>
+        <View style={s.rvHead}>
+          {ok === undefined ? null : <Text style={[s.rvBadge, ok ? s.rvOk : s.rvNg]}>{ok ? t('mock.review_ok') : t('mock.review_ng')}</Text>}
+          {qNo ? <Text style={s.rvQno}>{qNo}</Text> : null}
+        </View>
+        {sentence ? <RubyText text={sentence} style={s.rvSentence} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : null}
+        {script ? (<View style={s.rvScriptBox}><Text style={s.rvScriptLbl}>{t('mock.review_script')}</Text><Text style={s.rvScript}>{script}</Text></View>) : null}
+        {question ? <RubyText text={question} style={s.rvQ} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : null}
+        <View style={s.rvChoices}>
+          {choices.map((ch, i) => {
+            const isAns = i === answerIndex;
+            const isMine = pickedIndex != null && i === pickedIndex;
+            return (
+              <View key={i} style={[s.rvChoice, isAns && s.rvChoiceOk, isMine && !isAns && s.rvChoiceMine]}>
+                <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.rvChoiceTxt} rubyStyle={s.mockRuby} rubyGate={rubyGate} /></View>
+                {isAns ? <Text style={s.rvCorrectTag}>{t('mock.review_correct')}</Text> : isMine ? <Text style={s.rvMineTag}>{t('mock.review_your')}</Text> : null}
+              </View>
+            );
+          })}
+        </View>
+        {explain ? (<View style={s.rvExplain}><Text style={s.rvExplainLbl}>{t('passage.explainLabel')}</Text><Text style={s.rvExplainTxt}>{explain}</Text></View>) : null}
+      </View>
+    );
+    const cards: React.ReactNode[] = [];
+    let lastG = '';
+    exam.forEach((it, ii) => {
+      const g = groupLabel(it);
+      if (g && g !== lastG) { lastG = g; cards.push(<Text key={`g${ii}`} style={s.rvGroup}>{g}</Text>); }
+      if (it.kind === 'passageSet' && it.set) {
+        cards.push(
+          <View key={`p${ii}`} style={s.rvPassage}>
+            {it.set.passages.map((p, pi) => (
+              <View key={pi} style={s.rvPassageInner}>
+                {p.title ? <RubyText text={p.title} style={s.rvPassageTitle} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : null}
+                {p.body ? p.body.split('\n').map((ln, li) => (ln ? <RubyText key={li} text={ln} style={s.rvPassageBody} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : <View key={li} style={{ height: spacing.xs }} />)) : null}
+              </View>
+            ))}
+            {it.set.questions.map((q, qi) => (
+              <QCard key={q.id} ck={q.id} qNo={q.blankNo != null ? t('passage.blankLabel', { n: q.blankNo }) : t('passage.qLabel', { n: qi + 1 })}
+                question={q.q} choices={q.choices} answerIndex={q.answerIndex} explain={q.explain} ok={correctById[q.id]} />
+            ))}
+          </View>,
+        );
+      } else {
+        const sentence = it.furi || it.prompt || it.reading || (it.example ? it.example.map((sg) => sg.text).join('') : '');
+        cards.push(
+          <QCard key={it.id} ck={it.id} qNo={it.title || undefined} sentence={sentence || undefined}
+            script={it.kind === 'listening' && it.script ? formatScript(it.script) : undefined}
+            question={it.question} choices={it.choices} answerIndex={it.answerIndex} pickedIndex={picks[it.id]}
+            explain={it.explain} ok={correctById[it.id]} />,
+        );
+      }
+    });
+    return (
+      <SafeAreaView style={s.c} edges={['top']}>
+        <View style={s.rvTop}>
+          <Pressable onPress={() => setPhase('result')} hitSlop={12}><Text style={s.close}>✕</Text></Pressable>
+          <Text style={s.rvTitle}>{t('mock.review_title')}</Text>
+          <View style={{ width: 24 }} />
+        </View>
+        <ScrollView contentContainerStyle={s.rvBody}>
+          {cards}
+          <Pressable style={s.reviewBtn} onPress={() => setPhase('result')}><Text style={s.reviewBtnT}>{t('mock.close')}</Text></Pressable>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
   if (phase === 'result' || !cur) {
     const correct = answers.filter((a) => a.correct).length;
     const pct = Math.round((100 * correct) / (answers.length || 1));
@@ -592,6 +677,9 @@ export default function MockScreen() {
                     onPress={() => nav.navigate('MockResultDetail', { level, byCat, passed, elapsedMs: elapsed })}
                   >
                     <Text style={s.detailBtnT}>{t('mock.see_details_btn')}</Text>
+                  </Pressable>
+                  <Pressable style={s.reviewBtn} onPress={() => setPhase('review')}>
+                    <Text style={s.reviewBtnT}>{t('mock.review_btn')}</Text>
                   </Pressable>
                 </View>
               ) : (
@@ -688,6 +776,9 @@ export default function MockScreen() {
           ) : (
             <Text style={s.allOk}>{t('mock.all_ok')}</Text>
           )}
+          <Pressable style={s.reviewBtn} onPress={() => setPhase('review')}>
+            <Text style={s.reviewBtnT}>{t('mock.review_btn')}</Text>
+          </Pressable>
           <Pressable style={s.ghost} onPress={() => nav.goBack()}>
             <Text style={s.ghostTxt}>{t('mock.close')}</Text>
           </Pressable>
@@ -702,7 +793,7 @@ export default function MockScreen() {
     if (picked !== null) return;
     const isCorrect = choiceIdx === cur.answerIndex;
     setPicked(choiceIdx);
-    if (cur.kind !== 'word') setReveal2(true);
+    setPicks((p) => ({ ...p, [cur.id]: choiceIdx })); // 復習表示用に選択を保存(正誤はこの場では出さない)
     mockAnswer(cur.id, isCorrect);
     setAnswers((a) => [
       ...a,
@@ -712,7 +803,6 @@ export default function MockScreen() {
   const next = async () => {
     await stopSound();
     setPicked(null);
-    setReveal2(false);
     // ブロック(科目)内はまだ次の問題へ。科目の最後まで解いたら休憩(または結果)へ。
     if (idx + 1 < curBlock.to) setIdx((i) => i + 1);
     else sectionDone();
@@ -771,7 +861,7 @@ export default function MockScreen() {
 
       {cur.kind === 'passageSet' && cur.set ? (
         // 読解/文章の文法=1文章＋全設問を一括提示。採点は設問単位(PassageSetPlayerのonGraded)。「次へ」もPassageSetPlayer側で統一。
-        <PassageSetPlayer key={cur.set.id} set={cur.set} isLast={idx + 1 >= curBlock.to && blockIdx + 1 >= blocks.length} onNext={next} onGraded={accumulateScore} />
+        <PassageSetPlayer key={cur.set.id} set={cur.set} mock isLast={idx + 1 >= curBlock.to && blockIdx + 1 >= blocks.length} onNext={next} onGraded={accumulateScore} />
       ) : (
         <ScrollView contentContainerStyle={s.body}>
           {cur.kind === 'word' ? (
@@ -808,7 +898,7 @@ export default function MockScreen() {
                   </Pressable>
                 );
               })()}
-              {reveal2 ? <Text style={s.passBody}>{formatScript(cur.script ?? '')}</Text> : null}
+              {/* 模試中はスクリプトを出さない(最後の「解答・解説」でまとめて表示)。 */}
             </View>
           )}
 
@@ -821,20 +911,20 @@ export default function MockScreen() {
               return (
                 <Pressable
                   key={i}
-                  style={[s.choice, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
+                  // 模試中は正誤(緑/赤)を出さない。選んだ肢だけ中立の色で示す。
+                  style={[s.choice, reveal && isPicked && s.choicePicked]}
                   onPress={() => onPick(i)}
                   disabled={reveal}
                 >
                   <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.mockRuby} rubyGate={rubyGate} /></View>
-                  {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
                 </Pressable>
               );
             })}
           </View>
 
-          {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問の私の単語帳登録は廃止(模試は結果重視)。 */}
+          {/* 模試は回答後に正誤を出さない=中立の「次へ」だけ(correctを渡さない)。 */}
           {reveal ? (
-            <AnswerFooter correct={picked === cur.answerIndex} onNext={next} nextKind={idx + 1 >= curBlock.to && blockIdx + 1 >= blocks.length ? 'result' : 'next'} />
+            <AnswerFooter onNext={next} nextKind={idx + 1 >= curBlock.to && blockIdx + 1 >= blocks.length ? 'result' : 'next'} />
           ) : (
             <Text style={s.hint}>{t('mock.hint')}</Text>
           )}
@@ -981,8 +1071,41 @@ const makeStyles = (c: ThemeColors) =>
     },
     choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
     choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
+    choicePicked: { borderColor: c.blue, backgroundColor: c.blueLight }, // 模試中=選んだ肢を中立色で(正誤は出さない)
     choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
     mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
+    // 解答・解説まとめ画面(review)
+    reviewBtn: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.blue, borderRadius: radius.pill, paddingVertical: 12, paddingHorizontal: 28, alignItems: 'center', alignSelf: 'center', marginTop: spacing.xs },
+    reviewBtnT: { color: c.blueDark, fontWeight: '800', fontSize: ty.body },
+    rvTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingVertical: spacing.sm, borderBottomWidth: 1, borderBottomColor: c.line },
+    rvTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
+    rvBody: { padding: spacing.lg, gap: spacing.md },
+    rvGroup: { fontSize: ty.small, fontWeight: '800', color: c.blueDark, letterSpacing: 0.5, marginTop: spacing.sm },
+    rvPassage: { gap: spacing.sm },
+    rvPassageInner: { backgroundColor: c.surface, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: 2 },
+    rvPassageTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    rvPassageBody: { fontSize: ty.small, color: c.ink2, lineHeight: 24 },
+    rvCard: { backgroundColor: c.surface, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.xs },
+    rvHead: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+    rvBadge: { fontSize: ty.small, fontWeight: '900', paddingHorizontal: 8, paddingVertical: 1, borderRadius: radius.sm, overflow: 'hidden' },
+    rvOk: { color: '#fff', backgroundColor: c.green },
+    rvNg: { color: '#fff', backgroundColor: c.red },
+    rvQno: { fontSize: ty.small, fontWeight: '800', color: c.mute, flex: 1 },
+    rvSentence: { fontSize: ty.body, color: c.ink, lineHeight: 24 },
+    rvScriptBox: { backgroundColor: c.bgSoft, borderRadius: radius.sm, padding: spacing.sm, gap: 2 },
+    rvScriptLbl: { fontSize: ty.tiny, fontWeight: '800', color: c.mute },
+    rvScript: { fontSize: ty.small, color: c.ink2, lineHeight: 22 },
+    rvQ: { fontSize: ty.body, color: c.ink, fontWeight: '600' },
+    rvChoices: { gap: 6, marginTop: 2 },
+    rvChoice: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.sm, paddingVertical: spacing.sm, paddingHorizontal: spacing.md },
+    rvChoiceOk: { borderColor: c.green, backgroundColor: c.okBg },
+    rvChoiceMine: { borderColor: c.red, backgroundColor: c.ngBg },
+    rvChoiceTxt: { fontSize: ty.small, color: c.ink2 },
+    rvCorrectTag: { fontSize: ty.tiny, fontWeight: '800', color: c.green },
+    rvMineTag: { fontSize: ty.tiny, fontWeight: '800', color: c.red },
+    rvExplain: { backgroundColor: c.bgSoft, borderRadius: radius.sm, borderLeftWidth: 3, borderLeftColor: c.blue, padding: spacing.sm, marginTop: 2 },
+    rvExplainLbl: { fontSize: ty.tiny, fontWeight: '800', color: c.blueDark, marginBottom: 2 },
+    rvExplainTxt: { fontSize: ty.small, color: c.ink, lineHeight: 21 },
     myListBtn: { alignSelf: 'center', marginTop: spacing.xs },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
     ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },

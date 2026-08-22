@@ -7,6 +7,7 @@ import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits, bankLevelO
 import { hasKanji } from '../quiz/quiz';
 import { facetsForUnit, type Facet } from '../review/facetMap';
 import { facetEffectiveP } from '../review/facetMastery';
+import kanjiFacetFlags from '../data/words/kanjiFacets.json';
 import { passProbability as ladderPassProbability, itemP as ladderItemP, expectedScore as ladderExpectedScore, type DaimonExpectation, type ScoreEstimate } from '../ladder/passRate';
 import { type Level as LadderLevel } from '../ladder/facets';
 import type { AppState, GrowthPoint } from './state';
@@ -408,14 +409,22 @@ export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vo
 
   // 純粋な漢字力＝「単独提示(書斎タブ)で証明した分」だけを char に計上する(設計書 04_)。
   //  字ごとに面別マスタリーを加重平均し ≥0.6 を「覚えた」とする(多面で証明するほど強い)。
-  //  段階A: 実データがあるのは書き取り由来の 読み(read)・書き(write)。意味(mean)/聞き取り(listen)は段階Bで面追加。
+  //  面の由来: read/write=書き取り、mean/read=認識テスト(段階B①)、listen=聞き取り(段階B②・接続待ち)。
   //  ※文脈が出る語彙問題(漢字読み/表記ほか)は語彙IDに計上し、字には配らない(旧「習得語の含有字を回収」は撤去)。
+  //  作れない面は分母から除外(kanjiFacets)。校のように意味を出しにくい字は mean を要求しない(=平均から外す)。
   const kanjiCharSet = new Set(KANJI.filter((k) => k.type === 'kanji').map((k) => k.char));
-  const KANJI_FACETS: Facet[] = ['read', 'write'];
+  const KANJI_FACETS: Facet[] = ['read', 'write', 'mean', 'listen'];
+  const KFLAGS = kanjiFacetFlags as Record<string, { meaningClear?: boolean }>;
+  const facetMakeable = (ch: string, f: Facet): boolean =>
+    f === 'mean' ? (KFLAGS[ch]?.meaningClear ?? true) : true; // read/write/listen は全字で作れる。mean は meaningClear のみ。
   const kanjiLearned = (ch: string): boolean => {
     let sum = 0, n = 0;
-    for (const f of KANJI_FACETS) { const p = facetEffectiveP(m, ch, f, now); if (p !== null) { sum += p; n++; } }
-    return n > 0 && sum / n >= 0.6; // 受験済みの面の平均(未受験の面はスキップ)
+    for (const f of KANJI_FACETS) {
+      if (!facetMakeable(ch, f)) continue; // 作れない面は分母に入れない
+      const p = facetEffectiveP(m, ch, f, now);
+      if (p !== null) { sum += p; n++; }
+    }
+    return n > 0 && sum / n >= 0.6; // 受験済み(作れる)面の平均。未受験の面はスキップ。
   };
   const masteredKanjiChars = new Set<string>();
   for (const ch of kanjiCharSet) if (kanjiLearned(ch)) masteredKanjiChars.add(ch);

@@ -38,6 +38,7 @@ import CardsScreen from './src/screens/CardsScreen';
 import KakitoriScreen from './src/screens/KakitoriScreen';
 import KanjiDetailScreen from './src/screens/KanjiDetailScreen';
 import ListeningQuizScreen from './src/screens/ListeningQuizScreen';
+import KanjiRecognitionScreen from './src/screens/KanjiRecognitionScreen';
 import WordDrillScreen from './src/screens/WordDrillScreen';
 import MyWordsScreen from './src/screens/MyWordsScreen';
 import AccountScreen from './src/screens/AccountScreen';
@@ -373,6 +374,7 @@ function Root() {
             <RootStack.Screen name="Listening" component={ListeningScreen} options={{ presentation: 'card' }} />
             <RootStack.Screen name="Kakitori" component={KakitoriScreen} options={{ presentation: 'card' }} />
             <RootStack.Screen name="ListeningQuiz" component={ListeningQuizScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="KanjiRecognition" component={KanjiRecognitionScreen} options={{ presentation: 'card' }} />
             <RootStack.Screen name="WordDrill" component={WordDrillScreen} options={{ presentation: 'card' }} />
             {/* 以下は overlay/ダイアログ的なのでモーダル(下から)のまま。 */}
             <RootStack.Screen name="KanjiDetail" component={KanjiDetailScreen} options={{ presentation: 'modal' }} />

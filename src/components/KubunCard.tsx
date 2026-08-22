@@ -12,7 +12,6 @@ import Badge from './Badge';
 import BadgeCollection from './BadgeCollection';
 import { badgeTierIndex } from '../data/badges';
 import type { RootStackParamList, WordsStackParamList, Kubun } from '../navigation/types';
-import { kakitoriDueToday } from '../kakitori/srs';
 import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<WordsStackParamList & RootStackParamList>;
@@ -21,7 +20,6 @@ const META: Record<Kubun, { emoji: string; labelKey: string; listKey: string }> 
   vocab: { emoji: '語', labelKey: 'cards.vocab', listKey: 'cards.vocab_list' },
   grammar: { emoji: '文', labelKey: 'cards.grammar', listKey: 'cards.grammar_list' },
 };
-const todayStr = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
 
 export default function KubunCard({ kubun }: { kubun: Kubun }) {
   const nav = useNavigation<Nav>();
@@ -69,9 +67,7 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
     add('cards.listening', () => nav.navigate('ListeningQuiz', { kind: kubun }), UNLOCK_NEED.listen); // 聞き取り=その分野5%
   }
   if (kubun === 'kanji') {
-    if (kakitoriDueToday(state.kakitori, todayStr()).length) {
-      add('cards.kakitori_review', () => nav.navigate('Kakitori', { mode: 'review' }), UNLOCK_NEED.kakitori); // 今日の書き取り(復習)=漢字10%
-    }
+    add('cards.kanji_recognition', () => nav.navigate('KanjiRecognition'), 0); // 漢字テスト(意味/読み認識)=最初から解禁(土台)
     add('cards.kakitori_entry', () => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill', script: 'kanji' }), UNLOCK_NEED.kakitori); // 漢字書き取り(産出)=漢字10%
     if (state.settings.level === 'N5') { // カタカナ/ひらがな書き取りはN5のみ・初期から解禁(土台=need0)
       add('cards.kakitori_kata', () => nav.navigate('Kakitori', { mode: 'drill', script: 'katakana' }), 0);

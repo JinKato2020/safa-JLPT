@@ -50,3 +50,24 @@ test('② 書き取り(読み+書き)で面平均≥0.6なら、その字は覚�
   const m = drill({}, targets, 14);
   assert.equal(kanjiBar(m).learned, 1, 'その1字だけが覚えたに計上される');
 });
+
+// 段階B①: 認識テストの結果(mean/read 面)がカバー率に効くか＋作れない面(mean)の除外。
+test('③ 認識テスト(意味)で mean 面が上がれば覚えたに計上', () => {
+  const ch = '水'; // meaningClear=true の N5 字
+  assert.ok(KANJI.some((k) => k.type === 'kanji' && k.char === ch && k.level === 'N5'));
+  const m = drill({}, [{ itemId: ch, facet: 'mean' as Facet, weight: 1 }], 8);
+  assert.equal(kanjiBar(m).learned, 1, '意味の認識だけでも1字計上される');
+});
+
+test('③ 認識テスト(読み)は read 面のみでも計上', () => {
+  const ch = '水';
+  const m = drill({}, [{ itemId: ch, facet: 'read' as Facet, weight: 1 }], 8);
+  assert.equal(kanjiBar(m).learned, 1, '読みの認識だけでも1字計上される');
+});
+
+test('③ 作れない面(意味)は分母から除外＝校はmeanデータだけでは覚えた扱いにしない', () => {
+  const ch = '校'; // kanjiFacets: meaningClear=false(意味を出しにくい)
+  assert.ok(KANJI.some((k) => k.type === 'kanji' && k.char === ch && k.level === 'N5'));
+  const m = drill({}, [{ itemId: ch, facet: 'mean' as Facet, weight: 1 }], 20);
+  assert.equal(kanjiBar(m).learned, 0, 'mean を作れない字は mean を分母に入れない(=覚えた判定に使わない)');
+});

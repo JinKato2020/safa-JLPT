@@ -83,6 +83,11 @@ export function facetsForUnit(unit: string): FacetTarget[] {
       case 'gbuild':
       case 'gmeaning':
         return [{ itemId, facet: 'grammar', weight: 0.85 }];
+      // 漢字認識テスト(段階B①): 字を単独提示→意味/読みを4択。認識面(weight1・失敗で減点)を char へ計上。
+      case 'krecog_mean':
+        return [{ itemId, facet: 'mean', weight: 1 }];
+      case 'krecog_read':
+        return [{ itemId, facet: 'read', weight: 1 }];
       default:
         return facetsForDaimon(itemId, suffix);
     }

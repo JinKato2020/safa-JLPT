@@ -21,17 +21,19 @@ type Props = {
   explain: string;
   rubyGate: (run: string) => boolean;
   isLast: boolean;
+  mock?: boolean; // 模試中は正誤・解説を出さない(採点記録はする)。
   onGraded: (correct: boolean) => void; // 初回の選択で1回だけ発火
   onNext: () => void;
 };
 
 export function InfoSearchFigure(props: Props) {
-  const { title, situation, figure, question, choices, answer, explain, rubyGate, isLast, onGraded, onNext } = props;
+  const { title, situation, figure, question, choices, answer, explain, rubyGate, isLast, mock, onGraded, onNext } = props;
   const c = useColors();
   const s = makeStyles(c);
   const t = useT();
   const [picked, setPicked] = useState<number | null>(null);
   const revealed = picked !== null;
+  const showFeedback = revealed && !mock; // 模試中は正誤・解説を隠す
   const R = (text: string, style: any, opts?: { ruby?: any; center?: boolean; key?: number | string }) => (
     <RubyText key={opts?.key} text={text} style={style} rubyStyle={opts?.ruby ?? s.ruby} rubyGate={rubyGate} center={opts?.center} />
   );
@@ -189,13 +191,13 @@ export function InfoSearchFigure(props: Props) {
           return (
             <Pressable
               key={idx}
-              style={[s.choice, revealed && isAns && s.choiceOk, revealed && isPicked && !isAns && s.choiceNg]}
+              style={[s.choice, showFeedback && isAns && s.choiceOk, showFeedback && isPicked && !isAns && s.choiceNg, !showFeedback && isPicked && s.choicePicked]}
               onPress={() => pick(idx)}
               disabled={revealed}
             >
               <Text style={s.choiceNum}>{idx + 1}</Text>
               <View style={s.choiceTxtWrap}>{R(ch, s.choiceTxt)}</View>
-              {revealed && isAns ? <Text style={s.mark}>✓</Text> : null}
+              {showFeedback && isAns ? <Text style={s.mark}>✓</Text> : null}
             </Pressable>
           );
         })}
@@ -203,7 +205,7 @@ export function InfoSearchFigure(props: Props) {
 
       {revealed ? (
         <>
-          {explain ? (
+          {showFeedback && explain ? (
             <View style={s.explainCard}>
               {explain.split('\n').map((line, i) => (line ? R(line, s.explainText, { key: i }) : <View key={i} style={s.gap} />))}
             </View>
@@ -305,6 +307,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   choice: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md },
   choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
   choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
+  choicePicked: { borderColor: c.blue, backgroundColor: c.blueLight }, // 模試中=選んだ肢を中立色で
   choiceNum: { fontSize: ty.body, fontWeight: '800', color: c.mute, width: 18, textAlign: 'center' },
   choiceTxtWrap: { flex: 1 },
   choiceTxt: { fontSize: ty.body, color: c.ink2 },

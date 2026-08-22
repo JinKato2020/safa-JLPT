@@ -29,8 +29,9 @@ export function nearDistractors(correct: LQItem, pool: LQItem[], count: number, 
   // 一部の語彙は reading が null/欠損(かな見出し語 等)。ガード無しで .length/[0] を触ると
   // 生成が throw → ルート防波堤で全画面クラッシュするため、必ず空文字にフォールバックする。
   const ck = kanjiSet(correct.word); const cr = correct.reading ?? '';
+  // 単語4択(音声→書かれた単語を選ぶ)なので、答えと同じ読み(同音語)は誤答に入れない=音声で正解が割れないため。
   const scored = pool
-    .filter((p) => p.id !== correct.id && p.word !== correct.word && p.meaning !== correct.meaning)
+    .filter((p) => p.id !== correct.id && p.word !== correct.word && p.meaning !== correct.meaning && (p.reading ?? '') !== cr)
     .map((p) => {
       const pr = p.reading ?? '';
       let s = 0; for (const k of kanjiSet(p.word)) if (ck.has(k)) s += 3;
@@ -43,12 +44,15 @@ export function nearDistractors(correct: LQItem, pool: LQItem[], count: number, 
   if (chosen.length < count) {
     const haveIds = new Set(chosen.map((x) => x.id).concat(correct.id));
     const haveMeanings = new Set(chosen.map((x) => x.meaning).concat(correct.meaning));
+    const haveReadings = new Set(chosen.map((x) => x.reading ?? '').concat(cr)); // 同音語(答えと同じ読み)をbackfillでも入れない
     for (const f of shuffle(pool.filter((p) => !haveIds.has(p.id)), rng)) {
       if (chosen.length >= count) break;
       if (haveMeanings.has(f.meaning)) continue; // 意味重複はスコアリングの誤答扱いになるため必ず除外
+      if (haveReadings.has(f.reading ?? '')) continue; // 同音重複を除外(単語4択で音声とダブらせない)
       chosen.push(f);
       haveIds.add(f.id);
       haveMeanings.add(f.meaning);
+      haveReadings.add(f.reading ?? '');
     }
   }
   return chosen.slice(0, count);
@@ -61,7 +65,7 @@ export function buildVocabQuiz(items: LQItem[], pool: LQItem[], rng: () => numbe
       answerId: it.id,
       audioVocabId: it.id, // 語彙は全て mp3 あり
       audioReading: it.reading,
-      choices: options.map((o) => o.meaning),
+      choices: options.map((o) => o.word), // 音声(読み)を聞いて「書かれた単語」を選ぶ(旧: 意味の4択)
       answerIndex: options.findIndex((o) => o.id === it.id),
     };
   });
@@ -88,7 +92,9 @@ export function buildKanjiQuiz(items: KanjiRep[], pool: KanjiRep[], rng: () => n
     const options = shuffle([it, ...nearKanjiDistractors(it, pool, 3, rng)], rng);
     const audioVocabId = it.bound || !it.word ? null : vocabIdForWord(it.word, it.reading);
     return {
-      answerId: it.id,
+      // 面別マスタリーは char をキーに listen 面へ計上する(段階B②)。
+      // 旧: it.id(=n5-k-1)だと facetMap が char と一致せず listen が記録されずカバー率に反映されなかった。
+      answerId: it.char,
       audioVocabId,
       audioReading: it.reading,
       audioChar: it.char,

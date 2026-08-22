@@ -21,7 +21,7 @@ function tableToFigure(rows: Record<string, string | number>[]): Figure {
   return { tables: [{ columns, rows: rows.map((r) => columns.map((col) => String(r[col] ?? ''))) }] };
 }
 
-export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { set: PassageSet; isLast: boolean; onNext: () => void; onGraded?: (results: { id: string; correct: boolean }[]) => void }) {
+export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }: { set: PassageSet; isLast: boolean; onNext: () => void; onGraded?: (results: { id: string; correct: boolean }[]) => void; mock?: boolean }) {
   const state = useAppState();
   const { quizAnswer } = useAppActions();
   const c = useColors();
@@ -48,6 +48,7 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
         explain={q0?.explain ?? ''}
         rubyGate={rubyGate}
         isLast={isLast}
+        mock={mock}
         onGraded={(correct) => { if (q0) { quizAnswer(q0.id, correct); onGraded?.([{ id: q0.id, correct }]); } }}
         onNext={onNext}
       />
@@ -61,6 +62,8 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
   const [showTrans, setShowTrans] = useState(false);
   // 全問回答したら自動で答え合わせ(採点)。それまでは各問いつでも選び直せる。
   const revealed = answers.length > 0 && answers.every((a) => a !== null);
+  // 模試中は正誤・解説・訳を出さない(採点記録はする)。最後に「解答・解説」でまとめて表示。
+  const showFeedback = revealed && !mock;
   const useNe = meaningL1(state.settings) === 'ne'; // ne母語=ネパール語訳／それ以外(ja UI/en/他言語)=英語訳
   const trans = useNe ? PASSAGE_TRANS_NE[set.id] : PASSAGE_TRANS_EN[set.id]; // 本文ごとの訳(無ければundefined)
   const qtr = useNe ? Q_TRANS_NE : Q_TRANS_EN; // 設問・選択肢の訳(内容理解のみ・key=設問id)
@@ -91,11 +94,11 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
           <View style={s.passageBodyWrap}>
             {p.body.split('\n').map((line, i) => (line ? <RubyText key={i} text={line} style={s.passageBody} rubyStyle={s.rubyS} rubyGate={rubyGate} /> : <View key={i} style={s.blankLine} />))}
           </View>
-          {revealed && showTrans && trans?.[pi] ? <Text style={s.transTxt}>{trans[pi]}</Text> : null}
+          {showFeedback && showTrans && trans?.[pi] ? <Text style={s.transTxt}>{trans[pi]}</Text> : null}
         </View>
       ))}
 
-      {revealed && hasTrans ? (
+      {showFeedback && hasTrans ? (
         <Pressable style={s.transBtn} onPress={() => setShowTrans((v) => !v)}>
           <Text style={s.transBtnTxt}>{showTrans ? t('passage.hideTrans') : t('passage.showTrans')}</Text>
         </Pressable>
@@ -107,24 +110,24 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded }: { se
           <View key={q.id} style={s.qBlock}>
             <Text style={s.qLabel}>{q.blankNo != null ? t('passage.blankLabel', { n: q.blankNo }) : t('passage.qLabel', { n: qi + 1 })}</Text>
             {q.q ? <RubyText text={q.q} style={s.qText} rubyStyle={s.rubyS} rubyGate={rubyGate} /> : null}
-            {revealed && showTrans && qtr[q.id]?.q ? <Text style={s.qTrans}>{qtr[q.id]!.q}</Text> : null}
+            {showFeedback && showTrans && qtr[q.id]?.q ? <Text style={s.qTrans}>{qtr[q.id]!.q}</Text> : null}
             <View style={s.choices}>
               {qs[qi].sh.choices.map((ch, ci) => {
                 const isAns = ci === qs[qi].sh.answerIndex;
                 const isPicked = ci === picked;
-                const ctr = revealed && showTrans ? qtr[q.id]?.choices[qs[qi].q.choices.indexOf(ch)] : undefined;
+                const ctr = showFeedback && showTrans ? qtr[q.id]?.choices[qs[qi].q.choices.indexOf(ch)] : undefined;
                 return (
-                  <Pressable key={ci} style={[s.choice, revealed && isAns && s.choiceOk, revealed && isPicked && !isAns && s.choiceNg, !revealed && isPicked && s.choicePicked]} onPress={() => pick(qi, ci)} disabled={revealed}>
+                  <Pressable key={ci} style={[s.choice, showFeedback && isAns && s.choiceOk, showFeedback && isPicked && !isAns && s.choiceNg, !showFeedback && isPicked && s.choicePicked]} onPress={() => pick(qi, ci)} disabled={revealed}>
                     <View style={s.choiceTxtWrap}>
                       <RubyText text={ch} style={s.choiceTxt} rubyStyle={s.rubyS} rubyGate={rubyGate} />
                       {ctr ? <Text style={s.choiceTrans}>{ctr}</Text> : null}
                     </View>
-                    {revealed && isAns ? <Text style={s.mark}>✓</Text> : null}
+                    {showFeedback && isAns ? <Text style={s.mark}>✓</Text> : null}
                   </Pressable>
                 );
               })}
             </View>
-            {revealed && q.explain ? (
+            {showFeedback && q.explain ? (
               <View style={s.explainBox}>
                 <Text style={s.explainLabel}>{t('passage.explainLabel')}</Text>
                 <Text style={s.explainTxt}>{q.explain}</Text>
