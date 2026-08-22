@@ -406,18 +406,26 @@ export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vo
   const learnedFacet = (itemId: string, facets: Facet[]) =>
     facets.some((f) => { const p = facetEffectiveP(m, itemId, f, now); return p !== null && p >= 0.6; });
 
+  // 純粋な漢字力＝「単独提示(書斎タブ)で証明した分」だけを char に計上する(設計書 04_)。
+  //  字ごとに面別マスタリーを加重平均し ≥0.6 を「覚えた」とする(多面で証明するほど強い)。
+  //  段階A: 実データがあるのは書き取り由来の 読み(read)・書き(write)。意味(mean)/聞き取り(listen)は段階Bで面追加。
+  //  ※文脈が出る語彙問題(漢字読み/表記ほか)は語彙IDに計上し、字には配らない(旧「習得語の含有字を回収」は撤去)。
   const kanjiCharSet = new Set(KANJI.filter((k) => k.type === 'kanji').map((k) => k.char));
+  const KANJI_FACETS: Facet[] = ['read', 'write'];
+  const kanjiLearned = (ch: string): boolean => {
+    let sum = 0, n = 0;
+    for (const f of KANJI_FACETS) { const p = facetEffectiveP(m, ch, f, now); if (p !== null) { sum += p; n++; } }
+    return n > 0 && sum / n >= 0.6; // 受験済みの面の平均(未受験の面はスキップ)
+  };
   const masteredKanjiChars = new Set<string>();
-  for (const ch of kanjiCharSet) if (learnedFacet(ch, ['read', 'write'])) masteredKanjiChars.add(ch); // ①書き取り等で字を習得
+  for (const ch of kanjiCharSet) if (kanjiLearned(ch)) masteredKanjiChars.add(ch);
 
-  // 語彙カバー率＋習得語に含まれる漢字の回収(②)
+  // 語彙カバー率(習得語→含有字の回収はしない＝文脈で当てた分を漢字に計上しない)
   const VOCAB_FACETS: Facet[] = ['mean', 'read', 'write', 'listen'];
   let vLearned = 0, vTotal = 0;
   for (const v of VOCAB) {
-    const isLearned = learnedFacet(v.id, VOCAB_FACETS);
-    if (isLearned) for (const ch of v.word) if (kanjiCharSet.has(ch)) masteredKanjiChars.add(ch);
     if (!inScope(v.level)) continue;
-    vTotal++; if (isLearned) vLearned++;
+    vTotal++; if (learnedFacet(v.id, VOCAB_FACETS)) vLearned++;
   }
 
   // 漢字カバー率(字1字・in-scope)

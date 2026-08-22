@@ -1,14 +1,13 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- 往復 130 回
 
 ## 何が変わったか
 - memory/handoff.md
+- tools/build.ps1
+- src/store/kanjiCoverage.test.ts
+- src/store/selectors.ts
 - memory/session-summary-LATEST.md
-- src/i18n/ne.json
-- src/i18n/en.json
-- src/i18n/ja.json
 
 ## 次の一手
 - **▶▶ 2026-08-22 ✅実装完了＝漢字カバー率を語彙へ統合「漢字・語彙」化（UI・未コミット・未ビルド）**: 漢字は語彙に限りなく近い(試験の漢字力=漢字読み/表記は既に語のread/write面へ合流)ため、表示上の漢字バー/リングを廃し語彙へ統合。**変更**＝`src/home/homeStatus.ts`(subjects 5→4区分・漢字+語彙→`moji_goi`=`cards.moji_goi`「漢字・語彙」)＋テスト更新／`src/screens/AICoachScreen.tsx`(カバー率カード=漢字行除外・語彙をmoji_goiへ)／`src/screens/KotobaTownScreen.tsx`(会話ステータス3→2バー=漢字・語彙[青#4a7fc0]/文法[緑#6f9a3f]・ラベル多言語対策で2段`\n`)／`src/home/CoverageCard.tsx`(未使用だが一貫性)。**i18n ja/en/ne**に`cards.moji_goi`「漢字・語彙/Kanji & Vocab/कान्जी र शब्दावली」＋`town.facet.moji_goi`(2段)。**書斎タブの漢字カード/書き取りは機能存続**(`coverageBars`は3本返却のまま維持＝KubunCard/解禁/予想得点/リング不変)。**xlsx**`memory/在庫・模試ストックまとめ.xlsx`の「単語×大問カバー率」「単語数と紐づけ大問」から漢字単語行を削除・注記更新(生成ツール無し=直接編集)。**検証**＝tsc0・parity緑・homeStatus 4区分テスト緑。**分野別リングは漢字/語彙を1本化と解釈**(要確認なら戻せる)。**次の一手＝ユーザー判断**(ビルドするか＝UI変更ゆえ反映に要ビルド・未コミット)。以下は旧記録(参考):

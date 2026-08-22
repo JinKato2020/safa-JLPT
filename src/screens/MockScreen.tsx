@@ -584,17 +584,18 @@ export default function MockScreen() {
                   <Pressable style={s.imgCloseBtn} onPress={() => nav.goBack()}><Text style={s.imgCloseT}>{t('mock.close')}</Text></Pressable>
                 </View>
               ) : est ? (
-                // JLPT: 合否画面から詳細結果(模試成績表)へ遷移。区分別実測(byCat)を渡し、遷移先で得点/相対位置/偏差値を算出。
+                // JLPT: 合否画面は「詳細結果を見る」ボタンのみ。結果の数字・グラフは模試成績表(MockResultScreen)に一元化。
+                //  区分別実測(byCat)を渡し、遷移先で得点/相対位置/偏差値を算出する。
                 <View style={s.detailBtnWrap}>
                   <Pressable
                     style={s.detailBtn}
-                    onPress={() => nav.navigate('MockResultDetail', { level, byCat, passed, elapsedMs: elapsed, wrongDrillIds: wrongDrill.map((w) => w.id) })}
+                    onPress={() => nav.navigate('MockResultDetail', { level, byCat, passed, elapsedMs: elapsed })}
                   >
                     <Text style={s.detailBtnT}>{t('mock.see_details_btn')}</Text>
                   </Pressable>
-                  <View style={s.scrollHint}><Text style={s.scrollHintT}>{t('mock.see_details')}</Text></View>
                 </View>
               ) : (
+                // JFT: 成績表画面が無いので従来どおり下スクロールの要約を残す。
                 <View style={s.scrollHint}><Text style={s.scrollHintT}>{t('mock.see_details')}</Text></View>
               )}
             </SafeAreaView>
@@ -609,7 +610,8 @@ export default function MockScreen() {
             )}
           </View>
 
-          {!preview && (
+          {/* 要約シートはJFTのみ(成績表画面が無いため)。JLPTは合否画面=ボタンのみ→模試成績表へ一元化。 */}
+          {!preview && isJft && (
           <View style={s.statsSheet}>
           <View style={s.resultHero}>
             {isJft && jftSc ? (

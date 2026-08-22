@@ -130,6 +130,7 @@ $tests = @(
   'src/data/content/otaDiff.test.ts'
   'tools/content/manifest.test.ts'
   'tools/content/validate.test.ts'
+  'src/store/kanjiCoverage.test.ts'
   'src/data/skeletonBalance.test.ts'
   'src/data/johoSkeletonBalance.test.ts'
   'src/data/johoSolvability.test.ts'

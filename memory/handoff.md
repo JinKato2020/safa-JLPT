@@ -102,14 +102,14 @@
 - a8531eca2414c47f4 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- tools/build.ps1
+- src/store/kanjiCoverage.test.ts
+- src/store/selectors.ts
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/i18n/ne.json
-- src/i18n/en.json
-- src/i18n/ja.json
+- 04_漢字ID紐づけと漢字マスタリー_設計書.pdf
+- 03_漢字ID統一と帳簿ズレ_現状と提案.pdf
 - src/screens/MockResultScreen.tsx
-- src/screens/MockScreen.tsx
-- App.tsx
 
-_自動更新: 2026-08-22 09:19_
+_自動更新: 2026-08-22 21:28_
 <!-- AUTO:END -->

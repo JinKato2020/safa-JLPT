@@ -177,7 +177,7 @@ export default function MockResultScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'MockResultDetail'>>();
   const state = useAppState();
   const { width: winW } = useWindowDimensions();
-  const { level, byCat, passed, elapsedMs, wrongDrillIds } = route.params;
+  const { level, byCat, passed, elapsedMs } = route.params;
 
   const chartW = winW - spacing.md * 2 - spacing.md * 2; // 画面パディング＋カードパディング
 
@@ -325,15 +325,6 @@ export default function MockResultScreen() {
             {trend.length >= 2 ? <Trend points={trend} passTotal={est.passTotal} width={chartW} c={c} passLabel={t('mockres.passline')} /> : <Text style={s.cardCap}>{t('mockres.trend_none')}</Text>}
           </View>
 
-          {/* 弱点ドリル */}
-          {wrongDrillIds.length > 0 ? (
-            <Pressable style={s.cta} onPress={() => nav.navigate('Quiz', { itemIds: wrongDrillIds, title: t('mock.weak_drill') })}>
-              <Text style={s.ctaT}>{t('mock.drill_cta', { n: wrongDrillIds.length })}</Text>
-            </Pressable>
-          ) : (
-            <Text style={s.allOk}>{t('mock.all_ok')}</Text>
-          )}
-
           {/* 注記＋出典 */}
           {official ? (
             <>
@@ -384,9 +375,6 @@ function makeStyles(c: ThemeColors) {
     tNum: { flex: 1, textAlign: 'right' },
     tMute: { color: c.mute, fontWeight: '700' },
 
-    cta: { backgroundColor: c.pink, borderRadius: radius.md, paddingVertical: 14, alignItems: 'center', marginTop: spacing.xs },
-    ctaT: { color: '#fff', fontWeight: '900', fontSize: ty.body },
-    allOk: { textAlign: 'center', color: c.green, fontWeight: '800', fontSize: ty.body, marginVertical: spacing.sm },
     note: { fontSize: 10, color: c.faint, lineHeight: 15, marginTop: spacing.sm },
     source: { fontSize: 10, color: c.faint, marginTop: 2 },
     ghost: { alignItems: 'center', paddingVertical: 14, marginTop: spacing.xs },
