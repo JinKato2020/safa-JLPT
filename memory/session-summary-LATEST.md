@@ -1,21 +1,30 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 38 回・81 ターン
-- 往復 339 回
+- ツール呼び出し 2 回・5 ターン
+- 往復 134 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/screens/AICoachScreen.tsx
-- src/components/InfoSearchFigure.tsx
-- src/components/PassageSetPlayer.tsx
 - memory/session-summary-LATEST.md
-
-## ⚠️ 注意
-- - ⚠ 連続 81ターン（文脈 30万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 81ターン・ツール38回）— まとめ方を変える
+- memory/在庫問題数.txt
+- memory/pg翻訳-inflight.md
+- src/data/exam/passageTransNe.test.ts
 
 ## 次の一手
+- **▶▶ 2026-08-23 ✅完了＝文章の文法(passage_grammar)全210セットの本文＋選択肢をen/ne翻訳（未コミット・未ビルド／正本＝`memory/pg翻訳-inflight.md`）**: 従来訳ゼロだった文章の文法に翻訳を新設。N5 80/N4 60/N3 70の**本文＋4択×5**をGemini2.5Flash(thinkingBudget0)でen/ne両方へ。**実費 約$0.54≒¥82**。本文は【1】〜【5】マーカーを訳文中に保持・選択肢は文法機能の短訳。格納=`content/problems/bunpou/passage_grammar_{N5,N4,N3}.json`のset.i18n.{ne,en}.body・question.i18n.{ne,en}.choices。結線=`rehydrate.ts`にen.body＋pg選択肢訳(Q_TRANS)を追加(描画=既存PassageSetPlayerが対応済)。manifest再生成済。テスト`passageTransNe.test.ts`のKNOWN_PG_UNTRANSLATED=210→0。**tsc0・関連14テスト緑**。ツール=`scratchpad/pgtrans/{gen,apply,repair}.mjs`(コミット後クリーン可)。**次の一手＝ユーザー判断**：今の未コミット分(下記①②③)のコミット方針＋反映は次ビルド。他8言語(bn/id/ko/my/th/vi/zh)の文章の文法翻訳はバックログ(指示時一括・有料)。
+- **▶▶ 【未コミットの棚卸し・2026-08-23時点】** すべてtsc0・関連テスト緑。コミット/ビルドは指示待ち：
+  - ①**文章の文法カバー率100%化**(前記・下段):passage_grammar N4/N3増作＋テスト。
+  - ②**文章の文法の翻訳en/ne**(上記):passage_grammar N5/N4/N3のi18n＋rehydrate.ts＋passageTransNe.test.ts＋_manifest.json。
+  - ③**学習ドリル/用法カバー率2列化＋AIコーチ生正答率表示**(前記・下段):usage_N3/N4・wordDrill.ts・selectors.ts・homeStatus.ts・新規src/data/shared/{gbuildPermanentExcluded,grammarDrillBlank}.json・tools/*。
+  - 残(未着手のユーザー判断)＝(a)言い換え類義の「真のカバー率」＝言い換え可能語の分類(3541語・Opus無料だが規模大・着手前に体数確認) (b)RUN_BALANCE=true化は場面多様性等の他基準充足が要るため保留。
+- **▶▶ 2026-08-23 ✅完了＝文章の文法カバー率100%化＋学習ドリル/用法カバー率の2列(全ID/真の)化（未コミット・未ビルド）**:
+  - **①文章の文法**: N4 50→60・N3 50→70追加で**カバー率N4/N3=100%**(未カバー0)。作問5体→機械ゲート→独立盲反証(NG2件修正)。テスト210問(N5 80/N4 60/N3 70)緑・tsc0・manifest再生成。正本=`memory/文章の文法カバー100-inflight.md`。
+  - **②文法パズル(gBuild)カバー率改善**: #2「漢字→ふりがなトークン一致」＋#3「真の活用形は例文中の実現形を空欄化(手当てファイル`src/data/shared/grammarDrillBlank.json`=86点・Opus生成/検証NG0)」を`wordDrill.ts`に実装。全ID N5 74%/N4 86%/N3 90%(旧54/44/59%)・真の≒99-100%。永久不可能58点=`src/data/shared/gbuildPermanentExcluded.json`。
+  - **③学習ドリル×カバー率シート新設**(在庫xlsx): 全ID母数と真の母数の**2列表示**。集計`tools/drill_coverage.ts`(本体eligible関数を直接呼びドリフト無)＋転記`tools/update_drill_coverage.py`。語彙パズル全ID84-92%/真の100%(天井=カタカナ語等)。
+  - **④用法(usage)にvocabId後付け**: `tools/link_usage_vocabid.mjs --apply`でN4 153/153・N3 110/150リンク(N3の40語はvocabマスタ未収録)。単語×大問カバー率シートの用法行を実データ更新(`tools/update_usage_coverage.py`・N4 23%/N3 4%/N5 0%)。番人35テスト緑。
+  - **残(ユーザー判断)**: (a)**言い換え類義の真のカバー率**＝言い換え可能語の分類(3541語・Opus無料だが規模大)が要る→着手前に体数確認。(b)翻訳en/ne(文章の文法新30セット・有料)。(c)反映は次ビルド。(d)コミット指示待ち。
+- **▶▶ 2026-08-23 ✅実装完了＝AIコーチ分野別を「生の正答率」表示に（UI・未コミット・未ビルド＝2842後の新規分）**: 分野別レーダー/ホームDQ正解率が当て推量補正(当てずっぽう=0%)で下限0%だったのを、**生の正答率(4択の偶然25%が下限＝直感的)**へ変更。`selectors.ts` `pctOfIds/categoryPct/ringsFor/idsRingPct` に `raw` 引数(既定false)を追加し、`homeStatus.ts` の表示だけ raw=true(rings/acc)。**予想得点・合格判定・JFT採点の計算側は従来の当て推量補正のまま**(rawは表示専用・既定false)。順序(weakest/strongest)は単調ゆえ不変。tsc0・homeStatus/ladderWeighting/skillWeight/mockScoreEstimate緑。※「模試記録の得点タップ→成績表」は2841で実装済み(byCat保存のある2841以降の模試が対象)。**次の一手＝ユーザー判断**(次のビルドで反映)。以下は旧記録(参考):
 - **▶▶ 2026-08-23 ✅実装完了＝AIコーチ画面のスリム化＋読解の選び直し対応（UI・未コミット・未ビルド＝v1.1.8/2841の後の新規分）**: ①**AIコーチ分析を14→11ブロックへ整理(軽め・ユーザー選択)**＝重複削除。「ゴールまでの見通し」→ヒーローへ一言吸収／模試の記録の区分別バー削除(タップで成績表を見られる)／「この7日の成長」カード撤去(予想得点・伸びた分野が重複／週の伸びは学習量の推移で表示)／継続ストリップ＋継続カレンダーを1枚に統合。死んだコード(Stat関数・goal*/strip/stat*/mockSecs/growthRowスタイル・未使用ty import)も掃除。②**模試の読解問題で選び直し可能に**＝`PassageSetPlayer`は全問回答した瞬間にロック→模試中は`revealed=allAnswered && !mock`にして「次へ」まで選び直せる・採点はhandleNextで確定(冪等gradeAndRecord)。`InfoSearchFigure`(情報検索・単問)も同様(locked=revealed&&!mock・handleNextで採点)。練習(非模試)は従来どおり全問回答で即採点・色付け。tsc0・mockAnswer/mockScoreEstimate/parity/homeStatus緑。**次の一手＝ユーザー判断**(次のビルドで反映)。以下は旧記録(参考):
 - **▶▶ 2026-08-23 🚀ビルド起動＝v1.1.8(2841) iOS/Android both dispatch（commit `fc1dbea2`・run 32603917163・-NoWatch・iOS本日1/8）**: 本日の全実装を同梱＝①漢字/語彙を5軸分割(AIコーチ分野別レーダー/カバー率3バー/模試成績表レーダー) ②AIコーチから過去模試(JLPT)をタップ→成績表再表示(byCat/elapsedMs保存) ③模試復習をFlatList仮想化で軽量化 ④模試回答は選び直し可(次へで確定) ⑤模試聴解の再生を本番仕様(JLPT1回/JFT2回)。事前検証テスト60/0(skip5)・tsc0・manifest再生成・push済(OTA/Pages起動)。**監視しない(運用方針)**。**次の一手＝ユーザー判断**(CI結果確認/翻訳は新規UIのja/en/ne同時対応済・他8言語backlogは後日)。以下は本ビルド同梱の実装記録(参考):
 - **▶▶ 2026-08-23 ✅実装完了＝模試聴解の再生回数を本番仕様に（UI・未コミット・未ビルド）**: JLPTは従来無制限で繰り返し再生できたのを**1回のみ**に制限（`MockScreen.tsx` `LISTEN_MAX = isJft ? 2 : 1`・playガードをJFT限定から全体へ・再生ボタンのused/remaining表示をJLPTにも適用）。JFTは従来どおり2回。i18n `mock.play_used` を「再生済み（2回）」固定→`{n}`可変化(ja/en/ne・parity緑)。playCountは設問切替でリセット(既存)＝各設問で1回。tsc0。**次の一手＝ユーザー判断**(ビルドで端末反映)。以下は旧記録(参考):

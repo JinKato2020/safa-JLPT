@@ -50,6 +50,12 @@ export function rehydrateBanks(files: Record<string, Any>) {
   const PASSAGE_GRAMMAR = bankItems(files, 'passage_grammar', (it, level) => {
     const { i18n, questions, ...rest } = it;
     if (i18n?.ne?.body) PASSAGE_TRANS_NE[it.id] = i18n.ne.body; // pgセットの本文訳も PASSAGE_TRANS_NE へ
+    if (i18n?.en?.body) PASSAGE_TRANS_EN[it.id] = i18n.en.body;
+    // 文章の文法は設問文が無い(空所【n】が設問)ので選択肢訳のみ。q='' で PassageSetPlayer の選択肢下に訳を出す。
+    for (const q of (questions ?? [])) {
+      if (q.i18n?.ne?.choices) Q_TRANS_NE[q.id] = { q: '', choices: q.i18n.ne.choices };
+      if (q.i18n?.en?.choices) Q_TRANS_EN[q.id] = { q: '', choices: q.i18n.en.choices };
+    }
     return { ...rest, level, questions: (questions ?? []).map((q: Any) => { const { i18n: _q, ...qr } = q; return qr; }) };
   });
 

@@ -82,7 +82,7 @@ export const guessCorrect = (obs: number, g = GUESS_RATE): number => Math.max(0,
 // 【正答率】ベースの達成度(般化スキル=読解/聴解 用)。解いた項目だけ・難易度重み・偶然レベルへprior収縮(K)・
 // 当て推量補正。母数(全項目)は無視＝カバー率とは別軸。※知識(語彙/漢字/文法)は knowledgeDaimonPct(カバー率×習得)を使う。
 // id集合の達成度%(難易度重み・偶然レベルへprior収縮・当て推量補正)。0回=null。
-function pctOfIds(state: AppState, now: number, ids: string[]): number | null {
+function pctOfIds(state: AppState, now: number, ids: string[], raw = false): number | null {
   let wsum = 0, wp = 0, n = 0;
   for (const id of ids) {
     const st = state.items[id];
@@ -92,8 +92,9 @@ function pctOfIds(state: AppState, now: number, ids: string[]): number | null {
   }
   if (n === 0) return null;
   const K = 2;
-  const raw = (wp + K * GUESS_RATE) / (wsum + K); // 少数回答は偶然レベルへ収縮
-  return Math.round(100 * guessCorrect(raw));     // 当て推量補正(当てずっぽう=0%)
+  const rawVal = (wp + K * GUESS_RATE) / (wsum + K); // 少数回答は偶然レベルへ収縮
+  // raw=true: 生の正答率(4択の偶然25%が下限・直感的な見た目) / 既定: 当て推量補正(当てずっぽう=0%)。
+  return Math.round(100 * (raw ? rawVal : guessCorrect(rawVal)));
 }
 // 知識(文字語彙/文法)の大問達成度＝【カバー率×習得を統合】。全項目の難易度重み平均習得度(未着手=0)。
 // 少数の高正答を過大評価しない＝「覚えた量(カバー率)」が伴って初めて上がる。他アプリのC(量×質併記)/D(較正)準拠。
@@ -111,17 +112,17 @@ function knowledgeDaimonPct(state: AppState, now: number, ids: string[]): number
 }
 // 区分の達成度%。coverageFolded=false: リング表示用【正答率】 / true: 合格率用【カバー率×習得】。
 // 読解/聴解(般化スキル)は常に正答率(カバー率の概念なし)。
-function categoryPct(state: AppState, now: number, cat: Category, full: boolean, coverageFolded = false): number | null {
-  const knowFn = coverageFolded ? knowledgeDaimonPct : pctOfIds;
+function categoryPct(state: AppState, now: number, cat: Category, full: boolean, coverageFolded = false, raw = false): number | null {
+  const knowFn = coverageFolded ? knowledgeDaimonPct : (s: AppState, n: number, ids: string[]) => pctOfIds(s, n, ids, raw);
   const jft = (state.settings.targetExam ?? 'jlpt') === 'jft';
   const lv = state.settings.level;
   if (!jft && cat === 'dokkai') {
     const bySub = readingIdsBySub(lv, full); const bp = DOKKAI_BLUEPRINT[lv] ?? {};
-    return wAvgPct(Object.entries(bySub).map(([k, ids]) => [pctOfIds(state, now, ids ?? []), bp[k] ?? 0]));
+    return wAvgPct(Object.entries(bySub).map(([k, ids]) => [pctOfIds(state, now, ids ?? [], raw), bp[k] ?? 0]));
   }
   if (!jft && cat === 'choukai') {
     const bySub = listeningIdsBySub(lv, full); const bp = CHOUKAI_BLUEPRINT[lv] ?? {};
-    return wAvgPct(Object.entries(bySub).map(([k, ids]) => [pctOfIds(state, now, ids ?? []), bp[k] ?? 0]));
+    return wAvgPct(Object.entries(bySub).map(([k, ids]) => [pctOfIds(state, now, ids ?? [], raw), bp[k] ?? 0]));
   }
   // 文字語彙/文法(JLPT)は大問別。リング=正答率 / 合格率=カバー率×習得。本番出題数で加重。
   if (!jft && (cat === 'moji_goi' || cat === 'bunpou')) {
@@ -133,7 +134,7 @@ function categoryPct(state: AppState, now: number, cat: Category, full: boolean,
   if (jft && (cat === 'moji_goi' || cat === 'bunpou')) {
     return knowFn(state, now, examItemIds(state, cat, full));
   }
-  return pctOfIds(state, now, examItemIds(state, cat, full));
+  return pctOfIds(state, now, examItemIds(state, cat, full), raw);
 }
 
 // 「項目#大問」状態から、基底項目(語/文法/設問id)ごとに集約した「習得済み(≥0.6)」集合。量・カバー率用。
@@ -183,9 +184,9 @@ export function jftMockScore(answers: { id: string; section: Category; correct: 
 }
 
 /** 4区分リング(0-100 / 未測定 null)。知識=カバー率×習得 / 読解聴解=難易度重み正答率(categoryPct)。 */
-export function ringsFor(state: AppState, now: number): Record<Category, number | null> {
+export function ringsFor(state: AppState, now: number, raw = false): Record<Category, number | null> {
   const out = {} as Record<Category, number | null>;
-  for (const c of RING_CATS) out[c] = categoryPct(state, now, c, false);
+  for (const c of RING_CATS) out[c] = categoryPct(state, now, c, false, false, raw);
   return out;
 }
 // 得意(5区分)の大問割り: 漢字(文字)=漢字読み+表記 / 語彙=文脈規定+類義+用法。
@@ -214,8 +215,8 @@ export function daimonRingPct(state: AppState, now: number, daimon: Daimon): num
   return pctOfIds(state, now, daimonUnitIds(state.settings.level, daimon));
 }
 /** 小リング(読解/聴解サブ種別): 正答率(般化スキル)。id集合を渡す。 */
-export function idsRingPct(state: AppState, now: number, ids: string[]): number | null {
-  return pctOfIds(state, now, ids);
+export function idsRingPct(state: AppState, now: number, ids: string[], raw = false): number | null {
+  return pctOfIds(state, now, ids, raw);
 }
 // --- カバー率(量) = 別指標: 習得(p≥0.6)した項目 / 全項目。正答率(質)とは独立の学習量メーター。 ---
 function coverPct(state: AppState, now: number, ids: string[]): number | null {

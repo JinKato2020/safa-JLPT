@@ -6,6 +6,7 @@
 // 出題順は SRS(state.items の忘却/未習を優先)。専門用語はUIに出さない。タイルは約8個(ダミー多め)。
 import vocab from '../data/shared/vocab.json';
 import grammar from '../data/shared/grammar.json';
+import grammarDrillBlank from '../data/shared/grammarDrillBlank.json';
 import vocabExamplesAi from '../data/dict/vocabExamplesAi.json';
 const VOCAB_EXAMPLE = vocabExamplesAi as Record<string, { ja?: string }>;
 import { grammarMeaningProblem } from './wordTabProblems';
@@ -71,31 +72,46 @@ export function produceEligible(level: string): V[] {
 // ── 文法 産出(例文の空所に文法語をかなタイルで作る) ─────────
 const isKana = (s: string) => /^[ぁ-ゖァ-ヶーん]+$/.test(s);
 // 文法点のクリーンなかな表層形(だけ/ちゃいけない 等)。複数形は先頭、〜や記号は除去。
-function pointSurface(g: G): string | null {
-  const pt = strip(g.point).split(/[・／/、,]/)[0].replace(/[〜～\s　]/g, '');
-  return pt && isKana(pt) && pt.length >= 2 && pt.length <= 8 ? pt : null;
+const DRILL_BLANK = grammarDrillBlank as Record<string, { target: string; reading: string }>;
+// 漢字（かな）→ かな で純かな読みを得る(#2: 漢字を含む文法点の読みタイル用)。
+const toKanaReading = (s: string): string =>
+  s.replace(/[一-龥々〆ヶ]+（([ぁ-ゖァ-ヶー]+)）/g, '$1').replace(/（[^）]*）/g, '');
+const onceIn = (ex: string, s: string): boolean => {
+  if (!s) return false;
+  const i = ex.indexOf(s);
+  return i >= 0 && ex.indexOf(s, i + s.length) < 0;
+};
+type Blank = { target: string; reading: string }; // target=例文中の空所にする連続部分 / reading=純かな
+// 例文のどこを空所にし、答えは何読みか。優先: ①手当て済み活用形/漢字点(grammarDrillBlank)
+//   ②かな表層がそのまま1回出る(既存) ③ふりがな込みトークンが1回出る漢字点(#2)。無ければ null。
+function resolveBlank(g: G): Blank | null {
+  const ex = g.exampleJa;
+  if (!ex) return null;
+  const ov = DRILL_BLANK[g.id]; // #3: 活用形/表記ずれを手当て
+  if (ov && onceIn(ex, ov.target) && isKana(ov.reading) && toMorae(ov.reading).length >= 2 && toMorae(ov.reading).length <= 8) return ov;
+  const kana = strip(g.point).split(/[・／/、,]/)[0].replace(/[〜～\s　]/g, ''); // 既存: かな表層
+  if (kana && isKana(kana) && kana.length >= 2 && kana.length <= 8 && onceIn(ex, kana)) return { target: kana, reading: kana };
+  const token = g.point.split(/[・／/、,]/)[0].replace(/[〜～\s　]/g, ''); // #2: ふりがな込みトークン(漢字含む)
+  if (token && /[一-龥]/.test(token) && onceIn(ex, token)) {
+    const reading = toKanaReading(token);
+    if (isKana(reading) && toMorae(reading).length >= 2 && toMorae(reading).length <= 8) return { target: token, reading };
+  }
+  return null;
 }
-export function buildEligible(level: string): { g: G; pt: string }[] {
-  const out: { g: G; pt: string }[] = [];
+export function buildEligible(level: string): { g: G; blank: Blank }[] {
+  const out: { g: G; blank: Blank }[] = [];
   for (const g of GRAMMAR) {
     if (g.level !== level || !g.exampleJa) continue;
-    const pt = pointSurface(g);
-    if (!pt) continue;
-    // gBuild は生の exampleJa の「最初の一致」を空所化する。表層形が複数回出ると空所位置が曖昧になり、
-    // 意図しない語を問う事故になる(例: 〜たい で「冷たい水が飲みたい」→ 冷たい を空所化)。→ 一意に出る文法のみ採用。
-    const ex = g.exampleJa;
-    const first = ex.indexOf(pt);
-    if (first < 0) continue;                                // 出現しない
-    if (ex.indexOf(pt, first + pt.length) >= 0) continue;   // 複数出現=曖昧→除外
-    out.push({ g, pt });
+    const blank = resolveBlank(g);
+    if (blank) out.push({ g, blank });
   }
   return out;
 }
-function gBuild(src: { g: G; pt: string }, seed: number): DrillProblem {
-  const answer = toMorae(src.pt);
+function gBuild(src: { g: G; blank: Blank }, seed: number): DrillProblem {
+  const answer = toMorae(src.blank.reading);
   // 例文中の文法語を空所〔　〕に(ふりがな付きのまま最初の1箇所を置換)。
-  const prompt = (src.g.exampleJa as string).replace(src.pt, '〔　　〕');
-  return { kind: 'gBuild', itemId: `${src.g.id}#gbuild`, prompt, hint: src.g.meaning, reading: src.pt, answer, tiles: buildTiles(answer, seed) };
+  const prompt = (src.g.exampleJa as string).replace(src.blank.target, '〔　　〕');
+  return { kind: 'gBuild', itemId: `${src.g.id}#gbuild`, prompt, hint: src.g.meaning, reading: src.blank.reading, answer, tiles: buildTiles(answer, seed) };
 }
 
 // ── 文法 意味(受容4択) ──────────────────────────────────

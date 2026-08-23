@@ -32,10 +32,12 @@ export function studyHM(sec: number): { h: number; m: number } {
 
 export function homeStatus(state: AppState, now: number): HomeStatus {
   const lv = state.settings.level;
-  const rings = (() => { try { return ringsFor(state, now); } catch { return {} as ReturnType<typeof ringsFor>; } })();
+  // 分野別の正解率は「生の正答率」で表示する(4択の偶然25%が下限＝直感的。ユーザー確定2026-08-23)。
+  //  ※当て推量補正(当てずっぽう=0%)は予想得点・合格判定の計算側にだけ残す。ここは表示専用なので raw=true。
+  const rings = (() => { try { return ringsFor(state, now, true); } catch { return {} as ReturnType<typeof ringsFor>; } })();
   const readiness = (() => { try { return readinessFor(state, now); } catch { return null as ReturnType<typeof readinessFor> | null; } })();
   const idsOf = (...ds: Daimon[]) => ds.flatMap((d) => { try { return daimonUnitIds(lv, d); } catch { return [] as string[]; } });
-  const acc = (ids: string[]) => { try { return idsRingPct(state, now, ids); } catch { return null; } };
+  const acc = (ids: string[]) => { try { return idsRingPct(state, now, ids, true); } catch { return null; } };
 
   // 【開発用】settings.devPassPct が設定されていれば合格率を固定(辞書背景/AIコーチ等の挙動確認)。null/未設定=自動計算。
   const passPct = state.settings.devPassPct != null ? clamp(state.settings.devPassPct) : clamp(readiness?.passProbability);

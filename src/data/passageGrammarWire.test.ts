@@ -8,9 +8,9 @@ test('BANK に passage_grammar が含まれない(新経路へ移行)', () => {
   assert.equal(BANK.some((b) => b.daimon === 'passage_grammar'), false);
 });
 test('passageGrammarSetsFor は級で絞る', () => {
-  assert.ok(PASSAGE_GRAMMAR.length === 180); // 2026-08-21 新方式へ全面差替(N5 80/N4 50/N3 50)
+  assert.ok(PASSAGE_GRAMMAR.length === 210); // 2026-08-23 N4 51-60/N3 51-70追加(N5 80/N4 60/N3 70)
   const n3 = passageGrammarSetsFor('N3');
-  assert.ok(n3.length === 50 && n3.every((s) => s.level === 'N3'));
+  assert.ok(n3.length === 70 && n3.every((s) => s.level === 'N3'));
 });
 test('daimonUnitIds(passage_grammar) は設問idを返す(指標対象外点は母数から除外)', () => {
   const ids = daimonUnitIds('N3', 'passage_grammar', 'all');
