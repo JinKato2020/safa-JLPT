@@ -139,7 +139,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   ticketAbove: { fontSize: 13, color: c.ink2, fontWeight: '800', textAlign: 'center', marginTop: 18, marginBottom: 8 },
   btnRow: { flexDirection: 'row', gap: 10, paddingTop: 4, paddingBottom: 4, alignItems: 'stretch' },
   start: { flex: 1, backgroundColor: c.blue, borderRadius: 16, paddingVertical: 15, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.25, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
-  startTxt: { color: '#fff', fontSize: 18, fontWeight: '900', letterSpacing: 1 },
+  startTxt: { color: '#fff', fontSize: 18, fontWeight: '900', letterSpacing: 1, textAlign: 'center' },
   later: { paddingHorizontal: 22, borderRadius: 16, borderWidth: 1.5, borderColor: c.line, backgroundColor: c.surface, alignItems: 'center', justifyContent: 'center' },
-  laterTxt: { color: c.ink2, fontSize: 14, fontWeight: '800' },
+  laterTxt: { color: c.ink2, fontSize: 14, fontWeight: '800', textAlign: 'center' },
 });

@@ -136,6 +136,7 @@ $tests = @(
   'src/data/johoSkeletonBalance.test.ts'
   'src/data/johoSolvability.test.ts'
   'src/data/johoAnswerSources.test.ts'
+  'src/data/iikaePossible.test.ts'
 )
 $log = Join-Path ([System.IO.Path]::GetTempPath()) 'jlpt-build-test.log'
 node --import tsx --test @tests > $log 2>&1

@@ -1042,7 +1042,7 @@ const makeStyles = (c: ThemeColors) =>
     breakMeta: { fontSize: ty.small, color: '#3a2f20', fontWeight: '800', fontVariant: ['tabular-nums'], marginTop: 2 },
     breakWarn: { fontSize: ty.small, color: '#b4531f', fontWeight: '800', textAlign: 'center', marginTop: spacing.sm, lineHeight: 22 },
     breakBtn: { width: '100%', backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.sm },
-    breakBtnT: { color: '#fff', fontSize: ty.body, fontWeight: '900', letterSpacing: 1 },
+    breakBtnT: { color: '#fff', fontSize: ty.body, fontWeight: '900', letterSpacing: 1, textAlign: 'center' },
     // 模試終了(桜のねぎらい吹き出しは中ほどへ / 計算ボタンは下部)
     endMid: { flex: 1, justifyContent: 'center', paddingHorizontal: spacing.lg },
     endBtnBar: { paddingHorizontal: spacing.lg, paddingBottom: spacing.md },
@@ -1066,10 +1066,10 @@ const makeStyles = (c: ThemeColors) =>
     progressOnImg: { fontSize: ty.small, color: '#fff', fontWeight: '800', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
     previewFooter: { paddingHorizontal: spacing.lg, paddingBottom: spacing.lg, alignItems: 'center', gap: spacing.sm },
     imgCloseBtn: { alignSelf: 'stretch', backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center' },
-    imgCloseT: { color: '#241a10', fontSize: ty.body, fontWeight: '900', letterSpacing: 1 },
+    imgCloseT: { color: '#241a10', fontSize: ty.body, fontWeight: '900', letterSpacing: 1, textAlign: 'center' },
     detailBtnWrap: { alignItems: 'center', paddingBottom: spacing.sm },
     detailBtn: { backgroundColor: c.pink, borderRadius: radius.pill, paddingVertical: 13, paddingHorizontal: 32, marginBottom: spacing.sm, shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
-    detailBtnT: { color: '#fff', fontWeight: '900', fontSize: ty.body },
+    detailBtnT: { color: '#fff', fontWeight: '900', fontSize: ty.body, textAlign: 'center' },
     scrollHint: { paddingBottom: spacing.md, alignItems: 'center' },
     scrollHintT: { fontSize: ty.small, color: '#fff', fontWeight: '800', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
     statsSheet: { backgroundColor: c.bg, padding: spacing.lg, gap: spacing.md, paddingBottom: spacing.xl },
@@ -1098,7 +1098,7 @@ const makeStyles = (c: ThemeColors) =>
     playBtn: { backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.choukai, paddingVertical: spacing.md, alignItems: 'center' },
     playBtnUsed: { opacity: 0.45, borderColor: c.line },
     playBtnOn: { backgroundColor: c.okBg, borderColor: c.green },
-    playTxt: { fontSize: ty.body, fontWeight: '800', color: c.choukai },
+    playTxt: { fontSize: ty.body, fontWeight: '800', color: c.choukai, textAlign: 'center' },
     playTxtOn: { color: c.green },
     choices: { gap: spacing.sm },
     choice: {
@@ -1113,7 +1113,7 @@ const makeStyles = (c: ThemeColors) =>
     mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
     // 解答・解説まとめ画面(review)
     reviewBtn: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.blue, borderRadius: radius.pill, paddingVertical: 12, paddingHorizontal: 28, alignItems: 'center', alignSelf: 'center', marginTop: spacing.xs },
-    reviewBtnT: { color: c.blueDark, fontWeight: '800', fontSize: ty.body },
+    reviewBtnT: { color: c.blueDark, fontWeight: '800', fontSize: ty.body, textAlign: 'center' },
     rvTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingVertical: spacing.sm, borderBottomWidth: 1, borderBottomColor: c.line },
     rvTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
     rvBody: { padding: spacing.lg, gap: spacing.md },
@@ -1145,7 +1145,7 @@ const makeStyles = (c: ThemeColors) =>
     rvExplainTxt: { fontSize: ty.small, color: c.ink, lineHeight: 21 },
     myListBtn: { alignSelf: 'center', marginTop: spacing.xs },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
-    ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
+    ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800', textAlign: 'center' },
     hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
     // result
     resultHero: { backgroundColor: c.surface, borderRadius: radius.xl, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.xl, alignItems: 'center' },
@@ -1171,5 +1171,5 @@ const makeStyles = (c: ThemeColors) =>
     barFrac: { fontSize: ty.tiny, color: c.faint, width: 34, textAlign: 'right' },
     allOk: { fontSize: ty.body, fontWeight: '700', color: c.green, textAlign: 'center', marginTop: spacing.sm },
     ghost: { padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
-    ghostTxt: { color: c.mute, fontSize: ty.body, fontWeight: '700' },
+    ghostTxt: { color: c.mute, fontSize: ty.body, fontWeight: '700', textAlign: 'center' },
   });

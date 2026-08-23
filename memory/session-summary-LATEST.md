@@ -1,18 +1,26 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 2 回・5 ターン
-- 往復 134 回
+- ツール呼び出し 5 回・16 ターン
+- 往復 186 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
 - memory/在庫問題数.txt
-- memory/pg翻訳-inflight.md
-- src/data/exam/passageTransNe.test.ts
+- memory/言い換え真カバー-inflight.md
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
 
 ## 次の一手
-- **▶▶ 2026-08-23 ✅完了＝文章の文法(passage_grammar)全210セットの本文＋選択肢をen/ne翻訳（未コミット・未ビルド／正本＝`memory/pg翻訳-inflight.md`）**: 従来訳ゼロだった文章の文法に翻訳を新設。N5 80/N4 60/N3 70の**本文＋4択×5**をGemini2.5Flash(thinkingBudget0)でen/ne両方へ。**実費 約$0.54≒¥82**。本文は【1】〜【5】マーカーを訳文中に保持・選択肢は文法機能の短訳。格納=`content/problems/bunpou/passage_grammar_{N5,N4,N3}.json`のset.i18n.{ne,en}.body・question.i18n.{ne,en}.choices。結線=`rehydrate.ts`にen.body＋pg選択肢訳(Q_TRANS)を追加(描画=既存PassageSetPlayerが対応済)。manifest再生成済。テスト`passageTransNe.test.ts`のKNOWN_PG_UNTRANSLATED=210→0。**tsc0・関連14テスト緑**。ツール=`scratchpad/pgtrans/{gen,apply,repair}.mjs`(コミット後クリーン可)。**次の一手＝ユーザー判断**：今の未コミット分(下記①②③)のコミット方針＋反映は次ビルド。他8言語(bn/id/ko/my/th/vi/zh)の文章の文法翻訳はバックログ(指示時一括・有料)。
+- **▶▶ 2026-08-23 ✅完了＝言い換え類義「真のカバー率」＋この会話の独立修正5件（未コミット・未ビルド／正本＝`memory/言い換え真カバー-inflight.md`）**: すべてtsc0・関連テスト緑。コミット/ビルドはユーザー判断。
+  - **主タスク＝言い換え可能語の分類(3541語)**: Opus12体+カタカナ再判定1体(ユーザー訂正「カタカナは類義語の有無で再判定」)。正本=`src/data/shared/iikaePossible.json`(全3541・p=1=言い換え可能)。真の母数 N5 392/723・N4 484/673・N3 1776/2145。**真のカバー率 N5 38%・N4 38%・N3 56%**(全ID 20/27/46%)。在庫xlsx「単語×大問カバー率」の言い換え類義行に真の母数/真のカバー率列を追加(ツール`tools/update_synonym_coverage.py`)。番人`src/data/iikaePossible.test.ts`(build.ps1登録)。既存synonym問題を持つ語は定義上p=1に補正(63語)。
+  - **①カタカナ表記をN4/N3から除外**: orthography_N4 42問・N3 127問を`没問題/カタカナ表記除外_2026-08-23/`へ退避(可逆)。N5据置。rebuild.ts済・content59テスト緑。
+  - **③文脈規定N4-V-B-0249**: 誤答「ハンバーグ」削除(ステーキと二重正解・問題は残置)。
+  - **④文法穴埋めN4-G-B-0188**: stem重複「し」削除(宿題をし→宿題を)。
+  - **②模試ボタン中央寄せ**: MockScreen/MockIntroScreenの主要アクションボタン文字にtextAlign:'center'(英語折返しで左寄せ→中央)。
+  - 反映=orthography除外/context/grammar_formはOTA(content)、②UIはビルド要。次の一手＝ユーザー判断(コミット方針/ビルド)。
+- **▶▶ 2026-08-23 🚀ビルド起動＝v1.1.10(2843) iOS/Android both dispatch（commit `e13bc937`・run 32627030377・-NoWatch・iOS本日3/8）**: 下記①②③(文章の文法カバー率100%化＋全210セットen/ne翻訳＋ドリル/用法カバー率2列化＋AIコーチ生正答率)を全部同梱してコミット→push(OTA/Pages起動)→dispatch。テスト60/0(skip5)・tsc0・manifest再生成済。**監視しない(運用方針)**。**次の一手＝ユーザー判断**(CI結果確認／他8言語の文章の文法翻訳はバックログ・有料／言い換え類義の真カバー率は着手前に体数確認)。以下は本ビルド同梱の実装記録(参考):
+- **▶▶ 2026-08-23 ✅完了＝文章の文法(passage_grammar)全210セットの本文＋選択肢をen/ne翻訳（v1.1.10/2843に同梱済／正本＝`memory/pg翻訳-inflight.md`）**: 従来訳ゼロだった文章の文法に翻訳を新設。N5 80/N4 60/N3 70の**本文＋4択×5**をGemini2.5Flash(thinkingBudget0)でen/ne両方へ。**実費 約$0.54≒¥82**。本文は【1】〜【5】マーカーを訳文中に保持・選択肢は文法機能の短訳。格納=`content/problems/bunpou/passage_grammar_{N5,N4,N3}.json`のset.i18n.{ne,en}.body・question.i18n.{ne,en}.choices。結線=`rehydrate.ts`にen.body＋pg選択肢訳(Q_TRANS)を追加(描画=既存PassageSetPlayerが対応済)。manifest再生成済。テスト`passageTransNe.test.ts`のKNOWN_PG_UNTRANSLATED=210→0。**tsc0・関連14テスト緑**。ツール=`scratchpad/pgtrans/{gen,apply,repair}.mjs`(コミット後クリーン可)。**次の一手＝ユーザー判断**：今の未コミット分(下記①②③)のコミット方針＋反映は次ビルド。他8言語(bn/id/ko/my/th/vi/zh)の文章の文法翻訳はバックログ(指示時一括・有料)。
 - **▶▶ 【未コミットの棚卸し・2026-08-23時点】** すべてtsc0・関連テスト緑。コミット/ビルドは指示待ち：
   - ①**文章の文法カバー率100%化**(前記・下段):passage_grammar N4/N3増作＋テスト。
   - ②**文章の文法の翻訳en/ne**(上記):passage_grammar N5/N4/N3のi18n＋rehydrate.ts＋passageTransNe.test.ts＋_manifest.json。

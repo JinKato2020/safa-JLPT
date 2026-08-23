@@ -86,10 +86,11 @@ test('出題数: N5が作り直し後の規模で出題される(edb076fで直�
   assert.ok(daimonUnitIds('N5', 'synonym', 'all').length > 130, 'N5の言い換えが出題される');
 });
 
-test('出題数: N4=185/N3=1000 が変わらない(本波はN5だけに触る=巻き込み事故の防止線)', () => {
-  // 実測値(2026-07-17・投入前): N5=93 / N4=185 / N3=1000
-  assert.equal(daimonUnitIds('N4', 'synonym', 'all').length, 185);
-  assert.equal(daimonUnitIds('N3', 'synonym', 'all').length, 1000);
+test('出題数: N4=285/N3=1099 (2026-08-23 未カバー語へ新規作問で増作)', () => {
+  // 実測値(2026-07-17): N5=93 / N4=185 / N3=1000。2026-08-23 に言い換え可能な未カバー語へ
+  // 新規作問(N4+100 / N3+99)して増作。N5(文レベル)は別途・現状148。
+  assert.equal(daimonUnitIds('N4', 'synonym', 'all').length, 285);
+  assert.equal(daimonUnitIds('N3', 'synonym', 'all').length, 1099);
 });
 
 test('語レベル(stem無=N3のみ)は「意味がいちばん近い語」を問い、下線が引かれる', () => {
