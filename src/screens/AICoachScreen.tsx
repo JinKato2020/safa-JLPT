@@ -9,7 +9,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import Svg, { Path, Circle, Rect, Defs, LinearGradient, Stop, Polygon, Line, Text as SvgText } from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { useAppState } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
@@ -194,6 +194,10 @@ export default function AICoachScreen() {
                 })}
               </View>
             )}
+            {/* 合格までの見通し(旧「ゴールまでの見通し」カードを統合): 合格圏内 / あと◯週間。 */}
+            <Text style={[s.heroGoal, { color: cleared ? c.green : c.ink }]}>
+              {cleared ? t('coach.goal_cleared') : d.weeks != null ? t('coach.goal_weeks', { n: d.weeks }) : t('coach.goal_none')}
+            </Text>
             <Text style={s.diff}>{t('coach.hero_note')}</Text>
           </View>
         </View>
@@ -273,17 +277,8 @@ export default function AICoachScreen() {
           <Text style={s.ctaT}>{t('cards.reco')}</Text>
         </Pressable>
 
-        {/* ⑥ この7日の成長(合格率は非表示。覚えた語・予想得点・伸びた分野で示す) */}
-        <View style={s.card}>
-          <SecLabel c={c} s={s} text={t('coach.week_title')} />
-          <View style={s.growthRow}>
-            <Stat s={s} tt={t('coach.stat_learned')} v={`+${d.wg}`} unit={t('coach.due_unit')} up={d.wg > 0} c={c} />
-            <Stat s={s} tt={t('coach.pred_score')} v={`${st.predScore}`} unit={`/${st.predMax}`} up={false} c={c} />
-            <Stat s={s} tt={t('coach.stat_grew')} v={t(d.strongest.labelKey)} unit="" up={false} c={c} color={d.strongest.color} />
-          </View>
-        </View>
-
-        {/* ⑥' 模試の記録(実戦の予想得点)。この7日の成長のすぐ後に置く。 */}
+        {/* ⑥' 模試の記録(実戦の予想得点)。※旧「この7日の成長」は重複(予想得点/伸びた分野)のため撤去し、
+            週の伸びは下の「学習量の推移」で表す。 */}
         <View style={s.card}>
           <SecLabel c={c} s={s} text={t('coach.mock_title')} />
           {d.latestMock ? (
@@ -304,29 +299,7 @@ export default function AICoachScreen() {
                 const deltaStr = delta > 0 ? `▲${delta}` : delta < 0 ? `▼${-delta}` : '±0';
                 return <Text style={[s.mockDelta, { color: delta > 0 ? c.green : delta < 0 ? c.red : c.mute }]}>{t('coach.mock_delta', { prev: d.prevMock!.predScore ?? 0, cur: d.latestMock!.predScore ?? 0, delta: deltaStr })}</Text>;
               })() : null}
-              {d.latestMock.sections?.length ? (
-                <View style={s.mockSecs}>
-                  {d.latestMock.sections.map((sec) => {
-                    const cleared = sec.score >= sec.min;
-                    const col = cleared ? c.green : c.red;
-                    const fillW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.score) / sec.max)) : 0;
-                    const markW = sec.max > 0 ? Math.min(100, Math.round((100 * sec.min) / sec.max)) : 0;
-                    return (
-                      <View key={sec.key} style={[s.scoreItem, !cleared && { borderColor: c.red + '55', backgroundColor: c.red + '11' }]}>
-                        <View style={s.scoreHead}>
-                          <Text style={s.scoreLabel}>{t('mock.block_' + sec.key)}</Text>
-                          <Text style={[s.scoreStatus, { color: col }]}>{cleared ? t('coach.sec_cleared') : t('coach.sec_need', { n: sec.min - sec.score })}</Text>
-                        </View>
-                        <View style={s.scoreBar}>
-                          <View style={[s.scoreBarFill, { width: `${fillW}%`, backgroundColor: col }]} />
-                          <View style={[s.scoreMk, { left: `${markW}%` }]} />
-                        </View>
-                        <Text style={s.scoreSub}>{t('coach.sec_sub', { score: sec.score, max: sec.max, min: sec.min })}</Text>
-                      </View>
-                    );
-                  })}
-                </View>
-              ) : null}
+              {/* 区分別スコアは重複のため撤去(タップで成績表を開けば偏差値つきで確認できる)。 */}
               {d.mockTrend.length > 1 ? (
                 <View style={s.mockTrendRow}>
                   {d.mockTrend.map((mt, i) => {
@@ -357,40 +330,21 @@ export default function AICoachScreen() {
           <Text style={s.weakT}>{t('coach.weak_text', { cat, pct: d.weakest.pct })}</Text>
         </View>
 
-        {/* ⑧ ゴールまでの見通し(合格率は非表示。予想得点と合格ラインで示す) */}
-        <View style={s.card}>
-          <SecLabel c={c} s={s} text={t('coach.goal_title')} />
-          {st.predScore >= st.passTotal && st.passTotal > 0 ? (
-            <Text style={s.goalT}>{t('coach.goal_cleared')}</Text>
-          ) : d.weeks != null ? (
-            <Text style={s.goalT}>{t('coach.goal_weeks', { n: d.weeks })}</Text>
-          ) : (
-            <Text style={s.goalT}>{t('coach.goal_none')}</Text>
-          )}
-          <View style={s.goalbar}>
-            <View style={[s.goalbarFill, { width: `${Math.min(100, scorePct)}%`, backgroundColor: c.green }]} />
-            <View style={[s.goalMk, { left: `${goalPct}%` }]} />
-          </View>
-          <View style={s.goalScale}><Text style={s.goalScaleT}>{t('coach.pts_pred', { n: st.predScore })}</Text><Text style={s.goalScaleT}>{t('coach.pts_pass', { n: st.passTotal })}</Text></View>
-        </View>
-
-        {/* ⑦ 学習量の推移(覚えた語/日・直近14日) */}
+        {/* ⑦ 学習量の推移(覚えた語/日・直近14日)。※旧「ゴールまでの見通し」はヒーローのリング(予想得点vs合格ライン)と重複のため撤去。 */}
         <View style={s.card}>
           <SecLabel c={c} s={s} text={t('coach.vol_title')} />
           <BarChart s={s} c={c} data={d.daily} />
           <Text style={s.barCap}>{t('coach.vol_recent', { n: d.daily.reduce((a, b) => a + b, 0) })}</Text>
         </View>
 
-        {/* ⑥ 継続・学習量 */}
-        <View style={s.strip}>
-          <StripCell s={s} n={`${d.st.streakDays}`} unit={t('coach.unit_days')} tt={t('coach.strip_streak')} c={c} />
-          <StripCell s={s} n={`${d.h}`} unit={t('coach.unit_hm', { m: d.m })} tt={t('coach.strip_time')} c={c} border />
-          <StripCell s={s} n={`${d.learned}`} unit={t('coach.due_unit')} tt={t('coach.strip_total')} c={c} />
-        </View>
-
-        {/* ⑥-b 継続カレンダー(継続カードを統合: 最長・フリーズ＋直近7日/28日の学習ドット) */}
+        {/* ⑥ 継続・学習量(継続ストリップ＋カレンダーを1枚に統合: 連続/時間/累計＋最長・フリーズ＋7日/28日ドット) */}
         <View style={s.card}>
           <SecLabel c={c} s={s} text={t('coach.cal_title')} />
+          <View style={s.stripRow}>
+            <StripCell s={s} n={`${d.st.streakDays}`} unit={t('coach.unit_days')} tt={t('coach.strip_streak')} c={c} />
+            <StripCell s={s} n={`${d.h}`} unit={t('coach.unit_hm', { m: d.m })} tt={t('coach.strip_time')} c={c} border />
+            <StripCell s={s} n={`${d.learned}`} unit={t('coach.due_unit')} tt={t('coach.strip_total')} c={c} />
+          </View>
           <Text style={s.calMeta}>{t('coach.cal_meta', { n: d.streak.longest, f: d.streak.freezes })}</Text>
           <View style={s.week}>
             {d.week.map((day) => <View key={day} style={[s.wdot, d.studied.has(day) && { backgroundColor: c.amber, borderColor: c.amber }, day === d.today && { borderWidth: 2, borderColor: c.ink }]} />)}
@@ -429,17 +383,6 @@ function Stars({ n, c, size }: { n: number; c: ThemeColors; size: number }) {
   );
 }
 
-function Stat({ s, tt, v, unit, up, c, color }: { s: Styles; tt: string; v: string; unit: string; up: boolean; c: ThemeColors; color?: string }) {
-  return (
-    <View style={s.stat}>
-      <Text style={s.statT}>{tt}</Text>
-      <View style={s.statN}>
-        <Text style={[s.statV, up && { color: c.green }, color ? { color, fontSize: ty.body } : null]}>{v}</Text>
-        {!!unit && <Text style={s.statU}>{unit}</Text>}
-      </View>
-    </View>
-  );
-}
 
 // 分野別到達度の5軸レーダー(漢字/語彙/文法/読解/聴解)。各頂点は区分色の点＋ラベル＋%。
 function FacetRadar({ data, c }: { data: { label: string; pct: number; color: string }[]; c: ThemeColors }) {
@@ -545,6 +488,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   passbarFill: { position: 'absolute', top: 0, bottom: 0, left: 0, borderRadius: 6 },
   passbarGoal: { position: 'absolute', top: -2, bottom: -2, width: 2, backgroundColor: c.ink2, borderRadius: 2 },
   diff: { fontSize: 10.5, color: c.faint, marginTop: spacing.sm, lineHeight: 15, textAlign: 'center' },
+  heroGoal: { fontSize: 12.5, fontWeight: '800', textAlign: 'center', marginTop: spacing.sm },
 
   card: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.md, ...shadow1(c) },
   facets: { flexDirection: 'row', justifyContent: 'space-between' },
@@ -577,7 +521,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   mockMeta: { fontSize: 11.5, color: c.mute, fontWeight: '700', marginTop: 2 },
   mockJudge: { fontSize: 12, fontWeight: '900', borderWidth: 1.5, borderRadius: radius.pill, paddingVertical: 4, paddingHorizontal: 12, overflow: 'hidden' },
   mockDelta: { fontSize: 12, fontWeight: '800', marginTop: spacing.xs },
-  mockSecs: { gap: 8, marginTop: spacing.sm },
   mockTrendRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.sm, paddingTop: spacing.sm, borderTopWidth: 1, borderTopColor: c.line },
   mockTrendItem: { alignItems: 'center', flex: 1 },
   mockTrendScore: { fontSize: 13, fontWeight: '800', color: c.ink2, fontVariant: ['tabular-nums'] },
@@ -615,12 +558,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   bars: { marginTop: 2 },
   barCap: { fontSize: 10.5, color: c.faint, fontWeight: '700', marginTop: 6, textAlign: 'right' },
 
-  growthRow: { flexDirection: 'row', gap: spacing.sm },
-  stat: { flex: 1, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 9, paddingHorizontal: 10 },
-  statT: { fontSize: 10.5, color: c.ink2, fontWeight: '700' },
-  statN: { flexDirection: 'row', alignItems: 'baseline', gap: 3, marginTop: 3 },
-  statV: { fontSize: 21, fontWeight: '900', color: c.ink, fontVariant: ['tabular-nums'] },
-  statU: { fontSize: 11, color: c.faint, fontWeight: '600' },
   spark: { marginTop: spacing.md },
   sparkCap: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
   sparkCapT: { fontSize: 10, color: c.faint, fontWeight: '700', letterSpacing: 0.5 },
@@ -631,15 +568,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   chipT: { fontSize: 11, fontWeight: '800' },
   weakT: { flex: 1, fontSize: 12.5, color: c.ink, lineHeight: 19 },
 
-  goalT: { fontSize: 12.5, color: c.ink, lineHeight: 20, marginBottom: spacing.sm },
-  goalEm: { color: c.green, fontWeight: '800' },
-  goalbar: { height: 8, borderRadius: 8, backgroundColor: c.bgSoft, position: 'relative', overflow: 'hidden' },
-  goalbarFill: { position: 'absolute', top: 0, bottom: 0, left: 0, borderRadius: 8 },
-  goalMk: { position: 'absolute', top: -3, bottom: -3, width: 2, backgroundColor: c.ink2 },
-  goalScale: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 },
-  goalScaleT: { fontSize: 9.5, color: c.faint, fontWeight: '700' },
-
-  strip: { flexDirection: 'row', backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, overflow: 'hidden', ...shadow1(c) },
+  stripRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: c.line, paddingBottom: spacing.sm, marginBottom: spacing.sm },
   stripCell: { flex: 1, paddingVertical: 12, paddingHorizontal: 6, alignItems: 'center' },
   stripN: { fontSize: 19, fontWeight: '900', color: c.ink, fontVariant: ['tabular-nums'] },
   stripU: { fontSize: 11, color: c.faint, fontWeight: '600' },

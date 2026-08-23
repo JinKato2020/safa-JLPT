@@ -32,8 +32,9 @@ export function InfoSearchFigure(props: Props) {
   const s = makeStyles(c);
   const t = useT();
   const [picked, setPicked] = useState<number | null>(null);
-  const revealed = picked !== null;
-  const showFeedback = revealed && !mock; // 模試中は正誤・解説を隠す
+  const revealed = picked !== null;        // 選択済み(=「次へ」を出す)
+  const locked = revealed && !mock;        // 練習=選択で即ロック / 模試=「次へ」まで選び直せる
+  const showFeedback = locked;             // 模試中は正誤・解説を隠す
   const R = (text: string, style: any, opts?: { ruby?: any; center?: boolean; key?: number | string }) => (
     <RubyText key={opts?.key} text={text} style={style} rubyStyle={opts?.ruby ?? s.ruby} rubyGate={rubyGate} center={opts?.center} />
   );
@@ -42,10 +43,11 @@ export function InfoSearchFigure(props: Props) {
     R(text, style, { ruby: s.rubyPaper, center: opts?.center, key: opts?.key });
 
   const pick = (idx: number) => {
-    if (revealed) return; // 単問なので即採点・固定
+    if (locked) return; // 練習は選択で確定。模試は「次へ」まで選び直せる。
     setPicked(idx);
-    onGraded(idx === answer);
+    if (!mock) onGraded(idx === answer); // 練習は即採点。模試は handleNext で確定。
   };
+  const handleNext = () => { if (mock && picked !== null) onGraded(picked === answer); onNext(); };
 
   // notice(お知らせ)は ※ の点線枠で。決め手はここに埋まる＝自分で読んで気づく設計。
   const renderNotice = (b: FigureBlock, key: number) => (
@@ -193,7 +195,7 @@ export function InfoSearchFigure(props: Props) {
               key={idx}
               style={[s.choice, showFeedback && isAns && s.choiceOk, showFeedback && isPicked && !isAns && s.choiceNg, !showFeedback && isPicked && s.choicePicked]}
               onPress={() => pick(idx)}
-              disabled={revealed}
+              disabled={locked}
             >
               <Text style={s.choiceNum}>{idx + 1}</Text>
               <View style={s.choiceTxtWrap}>{R(ch, s.choiceTxt)}</View>
@@ -210,7 +212,7 @@ export function InfoSearchFigure(props: Props) {
               {explain.split('\n').map((line, i) => (line ? R(line, s.explainText, { key: i }) : <View key={i} style={s.gap} />))}
             </View>
           ) : null}
-          <Pressable style={s.nextBtn} onPress={onNext}>
+          <Pressable style={s.nextBtn} onPress={handleNext}>
             <Text style={s.nextTxt}>{isLast ? t('passage.toResult') : t('passage.next')}</Text>
           </Pressable>
         </>

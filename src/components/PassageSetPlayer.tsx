@@ -60,24 +60,27 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
   const [answers, setAnswers] = useState<(number | null)[]>(() => set.questions.map(() => null));
   const [recorded, setRecorded] = useState(false);
   const [showTrans, setShowTrans] = useState(false);
-  // 全問回答したら自動で答え合わせ(採点)。それまでは各問いつでも選び直せる。
-  const revealed = answers.length > 0 && answers.every((a) => a !== null);
+  // 全問回答したら答え合わせ(採点)。※模試中は自動採点せず「次へ」で確定する(それまで何度でも選び直せる)。
+  const allAnswered = answers.length > 0 && answers.every((a) => a !== null);
+  const revealed = allAnswered && !mock; // 練習=全問回答で採点表示＆ロック / 模試=「次へ」までロックしない(選び直し可)
   // 模試中は正誤・解説・訳を出さない(採点記録はする)。最後に「解答・解説」でまとめて表示。
-  const showFeedback = revealed && !mock;
+  const showFeedback = revealed;
   const useNe = meaningL1(state.settings) === 'ne'; // ne母語=ネパール語訳／それ以外(ja UI/en/他言語)=英語訳
   const trans = useNe ? PASSAGE_TRANS_NE[set.id] : PASSAGE_TRANS_EN[set.id]; // 本文ごとの訳(無ければundefined)
   const qtr = useNe ? Q_TRANS_NE : Q_TRANS_EN; // 設問・選択肢の訳(内容理解のみ・key=設問id)
   const hasTrans = !!trans || set.questions.some((q) => qtr[q.id]); // 訳トグルを出すか
 
-  // 全問回答した瞬間に一括採点＝各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)の集計も同時に1回だけ発火。
-  useEffect(() => {
-    if (revealed && !recorded) {
-      const results = qs.map((x, i) => answers[i] === x.sh.answerIndex);
-      set.questions.forEach((q, i) => quizAnswer(q.id, results[i]));
-      onGraded?.(set.questions.map((q, i) => ({ id: q.id, correct: results[i] })));
-      setRecorded(true);
-    }
-  }, [revealed, recorded]);
+  // 一括採点＝各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)の集計も同時に1回だけ発火。
+  const gradeAndRecord = () => {
+    if (recorded) return;
+    const results = qs.map((x, i) => answers[i] === x.sh.answerIndex);
+    set.questions.forEach((q, i) => quizAnswer(q.id, results[i]));
+    onGraded?.(set.questions.map((q, i) => ({ id: q.id, correct: results[i] })));
+    setRecorded(true);
+  };
+  // 練習: 全問回答した瞬間に自動採点(採点後ロック・色付け)。模試は revealed=false ゆえ発火せず、確定は「次へ」で。
+  useEffect(() => { if (revealed && !recorded) gradeAndRecord(); }, [revealed, recorded]); // eslint-disable-line react-hooks/exhaustive-deps
+  const handleNext = () => { gradeAndRecord(); onNext(); }; // 模試も練習も「次へ」で確実に採点(冪等)してから進む
 
   // 採点(全問回答)前はいつでも選び直せる（間違いに後から気付いた時のため／再タップで別の選択肢に変更）。採点後は変更不可。
   const pick = (qi: number, choiceIdx: number) => {
@@ -138,8 +141,8 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
         );
       })}
 
-      {revealed ? (
-        <AnswerFooter onNext={onNext} nextKind={isLast ? 'result' : 'next'} />
+      {allAnswered ? (
+        <AnswerFooter onNext={handleNext} nextKind={isLast ? 'result' : 'next'} />
       ) : (
         <Text style={s.hint}>{t('passage.hint')}</Text>
       )}

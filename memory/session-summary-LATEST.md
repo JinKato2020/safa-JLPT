@@ -1,17 +1,23 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 2 回・6 ターン
-- 往復 243 回
+- ツール呼び出し 38 回・81 ターン
+- 往復 339 回
 
 ## 何が変わったか
 - memory/handoff.md
+- src/screens/AICoachScreen.tsx
+- src/components/InfoSearchFigure.tsx
+- src/components/PassageSetPlayer.tsx
 - memory/session-summary-LATEST.md
-- src/screens/MockScreen.tsx
-- src/i18n/ne.json
-- src/i18n/en.json
+
+## ⚠️ 注意
+- - ⚠ 連続 81ターン（文脈 30万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 81ターン・ツール38回）— まとめ方を変える
 
 ## 次の一手
+- **▶▶ 2026-08-23 ✅実装完了＝AIコーチ画面のスリム化＋読解の選び直し対応（UI・未コミット・未ビルド＝v1.1.8/2841の後の新規分）**: ①**AIコーチ分析を14→11ブロックへ整理(軽め・ユーザー選択)**＝重複削除。「ゴールまでの見通し」→ヒーローへ一言吸収／模試の記録の区分別バー削除(タップで成績表を見られる)／「この7日の成長」カード撤去(予想得点・伸びた分野が重複／週の伸びは学習量の推移で表示)／継続ストリップ＋継続カレンダーを1枚に統合。死んだコード(Stat関数・goal*/strip/stat*/mockSecs/growthRowスタイル・未使用ty import)も掃除。②**模試の読解問題で選び直し可能に**＝`PassageSetPlayer`は全問回答した瞬間にロック→模試中は`revealed=allAnswered && !mock`にして「次へ」まで選び直せる・採点はhandleNextで確定(冪等gradeAndRecord)。`InfoSearchFigure`(情報検索・単問)も同様(locked=revealed&&!mock・handleNextで採点)。練習(非模試)は従来どおり全問回答で即採点・色付け。tsc0・mockAnswer/mockScoreEstimate/parity/homeStatus緑。**次の一手＝ユーザー判断**(次のビルドで反映)。以下は旧記録(参考):
+- **▶▶ 2026-08-23 🚀ビルド起動＝v1.1.8(2841) iOS/Android both dispatch（commit `fc1dbea2`・run 32603917163・-NoWatch・iOS本日1/8）**: 本日の全実装を同梱＝①漢字/語彙を5軸分割(AIコーチ分野別レーダー/カバー率3バー/模試成績表レーダー) ②AIコーチから過去模試(JLPT)をタップ→成績表再表示(byCat/elapsedMs保存) ③模試復習をFlatList仮想化で軽量化 ④模試回答は選び直し可(次へで確定) ⑤模試聴解の再生を本番仕様(JLPT1回/JFT2回)。事前検証テスト60/0(skip5)・tsc0・manifest再生成・push済(OTA/Pages起動)。**監視しない(運用方針)**。**次の一手＝ユーザー判断**(CI結果確認/翻訳は新規UIのja/en/ne同時対応済・他8言語backlogは後日)。以下は本ビルド同梱の実装記録(参考):
 - **▶▶ 2026-08-23 ✅実装完了＝模試聴解の再生回数を本番仕様に（UI・未コミット・未ビルド）**: JLPTは従来無制限で繰り返し再生できたのを**1回のみ**に制限（`MockScreen.tsx` `LISTEN_MAX = isJft ? 2 : 1`・playガードをJFT限定から全体へ・再生ボタンのused/remaining表示をJLPTにも適用）。JFTは従来どおり2回。i18n `mock.play_used` を「再生済み（2回）」固定→`{n}`可変化(ja/en/ne・parity緑)。playCountは設問切替でリセット(既存)＝各設問で1回。tsc0。**次の一手＝ユーザー判断**(ビルドで端末反映)。以下は旧記録(参考):
 - **▶▶ 2026-08-23 ✅実装完了＝模試の回答時に選び直しできるように（UI・未コミット・未ビルド）**: 従来は一度選ぶと即確定・ロックで変更不可だった。**選択＝ハイライトのみに変更し「次へ」で確定**（`MockScreen.tsx` onPick=setPickedのみ＋pendingRefに控える／next()で採点mockAnswer+setAnswers+picks確定／選択肢のdisabled撤去で何度でも選び直せる）。**時間切れ時も選択済み(未確定)はその正誤で記録**（pendingRefをタイムアウトfillで反映＝空欄扱いにしない・stale closure回避のためref使用）。読解/文章の文法はPassageSetPlayer側採点で不変。tsc0・mockAnswer/mockScoreEstimate緑。**次の一手＝ユーザー判断**(ビルドで端末反映)。以下は旧記録(参考):
 - **▶▶ 2026-08-23 ✅実装完了＝模試の復習画面(phase:'review')を仮想化して軽量化（UI・未コミット・未ビルド）**: 全問(数十〜百問＋ルビ解析)を1つのScrollViewに一括mountしていたのが固着の原因。**FlatListへ置換**し可視域だけ描画(`MockScreen.tsx`・行データ`RvRow`=group/passage/q・`renderPassage`抽出・initialNumToRender5/maxToRenderPerBatch5/windowSize7)。挙動・レイアウトは同一(縦スクロールのまま)。tsc0。**次の一手＝ユーザー判断**(ビルドで端末反映)。以下は旧記録(参考):
