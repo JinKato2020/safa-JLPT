@@ -10546,6 +10546,760 @@
     "波る",
     "渉る"
    ]
+  },
+  {
+   "id": "N5-V-H-0528",
+   "vocabId": "n5-v-14",
+   "i18n": {},
+   "sentence": "あさって でかけます。",
+   "underline": "あさって",
+   "answer": "明後日",
+   "choices": [
+    "明後目",
+    "朗後日",
+    "明復日"
+   ]
+  },
+  {
+   "id": "N5-V-H-0529",
+   "vocabId": "n5-v-15",
+   "i18n": {},
+   "sentence": "あしが いたいです。",
+   "underline": "あし",
+   "answer": "足",
+   "choices": [
+    "是",
+    "走",
+    "促"
+   ]
+  },
+  {
+   "id": "N5-V-H-0530",
+   "vocabId": "n5-v-16",
+   "i18n": {},
+   "sentence": "また あしたね。",
+   "underline": "あした",
+   "answer": "明日",
+   "choices": [
+    "明目",
+    "朋日",
+    "朗日"
+   ]
+  },
+  {
+   "id": "N5-V-H-0531",
+   "vocabId": "n5-v-58",
+   "i18n": {},
+   "sentence": "きょうは いちにち ひまでした。",
+   "underline": "いちにち",
+   "answer": "一日",
+   "choices": [
+    "一目",
+    "一田",
+    "一白"
+   ]
+  },
+  {
+   "id": "N5-V-H-0532",
+   "vocabId": "n5-v-75",
+   "i18n": {},
+   "sentence": "いろいろ ありがとう。",
+   "underline": "いろいろ",
+   "answer": "色々",
+   "choices": [
+    "包々",
+    "危々",
+    "邑々"
+   ]
+  },
+  {
+   "id": "N5-V-H-0533",
+   "vocabId": "n5-v-94",
+   "i18n": {},
+   "sentence": "これは ごじゅうえんです。",
+   "underline": "えん",
+   "answer": "円",
+   "choices": [
+    "丹",
+    "内",
+    "用"
+   ]
+  },
+  {
+   "id": "N5-V-H-0534",
+   "vocabId": "n5-v-121",
+   "i18n": {},
+   "sentence": "おととい つきました。",
+   "underline": "おととい",
+   "answer": "一昨日",
+   "choices": [
+    "一昨目",
+    "一咋日",
+    "二昨日"
+   ]
+  },
+  {
+   "id": "N5-V-H-0535",
+   "vocabId": "n5-v-123",
+   "i18n": {},
+   "sentence": "きみは もう おとなだ。",
+   "underline": "おとな",
+   "answer": "大人",
+   "choices": [
+    "大入",
+    "太人",
+    "犬人"
+   ]
+  },
+  {
+   "id": "N5-V-H-0536",
+   "vocabId": "n5-v-142",
+   "i18n": {},
+   "sentence": "さんかい かちました。",
+   "underline": "かい",
+   "answer": "回",
+   "choices": [
+    "因",
+    "困",
+    "団"
+   ]
+  },
+  {
+   "id": "N5-V-H-0537",
+   "vocabId": "n5-v-143",
+   "i18n": {},
+   "sentence": "にかいに あがります。",
+   "underline": "かい",
+   "answer": "階",
+   "choices": [
+    "陛",
+    "際",
+    "除"
+   ]
+  },
+  {
+   "id": "N5-V-H-0538",
+   "vocabId": "n5-v-157",
+   "i18n": {},
+   "sentence": "さんかげつ かかります。",
+   "underline": "げつ",
+   "answer": "月",
+   "choices": [
+    "肉",
+    "目",
+    "貝"
+   ]
+  },
+  {
+   "id": "N5-V-H-0539",
+   "vocabId": "n5-v-167",
+   "i18n": {},
+   "sentence": "さんがつに にゅうがくします。",
+   "underline": "がつ",
+   "answer": "月",
+   "choices": [
+    "肉",
+    "用",
+    "見"
+   ]
+  },
+  {
+   "id": "N5-V-H-0540",
+   "vocabId": "n5-v-185",
+   "i18n": {},
+   "sentence": "この かわは ながいです。",
+   "underline": "かわ",
+   "answer": "川",
+   "choices": [
+    "州",
+    "順",
+    "洲"
+   ]
+  },
+  {
+   "id": "N5-V-H-0541",
+   "vocabId": "n5-v-186",
+   "i18n": {},
+   "sentence": "こちらがわに きてください。",
+   "underline": "がわ",
+   "answer": "側",
+   "choices": [
+    "測",
+    "則",
+    "例"
+   ]
+  },
+  {
+   "id": "N5-V-H-0542",
+   "vocabId": "n5-v-200",
+   "i18n": {},
+   "sentence": "きのう ほんを かいました。",
+   "underline": "きのう",
+   "answer": "昨日",
+   "choices": [
+    "昨目",
+    "作日",
+    "昨月"
+   ]
+  },
+  {
+   "id": "N5-V-H-0543",
+   "vocabId": "n5-v-204",
+   "i18n": {},
+   "sentence": "きょうは あついです。",
+   "underline": "きょう",
+   "answer": "今日",
+   "choices": [
+    "今目",
+    "令日",
+    "会日"
+   ]
+  },
+  {
+   "id": "N5-V-H-0544",
+   "vocabId": "n5-v-219",
+   "i18n": {},
+   "sentence": "くだものが すきです。",
+   "underline": "くだもの",
+   "answer": "果物",
+   "choices": [
+    "菓物",
+    "課物",
+    "巣物"
+   ]
+  },
+  {
+   "id": "N5-V-H-0545",
+   "vocabId": "n5-v-235",
+   "i18n": {},
+   "sentence": "けさは さむいです。",
+   "underline": "けさ",
+   "answer": "今朝",
+   "choices": [
+    "令朝",
+    "会朝",
+    "含朝"
+   ]
+  },
+  {
+   "id": "N5-V-H-0546",
+   "vocabId": "n5-v-242",
+   "i18n": {},
+   "sentence": "りんごを にこ かいました。",
+   "underline": "こ",
+   "answer": "個",
+   "choices": [
+    "困",
+    "回",
+    "因"
+   ]
+  },
+  {
+   "id": "N5-V-H-0547",
+   "vocabId": "n5-v-244",
+   "i18n": {},
+   "sentence": "この ごの いみが わかりません。",
+   "underline": "ご",
+   "answer": "語",
+   "choices": [
+    "話",
+    "詩",
+    "詰"
+   ]
+  },
+  {
+   "id": "N5-V-H-0548",
+   "vocabId": "n5-v-275",
+   "i18n": {},
+   "sentence": "いもうとは ごさいです。",
+   "underline": "さい",
+   "answer": "歳",
+   "choices": [
+    "蔵",
+    "減",
+    "感"
+   ]
+  },
+  {
+   "id": "N5-V-H-0549",
+   "vocabId": "n5-v-282",
+   "i18n": {},
+   "sentence": "ほんを にさつ かいました。",
+   "underline": "さつ",
+   "answer": "冊",
+   "choices": [
+    "用",
+    "再",
+    "冒"
+   ]
+  },
+  {
+   "id": "N5-V-H-0550",
+   "vocabId": "n5-v-291",
+   "i18n": {},
+   "sentence": "いま さんじです。",
+   "underline": "じ",
+   "answer": "時",
+   "choices": [
+    "待",
+    "詩",
+    "特"
+   ]
+  },
+  {
+   "id": "N5-V-H-0551",
+   "vocabId": "n5-v-295",
+   "i18n": {},
+   "sentence": "さんじかん かかります。",
+   "underline": "じかん",
+   "answer": "時間",
+   "choices": [
+    "時聞",
+    "待間",
+    "特間"
+   ]
+  },
+  {
+   "id": "N5-V-H-0552",
+   "vocabId": "n5-v-315",
+   "i18n": {},
+   "sentence": "ひとばんじゅう おきていました。",
+   "underline": "じゅう",
+   "answer": "中",
+   "choices": [
+    "申",
+    "由",
+    "甲"
+   ]
+  },
+  {
+   "id": "N5-V-H-0553",
+   "vocabId": "n5-v-316",
+   "i18n": {},
+   "sentence": "にしゅうかん やすみます。",
+   "underline": "しゅうかん",
+   "answer": "週間",
+   "choices": [
+    "周間",
+    "過間",
+    "週問"
+   ]
+  },
+  {
+   "id": "N5-V-H-0554",
+   "vocabId": "n5-v-319",
+   "i18n": {},
+   "sentence": "およぎが じょうずです。",
+   "underline": "じょうず",
+   "answer": "上手",
+   "choices": [
+    "止手",
+    "上毛",
+    "土手"
+   ]
+  },
+  {
+   "id": "N5-V-H-0555",
+   "vocabId": "n5-v-326",
+   "i18n": {},
+   "sentence": "かれは ドイツじんです。",
+   "underline": "じん",
+   "answer": "人",
+   "choices": [
+    "入",
+    "八",
+    "大"
+   ]
+  },
+  {
+   "id": "N5-V-H-0556",
+   "vocabId": "n5-v-158",
+   "i18n": {},
+   "sentence": "かべに えを かける。",
+   "underline": "かける",
+   "answer": "掛ける",
+   "choices": [
+    "持ける",
+    "掲ける",
+    "街ける"
+   ]
+  },
+  {
+   "id": "N5-V-H-0557",
+   "vocabId": "n5-v-371",
+   "i18n": {},
+   "sentence": "くるまが 3だい あります。",
+   "underline": "だい",
+   "answer": "台",
+   "choices": [
+    "合",
+    "号",
+    "召"
+   ]
+  },
+  {
+   "id": "N5-V-H-0558",
+   "vocabId": "n5-v-398",
+   "i18n": {},
+   "sentence": "そらが だんだん くらく なる。",
+   "underline": "だんだん",
+   "answer": "段々",
+   "choices": [
+    "断々",
+    "談々",
+    "殿々"
+   ]
+  },
+  {
+   "id": "N5-V-H-0559",
+   "vocabId": "n5-v-409",
+   "i18n": {},
+   "sentence": "いま べんきょうちゅう です。",
+   "underline": "ちゅう",
+   "answer": "中",
+   "choices": [
+    "申",
+    "虫",
+    "史"
+   ]
+  },
+  {
+   "id": "N5-V-H-0560",
+   "vocabId": "n5-v-412",
+   "i18n": {},
+   "sentence": "しがつ ついたち です。",
+   "underline": "ついたち",
+   "answer": "一日",
+   "choices": [
+    "一目",
+    "一月",
+    "一白"
+   ]
+  },
+  {
+   "id": "N5-V-H-0561",
+   "vocabId": "n5-v-443",
+   "i18n": {},
+   "sentence": "きょうは 30ど です。",
+   "underline": "ど",
+   "answer": "度",
+   "choices": [
+    "席",
+    "座",
+    "庶"
+   ]
+  },
+  {
+   "id": "N5-V-H-0562",
+   "vocabId": "n5-v-455",
+   "i18n": {},
+   "sentence": "ときどき あめが ふる。",
+   "underline": "ときどき",
+   "answer": "時々",
+   "choices": [
+    "侍々",
+    "持々",
+    "待々"
+   ]
+  },
+  {
+   "id": "N5-V-H-0563",
+   "vocabId": "n5-v-456",
+   "i18n": {},
+   "sentence": "あたらしい とけいを かう。",
+   "underline": "とけい",
+   "answer": "時計",
+   "choices": [
+    "持計",
+    "時討",
+    "待計"
+   ]
+  },
+  {
+   "id": "N5-V-H-0564",
+   "vocabId": "n5-v-500",
+   "i18n": {},
+   "sentence": "きょうは 15にち です。",
+   "underline": "にち",
+   "answer": "日",
+   "choices": [
+    "目",
+    "白",
+    "自"
+   ]
+  },
+  {
+   "id": "N5-V-H-0565",
+   "vocabId": "n5-v-505",
+   "i18n": {},
+   "sentence": "きょうしつに 3にん います。",
+   "underline": "にん",
+   "answer": "人",
+   "choices": [
+    "入",
+    "八",
+    "大"
+   ]
+  },
+  {
+   "id": "N5-V-H-0566",
+   "vocabId": "n5-v-511",
+   "i18n": {},
+   "sentence": "にほんに 2ねん いました。",
+   "underline": "ねん",
+   "answer": "年",
+   "choices": [
+    "午",
+    "牛",
+    "幸"
+   ]
+  },
+  {
+   "id": "N5-V-H-0567",
+   "vocabId": "n5-v-520",
+   "i18n": {},
+   "sentence": "みずを 2はい のむ。",
+   "underline": "はい",
+   "answer": "杯",
+   "choices": [
+    "林",
+    "材",
+    "朴"
+   ]
+  },
+  {
+   "id": "N5-V-H-0568",
+   "vocabId": "n5-v-529",
+   "i18n": {},
+   "sentence": "はるの はじめ です。",
+   "underline": "はじめ",
+   "answer": "初め",
+   "choices": [
+    "祝め",
+    "袖め",
+    "被め"
+   ]
+  },
+  {
+   "id": "N5-V-H-0569",
+   "vocabId": "n5-v-534",
+   "i18n": {},
+   "sentence": "ことし はたち に なる。",
+   "underline": "はたち",
+   "answer": "二十歳",
+   "choices": [
+    "二十蔵",
+    "二十歩",
+    "二十威"
+   ]
+  },
+  {
+   "id": "N5-V-H-0570",
+   "vocabId": "n5-v-537",
+   "i18n": {},
+   "sentence": "さんがつ はつか です。",
+   "underline": "はつか",
+   "answer": "二十日",
+   "choices": [
+    "二十目",
+    "二十月",
+    "二十白"
+   ]
+  },
+  {
+   "id": "N5-V-H-0571",
+   "vocabId": "n5-v-551",
+   "i18n": {},
+   "sentence": "つぎは わたしの ばん です。",
+   "underline": "ばん",
+   "answer": "番",
+   "choices": [
+    "審",
+    "香",
+    "畜"
+   ]
+  },
+  {
+   "id": "N5-V-H-0572",
+   "vocabId": "n5-v-558",
+   "i18n": {},
+   "sentence": "ねこが 2ひき います。",
+   "underline": "ひき",
+   "answer": "匹",
+   "choices": [
+    "区",
+    "匠",
+    "匿"
+   ]
+  },
+  {
+   "id": "N5-V-H-0573",
+   "vocabId": "n5-v-567",
+   "i18n": {},
+   "sentence": "ひとり で いきます。",
+   "underline": "ひとり",
+   "answer": "一人",
+   "choices": [
+    "一入",
+    "一八",
+    "一大"
+   ]
+  },
+  {
+   "id": "N5-V-H-0574",
+   "vocabId": "n5-v-584",
+   "i18n": {},
+   "sentence": "ふたり で あそぶ。",
+   "underline": "ふたり",
+   "answer": "二人",
+   "choices": [
+    "二入",
+    "二八",
+    "二大"
+   ]
+  },
+  {
+   "id": "N5-V-H-0575",
+   "vocabId": "n5-v-585",
+   "i18n": {},
+   "sentence": "ふつか まえに きた。",
+   "underline": "ふつか",
+   "answer": "二日",
+   "choices": [
+    "二目",
+    "二白",
+    "二自"
+   ]
+  },
+  {
+   "id": "N5-V-H-0576",
+   "vocabId": "n5-v-590",
+   "i18n": {},
+   "sentence": "あと 5ふん まって。",
+   "underline": "ふん",
+   "answer": "分",
+   "choices": [
+    "今",
+    "令",
+    "公"
+   ]
+  },
+  {
+   "id": "N5-V-H-0577",
+   "vocabId": "n5-v-593",
+   "i18n": {},
+   "sentence": "かれは じが へた だ。",
+   "underline": "へた",
+   "answer": "下手",
+   "choices": [
+    "下毛",
+    "丁手",
+    "干手"
+   ]
+  },
+  {
+   "id": "N5-V-H-0578",
+   "vocabId": "n5-v-596",
+   "i18n": {},
+   "sentence": "この へやは あかるい。",
+   "underline": "へや",
+   "answer": "部屋",
+   "choices": [
+    "部屈",
+    "陪屋",
+    "部居"
+   ]
+  },
+  {
+   "id": "N5-V-H-0579",
+   "vocabId": "n5-v-611",
+   "i18n": {},
+   "sentence": "ペンが 2ほん ある。",
+   "underline": "ほん",
+   "answer": "本",
+   "choices": [
+    "木",
+    "末",
+    "未"
+   ]
+  },
+  {
+   "id": "N5-V-H-0580",
+   "vocabId": "n5-v-614",
+   "i18n": {},
+   "sentence": "きっぷを 3まい かう。",
+   "underline": "まい",
+   "answer": "枚",
+   "choices": [
+    "牧",
+    "故",
+    "放"
+   ]
+  },
+  {
+   "id": "N5-V-H-0581",
+   "vocabId": "n5-v-622",
+   "i18n": {},
+   "sentence": "えきの まえで あう。",
+   "underline": "まえ",
+   "answer": "前",
+   "choices": [
+    "制",
+    "刻",
+    "削"
+   ]
+  },
+  {
+   "id": "N5-V-H-0582",
+   "vocabId": "n5-v-632",
+   "i18n": {},
+   "sentence": "そらに まるい つきが でる。",
+   "underline": "まるい",
+   "answer": "丸い",
+   "choices": [
+    "九い",
+    "凡い",
+    "丹い"
+   ]
+  },
+  {
+   "id": "N5-V-H-0583",
+   "vocabId": "n5-v-661",
+   "i18n": {},
+   "sentence": "かばんを もつ。",
+   "underline": "もつ",
+   "answer": "持つ",
+   "choices": [
+    "待つ",
+    "侍つ",
+    "特つ"
+   ]
+  },
+  {
+   "id": "N5-V-H-0584",
+   "vocabId": "n5-v-666",
+   "i18n": {},
+   "sentence": "ほんや に いく。",
+   "underline": "や",
+   "answer": "屋",
+   "choices": [
+    "屈",
+    "居",
+    "尾"
+   ]
+  },
+  {
+   "id": "N5-V-H-0585",
+   "vocabId": "n5-v-667",
+   "i18n": {},
+   "sentence": "やおや で やさいを かう。",
+   "underline": "やおや",
+   "answer": "八百屋",
+   "choices": [
+    "八百屈",
+    "八百居",
+    "八白屋"
+   ]
   }
  ]
 }

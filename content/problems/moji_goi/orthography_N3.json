@@ -28006,6 +28006,6272 @@
     "表宗",
     "表視"
    ]
+  },
+  {
+   "id": "N3-V-H-1528",
+   "vocabId": "n3-v-2",
+   "i18n": {},
+   "sentence": "彼の庭にはいつもさまざまな花が咲く。",
+   "underline": "さまざま",
+   "answer": "様々",
+   "choices": [
+    "橡々",
+    "樣々",
+    "檬々"
+   ]
+  },
+  {
+   "id": "N3-V-H-1529",
+   "vocabId": "n3-v-40",
+   "i18n": {},
+   "sentence": "彼は有名なしじんだ。",
+   "underline": "しじん",
+   "answer": "詩人",
+   "choices": [
+    "詞人",
+    "試人",
+    "誌人"
+   ]
+  },
+  {
+   "id": "N3-V-H-1530",
+   "vocabId": "n3-v-93",
+   "i18n": {},
+   "sentence": "世界には様々なしゅうきょうがある。",
+   "underline": "しゅうきょう",
+   "answer": "宗教",
+   "choices": [
+    "宗数",
+    "崇教",
+    "宋教"
+   ]
+  },
+  {
+   "id": "N3-V-H-1531",
+   "vocabId": "n3-v-142",
+   "i18n": {},
+   "sentence": "かぜのしょうじょうが出てきた。",
+   "underline": "しょうじょう",
+   "answer": "症状",
+   "choices": [
+    "痘状",
+    "症壮",
+    "疫状"
+   ]
+  },
+  {
+   "id": "N3-V-H-1532",
+   "vocabId": "n3-v-180",
+   "i18n": {},
+   "sentence": "転んでしりを打った。",
+   "underline": "しり",
+   "answer": "尻",
+   "choices": [
+    "尼",
+    "尾",
+    "屁"
+   ]
+  },
+  {
+   "id": "N3-V-H-1533",
+   "vocabId": "n3-v-213",
+   "i18n": {},
+   "sentence": "先生がすいせんしてくれた。",
+   "underline": "すいせん",
+   "answer": "推薦",
+   "choices": [
+    "堆薦",
+    "椎薦",
+    "推薫"
+   ]
+  },
+  {
+   "id": "N3-V-H-1534",
+   "vocabId": "n3-v-262",
+   "i18n": {},
+   "sentence": "二十一せいきになった。",
+   "underline": "せいき",
+   "answer": "世紀",
+   "choices": [
+    "世記",
+    "世紅",
+    "丗紀"
+   ]
+  },
+  {
+   "id": "N3-V-H-1535",
+   "vocabId": "n3-v-311",
+   "i18n": {},
+   "sentence": "二人は固くあくしゅした。",
+   "underline": "あくしゅ",
+   "answer": "握手",
+   "choices": [
+    "渥手",
+    "握毛",
+    "屋手"
+   ]
+  },
+  {
+   "id": "N3-V-H-1536",
+   "vocabId": "n3-v-349",
+   "i18n": {},
+   "sentence": "ある日、不思議なことが起きた。",
+   "underline": "ある",
+   "answer": "或",
+   "choices": [
+    "惑",
+    "域",
+    "國"
+   ]
+  },
+  {
+   "id": "N3-V-H-1537",
+   "vocabId": "n3-v-408",
+   "i18n": {},
+   "sentence": "いとこに久しぶりに会った。",
+   "underline": "いとこ",
+   "answer": "従姉妹",
+   "choices": [
+    "徒姉妹",
+    "従姑妹",
+    "従姉妨"
+   ]
+  },
+  {
+   "id": "N3-V-H-1538",
+   "vocabId": "n3-v-499",
+   "i18n": {},
+   "sentence": "小さなおかに登った。",
+   "underline": "おか",
+   "answer": "丘",
+   "choices": [
+    "兵",
+    "斤",
+    "岳"
+   ]
+  },
+  {
+   "id": "N3-V-H-1539",
+   "vocabId": "n3-v-575",
+   "i18n": {},
+   "sentence": "星が空にかがやく。",
+   "underline": "かがやく",
+   "answer": "輝く",
+   "choices": [
+    "揮く",
+    "輪く",
+    "輩く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1540",
+   "vocabId": "n3-v-599",
+   "i18n": {},
+   "sentence": "果物をかごに入れた。",
+   "underline": "かご",
+   "answer": "籠",
+   "choices": [
+    "籟",
+    "籬",
+    "籃"
+   ]
+  },
+  {
+   "id": "N3-V-H-1541",
+   "vocabId": "n3-v-641",
+   "i18n": {},
+   "sentence": "痛くてもがまんした。",
+   "underline": "がまん",
+   "answer": "我慢",
+   "choices": [
+    "我漫",
+    "俄慢",
+    "餓慢"
+   ]
+  },
+  {
+   "id": "N3-V-H-1542",
+   "vocabId": "n3-v-669",
+   "i18n": {},
+   "sentence": "新入生をかんげいする。",
+   "underline": "かんげい",
+   "answer": "歓迎",
+   "choices": [
+    "勧迎",
+    "観迎",
+    "歓迅"
+   ]
+  },
+  {
+   "id": "N3-V-H-1543",
+   "vocabId": "n3-v-727",
+   "i18n": {},
+   "sentence": "きみょうな音が聞こえた。",
+   "underline": "きみょう",
+   "answer": "奇妙",
+   "choices": [
+    "寄妙",
+    "奇秒",
+    "崎妙"
+   ]
+  },
+  {
+   "id": "N3-V-H-1544",
+   "vocabId": "n3-v-775",
+   "i18n": {},
+   "sentence": "試験の前はきんちょうする。",
+   "underline": "きんちょう",
+   "answer": "緊張",
+   "choices": [
+    "堅張",
+    "緊帳",
+    "緊脹"
+   ]
+  },
+  {
+   "id": "N3-V-H-1545",
+   "vocabId": "n3-v-796",
+   "i18n": {},
+   "sentence": "客に酒をくむ。",
+   "underline": "くむ",
+   "answer": "酌む",
+   "choices": [
+    "酎む",
+    "釣む",
+    "酢む"
+   ]
+  },
+  {
+   "id": "N3-V-H-1546",
+   "vocabId": "n3-v-833",
+   "i18n": {},
+   "sentence": "会社とけいやくを結んだ。",
+   "underline": "けいやく",
+   "answer": "契約",
+   "choices": [
+    "喫約",
+    "契納",
+    "契紛"
+   ]
+  },
+  {
+   "id": "N3-V-H-1547",
+   "vocabId": "n3-v-892",
+   "i18n": {},
+   "sentence": "新しいこうしゃが建った。",
+   "underline": "こうしゃ",
+   "answer": "校舎",
+   "choices": [
+    "較舎",
+    "枚舎",
+    "校含"
+   ]
+  },
+  {
+   "id": "N3-V-H-1548",
+   "vocabId": "n3-v-933",
+   "i18n": {},
+   "sentence": "彼女はことを弾く。",
+   "underline": "こと",
+   "answer": "琴",
+   "choices": [
+    "瑟",
+    "琵",
+    "琶"
+   ]
+  },
+  {
+   "id": "N3-V-H-1549",
+   "vocabId": "n3-v-987",
+   "i18n": {},
+   "sentence": "花瓶に花をさす。",
+   "underline": "さす",
+   "answer": "挿す",
+   "choices": [
+    "搔す",
+    "据す",
+    "掃す"
+   ]
+  },
+  {
+   "id": "N3-V-H-1550",
+   "vocabId": "n3-v-1031",
+   "i18n": {},
+   "sentence": "りんごの皮をむく。",
+   "underline": "むく",
+   "answer": "剥く",
+   "choices": [
+    "剤く",
+    "刻く",
+    "剣く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1551",
+   "vocabId": "n3-v-1119",
+   "i18n": {},
+   "sentence": "卵をゆでる。",
+   "underline": "ゆでる",
+   "answer": "茹でる",
+   "choices": [
+    "茄でる",
+    "苑でる",
+    "菇でる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1552",
+   "vocabId": "n3-v-1195",
+   "i18n": {},
+   "sentence": "泉から水がわく。",
+   "underline": "わく",
+   "answer": "湧く",
+   "choices": [
+    "溶く",
+    "勇く",
+    "踊く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1553",
+   "vocabId": "n3-v-1228",
+   "i18n": {},
+   "sentence": "彼とは不思議なえんがある。",
+   "underline": "えん",
+   "answer": "縁",
+   "choices": [
+    "緑",
+    "縦",
+    "綬"
+   ]
+  },
+  {
+   "id": "N3-V-H-1554",
+   "vocabId": "n3-v-1252",
+   "i18n": {},
+   "sentence": "観客からかんせいが上がった。",
+   "underline": "かんせい",
+   "answer": "歓声",
+   "choices": [
+    "勧声",
+    "観声",
+    "歓音"
+   ]
+  },
+  {
+   "id": "N3-V-H-1555",
+   "vocabId": "n3-v-1273",
+   "i18n": {},
+   "sentence": "けいたいを家に忘れた。",
+   "underline": "けいたい",
+   "answer": "携帯",
+   "choices": [
+    "撹帯",
+    "携滞",
+    "携帝"
+   ]
+  },
+  {
+   "id": "N3-V-H-1556",
+   "vocabId": "n3-v-1294",
+   "i18n": {},
+   "sentence": "何かいいさくはないか。",
+   "underline": "さく",
+   "answer": "策",
+   "choices": [
+    "筑",
+    "簀",
+    "筈"
+   ]
+  },
+  {
+   "id": "N3-V-H-1557",
+   "vocabId": "n3-v-1338",
+   "i18n": {},
+   "sentence": "昼にそばを食べた。",
+   "underline": "そば",
+   "answer": "蕎麦",
+   "choices": [
+    "僑麦",
+    "蕎変",
+    "蕎麸"
+   ]
+  },
+  {
+   "id": "N3-V-H-1558",
+   "vocabId": "n3-v-1393",
+   "i18n": {},
+   "sentence": "庭で火をたく。",
+   "underline": "たく",
+   "answer": "焚く",
+   "choices": [
+    "禁く",
+    "楚く",
+    "燃く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1559",
+   "vocabId": "n3-v-1437",
+   "i18n": {},
+   "sentence": "こつこつお金をためる。",
+   "underline": "ためる",
+   "answer": "溜める",
+   "choices": [
+    "流める",
+    "瘤める",
+    "溺める"
+   ]
+  },
+  {
+   "id": "N3-V-H-1560",
+   "vocabId": "n3-v-1524",
+   "i18n": {},
+   "sentence": "二本の電線をつなげる。",
+   "underline": "つなげる",
+   "answer": "繋げる",
+   "choices": [
+    "撃げる",
+    "緊げる",
+    "繁げる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1561",
+   "vocabId": "n3-v-1562",
+   "i18n": {},
+   "sentence": "試験勉強でてつやした。",
+   "underline": "てつや",
+   "answer": "徹夜",
+   "choices": [
+    "撤夜",
+    "微夜",
+    "徹液"
+   ]
+  },
+  {
+   "id": "N3-V-H-1562",
+   "vocabId": "n3-v-1651",
+   "i18n": {},
+   "sentence": "山からのながめが美しい。",
+   "underline": "ながめ",
+   "answer": "眺め",
+   "choices": [
+    "挑め",
+    "跳め",
+    "誂め"
+   ]
+  },
+  {
+   "id": "N3-V-H-1563",
+   "vocabId": "n3-v-1678",
+   "i18n": {},
+   "sentence": "野菜がよくにえる。",
+   "underline": "にえる",
+   "answer": "煮える",
+   "choices": [
+    "煎える",
+    "著える",
+    "燕える"
+   ]
+  },
+  {
+   "id": "N3-V-H-1564",
+   "vocabId": "n3-v-1762",
+   "i18n": {},
+   "sentence": "机のはしに本を置く。",
+   "underline": "はし",
+   "answer": "端",
+   "choices": [
+    "瑞",
+    "湍",
+    "喘"
+   ]
+  },
+  {
+   "id": "N3-V-H-1565",
+   "vocabId": "n3-v-1802",
+   "i18n": {},
+   "sentence": "親にはんこうする。",
+   "underline": "はんこう",
+   "answer": "反抗",
+   "choices": [
+    "反坑",
+    "友抗",
+    "反航"
+   ]
+  },
+  {
+   "id": "N3-V-H-1566",
+   "vocabId": "n3-v-1898",
+   "i18n": {},
+   "sentence": "元手をふやす。",
+   "underline": "ふやす",
+   "answer": "殖やす",
+   "choices": [
+    "植やす",
+    "殊やす",
+    "殉やす"
+   ]
+  },
+  {
+   "id": "N3-V-H-1567",
+   "vocabId": "n3-v-1945",
+   "i18n": {},
+   "sentence": "棚にほこりがたまる。",
+   "underline": "ほこり",
+   "answer": "埃",
+   "choices": [
+    "挨",
+    "唉",
+    "涘"
+   ]
+  },
+  {
+   "id": "N3-V-H-1568",
+   "vocabId": "n3-v-1972",
+   "i18n": {},
+   "sentence": "劇のまくが上がる。",
+   "underline": "まく",
+   "answer": "幕",
+   "choices": [
+    "募",
+    "墓",
+    "膜"
+   ]
+  },
+  {
+   "id": "N3-V-H-1569",
+   "vocabId": "n3-v-2007",
+   "i18n": {},
+   "sentence": "その機械はじきの力で動く。",
+   "underline": "じき",
+   "answer": "磁気",
+   "choices": [
+    "滋気",
+    "慈気",
+    "磁汽"
+   ]
+  },
+  {
+   "id": "N3-V-H-1570",
+   "vocabId": "n3-v-2057",
+   "i18n": {},
+   "sentence": "このたいはとても強い。",
+   "underline": "たい",
+   "answer": "隊",
+   "choices": [
+    "隆",
+    "墜",
+    "隣"
+   ]
+  },
+  {
+   "id": "N3-V-H-1571",
+   "vocabId": "n3-v-2093",
+   "i18n": {},
+   "sentence": "野生の馬をならす。",
+   "underline": "ならす",
+   "answer": "馴らす",
+   "choices": [
+    "馳らす",
+    "駆らす",
+    "駒らす"
+   ]
+  },
+  {
+   "id": "N3-V-H-1572",
+   "vocabId": "n3-v-2116",
+   "i18n": {},
+   "sentence": "みんなで自然をほごする。",
+   "underline": "ほご",
+   "answer": "保護",
+   "choices": [
+    "呆護",
+    "保穫",
+    "保獲"
+   ]
+  },
+  {
+   "id": "N3-V-H-1573",
+   "vocabId": "n3-v-11",
+   "i18n": {},
+   "sentence": "動物園でさるが木に登っているのを見た。",
+   "underline": "さる",
+   "answer": "猿",
+   "choices": [
+    "狼",
+    "猫",
+    "狩"
+   ]
+  },
+  {
+   "id": "N3-V-H-1574",
+   "vocabId": "n3-v-45",
+   "i18n": {},
+   "sentence": "医者にしたを見せてください。",
+   "underline": "した",
+   "answer": "舌",
+   "choices": [
+    "舎",
+    "活",
+    "話"
+   ]
+  },
+  {
+   "id": "N3-V-H-1575",
+   "vocabId": "n3-v-94",
+   "i18n": {},
+   "sentence": "私は健康をじゅうししています。",
+   "underline": "じゅうし",
+   "answer": "重視",
+   "choices": [
+    "重観",
+    "動視",
+    "重礼"
+   ]
+  },
+  {
+   "id": "N3-V-H-1576",
+   "vocabId": "n3-v-144",
+   "i18n": {},
+   "sentence": "今は最高のじょうたいですね。",
+   "underline": "じょうたい",
+   "answer": "状態",
+   "choices": [
+    "状能",
+    "犬態",
+    "状熊"
+   ]
+  },
+  {
+   "id": "N3-V-H-1577",
+   "vocabId": "n3-v-186",
+   "i18n": {},
+   "sentence": "私は仕事にしんけんに取り組んでいる。",
+   "underline": "しんけん",
+   "answer": "真剣",
+   "choices": [
+    "真険",
+    "真検",
+    "直剣"
+   ]
+  },
+  {
+   "id": "N3-V-H-1578",
+   "vocabId": "n3-v-215",
+   "i18n": {},
+   "sentence": "じゅうぶんなすいみんは薬に勝る。",
+   "underline": "すいみん",
+   "answer": "睡眠",
+   "choices": [
+    "睡眼",
+    "垂眠",
+    "睡民"
+   ]
+  },
+  {
+   "id": "N3-V-H-1579",
+   "vocabId": "n3-v-263",
+   "i18n": {},
+   "sentence": "窓の破損料をせいきゅうされた。",
+   "underline": "せいきゅう",
+   "answer": "請求",
+   "choices": [
+    "精求",
+    "清求",
+    "請救"
+   ]
+  },
+  {
+   "id": "N3-V-H-1580",
+   "vocabId": "n3-v-312",
+   "i18n": {},
+   "sentence": "彼は人間の姿をしたあくまだ。",
+   "underline": "あくま",
+   "answer": "悪魔",
+   "choices": [
+    "悪摩",
+    "悪磨",
+    "亜魔"
+   ]
+  },
+  {
+   "id": "N3-V-H-1581",
+   "vocabId": "n3-v-352",
+   "i18n": {},
+   "sentence": "くだける波があわを作った。",
+   "underline": "あわ",
+   "answer": "泡",
+   "choices": [
+    "抱",
+    "胞",
+    "泣"
+   ]
+  },
+  {
+   "id": "N3-V-H-1582",
+   "vocabId": "n3-v-409",
+   "i18n": {},
+   "sentence": "今年はいねの育ちがいい。",
+   "underline": "いね",
+   "answer": "稲",
+   "choices": [
+    "種",
+    "稿",
+    "程"
+   ]
+  },
+  {
+   "id": "N3-V-H-1583",
+   "vocabId": "n3-v-469",
+   "i18n": {},
+   "sentence": "喫煙は健康にえいきょうする。",
+   "underline": "えいきょう",
+   "answer": "影響",
+   "choices": [
+    "映響",
+    "景響",
+    "影郷"
+   ]
+  },
+  {
+   "id": "N3-V-H-1584",
+   "vocabId": "n3-v-500",
+   "i18n": {},
+   "sentence": "暖流が四国のおきを流れている。",
+   "underline": "おき",
+   "answer": "沖",
+   "choices": [
+    "池",
+    "沙",
+    "汁"
+   ]
+  },
+  {
+   "id": "N3-V-H-1585",
+   "vocabId": "n3-v-529",
+   "i18n": {},
+   "sentence": "明日、社長におめにかかる予定です。",
+   "underline": "おめにかかる",
+   "answer": "お目に掛かる",
+   "choices": [
+    "お目に架かる",
+    "お日に掛かる",
+    "お自に掛かる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1586",
+   "vocabId": "n3-v-577",
+   "i18n": {},
+   "sentence": "インフルエンザにかかる人が増えている。",
+   "underline": "かかる",
+   "answer": "罹る",
+   "choices": [
+    "罷る",
+    "羅る",
+    "離る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1587",
+   "vocabId": "n3-v-601",
+   "i18n": {},
+   "sentence": "かさいの原因は何ですか。",
+   "underline": "かさい",
+   "answer": "火災",
+   "choices": [
+    "火栽",
+    "火裁",
+    "灯災"
+   ]
+  },
+  {
+   "id": "N3-V-H-1588",
+   "vocabId": "n3-v-644",
+   "i18n": {},
+   "sentence": "豪雨はかみなりを伴った。",
+   "underline": "かみなり",
+   "answer": "雷",
+   "choices": [
+    "雪",
+    "電",
+    "霜"
+   ]
+  },
+  {
+   "id": "N3-V-H-1589",
+   "vocabId": "n3-v-673",
+   "i18n": {},
+   "sentence": "心よりかんしゃします。",
+   "underline": "かんしゃ",
+   "answer": "感謝",
+   "choices": [
+    "減謝",
+    "感射",
+    "感謙"
+   ]
+  },
+  {
+   "id": "N3-V-H-1590",
+   "vocabId": "n3-v-728",
+   "i18n": {},
+   "sentence": "彼はぎむを怠った。",
+   "underline": "ぎむ",
+   "answer": "義務",
+   "choices": [
+    "議務",
+    "義努",
+    "儀務"
+   ]
+  },
+  {
+   "id": "N3-V-H-1591",
+   "vocabId": "n3-v-776",
+   "i18n": {},
+   "sentence": "運動できんにくがついた。",
+   "underline": "きんにく",
+   "answer": "筋肉",
+   "choices": [
+    "筋内",
+    "節肉",
+    "筋胃"
+   ]
+  },
+  {
+   "id": "N3-V-H-1592",
+   "vocabId": "n3-v-797",
+   "i18n": {},
+   "sentence": "決勝戦で負けてくやしい。",
+   "underline": "くやしい",
+   "answer": "悔しい",
+   "choices": [
+    "梅しい",
+    "海しい",
+    "毎しい"
+   ]
+  },
+  {
+   "id": "N3-V-H-1593",
+   "vocabId": "n3-v-839",
+   "i18n": {},
+   "sentence": "彼女はけしょうが濃い。",
+   "underline": "けしょう",
+   "answer": "化粧",
+   "choices": [
+    "化装",
+    "花粧",
+    "他粧"
+   ]
+  },
+  {
+   "id": "N3-V-H-1594",
+   "vocabId": "n3-v-900",
+   "i18n": {},
+   "sentence": "彼は私より三年こうはいです。",
+   "underline": "こうはい",
+   "answer": "後輩",
+   "choices": [
+    "後背",
+    "後輪",
+    "復輩"
+   ]
+  },
+  {
+   "id": "N3-V-H-1595",
+   "vocabId": "n3-v-935",
+   "i18n": {},
+   "sentence": "このことわざは覚える価値がある。",
+   "underline": "ことわざ",
+   "answer": "諺",
+   "choices": [
+    "諾",
+    "諮",
+    "諭"
+   ]
+  },
+  {
+   "id": "N3-V-H-1596",
+   "vocabId": "n3-v-989",
+   "i18n": {},
+   "sentence": "朝日が窓からさす。",
+   "underline": "さす",
+   "answer": "射す",
+   "choices": [
+    "謝す",
+    "躯す",
+    "躬す"
+   ]
+  },
+  {
+   "id": "N3-V-H-1597",
+   "vocabId": "n3-v-1033",
+   "i18n": {},
+   "sentence": "私をむししないで。",
+   "underline": "むし",
+   "answer": "無視",
+   "choices": [
+    "無現",
+    "無規",
+    "舞視"
+   ]
+  },
+  {
+   "id": "N3-V-H-1598",
+   "vocabId": "n3-v-1086",
+   "i18n": {},
+   "sentence": "その絵には複雑なもようが見える。",
+   "underline": "もよう",
+   "answer": "模様",
+   "choices": [
+    "模橡",
+    "模槽",
+    "漠様"
+   ]
+  },
+  {
+   "id": "N3-V-H-1599",
+   "vocabId": "n3-v-1123",
+   "i18n": {},
+   "sentence": "彼はお酒を飲むとすぐよう。",
+   "underline": "よう",
+   "answer": "酔う",
+   "choices": [
+    "酸う",
+    "酢う",
+    "酌う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1600",
+   "vocabId": "n3-v-1198",
+   "i18n": {},
+   "sentence": "その列車の乗客はほんのわずかしかいない。",
+   "underline": "わずか",
+   "answer": "僅か",
+   "choices": [
+    "謹か",
+    "勤か",
+    "槿か"
+   ]
+  },
+  {
+   "id": "N3-V-H-1601",
+   "vocabId": "n3-v-1229",
+   "i18n": {},
+   "sentence": "犬は盛んにおを振った。",
+   "underline": "お",
+   "answer": "尾",
+   "choices": [
+    "尻",
+    "屋",
+    "届"
+   ]
+  },
+  {
+   "id": "N3-V-H-1602",
+   "vocabId": "n3-v-1253",
+   "i18n": {},
+   "sentence": "彼は優秀なかんりょうだ。",
+   "underline": "かんりょう",
+   "answer": "官僚",
+   "choices": [
+    "官寮",
+    "官療",
+    "宮僚"
+   ]
+  },
+  {
+   "id": "N3-V-H-1603",
+   "vocabId": "n3-v-1274",
+   "i18n": {},
+   "sentence": "怒りは狂気の一けいたいです。",
+   "underline": "けいたい",
+   "answer": "形態",
+   "choices": [
+    "形能",
+    "形熊",
+    "刑態"
+   ]
+  },
+  {
+   "id": "N3-V-H-1604",
+   "vocabId": "n3-v-1296",
+   "i18n": {},
+   "sentence": "多くの動物がぜつめつの危機にある。",
+   "underline": "ぜつめつ",
+   "answer": "絶滅",
+   "choices": [
+    "絶減",
+    "絶滋",
+    "経滅"
+   ]
+  },
+  {
+   "id": "N3-V-H-1605",
+   "vocabId": "n3-v-1340",
+   "i18n": {},
+   "sentence": "道具をそまつに使うな。",
+   "underline": "そまつ",
+   "answer": "粗末",
+   "choices": [
+    "粗未",
+    "租末",
+    "粗抹"
+   ]
+  },
+  {
+   "id": "N3-V-H-1606",
+   "vocabId": "n3-v-1402",
+   "i18n": {},
+   "sentence": "この商品はただではない。",
+   "underline": "ただ",
+   "answer": "只",
+   "choices": [
+    "兄",
+    "貝",
+    "召"
+   ]
+  },
+  {
+   "id": "N3-V-H-1607",
+   "vocabId": "n3-v-1445",
+   "i18n": {},
+   "sentence": "新しい命がたんじょうした。",
+   "underline": "たんじょう",
+   "answer": "誕生",
+   "choices": [
+    "証生",
+    "延生",
+    "誕主"
+   ]
+  },
+  {
+   "id": "N3-V-H-1608",
+   "vocabId": "n3-v-1526",
+   "i18n": {},
+   "sentence": "鳥はつばさで飛ぶ。",
+   "underline": "つばさ",
+   "answer": "翼",
+   "choices": [
+    "翌",
+    "翔",
+    "翁"
+   ]
+  },
+  {
+   "id": "N3-V-H-1609",
+   "vocabId": "n3-v-1565",
+   "i18n": {},
+   "sentence": "彼はまさに英国紳士のてんけいだ。",
+   "underline": "てんけい",
+   "answer": "典型",
+   "choices": [
+    "典形",
+    "典刑",
+    "興型"
+   ]
+  },
+  {
+   "id": "N3-V-H-1610",
+   "vocabId": "n3-v-1652",
+   "i18n": {},
+   "sentence": "星をながめるのは興味深い。",
+   "underline": "ながめる",
+   "answer": "眺める",
+   "choices": [
+    "跳める",
+    "挑める",
+    "桃める"
+   ]
+  },
+  {
+   "id": "N3-V-H-1611",
+   "vocabId": "n3-v-1680",
+   "i18n": {},
+   "sentence": "彼は手をしっかりにぎる。",
+   "underline": "にぎる",
+   "answer": "握る",
+   "choices": [
+    "掘る",
+    "渥る",
+    "幄る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1612",
+   "vocabId": "n3-v-1744",
+   "i18n": {},
+   "sentence": "彼は有名なはいゆうです。",
+   "underline": "はいゆう",
+   "answer": "俳優",
+   "choices": [
+    "徘優",
+    "排優",
+    "俳憂"
+   ]
+  },
+  {
+   "id": "N3-V-H-1613",
+   "vocabId": "n3-v-1767",
+   "i18n": {},
+   "sentence": "今日の予想がはずれる。",
+   "underline": "はずれる",
+   "answer": "外れる",
+   "choices": [
+    "処れる",
+    "名れる",
+    "多れる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1614",
+   "vocabId": "n3-v-1816",
+   "i18n": {},
+   "sentence": "雪はひざの深さだった。",
+   "underline": "ひざ",
+   "answer": "膝",
+   "choices": [
+    "膜",
+    "膨",
+    "滕"
+   ]
+  },
+  {
+   "id": "N3-V-H-1615",
+   "vocabId": "n3-v-1903",
+   "i18n": {},
+   "sentence": "彼は大きく手をふる。",
+   "underline": "ふる",
+   "answer": "振る",
+   "choices": [
+    "震る",
+    "娠る",
+    "賑る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1616",
+   "vocabId": "n3-v-1946",
+   "i18n": {},
+   "sentence": "この製品の品質をほしょうします。",
+   "underline": "ほしょう",
+   "answer": "保証",
+   "choices": [
+    "保詞",
+    "保詔",
+    "呆証"
+   ]
+  },
+  {
+   "id": "N3-V-H-1617",
+   "vocabId": "n3-v-1987",
+   "i18n": {},
+   "sentence": "友達とまちへ出かけた。",
+   "underline": "まち",
+   "answer": "街",
+   "choices": [
+    "術",
+    "衝",
+    "衛"
+   ]
+  },
+  {
+   "id": "N3-V-H-1618",
+   "vocabId": "n3-v-2008",
+   "i18n": {},
+   "sentence": "この壺は美しいじきだ。",
+   "underline": "じき",
+   "answer": "磁器",
+   "choices": [
+    "磁機",
+    "慈器",
+    "滋器"
+   ]
+  },
+  {
+   "id": "N3-V-H-1619",
+   "vocabId": "n3-v-2037",
+   "i18n": {},
+   "sentence": "その機械はせいこうに出来ている。",
+   "underline": "せいこう",
+   "answer": "精巧",
+   "choices": [
+    "精功",
+    "精攻",
+    "清巧"
+   ]
+  },
+  {
+   "id": "N3-V-H-1620",
+   "vocabId": "n3-v-2063",
+   "i18n": {},
+   "sentence": "騎士はたてで身を守る。",
+   "underline": "たて",
+   "answer": "盾",
+   "choices": [
+    "眉",
+    "循",
+    "盃"
+   ]
+  },
+  {
+   "id": "N3-V-H-1621",
+   "vocabId": "n3-v-2096",
+   "i18n": {},
+   "sentence": "このねんかんには美しい写真がたくさん載っている。",
+   "underline": "ねんかん",
+   "answer": "年鑑",
+   "choices": [
+    "年鏡",
+    "年艦",
+    "牛鑑"
+   ]
+  },
+  {
+   "id": "N3-V-H-1622",
+   "vocabId": "n3-v-2117",
+   "i18n": {},
+   "sentence": "社会ほしょうは重要な課題だ。",
+   "underline": "ほしょう",
+   "answer": "保障",
+   "choices": [
+    "保章",
+    "保嶂",
+    "呆障"
+   ]
+  },
+  {
+   "id": "N3-V-H-1623",
+   "vocabId": "n3-v-12",
+   "i18n": {},
+   "sentence": "このさわぎはどうしたの。",
+   "underline": "さわぎ",
+   "answer": "騒ぎ",
+   "choices": [
+    "操ぎ",
+    "燥ぎ",
+    "躁ぎ"
+   ]
+  },
+  {
+   "id": "N3-V-H-1624",
+   "vocabId": "n3-v-47",
+   "i18n": {},
+   "sentence": "みんなは規則にしたがう。",
+   "underline": "したがう",
+   "answer": "従う",
+   "choices": [
+    "徒う",
+    "縦う",
+    "徙う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1625",
+   "vocabId": "n3-v-95",
+   "i18n": {},
+   "sentence": "しゅうしょくが内定した。",
+   "underline": "しゅうしょく",
+   "answer": "就職",
+   "choices": [
+    "就織",
+    "就識",
+    "就幟"
+   ]
+  },
+  {
+   "id": "N3-V-H-1626",
+   "vocabId": "n3-v-146",
+   "i18n": {},
+   "sentence": "じょうだんはやめて。",
+   "underline": "じょうだん",
+   "answer": "冗談",
+   "choices": [
+    "冗淡",
+    "冠談",
+    "元談"
+   ]
+  },
+  {
+   "id": "N3-V-H-1627",
+   "vocabId": "n3-v-187",
+   "i18n": {},
+   "sentence": "しんこうは山をも動かす。",
+   "underline": "しんこう",
+   "answer": "信仰",
+   "choices": [
+    "伸仰",
+    "信抑",
+    "信迎"
+   ]
+  },
+  {
+   "id": "N3-V-H-1628",
+   "vocabId": "n3-v-220",
+   "i18n": {},
+   "sentence": "私は男のすがたを見た。",
+   "underline": "すがた",
+   "answer": "姿",
+   "choices": [
+    "恣",
+    "咨",
+    "資"
+   ]
+  },
+  {
+   "id": "N3-V-H-1629",
+   "vocabId": "n3-v-265",
+   "i18n": {},
+   "sentence": "君の手はせいけつですか。",
+   "underline": "せいけつ",
+   "answer": "清潔",
+   "choices": [
+    "晴潔",
+    "清契",
+    "清潟"
+   ]
+  },
+  {
+   "id": "N3-V-H-1630",
+   "vocabId": "n3-v-314",
+   "i18n": {},
+   "sentence": "天ぷらをあげる。",
+   "underline": "あげる",
+   "answer": "揚げる",
+   "choices": [
+    "楊げる",
+    "場げる",
+    "陽げる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1631",
+   "vocabId": "n3-v-354",
+   "i18n": {},
+   "sentence": "あわてることは無駄を作る。",
+   "underline": "あわてる",
+   "answer": "慌てる",
+   "choices": [
+    "恍てる",
+    "惚てる",
+    "慨てる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1632",
+   "vocabId": "n3-v-441",
+   "i18n": {},
+   "sentence": "次のうさぎの飼育当番は彼らです。",
+   "underline": "うさぎ",
+   "answer": "兎",
+   "choices": [
+    "免",
+    "兑",
+    "鬼"
+   ]
+  },
+  {
+   "id": "N3-V-H-1633",
+   "vocabId": "n3-v-471",
+   "i18n": {},
+   "sentence": "月は地球のえいせいだ。",
+   "underline": "えいせい",
+   "answer": "衛星",
+   "choices": [
+    "衝星",
+    "衛醒",
+    "衛惺"
+   ]
+  },
+  {
+   "id": "N3-V-H-1634",
+   "vocabId": "n3-v-507",
+   "i18n": {},
+   "sentence": "税金をおさめる。",
+   "underline": "おさめる",
+   "answer": "納める",
+   "choices": [
+    "紺める",
+    "衲める",
+    "絅める"
+   ]
+  },
+  {
+   "id": "N3-V-H-1635",
+   "vocabId": "n3-v-536",
+   "i18n": {},
+   "sentence": "それは我々に危害をおよぼす。",
+   "underline": "およぼす",
+   "answer": "及ぼす",
+   "choices": [
+    "乃ぼす",
+    "吸ぼす",
+    "扱ぼす"
+   ]
+  },
+  {
+   "id": "N3-V-H-1636",
+   "vocabId": "n3-v-579",
+   "i18n": {},
+   "sentence": "彼は頭をかく癖がある。",
+   "underline": "かく",
+   "answer": "掻く",
+   "choices": [
+    "播く",
+    "操く",
+    "掃く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1637",
+   "vocabId": "n3-v-604",
+   "i18n": {},
+   "sentence": "それはかざりにすぎない。",
+   "underline": "かざり",
+   "answer": "飾り",
+   "choices": [
+    "飭り",
+    "飴り",
+    "飼り"
+   ]
+  },
+  {
+   "id": "N3-V-H-1638",
+   "vocabId": "n3-v-649",
+   "i18n": {},
+   "sentence": "昔のかようを口ずさむ。",
+   "underline": "かよう",
+   "answer": "歌謡",
+   "choices": [
+    "歌揺",
+    "歌遥",
+    "歌謳"
+   ]
+  },
+  {
+   "id": "N3-V-H-1639",
+   "vocabId": "n3-v-674",
+   "i18n": {},
+   "sentence": "かんじゃは退院した。",
+   "underline": "かんじゃ",
+   "answer": "患者",
+   "choices": [
+    "患煮",
+    "串者",
+    "忠者"
+   ]
+  },
+  {
+   "id": "N3-V-H-1640",
+   "vocabId": "n3-v-736",
+   "i18n": {},
+   "sentence": "良いきゅうかを。",
+   "underline": "きゅうか",
+   "answer": "休暇",
+   "choices": [
+    "体暇",
+    "休暖",
+    "休瑕"
+   ]
+  },
+  {
+   "id": "N3-V-H-1641",
+   "vocabId": "n3-v-777",
+   "i18n": {},
+   "sentence": "国際きんゆうで仕事を続けるつもりです。",
+   "underline": "きんゆう",
+   "answer": "金融",
+   "choices": [
+    "釣融",
+    "金触",
+    "金隔"
+   ]
+  },
+  {
+   "id": "N3-V-H-1642",
+   "vocabId": "n3-v-805",
+   "i18n": {},
+   "sentence": "歴史はくりかえす。",
+   "underline": "くりかえす",
+   "answer": "繰り返す",
+   "choices": [
+    "操り返す",
+    "繰り帰す",
+    "繰り仮す"
+   ]
+  },
+  {
+   "id": "N3-V-H-1643",
+   "vocabId": "n3-v-843",
+   "i18n": {},
+   "sentence": "この制度はけっかんだらけだ。",
+   "underline": "けっかん",
+   "answer": "欠陥",
+   "choices": [
+    "欠陌",
+    "欠陶",
+    "欠陛"
+   ]
+  },
+  {
+   "id": "N3-V-H-1644",
+   "vocabId": "n3-v-904",
+   "i18n": {},
+   "sentence": "彼の提案はこうりょに値する。",
+   "underline": "こうりょ",
+   "answer": "考慮",
+   "choices": [
+    "考虜",
+    "考虚",
+    "考盧"
+   ]
+  },
+  {
+   "id": "N3-V-H-1645",
+   "vocabId": "n3-v-936",
+   "i18n": {},
+   "sentence": "私たちの申し出をことわるとは大胆だ。",
+   "underline": "ことわる",
+   "answer": "断る",
+   "choices": [
+    "継る",
+    "斬る",
+    "幾る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1646",
+   "vocabId": "n3-v-991",
+   "i18n": {},
+   "sentence": "宇宙の果てへと私をさそう。",
+   "underline": "さそう",
+   "answer": "誘う",
+   "choices": [
+    "透う",
+    "誂う",
+    "銹う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1647",
+   "vocabId": "n3-v-1036",
+   "i18n": {},
+   "sentence": "行くよりむしろ待つべきだ。",
+   "underline": "むしろ",
+   "answer": "寧ろ",
+   "choices": [
+    "寍ろ",
+    "甯ろ",
+    "嚀ろ"
+   ]
+  },
+  {
+   "id": "N3-V-H-1648",
+   "vocabId": "n3-v-1087",
+   "i18n": {},
+   "sentence": "もんくを言うな。",
+   "underline": "もんく",
+   "answer": "文句",
+   "choices": [
+    "文旬",
+    "文勾",
+    "丈句"
+   ]
+  },
+  {
+   "id": "N3-V-H-1649",
+   "vocabId": "n3-v-1131",
+   "i18n": {},
+   "sentence": "教育は重要なようそである。",
+   "underline": "ようそ",
+   "answer": "要素",
+   "choices": [
+    "要索",
+    "要糸",
+    "要紊"
+   ]
+  },
+  {
+   "id": "N3-V-H-1650",
+   "vocabId": "n3-v-1204",
+   "i18n": {},
+   "sentence": "われわれは圧勝した。",
+   "underline": "われわれ",
+   "answer": "我々",
+   "choices": [
+    "俄々",
+    "峨々",
+    "餓々"
+   ]
+  },
+  {
+   "id": "N3-V-H-1651",
+   "vocabId": "n3-v-1233",
+   "i18n": {},
+   "sentence": "何というおどろき。",
+   "underline": "おどろき",
+   "answer": "驚き",
+   "choices": [
+    "警き",
+    "敬き",
+    "驕き"
+   ]
+  },
+  {
+   "id": "N3-V-H-1652",
+   "vocabId": "n3-v-1256",
+   "i18n": {},
+   "sentence": "仏教はインドにきげんを発した。",
+   "underline": "きげん",
+   "answer": "起源",
+   "choices": [
+    "起減",
+    "起渓",
+    "越源"
+   ]
+  },
+  {
+   "id": "N3-V-H-1653",
+   "vocabId": "n3-v-1280",
+   "i18n": {},
+   "sentence": "今にこうかいするぞ。",
+   "underline": "こうかい",
+   "answer": "後悔",
+   "choices": [
+    "後梅",
+    "後侮",
+    "復悔"
+   ]
+  },
+  {
+   "id": "N3-V-H-1654",
+   "vocabId": "n3-v-1298",
+   "i18n": {},
+   "sentence": "敵の城をせめる。",
+   "underline": "せめる",
+   "answer": "攻める",
+   "choices": [
+    "功める",
+    "巧める",
+    "攷める"
+   ]
+  },
+  {
+   "id": "N3-V-H-1655",
+   "vocabId": "n3-v-1345",
+   "i18n": {},
+   "sentence": "全員がそろう。",
+   "underline": "そろう",
+   "answer": "揃う",
+   "choices": [
+    "揄う",
+    "揶う",
+    "撈う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1656",
+   "vocabId": "n3-v-1403",
+   "i18n": {},
+   "sentence": "この委員会でただひとりの男性だ。",
+   "underline": "ただ",
+   "answer": "唯",
+   "choices": [
+    "惟",
+    "維",
+    "推"
+   ]
+  },
+  {
+   "id": "N3-V-H-1657",
+   "vocabId": "n3-v-1460",
+   "i18n": {},
+   "sentence": "ちかごろ牛肉は高い。",
+   "underline": "ちかごろ",
+   "answer": "近頃",
+   "choices": [
+    "近頬",
+    "近項",
+    "近頓"
+   ]
+  },
+  {
+   "id": "N3-V-H-1658",
+   "vocabId": "n3-v-1532",
+   "i18n": {},
+   "sentence": "つゆに入った。",
+   "underline": "つゆ",
+   "answer": "梅雨",
+   "choices": [
+    "梅露",
+    "悔雨",
+    "栂雨"
+   ]
+  },
+  {
+   "id": "N3-V-H-1659",
+   "vocabId": "n3-v-1569",
+   "i18n": {},
+   "sentence": "彼は古いでんとうに背を向けた。",
+   "underline": "でんとう",
+   "answer": "伝統",
+   "choices": [
+    "伝銃",
+    "仏統",
+    "云統"
+   ]
+  },
+  {
+   "id": "N3-V-H-1660",
+   "vocabId": "n3-v-1656",
+   "i18n": {},
+   "sentence": "人をなぐるのはよせよ。",
+   "underline": "なぐる",
+   "answer": "殴る",
+   "choices": [
+    "欧る",
+    "殿る",
+    "段る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1661",
+   "vocabId": "n3-v-1689",
+   "i18n": {},
+   "sentence": "くたくたににる。",
+   "underline": "にる",
+   "answer": "煮る",
+   "choices": [
+    "著る",
+    "署る",
+    "暑る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1662",
+   "vocabId": "n3-v-1747",
+   "i18n": {},
+   "sentence": "彼をはかに埋めた。",
+   "underline": "はか",
+   "answer": "墓",
+   "choices": [
+    "募",
+    "幕",
+    "暮"
+   ]
+  },
+  {
+   "id": "N3-V-H-1663",
+   "vocabId": "n3-v-1768",
+   "i18n": {},
+   "sentence": "彼ははたをかかげた。",
+   "underline": "はた",
+   "answer": "旗",
+   "choices": [
+    "旌",
+    "棋",
+    "旛"
+   ]
+  },
+  {
+   "id": "N3-V-H-1664",
+   "vocabId": "n3-v-1834",
+   "i18n": {},
+   "sentence": "ひみつを守れる？",
+   "underline": "ひみつ",
+   "answer": "秘密",
+   "choices": [
+    "秘蜜",
+    "秘宓",
+    "泌密"
+   ]
+  },
+  {
+   "id": "N3-V-H-1665",
+   "vocabId": "n3-v-1910",
+   "i18n": {},
+   "sentence": "ふんいきがいやだった。",
+   "underline": "ふんいき",
+   "answer": "雰囲気",
+   "choices": [
+    "雰因気",
+    "雰団気",
+    "雰圏気"
+   ]
+  },
+  {
+   "id": "N3-V-H-1666",
+   "vocabId": "n3-v-1951",
+   "i18n": {},
+   "sentence": "ほのおを弱くしなさい。",
+   "underline": "ほのお",
+   "answer": "炎",
+   "choices": [
+    "焔",
+    "災",
+    "炙"
+   ]
+  },
+  {
+   "id": "N3-V-H-1667",
+   "vocabId": "n3-v-1989",
+   "i18n": {},
+   "sentence": "庭にまつを植える。",
+   "underline": "まつ",
+   "answer": "松",
+   "choices": [
+    "杉",
+    "柏",
+    "枌"
+   ]
+  },
+  {
+   "id": "N3-V-H-1668",
+   "vocabId": "n3-v-2009",
+   "i18n": {},
+   "sentence": "じこを過信してはいけない。",
+   "underline": "じこ",
+   "answer": "自己",
+   "choices": [
+    "自已",
+    "自巳",
+    "目己"
+   ]
+  },
+  {
+   "id": "N3-V-H-1669",
+   "vocabId": "n3-v-2044",
+   "i18n": {},
+   "sentence": "一ぜんの飯を出す。",
+   "underline": "ぜん",
+   "answer": "膳",
+   "choices": [
+    "繕",
+    "善",
+    "脹"
+   ]
+  },
+  {
+   "id": "N3-V-H-1670",
+   "vocabId": "n3-v-2066",
+   "i18n": {},
+   "sentence": "彼は大声で私にちょうせんした。",
+   "underline": "ちょうせん",
+   "answer": "挑戦",
+   "choices": [
+    "跳戦",
+    "桃戦",
+    "挑戟"
+   ]
+  },
+  {
+   "id": "N3-V-H-1671",
+   "vocabId": "n3-v-2098",
+   "i18n": {},
+   "sentence": "試験にのぞむ。",
+   "underline": "のぞむ",
+   "answer": "臨む",
+   "choices": [
+    "監む",
+    "覧む",
+    "鑑む"
+   ]
+  },
+  {
+   "id": "N3-V-H-1672",
+   "vocabId": "n3-v-2118",
+   "i18n": {},
+   "sentence": "彼はお金でその事故のほしょうをした。",
+   "underline": "ほしょう",
+   "answer": "補償",
+   "choices": [
+    "補賞",
+    "捕償",
+    "舗償"
+   ]
+  },
+  {
+   "id": "N3-V-H-1673",
+   "vocabId": "n3-v-16",
+   "i18n": {},
+   "sentence": "レモンはさんせいが強い果物だ。",
+   "underline": "さんせい",
+   "answer": "酸性",
+   "choices": [
+    "酸生",
+    "酢性",
+    "酸姓"
+   ]
+  },
+  {
+   "id": "N3-V-H-1674",
+   "vocabId": "n3-v-57",
+   "i18n": {},
+   "sentence": "新しい制度が来月からじっしされる。",
+   "underline": "じっし",
+   "answer": "実施",
+   "choices": [
+    "実旋",
+    "実旅",
+    "宝施"
+   ]
+  },
+  {
+   "id": "N3-V-H-1675",
+   "vocabId": "n3-v-99",
+   "i18n": {},
+   "sentence": "事故で道路がじゅうたいしている。",
+   "underline": "じゅうたい",
+   "answer": "渋滞",
+   "choices": [
+    "渋帯",
+    "湿滞",
+    "洪滞"
+   ]
+  },
+  {
+   "id": "N3-V-H-1676",
+   "vocabId": "n3-v-148",
+   "i18n": {},
+   "sentence": "交差点で二台の車がしょうとつした。",
+   "underline": "しょうとつ",
+   "answer": "衝突",
+   "choices": [
+    "衡突",
+    "衝空",
+    "衝実"
+   ]
+  },
+  {
+   "id": "N3-V-H-1677",
+   "vocabId": "n3-v-191",
+   "i18n": {},
+   "sentence": "医者にしんさつしてもらった。",
+   "underline": "しんさつ",
+   "answer": "診察",
+   "choices": [
+    "診祭",
+    "珍察",
+    "診寮"
+   ]
+  },
+  {
+   "id": "N3-V-H-1678",
+   "vocabId": "n3-v-229",
+   "i18n": {},
+   "sentence": "この小説のすじは複雑だ。",
+   "underline": "すじ",
+   "answer": "筋",
+   "choices": [
+    "節",
+    "筒",
+    "筈"
+   ]
+  },
+  {
+   "id": "N3-V-H-1679",
+   "vocabId": "n3-v-267",
+   "i18n": {},
+   "sentence": "長年の実験がついにせいこうした。",
+   "underline": "せいこう",
+   "answer": "成功",
+   "choices": [
+    "成攻",
+    "成巧",
+    "誠功"
+   ]
+  },
+  {
+   "id": "N3-V-H-1680",
+   "vocabId": "n3-v-355",
+   "i18n": {},
+   "sentence": "雨に濡れた子犬の姿はあわれだった。",
+   "underline": "あわれ",
+   "answer": "哀れ",
+   "choices": [
+    "衰れ",
+    "袁れ",
+    "京れ"
+   ]
+  },
+  {
+   "id": "N3-V-H-1681",
+   "vocabId": "n3-v-446",
+   "i18n": {},
+   "sentence": "武士は主君の敵をうつために旅立った。",
+   "underline": "うつ",
+   "answer": "討つ",
+   "choices": [
+    "訂つ",
+    "計つ",
+    "託つ"
+   ]
+  },
+  {
+   "id": "N3-V-H-1682",
+   "vocabId": "n3-v-472",
+   "i18n": {},
+   "sentence": "緑の野菜はえいようが豊富だ。",
+   "underline": "えいよう",
+   "answer": "栄養",
+   "choices": [
+    "営養",
+    "栄羨",
+    "栄羊"
+   ]
+  },
+  {
+   "id": "N3-V-H-1683",
+   "vocabId": "n3-v-509",
+   "i18n": {},
+   "sentence": "先生に丁寧におじぎをした。",
+   "underline": "おじぎ",
+   "answer": "お辞儀",
+   "choices": [
+    "お辞義",
+    "お辞議",
+    "お辞犠"
+   ]
+  },
+  {
+   "id": "N3-V-H-1684",
+   "vocabId": "n3-v-539",
+   "i18n": {},
+   "sentence": "問屋は商品を店に安くおろす。",
+   "underline": "おろす",
+   "answer": "卸す",
+   "choices": [
+    "御す",
+    "卻す",
+    "却す"
+   ]
+  },
+  {
+   "id": "N3-V-H-1685",
+   "vocabId": "n3-v-580",
+   "i18n": {},
+   "sentence": "彼は美しい風景をかくのが得意だ。",
+   "underline": "かく",
+   "answer": "描く",
+   "choices": [
+    "猫く",
+    "苗く",
+    "措く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1686",
+   "vocabId": "n3-v-611",
+   "i18n": {},
+   "sentence": "アルバイトで学費をかせぐ。",
+   "underline": "かせぐ",
+   "answer": "稼ぐ",
+   "choices": [
+    "嫁ぐ",
+    "稿ぐ",
+    "家ぐ"
+   ]
+  },
+  {
+   "id": "N3-V-H-1687",
+   "vocabId": "n3-v-651",
+   "i18n": {},
+   "sentence": "卵のからを割ってボウルに入れる。",
+   "underline": "から",
+   "answer": "殻",
+   "choices": [
+    "穀",
+    "却",
+    "設"
+   ]
+  },
+  {
+   "id": "N3-V-H-1688",
+   "vocabId": "n3-v-675",
+   "i18n": {},
+   "sentence": "食事の後でかんじょうを払った。",
+   "underline": "かんじょう",
+   "answer": "勘定",
+   "choices": [
+    "勧定",
+    "堪定",
+    "勘走"
+   ]
+  },
+  {
+   "id": "N3-V-H-1689",
+   "vocabId": "n3-v-737",
+   "i18n": {},
+   "sentence": "作業の途中で少しきゅうけいを取ろう。",
+   "underline": "きゅうけい",
+   "answer": "休憩",
+   "choices": [
+    "体憩",
+    "休憇",
+    "休想"
+   ]
+  },
+  {
+   "id": "N3-V-H-1690",
+   "vocabId": "n3-v-778",
+   "i18n": {},
+   "sentence": "この俳句の下のくが特に美しい。",
+   "underline": "く",
+   "answer": "句",
+   "choices": [
+    "旬",
+    "可",
+    "包"
+   ]
+  },
+  {
+   "id": "N3-V-H-1691",
+   "vocabId": "n3-v-807",
+   "i18n": {},
+   "sentence": "少しの油断で計画がくるう。",
+   "underline": "くるう",
+   "answer": "狂う",
+   "choices": [
+    "狩う",
+    "猛う",
+    "狭う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1692",
+   "vocabId": "n3-v-851",
+   "i18n": {},
+   "sentence": "選手がボールを強くける。",
+   "underline": "ける",
+   "answer": "蹴る",
+   "choices": [
+    "就る",
+    "踏る",
+    "蹟る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1693",
+   "vocabId": "n3-v-906",
+   "i18n": {},
+   "sentence": "今日は気温が三十度をこえる。",
+   "underline": "こえる",
+   "answer": "超える",
+   "choices": [
+    "赴える",
+    "起える",
+    "趣える"
+   ]
+  },
+  {
+   "id": "N3-V-H-1694",
+   "vocabId": "n3-v-942",
+   "i18n": {},
+   "sentence": "部屋のごみを集めて捨てる。",
+   "underline": "ごみ",
+   "answer": "塵",
+   "choices": [
+    "麈",
+    "麞",
+    "鏖"
+   ]
+  },
+  {
+   "id": "N3-V-H-1695",
+   "vocabId": "n3-v-998",
+   "i18n": {},
+   "sentence": "さばくは昼と夜の気温差が大きい。",
+   "underline": "さばく",
+   "answer": "砂漠",
+   "choices": [
+    "砂漢",
+    "砂模",
+    "砂莫"
+   ]
+  },
+  {
+   "id": "N3-V-H-1696",
+   "vocabId": "n3-v-1039",
+   "i18n": {},
+   "sentence": "貴重な時間をむだにするな。",
+   "underline": "むだ",
+   "answer": "無駄",
+   "choices": [
+    "無駅",
+    "無駆",
+    "無馱"
+   ]
+  },
+  {
+   "id": "N3-V-H-1697",
+   "vocabId": "n3-v-1091",
+   "i18n": {},
+   "sentence": "この英文のやくを書きなさい。",
+   "underline": "やく",
+   "answer": "訳",
+   "choices": [
+    "択",
+    "沢",
+    "訊"
+   ]
+  },
+  {
+   "id": "N3-V-H-1698",
+   "vocabId": "n3-v-1149",
+   "i18n": {},
+   "sentence": "息子のよめはとても優しい人だ。",
+   "underline": "よめ",
+   "answer": "嫁",
+   "choices": [
+    "嫌",
+    "稼",
+    "婚"
+   ]
+  },
+  {
+   "id": "N3-V-H-1699",
+   "vocabId": "n3-v-1206",
+   "i18n": {},
+   "sentence": "熱い味噌汁をわんによそう。",
+   "underline": "わん",
+   "answer": "椀",
+   "choices": [
+    "腕",
+    "宛",
+    "豌"
+   ]
+  },
+  {
+   "id": "N3-V-H-1700",
+   "vocabId": "n3-v-1234",
+   "i18n": {},
+   "sentence": "祖母は美しい布をおる。",
+   "underline": "おる",
+   "answer": "織る",
+   "choices": [
+    "識る",
+    "職る",
+    "繊る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1701",
+   "vocabId": "n3-v-1260",
+   "i18n": {},
+   "sentence": "なだらかなきゅうりょうがどこまでも続く。",
+   "underline": "きゅうりょう",
+   "answer": "丘陵",
+   "choices": [
+    "丘稜",
+    "丘陸",
+    "兵陵"
+   ]
+  },
+  {
+   "id": "N3-V-H-1702",
+   "vocabId": "n3-v-1282",
+   "i18n": {},
+   "sentence": "警察が容疑者をこうそくした。",
+   "underline": "こうそく",
+   "answer": "拘束",
+   "choices": [
+    "抱束",
+    "拘東",
+    "構束"
+   ]
+  },
+  {
+   "id": "N3-V-H-1703",
+   "vocabId": "n3-v-1303",
+   "i18n": {},
+   "sentence": "大学では経済をせんこうしている。",
+   "underline": "せんこう",
+   "answer": "専攻",
+   "choices": [
+    "専功",
+    "専巧",
+    "専政"
+   ]
+  },
+  {
+   "id": "N3-V-H-1704",
+   "vocabId": "n3-v-1346",
+   "i18n": {},
+   "sentence": "玄関の靴をきれいにそろえる。",
+   "underline": "そろえる",
+   "answer": "揃える",
+   "choices": [
+    "揺える",
+    "揄える",
+    "前える"
+   ]
+  },
+  {
+   "id": "N3-V-H-1705",
+   "vocabId": "n3-v-1406",
+   "i18n": {},
+   "sentence": "誰かがドアを強くたたく。",
+   "underline": "たたく",
+   "answer": "叩く",
+   "choices": [
+    "叫く",
+    "印く",
+    "卯く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1706",
+   "vocabId": "n3-v-1494",
+   "i18n": {},
+   "sentence": "努力の末、ついに目標を達成した。",
+   "underline": "ついに",
+   "answer": "遂に",
+   "choices": [
+    "逐に",
+    "遜に",
+    "遅に"
+   ]
+  },
+  {
+   "id": "N3-V-H-1707",
+   "vocabId": "n3-v-1583",
+   "i18n": {},
+   "sentence": "子供たちは学校でどうとくを学ぶ。",
+   "underline": "どうとく",
+   "answer": "道徳",
+   "choices": [
+    "道徴",
+    "道徹",
+    "導徳"
+   ]
+  },
+  {
+   "id": "N3-V-H-1708",
+   "vocabId": "n3-v-1659",
+   "i18n": {},
+   "sentence": "探偵が事件のなぞを解いた。",
+   "underline": "なぞ",
+   "answer": "謎",
+   "choices": [
+    "謐",
+    "誅",
+    "諜"
+   ]
+  },
+  {
+   "id": "N3-V-H-1709",
+   "vocabId": "n3-v-1695",
+   "i18n": {},
+   "sentence": "タオルを水でぬらす。",
+   "underline": "ぬらす",
+   "answer": "濡らす",
+   "choices": [
+    "濯らす",
+    "儒らす",
+    "需らす"
+   ]
+  },
+  {
+   "id": "N3-V-H-1710",
+   "vocabId": "n3-v-1748",
+   "i18n": {},
+   "sentence": "そんなばかな話は信じない。",
+   "underline": "ばか",
+   "answer": "馬鹿",
+   "choices": [
+    "駒鹿",
+    "馬麓",
+    "馬麗"
+   ]
+  },
+  {
+   "id": "N3-V-H-1711",
+   "vocabId": "n3-v-1770",
+   "i18n": {},
+   "sentence": "子供がはだかで庭を走り回る。",
+   "underline": "はだか",
+   "answer": "裸",
+   "choices": [
+    "裡",
+    "裾",
+    "倮"
+   ]
+  },
+  {
+   "id": "N3-V-H-1712",
+   "vocabId": "n3-v-1835",
+   "i18n": {},
+   "sentence": "二人の関係はびみょうだ。",
+   "underline": "びみょう",
+   "answer": "微妙",
+   "choices": [
+    "徴妙",
+    "微秒",
+    "微抄"
+   ]
+  },
+  {
+   "id": "N3-V-H-1713",
+   "vocabId": "n3-v-1911",
+   "i18n": {},
+   "sentence": "実験データを詳しくぶんせきする。",
+   "underline": "ぶんせき",
+   "answer": "分析",
+   "choices": [
+    "分折",
+    "分祈",
+    "分柝"
+   ]
+  },
+  {
+   "id": "N3-V-H-1714",
+   "vocabId": "n3-v-1952",
+   "i18n": {},
+   "sentence": "涙が一筋ほほを伝った。",
+   "underline": "ほほ",
+   "answer": "頬",
+   "choices": [
+    "頗",
+    "頼",
+    "頸"
+   ]
+  },
+  {
+   "id": "N3-V-H-1715",
+   "vocabId": "n3-v-1999",
+   "i18n": {},
+   "sentence": "牧場の周りにさくを作る。",
+   "underline": "さく",
+   "answer": "柵",
+   "choices": [
+    "棚",
+    "柳",
+    "栓"
+   ]
+  },
+  {
+   "id": "N3-V-H-1716",
+   "vocabId": "n3-v-2012",
+   "i18n": {},
+   "sentence": "別のしてんから問題を考える。",
+   "underline": "してん",
+   "answer": "視点",
+   "choices": [
+    "視店",
+    "視典",
+    "覗点"
+   ]
+  },
+  {
+   "id": "N3-V-H-1717",
+   "vocabId": "n3-v-2045",
+   "i18n": {},
+   "sentence": "彼は毎朝、ぜんの修行をする。",
+   "underline": "ぜん",
+   "answer": "禅",
+   "choices": [
+    "弾",
+    "禍",
+    "褝"
+   ]
+  },
+  {
+   "id": "N3-V-H-1718",
+   "vocabId": "n3-v-2070",
+   "i18n": {},
+   "sentence": "彼は父の家業をつぐ決心をした。",
+   "underline": "つぐ",
+   "answer": "継ぐ",
+   "choices": [
+    "維ぐ",
+    "縦ぐ",
+    "断ぐ"
+   ]
+  },
+  {
+   "id": "N3-V-H-1719",
+   "vocabId": "n3-v-2099",
+   "i18n": {},
+   "sentence": "たばこははいに悪い影響を与える。",
+   "underline": "はい",
+   "answer": "肺",
+   "choices": [
+    "肝",
+    "肪",
+    "胖"
+   ]
+  },
+  {
+   "id": "N3-V-H-1720",
+   "vocabId": "n3-v-2121",
+   "i18n": {},
+   "sentence": "目の表面は薄いまくで覆われている。",
+   "underline": "まく",
+   "answer": "膜",
+   "choices": [
+    "幕",
+    "漠",
+    "模"
+   ]
+  },
+  {
+   "id": "N3-V-H-1721",
+   "vocabId": "n3-v-17",
+   "i18n": {},
+   "sentence": "植物は光合成によってさんそを作り出す。",
+   "underline": "さんそ",
+   "answer": "酸素",
+   "choices": [
+    "酸索",
+    "酸紫",
+    "酸表"
+   ]
+  },
+  {
+   "id": "N3-V-H-1722",
+   "vocabId": "n3-v-70",
+   "i18n": {},
+   "sentence": "そのしばいはとても面白かった。",
+   "underline": "しばい",
+   "answer": "芝居",
+   "choices": [
+    "芝屋",
+    "芝店",
+    "芸居"
+   ]
+  },
+  {
+   "id": "N3-V-H-1723",
+   "vocabId": "n3-v-108",
+   "i18n": {},
+   "sentence": "彼は自分のしゅぎを曲げない人だ。",
+   "underline": "しゅぎ",
+   "answer": "主義",
+   "choices": [
+    "主議",
+    "王義",
+    "主儀"
+   ]
+  },
+  {
+   "id": "N3-V-H-1724",
+   "vocabId": "n3-v-158",
+   "i18n": {},
+   "sentence": "この実験が理論の正しさをしょうめいした。",
+   "underline": "しょうめい",
+   "answer": "証明",
+   "choices": [
+    "訂明",
+    "証朋",
+    "証盟"
+   ]
+  },
+  {
+   "id": "N3-V-H-1725",
+   "vocabId": "n3-v-195",
+   "i18n": {},
+   "sentence": "正月にはしんせきが集まる。",
+   "underline": "しんせき",
+   "answer": "親戚",
+   "choices": [
+    "新戚",
+    "親威",
+    "親戍"
+   ]
+  },
+  {
+   "id": "N3-V-H-1726",
+   "vocabId": "n3-v-231",
+   "i18n": {},
+   "sentence": "医者が休養をすすめるので旅行に行くことにした。",
+   "underline": "すすめる",
+   "answer": "勧める",
+   "choices": [
+    "歓める",
+    "観める",
+    "権める"
+   ]
+  },
+  {
+   "id": "N3-V-H-1727",
+   "vocabId": "n3-v-272",
+   "i18n": {},
+   "sentence": "できてもせいぜい二、三日で終わるだろう。",
+   "underline": "せいぜい",
+   "answer": "精々",
+   "choices": [
+    "清々",
+    "晴々",
+    "情々"
+   ]
+  },
+  {
+   "id": "N3-V-H-1728",
+   "vocabId": "n3-v-319",
+   "i18n": {},
+   "sentence": "この経験は子供に大きな影響をあたえる。",
+   "underline": "あたえる",
+   "answer": "与える",
+   "choices": [
+    "予える",
+    "写える",
+    "号える"
+   ]
+  },
+  {
+   "id": "N3-V-H-1729",
+   "vocabId": "n3-v-362",
+   "i18n": {},
+   "sentence": "食べ過ぎていが痛い。",
+   "underline": "い",
+   "answer": "胃",
+   "choices": [
+    "胄",
+    "冑",
+    "甲"
+   ]
+  },
+  {
+   "id": "N3-V-H-1730",
+   "vocabId": "n3-v-447",
+   "i18n": {},
+   "sentence": "猟師が鹿をうつ。",
+   "underline": "うつ",
+   "answer": "撃つ",
+   "choices": [
+    "激つ",
+    "撲つ",
+    "繋つ"
+   ]
+  },
+  {
+   "id": "N3-V-H-1731",
+   "vocabId": "n3-v-474",
+   "i18n": {},
+   "sentence": "彼女は風景を美しくえがく。",
+   "underline": "えがく",
+   "answer": "描く",
+   "choices": [
+    "猫く",
+    "苗く",
+    "錨く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1732",
+   "vocabId": "n3-v-510",
+   "i18n": {},
+   "sentence": "彼女はいつもおしゃれな服を着ている。",
+   "underline": "おしゃれ",
+   "answer": "お洒落",
+   "choices": [
+    "お酒落",
+    "お洗落",
+    "お洒楽"
+   ]
+  },
+  {
+   "id": "N3-V-H-1733",
+   "vocabId": "n3-v-541",
+   "i18n": {},
+   "sentence": "先生から受けたおんを忘れない。",
+   "underline": "おん",
+   "answer": "恩",
+   "choices": [
+    "思",
+    "恵",
+    "因"
+   ]
+  },
+  {
+   "id": "N3-V-H-1734",
+   "vocabId": "n3-v-581",
+   "i18n": {},
+   "sentence": "犬が地面の匂いをかぐ。",
+   "underline": "かぐ",
+   "answer": "嗅ぐ",
+   "choices": [
+    "嗚ぐ",
+    "喚ぐ",
+    "嘆ぐ"
+   ]
+  },
+  {
+   "id": "N3-V-H-1735",
+   "vocabId": "n3-v-615",
+   "i18n": {},
+   "sentence": "彼は意志がかたい人だ。",
+   "underline": "かたい",
+   "answer": "堅い",
+   "choices": [
+    "竪い",
+    "緊い",
+    "腎い"
+   ]
+  },
+  {
+   "id": "N3-V-H-1736",
+   "vocabId": "n3-v-652",
+   "i18n": {},
+   "sentence": "この着物は花のがらが美しい。",
+   "underline": "がら",
+   "answer": "柄",
+   "choices": [
+    "枘",
+    "炳",
+    "抦"
+   ]
+  },
+  {
+   "id": "N3-V-H-1737",
+   "vocabId": "n3-v-686",
+   "i18n": {},
+   "sentence": "映画のかんとくが撮影を指示する。",
+   "underline": "かんとく",
+   "answer": "監督",
+   "choices": [
+    "監篤",
+    "監叔",
+    "鑑督"
+   ]
+  },
+  {
+   "id": "N3-V-H-1738",
+   "vocabId": "n3-v-738",
+   "i18n": {},
+   "sentence": "気温がきゅうげきに下がった。",
+   "underline": "きゅうげき",
+   "answer": "急激",
+   "choices": [
+    "急撃",
+    "忽激",
+    "急滋"
+   ]
+  },
+  {
+   "id": "N3-V-H-1739",
+   "vocabId": "n3-v-781",
+   "i18n": {},
+   "sentence": "この部屋は生ゴミでくさい。",
+   "underline": "くさい",
+   "answer": "臭い",
+   "choices": [
+    "嗅い",
+    "息い",
+    "鼻い"
+   ]
+  },
+  {
+   "id": "N3-V-H-1740",
+   "vocabId": "n3-v-814",
+   "i18n": {},
+   "sentence": "犬がボールを口にくわえる。",
+   "underline": "くわえる",
+   "answer": "咥える",
+   "choices": [
+    "唖える",
+    "哩える",
+    "喹える"
+   ]
+  },
+  {
+   "id": "N3-V-H-1741",
+   "vocabId": "n3-v-868",
+   "i18n": {},
+   "sentence": "その案を慎重にけんとうする。",
+   "underline": "けんとう",
+   "answer": "検討",
+   "choices": [
+    "険討",
+    "検訂",
+    "験討"
+   ]
+  },
+  {
+   "id": "N3-V-H-1742",
+   "vocabId": "n3-v-910",
+   "i18n": {},
+   "sentence": "冬になると池の水がこおる。",
+   "underline": "こおる",
+   "answer": "凍る",
+   "choices": [
+    "棟る",
+    "陳る",
+    "涷る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1743",
+   "vocabId": "n3-v-954",
+   "i18n": {},
+   "sentence": "こんにちの日本では、この習慣は珍しくない。",
+   "underline": "こんにち",
+   "answer": "今日",
+   "choices": [
+    "令日",
+    "今目",
+    "会日"
+   ]
+  },
+  {
+   "id": "N3-V-H-1744",
+   "vocabId": "n3-v-1001",
+   "i18n": {},
+   "sentence": "節分にはまめをまく習慣がある。",
+   "underline": "まめ",
+   "answer": "豆",
+   "choices": [
+    "豈",
+    "逗",
+    "豊"
+   ]
+  },
+  {
+   "id": "N3-V-H-1745",
+   "vocabId": "n3-v-1043",
+   "i18n": {},
+   "sentence": "春になると木々のめが出る。",
+   "underline": "め",
+   "answer": "芽",
+   "choices": [
+    "芸",
+    "茅",
+    "牙"
+   ]
+  },
+  {
+   "id": "N3-V-H-1746",
+   "vocabId": "n3-v-1092",
+   "i18n": {},
+   "sentence": "英語の文章を日本語にやくす。",
+   "underline": "やくす",
+   "answer": "訳す",
+   "choices": [
+    "択す",
+    "駅す",
+    "釈す"
+   ]
+  },
+  {
+   "id": "N3-V-H-1747",
+   "vocabId": "n3-v-1150",
+   "i18n": {},
+   "sentence": "時間によゆうを持って出発する。",
+   "underline": "よゆう",
+   "answer": "余裕",
+   "choices": [
+    "除裕",
+    "余浴",
+    "余俗"
+   ]
+  },
+  {
+   "id": "N3-V-H-1748",
+   "vocabId": "n3-v-1207",
+   "i18n": {},
+   "sentence": "熱いお茶をわんに注ぐ。",
+   "underline": "わん",
+   "answer": "碗",
+   "choices": [
+    "豌",
+    "婉",
+    "惋"
+   ]
+  },
+  {
+   "id": "N3-V-H-1749",
+   "vocabId": "n3-v-1237",
+   "i18n": {},
+   "sentence": "問題のかくとなる部分を議論する。",
+   "underline": "かく",
+   "answer": "核",
+   "choices": [
+    "該",
+    "劾",
+    "骸"
+   ]
+  },
+  {
+   "id": "N3-V-H-1750",
+   "vocabId": "n3-v-1262",
+   "i18n": {},
+   "sentence": "平和な暮らしをきょうじゅする。",
+   "underline": "きょうじゅ",
+   "answer": "享受",
+   "choices": [
+    "亨受",
+    "享授",
+    "亭受"
+   ]
+  },
+  {
+   "id": "N3-V-H-1751",
+   "vocabId": "n3-v-1283",
+   "i18n": {},
+   "sentence": "戦争で国土がこうはいした。",
+   "underline": "こうはい",
+   "answer": "荒廃",
+   "choices": [
+    "慌廃",
+    "荒療",
+    "芒廃"
+   ]
+  },
+  {
+   "id": "N3-V-H-1752",
+   "vocabId": "n3-v-1305",
+   "i18n": {},
+   "sentence": "食器をせんざいで洗う。",
+   "underline": "せんざい",
+   "answer": "洗剤",
+   "choices": [
+    "冼剤",
+    "洗済",
+    "洗斉"
+   ]
+  },
+  {
+   "id": "N3-V-H-1753",
+   "vocabId": "n3-v-1362",
+   "i18n": {},
+   "sentence": "授業がたいくつで眠くなった。",
+   "underline": "たいくつ",
+   "answer": "退屈",
+   "choices": [
+    "追屈",
+    "退掘",
+    "逮屈"
+   ]
+  },
+  {
+   "id": "N3-V-H-1754",
+   "vocabId": "n3-v-1414",
+   "i18n": {},
+   "sentence": "この店に残っているのはたったこれだけだ。",
+   "underline": "たった",
+   "answer": "唯",
+   "choices": [
+    "惟",
+    "維",
+    "推"
+   ]
+  },
+  {
+   "id": "N3-V-H-1755",
+   "vocabId": "n3-v-1502",
+   "i18n": {},
+   "sentence": "会議でつうやくを務める。",
+   "underline": "つうやく",
+   "answer": "通訳",
+   "choices": [
+    "痛訳",
+    "通沢",
+    "通駅"
+   ]
+  },
+  {
+   "id": "N3-V-H-1756",
+   "vocabId": "n3-v-1540",
+   "i18n": {},
+   "sentence": "会議で新しいていあんをする。",
+   "underline": "ていあん",
+   "answer": "提案",
+   "choices": [
+    "堤案",
+    "掲案",
+    "提安"
+   ]
+  },
+  {
+   "id": "N3-V-H-1757",
+   "vocabId": "n3-v-1584",
+   "i18n": {},
+   "sentence": "選挙で自分の意見をとうひょうで示す。",
+   "underline": "とうひょう",
+   "answer": "投票",
+   "choices": [
+    "役票",
+    "投標",
+    "没票"
+   ]
+  },
+  {
+   "id": "N3-V-H-1758",
+   "vocabId": "n3-v-1660",
+   "i18n": {},
+   "sentence": "彼の説明になっとくした。",
+   "underline": "なっとく",
+   "answer": "納得",
+   "choices": [
+    "紺得",
+    "納徳",
+    "約得"
+   ]
+  },
+  {
+   "id": "N3-V-H-1759",
+   "vocabId": "n3-v-1700",
+   "i18n": {},
+   "sentence": "屋根裏でねずみが走り回る。",
+   "underline": "ねずみ",
+   "answer": "鼠",
+   "choices": [
+    "鼬",
+    "竄",
+    "窺"
+   ]
+  },
+  {
+   "id": "N3-V-H-1760",
+   "vocabId": "n3-v-1749",
+   "i18n": {},
+   "sentence": "彼は昆虫について何でも知っているはかせだ。",
+   "underline": "はかせ",
+   "answer": "博士",
+   "choices": [
+    "搏士",
+    "博土",
+    "傅士"
+   ]
+  },
+  {
+   "id": "N3-V-H-1761",
+   "vocabId": "n3-v-1777",
+   "i18n": {},
+   "sentence": "ロケットをはっしゃする。",
+   "underline": "はっしゃ",
+   "answer": "発射",
+   "choices": [
+    "発謝",
+    "廃射",
+    "登射"
+   ]
+  },
+  {
+   "id": "N3-V-H-1762",
+   "vocabId": "n3-v-1836",
+   "i18n": {},
+   "sentence": "荷物をひもでしっかり縛る。",
+   "underline": "ひも",
+   "answer": "紐",
+   "choices": [
+    "紆",
+    "紂",
+    "絅"
+   ]
+  },
+  {
+   "id": "N3-V-H-1763",
+   "vocabId": "n3-v-1914",
+   "i18n": {},
+   "sentence": "庭の周りに高いへいを作る。",
+   "underline": "へい",
+   "answer": "塀",
+   "choices": [
+    "屏",
+    "堀",
+    "瓶"
+   ]
+  },
+  {
+   "id": "N3-V-H-1764",
+   "vocabId": "n3-v-1953",
+   "i18n": {},
+   "sentence": "寒さでほおが赤くなる。",
+   "underline": "ほお",
+   "answer": "頬",
+   "choices": [
+    "頸",
+    "頷",
+    "頗"
+   ]
+  },
+  {
+   "id": "N3-V-H-1765",
+   "vocabId": "n3-v-2000",
+   "i18n": {},
+   "sentence": "強い力で布がさける。",
+   "underline": "さける",
+   "answer": "裂ける",
+   "choices": [
+    "烈ける",
+    "列ける",
+    "劣ける"
+   ]
+  },
+  {
+   "id": "N3-V-H-1766",
+   "vocabId": "n3-v-2013",
+   "i18n": {},
+   "sentence": "肉のしぼうを取り除く。",
+   "underline": "しぼう",
+   "answer": "脂肪",
+   "choices": [
+    "指肪",
+    "脂防",
+    "脂房"
+   ]
+  },
+  {
+   "id": "N3-V-H-1767",
+   "vocabId": "n3-v-2046",
+   "i18n": {},
+   "sentence": "市長を選ぶせんきょが行われる。",
+   "underline": "せんきょ",
+   "answer": "選挙",
+   "choices": [
+    "遷挙",
+    "選拳",
+    "選誉"
+   ]
+  },
+  {
+   "id": "N3-V-H-1768",
+   "vocabId": "n3-v-2071",
+   "i18n": {},
+   "sentence": "畑で野菜をつむ。",
+   "underline": "つむ",
+   "answer": "摘む",
+   "choices": [
+    "適む",
+    "滴む",
+    "敵む"
+   ]
+  },
+  {
+   "id": "N3-V-H-1769",
+   "vocabId": "n3-v-2123",
+   "i18n": {},
+   "sentence": "またを大きく開いて座る。",
+   "underline": "また",
+   "answer": "股",
+   "choices": [
+    "肢",
+    "胱",
+    "肋"
+   ]
+  },
+  {
+   "id": "N3-V-H-1770",
+   "vocabId": "n3-v-72",
+   "i18n": {},
+   "sentence": "公園の【しばふ】に寝転んで空をながめた。",
+   "underline": "しばふ",
+   "answer": "芝生",
+   "choices": [
+    "芝主",
+    "芸生",
+    "芝性"
+   ]
+  },
+  {
+   "id": "N3-V-H-1771",
+   "vocabId": "n3-v-120",
+   "i18n": {},
+   "sentence": "この商品は今、【じゅよう】が高い。",
+   "underline": "じゅよう",
+   "answer": "需要",
+   "choices": [
+    "需用",
+    "儒要",
+    "濡要"
+   ]
+  },
+  {
+   "id": "N3-V-H-1772",
+   "vocabId": "n3-v-163",
+   "i18n": {},
+   "sentence": "家族そろって【しょくたく】を囲む。",
+   "underline": "しょくたく",
+   "answer": "食卓",
+   "choices": [
+    "食阜",
+    "食草",
+    "蝕卓"
+   ]
+  },
+  {
+   "id": "N3-V-H-1773",
+   "vocabId": "n3-v-196",
+   "i18n": {},
+   "sentence": "市場で【しんせん】な魚を買った。",
+   "underline": "しんせん",
+   "answer": "新鮮",
+   "choices": [
+    "新鮭",
+    "親鮮",
+    "斬鮮"
+   ]
+  },
+  {
+   "id": "N3-V-H-1774",
+   "vocabId": "n3-v-239",
+   "i18n": {},
+   "sentence": "会議は【すでに】始まっていた。",
+   "underline": "すでに",
+   "answer": "既に",
+   "choices": [
+    "即に",
+    "概に",
+    "慨に"
+   ]
+  },
+  {
+   "id": "N3-V-H-1775",
+   "vocabId": "n3-v-275",
+   "i18n": {},
+   "sentence": "たまには【ぜいたく】な食事もいい。",
+   "underline": "ぜいたく",
+   "answer": "贅沢",
+   "choices": [
+    "贅択",
+    "贄沢",
+    "贅汎"
+   ]
+  },
+  {
+   "id": "N3-V-H-1776",
+   "vocabId": "n3-v-329",
+   "i18n": {},
+   "sentence": "この店は輸入品を【あつかう】。",
+   "underline": "あつかう",
+   "answer": "扱う",
+   "choices": [
+    "抜う",
+    "汲う",
+    "扠う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1777",
+   "vocabId": "n3-v-374",
+   "i18n": {},
+   "sentence": "健康を【いじ】するのは大切だ。",
+   "underline": "いじ",
+   "answer": "維持",
+   "choices": [
+    "維侍",
+    "緯持",
+    "維待"
+   ]
+  },
+  {
+   "id": "N3-V-H-1778",
+   "vocabId": "n3-v-450",
+   "i18n": {},
+   "sentence": "困ったら弁護士に【うったえる】つもりだ。",
+   "underline": "うったえる",
+   "answer": "訴える",
+   "choices": [
+    "訟える",
+    "診える",
+    "愬える"
+   ]
+  },
+  {
+   "id": "N3-V-H-1779",
+   "vocabId": "n3-v-475",
+   "i18n": {},
+   "sentence": "毎朝、金魚に【えさ】をやる。",
+   "underline": "えさ",
+   "answer": "餌",
+   "choices": [
+    "飼",
+    "飴",
+    "餃"
+   ]
+  },
+  {
+   "id": "N3-V-H-1780",
+   "vocabId": "n3-v-511",
+   "i18n": {},
+   "sentence": "彼女は【おしゃべり】が大好きだ。",
+   "underline": "おしゃべり",
+   "answer": "お喋り",
+   "choices": [
+    "お蝶り",
+    "お渫り",
+    "お啄り"
+   ]
+  },
+  {
+   "id": "N3-V-H-1781",
+   "vocabId": "n3-v-545",
+   "i18n": {},
+   "sentence": "夏の夜は【か】に悩まされる。",
+   "underline": "か",
+   "answer": "蚊",
+   "choices": [
+    "蛾",
+    "蚕",
+    "蚤"
+   ]
+  },
+  {
+   "id": "N3-V-H-1782",
+   "vocabId": "n3-v-585",
+   "i18n": {},
+   "sentence": "厳しい結果になる【かくご】はできている。",
+   "underline": "かくご",
+   "answer": "覚悟",
+   "choices": [
+    "覚語",
+    "覚梧",
+    "覚悔"
+   ]
+  },
+  {
+   "id": "N3-V-H-1783",
+   "vocabId": "n3-v-617",
+   "i18n": {},
+   "sentence": "ご来場の【かたがた】に感謝します。",
+   "underline": "かたがた",
+   "answer": "方々",
+   "choices": [
+    "万々",
+    "芳々",
+    "放々"
+   ]
+  },
+  {
+   "id": "N3-V-H-1784",
+   "vocabId": "n3-v-653",
+   "i18n": {},
+   "sentence": "週末に庭の草を【かる】。",
+   "underline": "かる",
+   "answer": "刈る",
+   "choices": [
+    "刎る",
+    "刻る",
+    "剖る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1785",
+   "vocabId": "n3-v-691",
+   "i18n": {},
+   "sentence": "その日の【きおく】が鮮明に残っている。",
+   "underline": "きおく",
+   "answer": "記憶",
+   "choices": [
+    "記億",
+    "記憤",
+    "紀憶"
+   ]
+  },
+  {
+   "id": "N3-V-H-1786",
+   "vocabId": "n3-v-748",
+   "i18n": {},
+   "sentence": "子どもに【ぎょうぎ】を教える。",
+   "underline": "ぎょうぎ",
+   "answer": "行儀",
+   "choices": [
+    "行議",
+    "行犠",
+    "街儀"
+   ]
+  },
+  {
+   "id": "N3-V-H-1787",
+   "vocabId": "n3-v-782",
+   "i18n": {},
+   "sentence": "犬を【くさり】でつないでおく。",
+   "underline": "くさり",
+   "answer": "鎖",
+   "choices": [
+    "鎌",
+    "鎧",
+    "鍵"
+   ]
+  },
+  {
+   "id": "N3-V-H-1788",
+   "vocabId": "n3-v-815",
+   "i18n": {},
+   "sentence": "彼は日本の歴史に【くわしい】。",
+   "underline": "くわしい",
+   "answer": "詳しい",
+   "choices": [
+    "祥しい",
+    "詐しい",
+    "翔しい"
+   ]
+  },
+  {
+   "id": "N3-V-H-1789",
+   "vocabId": "n3-v-870",
+   "i18n": {},
+   "sentence": "【けんぽう】は国の基本となる決まりだ。",
+   "underline": "けんぽう",
+   "answer": "憲法",
+   "choices": [
+    "憲注",
+    "憲泡",
+    "険法"
+   ]
+  },
+  {
+   "id": "N3-V-H-1790",
+   "vocabId": "n3-v-915",
+   "i18n": {},
+   "sentence": "久しぶりに【こきょう】へ帰った。",
+   "underline": "こきょう",
+   "answer": "故郷",
+   "choices": [
+    "故響",
+    "故卿",
+    "枯郷"
+   ]
+  },
+  {
+   "id": "N3-V-H-1791",
+   "vocabId": "n3-v-967",
+   "i18n": {},
+   "sentence": "その事件は【さいばん】で争われた。",
+   "underline": "さいばん",
+   "answer": "裁判",
+   "choices": [
+    "栽判",
+    "裁刊",
+    "載判"
+   ]
+  },
+  {
+   "id": "N3-V-H-1792",
+   "vocabId": "n3-v-1016",
+   "i18n": {},
+   "sentence": "室内が【みつ】にならないよう気をつける。",
+   "underline": "みつ",
+   "answer": "密",
+   "choices": [
+    "秘",
+    "窃",
+    "宓"
+   ]
+  },
+  {
+   "id": "N3-V-H-1793",
+   "vocabId": "n3-v-1050",
+   "i18n": {},
+   "sentence": "夜中の騒音は近所【めいわく】だ。",
+   "underline": "めいわく",
+   "answer": "迷惑",
+   "choices": [
+    "迷或",
+    "迷感",
+    "送惑"
+   ]
+  },
+  {
+   "id": "N3-V-H-1794",
+   "vocabId": "n3-v-1095",
+   "i18n": {},
+   "sentence": "【やっかい】な問題を抱えている。",
+   "underline": "やっかい",
+   "answer": "厄介",
+   "choices": [
+    "危介",
+    "厄分",
+    "尼介"
+   ]
+  },
+  {
+   "id": "N3-V-H-1795",
+   "vocabId": "n3-v-1160",
+   "i18n": {},
+   "sentence": "会社の【りえき】が去年より増えた。",
+   "underline": "りえき",
+   "answer": "利益",
+   "choices": [
+    "利溢",
+    "利盆",
+    "梨益"
+   ]
+  },
+  {
+   "id": "N3-V-H-1796",
+   "vocabId": "n3-v-1240",
+   "i18n": {},
+   "sentence": "馬が広い草原を【かける】。",
+   "underline": "かける",
+   "answer": "駆ける",
+   "choices": [
+    "躯ける",
+    "欧ける",
+    "駒ける"
+   ]
+  },
+  {
+   "id": "N3-V-H-1797",
+   "vocabId": "n3-v-1265",
+   "i18n": {},
+   "sentence": "手についた【きん】を洗い流す。",
+   "underline": "きん",
+   "answer": "菌",
+   "choices": [
+    "菊",
+    "菅",
+    "菫"
+   ]
+  },
+  {
+   "id": "N3-V-H-1798",
+   "vocabId": "n3-v-1284",
+   "i18n": {},
+   "sentence": "敵についに【こうふく】した。",
+   "underline": "こうふく",
+   "answer": "降伏",
+   "choices": [
+    "降代",
+    "隆伏",
+    "降扶"
+   ]
+  },
+  {
+   "id": "N3-V-H-1799",
+   "vocabId": "n3-v-1313",
+   "i18n": {},
+   "sentence": "二つの中から一つを【せんたく】する。",
+   "underline": "せんたく",
+   "answer": "選択",
+   "choices": [
+    "選拓",
+    "選宅",
+    "撰択"
+   ]
+  },
+  {
+   "id": "N3-V-H-1800",
+   "vocabId": "n3-v-1363",
+   "i18n": {},
+   "sentence": "東京に一週間【たいざい】する。",
+   "underline": "たいざい",
+   "answer": "滞在",
+   "choices": [
+    "帯在",
+    "滞存",
+    "済在"
+   ]
+  },
+  {
+   "id": "N3-V-H-1801",
+   "vocabId": "n3-v-1428",
+   "i18n": {},
+   "sentence": "銃に【たま】を込める。",
+   "underline": "たま",
+   "answer": "弾",
+   "choices": [
+    "弦",
+    "強",
+    "弧"
+   ]
+  },
+  {
+   "id": "N3-V-H-1802",
+   "vocabId": "n3-v-1504",
+   "i18n": {},
+   "sentence": "目の前のチャンスをしっかり【つかむ】。",
+   "underline": "つかむ",
+   "answer": "掴む",
+   "choices": [
+    "掻む",
+    "揃む",
+    "掲む"
+   ]
+  },
+  {
+   "id": "N3-V-H-1803",
+   "vocabId": "n3-v-1542",
+   "i18n": {},
+   "sentence": "警察は強い【ていこう】にあった。",
+   "underline": "ていこう",
+   "answer": "抵抗",
+   "choices": [
+    "抵坑",
+    "抵杭",
+    "底抗"
+   ]
+  },
+  {
+   "id": "N3-V-H-1804",
+   "vocabId": "n3-v-1587",
+   "i18n": {},
+   "sentence": "母がよく【どうよう】を歌ってくれた。",
+   "underline": "どうよう",
+   "answer": "童謡",
+   "choices": [
+    "童揺",
+    "童踊",
+    "瞳謡"
+   ]
+  },
+  {
+   "id": "N3-V-H-1805",
+   "vocabId": "n3-v-1663",
+   "i18n": {},
+   "sentence": "冬は【なべ】料理がおいしい。",
+   "underline": "なべ",
+   "answer": "鍋",
+   "choices": [
+    "鍬",
+    "鋼",
+    "鎬"
+   ]
+  },
+  {
+   "id": "N3-V-H-1806",
+   "vocabId": "n3-v-1719",
+   "i18n": {},
+   "sentence": "棚に重い荷物を【のせる】。",
+   "underline": "のせる",
+   "answer": "載せる",
+   "choices": [
+    "戴せる",
+    "裁せる",
+    "栽せる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1807",
+   "vocabId": "n3-v-1778",
+   "i18n": {},
+   "sentence": "違反者を厳しく【ばっする】。",
+   "underline": "ばっする",
+   "answer": "罰する",
+   "choices": [
+    "罪する",
+    "罷する",
+    "罵する"
+   ]
+  },
+  {
+   "id": "N3-V-H-1808",
+   "vocabId": "n3-v-1851",
+   "i18n": {},
+   "sentence": "牛乳を【びん】に入れて冷やす。",
+   "underline": "びん",
+   "answer": "瓶",
+   "choices": [
+    "瓦",
+    "瓢",
+    "甕"
+   ]
+  },
+  {
+   "id": "N3-V-H-1809",
+   "vocabId": "n3-v-1925",
+   "i18n": {},
+   "sentence": "お昼に手作りの【べんとう】を食べる。",
+   "underline": "べんとう",
+   "answer": "弁当",
+   "choices": [
+    "弁堂",
+    "升当",
+    "弁尚"
+   ]
+  },
+  {
+   "id": "N3-V-H-1810",
+   "vocabId": "n3-v-1955",
+   "i18n": {},
+   "sentence": "彼女はにっこりと【ほほえむ】。",
+   "underline": "ほほえむ",
+   "answer": "微笑む",
+   "choices": [
+    "微咲む",
+    "徴笑む",
+    "徽笑む"
+   ]
+  },
+  {
+   "id": "N3-V-H-1811",
+   "vocabId": "n3-v-2001",
+   "i18n": {},
+   "sentence": "罪を公正に【さばく】のが裁判官の役目だ。",
+   "underline": "さばく",
+   "answer": "裁く",
+   "choices": [
+    "栽く",
+    "載く",
+    "截く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1812",
+   "vocabId": "n3-v-2015",
+   "i18n": {},
+   "sentence": "祭りに若い【しゅう】が集まった。",
+   "underline": "しゅう",
+   "answer": "衆",
+   "choices": [
+    "衷",
+    "象",
+    "衝"
+   ]
+  },
+  {
+   "id": "N3-V-H-1813",
+   "vocabId": "n3-v-2050",
+   "i18n": {},
+   "sentence": "川に【そう】道をのんびり歩く。",
+   "underline": "そう",
+   "answer": "沿う",
+   "choices": [
+    "沼う",
+    "治う",
+    "泊う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1814",
+   "vocabId": "n3-v-2072",
+   "i18n": {},
+   "sentence": "早朝の草に【つゆ】が光っていた。",
+   "underline": "つゆ",
+   "answer": "露",
+   "choices": [
+    "霧",
+    "霜",
+    "雫"
+   ]
+  },
+  {
+   "id": "N3-V-H-1815",
+   "vocabId": "n3-v-2102",
+   "i18n": {},
+   "sentence": "重要な案件を委員会に【はかる】。",
+   "underline": "はかる",
+   "answer": "諮る",
+   "choices": [
+    "諧る",
+    "咨る",
+    "諂る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1816",
+   "vocabId": "n3-v-2126",
+   "i18n": {},
+   "sentence": "駅前でよく彼を【みかける】。",
+   "underline": "みかける",
+   "answer": "見掛ける",
+   "choices": [
+    "見卦ける",
+    "見排ける",
+    "貝掛ける"
+   ]
+  },
+  {
+   "id": "N3-V-H-1817",
+   "vocabId": "n3-v-19",
+   "i18n": {},
+   "sentence": "この しはとても美しい。",
+   "underline": "し",
+   "answer": "詩",
+   "choices": [
+    "誌",
+    "時",
+    "持"
+   ]
+  },
+  {
+   "id": "N3-V-H-1818",
+   "vocabId": "n3-v-79",
+   "i18n": {},
+   "sentence": "彼は自分の車をじまんしている。",
+   "underline": "じまん",
+   "answer": "自慢",
+   "choices": [
+    "自漫",
+    "目慢",
+    "自慧"
+   ]
+  },
+  {
+   "id": "N3-V-H-1819",
+   "vocabId": "n3-v-123",
+   "i18n": {},
+   "sentence": "彼は勝利のしゅんかんを待ちわびた。",
+   "underline": "しゅんかん",
+   "answer": "瞬間",
+   "choices": [
+    "瞬問",
+    "舜間",
+    "瞬簡"
+   ]
+  },
+  {
+   "id": "N3-V-H-1820",
+   "vocabId": "n3-v-169",
+   "i18n": {},
+   "sentence": "災害に備えてしょくりょうを蓄える。",
+   "underline": "しょくりょう",
+   "answer": "食糧",
+   "choices": [
+    "食糖",
+    "飼糧",
+    "食粮"
+   ]
+  },
+  {
+   "id": "N3-V-H-1821",
+   "vocabId": "n3-v-200",
+   "i18n": {},
+   "sentence": "彼はしんちょうに計画を進めた。",
+   "underline": "しんちょう",
+   "answer": "慎重",
+   "choices": [
+    "真重",
+    "慎童",
+    "槙重"
+   ]
+  },
+  {
+   "id": "N3-V-H-1822",
+   "vocabId": "n3-v-245",
+   "i18n": {},
+   "sentence": "習字の時間にすみをする。",
+   "underline": "すみ",
+   "answer": "墨",
+   "choices": [
+    "黒",
+    "里",
+    "墳"
+   ]
+  },
+  {
+   "id": "N3-V-H-1823",
+   "vocabId": "n3-v-286",
+   "i18n": {},
+   "sentence": "風邪でせきが止まらない。",
+   "underline": "せき",
+   "answer": "咳",
+   "choices": [
+    "核",
+    "該",
+    "刻"
+   ]
+  },
+  {
+   "id": "N3-V-H-1824",
+   "vocabId": "n3-v-332",
+   "i18n": {},
+   "sentence": "ここは昔の城のあとだ。",
+   "underline": "あと",
+   "answer": "跡",
+   "choices": [
+    "蹟",
+    "路",
+    "跳"
+   ]
+  },
+  {
+   "id": "N3-V-H-1825",
+   "vocabId": "n3-v-387",
+   "i18n": {},
+   "sentence": "この道は駅にいたる。",
+   "underline": "いたる",
+   "answer": "至る",
+   "choices": [
+    "致る",
+    "室る",
+    "窒る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1826",
+   "vocabId": "n3-v-454",
+   "i18n": {},
+   "sentence": "戦争は多くの命をうばう。",
+   "underline": "うばう",
+   "answer": "奪う",
+   "choices": [
+    "奮う",
+    "奏う",
+    "脱う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1827",
+   "vocabId": "n3-v-482",
+   "i18n": {},
+   "sentence": "貧しい人々をえんじょする。",
+   "underline": "えんじょ",
+   "answer": "援助",
+   "choices": [
+    "緩助",
+    "媛助",
+    "援励"
+   ]
+  },
+  {
+   "id": "N3-V-H-1828",
+   "vocabId": "n3-v-512",
+   "i18n": {},
+   "sentence": "工場が川をおせんする。",
+   "underline": "おせん",
+   "answer": "汚染",
+   "choices": [
+    "汚洗",
+    "汗染",
+    "汚梁"
+   ]
+  },
+  {
+   "id": "N3-V-H-1829",
+   "vocabId": "n3-v-546",
+   "i18n": {},
+   "sentence": "今日は第五かを学ぶ。",
+   "underline": "か",
+   "answer": "課",
+   "choices": [
+    "科",
+    "果",
+    "諜"
+   ]
+  },
+  {
+   "id": "N3-V-H-1830",
+   "vocabId": "n3-v-589",
+   "i18n": {},
+   "sentence": "彼は本当の気持ちをかくす。",
+   "underline": "かくす",
+   "answer": "隠す",
+   "choices": [
+    "穏す",
+    "陰す",
+    "隆す"
+   ]
+  },
+  {
+   "id": "N3-V-H-1831",
+   "vocabId": "n3-v-619",
+   "i18n": {},
+   "sentence": "武士は腰にかたなを差す。",
+   "underline": "かたな",
+   "answer": "刀",
+   "choices": [
+    "刃",
+    "力",
+    "刈"
+   ]
+  },
+  {
+   "id": "N3-V-H-1832",
+   "vocabId": "n3-v-660",
+   "i18n": {},
+   "sentence": "運動して喉がかわく。",
+   "underline": "かわく",
+   "answer": "渇く",
+   "choices": [
+    "喝く",
+    "掲く",
+    "褐く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1833",
+   "vocabId": "n3-v-698",
+   "i18n": {},
+   "sentence": "彼は大きなきぎょうで働く。",
+   "underline": "きぎょう",
+   "answer": "企業",
+   "choices": [
+    "企行",
+    "止業",
+    "全業"
+   ]
+  },
+  {
+   "id": "N3-V-H-1834",
+   "vocabId": "n3-v-760",
+   "i18n": {},
+   "sentence": "彼は嘘をきらう。",
+   "underline": "きらう",
+   "answer": "嫌う",
+   "choices": [
+    "兼う",
+    "謙う",
+    "廉う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1835",
+   "vocabId": "n3-v-783",
+   "i18n": {},
+   "sentence": "夏は食べ物がくさる。",
+   "underline": "くさる",
+   "answer": "腐る",
+   "choices": [
+    "府る",
+    "腹る",
+    "痺る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1836",
+   "vocabId": "n3-v-819",
+   "i18n": {},
+   "sentence": "このぐんには温泉が多い。",
+   "underline": "ぐん",
+   "answer": "郡",
+   "choices": [
+    "群",
+    "郷",
+    "都"
+   ]
+  },
+  {
+   "id": "N3-V-H-1837",
+   "vocabId": "n3-v-873",
+   "i18n": {},
+   "sentence": "祖父はごが得意だ。",
+   "underline": "ご",
+   "answer": "碁",
+   "choices": [
+    "棋",
+    "基",
+    "期"
+   ]
+  },
+  {
+   "id": "N3-V-H-1838",
+   "vocabId": "n3-v-918",
+   "i18n": {},
+   "sentence": "入国の際にこくせきを確認する。",
+   "underline": "こくせき",
+   "answer": "国籍",
+   "choices": [
+    "国積",
+    "国藉",
+    "囲籍"
+   ]
+  },
+  {
+   "id": "N3-V-H-1839",
+   "vocabId": "n3-v-973",
+   "i18n": {},
+   "sentence": "桜は今がさかりだ。",
+   "underline": "さかり",
+   "answer": "盛り",
+   "choices": [
+    "盆り",
+    "盟り",
+    "盗り"
+   ]
+  },
+  {
+   "id": "N3-V-H-1840",
+   "vocabId": "n3-v-1021",
+   "i18n": {},
+   "sentence": "どこからかみょうな音が聞こえた。",
+   "underline": "みょう",
+   "answer": "妙",
+   "choices": [
+    "妨",
+    "抄",
+    "砂"
+   ]
+  },
+  {
+   "id": "N3-V-H-1841",
+   "vocabId": "n3-v-1053",
+   "i18n": {},
+   "sentence": "彼はめったに遊びに来ない。",
+   "underline": "めったに",
+   "answer": "滅多に",
+   "choices": [
+    "減多に",
+    "滅夕に",
+    "威多に"
+   ]
+  },
+  {
+   "id": "N3-V-H-1842",
+   "vocabId": "n3-v-1103",
+   "i18n": {},
+   "sentence": "これがゆいいつの方法だ。",
+   "underline": "ゆいいつ",
+   "answer": "唯一",
+   "choices": [
+    "推一",
+    "惟一",
+    "唯二"
+   ]
+  },
+  {
+   "id": "N3-V-H-1843",
+   "vocabId": "n3-v-1164",
+   "i18n": {},
+   "sentence": "彼女は夫とりこんした。",
+   "underline": "りこん",
+   "answer": "離婚",
+   "choices": [
+    "離昏",
+    "雑婚",
+    "離姻"
+   ]
+  },
+  {
+   "id": "N3-V-H-1844",
+   "vocabId": "n3-v-1217",
+   "i18n": {},
+   "sentence": "今日の彼の格好はとてもいきだ。",
+   "underline": "いき",
+   "answer": "粋",
+   "choices": [
+    "粉",
+    "枠",
+    "酔"
+   ]
+  },
+  {
+   "id": "N3-V-H-1845",
+   "vocabId": "n3-v-1241",
+   "i18n": {},
+   "sentence": "彼は勝負に大金をかける。",
+   "underline": "かける",
+   "answer": "賭ける",
+   "choices": [
+    "睹ける",
+    "賂ける",
+    "諸ける"
+   ]
+  },
+  {
+   "id": "N3-V-H-1846",
+   "vocabId": "n3-v-1266",
+   "i18n": {},
+   "sentence": "彼はきんしで眼鏡をかけている。",
+   "underline": "きんし",
+   "answer": "近視",
+   "choices": [
+    "近祝",
+    "迅視",
+    "近規"
+   ]
+  },
+  {
+   "id": "N3-V-H-1847",
+   "vocabId": "n3-v-1285",
+   "i18n": {},
+   "sentence": "試合を見てこうふんした。",
+   "underline": "こうふん",
+   "answer": "興奮",
+   "choices": [
+    "興憤",
+    "與奮",
+    "興奪"
+   ]
+  },
+  {
+   "id": "N3-V-H-1848",
+   "vocabId": "n3-v-1314",
+   "i18n": {},
+   "sentence": "新商品をせんでんする。",
+   "underline": "せんでん",
+   "answer": "宣伝",
+   "choices": [
+    "宣云",
+    "宜伝",
+    "宣停"
+   ]
+  },
+  {
+   "id": "N3-V-H-1849",
+   "vocabId": "n3-v-1372",
+   "i18n": {},
+   "sentence": "彼のたいどは立派だ。",
+   "underline": "たいど",
+   "answer": "態度",
+   "choices": [
+    "態渡",
+    "熊度",
+    "態席"
+   ]
+  },
+  {
+   "id": "N3-V-H-1850",
+   "vocabId": "n3-v-1430",
+   "i18n": {},
+   "sentence": "人をだますのは良くない。",
+   "underline": "だます",
+   "answer": "騙す",
+   "choices": [
+    "編す",
+    "偏す",
+    "騒す"
+   ]
+  },
+  {
+   "id": "N3-V-H-1851",
+   "vocabId": "n3-v-1508",
+   "i18n": {},
+   "sentence": "問題がつぎつぎに起こる。",
+   "underline": "つぎつぎ",
+   "answer": "次々",
+   "choices": [
+    "欠々",
+    "冷々",
+    "姿々"
+   ]
+  },
+  {
+   "id": "N3-V-H-1852",
+   "vocabId": "n3-v-1543",
+   "i18n": {},
+   "sentence": "レポートをていしゅつする。",
+   "underline": "ていしゅつ",
+   "answer": "提出",
+   "choices": [
+    "堤出",
+    "提山",
+    "抵出"
+   ]
+  },
+  {
+   "id": "N3-V-H-1853",
+   "vocabId": "n3-v-1588",
+   "i18n": {},
+   "sentence": "会社のどうりょうと食事をする。",
+   "underline": "どうりょう",
+   "answer": "同僚",
+   "choices": [
+    "同療",
+    "同瞭",
+    "司僚"
+   ]
+  },
+  {
+   "id": "N3-V-H-1854",
+   "vocabId": "n3-v-1665",
+   "i18n": {},
+   "sentence": "彼は仕事をなまける。",
+   "underline": "なまける",
+   "answer": "怠ける",
+   "choices": [
+    "急ける",
+    "怒ける",
+    "治ける"
+   ]
+  },
+  {
+   "id": "N3-V-H-1855",
+   "vocabId": "n3-v-1720",
+   "i18n": {},
+   "sentence": "窓から部屋の中をのぞく。",
+   "underline": "のぞく",
+   "answer": "覗く",
+   "choices": [
+    "窺く",
+    "覘く",
+    "規く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1856",
+   "vocabId": "n3-v-1755",
+   "i18n": {},
+   "sentence": "演奏の後、観客がはくしゅした。",
+   "underline": "はくしゅ",
+   "answer": "拍手",
+   "choices": [
+    "泊手",
+    "柏手",
+    "拍毛"
+   ]
+  },
+  {
+   "id": "N3-V-H-1857",
+   "vocabId": "n3-v-1784",
+   "i18n": {},
+   "sentence": "彼女ははでな服が好きだ。",
+   "underline": "はで",
+   "answer": "派手",
+   "choices": [
+    "派毛",
+    "脈手",
+    "波手"
+   ]
+  },
+  {
+   "id": "N3-V-H-1858",
+   "vocabId": "n3-v-1861",
+   "i18n": {},
+   "sentence": "合図のふえが鳴った。",
+   "underline": "ふえ",
+   "answer": "笛",
+   "choices": [
+    "笹",
+    "苗",
+    "箇"
+   ]
+  },
+  {
+   "id": "N3-V-H-1859",
+   "vocabId": "n3-v-1929",
+   "i18n": {},
+   "sentence": "彼はぼうけんが好きだ。",
+   "underline": "ぼうけん",
+   "answer": "冒険",
+   "choices": [
+    "冒検",
+    "胃険",
+    "冒験"
+   ]
+  },
+  {
+   "id": "N3-V-H-1860",
+   "vocabId": "n3-v-1956",
+   "i18n": {},
+   "sentence": "城の周りにほりがある。",
+   "underline": "ほり",
+   "answer": "堀",
+   "choices": [
+    "掘",
+    "窟",
+    "据"
+   ]
+  },
+  {
+   "id": "N3-V-H-1861",
+   "vocabId": "n3-v-2002",
+   "i18n": {},
+   "sentence": "鉄がさんかして錆びる。",
+   "underline": "さんか",
+   "answer": "酸化",
+   "choices": [
+    "酸花",
+    "酢化",
+    "酸貨"
+   ]
+  },
+  {
+   "id": "N3-V-H-1862",
+   "vocabId": "n3-v-2017",
+   "i18n": {},
+   "sentence": "形容詞が名詞をしゅうしょくする。",
+   "underline": "しゅうしょく",
+   "answer": "修飾",
+   "choices": [
+    "修節",
+    "備飾",
+    "修飭"
+   ]
+  },
+  {
+   "id": "N3-V-H-1863",
+   "vocabId": "n3-v-2051",
+   "i18n": {},
+   "sentence": "看護師が病人にそう。",
+   "underline": "そう",
+   "answer": "添う",
+   "choices": [
+    "減う",
+    "湊う",
+    "渓う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1864",
+   "vocabId": "n3-v-2082",
+   "i18n": {},
+   "sentence": "新しいとうが完成した。",
+   "underline": "とう",
+   "answer": "棟",
+   "choices": [
+    "凍",
+    "陳",
+    "錬"
+   ]
+  },
+  {
+   "id": "N3-V-H-1865",
+   "vocabId": "n3-v-2105",
+   "i18n": {},
+   "sentence": "作業をはんごとに分ける。",
+   "underline": "はん",
+   "answer": "班",
+   "choices": [
+    "斑",
+    "珊",
+    "琉"
+   ]
+  },
+  {
+   "id": "N3-V-H-1866",
+   "vocabId": "n3-v-2127",
+   "i18n": {},
+   "sentence": "本のページをめくる。",
+   "underline": "めくる",
+   "answer": "捲る",
+   "choices": [
+    "巻る",
+    "拳る",
+    "圏る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1867",
+   "vocabId": "n3-v-30",
+   "i18n": {},
+   "sentence": "しきゅう、御返事いただけませんか。",
+   "underline": "しきゅう",
+   "answer": "至急",
+   "choices": [
+    "致急",
+    "到急",
+    "至忽"
+   ]
+  },
+  {
+   "id": "N3-V-H-1868",
+   "vocabId": "n3-v-85",
+   "i18n": {},
+   "sentence": "しもで花が傷んでしまった。",
+   "underline": "しも",
+   "answer": "霜",
+   "choices": [
+    "霞",
+    "露",
+    "雫"
+   ]
+  },
+  {
+   "id": "N3-V-H-1869",
+   "vocabId": "n3-v-131",
+   "i18n": {},
+   "sentence": "私は多くのしょうがいに直面した。",
+   "underline": "しょうがい",
+   "answer": "障害",
+   "choices": [
+    "陣害",
+    "障寄",
+    "陣容"
+   ]
+  },
+  {
+   "id": "N3-V-H-1870",
+   "vocabId": "n3-v-170",
+   "i18n": {},
+   "sentence": "彼は今、しょさいにいる。",
+   "underline": "しょさい",
+   "answer": "書斎",
+   "choices": [
+    "昼斎",
+    "書斉",
+    "晝斎"
+   ]
+  },
+  {
+   "id": "N3-V-H-1871",
+   "vocabId": "n3-v-201",
+   "i18n": {},
+   "sentence": "しんぱんの判定は絶対だ。",
+   "underline": "しんぱん",
+   "answer": "審判",
+   "choices": [
+    "番判",
+    "審則",
+    "蕃判"
+   ]
+  },
+  {
+   "id": "N3-V-H-1872",
+   "vocabId": "n3-v-247",
+   "i18n": {},
+   "sentence": "秋になると空気がすむ。",
+   "underline": "すむ",
+   "answer": "澄む",
+   "choices": [
+    "橙む",
+    "燈む",
+    "證む"
+   ]
+  },
+  {
+   "id": "N3-V-H-1873",
+   "vocabId": "n3-v-304",
+   "i18n": {},
+   "sentence": "帰り道でひどい雨にあう。",
+   "underline": "あう",
+   "answer": "遭う",
+   "choices": [
+    "遺う",
+    "遷う",
+    "邁う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1874",
+   "vocabId": "n3-v-333",
+   "i18n": {},
+   "sentence": "彼は庭に大きなあなを掘った。",
+   "underline": "あな",
+   "answer": "穴",
+   "choices": [
+    "宍",
+    "冗",
+    "究"
+   ]
+  },
+  {
+   "id": "N3-V-H-1875",
+   "vocabId": "n3-v-396",
+   "i18n": {},
+   "sentence": "二人の間にいっしゅんの沈黙が生まれた。",
+   "underline": "いっしゅん",
+   "answer": "一瞬",
+   "choices": [
+    "一舜",
+    "一瞳",
+    "一瞭"
+   ]
+  },
+  {
+   "id": "N3-V-H-1876",
+   "vocabId": "n3-v-458",
+   "i18n": {},
+   "sentence": "うめの花は三月に咲く。",
+   "underline": "うめ",
+   "answer": "梅",
+   "choices": [
+    "侮",
+    "悔",
+    "挴"
+   ]
+  },
+  {
+   "id": "N3-V-H-1877",
+   "vocabId": "n3-v-485",
+   "i18n": {},
+   "sentence": "えんそうはもう終わりかけていた。",
+   "underline": "えんそう",
+   "answer": "演奏",
+   "choices": [
+    "演奉",
+    "演泰",
+    "寅奏"
+   ]
+  },
+  {
+   "id": "N3-V-H-1878",
+   "vocabId": "n3-v-518",
+   "i18n": {},
+   "sentence": "日本はおだやかな気候だ。",
+   "underline": "おだやか",
+   "answer": "穏やか",
+   "choices": [
+    "隠やか",
+    "穂やか",
+    "稳やか"
+   ]
+  },
+  {
+   "id": "N3-V-H-1879",
+   "vocabId": "n3-v-559",
+   "i18n": {},
+   "sentence": "これをどうかいしゃくしますか。",
+   "underline": "かいしゃく",
+   "answer": "解釈",
+   "choices": [
+    "解訳",
+    "解択",
+    "觧釈"
+   ]
+  },
+  {
+   "id": "N3-V-H-1880",
+   "vocabId": "n3-v-593",
+   "i18n": {},
+   "sentence": "猫が机の下にかくれる。",
+   "underline": "かくれる",
+   "answer": "隠れる",
+   "choices": [
+    "穏れる",
+    "隆れる",
+    "隱れる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1881",
+   "vocabId": "n3-v-628",
+   "i18n": {},
+   "sentence": "仕事でごかつやくですね。",
+   "underline": "かつやく",
+   "answer": "活躍",
+   "choices": [
+    "活踊",
+    "括躍",
+    "活曜"
+   ]
+  },
+  {
+   "id": "N3-V-H-1882",
+   "vocabId": "n3-v-662",
+   "i18n": {},
+   "sentence": "そのかんはもう空っぽだ。",
+   "underline": "かん",
+   "answer": "缶",
+   "choices": [
+    "缺",
+    "岳",
+    "缸"
+   ]
+  },
+  {
+   "id": "N3-V-H-1883",
+   "vocabId": "n3-v-701",
+   "i18n": {},
+   "sentence": "彼は今、きげんをそこねている。",
+   "underline": "きげん",
+   "answer": "機嫌",
+   "choices": [
+    "械嫌",
+    "機謙",
+    "楼嫌"
+   ]
+  },
+  {
+   "id": "N3-V-H-1884",
+   "vocabId": "n3-v-761",
+   "i18n": {},
+   "sentence": "朝になってきりがはれた。",
+   "underline": "きり",
+   "answer": "霧",
+   "choices": [
+    "霜",
+    "露",
+    "雰"
+   ]
+  },
+  {
+   "id": "N3-V-H-1885",
+   "vocabId": "n3-v-784",
+   "i18n": {},
+   "sentence": "朝寝坊がくせになった。",
+   "underline": "くせ",
+   "answer": "癖",
+   "choices": [
+    "壁",
+    "僻",
+    "癬"
+   ]
+  },
+  {
+   "id": "N3-V-H-1886",
+   "vocabId": "n3-v-820",
+   "i18n": {},
+   "sentence": "彼は長年、ぐんたいにいる。",
+   "underline": "ぐんたい",
+   "answer": "軍隊",
+   "choices": [
+    "運隊",
+    "軍墜",
+    "揮隊"
+   ]
+  },
+  {
+   "id": "N3-V-H-1887",
+   "vocabId": "n3-v-882",
+   "i18n": {},
+   "sentence": "ごうか客船が港に入った。",
+   "underline": "ごうか",
+   "answer": "豪華",
+   "choices": [
+    "濠華",
+    "豪崋",
+    "毫華"
+   ]
+  },
+  {
+   "id": "N3-V-H-1888",
+   "vocabId": "n3-v-920",
+   "i18n": {},
+   "sentence": "円高のこくふくは大問題です。",
+   "underline": "こくふく",
+   "answer": "克服",
+   "choices": [
+    "克復",
+    "克腹",
+    "剋服"
+   ]
+  },
+  {
+   "id": "N3-V-H-1889",
+   "vocabId": "n3-v-975",
+   "i18n": {},
+   "sentence": "布を二つにさく。",
+   "underline": "さく",
+   "answer": "裂く",
+   "choices": [
+    "烈く",
+    "製く",
+    "裟く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1890",
+   "vocabId": "n3-v-1022",
+   "i18n": {},
+   "sentence": "みょうごにちには出発します。",
+   "underline": "みょうごにち",
+   "answer": "明後日",
+   "choices": [
+    "朋後日",
+    "明復日",
+    "明後目"
+   ]
+  },
+  {
+   "id": "N3-V-H-1891",
+   "vocabId": "n3-v-1057",
+   "i18n": {},
+   "sentence": "明日、車のめんきょを取りに行く。",
+   "underline": "めんきょ",
+   "answer": "免許",
+   "choices": [
+    "兎許",
+    "免評",
+    "勉許"
+   ]
+  },
+  {
+   "id": "N3-V-H-1892",
+   "vocabId": "n3-v-1107",
+   "i18n": {},
+   "sentence": "彼女はとてもゆうしゅうな学生だ。",
+   "underline": "ゆうしゅう",
+   "answer": "優秀",
+   "choices": [
+    "憂秀",
+    "優季",
+    "優透"
+   ]
+  },
+  {
+   "id": "N3-V-H-1893",
+   "vocabId": "n3-v-1170",
+   "i18n": {},
+   "sentence": "大学のりょうに住んでいる。",
+   "underline": "りょう",
+   "answer": "寮",
+   "choices": [
+    "僚",
+    "療",
+    "寥"
+   ]
+  },
+  {
+   "id": "N3-V-H-1894",
+   "vocabId": "n3-v-1246",
+   "i18n": {},
+   "sentence": "彼は森へかりに行った。",
+   "underline": "かり",
+   "answer": "狩り",
+   "choices": [
+    "狛り",
+    "狞り",
+    "猜り"
+   ]
+  },
+  {
+   "id": "N3-V-H-1895",
+   "vocabId": "n3-v-1269",
+   "i18n": {},
+   "sentence": "被告は懲役十年のけいを宣告された。",
+   "underline": "けい",
+   "answer": "刑",
+   "choices": [
+    "形",
+    "型",
+    "荊"
+   ]
+  },
+  {
+   "id": "N3-V-H-1896",
+   "vocabId": "n3-v-1286",
+   "i18n": {},
+   "sentence": "その作家の文体は挿入ごくが多い。",
+   "underline": "ごく",
+   "answer": "語句",
+   "choices": [
+    "語旬",
+    "誤句",
+    "語勾"
+   ]
+  },
+  {
+   "id": "N3-V-H-1897",
+   "vocabId": "n3-v-1316",
+   "i18n": {},
+   "sentence": "彼は外からそうおんを聞いた。",
+   "underline": "そうおん",
+   "answer": "騒音",
+   "choices": [
+    "駆音",
+    "騒暗",
+    "騷音"
+   ]
+  },
+  {
+   "id": "N3-V-H-1898",
+   "vocabId": "n3-v-1373",
+   "i18n": {},
+   "sentence": "彼はだいとうりょうを辞任した。",
+   "underline": "だいとうりょう",
+   "answer": "大統領",
+   "choices": [
+    "大絞領",
+    "大統嶺",
+    "大銃領"
+   ]
+  },
+  {
+   "id": "N3-V-H-1899",
+   "vocabId": "n3-v-1431",
+   "i18n": {},
+   "sentence": "昨日、たまたま彼に会った。",
+   "underline": "たまたま",
+   "answer": "偶々",
+   "choices": [
+    "隅々",
+    "遇々",
+    "寓々"
+   ]
+  },
+  {
+   "id": "N3-V-H-1900",
+   "vocabId": "n3-v-1510",
+   "i18n": {},
+   "sentence": "彼は議長の職につくことを受諾した。",
+   "underline": "つく",
+   "answer": "就く",
+   "choices": [
+    "蹴く",
+    "僦く",
+    "尤く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1901",
+   "vocabId": "n3-v-1548",
+   "i18n": {},
+   "sentence": "ついにてきに降伏する。",
+   "underline": "てき",
+   "answer": "敵",
+   "choices": [
+    "適",
+    "摘",
+    "敲"
+   ]
+  },
+  {
+   "id": "N3-V-H-1902",
+   "vocabId": "n3-v-1600",
+   "i18n": {},
+   "sentence": "熱情が彼女のとくちょうの一つだ。",
+   "underline": "とくちょう",
+   "answer": "特徴",
+   "choices": [
+    "特微",
+    "持徴",
+    "特徹"
+   ]
+  },
+  {
+   "id": "N3-V-H-1903",
+   "vocabId": "n3-v-1670",
+   "i18n": {},
+   "sentence": "春になると花が一斉に咲く。",
+   "underline": "なる",
+   "answer": "為る",
+   "choices": [
+    "爲る",
+    "蔿る",
+    "潙る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1904",
+   "vocabId": "n3-v-1726",
+   "i18n": {},
+   "sentence": "売り上げをのばすために懸命に働いた。",
+   "underline": "のばす",
+   "answer": "伸ばす",
+   "choices": [
+    "仲ばす",
+    "神ばす",
+    "紳ばす"
+   ]
+  },
+  {
+   "id": "N3-V-H-1905",
+   "vocabId": "n3-v-1756",
+   "i18n": {},
+   "sentence": "私はばくだいな遺産を相続した。",
+   "underline": "ばくだい",
+   "answer": "莫大",
+   "choices": [
+    "漠大",
+    "幕大",
+    "模大"
+   ]
+  },
+  {
+   "id": "N3-V-H-1906",
+   "vocabId": "n3-v-1786",
+   "i18n": {},
+   "sentence": "危ないから手をはなすなよ。",
+   "underline": "はなす",
+   "answer": "離す",
+   "choices": [
+    "璃す",
+    "雛す",
+    "籬す"
+   ]
+  },
+  {
+   "id": "N3-V-H-1907",
+   "vocabId": "n3-v-1865",
+   "i18n": {},
+   "sentence": "タオルで汗をふく。",
+   "underline": "ふく",
+   "answer": "拭く",
+   "choices": [
+    "軾く",
+    "拡く",
+    "栻く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1908",
+   "vocabId": "n3-v-1936",
+   "i18n": {},
+   "sentence": "落とし物をほうぼう探し回った。",
+   "underline": "ほうぼう",
+   "answer": "方々",
+   "choices": [
+    "芳々",
+    "万々",
+    "放々"
+   ]
+  },
+  {
+   "id": "N3-V-H-1909",
+   "vocabId": "n3-v-1957",
+   "i18n": {},
+   "sentence": "城の周りにほりがめぐらされている。",
+   "underline": "ほり",
+   "answer": "濠",
+   "choices": [
+    "壕",
+    "濤",
+    "澔"
+   ]
+  },
+  {
+   "id": "N3-V-H-1910",
+   "vocabId": "n3-v-2003",
+   "i18n": {},
+   "sentence": "人は誰でもしを恐れる。",
+   "underline": "し",
+   "answer": "死",
+   "choices": [
+    "歹",
+    "処",
+    "夗"
+   ]
+  },
+  {
+   "id": "N3-V-H-1911",
+   "vocabId": "n3-v-2021",
+   "i18n": {},
+   "sentence": "彼は幸せなしょうがいを送った。",
+   "underline": "しょうがい",
+   "answer": "生涯",
+   "choices": [
+    "性涯",
+    "生崖",
+    "牲涯"
+   ]
+  },
+  {
+   "id": "N3-V-H-1912",
+   "vocabId": "n3-v-2052",
+   "i18n": {},
+   "sentence": "そのそうは子供たちの遊びに参加した。",
+   "underline": "そう",
+   "answer": "僧",
+   "choices": [
+    "増",
+    "憎",
+    "曾"
+   ]
+  },
+  {
+   "id": "N3-V-H-1913",
+   "vocabId": "n3-v-2084",
+   "i18n": {},
+   "sentence": "彼と私はいとこどうしです。",
+   "underline": "どうし",
+   "answer": "同士",
+   "choices": [
+    "同土",
+    "洞士",
+    "銅士"
+   ]
+  },
+  {
+   "id": "N3-V-H-1914",
+   "vocabId": "n3-v-2108",
+   "i18n": {},
+   "sentence": "公園に記念のひを建てる。",
+   "underline": "ひ",
+   "answer": "碑",
+   "choices": [
+    "卑",
+    "牌",
+    "砕"
+   ]
+  },
+  {
+   "id": "N3-V-H-1915",
+   "vocabId": "n3-v-2139",
+   "i18n": {},
+   "sentence": "彼はドアわくの下に立った。",
+   "underline": "わく",
+   "answer": "枠",
+   "choices": [
+    "杵",
+    "粋",
+    "柊"
+   ]
+  },
+  {
+   "id": "N3-V-H-1916",
+   "vocabId": "n3-v-32",
+   "i18n": {},
+   "sentence": "光がしげきとなって花が咲く。",
+   "underline": "しげき",
+   "answer": "刺激",
+   "choices": [
+    "剌激",
+    "刺劇",
+    "刺撃"
+   ]
+  },
+  {
+   "id": "N3-V-H-1917",
+   "vocabId": "n3-v-90",
+   "i18n": {},
+   "sentence": "じゅうを私に向けるな。",
+   "underline": "じゅう",
+   "answer": "銃",
+   "choices": [
+    "銑",
+    "統",
+    "鉄"
+   ]
+  },
+  {
+   "id": "N3-V-H-1918",
+   "vocabId": "n3-v-132",
+   "i18n": {},
+   "sentence": "しょうがくきんが交付された。",
+   "underline": "しょうがくきん",
+   "answer": "奨学金",
+   "choices": [
+    "将学金",
+    "奬学金",
+    "奨字金"
+   ]
+  },
+  {
+   "id": "N3-V-H-1919",
+   "vocabId": "n3-v-173",
+   "i18n": {},
+   "sentence": "川はじょじょに増水した。",
+   "underline": "じょじょに",
+   "answer": "徐々に",
+   "choices": [
+    "除々に",
+    "徐夕に",
+    "除除に"
+   ]
+  },
+  {
+   "id": "N3-V-H-1920",
+   "vocabId": "n3-v-209",
+   "i18n": {},
+   "sentence": "蜘蛛はすを張る。",
+   "underline": "す",
+   "answer": "巣",
+   "choices": [
+    "単",
+    "果",
+    "菓"
+   ]
+  },
+  {
+   "id": "N3-V-H-1921",
+   "vocabId": "n3-v-309",
+   "i18n": {},
+   "sentence": "失敗してもあきらめるな。",
+   "underline": "あきらめる",
+   "answer": "諦める",
+   "choices": [
+    "蹄める",
+    "啼める",
+    "帝める"
+   ]
+  },
+  {
+   "id": "N3-V-H-1922",
+   "vocabId": "n3-v-337",
+   "i18n": {},
+   "sentence": "この料理はあらが目立つ。",
+   "underline": "あら",
+   "answer": "粗",
+   "choices": [
+    "租",
+    "阻",
+    "咀"
+   ]
+  },
+  {
+   "id": "N3-V-H-1923",
+   "vocabId": "n3-v-400",
+   "i18n": {},
+   "sentence": "両極端はいっちする。",
+   "underline": "いっち",
+   "answer": "一致",
+   "choices": [
+    "一到",
+    "一至",
+    "一政"
+   ]
+  },
+  {
+   "id": "N3-V-H-1924",
+   "vocabId": "n3-v-461",
+   "i18n": {},
+   "sentence": "あなたがとてもうらやましい。",
+   "underline": "うらやましい",
+   "answer": "羨ましい",
+   "choices": [
+    "羞ましい",
+    "羡ましい",
+    "誘ましい"
+   ]
+  },
+  {
+   "id": "N3-V-H-1925",
+   "vocabId": "n3-v-490",
+   "i18n": {},
+   "sentence": "みんなでチームをおうえんする。",
+   "underline": "おうえん",
+   "answer": "応援",
+   "choices": [
+    "応媛",
+    "応緩",
+    "応授"
+   ]
+  },
+  {
+   "id": "N3-V-H-1926",
+   "vocabId": "n3-v-521",
+   "i18n": {},
+   "sentence": "この点で私は彼におとる。",
+   "underline": "おとる",
+   "answer": "劣る",
+   "choices": [
+    "务る",
+    "肋る",
+    "尐る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1927",
+   "vocabId": "n3-v-564",
+   "i18n": {},
+   "sentence": "家で犬をかうことにした。",
+   "underline": "かう",
+   "answer": "飼う",
+   "choices": [
+    "詞う",
+    "飾う",
+    "嗣う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1928",
+   "vocabId": "n3-v-594",
+   "i18n": {},
+   "sentence": "噂をすればかげがさす。",
+   "underline": "かげ",
+   "answer": "影",
+   "choices": [
+    "景",
+    "彩",
+    "彰"
+   ]
+  },
+  {
+   "id": "N3-V-H-1929",
+   "vocabId": "n3-v-637",
+   "i18n": {},
+   "sentence": "かねが鳴っている。",
+   "underline": "かね",
+   "answer": "鐘",
+   "choices": [
+    "鍾",
+    "鐸",
+    "銅"
+   ]
+  },
+  {
+   "id": "N3-V-H-1930",
+   "vocabId": "n3-v-663",
+   "i18n": {},
+   "sentence": "彼はニュースを嗅ぎつける鋭いかんを持っている。",
+   "underline": "かん",
+   "answer": "勘",
+   "choices": [
+    "堪",
+    "勧",
+    "甚"
+   ]
+  },
+  {
+   "id": "N3-V-H-1931",
+   "vocabId": "n3-v-708",
+   "i18n": {},
+   "sentence": "心のきずは癒せない。",
+   "underline": "きず",
+   "answer": "傷",
+   "choices": [
+    "償",
+    "陽",
+    "傍"
+   ]
+  },
+  {
+   "id": "N3-V-H-1932",
+   "vocabId": "n3-v-772",
+   "i18n": {},
+   "sentence": "親しい間柄でもきんせんは他人だ。",
+   "underline": "きんせん",
+   "answer": "金銭",
+   "choices": [
+    "金賤",
+    "金餞",
+    "金淺"
+   ]
+  },
+  {
+   "id": "N3-V-H-1933",
+   "vocabId": "n3-v-794",
+   "i18n": {},
+   "sentence": "私たちはチームをくむ。",
+   "underline": "くむ",
+   "answer": "組む",
+   "choices": [
+    "祖む",
+    "租む",
+    "粗む"
+   ]
+  },
+  {
+   "id": "N3-V-H-1934",
+   "vocabId": "n3-v-830",
+   "i18n": {},
+   "sentence": "ボードにけいじを張ってください。",
+   "underline": "けいじ",
+   "answer": "掲示",
+   "choices": [
+    "揚示",
+    "喝示",
+    "渇示"
+   ]
+  },
+  {
+   "id": "N3-V-H-1935",
+   "vocabId": "n3-v-888",
+   "i18n": {},
+   "sentence": "こうげきは最大の防御だ。",
+   "underline": "こうげき",
+   "answer": "攻撃",
+   "choices": [
+    "功撃",
+    "攻激",
+    "巧撃"
+   ]
+  },
+  {
+   "id": "N3-V-H-1936",
+   "vocabId": "n3-v-922",
+   "i18n": {},
+   "sentence": "彼はこくもつを商っている。",
+   "underline": "こくもつ",
+   "answer": "穀物",
+   "choices": [
+    "殻物",
+    "毅物",
+    "穀勿"
+   ]
+  },
+  {
+   "id": "N3-V-H-1937",
+   "vocabId": "n3-v-979",
+   "i18n": {},
+   "sentence": "さくらが見ごろだ。",
+   "underline": "さくら",
+   "answer": "桜",
+   "choices": [
+    "楼",
+    "梯",
+    "桟"
+   ]
+  },
+  {
+   "id": "N3-V-H-1938",
+   "vocabId": "n3-v-1024",
+   "i18n": {},
+   "sentence": "彼にはある種のみりょくがあった。",
+   "underline": "みりょく",
+   "answer": "魅力",
+   "choices": [
+    "魅刀",
+    "魑力",
+    "鬼力"
+   ]
+  },
+  {
+   "id": "N3-V-H-1939",
+   "vocabId": "n3-v-1062",
+   "i18n": {},
+   "sentence": "遅れてもうしわけない。",
+   "underline": "もうしわけ",
+   "answer": "申し訳",
+   "choices": [
+    "甲し訳",
+    "申し詞",
+    "由し訳"
+   ]
+  },
+  {
+   "id": "N3-V-H-1940",
+   "vocabId": "n3-v-1116",
+   "i18n": {},
+   "sentence": "彼はゆかいなやつだ。",
+   "underline": "ゆかい",
+   "answer": "愉快",
+   "choices": [
+    "諭快",
+    "輸快",
+    "愉決"
+   ]
+  },
+  {
+   "id": "N3-V-H-1941",
+   "vocabId": "n3-v-1176",
+   "i18n": {},
+   "sentence": "彼はれいぎにかけている。",
+   "underline": "れいぎ",
+   "answer": "礼儀",
+   "choices": [
+    "札儀",
+    "礼犠",
+    "礼議"
+   ]
+  },
+  {
+   "id": "N3-V-H-1942",
+   "vocabId": "n3-v-1221",
+   "i18n": {},
+   "sentence": "フライパンで野菜をいためる。",
+   "underline": "いためる",
+   "answer": "炒める",
+   "choices": [
+    "妙める",
+    "抄める",
+    "秒める"
+   ]
+  },
+  {
+   "id": "N3-V-H-1943",
+   "vocabId": "n3-v-1270",
+   "i18n": {},
+   "sentence": "事件のけいいを説明する。",
+   "underline": "けいい",
+   "answer": "経緯",
+   "choices": [
+    "軽緯",
+    "経偉",
+    "経違"
+   ]
+  },
+  {
+   "id": "N3-V-H-1944",
+   "vocabId": "n3-v-1287",
+   "i18n": {},
+   "sentence": "ここの事情を考慮する。",
+   "underline": "ここ",
+   "answer": "個々",
+   "choices": [
+    "固々",
+    "囚々",
+    "困々"
+   ]
+  },
+  {
+   "id": "N3-V-H-1945",
+   "vocabId": "n3-v-1326",
+   "i18n": {},
+   "sentence": "会社のそしきを見直す。",
+   "underline": "そしき",
+   "answer": "組織",
+   "choices": [
+    "粗織",
+    "組識",
+    "祖織"
+   ]
+  },
+  {
+   "id": "N3-V-H-1946",
+   "vocabId": "n3-v-1378",
+   "i18n": {},
+   "sentence": "警察が犯人をたいほした。",
+   "underline": "たいほ",
+   "answer": "逮捕",
+   "choices": [
+    "逮補",
+    "逮浦",
+    "隷捕"
+   ]
+  },
+  {
+   "id": "N3-V-H-1947",
+   "vocabId": "n3-v-1433",
+   "i18n": {},
+   "sentence": "ストレスがたまる。",
+   "underline": "たまる",
+   "answer": "溜まる",
+   "choices": [
+    "瑠まる",
+    "榴まる",
+    "溝まる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1948",
+   "vocabId": "n3-v-1522",
+   "i18n": {},
+   "sentence": "僅かな不注意が大惨事につながる。",
+   "underline": "つながる",
+   "answer": "繋がる",
+   "choices": [
+    "繁がる",
+    "撃がる",
+    "緊がる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1949",
+   "vocabId": "n3-v-1558",
+   "i18n": {},
+   "sentence": "私の兄はてつがくの権威だ。",
+   "underline": "てつがく",
+   "answer": "哲学",
+   "choices": [
+    "折学",
+    "誓学",
+    "晢学"
+   ]
+  },
+  {
+   "id": "N3-V-H-1950",
+   "vocabId": "n3-v-1615",
+   "i18n": {},
+   "sentence": "母はその知らせを聞いたとたん青ざめた。",
+   "underline": "とたん",
+   "answer": "途端",
+   "choices": [
+    "塗端",
+    "徒端",
+    "途瑞"
+   ]
+  },
+  {
+   "id": "N3-V-H-1951",
+   "vocabId": "n3-v-1672",
+   "i18n": {},
+   "sentence": "犬が人になれる。",
+   "underline": "なれる",
+   "answer": "馴れる",
+   "choices": [
+    "訓れる",
+    "駒れる",
+    "順れる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1952",
+   "vocabId": "n3-v-1728",
+   "i18n": {},
+   "sentence": "夏には草がよくのびる。",
+   "underline": "のびる",
+   "answer": "伸びる",
+   "choices": [
+    "神びる",
+    "仲びる",
+    "押びる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1953",
+   "vocabId": "n3-v-1758",
+   "i18n": {},
+   "sentence": "我々ははくぶつかんへ行った。",
+   "underline": "はくぶつかん",
+   "answer": "博物館",
+   "choices": [
+    "搏物館",
+    "博物間",
+    "博物官"
+   ]
+  },
+  {
+   "id": "N3-V-H-1954",
+   "vocabId": "n3-v-1788",
+   "i18n": {},
+   "sentence": "彼は四月に日本をはなれる。",
+   "underline": "はなれる",
+   "answer": "離れる",
+   "choices": [
+    "難れる",
+    "雑れる",
+    "雛れる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1955",
+   "vocabId": "n3-v-1938",
+   "i18n": {},
+   "sentence": "彼女はほえる犬を怖がる。",
+   "underline": "ほえる",
+   "answer": "吠える",
+   "choices": [
+    "吹える",
+    "咲える",
+    "味える"
+   ]
+  },
+  {
+   "id": "N3-V-H-1956",
+   "vocabId": "n3-v-1970",
+   "i18n": {},
+   "sentence": "畑に種をまく。",
+   "underline": "まく",
+   "answer": "蒔く",
+   "choices": [
+    "時く",
+    "詩く",
+    "持く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1957",
+   "vocabId": "n3-v-2005",
+   "i18n": {},
+   "sentence": "しかくは五感の一つである。",
+   "underline": "しかく",
+   "answer": "視覚",
+   "choices": [
+    "視党",
+    "視賞",
+    "覗覚"
+   ]
+  },
+  {
+   "id": "N3-V-H-1958",
+   "vocabId": "n3-v-2029",
+   "i18n": {},
+   "sentence": "しんこう国が経済成長を続ける。",
+   "underline": "しんこう",
+   "answer": "新興",
+   "choices": [
+    "新輿",
+    "親興",
+    "新典"
+   ]
+  },
+  {
+   "id": "N3-V-H-1959",
+   "vocabId": "n3-v-2055",
+   "i18n": {},
+   "sentence": "この自動車はそうじゅうしやすい。",
+   "underline": "そうじゅう",
+   "answer": "操縦",
+   "choices": [
+    "操従",
+    "燥縦",
+    "繰縦"
+   ]
+  },
+  {
+   "id": "N3-V-H-1960",
+   "vocabId": "n3-v-2087",
+   "i18n": {},
+   "sentence": "彼はその知らせにどうようした。",
+   "underline": "どうよう",
+   "answer": "動揺",
+   "choices": [
+    "働揺",
+    "動謡",
+    "動遥"
+   ]
+  },
+  {
+   "id": "N3-V-H-1961",
+   "vocabId": "n3-v-2110",
+   "i18n": {},
+   "sentence": "棄権がにひょうあった。",
+   "underline": "ひょう",
+   "answer": "票",
+   "choices": [
+    "標",
+    "漂",
+    "栗"
+   ]
+  },
+  {
+   "id": "N3-V-H-1962",
+   "vocabId": "n3-v-33",
+   "i18n": {},
+   "sentence": "地球のしげんは限られている。",
+   "underline": "しげん",
+   "answer": "資源",
+   "choices": [
+    "資原",
+    "資減",
+    "質源"
+   ]
+  },
+  {
+   "id": "N3-V-H-1963",
+   "vocabId": "n3-v-92",
+   "i18n": {},
+   "sentence": "小麦はもうしゅうかくできる。",
+   "underline": "しゅうかく",
+   "answer": "収穫",
+   "choices": [
+    "収獲",
+    "収種",
+    "収穀"
+   ]
+  },
+  {
+   "id": "N3-V-H-1964",
+   "vocabId": "n3-v-141",
+   "i18n": {},
+   "sentence": "それはしょうしょう自慢なのです。",
+   "underline": "しょうしょう",
+   "answer": "少々",
+   "choices": [
+    "小々",
+    "抄々",
+    "秒々"
+   ]
+  },
+  {
+   "id": "N3-V-H-1965",
+   "vocabId": "n3-v-210",
+   "i18n": {},
+   "sentence": "すはすっぱい味がする。",
+   "underline": "す",
+   "answer": "酢",
+   "choices": [
+    "酌",
+    "酸",
+    "醸"
+   ]
+  },
+  {
+   "id": "N3-V-H-1966",
+   "vocabId": "n3-v-258",
+   "i18n": {},
+   "sentence": "それは実際君のせいである。",
+   "underline": "せい",
+   "answer": "所為",
+   "choices": [
+    "処為",
+    "所偽",
+    "所偉"
+   ]
+  },
+  {
+   "id": "N3-V-H-1967",
+   "vocabId": "n3-v-310",
+   "i18n": {},
+   "sentence": "彼はすぐその仕事にあきるだろう。",
+   "underline": "あきる",
+   "answer": "飽きる",
+   "choices": [
+    "飢きる",
+    "飾きる",
+    "鮑きる"
+   ]
+  },
+  {
+   "id": "N3-V-H-1968",
+   "vocabId": "n3-v-338",
+   "i18n": {},
+   "sentence": "あらしは静まった。",
+   "underline": "あらし",
+   "answer": "嵐",
+   "choices": [
+    "嵩",
+    "崖",
+    "岩"
+   ]
+  },
+  {
+   "id": "N3-V-H-1969",
+   "vocabId": "n3-v-407",
+   "i18n": {},
+   "sentence": "彼らは私のいとこです。",
+   "underline": "いとこ",
+   "answer": "従兄弟",
+   "choices": [
+    "従兄第",
+    "徒兄弟",
+    "縦兄弟"
+   ]
+  },
+  {
+   "id": "N3-V-H-1970",
+   "vocabId": "n3-v-463",
+   "i18n": {},
+   "sentence": "町では悪いうわさが広がっている。",
+   "underline": "うわさ",
+   "answer": "噂",
+   "choices": [
+    "尊",
+    "樽",
+    "蹲"
+   ]
+  },
+  {
+   "id": "N3-V-H-1971",
+   "vocabId": "n3-v-497",
+   "i18n": {},
+   "sentence": "雲が空をおおう。",
+   "underline": "おおう",
+   "answer": "覆う",
+   "choices": [
+    "履う",
+    "複う",
+    "覇う"
+   ]
+  },
+  {
+   "id": "N3-V-H-1972",
+   "vocabId": "n3-v-522",
+   "i18n": {},
+   "sentence": "昔話におにが出てくる。",
+   "underline": "おに",
+   "answer": "鬼",
+   "choices": [
+    "魂",
+    "魅",
+    "塊"
+   ]
+  },
+  {
+   "id": "N3-V-H-1973",
+   "vocabId": "n3-v-571",
+   "i18n": {},
+   "sentence": "彼は有名ながかだ。",
+   "underline": "がか",
+   "answer": "画家",
+   "choices": [
+    "昼家",
+    "曲家",
+    "圃家"
+   ]
+  },
+  {
+   "id": "N3-V-H-1974",
+   "vocabId": "n3-v-595",
+   "i18n": {},
+   "sentence": "木のかげで休んだ。",
+   "underline": "かげ",
+   "answer": "陰",
+   "choices": [
+    "陽",
+    "隆",
+    "隅"
+   ]
+  },
+  {
+   "id": "N3-V-H-1975",
+   "vocabId": "n3-v-639",
+   "i18n": {},
+   "sentence": "彼はかぶに投資した。",
+   "underline": "かぶ",
+   "answer": "株",
+   "choices": [
+    "枠",
+    "柱",
+    "桃"
+   ]
+  },
+  {
+   "id": "N3-V-H-1976",
+   "vocabId": "n3-v-666",
+   "i18n": {},
+   "sentence": "バスは二十分かんかくで運行されている。",
+   "underline": "かんかく",
+   "answer": "間隔",
+   "choices": [
+    "間隅",
+    "問隔",
+    "間融"
+   ]
+  },
+  {
+   "id": "N3-V-H-1977",
+   "vocabId": "n3-v-712",
+   "i18n": {},
+   "sentence": "金は鉄よりもきちょうだ。",
+   "underline": "きちょう",
+   "answer": "貴重",
+   "choices": [
+    "責重",
+    "遺重",
+    "貴量"
+   ]
+  },
+  {
+   "id": "N3-V-H-1978",
+   "vocabId": "n3-v-773",
+   "i18n": {},
+   "sentence": "酸はきんぞくを侵す。",
+   "underline": "きんぞく",
+   "answer": "金属",
+   "choices": [
+    "金族",
+    "全属",
+    "釜属"
+   ]
+  },
+  {
+   "id": "N3-V-H-1979",
+   "vocabId": "n3-v-795",
+   "i18n": {},
+   "sentence": "井戸から水をくむ。",
+   "underline": "くむ",
+   "answer": "汲む",
+   "choices": [
+    "吸む",
+    "級む",
+    "泣む"
+   ]
+  },
+  {
+   "id": "N3-V-H-1980",
+   "vocabId": "n3-v-831",
+   "i18n": {},
+   "sentence": "彼は優秀なけいじだ。",
+   "underline": "けいじ",
+   "answer": "刑事",
+   "choices": [
+    "形事",
+    "型事",
+    "刑士"
+   ]
+  },
+  {
+   "id": "N3-V-H-1981",
+   "vocabId": "n3-v-889",
+   "i18n": {},
+   "sentence": "その選手は勝利にこうけんした。",
+   "underline": "こうけん",
+   "answer": "貢献",
+   "choices": [
+    "貫献",
+    "貢憲",
+    "頁献"
+   ]
+  },
+  {
+   "id": "N3-V-H-1982",
+   "vocabId": "n3-v-924",
+   "i18n": {},
+   "sentence": "料理にこしょうをかける。",
+   "underline": "こしょう",
+   "answer": "胡椒",
+   "choices": [
+    "湖椒",
+    "故椒",
+    "胡淑"
+   ]
+  },
+  {
+   "id": "N3-V-H-1983",
+   "vocabId": "n3-v-982",
+   "i18n": {},
+   "sentence": "悪友はさけるべきだ。",
+   "underline": "さける",
+   "answer": "避ける",
+   "choices": [
+    "壁ける",
+    "僻ける",
+    "癖ける"
+   ]
+  },
+  {
+   "id": "N3-V-H-1984",
+   "vocabId": "n3-v-1025",
+   "i18n": {},
+   "sentence": "医者が患者をみる。",
+   "underline": "みる",
+   "answer": "診る",
+   "choices": [
+    "珍る",
+    "疹る",
+    "訟る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1985",
+   "vocabId": "n3-v-1074",
+   "i18n": {},
+   "sentence": "彼が怒るのももっともだ。",
+   "underline": "もっとも",
+   "answer": "尤も",
+   "choices": [
+    "犬も",
+    "太も",
+    "尽も"
+   ]
+  },
+  {
+   "id": "N3-V-H-1986",
+   "vocabId": "n3-v-1117",
+   "i18n": {},
+   "sentence": "彼は息子に仕事をゆずることに決めた。",
+   "underline": "ゆずる",
+   "answer": "譲る",
+   "choices": [
+    "壌る",
+    "醸る",
+    "穣る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1987",
+   "vocabId": "n3-v-1194",
+   "i18n": {},
+   "sentence": "道のわきに寄せてください。",
+   "underline": "わき",
+   "answer": "脇",
+   "choices": [
+    "協",
+    "脅",
+    "肋"
+   ]
+  },
+  {
+   "id": "N3-V-H-1988",
+   "vocabId": "n3-v-1225",
+   "i18n": {},
+   "sentence": "水がうずを巻いている。",
+   "underline": "うず",
+   "answer": "渦",
+   "choices": [
+    "過",
+    "禍",
+    "鍋"
+   ]
+  },
+  {
+   "id": "N3-V-H-1989",
+   "vocabId": "n3-v-1249",
+   "i18n": {},
+   "sentence": "彼はがんで亡くなった。",
+   "underline": "がん",
+   "answer": "癌",
+   "choices": [
+    "癒",
+    "癖",
+    "症"
+   ]
+  },
+  {
+   "id": "N3-V-H-1990",
+   "vocabId": "n3-v-1272",
+   "i18n": {},
+   "sentence": "退職をけいきに茶道を始めた。",
+   "underline": "けいき",
+   "answer": "契機",
+   "choices": [
+    "喫機",
+    "契械",
+    "契幾"
+   ]
+  },
+  {
+   "id": "N3-V-H-1991",
+   "vocabId": "n3-v-1289",
+   "i18n": {},
+   "sentence": "こぜにをお持ちですか。",
+   "underline": "こぜに",
+   "answer": "小銭",
+   "choices": [
+    "少銭",
+    "小銅",
+    "小践"
+   ]
+  },
+  {
+   "id": "N3-V-H-1992",
+   "vocabId": "n3-v-1332",
+   "i18n": {},
+   "sentence": "シャツのそでが短い。",
+   "underline": "そで",
+   "answer": "袖",
+   "choices": [
+    "神",
+    "補",
+    "油"
+   ]
+  },
+  {
+   "id": "N3-V-H-1993",
+   "vocabId": "n3-v-1392",
+   "i18n": {},
+   "sentence": "ご飯をたく。",
+   "underline": "たく",
+   "answer": "炊く",
+   "choices": [
+    "吹く",
+    "欧く",
+    "灯く"
+   ]
+  },
+  {
+   "id": "N3-V-H-1994",
+   "vocabId": "n3-v-1434",
+   "i18n": {},
+   "sentence": "彼は何も言わずにだまる。",
+   "underline": "だまる",
+   "answer": "黙る",
+   "choices": [
+    "黒る",
+    "墨る",
+    "熟る"
+   ]
+  },
+  {
+   "id": "N3-V-H-1995",
+   "vocabId": "n3-v-1523",
+   "i18n": {},
+   "sentence": "犬をひもでつなぐ。",
+   "underline": "つなぐ",
+   "answer": "繋ぐ",
+   "choices": [
+    "撃ぐ",
+    "繁ぐ",
+    "緊ぐ"
+   ]
+  },
+  {
+   "id": "N3-V-H-1996",
+   "vocabId": "n3-v-1560",
+   "i18n": {},
+   "sentence": "彼はてっていした利己主義者だ。",
+   "underline": "てってい",
+   "answer": "徹底",
+   "choices": [
+    "撤底",
+    "徹低",
+    "徹抵"
+   ]
+  },
+  {
+   "id": "N3-V-H-1997",
+   "vocabId": "n3-v-1627",
+   "i18n": {},
+   "sentence": "動物園でとらを見た。",
+   "underline": "とら",
+   "answer": "虎",
+   "choices": [
+    "虚",
+    "虐",
+    "虜"
+   ]
+  },
+  {
+   "id": "N3-V-H-1998",
+   "vocabId": "n3-v-1673",
+   "i18n": {},
+   "sentence": "荷物をなわで縛る。",
+   "underline": "なわ",
+   "answer": "縄",
+   "choices": [
+    "綱",
+    "純",
+    "紳"
+   ]
+  },
+  {
+   "id": "N3-V-H-1999",
+   "vocabId": "n3-v-1733",
+   "i18n": {},
+   "sentence": "選挙の結果は夕刊にのるでしょう。",
+   "underline": "のる",
+   "answer": "載る",
+   "choices": [
+    "裁る",
+    "栽る",
+    "戴る"
+   ]
+  },
+  {
+   "id": "N3-V-H-2000",
+   "vocabId": "n3-v-1759",
+   "i18n": {},
+   "sentence": "今日は雨がはげしい。",
+   "underline": "はげしい",
+   "answer": "激しい",
+   "choices": [
+    "撃しい",
+    "檄しい",
+    "敷しい"
+   ]
+  },
+  {
+   "id": "N3-V-H-2001",
+   "vocabId": "n3-v-1801",
+   "i18n": {},
+   "sentence": "試験のはんいはここまでだ。",
+   "underline": "はんい",
+   "answer": "範囲",
+   "choices": [
+    "節囲",
+    "範団",
+    "範園"
+   ]
+  },
+  {
+   "id": "N3-V-H-2002",
+   "vocabId": "n3-v-1884",
+   "i18n": {},
+   "sentence": "コップのふちが欠けている。",
+   "underline": "ふち",
+   "answer": "縁",
+   "choices": [
+    "緑",
+    "綾",
+    "縫"
+   ]
+  },
+  {
+   "id": "N3-V-H-2003",
+   "vocabId": "n3-v-1944",
+   "i18n": {},
+   "sentence": "私は兄をほこりに思う。",
+   "underline": "ほこり",
+   "answer": "誇り",
+   "choices": [
+    "誉り",
+    "詩り",
+    "跨り"
+   ]
+  },
+  {
+   "id": "N3-V-H-2004",
+   "vocabId": "n3-v-1971",
+   "i18n": {},
+   "sentence": "畑に種をまく。",
+   "underline": "まく",
+   "answer": "撒く",
+   "choices": [
+    "撤く",
+    "散く",
+    "摘く"
+   ]
+  },
+  {
+   "id": "N3-V-H-2005",
+   "vocabId": "n3-v-2006",
+   "i18n": {},
+   "sentence": "我々は彼のしき下にいる。",
+   "underline": "しき",
+   "answer": "指揮",
+   "choices": [
+    "指輝",
+    "拾揮",
+    "指揚"
+   ]
+  },
+  {
+   "id": "N3-V-H-2006",
+   "vocabId": "n3-v-2030",
+   "i18n": {},
+   "sentence": "政府は工業のしんこう計画を開始した。",
+   "underline": "しんこう",
+   "answer": "振興",
+   "choices": [
+    "娠興",
+    "振輿",
+    "振典"
+   ]
+  },
+  {
+   "id": "N3-V-H-2007",
+   "vocabId": "n3-v-2056",
+   "i18n": {},
+   "sentence": "神は宇宙をそうぞうした。",
+   "underline": "そうぞう",
+   "answer": "創造",
+   "choices": [
+    "倉造",
+    "創進",
+    "蒼造"
+   ]
+  },
+  {
+   "id": "N3-V-H-2008",
+   "vocabId": "n3-v-2089",
+   "i18n": {},
+   "sentence": "紙をとじるのにホチキスは便利だ。",
+   "underline": "とじる",
+   "answer": "綴じる",
+   "choices": [
+    "綻じる",
+    "縦じる",
+    "綾じる"
+   ]
+  },
+  {
+   "id": "N3-V-H-2009",
+   "vocabId": "n3-v-2114",
+   "i18n": {},
+   "sentence": "彼は知らないふりをした。",
+   "underline": "ふり",
+   "answer": "振り",
+   "choices": [
+    "折り",
+    "抱り",
+    "抵り"
+   ]
   }
  ]
 }

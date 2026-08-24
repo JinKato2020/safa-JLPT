@@ -9006,6 +9006,1150 @@
     "詣",
     "持"
    ]
+  },
+  {
+   "id": "N4-V-H-0493",
+   "vocabId": "n4-v-1",
+   "i18n": {},
+   "sentence": "割れたガラスをふむとあぶない。",
+   "underline": "ふむ",
+   "answer": "踏む",
+   "choices": [
+    "踊む",
+    "蹴む",
+    "路む"
+   ]
+  },
+  {
+   "id": "N4-V-H-0494",
+   "vocabId": "n4-v-15",
+   "i18n": {},
+   "sentence": "私は毎日まんがを読みます。",
+   "underline": "まんが",
+   "answer": "漫画",
+   "choices": [
+    "慢画",
+    "漫面",
+    "漫両"
+   ]
+  },
+  {
+   "id": "N4-V-H-0495",
+   "vocabId": "n4-v-24",
+   "i18n": {},
+   "sentence": "ぼくは今とても忙しい。",
+   "underline": "ぼく",
+   "answer": "僕",
+   "choices": [
+    "撲",
+    "樸",
+    "模"
+   ]
+  },
+  {
+   "id": "N4-V-H-0496",
+   "vocabId": "n4-v-61",
+   "i18n": {},
+   "sentence": "彼はいっしょうけんめいに働いた。",
+   "underline": "いっしょうけんめい",
+   "answer": "一生懸命",
+   "choices": [
+    "一生県命",
+    "一生懸令",
+    "一生賢命"
+   ]
+  },
+  {
+   "id": "N4-V-H-0497",
+   "vocabId": "n4-v-96",
+   "i18n": {},
+   "sentence": "夜中に台所で物がこわれる音がした。",
+   "underline": "こわれる",
+   "answer": "壊れる",
+   "choices": [
+    "壤れる",
+    "懐れる",
+    "塊れる"
+   ]
+  },
+  {
+   "id": "N4-V-H-0498",
+   "vocabId": "n4-v-107",
+   "i18n": {},
+   "sentence": "私がいたすことは何もない。",
+   "underline": "いたす",
+   "answer": "致す",
+   "choices": [
+    "到す",
+    "至す",
+    "敗す"
+   ]
+  },
+  {
+   "id": "N4-V-H-0499",
+   "vocabId": "n4-v-149",
+   "i18n": {},
+   "sentence": "私は部屋を花でかざるのが好きだ。",
+   "underline": "かざる",
+   "answer": "飾る",
+   "choices": [
+    "飼る",
+    "飯る",
+    "節る"
+   ]
+  },
+  {
+   "id": "N4-V-H-0500",
+   "vocabId": "n4-v-162",
+   "i18n": {},
+   "sentence": "砂糖と塩をまちがえるな。",
+   "underline": "まちがえる",
+   "answer": "間違える",
+   "choices": [
+    "門違える",
+    "間偉える",
+    "開違える"
+   ]
+  },
+  {
+   "id": "N4-V-H-0501",
+   "vocabId": "n4-v-177",
+   "i18n": {},
+   "sentence": "病気でやせる人が多い。",
+   "underline": "やせる",
+   "answer": "痩せる",
+   "choices": [
+    "疲せる",
+    "痛せる",
+    "疫せる"
+   ]
+  },
+  {
+   "id": "N4-V-H-0502",
+   "vocabId": "n4-v-222",
+   "i18n": {},
+   "sentence": "台所からいいにおいがする。",
+   "underline": "におい",
+   "answer": "匂い",
+   "choices": [
+    "句い",
+    "勾い",
+    "匀い"
+   ]
+  },
+  {
+   "id": "N4-V-H-0503",
+   "vocabId": "n4-v-234",
+   "i18n": {},
+   "sentence": "彼の博識にはおどろく。",
+   "underline": "おどろく",
+   "answer": "驚く",
+   "choices": [
+    "警く",
+    "撃く",
+    "敬く"
+   ]
+  },
+  {
+   "id": "N4-V-H-0504",
+   "vocabId": "n4-v-255",
+   "i18n": {},
+   "sentence": "山の上から美しいけしきを見る。",
+   "underline": "けしき",
+   "answer": "景色",
+   "choices": [
+    "影色",
+    "京色",
+    "暑色"
+   ]
+  },
+  {
+   "id": "N4-V-H-0505",
+   "vocabId": "n4-v-298",
+   "i18n": {},
+   "sentence": "彼女はかがみを見ている。",
+   "underline": "かがみ",
+   "answer": "鏡",
+   "choices": [
+    "鐘",
+    "境",
+    "競"
+   ]
+  },
+  {
+   "id": "N4-V-H-0506",
+   "vocabId": "n4-v-331",
+   "i18n": {},
+   "sentence": "夏はこの部屋のれいぼうをつける。",
+   "underline": "れいぼう",
+   "answer": "冷房",
+   "choices": [
+    "令房",
+    "冷防",
+    "冷屋"
+   ]
+  },
+  {
+   "id": "N4-V-H-0507",
+   "vocabId": "n4-v-360",
+   "i18n": {},
+   "sentence": "週末に川で魚をつる。",
+   "underline": "つる",
+   "answer": "釣る",
+   "choices": [
+    "針る",
+    "鈴る",
+    "銅る"
+   ]
+  },
+  {
+   "id": "N4-V-H-0508",
+   "vocabId": "n4-v-375",
+   "i18n": {},
+   "sentence": "風邪でのどが痛い。",
+   "underline": "のど",
+   "answer": "喉",
+   "choices": [
+    "候",
+    "侯",
+    "喋"
+   ]
+  },
+  {
+   "id": "N4-V-H-0509",
+   "vocabId": "n4-v-386",
+   "i18n": {},
+   "sentence": "君は今週はずいぶん働いたね。",
+   "underline": "ずいぶん",
+   "answer": "随分",
+   "choices": [
+    "隋分",
+    "髄分",
+    "随今"
+   ]
+  },
+  {
+   "id": "N4-V-H-0510",
+   "vocabId": "n4-v-409",
+   "i18n": {},
+   "sentence": "彼は経験不足のため失敗した。",
+   "underline": "ため",
+   "answer": "為",
+   "choices": [
+    "偽",
+    "烏",
+    "鳥"
+   ]
+  },
+  {
+   "id": "N4-V-H-0511",
+   "vocabId": "n4-v-448",
+   "i18n": {},
+   "sentence": "この肉はとてもかたい。",
+   "underline": "かたい",
+   "answer": "固い",
+   "choices": [
+    "困い",
+    "因い",
+    "回い"
+   ]
+  },
+  {
+   "id": "N4-V-H-0512",
+   "vocabId": "n4-v-471",
+   "i18n": {},
+   "sentence": "私はいなかで育った。",
+   "underline": "いなか",
+   "answer": "田舎",
+   "choices": [
+    "由舎",
+    "町舎",
+    "田含"
+   ]
+  },
+  {
+   "id": "N4-V-H-0513",
+   "vocabId": "n4-v-483",
+   "i18n": {},
+   "sentence": "弟は今こうこうに通っている。",
+   "underline": "こうこう",
+   "answer": "高校",
+   "choices": [
+    "高枝",
+    "高較",
+    "高効"
+   ]
+  },
+  {
+   "id": "N4-V-H-0514",
+   "vocabId": "n4-v-518",
+   "i18n": {},
+   "sentence": "私たちは毎年てんらんかいを開く。",
+   "underline": "てんらんかい",
+   "answer": "展覧会",
+   "choices": [
+    "展賢会",
+    "屋覧会",
+    "展覧絵"
+   ]
+  },
+  {
+   "id": "N4-V-H-0515",
+   "vocabId": "n4-v-617",
+   "i18n": {},
+   "sentence": "このごろ、朝がとても寒い。",
+   "underline": "このごろ",
+   "answer": "この頃",
+   "choices": [
+    "この項",
+    "この頂",
+    "この須"
+   ]
+  },
+  {
+   "id": "N4-V-H-0516",
+   "vocabId": "n4-v-634",
+   "i18n": {},
+   "sentence": "この本のほんやくを頼まれた。",
+   "underline": "ほんやく",
+   "answer": "翻訳",
+   "choices": [
+    "翻役",
+    "番訳",
+    "翻詳"
+   ]
+  },
+  {
+   "id": "N4-V-H-0517",
+   "vocabId": "n4-v-651",
+   "i18n": {},
+   "sentence": "本をたなに戻す。",
+   "underline": "たな",
+   "answer": "棚",
+   "choices": [
+    "柵",
+    "桐",
+    "棟"
+   ]
+  },
+  {
+   "id": "N4-V-H-0518",
+   "vocabId": "n4-v-662",
+   "i18n": {},
+   "sentence": "私のしゅみは音楽です。",
+   "underline": "しゅみ",
+   "answer": "趣味",
+   "choices": [
+    "趣未",
+    "趣妹",
+    "趨味"
+   ]
+  },
+  {
+   "id": "N4-V-H-0519",
+   "vocabId": "n4-v-26",
+   "i18n": {},
+   "sentence": "弟がおもちゃをこわすので困っている。",
+   "underline": "こわす",
+   "answer": "壊す",
+   "choices": [
+    "懐す",
+    "壌す",
+    "塊す"
+   ]
+  },
+  {
+   "id": "N4-V-H-0520",
+   "vocabId": "n4-v-89",
+   "i18n": {},
+   "sentence": "この学校は時間にきびしい。",
+   "underline": "きびしい",
+   "answer": "厳しい",
+   "choices": [
+    "巌しい",
+    "儼しい",
+    "敢しい"
+   ]
+  },
+  {
+   "id": "N4-V-H-0521",
+   "vocabId": "n4-v-97",
+   "i18n": {},
+   "sentence": "地震で家が大きくゆれる。",
+   "underline": "ゆれる",
+   "answer": "揺れる",
+   "choices": [
+    "遥れる",
+    "擂れる",
+    "謡れる"
+   ]
+  },
+  {
+   "id": "N4-V-H-0522",
+   "vocabId": "n4-v-108",
+   "i18n": {},
+   "sentence": "犬が私の手をかむことがある。",
+   "underline": "かむ",
+   "answer": "噛む",
+   "choices": [
+    "鳴む",
+    "嘲む",
+    "噺む"
+   ]
+  },
+  {
+   "id": "N4-V-H-0523",
+   "vocabId": "n4-v-156",
+   "i18n": {},
+   "sentence": "試験のために毎日がんばる。",
+   "underline": "がんばる",
+   "answer": "頑張る",
+   "choices": [
+    "頻張る",
+    "願張る",
+    "頑帳る"
+   ]
+  },
+  {
+   "id": "N4-V-H-0524",
+   "vocabId": "n4-v-167",
+   "i18n": {},
+   "sentence": "旅行のお金がたりるか心配だ。",
+   "underline": "たりる",
+   "answer": "足りる",
+   "choices": [
+    "促りる",
+    "捉りる",
+    "是りる"
+   ]
+  },
+  {
+   "id": "N4-V-H-0525",
+   "vocabId": "n4-v-184",
+   "i18n": {},
+   "sentence": "夜空に星がひかるのが見えた。",
+   "underline": "ひかる",
+   "answer": "光る",
+   "choices": [
+    "洸る",
+    "兇る",
+    "尭る"
+   ]
+  },
+  {
+   "id": "N4-V-H-0526",
+   "vocabId": "n4-v-228",
+   "i18n": {},
+   "sentence": "分からない言葉をじてんで調べる。",
+   "underline": "じてん",
+   "answer": "辞典",
+   "choices": [
+    "辞曲",
+    "辞奥",
+    "辞興"
+   ]
+  },
+  {
+   "id": "N4-V-H-0527",
+   "vocabId": "n4-v-240",
+   "i18n": {},
+   "sentence": "新しい野菜を塩につける。",
+   "underline": "つける",
+   "answer": "漬ける",
+   "choices": [
+    "潰ける",
+    "漂ける",
+    "積ける"
+   ]
+  },
+  {
+   "id": "N4-V-H-0528",
+   "vocabId": "n4-v-273",
+   "i18n": {},
+   "sentence": "おじょうさんはとても親切な人だ。",
+   "underline": "おじょうさん",
+   "answer": "お嬢さん",
+   "choices": [
+    "お譲さん",
+    "お壌さん",
+    "お醸さん"
+   ]
+  },
+  {
+   "id": "N4-V-H-0529",
+   "vocabId": "n4-v-284",
+   "i18n": {},
+   "sentence": "一人で過ごす夜はさびしい。",
+   "underline": "さびしい",
+   "answer": "寂しい",
+   "choices": [
+    "寄しい",
+    "叔しい",
+    "寞しい"
+   ]
+  },
+  {
+   "id": "N4-V-H-0530",
+   "vocabId": "n4-v-308",
+   "i18n": {},
+   "sentence": "彼はとてもまじめな学生だ。",
+   "underline": "まじめ",
+   "answer": "真面目",
+   "choices": [
+    "直面目",
+    "真而目",
+    "真面自"
+   ]
+  },
+  {
+   "id": "N4-V-H-0531",
+   "vocabId": "n4-v-333",
+   "i18n": {},
+   "sentence": "どうぞえんりょなく食べてください。",
+   "underline": "えんりょ",
+   "answer": "遠慮",
+   "choices": [
+    "園慮",
+    "遠虜",
+    "違慮"
+   ]
+  },
+  {
+   "id": "N4-V-H-0532",
+   "vocabId": "n4-v-364",
+   "i18n": {},
+   "sentence": "自分が悪いので素直にあやまる。",
+   "underline": "あやまる",
+   "answer": "謝る",
+   "choices": [
+    "謁る",
+    "謳る",
+    "謹る"
+   ]
+  },
+  {
+   "id": "N4-V-H-0533",
+   "vocabId": "n4-v-390",
+   "i18n": {},
+   "sentence": "母は時々子供をしかる。",
+   "underline": "しかる",
+   "answer": "叱る",
+   "choices": [
+    "吐る",
+    "叫る",
+    "咤る"
+   ]
+  },
+  {
+   "id": "N4-V-H-0534",
+   "vocabId": "n4-v-463",
+   "i18n": {},
+   "sentence": "夜遅くまでさわぐと近所に迷惑だ。",
+   "underline": "さわぐ",
+   "answer": "騒ぐ",
+   "choices": [
+    "駆ぐ",
+    "験ぐ",
+    "駐ぐ"
+   ]
+  },
+  {
+   "id": "N4-V-H-0535",
+   "vocabId": "n4-v-474",
+   "i18n": {},
+   "sentence": "今日は経済のこうぎを受けた。",
+   "underline": "こうぎ",
+   "answer": "講義",
+   "choices": [
+    "構義",
+    "講儀",
+    "溝義"
+   ]
+  },
+  {
+   "id": "N4-V-H-0536",
+   "vocabId": "n4-v-486",
+   "i18n": {},
+   "sentence": "寒いのでだんぼうをつけた。",
+   "underline": "だんぼう",
+   "answer": "暖房",
+   "choices": [
+    "暖防",
+    "援房",
+    "暖妨"
+   ]
+  },
+  {
+   "id": "N4-V-H-0537",
+   "vocabId": "n4-v-509",
+   "i18n": {},
+   "sentence": "先生は頑張った生徒をほめる。",
+   "underline": "ほめる",
+   "answer": "褒める",
+   "choices": [
+    "保める",
+    "裸める",
+    "褐める"
+   ]
+  },
+  {
+   "id": "N4-V-H-0538",
+   "vocabId": "n4-v-521",
+   "i18n": {},
+   "sentence": "昔のきしゃに一度乗ってみたい。",
+   "underline": "きしゃ",
+   "answer": "汽車",
+   "choices": [
+    "気車",
+    "汁車",
+    "汽軍"
+   ]
+  },
+  {
+   "id": "N4-V-H-0539",
+   "vocabId": "n4-v-536",
+   "i18n": {},
+   "sentence": "困った時は会社のせんぱいに相談する。",
+   "underline": "せんぱい",
+   "answer": "先輩",
+   "choices": [
+    "先輪",
+    "洗輩",
+    "先輝"
+   ]
+  },
+  {
+   "id": "N4-V-H-0540",
+   "vocabId": "n4-v-636",
+   "i18n": {},
+   "sentence": "皆さんのおかげで無事に成功した。",
+   "underline": "おかげ",
+   "answer": "お陰",
+   "choices": [
+    "お陽",
+    "お隆",
+    "お際"
+   ]
+  },
+  {
+   "id": "N4-V-H-0541",
+   "vocabId": "n4-v-652",
+   "i18n": {},
+   "sentence": "この夏のシャツはもめんでできている。",
+   "underline": "もめん",
+   "answer": "木綿",
+   "choices": [
+    "本綿",
+    "木錦",
+    "水綿"
+   ]
+  },
+  {
+   "id": "N4-V-H-0542",
+   "vocabId": "n4-v-5",
+   "i18n": {},
+   "sentence": "私はたいてい朝早く起きる。",
+   "underline": "たいてい",
+   "answer": "大抵",
+   "choices": [
+    "大低",
+    "大底",
+    "太抵"
+   ]
+  },
+  {
+   "id": "N4-V-H-0543",
+   "vocabId": "n4-v-44",
+   "i18n": {},
+   "sentence": "きが付くのが遅かった。",
+   "underline": "き",
+   "answer": "気",
+   "choices": [
+    "汽",
+    "氣",
+    "氛"
+   ]
+  },
+  {
+   "id": "N4-V-H-0544",
+   "vocabId": "n4-v-93",
+   "i18n": {},
+   "sentence": "この着物はきぬでできている。",
+   "underline": "きぬ",
+   "answer": "絹",
+   "choices": [
+    "綿",
+    "網",
+    "絽"
+   ]
+  },
+  {
+   "id": "N4-V-H-0545",
+   "vocabId": "n4-v-104",
+   "i18n": {},
+   "sentence": "この町では祭りがさかんだ。",
+   "underline": "さかん",
+   "answer": "盛ん",
+   "choices": [
+    "成ん",
+    "城ん",
+    "誠ん"
+   ]
+  },
+  {
+   "id": "N4-V-H-0546",
+   "vocabId": "n4-v-111",
+   "i18n": {},
+   "sentence": "彼はすぐにうそをつく。",
+   "underline": "うそ",
+   "answer": "嘘",
+   "choices": [
+    "嘯",
+    "墟",
+    "虚"
+   ]
+  },
+  {
+   "id": "N4-V-H-0547",
+   "vocabId": "n4-v-137",
+   "i18n": {},
+   "sentence": "彼はいつもていねいに話す。",
+   "underline": "ていねい",
+   "answer": "丁寧",
+   "choices": [
+    "了寧",
+    "打寧",
+    "丁寍"
+   ]
+  },
+  {
+   "id": "N4-V-H-0548",
+   "vocabId": "n4-v-158",
+   "i18n": {},
+   "sentence": "テレビがこしょうした。",
+   "underline": "こしょう",
+   "answer": "故障",
+   "choices": [
+    "古障",
+    "枯障",
+    "故章"
+   ]
+  },
+  {
+   "id": "N4-V-H-0549",
+   "vocabId": "n4-v-170",
+   "i18n": {},
+   "sentence": "財布のお金がなくなる。",
+   "underline": "なくなる",
+   "answer": "無くなる",
+   "choices": [
+    "舞くなる",
+    "撫くなる",
+    "蕪くなる"
+   ]
+  },
+  {
+   "id": "N4-V-H-0550",
+   "vocabId": "n4-v-204",
+   "i18n": {},
+   "sentence": "今日はすばらしい天気だ。",
+   "underline": "すばらしい",
+   "answer": "素晴らしい",
+   "choices": [
+    "素暗らしい",
+    "素清らしい",
+    "索晴らしい"
+   ]
+  },
+  {
+   "id": "N4-V-H-0551",
+   "vocabId": "n4-v-254",
+   "i18n": {},
+   "sentence": "先生に元気よくあいさつした。",
+   "underline": "あいさつ",
+   "answer": "挨拶",
+   "choices": [
+    "挨察",
+    "挨殺",
+    "埃拶"
+   ]
+  },
+  {
+   "id": "N4-V-H-0552",
+   "vocabId": "n4-v-280",
+   "i18n": {},
+   "sentence": "旅行のおみやげを買った。",
+   "underline": "おみやげ",
+   "answer": "お土産",
+   "choices": [
+    "お士産",
+    "お土彦",
+    "お圡産"
+   ]
+  },
+  {
+   "id": "N4-V-H-0553",
+   "vocabId": "n4-v-287",
+   "i18n": {},
+   "sentence": "この料理にみそを入れる。",
+   "underline": "みそ",
+   "answer": "味噌",
+   "choices": [
+    "味僧",
+    "味増",
+    "昧噌"
+   ]
+  },
+  {
+   "id": "N4-V-H-0554",
+   "vocabId": "n4-v-329",
+   "i18n": {},
+   "sentence": "私は音楽にきょうみがある。",
+   "underline": "きょうみ",
+   "answer": "興味",
+   "choices": [
+    "興昧",
+    "輿味",
+    "與味"
+   ]
+  },
+  {
+   "id": "N4-V-H-0555",
+   "vocabId": "n4-v-342",
+   "i18n": {},
+   "sentence": "彼の力はすごい。",
+   "underline": "すごい",
+   "answer": "凄い",
+   "choices": [
+    "淒い",
+    "凍い",
+    "妻い"
+   ]
+  },
+  {
+   "id": "N4-V-H-0556",
+   "vocabId": "n4-v-369",
+   "i18n": {},
+   "sentence": "勉強のじゃまをしないで。",
+   "underline": "じゃま",
+   "answer": "邪魔",
+   "choices": [
+    "邪摩",
+    "耶魔",
+    "邪魅"
+   ]
+  },
+  {
+   "id": "N4-V-H-0557",
+   "vocabId": "n4-v-385",
+   "i18n": {},
+   "sentence": "この問題はなかなか難しい。",
+   "underline": "なかなか",
+   "answer": "中々",
+   "choices": [
+    "申々",
+    "甲々",
+    "由々"
+   ]
+  },
+  {
+   "id": "N4-V-H-0558",
+   "vocabId": "n4-v-407",
+   "i18n": {},
+   "sentence": "ぜひ遊びに来てください。",
+   "underline": "ぜひ",
+   "answer": "是非",
+   "choices": [
+    "是悲",
+    "是排",
+    "昰非"
+   ]
+  },
+  {
+   "id": "N4-V-H-0559",
+   "vocabId": "n4-v-438",
+   "i18n": {},
+   "sentence": "道が凍ってすべる。",
+   "underline": "すべる",
+   "answer": "滑る",
+   "choices": [
+    "猾る",
+    "渭る",
+    "骨る"
+   ]
+  },
+  {
+   "id": "N4-V-H-0560",
+   "vocabId": "n4-v-464",
+   "i18n": {},
+   "sentence": "道を人にたずねる。",
+   "underline": "たずねる",
+   "answer": "尋ねる",
+   "choices": [
+    "尊ねる",
+    "導ねる",
+    "蕁ねる"
+   ]
+  },
+  {
+   "id": "N4-V-H-0561",
+   "vocabId": "n4-v-480",
+   "i18n": {},
+   "sentence": "泣いているわけを聞いた。",
+   "underline": "わけ",
+   "answer": "訳",
+   "choices": [
+    "訊",
+    "詫",
+    "訝"
+   ]
+  },
+  {
+   "id": "N4-V-H-0562",
+   "vocabId": "n4-v-490",
+   "i18n": {},
+   "sentence": "新しい生活になれる。",
+   "underline": "なれる",
+   "answer": "慣れる",
+   "choices": [
+    "慢れる",
+    "貫れる",
+    "慎れる"
+   ]
+  },
+  {
+   "id": "N4-V-H-0563",
+   "vocabId": "n4-v-526",
+   "i18n": {},
+   "sentence": "病院でちゅうしゃをした。",
+   "underline": "ちゅうしゃ",
+   "answer": "注射",
+   "choices": [
+    "住射",
+    "注謝",
+    "注躬"
+   ]
+  },
+  {
+   "id": "N4-V-H-0564",
+   "vocabId": "n4-v-566",
+   "i18n": {},
+   "sentence": "雨でシャツがぬれる。",
+   "underline": "ぬれる",
+   "answer": "濡れる",
+   "choices": [
+    "儒れる",
+    "需れる",
+    "濃れる"
+   ]
+  },
+  {
+   "id": "N4-V-H-0565",
+   "vocabId": "n4-v-627",
+   "i18n": {},
+   "sentence": "かんごふが薬を持ってきた。",
+   "underline": "かんごふ",
+   "answer": "看護婦",
+   "choices": [
+    "着護婦",
+    "看護帰",
+    "看護嬬"
+   ]
+  },
+  {
+   "id": "N4-V-H-0566",
+   "vocabId": "n4-v-656",
+   "i18n": {},
+   "sentence": "合格してうれしい。",
+   "underline": "うれしい",
+   "answer": "嬉しい",
+   "choices": [
+    "嬢しい",
+    "嫌しい",
+    "媸しい"
+   ]
+  },
+  {
+   "id": "N4-V-H-0567",
+   "vocabId": "n4-v-2",
+   "i18n": {},
+   "sentence": "この えきは みなとくに ある。",
+   "underline": "く",
+   "answer": "区",
+   "choices": [
+    "医",
+    "匹",
+    "匠"
+   ]
+  },
+  {
+   "id": "N4-V-H-0568",
+   "vocabId": "n4-v-21",
+   "i18n": {},
+   "sentence": "たのしい そうべつかいに でた。",
+   "underline": "かい",
+   "answer": "会",
+   "choices": [
+    "合",
+    "全",
+    "金"
+   ]
+  },
+  {
+   "id": "N4-V-H-0569",
+   "vocabId": "n4-v-72",
+   "i18n": {},
+   "sentence": "これは にほんせいの かばんです。",
+   "underline": "せい",
+   "answer": "製",
+   "choices": [
+    "制",
+    "裂",
+    "裁"
+   ]
+  },
+  {
+   "id": "N4-V-H-0570",
+   "vocabId": "n4-v-76",
+   "i18n": {},
+   "sentence": "みちに みせが にけん ならぶ。",
+   "underline": "けん",
+   "answer": "軒",
+   "choices": [
+    "幹",
+    "軽",
+    "転"
+   ]
+  },
+  {
+   "id": "N4-V-H-0571",
+   "vocabId": "n4-v-88",
+   "i18n": {},
+   "sentence": "わたしは けいざいがくぶの がくせいです。",
+   "underline": "がくぶ",
+   "answer": "学部",
+   "choices": [
+    "学都",
+    "学郡",
+    "学郎"
+   ]
+  },
+  {
+   "id": "N4-V-H-0572",
+   "vocabId": "n4-v-120",
+   "i18n": {},
+   "sentence": "あした そつぎょうしきが ある。",
+   "underline": "しき",
+   "answer": "式",
+   "choices": [
+    "試",
+    "武",
+    "弐"
+   ]
+  },
+  {
+   "id": "N4-V-H-0573",
+   "vocabId": "n4-v-122",
+   "i18n": {},
+   "sentence": "かれは ゆうめいな しょうせつかだ。",
+   "underline": "か",
+   "answer": "家",
+   "choices": [
+    "宿",
+    "室",
+    "宅"
+   ]
+  },
+  {
+   "id": "N4-V-H-0574",
+   "vocabId": "n4-v-232",
+   "i18n": {},
+   "sentence": "ちちは かいしゃいんです。",
+   "underline": "いん",
+   "answer": "員",
+   "choices": [
+    "貝",
+    "負",
+    "具"
+   ]
+  },
+  {
+   "id": "N4-V-H-0575",
+   "vocabId": "n4-v-381",
+   "i18n": {},
+   "sentence": "かれは まいにち あるきつづける。",
+   "underline": "つづける",
+   "answer": "続ける",
+   "choices": [
+    "緑ける",
+    "綿ける",
+    "績ける"
+   ]
+  },
+  {
+   "id": "N4-V-H-0576",
+   "vocabId": "n4-v-419",
+   "i18n": {},
+   "sentence": "これから ノートに かきはじめる。",
+   "underline": "はじめる",
+   "answer": "始める",
+   "choices": [
+    "姉める",
+    "妨める",
+    "姓める"
+   ]
+  },
+  {
+   "id": "N4-V-H-0577",
+   "vocabId": "n4-v-514",
+   "i18n": {},
+   "sentence": "ちちは ごじゅうだいです。",
+   "underline": "だい",
+   "answer": "代",
+   "choices": [
+    "伐",
+    "伏",
+    "貸"
+   ]
+  },
+  {
+   "id": "N4-V-H-0578",
+   "vocabId": "n4-v-555",
+   "i18n": {},
+   "sentence": "では また あす。",
+   "underline": "あす",
+   "answer": "明日",
+   "choices": [
+    "明月",
+    "明目",
+    "朋日"
+   ]
+  },
+  {
+   "id": "N4-V-H-0579",
+   "vocabId": "n4-v-562",
+   "i18n": {},
+   "sentence": "ちきゅうが まわる。",
+   "underline": "まわる",
+   "answer": "回る",
+   "choices": [
+    "図る",
+    "困る",
+    "囲る"
+   ]
+  },
+  {
+   "id": "N4-V-H-0580",
+   "vocabId": "n4-v-648",
+   "i18n": {},
+   "sentence": "まえから さんばんめです。",
+   "underline": "め",
+   "answer": "目",
+   "choices": [
+    "日",
+    "自",
+    "貝"
+   ]
   }
  ]
 }

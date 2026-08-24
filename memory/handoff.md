@@ -2,9 +2,22 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶▶ 2026-08-23 LIVE＝言い換え類義の続き（/clear後の再開点）＝各級の「次の未カバー語」へ増作**: 真カバー率を更に上げる。手順＝①`python -c` で入力再生成（`scratchpad/synonym_new/input_{N5,N4,N3}.json` を作る既存スニペット＝「p=1かつsynonym未収録の先頭100語」を拾うので、**再実行すれば自動で"次の100語"になる**）→②`python tools/build_synonym_new_wf.py --level {LV} -o scratchpad/synonym_new/wf_{LV}.js`→WF起動→③N5だけ整形WF `tools/build_synonym_n5_reformat_wf.py`→④`tools/finalize_synonym_new.py`(N4/N3)・`tools/finalize_synonym_n5.py`(N5)→rebuild→番人`synonymFormat.test.ts`の出題数ガードを新数へ更新→`tools/update_synonym_coverage.py`。残り未カバー(100%まで)＝N5 147/N4 199/N3 677。正本＝`memory/言い換え真カバー-inflight.md`。**N5は必ず整形段（分かち書き/pattern/sentenceFuri/表層underline）を通す**（省くと番人4本が赤）。
+- **▶▶ 2026-08-24 LIVE＝この会話の成果と残タスク【/clear後の再開点・最優先】**: 正本＝`memory/言い換え増作-EXCEL納品-inflight.md`。反証チェック不要（ユーザー厳命）＝機械/生成品質。**すべて未コミット・未ビルド（指示待ち）**。
+  - **✅2026-08-24 完了＝漢字読み/表記の未カバー(助数詞・熟字訓)を丁寧に増作→真ほぼ100%**：Opus3体で漢字読み+73/表記+72（kanji_read_N5 521/N4 537・orthography_N5 585/N4 538）。skip9=読み非一意(四/何〜/御〜/〜君/〜様/〜月/〜町/〜観/〜敗)。**真カバー率 N5 99%/N4 99%/N3 100%**。番人22/22緑・Excel更新・在庫外。**未コミット・未ビルド**。正本=`memory/n5漢字読み表記増作-inflight.md`。
+  - **✅2026-08-24 完了＝漢字/かな語彙の完全分類＋各vocabIdへタグ付け**（正本メモリ=[[vocab-kanji-class-tagging]]）：漢字読み/表記は「漢字の級」で決まる（語彙は累積既知）。**kanjidic2で語彙の全1439字に級付け→アプリ既存612字と整合検証済**（旧JLPT 4/3/2→N5/N4/N3・1/無→範囲外）。新規=`src/data/dict/kanjiJlptLevel.json`＋各vocabIdタグ`src/data/shared/vocabKanjiClass.json`（class=kanji[testLevel]/kana_only/kana/katakana・vocab.jsonは生成物ゆえサイドカー）＋番人`vocabKanjiClass.test.ts`(build.ps1登録・4/4緑)。**真の母数 N5 148/N4 333/N3 1949・現カバー 82/93/98%**（Excel I/J更新）。椅子/鉛筆/傘等の範囲外漢字語=単語のみ。分類明細Excel=`memory/漢字語彙・かな語彙_レベル別分類.xlsx`。**誤って追加したN5漢字読み98問は取消済(463/527)**。**未コミット・未ビルド**。
+  - **✅2026-08-24 追加完了＝束縛形態素9語を語彙の真の分母から除外**：0面の助詞/接尾辞で文法点として文法側でカバー済の9語(〜ずつ/だけ/時とき/など/しまう/ばかり/まま/よると/ついて)を除外(削除でなく`src/data/shared/vocabMetricExcluded.json`・辞書は残す可逆)。全語彙数 **N5 723→719・N4 673→668**(N3据置)。〜ついて(n4-v-588)は言い換えp=1→0訂正→**N4言い換え真の母数 468→467**。Excel(単語×大問カバー率/レベル別知識点数)更新・理由も併記。記録=`memory/言い換え_青セル削除_記録.md`(追記節)。番人緑。
+  - **✅2026-08-24 追加完了＝青セル削除語を真の母数から除外**：iikaePossibleを`p=0/excluded_blue=1`化（元p=1のみ実減算N5 5/N4 16）→**真の母数 N5 392→387・N4 484→468・N3据置／真カバー率 N4 83→86%**。カバー率シート更新・番人緑。記録=`memory/言い換え_青セル削除_記録.md`＋`…除外リスト.json`。面数分布シートは変更不要(content未マージゆえ不変)。
+  - **①言い換え類義 EXCEL納品（未マージ）**：N5 100／**N4 159（青セル40削除済）**／**N3 300 新規**（語レベル・ID N3-V-I-1100〜1399）。納品Excel＝`言い換え類義_新規問題_N5-100_N4-159_N3-300.xlsx`（セッション直下・最新）。記録＝`scratchpad/syn_gen/final_{N5,N4,N3}.json`。**旧Excel（N5-100_N4-199／N5-131_N4-199／同コピー）は古い＝この最新に統一（コピーはユーザーQA用・N4削除色の読取元）**。
+  - **②漢字読み/表記を498(N3)＋94(N4)語ぶん content本体へマージ済**：kanji_read_N3 1398→**1882**・orthography_N3 1400→**1882**・kanji_read_N4 448→**522**・orthography_N4 450→**524**。i18n:{}（解説なし）。ID kr=N3-V-K-1399〜/N4-V-K-0449〜、hy=N3-V-H-1528〜/N4-V-H-0493〜。rebuild.ts済・番人緑。**真のカバー率＝N3漢字読み/表記 74→99%・N4 83→96/97%**。
+  - **③在庫Excel `単語×大問カバー率` を全大問 全ID＋真の2列に更新**：真の母数＝天井（漢字読み/表記=漢字語・言い換え=iikaePossible・文脈規定/用法=全語）。全ID母数=級内全語に統一（漢字読み/表記の全ID%は見かけ下がるが真%が実力）。ツール＝update_vocab_daimon_coverage.py（漢字読み/表記/文脈規定）＋update_usage_coverage.py（用法）＋真列は一発script（言い換えはEXCEL合算・iikaePossible未改変ゆえ真cov保守値）。
+  - **④在庫Excel `レベル別 知識点数` を「語彙 面数分布」へ作り替え**：1語が7面(5大問+2ドリル=漢字読み/表記/文脈規定/言い換え/用法＋語彙パズル/聞き取り)のうち何面持つかのヒストグラム。N5[7面0/6面187/5面265…]・N4[7面69/6面221…]・N3[7面42/6面982/5面819…]。集計＝`scratchpad/facet_hist.ts`。1語=1点（面≠点／点は語数=N5 723/N4 673/N3 2145）。
+  - **★次の一手（ユーザー判断待ち）**：(a)**言い換え類義の残り「言い換え可能なのに未作成」語を埋めるか**＝N5 96／N4 82／N3 400語（埋めれば真率ほぼ100%）。生成方法・納品先(EXCEL or content)を確認して着手。(b)EXCEL synonym を content へマージするか。(c)コミット/ビルド方針。(d)iikaePossible台帳の未分類EXCEL語(N5 49/N4 42/N3 23)をp=1へ直すか（小幅上乗せ）。
 
-- **▶▶ 2026-08-23 🚀ビルド起動＝言い換え類義 全級+296問 同梱（run/版番号は下記で追記）**: `tools\build.ps1 -Approved -NoWatch` で dispatch。同梱＝①言い換え類義 N5+97/N4+100/N3+99（真カバー N5 62/N4 59/N3 62%）②(前会話)カタカナ表記をN4/N3除外・文脈規定N4/文法穴埋めN4の二重正解修正・模試ボタン中央寄せ。翻訳en/neは新規296問とも未付与（後日有料）。**監視しない**。
+- **▶▶ 2026-08-23 （旧）言い換え類義の増作(EXCEL納品方式)**: 正本＝`memory/言い換え増作-EXCEL納品-inflight.md`。ユーザー依頼＝**生成のみ・反証/修正はユーザー手元・成果はセッション直下のEXCEL**（JSONへマージしない）。現況＝**N4 199問済(ID N4-V-I-0286〜0484)／N5 100問済(青セル31削除後・ID 0246〜0345)**。最新Excel＝`言い換え類義_新規問題_N5-100_N4-199.xlsx`。**次にやる2つ**：①**N3を生成**（★N3だけ語レベル＝下線語→近い語4択。既存N3 1099問と重複しない未使用vocabから。目標数はユーザー確認）②**N4の削除指定**が来たら**Excelコピーのセル塗り(fgColor=FFCCFFFF)をopenpyxlで読む**（画像目視しない）→該当をfinal_N4から除去→ID詰め直し→Excel再出力。手順詳細は正本md。記録JSON＝`scratchpad/syn_gen/final_{N5,N4}.json`。
+
+- **▶▶ 2026-08-23 （旧・参考）言い換え類義の続き＝各級の「次の未カバー語」へ増作**: 真カバー率を更に上げる。手順＝①`python -c` で入力再生成（`scratchpad/synonym_new/input_{N5,N4,N3}.json` を作る既存スニペット＝「p=1かつsynonym未収録の先頭100語」を拾うので、**再実行すれば自動で"次の100語"になる**）→②`python tools/build_synonym_new_wf.py --level {LV} -o scratchpad/synonym_new/wf_{LV}.js`→WF起動→③N5だけ整形WF `tools/build_synonym_n5_reformat_wf.py`→④`tools/finalize_synonym_new.py`(N4/N3)・`tools/finalize_synonym_n5.py`(N5)→rebuild→番人`synonymFormat.test.ts`の出題数ガードを新数へ更新→`tools/update_synonym_coverage.py`。残り未カバー(100%まで)＝N5 147/N4 199/N3 677。正本＝`memory/言い換え真カバー-inflight.md`。**N5は必ず整形段（分かち書き/pattern/sentenceFuri/表層underline）を通す**（省くと番人4本が赤）。
+
+- **▶▶ 2026-08-23 🚀ビルド起動＝v1.1.11(2844) iOS/Android both dispatch（commit `4f96d5bc`・run `32642184960`・-NoWatch・iOS本日4/8）**: 言い換え類義 全級+296問 同梱。テスト68(pass63/skip5/fail0)・tsc0。同梱＝①言い換え類義 N5+97/N4+100/N3+99（真カバー N5 62/N4 59/N3 62%）②(前会話)カタカナ表記をN4/N3除外・文脈規定N4/文法穴埋めN4の二重正解修正・模試ボタン中央寄せ。翻訳en/neは新規296問とも未付与（後日有料）。**監視しない**。
 
 - **▶▶ 2026-08-23 ✅完了＝言い換え類義「真のカバー率」＋この会話の独立修正5件（正本＝`memory/言い換え真カバー-inflight.md`）**: すべてtsc0・関連テスト緑。
   - **主タスク＝言い換え可能語の分類(3541語)**: Opus12体+カタカナ再判定1体(ユーザー訂正「カタカナは類義語の有無で再判定」)。正本=`src/data/shared/iikaePossible.json`(全3541・p=1=言い換え可能)。真の母数 N5 392/723・N4 484/673・N3 1776/2145。**真のカバー率 N5 38%・N4 38%・N3 56%**(全ID 20/27/46%)。在庫xlsx「単語×大問カバー率」の言い換え類義行に真の母数/真のカバー率列を追加(ツール`tools/update_synonym_coverage.py`)。番人`src/data/iikaePossible.test.ts`(build.ps1登録)。既存synonym問題を持つ語は定義上p=1に補正(63語)。
@@ -147,14 +160,14 @@
 - a330e4096c23a9716 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/session-summary-LATEST.md
+- memory/handoff.md
 - memory/在庫問題数.txt
-- memory/言い換え真カバー-inflight.md
+- memory/n5漢字読み表記増作-inflight.md
+- memory/在庫・模試ストックまとめ.xlsx
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- src/data/dict/sentenceFuri.json
-- content/problems/moji_goi/synonym_N5.json
-- memory/~$在庫・模試ストックまとめ.xlsx
-- memory/session-summary-LATEST.md
+- content/problems/moji_goi/orthography_N3.json
 
-_自動更新: 2026-08-23 22:18_
+_自動更新: 2026-08-24 18:04_
 <!-- AUTO:END -->
