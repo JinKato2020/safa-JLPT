@@ -8,6 +8,11 @@ import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, sample, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
 import METRIC_EXCLUDED_ARR from './exam/metricExcludedPoints.json';
+import VOCAB_KANJI_CLASS from './shared/vocabKanjiClass.json';
+// 漢字読み/表記の出題級 = その語の testLevel = MAX(語彙級, 全漢字の級)。ユーザー決定(2026-08-24)=現状ベストの近似。
+// 旧JLPT基準ゆえ稀に公式より辛い(空=N4だが公式はN5等)が例外は少数で許容。範囲外(常用外=kana_only)は漢字読み/表記なし=単語のみ。
+// class=kanji(漢字級で出題)/kana_only(範囲外漢字)/kana(漢字なし)/katakana(表記のみ語彙級で)。src/data/shared/vocabKanjiClass.json。
+const VKC = (VOCAB_KANJI_CLASS as { items: Record<string, { class: string; testLevel?: string }> }).items;
 
 // 学習指標(母数/カバー率/予想得点)から除外する文法点。本文非依存の活用ドリル等=出題はするが数えない。
 export const METRIC_EXCLUDED_POINTS = new Set<string>(METRIC_EXCLUDED_ARR as string[]);
@@ -97,8 +102,10 @@ const SY_UNIT_SET = new Set(SYNONYM_BANK.map((e) => `${vocabOf(e)}#synonym`));
 
 // 大問に適格な「項目(語彙/文法)」。漢字読み/表記=固定問題集に在る語、文脈=固定問題集に在る語、言い換え=類義あり、文法形式=cloze可文法。
 function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
-  if (daimon === 'orthography') return VOCAB.filter((v) => v.level === level && OG_UNIT_SET.has(`${v.id}#orthography`));
-  if (daimon === 'kanji_read') return VOCAB.filter((v) => v.level === level && KR_UNIT_SET.has(`${v.id}#kanji_read`));
+  // 表記=漢字語は漢字級(testLevel=MAX)で、カタカナ語は語彙級で出題。かな/範囲外(kana_only)は表記対象外(単語のみ)。
+  if (daimon === 'orthography') return VOCAB.filter((v) => { const r = VKC[v.id]; const lv = r?.class === 'kanji' ? r.testLevel : r?.class === 'katakana' ? v.level : null; return lv === level && OG_UNIT_SET.has(`${v.id}#orthography`); });
+  // 漢字読み=漢字語だけ・出題級は漢字級(testLevel=MAX(語彙級,全漢字級))。範囲外/かな/カタカナは読み対象外。
+  if (daimon === 'kanji_read') return VOCAB.filter((v) => { const r = VKC[v.id]; return r?.class === 'kanji' && r.testLevel === level && KR_UNIT_SET.has(`${v.id}#kanji_read`); });
   if (daimon === 'context') {
     const gated = contextGated(level); // 安全網: その級にverifiedが0件ならゲートしない(大問を空にしない)
     return VOCAB.filter((v) => v.level === level && CTX_UNIT_SET.has(`${v.id}#context`)
