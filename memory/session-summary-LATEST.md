@@ -1,17 +1,24 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 3 回・9 ターン
-- 往復 113 回
+- ツール呼び出し 19 回・47 ターン
+- 往復 225 回
 
 ## 何が変わったか
 - memory/handoff.md
+- memory/usage-authoring-inflight.md
+- memory/在庫・模試ストックまとめ.xlsx
 - memory/在庫問題数.txt
-- 用法N4_新規20問_確認用.xlsx
-- content/problems/moji_goi/usage_N4.json
-- memory/session-summary-LATEST.md
+- 用法N4_新規作問_確認用.xlsx
+
+## ⚠️ 注意
+- - ⚠ 連続 47ターン（文脈 26万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 47ターン・ツール19回）— まとめ方を変える
 
 ## 次の一手
+- **▶▶ 2026-08-25 ✅完了＝用法N4 +90問 追加・OTA配信済（commit `7a0db666`＋`8ff0a6f1`・Pages run `32846600764`・ビルド無し）**：未カバー120語を4体Opusで作問→採用90(N4-V-Y-0224〜0313)・skip29・重複1除外(別=N3既出)。規律＝級内(N5/N4)・**同音異字ダミー不使用**・多様性番人P1/P2緑。カバー **225→315/673(33→47%)**・backlog **448→358**。ユーザー目視でborderline5誤答を差替済（0236別→区別/0253贈り物→お礼/0290林→森/0301終わり→終電/0310変→大変）。番人7/7・content検証17/17緑。確認用Excel=`用法N4_新規作問_確認用.xlsx`（borderline残7セル橙＝ユーザー未指摘＝許容）。**「ビルドして」＝content変更のためOTA(publish-content.ps1)で配信済・ネイティブ(iOS/Android)ビルドは未dispatch**（不要＋AndroidはApp C閉テスト枠を上書きするため=ユーザーのテスター懸念に直結。要るなら要明示）。管理ダッシュボードの国名日本語化も別commit `362d7c7d`。**次の一手＝(a)ユーザーが/clear後「続き/次のN4」でラウンド2開始（scratchpadに `usage_new2_batch_1..4.json`=次120語・残プール250 準備済／同規律・4体Opus→apply_usage_new.py→番人→Excel→publish-content）(b)ネイティブビルドの要否はユーザー確認**。Google Playテスター締め出し相談も継続中（名簿削除で新規DL停止・既存端末はサーバーgate要）。
+- **▶▶ 2026-08-25 ✅検品完了＝用法N4 +50問 approved（0174-0223・verified:true・未コミット/未記録）**：未カバーN4語50語で作成。breadth **175→225(26→33%)**・backlog 498→**448**。規律＝正解も誤答も**級内(N5/N4)**・**同音異字の罠は不使用**（ユーザー厳命）・自他/近接類義/選択制限/副詞。ユーザー目視で「対象語も成立する第2の正解」誤答を計22件指摘→対象語が明確に誤りになる文へ全差替（例 落とす→人はおろす/特に→まず/たまに→だんだん）。全50問4択・全漢字ルビ・無ルビ0・番人3件緑・tsc未走。確認用Excel=`用法N4_新規20問_確認用.xlsx`（70問=済20+新50・**承認済みで色なし**）。**まだJSONに入れ verified化しただけ＝bundled再生成/baseline引上げ(175→225)/在庫Excel記録/コミット/プッシュ は未実施**（build-cadence方針でpush蓄積）。**次の一手＝(a)残り448語の続き作問（同規律・対象語選定は私に一任）(b)区切りでcommit/push＋記録**。同音異字回避の教訓=[[usage-homophone-distractor-collapses-when-kanji-above-level]]。
+- **▶▶ 2026-08-25 ✅完了＝用法N4 検品済み20問を追加・push済（commit `1aa401d6`・OTA配信のみ／ビルド無し）**：未カバーN4語20語で新規作成(1語1問)。breadth **155→175(23→26%)**・backlog **518→498**。5型で分散＋**同音異字ダミーの級上ルビ潰れを是正**(治/直・尋/訪はN3漢字→N4学習者に同読み化し非一意→かなレベル誤答へ差替)＋紛らわしい誤答差替(0168原因→計画/0171必ず→偶然)。全20問4択・全漢字ルビ・番人3件緑・tsc0・在庫/⑤カバーExcel記録・baseline155→175。作問フローのイメージは[md/効率的作問フロー.md]＋[md/05_用法.md]、新知見=メモリ`usage-homophone-distractor-collapses-when-kanji-above-level`。**次の一手＝ユーザー方針(100問目標の残り約80問を未カバー498語から作成＝クリア後に再開)**。対象語選定は私に一任（用法で差がつく自他/同漢字家族/近接類義/選択制限の語を優先）。
 - **▶▶ 2026-08-25 🚀ビルド起動＝v1.1.14(2848) iOS/Android both dispatch（commit `bb814c74`・run `32813188133`・-NoWatch・iOS本日2/8）**：同梱＝①**用法の語彙idカバー×バランスを記録＋番人化**(1語彙id=1問・未紐づけ40/重複11をお蔵入り→**252問=カバー語彙id数**・分野指標は削除)②**AIコーチ相対順位を星→得点分布ベルカーブ**(`src/components/BellCurve.tsx`共通化)・分野別を立ち位置バー(RankBar)③**AIコーチmodal→card**(成績表が潜る不具合修正)。テスト70/0(skip5)・tsc0・manifest再生成・push(OTA/Pages起動)。番人=usageCoverage/synonymFormat/iikaePossible/parity緑。**監視しない**。**次の一手＝ユーザー判断**(CI確認／用法breadth↑の増作＝backlog N4 518/N3 2051／翻訳en/neは新規UI対応済)。
 - **▶▶ 2026-08-25 ✅完了＝AIコーチUI 2件修正（UI・未コミット・未ビルド）**：①**相対的順位を星→得点分布ベルカーブに**（模試詳細結果と同じ図。`BellCurve`を`src/components/BellCurve.tsx`へ抽出しMockResultScreenと共用、AICoachの相対位置カードで予想得点をプロット。分野別は星→立ち位置バー`RankBar`=左下位/中央平均/右上位。新i18n`coach.rel_axis`をja/en/ne追加）。②**AIコーチをmodal→card**（App.tsx）＝中から開く成績表(MockResultDetail=card)がモーダル下に潜って見えない不具合を解消（ユーザー報告=得点タップで画面最下に出て見えない）。tsc0・parity/homeStatus緑。**次の一手＝ビルド指示待ち（UI変更ゆえOTA不可・ビルド必要）**。
 - **▶▶ 2026-08-25 ✅完了＝用法(usage)の語彙idカバー×バランスを記録＋番人化（未コミット・未ビルド）**：目標＝可能な限り語彙をカバー(breadth%→100%)。**記録**＝在庫Excel新シート`⑤ 用法カバー×バランス`(級別サマリ＋分野別カバー＋backlog、`tools/usage_coverage_report.py`で冪等再生成・`--set-baseline`で基準更新)。**番人**＝`src/data/usageCoverage.test.ts`(①測定可能=全item有効vocabId・級≤大問級/未収録stemは許容リスト ②1語彙id=1問・全大問通算重複禁止=問題数はカバー語彙id数と一致 ③カバー数ラチェット=後退禁止)・build.ps1のテスト列へ登録済。基準=`src/data/shared/usageCoverage.json`(covered N4 155/N3 94・許容リスト空)。※意味「分野(category)」は指標にしない(ユーザー指示で記録から削除)。※既存`tools/update_usage_coverage.py`/`update_synonym_coverage.py`は旧シート名`単語×大問カバー率`(統合で消滅)参照＝stale。

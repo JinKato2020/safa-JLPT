@@ -13,7 +13,7 @@ from openpyxl.styles import PatternFill, Font, Alignment
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-SP = r'C:\Users\jwpsa\AppData\Local\Temp\claude\c--Users-jwpsa-Documents-desktop-claude-JLPT---\9d2ee067-bada-4dba-9381-ee9056de859c\scratchpad'
+SP = r'C:\Users\jwpsa\AppData\Local\Temp\claude\c--Users-jwpsa-Documents-desktop-claude-JLPT---\21dfc579-d8da-4b72-ae72-cc54a810863c\scratchpad'
 JSON_N4 = 'content/problems/moji_goi/usage_N4.json'
 VOCAB   = 'src/data/shared/vocab.json'
 SIDE    = 'src/data/shared/usageDistractorTags.json'
@@ -30,8 +30,10 @@ def q_text(stem):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--dry', action='store_true')
-    ap.add_argument('--batches', type=int, default=4)
+    ap.add_argument('--batches', type=int, default=10)
+    ap.add_argument('--sp', default=SP, help='結果JSON(usage_new_result_*.json)の置き場。既定=現行スクラッチパッド')
     a = ap.parse_args()
+    sp = a.sp
 
     vocab = {v['id']: v for v in json.load(open(VOCAB, encoding='utf-8'))}
     d = json.load(open(JSON_N4, encoding='utf-8'))
@@ -50,7 +52,7 @@ def main():
     # 結果収集
     results = []
     for i in range(1, a.batches + 1):
-        rp = os.path.join(SP, f'usage_new_result_{i}.json')
+        rp = os.path.join(sp, f'usage_new_result_{i}.json')
         if not os.path.exists(rp):
             print(f'!! 結果ファイル無し: {rp}')
             continue
@@ -85,8 +87,8 @@ def main():
                 reason = f'type語彙外: {types}'
             elif len(set(repls)) < 3:
                 reason = f'repl重複(P1): {repls}'
-            elif len(set(types)) < 2:
-                reason = f'型が全同一(P2): {types}'
+            elif len(set(types)) < 2 and types[0] not in ('選択', '呼応'):
+                reason = f'型が全同一(P2)かつ非例外型: {types}'
             elif any(not s for s in sents):
                 reason = 'sent空'
             elif r['answer'] in sents:
@@ -106,6 +108,11 @@ def main():
             items.append(it)
             side['tags'][iid] = [{'repl': x['repl'], 'type': x['type'],
                                   'certainty': x.get('certainty', 'clear')} for x in dists]
+            # 選択制限型/否定呼応型など、公式が認める単一殺し方の良問は monoTypeAllow に明示登録(番人P2の例外)。
+            if len({x['type'] for x in dists}) == 1:
+                side.setdefault('monoTypeAllow', [])
+                if iid not in side['monoTypeAllow']:
+                    side['monoTypeAllow'].append(iid)
         applied.append(iid)
         rows.append({'id': iid, 'stem': r['stem'], 'answer': r['answer'],
                      'dists': dists})
