@@ -2,6 +2,8 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+- **▶▶ 2026-08-25 🚀ビルド起動＝v1.1.14(2848) iOS/Android both dispatch（commit `bb814c74`・run `32813188133`・-NoWatch・iOS本日2/8）**：同梱＝①**用法の語彙idカバー×バランスを記録＋番人化**(1語彙id=1問・未紐づけ40/重複11をお蔵入り→**252問=カバー語彙id数**・分野指標は削除)②**AIコーチ相対順位を星→得点分布ベルカーブ**(`src/components/BellCurve.tsx`共通化)・分野別を立ち位置バー(RankBar)③**AIコーチmodal→card**(成績表が潜る不具合修正)。テスト70/0(skip5)・tsc0・manifest再生成・push(OTA/Pages起動)。番人=usageCoverage/synonymFormat/iikaePossible/parity緑。**監視しない**。**次の一手＝ユーザー判断**(CI確認／用法breadth↑の増作＝backlog N4 518/N3 2051／翻訳en/neは新規UI対応済)。
+
 - **▶▶ 2026-08-25 ✅完了＝AIコーチUI 2件修正（UI・未コミット・未ビルド）**：①**相対的順位を星→得点分布ベルカーブに**（模試詳細結果と同じ図。`BellCurve`を`src/components/BellCurve.tsx`へ抽出しMockResultScreenと共用、AICoachの相対位置カードで予想得点をプロット。分野別は星→立ち位置バー`RankBar`=左下位/中央平均/右上位。新i18n`coach.rel_axis`をja/en/ne追加）。②**AIコーチをmodal→card**（App.tsx）＝中から開く成績表(MockResultDetail=card)がモーダル下に潜って見えない不具合を解消（ユーザー報告=得点タップで画面最下に出て見えない）。tsc0・parity/homeStatus緑。**次の一手＝ビルド指示待ち（UI変更ゆえOTA不可・ビルド必要）**。
 
 - **▶▶ 2026-08-25 ✅完了＝用法(usage)の語彙idカバー×バランスを記録＋番人化（未コミット・未ビルド）**：目標＝可能な限り語彙をカバー(breadth%→100%)。**記録**＝在庫Excel新シート`⑤ 用法カバー×バランス`(級別サマリ＋分野別カバー＋backlog、`tools/usage_coverage_report.py`で冪等再生成・`--set-baseline`で基準更新)。**番人**＝`src/data/usageCoverage.test.ts`(①測定可能=全item有効vocabId・級≤大問級/未収録stemは許容リスト ②1語彙id=1問・全大問通算重複禁止=問題数はカバー語彙id数と一致 ③カバー数ラチェット=後退禁止)・build.ps1のテスト列へ登録済。基準=`src/data/shared/usageCoverage.json`(covered N4 155/N3 94・許容リスト空)。※意味「分野(category)」は指標にしない(ユーザー指示で記録から削除)。※既存`tools/update_usage_coverage.py`/`update_synonym_coverage.py`は旧シート名`単語×大問カバー率`(統合で消滅)参照＝stale。
@@ -173,10 +175,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 82ターン（文脈 27万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 82ターン・ツール40回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a76f3ecff1175a725 general-purpose
 - a64bf3402048b0567 general-purpose
@@ -185,14 +183,14 @@
 - a6a24cb139f9f5d0b general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/在庫問題数.txt
+- 用法N4_新規20問_確認用.xlsx
+- content/problems/moji_goi/usage_N4.json
+- memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/i18n/ne.json
-- src/i18n/en.json
-- src/i18n/ja.json
-- src/screens/AICoachScreen.tsx
-- src/screens/MockResultScreen.tsx
-- src/components/BellCurve.tsx
-- App.tsx
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- app.json
 
-_自動更新: 2026-08-25 14:12_
+_自動更新: 2026-08-25 17:58_
 <!-- AUTO:END -->

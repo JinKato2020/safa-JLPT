@@ -1,21 +1,18 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 40 回・82 ターン
-- 往復 258 回
+- ツール呼び出し 3 回・9 ターン
+- 往復 113 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/i18n/ne.json
-- src/i18n/en.json
-- src/i18n/ja.json
-- src/screens/AICoachScreen.tsx
-
-## ⚠️ 注意
-- - ⚠ 連続 82ターン（文脈 27万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 82ターン・ツール40回）— まとめ方を変える
+- memory/在庫問題数.txt
+- 用法N4_新規20問_確認用.xlsx
+- content/problems/moji_goi/usage_N4.json
+- memory/session-summary-LATEST.md
 
 ## 次の一手
+- **▶▶ 2026-08-25 🚀ビルド起動＝v1.1.14(2848) iOS/Android both dispatch（commit `bb814c74`・run `32813188133`・-NoWatch・iOS本日2/8）**：同梱＝①**用法の語彙idカバー×バランスを記録＋番人化**(1語彙id=1問・未紐づけ40/重複11をお蔵入り→**252問=カバー語彙id数**・分野指標は削除)②**AIコーチ相対順位を星→得点分布ベルカーブ**(`src/components/BellCurve.tsx`共通化)・分野別を立ち位置バー(RankBar)③**AIコーチmodal→card**(成績表が潜る不具合修正)。テスト70/0(skip5)・tsc0・manifest再生成・push(OTA/Pages起動)。番人=usageCoverage/synonymFormat/iikaePossible/parity緑。**監視しない**。**次の一手＝ユーザー判断**(CI確認／用法breadth↑の増作＝backlog N4 518/N3 2051／翻訳en/neは新規UI対応済)。
 - **▶▶ 2026-08-25 ✅完了＝AIコーチUI 2件修正（UI・未コミット・未ビルド）**：①**相対的順位を星→得点分布ベルカーブに**（模試詳細結果と同じ図。`BellCurve`を`src/components/BellCurve.tsx`へ抽出しMockResultScreenと共用、AICoachの相対位置カードで予想得点をプロット。分野別は星→立ち位置バー`RankBar`=左下位/中央平均/右上位。新i18n`coach.rel_axis`をja/en/ne追加）。②**AIコーチをmodal→card**（App.tsx）＝中から開く成績表(MockResultDetail=card)がモーダル下に潜って見えない不具合を解消（ユーザー報告=得点タップで画面最下に出て見えない）。tsc0・parity/homeStatus緑。**次の一手＝ビルド指示待ち（UI変更ゆえOTA不可・ビルド必要）**。
 - **▶▶ 2026-08-25 ✅完了＝用法(usage)の語彙idカバー×バランスを記録＋番人化（未コミット・未ビルド）**：目標＝可能な限り語彙をカバー(breadth%→100%)。**記録**＝在庫Excel新シート`⑤ 用法カバー×バランス`(級別サマリ＋分野別カバー＋backlog、`tools/usage_coverage_report.py`で冪等再生成・`--set-baseline`で基準更新)。**番人**＝`src/data/usageCoverage.test.ts`(①測定可能=全item有効vocabId・級≤大問級/未収録stemは許容リスト ②1語彙id=1問・全大問通算重複禁止=問題数はカバー語彙id数と一致 ③カバー数ラチェット=後退禁止)・build.ps1のテスト列へ登録済。基準=`src/data/shared/usageCoverage.json`(covered N4 155/N3 94・許容リスト空)。※意味「分野(category)」は指標にしない(ユーザー指示で記録から削除)。※既存`tools/update_usage_coverage.py`/`update_synonym_coverage.py`は旧シート名`単語×大問カバー率`(統合で消滅)参照＝stale。
   - **✅2026-08-25 お蔵入り実行（ユーザー決定）**：N3大問の①vocabマスタ未収録40語(全てN1/N2=N3より上・dictExtは1級辛い旨は承知の上で級以下ルールに統一)②語彙id重複11語(N4∩N3・語の級=N4ゆえN4大問を残しN3側除外)を`没問題/用法_N3除外_2026-08-25/{unlinked_40,cross_dup_n3side_11}.json`へ退避(可逆)。**usage_N3 150→99・usage_N4 153不変＝残計252問＝カバー語彙id数と一致**(未紐づけ0/重複0)。manifest再生成・番人21/21緑。適用script=`scratchpad/usage_archive.py`。**未コミット・未ビルド**。
