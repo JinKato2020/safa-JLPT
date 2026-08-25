@@ -2613,6 +2613,1536 @@
     "type": "選択",
     "certainty": "clear"
    }
+  ],
+  "N4-V-Y-0224": [
+   {
+    "repl": "押（お）す",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "歩（ある）く",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "乗（の）る",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0225": [
+   {
+    "repl": "ずっと",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "だんだん",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ゆっくり",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0226": [
+   {
+    "repl": "住（す）む",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "過（す）ごす",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "育（そだ）つ",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0227": [
+   {
+    "repl": "気持（きも）ち",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "意味（いみ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "点（てん）",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0228": [
+   {
+    "repl": "やっと",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "もし",
+    "type": "呼応",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ぜひ",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0229": [
+   {
+    "repl": "教科書（きょうかしょ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "映画（えいが）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "新聞（しんぶん）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0230": [
+   {
+    "repl": "医者（いしゃ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "病院（びょういん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "薬（くすり）",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0231": [
+   {
+    "repl": "会（あ）う",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "お聞（き）きになる",
+    "type": "授受",
+    "certainty": "clear"
+   },
+   {
+    "repl": "話（はな）す",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0232": [
+   {
+    "repl": "泣（な）く",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "笑（わら）う",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "よろこぶ",
+    "type": "対義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0233": [
+   {
+    "repl": "練習（れんしゅう）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "勉強（べんきょう）",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "仕事（しごと）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0234": [
+   {
+    "repl": "たぶん",
+    "type": "呼応",
+    "certainty": "clear"
+   },
+   {
+    "repl": "もう",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "もっと",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0235": [
+   {
+    "repl": "復習（ふくしゅう）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "練習（れんしゅう）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "予約（よやく）",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0236": [
+   {
+    "repl": "同（おな）じ",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "特別（とくべつ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "区別（くべつ）",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0237": [
+   {
+    "repl": "たくさん",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "よく",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "すぐに",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0238": [
+   {
+    "repl": "よく",
+    "type": "呼応",
+    "certainty": "clear"
+   },
+   {
+    "repl": "たぶん",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "みんな",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0239": [
+   {
+    "repl": "はず",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "でしょう",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "予定（よてい）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0240": [
+   {
+    "repl": "外（そと）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "まちの 中心（ちゅうしん）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "田舎（いなか）",
+    "type": "近接",
+    "certainty": "borderline"
+   }
+  ],
+  "N4-V-Y-0241": [
+   {
+    "repl": "いい",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "おいしい",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "むり",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0242": [
+   {
+    "repl": "誕生日（たんじょうび）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "夏（なつ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "朝（あさ）",
+    "type": "別義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0243": [
+   {
+    "repl": "約束（やくそく）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "予定（よてい）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "まじめ",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0244": [
+   {
+    "repl": "はい",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ありがとう",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ううん",
+    "type": "対義",
+    "certainty": "borderline"
+   }
+  ],
+  "N4-V-Y-0245": [
+   {
+    "repl": "声（こえ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "意味（いみ）",
+    "type": "別義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "音（おと）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0246": [
+   {
+    "repl": "屋根（やね）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "地下（ちか）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "入口（いりぐち）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0247": [
+   {
+    "repl": "よごれ",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "プレゼント",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ほこり",
+    "type": "選択",
+    "certainty": "borderline"
+   }
+  ],
+  "N4-V-Y-0248": [
+   {
+    "repl": "線（せん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "番（ばん）",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "計画（けいかく）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0249": [
+   {
+    "repl": "とても",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ゆっくり",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "たくさん",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0250": [
+   {
+    "repl": "この前（まえ）",
+    "type": "別義",
+    "certainty": "borderline"
+   },
+   {
+    "repl": "ちょうど",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "まいあさ",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0251": [
+   {
+    "repl": "場所（ばしょ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "時間（じかん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "経験（けいけん）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0252": [
+   {
+    "repl": "じょうぶ",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "高（たか）い",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "まじめ",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0253": [
+   {
+    "repl": "お礼（れい）",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "おつり",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "給料（きゅうりょう）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0254": [
+   {
+    "repl": "けいさつ",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "医者（いしゃ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "店員（てんいん）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0255": [
+   {
+    "repl": "かみなり",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "地震（じしん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "雪（ゆき）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0256": [
+   {
+    "repl": "通（かよ）う",
+    "type": "別義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "渡（わた）る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "通（とお）す",
+    "type": "自他",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0257": [
+   {
+    "repl": "花（はな）",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "実（み）",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "紙（かみ）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0258": [
+   {
+    "repl": "十分（じゅうぶん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "大切（たいせつ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いらない",
+    "type": "対義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0259": [
+   {
+    "repl": "社長（しゃちょう）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "先生（せんせい）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "店員（てんいん）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0260": [
+   {
+    "repl": "台風（たいふう）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "かみなり",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "火事（かじ）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0261": [
+   {
+    "repl": "それから",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "しかし",
+    "type": "対義",
+    "certainty": "borderline"
+   },
+   {
+    "repl": "だから",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0262": [
+   {
+    "repl": "人数（にんずう）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "人（ひと）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "社員（しゃいん）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0263": [
+   {
+    "repl": "太陽（たいよう）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "星（ほし）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "電気（でんき）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0264": [
+   {
+    "repl": "小学校（しょうがっこう）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "大学（だいがく）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "会社（かいしゃ）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0265": [
+   {
+    "repl": "なさる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "くださる",
+    "type": "授受",
+    "certainty": "borderline"
+   },
+   {
+    "repl": "いらっしゃる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0266": [
+   {
+    "repl": "むすこ",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "子（こ）ども",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "人（ひと）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0267": [
+   {
+    "repl": "本当（ほんとう）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "秘密（ひみつ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "間違（まちが）い",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0268": [
+   {
+    "repl": "新聞（しんぶん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "教科書（きょうかしょ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "絵本（えほん）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0269": [
+   {
+    "repl": "子（こ）ども",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "兄弟（きょうだい）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "家族（かぞく）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0270": [
+   {
+    "repl": "しかし",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "だから",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "それから",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0271": [
+   {
+    "repl": "世界（せかい）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "料理（りょうり）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "外国（がいこく）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0272": [
+   {
+    "repl": "考（かんが）える",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "覚（おぼ）える",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "感（かん）じる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0273": [
+   {
+    "repl": "時間（じかん）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "季節（きせつ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "年（とし）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0274": [
+   {
+    "repl": "天気（てんき）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "空気（くうき）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "時間（じかん）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0275": [
+   {
+    "repl": "でも",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "それから",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "なぜなら",
+    "type": "呼応",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0276": [
+   {
+    "repl": "道（みち）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "地図（ちず）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "住所（じゅうしょ）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0277": [
+   {
+    "repl": "これから",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いつも",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "むかし",
+    "type": "対義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0278": [
+   {
+    "repl": "荷物（にもつ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "買（か）い物（もの）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "料理（りょうり）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0279": [
+   {
+    "repl": "使（つか）う",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "はく",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "飲（の）む",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0280": [
+   {
+    "repl": "相談（そうだん）する",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "話（はな）し合（あ）う",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "なかよくする",
+    "type": "対義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0281": [
+   {
+    "repl": "がっかりする",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "とる",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "がまんする",
+    "type": "近接",
+    "certainty": "borderline"
+   }
+  ],
+  "N4-V-Y-0282": [
+   {
+    "repl": "気分（きぶん）",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "声（こえ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "体（からだ）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0283": [
+   {
+    "repl": "空気（くうき）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "意味（いみ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "味（あじ）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0284": [
+   {
+    "repl": "太陽（たいよう）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "月（つき）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "電気（でんき）",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0285": [
+   {
+    "repl": "場所（ばしょ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "とき",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "わけ",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0286": [
+   {
+    "repl": "練習（れんしゅう）する",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "そうじする",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "決（き）める",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0287": [
+   {
+    "repl": "国（くに）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "時代（じだい）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "星（ほし）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0288": [
+   {
+    "repl": "家（いえ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "行（い）き方（かた）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "番号（ばんごう）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0289": [
+   {
+    "repl": "先月（せんげつ）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "来月（らいげつ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "毎月（まいつき）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0290": [
+   {
+    "repl": "山（やま）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "川（かわ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "森（もり）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0291": [
+   {
+    "repl": "半分（はんぶん）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "とても",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "数（かず）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0292": [
+   {
+    "repl": "道（みち）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "糸（いと）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "言葉（ことば）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0293": [
+   {
+    "repl": "けんか",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "試合（しあい）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "話（はな）し合（あ）い",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0294": [
+   {
+    "repl": "妻（つま）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "息子（むすこ）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "両親（りょうしん）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0295": [
+   {
+    "repl": "空（そら）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "きり",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "雨（あめ）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0296": [
+   {
+    "repl": "道（みち）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "橋（はし）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "山（やま）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0297": [
+   {
+    "repl": "店員（てんいん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "友（とも）だち",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "人（ひと）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0298": [
+   {
+    "repl": "今（いま）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "前（まえ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "しょうらい",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0299": [
+   {
+    "repl": "けんか",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "れんしゅう",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "テスト",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0300": [
+   {
+    "repl": "言葉（ことば）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "発音（はつおん）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "意味（いみ）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0301": [
+   {
+    "repl": "はじめ",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "終電（しゅうでん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "けっか",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0302": [
+   {
+    "repl": "まど",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ゆか",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "こくばん",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0303": [
+   {
+    "repl": "何度（なんど）も",
+    "type": "呼応",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いつか",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "一日（いちにち）じゅう",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0304": [
+   {
+    "repl": "おわび",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "あいさつ",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "おいわい",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0305": [
+   {
+    "repl": "しんせつ",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "元気（げんき）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "あつい",
+    "type": "別義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0306": [
+   {
+    "repl": "かぜ",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "せき",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "びょうき",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0307": [
+   {
+    "repl": "パーティー",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "運動会（うんどうかい）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "コンサート",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0308": [
+   {
+    "repl": "電気（でんき）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "水（みず）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ガス",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0309": [
+   {
+    "repl": "子（こ）ども",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "おとな",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "学生（がくせい）",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0310": [
+   {
+    "repl": "めずらしい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ふつう",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "大変（たいへん）",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0311": [
+   {
+    "repl": "本（ほん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "教科書（きょうかしょ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ノート",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0312": [
+   {
+    "repl": "祖父（そふ）",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "母（はは）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "おば",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0313": [
+   {
+    "repl": "時間（じかん）",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "住所（じゅうしょ）",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "せき",
+    "type": "選択",
+    "certainty": "clear"
+   }
   ]
  },
  "legacyAllowlist": [
