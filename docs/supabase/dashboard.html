@@ -237,7 +237,7 @@ function renderGeo(geo){
   simpleTbl($('tGeo'),
     [{label:'国'},{label:'登録',num:1},{label:'匿名(概算)',num:1},{label:'全体(概算)',num:1}],
     (geo||[]).slice(),
-    [ r=>`<b>${esc(r.country||'—')}</b>`, r=>`${r.registered ?? 0}人`, r=>`${r.anonymous_est ?? 0}人`, r=>`${r.total_installs ?? 0}人` ]
+    [ r=>`<b>${esc(countryLabel(r.country))}</b>`, r=>`${r.registered ?? 0}人`, r=>`${r.anonymous_est ?? 0}人`, r=>`${r.total_installs ?? 0}人` ]
   );
 }
 
@@ -353,6 +353,19 @@ const RD = '大問別 正解/母数（読解・聴解）';
 const LANG_JA = { ja:'日本語', en:'英語', ne:'ネパール語', vi:'ベトナム語', my:'ミャンマー語', id:'インドネシア語', ko:'韓国語', zh:'中国語', bn:'ベンガル語', th:'タイ語' };
 const langLabel = code => { const c=String(code||'').toLowerCase(); return LANG_JA[c] || code; };
 
+// 国コード(ISO alpha-2)→日本語名。IP由来の接続国を国名で表示。未知コードはそのまま。
+const COUNTRY_JA = {
+  JP:'日本', US:'アメリカ', NP:'ネパール', VN:'ベトナム', MM:'ミャンマー', ID:'インドネシア',
+  KR:'韓国', CN:'中国', BD:'バングラデシュ', TH:'タイ', TW:'台湾', HK:'香港', MO:'マカオ',
+  GB:'イギリス', IN:'インド', PH:'フィリピン', LK:'スリランカ', KH:'カンボジア', LA:'ラオス',
+  MY:'マレーシア', SG:'シンガポール', PK:'パキスタン', MN:'モンゴル', BT:'ブータン',
+  AU:'オーストラリア', NZ:'ニュージーランド', CA:'カナダ', BR:'ブラジル', MX:'メキシコ', AR:'アルゼンチン',
+  DE:'ドイツ', FR:'フランス', IT:'イタリア', ES:'スペイン', PT:'ポルトガル', NL:'オランダ',
+  SE:'スウェーデン', CH:'スイス', PL:'ポーランド', UA:'ウクライナ', RU:'ロシア', TR:'トルコ',
+  AE:'アラブ首長国連邦', SA:'サウジアラビア', KZ:'カザフスタン', UZ:'ウズベキスタン',
+  AF:'アフガニスタン', IR:'イラン', EG:'エジプト', ZA:'南アフリカ', NG:'ナイジェリア', KE:'ケニア' };
+const countryLabel = code => { const c=String(code||'').trim().toUpperCase(); return c ? (COUNTRY_JA[c] || code) : '—'; };
+
 // ── 課金の状態(状態列) ──
 // 2種類のProがある。①有料サブスク(1月/1年Pro)=RevenueCat Webhookで pro_store_until/pro_plan に同期。
 // ②期間つきPro(7日Pro)=お試し(trial_claimed_at)・紹介(pro_until)。どちらも「期間つき」なので1本にまとめ残日数を併記。
@@ -395,7 +408,7 @@ const COLS = [
     val:r=>proEnd(r), cell:r=>proCell(r) },
   { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
   { g:'プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
-  { g:'プロフィール', key:'geo_country',label:'国名', title:'接続国=IP由来のおおよその国(user_geo)。母語とは独立=英語話者でも日本にいれば JP。ログイン者のみ・匿名は—', val:r=>r.geo_country||'', cell:r=> esc(r.geo_country||'—') },
+  { g:'プロフィール', key:'geo_country',label:'国名', title:'接続国=IP由来のおおよその国(user_geo)。母語とは独立=英語話者でも日本にいれば「日本」。ログイン者のみ・匿名は—', val:r=>r.geo_country||'', cell:r=> esc(countryLabel(r.geo_country)) },
   { g:'プロフィール', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
   { g:'プロフィール', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
   { g:'プロフィール', key:'strong',      label:'得意', title:'いちばん正答率が高い区分（漢字／語彙／文法／読解／聴解の5区分）', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },
