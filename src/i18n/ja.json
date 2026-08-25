@@ -862,6 +862,7 @@
   "coach.sec_sub": "予想 {score} / {max}点（基準点 {min}点 ＝ ｜印）",
   "coach.hero_note": "💡 予想得点＝取れそうな点。1科目でも基準点（各科目の最低ライン）を割ると不合格です。赤い科目を最優先で。",
   "coach.rel_title": "本番受験者の中での位置",
+  "coach.rel_axis": "← 平均より下　　平均　　平均より上 →",
   "coach.rel_examinees": "本番受験者の中で",
   "coach.rel_topline": "上位 約{n}%",
   "coach.rel_relative": "相当",

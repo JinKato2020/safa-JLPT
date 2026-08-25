@@ -1,17 +1,26 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 8 回・25 ターン
-- 往復 208 回
+- ツール呼び出し 40 回・82 ターン
+- 往復 258 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/言い換え増作2-inflight.md
-- src/data/shared/iikaePossible.json
-- scratchpad/syn_rework_n3/demote_preview.json
-- scratchpad/syn_rework_n3/dropped_ids.json
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
+- src/screens/AICoachScreen.tsx
+
+## ⚠️ 注意
+- - ⚠ 連続 82ターン（文脈 27万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 82ターン・ツール40回）— まとめ方を変える
 
 ## 次の一手
+- **▶▶ 2026-08-25 ✅完了＝AIコーチUI 2件修正（UI・未コミット・未ビルド）**：①**相対的順位を星→得点分布ベルカーブに**（模試詳細結果と同じ図。`BellCurve`を`src/components/BellCurve.tsx`へ抽出しMockResultScreenと共用、AICoachの相対位置カードで予想得点をプロット。分野別は星→立ち位置バー`RankBar`=左下位/中央平均/右上位。新i18n`coach.rel_axis`をja/en/ne追加）。②**AIコーチをmodal→card**（App.tsx）＝中から開く成績表(MockResultDetail=card)がモーダル下に潜って見えない不具合を解消（ユーザー報告=得点タップで画面最下に出て見えない）。tsc0・parity/homeStatus緑。**次の一手＝ビルド指示待ち（UI変更ゆえOTA不可・ビルド必要）**。
+- **▶▶ 2026-08-25 ✅完了＝用法(usage)の語彙idカバー×バランスを記録＋番人化（未コミット・未ビルド）**：目標＝可能な限り語彙をカバー(breadth%→100%)。**記録**＝在庫Excel新シート`⑤ 用法カバー×バランス`(級別サマリ＋分野別カバー＋backlog、`tools/usage_coverage_report.py`で冪等再生成・`--set-baseline`で基準更新)。**番人**＝`src/data/usageCoverage.test.ts`(①測定可能=全item有効vocabId・級≤大問級/未収録stemは許容リスト ②1語彙id=1問・全大問通算重複禁止=問題数はカバー語彙id数と一致 ③カバー数ラチェット=後退禁止)・build.ps1のテスト列へ登録済。基準=`src/data/shared/usageCoverage.json`(covered N4 155/N3 94・許容リスト空)。※意味「分野(category)」は指標にしない(ユーザー指示で記録から削除)。※既存`tools/update_usage_coverage.py`/`update_synonym_coverage.py`は旧シート名`単語×大問カバー率`(統合で消滅)参照＝stale。
+  - **✅2026-08-25 お蔵入り実行（ユーザー決定）**：N3大問の①vocabマスタ未収録40語(全てN1/N2=N3より上・dictExtは1級辛い旨は承知の上で級以下ルールに統一)②語彙id重複11語(N4∩N3・語の級=N4ゆえN4大問を残しN3側除外)を`没問題/用法_N3除外_2026-08-25/{unlinked_40,cross_dup_n3side_11}.json`へ退避(可逆)。**usage_N3 150→99・usage_N4 153不変＝残計252問＝カバー語彙id数と一致**(未紐づけ0/重複0)。manifest再生成・番人21/21緑。適用script=`scratchpad/usage_archive.py`。**未コミット・未ビルド**。
+  - **現状値**＝N4 breadth 155/673=23%(backlog 518)・N3 94/2145=4%(backlog 2051)。**次の一手＝ユーザー判断**(a)未カバー語を増作してbreadth↑(b)コミット/ビルド方針。
+- **▶▶ 2026-08-25 🚀ビルド起動＝v1.1.13(2847) iOS/Android both dispatch（commit `4f8e497f`・run `32805099634`・-NoWatch・iOS本日1/8）**：全セッションの**言い換え類義を実機へ**同梱。N5 231/N4 406問を級以下確定＋N3の上級混入を差替/除外(誤答376差替・正解上級fix89/drop98)＋真の母数を級内天井に統一(iikaePossible)＋sentenceFuri再生成。テスト67/0(skip5)・tsc0・manifest再生成・push(OTA/Pages起動)済。番人=synonymFormat/daimon4choices/rehydrate/manifest/validate/iikaePossible緑。**監視しない**(運用方針)。※根の納品Excel(`言い換え類義_*.xlsx`)は.gitignore拡張で公開repoから除外。**次の一手＝ユーザー判断**(CI結果確認／翻訳en/neは未付与・後日有料／N3判定不能209とcorrect_adv残の扱いは既済で追加不要)。
 - **▶▶ 2026-08-25 LIVE＝言い換え類義 級以下（正解・誤答が級語彙で解けるか）／ユーザーは/clear後に対応予定。正本=`memory/言い換え増作2-inflight.md`**：
   - **N5＝231問／N4＝406問で級内確定**（content出荷分も修正・番人全緑・未コミット未OTA）。真の母数の定義を「級内で作れる語＝天井」に統一→iikaePossibleで covered→p=1・上級語のみの語→p=0(above_only可逆)・counts更新。真カバー率 N5/N4=100%。カバー率シート②とconfirmed Excel(`言い換え類義_N{4,5}_級内確定_{406,231}問.xlsx`)更新済。
   - **N3＝機械監査完了（未処置）**：語レベルなので2辞書(vocab.json=≤N3／dictExt=N1/N2)で機械判定可。1653問中 ①正解が上級=184 ②誤答だけ上級=372（計556=34%上級混入）③判定不能209 ④クリーン888。**次の一手＝184 or 556をどう直す/除くかユーザー指示待ち**（N5/N4と同じ対象語差替→無理なら除外フロー）。判定法・数値は inflight に詳細。

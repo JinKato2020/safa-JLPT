@@ -1364,6 +1364,7 @@
   "mock.judge_pass": "उत्तीर्ण",
   "mock.judge_fail": "अनुत्तीर्ण",
   "coach.rel_title": "वास्तविक परीक्षार्थीहरूमाझ तपाईंको स्थान",
+  "coach.rel_axis": "← औसतभन्दा तल    औसत    औसतभन्दा माथि →",
   "coach.rel_examinees": "वास्तविक परीक्षार्थीहरूमाझ",
   "coach.rel_topline": "शीर्ष ~{n}%",
   "coach.rel_relative": "बराबर",

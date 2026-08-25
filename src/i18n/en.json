@@ -1364,6 +1364,7 @@
   "mock.judge_pass": "Pass",
   "mock.judge_fail": "Fail",
   "coach.rel_title": "Your standing among real test-takers",
+  "coach.rel_axis": "← below average    average    above average →",
   "coach.rel_examinees": "Among real test-takers",
   "coach.rel_topline": "Top ~{n}%",
   "coach.rel_relative": "equivalent",

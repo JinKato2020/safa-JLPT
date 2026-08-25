@@ -381,7 +381,9 @@ function Root() {
             {/* My単語帳は辞書タブ内(DictStack)へ移設=タブ内画面。ボトムナビを消さない(ユーザー要望2026-07-27)。 */}
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
-            <RootStack.Screen name="AICoach" component={AICoachScreen} options={{ presentation: 'modal' }} />
+            {/* AIコーチは全画面切替(card)。modalだと中から開く成績表(MockResultDetail=card)が
+                モーダルの下に潜って見えないため(ユーザー報告2026-08-25)。学習系と同じ card に統一。 */}
+            <RootStack.Screen name="AICoach" component={AICoachScreen} options={{ presentation: 'card' }} />
             <RootStack.Screen name="QuestionReview" component={QuestionReviewScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Paywall" component={PaywallScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />

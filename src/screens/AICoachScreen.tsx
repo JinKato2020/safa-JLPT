@@ -2,7 +2,7 @@
 // 弱点・ゴールまでの見通し・継続/学習量 を1画面に集約。癒し(桜)とは分け、淡々とした分析専用画面。
 //  ・データは homeStatus / growthStats の実データ。数値ロジックには触れない(表示のみ)。
 import { useMemo } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Image, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -18,10 +18,11 @@ import { dayStr, lastNDays, type MockResult } from '../store/state';
 import type { Level } from '../engine/engine';
 import { expectedScoreFor, coverageBars } from '../store/selectors';
 import { relativePositionFor, isOfficialLevel } from '../ladder/relativePosition';
-import { OFFICIAL_TOTAL_STAT, OFFICIAL_PASS_RATE, OFFICIAL_BASE_LABEL } from '../data/officialStats';
+import { OFFICIAL_TOTAL_STAT, OFFICIAL_PASS_RATE, OFFICIAL_BASE_LABEL, type OfficialLevel } from '../data/officialStats';
 import { dueCount } from '../review/selectReview';
 import { avatarOf } from '../plaza/avatars';
 import RingGauge from '../components/RingGauge';
+import { BellCurve } from '../components/BellCurve';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -31,6 +32,8 @@ export default function AICoachScreen() {
   const nav = useNavigation<Nav>();
   const state = useAppState();
   const s = useMemo(() => makeStyles(c), [c]);
+  const { width: winW } = useWindowDimensions();
+  const chartW = winW - spacing.lg * 2 - spacing.md * 2; // 画面(body:lg)＋カード(md)のパディング分
 
   const d = useMemo(() => {
     const now = Date.now();
@@ -202,31 +205,36 @@ export default function AICoachScreen() {
           </View>
         </View>
 
-        {/* ①' 本番受験者の中での位置(相対位置)。予想得点を公式の受験者データと比較。 */}
-        {d.rel && (d.rel.total || d.rel.sections.length > 0) && (
+        {/* ①' 本番受験者の中での位置。星ではなく「得点分布ベルカーブ」にあなたを重ねて直感的に示す
+              (模試詳細結果と同じ図・ユーザー要望2026-08-25=星/上位%は分かりにくい)。 */}
+        {d.rel && d.official && (d.rel.total || d.rel.sections.length > 0) && (
           <View style={s.card}>
             <SecLabel c={c} s={s} text={t('coach.rel_title')} />
             {d.rel.total && (
-              <View style={s.relHero}>
-                <View style={{ flex: 1 }}>
-                  <Text style={s.relHeroCap}>{t('coach.rel_examinees')}</Text>
-                  <Text style={s.relHeroTop}>{t('coach.rel_topline', { n: Math.round(d.rel.total.top) })}<Text style={s.relHeroRel}> {t('coach.rel_relative')}</Text></Text>
-                </View>
-                <Stars n={d.rel.total.stars} c={c} size={19} />
+              <View style={s.relChart}>
+                <BellCurve
+                  level={state.settings.level as OfficialLevel}
+                  score={st.predScore}
+                  passTotal={st.passTotal}
+                  width={chartW}
+                  c={c}
+                  youLabel={t('mockres.you')}
+                  passLabel={t('mockres.passline')}
+                />
               </View>
             )}
-            <View style={s.relList}>
-              {d.rel.sections.map((sec) => (
-                <View key={sec.key} style={s.relRow}>
-                  <Text style={s.relLabel}>{t(sec.key === 'gengo' && d.relGengoCombined ? 'mock.block_gengo_dokkai' : 'mock.block_' + sec.key)}</Text>
-                  <Stars n={sec.stars} c={c} size={13} />
-                  <Text style={s.relTop}>{t('coach.rel_topline', { n: Math.round(sec.top) })}</Text>
-                </View>
-              ))}
-            </View>
-            {d.official && (
-              <Text style={s.relRef}>{t('coach.rel_ref', { label: d.official.base, mean: Math.round(d.official.mean), rate: d.official.passRate })}</Text>
+            {d.rel.sections.length > 0 && (
+              <View style={s.relList}>
+                <Text style={s.relAxis}>{t('coach.rel_axis')}</Text>
+                {d.rel.sections.map((sec) => (
+                  <View key={sec.key} style={s.relRow}>
+                    <Text style={s.relLabel}>{t(sec.key === 'gengo' && d.relGengoCombined ? 'mock.block_gengo_dokkai' : 'mock.block_' + sec.key)}</Text>
+                    <RankBar top={sec.top} c={c} />
+                  </View>
+                ))}
+              </View>
             )}
+            <Text style={s.relRef}>{t('coach.rel_ref', { label: d.official.base, mean: Math.round(d.official.mean), rate: d.official.passRate })}</Text>
             <Text style={s.diff}>{t('coach.rel_note')}</Text>
           </View>
         )}
@@ -373,12 +381,17 @@ function SecLabel({ c, s, text }: { c: ThemeColors; s: Styles; text: string }) {
   );
 }
 
-function Stars({ n, c, size }: { n: number; c: ThemeColors; size: number }) {
+// 分野別の相対位置バー。左=下位・中央=平均・右=上位。あなたの立ち位置(上位top%→100-top)に点を置く。
+// 星や「上位85%」の数字より直感的(ユーザー要望2026-08-25)。
+function RankBar({ top, c }: { top: number; c: ThemeColors }) {
+  const pos = Math.max(3, Math.min(97, 100 - top)); // 0=下位 … 100=上位
+  const good = pos >= 50;
   return (
-    <View style={{ flexDirection: 'row', gap: 1 }}>
-      {[1, 2, 3, 4, 5].map((i) => (
-        <Ionicons key={i} name={i <= n ? 'star' : 'star-outline'} size={size} color={i <= n ? c.amber : c.faint} />
-      ))}
+    <View style={{ flex: 1, height: 10, borderRadius: 10, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, position: 'relative', justifyContent: 'center' }}>
+      {/* 平均(中央の目盛り) */}
+      <View style={{ position: 'absolute', left: '50%', top: -2, bottom: -2, width: 1, backgroundColor: c.faint }} />
+      {/* あなた */}
+      <View style={{ position: 'absolute', left: `${pos}%`, marginLeft: -6, width: 12, height: 12, borderRadius: 6, backgroundColor: good ? c.green : c.amber, borderWidth: 2, borderColor: c.surface }} />
     </View>
   );
 }
@@ -504,15 +517,12 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   scoreMk: { position: 'absolute', top: -3, bottom: -3, width: 2, backgroundColor: c.ink2 },
   scoreSub: { fontSize: 10.5, color: c.faint, fontWeight: '600' },
   scoreSubEm: { fontSize: 12, color: c.ink, fontWeight: '900' },
-  // 本番受験者の中での位置(相対位置)
-  relHero: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 10, paddingHorizontal: 12, marginBottom: spacing.sm },
-  relHeroCap: { fontSize: 10.5, color: c.ink2, fontWeight: '700' },
-  relHeroTop: { fontSize: 24, fontWeight: '900', color: c.ink, marginTop: 1, fontVariant: ['tabular-nums'] },
-  relHeroRel: { fontSize: 13, fontWeight: '700', color: c.faint },
-  relList: { gap: spacing.xs },
+  // 本番受験者の中での位置(相対位置)=得点分布ベルカーブ＋分野別の立ち位置バー
+  relChart: { alignItems: 'center', marginBottom: spacing.sm },
+  relAxis: { fontSize: 9.5, color: c.faint, fontWeight: '700', textAlign: 'center', marginBottom: 4 },
+  relList: { gap: spacing.sm },
   relRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   relLabel: { width: 72, fontSize: 12, color: c.ink2, fontWeight: '700' },
-  relTop: { flex: 1, textAlign: 'right', fontSize: 12, color: c.ink, fontWeight: '800', fontVariant: ['tabular-nums'] },
   relRef: { fontSize: 10.5, color: c.faint, fontWeight: '600', marginTop: spacing.sm, lineHeight: 15 },
   // 模試の記録カード
   mockHero: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
