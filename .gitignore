@@ -68,4 +68,4 @@ data-build/shots/raw/
 data-build/shots/raw_en/
 
 # 言い換え類義の納品ドラフト(未マージ・QA用・公開repoに入れない)
-/言い換え類義_新規問題_*.xlsx
+/言い換え類義_*.xlsx

@@ -2,7 +2,7 @@
   "expo": {
     "name": "まいにちJLPT",
     "slug": "safa-jlpt",
-    "version": "1.1.12",
+    "version": "1.1.13",
     "orientation": "portrait",
     "scheme": "safajlpt",
     "userInterfaceStyle": "automatic",

@@ -89,8 +89,10 @@ test('出題数: N5が作り直し後の規模で出題される(edb076fで直�
 test('出題数: N4=285/N3=1099 (2026-08-23 未カバー語へ新規作問で増作)', () => {
   // 実測値(2026-07-17): N5=93 / N4=185 / N3=1000。2026-08-23 に言い換え可能な未カバー語へ
   // 新規作問(N4+100 / N3+99)して増作。N5(文レベル)は別途・現状148。
-  assert.equal(daimonUnitIds('N4', 'synonym', 'all').length, 285);
-  assert.equal(daimonUnitIds('N3', 'synonym', 'all').length, 1099);
+  // 2026-08-25 級以下監査で上級語問題60問を除外(285→225)。
+  // 2026-08-25 N3も級以下監査: 誤答のみ上級376問を級内差替、正解が上級の187問をfix89/drop98(content42ドロップ)→1099→1057。
+  assert.equal(daimonUnitIds('N4', 'synonym', 'all').length, 225);
+  assert.equal(daimonUnitIds('N3', 'synonym', 'all').length, 1057);
 });
 
 test('語レベル(stem無=N3のみ)は「意味がいちばん近い語」を問い、下線が引かれる', () => {

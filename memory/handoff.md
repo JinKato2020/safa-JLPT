@@ -2,6 +2,17 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+- **▶▶ 2026-08-25 LIVE＝言い換え類義 級以下（正解・誤答が級語彙で解けるか）／ユーザーは/clear後に対応予定。正本=`memory/言い換え増作2-inflight.md`**：
+  - **N5＝231問／N4＝406問で級内確定**（content出荷分も修正・番人全緑・未コミット未OTA）。真の母数の定義を「級内で作れる語＝天井」に統一→iikaePossibleで covered→p=1・上級語のみの語→p=0(above_only可逆)・counts更新。真カバー率 N5/N4=100%。カバー率シート②とconfirmed Excel(`言い換え類義_N{4,5}_級内確定_{406,231}問.xlsx`)更新済。
+  - **N3＝機械監査完了（未処置）**：語レベルなので2辞書(vocab.json=≤N3／dictExt=N1/N2)で機械判定可。1653問中 ①正解が上級=184 ②誤答だけ上級=372（計556=34%上級混入）③判定不能209 ④クリーン888。**次の一手＝184 or 556をどう直す/除くかユーザー指示待ち**（N5/N4と同じ対象語差替→無理なら除外フロー）。判定法・数値は inflight に詳細。
+  - N3のQA訂正21件＋青セル除外は反映済（final_N3=554）。**未コミット・未OTA**。
+
+- **▶▶ 2026-08-25 ✅完了＝言い換え類義N5「正解は級以下」監査＋級内化（content出荷分も修正・ユーザー厳命「公式に倣う」）**：一次情報[md/04_言い換え類義.md]で公式は正解・誤答を級内に収めると確認。Opus監査→N5 381問中「正解が上級語で解けない」140＋「誤答のみ上級」38を検出。Opus4体で級内に作り直し（fix58/drop120）。**content synonym_N5 245→155・EXCEL final_N5 136→106＝N5確定261問**。整形段（pattern正規化/sentenceFuri再生成/下線語復元）処理・rebuild済・**番人33/33緑**。真カバー率 N5 76→**55%**（76%は上級語を分子に誤算入した過大値＝これが正直値）。確定Excel=`言い換え類義_N5_級内確定_261問.xlsx`。**contentは出荷済へ手入れ＝未コミット・未OTA**（publish-content・指示待ち）。正本=`memory/言い換え増作2-inflight.md`。**残＝N4/N3も同監査（規模N4≈500/N3≈1900・着手前に確認）**。
+
+- **▶▶ 2026-08-24 ✅完了＝言い換え類義 未カバー全556語を増作（EXCEL納品）**：正本=`memory/言い換え増作2-inflight.md`。Opus12体で**352問採用（N5 36／N4 44／N3 272）**・204語は一意作問不可でskip。ID N5-V-I-0346〜0381/N4-0445〜0488/N3-1400〜1671。final_{N5,N4,N3}.jsonへappend済。**納品Excel=`言い換え類義_増作2_N5-36_N4-44_N3-272.xlsx`**（検品中Excelはロックゆえ別ファイル）。**真カバー率 N5 85%/N4 95%/N3 92%**。★岩(n3-v-424)修正=final_N3反映済（検品Excelはロックで未反映）。**残（ユーザー判断）**＝カバー率シート合算/contentマージ/コミット方針。反証チェック無し（ユーザー厳命）。
+
+- **▶▶ 2026-08-24 🚀ビルド起動 v1.1.12(2846) iOS/Android both dispatch（commit `c3bea06f`・run 32732681402・-NoWatch・iOS本日1/8）**：**漢字読み/表記の出題級を漢字級(testLevel=MAX(語彙級,全漢字級))へ再レベル**同梱＝`src/data/daimon.ts` eligibleItems(vocabKanjiClass結線)→daimonUnitIds→selectors(カバー率/予想得点/リング)へ全伝播。公式で裏取り済(公式N4は声/顔を出題・N3は製造/手術=漢字読みは漢字の難易度で級が決まる。[[kanji-read-write-leveled-by-kanji]] [[verify-design-against-official-jlpt]])。範囲外(常用外)のかな語は対象外=単語のみ。級別問題数=漢字読みN5 146/N4 331/N3 1944・表記N5 210/N4 332/N3 1944(表記はカタカナ語含む・範囲外519問除外)。既コミット`03a63b96`(漢字/語彙増作＋Excel統合11→5)も同梱。テスト67/0・tsc0・OTA/Pages起動。**監視しない**。在庫Excel更新済(①漢字読み/表記の在庫問題数・模試換算②漢字読み/表記は例外カウント=問題数のみ・母数系空欄)。md/01_漢字読み.md・02_表記.mdに「出題級の定義」節追加。**残(未着手)**：(a)言い換え559をcontentへマージ(整形パイプライン要・番人N4 285→444/N3 1099→1399)(b)★言い換えN3 300問=ユーザー検品中／未作問の語彙はN5から作問(ユーザー依頼・2026-08-24)(c)書斎ドリル「単語(ふりがな)→意味」「漢字→読み」新設。
+
 - **▶▶ 2026-08-24 LIVE(最新)＝この会話の確定事項と残**：①**コミット済`03a63b96`**(漢字読み/表記 真増作＋漢字/かな分類＋束縛/青セル除外＋在庫Excel統合11→5シート・tsc0/419緑)。②**在庫Excel統合済**(memory/在庫・模試ストックまとめ.xlsx=目次/在庫模試換算/カバー率/品質攻略耐性/習得の仕組み)。③**漢字読み/表記を漢字級で再レベル(未コミット・未ビルド)**＝`src/data/daimon.ts` eligibleItemsをtestLevel=MAX(語彙級,全漢字級)判定へ(vocabKanjiClass結線)。**公式で裏取り済**：公式N4漢字読みは声/顔を出しN5では出さない・N3は製造/手術=漢字読みは漢字級で決まる([[verify-design-against-official-jlpt]])。ただし漢字級リストは旧JLPT基準で約1級辛い(空=N4だが公式N5)→ユーザー決定=現状ベストゆえMAXで進める・例外少数許容。tsc0/419緑・級別カウント N5 kr146/og210・N4 331/332・N3 1944/1944(≒真の母数148/333/1949)。**残**：(a)言い換え559をcontentへマージ(整形パイプライン要・番人N4 285→444/N3 1099→1399)(b)書斎ドリル「単語(ふりがな)→意味」新設(意味系・妥当)(c)ドリル「漢字→読み」(d)コミット/ビルド方針。
 
 - **▶▶ 2026-08-24 LIVE＝この会話の成果と残タスク【/clear後の再開点・最優先】**: 正本＝`memory/言い換え増作-EXCEL納品-inflight.md`。反証チェック不要（ユーザー厳命）＝機械/生成品質。**すべて未コミット・未ビルド（指示待ち）**。
@@ -155,21 +166,21 @@
 <!-- AUTO:BEGIN -->
 
 ## 走行中の run（自動・完了通知が来ていないもの）
-- a0f90a27b7783f6f2 general-purpose
-- a4df5ab3f91b7baa3 general-purpose
-- a8531eca2414c47f4 general-purpose
-- ad16efc1e37ff6a12 general-purpose
-- a330e4096c23a9716 general-purpose
+- a76f3ecff1175a725 general-purpose
+- a64bf3402048b0567 general-purpose
+- a1d3e3f9a0186f063 general-purpose
+- ac14537004250b800 general-purpose
+- a6a24cb139f9f5d0b general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/言い換え増作2-inflight.md
+- src/data/shared/iikaePossible.json
+- scratchpad/syn_rework_n3/demote_preview.json
+- scratchpad/syn_rework_n3/dropped_ids.json
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/data/daimon.ts
-- memory/在庫・模試ストックまとめ.xlsx
 - memory/在庫問題数.txt
-- memory/n5漢字読み表記増作-inflight.md
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
+- src/data/synonymFormat.test.ts
 
-_自動更新: 2026-08-24 22:16_
+_自動更新: 2026-08-25 10:41_
 <!-- AUTO:END -->
