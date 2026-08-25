@@ -1,0 +1,2712 @@
+{
+ "note": "用法ダミーの殺し方タグ。番人=src/data/usageDistractor.test.ts。P1=1問内で repl(置換語)ユニーク。P2=殺し方type分散(全同型はmonoTypeAllowのみ許容)。type∈コロケ/別義/呼応/対義/授受/自他/近接/選択。replは確認用Excel由来。",
+ "monoTypeAllow": [
+  "N4-V-Y-0008",
+  "N4-V-Y-0009",
+  "N4-V-Y-0010",
+  "N4-V-Y-0021",
+  "N4-V-Y-0029",
+  "N4-V-Y-0033",
+  "N4-V-Y-0034",
+  "N4-V-Y-0049",
+  "N4-V-Y-0051",
+  "N4-V-Y-0055",
+  "N4-V-Y-0057",
+  "N4-V-Y-0070",
+  "N4-V-Y-0071",
+  "N4-V-Y-0077",
+  "N4-V-Y-0078",
+  "N4-V-Y-0113",
+  "N4-V-Y-0123",
+  "N4-V-Y-0126",
+  "N4-V-Y-0135",
+  "N4-V-Y-0144",
+  "N4-V-Y-0147",
+  "N4-V-Y-0210",
+  "N4-V-Y-0217"
+ ],
+ "knownDupRepl": [],
+ "tags": {
+  "N4-V-Y-0174": [
+   {
+    "repl": "鳴らした",
+    "type": "自他"
+   },
+   {
+    "repl": "鳴いた",
+    "type": "別義"
+   },
+   {
+    "repl": "消えた",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0175": [
+   {
+    "repl": "沸かした",
+    "type": "自他"
+   },
+   {
+    "repl": "あたためた",
+    "type": "近接"
+   },
+   {
+    "repl": "いれた",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0176": [
+   {
+    "repl": "止めた",
+    "type": "自他"
+   },
+   {
+    "repl": "やめた",
+    "type": "近接"
+   },
+   {
+    "repl": "止まった",
+    "type": "別義"
+   }
+  ],
+  "N4-V-Y-0177": [
+   {
+    "repl": "進めた",
+    "type": "自他"
+   },
+   {
+    "repl": "上がった",
+    "type": "近接"
+   },
+   {
+    "repl": "開いた",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0178": [
+   {
+    "repl": "動かした",
+    "type": "自他"
+   },
+   {
+    "repl": "働いた",
+    "type": "選択"
+   },
+   {
+    "repl": "行った",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0179": [
+   {
+    "repl": "遅らせた",
+    "type": "自他"
+   },
+   {
+    "repl": "間に合った",
+    "type": "対義"
+   },
+   {
+    "repl": "遅い",
+    "type": "別義"
+   }
+  ],
+  "N4-V-Y-0180": [
+   {
+    "repl": "移した",
+    "type": "自他"
+   },
+   {
+    "repl": "変わった",
+    "type": "選択"
+   },
+   {
+    "repl": "運んだ",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0181": [
+   {
+    "repl": "落とした",
+    "type": "自他"
+   },
+   {
+    "repl": "取った",
+    "type": "コロケ"
+   },
+   {
+    "repl": "倒れた",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0182": [
+   {
+    "repl": "落ちた",
+    "type": "自他"
+   },
+   {
+    "repl": "おろした",
+    "type": "近接"
+   },
+   {
+    "repl": "こぼした",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0183": [
+   {
+    "repl": "止まった",
+    "type": "自他"
+   },
+   {
+    "repl": "やめた",
+    "type": "近接"
+   },
+   {
+    "repl": "閉めた",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0184": [
+   {
+    "repl": "始まった",
+    "type": "自他"
+   },
+   {
+    "repl": "つけた",
+    "type": "選択"
+   },
+   {
+    "repl": "している",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0185": [
+   {
+    "repl": "捕まって",
+    "type": "自他"
+   },
+   {
+    "repl": "見つけた",
+    "type": "近接"
+   },
+   {
+    "repl": "つかんだ",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0186": [
+   {
+    "repl": "借りた",
+    "type": "別義"
+   },
+   {
+    "repl": "とどけた",
+    "type": "選択"
+   },
+   {
+    "repl": "持って",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0187": [
+   {
+    "repl": "飲んだ",
+    "type": "選択"
+   },
+   {
+    "repl": "切って",
+    "type": "近接"
+   },
+   {
+    "repl": "なめて",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0188": [
+   {
+    "repl": "着た",
+    "type": "選択"
+   },
+   {
+    "repl": "ほして",
+    "type": "コロケ"
+   },
+   {
+    "repl": "ならべた",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0189": [
+   {
+    "repl": "すてた",
+    "type": "近接"
+   },
+   {
+    "repl": "入れた",
+    "type": "近接"
+   },
+   {
+    "repl": "かけた",
+    "type": "コロケ"
+   }
+  ],
+  "N4-V-Y-0190": [
+   {
+    "repl": "へらした",
+    "type": "自他"
+   },
+   {
+    "repl": "太った",
+    "type": "対義"
+   },
+   {
+    "repl": "入らない",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0191": [
+   {
+    "repl": "照らした",
+    "type": "近接"
+   },
+   {
+    "repl": "光",
+    "type": "別義"
+   },
+   {
+    "repl": "燃えて",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0192": [
+   {
+    "repl": "笑った",
+    "type": "対義"
+   },
+   {
+    "repl": "怒った",
+    "type": "近接"
+   },
+   {
+    "repl": "呼んだ",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0193": [
+   {
+    "repl": "通って",
+    "type": "別義"
+   },
+   {
+    "repl": "行った",
+    "type": "近接"
+   },
+   {
+    "repl": "通った",
+    "type": "別義"
+   }
+  ],
+  "N4-V-Y-0194": [
+   {
+    "repl": "喜んだ",
+    "type": "近接"
+   },
+   {
+    "repl": "楽しみにして",
+    "type": "コロケ"
+   },
+   {
+    "repl": "笑った",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0195": [
+   {
+    "repl": "遊んだ",
+    "type": "選択"
+   },
+   {
+    "repl": "笑った",
+    "type": "近接"
+   },
+   {
+    "repl": "楽しんだ",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0196": [
+   {
+    "repl": "移った",
+    "type": "近接"
+   },
+   {
+    "repl": "運んだ",
+    "type": "選択"
+   },
+   {
+    "repl": "出かけた",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0197": [
+   {
+    "repl": "ふいた",
+    "type": "選択"
+   },
+   {
+    "repl": "直した",
+    "type": "選択"
+   },
+   {
+    "repl": "すてた",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0198": [
+   {
+    "repl": "引く",
+    "type": "対義"
+   },
+   {
+    "repl": "出して",
+    "type": "近接"
+   },
+   {
+    "repl": "ふやした",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0199": [
+   {
+    "repl": "礼を言った",
+    "type": "選択"
+   },
+   {
+    "repl": "ことわった",
+    "type": "選択"
+   },
+   {
+    "repl": "約束した",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0200": [
+   {
+    "repl": "急いだ",
+    "type": "選択"
+   },
+   {
+    "repl": "話した",
+    "type": "コロケ"
+   },
+   {
+    "repl": "怒った",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0201": [
+   {
+    "repl": "似合って",
+    "type": "近接"
+   },
+   {
+    "repl": "合って",
+    "type": "近接"
+   },
+   {
+    "repl": "ちがって",
+    "type": "対義"
+   }
+  ],
+  "N4-V-Y-0202": [
+   {
+    "repl": "教えた",
+    "type": "選択"
+   },
+   {
+    "repl": "助けた",
+    "type": "選択"
+   },
+   {
+    "repl": "働いて",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0203": [
+   {
+    "repl": "喜んだ",
+    "type": "近接"
+   },
+   {
+    "repl": "泣いた",
+    "type": "対義"
+   },
+   {
+    "repl": "読んだ",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0204": [
+   {
+    "repl": "痩せた",
+    "type": "対義"
+   },
+   {
+    "repl": "のびた",
+    "type": "近接"
+   },
+   {
+    "repl": "入って",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0205": [
+   {
+    "repl": "言っていた",
+    "type": "選択"
+   },
+   {
+    "repl": "覚えた",
+    "type": "コロケ"
+   },
+   {
+    "repl": "知った",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0206": [
+   {
+    "repl": "向いた",
+    "type": "別義"
+   },
+   {
+    "repl": "着いた",
+    "type": "近接"
+   },
+   {
+    "repl": "曲がって",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0207": [
+   {
+    "repl": "変えた",
+    "type": "近接"
+   },
+   {
+    "repl": "直した",
+    "type": "選択"
+   },
+   {
+    "repl": "返した",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0208": [
+   {
+    "repl": "走った",
+    "type": "近接"
+   },
+   {
+    "repl": "する",
+    "type": "コロケ"
+   },
+   {
+    "repl": "止めて",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0209": [
+   {
+    "repl": "たのんだ",
+    "type": "選択"
+   },
+   {
+    "repl": "お礼を言った",
+    "type": "選択"
+   },
+   {
+    "repl": "おねがいした",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0210": [
+   {
+    "repl": "読む",
+    "type": "選択"
+   },
+   {
+    "repl": "動く",
+    "type": "選択"
+   },
+   {
+    "repl": "開けないで",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0211": [
+   {
+    "repl": "聞こえる",
+    "type": "別義"
+   },
+   {
+    "repl": "聞いた",
+    "type": "近接"
+   },
+   {
+    "repl": "見えた",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0212": [
+   {
+    "repl": "見た",
+    "type": "別義"
+   },
+   {
+    "repl": "聞こえて",
+    "type": "選択"
+   },
+   {
+    "repl": "わからない",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0213": [
+   {
+    "repl": "教えた",
+    "type": "選択"
+   },
+   {
+    "repl": "聞いた",
+    "type": "選択"
+   },
+   {
+    "repl": "借りた",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0214": [
+   {
+    "repl": "あげた",
+    "type": "授受"
+   },
+   {
+    "repl": "もらった",
+    "type": "授受"
+   },
+   {
+    "repl": "教えた",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0215": [
+   {
+    "repl": "くれた",
+    "type": "授受"
+   },
+   {
+    "repl": "もらった",
+    "type": "授受"
+   },
+   {
+    "repl": "教えた",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0216": [
+   {
+    "repl": "たぶん",
+    "type": "呼応"
+   },
+   {
+    "repl": "だいたい",
+    "type": "近接"
+   },
+   {
+    "repl": "とても",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0217": [
+   {
+    "repl": "かんたんに",
+    "type": "呼応"
+   },
+   {
+    "repl": "たくさん",
+    "type": "呼応"
+   },
+   {
+    "repl": "もっと",
+    "type": "呼応"
+   }
+  ],
+  "N4-V-Y-0218": [
+   {
+    "repl": "だいたい",
+    "type": "選択"
+   },
+   {
+    "repl": "やっと",
+    "type": "選択"
+   },
+   {
+    "repl": "きっと",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0219": [
+   {
+    "repl": "特別に",
+    "type": "近接"
+   },
+   {
+    "repl": "まず",
+    "type": "選択"
+   },
+   {
+    "repl": "たぶん",
+    "type": "呼応"
+   }
+  ],
+  "N4-V-Y-0220": [
+   {
+    "repl": "やっと",
+    "type": "選択"
+   },
+   {
+    "repl": "いちばん",
+    "type": "選択"
+   },
+   {
+    "repl": "よく",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0221": [
+   {
+    "repl": "ぜんぜん",
+    "type": "呼応"
+   },
+   {
+    "repl": "いつも",
+    "type": "対義"
+   },
+   {
+    "repl": "だんだん",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0222": [
+   {
+    "repl": "故障",
+    "type": "選択"
+   },
+   {
+    "repl": "用事",
+    "type": "近接"
+   },
+   {
+    "repl": "火事",
+    "type": "選択"
+   }
+  ],
+  "N4-V-Y-0223": [
+   {
+    "repl": "安全",
+    "type": "対義"
+   },
+   {
+    "repl": "心配",
+    "type": "選択"
+   },
+   {
+    "repl": "危ない",
+    "type": "近接"
+   }
+  ],
+  "N4-V-Y-0001": [
+   {
+    "repl": "しっかり",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ずっと",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ぴったり",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0002": [
+   {
+    "repl": "きれいに",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "しっかり",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "きちんと",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0003": [
+   {
+    "repl": "どきどき",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ぐっすり",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "少し",
+    "type": "呼応",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0004": [
+   {
+    "repl": "しばらく",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ずいぶん",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "やっと",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0005": [
+   {
+    "repl": "はっきり",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "とても",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いっぱい",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0006": [
+   {
+    "repl": "いつも",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "とても",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ずっと",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0007": [
+   {
+    "repl": "なかなか",
+    "type": "呼応",
+    "certainty": "clear"
+   },
+   {
+    "repl": "とても",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "すぐに",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0008": [
+   {
+    "repl": "もうすぐ",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ちょうど",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ゆっくり",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0009": [
+   {
+    "repl": "すぐに",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ゆっくり",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "もっと",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0010": [
+   {
+    "repl": "わくわく",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "心配",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "こわい",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0011": [
+   {
+    "repl": "伺う",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "召し上がる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "おる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0012": [
+   {
+    "repl": "いらっしゃる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "召し上がる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "拝見する",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0013": [
+   {
+    "repl": "する",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "召し上がる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いらっしゃる",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0014": [
+   {
+    "repl": "くださる",
+    "type": "授受",
+    "certainty": "clear"
+   },
+   {
+    "repl": "召し上がる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "受け取る",
+    "type": "授受",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0016": [
+   {
+    "repl": "拝見する",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "おっしゃる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いらっしゃる",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0017": [
+   {
+    "repl": "いただく",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ご覧になる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "食べる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0018": [
+   {
+    "repl": "申し上げる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "召し上がる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "申す",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0019": [
+   {
+    "repl": "おっしゃる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いただく",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "拝見する",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0020": [
+   {
+    "repl": "差し上げる",
+    "type": "授受",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いただく",
+    "type": "授受",
+    "certainty": "clear"
+   },
+   {
+    "repl": "くれる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0021": [
+   {
+    "repl": "くださる",
+    "type": "授受",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いただく",
+    "type": "授受",
+    "certainty": "clear"
+   },
+   {
+    "repl": "あげる",
+    "type": "授受",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0022": [
+   {
+    "repl": "おる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いらっしゃる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "する",
+    "type": "別義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0023": [
+   {
+    "repl": "ご覧になる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "いただく",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "伺う",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0026": [
+   {
+    "repl": "ぬるい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "楽",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ゆるい",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0027": [
+   {
+    "repl": "高い",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "暗い",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "厚い",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0028": [
+   {
+    "repl": "うすい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "低い",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "少ない",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0029": [
+   {
+    "repl": "小さい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "せまい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "細い",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0032": [
+   {
+    "repl": "心配",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "どきどき",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "きびしい",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0033": [
+   {
+    "repl": "ざんねん",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "心配",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "かなしい",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0034": [
+   {
+    "repl": "怖い",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "驚く",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "恥ずかしい",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0036": [
+   {
+    "repl": "難しい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "きつい",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "苦しい",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0039": [
+   {
+    "repl": "真面目",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "親切",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "きっと",
+    "type": "別義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0041": [
+   {
+    "repl": "眠る",
+    "type": "別義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "だるい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "疲れる",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0042": [
+   {
+    "repl": "いい",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "うれしい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "楽しい",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0044": [
+   {
+    "repl": "楽しい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "うれしい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "上手",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0049": [
+   {
+    "repl": "にぎやか",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "人気",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "有名",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0051": [
+   {
+    "repl": "難しい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "大変",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "混雑",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0052": [
+   {
+    "repl": "だめ",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "疲れた",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "うれしい",
+    "type": "対義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0053": [
+   {
+    "repl": "たぶん",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "もし",
+    "type": "呼応",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ぜひ",
+    "type": "呼応",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0054": [
+   {
+    "repl": "早い",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "急行",
+    "type": "別義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "急いで",
+    "type": "自他",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0055": [
+   {
+    "repl": "壊れる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "腐る",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "枯れる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0056": [
+   {
+    "repl": "具合",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "調子",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "予定",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0057": [
+   {
+    "repl": "気分",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "天気",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "都合",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0058": [
+   {
+    "repl": "案内",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "予約",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "迎え",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0059": [
+   {
+    "repl": "断る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "我慢",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "延期",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0061": [
+   {
+    "repl": "休む",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "行く",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "席を外す",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0062": [
+   {
+    "repl": "入学",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "引っ越す",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "泊まる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0063": [
+   {
+    "repl": "卒業",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "退社",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "降りる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0064": [
+   {
+    "repl": "失礼",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "面倒",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "無駄",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0066": [
+   {
+    "repl": "注目",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "心配",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "注文",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0067": [
+   {
+    "repl": "注意",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "予約",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "簡単",
+    "type": "別義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0068": [
+   {
+    "repl": "勉強",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "予約",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "計画",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0069": [
+   {
+    "repl": "約束",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "申し込む",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "注文",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0070": [
+   {
+    "repl": "予約",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "相談",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "頼む",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0071": [
+   {
+    "repl": "尋ねる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "連絡",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "注意",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0072": [
+   {
+    "repl": "相談",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "送る",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "予約",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0073": [
+   {
+    "repl": "出場",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "出勤",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "通う",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0074": [
+   {
+    "repl": "入学",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "退院",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "完成",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0075": [
+   {
+    "repl": "入院",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "入る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "引っ越す",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0076": [
+   {
+    "repl": "負ける",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "間違える",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "落とす",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0077": [
+   {
+    "repl": "迷惑",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "はずかしい",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "残念",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0078": [
+   {
+    "repl": "返事",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "話す",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "説明",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0079": [
+   {
+    "repl": "返す",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "答える",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "連絡",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0080": [
+   {
+    "repl": "手伝う",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "助ける",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "案内",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0082": [
+   {
+    "repl": "刺す",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "飲む",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "採る",
+    "type": "対義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0083": [
+   {
+    "repl": "遅刻",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "居眠り",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "起きている",
+    "type": "対義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0084": [
+   {
+    "repl": "反省",
+    "type": "別義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "断る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "叱る",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0085": [
+   {
+    "repl": "壊れる",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "なくす",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "折る",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0086": [
+   {
+    "repl": "壊す",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "破れる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "切れる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0088": [
+   {
+    "repl": "折る",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "割れる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "切れる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0089": [
+   {
+    "repl": "集まる",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "つける",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "集中",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0097": [
+   {
+    "repl": "下がる",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "減らす",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "落とす",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0098": [
+   {
+    "repl": "焼ける",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ゆでる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "蒸す",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0099": [
+   {
+    "repl": "沸く",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "温める",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "煮る",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0102": [
+   {
+    "repl": "増やす",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "伸びる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "強くなる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0104": [
+   {
+    "repl": "割る",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "壊れる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "切れる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0105": [
+   {
+    "repl": "点ける",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "かかる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "鳴る",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0107": [
+   {
+    "repl": "足す",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "間に合う",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "通じる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0108": [
+   {
+    "repl": "なくす",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "間違える",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ゆずる",
+    "type": "授受",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0109": [
+   {
+    "repl": "開く",
+    "type": "別義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "さす",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "渇く",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0112": [
+   {
+    "repl": "下がる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "下ろす",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "引く",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0113": [
+   {
+    "repl": "頼る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "近づく",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "帰る",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0118": [
+   {
+    "repl": "渡す",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "かける",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "遅れる",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0122": [
+   {
+    "repl": "震える",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "揺らす",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "回る",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0123": [
+   {
+    "repl": "汚れる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "湿る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "しける",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0125": [
+   {
+    "repl": "入れる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "詰まる",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "混ざる",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0126": [
+   {
+    "repl": "捕まえる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "もぐ",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "飼う",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0127": [
+   {
+    "repl": "埋める",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "並べる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "育てる",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0130": [
+   {
+    "repl": "書く",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "貼る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "かける",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0131": [
+   {
+    "repl": "当てる",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "ぶつける",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "押す",
+    "type": "コロケ",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0132": [
+   {
+    "repl": "痛む",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "こわす",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "刺される",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0134": [
+   {
+    "repl": "使う",
+    "type": "別義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "助かる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "上手だ",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0135": [
+   {
+    "repl": "上達する",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "覚える",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "仲良くなる",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0136": [
+   {
+    "repl": "受かる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "当たる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "抜く",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0137": [
+   {
+    "repl": "取る",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "譲る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "もらう",
+    "type": "授受",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0141": [
+   {
+    "repl": "決める",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "分ける",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "見つける",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0144": [
+   {
+    "repl": "似る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "混ぜる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "選ぶ",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0145": [
+   {
+    "repl": "待つ",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "送る",
+    "type": "対義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "会う",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0147": [
+   {
+    "repl": "似る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "忘れる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "落とす",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0148": [
+   {
+    "repl": "無くす",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "あげる",
+    "type": "授受",
+    "certainty": "clear"
+   },
+   {
+    "repl": "しまう",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0149": [
+   {
+    "repl": "焼く",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "建てる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "教える",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0150": [
+   {
+    "repl": "無くなる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "消える",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "枯れる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0087": [
+   {
+    "repl": "折れる",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "割る",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "曲げる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0090": [
+   {
+    "repl": "集める",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "たまる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "混む",
+    "type": "近接",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0094": [
+   {
+    "repl": "直す",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "晴れる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "片付く",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0101": [
+   {
+    "repl": "続く",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "残す",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "延ばす",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0106": [
+   {
+    "repl": "残す",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "忘れる",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "待つ",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0111": [
+   {
+    "repl": "止まる",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "かける",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "やめる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0114": [
+   {
+    "repl": "移す",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "引っ越す",
+    "type": "選択",
+    "certainty": "clear"
+   },
+   {
+    "repl": "映す",
+    "type": "別義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0115": [
+   {
+    "repl": "離れる",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "分ける",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "分かれる",
+    "type": "別義",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0119": [
+   {
+    "repl": "無くす",
+    "type": "自他",
+    "certainty": "clear"
+   },
+   {
+    "repl": "減る",
+    "type": "近接",
+    "certainty": "clear"
+   },
+   {
+    "repl": "忘れる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ],
+  "N4-V-Y-0121": [
+   {
+    "repl": "建てる",
+    "type": "別義",
+    "certainty": "clear"
+   },
+   {
+    "repl": "引く",
+    "type": "コロケ",
+    "certainty": "clear"
+   },
+   {
+    "repl": "あげる",
+    "type": "選択",
+    "certainty": "clear"
+   }
+  ]
+ },
+ "legacyAllowlist": [
+  "N3-V-Y-0004",
+  "N3-V-Y-0018",
+  "N3-V-Y-0024",
+  "N3-V-Y-0025",
+  "N3-V-Y-0027",
+  "N3-V-Y-0034",
+  "N3-V-Y-0039",
+  "N3-V-Y-0044",
+  "N3-V-Y-0046",
+  "N3-V-Y-0056",
+  "N3-V-Y-0057",
+  "N3-V-Y-0067",
+  "N3-V-Y-0071",
+  "N3-V-Y-0072",
+  "N3-V-Y-0073",
+  "N3-V-Y-0074",
+  "N3-V-Y-0080",
+  "N3-V-Y-0087",
+  "N3-V-Y-0090",
+  "N3-V-Y-0094",
+  "N3-V-Y-0106",
+  "N3-V-Y-0109",
+  "N3-V-Y-0120",
+  "N3-V-Y-0123",
+  "N3-V-Y-0125",
+  "N3-V-Y-0143",
+  "N3-V-Y-0144",
+  "N3-V-Y-0145",
+  "N3-V-Y-0148",
+  "N3-V-Y-0150",
+  "N4-V-Y-0015",
+  "N4-V-Y-0024",
+  "N4-V-Y-0025",
+  "N4-V-Y-0030",
+  "N4-V-Y-0031",
+  "N4-V-Y-0035",
+  "N4-V-Y-0037",
+  "N4-V-Y-0038",
+  "N4-V-Y-0040",
+  "N4-V-Y-0043",
+  "N4-V-Y-0045",
+  "N4-V-Y-0046",
+  "N4-V-Y-0047",
+  "N4-V-Y-0048",
+  "N4-V-Y-0050",
+  "N4-V-Y-0060",
+  "N4-V-Y-0065",
+  "N4-V-Y-0081",
+  "N4-V-Y-0091",
+  "N4-V-Y-0092",
+  "N4-V-Y-0093",
+  "N4-V-Y-0095",
+  "N4-V-Y-0096",
+  "N4-V-Y-0100",
+  "N4-V-Y-0103",
+  "N4-V-Y-0110",
+  "N4-V-Y-0116",
+  "N4-V-Y-0117",
+  "N4-V-Y-0120",
+  "N4-V-Y-0124",
+  "N4-V-Y-0128",
+  "N4-V-Y-0129",
+  "N4-V-Y-0133",
+  "N4-V-Y-0138",
+  "N4-V-Y-0139",
+  "N4-V-Y-0140",
+  "N4-V-Y-0142",
+  "N4-V-Y-0143",
+  "N4-V-Y-0146",
+  "N4-V-Y-0151",
+  "N4-V-Y-0152",
+  "N4-V-Y-0153",
+  "N4-V-Y-0154",
+  "N4-V-Y-0155",
+  "N4-V-Y-0156",
+  "N4-V-Y-0157",
+  "N4-V-Y-0158",
+  "N4-V-Y-0159",
+  "N4-V-Y-0160",
+  "N4-V-Y-0161",
+  "N4-V-Y-0162",
+  "N4-V-Y-0163",
+  "N4-V-Y-0164",
+  "N4-V-Y-0165",
+  "N4-V-Y-0166",
+  "N4-V-Y-0167",
+  "N4-V-Y-0168",
+  "N4-V-Y-0169",
+  "N4-V-Y-0170",
+  "N4-V-Y-0171",
+  "N4-V-Y-0172",
+  "N4-V-Y-0173"
+ ]
+}
