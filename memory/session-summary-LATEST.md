@@ -1,22 +1,22 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 94 回・225 ターン
-- 往復 415 回
+- ツール呼び出し 1 回・4 ターン
+- 往復 455 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/~$在庫・模試ストックまとめ.xlsx
-- memory/在庫・模試ストックまとめ.xlsx
-- memory/漢字面再設計-inflight.md
-- scratchpad/ksim/t4.txt
-
-## ⚠️ 注意
-- - ⚠ 文脈 43万／70万（62%）・415往復 — そろそろ /clear の頃合い
-- - ツール呼び出しループが長い（指示1件に対し 225ターン・ツール94回）— まとめ方を変える
+- memory/session-summary-LATEST.md
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- app.json
 
 ## 次の一手
-- **▶▶ 2026-08-26 LIVE＝この会話の確定と残【/clear後の最優先・これ以降の古いエントリは全て superseded】**：①OTA配信済(commit `f83c18d2`・push済)②語彙面数分布 再計算済③文法・漢字 面数分布 新規作成済＝**3件とも完了**。番人全緑。残＝memory側Excelのコミット方針（ユーザー判断）。
+- **▶▶ 2026-08-26 LIVE(最新)＝漢字マスタリー再設計＋試験タブUI＋読み表示修正・ビルド済【/clear後の最優先・以降は superseded】**：**v1.1.15(2860) iOS/Android dispatch済**(commit `015e0205`・run `32933755172`・tsc0/テスト緑・-NoWatch)。正本=`memory/漢字面再設計-inflight.md`。
+  - 漢字の面=**4面(読み/意味/聞き取り/形)**・書き取りは**練習(面外)**・読み/意味を2ボタン分離・**形の弁別ドリル新設**(似た字`src/data/words/kanjiSimilar.json`612字/formMakeable557)・読み表示に送り仮名補完(強→つよ（い）/手→て・`index.ts formatKanjiReading`)・試験タブ4アイコン+「試験に挑戦」ボタン分離・書斎タブ漢字ボタン並び替え。Excel②更新(§①漢字行/漢字面数分布 新4面/漢字ID×面 詳細/ドリルシート再生成)。
+  - **⏳ビルド後の未コミット**：`tools/drill_coverage.ts`＋`tools/update_drill_coverage.py`(漢字ドリル追加)と在庫Excel再生成・inflight＝次ビルドかコミットで回収。
+  - **⏳残(ユーザー判断)**：既存赤`grammarExclude.test`＝`n5-g-32`(N5・point「ましょう」)が丁寧形バラ活用ルール違反(私の変更外・ビルドのテスト対象外で従来から赤)。推奨(a)n5-g-87へ統合(問題貼替+母数-1) /(b)説明文補い緑化 /(c)保留。
+  - **メモ(JLPT Supabase)**：Site URL正本=`https://jinkato2020.github.io/safa-JLPT/confirm.html`(project `nxovouiqelynryumjvyq`・Redirect=`safajlpt://**`/`safajlpt://auth-callback`)。RVmapと取り違え注意([[jlpt-account-supabase]])。
   - **✅用法N3 200問を content適用**（`N3-V-Y-0151〜0350`・`usage_N3.json` 99→**299**・全distinct vocabId）。近接類義置換型・P1/P2多様性・同音異字は漢字>N3不使用。誤答タグ`usageDistractorTags.json`＋mono-type9件monoTypeAllow・カバー基準`usageCoverage.json`更新。確認Excel（root・untracked）=`用法N3_作問_確認用.xlsx`（緑=正用/橙=suspect4/赤=構造欠陥#19は修正済）。commit `c8dc3a5e`（タグ/基準/在庫）。ツール=`tools/pick_usage_targets_n3.py`・`apply_usage_n3_200.py`・`build_usage_n3_review_xlsx.py`。
   - **✅言い換え類義 未マージEXCEL 835問を content マージ**（追加のみ・既存不変）：**N5 131→231**（`言い換え類義_N5_級内確定_231問.xlsx`）・**N4 225→406**（`_N4_級内確定_406問.xlsx`）・**N3 1057→1611**（`新規問題`295＋`増作2`259）。増作2解説259件は全角ふりがな付与（workflow）。N5/N4は`sentence`=素・`stem`=ふりがな＋`dict/sentenceFuri.json`追加・underlineを表層形化。N3は`i18n.ja.explain`のみ（ne=backlog・publish非ブロック）。iikaePossible N3新規554語をp=1化・counts再計算(N3 possible→1755)。番人`synonymFormat.test`の出題数を406/1611へ更新。commit `81a45533`。ツール=`tools/merge_synonym_new.py`。
   - **✅在庫Excel整合**：`大問別まとめ` D/H/I（用法N3 299・言い換え231/406/1611）。**②カバー率もcontentと全一致**（D=②=content）＝用法N3行の**I51 真の母数=299**（99→299・commit `355ba26b`）／言い換え行 231/406/1611・row12(総数/在庫)も更新。**ユーザー指摘「D vs ②不一致」は解決済**（Dが正・②がstaleだった）。
