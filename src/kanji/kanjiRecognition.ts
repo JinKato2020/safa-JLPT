@@ -5,7 +5,9 @@
 //    誤答に「答えと同じ読み(同音)」やその字の他の読みを入れない(設計②の一意化。特に音読みのみの字)。
 
 export type KRKind = 'mean' | 'read';
-export interface KRReading { type: 'on' | 'kun'; reading: string }
+// reading=読みstem(送り仮名なし)。display=学習者向け表示形(訓は送り仮名を補い「つよ（い）」/音はカタカナ)。
+// display は呼び出し側(画面)が formatKanjiReading で解決して渡す。省略時は showReading が簡易整形。
+export interface KRReading { type: 'on' | 'kun'; reading: string; display?: string }
 export interface KRItem {
   char: string;
   meaning: string;      // 表示用の意味(母語 or glossShort・呼び出し側で解決済み)
@@ -20,10 +22,9 @@ export interface KRQuestion {
   answerIndex: number;
 }
 
-const KUN_MIN_LEN = 2; // 1モーラの訓stem(食=た・会=あ・人=り)は誤答になりにくく紛らわしいので答えに使わない。
 const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
-// 読みの表示: 音=カタカナ / 訓=ひらがな。選択肢は答えと同じ種類で揃えるので4択の字種は一致し、字種で答えが割れない。
-const showReading = (r: KRReading): string => (r.type === 'on' ? hiraToKata(r.reading) : r.reading);
+// 読みの表示: display(送り仮名付きの整形形)が有ればそれを使う。無ければ簡易整形(音=カタカナ/訓=ひらがなstem)。
+const showReading = (r: KRReading): string => r.display ?? (r.type === 'on' ? hiraToKata(r.reading) : r.reading);
 
 function shuffle<T>(arr: T[], rng: () => number): T[] {
   const a = arr.slice();
@@ -35,14 +36,14 @@ export function pickItems(pool: KRItem[], count: number, rng: () => number): KRI
   return shuffle(pool, rng).slice(0, Math.min(count, pool.length));
 }
 
-/** 出題に使う読み(訓優先・1モーラ訓は避け音へ)。作れない字は null。 */
+/** 出題に使う読み。まず訓読み(送り仮名を補って分かりやすく)、訓が無ければ一般的な音読み(先頭=主要)。
+ *  同じ字に訓が複数ある時は stem が長い＝より特徴的な読みを選ぶ(上: あ<うえ)。作れない字は null。
+ *  例: 強→つよ（い） / 手→て(訓を優先。上手のズ等の稀読みは選ばない) / 会→あ（う）。 */
 export function pickAnswerReading(it: KRItem): KRReading | null {
-  const kun = it.readings.filter((r) => r.type === 'kun' && r.reading.length >= KUN_MIN_LEN);
-  if (kun.length) return kun[0];
+  const kun = it.readings.filter((r) => r.type === 'kun');
+  if (kun.length) return [...kun].sort((a, b) => b.reading.length - a.reading.length)[0];
   const on = it.readings.filter((r) => r.type === 'on');
-  if (on.length) return on[0];
-  const anyKun = it.readings.filter((r) => r.type === 'kun'); // 音が無く1モーラ訓しか無い字の最終手段
-  return anyKun.length ? anyKun[0] : null;
+  return on.length ? on[0] : null;
 }
 
 /** 意味の誤答=同レベル他字の意味(meaningClear優先・重複意味除外)。 */
@@ -86,12 +87,13 @@ function readingDistractors(it: KRItem, answer: KRReading, pool: KRItem[], count
   return [...same, ...relaxed].slice(0, count);
 }
 
-function makeQuestion(it: KRItem, pool: KRItem[], rng: () => number): KRQuestion | null {
+function makeQuestion(it: KRItem, pool: KRItem[], rng: () => number, only?: KRKind): KRQuestion | null {
   const canMean = it.meaningClear && !!it.meaning;
   const ans = pickAnswerReading(it);
-  const kinds: KRKind[] = [];
+  let kinds: KRKind[] = [];
   if (canMean) kinds.push('mean');
   if (ans) kinds.push('read');
+  if (only) kinds = kinds.filter((k) => k === only); // 意味/読みを別ボタンに分離した時=その種別だけ出題(作れない字はスキップ)
   if (!kinds.length) return null;
   const kind = kinds[Math.floor(rng() * kinds.length) % kinds.length];
 
@@ -104,12 +106,13 @@ function makeQuestion(it: KRItem, pool: KRItem[], rng: () => number): KRQuestion
   return { char: it.char, kind, answerId: `${it.char}#krecog_read`, choices: options, answerIndex: options.indexOf(correct) };
 }
 
-/** 認識テストの1セッション(count問)。各字1問・作れる面(意味/読み)から出題。作れない字はスキップ。 */
-export function buildKanjiRecognitionQuiz(pool: KRItem[], count: number, rng: () => number): KRQuestion[] {
+/** 認識テストの1セッション(count問)。各字1問・作れる面(意味/読み)から出題。作れない字はスキップ。
+ *  only を渡すと その種別(意味 or 読み)だけ出題(2ボタン分離用)。 */
+export function buildKanjiRecognitionQuiz(pool: KRItem[], count: number, rng: () => number, only?: KRKind): KRQuestion[] {
   const out: KRQuestion[] = [];
   for (const it of shuffle(pool, rng)) {
     if (out.length >= count) break;
-    const q = makeQuestion(it, pool, rng);
+    const q = makeQuestion(it, pool, rng, only);
     if (q && q.choices.length >= 2) out.push(q); // 誤答が全く作れない病的ケースは捨てる
   }
   return out;

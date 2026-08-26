@@ -1,6 +1,7 @@
-// 番人: 漢字カバー率は「単独提示(書斎タブ)で証明した分」だけを計上する(設計書 04_・段階A)。
-//  ① 語彙を覚えても、その語に含まれる漢字は自動では「覚えた」にならない(旧 selectors.ts:418 の文脈回収を撤去したことの回帰防止)。
-//  ② 書き取り由来の 読み(read)・書き(write) の面平均 ≥0.6 なら、その字は「覚えた」に計上される。
+// 番人: 漢字カバー率は「単独提示(書斎タブ)で証明した分」だけを計上する(設計書 04_)。
+//  漢字の面=4面: read(読み認識)/mean(意味認識)/listen(聞き取り)/form(形の弁別)。作れない面は分母から除外。
+//  ① 語彙を覚えても、その語に含まれる漢字は自動では「覚えた」にならない(文脈回収の撤去の回帰防止)。
+//  ② 書き取り(write)は「練習」＝漢字の面に計上しない(手書き産出は難度が高い。ユーザー方針2026-08-26)。
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { coverageBars } from './selectors.ts';
@@ -41,14 +42,11 @@ test('① 語彙を覚えても、含まれる漢字は自動で覚えた扱い�
   assert.equal(kanjiBar(m).learned, 0, '語を覚えても漢字カバーは増えない(字を直接練習していないため)');
 });
 
-test('② 書き取り(読み+書き)で面平均≥0.6なら、その字は覚えたに計上', () => {
+test('② 書き(write)面を積んでも漢字カバーは増えない(書き取り=練習・面に非計上)', () => {
   const ch = KANJI.find((k) => k.type === 'kanji' && k.level === 'N5')!.char;
-  const targets: FacetTarget[] = [
-    { itemId: ch, facet: 'read', weight: 0.6 },
-    { itemId: ch, facet: 'write', weight: 0.85 },
-  ];
-  const m = drill({}, targets, 14);
-  assert.equal(kanjiBar(m).learned, 1, 'その1字だけが覚えたに計上される');
+  // write 面だけを強く積んでも、漢字の面(read/mean/listen/form)には含まれないので計上されない。
+  const m = drill({}, [{ itemId: ch, facet: 'write' as Facet, weight: 1 }], 20);
+  assert.equal(kanjiBar(m).learned, 0, '書き(write)は漢字の面に数えない=覚えた判定に使わない');
 });
 
 // 段階B①: 認識テストの結果(mean/read 面)がカバー率に効くか＋作れない面(mean)の除外。
@@ -63,6 +61,13 @@ test('③ 認識テスト(読み)は read 面のみでも計上', () => {
   const ch = '水';
   const m = drill({}, [{ itemId: ch, facet: 'read' as Facet, weight: 1 }], 8);
   assert.equal(kanjiBar(m).learned, 1, '読みの認識だけでも1字計上される');
+});
+
+test('④ 形の弁別(form)面が上がれば覚えたに計上(似た字が揃う字)', () => {
+  const ch = '上'; // formMakeable=true(似た字 下/止/卜)の N5 字
+  assert.ok(KANJI.some((k) => k.type === 'kanji' && k.char === ch && k.level === 'N5'));
+  const m = drill({}, [{ itemId: ch, facet: 'form' as Facet, weight: 1 }], 8);
+  assert.equal(kanjiBar(m).learned, 1, '形の弁別だけでも1字計上される');
 });
 
 test('③ 作れない面(意味)は分母から除外＝校はmeanデータだけでは覚えた扱いにしない', () => {

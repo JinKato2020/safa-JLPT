@@ -31,7 +31,8 @@ export type RootStackParamList = {
   Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review'; char?: string; script?: 'kanji' | 'hiragana' | 'katakana' } | undefined; // 書き取り(漢字/ひらがな/カタカナ・3ステップ、単字自由練習対応)
   KanjiDetail: { char: string; scope?: 'level' | 'all' }; // scope=level:自レベル読み(単語タブ) / all(既定):全読み(辞書)
   ListeningQuiz: { kind: 'vocab' | 'kanji' }; // 聞き取りドリル(学習→テスト・語彙/漢字)
-  KanjiRecognition: undefined; // 漢字認識テスト(字を単独提示→意味/読み4択・段階B①)
+  KanjiRecognition: { mode?: 'mean' | 'read' } | undefined; // 漢字認識テスト(字を単独提示→意味/読み4択)。mode=意味/読みを別ボタンに分離
+  KanjiForm: undefined; // 漢字の形の弁別テスト(似た字4択→正しい字を選ぶ・form面)
   WordDrill: { kind: 'vProduce' | 'gBuild' | 'gMeaning' | 'mixed'; level?: 'N5' | 'N4' | 'N3' }; // 単語タブ新形式(意味から単語/文をつくる/意味を選ぶ/今日のオススメ=横断)
 };
 

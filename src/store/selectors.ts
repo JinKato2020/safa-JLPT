@@ -8,6 +8,7 @@ import { hasKanji } from '../quiz/quiz';
 import { facetsForUnit, type Facet } from '../review/facetMap';
 import { facetEffectiveP } from '../review/facetMastery';
 import kanjiFacetFlags from '../data/words/kanjiFacets.json';
+import kanjiSimilar from '../data/words/kanjiSimilar.json';
 import { passProbability as ladderPassProbability, itemP as ladderItemP, expectedScore as ladderExpectedScore, type DaimonExpectation, type ScoreEstimate } from '../ladder/passRate';
 import { type Level as LadderLevel } from '../ladder/facets';
 import type { AppState, GrowthPoint } from './state';
@@ -410,14 +411,19 @@ export function coverageBars(state: AppState, now: number): { key: 'kanji' | 'vo
 
   // 純粋な漢字力＝「単独提示(書斎タブ)で証明した分」だけを char に計上する(設計書 04_)。
   //  字ごとに面別マスタリーを加重平均し ≥0.6 を「覚えた」とする(多面で証明するほど強い)。
-  //  面の由来: read/write=書き取り、mean/read=認識テスト(段階B①)、listen=聞き取り(段階B②・接続待ち)。
+  //  漢字の面(4面)= read=読み(認識テスト) / mean=意味(認識テスト・意味が立つ字のみ) /
+  //    listen=聞き取り / form=形の弁別(似た字4択・類似字が揃う字のみ)。
+  //  ※書き取り(write)は「練習ツール」＝面に非計上(手書き産出は難度が高く到達が遅い。ユーザー方針2026-08-26)。
   //  ※文脈が出る語彙問題(漢字読み/表記ほか)は語彙IDに計上し、字には配らない(旧「習得語の含有字を回収」は撤去)。
-  //  作れない面は分母から除外(kanjiFacets)。校のように意味を出しにくい字は mean を要求しない(=平均から外す)。
+  //  作れない面は分母から除外。校のように意味を出しにくい字は mean を、類似字が無い字は form を要求しない(=平均から外す)。
   const kanjiCharSet = new Set(KANJI.filter((k) => k.type === 'kanji').map((k) => k.char));
-  const KANJI_FACETS: Facet[] = ['read', 'write', 'mean', 'listen'];
+  const KANJI_FACETS: Facet[] = ['read', 'mean', 'listen', 'form'];
   const KFLAGS = kanjiFacetFlags as Record<string, { meaningClear?: boolean }>;
+  const KSIM = kanjiSimilar as Record<string, { similar?: string[]; formMakeable?: boolean }>;
   const facetMakeable = (ch: string, f: Facet): boolean =>
-    f === 'mean' ? (KFLAGS[ch]?.meaningClear ?? true) : true; // read/write/listen は全字で作れる。mean は meaningClear のみ。
+    f === 'mean' ? (KFLAGS[ch]?.meaningClear ?? true) // mean は meaningClear のみ
+      : f === 'form' ? (KSIM[ch]?.formMakeable ?? false) // form は似た字セットが揃う字のみ
+      : true; // read/listen は全字で作れる
   const kanjiLearned = (ch: string): boolean => {
     let sum = 0, n = 0;
     for (const f of KANJI_FACETS) {

@@ -3,8 +3,10 @@
 // 苦手度は単語×面(read/write/mean/listen/grammar)に一本化する。ここは「どのキーがどの面か」の唯一の正本。
 import { KNOWLEDGE_BANK, GRAMMAR, VOCAB, KANJI, passageGrammarSetsFor } from '../data';
 
-export type Facet = 'read' | 'write' | 'mean' | 'listen' | 'grammar';
-export const FACETS: Facet[] = ['read', 'write', 'mean', 'listen', 'grammar'];
+// facet(面): read=読み / write=表記(語彙)・書き取りは面に非計上(練習) / mean=意味 / listen=聞き取り /
+//   grammar=文法 / form=漢字の形の弁別(似た字4択・漢字専用の面)。
+export type Facet = 'read' | 'write' | 'mean' | 'listen' | 'grammar' | 'form';
+export const FACETS: Facet[] = ['read', 'write', 'mean', 'listen', 'grammar', 'form'];
 
 /** 面への反映対象。weight<1 = 補強(産出/書き取り等)＝正解時のみ控えめに底上げ・失敗で認識面を下げない。 */
 export interface FacetTarget {
@@ -88,6 +90,9 @@ export function facetsForUnit(unit: string): FacetTarget[] {
         return [{ itemId, facet: 'mean', weight: 1 }];
       case 'krecog_read':
         return [{ itemId, facet: 'read', weight: 1 }];
+      // 漢字の形の弁別テスト: 似た字4択→正しい字を選ぶ。認識面(form・weight1・失敗で減点)を char へ計上。
+      case 'kdiscrim_form':
+        return [{ itemId, facet: 'form', weight: 1 }];
       default:
         return facetsForDaimon(itemId, suffix);
     }

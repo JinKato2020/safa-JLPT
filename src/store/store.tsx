@@ -14,7 +14,7 @@ import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
 import { applyKakitoriProgress } from '../kakitori/progress';
 import { recordFacet } from '../review/facetMastery';
-import { facetsForUnit, facetsForKakitori, grammarFormatOf, GRAMMAR_NOVELTY_LAMBDA } from '../review/facetMap';
+import { facetsForUnit, grammarFormatOf, GRAMMAR_NOVELTY_LAMBDA } from '../review/facetMap';
 import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, buyAvatarDrink as walletBuyAvatarDrink, spendAvatarChange as walletSpendAvatarChange, type ShopKind } from './wallet';
 import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket } from './tickets';
 import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
@@ -120,12 +120,10 @@ export function reducer(state: AppState, action: Action): AppState {
       return { ...state, mockHistory: [...(state.mockHistory ?? []), action.result].slice(-60) };
     case 'KAKITORI_PROGRESS': {
       const map = state.kakitori ?? {};
-      // 合格(見ないで書く=step>=3・未スキップ)なら write(副read)面を補強(成功のみ底上げ)。
-      const passed = !action.skipped && action.step >= 3;
-      const mastery = passed
-        ? recordFacet(state.mastery ?? {}, facetsForKakitori(action.char), true, 'practice', action.now ?? Date.now())
-        : (state.mastery ?? {});
-      return { ...state, kakitori: { ...map, [action.char]: applyKakitoriProgress(map[action.char], action) }, mastery };
+      // 書き取りは「練習ツール」＝面(マスタリー)には計上しない(ユーザー方針2026-08-26)。
+      // 手書き産出は難度が高く到達も遅いので、漢字の「覚えた」判定は 読み/意味/聞き取り/形 の4面で測る。
+      // 書き取り自身の進捗(★/SRS due)は state.kakitori に従来どおり残る(練習の記録として)。
+      return { ...state, kakitori: { ...map, [action.char]: applyKakitoriProgress(map[action.char], action) } };
     }
     case 'ADD_TO_MY_LIST':
       return { ...state, myList: toggleMyList(state.myList ?? [], action.ref) };

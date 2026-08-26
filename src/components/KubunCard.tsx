@@ -62,19 +62,26 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
   }
   if (kubun === 'vocab') {
     add('cards.produce', () => nav.navigate('WordDrill', { kind: 'vProduce' }), UNLOCK_NEED.vproduce); // 語彙パズル(産出)=語彙15%
-  }
-  if (kubun === 'vocab' || kubun === 'kanji') {
-    add('cards.listening', () => nav.navigate('ListeningQuiz', { kind: kubun }), UNLOCK_NEED.listen); // 聞き取り=その分野5%
+    add('cards.listening', () => nav.navigate('ListeningQuiz', { kind: 'vocab' }), UNLOCK_NEED.listen); // 聞き取り=語彙5%
   }
   if (kubun === 'kanji') {
-    add('cards.kanji_recognition', () => nav.navigate('KanjiRecognition'), 0); // 漢字テスト(意味/読み認識)=最初から解禁(土台)
-    add('cards.kakitori_entry', () => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill', script: 'kanji' }), UNLOCK_NEED.kakitori); // 漢字書き取り(産出)=漢字10%
-    if (state.settings.level === 'N5') { // カタカナ/ひらがな書き取りはN5のみ・初期から解禁(土台=need0)
+    // 漢字の面=4面(読み/意味/聞き取り/形)。認識テストは意味/読みを別ボタンに分離(ユーザー方針2026-08-26)。
+    // 表示順(ユーザー方針2026-08-26): リスト→書き取り(練習)→ドリルを難易度の易しい順(意味→読み→形→聞き取り)。
+    // 書き取りは「練習」＝面に非計上(手書き産出の練習ツール)。★/SRSはKakitori側で従来どおり記録。
+    add('cards.kakitori_entry', () => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill', script: 'kanji' }), UNLOCK_NEED.kakitori); // 漢字書き取り(練習)
+    if (state.settings.level === 'N5') { // カタカナ/ひらがな書き取り(練習)はN5のみ・書き取りの直後
       add('cards.kakitori_kata', () => nav.navigate('Kakitori', { mode: 'drill', script: 'katakana' }), 0);
       add('cards.kakitori_hira', () => nav.navigate('Kakitori', { mode: 'drill', script: 'hiragana' }), 0);
     }
+    add('cards.kanji_mean', () => nav.navigate('KanjiRecognition', { mode: 'mean' }), 0); // ①意味(認識・易)
+    add('cards.kanji_read', () => nav.navigate('KanjiRecognition', { mode: 'read' }), 0); // ②読み(認識)
+    add('cards.kanji_form', () => nav.navigate('KanjiForm'), 0);                            // ③形の弁別(似た字4択)
+    add('cards.listening', () => nav.navigate('ListeningQuiz', { kind: 'kanji' }), UNLOCK_NEED.listen); // ④聞き取り(難)
   }
-  const ordered = entries.map((e, i) => ({ ...e, i })).sort((a, b) => a.need - b.need || a.i - b.i);
+  // 漢字は指定した表示順(挿入順)を尊重。語彙/文法は従来どおり解禁順(need昇順)。
+  const ordered = kubun === 'kanji'
+    ? entries.map((e, i) => ({ ...e, i }))
+    : entries.map((e, i) => ({ ...e, i })).sort((a, b) => a.need - b.need || a.i - b.i);
 
   return (
     <View style={s.card}>

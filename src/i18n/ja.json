@@ -7,6 +7,9 @@
   "mock.review_ok": "正解",
   "mock.review_ng": "不正解",
   "cards.kanji_recognition": "漢字テスト（意味・読み）",
+  "cards.kanji_mean": "漢字の意味",
+  "cards.kanji_read": "漢字の読み",
+  "cards.kanji_form": "似た字の見分け",
   "krecog.prompt_mean": "この漢字の意味は？",
   "krecog.prompt_read": "この漢字の読み方は？",
   "krecog.empty": "出せる漢字がありません",
@@ -106,7 +109,7 @@
   "cards.kanji_list": "漢字リスト",
   "cards.vocab_list": "語彙リスト",
   "cards.grammar_list": "文法リスト",
-  "cards.kakitori_entry": "漢字書き取り",
+  "cards.kakitori_entry": "漢字書き取り（練習）",
   "cards.kakitori_kata": "カタカナ書き取り",
   "cards.kakitori_hira": "ひらがな書き取り",
   "cards.kakitori_progress": "書き取り {done}/{total}",
@@ -536,6 +539,7 @@
   "test.full_note": "本番と全く同じ区分・出題数・時間で、あなたの合格率をリアルに診断",
   "test.full_time": "月1回・約60〜100分",
   "test.full_title": "模試",
+  "test.challenge": "試験に挑戦する",
   "test.history_cap": "直近{n}回の正答率（右が最新・高いほど合格に近い）",
   "test.history_latest": "最新 {n}%",
   "test.history_section": "模試の記録",
@@ -1371,5 +1375,7 @@
   "cat.expression": "あいさつ・表現",
   "cat.function": "機能語",
   "quiz.correct_sentence": "正しい文",
-  "coach.mock_tap_hint": "タップで各回の成績表を見る"
+  "coach.mock_tap_hint": "タップで各回の成績表を見る",
+  "kform.prompt": "意味・読みに合う正しい漢字はどれ？",
+  "kform.empty": "この級では形の弁別問題がまだありません。"
 }

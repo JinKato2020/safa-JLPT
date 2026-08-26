@@ -11,6 +11,8 @@ import vocab from '../src/data/shared/vocab.json';
 import grammar from '../src/data/shared/grammar.json';
 import { KANJI } from '../src/data';
 import kanjiDrillReps from '../src/data/words/kanjiDrillReps.json';
+import kanjiFacets from '../src/data/words/kanjiFacets.json';
+import kanjiSimilar from '../src/data/words/kanjiSimilar.json';
 import gbuildPermanentExcluded from '../src/data/shared/gbuildPermanentExcluded.json';
 
 const LEVELS = ['N5', 'N4', 'N3'] as const;
@@ -30,6 +32,11 @@ const listenVocabEligible = (lv: string) =>
 // 聞き取り・漢字の対象(同): 当該レベルの漢字で drill rep を持つ字
 const listenKanjiEligible = (lv: string) =>
   K.filter((k) => k.type === 'kanji' && k.level === lv && reps[k.char]).length;
+// 漢字ドリル(認識テスト/形の弁別)の対象。read=全字・mean=意味が立つ字(meaningClear)・form=似た字が3つ揃う字(formMakeable)。
+const KF = kanjiFacets as Record<string, { meaningClear?: boolean }>;
+const KS = kanjiSimilar as Record<string, { formMakeable?: boolean }>;
+const kanjiMeanEligible = (lv: string) => K.filter((k) => k.type === 'kanji' && k.level === lv && KF[k.char]?.meaningClear).length;
+const kanjiFormEligible = (lv: string) => K.filter((k) => k.type === 'kanji' && k.level === lv && KS[k.char]?.formMakeable).length;
 
 // 文法パズルの「永久に不可能」点(分離型/助詞1個/分類ラベル)＝真の分母から除外。
 const lvlOf = new Map(G.map((g) => [g.id, g.level]));
@@ -48,11 +55,16 @@ for (const lv of LEVELS) {
   const gMean = meaningEligible(lv).filter((g) => !EXCL.has(g.id)).length;
   const gBld = buildEligible(lv).filter((s) => !EXCL.has(s.g.id)).length;
   const lKan = listenKanjiEligible(lv);
+  const kMean = kanjiMeanEligible(lv), kForm = kanjiFormEligible(lv);
   rows[lv] = [
     { kubun: '語彙', drill: '語彙パズル(産出)', cov: vProd, tot: vt, achievable: vProd },
     { kubun: '語彙', drill: '聞き取り(語彙)', cov: lVoc, tot: vt, achievable: lVoc },
     { kubun: '文法', drill: '意味を選ぶ(受容)', cov: gMean, tot: gt, achievable: gt },
     { kubun: '文法', drill: '文法パズル(産出)', cov: gBld, tot: gt, achievable: gt - gbuildPermanent(lv) },
+    // 漢字ドリル(易→難): 意味/読み(認識)→形の弁別→聞き取り。書き取りは練習ゆえ面(カバー率)に数えない。
+    { kubun: '漢字', drill: '意味を選ぶ(漢字)', cov: kMean, tot: kt, achievable: kMean },
+    { kubun: '漢字', drill: '読み(漢字)', cov: kt, tot: kt, achievable: kt },
+    { kubun: '漢字', drill: '形の弁別(漢字)', cov: kForm, tot: kt, achievable: kForm },
     { kubun: '漢字', drill: '聞き取り(漢字)', cov: lKan, tot: kt, achievable: lKan },
   ];
 }

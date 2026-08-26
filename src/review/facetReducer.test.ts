@@ -28,17 +28,19 @@ test('MOCK_ANSWER: 初見の用法(kb-)は面(mean/grammar)へ合流', () => {
   assert.ok((facetEffectiveP(s.mastery!, 'n5-v-2', 'mean', NOW) ?? 0) > 0.9, 'synonym→mean 面');
 });
 
-test('KAKITORI_PROGRESS: 見ないで書く(step3)合格で write 面が上がる', () => {
+test('KAKITORI_PROGRESS: 書き取りは面を触らない(練習ツール・ユーザー方針2026-08-26)', () => {
+  // 書き取り(手書き産出)は「練習」＝マスタリー面には計上しない。★/SRS(kakitori)だけ記録する。
   const s = reducer(base(), { type: 'KAKITORI_PROGRESS', char: '楽', step: 3, score: 100, now: NOW } as never);
-  assert.ok((facetEffectiveP(s.mastery!, '楽', 'write', NOW) ?? 0) > 0, 'write 面が底上げ');
-  assert.ok(s.kakitori!['楽'], 'kakitori も従来通り');
+  assert.equal(facetEffectiveP(s.mastery!, '楽', 'write', NOW), null, '見ないで書く合格でも write 面は上げない');
+  assert.equal(facetEffectiveP(s.mastery!, '楽', 'read', NOW), null, 'read 面も触らない');
+  assert.ok(s.kakitori!['楽'], 'kakitori(★/SRS)は従来通り記録される');
 });
 
-test('KAKITORI_PROGRESS: なぞり段階(step1)や skip では面を触らない', () => {
+test('KAKITORI_PROGRESS: step1/skip でも当然 面は触らない', () => {
   const s1 = reducer(base(), { type: 'KAKITORI_PROGRESS', char: '楽', step: 1, score: 100, now: NOW } as never);
   assert.equal(facetEffectiveP(s1.mastery!, '楽', 'write', NOW), null, 'step1 は面に無反映');
   const s2 = reducer(base(), { type: 'KAKITORI_PROGRESS', char: '楽', step: 3, score: 100, skipped: true, now: NOW } as never);
-  assert.equal(facetEffectiveP(s2.mastery!, '楽', 'write', NOW), null, 'skip は面に無反映');
+  assert.equal(facetEffectiveP(s2.mastery!, '楽', 'write', NOW), null, 'skip も面に無反映');
 });
 
 test('スコープ外id(読解等)は面を作らない=mastery 空のまま', () => {

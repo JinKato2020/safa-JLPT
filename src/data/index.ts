@@ -184,6 +184,29 @@ export function readingAboveUserLevel(readingLevel: string, userLevel: string): 
   return (LV_RANK[readingLevel] ?? 4) > (LV_RANK[userLevel] ?? 0);
 }
 
+// 漢字1字の「読みstem(送り仮名なし)」→ 学習者に分かりやすい表示形。
+//  訓=kanji.jsonのkun("つよ.い")から送り仮名を補い「つよ（い）」/ 音=カタカナ。
+//  例: 強 つよ→つよ（い） ／ 手 て→て(送りなし) ／ 上 あ→あ（げる）。
+const _okuriCache: Record<string, Map<string, string>> = {};
+function _okuriMap(char: string): Map<string, string> {
+  let m = _okuriCache[char];
+  if (!m) {
+    m = new Map<string, string>();
+    for (const raw of (KANJI_RAW_READINGS[char]?.kun ?? '').split(/[、,]/)) {
+      const e = raw.replace(/^-+|-+$/g, '').trim(); // 接頭/接尾の - を除去(例「-り」「て-」)
+      const dot = e.indexOf('.');
+      if (dot > 0) { const stem = e.slice(0, dot); if (!m.has(stem)) m.set(stem, e.slice(dot + 1)); }
+    }
+    _okuriCache[char] = m;
+  }
+  return m;
+}
+export function formatKanjiReading(char: string, stem: string, type: 'on' | 'kun'): string {
+  if (type === 'on') return stem.replace(/[ぁ-ゖ]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60)); // 音=カタカナ
+  const oku = _okuriMap(char).get(stem);
+  return oku ? `${stem}（${oku}）` : stem; // 訓=送り仮名を（）で補う。送り仮名なし(て/うえ)はそのまま
+}
+
 // 漢字読み/表記の固定問題集(実行時自動生成でなく確定済み)。id=kr:<vocabId>/og:<vocabId>。
 // choices[0]=正解(表示時にシャッフル)。生成=問題/tools/build_kanji_read_bank.py。
 // 公式形式: 文中の対象語(漢字)を下線(underline=漢字span)→正しい読み(answer=ひらがな)を4択。

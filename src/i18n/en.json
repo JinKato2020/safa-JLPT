@@ -7,6 +7,9 @@
   "mock.review_ok": "Correct",
   "mock.review_ng": "Wrong",
   "cards.kanji_recognition": "Kanji quiz (meaning & reading)",
+  "cards.kanji_mean": "Kanji meaning",
+  "cards.kanji_read": "Kanji reading",
+  "cards.kanji_form": "Look-alike kanji",
   "krecog.prompt_mean": "What does this kanji mean?",
   "krecog.prompt_read": "How do you read this kanji?",
   "krecog.empty": "No kanji to show yet",
@@ -106,7 +109,7 @@
   "cards.kanji_list": "Kanji list",
   "cards.vocab_list": "Vocabulary list",
   "cards.grammar_list": "Grammar list",
-  "cards.kakitori_entry": "Kanji writing",
+  "cards.kakitori_entry": "Kanji writing (practice)",
   "cards.kakitori_kata": "Katakana writing",
   "cards.kakitori_hira": "Hiragana writing",
   "cards.kakitori_progress": "Writing {done}/{total}",
@@ -529,6 +532,7 @@
   "test.full_note": "Exactly the same sections, question count, and time as the real exam — a realistic diagnosis of your pass rate.",
   "test.full_time": "Monthly · ~60–100 min",
   "test.full_title": "Mock exam",
+  "test.challenge": "Take the Exam",
   "test.history_cap": "Score for last {n} exams (newest on right — higher = closer to passing)",
   "test.history_latest": "Latest {n}%",
   "test.history_section": "Mock Exam History",
@@ -1371,5 +1375,7 @@
   "coach.rel_total": "Overall",
   "coach.rel_ref": "Basis: {label} (avg. score at this level {mean} pts / pass rate {rate}%)",
   "coach.rel_note": "💡 Your predicted score compared with official test-taker data, shown as an approximate percentile. It's a rough guide, not your actual rank.",
-  "coach.mock_tap_hint": "Tap any result to open its full report card"
+  "coach.mock_tap_hint": "Tap any result to open its full report card",
+  "kform.prompt": "Which kanji fits the meaning & reading?",
+  "kform.empty": "No look-alike questions for this level yet."
 }
