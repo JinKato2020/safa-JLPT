@@ -58,3 +58,17 @@ test('buildDrill: itemsState を渡すと未習(state無し)が優先される',
   // 習得済み(p=0.9)は未習(-1)より後。50問中に含まれるなら末尾寄り。
   if (idx >= 0) assert.ok(idx > 0, '習得済みが先頭に来た');
 });
+
+test('buildDrill vMeaning: 語→意味4択・全語対象・itemId=#vrecog_mean', () => {
+  const ps = buildDrill('vMeaning', 'N5', 8, 42);
+  assert.ok(ps.length > 0, 'vMeaning空');
+  for (const p of ps) {
+    assert.equal(p.kind, 'vMeaning');
+    if (p.kind !== 'vMeaning') continue;
+    assert.equal(p.choices.length, 4, '4択');
+    assert.ok(p.answerIndex >= 0 && p.answerIndex < 4, '正解位置が範囲内');
+    assert.ok(p.choices[p.answerIndex], '正解が選択肢に存在');
+    assert.ok(p.itemId.endsWith('#vrecog_mean'), 'itemIdが#vrecog_mean');
+    assert.ok(p.prompt.length > 0 && p.reading.length > 0, 'prompt(語)とreadingあり');
+  }
+});

@@ -70,9 +70,12 @@ test('④ 形の弁別(form)面が上がれば覚えたに計上(似た字が揃
   assert.equal(kanjiBar(m).learned, 1, '形の弁別だけでも1字計上される');
 });
 
-test('③ 作れない面(意味)は分母から除外＝校はmeanデータだけでは覚えた扱いにしない', () => {
-  const ch = '校'; // kanjiFacets: meaningClear=false(意味を出しにくい)
+test('③ 方針A(2026-08-28): 全字に意味面 → 校も mean 認識で覚えた扱いになる', () => {
+  // 旧: 音のみ字(校)は meaningClear=false で mean を分母から除外していた。
+  // 方針Aで辞書glossがあれば全字 meaningClear=true → 校も mean 面を作れる=覚えた判定に使う。
+  // ※「作れない面は分母から除外」する facetMakeable の仕組みは残る(現データでは全字全4面makeableのため発火せず)。
+  const ch = '校';
   assert.ok(KANJI.some((k) => k.type === 'kanji' && k.char === ch && k.level === 'N5'));
   const m = drill({}, [{ itemId: ch, facet: 'mean' as Facet, weight: 1 }], 20);
-  assert.equal(kanjiBar(m).learned, 0, 'mean を作れない字は mean を分母に入れない(=覚えた判定に使わない)');
+  assert.equal(kanjiBar(m).learned, 1, '校も mean 面を作れる(方針A)ので覚えた判定に計上');
 });

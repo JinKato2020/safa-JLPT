@@ -9,15 +9,17 @@ import grammar from '../data/shared/grammar.json';
 import grammarDrillBlank from '../data/shared/grammarDrillBlank.json';
 import vocabExamplesAi from '../data/dict/vocabExamplesAi.json';
 const VOCAB_EXAMPLE = vocabExamplesAi as Record<string, { ja?: string }>;
-import { grammarMeaningProblem } from './wordTabProblems';
+import { grammarMeaningProblem, vocabMeaningProblem } from './wordTabProblems';
 import { mulberry32 } from './rng';
 
-export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning' | 'mixed';
+export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning' | 'vMeaning' | 'mixed';
 
 export type DrillProblem =
   | { kind: 'vProduce'; itemId: string; prompt: string; hint?: string; example?: string; reading: string; answer: string[]; tiles: string[] }
   | { kind: 'gBuild'; itemId: string; prompt: string; hint?: string; reading: string; answer: string[]; tiles: string[] }
-  | { kind: 'gMeaning'; itemId: string; prompt: string; choices: string[]; answerIndex: number; example?: string; hit?: string };
+  | { kind: 'gMeaning'; itemId: string; prompt: string; choices: string[]; answerIndex: number; example?: string; hit?: string }
+  // 語彙 意味認識(受容): 語(表記)を単独提示→意味を4択。文脈が無いので当てずっぽが効かない。reading=採点後に表示。
+  | { kind: 'vMeaning'; itemId: string; prompt: string; reading: string; choices: string[]; answerIndex: number };
 
 type V = { id: string; level: string; word: string; reading: string; meaning: string };
 const VOCAB = vocab as V[];
@@ -145,6 +147,18 @@ export function buildDrill(kind: DrillKind, level: string, count = 10, seed = 1,
   if (kind === 'gBuild') {
     const pool = orderBySrs(buildEligible(level), (s) => `${s.g.id}#gbuild`, itemsState, seed);
     return pool.slice(0, count).map((s, i) => gBuild(s, seed + i * 7919));
+  }
+  if (kind === 'vMeaning') {
+    // 全語対象(意味は全語にある)。SRSで未習/低習得を優先。itemId=<vocabId>#vrecog_mean → mean面。
+    const pool = orderBySrs(VOCAB.filter((v) => v.level === level), (v) => `${v.id}#vrecog_mean`, itemsState, seed);
+    return pool.slice(0, count)
+      .map((v, i): DrillProblem | null => {
+        const p = vocabMeaningProblem(v.id, seed + i * 7919);
+        if (!p) return null;
+        // prompt=語の表記(文脈なし)。意味の4択は vocabMeaningProblem 由来(同レベル・同品詞ダミー)。
+        return { kind: 'vMeaning' as const, itemId: `${v.id}#vrecog_mean`, prompt: v.word, reading: v.reading, choices: p.choices, answerIndex: p.answerIndex };
+      })
+      .filter((x): x is Extract<DrillProblem, { kind: 'vMeaning' }> => x !== null);
   }
   const pool = orderBySrs(meaningEligible(level), (g) => `${g.id}#gmeaning`, itemsState, seed);
   return pool.slice(0, count)

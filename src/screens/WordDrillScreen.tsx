@@ -62,13 +62,14 @@ export default function WordDrillScreen() {
     const out: StudiedWord[] = [];
     for (const pr of problems) {
       const id = pr.itemId.split('#')[0];
-      const type = pr.kind === 'vProduce' ? ('vocab' as const) : ('grammar' as const);
+      const type = pr.kind === 'vProduce' || pr.kind === 'vMeaning' ? ('vocab' as const) : ('grammar' as const);
       const key = type + id;
       if (seen.has(key)) continue;
       seen.add(key);
       const correct = results[id];
       if (pr.kind === 'vProduce') out.push({ ref: { type, id }, word: pr.hint ?? pr.reading, meaning: pr.prompt, correct });
       else if (pr.kind === 'gBuild') out.push({ ref: { type, id }, word: pr.reading, meaning: pr.hint, correct });
+      else if (pr.kind === 'vMeaning') out.push({ ref: { type, id }, word: pr.prompt, meaning: pr.choices[pr.answerIndex], correct });
       else out.push({ ref: { type, id }, word: pr.hit ?? pr.prompt, correct });
     }
     return out;
@@ -90,9 +91,9 @@ export default function WordDrillScreen() {
     setI((n) => n + 1);
   };
 
-  const titleKey = kind === 'vProduce' ? 'worddrill.title_vProduce' : kind === 'gBuild' ? 'worddrill.title_gBuild' : kind === 'gMeaning' ? 'worddrill.title_gMeaning' : 'worddrill.title_mixed';
+  const titleKey = kind === 'vProduce' ? 'worddrill.title_vProduce' : kind === 'gBuild' ? 'worddrill.title_gBuild' : kind === 'gMeaning' ? 'worddrill.title_gMeaning' : kind === 'vMeaning' ? 'worddrill.title_vMeaning' : 'worddrill.title_mixed';
   // 問いかけは各問題の形式に依存(mixedでは問題ごとに変わる)。
-  const askKeyFor = (k: DrillProblem['kind']) => k === 'vProduce' ? 'worddrill.produce_ask' : k === 'gBuild' ? 'worddrill.build_ask' : 'worddrill.meaning_ask';
+  const askKeyFor = (k: DrillProblem['kind']) => k === 'vProduce' ? 'worddrill.produce_ask' : k === 'gBuild' ? 'worddrill.build_ask' : k === 'vMeaning' ? 'worddrill.vmeaning_ask' : 'worddrill.meaning_ask';
 
   if (gateAllowed === null) return null;
   if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
@@ -118,7 +119,7 @@ export default function WordDrillScreen() {
             accuracy={problems.length ? Math.round((score / problems.length) * 100) : 0}
             correct={score}
             total={problems.length}
-            mode={kind === 'vProduce' ? 'moji_goi' : 'bunpou'}
+            mode={kind === 'vProduce' || kind === 'vMeaning' ? 'moji_goi' : 'bunpou'}
             seed={seed}
           />
           <Pressable style={s.cta} onPress={() => nav.goBack()}><Text style={s.ctaTxt}>{t('worddrill.finish')}</Text></Pressable>
@@ -137,7 +138,7 @@ export default function WordDrillScreen() {
         {(p.kind === 'vProduce' || p.kind === 'gBuild') && (
           <ProduceView p={p} placed={placed} setPlaced={setPlaced} judged={judged} record={record} s={s} c={c} t={t} />
         )}
-        {p.kind === 'gMeaning' && (
+        {(p.kind === 'gMeaning' || p.kind === 'vMeaning') && (
           <MeaningView p={p} sel={sel} setSel={setSel} judged={judged} record={record} s={s} />
         )}
       </ScrollView>
@@ -223,9 +224,9 @@ function ProduceView({ p, placed, setPlaced, judged, record, s, c, t }: {
   );
 }
 
-// ── 文法 意味(4択) ──
+// ── 意味(4択)受容: 文法点の意味 / 語彙の意味認識(語→意味) ──
 function MeaningView({ p, sel, setSel, judged, record, s }: {
-  p: Extract<DrillProblem, { kind: 'gMeaning' }>; sel: number | null; setSel: (v: number) => void;
+  p: Extract<DrillProblem, { kind: 'gMeaning' | 'vMeaning' }>; sel: number | null; setSel: (v: number) => void;
   judged: null | boolean; record: (correct: boolean, id: string) => void; s: Styles;
 }) {
   const CODE = ['A', 'B', 'C', 'D'];
@@ -236,12 +237,15 @@ function MeaningView({ p, sel, setSel, judged, record, s }: {
   };
   return (
     <>
-      {/* 文法点は 漢字（かな） を含む(82/393)。RubyTextで漢字の上にルビ表示(カッコ生表示を回避)。 */}
+      {/* 提示語(文法点/語)。RubyTextで漢字の上にルビ表示。語彙は文脈なし=当てずっぽ不可。 */}
       <View style={s.prompt}><RubyText text={p.prompt} style={s.promptPt} rubyStyle={s.exampleRuby} center /></View>
-      {!!p.example && (
+      {p.kind === 'gMeaning' && !!p.example && (
         <View style={s.exampleBox}>
           <RubyText text={p.example} target={p.hit} style={s.exampleTxt} hitStyle={s.exampleHit} rubyStyle={s.exampleRuby} center />
         </View>
+      )}
+      {p.kind === 'vMeaning' && judged !== null && (
+        <Text style={s.answerHint}>{p.reading}</Text>
       )}
       <View style={s.choices}>
         {p.choices.map((ch, k) => {

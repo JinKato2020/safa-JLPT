@@ -85,6 +85,9 @@ export function facetsForUnit(unit: string): FacetTarget[] {
       case 'gbuild':
       case 'gmeaning':
         return [{ itemId, facet: 'grammar', weight: 0.85 }];
+      // 語彙認識(受容): 語を単独提示→意味を4択。文脈が無い純粋な意味認識。mean面(weight1)を語IDへ計上。
+      case 'vrecog_mean':
+        return [{ itemId, facet: 'mean', weight: 1 }];
       // 漢字認識テスト(段階B①): 字を単独提示→意味/読みを4択。認識面(weight1・失敗で減点)を char へ計上。
       case 'krecog_mean':
         return [{ itemId, facet: 'mean', weight: 1 }];

@@ -19,12 +19,14 @@ test('vocab meaning problem: audio prompt, 4 unique choices, answer present', ()
   assert.equal(p.facet, 'meaning');
 });
 
-test('kanji meaning problem for meaning-clear 山; null for bound 校', () => {
+test('kanji meaning problem: 方針A(2026-08-28)で全字に意味問題(山も校も辞書glossあり)', () => {
   const p = kanjiMeaningProblem('山', 3)!;
   checkMc(p, '山' && p.choices[p.answerIndex]);
   assert.equal(p.prompt, '山');
   assert.equal(p.facet, 'kanji_meaning');
-  assert.equal(kanjiMeaningProblem('校', 3), null); // bound字は意味問題なし
+  // 旧: 音のみ字(校)はnull → 方針Aで辞書glossがあれば全字に意味問題を作る。
+  const k = kanjiMeaningProblem('校', 3);
+  assert.ok(k && k.prompt === '校' && k.choices.length === 4);
 });
 
 test('grammar meaning problem uses the point as prompt', () => {

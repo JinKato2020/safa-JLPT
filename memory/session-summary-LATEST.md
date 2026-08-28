@@ -1,15 +1,19 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 1 回・4 ターン
-- 往復 455 回
+- ツール呼び出し 42 回・84 ターン
+- 往復 422 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
+- src/ladder/wordTabProblems.test.ts
+- src/ladder/inventory.test.ts
+- src/review/facetMap.test.ts
+- src/ladder/wordDrill.test.ts
+
+## ⚠️ 注意
+- - ⚠ 文脈 49万／70万（71%）・422往復 — そろそろ /clear の頃合い
+- - ツール呼び出しループが長い（指示1件に対し 84ターン・ツール42回）— まとめ方を変える
 
 ## 次の一手
 - **▶▶ 2026-08-26 LIVE(最新)＝漢字マスタリー再設計＋試験タブUI＋読み表示修正・ビルド済【/clear後の最優先・以降は superseded】**：**v1.1.15(2860) iOS/Android dispatch済**(commit `015e0205`・run `32933755172`・tsc0/テスト緑・-NoWatch)。正本=`memory/漢字面再設計-inflight.md`。

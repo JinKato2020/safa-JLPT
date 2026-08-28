@@ -194,6 +194,10 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 文脈 49万／70万（71%）・422往復 — そろそろ /clear の頃合い
+- ツール呼び出しループが長い（指示1件に対し 84ターン・ツール42回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a64bf3402048b0567 general-purpose
 - a1d3e3f9a0186f063 general-purpose
@@ -202,14 +206,14 @@
 - a08247191c3197a69 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
-- memory/session-summary-LATEST.md
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
-- memory/在庫・模試ストックまとめ.xlsx
-- scratchpad/pg/drill_coverage.json
-- tools/update_drill_coverage.py
+- src/ladder/wordTabProblems.test.ts
+- src/ladder/inventory.test.ts
+- src/review/facetMap.test.ts
+- src/ladder/wordDrill.test.ts
+- src/navigation/types.ts
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
 
-_自動更新: 2026-08-26 17:14_
+_自動更新: 2026-08-28 13:41_
 <!-- AUTO:END -->

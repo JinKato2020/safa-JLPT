@@ -74,3 +74,7 @@ test('facetsForKakitori: write(補強)＋副read', () => {
 test('facetsForListen: listen(認識)', () => {
   assert.deepEqual(facetsForListen('n5-v-9'), [{ itemId: 'n5-v-9', facet: 'listen', weight: 1 }]);
 });
+
+test('facetsForUnit: 語彙意味認識 #vrecog_mean → mean面(weight1)', () => {
+  assert.deepEqual(facetsForUnit('n5-v-1#vrecog_mean'), [{ itemId: 'n5-v-1', facet: 'mean', weight: 1 }]);
+});
