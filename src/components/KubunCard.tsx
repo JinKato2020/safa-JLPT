@@ -63,6 +63,7 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
   if (kubun === 'vocab') {
     add('cards.vmeaning', () => nav.navigate('WordDrill', { kind: 'vMeaning' }), 0);                    // 語彙の意味(認識)=初期解禁・文脈なし4択
     add('cards.vreading', () => nav.navigate('WordDrill', { kind: 'vReading' }), 0);                    // 語彙の読み(認識)=初期解禁・ルビ無し4択
+    add('cards.vwriting', () => nav.navigate('WordDrill', { kind: 'vWriting' }), 0);                    // 語彙の表記(かたち・認識)=初期解禁・意味→漢字表記4択
     add('cards.produce', () => nav.navigate('WordDrill', { kind: 'vProduce' }), UNLOCK_NEED.vproduce); // 語彙パズル(産出)=語彙15%
     add('cards.listening', () => nav.navigate('ListeningQuiz', { kind: 'vocab' }), UNLOCK_NEED.listen); // 聞き取り=語彙5%
   }

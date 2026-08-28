@@ -89,3 +89,18 @@ test('buildDrill vReading: 語→読み4択・漢字語のみ・itemId=#vrecog_r
     for (const ch of p.choices) assert.ok(/^[ぁ-ゖー]+$/.test(ch), `読み選択肢が純かな: ${ch}`);
   }
 });
+
+test('buildDrill vWriting(かたち): 意味→漢字表記4択・漢字語のみ・itemId=#vrecog_write・選択肢は漢字語', () => {
+  const ps = buildDrill('vWriting', 'N5', 8, 42);
+  assert.ok(ps.length > 0, 'vWriting空');
+  for (const p of ps) {
+    assert.equal(p.kind, 'vWriting');
+    if (p.kind !== 'vWriting') continue;
+    assert.equal(p.choices.length, 4, '4択');
+    assert.ok(p.answerIndex >= 0 && p.answerIndex < 4, '正解位置が範囲内');
+    assert.ok(p.itemId.endsWith('#vrecog_write'), 'itemIdが#vrecog_write');
+    assert.ok(p.prompt.length > 0 && p.reading.length > 0, 'prompt(意味)とreading(採点後表示)あり');
+    // 全選択肢が漢字を含む語(表記の4択)。正解も漢字語。
+    for (const ch of p.choices) assert.ok(/[一-龥々〆ヶ]/.test(ch), `表記選択肢が漢字語: ${ch}`);
+  }
+});

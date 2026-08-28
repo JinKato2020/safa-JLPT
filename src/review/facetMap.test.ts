@@ -82,3 +82,7 @@ test('facetsForUnit: 語彙意味認識 #vrecog_mean → mean面(weight1)', () =
 test('facetsForUnit: 語彙読み認識 #vrecog_read → read面(weight1)', () => {
   assert.deepEqual(facetsForUnit('n5-v-1#vrecog_read'), [{ itemId: 'n5-v-1', facet: 'read', weight: 1 }]);
 });
+
+test('facetsForUnit: 語彙表記認識(かたち) #vrecog_write → write面(weight1)', () => {
+  assert.deepEqual(facetsForUnit('n5-v-1#vrecog_write'), [{ itemId: 'n5-v-1', facet: 'write', weight: 1 }]);
+});

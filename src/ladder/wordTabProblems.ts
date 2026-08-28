@@ -61,6 +61,21 @@ export function vocabReadingProblem(vId: string, seed = 1, n = 3): McProblem | n
   return { itemId: v.id, facet: 'on', promptKind: 'kanji', prompt: v.word, ...place(v.reading, distractors, seed) };
 }
 
+// 語彙 表記認識(受容・かたち): 意味 → 正しい漢字表記の単語を4択。文脈なし＝表記大問より難しい。
+//   漢字を含む語のみ(かな語は綴りが無い)。ダミー=同レベルの別漢字語の表記で、同音異字(同じ読み・別表記)を最優先
+//   ＝綴りの弁別になる。プロンプト=意味(語を一意特定・読みだけだと暑い/熱い/厚い等の同音異字で非一意になるため)。
+export function vocabWritingProblem(vId: string, seed = 1, n = 3): McProblem | null {
+  const v = VOCAB.find((x) => x.id === vId);
+  if (!v || v.word === v.reading || !/[一-龥々〆ヶ]/.test(v.word)) return null; // かな語/漢字なし=綴りが無い
+  const pool: Candidate<string>[] = VOCAB
+    .filter((x) => x.level === v.level && x.id !== v.id && x.word !== v.word && x.meaning !== v.meaning
+      && /[一-龥々〆ヶ]/.test(x.word) && !/[～~]/.test(x.word)) // 束縛形態素(～付き)はダミーに使わない
+    .map((x) => ({ key: x.word, bucket: x.reading === v.reading ? 'homophone' : 'other', item: x.word }));
+  const distractors = pickSimilar(v.word, 'homophone', pool, n, seed); // 同音異字を優先
+  if (distractors.length < n) return null; // ダミー不足=出題しない(4択を割らない)
+  return { itemId: v.id, facet: 'kanji_write', promptKind: 'grammar', prompt: v.meaning, ...place(v.word, distractors, seed) };
+}
+
 // 漢字 意味(受容・明快字のみ): 字 → 意味を4択。ダミー=同レベルの別字の意味。
 export function kanjiMeaningProblem(ch: string, seed = 1, n = 3): McProblem | null {
   const card = KANJI[ch];

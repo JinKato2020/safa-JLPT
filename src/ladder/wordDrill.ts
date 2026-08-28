@@ -9,10 +9,10 @@ import grammar from '../data/shared/grammar.json';
 import grammarDrillBlank from '../data/shared/grammarDrillBlank.json';
 import vocabExamplesAi from '../data/dict/vocabExamplesAi.json';
 const VOCAB_EXAMPLE = vocabExamplesAi as Record<string, { ja?: string }>;
-import { grammarMeaningProblem, vocabMeaningProblem, vocabReadingProblem } from './wordTabProblems';
+import { grammarMeaningProblem, vocabMeaningProblem, vocabReadingProblem, vocabWritingProblem } from './wordTabProblems';
 import { mulberry32 } from './rng';
 
-export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning' | 'vMeaning' | 'vReading' | 'mixed';
+export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning' | 'vMeaning' | 'vReading' | 'vWriting' | 'mixed';
 
 export type DrillProblem =
   | { kind: 'vProduce'; itemId: string; prompt: string; hint?: string; example?: string; reading: string; answer: string[]; tiles: string[] }
@@ -21,7 +21,9 @@ export type DrillProblem =
   // 語彙 意味認識(受容): 語(表記)を単独提示→意味を4択。文脈が無いので当てずっぽが効かない。reading=採点後に表示。
   | { kind: 'vMeaning'; itemId: string; prompt: string; reading: string; choices: string[]; answerIndex: number }
   // 語彙 読み認識(受容): 語(表記)を単独提示→読みを4択。ルビは出さない(ルビ=答え)。meaning=採点後に表示。
-  | { kind: 'vReading'; itemId: string; prompt: string; meaning: string; choices: string[]; answerIndex: number };
+  | { kind: 'vReading'; itemId: string; prompt: string; meaning: string; choices: string[]; answerIndex: number }
+  // 語彙 表記認識(受容・かたち): 意味を提示→正しい漢字表記の語を4択。文脈なし。reading=採点後に表示。
+  | { kind: 'vWriting'; itemId: string; prompt: string; reading: string; choices: string[]; answerIndex: number };
 
 type V = { id: string; level: string; word: string; reading: string; meaning: string };
 const VOCAB = vocab as V[];
@@ -41,6 +43,9 @@ export function toMorae(reading: string): string[] {
   return out;
 }
 const KANA_POOL = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽ'.split('');
+// カタカナ語(アパート/カメラ等)の産出用タイル。ひらがな→カタカナは符号位置 +0x60。
+const KATAKANA_POOL = KANA_POOL.map((h) => String.fromCharCode(h.charCodeAt(0) + 0x60));
+const isKatakana = (s: string) => /[ァ-ヶ]/.test(s);
 
 const strip = (s: string) => (s || '').replace(/（[^）]*）/g, '').replace(/\([^)]*\)/g, '');
 
@@ -49,28 +54,49 @@ function shuffle<T>(arr: T[], seed: number): T[] {
   return arr.map((v) => ({ v, r: rng() })).sort((a, b) => a.r - b.r).map((x) => x.v);
 }
 
-// 答えのモーラ＋ダミーで約8タイルを作る。ダミー=答えに無いかな。
+// 答えのモーラ＋ダミーで約8タイルを作る。ダミー=答えに無いかな。カタカナ語はカタカナのダミーを使う。
 function buildTiles(answer: string[], seed: number): string[] {
   const inAns = new Set(answer);
   const distractCount = Math.max(2, TARGET_TILES - answer.length);
-  const pool = shuffle(KANA_POOL.filter((k) => !inAns.has(k)), seed);
+  const src = answer.some(isKatakana) ? KATAKANA_POOL : KANA_POOL;
+  const pool = shuffle(src.filter((k) => !inAns.has(k)), seed);
   const distractors = pool.slice(0, distractCount);
   return shuffle([...answer, ...distractors], seed ^ 0x9e3779b9);
 }
 
 // ── 語彙 産出(意味→かな) ────────────────────────────────
+// 接辞(～付き)は ～ を外した形で作問する(ユーザー方針: 接辞は～を外して例文の中でパズル化)。
+const stripWave = (s: string) => s.replace(/[～~]/g, '');
+const producedForm = (v: V): { word: string; reading: string } =>
+  /[～~]/.test(v.word) ? { word: stripWave(v.word), reading: stripWave(v.reading) } : { word: v.word, reading: v.reading };
+
 function vProduce(v: V, seed: number): DrillProblem {
-  const answer = toMorae(v.reading);
+  const { word, reading } = producedForm(v); // 接辞は～除去後の語/読みで作問
+  const answer = toMorae(reading);
   // ヒント=単語(漢字表記)。ただし かな語(word===reading)は hint が答えそのものになるので出さない(意味だけで想起)。
-  const hint = v.word !== v.reading ? v.word : undefined;
+  const hint = word !== reading ? word : undefined;
   // 対象語を隠した例文(文脈ヒント)。例文に語が出現する時のみ空所〔　　〕に置換。
   const exJa = VOCAB_EXAMPLE[v.id]?.ja;
-  const example = exJa && exJa.includes(v.word) ? exJa.replace(v.word, '〔　　〕') : undefined;
-  return { kind: 'vProduce', itemId: `${v.id}#produce`, prompt: v.meaning, hint, example, reading: v.reading, answer, tiles: buildTiles(answer, seed) };
+  const example = exJa && exJa.includes(word) ? exJa.replace(word, '〔　　〕') : undefined;
+  return { kind: 'vProduce', itemId: `${v.id}#produce`, prompt: v.meaning, hint, example, reading, answer, tiles: buildTiles(answer, seed) };
 }
 export function produceEligible(level: string): V[] {
-  // 接尾辞/束縛形態素(～観・～敗 等 〜付き)は単独産出に不適=除外。
-  return VOCAB.filter((v) => v.level === level && !/[～~]/.test(v.word) && /^[ぁ-ゖー]+$/.test(v.reading) && toMorae(v.reading).length >= 2 && toMorae(v.reading).length <= 6);
+  // 読みは純ひらがな or 純カタカナ(外来語=カタカナタイルで組む)。2〜8モーラ(一生懸命等の長語も可)。
+  // 接辞(～)は ～ を外した語/読みで判定し、かつ例文にその語が出て空所化できる時だけ採用(例文なし=失格スタブを出さない)。
+  return VOCAB.filter((v) => {
+    if (v.level !== level) return false;
+    const affix = /[～~]/.test(v.word);
+    const { word, reading } = producedForm(v);
+    if (!word) return false;
+    if (!(/^[ぁ-ゖー]+$/.test(reading) || /^[ァ-ヶー]+$/.test(reading))) return false;
+    const m = toMorae(reading).length;
+    if (m < 2 || m > 8) return false;
+    if (affix) {
+      const ex = VOCAB_EXAMPLE[v.id]?.ja;
+      if (!ex || !ex.includes(word)) return false; // 接辞は例文必須(空所化できること)
+    }
+    return true;
+  });
 }
 
 // ── 文法 産出(例文の空所に文法語をかなタイルで作る) ─────────
@@ -173,6 +199,18 @@ export function buildDrill(kind: DrillKind, level: string, count = 10, seed = 1,
         return { kind: 'vReading' as const, itemId: `${v.id}#vrecog_read`, prompt: v.word, meaning: v.meaning, choices: p.choices, answerIndex: p.answerIndex };
       })
       .filter((x): x is Extract<DrillProblem, { kind: 'vReading' }> => x !== null);
+  }
+  if (kind === 'vWriting') {
+    // 漢字を含む語のみ(かな語は綴りが無い)。意味→漢字表記を4択。itemId=<vocabId>#vrecog_write → write面。
+    const pool = orderBySrs(VOCAB.filter((v) => v.level === level && v.word !== v.reading), (v) => `${v.id}#vrecog_write`, itemsState, seed);
+    return pool.slice(0, count)
+      .map((v, i): DrillProblem | null => {
+        const p = vocabWritingProblem(v.id, seed + i * 7919);
+        if (!p) return null;
+        // prompt=意味(語を一意特定)。漢字表記の4択は vocabWritingProblem 由来(同音異字を優先)。
+        return { kind: 'vWriting' as const, itemId: `${v.id}#vrecog_write`, prompt: v.meaning, reading: v.reading, choices: p.choices, answerIndex: p.answerIndex };
+      })
+      .filter((x): x is Extract<DrillProblem, { kind: 'vWriting' }> => x !== null);
   }
   const pool = orderBySrs(meaningEligible(level), (g) => `${g.id}#gmeaning`, itemsState, seed);
   return pool.slice(0, count)

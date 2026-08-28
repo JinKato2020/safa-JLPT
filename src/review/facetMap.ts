@@ -91,6 +91,9 @@ export function facetsForUnit(unit: string): FacetTarget[] {
       // 語彙読み認識(受容): 語を単独提示→読みを4択(ルビ無し)。純粋な読み認識。read面(weight1)を語IDへ計上。
       case 'vrecog_read':
         return [{ itemId, facet: 'read', weight: 1 }];
+      // 語彙表記認識(受容・かたち): 意味→正しい漢字表記を4択。文脈なしの綴り弁別。write面(weight1)を語IDへ計上。
+      case 'vrecog_write':
+        return [{ itemId, facet: 'write', weight: 1 }];
       // 漢字認識テスト(段階B①): 字を単独提示→意味/読みを4択。認識面(weight1・失敗で減点)を char へ計上。
       case 'krecog_mean':
         return [{ itemId, facet: 'mean', weight: 1 }];
