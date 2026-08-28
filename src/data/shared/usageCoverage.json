@@ -3,12 +3,12 @@
   "goal": "可能な限り語彙をカバー(breadth%→100%)。番人はカバー数の後退と集中(1語2問以上)を禁じる。",
   "baseline": {
     "N4": {
-      "covered": 567,
+      "covered": 573,
       "total": 673,
-      "pct": 84
+      "pct": 85
     },
     "N3": {
-      "covered": 294,
+      "covered": 295,
       "total": 2145,
       "pct": 14
     }

@@ -92,8 +92,9 @@ test('出題数: N4=285/N3=1099 (2026-08-23 未カバー語へ新規作問で増
   // 2026-08-25 級以下監査で上級語問題60問を除外(285→225)。
   // 2026-08-25 N3も級以下監査: 誤答のみ上級376問を級内差替、正解が上級の187問をfix89/drop98(content42ドロップ)→1099→1057。
   // 2026-08-26 未マージEXCEL新問をマージ: N4+181(級内確定406)/N3+554(新規問題295+増作2259)/N5+100(級内確定231)。
-  assert.equal(daimonUnitIds('N4', 'synonym', 'all').length, 406);
-  assert.equal(daimonUnitIds('N3', 'synonym', 'all').length, 1611);
+  // 2026-08-28 3面語の面数底上げ(B案): 何～(N5)/～君(N4)/はあ(N3)に言い換え各1問追加 → N4 406→407 / N3 1611→1612 / N5 231→232。
+  assert.equal(daimonUnitIds('N4', 'synonym', 'all').length, 407);
+  assert.equal(daimonUnitIds('N3', 'synonym', 'all').length, 1612);
 });
 
 test('語レベル(stem無=N3のみ)は「意味がいちばん近い語」を問い、下線が引かれる', () => {

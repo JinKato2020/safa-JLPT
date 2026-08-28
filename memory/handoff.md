@@ -2,7 +2,9 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶▶ 2026-08-28 LIVE(最新)＝産出オーバーライド新設＋と/お～母数除外・コミット/Push済【OTA未配信】**：**産出(語彙パズル)の語別上書き機構を新設**＝`src/data/shared/vocabProduceOverride.json`(新規)＝機械的な～除去で正しい産出形にならない語を{reading,example}で上書き。`wordDrill.ts`の`vProduce`/`produceEligible`が対応(scratchpadのlowface/face4 emitterも対応)。適用＝**いくら～ても→いくら**・**～おわる→おわり**(2→3面)。**～おわる文脈規定を差替**(「この本は昨日、読み〔　〕ました。」おわり/誤答すぎ・かけ・なおし=ユーザーが"読みなおしは不自然"と確認)。**と(n3-v-2080=文法n5-g-75)・お～(n5-v-96=文法n5-g-59)を母数除外**(文法点でカバー済)。**→2面の語彙ゼロ**。母数 **N5 718→717・N3 2145→2144**(N4 667)。②カバー率/面数分布Excel更新済。**npm test 425/425・tsc0**。**次の一手＝OTA配信(要合図・`_manifest.json`再生成+publish-content.ps1・ネイティブビルド不要だが wordDrill.ts=UI/ロジック変更ゆえ産出上書きの実機反映には次のネイティブビルドが必要な点に注意)**。
+- **▶▶ 2026-08-28 LIVE(最新)＝3面語の面数底上げ(用法/言い換え)＋②カバー率更新・全緑【未コミット/未OTA】**：3面15語を4観点(パズル/文脈規定/意味/用法)＋文法重複で検討→**用法7問・言い換え3問を投入**。用法(usage)=N4/N3のみ(N5は用法大問なし)＝`usage_N4.json`+6(`N4-V-Y-0566〜0571`=おわる/やすい/おき/ちゃん/君/いくら～ても)・`usage_N3.json`+1(`0351`=はあ)。言い換え=`synonym_N5`+1(何時≒いつ`N5-V-I-0346`)・`synonym_N4`+1(君≒さん`0467`)・`synonym_N3`+1(はあ≒ふう`1654`)。**くらいは既存ゆえ増やさず**。付随=`usageDistractorTags.json`+7(はあ=monoTypeAllow・type∈自他/別義/近接/選択/コロケ/対義/呼応/授受)・`sentenceFuri.json`+1・`usageCoverage`基準 N4 573/N3 295・`synonymFormat.test`出題数 N4 407/N3 1612。**文法重複の扱い=B案(語彙として育てる)**＝いくら～ても(n3-g-31)/やすい(n4-g-121)/おき(n4-g-67)は除外せず用法追加。**8語が3面卒業**：N4 いくら/やすい/おき/ちゃん/おわる→4面・君→5面／N3 はあ→5面／N5 何～→4面。**②カバー率 語彙面数分布更新**(3面 N5 7→6・N4 7→1・N3 1→0／4面 N5 60→61・N4 11→16／5面 N4 72→73・N3 179→180・母数 717/667/2144)。**npm 425/425・tsc0・番人33/33緑**。**残3面=7語(構造的下限)**＝がる/くらい/さん/すぎ/たち/では(N5=用法大問なし)＋御～(N4=文法n5-g-59そのもの・お～と同じ除外候補)。**次の一手＝(a)コミット/OTA配信の要否(要合図・`publish-content.ps1`) (b)`面数分布_明細.xlsx`が投入前(15語@3面)のまま=stale・要再生成なら指示 (c)御～の母数除外の要否**。集計=`scratchpad/facet_emit.ts`(母数=vocabMetricExcluded除外済で717/667/2144一致)。
+
+- **▶▶ 2026-08-28 (前段)＝産出オーバーライド新設＋と/お～母数除外・コミット/Push済【OTA未配信】**：**産出(語彙パズル)の語別上書き機構を新設**＝`src/data/shared/vocabProduceOverride.json`(新規)＝機械的な～除去で正しい産出形にならない語を{reading,example}で上書き。`wordDrill.ts`の`vProduce`/`produceEligible`が対応(scratchpadのlowface/face4 emitterも対応)。適用＝**いくら～ても→いくら**・**～おわる→おわり**(2→3面)。**～おわる文脈規定を差替**(「この本は昨日、読み〔　〕ました。」おわり/誤答すぎ・かけ・なおし=ユーザーが"読みなおしは不自然"と確認)。**と(n3-v-2080=文法n5-g-75)・お～(n5-v-96=文法n5-g-59)を母数除外**(文法点でカバー済)。**→2面の語彙ゼロ**。母数 **N5 718→717・N3 2145→2144**(N4 667)。②カバー率/面数分布Excel更新済。**npm test 425/425・tsc0**。**次の一手＝OTA配信(要合図・`_manifest.json`再生成+publish-content.ps1・ネイティブビルド不要だが wordDrill.ts=UI/ロジック変更ゆえ産出上書きの実機反映には次のネイティブビルドが必要な点に注意)**。
 
 - **▶▶ 2026-08-28 (前段)＝面数底上げ＋4面語QA＝文脈規定51問+QA修正 コミット/Push済**：commit `88f18d6f`(content)＋`345cb6c4`(面数分布Excel)＋`fbb51801`(最新化) push済。指示語20+副詞/接続詞/あいさつ31=**文脈規定51問**をcontext_{N5,N4,N3}へ、あ/ああを母数除外(718/667)、**擦る(n3-v-2035)読み=こする補完**、なにも/いずれ/うなるの産出例文をかな露出文へ差替(パズル空所化可)、うなる言い換えを句レベル(低い声を出す)へ差替。`面数分布_明細.xlsx`「語彙_4面」=**115語・全4問(460セル)**。**npm test 425/425・tsc0**。**次の一手＝OTA配信(要ユーザー合図)＝`_manifest.json`再生成+`publish-content.ps1`(content変更ゆえネイティブビルド不要・[[ota-manifest-regen-or-stale]] [[content-ota-vs-ui-build]])。以降の面数底上げは4面以上の副詞/接続詞カバー拡張(多数あり)へ**。※dict源(dict_n5n1.json=gitignore)の擦るN3読みも修正済(rebuild耐性)。
 
@@ -225,8 +227,8 @@
 <!-- AUTO:BEGIN -->
 
 ## ⚠ 会話が重くなっている（自動）
-- ⚠ 文脈 49万／70万（70%）・376往復 — そろそろ /clear の頃合い
-- ツール呼び出しループが長い（指示1件に対し 40ターン・ツール16回）— まとめ方を変える
+- ⚠ 連続 72ターン（文脈 19万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 72ターン・ツール27回）— まとめ方を変える
 
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a64bf3402048b0567 general-purpose
@@ -237,13 +239,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - memory/在庫問題数.txt
-- 面数分布_明細.xlsx
-- scratchpad/face4_problems.json
-- scratchpad/lowface_problems.json
+- memory/handoff.md
+- memory/在庫・模試ストックまとめ.xlsx
 - scratchpad/facet_detail.json
-- scratchpad/face4_problems_emit.ts
-- scratchpad/lowface_problems_emit.ts
-- src/ladder/wordDrill.ts
+- src/data/shared/usageCoverage.json
+- src/data/synonymFormat.test.ts
+- src/data/dict/sentenceFuri.json
+- src/data/shared/usageDistractorTags.json
 
-_自動更新: 2026-08-28 21:05_
+_自動更新: 2026-08-28 21:58_
 <!-- AUTO:END -->
