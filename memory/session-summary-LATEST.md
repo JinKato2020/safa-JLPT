@@ -1,18 +1,23 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 15 回・38 ターン
-- 往復 238 回
+- ツール呼び出し 16 回・40 ターン
+- 往復 376 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/在庫問題数.txt
-- memory/在庫・模試ストックまとめ.xlsx
 - 面数分布_明細.xlsx
-- scratchpad/build_facet_xlsx.py
+- scratchpad/face4_problems.json
+- scratchpad/lowface_problems.json
+
+## ⚠️ 注意
+- - ⚠ 文脈 49万／70万（70%）・376往復 — そろそろ /clear の頃合い
+- - ツール呼び出しループが長い（指示1件に対し 40ターン・ツール16回）— まとめ方を変える
 
 ## 次の一手
-- **▶▶ 2026-08-28 LIVE(最新)＝面数底上げ第3弾＝副詞/接続詞14語を文脈規定でcontent投入＋4面語シート新設・全緑【未コミット/未OTA】**：さあ(n5-v-274)＋4面以上の副詞/接続詞13語(また/それから/ええ=N5、これから/それで/それに/けれど=N4、ですから/そのうえ/すなわち/いつか/いつでも/あちこち=N3)を`context_{N5,N4,N3}.json`へ追加(N5-V-B-0701〜0704・N4-V-B-0652〜0655・N3-V-B-2100〜2105・全て文脈規定・choices誤答3・verified・自己検証で一意)。さあは3→4面で卒業(語彙_最少面 18→**17行**)、13語は4→5面(卒業でなくカバー拡張)。②カバー率ヒスト更新(N5 3面7/4面60/5面79・N4 4面11/5面72・N3 4面45/5面179・母数718/667/2145据置)。**③`面数分布_明細.xlsx`に新シート「語彙_4面」新設**＝4面ちょうど**116語**の各面の実問題(全4問・kanji_read/表記/文脈規定/言い換え/用法＋受容ドリル生成器から本物・スタブなし・462セル)。生成=`scratchpad/face4_problems_emit.ts`→`face4_problems.json`→`build_facet_xlsx.py`。**npm test 425/425・tsc0**。累計この日=指示語20+副詞等31=**文脈規定51問をcontent投入**(全て未コミット/未OTA)。**次の一手＝(a)コミット/OTA公開(`_manifest.json`再生成+publish-content.ps1・要ユーザー合図・[[ota-manifest-regen-or-stale]]) (b)残る低面(はあ/と=作問不可)以外の底上げは4面以上のカバー拡張へ移行**。
+- **▶▶ 2026-08-28 LIVE(最新)＝面数底上げ＋4面語QA＝文脈規定51問+QA修正 コミット/Push済【OTA未配信】**：commit `88f18d6f`(content)＋`345cb6c4`(面数分布Excel) push済。指示語20+副詞/接続詞/あいさつ31=**文脈規定51問**をcontext_{N5,N4,N3}へ、あ/ああを母数除外(718/667)、**擦る(n3-v-2035)読み=こする補完**、なにも/いずれ/うなるの産出例文をかな露出文へ差替(パズル空所化可)、うなる言い換えを句レベル(低い声を出す)へ差替。`面数分布_明細.xlsx`「語彙_4面」=**115語・全4問(460セル)**。**npm test 425/425・tsc0**。**次の一手＝OTA配信(要ユーザー合図)＝`_manifest.json`再生成+`publish-content.ps1`(content変更ゆえネイティブビルド不要・[[ota-manifest-regen-or-stale]] [[content-ota-vs-ui-build]])。以降の面数底上げは4面以上の副詞/接続詞カバー拡張(多数あり)へ**。※dict源(dict_n5n1.json=gitignore)の擦るN3読みも修正済(rebuild耐性)。
+- **▶▶ 2026-08-28 (第3弾・上に統合)＝副詞/接続詞14語を文脈規定でcontent投入＋4面語シート新設**：さあ(n5-v-274)＋4面以上の副詞/接続詞13語(また/それから/ええ=N5、これから/それで/それに/けれど=N4、ですから/そのうえ/すなわち/いつか/いつでも/あちこち=N3)を`context_{N5,N4,N3}.json`へ追加(N5-V-B-0701〜0704・N4-V-B-0652〜0655・N3-V-B-2100〜2105・全て文脈規定・choices誤答3・verified・自己検証で一意)。さあは3→4面で卒業(語彙_最少面 18→**17行**)、13語は4→5面(卒業でなくカバー拡張)。②カバー率ヒスト更新(N5 3面7/4面60/5面79・N4 4面11/5面72・N3 4面45/5面179・母数718/667/2145据置)。**③`面数分布_明細.xlsx`に新シート「語彙_4面」新設**＝4面ちょうど**116語**の各面の実問題(全4問・kanji_read/表記/文脈規定/言い換え/用法＋受容ドリル生成器から本物・スタブなし・462セル)。生成=`scratchpad/face4_problems_emit.ts`→`face4_problems.json`→`build_facet_xlsx.py`。**npm test 425/425・tsc0**。累計この日=指示語20+副詞等31=**文脈規定51問をcontent投入**(全て未コミット/未OTA)。**次の一手＝(a)コミット/OTA公開(`_manifest.json`再生成+publish-content.ps1・要ユーザー合図・[[ota-manifest-regen-or-stale]]) (b)残る低面(はあ/と=作問不可)以外の底上げは4面以上のカバー拡張へ移行**。
 - **▶▶ 2026-08-28 (第2弾)＝副詞/接続詞/あいさつ17語を文脈規定でcontent投入・全緑【未コミット/未OTA】**：いつ/いつも/でも/では/はい/いいえ/もしもし/あなた を`context_N5.json`(id `N5-V-B-0693`〜`0700`)、そのまま/どこか/なお/なにも/いわゆる/これら/だって/ありがとう/こんにちは を`context_N3.json`(id `N3-V-B-2091`〜`2099`)へ追加(全て文脈規定・choices=誤答3・verified・自己検証で答え一意)。→**16語が3→4面で卒業**(語彙_最少面 34→**18行**・では は2→3面で残留)。**npm test 425/425・tsc0**。いつ/いつも/でも/では/はい/いいえ/もしもし/あなた を`context_N5.json`(id `N5-V-B-0693`〜`0700`)、そのまま/どこか/なお/なにも/いわゆる/これら/だって/ありがとう/こんにちは を`context_N3.json`(id `N3-V-B-2091`〜`2099`)へ追加(全て文脈規定・choices=誤答3・verified・自己検証で答え一意)。→**16語が3→4面で卒業**(語彙_最少面 34→**18行**・では は2→3面で残留)。②カバー率ヒスト再更新(N5 3面8/4面62・N3 3面1/4面51・母数718/667/2145据置)。`面数分布_明細.xlsx`再生成。**npm test 425/425・tsc0**。**H列に さあ(n5-v-274)の文脈規定案を記入**(低面あいづちで唯一まだ作れる語)。**低面(2-3面)の副詞・あいづちはほぼ枯渇**(残=はあ/と=作れない)。**次の一手＝(a)PART2＝4面以上の副詞/接続詞13語(それに/けれど/ええ/いつでも/そのうえ/あちこち/すなわち/これから/いつか/それで/それから/ですから/また=`scratchpad/_advcand.json`)に文脈規定を作る案をユーザーに提示済→承認ならcontent投入(卒業でなくカバー拡張・最少面シートには出ない4+面) (b)OTA公開(`_manifest.json`再生成+publish-content.ps1・要合図)**。
 - **▶▶ 2026-08-28 (第1弾)＝低面語の面数底上げ＝指示語20語を文脈規定でcontent投入・全テスト緑【未コミット/未OTA】**：こそあど20語(これ/それ/あれ/どれ・ここ/そこ/あそこ/どこ・この/その/あの/どの・こっち…・こちら…)を**文脈規定(＝括弧内の空間ヒントで一意化。例「（手に持って）〔　〕は…」→これ)**で`content/problems/moji_goi/context_N5.json`へ追加(id `N5-V-B-0673`〜`0692`・**choices＝誤答3のみ(正解は別枠answer)**・blankは`〔　〕`(全角空白1)・verified:true)。→実面数3→4で**「語彙_最少面」から自然卒業(54→34行)**。`感動詞 あ(n4-v-511)/ああ(n5-v-1)`は`src/data/shared/vocabMetricExcluded.json`へ追加＝母数除外(真の母数 **N5 719→718・N4 668→667**・N3据置)。**②カバー率シート**(`memory/在庫・模試ストックまとめ.xlsx`)の語彙面数分布(N5 4面35→55/3面35→14・N4 2面3→2・合計718/667)と各所の母数719/668参照を更新。`面数分布_明細.xlsx`は**最新content基準で再生成**(H列＝未確定の作問案で面数に数えない・淡緑)。**npm test 425/425緑・tsc0**。番人=daimon4choices/contextGate/inventory/validate/facetMap/wordTabProblems 通過。作問案の残＝**では(言い換え)/いくら・おわる(産出)**は`scratchpad/newproblems.json`のH列に**表示のみ**(未投入)＝**産出はコード(produceEligible)依存で辞書例文をいじる要=脆いため保留**、では は synonym schema(pattern/stem半角ルビ/sentenceFuri要)。**次の一手=(a)OTA公開なら`_manifest.json`再生成+`publish-content.ps1`(要ユーザー合図・[[ota-manifest-regen-or-stale]]) (b)では を synonym で投入するか判断 (c)残34語(接辞/あいづち)の底上げ作問(1問ずつ自己検証)**。生成=`scratchpad/build_facet_xlsx.py`+`facet_emit.ts`。
 - **▶▶ 2026-08-28 (前々段)＝語彙「読み認識」ドリル(＝単語の形)新設・ビルド済【/clear後の最優先】**：**v1.1.18(2864) iOS/Android both dispatch**(commit `68d81280`・run `33143999591`・テスト71pass/0fail・tsc0・iOS本日2/8・監視しない)。語(表記)を**文脈なし・ルビなしで単独提示→読みを4択**。`DrillKind 'vReading'`(wordDrill.ts)・`vocabReadingProblem`(wordTabProblems.ts・ダミー=同レベル別語の読み・近モーラ長優先・純かな・4択割れは出題せず・答え一意)・`facetMap.ts #vrecog_read→read面(weight1)`・WordDrillScreen(ルビ無し提示・採点後に意味表示)・KubunCard(語彙欄・意味の下・解禁0%)・i18n ja/en/ne(cards.vreading/title_vReading/vreading_ask)・nav型・番人2本(wordDrill.test/facetMap.test)。**tsc0・関連テスト27/27緑(parity含む)**。

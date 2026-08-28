@@ -8,7 +8,10 @@ import vocab from '../data/shared/vocab.json';
 import grammar from '../data/shared/grammar.json';
 import grammarDrillBlank from '../data/shared/grammarDrillBlank.json';
 import vocabExamplesAi from '../data/dict/vocabExamplesAi.json';
+import vocabProduceOverride from '../data/shared/vocabProduceOverride.json';
 const VOCAB_EXAMPLE = vocabExamplesAi as Record<string, { ja?: string }>;
+// 産出(語彙パズル)の上書き。機械的な～除去では正しい産出形にならない語(いくら～ても→いくら/～おわる→おわり)用。
+const PRODUCE_OVERRIDE = (vocabProduceOverride as { items: Record<string, { reading: string; example: string }> }).items;
 import { grammarMeaningProblem, vocabMeaningProblem, vocabReadingProblem, vocabWritingProblem } from './wordTabProblems';
 import { mulberry32 } from './rng';
 
@@ -71,20 +74,30 @@ const producedForm = (v: V): { word: string; reading: string } =>
   /[～~]/.test(v.word) ? { word: stripWave(v.word), reading: stripWave(v.reading) } : { word: v.word, reading: v.reading };
 
 function vProduce(v: V, seed: number): DrillProblem {
+  const ov = PRODUCE_OVERRIDE[v.id]; // 上書きがあれば その読み/例文で作問
   const { word, reading } = producedForm(v); // 接辞は～除去後の語/読みで作問
-  const answer = toMorae(reading);
+  const ansReading = ov ? ov.reading : reading;
+  const answer = toMorae(ansReading);
   // ヒント=単語(漢字表記)。ただし かな語(word===reading)は hint が答えそのものになるので出さない(意味だけで想起)。
   const hint = word !== reading ? word : undefined;
-  // 対象語を隠した例文(文脈ヒント)。例文に語が出現する時のみ空所〔　　〕に置換。
-  const exJa = VOCAB_EXAMPLE[v.id]?.ja;
-  const example = exJa && exJa.includes(word) ? exJa.replace(word, '〔　　〕') : undefined;
-  return { kind: 'vProduce', itemId: `${v.id}#produce`, prompt: v.meaning, hint, example, reading, answer, tiles: buildTiles(answer, seed) };
+  // 対象語を隠した例文(文脈ヒント)。例文に産出形が出現する時のみ空所〔　　〕に置換。
+  const exJa = ov ? ov.example : VOCAB_EXAMPLE[v.id]?.ja;
+  const blank = ov ? ov.reading : word;
+  const example = exJa && exJa.includes(blank) ? exJa.replace(blank, '〔　　〕') : undefined;
+  return { kind: 'vProduce', itemId: `${v.id}#produce`, prompt: v.meaning, hint, example, reading: ansReading, answer, tiles: buildTiles(answer, seed) };
 }
 export function produceEligible(level: string): V[] {
   // 読みは純ひらがな or 純カタカナ(外来語=カタカナタイルで組む)。2〜8モーラ(一生懸命等の長語も可)。
   // 接辞(～)は ～ を外した語/読みで判定し、かつ例文にその語が出て空所化できる時だけ採用(例文なし=失格スタブを出さない)。
   return VOCAB.filter((v) => {
     if (v.level !== level) return false;
+    const ov = PRODUCE_OVERRIDE[v.id];
+    if (ov) { // 上書き語=その読みが純かな2〜8モーラで、例文に含まれること
+      const r = ov.reading;
+      if (!(/^[ぁ-ゖー]+$/.test(r) || /^[ァ-ヶー]+$/.test(r))) return false;
+      const m = toMorae(r).length;
+      return m >= 2 && m <= 8 && !!ov.example && ov.example.includes(r);
+    }
     const affix = /[～~]/.test(v.word);
     const { word, reading } = producedForm(v);
     if (!word) return false;
