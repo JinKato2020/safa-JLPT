@@ -9,17 +9,19 @@ import grammar from '../data/shared/grammar.json';
 import grammarDrillBlank from '../data/shared/grammarDrillBlank.json';
 import vocabExamplesAi from '../data/dict/vocabExamplesAi.json';
 const VOCAB_EXAMPLE = vocabExamplesAi as Record<string, { ja?: string }>;
-import { grammarMeaningProblem, vocabMeaningProblem } from './wordTabProblems';
+import { grammarMeaningProblem, vocabMeaningProblem, vocabReadingProblem } from './wordTabProblems';
 import { mulberry32 } from './rng';
 
-export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning' | 'vMeaning' | 'mixed';
+export type DrillKind = 'vProduce' | 'gBuild' | 'gMeaning' | 'vMeaning' | 'vReading' | 'mixed';
 
 export type DrillProblem =
   | { kind: 'vProduce'; itemId: string; prompt: string; hint?: string; example?: string; reading: string; answer: string[]; tiles: string[] }
   | { kind: 'gBuild'; itemId: string; prompt: string; hint?: string; reading: string; answer: string[]; tiles: string[] }
   | { kind: 'gMeaning'; itemId: string; prompt: string; choices: string[]; answerIndex: number; example?: string; hit?: string }
   // 語彙 意味認識(受容): 語(表記)を単独提示→意味を4択。文脈が無いので当てずっぽが効かない。reading=採点後に表示。
-  | { kind: 'vMeaning'; itemId: string; prompt: string; reading: string; choices: string[]; answerIndex: number };
+  | { kind: 'vMeaning'; itemId: string; prompt: string; reading: string; choices: string[]; answerIndex: number }
+  // 語彙 読み認識(受容): 語(表記)を単独提示→読みを4択。ルビは出さない(ルビ=答え)。meaning=採点後に表示。
+  | { kind: 'vReading'; itemId: string; prompt: string; meaning: string; choices: string[]; answerIndex: number };
 
 type V = { id: string; level: string; word: string; reading: string; meaning: string };
 const VOCAB = vocab as V[];
@@ -159,6 +161,18 @@ export function buildDrill(kind: DrillKind, level: string, count = 10, seed = 1,
         return { kind: 'vMeaning' as const, itemId: `${v.id}#vrecog_mean`, prompt: v.word, reading: v.reading, choices: p.choices, answerIndex: p.answerIndex };
       })
       .filter((x): x is Extract<DrillProblem, { kind: 'vMeaning' }> => x !== null);
+  }
+  if (kind === 'vReading') {
+    // 漢字を含む語のみ(かな語は表記=答え)。SRSで未習/低習得を優先。itemId=<vocabId>#vrecog_read → read面。
+    const pool = orderBySrs(VOCAB.filter((v) => v.level === level && v.word !== v.reading), (v) => `${v.id}#vrecog_read`, itemsState, seed);
+    return pool.slice(0, count)
+      .map((v, i): DrillProblem | null => {
+        const p = vocabReadingProblem(v.id, seed + i * 7919);
+        if (!p) return null;
+        // prompt=語の表記(ルビ無しで提示)。読みの4択は vocabReadingProblem 由来(同レベル・近モーラ長ダミー)。
+        return { kind: 'vReading' as const, itemId: `${v.id}#vrecog_read`, prompt: v.word, meaning: v.meaning, choices: p.choices, answerIndex: p.answerIndex };
+      })
+      .filter((x): x is Extract<DrillProblem, { kind: 'vReading' }> => x !== null);
   }
   const pool = orderBySrs(meaningEligible(level), (g) => `${g.id}#gmeaning`, itemsState, seed);
   return pool.slice(0, count)

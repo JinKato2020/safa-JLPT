@@ -72,3 +72,20 @@ test('buildDrill vMeaning: 語→意味4択・全語対象・itemId=#vrecog_mean
     assert.ok(p.prompt.length > 0 && p.reading.length > 0, 'prompt(語)とreadingあり');
   }
 });
+
+test('buildDrill vReading: 語→読み4択・漢字語のみ・itemId=#vrecog_read・選択肢は純かな', () => {
+  const ps = buildDrill('vReading', 'N5', 8, 42);
+  assert.ok(ps.length > 0, 'vReading空');
+  for (const p of ps) {
+    assert.equal(p.kind, 'vReading');
+    if (p.kind !== 'vReading') continue;
+    assert.equal(p.choices.length, 4, '4択');
+    assert.ok(p.answerIndex >= 0 && p.answerIndex < 4, '正解位置が範囲内');
+    assert.ok(p.itemId.endsWith('#vrecog_read'), 'itemIdが#vrecog_read');
+    // prompt(表記)は答えの読みと異なる=漢字を含む語(かな語はルビ=答えで出題不可)。
+    assert.notEqual(p.prompt, p.choices[p.answerIndex], 'prompt(表記)≠正解の読み');
+    assert.ok(p.meaning.length > 0, '意味(採点後表示)あり');
+    // 全選択肢が純かな(読みの4択)。
+    for (const ch of p.choices) assert.ok(/^[ぁ-ゖー]+$/.test(ch), `読み選択肢が純かな: ${ch}`);
+  }
+});

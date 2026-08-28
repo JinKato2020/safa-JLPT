@@ -45,6 +45,22 @@ export function vocabMeaningProblem(vId: string, seed = 1, n = 3): McProblem | n
   return { itemId: v.id, facet: 'meaning', promptKind: 'audio', prompt: v.reading, ...place(v.meaning, distractors, seed) };
 }
 
+// 語彙 読み認識(受容): 語(表記) → 読みを4択。かな語(word===reading)は表記=答えのため出題不可。
+//   ダミー=同レベルの別語の読み。モーラ数(粗い長さ)が同じ読みを優先=紛らわしさ。全て純かな。
+export function vocabReadingProblem(vId: string, seed = 1, n = 3): McProblem | null {
+  const v = VOCAB.find((x) => x.id === vId);
+  if (!v || v.word === v.reading) return null; // かな語=表記が答えそのもの
+  const isKana = (r: string) => /^[ぁ-ゖー]+$/.test(r);
+  if (!isKana(v.reading)) return null;
+  const len = (r: string) => [...r].length;
+  const pool: Candidate<string>[] = VOCAB
+    .filter((x) => x.level === v.level && x.reading !== v.reading && isKana(x.reading))
+    .map((x) => ({ key: x.reading, bucket: String(len(x.reading)), item: x.reading }));
+  const distractors = pickSimilar(v.reading, String(len(v.reading)), pool, n, seed);
+  if (distractors.length < n) return null; // ダミー不足=出題しない(4択を割らない)
+  return { itemId: v.id, facet: 'on', promptKind: 'kanji', prompt: v.word, ...place(v.reading, distractors, seed) };
+}
+
 // 漢字 意味(受容・明快字のみ): 字 → 意味を4択。ダミー=同レベルの別字の意味。
 export function kanjiMeaningProblem(ch: string, seed = 1, n = 3): McProblem | null {
   const card = KANJI[ch];

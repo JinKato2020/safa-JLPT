@@ -1,22 +1,26 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 42 回・84 ターン
-- 往復 422 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/ladder/wordTabProblems.test.ts
-- src/ladder/inventory.test.ts
-- src/review/facetMap.test.ts
+- memory/session-summary-LATEST.md
 - src/ladder/wordDrill.test.ts
-
-## ⚠️ 注意
-- - ⚠ 文脈 49万／70万（71%）・422往復 — そろそろ /clear の頃合い
-- - ツール呼び出しループが長い（指示1件に対し 84ターン・ツール42回）— まとめ方を変える
+- src/review/facetMap.test.ts
+- src/i18n/ne.json
 
 ## 次の一手
-- **▶▶ 2026-08-26 LIVE(最新)＝漢字マスタリー再設計＋試験タブUI＋読み表示修正・ビルド済【/clear後の最優先・以降は superseded】**：**v1.1.15(2860) iOS/Android dispatch済**(commit `015e0205`・run `32933755172`・tsc0/テスト緑・-NoWatch)。正本=`memory/漢字面再設計-inflight.md`。
+- **▶▶ 2026-08-28 LIVE(最新)＝語彙「読み認識」ドリル(＝単語の形)新設・未コミット/未ビルド【/clear後の最優先】**：語(表記)を**文脈なし・ルビなしで単独提示→読みを4択**。`DrillKind 'vReading'`(wordDrill.ts)・`vocabReadingProblem`(wordTabProblems.ts・ダミー=同レベル別語の読み・近モーラ長優先・純かな・4択割れは出題せず・答え一意)・`facetMap.ts #vrecog_read→read面(weight1)`・WordDrillScreen(ルビ無し提示・採点後に意味表示)・KubunCard(語彙欄・意味の下・解禁0%)・i18n ja/en/ne(cards.vreading/title_vReading/vreading_ask)・nav型・番人2本(wordDrill.test/facetMap.test)。**tsc0・関連テスト27/27緑(parity含む)**。
+  - **★概念整理(ユーザー確認済)＝「単語の形」＝この読み認識と同一**。表記大問は文脈(例文)ヒントありで読み↔漢字、対して形=読み認識は**語単独・文脈なし**ゆえ表記より難しい。私が当初「形＝表記」と誤答→訂正済み。**形は別ドリルとして作らない=読み認識で完了**([[vocab-form-drill-equals-reading-recognition]])。産出版(読みをかなタイルで組む)は今回不要と決定。
+  - **これはUI追加＝OTA不可・ネイティブビルド必要**。ビルドは明示指示待ち。**次の一手＝(a)コミット/ビルド方針 (b)②面数分布に読み認識/意味認識を"面"として計上するか判断**。
+- **▶▶ 2026-08-28 (前段)＝語彙意味認識ドリル＋カタカナ表記83問＋面数総ざらい・ビルド済**：**v1.1.17(2863) iOS/Android dispatch済**(commit `72d35d6a`・run `33142792965`・DryRunで76テスト/tsc0緑・-NoWatch・push でOTAも起動)。
+  - **書斎タブに「語彙の意味」認識ドリル新設**＝語(表記)を文脈なしで提示→意味4択。`DrillKind 'vMeaning'`(wordDrill.ts・全語対象・SRS)・`vocabMeaningProblem`を配線・`facetMap.ts #vrecog_mean→mean面(weight1)`・WordDrillScreen/KubunCard(語彙欄・解禁0%)・i18n ja/en/ne・nav型・番人追加。**設計方針=意味/読み/形の受容ドリルは新スキルでなく既存mean/read面の“練習入口”**(水増しでなく低面語も練習可)。**次段＝読み認識(語→読み4択)＝2026-08-28後続で実装済**(上のLIVEエントリ)。**形は読み認識と同一概念ゆえ別作成せず完了**。**②面数分布に意味認識を独立面として未計上**(mean合流)。意味は英語表示(既存ドリル踏襲・母語化は別課題)。
+  - **カタカナ表記83問作問**(orthography_N5 2/N4 33/N3 48・`これは〜です`枠→**語ごと自然文に差替済**・誤答=濁点/シ↔ツ/ソ↔ン/長音の自動生成)→**語彙2面が N5 35→33/N4 37→4/N3 60→12**。②語彙面数分布表更新。※誤答は機械生成でスポット未吟味。
+  - **漢字=全612字4面確定**(方針A:意味を辞書glossで全字有効・`build_kanji_facets.py`改修 / 形55字を級内似字で追加→全字formMakeable)。**文法=全点4面以上**(2面/3面消滅・n5-g-89/90/91＋旧3面25点＋22/57を作問手当て)。②漢字/文法面数分布表も更新。
+  - **方針A/ましょう統合で古い番人4件修正**=inventory.test(kanji_meaning 529→612・grammar 409→408)/wordTabProblems.test(校も意味問題)/kanjiCoverage.test(校もmean計上)。**教訓=作問/仕様変更後は必ずbuild.ps1のフルテスト集合(76件・npm testより広い)を回す**。
+  - **成果物Excel**=`面数分布_明細.xlsx`(語彙0-2面H/I=作れる面と作れない理由・文法採用記録)／`memory/在庫・模試ストックまとめ.xlsx`②の漢字/文法/語彙 面数分布表。
+  - **次の一手＝(a)ビルド結果をTestFlight/Playで確認(要ればActions run 33142792965) (b)読み認識ドリル(語→読み4択)を同型で追加→意味・読みの2面 (c)②面数分布に意味認識を“面”として計上するか判断**。
+- **▶▶ 2026-08-26 (superseded by 上)＝漢字マスタリー再設計＋試験タブUI＋読み表示修正・ビルド済**：**v1.1.15(2860) iOS/Android dispatch済**(commit `015e0205`・run `32933755172`・tsc0/テスト緑・-NoWatch)。正本=`memory/漢字面再設計-inflight.md`。
   - 漢字の面=**4面(読み/意味/聞き取り/形)**・書き取りは**練習(面外)**・読み/意味を2ボタン分離・**形の弁別ドリル新設**(似た字`src/data/words/kanjiSimilar.json`612字/formMakeable557)・読み表示に送り仮名補完(強→つよ（い）/手→て・`index.ts formatKanjiReading`)・試験タブ4アイコン+「試験に挑戦」ボタン分離・書斎タブ漢字ボタン並び替え。Excel②更新(§①漢字行/漢字面数分布 新4面/漢字ID×面 詳細/ドリルシート再生成)。
   - **⏳ビルド後の未コミット**：`tools/drill_coverage.ts`＋`tools/update_drill_coverage.py`(漢字ドリル追加)と在庫Excel再生成・inflight＝次ビルドかコミットで回収。
   - **⏳残(ユーザー判断)**：既存赤`grammarExclude.test`＝`n5-g-32`(N5・point「ましょう」)が丁寧形バラ活用ルール違反(私の変更外・ビルドのテスト対象外で従来から赤)。推奨(a)n5-g-87へ統合(問題貼替+母数-1) /(b)説明文補い緑化 /(c)保留。
