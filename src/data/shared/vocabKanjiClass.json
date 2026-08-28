@@ -2,9 +2,9 @@
  "note": "各vocabIdの漢字/かな分類。class=kanji(全漢字がN5-N3配当・testLevel=漢字読み/表記の出題級=max(語彙級,最上位漢字級))/kana_only(範囲外漢字を含む=一生かな=単語知識のみ)/kana(漢字なし)/katakana。漢字級の出所=[[kanjiJlptLevel.json]]。metricExcludedの束縛形態素9語も分類は付与(母数集計時は別途除外)。2026-08-24。",
  "date": "2026-08-24",
  "testLevelCounts": {
-  "N3": 1949,
+  "N5": 148,
   "N4": 333,
-  "N5": 148
+  "N3": 1948
  },
  "items": {
   "n5-v-1": {

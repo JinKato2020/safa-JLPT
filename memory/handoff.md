@@ -236,14 +236,14 @@
 - a08247191c3197a69 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/session-summary-LATEST.md
+- memory/handoff.md
 - memory/在庫問題数.txt
-- src/data/shared/iikaePossible.json
-- src/ladder/inventory.test.ts
-- scratchpad/facet_detail.json
-- content/problems/moji_goi/context_N5.json
-- src/data/shared/vocabKanjiClass.json
-- content/lexicon/meaning_N5.json
-- content/lexicon/example_N5.json
+- memory/~$在庫・模試ストックまとめ.xlsx
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- 面数分布_明細.xlsx
+- scratchpad/produce_items.json
 
-_自動更新: 2026-08-29 00:10_
+_自動更新: 2026-08-29 00:22_
 <!-- AUTO:END -->
