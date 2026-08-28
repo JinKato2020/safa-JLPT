@@ -57,15 +57,16 @@ for (const seed of [1, 7, 42, 99]) {
   });
 }
 
-test('音読みのみの字(校)は必ず読みQ＝答えコウ・同音の誤答なし', () => {
+test('音読みのみの字(校)の読みQ＝答えコウ・同音の誤答なし', () => {
+  // 方針A(2026-08-28)以降、辞書に意味がある字は全て意味面を持つ(校も meaningClear=true)。
+  // ここでは読みQの不変条件(答え=音コウ・同音誤答なし)を確認するため only='read' で読みQを強制する。
   const level = 'N5';
   const pool = poolFor(level);
-  assert.equal(meaningClearOf('校'), false, '校は meaningClear=false の前提');
   const ans = pickAnswerReading(pool.find((p) => p.char === '校')!);
   assert.ok(ans && showR(ans) === 'コウ', '校の出題読みは音コウ');
-  // 校を含む問題を探し、コウが選択肢に1つだけであることを確認。
-  const qs = buildKanjiRecognitionQuiz(pool, pool.length, rng(3));
+  // 校の読みQ(only='read')を探し、コウが選択肢に1つだけであることを確認。
+  const qs = buildKanjiRecognitionQuiz(pool, pool.length, rng(3), 'read');
   const kq = qs.find((q) => q.char === '校');
-  assert.ok(kq && kq.kind === 'read', '校は読みQになる(意味Qは作れない)');
+  assert.ok(kq && kq.kind === 'read', '校は読みQを作れる');
   assert.equal(kq!.choices.filter((ch) => ch === 'コウ').length, 1, 'コウは答えの1つだけ(同音誤答なし)');
 });

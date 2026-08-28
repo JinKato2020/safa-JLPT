@@ -1,16 +1,18 @@
 {
 "一": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"二",
-"三"
+"九",
+"人",
+"十"
 ]
 },
 "七": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"匕",
-"九"
+"十",
+"万",
+"上"
 ]
 },
 "万": {
@@ -22,10 +24,11 @@
 ]
 },
 "三": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"二",
-"一"
+"十",
+"中",
+"五"
 ]
 },
 "上": {
@@ -53,17 +56,19 @@
 ]
 },
 "与": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"写",
-"汚"
+"亡",
+"才",
+"予"
 ]
 },
 "世": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"廿",
-"甘"
+"兄",
+"冬",
+"去"
 ]
 },
 "両": {
@@ -131,10 +136,11 @@
 ]
 },
 "二": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"三",
-"一"
+"万",
+"上",
+"下"
 ]
 },
 "互": {
@@ -226,9 +232,11 @@
 ]
 },
 "以": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"似"
+"冬",
+"去",
+"古"
 ]
 },
 "件": {
@@ -416,10 +424,11 @@
 ]
 },
 "側": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"測",
-"則"
+"盗",
+"窓",
+"組"
 ]
 },
 "偶": {
@@ -431,23 +440,27 @@
 ]
 },
 "備": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"傭"
+"常",
+"得",
+"情"
 ]
 },
 "働": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"動",
-"慟"
+"慣",
+"暮",
+"構"
 ]
 },
 "優": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"憂",
-"愛"
+"難",
+"顔",
+"類"
 ]
 },
 "元": {
@@ -483,10 +496,11 @@
 ]
 },
 "入": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"人",
-"八"
+"上",
+"下",
+"千"
 ]
 },
 "全": {
@@ -498,10 +512,11 @@
 ]
 },
 "八": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"人",
-"入"
+"土",
+"大",
+"子"
 ]
 },
 "公": {
@@ -553,10 +568,11 @@
 ]
 },
 "写": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"与",
-"号"
+"台",
+"広",
+"正"
 ]
 },
 "冬": {
@@ -576,16 +592,19 @@
 ]
 },
 "処": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"拠"
+"平",
+"必",
+"打"
 ]
 },
 "出": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"山",
-"凸"
+"百",
+"行",
+"西"
 ]
 },
 "切": {
@@ -733,9 +752,11 @@
 ]
 },
 "務": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"霧"
+"組",
+"経",
+"船"
 ]
 },
 "勝": {
@@ -811,10 +832,11 @@
 ]
 },
 "南": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"商",
-"献"
+"学",
+"東",
+"金"
 ]
 },
 "単": {
@@ -874,10 +896,11 @@
 ]
 },
 "収": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"双",
-"反"
+"化",
+"反",
+"太"
 ]
 },
 "取": {
@@ -977,10 +1000,11 @@
 ]
 },
 "否": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"不",
-"杏"
+"労",
+"君",
+"吹"
 ]
 },
 "吸": {
@@ -1072,10 +1096,11 @@
 ]
 },
 "喜": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"嘉",
-"壺"
+"敗",
+"断",
+"欲"
 ]
 },
 "四": {
@@ -1191,9 +1216,11 @@
 ]
 },
 "声": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"売"
+"吹",
+"告",
+"困"
 ]
 },
 "売": {
@@ -1229,10 +1256,11 @@
 ]
 },
 "外": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"名",
-"多"
+"半",
+"右",
+"四"
 ]
 },
 "多": {
@@ -1244,10 +1272,11 @@
 ]
 },
 "夜": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"液",
-"亦"
+"物",
+"画",
+"知"
 ]
 },
 "夢": {
@@ -1299,10 +1328,11 @@
 ]
 },
 "女": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"好",
-"安"
+"中",
+"五",
+"今"
 ]
 },
 "好": {
@@ -1498,9 +1528,11 @@
 ]
 },
 "宿": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"縮"
+"術",
+"規",
+"訪"
 ]
 },
 "寄": {
@@ -1520,9 +1552,11 @@
 ]
 },
 "寒": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"塞"
+"断",
+"欲",
+"猫"
 ]
 },
 "寝": {
@@ -1590,17 +1624,19 @@
 ]
 },
 "山": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"出",
-"凸"
+"六",
+"円",
+"午"
 ]
 },
 "川": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"小",
-"州"
+"友",
+"天",
+"日"
 ]
 },
 "工": {
@@ -1676,10 +1712,11 @@
 ]
 },
 "年": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"午",
-"牛"
+"生",
+"白",
+"何"
 ]
 },
 "幸": {
@@ -2051,10 +2088,11 @@
 ]
 },
 "手": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"毛",
-"才"
+"不",
+"元",
+"公"
 ]
 },
 "才": {
@@ -2154,17 +2192,19 @@
 ]
 },
 "掛": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"封",
-"卦"
+"許",
+"貧",
+"責"
 ]
 },
 "探": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"深",
-"採"
+"進",
+"部",
+"都"
 ]
 },
 "支": {
@@ -2456,17 +2496,19 @@
 ]
 },
 "服": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"報",
-"般"
+"空",
+"者",
+"英"
 ]
 },
 "望": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"忘",
-"妄"
+"閉",
+"険",
+"雪"
 ]
 },
 "朝": {
@@ -2598,10 +2640,11 @@
 ]
 },
 "様": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"橡",
-"羨"
+"鳴",
+"園",
+"夢"
 ]
 },
 "権": {
@@ -2685,9 +2728,11 @@
 ]
 },
 "歯": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"齢"
+"猫",
+"現",
+"球"
 ]
 },
 "歳": {
@@ -2731,10 +2776,11 @@
 ]
 },
 "母": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"毎",
-"舟"
+"左",
+"本",
+"生"
 ]
 },
 "毎": {
@@ -2754,9 +2800,11 @@
 ]
 },
 "気": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"汽"
+"来",
+"男",
+"見"
 ]
 },
 "水": {
@@ -2872,24 +2920,27 @@
 ]
 },
 "深": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"探",
-"淡"
+"頂",
+"倒",
+"候"
 ]
 },
 "済": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"斉",
-"剤"
+"値",
+"原",
+"娘"
 ]
 },
 "渡": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"度",
-"波"
+"現",
+"球",
+"盗"
 ]
 },
 "港": {
@@ -2909,9 +2960,11 @@
 ]
 },
 "演": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"寅"
+"夢",
+"寝",
+"想"
 ]
 },
 "漢": {
@@ -2923,10 +2976,11 @@
 ]
 },
 "火": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"大",
-"災"
+"半",
+"右",
+"四"
 ]
 },
 "点": {
@@ -3066,9 +3120,11 @@
 ]
 },
 "産": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"彦"
+"害",
+"容",
+"差"
 ]
 },
 "用": {
@@ -3152,10 +3208,11 @@
 ]
 },
 "疑": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"凝",
-"擬"
+"愛",
+"感",
+"戦"
 ]
 },
 "疲": {
@@ -3183,17 +3240,19 @@
 ]
 },
 "発": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"登",
-"廃"
+"計",
+"送",
+"重"
 ]
 },
 "登": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"発",
-"澄"
+"盗",
+"窓",
+"組"
 ]
 },
 "白": {
@@ -3709,10 +3768,11 @@
 ]
 },
 "舞": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"無",
-"舜"
+"種",
+"精",
+"緒"
 ]
 },
 "船": {
@@ -3892,9 +3952,11 @@
 ]
 },
 "解": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"触"
+"種",
+"精",
+"緒"
 ]
 },
 "言": {
@@ -4026,10 +4088,11 @@
 ]
 },
 "警": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"驚",
-"敬"
+"識",
+"願",
+"職"
 ]
 },
 "議": {
@@ -4457,10 +4520,11 @@
 ]
 },
 "長": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"張",
-"帳"
+"車",
+"前",
+"後"
 ]
 },
 "閉": {
@@ -4624,10 +4688,11 @@
 ]
 },
 "面": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"麺",
-"而"
+"皆",
+"相",
+"祖"
 ]
 },
 "靴": {
@@ -4711,9 +4776,11 @@
 ]
 },
 "飛": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"飜"
+"神",
+"科",
+"約"
 ]
 },
 "食": {
@@ -4789,10 +4856,11 @@
 ]
 },
 "髪": {
-"formMakeable": false,
+"formMakeable": true,
 "similar": [
-"髭",
-"抜"
+"数",
+"暗",
+"歳"
 ]
 },
 "魚": {
