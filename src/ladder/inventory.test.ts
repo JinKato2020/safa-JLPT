@@ -5,9 +5,10 @@ import { buildInventory, inventoryCount } from './inventory.ts';
 const INV = buildInventory();
 
 // 在庫数は語彙を足すたびに動く。3525→3541 は表記のカタカナ孤児16問(コーラ/サッカー等)を
-// 救うため語彙を追加したもの(2026-07-17)。増減した時はここを更新する＝意図しない増減を検知する番人。
-test('inventory has vocab 3541 / kanji 612 / grammar 409', () => {
-  assert.equal(INV.filter(i => i.type === 'vocab').length, 3541);
+// 救うため語彙を追加したもの(2026-07-17)。2026-08-29 さん(n5-v-287・敬称接尾辞=言い換え不可の弱語)を
+// 語彙・全面から削除→3540。増減した時はここを更新する＝意図しない増減を検知する番人。
+test('inventory has vocab 3540 / kanji 612 / grammar 409', () => {
+  assert.equal(INV.filter(i => i.type === 'vocab').length, 3540);
   assert.equal(INV.filter(i => i.type === 'kanji').length, 612);
   // 393→403→408→409→408: pointId未割当の実在文法を辞書化＋passage null解消＋n5-g-92分離で増、
   // 2026-08 「ましょう」(n5-g-32)を n5-g-87 へ統合し1点減(commit 31c856a9)→408。
@@ -39,5 +40,5 @@ test('全612字が意味面を持つ(方針A: 辞書glossで判定)', () => {
 
 test('inventoryCount filters by level and type', () => {
   const n5v = inventoryCount(INV, 'N5', 'vocab');
-  assert.ok(n5v > 0 && n5v < 3541);
+  assert.ok(n5v > 0 && n5v < 3540);
 });
