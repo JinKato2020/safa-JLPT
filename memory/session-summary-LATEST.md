@@ -1,17 +1,28 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- 往復 239 回
+- ツール呼び出し 14 回・36 ターン
+- 往復 80 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
-- memory/在庫問題数.txt
-- memory/~$在庫・模試ストックまとめ.xlsx
+- memory/context-reuse-regen-inflight.md
 - content/_manifest.json
+- src/data/content/bundled.generated.ts
+- content/lexicon/example_N3.json
 
 ## 次の一手
-- **▶▶ 2026-08-29 LIVE(最新)＝N5低面語の言い換え底上げ＋さん削除＝全語彙≥4面達成【未コミット→コミット/OTAへ】**：残N5 3面語に言い換え投入＝`synonym_N5`に**すぎ(3時すぎ→3時より後)・がる(いやがる→いやだと思う)・では(では→じゃあ)・たち(子どもたち→何人かの子ども)**の4問(`N5-V-I-0347〜0350`)。**くらい(n5-v-227)＝0239を級バグ修正**(旧:下線くらい→答えほど=**ほどはN4=級違反**だった。ユーザー指摘)→degree版「泣きたいくらい→泣きたいほど」(下線=くらい・ほどは許容の基本語)＋**文脈規定新設**`N5-V-B-0705`(立てないくらいつかれた)で**くらい3→4面**。**さん(n5-v-287)を語彙から完全削除**(敬称接尾辞=言い換え不可の弱語・ユーザー判断)＝11ファイル(vocab/context_N5/example_N5/meaning_N5/vocabExamplesAi/Category/Freq/Furigana/jftBands/iikaePossible/KanjiClass)から除去・残参照ゼロ・inventory番人3541→3540・iikae total 722。**★級ルール決定＝思う/だから/より等の超基本語(リスト上N4/N3だが実質N5=リストが1級辛い)はN5言い換えの正解/誤答に許容**(ユーザー決定)。**結果＝N5/N4/N3すべて3面ゼロ=全語彙≥4面**。②カバー率(N5 3面6→0・4面61→66・母数717→716・N5単語×大問表も716/言い換え236)＋面数分布明細(最少面0語・4面126)再生成。**npm 425/425・tsc0緑**。**次の一手＝コミット/OTA配信(要合図・publish-content.ps1)**。※N5「何～/すぎ/がる/では/たち」言い換えのsentenceFuriはアプリ本体バンドル=学習カードの一部ルビは次ネイティブビルドで反映(試験タブは半角ルビ内蔵でOTA可)。
+- **▶▶ 2026-08-29 LIVE(最新)＝語彙(辞書)例文の「文脈規定丸写し」を新例文へ差替。N4/N5済→次はN3【/clear後の最優先】**：問題＝設計上「語彙例文＝文脈規定の穴を正解で埋めた文」で**大半が重複**（類似スコアは漢字/かな/短縮で当てにならず、~0.2でも同一節を共有＝実質丸写し）。方針確定＝**類似0.3以上の語彙例文だけを別文へ作り直す。文脈規定は据え置き（手作り良問があるため丸ごと再生成はしない）。例文＋ルビのみ・選択肢/解説なし。翻訳en/neはGemini。**
+  - **✅第1R(≥0.8 410語)＋第2R(≥0.3 651語)＝N4/N5完了・書込済**。vocabExamplesAi(ja/en)・vocabFurigana・lexicon(ne)へ投入。文脈規定無変更を確認。**ne訳OTA配信済**(commit `9a17081e`+`8680fa8b`)。**ja/en/ふりがなは src/data=バンドル→次のネイティブビルドで反映**(未ビルド)。Gemini実費 計¥38。
+  - **▶ 次＝N3を同フローで（対象=1598語・既に target_N3.json 生成済 in scratchpad/vocab_swap3）**。ツールは全て級汎用化済。手順:
+    1. `python tools/gen_vocab_examples_workflow.py N3 --dir vocab_swap3`（→wf_vocabex_N3.mjs・**約40体**＝大規模ゆえ体数多め。分割したいなら target を2分割）
+    2. Workflow起動(scriptPath)→完了後 `python tools/harvest_vocab_examples.py N3 <genRun> vocab_swap3`（→filled_N3.json＋baked_N3.json）
+    3. `python tools/gen_polish_workflow.py N3 --ruby-only`→Workflow起動(ルビ)
+    4. `node scratchpad/vocab_swap/translate.mjs --dir <絶対パス>/scratchpad/vocab_swap3`（en/ne・Gemini・実費~¥50・GEMINI_API_KEY要）
+    5. `python tools/bake_vocab_examples.py --src-dir vocab_swap3 --ruby-n3 <rubyRun> --write`（filled_*.json自動検出＝N3のみ処理）
+    6. `node --import tsx tools/content/rebuild.ts`（manifest）→確認→`tools/publish-content.ps1`でne OTA（ユーザー合図後）
+  - 詳細正本＝`memory/context-reuse-regen-inflight.md`。新ツール＝select_vocab_example_targets/gen_vocab_examples_workflow/harvest_vocab_examples/bake_vocab_examples（全て `--dir`/`--src-dir` 対応）。**注意=ja/en/ふりがな(バンドル)の実機反映には最終的にネイティブビルドが要る（ユーザー合図）。**
+- **▶▶ 2026-08-29 (前段)＝N5低面語の言い換え底上げ＋さん削除＝全語彙≥4面達成【未コミット→コミット/OTAへ】**：残N5 3面語に言い換え投入＝`synonym_N5`に**すぎ(3時すぎ→3時より後)・がる(いやがる→いやだと思う)・では(では→じゃあ)・たち(子どもたち→何人かの子ども)**の4問(`N5-V-I-0347〜0350`)。**くらい(n5-v-227)＝0239を級バグ修正**(旧:下線くらい→答えほど=**ほどはN4=級違反**だった。ユーザー指摘)→degree版「泣きたいくらい→泣きたいほど」(下線=くらい・ほどは許容の基本語)＋**文脈規定新設**`N5-V-B-0705`(立てないくらいつかれた)で**くらい3→4面**。**さん(n5-v-287)を語彙から完全削除**(敬称接尾辞=言い換え不可の弱語・ユーザー判断)＝11ファイル(vocab/context_N5/example_N5/meaning_N5/vocabExamplesAi/Category/Freq/Furigana/jftBands/iikaePossible/KanjiClass)から除去・残参照ゼロ・inventory番人3541→3540・iikae total 722。**★級ルール決定＝思う/だから/より等の超基本語(リスト上N4/N3だが実質N5=リストが1級辛い)はN5言い換えの正解/誤答に許容**(ユーザー決定)。**結果＝N5/N4/N3すべて3面ゼロ=全語彙≥4面**。②カバー率(N5 3面6→0・4面61→66・母数717→716・N5単語×大問表も716/言い換え236)＋面数分布明細(最少面0語・4面126)再生成。**npm 425/425・tsc0緑**。**✅コミット/OTA配信済**(付随`b86d3217`+content`170303d0`+OTA run 33173968772)。**✅ネイティブビルド済＝v1.1.19(2875) iOS/Android both dispatch**(commit `5f9a9e13`・run 33185281957・full76 pass71/tsc0・iOS本日0/8・-NoWatch・監視しない)＝新N5言い換えのsentenceFuri他が実機反映。**ビルド時の赤2件を是正**＝新synonym語(何～/すぎ/がる/では/たち/君/はあ)のiikaePossible p=1化+counts再計算、御～除外後のvocabKanjiClass testLevelCounts(N3 1949→1948)。**次の一手＝(a)CI結果確認(要れば run 33185281957) (b)未処理=幽霊コピー`memory/在庫・模試ストックまとめ - コピー.xlsx`削除の要否**。
 - **▶▶ 2026-08-28 (前段)＝3面語の面数底上げ(用法/言い換え)＋②カバー率更新・全緑【未コミット/未OTA】**：3面15語を4観点(パズル/文脈規定/意味/用法)＋文法重複で検討→**用法7問・言い換え3問を投入**。用法(usage)=N4/N3のみ(N5は用法大問なし)＝`usage_N4.json`+6(`N4-V-Y-0566〜0571`=おわる/やすい/おき/ちゃん/君/いくら～ても)・`usage_N3.json`+1(`0351`=はあ)。言い換え=`synonym_N5`+1(何時≒いつ`N5-V-I-0346`)・`synonym_N4`+1(君≒さん`0467`)・`synonym_N3`+1(はあ≒ふう`1654`)。**くらいは既存ゆえ増やさず**。付随=`usageDistractorTags.json`+7(はあ=monoTypeAllow・type∈自他/別義/近接/選択/コロケ/対義/呼応/授受)・`sentenceFuri.json`+1・`usageCoverage`基準 N4 573/N3 295・`synonymFormat.test`出題数 N4 407/N3 1612。**文法重複の扱い=B案(語彙として育てる)**＝いくら～ても(n3-g-31)/やすい(n4-g-121)/おき(n4-g-67)は除外せず用法追加。**8語が3面卒業**：N4 いくら/やすい/おき/ちゃん/おわる→4面・君→5面／N3 はあ→5面／N5 何～→4面。**②カバー率 語彙面数分布更新**(3面 N5 7→6・N4 7→1・N3 1→0／4面 N5 60→61・N4 11→16／5面 N4 72→73・N3 179→180・母数 717/667/2144)。**npm 425/425・tsc0・番人33/33緑**。**残3面=7語(構造的下限)**＝がる/くらい/さん/すぎ/たち/では(N5=用法大問なし)＋御～(N4=文法n5-g-59そのもの・お～と同じ除外候補)。**次の一手＝(a)コミット/OTA配信の要否(要合図・`publish-content.ps1`) (b)`面数分布_明細.xlsx`が投入前(15語@3面)のまま=stale・要再生成なら指示 (c)御～の母数除外の要否**。集計=`scratchpad/facet_emit.ts`(母数=vocabMetricExcluded除外済で717/667/2144一致)。
 - **▶▶ 2026-08-28 (前段)＝産出オーバーライド新設＋と/お～母数除外・コミット/Push済【OTA未配信】**：**産出(語彙パズル)の語別上書き機構を新設**＝`src/data/shared/vocabProduceOverride.json`(新規)＝機械的な～除去で正しい産出形にならない語を{reading,example}で上書き。`wordDrill.ts`の`vProduce`/`produceEligible`が対応(scratchpadのlowface/face4 emitterも対応)。適用＝**いくら～ても→いくら**・**～おわる→おわり**(2→3面)。**～おわる文脈規定を差替**(「この本は昨日、読み〔　〕ました。」おわり/誤答すぎ・かけ・なおし=ユーザーが"読みなおしは不自然"と確認)。**と(n3-v-2080=文法n5-g-75)・お～(n5-v-96=文法n5-g-59)を母数除外**(文法点でカバー済)。**→2面の語彙ゼロ**。母数 **N5 718→717・N3 2145→2144**(N4 667)。②カバー率/面数分布Excel更新済。**npm test 425/425・tsc0**。**次の一手＝OTA配信(要合図・`_manifest.json`再生成+publish-content.ps1・ネイティブビルド不要だが wordDrill.ts=UI/ロジック変更ゆえ産出上書きの実機反映には次のネイティブビルドが必要な点に注意)**。
 - **▶▶ 2026-08-28 (前段)＝面数底上げ＋4面語QA＝文脈規定51問+QA修正 コミット/Push済**：commit `88f18d6f`(content)＋`345cb6c4`(面数分布Excel)＋`fbb51801`(最新化) push済。指示語20+副詞/接続詞/あいさつ31=**文脈規定51問**をcontext_{N5,N4,N3}へ、あ/ああを母数除外(718/667)、**擦る(n3-v-2035)読み=こする補完**、なにも/いずれ/うなるの産出例文をかな露出文へ差替(パズル空所化可)、うなる言い換えを句レベル(低い声を出す)へ差替。`面数分布_明細.xlsx`「語彙_4面」=**115語・全4問(460セル)**。**npm test 425/425・tsc0**。**次の一手＝OTA配信(要ユーザー合図)＝`_manifest.json`再生成+`publish-content.ps1`(content変更ゆえネイティブビルド不要・[[ota-manifest-regen-or-stale]] [[content-ota-vs-ui-build]])。以降の面数底上げは4面以上の副詞/接続詞カバー拡張(多数あり)へ**。※dict源(dict_n5n1.json=gitignore)の擦るN3読みも修正済(rebuild耐性)。

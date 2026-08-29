@@ -15,7 +15,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'data-build'))
 from gen_furigana import furigana, has_kanji  # noqa: E402
 
-LEVEL = (sys.argv[1] if len(sys.argv) > 1 else 'N4').upper()
+argv = sys.argv[1:]
+RUBY_ONLY = '--ruby-only' in argv       # 揃い監査(verify)を付けず、ルビのみ生成
+argv = [a for a in argv if not a.startswith('--')]
+LEVEL = (argv[0] if argv else 'N4').upper()
 AUDIT_BATCH = 20   # 実測 40問=58k・50問=64k超過で失敗 → 20問(約29k)で安全マージン確保
 RUBY_BATCH = 100   # ルビは出力が短く思考も軽いので大きく束ねる
 
@@ -145,14 +148,37 @@ log('揃い監査=' + results.length + '件 (aligned=' + n.aligned + ' partly=' 
 return {{ level: '{LEVEL}', results, items }}
 '''
 
+if RUBY_ONLY:
+    # 揃い監査(verify)を付けない＝ユーザー指定「反証・修正・監査なし」。ルビのみ生成。
+    js = f'''export const meta = {{
+  name: 'context-{LEVEL.lower()}-ruby',
+  description: '文脈規定{LEVEL} のルビのみ生成（監査なし）',
+  phases: [
+    {{ title: 'ルビ', detail: '{RUBY_BATCH}問×{len(rb)}体・MeCabの下書きをOpusが校正' }},
+  ],
+}}
+
+const RUBY_RULES = {json.dumps(RUBY_RULES, ensure_ascii=False)}
+const RUBY_SCHEMA = {json.dumps(RUBY_SCHEMA, ensure_ascii=False)}
+const RUBY_BATCHES = {json.dumps(rb, ensure_ascii=False)}
+
+const ruby = await parallel(RUBY_BATCHES.map((b, i) => () =>
+  agent(RUBY_RULES + '\\n\\n## 対象(' + b.length + '問)\\n' + JSON.stringify(b),
+    {{ label: 'ruby:b' + (i + 1), phase: 'ルビ', schema: RUBY_SCHEMA }})))
+const items = (ruby || []).filter(Boolean).flatMap((r) => (r && r.items) || [])
+log('ルビ=' + items.length + '件（監査なし）')
+return {{ level: '{LEVEL}', results: [], items }}
+'''
+
 out = os.path.join(ROOT, f'scratchpad/context_regen/wf_polish_{LEVEL}.mjs')
 with io.open(out, 'w', encoding='utf-8', newline='\n') as f:
     f.write(js)
 raw = io.open(out, 'rb').read()
 assert b'\r' not in raw, 'CRLFが混入した（Workflowが拒否する）'
-print(f'出力: {out}')
-print(f'  揃い監査: {len(audit_rows)}問 → {len(ab)}体（各{AUDIT_BATCH}問）')
+print(f'出力: {out}{" (ルビのみ)" if RUBY_ONLY else ""}')
+if not RUBY_ONLY:
+    print(f'  揃い監査: {len(audit_rows)}問 → {len(ab)}体（各{AUDIT_BATCH}問）')
 print(f'  ルビ    : {len(ruby_rows)}問 → {len(rb)}体（各{RUBY_BATCH}問）')
-print(f'  合計エージェント数={len(ab) + len(rb)}体 / CR混入なし / {len(raw)/1024:.0f}KB')
+print(f'  合計エージェント数={len(rb) if RUBY_ONLY else len(ab) + len(rb)}体 / CR混入なし / {len(raw)/1024:.0f}KB')
 print(f'  監査 先頭: {json.dumps(audit_rows[0], ensure_ascii=False)}')
 print(f'  ルビ 末尾: {json.dumps(ruby_rows[-1], ensure_ascii=False)}')

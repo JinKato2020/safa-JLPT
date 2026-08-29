@@ -8,10 +8,13 @@ import io, json, os, sys
 
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LEVEL = (sys.argv[1] if len(sys.argv) > 1 else 'N4').upper()
+argv = sys.argv[1:]
+GEN_ONLY = '--gen-only' in argv                 # 生成のみ（反証・修正エージェントを付けない）
+argv = [a for a in argv if not a.startswith('--')]
+LEVEL = (argv[0] if argv else 'N4').upper()
 # エージェント総数を30前後に収める（N4=300語/30問=10バッチ×3段=30体で実測1.0M）
 BATCH = {'N4': 18, 'N3': 40, 'N5': 10}.get(LEVEL, 30)  # 各級≒10バッチ=1バッチ10%=完了ごとjournal保存(CLAUDE.md#11)
-LIMIT = int(sys.argv[2]) if len(sys.argv) > 2 else None  # パイロット: 先頭N語だけ回す
+LIMIT = int(argv[1]) if len(argv) > 1 else None  # パイロット: 先頭N語だけ回す
 
 # 級ごとの形式。公式PDFの実読から（問題対策と問題作成.md）。N4とN3は別物なので混ぜない。
 LEVEL_SPEC = {
@@ -50,9 +53,15 @@ LEVEL_SAMPLES = {
 }[LEVEL]
 
 sel = json.load(io.open(os.path.join(ROOT, f'scratchpad/context_regen/select_{LEVEL}.json'), encoding='utf-8'))
-words = [{'id': e['id'], 'word': e['word'], 'oldPrompt': e['oldPrompt']} for e in sel]
+# dictExample(=avoid) が入っていれば「辞書丸写し禁止」モード（select_context_reuse.py 由来）
+HAS_AVOID = any(e.get('dictExample') for e in sel)
+words = [{'id': e['id'], 'word': e['word'], 'oldPrompt': e['oldPrompt'],
+          'avoid': e.get('dictExample', ''), 'oldChoices': e.get('oldChoices', [])} for e in sel]
 if LIMIT:
     words = words[:LIMIT]  # パイロット（作り方の検証にだけ使う。率は信じない＝鉄則1）
+# 大きめ集合ではエージェント数を~30(=約10バッチ×3段)に抑える
+import math as _math
+BATCH = max(BATCH, _math.ceil(len(words) / 10))
 
 GEN_RULES = r'''あなたはJLPT ''' + LEVEL + r''' 「文脈規定」の作問者です。渡された語について、1語につき1問、公式と同じ型の4択問題を作ります。
 
@@ -125,6 +134,21 @@ GEN_RULES = r'''あなたはJLPT ''' + LEVEL + r''' 「文脈規定」の作問�
 
 ## 参考: oldPrompt
 `oldPrompt` は**現行の低品質な問題文**。**語義の取り違えを防ぐ参考にのみ使う**(その語をどの意味で問うているか)。文体・誤答は真似しないこと。'''
+
+AVOID_BLOCK = r'''## 【最重要・今回の主目的】辞書例文の丸写しを禁止する
+各語には `avoid`（辞書の例文）が付いている。現行アプリの問題はこの avoid をほぼ丸写しして語を〔　〕に空けただけの低品質問題で、**それを作り直すのが今回の目的**。
+- **avoid とは違う場面・違う文を新しく書く**。同じ語義・同じ品詞は保つが、状況／登場人物／コロケーション／文の骨格を変える。
+- avoid と文型・語順・鍵が同じなら不合格。読み手が「別の例文だ」と分かる新しさを出す。
+- ただし avoid の**語義**は正しい手がかり。その語をどの意味で問うているかは avoid で確認する。
+
+## 参考: oldChoices（既存の誤答）
+各語には `oldChoices`（現行の誤答）が付いている。
+- **新しい文でも「第2の正解」にならず、上の誤答設計ルール(軸で揃う/文字種そろい)を満たす誤答は流用してよい**。
+- 新しい文で成立してしまう・当てずっぽうで消せる・軸が揃わないものは**捨てて**、誤答設計ルールで作り直す。
+- 誤答設計ルール（一意性・文字種そろい・trick）が最優先。oldChoices はあくまで叩き台。'''
+
+if HAS_AVOID:
+    GEN_RULES = GEN_RULES + '\n\n' + AVOID_BLOCK
 
 VERIFY_RULES = r'''あなたはJLPT「文脈規定」問題の【独立の反証役】です。目的は【第2の正解】を暴くことだけです。作った本人ではないので、遠慮なく厳しく判定してください。
 
@@ -320,6 +344,33 @@ log('確定=' + good.length + '問 / 人手送り=' + flagged.length + '問 / �
 return {{ level: '{LEVEL}', good, flagged, emptyBatches }}
 '''
 
+if GEN_ONLY:
+    # 生成のみ（反証・修正エージェントを付けない＝ユーザー指定）。生成の自己検算(A〜E)だけで確定。
+    js = f'''export const meta = {{
+  name: 'context-{LEVEL.lower()}-genonly',
+  description: '文脈規定{LEVEL} {len(words)}問を生成のみ（反証・修正なし）',
+  phases: [
+    {{ title: '生成', detail: '{BATCH}問×{len(batches)}体・Opus high・誤答5個・自己検算のみ' }},
+  ],
+}}
+
+const GEN_RULES = {json.dumps(GEN_RULES, ensure_ascii=False)}
+const GEN_SCHEMA = {json.dumps(GEN_SCHEMA, ensure_ascii=False)}
+const BATCHES = {json.dumps(batches, ensure_ascii=False)}
+
+const out = await pipeline(
+  BATCHES,
+  (batch, _orig, i) =>
+    agent(GEN_RULES + '\\n\\n## 対象語(' + batch.length + '語)\\n' + JSON.stringify(batch),
+      {{ label: 'gen:b' + (i + 1), phase: '生成', schema: GEN_SCHEMA, effort: 'high' }}),
+)
+const good = out.filter(Boolean).flatMap((r) => (r && Array.isArray(r.items)) ? r.items : [])
+const emptyBatches = out.filter(Boolean).filter((r) => !r || !Array.isArray(r.items) || !r.items.length).length
+log('生成=' + good.length + '問（反証・修正なし）/ 空バッチ=' + emptyBatches)
+return {{ level: '{LEVEL}', good, flagged: [], emptyBatches }}
+'''
+
+STAGES = 1 if GEN_ONLY else 3
 out = os.path.join(ROOT, f'scratchpad/context_regen/wf_context_{LEVEL}.mjs')
 with io.open(out, 'w', encoding='utf-8', newline='\n') as f:
     f.write(js)
@@ -328,7 +379,7 @@ with io.open(out, 'w', encoding='utf-8', newline='\n') as f:
 raw = io.open(out, 'rb').read()
 assert b'\r' not in raw, 'CRLFが混入した（Workflowが拒否する）'
 print(f'出力: {out}')
-print(f'  語数={len(words)} バッチ={len(batches)}(各{BATCH}問) 予定エージェント数={len(batches)*3}体')
+print(f'  語数={len(words)} バッチ={len(batches)}(各{BATCH}問) 予定エージェント数={len(batches)*STAGES}体{" (生成のみ)" if GEN_ONLY else ""}')
 print(f'  ファイルサイズ={len(raw)/1024:.0f}KB / CR混入なし')
 print(f'  先頭データ: {json.dumps(batches[0][0], ensure_ascii=False)}')
 print(f'  末尾データ: {json.dumps(batches[-1][-1], ensure_ascii=False)}')

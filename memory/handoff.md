@@ -2,7 +2,13 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶▶ 2026-08-29 LIVE(最新)＝N5低面語の言い換え底上げ＋さん削除＝全語彙≥4面達成【未コミット→コミット/OTAへ】**：残N5 3面語に言い換え投入＝`synonym_N5`に**すぎ(3時すぎ→3時より後)・がる(いやがる→いやだと思う)・では(では→じゃあ)・たち(子どもたち→何人かの子ども)**の4問(`N5-V-I-0347〜0350`)。**くらい(n5-v-227)＝0239を級バグ修正**(旧:下線くらい→答えほど=**ほどはN4=級違反**だった。ユーザー指摘)→degree版「泣きたいくらい→泣きたいほど」(下線=くらい・ほどは許容の基本語)＋**文脈規定新設**`N5-V-B-0705`(立てないくらいつかれた)で**くらい3→4面**。**さん(n5-v-287)を語彙から完全削除**(敬称接尾辞=言い換え不可の弱語・ユーザー判断)＝11ファイル(vocab/context_N5/example_N5/meaning_N5/vocabExamplesAi/Category/Freq/Furigana/jftBands/iikaePossible/KanjiClass)から除去・残参照ゼロ・inventory番人3541→3540・iikae total 722。**★級ルール決定＝思う/だから/より等の超基本語(リスト上N4/N3だが実質N5=リストが1級辛い)はN5言い換えの正解/誤答に許容**(ユーザー決定)。**結果＝N5/N4/N3すべて3面ゼロ=全語彙≥4面**。②カバー率(N5 3面6→0・4面61→66・母数717→716・N5単語×大問表も716/言い換え236)＋面数分布明細(最少面0語・4面126)再生成。**npm 425/425・tsc0緑**。**次の一手＝コミット/OTA配信(要合図・publish-content.ps1)**。※N5「何～/すぎ/がる/では/たち」言い換えのsentenceFuriはアプリ本体バンドル=学習カードの一部ルビは次ネイティブビルドで反映(試験タブは半角ルビ内蔵でOTA可)。
+- **▶▶ 2026-08-29 LIVE(最新)＝語彙(辞書)例文の「文脈規定丸写し」を新例文へ差替。N3完了→本ビルドで実機反映**：設計上「語彙例文＝文脈規定の穴を正解で埋めた文」で大半が重複＝**類似0.3以上の語彙例文だけを別文へ作り直す。文脈規定は据え置き。例文＋ルビのみ・選択肢/解説なし。翻訳en/neはGemini。**
+  - **✅N4/N5(第1R≥0.8 410＋第2R≥0.3 651)＋✅N3(≥0.3 1598)＝全レベル完了・書込済**。vocabExamplesAi(ja/en)・vocabFurigana・lexicon(ne)へ投入。文脈規定無変更を確認。**N4/N5のne訳OTA配信済**(commit `9a17081e`+`8680fa8b`)。
+  - **✅N3 1598語 焼込み完了**：生成run wf_a6367703-601(40体0err)／ルビ wf_33a9fb72-f49(16体0err)／翻訳 Gemini(en1596/ne1598・**実費¥62**)。content検証17/17 pass。詳細=`memory/context-reuse-regen-inflight.md`。
+  - **🚀本ビルドで N3ja/en/ふりがな(バンドル)を実機反映＋ne訳OTA同時配信**（build.ps1 が commit→push→両OS dispatch）。**Build番号・run IDは下記(ビルド起動後に追記)**。
+  - **次の一手＝(a)CI結果確認(要れば該当run) (b)語彙例文の丸写し差替は全レベル完了。次テーマはユーザー判断。**
+
+- **▶▶ 2026-08-29 (前段)＝N5低面語の言い換え底上げ＋さん削除＝全語彙≥4面達成【未コミット→コミット/OTAへ】**：残N5 3面語に言い換え投入＝`synonym_N5`に**すぎ(3時すぎ→3時より後)・がる(いやがる→いやだと思う)・では(では→じゃあ)・たち(子どもたち→何人かの子ども)**の4問(`N5-V-I-0347〜0350`)。**くらい(n5-v-227)＝0239を級バグ修正**(旧:下線くらい→答えほど=**ほどはN4=級違反**だった。ユーザー指摘)→degree版「泣きたいくらい→泣きたいほど」(下線=くらい・ほどは許容の基本語)＋**文脈規定新設**`N5-V-B-0705`(立てないくらいつかれた)で**くらい3→4面**。**さん(n5-v-287)を語彙から完全削除**(敬称接尾辞=言い換え不可の弱語・ユーザー判断)＝11ファイル(vocab/context_N5/example_N5/meaning_N5/vocabExamplesAi/Category/Freq/Furigana/jftBands/iikaePossible/KanjiClass)から除去・残参照ゼロ・inventory番人3541→3540・iikae total 722。**★級ルール決定＝思う/だから/より等の超基本語(リスト上N4/N3だが実質N5=リストが1級辛い)はN5言い換えの正解/誤答に許容**(ユーザー決定)。**結果＝N5/N4/N3すべて3面ゼロ=全語彙≥4面**。②カバー率(N5 3面6→0・4面61→66・母数717→716・N5単語×大問表も716/言い換え236)＋面数分布明細(最少面0語・4面126)再生成。**npm 425/425・tsc0緑**。**✅コミット/OTA配信済**(付随`b86d3217`+content`170303d0`+OTA run 33173968772)。**✅ネイティブビルド済＝v1.1.19(2875) iOS/Android both dispatch**(commit `5f9a9e13`・run 33185281957・full76 pass71/tsc0・iOS本日0/8・-NoWatch・監視しない)＝新N5言い換えのsentenceFuri他が実機反映。**ビルド時の赤2件を是正**＝新synonym語(何～/すぎ/がる/では/たち/君/はあ)のiikaePossible p=1化+counts再計算、御～除外後のvocabKanjiClass testLevelCounts(N3 1949→1948)。**次の一手＝(a)CI結果確認(要れば run 33185281957) (b)未処理=幽霊コピー`memory/在庫・模試ストックまとめ - コピー.xlsx`削除の要否**。
 
 - **▶▶ 2026-08-28 (前段)＝3面語の面数底上げ(用法/言い換え)＋②カバー率更新・全緑【未コミット/未OTA】**：3面15語を4観点(パズル/文脈規定/意味/用法)＋文法重複で検討→**用法7問・言い換え3問を投入**。用法(usage)=N4/N3のみ(N5は用法大問なし)＝`usage_N4.json`+6(`N4-V-Y-0566〜0571`=おわる/やすい/おき/ちゃん/君/いくら～ても)・`usage_N3.json`+1(`0351`=はあ)。言い換え=`synonym_N5`+1(何時≒いつ`N5-V-I-0346`)・`synonym_N4`+1(君≒さん`0467`)・`synonym_N3`+1(はあ≒ふう`1654`)。**くらいは既存ゆえ増やさず**。付随=`usageDistractorTags.json`+7(はあ=monoTypeAllow・type∈自他/別義/近接/選択/コロケ/対義/呼応/授受)・`sentenceFuri.json`+1・`usageCoverage`基準 N4 573/N3 295・`synonymFormat.test`出題数 N4 407/N3 1612。**文法重複の扱い=B案(語彙として育てる)**＝いくら～ても(n3-g-31)/やすい(n4-g-121)/おき(n4-g-67)は除外せず用法追加。**8語が3面卒業**：N4 いくら/やすい/おき/ちゃん/おわる→4面・君→5面／N3 はあ→5面／N5 何～→4面。**②カバー率 語彙面数分布更新**(3面 N5 7→6・N4 7→1・N3 1→0／4面 N5 60→61・N4 11→16／5面 N4 72→73・N3 179→180・母数 717/667/2144)。**npm 425/425・tsc0・番人33/33緑**。**残3面=7語(構造的下限)**＝がる/くらい/さん/すぎ/たち/では(N5=用法大問なし)＋御～(N4=文法n5-g-59そのもの・お～と同じ除外候補)。**次の一手＝(a)コミット/OTA配信の要否(要合図・`publish-content.ps1`) (b)`面数分布_明細.xlsx`が投入前(15語@3面)のまま=stale・要再生成なら指示 (c)御～の母数除外の要否**。集計=`scratchpad/facet_emit.ts`(母数=vocabMetricExcluded除外済で717/667/2144一致)。
 
@@ -229,21 +235,21 @@
 <!-- AUTO:BEGIN -->
 
 ## 走行中の run（自動・完了通知が来ていないもの）
-- a64bf3402048b0567 general-purpose
-- a1d3e3f9a0186f063 general-purpose
-- ac14537004250b800 general-purpose
-- a6a24cb139f9f5d0b general-purpose
-- a08247191c3197a69 general-purpose
+- a4851348b008554c9 workflow-subagent
+- a551741a2368517b6 workflow-subagent
+- aa01d521ccd4d4a44 workflow-subagent
+- af7b45ecf61ffa707 workflow-subagent
+- afaf52fdbd5492a5c workflow-subagent
 
 ## 直近24時間の変更ファイル（自動）
-- memory/session-summary-LATEST.md
-- memory/handoff.md
-- memory/在庫問題数.txt
-- memory/~$在庫・模試ストックまとめ.xlsx
+- memory/context-reuse-regen-inflight.md
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- 面数分布_明細.xlsx
-- scratchpad/produce_items.json
+- content/lexicon/example_N3.json
+- src/data/dict/vocabFurigana.json
+- src/data/dict/vocabExamplesAi.json
+- scratchpad/vocab_swap3/_usage.json
+- scratchpad/vocab_swap3/out/en/batch79.json
 
-_自動更新: 2026-08-29 00:22_
+_自動更新: 2026-08-29 09:34_
 <!-- AUTO:END -->
