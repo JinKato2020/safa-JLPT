@@ -107,13 +107,14 @@ export function PopoverBar({ entries }: { entries: TabEntry[] }) {
 //    画面遷移せず、背景イラストも動かさない。再タップ or 背景の薄暗幕タップで閉じる(開くのは常に1枚)。
 //  - カードは maxHeight でキャップし、超過分はカード内スクロール。初期は何も開かない(イラストが主役)。
 //  - hotspots = 背景の描き込み要素に重ねる透明タップ領域。対応する key のカードをトグルする。
-export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, hotspots }: {
+export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, hotspots, aboveBar }: {
   source: ImageSourcePropType;
   blinkSource?: ImageSourcePropType;
   scrim?: number;
   title?: React.ReactNode;
   entries: TabEntry[];
   hotspots?: { key: string; area: Area; label?: string }[];
+  aboveBar?: React.ReactNode; // 下端アイコン列の"すぐ上"に常設する要素(CTA等)。カード(ポップオーバー)が開いている間は隠す。
 }) {
   const { height } = useWindowDimensions();
   const [openKey, setOpenKey] = useState<string | null>(null);
@@ -155,6 +156,8 @@ export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, h
             </View>
           </>
         ) : null}
+        {/* 下端アイコン列のすぐ上に置くCTA等。カードを開いている間は隠して、同じ場所にカードを出す。 */}
+        {aboveBar && !activeEntry ? aboveBar : null}
         <BottomIconBar>
           {entries.filter((e) => !e.hidden).map((e) => (
             <TabIconButton

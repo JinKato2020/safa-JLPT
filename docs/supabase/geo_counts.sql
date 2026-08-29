@@ -42,6 +42,12 @@ $$;
 revoke all on function public.geo_count_bump(text) from public;
 grant execute on function public.geo_count_bump(text) to anon, authenticated;
 
+-- ⚠ 【廃止(2026-08-29)】この匿名累計テーブル/関数は使用を停止しました。
+--   理由: 個人と紐づかない累計のため「利用者一覧の削除と連動して減らす」ことができなかった。
+--   新方式: 端末別テレメトリ(tel_snapshot.data.geoCountry)から国別を集計する v_admin_geo(dashboard_views.sql)。
+--   アプリも geo_count_bump の呼び出しを停止済み(src/geo/geoClient.ts)。
+--   このテーブル/関数は残しても害はないが、不要なら drop table public.geo_country_counts; drop function public.geo_count_bump(text); で削除可。
+
 -- ── 集計の見方(管理者が SQL Editor で) ──────────────────────────────────
 -- 国ごとの累計:
 --   select country, sum(count) as total

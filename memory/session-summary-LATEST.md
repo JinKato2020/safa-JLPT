@@ -1,22 +1,35 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 16 回・41 ターン
-- 往復 210 回
+- ツール呼び出し 3 回・10 ターン
+- 往復 374 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/在庫問題数.txt
-- memory/usage-n3-300-inflight.md
-- 用法N3_新規300_確認用.xlsx
-- tools/build_usage_n3_review_300.py
-
-## ⚠️ 注意
-- - ⚠ 連続 41ターン（文脈 21万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 41ターン・ツール16回）— まとめ方を変える
+- memory/session-summary-LATEST.md
+- src/store/tickets.ts
+- src/screens/InventoryScreen.tsx
+- src/store/tickets.test.ts
 
 ## 次の一手
-- **▶▶ 2026-08-29 LIVE(最新)＝語彙(辞書)例文の「文脈規定丸写し」を新例文へ差替。N3完了→本ビルドで実機反映**：設計上「語彙例文＝文脈規定の穴を正解で埋めた文」で大半が重複＝**類似0.3以上の語彙例文だけを別文へ作り直す。文脈規定は据え置き。例文＋ルビのみ・選択肢/解説なし。翻訳en/neはGemini。**
+- **▶▶ 2026-08-29 LIVE(最新)＝UI複数修正＋管理ダッシュ国別の削除連動＋模試チケットPro制【全て未コミット・未ビルド／tsc0・関連テスト全緑(tickets/parity/entitlement/sync 30 pass)】**：この会話でのUI/バックエンド変更。すべて`build.ps1`ビルド反映(OTAではない)。
+  - **UI修正群**：①辞書タブ(BrowseScreen.tsx)カードを縦積み化=例文が右端まで折返し＋各カードに`ID: xxx`表示 ②試験タブ(StudyHomeScreen.tsx)「試験に挑戦」ボタンを4アイコン真上・青ピル(ホームrecoと同デザイン)へ＝`ImmersiveTab`に`aboveBar`prop追加(TabScene.tsx) ③語彙カード見出し「漢字・語彙」→「語彙」(CategoryCard.tsx catName override) ④運営お知らせアイコン📣→`information-circle-outline`(CheerInboxScreen.tsx) ⑤設定 聴解音声をレベル別(N5/N4/N3)独立DLへ(ProfileScreen.tsx `LevelAudioRow`＋i18n profile.audioDownloaded)。
+  - **プライバシー(ユーザー決定)**：設定から「利用状況データ送信」「トラッキング許可」**両トグル撤去**(ProfileScreen.tsx)。同意はオンボの「スタート」みなし同意へ＝`onboarding.agree_note`を「利用規約・プライバシー・データ利用」に更新(ja/en/ne)。**トラッキングは同意文に入れない**(ATTはOSダイアログで取得＝Apple必須・ボタンみなし同意は無効と説明済)。値/初期化ロジックは維持。
+  - **④管理ダッシュ 国別を利用者削除と連動**：方式=匿名累計(geo_country_counts)廃止→端末別テレメトリ集計。アプリ=geoClient.ts `cacheGeoCountry`/`getCachedGeoCountry`(旧bumpGeoCountOnce撤去)・telemetry.ts snapshotに`geoCountry`追加・SyncProvider.tsx呼出差替。SQL=dashboard_views.sql `v_admin_geo`を`tel_snapshot`集計に書換(登録/全体/匿名=端末単位・削除で自動減)。dashboard.htmlのリセットボタン撤去(doDeleteのuser_geo削除は残す)。geo_counts.sqlは廃止マークのみ。**ユーザーの実行=更新後 dashboard_views.sql をSQL Editorで1回貼るだけ**(geo_counts.sqlは実行不要)。人数連動は即・国名はビルド後の新snapshotから(それまで'??')。
+  - **③模試チケットPro制(ユーザー確定)**：無料=模試ロック→「🔒 Proで模試に挑戦」→Paywall。Pro=Pro開始日(proSince)起点で歓迎1+暦月ごと+1・**所持上限なし**。購入=Proのみ累計3枚まで(300貝)。無料化で残チケットは0クリア。配布時ホームで祝いモーダル🎟️(ShopScreen購入も祝い演出追加)。実装=tickets.ts全書換(MAX_MOCK_TICKETS→MAX_MOCK_PURCHASES=3・`clearTicketNotice`)・state.ts(proSince/mockTicketsPurchased/ticketNotice追加)・store.tsx(CLEAR_TICKET_NOTICE)・App.tsx(課金同期後syncTickets)・StudyHome/Shop/Home/InventoryScreen・i18n(test.pro_locked/ticket.granted_*/shop.ticket_held/_buy_count)・tickets.test.ts書換。proSinceは「初めてPro状態を見た時刻」をローカル確定(sync維持)＝RevenueCat購入日ではない。旧mockGrantsClaimedは初回anchorで0リセット(既存Proの月次抑止バグ回避)。
+  - **★③の未確認5点(ユーザー判断待ち)**：(a)歓迎1枚を付けた(例は「翌月から」だが0枚回避)→不要なら外す (b)proSince=ローカル捕捉でよいか(RevenueCat購入日にするか) (c)月1暦月ロック(fullMockLock)は廃止済=Proはチケットある限り月内複数可、でよいか (d)購入上限=累計3。ただし月次無制限貯蓄で長期に模試在庫(約10回)超過し得る→「月ごと3枚」等にするか (e)無料ユーザーにもショップの模試チケット表示(購入無効)=非表示にするか。
+  - **次の一手＝(1)ユーザーがSupabaseで dashboard_views.sql を実行 (2)③の未確認5点を確定→必要なら微修正 (3)区切りでコミット＋ビルド(build.ps1・未ビルド)。** 変更ファイル多数(上記)＝gitで確認。05_データ保有・ファイル相関図.pdf も生成済(ROOT)。
+- **▶▶ 2026-08-29 (前)＝辞書タブ「例」の母語化＋民族衣装アバターの正規化【未コミット・未OTA・未ビルド】**：ユーザー報告=ネパール語設定で辞書タブの**文法の例文**(夏休みの間…)と**漢字の例単語**(会社:company)が英語のまま(意味・単語自体はne正常)。原因=意味と違い「例」は最初から母語化されておらず、①文法例文は`BrowseScreen.tsx:261`が`renderSentence`に訳を渡していない②漢字例語glossは英語焼込み＋データ無し。
+  - **対応(両方=ユーザー選択)**：文法例文392件＋漢字例語1182件をne化(**977件は既存語彙ne流用=無料**・**205件だけGemini 2.5-flash生成・実費¥8**)。データ=`content/lexicon/example_{N5,N4,N3}.json`にgrammar id→ne追記＋**新規`kanjigloss_{N5,N4,N3}.json`(kind='kanjigloss'・key=語)**。配線=`BrowseScreen.tsx`(文法例文にexampleIn/exampleEn・漢字glossにkanjiGlossIn)＋`schema.ts`kind追加＋`rehydrate.ts`KANJIGLOSS_L10N＋`index.ts`kanjiGlossIn。**rebuild.ts済(manifest+bundled再生成・55files)・tsc0・content検証13/13緑**。実データで会社→कम्पनी/n4-g-1→gम्री…確認済。
+  - **民族衣装ホームアバター正規化**＝長髪桜(hair_long)基準で衣装が相対的に大きすぎ→**顔の幅**を目印に長髪桜へ揃える(旧固定0.60w=顔が約44%大)。`charNorm.ts`に`COSTUME_NORM`(衣装8種のaspect/faceFrac)+`COSTUME_REF_FACE_W=0.2231`追加・`HomeCoach.tsx`の衣装分岐を差替(charW=顔幅逆算)。tsc0。
+  - **配信境界(重要)**：データ=OTA、しかし`BrowseScreen.tsx`/`HomeCoach.tsx`/`rehydrate.ts`/`index.ts`=**UI/ロジック=ネイティブビルド必要**。ゆえ実機反映には**①`publish-content.ps1`(OTA)＋②`build.ps1`(ビルド)の両方**が要る([[content-ota-vs-ui-build]] [[ota-manifest-regen-or-stale]])。
+  - **次の一手＝ユーザーの合図で ①OTA配信 ②ビルド。現状は working tree 変更のみ・未コミット。** 変更ファイル=charNorm/HomeCoach/BrowseScreen/schema/rehydrate/index+content/lexicon/example_*・kanjigloss_*・_manifest・bundled.generated。
+- **▶▶ 2026-08-29 (前段)＝用法N3 新規300問追加(gen-only=検証なし)・DB適用→本ビルドで配信**：ユーザー指示「これまでの方法に沿って300問・生成のみでよい」。**usage_N3 300→600問**(新id `N3-V-Y-0352..0651`・全distinct vocabId)。対象=未カバーN3語300(RED=感情形容詞等は除外・clean255/YELLOW45)。近接類義/選択制限/自他で誤答・P1違反0/重複0/内容不一致0。番人 usageDistractor/usageCoverage **7/7**・tsc0。**N3カバー率 295→595(14→28%)**・backlog1550・baseline更新済。⑤用法カバーExcel再生成済。
+  - パイプライン=`NO_RED=1 pick_usage_targets_n3.py 300`→`gen_usage_workflow.py 20`(作問wf_11062d49-05f 15体0err)→`gen_usage_furigana_wf.py`(ルビwf_fb1db062-df7 15体0err)→`apply_usage_n3_300.py --write`→番人。詳細正本=`memory/usage-n3-300-inflight.md`。
+  - 確認Excel(gen-onlyゆえユーザー目視用)=`scratchpad/usage_n3_300/用法N3_新規300_確認用.xlsx`(ROOT納品物はpublic repo非コミットゆえscratchpad退避・300行/YELLOW45/mono2)。
+  - **🚀ビルド済＝v1.1.21(2879) iOS/Android both dispatch**（commit `d575250b`・run `33241046554`・test76 pass71/fail0・tsc0・iOS本日3/8・-NoWatch）。用法はi18n空=翻訳不要・pushでOTA即反映。
+  - **次の一手＝(a)確認Excelの目視で第2正解チェック(直す語番号を指示) (b)①在庫/②カバー率シートの用法N3行(旧299/150)を600へ整合 (c)CI確認。**
+- **▶▶ 2026-08-29 (前段)＝語彙(辞書)例文の「文脈規定丸写し」を新例文へ差替。N3完了→ビルド済**：設計上「語彙例文＝文脈規定の穴を正解で埋めた文」で大半が重複＝**類似0.3以上の語彙例文だけを別文へ作り直す。文脈規定は据え置き。例文＋ルビのみ・選択肢/解説なし。翻訳en/neはGemini。**
   - **✅N4/N5(第1R≥0.8 410＋第2R≥0.3 651)＋✅N3(≥0.3 1598)＝全レベル完了・書込済**。vocabExamplesAi(ja/en)・vocabFurigana・lexicon(ne)へ投入。文脈規定無変更を確認。**N4/N5のne訳OTA配信済**(commit `9a17081e`+`8680fa8b`)。
   - **✅N3 1598語 焼込み完了**：生成run wf_a6367703-601(40体0err)／ルビ wf_33a9fb72-f49(16体0err)／翻訳 Gemini(en1596/ne1598・**実費¥62**)。content検証17/17 pass。詳細=`memory/context-reuse-regen-inflight.md`。
   - **🚀ビルド済＝v1.1.20(2878) iOS/Android both dispatch**（commit `f929615f`・run `33236813553`・test76 pass71/fail0・tsc0・iOS本日2/8・-NoWatch=監視しない）。push でN3ja/en/ふりがなの実機反映＋ne訳OTA同時起動。

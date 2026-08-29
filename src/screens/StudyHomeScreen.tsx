@@ -12,7 +12,7 @@ import CategoryCard from '../components/CategoryCard';
 import { useAppState } from '../store/store';
 import { examOf } from '../engine/examProfile';
 import type { Category } from '../engine/engine';
-import { fullMockLocked } from '../mock/fullMockLock';
+import { proStatus } from '../pro/entitlement';
 import { useColors } from '../theme';
 import { useT } from '../i18n';
 
@@ -34,10 +34,9 @@ export default function StudyHomeScreen() {
   const state = useAppState();
   const now = Date.now();
   const prof = useMemo(() => examOf(state.settings.targetExam), [state.settings.targetExam]);
-  const isJft = prof.exam === 'jft';
-  const lock = fullMockLocked(state.mockHistory ?? [], now);
-  // 【開発用】「全モードを解禁」ONのときはフル模試の月1ロックも外す(繰り返しテスト用)。
-  const mockLocked = lock.locked && state.settings.devUnlockAll !== true;
+  // 模試はProの機能。無料ユーザーはロック→ペイウォールへ誘導(ユーザー指定2026-08-29)。
+  // Proは所持チケットで挑戦(暦月ごとに配布・購入も可)=イントロ側でチケット残数を判定。
+  const isPro = proStatus(state, now).isPro;
   const bg = useTabBg('exam');
 
   return (
@@ -50,29 +49,30 @@ export default function StudyHomeScreen() {
           // 旧「全部混ぜ(今日のオススメ)」は統合復習へ移行し撤去(復習はホーム/書斎の入口へ・試験タブに復習は置かない=方針2026-08-01)。
           ...CATS.map((x) => ({ key: x.cat, glyph: x.glyph, label: x.labelKey ? t(x.labelKey) : t(prof.catLabel[x.cat]), accent: x.accent, renderCard: () => <CategoryCard cat={x.cat} /> })),
         ] as TabEntry[]}
+        // 「試験に挑戦する」= 模試フローの入口。4カテゴリのアイコンの"真上"に中央配置(ユーザー指定2026-08-29)。
+        // デザインはホームの「苦手な単語に挑戦する」ボタンと同じ(濃い青の不透明ピル)。カードを開くと隠れる。
+        aboveBar={
+          <Pressable
+            style={[styles.challenge, !isPro && styles.challengeLocked]}
+            onPress={() => { if (isPro) nav.navigate('MockIntro', { full: true }); else nav.navigate('Paywall'); }}
+            accessibilityLabel={isPro ? t('test.challenge') : t('test.pro_locked')}
+          >
+            <Text style={styles.challengeTxt}>{isPro ? `🎯 ${t('test.challenge')}` : `🔒 ${t('test.pro_locked')}`}</Text>
+          </Pressable>
+        }
       />
-      {/* 「試験に挑戦する」= 模試フローの入口。4カテゴリのアイコンとは別立ての独立ボタン(ユーザー方針2026-08-26)。 */}
-      <Pressable
-        style={[styles.challenge, mockLocked && styles.challengeLocked]}
-        disabled={mockLocked}
-        onPress={() => { if (!mockLocked) nav.navigate('MockIntro', { full: true }); }}
-        accessibilityLabel={t('test.challenge')}
-      >
-        <Text style={styles.challengeTxt}>{mockLocked ? `🔒 ${isJft ? t('test.jft_title') : t('test.full_title')}` : `🎯 ${t('test.challenge')}`}</Text>
-      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   c: { flex: 1 },
-  // 「試験に挑戦する」CTA。イラスト上部中央・ボトムのアイコン列とは離した独立ボタン(金色ピル)。
+  // 「試験に挑戦する」CTA。4カテゴリのアイコン列のすぐ上・中央。デザインはホームの「苦手な単語に挑戦する」ボタンと統一(濃い青の不透明ピル)。
   challenge: {
-    position: 'absolute', top: '11%', alignSelf: 'center', minWidth: '58%',
-    backgroundColor: '#b8924a', borderRadius: 999, paddingVertical: 13, paddingHorizontal: 26, alignItems: 'center',
-    borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.65)',
-    shadowColor: '#000', shadowOpacity: 0.35, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 6,
+    position: 'absolute', left: 32, right: 32, bottom: 84,
+    backgroundColor: '#2f62d8', borderRadius: 999, paddingVertical: 14, alignItems: 'center',
+    shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 5,
   },
-  challengeLocked: { backgroundColor: '#a89a86', opacity: 0.85 },
-  challengeTxt: { color: '#fff', fontSize: 16, fontWeight: '900', letterSpacing: 0.5, textShadowColor: 'rgba(0,0,0,0.5)', textShadowOffset: { width: 0, height: 1 }, textShadowRadius: 3 },
+  challengeLocked: { backgroundColor: '#8a93a8', opacity: 0.9 },
+  challengeTxt: { color: '#ffffff', fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },
 });

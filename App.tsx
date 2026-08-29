@@ -261,7 +261,7 @@ const topBar = StyleSheet.create({
 function Root() {
   const hydrated = useHydrated();
   const state = useAppState();
-  const { addStudySeconds, setPurchaseActive, setSettings } = useAppActions();
+  const { addStudySeconds, setPurchaseActive, setSettings, syncTickets } = useAppActions();
   const { session } = useSync();
   const { settings } = state;
   const stateRef = useRef(state);
@@ -325,6 +325,8 @@ function Root() {
       if (userId) active = await linkAccount(userId);
       else { await unlinkAccount(); active = await syncEntitlement(); }
       if (!cancelled && typeof active === 'boolean') setPurchaseActive(active);
+      // 課金同期でPro状態が確定した後に、模試チケットを再整合(Pro:登録日起点の月次付与 / 非Pro:0にクリア)。
+      if (!cancelled) syncTickets();
     })();
     return () => { cancelled = true; };
   }, [hydrated, userId]); // eslint-disable-line react-hooks/exhaustive-deps

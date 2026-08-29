@@ -1,6 +1,6 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useRef, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -18,10 +18,12 @@ import { useT, UI_LANGS, useUiLang } from '../i18n';
 import { legalUrl } from '../config/legal';
 import { nativeLangCC } from '../plaza/countries';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
+import { listeningAudioIdsFor } from '../data';
+import { LISTENING_CACHEABLE, listeningReady, listeningBytesEstimate } from '../data/listeningAudio';
 import Slider from '../components/Slider';
 import MiniCalendar from '../components/MiniCalendar';
 import { upcomingExams } from '../data/jlptDates';
-import { setTelemetryEnabled, sendEvent } from '../telemetry/telemetry';
+import { sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
 import * as Updates from 'expo-updates';
 import { syncContent } from '../data/content/ota';
@@ -34,6 +36,38 @@ import { UNLOCKS, type UnlockKey } from '../store/unlocks';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
+
+// 聴解音声の「レベル別・一括ダウンロード」1行。そのレベルがDL済みなら「✓ ダウンロード済」、未DLなら[一括ダウンロード]ボタン。
+// refreshKey が変わるたびに端末キャッシュの有無を再判定する(DL完了直後に済表示へ更新)。
+function LevelAudioRow({ level, refreshKey, onDownload, s, t }: {
+  level: Level; refreshKey: number; onDownload: (lv: Level) => void;
+  s: ReturnType<typeof makeStyles>; t: ReturnType<typeof useT>;
+}) {
+  const ids = useMemo(() => listeningAudioIdsFor(level), [level]);
+  const mb = Math.max(1, Math.round(listeningBytesEstimate(ids) / 1048576));
+  const [ready, setReady] = useState<boolean | null>(null);
+  useEffect(() => {
+    let alive = true;
+    if (!LISTENING_CACHEABLE) { setReady(true); return () => { alive = false; }; }
+    listeningReady(ids).then((r) => { if (alive) setReady(r); }).catch(() => { if (alive) setReady(false); });
+    return () => { alive = false; };
+  }, [ids, refreshKey]);
+  return (
+    <View style={s.dlRow}>
+      <View style={{ flex: 1 }}>
+        <Text style={s.dlLevel}>{level}</Text>
+        <Text style={s.dlSize}>{mb} MB</Text>
+      </View>
+      {ready ? (
+        <Text style={s.dlDone}>✓ {t('profile.audioDownloaded')}</Text>
+      ) : (
+        <Pressable style={s.dlBtn} onPress={() => onDownload(level)}>
+          <Text style={s.dlBtnTxt}>{t('profile.listeningAudio_download')}</Text>
+        </Pressable>
+      )}
+    </View>
+  );
+}
 
 
 export default function ProfileScreen() {
@@ -54,7 +88,10 @@ export default function ProfileScreen() {
   const [unlockPreview, setUnlockPreview] = useState<UnlockKey | null>(null);
   const previewUnlock = unlockPreview ? UNLOCKS.find((u) => u.key === unlockPreview) ?? null : null;
   const [langOpen, setLangOpen] = useState(false);
-  const [showDl, setShowDl] = useState(false);
+  // 聴解音声のダウンロード: レベルごとに独立してDL(N5/N4/N3)。dlLevel=モーダルで開いているレベル。
+  // dlRefresh はDL完了後に各レベル行の「済/未」を再判定させるためのカウンタ。
+  const [dlLevel, setDlLevel] = useState<Level | null>(null);
+  const [dlRefresh, setDlRefresh] = useState(0);
   // 開発用セクションの隠しゲート: 一番下のバージョン表示を7回タップで解禁(TestFlight/本番でも使える・実ユーザーには見えない)。開発クライアントは既定で表示。
   // 解禁状態は state.settings.devToolsUnlocked に保存=全体で共有(大問の問題ID選択もこのフラグで表示)＋再起動後も維持。
   const devUnlocked = __DEV__ || state.settings.devToolsUnlocked === true;
@@ -234,44 +271,19 @@ export default function ProfileScreen() {
           </View>
           <Text style={s.subtle}>{t('profile.reminderHint')}</Text>
 
-          {/* 利用状況データの送信: 目立たない控えめ表示(小さめ・淡色・区切り線で降格) */}
-          <View style={s.telemRow}>
-            <View style={s.telemTxt}>
-              <Text style={s.telemLbl}>{t('profile.telemetry')}</Text>
-              <Text style={s.subtle}>{t('profile.telemetryHint')}</Text>
-            </View>
-            <Switch
-              style={s.telemSwitch}
-              value={state.settings.telemetry !== false}
-              onValueChange={(v) => { setSettings({ telemetry: v }); setTelemetryEnabled(v); }}
-              trackColor={{ true: c.blueLight, false: c.line }}
-              thumbColor={c.faint}
-            />
-          </View>
-
-          {/* 広告トラッキング許可: 既定ON。オフにすると広告が非パーソナライズになる。 */}
-          <View style={s.telemRow}>
-            <View style={s.telemTxt}>
-              <Text style={s.telemLbl}>{t('profile.adTracking')}</Text>
-              <Text style={s.subtle}>{t('profile.adTrackingHint')}</Text>
-            </View>
-            <Switch
-              style={s.telemSwitch}
-              value={state.settings.adTracking !== false}
-              onValueChange={(v) => { setSettings({ adTracking: v }); }}
-              trackColor={{ true: c.blueLight, false: c.line }}
-              thumbColor={c.faint}
-            />
-          </View>
+          {/* 利用状況データの送信・広告トラッキング許可のトグルは設定から撤去(ユーザー指定2026-08-29)。
+              ・同意はオンボーディングの「スタート」＝みなし同意(規約・プライバシー・データ利用)で取得(onboarding.agree_note)。
+              ・トラッキング(ATT)は初回オンボーディングでOS標準の許可ダイアログを1回表示(App.tsx initAds)。以後はiOS/Android本体の設定で変更。
+              ・telemetry / adTracking の値と初期化ロジックはそのまま維持(既定ON)。 */}
         </View>
 
-        {/* 聴解音声のダウンロード導線(今のレベルの音声を端末に保存=オフライン再生)。取得方式トグル(配信/一括)は廃止。 */}
+        {/* 聴解音声のダウンロード(レベル別・一括)。各レベルを独立して端末に保存=オフライン再生。 */}
         <View style={s.card}>
           <Text style={s.setLbl}>{t('profile.listeningAudio')}</Text>
-          <Pressable style={s.linkRow} onPress={() => setShowDl(true)}>
-            <Text style={s.linkTxt}>{t('dl.title')}</Text>
-            <Text style={s.chev}>›</Text>
-          </Pressable>
+          <Text style={s.subtle}>{t('profile.listeningAudioHint_download')}</Text>
+          {LEVELS.map((lv) => (
+            <LevelAudioRow key={lv} level={lv} refreshKey={dlRefresh} onDownload={setDlLevel} s={s} t={t} />
+          ))}
         </View>
 
         {/* 聴解音声の再生スピード(0.5〜1.5倍。ネイティブ非依存の自作スライダー=OTA配信可) */}
@@ -522,9 +534,9 @@ export default function ProfileScreen() {
           </Text>
         </Pressable>
       </ScrollView>
-      {showDl ? (
+      {dlLevel ? (
         <View style={StyleSheet.absoluteFill}>
-          <ListeningDownloadGate level={state.settings.level} allowSkip manual onComplete={() => setShowDl(false)} />
+          <ListeningDownloadGate level={dlLevel} allowSkip manual autoStart onComplete={() => { setDlLevel(null); setDlRefresh((x) => x + 1); }} />
         </View>
       ) : null}
       {/* 開発用: 解禁演出の単体プレビュー(全体カバー率に達しなくても各画面を確認)。 */}
@@ -591,6 +603,13 @@ const makeStyles = (c: ThemeColors) =>
     linkRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: spacing.sm },
     linkTxt: { fontSize: ty.body, color: c.ink2, fontWeight: '600' },
     chev: { fontSize: ty.h2, color: c.trace, fontWeight: '700' },
+    // 聴解音声のレベル別DL行(N5/N4/N3)。
+    dlRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: spacing.sm, gap: spacing.sm, borderTopWidth: 1, borderTopColor: c.line },
+    dlLevel: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    dlSize: { fontSize: ty.tiny, color: c.faint, marginTop: 1 },
+    dlBtn: { backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.xs + 2, paddingHorizontal: spacing.md },
+    dlBtnTxt: { color: '#ffffff', fontSize: ty.small, fontWeight: '800' },
+    dlDone: { fontSize: ty.small, fontWeight: '700', color: c.green },
     linkDiv: { height: 1, backgroundColor: c.line },
     subtle: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.sm, lineHeight: 15 },
     examSel: { fontSize: ty.body, fontWeight: '800', color: c.blue, marginTop: spacing.xs },

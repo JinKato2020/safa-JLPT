@@ -11,7 +11,7 @@ import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
 import { isEquipped, type ShopKind } from '../store/wallet';
 import { SHOP, SHOP_BY_ID, type ShopItem } from '../data/shop';
-import { mockTicketCount, MAX_MOCK_TICKETS } from '../store/tickets';
+import { mockTicketCount } from '../store/tickets';
 import { homeStatus } from '../home/homeStatus';
 import { coverageBars } from '../store/selectors';
 import Badge from '../components/Badge';
@@ -109,7 +109,7 @@ export default function InventoryScreen() {
           <View style={s.card}>
             <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{ticketItem?.emoji ?? '🎫'}</Text></View>
             <Text style={s.cardName} numberOfLines={1}>{ticketItem ? nameOf(ticketItem) : t('shop.name_tool_mock_ticket')}</Text>
-            <Text style={s.ticketN}>{tickets} / {MAX_MOCK_TICKETS}</Text>
+            <Text style={s.ticketN}>{t('shop.ticket_held', { n: tickets })}</Text>
           </View>
           {tools.map(card)}
         </View>

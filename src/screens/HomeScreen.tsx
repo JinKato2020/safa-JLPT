@@ -2,7 +2,7 @@
 //  リング画像は段階素材(到達度で差し替え)。中央の合格率は動的。グローは呼吸するようにゆっくり明滅(Animated)。
 //  ※DQ風ステータスカードは不採用(ユーザー指定)。上部の共通バーは MainTabs のオーバーレイ。
 import { useMemo, useEffect, useRef, useState, useCallback } from 'react';
-import { View, Text, Image, Animated, StyleSheet, useWindowDimensions, Pressable } from 'react-native';
+import { View, Text, Image, Animated, StyleSheet, useWindowDimensions, Pressable, Modal } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useT } from '../i18n';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -31,7 +31,8 @@ export default function HomeScreen() {
 
   const status = useMemo(() => homeStatus(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { awardOnce } = useAppActions();
+  const { awardOnce, clearTicketNotice } = useAppActions();
+  const ticketNotice = state.ticketNotice ?? 0; // 模試チケット配布(歓迎/月次)で増えた枚数。>0 なら祝いモーダルを出す。
   // 継続・上達の桜貝付与(awardOnce が二重付与を防ぐので毎マウント呼んで安全)。
   useEffect(() => {
     // 毎日はじめての学習=30貝は「今日の最初の学習の直後(AfterStudyReward)」で付与・表示する。ホームでは付与しない。
@@ -135,6 +136,19 @@ export default function HomeScreen() {
         <Pressable style={styles.reco} onPress={() => nav.navigate('Quiz', { review: true })} accessibilityLabel={t('cards.reco')}>
           <Text style={styles.recoTxt}>{t('cards.reco')}</Text>
         </Pressable>
+        {/* 模試チケットの配布(歓迎/月次)を目立つ祝いモーダルで通知。ショップ購入時と同じ「手に入れた!」の見せ方。 */}
+        <Modal visible={ticketNotice > 0} transparent animationType="fade" onRequestClose={clearTicketNotice}>
+          <Pressable style={styles.noticeBackdrop} onPress={clearTicketNotice}>
+            <View style={styles.noticeCard}>
+              <Text style={styles.noticeEmoji}>🎟️</Text>
+              <Text style={styles.noticeTitle}>{t('ticket.granted_title')}</Text>
+              <Text style={styles.noticeBody}>{t('ticket.granted_body', { n: ticketNotice })}</Text>
+              <Pressable style={styles.noticeBtn} onPress={clearTicketNotice} accessibilityLabel={t('ticket.granted_cta')}>
+                <Text style={styles.noticeBtnTxt}>{t('ticket.granted_cta')}</Text>
+              </Pressable>
+            </View>
+          </Pressable>
+        </Modal>
       </TabBackground>
     </View>
   );
@@ -153,4 +167,12 @@ const styles = StyleSheet.create({
   // 今日のおすすめボタン(画面最下部・ボトムナビの上)。背景イラストの上でも読めるよう濃い青の不透明ピル。
   reco: { position: 'absolute', left: 32, right: 32, bottom: 14, backgroundColor: '#2f62d8', borderRadius: 999, paddingVertical: 14, alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 5 },
   recoTxt: { color: '#ffffff', fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },
+  // 模試チケット配布の祝いモーダル(中央・カード)。
+  noticeBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', alignItems: 'center', justifyContent: 'center', padding: 32 },
+  noticeCard: { width: '100%', maxWidth: 360, backgroundColor: '#fffdf8', borderRadius: 22, alignItems: 'center', paddingVertical: 26, paddingHorizontal: 22, borderWidth: 1, borderColor: 'rgba(184,146,74,0.5)', shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 12 },
+  noticeEmoji: { fontSize: 52, marginBottom: 6 },
+  noticeTitle: { fontSize: 19, fontWeight: '900', color: '#3a2f22', textAlign: 'center' },
+  noticeBody: { fontSize: 14, color: '#6b5c44', textAlign: 'center', lineHeight: 21, marginTop: 8 },
+  noticeBtn: { marginTop: 18, backgroundColor: '#2f62d8', borderRadius: 999, paddingVertical: 12, paddingHorizontal: 40 },
+  noticeBtnTxt: { color: '#ffffff', fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },
 });

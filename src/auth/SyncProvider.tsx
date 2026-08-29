@@ -10,7 +10,7 @@ import { decideLoginSync, mergeRestoredState } from './sync';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { claimTrial } from '../pro/trialClient';
 import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
-import { recordGeoCountry, bumpGeoCountOnce } from '../geo/geoClient';
+import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
 import { registerPushToken } from '../push/pushClient';
 
 type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null };
@@ -55,9 +55,9 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     setTelemetryAccount(session?.user?.id ?? null);
   }, [session]);
 
-  // 匿名を含む「国ごとの人数カウント」を起動時に1回だけ(端末内フラグで1インストール1回)。個人は一切送らない/保存しない。
+  // 接続国(IP由来)を起動時にキャッシュ。テレメトリのスナップショットに載せ、国別(全体/匿名)を端末単位で数える=利用者削除と連動。
   useEffect(() => {
-    void bumpGeoCountOnce();
+    void cacheGeoCountry();
   }, []);
 
   // 接続国(IP由来)をログインごとに1回だけ記録(統計・課金計算用)。トークン更新では再実行しない(user_id 変化のみ)。

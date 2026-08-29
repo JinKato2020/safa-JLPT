@@ -12,6 +12,7 @@ import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
 import type { Category } from '../engine/engine';
 import { supabase } from '../config/supabase';
+import { getCachedGeoCountry } from '../geo/geoClient';
 import { personalityOf, moodMsgOf } from '../plaza/persona';
 
 const APP_VERSION = '1.1.0';
@@ -118,7 +119,7 @@ async function send(path: string, body: Record<string, unknown>): Promise<void> 
   if (!(await post(path, body))) await enqueue(path, body);
 }
 
-function snapshotBody(state: AppState, anon: string, now: number): Record<string, unknown> {
+function snapshotBody(state: AppState, anon: string, now: number, geoCC?: string | null): Record<string, unknown> {
   const level = state.settings.level;
   const r = readinessFor(state, now);
   const rings = ringsFor(state, now);
@@ -180,6 +181,8 @@ function snapshotBody(state: AppState, anon: string, now: number): Record<string
       strong,
     },
 
+    // 接続国(IP由来・Cloudflare trace)。管理ダッシュボードの国別(全体/匿名)を端末単位で数える=利用者削除と連動して減る。
+    geoCountry: geoCC ?? null,
     daysToExam, badgeSet: state.settings.badgeSet ?? 'gorgeous', theme: state.settings.theme,
     reminderOn: !!state.settings.reminder,
     remaining, total, exhausted,
@@ -218,7 +221,7 @@ export async function sendDailySnapshot(state: AppState, now: number, force = fa
   if (!enabled || state.settings.telemetry === false) return;
   const day = dayStr(now);
   if (!force && (await AsyncStorage.getItem(K_DAY)) === day) { await flush(); return; }
-  await send('snapshot', snapshotBody(state, await anonId(), now));
+  await send('snapshot', snapshotBody(state, await anonId(), now, await getCachedGeoCountry()));
   await AsyncStorage.setItem(K_DAY, day);
   await flush();
 }

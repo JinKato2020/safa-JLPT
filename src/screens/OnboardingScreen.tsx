@@ -10,6 +10,8 @@ import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/o
 import { mapAuthError } from '../auth/authErrors';
 import { useT, useUiLang } from '../i18n';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
+import { listeningAudioIdsFor } from '../data';
+import { LISTENING_CACHEABLE, listeningReady, listeningBytesEstimate } from '../data/listeningAudio';
 import { legalUrl } from '../config/legal';
 import { sendEvent } from '../telemetry/telemetry';
 import { upcomingExams } from '../data/jlptDates';
@@ -31,6 +33,38 @@ const LEVEL_DESC_KEYS: Record<Level, string> = {
 
 // 現状 実装済みは JLPT のみ(JFTは未対応)。試験選択は廃止し、常に JLPT のレベル選択から始める。
 const EXAM: TargetExam = 'jlpt';
+
+// 聴解音声の「レベル別・一括ダウンロード」1行(オンボード)。DL済みなら「✓ ダウンロード済」、未DLなら[一括ダウンロード]。
+// 既定は配信(都度)＝どのレベルもDLしない。オフラインで使いたい級だけここでDLできる(設定画面と同じ挙動)。
+function LevelAudioRow({ level, refreshKey, onDownload, s, t }: {
+  level: Level; refreshKey: number; onDownload: (lv: Level) => void;
+  s: ReturnType<typeof makeStyles>; t: ReturnType<typeof useT>;
+}) {
+  const ids = useMemo(() => listeningAudioIdsFor(level), [level]);
+  const mb = Math.max(1, Math.round(listeningBytesEstimate(ids) / 1048576));
+  const [ready, setReady] = useState<boolean | null>(null);
+  useEffect(() => {
+    let alive = true;
+    if (!LISTENING_CACHEABLE) { setReady(true); return () => { alive = false; }; }
+    listeningReady(ids).then((r) => { if (alive) setReady(r); }).catch(() => { if (alive) setReady(false); });
+    return () => { alive = false; };
+  }, [ids, refreshKey]);
+  return (
+    <View style={s.dlRow}>
+      <View style={{ flex: 1 }}>
+        <Text style={s.dlLevel}>{level}</Text>
+        <Text style={s.dlSize}>{mb} MB</Text>
+      </View>
+      {ready ? (
+        <Text style={s.dlDone}>✓ {t('profile.audioDownloaded')}</Text>
+      ) : (
+        <Pressable style={s.dlBtn} onPress={() => onDownload(level)}>
+          <Text style={s.dlBtnTxt}>{t('profile.listeningAudio_download')}</Text>
+        </Pressable>
+      )}
+    </View>
+  );
+}
 
 
 export default function OnboardingScreen() {
@@ -62,8 +96,9 @@ export default function OnboardingScreen() {
   const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'lang'>(null); // タップで開くリスト選択
   const [level, setLevel] = useState<Level>('N4');                // JLPTの目標級
   const [examDate, setExamDate] = useState<string | null>(exams[0] ?? null); // 受験予定日=既定は直近のJLPT
-  const [audioMode, setAudioMode] = useState<'download' | 'stream'>('download'); // 聴解音声=一括DL / 都度DL(この画面の最後で選択)
-  const [pending, setPending] = useState(false);
+  // 聴解音声=既定は配信(都度=stream)。オフラインで使いたい級だけレベル別に一括DL(設定画面と同じ)。
+  const [dlLevel, setDlLevel] = useState<Level | null>(null); // 一括DL中の級(ゲート表示)。null=非表示
+  const [dlRefresh, setDlRefresh] = useState(0);              // DL完了で各行の「済」表示を再判定
   const [ready, setReady] = useState(false);                      // オープニングは2秒固定→タップ受付
   const fade = useRef(new Animated.Value(0)).current;
   useEffect(() => {
@@ -201,7 +236,7 @@ export default function OnboardingScreen() {
     );
   }
 
-  // オンボード完了=全設定を保存(聴解音声の取得方式を含む)。都度DLなら即完了 / 一括DLはゲートでDL後に呼ぶ。
+  // オンボード完了=全設定を保存。聴解音声は既定で配信(都度=stream)。オフライン用の一括DLは上のレベル別行で任意に実施済み。
   const finish = () => {
     sendEvent('onboarding_complete', { exam: EXAM, level });
     setSettings({
@@ -216,15 +251,10 @@ export default function OnboardingScreen() {
       avatar,
       personality,
       moodMsg,
-      listeningAudioMode: audioMode, // 聴解音声の取得方式(この画面の最後で選択)
+      listeningAudioMode: 'stream', // 聴解音声は既定で配信(都度)。オフライン用DLはレベル別に任意実施(mode非依存でキャッシュ優先再生)
       onboarded: true, // トラッキング許可は既定ON(未設定=許可)。オフは設定画面で。
     });
   };
-
-  // ── 一括DLを選んだ場合のみ、そのレベルの聴解音声をDL(方式は選択済み=確認を出さず即DL・失敗時のみスキップ可)。完了でオンボ確定。 ──
-  if (pending) {
-    return <ListeningDownloadGate level={level} allowSkip autoStart onComplete={finish} />;
-  }
 
   // ── 1画面で全設定（試験＝JLPTのレベル/受験日 ＋ 町のプロフィール ＋ リマインド ＋ トラッキング許可） ──
   const avs = avatarsByGender(gender);
@@ -323,19 +353,15 @@ export default function OnboardingScreen() {
           <Text style={s.pickCaret}>▾</Text>
         </Pressable>
 
-        {/* 4. 聴解音声の取得方式(この画面の最後で選択・別画面にしない)。一括DL=オフライン / 都度DL=容量節約。 */}
+        {/* 4. 聴解音声(この画面の最後)。既定は配信(都度)＝どの級もDLしない。オフラインで使いたい級だけレベル別に一括DL(設定画面と同じ)。 */}
         <Text style={s.label}>{t('profile.listeningAudio')}</Text>
-        <View style={s.row}>
-          {(['download', 'stream'] as const).map((m) => (
-            <Pressable key={m} onPress={() => setAudioMode(m)} style={[s.chip, audioMode === m && s.chipOn]}>
-              <Text style={[s.chipTxt, audioMode === m && s.chipTxtOn]}>{t(m === 'download' ? 'profile.listeningAudio_download' : 'profile.listeningAudio_stream')}</Text>
-            </Pressable>
-          ))}
-        </View>
-        <Text style={s.levelDesc}>{t(audioMode === 'stream' ? 'profile.listeningAudioHint_stream' : 'profile.listeningAudioHint_download')}</Text>
+        <Text style={s.levelDesc}>{t('onboarding.audioHint')}</Text>
+        {LEVELS.map((lv) => (
+          <LevelAudioRow key={lv} level={lv} refreshKey={dlRefresh} onDownload={setDlLevel} s={s} t={t} />
+        ))}
 
         {/* 学習リマインド・トラッキング許可は設定画面で入力(オンボでは尋ねない)。 */}
-        {/* 完了: 都度DL=そのまま完了 / 一括DL=次にゲートで音声をDLしてから完了。 */}
+        {/* 完了: 聴解音声は既定で配信(都度)＝そのまま完了。オフラインDLは上のレベル別行で任意に実施。 */}
         {/* 規約同意(UGC前の明示同意): 「スタート」で暗黙同意=Apple許容パターン。規約/プライバシーへのリンク付き。 */}
         <Text style={{ fontSize: ty.small, color: c.mute, textAlign: 'center', marginTop: spacing.sm, lineHeight: 18 }}>{t('onboarding.agree_note')}</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: spacing.sm, marginTop: 2, marginBottom: spacing.xs }}>
@@ -343,10 +369,17 @@ export default function OnboardingScreen() {
           <Text style={{ fontSize: ty.small, color: c.mute }}>·</Text>
           <Text style={{ fontSize: ty.small, color: c.blue, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(legalUrl('privacy', uiLang))}>{t('paywall.privacy')}</Text>
         </View>
-        <Pressable style={[s.cta, !canGo && s.ctaOff]} disabled={!canGo} onPress={() => { if (audioMode === 'stream') finish(); else setPending(true); }}>
+        <Pressable style={[s.cta, !canGo && s.ctaOff]} disabled={!canGo} onPress={finish}>
           <Text style={[s.ctaTxt, !canGo && s.ctaOffTxt]}>{t('onboarding.start')}</Text>
         </Pressable>
       </ScrollView>
+
+      {/* レベル別 聴解音声の一括DLゲート(全画面オーバーレイ)。完了で行の「済」表示を更新。 */}
+      {dlLevel ? (
+        <View style={StyleSheet.absoluteFill}>
+          <ListeningDownloadGate level={dlLevel} allowSkip manual autoStart onComplete={() => { setDlLevel(null); setDlRefresh((x) => x + 1); }} />
+        </View>
+      ) : null}
 
       {/* 性格/ムードのリスト選択(タップで開く) */}
       <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
@@ -461,6 +494,13 @@ const makeStyles = (c: ThemeColors) =>
     ctaOff: { backgroundColor: c.bgSoft },
     ctaTxt: { color: '#ffffff', fontSize: ty.h2, fontWeight: '800' },
     ctaOffTxt: { color: c.faint },
+    // 聴解音声のレベル別 一括DL行(設定画面と同じ体裁)
+    dlRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: spacing.sm, gap: spacing.sm, borderTopWidth: 1, borderTopColor: c.line },
+    dlLevel: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    dlSize: { fontSize: ty.tiny, color: c.faint, marginTop: 1 },
+    dlBtn: { backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.xs + 2, paddingHorizontal: spacing.md },
+    dlBtnTxt: { color: '#ffffff', fontSize: ty.small, fontWeight: '800' },
+    dlDone: { fontSize: ty.small, fontWeight: '700', color: c.green },
     // 設定画面の「アカウントをお持ちの方は ログイン」リンク
     loginHint: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: spacing.sm },
     loginHintTxt: { fontSize: ty.small, color: c.ink2, fontWeight: '600' },

@@ -1,5 +1,5 @@
 // 一覧・検索(辞書/単語帳)。漢字/語彙/文法を検索＆一覧。各項目に習得状態を表示。出題のランダムと逆に「目的の語を探す」用。
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput, FlatList, SectionList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -12,7 +12,7 @@ import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { isInMyList, type SaveRef } from '../store/state';
-import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, cardFaceReadings } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, kanjiGlossIn, cardFaceReadings } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { loadSharedDict, syncDictCache, type SharedDict } from '../data/dict/dictRemote';
@@ -48,7 +48,7 @@ const hiraToKata = (s: string): string => s.replace(/[ぁ-ゖ]/g, (ch) => String
 
 // 漢字カードの音訓＋例語(KANJI_CARDS=正データ・読みごとに高頻度例語)。表示はローカル優先(リモート辞書の羅列を使わない)。
 // 1読み=1行: [音/訓][読み][先頭例語(語全体ルビ)][例語の英訳gloss]。詳細カードと同じ情報を辞書/単語タブにも。
-interface CardLine { tag: string; label: string; furiWord: string; gloss: string; }
+interface CardLine { tag: string; label: string; furiWord: string; word: string; gloss: string; }
 // カード表面はレベル適応: 自分のレベル(またはその漢字のレベル)以下の読みだけ。上の読みは詳細でのみ。
 function cardReadingLines(char: string, userLevel: string): CardLine[] {
   return cardFaceReadings(char, userLevel).map((r) => {
@@ -57,7 +57,8 @@ function cardReadingLines(char: string, userLevel: string): CardLine[] {
       tag: r.type, // 'on'|'kun'。表示は i18n(browse.tag_on/kun)でレンダリング時に解決。
       label: r.type === 'on' ? hiraToKata(r.reading) : r.reading,
       furiWord: ex ? rubyForWord(ex.word, ex.reading) : r.reading,
-      gloss: ex?.gloss ?? '',
+      word: ex?.word ?? '', // 例語そのもの(母語グロスの引き当てキー)
+      gloss: ex?.gloss ?? '', // 英語の簡潔gloss(母語訳が無い時のフォールバック)
     };
   });
 }
@@ -75,6 +76,8 @@ export default function BrowseScreen() {
   const l1 = meaningL1(settings); // 母語コード(日本語UIは英語)
   // 母語(l1)の意味。無ければ undefined(=英語表示)。
   const nm = (key: string): string | undefined => (l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined);
+  // 漢字カード例語(会社 等)の母語グロス。無ければ undefined(=英語glossへフォールバック)。
+  const kg = (word: string): string | undefined => (l1 && l1 !== 'en' ? kanjiGlossIn(word, l1) : undefined);
 
   const route = useRoute();
   const params = (route.params ?? {}) as { view?: Kubun; mode?: 'dict' | 'study' };
@@ -186,56 +189,114 @@ export default function BrowseScreen() {
         if (!ok && reading) Speech.speak(reading, { language: 'ja-JP' });
       });
     };
-    const rowInner = (
-      <>
-      <View style={s.rowMain}>
-        {item.type === 'vocab' ? (
-          <>
-            {/* 見出し語: 読みを漢字の上にルビ表示(レベル適応=ユーザーのレベル以上の漢字を含む時だけ)。 */}
-            <View style={s.termRubyWrap}>
-              <Text style={s.termRuby} numberOfLines={1}>{rubyGate(item.word) ? item.reading : ' '}</Text>
-              <Text style={s.term}>{item.word}</Text>
+    // 参考表示の単語ID(漢字は詳細/保存と同じ kanji.json id に統一)。長い時は末尾省略・コピー可。
+    const refId = item.type === 'kanji' ? (KANJI_ID_BY_CHAR.get(item.char) ?? item.id) : item.id;
+    const idNode = <Text style={s.idText} selectable numberOfLines={1}>ID: {refId}</Text>;
+
+    // 右上の操作列(レベル・習得マーク・(再生)・単語帳登録)。見出し行の右に置き、例文の折り返しは邪魔しない。
+    // vocab/grammar は見出しの右に in-flow、kanji は本体Pressableの外にカード右上へ絶対配置。
+    const corner = (saveRef: SaveRef, opts?: { play?: ReactNode; absolute?: boolean }) => (
+      <View style={[s.corner, opts?.absolute && s.cornerAbs]}>
+        <Text style={s.levelBadge}>{item.level}</Text>
+        {statusMark(item)}
+        {opts?.play}
+        <SaveButton refItem={saveRef} />
+      </View>
+    );
+
+    if (item.type === 'vocab') {
+      const ex = vocabExOf(item);
+      // ふりがな付きの正データ(VOCAB_FURIGANA=vocabExamplesAi由来)を優先=ルビ表示。無ければ素の例文。
+      const furi = VOCAB_FURIGANA[item.id];
+      const ja = furi ?? ex?.ja;
+      const norm = (str?: string) => (str ? str.replace(/[（(][^）)]*[）)]/g, '').replace(/\s|　/g, '') : '');
+      // 訳は母語(l1)優先。無い時だけ英訳(表示JAと同一文の時のみ)にフォールバック。二言語は併記しない。
+      const en = ex?.en && ja && norm(ex.ja) === norm(ja) ? ex.en : undefined;
+      const nex = l1 && l1 !== 'en' ? exampleIn(item.id, l1) : undefined;
+      return (
+        <View style={s.row}>
+          <View style={s.headRow}>
+            <View style={s.headText}>
+              {/* 見出し語: 読みを漢字の上にルビ表示(レベル適応=ユーザーのレベル以上の漢字を含む時だけ)。 */}
+              <View style={s.termRubyWrap}>
+                <Text style={s.termRuby} numberOfLines={1}>{rubyGate(item.word) ? item.reading : ' '}</Text>
+                <Text style={s.term}>{item.word}</Text>
+              </View>
+              {/* 意味は母語(l1)のみ。英語は母語訳が無い時のフォールバックとしてだけ表示(二言語併記はしない)。 */}
+              <Text style={s.meaning}>{nm(item.id) ?? item.meaning}</Text>
             </View>
-            {/* 意味は母語(l1)のみ。英語は母語訳が無い時のフォールバックとしてだけ表示(二言語併記はしない)。 */}
-            <Text style={s.meaning}>{nm(item.id) ?? item.meaning}</Text>
-            {(() => {
-              const ex = vocabExOf(item);
-              // ふりがな付きの正データ(VOCAB_FURIGANA=vocabExamplesAi由来)を優先=ルビ表示。無ければ素の例文。
-              const furi = VOCAB_FURIGANA[item.id];
-              const ja = furi ?? ex?.ja;
-              if (!ja) return null;
-              const norm = (str?: string) => (str ? str.replace(/[（(][^）)]*[）)]/g, '').replace(/\s|　/g, '') : '');
-              // 訳は母語(l1)を優先。無い時だけ英訳(表示JAと同一文の時のみ)にフォールバック。二言語は併記しない。
-              const en = ex?.en && norm(ex.ja) === norm(ja) ? ex.en : undefined;
-              const nex = l1 && l1 !== 'en' ? exampleIn(item.id, l1) : undefined;
-              return renderSentence(ja, item.word, nex ?? en);
-            })()}
-          </>
-        ) : item.type === 'kanji' ? (
-          <>
+            {corner({ type: 'vocab', id: item.id }, {
+              play: (
+                <Pressable
+                  style={s.cornerBtn}
+                  hitSlop={10}
+                  onPress={() => playWord(item.id, item.reading)}
+                  accessibilityLabel={t('browse.play_a11y', { word: item.word })}
+                >
+                  <Ionicons name="play" size={20} color={c.mute} />
+                </Pressable>
+              ),
+            })}
+          </View>
+          {/* 例文はカード幅いっぱい(見出し行の下)。右上の操作列に幅を削られない。 */}
+          {ja ? renderSentence(ja, item.word, nex ?? en) : null}
+          {idNode}
+        </View>
+      );
+    }
+
+    if (item.type === 'kanji') {
+      // 簡易カードから直接 my単語帳 登録できるよう★ボタンを配置(詳細を開かずに保存可)。
+      // 本体タップは従来通り詳細へ。保存idは詳細カードと同じ kanji.json id で統一。
+      const kanjiId = KANJI_ID_BY_CHAR.get(item.char) ?? item.id;
+      const lines = cardReadingLines(item.char, settings.level);
+      return (
+        <View style={s.row}>
+          <Pressable style={s.kanjiMain} onPress={() => nav.navigate('KanjiDetail', { char: item.char, scope: study ? 'level' : 'all' })}>
             <Text style={s.term}>{item.char}</Text>
             {/* 意味は母語(l1)のみ。母語訳が無い時だけ簡潔意味(英語)にフォールバック。二言語併記はしない。 */}
             <Text style={s.meaning}>{nm(item.char) ?? KANJI_CARDS[item.char]?.glossShort ?? item.meaning}</Text>
-            {(() => {
-              const lines = cardReadingLines(item.char, settings.level);
-              return (
-                <View style={s.readBox}>
-                  {lines.map((e, i) => (
-                    <View key={i} style={s.readLine}>
-                      <Text style={s.readTag}>{t(e.tag === 'on' ? 'browse.tag_on' : 'browse.tag_kun')}</Text>
-                      <Text style={s.readLabel}>{e.label}</Text>
-                      <View style={s.rubyWord}>
-                        <RubyText text={e.furiWord} style={s.readWord} rubyStyle={s.exampleRuby} rubyGate={rubyGate} />
-                      </View>
-                      {!!e.gloss && <Text style={s.readGloss} numberOfLines={1}>{e.gloss}</Text>}
-                    </View>
-                  ))}
+            {/* 音訓の例語(カード幅いっぱい)。 */}
+            <View style={s.readBox}>
+              {lines.map((e, i) => (
+                <View key={i} style={s.readLine}>
+                  <Text style={s.readTag}>{t(e.tag === 'on' ? 'browse.tag_on' : 'browse.tag_kun')}</Text>
+                  <Text style={s.readLabel}>{e.label}</Text>
+                  <View style={s.rubyWord}>
+                    <RubyText text={e.furiWord} style={s.readWord} rubyStyle={s.exampleRuby} rubyGate={rubyGate} />
+                  </View>
+                  {/* 例語の意味は母語(l1)優先・無ければ英語gloss。二言語併記はしない。 */}
+                  {(() => { const g = kg(e.word) ?? e.gloss; return g ? <Text style={s.readGloss} numberOfLines={1}>{g}</Text> : null; })()}
                 </View>
-              );
-            })()}
-          </>
-        ) : (
-          <>
+              ))}
+            </View>
+            {idNode}
+          </Pressable>
+          {corner({ type: 'kanji', id: kanjiId }, { absolute: true })}
+        </View>
+      );
+    }
+
+    // 文法
+    // 文法点を例文で下線。ふりがな除去・〜分割・活用語尾の前方一致は RubyText(highlightHits)側が担う。
+    // ①変種(/・)を解いて「例文に実在する変種」を選ぶ(A〜B型は〜を保持)②どの変種も前方一致しない
+    // (先頭活用差: た→だ/て→で/よう→こう 等)時は最長の後方一致片を代表下線にフォールバックする。
+    const stripFuri = (x: string) => x.replace(/[（(][^）)]*[）)]/g, '');
+    const plainEx = stripFuri(item.exampleJa);
+    const variants = stripFuri(item.point).split(/[/・･／]/).map((v) => v.trim()).filter(Boolean);
+    const prefixHit = (seg: string) => { for (let L = seg.length; L >= Math.min(2, seg.length); L--) if (plainEx.includes(seg.slice(0, L))) return true; return false; };
+    const variantOk = (v: string) => v.split(/[〜～]/).map((x) => x.trim()).filter(Boolean).every(prefixHit);
+    let tgt = variants.find(variantOk);
+    if (!tgt) {
+      const flat = (variants[0] ?? stripFuri(item.point)).replace(/[〜～]/g, '');
+      for (let i = 0; i < flat.length - 1 && !tgt; i++) { const suf = flat.slice(i); if (suf.length >= 2 && plainEx.includes(suf)) tgt = suf; }
+    }
+    // 例文の訳は母語(l1)優先・無ければ英訳(exampleEn)。二言語併記はしない。
+    const gex = (l1 && l1 !== 'en' ? exampleIn(item.id, l1) : undefined) ?? item.exampleEn;
+    return (
+      <View style={s.row}>
+        <View style={s.headRow}>
+          <View style={s.headText}>
             {/（[^）]*）/.test(item.point) ? (
               <View style={s.termRubyWrap}>
                 <RubyText text={item.point} style={s.term} rubyStyle={s.termRuby} rubyGate={rubyGate} />
@@ -244,69 +305,11 @@ export default function BrowseScreen() {
               <Text style={s.term}>{item.point}</Text>
             )}
             <Text style={s.meaning}>{nm(item.id) ?? item.meaning}</Text>
-            {(() => {
-              // 文法点を例文で下線。ふりがな除去・〜分割・活用語尾の前方一致は RubyText(highlightHits)側が担う。
-              // ここでは①変種(/・)を解いて「例文に実在する変種」を選ぶ(A〜B型は〜を保持)②どの変種も前方一致しない
-              // (先頭活用差: た→だ/て→で/よう→こう 等)時は最長の後方一致片を代表下線にフォールバックする。
-              const stripFuri = (x: string) => x.replace(/[（(][^）)]*[）)]/g, '');
-              const plainEx = stripFuri(item.exampleJa);
-              const variants = stripFuri(item.point).split(/[/・･／]/).map((v) => v.trim()).filter(Boolean);
-              const prefixHit = (seg: string) => { for (let L = seg.length; L >= Math.min(2, seg.length); L--) if (plainEx.includes(seg.slice(0, L))) return true; return false; };
-              const variantOk = (v: string) => v.split(/[〜～]/).map((s) => s.trim()).filter(Boolean).every(prefixHit);
-              let tgt = variants.find(variantOk);
-              if (!tgt) {
-                const flat = (variants[0] ?? stripFuri(item.point)).replace(/[〜～]/g, '');
-                for (let s = 0; s < flat.length - 1 && !tgt; s++) { const suf = flat.slice(s); if (suf.length >= 2 && plainEx.includes(suf)) tgt = suf; }
-              }
-              return renderSentence(item.exampleJa, tgt ?? item.point);
-            })()}
-          </>
-        )}
-      </View>
-      <Text style={s.levelBadge}>{item.level}</Text>
-      {statusMark(item)}
-      </>
-    );
-    if (item.type === 'kanji') {
-      // 簡易カードから直接 my単語帳 登録できるよう★ボタンを配置(詳細を開かずに保存可)。
-      // 本体タップは従来通り詳細へ。保存idは詳細カードと同じ kanji.json id で統一。
-      const kanjiId = KANJI_ID_BY_CHAR.get(item.char) ?? item.id;
-      return (
-        <View style={s.row}>
-          <Pressable style={s.kanjiMain} onPress={() => nav.navigate('KanjiDetail', { char: item.char, scope: study ? 'level' : 'all' })}>
-            {rowInner}
-          </Pressable>
-          <View style={s.rowBtns}>
-            <SaveButton refItem={{ type: 'kanji', id: kanjiId }} />
           </View>
+          {corner({ type: 'grammar', id: item.id })}
         </View>
-      );
-    }
-    if (item.type === 'vocab') {
-      return (
-        <View style={s.row}>
-          {rowInner}
-          <View style={s.rowBtns}>
-            <Pressable
-              style={s.playBtn}
-              hitSlop={10}
-              onPress={() => playWord(item.id, item.reading)}
-              accessibilityLabel={t('browse.play_a11y', { word: item.word })}
-            >
-              <Ionicons name="play" size={20} color={c.mute} />
-            </Pressable>
-            <SaveButton refItem={{ type: 'vocab', id: item.id }} />
-          </View>
-        </View>
-      );
-    }
-    // 文法
-    return (
-      <View style={s.row}>
-        {rowInner}
-        <View style={s.rowBtns}>
-          <SaveButton refItem={{ type: 'grammar', id: item.id }} />
-        </View>
+        {renderSentence(item.exampleJa, tgt ?? item.point, gex)}
+        {idNode}
       </View>
     );
   };
@@ -413,23 +416,27 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   listTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
   count: { fontSize: ty.tiny, color: c.faint, paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
   listBody: { paddingHorizontal: spacing.md, paddingBottom: spacing.xl },
+  // カード=縦積み。見出し行(見出し語＋右上の操作列)の下に、例文/例語をカード幅いっぱいで表示。
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
     backgroundColor: c.surface,
     borderRadius: radius.md,
     borderWidth: 1,
     borderColor: c.line,
     padding: spacing.md,
     marginTop: spacing.sm,
-    gap: spacing.sm,
+    gap: 2,
   },
-  playBtn: { paddingLeft: 10, paddingVertical: 4, alignSelf: 'center' },
-  // 漢字行: 本体(詳細へ遷移)は横並びのまま flex:1。右に★ボタンを添える。
-  kanjiMain: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  rowBtns: { alignItems: 'center', justifyContent: 'center', gap: 6, paddingLeft: 6 },
+  // 見出し行: 左=見出し語＋意味(flex:1) / 右=操作列。例文はこの行の外(全幅)。
+  headRow: { flexDirection: 'row', alignItems: 'flex-start', gap: spacing.sm },
+  headText: { flex: 1, gap: 2 },
+  // 漢字行: 本体(詳細へ遷移)はカード幅いっぱい。操作列は絶対配置で本体の外(カード右上)。
+  kanjiMain: { flex: 1, gap: 2 },
+  // 右上の操作列(レベル・習得・再生・登録)。in-flow(vocab/grammar)＝見出しの右、absolute(kanji)＝カード右上。
+  corner: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  cornerAbs: { position: 'absolute', top: spacing.md, right: spacing.md },
+  cornerBtn: { paddingVertical: 4, paddingHorizontal: 4 },
   saveBtn: { paddingVertical: 4, paddingHorizontal: 4 },
-  rowMain: { flex: 1, gap: 2 },
   // App Bのリスト見出しに合わせ、見出し語は明朝(Shippori Mincho)で上質に。
   term: { fontSize: ty.h2, fontWeight: '800', color: c.ink, letterSpacing: 0.3 },
   reading: { fontSize: ty.small, fontWeight: '600', color: c.mute },
@@ -455,7 +462,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   readGloss: { fontSize: ty.small, color: c.mute, flexShrink: 1, marginBottom: 1 },
   exampleEn: { fontSize: ty.tiny, color: c.faint, fontStyle: 'italic', marginTop: 2 },
   exampleNe: { fontSize: ty.tiny, color: c.mute, marginTop: 1 },
-  levelBadge: { fontSize: 10, fontWeight: '800', color: c.mute, alignSelf: 'flex-start' },
+  levelBadge: { fontSize: 10, fontWeight: '800', color: c.mute },
+  // 参考の単語ID(漢字/語彙/文法)。控えめ・カード最下部・コピー可。
+  idText: { fontSize: 9, color: c.faint, marginTop: spacing.xs },
   status: { fontSize: ty.h2, fontWeight: '800', color: c.trace, width: 20, textAlign: 'center' },
   stLearned: { color: c.green },
   stSeen: { color: c.faint },

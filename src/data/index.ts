@@ -107,6 +107,10 @@ export const meaningIn = (key: string, lang: string): string | undefined => MEAN
 export const EXAMPLE_L10N = _R.EXAMPLE_L10N as Record<string, Record<string, string>>;
 /** その語の例文の母語(lang)訳。無ければ undefined。 */
 export const exampleIn = (vid: string, lang: string): string | undefined => EXAMPLE_L10N[vid]?.[lang];
+// 漢字カードの例語(会社 等)の母語グロス: 語 → { 言語: グロス }。辞書タブの漢字リストで例語を母語表示。
+export const KANJIGLOSS_L10N = _R.KANJIGLOSS_L10N as Record<string, Record<string, string>>;
+/** 漢字カード例語(word)の母語(lang)グロス。無ければ undefined(=英語glossへフォールバック)。 */
+export const kanjiGlossIn = (word: string, lang: string): string | undefined => KANJIGLOSS_L10N[word]?.[lang];
 
 // 語彙の短い例文＝本アプリのオリジナル文(全内容語ぶん・文脈規定contextBankの穴を正解で埋めた自然文)。
 // 旧・田中コーパス/Tatoeba由来の例文は同梱を廃止(第三者例文の全除去→謝辞をWaller+EDRDGの2件に集約)。

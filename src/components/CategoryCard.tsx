@@ -31,7 +31,8 @@ export default function CategoryCard({ cat }: { cat: Category }) {
   const lv = settings.level;
   const prof = examOf(settings.targetExam);
   const isJft = prof.exam === 'jft';
-  const catName = (cc: Category) => t(prof.catLabel[cc]);
+  // カード見出しは下端アイコンのラベルと一致させる: moji_goi は漢字を内包するが表示は「語彙」(icon と同じ cards.vocab)。
+  const catName = (cc: Category) => t(cc === 'moji_goi' ? 'cards.vocab' : prof.catLabel[cc]);
   const rings = useMemo(() => ringsFor(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
   const mojiDaimons = useMemo(() => daimonsWithUnits(lv, 'moji_goi'), [lv]);
   const bunpouDaimons = useMemo(() => daimonsWithUnits(lv, 'bunpou'), [lv]);

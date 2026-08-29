@@ -95,7 +95,7 @@
   </section>
 
   <section>
-    <h2>国別（接続国） <span class="note">登録＝ログイン済みアカウント数／全体＝インストール概算（匿名含む・アプリ更新後に増える）／匿名＝全体−登録の概算。国はIPからのおおよその判定</span></h2>
+    <h2>国別（接続国） <span class="note">端末(anon_id)単位で最新の接続国を集計。登録＝ログイン済み端末／全体＝全端末（インストール概算）／匿名＝一度もログインしていない端末。利用者一覧を消すと国別からも自動で消える（削除と連動）。国はIPからのおおよその判定・旧版は「??」</span></h2>
     <div class="scroll"><table id="tGeo"></table></div>
   </section>
 
@@ -581,6 +581,7 @@ async function doDelete(){
       if(delAuth && pendingAccs.length){
         const alist = pendingAccs.map(a=>a[0]).join(',');
         await del(`/rest/v1/user_state?user_id=in.(${alist})`);
+        await del(`/rest/v1/user_geo?user_id=in.(${alist})`); // 接続国(登録)も同時に削除=利用者一覧と国別を連動(auth削除のcascade頼みにしない)
         for(const a of pendingAccs){ await del(`/auth/v1/admin/users/${a[0]}`); }
       }
     }

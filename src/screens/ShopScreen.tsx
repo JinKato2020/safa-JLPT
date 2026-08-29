@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useAppState, useAppActions } from '../store/store';
 import { walletPoints, isOwned, isEquipped, avatarChangeTokens, canBuyAvatarDrink, AVATAR_DRINK_PRICE } from '../store/wallet';
-import { mockTicketCount, canBuyMockTicket, MAX_MOCK_TICKETS, MOCK_TICKET_PRICE } from '../store/tickets';
+import { mockTicketCount, canBuyMockTicket, MAX_MOCK_PURCHASES, MOCK_TICKET_PRICE } from '../store/tickets';
 import { SHOP, type ShopItem } from '../data/shop';
 import { spacing, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
@@ -65,8 +65,10 @@ export default function ShopScreen() {
   const canBuyItem = (i: ShopItem) => !ownedItem(i) && (devUnlimited || points >= i.price);
 
   const tickets = mockTicketCount(state);
-  const ticketFull = tickets >= MAX_MOCK_TICKETS;
-  const canBuyTicket = !ticketFull && (devUnlimited || canBuyMockTicket(state));
+  const purchased = state.mockTicketsPurchased ?? 0;          // 累計購入(上限3=模試在庫の保護)
+  const ticketFull = purchased >= MAX_MOCK_PURCHASES;          // 購入上限に到達
+  const canBuyTicket = devUnlimited || canBuyMockTicket(state, Date.now()); // Pro・累計3枚まで・残高
+
 
   const avatarTokens = avatarChangeTokens(state);
   const canBuyDrink = devUnlimited || canBuyAvatarDrink(state);
@@ -76,6 +78,7 @@ export default function ShopScreen() {
       if (!canBuyTicket) return;
       if (devUnlimited && points < MOCK_TICKET_PRICE) addPoints(1_000_000);
       buyMockTicket();
+      showCelebrate(i); // 購入時も「手に入れた!」演出(配布時の通知と同じ祝い方)
       return;
     }
     if (i.id === AVATAR_DRINK_ID) {
@@ -122,7 +125,7 @@ export default function ShopScreen() {
         <View style={[s.prev, s.prevEmoji]}><Text style={s.emoji}>{i.emoji ?? '❔'}</Text></View>
       )}
       <Text style={s.name} numberOfLines={1}>{nameOf(i)}</Text>
-      {i.id === MOCK_TICKET_ID ? <Text style={s.remain} numberOfLines={1}>残り {tickets} / {MAX_MOCK_TICKETS}</Text> : null}
+      {i.id === MOCK_TICKET_ID ? <Text style={s.remain} numberOfLines={1}>{t('shop.ticket_held', { n: tickets })}・{t('shop.ticket_buy_count', { n: purchased, max: MAX_MOCK_PURCHASES })}</Text> : null}
       {i.id === AVATAR_DRINK_ID ? <Text style={s.remain} numberOfLines={1}>{t('shop.drink_held')} {avatarTokens}</Text> : null}
       {i.rarity ? <Text style={s.rarity} numberOfLines={1}>{'★'.repeat(i.rarity)}<Text style={s.rarityOff}>{'★'.repeat(5 - i.rarity)}</Text></Text> : null}
       <Pressable disabled={disabled(i)} onPress={() => act(i)} style={[s.btn, pill(i)]}>

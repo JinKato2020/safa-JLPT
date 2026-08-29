@@ -94,7 +94,8 @@ export default function CheerInboxScreen() {
                 const unread = Date.parse(a.created_at) > readAt;
                 return (
                   <View key={'ann:' + a.id} style={[s.row, s.annRow, unread && s.rowUnread]}>
-                    <Text style={s.emoji}>{a.emoji || '📣'}</Text>
+                    {/* 運営が絵文字を指定した時だけそれを表示。既定はシンプルな線アイコン(旧: 金のラッパ 📣 を廃止)。 */}
+                    {a.emoji ? <Text style={s.emoji}>{a.emoji}</Text> : <Ionicons name="information-circle-outline" size={26} color={c.mute} style={s.emojiIcon} />}
                     <View style={{ flex: 1 }}>
                       <View style={s.annTop}>
                         <Text style={s.annBadge}>{t('inbox.official_tag')}</Text>
@@ -160,6 +161,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   annTitle: { fontSize: 15, fontWeight: '900', color: c.ink, flexShrink: 1 },
   annBody: { fontSize: 13, color: c.ink, marginTop: 4, fontWeight: '600', lineHeight: 19 },
   emoji: { fontSize: 28 },
+  emojiIcon: { width: 30, textAlign: 'center' },
   name: { fontSize: 15, fontWeight: '900', color: c.ink },
   msg: { fontSize: 13, color: c.mute, marginTop: 2, fontWeight: '700' },
   time: { fontSize: 12, color: c.mute, fontWeight: '700' },

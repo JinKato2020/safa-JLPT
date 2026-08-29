@@ -213,20 +213,35 @@ from (
 ) x
 group by level, unit;
 
--- ⑥ 国別(接続国)。登録=user_geo(ログイン済みアカウントのIP国) / 全体=geo_country_counts(インストール概算・匿名含む)。
---    匿名の概算 = 全体 − 登録(マイナスは0に丸め)。国はIP由来のおおよその判定。
---    ※全体(geo_country_counts)はアプリ更新後に溜まる。登録(user_geo)は既にデータあり。
+-- ⑥ 国別(接続国)。端末(anon_id)単位で「最新スナップショットの接続国(data.geoCountry=IP由来)」を数える。
+--    登録 = その端末が一度でもログインしたアカウントを持つ / 匿名 = 一度もログインしていない端末。全体 = 全端末。
+--    ★利用者一覧(tel_snapshot)を消すと、その端末は国別からも自動で消える(削除と完全連動)。
+--    旧方式(user_geo + 匿名累計 geo_country_counts)は個人非紐付けで削除連動できなかったため廃止。
+--    ※アプリ旧版のスナップショットは geoCountry を持たない→ '??'(アプリ更新後に本当の国へ移る)。
 drop view if exists public.v_admin_geo;
 create view public.v_admin_geo as
+with snap as (
+  select s.anon_id, s.created_at,
+         nullif(s.data->>'geoCountry','')                          as country,
+         coalesce(
+           (select s2.account_id from public.tel_snapshot s2
+              where s2.anon_id = s.anon_id and s2.account_id is not null
+              order by s2.created_at desc limit 1),
+           s.account_id
+         )                                                          as eff_account   -- 端末が一度でもログインしたアカウント(無ければ匿名)
+  from public.tel_snapshot s
+), dev as (
+  select distinct on (anon_id) anon_id, country, eff_account
+  from snap order by anon_id, created_at desc                       -- 端末ごと最新スナップショット
+)
 select
-  coalesce(g.country, c.country)                                   as country,
-  coalesce(g.registered, 0)                                        as registered,      -- ログイン済みアカウント数
-  greatest(coalesce(c.total, 0), coalesce(g.registered, 0))        as total_installs,  -- 全体(概算)。登録を下回らないよう max をとる(全体≥登録)。匿名カウント未蓄積(ビルド前)は登録数を表示
-  greatest(coalesce(c.total, 0) - coalesce(g.registered, 0), 0)    as anonymous_est    -- 匿名の概算=全体−登録(マイナスは0)
-from (select country, count(*) as registered from public.user_geo group by country) g
-full outer join (select country, sum(count) as total from public.geo_country_counts group by country) c
-  on g.country = c.country
-order by coalesce(c.total, 0) desc, coalesce(g.registered, 0) desc;
+  coalesce(country, '??')                          as country,
+  count(*) filter (where eff_account is not null)  as registered,      -- ログイン済み端末
+  count(*)                                         as total_installs,  -- 全端末(インストール概算)
+  count(*) filter (where eff_account is null)      as anonymous_est    -- 一度もログインしていない端末
+from dev
+group by 1
+order by total_installs desc;
 
 -- ⑦ 紹介(誰が誰を紹介したか)。referrals の new_user_ref はテレメトリ匿名IDと同じキーなので、
 --    紹介された人の身元(アカウント/メール/名前)まで辿れる。紹介者はメールで表示。

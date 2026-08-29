@@ -16,7 +16,7 @@ import { applyKakitoriProgress } from '../kakitori/progress';
 import { recordFacet } from '../review/facetMastery';
 import { facetsForUnit, grammarFormatOf, GRAMMAR_NOVELTY_LAMBDA } from '../review/facetMap';
 import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, buyAvatarDrink as walletBuyAvatarDrink, spendAvatarChange as walletSpendAvatarChange, type ShopKind } from './wallet';
-import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket } from './tickets';
+import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket, clearTicketNotice } from './tickets';
 import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
 import { setPurchaseActive as proSetPurchase, grantProDays as proGrantDays } from '../pro/entitlement';
 import { recordDecay } from '../story/decay';
@@ -38,6 +38,7 @@ type Action =
   | { type: 'SYNC_TICKETS'; now: number }
   | { type: 'BUY_TICKET'; now: number }
   | { type: 'SPEND_TICKET'; now: number }
+  | { type: 'CLEAR_TICKET_NOTICE' }
   | { type: 'BUY_AVATAR_DRINK'; now: number }
   | { type: 'SPEND_AVATAR_CHANGE'; now: number }
   | { type: 'CONSUME_SESSION'; now: number }
@@ -143,6 +144,8 @@ export function reducer(state: AppState, action: Action): AppState {
       return ticketBuy(state, action.now);
     case 'SPEND_TICKET':
       return spendMockTicket(state, action.now);
+    case 'CLEAR_TICKET_NOTICE':
+      return clearTicketNotice(state);
     case 'BUY_AVATAR_DRINK':
       return walletBuyAvatarDrink(state, action.now);
     case 'SPEND_AVATAR_CHANGE':
@@ -202,7 +205,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     (async () => {
       const saved = await loadState();
       if (saved) { dispatch({ type: 'HYDRATE', state: saved }); setFromDisk(true); }
-      dispatch({ type: 'SYNC_TICKETS', now: Date.now() }); // 初回=インストール日+歓迎1枚 / 以降=30日ごと+1(上限3)
+      dispatch({ type: 'SYNC_TICKETS', now: Date.now() }); // Pro:登録日起点で歓迎1+暦月ごと+1(上限なし) / 非Pro:0にクリア(課金同期後に再実行=App.tsx)
       setHydrated(true);
     })();
   }, []);
@@ -267,6 +270,7 @@ export function useAppActions() {
     syncTickets: () => dispatch({ type: 'SYNC_TICKETS', now: Date.now() }),
     buyMockTicket: () => dispatch({ type: 'BUY_TICKET', now: Date.now() }),
     spendMockTicket: () => dispatch({ type: 'SPEND_TICKET', now: Date.now() }),
+    clearTicketNotice: () => dispatch({ type: 'CLEAR_TICKET_NOTICE' }),
     buyAvatarDrink: () => dispatch({ type: 'BUY_AVATAR_DRINK', now: Date.now() }),
     spendAvatarChange: () => dispatch({ type: 'SPEND_AVATAR_CHANGE', now: Date.now() }),
     consumeSession: () => dispatch({ type: 'CONSUME_SESSION', now: Date.now() }),

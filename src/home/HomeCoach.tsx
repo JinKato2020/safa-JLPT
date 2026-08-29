@@ -7,7 +7,7 @@ import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions
 import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
 import { SHOP_BY_ID, SHOP, type ShopItem } from '../data/shop';
-import { HAIR_NORM, DOG_NORM, HAIR_REF_CHAR_H, DOG_BASE_SIZE, DOG_BASE_SCALE } from './charNorm';
+import { HAIR_NORM, DOG_NORM, COSTUME_NORM, HAIR_REF_CHAR_H, COSTUME_REF_FACE_W, DOG_BASE_SIZE, DOG_BASE_SCALE } from './charNorm';
 import SwipeSheet from '../components/SwipeSheet';
 import { useColors, type ThemeColors } from '../theme';
 import type { HomeStatus } from './homeStatus';
@@ -70,13 +70,15 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   }, [bob, dogSway, tailWag]);
 
   // 桜の表示サイズ。
-  //  ・民族衣装装備時: 従来どおり幅0.60×比1.370(衣装は別の全身絵セット・正規化対象外)。
+  //  ・民族衣装装備時: 髪型とは別セット・別の切り取り(頭〜太もも)なので全体高さで揃えると大きく見える。
+  //    そこで「顔の幅」を目印に hair_long の桜と同じ顔サイズへ正規化(charW を faceFrac から逆算)。
   //  ・既定の髪型(10種): PNGごとにキャンバス寸法もキャラ占有域も違うため、hair_long のキャラ高さに正規化する。
   //    表示枠はそのPNGのキャンバス比(aspect)に合わせ余白を無くし、キャラ高さ=HAIR_REF_CHAR_H になる枠高を逆算。
   let charW: number, charH: number;
   if (charImg) {
-    charW = Math.round(width * 0.60);
-    charH = Math.round(charW * 1.370);
+    const cn = (eqCostume ? COSTUME_NORM[eqCostume] : undefined) ?? { aspect: 0.7297, faceFrac: 0.55 };
+    charW = Math.round((width * COSTUME_REF_FACE_W) / cn.faceFrac); // 顔幅を hair_long に揃える枠幅
+    charH = Math.round(charW / cn.aspect);                          // 枠比=キャンバス比(余白なし)
   } else {
     const hn = HAIR_NORM[eqHair ?? 'hair_long'] ?? HAIR_NORM.hair_long;
     charH = Math.round((width * HAIR_REF_CHAR_H) / hn.hfrac); // キャラ高さを基準に揃える枠高

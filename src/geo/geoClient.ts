@@ -35,17 +35,20 @@ export async function recordGeoCountry(): Promise<void> {
   } catch { /* 失敗は無視 */ }
 }
 
-// 匿名(未ログイン)を含む「国ごとの人数カウント」を、1インストールにつき1回だけ +1 する。
-// プライバシー最優先: 端末ID・ユーザーIDは一切送らない/保存しない。サーバーが持つのは「国・日付・件数」だけ=追跡にならない(審査に安全)。
-// 重複防止はこの端末内のローカルフラグのみ(サーバー側に識別子を残さないため)。再インストール/データ削除で再カウントされるのは概算として許容。
-const GEO_COUNTED_KEY = 'geo_count_bumped_v1';
-export async function bumpGeoCountOnce(): Promise<void> {
+// 接続国(IP由来)を端末にキャッシュする。未ログインでも取得する。
+// この値をテレメトリのスナップショット(tel_snapshot.data.geoCountry)に載せることで、
+// 管理ダッシュボードの国別(全体/匿名)を「端末(anon_id)単位」で数えられる=利用者削除と連動して減る。
+// (旧: 匿名累計 geo_country_counts への geo_count_bump は廃止。個人非紐付けで削除連動できなかったため。)
+const GEO_CC_KEY = 'geo_cc_v1';
+export async function cacheGeoCountry(): Promise<void> {
   try {
-    if (await AsyncStorage.getItem(GEO_COUNTED_KEY)) return; // このインストールでは計上済み
     const country = await cfCountry();
-    if (!country) return;                                    // 取れなければフラグを立てず次回起動で再試行
-    const { error } = await supabase.rpc('geo_count_bump', { p_country: country });
-    if (error) return;                                       // 失敗時もフラグを立てない(次回再試行)
-    await AsyncStorage.setItem(GEO_COUNTED_KEY, '1');
+    if (!country) return;                          // 取れなければ据え置き(次回起動で再試行)
+    await AsyncStorage.setItem(GEO_CC_KEY, country);
   } catch { /* 失敗は無視 */ }
+}
+
+/** キャッシュ済みの接続国(ISO2)。未取得は null。テレメトリのスナップショットに載せる用。 */
+export async function getCachedGeoCountry(): Promise<string | null> {
+  try { return await AsyncStorage.getItem(GEO_CC_KEY); } catch { return null; }
 }
