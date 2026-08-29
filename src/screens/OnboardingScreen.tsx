@@ -353,12 +353,11 @@ export default function OnboardingScreen() {
           <Text style={s.pickCaret}>▾</Text>
         </Pressable>
 
-        {/* 4. 聴解音声(この画面の最後)。既定は配信(都度)＝どの級もDLしない。オフラインで使いたい級だけレベル別に一括DL(設定画面と同じ)。 */}
+        {/* 4. 聴解音声(この画面の最後)。既定は配信(都度)＝DLしない。オフラインで使うなら選んだ目標級ぶんだけ一括DL(級ごとに容量が違うので目標級のみ表示)。他級は設定画面でDL可。 */}
         <Text style={s.label}>{t('profile.listeningAudio')}</Text>
         <Text style={s.levelDesc}>{t('onboarding.audioHint')}</Text>
-        {LEVELS.map((lv) => (
-          <LevelAudioRow key={lv} level={lv} refreshKey={dlRefresh} onDownload={setDlLevel} s={s} t={t} />
-        ))}
+        <LevelAudioRow key={level} level={level} refreshKey={dlRefresh} onDownload={setDlLevel} s={s} t={t} />
+
 
         {/* 学習リマインド・トラッキング許可は設定画面で入力(オンボでは尋ねない)。 */}
         {/* 完了: 聴解音声は既定で配信(都度)＝そのまま完了。オフラインDLは上のレベル別行で任意に実施。 */}

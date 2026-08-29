@@ -6,7 +6,7 @@ export const EXAM_SECS: ExamSec[] = ['moji_goi', 'bunpou', 'dokkai', 'choukai'];
 
 // JLPT 本番の区分別 出題数(典型構成)。文字語彙=漢字読み+表記+文脈規定+言い換え類義(+用法)、文法=文法形式+組み立て+文章の文法。
 export const JLPT_BLUEPRINT: Record<string, Record<ExamSec, number>> = {
-  N5: { moji_goi: 21, bunpou: 17, dokkai: 6, choukai: 24 }, // 計68
+  N5: { moji_goi: 35, bunpou: 26, dokkai: 6, choukai: 24 }, // 計91（公式値へ修正2026-08-29。旧=圧縮 moji21/bunpou17=計68）
   N4: { moji_goi: 35, bunpou: 25, dokkai: 10, choukai: 28 }, // 計98
   N3: { moji_goi: 35, bunpou: 23, dokkai: 16, choukai: 28 }, // 計102
 };
@@ -39,7 +39,7 @@ export const DAIMON_LABEL: Record<Daimon, string> = {
 };
 // 級別 大問別 出題数(本番典型構成)。区分合計は JLPT_BLUEPRINT と一致。
 export const DAIMON_BLUEPRINT: Record<string, Partial<Record<Daimon, number>>> = {
-  N5: { kanji_read: 7, orthography: 5, context: 6, synonym: 3, grammar_form: 9, order: 4, passage_grammar: 4 },
+  N5: { kanji_read: 12, orthography: 8, context: 10, synonym: 5, grammar_form: 16, order: 5, passage_grammar: 5 }, // 公式値へ修正(2026-08-29)。旧=圧縮値7/5/6/3/9/4/4
   N4: { kanji_read: 9, orthography: 6, context: 10, synonym: 5, usage: 5, grammar_form: 15, order: 5, passage_grammar: 5 },
   N3: { kanji_read: 8, orthography: 6, context: 11, synonym: 5, usage: 5, grammar_form: 13, order: 5, passage_grammar: 5 },
 };

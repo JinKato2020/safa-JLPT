@@ -255,6 +255,8 @@ export function formatKanjiReading(char: string, stem: string, type: 'on' | 'kun
 // choices=誤答読み3(紛らわしいひらがな/似た語の読み)。生成=問題/tools/build_kanjiread_bank.py。
 export interface KanjiReadBankItem { id: string; level: string; daimon: 'kanji_read'; sentence: string; underline: string; answer: string; choices: string[]; }
 export const KANJI_READ_BANK = _R.KANJI_READ_BANK as KanjiReadBankItem[];
+// 模試専用プール(初見の別文・通常学習には出さない)。同じ語(vocabId)に別sentenceを持つ。MockScreenが exam でのみ使う。
+export const KANJI_READ_MOCK = _R.KANJI_READ_MOCK as KanjiReadBankItem[];
 // 文脈規定(大問3)の固定問題集。id=cx:<vocabId>、choices=誤答3(正解は実行時にanswerを先頭付与)。
 export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; verified?: boolean; }
 export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];

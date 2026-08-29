@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, passageGrammarSetsFor, meaningIn, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, KANJI_READ_MOCK, CONTEXT_BANK, SYNONYM_BANK, ORTHOGRAPHY_BANK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, passageGrammarSetsFor, meaningIn, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, sample, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -117,6 +117,8 @@ function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
 }
 
 // 学習/模試の分割: EXAM_EVERY 個に1つ(=末尾側)を模試専用(初見)に確保、残りが学習集合。
+// ★模試専用プール(pool='mock')を別に持つ大問は、学習側の抜き取りを廃止=全語を学習に回す(初見は別プールから)。
+const HAS_MOCK_POOL = new Set<Daimon>(['kanji_read']);
 const EXAM_EVERY = 7;
 function split(all: string[], mode: 'all' | 'learn' | 'exam'): string[] {
   if (mode === 'all') return all;
@@ -136,6 +138,8 @@ export function daimonUnitIds(level: Level, daimon: Daimon, mode: 'all' | 'learn
     : daimon === 'grammar_form'
       ? bankOf(level, daimon).map((b) => b.id) // 文法形式も検証済の固定バンクのみ(旧例文clozeは廃止)
       : items; // context/kanji_read/orthography/synonym は固定問題集(item系)のみ
+  // 模試専用プールを持つ大問(漢字読み)は抜き取り廃止=全語を学習/模試とも返す(初見は別プール KANJI_READ_MOCK)。
+  if (HAS_MOCK_POOL.has(daimon)) return all;
   return split(all, mode);
 }
 
@@ -152,10 +156,21 @@ export function daimonsWithUnits(level: Level, section: 'moji_goi' | 'bunpou'): 
 
 const ITEM_INDEX = new Map<string, StudyItem>([...VOCAB, ...GRAMMAR].map((it) => [it.id, it] as const));
 
-// 漢字読み/表記の固定問題集(id kr:<vid>/og:<vid> → ユニット <vid>#kanji_read / #orthography)。
-const KR_BANK_INDEX = new Map<string, (typeof KANJI_READ_BANK)[number]>(
-  KANJI_READ_BANK.filter((e) => e.daimon === 'kanji_read').map((e) => [`${vocabOf(e)}#kanji_read`, e]),
-);
+// 漢字読み=固定問題集。1語に複数問(学習拡張)を持つので unit(<vid>#kanji_read) → 問題配列。questionForUnit が rng で1つ選ぶ(多様化)。
+function _krMulti<T extends { vocabId?: string; id: string }>(bank: T[]): Map<string, T[]> {
+  const m = new Map<string, T[]>();
+  for (const e of bank) { const k = `${vocabOf(e)}#kanji_read`; const a = m.get(k); if (a) a.push(e); else m.set(k, [e]); }
+  return m;
+}
+const KR_BANK_MULTI = _krMulti(KANJI_READ_BANK.filter((e) => e.daimon === 'kanji_read')); // 学習(通常)
+const KR_MOCK_MULTI = _krMulti(KANJI_READ_MOCK);                                          // 模試専用プール(初見)
+/** 模試(初見)で出せる漢字読みユニット列(そのレベルの模試プールに問題がある語)。MockScreenが exam の出所に使う。 */
+export function mockUnitIds(level: Level, daimon: Daimon): string[] {
+  if (daimon !== 'kanji_read') return [];
+  const out: string[] = [];
+  for (const [u, arr] of KR_MOCK_MULTI) if (arr.some((e) => e.level === level)) out.push(u);
+  return out;
+}
 // 表記(大問2・公式形式)の固定問題集(id og:<vid> → ユニット <vid>#orthography)。
 const OG_BANK_INDEX = new Map<string, (typeof ORTHOGRAPHY_BANK)[number]>(
   ORTHOGRAPHY_BANK.map((e) => [`${vocabOf(e)}#orthography`, e]),
@@ -198,7 +213,7 @@ export function build4Choices(answer: string, pool: string[], rng: Rng): { choic
 }
 
 /** 学習ユニットid → 4択問題(出題形式は大問で固定)。Question.itemId はユニットid(=状態キー)にする。 */
-export function questionForUnit(unit: string, rng: Rng = Math.random): Question | null {
+export function questionForUnit(unit: string, rng: Rng = Math.random, useMock = false): Question | null {
   const bank = BANK_INDEX.get(unit);
   if (bank) {
     const { choices, answerIndex } = build4Choices(bank.answer, bank.choices, rng);
@@ -215,8 +230,10 @@ export function questionForUnit(unit: string, rng: Rng = Math.random): Question 
     return { itemId: unit, prompt: '', example: underlineSegments(og.sentence, og.underline), furi: SENTENCE_FURI[og.id], furiTarget: og.underline, question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, explain: og.explain, explainNe: og.explainNe, saveRef: saveRefForVocabUnit(unit) };
   }
   // 漢字読み=固定問題集(公式形式・文中の漢字を下線→読み方を4択)。prompt空・exampleに下線付き文。
-  const kr = KR_BANK_INDEX.get(unit);
-  if (kr) {
+  // useMock=模試: 模試専用プール(初見)から。無ければ学習プールへフォールバック。1語複数問は rng で1つ選ぶ(多様化)。
+  const krPool = useMock ? (KR_MOCK_MULTI.get(unit) ?? KR_BANK_MULTI.get(unit)) : KR_BANK_MULTI.get(unit);
+  if (krPool && krPool.length) {
+    const kr = krPool[Math.floor(rng() * krPool.length)];
     const { choices, answerIndex } = build4Choices(kr.answer, kr.choices, rng);
     return { itemId: unit, prompt: '', example: underlineSegments(kr.sentence, kr.underline), furi: SENTENCE_FURI[kr.id], furiTarget: kr.underline, noTargetRuby: true, question: '下線の言葉の読み方は？', format: 'reading', choices, answerIndex, saveRef: saveRefForVocabUnit(unit) };
   }
@@ -311,7 +328,7 @@ export function learnCardFor(unit: string, l1?: string): LearnCard | null {
     }
     // ①漢字読み・②表記: クイズと同じ固定問題集の例文を使い、対象語(下線)を【】で囲って下線＋ルビ表示する。
     if (daimon === 'kanji_read') {
-      const kr = KR_BANK_INDEX.get(unit);
+      const kr = KR_BANK_MULTI.get(unit)?.[0]; // 学習カードは代表文(先頭)で安定表示
       return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: kr ? markFuri(SENTENCE_FURI[kr.id] ?? kr.sentence, kr.underline) : ex?.ja };
     }
     if (daimon === 'orthography') {

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """大問×レベルの在庫問題数 ÷ 本番出題数 = 何回分のフル模試が作れるか（模試ストック数）。
-   在庫=stock_report.scan（監査落ちを除外した公式在庫）。本番数=examBlueprint.ts の正本表。
+   在庫=stock_report.scan（監査落ちを除外した公式在庫）。本番数=公式仕様（md各大問の実読問数）。
    出力: memory/模試ストック数.txt（＋標準出力に要約数行）。"""
 import io, os, glob, math
 from collections import OrderedDict
@@ -9,16 +9,19 @@ import stock_report as S
 ROOT = S.ROOT
 LEVELS = ['N5', 'N4', 'N3']
 
-# examBlueprint.ts の正本（本番典型構成の出題数）。
+# 公式仕様（過去問PDF実読＝md各大問の「問数」。2026-08-29 N5を公式値へ修正）。
+# ※旧値はexamBlueprint.tsのDAIMON_BLUEPRINT（N5を圧縮したアプリ近似）を写していたが、
+#   N5が公式とズレていた（漢字読み7→12/表記5→8/文脈6→10/言い換え3→5/文法形式9→16/組立4→5/文章文法4→5）。
+#   N4・N3・読解・聴解は公式一致のため変更なし。
 BP = {
-    'kanji_read':     {'N5': 7,  'N4': 9,  'N3': 8},
-    'orthography':    {'N5': 5,  'N4': 6,  'N3': 6},
-    'context':        {'N5': 6,  'N4': 10, 'N3': 11},
-    'synonym':        {'N5': 3,  'N4': 5,  'N3': 5},
+    'kanji_read':     {'N5': 12, 'N4': 9,  'N3': 8},
+    'orthography':    {'N5': 8,  'N4': 6,  'N3': 6},
+    'context':        {'N5': 10, 'N4': 10, 'N3': 11},
+    'synonym':        {'N5': 5,  'N4': 5,  'N3': 5},
     'usage':          {'N5': 0,  'N4': 5,  'N3': 5},
-    'grammar_form':   {'N5': 9,  'N4': 15, 'N3': 13},
-    'order':          {'N5': 4,  'N4': 5,  'N3': 5},
-    'passage_grammar':{'N5': 4,  'N4': 5,  'N3': 5},
+    'grammar_form':   {'N5': 16, 'N4': 15, 'N3': 13},
+    'order':          {'N5': 5,  'N4': 5,  'N3': 5},
+    'passage_grammar':{'N5': 5,  'N4': 5,  'N3': 5},
     'naiyou_tan':     {'N5': 3,  'N4': 4,  'N3': 4},
     'naiyou_chu':     {'N5': 2,  'N4': 4,  'N3': 6},
     'choubun':        {'N5': 0,  'N4': 0,  'N3': 4},

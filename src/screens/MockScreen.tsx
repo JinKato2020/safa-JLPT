@@ -23,7 +23,7 @@ import { mockTicketCount } from '../store/tickets';
 import { sendMock } from '../telemetry/telemetry';
 import { sample, shuffleChoices, type ExampleHint, type SaveRef } from '../quiz/quiz';
 import { blueprintCounts, daimonCounts, DAIMON_SEC, DAIMON_LABEL, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, type Daimon } from '../data/examBlueprint';
-import { daimonUnitIds, questionForUnit, MOJI_DAIMON } from '../data/daimon';
+import { daimonUnitIds, questionForUnit, mockUnitIds, MOJI_DAIMON } from '../data/daimon';
 import { JFT_EXPRESSION } from '../data';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -174,11 +174,14 @@ function jftKnowledgeItems(levels: Level[], category: 'moji_goi' | 'bunpou', n: 
 function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen: Seen): MockItem[] {
   if (count <= 0) return [];
   const sec = DAIMON_SEC[daimon];
-  const units = levels.flatMap((lv) => daimonUnitIds(lv, daimon, 'all'));
+  // 模試専用プール(初見の別文)を持つ大問(漢字読み)は、そのプールから出題＝通常学習の文と重複しない。
+  const mockUnits = levels.flatMap((lv) => mockUnitIds(lv, daimon));
+  const useMock = mockUnits.length > 0;
+  const units = useMock ? mockUnits : levels.flatMap((lv) => daimonUnitIds(lv, daimon, 'all'));
   const picked = pickFresh(units, (u) => !!seen[u], count);
   const out: MockItem[] = [];
   for (const unit of sample(picked, picked.length)) {
-    const q = questionForUnit(unit);
+    const q = questionForUnit(unit, Math.random, useMock);
     if (!q) continue;
     out.push({
       kind: 'word', id: unit, section: sec, daimon,

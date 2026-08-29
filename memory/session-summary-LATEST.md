@@ -1,25 +1,32 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 33 回・68 ターン
-- 往復 152 回
+- ツール呼び出し 5 回・16 ターン
+- 往復 391 回
 
 ## 何が変わったか
 - memory/handoff.md
+- src/data/dict/sentenceFuri.json
+- memory/session-summary-LATEST.md
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- content/lexicon/furigana_N5.json
-- content/lexicon/furigana_N3.json
-
-## ⚠️ 注意
-- - ⚠ 連続 68ターン（文脈 20万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 68ターン・ツール33回）— まとめ方を変える
 
 ## 次の一手
-- **▶▶ 2026-08-29 LIVE(最新)＝辞書タブOTA化 Stage1(例文ja/en＋ふりがな)実装・検証済【未コミット・未ビルド】**：ユーザー決定「辞書タブ全体をOTA化・段階実装(例文＋ふりがな先行)」。**方式＝同梱を初期値(fallback)に残し、`content/lexicon`側で上書きできる層を追加(データ二重化なし・ツール/エンジン非破壊・可逆)**。例文ja/enは既存 `content/lexicon/example_*.json` の items[vid].ja/en に、ふりがなは新設 `content/lexicon/furigana_{N5,N4,N3}.json`(kind='furigana'・items空=patch用)に上書きを置ける。実装＝`schema.ts`(kind+furigana)・`rehydrate.ts`(FURIGANA_L10N=mergeLex)・`index.ts`(VOCAB_EXAMPLE/VOCAB_FURIGANAを同梱＋上書き合成)。**tsc0・content番人13/13・wordDrill/rehydrate/parity 17緑・rebuild(58files)**。上書き実証済(ダミー投入→反映→他id同梱維持→復元確認)。
-  - **重要な配信境界**：この**仕組み(index/rehydrate/schema)はUI/ロジック＝実機反映に次のネイティブビルドが1回必要**。ビルド後は個別の例文/ふりがな修正が**OTA(publish-content.ps1)でビルド無し配信**になる。今回はビルド指示が無いので未ビルド(iOS本日4/8・E3)。**変更ファイル**＝index.ts/rehydrate.ts/schema.ts/_manifest.json/bundled.generated.ts＋furigana_*.json(新規3)。
-  - **次段(残り)＝意味(ja)/読み→漢字(読み・例語gloss)→文法(例文ja/en)を同じ上書き層で。素性表(vocab.json)本体・id・構造は同梱維持(壊さない)。** 各段 tsc＋番人緑を確認しながら。
-  - **修正のやり方(ビルド後)**：例文を直す→該当 `content/lexicon/example_<lv>.json` の items[vid] に `"ja":"新文","en":"..."` を足す/ふりがな→`furigana_<lv>.json` の items[vid] に `"ja":"ふりがな文"`→`node --import tsx tools/content/rebuild.ts`→`publish-content.ps1`。ビルド不要。
+- **▶▶ 2026-08-29 LIVE(最新)＝模試10回分プロジェクト開始＋在庫Excel/本体の本番出題数をN5公式値へ全面修正【未コミット】**：ユーザー要望＝各大問×模試10回分を「模試専用プール(通常学習に出さない)」として別作成。**確定=別プールは新フォルダ`content/problems/moji_goi/mock/`**。試作=漢字読みN5 8問(頻出5+残り3・型A/B・`scratchpad/mock_kanji_read_N5_trial.json`)。**選定ルール=eligible語をvocabFreq降順で「上位半分＋残り半分(均等サンプル)」・`～`接尾辞は除外**(語リスト=scratchpad/mock_words_v2.json)。数=公式12/9/8×10=N5:120/N4:90/N3:80。
+  - **★本番出題数のズレ修正(今会話)**：Excel/本体が**N5だけアプリ圧縮値**を使い公式とズレ→公式(md実読)へ統一。**(1)`tools/mock_stock.py` BP dict**=N5を漢字読み7→12/表記5→8/文脈6→10/言い換え3→5/文法形式9→16/組立4→5/文章文法4→5。**(2)`src/data/examBlueprint.ts`**=DAIMON_BLUEPRINT.N5同値＋JLPT_BLUEPRINT.N5 moji21→35/bunpou17→26(計91)。**mock/scoringテスト26緑**。N4/N3/読解/聴解は元から公式一致=不変。
+  - **★在庫Excel整理**(`memory/在庫・模試ストックまとめ.xlsx`)：**canonical=eligible**へ＝`tools/stock_excel.py`に漢字読み/表記の在庫をeligible語数(出題級testLevelで絞る)へ上書き追加(漢字読みN5=146・md一致)。**frozen重複シート「① 在庫・模試換算」「目次・凡例」を削除**(生成ツール無し・大問別まとめと重複)。残8シート。フル模試=N5:12/N4:18/N3:25。
+  - **⚠既存の別問題(未対処)**：カバー率系ツール(update_*_coverage/stock_analysis_color)は旧シート名'単語×大問カバー率'等を対象=現ファイルの手動リネーム名'② カバー率'等と不一致→次回実行で新シート量産の恐れ。今回は不介入。
+  - **✅N5学習拡張=完了マージ済**：132語×+2=**264問をkanji_read_N5.jsonへ追記**(521→785・新ID N5-V-K-0522〜0785)。Opus3体生成・検証エラー0。裸の数字14語は据え置き(×1)・`～`語は既存パターンで拡張。
+  - **✅模試274問=生成・機械検証・mock/書出し完了**：`content/problems/moji_goi/mock/kanji_read_{N5,N4,N3}.json`＝104/90/80(ID N{lv}-V-KM-####)。機械検証エラー1(回る/回す結合語)修正済・文重複0。level設計=N5型A/B・N4/N3音一本・N3二字熟語音読み中心。
+  - **✅アプリ結線=完了(A全実装)・実行時検証済**：①rehydrate.ts=pool='mock'を`KANJI_READ_MOCK`へ分離 ②daimon.ts=`KR_BANK_MULTI`(1語複数文rng選択)＋`mockUnitIds`＋`questionForUnit(u,rng,useMock)`＋HAS_MOCK_POOL('kanji_read'は抜き取り廃止=学習全146語) ③index.ts=KANJI_READ_MOCKエクスポート ④MockScreen.tsx=模試プールから初見出題(mockUnitIds+useMock)。**rebuild.ts再生成(70ファイル・manifest更新)・tsc0・テスト55緑・実行時=学習146/模試104,90,80/川で別文2種+初見**。
+  - **✅ふりがな150文**(対象外漢字ありのみ)=Opus2体生成→`src/data/dict/sentenceFuri.json`へ+150(10116→10266)。（（読み）除去で元文一致を機械検証）。※sentenceFuriはbuild資産=OTAでなくビルドで実機反映。
+  - **✅Excel大問別まとめ**：在庫を「eligible"問題数"(拡張後実数)」へ=N5漢字読み**410問・模試換算34**(stock_excel.py)。3列(割増し倍数×3緑/模試問題数104,90,80/メモ)。**⚠再生成はExcelを閉じてから**(開くとPermissionError)。オンボDL=目標級のみ表示(OnboardingScreen.tsx・tsc0)。
+  - **次の一手＝(a)Excelを閉じてもらい stock_excel.py 再生成(N5漢字読み410/換算34を反映) (b)全体コミット＋(実機反映は)ネイティブビルドの要否確認(コード変更=ビルド必須・content/furiも同梱)＋OTA(content配信) (c)②〜⑤シートtool名desyncは別件。** 未コミット(mock_stock.py/examBlueprint.ts/stock_excel.py/OnboardingScreen.tsx/rehydrate.ts/index.ts/daimon.ts/MockScreen.tsx/sentenceFuri.json/kanji_read_N5.json/mock/*/bundled.generated.ts/_manifest.json/xlsx)。
+- **▶▶ 2026-08-29 (前)＝🚀ビルド済 v1.1.23(2881)＝辞書タブ全体をOTA修正可能化(全段階完了)**（commit `04d45178`・run `33250798435`・test76 pass71/fail0・tsc0・iOS本日5/8・-NoWatch）。ユーザー決定「辞書タブ全体をOTA化・段階実装→まとめて1回ビルド」。**このビルドで“OTAで辞書文言を直せる仕組み”が実機有効化**。以後、辞書タブの文言修正は**OTA(publish-content.ps1)だけでビルド無し配信**できる。
+  - **方式＝同梱(vocab/kanji/grammar/vocabExamplesAi/vocabFurigana)を初期値に残し、`content/lexicon`の上書き層で表示フィールドだけ差し替え**(データ二重化なし・ツール/エンジン非破壊・可逆・id/構造は同梱のまま)。実装＝`schema.ts`(kind: furigana/vocabfix/kanjifix/grammarfix追加)・`rehydrate.ts`(FURIGANA_L10N/VOCAB_FIX/KANJI_FIX/GRAMMAR_FIX=mergeLex)・`index.ts`(overlayFix関数でVOCAB/KANJI/GRAMMAR＋VOCAB_EXAMPLE/VOCAB_FURIGANAを合成)。**tsc0・番人35緑・rebuild(67files)**。5種すべて上書き実証済(ダミー投入→反映→非対象フィールド維持→復元確認)。
+  - **OTA修正の対応表(key→編集ファイル→置くフィールド)**：例文ja/en＝`example_<lv>.json` items[vocabId].ja/en ／ ふりがな＝`furigana_<lv>.json` items[vocabId].ja ／ 語彙 語/読み/意味＝`vocabfix_<lv>.json` items[vocabId].{word,reading,meaning} ／ 漢字 意味/音/訓＝`kanjifix_<lv>.json` items[漢字char].{meaning,on,kun} ／ 文法 見出し/意味/例文＝`grammarfix_<lv>.json` items[文法id].{point,romaji,meaning,exampleJa,exampleEn}。全seedは空(items:{})＝修正時にidを足す。**手順=該当json編集→`node --import tsx tools/content/rebuild.ts`→`publish-content.ps1`(ビルド不要)**。
+  - **範囲外(引き続きビルド必要)**＝語彙/漢字/文法の**項目の増減・ID・構造**、UI、試験の出題数カタログ(`examBlueprint.ts`)。素性表(vocab.json)本体は同梱維持。
+  - **次の一手＝(a)CI確認(要れば run 33250798435) (b)TestFlight/Playで v1.1.23(2881) 実機確認。辞書OTA化は全段階完了。**
 - **▶▶ 2026-08-29 (前)＝🚀ビルド済 v1.1.22(2880) iOS/Android both dispatch**（commit `0b4eae6b`・run `33249659660`・test76 pass71/fail0・tsc0・iOS本日4/8・-NoWatch＝監視しない）。**この1コミットに以下の累積を全部同梱**：①模試チケットPro制②管理ダッシュ国別の削除連動③辞書タブ「例」母語化+kanjigloss④民族衣装アバター正規化⑤**オンボの聴解音声をレベル別DL＋既定は配信(都度=stream)【今会話・ユーザー承認済/新規】**⑥UI複数修正。**ユーザーの5点OK**＝(a)歓迎1枚維持(b)proSince=ローカル捕捉でよい(c)月1ロック廃止でよい(d)購入上限3の運用でよい(e)無料にもショップ表示でよい＝**全て現状維持で確定(コード変更なし)**。
   - **⑤オンボ聴解DL(今会話)**：`OnboardingScreen.tsx`の単一download/stream選択を撤去→**設定画面と同じレベル別DL行(N5/N4/N3・LevelAudioRow)**へ。finish時 `listeningAudioMode:'stream'`固定(既定=配信/都度)。全画面DLゲート(manual autoStart)をオーバーレイ追加。i18n `onboarding.audioHint`をja/en/ne追加(parity緑)。tsc0。**既存ユーザーのmode既定は不変(オンボ通過の新規のみstream)**。
   - **UI修正群**：①辞書タブ(BrowseScreen.tsx)カードを縦積み化=例文が右端まで折返し＋各カードに`ID: xxx`表示 ②試験タブ(StudyHomeScreen.tsx)「試験に挑戦」ボタンを4アイコン真上・青ピル(ホームrecoと同デザイン)へ＝`ImmersiveTab`に`aboveBar`prop追加(TabScene.tsx) ③語彙カード見出し「漢字・語彙」→「語彙」(CategoryCard.tsx catName override) ④運営お知らせアイコン📣→`information-circle-outline`(CheerInboxScreen.tsx) ⑤設定 聴解音声をレベル別(N5/N4/N3)独立DLへ(ProfileScreen.tsx `LevelAudioRow`＋i18n profile.audioDownloaded)。
