@@ -75,9 +75,14 @@ def suit(v):
     if r == 'YELLOW': s -= 1
     return s
 
+import sys
+N = int(sys.argv[1]) if len(sys.argv) > 1 else 200   # 抽出語数(既定200・300も可)
 back = [v for v in V if v['level']=='N3' and v['id'] not in cov and v['id'] not in excluded]
-# 本試験に近い品詞バランスで200語(動詞中心＋名詞・副詞/擬態・形容詞)。各品詞内は suitability 順。
-QUOTA = {'verb':96, 'noun':64, 'adv':12, 'onomatopoeia':12, 'adj':16}
+if os.environ.get('NO_RED') == '1':                 # gen-only時=第2正解リスクのRED語を母集団から除外
+    back = [v for v in back if risk(v)[0] != 'RED']
+# 本試験に近い品詞バランス(動詞中心＋名詞・副詞/擬態・形容詞)。各品詞内は suitability 順。Nに比例配分。
+_BASE = {'verb':96, 'noun':64, 'adv':12, 'onomatopoeia':12, 'adj':16}   # 合計200
+QUOTA = {k: round(v * N / 200) for k, v in _BASE.items()}
 bypos = {}
 for v in back: bypos.setdefault(pos_of(v), []).append(v)
 for p in bypos: bypos[p].sort(key=lambda v: (-suit(v), int(v['id'].split('-')[-1])))
@@ -85,13 +90,14 @@ pick = []
 for p, n in QUOTA.items():
     pick += bypos.get(p, [])[:n]
 # 不足分は残り backlog の上位で補充
-if len(pick) < 200:
+if len(pick) < N:
     got = {v['id'] for v in pick}
     rest = sorted((v for v in back if v['id'] not in got), key=lambda v:(-suit(v), int(v['id'].split('-')[-1])))
-    pick += rest[:200-len(pick)]
+    pick += rest[:N-len(pick)]
+pick = pick[:N]
 pick.sort(key=lambda v: ({'verb':0,'noun':1,'adv':2,'onomatopoeia':2,'adj':3}.get(pos_of(v),4), -suit(v)))
 
-wb = Workbook(); ws = wb.active; ws.title = 'N3用法_作問対象200'
+wb = Workbook(); ws = wb.active; ws.title = f'N3用法_作問対象{N}'
 RED = PatternFill('solid', fgColor='F6C9C4'); YEL = PatternFill('solid', fgColor='FCE7C0')
 HEAD = PatternFill('solid', fgColor='D9D9D9'); B = Font(bold=True)
 cols = ['#','vocabId','語','読み','品詞(推定)','意味(英)','近接類義語','漢字最高級','リスク','リスク理由(作問前・暫定)']
@@ -127,9 +133,22 @@ for row in [
 lg['A1'].font=B; lg['B1'].font=B; lg['C1'].font=B
 for i,w in enumerate([12,60,54],1): lg.column_dimensions[chr(64+i)].width=w
 
-out = os.path.join(ROOT, '用法N3_作問対象200_確認用.xlsx')
+out = os.path.join(ROOT, f'用法N3_作問対象{N}_確認用.xlsx')
 wb.save(out)
 print('SAVED', out)
+
+# --- 作問ワークフロー用 targets JSON も出力(scratchpad) ---
+tgt = []
+for v in pick:
+    r, why = risk(v)
+    tgt.append({'vocabId': v['id'], 'word': v['word'], 'reading': v.get('reading',''),
+                'meaning': v.get('meaning',''), 'pos': pos_of(v),
+                'synonym': syn.get(v['id'],''), 'kanjiMax': kanji_max_level(v['word']) or '-',
+                'risk': r})
+tj = os.path.join(ROOT, 'scratchpad', 'usage_n3_300', 'targets.json')
+os.makedirs(os.path.dirname(tj), exist_ok=True)
+json.dump(tgt, open(tj, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+print('TARGETS_JSON', tj)
 print('picked', len(pick), 'RED', red_n, 'YELLOW', yel_n, 'clean', len(pick)-red_n-yel_n)
 from collections import Counter
 print('POS', dict(Counter(pos_of(v) for v in pick)))
