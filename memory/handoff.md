@@ -283,13 +283,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - memory/handoff.md
-- src/data/dict/sentenceFuri.json
+- memory/在庫・模試ストックまとめ.xlsx
 - memory/session-summary-LATEST.md
+- src/data/dict/sentenceFuri.json
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
 - src/screens/MockScreen.tsx
 - src/data/daimon.ts
-- src/data/index.ts
 
-_自動更新: 2026-08-29 22:58_
+_自動更新: 2026-08-29 23:07_
 <!-- AUTO:END -->

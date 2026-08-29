@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 5 回・16 ターン
-- 往復 391 回
+- ツール呼び出し 10 回・29 ターン
+- 往復 420 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/data/dict/sentenceFuri.json
+- memory/在庫・模試ストックまとめ.xlsx
 - memory/session-summary-LATEST.md
+- src/data/dict/sentenceFuri.json
 - content/_manifest.json
-- src/data/content/bundled.generated.ts
 
 ## 次の一手
 - **▶▶ 2026-08-29 LIVE(最新)＝模試10回分プロジェクト開始＋在庫Excel/本体の本番出題数をN5公式値へ全面修正【未コミット】**：ユーザー要望＝各大問×模試10回分を「模試専用プール(通常学習に出さない)」として別作成。**確定=別プールは新フォルダ`content/problems/moji_goi/mock/`**。試作=漢字読みN5 8問(頻出5+残り3・型A/B・`scratchpad/mock_kanji_read_N5_trial.json`)。**選定ルール=eligible語をvocabFreq降順で「上位半分＋残り半分(均等サンプル)」・`～`接尾辞は除外**(語リスト=scratchpad/mock_words_v2.json)。数=公式12/9/8×10=N5:120/N4:90/N3:80。
@@ -21,7 +21,9 @@
   - **✅アプリ結線=完了(A全実装)・実行時検証済**：①rehydrate.ts=pool='mock'を`KANJI_READ_MOCK`へ分離 ②daimon.ts=`KR_BANK_MULTI`(1語複数文rng選択)＋`mockUnitIds`＋`questionForUnit(u,rng,useMock)`＋HAS_MOCK_POOL('kanji_read'は抜き取り廃止=学習全146語) ③index.ts=KANJI_READ_MOCKエクスポート ④MockScreen.tsx=模試プールから初見出題(mockUnitIds+useMock)。**rebuild.ts再生成(70ファイル・manifest更新)・tsc0・テスト55緑・実行時=学習146/模試104,90,80/川で別文2種+初見**。
   - **✅ふりがな150文**(対象外漢字ありのみ)=Opus2体生成→`src/data/dict/sentenceFuri.json`へ+150(10116→10266)。（（読み）除去で元文一致を機械検証）。※sentenceFuriはbuild資産=OTAでなくビルドで実機反映。
   - **✅Excel大問別まとめ**：在庫を「eligible"問題数"(拡張後実数)」へ=N5漢字読み**410問・模試換算34**(stock_excel.py)。3列(割増し倍数×3緑/模試問題数104,90,80/メモ)。**⚠再生成はExcelを閉じてから**(開くとPermissionError)。オンボDL=目標級のみ表示(OnboardingScreen.tsx・tsc0)。
-  - **次の一手＝(a)Excelを閉じてもらい stock_excel.py 再生成(N5漢字読み410/換算34を反映) (b)全体コミット＋(実機反映は)ネイティブビルドの要否確認(コード変更=ビルド必須・content/furiも同梱)＋OTA(content配信) (c)②〜⑤シートtool名desyncは別件。** 未コミット(mock_stock.py/examBlueprint.ts/stock_excel.py/OnboardingScreen.tsx/rehydrate.ts/index.ts/daimon.ts/MockScreen.tsx/sentenceFuri.json/kanji_read_N5.json/mock/*/bundled.generated.ts/_manifest.json/xlsx)。
+  - **✅コミット済(未push)＝`6e60af43`**：Excel再生成済(N5漢字読み410/換算34)。全変更を1コミット(コード+content+furi+xlsx)。**pushしていない**＝★OTA(publish-content.ps1/push時Pages)は**content/のみ配信・src/コードは配信されない**(スクリプト明記)。今回はコード変更が主役ゆえ**OTA単独は危険**(旧コードのrehydrateが模試を学習に混入)。**安全な実機反映=ビルド(build.ps1)一択**。ユーザー方針「今日はBuildしない」ゆえ**反映は次ビルド時に保留**(コミットで保存済み・失われない)。**pushもビルドもユーザー合図まで実行しない**。
+  - **⭐次のタスク(ユーザー指示)＝表記(orthography)の模試問題を作成**：漢字読みと同じパイプライン。公式数=N5:8/N4:6/N3:6 ×10=**N5:80/N4:60/N3:60**。eligible(orthography)=class=kanji→testLevel / katakana→語彙級。頻出50%+残り50%・裸の数字/`～`除外。形式=**かな下線→正しい漢字/カタカナ表記を4択**(daimon='orthography'・OG_BANK・build4Choices)。誤答手口=字形近い漢字/同音異字/送りがな違い等(md/02_表記.md参照)。出力→`content/problems/moji_goi/mock/orthography_{N5,N4,N3}.json`(pool='mock')。結線は既存の仕組みを流用(daimon.tsにHAS_MOCK_POOLへ'orthography'追加＋KR相当のOG_MOCK_MULTI/mockUnitIds拡張＋MockScreen)。手順=①選定(tools流用) ②Opus生成(md/02準拠・自己検証) ③機械検証 ④mock/書出し ⑤結線 ⑥ふりがな ⑦rebuild+test ⑧コミット。**表記はN5に用法無しでなく全級あり**。
+  - **⚠既存の別件(未対処)**：②〜⑤カバー率シートのツール名desync(update_*_coverage/stock_analysis_colorは旧シート名'単語×大問カバー率'等を対象=現ファイル'② カバー率'等と不一致→次回実行で新シート量産の恐れ)。
 - **▶▶ 2026-08-29 (前)＝🚀ビルド済 v1.1.23(2881)＝辞書タブ全体をOTA修正可能化(全段階完了)**（commit `04d45178`・run `33250798435`・test76 pass71/fail0・tsc0・iOS本日5/8・-NoWatch）。ユーザー決定「辞書タブ全体をOTA化・段階実装→まとめて1回ビルド」。**このビルドで“OTAで辞書文言を直せる仕組み”が実機有効化**。以後、辞書タブの文言修正は**OTA(publish-content.ps1)だけでビルド無し配信**できる。
   - **方式＝同梱(vocab/kanji/grammar/vocabExamplesAi/vocabFurigana)を初期値に残し、`content/lexicon`の上書き層で表示フィールドだけ差し替え**(データ二重化なし・ツール/エンジン非破壊・可逆・id/構造は同梱のまま)。実装＝`schema.ts`(kind: furigana/vocabfix/kanjifix/grammarfix追加)・`rehydrate.ts`(FURIGANA_L10N/VOCAB_FIX/KANJI_FIX/GRAMMAR_FIX=mergeLex)・`index.ts`(overlayFix関数でVOCAB/KANJI/GRAMMAR＋VOCAB_EXAMPLE/VOCAB_FURIGANAを合成)。**tsc0・番人35緑・rebuild(67files)**。5種すべて上書き実証済(ダミー投入→反映→非対象フィールド維持→復元確認)。
   - **OTA修正の対応表(key→編集ファイル→置くフィールド)**：例文ja/en＝`example_<lv>.json` items[vocabId].ja/en ／ ふりがな＝`furigana_<lv>.json` items[vocabId].ja ／ 語彙 語/読み/意味＝`vocabfix_<lv>.json` items[vocabId].{word,reading,meaning} ／ 漢字 意味/音/訓＝`kanjifix_<lv>.json` items[漢字char].{meaning,on,kun} ／ 文法 見出し/意味/例文＝`grammarfix_<lv>.json` items[文法id].{point,romaji,meaning,exampleJa,exampleEn}。全seedは空(items:{})＝修正時にidを足す。**手順=該当json編集→`node --import tsx tools/content/rebuild.ts`→`publish-content.ps1`(ビルド不要)**。
