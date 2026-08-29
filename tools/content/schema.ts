@@ -6,7 +6,11 @@ export type Lang = (typeof LANGS)[number];
 export type ContentItem = { id: string; i18n: Record<string, Record<string, string | string[]>>; [k: string]: unknown };
 export type ContentFile = { schema: 1; daimon: string; level: string; languages: string[]; items: ContentItem[] };
 // kanjigloss = 漢字カードの例語(会社 等)の母語グロス。key=語そのもの(vocab訳流用977＋生成205)。辞書タブの漢字リスト用。
-export type LexiconFile = { schema: 1; kind: 'meaning' | 'example' | 'kanjigloss'; level: string; languages: string[]; items: Record<string, Record<string, string>> };
+// furigana = 語彙例文のふりがな(漢字(よみ)形式)のOTA上書き。key=vocabId・値={ ja: "ふりがな文" }。同梱 vocabFurigana.json を初期値に上書き(ビルド無しで修正配信)。
+//   ※ example(kind)は母語訳に加え ja/en を items[vid].ja/en に置くと、辞書タブの例文(日本語/英語)を OTA で上書きできる(同梱 vocabExamplesAi.json が初期値)。
+// vocabfix/kanjifix/grammarfix = 辞書表示フィールドのOTA上書き。key=vocabId/漢字char/文法id・値={ field: 新しい値 }。同梱を初期値に上書き(ビルド無しで修正配信)。
+//   vocabfix: word/reading/meaning ・ kanjifix: meaning/on/kun ・ grammarfix: point/romaji/meaning/exampleJa/exampleEn。id/構造は同梱のまま(壊さない)。
+export type LexiconFile = { schema: 1; kind: 'meaning' | 'example' | 'kanjigloss' | 'furigana' | 'vocabfix' | 'kanjifix' | 'grammarfix'; level: string; languages: string[]; items: Record<string, Record<string, string>> };
 export type ManifestEntry = { sha256: string; bytes: number; count: number };
 export type Manifest = { schema: 1; contentVersion: string; languages: string[]; daimonLabels: Record<string, string>; files: Record<string, ManifestEntry> };
 

@@ -55,11 +55,28 @@ export interface Meta {
   license: string;
 }
 
+// 辞書タブOTA上書き: 同梱データ(初期値)に content/lexicon の *fix (key→{field:値}) があれば表示フィールドだけ差し替える。
+//   ＝辞書の意味/読み/例文等の文言をビルド無し(OTA=publish-content.ps1)で修正できる。id/構造は同梱のまま(壊さない)。
+function overlayFix<T>(items: T[], fix: Record<string, Record<string, string>> | undefined, keyOf: (t: T) => string, fields: (keyof T)[]): T[] {
+  if (!fix || Object.keys(fix).length === 0) return items;
+  return items.map((it) => {
+    const o = fix[keyOf(it)];
+    if (!o) return it;
+    const patch: Record<string, string> = {};
+    for (const f of fields) { const v = o[f as string]; if (v != null) patch[f as string] = v; }
+    return Object.keys(patch).length ? { ...it, ...patch } : it;
+  });
+}
+const VOCAB_FIX = _R.VOCAB_FIX as Record<string, Record<string, string>>;
+const KANJI_FIX = _R.KANJI_FIX as Record<string, Record<string, string>>;
+const GRAMMAR_FIX = _R.GRAMMAR_FIX as Record<string, Record<string, string>>;
+
 // 漢字の音/訓「表示」を整える(常用・頻出順・古語/稀を除外。kanjiReadings.json=並べ替え・取捨のみ・新造なし)。
-export const KANJI = (kanji as KanjiItem[]).map((k) => {
+// さらに kanjifix(OTA)で 意味/音/訓 の表示を上書き可能(char単位)。※ruby/レベル判定用の raw/level は同梱のまま(下の別export)。
+export const KANJI = overlayFix((kanji as KanjiItem[]).map((k) => {
   const r = (kanjiReadings as Record<string, { on: string; kun: string }>)[k.char];
   return r ? { ...k, on: r.on, kun: r.kun } : k;
-});
+}), KANJI_FIX, (k) => k.char, ['meaning', 'on', 'kun']);
 // 生の音訓(kanji.json由来。「-り」等の接尾特殊読みマーカーを保持)。表示整形前なので主要読み判定に使う。
 export const KANJI_RAW_READINGS: Record<string, { on: string; kun: string }> =
   Object.fromEntries((kanji as KanjiItem[]).map((k) => [k.char, { on: k.on ?? '', kun: k.kun ?? '' }]));
@@ -76,8 +93,10 @@ export function rubyNeeded(run: string, userLevel: string): boolean {
   }
   return false;
 }
-export const VOCAB = vocab as VocabItem[];
-export const GRAMMAR = grammar as GrammarItem[];
+// 語彙の 語/読み/意味(ja) は同梱 vocab.json を初期値に、vocabfix(OTA)で表示上書き可能(id単位)。id/tags/level等の構造は不変。
+export const VOCAB = overlayFix(vocab as VocabItem[], VOCAB_FIX, (v) => v.id, ['word', 'reading', 'meaning']);
+// 文法の 見出し/ローマ字/意味/例文(ja・en) は同梱 grammar.json を初期値に、grammarfix(OTA)で表示上書き可能(id単位)。
+export const GRAMMAR = overlayFix(grammar as GrammarItem[], GRAMMAR_FIX, (g) => g.id, ['point', 'romaji', 'meaning', 'exampleJa', 'exampleEn']);
 export const META = metaJson as Meta;
 
 /** 穴埋め(cloze)が適切な文法ID集合(LLM判定・答えが一意にならない曖昧な文法は除外)。 */
@@ -115,10 +134,29 @@ export const kanjiGlossIn = (word: string, lang: string): string | undefined => 
 // 語彙の短い例文＝本アプリのオリジナル文(全内容語ぶん・文脈規定contextBankの穴を正解で埋めた自然文)。
 // 旧・田中コーパス/Tatoeba由来の例文は同梱を廃止(第三者例文の全除去→謝辞をWaller+EDRDGの2件に集約)。
 export interface VocabExample { ja: string; en?: string; }
-export const VOCAB_EXAMPLE = vocabExamplesAi as Record<string, VocabExample>;
+// 辞書タブの例文(ja/en)は「同梱 vocabExamplesAi.json = 初期値」＋「OTA配信の content/lexicon/example_* に ja/en があれば上書き」。
+//   ＝例文の日本語/英語はビルド無し(OTA=publish-content.ps1)で修正・配信できる。母語訳(ne等)は exampleIn を参照。
+export const VOCAB_EXAMPLE: Record<string, VocabExample> = (() => {
+  const base = vocabExamplesAi as Record<string, VocabExample>;
+  const out: Record<string, VocabExample> = {};
+  const ids = new Set<string>([...Object.keys(base), ..._R.EXAMPLE_L10N ? Object.keys(_R.EXAMPLE_L10N) : []]);
+  for (const id of ids) {
+    const b = base[id]; const o = (_R.EXAMPLE_L10N as Record<string, Record<string, string>>)[id];
+    const ja = o?.ja ?? b?.ja; if (ja == null) continue; // ja必須(例文が無いidは載せない)
+    const en = o?.en ?? b?.en;
+    out[id] = en != null ? { ja, en } : { ja };
+  }
+  return out;
+})();
 
-/** 語彙例文のふりがな付き版(MeCab生成・漢字(よみ)形式)。vocabId → ふりがな文。無い語は素のjaを使う。 */
-export const VOCAB_FURIGANA = vocabFurigana as Record<string, string>;
+/** 例文ふりがなのOTA上書き: vocabId → { ja: "ふりがな文" }。同梱を初期値に、あれば上書き。 */
+export const FURIGANA_L10N = _R.FURIGANA_L10N as Record<string, Record<string, string>>;
+/** 語彙例文のふりがな付き版(漢字(よみ)形式)。vocabId → ふりがな文。同梱 vocabFurigana=初期値＋OTA上書き(FURIGANA_L10N.ja)。無い語は素のjaを使う。 */
+export const VOCAB_FURIGANA: Record<string, string> = (() => {
+  const out: Record<string, string> = { ...(vocabFurigana as Record<string, string>) };
+  for (const [id, m] of Object.entries(FURIGANA_L10N)) { if (m?.ja) out[id] = m.ja; }
+  return out;
+})();
 
 // 各漢字の用例(無料・同梱JMdict由来): 音読み=熟語(漢字2字+)／訓読み=送り仮名 or 単漢字(主要訓を優先)。
 // 読みが難しい字(止→止まる, 出→出口+出 等)も音訓2例を併記。

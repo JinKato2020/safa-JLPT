@@ -2,13 +2,19 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶▶ 2026-08-29 LIVE(最新)＝UI複数修正＋管理ダッシュ国別の削除連動＋模試チケットPro制【全て未コミット・未ビルド／tsc0・関連テスト全緑(tickets/parity/entitlement/sync 30 pass)】**：この会話でのUI/バックエンド変更。すべて`build.ps1`ビルド反映(OTAではない)。
+- **▶▶ 2026-08-29 LIVE(最新)＝辞書タブOTA化 Stage1(例文ja/en＋ふりがな)実装・検証済【未コミット・未ビルド】**：ユーザー決定「辞書タブ全体をOTA化・段階実装(例文＋ふりがな先行)」。**方式＝同梱を初期値(fallback)に残し、`content/lexicon`側で上書きできる層を追加(データ二重化なし・ツール/エンジン非破壊・可逆)**。例文ja/enは既存 `content/lexicon/example_*.json` の items[vid].ja/en に、ふりがなは新設 `content/lexicon/furigana_{N5,N4,N3}.json`(kind='furigana'・items空=patch用)に上書きを置ける。実装＝`schema.ts`(kind+furigana)・`rehydrate.ts`(FURIGANA_L10N=mergeLex)・`index.ts`(VOCAB_EXAMPLE/VOCAB_FURIGANAを同梱＋上書き合成)。**tsc0・content番人13/13・wordDrill/rehydrate/parity 17緑・rebuild(58files)**。上書き実証済(ダミー投入→反映→他id同梱維持→復元確認)。
+  - **重要な配信境界**：この**仕組み(index/rehydrate/schema)はUI/ロジック＝実機反映に次のネイティブビルドが1回必要**。ビルド後は個別の例文/ふりがな修正が**OTA(publish-content.ps1)でビルド無し配信**になる。今回はビルド指示が無いので未ビルド(iOS本日4/8・E3)。**変更ファイル**＝index.ts/rehydrate.ts/schema.ts/_manifest.json/bundled.generated.ts＋furigana_*.json(新規3)。
+  - **次段(残り)＝意味(ja)/読み→漢字(読み・例語gloss)→文法(例文ja/en)を同じ上書き層で。素性表(vocab.json)本体・id・構造は同梱維持(壊さない)。** 各段 tsc＋番人緑を確認しながら。
+  - **修正のやり方(ビルド後)**：例文を直す→該当 `content/lexicon/example_<lv>.json` の items[vid] に `"ja":"新文","en":"..."` を足す/ふりがな→`furigana_<lv>.json` の items[vid] に `"ja":"ふりがな文"`→`node --import tsx tools/content/rebuild.ts`→`publish-content.ps1`。ビルド不要。
+
+- **▶▶ 2026-08-29 (前)＝🚀ビルド済 v1.1.22(2880) iOS/Android both dispatch**（commit `0b4eae6b`・run `33249659660`・test76 pass71/fail0・tsc0・iOS本日4/8・-NoWatch＝監視しない）。**この1コミットに以下の累積を全部同梱**：①模試チケットPro制②管理ダッシュ国別の削除連動③辞書タブ「例」母語化+kanjigloss④民族衣装アバター正規化⑤**オンボの聴解音声をレベル別DL＋既定は配信(都度=stream)【今会話・ユーザー承認済/新規】**⑥UI複数修正。**ユーザーの5点OK**＝(a)歓迎1枚維持(b)proSince=ローカル捕捉でよい(c)月1ロック廃止でよい(d)購入上限3の運用でよい(e)無料にもショップ表示でよい＝**全て現状維持で確定(コード変更なし)**。
+  - **⑤オンボ聴解DL(今会話)**：`OnboardingScreen.tsx`の単一download/stream選択を撤去→**設定画面と同じレベル別DL行(N5/N4/N3・LevelAudioRow)**へ。finish時 `listeningAudioMode:'stream'`固定(既定=配信/都度)。全画面DLゲート(manual autoStart)をオーバーレイ追加。i18n `onboarding.audioHint`をja/en/ne追加(parity緑)。tsc0。**既存ユーザーのmode既定は不変(オンボ通過の新規のみstream)**。
   - **UI修正群**：①辞書タブ(BrowseScreen.tsx)カードを縦積み化=例文が右端まで折返し＋各カードに`ID: xxx`表示 ②試験タブ(StudyHomeScreen.tsx)「試験に挑戦」ボタンを4アイコン真上・青ピル(ホームrecoと同デザイン)へ＝`ImmersiveTab`に`aboveBar`prop追加(TabScene.tsx) ③語彙カード見出し「漢字・語彙」→「語彙」(CategoryCard.tsx catName override) ④運営お知らせアイコン📣→`information-circle-outline`(CheerInboxScreen.tsx) ⑤設定 聴解音声をレベル別(N5/N4/N3)独立DLへ(ProfileScreen.tsx `LevelAudioRow`＋i18n profile.audioDownloaded)。
   - **プライバシー(ユーザー決定)**：設定から「利用状況データ送信」「トラッキング許可」**両トグル撤去**(ProfileScreen.tsx)。同意はオンボの「スタート」みなし同意へ＝`onboarding.agree_note`を「利用規約・プライバシー・データ利用」に更新(ja/en/ne)。**トラッキングは同意文に入れない**(ATTはOSダイアログで取得＝Apple必須・ボタンみなし同意は無効と説明済)。値/初期化ロジックは維持。
   - **④管理ダッシュ 国別を利用者削除と連動**：方式=匿名累計(geo_country_counts)廃止→端末別テレメトリ集計。アプリ=geoClient.ts `cacheGeoCountry`/`getCachedGeoCountry`(旧bumpGeoCountOnce撤去)・telemetry.ts snapshotに`geoCountry`追加・SyncProvider.tsx呼出差替。SQL=dashboard_views.sql `v_admin_geo`を`tel_snapshot`集計に書換(登録/全体/匿名=端末単位・削除で自動減)。dashboard.htmlのリセットボタン撤去(doDeleteのuser_geo削除は残す)。geo_counts.sqlは廃止マークのみ。**ユーザーの実行=更新後 dashboard_views.sql をSQL Editorで1回貼るだけ**(geo_counts.sqlは実行不要)。人数連動は即・国名はビルド後の新snapshotから(それまで'??')。
   - **③模試チケットPro制(ユーザー確定)**：無料=模試ロック→「🔒 Proで模試に挑戦」→Paywall。Pro=Pro開始日(proSince)起点で歓迎1+暦月ごと+1・**所持上限なし**。購入=Proのみ累計3枚まで(300貝)。無料化で残チケットは0クリア。配布時ホームで祝いモーダル🎟️(ShopScreen購入も祝い演出追加)。実装=tickets.ts全書換(MAX_MOCK_TICKETS→MAX_MOCK_PURCHASES=3・`clearTicketNotice`)・state.ts(proSince/mockTicketsPurchased/ticketNotice追加)・store.tsx(CLEAR_TICKET_NOTICE)・App.tsx(課金同期後syncTickets)・StudyHome/Shop/Home/InventoryScreen・i18n(test.pro_locked/ticket.granted_*/shop.ticket_held/_buy_count)・tickets.test.ts書換。proSinceは「初めてPro状態を見た時刻」をローカル確定(sync維持)＝RevenueCat購入日ではない。旧mockGrantsClaimedは初回anchorで0リセット(既存Proの月次抑止バグ回避)。
   - **★③の未確認5点(ユーザー判断待ち)**：(a)歓迎1枚を付けた(例は「翌月から」だが0枚回避)→不要なら外す (b)proSince=ローカル捕捉でよいか(RevenueCat購入日にするか) (c)月1暦月ロック(fullMockLock)は廃止済=Proはチケットある限り月内複数可、でよいか (d)購入上限=累計3。ただし月次無制限貯蓄で長期に模試在庫(約10回)超過し得る→「月ごと3枚」等にするか (e)無料ユーザーにもショップの模試チケット表示(購入無効)=非表示にするか。
-  - **次の一手＝(1)ユーザーがSupabaseで dashboard_views.sql を実行 (2)③の未確認5点を確定→必要なら微修正 (3)区切りでコミット＋ビルド(build.ps1・未ビルド)。** 変更ファイル多数(上記)＝gitで確認。05_データ保有・ファイル相関図.pdf も生成済(ROOT)。
+  - **次の一手＝(1)【未完・ユーザー作業】Supabaseの SQL Editor で `docs/supabase/dashboard_views.sql` を1回貼って実行(管理ダッシュ国別の端末別集計に必要・geo_counts.sqlは実行不要) (2)CI確認(要れば run 33249659660) (3)TestFlight/Playで v1.1.22(2880) の実機確認。** 5点はOK確定・オンボ聴解DLも同梱済。05_データ保有・ファイル相関図.pdf は生成済(ROOT・public repo非コミット)。
 
 - **▶▶ 2026-08-29 (前)＝辞書タブ「例」の母語化＋民族衣装アバターの正規化【未コミット・未OTA・未ビルド】**：ユーザー報告=ネパール語設定で辞書タブの**文法の例文**(夏休みの間…)と**漢字の例単語**(会社:company)が英語のまま(意味・単語自体はne正常)。原因=意味と違い「例」は最初から母語化されておらず、①文法例文は`BrowseScreen.tsx:261`が`renderSentence`に訳を渡していない②漢字例語glossは英語焼込み＋データ無し。
   - **対応(両方=ユーザー選択)**：文法例文392件＋漢字例語1182件をne化(**977件は既存語彙ne流用=無料**・**205件だけGemini 2.5-flash生成・実費¥8**)。データ=`content/lexicon/example_{N5,N4,N3}.json`にgrammar id→ne追記＋**新規`kanjigloss_{N5,N4,N3}.json`(kind='kanjigloss'・key=語)**。配線=`BrowseScreen.tsx`(文法例文にexampleIn/exampleEn・漢字glossにkanjiGlossIn)＋`schema.ts`kind追加＋`rehydrate.ts`KANJIGLOSS_L10N＋`index.ts`kanjiGlossIn。**rebuild.ts済(manifest+bundled再生成・55files)・tsc0・content検証13/13緑**。実データで会社→कम्पनी/n4-g-1→gम्री…確認済。
@@ -254,6 +260,10 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 68ターン（文脈 20万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 68ターン・ツール33回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a4851348b008554c9 workflow-subagent
 - a551741a2368517b6 workflow-subagent
@@ -263,13 +273,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - memory/handoff.md
-- memory/session-summary-LATEST.md
-- src/store/tickets.ts
-- src/screens/InventoryScreen.tsx
-- src/store/tickets.test.ts
-- src/screens/HomeScreen.tsx
-- src/i18n/ne.json
-- src/i18n/en.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- content/lexicon/furigana_N5.json
+- content/lexicon/furigana_N3.json
+- content/lexicon/furigana_N4.json
+- src/data/index.ts
+- src/data/content/rehydrate.ts
 
-_自動更新: 2026-08-29 20:04_
+_自動更新: 2026-08-29 20:38_
 <!-- AUTO:END -->

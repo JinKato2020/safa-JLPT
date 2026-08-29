@@ -64,5 +64,5 @@ export function rehydrateBanks(files: Record<string, Any>) {
     for (const [p, f] of Object.entries(files)) if (p.startsWith('lexicon/') && (f as Any).kind === kind) Object.assign(out, (f as Any).items);
     return out;
   };
-  return { KANJI_READ_BANK, ORTHOGRAPHY_BANK, CONTEXT_BANK, SYNONYM_BANK, KNOWLEDGE_BANK, READING, LISTENING, PASSAGE_GRAMMAR, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
+  return { KANJI_READ_BANK, ORTHOGRAPHY_BANK, CONTEXT_BANK, SYNONYM_BANK, KNOWLEDGE_BANK, READING, LISTENING, PASSAGE_GRAMMAR, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), FURIGANA_L10N: mergeLex('furigana'), VOCAB_FIX: mergeLex('vocabfix'), KANJI_FIX: mergeLex('kanjifix'), GRAMMAR_FIX: mergeLex('grammarfix'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
 }
