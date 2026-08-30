@@ -1,18 +1,28 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 7 回・18 ターン
-- 往復 145 回
+- ツール呼び出し 2 回・8 ターン
+- 往復 102 回
 
 ## 何が変わったか
 - memory/handoff.md
+- memory/order-passage-mock-inflight.md
 - memory/在庫・模試ストックまとめ.xlsx
 - tools/stock_excel.py
-- memory/在庫・模試ストックまとめ - コピー.xlsx
-- memory/session-summary-LATEST.md
+- content/_manifest.json
 
 ## 次の一手
-- **▶▶ 2026-08-30 LIVE＝文法形式 学習倍増＋模試プール新設＝✅全工程完了・コミット済(未push/未ビルド)。正本＝[[grammar-form-mock-inflight]]**：
+- **▶▶ 2026-08-30 LIVE＝組み立て(order)・文章の文法(passage_grammar) 模試プール新設＝【生成〜配置〜一意性Excel 完了・/clear境界・残＝結線から】。正本＝[[order-passage-mock-inflight]]**：
+  - **✅完了（クリア前）**＝生成9体（order150・passage30セット150設問）→機械検証0エラー（stem重複は地の文追加の微調整で解消・内容不変）→ルビ全漢字（内容不変・answer∈choices維持・裸漢字0）→**配置** `content/problems/bunpou/mock/{order,passage_grammar}_{N5,N4,N3}.json`（pool='mock'・languages['ja']）→**一意性Excel** `一意性チェック_模試_{N5,N4,N3}.xlsx`（赤0/黄=self申告mid）。**配置済みだが未結線＝アプリ非表示・学習汚染なし。**
+  - **★/clear後の一手＝結線から**（[[order-passage-mock-inflight]]「/clear後の残作業」step3以降が正本）：**結線**（order=grammar_form mock同型 ORDER_MOCK＋daimon HAS_MOCK_POOL+='order'／passage_grammar=別経路 PASSAGE_GRAMMAR_MOCK＋MockScreen `passageGrammarItems`をmock優先に）→**番人**（orderMock.test.ts／passageGrammarMock.test.ts新設＋package.json）→rebuild→tsc0→npm test緑→ランタイム実測（mockが初見・学習汚染なし）→**在庫Excel**（stock_excel.py MOCKに order50/50/50・passage_grammar50/50/50追加・mockは在庫に数えない）→まとめてコミット（push/ビルドはユーザー指示待ち）。手本=[[grammar-form-mock-inflight]]。空所=order`＿ ＿ ★ ＿`／passage`【1】〜【5】`。
+- **▶▶ 2026-08-30 (旧LIVE)＝残りの文法大問の模試プール新設（設計メモ・実行仕様は上記inflightへ移管）**：
+  - **目的**＝文法3大問のうち①文法形式は完了(下記)。残る②組み立て(order)・③文章の文法(passage_grammar)の**模試専用プール(pool='mock')**を新設。ユーザー方針＝/clear後に着手。
+  - **公式出題数(mock_stock BP)** ＝ order N5:5/N4:5/N3:5・passage_grammar N5:5/N4:5/N3:5。×10回＝**各50問/レベル**（order 150・passage_grammar 150）。※passage_grammarはセット形式(1本文に複数空所)＝`content/problems/bunpou/passage_grammar_*.json`のセット構造・`passageGrammar.json`設問id。単純bankでない点に注意。orderはbank系。
+  - **手本＝[[grammar-form-mock-inflight]]の結線パターン**（rehydrate `*_MOCK`=bankItems(...,true)／index export／daimon HAS_MOCK_POOL+='order'(passage_grammarは別経路要検討)／番人新設＋package.json登録／rebuild→tsc→npm test→ランタイム実測→在庫Excelチェーン→一意性Excel→コミット→OTA）。**空所マーカーはアプリ実装`〔　〕`(U+3014)で統一（`【　】`でない・grammar_formで判明した罠）**。
+  - **規律**＝生成=Opusエージェント波＋各体即Write／検証=機械のみ／ルビ=対象級以上／良問を公式型で新規（学習コピー不可＝初見）／push/ビルドはユーザー明示指示のみ。
+  - --- 以下は完了済タスクの記録 ---
+- **▶▶ 2026-08-30＝文法形式 学習倍増＋模試プール新設＝✅全工程完了・OTA配信済(run 33285757673・未ビルド)。正本＝[[grammar-form-mock-inflight]]**：
+  - **✅OTA配信済**（commit `29733bc8`＝文法形式本体＋`f4a1fc48`＝在庫Excel倍数。publish-content.ps1 -NoCommit・content検証17/17・Pages run 33285757673）。コード変更(daimon/rehydrate/index)は**次ビルドで実機反映**。
   - **✅完了(コミット済)**＝配置(N5学習 211→398・各点4問／模試新設 N5:160/N4:150/N3:130=公式16/15/13×10・全問ユニーク)＋結線(rehydrate/index/daimon HAS_MOCK_POOL+='grammar_form')＋番人`src/data/grammarFormMock.test.ts`(6件)＋rebuild(84)＋**tsc0・npm test 458/458**＋ランタイム実測OK(mockUnits160/150/130・cloze・空所〔　〕・学習では未解決=汚染なし)＋在庫Excel全チェーン(bunpou模試換算 N5=24回)＋一意性Excel再生成(模試黄19/19/15・通常N5黄21・赤0)。
   - **★配置時に機械修正2件**：(1)空所マーカーを生成物`【　】`→アプリ実装前提の`〔　〕`へ全627問変換(inflightの「【　】固定」記載は誤り)。(2)既存と完全一致の新規learn stem 3件を別文脈へ最小改変(pointId/answer/choices保持)。
   - **★次の一手＝ユーザー明示指示で (a)push=OTAでcontent配信 (b)build.ps1でビルド(daimon/rehydrate/index等コード変更は次ビルドで実機反映。それまで旧アプリはpool='mock'非表示=学習混入なし)。** 未処理レビュー=一意性チェック_模試/通常_{N5,N4,N3}.xlsx(黄=mid・QA用・.gitignore非コミット)。

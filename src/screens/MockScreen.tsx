@@ -12,7 +12,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { isInMyList } from '../store/state';
 import { guessCorrect, jftMockScore, mockScoreEstimate } from '../store/selectors';
 import { dayStr } from '../store/state';
-import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor, readingItemsForSub, listeningItemsForSub, READING_SUBTYPES, LISTENING_SUBTYPES, type ReadingSubtype, type ListeningSubtype } from '../data';
+import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor, passageGrammarMockSetsFor, readingItemsForSub, listeningItemsForSub, READING_SUBTYPES, LISTENING_SUBTYPES, type ReadingSubtype, type ListeningSubtype } from '../data';
 import RubyText from '../components/RubyText';
 import AppButton from '../components/AppButton';
 import PassageSetPlayer from '../components/PassageSetPlayer';
@@ -209,7 +209,8 @@ function readingSetItems(levels: Level[], nPassages: number, seen: Seen): MockIt
 }
 // 文章の文法(大問⑧)=セット形式(1文章＋複数設問)。本番同様フル/ミニ問わず1セットのみ(JFTには無い区分)。
 function passageGrammarItems(levels: Level[], seen: Seen): MockItem[] {
-  const all = levels.flatMap((lv) => passageGrammarSetsFor(lv));
+  // 模試専用プール(初見)があればそこから、無ければ学習セットへフォールバック(他大問と同型の useMock 優先)。
+  const all = levels.flatMap((lv) => { const m = passageGrammarMockSetsFor(lv); return m.length ? m : passageGrammarSetsFor(lv); });
   if (all.length === 0) return [];
   const picked = pickFresh(all, (st) => st.questions.some((q) => !!seen[q.id]), 1);
   return picked.map((set) => ({ kind: 'passageSet' as const, id: set.id, section: 'bunpou' as Sec, question: '', choices: [], answerIndex: -1, set }));

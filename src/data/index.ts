@@ -115,6 +115,8 @@ export const KNOWLEDGE_BANK = _R.KNOWLEDGE_BANK as KnowledgeBankItem[];
 export const USAGE_MOCK = _R.USAGE_MOCK as KnowledgeBankItem[];
 // 文法形式判断(⑥)の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う。KnowledgeBankItem と同形。
 export const GRAMMAR_FORM_MOCK = _R.GRAMMAR_FORM_MOCK as KnowledgeBankItem[];
+// 組み立て(⑦)の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う。KnowledgeBankItem と同形(stem/★/explain)。
+export const ORDER_MOCK = _R.ORDER_MOCK as KnowledgeBankItem[];
 
 /** 辞書Browse拡張(N2/N1・参考辞書・学習対象外)。JMdict/KANJIDIC由来。levelがN2/N1なのでcastで型を通す。 */
 export const DICT_EXT_VOCAB = (dictExtJson.vocab as unknown) as VocabItem[];
@@ -395,6 +397,12 @@ export const PASSAGE_GRAMMAR = _R.PASSAGE_GRAMMAR as PassageSet[];
 /** レベルの文章の文法セット(40本/級)。 */
 export function passageGrammarSetsFor(level: string): PassageSet[] {
   return PASSAGE_GRAMMAR.filter((s) => s.level === level);
+}
+// 文章の文法(⑧)の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う(無ければ学習セットへフォールバック)。
+export const PASSAGE_GRAMMAR_MOCK = _R.PASSAGE_GRAMMAR_MOCK as PassageSet[];
+/** レベルの文章の文法 模試セット(10本/級)。空なら学習セットを使う側でフォールバック。 */
+export function passageGrammarMockSetsFor(level: string): PassageSet[] {
+  return PASSAGE_GRAMMAR_MOCK.filter((s) => s.level === level);
 }
 
 /** 学習用の読解(後ろ EXAM_READING 本は模試専用に除外)。 */

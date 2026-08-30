@@ -26,63 +26,69 @@ import f23 from '../../../content/problems/bunpou/grammar_form_N5.json';
 import f24 from '../../../content/problems/bunpou/mock/grammar_form_N3.json';
 import f25 from '../../../content/problems/bunpou/mock/grammar_form_N4.json';
 import f26 from '../../../content/problems/bunpou/mock/grammar_form_N5.json';
-import f27 from '../../../content/problems/bunpou/order_N3.json';
-import f28 from '../../../content/problems/bunpou/order_N4.json';
-import f29 from '../../../content/problems/bunpou/order_N5.json';
-import f30 from '../../../content/problems/bunpou/passage_grammar_N3.json';
-import f31 from '../../../content/problems/bunpou/passage_grammar_N4.json';
-import f32 from '../../../content/problems/bunpou/passage_grammar_N5.json';
-import f33 from '../../../content/problems/choukai/gaiyou_N3.json';
-import f34 from '../../../content/problems/choukai/hatsuwa_N3.json';
-import f35 from '../../../content/problems/choukai/hatsuwa_N4.json';
-import f36 from '../../../content/problems/choukai/hatsuwa_N5.json';
-import f37 from '../../../content/problems/choukai/kadai_N3.json';
-import f38 from '../../../content/problems/choukai/kadai_N4.json';
-import f39 from '../../../content/problems/choukai/kadai_N5.json';
-import f40 from '../../../content/problems/choukai/point_N3.json';
-import f41 from '../../../content/problems/choukai/point_N4.json';
-import f42 from '../../../content/problems/choukai/point_N5.json';
-import f43 from '../../../content/problems/choukai/sokuji_N3.json';
-import f44 from '../../../content/problems/choukai/sokuji_N4.json';
-import f45 from '../../../content/problems/choukai/sokuji_N5.json';
-import f46 from '../../../content/problems/dokkai/choubun_N3.json';
-import f47 from '../../../content/problems/dokkai/joho_N3.json';
-import f48 from '../../../content/problems/dokkai/joho_N4.json';
-import f49 from '../../../content/problems/dokkai/joho_N5.json';
-import f50 from '../../../content/problems/dokkai/naiyou_chu_N3.json';
-import f51 from '../../../content/problems/dokkai/naiyou_chu_N4.json';
-import f52 from '../../../content/problems/dokkai/naiyou_chu_N5.json';
-import f53 from '../../../content/problems/dokkai/naiyou_tan_N3.json';
-import f54 from '../../../content/problems/dokkai/naiyou_tan_N4.json';
-import f55 from '../../../content/problems/dokkai/naiyou_tan_N5.json';
-import f56 from '../../../content/problems/moji_goi/context_N3.json';
-import f57 from '../../../content/problems/moji_goi/context_N4.json';
-import f58 from '../../../content/problems/moji_goi/context_N5.json';
-import f59 from '../../../content/problems/moji_goi/kanji_read_N3.json';
-import f60 from '../../../content/problems/moji_goi/kanji_read_N4.json';
-import f61 from '../../../content/problems/moji_goi/kanji_read_N5.json';
-import f62 from '../../../content/problems/moji_goi/mock/context_N3.json';
-import f63 from '../../../content/problems/moji_goi/mock/context_N4.json';
-import f64 from '../../../content/problems/moji_goi/mock/context_N5.json';
-import f65 from '../../../content/problems/moji_goi/mock/kanji_read_N3.json';
-import f66 from '../../../content/problems/moji_goi/mock/kanji_read_N4.json';
-import f67 from '../../../content/problems/moji_goi/mock/kanji_read_N5.json';
-import f68 from '../../../content/problems/moji_goi/mock/orthography_N3.json';
-import f69 from '../../../content/problems/moji_goi/mock/orthography_N4.json';
-import f70 from '../../../content/problems/moji_goi/mock/orthography_N5.json';
-import f71 from '../../../content/problems/moji_goi/mock/synonym_N3.json';
-import f72 from '../../../content/problems/moji_goi/mock/synonym_N4.json';
-import f73 from '../../../content/problems/moji_goi/mock/synonym_N5.json';
-import f74 from '../../../content/problems/moji_goi/mock/usage_N3.json';
-import f75 from '../../../content/problems/moji_goi/mock/usage_N4.json';
-import f76 from '../../../content/problems/moji_goi/orthography_N3.json';
-import f77 from '../../../content/problems/moji_goi/orthography_N4.json';
-import f78 from '../../../content/problems/moji_goi/orthography_N5.json';
-import f79 from '../../../content/problems/moji_goi/synonym_N3.json';
-import f80 from '../../../content/problems/moji_goi/synonym_N4.json';
-import f81 from '../../../content/problems/moji_goi/synonym_N5.json';
-import f82 from '../../../content/problems/moji_goi/usage_N3.json';
-import f83 from '../../../content/problems/moji_goi/usage_N4.json';
+import f27 from '../../../content/problems/bunpou/mock/order_N3.json';
+import f28 from '../../../content/problems/bunpou/mock/order_N4.json';
+import f29 from '../../../content/problems/bunpou/mock/order_N5.json';
+import f30 from '../../../content/problems/bunpou/mock/passage_grammar_N3.json';
+import f31 from '../../../content/problems/bunpou/mock/passage_grammar_N4.json';
+import f32 from '../../../content/problems/bunpou/mock/passage_grammar_N5.json';
+import f33 from '../../../content/problems/bunpou/order_N3.json';
+import f34 from '../../../content/problems/bunpou/order_N4.json';
+import f35 from '../../../content/problems/bunpou/order_N5.json';
+import f36 from '../../../content/problems/bunpou/passage_grammar_N3.json';
+import f37 from '../../../content/problems/bunpou/passage_grammar_N4.json';
+import f38 from '../../../content/problems/bunpou/passage_grammar_N5.json';
+import f39 from '../../../content/problems/choukai/gaiyou_N3.json';
+import f40 from '../../../content/problems/choukai/hatsuwa_N3.json';
+import f41 from '../../../content/problems/choukai/hatsuwa_N4.json';
+import f42 from '../../../content/problems/choukai/hatsuwa_N5.json';
+import f43 from '../../../content/problems/choukai/kadai_N3.json';
+import f44 from '../../../content/problems/choukai/kadai_N4.json';
+import f45 from '../../../content/problems/choukai/kadai_N5.json';
+import f46 from '../../../content/problems/choukai/point_N3.json';
+import f47 from '../../../content/problems/choukai/point_N4.json';
+import f48 from '../../../content/problems/choukai/point_N5.json';
+import f49 from '../../../content/problems/choukai/sokuji_N3.json';
+import f50 from '../../../content/problems/choukai/sokuji_N4.json';
+import f51 from '../../../content/problems/choukai/sokuji_N5.json';
+import f52 from '../../../content/problems/dokkai/choubun_N3.json';
+import f53 from '../../../content/problems/dokkai/joho_N3.json';
+import f54 from '../../../content/problems/dokkai/joho_N4.json';
+import f55 from '../../../content/problems/dokkai/joho_N5.json';
+import f56 from '../../../content/problems/dokkai/naiyou_chu_N3.json';
+import f57 from '../../../content/problems/dokkai/naiyou_chu_N4.json';
+import f58 from '../../../content/problems/dokkai/naiyou_chu_N5.json';
+import f59 from '../../../content/problems/dokkai/naiyou_tan_N3.json';
+import f60 from '../../../content/problems/dokkai/naiyou_tan_N4.json';
+import f61 from '../../../content/problems/dokkai/naiyou_tan_N5.json';
+import f62 from '../../../content/problems/moji_goi/context_N3.json';
+import f63 from '../../../content/problems/moji_goi/context_N4.json';
+import f64 from '../../../content/problems/moji_goi/context_N5.json';
+import f65 from '../../../content/problems/moji_goi/kanji_read_N3.json';
+import f66 from '../../../content/problems/moji_goi/kanji_read_N4.json';
+import f67 from '../../../content/problems/moji_goi/kanji_read_N5.json';
+import f68 from '../../../content/problems/moji_goi/mock/context_N3.json';
+import f69 from '../../../content/problems/moji_goi/mock/context_N4.json';
+import f70 from '../../../content/problems/moji_goi/mock/context_N5.json';
+import f71 from '../../../content/problems/moji_goi/mock/kanji_read_N3.json';
+import f72 from '../../../content/problems/moji_goi/mock/kanji_read_N4.json';
+import f73 from '../../../content/problems/moji_goi/mock/kanji_read_N5.json';
+import f74 from '../../../content/problems/moji_goi/mock/orthography_N3.json';
+import f75 from '../../../content/problems/moji_goi/mock/orthography_N4.json';
+import f76 from '../../../content/problems/moji_goi/mock/orthography_N5.json';
+import f77 from '../../../content/problems/moji_goi/mock/synonym_N3.json';
+import f78 from '../../../content/problems/moji_goi/mock/synonym_N4.json';
+import f79 from '../../../content/problems/moji_goi/mock/synonym_N5.json';
+import f80 from '../../../content/problems/moji_goi/mock/usage_N3.json';
+import f81 from '../../../content/problems/moji_goi/mock/usage_N4.json';
+import f82 from '../../../content/problems/moji_goi/orthography_N3.json';
+import f83 from '../../../content/problems/moji_goi/orthography_N4.json';
+import f84 from '../../../content/problems/moji_goi/orthography_N5.json';
+import f85 from '../../../content/problems/moji_goi/synonym_N3.json';
+import f86 from '../../../content/problems/moji_goi/synonym_N4.json';
+import f87 from '../../../content/problems/moji_goi/synonym_N5.json';
+import f88 from '../../../content/problems/moji_goi/usage_N3.json';
+import f89 from '../../../content/problems/moji_goi/usage_N4.json';
 export const BUNDLED: Record<string, unknown> = {
   'lexicon/example_N3.json': f0,
   'lexicon/example_N4.json': f1,
@@ -111,61 +117,67 @@ export const BUNDLED: Record<string, unknown> = {
   'problems/bunpou/mock/grammar_form_N3.json': f24,
   'problems/bunpou/mock/grammar_form_N4.json': f25,
   'problems/bunpou/mock/grammar_form_N5.json': f26,
-  'problems/bunpou/order_N3.json': f27,
-  'problems/bunpou/order_N4.json': f28,
-  'problems/bunpou/order_N5.json': f29,
-  'problems/bunpou/passage_grammar_N3.json': f30,
-  'problems/bunpou/passage_grammar_N4.json': f31,
-  'problems/bunpou/passage_grammar_N5.json': f32,
-  'problems/choukai/gaiyou_N3.json': f33,
-  'problems/choukai/hatsuwa_N3.json': f34,
-  'problems/choukai/hatsuwa_N4.json': f35,
-  'problems/choukai/hatsuwa_N5.json': f36,
-  'problems/choukai/kadai_N3.json': f37,
-  'problems/choukai/kadai_N4.json': f38,
-  'problems/choukai/kadai_N5.json': f39,
-  'problems/choukai/point_N3.json': f40,
-  'problems/choukai/point_N4.json': f41,
-  'problems/choukai/point_N5.json': f42,
-  'problems/choukai/sokuji_N3.json': f43,
-  'problems/choukai/sokuji_N4.json': f44,
-  'problems/choukai/sokuji_N5.json': f45,
-  'problems/dokkai/choubun_N3.json': f46,
-  'problems/dokkai/joho_N3.json': f47,
-  'problems/dokkai/joho_N4.json': f48,
-  'problems/dokkai/joho_N5.json': f49,
-  'problems/dokkai/naiyou_chu_N3.json': f50,
-  'problems/dokkai/naiyou_chu_N4.json': f51,
-  'problems/dokkai/naiyou_chu_N5.json': f52,
-  'problems/dokkai/naiyou_tan_N3.json': f53,
-  'problems/dokkai/naiyou_tan_N4.json': f54,
-  'problems/dokkai/naiyou_tan_N5.json': f55,
-  'problems/moji_goi/context_N3.json': f56,
-  'problems/moji_goi/context_N4.json': f57,
-  'problems/moji_goi/context_N5.json': f58,
-  'problems/moji_goi/kanji_read_N3.json': f59,
-  'problems/moji_goi/kanji_read_N4.json': f60,
-  'problems/moji_goi/kanji_read_N5.json': f61,
-  'problems/moji_goi/mock/context_N3.json': f62,
-  'problems/moji_goi/mock/context_N4.json': f63,
-  'problems/moji_goi/mock/context_N5.json': f64,
-  'problems/moji_goi/mock/kanji_read_N3.json': f65,
-  'problems/moji_goi/mock/kanji_read_N4.json': f66,
-  'problems/moji_goi/mock/kanji_read_N5.json': f67,
-  'problems/moji_goi/mock/orthography_N3.json': f68,
-  'problems/moji_goi/mock/orthography_N4.json': f69,
-  'problems/moji_goi/mock/orthography_N5.json': f70,
-  'problems/moji_goi/mock/synonym_N3.json': f71,
-  'problems/moji_goi/mock/synonym_N4.json': f72,
-  'problems/moji_goi/mock/synonym_N5.json': f73,
-  'problems/moji_goi/mock/usage_N3.json': f74,
-  'problems/moji_goi/mock/usage_N4.json': f75,
-  'problems/moji_goi/orthography_N3.json': f76,
-  'problems/moji_goi/orthography_N4.json': f77,
-  'problems/moji_goi/orthography_N5.json': f78,
-  'problems/moji_goi/synonym_N3.json': f79,
-  'problems/moji_goi/synonym_N4.json': f80,
-  'problems/moji_goi/synonym_N5.json': f81,
-  'problems/moji_goi/usage_N3.json': f82,
-  'problems/moji_goi/usage_N4.json': f83,
+  'problems/bunpou/mock/order_N3.json': f27,
+  'problems/bunpou/mock/order_N4.json': f28,
+  'problems/bunpou/mock/order_N5.json': f29,
+  'problems/bunpou/mock/passage_grammar_N3.json': f30,
+  'problems/bunpou/mock/passage_grammar_N4.json': f31,
+  'problems/bunpou/mock/passage_grammar_N5.json': f32,
+  'problems/bunpou/order_N3.json': f33,
+  'problems/bunpou/order_N4.json': f34,
+  'problems/bunpou/order_N5.json': f35,
+  'problems/bunpou/passage_grammar_N3.json': f36,
+  'problems/bunpou/passage_grammar_N4.json': f37,
+  'problems/bunpou/passage_grammar_N5.json': f38,
+  'problems/choukai/gaiyou_N3.json': f39,
+  'problems/choukai/hatsuwa_N3.json': f40,
+  'problems/choukai/hatsuwa_N4.json': f41,
+  'problems/choukai/hatsuwa_N5.json': f42,
+  'problems/choukai/kadai_N3.json': f43,
+  'problems/choukai/kadai_N4.json': f44,
+  'problems/choukai/kadai_N5.json': f45,
+  'problems/choukai/point_N3.json': f46,
+  'problems/choukai/point_N4.json': f47,
+  'problems/choukai/point_N5.json': f48,
+  'problems/choukai/sokuji_N3.json': f49,
+  'problems/choukai/sokuji_N4.json': f50,
+  'problems/choukai/sokuji_N5.json': f51,
+  'problems/dokkai/choubun_N3.json': f52,
+  'problems/dokkai/joho_N3.json': f53,
+  'problems/dokkai/joho_N4.json': f54,
+  'problems/dokkai/joho_N5.json': f55,
+  'problems/dokkai/naiyou_chu_N3.json': f56,
+  'problems/dokkai/naiyou_chu_N4.json': f57,
+  'problems/dokkai/naiyou_chu_N5.json': f58,
+  'problems/dokkai/naiyou_tan_N3.json': f59,
+  'problems/dokkai/naiyou_tan_N4.json': f60,
+  'problems/dokkai/naiyou_tan_N5.json': f61,
+  'problems/moji_goi/context_N3.json': f62,
+  'problems/moji_goi/context_N4.json': f63,
+  'problems/moji_goi/context_N5.json': f64,
+  'problems/moji_goi/kanji_read_N3.json': f65,
+  'problems/moji_goi/kanji_read_N4.json': f66,
+  'problems/moji_goi/kanji_read_N5.json': f67,
+  'problems/moji_goi/mock/context_N3.json': f68,
+  'problems/moji_goi/mock/context_N4.json': f69,
+  'problems/moji_goi/mock/context_N5.json': f70,
+  'problems/moji_goi/mock/kanji_read_N3.json': f71,
+  'problems/moji_goi/mock/kanji_read_N4.json': f72,
+  'problems/moji_goi/mock/kanji_read_N5.json': f73,
+  'problems/moji_goi/mock/orthography_N3.json': f74,
+  'problems/moji_goi/mock/orthography_N4.json': f75,
+  'problems/moji_goi/mock/orthography_N5.json': f76,
+  'problems/moji_goi/mock/synonym_N3.json': f77,
+  'problems/moji_goi/mock/synonym_N4.json': f78,
+  'problems/moji_goi/mock/synonym_N5.json': f79,
+  'problems/moji_goi/mock/usage_N3.json': f80,
+  'problems/moji_goi/mock/usage_N4.json': f81,
+  'problems/moji_goi/orthography_N3.json': f82,
+  'problems/moji_goi/orthography_N4.json': f83,
+  'problems/moji_goi/orthography_N5.json': f84,
+  'problems/moji_goi/synonym_N3.json': f85,
+  'problems/moji_goi/synonym_N4.json': f86,
+  'problems/moji_goi/synonym_N5.json': f87,
+  'problems/moji_goi/usage_N3.json': f88,
+  'problems/moji_goi/usage_N4.json': f89,
 };
