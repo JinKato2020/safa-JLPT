@@ -58,17 +58,28 @@ import f55 from '../../../content/problems/moji_goi/context_N5.json';
 import f56 from '../../../content/problems/moji_goi/kanji_read_N3.json';
 import f57 from '../../../content/problems/moji_goi/kanji_read_N4.json';
 import f58 from '../../../content/problems/moji_goi/kanji_read_N5.json';
-import f59 from '../../../content/problems/moji_goi/mock/kanji_read_N3.json';
-import f60 from '../../../content/problems/moji_goi/mock/kanji_read_N4.json';
-import f61 from '../../../content/problems/moji_goi/mock/kanji_read_N5.json';
-import f62 from '../../../content/problems/moji_goi/orthography_N3.json';
-import f63 from '../../../content/problems/moji_goi/orthography_N4.json';
-import f64 from '../../../content/problems/moji_goi/orthography_N5.json';
-import f65 from '../../../content/problems/moji_goi/synonym_N3.json';
-import f66 from '../../../content/problems/moji_goi/synonym_N4.json';
-import f67 from '../../../content/problems/moji_goi/synonym_N5.json';
-import f68 from '../../../content/problems/moji_goi/usage_N3.json';
-import f69 from '../../../content/problems/moji_goi/usage_N4.json';
+import f59 from '../../../content/problems/moji_goi/mock/context_N3.json';
+import f60 from '../../../content/problems/moji_goi/mock/context_N4.json';
+import f61 from '../../../content/problems/moji_goi/mock/context_N5.json';
+import f62 from '../../../content/problems/moji_goi/mock/kanji_read_N3.json';
+import f63 from '../../../content/problems/moji_goi/mock/kanji_read_N4.json';
+import f64 from '../../../content/problems/moji_goi/mock/kanji_read_N5.json';
+import f65 from '../../../content/problems/moji_goi/mock/orthography_N3.json';
+import f66 from '../../../content/problems/moji_goi/mock/orthography_N4.json';
+import f67 from '../../../content/problems/moji_goi/mock/orthography_N5.json';
+import f68 from '../../../content/problems/moji_goi/mock/synonym_N3.json';
+import f69 from '../../../content/problems/moji_goi/mock/synonym_N4.json';
+import f70 from '../../../content/problems/moji_goi/mock/synonym_N5.json';
+import f71 from '../../../content/problems/moji_goi/mock/usage_N3.json';
+import f72 from '../../../content/problems/moji_goi/mock/usage_N4.json';
+import f73 from '../../../content/problems/moji_goi/orthography_N3.json';
+import f74 from '../../../content/problems/moji_goi/orthography_N4.json';
+import f75 from '../../../content/problems/moji_goi/orthography_N5.json';
+import f76 from '../../../content/problems/moji_goi/synonym_N3.json';
+import f77 from '../../../content/problems/moji_goi/synonym_N4.json';
+import f78 from '../../../content/problems/moji_goi/synonym_N5.json';
+import f79 from '../../../content/problems/moji_goi/usage_N3.json';
+import f80 from '../../../content/problems/moji_goi/usage_N4.json';
 export const BUNDLED: Record<string, unknown> = {
   'lexicon/example_N3.json': f0,
   'lexicon/example_N4.json': f1,
@@ -129,15 +140,26 @@ export const BUNDLED: Record<string, unknown> = {
   'problems/moji_goi/kanji_read_N3.json': f56,
   'problems/moji_goi/kanji_read_N4.json': f57,
   'problems/moji_goi/kanji_read_N5.json': f58,
-  'problems/moji_goi/mock/kanji_read_N3.json': f59,
-  'problems/moji_goi/mock/kanji_read_N4.json': f60,
-  'problems/moji_goi/mock/kanji_read_N5.json': f61,
-  'problems/moji_goi/orthography_N3.json': f62,
-  'problems/moji_goi/orthography_N4.json': f63,
-  'problems/moji_goi/orthography_N5.json': f64,
-  'problems/moji_goi/synonym_N3.json': f65,
-  'problems/moji_goi/synonym_N4.json': f66,
-  'problems/moji_goi/synonym_N5.json': f67,
-  'problems/moji_goi/usage_N3.json': f68,
-  'problems/moji_goi/usage_N4.json': f69,
+  'problems/moji_goi/mock/context_N3.json': f59,
+  'problems/moji_goi/mock/context_N4.json': f60,
+  'problems/moji_goi/mock/context_N5.json': f61,
+  'problems/moji_goi/mock/kanji_read_N3.json': f62,
+  'problems/moji_goi/mock/kanji_read_N4.json': f63,
+  'problems/moji_goi/mock/kanji_read_N5.json': f64,
+  'problems/moji_goi/mock/orthography_N3.json': f65,
+  'problems/moji_goi/mock/orthography_N4.json': f66,
+  'problems/moji_goi/mock/orthography_N5.json': f67,
+  'problems/moji_goi/mock/synonym_N3.json': f68,
+  'problems/moji_goi/mock/synonym_N4.json': f69,
+  'problems/moji_goi/mock/synonym_N5.json': f70,
+  'problems/moji_goi/mock/usage_N3.json': f71,
+  'problems/moji_goi/mock/usage_N4.json': f72,
+  'problems/moji_goi/orthography_N3.json': f73,
+  'problems/moji_goi/orthography_N4.json': f74,
+  'problems/moji_goi/orthography_N5.json': f75,
+  'problems/moji_goi/synonym_N3.json': f76,
+  'problems/moji_goi/synonym_N4.json': f77,
+  'problems/moji_goi/synonym_N5.json': f78,
+  'problems/moji_goi/usage_N3.json': f79,
+  'problems/moji_goi/usage_N4.json': f80,
 };

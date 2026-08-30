@@ -17,9 +17,14 @@ export function rehydrateBanks(files: Record<string, Any>) {
   const krMap = (it: Any, level: string) => ({ ...stripI18n(it), level, daimon: 'kanji_read' });
   const KANJI_READ_BANK = bankItems(files, 'kanji_read', krMap);              // 学習(通常)
   const KANJI_READ_MOCK = bankItems(files, 'kanji_read', krMap, true);        // 模試専用プール(初見)
-  const ORTHOGRAPHY_BANK = bankItems(files, 'orthography', (it, level) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain }));
+  const ogMap = (it: Any, level: string) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain });
+  const ORTHOGRAPHY_BANK = bankItems(files, 'orthography', ogMap);           // 学習(通常)
+  const ORTHOGRAPHY_MOCK = bankItems(files, 'orthography', ogMap, true);     // 模試専用プール(初見)
   const CONTEXT_BANK = bankItems(files, 'context', (it, level) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain }));
-  const SYNONYM_BANK = bankItems(files, 'synonym', (it, level) => ({ ...stripI18n(it), level, reason: it.i18n?.ja?.explain, reasonNe: it.i18n?.ne?.explain }));
+  const CONTEXT_MOCK = bankItems(files, 'context', (it, level) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain }), true); // 模試専用プール(初見)
+  const syMap = (it: Any, level: string) => ({ ...stripI18n(it), level, reason: it.i18n?.ja?.explain, reasonNe: it.i18n?.ne?.explain });
+  const SYNONYM_BANK = bankItems(files, 'synonym', syMap);              // 学習(通常)
+  const SYNONYM_MOCK = bankItems(files, 'synonym', syMap, true);        // 模試専用プール(初見)
   // 全大問が「大問×レベル=1ファイル」構成(content/problems/<section>/<daimon>_<level>.json)。
   // 分割ファイルの item は level/daimon を持たない(ファイルヘッダ側にある)ので、ここで復元して
   // BankUnit(data/daimon.ts)が要る shape に揃える。pointId/ambiguous は item 側に入っている。
@@ -28,6 +33,8 @@ export function rehydrateBanks(files: Record<string, Any>) {
   const KNOWLEDGE_BANK = BANK_DAIMON.flatMap((daimon) =>
     // order(文の組み立て)は回答後表示用に「正しい文(ja)＋母語の意味(en/ne)」を i18n.{lang}.explain から復元。
     bankItems(files, daimon, (it, level) => ({ ...stripI18n(it), level, daimon, explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain })));
+  // 用法(⑤)の模試専用プール(初見)。学習の KNOWLEDGE_BANK からは pool='mock' が除外されるので別に取り出す。
+  const USAGE_MOCK = bankItems(files, 'usage', (it, level) => ({ ...stripI18n(it), level, daimon: 'usage', explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain }), true);
 
   const READING_SUBTYPES = ['naiyou_tan', 'naiyou_chu', 'choubun', 'joho'];
   const LISTENING_SUBTYPES = ['kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji'];
@@ -67,5 +74,5 @@ export function rehydrateBanks(files: Record<string, Any>) {
     for (const [p, f] of Object.entries(files)) if (p.startsWith('lexicon/') && (f as Any).kind === kind) Object.assign(out, (f as Any).items);
     return out;
   };
-  return { KANJI_READ_BANK, KANJI_READ_MOCK, ORTHOGRAPHY_BANK, CONTEXT_BANK, SYNONYM_BANK, KNOWLEDGE_BANK, READING, LISTENING, PASSAGE_GRAMMAR, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), FURIGANA_L10N: mergeLex('furigana'), VOCAB_FIX: mergeLex('vocabfix'), KANJI_FIX: mergeLex('kanjifix'), GRAMMAR_FIX: mergeLex('grammarfix'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
+  return { KANJI_READ_BANK, KANJI_READ_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, USAGE_MOCK, KNOWLEDGE_BANK, READING, LISTENING, PASSAGE_GRAMMAR, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), FURIGANA_L10N: mergeLex('furigana'), VOCAB_FIX: mergeLex('vocabfix'), KANJI_FIX: mergeLex('kanjifix'), GRAMMAR_FIX: mergeLex('grammarfix'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
 }

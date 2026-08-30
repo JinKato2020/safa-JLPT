@@ -123,6 +123,7 @@ interface MockItem {
   script?: string;
   explain?: string;
   itemId?: string;
+  idLabel?: string; // ヘッダーID表示専用(漢字読み/表記=「…（漢字/N4）」)。id(=採点/再出題キー)は変えない。
   daimon?: Daimon; // 大問(知識区分の内訳集計用)
   grpKey?: string; // 大問分野のi18nラベルキー(聴解の区分ラベル等・ヘッダ表示用)
   saveRef?: SaveRef; // my単語帳への保存対象(questionForUnit経由の語daimonのみ)
@@ -153,7 +154,7 @@ function pickFresh<T>(pool: T[], isSeen: (x: T) => boolean, n: number): T[] {
 }
 // JFTの知識区分を n 問。JFT本番に忠実に: 文字と語彙(moji_goi)=①〜⑤(検証済バンク)、会話と表現(bunpou)=JFT_EXPRESSION。
 // JLPTの文法(組み立て/文章の文法)はJFTに無いので出さない。評価だけJFT基準(readinessForで別途)。
-function jftKnowledgeItems(levels: Level[], category: 'moji_goi' | 'bunpou', n: number, seen: Seen): MockItem[] {
+function jftKnowledgeItems(levels: Level[], category: 'moji_goi' | 'bunpou', n: number, seen: Seen, usedWords: Set<string>): MockItem[] {
   if (n <= 0) return [];
   if (category === 'bunpou') {
     // 会話と表現: 場面(situation)に適切な表現を4択で。
@@ -166,30 +167,37 @@ function jftKnowledgeItems(levels: Level[], category: 'moji_goi' | 'bunpou', n: 
   const daimons = MOJI_DAIMON; // 文字と語彙 = ①〜⑤(漢字読み/表記/文脈規定/言い換え/用法)
   const per = Math.floor(n / daimons.length);
   let rem = n - per * daimons.length;
-  return daimons.flatMap((d) => knowledgeForDaimon(levels, d, per + (rem-- > 0 ? 1 : 0), seen));
+  return daimons.flatMap((d) => knowledgeForDaimon(levels, d, per + (rem-- > 0 ? 1 : 0), seen, usedWords));
 }
 
 // 大問1つを count 問。学習と同一の固定問題集(daimonUnitIds→questionForUnit)から出題＝模試も検証済バンクに統一。
 // 全大問(漢字読み/表記/文脈規定/言い換え/用法/文法形式/組み立て/文章の文法)が questionForUnit 経由で各固定バンクへ。
-function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen: Seen): MockItem[] {
+function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen: Seen, usedWords: Set<string>): MockItem[] {
   if (count <= 0) return [];
   const sec = DAIMON_SEC[daimon];
   // 模試専用プール(初見の別文)を持つ大問(漢字読み)は、そのプールから出題＝通常学習の文と重複しない。
   const mockUnits = levels.flatMap((lv) => mockUnitIds(lv, daimon));
   const useMock = mockUnits.length > 0;
   const units = useMock ? mockUnits : levels.flatMap((lv) => daimonUnitIds(lv, daimon, 'all'));
-  const picked = pickFresh(units, (u) => !!seen[u], count);
+  // 未出題(seen)優先で並べ、大問横断で同じ語(vocabId/文法id)は1模試に1回だけ＝usedWords でスキップ。
+  const fresh = sample(units.filter((u) => !seen[u]), units.length);
+  const stale = sample(units.filter((u) => !!seen[u]), units.length);
   const out: MockItem[] = [];
-  for (const unit of sample(picked, picked.length)) {
+  for (const unit of [...fresh, ...stale]) {
+    if (out.length >= count) break;
     const q = questionForUnit(unit, Math.random, useMock);
     if (!q) continue;
+    // 大問横断の語キー: saveRef(type:id=語彙/漢字/文法の実体)があればそれ、無ければユニットidの語部分。
+    const wkey = q.saveRef ? `${q.saveRef.type}:${q.saveRef.id}` : unit.split('#')[0];
+    if (usedWords.has(wkey)) continue; // 別の大問で既に使った語はこの模試では出さない
+    usedWords.add(wkey);
     out.push({
       kind: 'word', id: unit, section: sec, daimon,
       question: q.question, choices: q.choices, answerIndex: q.answerIndex,
-      prompt: q.prompt || undefined, reading: q.reading, example: q.example, furi: q.furi, furiTarget: q.furiTarget, noTargetRuby: q.noTargetRuby, explain: q.explain, itemId: q.itemId, saveRef: q.saveRef,
+      prompt: q.prompt || undefined, reading: q.reading, example: q.example, furi: q.furi, furiTarget: q.furiTarget, noTargetRuby: q.noTargetRuby, explain: q.explain, itemId: q.itemId, idLabel: q.idLabel, saveRef: q.saveRef,
     });
   }
-  return out.slice(0, count);
+  return out;
 }
 // 読解=1文章(+全設問)をpassage-setステップに。PassageSetPlayerが本文＋全設問を一括提示→一括採点(設問単位でスコア加算)。
 function readingSetItems(levels: Level[], nPassages: number, seen: Seen): MockItem[] {
@@ -262,11 +270,14 @@ const JFT_SEC_ORDER: Record<Sec, number> = { moji_goi: 0, bunpou: 1, choukai: 2,
 // 比率駆動: フル=本番の出題数、ミニ=round(÷3)。JLPTは大問内訳まで本番比率、JFTは区分(セクション)比率。
 function buildExam(levels: Level[], full: boolean, jft: boolean, seen: Seen): MockItem[] {
   const bp = blueprintCounts(levels[0], full, jft);
+  // 大問横断で同じ語(語彙/漢字/文法)を2つ以上の大問に出さない＝この模試1回で共有する既使用語セット。
+  // 各大問を順に組み立て、先に使った語は後の大問でスキップ(プール自体は大問間で重複可・別回で再利用可)。
+  const usedWords = new Set<string>();
   // 知識区分: JLPT=大問別(漢字読み/表記/文脈規定/言い換え/用法/文法形式/組み立て/文章の文法)、JFT=区分2つ。
   // passage_grammar(大問⑧)はセット形式で別途扱う(BANKからは除外済=Task 5)。daimonCountsからは除いてknowledgeForDaimonに渡さない。
   const knowledge = jft
-    ? [...jftKnowledgeItems(levels, 'moji_goi', bp.moji_goi, seen), ...jftKnowledgeItems(levels, 'bunpou', bp.bunpou, seen)]
-    : daimonCounts(levels[0], full).filter((d) => d.daimon !== 'passage_grammar').flatMap((d) => knowledgeForDaimon(levels, d.daimon, d.count, seen));
+    ? [...jftKnowledgeItems(levels, 'moji_goi', bp.moji_goi, seen, usedWords), ...jftKnowledgeItems(levels, 'bunpou', bp.bunpou, seen, usedWords)]
+    : daimonCounts(levels[0], full).filter((d) => d.daimon !== 'passage_grammar').flatMap((d) => knowledgeForDaimon(levels, d.daimon, d.count, seen, usedWords));
   const passageGrammar = jft ? [] : passageGrammarItems(levels, seen); // JFTにJLPTの文章の文法は無い
   // JLPT=本番の小区分構成どおりに読解/聴解を組む(短文/中文/長文/情報検索・課題/ポイント/概要/発話/即時)。JFTは従来の予約枠。
   const reading = jft ? readingSetItems(levels, bp.dokkai, seen) : readingByBlueprint(levels, levels[0], full, seen);
@@ -895,7 +906,7 @@ export default function MockScreen() {
         {/* 大問分野（大問内の 現在/総数）＋ 問題IDを小さく */}
         <View style={s.daimonRow}>
           <Text style={s.secTag} numberOfLines={1}>{grpLabel}　{idx - gStart + 1} / {gEnd - gStart + 1}</Text>
-          <Text style={s.qidText}>ID: {cur.id}</Text>
+          <Text style={s.qidText}>ID: {cur.idLabel ?? cur.id}</Text>
         </View>
       </View>
 

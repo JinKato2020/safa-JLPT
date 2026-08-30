@@ -111,6 +111,8 @@ export const VOCAB_SYN = vocabSynonymsJson as Record<string, string>;
 /** 知識バンク=実データから作れない大問(用法/文の組み立て/文章の文法)の生成問題。模試で本番比率に使う。 */
 export interface KnowledgeBankItem { id: string; level: string; daimon: string; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; explain?: string; explainEn?: string; explainNe?: string; }
 export const KNOWLEDGE_BANK = _R.KNOWLEDGE_BANK as KnowledgeBankItem[];
+// 用法(⑤)の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う。KnowledgeBankItem と同形＋vocabId。
+export const USAGE_MOCK = _R.USAGE_MOCK as KnowledgeBankItem[];
 
 /** 辞書Browse拡張(N2/N1・参考辞書・学習対象外)。JMdict/KANJIDIC由来。levelがN2/N1なのでcastで型を通す。 */
 export const DICT_EXT_VOCAB = (dictExtJson.vocab as unknown) as VocabItem[];
@@ -260,6 +262,7 @@ export const KANJI_READ_MOCK = _R.KANJI_READ_MOCK as KanjiReadBankItem[];
 // 文脈規定(大問3)の固定問題集。id=cx:<vocabId>、choices=誤答3(正解は実行時にanswerを先頭付与)。
 export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; verified?: boolean; }
 export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];
+export const CONTEXT_MOCK = _R.CONTEXT_MOCK as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
 // verified=誤答を作り直し、独立の反証で「第2の正解が無い」ことを確認済みの問題。
 // ★出題ゲートは無い(edb076f・2026-07-17)。開発者しか触らないため未検証の旧問題も出す。
@@ -271,10 +274,13 @@ export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];
 export type SynonymPattern = 'noun' | 'adj' | 'adv' | 'verb' | 'hypernym' | 'negation_cross' | 'perspective_cross';
 export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; verified?: boolean; stem?: string; pattern?: SynonymPattern; }
 export const SYNONYM_BANK = _R.SYNONYM_BANK as SynonymBankItem[];
+// 言い換え(④)の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う。
+export const SYNONYM_MOCK = _R.SYNONYM_MOCK as SynonymBankItem[];
 // 表記(大問2)の固定問題集(公式形式)。文中の対象語をかな(読み)で下線→正しい漢字/カタカナを4択。
 // 誤答=形が似た字(部首/字形の似た別漢字・字形の似たカタカナ)。生成=問題/tools/build_orthography_bank.py。
 export interface OrthographyBankItem { id: string; level: string; sentence: string; underline: string; answer: string; choices: string[]; explain?: string; explainNe?: string; }
 export const ORTHOGRAPHY_BANK = _R.ORTHOGRAPHY_BANK as OrthographyBankItem[];
+export const ORTHOGRAPHY_MOCK = _R.ORTHOGRAPHY_MOCK as OrthographyBankItem[];
 // ①〜④問題文のふりがな(漢字（かな）)。bankId→ふりがな付き文。kuroshiro生成。レベル適応ルビの元データ。
 export const SENTENCE_FURI = sentenceFuri as Record<string, string>;
 // 学習カード用の追加ふりがな(⑤用法の例文/解説/対象語 等)。生文字列→ふりがな付き。kuroshiro生成＋文脈校正。

@@ -136,33 +136,36 @@ else:
     wb = Workbook()
     ws = wb.active; ws.title = '大問別まとめ'
 # 学習の割増し倍数（通常問題数を語あたり何問に増やしたか）・模試プールの問題数・メモ。
-# 現状=漢字読みのみ実施(N5=各語3問=×3・裸の数字14語は据え置き／模試N5=104・N4=90・N3=80)。他大問は未実施=×1。
+# 現状=漢字読みのみ×3割増し／模試プールは漢字読み(104/90/80)・表記(80/60/60)の2大問に新設。他大問は未実施=×1。
 MULT = {('漢字読み', 'N5'): '×3'}
-MOCK = {('漢字読み', 'N5'): 104, ('漢字読み', 'N4'): 90, ('漢字読み', 'N3'): 80}
-MEMO = {('漢字読み', 'N5'): 'N5の質の高い漢字語（数字・接尾辞を除く）は実質104語＝N5は漢字自体が少ないため上限。模試プールは120でなく104問が自然な上限。'}
-cols = ['セクション', '大問', 'レベル', '在庫問題数', '割増し倍数', '模試問題数', 'メモ', 'セット数', '未検証', '本番出題数', '模試換算(何回分)', '誤答数の内訳', 'シャッフル']
+MOCK = {('漢字読み', 'N5'): 104, ('漢字読み', 'N4'): 90, ('漢字読み', 'N3'): 80,
+        ('表記', 'N5'): 80, ('表記', 'N4'): 60, ('表記', 'N3'): 60,
+        ('文脈規定', 'N5'): 100, ('文脈規定', 'N4'): 100, ('文脈規定', 'N3'): 110,
+        ('言い換え類義', 'N5'): 50, ('言い換え類義', 'N4'): 50, ('言い換え類義', 'N3'): 50,
+        ('用法', 'N4'): 50, ('用法', 'N3'): 50}
+MEMO = {('漢字読み', 'N5'): 'N5の質の高い漢字語（数字・接尾辞を除く）は実質104語＝N5は漢字自体が少ないため上限。模試プールは120でなく104問が自然な上限。',
+        ('表記', 'N5'): '漢字読みN5の104×2の例題を流用'}
+cols = ['セクション', '大問', 'レベル', '在庫問題数', '割増し倍数', '模試問題数', 'メモ', 'セット数', '本番出題数', '模試換算(何回分)', '誤答数の内訳', 'シャッフル']
 ws.append(cols); style_header(ws, len(cols))
 for (sec, dai, lv, st, se, uv, hb, k, ed, sh) in rows:
     mult = MULT.get((dai, lv), '×1')
     mock = MOCK.get((dai, lv), '—')
     memo = MEMO.get((dai, lv), '')
     ws.append([sec, dai, lv, st, mult, mock, memo, (se if se is not None else '—'),
-               ('—' if uv is None else uv), (hb if hb is not None else '—'),
+               (hb if hb is not None else '—'),
                ('—' if k is None else k), (ed or '—'), sh])
     r = ws.max_row
     ws.cell(r, 1).fill = PatternFill('solid', fgColor=FILL_SEC.get(sec, 'FFFFFF'))
     for c in range(1, len(cols) + 1):
         cell = ws.cell(r, c); cell.border = BORDER
-        cell.alignment = LEFT if c in (1, 2, 7, 12) else CEN  # セクション/大問/メモ/誤答数内訳=左寄せ
+        cell.alignment = LEFT if c in (1, 2, 7, 11) else CEN  # セクション/大問/メモ/誤答数内訳=左寄せ
     if mult != '×1':
         ws.cell(r, 5).font = Font(bold=True, color='1F7A3D')  # 割増し実施は緑太字
     fc = kaisu_fill(k)
     if fc:
-        kc = ws.cell(r, 11); kc.fill = PatternFill('solid', fgColor=fc); kc.font = Font(bold=True)
-    if uv not in (None, 0):
-        ws.cell(r, 9).font = Font(bold=True, color='C0392B')  # 未検証>0 は赤字
+        kc = ws.cell(r, 10); kc.fill = PatternFill('solid', fgColor=fc); kc.font = Font(bold=True)
 ws.freeze_panes = 'D2'
-widths = [12, 16, 7, 12, 9, 10, 46, 9, 8, 11, 15, 26, 12]
+widths = [12, 16, 7, 12, 9, 10, 46, 9, 11, 15, 26, 12]
 for i, w in enumerate(widths, 1): ws.column_dimensions[get_column_letter(i)].width = w
 ws.cell(1, 6).comment = None
 ws.auto_filter.ref = f'A1:{get_column_letter(len(cols))}1'
@@ -200,26 +203,8 @@ ws2.append([]); ws2.append(['凡例：赤=5回以下(不足) / 橙=15回以下(�
 ws2.cell(ws2.max_row, 1).font = Font(italic=True, color='7A756C')
 for i, w in enumerate([14, 8, 8, 8], 1): ws2.column_dimensions[get_column_letter(i)].width = w
 
-# Sheet3: 参考（辞書母数・在庫外・合計）
-ws3 = wb.create_sheet('参考', 2)
-ws3.append(['◆ 参考データ']); ws3.cell(1, 1).font = Font(bold=True, size=12, color=NAVY)
-ws3.append([])
-total_stock = sum(st for (_, _, _, st, _, _, _, _, _, _) in rows)
-ws3.append(['在庫 合計', total_stock, '問']); ws3.cell(ws3.max_row, 1).font = Font(bold=True)
-ao = sum(n for _, n in audited_out)
-ws3.append(['在庫外（監査に落ちた分・在庫に数えない）', ao, '問'])
-for name, n in audited_out:
-    ws3.append([f'　└ {name}', n, '問'])
-ws3.append([])
-ws3.append(['辞書にある全単語数（問題化の母数）', '', ''])
-ws3.cell(ws3.max_row, 1).font = Font(bold=True, color=NAVY)
-ws3.append(['辞書', '合計', '内訳']); style_header(ws3, 3, ws3.max_row)
-for name, n, br in dict_base:
-    ws3.append([name, n, br])
-    for c in range(1, 4):
-        ws3.cell(ws3.max_row, c).border = BORDER
-        ws3.cell(ws3.max_row, c).alignment = LEFT if c != 2 else CEN
-for i, w in enumerate([40, 10, 30], 1): ws3.column_dimensions[get_column_letter(i)].width = w
+# 参考シートは廃止（ユーザー指示 2026-08-30）。_OWN に残すことで既存の参考シートは再生成時に削除される。
+total_stock = sum(st for (_, _, _, st, _, _, _, _, _, _) in rows)  # 集計ログ用にのみ計算
 
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 wb.save(OUT)

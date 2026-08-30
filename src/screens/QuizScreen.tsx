@@ -243,7 +243,7 @@ export default function QuizScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={title} id={question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} onPressId={canDevPick ? () => setPickerOpen(true) : undefined} />
+        <ExamHeader title={title} id={question.idLabel ?? question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} onPressId={canDevPick ? () => setPickerOpen(true) : undefined} />
         {canDevPick ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={(question.itemId ?? answerId) as string} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
 
         <View style={s.promptCard}>

@@ -1,18 +1,44 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 10 回・29 ターン
-- 往復 420 回
+- ツール呼び出し 13 回・30 ターン
+- 往復 181 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/在庫・模試ストックまとめ.xlsx
+- .gitignore
+- package.json
+- src/data/usageMockDistractor.test.ts
 - memory/session-summary-LATEST.md
-- src/data/dict/sentenceFuri.json
-- content/_manifest.json
 
 ## 次の一手
-- **▶▶ 2026-08-29 LIVE(最新)＝模試10回分プロジェクト開始＋在庫Excel/本体の本番出題数をN5公式値へ全面修正【未コミット】**：ユーザー要望＝各大問×模試10回分を「模試専用プール(通常学習に出さない)」として別作成。**確定=別プールは新フォルダ`content/problems/moji_goi/mock/`**。試作=漢字読みN5 8問(頻出5+残り3・型A/B・`scratchpad/mock_kanji_read_N5_trial.json`)。**選定ルール=eligible語をvocabFreq降順で「上位半分＋残り半分(均等サンプル)」・`～`接尾辞は除外**(語リスト=scratchpad/mock_words_v2.json)。数=公式12/9/8×10=N5:120/N4:90/N3:80。
+- **▶▶ 2026-08-30 LIVE(最新)＝言い換え④・用法⑤ 模試プール新設＝✅完成(未コミット)。詳細＝[[synonym-usage-mock-inflight]]**：
+  - **✅250問**＝言い換え N5:50/N4:50/N3:50(N5/N4=文レベル・N3=語レベル)＋用法 N4:50/N3:50(N5用法なし)。`content/problems/moji_goi/mock/{synonym,usage}_*.json`(pool='mock'・id -IM-/-YM-・languages['ja']・ルビ全角インライン)。Opus5体・機械検証250全PASS・予備差替少数・uniqRisk mid19/high0。
+  - **✅結線+番人+Excel 全緑**：rehydrate(SYNONYM_MOCK/USAGE_MOCK・mockは学習バンクから自動除外)・index・daimon(HAS_MOCK_POOL+='synonym','usage'・mockUnitIds/questionForUnit分岐・synはstem有無でN4文/N3語自動)・`src/data/synonymUsageMock.test.ts`(package.json登録)16/16。**tsc0・npm test 448/448・rebuild(81files・_manifest再生成)**。在庫Excel(模試問題数列に言い換え50/50/50・用法50/50)＋一意性チェック_模試_{N5,N4,N3}.xlsx 再生成(赤0/黄14,11,10)。
+  - **★次の一手（ユーザー決定 2026-08-30）＝まとめて1回コミット**：(a)表記模試200[[ortho-mock-inflight]] (b)文脈規定模試310[[context-mock-inflight]] (c)言い換え150+用法100[[synonym-usage-mock-inflight]] (d)付随(規律/tools/Excel/_manifest/bundled)を**全部1コミット**。push=OTAでcontent配信・daimon/index/rehydrate/MockScreen等コード変更は**次ビルドで実機反映**(それまで旧アプリはpool='mock'を出さない=害なし)。**push/ビルドはユーザー明示指示のみ**。
+  - **未処理レビュー**＝`一意性チェック_模試_{N5,N4,N3}.xlsx`(プロジェクト直下・黄=mid・赤0)。直し指示があればコミット前に反映。用法mockのP1/P2番人は未対応(自己申告のまま・必要なら要拡張)。
+  - --- 以下は前タスク(文脈規定模試)の記録 ---
+- **▶▶ 2026-08-30 (前)＝文脈規定 模試プール新設＝✅完成(未コミット)。詳細＝[[context-mock-inflight]]**：
+  - **✅310問**(N5:100/N4:100/N3:110)＝`content/problems/moji_goi/mock/context_{N5,N4,N3}.json`(pool='mock'・id N{lv}-V-CM-####)。Opus9体生成・機械検証(形)0エラー・品質=公式同等(2段階=軸で揃え＋鍵1つ・near-miss必須・分野違い/同方向誤答ゼロ)。
+  - **✅結線+大問横断ユニーク化+ふりがな173+番人6+Excel** 全緑：daimon/rehydrate/index(CONTEXT_MOCK・HAS_MOCK_POOL+='context'・CTX_MOCK_MULTI・useMock分岐)、MockScreen(buildExam usedWords=同一模試で同語は先着1大問)、sentenceFuri+173(（）除去で原文一致検証)、`src/data/contextMock.test.ts`(package.jsonに登録)、stock_excel MOCK+文脈規定100/100/110、一意性チェック_模試_{N5,N4,N3}.xlsx(赤0/黄N5:2 N4:7 N3:7=mid申告)。**tsc0・npm test 432/432・rebuild(76)・ランタイム実測OK(mockは初見文・学習と別)**。
+  - **★次の一手（ユーザー決定 2026-08-30）＝コミットしない。言い換え類義・用法の模試を作ってから“まとめて1回コミット”。手順書＝[[synonym-usage-mock-inflight]]（`memory/synonym-usage-mock-inflight.md`）**：
+    - 次タスク＝**言い換え模試50/50/50＋用法模試N4:50/N3:50（N5用法なし）＝計250問**（公式×10）。**進捗2026-08-30: 語彙選定=完了・ユーザー承認済**（`tools/select_iikae_youhou_mock.py`→`scratchpad/iikae_youhou_mock/select_*.json`＋preview.txt。指標=vocabFreq+iikaePossible(p=1)+usage実績語+方法C。頻出半分+中頻度半分・予備15）。ダミー設計/品質/ルビ方針も合意済。**次=作問（/clear後）**＝5エージェント(Opus・iikae N5/N4/N3・youhou N4/N3・各自mock jsonをWrite)→ルビ工程→番人→結線(HAS_MOCK_POOL+='synonym','usage'・synonymはN4文/N3語の2分岐)→_manifest再生成→quality_excel。**全仕様の正本＝[[synonym-usage-mock-inflight]]（実読必須）**。
+    - **まとめてコミットの中身**＝(a)表記模試200[[ortho-mock-inflight]] (b)文脈規定模試310[[context-mock-inflight]] (c)言い換え150+用法100 (d)付随(規律/tools/Excel/manifest)。**push=OTA配信・コード変更は次ビルドで実機反映・ビルドはユーザー明示指示のみ**。
+    - 未処理レビュー＝`一意性チェック_模試_{N5,N4,N3}.xlsx`(プロジェクト直下・黄=mid N5:2/N4:7/N3:7・赤0)。直し指示があればコミット前に反映。
+  - **⏸ /clear 実施（ユーザー要望）＝この handoff＋2つの inflight で状態は全てファイル化済。会話にしか無い情報なし。**
+  - --- 以下は着手時メモ(参考) ---
+  - **✅完了(未コミット)**＝(a)**Excel整理**＝シート5枚削除(①大問別まとめ/④習得の仕組み/学習ドリル×カバー率/⑤用法カバー×バランス/参考)＋大問別まとめのI列(未検証)削除＋DEF最新化＋MOCK dictに表記80/60/60追加(`tools/stock_excel.py`) (b)**ルール記録**＝「模試は同一回内で同じ語彙/漢字/文法語を複数大問に出さない(プール間の重複は可)」をCLAUDE.md §1＋メモリ[[mock-cross-daimon-no-word-reuse]]に (c)**語選定 確定**＝`tools/select_context_mock.py`→`scratchpad/context_mock/select_{N5,N4,N3}.json`(100/100/110・頻出半分＋中頻度半分・他大問模試プール重複0)。
+  - **★次の一手＝生成から**（[[context-mock-inflight]]の「★次の一手」節）：(2)Opus生成(md/03_文脈規定.md準拠・反証/修正エージェント無し)→mock/書出し (3)機械検証(エラーは修正前にユーザーへ提示) (4)結線(rehydrate/index/daimon HAS_MOCK_POOL+='context')＋ふりがな＋rebuild＋番人 (5)大問横断ユニーク化ルールをMockScreenに実装＋番人 (6)Excelに文脈規定100/100/110追加→push。
+  - **★今回追加した仕組み(全模試フロー共通・永久)＝一意性 自己申告**：生成エージェントは各itemに `uniqRisk:"high"|"mid"`＋`uniqNote`(理由1文)を作問と同時に付ける(一意に自信あれば欄なし)。生成後 `python tools/quality_excel.py`→プロジェクト直下 `一意性チェック_{模試,通常}_{N5,N4,N3}.xlsx`(レベル毎ファイル・大問毎シート・🔴high/🟡mid色付け)でユーザーがレビュー。**一意性の最終判断はユーザー・私は意味検証エージェントを走らせない**。正本=`md/一意性自己申告ルール.md`＋メモリ[[uniqueness-self-declaration-in-generation]]。器(quality_excel.py)は実装・実行済(既存は自己申告欄未付与ゆえ現状ほぼ無色)。ルビは別パス「読みだけ返させる」方式が最省トークン([[sentence-furigana-needs-llm]])。
+  - **前タスク(表記模試200問)＝コミット/push未実施のまま**（下の旧LIVE）。今セッションでpushはまだしていない＝表記模試＋文脈模試＋Excel＋ルールを**まとめてコミット/push**予定（ユーザー指示待ち。コード変更は次ビルドで実機反映）。
+- **▶▶ 2026-08-30 (旧)＝今セッション冒頭の未コミット4件（全て未コミット・未push・未ビルド）。次＝Excel(模試/①)更新→番人→push**：
+  1. **表記模試200問 完成**（N5:80/N4:60/N3:60・pool='mock'）＝詳細と残手順は **[[ortho-mock-inflight]]**（`memory/ortho-mock-inflight.md`）。ファイル＝`content/problems/moji_goi/mock/orthography_{N5,N4,N3}.json`＋結線(rehydrate/index/daimon)＋sentenceFuri。rebuild済・tsc0・実機OK。**残＝(a)番人テスト (b)Excel模試ストックに表記80/60/60追加(`stock_excel.py`のMOCK dict) (c)push(OTA・build.ps1でなくgit push)**。※LLM生成・機械検証のみ(反証/修正エージェント無し・ユーザー指示)。
+  2. **漢字読み/表記ヘッダーIDに「（漢字/N4）」併記**＝`src/quiz/quiz.ts`(idLabel)・`daimon.ts`(kanjiLevelTag)・`QuizScreen.tsx`/`MockScreen.tsx`。itemId(採点キー)は不変・表示のみ。tsc0・番人7/7。**UI変更=次ビルドで実機反映**。
+  3. **表記(学習)を漢字読み新規文から流用+262問**＝`orthography_N5.json`(587→849)・`daimon.ts`(OG_BANK_MULTI=1語複数文)・sentenceFuri+24。Excel「大問別まとめ」表記N5=在庫474/模試換算59/誤答3:849に更新済。**①大問別まとめの表記N5誤答内訳3:587→3:849 の同期だけ未保存(Excelが開いていて書けず)**。カタカナ66語は流用元(漢字読み)無しで対象外。
+  4. **Excel新シート「⑥ 翻訳状況」**＝UI(ja/en/ne=100%,他7言語23%)・辞書・各大問・聴解(台本訳なし)・ドリルの翻訳率を集計。
+  - **重要＝この4件はどれも未コミット。コード変更(daimon/quiz/rehydrate/index/screens)はOTAでは実機反映されず次ビルド必須。今回ユーザー指示は"push"(=OTAでcontent配信)まで。ビルドは別途明示指示で。**
+  - **v1.1.24(2884)は今セッション冒頭でビルド済(TestFlight/Play提出済・iOS本日6/8)。**
+- **▶▶ 2026-08-29 LIVE＝模試10回分プロジェクト開始＋在庫Excel/本体の本番出題数をN5公式値へ全面修正【未コミット】**：ユーザー要望＝各大問×模試10回分を「模試専用プール(通常学習に出さない)」として別作成。**確定=別プールは新フォルダ`content/problems/moji_goi/mock/`**。試作=漢字読みN5 8問(頻出5+残り3・型A/B・`scratchpad/mock_kanji_read_N5_trial.json`)。**選定ルール=eligible語をvocabFreq降順で「上位半分＋残り半分(均等サンプル)」・`～`接尾辞は除外**(語リスト=scratchpad/mock_words_v2.json)。数=公式12/9/8×10=N5:120/N4:90/N3:80。
   - **★本番出題数のズレ修正(今会話)**：Excel/本体が**N5だけアプリ圧縮値**を使い公式とズレ→公式(md実読)へ統一。**(1)`tools/mock_stock.py` BP dict**=N5を漢字読み7→12/表記5→8/文脈6→10/言い換え3→5/文法形式9→16/組立4→5/文章文法4→5。**(2)`src/data/examBlueprint.ts`**=DAIMON_BLUEPRINT.N5同値＋JLPT_BLUEPRINT.N5 moji21→35/bunpou17→26(計91)。**mock/scoringテスト26緑**。N4/N3/読解/聴解は元から公式一致=不変。
   - **★在庫Excel整理**(`memory/在庫・模試ストックまとめ.xlsx`)：**canonical=eligible**へ＝`tools/stock_excel.py`に漢字読み/表記の在庫をeligible語数(出題級testLevelで絞る)へ上書き追加(漢字読みN5=146・md一致)。**frozen重複シート「① 在庫・模試換算」「目次・凡例」を削除**(生成ツール無し・大問別まとめと重複)。残8シート。フル模試=N5:12/N4:18/N3:25。
   - **⚠既存の別問題(未対処)**：カバー率系ツール(update_*_coverage/stock_analysis_color)は旧シート名'単語×大問カバー率'等を対象=現ファイルの手動リネーム名'② カバー率'等と不一致→次回実行で新シート量産の恐れ。今回は不介入。

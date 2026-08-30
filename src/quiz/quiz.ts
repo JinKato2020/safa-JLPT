@@ -45,6 +45,7 @@ export interface Question {
   furiTarget?: string; // 下線対象語(furi中で下線を引く語)。
   noTargetRuby?: boolean; // ①漢字読み: 対象語にはふりがなを出さない(読みが問題)。
   saveRef?: SaveRef; // my単語帳への保存対象(解決できた問題のみ)。
+  idLabel?: string; // ヘッダー表示専用のID文字列。itemId(=状態/採点キー)は変えず、漢字読み/表記だけ「n5-v-403#kanji_read（漢字/N4）」の形で対象の級を併記する。無ければ itemId を表示。
 }
 
 export type Rng = () => number;
