@@ -323,14 +323,14 @@
 - afaf52fdbd5492a5c workflow-subagent
 
 ## 直近24時間の変更ファイル（自動）
+- memory/在庫・模試ストックまとめ.xlsx
+- tools/stock_excel.py
+- memory/在庫・模試ストックまとめ - コピー.xlsx
+- memory/session-summary-LATEST.md
 - memory/handoff.md
 - memory/grammar-form-mock-inflight.md
-- 一意性チェック_文法形式.xlsx
-- scratchpad/gf_mock/out_mock_N3b.json
-- scratchpad/gf_mock/out_mock_N3a.json
-- scratchpad/gf_mock/out_mock_N4c.json
-- scratchpad/gf_mock/out_mock_N4b.json
-- scratchpad/gf_mock/out_mock_N4a.json
+- 一意性チェック_通常_N3.xlsx
+- 一意性チェック_通常_N4.xlsx
 
-_自動更新: 2026-08-30 13:32_
+_自動更新: 2026-08-30 13:53_
 <!-- AUTO:END -->

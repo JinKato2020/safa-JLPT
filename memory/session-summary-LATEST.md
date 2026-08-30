@@ -1,20 +1,21 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 6 回・18 ターン
-- 往復 105 回
+- ツール呼び出し 7 回・18 ターン
+- 往復 145 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/grammar-form-mock-inflight.md
-- 一意性チェック_文法形式.xlsx
-- scratchpad/gf_mock/out_mock_N3b.json
-- scratchpad/gf_mock/out_mock_N3a.json
+- memory/在庫・模試ストックまとめ.xlsx
+- tools/stock_excel.py
+- memory/在庫・模試ストックまとめ - コピー.xlsx
+- memory/session-summary-LATEST.md
 
 ## 次の一手
-- **▶▶ 2026-08-30 LIVE＝文法形式 学習倍増＋模試プール新設＝✅生成フェーズ完了(作問627+ルビ+全検証+一意性Excel)・クリア境界。正本＝[[grammar-form-mock-inflight]]**：
-  - **✅完了**＝作問627問（N5学習+187で211→398・各点4問／模試新設440＝N5:160/N4:150/N3:130・全問ユニーク・公式頻度ミラー）＋ルビ全付与＋機械検証全PASS（エラー0/重複0/pointId実在）＋一意性チェックExcel（`一意性チェック_文法形式.xlsx`・黄22件）。成果は `scratchpad/gf_mock/out_*.json`（ルビ入り・answer=choices[0]済）。
-  - **★次の一手＝ユーザーが /clear → inflight「### /clear後の残作業」を実読 → [1]配置→[2]結線→[3]rebuild/tsc/test→[4]在庫Excel→[5]コミット（すべて機械作業・エージェント不使用）。** push/ビルドはユーザー明示指示のみ。
+- **▶▶ 2026-08-30 LIVE＝文法形式 学習倍増＋模試プール新設＝✅全工程完了・コミット済(未push/未ビルド)。正本＝[[grammar-form-mock-inflight]]**：
+  - **✅完了(コミット済)**＝配置(N5学習 211→398・各点4問／模試新設 N5:160/N4:150/N3:130=公式16/15/13×10・全問ユニーク)＋結線(rehydrate/index/daimon HAS_MOCK_POOL+='grammar_form')＋番人`src/data/grammarFormMock.test.ts`(6件)＋rebuild(84)＋**tsc0・npm test 458/458**＋ランタイム実測OK(mockUnits160/150/130・cloze・空所〔　〕・学習では未解決=汚染なし)＋在庫Excel全チェーン(bunpou模試換算 N5=24回)＋一意性Excel再生成(模試黄19/19/15・通常N5黄21・赤0)。
+  - **★配置時に機械修正2件**：(1)空所マーカーを生成物`【　】`→アプリ実装前提の`〔　〕`へ全627問変換(inflightの「【　】固定」記載は誤り)。(2)既存と完全一致の新規learn stem 3件を別文脈へ最小改変(pointId/answer/choices保持)。
+  - **★次の一手＝ユーザー明示指示で (a)push=OTAでcontent配信 (b)build.ps1でビルド(daimon/rehydrate/index等コード変更は次ビルドで実機反映。それまで旧アプリはpool='mock'非表示=学習混入なし)。** 未処理レビュー=一意性チェック_模試/通常_{N5,N4,N3}.xlsx(黄=mid・QA用・.gitignore非コミット)。
   - --- 以下は作問前の設計記録（参考・実行仕様はinflight） ---
   - **【準備完了】** 一次情報実測済(N5学習211問99点・不足187・既存-B-最大227→新id N5-G-B-0228〜)。エージェント参照ブロック11本を `scratchpad/gf_mock/slice_{learn_N5_1..3, mock_N5a/b/c, mock_N4a/b/c, mock_N3a/b}.txt` に生成済(各体argsで渡す・出力=out_*.json)。結線コード差分・機械検証・配置手順すべて inflight「★実行仕様★」に確定記録。**/clear後は inflight＋該当sliceだけ読めば実行できる(点辞書の生データ再読不要)**。
   - **A=N5 学習を各点4問に揃える**（grammar_form_N5 211→398・**+187問**・不足点だけ新規別問・id `N5-G-B-0212〜`）→模試換算13→約24。N4/N3学習は据え置き。生成=3体。
