@@ -3,7 +3,7 @@
 //    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
 //  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
 //  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
-import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, USAGE_MOCK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, KANJI_READ_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, passageGrammarSetsFor, meaningIn, type StudyItem } from './index';
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, USAGE_MOCK, GRAMMAR_FORM_MOCK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, KANJI_READ_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, passageGrammarSetsFor, meaningIn, type StudyItem } from './index';
 import type { Daimon } from './examBlueprint';
 import { hasKanji, makeQuestion, sample, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
 import type { Level } from '../engine/engine';
@@ -118,7 +118,7 @@ function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
 
 // 学習/模試の分割: EXAM_EVERY 個に1つ(=末尾側)を模試専用(初見)に確保、残りが学習集合。
 // ★模試専用プール(pool='mock')を別に持つ大問は、学習側の抜き取りを廃止=全語を学習に回す(初見は別プールから)。
-const HAS_MOCK_POOL = new Set<Daimon>(['kanji_read', 'orthography', 'context', 'synonym', 'usage']);
+const HAS_MOCK_POOL = new Set<Daimon>(['kanji_read', 'orthography', 'context', 'synonym', 'usage', 'grammar_form']);
 const EXAM_EVERY = 7;
 function split(all: string[], mode: 'all' | 'learn' | 'exam'): string[] {
   if (mode === 'all') return all;
@@ -168,6 +168,8 @@ const KR_MOCK_MULTI = _krMulti(KANJI_READ_MOCK);                                
 export function mockUnitIds(level: Level, daimon: Daimon): string[] {
   // 用法=模試バンクの id をそのまま出題ユニットに使う(学習と同じく bank id 単位)。
   if (daimon === 'usage') return (USAGE_MOCK as unknown as BankUnit[]).filter((e) => e.level === level).map((e) => e.id);
+  // 文法形式=模試バンクの id をそのまま出題ユニットに使う(用法と同型・bank id 単位)。
+  if (daimon === 'grammar_form') return (GRAMMAR_FORM_MOCK as unknown as BankUnit[]).filter((e) => e.level === level).map((e) => e.id);
   const pool = daimon === 'kanji_read' ? KR_MOCK_MULTI : daimon === 'orthography' ? OG_MOCK_MULTI : daimon === 'context' ? CTX_MOCK_MULTI : daimon === 'synonym' ? SY_MOCK_MULTI : null;
   if (!pool) return [];
   const out: string[] = [];
@@ -203,6 +205,8 @@ const SY_MOCK_MULTI = new Map<string, (typeof SYNONYM_MOCK)[number][]>();
 for (const e of SYNONYM_MOCK) { const k = `${vocabOf(e)}#synonym`; const a = SY_MOCK_MULTI.get(k); if (a) a.push(e); else SY_MOCK_MULTI.set(k, [e]); }
 // 用法の模試専用プール(初見)。学習(BANK_INDEX)と別に id→エントリで引く。
 const USAGE_MOCK_INDEX = new Map<string, BankUnit>((USAGE_MOCK as unknown as BankUnit[]).map((e) => [e.id, e] as const));
+// 文法形式の模試専用プール(初見)。学習(BANK_INDEX)と別に id→エントリで引く(用法と同型)。
+const GF_MOCK_INDEX = new Map<string, BankUnit>((GRAMMAR_FORM_MOCK as unknown as BankUnit[]).map((e) => [e.id, e] as const));
 // 言い換えは verified(誤答を作り直し独立の反証で一意性を確認済)の有無にかかわらず全て出題する。
 // 未検証(旧データ=分野違いの易しすぎるダミー。例 作法→天気/音楽/地図)も出す方針:
 // 一般ユーザーは存在せず開発者しか触らないため、出題を止めるより未修正の問題も見えている方がよい
@@ -247,7 +251,7 @@ function kanjiLevelTag(unit: string): string {
 /** 学習ユニットid → 4択問題(出題形式は大問で固定)。Question.itemId はユニットid(=状態キー)にする。 */
 export function questionForUnit(unit: string, rng: Rng = Math.random, useMock = false): Question | null {
   // useMock=模試: 用法は模試専用プール(初見)を優先。無ければ学習バンクへフォールバック。
-  const bank = (useMock ? USAGE_MOCK_INDEX.get(unit) : undefined) ?? BANK_INDEX.get(unit);
+  const bank = (useMock ? (USAGE_MOCK_INDEX.get(unit) ?? GF_MOCK_INDEX.get(unit)) : undefined) ?? BANK_INDEX.get(unit);
   if (bank) {
     const { choices, answerIndex } = build4Choices(bank.answer, bank.choices, rng);
     // 文法形式判断・文の組み立ては文中の漢字にレベル適応ルビを出す(カッコふりがな→上付きルビ)。stemをfuriとして渡す。

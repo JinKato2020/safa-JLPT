@@ -1,23 +1,35 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 13 回・30 ターン
-- 往復 181 回
+- ツール呼び出し 6 回・18 ターン
+- 往復 105 回
 
 ## 何が変わったか
 - memory/handoff.md
-- .gitignore
-- package.json
-- src/data/usageMockDistractor.test.ts
-- memory/session-summary-LATEST.md
+- memory/grammar-form-mock-inflight.md
+- 一意性チェック_文法形式.xlsx
+- scratchpad/gf_mock/out_mock_N3b.json
+- scratchpad/gf_mock/out_mock_N3a.json
 
 ## 次の一手
-- **▶▶ 2026-08-30 LIVE(最新)＝言い換え④・用法⑤ 模試プール新設＝✅完成(未コミット)。詳細＝[[synonym-usage-mock-inflight]]**：
-  - **✅250問**＝言い換え N5:50/N4:50/N3:50(N5/N4=文レベル・N3=語レベル)＋用法 N4:50/N3:50(N5用法なし)。`content/problems/moji_goi/mock/{synonym,usage}_*.json`(pool='mock'・id -IM-/-YM-・languages['ja']・ルビ全角インライン)。Opus5体・機械検証250全PASS・予備差替少数・uniqRisk mid19/high0。
-  - **✅結線+番人+Excel 全緑**：rehydrate(SYNONYM_MOCK/USAGE_MOCK・mockは学習バンクから自動除外)・index・daimon(HAS_MOCK_POOL+='synonym','usage'・mockUnitIds/questionForUnit分岐・synはstem有無でN4文/N3語自動)・`src/data/synonymUsageMock.test.ts`(package.json登録)16/16。**tsc0・npm test 448/448・rebuild(81files・_manifest再生成)**。在庫Excel(模試問題数列に言い換え50/50/50・用法50/50)＋一意性チェック_模試_{N5,N4,N3}.xlsx 再生成(赤0/黄14,11,10)。
-  - **★次の一手（ユーザー決定 2026-08-30）＝まとめて1回コミット**：(a)表記模試200[[ortho-mock-inflight]] (b)文脈規定模試310[[context-mock-inflight]] (c)言い換え150+用法100[[synonym-usage-mock-inflight]] (d)付随(規律/tools/Excel/_manifest/bundled)を**全部1コミット**。push=OTAでcontent配信・daimon/index/rehydrate/MockScreen等コード変更は**次ビルドで実機反映**(それまで旧アプリはpool='mock'を出さない=害なし)。**push/ビルドはユーザー明示指示のみ**。
-  - **未処理レビュー**＝`一意性チェック_模試_{N5,N4,N3}.xlsx`(プロジェクト直下・黄=mid・赤0)。直し指示があればコミット前に反映。用法mockのP1/P2番人は未対応(自己申告のまま・必要なら要拡張)。
-  - --- 以下は前タスク(文脈規定模試)の記録 ---
+- **▶▶ 2026-08-30 LIVE＝文法形式 学習倍増＋模試プール新設＝✅生成フェーズ完了(作問627+ルビ+全検証+一意性Excel)・クリア境界。正本＝[[grammar-form-mock-inflight]]**：
+  - **✅完了**＝作問627問（N5学習+187で211→398・各点4問／模試新設440＝N5:160/N4:150/N3:130・全問ユニーク・公式頻度ミラー）＋ルビ全付与＋機械検証全PASS（エラー0/重複0/pointId実在）＋一意性チェックExcel（`一意性チェック_文法形式.xlsx`・黄22件）。成果は `scratchpad/gf_mock/out_*.json`（ルビ入り・answer=choices[0]済）。
+  - **★次の一手＝ユーザーが /clear → inflight「### /clear後の残作業」を実読 → [1]配置→[2]結線→[3]rebuild/tsc/test→[4]在庫Excel→[5]コミット（すべて機械作業・エージェント不使用）。** push/ビルドはユーザー明示指示のみ。
+  - --- 以下は作問前の設計記録（参考・実行仕様はinflight） ---
+  - **【準備完了】** 一次情報実測済(N5学習211問99点・不足187・既存-B-最大227→新id N5-G-B-0228〜)。エージェント参照ブロック11本を `scratchpad/gf_mock/slice_{learn_N5_1..3, mock_N5a/b/c, mock_N4a/b/c, mock_N3a/b}.txt` に生成済(各体argsで渡す・出力=out_*.json)。結線コード差分・機械検証・配置手順すべて inflight「★実行仕様★」に確定記録。**/clear後は inflight＋該当sliceだけ読めば実行できる(点辞書の生データ再読不要)**。
+  - **A=N5 学習を各点4問に揃える**（grammar_form_N5 211→398・**+187問**・不足点だけ新規別問・id `N5-G-B-0212〜`）→模試換算13→約24。N4/N3学習は据え置き。生成=3体。
+  - **B=文法形式 模試プール新設**（bunpou初）`content/problems/bunpou/mock/grammar_form_{N5,N4,N3}.json`(pool='mock'・id `-GM-`)＝N5:160/N4:150/N3:130＝公式16/15/13×10・**全問ユニーク(10回横断で重複ゼロ)**・公式頻度ミラー(高頻度点ほど問題数厚く)。
+  - **規律**：生成=Opusエージェント計**11体を3〜4体ずつの波＋各体即Write**(上限到達でも失うのは実行中の波だけ)／検証=機械のみ(反証/修正エージェント無し)／ルビ=別パス／良問を公式型で新規(学習コピー不可)。結線=context/synonymと同型(HAS_MOCK_POOL+='grammar_form'・GRAMMAR_FORM_MOCK)。最後に在庫Excel＋模試換算＋一意性Excel。
+  - **次の一手＝ユーザーが /clear → 本inflight実読 → 作問実行(手順=inflight「手順」節)。** ビルド/pushはユーザー指示待ち。
+  - --- 以下は前タスク(文字語彙5大問mock)の記録＝コミット済 c324a48b ---
+- **▶▶ 2026-08-30 (前)＝🚀ビルド済 v1.1.25(2885)＝文字語彙5大問の模試プール全整備を"まとめて1コミット"で配信**（commit `c324a48b`・run `33285757802`・iOS/Android both dispatch・push=OTA起動・iOS本日1/8・-NoWatch=監視しない）。build.ps1のテスト76 pass71/fail0・tsc0。**この1コミットに以下を全部同梱**：
+  - **(a)言い換え④ mock 150+(b)用法⑤ mock 100**（今タスク）＝`content/problems/moji_goi/mock/{synonym_N5,synonym_N4,synonym_N3,usage_N4,usage_N3}.json`(pool='mock'・id -IM-/-YM-・languages['ja']・ルビ全角インライン)。言い換えN5/N4=文レベル・N3=語レベル。Opus5体・機械検証250全PASS・uniqRisk mid19/high0。
+  - **(c)表記② mock 200＋(d)文脈規定③ mock 310**（前タスク・同コミットで初配信）。**(e)漢字読み① mock は前コミット6e60af43で配信済**。
+  - **結線**：rehydrate(SYNONYM_MOCK/USAGE_MOCK・pool='mock'は学習バンクから自動除外=学習汚染なし)・index・daimon(HAS_MOCK_POOL+='synonym','usage'・mockUnitIds/questionForUnit分岐・synはstem有無でN4文/N3語自動)・MockScreen(usedWordsで大問横断ユニーク化)。
+  - **番人**：`src/data/synonymUsageMock.test.ts`(16)＋`src/data/usageMockDistractor.test.ts`(P1置換語ユニーク/P2殺し方分散・4)を新設(package.json登録)。**npm test 452/452・tsc0・rebuild(81files)**。用法mockのP1/P2は独立QAタグ`src/data/shared/usageMockDistractorTags.json`(Op;100件・P1違反1件修正=N3-V-YM-0021・第2正解0・monoTypeAllow12=全選択制限)で機械検査済。
+  - **Excel**：在庫`memory/在庫・模試ストックまとめ.xlsx`(模試問題数列に言い換え50/50/50・用法50/50)＋一意性チェック_模試_{N5,N4,N3}.xlsx(赤0/黄14,11,10)。※一意性チェック_*.xlsxは.gitignore追加(QA用・非コミット)。
+  - **次の一手＝(a)CI確認(要れば run 33285757802) (b)TestFlight/Playで v1.1.25(2885) 実機確認＝模試の言い換え/用法/表記/文脈規定プールが初見で出るか (c)未処理レビュー=一意性チェック_模試_{N5,N4,N3}.xlsx の黄(mid)＝直し指示あればOTA(publish-content.ps1)で反映可。** 全タスク完了・クリア可。
+  - --- 以下は前タスク(文脈規定模試)の記録＝上記コミットに同梱済 ---
 - **▶▶ 2026-08-30 (前)＝文脈規定 模試プール新設＝✅完成(未コミット)。詳細＝[[context-mock-inflight]]**：
   - **✅310問**(N5:100/N4:100/N3:110)＝`content/problems/moji_goi/mock/context_{N5,N4,N3}.json`(pool='mock'・id N{lv}-V-CM-####)。Opus9体生成・機械検証(形)0エラー・品質=公式同等(2段階=軸で揃え＋鍵1つ・near-miss必須・分野違い/同方向誤答ゼロ)。
   - **✅結線+大問横断ユニーク化+ふりがな173+番人6+Excel** 全緑：daimon/rehydrate/index(CONTEXT_MOCK・HAS_MOCK_POOL+='context'・CTX_MOCK_MULTI・useMock分岐)、MockScreen(buildExam usedWords=同一模試で同語は先着1大問)、sentenceFuri+173(（）除去で原文一致検証)、`src/data/contextMock.test.ts`(package.jsonに登録)、stock_excel MOCK+文脈規定100/100/110、一意性チェック_模試_{N5,N4,N3}.xlsx(赤0/黄N5:2 N4:7 N3:7=mid申告)。**tsc0・npm test 432/432・rebuild(76)・ランタイム実測OK(mockは初見文・学習と別)**。

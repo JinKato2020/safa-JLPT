@@ -7,7 +7,8 @@
 - 結線: rehydrate(SYNONYM_MOCK/USAGE_MOCK 追加・pool='mock'は学習バンクから自動除外)・index(export)・daimon(HAS_MOCK_POOL+='synonym','usage'・SY_MOCK_INDEX/MULTI・USAGE_MOCK_INDEX・mockUnitIds分岐・questionForUnitでuseMock優先フォールバック・synはstem有無でN4文/N3語自動分岐)。
 - 番人: `src/data/synonymUsageMock.test.ts`(package.json test列挙に登録)=16/16。**tsc0・npm test 448/448**・rebuild(81files・_manifest再生成)。
 - Excel: 在庫`memory/在庫・模試ストックまとめ.xlsx`の模試問題数列に 言い換え類義50/50/50・用法50/50 追加(stock_excel.py MOCK dict)。一意性`一意性チェック_模試_{N5,N4,N3}.xlsx`再生成(quality_excelは/mock/自動認識・赤0/黄14,11,10)。
-- **未実施(任意)**: 用法mockのP1/P2番人=build_usage_distractor_tags.pyは学習usage_*.jsonのみ対象でmock未対応。mockのP1/P2はエージェント自己申告のまま(番人対象外)。必要なら要拡張。
+- **✅用法mockのP1/P2機械番人=実装済**: 独立QAタグ`src/data/shared/usageMockDistractorTags.json`(Opusで100件tag付け・repl+type)＋番人`src/data/usageMockDistractor.test.ts`(package.json登録・P1置換語ユニーク/P2殺し方分散)。違反修正=P1×1(N3-V-YM-0021の誤答1文書換→repl人口/type近接)・P2は正確なtype付けで解消・第2正解0・monoTypeAllow12(全て選択制限型)。学習用のbuild_usage_distractor_tags.py/usageDistractor.test.tsとは別系統(学習は従来通り)。
+- **🚀ビルド済 v1.1.25(2885)**=commit `c324a48b`・run `33285757802`・iOS/Android both・push=OTA・-NoWatch。全タスク完了・クリア可。
 【旧・実行メモ 2026-08-30】
 【実行メモ 2026-08-30】Opus 5体起動(iikae N5/N4/N3・youhou N4/N3・各50問=計250)。各自 select_*.json を Read→ mock json を Write。**ルビはインライン生成**(stem/answer/choices/(N3 sentence)の全漢字に `漢字（かな）`全角括弧・表示側 RubyText がユーザーレベルで出し分け)＝別パス省略で往復削減(inflightの別ルビパス方針を上書き)。**languages=['ja']**(同フォルダ context/ortho 模試踏襲・i18nはja.explainのみ・ne後日OTA)。verifiedフィールド無し。次=完了後に(1)build_usage_distractor_tags.py→usageDistractor.test.ts (2)結線確認(daimon HAS_MOCK_POOL+='synonym','usage'・synonymはN4文/N3語の2分岐)＋番人テスト新設 (3)_manifest再生成 (4)quality_excel (5)在庫Excel更新。
 方針の正本＝ユーザー承認「指標が骨組み、肉付けと取捨（不適語は予備へ差替）は作問時にLLM」。

@@ -35,6 +35,8 @@ export function rehydrateBanks(files: Record<string, Any>) {
     bankItems(files, daimon, (it, level) => ({ ...stripI18n(it), level, daimon, explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain })));
   // 用法(⑤)の模試専用プール(初見)。学習の KNOWLEDGE_BANK からは pool='mock' が除外されるので別に取り出す。
   const USAGE_MOCK = bankItems(files, 'usage', (it, level) => ({ ...stripI18n(it), level, daimon: 'usage', explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain }), true);
+  // 文法形式判断(⑥)の模試専用プール(初見)。学習の KNOWLEDGE_BANK からは pool='mock' が除外されるので別に取り出す。
+  const GRAMMAR_FORM_MOCK = bankItems(files, 'grammar_form', (it, level) => ({ ...stripI18n(it), level, daimon: 'grammar_form', explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain }), true);
 
   const READING_SUBTYPES = ['naiyou_tan', 'naiyou_chu', 'choubun', 'joho'];
   const LISTENING_SUBTYPES = ['kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji'];
@@ -74,5 +76,5 @@ export function rehydrateBanks(files: Record<string, Any>) {
     for (const [p, f] of Object.entries(files)) if (p.startsWith('lexicon/') && (f as Any).kind === kind) Object.assign(out, (f as Any).items);
     return out;
   };
-  return { KANJI_READ_BANK, KANJI_READ_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, USAGE_MOCK, KNOWLEDGE_BANK, READING, LISTENING, PASSAGE_GRAMMAR, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), FURIGANA_L10N: mergeLex('furigana'), VOCAB_FIX: mergeLex('vocabfix'), KANJI_FIX: mergeLex('kanjifix'), GRAMMAR_FIX: mergeLex('grammarfix'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
+  return { KANJI_READ_BANK, KANJI_READ_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, USAGE_MOCK, GRAMMAR_FORM_MOCK, KNOWLEDGE_BANK, READING, LISTENING, PASSAGE_GRAMMAR, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), FURIGANA_L10N: mergeLex('furigana'), VOCAB_FIX: mergeLex('vocabfix'), KANJI_FIX: mergeLex('kanjifix'), GRAMMAR_FIX: mergeLex('grammarfix'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
 }

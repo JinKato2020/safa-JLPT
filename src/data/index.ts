@@ -113,6 +113,8 @@ export interface KnowledgeBankItem { id: string; level: string; daimon: string; 
 export const KNOWLEDGE_BANK = _R.KNOWLEDGE_BANK as KnowledgeBankItem[];
 // 用法(⑤)の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う。KnowledgeBankItem と同形＋vocabId。
 export const USAGE_MOCK = _R.USAGE_MOCK as KnowledgeBankItem[];
+// 文法形式判断(⑥)の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う。KnowledgeBankItem と同形。
+export const GRAMMAR_FORM_MOCK = _R.GRAMMAR_FORM_MOCK as KnowledgeBankItem[];
 
 /** 辞書Browse拡張(N2/N1・参考辞書・学習対象外)。JMdict/KANJIDIC由来。levelがN2/N1なのでcastで型を通す。 */
 export const DICT_EXT_VOCAB = (dictExtJson.vocab as unknown) as VocabItem[];
