@@ -428,6 +428,12 @@ export function readingSubtype(it: ReadingItem): ReadingSubtype {
 export function readingItemsForSub(level: Level, sub: ReadingSubtype): ReadingItem[] {
   return READING.filter((it) => it.level === level && readingSubtype(it) === sub);
 }
+// 読解4大問の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う(無ければ学習へフォールバック)。
+export const READING_MOCK = _R.READING_MOCK as ReadingItem[];
+/** レベル×小区分の読解 模試プール(初見)。空なら学習側へフォールバック(MockScreen)。 */
+export function readingMockItemsForSub(level: Level, sub: ReadingSubtype): ReadingItem[] {
+  return READING_MOCK.filter((it) => it.level === level && readingSubtype(it) === sub);
+}
 export const READING_SUBTYPES: { key: ReadingSubtype; labelKey: string }[] = [
   { key: 'naiyou_tan', labelKey: 'study.sub_naiyou_tan' },
   { key: 'naiyou_chu', labelKey: 'study.sub_naiyou_chu' },

@@ -1,13 +1,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PASSAGE_TRANS_NE as trans, READING as reading, PASSAGE_GRAMMAR as pg } from '../index'; // rehydrate由来(旧 exam/*.json 相当)
+import { PASSAGE_TRANS_NE as trans, READING as reading, READING_MOCK as readingMock, PASSAGE_GRAMMAR as pg } from '../index'; // rehydrate由来(旧 exam/*.json 相当)
 
 const T = trans as Record<string, string[]>;
 
 // 期待する本文数。情報検索(joho)は図表主体で InfoSearchFigure が描画し、
 // PASSAGE_TRANS_NE(本文ネパール訳)を一切使わないので期待から除外する。
+// 学習(READING)と模試(READING_MOCK)の両方を検査（2026-08-31 読解mock翻訳完了で mock も ne 必須）。
 const wantReading: Record<string, number> = {};
-for (const r of reading as any[]) if (r.subtype !== 'joho') wantReading[r.id] = 1;
+for (const r of [...(reading as any[]), ...(readingMock as any[])]) if (r.subtype !== 'joho') wantReading[r.id] = 1;
 const wantPg: Record<string, number> = {};
 for (const s of pg as any[]) wantPg[s.id] = s.passages.length;
 

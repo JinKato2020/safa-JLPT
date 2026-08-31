@@ -1,0 +1,1614 @@
+{
+ "schema": 1,
+ "daimon": "naiyou_chu",
+ "level": "N4",
+ "pool": "mock",
+ "languages": [
+  "ja",
+  "ne",
+  "en"
+ ],
+ "source": "opus-authored-mock-2026-08-30",
+ "items": [
+  {
+   "id": "N4-D-M-9001",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "読書が好（す）きになるまで",
+   "body": "私（わたし）は子どものころ、本を読むのが苦手（にがて）だった。字（じ）が多（おお）いページを見ると、それだけで疲（つか）れてしまい、最後（さいご）まで読み切（き）れないことが多（おお）かった。だから、読書が好（す）きな友だちの気持（も）ちがまったく分からなかった。国語の授業（じゅぎょう）で本を読む時間が来るたびに、時計（とけい）ばかり気にしていたのを今でも覚（おぼ）えている。\nそんな私（わたし）が変（か）わったのは、町（まち）の図書館（としょかん）で働（はたら）く人にある本をすすめられたときだ。①<u>それ</u>は、短（みじか）い話がいくつも集（あつ）まった本で、一つの話が三ページほどしかなかった。私（わたし）は「これなら読めそうだ」と思（おも）い、借（か）りて帰（かえ）った。読んでみると、想像（そうぞう）していたよりずっとおもしろく、その日のうちに全部（ぜんぶ）読んでしまった。一冊（いっさつ）読み終（お）えたという達成感（たっせいかん）は、それまで味（あじ）わったことのないものだった。\nそれからは、少（すこ）しずつ長い本にも手（て）を伸（の）ばすようになった。初（はじ）めは薄（うす）い本を選（えら）んでいたが、今では厚（あつ）い本を読むのもこわくなくなった。時間があれば本屋（ほんや）に行き、気になった本を買（か）って帰（かえ）るのが楽（たの）しみだ。本の中には、自分（じぶん）の知（し）らない世界（せかい）がいくつも広（ひろ）がっていると、今なら分かる。もし、あのとき本をすすめてもらえなかったら、今も読書を嫌（きら）いなままだっただろう。苦手（にがて）なことでも、始（はじ）め方（かた）を変（か）えれば好（す）きになれるのだと、私（わたし）は思（おも）っている。",
+   "questions": [
+    {
+     "id": "N4-D-M-9001-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "みじかい話をいくつも集（あつ）めた本",
+      "字（じ）が多（おお）く読むだけで疲（つか）れてしまう本",
+      "図書館（としょかん）の人が自分（じぶん）で書いた本",
+      "友だちが持（も）っていた分厚（あつ）い本"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）に「短（みじか）い話がいくつも集（あつ）まった本で、一つの話が三ページほど」とある。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "धेरै छोटो कथाहरू सङ्कलन गरिएको किताब",
+        "धेरै अक्षर भएको र पढ्दा मात्रै थाक्ने किताब",
+        "पुस्तकालयका कर्मचारीले आफैँले लेखेको किताब",
+        "साथीले बोकेको बाक्लो किताब"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>it</u> refer to?",
+       "choices": [
+        "A book that collected many short stories",
+        "A book with so much text that just reading it made one tired",
+        "A book that the librarian wrote themselves",
+        "A thick book that a friend had"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9001-q2",
+     "q": "筆者（ひっしゃ）が子どものころ読書が苦手（にがて）だったのはなぜか。",
+     "choices": [
+      "字（じ）の多（おお）さに疲（つか）れてしまうから",
+      "いっしょに読む友だちが近（ちか）くにいなかったから",
+      "町（まち）の図書館（としょかん）がとても遠（とお）くにあったから",
+      "家（いえ）には長い本しか置（お）いていなかったから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「字（じ）が多（おお）いページを見ると、それだけで疲（つか）れてしまい」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "लेखकलाई बच्चा छँदा पढ्न मन नपर्नुको कारण के थियो?",
+       "choices": [
+        "धेरै अक्षरले गर्दा थाक्ने भएकोले",
+        "सँगै पढ्ने साथी नजिक नभएकोले",
+        "सहरको पुस्तकालय धेरै टाढा भएकोले",
+        "घरमा लामो किताबहरू मात्रै राखिएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why was the author not good at reading when they were a child?",
+       "choices": [
+        "Because they got tired from the large amount of text",
+        "Because there were no friends nearby to read with them",
+        "Because the town library was very far away",
+        "Because there were only long books at home"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9001-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "借（か）りた日のうちに読み終（お）えた",
+      "すすめられた本は長すぎて読み切（き）れなかった",
+      "今でも本屋（ほんや）へ行くのが苦手（にがて）なままだ",
+      "友だちにすすめられて読書を始（はじ）めた"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「その日のうちに全部（ぜんぶ）読んでしまった」とある。すすめたのは図書館（としょかん）で働（はたら）く人。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "उधारो लिएकै दिनमा पढिसके",
+        "सिफारिस गरिएको किताब धेरै लामो भएकोले पढ्न सकिएन",
+        "अहिले पनि किताब पसलमा जान मन पराउँदैन",
+        "साथीले सिफारिस गरेपछि पढ्न थाले"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "They finished reading it on the day they borrowed it.",
+        "The recommended book was too long to finish.",
+        "They are still bad at going to bookstores.",
+        "They started reading because a friend recommended it."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9001-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "始（はじ）め方（かた）しだいで苦手（にがて）も好（す）きになる",
+      "読書は子どものうちに始（はじ）めておくべきだ",
+      "本は短（みじか）いものばかり読むほうがよい",
+      "図書館（としょかん）は本屋（ほんや）よりずっと役（やく）に立（た）つ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「始（はじ）め方（かた）を変（か）えれば好（す）きになれるのだと、私（わたし）は思（おも）っている」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "सुरु गर्ने तरिकामा भर पर्छ, मन नपर्ने कुरा पनि मन पर्ने हुन्छ",
+        "पढाइ बच्चा छँदै सुरु गर्नुपर्छ",
+        "किताबहरू छोटो मात्रै पढ्नु राम्रो हुन्छ",
+        "पुस्तकालय किताब पसलभन्दा धेरै उपयोगी हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "Things you're not good at can become things you like depending on how you start them.",
+        "Reading should be started when you are a child.",
+        "It's better to only read short books.",
+        "Libraries are much more useful than bookstores."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "म बच्चा छँदा किताब पढ्न मन पराउँदिनथेँ। धेरै अक्षर भएको पृष्ठ देख्दा नै म थाक्थेँ र प्रायः पूरै पढ्न सक्दिनथेँ। त्यसैले, किताब पढ्न मन पराउने साथीहरूको भावना म बिल्कुल बुझ्दिनथेँ। नेपाली कक्षामा किताब पढ्ने समय आउँदा, म सधैँ घडी हेरिरहन्थेँ, त्यो मलाई अझै याद छ।\nम परिवर्तन भएको बेला, सहरको पुस्तकालयमा काम गर्ने एक व्यक्तिले मलाई एउटा किताब सिफारिस गरे। ①<u>त्यो</u> एउटा किताब थियो जसमा धेरै छोटो कथाहरू सङ्कलन गरिएका थिए, र एउटा कथा लगभग तीन पृष्ठको मात्र थियो। मैले सोचेँ, “यो त पढ्न सकिन्छ होला,” र उधारो लिएर घर गएँ। पढ्दा, मैले सोचेभन्दा धेरै रमाइलो लाग्यो, र मैले त्यो दिनमै पूरै पढिसकेँ। एउटा किताब पढिसकेको त्यो उपलब्धि, मैले त्योभन्दा पहिले कहिल्यै अनुभव गरेको थिइनँ।\nत्यसपछि, मैले बिस्तारै लामो किताबहरू पनि पढ्न थालेँ। सुरुमा पातलो किताबहरू रोज्थेँ, तर अहिले मलाई बाक्लो किताब पढ्न पनि डर लाग्दैन। समय मिलेमा किताब पसलमा जान्छु र मन परेको किताब किनेर घर फर्कन्छु, यो मेरो रमाइलो हो। किताबभित्र, मलाई थाहा नभएका धेरै संसारहरू फैलिएका छन् भन्ने कुरा अहिले म बुझ्छु। यदि त्यो बेला मलाई किताब सिफारिस नगरिएको भए, म अहिले पनि पढ्न मन नपराउने नै हुन्थेँ होला। मलाई लाग्छ कि, मन नपर्ने कुरा पनि सुरु गर्ने तरिका परिवर्तन गरेमा मन पराउन सकिन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When I was a child, I wasn't good at reading books. When I saw pages with a lot of text, I would get tired just from that, and often couldn't finish reading them. That's why I couldn't understand at all how my friends who loved reading felt. I still remember how I used to constantly check the clock every time it was time to read a book in Japanese class.\nWhat changed me was when someone working at the town library recommended a book to me. <u>It</u> was a book with many short stories, and each story was only about three pages long. I thought, \"I might be able to read this,\" and borrowed it. When I read it, it was much more interesting than I had imagined, and I finished the whole thing that day. The sense of accomplishment from finishing a book was something I had never experienced before.\nFrom then on, I gradually started reaching for longer books. At first, I chose thin books, but now I'm not afraid to read thick books either. If I have time, I enjoy going to a bookstore, buying a book that catches my eye, and taking it home. Now I understand that many worlds I don't know exist within books. If I hadn't been recommended that book back then, I would probably still dislike reading. I believe that even things you're not good at can become things you like if you change how you start them."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N4-D-M-9002",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "引（ひ）っ越（こ）してきた町（まち）で",
+   "body": "先月、私（わたし）は別（べつ）の町（まち）から今の家（いえ）に引（ひ）っ越（こ）してきた。前の家（いえ）では、隣（となり）に住（す）む人と話したことがほとんどなく、顔（かお）を合（あ）わせても軽（かる）く頭（あたま）を下げるだけだった。近所（きんじょ）づきあいは面倒（めんどう）なものだと思（おも）っていたので、新（あたら）しい家（いえ）でも同（おな）じでいいと考（かんが）えていた。だれとも関（かか）わらなければ、いやな思（おも）いをすることもないと信（しん）じていたのだ。\n引（ひ）っ越（こ）しの日、荷物（にもつ）を運（はこ）んでいると、隣（となり）の家（いえ）の人が飲（の）み物（もの）を持（も）って声（こえ）をかけてくれた。①<u>それ</u>がとてもうれしくて、私（わたし）は思（おも）わず笑顔（えがお）になった。見知（し）らぬ土地（とち）での一日目（め）の不安（ふあん）が、その一言（ひとこと）で少（すこ）しずつ消（き）えていった。次（つぎ）の日、お礼（れい）にと近（ちか）くの店（みせ）で買（か）ったお菓子（かし）を持（も）っていくと、相手（あいて）も喜（よろこ）んでくれた。それをきっかけに、道（みち）で会（あ）えば天気の話をするようになり、留守（るす）のときに荷物（にもつ）を預（あず）かってもらうこともできた。困（こま）ったときに助（たす）けてくれる人が近（ちか）くにいるのは、思（おも）った以上（いじょう）に心（こころ）強（づよ）い。\n以前（いぜん）の私（わたし）は、近所（きんじょ）の人と関（かか）わらないほうが楽（らく）だと思（おも）っていた。しかし今は、少（すこ）し声（こえ）をかけ合（あ）うだけで、毎日が安心（あんしん）できるものに変（か）わると感（かん）じている。遠（とお）くの親（しん）せきより、近（ちか）くの他人（たにん）という言葉（ことば）の意味（いみ）が、今ようやく分かった気がする。引（ひ）っ越（こ）しは大変（たいへん）だったが、この町（まち）に来て本当（ほんとう）によかったと心（こころ）から思（おも）っている。",
+   "questions": [
+    {
+     "id": "N4-D-M-9002-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "隣（となり）の人が声（こえ）をかけてくれたこと",
+      "お礼（れい）のお菓子（かし）を相手（あいて）がとても喜（よろこ）んでくれたこと",
+      "荷物（にもつ）を最後（さいご）まで無事（ぶじ）に運（はこ）び終（お）えたこと",
+      "前の家（いえ）で軽（かる）く頭（あたま）を下げていたこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「隣（となり）の家（いえ）の人が飲（の）み物（もの）を持（も）って声（こえ）をかけてくれた」を指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "छिमेकीले बोलाएको कुरा",
+        "धन्यवादको मिठाईले छिमेकी धेरै खुसी भएको कुरा",
+        "सामान सुरक्षित रूपमा अन्त्यसम्म सारिएको कुरा",
+        "अघिल्लो घरमा हल्का टाउको झुकाउने गरेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>it</u> refer to?",
+       "choices": [
+        "The neighbor speaking to them",
+        "The neighbor being very happy about the thank-you sweets",
+        "Successfully finishing carrying all the luggage",
+        "Lightly bowing at the previous house"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9002-q2",
+     "q": "筆者（ひっしゃ）が新（あたら）しい家（いえ）でも近所（きんじょ）づきあいをしないでいいと考（かんが）えていたのはなぜか。",
+     "choices": [
+      "近所（きんじょ）づきあいを面倒（めんどう）に感（かん）じていたから",
+      "隣（となり）に住（す）む人とは前から仲（なか）がよくなかったから",
+      "引（ひ）っ越（こ）しの準備（じゅんび）でとても忙（いそが）しかったから",
+      "お菓子（かし）を買（か）うお金がなかったから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「近所（きんじょ）づきあいは面倒（めんどう）なものだと思（おも）っていたので」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "लेखकले नयाँ घरमा पनि छिमेकीसँग सम्बन्ध नराख्नु नै राम्रो हुन्छ भन्ने किन सोचेका थिए?",
+       "choices": [
+        "छिमेकीसँगको सम्बन्ध झन्झटिलो लाग्ने भएकोले",
+        "छिमेकीसँग पहिलेदेखि नै राम्रो सम्बन्ध नभएकोले",
+        "सरुवाको तयारीमा धेरै व्यस्त भएकोले",
+        "मिठाई किन्न पैसा नभएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did the author think it was fine not to have neighborhood interactions at their new house either?",
+       "choices": [
+        "Because they found neighborhood interactions troublesome",
+        "Because they weren't on good terms with their next-door neighbor from before",
+        "Because they were very busy with moving preparations",
+        "Because they didn't have money to buy sweets"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9002-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "留守（るす）の間に荷物（にもつ）を預（あず）かってもらえた",
+      "隣（となり）に住（す）む人とは天気の話もしないままだった",
+      "お礼（れい）のお菓子（かし）を相手（あいて）は受（う）け取（と）らなかった",
+      "前の家（いえ）では隣（となり）の人とよく話していた"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「留守（るす）のときに荷物（にもつ）を預（あず）かってもらうこともできた」とある。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "घरमा नभएको बेला सामान राख्न सकियो",
+        "छिमेकीसँग मौसमको कुरा पनि गरिएन",
+        "छिमेकीले धन्यवादको मिठाई स्वीकार गरेनन्",
+        "अघिल्लो घरमा छिमेकीसँग धेरै कुरा गर्थे"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "They had a package held for them while they were out.",
+        "They still hadn't talked about the weather with their next-door neighbor.",
+        "The neighbor didn't accept the thank-you sweets.",
+        "They used to talk a lot with their neighbor at their previous house."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9002-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "声（こえ）をかけ合（あ）うだけで毎日が安心（あんしん）になる",
+      "引（ひ）っ越（こ）しはできるだけしないほうがよい",
+      "近所（きんじょ）の人には必（かなら）ずお菓子（かし）を配（くば）るべきだ",
+      "一人で暮（く）らすほうが気楽（きらく）で楽（たの）しい"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「少（すこ）し声（こえ）をかけ合（あ）うだけで、毎日が安心（あんしん）できるものに変（か）わる」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "थोरै कुरा गर्दा मात्रै पनि हरेक दिन सुरक्षित हुन्छ",
+        "सरुवा सकेसम्म नगर्नु राम्रो हुन्छ",
+        "छिमेकीलाई सधैँ मिठाई बाँड्नुपर्छ",
+        "एक्लै बस्नु नै सजिलो र रमाइलो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "Just a little conversation can make every day feel secure.",
+        "It's better to avoid moving as much as possible.",
+        "You should always distribute sweets to your neighbors.",
+        "Living alone is more carefree and enjoyable."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "गत महिना, म अर्को सहरबाट अहिलेको घरमा सरेँ। अघिल्लो घरमा, म छिमेकीसँग खासै कुरा गर्दिनथेँ, र भेट्दा हल्का टाउको झुकाउने मात्र गर्थेँ। मलाई छिमेकीसँगको सम्बन्ध झन्झटिलो लाग्थ्यो, त्यसैले नयाँ घरमा पनि त्यस्तै भए हुन्छ भन्ने सोचेको थिएँ। कसैसँग सम्बन्ध नराखेमा नराम्रो अनुभव पनि हुँदैन भन्ने मलाई विश्वास थियो।\nसरुवाको दिन, सामान सार्दै गर्दा, छिमेकीले पेय पदार्थ लिएर मलाई बोलाए। ①<u>त्यो</u> कुराले मलाई धेरै खुसी लाग्यो, र म अनायासै मुस्कुराएँ। अपरिचित ठाउँमा पहिलो दिनको चिन्ता, त्यो एक शब्दले बिस्तारै हराउँदै गयो। भोलिपल्ट, धन्यवाद भन्नको लागि नजिकैको पसलबाट किनेको मिठाई लिएर जाँदा, उनीहरू पनि खुसी भए। त्यसपछि, बाटोमा भेट्दा मौसमको कुरा गर्न थाल्यौँ, र म घरमा नभएको बेला सामान राख्न पनि सकियो। समस्या पर्दा नजिकै मद्दत गर्ने मानिस हुनु, सोचेभन्दा धेरै बलियो कुरा रहेछ।\nपहिले मलाई छिमेकीसँग सम्बन्ध नराख्नु नै सजिलो लाग्थ्यो। तर अहिले, थोरै कुरा गर्दा मात्रै पनि, हरेक दिन सुरक्षित महसुस गर्न सकिन्छ भन्ने मलाई लाग्छ। टाढाको आफन्तभन्दा नजिकको छिमेकी भन्ने भनाइको अर्थ, अहिले बल्ल बुझेँ जस्तो लाग्छ। सरुवा गाह्रो थियो, तर यो सहरमा आएर साँच्चै राम्रो भयो भन्ने मलाई मनैदेखि लाग्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last month, I moved to my current house from another town. In my previous house, I hardly ever spoke to my next-door neighbor; we would just give a slight nod when we saw each other. I thought that neighborhood interactions were troublesome, so I figured it would be fine to do the same at my new house. I believed that if I didn't get involved with anyone, I wouldn't have any unpleasant experiences.\nOn moving day, as I was carrying my belongings, my next-door neighbor came over with a drink and spoke to me. <u>That</u> made me so happy that I couldn't help but smile. The anxiety of my first day in an unfamiliar place gradually disappeared with that one comment. The next day, when I took some sweets I had bought at a nearby store as a thank you, they were also pleased. That was the start; now, when we meet on the street, we talk about the weather, and they've even held packages for me when I was out. It's more reassuring than I expected to have someone nearby who can help when you're in trouble.\nI used to think it was easier not to interact with neighbors. But now, I feel that just a little conversation can make every day feel secure. I feel like I finally understand the meaning of the saying, \"A near stranger is better than a distant relative.\" Moving was tough, but I truly feel it was good to come to this town."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N4-D-M-9003",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "自分（じぶん）で作（つく）るようになって",
+   "body": "一人で暮（く）らし始（はじ）めたころ、私（わたし）は料理（りょうり）をまったくしなかった。毎日、店（みせ）で買（か）った弁当（べんとう）やパンを食べていた。作（つく）るより買（か）うほうが早（はや）いし、片（かた）づけもいらないと思（おも）っていたからだ。台所（だいどころ）に立（た）つ時間があれば、そのぶん眠（ねむ）っていたいとさえ考（かんが）えていた。\nところが、ある月にお金を使（つか）いすぎて、生活（せいかつ）が苦（くる）しくなった。何にそんなに使（つか）ったのかと考（かんが）えて気づいたのが、食事（しょくじ）の代金（だいきん）だった。買（か）って食べる生活（せいかつ）は、思（おも）っていたよりずっとお金がかかっていたのだ。①<u>それ</u>に驚（おどろ）いた私（わたし）は、自分（じぶん）で作（つく）ってみることにした。\n初（はじ）めは、野菜（やさい）を切（き）るのにも時間がかかり、味（あじ）も店（みせ）のものにはかなわなかった。手（て）を切（き）りそうになって、途中（とちゅう）でやめたくなったこともある。しかし、何度（なんど）も作（つく）るうちに手（て）が慣（な）れ、短（みじか）い時間でおいしく作（つく）れるようになった。今では、その日の気分で味（あじ）を変（か）えられるのが楽（たの）しく、外で食べるより自分（じぶん）の料理（りょうり）のほうが好（す）きになった。失敗（しっぱい）した料理（りょうり）も、次（つぎ）はどう直（なお）そうかと考（かんが）えると、それも楽（たの）しみの一つになった。\n料理（りょうり）は面倒（めんどう）だと決（き）めつけていたが、続（つづ）けてみると、お金が節約（せつやく）できるだけでなく、毎日の楽（たの）しみも増（ふ）えた。やってみないと分からないことは多（おお）いと、今は感（かん）じている。",
+   "questions": [
+    {
+     "id": "N4-D-M-9003-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "買（か）う生活（せいかつ）に思（おも）ったより金がかかっていたこと",
+      "野菜（やさい）を切（き）るのにとても時間がかかっていたこと",
+      "店（みせ）で買（か）う弁当（べんとう）の味（あじ）が前より落（お）ちていたこと",
+      "料理（りょうり）のあとの片（かた）づけが面倒（めんどう）なこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「買（か）って食べる生活（せいかつ）は、思（おも）っていたよりずっとお金がかかっていた」を指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "किनेर खाने जीवन सोचेभन्दा महँगो भएको कुरा",
+        "तरकारी काट्न धेरै समय लागेको कुरा",
+        "पसलबाट किनेको खाजाको स्वाद पहिलेभन्दा घटेको कुरा",
+        "खाना पकाएपछि सफा गर्न झन्झटिलो भएको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>it</u> refer to?",
+       "choices": [
+        "The fact that buying food cost more money than expected",
+        "The fact that cutting vegetables took a very long time",
+        "The fact that the taste of store-bought bento had declined from before",
+        "The fact that cleanup after cooking was troublesome"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9003-q2",
+     "q": "筆者（ひっしゃ）が初（はじ）め料理（りょうり）をしなかったのはなぜか。",
+     "choices": [
+      "買（か）うほうが早（はや）くて楽（らく）だと思（おも）ったから",
+      "料理（りょうり）の材料（ざいりょう）が近（ちか）くの店（みせ）で買（か）えなかったから",
+      "自分（じぶん）の作（つく）る料理（りょうり）の味（あじ）に自信（じしん）がなかったから",
+      "弁当（べんとう）のほうが体（からだ）によいと思（おも）っていたから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「作（つく）るより買（か）うほうが早（はや）いし、片（かた）づけもいらないと思（おも）っていた」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "लेखकले सुरुमा खाना किन पकाउँदैनथे?",
+       "choices": [
+        "किन्न छिटो र सजिलो हुन्छ भन्ने सोचेकोले",
+        "खाना पकाउने सामग्री नजिकको पसलमा किन्न नपाएकोले",
+        "आफ्नो पकाएको खानाको स्वादमा विश्वास नभएकोले",
+        "खाजा शरीरको लागि राम्रो हुन्छ भन्ने सोचेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why didn't the author cook at first?",
+       "choices": [
+        "Because they thought buying was faster and easier",
+        "Because cooking ingredients couldn't be bought at nearby stores",
+        "Because they weren't confident in the taste of their own cooking",
+        "Because they thought bento was better for their health"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9003-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "慣（な）れて短（みじか）い時間で作（つく）れるようになった",
+      "自分（じぶん）の料理（りょうり）は今も店（みせ）の味（あじ）にかなわない",
+      "料理（りょうり）を始（はじ）めても食事（しょくじ）の代金（だいきん）は変（か）わらなかった",
+      "今でも外で食べるほうが好（す）きだ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「何度（なんど）も作（つく）るうちに手（て）が慣（な）れ、短（みじか）い時間でおいしく作（つく）れるようになった」とある。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "बानी परेपछि छोटो समयमा बनाउन सक्ने भयो",
+        "आफ्नो खाना अहिले पनि पसलको स्वादसँग मिल्दैन",
+        "खाना पकाउन थालेपछि पनि खानाको खर्च परिवर्तन भएन",
+        "अहिले पनि बाहिर खानु नै मन पर्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "They got used to it and became able to cook in a short time.",
+        "Their own cooking still can't compare to the taste of store-bought food.",
+        "Even after they started cooking, the cost of meals didn't change.",
+        "They still prefer eating out."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9003-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "やってみて初（はじ）めて分かることは多（おお）い",
+      "料理（りょうり）は時間の無駄（むだ）なのでしないほうがよい",
+      "弁当（べんとう）は体（からだ）に悪（わる）いので買（か）うべきではない",
+      "一人暮（く）らしはお金がかかるのでやめるべきだ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「やってみないと分からないことは多（おお）い」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "नगरेसम्म धेरै कुरा थाहा हुँदैन",
+        "खाना पकाउने समयको बर्बादी हो, त्यसैले नगर्नु राम्रो हुन्छ",
+        "खाजा शरीरको लागि नराम्रो हुन्छ, त्यसैले किन्नु हुँदैन",
+        "एक्लै बस्न धेरै पैसा लाग्छ, त्यसैले छोड्नुपर्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "There are many things you only understand by trying them.",
+        "Cooking is a waste of time, so it's better not to do it.",
+        "Bento is bad for your health, so you shouldn't buy it.",
+        "Living alone is expensive, so you should stop doing it."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "एक्लै बस्न थालेको बेला, मैले खाना पकाउने काम बिल्कुल गर्दिनथेँ। हरेक दिन, पसलबाट किनेको खाजा वा रोटी खान्थेँ। पकाउनुभन्दा किन्न छिटो हुन्छ र सफा गर्न पनि पर्दैन भन्ने मलाई लाग्थ्यो। भान्सामा उभिने समय भए, त्योभन्दा बरु सुत्न पाए हुन्थ्यो भन्ने पनि सोच्थेँ।\nतर, एक महिनामा मैले धेरै पैसा खर्च गरेँ, र जीवनयापन गाह्रो भयो। मैले केमा त्यति धेरै खर्च गरेँ होला भनेर सोच्दा, खानाको खर्चमा धेरै गएको रहेछ भन्ने थाहा भयो। किनेर खाने जीवन सोचेभन्दा धेरै महँगो रहेछ। ①<u>त्यो</u> कुराले अचम्मित भएर, मैले आफैँ पकाउने निर्णय गरेँ।\nसुरुमा, तरकारी काट्न पनि धेरै समय लाग्थ्यो, र स्वाद पनि पसलको जस्तो हुँदैनथ्यो। हात काटिने डरले बीचमै छोड्न मन लागेको पनि थियो। तर, धेरै पटक पकाउँदै जाँदा हात बानी पर्यो, र छोटो समयमा स्वादिष्ट खाना बनाउन सक्ने भएँ। अहिले, त्यो दिनको मुडअनुसार स्वाद परिवर्तन गर्न पाउँदा रमाइलो लाग्छ, र बाहिर खानुभन्दा आफ्नै खाना मन पर्छ। बिग्रेको खानालाई पनि अर्को पटक कसरी सुधार्ने भनेर सोच्दा, त्यो पनि एउटा रमाइलो बनेको छ।\nखाना पकाउने काम झन्झटिलो हो भनेर मैले पहिले नै सोचेको थिएँ, तर निरन्तर गर्दा, पैसा बचत हुनुका साथै, हरेक दिनको रमाइलो पनि बढ्यो। नगरेसम्म धेरै कुरा थाहा हुँदैन भन्ने मलाई अहिले लाग्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When I first started living alone, I didn't cook at all. Every day, I ate bento boxes and bread bought from stores. I thought it was faster to buy than to cook, and there was no cleanup needed. I even thought that if I had time to stand in the kitchen, I'd rather sleep.\nHowever, one month I overspent and my finances became difficult. When I thought about what I had spent so much on, I realized it was the cost of meals. The life of buying and eating was much more expensive than I had thought. Surprised by <u>that</u>, I decided to try cooking myself.\nAt first, it took a long time even to cut vegetables, and the taste couldn't compare to store-bought food. There were times I almost cut my hand and wanted to give up halfway. However, as I cooked repeatedly, my hands got used to it, and I became able to cook deliciously in a short time. Now, I enjoy being able to change the taste according to my mood that day, and I prefer my own cooking to eating out. Even when a dish fails, thinking about how to fix it next time has become one of my enjoyments.\nI had decided that cooking was troublesome, but by continuing it, not only could I save money, but my daily enjoyments also increased. I now feel that there are many things you don't know until you try them."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N4-D-M-9004",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "急（きゅう）な雨にあってから",
+   "body": "私（わたし）は毎朝（まいあさ）、家（いえ）を出る前に天気予報（よほう）を見る。雨が降（ふ）ると言（い）われた日は、必（かなら）ずかばんに傘（かさ）を入れていく。ぬれて風邪（かぜ）をひくのがいやだからだ。逆（ぎゃく）に、晴（は）れの予報（よほう）の日は、荷物（にもつ）を軽（かる）くしたくて何も持（も）たずに出ていた。\nところが先週（せんしゅう）、予報（よほう）では一日中晴（は）れると言（い）っていたのに、昼（ひる）を過（す）ぎて急（きゅう）に空（そら）が暗（くら）くなり、大きな音（おと）とともに雨が降（ふ）り出した。私（わたし）は傘（かさ）を持（も）っておらず、駅（えき）まで走（はし）るあいだにすっかりぬれてしまった。①<u>それ</u>以来（いらい）、私（わたし）は晴（は）れの予報（よほう）の日でも、小さな折（お）りたたみの傘（かさ）をかばんに入れるようになった。ぬれて過（す）ごしたあの日のいやな気分は、今でもよく覚（おぼ）えている。\n予報（よほう）は便利（べんり）だが、いつも当（あ）たるわけではない。空（そら）の様子（ようす）は、思（おも）いがけないほど早（はや）く変（か）わることがある。だから、雨が降（ふ）ると言（い）われた日だけ備（そな）えるのでは足（た）りないのだと、あの日、身（み）をもって知（し）った。\n空（そら）を見上げて雲（くも）の様子（ようす）を確（たし）かめる習慣（しゅうかん）も、あの日から自然（しぜん）と身（み）についた。少（すこ）しの重（おも）さを我慢（がまん）して傘（かさ）を持（も）ち歩（ある）くだけで、急（きゅう）な雨にあわてなくてすむ。たった一本の傘（かさ）が、その日一日の気分を守（まも）ってくれることもあるのだ。備（そな）えておくことの安心（あんしん）は、荷物（にもつ）の重（おも）さよりずっと大きいと、今の私（わたし）は思（おも）っている。",
+   "questions": [
+    {
+     "id": "N4-D-M-9004-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "急（きゅう）な雨で駅（えき）までにぬれたこと",
+      "晴（は）れの予報（よほう）の日も折（お）りたたみの傘（かさ）を入れること",
+      "毎朝（まいあさ）家（いえ）を出る前に天気予報（よほう）を見ること",
+      "雨にぬれて風邪（かぜ）をひいてしまったこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「駅（えき）まで走（はし）るあいだにすっかりぬれてしまった」を指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "अचानक पानी परेर स्टेशनसम्म भिजेको कुरा",
+        "घाम लाग्ने पूर्वानुमान भएको दिन पनि फोल्डिङ छाता राख्ने कुरा",
+        "हरेक बिहान घरबाट निस्कनुअघि मौसम पूर्वानुमान हेर्ने कुरा",
+        "पानीमा भिजेर रुघा लागेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>it</u> refer to?",
+       "choices": [
+        "Getting wet on the way to the station due to sudden rain",
+        "Putting a folding umbrella in the bag even on sunny forecast days",
+        "Checking the weather forecast every morning before leaving home",
+        "Getting wet in the rain and catching a cold"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9004-q2",
+     "q": "筆者（ひっしゃ）が雨の予報（よほう）の日に傘（かさ）を持（も）っていくのはなぜか。",
+     "choices": [
+      "ぬれて風邪（かぜ）をひくのがいやだから",
+      "折（お）りたたみの傘（かさ）が小さくて軽（かる）いから",
+      "天気予報（よほう）がいつも当（あ）たるから",
+      "駅（えき）まで走（はし）るのが好（す）きではないから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「ぬれて風邪（かぜ）をひくのがいやだからだ」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "लेखकले पानी पर्ने पूर्वानुमान भएको दिन छाता किन बोकेर जान्छन्?",
+       "choices": [
+        "भिजेर रुघा लाग्ने डरले गर्दा",
+        "फोल्डिङ छाता सानो र हल्का भएकोले",
+        "मौसम पूर्वानुमान सधैँ सही हुने भएकोले",
+        "स्टेशनसम्म दौड्न मन नपर्ने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why does the author take an umbrella on days with a rain forecast?",
+       "choices": [
+        "Because they don't want to get wet and catch a cold",
+        "Because the folding umbrella is small and light",
+        "Because the weather forecast is always accurate",
+        "Because they don't like running to the station"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9004-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "晴（は）れの予報（よほう）の日に急（きゅう）な雨が降（ふ）った",
+      "先週（せんしゅう）は予報（よほう）どおり一日中晴（は）れていた",
+      "筆者（ひっしゃ）は昔（むかし）から折（お）りたたみの傘（かさ）を持（も）っていた",
+      "筆者（ひっしゃ）は雨の日でも傘（かさ）を持（も）たない"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「予報（よほう）では一日中晴（は）れると言（い）っていたのに、急（きゅう）に雨が降（ふ）り出した」とある。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "घाम लाग्ने पूर्वानुमान भएको दिन अचानक पानी पर्यो",
+        "गत हप्ता पूर्वानुमानअनुसार दिनभर घाम लाग्यो",
+        "लेखकसँग पहिलेदेखि नै फोल्डिङ छाता थियो",
+        "लेखकले पानी परेको दिन पनि छाता बोक्दैनन्"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "Sudden rain fell on a day with a sunny forecast.",
+        "Last week, it was sunny all day as predicted.",
+        "The author has always carried a folding umbrella.",
+        "The author does not carry an umbrella even on rainy days."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9004-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "備（そな）えの安心（あんしん）は荷物（にもつ）の重（おも）さに勝（まさ）る",
+      "天気予報（よほう）は当（あ）たらないので見なくてよい",
+      "傘（かさ）は重（おも）いので持（も）ち歩（ある）かないほうがよい",
+      "晴（は）れの日には走（はし）って移動（いどう）するべきだ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「備（そな）えておくことの安心（あんしん）は、荷物（にもつ）の重（おも）さよりずっと大きい」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "तयारीको सुरक्षा सामानको वजनभन्दा ठूलो हुन्छ",
+        "मौसम पूर्वानुमान सही नहुने भएकोले हेर्नु हुँदैन",
+        "छाता भारी हुने भएकोले बोकेर नहिँड्नु राम्रो हुन्छ",
+        "घाम लागेको दिन दौडेर हिँड्नुपर्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "The peace of mind from being prepared outweighs the weight of belongings.",
+        "Weather forecasts are inaccurate, so there's no need to check them.",
+        "Umbrellas are heavy, so it's better not to carry them.",
+        "On sunny days, one should travel by running."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "म हरेक बिहान घरबाट निस्कनुअघि मौसम पूर्वानुमान हेर्छु। पानी पर्ने भनिएको दिन, म सधैँ झोलामा छाता राखेर जान्छु। भिजेर रुघा लाग्ने डरले गर्दा हो। यसको विपरीत, घाम लाग्ने पूर्वानुमान भएको दिन, सामान हल्का होस् भनेर केही नबोकी निस्कन्थेँ।\nतर गत हप्ता, पूर्वानुमानमा दिनभर घाम लाग्ने भनिएको थियो, तर दिउँसोपछि अचानक आकाश अँध्यारो भयो र ठूलो आवाजका साथ पानी पर्न थाल्यो। मसँग छाता थिएन, र स्टेशनसम्म दौड्दा म पूरै भिजेँ। ①<u>त्यो</u> घटनापछि, म घाम लाग्ने पूर्वानुमान भएको दिन पनि सानो फोल्डिङ छाता झोलामा राख्न थालेँ। त्यो दिन भिजेर बिताएको नराम्रो अनुभव मलाई अझै राम्ररी याद छ।\nपूर्वानुमान सुविधाजनक छ, तर सधैँ सही हुँदैन। आकाशको अवस्था अप्रत्याशित रूपमा छिटो परिवर्तन हुन सक्छ। त्यसैले, पानी पर्ने भनिएको दिन मात्र तयारी गर्नु पर्याप्त हुँदैन भन्ने कुरा मैले त्यो दिन आफैँले अनुभव गरेर थाहा पाएँ।\nआकाशमा हेरेर बादलको अवस्था जाँच्ने बानी पनि त्यो दिनदेखि स्वाभाविक रूपमा बस्यो। थोरै वजन सहन गरेर छाता बोक्दा मात्रै पनि, अचानक पानी पर्दा आत्तिनु पर्दैन। एउटा सानो छाताले त्यो दिनभरिको मुड बचाउन पनि सक्छ। तयारी गर्दाको सुरक्षा, सामानको वजनभन्दा धेरै ठूलो हुन्छ भन्ने मलाई अहिले लाग्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Every morning, I check the weather forecast before leaving home. On days when rain is predicted, I always put an umbrella in my bag. This is because I don't want to get wet and catch a cold. Conversely, on days with a sunny forecast, I would leave without anything, wanting to keep my bag light.\nHowever, last week, even though the forecast said it would be sunny all day, the sky suddenly darkened past noon, and it started raining with a loud noise. I didn't have an umbrella, and I got completely soaked while running to the station. Since <u>then</u>, I started putting a small folding umbrella in my bag even on days with a sunny forecast. I still clearly remember the unpleasant feeling of that day when I got wet.\nThe forecast is convenient, but it's not always accurate. The sky can change unexpectedly quickly. So, on that day, I learned firsthand that it's not enough to prepare only on days when rain is predicted.\nThe habit of looking up at the sky and checking the clouds also naturally developed since that day. Just by enduring a little weight and carrying an umbrella, I don't have to panic about sudden rain. Even a single umbrella can protect your mood for the entire day. I now believe that the peace of mind from being prepared is much greater than the weight of your belongings."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N4-D-M-9005",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "自転車（じてんしゃ）で会社（かいしゃ）へ",
+   "body": "私（わたし）は半年前から、会社（かいしゃ）まで自転車（じてんしゃ）で通（かよ）うようになった。それまでは電車を使（つか）っていたが、朝（あさ）の電車はとても混（こ）んでいて、乗（の）るだけで疲（つか）れてしまうのがいやだった。人にはさまれて動（うご）けないまま会社（かいしゃ）に着（つ）くと、仕事（しごと）を始（はじ）める前から気持（も）ちが重（おも）かった。それが毎日続（つづ）くのは、やはりこたえた。\n自転車（じてんしゃ）に変（か）えて、まず驚（おどろ）いたのは、通勤（つうきん）にかかる時間があまり変（か）わらないことだった。駅（えき）まで歩（ある）き、電車を待（ま）つ時間を考（かんが）えると、家（いえ）から会社（かいしゃ）まで自転車（じてんしゃ）のほうがむしろ早（はや）いこともあった。①<u>それ</u>がうれしくて、雨の日以外（いがい）は自転車（じてんしゃ）に乗（の）り続（つづ）けている。\n体（からだ）の調子（ちょうし）もよくなった。毎日体（からだ）を動（うご）かすようになってから、夜（よる）よく眠（ねむ）れるようになり、朝（あさ）も気持（も）ちよく起（お）きられる。前は休みの日にわざわざ運動（うんどう）をしていたが、今はその必要（ひつよう）がなくなった。重（おも）かった体（からだ）が軽（かる）くなり、階段（かいだん）をのぼっても息（いき）が切（き）れにくくなった。\nもちろん、寒（さむ）い朝（あさ）や強（つよ）い風（かぜ）の日はつらいこともある。それでも、道（みち）ばたの木や花（はな）が日ごとに変（か）わっていくのを見ると、季節（きせつ）が進（すす）むのがよく分かる。外の空気（くうき）を感（かん）じられるのは、電車の中では味（あじ）わえない楽（たの）しみだ。自転車（じてんしゃ）通勤（つうきん）を始（はじ）めて、毎日が前より気持（も）ちよくなったと感（かん）じている。",
+   "questions": [
+    {
+     "id": "N4-D-M-9005-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "自転車（じてんしゃ）のほうが早（はや）いこともあること",
+      "毎日体（からだ）を動（うご）かして夜（よる）よく眠（ねむ）れるようになること",
+      "朝（あさ）の電車がとても混（こ）んでいること",
+      "季節（きせつ）の変化（へんか）に気づけること"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「自転車（じてんしゃ）のほうがむしろ早（はや）いこともあった」を指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "साइकलमा बरु छिटो पनि हुने कुरा",
+        "हरेक दिन शरीर चलाएर राति राम्ररी सुत्न सक्ने हुने कुरा",
+        "बिहानको रेल धेरै भीडभाड हुने कुरा",
+        "मौसमको परिवर्तन थाहा पाउन सक्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>it</u> refer to?",
+       "choices": [
+        "The fact that cycling is sometimes faster",
+        "The fact that exercising daily leads to sleeping well at night",
+        "The fact that morning trains are very crowded",
+        "The fact that one can notice seasonal changes"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9005-q2",
+     "q": "筆者（ひっしゃ）が電車での通勤（つうきん）をやめたのはなぜか。",
+     "choices": [
+      "満員（まんいん）の電車で疲（つか）れてしまうから",
+      "電車の料金（りょうきん）が前より高くなったから",
+      "駅（えき）までの道（みち）がとても遠（とお）かったから",
+      "自転車（じてんしゃ）のほうが体（からだ）を動（うご）かせるから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「朝（あさ）の電車はとても混（こ）んでいて、乗（の）るだけで疲（つか）れてしまうのがいやだった」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "लेखकले रेलमा यात्रा गर्न किन छोडे?",
+       "choices": [
+        "भीडभाड भएको रेलमा थाक्ने भएकोले",
+        "रेलको भाडा पहिलेभन्दा महँगो भएकोले",
+        "स्टेशनसम्मको बाटो धेरै टाढा भएकोले",
+        "साइकलमा शरीर चलाउन सकिने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did the author stop commuting by train?",
+       "choices": [
+        "Because they got tired on crowded trains",
+        "Because train fares became more expensive than before",
+        "Because the path to the station was very far",
+        "Because cycling allowed them to exercise"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9005-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "始（はじ）めてから夜（よる）よく眠（ねむ）れるようになった",
+      "自転車（じてんしゃ）に変（か）えて通勤（つうきん）の時間が大きく増（ふ）えた",
+      "今も休みの日にわざわざ運動（うんどう）をしている",
+      "雨の日でも必（かなら）ず自転車（じてんしゃ）で通（かよ）っている"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「夜（よる）よく眠（ねむ）れるようになり」とある。運動（うんどう）は不要（ふよう）になり、雨の日以外（いがい）に乗（の）る。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "सुरु गरेपछि राति राम्ररी सुत्न सक्ने भयो",
+        "साइकलमा परिवर्तन गरेपछि काममा लाग्ने समय धेरै बढ्यो",
+        "अहिले पनि छुट्टीको दिनमा विशेष गरी व्यायाम गर्छ",
+        "पानी परेको दिन पनि सधैँ साइकलमा जान्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "They started sleeping well at night after starting.",
+        "Their commute time significantly increased after switching to a bicycle.",
+        "They still specifically exercise on their days off.",
+        "They always commute by bicycle, even on rainy days."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9005-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "自転車（じてんしゃ）通勤（つうきん）で毎日が快適（かいてき）になった",
+      "通勤（つうきん）にはもう電車を使（つか）うべきではない",
+      "運動（うんどう）は休みの日にまとめてするのがよい",
+      "寒（さむ）い日や風（かぜ）の日は会社（かいしゃ）を休むべきだ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「毎日が前より気持（も）ちよくなったと感（かん）じている」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "साइकलमा काममा जाँदा हरेक दिन आरामदायी भयो",
+        "काममा जान अब रेल प्रयोग गर्नु हुँदैन",
+        "व्यायाम छुट्टीको दिनमा एकैचोटि गर्नु राम्रो हुन्छ",
+        "चिसो दिन वा हावा चलेको दिन कम्पनीबाट छुट्टी लिनुपर्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "Commuting by bicycle made every day comfortable.",
+        "One should no longer use trains for commuting.",
+        "It's best to do all your exercise on your days off.",
+        "One should take a day off from work on cold or windy days."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "म छ महिनादेखि कम्पनीसम्म साइकलमा जान थालेको छु। त्योभन्दा पहिले म रेल प्रयोग गर्थेँ, तर बिहानको रेल धेरै भीडभाड हुन्थ्यो, र चढ्दा मात्रै पनि थाक्ने कुरा मलाई मन पर्दैनथ्यो। मानिसहरूले च्यापेर हिँड्न नसक्ने अवस्थामा कम्पनी पुग्दा, काम सुरु गर्नुअघि नै मन भारी हुन्थ्यो। त्यो हरेक दिन जारी रहनु साँच्चै गाह्रो थियो।\nसाइकलमा परिवर्तन गरेपछि, मलाई सबैभन्दा पहिले अचम्म लागेको कुरा, काममा लाग्ने समय खासै परिवर्तन नहुनु थियो। स्टेशनसम्म हिँड्ने र रेल पर्खने समयलाई विचार गर्दा, घरबाट कम्पनीसम्म साइकलमा बरु छिटो पनि हुन्थ्यो। ①<u>त्यो</u> कुराले मलाई खुसी लाग्यो, र पानी परेको दिनबाहेक म साइकलमा नै यात्रा गरिरहेको छु।\nशरीरको अवस्था पनि राम्रो भयो। हरेक दिन शरीर चलाउन थालेपछि, राति राम्ररी सुत्न सक्ने भएँ, र बिहान पनि आरामसँग उठ्न सक्छु। पहिले छुट्टीको दिनमा विशेष गरी व्यायाम गर्थेँ, तर अहिले त्यसको आवश्यकता छैन। भारी भएको शरीर हल्का भयो, र सिँढी चढ्दा पनि सास फेर्न गाह्रो हुँदैन।\nनिश्चित रूपमा, चिसो बिहान वा तेज हावा चलेको दिन गाह्रो पनि हुन्छ। तैपनि, बाटोको छेउमा रहेका रूख र फूलहरू दिनहुँ परिवर्तन भएको देख्दा, मौसम कसरी अगाडि बढिरहेको छ भन्ने कुरा राम्ररी बुझिन्छ। बाहिरको हावा महसुस गर्न पाउनु, रेलभित्र अनुभव गर्न नसकिने रमाइलो हो। साइकलमा काममा जान थालेपछि, हरेक दिन पहिलेभन्दा धेरै रमाइलो भएको महसुस गरिरहेको छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "For the past six months, I've been commuting to work by bicycle. Before that, I used the train, but the morning trains were very crowded, and I disliked getting tired just from riding. Arriving at work unable to move, squeezed between people, made me feel heavy-hearted even before starting work. Having that continue every day really took a toll.\nWhen I switched to a bicycle, the first thing that surprised me was that the commute time didn't change much. Considering the time spent walking to the station and waiting for the train, it was sometimes even faster to cycle from home to work. <u>That</u> made me happy, and I've continued riding my bicycle every day except on rainy days.\nMy physical condition also improved. Since I started exercising daily, I've been sleeping well at night and waking up feeling refreshed in the morning. Before, I used to specifically exercise on my days off, but now there's no need for that. My heavy body became lighter, and I don't get out of breath as easily when climbing stairs.\nOf course, some cold mornings and strong windy days are tough. Nevertheless, seeing the trees and flowers by the roadside change day by day makes it clear how the seasons are progressing. Feeling the outdoor air is an enjoyment that cannot be experienced inside a train. I feel that since I started cycling to work, every day has become more pleasant than before."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N4-D-M-9006",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "祖母（そぼ）からの手紙（てがみ）",
+   "body": "遠（とお）くに住（す）む祖母（そぼ）は、今もときどき私（わたし）に手紙（てがみ）を送（おく）ってくる。メールなら一瞬（いっしゅん）で届（とど）くのに、なぜわざわざ手紙（てがみ）を書くのだろうと、以前（いぜん）の私（わたし）は不思議（ふしぎ）に思（おも）っていた。切手（きって）をはって、ポストまで出しに行く手間（てま）を考（かんが）えると、面倒（めんどう）ではないのかとさえ思（おも）っていた。\n先月、私（わたし）は久（ひさ）しぶりに祖母（そぼ）から手紙（てがみ）を受（う）け取（と）った。封（ふう）を開（あ）けると、少（すこ）し曲（ま）がった文字（もじ）で、庭（にわ）に咲（さ）いた花（はな）のことや、私（わたし）の体（からだ）を気づかう言葉（ことば）が並（なら）んでいた。①<u>それ</u>を読んでいると、まるで祖母（そぼ）がすぐそばで話しているように感（かん）じられ、胸（むね）が温（あたた）かくなった。メールの短（みじか）い文（ぶん）では、こんな気持（も）ちにはならなかっただろう。\n手紙（てがみ）には、書いた人の時間と気持（も）ちがそのまま残（のこ）っている。文字（もじ）の形（かたち）や紙（かみ）の様子（ようす）から、その日の相手（あいて）の様子（ようす）まで伝（つた）わってくる。速（はや）さでは、手紙（てがみ）はメールにかなわない。しかし、伝（つた）わるものの深（ふか）さは、手紙（てがみ）のほうがずっと大きいと私（わたし）は感（かん）じた。急（いそ）ぎの用事（ようじ）ならメールが便利（べんり）だが、心（こころ）を伝（つた）えたいときは手紙（てがみ）のほうがいいのだろう。\n今度（こんど）は私（わたし）が祖母（そぼ）に手紙（てがみ）を書こうと思（おも）う。祖母（そぼ）の顔（かお）を思（おも）いうかべながらペンを持（も）つのは、それだけで楽（たの）しい。何を書こうかと考（かんが）える時間は、少（すこ）し長い。けれども、その時間こそが、相手（あいて）を思（おも）う気持（も）ちそのものなのだから。",
+   "questions": [
+    {
+     "id": "N4-D-M-9006-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "手紙（てがみ）にあった花（はな）や体（からだ）を気づかう言葉（ことば）",
+      "メールで届（とど）いたそっけない短（みじか）い文（ぶん）",
+      "祖母（そぼ）の庭（にわ）に咲（さ）いていた花（はな）",
+      "私（わたし）が祖母（そぼ）に書いて送（おく）った返事（へんじ）"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「庭（にわ）に咲（さ）いた花（はな）のことや、私（わたし）の体（からだ）を気づかう言葉（ことば）が並（なら）んでいた」を指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "चिठीमा लेखिएका फूल र स्वास्थ्यको ख्याल राख्ने शब्दहरू",
+        "इमेलमा आएको रुखो छोटो सन्देश",
+        "हजुरआमाको बगैँचामा फुलेका फूलहरू",
+        "मैले हजुरआमालाई लेखेर पठाएको जवाफ"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>it</u> refer to?",
+       "choices": [
+        "The words in the letter about flowers and concern for health",
+        "The curt, short sentences received in an email",
+        "The flowers blooming in grandmother's garden",
+        "The reply I wrote and sent to my grandmother"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9006-q2",
+     "q": "筆者（ひっしゃ）が手紙（てがみ）を読んで胸（むね）が温（あたた）かくなったのはなぜか。",
+     "choices": [
+      "そばで話すように感（かん）じられたから",
+      "手紙（てがみ）がメールよりずっと速（はや）く届（とど）いたから",
+      "祖母（そぼ）の庭（にわ）に咲（さ）いた花（はな）をもらったから",
+      "久（ひさ）しぶりに祖母（そぼ）に直接（ちょくせつ）会（あ）えたから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「まるで祖母（そぼ）がすぐそばで話しているように感（かん）じられ、胸（むね）が温（あたた）かくなった」とある。"
+      },
+      "ne": {
+       "q": "लेखकले चिठी पढेर मन न्यानो किन भयो?",
+       "choices": [
+        "छेउमा बसेर कुरा गरिरहनुभएको जस्तो लागेकोले",
+        "चिठी इमेलभन्दा धेरै छिटो पुगेकोले",
+        "हजुरआमाको बगैँचामा फुलेका फूलहरू पाएकोले",
+        "लामो समयपछि हजुरआमालाई प्रत्यक्ष भेट्न पाएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did the author's heart warm when reading the letter?",
+       "choices": [
+        "Because they felt as if she was speaking right beside them",
+        "Because the letter arrived much faster than email",
+        "Because they received flowers that bloomed in grandmother's garden",
+        "Because they met their grandmother in person after a long time"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9006-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "祖母（そぼ）は今も手紙（てがみ）を送（おく）ってくる",
+      "祖母（そぼ）はもうメールしか使（つか）わなくなった",
+      "筆者（ひっしゃ）はすでに祖母（そぼ）へ手紙（てがみ）を書き終（お）えた",
+      "手紙（てがみ）はメールより速（はや）く相手（あいて）に届（とど）く"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「今もときどき私（わたし）に手紙（てがみ）を送（おく）ってくる」とある。書くのはこれから。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "हजुरआमाले अहिले पनि चिठी पठाउनुहुन्छ",
+        "हजुरआमाले अब इमेल मात्रै प्रयोग गर्न थाल्नुभयो",
+        "लेखकले हजुरआमालाई चिठी लेखिसकेका छन्",
+        "चिठी इमेलभन्दा छिटो अर्को व्यक्तिसम्म पुग्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "Grandmother still sends letters.",
+        "Grandmother only uses email now.",
+        "The author has already finished writing a letter to their grandmother.",
+        "Letters reach the recipient faster than email."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9006-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "手紙（てがみ）は遅（おそ）いが伝（つた）わるものは深（ふか）い",
+      "メールはもう使（つか）うべきではない",
+      "手紙（てがみ）は時間がかかるので書かないほうがよい",
+      "祖母（そぼ）には電話をかけるのが一番（いちばん）よい"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「速（はや）さでは手紙（てがみ）はかなわないが、伝（つた）わるものの深（ふか）さは手紙（てがみ）のほうがずっと大きい」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "चिठी ढिलो हुन्छ तर यसले व्यक्त गर्ने भावना गहिरो हुन्छ",
+        "इमेल अब प्रयोग गर्नु हुँदैन",
+        "चिठी लेख्न समय लाग्ने भएकोले नलेख्नु राम्रो हुन्छ",
+        "हजुरआमालाई फोन गर्नु नै सबैभन्दा राम्रो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "Letters are slow, but what they convey is deep.",
+        "Email should no longer be used.",
+        "Letters take time, so it's better not to write them.",
+        "Calling grandmother on the phone is the best option."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "टाढा बस्ने हजुरआमाले अहिले पनि कहिलेकाहीँ मलाई चिठी पठाउनुहुन्छ। इमेल भए एकैछिनमा पुग्छ, किन उहाँले विशेष गरी चिठी लेख्नुहुन्छ होला भनेर पहिले मलाई अचम्म लाग्थ्यो। टिकट टाँसेर हुलाकमा गएर पठाउने झन्झट सोच्दा, उहाँलाई गाह्रो हुँदैन होला र भन्ने पनि लाग्थ्यो।\nगत महिना, मैले लामो समयपछि हजुरआमाबाट चिठी पाएँ। खाम खोल्दा, अलिकति बाङ्गा अक्षरमा, बगैँचामा फुलेका फूलहरूको बारेमा र मेरो स्वास्थ्यको ख्याल राख्ने शब्दहरू लेखिएका थिए। ①<u>त्यो</u> पढ्दै गर्दा, हजुरआमा ठ्याक्कै छेउमा बसेर कुरा गरिरहनुभएको जस्तो लाग्यो, र मेरो मन न्यानो भयो। इमेलको छोटो सन्देशले यस्तो भावना आउने थिएन होला।\nचिठीमा, लेख्ने व्यक्तिको समय र भावना जस्ताको तस्तै रहन्छ। अक्षरको आकार र कागजको अवस्थाबाट, त्यो दिनको व्यक्तिको अवस्था पनि थाहा हुन्छ। गतिमा, चिठी इमेलसँग मिल्दैन। तर, भावनाको गहिराइमा, चिठी धेरै ठूलो हुन्छ भन्ने मलाई लाग्यो। हतारको कामको लागि इमेल सुविधाजनक छ, तर मनको कुरा व्यक्त गर्नुपर्दा चिठी नै राम्रो होला।\nअब म हजुरआमालाई चिठी लेख्नेछु भन्ने सोचेको छु। हजुरआमाको अनुहार सम्झँदै कलम समात्नु नै रमाइलो हुन्छ। के लेख्ने भनेर सोच्ने समय अलिकति लामो हुन्छ। तर, त्यो समय नै, अर्को व्यक्तिलाई सोच्ने भावना हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My grandmother, who lives far away, still sends me letters occasionally. I used to wonder why she bothered to write letters when an email would arrive instantly. I even thought it must be troublesome, considering the effort of attaching a stamp and going to the post box.\nLast month, I received a letter from my grandmother after a long time. When I opened the envelope, there were words written in slightly crooked characters, talking about the flowers blooming in her garden and expressing concern for my health. As I read <u>them</u>, I felt as if my grandmother was speaking right beside me, and my heart warmed. I probably wouldn't have felt this way with a short email.\nA letter retains the writer's time and feelings as they are. From the shape of the characters and the condition of the paper, you can even sense the sender's mood on that day. In terms of speed, letters cannot compete with email. However, I felt that the depth of what is conveyed is much greater with letters. Email is convenient for urgent matters, but for conveying feelings, a letter might be better.\nThis time, I plan to write a letter to my grandmother. Just holding a pen while imagining my grandmother's face is enjoyable in itself. The time spent thinking about what to write is a bit long. But that time itself is precisely the feeling of caring for the other person."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N4-D-M-9007",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "ベランダの小さな畑（はたけ）",
+   "body": "去年（きょねん）の春（はる）、私（わたし）はベランダで小さな野菜（やさい）を育（そだ）て始（はじ）めた。土を入れた鉢（はち）に種（たね）をまき、毎日水をやるだけの簡単（かんたん）なことだ。うまくいくとは思（おも）っていなかったので、正直（しょうじき）、あまり期待（きたい）していなかった。今まで植物（しょくぶつ）を育（そだ）てた経験（けいけん）はなく、すぐにかれてしまうだろうと考（かんが）えていた。\nところが、一週間（いっしゅうかん）ほどたったある朝（あさ）、土の間から小さな緑（みどり）の芽（め）が顔（かお）を出していた。①<u>それ</u>を見つけたとき、私（わたし）は思（おも）わず声（こえ）を上げてしまった。自分（じぶん）がまいた種（たね）が生きて育（そだ）っていることが、こんなにうれしいとは思（おも）わなかったのだ。それからは、朝（あさ）起（お）きるとまずベランダに出て、芽（め）の様子（ようす）を見るのが日課（にっか）になった。少（すこ）しでも背（せ）がのびていると、その日は一日気分がよかった。\nやがて葉（は）が増（ふ）え、夏（なつ）には赤（あか）い実（み）がなった。取（と）って食べてみると、店（みせ）で買（か）うものと同（おな）じ味（あじ）なのに、なぜか特別（とくべつ）においしく感（かん）じられた。自分（じぶん）で世話（せわ）をして育（そだ）てたからだろう。小さな鉢（はち）一つでも、世話（せわ）をすればちゃんとこたえてくれるのだと知（し）った。\n植物（しょくぶつ）を育（そだ）てるのは、ただ食べ物（もの）を作（つく）るだけのことではない。毎日の小さな変化（へんか）に気づき、生きているものの力（ちから）を感（かん）じられる。それが、この楽（たの）しみのいちばんの魅力（みりょく）だと思（おも）う。",
+   "questions": [
+    {
+     "id": "N4-D-M-9007-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "土から顔（かお）を出した小さな芽（め）",
+      "種（たね）を入れておいた土の入った鉢（はち）",
+      "夏（なつ）になってなった赤（あか）い実（み）",
+      "店（みせ）で買（か）ってきた野菜（やさい）"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「土の間から小さな緑（みどり）の芽（め）が顔（かお）を出していた」を指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "माटोबाट निस्किएको सानो पालुवा",
+        "बीउ राखिएको माटोले भरिएको गमला",
+        "गर्मीमा लागेको रातो फल",
+        "पसलबाट किनेको तरकारी"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>it</u> refer to?",
+       "choices": [
+        "Small sprouts that emerged from the soil",
+        "Pots with soil where seeds were placed",
+        "Red fruits that appeared in the summer",
+        "Vegetables bought from a store"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9007-q2",
+     "q": "筆者（ひっしゃ）が野菜（やさい）作（つく）りにあまり期待（きたい）していなかったのはなぜか。",
+     "choices": [
+      "うまくいくと思（おも）えなかったから",
+      "毎日ていねいに世話（せわ）をする時間がなかったから",
+      "ベランダがとてもせまかったから",
+      "種（たね）をまくのが初（はじ）めてだったから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「うまくいくとは思（おも）っていなかったので、あまり期待（きたい）していなかった」とある。"
+      },
+      "ne": {
+       "q": "लेखकले तरकारी खेतीबाट धेरै आशा किन गरेका थिएनन्?",
+       "choices": [
+        "यो सफल होला भन्ने लागेको थिएन",
+        "हरेक दिन राम्ररी हेरचाह गर्ने समय थिएन",
+        "बार्दली धेरै साँघुरो थियो",
+        "बीउ रोपेको पहिलो पटक थियो"
+       ]
+      },
+      "en": {
+       "q": "Why didn't the author expect much from vegetable gardening?",
+       "choices": [
+        "Because they didn't think it would go well",
+        "Because they didn't have time to carefully care for them every day",
+        "Because the balcony was very narrow",
+        "Because it was their first time sowing seeds"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9007-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "毎朝（まいあさ）、芽（め）の様子（ようす）を見るのが日課（にっか）になった",
+      "まいた種（たね）からはとうとう芽（め）が出なかった",
+      "育（そだ）てた実（み）は店（みせ）のものよりまずかった",
+      "夏（なつ）になっても実（み）はならなかった"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「朝（あさ）起（お）きるとまずベランダに出て、芽（め）の様子（ようす）を見るのが日課（にっか）になった」とある。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "हरेक बिहान पालुवाको अवस्था हेर्नु दैनिक दिनचर्या बन्यो",
+        "रोपेको बीउबाट अन्ततः पालुवा निस्किएन",
+        "हुर्काएको फल पसलको भन्दा नमिठो थियो",
+        "गर्मीमा पनि फल लागेन"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "Checking on the sprouts every morning became a daily routine.",
+        "No sprouts ever emerged from the sown seeds.",
+        "The fruits grown tasted worse than those from the store.",
+        "No fruits appeared even in the summer."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9007-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "育（そだ）てる楽（たの）しみは食べ物（もの）作（つく）りだけではない",
+      "野菜（やさい）は自分（じぶん）で育（そだ）てるより店（みせ）で買（か）うほうがよい",
+      "せまいベランダでは野菜（やさい）を育（そだ）てられない",
+      "育（そだ）てた野菜（やさい）は特別（とくべつ）な味（あじ）がするので売（う）るとよい"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「ただ食べ物（もの）を作（つく）るだけではない…毎日の変化（へんか）に気づけるのが魅力（みりょく）」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "हुर्काउने आनन्द केवल खाना बनाउनु मात्र होइन",
+        "तरकारी आफैं हुर्काउनु भन्दा पसलमा किन्नु राम्रो हुन्छ",
+        "साँघुरो बार्दलीमा तरकारी हुर्काउन सकिँदैन",
+        "हुर्काएको तरकारीको विशेष स्वाद हुने भएकाले बेच्नु राम्रो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "The joy of growing things is not just about producing food.",
+        "It's better to buy vegetables from a store than to grow them yourself.",
+        "You cannot grow vegetables on a narrow balcony.",
+        "Grown vegetables have a special taste, so it's good to sell them."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "गत वसन्तमा, मैले बार्दलीमा सानो तरकारी खेती गर्न थालें। माटोले भरिएको गमलामा बीउ रोपेर हरेक दिन पानी हाल्ने एउटा साधारण काम थियो। मलाई लाग्दैनथ्यो कि यो सफल होला, त्यसैले इमानदारीपूर्वक भन्नुपर्दा, मैले धेरै आशा गरेको थिइनँ। मैले पहिले कहिल्यै बिरुवा हुर्काएको अनुभव थिएन र सोचेको थिएँ कि यो चाँडै सुक्नेछ।\nतर, एक हप्तापछि एक बिहान, माटोबाट सानो हरियो पालुवा निस्किएको थियो। जब मैले <u>त्यो</u> देखेँ, म अनजानेमा चिच्याएँ। मैले रोपेको बीउ जीवित छ र बढिरहेको छ भन्ने कुराले मलाई यति धेरै खुशी देला भन्ने सोचेको थिइनँ। त्यसपछि, बिहान उठ्ने बित्तिकै बार्दलीमा गएर पालुवाको अवस्था हेर्नु मेरो दैनिक दिनचर्या बन्यो। अलिकति पनि अग्लो भएको देख्दा, त्यो दिनभरि मेरो मुड राम्रो हुन्थ्यो।\nबिस्तारै पातहरू बढे र गर्मीमा रातो फल लाग्यो। टिपेर खाँदा, पसलमा किनेको जस्तै स्वाद भए पनि, किन हो कुन्नि विशेष स्वादिष्ट लाग्यो। सायद मैले आफैंले हेरचाह गरेर हुर्काएकोले होला। मैले थाहा पाएँ कि एउटा सानो गमलाले पनि, हेरचाह गर्दा राम्रो प्रतिफल दिन्छ।\nबिरुवा हुर्काउनु भनेको केवल खाना उत्पादन गर्नु मात्र होइन। यसले दैनिक सानो परिवर्तनहरूमा ध्यान दिन र जीवित चीजहरूको शक्ति महसुस गर्न सिकाउँछ। मलाई लाग्छ कि यही नै यस आनन्दको सबैभन्दा ठूलो आकर्षण हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last spring, I started growing small vegetables on my balcony. It was simple: sow seeds in pots filled with soil and water them daily. I honestly didn't expect much, as I didn't think it would go well. I had no experience growing plants and thought they would wither quickly.\nHowever, one morning, about a week later, tiny green sprouts peeked out from the soil. When I found <u>them</u>, I involuntarily let out a cry. I never thought it would make me so happy that the seeds I sowed were alive and growing. From then on, my daily routine became to go out to the balcony first thing in the morning and check on the sprouts. If they had grown even a little taller, I would be in a good mood all day.\nEventually, more leaves grew, and in the summer, red fruits appeared. When I picked and ate them, they tasted the same as those bought from a store, but for some reason, they felt especially delicious. Perhaps it was because I had cared for and grown them myself. I learned that even a small pot would respond properly if I took care of it.\nGrowing plants is not just about producing food. It's about noticing small daily changes and feeling the power of living things. I think that is the greatest charm of this enjoyment."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N4-D-M-9008",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "朝（あさ）の静（しず）かな時間",
+   "body": "私（わたし）は昔（むかし）から朝（あさ）が弱（よわ）く、いつもぎりぎりまで寝（ね）ていた。起（お）きてすぐに家（いえ）を出るので、朝（あさ）ごはんも食べず、あわてて駅（えき）まで走（はし）る毎日だった。せっかくの一日も、始（はじ）まりがこれではいつも心（こころ）に余裕（よゆう）がなかった。会社（かいしゃ）に着（つ）くころには、もう疲（つか）れを感（かん）じていた。\nあるとき、仕事（しごと）で早（はや）い時間に出かける用事（ようじ）が続（つづ）き、いやおうなく早（はや）く起（お）きる生活（せいかつ）になった。初（はじ）めはつらかったが、しばらくすると、朝（あさ）の時間に思（おも）いがけない良（よ）さがあることに気づいた。①<u>それ</u>は、家（いえ）の中がとても静（しず）かで、頭（あたま）がよく働（はたら）くことだった。同（おな）じ仕事（しごと）でも、夜（よる）にやるより朝（あさ）のほうが早（はや）く終（お）わる。まわりの音（おと）に気を取（と）られず、一つのことに集中（しゅうちゅう）できるからだろう。\n用事（ようじ）が終（お）わったあとも、私（わたし）は早（はや）起（お）きを続（つづ）けることにした。朝（あさ）ごはんをゆっくり食べ、少（すこ）し本を読んでから家（いえ）を出る。それだけで、一日を落（お）ち着（つ）いた気持（も）ちで始（はじ）められるようになった。頭（あたま）がすっきりしているので、難（むずか）しい仕事（しごと）も朝（あさ）のうちに片（かた）づけてしまえる。\n早（はや）起（お）きは損（そん）だと、以前（いぜん）の私（わたし）は思（おも）い込んでいた。しかし今は、朝（あさ）の静（しず）かな時間こそが一日で最（もっと）も大切（たいせつ）なものだと感（かん）じている。夜（よる）ふかしをやめ、少（すこ）し早（はや）く寝（ね）るだけで、毎日が変（か）わったのだ。",
+   "questions": [
+    {
+     "id": "N4-D-M-9008-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "朝（あさ）に気づいた思（おも）いがけない良（よ）さ",
+      "早（はや）く起（お）きる生活（せいかつ）になったきっかけの用事（ようじ）",
+      "あわてて駅（えき）まで走（はし）っていた毎日",
+      "夜（よる）に仕事（しごと）をするときのつらさ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「朝（あさ）の時間に思（おも）いがけない良（よ）さがある」を指（さ）し、静（しず）かで頭（あたま）が働（はたら）くこと。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "बिहान थाहा पाएको अप्रत्याशित राम्रो पक्ष",
+        "चाँडै उठ्ने जीवनशैलीमा बस्नुपर्ने कारण बनेको काम",
+        "हतार-हतार स्टेशनसम्म दौडिने दैनिक दिनचर्या",
+        "राति काम गर्दाको कठिनाइ"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>it</u> refer to?",
+       "choices": [
+        "The unexpected benefit discovered in the morning",
+        "The errands that led to waking up early",
+        "The daily routine of rushing to the station",
+        "The difficulty of working at night"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9008-q2",
+     "q": "筆者（ひっしゃ）が早（はや）く起（お）きる生活（せいかつ）になったのはなぜか。",
+     "choices": [
+      "早（はや）い時間の用事（ようじ）が続（つづ）いたから",
+      "朝（あさ）ごはんをゆっくり食べたかったから",
+      "家（いえ）の中が静（しず）かで頭（あたま）がよく働（はたら）くから",
+      "夜（よる）ふかしがどうしてもやめられなかったから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「仕事（しごと）で早（はや）い時間に出かける用事（ようじ）が続（つづ）き、いやおうなく早（はや）く起（お）きる生活（せいかつ）になった」とある。"
+      },
+      "ne": {
+       "q": "लेखक चाँडै उठ्ने जीवनशैलीमा किन बस्नुपर्‍यो?",
+       "choices": [
+        "बिहानै जानुपर्ने कामहरू लगातार आएकाले",
+        "बिहानको खाजा आरामले खान चाहेकाले",
+        "घर भित्र शान्त हुने र दिमाग राम्रोसँग चल्ने भएकाले",
+        "राति अबेरसम्म बस्ने बानी छोड्न नसकेकाले"
+       ]
+      },
+      "en": {
+       "q": "Why did the author start waking up early?",
+       "choices": [
+        "Because they had a series of early morning errands.",
+        "Because they wanted to eat breakfast slowly.",
+        "Because the house was quiet and their mind worked well.",
+        "Because they couldn't stop staying up late."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9008-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "同（おな）じ仕事（しごと）も朝（あさ）のほうが早（はや）く終（お）わった",
+      "早（はや）起（お）きは初（はじ）めからまったくつらくなかった",
+      "用事（ようじ）が終（お）わると早（はや）起（お）きをやめてしまった",
+      "今も朝（あさ）ごはんを食べずに家（いえ）を出ている"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「夜（よる）にやるより朝（あさ）のほうが早（はや）く終（お）わる」とある。初（はじ）めはつらく、用事（ようじ）後も続（つづ）けている。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "एउटै काम पनि बिहान गर्दा चाँडै सकिन्थ्यो",
+        "चाँडै उठ्नु सुरुदेखि नै बिल्कुल गाह्रो थिएन",
+        "काम सकिएपछि चाँडै उठ्ने बानी छोडिदिए",
+        "अहिले पनि बिहानको खाजा नखाई घरबाट निस्कन्छु"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "The same work finished faster in the morning.",
+        "Waking up early was not difficult at all from the beginning.",
+        "The author stopped waking up early after the errands were over.",
+        "The author still leaves the house without eating breakfast."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9008-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "朝（あさ）の静（しず）かな時間が最（もっと）も大切（たいせつ）だ",
+      "早（はや）起（お）きは損（そん）なのでするべきではない",
+      "仕事（しごと）は夜（よる）にまとめてするのがよい",
+      "朝（あさ）ごはんは食べないほうが体（からだ）によい"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「朝（あさ）の静（しず）かな時間こそが一日で最（もっと）も大切（たいせつ）なものだと感（かん）じている」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "बिहानको शान्त समय सबैभन्दा महत्त्वपूर्ण छ",
+        "चाँडै उठ्नु घाटा हो त्यसैले गर्नु हुँदैन",
+        "काम राति एकैचोटि गर्नु राम्रो हुन्छ",
+        "बिहानको खाजा नखानु शरीरको लागि राम्रो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "The quiet morning hours are the most important.",
+        "Waking up early is a disadvantage and should not be done.",
+        "It's better to do all work at night.",
+        "It's healthier not to eat breakfast."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "म सानैदेखि बिहान उठ्न कमजोर थिएँ र सधैं अन्तिम क्षणसम्म सुत्थेँ। उठ्ने बित्तिकै घरबाट निस्कने भएकाले, बिहानको खाजा पनि नखाई, हतार-हतार स्टेशनसम्म दौडिने मेरो दैनिक दिनचर्या थियो। दिनको सुरुवात यस्तो भएपछि, सधैं मनमा शान्ति हुँदैनथ्यो। कम्पनी पुग्दा नै मलाई थकान महसुस भइसक्थ्यो।\nएक पटक, कामको सिलसिलामा बिहानै बाहिर जानुपर्ने कामहरू लगातार आए, र मलाई चाहेर पनि नचाहेर पनि चाँडै उठ्ने जीवनशैलीमा बस्नुपर्‍यो। सुरुमा गाह्रो भयो, तर केही समयपछि, मैले बिहानको समयमा अप्रत्याशित राम्रो पक्षहरू रहेको कुरा थाहा पाएँ। <u>त्यो</u> के थियो भने, घर भित्र धेरै शान्त हुन्थ्यो र दिमाग राम्रोसँग चल्थ्यो। एउटै काम पनि, राति गर्नुभन्दा बिहान गर्दा चाँडै सकिन्थ्यो। सायद वरपरको आवाजले ध्यान भङ्ग नभई एउटै कुरामा केन्द्रित हुन सकिने भएकोले होला।\nकाम सकिएपछि पनि, मैले चाँडै उठ्ने बानी जारी राख्ने निर्णय गरें। बिहानको खाजा आरामले खाएर, केही बेर किताब पढेर मात्र घरबाट निस्कन्छु। यतिले मात्र पनि, मैले दिनलाई शान्त मनले सुरु गर्न सकें। दिमाग सफा हुने भएकाले, गाह्रो कामहरू पनि बिहानै सकाउन सकिन्छ।\nचाँडै उठ्नु घाटा हो भन्ने मेरो पहिलेको धारणा थियो। तर अहिले, मलाई लाग्छ कि बिहानको शान्त समय नै दिनको सबैभन्दा महत्त्वपूर्ण कुरा हो। राति अबेरसम्म बस्ने बानी छोडेर, अलिकति चाँडै सुत्दा मात्र पनि, मेरो हरेक दिन परिवर्तन भयो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I've always been a late riser and used to sleep until the last minute. I would leave the house as soon as I woke up, so I'd skip breakfast and rush to the station every day. With such a start to the day, I never had peace of mind. By the time I arrived at work, I already felt tired.\nOne time, I had a series of early morning errands for work, which forced me into a routine of waking up early. It was tough at first, but after a while, I noticed an unexpected benefit to the morning hours. <u>It</u> was that the house was very quiet, and my mind worked well. The same work would finish faster in the morning than at night. This was probably because I could concentrate on one thing without being distracted by surrounding noises.\nEven after my errands were over, I decided to continue waking up early. I would eat breakfast slowly, read a book for a bit, and then leave the house. Just doing that allowed me to start the day with a calm feeling. Since my mind was clear, I could even tackle difficult tasks in the morning.\nMy old self used to believe that waking up early was a disadvantage. But now, I feel that the quiet morning hours are the most important part of the day. Just by stopping staying up late and going to bed a little earlier, my daily life changed."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N4-D-M-9009",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "旅先（たびさき）で道（みち）に迷（まよ）って",
+   "body": "去年（きょねん）の夏（なつ）、私（わたし）は一人で知（し）らない町（まち）を旅（たび）した。地図（ちず）を見ながら歩（ある）いていたのに、いつのまにか道（みち）に迷（まよ）ってしまった。同（おな）じような建物（たてもの）が続（つづ）き、どちらに進（すす）めばよいのか分からなくなったのだ。夕方（ゆうがた）が近（ちか）づき、あたりが暗（くら）くなり始（はじ）めて、私（わたし）は少（すこ）しあせっていた。\n困（こま）っていると、近（ちか）くで店（みせ）を開（あ）けていた人が声（こえ）をかけてくれた。行き先を伝（つた）えると、その人はわざわざ店（みせ）の外まで出て、曲（ま）がる場所（ばしょ）を指（ゆび）で示（しめ）しながらていねいに教（おし）えてくれた。①<u>それ</u>がとてもありがたくて、私（わたし）は何度（なんど）も頭（あたま）を下げた。おかげで、目（め）指（ざ）していた場所（ばしょ）に無事（ぶじ）にたどり着（つ）くことができた。\n旅（たび）の前、私（わたし）はその町（まち）のことを、ただ有名（ゆうめい）な建物（たてもの）があるだけの場所（ばしょ）だと思（おも）っていた。しかし、道（みち）を教（おし）えてくれた人のやさしさに触（ふ）れて、印象（いんしょう）がすっかり変（か）わった。今では、あの町（まち）のことを思（おも）い出すと、建物（たてもの）より先にその人の顔（かお）が浮（う）かぶ。見知（し）らぬ相手（あいて）にあれほど親切（しんせつ）にしてもらえるとは、思（おも）ってもみなかった。\n旅（たび）の思（おも）い出をつくるのは、有名（ゆうめい）な景色（けしき）だけではない。少（すこ）しの間ことばを交（か）わしただけの相手（あいて）でも、そのやさしさは長く心（こころ）に残（のこ）る。そこで出会（あ）った人こそが、いちばんの思（おも）い出になるのだと知（し）った。",
+   "questions": [
+    {
+     "id": "N4-D-M-9009-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "店（みせ）の人が外まで出て道（みち）を教（おし）えてくれたこと",
+      "地図（ちず）を見ながら知（し）らない町（まち）を一人で歩（ある）いていたこと",
+      "目（め）指（ざ）す場所（ばしょ）へ無事（ぶじ）にたどり着（つ）けたこと",
+      "同（おな）じような建物（たてもの）がいくつも続（つづ）いていたこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「店（みせ）の外まで出て、曲（ま）がる場所（ばしょ）を指（ゆび）で示（しめ）しながらていねいに教（おし）えてくれた」を指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "पसलका मानिसले बाहिर आएर बाटो सिकाएको कुरा",
+        "नक्सा हेर्दै अपरिचित शहरमा एक्लै हिँडिरहेको कुरा",
+        "गन्तव्यमा सुरक्षित रूपमा पुग्न सकेको कुरा",
+        "उस्तै-उस्तै भवनहरू धेरै थिए भन्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>it</u> refer to?",
+       "choices": [
+        "The shopkeeper coming out to show the way",
+        "Walking alone in an unfamiliar town while looking at a map",
+        "Safely reaching the intended destination",
+        "Many similar buildings continuing one after another"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9009-q2",
+     "q": "筆者（ひっしゃ）が道（みち）に迷（まよ）ったのはなぜか。",
+     "choices": [
+      "似（に）た建物（たてもの）が続（つづ）いて方向（ほうこう）を見失（うしな）ったから",
+      "案内（あんない）の地図（ちず）をまったく持（も）っていなかったから",
+      "店（みせ）の人に間違（ちが）った道（みち）を教（おし）えられたから",
+      "目（め）指（ざ）す建物（たてもの）が有名（ゆうめい）ではなかったから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「同（おな）じような建物（たてもの）が続（つづ）き、どちらに進（すす）めばよいのか分からなくなった」とある。"
+      },
+      "ne": {
+       "q": "लेखक बाटो किन बिराए?",
+       "choices": [
+        "उस्तै भवनहरू लगातार आएर दिशा गुमाएकाले",
+        "निर्देशनको नक्सा बिल्कुलै नभएकाले",
+        "पसलका मानिसले गलत बाटो सिकाएकाले",
+        "गन्तव्य भवन प्रसिद्ध नभएकाले"
+       ]
+      },
+      "en": {
+       "q": "Why did the author get lost?",
+       "choices": [
+        "Because similar buildings continued, and they lost their sense of direction.",
+        "Because they didn't have a map at all.",
+        "Because the shopkeeper gave them wrong directions.",
+        "Because the building they were looking for was not famous."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9009-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "店（みせ）の人のおかげで目的地（もくてきち）に着（つ）けた",
+      "結局（けっきょく）、目（め）指（ざ）す場所（ばしょ）にはたどり着（つ）けなかった",
+      "筆者（ひっしゃ）は友だちと二人で旅（たび）をしていた",
+      "道（みち）は誰（だれ）にも聞かずに自分（じぶん）で見つけた"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「おかげで、目（め）指（ざ）していた場所（ばしょ）に無事（ぶじ）にたどり着（つ）くことができた」とある。旅（たび）は一人。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "पसलका मानिसको सहयोगले गन्तव्यमा पुग्न सके",
+        "अन्ततः गन्तव्यमा पुग्न सकेनन्",
+        "लेखक साथीसँग दुई जनाले यात्रा गरिरहेका थिए",
+        "बाटो कसैलाई नसोधेर आफैंले पत्ता लगाए"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "Thanks to the shopkeeper, the author reached their destination.",
+        "Ultimately, the author could not reach their intended destination.",
+        "The author was traveling with a friend.",
+        "The author found the way by themselves without asking anyone."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9009-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "心（こころ）に残（のこ）るのは景色（けしき）より出会（あ）った人だ",
+      "知（し）らない町（まち）を一人で旅（たび）するべきではない",
+      "旅行（りょこう）には必（かなら）ず地図（ちず）を持（も）っていくべきだ",
+      "有名（ゆうめい）な建物（たてもの）のある町（まち）ほど楽（たの）しい"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「そこで出会（あ）った人こそが、いちばんの思（おも）い出になる」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "मनमा रहने कुरा दृश्य भन्दा भेटिएका मानिसहरू हुन्",
+        "अपरिचित शहरमा एक्लै यात्रा गर्नु हुँदैन",
+        "यात्रामा सधैं नक्सा लिएर जानुपर्छ",
+        "प्रसिद्ध भवनहरू भएको शहर जति रमाइलो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "What remains in your heart are the people you meet, more than the scenery.",
+        "You should not travel alone to an unfamiliar town.",
+        "You should always bring a map when traveling.",
+        "Towns with famous buildings are the most enjoyable."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "गत गर्मीमा, मैले एक्लै एउटा अपरिचित शहरको यात्रा गरें। नक्सा हेर्दै हिँडिरहेको भए पनि, कहिलेकाहीँ बाटो बिराएँ। उस्तै-उस्तै भवनहरू लगातार आए, र कुन दिशामा जाने हो थाहा भएन। साँझ पर्न थाल्यो, र वरपर अँध्यारो हुन थाल्यो, म अलिकति हतारमा थिएँ।\nजब म समस्यामा थिएँ, नजिकै पसल खोलेर बसेका एक व्यक्तिले मलाई बोलाए। मैले आफ्नो गन्तव्य बताउँदा, उहाँले विशेष गरी पसल बाहिर आएर, मोड्ने ठाउँ औंलाले देखाउँदै राम्ररी सिकाउनुभयो। <u>त्यो</u> कुरा धेरै उपयोगी लाग्यो, र मैले धेरै पटक टाउको निहुराएँ। उहाँको सहयोगले, म सुरक्षित रूपमा आफ्नो गन्तव्यमा पुग्न सकें।\nयात्रा अघि, मैले त्यो शहरलाई केवल प्रसिद्ध भवनहरू भएको ठाउँ मात्र सोचेको थिएँ। तर, बाटो सिकाउने व्यक्तिको दयालुपन महसुस गरेपछि, मेरो धारणा पूरै बदलियो। अहिले, जब म त्यो शहरको सम्झना गर्छु, भवनहरू भन्दा पहिले त्यो व्यक्तिको अनुहार मेरो दिमागमा आउँछ। मैले सोचेको पनि थिइनँ कि एक अपरिचित व्यक्तिले मलाई यति धेरै दयालु व्यवहार गर्लान्।\nयात्राको सम्झनाहरू केवल प्रसिद्ध दृश्यहरूले मात्र बनाउँदैनन्। केही बेर कुरा गरेको व्यक्तिले पनि, उनीहरूको दयालुपन लामो समयसम्म मनमा रहन्छ। मैले थाहा पाएँ कि त्यहाँ भेटिएका मानिसहरू नै सबैभन्दा ठूलो सम्झना बन्छन्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last summer, I traveled alone to an unfamiliar town. Even though I was walking while looking at a map, I somehow got lost. Similar buildings continued, and I didn't know which way to go. Evening was approaching, and it was starting to get dark, so I was a little flustered.\nAs I was in trouble, someone who had opened a shop nearby called out to me. When I told them my destination, they kindly came out of their shop and carefully showed me the way, pointing with their finger where to turn. <u>That</u> was very helpful, and I bowed my head many times. Thanks to them, I was able to reach my intended destination safely.\nBefore the trip, I thought of that town as just a place with famous buildings. However, after experiencing the kindness of the person who showed me the way, my impression completely changed. Now, when I recall that town, that person's face comes to mind before any buildings. I never imagined that a stranger would be so kind to me.\nCreating travel memories is not just about famous sights. Even with someone you've only exchanged a few words with, their kindness can remain in your heart for a long time. I learned that the people you meet there are what become your best memories."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N4-D-M-9010",
+   "level": "N4",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "物（もの）を減（へ）らしてみたら",
+   "body": "私（わたし）の部屋（へや）には、長い間、使（つか）わない物（もの）がたくさんあった。いつか使（つか）うかもしれないと思（おも）うと、なかなか捨（す）てられなかったからだ。棚（たな）も引（ひ）き出しも物（もの）でいっぱいで、必要（ひつよう）な物（もの）を探（さが）すのにいつも時間がかかっていた。朝（あさ）、出かける前に鍵（かぎ）が見つからず、あわてることも一度（いちど）や二度（にど）ではなかった。物（もの）が多（おお）いほど暮（く）らしは便利（べんり）になるはずだと、そのときは思（おも）い込んでいた。\nある休みの日、思（おも）い切（き）って部屋（へや）の片（かた）づけを始（はじ）めた。一年以上（いじょう）使（つか）っていない物（もの）を集（あつ）めてみると、驚（おどろ）くほどの量（りょう）になった。そのほとんどは、あってもなくても困（こま）らない物（もの）ばかりだった。①<u>それ</u>に気づいた私（わたし）は、迷（まよ）いながらも少（すこ）しずつ手（て）放（ばな）していった。\n物（もの）が減（へ）ると、部屋（へや）は急（きゅう）に広（ひろ）く見えるようになった。それだけではない。どこに何があるか一目（ひとめ）で分かるので、探（さが）し物（もの）の時間がぐんと減（へ）ったのだ。掃除（そうじ）も楽（らく）になり、部屋（へや）にいる時間が前より心地（ここち）よくなった。物（もの）が少（すく）ないと、気持（も）ちまで軽（かる）くなるから不思議（ふしぎ）だ。使（つか）わない物（もの）にうもれて暮（く）らしていたときは、気づかないうちに疲（つか）れていたのかもしれない。\n物（もの）をたくさん持（も）つことが豊（ゆた）かさだと、以前（いぜん）の私（わたし）は思（おも）っていた。しかし今は、本当（ほんとう）に必要（ひつよう）な物（もの）だけに囲（かこ）まれて暮（く）らすほうが、ずっと気持（も）ちがよいと感（かん）じている。",
+   "questions": [
+    {
+     "id": "N4-D-M-9010-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "集（あつ）めた物（もの）の多（おお）くはなくてよいものだったこと",
+      "必要（ひつよう）な物（もの）を探（さが）すのに時間がかかっていたこと",
+      "部屋（へや）が急（きゅう）に広（ひろ）く見えるようになったこと",
+      "片（かた）づけのあと掃除（そうじ）がとても楽（らく）になったこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「そのほとんどは、あってもなくても困（こま）らない物（もの）ばかりだった」を指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "जम्मा गरिएका धेरैजसो सामानहरू नभए पनि हुने खालका थिए भन्ने कुरा",
+        "आवश्यक चीजहरू खोज्न समय लाग्थ्यो भन्ने कुरा",
+        "कोठा अचानक फराकिलो देखिन थाल्यो भन्ने कुरा",
+        "सफा गरेपछि सरसफाइ धेरै सजिलो भयो भन्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>it</u> refer to?",
+       "choices": [
+        "The fact that many of the gathered items were unnecessary",
+        "The fact that it took time to find necessary items",
+        "The fact that the room suddenly looked much larger",
+        "The fact that cleaning became very easy after tidying up"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9010-q2",
+     "q": "筆者（ひっしゃ）が使（つか）わない物（もの）を捨（す）てられなかったのはなぜか。",
+     "choices": [
+      "いつか使（つか）うかもと思（おも）っていたから",
+      "物（もの）を持（も）つことが豊（ゆた）かさだと教（おそ）わったから",
+      "物（もの）を捨（す）てる時間がまったくなかったから",
+      "棚（たな）や引（ひ）き出しがとても小さかったから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「いつか使（つか）うかもしれないと思（おも）うと、なかなか捨（す）てられなかった」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "लेखकले प्रयोग नगरिएका सामानहरू किन फाल्न सकेनन्?",
+       "choices": [
+        "कहिलेकाहीँ प्रयोग हुन सक्छ भन्ने सोचेकाले",
+        "सामानहरू हुनु नै सम्पन्नता हो भन्ने सिकेकाले",
+        "सामानहरू फाल्ने समय बिल्कुलै नभएकाले",
+        "दराज र सेल्फहरू धेरै साना भएकाले"
+       ]
+      },
+      "en": {
+       "q": "Why couldn't the author throw away unused items?",
+       "choices": [
+        "Because they thought they might use them someday.",
+        "Because they were taught that having things was a sign of wealth.",
+        "Because they had no time at all to throw things away.",
+        "Because the shelves and drawers were very small."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9010-q3",
+     "q": "本文（ほんぶん）の内容（ないよう）と合（あ）っているものはどれか。",
+     "choices": [
+      "物（もの）を減（へ）らすと探（さが）し物（もの）が早（はや）くなった",
+      "片（かた）づけても部屋（へや）はまったく広（ひろ）くならなかった",
+      "一年以上（いじょう）使（つか）っていない物（もの）は少（すこ）ししかなかった",
+      "片（かた）づけのあとも掃除（そうじ）は大変（たいへん）なままだった"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「探（さが）し物（もの）の時間がぐんと減（へ）った」とあり、部屋（へや）は広（ひろ）く見え、掃除（そうじ）も楽（らく）になった。"
+      },
+      "ne": {
+       "q": "पाठको सामग्रीसँग मिल्ने कुरा कुन हो?",
+       "choices": [
+        "सामानहरू घटाउँदा खोज्ने काम चाँडो भयो",
+        "सफा गरे पनि कोठा बिल्कुलै फराकिलो भएन",
+        "एक वर्षभन्दा बढी समयदेखि प्रयोग नगरिएका सामानहरू थोरै मात्र थिए",
+        "सफा गरेपछि पनि सरसफाइ गाह्रो नै रह्यो"
+       ]
+      },
+      "en": {
+       "q": "Which of the following matches the content of the passage?",
+       "choices": [
+        "When the number of items was reduced, finding things became faster.",
+        "Even after tidying up, the room didn't get any larger.",
+        "There were only a few items that hadn't been used for over a year.",
+        "Cleaning remained difficult even after tidying up."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N4-D-M-9010-q4",
+     "q": "この文章（ぶんしょう）で筆者（ひっしゃ）が最（もっと）も言（い）いたいことは何か。",
+     "choices": [
+      "必要（ひつよう）な物（もの）だけの暮（く）らしは心地（ここち）よい",
+      "物（もの）はできるだけたくさん持（も）っておくべきだ",
+      "片（かた）づけは休みの日にするべきではない",
+      "使（つか）わない物（もの）もいつか役（やく）に立（た）つので残（のこ）すべきだ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「必要（ひつよう）な物（もの）だけに囲（かこ）まれて暮（く）らすほうが、ずっと気持（も）ちがよい」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "यस लेखमा लेखकले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+       "choices": [
+        "आवश्यक चीजहरूले मात्र भरिएको जीवन आरामदायक हुन्छ",
+        "सामानहरू सकेसम्म धेरै राख्नुपर्छ",
+        "सफा गर्ने काम छुट्टीको दिनमा गर्नु हुँदैन",
+        "प्रयोग नगरिएका सामानहरू पनि कहिलेकाहीँ काम लाग्ने भएकाले राख्नुपर्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point in this passage?",
+       "choices": [
+        "Living with only necessary items is comfortable.",
+        "You should have as many things as possible.",
+        "Tidying up should not be done on holidays.",
+        "Unused items should be kept because they might be useful someday."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "मेरो कोठामा लामो समयदेखि प्रयोग नगरिएका धेरै सामानहरू थिए। 'कहिलेकाहीँ प्रयोग हुन सक्छ' भन्ने सोचेर, मैले तिनीहरूलाई फाल्न सकिनँ। दराज र सेल्फहरू सामानले भरिएका थिए, र मलाई आवश्यक चीजहरू खोज्न सधैं समय लाग्थ्यो। बिहान, घरबाट निस्कनु अघि चाबी नभेटेर हतारिएको एक वा दुई पटक मात्र होइन। त्यसबेला, मलाई लाग्थ्यो कि जति धेरै सामान हुन्छ, जीवन त्यति नै सुविधाजनक हुन्छ।\nएक छुट्टीको दिन, मैले हिम्मत गरेर कोठा सफा गर्न थालें। एक वर्षभन्दा बढी समयदेखि प्रयोग नगरिएका सामानहरू जम्मा गर्दा, अचम्म लाग्ने गरी धेरै भयो। तीमध्ये धेरैजसो सामानहरू थिए जसको भए पनि नभए पनि कुनै फरक पर्दैनथ्यो। <u>त्यो</u> कुरा थाहा पाएपछि, मैले हिचकिचाउँदै भए पनि बिस्तारै तिनीहरूलाई छोड्दै गएँ।\nसामानहरू घट्दा, कोठा अचानक फराकिलो देखिन थाल्यो। यति मात्र होइन। कहाँ के छ भन्ने कुरा एकै नजरमा थाहा हुने भएकाले, खोज्ने समय धेरै घट्यो। सरसफाइ पनि सजिलो भयो, र कोठामा बस्ने समय पहिले भन्दा बढी आरामदायक भयो। सामान कम हुँदा, मन पनि हल्का हुन्छ, यो अचम्मको कुरा हो। प्रयोग नगरिएका सामानहरूले घेरिएर बस्दा, मलाई थाहै नपाई थकित भइरहेको थिएँ होला।\nधेरै सामानहरू हुनु नै सम्पन्नता हो भन्ने मेरो पहिलेको धारणा थियो। तर अहिले, मलाई लाग्छ कि वास्तवमा आवश्यक चीजहरूले मात्र घेरिएर बस्नु धेरै राम्रो हुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "For a long time, my room had many unused items. I couldn't bring myself to throw them away, thinking I might use them someday. Shelves and drawers were full of things, and it always took me a long time to find what I needed. It wasn't just once or twice that I panicked in the morning before going out because I couldn't find my keys. At that time, I mistakenly believed that the more things I had, the more convenient my life would be.\nOne holiday, I decided to bravely start tidying up my room. When I gathered items I hadn't used for over a year, it was an astonishing amount. Most of them were things I wouldn't be troubled by whether I had them or not. Realizing <u>that</u>, I hesitantly started letting go of them little by little.\nAs the number of items decreased, the room suddenly looked much larger. Not only that, but I could see at a glance where everything was, so the time spent searching for things dramatically decreased. Cleaning also became easier, and the time spent in my room became more comfortable than before. It's strange how having fewer things makes you feel lighter. Perhaps I was unknowingly tired when I was living buried under unused items.\nMy old self used to think that having many things was a sign of wealth. But now, I feel that living surrounded only by truly necessary items is much more pleasant."
+     ]
+    }
+   }
+  }
+ ]
+}

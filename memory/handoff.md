@@ -2,6 +2,12 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+- **▶▶ 2026-08-30 LIVE＝読解4大問 模試プール新設＝【生成〜結線〜番人〜在庫Excel 完了・全緑・未コミット／残＝後日バッチ(ルビ+翻訳)のみ】。正本＝[[dokkai-mock-inflight]]**：
+  - **✅結線＋番人＋在庫Excel 完了（当セッション）**：rehydrate `READING_MOCK`(readingMap関数化)＋index `readingMockItemsForSub`＋MockScreen `readingByBlueprint` mock優先fallback＋rebuild(100files)／番人`src/data/readingMock.test.ts`(210本文320設問・件数/id/choices/answerIndex/subtype)＋package.json／**tsc0・npm test 481/481緑**(ne番人 passageTransNe緑=READING_MOCK未混入で維持)／ランタイム実測(mock隔離0混入)／在庫Excel(stock_excel.py MOCKに読解4大問=内容理解短30/40/40・中20/40/60・長N3:40・情報検索10/20/20→まとめ.xlsx再生成)。
+  - **✅生成＋機械検証(既済)**：全10体320設問(scratchpad/dokkai_mock/out_*.json・ja平文)＋配置(content/problems/dokkai/mock/・pool='mock')＋一意性Excel。3本検証緑。
+  - **★2026-08-31 ルビ ✅完了(4156/4156・apply strip_mismatch=0)**。正本＝[[dokkai-mock-inflight]]「2026-08-31 ルビ再開 ✅完了」節。ruby_io.py apply の照合を strip==strip へ修正(既存ルビ入り生成物対応)。content 10ファイルにルビ書き戻し済・級ゲート/読み品質 spot-check OK。
+    - **★2026-08-31 翻訳 ✅完了（ユーザー「翻訳をお願いしたい」）＝merge/rebuild/tsc/npm test 全緑・未publish/未コミット**。ne/en 各27バッチ欠落0→merge_trans.py で content mock(joho以外)へ i18n.ne/en 書戻し(items160/q270・欠0・languages['ja','ne','en'])→rebuild(100)→tsc0→**npm test 481/481**(passageTransNe を READING_MOCK 含むよう拡張済)→spot-check(choices数一致/ne全Devanagari/<u>52本文保持・問題0)。**D2実費＝gemini-2.5-flash 40コール $0.3001≒¥47**(前回部分ne14バッチ分は_usage上書きで非保持・見積¥100内)。
+    - **★次の一手＝publish-content(OTA)＋まとめて1コミット＝ユーザー明示指示待ち**（OTA=外部配信ゆえ push/build 同様に指示ゲート）。commit内容＝content(dokkai/mock 翻訳)＋passageTransNe.test.ts拡張＋既済(結線/番人/在庫Excel/ルビ)。現状 push/build 前ゆえアプリ非表示=実害なし。決定②＝mock joho にbalance番人課さない。
 - **▶▶ 2026-08-30 LIVE＝組み立て(order)・文章の文法(passage_grammar) 模試プール新設＝【生成〜配置〜一意性Excel 完了・/clear境界・残＝結線から】。正本＝[[order-passage-mock-inflight]]**：
   - **✅完了（クリア前）**＝生成9体（order150・passage30セット150設問）→機械検証0エラー（stem重複は地の文追加の微調整で解消・内容不変）→ルビ全漢字（内容不変・answer∈choices維持・裸漢字0）→**配置** `content/problems/bunpou/mock/{order,passage_grammar}_{N5,N4,N3}.json`（pool='mock'・languages['ja']）→**一意性Excel** `一意性チェック_模試_{N5,N4,N3}.xlsx`（赤0/黄=self申告mid）。**配置済みだが未結線＝アプリ非表示・学習汚染なし。**
   - **★/clear後の一手＝結線から**（[[order-passage-mock-inflight]]「/clear後の残作業」step3以降が正本）：**結線**（order=grammar_form mock同型 ORDER_MOCK＋daimon HAS_MOCK_POOL+='order'／passage_grammar=別経路 PASSAGE_GRAMMAR_MOCK＋MockScreen `passageGrammarItems`をmock優先に）→**番人**（orderMock.test.ts／passageGrammarMock.test.ts新設＋package.json）→rebuild→tsc0→npm test緑→ランタイム実測（mockが初見・学習汚染なし）→**在庫Excel**（stock_excel.py MOCKに order50/50/50・passage_grammar50/50/50追加・mockは在庫に数えない）→まとめてコミット（push/ビルドはユーザー指示待ち）。手本=[[grammar-form-mock-inflight]]。空所=order`＿ ＿ ★ ＿`／passage`【1】〜【5】`。
@@ -326,20 +332,21 @@
 <!-- AUTO:BEGIN -->
 
 ## 走行中の run（自動・完了通知が来ていないもの）
-- a7427869f233a6d12 general-purpose
-- a4bf13ba9ee5ee201 general-purpose
-- a9532749222ee8283 general-purpose
-- abf0c5f55541163e7 general-purpose
+- ac08266d08efbb099 general-purpose
+- aa2e1879c4793c31b general-purpose
+- a500569ad1fb84ab2 general-purpose
+- a0c48fa2ccfc548b1 general-purpose
+- a6e2e5da70893cd09 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/order-passage-mock-inflight.md
-- memory/在庫・模試ストックまとめ.xlsx
-- tools/stock_excel.py
+- memory/handoff.md
+- memory/dokkai-mock-inflight.md
+- src/data/exam/passageTransNe.test.ts
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- package.json
-- src/data/passageGrammarMock.test.ts
-- src/data/orderMock.test.ts
+- content/problems/dokkai/mock/joho_N5.json
+- content/problems/dokkai/mock/joho_N4.json
+- content/problems/dokkai/mock/joho_N3.json
 
-_自動更新: 2026-08-30 15:25_
+_自動更新: 2026-08-31 10:13_
 <!-- AUTO:END -->

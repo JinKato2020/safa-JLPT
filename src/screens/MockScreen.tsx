@@ -12,7 +12,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { isInMyList } from '../store/state';
 import { guessCorrect, jftMockScore, mockScoreEstimate } from '../store/selectors';
 import { dayStr } from '../store/state';
-import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor, passageGrammarMockSetsFor, readingItemsForSub, listeningItemsForSub, READING_SUBTYPES, LISTENING_SUBTYPES, type ReadingSubtype, type ListeningSubtype } from '../data';
+import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor, passageGrammarMockSetsFor, readingItemsForSub, readingMockItemsForSub, listeningItemsForSub, READING_SUBTYPES, LISTENING_SUBTYPES, type ReadingSubtype, type ListeningSubtype } from '../data';
 import RubyText from '../components/RubyText';
 import AppButton from '../components/AppButton';
 import PassageSetPlayer from '../components/PassageSetPlayer';
@@ -234,7 +234,8 @@ function readingByBlueprint(levels: Level[], level: Level, full: boolean, seen: 
   const out: MockItem[] = [];
   for (const sub of Object.keys(bp) as ReadingSubtype[]) {
     const targetQ = full ? bp[sub] : Math.max(1, Math.round(bp[sub] / 3));
-    const pool = levels.flatMap((lv) => readingItemsForSub(lv, sub));
+    // 模試専用プール(初見)があればそこから、無ければ学習へフォールバック(passageGrammarItems と同型の useMock 優先)。
+    const pool = levels.flatMap((lv) => { const m = readingMockItemsForSub(lv, sub); return m.length ? m : readingItemsForSub(lv, sub); });
     const picked = pickFresh(pool, (p) => p.questions.some((q) => !!seen[q.id]), pool.length);
     let q = 0;
     for (const p of picked) {

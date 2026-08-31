@@ -18,10 +18,10 @@ scratchpad/pg_mock/ に out_*.json（原文）・out_*_ruby.json（配置元）�
 - **✅番人新設**：src/data/orderMock.test.ts／passageGrammarMock.test.ts＋package.json登録。
 - **✅rebuild(90)・tsc0・npm test 470/470・ランタイム実測**：order/passage とも mockUnits各50/10・学習と重複0・order fmt=cloze(furi/orderSentence有)・passage N5=2ブロック/N4N3=1ブロック。
 - **✅在庫Excel MOCK dict**：stock_excel.py に 組み立て50/50/50・文章の文法50/50/50 追加→再生成済。
-- **残（★ユーザー指示で「文法模試作問後」に実施＝順に）**：
-  1. **在庫EXCEL最新データ更新**（stock_report→mock_stock→stock_excel チェーン）。
-  2. **E19-E24に割増倍数**（大問別まとめ E列・行19-24=組み立てN5/N4/N3・文章の文法N5/N4/N3）。式=**問題の文法ID数/辞書の文法ID数**（=在庫問題数D/grammar点数[N5:91/N4:131/N3:186]・小数表示可）。想定値: 組み立て146/91=1.60・216/131=1.65・311/186=1.67／文章の文法400/91=4.40・300/131=2.29・350/186=1.88。stock_excel.py の MULT を小数対応に。
-  3. **コミット**（結線＋Excel を1コミット）→ **Build**（build.ps1 -Approved・iOS+Android・[[build-cadence-preference]]）。push/ビルドはユーザー明示指示済(Buildして)。
+- **✅在庫EXCEL最新データ更新**（stock_report→mock_stock→stock_excel）＝46行/在庫18769・full_mock N5:21/N4:18/N3:25。
+- **✅E19-E24 割増倍数**（大問別まとめ E列・小数）：組み立て 1.60/1.65/1.67・文章の文法 4.40/2.29/1.88。式=在庫問題数D/grammar点数[91/131/186]。実装=stock_excel.py DYN_MULT{'組み立て','文章の文法'}＋GRAMMAR_PTS で在庫から自動算出。
+- **✅コミット＆Build**：commit `e8babe86`・push済(OTA起動)・**v1.1.26(2888) dispatch both**・run 33296930432・iOS本日1/8。-NoWatch=監視しない。**★この結線タスク=全工程完了。**
+  - 未処理レビュー=一意性チェック_模試_{N5,N4,N3}.xlsx（黄=self申告mid・QA用）。
 
 ## /clear後の一手（結線から・機械工程のみ）
 配置済みmockを**結線→番人→rebuild→tsc→npm test→ランタイム実測→在庫Excel→コミット**（下記「/clear後の残作業」節 step3以降が正本。step1ルビ/step2配置/step7Excelは完了済）。手本=[[grammar-form-mock-inflight]]（orderは同型／passageは別経路=PASSAGE_GRAMMAR_MOCK＋MockScreen変更）。

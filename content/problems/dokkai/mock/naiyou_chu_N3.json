@@ -1,0 +1,2536 @@
+{
+ "schema": 1,
+ "daimon": "naiyou_chu",
+ "level": "N3",
+ "pool": "mock",
+ "languages": [
+  "ja",
+  "ne",
+  "en"
+ ],
+ "source": "opus-authored-mock-2026-08-30",
+ "items": [
+  {
+   "id": "N3-D-M-9001",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "締（し）め切りを味方にする",
+   "body": "締（し）め切りが近づくと、なぜか急に集中できることがある。試験の前夜に一気に勉強が進（すす）んだ経験（けいけん）は、多くの人が持っているだろう。これは、残（のこ）された時間が限（かぎ）られることで、やるべきことが自然（しぜん）としぼられるためだと言われている。時間がたっぷりあるときは、あれもこれもと手を広げてしまい、かえって一つのことが進（すす）まない。ところが期限（きげん）が迫（せま）ると、今できることだけに意識（いしき）が向（む）かう。①<u>この働（はたら）き</u>は、うまく利用（りよう）すれば強い味方になる。私は、大きな仕事をわざと小さな締（し）め切りに区切って進（すす）めるようにしている。全体（ぜんたい）を一度に終わらせようとせず、今日はここまでと決（き）めるのだ。すると、一日ごとに区切りができ、集中も長続（つづ）きする。締（し）め切りは人を追（お）い立てる敵（てき）のように思われがちだが、実（じつ）は、散（ち）らかりやすい注意をまとめてくれる道具（どうぐ）でもある。大切なのは、締（し）め切りに追（お）われるのではなく、こちらから締（し）め切りを作り出す側（がわ）に回（まわ）ることだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9001-q1",
+     "q": "①この働（はたら）き が指（さ）すものはどれか。",
+     "choices": [
+      "残（のこ）り時間が限（かぎ）られ、やるべきことがおのずと絞（しぼ）られて集中できること",
+      "時間がたっぷりあるときに、あれもこれもと手を広げて一つのことが進（すす）まないこと",
+      "大きな仕事をわざと小さな締（し）め切りに区切って進（すす）めていくこと",
+      "締（し）め切りが人を追（お）い立てる敵（てき）のように思われがちだということ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）に「期限（きげん）が迫（せま）ると今できることだけに意識（いしき）が向（む）かう」とあり、それを「この働（はたら）き」と呼（よ）んでいる。"
+      },
+      "ne": {
+       "q": "① <u>यो कार्यप्रणाली</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "बाँकी समय सीमित हुँदा, गर्नुपर्ने कामहरू स्वाभाविक रूपमा संकुचित भएर ध्यान केन्द्रित गर्न सकिने कुरा",
+        "प्रशस्त समय हुँदा, धेरै कुराहरूमा हात हालेर एउटै काम पनि अगाडि नबढ्ने कुरा",
+        "ठूला कामहरूलाई जानाजानी साना समयसीमाहरूमा विभाजन गरेर अगाडि बढाउने कुरा",
+        "समयसीमालाई मानिसलाई दबाब दिने शत्रुको रूपमा हेर्ने चलन छ भन्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>this function</u> refer to?",
+       "choices": [
+        "The ability to concentrate when remaining time is limited and tasks are naturally narrowed down.",
+        "The tendency to spread oneself too thin when there is plenty of time, preventing progress on a single task.",
+        "The act of intentionally breaking down large tasks into smaller deadlines.",
+        "The common perception that deadlines are enemies that drive people."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9001-q2",
+     "q": "筆者（ひっしゃ）が大きな仕事を小さな締（し）め切りに区切るのはなぜか。",
+     "choices": [
+      "一日ごとに区切りがつき、集中が途（と）切れずに続（つづ）くから",
+      "時間がたっぷりあると、あれもこれもと手を広げて一つのことが進（すす）まないから",
+      "締（し）め切りが人を追（お）い立てる敵（てき）のように思われがちだから",
+      "全体（ぜんたい）を一度に終わらせるのが最（もっと）も効率（こうりつ）のよいやり方だから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "本文に「一日ごとに区切りができ、集中も長続（つづ）きする」と理由（りゆう）が示（しめ）されている。"
+      },
+      "ne": {
+       "q": "लेखकले ठूला कामहरूलाई साना समयसीमाहरूमा किन विभाजन गर्छन्?",
+       "choices": [
+        "हरेक दिन एउटा सीमा बन्ने र ध्यान नटुटिकन जारी रहने भएकाले",
+        "प्रशस्त समय हुँदा, धेरै कुराहरूमा हात हालेर एउटै काम पनि अगाडि बढ्दैन",
+        "समयसीमालाई मानिसलाई दबाब दिने शत्रुको रूपमा हेर्ने चलन छ",
+        "पूरै काम एकैचोटि सक्नु सबैभन्दा प्रभावकारी तरिका हो"
+       ]
+      },
+      "en": {
+       "q": "Why does the author break down large tasks into small deadlines?",
+       "choices": [
+        "Because it creates a break each day, and concentration continues without interruption.",
+        "Because when there is plenty of time, one tends to spread themselves too thin, preventing progress on a single task.",
+        "Because deadlines are often seen as enemies that drive people.",
+        "Because finishing everything at once is the most efficient way."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9001-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "追（お）われるのではなく、自分から締（し）め切りを設（もう）けて注意をまとめるとよい",
+      "締（し）め切りさえいくつも設（もう）ければ、どんな仕事でも必（かなら）ず終えられるようになる",
+      "試験の前夜に一気に勉強するのが最（もっと）も効率（こうりつ）がよい",
+      "時間はたっぷり使うほど、よい仕事ができる"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "最終（さいしゅう）文「締（し）め切りを作り出す側（がわ）に回（まわ）ることだ」が主張（しゅちょう）。他（ほか）は言い過（す）ぎ・一部（いちぶ）・一般論（いっぱんろん）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "दबाबमा पर्नुको सट्टा, आफैं समयसीमा बनाएर ध्यान केन्द्रित गर्नु राम्रो हुन्छ",
+        "धेरै समयसीमाहरू मात्र तोकेमा, जुनसुकै काम पनि अवश्य पूरा गर्न सकिन्छ",
+        "परीक्षाको अघिल्लो रातमा एकैचोटि पढ्नु सबैभन्दा प्रभावकारी हुन्छ",
+        "जति धेरै समय प्रयोग गरिन्छ, त्यति नै राम्रो काम गर्न सकिन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point?",
+       "choices": [
+        "It's good to create your own deadlines to gather attention, rather than being driven by them.",
+        "If you set many deadlines, you will definitely be able to finish any job.",
+        "Studying intensely the night before an exam is the most efficient way.",
+        "The more time you spend, the better work you can do."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "समयसीमा नजिकिँदा, किन हो कुन्नि अचानक ध्यान केन्द्रित गर्न सकिन्छ। परीक्षाको अघिल्लो रातमा एकैचोटि धेरै पढाइ अगाडि बढेको अनुभव धेरै मानिसहरूसँग होला। यो भनिन्छ कि बाँकी समय सीमित हुँदा, गर्नुपर्ने कामहरू स्वाभाविक रूपमा संकुचित हुन्छन्। जब प्रशस्त समय हुन्छ, हामी धेरै कुराहरूमा हात हाल्छौं र त्यसको सट्टा एउटै काम पनि अगाडि बढ्दैन। तर, समयसीमा नजिकिँदा, ध्यान अहिले गर्न सकिने कुराहरूमा मात्र केन्द्रित हुन्छ। <u>यो कार्यप्रणाली</u>, यदि राम्रोसँग प्रयोग गरियो भने, एक बलियो सहयोगी बन्न सक्छ। म ठूला कामहरूलाई जानाजानी साना समयसीमाहरूमा विभाजन गरेर अगाडि बढाउँछु। पूरै काम एकैचोटि सक्ने प्रयास नगरी, 'आज यहाँसम्म' भनेर निर्णय गर्छु। यसो गर्दा, हरेक दिन एउटा सीमा बन्छ, र ध्यान पनि लामो समयसम्म टिक्छ। समयसीमालाई मानिसलाई दबाब दिने शत्रुको रूपमा हेर्ने चलन छ, तर वास्तवमा, यो छरपस्ट हुने ध्यानलाई एकै ठाउँमा ल्याउने एउटा उपकरण पनि हो। महत्त्वपूर्ण कुरा के हो भने, समयसीमाले दबाबमा पर्नुको सट्टा, हामी आफैं समयसीमा बनाउने पक्षमा उभिनु हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When a deadline approaches, for some reason, one can suddenly concentrate. Many people have probably experienced making rapid progress in their studies the night before an exam. This is said to be because the limited time remaining naturally narrows down what needs to be done. When there is plenty of time, one tends to spread themselves too thin, trying to do this and that, which actually prevents progress on a single task. However, when a deadline looms, one's focus shifts only to what can be done now. If utilized well, <u>this function</u> can be a powerful ally. I make it a point to break down large tasks into smaller deadlines. Instead of trying to finish everything at once, I decide how much to complete by today. This creates a break each day, and concentration lasts longer. Deadlines are often seen as enemies that drive people, but in reality, they are also tools that help gather scattered attention. The important thing is not to be driven by deadlines, but to be the one who creates them."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9002",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "随筆",
+   "subtype": "naiyou_chu",
+   "title": "本を読み返（かえ）す",
+   "body": "一度読んだ本を、もう一度読み返（かえ）すことがある。前に読んだときと同じ本のはずなのに、心に残（のこ）る場面（ばめん）がまるで違（ちが）っていて驚（おどろ）かされる。若（わか）いころに退屈（たいくつ）に感（かん）じた物語が、年を重ねてから読むと胸（むね）に迫（せま）ってくる。①<u>この変化（へんか）</u>は、本が変（か）わったのではなく、読む自分のほうが変（か）わったから起こる。本は同じ言葉（ことば）を並（なら）べたまま動かない。しかし読み手は、その間にさまざまな経験（けいけん）を積（つ）み、ものの見方を変（か）えている。だから同じ文章（ぶんしょう）から、以前は気づかなかった意味を受（う）け取（と）れるようになる。私は、良（よ）い本ほど何度も読み返（かえ）す値打（ねう）ちがあると考えている。新しい本を次々（つぎつぎ）に買い集めることばかりが読書ではない。むしろ、一冊（いっさつ）を長くつき合（あ）う相手（あいて）として選（えら）び、折（おり）にふれて開き直（なお）すことで、その本は自分の成長（せいちょう）をうつす鏡（かがみ）になる。読み終えた本を棚（たな）にしまいこんで忘（わす）れるのは惜（お）しい。時をおいて再（ふたた）び手に取（と）れば、本はまた別の顔（かお）を見せてくれるはずだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9002-q1",
+     "q": "①この変化（へんか） が指（さ）すものはどれか。",
+     "choices": [
+      "以前つまらなく思えた物語が、年月を経（へ）て強く心に響（ひび）くようになること",
+      "前に読んだときと同じ本のはずなのに、心に残（のこ）る場面（ばめん）がまるで違（ちが）っていること",
+      "本の言葉（ことば）そのものが、時がたつと少しずつ書き換（か）わっていくこと",
+      "新しい本を次々（つぎつぎ）に買い集めて、その数（かず）を増（ふ）やしていくこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「若（わか）いころ退屈（たいくつ）だった物語が年を重ねて胸（むね）に迫（せま）る」という心に残（のこ）る場面（ばめん）の移（うつ）り変（か）わりを指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>यो परिवर्तन</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "पहिले बोरिङ लागेको कथा, वर्षौं पछि मन छुने गरी प्रभाव पार्ने कुरा",
+        "पहिले पढेको बेलाको जस्तै किताब भए पनि, मनमा बस्ने दृश्यहरू बिल्कुलै फरक हुने कुरा",
+        "किताबका शब्दहरू आफैं, समय बित्दै जाँदा बिस्तारै परिवर्तन हुने कुरा",
+        "नयाँ किताबहरू लगातार किन्दै, तिनीहरूको संख्या बढाउँदै जाने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>this change</u> refer to?",
+       "choices": [
+        "A story that once seemed boring now deeply resonates with one's heart after many years.",
+        "Even though it's the same book as before, the memorable scenes are completely different.",
+        "The words of the book itself gradually change over time.",
+        "Continuously buying new books and increasing their number."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9002-q2",
+     "q": "同じ本から以前と違（ちが）う意味を受（う）け取（と）れるのはなぜか。",
+     "choices": [
+      "読み手がその間に経験（けいけん）を重ね、ものを見る目を変（か）えているから",
+      "本は同じ言葉（ことば）を並（なら）べたまま少しも動かず、変（か）わらずにあり続（つづ）けるから",
+      "良（よ）い本ほど何度も読み返（かえ）す値打（ねう）ちがあるものだから",
+      "新しい本を買い集めることばかりが読書ではないから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「読み手は経験（けいけん）を積（つ）み、ものの見方を変（か）えている」ため新しい意味を受（う）け取（と）れる、とある。"
+      },
+      "ne": {
+       "q": "एउटै किताबबाट पहिले भन्दा फरक अर्थ बुझ्न किन सकिन्छ?",
+       "choices": [
+        "पाठकले त्यो बीचमा अनुभवहरू बटुलेर, चीजहरू हेर्ने दृष्टिकोण परिवर्तन गरेकोले",
+        "किताब उही शब्दहरू राखेर अलिकति पनि नचली, अपरिवर्तित रहने भएकाले",
+        "राम्रो किताब जति पटक पढे पनि त्यसको महत्त्व हुने भएकाले",
+        "नयाँ किताबहरू किन्दै जम्मा गर्नु मात्र पढाइ नभएकाले"
+       ]
+      },
+      "en": {
+       "q": "Why can one receive different meanings from the same book than before?",
+       "choices": [
+        "Because the reader has accumulated experience and changed their perspective during that time.",
+        "Because the book remains static, with the same words arranged, and does not change at all.",
+        "Because good books are worth rereading many times.",
+        "Because reading is not just about continuously buying new books."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9002-q3",
+     "q": "筆者（ひっしゃ）の考えに最（もっと）も近いものはどれか。",
+     "choices": [
+      "一冊（いっさつ）と長くつき合（あ）い読み返（かえ）すことで、本は自分の成長（せいちょう）をうつす鏡（かがみ）になる",
+      "新しい本は決（けっ）して買わず、生涯（しょうがい）にわたって一冊（いっさつ）だけを読み続（つづ）けるべきだ",
+      "若（わか）いころに読んだ本は退屈（たいくつ）なので読み返（かえ）さなくてよい",
+      "本はたくさん読めば読むほど、人は必（かなら）ず賢（かしこ）くなる"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「一冊（いっさつ）を長くつき合（あ）い折（おり）にふれて開き直（なお）す」ことで成長（せいちょう）の鏡（かがみ）になる、が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
+       "choices": [
+        "एउटा किताबसँग लामो समयसम्मको सम्बन्ध राखेर फेरि पढ्दा, त्यो किताब आफ्नो विकासको ऐना बन्छ",
+        "नयाँ किताबहरू कहिल्यै नकिनी, जीवनभर एउटै किताब मात्र पढ्नुपर्छ",
+        "युवावस्थामा पढेका किताबहरू बोरिङ हुने भएकाले फेरि पढ्नु हुँदैन",
+        "जति धेरै किताब पढिन्छ, मानिस त्यति नै बुद्धिमान हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is closest to the author's opinion?",
+       "choices": [
+        "By engaging with and rereading a single book over a long period, it becomes a mirror reflecting one's own growth.",
+        "One should never buy new books, but instead read only one book throughout their life.",
+        "Books read in youth are boring, so there's no need to reread them.",
+        "The more books one reads, the wiser one will surely become."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "मैले एक पटक पढेको किताबलाई फेरि पढ्ने गर्छु। पहिले पढेको बेलाको जस्तै किताब भए पनि, मनमा बस्ने दृश्यहरू बिल्कुलै फरक भएर मलाई आश्चर्य लाग्छ। युवावस्थामा बोरिङ लागेको कथा, उमेर बढ्दै जाँदा पढ्दा मन छुन्छ। <u>यो परिवर्तन</u> किताब परिवर्तन भएकोले होइन, पढ्ने व्यक्ति आफैं परिवर्तन भएकोले हुन्छ। किताब उही शब्दहरू राखेर स्थिर रहन्छ। तर पाठकले, त्यो बीचमा विभिन्न अनुभवहरू बटुल्छ र हेर्ने दृष्टिकोण परिवर्तन गर्छ। त्यसैले, उही पाठबाट, पहिले ध्यान नदिएको अर्थहरू बुझ्न सकिन्छ। मलाई लाग्छ कि राम्रो किताब जति पटक पढे पनि त्यसको महत्त्व हुन्छ। नयाँ किताबहरू लगातार किन्दै जम्मा गर्नु मात्र पढाइ होइन। बरु, एउटा किताबलाई लामो समयसम्मको साथीको रूपमा छानेर, समय-समयमा फेरि खोल्दा, त्यो किताब आफ्नो विकासको ऐना बन्छ। पढिसकेको किताबलाई दराजमा राखेर बिर्सनु खेदजनक छ। समयपछि फेरि हातमा लिँदा, किताबले फेरि अर्को रूप देखाउनेछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Sometimes I reread books I've already read. Even though it's the same book as before, I'm surprised by how different the memorable scenes are. A story that felt boring when I was young resonates deeply when I read it again in my older years. <u>This change</u> occurs not because the book has changed, but because I, the reader, have changed. The book remains static, with the same words arranged as before. However, the reader accumulates various experiences and changes their perspective over time. Therefore, from the same text, one can receive meanings they didn't notice before. I believe that good books are worth rereading many times. Reading is not just about continuously buying new books. Rather, by choosing one book as a long-term companion and revisiting it from time to time, that book becomes a mirror reflecting one's own growth. It's a shame to put away a finished book on a shelf and forget it. If you pick it up again after some time, the book will surely show you a different face."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9003",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "都市（とし）に残（のこ）す余白（よはく）",
+   "body": "大きな都市（とし）には、必（かなら）ずといってよいほど公園（こうえん）がある。高い建物が立ち並（なら）ぶ中に、なぜわざわざ広い空き地を残（のこ）すのか、むだに思う人もいるかもしれない。しかし公園（こうえん）は、ただ空いている土地ではない。木々（きぎ）は夏の強い日差（ざ）しをやわらげ、土は雨水をゆっくり地面（じめん）にしみこませる。人々（ひとびと）はそこで体を動かし、隣（となり）に住む見知らぬ相手（あいて）と言葉（ことば）を交（か）わす。①<u>こうした働（はたら）き</u>は、建物をいくら建てても代わりにはならない。街（まち）がすべて建物とアスファルトで埋（う）まってしまえば、熱（ねつ）はこもり、雨は行き場を失（うしな）い、人は立ち止まる場所（ばしょ）をなくす。公園（こうえん）は、都市（とし）が息（いき）をするための余白（よはく）なのだ。私は、街（まち）づくりを考えるとき、何を建てるかと同じくらい、何を建てずに残（のこ）すかが大切だと思う。空いた土地は、使い道が決（き）まっていないからこそ、だれもが自由（じゆう）に使える。効率（こうりつ）だけを追（お）い求（もと）めて余白（よはく）を削（けず）っていけば、街（まち）はやがて住みにくくなる。残（のこ）された緑（みどり）は、都市（とし）からの贈（おく）り物である。",
+   "questions": [
+    {
+     "id": "N3-D-M-9003-q1",
+     "q": "①こうした働（はたら）き が指（さ）すものはどれか。",
+     "choices": [
+      "緑（みどり）が日ざしを和（やわ）らげ、土が雨をたくわえ、人が集って交（か）わるという役目（やくめ）",
+      "木々（きぎ）が夏の強い日差（ざ）しをやわらげ、土が雨水をゆっくり地面（じめん）にしみこませること",
+      "高い建物を次々（つぎつぎ）に建てて、土地をむだなく使っていくこと",
+      "効率（こうりつ）だけを追（お）い求（もと）めて、街（まち）の余白（よはく）を削（けず）り取（と）っていくこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）に並（なら）ぶ、公園（こうえん）が果（は）たす複数（ふくすう）の働（はたら）きをまとめて「こうした働（はたら）き」と呼（よ）んでいる。選択肢（せんたくし）2は木と土だけの一部（いちぶ）。"
+      },
+      "ne": {
+       "q": "①यस्ता कार्यहरू ले केलाई जनाउँछ?",
+       "choices": [
+        "हरियालीले घामलाई नरम बनाउने, माटोले पानी जम्मा गर्ने, र मानिसहरू भेला भएर घुलमिल हुने भूमिका",
+        "रूखहरूले गर्मीको कडा घामलाई नरम बनाउने र माटोले वर्षाको पानीलाई बिस्तारै जमिनमा सोस्ने कुरा",
+        "अग्ला भवनहरू एकपछि अर्को बनाउँदै, जग्गालाई बेकार नबनाई प्रयोग गर्ने कुरा",
+        "दक्षता मात्र खोजेर शहरको खाली ठाउँहरू काट्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does <u>these functions</u> refer to?",
+       "choices": [
+        "The role of greenery softening sunlight, soil storing rain, and people gathering and interacting.",
+        "Trees softening the strong summer sunlight and soil slowly absorbing rainwater into the ground.",
+        "Building tall buildings one after another and using land without waste.",
+        "Pursuing only efficiency and eliminating the city's open spaces."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9003-q2",
+     "q": "筆者（ひっしゃ）が「何を建てずに残（のこ）すか」が大切だと言うのはなぜか。",
+     "choices": [
+      "何に使うか決（き）まっていない空き地こそ、誰（だれ）もが思い思いに使えるから",
+      "街（まち）がすべて建物とアスファルトで埋（う）まると、熱（ねつ）がこもり雨が行き場を失（うしな）うから",
+      "高い建物を建てることを、むだだと思う人がいるから",
+      "残（のこ）された緑（みどり）が、都市（とし）からの贈（おく）り物になるものだから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「使い道が決（き）まっていないからこそ、だれもが自由（じゆう）に使える」が理由（りゆう）として示（しめ）される。"
+      },
+      "ne": {
+       "q": "लेखकले “के नबनाई छोड्ने” महत्त्वपूर्ण छ भन्नुको कारण के हो?",
+       "choices": [
+        "केमा प्रयोग गर्ने भन्ने निश्चित नभएको खाली जग्गा नै सबैले आफ्नो इच्छाअनुसार प्रयोग गर्न सक्छन्",
+        "यदि शहर सबै भवन र डामरले भरियो भने, गर्मी जम्मा हुन्छ र वर्षाको पानी जाने ठाउँ हुँदैन",
+        "अग्ला भवनहरू बनाउनु बेकार हो भन्ने सोच्ने मानिसहरू छन्",
+        "बाँकी रहेको हरियाली शहरको उपहार बन्ने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why does the author say that \"what we choose to leave unbuilt\" is important?",
+       "choices": [
+        "Because open spaces, whose use is not yet decided, can be used freely by anyone as they wish.",
+        "Because if the city is entirely filled with buildings and asphalt, heat will accumulate and rain will have nowhere to go.",
+        "Because some people think it's a waste to build tall buildings.",
+        "Because the remaining greenery becomes a gift from the city."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9003-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "街（まち）づくりでは、何を建てるかと同じく何を残（のこ）すかも大切だ",
+      "都市（とし）には建物を一切建てず、その全体（ぜんたい）を公園（こうえん）として残（のこ）すべきだ",
+      "公園（こうえん）は雨水を地面（じめん）にしみこませるために作られている",
+      "都市（とし）は効率（こうりつ）を第一（だいいち）に考えて造（つく）っていくのがよい"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「何を建てるかと同じくらい、何を建てずに残（のこ）すかが大切」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "शहर योजनामा, के बनाउने जत्तिकै के छोड्ने भन्ने कुरा पनि महत्त्वपूर्ण छ",
+        "शहरमा कुनै पनि भवन बनाउनु हुँदैन, र यसलाई पूरै पार्कको रूपमा छोड्नुपर्छ",
+        "पार्कहरू वर्षाको पानीलाई जमिनमा सोस्नका लागि बनाइएका हुन्",
+        "शहरलाई दक्षतालाई प्राथमिकता दिएर बनाउनु राम्रो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point?",
+       "choices": [
+        "In city planning, what to leave unbuilt is as important as what to build.",
+        "Cities should not build any buildings at all and should be preserved entirely as parks.",
+        "Parks are created to allow rainwater to seep into the ground.",
+        "Cities should be built with efficiency as the top priority."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "ठूला शहरहरूमा, प्रायः सधैं पार्कहरू हुन्छन्। अग्ला भवनहरूले भरिएको ठाउँमा, किन यति ठूलो खाली ठाउँ छोड्ने भनेर केही मानिसहरूले यसलाई बेकारको सोच्न सक्छन्। तर पार्क भनेको खाली जग्गा मात्र होइन। रूखहरूले गर्मीको कडा घामलाई नरम बनाउँछन्, र माटोले वर्षाको पानीलाई बिस्तारै जमिनमा सोस्छ। मानिसहरू त्यहाँ शारीरिक गतिविधि गर्छन् र छेउमा बस्ने अपरिचितहरूसँग कुरा गर्छन्। ①<u>यस्ता कार्यहरू</u> भवनहरू जतिसुकै बनाए पनि प्रतिस्थापन गर्न सकिँदैन। यदि शहर सबै भवन र डामरले भरियो भने, गर्मी जम्मा हुन्छ, वर्षाको पानी जाने ठाउँ हुँदैन, र मानिसहरूसँग रोकिने ठाउँ हुँदैन। पार्क भनेको शहरलाई सास फेर्नका लागि छोडिएको खाली ठाउँ हो। मलाई लाग्छ कि शहर योजना बनाउँदा, के बनाउने जत्तिकै, के नबनाई छोड्ने भन्ने कुरा पनि महत्त्वपूर्ण हुन्छ। खाली जग्गाको प्रयोग निश्चित नभएकोले, सबैले यसलाई स्वतन्त्र रूपमा प्रयोग गर्न सक्छन्। यदि हामीले दक्षता मात्र खोजेर खाली ठाउँहरू काट्दै गयौं भने, शहर अन्ततः बस्न योग्य हुँदैन। बाँकी रहेको हरियाली शहरको उपहार हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Large cities almost always have parks. Some people might think it's a waste to deliberately leave large open spaces amidst towering buildings. However, parks are not just empty land. Trees soften the strong summer sunlight, and the soil slowly absorbs rainwater into the ground. People exercise there and exchange words with strangers living nearby. <u>These functions</u> cannot be replaced no matter how many buildings are constructed. If a city were entirely filled with buildings and asphalt, heat would accumulate, rain would have nowhere to go, and people would lose places to stop. Parks are the breathing space for a city. When I think about city planning, I believe that what we choose to leave unbuilt is as important as what we choose to build. Because open land has no predetermined use, anyone can use it freely. If we pursue only efficiency and eliminate these open spaces, the city will eventually become difficult to live in. The remaining greenery is a gift from the city."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9004",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "手で書くということ",
+   "body": "授業（じゅぎょう）の内容（ないよう）を、ノートに手で書き取（と）る人と、パソコンで打ちこむ人がいる。速（はや）さだけを比（くら）べれば、打ちこむほうが明らかに有利（ゆうり）だ。話される言葉（ことば）をほとんどそのまま写し取（と）れる。ところが、後で思い出せるかどうかを調（しら）べると、手で書いた人のほうがよく覚（おぼ）えているという。①<u>この差（さ）</u>は、書く速（はや）さの違（ちが）いから生まれる。手はパソコンほど速く動かない。だからすべてを写（うつ）すことはできず、聞いた話を頭（あたま）の中で短くまとめ直（なお）してから書くことになる。この「まとめ直（なお）す」というひと手間が、内容（ないよう）を自分のものにする。一方、そのまま打ちこむときは、言葉（ことば）が指（ゆび）を通り抜（ぬ）けるだけで、頭（あたま）に引（ひ）っかからない。私は、道具（どうぐ）が便利（べんり）になるほど、あえて手間をかける場面（ばめん）を残（のこ）すべきだと思う。速く楽にできることが、いつも学びにとってよいとは限（かぎ）らない。少し不便（ふべん）な手書きが記憶（きおく）を助（たす）けるように、手間そのものに意味がある場合がある。便利（べんり）さと引（ひ）きかえに、私たちは何かを手放（てばな）しているのかもしれない。",
+   "questions": [
+    {
+     "id": "N3-D-M-9004-q1",
+     "q": "①この差（さ） が指（さ）すものはどれか。",
+     "choices": [
+      "手で書いた人のほうが、後になってよく思い出せるという違（ちが）い",
+      "パソコンなら、話される言葉（ことば）をほとんどそのまま写し取（と）れるという違（ちが）い",
+      "手は、パソコンほど速く動いてくれないという違（ちが）い",
+      "道具（どうぐ）が便利（べんり）になるほど、かける手間が減（へ）っていくという違（ちが）い"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「手で書いた人のほうがよく覚（おぼ）えている」という記憶（きおく）の差（さ）を指（さ）す。"
+      },
+      "ne": {
+       "q": "①यो भिन्नता ले केलाई जनाउँछ?",
+       "choices": [
+        "हातले लेख्ने मानिसहरूले पछि राम्रोसँग सम्झन सक्ने भिन्नता",
+        "कम्प्युटरले बोलिएका शब्दहरूलाई लगभग जस्ताको तस्तै लेख्न सक्ने भिन्नता",
+        "हात कम्प्युटर जत्तिकै छिटो नचल्ने भिन्नता",
+        "उपकरणहरू जतिसुकै सुविधाजनक भए पनि, प्रयास घट्दै जाने भिन्नता"
+       ]
+      },
+      "en": {
+       "q": "What does <u>this difference</u> refer to?",
+       "choices": [
+        "The difference that people who wrote by hand remember things better later.",
+        "The difference that a computer can transcribe almost exactly what is being said.",
+        "The difference that hands don't move as fast as a computer.",
+        "The difference that as tools become more convenient, the effort put in decreases."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9004-q2",
+     "q": "手で書くとよく覚（おぼ）えられるのはなぜか。",
+     "choices": [
+      "速く書けない分、聞いた話を頭（あたま）の中で要約（ようやく）してから書くから",
+      "パソコンで打つと、言葉（ことば）が指（ゆび）を通り抜（ぬ）けるだけで頭（あたま）に引（ひ）っかからないから",
+      "話される言葉（ことば）を、ほとんどそのまま写し取（と）れるから",
+      "便利（べんり）な道具（どうぐ）ほど、学びに役立（やくだ）ってくれるものだから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「まとめ直（なお）すというひと手間が、内容（ないよう）を自分のものにする」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "हातले लेख्दा किन राम्रोसँग सम्झन सकिन्छ?",
+       "choices": [
+        "छिटो लेख्न नसकिने भएकोले, सुनेका कुराहरूलाई दिमागमा सारांश बनाएर लेख्ने भएकोले",
+        "कम्प्युटरमा टाइप गर्दा, शब्दहरू औंलाहरूबाट मात्र गुज्रिन्छन् र दिमागमा अड्किँदैनन्",
+        "बोलिएका शब्दहरूलाई लगभग जस्ताको तस्तै लेख्न सकिने भएकोले",
+        "सुविधाजनक उपकरणहरूले सिकाइमा मद्दत गर्ने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why do people remember better when they write by hand?",
+       "choices": [
+        "Because they can't write fast, they summarize what they hear in their head before writing.",
+        "Because when typing on a computer, words just pass through their fingers without sticking in their head.",
+        "Because they can transcribe almost exactly what is being said.",
+        "Because convenient tools are always helpful for learning."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9004-q3",
+     "q": "筆者（ひっしゃ）の考えに最（もっと）も近いものはどれか。",
+     "choices": [
+      "便利（べんり）になっても、あえて手間をかける場面（ばめん）を残（のこ）すことに意味がある",
+      "学ぶときにはパソコンを一切使わず、すべて手で書き取（と）るべきだ",
+      "ノートは話をそのまま写し取（と）るために使うものだ",
+      "速く楽にできる方法（ほうほう）ほど、いつでもよい結果（けっか）を生む"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「あえて手間をかける場面（ばめん）を残（のこ）すべき」「手間そのものに意味がある」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
+       "choices": [
+        "सुविधाजनक भए पनि, जानाजानी प्रयास गर्ने अवसरहरू छोड्नुमा अर्थ हुन्छ",
+        "सिक्दा कम्प्युटर बिल्कुल प्रयोग गर्नु हुँदैन, सबै कुरा हातले लेख्नुपर्छ",
+        "नोटबुक कुराहरूलाई जस्ताको तस्तै लेख्नका लागि प्रयोग गरिने कुरा हो",
+        "छिटो र सजिलै गर्न सकिने तरिकाहरूले सधैं राम्रो परिणाम दिन्छन्"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is closest to the author's opinion?",
+       "choices": [
+        "Even with convenience, there is meaning in intentionally leaving situations where effort is required.",
+        "When learning, one should never use a computer and always write everything by hand.",
+        "Notes should be used to transcribe conversations exactly as they are.",
+        "Faster and easier methods always produce good results."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "कक्षाको सामग्रीलाई नोटबुकमा हातले लेख्ने र कम्प्युटरमा टाइप गर्ने मानिसहरू हुन्छन्। यदि गति मात्र तुलना गर्ने हो भने, टाइप गर्नु स्पष्ट रूपमा फाइदाजनक हुन्छ। बोलिएका शब्दहरूलाई लगभग जस्ताको तस्तै लेख्न सकिन्छ। तर, पछि सम्झन सकिन्छ कि सकिँदैन भनेर जाँच गर्दा, हातले लेख्ने मानिसहरूले राम्रोसँग सम्झेको पाइन्छ। ①<u>यो भिन्नता</u> लेख्ने गतिको भिन्नताबाट उत्पन्न हुन्छ। हात कम्प्युटर जत्तिकै छिटो चल्दैन। त्यसैले सबै कुरा लेख्न सकिँदैन, र सुनेका कुराहरूलाई दिमागमा छोटो रूपमा सारांश बनाएर मात्र लेख्नुपर्छ। यो “सारांश बनाउने” अतिरिक्त प्रयासले सामग्रीलाई आफ्नो बनाउँछ। अर्कोतर्फ, जस्ताको तस्तै टाइप गर्दा, शब्दहरू औंलाहरूबाट मात्र गुज्रिन्छन् र दिमागमा अड्किँदैनन्। मलाई लाग्छ कि उपकरणहरू जतिसुकै सुविधाजनक भए पनि, हामीले जानाजानी प्रयास गर्ने अवसरहरू छोड्नुपर्छ। छिटो र सजिलै गर्न सकिने कुरा सधैं सिकाइका लागि राम्रो हुँदैन। जसरी अलिकति असुविधाजनक हस्तलेखनले सम्झनालाई मद्दत गर्छ, कहिलेकाहीँ प्रयास आफैंमा अर्थपूर्ण हुन्छ। सुविधाको बदलामा, हामीले केही गुमाइरहेका हुन सक्छौं।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Some people handwrite notes during class, while others type them on a computer. If you only compare speed, typing is clearly more advantageous. You can transcribe almost exactly what is being said. However, when it comes to recalling the content later, those who wrote by hand remember it better. <u>This difference</u> arises from the difference in writing speed. Hands don't move as fast as a computer. Therefore, you can't transcribe everything, and you have to summarize what you hear in your head before writing it down. This extra step of \"summarizing\" makes the content your own. On the other hand, when you type directly, the words just pass through your fingers without sticking in your head. I believe that the more convenient tools become, the more we should intentionally leave situations where we put in effort. What is fast and easy is not always good for learning. Just as slightly inconvenient handwriting aids memory, there are times when the effort itself has meaning. Perhaps we are giving up something in exchange for convenience."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9005",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "失敗（しっぱい）という手がかり",
+   "body": "新しいことを始めると、たいてい初（はじ）めはうまくいかない。思いどおりに進（すす）まず、何度もやり直（なお）すことになる。失敗（しっぱい）が続（つづ）くと、自分には向（む）いていないのだと落ちこむ人も多い。しかし失敗（しっぱい）は、単（たん）なる行き止まりではない。うまくいかなかったという事実（じじつ）は、「この道は違（ちが）う」という一つの答えを教えてくれる。①<u>その情報（じょうほう）</u>は、成功（せいこう）からは決（けっ）して得（え）られない。すべてがうまくいっているとき、人はなぜうまくいくのかを深（ふか）く考えない。ところが失敗（しっぱい）すると、どこが悪かったのかと立ち止まって調（しら）べる。つまり失敗（しっぱい）は、次（つぎ）の一歩をどこへ踏（ふ）み出すかを教える手がかりなのだ。私は、失敗（しっぱい）の回数（かいすう）を恐（おそ）れる必要（ひつよう）はないと考えている。大切なのは、同じ失敗（しっぱい）をくり返（かえ）さないことであって、失敗（しっぱい）そのものを避（さ）けることではない。一度もつまずかずに進（すす）める道など、めったにない。転んだ数（かず）だけ、その道の様子（ようす）を知ることができる。失敗（しっぱい）を丁寧（ていねい）に読み解（と）く人が、やがて遠（とお）くまで行けるのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9005-q1",
+     "q": "①その情報（じょうほう） が指（さ）すものはどれか。",
+     "choices": [
+      "うまくいかなかった事実（じじつ）が示（しめ）す、進（すす）む道が違（ちが）うという答え",
+      "すべてがうまくいっているときには決（けっ）して得（え）られない、成功（せいこう）したという事実（じじつ）",
+      "自分には向（む）いていないという、落ちこみや思いこみ",
+      "同じ失敗（しっぱい）を二度とくり返（かえ）さないという心がけ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「この道は違（ちが）うという一つの答え」を「その情報（じょうほう）」と受（う）けている。"
+      },
+      "ne": {
+       "q": "①त्यो जानकारी ले केलाई जनाउँछ?",
+       "choices": [
+        "असफल भएको तथ्यले देखाउने, अगाडि बढ्ने बाटो गलत छ भन्ने उत्तर",
+        "सबै कुरा राम्रो भइरहेको बेला कहिल्यै प्राप्त गर्न नसकिने, सफल भएको तथ्य",
+        "आफू यसका लागि उपयुक्त छैन भन्ने निराशा वा धारणा",
+        "एउटै असफलता फेरि कहिल्यै नदोहोर्याउने संकल्प"
+       ]
+      },
+      "en": {
+       "q": "What does <u>that information</u> refer to?",
+       "choices": [
+        "The answer that the fact of not going well indicates that the path is wrong.",
+        "The fact of success, which can never be obtained when everything is going well.",
+        "Discouragement or the belief that something is not for oneself.",
+        "The resolve not to repeat the same mistake twice."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9005-q2",
+     "q": "失敗（しっぱい）が次（つぎ）の一歩の手がかりになるのはなぜか。",
+     "choices": [
+      "失敗（しっぱい）すると、どこがまずかったのかと足を止めて確（たし）かめるから",
+      "すべてうまくいっているときは、なぜうまくいくのかを深（ふか）く考えないから",
+      "失敗（しっぱい）すると、自分には向（む）いていないと落ちこむから",
+      "一度もつまずかずに進（すす）める道は、めったにないから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「失敗（しっぱい）するとどこが悪かったかと立ち止まって調（しら）べる」ため手がかりになる。"
+      },
+      "ne": {
+       "q": "असफलता किन अर्को कदमको लागि सुराग बन्छ?",
+       "choices": [
+        "असफल हुँदा, कहाँ गल्ती भयो भनेर रोकेर जाँच गर्ने भएकोले",
+        "सबै कुरा राम्रो भइरहेको बेला, किन राम्रो भइरहेको छ भनेर गहिरो रूपमा सोच्दैनन्",
+        "असफल हुँदा, आफू यसका लागि उपयुक्त छैन भनेर निराश हुन्छन्",
+        "कहिल्यै नठोकिई अगाडि बढ्न सकिने बाटो विरलै हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "Why does failure become a clue for the next step?",
+       "choices": [
+        "Because when you fail, you stop and check what went wrong.",
+        "Because when everything is going well, you don't deeply consider why it's going well.",
+        "Because when you fail, you get discouraged and think it's not for you.",
+        "Because there are rarely paths where you can proceed without stumbling even once."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9005-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "恐（おそ）れるべきは失敗（しっぱい）の回数（かいすう）ではなく、同じ失敗（しっぱい）をくり返（かえ）すことだ",
+      "失敗（しっぱい）を重ねれば重ねるほど、やがて必（かなら）ず成功（せいこう）にたどりつける",
+      "新しいことは初（はじ）めうまくいかないので、避（さ）けたほうがよい",
+      "人は成功（せいこう）からしか、大切なことを学べない"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「同じ失敗（しっぱい）をくり返（かえ）さないことが大切、失敗（しっぱい）を避（さ）けることではない」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "डराउनुपर्ने कुरा असफलताको संख्या होइन, एउटै असफलता दोहोर्याउनु हो",
+        "जति धेरै असफलताहरू हुन्छन्, त्यति नै अन्ततः सफलतामा पुग्न सकिन्छ",
+        "नयाँ कुराहरू सुरुमा सफल हुँदैनन्, त्यसैले तिनीहरूलाई टार्नु राम्रो हुन्छ",
+        "मानिसहरूले सफलताबाट मात्र महत्त्वपूर्ण कुराहरू सिक्न सक्छन्"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point?",
+       "choices": [
+        "What should be feared is not the number of failures, but repeating the same failure.",
+        "The more failures one accumulates, the more certain it is that one will eventually reach success.",
+        "New things don't go well at first, so it's better to avoid them.",
+        "People can only learn important things from success."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "जब हामी केही नयाँ सुरु गर्छौं, प्रायः सुरुमा सफल हुँदैन। सोचेजस्तो नभई, धेरै पटक फेरि गर्नुपर्छ। असफलताहरू जारी रहँदा, धेरै मानिसहरू आफू यसका लागि उपयुक्त छैनन् भनेर निराश हुन्छन्। तर असफलता भनेको केवल एउटा बन्द गल्ली होइन। असफल भएको तथ्यले \"यो बाटो गलत हो\" भन्ने एउटा उत्तर सिकाउँछ। ①<u>त्यो जानकारी</u> सफलताबाट कहिल्यै प्राप्त गर्न सकिँदैन। जब सबै कुरा राम्रो भइरहेको हुन्छ, मानिसहरू किन राम्रो भइरहेको छ भनेर गहिरो रूपमा सोच्दैनन्। तर असफल हुँदा, कहाँ गल्ती भयो भनेर रोकेर जाँच गर्छन्। अर्थात्, असफलता भनेको अर्को कदम कहाँ चाल्ने भनेर सिकाउने एउटा सुराग हो। मलाई लाग्छ कि असफलताको संख्यासँग डराउनु पर्दैन। महत्त्वपूर्ण कुरा भनेको एउटै असफलता दोहोर्याउनु होइन, असफलता आफैंलाई टार्नु होइन। कहिल्यै नठोकिई अगाडि बढ्न सकिने बाटो विरलै हुन्छ। जति पटक लड्छौं, त्यति नै त्यो बाटोको अवस्था थाहा पाउन सकिन्छ। असफलतालाई ध्यानपूर्वक बुझ्ने मानिसहरू अन्ततः टाढासम्म पुग्न सक्छन्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When you start something new, it usually doesn't go well at first. Things don't proceed as you imagine, and you have to redo them many times. Many people get discouraged when failures continue, thinking it's not for them. However, failure is not just a dead end. The fact that something didn't go well tells you one answer: \"This path is wrong.\" <u>That information</u> can never be obtained from success. When everything is going well, people don't deeply consider why it's going well. But when they fail, they stop and investigate what went wrong. In other words, failure is a clue that tells you where to take the next step. I believe there's no need to fear the number of failures. What's important is not to repeat the same mistake, rather than avoiding failure itself. There are rarely paths where you can proceed without stumbling even once. For every time you fall, you learn more about the path. Those who carefully analyze their failures will eventually go far."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9006",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "方言という財産（ざいさん）",
+   "body": "テレビやインターネットが広まり、どこの土地でも同じ言葉（ことば）が通じるようになった。学校や仕事の場では、だれにでも分かる共通語（きょうつうご）が使われる。それはとても便利（べんり）なことだ。一方で、その土地ならではの方言は、少しずつ使われなくなってきている。方言など、通じにくいだけで消えても困（こま）らないと考える人もいるだろう。しかし①<u>その考え</u>には、見落としがある。方言は、単（たん）なる古い言い回（まわ）しではない。その土地の暮（く）らしや気候（きこう）、人と人との近さが、長い年月をかけてしみこんだ言葉（ことば）である。同じ「ありがとう」でも、方言で言えば伝（つた）わる温（あたた）かさが違（ちが）う。共通語（きょうつうご）がすべてを置（お）きかえてしまえば、言葉（ことば）は通じても、土地ごとの色あいは失（うしな）われる。私は、共通語（きょうつうご）と方言のどちらか一方を選（えら）ぶ必要（ひつよう）はないと思う。改（あらた）まった場では共通語（きょうつうご）を使い、親しい間では方言を交（まじ）える。二つを使い分けられることは、豊（ゆた）かさであって不便（ふべん）ではない。方言は、その土地が育（そだ）てた財産（ざいさん）なのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9006-q1",
+     "q": "①その考え が指（さ）すものはどれか。",
+     "choices": [
+      "方言は通じづらいだけなので、なくなっても支障（ししょう）はないという見方",
+      "共通語（きょうつうご）は学校や仕事の場でだれにでも分かって、とても便利（べんり）だという考え",
+      "方言は、その土地が長い年月で育（そだ）てた財産（ざいさん）だという考え",
+      "共通語（きょうつうご）と方言を場面（ばめん）で使い分けるのが豊（ゆた）かだという考え"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「方言は消えても困（こま）らない」という考えを「その考え」と受（う）けている。"
+      },
+      "ne": {
+       "q": "①त्यो विचार ले केलाई जनाउँछ?",
+       "choices": [
+        "स्थानीय भाषा बुझ्न गाह्रो मात्र हो, त्यसैले यो हराए पनि कुनै समस्या छैन भन्ने दृष्टिकोण",
+        "साझा भाषा विद्यालय र कार्यस्थलमा सबैले बुझ्ने र धेरै सुविधाजनक छ भन्ने विचार",
+        "स्थानीय भाषा त्यो ठाउँले लामो समयसम्म हुर्काएको सम्पत्ति हो भन्ने विचार",
+        "साझा भाषा र स्थानीय भाषालाई परिस्थिति अनुसार प्रयोग गर्नु समृद्धि हो भन्ने विचार"
+       ]
+      },
+      "en": {
+       "q": "What does <u>that idea</u> refer to?",
+       "choices": [
+        "The view that dialects are just hard to understand, so it wouldn't be a problem if they disappeared.",
+        "The idea that the common language is very convenient because everyone understands it in schools and workplaces.",
+        "The idea that dialects are a treasure nurtured by the land over many years.",
+        "The idea that it is a richness to use common language and dialect differently depending on the situation."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9006-q2",
+     "q": "筆者（ひっしゃ）が方言を「単（たん）なる古い言い回（まわ）しではない」と言うのはなぜか。",
+     "choices": [
+      "土地の生活（せいかつ）や風土、人どうしの親しさが長年こもった言葉（ことば）だから",
+      "テレビやインターネットが広まって、どこでも同じ言葉（ことば）が通じるから",
+      "学校や仕事の場で、だれにでも分かって使われるから",
+      "共通語（きょうつうご）が、いずれすべてを置（お）きかえてしまうものだから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「土地の暮（く）らしや気候（きこう）、人の近さがしみこんだ言葉（ことば）」だから単（たん）なる古語ではない。"
+      },
+      "ne": {
+       "q": "लेखकले स्थानीय भाषालाई \"केवल पुरानो बोलीचालीको शैली मात्र होइन\" भन्नुको कारण के हो?",
+       "choices": [
+        "यो ठाउँको जीवनशैली, हावापानी, र मानिसहरू बीचको निकटतालाई लामो समयसम्म भिजेको भाषा भएकोले",
+        "टेलिभिजन र इन्टरनेटको विस्तारसँगै, जुनसुकै ठाउँमा पनि एउटै भाषा बोल्न सकिने भएकोले",
+        "विद्यालय र कार्यस्थलमा, सबैले बुझ्ने र प्रयोग गरिने भएकोले",
+        "साझा भाषाले अन्ततः सबै कुरालाई प्रतिस्थापन गर्ने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why does the author say that dialects are \"not just old ways of speaking\"?",
+       "choices": [
+        "Because they are words imbued with the local way of life, climate, and the closeness between people over many years.",
+        "Because television and the internet have spread, and the same language is understood everywhere.",
+        "Because they are used in schools and workplaces and understood by everyone.",
+        "Because the common language will eventually replace everything."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9006-q3",
+     "q": "筆者（ひっしゃ）の考えに最（もっと）も近いものはどれか。",
+     "choices": [
+      "どちらか一方を選（えら）ばず、共通語（きょうつうご）と方言を場面（ばめん）で使い分ければよい",
+      "親しい間ではすべて方言だけを用いて話すようにすべきだ",
+      "共通語（きょうつうご）はだれにでも通じるので、方言より優（すぐ）れている",
+      "言葉（ことば）は、たがいに通じさえすればそれで十分だ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「どちらか一方を選（えら）ぶ必要（ひつよう）はない」「使い分けは豊（ゆた）かさ」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
+       "choices": [
+        "कुनै एकलाई मात्र नछानी, साझा भाषा र स्थानीय भाषालाई परिस्थिति अनुसार प्रयोग गर्नुपर्छ",
+        "घनिष्ठ सम्बन्धमा सबै कुरा स्थानीय भाषामा मात्र बोल्नुपर्छ",
+        "साझा भाषा सबैले बुझ्ने भएकोले, स्थानीय भाषा भन्दा राम्रो छ",
+        "भाषा एकअर्कालाई बुझाउन सके मात्र पर्याप्त हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is closest to the author's opinion?",
+       "choices": [
+        "Instead of choosing one, it's good to use common language and dialect differently depending on the situation.",
+        "Among close friends, one should only speak using dialect.",
+        "The common language is superior to dialects because everyone understands it.",
+        "As long as words are understood by each other, that is sufficient."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "टेलिभिजन र इन्टरनेटको विस्तारसँगै, जुनसुकै ठाउँमा पनि एउटै भाषा बोल्न सकिने भएको छ। विद्यालय र कार्यस्थलमा, सबैले बुझ्ने साझा भाषा प्रयोग गरिन्छ। यो धेरै सुविधाजनक कुरा हो। अर्कोतर्फ, त्यो ठाउँको आफ्नै बोली (स्थानीय भाषा) बिस्तारै कम प्रयोग हुन थालेको छ। केही मानिसहरूले सोच्न सक्छन् कि स्थानीय भाषा बुझ्न गाह्रो मात्र हो, त्यसैले यो हराए पनि कुनै समस्या छैन। तर ①<u>त्यो विचार</u>मा एउटा त्रुटि छ। स्थानीय भाषा केवल पुरानो बोलीचालीको शैली मात्र होइन। यो त्यो ठाउँको जीवनशैली, हावापानी, र मानिसहरू बीचको निकटतालाई लामो समयसम्म भिजेको भाषा हो। एउटै \"धन्यवाद\" भए पनि, स्थानीय भाषामा भन्दा फरक न्यानोपन व्यक्त हुन्छ। यदि साझा भाषाले सबै कुरालाई प्रतिस्थापन गर्यो भने, भाषा बुझिए पनि, प्रत्येक ठाउँको विशिष्टता हराउनेछ। मलाई लाग्छ कि साझा भाषा र स्थानीय भाषा मध्ये कुनै एकलाई मात्र छान्नु आवश्यक छैन। औपचारिक ठाउँमा साझा भाषा प्रयोग गर्ने, र घनिष्ठ सम्बन्धमा स्थानीय भाषा मिसाउने। दुवैलाई प्रयोग गर्न सक्नु सुविधा होइन, बरु समृद्धि हो। स्थानीय भाषा त्यो ठाउँले हुर्काएको सम्पत्ति हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "With the spread of television and the internet, the same language is now understood everywhere. In schools and workplaces, a common language that everyone understands is used. This is very convenient. On the other hand, local dialects are gradually being used less. Some people might think that dialects are just difficult to understand and that it wouldn't be a problem if they disappeared. However, <u>that idea</u> overlooks something. Dialects are not just old ways of speaking. They are words imbued with the local way of life, climate, and the closeness between people over many years. Even the same \"thank you\" conveys a different warmth when said in a dialect. If the common language replaces everything, words may be understood, but the unique flavor of each region will be lost. I don't think we need to choose between common language and dialect. Use the common language in formal settings and mix in dialect among close friends. Being able to use both is a richness, not an inconvenience. Dialects are a treasure nurtured by the land."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9007",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "短い昼寝（ひるね）のこつ",
+   "body": "昼過（す）ぎになると、急に眠気（ねむけ）におそわれることがある。大事な仕事の途中（とちゅう）で頭（あたま）がぼんやりし、能率（のうりつ）が落ちていく。そんなとき、少しだけ目を閉（と）じて休む「昼寝（ひるね）」が役（やく）に立つ。ただし、いくらでも長く眠（ねむ）ればよいわけではない。二十分ほどの短い昼寝（ひるね）なら、目覚（めざ）めた後に頭（あたま）がすっきりする。ところが一時間も眠（ねむ）ってしまうと、かえって体が重く、しばらくぼんやりが続（つづ）く。①<u>この違（ちが）い</u>は、眠（ねむ）りの深（ふか）さから生まれる。短い昼寝（ひるね）は浅（あさ）い眠（ねむ）りにとどまるが、長く眠（ねむ）ると深（ふか）い眠（ねむ）りに入ってしまい、そこから起きると頭（あたま）がうまく働（はたら）かない。だから昼寝（ひるね）は、深（ふか）い眠（ねむ）りに落ちる前に切り上げるのがこつだ。私は、眠気（ねむけ）をむりに我慢（がまん）するより、短く休んで立て直（なお）すほうが結局（けっきょく）は多くの仕事が進（すす）むと考えている。眠気（ねむけ）は、休みが足りないという体からの合図（あいず）でもある。合図（あいず）を無視（むし）して机（つくえ）に向（む）かい続（つづ）けるより、いったん受（う）け止めて短く応（おう）じるほうが、頭（あたま）も体も長持ちするのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9007-q1",
+     "q": "①この違（ちが）い が指（さ）すものはどれか。",
+     "choices": [
+      "短い昼寝（ひるね）なら頭（あたま）がさえるが、長く眠（ねむ）ると体が重くなるという違（ちが）い",
+      "二十分ほどの短い昼寝（ひるね）なら、目覚（めざ）めた後に頭（あたま）がすっきりするという違（ちが）い",
+      "昼過（す）ぎに、急に眠気（ねむけ）におそわれるかどうかという違（ちが）い",
+      "眠気（ねむけ）を我慢（がまん）するか、机（つくえ）に向（む）かい続（つづ）けるかという違（ちが）い"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「短い昼寝（ひるね）はすっきり、一時間眠（ねむ）ると体が重い」という差（さ）を指（さ）す。選択肢（せんたくし）2は前半のみの一部（いちぶ）。"
+      },
+      "ne": {
+       "q": "①यो भिन्नता ले केलाई जनाउँछ?",
+       "choices": [
+        "छोटो दिउँसोको निद्राले दिमाग ताजा बनाउँछ तर लामो समय सुत्दा शरीर भारी हुन्छ भन्ने भिन्नता",
+        "करिब २० मिनेटको छोटो दिउँसोको निद्राले ब्युँझिएपछि दिमाग ताजा हुन्छ भन्ने भिन्नता",
+        "दिउँसो पछि, अचानक निद्राले सताउँछ कि सताउँदैन भन्ने भिन्नता",
+        "निद्रालाई सहन गर्ने कि डेस्कमा बसिरहने भन्ने भिन्नता"
+       ]
+      },
+      "en": {
+       "q": "What does <u>this difference</u> refer to?",
+       "choices": [
+        "The difference that a short nap clears your head, but sleeping longer makes your body heavy.",
+        "The difference that a short nap of about twenty minutes leaves your head feeling clear after waking up.",
+        "The difference of whether you suddenly feel sleepy in the afternoon.",
+        "The difference of whether you endure sleepiness or continue to sit at your desk."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9007-q2",
+     "q": "一時間眠（ねむ）ると目覚（めざ）めた後に体が重いのはなぜか。",
+     "choices": [
+      "深（ふか）い眠（ねむ）りに落ちてしまい、起きたとき頭（あたま）がうまく回（まわ）らないから",
+      "二十分ほどの短い昼寝（ひるね）は、浅（あさ）い眠（ねむ）りにとどまってすっきりするから",
+      "眠気（ねむけ）が、休みの足りない体からの合図（あいず）であるから",
+      "昼寝（ひるね）を、深（ふか）い眠（ねむ）りに落ちる前に切り上げるから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「長く眠（ねむ）ると深（ふか）い眠（ねむ）りに入り、起きると頭（あたま）がうまく働（はたら）かない」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "एक घण्टा सुत्दा ब्युँझिएपछि शरीर भारी हुनुको कारण के हो?",
+       "choices": [
+        "गहिरो निद्रामा परेर, उठ्दा दिमागले राम्रोसँग काम नगर्ने भएकोले",
+        "करिब २० मिनेटको छोटो दिउँसोको निद्रा हल्का निद्रामा मात्र रहेर ताजा बनाउने भएकोले",
+        "निद्रा पर्याप्त आराम नभएको शरीरबाट आएको संकेत भएकोले",
+        "दिउँसोको निद्रा गहिरो निद्रामा जानु अघि नै टुङ्ग्याउने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why does one's body feel heavy after waking up from an hour's sleep?",
+       "choices": [
+        "Because one falls into deep sleep, and one's head doesn't function well upon waking.",
+        "Because a short nap of about twenty minutes stays in shallow sleep and leaves one feeling refreshed.",
+        "Because sleepiness is a signal from the body that one hasn't rested enough.",
+        "Because one cuts short the nap before falling into deep sleep."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9007-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "眠気（ねむけ）を我慢（がまん）し続（つづ）けるより、短く休んで立て直（なお）すほうが仕事が進（すす）む",
+      "昼寝（ひるね）は長ければ長いほど、目覚（めざ）めた後に頭（あたま）がよく働（はたら）くようになる",
+      "昼寝（ひるね）は必（かなら）ず二十分と決（き）めて眠（ねむ）らなければならない",
+      "眠気（ねむけ）は、気の持ちようでいつでも消せるものだ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「短く休んで立て直（なお）すほうが多くの仕事が進（すす）む」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "निद्रालाई जबरजस्ती सहन गर्नुभन्दा, छोटो समय आराम गरेर पुनः ऊर्जा प्राप्त गर्नुले काम अगाडि बढाउँछ",
+        "दिउँसोको निद्रा जति लामो भयो, ब्युँझिएपछि दिमागले त्यति नै राम्रोसँग काम गर्छ",
+        "दिउँसोको निद्रा सधैं २० मिनेट मात्र सुत्नुपर्छ",
+        "निद्रा मनको अवस्थाले जुनसुकै बेला पनि हटाउन सकिने कुरा हो"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point?",
+       "choices": [
+        "It's more productive to take a short rest and reset yourself than to keep enduring sleepiness.",
+        "The longer the nap, the better one's head will function after waking up.",
+        "Naps must always be exactly twenty minutes long.",
+        "Sleepiness can always be eliminated with a change of mindset."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "दिउँसो पछि, कहिलेकाहीँ अचानक निद्राले सताउन सक्छ। महत्त्वपूर्ण कामको बीचमा दिमाग सुस्त हुन्छ र कार्यक्षमता घट्छ। यस्तो बेला, थोरै समय आँखा चिम्लेर आराम गर्ने \"दिउँसोको निद्रा\" उपयोगी हुन्छ। तर, जति लामो समय सुते पनि राम्रो हुन्छ भन्ने होइन। करिब २० मिनेटको छोटो दिउँसोको निद्राले ब्युँझिएपछि दिमाग ताजा हुन्छ। तर, यदि एक घण्टा सुत्यो भने, शरीर झन् भारी हुन्छ र केही समयसम्म सुस्तता रहिरहन्छ। ①<u>यो भिन्नता</u> निद्राको गहिराइबाट उत्पन्न हुन्छ। छोटो दिउँसोको निद्रा हल्का निद्रामा मात्र रहन्छ, तर लामो समय सुत्दा गहिरो निद्रामा परिणत हुन्छ, र त्यहाँबाट उठ्दा दिमागले राम्रोसँग काम गर्दैन। त्यसैले, दिउँसोको निद्रा गहिरो निद्रामा जानु अघि नै टुङ्ग्याउनु महत्त्वपूर्ण हुन्छ। मलाई लाग्छ कि निद्रालाई जबरजस्ती सहन गर्नुभन्दा, छोटो समय आराम गरेर पुनः ऊर्जा प्राप्त गर्नुले अन्ततः धेरै काम अगाडि बढाउँछ। निद्रा भनेको शरीरबाट पर्याप्त आराम नभएको संकेत पनि हो। संकेतलाई बेवास्ता गरेर डेस्कमा बसिरहनुभन्दा, एकपटक स्वीकार गरेर छोटो प्रतिक्रिया दिनुले दिमाग र शरीर दुवैलाई लामो समयसम्म टिकाउँछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Sometimes, in the afternoon, you might suddenly feel sleepy. Your head becomes foggy in the middle of important work, and your efficiency drops. In such cases, taking a short \"nap\" by closing your eyes for a bit can be helpful. However, it's not good to sleep for any length of time. A short nap of about twenty minutes will leave your head feeling clear after waking up. But if you sleep for an hour, your body will feel heavy, and you'll remain groggy for a while. <u>This difference</u> arises from the depth of sleep. A short nap stays in shallow sleep, but sleeping longer leads to deep sleep, and waking from it makes your head not function well. So, the trick to napping is to cut it short before falling into deep sleep. I believe that forcing yourself to endure sleepiness is less productive than taking a short rest to reset yourself, which ultimately leads to more work getting done. Sleepiness is also a signal from your body that you haven't rested enough. Rather than ignoring the signal and continuing to sit at your desk, acknowledging it and responding with a short rest will make both your mind and body last longer."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9008",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "道を覚（おぼ）える力",
+   "body": "知らない街（まち）でも、地図アプリがあれば道に迷（まよ）うことはほとんどない。画面（がめん）が示（しめ）すとおりに進（すす）めば、目的地（もくてきち）まで正しく連（つ）れて行ってくれる。とても心強い道具（どうぐ）だ。ところが便利（べんり）さの裏（うら）で、失（うしな）われているものもある。アプリに頼（たよ）って歩くとき、人は自分がどこを通ってきたのかをあまり覚（おぼ）えていない。何度通った道でも、画面（がめん）を見ずには歩けないという人は少なくない。①<u>この現象（げんしょう）</u>は、道を覚（おぼ）える必要（ひつよう）がなくなったために起こる。かつて人は、目印（めじるし）になる建物や曲（ま）がり角（かど）を頭（あたま）に刻（きざ）みながら歩いた。覚（おぼ）えなければ帰れないからだ。しかし今は、覚（おぼ）えなくても機械（きかい）が導（みちび）いてくれる。使わない力は、しだいに衰（おとろ）えていく。私は、道具（どうぐ）に任（まか）せてよいことと、自分の中に残（のこ）しておきたい力を分けて考えたい。たまには地図をしまい、自分の目と記憶（きおく）をたよりに歩いてみる。遠（とお）回（まわ）りをしても、その街（まち）の形（かたち）が体に残（のこ）る。便利（べんり）さは、時に私たちから世界を感（かん）じ取（と）る機会（きかい）を奪（うば）っているのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9008-q1",
+     "q": "①この現象（げんしょう） が指（さ）すものはどれか。",
+     "choices": [
+      "アプリに頼（たよ）ると、自分の通ってきた道をほとんど覚（おぼ）えていないこと",
+      "画面（がめん）が示（しめ）すとおりに進（すす）めば、目的地（もくてきち）まで正しく連（つ）れて行ってくれること",
+      "目印（めじるし）になる建物や曲（ま）がり角（かど）を、頭（あたま）に刻（きざ）みながら歩くこと",
+      "たまに地図をしまい、自分の記憶（きおく）をたよりに歩くこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「通った道を覚（おぼ）えていない、画面（がめん）なしでは歩けない」状態（じょうたい）を指（さ）す。"
+      },
+      "ne": {
+       "q": "①यो घटना ले केलाई जनाउँछ?",
+       "choices": [
+        "एपमा भर पर्दा, आफू हिँडेको बाटो लगभग सम्झन नसक्ने कुरा",
+        "स्क्रिनले देखाए अनुसार अगाडि बढ्दा, गन्तव्यमा सही रूपमा पुर्याउने कुरा",
+        "चिनो लाग्ने भवनहरू र मोडहरू दिमागमा राख्दै हिँड्ने कुरा",
+        "कहिलेकाहीँ नक्सालाई भित्र राखेर, आफ्नै सम्झनाको भरमा हिँड्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does <u>this phenomenon</u> refer to?",
+       "choices": [
+        "The fact that when relying on an app, one hardly remembers the paths one has taken.",
+        "The fact that if one follows what the screen shows, it will lead one correctly to the destination.",
+        "The act of walking while imprinting landmarks and corners in one's mind.",
+        "The act of occasionally putting away the map and walking relying on one's own memory."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9008-q2",
+     "q": "昔（むかし）の人が道をよく覚（おぼ）えていたのはなぜか。",
+     "choices": [
+      "道を覚（おぼ）えておかなければ、家に帰り着けなかったから",
+      "目印（めじるし）になる建物や曲（ま）がり角（かど）を、頭（あたま）に刻（きざ）みながら歩いていたから",
+      "機械（きかい）が、目的地（もくてきち）まで正しく導（みちび）いてくれたから",
+      "遠（とお）回（まわ）りをしても、その街（まち）の形（かたち）が体に残（のこ）るから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「覚（おぼ）えなければ帰れないから」建物や曲（ま）がり角（かど）を刻（きざ）んで歩いた、とある。選択肢（せんたくし）2は手段（しゅだん）であって理由（りゆう）ではない。"
+      },
+      "ne": {
+       "q": "पहिलेका मानिसहरूले बाटो किन राम्रोसँग सम्झन्थे?",
+       "choices": [
+        "बाटो सम्झेन भने घर फर्कन सकिँदैनथ्यो",
+        "चिनो लाग्ने भवनहरू र मोडहरू दिमागमा राख्दै हिँड्थे",
+        "मेसिनले गन्तव्यमा सही रूपमा डोर्याउँथ्यो",
+        "घुमाउरो बाटो भए पनि, त्यो शहरको आकार शरीरमा रहन्थ्यो"
+       ]
+      },
+      "en": {
+       "q": "Why did people in the past remember routes well?",
+       "choices": [
+        "Because if they didn't remember the route, they couldn't get back home.",
+        "Because they walked while imprinting landmarks and corners in their minds.",
+        "Because machines guided them correctly to their destination.",
+        "Because even if they took a detour, the shape of the city remained in their body."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9008-q3",
+     "q": "筆者（ひっしゃ）の考えに最（もっと）も近いものはどれか。",
+     "choices": [
+      "道具（どうぐ）に任（まか）せることと、自分に残（のこ）しておきたい力を分けて考えたい",
+      "地図アプリはかえって害（がい）になるので、まったく使うべきではない",
+      "知らない街（まち）では、必（かなら）ず地図アプリを使うのがよい",
+      "便利（べんり）な道具（どうぐ）は、人の力をすべて奪（うば）い取（と）ってしまう"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「任（まか）せてよいことと自分に残（のこ）したい力を分けて考えたい」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
+       "choices": [
+        "उपकरणलाई सुम्पन सकिने कुरा र आफूभित्र राख्न चाहेको शक्तिलाई छुट्टाछुट्टै सोच्न चाहन्छु",
+        "नक्सा एपले उल्टो हानि पुर्याउँछ, त्यसैले यसलाई बिल्कुल प्रयोग गर्नु हुँदैन",
+        "अपरिचित शहरमा, सधैं नक्सा एप प्रयोग गर्नु राम्रो हुन्छ",
+        "सुविधाजनक उपकरणहरूले मानिसको सबै शक्ति खोस्छन्"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is closest to the author's opinion?",
+       "choices": [
+        "I want to distinguish between what can be left to tools and what abilities I want to retain within myself.",
+        "Map apps are actually harmful, so they should not be used at all.",
+        "In an unfamiliar city, it's always best to use a map app.",
+        "Convenient tools completely strip people of their abilities."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "अपरिचित शहरमा पनि, नक्सा एप भएमा बाटो हराउने सम्भावना लगभग हुँदैन। स्क्रिनले देखाए अनुसार अगाडि बढ्दा, यसले तपाईंलाई सही गन्तव्यमा पुर्याउँछ। यो धेरै भरपर्दो उपकरण हो। तर, सुविधाको पछाडि, केही कुराहरू हराइरहेका छन्। एपमा भर परेर हिँड्दा, मानिसहरूले आफू कहाँबाट आएका थिए भन्ने कुरा खासै सम्झँदैनन्। धेरै पटक हिँडेको बाटोमा पनि, स्क्रिन नहेरी हिँड्न नसक्ने मानिसहरू कम छैनन्। ①<u>यो घटना</u> बाटो सम्झनुपर्ने आवश्यकता नभएकोले हुन्छ। पहिले मानिसहरूले चिनो लाग्ने भवनहरू र मोडहरू दिमागमा राख्दै हिँड्थे। किनभने सम्झेन भने घर फर्कन सकिँदैनथ्यो। तर अहिले, सम्झनु नपरे पनि मेसिनले डोर्याउँछ। प्रयोग नगरिएको शक्ति बिस्तारै कमजोर हुँदै जान्छ। म उपकरणलाई सुम्पन सकिने कुरा र आफूभित्र राख्न चाहेको शक्तिलाई छुट्टाछुट्टै सोच्न चाहन्छु। कहिलेकाहीँ नक्सालाई भित्र राखेर, आफ्नै आँखा र सम्झनाको भरमा हिँड्ने। घुमाउरो बाटो भए पनि, त्यो शहरको आकार शरीरमा रहन्छ। सुविधाले कहिलेकाहीँ हामीबाट संसारलाई महसुस गर्ने अवसर खोस्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Even in an unfamiliar city, you rarely get lost if you have a map app. If you follow what the screen shows, it will lead you correctly to your destination. It's a very reassuring tool. However, there are things being lost behind this convenience. When relying on an app to walk, people don't remember much about where they've been. Many people can't walk a path they've taken many times without looking at the screen. <u>This phenomenon</u> occurs because there's no longer a need to memorize routes. In the past, people walked while imprinting landmarks and corners in their minds. They had to remember to get back home. But now, machines guide them even if they don't remember. Unused abilities gradually decline. I want to distinguish between what can be left to tools and what abilities I want to retain within myself. Sometimes, put away the map and try walking relying on your own eyes and memory. Even if you take a detour, the shape of the city will remain in your body. Convenience sometimes deprives us of the opportunity to experience the world."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9009",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "随筆",
+   "subtype": "naiyou_chu",
+   "title": "贈（おく）り物の値打（ねう）ち",
+   "body": "贈（おく）り物を選（えら）ぶのは、案外（あんがい）むずかしい。相手（あいて）が本当（ほんとう）に喜（よろこ）ぶものは何かと、あれこれ迷（まよ）ううちに時間がすぎていく。値段（ねだん）の高いものを選（えら）べば間違（ちが）いないと考える人もいるが、必（かなら）ずしもそうではない。もらってうれしいのは、値段（ねだん）そのものではなく、自分のことを思って選（えら）んでくれたと感（かん）じられるときだ。①<u>その気持ち</u>は、品物の値打（ねう）ちとは別のところにある。何気ない会話で口にした好（この）みを覚（おぼ）えていてくれた。困（こま）っていたことにそっと気づいていてくれた。そうした心づかいが伝（つた）わると、たとえ小さな品でも深（ふか）く心に残（のこ）る。逆（ぎゃく）に、高価（こうか）でも相手（あいて）のことを考えていない贈（おく）り物は、どこかよそよそしく感（かん）じられる。私は、贈（おく）り物の中身（なかみ）は相手（あいて）への関心（かんしん）の表（あらわ）れだと思う。何を贈（おく）るか迷（まよ）う時間そのものが、相手（あいて）を思う時間なのだ。だから、うまく選（えら）べなくてもかまわない。迷（まよ）った末（すえ）に選（えら）んだという事実（じじつ）が、値段（ねだん）よりもたしかに気持ちを運んでくれる。",
+   "questions": [
+    {
+     "id": "N3-D-M-9009-q1",
+     "q": "①その気持ち が指（さ）すものはどれか。",
+     "choices": [
+      "自分のために選（えら）んでくれたと感（かん）じられる、もらってうれしい気持ち",
+      "値段（ねだん）の高いものを選（えら）んでおけば間違（ちが）いはないという、選（えら）ぶ側（がわ）の考え",
+      "何を贈（おく）るか迷（まよ）って、時間ばかりがすぎていく焦（あせ）り",
+      "高価（こうか）な贈（おく）り物を、よそよそしく感（かん）じてしまう気持ち"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「思って選（えら）んでくれたと感（かん）じられるときの、もらってうれしい」気持ちを指（さ）す。"
+      },
+      "ne": {
+       "q": "① <u>त्यो भावना</u>ले केलाई जनाउँछ?",
+       "choices": [
+        "आफ्नो लागि छनोट गरिएको महसुस हुँदा प्राप्त हुने खुसीको भावना",
+        "महँगो चीज छनोट गर्दा गल्ती हुँदैन भन्ने छनोट गर्ने व्यक्तिको सोच",
+        "के दिने भनेर सोच्दा समय मात्र बित्दै गएको हतार",
+        "महँगो उपहारलाई अनौठो महसुस गर्ने भावना"
+       ]
+      },
+      "en": {
+       "q": "What does <u>that feeling</u> refer to?",
+       "choices": [
+        "The happy feeling of receiving a gift and feeling that it was chosen for oneself.",
+        "The giver's idea that choosing an expensive item is foolproof.",
+        "The impatience of time passing while agonizing over what to give.",
+        "The feeling of an expensive gift seeming impersonal."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9009-q2",
+     "q": "小さな品でも深（ふか）く心に残（のこ）ることがあるのはなぜか。",
+     "choices": [
+      "相手（あいて）の好（この）みや困（こま）りごとに気づく心づかいが、伝（つた）わってくるから",
+      "何気ない会話で口にした好（この）みを、相手（あいて）が覚（おぼ）えていてくれたから",
+      "値段（ねだん）の高いものを、思いきって選（えら）んでいるから",
+      "贈（おく）り物を選（えら）ぶのが、案外（あんがい）むずかしいものだから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「そうした心づかいが伝（つた）わると、小さな品でも深（ふか）く心に残（のこ）る」が理由（りゆう）。選択肢（せんたくし）2はその一例（いちれい）にすぎない。"
+      },
+      "ne": {
+       "q": "सानो वस्तुले पनि मनमा गहिरो छाप छोड्न सक्नुको कारण के हो?",
+       "choices": [
+        "प्राप्तकर्ताको मनपर्ने कुरा वा समस्यामा ध्यान दिने विचारशील व्यवहार व्यक्त हुने भएकोले",
+        "सामान्य कुराकानीमा व्यक्त गरेको मनपर्ने कुरा प्राप्तकर्ताले सम्झेकोले",
+        "महँगो चीज हिम्मतका साथ छनोट गरिएकोले",
+        "उपहार छनोट गर्नु सोचेभन्दा गाह्रो हुने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why can even a small item leave a deep impression?",
+       "choices": [
+        "Because the thoughtfulness of noticing the recipient's preferences or difficulties is conveyed.",
+        "Because the recipient remembered preferences mentioned in a casual conversation.",
+        "Because an expensive item was chosen with great resolve.",
+        "Because choosing a gift is surprisingly difficult."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9009-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "贈（おく）り物の中身（なかみ）は相手（あいて）への関心（かんしん）の表（あらわ）れで、迷（まよ）う時間が気持ちを運ぶ",
+      "贈（おく）り物は、値段（ねだん）が安ければ安いほど気持ちがよく伝（つた）わるものだ",
+      "相手（あいて）の好（この）みは、会話の中でだけ知ることができる",
+      "贈（おく）り物は、値段（ねだん）が高いものほど必（かなら）ず喜（よろこ）ばれる"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「中身（なかみ）は関心（かんしん）の表（あらわ）れ、迷（まよ）う時間が相手（あいて）を思う時間」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "उपहारको सामग्री प्राप्तकर्ताप्रतिको चासोको अभिव्यक्ति हो र सोच्ने समयले भावना व्यक्त गर्छ।",
+        "उपहार जति सस्तो हुन्छ, भावना त्यति राम्रोसँग व्यक्त हुन्छ।",
+        "प्राप्तकर्ताको मनपर्ने कुरा कुराकानीबाट मात्र थाहा पाउन सकिन्छ।",
+        "उपहार जति महँगो हुन्छ, त्यति नै सधैं मन पर्छ।"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point?",
+       "choices": [
+        "The content of a gift is an expression of interest in the recipient, and the time spent deliberating conveys feelings.",
+        "The cheaper the gift, the better the feelings are conveyed.",
+        "The recipient's preferences can only be known through conversation.",
+        "Expensive gifts are always appreciated more."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "उपहार छनोट गर्नु सोचेभन्दा गाह्रो हुन्छ। प्राप्तकर्तालाई साँच्चै के मन पर्छ भनेर सोच्दासोच्दै समय बित्छ। कतिपय मानिसहरू महँगो चीज छनोट गर्दा गल्ती हुँदैन भन्ने सोच्छन्, तर त्यो सधैं सत्य हुँदैन। उपहार पाउँदा खुसी लाग्छ किनभने त्यो मूल्यको कारणले होइन, तर जब कसैले आफ्नो बारेमा सोचेर छनोट गरेको महसुस हुन्छ। <u>त्यो भावना</u> वस्तुको मूल्यभन्दा फरक हुन्छ। सामान्य कुराकानीमा व्यक्त गरेको मनपर्ने कुरा सम्झिएको थियो। समस्यामा परेको बेला चुपचाप ध्यान दिएको थियो। यस्तो विचारशील व्यवहारले सानो वस्तु भए पनि मनमा गहिरो छाप छोड्छ। यसको विपरीत, महँगो भए पनि प्राप्तकर्ताको बारेमा नसोचिएको उपहारले केही अनौठो महसुस गराउँछ। मलाई लाग्छ कि उपहारको सामग्री प्राप्तकर्ताप्रतिको चासोको अभिव्यक्ति हो। के दिने भनेर सोच्ने समय नै प्राप्तकर्ताको बारेमा सोच्ने समय हो। त्यसैले, राम्रोसँग छनोट गर्न नसके पनि फरक पर्दैन। सोचेर छनोट गरेको तथ्यले मूल्यभन्दा बढी भावना व्यक्त गर्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Choosing a gift is surprisingly difficult. Time passes as you ponder what the recipient would truly be happy with. Some people think that choosing an expensive item is foolproof, but that's not always the case. What makes someone happy to receive a gift is not the price itself, but feeling that the giver thought of them when choosing it. <u>That feeling</u> is separate from the value of the item. They remembered your preferences from a casual conversation. They subtly noticed something you were struggling with. When such thoughtfulness is conveyed, even a small item can leave a deep impression. Conversely, an expensive gift chosen without considering the recipient can feel somewhat impersonal. I believe that the content of a gift is an expression of interest in the recipient. The time spent agonizing over what to give is itself time spent thinking of the other person. So, it's okay if you don't choose perfectly. The fact that you chose it after much deliberation conveys your feelings more certainly than the price."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9010",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "沈黙（ちんもく）を待つ",
+   "body": "話がとぎれて沈黙（ちんもく）が訪（おとず）れると、いたたまれなくなる人は多い。何か言わなければと焦（あせ）り、あわてて話題を探（さが）す。沈黙（ちんもく）は気まずいもの、避（さ）けるべきものだと思われがちだ。しかし、会話における沈黙（ちんもく）は、必（かなら）ずしも悪いものではない。相手（あいて）が言葉（ことば）に詰（つ）まっているとき、それは考えをまとめている時間かもしれない。①<u>その間</u>を待たずに口をはさめば、相手（あいて）はせっかくの考えを言いそびれてしまう。話し上手な人ほど、実（じつ）はよく黙（だま）る。相手（あいて）が話し終えるまで待ち、返事（へんじ）を急がない。沈黙（ちんもく）をこわがらないから、相手（あいて）は安心してゆっくり話せる。反対（はんたい）に、間を埋（う）めようとしゃべり続（つづ）ける人のそばでは、こちらが話す隙（すき）がない。私は、聞くことの半分は待つことだと思う。言葉（ことば）と言葉（ことば）のあいだにある短い静（しず）けさは、無駄（むだ）な空白ではなく、相手（あいて）の考えが育（そだ）つ場所（ばしょ）なのだ。沈黙（ちんもく）を恐（おそ）れず受（う）け止められる人は、相手（あいて）の本当（ほんとう）の言葉（ことば）を引（ひ）き出すことができる。",
+   "questions": [
+    {
+     "id": "N3-D-M-9010-q1",
+     "q": "①その間 が指（さ）すものはどれか。",
+     "choices": [
+      "相手（あいて）が言いよどみ、頭（あたま）の中で考えをまとめている時間",
+      "話がとぎれて沈黙（ちんもく）が訪（おとず）れ、いたたまれなくなっている時間",
+      "何か言わなければと、あわてて話題を探（さが）している時間",
+      "間を埋（う）めようとして、しゃべり続（つづ）けている時間"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「相手（あいて）が言葉（ことば）に詰（つ）まり考えをまとめている時間」を「その間」と受（う）ける。"
+      },
+      "ne": {
+       "q": "① <u>त्यो समय</u>ले केलाई जनाउँछ?",
+       "choices": [
+        "अर्को व्यक्ति हिचकिचाएर आफ्नो दिमागमा विचारहरू व्यवस्थित गरिरहेको समय",
+        "कुराकानी टुटेर मौनता छाउँदा असहज महसुस गरिरहेको समय",
+        "केही भन्नुपर्छ भनेर हतारमा विषय खोजिरहेको समय",
+        "खाली ठाउँ भर्न लगातार बोलिरहेको समय"
+       ]
+      },
+      "en": {
+       "q": "What does <u>that period</u> refer to?",
+       "choices": [
+        "The time when the other person hesitates and organizes their thoughts in their head.",
+        "The time when the conversation breaks, silence falls, and one becomes uncomfortable.",
+        "The time when one rushes to find a topic, feeling they must say something.",
+        "The time when one keeps talking to fill the gaps."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9010-q2",
+     "q": "話し上手な人のそばで相手（あいて）が安心して話せるのはなぜか。",
+     "choices": [
+      "相手（あいて）が話し終えるのを待ち、沈黙（ちんもく）をこわがらずにいるから",
+      "間を埋（う）めようとして、相手（あいて）のそばで絶（た）えずしゃべり続（つづ）けてくれるから",
+      "沈黙（ちんもく）を、気まずく避（さ）けるべきものと考えているから",
+      "あわてて、次（つぎ）の話題を次々（つぎつぎ）に探（さが）そうとするから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「沈黙（ちんもく）をこわがらないから、相手（あいて）は安心してゆっくり話せる」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "राम्रो वक्ताको छेउमा अर्को व्यक्तिले ढुक्क भएर बोल्न सक्नुको कारण के हो?",
+       "choices": [
+        "अर्को व्यक्तिले कुरा सिध्याउन्जेल पर्खन्छ र मौनतासँग डराउँदैन।",
+        "खाली ठाउँ भर्न अर्को व्यक्तिको छेउमा लगातार बोलिरहन्छ।",
+        "मौनतालाई असहज र टाढा रहनुपर्ने कुरा मान्छ।",
+        "हतारमा एकपछि अर्को नयाँ विषय खोज्न खोज्छ।"
+       ]
+      },
+      "en": {
+       "q": "Why can the other person speak with ease when they are with someone who is good at conversation?",
+       "choices": [
+        "Because they wait for the other person to finish speaking and are not afraid of silence.",
+        "Because they constantly talk next to the other person to fill the gaps.",
+        "Because they consider silence to be awkward and something to be avoided.",
+        "Because they rush to find new topics one after another."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9010-q3",
+     "q": "筆者（ひっしゃ）の考えに最（もっと）も近いものはどれか。",
+     "choices": [
+      "沈黙（ちんもく）を恐（おそ）れず受（う）け止められる人が、相手（あいて）の本当（ほんとう）の言葉（ことば）を引（ひ）き出す",
+      "会話では、なるべく自分から口を開かず黙（だま）っているほうがよい",
+      "沈黙（ちんもく）が訪（おとず）れたら、すぐに新しい話題を探（さが）すべきだ",
+      "話し上手とは、たくさん話せる人のことである"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "最終（さいしゅう）文「沈黙（ちんもく）を受（う）け止められる人が本当（ほんとう）の言葉（ことば）を引（ひ）き出す」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
+       "choices": [
+        "मौनतालाई नडराई स्वीकार गर्न सक्ने व्यक्तिले अर्को व्यक्तिको वास्तविक शब्दहरू बाहिर निकाल्छ।",
+        "कुराकानीमा सकेसम्म आफैंले मुख नखोली चुपचाप बस्नु राम्रो हुन्छ।",
+        "मौनता छाएमा तुरुन्तै नयाँ विषय खोज्नुपर्छ।",
+        "राम्रो वक्ता भनेको धेरै बोल्न सक्ने व्यक्ति हो।"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is closest to the author's opinion?",
+       "choices": [
+        "People who can accept silence without fear can draw out the other person's true words.",
+        "In conversation, it's better to keep silent as much as possible rather than opening your mouth.",
+        "When silence falls, one should immediately look for a new topic.",
+        "Being good at conversation means being able to talk a lot."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "कुराकानी टुटेर मौनता छाउँदा धेरै मानिसहरू असहज महसुस गर्छन्। केही भन्नुपर्छ भनेर हतारिन्छन् र हतारमा विषय खोज्छन्। मौनतालाई असहज र टाढा रहनुपर्ने कुरा मानिन्छ। तर, कुराकानीमा मौनता सधैं नराम्रो हुँदैन। जब अर्को व्यक्ति बोल्न हिचकिचाउँछ, त्यो विचारहरू व्यवस्थित गर्ने समय हुन सक्छ। <u>त्यो समय</u> नपर्खी बीचमा बोलेमा, अर्को व्यक्तिले आफ्नो राम्रो विचार व्यक्त गर्न सक्दैन। राम्रो वक्ताहरू वास्तवमा धेरै चुपचाप बस्छन्। उनीहरू अर्को व्यक्तिले कुरा सिध्याउन्जेल पर्खन्छन् र जवाफ दिन हतार गर्दैनन्। उनीहरू मौनतासँग डराउँदैनन्, त्यसैले अर्को व्यक्तिले ढुक्क भएर बिस्तारै बोल्न सक्छ। यसको विपरीत, खाली ठाउँ भर्न लगातार बोलिरहने व्यक्तिको छेउमा, हामीलाई बोल्ने मौका नै मिल्दैन। मलाई लाग्छ कि सुन्नुको आधा भाग पर्खनु हो। शब्दहरू र शब्दहरू बीचको छोटो शान्ति अनावश्यक खाली ठाउँ होइन, तर अर्को व्यक्तिको विचारहरू विकसित हुने ठाउँ हो। मौनतालाई नडराई स्वीकार गर्न सक्ने व्यक्तिले अर्को व्यक्तिको वास्तविक शब्दहरू बाहिर निकाल्न सक्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Many people become uncomfortable when a conversation breaks and silence falls. They rush to find a topic, feeling they must say something. Silence is often thought of as awkward and something to be avoided. However, silence in conversation is not necessarily a bad thing. When someone is struggling for words, they might be organizing their thoughts. If you interrupt without waiting for <u>that period</u>, they might miss the chance to express their valuable ideas. People who are good at conversation actually often keep silent. They wait until the other person finishes speaking and don't rush for a reply. Because they aren't afraid of silence, the other person can speak slowly and with ease. Conversely, when you're with someone who keeps talking to fill the gaps, you don't get a chance to speak. I believe that half of listening is waiting. The short quietness between words is not a wasted void, but a place where the other person's thoughts can grow. People who can accept silence without fear can draw out the other person's true words."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9011",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "随筆",
+   "subtype": "naiyou_chu",
+   "title": "直（なお）して使う",
+   "body": "壊（こわ）れたものを、直（なお）して使い続（つづ）ける人が減（へ）っている。少し具合（ぐあい）が悪くなると、修理（しゅうり）するより新しく買い替（か）えたほうが安く、早い。だから多くの品は、まだ使えるうちに捨（す）てられていく。たしかに買い替（か）えは手軽だ。しかし、その手軽さの陰（かげ）で、私たちは物とのつき合（あ）い方を変（か）えてしまったのではないか。長く使った道具（どうぐ）には、手になじんだ形（かたち）、直（なお）した跡（あと）、ともに過（す）ごした年月の記憶（きおく）がしみこんでいる。①<u>それ</u>は、新しく買った品には決（けっ）してないものだ。壊（こわ）れたら直（なお）すという手間は、物を大切にする心を育（そだ）てる。何度も直（なお）して使えば、次（つぎ）に買うときにも、長く使えるかどうかを考えて選（えら）ぶようになる。私は、直（なお）して使う暮（く）らしは、ごみを減（へ）らすためだけのものではないと思う。それは、身（み）のまわりの物と丁寧（ていねい）につき合（あ）う生き方でもある。すぐ捨（す）ててすぐ買う暮（く）らしの中で、私たちは物を選（えら）ぶ目までも手放（てばな）しているのかもしれない。",
+   "questions": [
+    {
+     "id": "N3-D-M-9011-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "使ううちになじんだ形（かたち）や、修理（しゅうり）の跡（あと）や、過（す）ごした年月の記憶（きおく）",
+      "修理（しゅうり）するより新しく買い替（か）えたほうが安くて早いという手軽さ",
+      "壊（こわ）れたら直（なお）すという、物を大切にする心を育（そだ）てる手間",
+      "身（み）のまわりの物と、丁寧（ていねい）につき合（あ）っていく生き方"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）に並（なら）ぶ「なじんだ形（かたち）・直（なお）した跡（あと）・年月の記憶（きおく）」を「それ」と受（う）けている。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u>ले केलाई जनाउँछ?",
+       "choices": [
+        "प्रयोग गर्दा बानी परेको आकार, मर्मतका निशानहरू, र सँगै बिताएका वर्षहरूको सम्झना",
+        "मर्मत गर्नुभन्दा नयाँ किन्नु सस्तो र छिटो हुने सजिलोपन",
+        "बिग्रिएमा मर्मत गर्ने, वस्तुहरूलाई माया गर्ने भावना विकास गर्ने झन्झट",
+        "आफ्नो वरपरका वस्तुहरूसँग सावधानीपूर्वक व्यवहार गर्ने जीवनशैली"
+       ]
+      },
+      "en": {
+       "q": "What does <u>that</u> refer to?",
+       "choices": [
+        "The familiar shape from use, repair marks, and memories of years spent together.",
+        "The ease of it being cheaper and faster to buy a new one than to repair.",
+        "The effort of repairing when something breaks, which fosters a sense of cherishing objects.",
+        "The way of living carefully with the objects around us."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9011-q2",
+     "q": "何度も直（なお）して使うと、次（つぎ）に買うとき長持ちするかを考えるようになるのはなぜか。",
+     "choices": [
+      "壊（こわ）れたら直（なお）すという手間が、物を惜（お）しむ心を育（そだ）てるから",
+      "修理（しゅうり）するより買い替（か）えたほうが安く早く、手軽にすむから",
+      "多くの品が、まだ使えるうちに捨（す）てられていくから",
+      "新しく買った品には、愛着（あいちゃく）がわかないものだから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「直（なお）す手間が物を大切にする心を育（そだ）てる」ため選（えら）び方も変（か）わる。"
+      },
+      "ne": {
+       "q": "बारम्बार मर्मत गरेर प्रयोग गर्दा, अर्को पटक किन्दा लामो समयसम्म टिक्छ कि टिक्दैन भनेर सोच्ने बानी किन बस्छ?",
+       "choices": [
+        "बिग्रिएमा मर्मत गर्ने झन्झटले वस्तुहरूलाई माया गर्ने भावना विकास गर्छ।",
+        "मर्मत गर्नुभन्दा नयाँ किन्नु सस्तो, छिटो र सजिलो हुन्छ।",
+        "धेरै चीजहरू अझै प्रयोग गर्न सकिने अवस्थामा नै फालिन्छन्।",
+        "नयाँ किनेको चीजमा माया लाग्दैन।"
+       ]
+      },
+      "en": {
+       "q": "Why do people start to consider whether an item will last long when they buy it next, after repairing and using things many times?",
+       "choices": [
+        "Because the effort of repairing when something breaks fosters a sense of valuing objects.",
+        "Because buying new is cheaper, faster, and easier than repairing.",
+        "Because many items are discarded while they are still usable.",
+        "Because new items don't develop an attachment."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9011-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "直（なお）して使う暮（く）らしは、ごみ減（へ）らしだけでなく物と丁寧（ていねい）に付（つ）き合（あ）う道だ",
+      "壊（こわ）れた物は決（けっ）して捨（す）てず、すべて直（なお）して使い続（つづ）けるべきだ",
+      "買い替（か）えは修理（しゅうり）より安くて早いので、優（すぐ）れている",
+      "新しい物ほど質がよく、長く使えるものだ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「ごみを減（へ）らすためだけでなく、物と丁寧（ていねい）につき合（あ）う生き方」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "मर्मत गरेर प्रयोग गर्ने जीवनशैली फोहोर कम गर्नका लागि मात्र होइन, वस्तुहरूसँग सावधानीपूर्वक व्यवहार गर्ने तरिका पनि हो।",
+        "बिग्रिएका चीजहरू कहिल्यै फाल्नु हुँदैन, सबै मर्मत गरेर प्रयोग गरिरहनुपर्छ।",
+        "नयाँ किन्नु मर्मत गर्नुभन्दा सस्तो र छिटो भएकोले राम्रो हुन्छ।",
+        "नयाँ चीजहरू राम्रो गुणस्तरका हुन्छन् र लामो समयसम्म टिक्छन्।"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point?",
+       "choices": [
+        "A life of repairing and using things is not just about reducing waste, but also a way to interact carefully with objects.",
+        "Broken items should never be discarded; everything should be repaired and continued to be used.",
+        "Buying new is cheaper and faster than repairing, so it is superior.",
+        "New items are of better quality and can be used for a long time."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "बिग्रिएका चीजहरू मर्मत गरेर प्रयोग गरिरहने मानिसहरू घट्दै गएका छन्। थोरै बिग्रिए पनि, मर्मत गर्नुभन्दा नयाँ किन्नु सस्तो र छिटो हुन्छ। त्यसैले धेरै चीजहरू अझै प्रयोग गर्न सकिने अवस्थामा नै फालिन्छन्। पक्कै पनि, नयाँ किन्नु सजिलो छ। तर, त्यो सजिलोपनको आडमा, हामीले वस्तुहरूसँगको सम्बन्ध परिवर्तन गरेका छैनौं र? लामो समयसम्म प्रयोग गरिएका उपकरणहरूमा हातमा बानी परेको आकार, मर्मतका निशानहरू, र सँगै बिताएका वर्षहरूको सम्झनाहरू भिजेका हुन्छन्। <u>त्यो</u> नयाँ किनेको चीजमा कहिल्यै हुँदैन। बिग्रिएमा मर्मत गर्ने झन्झटले वस्तुहरूलाई माया गर्ने भावना विकास गर्छ। बारम्बार मर्मत गरेर प्रयोग गरेमा, अर्को पटक किन्दा पनि लामो समयसम्म प्रयोग गर्न सकिन्छ कि सकिँदैन भनेर सोचेर छनोट गरिन्छ। मलाई लाग्छ कि मर्मत गरेर प्रयोग गर्ने जीवनशैली फोहोर कम गर्नका लागि मात्र होइन। यो आफ्नो वरपरका वस्तुहरूसँग सावधानीपूर्वक व्यवहार गर्ने जीवनशैली पनि हो। तुरुन्तै फाल्ने र तुरुन्तै किन्ने जीवनशैलीमा, हामीले वस्तुहरू छनोट गर्ने क्षमता पनि गुमाउँदैछौं होला।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Fewer people are repairing broken items and continuing to use them. When something is slightly out of order, it's often cheaper and faster to buy a new one than to repair it. As a result, many items are discarded while they are still usable. Certainly, buying new is easy. However, in the shadow of that ease, haven't we changed our way of interacting with things? Tools used for a long time are imbued with a shape that fits the hand, repair marks, and memories of the years spent together. <u>That</u> is something new items can never have. The effort of repairing something when it breaks fosters a sense of cherishing objects. If you repair and use something many times, the next time you buy something, you will choose it considering whether it can be used for a long time. I believe that living a life of repairing and using things is not just about reducing waste. It is also a way of living carefully with the objects around us. In a life of quickly discarding and quickly buying, we might be losing our ability to choose things well."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9012",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "問うということ",
+   "body": "分からないことがあっても、なかなか質問できない人がいる。こんなことを聞いたら、理解（りかい）していないと思われるのではないか。そう考えて口をつぐんでしまう。質問することは、自分の無知（むち）をさらす恥（は）ずかしい行いだと感（かん）じるのだ。しかし①<u>その思いこみ</u>は、学ぶ機会（きかい）を自分から狭（せば）めてしまう。分からないまま黙（だま）っていても、疑問（ぎもん）はひとりでに消えたりしない。むしろ、あいまいな理解（りかい）のまま先へ進（すす）めば、後になってもっと大きくつまずく。質問とは、自分がどこまで分かっていて、どこから分からないのかを、はっきりさせる行いだ。上手に問える人は、実（じつ）はよく分かっている人でもある。私は、質問する力は考える力と深（ふか）くつながっていると思う。よい問いを立てるには、話をきちんと理解（りかい）し、どこが引（ひ）っかかるのかを見きわめねばならない。恥（は）ずかしがって黙（だま）るのではなく、分からないと口に出せる人こそ、遠（とお）くまで学んでいける。問うことは、知への第一歩（だいいっぽ）なのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9012-q1",
+     "q": "①その思いこみ が指（さ）すものはどれか。",
+     "choices": [
+      "問うことは自分の物知らずを見せる、恥（は）ずかしい行いだという思い",
+      "こんなことを聞いたら理解（りかい）していないと思われるのでは、という不安",
+      "質問する力は、考える力と深（ふか）くつながっているという考え",
+      "上手に問える人は、実（じつ）はよく分かっている人だという考え"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「質問は無知（むち）をさらす恥（は）ずかしい行いだと感（かん）じる」思いを指（さ）す。選択肢（せんたくし）2はその思いの中身（なかみ）を言い換（か）えた同義（どうぎ）だが、設問（せつもん）は『思いこみ』全体（ぜんたい）を問うので最（もっと）も直接的（ちょくせつてき）な1が正解（せいかい）。"
+      },
+      "ne": {
+       "q": "① <u>त्यो गलत धारणा</u>ले केलाई जनाउँछ?",
+       "choices": [
+        "प्रश्न सोध्नु आफ्नो अज्ञानता देखाउने लाजमर्दो काम हो भन्ने धारणा",
+        "यस्तो कुरा सोधेमा आफूलाई नबुझेको ठान्छन् कि भन्ने चिन्ता",
+        "प्रश्न सोध्ने क्षमता सोच्ने क्षमतासँग गहिरो रूपमा जोडिएको छ भन्ने विचार",
+        "राम्रोसँग प्रश्न सोध्न सक्ने व्यक्ति वास्तवमा राम्रोसँग बुझेको व्यक्ति हो भन्ने विचार"
+       ]
+      },
+      "en": {
+       "q": "What does <u>that misconception</u> refer to?",
+       "choices": [
+        "The belief that asking is an embarrassing act that shows one's ignorance.",
+        "The anxiety that if one asks such a thing, they will be thought not to understand.",
+        "The idea that the ability to ask questions is deeply connected to the ability to think.",
+        "The idea that people who can ask good questions are actually people who understand well."
+       ]
+      }
+     },
+     "uniqRisk": "mid",
+     "uniqNote": "選択肢2も本文の言い換えに近いが、『思いこみ』そのものを端的に示すのは1。"
+    },
+    {
+     "id": "N3-D-M-9012-q2",
+     "q": "あいまいな理解（りかい）のまま先へ進（すす）むとよくないのはなぜか。",
+     "choices": [
+      "あいまいなまま進（すす）むと、後でいっそう大きくつまずくから",
+      "分からないまま黙（だま）っていても、疑問（ぎもん）はひとりでに消えたりしないから",
+      "質問をすると、まわりに無知（むち）だと思われてしまうから",
+      "よい問いを立てるには、まず話の理解（りかい）が必要（ひつよう）だから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「あいまいなまま進（すす）めば後で大きくつまずく」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "अस्पष्ट बुझाइका साथ अगाडि बढ्नु किन राम्रो हुँदैन?",
+       "choices": [
+        "अस्पष्ट रूपमा अगाडि बढेमा पछि अझ ठूलो समस्यामा परिन्छ।",
+        "नबुझेको कुरा चुपचाप बसे पनि शंका आफैं हराउँदैन।",
+        "प्रश्न सोधेमा वरपरका मानिसहरूले आफूलाई अज्ञानी ठान्छन्।",
+        "राम्रो प्रश्न सोध्नका लागि, पहिले कुरा बुझ्न आवश्यक छ।"
+       ]
+      },
+      "en": {
+       "q": "Why is it not good to proceed with an ambiguous understanding?",
+       "choices": [
+        "Because if you proceed ambiguously, you will stumble even more significantly later.",
+        "Because even if you remain silent without understanding, your doubts won't disappear on their own.",
+        "Because if you ask questions, others will think you are ignorant.",
+        "Because to formulate a good question, you first need to understand the topic."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9012-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "分からないと口に出せる人こそ、遠（とお）くまで学んでいける",
+      "よく質問をする人は、必（かなら）ず何でも理解（りかい）できるようになる",
+      "質問とは、自分の理解（りかい）の範囲（はんい）をはっきりさせるだけの行いだ",
+      "分からないことは、時間がたてば自然（しぜん）に解決（かいけつ）していく"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「分からないと口に出せる人こそ遠（とお）くまで学べる」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "नबुझेको कुरा मुखबाट निकाल्न सक्ने व्यक्तिले नै टाढासम्म सिक्न सक्छ।",
+        "धेरै प्रश्न सोध्ने व्यक्तिले सधैं सबै कुरा बुझ्न सक्छ।",
+        "प्रश्न सोध्नु भनेको आफ्नो बुझाइको दायरा स्पष्ट पार्ने कार्य मात्र हो।",
+        "नबुझेका कुराहरू समय बित्दै जाँदा आफैं समाधान हुन्छन्।"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point?",
+       "choices": [
+        "It is those who can voice their lack of understanding who can learn far.",
+        "People who ask many questions will always come to understand everything.",
+        "Asking questions is merely an act of clarifying the extent of one's understanding.",
+        "Ununderstood matters will naturally resolve themselves over time."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "नबुझेका कुराहरू भए पनि प्रश्न सोध्न नसक्ने मानिसहरू हुन्छन्। यस्तो कुरा सोधेमा आफूलाई नबुझेको ठान्छन् कि भनेर सोचेर चुपचाप बस्छन्। प्रश्न सोध्नु आफ्नो अज्ञानता देखाउने लाजमर्दो काम हो भन्ने उनीहरूलाई लाग्छ। तर <u>त्यो गलत धारणा</u>ले सिक्ने अवसरलाई आफैंले साँघुरो बनाउँछ। नबुझेको कुरा चुपचाप बसे पनि शंका आफैं हराउँदैन। बरु, अस्पष्ट बुझाइका साथ अगाडि बढेमा पछि अझ ठूलो समस्यामा परिन्छ। प्रश्न सोध्नु भनेको आफूले कति बुझेको छु र कहाँबाट बुझेको छैन भन्ने कुरा स्पष्ट पार्ने कार्य हो। राम्रोसँग प्रश्न सोध्न सक्ने व्यक्ति वास्तवमा राम्रोसँग बुझेको व्यक्ति पनि हो। मलाई लाग्छ कि प्रश्न सोध्ने क्षमता सोच्ने क्षमतासँग गहिरो रूपमा जोडिएको छ। राम्रो प्रश्न सोध्नका लागि, कुरालाई राम्रोसँग बुझ्नुपर्छ र कहाँ समस्या छ भनेर पत्ता लगाउनुपर्छ। लाज मानेर चुपचाप बस्नुको सट्टा, नबुझेको कुरा मुखबाट निकाल्न सक्ने व्यक्तिले नै टाढासम्म सिक्न सक्छ। प्रश्न सोध्नु ज्ञानतर्फको पहिलो कदम हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Some people find it difficult to ask questions even when they don't understand something. They think, \"If I ask this, they'll think I don't understand,\" and they keep silent. They feel that asking questions is an embarrassing act that exposes their ignorance. However, <u>that misconception</u> narrows their learning opportunities. Even if you remain silent without understanding, your doubts won't disappear on their own. Rather, if you proceed with an ambiguous understanding, you will stumble even more significantly later. Asking a question is an act of clarifying how much you understand and where your understanding stops. People who can ask good questions are actually people who understand well. I believe that the ability to ask questions is deeply connected to the ability to think. To formulate a good question, you must properly understand the topic and identify what is causing you difficulty. It is not those who are shy and remain silent, but those who can voice their lack of understanding, who can learn far. Asking is the first step to knowledge."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9013",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "好（この）みは育（そだ）つ",
+   "body": "初（はじ）めて食べたとき、おいしいと思えなかった料理が、何度か口にするうちに好（す）きになることがある。苦（にが）い野菜や、においの強い食べ物が、いつの間にか平気（へいき）になっている。子どものころ嫌（きら）いだったものを、大人になって好（この）んで食べる人も多い。①<u>この変（か）わりよう</u>は、舌（した）が慣（な）れることで起こる。人の味覚（みかく）は、生まれつき決（き）まっているわけではない。同じ味に何度も出会ううちに、脳（のう）がその味を「知っているもの」として受（う）け入れていく。初（はじ）めは警戒（けいかい）していた苦（にが）みも、危険（きけん）でないと分かれば、やがて味わいとして楽しめるようになる。つまり好（この）みは、経験（けいけん）によって育（そだ）つのだ。私は、一度嫌（きら）いになった食べ物を、そのまま遠（とお）ざけてしまうのはもったいないと思う。時をおいて、また少しずつ試してみればよい。味覚（みかく）が広がれば、食べられるものが増（ふ）え、暮（く）らしの楽しみも増（ふ）える。嫌（きら）いという気持ちは、その味をまだ知り切っていないだけのことかもしれないのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9013-q1",
+     "q": "①この変（か）わりよう が指（さ）すものはどれか。",
+     "choices": [
+      "最初（さいしょ）は口に合（あ）わなかった料理が、くり返（かえ）すうちに好（す）きになること",
+      "子どものころ嫌（きら）いだったものを、大人になって好（この）んで食べること",
+      "人の味覚（みかく）が、生まれつき決（き）まってしまっているということ",
+      "脳（のう）が、知らない味を危険（きけん）なものとして警戒（けいかい）すること"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「嫌（きら）いだったものを好（この）んで食べるようになる」変化（へんか）を指（さ）す。選択肢（せんたくし）2はその一例（いちれい）。"
+      },
+      "ne": {
+       "q": "① <u>यो परिवर्तन</u>ले केलाई जनाउँछ?",
+       "choices": [
+        "सुरुमा मुखमा नमिलेको खाना बारम्बार खाएपछि मन पर्नु",
+        "बाल्यकालमा मन नपर्ने चीजहरू वयस्क भएपछि मन पराउनु",
+        "मानिसको स्वाद जन्मजात निश्चित हुन्छ भन्ने कुरा",
+        "मस्तिष्कले नचिनेको स्वादलाई खतरनाक रूपमा सतर्कता अपनाउनु"
+       ]
+      },
+      "en": {
+       "q": "What does <u>this change</u> refer to?",
+       "choices": [
+        "A dish that initially didn't suit one's taste becoming liked after repeated tries.",
+        "Disliking certain foods as a child but coming to enjoy them as an adult.",
+        "The fact that a person's sense of taste is determined at birth.",
+        "The brain being wary of unknown tastes as dangerous."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9013-q2",
+     "q": "初（はじ）めは警戒（けいかい）していた苦（にが）みが楽しめるようになるのはなぜか。",
+     "choices": [
+      "くり返（かえ）し口にするうちに、脳（のう）がその味を安全（あんぜん）と受（う）け入れるから",
+      "一度嫌（きら）いになった食べ物を、そのまま遠（とお）ざけてしまうものだから",
+      "人の味覚（みかく）が、生まれつき決（き）まっているものだから",
+      "食べられるものが増（ふ）えると、暮（く）らしの楽しみも増（ふ）えるから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「危険（きけん）でないと分かれば味わいとして楽しめる」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "सुरुमा सतर्कता अपनाएको तीतोपन आनन्द लिन सकिने किन हुन्छ?",
+       "choices": [
+        "बारम्बार खाँदा, मस्तिष्कले त्यो स्वादलाई सुरक्षित रूपमा स्वीकार गर्छ।",
+        "एक पटक मन नपरेको खानालाई त्यसै टाढा राखिन्छ।",
+        "मानिसको स्वाद जन्मजात निश्चित हुन्छ।",
+        "खान सकिने चीजहरू बढ्दा, जीवनको आनन्द पनि बढ्छ।"
+       ]
+      },
+      "en": {
+       "q": "Why does bitterness, initially approached with caution, become enjoyable?",
+       "choices": [
+        "Because after repeatedly tasting it, the brain accepts that taste as safe.",
+        "Because foods once disliked are simply avoided.",
+        "Because a person's sense of taste is determined at birth.",
+        "Because if one can eat more things, the enjoyment of life also increases."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9013-q3",
+     "q": "筆者（ひっしゃ）の考えに最（もっと）も近いものはどれか。",
+     "choices": [
+      "一度嫌（きら）った味も、時をおいて試せば好（この）みは経験（けいけん）で広がっていく",
+      "何度もくり返（かえ）し食べれば、どんな料理でも必（かなら）ず好（す）きになる",
+      "子どものころ嫌（きら）いだった食べ物は、大人になっても嫌（きら）いなままだ",
+      "味の好（この）みは、生まれたときから決（き）まっていて変（か）わらない"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「好（この）みは経験（けいけん）によって育（そだ）つ、時をおいて試せばよい」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
+       "choices": [
+        "एक पटक मन नपरेको स्वाद पनि, समय दिएर प्रयास गरेमा अनुभवबाट मनपर्ने कुरा फराकिलो हुन्छ।",
+        "बारम्बार खाएमा, जुनसुकै खाना पनि सधैं मन पर्छ।",
+        "बाल्यकालमा मन नपर्ने खाना, वयस्क भएपछि पनि मन नपर्ने नै रहन्छ।",
+        "स्वादको मनपर्ने कुरा जन्मजात निश्चित हुन्छ र परिवर्तन हुँदैन।"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is closest to the author's opinion?",
+       "choices": [
+        "Even tastes once disliked, if tried again after some time, preferences will expand through experience.",
+        "If you eat something repeatedly, you will definitely come to like any dish.",
+        "Foods disliked as a child will remain disliked even as an adult.",
+        "Taste preferences are determined from birth and do not change."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "पहिलो पटक खाँदा स्वादिष्ट नलागेको खाना, केही पटक खाएपछि मन पर्न सक्छ। तीतो तरकारी वा कडा गन्ध भएको खाना कहिलेकाहीँ सामान्य लाग्न थाल्छ। बाल्यकालमा मन नपर्ने चीजहरू वयस्क भएपछि मन पराउने मानिसहरू पनि धेरै हुन्छन्। <u>यो परिवर्तन</u> जिब्रो बानी पर्दा हुन्छ। मानिसको स्वाद जन्मजात निश्चित हुँदैन। एउटै स्वादसँग बारम्बार भेट हुँदा, मस्तिष्कले त्यो स्वादलाई \"चिनेको\" रूपमा स्वीकार गर्छ। सुरुमा सतर्कता अपनाएको तीतोपन पनि, खतरा नभएको थाहा पाएपछि, बिस्तारै स्वादको रूपमा आनन्द लिन सकिन्छ। अर्थात्, मनपर्ने कुरा अनुभवबाट विकसित हुन्छ। मलाई लाग्छ कि एक पटक मन नपरेको खानालाई त्यसै टाढा राख्नु खेर फाल्नु हो। समय दिएर, फेरि बिस्तारै प्रयास गरे हुन्छ। स्वादको दायरा फराकिलो भएमा, खान सकिने चीजहरू बढ्छन् र जीवनको आनन्द पनि बढ्छ। मन नपर्ने भन्ने भावना त्यो स्वादलाई अझै राम्ररी नचिनेको मात्र हुन सक्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Sometimes, a dish that you didn't find delicious the first time you ate it becomes something you like after trying it several times. Bitter vegetables and strong-smelling foods become tolerable without you realizing it. Many people who disliked certain foods as children grow up to enjoy them. <u>This change</u> happens as the palate gets used to them. A person's sense of taste is not determined at birth. As you encounter the same taste repeatedly, your brain accepts it as \"something known.\" Even bitterness, which was initially approached with caution, can eventually be enjoyed as a flavor once it's understood not to be dangerous. In other words, preferences are cultivated through experience. I think it's a waste to simply avoid foods you once disliked. You should try them again little by little after some time. If your palate expands, you'll be able to eat more things, and your enjoyment of life will increase. The feeling of dislike might just mean you haven't fully come to know that taste yet."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9014",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "随筆",
+   "subtype": "naiyou_chu",
+   "title": "カメラを下ろす",
+   "body": "旅先で、つい夢中（むちゅう）になって写真を撮（と）り続（つづ）けてしまうことがある。美（うつく）しい景色（けしき）を残（のこ）しておきたい、後で見返（かえ）したいという気持ちからだ。ところが、たくさん撮（と）ったはずの旅ほど、記憶（きおく）があいまいなことがある。①<u>この不思議（ふしぎ）</u>は、撮（と）ることに気を取（と）られるせいで起こる。写真を撮（と）ろうとするとき、人はよい構図（こうず）を探（さが）すことに気を配（くば）り、目の前の景色（けしき）そのものをじっくり味わわなくなる。後で写真が残（のこ）るという安心感（あんしんかん）が、かえって心に刻（きざ）もうとする力をゆるめてしまうのだ。撮（と）った瞬間（しゅんかん）に、もう覚（おぼ）えなくてよいと脳（のう）が判断（はんだん）するのかもしれない。私は、写真を撮（と）ること自体を否定（ひてい）するつもりはない。ただ、時にはカメラを下ろし、自分の目だけでその場を見る時間も持ちたい。においや風の感（かん）じ、その場の空気は、写真には写らない。画面（がめん）ごしにではなく、まっすぐ向（む）き合（あ）ったものだけが、深（ふか）く心に残（のこ）る。残（のこ）そうとしすぎて、いちばん大切な今を見のがしてはならない。",
+   "questions": [
+    {
+     "id": "N3-D-M-9014-q1",
+     "q": "①この不思議（ふしぎ） が指（さ）すものはどれか。",
+     "choices": [
+      "写真を多く撮（と）った旅ほど、かえって記憶（きおく）がぼやけてしまうこと",
+      "美（うつく）しい景色（けしき）を残（のこ）しておきたい、後で見返（かえ）したいという気持ちからくること",
+      "写真を撮（と）るとき、よい構図（こうず）を探（さが）すことに気を配（くば）ること",
+      "においや風の感（かん）じが、写真には決（けっ）して写らないこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「たくさん撮（と）った旅ほど記憶（きおく）があいまい」を「この不思議（ふしぎ）」と受（う）ける。"
+      },
+      "ne": {
+       "q": "① <u>यो अनौठो कुरा</u>ले केलाई जनाउँछ?",
+       "choices": [
+        "धेरै फोटो खिचिएको यात्राको सम्झना बरु अस्पष्ट हुनु",
+        "सुन्दर दृश्यलाई सुरक्षित राख्न र पछि हेर्न सकियोस् भन्ने भावनाबाट आउनु",
+        "फोटो खिच्दा, राम्रो कम्पोजिसन खोज्नमा ध्यान दिनु",
+        "गन्ध र हावाको अनुभव फोटोमा कहिल्यै कैद नहुनु"
+       ]
+      },
+      "en": {
+       "q": "What does <u>this mystery</u> refer to?",
+       "choices": [
+        "The fact that the more photos taken on a trip, the more blurred the memories become.",
+        "The feeling of wanting to preserve beautiful scenery and look back at it later.",
+        "Focusing on finding a good composition when taking photos.",
+        "The fact that scents and the feeling of the wind never show up in photos."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9014-q2",
+     "q": "写真を撮（と）ると心に刻（きざ）む力がゆるむのはなぜか。",
+     "choices": [
+      "写真が残（のこ）るという安心感（あんしんかん）が、心に刻（きざ）もうとする働（はたら）きを弱めるから",
+      "美（うつく）しい景色（けしき）を残（のこ）したい一心で、夢中（むちゅう）になって撮（と）り続（つづ）けてしまうから",
+      "カメラを下ろして、自分の目だけで見ているから",
+      "においや風の感（かん）じは、そもそも写真に写らないから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「写真が残（のこ）る安心感（あんしんかん）が心に刻（きざ）む力をゆるめる」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "फोटो खिच्दा मनमा कुँद्ने शक्ति किन कमजोर हुन्छ?",
+       "choices": [
+        "फोटो रहनेछ भन्ने आश्वासनले, मनमा कुँद्ने कार्यलाई कमजोर बनाउँछ।",
+        "सुन्दर दृश्यलाई सुरक्षित राख्ने एकमात्र इच्छाले, फोटो खिच्नमा व्यस्त भइन्छ।",
+        "क्यामेरा तल राखेर, आफ्नै आँखाले हेरिरहेकोले।",
+        "गन्ध र हावाको अनुभव फोटोमा कैद हुँदैन।"
+       ]
+      },
+      "en": {
+       "q": "Why does taking photos weaken the ability to engrave things in one's mind?",
+       "choices": [
+        "Because the reassurance that photos will remain weakens the effort to engrave things in one's mind.",
+        "Because one gets engrossed in taking photos, wanting to preserve beautiful scenery.",
+        "Because one puts down the camera and sees with their own eyes.",
+        "Because scents and the feeling of the wind don't show up in photos in the first place."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9014-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "時にはカメラを下ろし、自分の目でその場に向（む）き合（あ）う時間を持ちたい",
+      "旅先では写真を一枚（いちまい）も撮（と）らず、目に焼（や）き付（つ）けることだけに徹（てっ）するべきだ",
+      "よい構図（こうず）を探（さが）すことが、写真の上達（じょうたつ）につながる",
+      "思い出は、写真に残（のこ）しておけば決（けっ）して忘（わす）れない"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「時にはカメラを下ろし自分の目で見る時間を持ちたい」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "कहिलेकाहीँ क्यामेरा तल राखेर, आफ्नै आँखाले त्यो ठाउँलाई सामना गर्ने समय चाहन्छु।",
+        "यात्रामा जाँदा एउटा पनि फोटो नखिची, आँखाले मात्र कैद गर्नमा ध्यान केन्द्रित गर्नुपर्छ।",
+        "राम्रो कम्पोजिसन खोज्नु फोटो खिच्ने कलामा सुधार ल्याउन मद्दत गर्छ।",
+        "सम्झनाहरू फोटोमा सुरक्षित राखेमा कहिल्यै बिर्सिँदैनन्।"
+       ]
+      },
+      "en": {
+       "q": "What is the author's main point?",
+       "choices": [
+        "Sometimes, I want to put the camera down and take time to face the place with my own eyes.",
+        "When traveling, one should not take any photos and focus only on imprinting things in their memory.",
+        "Finding a good composition leads to improving one's photography skills.",
+        "Memories will never be forgotten if they are preserved in photos."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "यात्रामा जाँदा, कहिलेकाहीँ फोटो खिच्नमा यति धेरै व्यस्त भइन्छ कि अरू केहीमा ध्यानै जाँदैन। यो सुन्दर दृश्यलाई सुरक्षित राख्न र पछि हेर्न सकियोस् भन्ने भावनाबाट आउँछ। तर, धेरै फोटो खिचिएको यात्राको सम्झना कहिलेकाहीँ अस्पष्ट हुन सक्छ। <u>यो अनौठो कुरा</u> फोटो खिच्नमा ध्यान केन्द्रित गर्दा हुन्छ। फोटो खिच्न खोज्दा, मानिसहरू राम्रो कम्पोजिसन खोज्नमा ध्यान दिन्छन् र आँखा अगाडिको दृश्यलाई राम्ररी अनुभव गर्दैनन्। पछि फोटो रहनेछ भन्ने आश्वासनले, बरु मनमा कुँद्ने शक्तिलाई कमजोर बनाउँछ। फोटो खिचेको क्षणमा नै, अब सम्झनु पर्दैन भनेर मस्तिष्कले निर्णय गर्छ होला। म फोटो खिच्ने कार्यलाई नै अस्वीकार गर्ने पक्षमा छैन। तर, कहिलेकाहीँ क्यामेरा तल राखेर, आफ्नै आँखाले मात्र त्यो ठाउँ हेर्ने समय पनि चाहन्छु। गन्ध, हावाको अनुभव, त्यो ठाउँको वातावरण फोटोमा कैद हुँदैन। स्क्रिनबाट होइन, सिधै सामना गरिएका कुराहरू मात्र मनमा गहिरो छाप छोड्छन्। सुरक्षित राख्न धेरै प्रयास गर्दा, सबैभन्दा महत्त्वपूर्ण वर्तमानलाई गुमाउनु हुँदैन।"
+     ]
+    },
+    "en": {
+     "body": [
+      "When traveling, you might find yourself engrossed in taking photos. This comes from a desire to preserve beautiful scenery and look back at it later. However, the more photos you take on a trip, the more ambiguous your memories can sometimes be. <u>This mystery</u> occurs because you get caught up in taking pictures. When trying to take a photo, people focus on finding a good composition and stop truly appreciating the scenery itself. The reassurance that photos will remain later actually weakens the effort to engrave it in your mind. Perhaps the brain decides that once a photo is taken, there's no need to remember it anymore. I don't intend to deny photography itself. However, sometimes I want to put the camera down and just see the place with my own eyes. Scents, the feeling of the wind, and the atmosphere of the place don't show up in photos. Only what you face directly, not through a screen, leaves a deep impression on your heart. Don't miss the most important 'now' by trying too hard to preserve it."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9015",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "随筆",
+   "subtype": "naiyou_chu",
+   "title": "一人で歩く旅",
+   "body": "旅行は、大勢（おおぜい）でにぎやかに行くものだと思っている人が多い。たしかに、仲間（なかま）と笑（わら）い合（あ）う旅は楽しい。しかし、たまには一人で出かける旅にも、別のよさがある。連（つ）れがいれば、行き先も食事も相談（そうだん）して決（き）める。自分の希望（きぼう）はどこかで折（お）り合（あ）いをつけることになる。ところが一人なら、①<u>そうした遠慮（えんりょ）</u>がいらない。行きたい場所（ばしょ）へ行き、疲（つか）れたら休み、心ひかれたものの前で好（す）きなだけ立ち止まれる。だれにも合（あ）わせなくてよいぶん、自分が本当（ほんとう）は何を見たいのかがはっきり見えてくる。また、一人でいると、土地の人や他（ほか）の旅人と自然（しぜん）に言葉（ことば）を交（か）わす機会（きかい）も増（ふ）える。連（つ）れとばかり話していては、そういう出会いは生まれにくい。私は、一人旅は自分と向（む）き合（あ）う時間だと思う。ふだんは人に合（あ）わせて過（す）ごすうちに、見えなくなっていた自分の好（この）みや考えが、静（しず）かに浮（う）かび上がってくる。時には一人で歩いてみることで、人は自分をもう一度知り直（なお）すのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9015-q1",
+     "q": "①そうした遠慮（えんりょ） が指（さ）すものはどれか。",
+     "choices": [
+      "行き先や食事を連（つ）れと相談（そうだん）し、自分の望（のぞ）みを譲（ゆず）り合（あ）うこと",
+      "心ひかれたものの前で、好（す）きなだけ立ち止まっていられること",
+      "土地の人や他（ほか）の旅人と、自然（しぜん）に言葉（ことば）を交（か）わすこと",
+      "ふだん人に合（あ）わせて、静（しず）かに過（す）ごしていること"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「連（つ）れと相談（そうだん）し自分の希望（きぼう）を折（お）り合（あ）わせる」ことを遠慮（えんりょ）と呼（よ）んでいる。"
+      },
+      "ne": {
+       "q": "①<u>त्यस्तो संकोच</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "गन्तव्य र खानाको बारेमा साथीहरूसँग सल्लाह गरेर आफ्नो इच्छामा सम्झौता गर्नु",
+        "मन परेको कुराको अगाडि जति मन लाग्छ, त्यति बेर रोकिन सक्नु",
+        "स्थानीय मानिसहरू वा अन्य यात्रुहरूसँग स्वाभाविक रूपमा कुराकानी गर्नु",
+        "सामान्यतया अरू मानिसहरूसँग मिलेर शान्त रूपमा समय बिताउनु"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>such reservations</u> refer to?",
+       "choices": [
+        "Discussing destinations and meals with companions and compromising one's own desires.",
+        "Being able to stop for as long as you like in front of something that catches your eye.",
+        "Naturally conversing with locals and other travelers.",
+        "Quietly spending time adapting to others in daily life."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9015-q2",
+     "q": "一人旅で自分の見たいものがはっきりするのはなぜか。",
+     "choices": [
+      "だれにも歩調（ほちょう）を合（あ）わせる必要（ひつよう）がないから",
+      "疲（つか）れたら休み、心ひかれたものの前で好（す）きなだけ立ち止まれるから",
+      "仲間（なかま）と、声（こえ）を上げて笑（わら）い合（あ）えるから",
+      "行き先を、みなで相談（そうだん）して決（き）めるから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「だれにも合（あ）わせなくてよいぶん本当（ほんとう）に見たいものが見えてくる」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "एक्लो यात्रामा आफूले हेर्न चाहेको कुरा किन स्पष्ट हुन्छ?",
+       "choices": [
+        "कसैको गतिसँग आफूलाई मिलाउनु नपर्ने हुनाले",
+        "थाकेपछि आराम गर्न सकिने र मन परेको कुराको अगाडि जति मन लाग्छ, त्यति बेर रोकिन सकिने हुनाले",
+        "साथीहरूसँग ठूलो स्वरले हाँस्न सकिने हुनाले",
+        "गन्तव्य सबै मिलेर सल्लाह गरेर निर्णय गरिने हुनाले"
+       ]
+      },
+      "en": {
+       "q": "Why does what one wants to see become clear during solo travel?",
+       "choices": [
+        "Because there's no need to keep pace with anyone.",
+        "Because you can rest when you're tired and stop for as long as you like in front of something that catches your eye.",
+        "Because you can laugh out loud with your friends.",
+        "Because everyone discusses and decides on the destination."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9015-q3",
+     "q": "筆者（ひっしゃ）の考えに最（もっと）も近いものはどれか。",
+     "choices": [
+      "一人旅は自分と向（む）き合（あ）い、見失（うしな）っていた自分を知り直（なお）す時間だ",
+      "旅は一人で行くほうが、大勢（おおぜい）で行くよりも必（かなら）ず楽しいものだ",
+      "一人旅では、他（ほか）の旅人と出会う機会（きかい）が増（ふ）えるものだ",
+      "旅行は、大勢（おおぜい）でにぎやかに行くのが最（もっと）もよい"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「一人旅は自分と向（む）き合（あ）い、自分を知り直（なお）す時間」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
+       "choices": [
+        "एक्लो यात्रा आफैंसँग सामना गर्ने र हराएको आफूलाई फेरि चिन्ने समय हो",
+        "यात्रा एक्लै गर्दा ठूलो समूहमा गर्दा भन्दा सधैं रमाइलो हुन्छ",
+        "एक्लो यात्रामा अन्य यात्रुहरूसँग भेट्ने अवसर बढ्छ",
+        "यात्रा ठूलो समूहमा र रमाइलोसँग गर्नु नै सबैभन्दा राम्रो हो"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is closest to the author's opinion?",
+       "choices": [
+        "Solo travel is a time to face oneself and rediscover the self that was lost.",
+        "Traveling alone is always more enjoyable than traveling with a large group.",
+        "During solo travel, opportunities to meet other travelers increase.",
+        "Traveling with a large group, lively and boisterous, is the best way to travel."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "धेरै मानिसहरू यात्रा ठूलो समूहमा र रमाइलोसँग गर्नुपर्छ भन्ने सोच्छन्। पक्कै पनि, साथीहरूसँग हाँस्दै गरिने यात्रा रमाइलो हुन्छ। तर, कहिलेकाहीँ एक्लै गरिने यात्राको पनि छुट्टै विशेषता हुन्छ। यदि साथीहरू छन् भने, गन्तव्य र खानाको बारेमा सल्लाह गरेर निर्णय गरिन्छ। आफ्नो इच्छा कतै न कतै सम्झौता गर्नुपर्ने हुन्छ। तर, यदि एक्लै हो भने, ①<u>त्यस्तो संकोच</u> आवश्यक पर्दैन। जहाँ जान मन लाग्छ, त्यहाँ जान सकिन्छ, थाकेपछि आराम गर्न सकिन्छ, र मन परेको कुराको अगाडि जति मन लाग्छ, त्यति बेर रोकिन सकिन्छ। कसैको लागि पनि आफूलाई मिलाउनु नपर्ने हुनाले, आफूले वास्तवमा के हेर्न चाहन्छु भन्ने कुरा स्पष्ट देखिन्छ। साथै, एक्लै हुँदा, स्थानीय मानिसहरू वा अन्य यात्रुहरूसँग स्वाभाविक रूपमा कुराकानी गर्ने अवसर पनि बढ्छ। यदि साथीहरूसँग मात्र कुरा गरिरहने हो भने, त्यस्ता भेटघाटहरू कम हुन्छन्। मलाई लाग्छ कि एक्लो यात्रा आफैंसँग सामना गर्ने समय हो। सामान्यतया, अरू मानिसहरूसँग समय बिताउँदा हराएका आफ्ना प्राथमिकताहरू र विचारहरू शान्त रूपमा बाहिर आउँछन्। कहिलेकाहीँ एक्लै हिँड्दा, मानिसले आफूलाई फेरि चिन्न सक्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Many people think that travel is something to do with a large group, lively and boisterous. Certainly, a trip filled with laughter among friends is enjoyable. However, a trip taken alone occasionally also has its own unique advantages. If you have companions, you discuss and decide on destinations and meals. You end up compromising your own wishes somewhere. But if you're alone, you don't need to have ①<u>such reservations</u>. You can go where you want, rest when you're tired, and stop for as long as you like in front of something that catches your eye. Because you don't have to accommodate anyone, you can clearly see what you truly want to see. Also, when you're alone, you have more opportunities to naturally converse with locals and other travelers. Such encounters are less likely to happen if you're only talking with your companions. I believe that solo travel is a time to face yourself. Your preferences and thoughts, which might have become obscured while adapting to others in daily life, quietly resurface. By sometimes walking alone, people rediscover themselves."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9016",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "随筆",
+   "subtype": "naiyou_chu",
+   "title": "手紙の温（ぬく）もり",
+   "body": "電子メールが当（あ）たり前になり、手紙を書く機会（きかい）はめっきり減（へ）った。用件（ようけん）だけなら、メールのほうが速（はや）くて便利（べんり）だ。それでも、手紙にしかない味わいがあると私は思う。手紙には、決（き）まった書き出しと結（むす）びの言葉（ことば）がある。「拝啓（はいけい）」で始め、季節（きせつ）の挨拶（あいさつ）を述（の）べ、最後（さいご）は相手（あいて）の体を気づかう一文で結（むす）ぶ。①<u>この形式（けいしき）</u>を、古くさい飾（かざ）りだと感（かん）じる人もいるだろう。しかし、決（き）まりごとがあるからこそ、書き手はいったん立ち止まる。相手（あいて）は今どんな季節（きせつ）を過（す）ごしているか、元気にしているだろうかと、自然（しぜん）に思いをめぐらせることになる。用件（ようけん）をすぐ書き始めるメールには、この立ち止まりがない。形式（けいしき）は、相手（あいて）を思う気持ちを引（ひ）き出す入り口なのだ。私は、手間のかかる手紙が完全（かんぜん）になくなってほしくないと思う。速（はや）さでは負（ま）けても、時間をかけて一字ずつ書いた文字には、打ちこんだ字にはない温（ぬく）もりが残（のこ）る。届（とど）くまでの数日（すうじつ）さえ、相手（あいて）を待つ楽しみに変（か）わるのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9016-q1",
+     "q": "①この形式（けいしき） が指（さ）すものはどれか。",
+     "choices": [
+      "書き出しと結（むす）びが定（さだ）まり、季節（きせつ）の挨拶（あいさつ）や気づかいを述（の）べる作法（さほう）",
+      "用件（ようけん）だけならメールのほうが速（はや）くて便利（べんり）だという、今の考え方",
+      "相手（あいて）を思う気持ちを引（ひ）き出す、手紙という入り口",
+      "手紙が届（とど）くまでの数日（すうじつ）を待つ、相手（あいて）への楽しみ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）に述（の）べた手紙の書き出し・挨拶（あいさつ）・結（むす）びの決（き）まりを「この形式（けいしき）」と受（う）ける。"
+      },
+      "ne": {
+       "q": "①<u>यो ढाँचा</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "सुरुवात र अन्त्य निश्चित हुने, मौसमको शुभकामना र ख्याल व्यक्त गर्ने तरिका",
+        "काम मात्र हो भने मेल छिटो र सुविधाजनक हुन्छ भन्ने अहिलेको सोच",
+        "प्राप्तकर्ताको बारेमा सोच्ने भावनालाई बाहिर निकाल्ने, चिठी नामक प्रवेशद्वार",
+        "चिठी पुग्न लाग्ने केही दिन प्राप्तकर्तालाई पर्खने आनन्द"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>this format</u> refer to?",
+       "choices": [
+        "The custom of having a fixed opening and closing, and stating seasonal greetings and concerns.",
+        "The current idea that email is faster and more convenient for just a message.",
+        "The letter as an entrance that draws out feelings for the recipient.",
+        "The joy of waiting for the recipient for a few days until the letter arrives."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9016-q2",
+     "q": "手紙の決（き）まりごとが相手（あいて）への思いを引（ひ）き出すのはなぜか。",
+     "choices": [
+      "決（き）まりごとがあるために書き手が立ち止まり、相手（あいて）を思うから",
+      "用件（ようけん）をすぐ書き始めるメールには、この立ち止まりがないから",
+      "メールのほうが、ずっと速（はや）くて便利（べんり）であるから",
+      "手で書いた文字に、打ちこんだ字にない温（ぬく）もりが残（のこ）るから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「決（き）まりがあるからこそ立ち止まり、相手（あいて）に思いをめぐらす」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "चिठीका नियमहरूले प्राप्तकर्ताप्रति भावना किन जगाउँछ?",
+       "choices": [
+        "नियमहरू भएकोले लेखक रोकिन्छ र प्राप्तकर्ताको बारेमा सोच्छ",
+        "काम तुरुन्तै लेख्न सुरु गर्ने मेलमा यो रोकाइ हुँदैन",
+        "मेल धेरै छिटो र सुविधाजनक हुन्छ",
+        "हातले लेखिएका अक्षरहरूमा, टाइप गरिएका अक्षरहरूमा नहुने न्यानोपन रहन्छ"
+       ]
+      },
+      "en": {
+       "q": "Why do the rules of a letter draw out feelings for the recipient?",
+       "choices": [
+        "Because the rules make the writer pause and think of the recipient.",
+        "Because emails, which start the message immediately, lack this pause.",
+        "Because email is much faster and more convenient.",
+        "Because handwritten characters retain a warmth not found in typed characters."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9016-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "速（はや）さでは劣（おと）っても、手間のかかる手紙にはメールにない温（ぬく）もりがある",
+      "メールは温（ぬく）もりがまるでないので、今後は使うべきではない",
+      "手紙は必（かなら）ず「拝啓（はいけい）」という言葉（ことば）で書き始めねばならない",
+      "連絡（れんらく）というものは、速（はや）くて便利（べんり）であるほどよい"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「手間のかかる手紙が残（のこ）ってほしい、打ちこんだ字にない温（ぬく）もりがある」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "गतिमा पछि परे पनि, समय लाग्ने चिठीमा मेलमा नहुने न्यानोपन हुन्छ",
+        "मेलमा बिल्कुलै न्यानोपन हुँदैन, त्यसैले अब प्रयोग गर्नु हुँदैन",
+        "चिठी सधैं '拝啓' (हाइकेइ) शब्दबाट सुरु गर्नुपर्छ",
+        "सम्पर्क जति छिटो र सुविधाजनक हुन्छ, त्यति राम्रो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What does the author most want to say?",
+       "choices": [
+        "Even if they are slower, time-consuming letters have a warmth that emails do not.",
+        "Emails have absolutely no warmth, so they should not be used in the future.",
+        "Letters must always begin with the word \"Haikei.\"",
+        "Communication is better the faster and more convenient it is."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "इलेक्ट्रोनिक मेल सामान्य भएपछि, चिठी लेख्ने अवसर निकै कम भएको छ। यदि काम मात्र हो भने, मेल छिटो र सुविधाजनक हुन्छ। तैपनि, मलाई लाग्छ कि चिठीमा मात्र पाइने स्वाद हुन्छ। चिठीमा निश्चित सुरुवाती र अन्तिम शब्दहरू हुन्छन्। '拝啓' (हाइकेइ) बाट सुरु गरेर, मौसमको शुभकामना व्यक्त गरिन्छ, र अन्तमा प्राप्तकर्ताको स्वास्थ्यको ख्याल गर्ने वाक्यले समाप्त हुन्छ। ①<u>यो ढाँचा</u>लाई पुरानो र सजावटी ठान्ने मानिसहरू पनि होलान्। तर, नियमहरू भएकोले नै लेखक एकछिन रोकिन्छ। प्राप्तकर्ताले अहिले कस्तो मौसम बिताइरहेको छ, स्वस्थ छ कि छैन भनेर स्वाभाविक रूपमा सोच्न थाल्छ। काम तुरुन्तै लेख्न सुरु गर्ने मेलमा यो रोकाइ हुँदैन। ढाँचा भनेको प्राप्तकर्ताको बारेमा सोच्ने भावनालाई बाहिर निकाल्ने प्रवेशद्वार हो। मलाई लाग्छ कि समय लाग्ने चिठी पूर्ण रूपमा हराउनु हुँदैन। गतिमा पछि परे पनि, समय लगाएर एक-एक अक्षर लेखिएका शब्दहरूमा, टाइप गरिएका अक्षरहरूमा नहुने न्यानोपन रहन्छ। पुग्न लाग्ने केही दिन पनि प्राप्तकर्तालाई पर्खने आनन्दमा परिणत हुन्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "With email becoming commonplace, opportunities to write letters have significantly decreased. For just a message, email is faster and more convenient. Nevertheless, I believe that letters have a unique charm. Letters have a fixed opening and closing. They begin with \"Haikei\" (Dear Sir/Madam), state a seasonal greeting, and conclude with a sentence wishing for the recipient's well-being. Some people might find ①<u>this format</u> to be an old-fashioned embellishment. However, precisely because there are rules, the writer pauses. They naturally ponder what season the recipient is experiencing now, and if they are doing well. Emails, which start the message immediately, lack this pause. The format is an entrance that draws out feelings for the recipient. I hope that time-consuming letters do not completely disappear. Even if they lose in speed, the warmth that remains in characters written one by one with time is not found in typed characters. Even the few days it takes for delivery turn into the joy of waiting for the recipient."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9017",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "体で感（かん）じる気温（きおん）",
+   "body": "毎朝、天気予報（よほう）で気温（きおん）を確（たし）かめてから服を選（えら）ぶ人は多い。今日は二十度と聞けば、それに合（あ）わせた服装（ふくそう）を考える。ところが、同じ二十度でも、暑く感（かん）じる日と寒（さむ）く感（かん）じる日がある。①<u>このずれ</u>は、気温（きおん）だけでは説明（せつめい）がつかない。人が感（かん）じる暑さ寒（さむ）さは、気温（きおん）のほかに、風の強さや湿（しめ）り気、日ざしの有無（うむ）にも左右される。風が強ければ体の熱（ねつ）がうばわれて寒（さむ）く感（かん）じ、湿（しめ）り気が多ければ汗（あせ）がかわきにくく蒸（む）し暑く感（かん）じる。同じ数字（すうじ）でも、体が受（う）け取（と）る感覚（かんかく）はまるで違（ちが）うのだ。だから、予報（よほう）の数字（すうじ）だけを信（しん）じて服を決（き）めると、思わぬ寒（さむ）さや暑さに悩（なや）まされることがある。私は、数字（すうじ）はあくまで目安であって、最後（さいご）は自分の体の感覚（かんかく）を信（しん）じるべきだと思う。窓（まど）を開けて風にあたり、外の空気を肌（はだ）で確（たし）かめる。数字（すうじ）が示（しめ）すのは平均的（へいきんてき）な一面（いちめん）にすぎず、今この場の本当（ほんとう）の様子（ようす）は、自分の体が誰（だれ）よりもよく知っているのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9017-q1",
+     "q": "①このずれ が指（さ）すものはどれか。",
+     "choices": [
+      "気温（きおん）が同じ二十度でも、暑い日もあれば寒（さむ）い日もあること",
+      "毎朝、天気予報（よほう）で気温（きおん）を確（たし）かめてから服を選（えら）んでいること",
+      "風が強いと、体の熱（ねつ）がうばわれて寒（さむ）く感（かん）じること",
+      "予報（よほう）の数字（すうじ）を信（しん）じて、その日の服装（ふくそう）を決（き）めること"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「同じ二十度でも暑い日と寒（さむ）い日がある」ずれを指（さ）す。"
+      },
+      "ne": {
+       "q": "①<u>यो भिन्नता</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "तापक्रम एउटै २० डिग्री भए पनि, कुनै दिन गर्मी लाग्ने र कुनै दिन चिसो लाग्ने कुरा",
+        "हरेक बिहान, मौसम पूर्वानुमानबाट तापक्रम निश्चित गरेर लुगा छान्ने कुरा",
+        "हावा तेज हुँदा, शरीरको ताप हराएर चिसो महसुस हुने कुरा",
+        "पूर्वानुमानको संख्यामा विश्वास गरेर, त्यस दिनको लुगा निर्णय गर्ने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>this discrepancy</u> refer to?",
+       "choices": [
+        "That even at the same twenty degrees, there are hot days and cold days.",
+        "That people check the temperature in the morning weather forecast before choosing clothes.",
+        "That if the wind is strong, body heat is lost, making it feel cold.",
+        "That people trust the forecast numbers and decide on their clothes for the day."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9017-q2",
+     "q": "同じ気温（きおん）でも寒（さむ）く感（かん）じることがあるのはなぜか。",
+     "choices": [
+      "気温（きおん）のほかに、風や湿（しめ）り気、日ざしにも感（かん）じ方が左右されるから",
+      "風が強ければ体の熱（ねつ）がうばわれて、寒（さむ）く感（かん）じてしまうから",
+      "毎朝、天気予報（よほう）で気温（きおん）を確（たし）かめているから",
+      "数字（すうじ）は、あくまで目安にすぎないものだから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「風・湿（しめ）り気・日ざしにも左右される」ため同じ数字（すうじ）でも感覚（かんかく）が違（ちが）う。選択肢（せんたくし）2はその一例（いちれい）にすぎない。"
+      },
+      "ne": {
+       "q": "एउटै तापक्रम भए पनि कहिलेकाहीँ चिसो महसुस किन हुन्छ?",
+       "choices": [
+        "तापक्रम बाहेक, हावा, आर्द्रता, र घामले पनि अनुभूतिलाई असर गर्ने हुनाले",
+        "हावा तेज भए शरीरको ताप हराएर चिसो महसुस हुने हुनाले",
+        "हरेक बिहान, मौसम पूर्वानुमानबाट तापक्रम निश्चित गरिने हुनाले",
+        "संख्या केवल एक अनुमान मात्र भएको हुनाले"
+       ]
+      },
+      "en": {
+       "q": "Why can it feel cold even at the same temperature?",
+       "choices": [
+        "Because the sensation is influenced by wind, humidity, and sunlight, in addition to temperature.",
+        "Because if the wind is strong, body heat is lost, making it feel cold.",
+        "Because people check the temperature in the morning weather forecast.",
+        "Because numbers are merely a guideline."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9017-q3",
+     "q": "筆者（ひっしゃ）の考えに最（もっと）も近いものはどれか。",
+     "choices": [
+      "予報（よほう）の数字（すうじ）は目安であり、最後（さいご）は自分の体の感覚（かんかく）を信（しん）じたい",
+      "天気予報（よほう）の気温（きおん）はあてにならないので、まったく見なくてよい",
+      "湿（しめ）り気が多い日は、汗（あせ）がかわかず蒸（む）し暑く感（かん）じる",
+      "服装（ふくそう）は、気温（きおん）の数字（すうじ）に合（あ）わせて決（き）めれば間違（ちが）いない"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「数字（すうじ）は目安、最後（さいご）は自分の体の感覚（かんかく）を信（しん）じるべき」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकको विचारसँग सबैभन्दा नजिकको कुरा कुन हो?",
+       "choices": [
+        "पूर्वानुमानको संख्या अनुमान हो, र अन्ततः आफ्नो शरीरको अनुभूतिमा विश्वास गर्नुपर्छ",
+        "मौसम पूर्वानुमानको तापक्रम भरपर्दो छैन, त्यसैले बिल्कुलै हेर्नु हुँदैन",
+        "आर्द्रता धेरै भएको दिनमा, पसिना नसुकेर उमस महसुस हुन्छ",
+        "लुगा तापक्रमको संख्या अनुसार निर्णय गरेमा कुनै गल्ती हुँदैन"
+       ]
+      },
+      "en": {
+       "q": "Which of the following is closest to the author's opinion?",
+       "choices": [
+        "The forecast numbers are a guideline, and ultimately, one should trust their own body's sensations.",
+        "The temperature in the weather forecast is unreliable, so there's no need to look at it at all.",
+        "On humid days, sweat doesn't dry, making it feel muggy.",
+        "You can't go wrong if you decide on your clothes according to the temperature numbers."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "हरेक बिहान, मौसम पूर्वानुमानबाट तापक्रम निश्चित गरेर लुगा छान्ने मानिसहरू धेरै छन्। आज २० डिग्री छ भनेर सुनेपछि, त्यसै अनुसारको लुगाको बारेमा सोच्छन्। तर, एउटै २० डिग्री भए पनि, कुनै दिन गर्मी लाग्छ भने कुनै दिन चिसो लाग्छ। ①<u>यो भिन्नता</u> तापक्रमले मात्र व्याख्या गर्न सकिँदैन। मानिसले महसुस गर्ने गर्मी र चिसो तापक्रम बाहेक, हावाको गति, आर्द्रता, र घामको उपस्थिति वा अनुपस्थितिमा पनि निर्भर गर्दछ। यदि हावा तेज छ भने शरीरको ताप हराएर चिसो महसुस हुन्छ, र यदि आर्द्रता धेरै छ भने पसिना सुक्न गाह्रो भएर उमस महसुस हुन्छ। एउटै संख्या भए पनि, शरीरले प्राप्त गर्ने अनुभूति बिल्कुल फरक हुन्छ। त्यसैले, पूर्वानुमानको संख्यामा मात्र विश्वास गरेर लुगा निर्णय गर्दा, अप्रत्याशित चिसो वा गर्मीले समस्यामा पार्न सक्छ। मलाई लाग्छ कि संख्या केवल एक अनुमान हो, र अन्ततः आफ्नो शरीरको अनुभूतिमा विश्वास गर्नुपर्छ। झ्याल खोलेर हावामा बस्ने, र बाहिरको हावालाई छालाले महसुस गर्ने। संख्याले केवल औसत पक्षलाई मात्र देखाउँछ, र अहिले यस ठाउँको वास्तविक अवस्था आफ्नो शरीरले अरू कसैले भन्दा राम्रोसँग जान्दछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Many people check the temperature in the morning weather forecast before choosing their clothes. If they hear it's twenty degrees today, they consider an outfit to match. However, even at the same twenty degrees, there are days when it feels hot and days when it feels cold. ①<u>This discrepancy</u> cannot be explained by temperature alone. The heat or cold a person feels is influenced by factors other than temperature, such as wind strength, humidity, and the presence or absence of sunlight. If the wind is strong, body heat is lost, making it feel cold, and if there is high humidity, sweat dries slowly, making it feel muggy. Even with the same number, the sensation the body receives is completely different. Therefore, if you decide on clothes by only trusting the forecast numbers, you might suffer from unexpected cold or heat. I believe that numbers are merely a guideline, and ultimately, you should trust your own body's sensations. Open a window, feel the wind, and check the outside air with your skin. The numbers only show an average aspect, and your own body knows the true state of the moment better than anyone."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9018",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "名前を受（う）け止める",
+   "body": "人と知り合（あ）ったとき、相手（あいて）の名前をすぐ忘（わす）れてしまうことがある。顔（かお）は覚（おぼ）えているのに、名前だけがどうしても出てこない。名前を覚（おぼ）えるのが苦手（にがて）だと嘆（なげ）く人は少なくない。しかし、覚（おぼ）えられないのは記憶力（きおくりょく）のせいばかりではない。初対面（しょたいめん）のとき、人は相手（あいて）の服装（ふくそう）や表情（ひょうじょう）に気を取（と）られ、名前をきちんと聞いていないことが多い。①<u>その一瞬（いっしゅん）</u>の聞き流しが、後で名前を思い出せない元になる。名前は、意識（いしき）して受（う）け止めなければ心に残（のこ）らないのだ。相手（あいて）の名前を一度声（こえ）に出して呼（よ）び返（かえ）す、会話の中で何度か使ってみる。ほんのひと工夫（くふう）で、名前はぐっと覚（おぼ）えやすくなる。私は、名前を覚（おぼ）えようとすることは、その人を大切に思う気持ちの表（あらわ）れだと思う。名前で呼（よ）ばれた相手（あいて）は、自分がきちんと見てもらえたと感（かん）じる。覚（おぼ）える力が特別に強い必要（ひつよう）はない。相手（あいて）に心を向（む）け、その名を受（う）け止めようとする姿勢（しせい）こそが、人と人との距離（きょり）を縮（ちぢ）めるのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9018-q1",
+     "q": "①その一瞬（いっしゅん） が指（さ）すものはどれか。",
+     "choices": [
+      "服装（ふくそう）や表情（ひょうじょう）に気を取（と）られ、相手（あいて）の名を十分に聞いていないひととき",
+      "相手（あいて）の名前を一度声（こえ）に出して呼（よ）び返（かえ）し、会話で何度か使う瞬間（しゅんかん）",
+      "名前で呼（よ）ばれて、きちんと見てもらえたと感（かん）じる瞬間（しゅんかん）",
+      "顔（かお）は覚（おぼ）えているのに、名前だけが出てこない瞬間（しゅんかん）"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「服装（ふくそう）や表情（ひょうじょう）に気を取（と）られ名前を聞いていない」瞬間（しゅんかん）を指（さ）す。"
+      },
+      "ne": {
+       "q": "①<u>त्यो एक क्षण</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "लुगा र अनुहारमा ध्यान दिएर, प्राप्तकर्ताको नाम राम्ररी नसुनेको क्षण",
+        "प्राप्तकर्ताको नाम एक पटक ठूलो स्वरले बोलाएर दोहोर्याउने, कुराकानीमा केही पटक प्रयोग गर्ने क्षण",
+        "नामले बोलाएर, आफूलाई राम्ररी हेरिएको महसुस गर्ने क्षण",
+        "अनुहार याद भए पनि, नाम मात्र याद नआउने क्षण"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>that momentary oversight</u> refer to?",
+       "choices": [
+        "The moment when one is distracted by clothing or expression and doesn't fully hear the other person's name.",
+        "The moment of saying the other person's name aloud once and using it a few times in conversation.",
+        "The moment of feeling properly seen when called by one's name.",
+        "The moment when one remembers the face but the name just won't come to mind."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9018-q2",
+     "q": "名前を一度声（こえ）に出すと覚（おぼ）えやすくなるのはなぜか。",
+     "choices": [
+      "名は、心を向（む）けて受（う）け止めなければ記憶（きおく）に残（のこ）らないものだから",
+      "初対面（しょたいめん）では、相手（あいて）の服装（ふくそう）や表情（ひょうじょう）のほうに気を取（と）られてしまうから",
+      "生まれつきの記憶力（きおくりょく）が、特別に強いから",
+      "相手（あいて）の顔（かお）を、名前よりも先に覚（おぼ）えているから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「名前は意識（いしき）して受（う）け止めなければ心に残（のこ）らない」ため、声（こえ）に出すと定着（ていちゃく）する。"
+      },
+      "ne": {
+       "q": "नाम एक पटक ठूलो स्वरले बोलाउँदा किन सजिलै याद हुन्छ?",
+       "choices": [
+        "नामलाई मन लगाएर स्वीकार नगरेसम्म स्मरणमा रहँदैन",
+        "पहिलो भेटमा, प्राप्तकर्ताको लुगा र अनुहारमा ध्यान दिइन्छ",
+        "जन्मजात स्मरणशक्ति विशेष रूपमा बलियो हुन्छ",
+        "प्राप्तकर्ताको अनुहारलाई नाम भन्दा पहिले याद गरिन्छ"
+       ]
+      },
+      "en": {
+       "q": "Why does saying a name aloud once make it easier to remember?",
+       "choices": [
+        "Because names won't remain in your memory unless you pay attention and register them.",
+        "Because during a first meeting, one tends to be distracted by the other person's clothing and expression.",
+        "Because one has exceptionally strong innate memory.",
+        "Because one remembers the other person's face before their name."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9018-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "相手（あいて）に心を向（む）け、その名を受（う）け止めようとする姿勢（しせい）が距離（きょり）を縮（ちぢ）める",
+      "名前を覚（おぼ）えられない人は、相手（あいて）を大切に思っていないのだ",
+      "名前は、会話の中で何度も使えば必（かなら）ず覚（おぼ）えられる",
+      "名前を覚（おぼ）えるには、生まれつきの記憶力（きおくりょく）が欠（か）かせない"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「名を受（う）け止めようとする姿勢（しせい）が人との距離（きょり）を縮（ちぢ）める」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "प्राप्तकर्ताप्रति मन लगाएर, उसको नाम स्वीकार गर्ने मनोवृत्तिले दूरी घटाउँछ",
+        "नाम याद गर्न नसक्ने मानिसहरूले प्राप्तकर्तालाई महत्व दिँदैनन्",
+        "नाम कुराकानीमा धेरै पटक प्रयोग गरेमा सधैं याद हुन्छ",
+        "नाम याद गर्न जन्मजात स्मरणशक्ति आवश्यक हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What does the author most want to say?",
+       "choices": [
+        "Paying attention to the other person and trying to register their name shortens the distance.",
+        "People who can't remember names don't care about others.",
+        "If you use a name many times in conversation, you will definitely remember it.",
+        "Innate memory is essential for remembering names."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "मानिसहरूसँग चिनजान गर्दा, कहिलेकाहीँ उनीहरूको नाम तुरुन्तै बिर्सिन्छ। अनुहार याद भए पनि, नाम मात्र कुनै हालतमा याद आउँदैन। नाम याद गर्न गाह्रो हुन्छ भनेर गुनासो गर्ने मानिसहरू कम छैनन्। तर, याद नहुनु केवल स्मरणशक्तिको कारणले मात्र होइन। पहिलो भेटमा, मानिसहरू प्राप्तकर्ताको लुगा र अनुहारमा ध्यान दिन्छन्, र नाम राम्ररी सुन्दैनन्। ①<u>त्यो एक क्षणको बेवास्ता</u> पछि नाम सम्झन नसक्ने कारण बन्छ। नामलाई सचेत भएर स्वीकार नगरेसम्म मनमा रहँदैन। प्राप्तकर्ताको नाम एक पटक ठूलो स्वरले बोलाएर दोहोर्याउने, कुराकानीमा केही पटक प्रयोग गर्ने। सानो प्रयासले पनि नाम धेरै सजिलै याद हुन्छ। मलाई लाग्छ कि नाम याद गर्ने प्रयास गर्नु भनेको त्यो व्यक्तिलाई महत्व दिने भावनाको अभिव्यक्ति हो। नामले बोलाइएको प्राप्तकर्ताले आफूलाई राम्ररी हेरिएको महसुस गर्छ। याद गर्ने शक्ति विशेष रूपमा बलियो हुनु आवश्यक छैन। प्राप्तकर्ताप्रति मन लगाएर, उसको नाम स्वीकार गर्ने मनोवृत्तिले नै मानिसहरू बीचको दूरी घटाउँछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Sometimes, when you meet someone, you immediately forget their name. You remember their face, but their name just won't come to mind. Many people lament that they are bad at remembering names. However, not being able to remember is not solely due to memory. When meeting someone for the first time, people are often distracted by the other person's clothing or expression and don't properly listen to their name. ①<u>That momentary oversight</u> becomes the reason why you can't recall the name later. A name won't remain in your mind unless you consciously register it. Saying the person's name aloud once, or using it a few times in conversation. With just a little effort, names become much easier to remember. I believe that making an effort to remember a name is a sign of caring for that person. The person called by their name feels that they have been properly seen. There's no need for exceptionally strong memory. It is the attitude of paying attention to the other person and trying to register their name that shortens the distance between people."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9019",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "評論",
+   "subtype": "naiyou_chu",
+   "title": "場所（ばしょ）が人を動かす",
+   "body": "図書館は、本を借りるためだけの場所（ばしょ）ではない。近ごろは、勉強や仕事の場として通う人も増（ふ）えている。家では気が散（ち）ってはかどらないのに、図書館では不思議（ふしぎ）と集中できるという人は多い。①<u>その理由（りゆう）</u>は、まわりの静（しず）けさだけにあるのではない。図書館には、みなが黙々（もくもく）と本や書類（しょるい）に向（む）かう空気が流（なが）れている。周囲（しゅうい）の人がまじめに取（と）り組（く）む姿（すがた）は、自分もなまけていられないという気持ちを自然（しぜん）に呼（よ）び起こす。人は、そばにいる人の様子（ようす）に、思いのほか強く影響（えいきょう）されるものなのだ。一人きりの部屋（へや）では、その支（ささ）えがない。だからこそ、つい怠（なま）けてしまう。私は、集中とは意志（いし）の強さだけの問題ではないと思う。どんな場所（ばしょ）に身（み）を置（お）くかによって、同じ人でも力の出方が変（か）わる。がんばろうと自分を責（せ）めるより、集中できる場所（ばしょ）へ自分を運ぶほうが早い。環境（かんきょう）を選（えら）ぶことは、意志（いし）の弱さを補（おぎな）う、かしこい工夫（くふう）なのだ。",
+   "questions": [
+    {
+     "id": "N3-D-M-9019-q1",
+     "q": "①その理由（りゆう） が指（さ）すものはどれか。",
+     "choices": [
+      "家では気が散（ち）るのに、図書館ではなぜか集中できるわけ",
+      "図書館が、本を借りるためだけの場所（ばしょ）ではないというわけ",
+      "一人きりの部屋（へや）で、つい怠（なま）けてしまうわけ",
+      "集中できる場所（ばしょ）へ、自分を運んでいくわけ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「図書館では不思議（ふしぎ）と集中できる」ことの理由（りゆう）を指（さ）している。"
+      },
+      "ne": {
+       "q": "①<u>त्यसको कारण</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "घरमा ध्यान भङ्ग हुने तर पुस्तकालयमा किन एकाग्रता गर्न सकिने कारण",
+        "पुस्तकालय किताबहरू उधारो लिनको लागि मात्रै ठाउँ होइन भन्ने कारण",
+        "एक्लो कोठामा, अल्छी लाग्ने कारण",
+        "एकाग्रता गर्न सकिने ठाउँमा आफूलाई लैजाने कारण"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>the reason for this</u> refer to?",
+       "choices": [
+        "The reason why one can concentrate at the library, even though they get distracted at home.",
+        "The reason why a library is not just a place to borrow books.",
+        "The reason why one tends to be lazy in a room alone.",
+        "The reason why one moves oneself to a place where they can concentrate."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9019-q2",
+     "q": "図書館で自分もなまけていられないと感（かん）じるのはなぜか。",
+     "choices": [
+      "まわりの人が真剣（しんけん）に取（と）り組（く）む姿（すがた）に、思わず引（ひ）きずられるから",
+      "図書館には、みなが黙々（もくもく）と本や書類（しょるい）に向（む）かう空気が流（なが）れているから",
+      "家では、気が散（ち）ってなかなかはかどらないから",
+      "環境（かんきょう）を選（えら）ぶことが、かしこい工夫（くふう）になるから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「そばにいる人の様子（ようす）に強く影響（えいきょう）される」ため怠（なま）けられなくなる。"
+      },
+      "ne": {
+       "q": "पुस्तकालयमा आफू पनि अल्छी गर्न नहुने महसुस किन हुन्छ?",
+       "choices": [
+        "वरपरका मानिसहरूले गम्भीरतापूर्वक काम गरिरहेको देख्दा, अनायासै प्रभावित हुने हुनाले",
+        "पुस्तकालयमा सबैजना चुपचाप किताब वा कागजातमा ध्यान दिइरहेको वातावरण हुने हुनाले",
+        "घरमा, ध्यान भङ्ग भएर काम नहुने हुनाले",
+        "वातावरण छान्नु चलाख उपाय हुने हुनाले"
+       ]
+      },
+      "en": {
+       "q": "Why does one feel that they can't be lazy at the library?",
+       "choices": [
+        "Because one is unconsciously drawn in by the sight of others working seriously.",
+        "Because in a library, there's an atmosphere where everyone is silently focused on books or documents.",
+        "Because at home, one gets distracted and doesn't make much progress.",
+        "Because choosing one's environment is a clever trick."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9019-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "集中は意志（いし）の強さだけでなく、身（み）を置（お）く場所（ばしょ）によっても変（か）わる",
+      "家では決（けっ）して集中できないので、図書館へ通うほかない",
+      "図書館は、勉強や仕事のために通うべき場所（ばしょ）である",
+      "集中できるかどうかは、本人の意志（いし）の強さで決（き）まる"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「集中は意志（いし）の強さだけでなく身（み）を置（お）く場所（ばしょ）で変（か）わる」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "एकाग्रता इच्छाशक्तिको मात्र नभई, आफूलाई राख्ने ठाउँ अनुसार पनि फरक हुन्छ",
+        "घरमा कहिल्यै एकाग्रता गर्न सकिँदैन, त्यसैले पुस्तकालय जानु बाहेक अरू विकल्प छैन",
+        "पुस्तकालय अध्ययन वा कामको लागि जानुपर्ने ठाउँ हो",
+        "एकाग्रता गर्न सकिन्छ कि सकिँदैन भन्ने कुरा व्यक्तिको इच्छाशक्तिको बलमा निर्भर गर्छ"
+       ]
+      },
+      "en": {
+       "q": "What does the author most want to say?",
+       "choices": [
+        "Concentration is not just about willpower; it also changes depending on the place you put yourself in.",
+        "One can never concentrate at home, so there's no choice but to go to the library.",
+        "The library is a place one should go to for studying and working.",
+        "Whether one can concentrate or not is determined by their willpower."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "पुस्तकालय किताबहरू उधारो लिनको लागि मात्रै ठाउँ होइन। आजकल, अध्ययन वा कामको लागि जाने मानिसहरूको संख्या पनि बढिरहेको छ। घरमा ध्यान भङ्ग भएर काम नहुने तर पुस्तकालयमा अचम्मको रूपमा ध्यान केन्द्रित गर्न सकिन्छ भन्ने मानिसहरू धेरै छन्। ①<u>त्यसको कारण</u> वरपरको शान्तिमा मात्रै छैन। पुस्तकालयमा सबैजना चुपचाप किताब वा कागजातमा ध्यान दिइरहेको वातावरण हुन्छ। वरपरका मानिसहरूले गम्भीरतापूर्वक काम गरिरहेको देख्दा, आफू पनि अल्छी गर्न नहुने भावना स्वाभाविक रूपमा जागृत हुन्छ। मानिसहरू आफ्नो छेउमा रहेका मानिसहरूको अवस्थाबाट सोचेभन्दा बढी प्रभावित हुन्छन्। एक्लो कोठामा, त्यो समर्थन हुँदैन। त्यसैले, अल्छी लाग्छ। मलाई लाग्छ कि एकाग्रता इच्छाशक्तिको मात्र समस्या होइन। कस्तो ठाउँमा आफूलाई राख्छ भन्ने कुराले, एउटै मानिसको पनि काम गर्ने तरिका फरक हुन्छ। आफूलाई 'प्रयास गर' भनेर दोष दिनु भन्दा, आफूलाई एकाग्रता गर्न सकिने ठाउँमा लैजानु छिटो हुन्छ। वातावरण छान्नु भनेको इच्छाशक्तिको कमजोरीलाई पूर्ति गर्ने एउटा चलाख उपाय हो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "A library is not just a place to borrow books. Nowadays, more and more people are using it as a place to study or work. Many people find that they get distracted and don't make progress at home, but can strangely concentrate at the library. ①<u>The reason for this</u> is not solely the surrounding quietness. In a library, there's an atmosphere where everyone is silently focused on books or documents. Seeing others diligently working naturally evokes a feeling that you can't be lazy yourself. People are surprisingly strongly influenced by the demeanor of those around them. In a room alone, that support is absent. That's why one tends to be lazy. I believe that concentration is not just a matter of willpower. Depending on the place you put yourself in, the same person's ability to perform changes. Rather than blaming yourself for not trying hard enough, it's faster to move yourself to a place where you can concentrate. Choosing your environment is a clever way to compensate for a lack of willpower."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N3-D-M-9020",
+   "level": "N3",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "随筆",
+   "subtype": "naiyou_chu",
+   "title": "歩けば浮（う）かぶ",
+   "body": "机（つくえ）の前でいくら考えても、よい思いつきが浮（う）かばないことがある。頭（あたま）を抱（かか）えてうなっても、堂々（どうどう）めぐりをするばかりだ。ところが、散歩（さんぽ）に出て少し歩いていると、ふとよい考えが浮（う）かぶことがある。①<u>この経験（けいけん）</u>を、多くの人が持っているのではないか。じっと座（すわ）って一つのことを見つめていると、考えはかえって同じところをぐるぐる回（まわ）りやすい。歩き出して体を動かし、景色（けしき）が移（うつ）り変（か）わると、はりつめていた心がゆるむ。すると、こり固（かた）まっていた頭（あたま）がほぐれ、思いがけない方向（ほうこう）から答えがやってくる。行きづまったときは、むりに考え続（つづ）けるより、いったんその場を離（はな）れるほうがよいのだ。私は、考えることと体を動かすことは、切り離（はな）せないものだと思う。名案（めいあん）は、机（つくえ）にかじりついている間よりも、体が軽く動いているときに訪（おとず）れる。行きづまったら、席（せき）を立って歩いてみる。答えは、意外にも足の裏（うら）からやってくるのかもしれない。",
+   "questions": [
+    {
+     "id": "N3-D-M-9020-q1",
+     "q": "①この経験（けいけん） が指（さ）すものはどれか。",
+     "choices": [
+      "散歩（さんぽ）に出て歩くうちに、ふとよい思いつきが浮（う）かぶこと",
+      "机（つくえ）の前で頭（あたま）を抱（かか）えてうなり、堂々（どうどう）めぐりをしてしまうこと",
+      "じっと座（すわ）って、一つのことを見つめ続（つづ）けること",
+      "はりつめていた心が、ゆっくりゆるんでいくこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "直前（ちょくぜん）の「散歩（さんぽ）中にふとよい考えが浮（う）かぶ」ことを「この経験（けいけん）」と受（う）ける。"
+      },
+      "ne": {
+       "q": "①<u>यो अनुभव</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "हिँड्न निस्केर हिँड्दा, अचानक राम्रो विचार आउने कुरा",
+        "टेबलको अगाडि टाउको समातेर घुर्दा, एउटै कुरामा घुमिरहने कुरा",
+        "चुपचाप बसेर, एउटै कुरामा ध्यान दिइरहने कुरा",
+        "तनावग्रस्त मन बिस्तारै शान्त हुने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>this experience</u> refer to?",
+       "choices": [
+        "A good idea suddenly popping up while walking during a stroll.",
+        "Holding one's head and groaning at a desk, going around in circles.",
+        "Sitting still and staring at one thing.",
+        "One's tense mind slowly relaxing."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9020-q2",
+     "q": "歩くと頭（あたま）がほぐれて答えがやってくるのはなぜか。",
+     "choices": [
+      "体を動かして景色（けしき）が移（うつ）ると、張（は）りつめていた気持ちがほぐれるから",
+      "じっと座（すわ）って一つのことを見つめると、考えが同じ所（ところ）を回（まわ）るから",
+      "机（つくえ）にかじりついて、むりに考え続（つづ）けているから",
+      "思いがけない方向（ほうこう）から、答えがやってくるから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「歩いて心がゆるむと頭（あたま）がほぐれ、答えがやってくる」が理由（りゆう）。"
+      },
+      "ne": {
+       "q": "हिँड्दा दिमाग खुकुलो भएर उत्तर किन आउँछ?",
+       "choices": [
+        "शरीर चलाएर दृश्यहरू परिवर्तन हुँदा, तनावग्रस्त भावना शान्त हुने हुनाले",
+        "चुपचाप बसेर एउटै कुरामा ध्यान दिँदा, विचारहरू एउटै ठाउँमा घुम्ने हुनाले",
+        "टेबलमा टाँसिएर, जबरजस्ती सोच्न जारी राखिरहेको हुनाले",
+        "अप्रत्याशित दिशाबाट, उत्तर आउने हुनाले"
+       ]
+      },
+      "en": {
+       "q": "Why does walking loosen up the mind and bring answers?",
+       "choices": [
+        "Because when you move your body and the scenery changes, your tense feelings relax.",
+        "Because when you sit still and stare at one thing, your thoughts go around in the same place.",
+        "Because you are glued to your desk, forcing yourself to keep thinking.",
+        "Because answers come from unexpected directions."
+       ]
+      }
+     }
+    },
+    {
+     "id": "N3-D-M-9020-q3",
+     "q": "筆者（ひっしゃ）が最（もっと）も言いたいことはどれか。",
+     "choices": [
+      "行きづまったら考え続（つづ）けるより、席（せき）を立って歩いてみるとよい",
+      "すぐれた名案（めいあん）は、歩いているときにしか決（けっ）して浮（う）かばない",
+      "散歩（さんぽ）は、心をゆるめて気分を変（か）えるのに役立（やくだ）つ",
+      "考えごとは、机（つくえ）の前でじっくり続（つづ）けるのがよい"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「行きづまったら考え続（つづ）けるより歩くほうがよい」が主張（しゅちょう）。"
+      },
+      "ne": {
+       "q": "लेखकले सबैभन्दा बढी भन्न चाहेको कुरा कुन हो?",
+       "choices": [
+        "जब अड्किन्छ, सोच्न जारी राख्नु भन्दा, सिटबाट उठेर हिँड्ने प्रयास गर्नु राम्रो हुन्छ",
+        "उत्कृष्ट विचारहरू हिँडिरहेको बेला मात्र आउँछन्",
+        "हिँड्नु मनलाई शान्त पार्न र मुड परिवर्तन गर्न उपयोगी हुन्छ",
+        "सोच्ने काम टेबलको अगाडि बसेर गम्भीरतापूर्वक जारी राख्नु राम्रो हुन्छ"
+       ]
+      },
+      "en": {
+       "q": "What does the author most want to say?",
+       "choices": [
+        "If you're stuck, it's better to stand up and walk around than to keep thinking.",
+        "Excellent ideas never come unless you are walking.",
+        "Walking helps to relax your mind and change your mood.",
+        "It's best to continue thinking deeply at your desk."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "टेबलको अगाडि जति सोचे पनि, कहिलेकाहीँ राम्रो विचार आउँदैन। टाउको समातेर घुर्दा पनि, एउटै कुरामा घुमिरहन्छ। तर, हिँड्न निस्केर अलिकति हिँड्दा, अचानक राम्रो विचार आउन सक्छ। ①<u>यो अनुभव</u> धेरै मानिसहरूसँग होला, होइन र? चुपचाप बसेर एउटै कुरामा ध्यान दिँदा, विचारहरू उल्टो एउटै ठाउँमा घुम्न सजिलो हुन्छ। हिँड्न सुरु गरेर शरीर चलाउँदा, र दृश्यहरू परिवर्तन हुँदा, तनावग्रस्त मन शान्त हुन्छ। त्यसपछि, कडा भएको दिमाग खुकुलो हुन्छ, र अप्रत्याशित दिशाबाट उत्तर आउँछ। जब अड्किन्छ, जबरजस्ती सोच्न जारी राख्नु भन्दा, एक पटक त्यो ठाउँ छोड्नु राम्रो हुन्छ। मलाई लाग्छ कि सोच्नु र शरीर चलाउनु अविभाज्य कुरा हुन्। राम्रो विचार टेबलमा टाँसिएर बसेको बेला भन्दा, शरीर हल्का रूपमा चलिरहेको बेला आउँछ। जब अड्किन्छ, सिटबाट उठेर हिँड्ने प्रयास गर्नुहोस्। उत्तर अप्रत्याशित रूपमा खुट्टाको तलुवाबाट आउन सक्छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Sometimes, no matter how much you think at your desk, a good idea doesn't come to mind. Even if you hold your head and groan, you just go around in circles. However, sometimes a good idea suddenly pops up when you go for a walk and move around a bit. Many people probably have ①<u>this experience</u>. When you sit still and stare at one thing, your thoughts tend to go around and around in the same place. When you start walking, move your body, and the scenery changes, your tense mind relaxes. Then, your stiff mind loosens up, and an answer comes from an unexpected direction. When you're stuck, it's better to leave the spot for a while rather than forcing yourself to keep thinking. I believe that thinking and moving your body are inseparable. Brilliant ideas come more often when your body is lightly moving than when you're glued to your desk. If you're stuck, stand up and try walking. The answer might surprisingly come from the soles of your feet."
+     ]
+    }
+   }
+  }
+ ]
+}

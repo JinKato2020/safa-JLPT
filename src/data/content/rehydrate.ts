@@ -47,7 +47,7 @@ export function rehydrateBanks(files: Record<string, Any>) {
   // 設問・選択肢の訳(内容理解のみ)。key=設問id → { q, choices[](元の順序) }。回答後に母語/英語で表示。
   const Q_TRANS_NE: Record<string, { q: string; choices: string[] }> = {};
   const Q_TRANS_EN: Record<string, { q: string; choices: string[] }> = {};
-  const READING = READING_SUBTYPES.flatMap((st) => bankItems(files, st, (it, level) => {
+  const readingMap = (st: string) => (it: Any, level: string) => {
     const { i18n, questions, ...rest } = it;
     if (i18n?.ne?.body) PASSAGE_TRANS_NE[it.id] = i18n.ne.body;
     if (i18n?.en?.body) PASSAGE_TRANS_EN[it.id] = i18n.en.body;
@@ -56,7 +56,10 @@ export function rehydrateBanks(files: Record<string, Any>) {
       if (q.i18n?.en?.q) Q_TRANS_EN[q.id] = { q: q.i18n.en.q, choices: q.i18n.en.choices ?? [] };
     }
     return { ...rest, level, subtype: st, questions: (questions ?? []).map(restoreQ) };
-  }));
+  };
+  const READING = READING_SUBTYPES.flatMap((st) => bankItems(files, st, readingMap(st)));
+  // 読解4大問(⑨〜⑫)の模試専用プール(初見)。翻訳/ルビは後日OTAバッチ。同じ readingMap を通すので将来の ne/en も自動捕捉。
+  const READING_MOCK = READING_SUBTYPES.flatMap((st) => bankItems(files, st, readingMap(st), true));
   const LISTENING = LISTENING_SUBTYPES.flatMap((st) => bankItems(files, st, (it, level) => {
     const { i18n, questions, ...rest } = it;
     return { ...rest, level, subtype: st, questions: (questions ?? []).map(restoreQ) };
@@ -81,5 +84,5 @@ export function rehydrateBanks(files: Record<string, Any>) {
     for (const [p, f] of Object.entries(files)) if (p.startsWith('lexicon/') && (f as Any).kind === kind) Object.assign(out, (f as Any).items);
     return out;
   };
-  return { KANJI_READ_BANK, KANJI_READ_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, USAGE_MOCK, GRAMMAR_FORM_MOCK, ORDER_MOCK, KNOWLEDGE_BANK, READING, LISTENING, PASSAGE_GRAMMAR, PASSAGE_GRAMMAR_MOCK, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), FURIGANA_L10N: mergeLex('furigana'), VOCAB_FIX: mergeLex('vocabfix'), KANJI_FIX: mergeLex('kanjifix'), GRAMMAR_FIX: mergeLex('grammarfix'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
+  return { KANJI_READ_BANK, KANJI_READ_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, USAGE_MOCK, GRAMMAR_FORM_MOCK, ORDER_MOCK, KNOWLEDGE_BANK, READING, READING_MOCK, LISTENING, PASSAGE_GRAMMAR, PASSAGE_GRAMMAR_MOCK, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), FURIGANA_L10N: mergeLex('furigana'), VOCAB_FIX: mergeLex('vocabfix'), KANJI_FIX: mergeLex('kanjifix'), GRAMMAR_FIX: mergeLex('grammarfix'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
 }

@@ -1,0 +1,934 @@
+{
+ "schema": 1,
+ "daimon": "naiyou_chu",
+ "level": "N5",
+ "pool": "mock",
+ "languages": [
+  "ja",
+  "ne",
+  "en"
+ ],
+ "source": "opus-authored-mock-2026-08-30",
+ "items": [
+  {
+   "id": "N5-D-M-9001",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "図書館（としょかん）の本（ほん）",
+   "body": "わたしは本（ほん）を読（よ）むのが好（す）きだ。家（いえ）の近（ちか）くに大（おお）きな図書館（としょかん）があって、週（しゅう）に二回（にかい）そこへ通（かよ）っている。図書館（としょかん）は朝（あさ）から夜（よる）おそくまで開（あ）いていて、勉強（べんきょう）をしに来（く）る人（ひと）も多（おお）い。中（なか）は広（ひろ）くて、たくさんの本（ほん）がきれいにならんでいる。ある日（ひ）、入（い）り口（ぐち）の近（ちか）くで新（あたら）しい小説（しょうせつ）を三冊（さんさつ）見（み）つけた。表紙（ひょうし）の絵（え）がきれいで、話（はなし）もおもしろそうだった。わたしは①<u>それ</u>をぜんぶ借（か）りて、家（いえ）に帰（かえ）った。すぐに読（よ）み始（はじ）めると、話（はなし）がとてもおもしろくて、夜（よる）おそくまで読（よ）んでしまった。次（つぎ）の日（ひ）は少（すこ）し眠（ねむ）かったけれど、続（つづ）きが気（き）になって、昼休（ひるやす）みにもかばんから出（だ）して読（よ）んだ。図書館（としょかん）の本（ほん）は二週間（にしゅうかん）で返（かえ）さなければならない。だから、気（き）に入（い）った本（ほん）は返（かえ）す前（まえ）にもう一度（いちど）読（よ）むようにしている。",
+   "questions": [
+    {
+     "id": "N5-D-M-9001-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "見（み）つけた小説（しょうせつ）三冊（さんさつ）",
+      "きれいだった表紙（ひょうし）の絵（え）の本（ほん）",
+      "近（ちか）くにある大（おお）きな図書館（としょかん）",
+      "昼休（ひるやす）みに開（ひら）いたかばんの中（なか）"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「新（あたら）しい小説（しょうせつ）を三冊（さんさつ）見（み）つけた」あと、それをぜんぶ借（か）りたとある。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "फेला परेका तीन उपन्यासहरू",
+        "सुन्दर कभर चित्र भएको किताब",
+        "नजिकैको ठूलो पुस्तकालय",
+        "खाजाको समयमा खोलिएको झोला भित्र"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>it</u> refer to?",
+       "choices": [
+        "the three novels I found",
+        "the book with the beautiful cover illustration",
+        "the big library nearby",
+        "the inside of the bag I opened during lunch break"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9001-q2",
+     "q": "次（つぎ）の日（ひ）、少（すこ）し眠（ねむ）かったのはなぜか。",
+     "choices": [
+      "夜（よる）おそくまで読（よ）んだから",
+      "図書館（としょかん）へ週（しゅう）に二回（にかい）も通（かよ）ったから",
+      "本（ほん）を二週間（にしゅうかん）で返（かえ）しに行（い）ったから",
+      "表紙（ひょうし）の絵（え）がとてもきれいだったから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「夜（よる）おそくまで読（よ）んでしまった。次（つぎ）の日（ひ）は少（すこ）し眠（ねむ）かった」とある。"
+      },
+      "ne": {
+       "q": "भोलिपल्ट किन अलि निद्रा लाग्यो?",
+       "choices": [
+        "अबेर रातिसम्म पढेकोले",
+        "पुस्तकालयमा हप्तामा दुई पटक गएकोले",
+        "दुई हप्तामा किताब फिर्ता गर्न गएकोले",
+        "कभरको चित्र धेरै सुन्दर भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why was she a little sleepy the next day?",
+       "choices": [
+        "Because she read until late at night.",
+        "Because she went to the library twice a week.",
+        "Because she went to return the books in two weeks.",
+        "Because the cover illustration was very beautiful."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "मलाई किताब पढ्न मन पर्छ। घर नजिकै एउटा ठूलो पुस्तकालय छ, र म हप्तामा दुई पटक त्यहाँ जान्छु। पुस्तकालय बिहानदेखि अबेर रातिसम्म खुल्छ, र धेरै मानिसहरू पढ्न आउँछन्। भित्र फराकिलो छ, र धेरै किताबहरू राम्ररी मिलाएर राखिएका छन्। एक दिन, मैले प्रवेशद्वार नजिकै तीनवटा नयाँ उपन्यासहरू फेला पारेँ। कभरको चित्र सुन्दर थियो, र कथा पनि रोचक लाग्थ्यो। मैले <u>ती</u> सबै उधारो लिएँ र घर फर्किएँ। मैले तुरुन्तै पढ्न थालेँ, र कथा धेरै रोचक थियो, मैले अबेर रातिसम्म पढेँ। भोलिपल्ट अलि निद्रा लाग्यो, तर मलाई बाँकी कथा जान्ने उत्सुकता थियो, त्यसैले मैले खाजाको समयमा पनि झोलाबाट निकालेर पढेँ। पुस्तकालयका किताबहरू दुई हप्तामा फिर्ता गर्नुपर्छ। त्यसैले, मलाई मन परेका किताबहरू फिर्ता गर्नुअघि फेरि एक पटक पढ्ने गर्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I like to read books. There’s a big library near my house, and I go there twice a week. The library is open from morning until late at night, and many people come to study. Inside, it’s spacious, and many books are neatly arranged. One day, I found three new novels near the entrance. The cover illustrations were beautiful, and the stories seemed interesting. I borrowed <u>all of them</u> and went home. As soon as I started reading, the story was so interesting that I read until late at night. The next day I was a little sleepy, but I was curious about the continuation, so I took it out of my bag and read it during lunch break. Library books must be returned in two weeks. So, I try to read my favorite books one more time before returning them."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N5-D-M-9002",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "朝（あさ）のジョギング",
+   "body": "わたしは毎朝（まいあさ）、家（いえ）の近（ちか）くの公園（こうえん）を走（はし）っている。始（はじ）めたのは去年（きょねん）の春（はる）だ。友（とも）だちがいつも元気（げんき）なのは毎朝（まいあさ）運動（うんどう）しているからだと聞（き）いて、わたしもまねをすることにした。前（まえ）は朝（あさ）が苦手（にがて）で、いつもぎりぎりまで寝（ね）ていた。でも、友（とも）だちに「体（からだ）にいいよ」と言（い）われて、少（すこ）しずつ走（はし）るようになった。最初（さいしょ）は五分（ごふん）でつかれてしまったが、今（いま）は三十分（さんじゅっぷん）走（はし）っても平気（へいき）だ。①<u>その</u>おかげで、前（まえ）より体（からだ）がかるくなり、かぜもひかなくなった。走（はし）ったあとのシャワーはとても気持（きも）ちがいい。それから朝（あさ）ごはんを食（た）べると、一日（いちにち）が元気（げんき）に始（はじ）まる。雨（あめ）の日（ひ）は走（はし）れないので、家（いえ）の中（なか）でストレッチをする。朝（あさ）の運動（うんどう）は、今（いま）のわたしに欠（か）かせないものになった。",
+   "questions": [
+    {
+     "id": "N5-D-M-9002-q1",
+     "q": "①その が指（さ）すものはどれか。",
+     "choices": [
+      "毎朝（まいあさ）走（はし）るようになったこと",
+      "朝（あさ）がとても苦手（にがて）だったこと",
+      "五分（ごふん）でつかれたこと",
+      "雨（あめ）の日（ひ）のストレッチ"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "走（はし）るようになったこと、その運動（うんどう）のおかげで体（からだ）がかるくなったとある。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "हरेक बिहान दौड्न थालेको कुरा",
+        "बिहान उठ्न धेरै गाह्रो भएको कुरा",
+        "पाँच मिनेटमा थाकेको कुरा",
+        "पानी परेको दिनको स्ट्रेचिङ"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>that</u> refer to?",
+       "choices": [
+        "starting to run every morning",
+        "being very bad at mornings",
+        "getting tired in five minutes",
+        "stretching on rainy days"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9002-q2",
+     "q": "前（まえ）より体（からだ）がかるくなったのはなぜか。",
+     "choices": [
+      "毎朝（まいあさ）走（はし）り続（つづ）けているから",
+      "朝（あさ）ぎりぎりまで寝（ね）てばかりいたから",
+      "友（とも）だちと公園（こうえん）で遊（あそ）んでいるから",
+      "雨（あめ）の日（ひ）に外（そと）を走（はし）っているから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "走（はし）るようになった、そのおかげで前（まえ）より体（からだ）がかるくなったとある。"
+      },
+      "ne": {
+       "q": "पहिलेभन्दा शरीर हल्का हुनुको कारण के हो?",
+       "choices": [
+        "हरेक बिहान दौडिरहेकोले",
+        "बिहान अन्तिम क्षणसम्म सुतेकोले",
+        "साथीहरूसँग पार्कमा खेलिरहेकोले",
+        "पानी परेको दिन बाहिर दौडिरहेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did her body become lighter than before?",
+       "choices": [
+        "Because she continues to run every morning.",
+        "Because she used to sleep until the last minute every morning.",
+        "Because she plays with her friend in the park.",
+        "Because she runs outside on rainy days."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "म हरेक बिहान घर नजिकैको पार्कमा दौडन्छु। मैले गत वसन्तमा सुरु गरेको थिएँ। मैले सुनेको थिएँ कि मेरो साथी सधैं ऊर्जावान हुनुको कारण हरेक बिहान व्यायाम गर्नु हो, त्यसैले मैले पनि त्यसको नक्कल गर्ने निर्णय गरेँ। पहिले मलाई बिहान उठ्न गाह्रो लाग्थ्यो, र म सधैं अन्तिम क्षणसम्म सुत्थेँ। तर, मेरो साथीले 'यो शरीरको लागि राम्रो छ' भनेपछि, मैले बिस्तारै दौड्न थालेँ। सुरुमा म पाँच मिनेटमा थाक्थेँ, तर अहिले म तीस मिनेट दौडे पनि ठीक छु। <u>त्यसको</u> कारणले, मेरो शरीर पहिलेभन्दा हल्का भएको छ, र मलाई रुघाखोकी पनि लाग्न छोडेको छ। दौडेपछि नुहाउनु धेरै रमाइलो हुन्छ। त्यसपछि बिहानको खाजा खाँदा, दिन ऊर्जावान तरिकाले सुरु हुन्छ। पानी परेको दिन दौड्न सक्दिनँ, त्यसैले घरभित्र स्ट्रेचिङ गर्छु। बिहानको व्यायाम अहिले मेरो लागि अपरिहार्य भएको छ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Every morning, I run in the park near my house. I started last spring. I heard that my friend is always energetic because she exercises every morning, so I decided to imitate her. Before, I was not a morning person and always slept until the last minute. But my friend told me, “It’s good for your body,” and I gradually started running. At first, I got tired in five minutes, but now I can run for thirty minutes without a problem. <u>Thanks to that</u>, my body feels lighter than before, and I no longer catch colds. The shower after running feels very good. Then, after eating breakfast, my day starts energetically. On rainy days, I can’t run, so I do stretches indoors. Morning exercise has become indispensable for me now."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N5-D-M-9003",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "母（はは）のお弁当（べんとう）",
+   "body": "わたしの母（はは）は毎朝（まいあさ）お弁当（べんとう）を作（つく）ってくれる。母（はは）は料理（りょうり）がじょうずで、いつも色（いろ）がきれいで、味（あじ）もおいしい。友（とも）だちにお弁当（べんとう）を見（み）せると、いつも「おいしそう」とうらやましがられる。ある朝（あさ）、わたしは寝坊（ねぼう）して、急（いそ）いで学校（がっこう）に行（い）った。教室（きょうしつ）でかばんを開（あ）けると、お弁当（べんとう）が入（はい）っていなかった。家（いえ）の机（つくえ）の上（うえ）に忘（わす）れてきたのだ。①<u>それ</u>に気（き）づいたとき、とてもがっかりした。お昼（ひる）までまだ何時間（なんじかん）もあって、どうしようかと思（おも）った。昼（ひる）になって、母（はは）が学校（がっこう）まで届（とど）けに来（き）てくれた。母（はは）はその日（ひ）、仕事（しごと）が休（やす）みだったのだ。あたたかいお弁当（べんとう）を食（た）べながら、わたしは母（はは）にありがとうと言（い）った。母（はは）はわらって帰（かえ）っていった。その日（ひ）から、わたしは前（まえ）の夜（よる）にかばんの中（なか）を確（たし）かめるようになった。",
+   "questions": [
+    {
+     "id": "N5-D-M-9003-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "お弁当（べんとう）を家（いえ）に忘（わす）れてきたこと",
+      "母（はは）が料理（りょうり）をじょうずに作（つく）ること",
+      "朝（あさ）、寝坊（ねぼう）してしまったこと",
+      "母（はは）が学校（がっこう）まで来（き）てくれたこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「お弁当（べんとう）が入（はい）っていなかった。家（いえ）の机（つくえ）の上（うえ）に忘（わす）れてきた」ことに気（き）づいた。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "खाजा घरमा बिर्सेको कुरा",
+        "आमाले राम्रोसँग खाना पकाउने कुरा",
+        "बिहान ढिलो उठेको कुरा",
+        "आमा स्कूलसम्म आएको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>that</u> refer to?",
+       "choices": [
+        "forgetting the bento at home",
+        "mother being good at cooking",
+        "oversleeping in the morning",
+        "mother coming to school"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9003-q2",
+     "q": "母（はは）がお弁当（べんとう）を学校（がっこう）まで届（とど）けられたのはなぜか。",
+     "choices": [
+      "母（はは）が仕事（しごと）の休（やす）みだったから",
+      "わたしが朝（あさ）、寝坊（ねぼう）してしまったから",
+      "お弁当（べんとう）の味（あじ）がおいしかったから",
+      "前（まえ）の夜（よる）にかばんを確（たし）かめたから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「母（はは）はその日（ひ）、仕事（しごと）が休（やす）みだったのだ」とある。"
+      },
+      "ne": {
+       "q": "आमाले स्कूलसम्म खाजा पुर्याउन सक्नुको कारण के हो?",
+       "choices": [
+        "आमाको कामबाट छुट्टी भएकोले",
+        "म बिहान ढिलो उठेकोले",
+        "खाजाको स्वाद स्वादिष्ट भएकोले",
+        "अघिल्लो रात झोला जाँच गरेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why was her mother able to deliver the bento to school?",
+       "choices": [
+        "Because her mother had the day off from work.",
+        "Because she overslept in the morning.",
+        "Because the bento tasted delicious.",
+        "Because she checked her bag the night before."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "मेरी आमाले हरेक बिहान मेरो लागि खाजा बनाइदिनुहुन्छ। आमा खाना पकाउनमा निपुण हुनुहुन्छ, र उहाँले सधैं सुन्दर र स्वादिष्ट खाना बनाउनुहुन्छ। जब म मेरा साथीहरूलाई मेरो खाजा देखाउँछु, उनीहरू सधैं 'स्वादिष्ट देखिन्छ' भन्दै ईर्ष्या गर्छन्। एक बिहान, म ढिलो उठेँ र हतारमा स्कूल गएँ। कक्षामा झोला खोल्दा, खाजा थिएन। मैले घरको टेबलमा बिर्सेको रहेछु। जब मैले <u>त्यो</u> कुरा थाहा पाएँ, म धेरै निराश भएँ। दिउँसोसम्म अझै धेरै घण्टा बाँकी थियो, र मैले के गर्ने भनेर सोचेँ। दिउँसो, आमा स्कूलसम्म खाजा पुर्याउन आउनुभयो। आमाको त्यस दिन कामबाट छुट्टी थियो। न्यानो खाजा खाँदै, मैले आमालाई धन्यवाद भनेँ। आमा मुस्कुराउँदै फर्कनुभयो। त्यस दिनदेखि, म अघिल्लो रात झोला भित्र जाँच गर्ने गर्छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My mother makes me a bento every morning. My mother is good at cooking, and her bentos are always colorful and delicious. When I show my bento to my friends, they always say, “It looks delicious,” and envy me. One morning, I overslept and rushed to school. When I opened my bag in the classroom, my bento wasn’t there. I had forgotten it on the desk at home. When I realized <u>that</u>, I was very disappointed. There were still many hours until lunch, and I wondered what to do. At noon, my mother came to deliver it to school. My mother had the day off from work. While eating the warm bento, I said thank you to my mother. My mother smiled and went home. From that day on, I started checking inside my bag the night before."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N5-D-M-9004",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "新（あたら）しい町（まち）",
+   "body": "今年（ことし）の春（はる）、わたしは家族（かぞく）と新（あたら）しい町（まち）に引（ひ）っ越（こ）した。前（まえ）の町（まち）には十年（じゅうねん）も住（す）んでいたので、はじめは少（すこ）しさびしかった。知（し）っている人（ひと）がだれもいなくて、学校（がっこう）でも一人（ひとり）でいることが多（おお）かった。新（あたら）しい家（いえ）の近（ちか）くには、大（おお）きな川（かわ）が流（なが）れている。夕方（ゆうがた）になると、犬（いぬ）をつれて川（かわ）のそばを歩（ある）く人（ひと）が多（おお）い。わたしもその景色（けしき）がだんだん好（す）きになった。ある日（ひ）、わたしも散歩（さんぽ）に出（で）かけて、同（おな）じ年（とし）ぐらいの子（こ）に会（あ）った。話（はな）してみると、その子（こ）も今年（ことし）の春（はる）に引（ひ）っ越（こ）してきたそうだ。①<u>それ</u>を聞（き）いて、わたしはうれしくなった。二人（ふたり）ともこの町（まち）に来（き）たばかりだったからだ。今（いま）では、その子（こ）とよく川（かわ）のそばで会（あ）って話（はな）す。新（あたら）しい町（まち）は、少（すこ）しずつわたしの大切（たいせつ）な場所（ばしょ）になっている。",
+   "questions": [
+    {
+     "id": "N5-D-M-9004-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "その子（こ）も引（ひ）っ越（こ）してきたこと",
+      "前（まえ）の町（まち）に十年（じゅうねん）も住（す）んでいたこと",
+      "家（いえ）の近（ちか）くに大（おお）きな川（かわ）が流（なが）れること",
+      "犬（いぬ）をつれて川（かわ）べを歩（ある）く人（ひと）のこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「その子（こ）も今年（ことし）の春（はる）に引（ひ）っ越（こ）してきたそうだ」と聞（き）いた。"
+      },
+      "ne": {
+       "q": "① <u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "त्यो बच्चा पनि सरेको कुरा",
+        "अघिल्लो सहरमा दस वर्षसम्म बसेको कुरा",
+        "घर नजिकै ठूलो नदी बग्ने कुरा",
+        "कुकुर लिएर नदी किनारमा हिँड्ने मानिसहरूको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ①<u>that</u> refer to?",
+       "choices": [
+        "that child also moved",
+        "living in the previous town for ten years",
+        "a big river flowing near the house",
+        "people walking along the river with dogs"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9004-q2",
+     "q": "その子（こ）の話（はなし）を聞（き）いてうれしくなったのはなぜか。",
+     "choices": [
+      "二人（ふたり）とも来（き）たばかりだったから",
+      "前（まえ）の町（まち）がさびしくて引（ひ）っ越（こ）したから",
+      "川（かわ）のそばを歩（ある）く人（ひと）が多（おお）かったから",
+      "家族（かぞく）といっしょに引（ひ）っ越（こ）してきたから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「二人（ふたり）ともこの町（まち）に来（き）たばかりだったからだ」とある。"
+      },
+      "ne": {
+       "q": "त्यो बच्चाको कुरा सुनेर किन खुसी भयो?",
+       "choices": [
+        "किनभने दुवै भर्खरै आएका थिए",
+        "किनभने अघिल्लो सहर एक्लो लागेर सरेको थियो",
+        "किनभने नदी किनारमा हिँड्ने मानिसहरू धेरै थिए",
+        "किनभने परिवारसँगै सरेको थियो"
+       ]
+      },
+      "en": {
+       "q": "Why was she happy to hear that child's story?",
+       "choices": [
+        "Because both of them had just arrived.",
+        "Because she moved from a lonely previous town.",
+        "Because many people walked along the river.",
+        "Because she moved with her family."
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "यस वसन्तमा, म परिवारसँग नयाँ सहरमा सरेँ। म अघिल्लो सहरमा दस वर्षसम्म बसेको थिएँ, त्यसैले सुरुमा अलि एक्लो महसुस भयो। मलाई चिन्ने कोही थिएन, र म स्कूलमा पनि प्रायः एक्लै बस्थेँ। नयाँ घर नजिकै एउटा ठूलो नदी बग्छ। साँझमा, कुकुर लिएर नदी किनारमा हिँड्ने मानिसहरू धेरै हुन्छन्। मलाई पनि त्यो दृश्य बिस्तारै मन पर्न थाल्यो। एक दिन, म पनि घुम्न निस्किएँ र उही उमेरको एउटा बच्चालाई भेटेँ। कुरा गर्दा, त्यो बच्चा पनि यस वसन्तमा सरेको रहेछ। <u>त्यो</u> सुनेर, म खुसी भएँ। किनभने हामी दुवै भर्खरै यस सहरमा आएका थियौं। अहिले, म त्यो बच्चासँग प्रायः नदी किनारमा भेटेर कुरा गर्छु। नयाँ सहर बिस्तारै मेरो लागि महत्त्वपूर्ण ठाउँ बन्दैछ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "This spring, my family and I moved to a new town. I had lived in the previous town for ten years, so at first, I was a little lonely. I didn't know anyone, and I was often alone at school. A big river flows near our new house. In the evening, many people walk along the river with their dogs. I gradually grew to like that scenery too. One day, I also went for a walk and met a child about the same age. When we talked, it turned out that she had also moved this spring. When I heard <u>that</u>, I was happy. It was because both of us had just arrived in this town. Now, I often meet and talk with her by the river. The new town is gradually becoming a precious place for me."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N5-D-M-9005",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "犬（いぬ）のモモ",
+   "body": "先月（せんげつ）から、わたしの家（いえ）で犬（いぬ）を飼（か）い始（はじ）めた。小（ちい）さくて茶色（ちゃいろ）い犬（いぬ）で、名前（なまえ）はモモという。家族（かぞく）でペットショップに見（み）に行（い）って、いちばん元気（げんき）だったこの子（こ）を選（えら）んだ。モモは元気（げんき）で、家（いえ）の中（なか）を走（はし）り回（まわ）るのが好（す）きだ。朝（あさ）と夕方（ゆうがた）、わたしはモモを散歩（さんぽ）に連（つ）れていく。近所（きんじょ）の公園（こうえん）までの道（みち）を、いっしょにゆっくり歩（ある）く。最初（さいしょ）のころ、モモは道（みち）でほかの犬（いぬ）を見（み）るとこわがって、動（うご）かなくなった。①<u>それ</u>を見（み）て、わたしはとても心配（しんぱい）になった。でも、毎日（まいにち）散歩（さんぽ）を続（つづ）けるうちに、少（すこ）しずつ人（ひと）にも犬（いぬ）にもなれてきた。今（いま）では、ほかの犬（いぬ）に会（あ）うと、うれしそうにしっぽをふる。モモがいると、家（いえ）の中（なか）がいつもにぎやかだ。犬（いぬ）を飼（か）うのは大変（たいへん）だが、それ以上（いじょう）に楽（たの）しいことのほうが多（おお）い。",
+   "questions": [
+    {
+     "id": "N5-D-M-9005-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "こわがって動（うご）かなくなったこと",
+      "家（いえ）の中（なか）を元気（げんき）に走（はし）り回（まわ）るのが好（す）きなこと",
+      "しっぽをうれしそうにふること",
+      "朝（あさ）と夕方（ゆうがた）に散歩（さんぽ）へ行（い）くこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「ほかの犬（いぬ）を見（み）るとこわがって、動（うご）かなくなった」のを見（み）て心配（しんぱい）した。"
+      },
+      "ne": {
+       "q": "①<u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "डराएर चल्न छोडेको कुरा",
+        "घरभित्र फुर्तिलो भएर दौडिन मन पराउने कुरा",
+        "खुसी भएर पुच्छर हल्लाउने कुरा",
+        "बिहान र बेलुका घुमाउन जाने कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>that</u> refer to?",
+       "choices": [
+        "That she got scared and stopped moving",
+        "That she likes to run around the house energetically",
+        "That she wags her tail happily",
+        "That she goes for walks in the morning and evening"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9005-q2",
+     "q": "モモがほかの犬（いぬ）になれてきたのはなぜか。",
+     "choices": [
+      "毎日（まいにち）散歩（さんぽ）を続（つづ）けたから",
+      "家（いえ）の中（なか）を走（はし）り回（まわ）ったから",
+      "名前（なまえ）をモモとつけたから",
+      "茶色（ちゃいろ）くて小（ちい）さい犬（いぬ）だから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「毎日（まいにち）散歩（さんぽ）を続（つづ）けるうちに、少（すこ）しずつなれてきた」とある。"
+      },
+      "ne": {
+       "q": "मोमो अरू कुकुरसँग किन घुलमिल हुन थाल्यो?",
+       "choices": [
+        "हरेक दिन घुमाउन लैजाँदा",
+        "घरभित्र दौडिएकोले",
+        "नाम मोमो राखेकोले",
+        "खैरो र सानो कुकुर भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did Momo get used to other dogs?",
+       "choices": [
+        "Because she continued her walks every day",
+        "Because she ran around the house",
+        "Because she was named Momo",
+        "Because she is a small, brown dog"
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "गत महिनादेखि मैले मेरो घरमा कुकुर पाल्न थालेँ। यो सानो र खैरो कुकुर हो, जसको नाम मोमो हो। परिवारका साथमा पेट पसलमा हेर्न गएका थियौँ र सबैभन्दा फुर्तिलो यो कुकुरलाई रोज्यौँ। मोमो फुर्तिलो छ र घरभित्र दौडिन मन पराउँछ। बिहान र बेलुका म मोमोलाई घुमाउन लैजान्छु। हामी सँगै छिमेकको पार्कसम्मको बाटो बिस्तारै हिँड्छौँ। सुरुमा, मोमोले बाटोमा अरू कुकुर देख्दा डराउँथ्यो र चल्न छोड्थ्यो। ①<u>त्यो</u> देखेर मलाई धेरै चिन्ता लाग्यो। तर, हरेक दिन घुमाउन लैजाँदा बिस्तारै मानिस र कुकुर दुवैसँग घुलमिल हुन थाल्यो। अहिले, अरू कुकुर भेट्दा खुसी भएर पुच्छर हल्लाउँछ। मोमो हुँदा घर सधैँ रमाइलो हुन्छ। कुकुर पाल्न गाह्रो भए पनि, त्योभन्दा धेरै रमाइलो कुराहरू छन्।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last month, I started keeping a dog at my house. It's a small, brown dog named Momo. My family went to a pet shop to see her, and we chose this one because she was the most energetic. Momo is lively and loves to run around the house.\nI take Momo for a walk in the morning and evening. We walk slowly together along the path to the neighborhood park. At first, Momo would get scared and stop moving when she saw other dogs on the street. Seeing <u>that</u> made me very worried. But as we continued our walks every day, she gradually got used to people and other dogs. Now, when she meets other dogs, she wags her tail happily. With Momo around, the house is always lively. Keeping a dog is a lot of work, but there are more enjoyable things than difficult ones."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N5-D-M-9006",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "雨（あめ）の日（ひ）のかさ",
+   "body": "わたしは毎日（まいにち）電車（でんしゃ）で学校（がっこう）に通（かよ）っている。駅（えき）から学校（がっこう）まで、歩（ある）いて十五分（じゅうごふん）ほどかかる。その道（みち）にはお店（みせ）がならんでいて、歩（ある）くのはあまりいやではない。ある雨（あめ）の朝（あさ）、わたしは電車（でんしゃ）の中（なか）で、かさを持（も）っていないことに気（き）づいた。家（いえ）を出（で）るとき、急（いそ）いでいて忘（わす）れたのだ。困（こま）っていると、となりにすわっていたおばあさんが、小（ちい）さいかさを一本（いっぽん）貸（か）してくれた。①<u>それ</u>を受（う）け取（と）って、わたしは何度（なんど）もお礼（れい）を言（い）った。知（し）らない人（ひと）にこんなに親切（しんせつ）にしてもらうとは思（おも）わなかった。おばあさんは「駅（えき）の前（まえ）の店（みせ）に返（かえ）してくれればいい」と言（い）った。学校（がっこう）の帰（かえ）りに、わたしはそのかさを店（みせ）に返（かえ）しに行（い）った。知（し）らない人（ひと）のやさしさが、雨（あめ）の日（ひ）の心（こころ）をあたたかくしてくれた。",
+   "questions": [
+    {
+     "id": "N5-D-M-9006-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "貸（か）してくれたかさ",
+      "駅（えき）の前（まえ）にある小（ちい）さなかさの店（みせ）",
+      "電車（でんしゃ）の中（なか）でとなりにあった席（せき）",
+      "学校（がっこう）まで歩（ある）いて十五分（じゅうごふん）の道（みち）"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「おばあさんが、小（ちい）さいかさを一本（いっぽん）貸（か）してくれた」それを受（う）け取（と）った。"
+      },
+      "ne": {
+       "q": "①<u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "उधारो दिएको छाता",
+        "स्टेशन अगाडि रहेको सानो छाता पसल",
+        "रेलभित्र छेउमा रहेको सिट",
+        "स्कुलसम्म हिँडेर पन्ध्र मिनेट लाग्ने बाटो"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>that</u> refer to?",
+       "choices": [
+        "The umbrella she lent me",
+        "The small umbrella shop in front of the station",
+        "The seat next to me on the train",
+        "The fifteen-minute walk to school"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9006-q2",
+     "q": "朝（あさ）、かさを持（も）っていなかったのはなぜか。",
+     "choices": [
+      "急（いそ）いでいて家（いえ）に忘（わす）れたから",
+      "おばあさんにかさを貸（か）したから",
+      "駅（えき）の前（まえ）の店（みせ）に返（かえ）したから",
+      "学校（がっこう）まで歩（ある）いて通（かよ）うから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「家（いえ）を出（で）るとき、急（いそ）いでいて忘（わす）れたのだ」とある。"
+      },
+      "ne": {
+       "q": "बिहान छाता नभएको किन थियो?",
+       "choices": [
+        "हतारमा घरमा बिर्सेकोले",
+        "वृद्धालाई छाता दिएकोले",
+        "स्टेशन अगाडिको पसलमा फिर्ता गरेकोले",
+        "स्कुलसम्म हिँडेर जाने भएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why didn't she have an umbrella in the morning?",
+       "choices": [
+        "Because she was in a hurry and forgot it at home",
+        "Because she lent her umbrella to the old woman",
+        "Because she returned it to the shop in front of the station",
+        "Because she walks to school"
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "म हरेक दिन रेलमा स्कुल जान्छु। स्टेशनबाट स्कुलसम्म हिँडेर करिब पन्ध्र मिनेट लाग्छ। त्यो बाटोमा पसलहरू लहरै छन्, त्यसैले हिँड्न त्यति नराम्रो लाग्दैन। एक वर्षाको बिहान, मलाई रेलभित्र छाता नभएको याद भयो। घरबाट निस्कँदा हतारमा बिर्सेको रहेछु। म समस्यामा परेको बेला, छेउमा बसिरहेकी एक वृद्धाले मलाई एउटा सानो छाता दिनुभयो। मैले ①<u>त्यो</u> लिएँ र धेरै पटक धन्यवाद दिएँ। मैले नचिनेको मानिसबाट यति धेरै दयालु व्यवहार पाउँछु भन्ने सोचेको थिइनँ। वृद्धाले भन्नुभयो, “स्टेशन अगाडिको पसलमा फिर्ता गरिदिए पुग्छ।” स्कुलबाट फर्कने बेला, मैले त्यो छाता पसलमा फिर्ता गर्न गएँ। नचिनेको मानिसको दयालुपनले वर्षाको दिनमा मेरो मनलाई न्यानो बनाइदियो।"
+     ]
+    },
+    "en": {
+     "body": [
+      "I commute to school by train every day. It takes about fifteen minutes to walk from the station to school. There are shops lined up along that road, so walking isn't too bad. One rainy morning, I realized on the train that I didn't have my umbrella. I was in a hurry when I left home and forgot it. As I was wondering what to do, an old woman sitting next to me lent me a small umbrella. I received <u>that</u> and thanked her many times. I didn't expect a stranger to be so kind to me. The old woman said, \"You can just return it to the shop in front of the station.\" On my way home from school, I went to return the umbrella to the shop. The kindness of a stranger warmed my heart on a rainy day."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N5-D-M-9007",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "桜（さくら）の下（した）で",
+   "body": "春（はる）になると、わたしの町（まち）の川（かわ）のそばでは、たくさんの桜（さくら）がさく。毎年（まいとし）、家族（かぞく）でその桜（さくら）を見（み）に行（い）くのが楽（たの）しみだ。町（まち）の人（ひと）はみんな、この時期（じき）を一年（いちねん）でいちばん楽（たの）しみにしているそうだ。今年（ことし）もお弁当（べんとう）を作（つく）って、朝（あさ）早（はや）く出（で）かけた。川（かわ）のそばはもう人（ひと）でいっぱいだった。わたしたちは大（おお）きな木（き）の下（した）にシートをしいて、すわった。風（かぜ）がふくと、花（はな）びらがゆっくり落（お）ちてきて、とてもきれいだった。空（そら）にはたくさんの花（はな）びらがまっていた。妹（いもうと）は花（はな）びらを手（て）でつかまえようとして、走（はし）り回（まわ）っていた。①<u>その</u>すがたを見（み）て、家族（かぞく）みんなでわらった。桜（さくら）の下（した）で食（た）べるお弁当（べんとう）は、いつもよりずっとおいしく感（かん）じた。来年（らいねん）もまた、みんなでここに来（き）たいと思（おも）う。",
+   "questions": [
+    {
+     "id": "N5-D-M-9007-q1",
+     "q": "①その が指（さ）すものはどれか。",
+     "choices": [
+      "走（はし）り回（まわ）る妹（いもうと）のすがた",
+      "川（かわ）のそばにさいたたくさんの桜（さくら）",
+      "木（き）の下（した）にしいた大（おお）きなシート",
+      "家族（かぞく）で朝（あさ）作（つく）ってきたお弁当（べんとう）"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「妹（いもうと）は花（はな）びらを手（て）でつかまえようとして、走（はし）り回（まわ）っていた」そのすがた。"
+      },
+      "ne": {
+       "q": "①<u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "दौडिरहेकी बहिनीको दृश्य",
+        "नदी किनारमा फुलेका धेरै चेरीका फूलहरू",
+        "रूखमुनि बिछ्याएको ठूलो सिट",
+        "परिवारले बिहान बनाएको खाजा"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>that</u> refer to?",
+       "choices": [
+        "The sight of her younger sister running around",
+        "The many cherry blossoms blooming by the river",
+        "The large sheet spread under the tree",
+        "The bento her family made in the morning"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9007-q2",
+     "q": "お弁当（べんとう）がいつもよりおいしく感（かん）じたのはなぜか。",
+     "choices": [
+      "きれいな桜（さくら）の下（した）で食（た）べたから",
+      "朝（あさ）早（はや）く家（いえ）を出（で）かけたから",
+      "川（かわ）のそばが人（ひと）でいっぱいだったから",
+      "妹（いもうと）が走（はし）り回（まわ）っていたから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「桜（さくら）の下（した）で食（た）べるお弁当（べんとう）は、いつもよりずっとおいしく感（かん）じた」とある。"
+      },
+      "ne": {
+       "q": "खाजा सधैँभन्दा स्वादिष्ट किन लाग्यो?",
+       "choices": [
+        "सुन्दर चेरीका फूलमुनि खाएकोले",
+        "बिहानै घरबाट निस्किएकोले",
+        "नदी किनार मानिसहरूले भरिएकोले",
+        "बहिनी दौडिरहेकीले"
+       ]
+      },
+      "en": {
+       "q": "Why did the bento taste more delicious than usual?",
+       "choices": [
+        "Because they ate it under beautiful cherry blossoms",
+        "Because they left home early in the morning",
+        "Because the riverside was full of people",
+        "Because her younger sister was running around"
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "वसन्त ऋतुमा, मेरो सहरको नदी किनारमा धेरै चेरीका फूलहरू फुल्छन्। हरेक वर्ष, परिवारका साथमा ती चेरीका फूलहरू हेर्न जानु मेरो लागि रमाइलो हुन्छ। सहरका सबै मानिसहरू यो समयलाई वर्षको सबैभन्दा रमाइलो समय मान्छन् रे। यस वर्ष पनि मैले खाजा बनाएँ र बिहानै निस्किएँ। नदी किनार पहिले नै मानिसहरूले भरिएको थियो। हामीले एउटा ठूलो रूखमुनि सिट बिछ्यायौँ र बस्यौँ। हावा चल्दा, फूलका पातहरू बिस्तारै झर्थे, जुन धेरै सुन्दर देखिन्थ्यो। आकाशमा धेरै फूलका पातहरू उडिरहेका थिए। मेरी बहिनी फूलका पातहरू समात्न खोज्दै दौडिरहेकी थिइन्। ①<u>त्यो</u> दृश्य देखेर परिवारका सबै जना हाँस्यौँ। चेरीका फूलमुनि खाएको खाजा सधैँभन्दा धेरै स्वादिष्ट लाग्यो। अर्को वर्ष पनि हामी सबै जना यहाँ आउन चाहन्छौँ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "In spring, many cherry blossoms bloom by the river in my town. Every year, my family looks forward to going to see those cherry blossoms. It seems that everyone in town looks forward to this season the most throughout the year. This year too, we made bento boxes and left early in the morning. The riverside was already full of people. We spread a sheet under a big tree and sat down. When the wind blew, the petals slowly fell, and it was very beautiful. Many petals danced in the sky. My younger sister was running around, trying to catch the petals with her hands. Seeing <u>that</u> sight, our whole family laughed. The bento we ate under the cherry blossoms tasted much more delicious than usual. I hope we can all come here again next year."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N5-D-M-9008",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "はじめてのアルバイト",
+   "body": "わたしは先月（せんげつ）から、駅（えき）の近（ちか）くのコンビニでアルバイトを始（はじ）めた。学校（がっこう）が終（お）わったあと、週（しゅう）に三回（さんかい）、夕方（ゆうがた）から店（みせ）で働（はたら）いている。仕事（しごと）は、レジでお金（かね）を受（う）け取（と）ったり、店（みせ）の品物（しなもの）をたなにならべたりすることだ。始（はじ）めたばかりのころ、レジのボタンをおすのがおそくて、お客（きゃく）さんを長（なが）く待（ま）たせてしまった。①<u>それ</u>がとてもはずかしかった。店長（てんちょう）は「だれでも最初（さいしょ）はそうだよ」と言（い）って、やさしく教（おし）えてくれた。そのひとことで、わたしは少（すこ）し気（き）が楽（らく）になった。それから毎日（まいにち）練習（れんしゅう）して、今（いま）では速（はや）くできるようになった。お客（きゃく）さんに「ありがとう」と言（い）われると、とてもうれしい。アルバイトはつかれるけれど、働（はたら）いてお金（かね）をもらうことの大切（たいせつ）さがよく分（わ）かった。",
+   "questions": [
+    {
+     "id": "N5-D-M-9008-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "レジがおそくお客（きゃく）を待（ま）たせたこと",
+      "店（みせ）の品物（しなもの）をたなにならべること",
+      "店長（てんちょう）がやさしく教（おし）えたこと",
+      "お客（きゃく）に「ありがとう」と言（い）われたこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「レジのボタンをおすのがおそくて、お客（きゃく）さんを長（なが）く待（ま）たせてしまった」ことがはずかしかった。"
+      },
+      "ne": {
+       "q": "①<u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "नगद काउन्टरमा ढिलो भएर ग्राहकलाई कुराएको कुरा",
+        "पसलका सामानहरू दराजमा मिलाएर राख्ने कुरा",
+        "पसलका मालिकले मायालु तरिकाले सिकाएको कुरा",
+        "ग्राहकले “धन्यवाद” भनेको कुरा"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>that</u> refer to?",
+       "choices": [
+        "Being slow at the register and making customers wait",
+        "Arranging products on the shelves",
+        "The store manager teaching kindly",
+        "Customers saying \"Thank you\""
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9008-q2",
+     "q": "レジが速（はや）くできるようになったのはなぜか。",
+     "choices": [
+      "それから毎日（まいにち）練習（れんしゅう）したから",
+      "駅（えき）の近（ちか）くの店（みせ）で働（はたら）くから",
+      "店長（てんちょう）にはずかしいと言（い）ったから",
+      "お客（きゃく）さんを長（なが）く待（ま）たせたから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「それから毎日（まいにち）練習（れんしゅう）して、今（いま）では速（はや）くできるようになった」とある。"
+      },
+      "ne": {
+       "q": "नगद काउन्टरमा छिटो काम गर्न सक्ने किन भयो?",
+       "choices": [
+        "त्यसपछि हरेक दिन अभ्यास गरेकोले",
+        "स्टेशन नजिकको पसलमा काम गर्ने भएकोले",
+        "पसलका मालिकलाई लाज लाग्यो भनेकोले",
+        "ग्राहकहरूलाई धेरै बेर कुराएकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did she become fast at the register?",
+       "choices": [
+        "Because she practiced every day since then",
+        "Because she works at a store near the station",
+        "Because she told the store manager she was embarrassed",
+        "Because she made customers wait a long time"
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "मैले गत महिनादेखि स्टेशन नजिकको सुविधा स्टोरमा पार्ट-टाइम काम गर्न थालेँ। स्कुल सकिएपछि, हप्तामा तीन पटक, बेलुकादेखि पसलमा काम गर्छु। काम भनेको नगद काउन्टरमा पैसा लिने र पसलका सामानहरू दराजमा मिलाएर राख्ने हो। सुरुमा, नगद काउन्टरको बटन थिच्न ढिलो हुन्थ्यो र ग्राहकहरूलाई धेरै बेर कुराउनुपर्थ्यो। ①<u>त्यो</u> कुराले मलाई धेरै लाज लाग्यो। पसलका मालिकले “सुरुमा सबैलाई यस्तै हुन्छ” भन्नुभयो र मायालु तरिकाले सिकाउनुभयो। त्यो एक शब्दले मलाई अलि सहज महसुस भयो। त्यसपछि हरेक दिन अभ्यास गरेँ र अहिले छिटो गर्न सक्ने भएको छु। ग्राहकहरूले “धन्यवाद” भन्दा मलाई धेरै खुसी लाग्छ। पार्ट-टाइम काम गर्दा थकाइ लाग्छ तर काम गरेर पैसा कमाउनुको महत्त्व राम्ररी बुझेँ।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last month, I started a part-time job at a convenience store near the station. After school, I work at the store three times a week, from evening. My job is to take money at the register and arrange products on the shelves. When I first started, I was slow at pressing the register buttons and made customers wait a long time. <u>That</u> was very embarrassing. The store manager said, \"Everyone is like that at first,\" and kindly taught me. That one word made me feel a little relieved. Since then, I've practiced every day, and now I can do it quickly. I'm very happy when customers say \"Thank you.\" Part-time work is tiring, but I've come to understand the importance of working and earning money."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N5-D-M-9009",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "祖母（そぼ）の手紙（てがみ）",
+   "body": "先週（せんしゅう）、遠（とお）くに住（す）んでいる祖母（そぼ）から手紙（てがみ）が届（とど）いた。祖母（そぼ）はパソコンや電話（でんわ）をあまり使（つか）わないので、いつも手紙（てがみ）を送（おく）ってくれる。わたしはその手紙（てがみ）が届（とど）くのを、毎月（まいつき）楽（たの）しみに待（ま）っている。手紙（てがみ）には、庭（にわ）で育（そだ）てている野菜（やさい）のことや、近所（きんじょ）の話（はなし）が書（か）いてあった。字（じ）はていねいで、読（よ）んでいると祖母（そぼ）の声（こえ）が聞（き）こえるようだった。そして、さいごに「元気（げんき）ですか。今度（こんど）、うちに遊（あそ）びにおいで」と書（か）いてあった。①<u>それ</u>を読（よ）んで、わたしは祖母（そぼ）に会（あ）いたくなった。もう一年（いちねん）も祖母（そぼ）に会（あ）っていなかったからだ。わたしはすぐに返事（へんじ）を書（か）いて、夏休（なつやす）みに行（い）くと伝（つた）えた。手紙（てがみ）はメールより時間（じかん）がかかるけれど、祖母（そぼ）の字（じ）を見（み）ると、そばにいるような気持（きも）ちになる。今（いま）から夏休（なつやす）みが待（ま）ち遠（どお）しい。",
+   "questions": [
+    {
+     "id": "N5-D-M-9009-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "「遊（あそ）びにおいで」という言葉（ことば）",
+      "庭（にわ）で育（そだ）てているたくさんの野菜（やさい）のこと",
+      "近所（きんじょ）についての話（はなし）の内容（ないよう）",
+      "祖母（そぼ）がていねいに書（か）いた字（じ）"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「今度（こんど）、うちに遊（あそ）びにおいで」という言葉（ことば）を読（よ）んで、会（あ）いたくなった。"
+      },
+      "ne": {
+       "q": "①<u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "“खेल्न आउनुहोस्” भन्ने शब्द",
+        "बगैँचामा हुर्काएका धेरै तरकारीहरूको कुरा",
+        "छिमेकको बारेमा लेखिएको कुराको विषयवस्तु",
+        "हजुरआमाले सफा तरिकाले लेखेको अक्षर"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>that</u> refer to?",
+       "choices": [
+        "The words \"Come visit me\"",
+        "The many vegetables grown in the garden",
+        "The content of the stories about the neighborhood",
+        "The neat handwriting of her grandmother"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9009-q2",
+     "q": "手紙（てがみ）を読（よ）んで祖母（そぼ）に会（あ）いたくなったのはなぜか。",
+     "choices": [
+      "一年（いちねん）も会（あ）っていなかったから",
+      "祖母（そぼ）がパソコンを使（つか）わないから",
+      "手紙（てがみ）に野菜（やさい）のことが書（か）いてあったから",
+      "夏休（なつやす）みが待（ま）ち遠（どお）しかったから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「もう一年（いちねん）も祖母（そぼ）に会（あ）っていなかったからだ」とある。"
+      },
+      "ne": {
+       "q": "चिठी पढेर हजुरआमालाई भेट्न मन किन लाग्यो?",
+       "choices": [
+        "एक वर्षदेखि भेटेको थिइनँ",
+        "हजुरआमाले कम्प्युटर प्रयोग नगर्ने भएकोले",
+        "चिठीमा तरकारीको बारेमा लेखिएकोले",
+        "गर्मी बिदाको प्रतीक्षामा रहेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why did she want to see her grandmother after reading the letter?",
+       "choices": [
+        "Because she hadn't seen her for a year",
+        "Because her grandmother doesn't use computers",
+        "Because the letter mentioned vegetables",
+        "Because she couldn't wait for summer vacation"
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "गत हप्ता, टाढा बस्ने हजुरआमाबाट चिठी आयो। हजुरआमाले कम्प्युटर वा फोन धेरै प्रयोग नगर्ने हुनाले, सधैँ चिठी पठाउनुहुन्छ। म हरेक महिना त्यो चिठीको प्रतीक्षामा रमाइलोसँग बस्छु। चिठीमा बगैँचामा हुर्काएका तरकारीहरूको बारेमा र छिमेकका कुराहरू लेखिएको थियो। अक्षरहरू सफा थिए, पढ्दा हजुरआमाको आवाज सुनेजस्तो लाग्थ्यो। अनि, अन्त्यमा “सन्चै हुनुहुन्छ? अर्को पटक घरमा खेल्न आउनुहोस्” भनेर लेखिएको थियो। ①<u>त्यो</u> पढेर मलाई हजुरआमालाई भेट्न मन लाग्यो। किनभने मैले हजुरआमालाई एक वर्षदेखि भेटेको थिइनँ। मैले तुरुन्तै जवाफ लेखेँ र गर्मी बिदामा आउने कुरा बताएँ। चिठी इमेलभन्दा धेरै समय लाग्छ तर हजुरआमाको अक्षर देख्दा, छेउमै भएको जस्तो महसुस हुन्छ। अहिलेदेखि नै गर्मी बिदाको प्रतीक्षामा छु।"
+     ]
+    },
+    "en": {
+     "body": [
+      "Last week, a letter arrived from my grandmother who lives far away. My grandmother doesn't use computers or phones much, so she always sends letters. I look forward to receiving her letters every month. The letter talked about the vegetables she grows in her garden and stories about the neighborhood. Her handwriting was neat, and as I read it, I felt as if I could hear my grandmother's voice. And at the end, it said, \"How are you? Come visit me next time.\" Reading <u>that</u>, I wanted to see my grandmother. It had been a year since I last saw her. I immediately wrote a reply, telling her I would come during summer vacation. Letters take more time than emails, but seeing my grandmother's handwriting makes me feel like she's nearby. I can't wait for summer vacation now."
+     ]
+    }
+   }
+  },
+  {
+   "id": "N5-D-M-9010",
+   "level": "N5",
+   "category": "dokkai",
+   "type": "reading",
+   "format": "エッセイ",
+   "subtype": "naiyou_chu",
+   "title": "写真（しゃしん）をとる",
+   "body": "わたしの趣味（しゅみ）は写真（しゃしん）をとることだ。小（ちい）さいカメラをいつもかばんに入（い）れて持（も）ち歩（ある）いている。空（そら）や花（はな）、町（まち）の景色（けしき）など、きれいだと思（おも）ったものを何（なに）でもとる。きれいな景色（けしき）を見（み）つけると、すぐにカメラを取（と）り出（だ）してしまう。先週（せんしゅう）の日曜日（にちようび）、わたしは山（やま）にのぼって、上（うえ）から町（まち）の景色（けしき）をとった。家（いえ）に帰（かえ）ってその写真（しゃしん）を見（み）ると、思（おも）っていたよりずっときれいにとれていた。①<u>それ</u>を見（み）て、わたしはとてもうれしくなった。がんばって山（やま）にのぼったかいがあったと思（おも）った。とった写真（しゃしん）は、部屋（へや）のかべにはって楽（たの）しんでいる。友（とも）だちにも見（み）せると、「わたしもとってみたい」と言（い）われた。同（おな）じ景色（けしき）でも、とる人（ひと）によって写真（しゃしん）はちがう。だから写真（しゃしん）をとるのは、いつまでもあきないのだ。",
+   "questions": [
+    {
+     "id": "N5-D-M-9010-q1",
+     "q": "①それ が指（さ）すものはどれか。",
+     "choices": [
+      "山（やま）からとった町（まち）の景色（けしき）の写真（しゃしん）",
+      "いつも持（も）ち歩（ある）く小（ちい）さなカメラ",
+      "空（そら）や花（はな）をとったべつの写真（しゃしん）",
+      "友（とも）だちが言（い）ったひとこと"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「上（うえ）から町（まち）の景色（けしき）をとった…きれいにとれていた」その写真（しゃしん）を見（み）てうれしくなった。"
+      },
+      "ne": {
+       "q": "①<u>त्यो</u> ले केलाई जनाउँछ?",
+       "choices": [
+        "पहाडबाट खिचेको सहरको दृश्यको फोटो",
+        "सधैँ बोक्ने सानो क्यामेरा",
+        "आकाश र फूलको खिचेको अर्को फोटो",
+        "साथीले भनेको एक शब्द"
+       ]
+      },
+      "en": {
+       "q": "What does ① <u>that</u> refer to?",
+       "choices": [
+        "The pictures of the townscape taken from the mountain",
+        "The small camera she always carries",
+        "Other pictures of the sky and flowers",
+        "The words her friend said"
+       ]
+      }
+     }
+    },
+    {
+     "id": "N5-D-M-9010-q2",
+     "q": "写真（しゃしん）をとるのがいつまでもあきないのはなぜか。",
+     "choices": [
+      "とる人（ひと）によって写真（しゃしん）がちがうから",
+      "カメラをかばんに入（い）れているから",
+      "山（やま）にのぼって景色（けしき）をとったから",
+      "写真（しゃしん）をかべにはっているから"
+     ],
+     "answerIndex": 0,
+     "i18n": {
+      "ja": {
+       "explain": "「同（おな）じ景色（けしき）でも、とる人（ひと）によって写真（しゃしん）はちがう。だから…あきない」とある。"
+      },
+      "ne": {
+       "q": "फोटो खिच्न कहिल्यै दिक्क किन लाग्दैन?",
+       "choices": [
+        "खिच्ने व्यक्ति अनुसार फोटो फरक हुने भएकोले",
+        "क्यामेरा झोलामा राख्ने भएकोले",
+        "पहाडमा चढेर दृश्य खिचेकोले",
+        "फोटो भित्तामा टाँसेकोले"
+       ]
+      },
+      "en": {
+       "q": "Why does taking pictures never get boring?",
+       "choices": [
+        "Because the pictures are different depending on the person taking them",
+        "Because she carries a camera in her bag",
+        "Because she climbed a mountain to take pictures of the scenery",
+        "Because she sticks the pictures on the wall"
+       ]
+      }
+     }
+    }
+   ],
+   "i18n": {
+    "ne": {
+     "body": [
+      "मेरो रुचि फोटो खिच्नु हो। म सधैँ सानो क्यामेरा झोलामा राखेर हिँड्छु। आकाश, फूल, सहरको दृश्य जस्ता सुन्दर लागेका जुनसुकै कुराको फोटो खिच्छु। सुन्दर दृश्य देख्ने बित्तिकै, म तुरुन्तै क्यामेरा निकाल्छु। गत आइतबार, म पहाडमा चढेँ र माथिबाट सहरको दृश्य खिचेँ। घर फर्किएर त्यो फोटो हेर्दा, सोचेभन्दा धेरै राम्रो आएको रहेछ। ①<u>त्यो</u> देखेर मलाई धेरै खुसी लाग्यो। पहाडमा चढ्न गरेको मेहनत सफल भयो जस्तो लाग्यो। खिचेका फोटोहरू कोठाको भित्तामा टाँसेर रमाइलो लिइरहेको छु। साथीहरूलाई देखाउँदा, उनीहरूले “म पनि खिच्न चाहन्छु” भने। एउटै दृश्य भए पनि, खिच्ने व्यक्ति अनुसार फोटो फरक हुन्छ। त्यसैले फोटो खिच्न कहिल्यै दिक्क लाग्दैन।"
+     ]
+    },
+    "en": {
+     "body": [
+      "My hobby is taking pictures. I always carry a small camera in my bag. I take pictures of anything I find beautiful, like the sky, flowers, or townscapes. When I find a beautiful scene, I immediately take out my camera. Last Sunday, I climbed a mountain and took pictures of the townscape from above. When I looked at the pictures at home, they turned out much more beautiful than I expected. Seeing <u>that</u> made me very happy. I felt that climbing the mountain was worth the effort. I enjoy sticking the pictures I took on the walls of my room. When I showed them to my friends, they said, \"I want to try taking pictures too.\" Even the same scenery looks different depending on the person taking the picture. That's why taking pictures never gets boring."
+     ]
+    }
+   }
+  }
+ ]
+}
