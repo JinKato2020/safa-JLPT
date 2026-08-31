@@ -1,7 +1,7 @@
 // アカウント作成/ログイン(段階1)。メール+パスワード。確認メールON=新規作成後は確認案内→ログイン。
 // 案内=桜(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Modal, Alert, Linking } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Modal, Alert, Linking, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -100,6 +100,11 @@ export default function AccountScreen() {
           <Text style={s.profK}>{t('account.k_mood')}</Text>
           <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{moodTxt ?? t('account.choose')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
         </Pressable>
+        {/* 単語帳を町の相手に見せてよいか(既定ON)。OFFにすると会話画面で相手側に単語帳ボタンが出ない。 */}
+        <View style={s.profRow}>
+          <Text style={s.profK}>{t('account.k_share_words')}</Text>
+          <Switch value={st0.shareWords !== false} onValueChange={(v) => setSettings({ shareWords: v })} />
+        </View>
         <View style={s.profRow}>
           <Text style={s.profK}>{t('account.k_referred')}</Text>
           <Text style={s.profV}>{t('account.people', { n: referredQualified })}</Text>

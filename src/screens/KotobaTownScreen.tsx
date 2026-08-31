@@ -3,7 +3,7 @@
 //  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
 //  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert, Platform, KeyboardAvoidingView } from 'react-native';
+import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert, Platform, KeyboardAvoidingView, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // 絵文字/アイコン除去(気分などデータに含まれる絵文字を会話表示から外す)。国旗(talk.flag)は別扱いなので影響なし。
@@ -13,8 +13,10 @@ import { useNavigation, CommonActions } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
-import { useAppState } from '../store/store';
-import { KANJI, VOCAB, GRAMMAR } from '../data';
+import { useAppState, useAppActions } from '../store/store';
+import { KANJI, VOCAB, GRAMMAR, meaningIn } from '../data';
+import type { SaveRef } from '../store/state';
+import { sampleNotebook } from '../plaza/sampleNotebook';
 // 「覚えた単語」の分母＝そのレベルの全単語数(漢字/語彙/文法)。exact-level(§4カバー率と同じ定義)で1度だけ集計。
 const LEVEL_TOTALS: Record<string, { kanji: number; vocab: number; grammar: number }> = (() => {
   const tot: Record<string, { kanji: number; vocab: number; grammar: number }> = {
@@ -28,7 +30,7 @@ const LEVEL_TOTALS: Record<string, { kanji: number; vocab: number; grammar: numb
 import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
 import { moodMsgText, personaLine, traitLabel } from '../plaza/persona';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import { useSync } from '../auth/SyncProvider';
 import { friendPublish, townMembers, cheerSend, townKick, friendReport, type FriendProfile } from '../plaza/friendsClient';
 import { friendToLearner } from '../plaza/friendResidents';
@@ -440,8 +442,22 @@ export default function KotobaTownScreen() {
   const streakCur = useAppState().streak?.current ?? 0; // 桜のほめ言葉に使う連続日数
   // 友だち(段階2): ログイン中は自分を公開＋友だちを町の住人として取り込む。
   const meState = useAppState();
+  const { setSettings } = useAppActions();
   const { session } = useSync();
   const [friends, setFriends] = useState<VirtualLearner[]>([]);
+  // 友だちを町に登場させるか(日本語学習者の町ボタン=友だち一覧シートで切替・既定ON)。友だちはレベル無関係で必ず出る。
+  const showFriends = meState.settings.townShowFriends !== false;
+  // 相手の単語帳を見せてもらうモーダル(会話画面の一番下ボタンから開く)。友だち=本物 / 仮想NPC=レベル相応の見本。
+  const [wordsOpen, setWordsOpen] = useState(false);
+  const [wordsRefs, setWordsRefs] = useState<SaveRef[]>([]);
+  const [wordsView, setWordsView] = useState<'kanji' | 'vocab' | 'grammar'>('kanji');
+  const [wordsOwner, setWordsOwner] = useState<string>(''); // タイトル用の相手の名前
+  // 単語帳の id→語 の解決(端末の辞書)。相手が保存した id 参照を表示語に直す。
+  const vocabById = useMemo(() => new Map(VOCAB.map((v) => [v.id, v])), []);
+  const kanjiById = useMemo(() => new Map(KANJI.map((k) => [k.id, k])), []);
+  const grammarById = useMemo(() => new Map(GRAMMAR.map((g) => [g.id, g])), []);
+  const l1 = meaningL1(meState.settings);
+  const nm = (key: string, fallback: string) => (l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined) ?? fallback;
   const [members, setMembers] = useState<FriendProfile[]>([]); // 町の住人(招待して参加した友だち)。見出しタップの一覧＝メッセージ可能な相手。
   const [membersOpen, setMembersOpen] = useState(false);
   // 木(前面レイヤー)の裏に隠れるセル群=仮想学習者の初期配置から除外する領域。
@@ -469,23 +485,30 @@ export default function KotobaTownScreen() {
   const MAX_WALK = 8; // 歩行NPC+友だちの合計上限(ベンチ4と足して12)。
   // 架空アバター: 名簿(100人)を毎回シャッフルし、数人だけ登場させる。実ユーザーが増えるほど登場数を自動で絞る。
   const shuffleSeed = useRef(Math.floor(Math.random() * 1e9)).current;
-  const shuffledPool = useMemo(() => seededShuffle(VIRTUAL_LEARNERS, shuffleSeed), [shuffleSeed]);
+  // 町に出す仮想学習者=ユーザーと同じレベルだけ(ランダム登場)。同レベルが少なすぎる時だけ全体で補完し無人を避ける。
+  const levelPool = useMemo(() => {
+    const same = VIRTUAL_LEARNERS.filter((v) => v.level === meState.settings.level);
+    return same.length >= 6 ? same : VIRTUAL_LEARNERS;
+  }, [meState.settings.level]);
+  const shuffledPool = useMemo(() => seededShuffle(levelPool, shuffleSeed), [shuffleSeed, levelPool]);
   const [realUsers, setRealUsers] = useState(0);
   useEffect(() => { let ok = true; getAppUserCount().then((n) => { if (ok) setRealUsers(n); }); return () => { ok = false; }; }, []);
   const fakeF = fakeFactor(realUsers); // 1=最大 … 0=架空を出さない(実ユーザーが100超)
+  // 友だちを非表示にしている時は町の配置から丸ごと外す(仮想NPCだけの町になる)。
+  const activeFriends = useMemo(() => (showFriends ? friends : []), [showFriends, friends]);
   // 友だち=ユーザー付近の近いマスから優先的に(2マス間隔で自然に)。
-  const friendCells = useMemo(() => pickSpaced(pool, Math.min(friends.length, MAX_WALK), 2), [pool, friends.length]);
+  const friendCells = useMemo(() => pickSpaced(pool, Math.min(activeFriends.length, MAX_WALK), 2), [pool, activeFriends.length]);
   // 歩行NPC=友だちが取らなかった残り(ユーザーから遠い側)を散らす。友だち/実ユーザーが多いほどNPCは減る。
   const scattered = useMemo(() => {
-    const F = Math.min(friends.length, MAX_WALK);
+    const F = Math.min(activeFriends.length, MAX_WALK);
     const walkFakeCap = Math.round(MAX_WALK * fakeF);           // フェード: 実ユーザーが増えるほど小さく
     const fset = new Set(friendCells.map((c) => `${c.col},${c.row}`));
     const rest = pool.filter((c) => !fset.has(`${c.col},${c.row}`)).slice().reverse(); // ユーザーから遠い順
     const nFakes = Math.max(0, Math.min(MAX_WALK - F, walkFakeCap));
     const spots = pickSpaced(rest, nFakes, 3);
     return shuffledPool.slice(0, spots.length).map((v, i) => ({ ...v, home: spots[i] }));
-  }, [pool, friendCells, friends.length, fakeF, shuffledPool]);
-  const residents = useMemo(() => [...scattered, ...friends], [scattered, friends]); // 歩行NPC(散布)＋友だち(ユーザー付近)
+  }, [pool, friendCells, activeFriends.length, fakeF, shuffledPool]);
+  const residents = useMemo(() => [...scattered, ...activeFriends], [scattered, activeFriends]); // 歩行NPC(散布)＋友だち(ユーザー付近)
   const residentsRef = useRef<VirtualLearner[]>(scattered);
   residentsRef.current = residents; // 移動ループ(閉包)から最新の住人を参照するため
   // ベンチ(座り)も名簿から毎回割り当てる。歩行スライス(先頭)と重ならない位置から取り、実ユーザー増で数を絞る。
@@ -538,6 +561,16 @@ export default function KotobaTownScreen() {
   const [msgOpen, setMsgOpen] = useState(false);   // 応援メッセージ画面の開閉
   const [msgText, setMsgText] = useState('');        // 自由メッセージ入力
   const openMsg = () => { setSent(null); setMsgText(''); setMsgOpen(true); };
+  // 相手の単語帳を見せてもらう(会話画面の一番下ボタン)。友だち=本物のid参照 / 仮想NPC=レベル相応の見本を生成。
+  const openWords = () => {
+    const v = talkRef.current; if (!v) return;
+    const refs: SaveRef[] = v.id.startsWith('friend:') ? ((v.words ?? []) as SaveRef[]) : sampleNotebook(v.level, v.id);
+    setWordsRefs(refs);
+    setWordsOwner(v.nick);
+    const kinds: ('kanji' | 'vocab' | 'grammar')[] = ['kanji', 'vocab', 'grammar'];
+    setWordsView(kinds.find((k) => refs.some((r) => r.type === k)) ?? 'kanji');
+    setWordsOpen(true);
+  };
   const afterSend = () => { // 送信後: 少し「届けました」を見せてから画面を閉じる。
     if (closeTimer.current) clearTimeout(closeTimer.current);
     closeTimer.current = setTimeout(() => { setMsgOpen(false); setSent(null); }, 1400);
@@ -598,6 +631,8 @@ export default function KotobaTownScreen() {
           learned: learnedTotal, weekLearned: 0, studySeconds: meState.studySeconds ?? 0,
           studying: st.studying ?? null, strong: null,
           personality: st.personality ?? null, moodMsg: st.moodMsg ?? null,
+          // 単語帳(id参照だけ)を公開。共有OFFなら空で送る(サーバーにも残さない)。
+          words: meState.myList ?? [], shareWords: st.shareWords !== false,
         });
       }
       const list = await townMembers();
@@ -605,8 +640,10 @@ export default function KotobaTownScreen() {
       setMembers(list); // 見出しタップの「町の友だち」一覧に使う(全員)。
 
       // 紹介した友だち=ユーザー付近の近いマスへ優先配置(NPCと同じプール・2マス間隔)。合計上限=MAX_WALK(8)。
-      const homes = pickSpaced(pool, Math.min(list.length, MAX_WALK), 2);
-      setFriends(list.slice(0, homes.length).map((p, i) => friendToLearner(p, homes[i])));
+      // 友だちが上限を超えたら毎回シャッフルしてランダムに登場(先頭固定にせず顔ぶれを入れ替える)。
+      const shuffledList = list.length > MAX_WALK ? seededShuffle(list, Math.floor(Math.random() * 1e9)) : list;
+      const homes = pickSpaced(pool, Math.min(shuffledList.length, MAX_WALK), 2);
+      setFriends(shuffledList.slice(0, homes.length).map((p, i) => friendToLearner(p, homes[i])));
     })();
     return () => { cancelled = true; };
   }, [session]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -868,6 +905,13 @@ export default function KotobaTownScreen() {
             <Text style={s.memberTitle}>{t('town.friends')}{members.length > 0 ? `（${members.length}）` : ''}</Text>
             <Pressable onPress={() => setMembersOpen(false)} hitSlop={10}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
           </View>
+          {/* 友だちを町に登場させるか(既定ON)。OFFにすると仮想の学習者だけの町になる。 */}
+          {session && (
+            <View style={s.friendToggleRow}>
+              <Text style={s.friendToggleT}>{t('town.show_friends')}</Text>
+              <Switch value={showFriends} onValueChange={(v) => setSettings({ townShowFriends: v })} />
+            </View>
+          )}
           {!session ? (
             <Text style={s.memberEmpty}>{t('town.friends_login')}</Text>
           ) : members.length === 0 ? (
@@ -919,24 +963,82 @@ export default function KotobaTownScreen() {
                   </Pressable>
                 ))}
               </View>
-              {/* 自由メッセージ */}
-              <Text style={s.msgLabel}>{t('town.free_msg')}</Text>
-              <TextInput
-                value={msgText}
-                onChangeText={setMsgText}
-                placeholder={t('town.msg_placeholder')}
-                placeholderTextColor="#a99f8f"
-                maxLength={80}
-                multiline
-                style={s.msgInput}
-              />
-              <Pressable style={[s.msgSubmit, !msgText.trim() && { opacity: 0.5 }]} disabled={!msgText.trim()} onPress={sendCheerText}>
-                <Text style={s.msgSubmitT}>{t('town.msg_send')}</Text>
-              </Pressable>
+              {/* 自由メッセージは友だち限定。知らない人(仮想NPC)には既定文だけ=荒らし/嫌がらせ防止＋実送信できないため。 */}
+              {talk?.id.startsWith('friend:') ? (
+                <>
+                  <Text style={s.msgLabel}>{t('town.free_msg')}</Text>
+                  <TextInput
+                    value={msgText}
+                    onChangeText={setMsgText}
+                    placeholder={t('town.msg_placeholder')}
+                    placeholderTextColor="#a99f8f"
+                    maxLength={80}
+                    multiline
+                    style={s.msgInput}
+                  />
+                  <Pressable style={[s.msgSubmit, !msgText.trim() && { opacity: 0.5 }]} disabled={!msgText.trim()} onPress={sendCheerText}>
+                    <Text style={s.msgSubmitT}>{t('town.msg_send')}</Text>
+                  </Pressable>
+                </>
+              ) : (
+                <Text style={s.msgStrangerNote}>{t('town.stranger_preset_only')}</Text>
+              )}
             </ScrollView>
           )}
         </View>
         </KeyboardAvoidingView>
+      </Modal>
+
+      {/* 相手の単語帳(会話画面の一番下ボタンから)。漢字/語彙/文法をタブで切替。友だち=本物 / 仮想=レベル相応の見本。 */}
+      <Modal visible={wordsOpen} transparent animationType="slide" onRequestClose={() => setWordsOpen(false)}>
+        <Pressable style={s.memberBackdrop} onPress={() => setWordsOpen(false)} />
+        <View style={s.memberSheet}>
+          <View style={s.memberHead}>
+            <Text style={s.memberTitle} numberOfLines={1}>{t('town.words_title', { nick: wordsOwner })}</Text>
+            <Pressable onPress={() => setWordsOpen(false)} hitSlop={10}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
+          </View>
+          {(() => {
+            // id参照→表示語に解決。端末の辞書に無いidは静かにスキップ(MyWordsと同じ挙動)。
+            const groups: Record<'kanji' | 'vocab' | 'grammar', { title: string; sub: string; level: string; big?: boolean }[]> = { kanji: [], vocab: [], grammar: [] };
+            for (const r of wordsRefs) {
+              if (r.type === 'vocab') { const v = vocabById.get(r.id); if (v) groups.vocab.push({ title: v.word, sub: `${v.reading ? v.reading + ' ・ ' : ''}${nm(v.id, v.meaning)}`, level: v.level }); }
+              else if (r.type === 'kanji') { const k = kanjiById.get(r.id); if (k) groups.kanji.push({ title: k.char, sub: nm(k.char, k.meaning), level: k.level, big: true }); }
+              else { const g = grammarById.get(r.id); if (g) groups.grammar.push({ title: g.point, sub: nm(g.id, g.meaning), level: g.level }); }
+            }
+            const kinds: ('kanji' | 'vocab' | 'grammar')[] = ['kanji', 'vocab', 'grammar'];
+            const rows = groups[wordsView];
+            return (
+              <>
+                <View style={s.wTabs}>
+                  {kinds.map((k) => {
+                    const on = wordsView === k;
+                    return (
+                      <Pressable key={k} onPress={() => setWordsView(k)} style={[s.wTab, on && s.wTabOn]}>
+                        <Text style={[s.wTabT, on && s.wTabTOn]} numberOfLines={1}>{t(k === 'vocab' ? 'mywords.book_vocab' : k === 'kanji' ? 'mywords.book_kanji' : 'mywords.book_grammar')}</Text>
+                        <Text style={[s.wTabN, on && s.wTabTOn]}>{groups[k].length}</Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+                {rows.length === 0 ? (
+                  <Text style={s.memberEmpty}>{t('town.words_empty')}</Text>
+                ) : (
+                  <ScrollView style={{ maxHeight: 360 }} showsVerticalScrollIndicator={false}>
+                    {rows.map((it, i) => (
+                      <View key={i} style={s.wRow}>
+                        <View style={{ flex: 1, marginRight: 8 }}>
+                          <Text style={[s.wRowTitle, it.big && s.wRowTitleBig]} numberOfLines={1}>{it.title}</Text>
+                          <Text style={s.wRowSub} numberOfLines={2}>{it.sub}</Text>
+                        </View>
+                        <Text style={s.wLevel}>{it.level}</Text>
+                      </View>
+                    ))}
+                  </ScrollView>
+                )}
+              </>
+            );
+          })()}
+        </View>
       </Modal>
 
       {/* 操作(アナログスティック・斜めOK)。会話中は"消さずに"隠して触れなくする(アンマウントすると指を離す前に
@@ -1046,15 +1148,6 @@ export default function KotobaTownScreen() {
                   <Image source={SET.down[0]} style={{ width: avH, height: avH }} resizeMode="contain" />
                 </View>
               </View>
-              {/* 「メッセージを送る」ボタン=会話画像とステータスの間(友だち=id=friend: にだけ表示)。押すと応援メッセージ画面へ。 */}
-              {talk.id.startsWith('friend:') && (
-                <View style={{ width: FW, alignSelf: 'center', alignItems: 'center', marginTop: Math.round(FW * 0.025), marginBottom: Math.round(FW * 0.055), zIndex: 5 }}>
-                  <Pressable style={s.msgSendBtn} onPress={openMsg}>
-                    <Ionicons name="chatbubble-ellipses" size={18} color="#fff" />
-                    <Text style={s.msgSendBtnT}>{t('town.msg_send_btn')}</Text>
-                  </Pressable>
-                </View>
-              )}
               {/* ② ステータス枠(新素材・会話画像の下)。上半分=6項目 / 下半分=覚えた単語(漢字/語彙/文法) 3バー。 */}
               <View style={{ width: FW, height: stH, alignSelf: 'center', marginTop: -Math.round(FW * 0.045) }}>
                 <Image source={STATUSBOX} style={{ position: 'absolute', width: FW, height: stH }} resizeMode="contain" />
@@ -1099,6 +1192,19 @@ export default function KotobaTownScreen() {
                     </View>
                   );
                 })}
+              </View>
+              {/* 会話画面の一番下: ①単語帳を見せてもらう(相手が公開時のみ) ②メッセージを送る(知らない人=既定文のみ)。 */}
+              <View style={{ width: FW, alignSelf: 'center', gap: Math.round(FW * 0.03), marginTop: Math.round(FW * 0.015) }}>
+                {talk.shareWords !== false && (
+                  <Pressable style={s.wordsBtn} onPress={openWords}>
+                    <Ionicons name="book" size={18} color="#fff" />
+                    <Text style={s.wordsBtnT}>{t('town.words_btn')}</Text>
+                  </Pressable>
+                )}
+                <Pressable style={s.msgSendBtnFull} onPress={openMsg}>
+                  <Ionicons name="chatbubble-ellipses" size={18} color="#fff" />
+                  <Text style={s.msgSendBtnT}>{t('town.msg_send_btn')}</Text>
+                </Pressable>
               </View>
               {/* 下端の余白(スクロール終端)。 */}
               <View style={{ height: 40 }} />
@@ -1259,6 +1365,26 @@ const s = StyleSheet.create({
   msgInput: { minHeight: 64, maxHeight: 120, borderWidth: 1, borderColor: '#e0d6c4', borderRadius: 12, backgroundColor: '#fffdf8', paddingHorizontal: 12, paddingVertical: 10, fontSize: 15, color: '#3a3128', textAlignVertical: 'top' },
   msgSubmit: { marginTop: 12, backgroundColor: '#e2588f', borderRadius: 12, paddingVertical: 14, alignItems: 'center' },
   msgSubmitT: { color: '#fff', fontSize: 15, fontWeight: '900' },
+  msgStrangerNote: { fontSize: 13, color: '#8a8072', lineHeight: 20, textAlign: 'center', paddingVertical: 14 },
+  // 会話画面の一番下の全幅ボタン(単語帳=緑 / メッセージ=橙)。
+  wordsBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: '#3f8f6a', borderRadius: 999, paddingVertical: 14, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
+  wordsBtnT: { color: '#fff', fontSize: 15, fontWeight: '900', letterSpacing: 0.5 },
+  msgSendBtnFull: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: '#e0803c', borderRadius: 999, paddingVertical: 14, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
+  // 友だち表示トグル(友だち一覧シート)。
+  friendToggleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 8, paddingHorizontal: 2, borderBottomWidth: 1, borderBottomColor: 'rgba(58,49,40,0.08)', marginBottom: 4 },
+  friendToggleT: { fontSize: 14, fontWeight: '800', color: '#3a3128' },
+  // 単語帳ビュー(会話の相手の単語帳)。タブ＋リスト行。
+  wTabs: { flexDirection: 'row', gap: 8, marginBottom: 10 },
+  wTab: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 9, borderRadius: 999, borderWidth: 1, borderColor: '#e0d6c4', backgroundColor: '#fffdf8' },
+  wTabOn: { backgroundColor: '#3f8f6a', borderColor: '#3f8f6a' },
+  wTabT: { fontSize: 13, fontWeight: '800', color: '#7a6d59' },
+  wTabTOn: { color: '#fff' },
+  wTabN: { fontSize: 13, fontWeight: '800', color: '#3f8f6a' },
+  wRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 11, borderBottomWidth: 1, borderBottomColor: 'rgba(58,49,40,0.08)' },
+  wRowTitle: { fontSize: 15, fontWeight: '800', color: '#3a3128' },
+  wRowTitleBig: { fontSize: 26, lineHeight: 32, fontWeight: '800' },
+  wRowSub: { fontSize: 12, color: '#8a8072', marginTop: 2 },
+  wLevel: { fontSize: 10, fontWeight: '800', color: '#8a8072', backgroundColor: '#efe7d8', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 2, overflow: 'hidden' },
   // 友だちを町に招待=白ボタン(アイコン無し)。タイトル横。
   inviteWhite: { backgroundColor: 'rgba(255,253,248,0.95)', borderRadius: 16, paddingHorizontal: 14, paddingVertical: 7, borderWidth: 1, borderColor: 'rgba(58,49,40,0.15)', flexShrink: 1 },
   inviteWhiteT: { fontSize: 13, fontWeight: '900', color: '#3a3128', letterSpacing: 0.2, textAlign: 'center', flexShrink: 1 },

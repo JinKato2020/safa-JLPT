@@ -29,6 +29,9 @@ export function friendToLearner(p: FriendProfile, home: Home): VirtualLearner {
     strong: p.strong ?? undefined,
     personality: p.personality ?? undefined,
     moodMsg: p.mood_msg ?? undefined,
+    // 単語帳(id参照だけ)。share_words=false なら空配列で来る=会話画面で単語帳ボタンを出さない。
+    words: Array.isArray(p.words) ? p.words.filter((r) => r && (r.type === 'vocab' || r.type === 'kanji' || r.type === 'grammar') && typeof r.id === 'string') : [],
+    shareWords: p.share_words !== false,
   };
 }
 

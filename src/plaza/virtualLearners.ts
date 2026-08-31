@@ -25,6 +25,8 @@ export interface VirtualLearner {
   mood?: string;                      // (旧)努力タイプ。廃止済み=未使用。型互換のため残置
   personality?: string;              // 性格(persona.ts PERSONALITIES)のキー。会話カードに表示
   moodMsg?: string;                   // 気分メッセージ(persona.ts MOOD_MESSAGES)のキー。頭上/会話カードに表示
+  words?: { type: 'vocab' | 'kanji' | 'grammar'; id: string }[]; // 単語帳(会話画面で見せる)。友だち=実データ / 仮想NPC=レベル相応の見本を町側で生成
+  shareWords?: boolean;              // 単語帳を見せてよいか(既定 true)。false=会話画面で単語帳ボタンを出さない
 }
 
 // ── 素材(決定的生成の元) ────────────────────────────────────────────────

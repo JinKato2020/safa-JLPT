@@ -1,6 +1,7 @@
 // 友だち(招待制)のクライアント境界(副作用)。全操作はサーバーの SECURITY DEFINER 関数(RPC)経由。
 // クライアントはテーブルに直接触らない(docs/supabase/friends.sql)。ネットワーク失敗は握って安全側を返す。
 import { supabase } from '../config/supabase';
+import type { SaveRef } from '../quiz/quiz';
 
 // 公開プロフィール(町のステータス表示に使う情報)。
 export type FriendProfile = {
@@ -18,6 +19,8 @@ export type FriendProfile = {
   strong: string | null;
   personality: string | null;
   mood_msg: string | null;
+  words?: SaveRef[] | null;    // my単語帳(保存した語/漢字/文法のid参照だけ・語の中身は端末の辞書で解決)。share_words=false なら空
+  share_words?: boolean;       // 単語帳を町の相手に見せてよいか(既定 true)。false=会話画面で単語帳ボタンを出さない
 };
 
 /** 自分の公開プロフィールを publish(町に表示するために必要)。成功で true。 */
@@ -25,13 +28,18 @@ export async function friendPublish(p: {
   nickname: string; country: string | null; gender: string | null; avatar: string; level: string;
   streak: number; learned: number; weekLearned: number; studySeconds?: number;
   studying?: string | null; strong?: string | null; personality?: string | null; moodMsg?: string | null;
+  words?: SaveRef[] | null; shareWords?: boolean;
 }): Promise<boolean> {
   try {
+    // 単語帳は id 参照(type+id)だけを送る=軽量。share_words=false なら中身は送らない(サーバーにも残さない)。
+    const share = p.shareWords !== false;
+    const words = share ? (p.words ?? []).map((r) => ({ type: r.type, id: r.id })) : [];
     const { error } = await supabase.rpc('friend_publish', {
       p_nickname: p.nickname, p_country: p.country, p_gender: p.gender, p_avatar: p.avatar, p_level: p.level,
       p_streak: p.streak, p_learned: p.learned, p_week_learned: p.weekLearned, p_study_seconds: p.studySeconds ?? 0,
       p_studying: p.studying ?? null, p_strong: p.strong ?? null,
       p_personality: p.personality ?? null, p_mood_msg: p.moodMsg ?? null,
+      p_words: words, p_share_words: share,
     });
     return !error;
   } catch { return false; }

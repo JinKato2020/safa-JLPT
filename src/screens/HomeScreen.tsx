@@ -15,6 +15,7 @@ import { homeStatus } from '../home/homeStatus';
 import HomeCoach from '../home/HomeCoach';
 import SakuraSpeech from '../home/SakuraSpeech';
 import SafeBoundary from '../components/SafeBoundary';
+import GradientButton from '../components/GradientButton';
 
 const RING = require('../../assets/home/pass_ring.png');
 const GLOW = require('../../assets/home/ring_glow.png');
@@ -132,10 +133,9 @@ export default function HomeScreen() {
         <SafeBoundary tag="sakuraspeech" fallback={null}>
           <SakuraSpeech idleTick={idleTick} />
         </SafeBoundary>
-        {/* 今日のおすすめ(統合復習=苦手単語の復習)。桜/柴犬の下・ボトムナビの上に常設。分析はAIコーチにも有り。 */}
-        <Pressable style={styles.reco} onPress={() => nav.navigate('Quiz', { review: true })} accessibilityLabel={t('cards.reco')}>
-          <Text style={styles.recoTxt}>{t('cards.reco')}</Text>
-        </Pressable>
+        {/* 今日のおすすめ(統合復習=苦手単語の復習)。桜/柴犬の下・ボトムナビの上に常設。分析はAIコーチにも有り。
+            見た目は試験タブ「試験に挑戦する」と統一(GradientButton=斜めグラデ＋光沢の高級ピル)。 */}
+        <GradientButton style={styles.reco} label={t('cards.reco')} onPress={() => nav.navigate('Quiz', { review: true })} />
         {/* 模試チケットの配布(歓迎/月次)を目立つ祝いモーダルで通知。ショップ購入時と同じ「手に入れた!」の見せ方。 */}
         <Modal visible={ticketNotice > 0} transparent animationType="fade" onRequestClose={clearTicketNotice}>
           <Pressable style={styles.noticeBackdrop} onPress={clearTicketNotice}>
@@ -164,9 +164,8 @@ const styles = StyleSheet.create({
   lbl: { fontWeight: '800', letterSpacing: 1.5, color: '#f2f6ff', textShadowColor: 'rgba(0,0,0,0.85)', textShadowRadius: 5, textShadowOffset: { width: 0, height: 1 }, includeFontPadding: false },
   num: { fontWeight: '900', color: '#ffffff', textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 7, textShadowOffset: { width: 0, height: 1 }, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
   numSmall: { fontWeight: '800', color: '#eef3ff', textShadowColor: 'rgba(0,0,0,0.8)', textShadowRadius: 6, textShadowOffset: { width: 0, height: 1 } },
-  // 今日のおすすめボタン(画面最下部・ボトムナビの上)。背景イラストの上でも読めるよう濃い青の不透明ピル。
-  reco: { position: 'absolute', left: 32, right: 32, bottom: 14, backgroundColor: '#2f62d8', borderRadius: 999, paddingVertical: 14, alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 5 },
-  recoTxt: { color: '#ffffff', fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },
+  // 今日のおすすめボタン(画面最下部・ボトムナビの上)の配置のみ(見た目は GradientButton 側)。
+  reco: { position: 'absolute', left: 32, right: 32, bottom: 14 },
   // 模試チケット配布の祝いモーダル(中央・カード)。
   noticeBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', alignItems: 'center', justifyContent: 'center', padding: 32 },
   noticeCard: { width: '100%', maxWidth: 360, backgroundColor: '#fffdf8', borderRadius: 22, alignItems: 'center', paddingVertical: 26, paddingHorizontal: 22, borderWidth: 1, borderColor: 'rgba(184,146,74,0.5)', shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 12 },
