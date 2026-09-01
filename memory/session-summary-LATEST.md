@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 4 回・11 ターン
-- 往復 176 回
+- ツール呼び出し 2 回・7 ターン
+- 往復 231 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/choukai_gen_done.txt
-- memory/choukai_gen_log.txt
-- memory/choukai_audio_rec.json
-- assets/audio/N5-C-P-0062.mp3
+- assets/audio/N3-C-G-0027.mp3.tmp.mp3
+- assets/audio/N3-C-G-0026.mp3
+- assets/audio/N3-C-G-0025.mp3
+- assets/audio/N3-C-G-0024.mp3
 
 ## 次の一手
 - **✅2026-09-02 ルビ振り synonym N3 完了（未commit・未build）**＝`src/data/dict/sentenceFuri.json` に①未生成647件を新規追記＋②旧824件の drift（本文を後で差替えたのに furi が古い別文＝MockScreen.tsx:925 が古文表示）を現行 sentence から付け直して上書き。計1471件を Opus9体で生成→機械検証（件数一致/strip(furi)==現行sentence 全一致/全角カッコ/漢字読み欠け0/読み非かな0）→マージ（10596→11243）。番人追加＝`src/data/synonymFormat.test.ts` に「N3全問 sentenceFuri 有＋本文一致」テスト（tsc0・同テスト16件緑）。**sentenceFuri は src import＝OTAでなく次ビルドで実機反映**（[[content-ota-vs-ui-build]]）。push/build はユーザー指示待ち。**残＝N4/N5 の synonym は文選択(stem)形式＝別描画（stem内ルビ半角カッコ・sentenceFuri不使用）ゆえ今回対象外**。
