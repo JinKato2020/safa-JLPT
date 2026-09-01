@@ -470,6 +470,12 @@ export function listeningSubtype(it: ListeningItem): ListeningSubtype {
 export function listeningItemsForSub(level: Level, sub: ListeningSubtype): ListeningItem[] {
   return LISTENING.filter((it) => it.level === level && listeningSubtype(it) === sub);
 }
+// 聴解5大問の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う(無ければ学習へフォールバック)。音声は後日TTS。
+export const LISTENING_MOCK = _R.LISTENING_MOCK as ListeningItem[];
+/** レベル×小区分の聴解 模試プール(初見)。空なら学習側へフォールバック(MockScreen)。 */
+export function listeningMockItemsForSub(level: Level, sub: ListeningSubtype): ListeningItem[] {
+  return LISTENING_MOCK.filter((it) => it.level === level && listeningSubtype(it) === sub);
+}
 export const LISTENING_SUBTYPES: { key: ListeningSubtype; labelKey: string }[] = [
   { key: 'kadai', labelKey: 'study.lsub_kadai' },
   { key: 'point', labelKey: 'study.lsub_point' },

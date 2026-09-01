@@ -12,7 +12,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { isInMyList } from '../store/state';
 import { guessCorrect, jftMockScore, mockScoreEstimate } from '../store/selectors';
 import { dayStr } from '../store/state';
-import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor, passageGrammarMockSetsFor, readingItemsForSub, readingMockItemsForSub, listeningItemsForSub, READING_SUBTYPES, LISTENING_SUBTYPES, type ReadingSubtype, type ListeningSubtype } from '../data';
+import { examReadingFor, examListeningFor, rubyNeeded, passageGrammarSetsFor, passageGrammarMockSetsFor, readingItemsForSub, readingMockItemsForSub, listeningItemsForSub, listeningMockItemsForSub, READING_SUBTYPES, LISTENING_SUBTYPES, type ReadingSubtype, type ListeningSubtype } from '../data';
 import RubyText from '../components/RubyText';
 import AppButton from '../components/AppButton';
 import PassageSetPlayer from '../components/PassageSetPlayer';
@@ -121,6 +121,7 @@ interface MockItem {
   body?: string;
   clipId?: string;
   script?: string;
+  audioChoices?: boolean; // 概要/発話/即時=選択肢が音声で読まれる=番号のみ表示・シャッフル不可
   explain?: string;
   itemId?: string;
   idLabel?: string; // ヘッダーID表示専用(漢字読み/表記=「…（漢字/N4）」)。id(=採点/再出題キー)は変えない。
@@ -252,14 +253,16 @@ function listeningByBlueprint(levels: Level[], level: Level, full: boolean, seen
   const out: MockItem[] = [];
   for (const sub of Object.keys(bp) as ListeningSubtype[]) {
     const targetQ = full ? bp[sub] : Math.max(1, Math.round(bp[sub] / 3));
-    const pool = levels.flatMap((lv) => listeningItemsForSub(lv, sub)).filter((cl) => !!cl.audio);
+    // 模試専用プール(初見)を優先、無ければ学習へフォールバック(readingByBlueprint と同型)。音声(mp3)を持つクリップのみ。
+    const pool = levels.flatMap((lv) => { const m = listeningMockItemsForSub(lv, sub); return m.length ? m : listeningItemsForSub(lv, sub); }).filter((cl) => !!cl.audio);
     const picked = pickFresh(pool, (cl) => cl.questions.some((q) => !!seen[q.id]), pool.length);
     let q = 0;
     for (const cl of picked) {
       if (q >= targetQ) break;
       for (const qq of cl.questions) {
-        const sc = shuffleChoices(qq.choices, qq.answerIndex);
-        out.push({ kind: 'listening' as const, id: qq.id, section: 'choukai' as Sec, grpKey: LISTEN_SUB_LABEL[sub], title: cl.title, clipId: cl.id, script: cl.script, question: qq.q, choices: sc.choices, answerIndex: sc.answerIndex, explain: qq.explain });
+        // 発話/即時(audioChoices)は選択肢が音声で順に流れる=正解位置が音声に焼込み済ゆえシャッフル不可(ListeningScreenと同じ)。
+        const sc = cl.audioChoices ? { choices: qq.choices, answerIndex: qq.answerIndex } : shuffleChoices(qq.choices, qq.answerIndex);
+        out.push({ kind: 'listening' as const, id: qq.id, section: 'choukai' as Sec, grpKey: LISTEN_SUB_LABEL[sub], title: cl.title, clipId: cl.id, script: cl.script, audioChoices: cl.audioChoices, question: qq.q, choices: sc.choices, answerIndex: sc.answerIndex, explain: qq.explain });
       }
       q += cl.questions.length;
     }
@@ -960,16 +963,18 @@ export default function MockScreen() {
 
           <View style={s.choices}>
             {cur.choices.map((ch, i) => {
-              const isAnswer = i === cur.answerIndex;
               const isPicked = i === picked;
               return (
                 <Pressable
                   key={i}
                   // 模試中は正誤(緑/赤)を出さない。選んだ肢だけ中立の色で示す。「次へ」まで何度でも選び直せる。
-                  style={[s.choice, isPicked && s.choicePicked]}
+                  // 概要/発話/即時(audioChoices)=選択肢は音声で読まれる=本番同様に番号のみ表示(テキスト非表示・シャッフルなし)。
+                  style={[s.choice, cur.audioChoices && s.choiceNum, isPicked && s.choicePicked]}
                   onPress={() => onPick(i)}
                 >
-                  <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.mockRuby} rubyGate={rubyGate} /></View>
+                  {cur.audioChoices
+                    ? <Text style={s.numBadge}>{i + 1}</Text>
+                    : <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.mockRuby} rubyGate={rubyGate} /></View>}
                 </Pressable>
               );
             })}
@@ -1125,6 +1130,8 @@ const makeStyles = (c: ThemeColors) =>
     choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
     choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
     choicePicked: { borderColor: c.blue, backgroundColor: c.blueLight }, // 模試中=選んだ肢を中立色で(正誤は出さない)
+    choiceNum: { justifyContent: 'center', paddingVertical: spacing.lg }, // 番号のみ表示(概要/発話/即時)=中央・やや高め
+    numBadge: { fontSize: ty.h1, fontWeight: '800', color: c.choukai, minWidth: 28, textAlign: 'center' },
     choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
     mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
     // 解答・解説まとめ画面(review)

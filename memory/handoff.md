@@ -2,12 +2,54 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶▶ 2026-08-30 LIVE＝読解4大問 模試プール新設＝【生成〜結線〜番人〜在庫Excel 完了・全緑・未コミット／残＝後日バッチ(ルビ+翻訳)のみ】。正本＝[[dokkai-mock-inflight]]**：
+- **✅2026-09-02 ルビ振り synonym N3 完了（未commit・未build）**＝`src/data/dict/sentenceFuri.json` に①未生成647件を新規追記＋②旧824件の drift（本文を後で差替えたのに furi が古い別文＝MockScreen.tsx:925 が古文表示）を現行 sentence から付け直して上書き。計1471件を Opus9体で生成→機械検証（件数一致/strip(furi)==現行sentence 全一致/全角カッコ/漢字読み欠け0/読み非かな0）→マージ（10596→11243）。番人追加＝`src/data/synonymFormat.test.ts` に「N3全問 sentenceFuri 有＋本文一致」テスト（tsc0・同テスト16件緑）。**sentenceFuri は src import＝OTAでなく次ビルドで実機反映**（[[content-ota-vs-ui-build]]）。push/build はユーザー指示待ち。**残＝N4/N5 の synonym は文選択(stem)形式＝別描画（stem内ルビ半角カッコ・sentenceFuri不使用）ゆえ今回対象外**。
+- **✅2026-09-02 言い換え(synonym) 全レベルID欠番なしリナンバー完了（未commit・未build）**＝配列順のまま `N?-V-I-0001..N` に連番化（N5=236/N4=407/N3=1612・欠番0・重複0）。furigana辞書 `src/data/dict/sentenceFuri.json` を新IDへ連動（2202キー）＋幽霊キー132破棄。`_manifest.json`/`bundled.generated.ts` 再生成・全テスト緑。**配信は content OTA(synonym_*.json)＋ビルド(sentenceFuri=src)をセットで**（片方だけだとN3言い換えのルビ全消え）。学習履歴影響なし（マスタリーはvocabIdキー）。◎ついでに `usage_N3.json` の複合語ルビ誤結合 `話し声（はなしごえ）`→`話（はな）し声（ごえ）` 3箇所も修正済。
+- **✅2026-09-02 N3言い換え 品質チェック済＝合格練習として十分**（22問無作為精査＋全1612問form_check）。形式/量/品詞揃え/難易度/一意性いずれも良好。軽微＝0286「価値」の誤答「値段」が近縁(第2の正解リスク)・6誤答の一部でフィールドやや散(0066/0192)。form_check166候補は大半が偽陽性(fugashiが絶対/特別を名詞誤判定)。精緻化するなら「答えの近縁語が誤答に混ざってないか」の一意性LLM精査が費用対効果高。
+- **★次の一手＝（未定・ユーザー指示待ち）。ビルドはユーザー判断で「今はしない」（2026-09-02）＝作業ツリーに聴解模試800音声等の未コミット多数あり、build.ps1のgit add -Aで巻き込むため保留中。** ルビ規則＝自級と同じ漢字/自級より上の漢字に付ける（聴解スクリプト表示も同じ・CLAUDE.md §2）。
+- 言い換え(synonym)「正解と誤答の 品詞＋形 一致」修正＝**N3完了（2026-09-01・ユーザーレビュー反映済＝0178/0195再修正）**。277候補→Opus7体＋手修正5で各問を形一致の誤答3つに絞込・OTA再生成・テスト緑・一意性Excel(通常N3)で今回修正107問を緑塗り。**残＝N4/N5(文選択形式・語抽出の別実装)未着手／push・OTA公開は別承認**。正本＝`memory/言い換え形一致-inflight.md`。
+  - ルール＝正解と全誤答を「品詞＋形(語尾)」まで揃える（揃わないと正解が浮いてバレる）。目標形＝正解の形。メモリ [[synonym-answer-distractor-same-pos-and-form]]。
+  - 検出＝`tools/synonym_form_check.py`（無料・fugashi下ふるい）。**N3で形不一致候補460問**（要LLM確定＝上振れ可能性）。N3=語選択/N4N5=文選択(未対応)。
+  - **判定/修正はClaudeサブエージェントで（Geminiは音声TTSと枠衝突＝使わない）。修正はOpus品質。** 対象はまずN3のみ（ユーザー確認）。
+  - 併走(別件・未実施)＝**問題ID欠番の振り直し(ユーザー希望N5/N4/N3全部)**。順序＝先にID振り直し→その後の修正/Excelは新IDで。
+- **🔎 2026-09-01 当セッション発見＝品質バグ3件（未着手・要指示）。裏の音声生成(bjwhp9vsq)と独立。**
+  - **①ルビB＝複合語読みの誤結合 151箇所/真60〜70種/23ファイル（usage_N3が最多29）**。表示側 `src/components/RubyText.tsx` は「（かな）直前の“連続漢字だけ”」に読みを乗せる→`話し声（はなしごえ）` は「声」1字に誤結合（話ルビ無し）。正＝`話（はな）し声（ごえ）`（連濁ごえ注意）。検出＝正規表現 `([漢字]+)([ひら]+)([漢字]+)（かな）` で **送りがなok が読みに含まれる**条件（偽陽性=助詞は/が/に/の・counter「一つ質問」等が約1/3→除外要）。直し方＝真の誤結合を連濁注意で per漢字再分割→全ファイル文字列置換。集計script＝scratchpad/ruby_bug.txt。
+  - **②ルビA＝言い換え(synonym) の sentenceFuri 未生成＝N3 647/N4 53（501番以降が646/647＝後から増やした増作分がふりがな未生成）**。`src/data/daimon.ts:304` が `SENTENCE_FURI[id]`・:366 が無い時 raw文へfallback（ルビ全無し）。②where furi有＝自級以上漢字のルビ欠け0（既存は健全）。直し＝未登録IDの文をLLMでふりがな化→`src/data/dict/sentenceFuri.json` 追記→`synonymFormat.test.ts` 確認（約700文・費用僅少）。
+  - **③音声プロンプト焼き付き検出（未実行）**。N3-C-K-0147=短い口頭混入（尺133.7s＝正常で尺では捕まらない）。`問題/tools/build_choukai3.py` は1発生成・リトライ禁止・`verify_problem`(VTHRESH0.80)は定義のみ未接続（＝焼き付きが素通り）。検出案＝通常2482本を Gemini `transcribe_full` 流用で文字起こし→STYLE特徴句(「読み上げてください」「JLPTの聴解ナレーター」「テキスト読み上げ専用」等)を検索（概算¥400＝要D1相当承認）。**別途、尺外れ値で長尺焼き付き2本確定＝N5-C-K-0068(682s/10.9MB)・N5-C-K-0117(653s/10.4MB)＝要焼き直し**。
+  - **④(参考)マネタイズ地域戦略を議論（未確定）＝メモリ [[monetization-geo-campaign-plan]]**。
+
+- **🚀🎙️ 2026-09-01 LIVE＝模試聴解800本のTTS音声を全生成中（バックグラウンドrun `bjwhp9vsq`・783本・見積り約¥1,600/上限¥2,500・ユーザーGO済）。正本＝[[choukai-mock-inflight]] §🚀全生成LIVE。**
+  - **/clear後にやること＝完了確認**：`memory/choukai_gen_log.txt` 末尾（生成本数・失敗・実費¥）を見る＋`assets/audio/` に800 IDのmp3が揃ったか機械確認（欠けは `--ids-file` 再実行で続き）。→**D2実費報告（Gemini2.5Flash TTS・円）**→ユーザー抜き取り試聴。
+  - **事前修正（当セッション・重要）**：課題N3/N4に空行挿入＋N3導入「女1→女の人」、概要27件の役割ラベル削除＋概要の声を導入性別で選ぶコード修正。全800問を `問題/tools/tts_content_audit.py` で監査＝スタイル指示混入0/読み上げ女N男N 0/役割ラベル漏れ0。**未commit**（gen_choukai_json.py・tts_content_audit.py・mock/{kadai_N3,kadai_N4,gaiyou_N3}.json・assets/audio/*.mp3）。
+  - **配信反映（未実施・別指示）**：content修正したので `_manifest.json` 再生成必須（[[ota-manifest-regen-or-stale]]）＋音声はビルドでライブ化（[[merge-pages-into-build-workflow]]）。push/ビルドはユーザー明示指示のみ。
+
+- **▶▶ 2026-09-01 日本語学習者の町 機能＋CTAボタン刷新 = 分離ビルド済み(v1.1.28 / Build 2890 / run 33445414906・both・監視せず)。正本＝[[town-features-inflight]]**：会話下部に①単語帳共有(友だち本物/NPC見本)②全員へメッセージ(知らない人=既定文のみ)／NPC同レベル・友だち全レベル必須＋表示ON/OFFトグル／友だち超過シャッフル／設定shareWords。試験タブ🎯削除＋GradientButton。commit `772c0cad`(私の14ファイル＋app.jsonのみ・聴解mockは未コミット残置)。
+  - **やること①(先行必須)＝`docs/supabase/friends.sql` を Supabase で再実行**（未実行だと自分のプロフィール公開が失敗）。②TestFlight で 2890 確認→実機テスト。
+  - **⚠ stash@{0}=聴解mockの冗長バックアップ**。作業ツリーに聴解一式は完全復元済(tsc0確認)。次セッションで一致確認のうえ drop 可。
+
+- **▶▶ 2026-08-31 ✅聴解5大問 模試プール 全13ファイル作問完了・配置済・未結線（N5:240＋N4:280＋N3:280＝計800問）。残＝結線・音声・在庫Excel（すべて別フェーズ・指示待ち）。正本＝[[choukai-mock-inflight]]（実読必須）**：
+  - **✅N3 概要gaiyou30＋発話hatsuwa40 配置完了（当セッション・ユーザー「残りの概要と発話も」）＝聴解mock残ゼロで完成**＝`content/problems/choukai/mock/{gaiyou_N3(30),hatsuwa_N3(40)}.json`（pool='mock'・全item audio:true・N3-C-G-0701〜0730/N3-C-H-0701〜0740）。全ゲート通過（gaiyou:mock_verify致命0 帯190-284[196/216/234]・solvability✅最長10%/語彙13%/正誤差-0.4[逆転成功]／hatsuwa:hatsuwa_build致命0・攻略耐性最長30/依頼形12/形分離48・pos14/13/13）。専用workdir n3_gh/で既配置無傷。一意性Excel再生成済（模試_N3=17シート）。**未結線・未コミット・push/ビルド未実施**。
+  - **✅(a)結線 完了（2026-08-31）**＝rehydrate `LISTENING_MOCK`＋index `listeningMockItemsForSub`＋MockScreen `listeningByBlueprint` mock優先fallback＋audioChoicesシャッフルガード＋番人 `src/data/listeningMock.test.ts`＋file-level `pool:'mock'` 13ファイル修正（学習混入0を実測）→rebuild/tsc0/npm test495緑。詳細＝[[choukai-mock-inflight]]。
+  - **✅(b)在庫Excel 反映 完了**＝`tools/stock_excel.py` MOCK辞書に聴解5大問追加→`memory/在庫・模試ストックまとめ.xlsx` 再生成。
+  - **✅概要理解を公式「番号のみ」へ設計変更（2026-09-01・ユーザー厳命）**＝概要gaiyou を audioChoices化（学習80問=audio/audioChoices付与・位置据置／模試30問=位置8/8/7/7へ焼き直し）＋MockScreen番号のみ描画追加。発話/即時/概要すべて番号のみ。課題/ポイントはテキスト。tsc0/test495緑/実測OK。詳細＝[[choukai-app-audiochoices]]。
+  - **★次の一手＝(c)音声TTS（ユーザー指示「クリアしてから音声生成へ」）**。有料＝**D1（見積り¥換算を提示・承認）必須**。目安¥1,700・上限¥2,500・Gemini2.5Flash。**対象**＝聴解mock全13ファイル(800問)の音声＋**学習gaiyou_N3(80問)の音声も未生成**（概要番号のみ化で必要に）。正本手順＝`md/聴解_音声作成フロー.md`＋`md/聴解_作問フロー.md`＋メモリ[[choukai-audio-pipeline]]／[[tts-no-retry-single-call]]（リトライ厳禁）／[[choukai-app-audiochoices]]。**⚠概要の音声は「独話→質問→選択肢4つ+番号1-4」を読み上げる版**（発話/即時と同audioChoices方式だが4択＋質問読み上げ有・build_batchesはaudioChoices=true出力済＝音声ビルドが概要を番号方式で扱うか要実確認）。音声が出来るまで publish-content/build しない。(d)コミット/push/ビルドは明示指示のみ。**
+  - **【旧LIVE・完了済↓】** ✅N5(240)＋N4(280)＋N3の課題60/即時90/ポイント60＝以下は履歴：
+  - **✅N3 ポイント理解 point60 配置完了（当セッション・ユーザー「ポイント理解の模試問題作成へ」）**＝`content/problems/choukai/mock/point_N3.json`（pool='mock'・N3-C-P-0701〜0760・full ruby）。全ゲート通過（mock_verify致命0 帯179-269[181/212/247]・daimon_solvability✅攻略耐性/ワンパターン良好[最長25%/語彙15%/台本重複0/選択肢重複0]）。観点kanten均等12×5・裸漢字0・係0・uniqRisk0。一意性Excel再生成済。**未結線・未コミット・push/ビルド未実施**。★初回B1が会話短27問→延長で再ゲート通過（body_text=会話部のみ計測）。
+  - **★次の一手（ユーザー指示「残りの概要と発話も模試問題作成して」→その前に/clear）＝N3 概要gaiyou30＋発話hatsuwa40 作問**。これで聴解mock全13ファイル完成。手順の正本＝[[choukai-mock-inflight]] 冒頭「次の一手」節（帯 gaiyou190-284/hatsuwa27-47・骨組み・ゲート・materialize注意＝別workdirで既配置を上書きしない）。作問=Opus波・機械ゲートのみ・音声/結線/push/ビルドは別承認。
+  - **✅N3 課題60＋即時90 配置完了（当セッション・ユーザー指定＝この2大問だけ・音声抜き）**＝`content/problems/choukai/mock/{kadai_N3(60),sokuji_N3(90)}.json`（pool='mock'・0701帯・full ruby）。全ゲート通過（mock_verify致命0・daimon_solvability✅攻略耐性/ワンパターン良好[正解単独最長を50%→0%に均し済]・sokujiバッチ内重複0/道徳のわな無し/正解位置30/30/30）。uniqRisk全問なし。**未結線・未コミット・push/ビルド未実施**。
+  - **✅N4 280問 配置完了（当セッション・音声抜き）**＝`content/problems/choukai/mock/{kadai80,point70,hatsuwa50,sokuji80}_N4.json`（pool='mock'・0701帯・full ruby維持=ルビ除去しない[ユーザー決定]）。全ゲート通過（mock_verify致命0/solvability課題最長20%語彙12%・ポイント✅良好/hatsuwa致命0攻略耐性良好/sokujiバッチ内近似重複0）。軽微warning受容=課題選択肢重複2は時刻列挙の偽陽性・即時1問が学習プールに0.50類似(コピーでない)。正解位置=即時27/27/26・発話14/18/18。一意性Excel `一意性チェック_模試_N4.xlsx`生成済(聴解の黄=発話0717のみmid・他は色なし)。**N4は消えないファイル化済=/clear安全**。
+  - **★次の一手＝(a)N3(280=kadai60/point60/gaiyou30★概要はN3のみ新規/hatsuwa40/sokuji90)作問を同フローで or (b)結線（全級テキスト完成後に一括）。ルビはエージェントがインライン済=別パス不要。音声・結線・push・ビルドは別承認。**
+  - **✅N5 240問 生成・機械QA・配置 完了**（当セッション・音声抜き）＝`content/problems/choukai/mock/{kadai70,point60,hatsuwa50,sokuji60}_N5.json`（pool='mock'・0701帯・languages['ja']）。全ゲート通過（mock_verify致命0/daimon_solvability攻略耐性良好/sokuji_build・hatsuwa_build致命0/正解位置均等/骨組み正準）。新ツール=`tools/choukai/mock_verify.py`・`mock_materialize.py`。**配置済み未結線＝アプリ非表示・学習汚染なし。push/ビルド未実施。**
+  - **次の一手＝(a)N4(280)/N3(280)作問を同フローで（inflight §★確定 設計方針＝各大問の担当分・帯・スペックは scratchpad/choukai_mock/spec_*.md 流用可）or (b)N5だけ先に結線（rehydrate CHOUKAI_*_MOCK＋index＋daimon HAS_MOCK_POOL＋MockScreen mock優先＋番人＋package.json→rebuild→tsc→npm test）。音声は全級テキスト完成後にD1再承認。**
+  - **決定（ユーザー）**＝(1)進め方＝**作問だけ先行・音声(有料¥1,700目安)は仕上がり後にD1再承認** (2)課題モーラ帯だけ+10%(下限上限×1.1) (3)設計確定後**まず/clearしてトークン節約→N5(240問)から作問**。
+  - **確定設計**＝公式×10で計800問(N5:240/N4:280/N3:280)・`content/problems/choukai/mock/{大問}_{級}.json`(pool='mock'・ID 0701〜)・モーラ帯/骨組みタグ狙い/大問別ダミー技法/結線パターンすべて **[[choukai-mock-inflight]]「★確定 設計方針」に記録済**。
+  - **★N5は完了済（一意性Excel `一意性チェック_模試_N5.xlsx` も生成＝聴解は自己申告一意で色なし・ユーザー指示で追加検品はしない）。/clear後の一手＝(a)N4/N3作問（inflightを読む→作問時のみ`md/聴解_作問フロー.md`該当節[課題L121-/ポイントL136-/発話L100-/即時L70-/新規フローL211-]をRead→Opus波・各体即Write・発話/即時はhatsuwa_build/sokuji_buildゲート→機械検証→mock_materialize）or (b)N5結線。手本=[[dokkai-mock-inflight]]。音声・push・ビルドは別承認。**
+- **▶▶ 2026-08-31 完了＝読解4大問 模試プール新設＝🚀v1.1.27(2889)ビルド済(commit a21dcef9・run 33350427213)。正本＝[[dokkai-mock-inflight]]**：
   - **✅結線＋番人＋在庫Excel 完了（当セッション）**：rehydrate `READING_MOCK`(readingMap関数化)＋index `readingMockItemsForSub`＋MockScreen `readingByBlueprint` mock優先fallback＋rebuild(100files)／番人`src/data/readingMock.test.ts`(210本文320設問・件数/id/choices/answerIndex/subtype)＋package.json／**tsc0・npm test 481/481緑**(ne番人 passageTransNe緑=READING_MOCK未混入で維持)／ランタイム実測(mock隔離0混入)／在庫Excel(stock_excel.py MOCKに読解4大問=内容理解短30/40/40・中20/40/60・長N3:40・情報検索10/20/20→まとめ.xlsx再生成)。
   - **✅生成＋機械検証(既済)**：全10体320設問(scratchpad/dokkai_mock/out_*.json・ja平文)＋配置(content/problems/dokkai/mock/・pool='mock')＋一意性Excel。3本検証緑。
   - **★2026-08-31 ルビ ✅完了(4156/4156・apply strip_mismatch=0)**。正本＝[[dokkai-mock-inflight]]「2026-08-31 ルビ再開 ✅完了」節。ruby_io.py apply の照合を strip==strip へ修正(既存ルビ入り生成物対応)。content 10ファイルにルビ書き戻し済・級ゲート/読み品質 spot-check OK。
     - **★2026-08-31 翻訳 ✅完了（ユーザー「翻訳をお願いしたい」）＝merge/rebuild/tsc/npm test 全緑・未publish/未コミット**。ne/en 各27バッチ欠落0→merge_trans.py で content mock(joho以外)へ i18n.ne/en 書戻し(items160/q270・欠0・languages['ja','ne','en'])→rebuild(100)→tsc0→**npm test 481/481**(passageTransNe を READING_MOCK 含むよう拡張済)→spot-check(choices数一致/ne全Devanagari/<u>52本文保持・問題0)。**D2実費＝gemini-2.5-flash 40コール $0.3001≒¥47**(前回部分ne14バッチ分は_usage上書きで非保持・見積¥100内)。
-    - **★次の一手＝publish-content(OTA)＋まとめて1コミット＝ユーザー明示指示待ち**（OTA=外部配信ゆえ push/build 同様に指示ゲート）。commit内容＝content(dokkai/mock 翻訳)＋passageTransNe.test.ts拡張＋既済(結線/番人/在庫Excel/ルビ)。現状 push/build 前ゆえアプリ非表示=実害なし。決定②＝mock joho にbalance番人課さない。
+    - **★2026-08-31 🚀ビルド済 v1.1.27(2889)＝ユーザー「ビルドして」（commit a21dcef9・run 33350427213・both dispatch・push=OTA起動・iOS本日1/8・-NoWatch）＝読解模試プール一式(210本文320設問+結線+ルビ4156+翻訳en/ne+番人+在庫Excel)を実機反映。テスト71/71・tsc0。公開リリースはしていない（TestFlight/Play提出まで）。次＝(a)CI確認 要れば run 33350427213 (b)実機で模試読解プール(初見+en/ne訳)確認。**
+    - --- 旧: **publish待ち**（ビルドで解消）---（OTA=外部配信ゆえ push/build 同様に指示ゲート）。commit内容＝content(dokkai/mock 翻訳)＋passageTransNe.test.ts拡張＋既済(結線/番人/在庫Excel/ルビ)。現状 push/build 前ゆえアプリ非表示=実害なし。決定②＝mock joho にbalance番人課さない。
 - **▶▶ 2026-08-30 LIVE＝組み立て(order)・文章の文法(passage_grammar) 模試プール新設＝【生成〜配置〜一意性Excel 完了・/clear境界・残＝結線から】。正本＝[[order-passage-mock-inflight]]**：
   - **✅完了（クリア前）**＝生成9体（order150・passage30セット150設問）→機械検証0エラー（stem重複は地の文追加の微調整で解消・内容不変）→ルビ全漢字（内容不変・answer∈choices維持・裸漢字0）→**配置** `content/problems/bunpou/mock/{order,passage_grammar}_{N5,N4,N3}.json`（pool='mock'・languages['ja']）→**一意性Excel** `一意性チェック_模試_{N5,N4,N3}.xlsx`（赤0/黄=self申告mid）。**配置済みだが未結線＝アプリ非表示・学習汚染なし。**
   - **★/clear後の一手＝結線から**（[[order-passage-mock-inflight]]「/clear後の残作業」step3以降が正本）：**結線**（order=grammar_form mock同型 ORDER_MOCK＋daimon HAS_MOCK_POOL+='order'／passage_grammar=別経路 PASSAGE_GRAMMAR_MOCK＋MockScreen `passageGrammarItems`をmock優先に）→**番人**（orderMock.test.ts／passageGrammarMock.test.ts新設＋package.json）→rebuild→tsc0→npm test緑→ランタイム実測（mockが初見・学習汚染なし）→**在庫Excel**（stock_excel.py MOCKに order50/50/50・passage_grammar50/50/50追加・mockは在庫に数えない）→まとめてコミット（push/ビルドはユーザー指示待ち）。手本=[[grammar-form-mock-inflight]]。空所=order`＿ ＿ ★ ＿`／passage`【1】〜【5】`。
@@ -339,14 +381,14 @@
 - a6e2e5da70893cd09 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
-- memory/dokkai-mock-inflight.md
-- src/data/exam/passageTransNe.test.ts
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- content/problems/dokkai/mock/joho_N5.json
-- content/problems/dokkai/mock/joho_N4.json
-- content/problems/dokkai/mock/joho_N3.json
+- memory/choukai_gen_done.txt
+- memory/choukai_gen_log.txt
+- memory/choukai_audio_rec.json
+- assets/audio/N5-C-P-0062.mp3
+- 問題/聴解/N5/2_ポイント理解/N5-C-P-0062.mp3
+- 問題/聴解/N5/_master/2_ポイント理解/N5-C-P-0062-3.wav
+- 問題/聴解/N5/_master/2_ポイント理解/N5-C-P-0062-2.wav
+- 問題/聴解/N5/_master/2_ポイント理解/N5-C-P-0062-1.wav
 
-_自動更新: 2026-08-31 10:13_
+_自動更新: 2026-09-02 07:25_
 <!-- AUTO:END -->

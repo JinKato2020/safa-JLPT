@@ -1,0 +1,1691 @@
+{
+  "schema": 1,
+  "daimon": "sokuji",
+  "level": "N5",
+  "pool": "mock",
+  "languages": [
+    "ja"
+  ],
+  "items": [
+    {
+      "id": "N5-C-S-0701",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "すみません、その 塩（しお）を 取（と）って もらえますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0701-q1",
+          "q": "",
+          "choices": [
+            "はい、どうぞ。",
+            "いいえ、塩（しお）は 辛（から）くないですよ。",
+            "ええ、さっき 取（と）りに 行（い）きました。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0702",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "悪（わる）いけど、この 荷物（にもつ）、一緒（いっしょ）に 運（はこ）んでくれない？",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0702-q1",
+          "q": "",
+          "choices": [
+            "うん、荷物（にもつ）は 軽（かる）かったよ。",
+            "いいよ、どこまで 運（はこ）ぶの？",
+            "そうだね、荷物（にもつ）は 多（おお）いね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0703",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "ちょっと ペンを 貸（か）して ほしいんだけど。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0703-q1",
+          "q": "",
+          "choices": [
+            "ありがとう、ペン 借（か）りたよ。",
+            "そう、ペンが 好（す）きなんだ。",
+            "うん、これ 使（つか）って いいよ。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0704",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "駅（えき）に 行（い）くなら、この 手紙（てがみ）を 出（だ）してきて。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0704-q1",
+          "q": "",
+          "choices": [
+            "うん、ポストに 入（い）れておくね。",
+            "ありがとう、手紙（てがみ）を もらったよ。",
+            "そう、手紙（てがみ）は 長（なが）かったね。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0705",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "先（さき）に 入（はい）って、席（せき）を 取（と）っておいてくれる？",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0705-q1",
+          "q": "",
+          "choices": [
+            "うん、席（せき）は 空（あ）いてなかったよ。",
+            "いいよ、二（ふた）つ 取（と）っておくね。",
+            "ありがとう、席（せき）を 取（と）ってくれたんだ。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0706",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "悪（わる）いけど、電気（でんき）を 消（け）して くれる？",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0706-q1",
+          "q": "",
+          "choices": [
+            "うん、電気（でんき）が 点（つ）いてるね。",
+            "ええ、もう 点（つ）けたよ。",
+            "うん、すぐ 消（け）すね。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0707",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "明日（あした）の 集合（しゅうごう）は 十時（じゅうじ）で いいんだよね？",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0707-q1",
+          "q": "",
+          "choices": [
+            "うん、十時（じゅうじ）で 合（あ）ってるよ。",
+            "ええ、集合（しゅうごう）は 楽（たの）しかったね。",
+            "うん、集合（しゅうごう）場所（ばしょ）は 駅（えき）だよ。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0708",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "あの 店（みせ）、日曜日（にちようび）も 開（あ）いていますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0708-q1",
+          "q": "",
+          "choices": [
+            "いいえ、店（みせ）は きれいですよ。",
+            "はい、休（やす）まず 開（あ）いていますよ。",
+            "ええ、日曜日（にちようび）は 楽（たの）しかったです。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0709",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "レポートは もう 先生（せんせい）に 出（だ）しましたか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0709-q1",
+          "q": "",
+          "choices": [
+            "いいえ、レポートは 難（むずか）しいです。",
+            "ええ、先生（せんせい）は 優（やさ）しいです。",
+            "はい、昨日（きのう） 出（だ）しました。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0710",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "会議（かいぎ）の 場所（ばしょ）、二階（にかい）で 合（あ）ってますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0710-q1",
+          "q": "",
+          "choices": [
+            "いえ、三階（さんがい）に 変（か）わりましたよ。",
+            "はい、会議（かいぎ）は 長（なが）かったです。",
+            "ええ、場所（ばしょ）は 広（ひろ）いですね。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0711",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "この ケーキ、あなたが 作（つく）ったの？",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0711-q1",
+          "q": "",
+          "choices": [
+            "ううん、ケーキは 甘（あま）いよ。",
+            "うん、初（はじ）めて 作（つく）ってみたの。",
+            "うん、ケーキを 食（た）べたいな。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0712",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "傘（かさ）、持（も）って きた？ 雨（あめ）が 降（ふ）りそうだよ。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0712-q1",
+          "q": "",
+          "choices": [
+            "うん、雨（あめ）は 好（す）きだよ。",
+            "そう、傘（かさ）を さして いたよ。",
+            "あっ、家（いえ）に 忘（わす）れて きちゃった。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0713",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "すみません、プリンターが 動（うご）かなく なりました。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0713-q1",
+          "q": "",
+          "choices": [
+            "じゃあ、ちょっと 見（み）て みますね。",
+            "はい、プリンターは 新（あたら）しいですね。",
+            "ええ、よく 動（うご）いていますね。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "報告・知らせ",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0714",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "スタッフさん、荷物（にもつ）が 今（いま） 届（とど）きました。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0714-q1",
+          "q": "",
+          "choices": [
+            "荷物（にもつ）は まだ 届（とど）きませんね。",
+            "ありがとう、そこに 置（お）いて おいて。",
+            "じゃあ、荷物（にもつ）を 送（おく）りましょう。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "報告・知らせ",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0715",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "今日（きょう）は 熱（ねつ）が あるので、早（はや）く 帰（かえ）ります。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0715-q1",
+          "q": "",
+          "choices": [
+            "熱（あつ）い お茶（ちゃ）が 飲（の）みたいね。",
+            "じゃあ、一緒（いっしょ）に 帰（かえ）りましょう。",
+            "大丈夫（だいじょうぶ）？ お大事（だいじ）に。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "報告・知らせ",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0716",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "すみません、コップを 割（わ）って しまいました。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0716-q1",
+          "q": "",
+          "choices": [
+            "けがは なかった？ 気（き）を つけてね。",
+            "コップに お茶（ちゃ）を 入（い）れてね。",
+            "うん、コップを 買（か）って きたよ。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "報告・知らせ",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0717",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "電車（でんしゃ）が 遅（おく）れて、少（すこ）し 遅（おく）れます。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0717-q1",
+          "q": "",
+          "choices": [
+            "電車（でんしゃ）は 速（はや）いですね。",
+            "わかった、気（き）を つけて 来（き）てね。",
+            "じゃあ、早（はや）く 着（つ）きますね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "報告・知らせ",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0718",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "あの、さっきから 少（すこ）し うるさいんですが。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0718-q1",
+          "q": "",
+          "choices": [
+            "はい、もっと 大（おお）きな 声（こえ）で 話（はな）します。",
+            "そうですね、静（しず）かで いいですね。",
+            "あっ、すみません。静（しず）かに します。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "苦情・指摘",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0719",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "この 料理（りょうり）、少（すこ）し 冷（つめ）たいんですけど。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0719-q1",
+          "q": "",
+          "choices": [
+            "失礼（しつれい）しました。温（あたた）め直（なお）します。",
+            "はい、冷（つめ）たい 飲（の）み物（もの）を お持（も）ちします。",
+            "ええ、この 料理（りょうり）は 人気（にんき）です。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "苦情・指摘",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0720",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "注文（ちゅうもん）した 物（もの）と 違（ちが）う 物（もの）が 来（き）ました。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0720-q1",
+          "q": "",
+          "choices": [
+            "はい、注文（ちゅうもん）は 多（おお）かったです。",
+            "申（もう）し訳（わけ）ありません。すぐ 交換（こうかん）します。",
+            "では、同（おな）じ 物（もの）を もう 一（ひと）つ どうぞ。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "苦情・指摘",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0721",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "ここ、字（じ）が 一（ひと）つ 間違（まちが）って いますよ。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0721-q1",
+          "q": "",
+          "choices": [
+            "はい、字（じ）が きれいですね。",
+            "ええ、正（ただ）しく 書（か）けて いますね。",
+            "本当（ほんとう）だ、すぐ 直（なお）します。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "苦情・指摘",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0722",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "あなたの 傘（かさ）、私（わたし）のと 間違（まちが）えて いませんか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0722-q1",
+          "q": "",
+          "choices": [
+            "あっ、本当（ほんとう）だ。すみません。",
+            "はい、傘（かさ）を 買（か）いました。",
+            "いいえ、傘（かさ）は 玄関（げんかん）に あります。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "苦情・指摘",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0723",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "すみません、ここに 座（すわ）っても いいですか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0723-q1",
+          "q": "",
+          "choices": [
+            "はい、ここは 静（しず）かですね。",
+            "どうぞ、空（あ）いていますよ。",
+            "ええ、もう 座（すわ）りました。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "許可求め",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0724",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "写真（しゃしん）を 撮（と）っても かまいませんか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0724-q1",
+          "q": "",
+          "choices": [
+            "はい、写真（しゃしん）は きれいでした。",
+            "いいえ、写真（しゃしん）を 撮（と）りたいです。",
+            "ええ、どうぞ ご自由（じゆう）に。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "許可求め",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0725",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "窓（まど）を 開（あ）けても いいですか。暑（あつ）くて。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0725-q1",
+          "q": "",
+          "choices": [
+            "いいですよ、開（あ）けて ください。",
+            "ええ、窓（まど）は 大（おお）きいですね。",
+            "はい、窓（まど）を 閉（し）めました。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "許可求め",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0726",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "あそこに 自転車（じてんしゃ）を 止（と）めても いいですか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0726-q1",
+          "q": "",
+          "choices": [
+            "はい、自転車（じてんしゃ）は 便利（べんり）ですね。",
+            "ええ、そこなら 大丈夫（だいじょうぶ）ですよ。",
+            "いいえ、自転車（じてんしゃ）で 来（き）ました。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "許可求め",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0727",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "暑（あつ）いですね。扇風機（せんぷうき）を つけましょうか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0727-q1",
+          "q": "",
+          "choices": [
+            "はい、扇風機（せんぷうき）は 静（しず）かですね。",
+            "ええ、扇風機（せんぷうき）を 消（け）しました。",
+            "助（たす）かります、ぜひ。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0728",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "駅（えき）まで 車（くるま）で 送（おく）りましょうか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0728-q1",
+          "q": "",
+          "choices": [
+            "本当（ほんとう）ですか、お願（ねが）いします。",
+            "はい、駅（えき）は 近（ちか）いですね。",
+            "ええ、車（くるま）を 買（か）いました。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0729",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "よかったら、この 傘（かさ）を 使（つか）って ください。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0729-q1",
+          "q": "",
+          "choices": [
+            "はい、傘（かさ）を 返（かえ）しました。",
+            "すみません、お借（か）りします。",
+            "ええ、傘（かさ）は 高（たか）かったです。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0730",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "手伝（てつだ）いましょうか。一人（ひとり）じゃ 大変（たいへん）でしょう。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0730-q1",
+          "q": "",
+          "choices": [
+            "はい、一人（ひとり）で 来（き）ました。",
+            "ええ、大変（たいへん） 疲（つか）れました。",
+            "ありがとう、じゃあ お願（ねが）いします。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0731",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "よかったら、私（わたし）の ペンを 貸（か）しましょうか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0731-q1",
+          "q": "",
+          "choices": [
+            "助（たす）かります、ありがとう。",
+            "うん、ペンで 書（か）いたよ。",
+            "ええ、ペンを 貸（か）して あげたよ。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0732",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "今度（こんど）、一緒（いっしょ）に プールへ 泳（およ）ぎに 行（い）かない？",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0732-q1",
+          "q": "",
+          "choices": [
+            "うん、プールは 気持（きも）ち よかったね。",
+            "いいね、行（い）きたい！",
+            "そう、プールの 水（みず）は 冷（つめ）たいね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "誘い",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0733",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "土曜日（どようび）、花火（はなび）を 見（み）に 行（い）きませんか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0733-q1",
+          "q": "",
+          "choices": [
+            "はい、花火（はなび）は きれいでしたね。",
+            "そう、花火（はなび）の 音（おと）は 大（おお）きいね。",
+            "わあ、行（い）きたいです。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "誘い",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0734",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "週末（しゅうまつ）、みんなで 花見（はなみ）に 行（い）きましょう。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0734-q1",
+          "q": "",
+          "choices": [
+            "賛成（さんせい）、楽（たの）しみだね。",
+            "うん、花見（はなみ）は きれいだったね。",
+            "そう、週末（しゅうまつ）は 雨（あめ）だったね。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "誘い",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0735",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "今晩（こんばん）、うちで 一緒（いっしょ）に ご飯（はん） どう？",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0735-q1",
+          "q": "",
+          "choices": [
+            "うん、ご飯（はん）は おいしかった。",
+            "いいね、お邪魔（じゃま）してもいい？",
+            "そう、今晩（こんばん）は 寒（さむ）いね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "誘い",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0736",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "せっかくですが、今日（きょう）は 遠慮（えんりょ）して おきます。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0736-q1",
+          "q": "",
+          "choices": [
+            "はい、遠慮（えんりょ）なく どうぞ。",
+            "ええ、今日（きょう）は 楽（たの）しかったですね。",
+            "そうですか、また 今度（こんど） 誘（さそ）いますね。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "断り・辞退",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0737",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "ありがたいのですが、お金（かね）は 受（う）け取（と）れません。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0737-q1",
+          "q": "",
+          "choices": [
+            "そうですか、では しまいますね。",
+            "はい、お金（かね）を 貸（か）して ください。",
+            "ええ、お金（かね）が 足（た）りませんね。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "断り・辞退",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0738",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "すみません、その 日（ひ）は 都合（つごう）が 悪（わる）いんです。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0738-q1",
+          "q": "",
+          "choices": [
+            "はい、都合（つごう）が いいですね。",
+            "わかりました、別（べつ）の 日（ひ）に しましょう。",
+            "ええ、その 日（ひ）は 晴（は）れましたね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "断り・辞退",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0739",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "私（わたし）には まだ 難（むずか）しいので、やめて おきます。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0739-q1",
+          "q": "",
+          "choices": [
+            "はい、難（むずか）しい 問題（もんだい）ですね。",
+            "ええ、ぜひ やって みましょう。",
+            "そうですか、無理（むり）は しないでね。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "断り・辞退",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0740",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "そろそろ 出発（しゅっぱつ）の 時間（じかん）ですよ。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0740-q1",
+          "q": "",
+          "choices": [
+            "はい、すぐ 行（い）きます。",
+            "ええ、時間（じかん）が たっぷり ありますね。",
+            "そう、出発（しゅっぱつ）は 楽（たの）しかったね。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "催促",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0741",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "さっき 頼（たの）んだ コピー、まだ できませんか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0741-q1",
+          "q": "",
+          "choices": [
+            "はい、コピーは きれいですね。",
+            "すみません、あと 少（すこ）しで 終（お）わります。",
+            "ええ、コピーを 頼（たの）みました。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "催促",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0742",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "早（はや）く しないと 電車（でんしゃ）に 遅（おく）れるよ。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0742-q1",
+          "q": "",
+          "choices": [
+            "うん、電車（でんしゃ）は 空（す）いてたね。",
+            "そう、ゆっくり 行（い）こうね。",
+            "わかった、すぐ 準備（じゅんび）するね。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "催促",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0743",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "落（お）とした 財布（さいふ）を 届（とど）けて くれて、ありがとう。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0743-q1",
+          "q": "",
+          "choices": [
+            "いいえ、見（み）つかって よかったですね。",
+            "はい、財布（さいふ）を 落（お）として しまいました。",
+            "ええ、財布（さいふ）は 空（から）でしたよ。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "お礼",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0744",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "素敵（すてき）な プレゼント、本当（ほんとう）に ありがとう。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0744-q1",
+          "q": "",
+          "choices": [
+            "うん、プレゼントを もらったよ。",
+            "気（き）に 入（い）って くれて うれしいよ。",
+            "そう、プレゼントは 高（たか）かった？"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "お礼",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0745",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "昨日（きのう）は ごちそうさま。とても おいしかったです。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0745-q1",
+          "q": "",
+          "choices": [
+            "はい、昨日（きのう）は 雨（あめ）でしたね。",
+            "ええ、私（わたし）も ごちそうに なりました。",
+            "喜（よろこ）んで もらえて よかったです。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "お礼",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0746",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "遅（おく）れて ごめんね。待（ま）たせて しまって。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0746-q1",
+          "q": "",
+          "choices": [
+            "大丈夫（だいじょうぶ）だよ、気（き）に しないで。",
+            "うん、早（はや）く 来（き）て くれたね。",
+            "ええ、遅（おそ）い 時間（じかん）だね。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "謝罪",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0747",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "夜（よる）遅（おそ）くに 電話（でんわ）して、ごめんね。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0747-q1",
+          "q": "",
+          "choices": [
+            "うん、朝（あさ）早（はや）く 電話（でんわ）してね。",
+            "ううん、大丈夫（だいじょうぶ）だよ。",
+            "そう、電話（でんわ）が 鳴（な）って いるよ。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "謝罪",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0748",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "この間（あいだ）は 失礼（しつれい）な ことを 言（い）って ごめん。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0748-q1",
+          "q": "",
+          "choices": [
+            "うん、失礼（しつれい）します。",
+            "そう、いい ことを 言（い）ったね。",
+            "ううん、もう 気（き）に して ないよ。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "謝罪",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0749",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "明日（あした）の 面接（めんせつ）、緊張（きんちょう）するなあ。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0749-q1",
+          "q": "",
+          "choices": [
+            "大丈夫（だいじょうぶ）、きっと うまく いくよ。",
+            "うん、面接（めんせつ）は 終（お）わったね。",
+            "そう、明日（あした）は 晴（は）れだね。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "感想・共感",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0750",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "今日（きょう）の 映画（えいが）、すごく 感動（かんどう）したね。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0750-q1",
+          "q": "",
+          "choices": [
+            "そう、映画（えいが）を 見（み）に 行（い）こう。",
+            "うん、最後（さいご）は 泣（な）いちゃった。",
+            "ええ、映画館（えいがかん）は 広（ひろ）いね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "感想・共感",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0751",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "毎日（まいにち） 暑（あつ）くて、本当（ほんとう）に 大変（たいへん）だね。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0751-q1",
+          "q": "",
+          "choices": [
+            "うん、毎日（まいにち） 寒（さむ）いね。",
+            "そう、暑（あつ）い お茶（ちゃ）が いいね。",
+            "本当（ほんとう）に、早（はや）く 涼（すず）しく なって ほしいね。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "感想・共感",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0752",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "そこ、床（ゆか）が ぬれてるから 気（き）を つけてね。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0752-q1",
+          "q": "",
+          "choices": [
+            "ありがとう、気（き）を つけるね。",
+            "うん、床（ゆか）は かわいて いるね。",
+            "そう、床（ゆか）を ふいたよ。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "忠告・注意",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0753",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "風邪（かぜ）を ひかないように、上着（うわぎ）を 着（き）てね。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0753-q1",
+          "q": "",
+          "choices": [
+            "そう、上着（うわぎ）を 脱（ぬ）ごう。",
+            "うん、ちゃんと 着（き）て いくよ。",
+            "ええ、風邪（かぜ）は 治（なお）ったよ。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "忠告・注意",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0754",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "危（あぶ）ないから、その 機械（きかい）に 触（さわ）らないで。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0754-q1",
+          "q": "",
+          "choices": [
+            "うん、機械（きかい）は 便利（べんり）だね。",
+            "そう、機械（きかい）を 触（さわ）って みよう。",
+            "はい、気（き）を つけて 触（さわ）りません。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "忠告・注意",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0755",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "この 二（ふた）つ、どっちの 色（いろ）が いいと 思（おも）う？",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0755-q1",
+          "q": "",
+          "choices": [
+            "私（わたし）は 青（あお）い ほうが いいと 思（おも）う。",
+            "うん、色（いろ）を 塗（ぬ）ったよ。",
+            "そう、二（ふた）つとも 買（か）ったの？"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "相談・意見求め",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0756",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "最近（さいきん） よく 眠（ねむ）れないんだけど、どうしよう。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0756-q1",
+          "q": "",
+          "choices": [
+            "うん、よく 眠（ねむ）れて いいね。",
+            "一度（いちど） 病院（びょういん）で 診（み）て もらったら？",
+            "そう、最近（さいきん） 暖（あたた）かいね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "相談・意見求め",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0757",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "この 店（みせ）、みんなに 人気（にんき）だけど どう 思（おも）う？",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0757-q1",
+          "q": "",
+          "choices": [
+            "うん、店（みせ）を 閉（し）めたよ。",
+            "そう、人気（にんき）が ない 店（みせ）だね。",
+            "私（わたし）も いい 店（みせ）だと 思（おも）うよ。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "相談・意見求め",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0758",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "隣（となり）の お店（みせ）、来週（らいしゅう） 閉（し）まるそうだよ。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0758-q1",
+          "q": "",
+          "choices": [
+            "えっ、そうなんだ。知（し）らなかった。",
+            "うん、お店（みせ）が 開（あ）いたね。",
+            "そう、お店（みせ）で 買（か）い物（もの）しよう。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "伝聞・情報伝達",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0759",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "明日（あした）から 雨（あめ）が 続（つづ）くらしいよ。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0759-q1",
+          "q": "",
+          "choices": [
+            "うん、昨日（きのう）は いい 天気（てんき）だったね。",
+            "じゃあ、傘（かさ）を 持（も）って いかないとね。",
+            "そう、雨（あめ）が やんで よかったね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "伝聞・情報伝達",
+      "pool": "mock"
+    },
+    {
+      "id": "N5-C-S-0760",
+      "level": "N5",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "sokuji",
+      "qtype": "即時応答",
+      "title": "即時応答",
+      "script": "駅（えき）の 前（まえ）に、新（あたら）しい 店（みせ）が できるらしいよ。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N5-C-S-0760-q1",
+          "q": "",
+          "choices": [
+            "うん、その 店（みせ）は なくなったね。",
+            "そう、駅（えき）まで 歩（ある）いたよ。",
+            "へえ、どんな 店（みせ）が できるのかな。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "伝聞・情報伝達",
+      "pool": "mock"
+    }
+  ]
+}

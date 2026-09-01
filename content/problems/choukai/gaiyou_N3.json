@@ -34,7 +34,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0002",
@@ -63,7 +65,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0003",
@@ -92,7 +96,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0004",
@@ -121,7 +127,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0005",
@@ -150,7 +158,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0006",
@@ -179,7 +189,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0007",
@@ -208,7 +220,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0008",
@@ -237,7 +251,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0009",
@@ -266,7 +282,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0010",
@@ -295,7 +313,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0011",
@@ -324,7 +344,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0012",
@@ -353,7 +375,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0013",
@@ -382,7 +406,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0014",
@@ -411,7 +437,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0015",
@@ -440,7 +468,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0016",
@@ -469,7 +499,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0017",
@@ -498,7 +530,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0018",
@@ -527,7 +561,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0019",
@@ -556,7 +592,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0020",
@@ -585,7 +623,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0021",
@@ -614,7 +654,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "仕事"
+      "genre": "仕事",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0022",
@@ -643,7 +685,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "仕事"
+      "genre": "仕事",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0023",
@@ -672,7 +716,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "仕事"
+      "genre": "仕事",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0024",
@@ -701,7 +747,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "仕事"
+      "genre": "仕事",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0025",
@@ -730,7 +778,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0026",
@@ -759,7 +809,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0027",
@@ -788,7 +840,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0028",
@@ -817,7 +871,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0029",
@@ -846,7 +902,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "文化行事"
+      "genre": "文化行事",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0030",
@@ -875,7 +933,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0031",
@@ -904,7 +964,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "モノサービス"
+      "genre": "モノサービス",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0032",
@@ -933,7 +995,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "文化行事"
+      "genre": "文化行事",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0033",
@@ -962,7 +1026,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0034",
@@ -991,7 +1057,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0035",
@@ -1020,7 +1088,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0036",
@@ -1049,7 +1119,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0037",
@@ -1078,7 +1150,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0038",
@@ -1107,7 +1181,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0039",
@@ -1136,7 +1212,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0040",
@@ -1165,7 +1243,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0041",
@@ -1194,7 +1274,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0042",
@@ -1223,7 +1305,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0043",
@@ -1252,7 +1336,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0044",
@@ -1281,7 +1367,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0045",
@@ -1310,7 +1398,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0046",
@@ -1339,7 +1429,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0047",
@@ -1368,7 +1460,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0048",
@@ -1397,7 +1491,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0049",
@@ -1426,7 +1522,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0050",
@@ -1455,7 +1553,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0051",
@@ -1484,7 +1584,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0052",
@@ -1513,7 +1615,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0053",
@@ -1542,7 +1646,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0054",
@@ -1571,7 +1677,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0055",
@@ -1600,7 +1708,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0056",
@@ -1629,7 +1739,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0057",
@@ -1658,7 +1770,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0058",
@@ -1687,7 +1801,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0059",
@@ -1716,7 +1832,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0060",
@@ -1745,7 +1863,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "健康体"
+      "genre": "健康体",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0061",
@@ -1774,7 +1894,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0062",
@@ -1803,7 +1925,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0063",
@@ -1832,7 +1956,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0064",
@@ -1861,7 +1987,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0065",
@@ -1890,7 +2018,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0066",
@@ -1919,7 +2049,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "学び"
+      "genre": "学び",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0067",
@@ -1948,7 +2080,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "仕事"
+      "genre": "仕事",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0068",
@@ -1977,7 +2111,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "仕事"
+      "genre": "仕事",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0069",
@@ -2006,7 +2142,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0070",
@@ -2035,7 +2173,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0071",
@@ -2064,7 +2204,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0072",
@@ -2093,7 +2235,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "仕事"
+      "genre": "仕事",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0073",
@@ -2122,7 +2266,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0074",
@@ -2151,7 +2297,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0075",
@@ -2180,7 +2328,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0076",
@@ -2209,7 +2359,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "生活くらし"
+      "genre": "生活くらし",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0077",
@@ -2238,7 +2390,9 @@
       ],
       "i18n": {},
       "q_type": "何について",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0078",
@@ -2267,7 +2421,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0079",
@@ -2296,7 +2452,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "社会自然"
+      "genre": "社会自然",
+      "audio": true,
+      "audioChoices": true
     },
     {
       "id": "N3-C-G-0080",
@@ -2325,7 +2483,9 @@
       ],
       "i18n": {},
       "q_type": "主張",
-      "genre": "趣味旅食"
+      "genre": "趣味旅食",
+      "audio": true,
+      "audioChoices": true
     }
   ]
 }

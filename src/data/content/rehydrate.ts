@@ -60,10 +60,13 @@ export function rehydrateBanks(files: Record<string, Any>) {
   const READING = READING_SUBTYPES.flatMap((st) => bankItems(files, st, readingMap(st)));
   // 読解4大問(⑨〜⑫)の模試専用プール(初見)。翻訳/ルビは後日OTAバッチ。同じ readingMap を通すので将来の ne/en も自動捕捉。
   const READING_MOCK = READING_SUBTYPES.flatMap((st) => bankItems(files, st, readingMap(st), true));
-  const LISTENING = LISTENING_SUBTYPES.flatMap((st) => bankItems(files, st, (it, level) => {
+  const listeningMap = (st: string) => (it: Any, level: string) => {
     const { i18n, questions, ...rest } = it;
     return { ...rest, level, subtype: st, questions: (questions ?? []).map(restoreQ) };
-  }));
+  };
+  const LISTENING = LISTENING_SUBTYPES.flatMap((st) => bankItems(files, st, listeningMap(st)));
+  // 聴解5大問の模試専用プール(初見)。学習と別に持ち、MockScreenが exam でのみ使う。音声(mp3)は後日TTSバッチ。
+  const LISTENING_MOCK = LISTENING_SUBTYPES.flatMap((st) => bankItems(files, st, listeningMap(st), true));
   const pgMap = (it: Any, level: string) => {
     const { i18n, questions, ...rest } = it;
     if (i18n?.ne?.body) PASSAGE_TRANS_NE[it.id] = i18n.ne.body; // pgセットの本文訳も PASSAGE_TRANS_NE へ
@@ -84,5 +87,5 @@ export function rehydrateBanks(files: Record<string, Any>) {
     for (const [p, f] of Object.entries(files)) if (p.startsWith('lexicon/') && (f as Any).kind === kind) Object.assign(out, (f as Any).items);
     return out;
   };
-  return { KANJI_READ_BANK, KANJI_READ_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, USAGE_MOCK, GRAMMAR_FORM_MOCK, ORDER_MOCK, KNOWLEDGE_BANK, READING, READING_MOCK, LISTENING, PASSAGE_GRAMMAR, PASSAGE_GRAMMAR_MOCK, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), FURIGANA_L10N: mergeLex('furigana'), VOCAB_FIX: mergeLex('vocabfix'), KANJI_FIX: mergeLex('kanjifix'), GRAMMAR_FIX: mergeLex('grammarfix'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
+  return { KANJI_READ_BANK, KANJI_READ_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, USAGE_MOCK, GRAMMAR_FORM_MOCK, ORDER_MOCK, KNOWLEDGE_BANK, READING, READING_MOCK, LISTENING, LISTENING_MOCK, PASSAGE_GRAMMAR, PASSAGE_GRAMMAR_MOCK, MEANING_L10N: mergeLex('meaning'), EXAMPLE_L10N: mergeLex('example'), KANJIGLOSS_L10N: mergeLex('kanjigloss'), FURIGANA_L10N: mergeLex('furigana'), VOCAB_FIX: mergeLex('vocabfix'), KANJI_FIX: mergeLex('kanjifix'), GRAMMAR_FIX: mergeLex('grammarfix'), PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN };
 }

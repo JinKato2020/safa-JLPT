@@ -106,7 +106,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0008",
+   "id": "N5-V-I-0007",
    "vocabId": "n5-v-46",
    "sentence": "もう 一度 ゆっくり 言って ください。",
    "underline": "言って",
@@ -122,7 +122,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0009",
+   "id": "N5-V-I-0008",
    "vocabId": "n5-v-47",
    "sentence": "わたしの 家は 駅から ちかいです。",
    "underline": "家",
@@ -138,7 +138,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0010",
+   "id": "N5-V-I-0009",
    "vocabId": "n5-v-48",
    "sentence": "コーヒーは いかがですか。",
    "underline": "いかが",
@@ -156,7 +156,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0011",
+   "id": "N5-V-I-0010",
    "vocabId": "n5-v-49",
    "sentence": "明日 先生の うちに 行きます。",
    "underline": "行きます",
@@ -172,7 +172,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0012",
+   "id": "N5-V-I-0011",
    "vocabId": "n5-v-55",
    "sentence": "父は 忙しいです。",
    "underline": "忙しい",
@@ -188,7 +188,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0013",
+   "id": "N5-V-I-0012",
    "vocabId": "n5-v-70",
    "sentence": "この 家の 入口は せまいです。",
    "underline": "入口",
@@ -206,7 +206,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0015",
+   "id": "N5-V-I-0013",
    "vocabId": "n5-v-78",
    "sentence": "この ノートは 薄いです。",
    "underline": "薄い",
@@ -222,7 +222,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0016",
+   "id": "N5-V-I-0014",
    "vocabId": "n5-v-81",
    "sentence": "わたしの うちは 駅の 近くに あります。",
    "underline": "うち",
@@ -238,7 +238,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0017",
+   "id": "N5-V-I-0015",
    "vocabId": "n5-v-84",
    "sentence": "店の 人が 私に 花を 売りました。",
    "underline": "売りました",
@@ -254,7 +254,7 @@
    "pattern": "perspective_cross"
   },
   {
-   "id": "N5-V-I-0019",
+   "id": "N5-V-I-0016",
    "vocabId": "n5-v-98",
    "sentence": "この クラスは 学生が 多いです。",
    "underline": "多い",
@@ -270,7 +270,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0020",
+   "id": "N5-V-I-0017",
    "vocabId": "n5-v-99",
    "sentence": "この かばんは 大きいです。",
    "underline": "大きい",
@@ -286,7 +286,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0021",
+   "id": "N5-V-I-0018",
    "vocabId": "n5-v-101",
    "sentence": "パーティーに 人が 大勢 来ました。",
    "underline": "大勢",
@@ -302,7 +302,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0024",
+   "id": "N5-V-I-0019",
    "vocabId": "n5-v-112",
    "sentence": "先生が 子どもたちに ピアノを 教えました。",
    "underline": "教えました",
@@ -318,7 +318,7 @@
    "pattern": "perspective_cross"
   },
   {
-   "id": "N5-V-I-0025",
+   "id": "N5-V-I-0020",
    "vocabId": "n5-v-114",
    "sentence": "この 電車は 遅いです。",
    "underline": "遅い",
@@ -334,7 +334,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0026",
+   "id": "N5-V-I-0021",
    "vocabId": "n5-v-116",
    "sentence": "すみません、お手洗いは どこですか。",
    "underline": "お手洗い",
@@ -352,7 +352,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0029",
+   "id": "N5-V-I-0022",
    "vocabId": "n5-v-123",
    "sentence": "あの 人は 大人です。",
    "underline": "大人",
@@ -368,7 +368,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0031",
+   "id": "N5-V-I-0023",
    "vocabId": "n5-v-133",
    "sentence": "道が わからないので、おまわりさんに 聞きました。",
    "underline": "おまわりさん",
@@ -384,7 +384,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0032",
+   "id": "N5-V-I-0024",
    "vocabId": "n5-v-134",
    "sentence": "この 荷物は 重いです。",
    "underline": "重い",
@@ -400,7 +400,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0033",
+   "id": "N5-V-I-0025",
    "vocabId": "n5-v-135",
    "sentence": "この 本は とても 面白いです。",
    "underline": "面白い",
@@ -418,7 +418,7 @@
    "pattern": "adj"
   },
   {
-   "id": "N5-V-I-0034",
+   "id": "N5-V-I-0026",
    "vocabId": "n5-v-138",
    "sentence": "この 店は 何時に 終わりますか。",
    "underline": "終わりますか",
@@ -434,7 +434,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0036",
+   "id": "N5-V-I-0027",
    "vocabId": "n5-v-142",
    "sentence": "私は この 映画を 3回 見ました。",
    "underline": "回",
@@ -450,7 +450,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0038",
+   "id": "N5-V-I-0028",
    "vocabId": "n5-v-149",
    "sentence": "母が となりの 人から 野菜を 買いました。",
    "underline": "買いました",
@@ -466,7 +466,7 @@
    "pattern": "perspective_cross"
   },
   {
-   "id": "N5-V-I-0039",
+   "id": "N5-V-I-0029",
    "vocabId": "n5-v-156",
    "sentence": "あの 学生は とても まじめです。",
    "underline": "学生",
@@ -482,7 +482,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0040",
+   "id": "N5-V-I-0030",
    "vocabId": "n5-v-159",
    "sentence": "どうぞ、この いすに かけて ください。",
    "underline": "かけて",
@@ -498,7 +498,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0041",
+   "id": "N5-V-I-0031",
    "vocabId": "n5-v-161",
    "sentence": "兄が 弟に 自転車を 貸しました。",
    "underline": "貸しました",
@@ -514,7 +514,7 @@
    "pattern": "perspective_cross"
   },
   {
-   "id": "N5-V-I-0042",
+   "id": "N5-V-I-0032",
    "vocabId": "n5-v-164",
    "sentence": "あの 方は 日本語の 先生です。",
    "underline": "方",
@@ -530,7 +530,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0043",
+   "id": "N5-V-I-0033",
    "vocabId": "n5-v-180",
    "sentence": "友達が 店の 人に 傘を 借りました。",
    "underline": "借りました",
@@ -546,7 +546,7 @@
    "pattern": "perspective_cross"
   },
   {
-   "id": "N5-V-I-0044",
+   "id": "N5-V-I-0034",
    "vocabId": "n5-v-182",
    "sentence": "この かさは 軽いです。",
    "underline": "軽い",
@@ -562,7 +562,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0045",
+   "id": "N5-V-I-0035",
    "vocabId": "n5-v-193",
    "sentence": "分からない ことばを 先生に 聞きました。",
    "underline": "聞きました",
@@ -578,7 +578,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0046",
+   "id": "N5-V-I-0036",
    "vocabId": "n5-v-196",
    "sentence": "この 台所は 汚いです。",
    "underline": "汚い",
@@ -594,7 +594,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0048",
+   "id": "N5-V-I-0037",
    "vocabId": "n5-v-208",
    "sentence": "私は 料理が 嫌いです。",
    "underline": "嫌い",
@@ -610,7 +610,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0050",
+   "id": "N5-V-I-0038",
    "vocabId": "n5-v-226",
    "sentence": "この 部屋は 暗いです。",
    "underline": "暗い",
@@ -626,7 +626,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0051",
+   "id": "N5-V-I-0039",
    "vocabId": "n5-v-228",
    "sentence": "今日は 日本語の クラスが あります。",
    "underline": "クラス",
@@ -642,7 +642,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0052",
+   "id": "N5-V-I-0040",
    "vocabId": "n5-v-230",
    "sentence": "電車が もうすぐ 来ます。",
    "underline": "来ます",
@@ -658,7 +658,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0054",
+   "id": "N5-V-I-0041",
    "vocabId": "n5-v-240",
    "sentence": "ホテルの 玄関で 友達を 待ちました。",
    "underline": "玄関",
@@ -675,7 +675,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0055",
+   "id": "N5-V-I-0042",
    "vocabId": "n5-v-250",
    "sentence": "寒いので コートを 着ます。",
    "underline": "コート",
@@ -691,7 +691,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0056",
+   "id": "N5-V-I-0043",
    "vocabId": "n5-v-256",
    "sentence": "午前は 雨が ふりました。",
    "underline": "午前",
@@ -707,7 +707,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0057",
+   "id": "N5-V-I-0044",
    "vocabId": "n5-v-273",
    "sentence": "今晩は 早く 寝ます。",
    "underline": "今晩",
@@ -723,7 +723,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0058",
+   "id": "N5-V-I-0045",
    "vocabId": "n5-v-297",
    "sentence": "この 辞書は とても 便利です。",
    "underline": "辞書",
@@ -739,7 +739,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0059",
+   "id": "N5-V-I-0046",
    "vocabId": "n5-v-298",
    "sentence": "この 図書館は 静かです。",
    "underline": "静か",
@@ -755,7 +755,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0062",
+   "id": "N5-V-I-0047",
    "vocabId": "n5-v-305",
    "sentence": "わからない 言葉は 字引で しらべます。",
    "underline": "字引",
@@ -771,7 +771,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0063",
+   "id": "N5-V-I-0048",
    "vocabId": "n5-v-306",
    "sentence": "これは 自分の かさです。",
    "underline": "自分",
@@ -789,7 +789,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0064",
+   "id": "N5-V-I-0049",
    "vocabId": "n5-v-317",
    "sentence": "午後は 日本語の 授業が あります。",
    "underline": "授業",
@@ -805,7 +805,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0066",
+   "id": "N5-V-I-0050",
    "vocabId": "n5-v-320",
    "sentence": "この かばんは とても 丈夫です。",
    "underline": "丈夫",
@@ -823,7 +823,7 @@
    "pattern": "adj"
   },
   {
-   "id": "N5-V-I-0067",
+   "id": "N5-V-I-0051",
    "vocabId": "n5-v-323",
    "sentence": "わたしは あの 人の 名前を 知っています。",
    "underline": "知っています",
@@ -841,7 +841,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0068",
+   "id": "N5-V-I-0052",
    "vocabId": "n5-v-333",
    "sentence": "この 教室は 学生が 少ないです。",
    "underline": "少ない",
@@ -857,7 +857,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0069",
+   "id": "N5-V-I-0053",
    "vocabId": "n5-v-335",
    "sentence": "コーヒーを 少し 飲みます。",
    "underline": "少し",
@@ -874,7 +874,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0071",
+   "id": "N5-V-I-0054",
    "vocabId": "n5-v-343",
    "sentence": "日曜日に 宿題を します。",
    "underline": "します",
@@ -892,7 +892,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0072",
+   "id": "N5-V-I-0055",
    "vocabId": "n5-v-346",
    "sentence": "この 学校の 生徒は たくさん います。",
    "underline": "生徒",
@@ -908,7 +908,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0074",
+   "id": "N5-V-I-0056",
    "vocabId": "n5-v-350",
    "sentence": "その 店は 狭いです。",
    "underline": "狭い",
@@ -924,7 +924,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0075",
+   "id": "N5-V-I-0057",
    "vocabId": "n5-v-351",
    "sentence": "テストの てんは ゼロでした。",
    "underline": "ゼロ",
@@ -942,7 +942,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0076",
+   "id": "N5-V-I-0058",
    "vocabId": "n5-v-357",
    "sentence": "りんごを 全部 食べました。",
    "underline": "全部",
@@ -960,7 +960,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0077",
+   "id": "N5-V-I-0059",
    "vocabId": "n5-v-366",
    "sentence": "えきの そばに 店が あります。",
    "underline": "そば",
@@ -978,7 +978,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0080",
+   "id": "N5-V-I-0060",
    "vocabId": "n5-v-378",
    "sentence": "昨日は 大変 寒かったです。",
    "underline": "大変",
@@ -995,7 +995,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0081",
+   "id": "N5-V-I-0061",
    "vocabId": "n5-v-379",
    "sentence": "この かばんは 高いです。",
    "underline": "高い",
@@ -1011,7 +1011,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0082",
+   "id": "N5-V-I-0062",
    "vocabId": "n5-v-381",
    "sentence": "こうえんに 人が 沢山 います。",
    "underline": "沢山",
@@ -1027,7 +1027,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0083",
+   "id": "N5-V-I-0063",
    "vocabId": "n5-v-388",
    "sentence": "この えいがは 楽しいです。",
    "underline": "楽しい",
@@ -1045,7 +1045,7 @@
    "pattern": "adj"
   },
   {
-   "id": "N5-V-I-0084",
+   "id": "N5-V-I-0064",
    "vocabId": "n5-v-399",
    "sentence": "この 車は 小さいです。",
    "underline": "小さい",
@@ -1061,7 +1061,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0085",
+   "id": "N5-V-I-0065",
    "vocabId": "n5-v-401",
    "sentence": "駅は 近いです。",
    "underline": "近い",
@@ -1077,7 +1077,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0086",
+   "id": "N5-V-I-0066",
    "vocabId": "n5-v-403",
    "sentence": "駅の 近くに、大きい 公園が あります。",
    "underline": "近く",
@@ -1095,7 +1095,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0088",
+   "id": "N5-V-I-0067",
    "vocabId": "n5-v-411",
    "sentence": "すみません、ちょっと 待って ください。",
    "underline": "ちょっと",
@@ -1111,7 +1111,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0089",
+   "id": "N5-V-I-0068",
    "vocabId": "n5-v-413",
    "sentence": "毎日 地下鉄を 使って います。",
    "underline": "使って",
@@ -1127,7 +1127,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0090",
+   "id": "N5-V-I-0069",
    "vocabId": "n5-v-420",
    "sentence": "父は、銀行に 勤めています。",
    "underline": "勤めています",
@@ -1143,7 +1143,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0091",
+   "id": "N5-V-I-0070",
    "vocabId": "n5-v-421",
    "sentence": "この 本は、とても つまらないです。",
    "underline": "つまらない",
@@ -1159,7 +1159,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0092",
+   "id": "N5-V-I-0071",
    "vocabId": "n5-v-422",
    "sentence": "この お茶は 冷たいです。",
    "underline": "冷たい",
@@ -1175,7 +1175,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0093",
+   "id": "N5-V-I-0072",
    "vocabId": "n5-v-423",
    "sentence": "今日は 風が 強いです。",
    "underline": "強い",
@@ -1191,7 +1191,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0095",
+   "id": "N5-V-I-0073",
    "vocabId": "n5-v-442",
    "sentence": "寒いので、戸を 閉めて ください。",
    "underline": "戸",
@@ -1207,7 +1207,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0096",
+   "id": "N5-V-I-0074",
    "vocabId": "n5-v-444",
    "sentence": "部屋の ドアを 開けました。",
    "underline": "ドア",
@@ -1223,7 +1223,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0097",
+   "id": "N5-V-I-0075",
    "vocabId": "n5-v-445",
    "sentence": "すみません、トイレは どこですか。",
    "underline": "トイレ",
@@ -1241,7 +1241,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0098",
+   "id": "N5-V-I-0076",
    "vocabId": "n5-v-446",
    "sentence": "新しい 仕事は どうですか。",
    "underline": "どう",
@@ -1258,7 +1258,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0099",
+   "id": "N5-V-I-0077",
    "vocabId": "n5-v-447",
    "sentence": "どうして 昨日、学校を 休んだのですか。",
    "underline": "どうして",
@@ -1275,7 +1275,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0100",
+   "id": "N5-V-I-0078",
    "vocabId": "n5-v-452",
    "sentence": "わたしの 学校は 遠いです。",
    "underline": "遠い",
@@ -1291,7 +1291,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0102",
+   "id": "N5-V-I-0079",
    "vocabId": "n5-v-463",
    "sentence": "この ケーキは とても おいしいです。",
    "underline": "とても",
@@ -1308,7 +1308,7 @@
    "pattern": "adj"
   },
   {
-   "id": "N5-V-I-0103",
+   "id": "N5-V-I-0080",
    "vocabId": "n5-v-480",
    "sentence": "この 川は 長いです。",
    "underline": "長い",
@@ -1324,7 +1324,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0104",
+   "id": "N5-V-I-0081",
    "vocabId": "n5-v-483",
    "sentence": "あの 学生は なぜ 学校を 休みましたか。",
    "underline": "なぜ",
@@ -1341,7 +1341,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0105",
+   "id": "N5-V-I-0082",
    "vocabId": "n5-v-491",
    "sentence": "弟が 姉に 料理を 習いました。",
    "underline": "習いました",
@@ -1357,7 +1357,7 @@
    "pattern": "perspective_cross"
   },
   {
-   "id": "N5-V-I-0107",
+   "id": "N5-V-I-0083",
    "vocabId": "n5-v-535",
    "sentence": "姉は ホテルで 働いています。",
    "underline": "働いています",
@@ -1373,7 +1373,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0108",
+   "id": "N5-V-I-0084",
    "vocabId": "n5-v-541",
    "sentence": "その 人は 本当の ことを 話しました。",
    "underline": "話しました",
@@ -1389,7 +1389,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0110",
+   "id": "N5-V-I-0085",
    "vocabId": "n5-v-543",
    "sentence": "わたしの 父は 朝が 早いです。",
    "underline": "早い",
@@ -1405,7 +1405,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0111",
+   "id": "N5-V-I-0086",
    "vocabId": "n5-v-544",
    "sentence": "この 電車は 速いです。",
    "underline": "速い",
@@ -1421,7 +1421,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0112",
+   "id": "N5-V-I-0087",
    "vocabId": "n5-v-550",
    "sentence": "きのうの 晩、家族と いっしょに テレビを 見ました。",
    "underline": "晩",
@@ -1437,7 +1437,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0113",
+   "id": "N5-V-I-0088",
    "vocabId": "n5-v-555",
    "sentence": "今日の 晩御飯は カレーライスです。",
    "underline": "晩御飯",
@@ -1454,7 +1454,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0114",
+   "id": "N5-V-I-0089",
    "vocabId": "n5-v-561",
    "sentence": "あの 山は 低いです。",
    "underline": "低い",
@@ -1470,7 +1470,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0115",
+   "id": "N5-V-I-0090",
    "vocabId": "n5-v-568",
    "sentence": "わたしは きょう 暇です。",
    "underline": "暇",
@@ -1486,7 +1486,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0118",
+   "id": "N5-V-I-0091",
    "vocabId": "n5-v-575",
    "sentence": "この 公園は 広いです。",
    "underline": "広い",
@@ -1502,7 +1502,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0120",
+   "id": "N5-V-I-0092",
    "vocabId": "n5-v-586",
    "sentence": "この 木は 太いです。",
    "underline": "太い",
@@ -1518,7 +1518,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0121",
+   "id": "N5-V-I-0093",
    "vocabId": "n5-v-589",
    "sentence": "この かばんは 古いです。",
    "underline": "古い",
@@ -1534,7 +1534,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0122",
+   "id": "N5-V-I-0094",
    "vocabId": "n5-v-593",
    "sentence": "わたしは 歌が 下手です。",
    "underline": "下手",
@@ -1550,7 +1550,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0123",
+   "id": "N5-V-I-0095",
    "vocabId": "n5-v-597",
    "sentence": "この 辺に あたらしい 店が あります。",
    "underline": "辺",
@@ -1566,7 +1566,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0124",
+   "id": "N5-V-I-0096",
    "vocabId": "n5-v-599",
    "sentence": "わたしは まいにち にほんごを 勉強します。",
    "underline": "勉強",
@@ -1582,7 +1582,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0125",
+   "id": "N5-V-I-0097",
    "vocabId": "n5-v-607",
    "sentence": "この ペンは 細いです。",
    "underline": "細い",
@@ -1598,7 +1598,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0126",
+   "id": "N5-V-I-0098",
    "vocabId": "n5-v-637",
    "sentence": "わたしは 髪が 短いです。",
    "underline": "短い",
@@ -1614,7 +1614,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0130",
+   "id": "N5-V-I-0099",
    "vocabId": "n5-v-651",
    "sentence": "向こうに 駅が あります。",
    "underline": "向こう",
@@ -1630,7 +1630,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0131",
+   "id": "N5-V-I-0100",
    "vocabId": "n5-v-652",
    "sentence": "この もんだいは 難しいです。",
    "underline": "難しい",
@@ -1646,7 +1646,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0134",
+   "id": "N5-V-I-0101",
    "vocabId": "n5-v-664",
    "sentence": "学校の 門の 前で 待って います。",
    "underline": "門",
@@ -1664,7 +1664,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0136",
+   "id": "N5-V-I-0102",
    "vocabId": "n5-v-670",
    "sentence": "この 店の やさいは 安いです。",
    "underline": "安い",
@@ -1680,7 +1680,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0137",
+   "id": "N5-V-I-0103",
    "vocabId": "n5-v-675",
    "sentence": "わたしは まいにち スポーツを やる。",
    "underline": "やる",
@@ -1696,7 +1696,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0138",
+   "id": "N5-V-I-0104",
    "vocabId": "n5-v-677",
    "sentence": "母が 夕飯を 作りました。",
    "underline": "夕飯",
@@ -1713,7 +1713,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0140",
+   "id": "N5-V-I-0105",
    "vocabId": "n5-v-686",
    "sentence": "つくえの 横に 本が あります。",
    "underline": "横",
@@ -1729,7 +1729,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0141",
+   "id": "N5-V-I-0106",
    "vocabId": "n5-v-691",
    "sentence": "きのうの 夜、えいがを 見ました。",
    "underline": "夜",
@@ -1745,7 +1745,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0142",
+   "id": "N5-V-I-0107",
    "vocabId": "n5-v-692",
    "sentence": "きょうは 風が 弱いです。",
    "underline": "弱い",
@@ -1761,7 +1761,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0144",
+   "id": "N5-V-I-0108",
    "vocabId": "n5-v-700",
    "sentence": "わたしの 両親は とても 元気です。",
    "underline": "両親",
@@ -1779,7 +1779,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0147",
+   "id": "N5-V-I-0109",
    "vocabId": "n5-v-712",
    "sentence": "この かんじの いみが 分かりますか。",
    "underline": "分かりますか",
@@ -1796,7 +1796,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0148",
+   "id": "N5-V-I-0110",
    "vocabId": "n5-v-718",
    "sentence": "わたしは 目が 悪いです。",
    "underline": "悪い",
@@ -1812,7 +1812,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0150",
+   "id": "N5-V-I-0111",
    "vocabId": "n5-v-9",
    "sentence": "この 店は 今 開いています。",
    "underline": "開い",
@@ -1828,7 +1828,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0151",
+   "id": "N5-V-I-0112",
    "vocabId": "n5-v-10",
    "sentence": "暑いので ドアを 開けました。",
    "underline": "開け",
@@ -1844,7 +1844,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0156",
+   "id": "N5-V-I-0113",
    "vocabId": "n5-v-19",
    "sentence": "今日は 暖かいです。",
    "underline": "暖かい",
@@ -1860,7 +1860,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0157",
+   "id": "N5-V-I-0114",
    "vocabId": "n5-v-27",
    "sentence": "仕事の 後、 映画を 見ます。",
    "underline": "後",
@@ -1877,7 +1877,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0158",
+   "id": "N5-V-I-0115",
    "vocabId": "n5-v-33",
    "sentence": "運動の あと、 シャワーを 浴びます。",
    "underline": "浴び",
@@ -1893,7 +1893,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0159",
+   "id": "N5-V-I-0116",
    "vocabId": "n5-v-36",
    "sentence": "この 本は あまり おもしろくないです。",
    "underline": "あまり",
@@ -1909,7 +1909,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0160",
+   "id": "N5-V-I-0117",
    "vocabId": "n5-v-39",
    "sentence": "食事の 前に 手を 洗います。",
    "underline": "洗い",
@@ -1925,7 +1925,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0161",
+   "id": "N5-V-I-0118",
    "vocabId": "n5-v-40",
    "sentence": "机の 上に 本が 在ります。",
    "underline": "在り",
@@ -1941,7 +1941,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0162",
+   "id": "N5-V-I-0119",
    "vocabId": "n5-v-41",
    "sentence": "私は 新しい 車が 有ります。",
    "underline": "有り",
@@ -1958,7 +1958,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0164",
+   "id": "N5-V-I-0120",
    "vocabId": "n5-v-44",
    "sentence": "この 辞書は とても いいです。",
    "underline": "いい",
@@ -1975,7 +1975,7 @@
    "pattern": "adj"
   },
   {
-   "id": "N5-V-I-0172",
+   "id": "N5-V-I-0121",
    "vocabId": "n5-v-69",
    "sentence": "私は その 食べ物が 嫌です。",
    "underline": "嫌",
@@ -1991,7 +1991,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0181",
+   "id": "N5-V-I-0122",
    "vocabId": "n5-v-85",
    "sentence": "この 部屋は とても うるさいです。",
    "underline": "うるさい",
@@ -2007,7 +2007,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0214",
+   "id": "N5-V-I-0123",
    "vocabId": "n5-v-165",
    "sentence": "日曜日に 家族と 出かけます。",
    "underline": "家族",
@@ -2023,7 +2023,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0216",
+   "id": "N5-V-I-0124",
    "vocabId": "n5-v-170",
    "sentence": "彼は 明るい 家庭で 育ちました。",
    "underline": "家庭",
@@ -2041,7 +2041,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0217",
+   "id": "N5-V-I-0125",
    "vocabId": "n5-v-171",
    "sentence": "あの 角を 右に 曲がってください。",
    "underline": "角",
@@ -2057,7 +2057,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0223",
+   "id": "N5-V-I-0126",
    "vocabId": "n5-v-192",
    "sentence": "空の 星が 消えました。",
    "underline": "消え",
@@ -2073,7 +2073,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0239",
+   "id": "N5-V-I-0127",
    "vocabId": "n5-v-227",
    "sentence": "とても かなしくて、 泣きたい くらい だ。",
    "underline": "くらい",
@@ -2089,7 +2089,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0240",
+   "id": "N5-V-I-0128",
    "vocabId": "n5-v-234",
    "sentence": "交差点で 警官が 立っています。",
    "underline": "警官",
@@ -2105,7 +2105,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0241",
+   "id": "N5-V-I-0129",
    "vocabId": "n5-v-235",
    "sentence": "今朝 六時に 起きました。",
    "underline": "今朝",
@@ -2121,7 +2121,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0243",
+   "id": "N5-V-I-0130",
    "vocabId": "n5-v-237",
    "sentence": "この お茶だけで 結構です。",
    "underline": "結構",
@@ -2137,7 +2137,7 @@
    "pattern": "adj"
   },
   {
-   "id": "N5-V-I-0245",
+   "id": "N5-V-I-0131",
    "vocabId": "n5-v-241",
    "sentence": "祖父は 今でも とても 元気です。",
    "underline": "元気",
@@ -2153,7 +2153,7 @@
    "pattern": "adj"
   },
   {
-   "id": "N5-V-I-0246",
+   "id": "N5-V-I-0132",
    "vocabId": "n5-v-624",
    "sentence": "この 料理は まずいです。",
    "underline": "まずい",
@@ -2169,7 +2169,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0247",
+   "id": "N5-V-I-0133",
    "vocabId": "n5-v-359",
    "sentence": "私は 部屋を 掃除します。",
    "underline": "掃除",
@@ -2185,7 +2185,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0248",
+   "id": "N5-V-I-0134",
    "vocabId": "n5-v-398",
    "sentence": "空が だんだん 暗く なりました。",
    "underline": "だんだん",
@@ -2201,7 +2201,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0249",
+   "id": "N5-V-I-0135",
    "vocabId": "n5-v-214",
    "sentence": "銀行へ 行きます。",
    "underline": "銀行",
@@ -2217,7 +2217,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0250",
+   "id": "N5-V-I-0136",
    "vocabId": "n5-v-322",
    "sentence": "食堂へ 行きます。",
    "underline": "食堂",
@@ -2233,7 +2233,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0251",
+   "id": "N5-V-I-0137",
    "vocabId": "n5-v-667",
    "sentence": "八百屋へ 行きます。",
    "underline": "八百屋",
@@ -2249,7 +2249,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0252",
+   "id": "N5-V-I-0138",
    "vocabId": "n5-v-578",
    "sentence": "プールへ 行きます。",
    "underline": "プール",
@@ -2265,7 +2265,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0253",
+   "id": "N5-V-I-0139",
    "vocabId": "n5-v-276",
    "sentence": "財布を 買いました。",
    "underline": "財布",
@@ -2281,7 +2281,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0254",
+   "id": "N5-V-I-0140",
    "vocabId": "n5-v-160",
    "sentence": "傘を 持って 行きます。",
    "underline": "傘",
@@ -2297,7 +2297,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0255",
+   "id": "N5-V-I-0141",
    "vocabId": "n5-v-456",
    "sentence": "時計を 買いました。",
    "underline": "時計",
@@ -2313,7 +2313,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0256",
+   "id": "N5-V-I-0142",
    "vocabId": "n5-v-176",
    "sentence": "カメラを 持って 来ました。",
    "underline": "カメラ",
@@ -2329,7 +2329,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0257",
+   "id": "N5-V-I-0143",
    "vocabId": "n5-v-612",
    "sentence": "本棚を 買いました。",
    "underline": "本棚",
@@ -2345,7 +2345,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0258",
+   "id": "N5-V-I-0144",
    "vocabId": "n5-v-338",
    "sentence": "ストーブを つけました。",
    "underline": "ストーブ",
@@ -2361,7 +2361,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0259",
+   "id": "N5-V-I-0145",
    "vocabId": "n5-v-601",
    "sentence": "帽子を 買いました。",
    "underline": "帽子",
@@ -2377,7 +2377,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0260",
+   "id": "N5-V-I-0146",
    "vocabId": "n5-v-508",
    "sentence": "ネクタイを 買いました。",
    "underline": "ネクタイ",
@@ -2393,7 +2393,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0261",
+   "id": "N5-V-I-0147",
    "vocabId": "n5-v-657",
    "sentence": "眼鏡を 買いました。",
    "underline": "眼鏡",
@@ -2409,7 +2409,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0262",
+   "id": "N5-V-I-0148",
    "vocabId": "n5-v-615",
    "sentence": "父は 毎朝 新聞を 読みます。",
    "underline": "毎朝",
@@ -2425,7 +2425,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0263",
+   "id": "N5-V-I-0149",
    "vocabId": "n5-v-311",
    "sentence": "写真を 見せて ください。",
    "underline": "写真",
@@ -2441,7 +2441,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0264",
+   "id": "N5-V-I-0150",
    "vocabId": "n5-v-629",
    "sentence": "まっすぐ 行って ください。",
    "underline": "まっすぐ",
@@ -2457,7 +2457,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0265",
+   "id": "N5-V-I-0151",
    "vocabId": "n5-v-468",
    "sentence": "車が 止まりました。",
    "underline": "止まりました",
@@ -2473,7 +2473,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0266",
+   "id": "N5-V-I-0152",
    "vocabId": "n5-v-635",
    "sentence": "歯を 磨きます。",
    "underline": "磨きます",
@@ -2489,7 +2489,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0267",
+   "id": "N5-V-I-0153",
    "vocabId": "n5-v-682",
    "sentence": "おばあさんは ゆっくりと 歩きました。",
    "underline": "ゆっくりと",
@@ -2505,7 +2505,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0268",
+   "id": "N5-V-I-0154",
    "vocabId": "n5-v-608",
    "sentence": "ボタンを つけました。",
    "underline": "ボタン",
@@ -2521,7 +2521,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0269",
+   "id": "N5-V-I-0155",
    "vocabId": "n5-v-68",
    "sentence": "私には 妹が います。",
    "underline": "妹",
@@ -2537,7 +2537,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0270",
+   "id": "N5-V-I-0156",
    "vocabId": "n5-v-118",
    "sentence": "私には 弟が います。",
    "underline": "弟",
@@ -2553,7 +2553,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0271",
+   "id": "N5-V-I-0157",
    "vocabId": "n5-v-52",
    "sentence": "あそこに 池が あります。",
    "underline": "池",
@@ -2569,7 +2569,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0272",
+   "id": "N5-V-I-0158",
    "vocabId": "n5-v-697",
    "sentence": "ラジカセを 買いました。",
    "underline": "ラジカセ",
@@ -2585,7 +2585,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0273",
+   "id": "N5-V-I-0159",
    "vocabId": "n5-v-557",
    "sentence": "東の 空が 赤いです。",
    "underline": "東",
@@ -2601,7 +2601,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0274",
+   "id": "N5-V-I-0160",
    "vocabId": "n5-v-265",
    "sentence": "母は まいにち ごはんを 作ります。",
    "underline": "ごはん",
@@ -2617,7 +2617,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0275",
+   "id": "N5-V-I-0161",
    "vocabId": "n5-v-469",
    "sentence": "きのう 友達と 映画を 見ました。",
    "underline": "友達",
@@ -2633,7 +2633,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0276",
+   "id": "N5-V-I-0162",
    "vocabId": "n5-v-564",
    "sentence": "人は だれでも まちがえます。",
    "underline": "人",
@@ -2649,7 +2649,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0277",
+   "id": "N5-V-I-0163",
    "vocabId": "n5-v-503",
    "sentence": "その ニュースを 聞いて おどろきました。",
    "underline": "ニュース",
@@ -2665,7 +2665,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0278",
+   "id": "N5-V-I-0164",
    "vocabId": "n5-v-301",
    "sentence": "わからない ことを 先生に 質問しました。",
    "underline": "質問",
@@ -2681,7 +2681,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0279",
+   "id": "N5-V-I-0165",
    "vocabId": "n5-v-257",
    "sentence": "名前を 呼ばれて、大きな 声で 答えました。",
    "underline": "答えました",
@@ -2697,7 +2697,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0280",
+   "id": "N5-V-I-0166",
    "vocabId": "n5-v-307",
    "sentence": "風で ドアが 閉まりました。",
    "underline": "閉まりました",
@@ -2713,7 +2713,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0281",
+   "id": "N5-V-I-0167",
    "vocabId": "n5-v-279",
    "sentence": "にわの 花が きれいに 咲きました。",
    "underline": "咲きました",
@@ -2729,7 +2729,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0282",
+   "id": "N5-V-I-0168",
    "vocabId": "n5-v-625",
    "sentence": "よく 聞こえないので、また 言って ください。",
    "underline": "また",
@@ -2745,7 +2745,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0283",
+   "id": "N5-V-I-0169",
    "vocabId": "n5-v-369",
    "sentence": "ごはんを 食べました。それから、はを みがきました。",
    "underline": "それから",
@@ -2761,7 +2761,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0284",
+   "id": "N5-V-I-0170",
    "vocabId": "n5-v-375",
    "sentence": "わたしは 犬が 大好きです。",
    "underline": "大好き",
@@ -2777,7 +2777,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0285",
+   "id": "N5-V-I-0171",
    "vocabId": "n5-v-497",
    "sentence": "この 町は とても にぎやかです。",
    "underline": "にぎやか",
@@ -2793,7 +2793,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0286",
+   "id": "N5-V-I-0172",
    "vocabId": "n5-v-400",
    "sentence": "これは 小さな かばんです。",
    "underline": "小さな",
@@ -2809,7 +2809,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0287",
+   "id": "N5-V-I-0173",
    "vocabId": "n5-v-402",
    "sentence": "この 二つの かばんは 違います。",
    "underline": "違います",
@@ -2825,7 +2825,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0288",
+   "id": "N5-V-I-0174",
    "vocabId": "n5-v-679",
    "sentence": "昨夜は よく 寝ました。",
    "underline": "昨夜",
@@ -2841,7 +2841,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0289",
+   "id": "N5-V-I-0175",
    "vocabId": "n5-v-694",
    "sentence": "来週 東京へ 行きます。",
    "underline": "来週",
@@ -2857,7 +2857,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0290",
+   "id": "N5-V-I-0176",
    "vocabId": "n5-v-122",
    "sentence": "おととし 日本へ 来ました。",
    "underline": "おととし",
@@ -2873,7 +2873,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0291",
+   "id": "N5-V-I-0177",
    "vocabId": "n5-v-293",
    "sentence": "行きたいです。しかし お金が ありません。",
    "underline": "しかし",
@@ -2889,7 +2889,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0292",
+   "id": "N5-V-I-0178",
    "vocabId": "n5-v-360",
    "sentence": "ご飯を 食べました。そして 寝ました。",
    "underline": "そして",
@@ -2905,7 +2905,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0293",
+   "id": "N5-V-I-0179",
    "vocabId": "n5-v-370",
    "sentence": "それでは 始めましょう。",
    "underline": "それでは",
@@ -2921,7 +2921,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0294",
+   "id": "N5-V-I-0180",
    "vocabId": "n5-v-91",
    "sentence": "ええ、そうです。",
    "underline": "ええ",
@@ -2937,7 +2937,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0295",
+   "id": "N5-V-I-0181",
    "vocabId": "n5-v-395",
    "sentence": "あの 人は 誰ですか。",
    "underline": "誰",
@@ -2953,7 +2953,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0296",
+   "id": "N5-V-I-0182",
    "vocabId": "n5-v-464",
    "sentence": "これは どなたの かばんですか。",
    "underline": "どなた",
@@ -2969,7 +2969,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0297",
+   "id": "N5-V-I-0183",
    "vocabId": "n5-v-372",
    "sentence": "兄は 大学へ 行きました。",
    "underline": "大学",
@@ -2985,7 +2985,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0298",
+   "id": "N5-V-I-0184",
    "vocabId": "n5-v-434",
    "sentence": "母は デパートで 買い物を します。",
    "underline": "デパート",
@@ -3001,7 +3001,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0299",
+   "id": "N5-V-I-0185",
    "vocabId": "n5-v-440",
    "sentence": "毎日 電車に 乗ります。",
    "underline": "電車",
@@ -3017,7 +3017,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0300",
+   "id": "N5-V-I-0186",
    "vocabId": "n5-v-247",
    "sentence": "毎朝 紅茶を 飲みます。",
    "underline": "紅茶",
@@ -3033,7 +3033,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0301",
+   "id": "N5-V-I-0187",
    "vocabId": "n5-v-680",
    "sentence": "この 店は 有名です。",
    "underline": "有名",
@@ -3049,7 +3049,7 @@
    "pattern": "adj"
   },
   {
-   "id": "N5-V-I-0302",
+   "id": "N5-V-I-0188",
    "vocabId": "n5-v-571",
    "sentence": "父は 病気です。",
    "underline": "病気",
@@ -3065,7 +3065,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0303",
+   "id": "N5-V-I-0189",
    "vocabId": "n5-v-713",
    "sentence": "彼の 名前を 忘れました。",
    "underline": "忘れました",
@@ -3081,7 +3081,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0304",
+   "id": "N5-V-I-0190",
    "vocabId": "n5-v-269",
    "sentence": "三時ころ 家を 出ます。",
    "underline": "ころ",
@@ -3097,7 +3097,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0305",
+   "id": "N5-V-I-0191",
    "vocabId": "n5-v-353",
    "sentence": "先月 京都へ 行きました。",
    "underline": "先月",
@@ -3113,7 +3113,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0306",
+   "id": "N5-V-I-0192",
    "vocabId": "n5-v-672",
    "sentence": "明日は 学校を 休みます。",
    "underline": "休みます",
@@ -3129,7 +3129,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0307",
+   "id": "N5-V-I-0193",
    "vocabId": "n5-v-380",
    "sentence": "水だけ 飲みます。",
    "underline": "だけ",
@@ -3145,7 +3145,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0308",
+   "id": "N5-V-I-0194",
    "vocabId": "n5-v-529",
    "sentence": "初めに 名前を 書いて ください。",
    "underline": "初め",
@@ -3161,7 +3161,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0309",
+   "id": "N5-V-I-0195",
    "vocabId": "n5-v-701",
    "sentence": "この 料理は おいしいです。",
    "underline": "料理",
@@ -3177,7 +3177,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0310",
+   "id": "N5-V-I-0196",
    "vocabId": "n5-v-310",
    "sentence": "じゃあ、また 明日。",
    "underline": "じゃあ",
@@ -3193,7 +3193,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0311",
+   "id": "N5-V-I-0197",
    "vocabId": "n5-v-50",
    "sentence": "りんごは いくつ ありますか。",
    "underline": "いくつ",
@@ -3209,7 +3209,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0312",
+   "id": "N5-V-I-0198",
    "vocabId": "n5-v-31",
    "sentence": "私は 古い アパートに 住んで います。",
    "underline": "アパート",
@@ -3225,7 +3225,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0313",
+   "id": "N5-V-I-0199",
    "vocabId": "n5-v-547",
    "sentence": "今日は 晴れです。",
    "underline": "晴れ",
@@ -3241,7 +3241,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0314",
+   "id": "N5-V-I-0200",
    "vocabId": "n5-v-613",
    "sentence": "その 話は 本当です。",
    "underline": "本当",
@@ -3257,7 +3257,7 @@
    "pattern": "negation_cross"
   },
   {
-   "id": "N5-V-I-0315",
+   "id": "N5-V-I-0201",
    "vocabId": "n5-v-415",
    "sentence": "次の 電車に 乗ります。",
    "underline": "次",
@@ -3273,7 +3273,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0316",
+   "id": "N5-V-I-0202",
    "vocabId": "n5-v-309",
    "sentence": "ネクタイを 締めます。",
    "underline": "締めます",
@@ -3289,7 +3289,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0317",
+   "id": "N5-V-I-0203",
    "vocabId": "n5-v-356",
    "sentence": "シャツを 洗濯します。",
    "underline": "洗濯",
@@ -3305,7 +3305,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0318",
+   "id": "N5-V-I-0204",
    "vocabId": "n5-v-389",
    "sentence": "友だちに 頼みます。",
    "underline": "頼みます",
@@ -3321,7 +3321,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0319",
+   "id": "N5-V-I-0205",
    "vocabId": "n5-v-383",
    "sentence": "手紙を 出します。",
    "underline": "出します",
@@ -3337,7 +3337,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0320",
+   "id": "N5-V-I-0206",
    "vocabId": "n5-v-289",
    "sentence": "公園を 散歩します。",
    "underline": "散歩",
@@ -3353,7 +3353,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0321",
+   "id": "N5-V-I-0207",
    "vocabId": "n5-v-455",
    "sentence": "時々 映画を 見ます。",
    "underline": "時々",
@@ -3369,7 +3369,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0322",
+   "id": "N5-V-I-0208",
    "vocabId": "n5-v-706",
    "sentence": "レストランで 食べます。",
    "underline": "レストラン",
@@ -3385,7 +3385,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0323",
+   "id": "N5-V-I-0209",
    "vocabId": "n5-v-251",
    "sentence": "コーヒーを 飲みます。",
    "underline": "コーヒー",
@@ -3401,7 +3401,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0324",
+   "id": "N5-V-I-0210",
    "vocabId": "n5-v-38",
    "sentence": "飴を 食べます。",
    "underline": "飴",
@@ -3417,7 +3417,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0325",
+   "id": "N5-V-I-0211",
    "vocabId": "n5-v-562",
    "sentence": "飛行機に 乗ります。",
    "underline": "飛行機",
@@ -3433,7 +3433,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0326",
+   "id": "N5-V-I-0212",
    "vocabId": "n5-v-404",
    "sentence": "地下鉄に 乗ります。",
    "underline": "地下鉄",
@@ -3449,7 +3449,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0327",
+   "id": "N5-V-I-0213",
    "vocabId": "n5-v-634",
    "sentence": "万年筆で 書きます。",
    "underline": "万年筆",
@@ -3465,7 +3465,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0328",
+   "id": "N5-V-I-0214",
    "vocabId": "n5-v-188",
    "sentence": "漢字を 書きます。",
    "underline": "漢字",
@@ -3481,7 +3481,7 @@
    "pattern": "hypernym"
   },
   {
-   "id": "N5-V-I-0329",
+   "id": "N5-V-I-0215",
    "vocabId": "n5-v-695",
    "sentence": "来年 日本へ 行きます。",
    "underline": "来年",
@@ -3497,7 +3497,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0330",
+   "id": "N5-V-I-0216",
    "vocabId": "n5-v-354",
    "sentence": "先週 映画を 見ました。",
    "underline": "先週",
@@ -3513,7 +3513,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0331",
+   "id": "N5-V-I-0217",
    "vocabId": "n5-v-465",
    "sentence": "銀行の 隣に あります。",
    "underline": "隣",
@@ -3529,7 +3529,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0332",
+   "id": "N5-V-I-0218",
    "vocabId": "n5-v-296",
    "sentence": "父は 毎日 仕事を します。",
    "underline": "仕事",
@@ -3545,7 +3545,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0333",
+   "id": "N5-V-I-0219",
    "vocabId": "n5-v-92",
    "sentence": "ここは 駅です。",
    "underline": "駅",
@@ -3561,7 +3561,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0334",
+   "id": "N5-V-I-0220",
    "vocabId": "n5-v-460",
    "sentence": "ここは 図書館です。",
    "underline": "図書館",
@@ -3577,7 +3577,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0335",
+   "id": "N5-V-I-0221",
    "vocabId": "n5-v-570",
    "sentence": "ここは 病院です。",
    "underline": "病院",
@@ -3593,7 +3593,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0336",
+   "id": "N5-V-I-0222",
    "vocabId": "n5-v-377",
    "sentence": "そこは 台所です。",
    "underline": "台所",
@@ -3609,7 +3609,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0337",
+   "id": "N5-V-I-0223",
    "vocabId": "n5-v-639",
    "sentence": "そこは 店です。",
    "underline": "店",
@@ -3625,7 +3625,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0338",
+   "id": "N5-V-I-0224",
    "vocabId": "n5-v-699",
    "sentence": "あの 人は 留学生です。",
    "underline": "留学生",
@@ -3641,7 +3641,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0339",
+   "id": "N5-V-I-0225",
    "vocabId": "n5-v-54",
    "sentence": "これは 椅子です。",
    "underline": "椅子",
@@ -3657,7 +3657,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0340",
+   "id": "N5-V-I-0226",
    "vocabId": "n5-v-154",
    "sentence": "これは 鍵です。",
    "underline": "鍵",
@@ -3673,7 +3673,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0341",
+   "id": "N5-V-I-0227",
    "vocabId": "n5-v-198",
    "sentence": "これは 切手です。",
    "underline": "切手",
@@ -3689,7 +3689,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0342",
+   "id": "N5-V-I-0228",
    "vocabId": "n5-v-577",
    "sentence": "これは 封筒です。",
    "underline": "封筒",
@@ -3705,7 +3705,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0343",
+   "id": "N5-V-I-0229",
    "vocabId": "n5-v-260",
    "sentence": "コップ に 水 を 入れます。",
    "underline": "コップ",
@@ -3721,7 +3721,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0344",
+   "id": "N5-V-I-0230",
    "vocabId": "n5-v-418",
    "sentence": "母 が 昼ごはん を 作ります。",
    "underline": "作ります",
@@ -3737,7 +3737,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0345",
+   "id": "N5-V-I-0231",
    "vocabId": "n5-v-253",
    "sentence": "午後 に 友だち と 会います。",
    "underline": "午後",
@@ -3753,7 +3753,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0346",
+   "id": "N5-V-I-0232",
    "vocabId": "n5-v-495",
    "sentence": "パーティー は 何時 から 始まります。",
    "underline": "何時",
@@ -3769,7 +3769,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0347",
+   "id": "N5-V-I-0233",
    "vocabId": "n5-v-332",
    "sentence": "3時すぎ に 行きます。",
    "underline": "すぎ",
@@ -3785,7 +3785,7 @@
    "pattern": "noun"
   },
   {
-   "id": "N5-V-I-0348",
+   "id": "N5-V-I-0234",
    "vocabId": "n5-v-181",
    "sentence": "弟 は いやがりました。",
    "underline": "いやがりました",
@@ -3801,7 +3801,7 @@
    "pattern": "verb"
   },
   {
-   "id": "N5-V-I-0349",
+   "id": "N5-V-I-0235",
    "vocabId": "n5-v-433",
    "sentence": "では 仕事 を はじめよう。",
    "underline": "では",
@@ -3817,7 +3817,7 @@
    "pattern": "adv"
   },
   {
-   "id": "N5-V-I-0350",
+   "id": "N5-V-I-0236",
    "vocabId": "n5-v-384",
    "sentence": "子どもたち が サッカーを している。",
    "underline": "子どもたち",

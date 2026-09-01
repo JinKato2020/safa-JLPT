@@ -82,6 +82,18 @@ test('N5言い換え: SENTENCE_FURI が全問にある(学習カードのルビ�
   for (const e of n5()) assert.ok(SENTENCE_FURI[e.id], `${e.id}: sentenceFuri が無い`);
 });
 
+test('N3言い換え: SENTENCE_FURI が全問にある(語レベルの下線文にルビが出ない事故を防ぐ・2026-09-02の増作0501番以降の未生成を検出)', () => {
+  const n3 = SYNONYM_BANK.filter((e) => e.level === 'N3' && !e.stem);
+  assert.ok(n3.length > 1000, `N3語レベルが実在する: ${n3.length}`);
+  const stripRuby = (s: string) => s.replace(/[（(][^）)]*[）)]/g, '');
+  for (const e of n3) {
+    const f = SENTENCE_FURI[e.id];
+    assert.ok(f, `${e.id}: sentenceFuri が無い(daimon.ts:304 が raw文へfallbackしてルビ全無し)`);
+    assert.ok(!/[(]/.test(f), `${e.id}: sentenceFuri に半角カッコ混入(全角（）が正)`);
+    assert.equal(stripRuby(f), e.sentence, `${e.id}: sentenceFuri がふりがな挿入以外で本文を改変している`);
+  }
+});
+
 test('出題数: N5が作り直し後の規模で出題される(edb076fで直した「出題0」の再発防止線)', () => {
   assert.ok(daimonUnitIds('N5', 'synonym', 'all').length > 130, 'N5の言い換えが出題される');
 });

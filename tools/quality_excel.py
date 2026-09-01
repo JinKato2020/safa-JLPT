@@ -41,6 +41,30 @@ WRAP = Alignment(horizontal='left', vertical='top', wrap_text=True)
 COLS = ['問題ID', '種別', '本文/読み物', '設問', '対象語', '選択肢', '正解', '一意性リスク', '理由', 'verified']
 WIDTHS = [22, 12, 52, 40, 14, 46, 20, 12, 34, 10]
 
+# 本文/読み物として拾うキー（優先順）。読解=body/passages・聴解=script（scenarioは短い場面ラベルなので後回し）・
+# 文字語彙文法の単文=sentence/prompt/stem。※「本文がメイン」ゆえ運搬文を必ず出す（ユーザー厳命）。
+BODY_KEYS = ['body', 'passages', 'passage', 'script', 'sentence', 'prompt', 'stem', 'scenario', 'text', 'reading', 'title']
+# 設問（汎用の指示文）。本文に使う prompt/stem とは分けて question/q だけを拾う。
+Q_KEYS = ['question', 'q']
+
+# 大問キー→日本語の大問名（シート名に使う）
+JP_NAME = {
+    'kanji_read': '漢字読み', 'orthography': '表記', 'context': '文脈規定',
+    'synonym': '言い換え類義', 'usage': '用法',
+    'grammar_form': '文法形式の判断', 'order': '文の組み立て', 'passage_grammar': '文章の文法',
+    'naiyou_tan': '内容理解（短文）', 'naiyou_chu': '内容理解（中文）',
+    'choubun': '内容理解（長文）', 'joho': '情報検索',
+    'kadai': '課題理解', 'point': 'ポイント理解', 'gaiyou': '概要理解',
+    'hatsuwa': '発話表現', 'sokuji': '即時応答',
+}
+# 本番試験の出題順（言語知識[文字語彙]→[文法]→読解→聴解）
+EXAM_ORDER = [
+    'kanji_read', 'orthography', 'context', 'synonym', 'usage',
+    'grammar_form', 'order', 'passage_grammar',
+    'naiyou_tan', 'naiyou_chu', 'choubun', 'joho',
+    'kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji',
+]
+
 
 def daimon_of(path):
     """ファイル名から大問キー（_N5/N4/N3 を除く）を得る。"""
@@ -79,6 +103,8 @@ def _answer(d):
     a = d.get('answer')
     if a is None:
         a = d.get('correct')
+    if a is None:
+        a = d.get('answerIndex')  # 聴解の正解キー
     c = d.get('choices') or d.get('audioChoices') or d.get('options')
     if isinstance(a, int) and isinstance(c, list):
         if 0 <= a < len(c):
@@ -112,8 +138,8 @@ def _note(d, risk):
 
 
 def rows_for_item(it):
-    """1問→1行以上（passage系は小問ごとに1行）。"""
-    body = _txt(it, ['sentence', 'body', 'scenario', 'script', 'passages', 'passage', 'title'])
+    """1問→1行以上（passage系は小問ごとに1行）。本文/読み物は必ず出す（無い大問は空欄）。"""
+    body = _txt(it, BODY_KEYS)
     subtype = it.get('subtype') or it.get('type') or it.get('qtype') or it.get('format') or it.get('kind') or ''
     subs = it.get('questions')
     base_r = _risk(it)
@@ -125,16 +151,15 @@ def rows_for_item(it):
             r = _risk(q) or base_r
             out.append([
                 q.get('id') or it.get('id'), subtype, body,
-                _txt(q, ['question', 'prompt', 'stem']),
+                _txt(q, Q_KEYS),
                 _txt(q, ['underline', 'word']),
                 _choices(q), _answer(q), r, _note(q, r) or _note(it, base_r),
                 q.get('verified', it.get('verified')),
             ])
     else:
-        setsumon = _txt(it, ['question', 'prompt', 'stem'])
         out.append([
             it.get('id'), subtype,
-            (body if body != setsumon else ''), setsumon,
+            body, _txt(it, Q_KEYS),
             _txt(it, ['underline', 'word']),
             _choices(it), _answer(it), base_r, _note(it, base_r),
             it.get('verified'),
@@ -182,15 +207,18 @@ def style_header(ws):
 
 
 def write_book(pool, lvl, order, data):
-    dais = order.get((pool, lvl), [])
-    if not dais:
+    present = order.get((pool, lvl), [])
+    if not present:
         return None, 0, 0, 0
+    # 本番試験の出題順に並べる（未知の大問は末尾へ）
+    dais = [d for d in EXAM_ORDER if d in present]
+    dais += [d for d in present if d not in EXAM_ORDER]
     wb = Workbook()
     wb.remove(wb.active)
     n_rows = n_red = n_amber = 0
     for dai in dais:
         rows = data.get((pool, lvl, dai), [])
-        ws = wb.create_sheet(dai[:31])
+        ws = wb.create_sheet(JP_NAME.get(dai, dai)[:31])
         ws.append(COLS)
         style_header(ws)
         for r in rows:

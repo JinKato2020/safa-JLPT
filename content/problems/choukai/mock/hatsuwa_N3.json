@@ -1,0 +1,1211 @@
+{
+  "schema": 1,
+  "daimon": "hatsuwa",
+  "level": "N3",
+  "pool": "mock",
+  "languages": [
+    "ja"
+  ],
+  "items": [
+    {
+      "id": "N3-C-H-0701",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "友達（ともだち）の家（いえ）で、窓（まど）を開（あ）けてほしいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0701-q1",
+          "q": "",
+          "choices": [
+            "窓（まど）を開（あ）けてくれる？",
+            "窓（まど）を開（あ）けてあげる？",
+            "窓（まど）を開（あ）けてあげようか？"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "scene": "家訪問",
+      "axis": "授受方向",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0702",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "上司（じょうし）に会議（かいぎ）の資料（しりょう）を確認（かくにん）してほしいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0702-q1",
+          "q": "",
+          "choices": [
+            "資料（しりょう）を確認（かくにん）してさしあげますか。",
+            "資料（しりょう）を確認（かくにん）していただけますか。",
+            "資料（しりょう）を確認（かくにん）しておられますか。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "scene": "職場",
+      "axis": "敬語(謙譲尊敬)",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0703",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "ペンを忘（わす）れました。友達（ともだち）から借（か）りたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0703-q1",
+          "q": "",
+          "choices": [
+            "ペン、買（か）ってくれる？",
+            "ペン、返（かえ）してくれる？",
+            "ペン、貸（か）してくれる？"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "scene": "学校",
+      "axis": "同形動詞選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0704",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "病院（びょういん）の受付（うけつけ）で、順番（じゅんばん）が来（き）たら呼（よ）んでほしいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0704-q1",
+          "q": "",
+          "choices": [
+            "順番（じゅんばん）が来（き）たら呼（よ）んでもらえますか。",
+            "順番（じゅんばん）が来（き）たら呼（よ）びましょうか。",
+            "順番（じゅんばん）が来（き）たら呼（よ）んでもいいですか。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "scene": "病院",
+      "axis": "許可依頼申出の弁別",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0705",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "タクシーで、この辺（へん）で降（お）りたいです。運転手（うんてんしゅ）さんに何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0705-q1",
+          "q": "",
+          "choices": [
+            "この辺（へん）で降（お）りてください。",
+            "この辺（へん）で降（お）ろしてください。",
+            "この辺（へん）で降（お）ろしましょうか。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "scene": "交通",
+      "axis": "視点立場",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0706",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "教室（きょうしつ）で、消（け）しゴムを床（ゆか）に落（お）としました。となりの友達（ともだち）に拾（ひろ）ってほしいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0706-q1",
+          "q": "",
+          "choices": [
+            "その消（け）しゴム、捨（す）ててくれる？",
+            "その消（け）しゴム、隠（かく）してくれる？",
+            "その消（け）しゴム、拾（ひろ）ってくれる？"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "scene": "学校",
+      "axis": "同形動詞選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0707",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "観光地（かんこうち）で、通（とお）りかかった人（ひと）に写真（しゃしん）をとってほしいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0707-q1",
+          "q": "",
+          "choices": [
+            "すみません、写真（しゃしん）をとっていただけますか。",
+            "すみません、写真（しゃしん）をとってさしあげますか。",
+            "すみません、写真（しゃしん）をとっておきますか。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "scene": "屋外その他",
+      "axis": "敬語(謙譲尊敬)",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0708",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "レストランで、残（のこ）った料理（りょうり）を持（も）ち帰（かえ）りたいです。店員（てんいん）に何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0708-q1",
+          "q": "",
+          "choices": [
+            "これ、包（つつ）んであげましょうか。",
+            "これ、包（つつ）んでもらえますか。",
+            "これ、包（つつ）んでもいいですか。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "依頼",
+      "scene": "店飲食",
+      "axis": "許可依頼申出の弁別",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0709",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "友達（ともだち）の家（いえ）で、食器（しょっき）を洗（あら）うのを手伝（てつだ）いたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0709-q1",
+          "q": "",
+          "choices": [
+            "お皿（さら）、洗（あら）ってくれる？",
+            "お皿（さら）、洗（あら）ってもらえる？",
+            "お皿（さら）、洗（あら）ってあげようか？"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "scene": "家訪問",
+      "axis": "授受方向",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0710",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "電車（でんしゃ）で、立（た）っているお年寄（としよ）りに席（せき）をゆずりたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0710-q1",
+          "q": "",
+          "choices": [
+            "よかったら、席（せき）を代（か）わりましょうか。",
+            "よかったら、席（せき）を代（か）わりませんか。",
+            "よかったら、席（せき）を代（か）わってください。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "scene": "交通",
+      "axis": "許可依頼申出の弁別",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0711",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "会議（かいぎ）が終（お）わり、お客（きゃく）さんが帰（かえ）ります。タクシーを呼（よ）んであげたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0711-q1",
+          "q": "",
+          "choices": [
+            "タクシーをお呼（よ）びになりますか。",
+            "タクシーをお呼（よ）びしましょうか。",
+            "タクシーを呼（よ）んでくださいますか。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "scene": "職場",
+      "axis": "敬語(謙譲尊敬)",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0712",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "近所（きんじょ）の人（ひと）が階段（かいだん）で重（おも）い荷物（にもつ）に困（こま）っています。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0712-q1",
+          "q": "",
+          "choices": [
+            "よかったら、運（はこ）ぶのを手伝（てつだ）ってくれますか。",
+            "よかったら、運（はこ）ぶのを手伝（てつだ）ってもらえますか。",
+            "よかったら、運（はこ）ぶのを手伝（てつだ）いましょうか。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "scene": "近所住まい",
+      "axis": "授受方向",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0713",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "友達（ともだち）がメニューで迷（まよ）っています。店員（てんいん）に聞（き）いてあげたい時（とき）、何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0713-q1",
+          "q": "",
+          "choices": [
+            "よかったら、店員（てんいん）さんに聞（き）いてあげようか。",
+            "よかったら、店員（てんいん）さんに聞（き）いてくれる？",
+            "よかったら、店員（てんいん）さんに聞（き）いてもらう？"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "申し出",
+      "scene": "店飲食",
+      "axis": "授受方向",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0714",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "銀行（ぎんこう）で、外国（がいこく）のお金（かね）を両替（りょうがえ）できるか知（し）りたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0714-q1",
+          "q": "",
+          "choices": [
+            "ここで両替（りょうがえ）をしますか。",
+            "ここで両替（りょうがえ）はできますか。",
+            "ここで両替（りょうがえ）がしたいですか。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "質問情報",
+      "scene": "公共窓口",
+      "axis": "可能形存在確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0715",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "学校（がっこう）で、先生（せんせい）にパソコンを使（つか）う許可（きょか）がほしいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0715-q1",
+          "q": "",
+          "choices": [
+            "パソコンを使（つか）われていただけますか。",
+            "パソコンを使（つか）わせてさしあげますか。",
+            "パソコンを使（つか）わせていただけますか。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "許可求め",
+      "scene": "学校",
+      "axis": "態(受身使役能動)",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0716",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "病院（びょういん）で、そろそろ診察室（しんさつしつ）に入（はい）りたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0716-q1",
+          "q": "",
+          "choices": [
+            "もう中（なか）に入（はい）ってもいいですか。",
+            "もう中（なか）に入（はい）ってくれますか。",
+            "もう中（なか）に入（はい）れましたか。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "許可求め",
+      "scene": "病院",
+      "axis": "可能形存在確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0717",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "役所（やくしょ）の待合室（まちあいしつ）で、空（あ）いているいすに座（すわ）りたいです。となりの人（ひと）に何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0717-q1",
+          "q": "",
+          "choices": [
+            "ここ、座（すわ）ってくださいますか。",
+            "ここ、座（すわ）ってもいいですか。",
+            "ここ、座（すわ）ってもらえますか。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "許可求め",
+      "scene": "公共窓口",
+      "axis": "許可依頼申出の弁別",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0718",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "授業（じゅぎょう）のあと、友達（ともだち）を昼（ひる）ごはんに誘（さそ）いたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0718-q1",
+          "q": "",
+          "choices": [
+            "よかったら、一緒（いっしょ）にお昼（ひる）食（た）べてね。",
+            "よかったら、一緒（いっしょ）にお昼（ひる）食（た）べたね。",
+            "よかったら、一緒（いっしょ）にお昼（ひる）食（た）べない？"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "誘い",
+      "scene": "店飲食",
+      "axis": "定型句選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0719",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "週末（しゅうまつ）のお祭（まつ）りに、先輩（せんぱい）を誘（さそ）いたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0719-q1",
+          "q": "",
+          "choices": [
+            "よかったら、お祭（まつ）りに行（い）きませんか。",
+            "よかったら、お祭（まつ）りに行（い）ってください。",
+            "よかったら、お祭（まつ）りに行（い）っていますか。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "誘い",
+      "scene": "屋外その他",
+      "axis": "定型句選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0720",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "近所（きんじょ）の人（ひと）と一緒（いっしょ）に花火（はなび）を見（み）に行（い）きたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0720-q1",
+          "q": "",
+          "choices": [
+            "一緒（いっしょ）に花火（はなび）、見（み）に行（い）ってね。",
+            "一緒（いっしょ）に花火（はなび）、見（み）に行（い）かない？",
+            "一緒（いっしょ）に花火（はなび）、見（み）に行（い）ったね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "誘い",
+      "scene": "近所住まい",
+      "axis": "視点立場",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0721",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "友達（ともだち）を今度（こんど）、自分（じぶん）の家（いえ）に招（まね）きたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0721-q1",
+          "q": "",
+          "choices": [
+            "今度（こんど）、うちに遊（あそ）びに行（い）かない？",
+            "今度（こんど）、うちに遊（あそ）びに来（き）てね。",
+            "今度（こんど）、うちに遊（あそ）びに来（こ）ない？"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "誘い",
+      "scene": "家訪問",
+      "axis": "視点立場",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0722",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "駅（えき）で、この電車（でんしゃ）が空港（くうこう）に行（い）くか知（し）りたいです。駅員（えきいん）に何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0722-q1",
+          "q": "",
+          "choices": [
+            "この電車（でんしゃ）は空港（くうこう）に行（い）きますか。",
+            "この電車（でんしゃ）は空港（くうこう）に行（い）きましょうか。",
+            "この電車（でんしゃ）は空港（くうこう）に行（い）きたいですか。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "質問情報",
+      "scene": "公共窓口",
+      "axis": "可能形存在確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0723",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "店（みせ）で、この服（ふく）の大（おお）きいサイズがほしいです。店員（てんいん）に何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0723-q1",
+          "q": "",
+          "choices": [
+            "これの大（おお）きいサイズにしますか。",
+            "これの大（おお）きいサイズはありますか。",
+            "これの大（おお）きいサイズがいりますか。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "質問情報",
+      "scene": "店飲食",
+      "axis": "可能形存在確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0724",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "道（みち）で、郵便局（ゆうびんきょく）の場所（ばしょ）が分（わ）かりません。通行人（つうこうにん）に何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0724-q1",
+          "q": "",
+          "choices": [
+            "郵便局（ゆうびんきょく）はどこにしますか。",
+            "郵便局（ゆうびんきょく）はどこへ行（い）きますか。",
+            "郵便局（ゆうびんきょく）はどこにありますか。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "質問情報",
+      "scene": "交通",
+      "axis": "可能形存在確認",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0725",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "上司（じょうし）に、会議（かいぎ）が何時（なんじ）に始（はじ）まるか聞（き）きたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0725-q1",
+          "q": "",
+          "choices": [
+            "会議（かいぎ）は何時（なんじ）から始（はじ）まりますか。",
+            "会議（かいぎ）は何時（なんじ）から始（はじ）めますか。",
+            "会議（かいぎ）は何時（なんじ）から始（はじ）まりましょうか。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "質問情報",
+      "scene": "職場",
+      "axis": "同形動詞選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0726",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "友達（ともだち）の家（いえ）で、手（て）がぶつかってジュースをこぼしてしまいました。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0726-q1",
+          "q": "",
+          "choices": [
+            "ジュースがこぼれて、ごめんね。",
+            "ジュースをこぼして、ごめんね。",
+            "ジュースをこぼされて、ごめんね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "謝罪",
+      "scene": "家訪問",
+      "axis": "視点立場",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0727",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "寝坊（ねぼう）して、会社（かいしゃ）に遅刻（ちこく）しました。上司（じょうし）に何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0727-q1",
+          "q": "",
+          "choices": [
+            "遅刻（ちこく）して、おつかれさまです。",
+            "遅刻（ちこく）して、ありがとうございます。",
+            "遅刻（ちこく）して、すみませんでした。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "謝罪",
+      "scene": "職場",
+      "axis": "定型句選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0728",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "昨夜（さくや）、近所（きんじょ）でさわがしくしてしまいました。となりの人（ひと）に何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0728-q1",
+          "q": "",
+          "choices": [
+            "ご迷惑（めいわく）をおかけして、すみません。",
+            "ご迷惑（めいわく）をおかけになって、すみません。",
+            "ご迷惑（めいわく）をかけられて、すみません。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "謝罪",
+      "scene": "近所住まい",
+      "axis": "態(受身使役能動)",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0729",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "建物（たてもの）に入（はい）る時（とき）、うしろの人（ひと）がドアをおさえて待（ま）っていてくれました。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0729-q1",
+          "q": "",
+          "choices": [
+            "ドアをおさえてさしあげて、ありがとうございます。",
+            "ドアをおさえていただいて、ありがとうございます。",
+            "ドアをおさえてあげて、ありがとうございます。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "お礼",
+      "scene": "屋外その他",
+      "axis": "敬語(謙譲尊敬)",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0730",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "友達（ともだち）が旅行（りょこう）のおみやげをくれました。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0730-q1",
+          "q": "",
+          "choices": [
+            "わあ、おみやげをあげてありがとう。",
+            "わあ、おみやげをもらってありがとう。",
+            "わあ、おみやげをくれてありがとう。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "お礼",
+      "scene": "家訪問",
+      "axis": "授受方向",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0731",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "近所（きんじょ）の人（ひと）が荷物（にもつ）を運（はこ）ぶのを手伝（てつだ）ってくれました。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0731-q1",
+          "q": "",
+          "choices": [
+            "助（たす）かりました。ありがとうございます。",
+            "助（たす）かりました。おつかれさまでした。",
+            "助（たす）かりました。おめでとうございます。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "お礼",
+      "scene": "近所住まい",
+      "axis": "定型句選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0732",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "朝（あさ）、近所（きんじょ）の人（ひと）と会（あ）いました。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0732-q1",
+          "q": "",
+          "choices": [
+            "こんばんは。いい天気（てんき）ですね。",
+            "おはようございます。いい天気（てんき）ですね。",
+            "おやすみなさい。いい天気（てんき）ですね。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "あいさつ定型",
+      "scene": "近所住まい",
+      "axis": "定型句選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0733",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "仕事（しごと）が終（お）わり、まだ残（のこ）っている同僚（どうりょう）より先（さき）に帰（かえ）ります。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0733-q1",
+          "q": "",
+          "choices": [
+            "お先（さき）にいらっしゃいます。",
+            "お先（さき）にいただきます。",
+            "お先（さき）に失礼（しつれい）します。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "あいさつ定型",
+      "scene": "職場",
+      "axis": "定型句選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0734",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "前（まえ）を歩（ある）く人（ひと）がハンカチを落（お）としました。教（おし）えたい時（とき）、何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0734-q1",
+          "q": "",
+          "choices": [
+            "すみません、ハンカチが落（お）ちましたよ。",
+            "すみません、ハンカチを落（お）としますよ。",
+            "すみません、ハンカチを拾（ひろ）いますよ。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "注意知らせ",
+      "scene": "店飲食",
+      "axis": "同形動詞選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0735",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "電車（でんしゃ）で、となりの人（ひと）がかばんを忘（わす）れて降（お）りようとしています。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0735-q1",
+          "q": "",
+          "choices": [
+            "かばんを忘（わす）れてあげますよ。",
+            "かばんを忘（わす）れていますよ。",
+            "かばんを忘（わす）れましょうか。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "注意知らせ",
+      "scene": "交通",
+      "axis": "視点立場",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0736",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "図書館（としょかん）で、走（はし）っている子（こ）どもに注意（ちゅうい）したいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0736-q1",
+          "q": "",
+          "choices": [
+            "ここでは走（はし）らせてね。",
+            "ここでは走（はし）られてね。",
+            "ここでは走（はし）らないでね。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "注意知らせ",
+      "scene": "公共窓口",
+      "axis": "態(受身使役能動)",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0737",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "駐車場（ちゅうしゃじょう）で、車（くるま）のライトがついたままの人（ひと）がいます。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0737-q1",
+          "q": "",
+          "choices": [
+            "車（くるま）のライトがついていますよ。",
+            "車（くるま）のライトをつけますよ。",
+            "車（くるま）のライトがつきますよ。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "注意知らせ",
+      "scene": "屋外その他",
+      "axis": "同形動詞選択",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0738",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "上司（じょうし）にたのまれた資料（しりょう）ができました。報告（ほうこく）する時（とき）、何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0738-q1",
+          "q": "",
+          "choices": [
+            "資料（しりょう）ができたので、お持（も）ちになりました。",
+            "資料（しりょう）ができたので、お持（も）ちしました。",
+            "資料（しりょう）ができたので、持（も）ってくれました。"
+          ],
+          "answerIndex": 1,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "報告申告",
+      "scene": "職場",
+      "axis": "敬語(謙譲尊敬)",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0739",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "学校（がっこう）で、ボールをけって窓（まど）ガラスをわってしまいました。先生（せんせい）に何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0739-q1",
+          "q": "",
+          "choices": [
+            "窓（まど）ガラスがわれてしまいました。",
+            "窓（まど）ガラスをわらせてしまいました。",
+            "窓（まど）ガラスをわってしまいました。"
+          ],
+          "answerIndex": 2,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "報告申告",
+      "scene": "学校",
+      "axis": "態(受身使役能動)",
+      "pool": "mock"
+    },
+    {
+      "id": "N3-C-H-0740",
+      "level": "N3",
+      "category": "choukai",
+      "type": "listening",
+      "subtype": "hatsuwa",
+      "qtype": "発話表現",
+      "title": "発話表現",
+      "script": "病院（びょういん）で、医者（いしゃ）に頭（あたま）の痛（いた）みを伝（つた）えたいです。何（なん）と言（い）いますか。",
+      "audio": true,
+      "audioChoices": true,
+      "questions": [
+        {
+          "id": "N3-C-H-0740-q1",
+          "q": "",
+          "choices": [
+            "きのうから、ずっと頭（あたま）が痛（いた）いです。",
+            "きのうから、ずっと頭（あたま）が痛（いた）いですか。",
+            "きのうから、ずっと頭（あたま）が痛（いた）いですね。"
+          ],
+          "answerIndex": 0,
+          "i18n": {}
+        }
+      ],
+      "i18n": {},
+      "function": "報告申告",
+      "scene": "病院",
+      "axis": "視点立場",
+      "pool": "mock"
+    }
+  ]
+}
