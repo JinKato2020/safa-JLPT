@@ -57,7 +57,7 @@ function unitsForItem(it: any): Array<[string, unknown, string[]]> {
   const i18n = it.i18n || {};
   const out: Array<[string, unknown, string[]]> = [];
   const langsWith = (obj: any, k: string) => ['en', 'ne'].filter((l) => obj[l] && obj[l][k] != null);
-  if (langsWith(i18n, 'body').length) out.push(['body', it.body, langsWith(i18n, 'body')]);
+  if (langsWith(i18n, 'body').length) out.push(['body', it.body ?? it.script, langsWith(i18n, 'body')]); // 聴解(課題理解)は本文=script
   if (langsWith(i18n, 'explain').length) out.push(['explain', explainSource(it), langsWith(i18n, 'explain')]);
   for (const q of it.questions || []) {
     const qi = q.i18n || {};

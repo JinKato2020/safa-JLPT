@@ -2985,7 +2985,7 @@
 "voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 },
 "N4-C-K-0071": {
-"dur": 54.4,
+"dur": 50.1,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 女1（スタッフ）=Leda・男1=Orus"
 },
@@ -3025,7 +3025,7 @@
 "voice": "ナレーター=Aoede／独話=Orus"
 },
 "N4-C-K-0079": {
-"dur": 54.8,
+"dur": 55.1,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／独話=Leda"
 },
@@ -7125,7 +7125,7 @@
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
 "N5-C-S-0199": {
-"dur": 11.6,
+"dur": 12.7,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "本文・選択肢=Leda(女)／番号=Chirp3-HD Leda"
 },
@@ -7375,7 +7375,7 @@
 "voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
 },
 "N3-C-K-0013": {
-"dur": 40.9,
+"dur": 44.3,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
 },
@@ -7410,14 +7410,14 @@
 "voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
 },
 "N3-C-G-0014": {
-"dur": 55.9,
-"model": "Gemini 2.5 Flash TTS",
-"voice": "ナレーター=Aoede／独話=Leda／選択肢=Leda／番号=Chirp3-HD Leda"
-},
-"N3-C-G-0017": {
-"dur": 64.6,
+"dur": 70.7,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／独話=Orus／選択肢=Orus／番号=Chirp3-HD Orus"
+},
+"N3-C-G-0017": {
+"dur": 71.9,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／独話=Leda／選択肢=Leda／番号=Chirp3-HD Leda"
 },
 "N4-C-H-0017": {
 "dur": 16.3,
@@ -10980,7 +10980,7 @@
 "voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 },
 "N5-C-K-0122": {
-"dur": 29.7,
+"dur": 35.6,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
 },
@@ -11455,7 +11455,7 @@
 "voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 },
 "N3-C-K-0117": {
-"dur": 59.6,
+"dur": 61.3,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
 },
@@ -11485,7 +11485,7 @@
 "voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
 },
 "N3-C-K-0123": {
-"dur": 141.6,
+"dur": 60.8,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 },
@@ -12340,7 +12340,7 @@
 "voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 },
 "N3-C-P-0148": {
-"dur": 55.3,
+"dur": 55.2,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 },
@@ -12435,7 +12435,7 @@
 "voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 },
 "N4-C-K-0701": {
-"dur": 62.7,
+"dur": 64.4,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 男1=Orus・女1=Leda"
 },
@@ -13565,7 +13565,7 @@
 "voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 },
 "N3-C-K-0754": {
-"dur": 61.9,
+"dur": 62.7,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／独話=Orus"
 },
@@ -14110,7 +14110,7 @@
 "voice": "ナレーター=Aoede／対話: 女1（客）=Leda・男1（店員）=Orus"
 },
 "N5-C-K-0725": {
-"dur": 59.4,
+"dur": 39.7,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 女1（客）=Leda・男1（店員）=Orus"
 },
@@ -14160,12 +14160,12 @@
 "voice": "ナレーター=Aoede／独話=Leda"
 },
 "N5-C-K-0735": {
-"dur": 34.1,
+"dur": 32.0,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／独話=Orus"
 },
 "N5-C-K-0736": {
-"dur": 35.8,
+"dur": 37.3,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 女1（店員）=Leda・男1（客）=Orus"
 },
@@ -14205,7 +14205,7 @@
 "voice": "ナレーター=Aoede／対話: 女1（先生）=Leda・女2（客）=Kore"
 },
 "N5-C-K-0744": {
-"dur": 45.5,
+"dur": 45.0,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／独話=Leda"
 },
@@ -14265,7 +14265,7 @@
 "voice": "ナレーター=Aoede／対話: 男1（客）=Orus・女1（スタッフ）=Leda"
 },
 "N5-C-K-0756": {
-"dur": 33.5,
+"dur": 38.5,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 女2（客）=Leda・女1（スタッフ）=Kore"
 },
@@ -14285,7 +14285,7 @@
 "voice": "ナレーター=Aoede／対話: 女2（客）=Leda・女1（スタッフ）=Kore"
 },
 "N5-C-K-0760": {
-"dur": 24.0,
+"dur": 35.3,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 男1（客）=Orus・女1（スタッフ）=Leda"
 },
@@ -14305,7 +14305,7 @@
 "voice": "ナレーター=Aoede／対話: 男1（近所の 人）=Orus・女1（住民）=Leda"
 },
 "N5-C-K-0764": {
-"dur": 42.3,
+"dur": 43.9,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 女2（住民）=Leda・女1（近所の 人）=Kore"
 },
@@ -16411,6 +16411,11 @@
 },
 "N4-C-K-0012": {
 "dur": 40.5,
+"model": "Gemini 2.5 Flash TTS",
+"voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
+},
+"N4-C-K-0020": {
+"dur": 45.2,
 "model": "Gemini 2.5 Flash TTS",
 "voice": "ナレーター=Aoede／対話: 女1=Leda・男1=Orus"
 }

@@ -61,8 +61,8 @@ def digits(s):
     return set(re.findall(r"\d+", s))
 
 def item_source(it):
-    """item.body 訳(en/ne.body)の日本語ソース。"""
-    return it.get("body")
+    """item.body 訳(en/ne.body)の日本語ソース。聴解(課題理解)は本文が script なので body 無ければ script。"""
+    return it.get("body") if it.get("body") is not None else it.get("script")
 
 def explain_source(it):
     """i18n.*.explain 訳の日本語ソース = i18n.ja.explain（無ければ stem/answer/choices）。"""

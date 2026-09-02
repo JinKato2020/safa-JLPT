@@ -1,17 +1,18 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 3 回・11 ターン
-- 往復 282 回
+- ツール呼び出し 4 回・12 ターン
+- 往復 123 回
 
 ## 何が変わったか
 - memory/handoff.md
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- memory/~$在庫・模試ストックまとめ.xlsx
-- memory/session-summary-LATEST.md
+- memory/audio-audit-inflight.md
+- memory/choukai_gen_log.txt
+- memory/choukai_audio_rec.json
+- memory/choukai_runaway.txt
 
 ## 次の一手
+- **🔧2026-09-03 聴解 音声↔台本 整合監査＝正本 `memory/audio-audit-inflight.md`**。課題理解(kadai)＝**完了**：①窓をアンカー方式に改修(`_audit_work\audit_kadai.py`)→②私(Opus)が21件精査→本物16/誤検出5確定(`_audit_work\kadai\CONFIRMED_regenerate.txt`)→③本物16の音声を退避(`_audit_work\old_audio_kadai_2026-09-03\`)して再生成(走行 bg=bl1p9ojku・要完了確認/実費報告)。⚠再生成は`gen_choukai_json.py --ids`が**カンマ区切り**＋`memory/choukai_gen_done.txt`から当該id除去が必要。**次=/clear後に他4大問の監査**：入力は`問題\音声チェック\{sokuji,point,hatsuwa,gaiyou}\`(manifest+moji済・永続)。point/gaiyouはaudit_kadai.py流用、sokuji/hatsuwaは短文+3択の別チェッカー(inflightに詳細)。壊れis音声のみ＝直すも音声のみ(テキスト/翻訳/配信は正しい)。
 - **✅2026-09-02 対訳(en/ne)追加プロジェクト 完了（未commit/未配信）＝次は配信の明示指示待ち**。正本=`memory/trans-synonym-usage-inflight.md`。
   - **問題翻訳(OTA配信物)**: 用法=正解文の対訳(1271問・¥26) / 言い換え=本文＋選択肢の対訳(2405問・¥192・誤答も正当な語ゆえ訳) / 穴埋め=完成文の対訳(1647問・¥36)。ツール=`tools/trans_daimon.py`にsynonym/usage(struct)・grammar_form(single)追加。manifest再生成(113files)・staleness baseline再生成・tsc緑・75テスト緑。
   - **UI全訳(ビルド配信物)**: 7言語(bn/id/ko/my/th/vi/zh)を旧315キー破棄→ja全1405キーへ再翻訳(23%→100%・¥68)。新ツール=`tools/trans_i18n.py`。※7言語は番人なし=今後の追加UIは陳腐化しうる。

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PASSAGE_TRANS_NE as trans, READING as reading, READING_MOCK as readingMock, PASSAGE_GRAMMAR as pg } from '../index'; // rehydrate由来(旧 exam/*.json 相当)
+import { PASSAGE_TRANS_NE as trans, READING as reading, READING_MOCK as readingMock, PASSAGE_GRAMMAR as pg, LISTENING as listening, LISTENING_MOCK as listeningMock, listeningSubtype } from '../index'; // rehydrate由来(旧 exam/*.json 相当)
 
 const T = trans as Record<string, string[]>;
 
@@ -11,6 +11,11 @@ const wantReading: Record<string, number> = {};
 for (const r of [...(reading as any[]), ...(readingMock as any[])]) if (r.subtype !== 'joho') wantReading[r.id] = 1;
 const wantPg: Record<string, number> = {};
 for (const s of pg as any[]) wantPg[s.id] = s.passages.length;
+// 聴解 課題理解(kadai)は台本訳(行配列)を PASSAGE_TRANS_NE へ入れる(2026-09-02)。台本の行数は可変ゆえ
+// 期待本文数は実長を採る(行数一致チェックは自明成立・非空/デーヴァナーガリーは有効)。完全性は専用テストで別途見張る。
+const kadaiItems = [...(listening as any[]), ...(listeningMock as any[])].filter((l) => listeningSubtype(l) === 'kadai');
+const wantListening: Record<string, number> = {};
+for (const l of kadaiItems) wantListening[l.id] = T[l.id]?.length ?? 1;
 
 // ── 文章の文法の本文ネパール語訳（2026-08-23 全210セット翻訳完了で借金ゼロ）──────
 // 経緯: 長らく未作成の「借金」だった（Flash約¥100の見積りで保留）。2026-08-23 に
@@ -34,8 +39,13 @@ test('文章の文法の未訳セット数が既知の借金から増えてい�
   );
 });
 
+test('聴解 課題理解(kadai)は全部ネパール語訳がある', () => {
+  const missing = kadaiItems.map((l) => l.id).filter((id) => !T[id]);
+  assert.equal(missing.length, 0, `kadai訳欠落: ${missing.slice(0, 5)}`);
+});
+
 test('存在する訳は本文数一致・非空・デーヴァナーガリー', () => {
-  const want = { ...wantReading, ...wantPg };
+  const want = { ...wantReading, ...wantPg, ...wantListening };
   const badLen: string[] = [];
   const empty: string[] = [];
   for (const id in want) {
@@ -49,7 +59,7 @@ test('存在する訳は本文数一致・非空・デーヴァナーガリー',
 });
 
 test('PASSAGE_TRANS_NE に余計なidが入っていない', () => {
-  const want = { ...wantReading, ...wantPg };
+  const want = { ...wantReading, ...wantPg, ...wantListening };
   const extra = Object.keys(T).filter((id) => !(id in want));
   assert.equal(extra.length, 0, `対応するセットが無い訳: ${extra.slice(0, 5)}`);
 });

@@ -68,8 +68,15 @@ export function rehydrateBanks(files: Record<string, Any>) {
   const READING = READING_SUBTYPES.flatMap((st) => bankItems(files, st, readingMap(st)));
   // 読解4大問(⑨〜⑫)の模試専用プール(初見)。翻訳/ルビは後日OTAバッチ。同じ readingMap を通すので将来の ne/en も自動捕捉。
   const READING_MOCK = READING_SUBTYPES.flatMap((st) => bankItems(files, st, readingMap(st), true));
+  // 聴解も読解と同型: 台本訳=i18n.{lang}.body(行配列)→PASSAGE_TRANS / 設問訳=設問i18n.{lang}.{q,choices}→Q_TRANS。回答後に表示(課題理解2026-09-02)。
   const listeningMap = (st: string) => (it: Any, level: string) => {
     const { i18n, questions, ...rest } = it;
+    if (i18n?.ne?.body) PASSAGE_TRANS_NE[it.id] = i18n.ne.body;
+    if (i18n?.en?.body) PASSAGE_TRANS_EN[it.id] = i18n.en.body;
+    for (const q of (questions ?? [])) {
+      if (q.i18n?.ne?.q) Q_TRANS_NE[q.id] = { q: q.i18n.ne.q, choices: q.i18n.ne.choices ?? [] };
+      if (q.i18n?.en?.q) Q_TRANS_EN[q.id] = { q: q.i18n.en.q, choices: q.i18n.en.choices ?? [] };
+    }
     return { ...rest, level, subtype: st, questions: (questions ?? []).map(restoreQ) };
   };
   const LISTENING = LISTENING_SUBTYPES.flatMap((st) => bankItems(files, st, listeningMap(st)));

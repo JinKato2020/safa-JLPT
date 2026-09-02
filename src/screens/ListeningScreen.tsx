@@ -7,7 +7,7 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from '../components/AfterStudyReward';
 import type { StudiedQuestion } from '../data/studiedWords';
@@ -17,7 +17,7 @@ import ExamHeader from '../components/ExamHeader';
 import DevIdPicker from '../components/DevIdPicker';
 import RubyText from '../components/RubyText';
 import Slider from '../components/Slider';
-import { listeningItemsFor, listeningItemsForSub, listeningSubtype, rubyNeeded, type ListeningItem, type PassageQuestion } from '../data';
+import { listeningItemsFor, listeningItemsForSub, listeningSubtype, rubyNeeded, PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN, type ListeningItem, type PassageQuestion } from '../data';
 import { practicePool } from '../listening/pool';
 import type { RootStackParamList } from '../navigation/types';
 import { listeningSource } from '../data/listeningAudio';
@@ -64,6 +64,7 @@ export default function ListeningScreen() {
   const [idx, setIdx] = useState(0);
   const [pickerOpen, setPickerOpen] = useState(false); // 開発用: 問題IDタップで同じ大問の全問へジャンプ
   const [picked, setPicked] = useState<(number | null)[]>([]); // 現クリップの設問ごとの選択(qIndex→choiceIndex)
+  const [showTrans, setShowTrans] = useState(false); // 回答後の対訳(台本/設問/選択肢)トグル。区分によっては訳が無い(hasTrans=false)。
   const [answered, setAnswered] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [before] = useState(() => progressSnapshot(state, Date.now()));
@@ -209,6 +210,7 @@ export default function ListeningScreen() {
     }
     setPicked([]);
     setShowScript(false);
+    setShowTrans(false);
     setIdx((i) => i + 1);
   };
 
@@ -217,6 +219,11 @@ export default function ListeningScreen() {
   const isGaiyou = listeningSubtype(step.clip) === 'gaiyou'; // 概要も課題/ポイントと同じ音声再生UI(mp3未生成でも再生ボタンは出す)
   const anyPicked = picked.some((p) => p != null);
   const allDone = step.qs.length > 0 && step.qs.every((_, qi) => picked[qi] != null);
+  // 回答後の対訳(課題理解ほか): 台本訳=PASSAGE_TRANS[clip.id](行配列)／設問・選択肢訳=Q_TRANS[設問id]。ne母語=ネパール語訳・他=英語訳。
+  const useNe = meaningL1(state.settings) === 'ne';
+  const scriptTrans = useNe ? PASSAGE_TRANS_NE[step.clip.id] : PASSAGE_TRANS_EN[step.clip.id];
+  const qtr = useNe ? Q_TRANS_NE : Q_TRANS_EN;
+  const hasTrans = !!scriptTrans || step.qs.some((q) => qtr[q.id]); // 訳が1つでもあればトグルを出す
 
   // スクリプトを行ごとにルビ付きで描画(空行は間隔)。話者ラベル「女1：」等もそのまま。
   const renderScript = (raw: string) =>
@@ -227,6 +234,9 @@ export default function ListeningScreen() {
   const scriptBlock = showScript ? (
     <>
       <View style={s.scriptBox}>{renderScript(step.clip.script)}</View>
+      {allDone && showTrans && scriptTrans?.length ? (
+        <View style={s.scriptTransBox}>{scriptTrans.map((ln, i) => <Text key={i} style={s.scriptTransTxt}>{ln}</Text>)}</View>
+      ) : null}
       <Pressable onPress={() => setShowScript(false)} hitSlop={8}><Text style={s.scriptToggle}>{t('listening.script_hide')}</Text></Pressable>
     </>
   ) : (
@@ -304,10 +314,13 @@ export default function ListeningScreen() {
             <View key={qi} style={s.qBlock}>
               {step.qs.length > 1 ? <Text style={s.qLabel}>{t('listening.q_label', { n: qi + 1, m: step.qs.length })}</Text> : null}
               {q.q ? <RubyText text={q.q} style={s.qText} rubyStyle={s.scriptRuby} rubyGate={rubyGate} /> : null}
+              {reveal && showTrans && qtr[q.id]?.q ? <Text style={s.qTransTxt}>{qtr[q.id]!.q}</Text> : null}
               <View style={s.choices}>
                 {q.choices.map((ch, ci) => {
                   const isAnswer = ci === q.answerIndex;
                   const isPicked = ci === picked[qi];
+                  // 選択肢はシャッフル表示だが Q_TRANS はデータ元順。元問題(step.clip.questions[qi])で ch の元indexを引いて訳を対応させる。
+                  const ctr = reveal && showTrans ? qtr[q.id]?.choices[step.clip.questions[qi]?.choices.indexOf(ch) ?? -1] : undefined;
                   return (
                     <Pressable
                       key={ci}
@@ -318,10 +331,10 @@ export default function ListeningScreen() {
                       {isAudioChoices ? (
                         <View style={s.numRow}>
                           <Text style={s.numBadge}>{ci + 1}</Text>
-                          {reveal ? <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.scriptRuby} rubyGate={rubyGate} /></View> : null}
+                          {reveal ? <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.scriptRuby} rubyGate={rubyGate} />{ctr ? <Text style={s.choiceTransTxt}>{ctr}</Text> : null}</View> : null}
                         </View>
                       ) : (
-                        <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.scriptRuby} rubyGate={rubyGate} /></View>
+                        <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.scriptRuby} rubyGate={rubyGate} />{ctr ? <Text style={s.choiceTransTxt}>{ctr}</Text> : null}</View>
                       )}
                       {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
                     </Pressable>
@@ -331,6 +344,13 @@ export default function ListeningScreen() {
             </View>
           );
         })}
+
+        {/* 回答後の対訳トグル(台本/設問/選択肢)。訳がある区分(現状=課題理解)でのみ表示。 */}
+        {allDone && hasTrans ? (
+          <Pressable style={s.transBtn} onPress={() => setShowTrans((v) => !v)}>
+            <Text style={s.transBtnTxt}>{showTrans ? t('passage.hideTrans') : t('passage.showTrans')}</Text>
+          </Pressable>
+        ) : null}
 
         {/* 全ドリル共通の回答フッター(セット型=正誤なし・次へのみ)。 */}
         {allDone ? <AnswerFooter onNext={advance} nextKind={idx + 1 >= steps.length ? 'result' : 'next'} /> : null}
@@ -375,6 +395,12 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   hatsuwaImgPh: { width: '100%', maxWidth: 260, aspectRatio: 1, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginTop: spacing.xs },
   hatsuwaScene: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.sm },
   scriptToggle: { fontSize: ty.small, color: c.blue, fontWeight: '700' },
+  scriptTransBox: { gap: 2, marginTop: spacing.xs, paddingTop: spacing.xs, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.line },
+  scriptTransTxt: { fontSize: ty.small, color: c.mute, lineHeight: 22 },
+  qTransTxt: { fontSize: ty.small, color: c.ink2, marginTop: 2 },
+  choiceTransTxt: { fontSize: ty.small, color: c.mute, marginTop: 2 },
+  transBtn: { alignSelf: 'center', marginTop: spacing.sm, paddingVertical: spacing.xs, paddingHorizontal: spacing.md },
+  transBtnTxt: { fontSize: ty.small, color: c.blue, fontWeight: '700' },
   speedRow: { marginTop: spacing.sm, gap: 4 },
   speedLbl: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
   qBlock: { marginTop: spacing.md, paddingTop: spacing.md, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.line },
