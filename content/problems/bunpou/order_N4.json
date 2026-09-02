@@ -3,6 +3,7 @@
   "daimon": "order",
   "level": "N4",
   "languages": [
+    "en",
     "ja",
     "ne"
   ],
@@ -22,6 +23,12 @@
       "i18n": {
         "ja": {
           "explain": "みなさんに お願（ねが）いです。会議（かいぎ）の 間（あいだ）は 携帯電話（けいたいでんわ）の 電源（でんげん）を 切（き）って ください。"
+        },
+        "en": {
+          "explain": "I have a request for everyone. Please turn off your mobile phones during the meeting."
+        },
+        "ne": {
+          "explain": "सबैलाई मेरो अनुरोध छ। बैठकको समयमा कृपया मोबाइल फोन बन्द गर्नुहोस्।"
         }
       }
     },
@@ -40,6 +47,12 @@
       "i18n": {
         "ja": {
           "explain": "母（はは）が 買（か）い物（もの）に 行（い）っている 間（あいだ）に 部屋（へや）の掃除（そうじ）を しました。"
+        },
+        "en": {
+          "explain": "While my mother was out shopping, I cleaned my room."
+        },
+        "ne": {
+          "explain": "आमा किनमेल गर्न जानुभएको बेला मैले कोठा सफा गरेँ।"
         }
       }
     },
@@ -57,6 +70,12 @@
       "i18n": {
         "ja": {
           "explain": "A「あの レストランは どうでしたか。」B「この 店（みせ）の 料理（りょうり）は あまり おいしくありません。」"
+        },
+        "en": {
+          "explain": "A: \"How was that restaurant?\" B: \"The food at this restaurant is not very delicious.\""
+        },
+        "ne": {
+          "explain": "A: \"त्यो रेस्टुरेन्ट कस्तो थियो?\" B: \"यो पसलको खाना खासै स्वादिष्ट छैन।\""
         }
       },
       "pointId": "n4-g-3"
@@ -75,6 +94,12 @@
       "i18n": {
         "ja": {
           "explain": "宿題（しゅくだい）が たくさん あるので 最近（さいきん）は あまり ゆっくり 寝（ね）ていません。"
+        },
+        "en": {
+          "explain": "I have a lot of homework, so I haven't been sleeping much lately."
+        },
+        "ne": {
+          "explain": "धेरै गृहकार्य भएकोले, आजकल म धेरै सुत्न पाएको छैन।"
         }
       },
       "pointId": "n4-g-3"
@@ -94,6 +119,12 @@
       "i18n": {
         "ja": {
           "explain": "毎日（まいにち） お風呂（ふろ）に 入（はい）った 後（あと）で 冷（つめ）たい 牛乳（ぎゅうにゅう）を飲（の）みます。"
+        },
+        "en": {
+          "explain": "Every day, after taking a bath, I drink cold milk."
+        },
+        "ne": {
+          "explain": "हरेक दिन नुहाएपछि म चिसो दूध पिउँछु।"
         }
       }
     },
@@ -111,6 +142,12 @@
       "i18n": {
         "ja": {
           "explain": "雨（あめ）が 降（ふ）れば 明日（あした）の 試合（しあい）は 中止（ちゅうし）になります。"
+        },
+        "en": {
+          "explain": "If it rains, tomorrow's game will be cancelled."
+        },
+        "ne": {
+          "explain": "पानी परेमा भोलिको खेल रद्द हुनेछ।"
         }
       },
       "pointId": "n4-g-5"
@@ -130,6 +167,12 @@
       "i18n": {
         "ja": {
           "explain": "非常口（ひじょうぐち）の 案内（あんない）です。火事（かじ）の 場合（ばあい）は このかいだんを 使（つか）って ください。"
+        },
+        "en": {
+          "explain": "This is information about the emergency exit. In case of fire, please use this staircase."
+        },
+        "ne": {
+          "explain": "यो आपत्कालीन निकासको जानकारी हो। आगलागीको अवस्थामा कृपया यो सिँढी प्रयोग गर्नुहोस्।"
         }
       }
     },
@@ -148,6 +191,12 @@
       "i18n": {
         "ja": {
           "explain": "A「もし 遅（おく）れたら どうすれば いいですか。」B「遅（おく）れる 場合（ばあい）は 必（かなら）ず 電話（でんわ）をして ください。」"
+        },
+        "en": {
+          "explain": "A: \"What should I do if I'm late?\" B: \"If you are late, please be sure to call.\""
+        },
+        "ne": {
+          "explain": "A: \"यदि ढिलो भयो भने के गर्ने?\" B: \"ढिलो हुने अवस्थामा कृपया अनिवार्य रूपमा फोन गर्नुहोस्।\""
         }
       }
     },
@@ -166,6 +215,12 @@
       "i18n": {
         "ja": {
           "explain": "A「弟（おとうと）さんは 何（なに）を していますか。」B「弟（おとうと）は 最近（さいきん）人気（にんき）の ゲームばかり しています 。」"
+        },
+        "en": {
+          "explain": "A: \"What does your younger brother do?\" B: \"My younger brother only plays recently popular games.\""
+        },
+        "ne": {
+          "explain": "A: \"तपाईंको भाइ के गर्छ?\" B: \"मेरो भाइ आजकल लोकप्रिय खेलहरू मात्र खेल्छ।\""
         }
       }
     },
@@ -184,6 +239,12 @@
       "i18n": {
         "ja": {
           "explain": "A「彼（かれ）は どんな 人（ひと）ですか。」B「彼（かれ）は 文句（もんく）ばかり 言（い）って 何（なに）もしません 。」"
+        },
+        "en": {
+          "explain": "A: \"What kind of person is he?\" B: \"He just complains and doesn't do anything.\""
+        },
+        "ne": {
+          "explain": "A: \"उनी कस्तो व्यक्ति हुन्?\" B: \"उनी गुनासो मात्र गर्छन् र केही गर्दैनन्।\""
         }
       }
     },
@@ -202,6 +263,12 @@
       "i18n": {
         "ja": {
           "explain": "A「その人（ひと）を すぐに 思（おも）い出（だ）せた?」B「うん、名前（なまえ）を 聞（き）いた だけで 分（わ）かったよ 。」"
+        },
+        "en": {
+          "explain": "A: \"Could you remember that person right away?\" B: \"Yes, I knew just by hearing the name.\""
+        },
+        "ne": {
+          "explain": "A: \"के तपाईंले त्यो व्यक्तिलाई तुरुन्तै सम्झन सक्नुभयो?\" B: \"हो, नाम सुन्ने बित्तिकै मैले थाहा पाएँ।\""
         }
       }
     },
@@ -220,6 +287,12 @@
       "i18n": {
         "ja": {
           "explain": "この 料理（りょうり）は、写真（しゃしん）を 見（み）ただけで おいしそうだと 分（わ）かります 。"
+        },
+        "en": {
+          "explain": "You can tell this dish looks delicious just by looking at the picture."
+        },
+        "ne": {
+          "explain": "यो परिकार तस्बिर हेर्ने बित्तिकै स्वादिष्ट देखिन्छ भनेर थाहा हुन्छ।"
         }
       }
     },
@@ -239,6 +312,12 @@
       "i18n": {
         "ja": {
           "explain": "もう 遅（おそ）い 時間（じかん）だけど、この 店（みせ）は まだ 開（ひら）いて いるかな。"
+        },
+        "en": {
+          "explain": "It's already late, but I wonder if this shop is still open."
+        },
+        "ne": {
+          "explain": "समय ढिलो भइसकेको छ, तर यो पसल अझै खुल्ला होला?"
         }
       }
     },
@@ -257,6 +336,12 @@
       "i18n": {
         "ja": {
           "explain": "A「会議室（かいぎしつ）は どこですか。」B「こちらが 二階（にかい）の 会議室（かいぎしつ）で ございます 。」"
+        },
+        "en": {
+          "explain": "A: \"Where is the meeting room?\" B: \"This is the meeting room on the second floor.\""
+        },
+        "ne": {
+          "explain": "A: \"बैठक कोठा कहाँ छ?\" B: \"यो दोस्रो तल्लाको बैठक कोठा हो।\""
         }
       }
     },
@@ -275,6 +360,12 @@
       "i18n": {
         "ja": {
           "explain": "（司会（しかい））「本日（ほんじつ）は とても良（よ）い お天気（てんき）で ございます 。」"
+        },
+        "en": {
+          "explain": "(MC) \"Today is a very beautiful day.\""
+        },
+        "ne": {
+          "explain": "(सञ्चालक) \"आज मौसम धेरै राम्रो छ।\""
         }
       }
     },
@@ -293,6 +384,12 @@
       "i18n": {
         "ja": {
           "explain": "週末（しゅうまつ）に 一緒（いっしょ）に 公園（こうえん）へ 珍（めずら）しい 花（はな）を 見（み）に 行（い）き ませんか。"
+        },
+        "en": {
+          "explain": "Shall we go to the park together on the weekend to see some rare flowers?"
+        },
+        "ne": {
+          "explain": "सप्ताहान्तमा सँगै पार्कमा अनौठा फूलहरू हेर्न जाऔं न?"
         }
       }
     },
@@ -311,6 +408,12 @@
       "i18n": {
         "ja": {
           "explain": "A「週末（しゅうまつ）に 映画（えいが）でも 見（み）に 行（い）きましょう 。」B「うん、行こう。」"
+        },
+        "en": {
+          "explain": "A: \"Let's go watch a movie or something on the weekend.\" B: \"Yeah, let's go.\""
+        },
+        "ne": {
+          "explain": "A: \"सप्ताहान्तमा फिल्म हेर्न जाऔं न।\" B: \"हुन्छ, जाऔं।\""
         }
       }
     },
@@ -329,6 +432,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）が 言（い）った。「それは 大（おお）きな 間違（まちが）い ではないか 。」"
+        },
+        "en": {
+          "explain": "The teacher said, \"Isn't that a big mistake?\""
+        },
+        "ne": {
+          "explain": "शिक्षकले भन्नुभयो, \"के त्यो ठूलो गल्ती होइन र?\""
         }
       }
     },
@@ -347,6 +456,12 @@
       "i18n": {
         "ja": {
           "explain": "私（わたし）は こう 思（おも）う。「彼（かれ）の 考（かんが）えは 正（ただ）しいの ではないか 。」"
+        },
+        "en": {
+          "explain": "I think, \"Isn't his idea correct?\""
+        },
+        "ne": {
+          "explain": "मलाई यस्तो लाग्छ, \"के उनको विचार सही होइन र?\""
         }
       }
     },
@@ -365,6 +480,12 @@
       "i18n": {
         "ja": {
           "explain": "旅行（りょこう）の 前（まえ）に パスポートを 取（と）って おいた ほうが いい。"
+        },
+        "en": {
+          "explain": "It's better to get your passport before your trip."
+        },
+        "ne": {
+          "explain": "यात्रा गर्नु अघि राहदानी बनाउनु राम्रो हुन्छ।"
         }
       }
     },
@@ -383,6 +504,12 @@
       "i18n": {
         "ja": {
           "explain": "この テストに 合格（ごうかく）する 力（ちから）が 必要（ひつよう） です。"
+        },
+        "en": {
+          "explain": "You need the ability to pass this test."
+        },
+        "ne": {
+          "explain": "यो परीक्षा पास गर्न सक्ने क्षमता चाहिन्छ।"
         }
       }
     },
@@ -401,6 +528,12 @@
       "i18n": {
         "ja": {
           "explain": "A「何（なに）が 見（み）えていますか?」B「台所（だいどころ）が とても 明（あか）るく 見（み）えます 。」"
+        },
+        "en": {
+          "explain": "A: \"What do you see?\" B: \"The kitchen looks very bright.\""
+        },
+        "ne": {
+          "explain": "A: \"के देख्दै हुनुहुन्छ?\" B: \"भान्सा धेरै उज्यालो देखिन्छ।\""
         }
       }
     },
@@ -421,10 +554,10 @@
           "explain": "A「妹（いもうと）さんは どんな 人（ひと）?」B「私（わたし）の妹（いもうと）は 昔（むかし）から とても 寒（さむ）がりです 。」"
         },
         "en": {
-          "explain": "My younger sister has always been very sensitive to the cold."
+          "explain": "A: \"What kind of person is your younger sister?\" B: \"My younger sister has always been very sensitive to cold.\""
         },
         "ne": {
-          "explain": "मेरी बहिनीलाई पहिलेदेखि नै धेरै जाडो लाग्छ।"
+          "explain": "A: \"तपाईंको बहिनी कस्तो मान्छे हो?\" B: \"मेरी बहिनी सानैदेखि धेरै जाडो मान्ने खालकी छिन्।\""
         }
       }
     },
@@ -443,6 +576,12 @@
       "i18n": {
         "ja": {
           "explain": "A「弟（おとうと）さんは?」B「弟（おとうと）は 暑（あつ）がりで よく あせをかきます 。」"
+        },
+        "en": {
+          "explain": "A: \"What about your younger brother?\" B: \"My younger brother is sensitive to heat and sweats a lot.\""
+        },
+        "ne": {
+          "explain": "A: \"तपाईंको भाइ नि?\" B: \"मेरो भाइ गर्मी मान्ने खालको छ र धेरै पसिना बगाउँछ।\""
         }
       }
     },
@@ -461,6 +600,12 @@
       "i18n": {
         "ja": {
           "explain": "天気予報（てんきよほう）で 明日（あした）は 雨（あめ） だ って 言（い）っていました。"
+        },
+        "en": {
+          "explain": "The weather forecast said it would rain tomorrow."
+        },
+        "ne": {
+          "explain": "मौसम पूर्वानुमानले भोलि पानी पर्नेछ भनेको थियो।"
         }
       }
     },
@@ -479,6 +624,12 @@
       "i18n": {
         "ja": {
           "explain": "上野（うえの）に いる パンダ って どんな 動物（どうぶつ） ですか。"
+        },
+        "en": {
+          "explain": "What kind of animal is the panda in Ueno?"
+        },
+        "ne": {
+          "explain": "उएनोमा भएको पाण्डा कस्तो जनावर हो?"
         }
       }
     },
@@ -497,6 +648,12 @@
       "i18n": {
         "ja": {
           "explain": "こちらの 温（あたた）かい お茶（ちゃ）は いかがで ございます か。"
+        },
+        "en": {
+          "explain": "How about this warm tea?"
+        },
+        "ne": {
+          "explain": "यो तातो चिया कस्तो लाग्छ?"
         }
       }
     },
@@ -515,6 +672,12 @@
       "i18n": {
         "ja": {
           "explain": "お風呂（ふろ）に 入（はい）って いる 間（あいだ）に 洗濯（せんたく）を しました。"
+        },
+        "en": {
+          "explain": "I did the laundry while I was taking a bath."
+        },
+        "ne": {
+          "explain": "नुहाइरहेको बेला मैले लुगा धोएँ।"
         }
       }
     },
@@ -533,6 +696,12 @@
       "i18n": {
         "ja": {
           "explain": "赤（あか）い 帽子（ぼうし）を かぶって いる 子（こ）どもは 弟（おとうと）です。"
+        },
+        "en": {
+          "explain": "The child wearing the red hat is my younger brother."
+        },
+        "ne": {
+          "explain": "रातो टोपी लगाएको बच्चा मेरो भाइ हो।"
         }
       }
     },
@@ -551,6 +720,12 @@
       "i18n": {
         "ja": {
           "explain": "A「彼（かれ）が うそを ついたの?」B「いいえ、まじめな 彼（かれ）が うそを つくはずがありません 。」"
+        },
+        "en": {
+          "explain": "A: \"Did he lie?\" B: \"No, a serious person like him couldn't possibly lie.\""
+        },
+        "ne": {
+          "explain": "A: \"के उसले झूट बोल्यो?\" B: \"होइन, ऊ जस्तो इमानदार व्यक्तिले झूट बोल्नै सक्दैन।\""
         }
       }
     },
@@ -569,6 +744,12 @@
       "i18n": {
         "ja": {
           "explain": "A「テスト、大丈夫（だいじょうぶ）?」B「こんなに 簡単（かんたん）な問題（もんだい）を 間違（まちが）える はずがない 。」"
+        },
+        "en": {
+          "explain": "A: \"How was the test?\" B: \"I couldn't possibly make a mistake on such an easy problem.\""
+        },
+        "ne": {
+          "explain": "A: \"परीक्षा, ठिकै भयो?\" B: \"यति सजिलो प्रश्नमा गल्ती गर्ने कुरै आउँदैन।\""
         }
       }
     },
@@ -587,6 +768,12 @@
       "i18n": {
         "ja": {
           "explain": "明日（あした）までに この 本（ほん）を 返（かえ）す 必要（ひつよう）が あります。"
+        },
+        "en": {
+          "explain": "I need to return this book by tomorrow."
+        },
+        "ne": {
+          "explain": "भोलिसम्म यो किताब फिर्ता गर्नुपर्छ।"
         }
       }
     },
@@ -605,6 +792,12 @@
       "i18n": {
         "ja": {
           "explain": "医者（いしゃ）が 言（い）った。「病気（びょうき）のときは 無理（むり）をせず 早（はや）く休（やす）む 必要（ひつよう）がある 。」"
+        },
+        "en": {
+          "explain": "The doctor said, \"When you're sick, you need to rest early without overdoing it.\""
+        },
+        "ne": {
+          "explain": "डाक्टरले भने, \"बिरामी हुँदा धेरै बल नगरी चाँडै आराम गर्नुपर्छ।\""
         }
       }
     },
@@ -622,6 +815,12 @@
       "i18n": {
         "ja": {
           "explain": "明日（あした） デパートへ 新（あたら）しい 服（ふく）を 買（か）いに 行（い）こうと 思（おも）います。"
+        },
+        "en": {
+          "explain": "I'm thinking of going to the department store tomorrow to buy new clothes."
+        },
+        "ne": {
+          "explain": "भोलि डिपार्टमेन्ट स्टोरमा नयाँ लुगा किन्न जाने सोचमा छु।"
         }
       },
       "pointId": "n4-g-129"
@@ -641,6 +840,12 @@
       "i18n": {
         "ja": {
           "explain": "暑（あつ）いなあ。のどが かわいたから 何（なに）か 飲（の）もう 。"
+        },
+        "en": {
+          "explain": "It's hot. I'm thirsty, so let's drink something."
+        },
+        "ne": {
+          "explain": "गर्मी भयो। तिर्खा लाग्यो, केही पिऔँ।"
         }
       }
     },
@@ -659,6 +864,12 @@
       "i18n": {
         "ja": {
           "explain": "社長（しゃちょう）は 三（さん）階（がい）の 一番（いちばん） 奥（おく）の 会議室（かいぎしつ）に いらっしゃいます。"
+        },
+        "en": {
+          "explain": "The president is in the meeting room at the very back on the third floor."
+        },
+        "ne": {
+          "explain": "अध्यक्ष तेस्रो तल्लाको सबैभन्दा भित्री बैठक कोठामा हुनुहुन्छ।"
         }
       }
     },
@@ -677,6 +888,12 @@
       "i18n": {
         "ja": {
           "explain": "私（わたし）が社長（しゃちょう）の 荷物（にもつ）を お運（はこ）び いたします。"
+        },
+        "en": {
+          "explain": "I will carry the president's luggage."
+        },
+        "ne": {
+          "explain": "म अध्यक्षको सामान बोकिदिनेछु।"
         }
       }
     },
@@ -695,6 +912,12 @@
       "i18n": {
         "ja": {
           "explain": "明日（あした）の 会議（かいぎ）の 予定（よてい）を ご連絡（れんらく） いたします。"
+        },
+        "en": {
+          "explain": "I will inform you about tomorrow's meeting schedule."
+        },
+        "ne": {
+          "explain": "भोलिको बैठकको तालिकाबारे जानकारी गराउनेछु।"
         }
       }
     },
@@ -713,6 +936,12 @@
       "i18n": {
         "ja": {
           "explain": "A「あきらめないで もう一度（いちど） やってみよう じゃないか 。」B「うん、がんばろう。」"
+        },
+        "en": {
+          "explain": "A: \"Don't give up, let's try it one more time!\" B: \"Yeah, let's do our best.\""
+        },
+        "ne": {
+          "explain": "A: \"हार नमानौँ, फेरि एकपटक प्रयास गरौँ न!\" B: \"हुन्छ, मेहनत गरौँ।\""
         }
       }
     },
@@ -731,6 +960,12 @@
       "i18n": {
         "ja": {
           "explain": "彼（かれ）が 会議（かいぎ）に 間（ま）に 合（あ）う かどうか 心配（しんぱい）です。"
+        },
+        "en": {
+          "explain": "I'm worried whether he will make it to the meeting."
+        },
+        "ne": {
+          "explain": "ऊ बैठकमा समयमै पुग्छ कि पुग्दैन भन्ने चिन्ता छ।"
         }
       }
     },
@@ -749,6 +984,12 @@
       "i18n": {
         "ja": {
           "explain": "この 紙（かみ）に住所（じゅうしょ）を 書（か）いて 出（だ）して ください。"
+        },
+        "en": {
+          "explain": "Please write your address on this paper and submit it."
+        },
+        "ne": {
+          "explain": "कृपया यो कागजमा ठेगाना लेखेर बुझाउनुहोस्।"
         }
       }
     },
@@ -767,6 +1008,12 @@
       "i18n": {
         "ja": {
           "explain": "（母（はは））「この料理（りょうり）は みんなの 口（くち）に 合（あ）うかしら 。」"
+        },
+        "en": {
+          "explain": "(Mother) \"I wonder if everyone will like this dish.\""
+        },
+        "ne": {
+          "explain": "(आमा) \"यो परिकार सबैलाई मन पर्छ कि पर्दैन होला।\""
         }
       }
     },
@@ -785,6 +1032,12 @@
       "i18n": {
         "ja": {
           "explain": "雨（あめ）が 降（ふ）って いる から、傘（かさ）を 持（も）っていきます。"
+        },
+        "en": {
+          "explain": "It's raining, so I'll take an umbrella."
+        },
+        "ne": {
+          "explain": "पानी परिरहेको छ, त्यसैले म छाता लिएर जान्छु।"
         }
       },
       "ambiguous": false
@@ -804,6 +1057,12 @@
       "i18n": {
         "ja": {
           "explain": "僕（ぼく）の言（い）う ことが 分（わ）かる かい？"
+        },
+        "en": {
+          "explain": "Do you understand what I'm saying?"
+        },
+        "ne": {
+          "explain": "मैले भनेको कुरा बुझ्छौ?"
         }
       }
     },
@@ -822,6 +1081,12 @@
       "i18n": {
         "ja": {
           "explain": "空（そら）が暗（くら）くなってきた。午後（ごご）から とても　強（つよ）い　雨（あめ）が　降（ふ）るかもしれません。"
+        },
+        "en": {
+          "explain": "The sky is getting dark. It might rain very heavily this afternoon."
+        },
+        "ne": {
+          "explain": "आकाश अँध्यारो हुँदैछ। दिउँसो धेरै ठूलो पानी पर्न सक्छ।"
         }
       }
     },
@@ -840,6 +1105,12 @@
       "i18n": {
         "ja": {
           "explain": "A「彼（かれ）、まだ来（こ）ないね。」B「うん、今日（きょう）の　約束（やくそく）を　忘（わす）れている　かもしれない。」"
+        },
+        "en": {
+          "explain": "A: \"He still hasn't come, has he?\" B: \"Yeah, he might have forgotten today's appointment.\""
+        },
+        "ne": {
+          "explain": "A: \"ऊ अझै आएन, होइन?\" B: \"हो, उसले आजको भेटघाट बिर्सेको हुन सक्छ।\""
         }
       }
     },
@@ -858,6 +1129,12 @@
       "i18n": {
         "ja": {
           "explain": "もう九時（くじ）だ。急（いそ）がないと　約束（やくそく）の　時間（じかん）に　間（ま）に合（あ）うかな。"
+        },
+        "en": {
+          "explain": "It's already nine o'clock. If I don't hurry, I wonder if I'll make it to the appointment time."
+        },
+        "ne": {
+          "explain": "अहिले नै नौ बजिसक्यो। हतार नगरे भेटघाटको समयमा पुगिएला र?"
         }
       }
     },
@@ -876,6 +1153,12 @@
       "i18n": {
         "ja": {
           "explain": "これから仕事（しごと）を 手伝（てつだ）って くれる 人（ひと）を探（さが）します 。"
+        },
+        "en": {
+          "explain": "I will now look for someone to help me with work."
+        },
+        "ne": {
+          "explain": "अब म काममा सघाउने मान्छे खोज्नेछु।"
         }
       }
     },
@@ -894,6 +1177,12 @@
       "i18n": {
         "ja": {
           "explain": "窓（まど）の 外（そと）を 見（み）ると 雪（ゆき）が 降（ふ）って います。"
+        },
+        "en": {
+          "explain": "When I look out the window, it's snowing."
+        },
+        "ne": {
+          "explain": "झ्याल बाहिर हेर्दा हिउँ परिरहेको छ।"
         }
       }
     },
@@ -912,6 +1201,12 @@
       "i18n": {
         "ja": {
           "explain": "今夜（こんや）は 空（そら）が 暗（くら）いので 雪（ゆき）が 降（ふ）るでしょう。"
+        },
+        "en": {
+          "explain": "The sky is dark tonight, so it will probably snow."
+        },
+        "ne": {
+          "explain": "आज राती आकाश अँध्यारो छ, त्यसैले हिउँ पर्नेछ होला।"
         }
       }
     },
@@ -929,6 +1224,12 @@
       "i18n": {
         "ja": {
           "explain": "平（へい）日（じつ）は よく 学（がっ）校（こう）へ 行（い）きますが 休（やす）みの 日（ひ）は 家（いえ）に います。"
+        },
+        "en": {
+          "explain": "I often go to school on weekdays, but I stay home on holidays."
+        },
+        "ne": {
+          "explain": "म हप्ताका दिनहरूमा प्रायः स्कूल जान्छु, तर छुट्टीको दिन घरमा बस्छु।"
         }
       },
       "pointId": "n4-g-120"
@@ -948,6 +1249,12 @@
       "i18n": {
         "ja": {
           "explain": "自己紹介（じこしょうかい）します。私（わたし）の趣味（しゅみ）は　きれいな　写真（しゃしん）を　撮（と）ることです。"
+        },
+        "en": {
+          "explain": "Let me introduce myself. My hobby is taking beautiful pictures."
+        },
+        "ne": {
+          "explain": "म आफ्नो परिचय दिन्छु। मेरो शौक सुन्दर तस्बिरहरू खिच्नु हो।"
         }
       }
     },
@@ -966,6 +1273,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）が言（い）いました。毎日（まいにち）　運動（うんどう）する　ことは　体（からだ）にいいです。"
+        },
+        "en": {
+          "explain": "The teacher said, \"Exercising every day is good for your body.\""
+        },
+        "ne": {
+          "explain": "शिक्षकले भन्नुभयो, “हरेक दिन व्यायाम गर्नु शरीरको लागि राम्रो हुन्छ।”"
         }
       }
     },
@@ -984,6 +1297,12 @@
       "i18n": {
         "ja": {
           "explain": "私（わたし）は忙（いそが）しくて、たまに 朝（あさ）ご飯（はん）を　食（た）べない　ことが　あります。"
+        },
+        "en": {
+          "explain": "I'm busy, so sometimes I don't eat breakfast."
+        },
+        "ne": {
+          "explain": "म व्यस्त छु, त्यसैले कहिलेकाहीँ बिहानको खाना खाँदिनँ।"
         }
       }
     },
@@ -1002,6 +1321,12 @@
       "i18n": {
         "ja": {
           "explain": "彼（かれ）はときどき 朝（あさ）ねぼうして　学校（がっこう）に　遅（おく）れる　ことがある。"
+        },
+        "en": {
+          "explain": "He sometimes oversleeps and is late for school."
+        },
+        "ne": {
+          "explain": "ऊ कहिलेकाहीँ बिहान ढिलो उठ्छ र स्कूल जान ढिलो हुन्छ।"
         }
       }
     },
@@ -1020,6 +1345,12 @@
       "i18n": {
         "ja": {
           "explain": "音楽（おんがく）を習（なら）っています。私（わたし）は むずかしい　ピアノの曲（きょく）を　ひく　ことができます。"
+        },
+        "en": {
+          "explain": "I'm learning music. I can play difficult piano pieces."
+        },
+        "ne": {
+          "explain": "म संगीत सिक्दैछु। मलाई गाह्रो पियानोका धुनहरू बजाउन आउँछ।"
         }
       }
     },
@@ -1038,6 +1369,12 @@
       "i18n": {
         "ja": {
           "explain": "どんな 上（じょう）手（ず）な 人（ひと）でも 失（しっ）敗（ぱい）する ことが あります。"
+        },
+        "en": {
+          "explain": "Even very skilled people sometimes make mistakes."
+        },
+        "ne": {
+          "explain": "जतिसुकै निपुण व्यक्तिले पनि कहिलेकाहीँ गल्ती गर्छन्।"
         }
       }
     },
@@ -1056,6 +1393,12 @@
       "i18n": {
         "ja": {
           "explain": "窓（まど）を 開（あ）けた まま 寝（ね）たから 風邪（かぜ）を 引（ひ）きました。"
+        },
+        "en": {
+          "explain": "I caught a cold because I slept with the window open."
+        },
+        "ne": {
+          "explain": "झ्याल खुला राखेर सुतेकोले मलाई रुघा लाग्यो।"
         }
       }
     },
@@ -1074,6 +1417,12 @@
       "i18n": {
         "ja": {
           "explain": "みなさんにお知（し）らせします。今週（こんしゅう）の会議（かいぎ）は　金曜日（きんようび）に　行（おこな）う　ことになった。"
+        },
+        "en": {
+          "explain": "Everyone, I have an announcement. This week's meeting has been decided to be held on Friday."
+        },
+        "ne": {
+          "explain": "सबैलाई जानकारी गराउँछु। यस हप्ताको बैठक शुक्रबार गर्ने निर्णय भएको छ।"
         }
       }
     },
@@ -1092,6 +1441,12 @@
       "i18n": {
         "ja": {
           "explain": "授（じゅ）業（ぎょう）で 習（なら）った 言（こと）葉（ば）を 忘（わす）れない ことは 大（たい）切（せつ）です。"
+        },
+        "en": {
+          "explain": "It's important not to forget the words you learned in class."
+        },
+        "ne": {
+          "explain": "कक्षामा सिकेका शब्दहरू नबिर्सनु महत्त्वपूर्ण छ।"
         }
       }
     },
@@ -1110,6 +1465,12 @@
       "i18n": {
         "ja": {
           "explain": "暗（くら）かったので、部屋（へや）を　明（あか）るくする　ために　電気（でんき）をつけた。"
+        },
+        "en": {
+          "explain": "It was dark, so I turned on the light to brighten the room."
+        },
+        "ne": {
+          "explain": "अँध्यारो थियो, त्यसैले कोठा उज्यालो बनाउन बत्ती बालेँ।"
         }
       }
     },
@@ -1128,6 +1489,12 @@
       "i18n": {
         "ja": {
           "explain": "こまったなあ。さっきまで　晴（は）れていたのに　急（きゅう）に　天気（てんき）が変（か）わりました。"
+        },
+        "en": {
+          "explain": "Oh dear. It was sunny just a moment ago, but the weather suddenly changed."
+        },
+        "ne": {
+          "explain": "ओहो। भर्खरै सम्म घाम लागेको थियो, तर अचानक मौसम बदलियो।"
         }
       }
     },
@@ -1146,6 +1513,12 @@
       "i18n": {
         "ja": {
           "explain": "運転（うんてん）していたら、前（まえ）の車（くるま）が　急（きゅう）に　止（と）まって　びっくりした。"
+        },
+        "en": {
+          "explain": "While I was driving, the car in front of me suddenly stopped, and I was surprised."
+        },
+        "ne": {
+          "explain": "गाडी चलाउँदै गर्दा अगाडिको गाडी अचानक रोकियो र म छक्क परेँ।"
         }
       }
     },
@@ -1164,6 +1537,12 @@
       "i18n": {
         "ja": {
           "explain": "銀行（ぎんこう）が 閉（し）まる までに 窓口（まどぐち）へ 行（い）かなければ なりません。"
+        },
+        "en": {
+          "explain": "I must go to the counter before the bank closes."
+        },
+        "ne": {
+          "explain": "बैंक बन्द हुनुअघि काउन्टरमा जानुपर्छ।"
         }
       }
     },
@@ -1182,6 +1561,12 @@
       "i18n": {
         "ja": {
           "explain": "授業（じゅぎょう）が 始（はじ）まる までに 教室（きょうしつ）に 入（はい）って ください。"
+        },
+        "en": {
+          "explain": "Please enter the classroom before the class starts."
+        },
+        "ne": {
+          "explain": "कक्षा सुरु हुनुअघि कक्षाकोठामा प्रवेश गर्नुहोस्।"
         }
       }
     },
@@ -1200,6 +1585,12 @@
       "i18n": {
         "ja": {
           "explain": "つかれていたので、電気（でんき）を　つけた　まま　寝（ね）てしまった。"
+        },
+        "en": {
+          "explain": "I was tired, so I fell asleep with the light on."
+        },
+        "ne": {
+          "explain": "म थकित थिएँ, त्यसैले बत्ती बालेरै सुतेँ।"
         }
       }
     },
@@ -1218,6 +1609,12 @@
       "i18n": {
         "ja": {
           "explain": "げんかんに紙（かみ）がはってある。「くつを　はいた　まま　入（はい）らないで ください。」"
+        },
+        "en": {
+          "explain": "There's a paper posted at the entrance. \"Please do not enter with your shoes on.\""
+        },
+        "ne": {
+          "explain": "प्रवेशद्वारमा एउटा कागज टाँसिएको छ। “जुत्ता लगाएर भित्र नआउनुहोस्।”"
         }
       }
     },
@@ -1236,6 +1633,12 @@
       "i18n": {
         "ja": {
           "explain": "係（かかり）の人（ひと）が言（い）いました。名前（なまえ）は　ペン　または　えんぴつで 書（か）いてください。"
+        },
+        "en": {
+          "explain": "The person in charge said, \"Please write your name with a pen or a pencil.\""
+        },
+        "ne": {
+          "explain": "जिम्मेवार व्यक्तिले भन्नुभयो, “कृपया आफ्नो नाम कलम वा पेन्सिलले लेख्नुहोस्।”"
         }
       }
     },
@@ -1254,6 +1657,12 @@
       "i18n": {
         "ja": {
           "explain": "質問（しつもん）は 電話（でんわ） または メールで お願（ねが）い します。"
+        },
+        "en": {
+          "explain": "For questions, please contact us by phone or email."
+        },
+        "ne": {
+          "explain": "प्रश्नहरूको लागि, कृपया फोन वा इमेल मार्फत सम्पर्क गर्नुहोस्।"
         }
       }
     },
@@ -1272,6 +1681,12 @@
       "i18n": {
         "ja": {
           "explain": "空（そら）が暗（くら）くなってきた。どうやらもうすぐ つめたい　雨（あめ）が　降（ふ）って　くるみたいだ。"
+        },
+        "en": {
+          "explain": "The sky is getting dark. It looks like cold rain will start falling soon."
+        },
+        "ne": {
+          "explain": "आकाश अँध्यारो हुँदैछ। चिसो पानी चाँडै पर्न थाल्ने जस्तो छ।"
         }
       }
     },
@@ -1290,6 +1705,12 @@
       "i18n": {
         "ja": {
           "explain": "彼（かれ）は今日（きょう） いつもより　少（すこ）し　元気（げんき）が　ないみたいだ。"
+        },
+        "en": {
+          "explain": "He seems a little less energetic than usual today."
+        },
+        "ne": {
+          "explain": "ऊ आज सधैंभन्दा अलि कम ऊर्जावान् देखिन्छ।"
         }
       }
     },
@@ -1308,6 +1729,12 @@
       "i18n": {
         "ja": {
           "explain": "しょうらいのゆめを話（はな）します。わたしは　お城（しろ）　みたいな　大（おお）きい家（いえ）に 住（す）みたいです。"
+        },
+        "en": {
+          "explain": "I'll talk about my dream for the future. I want to live in a big house like a castle."
+        },
+        "ne": {
+          "explain": "म मेरो भविष्यको सपनाको बारेमा कुरा गर्छु। म महल जस्तो ठूलो घरमा बस्न चाहन्छु।"
         }
       }
     },
@@ -1326,6 +1753,12 @@
       "i18n": {
         "ja": {
           "explain": "兄（あに）はとてもしんせつだ。わたしも　兄（あに）　みたいな　やさしい人（ひと）に なりたいです。"
+        },
+        "en": {
+          "explain": "My older brother is very kind. I also want to be a kind person like my brother."
+        },
+        "ne": {
+          "explain": "मेरो दाइ धेरै दयालु हुनुहुन्छ। म पनि दाइ जस्तो दयालु व्यक्ति बन्न चाहन्छु।"
         }
       }
     },
@@ -1344,6 +1777,12 @@
       "i18n": {
         "ja": {
           "explain": "あの 店員（てんいん）さんは モデル（もでる） みたいに きれいな 人（ひと） です。"
+        },
+        "en": {
+          "explain": "That store clerk is as beautiful as a model."
+        },
+        "ne": {
+          "explain": "त्यो पसलको कर्मचारी मोडल जस्तै सुन्दर छिन्।"
         }
       }
     },
@@ -1362,6 +1801,12 @@
       "i18n": {
         "ja": {
           "explain": "今日（きょう）は 春（はる） みたいに 暖（あたた）かい 日（ひ） です。"
+        },
+        "en": {
+          "explain": "Today is a warm day, like spring."
+        },
+        "ne": {
+          "explain": "आज वसन्त जस्तै न्यानो दिन छ।"
         }
       }
     },
@@ -1380,6 +1825,12 @@
       "i18n": {
         "ja": {
           "explain": "私（わたし）は 小（ちい）さい 時（とき）の 写真（しゃしん）を 持（も）って います。"
+        },
+        "en": {
+          "explain": "I have pictures from when I was little."
+        },
+        "ne": {
+          "explain": "मसँग सानो छँदाका तस्बिरहरू छन्।"
         }
       }
     },
@@ -1397,6 +1848,12 @@
       "i18n": {
         "ja": {
           "explain": "弟（おとうと）は 漢字（かんじ）を 二千（にせん） も 覚（おぼ）えて います。"
+        },
+        "en": {
+          "explain": "My younger brother has memorized as many as two thousand kanji characters."
+        },
+        "ne": {
+          "explain": "मेरो भाइले दुई हजार जति कान्जी अक्षरहरू याद गरेको छ।"
         }
       },
       "pointId": "n4-g-47"
@@ -1415,6 +1872,12 @@
       "i18n": {
         "ja": {
           "explain": "子供（こども）の 時（とき） 嘘（うそ）を つく な と 教（おし）えられました。"
+        },
+        "en": {
+          "explain": "When I was a child, I was taught not to lie."
+        },
+        "ne": {
+          "explain": "बाल्यकालमा मलाई झूट नबोल्न सिकाइएको थियो।"
         }
       },
       "pointId": "n4-g-48"
@@ -1434,6 +1897,12 @@
       "i18n": {
         "ja": {
           "explain": "くだものについて話（はな）します。わたしは　りんごや　みかん　などの果物（くだもの）が 大好（だいす）きです。"
+        },
+        "en": {
+          "explain": "I'll talk about fruits. I love fruits like apples and oranges."
+        },
+        "ne": {
+          "explain": "म फलफूलको बारेमा कुरा गर्छु। मलाई स्याउ र सुन्तला जस्ता फलफूलहरू धेरै मन पर्छ।"
         }
       }
     },
@@ -1452,6 +1921,12 @@
       "i18n": {
         "ja": {
           "explain": "私（わたし）はピアノや 歌（うた）を 歌（うた）う などのことが 好（す）きです。"
+        },
+        "en": {
+          "explain": "I like things like playing the piano and singing songs."
+        },
+        "ne": {
+          "explain": "मलाई पियानो बजाउनु र गीत गाउनु जस्ता कुराहरू मन पर्छ।"
         }
       }
     },
@@ -1470,6 +1945,12 @@
       "i18n": {
         "ja": {
           "explain": "ご飯（はん）を食（た）べながら テレビを 見（み）て はいけません。"
+        },
+        "en": {
+          "explain": "You must not watch TV while eating."
+        },
+        "ne": {
+          "explain": "खाना खाँदै गर्दा टिभी हेर्नु हुँदैन।"
         }
       }
     },
@@ -1488,6 +1969,12 @@
       "i18n": {
         "ja": {
           "explain": "弟（おとうと）は部屋（へや）の 窓（まど）を 開（あ）けて いるところです。"
+        },
+        "en": {
+          "explain": "My younger brother is in the middle of opening the room window."
+        },
+        "ne": {
+          "explain": "मेरो भाइ कोठाको झ्याल खोलिरहेको छ।"
         }
       }
     },
@@ -1506,6 +1993,12 @@
       "i18n": {
         "ja": {
           "explain": "日本語（にほんご）を勉強（べんきょう）しているが、漢字（かんじ）は　難（むずか）しくて　なかなか　うまく 書（か）けません。"
+        },
+        "en": {
+          "explain": "I'm studying Japanese, but kanji are difficult, so I can't write them well."
+        },
+        "ne": {
+          "explain": "म जापानी भाषा पढिरहेको छु, तर कान्जी गाह्रो भएकोले राम्ररी लेख्न सक्दिनँ।"
         }
       }
     },
@@ -1524,6 +2017,12 @@
       "i18n": {
         "ja": {
           "explain": "早（はや）くねよう。明日（あした）は　朝早（あさはや）く　起（お）き　なければ いけないから。"
+        },
+        "en": {
+          "explain": "Let's go to bed early. Because I have to wake up early tomorrow morning."
+        },
+        "ne": {
+          "explain": "चाँडै सुतौँ। किनभने भोलि बिहान सबेरै उठ्नुपर्छ।"
         }
       }
     },
@@ -1542,6 +2041,12 @@
       "i18n": {
         "ja": {
           "explain": "この 薬（くすり）は 食（た）べた 後（あと）で 飲（の）まなければ なりません。"
+        },
+        "en": {
+          "explain": "You must take this medicine after eating."
+        },
+        "ne": {
+          "explain": "यो औषधि खाना खाएपछि खानुपर्छ।"
         }
       }
     },
@@ -1560,6 +2065,12 @@
       "i18n": {
         "ja": {
           "explain": "部屋（へや）を 出（で）る 時（とき）は 電気（でんき）を 消（け）さなければ なりません。"
+        },
+        "en": {
+          "explain": "You must turn off the lights when you leave the room."
+        },
+        "ne": {
+          "explain": "कोठाबाट निस्कँदा बत्ती निभाउनुपर्छ।"
         }
       }
     },
@@ -1578,6 +2089,12 @@
       "i18n": {
         "ja": {
           "explain": "A「今度（こんど）旅行（りょこう）に行（い）くんだ。」B「京都（きょうと）へ　行（い）く　なら　新幹線（しんかんせん）が 便利（べんり）だよ。」"
+        },
+        "en": {
+          "explain": "A: \"I'm going on a trip soon.\" B: \"If you're going to Kyoto, the Shinkansen is convenient.\""
+        },
+        "ne": {
+          "explain": "A: \"म चाँडै घुम्न जाँदैछु।\" B: \"यदि क्योटो जाँदै हुनुहुन्छ भने, शिन्कान्सेन (बुलेट ट्रेन) सुविधाजनक हुन्छ।\""
         }
       }
     },
@@ -1596,6 +2113,12 @@
       "i18n": {
         "ja": {
           "explain": "A「その本、おもしろそう。」B「その本（ほん）を　読（よ）みたい　なら　わたしのを 貸（か）してあげるよ。」"
+        },
+        "en": {
+          "explain": "A: \"That book looks interesting.\" B: \"If you want to read that book, I'll lend you mine.\""
+        },
+        "ne": {
+          "explain": "A: \"त्यो किताब रोचक देखिन्छ।\" B: \"यदि त्यो किताब पढ्न चाहनुहुन्छ भने, म मेरो किताब दिन्छु।\""
         }
       }
     },
@@ -1614,6 +2137,12 @@
       "i18n": {
         "ja": {
           "explain": "ご飯（はん）を 食（た）べる 前（まえ）に 手（て）を 洗（あら）い なさい。"
+        },
+        "en": {
+          "explain": "Wash your hands before eating."
+        },
+        "ne": {
+          "explain": "खाना खानुअघि हात धुनुहोस्।"
         }
       }
     },
@@ -1632,6 +2161,12 @@
       "i18n": {
         "ja": {
           "explain": "社長（しゃちょう）は 午後（ごご）の 会議（かいぎ）に 出席（しゅっせき） なさい ますか。"
+        },
+        "en": {
+          "explain": "Will the president attend the afternoon meeting?"
+        },
+        "ne": {
+          "explain": "के अध्यक्ष दिउँसोको बैठकमा उपस्थित हुनुहुन्छ?"
         }
       }
     },
@@ -1650,6 +2185,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）は 昨日（きのう）の ニュースに びっくり なさい ましたか。"
+        },
+        "en": {
+          "explain": "Was the teacher surprised by yesterday's news?"
+        },
+        "ne": {
+          "explain": "के शिक्षक हिजोको समाचारले छक्क पर्नुभयो?"
         }
       }
     },
@@ -1668,6 +2209,12 @@
       "i18n": {
         "ja": {
           "explain": "買（か）い物（もの）のあと、家（いえ）に 帰（かえ）ってから さいふがない ことに 気（き）がついた。"
+        },
+        "en": {
+          "explain": "After shopping, I realized I didn't have my wallet after returning home."
+        },
+        "ne": {
+          "explain": "किनमेल गरेपछि, घर फर्केपछि मात्र मैले मेरो वालेट नभएको थाहा पाएँ।"
         }
       }
     },
@@ -1686,6 +2233,12 @@
       "i18n": {
         "ja": {
           "explain": "窓（まど）から とても きれいな 海（うみ）が 見（み）え ます。"
+        },
+        "en": {
+          "explain": "You can see a very beautiful sea from the window."
+        },
+        "ne": {
+          "explain": "झ्यालबाट धेरै सुन्दर समुद्र देखिन्छ।"
         }
       }
     },
@@ -1704,6 +2257,12 @@
       "i18n": {
         "ja": {
           "explain": "日曜日（にちようび）に、わたしは 古（ふる）い部屋（へや）を そうじして きれいに しました。"
+        },
+        "en": {
+          "explain": "On Sunday, I cleaned my old room and made it tidy."
+        },
+        "ne": {
+          "explain": "आइतबार, मैले मेरो पुरानो कोठा सफा गरेर चिटिक्क पारेँ।"
         }
       }
     },
@@ -1722,6 +2281,12 @@
       "i18n": {
         "ja": {
           "explain": "レストランで、わたしは 飲（の）み物（もの）を つめたい お茶（ちゃ）に します。"
+        },
+        "en": {
+          "explain": "At the restaurant, I'll have cold tea as my drink."
+        },
+        "ne": {
+          "explain": "रेस्टुरेन्टमा, म चिसो चिया पिउनेछु।"
         }
       }
     },
@@ -1740,6 +2305,12 @@
       "i18n": {
         "ja": {
           "explain": "暗（くら）いところでは、この手紙（てがみ）は 字（じ）が 小（ちい）さくて 読（よ）み にくいです。"
+        },
+        "en": {
+          "explain": "In a dark place, the letters on this letter are small and difficult to read."
+        },
+        "ne": {
+          "explain": "अँध्यारो ठाउँमा, यो चिठीको अक्षर सानो भएकोले पढ्न गाह्रो हुन्छ।"
         }
       }
     },
@@ -1758,6 +2329,12 @@
       "i18n": {
         "ja": {
           "explain": "一（いち）年（ねん）の 中（なか）で 八月（はちがつ）が 一番（いちばん） 暑（あつ）い です。"
+        },
+        "en": {
+          "explain": "August is the hottest month of the year."
+        },
+        "ne": {
+          "explain": "वर्षभरिमा अगस्ट सबैभन्दा तातो महिना हो।"
         }
       }
     },
@@ -1776,6 +2353,12 @@
       "i18n": {
         "ja": {
           "explain": "いろいろな スポーツ の中（なか）で サッカーが 一番（いちばん） 好（す）きです。"
+        },
+        "en": {
+          "explain": "Among various sports, soccer is my favorite."
+        },
+        "ne": {
+          "explain": "विभिन्न खेलहरूमध्ये, फुटबल मलाई सबैभन्दा मन पर्छ।"
         }
       }
     },
@@ -1794,6 +2377,12 @@
       "i18n": {
         "ja": {
           "explain": "とても残念（ざんねん）だ。一生（いっしょう）けんめい 勉強（べんきょう）した のに 試験（しけん）に 落（お）ちました。"
+        },
+        "en": {
+          "explain": "It's very regrettable. Even though I studied hard, I failed the exam."
+        },
+        "ne": {
+          "explain": "धेरै दुःखको कुरा हो। मैले कडा मेहनत गरे पनि परीक्षामा फेल भएँ।"
         }
       }
     },
@@ -1812,6 +2401,12 @@
       "i18n": {
         "ja": {
           "explain": "今日（きょう）は 来（く）ると 約束（やくそく）した のに 彼（かれ）は来（こ）なかった。"
+        },
+        "en": {
+          "explain": "He didn't come today, even though he promised to."
+        },
+        "ne": {
+          "explain": "आज ऊ आउने वाचा गरे पनि आएन।"
         }
       }
     },
@@ -1830,6 +2425,12 @@
       "i18n": {
         "ja": {
           "explain": "こまかい作業（さぎょう）のときは、このはさみは 紙（かみ）を 切（き）る のに 使（つか）います。"
+        },
+        "en": {
+          "explain": "For detailed work, this pair of scissors is used for cutting paper."
+        },
+        "ne": {
+          "explain": "साना काम गर्दा, यो कैंची कागज काट्न प्रयोग गरिन्छ।"
         }
       }
     },
@@ -1848,6 +2449,12 @@
       "i18n": {
         "ja": {
           "explain": "郵便局（ゆうびんきょく）は 五時（ごじ） まで しか 開（あ）いて いません。"
+        },
+        "en": {
+          "explain": "The post office is only open until 5 o'clock."
+        },
+        "ne": {
+          "explain": "हुलाक कार्यालय ५ बजेसम्म मात्र खुल्छ।"
         }
       }
     },
@@ -1866,6 +2473,12 @@
       "i18n": {
         "ja": {
           "explain": "わたしはこう思（おも）う。人生（じんせい）で 一番（いちばん） 大切（たいせつ）な のは 健康（けんこう）です。"
+        },
+        "en": {
+          "explain": "I think this: the most important thing in life is health."
+        },
+        "ne": {
+          "explain": "मलाई यस्तो लाग्छ: जीवनमा सबैभन्दा महत्त्वपूर्ण कुरा स्वास्थ्य हो।"
         }
       }
     },
@@ -1884,6 +2497,12 @@
       "i18n": {
         "ja": {
           "explain": "A「おいしいですね。だれが作（つく）ったんですか。」B「この料理（りょうり）を 作（つく）った のは わたしの 母（はは）です。」"
+        },
+        "en": {
+          "explain": "A: \"It's delicious, isn't it? Who made it?\" B: \"The one who made this dish is my mother.\""
+        },
+        "ne": {
+          "explain": "A: \"यो स्वादिष्ट छ, होइन र? कसले बनाउनुभएको हो?\" B: \"यो परिकार बनाउने मेरी आमा हुनुहुन्छ।\""
         }
       }
     },
@@ -1901,6 +2520,12 @@
       "i18n": {
         "ja": {
           "explain": "どうぞ、こちらの いすに お かけ ください。"
+        },
+        "en": {
+          "explain": "Please take a seat on this chair."
+        },
+        "ne": {
+          "explain": "कृपया यो कुर्सीमा बस्नुहोस्।"
         }
       },
       "pointId": "n4-g-65"
@@ -1919,6 +2544,12 @@
       "i18n": {
         "ja": {
           "explain": "名前（なまえ）を こちらの 紙（かみ）に お 書（か）き ください。"
+        },
+        "en": {
+          "explain": "Please write your name on this paper."
+        },
+        "ne": {
+          "explain": "कृपया यो कागजमा आफ्नो नाम लेख्नुहोस्।"
         }
       },
       "pointId": "n4-g-65"
@@ -1938,6 +2569,12 @@
       "i18n": {
         "ja": {
           "explain": "べんりな町（まち）で、この駅（えき）の バスは 十分（じゅっぷん） おきに 来（き）ます。"
+        },
+        "en": {
+          "explain": "It's a convenient town; the buses at this station come every ten minutes."
+        },
+        "ne": {
+          "explain": "यो सुविधाजनक सहर हो, यो स्टेशनमा बसहरू हरेक दश मिनेटमा आउँछन्।"
         }
       }
     },
@@ -1956,6 +2593,12 @@
       "i18n": {
         "ja": {
           "explain": "医者（いしゃ）に言（い）われました。この薬（くすり）は 四時間（よじかん） おきに 一（ひと）つ 飲（の）みます。"
+        },
+        "en": {
+          "explain": "The doctor told me: take one of these pills every four hours."
+        },
+        "ne": {
+          "explain": "डाक्टरले मलाई भन्नुभयो: यो औषधि हरेक चार घण्टामा एउटा खानुहोस्।"
         }
       }
     },
@@ -1974,6 +2617,12 @@
       "i18n": {
         "ja": {
           "explain": "すみません、この本（ほん）を 読（よ）み 終（お）わって から 返（かえ）します。"
+        },
+        "en": {
+          "explain": "Excuse me, I will return this book after I finish reading it."
+        },
+        "ne": {
+          "explain": "माफ गर्नुहोस्, यो किताब पढिसकेपछि फर्काउँछु।"
         }
       }
     },
@@ -1992,6 +2641,12 @@
       "i18n": {
         "ja": {
           "explain": "太（ふと）って 昔（むかし）の 服（ふく）が 着（き）られなく なって しまいました。"
+        },
+        "en": {
+          "explain": "I gained weight and can no longer wear my old clothes."
+        },
+        "ne": {
+          "explain": "म मोटाएँ र मेरा पुराना लुगाहरू लगाउन सक्दिनँ।"
         }
       }
     },
@@ -2010,6 +2665,12 @@
       "i18n": {
         "ja": {
           "explain": "食（た）べ物（もの）の好（この）みは広（ひろ）くて、わたしは からい 料理（りょうり）も 全部（ぜんぶ） 食（た）べられます。"
+        },
+        "en": {
+          "explain": "I have a wide range of food preferences, and I can eat all kinds of spicy dishes too."
+        },
+        "ne": {
+          "explain": "मलाई धेरै प्रकारका खानेकुरा मन पर्छ, म सबै प्रकारका पिरो परिकारहरू पनि खान सक्छु।"
         }
       }
     },
@@ -2028,6 +2689,12 @@
       "i18n": {
         "ja": {
           "explain": "あそこに 咲（さ）いて いる 花（はな）は バラ（ばら） らしいです。"
+        },
+        "en": {
+          "explain": "The flowers blooming over there seem to be roses."
+        },
+        "ne": {
+          "explain": "त्यहाँ फुलेका फूलहरू गुलाब हुन् जस्तो लाग्छ।"
         }
       }
     },
@@ -2046,6 +2713,12 @@
       "i18n": {
         "ja": {
           "explain": "窓（まど）の 外（そと）を 見（み）ると 雨（あめ）が 降（ふ）って います。"
+        },
+        "en": {
+          "explain": "When I look outside the window, it's raining."
+        },
+        "ne": {
+          "explain": "झ्याल बाहिर हेर्दा पानी परिरहेको छ।"
         }
       }
     },
@@ -2064,6 +2737,12 @@
       "i18n": {
         "ja": {
           "explain": "地図（ちず）で調（しら）べました。この山（やま）の 高（たか） さは 三千（さんぜん） メートルです。"
+        },
+        "en": {
+          "explain": "I checked on the map. The height of this mountain is 3,000 meters."
+        },
+        "ne": {
+          "explain": "मैले नक्सामा हेरेँ। यो पहाडको उचाइ तीन हजार मिटर छ।"
         }
       }
     },
@@ -2081,6 +2760,12 @@
       "i18n": {
         "ja": {
           "explain": "富士山（ふじさん）の 高（たか） さを 調（しら）べて ください。"
+        },
+        "en": {
+          "explain": "Please check the height of Mount Fuji."
+        },
+        "ne": {
+          "explain": "फुजी हिमालको उचाइ पत्ता लगाउनुहोस्।"
         }
       },
       "pointId": "n4-g-71"
@@ -2100,6 +2785,12 @@
       "i18n": {
         "ja": {
           "explain": "お母（かあ）さんに 嫌（きら）いな 野菜（やさい）を 食（た）べさせ られました。"
+        },
+        "en": {
+          "explain": "My mother made me eat vegetables I don't like."
+        },
+        "ne": {
+          "explain": "आमाले मलाई मन नपर्ने तरकारी खान लगाउनुभयो।"
         }
       }
     },
@@ -2118,6 +2809,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）は 辞書（じしょ）を 忘（わす）れない ように って 言（い）いました。"
+        },
+        "en": {
+          "explain": "The teacher told us not to forget our dictionaries."
+        },
+        "ne": {
+          "explain": "शिक्षकले शब्दकोश नबिर्सन भन्नुभयो।"
         }
       }
     },
@@ -2136,6 +2833,12 @@
       "i18n": {
         "ja": {
           "explain": "お父（とう）さんは 子（こ）供（ども）に、 公園（こうえん）に 咲（さ）いている 花（はな）を 見（み）させました。"
+        },
+        "en": {
+          "explain": "My father made his children look at the flowers blooming in the park."
+        },
+        "ne": {
+          "explain": "बुबाले बच्चाहरूलाई पार्कमा फुलेका फूलहरू देखाउनुभयो।"
         }
       }
     },
@@ -2154,6 +2857,12 @@
       "i18n": {
         "ja": {
           "explain": "A「すぐ返事（へんじ）がほしいです。」B「この問題（もんだい）は 大切（たいせつ）だから わたしに 考（かんが）えさせて ください。」"
+        },
+        "en": {
+          "explain": "A: \"I want an answer right away.\" B: \"This problem is important, so please let me think about it.\""
+        },
+        "ne": {
+          "explain": "A: \"मलाई तुरुन्तै जवाफ चाहिन्छ।\" B: \"यो समस्या महत्त्वपूर्ण छ, त्यसैले मलाई सोच्न दिनुहोस्।\""
         }
       }
     },
@@ -2172,6 +2881,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）、 体（からだ）の 調子（ちょうし）が 悪（わる）いので 早（はや）く 帰（かえ）らせて ください。"
+        },
+        "en": {
+          "explain": "Teacher, I'm not feeling well, so please let me go home early."
+        },
+        "ne": {
+          "explain": "शिक्षक, मेरो शरीर अस्वस्थ छ, त्यसैले मलाई चाँडै घर जान दिनुहोस्।"
         }
       }
     },
@@ -2190,6 +2905,12 @@
       "i18n": {
         "ja": {
           "explain": "あの 店（みせ）の ケーキは とても 有名（ゆうめい）な お菓子（かし） です。"
+        },
+        "en": {
+          "explain": "The cakes from that shop are very famous sweets."
+        },
+        "ne": {
+          "explain": "त्यो पसलको केक धेरै प्रसिद्ध मिठाई हो।"
         }
       }
     },
@@ -2208,6 +2929,12 @@
       "i18n": {
         "ja": {
           "explain": "弟（おとうと）が 描（え）いた とても 下手（へた）な 絵（え） です。"
+        },
+        "en": {
+          "explain": "This is a very poorly drawn picture by my younger brother."
+        },
+        "ne": {
+          "explain": "यो मेरो भाइले बनाएको एकदमै नराम्रो चित्र हो।"
         }
       }
     },
@@ -2226,6 +2953,12 @@
       "i18n": {
         "ja": {
           "explain": "また来（き）たい。この店（みせ）は ねだんも 安（やす）い し おいしいです。"
+        },
+        "en": {
+          "explain": "I want to come again. This shop is cheap and delicious."
+        },
+        "ne": {
+          "explain": "म फेरि आउन चाहन्छु। यो पसल सस्तो र स्वादिष्ट छ।"
         }
       }
     },
@@ -2244,6 +2977,12 @@
       "i18n": {
         "ja": {
           "explain": "明日（あした）は 大切（たいせつ）な 試験（しけん）が あるから 早（はや）く 寝（ね）ます。"
+        },
+        "en": {
+          "explain": "I have an important exam tomorrow, so I'll go to bed early."
+        },
+        "ne": {
+          "explain": "भोलि महत्त्वपूर्ण परीक्षा छ, त्यसैले म चाँडै सुत्छु।"
         }
       }
     },
@@ -2262,6 +3001,12 @@
       "i18n": {
         "ja": {
           "explain": "昨日（きのう）の テストの 問題（もんだい）は そんなに 難（むずか）しく なかった です。"
+        },
+        "en": {
+          "explain": "Yesterday's test questions weren't that difficult."
+        },
+        "ne": {
+          "explain": "हिजोको परीक्षाका प्रश्नहरू त्यति गाह्रो थिएनन्।"
         }
       }
     },
@@ -2280,6 +3025,12 @@
       "i18n": {
         "ja": {
           "explain": "この部屋（へや）は広（ひろ）い。それに 日当（ひあ）たりも よくて 駅（えき）にも 近（ちか）いです。"
+        },
+        "en": {
+          "explain": "This room is spacious. Moreover, it gets good sunlight and is close to the station."
+        },
+        "ne": {
+          "explain": "यो कोठा फराकिलो छ। यसबाहेक, यसमा राम्रो घाम लाग्छ र स्टेशनको नजिक छ।"
         }
       }
     },
@@ -2298,6 +3049,12 @@
       "i18n": {
         "ja": {
           "explain": "天気予報（てんきよほう）に よると、明日（あした）は 雪（ゆき） だ そうです。"
+        },
+        "en": {
+          "explain": "According to the weather forecast, it's going to snow tomorrow."
+        },
+        "ne": {
+          "explain": "मौसम पूर्वानुमान अनुसार, भोलि हिउँ पर्नेछ।"
         }
       }
     },
@@ -2316,6 +3073,12 @@
       "i18n": {
         "ja": {
           "explain": "天気予報（てんきよほう）によると、今年（ことし）の 冬（ふゆ）は とても 寒（さむ）いそうです 。"
+        },
+        "en": {
+          "explain": "According to the weather forecast, this winter is going to be very cold."
+        },
+        "ne": {
+          "explain": "मौसम पूर्वानुमान अनुसार, यो जाडो धेरै चिसो हुनेछ।"
         }
       }
     },
@@ -2334,6 +3097,12 @@
       "i18n": {
         "ja": {
           "explain": "この写真（しゃしん）を見（み）てください。この店（みせ）の 料理（りょうり）は とても おいしそうです 。"
+        },
+        "en": {
+          "explain": "Please look at this photo. The food at this shop looks very delicious."
+        },
+        "ne": {
+          "explain": "कृपया यो फोटो हेर्नुहोस्। यो पसलको खाना धेरै स्वादिष्ट देखिन्छ।"
         }
       }
     },
@@ -2352,6 +3121,12 @@
       "i18n": {
         "ja": {
           "explain": "この 棚（たな）は 重（おも）い 本（ほん）を 載（の）せすぎて 壊（こわ）れ そうです。"
+        },
+        "en": {
+          "explain": "This shelf looks like it's about to break because too many heavy books have been placed on it."
+        },
+        "ne": {
+          "explain": "यो दराज धेरै भारी किताबहरू राखेर भाँचिन लागेको जस्तो देखिन्छ।"
         }
       }
     },
@@ -2370,6 +3145,12 @@
       "i18n": {
         "ja": {
           "explain": "公園（こうえん）を見（み）ると、子どもたちは 楽（たの）しそうに 遊（あそ）んで います 。"
+        },
+        "en": {
+          "explain": "Looking at the park, the children are playing happily."
+        },
+        "ne": {
+          "explain": "पार्कमा हेर्दा, बच्चाहरू खुसीसाथ खेलिरहेका छन्।"
         }
       }
     },
@@ -2388,6 +3169,12 @@
       "i18n": {
         "ja": {
           "explain": "兄（あに）は 図書館（としょかん）で とても 難（むずか）しそうな 本（ほん）を 読（よ）んで います。"
+        },
+        "en": {
+          "explain": "My elder brother is reading a very difficult-looking book in the library."
+        },
+        "ne": {
+          "explain": "मेरो दाइ पुस्तकालयमा धेरै गाह्रो देखिने किताब पढिरहनुभएको छ।"
         }
       }
     },
@@ -2406,6 +3193,12 @@
       "i18n": {
         "ja": {
           "explain": "おなかが 空（す）いていますが、 ご飯（はん）を 炊（た）き 始（はじ）めた ばかり です。"
+        },
+        "en": {
+          "explain": "I'm hungry, but I've just started cooking rice."
+        },
+        "ne": {
+          "explain": "मलाई भोक लागेको छ, तर मैले भर्खरै भात पकाउन सुरु गरेको छु।"
         }
       }
     },
@@ -2424,6 +3217,12 @@
       "i18n": {
         "ja": {
           "explain": "これは 妹（いもうと）の 赤（あか）ちゃんです。先週（せんしゅう） 生（う）まれた ばかりで とても 小（ちい）さいです。"
+        },
+        "en": {
+          "explain": "This is my sister's baby. She was just born last week and is very small."
+        },
+        "ne": {
+          "explain": "यो मेरी बहिनीको बच्चा हो। उनी गत हप्ता भर्खरै जन्मिइन् र धेरै सानो छिन्।"
         }
       }
     },
@@ -2442,6 +3241,12 @@
       "i18n": {
         "ja": {
           "explain": "さっき 台所（だいどころ）の 掃除（そうじ）を 終（お）わった ところ です。"
+        },
+        "en": {
+          "explain": "I just finished cleaning the kitchen a moment ago."
+        },
+        "ne": {
+          "explain": "मैले भर्खरै भान्सा सफा गरिसकेँ।"
         }
       }
     },
@@ -2460,6 +3265,12 @@
       "i18n": {
         "ja": {
           "explain": "友達（ともだち）と 駅（えき）の 前（まえ）で 別（わか）れた ところ です。"
+        },
+        "en": {
+          "explain": "I just parted ways with my friend in front of the station."
+        },
+        "ne": {
+          "explain": "मैले भर्खरै स्टेशन अगाडि साथीसँग बिदा भएँ।"
         }
       }
     },
@@ -2478,6 +3289,12 @@
       "i18n": {
         "ja": {
           "explain": "天気（てんき）がいいので、弟（おとうと）は 外（そと）へ 行（い）き たがって います。"
+        },
+        "en": {
+          "explain": "Since the weather is good, my younger brother wants to go outside."
+        },
+        "ne": {
+          "explain": "मौसम राम्रो भएकोले, मेरो भाइ बाहिर जान चाहन्छ।"
         }
       }
     },
@@ -2496,6 +3313,12 @@
       "i18n": {
         "ja": {
           "explain": "デパートで、妹（いもうと）は 新（あたら）しい 服（ふく）を 買（か）いたがって います。"
+        },
+        "en": {
+          "explain": "At the department store, my younger sister wants to buy new clothes."
+        },
+        "ne": {
+          "explain": "डिपार्टमेन्ट स्टोरमा, मेरी बहिनी नयाँ लुगा किन्न चाहन्छिन्।"
         }
       }
     },
@@ -2514,6 +3337,12 @@
       "i18n": {
         "ja": {
           "explain": "A「これから 出発（しゅっぱつ）します。」 B「じゃあ、駅（えき）に 着（つ）いたら 私（わたし）に 電話（でんわ）して ください。」"
+        },
+        "en": {
+          "explain": "A: \"I'm leaving now.\" B: \"Okay, please call me when you arrive at the station.\""
+        },
+        "ne": {
+          "explain": "A: \"म अब हिँड्छु।\" B: \"हुन्छ, स्टेशन पुगेपछि मलाई फोन गर्नुहोस्।\""
         }
       }
     },
@@ -2531,6 +3360,12 @@
       "i18n": {
         "ja": {
           "explain": "窓（まど）を 開（あ）けたまま 寝（ね）たら 風邪（かぜ）を ひいて しまいました。"
+        },
+        "en": {
+          "explain": "I caught a cold because I slept with the window open."
+        },
+        "ne": {
+          "explain": "झ्याल खुला राखेर सुत्दा मलाई रुघा लाग्यो।"
         }
       },
       "pointId": "n4-g-88"
@@ -2550,6 +3385,12 @@
       "i18n": {
         "ja": {
           "explain": "体（からだ）の 調子（ちょうし）が 悪（わる）いなら、 近（ちか）くの 病院（びょういん）へ 行（い）って 診（み）てもらったら どうですか。"
+        },
+        "en": {
+          "explain": "If you're not feeling well, why don't you go to a nearby hospital and get checked?"
+        },
+        "ne": {
+          "explain": "यदि तपाईंलाई सन्चो छैन भने, नजिकैको अस्पतालमा गएर जँचाउनुहोस् न।"
         }
       }
     },
@@ -2568,6 +3409,12 @@
       "i18n": {
         "ja": {
           "explain": "A「疲（つか）れました。」 B「じゃあ、今日（きょう）は ゆっくり 休（やす）んだら どう ですか。」"
+        },
+        "en": {
+          "explain": "A: \"I'm tired.\" B: \"Well then, why don't you rest well today?\""
+        },
+        "ne": {
+          "explain": "ए: \"म थाकेँ।\" बी: \"त्यसो भए, आज राम्ररी आराम गर्नुहोस् न।\""
         }
       }
     },
@@ -2586,6 +3433,12 @@
       "i18n": {
         "ja": {
           "explain": "駅（えき）で 駅員（えきいん）に 聞（き）きます。切符（きっぷ）は どこで 買（か）ったら いい ですか。"
+        },
+        "en": {
+          "explain": "I'm asking the station attendant at the station. Where should I buy a ticket?"
+        },
+        "ne": {
+          "explain": "म स्टेशनमा स्टेशनका कर्मचारीलाई सोध्दैछु। टिकट कहाँ किन्दा राम्रो हुन्छ?"
         }
       }
     },
@@ -2604,6 +3457,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）、この 言葉（ことば）は 何（なん）と 読（よ）んだら いいですか。"
+        },
+        "en": {
+          "explain": "Teacher, how should I read this word?"
+        },
+        "ne": {
+          "explain": "गुरुज्यू, यो शब्द कसरी पढ्नुपर्छ?"
         }
       }
     },
@@ -2622,6 +3481,12 @@
       "i18n": {
         "ja": {
           "explain": "あの レストランは いつも 込（こ）んでいます。この店（みせ）は 安（やす）くて おいしいので 人気（にんき）が あります。"
+        },
+        "en": {
+          "explain": "That restaurant is always crowded. This shop is popular because it's cheap and delicious."
+        },
+        "ne": {
+          "explain": "त्यो रेस्टुरेन्ट सधैँ भीड हुन्छ। यो पसल सस्तो र स्वादिष्ट भएकोले लोकप्रिय छ।"
         }
       }
     },
@@ -2640,6 +3505,12 @@
       "i18n": {
         "ja": {
           "explain": "テストが 近（ちか）いので、私（わたし）が 弟（おとうと）の 宿題（しゅくだい）を 手伝（てつだ）って あげました。"
+        },
+        "en": {
+          "explain": "Since the test is near, I helped my younger brother with his homework."
+        },
+        "ne": {
+          "explain": "परीक्षा नजिक भएकोले, मैले भाइलाई गृहकार्यमा सहयोग गरिदिएँ।"
         }
       }
     },
@@ -2658,6 +3529,12 @@
       "i18n": {
         "ja": {
           "explain": "お父（とう）さんに誕生日（たんじょうび）の ケーキを 買（か）って 帰（かえ）ってほしいです。"
+        },
+        "en": {
+          "explain": "I want my father to buy a birthday cake and come home."
+        },
+        "ne": {
+          "explain": "बुबाले जन्मदिनको केक किनेर घर आउनुभएको हेर्न चाहन्छु।"
         }
       }
     },
@@ -2676,6 +3553,12 @@
       "i18n": {
         "ja": {
           "explain": "卒業（そつぎょう）した 後（あと）も 私（わたし）が 書（か）いた 手紙（てがみ）を 読（よ）んで ほしいです。"
+        },
+        "en": {
+          "explain": "I want you to read the letters I wrote even after graduation."
+        },
+        "ne": {
+          "explain": "म स्नातक गरेपछि पनि मैले लेखेका चिठीहरू पढिदिनुहोस् भन्ने चाहन्छु।"
         }
       }
     },
@@ -2694,6 +3577,12 @@
       "i18n": {
         "ja": {
           "explain": "夏（なつ）休（やす）みは 国（くに）から 来（く）る 家族（かぞく）と 旅行（りょこう）する つもりです。"
+        },
+        "en": {
+          "explain": "I plan to travel with my family coming from my home country during the summer holidays."
+        },
+        "ne": {
+          "explain": "गर्मी बिदामा देशबाट आउने परिवारसँग यात्रा गर्ने योजनामा छु।"
         }
       }
     },
@@ -2712,6 +3601,12 @@
       "i18n": {
         "ja": {
           "explain": "これから 世界（せかい）の 人口（じんこう）は だんだん 増（ふ）えて いく でしょう。"
+        },
+        "en": {
+          "explain": "From now on, the world's population will probably gradually increase."
+        },
+        "ne": {
+          "explain": "अबदेखि विश्वको जनसंख्या बिस्तारै बढ्दै जानेछ होला।"
         }
       }
     },
@@ -2730,6 +3625,12 @@
       "i18n": {
         "ja": {
           "explain": "すみません、 駅（えき）へ 行（い）く 道（みち）を 教（おし）えて いただけませんか。"
+        },
+        "en": {
+          "explain": "Excuse me, could you please tell me the way to the station?"
+        },
+        "ne": {
+          "explain": "माफ गर्नुहोस्, कृपया मलाई स्टेशन जाने बाटो बताइदिनुहुन्छ कि?"
         }
       }
     },
@@ -2748,6 +3649,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）、もう少（すこ）し ゆっくり 話（はな）して いただけ ませんか。"
+        },
+        "en": {
+          "explain": "Teacher, could you please speak a little more slowly?"
+        },
+        "ne": {
+          "explain": "गुरुज्यू, कृपया अलि बिस्तारै बोलिदिनुहुन्छ कि?"
         }
       }
     },
@@ -2766,6 +3673,12 @@
       "i18n": {
         "ja": {
           "explain": "友達（ともだち）が 昨日（きのう） 買（か）った ばかりの 本（ほん）を 貸（か）して くれました。"
+        },
+        "en": {
+          "explain": "My friend lent me a book that he had just bought yesterday."
+        },
+        "ne": {
+          "explain": "मेरो साथीले हिजो भर्खर किनेको किताब मलाई सापटी दियो।"
         }
       }
     },
@@ -2784,6 +3697,12 @@
       "i18n": {
         "ja": {
           "explain": "わからないので 図書館（としょかん）の 入（い）り口（ぐち）まで 案内（あんない）して くれ ました。"
+        },
+        "en": {
+          "explain": "Since I didn't know, they guided me to the entrance of the library."
+        },
+        "ne": {
+          "explain": "मलाई थाहा नभएकोले, उहाँहरूले मलाई पुस्तकालयको प्रवेशद्वारसम्म पुर्याइदिनुभयो।"
         }
       }
     },
@@ -2802,6 +3721,12 @@
       "i18n": {
         "ja": {
           "explain": "もう 十一月（じゅういちがつ）です。朝（あさ）は だんだん 寒（さむ）く なって きました。"
+        },
+        "en": {
+          "explain": "It's already November. The mornings are gradually getting colder."
+        },
+        "ne": {
+          "explain": "अहिले नै नोभेम्बर भइसक्यो। बिहान बिस्तारै चिसो हुँदै आएको छ।"
         }
       }
     },
@@ -2819,6 +3744,12 @@
       "i18n": {
         "ja": {
           "explain": "晩（ばん）ご飯（ごはん）に 昨日（きのう） 習（なら）った 料理（りょうり）を 作（つく）って みます。"
+        },
+        "en": {
+          "explain": "I will try making the dish I learned yesterday for dinner."
+        },
+        "ne": {
+          "explain": "म बेलुकाको खानामा हिजो सिकेको परिकार बनाएर हेर्नेछु।"
         }
       },
       "pointId": "n4-g-99"
@@ -2838,6 +3769,12 @@
       "i18n": {
         "ja": {
           "explain": "店（みせ）で。A「この 服（ふく）を 一度（いちど） 着（き）て みても いい ですか。」 B「どうぞ。」"
+        },
+        "en": {
+          "explain": "At the shop. A: \"May I try on these clothes once?\" B: \"Please do.\""
+        },
+        "ne": {
+          "explain": "पसलमा। ए: \"के म यो लुगा एकपटक लगाएर हेर्न सक्छु?\" बी: \"अवश्य।\""
         }
       }
     },
@@ -2856,6 +3793,12 @@
       "i18n": {
         "ja": {
           "explain": "友達（ともだち）に 机（つくえ）の 上（うえ）の 荷物（にもつ）を 運（はこ）んで もらいました。"
+        },
+        "en": {
+          "explain": "My friend helped me carry the luggage on the desk."
+        },
+        "ne": {
+          "explain": "मेरो साथीले मलाई टेबलमा भएको सामान बोक्न सहयोग गरिदियो।"
         }
       }
     },
@@ -2874,6 +3817,12 @@
       "i18n": {
         "ja": {
           "explain": "店員（てんいん）に 掃除（そうじ）の 終（お）わった 部屋（へや）を 見（み）せて もらいました。"
+        },
+        "en": {
+          "explain": "The staff showed me the room after it had been cleaned."
+        },
+        "ne": {
+          "explain": "कर्मचारीले मलाई सफा गरिसकेको कोठा देखाइदियो।"
         }
       }
     },
@@ -2892,6 +3841,12 @@
       "i18n": {
         "ja": {
           "explain": "明日（あした）は パーティーが 始（はじ）まる 前（まえ）に 掃除（そうじ）して おきます。"
+        },
+        "en": {
+          "explain": "Tomorrow, I will clean before the party starts."
+        },
+        "ne": {
+          "explain": "भोलि, पार्टी सुरु हुनुअघि म सफा गरेर राख्नेछु।"
         }
       }
     },
@@ -2909,6 +3864,12 @@
       "i18n": {
         "ja": {
           "explain": "来週（らいしゅう）の テストの 準備（じゅんび）を して おき ます。"
+        },
+        "en": {
+          "explain": "I will prepare for next week's test."
+        },
+        "ne": {
+          "explain": "म अर्को हप्ताको परीक्षाको तयारी गरेर राख्नेछु।"
         }
       },
       "pointId": "n4-g-101"
@@ -2928,6 +3889,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）は 明日（あした） 試験（しけん）が ある って 言（い）って いました。"
+        },
+        "en": {
+          "explain": "The teacher said there would be a test tomorrow."
+        },
+        "ne": {
+          "explain": "गुरुज्यूले भोलि परीक्षा छ भन्नुभएको थियो।"
         }
       }
     },
@@ -2945,6 +3912,12 @@
       "i18n": {
         "ja": {
           "explain": "私（わたし）は 電車（でんしゃ）の 中（なか）に 大切（たいせつ）な かばんを 忘（わす）れて しまい ました。"
+        },
+        "en": {
+          "explain": "I accidentally left my important bag on the train."
+        },
+        "ne": {
+          "explain": "मैले रेलभित्र मेरो महत्त्वपूर्ण झोला बिर्सेछु।"
         }
       },
       "pointId": "n4-g-102"
@@ -2964,6 +3937,12 @@
       "i18n": {
         "ja": {
           "explain": "A「遅（おそ）くなって、長（なが）い 間（あいだ） 待（ま）たせて しまって すみません。」 B「大丈夫（だいじょうぶ）ですよ。」"
+        },
+        "en": {
+          "explain": "A: \"I'm sorry for being late and making you wait for a long time.\" B: \"It's alright.\""
+        },
+        "ne": {
+          "explain": "ए: \"ढिलो भएकोमा र लामो समय कुराएकोमा माफ गर्नुहोस्।\" बी: \"ठीकै छ।\""
         }
       }
     },
@@ -2982,6 +3961,12 @@
       "i18n": {
         "ja": {
           "explain": "大事（だいじ）な 手紙（てがみ）を 送（おく）るのが 遅（おそ）く なって すみません。"
+        },
+        "en": {
+          "explain": "I'm sorry for being late in sending the important letter."
+        },
+        "ne": {
+          "explain": "महत्त्वपूर्ण चिठी पठाउन ढिलो भएकोमा माफ गर्नुहोस्।"
         }
       }
     },
@@ -3000,6 +3985,12 @@
       "i18n": {
         "ja": {
           "explain": "日本（にほん）の 冬（ふゆ）は とても 寒（さむ）い って 言（い）われて います。"
+        },
+        "en": {
+          "explain": "It is said that winter in Japan is very cold."
+        },
+        "ne": {
+          "explain": "जापानको जाडो धेरै चिसो हुन्छ भनिन्छ।"
         }
       }
     },
@@ -3017,6 +4008,12 @@
       "i18n": {
         "ja": {
           "explain": "弟（おとうと）が 困（こま）っていたので、私（わたし）が 自転車（じてんしゃ）を 貸（か）して やり ました。"
+        },
+        "en": {
+          "explain": "My younger brother was in trouble, so I lent him my bicycle."
+        },
+        "ne": {
+          "explain": "मेरो भाइ समस्यामा परेकोले, मैले उसलाई मेरो साइकल दिएँ।"
         }
       },
       "pointId": "n4-g-104"
@@ -3036,6 +4033,12 @@
       "i18n": {
         "ja": {
           "explain": "難（むずか）しい 試験（しけん）に 無事（ぶじ）に 合格（ごうかく） できて よかったです。"
+        },
+        "en": {
+          "explain": "It was good that I was able to successfully pass the difficult exam."
+        },
+        "ne": {
+          "explain": "गाह्रो परीक्षामा सफलतापूर्वक उत्तीर्ण हुन सकेकोमा राम्रो भयो।"
         }
       }
     },
@@ -3054,6 +4057,12 @@
       "i18n": {
         "ja": {
           "explain": "弟（おとうと）の 欲（ほ）しかった おもちゃが 安（やす）く 買（か）えて よかったです。"
+        },
+        "en": {
+          "explain": "It was good that I could buy the toy my younger brother wanted cheaply."
+        },
+        "ne": {
+          "explain": "भाइले चाहेको खेलौना सस्तोमा किन्न सकेकोमा राम्रो भयो।"
         }
       }
     },
@@ -3072,6 +4081,12 @@
       "i18n": {
         "ja": {
           "explain": "弟（おとうと）は 部屋（へや）で 宿題（しゅくだい）を して いる ところ です。"
+        },
+        "en": {
+          "explain": "My younger brother is doing his homework in his room right now."
+        },
+        "ne": {
+          "explain": "मेरो भाइ अहिले कोठामा गृहकार्य गर्दैछ।"
         }
       }
     },
@@ -3090,6 +4105,12 @@
       "i18n": {
         "ja": {
           "explain": "毎日（まいにち） 練習（れんしゅう）を しても なかなか 上手（じょうず）に なりません。"
+        },
+        "en": {
+          "explain": "Even if I practice every day, I don't get better easily."
+        },
+        "ne": {
+          "explain": "हरेक दिन अभ्यास गरे पनि, म सजिलै राम्रो हुन सक्दिनँ।"
         }
       }
     },
@@ -3108,6 +4129,12 @@
       "i18n": {
         "ja": {
           "explain": "この 本（ほん）は どんなに 難（むずか）しくても 最後（さいご） まで 読（よ）みます。"
+        },
+        "en": {
+          "explain": "No matter how difficult this book is, I will read it to the end."
+        },
+        "ne": {
+          "explain": "यो किताब जतिसुकै गाह्रो भए पनि, म यसलाई अन्त्यसम्म पढ्नेछु।"
         }
       }
     },
@@ -3126,6 +4153,12 @@
       "i18n": {
         "ja": {
           "explain": "この 公園（こうえん）は、春（はる）に なると きれいな 花（はな）が 咲（さ）きます。"
+        },
+        "en": {
+          "explain": "When spring comes, beautiful flowers bloom in this park."
+        },
+        "ne": {
+          "explain": "वसन्त ऋतु आउँदा, यो पार्कमा सुन्दर फूलहरू फुल्छन्।"
         }
       }
     },
@@ -3144,6 +4177,12 @@
       "i18n": {
         "ja": {
           "explain": "この 町（まち）で 一番（いちばん） 有名（ゆうめい）な 建物（たてもの）だ と言（い）ってもいい。"
+        },
+        "en": {
+          "explain": "It's safe to say that this is the most famous building in this town."
+        },
+        "ne": {
+          "explain": "यो सहरको सबैभन्दा प्रसिद्ध भवन हो भन्न सकिन्छ।"
         }
       }
     },
@@ -3162,6 +4201,12 @@
       "i18n": {
         "ja": {
           "explain": "最近（さいきん）この 番組（ばんぐみ）が 好（す）きで、このドラマは もう 毎日（まいにち）の楽（たの）しみになった と言（い）っても いい。"
+        },
+        "en": {
+          "explain": "I've recently grown to like this program, and it's safe to say this drama has become my daily enjoyment."
+        },
+        "ne": {
+          "explain": "मलाई हालसालै यो कार्यक्रम मन पर्न थालेको छ, र यो ड्रामा मेरो दैनिक रमाइलो बनेको छ भन्न सकिन्छ।"
         }
       }
     },
@@ -3180,6 +4225,12 @@
       "i18n": {
         "ja": {
           "explain": "A「「すし」 という 料理（りょうり）を 食（た）べたことが ありますか。」 B「はい、大好（だいす）きです。」"
+        },
+        "en": {
+          "explain": "A: \"Have you ever eaten a dish called 'sushi'?\" B: \"Yes, I love it.\""
+        },
+        "ne": {
+          "explain": "A: \"के तपाईंले 'सुशी' भनिने परिकार खानुभएको छ?\" B: \"छ, मलाई धेरै मन पर्छ।\""
         }
       }
     },
@@ -3198,6 +4249,12 @@
       "i18n": {
         "ja": {
           "explain": "きのう 公園（こうえん）で 「はな」 という 名前（なまえ）の 猫（ねこ）を 見（み）ました。"
+        },
+        "en": {
+          "explain": "Yesterday, I saw a cat named \"Hana\" in the park."
+        },
+        "ne": {
+          "explain": "हिजो, मैले पार्कमा \"हाना\" नामको बिरालो देखेँ।"
         }
       }
     },
@@ -3216,6 +4273,12 @@
       "i18n": {
         "ja": {
           "explain": "彼（かれ）が 来月（らいげつ） 結婚（けっこん）する という 話（はなし） を 聞（き）きました。"
+        },
+        "en": {
+          "explain": "I heard that he is getting married next month."
+        },
+        "ne": {
+          "explain": "मैले सुनेँ कि ऊ अर्को महिना बिहे गर्दैछ।"
         }
       }
     },
@@ -3234,6 +4297,12 @@
       "i18n": {
         "ja": {
           "explain": "毎日（まいにち） 運動（うんどう）する ということは 体（からだ）に いい ことです。"
+        },
+        "en": {
+          "explain": "Exercising every day is good for your body."
+        },
+        "ne": {
+          "explain": "हरेक दिन व्यायाम गर्नु शरीरको लागि राम्रो कुरा हो।"
         }
       }
     },
@@ -3252,6 +4321,12 @@
       "i18n": {
         "ja": {
           "explain": "この お寺（てら）は 今（いま）から千年前（せんねんまえ）に 建（た）てられた と 言（い）われて います。"
+        },
+        "en": {
+          "explain": "It is said that this temple was built a thousand years ago."
+        },
+        "ne": {
+          "explain": "यो मन्दिर एक हजार वर्ष पहिले बनाइएको भनिन्छ।"
         }
       }
     },
@@ -3270,6 +4345,12 @@
       "i18n": {
         "ja": {
           "explain": "昔（むかし） ここには とても 大（おお）きな お寺（てら）が あったと 言（い）われています。"
+        },
+        "en": {
+          "explain": "It is said that there used to be a very large temple here in the past."
+        },
+        "ne": {
+          "explain": "पहिले यहाँ एउटा धेरै ठूलो मन्दिर थियो भनिन्छ।"
         }
       }
     },
@@ -3288,6 +4369,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）から 明日（あした） 漢字（かんじ）の テストが あると 聞（き）きました。"
+        },
+        "en": {
+          "explain": "I heard from the teacher that there will be a kanji test tomorrow."
+        },
+        "ne": {
+          "explain": "मैले शिक्षकबाट सुनेँ कि भोलि कान्जीको परीक्षा छ।"
         }
       }
     },
@@ -3306,6 +4393,12 @@
       "i18n": {
         "ja": {
           "explain": "弟（おとうと）は 来年（らいねん） 新（あたら）しい 学校（がっこう）へ 行（い）くと 聞（き）きました。"
+        },
+        "en": {
+          "explain": "I heard that my younger brother is going to a new school next year."
+        },
+        "ne": {
+          "explain": "मैले सुनेँ कि मेरो भाइ अर्को वर्ष नयाँ स्कूल जाँदैछ।"
         }
       }
     },
@@ -3324,6 +4417,12 @@
       "i18n": {
         "ja": {
           "explain": "彼（かれ）は きっと パーティーに 来（く）る と 思（おも）います。"
+        },
+        "en": {
+          "explain": "I think he will surely come to the party."
+        },
+        "ne": {
+          "explain": "मलाई लाग्छ कि ऊ पक्कै पार्टीमा आउनेछ।"
         }
       }
     },
@@ -3341,6 +4440,12 @@
       "i18n": {
         "ja": {
           "explain": "この 問題（もんだい）は 少（すこ）し 難（むずか）しい と 思（おも）います。"
+        },
+        "en": {
+          "explain": "I think this problem is a little difficult."
+        },
+        "ne": {
+          "explain": "मलाई लाग्छ यो समस्या अलि गाह्रो छ।"
         }
       },
       "pointId": "n4-g-114"
@@ -3359,6 +4464,12 @@
       "i18n": {
         "ja": {
           "explain": "デパートで、シャツ とか くつ とかを たくさん 買（か）いました。"
+        },
+        "en": {
+          "explain": "I bought a lot of things like shirts and shoes at the department store."
+        },
+        "ne": {
+          "explain": "मैले डिपार्टमेन्ट स्टोरमा शर्ट र जुत्ता जस्ता धेरै सामानहरू किनेँ।"
         }
       },
       "pointId": "n4-g-115"
@@ -3378,6 +4489,12 @@
       "i18n": {
         "ja": {
           "explain": "母（はは）は ちょうど テレビ（てれび）を 見（み） 始（はじ）めた ところ です。"
+        },
+        "en": {
+          "explain": "My mother has just started watching TV."
+        },
+        "ne": {
+          "explain": "मेरी आमाले भर्खरै टिभी हेर्न सुरु गर्नुभएको छ।"
         }
       }
     },
@@ -3396,6 +4513,12 @@
       "i18n": {
         "ja": {
           "explain": "あぶない、電車（でんしゃ）が 駅（えき）を 出（で）る ところ でした。"
+        },
+        "en": {
+          "explain": "Watch out! The train was just about to leave the station."
+        },
+        "ne": {
+          "explain": "होसियार! रेल भर्खरै स्टेशनबाट छुट्नेवाला थियो।"
         }
       }
     },
@@ -3413,6 +4536,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）は 一時間（いちじかん） ずっと 話（はな）し 続（つづ）けて いた そうです。"
+        },
+        "en": {
+          "explain": "I heard that the teacher kept talking for a whole hour."
+        },
+        "ne": {
+          "explain": "मैले सुनेँ कि शिक्षकले एक घण्टासम्म लगातार बोलिरहनुभएको थियो।"
         }
       },
       "pointId": "n4-g-117"
@@ -3432,6 +4561,12 @@
       "i18n": {
         "ja": {
           "explain": "A「もう あきらめたの?」B「いいえ、私（わたし）は 答（こた）えを 見（み）つけるまで 考（かんが）え 続（つづ）けた んです。」"
+        },
+        "en": {
+          "explain": "A: \"Have you already given up?\" B: \"No, I kept thinking until I found the answer.\""
+        },
+        "ne": {
+          "explain": "A: \"के तपाईंले पहिले नै हार मान्नुभयो?\" B: \"होइन, मैले उत्तर नभेटेसम्म सोच्न जारी राखेँ।\""
         }
       }
     },
@@ -3450,6 +4585,12 @@
       "i18n": {
         "ja": {
           "explain": "A「Aさんを 知（し）っていますか。」B「ええ、Aさん って 本当（ほんとう）に 優（やさ）しい人（ひと） ですね。」"
+        },
+        "en": {
+          "explain": "A: \"Do you know Mr./Ms. A?\" B: \"Yes, Mr./Ms. A is really a kind person, isn't he/she?\""
+        },
+        "ne": {
+          "explain": "A: \"के तपाईंलाई ए-सान थाहा छ?\" B: \"हो, ए-सान साँच्चै दयालु व्यक्ति हुनुहुन्छ, होइन र?\""
         }
       }
     },
@@ -3468,6 +4609,12 @@
       "i18n": {
         "ja": {
           "explain": "A「どこの ケーキが 好（す）き?」B「あの店（みせ）の ケーキ って とても おいしいよ。」"
+        },
+        "en": {
+          "explain": "A: \"Which shop's cake do you like?\" B: \"The cake from that shop is really delicious!\""
+        },
+        "ne": {
+          "explain": "A: \"कुन पसलको केक मन पर्छ?\" B: \"त्यो पसलको केक धेरै स्वादिष्ट छ!\""
         }
       }
     },
@@ -3486,6 +4633,12 @@
       "i18n": {
         "ja": {
           "explain": "私（わたし）は 先生（せんせい）に クラスの みんなの 前（まえ）で ほめられ ました。"
+        },
+        "en": {
+          "explain": "I was praised by the teacher in front of everyone in the class."
+        },
+        "ne": {
+          "explain": "मलाई शिक्षकले कक्षाका सबैको अगाडि प्रशंसा गर्नुभयो।"
         }
       }
     },
@@ -3504,6 +4657,12 @@
       "i18n": {
         "ja": {
           "explain": "私（わたし）は 夏（なつ）は 好（す）きですが 冬（ふゆ）は あまり 好（す）きじゃありません。"
+        },
+        "en": {
+          "explain": "I like summer, but I don't like winter very much."
+        },
+        "ne": {
+          "explain": "मलाई गर्मी मन पर्छ तर जाडो त्यति मन पर्दैन।"
         }
       }
     },
@@ -3522,6 +4681,12 @@
       "i18n": {
         "ja": {
           "explain": "駅前（えきまえ）の 店（みせ）は 値段（ねだん）が 安（やす）くて 買（か）い やすい です。"
+        },
+        "en": {
+          "explain": "The shop in front of the station has cheap prices and is easy to buy from."
+        },
+        "ne": {
+          "explain": "स्टेशन अगाडिको पसलमा सामान सस्तो छ र किन्न सजिलो छ।"
         }
       }
     },
@@ -3540,6 +4705,12 @@
       "i18n": {
         "ja": {
           "explain": "長（なが）い時間（じかん） 待（ま）って やっと バスが 来（き）ました。"
+        },
+        "en": {
+          "explain": "After waiting for a long time, the bus finally arrived."
+        },
+        "ne": {
+          "explain": "लामो समय पर्खिएपछि, अन्ततः बस आयो।"
         }
       }
     },
@@ -3558,6 +4729,12 @@
       "i18n": {
         "ja": {
           "explain": "このパソコンは 前（まえ）の パソコン より ずっと 使（つか）いやすい です。"
+        },
+        "en": {
+          "explain": "This computer is much easier to use than the previous one."
+        },
+        "ne": {
+          "explain": "यो कम्प्युटर अघिल्लो कम्प्युटर भन्दा धेरै प्रयोग गर्न सजिलो छ।"
         }
       }
     },
@@ -3576,6 +4753,12 @@
       "i18n": {
         "ja": {
           "explain": "来週（らいしゅう）、友（とも）だちと 京都（きょうと）へ 行（い）く 予定（よてい）だ と思（おも）って います。"
+        },
+        "en": {
+          "explain": "I'm planning to go to Kyoto with my friends next week."
+        },
+        "ne": {
+          "explain": "म अर्को हप्ता साथीहरूसँग क्योटो जाने योजनामा ​​छु।"
         }
       }
     },
@@ -3594,6 +4777,12 @@
       "i18n": {
         "ja": {
           "explain": "宿題（しゅくだい）を 全部（ぜんぶ） 書（か）き 終（お）わる まで 寝（ね）ません。"
+        },
+        "en": {
+          "explain": "I won't sleep until I finish writing all my homework."
+        },
+        "ne": {
+          "explain": "मैले सबै गृहकार्य लेखिसकेपछि मात्र सुत्नेछु।"
         }
       }
     },
@@ -3612,6 +4801,12 @@
       "i18n": {
         "ja": {
           "explain": "A「そとは どうですか。」B「外（そと）は 雨（あめ）が 降（ふ）っている よう です。」"
+        },
+        "en": {
+          "explain": "A: How is it outside? B: It looks like it's raining outside."
+        },
+        "ne": {
+          "explain": "A: बाहिर कस्तो छ? B: बाहिर पानी परिरहेको जस्तो छ।"
         }
       }
     },
@@ -3630,6 +4825,12 @@
       "i18n": {
         "ja": {
           "explain": "A「Aさん、休（やす）みですね。」B「ええ、Aさんは かぜを ひいた よう です。」"
+        },
+        "en": {
+          "explain": "A: Mr. A is on holiday, isn't he? B: Yes, it seems Mr. A caught a cold."
+        },
+        "ne": {
+          "explain": "A: ए-सान छुट्टीमा हुनुहुन्छ, होइन? B: हो, ए-सानलाई रुघा लागेको जस्तो छ।"
         }
       }
     },
@@ -3648,6 +4849,12 @@
       "i18n": {
         "ja": {
           "explain": "みんなに 好（す）かれている 彼女（かのじょ）は、母親（ははおや）の ように やさしい 人（ひと） です。"
+        },
+        "en": {
+          "explain": "She is loved by everyone and is as kind as a mother."
+        },
+        "ne": {
+          "explain": "सबैले मन पराउने उनी आमा जस्तै दयालु व्यक्ति हुन्।"
         }
       }
     },
@@ -3666,6 +4873,12 @@
       "i18n": {
         "ja": {
           "explain": "これは 何（なん）ですか？ これは とても おいしい ケーキです。"
+        },
+        "en": {
+          "explain": "What is this? This is a very delicious cake."
+        },
+        "ne": {
+          "explain": "यो के हो? यो धेरै स्वादिष्ट केक हो।"
         }
       },
       "ambiguous": false
@@ -3685,6 +4898,12 @@
       "i18n": {
         "ja": {
           "explain": "たくさん 練習（れんしゅう）して、 難（むずか）しい 漢字（かんじ）が 書（か）ける ように なりました。"
+        },
+        "en": {
+          "explain": "After a lot of practice, I became able to write difficult kanji."
+        },
+        "ne": {
+          "explain": "धेरै अभ्यास गरेपछि, मलाई गाह्रो कान्जी लेख्न आउने भयो।"
         }
       }
     },
@@ -3703,6 +4922,12 @@
       "i18n": {
         "ja": {
           "explain": "日本（にほん）に 来（き）てから、少（すこ）しずつ 電話（でんわ）で 日本語（にほんご）が 話（はな）せる ように なり ました。"
+        },
+        "en": {
+          "explain": "Since coming to Japan, I have gradually become able to speak Japanese on the phone."
+        },
+        "ne": {
+          "explain": "जापान आएदेखि, म बिस्तारै फोनमा जापानी बोल्न सक्ने भएँ।"
         }
       }
     },
@@ -3721,6 +4946,12 @@
       "i18n": {
         "ja": {
           "explain": "健康（けんこう）の ために、毎日（まいにち） 歩（ある）く ように して います。"
+        },
+        "en": {
+          "explain": "For my health, I try to walk every day."
+        },
+        "ne": {
+          "explain": "स्वास्थ्यको लागि, म हरेक दिन हिँड्ने गर्छु।"
         }
       }
     },
@@ -3739,6 +4970,12 @@
       "i18n": {
         "ja": {
           "explain": "会議（かいぎ）が 始（はじ）まる までに 資料（しりょう）を 準備（じゅんび）して ください。"
+        },
+        "en": {
+          "explain": "Please prepare the materials before the meeting starts."
+        },
+        "ne": {
+          "explain": "कृपया बैठक सुरु हुनु अघि सामग्रीहरू तयार गर्नुहोस्।"
         }
       }
     },
@@ -3757,6 +4994,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）が 明日（あした）は 休（やす）みだ って 言（い）って いました。"
+        },
+        "en": {
+          "explain": "The teacher said that tomorrow is a holiday."
+        },
+        "ne": {
+          "explain": "शिक्षकले भोलि छुट्टी छ भन्नुभएको थियो।"
         }
       }
     },
@@ -3775,6 +5018,12 @@
       "i18n": {
         "ja": {
           "explain": "お腹（なか）が 空（す）いたら 冷蔵庫（れいぞうこ）の ケーキを 食（た）べて ください。"
+        },
+        "en": {
+          "explain": "If you get hungry, please eat the cake in the refrigerator."
+        },
+        "ne": {
+          "explain": "यदि तपाईंलाई भोक लाग्यो भने, फ्रिजमा भएको केक खानुहोस्।"
         }
       }
     },
@@ -3793,6 +5042,12 @@
       "i18n": {
         "ja": {
           "explain": "道（みち）が わからない 人（ひと）に 教（おし）えて あげて ください。"
+        },
+        "en": {
+          "explain": "Please tell the way to people who don't know it."
+        },
+        "ne": {
+          "explain": "बाटो नजान्ने मानिसहरूलाई बताइदिनुहोस्।"
         }
       }
     },
@@ -3811,6 +5066,12 @@
       "i18n": {
         "ja": {
           "explain": "今日（きょう）は とても 忙（いそが）しくて 全然（ぜんぜん） 時間（じかん）が ありません。"
+        },
+        "en": {
+          "explain": "Today I am very busy and have no time at all."
+        },
+        "ne": {
+          "explain": "आज म धेरै व्यस्त छु र मसँग बिल्कुलै समय छैन।"
         }
       }
     },
@@ -3828,6 +5089,12 @@
       "i18n": {
         "ja": {
           "explain": "今日（きょう）は 仕事（しごと）が 忙（いそが）しくて 料理（りょうり）を 作（つく）る 時間（じかん）が 全然（ぜんぜん） ありません。"
+        },
+        "en": {
+          "explain": "Today I am busy with work and have no time at all to cook."
+        },
+        "ne": {
+          "explain": "आज कामले गर्दा व्यस्त छु र खाना पकाउने समय बिल्कुलै छैन।"
         }
       },
       "pointId": "n4-g-131"
@@ -3847,6 +5114,12 @@
       "i18n": {
         "ja": {
           "explain": "このペンは インクが 出（で）なくて 書（か）き づらい です。"
+        },
+        "en": {
+          "explain": "This pen is hard to write with because the ink doesn't come out."
+        },
+        "ne": {
+          "explain": "यो कलम लेख्न गाह्रो छ किनभने मसी निस्किँदैन।"
         }
       }
     },
@@ -3865,6 +5138,12 @@
       "i18n": {
         "ja": {
           "explain": "これを 全部（ぜんぶ） 覚（おぼ）えるのは とても 大変（たいへん）な こと です。"
+        },
+        "en": {
+          "explain": "Memorizing all of this is a very difficult thing."
+        },
+        "ne": {
+          "explain": "यो सबै याद गर्नु धेरै गाह्रो कुरा हो।"
         }
       }
     },
@@ -3883,6 +5162,12 @@
       "i18n": {
         "ja": {
           "explain": "子（こ）ども の 頃（ころ） よく 遊（あそ）びました。"
+        },
+        "en": {
+          "explain": "I used to play a lot when I was a child."
+        },
+        "ne": {
+          "explain": "म बच्चा छँदा धेरै खेल्थेँ।"
         }
       }
     },
@@ -3901,6 +5186,12 @@
       "i18n": {
         "ja": {
           "explain": "先生（せんせい）は お 帰（かえ）り になりました。"
+        },
+        "en": {
+          "explain": "The teacher has gone home."
+        },
+        "ne": {
+          "explain": "शिक्षक घर फर्किसक्नुभयो।"
         }
       }
     }

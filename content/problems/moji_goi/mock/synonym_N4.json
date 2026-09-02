@@ -5,7 +5,8 @@
   "pool": "mock",
   "note": "言い換え類義の模試専用プール(初見)。LLM(Opus)生成・機械検証(形)のみ。一意性の最終判断はユーザー。頻出50%+中頻度50%。",
   "languages": [
-    "ja"
+    "en",
+    "ne"
   ],
   "items": [
     {
@@ -20,7 +21,27 @@
         "弟(おとうと)は昔(むかし)のことの学問(がくもん)を勉強(べんきょう)している。",
         "弟(おとうと)は数(かず)や形(かたち)の学問(がくもん)を勉強(べんきょう)している。"
       ],
-      "stem": "弟(おとうと)は医学(いがく)を勉強(べんきょう)している。"
+      "stem": "弟(おとうと)は医学(いがく)を勉強(べんきょう)している。",
+      "i18n": {
+        "en": {
+          "sentence": "My younger brother is studying medicine.",
+          "answer": "My younger brother is studying the science of curing illnesses.",
+          "choices": [
+            "My younger brother is studying the science of star movements.",
+            "My younger brother is studying the science of ancient times.",
+            "My younger brother is studying the science of numbers and shapes."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरो भाइले चिकित्साशास्त्र पढिरहेको छ।",
+          "answer": "मेरो भाइले रोग निको पार्ने विज्ञान पढिरहेको छ।",
+          "choices": [
+            "मेरो भाइले ताराहरूको चालको विज्ञान पढिरहेको छ।",
+            "मेरो भाइले पुरानो समयको विज्ञान पढिरहेको छ।",
+            "मेरो भाइले संख्या र आकारको विज्ञान पढिरहेको छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0002",
@@ -34,7 +55,27 @@
         "母(はは)は夕飯(ゆうはん)の片付(かたづ)けをしている。",
         "母(はは)は夕飯(ゆうはん)の注文(ちゅうもん)をしている。"
       ],
-      "stem": "母(はは)は夕飯(ゆうはん)の準備(じゅんび)をしている。"
+      "stem": "母(はは)は夕飯(ゆうはん)の準備(じゅんび)をしている。",
+      "i18n": {
+        "en": {
+          "sentence": "My mother is preparing dinner.",
+          "answer": "My mother is preparing dinner.",
+          "choices": [
+            "My mother is explaining dinner.",
+            "My mother is cleaning up after dinner.",
+            "My mother is ordering dinner."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरी आमाले बेलुकाको खाना तयार गर्दै हुनुहुन्छ।",
+          "answer": "मेरी आमाले बेलुकाको खानाको तयारी गर्दै हुनुहुन्छ।",
+          "choices": [
+            "मेरी आमाले बेलुकाको खानाको बारेमा बताउँदै हुनुहुन्छ।",
+            "मेरी आमाले बेलुकाको खानाको सरसफाइ गर्दै हुनुहुन्छ।",
+            "मेरी आमाले बेलुकाको खाना अर्डर गर्दै हुनुहुन्छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0003",
@@ -48,7 +89,27 @@
         "決(き)まったら、すぐに出発(しゅっぱつ)します。",
         "決(き)まったら、すぐに集(あつ)まります。"
       ],
-      "stem": "決(き)まったら、すぐに連絡(れんらく)します。"
+      "stem": "決(き)まったら、すぐに連絡(れんらく)します。",
+      "i18n": {
+        "en": {
+          "sentence": "Once it's decided, I'll contact you immediately.",
+          "answer": "Once it's decided, I'll let you know immediately.",
+          "choices": [
+            "Once it's decided, I'll apologize immediately.",
+            "Once it's decided, we'll depart immediately.",
+            "Once it's decided, we'll gather immediately."
+          ]
+        },
+        "ne": {
+          "sentence": "एकपटक निर्णय भएपछि, म तुरुन्तै सम्पर्क गर्नेछु।",
+          "answer": "एकपटक निर्णय भएपछि, म तुरुन्तै जानकारी दिनेछु।",
+          "choices": [
+            "एकपटक निर्णय भएपछि, म तुरुन्तै माफी माग्नेछु।",
+            "एकपटक निर्णय भएपछि, हामी तुरुन्तै प्रस्थान गर्नेछौं।",
+            "एकपटक निर्णय भएपछि, हामी तुरुन्तै भेला हुनेछौं।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0004",
@@ -62,7 +123,27 @@
         "これは珍(めずら)しい情報(じょうほう)です。",
         "これは役立(やくだ)つ情報(じょうほう)です。"
       ],
-      "stem": "これは確(たし)かな情報(じょうほう)です。"
+      "stem": "これは確(たし)かな情報(じょうほう)です。",
+      "i18n": {
+        "en": {
+          "sentence": "This is reliable information.",
+          "answer": "This is accurate information.",
+          "choices": [
+            "This is new information.",
+            "This is rare information.",
+            "This is useful information."
+          ]
+        },
+        "ne": {
+          "sentence": "यो भरपर्दो जानकारी हो।",
+          "answer": "यो सही जानकारी हो।",
+          "choices": [
+            "यो नयाँ जानकारी हो।",
+            "यो दुर्लभ जानकारी हो।",
+            "यो उपयोगी जानकारी हो।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0005",
@@ -76,7 +157,27 @@
         "この本(ほん)は千円(せんえん)より高(たか)く買(か)えます。",
         "この本(ほん)は千円(せんえん)くらいで買(か)えます。"
       ],
-      "stem": "この本(ほん)は千円(せんえん)以内(いない)で買(か)えます。"
+      "stem": "この本(ほん)は千円(せんえん)以内(いない)で買(か)えます。",
+      "i18n": {
+        "en": {
+          "sentence": "This book can be bought for less than 1,000 yen.",
+          "answer": "This book can be bought for 1,000 yen or less.",
+          "choices": [
+            "This book can be bought for exactly 1,000 yen.",
+            "This book can be bought for more than 1,000 yen.",
+            "This book can be bought for about 1,000 yen."
+          ]
+        },
+        "ne": {
+          "sentence": "यो किताब एक हजार येन भन्दा कममा किन्न सकिन्छ।",
+          "answer": "यो किताब एक हजार येन वा त्यो भन्दा सस्तोमा किन्न सकिन्छ।",
+          "choices": [
+            "यो किताब ठ्याक्कै एक हजार येनमा किन्न सकिन्छ।",
+            "यो किताब एक हजार येन भन्दा महँगोमा किन्न सकिन्छ।",
+            "यो किताब लगभग एक हजार येनमा किन्न सकिन्छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0006",
@@ -90,7 +191,27 @@
         "父(ちち)は車(くるま)を止(と)めるのが上手(じょうず)です。",
         "父(ちち)は車(くるま)を直(なお)すのが上手(じょうず)です。"
       ],
-      "stem": "父(ちち)は車(くるま)の運転(うんてん)が上手(じょうず)です。"
+      "stem": "父(ちち)は車(くるま)の運転(うんてん)が上手(じょうず)です。",
+      "i18n": {
+        "en": {
+          "sentence": "My father is good at driving a car.",
+          "answer": "My father is good at moving a car.",
+          "choices": [
+            "My father is good at washing cars.",
+            "My father is good at parking cars.",
+            "My father is good at fixing cars."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरो बुबा गाडी चलाउनमा निपुण हुनुहुन्छ।",
+          "answer": "मेरो बुबा गाडी चलाउनमा निपुण हुनुहुन्छ।",
+          "choices": [
+            "मेरो बुबा गाडी धुनमा निपुण हुनुहुन्छ।",
+            "मेरो बुबा गाडी पार्क गर्नमा निपुण हुनुहुन्छ।",
+            "मेरो बुबा गाडी मर्मत गर्नमा निपुण हुनुहुन्छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0007",
@@ -104,7 +225,27 @@
         "準備(じゅんび)の時間(じかん)はほとんどありません。",
         "準備(じゅんび)の時間(じかん)は全(まった)くありません。"
       ],
-      "stem": "準備(じゅんび)の時間(じかん)は十分(じゅうぶん)あります。"
+      "stem": "準備(じゅんび)の時間(じかん)は十分(じゅうぶん)あります。",
+      "i18n": {
+        "en": {
+          "sentence": "There is enough time for preparation.",
+          "answer": "There is plenty of time for preparation.",
+          "choices": [
+            "There is only a little time for preparation.",
+            "There is almost no time for preparation.",
+            "There is absolutely no time for preparation."
+          ]
+        },
+        "ne": {
+          "sentence": "तयारीको लागि पर्याप्त समय छ।",
+          "answer": "तयारीको लागि प्रशस्त समय छ।",
+          "choices": [
+            "तयारीको लागि थोरै मात्र समय छ।",
+            "तयारीको लागि लगभग समय छैन।",
+            "तयारीको लागि पटक्कै समय छैन।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0008",
@@ -118,7 +259,27 @@
         "店員(てんいん)が使(つか)い方(かた)を客(きゃく)に強(つよ)く注意(ちゅうい)した。",
         "店員(てんいん)が使(つか)い方(かた)を客(きゃく)に質問(しつもん)した。"
       ],
-      "stem": "店員(てんいん)が使(つか)い方(かた)を説明(せつめい)した。"
+      "stem": "店員(てんいん)が使(つか)い方(かた)を説明(せつめい)した。",
+      "i18n": {
+        "en": {
+          "sentence": "The store clerk explained how to use it.",
+          "answer": "The store clerk spoke in an understandable way about how to use it.",
+          "choices": [
+            "The store clerk asked loudly about how to use it.",
+            "The store clerk strongly warned the customer about how to use it.",
+            "The store clerk asked the customer a question about how to use it."
+          ]
+        },
+        "ne": {
+          "sentence": "पसलको कर्मचारीले कसरी प्रयोग गर्ने भनेर बुझाए।",
+          "answer": "पसलको कर्मचारीले कसरी प्रयोग गर्ने भनेर बुझ्ने गरी कुरा गरे।",
+          "choices": [
+            "पसलको कर्मचारीले कसरी प्रयोग गर्ने भनेर ठूलो स्वरमा सोधे।",
+            "पसलको कर्मचारीले ग्राहकलाई कसरी प्रयोग गर्ने भनेर कडा चेतावनी दिए।",
+            "पसलको कर्मचारीले ग्राहकलाई कसरी प्रयोग गर्ने भनेर प्रश्न सोधे।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0009",
@@ -132,7 +293,27 @@
         "この川(かわ)はきれいです。",
         "この川(かわ)は広(ひろ)いです。"
       ],
-      "stem": "この川(かわ)は危険(きけん)です。"
+      "stem": "この川(かわ)は危険(きけん)です。",
+      "i18n": {
+        "en": {
+          "sentence": "This river is dangerous.",
+          "answer": "This river is dangerous.",
+          "choices": [
+            "This river is shallow.",
+            "This river is clean.",
+            "This river is wide."
+          ]
+        },
+        "ne": {
+          "sentence": "यो नदी खतरनाक छ।",
+          "answer": "यो नदी खतरनाक छ।",
+          "choices": [
+            "यो नदी गहिरो छैन।",
+            "यो नदी सफा छ।",
+            "यो नदी फराकिलो छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0010",
@@ -146,7 +327,27 @@
         "週末(しゅうまつ)はたまに、家(いえ)で休(やす)みます。",
         "週末(しゅうまつ)は決(けっ)して、家(いえ)で休(やす)みません。"
       ],
-      "stem": "週末(しゅうまつ)は普通(ふつう)、家(いえ)で休(やす)みます。"
+      "stem": "週末(しゅうまつ)は普通(ふつう)、家(いえ)で休(やす)みます。",
+      "i18n": {
+        "en": {
+          "sentence": "On weekends, I usually rest at home.",
+          "answer": "On weekends, I usually rest at home.",
+          "choices": [
+            "On weekends, I always rest at home.",
+            "On weekends, I sometimes rest at home.",
+            "On weekends, I never rest at home."
+          ]
+        },
+        "ne": {
+          "sentence": "सप्ताहान्तमा, म प्रायः घरमा आराम गर्छु।",
+          "answer": "सप्ताहान्तमा, म प्रायः घरमा आराम गर्छु।",
+          "choices": [
+            "सप्ताहान्तमा, म सधैं घरमा आराम गर्छु।",
+            "सप्ताहान्तमा, म कहिलेकाहीँ घरमा आराम गर्छु।",
+            "सप्ताहान्तमा, म कहिल्यै घरमा आराम गर्दिनँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0011",
@@ -160,7 +361,27 @@
         "会議(かいぎ)の資料(しりょう)を作(つく)る場所(ばしょ)はあのビルです。",
         "会議(かいぎ)の後(あと)で食事(しょくじ)する場所(ばしょ)はあのビルです。"
       ],
-      "stem": "会議(かいぎ)の会場(かいじょう)はあのビルです。"
+      "stem": "会議(かいぎ)の会場(かいじょう)はあのビルです。",
+      "i18n": {
+        "en": {
+          "sentence": "The meeting venue is that building.",
+          "answer": "The place where the meeting will be held is that building.",
+          "choices": [
+            "The place to rest from the meeting is that building.",
+            "The place to prepare materials for the meeting is that building.",
+            "The place to eat after the meeting is that building."
+          ]
+        },
+        "ne": {
+          "sentence": "बैठकको स्थान त्यो भवन हो।",
+          "answer": "बैठक गर्ने ठाउँ त्यो भवन हो।",
+          "choices": [
+            "बैठकबाट आराम गर्ने ठाउँ त्यो भवन हो।",
+            "बैठकको लागि सामग्री बनाउने ठाउँ त्यो भवन हो।",
+            "बैठक पछि खाना खाने ठाउँ त्यो भवन हो।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0012",
@@ -174,7 +395,27 @@
         "今日(きょう)の問題(もんだい)は多(おお)かったです。",
         "今日(きょう)の問題(もんだい)は少(すく)なかったです。"
       ],
-      "stem": "今日(きょう)の問題(もんだい)は簡単(かんたん)でした。"
+      "stem": "今日(きょう)の問題(もんだい)は簡単(かんたん)でした。",
+      "i18n": {
+        "en": {
+          "sentence": "Today's problem was easy.",
+          "answer": "Today's problem was easy.",
+          "choices": [
+            "Today's problem was difficult.",
+            "There were many problems today.",
+            "There were few problems today."
+          ]
+        },
+        "ne": {
+          "sentence": "आजको समस्या सजिलो थियो।",
+          "answer": "आजको समस्या सजिलो थियो।",
+          "choices": [
+            "आजको समस्या गाह्रो थियो।",
+            "आज धेरै समस्याहरू थिए।",
+            "आज थोरै समस्याहरू थिए।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0013",
@@ -188,7 +429,27 @@
         "学校(がっこう)に着(つ)いてから友(とも)だちに会(あ)った。",
         "学校(がっこう)から帰(かえ)った後(あと)で友(とも)だちに会(あ)った。"
       ],
-      "stem": "学校(がっこう)へ行(い)く途中(とちゅう)で友(とも)だちに会(あ)った。"
+      "stem": "学校(がっこう)へ行(い)く途中(とちゅう)で友(とも)だちに会(あ)った。",
+      "i18n": {
+        "en": {
+          "sentence": "I met a friend on the way to school.",
+          "answer": "I met a friend while I was going to school.",
+          "choices": [
+            "I met a friend before going to school.",
+            "I met a friend after arriving at school.",
+            "I met a friend after returning from school."
+          ]
+        },
+        "ne": {
+          "sentence": "म स्कुल जाने बाटोमा साथीलाई भेटेँ।",
+          "answer": "म स्कुल गइरहेको बेला साथीलाई भेटेँ।",
+          "choices": [
+            "म स्कुल जानुअघि साथीलाई भेटेँ।",
+            "म स्कुल पुगेपछि साथीलाई भेटेँ।",
+            "म स्कुलबाट फर्किएपछि साथीलाई भेटेँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0014",
@@ -202,7 +463,27 @@
         "友(とも)だちに旅行(りょこう)の計画(けいかく)を自慢(じまん)した。",
         "友(とも)だちに旅行(りょこう)の計画(けいかく)を紹介(しょうかい)した。"
       ],
-      "stem": "友(とも)だちと旅行(りょこう)の計画(けいかく)を相談(そうだん)した。"
+      "stem": "友(とも)だちと旅行(りょこう)の計画(けいかく)を相談(そうだん)した。",
+      "i18n": {
+        "en": {
+          "sentence": "I consulted with my friend about the travel plan.",
+          "answer": "I discussed the travel plan with my friend.",
+          "choices": [
+            "I announced the travel plan to my friend.",
+            "I boasted about the travel plan to my friend.",
+            "I introduced the travel plan to my friend."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले साथीसँग यात्राको योजनाबारे सल्लाह गरेँ।",
+          "answer": "मैले साथीसँग यात्राको योजनाबारे कुरा गरेँ।",
+          "choices": [
+            "मैले साथीलाई यात्राको योजना सुनाएँ।",
+            "मैले साथीलाई यात्राको योजनाबारे घमण्ड गरेँ।",
+            "मैले साथीलाई यात्राको योजनाबारे जानकारी दिएँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0015",
@@ -216,7 +497,27 @@
         "外国語(がいこくご)を使(つか)う場所(ばしょ)が多(おお)い。",
         "外国語(がいこくご)を使(つか)う理由(りゆう)が多(おお)い。"
       ],
-      "stem": "外国語(がいこくご)を使(つか)う機会(きかい)が多(おお)い。"
+      "stem": "外国語(がいこくご)を使(つか)う機会(きかい)が多(おお)い。",
+      "i18n": {
+        "en": {
+          "sentence": "There are many opportunities to use foreign languages.",
+          "answer": "There are many chances to use foreign languages.",
+          "choices": [
+            "There is a lot of time to use foreign languages.",
+            "There are many places to use foreign languages.",
+            "There are many reasons to use foreign languages."
+          ]
+        },
+        "ne": {
+          "sentence": "विदेशी भाषा प्रयोग गर्ने अवसरहरू धेरै छन्।",
+          "answer": "विदेशी भाषा प्रयोग गर्ने मौकाहरू धेरै छन्।",
+          "choices": [
+            "विदेशी भाषा प्रयोग गर्ने समय धेरै छ।",
+            "विदेशी भाषा प्रयोग गर्ने ठाउँहरू धेरै छन्।",
+            "विदेशी भाषा प्रयोग गर्ने कारणहरू धेरै छन्।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0016",
@@ -230,7 +531,27 @@
         "妹(いもうと)はよく料理(りょうり)の本(ほん)を読(よ)む。",
         "妹(いもうと)はよく歴史(れきし)の本(ほん)を読(よ)む。"
       ],
-      "stem": "妹(いもうと)はよく小説(しょうせつ)を読(よ)む。"
+      "stem": "妹(いもうと)はよく小説(しょうせつ)を読(よ)む。",
+      "i18n": {
+        "en": {
+          "sentence": "My younger sister often reads novels.",
+          "answer": "My younger sister often reads storybooks.",
+          "choices": [
+            "My younger sister often reads manga books.",
+            "My younger sister often reads cookbooks.",
+            "My younger sister often reads history books."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरी बहिनी प्रायः उपन्यास पढ्छिन्।",
+          "answer": "मेरी बहिनी प्रायः कथाका किताबहरू पढ्छिन्।",
+          "choices": [
+            "मेरी बहिनी प्रायः मंगा किताबहरू पढ्छिन्।",
+            "मेरी बहिनी प्रायः खाना पकाउने किताबहरू पढ्छिन्।",
+            "मेरी बहिनी प्रायः इतिहासका किताबहरू पढ्छिन्।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0017",
@@ -244,7 +565,27 @@
         "弟(おとうと)は今日(きょう)の授業(じゅぎょう)に遅(おく)れた。",
         "弟(おとうと)は今日(きょう)の授業(じゅぎょう)を早(はや)く終(お)えた。"
       ],
-      "stem": "弟(おとうと)は今日(きょう)の授業(じゅぎょう)に出席(しゅっせき)した。"
+      "stem": "弟(おとうと)は今日(きょう)の授業(じゅぎょう)に出席(しゅっせき)した。",
+      "i18n": {
+        "en": {
+          "sentence": "My younger brother attended today's class.",
+          "answer": "My younger brother came to today's class.",
+          "choices": [
+            "My younger brother was absent from today's class.",
+            "My younger brother was late for today's class.",
+            "My younger brother finished today's class early."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरो भाइ आजको कक्षामा उपस्थित भयो।",
+          "answer": "मेरो भाइ आजको कक्षामा आयो।",
+          "choices": [
+            "मेरो भाइ आजको कक्षामा अनुपस्थित थियो।",
+            "मेरो भाइ आजको कक्षामा ढिलो भयो।",
+            "मेरो भाइले आजको कक्षा चाँडै सक्यो।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0018",
@@ -258,7 +599,27 @@
         "散歩(さんぽ)をすると景色(けしき)がよくなる。",
         "散歩(さんぽ)をすると顔色(かおいろ)がよくなる。"
       ],
-      "stem": "散歩(さんぽ)をすると気分(きぶん)がよくなる。"
+      "stem": "散歩(さんぽ)をすると気分(きぶん)がよくなる。",
+      "i18n": {
+        "en": {
+          "sentence": "Taking a walk makes me feel good.",
+          "answer": "Taking a walk makes me feel good.",
+          "choices": [
+            "Taking a walk makes the weather better.",
+            "Taking a walk makes the scenery better.",
+            "Taking a walk makes one's complexion better."
+          ]
+        },
+        "ne": {
+          "sentence": "हिँड्दा मन राम्रो हुन्छ।",
+          "answer": "हिँड्दा मन राम्रो हुन्छ।",
+          "choices": [
+            "हिँड्दा मौसम राम्रो हुन्छ।",
+            "हिँड्दा दृश्य राम्रो हुन्छ।",
+            "हिँड्दा अनुहारको रंग राम्रो हुन्छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0019",
@@ -272,7 +633,27 @@
         "ここに電話番号(でんわばんごう)を書(か)いてください。",
         "ここに生(う)まれた年(とし)を書(か)いてください。"
       ],
-      "stem": "ここに住所(じゅうしょ)を書(か)いてください。"
+      "stem": "ここに住所(じゅうしょ)を書(か)いてください。",
+      "i18n": {
+        "en": {
+          "sentence": "Please write your address here.",
+          "answer": "Please write your place of residence here.",
+          "choices": [
+            "Please write your name here.",
+            "Please write your phone number here.",
+            "Please write your birth year here."
+          ]
+        },
+        "ne": {
+          "sentence": "कृपया यहाँ आफ्नो ठेगाना लेख्नुहोस्।",
+          "answer": "कृपया यहाँ आफ्नो बसोबास गर्ने ठाउँ लेख्नुहोस्।",
+          "choices": [
+            "कृपया यहाँ आफ्नो नाम लेख्नुहोस्।",
+            "कृपया यहाँ आफ्नो फोन नम्बर लेख्नुहोस्।",
+            "कृपया यहाँ आफ्नो जन्म वर्ष लेख्नुहोस्।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0020",
@@ -286,7 +667,27 @@
         "約束(やくそく)はときどき忘(わす)れます。",
         "約束(やくそく)はよく忘(わす)れます。"
       ],
-      "stem": "約束(やくそく)は決(けっ)して忘(わす)れません。"
+      "stem": "約束(やくそく)は決(けっ)して忘(わす)れません。",
+      "i18n": {
+        "en": {
+          "sentence": "I will never forget the promise.",
+          "answer": "I will absolutely not forget the promise.",
+          "choices": [
+            "I probably won't forget the promise.",
+            "I sometimes forget promises.",
+            "I often forget promises."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले वाचा कहिल्यै बिर्सने छैन।",
+          "answer": "मैले वाचा पक्कै बिर्सने छैन।",
+          "choices": [
+            "मैले वाचा सायद बिर्सने छैन।",
+            "मैले कहिलेकाहीँ वाचा बिर्सन्छु।",
+            "मैले प्रायः वाचा बिर्सन्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0021",
@@ -300,7 +701,27 @@
         "日曜日(にちようび)に映画(えいが)を見(み)る所(ところ)へ行(い)った。",
         "日曜日(にちようび)に動物(どうぶつ)を見(み)る所(ところ)へ行(い)った。"
       ],
-      "stem": "日曜日(にちようび)に美術館(びじゅつかん)へ行(い)った。"
+      "stem": "日曜日(にちようび)に美術館(びじゅつかん)へ行(い)った。",
+      "i18n": {
+        "en": {
+          "sentence": "I went to the art museum on Sunday.",
+          "answer": "I went to the place where I can see paintings on Sunday.",
+          "choices": [
+            "I went to the place where I can borrow books on Sunday.",
+            "I went to the place where I can watch movies on Sunday.",
+            "I went to the place where I can see animals on Sunday."
+          ]
+        },
+        "ne": {
+          "sentence": "म आइतबार कला संग्रहालय गएँ।",
+          "answer": "म आइतबार चित्रहरू हेर्ने ठाउँमा गएँ।",
+          "choices": [
+            "म आइतबार किताबहरू उधारो लिने ठाउँमा गएँ।",
+            "म आइतबार चलचित्र हेर्ने ठाउँमा गएँ।",
+            "म आइतबार जनावरहरू हेर्ने ठाउँमा गएँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0022",
@@ -314,7 +735,27 @@
         "その店(みせ)にまだ行(い)ったことがない。",
         "その店(みせ)によく行(い)っている。"
       ],
-      "stem": "その店(みせ)に一度(いちど)行(い)ったことがある。"
+      "stem": "その店(みせ)に一度(いちど)行(い)ったことがある。",
+      "i18n": {
+        "en": {
+          "sentence": "I have been to that shop once.",
+          "answer": "I have been to that shop once.",
+          "choices": [
+            "I have been to that shop many times.",
+            "I haven't been to that shop yet.",
+            "I often go to that shop."
+          ]
+        },
+        "ne": {
+          "sentence": "म त्यो पसलमा एक पटक गएको छु।",
+          "answer": "म त्यो पसलमा एक पटक गएको छु।",
+          "choices": [
+            "म त्यो पसलमा धेरै पटक गएको छु।",
+            "म त्यो पसलमा अझै गएको छैन।",
+            "म त्यो पसलमा प्रायः जान्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0023",
@@ -328,7 +769,27 @@
         "最近(さいきん)、外国人(がいこくじん)の観光客(かんこうきゃく)が来(こ)なくなった。",
         "最近(さいきん)、外国人(がいこくじん)の観光客(かんこうきゃく)が帰(かえ)って行(い)った。"
       ],
-      "stem": "最近(さいきん)、外国人(がいこくじん)の観光客(かんこうきゃく)が増(ふ)えた。"
+      "stem": "最近(さいきん)、外国人(がいこくじん)の観光客(かんこうきゃく)が増(ふ)えた。",
+      "i18n": {
+        "en": {
+          "sentence": "Recently, the number of foreign tourists has increased.",
+          "answer": "Recently, the number of foreign tourists has become large.",
+          "choices": [
+            "Recently, the number of foreign tourists has decreased.",
+            "Recently, foreign tourists have stopped coming.",
+            "Recently, foreign tourists have gone back."
+          ]
+        },
+        "ne": {
+          "sentence": "हालै, विदेशी पर्यटकहरूको संख्या बढेको छ।",
+          "answer": "हालै, विदेशी पर्यटकहरूको संख्या धेरै भएको छ।",
+          "choices": [
+            "हालै, विदेशी पर्यटकहरूको संख्या कम भएको छ।",
+            "हालै, विदेशी पर्यटकहरू आउन छोडेका छन्।",
+            "हालै, विदेशी पर्यटकहरू फर्किएका छन्।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0024",
@@ -342,7 +803,27 @@
         "明日(あした)はたまに来(き)ます。",
         "明日(あした)はもう来(き)ました。"
       ],
-      "stem": "明日(あした)は必(かなら)ず来(き)ます。"
+      "stem": "明日(あした)は必(かなら)ず来(き)ます。",
+      "i18n": {
+        "en": {
+          "sentence": "I will definitely come tomorrow.",
+          "answer": "I will absolutely come tomorrow.",
+          "choices": [
+            "I will probably come tomorrow.",
+            "I sometimes come tomorrow.",
+            "I already came yesterday."
+          ]
+        },
+        "ne": {
+          "sentence": "म भोलि पक्कै आउनेछु।",
+          "answer": "म भोलि अवश्य आउनेछु।",
+          "choices": [
+            "म भोलि सायद आउनेछु।",
+            "म भोलि कहिलेकाहीँ आउँछु।",
+            "म हिजो नै आइसकेँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0025",
@@ -356,7 +837,27 @@
         "なくした鍵(かぎ)を友(とも)だちに借(か)りた。",
         "なくした鍵(かぎ)を新(あたら)しく買(か)った。"
       ],
-      "stem": "なくした鍵(かぎ)を探(さが)している。"
+      "stem": "なくした鍵(かぎ)を探(さが)している。",
+      "i18n": {
+        "en": {
+          "sentence": "I'm looking for the key I lost.",
+          "answer": "I'm trying to find the key I lost.",
+          "choices": [
+            "I finally found the key I lost.",
+            "I borrowed the key I lost from a friend.",
+            "I bought a new key for the one I lost."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले हराएको चाबी खोजिरहेको छु।",
+          "answer": "मैले हराएको चाबी खोज्ने प्रयास गरिरहेको छु।",
+          "choices": [
+            "मैले हराएको चाबी अन्ततः फेला पारेँ।",
+            "मैले हराएको चाबी साथीबाट सापटी लिएँ।",
+            "मैले हराएको चाबीको सट्टामा नयाँ चाबी किनेँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0026",
@@ -370,7 +871,27 @@
         "小(ちい)さすぎる箱(はこ)を選(えら)んだ。",
         "とても重(おも)い箱(はこ)を選(えら)んだ。"
       ],
-      "stem": "適当(てきとう)な大(おお)きさの箱(はこ)を選(えら)んだ。"
+      "stem": "適当(てきとう)な大(おお)きさの箱(はこ)を選(えら)んだ。",
+      "i18n": {
+        "en": {
+          "sentence": "I chose a box of appropriate size.",
+          "answer": "I chose a box of just the right size.",
+          "choices": [
+            "I chose a box that was too big.",
+            "I chose a box that was too small.",
+            "I chose a very heavy box."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले उपयुक्त आकारको बाकस रोजेँ।",
+          "answer": "मैले ठिक्क आकारको बाकस रोजेँ।",
+          "choices": [
+            "मैले धेरै ठूलो बाकस रोजेँ।",
+            "मैले धेरै सानो बाकस रोजेँ।",
+            "मैले धेरै गह्रौँ बाकस रोजेँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0027",
@@ -384,7 +905,27 @@
         "先週(せんしゅう)、祖母(そぼ)に電話(でんわ)をかけた。",
         "先週(せんしゅう)、祖母(そぼ)に荷物(にもつ)を送(おく)った。"
       ],
-      "stem": "先週(せんしゅう)、祖母(そぼ)を訪(たず)ねた。"
+      "stem": "先週(せんしゅう)、祖母(そぼ)を訪(たず)ねた。",
+      "i18n": {
+        "en": {
+          "sentence": "Last week, I visited my grandmother.",
+          "answer": "Last week, I went to see my grandmother.",
+          "choices": [
+            "Last week, I wrote a letter to my grandmother.",
+            "Last week, I called my grandmother.",
+            "Last week, I sent a package to my grandmother."
+          ]
+        },
+        "ne": {
+          "sentence": "गत हप्ता, मैले हजुरआमालाई भेटेँ।",
+          "answer": "गत हप्ता, म हजुरआमालाई भेट्न गएँ।",
+          "choices": [
+            "गत हप्ता, मैले हजुरआमालाई चिठी लेखेँ।",
+            "गत हप्ता, मैले हजुरआमालाई फोन गरेँ।",
+            "गत हप्ता, मैले हजुरआमालाई सामान पठाएँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0028",
@@ -398,7 +939,27 @@
         "今日(きょう)は部屋(へや)の空気(くうき)が悪(わる)い。",
         "今日(きょう)は道(みち)の混(こ)み方(かた)が悪(わる)い。"
       ],
-      "stem": "今日(きょう)は体(からだ)の具合(ぐあい)が悪(わる)い。"
+      "stem": "今日(きょう)は体(からだ)の具合(ぐあい)が悪(わる)い。",
+      "i18n": {
+        "en": {
+          "sentence": "My physical condition is not good today.",
+          "answer": "My physical condition is not good today.",
+          "choices": [
+            "The weather outside is bad today.",
+            "The air in the room is bad today.",
+            "The traffic on the road is bad today."
+          ]
+        },
+        "ne": {
+          "sentence": "आज मेरो शरीरको अवस्था राम्रो छैन।",
+          "answer": "आज मेरो शरीरको अवस्था राम्रो छैन।",
+          "choices": [
+            "आज बाहिरको मौसम खराब छ।",
+            "आज कोठाको हावा खराब छ।",
+            "आज बाटोमा जाम धेरै छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0029",
@@ -412,7 +973,27 @@
         "三階(さんがい)の休憩(きゅうけい)をする部屋(へや)に集(あつ)まってください。",
         "三階(さんがい)の荷物(にもつ)を置(お)く部屋(へや)に集(あつ)まってください。"
       ],
-      "stem": "三階(さんがい)の会議室(かいぎしつ)に集(あつ)まってください。"
+      "stem": "三階(さんがい)の会議室(かいぎしつ)に集(あつ)まってください。",
+      "i18n": {
+        "en": {
+          "sentence": "Please gather in the meeting room on the third floor.",
+          "answer": "Please gather in the room where meetings are held on the third floor.",
+          "choices": [
+            "Please gather in the dining room on the third floor.",
+            "Please gather in the break room on the third floor.",
+            "Please gather in the room where luggage is placed on the third floor."
+          ]
+        },
+        "ne": {
+          "sentence": "कृपया तेस्रो तल्लाको बैठक कोठामा जम्मा हुनुहोस्।",
+          "answer": "कृपया तेस्रो तल्लाको बैठक गर्ने कोठामा जम्मा हुनुहोस्।",
+          "choices": [
+            "कृपया तेस्रो तल्लाको खाना खाने कोठामा जम्मा हुनुहोस्।",
+            "कृपया तेस्रो तल्लाको आराम गर्ने कोठामा जम्मा हुनुहोस्।",
+            "कृपया तेस्रो तल्लाको सामान राख्ने कोठामा जम्मा हुनुहोस्।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0030",
@@ -426,7 +1007,27 @@
         "大学(だいがく)で経済(けいざい)の相談(そうだん)を受(う)けた。",
         "大学(だいがく)で経済(けいざい)の練習(れんしゅう)をした。"
       ],
-      "stem": "大学(だいがく)で経済(けいざい)の講義(こうぎ)を受(う)けた。"
+      "stem": "大学(だいがく)で経済(けいざい)の講義(こうぎ)を受(う)けた。",
+      "i18n": {
+        "en": {
+          "sentence": "I took an economics lecture at university.",
+          "answer": "I took an economics class at university.",
+          "choices": [
+            "I took an economics exam at university.",
+            "I received economic consultation at university.",
+            "I practiced economics at university."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले विश्वविद्यालयमा अर्थशास्त्रको व्याख्यान लिएँ।",
+          "answer": "मैले विश्वविद्यालयमा अर्थशास्त्रको कक्षा लिएँ।",
+          "choices": [
+            "मैले विश्वविद्यालयमा अर्थशास्त्रको परीक्षा दिएँ।",
+            "मैले विश्वविद्यालयमा आर्थिक परामर्श लिएँ।",
+            "मैले विश्वविद्यालयमा अर्थशास्त्रको अभ्यास गरेँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0031",
@@ -440,7 +1041,27 @@
         "スーパーで飲(の)む薬(くすり)を買(か)った。",
         "スーパーで書(か)く物(もの)を買(か)った。"
       ],
-      "stem": "スーパーで食料品(しょくりょうひん)を買(か)った。"
+      "stem": "スーパーで食料品(しょくりょうひん)を買(か)った。",
+      "i18n": {
+        "en": {
+          "sentence": "I bought groceries at the supermarket.",
+          "answer": "I bought food at the supermarket.",
+          "choices": [
+            "I bought clothes at the supermarket.",
+            "I bought medicine to drink at the supermarket.",
+            "I bought something to write with at the supermarket."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले सुपरमार्केटमा खाद्यान्न किनें।",
+          "answer": "मैले सुपरमार्केटमा खानेकुरा किनें।",
+          "choices": [
+            "मैले सुपरमार्केटमा लगाउने कपडा किनें।",
+            "मैले सुपरमार्केटमा पिउने औषधि किनें।",
+            "मैले सुपरमार्केटमा लेख्ने कुरा किनें।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0032",
@@ -454,7 +1075,27 @@
         "机(つくえ)の上(うえ)に写真(しゃしん)がたくさんのった本(ほん)がある。",
         "机(つくえ)の上(うえ)に料理(りょうり)の作(つく)り方(かた)の本(ほん)がある。"
       ],
-      "stem": "机(つくえ)の上(うえ)に辞典(じてん)がある。"
+      "stem": "机(つくえ)の上(うえ)に辞典(じてん)がある。",
+      "i18n": {
+        "en": {
+          "sentence": "There is a dictionary on the desk.",
+          "answer": "There is a book on the desk for looking up the meaning of words.",
+          "choices": [
+            "There is a map book on the desk for looking up roads.",
+            "There is a book with many pictures on the desk.",
+            "There is a cookbook on the desk."
+          ]
+        },
+        "ne": {
+          "sentence": "टेबलमा शब्दकोश छ।",
+          "answer": "टेबलमा शब्दहरूको अर्थ खोज्ने किताब छ।",
+          "choices": [
+            "टेबलमा बाटो खोज्ने नक्साको किताब छ।",
+            "टेबलमा धेरै तस्बिर भएको किताब छ।",
+            "टेबलमा खाना बनाउने तरिकाको किताब छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0033",
@@ -468,7 +1109,27 @@
         "祖父(そふ)が畑(はたけ)で疲(つか)れて少(すこ)し休(やす)んだ。",
         "祖父(そふ)が畑(はたけ)で虫(むし)にさされて痛(いた)がった。"
       ],
-      "stem": "祖父(そふ)が畑(はたけ)で倒(たお)れた。"
+      "stem": "祖父(そふ)が畑(はたけ)で倒(たお)れた。",
+      "i18n": {
+        "en": {
+          "sentence": "My grandfather collapsed in the field.",
+          "answer": "My grandfather suddenly felt unwell and couldn't move in the field.",
+          "choices": [
+            "My grandfather fell in the field and injured his leg.",
+            "My grandfather got tired in the field and rested a little.",
+            "My grandfather was stung by an insect in the field and was in pain."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरो हजुरबुबा खेतमा ढल्नुभयो।",
+          "answer": "मेरो हजुरबुबा खेतमा अचानक बिरामी भएर हिँड्न नसक्ने हुनुभयो।",
+          "choices": [
+            "मेरो हजुरबुबा खेतमा लडेर खुट्टामा चोट लाग्यो।",
+            "मेरो हजुरबुबा खेतमा थाकेर अलिकति आराम गर्नुभयो।",
+            "मेरो हजुरबुबालाई खेतमा किराले टोकेर दुख्यो।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0034",
@@ -482,7 +1143,27 @@
         "玄関(げんかん)の絵(え)を売(う)った。",
         "玄関(げんかん)の絵(え)を自分(じぶん)で描(か)いた。"
       ],
-      "stem": "玄関(げんかん)に絵(え)を飾(かざ)った。"
+      "stem": "玄関(げんかん)に絵(え)を飾(かざ)った。",
+      "i18n": {
+        "en": {
+          "sentence": "I decorated the entrance with a painting.",
+          "answer": "I made the entrance look beautiful with a painting.",
+          "choices": [
+            "I tidied up the painting in the entrance.",
+            "I sold the painting in the entrance.",
+            "I drew the painting in the entrance myself."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले प्रवेशद्वारमा चित्र सजाएँ।",
+          "answer": "मैले प्रवेशद्वारलाई चित्रले सुन्दर देखाउने प्रयास गरें।",
+          "choices": [
+            "मैले प्रवेशद्वारको चित्र मिलाएँ।",
+            "मैले प्रवेशद्वारको चित्र बेचें।",
+            "मैले प्रवेशद्वारको चित्र आफैं बनाएँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0035",
@@ -496,7 +1177,27 @@
         "今年(ことし)、野菜(やさい)の値段(ねだん)が変(か)わらなかった。",
         "今年(ことし)、野菜(やさい)の値段(ねだん)が急(きゅう)に下(さ)がった。"
       ],
-      "stem": "今年(ことし)、野菜(やさい)の値段(ねだん)が上(あ)がった。"
+      "stem": "今年(ことし)、野菜(やさい)の値段(ねだん)が上(あ)がった。",
+      "i18n": {
+        "en": {
+          "sentence": "This year, vegetable prices went up.",
+          "answer": "This year, vegetable prices became expensive.",
+          "choices": [
+            "This year, vegetable prices became cheap.",
+            "This year, vegetable prices did not change.",
+            "This year, vegetable prices suddenly dropped."
+          ]
+        },
+        "ne": {
+          "sentence": "यस वर्ष तरकारीको भाउ बढ्यो।",
+          "answer": "यस वर्ष तरकारीको भाउ महँगो भयो।",
+          "choices": [
+            "यस वर्ष तरकारीको भाउ सस्तो भयो।",
+            "यस वर्ष तरकारीको भाउ परिवर्तन भएन।",
+            "यस वर्ष तरकारीको भाउ अचानक घट्यो।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0036",
@@ -510,7 +1211,27 @@
         "テレビの音(おと)が小(ちい)さくてよく聞(き)こえない。",
         "テレビの音(おと)が勉強(べんきょう)の役(やく)に立(た)つ。"
       ],
-      "stem": "テレビの音(おと)が勉強(べんきょう)の邪魔(じゃま)になる。"
+      "stem": "テレビの音(おと)が勉強(べんきょう)の邪魔(じゃま)になる。",
+      "i18n": {
+        "en": {
+          "sentence": "The sound of the TV interferes with studying.",
+          "answer": "Because of the TV sound, I can't study well.",
+          "choices": [
+            "Because of the TV sound, studying progresses well.",
+            "The TV sound is too low, so I can't hear it well.",
+            "The TV sound is useful for studying."
+          ]
+        },
+        "ne": {
+          "sentence": "टिभीको आवाजले पढाइमा बाधा पुर्‍याउँछ।",
+          "answer": "टिभीको आवाजले गर्दा पढाइ राम्रोसँग गर्न सकिरहेको छैन।",
+          "choices": [
+            "टिभीको आवाजले गर्दा पढाइ राम्रोसँग अगाडि बढ्छ।",
+            "टिभीको आवाज सानो भएकोले राम्रोसँग सुनिँदैन।",
+            "टिभीको आवाज पढाइको लागि उपयोगी छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0037",
@@ -524,7 +1245,27 @@
         "この道(みち)に車(くるま)がよく集(あつ)まる。",
         "この道(みち)で車(くるま)がよく曲(ま)がる。"
       ],
-      "stem": "この道(みち)は車(くるま)がよく通(とお)る。"
+      "stem": "この道(みち)は車(くるま)がよく通(とお)る。",
+      "i18n": {
+        "en": {
+          "sentence": "Cars frequently pass along this road.",
+          "answer": "Cars frequently come and go on this road.",
+          "choices": [
+            "Cars frequently stop on this road.",
+            "Cars frequently gather on this road.",
+            "Cars frequently turn on this road."
+          ]
+        },
+        "ne": {
+          "sentence": "यो बाटोमा गाडीहरू धेरै आउँछन्-जान्छन्।",
+          "answer": "यो बाटोमा गाडीहरू धेरै आउँछन्-जान्छन्।",
+          "choices": [
+            "यो बाटोमा गाडीहरू धेरै रोकिन्छन्।",
+            "यो बाटोमा गाडीहरू धेरै जम्मा हुन्छन्।",
+            "यो बाटोमा गाडीहरू धेरै मोडिने गर्छन्।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0038",
@@ -538,7 +1279,27 @@
         "寒(さむ)いので部屋(へや)を明(あか)るくする電気(でんき)をつけた。",
         "寒(さむ)いので部屋(へや)をきれいにする機械(きかい)をつけた。"
       ],
-      "stem": "寒(さむ)いので暖房(だんぼう)をつけた。"
+      "stem": "寒(さむ)いので暖房(だんぼう)をつけた。",
+      "i18n": {
+        "en": {
+          "sentence": "It was cold, so I turned on the heater.",
+          "answer": "It was cold, so I turned on the machine that warms up the room.",
+          "choices": [
+            "It was cold, so I turned on the machine that cools down the room.",
+            "It was cold, so I turned on the light that brightens the room.",
+            "It was cold, so I turned on the machine that cleans the room."
+          ]
+        },
+        "ne": {
+          "sentence": "चिसो भएकोले मैले हिटर अन गरें।",
+          "answer": "चिसो भएकोले मैले कोठा न्यानो बनाउने मेसिन अन गरें।",
+          "choices": [
+            "चिसो भएकोले मैले कोठा चिसो बनाउने मेसिन अन गरें।",
+            "चिसो भएकोले मैले कोठा उज्यालो बनाउने बत्ती अन गरें।",
+            "चिसो भएकोले मैले कोठा सफा गर्ने मेसिन अन गरें।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0039",
@@ -552,7 +1313,27 @@
         "お礼(れい)を見(み)せます。",
         "お礼(れい)を渡(わた)します。"
       ],
-      "stem": "お礼(れい)を申(もう)し上(あ)げます。"
+      "stem": "お礼(れい)を申(もう)し上(あ)げます。",
+      "i18n": {
+        "en": {
+          "sentence": "I would like to express my gratitude.",
+          "answer": "I will say thank you.",
+          "choices": [
+            "I will listen to the thanks.",
+            "I will show my thanks.",
+            "I will give my thanks."
+          ]
+        },
+        "ne": {
+          "sentence": "म कृतज्ञता व्यक्त गर्न चाहन्छु।",
+          "answer": "म धन्यवाद भन्छु।",
+          "choices": [
+            "म धन्यवाद सुन्छु।",
+            "म मेरो धन्यवाद देखाउँछु।",
+            "म मेरो धन्यवाद दिन्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0040",
@@ -566,7 +1347,27 @@
         "うっかり犬(いぬ)のしっぽを強(つよ)くたたいてしまった。",
         "うっかり犬(いぬ)のしっぽをドアにはさんでしまった。"
       ],
-      "stem": "うっかり犬(いぬ)のしっぽを踏(ふ)んだ。"
+      "stem": "うっかり犬(いぬ)のしっぽを踏(ふ)んだ。",
+      "i18n": {
+        "en": {
+          "sentence": "I accidentally stepped on the dog's tail.",
+          "answer": "I accidentally put my foot on the dog's tail.",
+          "choices": [
+            "I accidentally pulled the dog's tail with my hand.",
+            "I accidentally hit the dog's tail hard.",
+            "I accidentally caught the dog's tail in the door."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले झुक्किएर कुकुरको पुच्छरमा खुट्टा राखें।",
+          "answer": "मैले झुक्किएर कुकुरको पुच्छरमा खुट्टा राखें।",
+          "choices": [
+            "मैले झुक्किएर कुकुरको पुच्छर हातले तानें।",
+            "मैले झुक्किएर कुकुरको पुच्छरमा जोडले हानें।",
+            "मैले झुक्किएर कुकुरको पुच्छर ढोकामा च्यापें।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0041",
@@ -580,7 +1381,27 @@
         "このパンはとても大(おお)きい。",
         "このパンはとても古(ふる)い。"
       ],
-      "stem": "このパンはとても柔(やわ)らかい。"
+      "stem": "このパンはとても柔(やわ)らかい。",
+      "i18n": {
+        "en": {
+          "sentence": "This bread is very soft.",
+          "answer": "This bread is not hard at all.",
+          "choices": [
+            "This bread is very hard.",
+            "This bread is very big.",
+            "This bread is very old."
+          ]
+        },
+        "ne": {
+          "sentence": "यो पाउरोटी धेरै नरम छ।",
+          "answer": "यो पाउरोटी पटक्कै कडा छैन।",
+          "choices": [
+            "यो पाउरोटी धेरै कडा छ।",
+            "यो पाउरोटी धेरै ठूलो छ।",
+            "यो पाउरोटी धेरै पुरानो छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0042",
@@ -594,7 +1415,27 @@
         "昨日(きのう)、電気代(でんきだい)を安(やす)くしてもらった。",
         "昨日(きのう)、電気代(でんきだい)がいくらか調(しら)べた。"
       ],
-      "stem": "昨日(きのう)、電気代(でんきだい)を払(はら)った。"
+      "stem": "昨日(きのう)、電気代(でんきだい)を払(はら)った。",
+      "i18n": {
+        "en": {
+          "sentence": "I paid the electricity bill yesterday.",
+          "answer": "Yesterday, I paid the money for the electricity bill.",
+          "choices": [
+            "Yesterday, I calculated how much the electricity bill was.",
+            "Yesterday, I got a discount on the electricity bill.",
+            "Yesterday, I checked how much the electricity bill was."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले हिजो बिजुलीको बिल तिरें।",
+          "answer": "हिजो, मैले बिजुलीको बिलको पैसा तिरें।",
+          "choices": [
+            "हिजो, मैले बिजुलीको बिल कति भयो भनेर हिसाब गरें।",
+            "हिजो, मैले बिजुलीको बिलमा छुट पाएँ।",
+            "हिजो, मैले बिजुलीको बिल कति भयो भनेर जाँच गरें।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0043",
@@ -608,7 +1449,27 @@
         "次(つぎ)の駅(えき)で電車(でんしゃ)をしばらく待(ま)つ。",
         "次(つぎ)の駅(えき)から同(おな)じ電車(でんしゃ)に乗(の)り続(つづ)ける。"
       ],
-      "stem": "次(つぎ)の駅(えき)で電車(でんしゃ)を乗(の)り換(か)える。"
+      "stem": "次(つぎ)の駅(えき)で電車(でんしゃ)を乗(の)り換(か)える。",
+      "i18n": {
+        "en": {
+          "sentence": "I will change trains at the next station.",
+          "answer": "I will take a different train at the next station.",
+          "choices": [
+            "I will get off the train at the next station and go outside.",
+            "I will wait for the train for a while at the next station.",
+            "I will continue riding the same train from the next station."
+          ]
+        },
+        "ne": {
+          "sentence": "म अर्को स्टेशनमा ट्रेन परिवर्तन गर्छु।",
+          "answer": "म अर्को स्टेशनमा अर्को ट्रेन चढ्छु।",
+          "choices": [
+            "म अर्को स्टेशनमा ट्रेनबाट ओर्लिएर बाहिर जान्छु।",
+            "म अर्को स्टेशनमा केही बेर ट्रेन पर्खन्छु।",
+            "म अर्को स्टेशनबाट उही ट्रेनमा यात्रा गरिरहन्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0044",
@@ -622,7 +1483,27 @@
         "暗(くら)いので、テレビをつけた。",
         "暗(くら)いので、ラジオをつけた。"
       ],
-      "stem": "暗(くら)いので電灯(でんとう)をつけた。"
+      "stem": "暗(くら)いので電灯(でんとう)をつけた。",
+      "i18n": {
+        "en": {
+          "sentence": "It was dark, so I turned on the light.",
+          "answer": "It was dark, so I turned on the light.",
+          "choices": [
+            "It was dark, so I turned on the heater.",
+            "It was dark, so I turned on the TV.",
+            "It was dark, so I turned on the radio."
+          ]
+        },
+        "ne": {
+          "sentence": "अँध्यारो थियो, त्यसैले मैले बत्ती बालेँ।",
+          "answer": "अँध्यारो थियो, त्यसैले मैले बत्ती बालेँ।",
+          "choices": [
+            "अँध्यारो थियो, त्यसैले मैले हिटर बालेँ।",
+            "अँध्यारो थियो, त्यसैले मैले टिभी बालेँ।",
+            "अँध्यारो थियो, त्यसैले मैले रेडियो बालेँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0045",
@@ -636,7 +1517,27 @@
         "薬(くすり)を飲(の)んだら風邪(かぜ)をうつされた。",
         "薬(くすり)を飲(の)んだら熱(ねつ)が高(たか)くなった。"
       ],
-      "stem": "薬(くすり)を飲(の)んだら風邪(かぜ)が治(なお)った。"
+      "stem": "薬(くすり)を飲(の)んだら風邪(かぜ)が治(なお)った。",
+      "i18n": {
+        "en": {
+          "sentence": "After taking the medicine, my cold got better.",
+          "answer": "After taking the medicine, my cold got better.",
+          "choices": [
+            "After taking the medicine, my cold got worse.",
+            "After taking the medicine, I caught a cold from someone.",
+            "After taking the medicine, my fever got higher."
+          ]
+        },
+        "ne": {
+          "sentence": "औषधि खाएपछि मेरो रुघा निको भयो।",
+          "answer": "औषधि खाएपछि मेरो रुघा निको भयो।",
+          "choices": [
+            "औषधि खाएपछि मेरो रुघा झन् बिग्रियो।",
+            "औषधि खाएपछि मलाई रुघा लाग्यो।",
+            "औषधि खाएपछि मेरो ज्वरो बढ्यो।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0046",
@@ -650,7 +1551,27 @@
         "昨日(きのう)の試合(しあい)は引(ひ)き分(わ)けだった。",
         "昨日(きのう)の試合(しあい)には出(で)られなかった。"
       ],
-      "stem": "昨日(きのう)の試合(しあい)に勝(か)った。"
+      "stem": "昨日(きのう)の試合(しあい)に勝(か)った。",
+      "i18n": {
+        "en": {
+          "sentence": "I won yesterday's game.",
+          "answer": "I defeated my opponent in yesterday's game.",
+          "choices": [
+            "I lost to my opponent in yesterday's game.",
+            "Yesterday's game was a draw.",
+            "I couldn't participate in yesterday's game."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले हिजोको खेल जितेँ।",
+          "answer": "मैले हिजोको खेलमा विपक्षीलाई हराएँ।",
+          "choices": [
+            "म हिजोको खेलमा विपक्षीसँग हारेँ।",
+            "हिजोको खेल बराबरी भयो।",
+            "म हिजोको खेलमा सहभागी हुन सकिनँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0047",
@@ -664,7 +1585,27 @@
         "娘(むすめ)は母親(ははおや)と仲(なか)がいい。",
         "娘(むすめ)は母親(ははおや)とよく出(で)かける。"
       ],
-      "stem": "娘(むすめ)は母親(ははおや)によく似(に)ている。"
+      "stem": "娘(むすめ)は母親(ははおや)によく似(に)ている。",
+      "i18n": {
+        "en": {
+          "sentence": "The daughter resembles her mother a lot.",
+          "answer": "The daughter is exactly like her mother.",
+          "choices": [
+            "The daughter is completely different from her mother.",
+            "The daughter gets along well with her mother.",
+            "The daughter often goes out with her mother."
+          ]
+        },
+        "ne": {
+          "sentence": "छोरी आमासँग धेरै मिल्छे।",
+          "answer": "छोरी आमासँग ठ्याक्कै मिल्छे।",
+          "choices": [
+            "छोरी आमाभन्दा पूरै फरक छिन्।",
+            "छोरीको आमासँग राम्रो सम्बन्ध छ।",
+            "छोरी प्रायः आमासँग बाहिर जान्छिन्।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0048",
@@ -678,7 +1619,27 @@
         "先生(せんせい)にお土産(みやげ)を借(か)りた。",
         "先生(せんせい)にお土産(みやげ)を見(み)せた。"
       ],
-      "stem": "先生(せんせい)にお土産(みやげ)を差(さ)し上(あ)げた。"
+      "stem": "先生(せんせい)にお土産(みやげ)を差(さ)し上(あ)げた。",
+      "i18n": {
+        "en": {
+          "sentence": "I gave a souvenir to the teacher.",
+          "answer": "I gave a souvenir to the teacher.",
+          "choices": [
+            "I received a souvenir from the teacher.",
+            "I borrowed a souvenir from the teacher.",
+            "I showed a souvenir to the teacher."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले गुरुलाई उपहार दिएँ।",
+          "answer": "मैले गुरुलाई उपहार दिएँ।",
+          "choices": [
+            "मैले गुरुबाट उपहार पाएँ।",
+            "मैले गुरुबाट उपहार लिएँ।",
+            "मैले गुरुलाई उपहार देखाएँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0049",
@@ -692,7 +1653,27 @@
         "明日(あした)、そちらから帰(かえ)ります。",
         "明日(あした)、そちらに泊(と)まります。"
       ],
-      "stem": "明日(あした)、そちらへ参(まい)ります。"
+      "stem": "明日(あした)、そちらへ参(まい)ります。",
+      "i18n": {
+        "en": {
+          "sentence": "I will go there tomorrow.",
+          "answer": "I will go there tomorrow.",
+          "choices": [
+            "I will not go there tomorrow.",
+            "I will return from there tomorrow.",
+            "I will stay there tomorrow."
+          ]
+        },
+        "ne": {
+          "sentence": "म भोलि त्यहाँ जान्छु।",
+          "answer": "म भोलि त्यहाँ जान्छु।",
+          "choices": [
+            "म भोलि त्यहाँ जाँदिनँ।",
+            "म भोलि त्यहाँबाट फर्कन्छु।",
+            "म भोलि त्यहाँ बस्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N4-V-IM-0050",
@@ -706,7 +1687,27 @@
         "部屋(へや)をそうじせずに散(ち)らかした。",
         "部屋(へや)の物(もの)を全部(ぜんぶ)外(そと)に出(だ)した。"
       ],
-      "stem": "部屋(へや)をきれいに片付(かたづ)けた。"
+      "stem": "部屋(へや)をきれいに片付(かたづ)けた。",
+      "i18n": {
+        "en": {
+          "sentence": "I cleaned up the room neatly.",
+          "answer": "I tidied up the room and made it clean.",
+          "choices": [
+            "I made the room dirty.",
+            "I didn't clean the room and made a mess.",
+            "I took all the things out of the room."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले कोठा राम्ररी सफा गरें।",
+          "answer": "मैले कोठा मिलाएर सफा गरें।",
+          "choices": [
+            "मैले कोठा फोहोर पारें।",
+            "मैले कोठा सफा नगरी फोहोर पारें।",
+            "मैले कोठाका सबै सामान बाहिर निकालें।"
+          ]
+        }
+      }
     }
   ]
 }

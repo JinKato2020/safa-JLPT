@@ -3,7 +3,7 @@
   "daimon": "grammar_form",
   "level": "N4",
   "languages": [
-    "ja",
+    "en",
     "ne"
   ],
   "items": [
@@ -19,7 +19,14 @@
         "まえに"
       ],
       "pointId": "n4-g-1",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I listened to music the whole time I was on the train."
+        },
+        "ne": {
+          "prompt": "म रेलमा छँदाभरि संगीत सुनिरहेँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0002",
@@ -33,7 +40,14 @@
         "頃（ころ）"
       ],
       "pointId": "n4-g-1",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He didn't say a single word during the meeting."
+        },
+        "ne": {
+          "prompt": "बैठकभरि उनले एक शब्द पनि बोलेनन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0003",
@@ -47,7 +61,14 @@
         "頃（ころ）"
       ],
       "pointId": "n4-g-2",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I went shopping while the baby was sleeping."
+        },
+        "ne": {
+          "prompt": "बच्चा सुतिरहेको बेला, म किनमेल गर्न गएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0004",
@@ -61,7 +82,14 @@
         "後（あと）で"
       ],
       "pointId": "n4-g-2",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Let's finish our homework while the teacher is in the meeting."
+        },
+        "ne": {
+          "prompt": "शिक्षक बैठकमा भएको बेला, गृहकार्य सिध्याऔँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0005",
@@ -75,7 +103,14 @@
         "たくさん"
       ],
       "pointId": "n3-g-2",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I'm not feeling well today, so I don't have much energy."
+        },
+        "ne": {
+          "prompt": "आज मेरो स्वास्थ्य राम्रो छैन, त्यसैले मलाई खासै ऊर्जा छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0006",
@@ -89,7 +124,14 @@
         "たくさん"
       ],
       "pointId": "n3-g-2",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My brother isn't interested in music, so he doesn't go to concerts much."
+        },
+        "ne": {
+          "prompt": "मेरो दाइलाई संगीतमा रुचि छैन, त्यसैले उहाँ कन्सर्टमा खासै जानुहुन्न।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0007",
@@ -103,7 +145,14 @@
         "うちに"
       ],
       "pointId": "n4-g-4",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "After work, everyone went out to eat."
+        },
+        "ne": {
+          "prompt": "काम सकिएपछि, सबैजना खाना खान गए।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0008",
@@ -117,7 +166,14 @@
         "うちに"
       ],
       "pointId": "n4-g-4",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Let's eat after washing our hands."
+        },
+        "ne": {
+          "prompt": "हात धोएपछि, खाना खाऔँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0009",
@@ -131,7 +187,14 @@
         "なら"
       ],
       "pointId": "n4-g-5",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you go straight down this road, you will reach the station."
+        },
+        "ne": {
+          "prompt": "यो बाटो सिधा जानुभयो भने, स्टेशन पुग्नुहुनेछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0010",
@@ -145,7 +208,14 @@
         "なら"
       ],
       "pointId": "n4-g-5",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If I had money, I would like to buy a new car."
+        },
+        "ne": {
+          "prompt": "पैसा भयो भने, म नयाँ गाडी किन्न चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0011",
@@ -159,7 +229,14 @@
         "までに"
       ],
       "pointId": "n4-g-6",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you have a fever of 38 degrees or higher, please don't overexert yourself and rest."
+        },
+        "ne": {
+          "prompt": "यदि ज्वरो ३८ डिग्री वा सोभन्दा बढी छ भने, जबरजस्ती नगर्नुहोस् र आराम गर्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0012",
@@ -173,7 +250,14 @@
         "までに"
       ],
       "pointId": "n4-g-6",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you don't know the way, please ask a station attendant."
+        },
+        "ne": {
+          "prompt": "यदि बाटो थाहा छैन भने, स्टेशनका कर्मचारीलाई सोध्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0013",
@@ -187,7 +271,14 @@
         "ほど"
       ],
       "pointId": "n4-g-7",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger brother has been doing nothing but reading manga since morning."
+        },
+        "ne": {
+          "prompt": "मेरो भाइ बिहानदेखि लगातार मंगा मात्र पढिरहेको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0014",
@@ -201,7 +292,14 @@
         "ほど"
       ],
       "pointId": "n4-g-7",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My older sister eats nothing but sweets every day."
+        },
+        "ne": {
+          "prompt": "मेरी दिदी हरेक दिन गुलियो चीज मात्र खानुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0015",
@@ -215,7 +313,14 @@
         "ように"
       ],
       "pointId": "n4-g-8",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Just by looking at that photo, I wanted to go there."
+        },
+        "ne": {
+          "prompt": "त्यो फोटो हेर्ने बित्तिकै, मलाई त्यहाँ जान मन लाग्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0016",
@@ -229,7 +334,14 @@
         "ところで"
       ],
       "pointId": "n4-g-8",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Just by taking this medicine, you will immediately feel sleepy."
+        },
+        "ne": {
+          "prompt": "यो औषधि खाने बित्तिकै, तुरुन्तै निद्रा लाग्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0017",
@@ -243,7 +355,14 @@
         "すぎた"
       ],
       "pointId": "n4-g-9",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The sky darkened, and it suddenly started raining."
+        },
+        "ne": {
+          "prompt": "आकाश अँध्यारो भयो र अचानक पानी पर्न थाल्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0018",
@@ -257,7 +376,14 @@
         "すぎた"
       ],
       "pointId": "n4-g-9",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "After reading that letter, she suddenly burst into tears."
+        },
+        "ne": {
+          "prompt": "त्यो चिठी पढेर, उनी अचानक रुन थालिन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0019",
@@ -271,7 +397,14 @@
         "でしょう"
       ],
       "pointId": "n4-g-10",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The current time is exactly nine o'clock."
+        },
+        "ne": {
+          "prompt": "अहिलेको समय ठीक नौ बजेको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0020",
@@ -285,7 +418,14 @@
         "でしょう"
       ],
       "pointId": "n4-g-10",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This is our shop's most popular cake."
+        },
+        "ne": {
+          "prompt": "यो हाम्रो पसलको सबैभन्दा लोकप्रिय केक हो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0021",
@@ -299,7 +439,14 @@
         "ばかり"
       ],
       "pointId": "n5-g-6",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "We're tired, aren't we? Shall we drink some coffee or something at that shop?"
+        },
+        "ne": {
+          "prompt": "थकित भयौँ, होइन र? त्यो पसलमा कफी वा यस्तै केही पिऔँ कि?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0022",
@@ -313,7 +460,14 @@
         "ばかり"
       ],
       "pointId": "n5-g-6",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you have time this weekend, why don't we go see a movie or something?"
+        },
+        "ne": {
+          "prompt": "सप्ताहान्तमा, समय भयो भने फिल्म वा यस्तै केही हेर्न जाने होइन?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0023",
@@ -327,7 +481,14 @@
         "ばかりだ"
       ],
       "pointId": "n4-g-12",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Oh, isn't that Mr./Ms. A standing over there?"
+        },
+        "ne": {
+          "prompt": "ए, त्यहाँ उभिएको व्यक्ति ए-सान होइन र?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0024",
@@ -341,7 +502,14 @@
         "だそうだ"
       ],
       "pointId": "n4-g-12",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Isn't such a difficult problem impossible for anyone to solve?"
+        },
+        "ne": {
+          "prompt": "यस्तो गाह्रो समस्या कसैले पनि गर्न सक्दैन, होइन र?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0025",
@@ -355,7 +523,14 @@
         "が有名（ゆうめい）"
       ],
       "pointId": "n4-g-13",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "To do this job, a special qualification is required."
+        },
+        "ne": {
+          "prompt": "यो काम गर्नको लागि, विशेष योग्यता आवश्यक छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0026",
@@ -369,7 +544,14 @@
         "が得意（とくい）"
       ],
       "pointId": "n4-g-13",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "To work in a foreign country, a visa is required."
+        },
+        "ne": {
+          "prompt": "विदेशमा काम गर्नको लागि, भिसा आवश्यक छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0027",
@@ -383,7 +565,14 @@
         "が出（で）る"
       ],
       "pointId": "n4-g-14",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I've been hearing a strange sound outside for a while now."
+        },
+        "ne": {
+          "prompt": "अघिदेखि बाहिर अनौठो आवाज आइरहेको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0028",
@@ -397,7 +586,14 @@
         "が出（で）る"
       ],
       "pointId": "n4-g-14",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This soup tastes like curry."
+        },
+        "ne": {
+          "prompt": "यो सुपको स्वाद करी जस्तो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0029",
@@ -411,7 +607,14 @@
         "げ"
       ],
       "pointId": "n4-g-15",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger brother is sensitive to heat, so he wears light clothes even in winter."
+        },
+        "ne": {
+          "prompt": "मेरो भाइलाई गर्मी बढी लाग्छ, त्यसैले जाडोमा पनि पातलो लुगा लगाउँछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0030",
@@ -425,7 +628,14 @@
         "く"
       ],
       "pointId": "n4-g-15",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My older sister gets lonely easily, so she's always calling her friends."
+        },
+        "ne": {
+          "prompt": "मेरी दिदीलाई एक्लोपन छिट्टै लाग्छ, त्यसैले उनी सधैँ साथीहरूलाई फोन गरिरहन्छिन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0031",
@@ -439,7 +649,14 @@
         "そう"
       ],
       "pointId": "n4-g-16",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger sister is afraid of dark places."
+        },
+        "ne": {
+          "prompt": "मेरी बहिनी अँध्यारो ठाउँसँग डराउँछिन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0032",
@@ -453,7 +670,14 @@
         "かった"
       ],
       "pointId": "n4-g-16",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The children are currently wanting a new game."
+        },
+        "ne": {
+          "prompt": "बच्चाहरू अहिले नयाँ खेल चाहिरहेका छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0033",
@@ -467,7 +691,14 @@
         "いたします"
       ],
       "pointId": "n4-g-17",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The elevator is over there."
+        },
+        "ne": {
+          "prompt": "लिफ्ट उता छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0034",
@@ -481,7 +712,14 @@
         "いたします"
       ],
       "pointId": "n4-g-17",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The restroom is on the second floor."
+        },
+        "ne": {
+          "prompt": "शौचालय दोस्रो तल्लामा छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0035",
@@ -495,7 +733,14 @@
         "終（お）わった"
       ],
       "pointId": "n4-g-18",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's April, and the tree leaves have gradually started to turn green."
+        },
+        "ne": {
+          "prompt": "अप्रिल महिना लागेपछि रुखका पातहरू बिस्तारै हरियो हुन थाले।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0036",
@@ -509,7 +754,14 @@
         "終（お）わった"
       ],
       "pointId": "n4-g-18",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger brother started learning piano for the first time last year."
+        },
+        "ne": {
+          "prompt": "मेरो भाइले गत वर्ष पहिलो पटक पियानो सिक्न थाल्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0037",
@@ -523,7 +775,14 @@
         "そうだ"
       ],
       "pointId": "n4-g-19",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He is serious, so he will surely keep his promise."
+        },
+        "ne": {
+          "prompt": "ऊ इमानदार छ, त्यसैले उसले पक्कै पनि आफ्नो वाचा पूरा गर्नेछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0038",
@@ -537,7 +796,14 @@
         "ものだ"
       ],
       "pointId": "n4-g-19",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The light in the room is on, so someone must be inside."
+        },
+        "ne": {
+          "prompt": "कोठाको बत्ती बलेको छ, त्यसैले कोही भित्र हुनुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0039",
@@ -551,7 +817,14 @@
         "そうだ"
       ],
       "pointId": "n4-g-20",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Such a kind person couldn't possibly lie."
+        },
+        "ne": {
+          "prompt": "त्यस्तो दयालु व्यक्तिले झूट बोल्न सक्दैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0040",
@@ -565,7 +838,14 @@
         "そうだ"
       ],
       "pointId": "n4-g-20",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Since we've practiced so much, there's no way we'll lose the game."
+        },
+        "ne": {
+          "prompt": "यति धेरै अभ्यास गरिसकेपछि, खेल हार्ने कुरै छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0041",
@@ -579,7 +859,14 @@
         "ところだ"
       ],
       "pointId": "n4-g-21",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "To cure the illness quickly, it is necessary to take medicine every day."
+        },
+        "ne": {
+          "prompt": "रोग छिटो निको पार्नको लागि, हरेक दिन औषधि खान आवश्यक छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0042",
@@ -593,7 +880,14 @@
         "ところだ"
       ],
       "pointId": "n4-g-21",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It is necessary to write your name and address on this document."
+        },
+        "ne": {
+          "prompt": "यो कागजातमा नाम र ठेगाना लेख्न आवश्यक छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0043",
@@ -607,7 +901,14 @@
         "って"
       ],
       "pointId": "n4-g-22",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Come on, let's all go climbing a mountain this holiday!"
+        },
+        "ne": {
+          "prompt": "लौ, आउने बिदामा हामी सबै मिलेर पहाड चढौँ!"
+        }
+      }
     },
     {
       "id": "N4-G-B-0044",
@@ -621,7 +922,14 @@
         "って"
       ],
       "pointId": "n4-g-22",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's getting cold, so let's go home together."
+        },
+        "ne": {
+          "prompt": "चिसो हुन थाल्यो, त्यसैले सँगै घर जाऔँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0045",
@@ -635,7 +943,14 @@
         "まいります"
       ],
       "pointId": "n4-g-23",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The teacher is currently in the meeting room."
+        },
+        "ne": {
+          "prompt": "शिक्षक अहिले बैठक कोठामा हुनुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0046",
@@ -649,7 +964,14 @@
         "ございます"
       ],
       "pointId": "n4-g-23",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The customer will be here soon."
+        },
+        "ne": {
+          "prompt": "ग्राहक चाँडै यहाँ आउनुहुनेछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0047",
@@ -663,7 +985,14 @@
         "いらっしゃいます"
       ],
       "pointId": "n4-g-24",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I will explain the details to you later."
+        },
+        "ne": {
+          "prompt": "विस्तृत कुरा म पछि हजुरलाई बताउनेछु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0048",
@@ -677,7 +1006,14 @@
         "になります"
       ],
       "pointId": "n4-g-24",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I will carry your luggage."
+        },
+        "ne": {
+          "prompt": "तपाईंको सामान म बोकिदिनेछु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0049",
@@ -691,7 +1027,14 @@
         "にちがいない"
       ],
       "pointId": "n4-g-25",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "You don't have to rush so much, there's still time, isn't there?"
+        },
+        "ne": {
+          "prompt": "यति धेरै हतार गर्नु पर्दैन, अझै समय छ नि होइन र?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0050",
@@ -705,7 +1048,14 @@
         "にちがいない"
       ],
       "pointId": "n4-g-25",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This photo is very well taken, isn't it?"
+        },
+        "ne": {
+          "prompt": "यो फोटो धेरै राम्रो खिचिएको छ नि होइन र?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0051",
@@ -719,7 +1069,14 @@
         "かもしれない"
       ],
       "pointId": "n4-g-26",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's not yet decided whether tomorrow's game will be held."
+        },
+        "ne": {
+          "prompt": "भोलिको खेल हुने हो कि होइन, अझै टुङ्गो लागेको छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0052",
@@ -733,7 +1090,14 @@
         "かもしれない"
       ],
       "pointId": "n4-g-26",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I won't know if this dish is delicious until I try it."
+        },
+        "ne": {
+          "prompt": "यो परिकार स्वादिष्ट छ कि छैन, खाएर नहेरेसम्म थाहा हुँदैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0053",
@@ -747,7 +1111,14 @@
         "よ"
       ],
       "pointId": "n4-g-27",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Hmm, I wonder if these clothes suit me."
+        },
+        "ne": {
+          "prompt": "उम्, यो लुगा मलाई सुहाउँछ कि सुहाउँदैन होला।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0054",
@@ -761,7 +1132,14 @@
         "よ"
       ],
       "pointId": "n4-g-27",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I wonder when that person will finally come."
+        },
+        "ne": {
+          "prompt": "त्यो मान्छे आखिर कहिले आउँछ होला।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0055",
@@ -775,7 +1153,14 @@
         "ぜ"
       ],
       "pointId": "n4-g-28",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Are you going to the party with us?"
+        },
+        "ne": {
+          "prompt": "तिमी पनि सँगै पार्टीमा जान्छौ कि?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0056",
@@ -789,7 +1174,14 @@
         "よ"
       ],
       "pointId": "n4-g-28",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "\"Hey, did you watch last night's TV too?\""
+        },
+        "ne": {
+          "prompt": "\"ए, हिजो रातीको टिभी तिमीले पनि हेरेका थियौ कि?\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0057",
@@ -803,7 +1195,14 @@
         "ことにする"
       ],
       "pointId": "n4-g-29",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The sky is getting dark. It might rain soon."
+        },
+        "ne": {
+          "prompt": "आकाश अँध्यारो हुन थाल्यो। चाँडै पानी पर्न सक्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0058",
@@ -817,7 +1216,14 @@
         "そうだ"
       ],
       "pointId": "n4-g-29",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My schedule isn't clear yet, but tomorrow might be a bit inconvenient."
+        },
+        "ne": {
+          "prompt": "तालिका अझै स्पष्ट छैन, तर भोलि अलि असुविधाजनक हुन सक्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0059",
@@ -831,7 +1237,14 @@
         "よ"
       ],
       "pointId": "n4-g-30",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Self-talk: I wonder if I'll finish all my homework today."
+        },
+        "ne": {
+          "prompt": "आफैसँग कुरा गर्दै: आजको गृहकार्य सबै सकिएला कि नसकिएला।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0060",
@@ -845,7 +1258,14 @@
         "ね"
       ],
       "pointId": "n4-g-30",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I wonder if the cake at that shop is delicious. I'll try it next time."
+        },
+        "ne": {
+          "prompt": "त्यो पसलको केक स्वादिष्ट होला कि। अर्को पटक खाएर हेरौँला।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0061",
@@ -859,7 +1279,14 @@
         "に作（つく）る"
       ],
       "pointId": "n4-g-31",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Cheese is made from cow's milk."
+        },
+        "ne": {
+          "prompt": "चिजब गाईको दूधबाट बनाइन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0062",
@@ -873,7 +1300,14 @@
         "に作（つく）る"
       ],
       "pointId": "n4-g-31",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Japanese sake is made from rice."
+        },
+        "ne": {
+          "prompt": "जापानी रक्सी चामलबाट बनाइन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0063",
@@ -887,7 +1321,14 @@
         "あまり"
       ],
       "pointId": "n4-g-32",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "You practiced so much, so you'll definitely win!"
+        },
+        "ne": {
+          "prompt": "तिमीले यति धेरै अभ्यास गरेको हुनाले, तिमी पक्कै जित्नेछौ!"
+        }
+      }
     },
     {
       "id": "N4-G-B-0064",
@@ -901,7 +1342,14 @@
         "ちっとも"
       ],
       "pointId": "n4-g-32",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He promised, so he should definitely come."
+        },
+        "ne": {
+          "prompt": "उसले वाचा गरेको हुनाले, ऊ पक्कै आउनुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0065",
@@ -915,7 +1363,14 @@
         "はず"
       ],
       "pointId": "n4-g-33",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "When I was a student, I studied late every day."
+        },
+        "ne": {
+          "prompt": "जब म विद्यार्थी थिएँ, म हरेक दिन अबेरसम्म पढ्थें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0066",
@@ -929,7 +1384,14 @@
         "後（あと）で"
       ],
       "pointId": "n4-g-33",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I want to go to Japan again when the cherry blossoms bloom."
+        },
+        "ne": {
+          "prompt": "चेरी फुल्ने बेलामा म फेरि जापान जान चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0067",
@@ -943,7 +1405,14 @@
         "よう"
       ],
       "pointId": "n5-g-2",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My dream is to work in a foreign country."
+        },
+        "ne": {
+          "prompt": "मेरो सपना विदेशमा काम गर्ने हो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0068",
@@ -957,7 +1426,14 @@
         "ため"
       ],
       "pointId": "n4-g-34",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Exercising a little every day is good for your health."
+        },
+        "ne": {
+          "prompt": "हरेक दिन थोरै व्यायाम गर्नु स्वास्थ्यका लागि राम्रो हुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0069",
@@ -971,7 +1447,14 @@
         "ことになる"
       ],
       "pointId": "n4-g-35",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Sometimes I go to the company even on my days off. That's how much I love my job."
+        },
+        "ne": {
+          "prompt": "म कहिलेकाहीँ बिदाको दिनमा पनि कम्पनी जान्छु। मलाई काम यति धेरै मन पर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0070",
@@ -985,7 +1468,14 @@
         "ことにする"
       ],
       "pointId": "n4-g-35",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My father is busy with work and sometimes doesn't come home until morning."
+        },
+        "ne": {
+          "prompt": "मेरो बुबा काममा व्यस्त हुनुहुन्छ र कहिलेकाहीँ बिहानसम्म घर आउनुहुन्न।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0071",
@@ -999,7 +1489,14 @@
         "ことになる"
       ],
       "pointId": "n4-g-36",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Mr. A grew up in China, so he can speak Chinese."
+        },
+        "ne": {
+          "prompt": "ए-सान चीनमा हुर्केकाले, उहाँ चिनियाँ भाषा बोल्न सक्नुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0072",
@@ -1013,7 +1510,14 @@
         "ことになる"
       ],
       "pointId": "n4-g-36",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you have this card, you can borrow books from the library."
+        },
+        "ne": {
+          "prompt": "यदि तपाईंसँग यो कार्ड छ भने, तपाईं पुस्तकालयबाट किताबहरू उधारो लिन सक्नुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0073",
@@ -1027,7 +1531,14 @@
         "ことができた"
       ],
       "pointId": "n4-g-37",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "By company order, I will be working at the Tokyo headquarters starting next year."
+        },
+        "ne": {
+          "prompt": "कम्पनीको आदेशले, म अर्को वर्षदेखि टोकियोको मुख्यालयमा काम गर्ने भएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0074",
@@ -1041,7 +1552,14 @@
         "ことはない"
       ],
       "pointId": "n4-g-37",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "As a result of the discussion, it was decided that we would meet again next week."
+        },
+        "ne": {
+          "prompt": "छलफलको नतिजा स्वरूप, अर्को हप्ता फेरि भेट्ने निर्णय भयो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0075",
@@ -1055,7 +1573,14 @@
         "ことができる"
       ],
       "pointId": "n4-g-38",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "For my health, I decided to quit smoking starting today."
+        },
+        "ne": {
+          "prompt": "स्वास्थ्यका लागि, मैले आजदेखि चुरोट छोड्ने निर्णय गरें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0076",
@@ -1069,7 +1594,14 @@
         "ことがある"
       ],
       "pointId": "n4-g-38",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "After much thought, I decided to go to my grandmother's house in the countryside for summer vacation."
+        },
+        "ne": {
+          "prompt": "धेरै सोचेर, मैले गर्मी बिदामा गाउँमा रहेको हजुरआमाको घर जाने निर्णय गरें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0077",
@@ -1083,7 +1615,14 @@
         "さ"
       ],
       "pointId": "n4-g-39",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The room is dark, so I'll turn on the light to brighten the room."
+        },
+        "ne": {
+          "prompt": "कोठा अँध्यारो छ, त्यसैले म बत्ती बालेर कोठा उज्यालो पार्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0078",
@@ -1097,7 +1636,14 @@
         "いして"
       ],
       "pointId": "n4-g-39",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Excuse me, please turn down the TV volume a little more."
+        },
+        "ne": {
+          "prompt": "माफ गर्नुहोस्, कृपया टिभीको आवाज अलि सानो पारिदिनुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0079",
@@ -1111,7 +1657,14 @@
         "だんだん"
       ],
       "pointId": "n4-g-40",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "While driving, a child suddenly jumped out into the road."
+        },
+        "ne": {
+          "prompt": "गाडी चलाउँदै गर्दा, अचानक एउटा बच्चा बाटोमा हाम फाल्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0080",
@@ -1125,7 +1678,14 @@
         "ずっと"
       ],
       "pointId": "n4-g-40",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He was fine until yesterday, but he was suddenly hospitalized."
+        },
+        "ne": {
+          "prompt": "हिजोसम्म त ऊ ठीक थियो, तर अचानक अस्पताल भर्ना भयो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0081",
@@ -1139,7 +1699,14 @@
         "へ"
       ],
       "pointId": "n4-g-41",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This work must be finished by five o'clock."
+        },
+        "ne": {
+          "prompt": "यो काम पाँच बजेसम्ममा सिध्याउनुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0082",
@@ -1153,7 +1720,14 @@
         "たびに"
       ],
       "pointId": "n4-g-41",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I want to arrive at the station before the train departs."
+        },
+        "ne": {
+          "prompt": "ट्रेन छुट्नुअघि म स्टेशन पुग्न चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0083",
@@ -1167,7 +1741,14 @@
         "ところで"
       ],
       "pointId": "n4-g-42",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I was tired and fell asleep with the TV still on."
+        },
+        "ne": {
+          "prompt": "म थाकेको थिएँ र टिभी अनै छोडेर सुतिहालें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0084",
@@ -1181,7 +1762,14 @@
         "あいだ"
       ],
       "pointId": "n4-g-42",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Please don't leave the window open."
+        },
+        "ne": {
+          "prompt": "कृपया झ्याल खुला नछोड्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0085",
@@ -1195,7 +1783,14 @@
         "だから"
       ],
       "pointId": "n4-g-43",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Please write with a ballpoint pen or a fountain pen."
+        },
+        "ne": {
+          "prompt": "कृपया बलपेन वा फाउन्टेन पेनले लेख्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0086",
@@ -1209,7 +1804,14 @@
         "ながら"
       ],
       "pointId": "n4-g-43",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Please contact us by phone or email."
+        },
+        "ne": {
+          "prompt": "कृपया फोन वा इमेल मार्फत सम्पर्क गर्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0087",
@@ -1223,7 +1825,14 @@
         "ものだ"
       ],
       "pointId": "n4-g-44",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It seems Mr. A isn't coming today. There's been no contact at all."
+        },
+        "ne": {
+          "prompt": "ए-सान आज नआउने जस्तो छ। कुनै सम्पर्क नै छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0088",
@@ -1237,7 +1846,14 @@
         "のはずがない"
       ],
       "pointId": "n4-g-44",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "That old building looks like a school. Let's go inside."
+        },
+        "ne": {
+          "prompt": "त्यो पुरानो भवन हेर्दा स्कूल जस्तो देखिन्छ। भित्र गएर हेरौं।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0089",
@@ -1251,7 +1867,14 @@
         "みたいで"
       ],
       "pointId": "n4-g-45",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I also want to become a person like my teacher."
+        },
+        "ne": {
+          "prompt": "म पनि मेरो शिक्षक जस्तो व्यक्ति बन्न चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0090",
@@ -1265,7 +1888,14 @@
         "みたいの"
       ],
       "pointId": "n4-g-45",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "That's a dream-like story, isn't it?"
+        },
+        "ne": {
+          "prompt": "त्यो त सपना जस्तो कुरा हो नि, होइन र?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0091",
@@ -1279,7 +1909,14 @@
         "みたいで"
       ],
       "pointId": "n4-g-46",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger brother swims as well as a fish."
+        },
+        "ne": {
+          "prompt": "मेरो भाइ माछा जस्तै राम्रोसँग पौडी खेल्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0092",
@@ -1293,7 +1930,14 @@
         "みたいの"
       ],
       "pointId": "n4-g-46",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He can do anything quickly, like a genius."
+        },
+        "ne": {
+          "prompt": "ऊ एक प्रतिभाशाली व्यक्ति जस्तै सबै कुरा तुरुन्तै गर्न सक्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0093",
@@ -1307,7 +1951,14 @@
         "ばかり"
       ],
       "pointId": "n5-g-3",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He ate as many as five cakes. Amazing!"
+        },
+        "ne": {
+          "prompt": "उसले पाँच वटा केक खायो। अचम्मको!"
+        }
+      }
     },
     {
       "id": "N4-G-B-0094",
@@ -1321,7 +1972,14 @@
         "ばかり"
       ],
       "pointId": "n5-g-77",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "That car was very expensive; I heard it cost as much as three million yen."
+        },
+        "ne": {
+          "prompt": "त्यो गाडी धेरै महँगो थियो, तीन सय लाख येन परेको रे।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0095",
@@ -1335,7 +1993,14 @@
         "か"
       ],
       "pointId": "n4-g-48",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's dangerous, so don't go in there."
+        },
+        "ne": {
+          "prompt": "खतरा छ, त्यसैले त्यहाँ नजाऊ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0096",
@@ -1348,7 +2013,14 @@
         "わ",
         "か"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "They just haven't arrived yet, so don't worry. It's fine."
+        },
+        "ne": {
+          "prompt": "अहिलेसम्म नआएको मात्र हो, त्यसैले चिन्ता नगर। ठीक छ।"
+        }
+      },
       "pointId": "n4-g-48"
     },
     {
@@ -1363,7 +2035,14 @@
         "ほど"
       ],
       "pointId": "n4-g-49",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This store sells bread, cakes, and so on."
+        },
+        "ne": {
+          "prompt": "यो पसलमा रोटी, केक आदि बेचिन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0098",
@@ -1377,7 +2056,14 @@
         "ずつ"
       ],
       "pointId": "n4-g-49",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you're going on a trip, places like Kyoto and Nara are good."
+        },
+        "ne": {
+          "prompt": "यदि तपाईं यात्रामा जाँदै हुनुहुन्छ भने, क्योटो र नारा जस्ता ठाउँहरू राम्रो हुन्छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0099",
@@ -1391,7 +2077,14 @@
         "にくくて"
       ],
       "pointId": "n4-g-50",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I sing songs while taking a bath."
+        },
+        "ne": {
+          "prompt": "म गीत गाउँदै नुहाउँछु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0100",
@@ -1405,7 +2098,14 @@
         "すぎて"
       ],
       "pointId": "n4-g-50",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's not good to eat while watching TV."
+        },
+        "ne": {
+          "prompt": "टिभी हेर्दै खाना खानु राम्रो होइन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0101",
@@ -1419,7 +2119,14 @@
         "やっと"
       ],
       "pointId": "n3-g-67",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The food I ordered is taking a long time to arrive."
+        },
+        "ne": {
+          "prompt": "अर्डर गरेको खाना आउन धेरै समय लागिरहेको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0102",
@@ -1433,7 +2140,14 @@
         "やっと"
       ],
       "pointId": "n3-g-67",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's difficult, so I just can't figure out the answer to this problem."
+        },
+        "ne": {
+          "prompt": "यो गाह्रो छ, त्यसैले मलाई यो प्रश्नको उत्तर पत्ता लगाउन गाह्रो भइरहेको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0103",
@@ -1447,7 +2161,14 @@
         "なくてもかまわない→ないでください"
       ],
       "pointId": "n4-g-52",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "You must always keep your promises."
+        },
+        "ne": {
+          "prompt": "प्रतिज्ञाहरू सधैं पालना गर्नुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0104",
@@ -1461,7 +2182,14 @@
         "ないほうがいい"
       ],
       "pointId": "n4-g-52",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I have a fever, so I must go to the hospital."
+        },
+        "ne": {
+          "prompt": "मलाई ज्वरो आएकोले अस्पताल जानुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0105",
@@ -1475,7 +2203,14 @@
         "ないでください"
       ],
       "pointId": "n4-g-53",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Laws must be obeyed so that everyone can live safely."
+        },
+        "ne": {
+          "prompt": "सबैजना सुरक्षित रूपमा बस्नको लागि, कानूनहरू पालना गर्नुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0106",
@@ -1489,7 +2224,14 @@
         "ないほうがいい"
       ],
       "pointId": "n4-g-53",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "To catch the train, you must leave the house at six o'clock."
+        },
+        "ne": {
+          "prompt": "रेल समात्नको लागि, तपाईंले बिहान छ बजे घरबाट निस्कनुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0107",
@@ -1503,7 +2245,14 @@
         "ても"
       ],
       "pointId": "n4-g-54",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you're looking for a cheap store, the supermarket in front of the station is good."
+        },
+        "ne": {
+          "prompt": "यदि सस्तो पसल खोज्दै हुनुहुन्छ भने, स्टेशन अगाडिको सुपरमार्केट राम्रो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0108",
@@ -1517,7 +2266,14 @@
         "まで"
       ],
       "pointId": "n4-g-54",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I don't know yet if you're going, but if you go, I'll go too."
+        },
+        "ne": {
+          "prompt": "तपाईं जानुहुन्छ कि हुन्न भन्ने मलाई अझै थाहा छैन, तर यदि तपाईं जानुहुन्छ भने, म पनि जान्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0109",
@@ -1531,7 +2287,14 @@
         "ませんでした"
       ],
       "pointId": "n4-g-55",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's already nine o'clock. Children, go to bed quickly."
+        },
+        "ne": {
+          "prompt": "अहिले नौ बजिसक्यो। बच्चाहरू, छिटो सुत्न जाऊ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0110",
@@ -1545,7 +2308,14 @@
         "ませんでした"
       ],
       "pointId": "n4-g-55",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Taro, when you finish your homework, clean up your room."
+        },
+        "ne": {
+          "prompt": "तारो, गृहकार्य सकिएपछि आफ्नो कोठा सफा गर।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0111",
@@ -1559,7 +2329,14 @@
         "くださる"
       ],
       "pointId": "n4-g-56",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I heard the president takes a walk every morning."
+        },
+        "ne": {
+          "prompt": "अध्यक्षज्यू हरेक बिहान हिँड्नुहुन्छ रे।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0112",
@@ -1573,7 +2350,14 @@
         "いらっしゃいます"
       ],
       "pointId": "n4-g-56",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The teacher exercises every day."
+        },
+        "ne": {
+          "prompt": "शिक्षकज्यू हरेक दिन व्यायाम गर्नुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0113",
@@ -1586,7 +2370,14 @@
         "が気（き）がついた",
         "へ気（き）がついた"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "After arriving at the station, I realized I had lost my ticket."
+        },
+        "ne": {
+          "prompt": "स्टेशन पुगेपछि, मैले आफ्नो टिकट हराएको थाहा पाएँ।"
+        }
+      },
       "pointId": "n4-g-57"
     },
     {
@@ -1600,7 +2391,14 @@
         "が気（き）がついた",
         "で気（き）がついた"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "After a while, he finally realized his mistake."
+        },
+        "ne": {
+          "prompt": "केही समयपछि, उसले अन्ततः आफ्नो गल्ती महसुस गर्यो।"
+        }
+      },
       "pointId": "n4-g-57"
     },
     {
@@ -1615,7 +2413,14 @@
         "まで見（み）える"
       ],
       "pointId": "n4-g-58",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger brother is still a child, but he looks like an adult."
+        },
+        "ne": {
+          "prompt": "मेरो भाइ अझै बच्चा हो, तर ऊ वयस्क जस्तो देखिन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0116",
@@ -1629,7 +2434,14 @@
         "まで見（み）える"
       ],
       "pointId": "n4-g-58",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He always looks energetic, but he's actually tired."
+        },
+        "ne": {
+          "prompt": "ऊ सधैं ऊर्जावान देखिन्छ, तर वास्तवमा ऊ थाकेको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0117",
@@ -1643,7 +2455,14 @@
         "でします"
       ],
       "pointId": "n5-g-50",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "For drinks, I'll have coffee."
+        },
+        "ne": {
+          "prompt": "पेयको लागि, म कफी लिन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0118",
@@ -1657,7 +2476,14 @@
         "でしょう"
       ],
       "pointId": "n4-g-59",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger brother made the room dirty, so I cleaned it."
+        },
+        "ne": {
+          "prompt": "मेरो भाइले कोठा फोहोर गर्यो, त्यसैले मैले सफा गरेँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0119",
@@ -1671,7 +2497,14 @@
         "ながら"
       ],
       "pointId": "n4-g-60",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This writing is small and hard to read."
+        },
+        "ne": {
+          "prompt": "यो अक्षर सानो छ र पढ्न गाह्रो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0120",
@@ -1685,7 +2518,14 @@
         "ながら"
       ],
       "pointId": "n4-g-60",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "These shoes are too big and hard to walk in."
+        },
+        "ne": {
+          "prompt": "यी जुत्ताहरू धेरै ठूला छन् र हिँड्न गाह्रो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0121",
@@ -1699,7 +2539,14 @@
         "の中（なか）より"
       ],
       "pointId": "n4-g-61",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Among the four seasons, spring is my favorite."
+        },
+        "ne": {
+          "prompt": "चार ऋतुहरूमध्ये, मलाई वसन्त सबैभन्दा मन पर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0122",
@@ -1713,7 +2560,14 @@
         "の中（なか）から"
       ],
       "pointId": "n4-g-61",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Among the clothes in this store, this one is the cutest."
+        },
+        "ne": {
+          "prompt": "यो पसलमा भएका लुगाहरूमध्ये, यो सबैभन्दा प्यारो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0123",
@@ -1727,7 +2581,14 @@
         "あいだ"
       ],
       "pointId": "n4-g-62",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Even though I ate a lot, I'm still hungry."
+        },
+        "ne": {
+          "prompt": "धेरै खाए पनि, मलाई अझै भोक लागेको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0124",
@@ -1741,7 +2602,14 @@
         "あいだ"
       ],
       "pointId": "n4-g-62",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Even though I practiced very hard, I lost the game."
+        },
+        "ne": {
+          "prompt": "मैले धेरै मेहनत गरेर अभ्यास गरे पनि, खेल हारेँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0125",
@@ -1755,7 +2623,14 @@
         "けど"
       ],
       "pointId": "n4-g-62",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "These scissors are convenient for cutting paper."
+        },
+        "ne": {
+          "prompt": "यो कैंची कागज काट्नका लागि उपयोगी छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0126",
@@ -1769,7 +2644,14 @@
         "までに"
       ],
       "pointId": "n4-g-62",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It takes 30 minutes to walk to the station."
+        },
+        "ne": {
+          "prompt": "स्टेशनसम्म हिँडेर जान तीस मिनेट लाग्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0127",
@@ -1783,7 +2665,14 @@
         "のを"
       ],
       "pointId": "n4-g-64",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The most important thing for me is my family."
+        },
+        "ne": {
+          "prompt": "मेरो लागि सबैभन्दा महत्त्वपूर्ण कुरा परिवार हो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0128",
@@ -1797,7 +2686,14 @@
         "のを"
       ],
       "pointId": "n4-g-64",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It was my father who took this photo."
+        },
+        "ne": {
+          "prompt": "यो फोटो खिच्ने मेरो बुबा हुनुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0129",
@@ -1810,7 +2706,14 @@
         "お座（すわ）られください",
         "座（すわ）りください"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "Welcome! Please take a seat here."
+        },
+        "ne": {
+          "prompt": "स्वागत छ! कृपया यहाँ बस्नुहोस्।"
+        }
+      },
       "pointId": "n4-g-65"
     },
     {
@@ -1825,7 +2728,14 @@
         "お電話（でんわ）されてください"
       ],
       "pointId": "n4-g-65",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you have any questions, please call this number."
+        },
+        "ne": {
+          "prompt": "यदि तपाईंसँग कुनै प्रश्नहरू छन् भने, कृपया यो नम्बरमा फोन गर्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0131",
@@ -1839,7 +2749,14 @@
         "お読（よ）まれになり"
       ],
       "pointId": "n4-g-66",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Teacher, have you already read the newspaper?"
+        },
+        "ne": {
+          "prompt": "गुरुज्यू, तपाईंले पत्रिका पढिसक्नुभयो?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0132",
@@ -1853,7 +2770,14 @@
         "お帰（かえ）られになり"
       ],
       "pointId": "n4-g-66",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Has the department manager already gone home?"
+        },
+        "ne": {
+          "prompt": "विभाग प्रमुख घर फर्किसक्नुभयो?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0133",
@@ -1867,7 +2791,14 @@
         "ずつ"
       ],
       "pointId": "n4-g-67",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This train comes every ten minutes."
+        },
+        "ne": {
+          "prompt": "यो रेल दश-दश मिनेटमा आउँछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0134",
@@ -1881,7 +2812,14 @@
         "ずつ"
       ],
       "pointId": "n4-g-67",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Please take this medicine three times a day, every six hours."
+        },
+        "ne": {
+          "prompt": "यो औषधि हरेक छ घण्टामा, दिनमा तीन पटक लिनुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0135",
@@ -1894,7 +2832,14 @@
         "続（つづ）けた",
         "忘（わす）れた"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "This book was so interesting that I finished reading it in one day."
+        },
+        "ne": {
+          "prompt": "यो किताब यति रमाइलो थियो कि मैले एकै दिनमा पढेर सिध्याएँ।"
+        }
+      },
       "pointId": "n4-g-68"
     },
     {
@@ -1909,7 +2854,14 @@
         "忘（わす）れて"
       ],
       "pointId": "n4-g-68",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Let's go play after we finish writing the report."
+        },
+        "ne": {
+          "prompt": "रिपोर्ट लेखिसकेपछि, खेल्न जाऔं।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0137",
@@ -1923,7 +2875,14 @@
         "起（お）きさせられ"
       ],
       "pointId": "n4-g-69",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Even people who are not good at mornings can wake up early with this method."
+        },
+        "ne": {
+          "prompt": "बिहान उठ्न गाह्रो हुने मानिसहरूले पनि यो तरिकाले चाँडै उठ्न सक्छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0138",
@@ -1937,7 +2896,14 @@
         "来（こ）させられ"
       ],
       "pointId": "n4-g-69",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I want to go, but I have work, so I can't come to tomorrow's party. It's a shame."
+        },
+        "ne": {
+          "prompt": "म जान चाहन्छु, तर काम भएकोले भोलिको पार्टीमा आउन सक्दिनँ, दुःखको कुरा हो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0139",
@@ -1951,7 +2917,14 @@
         "らしくない"
       ],
       "pointId": "n4-g-70",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "According to the weather forecast, it seems it will rain tomorrow."
+        },
+        "ne": {
+          "prompt": "मौसम पूर्वानुमान अनुसार, भोलि पानी पर्ने सम्भावना छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0140",
@@ -1965,7 +2938,14 @@
         "らしく"
       ],
       "pointId": "n4-g-70",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The lights are still on. It seems Mr. A is still at the company."
+        },
+        "ne": {
+          "prompt": "बत्ती अझै बलिरहेको छ। ए-सान अझै कम्पनीमा हुनुहुन्छ जस्तो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0141",
@@ -1978,7 +2958,14 @@
         "い",
         "く"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "How deep is this river?"
+        },
+        "ne": {
+          "prompt": "यो नदीको गहिराइ कति छ?"
+        }
+      },
       "pointId": "n4-g-71"
     },
     {
@@ -1992,7 +2979,14 @@
         "く",
         "そう"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "Everyone is grateful for his kindness."
+        },
+        "ne": {
+          "prompt": "सबैजना उनको दयालुपनको लागि कृतज्ञ छन्।"
+        }
+      },
       "pointId": "n4-g-71"
     },
     {
@@ -2007,7 +3001,14 @@
         "明日（あした）"
       ],
       "pointId": "n4-g-72",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Even though I just ate, I'm already hungry."
+        },
+        "ne": {
+          "prompt": "अहिले भर्खरै खाएको भए पनि, मलाई फेरि भोक लाग्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0144",
@@ -2021,7 +3022,14 @@
         "ときどき"
       ],
       "pointId": "n4-g-72",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Where did the person who was here just now go?"
+        },
+        "ne": {
+          "prompt": "अहिले भर्खरै यहाँ भएको मान्छे कहाँ गयो?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0145",
@@ -2034,7 +3042,14 @@
         "食（た）べられさせ",
         "食（た）べらせ"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "When I was a child, I was made to eat vegetables I didn't like."
+        },
+        "ne": {
+          "prompt": "बच्चा हुँदा, मलाई मन नपर्ने तरकारीहरू खान लगाइन्थ्यो।"
+        }
+      },
       "pointId": "n4-g-73"
     },
     {
@@ -2048,7 +3063,14 @@
         "飲（の）まれて",
         "飲（の）んで"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "My senior made me drink a lot of alcohol, and now I have a headache."
+        },
+        "ne": {
+          "prompt": "सिनियरले मलाई धेरै रक्सी पिउन लगाए, त्यसैले टाउको दुखिरहेको छ।"
+        }
+      },
       "pointId": "n4-g-73"
     },
     {
@@ -2062,7 +3084,14 @@
         "した",
         "できた"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "My mother made my younger sister clean her room."
+        },
+        "ne": {
+          "prompt": "आमाले बहिनीलाई कोठा सफा गर्न लगाउनुभयो।"
+        }
+      },
       "pointId": "n4-g-74"
     },
     {
@@ -2076,7 +3105,14 @@
         "た",
         "たい"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "The teacher made the students think about a difficult problem."
+        },
+        "ne": {
+          "prompt": "शिक्षकले विद्यार्थीहरूलाई गाह्रो समस्याबारे सोच्न लगाउनुभयो।"
+        }
+      },
       "pointId": "n4-g-74"
     },
     {
@@ -2091,7 +3127,14 @@
         "見（み）させないでください"
       ],
       "pointId": "n4-g-75",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "That looks like interesting material. Please let me see it too."
+        },
+        "ne": {
+          "prompt": "त्यो रोचक सामग्री जस्तो देखिन्छ। कृपया मलाई पनि हेर्न दिनुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0150",
@@ -2105,7 +3148,14 @@
         "やらされてください"
       ],
       "pointId": "n4-g-75",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Please let me do that job."
+        },
+        "ne": {
+          "prompt": "कृपया त्यो काम मलाई गर्न दिनुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0151",
@@ -2119,7 +3169,14 @@
         "あまり"
       ],
       "pointId": "n4-g-76",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "As expected of a professional. The food they made is truly delicious."
+        },
+        "ne": {
+          "prompt": "वास्तवमै एक पेशेवर। बनाएको खाना साँच्चै स्वादिष्ट छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0152",
@@ -2133,7 +3190,14 @@
         "あまり"
       ],
       "pointId": "n4-g-76",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He knows even difficult kanji well. As expected of a teacher."
+        },
+        "ne": {
+          "prompt": "उहाँलाई गाह्रो कान्जी पनि राम्ररी थाहा छ। वास्तवमै एक शिक्षक।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0153",
@@ -2147,7 +3211,14 @@
         "と"
       ],
       "pointId": "n4-g-77",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This shop is cheap, and the staff are kind too."
+        },
+        "ne": {
+          "prompt": "यो पसल सस्तो छ, र कर्मचारीहरू पनि दयालु छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0154",
@@ -2161,7 +3232,14 @@
         "と"
       ],
       "pointId": "n4-g-77",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I don't have time, and I don't have money either. Traveling is impossible."
+        },
+        "ne": {
+          "prompt": "मसँग समय पनि छैन, पैसा पनि छैन। यात्रा गर्न असम्भव छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0155",
@@ -2175,7 +3253,14 @@
         "すぐに"
       ],
       "pointId": "n4-g-78",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This problem is not that difficult."
+        },
+        "ne": {
+          "prompt": "यो समस्या त्यति गाह्रो छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0156",
@@ -2189,7 +3274,14 @@
         "すぐに"
       ],
       "pointId": "n4-g-78",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "You don't have to hurry that much. There's still plenty of time."
+        },
+        "ne": {
+          "prompt": "त्यति हतार गर्नु पर्दैन। अझै धेरै समय छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0157",
@@ -2203,7 +3295,14 @@
         "つまり"
       ],
       "pointId": "n4-g-79",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Everyone opposed him. Even so, he didn't change his plan."
+        },
+        "ne": {
+          "prompt": "सबैले उनको विरोध गरे। तैपनि, उनले आफ्नो योजना परिवर्तन गरेनन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0158",
@@ -2217,7 +3316,14 @@
         "つまり"
       ],
       "pointId": "n4-g-79",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I took medicine. Even so, my fever isn't going down."
+        },
+        "ne": {
+          "prompt": "मैले औषधि खाएँ। तैपनि, ज्वरो घटेको छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0159",
@@ -2231,7 +3337,14 @@
         "つまり"
       ],
       "pointId": "n4-g-80",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The food at this restaurant is cheap. On top of that, the portions are large."
+        },
+        "ne": {
+          "prompt": "यो पसलको खाना सस्तो छ। त्यसको साथै, मात्रा पनि धेरै छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0160",
@@ -2245,7 +3358,14 @@
         "つまり"
       ],
       "pointId": "n4-g-80",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "She is good at singing. On top of that, she is also good at dancing."
+        },
+        "ne": {
+          "prompt": "उनी गीत गाउनमा राम्रो छिन्। त्यसको साथै, उनी नाच्नमा पनि राम्रो छिन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0161",
@@ -2259,7 +3379,14 @@
         "来（こ）よう"
       ],
       "pointId": "n4-g-81",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "According to the weather forecast, a big typhoon is coming."
+        },
+        "ne": {
+          "prompt": "मौसम पूर्वानुमान अनुसार, ठूलो आँधी आउँदैछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0162",
@@ -2272,7 +3399,14 @@
         "休（やす）めそう",
         "休（やす）もうそう"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "According to the email, Mr./Ms. A is taking the day off from work today."
+        },
+        "ne": {
+          "prompt": "इमेल अनुसार, ए-सान आज कम्पनीबाट बिदा लिँदै हुनुहुन्छ।"
+        }
+      },
       "pointId": "n4-g-81"
     },
     {
@@ -2286,7 +3420,14 @@
         "降（ふ）ったそう",
         "降（ふ）らなそう"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "The sky is getting dark; it looks like it's about to rain any moment now."
+        },
+        "ne": {
+          "prompt": "आकाश अँध्यारो भयो, अब कुनै पनि बेला पानी पर्ने जस्तो देखिन्छ।"
+        }
+      },
       "pointId": "n4-g-82"
     },
     {
@@ -2300,7 +3441,14 @@
         "おいしさそう",
         "おいしくそう"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "This cake looks very delicious, doesn't it?"
+        },
+        "ne": {
+          "prompt": "यो केक धेरै स्वादिष्ट देखिन्छ, होइन र?"
+        }
+      },
       "pointId": "n4-g-82"
     },
     {
@@ -2315,7 +3463,14 @@
         "楽（たの）しみ"
       ],
       "pointId": "n4-g-83",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The children are playing happily in the park."
+        },
+        "ne": {
+          "prompt": "बच्चाहरू पार्कमा खुसीसाथ खेलिरहेका छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0166",
@@ -2329,7 +3484,14 @@
         "たいです"
       ],
       "pointId": "n4-g-82",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Wow, the sky is pitch black. It looks like it's about to rain any moment now."
+        },
+        "ne": {
+          "prompt": "वाह, आकाश पूरै कालो छ। अब कुनै पनि बेला पानी पर्ने जस्तो देखिन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0167",
@@ -2343,7 +3505,14 @@
         "あと"
       ],
       "pointId": "n4-g-7",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I just came to Japan last month, so my Japanese is still poor."
+        },
+        "ne": {
+          "prompt": "म गत महिना मात्र जापान आएको हुँ, त्यसैले मेरो जापानी अझै कमजोर छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0168",
@@ -2357,7 +3526,14 @@
         "とき"
       ],
       "pointId": "n4-g-7",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I just woke up, so my head is still a bit fuzzy."
+        },
+        "ne": {
+          "prompt": "म भर्खरै उठेको हुँ, त्यसैले मेरो दिमाग अझै अलमलमा छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0169",
@@ -2371,7 +3547,14 @@
         "はず"
       ],
       "pointId": "n4-g-116",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Hello? I've also just arrived at the station."
+        },
+        "ne": {
+          "prompt": "हेलो? म पनि भर्खरै स्टेशनमा आइपुगेको छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0170",
@@ -2385,7 +3568,14 @@
         "まま"
       ],
       "pointId": "n4-g-116",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I have just finished writing the report."
+        },
+        "ne": {
+          "prompt": "मैले भर्खरै रिपोर्ट लेखेर सिध्याएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0171",
@@ -2399,7 +3589,14 @@
         "たかったです"
       ],
       "pointId": "n4-g-87",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger brother has been wanting to play the new game all morning."
+        },
+        "ne": {
+          "prompt": "मेरो भाइ बिहानदेखि नै नयाँ खेल खेल्न चाहिरहेको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0172",
@@ -2413,7 +3610,14 @@
         "たがるでしょう"
       ],
       "pointId": "n4-g-87",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The children are still inside the house, but they really want to play outside more now."
+        },
+        "ne": {
+          "prompt": "बच्चाहरू अझै घरभित्र छन्, तर उनीहरू अहिले बाहिर धेरै खेल्न चाहन्छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0173",
@@ -2427,7 +3631,14 @@
         "着（つ）くなら"
       ],
       "pointId": "n4-g-88",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Please call me as soon as you arrive at the station."
+        },
+        "ne": {
+          "prompt": "स्टेशन पुग्ने बित्तिकै मलाई फोन गर्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0174",
@@ -2441,7 +3652,14 @@
         "あるまで"
       ],
       "pointId": "n4-g-88",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If I had more money, I'd like to buy a new car."
+        },
+        "ne": {
+          "prompt": "यदि मसँग अझ धेरै पैसा भएको भए, म नयाँ कार किन्न चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0175",
@@ -2455,7 +3673,14 @@
         "どうしましたか"
       ],
       "pointId": "n4-g-89",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you're tired, why don't you rest a bit?"
+        },
+        "ne": {
+          "prompt": "यदि तपाईं थकित हुनुहुन्छ भने, अलिकति आराम गरे कसो होला?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0176",
@@ -2469,7 +3694,14 @@
         "どうしましたか"
       ],
       "pointId": "n4-g-89",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you can't read this kanji, why don't you ask the teacher?"
+        },
+        "ne": {
+          "prompt": "यदि तपाईं यो कान्जी पढ्न सक्नुहुन्न भने, शिक्षकलाई सोधे कसो होला?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0177",
@@ -2483,7 +3715,14 @@
         "でください"
       ],
       "pointId": "n4-g-90",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Excuse me, how should I read this word?"
+        },
+        "ne": {
+          "prompt": "माफ गर्नुहोस्, यो शब्द कसरी पढ्ने?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0178",
@@ -2497,7 +3736,14 @@
         "てください"
       ],
       "pointId": "n4-g-90",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "What should I talk about with someone I'm meeting for the first time?"
+        },
+        "ne": {
+          "prompt": "पहिलो पटक भेट्ने व्यक्तिसँग के कुरा गर्ने?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0179",
@@ -2510,7 +3756,14 @@
         "た",
         "たり"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "Yesterday, I had a fever and took the day off from school."
+        },
+        "ne": {
+          "prompt": "हिजो मलाई ज्वरो आएको थियो, त्यसैले मैले स्कूलबाट बिदा लिएँ।"
+        }
+      },
       "pointId": "n4-g-91"
     },
     {
@@ -2524,7 +3777,14 @@
         "た",
         "たり"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "I ate breakfast and immediately left the house."
+        },
+        "ne": {
+          "prompt": "मैले बिहानको खाना खाएँ र तुरुन्तै घरबाट निस्किएँ।"
+        }
+      },
       "pointId": "n4-g-91"
     },
     {
@@ -2539,7 +3799,14 @@
         "ておきました"
       ],
       "pointId": "n4-g-92",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger sister was in trouble, so I helped her with her homework."
+        },
+        "ne": {
+          "prompt": "मेरी बहिनी समस्यामा थिइन्, त्यसैले मैले उनलाई गृहकार्यमा मद्दत गरें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0182",
@@ -2553,7 +3820,14 @@
         "ておきました"
       ],
       "pointId": "n4-g-92",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "On the train, an old woman was carrying heavy luggage, so I carried it for her."
+        },
+        "ne": {
+          "prompt": "रेलमा, एक वृद्धाले भारी सामान बोकिरहेकी थिइन्, त्यसैले मैले उनको लागि बोकिदिएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0183",
@@ -2567,7 +3841,14 @@
         "てみたい"
       ],
       "pointId": "n4-g-93",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "As a parent, for my child's health, I want them to eat more vegetables."
+        },
+        "ne": {
+          "prompt": "अभिभावकको रूपमा, मेरो बच्चाको स्वास्थ्यको लागि, म उनीहरूले धेरै तरकारी खाऊन् भन्ने चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0184",
@@ -2581,7 +3862,14 @@
         "てみたい"
       ],
       "pointId": "n4-g-93",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I want everyone to definitely keep this promise."
+        },
+        "ne": {
+          "prompt": "म सबैले यो वाचा पक्कै पालना गरून् भन्ने चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0185",
@@ -2595,7 +3883,14 @@
         "てみ"
       ],
       "pointId": "n4-g-94",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I want to continue studying Japanese little by little every day from now on."
+        },
+        "ne": {
+          "prompt": "अबदेखि हरेक दिन अलि-अलि गर्दै जापानी भाषा पढ्दै जान चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0186",
@@ -2609,7 +3904,14 @@
         "てきた"
       ],
       "pointId": "n4-g-94",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It will probably get colder and colder from now on."
+        },
+        "ne": {
+          "prompt": "अबदेखि बिस्तारै चिसो हुँदै जानेछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0187",
@@ -2622,7 +3924,14 @@
         "ておきます",
         "ていません"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "Last night, I was watching TV the whole time."
+        },
+        "ne": {
+          "prompt": "हिजो राती, म लगातार टिभी हेरिरहेको थिएँ।"
+        }
+      },
       "pointId": "n4-g-95"
     },
     {
@@ -2637,7 +3946,14 @@
         "していません"
       ],
       "pointId": "n4-g-95",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "When my mother came home, I was just doing my homework."
+        },
+        "ne": {
+          "prompt": "आमा घर आउनुहुँदा, म भर्खर गृहकार्य गरिरहेको थिएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0189",
@@ -2651,7 +3967,14 @@
         "てもいいです"
       ],
       "pointId": "n4-g-96",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "People around are studying, so excuse me, but could you please lower your voice a little?"
+        },
+        "ne": {
+          "prompt": "वरपरका मानिसहरू पढिरहेका छन्, त्यसैले माफ गर्नुहोस्, तर कृपया अलि आवाज सानो गरिदिनुहुन्छ कि?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0190",
@@ -2665,7 +3988,14 @@
         "てもいいです"
       ],
       "pointId": "n4-g-96",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I know you're busy, but could you please check this document?"
+        },
+        "ne": {
+          "prompt": "तपाईं व्यस्त हुनुहुन्छ भन्ने थाहा छ, तर कृपया यो कागजात जाँच गरिदिनुहुन्छ कि?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0191",
@@ -2679,7 +4009,14 @@
         "ておきました"
       ],
       "pointId": "n4-g-97",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "When I was sick, my friend took care of me."
+        },
+        "ne": {
+          "prompt": "म बिरामी हुँदा, मेरो साथीले मेरो हेरचाह गरिदियो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0192",
@@ -2693,7 +4030,14 @@
         "ておきました"
       ],
       "pointId": "n4-g-97",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Since I had a lot of luggage, my older brother drove me to the station."
+        },
+        "ne": {
+          "prompt": "मसँग धेरै सामान भएकोले, दाइले मलाई स्टेशनसम्म गाडीमा पुर्याइदिनुभयो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0193",
@@ -2707,7 +4051,14 @@
         "ていました"
       ],
       "pointId": "n4-g-98",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "After walking for a while, I gradually started to feel hungry."
+        },
+        "ne": {
+          "prompt": "केही बेर हिँडेपछि, मलाई बिस्तारै भोक लाग्न थाल्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0194",
@@ -2721,7 +4072,14 @@
         "ていました"
       ],
       "pointId": "n4-g-98",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I practiced every day, and little by little, I started to understand Japanese."
+        },
+        "ne": {
+          "prompt": "मैले हरेक दिन अभ्यास गरें, र बिस्तारै जापानी भाषा बुझ्न थालें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0195",
@@ -2735,7 +4093,14 @@
         "てあげ"
       ],
       "pointId": "n4-g-99",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I want to try eating ramen at the new shop that opened in front of the station."
+        },
+        "ne": {
+          "prompt": "स्टेशन अगाडि भर्खरै खुलेको पसलमा रामेन खाएर हेर्न चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0196",
@@ -2749,7 +4114,14 @@
         "てあげて"
       ],
       "pointId": "n4-g-99",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "For words you don't understand, before asking someone, please try looking them up in a dictionary yourself first."
+        },
+        "ne": {
+          "prompt": "नबुझेका शब्दहरू, कसैलाई सोध्नु अघि, पहिले आफैंले शब्दकोशमा हेरेर प्रयास गर्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0197",
@@ -2763,7 +4135,14 @@
         "でおきました"
       ],
       "pointId": "n4-g-100",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "On moving day, I had my friend help me carry my luggage."
+        },
+        "ne": {
+          "prompt": "घर सर्ने दिन, मैले साथीलाई सामान बोक्न लगाएको थिएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0198",
@@ -2777,7 +4156,14 @@
         "ておきました"
       ],
       "pointId": "n4-g-100",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I didn't know how to use it, so I had the store clerk explain it to me."
+        },
+        "ne": {
+          "prompt": "मलाई यसको प्रयोग गर्ने तरिका थाहा थिएन, त्यसैले मैले पसलको कर्मचारीलाई बुझाइदिन अनुरोध गरें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0199",
@@ -2791,7 +4177,14 @@
         "ていき"
       ],
       "pointId": "n4-g-101",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I will clean the room thoroughly before the guests arrive."
+        },
+        "ne": {
+          "prompt": "पाहुनाहरू आउनुअघि म कोठा राम्ररी सफा गरेर राख्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0200",
@@ -2805,7 +4198,14 @@
         "ていきます"
       ],
       "pointId": "n4-g-101",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I will buy train tickets before the trip."
+        },
+        "ne": {
+          "prompt": "यात्रा गर्नुअघि म रेलको टिकट किनेर राख्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0201",
@@ -2819,7 +4219,14 @@
         "ておきました"
       ],
       "pointId": "n4-g-102",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I realized it after returning home. I left my important umbrella on the train."
+        },
+        "ne": {
+          "prompt": "घर फर्किएपछि मात्र थाहा भयो। मैले मेरो महत्त्वपूर्ण छाता रेलमा बिर्सिएछु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0202",
@@ -2833,7 +4240,14 @@
         "ていました"
       ],
       "pointId": "n4-g-102",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I have already finished all of today's homework."
+        },
+        "ne": {
+          "prompt": "आजको गृहकार्य मैले पहिले नै सबै गरिसकें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0203",
@@ -2847,7 +4261,14 @@
         "てください"
       ],
       "pointId": "n4-g-103",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I apologize for being late for our appointment."
+        },
+        "ne": {
+          "prompt": "तोकिएको समयमा ढिलो भएकोमा म माफी चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0204",
@@ -2861,7 +4282,14 @@
         "てさびしいです"
       ],
       "pointId": "n4-g-103",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I apologize for calling you late at night, even though it's already time to sleep."
+        },
+        "ne": {
+          "prompt": "सुत्ने समय भइसक्दा पनि राति अबेर फोन गरेकोमा म माफी चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0205",
@@ -2875,7 +4303,14 @@
         "ていきました"
       ],
       "pointId": "n4-g-104",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I taught my younger brother how to ride a bicycle."
+        },
+        "ne": {
+          "prompt": "मैले मेरो भाइलाई साइकल चलाउन सिकाएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0206",
@@ -2889,7 +4324,14 @@
         "ておきました"
       ],
       "pointId": "n4-g-104",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Every morning, I took my dog for a walk to the park."
+        },
+        "ne": {
+          "prompt": "म हरेक बिहान मेरो कुकुरलाई पार्कसम्म घुमाउन लैजान्थें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0207",
@@ -2903,7 +4345,14 @@
         "てこまる"
       ],
       "pointId": "n4-g-105",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It was good to see you today."
+        },
+        "ne": {
+          "prompt": "आज तपाईँलाई भेट्न पाउँदा खुसी लाग्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0208",
@@ -2917,7 +4366,14 @@
         "てこまる"
       ],
       "pointId": "n4-g-105",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's a good thing I brought an umbrella. It suddenly started raining."
+        },
+        "ne": {
+          "prompt": "छाता ल्याएको राम्रो भयो। अचानक पानी पर्न थाल्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0209",
@@ -2931,7 +4387,14 @@
         "ていたところ"
       ],
       "pointId": "n4-g-106",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I am currently making dinner for my family. It will be ready soon."
+        },
+        "ne": {
+          "prompt": "अहिले म परिवारको लागि बेलुकाको खाना बनाउँदै छु। चाँडै तयार हुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0210",
@@ -2945,7 +4408,14 @@
         "ていたところ"
       ],
       "pointId": "n4-g-106",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Hello, excuse me, I am currently looking up meeting materials and haven't finished yet."
+        },
+        "ne": {
+          "prompt": "हेलो, माफ गर्नुहोस्, म अहिले बैठकको सामग्रीहरू हेर्दै छु र अझै सकिएको छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0211",
@@ -2959,7 +4429,14 @@
         "て"
       ],
       "pointId": "n4-g-107",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Even if it rains tomorrow, the game will definitely be held."
+        },
+        "ne": {
+          "prompt": "भोलि पानी परे पनि खेल पक्कै हुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0212",
@@ -2973,7 +4450,14 @@
         "かった"
       ],
       "pointId": "n4-g-107",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "No matter how difficult the problem is, I will not give up until the end."
+        },
+        "ne": {
+          "prompt": "समस्या जतिसुकै गाह्रो भए पनि, म अन्तिमसम्म हार मान्ने छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0213",
@@ -2987,7 +4471,14 @@
         "ても"
       ],
       "pointId": "n5-g-6",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you press this red button, you can get a ticket anytime."
+        },
+        "ne": {
+          "prompt": "यो रातो बटन थिच्नुभयो भने, जुनसुकै बेला पनि टिकट निस्कन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0214",
@@ -3001,7 +4492,14 @@
         "ても"
       ],
       "pointId": "n5-g-45",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "When autumn comes, the leaves of the trees turn red."
+        },
+        "ne": {
+          "prompt": "शरद ऋतु आउँदा, रूखका पातहरू राता हुन्छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0215",
@@ -3015,7 +4513,14 @@
         "とは言（い）えない"
       ],
       "pointId": "n4-g-109",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He can cure any illness. It wouldn't be an exaggeration to say he's the best doctor in this town."
+        },
+        "ne": {
+          "prompt": "उसले जुनसुकै रोग पनि निको पार्न सक्छ। यो सहरको सबैभन्दा राम्रो डाक्टर हो भन्नु पनि अतिशयोक्ति नहोला।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0216",
@@ -3029,7 +4534,14 @@
         "とは言（い）えない"
       ],
       "pointId": "n4-g-109",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "No matter how many times I watch this movie, it always moves me. It wouldn't be an exaggeration to say it's the best work of the year."
+        },
+        "ne": {
+          "prompt": "यो चलचित्र जति पटक हेरे पनि भावुक बनाउँछ। यो वर्षको उत्कृष्ट कृति हो भन्नु पनि अतिशयोक्ति नहोला।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0217",
@@ -3043,7 +4555,14 @@
         "の"
       ],
       "pointId": "n4-g-110",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Have you ever eaten a food called 'takoyaki'?"
+        },
+        "ne": {
+          "prompt": "'ताकोयाकी' भन्ने खानेकुरा खानुभएको छ?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0218",
@@ -3057,7 +4576,14 @@
         "への"
       ],
       "pointId": "n4-g-110",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A person named A called me a little while ago."
+        },
+        "ne": {
+          "prompt": "अघि A भन्ने मान्छेबाट फोन आएको थियो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0219",
@@ -3071,7 +4597,14 @@
         "といっても"
       ],
       "pointId": "n4-g-111",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Everyone already knows that he isn't coming today."
+        },
+        "ne": {
+          "prompt": "ऊ आज नआउने कुरा सबैलाई थाहा भइसकेको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0220",
@@ -3085,7 +4618,14 @@
         "といっても"
       ],
       "pointId": "n4-g-111",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Being able to speak a foreign language is very convenient."
+        },
+        "ne": {
+          "prompt": "विदेशी भाषा बोल्न सक्नु धेरै सुविधाजनक हुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0221",
@@ -3099,7 +4639,14 @@
         "と言（い）わせています"
       ],
       "pointId": "n4-g-112",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It is said that this hot spring has been good for the body since ancient times."
+        },
+        "ne": {
+          "prompt": "यो तातो पानीको मुहान पुरानो समयदेखि नै शरीरको लागि राम्रो मानिन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0222",
@@ -3113,7 +4660,14 @@
         "と言（い）わせています"
       ],
       "pointId": "n4-g-112",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It is said that a god used to live on this mountain a long time ago."
+        },
+        "ne": {
+          "prompt": "यो पहाडमा पहिले भगवान बस्नुहुन्थ्यो भनिन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0223",
@@ -3127,7 +4681,14 @@
         "と聞（き）きたいです"
       ],
       "pointId": "n4-g-113",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I heard from Mr./Ms. A that there will be a big exam next week."
+        },
+        "ne": {
+          "prompt": "मैले A जीबाट अर्को हप्ता ठूलो परीक्षा छ भन्ने सुनेँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0224",
@@ -3141,7 +4702,14 @@
         "と聞（き）きたい"
       ],
       "pointId": "n4-g-113",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I heard that store is closed today."
+        },
+        "ne": {
+          "prompt": "मैले सुनेँ कि त्यो पसल आज बन्द छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0225",
@@ -3155,7 +4723,14 @@
         "と思（おも）いたいです"
       ],
       "pointId": "n4-g-114",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He is serious, so I'm sure he will keep his promise."
+        },
+        "ne": {
+          "prompt": "ऊ इमानदार छ, त्यसैले मलाई लाग्छ कि उसले पक्कै पनि आफ्नो वाचा पूरा गर्नेछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0226",
@@ -3169,7 +4744,14 @@
         "と思（おも）いたいです"
       ],
       "pointId": "n4-g-114",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I think this book is very useful for studying Japanese."
+        },
+        "ne": {
+          "prompt": "मलाई लाग्छ यो किताब जापानी भाषा सिक्नको लागि धेरै उपयोगी छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0227",
@@ -3183,7 +4765,14 @@
         "まで"
       ],
       "pointId": "n4-g-115",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "On Sundays, I enjoy myself by playing soccer or tennis, for example."
+        },
+        "ne": {
+          "prompt": "आइतबार, म फुटबल वा टेनिस जस्ता खेल खेलेर रमाइलो गर्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0228",
@@ -3197,7 +4786,14 @@
         "まで"
       ],
       "pointId": "n4-g-115",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Inside my bag, there are textbooks and notebooks, among other things."
+        },
+        "ne": {
+          "prompt": "झोलामा पाठ्यपुस्तक र नोटबुकहरू जस्ता सामानहरू छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0229",
@@ -3211,7 +4807,14 @@
         "出（で）かけていた"
       ],
       "pointId": "n4-g-116",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I am just about to leave right now."
+        },
+        "ne": {
+          "prompt": "म अहिले भर्खरै निस्कने तरखरमा छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0230",
@@ -3225,7 +4828,14 @@
         "電話（でんわ）しなかった"
       ],
       "pointId": "n3-g-179",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "You called me, didn't you? I was just about to call you too."
+        },
+        "ne": {
+          "prompt": "तपाईंले फोन गर्नुभयो, होइन? म पनि भर्खरै तपाईंलाई फोन गर्न लागेको थिएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0231",
@@ -3238,7 +4848,14 @@
         "走（はし）り終（お）わりました",
         "走（はし）り直（なお）しました"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "Yesterday, he kept running in the park for three hours."
+        },
+        "ne": {
+          "prompt": "हिजो, उसले पार्कमा तीन घण्टासम्म दौडिरह्यो।"
+        }
+      },
       "pointId": "n4-g-117"
     },
     {
@@ -3253,7 +4870,14 @@
         "過（す）ぎ"
       ],
       "pointId": "n4-g-117",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "For my dream, I want to continue to work hard from now on."
+        },
+        "ne": {
+          "prompt": "मेरो सपनाको लागि, म अब पनि निरन्तर मेहनत गरिरहन चाहन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0233",
@@ -3267,7 +4891,14 @@
         "ばかり"
       ],
       "pointId": "n4-g-118",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Mr./Ms. A is really a kind person, isn't he/she?"
+        },
+        "ne": {
+          "prompt": "A जी साँच्चै दयालु व्यक्ति हुनुहुन्छ, होइन र?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0234",
@@ -3281,7 +4912,14 @@
         "な"
       ],
       "pointId": "n4-g-118",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "B: 'It's going to rain tomorrow, they said on the weather forecast a little while ago.'"
+        },
+        "ne": {
+          "prompt": "B: 'भोलि पानी पर्छ रे। अघि मौसम पूर्वानुमानमा भन्दै थिए।'"
+        }
+      }
     },
     {
       "id": "N4-G-B-0235",
@@ -3294,7 +4932,14 @@
         "ほめさせました",
         "ほめさせられました"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "Yesterday, I was praised by my teacher in class."
+        },
+        "ne": {
+          "prompt": "हिजो, मलाई कक्षामा शिक्षकले प्रशंसा गर्नुभयो।"
+        }
+      },
       "pointId": "n4-g-119"
     },
     {
@@ -3308,7 +4953,14 @@
         "踏（ふ）ませました",
         "踏（ふ）ませられました"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "On the train, my foot was stepped on by a stranger."
+        },
+        "ne": {
+          "prompt": "रेलमा, मेरो खुट्टा एक अपरिचित व्यक्तिले कुल्चियो।"
+        }
+      },
       "pointId": "n4-g-119"
     },
     {
@@ -3322,7 +4974,14 @@
         "が",
         "も"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "I drink coffee, but I don't drink tea."
+        },
+        "ne": {
+          "prompt": "म कफी पिउँछु, तर चिया पिउँदिनँ।"
+        }
+      },
       "pointId": "n5-g-79"
     },
     {
@@ -3336,7 +4995,14 @@
         "から",
         "も"
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "prompt": "My older brother can speak Japanese, but he cannot speak Chinese."
+        },
+        "ne": {
+          "prompt": "मेरो दाइले जापानी बोल्न सक्नुहुन्छ, तर चिनियाँ बोल्न सक्नुहुन्न।"
+        }
+      },
       "pointId": "n5-g-79"
     },
     {
@@ -3351,7 +5017,14 @@
         "すぎる"
       ],
       "pointId": "n4-g-121",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This dictionary is popular with everyone because its explanations are easy to understand."
+        },
+        "ne": {
+          "prompt": "यो शब्दकोशको व्याख्या बुझ्न सजिलो भएकोले, यो सबैमाझ लोकप्रिय छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0240",
@@ -3365,7 +5038,14 @@
         "すぎる"
       ],
       "pointId": "n4-g-121",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Since the letters are large, this book is very easy to read."
+        },
+        "ne": {
+          "prompt": "अक्षरहरू ठूला भएकोले, यो किताब पढ्न धेरै सजिलो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0241",
@@ -3379,7 +5059,14 @@
         "もう"
       ],
       "pointId": "n4-g-122",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "After waiting for the bus for three hours, it finally arrived."
+        },
+        "ne": {
+          "prompt": "तीन घण्टा बस पर्खिएपछि, अन्ततः आयो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0242",
@@ -3393,7 +5080,14 @@
         "もう"
       ],
       "pointId": "n4-g-122",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "After continuing to study for a year, I was finally able to pass the exam."
+        },
+        "ne": {
+          "prompt": "एक वर्ष अध्ययन जारी राखेपछि, म अन्ततः परीक्षामा उत्तीर्ण हुन सकें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0243",
@@ -3407,7 +5101,14 @@
         "まで"
       ],
       "pointId": "n4-g-123",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Airplanes are much faster than trains."
+        },
+        "ne": {
+          "prompt": "हवाईजहाज रेलभन्दा धेरै छिटो हुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0244",
@@ -3421,7 +5122,14 @@
         "まで"
       ],
       "pointId": "n4-g-123",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I think this store is cheaper than that store."
+        },
+        "ne": {
+          "prompt": "मलाई लाग्छ यो पसल त्यो पसलभन्दा सस्तो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0245",
@@ -3435,7 +5143,14 @@
         "まま"
       ],
       "pointId": "n4-g-124",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A new store is scheduled to open in front of the station next week."
+        },
+        "ne": {
+          "prompt": "अर्को हप्ता स्टेशन अगाडि नयाँ पसल खुल्नेछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0246",
@@ -3449,7 +5164,14 @@
         "まま"
       ],
       "pointId": "n4-g-124",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The meeting is scheduled to start at 3 PM."
+        },
+        "ne": {
+          "prompt": "बैठक दिउँसो ३ बजे सुरु हुनेछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0247",
@@ -3463,7 +5185,14 @@
         "はずがない"
       ],
       "pointId": "n4-g-125",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The lights are off, so it seems no one is home."
+        },
+        "ne": {
+          "prompt": "बत्ती निभेको छ, त्यसैले घरमा कोही छैन जस्तो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0248",
@@ -3477,7 +5206,14 @@
         "はずがない"
       ],
       "pointId": "n4-g-125",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He looks pale. He seems a little tired."
+        },
+        "ne": {
+          "prompt": "उसको अनुहारको रंग खराब छ। ऊ अलि थकित जस्तो देखिन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0249",
@@ -3491,7 +5227,14 @@
         "のようで"
       ],
       "pointId": "n4-g-126",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He is kind to me, just like a real older brother."
+        },
+        "ne": {
+          "prompt": "उसले मलाई आफ्नै दाइले जस्तै माया गर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0250",
@@ -3505,7 +5248,14 @@
         "のようで"
       ],
       "pointId": "n4-g-126",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Her hands were like ice, very cold."
+        },
+        "ne": {
+          "prompt": "उनको हात बरफ जस्तै चिसो थियो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0251",
@@ -3519,7 +5269,14 @@
         "ことにし"
       ],
       "pointId": "n4-g-127",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I practiced every day and became able to ride a bicycle."
+        },
+        "ne": {
+          "prompt": "मैले हरेक दिन अभ्यास गरेँ र साइकल चलाउन सक्ने भएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0252",
@@ -3533,7 +5290,14 @@
         "ことにし"
       ],
       "pointId": "n4-g-127",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Since coming to Japan, I've become able to eat natto."
+        },
+        "ne": {
+          "prompt": "जापान आएदेखि, म नाट्टो खान सक्ने भएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0253",
@@ -3547,7 +5311,14 @@
         "ようにさせ"
       ],
       "pointId": "n4-g-128",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "For my health, I try to walk a little every morning."
+        },
+        "ne": {
+          "prompt": "स्वास्थ्यको लागि, म हरेक बिहान अलि हिँड्ने गर्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0254",
@@ -3561,7 +5332,14 @@
         "ようにさせ"
       ],
       "pointId": "n4-g-128",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I try not to be late for appointments."
+        },
+        "ne": {
+          "prompt": "म भेट्ने समयमा ढिलो नहुने प्रयास गर्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0255",
@@ -3575,7 +5353,14 @@
         "見（み）ている"
       ],
       "pointId": "n4-g-129",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I'm thinking of watching a new movie this coming holiday."
+        },
+        "ne": {
+          "prompt": "आउँदो बिदामा नयाँ फिल्म हेर्ने सोचमा छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0256",
@@ -3589,7 +5374,14 @@
         "勉強（べんきょう）している"
       ],
       "pointId": "n4-g-129",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I want to become good at Japanese, so I'm thinking of studying every day."
+        },
+        "ne": {
+          "prompt": "म जापानी भाषामा राम्रो हुन चाहन्छु, त्यसैले हरेक दिन पढ्ने सोचमा छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0257",
@@ -3603,7 +5395,14 @@
         "もし"
       ],
       "pointId": "n4-g-130",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Please do come visit my house sometime."
+        },
+        "ne": {
+          "prompt": "कृपया एकपटक मेरो घरमा आउनुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0258",
@@ -3617,7 +5416,14 @@
         "もし"
       ],
       "pointId": "n4-g-130",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Kyoto is a nice place, so please do try to visit it once."
+        },
+        "ne": {
+          "prompt": "क्योतो राम्रो ठाउँ हो, त्यसैले कृपया एकपटक गएर हेर्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0259",
@@ -3631,7 +5437,14 @@
         "もっと"
       ],
       "pointId": "n4-g-131",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This problem is difficult, and I don't understand it at all."
+        },
+        "ne": {
+          "prompt": "यो समस्या गाह्रो छ, र मलाई बिल्कुलै बुझिएन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0260",
@@ -3645,7 +5458,14 @@
         "もっと"
       ],
       "pointId": "n4-g-131",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I can't drink alcohol at all."
+        },
+        "ne": {
+          "prompt": "म बिल्कुलै रक्सी पिउन सक्दिनँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0261",
@@ -3659,7 +5479,14 @@
         "そう"
       ],
       "pointId": "n4-g-132",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This medicine is big and hard to swallow."
+        },
+        "ne": {
+          "prompt": "यो औषधि ठूलो छ र निल्न गाह्रो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0262",
@@ -3673,7 +5500,14 @@
         "そう"
       ],
       "pointId": "n4-g-132",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "These shoes are a bit small and hard to walk in."
+        },
+        "ne": {
+          "prompt": "यो जुत्ता अलि सानो छ र हिँड्न गाह्रो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0263",
@@ -3687,7 +5521,14 @@
         "と"
       ],
       "pointId": "n4-g-62",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"Did you go to that store?\" B: \"Yes. Everyone said it was delicious, but it wasn't very tasty.\""
+        },
+        "ne": {
+          "prompt": "A: \"त्यो पसलमा जानुभयो?\" B: \"गएँ। सबैले स्वादिष्ट छ भनेका थिए, तर त्यति स्वादिष्ट थिएन।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0264",
@@ -3701,7 +5542,14 @@
         "止（と）まっているなら"
       ],
       "pointId": "n5-g-58",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(On the phone) Excuse me, the train has stopped due to an accident, so I'll be a little late."
+        },
+        "ne": {
+          "prompt": "(फोनमा) माफ गर्नुहोस्, अहिले दुर्घटनाका कारण रेल रोकिएको छ, त्यसैले म अलि ढिलो हुनेछु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0265",
@@ -3715,7 +5563,14 @@
         "降（ふ）ると"
       ],
       "pointId": "n4-g-107",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"I hear it's going to rain tomorrow.\" B: \"Is that so? But even if it rains, the game will be held.\""
+        },
+        "ne": {
+          "prompt": "A: \"भोलि पानी पर्नेछ रे।\" B: \"हो र? तर पानी परे पनि खेल हुनेछ।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0266",
@@ -3729,7 +5584,14 @@
         "届（とど）いたり"
       ],
       "pointId": "n4-g-88",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(At a store) Customer: \"When will this arrive?\" Clerk: \"As soon as the item arrives, I'll call you right away.\""
+        },
+        "ne": {
+          "prompt": "(पसलमा) ग्राहक: \"यो कहिले आइपुग्छ?\" पसले: \"सामान आइपुग्ने बित्तिकै, म तुरुन्तै फोन गर्नेछु।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0267",
@@ -3743,7 +5605,14 @@
         "登（のぼ）るので"
       ],
       "pointId": "n4-g-54",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"I'm thinking of climbing a mountain this weekend.\" B: \"If you're going to climb a mountain, you should buy good shoes.\""
+        },
+        "ne": {
+          "prompt": "A: \"यो सप्ताहन्तमा पहाड चढ्ने सोचमा छु।\" B: \"पहाड चढ्ने हो भने, राम्रो जुत्ता किन्नु राम्रो हुन्छ।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0268",
@@ -3757,7 +5626,14 @@
         "飲（の）むのに"
       ],
       "pointId": "n4-g-108",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(At the company) The manager always reads the newspaper when he drinks coffee."
+        },
+        "ne": {
+          "prompt": "(कम्पनीमा) म्यानेजरले कफी पिउने बित्तिकै सधैं पत्रिका पढ्छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0269",
@@ -3771,7 +5647,14 @@
         "降（ふ）りよう"
       ],
       "pointId": "n4-g-82",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(Looking at the sky) A: \"Did you bring an umbrella?\" B: \"Yes. It looks like it's going to rain any moment.\""
+        },
+        "ne": {
+          "prompt": "(आकाश हेर्दै) A: \"छाता ल्याउनुभयो?\" B: \"हो। अहिले नै पानी पर्ने जस्तो छ।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0270",
@@ -3785,7 +5668,14 @@
         "やさしかった"
       ],
       "pointId": "n4-g-82",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"What kind of person is the new teacher?\" B: \"I haven't met them yet, but I hear they are very kind.\""
+        },
+        "ne": {
+          "prompt": "A: \"नयाँ शिक्षक कस्तो हुनुहुन्छ?\" B: \"मैले अझै भेटेको छैन, तर उहाँ धेरै दयालु हुनुहुन्छ रे।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0271",
@@ -3799,7 +5689,14 @@
         "のはず"
       ],
       "pointId": "n4-g-125",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(In the park) Wow, these flowers are just like snow, aren't they? They're so white and beautiful."
+        },
+        "ne": {
+          "prompt": "(पार्कमा) वाउ, यी फूलहरू हिउँ जस्तै छन्, होइन र? धेरै सेतो र सुन्दर छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0272",
@@ -3813,7 +5710,14 @@
         "だけの"
       ],
       "pointId": "n4-g-70",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(Outside) A: \"It's warm and the flowers are blooming, aren't they?\" B: \"Yes, it's March and today's weather is very spring-like.\""
+        },
+        "ne": {
+          "prompt": "(बाहिर) A: \"न्यानो छ र फूलहरू पनि फुलेका छन्, होइन र?\" B: \"हो, मार्च महिना लागेको छ र आजको मौसम धेरै वसन्त जस्तो छ।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0273",
@@ -3827,7 +5731,14 @@
         "作（つく）ると"
       ],
       "pointId": "n3-g-118",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I came to the office earlier than usual this morning to prepare important documents."
+        },
+        "ne": {
+          "prompt": "महत्त्वपूर्ण कागजातहरू बनाउनको लागि, आज बिहान म सधैं भन्दा चाँडो कम्पनीमा आएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0274",
@@ -3841,7 +5752,14 @@
         "話（はな）せるなら"
       ],
       "pointId": "n3-g-176",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"Why do you listen to Japanese songs every day?\" B: \"I listen to them so that I can speak Japanese well.\""
+        },
+        "ne": {
+          "prompt": "A: \"तपाईं किन हरेक दिन जापानी गीतहरू सुन्नुहुन्छ?\" B: \"जापानी राम्रोसँग बोल्न सकूँ भनेर सुन्छु।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0275",
@@ -3855,7 +5773,14 @@
         "来（く）るそう"
       ],
       "pointId": "n4-g-19",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"It's already time, but they still haven't arrived, have they?\" B: \"That's strange. They promised to meet at 10, so they should be here by now.\""
+        },
+        "ne": {
+          "prompt": "A: \"समय भइसक्यो, तर अझै आएनन् नि?\" B: \"अचम्मको कुरा हो। १० बजे भेट्ने वाचा गरेकाले, उनीहरू आउनुपर्ने हो।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0276",
@@ -3869,7 +5794,14 @@
         "するそう"
       ],
       "pointId": "n5-g-78",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"What will you do during summer vacation?\" B: \"I plan to go back to my home country and relax with my family.\""
+        },
+        "ne": {
+          "prompt": "A: \"गर्मी बिदामा के गर्नुहुन्छ?\" B: \"म देश फर्केर परिवारसँग आराम गर्ने विचारमा छु।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0277",
@@ -3883,7 +5815,14 @@
         "つもりです"
       ],
       "pointId": "n4-g-29",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"Will that person also come to tomorrow's meeting?\" B: \"I'm not entirely sure, but they might not come. They said they were busy.\""
+        },
+        "ne": {
+          "prompt": "A: \"भोलिको सभामा त्यो मान्छे पनि आउँछन्?\" B: \"मलाई ठ्याक्कै थाहा छैन, तर नआउन पनि सक्छन्। उनी व्यस्त छु भन्दै थिए।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0278",
@@ -3897,7 +5836,14 @@
         "ある"
       ],
       "pointId": "n4-g-92",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"It's your sister's birthday, isn't it?\" B: \"Yes, I'm planning to make her a cake.\""
+        },
+        "ne": {
+          "prompt": "A: \"तपाईंको बहिनीको जन्मदिन हो नि?\" B: \"हो, म उनलाई केक बनाइदिने विचारमा छु।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0279",
@@ -3911,7 +5857,14 @@
         "ほしい"
       ],
       "pointId": "n4-g-97",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"That dictionary is nice, isn't it?\" B: \"Yes, my father bought it for me for my birthday.\""
+        },
+        "ne": {
+          "prompt": "A: \"त्यो शब्दकोश राम्रो छ नि?\" B: \"हो, बुबाले मलाई जन्मदिनमा किनिदिनुभएको हो।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0280",
@@ -3925,7 +5878,14 @@
         "みた"
       ],
       "pointId": "n4-g-100",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"Your Japanese essay is very good, isn't it?\" B: \"My teacher corrected my mistakes.\""
+        },
+        "ne": {
+          "prompt": "A: \"तपाईंको जापानी निबन्ध राम्रो छ नि?\" B: \"शिक्षकले मेरो गल्तीहरू सच्याइदिनुभएको हो।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0281",
@@ -3939,7 +5899,14 @@
         "ぬすみたくて"
       ],
       "pointId": "n4-g-119",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(On the train) Someone stole my important documents, and I'm in a lot of trouble."
+        },
+        "ne": {
+          "prompt": "(रेलमा) कसैले मेरो महत्त्वपूर्ण कागजातहरू चोरेर मलाई धेरै समस्या भएको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0282",
@@ -3953,7 +5920,14 @@
         "手伝（てつだ）わされましょう"
       ],
       "pointId": "n4-g-74",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(At the office) This job is busy, so let's have the younger employees help out."
+        },
+        "ne": {
+          "prompt": "(कम्पनीमा) यो काम व्यस्त छ, त्यसैले युवा कर्मचारीहरूलाई सहयोग गर्न लगाऔं।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0283",
@@ -3967,7 +5941,14 @@
         "飲（の）んだ"
       ],
       "pointId": "n4-g-73",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"How was the party last night?\" B: \"I was tired. My friends made me drink a lot of alcohol.\""
+        },
+        "ne": {
+          "prompt": "A: \"हिजो रातीको पार्टी कस्तो थियो?\" B: \"म थाकेको थिएँ। साथीहरूले मलाई धेरै रक्सी पिउन लगाए।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0284",
@@ -3981,7 +5962,14 @@
         "読（よ）ませられる"
       ],
       "pointId": "n4-g-69",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"How are your new glasses?\" B: \"They're very good. I can read even small letters well now.\""
+        },
+        "ne": {
+          "prompt": "A: \"तपाईंको नयाँ चश्मा कस्तो छ?\" B: \"धेरै राम्रो छ। साना अक्षरहरू पनि राम्रोसँग पढ्न सक्ने भएको छु।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0285",
@@ -3995,7 +5983,14 @@
         "ところが"
       ],
       "pointId": "n5-g-66",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"Have you ever cooked Japanese food yourself?\" B: \"Yes, only once.\""
+        },
+        "ne": {
+          "prompt": "A: \"तपाईंले आफैं जापानी खाना बनाएको अनुभव छ?\" B: \"छ, एक पटक मात्र छ।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0286",
@@ -4009,7 +6004,14 @@
         "つもりに"
       ],
       "pointId": "n4-g-38",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"You look well, don't you?\" B: \"Yes. Actually, I've decided to move to a quiet countryside next month.\""
+        },
+        "ne": {
+          "prompt": "A: \"तपाईं स्वस्थ देखिनुहुन्छ नि?\" B: \"हो। वास्तवमा, मैले अर्को महिना शान्त ग्रामीण इलाकामा सर्ने निर्णय गरेको छु।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0287",
@@ -4023,7 +6025,14 @@
         "つもりに"
       ],
       "pointId": "n4-g-37",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(At the office) As a result of the discussion at the meeting, it has been decided that salaries will increase from next month."
+        },
+        "ne": {
+          "prompt": "(कम्पनीमा) बैठकमा छलफलको नतिजा स्वरूप, अर्को महिनादेखि तलब बढ्ने भएको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0288",
@@ -4037,7 +6046,14 @@
         "きて"
       ],
       "pointId": "n4-g-101",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(At home) Mother: \"I'm going out early tomorrow morning, so please prepare a bento tonight.\""
+        },
+        "ne": {
+          "prompt": "(घरमा) आमा: \"भोलि बिहान चाँडै बाहिर जानुपर्ने भएकाले, आज राती नै खाजा बनाइराख है।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0289",
@@ -4051,7 +6067,14 @@
         "あげ"
       ],
       "pointId": "n4-g-99",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"This tea is unusual, isn't it?\" B: \"Yes, it's a new taste. Would you like to try it once?\""
+        },
+        "ne": {
+          "prompt": "A: \"यो चिया अनौठो छ नि?\" B: \"हो, यो पहिलो पटकको स्वाद हो। एक पटक पिएर हेर्नुहुन्छ कि?\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0290",
@@ -4065,7 +6088,14 @@
         "なくしてみた"
       ],
       "pointId": "n4-g-102",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"You look pale. What happened?\" B: \"I haven't eaten anything since morning. And I lost my wallet.\""
+        },
+        "ne": {
+          "prompt": "A: \"तपाईंको अनुहारको रंग बिग्रिएको छ। के भयो?\" B: \"बिहानदेखि केही खाएको छैन। त्यसबाहेक, मैले आफ्नो पर्स हराएँ।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0291",
@@ -4079,7 +6109,14 @@
         "なら"
       ],
       "pointId": "n4-g-62",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A: \"How was the test?\" B: \"It was bad. Even though I studied so much, I couldn't do anything at all.\""
+        },
+        "ne": {
+          "prompt": "A: \"परीक्षा कस्तो थियो?\" B: \"खराब भयो। त्यति धेरै पढेको भए पनि, मैले केही पनि गर्न सकिनँ।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0292",
@@ -4093,7 +6130,14 @@
         "はずだった"
       ],
       "pointId": "n4-g-125",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "(In front of the house) The neighbor's lights are off, and there's no car. It seems they've gone out."
+        },
+        "ne": {
+          "prompt": "(घरको अगाडि) छिमेकीको बत्ती पनि निभेको छ, गाडी पनि छैन। सायद बाहिर गएका छन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0293",
@@ -4107,7 +6151,14 @@
         "飲（の）んではいけない"
       ],
       "pointId": "n5-g-40",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I have a high fever and feel terrible, so I need to take medicine."
+        },
+        "ne": {
+          "prompt": "ज्वरो धेरै आएर गाह्रो भएकोले, औषधि खानुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0294",
@@ -4121,7 +6172,14 @@
         "起（お）きてはいけない"
       ],
       "pointId": "n5-g-40",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I have an important exam tomorrow, so I need to wake up early in the morning."
+        },
+        "ne": {
+          "prompt": "भोलि महत्त्वपूर्ण परीक्षा छ, त्यसैले बिहान चाँडै उठ्नुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0295",
@@ -4135,7 +6193,14 @@
         "つまり"
       ],
       "pointId": "n3-g-18",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This dish is very delicious. However, it's a shame that the price is high."
+        },
+        "ne": {
+          "prompt": "यो खाना धेरै स्वादिष्ट छ। तर, मूल्य महँगो हुनु दुःखको कुरा हो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0296",
@@ -4149,7 +6214,14 @@
         "つまり"
       ],
       "pointId": "n3-g-18",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I want to go home early. However, my work isn't finished."
+        },
+        "ne": {
+          "prompt": "म चाँडै घर जान चाहन्छु। तर, काम सकिएको छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0297",
@@ -4163,7 +6235,14 @@
         "こともない"
       ],
       "pointId": "n3-g-50",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "At our school, we are supposed to wear uniforms."
+        },
+        "ne": {
+          "prompt": "हाम्रो विद्यालयमा, पोशाक लगाउनुपर्ने नियम छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0298",
@@ -4177,7 +6256,14 @@
         "こともない"
       ],
       "pointId": "n3-g-50",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "A meeting is scheduled for next Monday."
+        },
+        "ne": {
+          "prompt": "अर्को सोमबार बैठक बस्ने भएको छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0299",
@@ -4191,7 +6277,14 @@
         "おき"
       ],
       "pointId": "n3-g-53",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It takes about five minutes to walk from here to the station."
+        },
+        "ne": {
+          "prompt": "यहाँबाट स्टेशनसम्म हिँडेर करिब पाँच मिनेट लाग्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0300",
@@ -4205,7 +6298,14 @@
         "が慣（な）れた"
       ],
       "pointId": "n4-g-79",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's been three years since I came to Japan, and I've finally gotten used to life here."
+        },
+        "ne": {
+          "prompt": "जापान आएको तीन वर्ष भयो, बल्ल यहाँको जीवनमा बानी परेँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0301",
@@ -4219,7 +6319,14 @@
         "が慣（な）れた"
       ],
       "pointId": "n4-g-79",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I drive every day, so I'm already used to this road."
+        },
+        "ne": {
+          "prompt": "म हरेक दिन गाडी चलाउँछु, त्यसैले मलाई यो बाटोको बानी परिसक्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0302",
@@ -4233,7 +6340,14 @@
         "まま"
       ],
       "pointId": "n3-g-118",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "He works two jobs to support his family."
+        },
+        "ne": {
+          "prompt": "परिवार पाल्नको लागि, उसले दुईवटा काम गर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0303",
@@ -4247,7 +6361,14 @@
         "かわりに"
       ],
       "pointId": "n3-g-118",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I run every morning for my health."
+        },
+        "ne": {
+          "prompt": "म आफ्नो स्वास्थ्यको लागि हरेक बिहान दौडिन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0304",
@@ -4261,7 +6382,14 @@
         "ては困（こま）る"
       ],
       "pointId": "n3-g-134",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you're tired, you can go home first."
+        },
+        "ne": {
+          "prompt": "यदि तपाईं थकित हुनुहुन्छ भने, तपाईं पहिले घर जान सक्नुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0305",
@@ -4275,7 +6403,14 @@
         "ては困（こま）る"
       ],
       "pointId": "n3-g-134",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This seat is empty, so you can sit here."
+        },
+        "ne": {
+          "prompt": "यो सिट खाली छ, त्यसैले तपाईं बस्न सक्नुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0306",
@@ -4289,7 +6424,14 @@
         "けど"
       ],
       "pointId": "n3-g-137",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I hope the weather is good for tomorrow's excursion."
+        },
+        "ne": {
+          "prompt": "भोलिको भ्रमणको लागि मौसम राम्रो होस् भन्ने आशा गर्दछु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0307",
@@ -4303,7 +6445,14 @@
         "てもむだだ"
       ],
       "pointId": "n3-g-137",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you get lost, you should ask a station attendant."
+        },
+        "ne": {
+          "prompt": "यदि तपाईं हराउनुभयो भने, तपाईंले स्टेशनका कर्मचारीलाई सोध्नुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0308",
@@ -4317,7 +6466,14 @@
         "つもりはない"
       ],
       "pointId": "n3-g-158",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I intended to go to bed early, but I stayed up late watching an interesting TV program."
+        },
+        "ne": {
+          "prompt": "म चाँडै सुत्ने विचारमा थिएँ, तर एउटा रोचक कार्यक्रम हेर्दा राति अबेरसम्म बसें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0309",
@@ -4331,7 +6487,14 @@
         "つもりはない"
       ],
       "pointId": "n3-g-158",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I intended to help, but I suddenly had an errand and couldn't go."
+        },
+        "ne": {
+          "prompt": "म मद्दत गर्ने विचारमा थिएँ, तर अचानक काम परेकाले जान सकिनँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0310",
@@ -4345,7 +6508,14 @@
         "だけ"
       ],
       "pointId": "n3-g-173",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Today is much warmer than yesterday."
+        },
+        "ne": {
+          "prompt": "आज हिजोभन्दा धेरै न्यानो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0311",
@@ -4359,7 +6529,14 @@
         "だけ"
       ],
       "pointId": "n3-g-173",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's close, so it's faster to walk than to go by train."
+        },
+        "ne": {
+          "prompt": "नजिकै भएकाले, ट्रेनमा जानुभन्दा हिँड्नु छिटो हुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0312",
@@ -4373,7 +6550,14 @@
         "ておくところ"
       ],
       "pointId": "n4-g-106",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "\"What are you doing?\" \"I'm currently preparing the materials.\""
+        },
+        "ne": {
+          "prompt": "\"के गर्दै हुनुहुन्छ?\" \"अहिले म सामग्रीहरू तयार गर्दैछु।\""
+        }
+      }
     },
     {
       "id": "N4-G-B-0313",
@@ -4387,7 +6571,14 @@
         "ございます"
       ],
       "pointId": "n4-g-23",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The president is currently in the meeting room."
+        },
+        "ne": {
+          "prompt": "अध्यक्ष अहिले बैठक कोठामा हुनुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0314",
@@ -4401,7 +6592,14 @@
         "ながら"
       ],
       "pointId": "n4-g-25",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Let's all go on a trip together!"
+        },
+        "ne": {
+          "prompt": "हामी सबै मिलेर यात्रामा जाऔं न!"
+        }
+      }
     },
     {
       "id": "N4-G-B-0315",
@@ -4415,7 +6613,14 @@
         "まだ"
       ],
       "pointId": "n4-g-72",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My friend called me a little while ago."
+        },
+        "ne": {
+          "prompt": "अघि साथीबाट फोन आएको थियो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0316",
@@ -4429,7 +6634,14 @@
         "しました"
       ],
       "pointId": "n4-g-74",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The teacher makes the students do their homework."
+        },
+        "ne": {
+          "prompt": "शिक्षकले विद्यार्थीहरूलाई गृहकार्य गर्न लगाउनुहुन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0317",
@@ -4443,7 +6655,14 @@
         "まえ"
       ],
       "pointId": "n4-g-1",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I read a book while waiting for the train."
+        },
+        "ne": {
+          "prompt": "ट्रेन पर्खिरहेको बेला, म किताब पढ्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0318",
@@ -4457,7 +6676,14 @@
         "たいへん"
       ],
       "pointId": "n3-g-2",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The bread at this shop is not very tasty."
+        },
+        "ne": {
+          "prompt": "यो पसलको रोटी खासै स्वादिष्ट छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0319",
@@ -4471,7 +6697,14 @@
         "飲（の）んでば"
       ],
       "pointId": "n4-g-5",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you take this medicine, you will get well."
+        },
+        "ne": {
+          "prompt": "यो औषधि खाएमा, तपाईं निको हुनुहुनेछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0320",
@@ -4485,7 +6718,14 @@
         "結果（けっか）"
       ],
       "pointId": "n4-g-6",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "If you want to cancel your reservation, please contact us by the day before."
+        },
+        "ne": {
+          "prompt": "यदि तपाईंले आरक्षण रद्द गर्न चाहनुहुन्छ भने, अघिल्लो दिनसम्म सम्पर्क गर्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0321",
@@ -4499,7 +6739,14 @@
         "と"
       ],
       "pointId": "n4-g-11",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "You look tired. Would you like some coffee or something?"
+        },
+        "ne": {
+          "prompt": "थकित हुनुहुन्छ। कफी वा केही पिउनुहुन्छ कि?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0322",
@@ -4513,7 +6760,14 @@
         "ではないため"
       ],
       "pointId": "n4-g-12",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Isn't that your friend over there?"
+        },
+        "ne": {
+          "prompt": "त्यहाँ भएको व्यक्ति तपाईंको साथी होइन र?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0323",
@@ -4527,7 +6781,14 @@
         "はずに"
       ],
       "pointId": "n4-g-19",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The light is on, so someone must be in the room."
+        },
+        "ne": {
+          "prompt": "बत्ती बलेको छ, त्यसैले कोठामा कोही हुनुपर्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0324",
@@ -4541,7 +6802,14 @@
         "行（い）けよう"
       ],
       "pointId": "n4-g-22",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The weather is good, so let's go to the park."
+        },
+        "ne": {
+          "prompt": "मौसम राम्रो छ, त्यसैले पार्कमा जाऔं।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0325",
@@ -4555,7 +6823,14 @@
         "予定（よてい）"
       ],
       "pointId": "n4-g-33",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I used to live in this town when I was a child."
+        },
+        "ne": {
+          "prompt": "बाल्यकालमा, म यो सहरमा बस्थेँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0326",
@@ -4569,7 +6844,14 @@
         "ままになりました"
       ],
       "pointId": "n4-g-37",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I've been transferred to Osaka next month."
+        },
+        "ne": {
+          "prompt": "अर्को महिना ओसाका सरुवा हुने भयो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0327",
@@ -4583,7 +6865,14 @@
         "ところにしました"
       ],
       "pointId": "n4-g-38",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I've decided to run every morning for my health."
+        },
+        "ne": {
+          "prompt": "मैले आफ्नो स्वास्थ्यको लागि हरेक बिहान दौडने निर्णय गरेको छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0329",
@@ -4597,7 +6886,14 @@
         "ので"
       ],
       "pointId": "n4-g-48",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It's dangerous, so don't swim in that river."
+        },
+        "ne": {
+          "prompt": "खतरनाक छ, त्यसैले त्यो नदीमा नपौडिनु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0330",
@@ -4611,7 +6907,14 @@
         "急（きゅう）に"
       ],
       "pointId": "n3-g-67",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This problem is difficult, and I can't seem to find the answer."
+        },
+        "ne": {
+          "prompt": "यो समस्या गाह्रो छ, र यसको उत्तर पाउन सकिरहेको छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0331",
@@ -4625,7 +6928,14 @@
         "で気（き）がついた"
       ],
       "pointId": "n4-g-57",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "After leaving the house, I realized I had forgotten my wallet."
+        },
+        "ne": {
+          "prompt": "घरबाट निस्केपछि, मैले आफ्नो पर्स बिर्सेको कुरा थाहा पाएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0332",
@@ -4639,7 +6949,14 @@
         "でします"
       ],
       "pointId": "n4-g-59",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "At the restaurant, I'll have the curry."
+        },
+        "ne": {
+          "prompt": "रेस्टुरेन्टमा, म करी लिन्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0333",
@@ -4653,7 +6970,14 @@
         "のを"
       ],
       "pointId": "n4-g-63",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This tool is used for opening cans."
+        },
+        "ne": {
+          "prompt": "यो औजार क्यान खोल्न प्रयोग गरिन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0334",
@@ -4667,7 +6991,14 @@
         "のに"
       ],
       "pointId": "n4-g-64",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This small town is where I was born."
+        },
+        "ne": {
+          "prompt": "म जन्मेको ठाउँ यही सानो सहर हो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0335",
@@ -4681,7 +7012,14 @@
         "お書（か）きしてください"
       ],
       "pointId": "n4-g-65",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Please write your name on this paper at the reception desk."
+        },
+        "ne": {
+          "prompt": "कृपया रिसेप्सनमा यो कागजमा आफ्नो नाम लेख्नुहोस्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0336",
@@ -4695,7 +7033,14 @@
         "お読（よ）むになりました"
       ],
       "pointId": "n4-g-66",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The teacher has already read the newspaper."
+        },
+        "ne": {
+          "prompt": "शिक्षकले पहिले नै पत्रिका पढिसक्नुभयो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0337",
@@ -4709,7 +7054,14 @@
         "書（か）き終（お）わるました"
       ],
       "pointId": "n4-g-68",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I finally finished writing the report."
+        },
+        "ne": {
+          "prompt": "मैले अन्ततः रिपोर्ट लेख्न सिध्याएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0338",
@@ -4723,7 +7075,14 @@
         "長（なが）み"
       ],
       "pointId": "n4-g-71",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This bridge is 2,000 meters long."
+        },
+        "ne": {
+          "prompt": "यो पुल दुई हजार मिटर लामो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0339",
@@ -4737,7 +7096,14 @@
         "しました"
       ],
       "pointId": "n4-g-73",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "When I was a child, my mother made me practice the piano every day."
+        },
+        "ne": {
+          "prompt": "बच्चा छँदा, मेरी आमाले मलाई हरेक दिन पियानो अभ्यास गर्न लगाउनुहुन्थ्यो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0340",
@@ -4751,7 +7117,14 @@
         "で"
       ],
       "pointId": "n4-g-77",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This shop has cheap prices and good taste."
+        },
+        "ne": {
+          "prompt": "यो पसलको मूल्य पनि सस्तो छ र स्वाद पनि राम्रो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0341",
@@ -4765,7 +7138,14 @@
         "みたい"
       ],
       "pointId": "n4-g-82",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This cake looks very delicious."
+        },
+        "ne": {
+          "prompt": "यो केक धेरै स्वादिष्ट देखिन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0342",
@@ -4779,7 +7159,14 @@
         "ています"
       ],
       "pointId": "n4-g-87",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My younger sister always wants to go shopping alone."
+        },
+        "ne": {
+          "prompt": "मेरी बहिनी सधैँ एक्लै किनमेल गर्न जान चाहन्छिन्।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0343",
@@ -4793,7 +7180,14 @@
         "ながら"
       ],
       "pointId": "n4-g-91",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Yesterday, I caught a cold and took a day off from school."
+        },
+        "ne": {
+          "prompt": "हिजो मलाई रुघा लागेर स्कुल गइनँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0344",
@@ -4807,7 +7201,14 @@
         "ておきました"
       ],
       "pointId": "n4-g-92",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My friend was lost and didn't know the way, so I taught them how to take the subway."
+        },
+        "ne": {
+          "prompt": "बाटो थाहा नभएर अलमलमा परेको साथीलाई मैले सबवे चढ्ने तरिका सिकाइदिएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0345",
@@ -4821,7 +7222,14 @@
         "ておきました"
       ],
       "pointId": "n4-g-100",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "My luggage was heavy, so I had my friend carry it to the station for me."
+        },
+        "ne": {
+          "prompt": "मेरो सामान भारी भएकोले, मैले साथीलाई स्टेशनसम्म पुर्याउन लगाए।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0346",
@@ -4835,7 +7243,14 @@
         "ています"
       ],
       "pointId": "n4-g-101",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I will buy tickets before the trip."
+        },
+        "ne": {
+          "prompt": "यात्रा गर्नुअघि, म टिकट किन्नेछु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0348",
@@ -4849,7 +7264,14 @@
         "と話（はな）します"
       ],
       "pointId": "n4-g-112",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "It is said that this temple was built a thousand years ago."
+        },
+        "ne": {
+          "prompt": "यो मन्दिर हजार वर्ष पहिले बनाइएको भनिन्छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0349",
@@ -4863,7 +7285,14 @@
         "と決（き）めます"
       ],
       "pointId": "n4-g-114",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I think he will surely come tomorrow because the weather will be good."
+        },
+        "ne": {
+          "prompt": "भोलि मौसम राम्रो हुने भएकोले, मलाई लाग्छ ऊ पक्कै आउनेछ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0350",
@@ -4877,7 +7306,14 @@
         "ずつ"
       ],
       "pointId": "n4-g-115",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "On my days off, I do various things like cleaning and laundry."
+        },
+        "ne": {
+          "prompt": "बिदाको दिनमा, म सरसफाइ र लुगा धुने जस्ता विभिन्न काम गर्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0351",
@@ -4891,7 +7327,14 @@
         "もの"
       ],
       "pointId": "n4-g-116",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "Look! The train is just about to depart from the station now."
+        },
+        "ne": {
+          "prompt": "हेर्नुहोस्! रेल भर्खरै स्टेशनबाट छुट्ने तरखरमा छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0352",
@@ -4905,7 +7348,14 @@
         "出（だ）しました"
       ],
       "pointId": "n4-g-117",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The marathon runner kept running for three hours."
+        },
+        "ne": {
+          "prompt": "म्याराथन धावक तीन घण्टासम्म दौडिरहे।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0353",
@@ -4919,7 +7369,14 @@
         "ほめたがりました"
       ],
       "pointId": "n4-g-119",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I got a good score on the test, so my mother praised me."
+        },
+        "ne": {
+          "prompt": "मैले परीक्षामा राम्रो अंक ल्याएकोले, मेरी आमाले मलाई प्रशंसा गर्नुभयो।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0354",
@@ -4933,7 +7390,14 @@
         "で"
       ],
       "pointId": "n5-g-79",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "The coffee at this shop is delicious, but the food is bad."
+        },
+        "ne": {
+          "prompt": "यो पसलको कफी स्वादिष्ट छ, तर खाना नराम्रो छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0355",
@@ -4947,7 +7411,14 @@
         "ところ"
       ],
       "pointId": "n4-g-124",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I have already bought the plane ticket. I plan to return to my home country on the 3rd of next month."
+        },
+        "ne": {
+          "prompt": "मैले हवाई टिकट किनिसकेँ। अर्को महिनाको ३ गते देश फर्किने योजना छ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0356",
@@ -4961,7 +7432,14 @@
         "ことにしました"
       ],
       "pointId": "n4-g-127",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I practiced every day, so I became able to ride a bicycle."
+        },
+        "ne": {
+          "prompt": "मैले हरेक दिन अभ्यास गरेँ, त्यसैले म साइकल चलाउन सक्ने भएँ।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0357",
@@ -4975,7 +7453,14 @@
         "ようがありません"
       ],
       "pointId": "n4-g-128",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "To avoid gaining weight, I try to use the stairs instead of the elevator."
+        },
+        "ne": {
+          "prompt": "मोटो नहुनका लागि, म लिफ्ट प्रयोग नगरी सिँढी प्रयोग गर्ने प्रयास गर्छु।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0358",
@@ -4989,7 +7474,14 @@
         "帰（かえ）らない"
       ],
       "pointId": "n4-g-129",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I bought a plane ticket, thinking of returning to my home country during the summer vacation."
+        },
+        "ne": {
+          "prompt": "गर्मी बिदामा देश फर्किने सोचेर मैले हवाई टिकट किनें।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0359",
@@ -5003,7 +7495,14 @@
         "だんだん"
       ],
       "pointId": "n4-g-131",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This book is difficult, and I don't understand the meaning at all."
+        },
+        "ne": {
+          "prompt": "यो किताब गाह्रो छ, र मलाई यसको अर्थ पटक्कै बुझिएन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0360",
@@ -5017,7 +7516,14 @@
         "また"
       ],
       "pointId": "n4-g-120",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I like meat, but I dislike fish."
+        },
+        "ne": {
+          "prompt": "मलाई मासु मन पर्छ, तर माछा मन पर्दैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0361",
@@ -5031,7 +7537,14 @@
         "たいへん"
       ],
       "pointId": "n4-g-3",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "This shop is not very expensive."
+        },
+        "ne": {
+          "prompt": "यो पसल धेरै महँगो छैन।"
+        }
+      }
     },
     {
       "id": "N4-G-B-0362",
@@ -5045,7 +7558,14 @@
         "で"
       ],
       "pointId": "n4-g-47",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "What, 100 people came to the party?"
+        },
+        "ne": {
+          "prompt": "के, पार्टीमा सय जना मान्छे आए?"
+        }
+      }
     },
     {
       "id": "N4-G-B-0363",
@@ -5059,7 +7579,14 @@
         "だんだん"
       ],
       "pointId": "n4-g-51",
-      "i18n": {}
+      "i18n": {
+        "en": {
+          "prompt": "I'm waiting, but the bus just won't come."
+        },
+        "ne": {
+          "prompt": "म पर्खिरहेको छु, तर बस आउँदै आउँदैन।"
+        }
+      }
     }
   ]
 }

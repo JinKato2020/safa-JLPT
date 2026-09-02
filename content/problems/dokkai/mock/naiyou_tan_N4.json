@@ -1,2334 +1,2214 @@
 {
- "schema": 1,
- "daimon": "naiyou_tan",
- "level": "N4",
- "pool": "mock",
- "languages": [
-  "ja",
-  "ne",
-  "en"
- ],
- "source": "opus-authored-mock-2026-08-30",
- "items": [
-  {
-   "id": "N4-D-S-9001",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "図書館（としょかん）の開館（かいかん）時間",
-   "body": "今月から図書館（としょかん）の開館（かいかん）時間が変（か）わります。平日（へいじつ）は朝（あさ）九時から夜（よる）八時まで、土曜日（どようび）と日曜日（にちようび）は朝（あさ）十時から夕方（ゆうがた）五時までです。毎週（まいしゅう）月曜日（げつようび）は休みですので、気をつけてください。本を借（か）りるときは、入り口（いりぐち）の近（ちか）くのカウンターでカードを見せてください。返（かえ）す日は借（か）りた日から二週間（しゅうかん）後です。夏休（なつやす）みの間は子ども向（む）けの読み聞かせの会（かい）も開（ひら）きます。くわしくは図書館（としょかん）のホームページを見てください。",
-   "questions": [
+  "schema": 1,
+  "daimon": "naiyou_tan",
+  "level": "N4",
+  "pool": "mock",
+  "languages": [
+    "ja",
+    "ne",
+    "en"
+  ],
+  "source": "opus-authored-mock-2026-08-30",
+  "items": [
     {
-     "id": "N4-D-S-9001-q1",
-     "q": "図書館（としょかん）が休みなのはいつですか。",
-     "choices": [
-      "毎週（まいしゅう）の月曜日（げつようび）",
-      "毎週（まいしゅう）の土曜日（どようび）と日曜日（にちようび）",
-      "毎月の第一（だいいち）月曜日（げつようび）",
-      "夏休（なつやす）みの間だけ"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「毎週（まいしゅう）月曜日（げつようび）は休みですので」とある。"
-      },
-      "ne": {
-       "q": "पुस्तकालय कहिले बन्द हुन्छ?",
-       "choices": [
-        "हरेक सोमबार",
-        "हरेक शनिबार र आइतबार",
-        "हरेक महिनाको पहिलो सोमबार",
-        "गर्मी बिदाको समयमा मात्र"
-       ]
-      },
-      "en": {
-       "q": "When is the library closed?",
-       "choices": [
-        "Every Monday",
-        "Every Saturday and Sunday",
-        "The first Monday of every month",
-        "Only during summer vacation"
-       ]
+      "id": "N4-D-S-9001",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "図書館（としょかん）の開館（かいかん）時間",
+      "body": "今月から図書館（としょかん）の開館（かいかん）時間が変（か）わります。平日（へいじつ）は朝（あさ）九時から夜（よる）八時まで、土曜日（どようび）と日曜日（にちようび）は朝（あさ）十時から夕方（ゆうがた）五時までです。毎週（まいしゅう）月曜日（げつようび）は休みですので、気をつけてください。本を借（か）りるときは、入り口（いりぐち）の近（ちか）くのカウンターでカードを見せてください。返（かえ）す日は借（か）りた日から二週間（しゅうかん）後です。夏休（なつやす）みの間は子ども向（む）けの読み聞かせの会（かい）も開（ひら）きます。くわしくは図書館（としょかん）のホームページを見てください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9001-q1",
+          "q": "図書館（としょかん）が休みなのはいつですか。",
+          "choices": [
+            "毎週（まいしゅう）の月曜日（げつようび）",
+            "毎週（まいしゅう）の土曜日（どようび）と日曜日（にちようび）",
+            "毎月の第一（だいいち）月曜日（げつようび）",
+            "夏休（なつやす）みの間だけ"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पुस्तकालय कहिले बन्द हुन्छ?",
+              "choices": [
+                "हरेक सोमबार",
+                "हरेक शनिबार र आइतबार",
+                "हरेक महिनाको पहिलो सोमबार",
+                "गर्मी बिदाको समयमा मात्र"
+              ]
+            },
+            "en": {
+              "q": "When is the library closed?",
+              "choices": [
+                "Every Monday",
+                "Every Saturday and Sunday",
+                "The first Monday of every month",
+                "Only during summer vacation"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "यस महिनादेखि पुस्तकालय खुल्ने समय परिवर्तन भएको छ।\nसाताका दिनहरूमा बिहान नौ बजेदेखि राति आठ बजेसम्म, शनिबार र आइतबार बिहान दस बजेदेखि साँझ पाँच बजेसम्म खुल्नेछ।\nहरेक सोमबार बन्द हुने भएकोले कृपया ध्यान दिनुहोला।\nकिताब लिँदा, कृपया प्रवेशद्वार नजिकको काउन्टरमा आफ्नो कार्ड देखाउनुहोस्।\nफर्काउने मिति किताब लिएको दिनदेखि दुई हप्ता पछि हो।\nगर्मी बिदाको समयमा बालबालिकाका लागि कथा सुनाउने कार्यक्रम पनि आयोजना गरिनेछ।\nथप जानकारीका लागि कृपया पुस्तकालयको वेबसाइट हेर्नुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "The library's opening hours will change starting this month.\nOn weekdays, it will be open from 9 AM to 8 PM, and on Saturdays and Sundays, from 10 AM to 5 PM.\nPlease note that the library is closed every Monday.\nWhen borrowing books, please show your card at the counter near the entrance.\nThe return date is two weeks from the borrowing date.\nDuring summer vacation, we will also hold storytelling sessions for children.\nFor more details, please check the library's website."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "यस महिनादेखि पुस्तकालय खुल्ने समय परिवर्तन भएको छ।\nसाताका दिनहरूमा बिहान नौ बजेदेखि राति आठ बजेसम्म, शनिबार र आइतबार बिहान दस बजेदेखि साँझ पाँच बजेसम्म खुल्नेछ।\nहरेक सोमबार बन्द हुने भएकोले कृपया ध्यान दिनुहोला।\nकिताब लिँदा, कृपया प्रवेशद्वार नजिकको काउन्टरमा आफ्नो कार्ड देखाउनुहोस्।\nफर्काउने मिति किताब लिएको दिनदेखि दुई हप्ता पछि हो।\nगर्मी बिदाको समयमा बालबालिकाका लागि कथा सुनाउने कार्यक्रम पनि आयोजना गरिनेछ।\nथप जानकारीका लागि कृपया पुस्तकालयको वेबसाइट हेर्नुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "The library's opening hours will change starting this month.\nOn weekdays, it will be open from 9 AM to 8 PM, and on Saturdays and Sundays, from 10 AM to 5 PM.\nPlease note that the library is closed every Monday.\nWhen borrowing books, please show your card at the counter near the entrance.\nThe return date is two weeks from the borrowing date.\nDuring summer vacation, we will also hold storytelling sessions for children.\nFor more details, please check the library's website."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9002",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "ごみの出し方（だしかた）",
-   "body": "このマンションにお住（す）まいの皆（みな）さまへお願（ねが）いです。もえるごみは、火曜日（かようび）と金曜日（きんようび）の朝（あさ）八時までに一階（いっかい）のごみ置き場（おきば）に出してください。びんやかんなどのもえないごみは、水曜日（すいようび）だけです。前の日の夜（よる）に出すと、猫（ねこ）にごみを荒（あ）らされることがあります。ダンボールはひもでしばって、月末（げつまつ）の土曜日（どようび）に出してください。みんなで気持（きも）ちよく使（つか）えるように、ご協力（きょうりょく）をお願（ねが）いします。",
-   "questions": [
     {
-     "id": "N4-D-S-9002-q1",
-     "q": "もえないごみはいつ出しますか。",
-     "choices": [
-      "水曜日（すいようび）の朝（あさ）",
-      "火曜日（かようび）と金曜日（きんようび）の朝（あさ）",
-      "月末（げつまつ）の土曜日（どようび）",
-      "前の日の夜（よる）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「もえないごみは、水曜日（すいようび）だけです」とある。"
-      },
-      "ne": {
-       "q": "नजल्ने फोहोर कहिले राख्ने?",
-       "choices": [
-        "बुधबार बिहान",
-        "मंगलबार र शुक्रबार बिहान",
-        "महिनाको अन्तिम शनिबार",
-        "अघिल्लो रात"
-       ]
-      },
-      "en": {
-       "q": "When should non-burnable trash be put out?",
-       "choices": [
-        "Wednesday morning",
-        "Tuesday and Friday mornings",
-        "The last Saturday of the month",
-        "The night before"
-       ]
+      "id": "N4-D-S-9002",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "ごみの出し方（だしかた）",
+      "body": "このマンションにお住（す）まいの皆（みな）さまへお願（ねが）いです。もえるごみは、火曜日（かようび）と金曜日（きんようび）の朝（あさ）八時までに一階（いっかい）のごみ置き場（おきば）に出してください。びんやかんなどのもえないごみは、水曜日（すいようび）だけです。前の日の夜（よる）に出すと、猫（ねこ）にごみを荒（あ）らされることがあります。ダンボールはひもでしばって、月末（げつまつ）の土曜日（どようび）に出してください。みんなで気持（きも）ちよく使（つか）えるように、ご協力（きょうりょく）をお願（ねが）いします。",
+      "questions": [
+        {
+          "id": "N4-D-S-9002-q1",
+          "q": "もえないごみはいつ出しますか。",
+          "choices": [
+            "水曜日（すいようび）の朝（あさ）",
+            "火曜日（かようび）と金曜日（きんようび）の朝（あさ）",
+            "月末（げつまつ）の土曜日（どようび）",
+            "前の日の夜（よる）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "नजल्ने फोहोर कहिले राख्ने?",
+              "choices": [
+                "बुधबार बिहान",
+                "मंगलबार र शुक्रबार बिहान",
+                "महिनाको अन्तिम शनिबार",
+                "अघिल्लो रात"
+              ]
+            },
+            "en": {
+              "q": "When should non-burnable trash be put out?",
+              "choices": [
+                "Wednesday morning",
+                "Tuesday and Friday mornings",
+                "The last Saturday of the month",
+                "The night before"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "यस अपार्टमेन्टमा बस्ने सबैलाई अनुरोध छ।\nजल्ने फोहोर मंगलबार र शुक्रबार बिहान आठ बजेसम्म पहिलो तल्लाको फोहोर राख्ने ठाउँमा राख्नुहोस्।\nसिसा र क्यान जस्ता नजल्ने फोहोर बुधबार मात्र राख्नुहोस्।\nअघिल्लो रात फोहोर राख्दा बिरालोले फोहोर छरपस्ट पार्न सक्छ।\nकार्डबोर्डलाई डोरीले बाँधेर महिनाको अन्तिम शनिबार राख्नुहोस्।\nसबैले सहज रूपमा प्रयोग गर्न सकून् भनेर तपाईंको सहयोगको लागि अनुरोध गर्दछौं।"
+          ]
+        },
+        "en": {
+          "body": [
+            "A request to all residents of this apartment building.\nPlease put out burnable trash by 8 AM on Tuesdays and Fridays at the trash collection area on the first floor.\nNon-burnable trash, such as bottles and cans, is only on Wednesdays.\nIf you put it out the night before, cats may rummage through the trash.\nCardboard should be tied with string and put out on the last Saturday of the month.\nWe ask for your cooperation so that everyone can use the facilities comfortably."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "यस अपार्टमेन्टमा बस्ने सबैलाई अनुरोध छ।\nजल्ने फोहोर मंगलबार र शुक्रबार बिहान आठ बजेसम्म पहिलो तल्लाको फोहोर राख्ने ठाउँमा राख्नुहोस्।\nसिसा र क्यान जस्ता नजल्ने फोहोर बुधबार मात्र राख्नुहोस्।\nअघिल्लो रात फोहोर राख्दा बिरालोले फोहोर छरपस्ट पार्न सक्छ।\nकार्डबोर्डलाई डोरीले बाँधेर महिनाको अन्तिम शनिबार राख्नुहोस्।\nसबैले सहज रूपमा प्रयोग गर्न सकून् भनेर तपाईंको सहयोगको लागि अनुरोध गर्दछौं।"
-     ]
     },
-    "en": {
-     "body": [
-      "A request to all residents of this apartment building.\nPlease put out burnable trash by 8 AM on Tuesdays and Fridays at the trash collection area on the first floor.\nNon-burnable trash, such as bottles and cans, is only on Wednesdays.\nIf you put it out the night before, cats may rummage through the trash.\nCardboard should be tied with string and put out on the last Saturday of the month.\nWe ask for your cooperation so that everyone can use the facilities comfortably."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9003",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "秋（あき）の料理（りょうり）教室（きょうしつ）",
-   "body": "秋（あき）の料理（りょうり）教室（きょうしつ）のご案内（あんない）です。今回（こんかい）は、季節（きせつ）の野菜（やさい）を使（つか）ったやさしい和食（わしょく）を作（つく）ります。日にちは十月十五日の土曜日（どようび）、午前十時から午後一時までです。エプロンとタオルを持（も）ってきてください。材料（ざいりょう）の費用（ひよう）として、一人二千円をいただきます。作（つく）った料理（りょうり）はその場（ば）でみんなで食べます。申し込（もうしこ）みは、受付（うけつけ）にある紙（かみ）に名前を書いてください。定員（ていいん）は十二人で、先に申し込（もうしこ）んだ方（かた）から受け付（うけつ）けます。",
-   "questions": [
     {
-     "id": "N4-D-S-9003-q1",
-     "q": "教室（きょうしつ）に持（も）っていく必要（ひつよう）があるものは何ですか。",
-     "choices": [
-      "エプロンとタオル",
-      "季節（きせつ）の野菜（やさい）",
-      "受付（うけつけ）にある名前の紙（かみ）",
-      "料理（りょうり）の写真（しゃしん）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「エプロンとタオルを持（も）ってきてください」とある。"
-      },
-      "ne": {
-       "q": "कक्षामा के लिएर जान आवश्यक छ?",
-       "choices": [
-        "एप्रोन र तौलिया",
-        "मौसमी तरकारी",
-        "रिसेप्सनमा रहेको नामको कागज",
-        "खानाको फोटो"
-       ]
-      },
-      "en": {
-       "q": "What do you need to bring to the class?",
-       "choices": [
-        "An apron and a towel",
-        "Seasonal vegetables",
-        "The name paper at the reception desk",
-        "Photos of dishes"
-       ]
+      "id": "N4-D-S-9003",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "秋（あき）の料理（りょうり）教室（きょうしつ）",
+      "body": "秋（あき）の料理（りょうり）教室（きょうしつ）のご案内（あんない）です。今回（こんかい）は、季節（きせつ）の野菜（やさい）を使（つか）ったやさしい和食（わしょく）を作（つく）ります。日にちは十月十五日の土曜日（どようび）、午前十時から午後一時までです。エプロンとタオルを持（も）ってきてください。材料（ざいりょう）の費用（ひよう）として、一人二千円をいただきます。作（つく）った料理（りょうり）はその場（ば）でみんなで食べます。申し込（もうしこ）みは、受付（うけつけ）にある紙（かみ）に名前を書いてください。定員（ていいん）は十二人で、先に申し込（もうしこ）んだ方（かた）から受け付（うけつ）けます。",
+      "questions": [
+        {
+          "id": "N4-D-S-9003-q1",
+          "q": "教室（きょうしつ）に持（も）っていく必要（ひつよう）があるものは何ですか。",
+          "choices": [
+            "エプロンとタオル",
+            "季節（きせつ）の野菜（やさい）",
+            "受付（うけつけ）にある名前の紙（かみ）",
+            "料理（りょうり）の写真（しゃしん）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "कक्षामा के लिएर जान आवश्यक छ?",
+              "choices": [
+                "एप्रोन र तौलिया",
+                "मौसमी तरकारी",
+                "रिसेप्सनमा रहेको नामको कागज",
+                "खानाको फोटो"
+              ]
+            },
+            "en": {
+              "q": "What do you need to bring to the class?",
+              "choices": [
+                "An apron and a towel",
+                "Seasonal vegetables",
+                "The name paper at the reception desk",
+                "Photos of dishes"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "शरद ऋतुको खाना पकाउने कक्षाको जानकारी हो।\nयस पटक, हामी मौसमी तरकारीहरू प्रयोग गरेर सजिलो जापानी खाना बनाउनेछौं।\nमिति अक्टोबर १५, शनिबार, बिहान दस बजेदेखि दिउँसो एक बजेसम्म हो।\nएप्रोन र तौलिया लिएर आउनुहोस्।\nसामग्रीको शुल्कको रूपमा, प्रति व्यक्ति दुई हजार येन लिइनेछ।\nबनाएको खाना त्यहीँ सबैले सँगै खानेछौं।\nदर्ताका लागि, रिसेप्सनमा रहेको कागजमा आफ्नो नाम लेख्नुहोस्।\nक्षमता बाह्र जनाको छ, र पहिले दर्ता गर्नेहरूलाई प्राथमिकता दिइनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Information about the autumn cooking class.\nThis time, we will be making simple Japanese dishes using seasonal vegetables.\nThe date is Saturday, October 15th, from 10 AM to 1 PM.\nPlease bring an apron and a towel.\nThere will be a materials fee of 2,000 yen per person.\nThe dishes you make will be eaten together on the spot.\nTo apply, please write your name on the paper at the reception desk.\nThe capacity is twelve people, and applications will be accepted on a first-come, first-served basis."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "शरद ऋतुको खाना पकाउने कक्षाको जानकारी हो।\nयस पटक, हामी मौसमी तरकारीहरू प्रयोग गरेर सजिलो जापानी खाना बनाउनेछौं।\nमिति अक्टोबर १५, शनिबार, बिहान दस बजेदेखि दिउँसो एक बजेसम्म हो।\nएप्रोन र तौलिया लिएर आउनुहोस्।\nसामग्रीको शुल्कको रूपमा, प्रति व्यक्ति दुई हजार येन लिइनेछ।\nबनाएको खाना त्यहीँ सबैले सँगै खानेछौं।\nदर्ताका लागि, रिसेप्सनमा रहेको कागजमा आफ्नो नाम लेख्नुहोस्।\nक्षमता बाह्र जनाको छ, र पहिले दर्ता गर्नेहरूलाई प्राथमिकता दिइनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "Information about the autumn cooking class.\nThis time, we will be making simple Japanese dishes using seasonal vegetables.\nThe date is Saturday, October 15th, from 10 AM to 1 PM.\nPlease bring an apron and a towel.\nThere will be a materials fee of 2,000 yen per person.\nThe dishes you make will be eaten together on the spot.\nTo apply, please write your name on the paper at the reception desk.\nThe capacity is twelve people, and applications will be accepted on a first-come, first-served basis."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9004",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "昼食会（ちゅうしょくかい）の変更（へんこう）",
-   "body": "来週（らいしゅう）の金曜日（きんようび）に予定（よてい）していた部（ぶ）の昼食会（ちゅうしょくかい）ですが、会場（かいじょう）のお店（みせ）が急（きゅう）に休みになりました。そこで、日にちを次（つぎ）の月曜日（げつようび）に変（か）えることにします。時間は今までと同（おな）じで、昼（ひる）の十二時から一時半までです。場所（ばしょ）は駅前（えきまえ）のイタリア料理（りょうり）の店（みせ）に決（き）まりました。参加（さんか）できるかどうか、木曜日（もくようび）までに返事（へんじ）をください。飲み物（のみもの）は各自（かくじ）で注文（ちゅうもん）してください。",
-   "questions": [
     {
-     "id": "N4-D-S-9004-q1",
-     "q": "昼食会（ちゅうしょくかい）について、正（ただ）しいものはどれですか。",
-     "choices": [
-      "日にちが月曜日（げつようび）に変（か）わった",
-      "会場（かいじょう）は今までと同（おな）じ店（みせ）になった",
-      "時間が一時間おそくなった",
-      "飲み物（のみもの）は店（みせ）が用意（ようい）する"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「日にちを次（つぎ）の月曜日（げつようび）に変（か）えることにします」とある。"
-      },
-      "ne": {
-       "q": "खाजा बैठकको बारेमा, कुन सही छ?",
-       "choices": [
-        "मिति सोमबारमा परिवर्तन भयो",
-        "कार्यक्रम स्थल पहिलेकै पसल भयो",
-        "समय एक घण्टा ढिलो भयो",
-        "पेय पदार्थहरू पसलले तयार गर्छ"
-       ]
-      },
-      "en": {
-       "q": "Which of the following is correct about the lunch meeting?",
-       "choices": [
-        "The date changed to Monday",
-        "The venue is the same restaurant as before",
-        "The time became one hour later",
-        "The restaurant will prepare the drinks"
-       ]
+      "id": "N4-D-S-9004",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "昼食会（ちゅうしょくかい）の変更（へんこう）",
+      "body": "来週（らいしゅう）の金曜日（きんようび）に予定（よてい）していた部（ぶ）の昼食会（ちゅうしょくかい）ですが、会場（かいじょう）のお店（みせ）が急（きゅう）に休みになりました。そこで、日にちを次（つぎ）の月曜日（げつようび）に変（か）えることにします。時間は今までと同（おな）じで、昼（ひる）の十二時から一時半までです。場所（ばしょ）は駅前（えきまえ）のイタリア料理（りょうり）の店（みせ）に決（き）まりました。参加（さんか）できるかどうか、木曜日（もくようび）までに返事（へんじ）をください。飲み物（のみもの）は各自（かくじ）で注文（ちゅうもん）してください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9004-q1",
+          "q": "昼食会（ちゅうしょくかい）について、正（ただ）しいものはどれですか。",
+          "choices": [
+            "日にちが月曜日（げつようび）に変（か）わった",
+            "会場（かいじょう）は今までと同（おな）じ店（みせ）になった",
+            "時間が一時間おそくなった",
+            "飲み物（のみもの）は店（みせ）が用意（ようい）する"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "खाजा बैठकको बारेमा, कुन सही छ?",
+              "choices": [
+                "मिति सोमबारमा परिवर्तन भयो",
+                "कार्यक्रम स्थल पहिलेकै पसल भयो",
+                "समय एक घण्टा ढिलो भयो",
+                "पेय पदार्थहरू पसलले तयार गर्छ"
+              ]
+            },
+            "en": {
+              "q": "Which of the following is correct about the lunch meeting?",
+              "choices": [
+                "The date changed to Monday",
+                "The venue is the same restaurant as before",
+                "The time became one hour later",
+                "The restaurant will prepare the drinks"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "आगामी शुक्रबारको लागि तय गरिएको विभागको खाजा बैठक, कार्यक्रम स्थलको पसल अचानक बन्द भयो।\nत्यसैले, मिति अर्को सोमबारमा परिवर्तन गर्ने निर्णय गरिएको छ।\nसमय पहिलेकै जस्तै, दिउँसो बाह्र बजेदेखि डेढ बजेसम्म हो।\nस्थान स्टेशन अगाडिको इटालियन रेस्टुरेन्टमा तय भएको छ।\nसहभागी हुन सक्नुहुन्छ कि सक्नुहुन्न, बिहीबारसम्म जवाफ दिनुहोला।\nपेय पदार्थहरू आफैंले अर्डर गर्नुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Regarding the department lunch meeting scheduled for next Friday, the venue restaurant suddenly closed.\nTherefore, we will change the date to next Monday.\nThe time will remain the same, from 12 PM to 1:30 PM.\nThe location has been decided as the Italian restaurant in front of the station.\nPlease reply by Thursday whether you can attend.\nPlease order your own drinks."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "आगामी शुक्रबारको लागि तय गरिएको विभागको खाजा बैठक, कार्यक्रम स्थलको पसल अचानक बन्द भयो।\nत्यसैले, मिति अर्को सोमबारमा परिवर्तन गर्ने निर्णय गरिएको छ।\nसमय पहिलेकै जस्तै, दिउँसो बाह्र बजेदेखि डेढ बजेसम्म हो।\nस्थान स्टेशन अगाडिको इटालियन रेस्टुरेन्टमा तय भएको छ।\nसहभागी हुन सक्नुहुन्छ कि सक्नुहुन्न, बिहीबारसम्म जवाफ दिनुहोला।\nपेय पदार्थहरू आफैंले अर्डर गर्नुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "Regarding the department lunch meeting scheduled for next Friday, the venue restaurant suddenly closed.\nTherefore, we will change the date to next Monday.\nThe time will remain the same, from 12 PM to 1:30 PM.\nThe location has been decided as the Italian restaurant in front of the station.\nPlease reply by Thursday whether you can attend.\nPlease order your own drinks."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9005",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "公園（こうえん）を使（つか）う人へ",
-   "body": "この公園（こうえん）を利用（りよう）する皆（みな）さまにお知（し）らせします。ボールを使（つか）った遊（あそ）びは、北側（きたがわ）の広場（ひろば）だけでできます。花（はな）だんの近（ちか）くでは、走（はし）ったり自転車（じてんしゃ）に乗（の）ったりしないでください。犬（いぬ）をつれて入るときは、必（かなら）ずひもをつけて、ふんは持（も）ち帰（かえ）ってください。夜（よる）十時から朝（あさ）六時までは、大きな声（こえ）を出さないようお願（ねが）いします。ごみは決（き）められた場所（ばしょ）に捨（す）てるか、家（いえ）に持（も）ち帰（かえ）ってください。",
-   "questions": [
     {
-     "id": "N4-D-S-9005-q1",
-     "q": "ボール遊（あそ）びはどこでできますか。",
-     "choices": [
-      "北側（きたがわ）の広場（ひろば）だけ",
-      "花（はな）だんの近（ちか）く",
-      "公園（こうえん）のどこでも",
-      "南側（みなみがわ）の入り口（ぐち）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「ボールを使（つか）った遊（あそ）びは、北側（きたがわ）の広場（ひろば）だけで」とある。"
-      },
-      "ne": {
-       "q": "बल खेल्ने खेल कहाँ गर्न सकिन्छ?",
-       "choices": [
-        "उत्तरतर्फको मैदानमा मात्र",
-        "फूलबारी नजिक",
-        "पार्कको जुनसुकै ठाउँमा",
-        "दक्षिणतर्फको प्रवेशद्वार"
-       ]
-      },
-      "en": {
-       "q": "Where can you play ball?",
-       "choices": [
-        "Only in the <u>northern plaza</u>",
-        "Near the flower beds",
-        "Anywhere in the park",
-        "The southern entrance"
-       ]
+      "id": "N4-D-S-9005",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "公園（こうえん）を使（つか）う人へ",
+      "body": "この公園（こうえん）を利用（りよう）する皆（みな）さまにお知（し）らせします。ボールを使（つか）った遊（あそ）びは、北側（きたがわ）の広場（ひろば）だけでできます。花（はな）だんの近（ちか）くでは、走（はし）ったり自転車（じてんしゃ）に乗（の）ったりしないでください。犬（いぬ）をつれて入るときは、必（かなら）ずひもをつけて、ふんは持（も）ち帰（かえ）ってください。夜（よる）十時から朝（あさ）六時までは、大きな声（こえ）を出さないようお願（ねが）いします。ごみは決（き）められた場所（ばしょ）に捨（す）てるか、家（いえ）に持（も）ち帰（かえ）ってください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9005-q1",
+          "q": "ボール遊（あそ）びはどこでできますか。",
+          "choices": [
+            "北側（きたがわ）の広場（ひろば）だけ",
+            "花（はな）だんの近（ちか）く",
+            "公園（こうえん）のどこでも",
+            "南側（みなみがわ）の入り口（ぐち）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "बल खेल्ने खेल कहाँ गर्न सकिन्छ?",
+              "choices": [
+                "उत्तरतर्फको मैदानमा मात्र",
+                "फूलबारी नजिक",
+                "पार्कको जुनसुकै ठाउँमा",
+                "दक्षिणतर्फको प्रवेशद्वार"
+              ]
+            },
+            "en": {
+              "q": "Where can you play ball?",
+              "choices": [
+                "Only in the <u>northern plaza</u>",
+                "Near the flower beds",
+                "Anywhere in the park",
+                "The southern entrance"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "यस पार्क प्रयोग गर्ने सबैलाई जानकारी गराइन्छ।\nबल खेल्ने खेलहरू उत्तरतर्फको मैदानमा मात्र गर्न सकिन्छ।\nफूलबारी नजिक दौडने वा साइकल चलाउने नगर्नुहोस्।\nकुकुर लिएर प्रवेश गर्दा, अनिवार्य रूपमा डोरी लगाउनुहोस् र दिसा घर लैजानुहोस्।\nराति दस बजेदेखि बिहान छ बजेसम्म ठूलो आवाज ननिकाल्न अनुरोध गर्दछौं।\nफोहोर तोकिएको ठाउँमा फाल्नुहोस् वा घर लैजानुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Notice to all users of this park.\nBall games are only allowed in the <u>northern plaza</u>.\nPlease do not run or ride bicycles near the flower beds.\nWhen bringing a dog, please make sure it is on a leash and take its waste home with you.\nPlease refrain from making loud noises from 10 PM to 6 AM.\nPlease dispose of trash in designated areas or take it home with you."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "यस पार्क प्रयोग गर्ने सबैलाई जानकारी गराइन्छ।\nबल खेल्ने खेलहरू उत्तरतर्फको मैदानमा मात्र गर्न सकिन्छ।\nफूलबारी नजिक दौडने वा साइकल चलाउने नगर्नुहोस्।\nकुकुर लिएर प्रवेश गर्दा, अनिवार्य रूपमा डोरी लगाउनुहोस् र दिसा घर लैजानुहोस्।\nराति दस बजेदेखि बिहान छ बजेसम्म ठूलो आवाज ननिकाल्न अनुरोध गर्दछौं।\nफोहोर तोकिएको ठाउँमा फाल्नुहोस् वा घर लैजानुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "Notice to all users of this park.\nBall games are only allowed in the <u>northern plaza</u>.\nPlease do not run or ride bicycles near the flower beds.\nWhen bringing a dog, please make sure it is on a leash and take its waste home with you.\nPlease refrain from making loud noises from 10 PM to 6 AM.\nPlease dispose of trash in designated areas or take it home with you."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9006",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "ジムの休館（きゅうかん）",
-   "body": "いつもスポーツジムをご利用（りよう）いただき、ありがとうございます。機械（きかい）の点検（てんけん）のため、今月の二十日から二十二日までお休みします。二十三日からは、いつもどおり朝（あさ）六時から夜（よる）十一時まで開（あ）いています。お休みの間も、プールだけは午後二時から八時まで使（つか）えます。会員（かいいん）カードを忘（わす）れると中に入れませんので、気をつけてください。ご不便（ふべん）をおかけしますが、よろしくお願（ねが）いいたします。",
-   "questions": [
     {
-     "id": "N4-D-S-9006-q1",
-     "q": "休館（きゅうかん）の間もできることは何ですか。",
-     "choices": [
-      "午後にプールを使（つか）うこと",
-      "朝（あさ）六時から運動（うんどう）すること",
-      "機械（きかい）の点検（てんけん）を見ること",
-      "夜（よる）十一時まで運動（うんどう）すること"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「お休みの間も、プールだけは午後二時から八時まで使（つか）えます」とある。"
-      },
-      "ne": {
-       "q": "बन्दको समयमा पनि के गर्न सकिन्छ?",
-       "choices": [
-        "दिउँसो पौंडी पोखरी प्रयोग गर्ने",
-        "बिहान छ बजेदेखि व्यायाम गर्ने",
-        "मेसिनको मर्मतसम्भार हेर्ने",
-        "राति एघार बजेसम्म व्यायाम गर्ने"
-       ]
-      },
-      "en": {
-       "q": "What can you do during the closure?",
-       "choices": [
-        "Use the pool in the afternoon",
-        "Exercise from 6 AM",
-        "Watch the machine inspection",
-        "Exercise until 11 PM"
-       ]
+      "id": "N4-D-S-9006",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "ジムの休館（きゅうかん）",
+      "body": "いつもスポーツジムをご利用（りよう）いただき、ありがとうございます。機械（きかい）の点検（てんけん）のため、今月の二十日から二十二日までお休みします。二十三日からは、いつもどおり朝（あさ）六時から夜（よる）十一時まで開（あ）いています。お休みの間も、プールだけは午後二時から八時まで使（つか）えます。会員（かいいん）カードを忘（わす）れると中に入れませんので、気をつけてください。ご不便（ふべん）をおかけしますが、よろしくお願（ねが）いいたします。",
+      "questions": [
+        {
+          "id": "N4-D-S-9006-q1",
+          "q": "休館（きゅうかん）の間もできることは何ですか。",
+          "choices": [
+            "午後にプールを使（つか）うこと",
+            "朝（あさ）六時から運動（うんどう）すること",
+            "機械（きかい）の点検（てんけん）を見ること",
+            "夜（よる）十一時まで運動（うんどう）すること"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "बन्दको समयमा पनि के गर्न सकिन्छ?",
+              "choices": [
+                "दिउँसो पौंडी पोखरी प्रयोग गर्ने",
+                "बिहान छ बजेदेखि व्यायाम गर्ने",
+                "मेसिनको मर्मतसम्भार हेर्ने",
+                "राति एघार बजेसम्म व्यायाम गर्ने"
+              ]
+            },
+            "en": {
+              "q": "What can you do during the closure?",
+              "choices": [
+                "Use the pool in the afternoon",
+                "Exercise from 6 AM",
+                "Watch the machine inspection",
+                "Exercise until 11 PM"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "सधैं स्पोर्ट्स जिम प्रयोग गर्नुभएकोमा धन्यवाद।\nमेसिनको मर्मतसम्भारका कारण, यस महिनाको बीस गतेदेखि बाइस गतेसम्म बन्द रहनेछ।\nतेइस गतेदेखि, सधैं जस्तै बिहान छ बजेदेखि राति एघार बजेसम्म खुल्नेछ।\nबन्दको समयमा पनि, पौंडी पोखरी दिउँसो दुई बजेदेखि आठ बजेसम्म प्रयोग गर्न सकिन्छ।\nसदस्यता कार्ड बिर्सनुभयो भने भित्र पस्न मिल्दैन, त्यसैले कृपया ध्यान दिनुहोला।\nअसुविधाको लागि क्षमाप्रार्थी छौं, र तपाईंको सहयोगको लागि अनुरोध गर्दछौं।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Thank you for always using our sports gym.\nDue to machine inspection, we will be closed from the 20th to the 22nd of this month.\nFrom the 23rd, we will be open as usual from 6 AM to 11 PM.\nEven during the closure, only the pool will be available from 2 PM to 8 PM.\nPlease be careful not to forget your membership card, as you will not be able to enter without it.\nWe apologize for any inconvenience this may cause and appreciate your understanding."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "सधैं स्पोर्ट्स जिम प्रयोग गर्नुभएकोमा धन्यवाद।\nमेसिनको मर्मतसम्भारका कारण, यस महिनाको बीस गतेदेखि बाइस गतेसम्म बन्द रहनेछ।\nतेइस गतेदेखि, सधैं जस्तै बिहान छ बजेदेखि राति एघार बजेसम्म खुल्नेछ।\nबन्दको समयमा पनि, पौंडी पोखरी दिउँसो दुई बजेदेखि आठ बजेसम्म प्रयोग गर्न सकिन्छ।\nसदस्यता कार्ड बिर्सनुभयो भने भित्र पस्न मिल्दैन, त्यसैले कृपया ध्यान दिनुहोला।\nअसुविधाको लागि क्षमाप्रार्थी छौं, र तपाईंको सहयोगको लागि अनुरोध गर्दछौं।"
-     ]
     },
-    "en": {
-     "body": [
-      "Thank you for always using our sports gym.\nDue to machine inspection, we will be closed from the 20th to the 22nd of this month.\nFrom the 23rd, we will be open as usual from 6 AM to 11 PM.\nEven during the closure, only the pool will be available from 2 PM to 8 PM.\nPlease be careful not to forget your membership card, as you will not be able to enter without it.\nWe apologize for any inconvenience this may cause and appreciate your understanding."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9007",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "手紙",
-   "subtype": "naiyou_tan",
-   "title": "遠足（えんそく）のお知（し）らせ",
-   "body": "保護者（ほごしゃ）の皆（みな）さまへ。来週（らいしゅう）の水曜日（すいようび）に、一年生は動物園（どうぶつえん）へ遠足（えんそく）に行きます。朝（あさ）は八時半までに学校に集（あつ）まってください。お弁当（べんとう）と水とうを持（も）たせてください。おかしは三百円までです。雨がふった場合（ばあい）は、木曜日（もくようび）にのばします。その日は、いつもの時間割（じかんわり）で授業（じゅぎょう）を行いますので、教科書（きょうかしょ）を持（も）たせてください。動物（どうぶつ）にさわるときのため、手（て）をふくタオルもあると安心（あんしん）です。",
-   "questions": [
     {
-     "id": "N4-D-S-9007-q1",
-     "q": "雨がふったら、遠足（えんそく）はどうなりますか。",
-     "choices": [
-      "木曜日（もくようび）に行う",
-      "中止（ちゅうし）になる",
-      "学校で映画（えいが）を見る",
-      "次（つぎ）の週（しゅう）にのばす"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「雨がふった場合（ばあい）は、木曜日（もくようび）にのばします」とある。"
-      },
-      "ne": {
-       "q": "यदि पानी पर्यो भने, भ्रमण के हुन्छ?",
-       "choices": [
-        "बिहीबार गरिनेछ",
-        "रद्द गरिनेछ",
-        "विद्यालयमा चलचित्र हेरिनेछ",
-        "अर्को हप्ता सारिनेछ"
-       ]
-      },
-      "en": {
-       "q": "What will happen to the field trip if it rains?",
-       "choices": [
-        "It will be held on Thursday.",
-        "It will be canceled.",
-        "They will watch a movie at school.",
-        "It will be postponed to the following week."
-       ]
+      "id": "N4-D-S-9007",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "手紙",
+      "subtype": "naiyou_tan",
+      "title": "遠足（えんそく）のお知（し）らせ",
+      "body": "保護者（ほごしゃ）の皆（みな）さまへ。来週（らいしゅう）の水曜日（すいようび）に、一年生は動物園（どうぶつえん）へ遠足（えんそく）に行きます。朝（あさ）は八時半までに学校に集（あつ）まってください。お弁当（べんとう）と水とうを持（も）たせてください。おかしは三百円までです。雨がふった場合（ばあい）は、木曜日（もくようび）にのばします。その日は、いつもの時間割（じかんわり）で授業（じゅぎょう）を行いますので、教科書（きょうかしょ）を持（も）たせてください。動物（どうぶつ）にさわるときのため、手（て）をふくタオルもあると安心（あんしん）です。",
+      "questions": [
+        {
+          "id": "N4-D-S-9007-q1",
+          "q": "雨がふったら、遠足（えんそく）はどうなりますか。",
+          "choices": [
+            "木曜日（もくようび）に行う",
+            "中止（ちゅうし）になる",
+            "学校で映画（えいが）を見る",
+            "次（つぎ）の週（しゅう）にのばす"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यदि पानी पर्यो भने, भ्रमण के हुन्छ?",
+              "choices": [
+                "बिहीबार गरिनेछ",
+                "रद्द गरिनेछ",
+                "विद्यालयमा चलचित्र हेरिनेछ",
+                "अर्को हप्ता सारिनेछ"
+              ]
+            },
+            "en": {
+              "q": "What will happen to the field trip if it rains?",
+              "choices": [
+                "It will be held on Thursday.",
+                "It will be canceled.",
+                "They will watch a movie at school.",
+                "It will be postponed to the following week."
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "अभिभावकहरूलाई। अर्को हप्ताको बुधबार, पहिलो कक्षाका विद्यार्थीहरू चिडियाखानाको भ्रमणमा जाँदैछन्। कृपया बिहान साढे आठ बजेसम्म विद्यालयमा भेला हुनुहोला। कृपया खाजा र पानीको बोतल पठाउनुहोला। मिठाई तीन सय येन सम्मको मात्रै। यदि पानी पर्यो भने, यो बिहीबार सारिनेछ। त्यस दिन, सामान्य समय तालिका अनुसार कक्षाहरू सञ्चालन गरिनेछ, त्यसैले कृपया पाठ्यपुस्तकहरू पठाउनुहोला। जनावरहरूलाई छुँदा हात पुछ्नको लागि एउटा रुमाल भएमा ढुक्क हुनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "To all guardians.\nNext Wednesday, first-graders will go on a field trip to the zoo. Please gather at school by 8:30 AM. Please have your child bring a bento box and a water bottle. Snacks are limited to 300 yen. If it rains, the trip will be postponed to Thursday. On that day, classes will be held according to the usual timetable, so please have your child bring their textbooks. For touching animals, it would be reassuring to have a towel to wipe hands."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "अभिभावकहरूलाई। अर्को हप्ताको बुधबार, पहिलो कक्षाका विद्यार्थीहरू चिडियाखानाको भ्रमणमा जाँदैछन्। कृपया बिहान साढे आठ बजेसम्म विद्यालयमा भेला हुनुहोला। कृपया खाजा र पानीको बोतल पठाउनुहोला। मिठाई तीन सय येन सम्मको मात्रै। यदि पानी पर्यो भने, यो बिहीबार सारिनेछ। त्यस दिन, सामान्य समय तालिका अनुसार कक्षाहरू सञ्चालन गरिनेछ, त्यसैले कृपया पाठ्यपुस्तकहरू पठाउनुहोला। जनावरहरूलाई छुँदा हात पुछ्नको लागि एउटा रुमाल भएमा ढुक्क हुनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "To all guardians.\nNext Wednesday, first-graders will go on a field trip to the zoo. Please gather at school by 8:30 AM. Please have your child bring a bento box and a water bottle. Snacks are limited to 300 yen. If it rains, the trip will be postponed to Thursday. On that day, classes will be held according to the usual timetable, so please have your child bring their textbooks. For touching animals, it would be reassuring to have a towel to wipe hands."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9008",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "引（ひ）っ越（こ）しの手伝（てつだ）い",
-   "body": "久（ひさ）しぶり、元気（げんき）にしていますか。来月の初（はじ）め、となり町（まち）の新（あたら）しいアパートに引（ひ）っ越（こ）すことになりました。それで、もしよかったら、荷物（にもつ）を運（はこ）ぶのを手伝（てつだ）ってもらえないかと思（おも）っています。日にちは四月三日の日曜日（にちようび）で、朝（あさ）九時から昼（ひる）ごろまでの予定（よてい）です。車は借（か）りるので、力（ちから）を貸（か）してくれるだけで大丈夫（だいじょうぶ）です。お礼（れい）に、終（お）わったあとで一緒（いっしょ）に昼（ひる）ごはんを食べに行きましょう。むずかしければ、遠慮（えんりょ）なく言（い）ってくださいね。",
-   "questions": [
     {
-     "id": "N4-D-S-9008-q1",
-     "q": "この人は相手（あいて）に何をたのんでいますか。",
-     "choices": [
-      "荷物（にもつ）を運（はこ）ぶのを手伝（てつだ）うこと",
-      "車を貸（か）すこと",
-      "新（あたら）しいアパートをさがすこと",
-      "昼（ひる）ごはんを作（つく）ること"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「荷物（にもつ）を運（はこ）ぶのを手伝（てつだ）ってもらえないか」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्तिले अर्को व्यक्तिलाई के अनुरोध गर्दैछ?",
-       "choices": [
-        "सामान सार्न मद्दत गर्न",
-        "गाडी भाडामा दिन",
-        "नयाँ अपार्टमेन्ट खोज्न",
-        "दिउँसोको खाना बनाउन"
-       ]
-      },
-      "en": {
-       "q": "What is this person asking the other person to do?",
-       "choices": [
-        "To help carry luggage.",
-        "To lend a car.",
-        "To find a new apartment.",
-        "To make lunch."
-       ]
+      "id": "N4-D-S-9008",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "引（ひ）っ越（こ）しの手伝（てつだ）い",
+      "body": "久（ひさ）しぶり、元気（げんき）にしていますか。来月の初（はじ）め、となり町（まち）の新（あたら）しいアパートに引（ひ）っ越（こ）すことになりました。それで、もしよかったら、荷物（にもつ）を運（はこ）ぶのを手伝（てつだ）ってもらえないかと思（おも）っています。日にちは四月三日の日曜日（にちようび）で、朝（あさ）九時から昼（ひる）ごろまでの予定（よてい）です。車は借（か）りるので、力（ちから）を貸（か）してくれるだけで大丈夫（だいじょうぶ）です。お礼（れい）に、終（お）わったあとで一緒（いっしょ）に昼（ひる）ごはんを食べに行きましょう。むずかしければ、遠慮（えんりょ）なく言（い）ってくださいね。",
+      "questions": [
+        {
+          "id": "N4-D-S-9008-q1",
+          "q": "この人は相手（あいて）に何をたのんでいますか。",
+          "choices": [
+            "荷物（にもつ）を運（はこ）ぶのを手伝（てつだ）うこと",
+            "車を貸（か）すこと",
+            "新（あたら）しいアパートをさがすこと",
+            "昼（ひる）ごはんを作（つく）ること"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्तिले अर्को व्यक्तिलाई के अनुरोध गर्दैछ?",
+              "choices": [
+                "सामान सार्न मद्दत गर्न",
+                "गाडी भाडामा दिन",
+                "नयाँ अपार्टमेन्ट खोज्न",
+                "दिउँसोको खाना बनाउन"
+              ]
+            },
+            "en": {
+              "q": "What is this person asking the other person to do?",
+              "choices": [
+                "To help carry luggage.",
+                "To lend a car.",
+                "To find a new apartment.",
+                "To make lunch."
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "धेरै भयो, सन्चै हुनुहुन्छ? अर्को महिनाको सुरुमा, म छेउछाउको सहरमा रहेको नयाँ अपार्टमेन्टमा सर्ने भएको छु। त्यसैले, यदि तपाईंलाई ठीक लाग्छ भने, के तपाईं मलाई सामान सार्न मद्दत गर्न सक्नुहुन्छ जस्तो लाग्छ। मिति अप्रिल ३, आइतबार हो, र बिहान ९ बजेदेखि दिउँसोसम्मको योजना छ। मैले गाडी भाडामा लिनेछु, त्यसैले तपाईंले मलाई मद्दत मात्र गरे पुग्छ। धन्यवाद स्वरूप, काम सकिएपछि सँगै दिउँसोको खाना खान जाऔं। यदि गाह्रो हुन्छ भने, कृपया नहिचकिचाई भन्नुहोला।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Long time no see, how have you been? I'm moving to a new apartment in the next town at the beginning of next month. So, if it's okay, I was wondering if you could help me move my luggage. The date is Sunday, April 3rd, from 9 AM until around noon. I'll be borrowing a car, so I just need your help with the heavy lifting. As a thank you, let's go out for lunch together after we finish. If it's difficult, please don't hesitate to say so."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "धेरै भयो, सन्चै हुनुहुन्छ? अर्को महिनाको सुरुमा, म छेउछाउको सहरमा रहेको नयाँ अपार्टमेन्टमा सर्ने भएको छु। त्यसैले, यदि तपाईंलाई ठीक लाग्छ भने, के तपाईं मलाई सामान सार्न मद्दत गर्न सक्नुहुन्छ जस्तो लाग्छ। मिति अप्रिल ३, आइतबार हो, र बिहान ९ बजेदेखि दिउँसोसम्मको योजना छ। मैले गाडी भाडामा लिनेछु, त्यसैले तपाईंले मलाई मद्दत मात्र गरे पुग्छ। धन्यवाद स्वरूप, काम सकिएपछि सँगै दिउँसोको खाना खान जाऔं। यदि गाह्रो हुन्छ भने, कृपया नहिचकिचाई भन्नुहोला।"
-     ]
     },
-    "en": {
-     "body": [
-      "Long time no see, how have you been? I'm moving to a new apartment in the next town at the beginning of next month. So, if it's okay, I was wondering if you could help me move my luggage. The date is Sunday, April 3rd, from 9 AM until around noon. I'll be borrowing a car, so I just need your help with the heavy lifting. As a thank you, let's go out for lunch together after we finish. If it's difficult, please don't hesitate to say so."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9009",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "海（うみ）の写真展（しゃしんてん）",
-   "body": "市（し）の美術館（びじゅつかん）では、来月から海（うみ）の写真（しゃしん）を集（あつ）めた展示会（てんじかい）を開（ひら）きます。期間（きかん）は五月一日から三十一日までです。開（あ）いている時間は午前九時半から午後五時までで、入るのは四時半までにお願（ねが）いします。毎週（まいしゅう）火曜日（かようび）はお休みです。大人は五百円ですが、高校生までは無料（むりょう）です。中の写真（しゃしん）は、係（かかり）の人にことわれば、フラッシュを使（つか）わずにとってもよいです。どうぞ静（しず）かに楽（たの）しんでください。",
-   "questions": [
     {
-     "id": "N4-D-S-9009-q1",
-     "q": "写真（しゃしん）をとるときの決（き）まりは何ですか。",
-     "choices": [
-      "フラッシュを使（つか）わずにとる",
-      "係（かかり）の人にことわればとれる",
-      "火曜日（かようび）だけとれる",
-      "四時半をすぎてとる"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「フラッシュを使（つか）わずにとってもよい」とある。"
-      },
-      "ne": {
-       "q": "तस्बिर खिच्दाको नियम के हो?",
-       "choices": [
-        "फ्ल्यास प्रयोग नगरी खिच्ने",
-        "कर्मचारीलाई सोधेपछि खिच्न सकिने",
-        "मंगलबार मात्र खिच्न सकिने",
-        "४:३० बजेपछि खिच्ने"
-       ]
-      },
-      "en": {
-       "q": "What is the rule for taking pictures?",
-       "choices": [
-        "Take pictures without using a flash.",
-        "You can take pictures if you ask a staff member.",
-        "You can only take pictures on Tuesdays.",
-        "Take pictures after 4:30 PM."
-       ]
+      "id": "N4-D-S-9009",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "海（うみ）の写真展（しゃしんてん）",
+      "body": "市（し）の美術館（びじゅつかん）では、来月から海（うみ）の写真（しゃしん）を集（あつ）めた展示会（てんじかい）を開（ひら）きます。期間（きかん）は五月一日から三十一日までです。開（あ）いている時間は午前九時半から午後五時までで、入るのは四時半までにお願（ねが）いします。毎週（まいしゅう）火曜日（かようび）はお休みです。大人は五百円ですが、高校生までは無料（むりょう）です。中の写真（しゃしん）は、係（かかり）の人にことわれば、フラッシュを使（つか）わずにとってもよいです。どうぞ静（しず）かに楽（たの）しんでください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9009-q1",
+          "q": "写真（しゃしん）をとるときの決（き）まりは何ですか。",
+          "choices": [
+            "フラッシュを使（つか）わずにとる",
+            "係（かかり）の人にことわればとれる",
+            "火曜日（かようび）だけとれる",
+            "四時半をすぎてとる"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "तस्बिर खिच्दाको नियम के हो?",
+              "choices": [
+                "फ्ल्यास प्रयोग नगरी खिच्ने",
+                "कर्मचारीलाई सोधेपछि खिच्न सकिने",
+                "मंगलबार मात्र खिच्न सकिने",
+                "४:३० बजेपछि खिच्ने"
+              ]
+            },
+            "en": {
+              "q": "What is the rule for taking pictures?",
+              "choices": [
+                "Take pictures without using a flash.",
+                "You can take pictures if you ask a staff member.",
+                "You can only take pictures on Tuesdays.",
+                "Take pictures after 4:30 PM."
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "शहरको कला संग्रहालयले अर्को महिनादेखि समुद्रका तस्बिरहरूको प्रदर्शनी आयोजना गर्दैछ। अवधि मे १ देखि ३१ सम्म हो। खुल्ने समय बिहान ९:३० देखि बेलुका ५ बजेसम्म हो, र प्रवेश ४:३० बजेसम्म गर्न अनुरोध गरिन्छ। हरेक मंगलबार बन्द रहन्छ। वयस्कहरूका लागि पाँच सय येन लाग्छ, तर हाई स्कूलका विद्यार्थीहरूका लागि निःशुल्क छ। भित्रका तस्बिरहरू, यदि कर्मचारीलाई सोधियो भने, फ्ल्यास प्रयोग नगरी खिच्न सकिन्छ। कृपया शान्तपूर्वक आनन्द लिनुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "The city art museum will hold an exhibition of sea photographs starting next month. The period is from May 1st to May 31st. Opening hours are from 9:30 AM to 5:00 PM, and please enter by 4:30 PM. The museum is closed every Tuesday. Admission is 500 yen for adults, but free for high school students and younger. You may take photos inside without using a flash, provided you ask a staff member. Please enjoy quietly."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "शहरको कला संग्रहालयले अर्को महिनादेखि समुद्रका तस्बिरहरूको प्रदर्शनी आयोजना गर्दैछ। अवधि मे १ देखि ३१ सम्म हो। खुल्ने समय बिहान ९:३० देखि बेलुका ५ बजेसम्म हो, र प्रवेश ४:३० बजेसम्म गर्न अनुरोध गरिन्छ। हरेक मंगलबार बन्द रहन्छ। वयस्कहरूका लागि पाँच सय येन लाग्छ, तर हाई स्कूलका विद्यार्थीहरूका लागि निःशुल्क छ। भित्रका तस्बिरहरू, यदि कर्मचारीलाई सोधियो भने, फ्ल्यास प्रयोग नगरी खिच्न सकिन्छ। कृपया शान्तपूर्वक आनन्द लिनुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "The city art museum will hold an exhibition of sea photographs starting next month. The period is from May 1st to May 31st. Opening hours are from 9:30 AM to 5:00 PM, and please enter by 4:30 PM. The museum is closed every Tuesday. Admission is 500 yen for adults, but free for high school students and younger. You may take photos inside without using a flash, provided you ask a staff member. Please enjoy quietly."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9010",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "秋（あき）のバス旅行（りょこう）",
-   "body": "秋（あき）のバス旅行（りょこう）のご案内（あんない）です。山のふもとの温泉（おんせん）と、有名（ゆうめい）なおてらを回（まわ）ります。出発（しゅっぱつ）は十一月五日の朝（あさ）七時、駅（えき）の南口（みなみぐち）に集（あつ）まってください。バスは七時十五分に出ますので、おくれないようにしてください。帰（かえ）りは同（おな）じ場所（ばしょ）に夕方（ゆうがた）六時ごろ着（つ）く予定（よてい）です。昼（ひる）ごはんはりょかんで出ますが、朝（あさ）ごはんと飲（の）み物（もの）は各自（かくじ）で用意（ようい）してください。雨でも行いますが、大雨のときは中止（ちゅうし）のご連絡（れんらく）をします。",
-   "questions": [
     {
-     "id": "N4-D-S-9010-q1",
-     "q": "参加者（さんかしゃ）が自分（じぶん）で用意（ようい）するものは何ですか。",
-     "choices": [
-      "朝（あさ）ごはんと飲（の）み物（もの）",
-      "昼（ひる）ごはん",
-      "バスの切符（きっぷ）",
-      "温泉（おんせん）に入るタオル"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「朝（あさ）ごはんと飲（の）み物（もの）は各自（かくじ）で用意（ようい）してください」とある。"
-      },
-      "ne": {
-       "q": "सहभागीहरूले आफैंले तयार पार्नुपर्ने चीजहरू के हुन्?",
-       "choices": [
-        "बिहानको खाना र पेय पदार्थ",
-        "दिउँसोको खाना",
-        "बसको टिकट",
-        "तातो पानीमा नुहाउने तौलिया"
-       ]
-      },
-      "en": {
-       "q": "What should participants prepare themselves?",
-       "choices": [
-        "Breakfast and drinks.",
-        "Lunch.",
-        "Bus tickets.",
-        "A towel for the hot springs."
-       ]
+      "id": "N4-D-S-9010",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "秋（あき）のバス旅行（りょこう）",
+      "body": "秋（あき）のバス旅行（りょこう）のご案内（あんない）です。山のふもとの温泉（おんせん）と、有名（ゆうめい）なおてらを回（まわ）ります。出発（しゅっぱつ）は十一月五日の朝（あさ）七時、駅（えき）の南口（みなみぐち）に集（あつ）まってください。バスは七時十五分に出ますので、おくれないようにしてください。帰（かえ）りは同（おな）じ場所（ばしょ）に夕方（ゆうがた）六時ごろ着（つ）く予定（よてい）です。昼（ひる）ごはんはりょかんで出ますが、朝（あさ）ごはんと飲（の）み物（もの）は各自（かくじ）で用意（ようい）してください。雨でも行いますが、大雨のときは中止（ちゅうし）のご連絡（れんらく）をします。",
+      "questions": [
+        {
+          "id": "N4-D-S-9010-q1",
+          "q": "参加者（さんかしゃ）が自分（じぶん）で用意（ようい）するものは何ですか。",
+          "choices": [
+            "朝（あさ）ごはんと飲（の）み物（もの）",
+            "昼（ひる）ごはん",
+            "バスの切符（きっぷ）",
+            "温泉（おんせん）に入るタオル"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "सहभागीहरूले आफैंले तयार पार्नुपर्ने चीजहरू के हुन्?",
+              "choices": [
+                "बिहानको खाना र पेय पदार्थ",
+                "दिउँसोको खाना",
+                "बसको टिकट",
+                "तातो पानीमा नुहाउने तौलिया"
+              ]
+            },
+            "en": {
+              "q": "What should participants prepare themselves?",
+              "choices": [
+                "Breakfast and drinks.",
+                "Lunch.",
+                "Bus tickets.",
+                "A towel for the hot springs."
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "शरद ऋतुको बस यात्राको जानकारी। हामी पहाडको फेदमा रहेको तातो पानीको मुहान र प्रसिद्ध मन्दिरको भ्रमण गर्नेछौं। प्रस्थान नोभेम्बर ५ को बिहान ७ बजे, स्टेशनको दक्षिण गेटमा भेला हुनुहोला। बस ७:१५ मा छुट्नेछ, त्यसैले ढिलो नगर्नुहोला। फर्कने समय सोही स्थानमा साँझ ६ बजेतिर हुनेछ। दिउँसोको खाना सरायमा दिइनेछ, तर बिहानको खाना र पेय पदार्थ आफैंले तयार पार्नुहोला। पानी परे पनि यात्रा गरिनेछ, तर भारी वर्षा भएमा रद्द भएको जानकारी दिइनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "This is information about the autumn bus trip. We will visit hot springs at the foot of the mountains and famous temples. Departure is at 7 AM on November 5th. Please gather at the south exit of the station. The bus departs at 7:15 AM, so please do not be late. We are scheduled to arrive back at the same location around 6 PM. Lunch will be provided at the inn, but please prepare your own breakfast and drinks. The trip will proceed even in rain, but in case of heavy rain, we will contact you about cancellation."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "शरद ऋतुको बस यात्राको जानकारी। हामी पहाडको फेदमा रहेको तातो पानीको मुहान र प्रसिद्ध मन्दिरको भ्रमण गर्नेछौं। प्रस्थान नोभेम्बर ५ को बिहान ७ बजे, स्टेशनको दक्षिण गेटमा भेला हुनुहोला। बस ७:१५ मा छुट्नेछ, त्यसैले ढिलो नगर्नुहोला। फर्कने समय सोही स्थानमा साँझ ६ बजेतिर हुनेछ। दिउँसोको खाना सरायमा दिइनेछ, तर बिहानको खाना र पेय पदार्थ आफैंले तयार पार्नुहोला। पानी परे पनि यात्रा गरिनेछ, तर भारी वर्षा भएमा रद्द भएको जानकारी दिइनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "This is information about the autumn bus trip. We will visit hot springs at the foot of the mountains and famous temples. Departure is at 7 AM on November 5th. Please gather at the south exit of the station. The bus departs at 7:15 AM, so please do not be late. We are scheduled to arrive back at the same location around 6 PM. Lunch will be provided at the inn, but please prepare your own breakfast and drinks. The trip will proceed even in rain, but in case of heavy rain, we will contact you about cancellation."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9011",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "クリニックの受付（うけつけ）",
-   "body": "このクリニックの受付（うけつけ）時間についてお知（し）らせします。午前は八時半から十一時半まで、午後は二時から五時までです。木曜日（もくようび）の午後と、日曜日（にちようび）、祝日（しゅくじつ）はお休みです。初（はじ）めての方（かた）は、保険証（ほけんしょう）を持（も）って、受付（うけつけ）時間の三十分前までに来てください。熱（ねつ）が高い方（かた）は、電話をしてから来ていただくと、別（べつ）の部屋（へや）でお待（ま）ていただけます。薬（くすり）は、道（みち）をはさんだ向（む）かいの薬局（やっきょく）で受（う）け取（と）ってください。",
-   "questions": [
     {
-     "id": "N4-D-S-9011-q1",
-     "q": "初（はじ）めて来る人がすることは何ですか。",
-     "choices": [
-      "保険証（ほけんしょう）を持（も）ってくること",
-      "電話をしてから来ること",
-      "三十分後に来ること",
-      "向（む）かいの薬局（やっきょく）に行くこと"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「初（はじ）めての方（かた）は、保険証（ほけんしょう）を持（も）って…来てください」とある。"
-      },
-      "ne": {
-       "q": "पहिलो पटक आउने व्यक्तिले के गर्नुपर्छ?",
-       "choices": [
-        "बीमा कार्ड लिएर आउनु",
-        "फोन गरेर आउनु",
-        "तीस मिनेटपछि आउनु",
-        "अर्को छेउको फार्मेसीमा जानु"
-       ]
-      },
-      "en": {
-       "q": "What should a first-time visitor do?",
-       "choices": [
-        "Bring a health insurance card.",
-        "Call before coming.",
-        "Come 30 minutes later.",
-        "Go to the pharmacy across the street."
-       ]
+      "id": "N4-D-S-9011",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "クリニックの受付（うけつけ）",
+      "body": "このクリニックの受付（うけつけ）時間についてお知（し）らせします。午前は八時半から十一時半まで、午後は二時から五時までです。木曜日（もくようび）の午後と、日曜日（にちようび）、祝日（しゅくじつ）はお休みです。初（はじ）めての方（かた）は、保険証（ほけんしょう）を持（も）って、受付（うけつけ）時間の三十分前までに来てください。熱（ねつ）が高い方（かた）は、電話をしてから来ていただくと、別（べつ）の部屋（へや）でお待（ま）ていただけます。薬（くすり）は、道（みち）をはさんだ向（む）かいの薬局（やっきょく）で受（う）け取（と）ってください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9011-q1",
+          "q": "初（はじ）めて来る人がすることは何ですか。",
+          "choices": [
+            "保険証（ほけんしょう）を持（も）ってくること",
+            "電話をしてから来ること",
+            "三十分後に来ること",
+            "向（む）かいの薬局（やっきょく）に行くこと"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पहिलो पटक आउने व्यक्तिले के गर्नुपर्छ?",
+              "choices": [
+                "बीमा कार्ड लिएर आउनु",
+                "फोन गरेर आउनु",
+                "तीस मिनेटपछि आउनु",
+                "अर्को छेउको फार्मेसीमा जानु"
+              ]
+            },
+            "en": {
+              "q": "What should a first-time visitor do?",
+              "choices": [
+                "Bring a health insurance card.",
+                "Call before coming.",
+                "Come 30 minutes later.",
+                "Go to the pharmacy across the street."
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "यो क्लिनिकको स्वागत समयको बारेमा जानकारी। बिहान ८:३० देखि ११:३० सम्म, र दिउँसो २ बजेदेखि ५ बजेसम्म। बिहीबार दिउँसो, आइतबार र सार्वजनिक बिदामा बन्द रहन्छ। पहिलो पटक आउनेहरूले बीमा कार्ड लिएर स्वागत समयको तीस मिनेट अगाडि आउनुहोला। उच्च ज्वरो भएकाहरूले फोन गरेर आउनुभयो भने, तपाईंलाई छुट्टै कोठामा पर्खन सकिन्छ। औषधि, बाटोको अर्को छेउमा रहेको फार्मेसीबाट लिनुहोला।"
+          ]
+        },
+        "en": {
+          "body": [
+            "This is an announcement regarding the reception hours of this clinic. Morning hours are from 8:30 AM to 11:30 AM, and afternoon hours are from 2:00 PM to 5:00 PM. The clinic is closed on Thursday afternoons, Sundays, and public holidays. First-time visitors should bring their health insurance card and arrive 30 minutes before reception hours. If you have a high fever, please call before coming, and you will be waited in a separate room. Please pick up your medicine at the pharmacy across the street."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "यो क्लिनिकको स्वागत समयको बारेमा जानकारी। बिहान ८:३० देखि ११:३० सम्म, र दिउँसो २ बजेदेखि ५ बजेसम्म। बिहीबार दिउँसो, आइतबार र सार्वजनिक बिदामा बन्द रहन्छ। पहिलो पटक आउनेहरूले बीमा कार्ड लिएर स्वागत समयको तीस मिनेट अगाडि आउनुहोला। उच्च ज्वरो भएकाहरूले फोन गरेर आउनुभयो भने, तपाईंलाई छुट्टै कोठामा पर्खन सकिन्छ। औषधि, बाटोको अर्को छेउमा रहेको फार्मेसीबाट लिनुहोला।"
-     ]
     },
-    "en": {
-     "body": [
-      "This is an announcement regarding the reception hours of this clinic. Morning hours are from 8:30 AM to 11:30 AM, and afternoon hours are from 2:00 PM to 5:00 PM. The clinic is closed on Thursday afternoons, Sundays, and public holidays. First-time visitors should bring their health insurance card and arrive 30 minutes before reception hours. If you have a high fever, please call before coming, and you will be waited in a separate room. Please pick up your medicine at the pharmacy across the street."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9012",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "商店街（しょうてんがい）の春（はる）セール",
-   "body": "駅前（えきまえ）商店街（しょうてんがい）の春（はる）のセールを行います。期間（きかん）は三月十日から十五日までの六日間です。この間、多（おお）くのお店（みせ）で品物（しなもの）が二割引（にわりび）きになります。三千円以上（いじょう）お買（か）い物（もの）をした方（かた）には、くじを一回（いっかい）引（ひ）いていただけます。一等（いっとう）は、商店街（しょうてんがい）で使（つか）える五千円分の券（けん）です。くじは、商店街（しょうてんがい）の真ん中（まんなか）にある広場（ひろば）でいつでも引（ひ）けます。お店（みせ）によっては早（はや）く閉（し）まることもありますので、ご注意（ちゅうい）ください。",
-   "questions": [
     {
-     "id": "N4-D-S-9012-q1",
-     "q": "くじを引（ひ）くには何が必要（ひつよう）ですか。",
-     "choices": [
-      "三千円以上（いじょう）の買（か）い物（もの）",
-      "二割引（にわりび）きになる品物（しなもの）",
-      "五千円分の券（けん）",
-      "六日間の来店（らいてん）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「三千円以上（いじょう）お買（か）い物（もの）をした方（かた）には、くじを一回（いっかい）」とある。"
-      },
-      "ne": {
-       "q": "लोटरी खिच्न के आवश्यक छ?",
-       "choices": [
-        "तीन हजार येन वा सोभन्दा बढीको किनमेल",
-        "२०% छुटमा पाइने सामान",
-        "पाँच हजार येनको भाउचर",
-        "छ दिनको भ्रमण"
-       ]
-      },
-      "en": {
-       "q": "What is required to draw a lottery ticket?",
-       "choices": [
-        "Shopping for 3,000 yen or more.",
-        "Items with a 20% discount.",
-        "A 5,000 yen voucher.",
-        "Visiting the store for six days."
-       ]
+      "id": "N4-D-S-9012",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "商店街（しょうてんがい）の春（はる）セール",
+      "body": "駅前（えきまえ）商店街（しょうてんがい）の春（はる）のセールを行います。期間（きかん）は三月十日から十五日までの六日間です。この間、多（おお）くのお店（みせ）で品物（しなもの）が二割引（にわりび）きになります。三千円以上（いじょう）お買（か）い物（もの）をした方（かた）には、くじを一回（いっかい）引（ひ）いていただけます。一等（いっとう）は、商店街（しょうてんがい）で使（つか）える五千円分の券（けん）です。くじは、商店街（しょうてんがい）の真ん中（まんなか）にある広場（ひろば）でいつでも引（ひ）けます。お店（みせ）によっては早（はや）く閉（し）まることもありますので、ご注意（ちゅうい）ください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9012-q1",
+          "q": "くじを引（ひ）くには何が必要（ひつよう）ですか。",
+          "choices": [
+            "三千円以上（いじょう）の買（か）い物（もの）",
+            "二割引（にわりび）きになる品物（しなもの）",
+            "五千円分の券（けん）",
+            "六日間の来店（らいてん）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "लोटरी खिच्न के आवश्यक छ?",
+              "choices": [
+                "तीन हजार येन वा सोभन्दा बढीको किनमेल",
+                "२०% छुटमा पाइने सामान",
+                "पाँच हजार येनको भाउचर",
+                "छ दिनको भ्रमण"
+              ]
+            },
+            "en": {
+              "q": "What is required to draw a lottery ticket?",
+              "choices": [
+                "Shopping for 3,000 yen or more.",
+                "Items with a 20% discount.",
+                "A 5,000 yen voucher.",
+                "Visiting the store for six days."
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "स्टेशन अगाडिको किनमेल सडकमा वसन्तको बिक्री आयोजना गरिँदैछ। अवधि मार्च १० देखि १५ सम्म, छ दिनको लागि हो। यस अवधिमा, धेरै पसलहरूमा सामानहरू २०% छुटमा उपलब्ध हुनेछन्। तीन हजार येन वा सोभन्दा बढीको किनमेल गर्नेहरूले एक पटक लोटरी खिच्न पाउनुहुनेछ। पहिलो पुरस्कार किनमेल सडकमा प्रयोग गर्न सकिने पाँच हजार येनको भाउचर हो। लोटरी किनमेल सडकको बीचमा रहेको चोकमा जुनसुकै बेला खिच्न सकिन्छ। केही पसलहरू चाँडै बन्द हुन सक्छन्, त्यसैले कृपया ध्यान दिनुहोला।"
+          ]
+        },
+        "en": {
+          "body": [
+            "The Spring Sale of Ekimae Shopping Street will be held. The period is six days, from March 10th to 15th. During this time, many stores will offer a 20% discount on their goods. Those who spend 3,000 yen or more will receive one lottery ticket. The first prize is a 5,000 yen voucher that can be used in the shopping street. Lottery tickets can be drawn anytime at the plaza in the middle of the shopping street. Please note that some stores may close early."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "स्टेशन अगाडिको किनमेल सडकमा वसन्तको बिक्री आयोजना गरिँदैछ। अवधि मार्च १० देखि १५ सम्म, छ दिनको लागि हो। यस अवधिमा, धेरै पसलहरूमा सामानहरू २०% छुटमा उपलब्ध हुनेछन्। तीन हजार येन वा सोभन्दा बढीको किनमेल गर्नेहरूले एक पटक लोटरी खिच्न पाउनुहुनेछ। पहिलो पुरस्कार किनमेल सडकमा प्रयोग गर्न सकिने पाँच हजार येनको भाउचर हो। लोटरी किनमेल सडकको बीचमा रहेको चोकमा जुनसुकै बेला खिच्न सकिन्छ। केही पसलहरू चाँडै बन्द हुन सक्छन्, त्यसैले कृपया ध्यान दिनुहोला।"
-     ]
     },
-    "en": {
-     "body": [
-      "The Spring Sale of Ekimae Shopping Street will be held. The period is six days, from March 10th to 15th. During this time, many stores will offer a 20% discount on their goods. Those who spend 3,000 yen or more will receive one lottery ticket. The first prize is a 5,000 yen voucher that can be used in the shopping street. Lottery tickets can be drawn anytime at the plaza in the middle of the shopping street. Please note that some stores may close early."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9013",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "絵本（えほん）作家（さっか）のサイン会（かい）",
-   "body": "当店（とうてん）では、来週（らいしゅう）の土曜日（どようび）に絵本（えほん）作家（さっか）のサイン会（かい）を行います。時間は午後一時から三時までです。サインがほしい方（かた）は、当店（とうてん）でその作家（さっか）の本を買（か）うと、番号（ばんごう）の書いた券（けん）をお渡（わた）しします。券（けん）は一人一枚（いちまい）までで、なくなり次第（しだい）終（お）わります。本は一冊（いっさつ）につき一つサインをしてもらえます。写真（しゃしん）をとることはできますが、作家（さっか）の顔（かお）が正面（しょうめん）から写（うつ）らないようにお願（ねが）いします。みなさまのご来店（らいてん）をお待（ま）ちしています。",
-   "questions": [
     {
-     "id": "N4-D-S-9013-q1",
-     "q": "サインをもらうにはどうすればいいですか。",
-     "choices": [
-      "店（みせ）でその作家（さっか）の本を買（か）う",
-      "午後一時までに店（みせ）に来る",
-      "作家（さっか）の写真（しゃしん）を見せる",
-      "券（けん）を二枚（にまい）もらう"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「その作家（さっか）の本を買（か）うと、番号（ばんごう）の書いた券（けん）を」とある。"
-      },
-      "ne": {
-       "q": "हस्ताक्षर पाउन के गर्नुपर्छ?",
-       "choices": [
-        "पसलमा ती लेखकको पुस्तक किन्नुहोस्",
-        "दिउँसो १ बजेसम्म पसलमा आउनुहोस्",
-        "लेखकको फोटो देखाउनुहोस्",
-        "दुईवटा कूपन लिनुहोस्"
-       ]
-      },
-      "en": {
-       "q": "What should you do to get an autograph?",
-       "choices": [
-        "Buy a book by that author at the store",
-        "Come to the store by 1 PM",
-        "Show a photo of the author",
-        "Get two tickets"
-       ]
+      "id": "N4-D-S-9013",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "絵本（えほん）作家（さっか）のサイン会（かい）",
+      "body": "当店（とうてん）では、来週（らいしゅう）の土曜日（どようび）に絵本（えほん）作家（さっか）のサイン会（かい）を行います。時間は午後一時から三時までです。サインがほしい方（かた）は、当店（とうてん）でその作家（さっか）の本を買（か）うと、番号（ばんごう）の書いた券（けん）をお渡（わた）しします。券（けん）は一人一枚（いちまい）までで、なくなり次第（しだい）終（お）わります。本は一冊（いっさつ）につき一つサインをしてもらえます。写真（しゃしん）をとることはできますが、作家（さっか）の顔（かお）が正面（しょうめん）から写（うつ）らないようにお願（ねが）いします。みなさまのご来店（らいてん）をお待（ま）ちしています。",
+      "questions": [
+        {
+          "id": "N4-D-S-9013-q1",
+          "q": "サインをもらうにはどうすればいいですか。",
+          "choices": [
+            "店（みせ）でその作家（さっか）の本を買（か）う",
+            "午後一時までに店（みせ）に来る",
+            "作家（さっか）の写真（しゃしん）を見せる",
+            "券（けん）を二枚（にまい）もらう"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "हस्ताक्षर पाउन के गर्नुपर्छ?",
+              "choices": [
+                "पसलमा ती लेखकको पुस्तक किन्नुहोस्",
+                "दिउँसो १ बजेसम्म पसलमा आउनुहोस्",
+                "लेखकको फोटो देखाउनुहोस्",
+                "दुईवटा कूपन लिनुहोस्"
+              ]
+            },
+            "en": {
+              "q": "What should you do to get an autograph?",
+              "choices": [
+                "Buy a book by that author at the store",
+                "Come to the store by 1 PM",
+                "Show a photo of the author",
+                "Get two tickets"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हाम्रो पसलमा, अर्को हप्ताको शनिबार बाल पुस्तक लेखकको हस्ताक्षर कार्यक्रम आयोजना गरिनेछ। समय दिउँसो १ बजेदेखि ३ बजेसम्म हो। यदि तपाईंलाई हस्ताक्षर चाहिएको छ भने, हाम्रो पसलबाट ती लेखकको पुस्तक किन्दा, हामी तपाईंलाई नम्बर लेखिएको कूपन दिनेछौं। कूपन एक व्यक्तिलाई एउटा मात्र दिइनेछ, र सकिएपछि समाप्त हुनेछ। एउटा पुस्तकमा एउटा हस्ताक्षर गराउन सकिन्छ। फोटो खिच्न सकिन्छ, तर कृपया लेखकको अनुहार सिधा अगाडिबाट नदेखिने गरी खिच्नुहोस्। हामी तपाईंहरूको आगमनको प्रतीक्षामा छौं।"
+          ]
+        },
+        "en": {
+          "body": [
+            "At our store, we will hold an autograph session with a picture book author next Saturday. The time is from 1 PM to 3 PM. If you would like an autograph, when you buy a book by that author at our store, we will give you a ticket with a number written on it. Tickets are limited to one per person and will end once they run out. You can get one autograph per book. You can take photos, but please make sure the author's face is not photographed directly from the front. We look forward to your visit."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हाम्रो पसलमा, अर्को हप्ताको शनिबार बाल पुस्तक लेखकको हस्ताक्षर कार्यक्रम आयोजना गरिनेछ। समय दिउँसो १ बजेदेखि ३ बजेसम्म हो। यदि तपाईंलाई हस्ताक्षर चाहिएको छ भने, हाम्रो पसलबाट ती लेखकको पुस्तक किन्दा, हामी तपाईंलाई नम्बर लेखिएको कूपन दिनेछौं। कूपन एक व्यक्तिलाई एउटा मात्र दिइनेछ, र सकिएपछि समाप्त हुनेछ। एउटा पुस्तकमा एउटा हस्ताक्षर गराउन सकिन्छ। फोटो खिच्न सकिन्छ, तर कृपया लेखकको अनुहार सिधा अगाडिबाट नदेखिने गरी खिच्नुहोस्। हामी तपाईंहरूको आगमनको प्रतीक्षामा छौं।"
-     ]
     },
-    "en": {
-     "body": [
-      "At our store, we will hold an autograph session with a picture book author next Saturday. The time is from 1 PM to 3 PM. If you would like an autograph, when you buy a book by that author at our store, we will give you a ticket with a number written on it. Tickets are limited to one per person and will end once they run out. You can get one autograph per book. You can take photos, but please make sure the author's face is not photographed directly from the front. We look forward to your visit."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9014",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "古紙（こし）を集（あつ）める日",
-   "body": "町内会（ちょうないかい）からのお知（し）らせです。古（ふる）い新聞（しんぶん）や雑誌（ざっし）を集（あつ）める日が、来月から変（か）わります。今までは第二（だいに）土曜日（どようび）でしたが、これからは毎月の第一（だいいち）と第三（だいさん）の水曜日（すいようび）になります。朝（あさ）八時までに、ひもでしばって、集会所（しゅうかいじょ）の前に出してください。ぬれた紙（かみ）やよごれた紙（かみ）は集（あつ）められませんので、家庭（かてい）のごみに出してください。集（あつ）めたお金は、公園（こうえん）のそうじや子どもの行事（ぎょうじ）に使（つか）われます。",
-   "questions": [
     {
-     "id": "N4-D-S-9014-q1",
-     "q": "古紙（こし）を集（あつ）める日はどう変（か）わりますか。",
-     "choices": [
-      "第一（だいいち）と第三（だいさん）の水曜日（すいようび）になる",
-      "今までの第二（だいに）土曜日（どようび）のままになる",
-      "毎週（まいしゅう）水曜日（すいようび）になる",
-      "第一（だいいち）土曜日（どようび）になる"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「これからは毎月の第一（だいいち）と第三（だいさん）の水曜日（すいようび）に」とある。"
-      },
-      "ne": {
-       "q": "पुरानो कागज संकलन गर्ने दिन कसरी परिवर्तन हुन्छ?",
-       "choices": [
-        "पहिलो र तेस्रो बुधबार हुनेछ",
-        "अहिलेसम्मको दोस्रो शनिबार नै रहनेछ",
-        "हरेक बुधबार हुनेछ",
-        "पहिलो शनिबार हुनेछ"
-       ]
-      },
-      "en": {
-       "q": "How will the day for collecting old paper change?",
-       "choices": [
-        "It will be the first and third Wednesdays",
-        "It will remain the second Saturday as before",
-        "It will be every Wednesday",
-        "It will be the first Saturday"
-       ]
+      "id": "N4-D-S-9014",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "古紙（こし）を集（あつ）める日",
+      "body": "町内会（ちょうないかい）からのお知（し）らせです。古（ふる）い新聞（しんぶん）や雑誌（ざっし）を集（あつ）める日が、来月から変（か）わります。今までは第二（だいに）土曜日（どようび）でしたが、これからは毎月の第一（だいいち）と第三（だいさん）の水曜日（すいようび）になります。朝（あさ）八時までに、ひもでしばって、集会所（しゅうかいじょ）の前に出してください。ぬれた紙（かみ）やよごれた紙（かみ）は集（あつ）められませんので、家庭（かてい）のごみに出してください。集（あつ）めたお金は、公園（こうえん）のそうじや子どもの行事（ぎょうじ）に使（つか）われます。",
+      "questions": [
+        {
+          "id": "N4-D-S-9014-q1",
+          "q": "古紙（こし）を集（あつ）める日はどう変（か）わりますか。",
+          "choices": [
+            "第一（だいいち）と第三（だいさん）の水曜日（すいようび）になる",
+            "今までの第二（だいに）土曜日（どようび）のままになる",
+            "毎週（まいしゅう）水曜日（すいようび）になる",
+            "第一（だいいち）土曜日（どようび）になる"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पुरानो कागज संकलन गर्ने दिन कसरी परिवर्तन हुन्छ?",
+              "choices": [
+                "पहिलो र तेस्रो बुधबार हुनेछ",
+                "अहिलेसम्मको दोस्रो शनिबार नै रहनेछ",
+                "हरेक बुधबार हुनेछ",
+                "पहिलो शनिबार हुनेछ"
+              ]
+            },
+            "en": {
+              "q": "How will the day for collecting old paper change?",
+              "choices": [
+                "It will be the first and third Wednesdays",
+                "It will remain the second Saturday as before",
+                "It will be every Wednesday",
+                "It will be the first Saturday"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "नगरपालिकाबाट सूचना। पुराना अखबार र पत्रिका संकलन गर्ने दिन अर्को महिनादेखि परिवर्तन हुनेछ। अहिलेसम्म दोस्रो शनिबार थियो, तर अबदेखि हरेक महिनाको पहिलो र तेस्रो बुधबार हुनेछ। बिहान ८ बजेसम्म, डोरीले बाँधेर, सामुदायिक भवनको अगाडि राखिदिनुहोस्। भिजेका वा फोहोर कागजहरू संकलन गरिने छैन, त्यसैले कृपया घरको फोहोरमा फाल्नुहोस्। संकलन गरिएको पैसा पार्कको सरसफाइ र बालबालिकाका कार्यक्रमहरूमा प्रयोग गरिनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "This is an announcement from the neighborhood association. The day for collecting old newspapers and magazines will change starting next month. Until now, it was the second Saturday, but from now on, it will be the first and third Wednesdays of every month. Please tie them with string and place them in front of the community center by 8 AM. Wet or dirty paper will not be collected, so please put it out with your household trash. The money collected will be used for park cleaning and children's events."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "नगरपालिकाबाट सूचना। पुराना अखबार र पत्रिका संकलन गर्ने दिन अर्को महिनादेखि परिवर्तन हुनेछ। अहिलेसम्म दोस्रो शनिबार थियो, तर अबदेखि हरेक महिनाको पहिलो र तेस्रो बुधबार हुनेछ। बिहान ८ बजेसम्म, डोरीले बाँधेर, सामुदायिक भवनको अगाडि राखिदिनुहोस्। भिजेका वा फोहोर कागजहरू संकलन गरिने छैन, त्यसैले कृपया घरको फोहोरमा फाल्नुहोस्। संकलन गरिएको पैसा पार्कको सरसफाइ र बालबालिकाका कार्यक्रमहरूमा प्रयोग गरिनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "This is an announcement from the neighborhood association. The day for collecting old newspapers and magazines will change starting next month. Until now, it was the second Saturday, but from now on, it will be the first and third Wednesdays of every month. Please tie them with string and place them in front of the community center by 8 AM. Wet or dirty paper will not be collected, so please put it out with your household trash. The money collected will be used for park cleaning and children's events."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9015",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "駅（えき）の階段（かいだん）の工事（こうじ）",
-   "body": "駅（えき）を利用（りよう）する皆（みな）さまにお知（し）らせします。東口（ひがしぐち）の階段（かいだん）は、工事（こうじ）のため今月いっぱい使（つか）えません。東の方（ほう）へ行く方（かた）は、西口（にしぐち）を出て、地下（ちか）の通路（つうろ）を通（とお）ってください。エレベーターはいつもどおり使（つか）えますので、荷物（にもつ）の多（おお）い方（かた）はそちらをご利用（りよう）ください。工事（こうじ）は夜（よる）だけ行いますが、昼（ひる）も一部（いちぶ）通（とお）れない場所（ばしょ）があります。ご不便（ふべん）をおかけしますが、来月からはもとどおりになります。",
-   "questions": [
     {
-     "id": "N4-D-S-9015-q1",
-     "q": "東口（ひがしぐち）の階段（かいだん）が使（つか）えないのはなぜですか。",
-     "choices": [
-      "工事（こうじ）をしているから",
-      "エレベーターが動（うご）かないから",
-      "荷物（にもつ）が多（おお）いから",
-      "地下（ちか）が通（とお）れないから"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「東口（ひがしぐち）の階段（かいだん）は、工事（こうじ）のため…使（つか）えません」とある。"
-      },
-      "ne": {
-       "q": "पूर्वी गेटको सिँढी किन प्रयोग गर्न सकिँदैन?",
-       "choices": [
-        "निर्माण कार्य भइरहेकोले",
-        "लिफ्ट नचलेकोले",
-        "धेरै सामान भएकोले",
-        "भूमिगत मार्गबाट जान नसकिनेले"
-       ]
-      },
-      "en": {
-       "q": "Why are the stairs at the East Exit unusable?",
-       "choices": [
-        "Because there is construction",
-        "Because the elevator is not working",
-        "Because there is a lot of luggage",
-        "Because the underground passage is impassable"
-       ]
+      "id": "N4-D-S-9015",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "駅（えき）の階段（かいだん）の工事（こうじ）",
+      "body": "駅（えき）を利用（りよう）する皆（みな）さまにお知（し）らせします。東口（ひがしぐち）の階段（かいだん）は、工事（こうじ）のため今月いっぱい使（つか）えません。東の方（ほう）へ行く方（かた）は、西口（にしぐち）を出て、地下（ちか）の通路（つうろ）を通（とお）ってください。エレベーターはいつもどおり使（つか）えますので、荷物（にもつ）の多（おお）い方（かた）はそちらをご利用（りよう）ください。工事（こうじ）は夜（よる）だけ行いますが、昼（ひる）も一部（いちぶ）通（とお）れない場所（ばしょ）があります。ご不便（ふべん）をおかけしますが、来月からはもとどおりになります。",
+      "questions": [
+        {
+          "id": "N4-D-S-9015-q1",
+          "q": "東口（ひがしぐち）の階段（かいだん）が使（つか）えないのはなぜですか。",
+          "choices": [
+            "工事（こうじ）をしているから",
+            "エレベーターが動（うご）かないから",
+            "荷物（にもつ）が多（おお）いから",
+            "地下（ちか）が通（とお）れないから"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पूर्वी गेटको सिँढी किन प्रयोग गर्न सकिँदैन?",
+              "choices": [
+                "निर्माण कार्य भइरहेकोले",
+                "लिफ्ट नचलेकोले",
+                "धेरै सामान भएकोले",
+                "भूमिगत मार्गबाट जान नसकिनेले"
+              ]
+            },
+            "en": {
+              "q": "Why are the stairs at the East Exit unusable?",
+              "choices": [
+                "Because there is construction",
+                "Because the elevator is not working",
+                "Because there is a lot of luggage",
+                "Because the underground passage is impassable"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "स्टेशन प्रयोग गर्ने सबैलाई जानकारी। पूर्वी गेटको सिँढी, निर्माण कार्यका कारण यो महिनाभरि प्रयोग गर्न सकिँदैन। पूर्वतर्फ जानेहरूले, पश्चिमी गेटबाट निस्केर, भूमिगत मार्ग प्रयोग गर्नुहोस्। लिफ्ट सधैं जस्तै प्रयोग गर्न सकिन्छ, त्यसैले धेरै सामान भएकाहरूले त्यसको प्रयोग गर्नुहोस्। निर्माण कार्य राति मात्र गरिनेछ, तर दिनमा पनि केही ठाउँहरूबाट हिँड्न सकिँदैन। असुविधाको लागि क्षमाप्रार्थी छौं, तर अर्को महिनादेखि सामान्य अवस्थामा फर्किनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Notice to all station users. The stairs at the East Exit will be unusable for the rest of this month due to construction. Those going to the east should exit the West Exit and use the underground passage. The elevator can be used as usual, so please use it if you have a lot of luggage. Construction will only be carried out at night, but some areas will be impassable during the day. We apologize for the inconvenience, but it will return to normal next month."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "स्टेशन प्रयोग गर्ने सबैलाई जानकारी। पूर्वी गेटको सिँढी, निर्माण कार्यका कारण यो महिनाभरि प्रयोग गर्न सकिँदैन। पूर्वतर्फ जानेहरूले, पश्चिमी गेटबाट निस्केर, भूमिगत मार्ग प्रयोग गर्नुहोस्। लिफ्ट सधैं जस्तै प्रयोग गर्न सकिन्छ, त्यसैले धेरै सामान भएकाहरूले त्यसको प्रयोग गर्नुहोस्। निर्माण कार्य राति मात्र गरिनेछ, तर दिनमा पनि केही ठाउँहरूबाट हिँड्न सकिँदैन। असुविधाको लागि क्षमाप्रार्थी छौं, तर अर्को महिनादेखि सामान्य अवस्थामा फर्किनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "Notice to all station users. The stairs at the East Exit will be unusable for the rest of this month due to construction. Those going to the east should exit the West Exit and use the underground passage. The elevator can be used as usual, so please use it if you have a lot of luggage. Construction will only be carried out at night, but some areas will be impassable during the day. We apologize for the inconvenience, but it will return to normal next month."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9016",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "新（あたら）しい飲（の）み物（もの）",
-   "body": "当店（とうてん）に新（あたら）しい飲（の）み物（もの）が仲間入（なかまい）りしました。いちごをたっぷり使（つか）ったミルクの飲（の）み物（もの）で、四月の終（お）わりまでの限定（げんてい）です。温（あたた）かいものと冷（つめ）たいものが選（えら）べます。ケーキと一緒（いっしょ）に注文（ちゅうもん）すると、五十円安（やす）くなります。お持（も）ち帰（かえ）りもできますが、店内（てんない）でめしあがる場合（ばあい）はカップの色（いろ）が変（か）わります。午後三時までは、席（せき）が空（あ）いていればゆっくりお過（す）ごしいただけます。ぜひお試（ため）しください。",
-   "questions": [
     {
-     "id": "N4-D-S-9016-q1",
-     "q": "この新（あたら）しい飲（の）み物（もの）について、正（ただ）しいものはどれですか。",
-     "choices": [
-      "いちごを使（つか）っている",
-      "一年中売（う）っている",
-      "冷（つめ）たいものだけである",
-      "持（も）ち帰（かえ）りはできない"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「いちごをたっぷり使（つか）ったミルクの飲（の）み物（もの）」とある。"
-      },
-      "ne": {
-       "q": "यो नयाँ पेय पदार्थको बारेमा, कुन कुरा सही छ?",
-       "choices": [
-        "स्ट्रबेरी प्रयोग गरिएको छ",
-        "वर्षभरि बेचिन्छ",
-        "चिसो मात्र हुन्छ",
-        "घर लैजान सकिँदैन"
-       ]
-      },
-      "en": {
-       "q": "Which of the following is correct about this new drink?",
-       "choices": [
-        "It uses strawberries",
-        "It is sold all year round",
-        "It is only cold",
-        "Takeout is not possible"
-       ]
+      "id": "N4-D-S-9016",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "新（あたら）しい飲（の）み物（もの）",
+      "body": "当店（とうてん）に新（あたら）しい飲（の）み物（もの）が仲間入（なかまい）りしました。いちごをたっぷり使（つか）ったミルクの飲（の）み物（もの）で、四月の終（お）わりまでの限定（げんてい）です。温（あたた）かいものと冷（つめ）たいものが選（えら）べます。ケーキと一緒（いっしょ）に注文（ちゅうもん）すると、五十円安（やす）くなります。お持（も）ち帰（かえ）りもできますが、店内（てんない）でめしあがる場合（ばあい）はカップの色（いろ）が変（か）わります。午後三時までは、席（せき）が空（あ）いていればゆっくりお過（す）ごしいただけます。ぜひお試（ため）しください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9016-q1",
+          "q": "この新（あたら）しい飲（の）み物（もの）について、正（ただ）しいものはどれですか。",
+          "choices": [
+            "いちごを使（つか）っている",
+            "一年中売（う）っている",
+            "冷（つめ）たいものだけである",
+            "持（も）ち帰（かえ）りはできない"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो नयाँ पेय पदार्थको बारेमा, कुन कुरा सही छ?",
+              "choices": [
+                "स्ट्रबेरी प्रयोग गरिएको छ",
+                "वर्षभरि बेचिन्छ",
+                "चिसो मात्र हुन्छ",
+                "घर लैजान सकिँदैन"
+              ]
+            },
+            "en": {
+              "q": "Which of the following is correct about this new drink?",
+              "choices": [
+                "It uses strawberries",
+                "It is sold all year round",
+                "It is only cold",
+                "Takeout is not possible"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हाम्रो पसलमा नयाँ पेय पदार्थ थपिएको छ। यो स्ट्रबेरी प्रशस्त मात्रामा प्रयोग गरिएको दूधको पेय पदार्थ हो, र अप्रिलको अन्त्यसम्म मात्र उपलब्ध छ। तातो र चिसो दुवै छनोट गर्न सकिन्छ। केक सँगै अर्डर गर्दा, पचास येन सस्तो हुन्छ। यसलाई घर लैजान पनि सकिन्छ, तर पसलभित्र पिउँदा कपको रंग फरक हुन्छ। दिउँसो ३ बजेसम्म, यदि सिट खाली छ भने तपाईं आरामसँग बस्न सक्नुहुन्छ। कृपया अवश्य प्रयास गर्नुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "A new drink has joined our menu. It's a milk drink generously made with strawberries, and it's available only until the end of April. You can choose between hot and cold. If you order it with a cake, you'll get a 50 yen discount. Takeout is available, but if you enjoy it in the store, the cup color will change. Until 3 PM, you can relax if there are seats available. Please give it a try."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हाम्रो पसलमा नयाँ पेय पदार्थ थपिएको छ। यो स्ट्रबेरी प्रशस्त मात्रामा प्रयोग गरिएको दूधको पेय पदार्थ हो, र अप्रिलको अन्त्यसम्म मात्र उपलब्ध छ। तातो र चिसो दुवै छनोट गर्न सकिन्छ। केक सँगै अर्डर गर्दा, पचास येन सस्तो हुन्छ। यसलाई घर लैजान पनि सकिन्छ, तर पसलभित्र पिउँदा कपको रंग फरक हुन्छ। दिउँसो ३ बजेसम्म, यदि सिट खाली छ भने तपाईं आरामसँग बस्न सक्नुहुन्छ। कृपया अवश्य प्रयास गर्नुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "A new drink has joined our menu. It's a milk drink generously made with strawberries, and it's available only until the end of April. You can choose between hot and cold. If you order it with a cake, you'll get a 50 yen discount. Takeout is available, but if you enjoy it in the store, the cup color will change. Until 3 PM, you can relax if there are seats available. Please give it a try."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9017",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "パン屋（や）のアルバイト",
-   "body": "パン屋（や）でいっしょに働（はたら）く人をさがしています。仕事（しごと）は、朝（あさ）の焼（や）きたてパンをならべたり、お客（きゃく）さんにお金を受（う）け取（と）ったりする仕事（しごと）です。時間は朝（あさ）七時から昼（ひる）十二時までで、週（しゅう）に三日から働（はたら）けます。土曜日（どようび）か日曜日（にちようび）に入れる方（かた）を、特（とく）にさがしています。パン作（つく）りの経験（けいけん）がなくても大丈夫（だいじょうぶ）です。くわしいことは、店（みせ）の人に声（こえ）をかけるか、電話でおたずねください。制服（せいふく）は店（みせ）から貸（か）します。",
-   "questions": [
     {
-     "id": "N4-D-S-9017-q1",
-     "q": "店（みせ）が特（とく）にさがしているのはどんな人ですか。",
-     "choices": [
-      "土日に働（はたら）ける人",
-      "パン作（つく）りが得意（とくい）な人",
-      "夜（よる）に働（はたら）ける人",
-      "毎日入れる人"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「土曜日（どようび）か日曜日（にちようび）に入れる方（かた）を、特（とく）にさがしています」とある。"
-      },
-      "ne": {
-       "q": "पसलले विशेष गरी कस्तो व्यक्ति खोजिरहेको छ?",
-       "choices": [
-        "शनिबार र आइतबार काम गर्न सक्ने व्यक्ति",
-        "रोटी बनाउनमा निपुण व्यक्ति",
-        "राति काम गर्न सक्ने व्यक्ति",
-        "हरेक दिन काम गर्न सक्ने व्यक्ति"
-       ]
-      },
-      "en": {
-       "q": "What kind of person is the store especially looking for?",
-       "choices": [
-        "Someone who can work on weekends",
-        "Someone who is good at making bread",
-        "Someone who can work at night",
-        "Someone who can come every day"
-       ]
+      "id": "N4-D-S-9017",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "パン屋（や）のアルバイト",
+      "body": "パン屋（や）でいっしょに働（はたら）く人をさがしています。仕事（しごと）は、朝（あさ）の焼（や）きたてパンをならべたり、お客（きゃく）さんにお金を受（う）け取（と）ったりする仕事（しごと）です。時間は朝（あさ）七時から昼（ひる）十二時までで、週（しゅう）に三日から働（はたら）けます。土曜日（どようび）か日曜日（にちようび）に入れる方（かた）を、特（とく）にさがしています。パン作（つく）りの経験（けいけん）がなくても大丈夫（だいじょうぶ）です。くわしいことは、店（みせ）の人に声（こえ）をかけるか、電話でおたずねください。制服（せいふく）は店（みせ）から貸（か）します。",
+      "questions": [
+        {
+          "id": "N4-D-S-9017-q1",
+          "q": "店（みせ）が特（とく）にさがしているのはどんな人ですか。",
+          "choices": [
+            "土日に働（はたら）ける人",
+            "パン作（つく）りが得意（とくい）な人",
+            "夜（よる）に働（はたら）ける人",
+            "毎日入れる人"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पसलले विशेष गरी कस्तो व्यक्ति खोजिरहेको छ?",
+              "choices": [
+                "शनिबार र आइतबार काम गर्न सक्ने व्यक्ति",
+                "रोटी बनाउनमा निपुण व्यक्ति",
+                "राति काम गर्न सक्ने व्यक्ति",
+                "हरेक दिन काम गर्न सक्ने व्यक्ति"
+              ]
+            },
+            "en": {
+              "q": "What kind of person is the store especially looking for?",
+              "choices": [
+                "Someone who can work on weekends",
+                "Someone who is good at making bread",
+                "Someone who can work at night",
+                "Someone who can come every day"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हामी बेकरीमा सँगै काम गर्ने व्यक्ति खोजिरहेका छौं। काम बिहानको ताजा रोटी मिलाउने र ग्राहकहरूबाट पैसा लिने जस्ता कामहरू हुन्। समय बिहान ७ बजेदेखि दिउँसो १२ बजेसम्म हो, र हप्तामा तीन दिनदेखि काम गर्न सकिन्छ। हामी विशेष गरी शनिबार वा आइतबार काम गर्न सक्ने व्यक्ति खोजिरहेका छौं। रोटी बनाउने अनुभव नभए पनि ठीक छ। विस्तृत जानकारीको लागि, पसलका कर्मचारीलाई सोध्नुहोस् वा फोन गर्नुहोस्। युनिफर्म पसलबाट दिइनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "We are looking for someone to work with us at the bakery. The job involves arranging freshly baked bread in the morning and receiving money from customers. The hours are from 7 AM to 12 PM, and you can work from three days a week. We are especially looking for someone who can work on Saturdays or Sundays. No experience in bread making is necessary. For more details, please speak to a staff member or inquire by phone. Uniforms will be lent by the store."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हामी बेकरीमा सँगै काम गर्ने व्यक्ति खोजिरहेका छौं। काम बिहानको ताजा रोटी मिलाउने र ग्राहकहरूबाट पैसा लिने जस्ता कामहरू हुन्। समय बिहान ७ बजेदेखि दिउँसो १२ बजेसम्म हो, र हप्तामा तीन दिनदेखि काम गर्न सकिन्छ। हामी विशेष गरी शनिबार वा आइतबार काम गर्न सक्ने व्यक्ति खोजिरहेका छौं। रोटी बनाउने अनुभव नभए पनि ठीक छ। विस्तृत जानकारीको लागि, पसलका कर्मचारीलाई सोध्नुहोस् वा फोन गर्नुहोस्। युनिफर्म पसलबाट दिइनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "We are looking for someone to work with us at the bakery. The job involves arranging freshly baked bread in the morning and receiving money from customers. The hours are from 7 AM to 12 PM, and you can work from three days a week. We are especially looking for someone who can work on Saturdays or Sundays. No experience in bread making is necessary. For more details, please speak to a staff member or inquire by phone. Uniforms will be lent by the store."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9018",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "春（はる）のお花見（はなみ）の会（かい）",
-   "body": "春（はる）のお花見（はなみ）の会（かい）を開（ひら）きます。場所（ばしょ）は川ぞいの桜並木（さくらなみき）の下、日にちは四月二日の日曜日（にちようび）です。朝（あさ）十時に橋（はし）のたもとに集（あつ）まってください。レジャーシートは会（かい）で用意（ようい）しますが、食べ物（もの）と飲（の）み物（もの）は少（すこ）しずつ持（も）ちよってください。雨のときは、次（つぎ）の週（しゅう）の日曜日（にちようび）にのばします。桜（さくら）の枝（えだ）を折（お）ったり、木の下に長く場所（ばしょ）を取（と）ったりしないようにしましょう。近所（きんじょ）の人のめいわくにならないように気をつけます。",
-   "questions": [
     {
-     "id": "N4-D-S-9018-q1",
-     "q": "参加者（さんかしゃ）が持（も）ってくるものは何ですか。",
-     "choices": [
-      "食べ物（もの）と飲（の）み物（もの）",
-      "レジャーシート",
-      "桜（さくら）の枝（えだ）",
-      "橋（はし）の地図（ちず）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「食べ物（もの）と飲（の）み物（もの）は少（すこ）しずつ持（も）ちよって」とある。"
-      },
-      "ne": {
-       "q": "सहभागीहरूले के ल्याउनुपर्छ?",
-       "choices": [
-        "खानेकुरा र पेय पदार्थ",
-        "लेजर सिट",
-        "चेरीको हाँगा",
-        "पुलको नक्सा"
-       ]
-      },
-      "en": {
-       "q": "What should participants bring?",
-       "choices": [
-        "Food and drinks",
-        "Leisure sheets",
-        "Cherry branches",
-        "A map of the bridge"
-       ]
+      "id": "N4-D-S-9018",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "春（はる）のお花見（はなみ）の会（かい）",
+      "body": "春（はる）のお花見（はなみ）の会（かい）を開（ひら）きます。場所（ばしょ）は川ぞいの桜並木（さくらなみき）の下、日にちは四月二日の日曜日（にちようび）です。朝（あさ）十時に橋（はし）のたもとに集（あつ）まってください。レジャーシートは会（かい）で用意（ようい）しますが、食べ物（もの）と飲（の）み物（もの）は少（すこ）しずつ持（も）ちよってください。雨のときは、次（つぎ）の週（しゅう）の日曜日（にちようび）にのばします。桜（さくら）の枝（えだ）を折（お）ったり、木の下に長く場所（ばしょ）を取（と）ったりしないようにしましょう。近所（きんじょ）の人のめいわくにならないように気をつけます。",
+      "questions": [
+        {
+          "id": "N4-D-S-9018-q1",
+          "q": "参加者（さんかしゃ）が持（も）ってくるものは何ですか。",
+          "choices": [
+            "食べ物（もの）と飲（の）み物（もの）",
+            "レジャーシート",
+            "桜（さくら）の枝（えだ）",
+            "橋（はし）の地図（ちず）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "सहभागीहरूले के ल्याउनुपर्छ?",
+              "choices": [
+                "खानेकुरा र पेय पदार्थ",
+                "लेजर सिट",
+                "चेरीको हाँगा",
+                "पुलको नक्सा"
+              ]
+            },
+            "en": {
+              "q": "What should participants bring?",
+              "choices": [
+                "Food and drinks",
+                "Leisure sheets",
+                "Cherry branches",
+                "A map of the bridge"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हामी वसन्तको फूल हेर्ने कार्यक्रम आयोजना गर्दैछौं। स्थान नदी किनारको चेरी फूलको रूखमुनि, मिति अप्रिल २ तारिख आइतबार हो। बिहान १० बजे पुलको फेदमा भेला हुनुहोस्। लेजर सिट कार्यक्रमले उपलब्ध गराउनेछ, तर खानेकुरा र पेय पदार्थ थोरै-थोरै ल्याउनुहोस्। पानी परेमा, अर्को हप्ताको आइतबार सारिनेछ। चेरीको हाँगा नभाँचौं, र रूखमुनि लामो समयसम्म ठाउँ नओगटौं। छिमेकीहरूलाई असुविधा नहोस् भनेर ध्यान दिनेछौं।"
+          ]
+        },
+        "en": {
+          "body": [
+            "We are holding a spring cherry blossom viewing party. The location is under the cherry blossom trees along the river, and the date is Sunday, April 2nd. Please gather at the foot of the bridge at 10 AM. The party will provide leisure sheets, but please bring a little food and drink. If it rains, it will be postponed to the following Sunday. Let's avoid breaking cherry branches or occupying a spot under a tree for a long time. We will be careful not to bother the neighbors."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हामी वसन्तको फूल हेर्ने कार्यक्रम आयोजना गर्दैछौं। स्थान नदी किनारको चेरी फूलको रूखमुनि, मिति अप्रिल २ तारिख आइतबार हो। बिहान १० बजे पुलको फेदमा भेला हुनुहोस्। लेजर सिट कार्यक्रमले उपलब्ध गराउनेछ, तर खानेकुरा र पेय पदार्थ थोरै-थोरै ल्याउनुहोस्। पानी परेमा, अर्को हप्ताको आइतबार सारिनेछ। चेरीको हाँगा नभाँचौं, र रूखमुनि लामो समयसम्म ठाउँ नओगटौं। छिमेकीहरूलाई असुविधा नहोस् भनेर ध्यान दिनेछौं।"
-     ]
     },
-    "en": {
-     "body": [
-      "We are holding a spring cherry blossom viewing party. The location is under the cherry blossom trees along the river, and the date is Sunday, April 2nd. Please gather at the foot of the bridge at 10 AM. The party will provide leisure sheets, but please bring a little food and drink. If it rains, it will be postponed to the following Sunday. Let's avoid breaking cherry branches or occupying a spot under a tree for a long time. We will be careful not to bother the neighbors."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9019",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "市民（しみん）プールの夏（なつ）",
-   "body": "市民（しみん）プールの夏（なつ）の利用（りよう）についてご案内（あんない）します。七月から八月まで、毎日朝（あさ）九時から夕方（ゆうがた）六時まで開（ひら）きます。小学生だけで来る場合（ばあい）は、午後五時までに帰（かえ）ってください。泳（およ）ぐ前には、必（かなら）ずシャワーをあびて、水泳（すいえい）ぼうしをかぶってください。うき輪（わ）は、小さい子どもがいる浅（あさ）いプールでだけ使（つか）えます。一時間に一回（いっかい）、十分間の休みがあり、その間は水から上がってください。",
-   "questions": [
     {
-     "id": "N4-D-S-9019-q1",
-     "q": "泳（およ）ぐ前にしなければならないことは何ですか。",
-     "choices": [
-      "シャワーをあびること",
-      "水泳（すいえい）ぼうしをはずすこと",
-      "五時までに帰（かえ）ること",
-      "水から上がること"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「泳（およ）ぐ前には、必（かなら）ずシャワーをあびて」とある。"
-      },
-      "ne": {
-       "q": "पौडी खेल्नु अघि के गर्नुपर्छ?",
-       "choices": [
-        "<u>नुहाउनु</u>",
-        "पौडी टोपी हटाउनु",
-        "पाँच बजेसम्म फर्कनु",
-        "पानीबाट बाहिर निस्कनु"
-       ]
-      },
-      "en": {
-       "q": "What must you do before swimming?",
-       "choices": [
-        "Take a shower",
-        "Take off your swimming cap",
-        "Go home by 5 PM",
-        "Get out of the water"
-       ]
+      "id": "N4-D-S-9019",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "市民（しみん）プールの夏（なつ）",
+      "body": "市民（しみん）プールの夏（なつ）の利用（りよう）についてご案内（あんない）します。七月から八月まで、毎日朝（あさ）九時から夕方（ゆうがた）六時まで開（ひら）きます。小学生だけで来る場合（ばあい）は、午後五時までに帰（かえ）ってください。泳（およ）ぐ前には、必（かなら）ずシャワーをあびて、水泳（すいえい）ぼうしをかぶってください。うき輪（わ）は、小さい子どもがいる浅（あさ）いプールでだけ使（つか）えます。一時間に一回（いっかい）、十分間の休みがあり、その間は水から上がってください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9019-q1",
+          "q": "泳（およ）ぐ前にしなければならないことは何ですか。",
+          "choices": [
+            "シャワーをあびること",
+            "水泳（すいえい）ぼうしをはずすこと",
+            "五時までに帰（かえ）ること",
+            "水から上がること"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पौडी खेल्नु अघि के गर्नुपर्छ?",
+              "choices": [
+                "<u>नुहाउनु</u>",
+                "पौडी टोपी हटाउनु",
+                "पाँच बजेसम्म फर्कनु",
+                "पानीबाट बाहिर निस्कनु"
+              ]
+            },
+            "en": {
+              "q": "What must you do before swimming?",
+              "choices": [
+                "Take a shower",
+                "Take off your swimming cap",
+                "Go home by 5 PM",
+                "Get out of the water"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हामी तपाईंलाई नागरिक पौडी पोखरीको गर्मीयामको प्रयोगको बारेमा जानकारी दिन्छौं।\nजुलाईदेखि अगस्टसम्म, यो हरेक दिन बिहान नौ बजेदेखि साँझ छ बजेसम्म खुल्छ।\nयदि प्राथमिक विद्यालयका विद्यार्थीहरू एक्लै आउँछन् भने, कृपया साँझ पाँच बजेसम्म फर्कनुहोस्।\nपौडी खेल्नु अघि, कृपया नुहाउनुहोस् र पौडी खेल्ने टोपी लगाउनुहोस्।\nफ्लोटहरू साना बच्चाहरू भएका उथले पोखरीमा मात्र प्रयोग गर्न सकिन्छ।\nप्रत्येक घण्टामा दस मिनेटको विश्राम हुन्छ, र त्यस समयमा कृपया पानीबाट बाहिर निस्कनुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Here is information about the summer use of the public pool.\nIt will be open daily from July to August, from 9 AM to 6 PM.\nIf elementary school students come alone, please return home by 5 PM.\nBefore swimming, please be sure to take a shower and wear a swimming cap.\nInner tubes can only be used in the shallow pool where there are small children.\nThere will be a ten-minute break once every hour, during which you should get out of the water."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हामी तपाईंलाई नागरिक पौडी पोखरीको गर्मीयामको प्रयोगको बारेमा जानकारी दिन्छौं।\nजुलाईदेखि अगस्टसम्म, यो हरेक दिन बिहान नौ बजेदेखि साँझ छ बजेसम्म खुल्छ।\nयदि प्राथमिक विद्यालयका विद्यार्थीहरू एक्लै आउँछन् भने, कृपया साँझ पाँच बजेसम्म फर्कनुहोस्।\nपौडी खेल्नु अघि, कृपया नुहाउनुहोस् र पौडी खेल्ने टोपी लगाउनुहोस्।\nफ्लोटहरू साना बच्चाहरू भएका उथले पोखरीमा मात्र प्रयोग गर्न सकिन्छ।\nप्रत्येक घण्टामा दस मिनेटको विश्राम हुन्छ, र त्यस समयमा कृपया पानीबाट बाहिर निस्कनुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "Here is information about the summer use of the public pool.\nIt will be open daily from July to August, from 9 AM to 6 PM.\nIf elementary school students come alone, please return home by 5 PM.\nBefore swimming, please be sure to take a shower and wear a swimming cap.\nInner tubes can only be used in the shallow pool where there are small children.\nThere will be a ten-minute break once every hour, during which you should get out of the water."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9020",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "はじめてのパソコン教室（きょうしつ）",
-   "body": "初（はじ）めての方（かた）のためのパソコン教室（きょうしつ）を開（ひら）きます。電源（でんげん）の入れ方（かた）から、文字（もじ）の打（う）ち方（かた）、写真（しゃしん）の送（おく）り方（かた）までをゆっくり学びます。毎週（まいしゅう）木曜日（もくようび）の午後二時から四時まで、全部（ぜんぶ）で六回（ろっかい）です。場所（ばしょ）は市民（しみん）センターの二階（にかい）です。自分（じぶん）のパソコンがある方（かた）は持（も）ってきてください。ない方（かた）には教室（きょうしつ）のものを貸（か）します。費用（ひよう）は六回（ろっかい）で三千円、初（はじ）めの日に払（はら）ってください。六十歳（ろくじゅっさい）以上（いじょう）の方（かた）は、二千円になります。",
-   "questions": [
     {
-     "id": "N4-D-S-9020-q1",
-     "q": "自分（じぶん）のパソコンがない人はどうしますか。",
-     "choices": [
-      "教室（きょうしつ）のものを借（か）りる",
-      "三千円多（おお）く払（はら）う",
-      "木曜日（もくようび）以外（いがい）に来る",
-      "自分（じぶん）のパソコンを持（も）ってくる"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「ない方（かた）には教室（きょうしつ）のものを貸（か）します」とある。"
-      },
-      "ne": {
-       "q": "आफ्नै कम्प्युटर नभएका व्यक्तिहरूले के गर्छन्?",
-       "choices": [
-        "<u>कक्षाको कम्प्युटर उधारो लिन्छन्</u>",
-        "तीन हजार येन बढी तिर्छन्",
-        "बिहीबार बाहेकका दिनमा आउँछन्",
-        "आफ्नै कम्प्युटर ल्याउँछन्"
-       ]
-      },
-      "en": {
-       "q": "What should people who don't have their own computer do?",
-       "choices": [
-        "Borrow one from the classroom",
-        "Pay 3,000 yen more",
-        "Come on a day other than Thursday",
-        "Bring their own computer"
-       ]
+      "id": "N4-D-S-9020",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "はじめてのパソコン教室（きょうしつ）",
+      "body": "初（はじ）めての方（かた）のためのパソコン教室（きょうしつ）を開（ひら）きます。電源（でんげん）の入れ方（かた）から、文字（もじ）の打（う）ち方（かた）、写真（しゃしん）の送（おく）り方（かた）までをゆっくり学びます。毎週（まいしゅう）木曜日（もくようび）の午後二時から四時まで、全部（ぜんぶ）で六回（ろっかい）です。場所（ばしょ）は市民（しみん）センターの二階（にかい）です。自分（じぶん）のパソコンがある方（かた）は持（も）ってきてください。ない方（かた）には教室（きょうしつ）のものを貸（か）します。費用（ひよう）は六回（ろっかい）で三千円、初（はじ）めの日に払（はら）ってください。六十歳（ろくじゅっさい）以上（いじょう）の方（かた）は、二千円になります。",
+      "questions": [
+        {
+          "id": "N4-D-S-9020-q1",
+          "q": "自分（じぶん）のパソコンがない人はどうしますか。",
+          "choices": [
+            "教室（きょうしつ）のものを借（か）りる",
+            "三千円多（おお）く払（はら）う",
+            "木曜日（もくようび）以外（いがい）に来る",
+            "自分（じぶん）のパソコンを持（も）ってくる"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "आफ्नै कम्प्युटर नभएका व्यक्तिहरूले के गर्छन्?",
+              "choices": [
+                "<u>कक्षाको कम्प्युटर उधारो लिन्छन्</u>",
+                "तीन हजार येन बढी तिर्छन्",
+                "बिहीबार बाहेकका दिनमा आउँछन्",
+                "आफ्नै कम्प्युटर ल्याउँछन्"
+              ]
+            },
+            "en": {
+              "q": "What should people who don't have their own computer do?",
+              "choices": [
+                "Borrow one from the classroom",
+                "Pay 3,000 yen more",
+                "Come on a day other than Thursday",
+                "Bring their own computer"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हामी नयाँ प्रयोगकर्ताहरूको लागि कम्प्युटर कक्षा सञ्चालन गर्दैछौं।\nतपाईंले पावर अन गर्ने तरिकादेखि अक्षरहरू टाइप गर्ने र फोटोहरू पठाउने तरिका बिस्तारै सिक्नुहुनेछ।\nयो हरेक बिहीबार दिउँसो दुई बजेदेखि चार बजेसम्म, कुल छ पटकको लागि हो।\nस्थान नागरिक केन्द्रको दोस्रो तल्लामा छ।\nयदि तपाईंसँग आफ्नै कम्प्युटर छ भने, कृपया ल्याउनुहोस्।\nजससँग छैन, उनीहरूलाई कक्षाको कम्प्युटर उपलब्ध गराइनेछ।\nशुल्क छ पटकको लागि तीन हजार येन हो, कृपया पहिलो दिन भुक्तानी गर्नुहोस्।\nसाठी वर्ष वा सोभन्दा माथिका व्यक्तिहरूको लागि, यो दुई हजार येन हुनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "We are holding a computer class for beginners. You will slowly learn everything from how to turn on the power to how to type and send photos. It will be held every Thursday from 2 PM to 4 PM, for a total of six sessions. The location is on the second floor of the Civic Center. If you have your own computer, please bring it. For those who don't, we will lend you one from the classroom. The fee is 3,000 yen for all six sessions, please pay on the first day. For those aged 60 and over, it will be 2,000 yen."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हामी नयाँ प्रयोगकर्ताहरूको लागि कम्प्युटर कक्षा सञ्चालन गर्दैछौं।\nतपाईंले पावर अन गर्ने तरिकादेखि अक्षरहरू टाइप गर्ने र फोटोहरू पठाउने तरिका बिस्तारै सिक्नुहुनेछ।\nयो हरेक बिहीबार दिउँसो दुई बजेदेखि चार बजेसम्म, कुल छ पटकको लागि हो।\nस्थान नागरिक केन्द्रको दोस्रो तल्लामा छ।\nयदि तपाईंसँग आफ्नै कम्प्युटर छ भने, कृपया ल्याउनुहोस्।\nजससँग छैन, उनीहरूलाई कक्षाको कम्प्युटर उपलब्ध गराइनेछ।\nशुल्क छ पटकको लागि तीन हजार येन हो, कृपया पहिलो दिन भुक्तानी गर्नुहोस्।\nसाठी वर्ष वा सोभन्दा माथिका व्यक्तिहरूको लागि, यो दुई हजार येन हुनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "We are holding a computer class for beginners. You will slowly learn everything from how to turn on the power to how to type and send photos. It will be held every Thursday from 2 PM to 4 PM, for a total of six sessions. The location is on the second floor of the Civic Center. If you have your own computer, please bring it. For those who don't, we will lend you one from the classroom. The fee is 3,000 yen for all six sessions, please pay on the first day. For those aged 60 and over, it will be 2,000 yen."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9021",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "川のそうじの手伝（てつだ）い",
-   "body": "川のそうじを手伝（てつだ）ってくれる人をさがしています。日にちは六月十日の土曜日（どようび）、朝（あさ）九時から昼（ひる）までです。集（あつ）まる場所（ばしょ）は、川にかかる緑（みどり）の橋（はし）の下です。軍手（ぐんて）とごみを入れる袋（ふくろ）は、こちらで用意（ようい）します。動（うご）きやすい服（ふく）と、ぬれてもいいくつで来てください。終（お）わったあとで、参加（さんか）した人にはお茶（ちゃ）とパンをお配（くば）りします。雨の日は中止（ちゅうし）で、その場合（ばあい）は前の日の夜（よる）に連絡（れんらく）します。",
-   "questions": [
     {
-     "id": "N4-D-S-9021-q1",
-     "q": "参加（さんか）する人が自分（じぶん）で用意（ようい）するものは何ですか。",
-     "choices": [
-      "ぬれてもいいくつ",
-      "こちらで用意（ようい）する軍手（ぐんて）",
-      "ごみの袋（ふくろ）",
-      "お茶（ちゃ）とパン"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「ぬれてもいいくつで来てください」とあり、軍手（ぐんて）と袋（ふくろ）はこちらで用意（ようい）する。"
-      },
-      "ne": {
-       "q": "सहभागीहरूले आफैंले के तयार गर्नुपर्छ?",
-       "choices": [
-        "<u>भिजे पनि फरक नपर्ने जुत्ता</u>",
-        "हामीले उपलब्ध गराउने काम गर्ने पन्जा",
-        "फोहोरको झोला",
-        "चिया र रोटी"
-       ]
-      },
-      "en": {
-       "q": "What should participants prepare themselves?",
-       "choices": [
-        "Shoes that can get wet",
-        "Work gloves provided by us",
-        "Garbage bags",
-        "Tea and bread"
-       ]
+      "id": "N4-D-S-9021",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "川のそうじの手伝（てつだ）い",
+      "body": "川のそうじを手伝（てつだ）ってくれる人をさがしています。日にちは六月十日の土曜日（どようび）、朝（あさ）九時から昼（ひる）までです。集（あつ）まる場所（ばしょ）は、川にかかる緑（みどり）の橋（はし）の下です。軍手（ぐんて）とごみを入れる袋（ふくろ）は、こちらで用意（ようい）します。動（うご）きやすい服（ふく）と、ぬれてもいいくつで来てください。終（お）わったあとで、参加（さんか）した人にはお茶（ちゃ）とパンをお配（くば）りします。雨の日は中止（ちゅうし）で、その場合（ばあい）は前の日の夜（よる）に連絡（れんらく）します。",
+      "questions": [
+        {
+          "id": "N4-D-S-9021-q1",
+          "q": "参加（さんか）する人が自分（じぶん）で用意（ようい）するものは何ですか。",
+          "choices": [
+            "ぬれてもいいくつ",
+            "こちらで用意（ようい）する軍手（ぐんて）",
+            "ごみの袋（ふくろ）",
+            "お茶（ちゃ）とパン"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "सहभागीहरूले आफैंले के तयार गर्नुपर्छ?",
+              "choices": [
+                "<u>भिजे पनि फरक नपर्ने जुत्ता</u>",
+                "हामीले उपलब्ध गराउने काम गर्ने पन्जा",
+                "फोहोरको झोला",
+                "चिया र रोटी"
+              ]
+            },
+            "en": {
+              "q": "What should participants prepare themselves?",
+              "choices": [
+                "Shoes that can get wet",
+                "Work gloves provided by us",
+                "Garbage bags",
+                "Tea and bread"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हामी नदी सफा गर्न मद्दत गर्ने व्यक्तिहरू खोजिरहेका छौं।\nमिति जुन १०, शनिबार, बिहान नौ बजेदेखि दिउँसोसम्म हो।\nजम्मा हुने ठाउँ नदीमाथिको हरियो पुलमुनि हो।\nकाम गर्ने पन्जा र फोहोर राख्ने झोला हामीले उपलब्ध गराउनेछौं।\nसजिलै हिँड्न मिल्ने कपडा र भिजे पनि फरक नपर्ने जुत्ता लगाएर आउनुहोस्।\nसफा गरिसकेपछि, सहभागीहरूलाई चिया र रोटी वितरण गरिनेछ।\nपानी परेको दिन रद्द गरिनेछ, र त्यस अवस्थामा अघिल्लो दिनको साँझ जानकारी दिइनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "We are looking for people to help clean the river. The date is Saturday, June 10th, from 9 AM until noon. The meeting place is under the green bridge over the river. We will provide work gloves and garbage bags. Please come in comfortable clothes and shoes that can get wet. Afterwards, we will distribute tea and bread to participants. The event will be canceled if it rains, in which case we will contact you the night before."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हामी नदी सफा गर्न मद्दत गर्ने व्यक्तिहरू खोजिरहेका छौं।\nमिति जुन १०, शनिबार, बिहान नौ बजेदेखि दिउँसोसम्म हो।\nजम्मा हुने ठाउँ नदीमाथिको हरियो पुलमुनि हो।\nकाम गर्ने पन्जा र फोहोर राख्ने झोला हामीले उपलब्ध गराउनेछौं।\nसजिलै हिँड्न मिल्ने कपडा र भिजे पनि फरक नपर्ने जुत्ता लगाएर आउनुहोस्।\nसफा गरिसकेपछि, सहभागीहरूलाई चिया र रोटी वितरण गरिनेछ।\nपानी परेको दिन रद्द गरिनेछ, र त्यस अवस्थामा अघिल्लो दिनको साँझ जानकारी दिइनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "We are looking for people to help clean the river. The date is Saturday, June 10th, from 9 AM until noon. The meeting place is under the green bridge over the river. We will provide work gloves and garbage bags. Please come in comfortable clothes and shoes that can get wet. Afterwards, we will distribute tea and bread to participants. The event will be canceled if it rains, in which case we will contact you the night before."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9022",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "温泉（おんせん）の入り方（かた）",
-   "body": "温泉（おんせん）を気持（も）ちよく使（つか）うための決（き）まりです。湯船（ゆぶね）に入る前には、体（からだ）をあらってからにしてください。タオルはお湯（ゆ）の中に入れないでください。長い髪（かみ）の方（かた）は、じゃまにならないように上でまとめてください。のぼせやすいので、一度（いちど）に長く入りすぎないようにしましょう。湯（ゆ）上がりには、水を飲（の）んで休んでください。脱衣所（だついじょ）のロッカーは、百円玉（ひゃくえんだま）が一枚（いちまい）必要（ひつよう）ですが、あとでもどってきます。",
-   "questions": [
     {
-     "id": "N4-D-S-9022-q1",
-     "q": "湯船（ゆぶね）に入る前にすることは何ですか。",
-     "choices": [
-      "体（からだ）をあらう",
-      "水を飲（の）む",
-      "髪（かみ）をまとめる",
-      "ロッカーを使（つか）う"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「湯船（ゆぶね）に入る前には、体（からだ）をあらってから」とある。"
-      },
-      "ne": {
-       "q": "नुहाउने टबमा प्रवेश गर्नु अघि के गर्नुपर्छ?",
-       "choices": [
-        "<u>शरीर धुनु</u>",
-        "पानी पिउनु",
-        "कपाल बाँध्नु",
-        "लकर प्रयोग गर्नु"
-       ]
-      },
-      "en": {
-       "q": "What should you do before entering the bathtub?",
-       "choices": [
-        "Wash your body",
-        "Drink water",
-        "Tie up your hair",
-        "Use a locker"
-       ]
+      "id": "N4-D-S-9022",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "温泉（おんせん）の入り方（かた）",
+      "body": "温泉（おんせん）を気持（も）ちよく使（つか）うための決（き）まりです。湯船（ゆぶね）に入る前には、体（からだ）をあらってからにしてください。タオルはお湯（ゆ）の中に入れないでください。長い髪（かみ）の方（かた）は、じゃまにならないように上でまとめてください。のぼせやすいので、一度（いちど）に長く入りすぎないようにしましょう。湯（ゆ）上がりには、水を飲（の）んで休んでください。脱衣所（だついじょ）のロッカーは、百円玉（ひゃくえんだま）が一枚（いちまい）必要（ひつよう）ですが、あとでもどってきます。",
+      "questions": [
+        {
+          "id": "N4-D-S-9022-q1",
+          "q": "湯船（ゆぶね）に入る前にすることは何ですか。",
+          "choices": [
+            "体（からだ）をあらう",
+            "水を飲（の）む",
+            "髪（かみ）をまとめる",
+            "ロッカーを使（つか）う"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "नुहाउने टबमा प्रवेश गर्नु अघि के गर्नुपर्छ?",
+              "choices": [
+                "<u>शरीर धुनु</u>",
+                "पानी पिउनु",
+                "कपाल बाँध्नु",
+                "लकर प्रयोग गर्नु"
+              ]
+            },
+            "en": {
+              "q": "What should you do before entering the bathtub?",
+              "choices": [
+                "Wash your body",
+                "Drink water",
+                "Tie up your hair",
+                "Use a locker"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "तातो पानीको झरना (ओन्सेन) आरामदायी रूपमा प्रयोग गर्नका लागि नियमहरू।\nनुहाउने टबमा प्रवेश गर्नु अघि, कृपया आफ्नो शरीर धुनुहोस्।\nतौलिया तातो पानीमा नराख्नुहोस्।\nलामो कपाल भएकाहरूले, बाधा नपरोस् भनेर माथि बाँध्नुहोस्।\nसजिलै चक्कर लाग्न सक्ने भएकोले, एकै पटक धेरै बेर नबस्नुहोस्।\nनुहाइसकेपछि, पानी पिएर आराम गर्नुहोस्।\nलुगा फेर्ने कोठाको लकरको लागि एक सय येनको सिक्का चाहिन्छ, तर त्यो पछि फिर्ता आउँछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "These are the rules for comfortably using the hot spring. Before entering the bathtub, please wash your body. Do not put towels in the hot water. If you have long hair, please tie it up so it doesn't get in the way. Since it's easy to get lightheaded, let's try not to stay in for too long at once. After bathing, please drink water and rest. The lockers in the changing room require one 100-yen coin, but it will be returned afterwards."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "तातो पानीको झरना (ओन्सेन) आरामदायी रूपमा प्रयोग गर्नका लागि नियमहरू।\nनुहाउने टबमा प्रवेश गर्नु अघि, कृपया आफ्नो शरीर धुनुहोस्।\nतौलिया तातो पानीमा नराख्नुहोस्।\nलामो कपाल भएकाहरूले, बाधा नपरोस् भनेर माथि बाँध्नुहोस्।\nसजिलै चक्कर लाग्न सक्ने भएकोले, एकै पटक धेरै बेर नबस्नुहोस्।\nनुहाइसकेपछि, पानी पिएर आराम गर्नुहोस्।\nलुगा फेर्ने कोठाको लकरको लागि एक सय येनको सिक्का चाहिन्छ, तर त्यो पछि फिर्ता आउँछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "These are the rules for comfortably using the hot spring. Before entering the bathtub, please wash your body. Do not put towels in the hot water. If you have long hair, please tie it up so it doesn't get in the way. Since it's easy to get lightheaded, let's try not to stay in for too long at once. After bathing, please drink water and rest. The lockers in the changing room require one 100-yen coin, but it will be returned afterwards."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9023",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "いもほりの体験（たいけん）",
-   "body": "週末（しゅうまつ）の農業（のうぎょう）体験（たいけん）にさんかしませんか。今回（こんかい）は、畑（はたけ）でさつまいもをほる体験（たいけん）です。日にちは十月二十二日の土曜日（どようび）、雨の場合（ばあい）は次（つぎ）の日に行います。朝（あさ）十時に農園（のうえん）の入り口（ぐち）に集（あつ）まってください。ほったいもは、一人三本まで持（も）ち帰（かえ）れます。よごれてもいい服（ふく）とながぐつ、そして手（て）ぶくろを持（も）ってきてください。小さいお子さんは、大人といっしょにさんかしてください。費用（ひよう）は一人千五百円です。",
-   "questions": [
     {
-     "id": "N4-D-S-9023-q1",
-     "q": "この体験（たいけん）で持（も）ち帰（かえ）れるものは何ですか。",
-     "choices": [
-      "さつまいも三本",
-      "ながぐつ",
-      "手（て）ぶくろ一つ",
-      "千五百円分の野菜（やさい）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「ほったいもは、一人三本まで持（も）ち帰（かえ）れます」とある。"
-      },
-      "ne": {
-       "q": "यस अनुभवबाट घर लैजान सकिने चीज के हो?",
-       "choices": [
-        "<u>तीन वटा सखरखण्ड</u>",
-        "लामो जुत्ता",
-        "एउटा पन्जा",
-        "एक हजार पाँच सय येन बराबरको तरकारी"
-       ]
-      },
-      "en": {
-       "q": "What can you take home from this experience?",
-       "choices": [
-        "Three sweet potatoes",
-        "Rain boots",
-        "One pair of gloves",
-        "1,500 yen worth of vegetables"
-       ]
+      "id": "N4-D-S-9023",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "いもほりの体験（たいけん）",
+      "body": "週末（しゅうまつ）の農業（のうぎょう）体験（たいけん）にさんかしませんか。今回（こんかい）は、畑（はたけ）でさつまいもをほる体験（たいけん）です。日にちは十月二十二日の土曜日（どようび）、雨の場合（ばあい）は次（つぎ）の日に行います。朝（あさ）十時に農園（のうえん）の入り口（ぐち）に集（あつ）まってください。ほったいもは、一人三本まで持（も）ち帰（かえ）れます。よごれてもいい服（ふく）とながぐつ、そして手（て）ぶくろを持（も）ってきてください。小さいお子さんは、大人といっしょにさんかしてください。費用（ひよう）は一人千五百円です。",
+      "questions": [
+        {
+          "id": "N4-D-S-9023-q1",
+          "q": "この体験（たいけん）で持（も）ち帰（かえ）れるものは何ですか。",
+          "choices": [
+            "さつまいも三本",
+            "ながぐつ",
+            "手（て）ぶくろ一つ",
+            "千五百円分の野菜（やさい）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यस अनुभवबाट घर लैजान सकिने चीज के हो?",
+              "choices": [
+                "<u>तीन वटा सखरखण्ड</u>",
+                "लामो जुत्ता",
+                "एउटा पन्जा",
+                "एक हजार पाँच सय येन बराबरको तरकारी"
+              ]
+            },
+            "en": {
+              "q": "What can you take home from this experience?",
+              "choices": [
+                "Three sweet potatoes",
+                "Rain boots",
+                "One pair of gloves",
+                "1,500 yen worth of vegetables"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "के तपाईं सप्ताहन्तको कृषि अनुभवमा सहभागी हुन चाहनुहुन्छ?\nयस पटक, यो खेतमा सखरखण्ड खन्ने अनुभव हो।\nमिति अक्टोबर २२, शनिबार हो, पानी परेमा अर्को दिन गरिनेछ।\nबिहान दश बजे फार्मको प्रवेशद्वारमा जम्मा हुनुहोस्।\nखनेको सखरखण्ड, प्रति व्यक्ति तीन वटासम्म घर लैजान सकिन्छ।\nफोहोर भए पनि फरक नपर्ने कपडा, लामो जुत्ता, र पन्जा लिएर आउनुहोस्।\nसाना बच्चाहरूले वयस्कसँगै सहभागी हुनुपर्छ।\nशुल्क प्रति व्यक्ति एक हजार पाँच सय येन हो।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Would you like to participate in a weekend farming experience? This time, it's an experience digging sweet potatoes in the field. The date is Saturday, October 22nd; if it rains, it will be held the next day. Please gather at the farm entrance at 10 AM. You can take home up to three sweet potatoes that you dig. Please bring clothes that can get dirty, rain boots, and gloves. Small children must participate with an adult. The fee is 1,500 yen per person."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "के तपाईं सप्ताहन्तको कृषि अनुभवमा सहभागी हुन चाहनुहुन्छ?\nयस पटक, यो खेतमा सखरखण्ड खन्ने अनुभव हो।\nमिति अक्टोबर २२, शनिबार हो, पानी परेमा अर्को दिन गरिनेछ।\nबिहान दश बजे फार्मको प्रवेशद्वारमा जम्मा हुनुहोस्।\nखनेको सखरखण्ड, प्रति व्यक्ति तीन वटासम्म घर लैजान सकिन्छ।\nफोहोर भए पनि फरक नपर्ने कपडा, लामो जुत्ता, र पन्जा लिएर आउनुहोस्।\nसाना बच्चाहरूले वयस्कसँगै सहभागी हुनुपर्छ।\nशुल्क प्रति व्यक्ति एक हजार पाँच सय येन हो।"
-     ]
     },
-    "en": {
-     "body": [
-      "Would you like to participate in a weekend farming experience? This time, it's an experience digging sweet potatoes in the field. The date is Saturday, October 22nd; if it rains, it will be held the next day. Please gather at the farm entrance at 10 AM. You can take home up to three sweet potatoes that you dig. Please bring clothes that can get dirty, rain boots, and gloves. Small children must participate with an adult. The fee is 1,500 yen per person."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9024",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "秋（あき）のコンサート",
-   "body": "秋（あき）のコンサートのチケットについてお知（し）らせします。会場（かいじょう）は市（し）の文化（ぶんか）ホールで、日にちは十一月三日の午後六時からです。チケットは、来週（らいしゅう）の月曜日（げつようび）の朝（あさ）十時からホールの窓口（まどぐち）とインターネットで買（か）えます。一人四枚（よんまい）まで買（か）えます。小学生以下（いか）は入れませんので、ご注意（ちゅうい）ください。席（せき）は決（き）まっていませんので、早（はや）く来た方（かた）から好（す）きな場所（ばしょ）にすわれます。開場（かいじょう）は始（はじ）まる三十分前です。",
-   "questions": [
     {
-     "id": "N4-D-S-9024-q1",
-     "q": "チケットについて、正（ただ）しいものはどれですか。",
-     "choices": [
-      "一人四枚（よんまい）まで買（か）える",
-      "早（はや）く来た順（じゅん）に席（せき）が決（き）まる",
-      "小学生も入れる",
-      "当日（とうじつ）だけ買（か）える"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「一人四枚（よんまい）まで買（か）えます」とある。"
-      },
-      "ne": {
-       "q": "टिकटको बारेमा, कुन सही छ?",
-       "choices": [
-        "<u>प्रति व्यक्ति चार वटासम्म किन्न सकिन्छ</u>",
-        "पहिले आउने क्रममा सिट तोकिन्छ",
-        "प्राथमिक विद्यालयका विद्यार्थीहरूलाई पनि प्रवेश छ",
-        "त्यस दिन मात्र किन्न सकिन्छ"
-       ]
-      },
-      "en": {
-       "q": "Which of the following is correct about the tickets?",
-       "choices": [
-        "You can buy up to four tickets per person",
-        "Seats are decided by who arrives first",
-        "Elementary school students are also allowed",
-        "You can only buy them on the day of the event"
-       ]
+      "id": "N4-D-S-9024",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "秋（あき）のコンサート",
+      "body": "秋（あき）のコンサートのチケットについてお知（し）らせします。会場（かいじょう）は市（し）の文化（ぶんか）ホールで、日にちは十一月三日の午後六時からです。チケットは、来週（らいしゅう）の月曜日（げつようび）の朝（あさ）十時からホールの窓口（まどぐち）とインターネットで買（か）えます。一人四枚（よんまい）まで買（か）えます。小学生以下（いか）は入れませんので、ご注意（ちゅうい）ください。席（せき）は決（き）まっていませんので、早（はや）く来た方（かた）から好（す）きな場所（ばしょ）にすわれます。開場（かいじょう）は始（はじ）まる三十分前です。",
+      "questions": [
+        {
+          "id": "N4-D-S-9024-q1",
+          "q": "チケットについて、正（ただ）しいものはどれですか。",
+          "choices": [
+            "一人四枚（よんまい）まで買（か）える",
+            "早（はや）く来た順（じゅん）に席（せき）が決（き）まる",
+            "小学生も入れる",
+            "当日（とうじつ）だけ買（か）える"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "टिकटको बारेमा, कुन सही छ?",
+              "choices": [
+                "<u>प्रति व्यक्ति चार वटासम्म किन्न सकिन्छ</u>",
+                "पहिले आउने क्रममा सिट तोकिन्छ",
+                "प्राथमिक विद्यालयका विद्यार्थीहरूलाई पनि प्रवेश छ",
+                "त्यस दिन मात्र किन्न सकिन्छ"
+              ]
+            },
+            "en": {
+              "q": "Which of the following is correct about the tickets?",
+              "choices": [
+                "You can buy up to four tickets per person",
+                "Seats are decided by who arrives first",
+                "Elementary school students are also allowed",
+                "You can only buy them on the day of the event"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "शरद ऋतुको कन्सर्टको टिकटको बारेमा जानकारी।\nस्थान शहरको सांस्कृतिक हल हो, र मिति नोभेम्बर ३, साँझ छ बजेदेखि हो।\nटिकटहरू अर्को हप्ताको सोमबार बिहान दश बजेदेखि हलको काउन्टर र इन्टरनेटबाट किन्न सकिन्छ।\nप्रति व्यक्ति चार वटासम्म टिकट किन्न सकिन्छ।\nप्राथमिक विद्यालयका विद्यार्थी वा सोभन्दा कम उमेरकाहरूलाई प्रवेश निषेध छ, कृपया ध्यान दिनुहोस्।\nसिटहरू तोकिएका छैनन्, त्यसैले पहिले आउनेहरूले आफूलाई मनपर्ने ठाउँमा बस्न सक्छन्।\nहल खुल्ने समय सुरु हुनुभन्दा तीस मिनेट अघि हो।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Information about tickets for the autumn concert. The venue is the city's cultural hall, and the date is November 3rd from 6 PM. Tickets can be purchased from 10 AM next Monday at the hall's ticket counter and online. You can buy up to four tickets per person. Please note that children under elementary school age are not allowed. Seats are not assigned, so those who arrive early can sit wherever they like. The hall opens thirty minutes before the start."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "शरद ऋतुको कन्सर्टको टिकटको बारेमा जानकारी।\nस्थान शहरको सांस्कृतिक हल हो, र मिति नोभेम्बर ३, साँझ छ बजेदेखि हो।\nटिकटहरू अर्को हप्ताको सोमबार बिहान दश बजेदेखि हलको काउन्टर र इन्टरनेटबाट किन्न सकिन्छ।\nप्रति व्यक्ति चार वटासम्म टिकट किन्न सकिन्छ।\nप्राथमिक विद्यालयका विद्यार्थी वा सोभन्दा कम उमेरकाहरूलाई प्रवेश निषेध छ, कृपया ध्यान दिनुहोस्।\nसिटहरू तोकिएका छैनन्, त्यसैले पहिले आउनेहरूले आफूलाई मनपर्ने ठाउँमा बस्न सक्छन्।\nहल खुल्ने समय सुरु हुनुभन्दा तीस मिनेट अघि हो।"
-     ]
     },
-    "en": {
-     "body": [
-      "Information about tickets for the autumn concert. The venue is the city's cultural hall, and the date is November 3rd from 6 PM. Tickets can be purchased from 10 AM next Monday at the hall's ticket counter and online. You can buy up to four tickets per person. Please note that children under elementary school age are not allowed. Seats are not assigned, so those who arrive early can sit wherever they like. The hall opens thirty minutes before the start."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9025",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "キャンプ場（じょう）の決（き）まり",
-   "body": "キャンプ場（じょう）をご利用（りよう）の皆（みな）さまへ。火を使（つか）えるのは、決（き）められたかまどの場所（ばしょ）だけです。テントのそばで火をたかないでください。夜（よる）九時をすぎたら、大きな音（おと）を出さず、静（しず）かにお過（す）ごしください。ごみは、もえるものともえないものに分けて、受付（うけつけ）の横（よこ）に出してください。川で泳（およ）ぐときは、子どもだけにならないようにしてください。朝（あさ）は、鳥（とり）の声（こえ）で早（はや）く目（め）がさめるかもしれません。",
-   "questions": [
     {
-     "id": "N4-D-S-9025-q1",
-     "q": "火を使（つか）ってもいいのはどこですか。",
-     "choices": [
-      "決（き）められたかまど",
-      "受付（うけつけ）の横（よこ）のごみ捨（す）て場（ば）",
-      "川のそば",
-      "受付（うけつけ）の横（よこ）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「火を使（つか）えるのは、決（き）められたかまどの場所（ばしょ）だけ」とある。"
-      },
-      "ne": {
-       "q": "आगो कहाँ बाल्न सकिन्छ?",
-       "choices": [
-        "तोकिएको चुलोमा",
-        "रिसेप्सनको छेउको फोहोर फाल्ने ठाउँमा",
-        "नदीको छेउमा",
-        "रिसेप्सनको छेउमा"
-       ]
-      },
-      "en": {
-       "q": "Where is it okay to use fire?",
-       "choices": [
-        "Designated fireplaces",
-        "The trash disposal area next to the reception",
-        "Near the river",
-        "Next to the reception"
-       ]
+      "id": "N4-D-S-9025",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "キャンプ場（じょう）の決（き）まり",
+      "body": "キャンプ場（じょう）をご利用（りよう）の皆（みな）さまへ。火を使（つか）えるのは、決（き）められたかまどの場所（ばしょ）だけです。テントのそばで火をたかないでください。夜（よる）九時をすぎたら、大きな音（おと）を出さず、静（しず）かにお過（す）ごしください。ごみは、もえるものともえないものに分けて、受付（うけつけ）の横（よこ）に出してください。川で泳（およ）ぐときは、子どもだけにならないようにしてください。朝（あさ）は、鳥（とり）の声（こえ）で早（はや）く目（め）がさめるかもしれません。",
+      "questions": [
+        {
+          "id": "N4-D-S-9025-q1",
+          "q": "火を使（つか）ってもいいのはどこですか。",
+          "choices": [
+            "決（き）められたかまど",
+            "受付（うけつけ）の横（よこ）のごみ捨（す）て場（ば）",
+            "川のそば",
+            "受付（うけつけ）の横（よこ）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "आगो कहाँ बाल्न सकिन्छ?",
+              "choices": [
+                "तोकिएको चुलोमा",
+                "रिसेप्सनको छेउको फोहोर फाल्ने ठाउँमा",
+                "नदीको छेउमा",
+                "रिसेप्सनको छेउमा"
+              ]
+            },
+            "en": {
+              "q": "Where is it okay to use fire?",
+              "choices": [
+                "Designated fireplaces",
+                "The trash disposal area next to the reception",
+                "Near the river",
+                "Next to the reception"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "क्याम्प साइट प्रयोग गर्ने सबैलाई। आगो बाल्न मिल्ने ठाउँ तोकिएको चुलोको स्थानमा मात्र हो। पालको छेउमा आगो नबाल्नुहोस्। राति नौ बजेपछि ठूलो आवाज ननिकाली शान्तसँग बस्नुहोस्। फोहोरलाई जल्ने र नजल्ने गरी छुट्ट्याएर रिसेप्सनको छेउमा राख्नुहोस्। नदीमा पौडी खेल्दा, बच्चाहरूलाई एक्लै नछोड्नुहोस्। बिहान, चराको आवाजले चाँडै निद्रा खुल्न सक्छ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "To all users of the campsite.\nFires can only be used in <u>designated fireplace areas</u>. Please do not light fires near your tent. After 9 PM, please keep quiet and do not make loud noises. Please separate your trash into burnable and non-burnable items and place it next to the reception desk. When swimming in the river, please make sure children are not alone. In the morning, you might wake up early to the sound of birds."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "क्याम्प साइट प्रयोग गर्ने सबैलाई। आगो बाल्न मिल्ने ठाउँ तोकिएको चुलोको स्थानमा मात्र हो। पालको छेउमा आगो नबाल्नुहोस्। राति नौ बजेपछि ठूलो आवाज ननिकाली शान्तसँग बस्नुहोस्। फोहोरलाई जल्ने र नजल्ने गरी छुट्ट्याएर रिसेप्सनको छेउमा राख्नुहोस्। नदीमा पौडी खेल्दा, बच्चाहरूलाई एक्लै नछोड्नुहोस्। बिहान, चराको आवाजले चाँडै निद्रा खुल्न सक्छ।"
-     ]
     },
-    "en": {
-     "body": [
-      "To all users of the campsite.\nFires can only be used in <u>designated fireplace areas</u>. Please do not light fires near your tent. After 9 PM, please keep quiet and do not make loud noises. Please separate your trash into burnable and non-burnable items and place it next to the reception desk. When swimming in the river, please make sure children are not alone. In the morning, you might wake up early to the sound of birds."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9026",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "駅（えき）の自転車（じてんしゃ）置（お）き場（ば）",
-   "body": "駅（えき）の自転車（じてんしゃ）置（お）き場（ば）についてお知（し）らせします。来月から、とめるためには月に千円のお金がかかることになりました。使（つか）いたい方（かた）は、受付（うけつけ）で紙（かみ）に名前と自転車（じてんしゃ）の色（いろ）を書いて、シールをもらってください。このシールを、自転車（じてんしゃ）の後ろによく見えるようにはってください。シールのない自転車（じてんしゃ）は、しばらくすると別（べつ）の場所（ばしょ）に移（うつ）されます。とめられる時間は、朝（あさ）五時から夜（よる）十二時までです。",
-   "questions": [
     {
-     "id": "N4-D-S-9026-q1",
-     "q": "自転車（じてんしゃ）置（お）き場（ば）を使（つか）うために、まず何をしますか。",
-     "choices": [
-      "受付（うけつけ）でシールをもらう",
-      "自転車（じてんしゃ）の色（いろ）を後ろに書く",
-      "後ろに名前を書く",
-      "夜（よる）十二時までに帰（かえ）る"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「受付（うけつけ）で…シールをもらってください」とある。"
-      },
-      "ne": {
-       "q": "साइकल पार्किङ प्रयोग गर्नका लागि, पहिले के गर्नुहुन्छ?",
-       "choices": [
-        "रिसेप्सनमा स्टिकर लिने",
-        "साइकलको रङ्ग पछाडि लेख्ने",
-        "पछाडि नाम लेख्ने",
-        "राति बाह्र बजेसम्म फर्किने"
-       ]
-      },
-      "en": {
-       "q": "What should you do first to use the bicycle parking lot?",
-       "choices": [
-        "Get a sticker at the reception",
-        "Write the bicycle's color on the back",
-        "Write your name on the back",
-        "Return by 12 AM"
-       ]
+      "id": "N4-D-S-9026",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "駅（えき）の自転車（じてんしゃ）置（お）き場（ば）",
+      "body": "駅（えき）の自転車（じてんしゃ）置（お）き場（ば）についてお知（し）らせします。来月から、とめるためには月に千円のお金がかかることになりました。使（つか）いたい方（かた）は、受付（うけつけ）で紙（かみ）に名前と自転車（じてんしゃ）の色（いろ）を書いて、シールをもらってください。このシールを、自転車（じてんしゃ）の後ろによく見えるようにはってください。シールのない自転車（じてんしゃ）は、しばらくすると別（べつ）の場所（ばしょ）に移（うつ）されます。とめられる時間は、朝（あさ）五時から夜（よる）十二時までです。",
+      "questions": [
+        {
+          "id": "N4-D-S-9026-q1",
+          "q": "自転車（じてんしゃ）置（お）き場（ば）を使（つか）うために、まず何をしますか。",
+          "choices": [
+            "受付（うけつけ）でシールをもらう",
+            "自転車（じてんしゃ）の色（いろ）を後ろに書く",
+            "後ろに名前を書く",
+            "夜（よる）十二時までに帰（かえ）る"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "साइकल पार्किङ प्रयोग गर्नका लागि, पहिले के गर्नुहुन्छ?",
+              "choices": [
+                "रिसेप्सनमा स्टिकर लिने",
+                "साइकलको रङ्ग पछाडि लेख्ने",
+                "पछाडि नाम लेख्ने",
+                "राति बाह्र बजेसम्म फर्किने"
+              ]
+            },
+            "en": {
+              "q": "What should you do first to use the bicycle parking lot?",
+              "choices": [
+                "Get a sticker at the reception",
+                "Write the bicycle's color on the back",
+                "Write your name on the back",
+                "Return by 12 AM"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "स्टेशनको साइकल पार्किङबारे जानकारी। अर्को महिनादेखि, पार्किङका लागि मासिक एक हजार येन लाग्ने भएको छ। प्रयोग गर्न चाहनेहरूले रिसेप्सनमा आफ्नो नाम र साइकलको रङ्ग कागजमा लेखेर स्टिकर लिनुहोस्। यो स्टिकर साइकलको पछाडि राम्ररी देखिने गरी टाँस्नुहोस्। स्टिकर नभएका साइकलहरू केही समयपछि अर्को ठाउँमा सारिनेछन्। पार्किङको समय बिहान पाँच बजेदेखि राति बाह्र बजेसम्म हो।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Notice regarding the station's bicycle parking lot. Starting next month, it will cost 1,000 yen per month to park. If you wish to use it, please write your name and bicycle color on a form at the reception desk and receive a sticker. Please attach this sticker to the back of your bicycle where it is clearly visible. Bicycles without a sticker will be moved to a different location after a while. The parking hours are from 5 AM to 12 AM."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "स्टेशनको साइकल पार्किङबारे जानकारी। अर्को महिनादेखि, पार्किङका लागि मासिक एक हजार येन लाग्ने भएको छ। प्रयोग गर्न चाहनेहरूले रिसेप्सनमा आफ्नो नाम र साइकलको रङ्ग कागजमा लेखेर स्टिकर लिनुहोस्। यो स्टिकर साइकलको पछाडि राम्ररी देखिने गरी टाँस्नुहोस्। स्टिकर नभएका साइकलहरू केही समयपछि अर्को ठाउँमा सारिनेछन्। पार्किङको समय बिहान पाँच बजेदेखि राति बाह्र बजेसम्म हो।"
-     ]
     },
-    "en": {
-     "body": [
-      "Notice regarding the station's bicycle parking lot. Starting next month, it will cost 1,000 yen per month to park. If you wish to use it, please write your name and bicycle color on a form at the reception desk and receive a sticker. Please attach this sticker to the back of your bicycle where it is clearly visible. Bicycles without a sticker will be moved to a different location after a while. The parking hours are from 5 AM to 12 AM."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9027",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "落（お）とし物（もの）のお知（し）らせ",
-   "body": "落（お）とし物（もの）のお知（し）らせです。昨日（きのう）の午後、二階（にかい）の休けい室（しつ）で、青（あお）いかさが見つかりました。持（も）ち手（て）のところに、白い花（はな）のもようがついています。心（こころ）当（あ）たりのある方（かた）は、一階（いっかい）の受付（うけつけ）までお越（こ）しください。受（う）け取（と）るときは、自分（じぶん）のものだと分かるように、色（いろ）ともようを言（い）っていただきます。落（お）とし物（もの）は、一か月間お預（あず）かりします。それをすぎると、決（き）まりにしたがって処分（しょぶん）しますので、お早（はや）めにどうぞ。",
-   "questions": [
     {
-     "id": "N4-D-S-9027-q1",
-     "q": "見つかったのはどんな品物（しなもの）ですか。",
-     "choices": [
-      "白い花（はな）のもようの青（あお）いかさ",
-      "青（あお）い花（はな）のもようの白いかさ",
-      "二階（にかい）の休けい室（しつ）のいす",
-      "一階（いっかい）の受付（うけつけ）の紙（かみ）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「青（あお）いかさ…白い花（はな）のもようが」とある。"
-      },
-      "ne": {
-       "q": "के कस्तो सामान भेटियो?",
-       "choices": [
-        "सेतो फूलको डिजाइन भएको निलो छाता",
-        "निलो फूलको डिजाइन भएको सेतो छाता",
-        "दोस्रो तल्लाको आराम कक्षको कुर्सी",
-        "पहिलो तल्लाको रिसेप्सनको कागज"
-       ]
-      },
-      "en": {
-       "q": "What kind of item was found?",
-       "choices": [
-        "A blue umbrella with a white flower pattern",
-        "A white umbrella with a blue flower pattern",
-        "A chair in the second-floor lounge",
-        "Paper at the first-floor reception"
-       ]
+      "id": "N4-D-S-9027",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "落（お）とし物（もの）のお知（し）らせ",
+      "body": "落（お）とし物（もの）のお知（し）らせです。昨日（きのう）の午後、二階（にかい）の休けい室（しつ）で、青（あお）いかさが見つかりました。持（も）ち手（て）のところに、白い花（はな）のもようがついています。心（こころ）当（あ）たりのある方（かた）は、一階（いっかい）の受付（うけつけ）までお越（こ）しください。受（う）け取（と）るときは、自分（じぶん）のものだと分かるように、色（いろ）ともようを言（い）っていただきます。落（お）とし物（もの）は、一か月間お預（あず）かりします。それをすぎると、決（き）まりにしたがって処分（しょぶん）しますので、お早（はや）めにどうぞ。",
+      "questions": [
+        {
+          "id": "N4-D-S-9027-q1",
+          "q": "見つかったのはどんな品物（しなもの）ですか。",
+          "choices": [
+            "白い花（はな）のもようの青（あお）いかさ",
+            "青（あお）い花（はな）のもようの白いかさ",
+            "二階（にかい）の休けい室（しつ）のいす",
+            "一階（いっかい）の受付（うけつけ）の紙（かみ）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "के कस्तो सामान भेटियो?",
+              "choices": [
+                "सेतो फूलको डिजाइन भएको निलो छाता",
+                "निलो फूलको डिजाइन भएको सेतो छाता",
+                "दोस्रो तल्लाको आराम कक्षको कुर्सी",
+                "पहिलो तल्लाको रिसेप्सनको कागज"
+              ]
+            },
+            "en": {
+              "q": "What kind of item was found?",
+              "choices": [
+                "A blue umbrella with a white flower pattern",
+                "A white umbrella with a blue flower pattern",
+                "A chair in the second-floor lounge",
+                "Paper at the first-floor reception"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हराएको सामानको सूचना। हिजो दिउँसो, दोस्रो तल्लाको आराम कक्षमा, एउटा निलो छाता भेटियो। यसको ह्यान्डलमा सेतो फूलको डिजाइन छ। जसको हो, कृपया पहिलो तल्लाको रिसेप्सनमा आउनुहोस्। सामान लिँदा, आफ्नो हो भनी चिन्नका लागि रङ्ग र डिजाइन भन्नुपर्नेछ। हराएको सामान एक महिनासम्म राखिनेछ। त्यसपछि, नियमअनुसार त्यसको व्यवस्थापन गरिनेछ, त्यसैले कृपया चाँडै लिनुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Lost and Found notice. Yesterday afternoon, a blue umbrella was found in the second-floor lounge. It has a <u>white flower pattern</u> on the handle. If you have any information, please come to the reception desk on the first floor. When picking it up, please state the color and pattern so we can confirm it is yours. Lost items will be kept for one month. After that, they will be disposed of according to regulations, so please claim them as soon as possible."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हराएको सामानको सूचना। हिजो दिउँसो, दोस्रो तल्लाको आराम कक्षमा, एउटा निलो छाता भेटियो। यसको ह्यान्डलमा सेतो फूलको डिजाइन छ। जसको हो, कृपया पहिलो तल्लाको रिसेप्सनमा आउनुहोस्। सामान लिँदा, आफ्नो हो भनी चिन्नका लागि रङ्ग र डिजाइन भन्नुपर्नेछ। हराएको सामान एक महिनासम्म राखिनेछ। त्यसपछि, नियमअनुसार त्यसको व्यवस्थापन गरिनेछ, त्यसैले कृपया चाँडै लिनुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "Lost and Found notice. Yesterday afternoon, a blue umbrella was found in the second-floor lounge. It has a <u>white flower pattern</u> on the handle. If you have any information, please come to the reception desk on the first floor. When picking it up, please state the color and pattern so we can confirm it is yours. Lost items will be kept for one month. After that, they will be disposed of according to regulations, so please claim them as soon as possible."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9028",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "水が止（と）まります",
-   "body": "水道（すいどう）工事（こうじ）のため、水が止（と）まる時間についてお知（し）らせします。日にちは五月十八日の水曜日（すいようび）、午後一時から五時までです。この間、台所（だいどころ）やおふろ、トイレの水が使（つか）えなくなります。水が必要（ひつよう）な方（かた）は、前もって、なべやペットボトルにためておいてください。工事（こうじ）が早（はや）く終（お）われば、五時より前に水が出ることもあります。水が出はじめたとき、はじめは少（すこ）しにごることがありますので、しばらく流（なが）してください。",
-   "questions": [
     {
-     "id": "N4-D-S-9028-q1",
-     "q": "水が止（と）まる前に、住民（じゅうみん）は何をしておくとよいですか。",
-     "choices": [
-      "水をためておく",
-      "トイレをそうじする",
-      "五時に外へ出る",
-      "にごった水を集（あつ）める"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「前もって…水をためておいて」とある。"
-      },
-      "ne": {
-       "q": "पानी बन्द हुनुभन्दा पहिले, बासिन्दाहरूले के गर्नु राम्रो हुन्छ?",
-       "choices": [
-        "पानी जम्मा गरेर राख्ने",
-        "शौचालय सफा गर्ने",
-        "पाँच बजे बाहिर जाने",
-        "धमिलो पानी जम्मा गर्ने"
-       ]
-      },
-      "en": {
-       "q": "What should residents do before the water is shut off?",
-       "choices": [
-        "Store water",
-        "Clean the toilet",
-        "Go out at 5 PM",
-        "Collect cloudy water"
-       ]
+      "id": "N4-D-S-9028",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "水が止（と）まります",
+      "body": "水道（すいどう）工事（こうじ）のため、水が止（と）まる時間についてお知（し）らせします。日にちは五月十八日の水曜日（すいようび）、午後一時から五時までです。この間、台所（だいどころ）やおふろ、トイレの水が使（つか）えなくなります。水が必要（ひつよう）な方（かた）は、前もって、なべやペットボトルにためておいてください。工事（こうじ）が早（はや）く終（お）われば、五時より前に水が出ることもあります。水が出はじめたとき、はじめは少（すこ）しにごることがありますので、しばらく流（なが）してください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9028-q1",
+          "q": "水が止（と）まる前に、住民（じゅうみん）は何をしておくとよいですか。",
+          "choices": [
+            "水をためておく",
+            "トイレをそうじする",
+            "五時に外へ出る",
+            "にごった水を集（あつ）める"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पानी बन्द हुनुभन्दा पहिले, बासिन्दाहरूले के गर्नु राम्रो हुन्छ?",
+              "choices": [
+                "पानी जम्मा गरेर राख्ने",
+                "शौचालय सफा गर्ने",
+                "पाँच बजे बाहिर जाने",
+                "धमिलो पानी जम्मा गर्ने"
+              ]
+            },
+            "en": {
+              "q": "What should residents do before the water is shut off?",
+              "choices": [
+                "Store water",
+                "Clean the toilet",
+                "Go out at 5 PM",
+                "Collect cloudy water"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "पानीको पाइप मर्मतका कारण पानी बन्द हुने समयबारे जानकारी। मिति मे १८, बुधबार, दिउँसो एक बजेदेखि पाँच बजेसम्म हो। यस अवधिमा, भान्सा, बाथरुम र शौचालयको पानी प्रयोग गर्न सकिनेछैन। पानी आवश्यक पर्नेहरूले पहिले नै भाँडा वा पेट बोतलमा जम्मा गरेर राख्नुहोस्। यदि काम चाँडै सकियो भने, पाँच बजेभन्दा पहिले पनि पानी आउन सक्छ। पानी आउन थालेपछि, सुरुमा अलिकति धमिलो हुन सक्छ, त्यसैले केही समय बग्न दिनुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Notice regarding water shut-off due to water pipe construction. The date is Wednesday, May 18th, from 1 PM to 5 PM. During this time, water in the kitchen, bath, and toilet will be unavailable. If you need water, please store it in pots or plastic bottles beforehand. If the construction finishes early, water may become available before 5 PM. When the water starts flowing again, it may be slightly cloudy at first, so please let it run for a while."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "पानीको पाइप मर्मतका कारण पानी बन्द हुने समयबारे जानकारी। मिति मे १८, बुधबार, दिउँसो एक बजेदेखि पाँच बजेसम्म हो। यस अवधिमा, भान्सा, बाथरुम र शौचालयको पानी प्रयोग गर्न सकिनेछैन। पानी आवश्यक पर्नेहरूले पहिले नै भाँडा वा पेट बोतलमा जम्मा गरेर राख्नुहोस्। यदि काम चाँडै सकियो भने, पाँच बजेभन्दा पहिले पनि पानी आउन सक्छ। पानी आउन थालेपछि, सुरुमा अलिकति धमिलो हुन सक्छ, त्यसैले केही समय बग्न दिनुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "Notice regarding water shut-off due to water pipe construction. The date is Wednesday, May 18th, from 1 PM to 5 PM. During this time, water in the kitchen, bath, and toilet will be unavailable. If you need water, please store it in pots or plastic bottles beforehand. If the construction finishes early, water may become available before 5 PM. When the water starts flowing again, it may be slightly cloudy at first, so please let it run for a while."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9029",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "エレベーターの点検（てんけん）",
-   "body": "マンションのエレベーターの点検（てんけん）についてお知（し）らせします。点検（てんけん）は今月の二十五日の木曜日（もくようび）、朝（あさ）九時から昼（ひる）十二時までです。この時間は、エレベーターが使（つか）えませんので、階段（かいだん）をご利用（りよう）ください。大きな荷物（にもつ）を運（はこ）ぶ予定（よてい）のある方（かた）は、この日をさけてください。点検（てんけん）は安全（あんぜん）のために年に二回（にかい）行っています。ご不便（ふべん）をおかけしますが、みなさまの安全（あんぜん）のためですので、ご協力（きょうりょく）をお願（ねが）いします。",
-   "questions": [
     {
-     "id": "N4-D-S-9029-q1",
-     "q": "点検（てんけん）の間、住民（じゅうみん）はどうしますか。",
-     "choices": [
-      "階段（かいだん）を使（つか）う",
-      "荷物（にもつ）を運（はこ）ぶ",
-      "九時に外出する",
-      "年に二回（にかい）集（あつ）まる"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「エレベーターが使（つか）えませんので、階段（かいだん）を」とある。"
-      },
-      "ne": {
-       "q": "मर्मतसम्भारको समयमा, बासिन्दाहरूले के गर्छन्?",
-       "choices": [
-        "सिँढी प्रयोग गर्छन्",
-        "सामान सार्छन्",
-        "नौ बजे बाहिर जान्छन्",
-        "वर्षमा दुई पटक भेला हुन्छन्"
-       ]
-      },
-      "en": {
-       "q": "What should residents do during the inspection?",
-       "choices": [
-        "Use the stairs",
-        "Carry luggage",
-        "Go out at 9 AM",
-        "Gather twice a year"
-       ]
+      "id": "N4-D-S-9029",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "エレベーターの点検（てんけん）",
+      "body": "マンションのエレベーターの点検（てんけん）についてお知（し）らせします。点検（てんけん）は今月の二十五日の木曜日（もくようび）、朝（あさ）九時から昼（ひる）十二時までです。この時間は、エレベーターが使（つか）えませんので、階段（かいだん）をご利用（りよう）ください。大きな荷物（にもつ）を運（はこ）ぶ予定（よてい）のある方（かた）は、この日をさけてください。点検（てんけん）は安全（あんぜん）のために年に二回（にかい）行っています。ご不便（ふべん）をおかけしますが、みなさまの安全（あんぜん）のためですので、ご協力（きょうりょく）をお願（ねが）いします。",
+      "questions": [
+        {
+          "id": "N4-D-S-9029-q1",
+          "q": "点検（てんけん）の間、住民（じゅうみん）はどうしますか。",
+          "choices": [
+            "階段（かいだん）を使（つか）う",
+            "荷物（にもつ）を運（はこ）ぶ",
+            "九時に外出する",
+            "年に二回（にかい）集（あつ）まる"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "मर्मतसम्भारको समयमा, बासिन्दाहरूले के गर्छन्?",
+              "choices": [
+                "सिँढी प्रयोग गर्छन्",
+                "सामान सार्छन्",
+                "नौ बजे बाहिर जान्छन्",
+                "वर्षमा दुई पटक भेला हुन्छन्"
+              ]
+            },
+            "en": {
+              "q": "What should residents do during the inspection?",
+              "choices": [
+                "Use the stairs",
+                "Carry luggage",
+                "Go out at 9 AM",
+                "Gather twice a year"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "अपार्टमेन्टको लिफ्ट मर्मतसम्भारबारे जानकारी। मर्मतसम्भार यस महिनाको २५ गते बिहीबार, बिहान नौ बजेदेखि दिउँसो बाह्र बजेसम्म हो। यो समयमा, लिफ्ट प्रयोग गर्न सकिनेछैन, त्यसैले सिँढी प्रयोग गर्नुहोस्। ठूला सामानहरू सार्ने योजना भएकाहरूले यो दिनलाई बेवास्ता गर्नुहोस्। सुरक्षाका लागि मर्मतसम्भार वर्षमा दुई पटक गरिन्छ। असुविधाका लागि माफी चाहन्छौं, तर यो तपाईंहरूको सुरक्षाका लागि हो, त्यसैले सहयोगको लागि अनुरोध गर्दछौं।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Notice regarding elevator inspection in the apartment building. The inspection will be on Thursday, the 25th of this month, from 9 AM to 12 PM. During this time, the elevator will be unusable, so please use the stairs. If you plan to carry large luggage, please avoid this day. Inspections are conducted twice a year for safety. We apologize for the inconvenience, but we ask for your cooperation for everyone's safety."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "अपार्टमेन्टको लिफ्ट मर्मतसम्भारबारे जानकारी। मर्मतसम्भार यस महिनाको २५ गते बिहीबार, बिहान नौ बजेदेखि दिउँसो बाह्र बजेसम्म हो। यो समयमा, लिफ्ट प्रयोग गर्न सकिनेछैन, त्यसैले सिँढी प्रयोग गर्नुहोस्। ठूला सामानहरू सार्ने योजना भएकाहरूले यो दिनलाई बेवास्ता गर्नुहोस्। सुरक्षाका लागि मर्मतसम्भार वर्षमा दुई पटक गरिन्छ। असुविधाका लागि माफी चाहन्छौं, तर यो तपाईंहरूको सुरक्षाका लागि हो, त्यसैले सहयोगको लागि अनुरोध गर्दछौं।"
-     ]
     },
-    "en": {
-     "body": [
-      "Notice regarding elevator inspection in the apartment building. The inspection will be on Thursday, the 25th of this month, from 9 AM to 12 PM. During this time, the elevator will be unusable, so please use the stairs. If you plan to carry large luggage, please avoid this day. Inspections are conducted twice a year for safety. We apologize for the inconvenience, but we ask for your cooperation for everyone's safety."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9030",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "ケーキの予約（よやく）",
-   "body": "ご注文（ちゅうもん）ありがとうございます。お誕生日（たんじょうび）のケーキのご予約（よやく）をうけたまわりました。大きさはいちばん大きいもの、上には果物（くだもの）をのせるとのことでした。お名前を書いた札（ふだ）もおつけします。お受（う）け取（と）りは、六月十日の午後三時以降（いこう）にお願（ねが）いします。お店（みせ）の中でお待（ま）ちいただかなくてもすむよう、前もってお電話をいただけると助（たす）かります。お代金（だいきん）は、受（う）け取（と）るときにお支（し）払（はら）いください。",
-   "questions": [
     {
-     "id": "N4-D-S-9030-q1",
-     "q": "客（きゃく）はケーキをいつ受（う）け取（と）りますか。",
-     "choices": [
-      "六月十日の午後三時以降（いこう）",
-      "六月十日の午前十時以降（いこう）",
-      "注文（ちゅうもん）した日の三時に",
-      "電話をしたその日に"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「お受（う）け取（と）りは、六月十日の午後三時以降（いこう）に」とある。"
-      },
-      "ne": {
-       "q": "ग्राहकले केक कहिले लिन्छन्?",
-       "choices": [
-        "जुन १० को दिउँसो तीन बजेपछि",
-        "जुन १० को बिहान दश बजेपछि",
-        "अर्डर गरेको दिनको तीन बजे",
-        "फोन गरेको सोही दिन"
-       ]
-      },
-      "en": {
-       "q": "When will the customer pick up the cake?",
-       "choices": [
-        "After 3 PM on June 10th",
-        "After 10 AM on June 10th",
-        "At 3 PM on the day of the order",
-        "On the day they called"
-       ]
+      "id": "N4-D-S-9030",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "ケーキの予約（よやく）",
+      "body": "ご注文（ちゅうもん）ありがとうございます。お誕生日（たんじょうび）のケーキのご予約（よやく）をうけたまわりました。大きさはいちばん大きいもの、上には果物（くだもの）をのせるとのことでした。お名前を書いた札（ふだ）もおつけします。お受（う）け取（と）りは、六月十日の午後三時以降（いこう）にお願（ねが）いします。お店（みせ）の中でお待（ま）ちいただかなくてもすむよう、前もってお電話をいただけると助（たす）かります。お代金（だいきん）は、受（う）け取（と）るときにお支（し）払（はら）いください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9030-q1",
+          "q": "客（きゃく）はケーキをいつ受（う）け取（と）りますか。",
+          "choices": [
+            "六月十日の午後三時以降（いこう）",
+            "六月十日の午前十時以降（いこう）",
+            "注文（ちゅうもん）した日の三時に",
+            "電話をしたその日に"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "ग्राहकले केक कहिले लिन्छन्?",
+              "choices": [
+                "जुन १० को दिउँसो तीन बजेपछि",
+                "जुन १० को बिहान दश बजेपछि",
+                "अर्डर गरेको दिनको तीन बजे",
+                "फोन गरेको सोही दिन"
+              ]
+            },
+            "en": {
+              "q": "When will the customer pick up the cake?",
+              "choices": [
+                "After 3 PM on June 10th",
+                "After 10 AM on June 10th",
+                "At 3 PM on the day of the order",
+                "On the day they called"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "अर्डरको लागि धन्यवाद। तपाईंको जन्मदिनको केकको बुकिङ स्वीकार गरिएको छ। आकार सबैभन्दा ठूलो, र माथि फलफूल राख्ने भनिएको थियो। नाम लेखिएको ट्याग पनि राखिनेछ। जुन १० को दिउँसो तीन बजेपछि लिन आउनुहोला। पसलभित्र पर्खनु नपरोस् भन्नका लागि, पहिले नै फोन गर्नुभयो भने सहयोग हुनेछ। भुक्तानी लिँदा गर्नुहोला।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Thank you for your order. We have received your reservation for a birthday cake. You requested the largest size, with fruit on top. We will also include a name tag. Please pick it up after 3 PM on June 10th. To avoid waiting inside the store, it would be helpful if you could call us in advance. Please pay the fee when you pick it up."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "अर्डरको लागि धन्यवाद। तपाईंको जन्मदिनको केकको बुकिङ स्वीकार गरिएको छ। आकार सबैभन्दा ठूलो, र माथि फलफूल राख्ने भनिएको थियो। नाम लेखिएको ट्याग पनि राखिनेछ। जुन १० को दिउँसो तीन बजेपछि लिन आउनुहोला। पसलभित्र पर्खनु नपरोस् भन्नका लागि, पहिले नै फोन गर्नुभयो भने सहयोग हुनेछ। भुक्तानी लिँदा गर्नुहोला।"
-     ]
     },
-    "en": {
-     "body": [
-      "Thank you for your order. We have received your reservation for a birthday cake. You requested the largest size, with fruit on top. We will also include a name tag. Please pick it up after 3 PM on June 10th. To avoid waiting inside the store, it would be helpful if you could call us in advance. Please pay the fee when you pick it up."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9031",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "手紙",
-   "subtype": "naiyou_tan",
-   "title": "祖父母（そふぼ）への手紙（てがみ）",
-   "body": "おじいちゃん、おばあちゃん、おげんきですか。こちらは家族（かぞく）みんな元気（げんき）にしています。わたしは四月から高校生になり、電車で学校に通（かよ）っています。部活（ぶかつ）はテニス部（ぶ）に入って、毎日おそくまで練習（れんしゅう）しています。はじめは友だちができるか心配（しんぱい）でしたが、今はにぎやかで楽（たの）しいです。夏（なつ）休みには、そちらへ遊（あそ）びに行きたいと思（おも）っています。その時は、いっしょに川へ魚（さかな）をつりに行きましょうね。体（からだ）に気をつけてください。",
-   "questions": [
     {
-     "id": "N4-D-S-9031-q1",
-     "q": "この人は今、何をがんばっていますか。",
-     "choices": [
-      "テニスの練習（れんしゅう）",
-      "魚（さかな）つり",
-      "電車で学校に通（かよ）うこと",
-      "料理（りょうり）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「テニス部（ぶ）に入って、毎日おそくまで練習（れんしゅう）」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्ति अहिले केमा मेहनत गरिरहेको छ?",
-       "choices": [
-        "टेनिसको अभ्यास",
-        "माछा मार्ने",
-        "ट्रेनबाट स्कूल जाने",
-        "खाना पकाउने"
-       ]
-      },
-      "en": {
-       "q": "What is this person working hard on now?",
-       "choices": [
-        "Tennis practice",
-        "Fishing",
-        "Commuting to school by train",
-        "Cooking"
-       ]
+      "id": "N4-D-S-9031",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "手紙",
+      "subtype": "naiyou_tan",
+      "title": "祖父母（そふぼ）への手紙（てがみ）",
+      "body": "おじいちゃん、おばあちゃん、おげんきですか。こちらは家族（かぞく）みんな元気（げんき）にしています。わたしは四月から高校生になり、電車で学校に通（かよ）っています。部活（ぶかつ）はテニス部（ぶ）に入って、毎日おそくまで練習（れんしゅう）しています。はじめは友だちができるか心配（しんぱい）でしたが、今はにぎやかで楽（たの）しいです。夏（なつ）休みには、そちらへ遊（あそ）びに行きたいと思（おも）っています。その時は、いっしょに川へ魚（さかな）をつりに行きましょうね。体（からだ）に気をつけてください。",
+      "questions": [
+        {
+          "id": "N4-D-S-9031-q1",
+          "q": "この人は今、何をがんばっていますか。",
+          "choices": [
+            "テニスの練習（れんしゅう）",
+            "魚（さかな）つり",
+            "電車で学校に通（かよ）うこと",
+            "料理（りょうり）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्ति अहिले केमा मेहनत गरिरहेको छ?",
+              "choices": [
+                "टेनिसको अभ्यास",
+                "माछा मार्ने",
+                "ट्रेनबाट स्कूल जाने",
+                "खाना पकाउने"
+              ]
+            },
+            "en": {
+              "q": "What is this person working hard on now?",
+              "choices": [
+                "Tennis practice",
+                "Fishing",
+                "Commuting to school by train",
+                "Cooking"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हजुरबुबा, हजुरआमा, सन्चै हुनुहुन्छ?\nयहाँ परिवारका सबैजना सन्चै छन्। म अप्रिलदेखि हाई स्कूलको विद्यार्थी भएँ र ट्रेनबाट स्कूल जान्छु। म टेनिस क्लबमा सामेल भएँ र हरेक दिन अबेरसम्म अभ्यास गर्छु। सुरुमा साथीहरू बन्छन् कि बन्दैनन् भनेर चिन्तित थिएँ, तर अहिले रमाइलो र व्यस्त छ। गर्मी बिदामा, म तपाईंहरूकहाँ घुम्न जान चाहन्छु। त्यसबेला, सँगै नदीमा माछा मार्न जाऔं है। आफ्नो स्वास्थ्यको ख्याल राख्नुहोला।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Grandpa, Grandma, how are you?\nEveryone in our family is doing well. I became a high school student in April and commute to school by train. I joined the tennis club and practice until late every day. At first, I was worried if I could make friends, but now it's lively and fun. I'm thinking of visiting you during summer vacation. When I do, let's go fishing in the river together. Please take care of yourselves."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हजुरबुबा, हजुरआमा, सन्चै हुनुहुन्छ?\nयहाँ परिवारका सबैजना सन्चै छन्। म अप्रिलदेखि हाई स्कूलको विद्यार्थी भएँ र ट्रेनबाट स्कूल जान्छु। म टेनिस क्लबमा सामेल भएँ र हरेक दिन अबेरसम्म अभ्यास गर्छु। सुरुमा साथीहरू बन्छन् कि बन्दैनन् भनेर चिन्तित थिएँ, तर अहिले रमाइलो र व्यस्त छ। गर्मी बिदामा, म तपाईंहरूकहाँ घुम्न जान चाहन्छु। त्यसबेला, सँगै नदीमा माछा मार्न जाऔं है। आफ्नो स्वास्थ्यको ख्याल राख्नुहोला।"
-     ]
     },
-    "en": {
-     "body": [
-      "Grandpa, Grandma, how are you?\nEveryone in our family is doing well. I became a high school student in April and commute to school by train. I joined the tennis club and practice until late every day. At first, I was worried if I could make friends, but now it's lively and fun. I'm thinking of visiting you during summer vacation. When I do, let's go fishing in the river together. Please take care of yourselves."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9032",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "町（まち）の写真（しゃしん）コンテスト",
-   "body": "町（まち）の写真（しゃしん）コンテストに、あなたの一まいを出してみませんか。今年のテーマは「町（まち）のえがお」です。この町（まち）でとった、人が笑（わら）っている写真（しゃしん）をおうぼしてください。一人三まいまで出せます。大きさは決（き）まっていますので、募集（ぼしゅう）の紙（かみ）をよく見てください。しめきりは九月三十日で、役場（やくば）の受付（うけつけ）に持（も）ってくるか、ゆうびんで送（おく）ってください。えらばれた写真（しゃしん）は、十月のお祭（まつ）りのとき、会場（かいじょう）にかざられます。",
-   "questions": [
     {
-     "id": "N4-D-S-9032-q1",
-     "q": "今年のテーマは何ですか。",
-     "choices": [
-      "町（まち）のえがお",
-      "町（まち）のけしき",
-      "町（まち）のお祭（まつ）り",
-      "町（まち）の食べ物（もの）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「今年のテーマは『町（まち）のえがお』です」とある。"
-      },
-      "ne": {
-       "q": "यस वर्षको विषयवस्तु के हो?",
-       "choices": [
-        "शहरको मुस्कान",
-        "शहरको दृश्य",
-        "शहरको चाडपर्व",
-        "शहरको खाना"
-       ]
-      },
-      "en": {
-       "q": "What is this year's theme?",
-       "choices": [
-        "Town smiles",
-        "Town scenery",
-        "Town festival",
-        "Town food"
-       ]
+      "id": "N4-D-S-9032",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "町（まち）の写真（しゃしん）コンテスト",
+      "body": "町（まち）の写真（しゃしん）コンテストに、あなたの一まいを出してみませんか。今年のテーマは「町（まち）のえがお」です。この町（まち）でとった、人が笑（わら）っている写真（しゃしん）をおうぼしてください。一人三まいまで出せます。大きさは決（き）まっていますので、募集（ぼしゅう）の紙（かみ）をよく見てください。しめきりは九月三十日で、役場（やくば）の受付（うけつけ）に持（も）ってくるか、ゆうびんで送（おく）ってください。えらばれた写真（しゃしん）は、十月のお祭（まつ）りのとき、会場（かいじょう）にかざられます。",
+      "questions": [
+        {
+          "id": "N4-D-S-9032-q1",
+          "q": "今年のテーマは何ですか。",
+          "choices": [
+            "町（まち）のえがお",
+            "町（まち）のけしき",
+            "町（まち）のお祭（まつ）り",
+            "町（まち）の食べ物（もの）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यस वर्षको विषयवस्तु के हो?",
+              "choices": [
+                "शहरको मुस्कान",
+                "शहरको दृश्य",
+                "शहरको चाडपर्व",
+                "शहरको खाना"
+              ]
+            },
+            "en": {
+              "q": "What is this year's theme?",
+              "choices": [
+                "Town smiles",
+                "Town scenery",
+                "Town festival",
+                "Town food"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "के तपाईं आफ्नो एउटा तस्बिर शहरको फोटो प्रतियोगितामा पठाउन चाहनुहुन्छ? यस वर्षको विषयवस्तु \"शहरको मुस्कान\" हो। यस शहरमा खिचिएका हाँसिरहेका मानिसहरूको तस्बिर पठाउनुहोस्। एक व्यक्तिले तीनवटासम्म तस्बिर पठाउन सक्छ। आकार निश्चित भएकोले, कृपया भर्तीको कागज राम्ररी हेर्नुहोस्। अन्तिम मिति सेप्टेम्बर ३० हो, र कृपया यसलाई नगरपालिकाको कार्यालयको रिसेप्शनमा ल्याउनुहोस् वा हुलाकबाट पठाउनुहोस्। छानिएका तस्बिरहरू अक्टोबरको चाडपर्वमा कार्यक्रम स्थलमा प्रदर्शन गरिनेछन्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Why don't you submit one of your photos to the town's photo contest? This year's theme is \"<u>Town Smiles</u>\". Please submit photos taken in this town that show people smiling. You can submit up to three photos per person. The size is fixed, so please check the application form carefully. The deadline is September 30th. Please bring it to the town hall reception or send it by mail. The selected photos will be displayed at the venue during the October festival."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "के तपाईं आफ्नो एउटा तस्बिर शहरको फोटो प्रतियोगितामा पठाउन चाहनुहुन्छ? यस वर्षको विषयवस्तु \"शहरको मुस्कान\" हो। यस शहरमा खिचिएका हाँसिरहेका मानिसहरूको तस्बिर पठाउनुहोस्। एक व्यक्तिले तीनवटासम्म तस्बिर पठाउन सक्छ। आकार निश्चित भएकोले, कृपया भर्तीको कागज राम्ररी हेर्नुहोस्। अन्तिम मिति सेप्टेम्बर ३० हो, र कृपया यसलाई नगरपालिकाको कार्यालयको रिसेप्शनमा ल्याउनुहोस् वा हुलाकबाट पठाउनुहोस्। छानिएका तस्बिरहरू अक्टोबरको चाडपर्वमा कार्यक्रम स्थलमा प्रदर्शन गरिनेछन्।"
-     ]
     },
-    "en": {
-     "body": [
-      "Why don't you submit one of your photos to the town's photo contest? This year's theme is \"<u>Town Smiles</u>\". Please submit photos taken in this town that show people smiling. You can submit up to three photos per person. The size is fixed, so please check the application form carefully. The deadline is September 30th. Please bring it to the town hall reception or send it by mail. The selected photos will be displayed at the venue during the October festival."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9033",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "ことばを教（おし）え合（あ）う仲間（なかま）",
-   "body": "日本語と外国語を教（おし）え合（あ）う仲間（なかま）をさがしています。わたしは日本語を話しますので、あなたの国のことばを教（おし）えてください。かわりに、日本語の練習（れんしゅう）を手伝（てつだ）います。会（あ）うのは、駅（えき）の近（ちか）くの図書館（としょかん）か、静（しず）かなカフェを考（かんが）えています。一週間（いっしゅうかん）に一回（いっかい）、一時間ぐらいでどうでしょうか。お金はおたがいにいりません。もし興味（きょうみ）があれば、下の紙（かみ）に連絡先（れんらくさき）を書いてください。曜日（ようび）はあなたの都合（つごう）に合（あ）わせます。",
-   "questions": [
     {
-     "id": "N4-D-S-9033-q1",
-     "q": "この人がしてほしいことは何ですか。",
-     "choices": [
-      "自分（じぶん）の国のことばを教（おし）えること",
-      "日本語の練習（れんしゅう）を手伝（てつだ）ってもらうこと",
-      "お金をはらうこと",
-      "カフェを予約（よやく）すること"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「あなたの国のことばを教（おし）えてください」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्तिले के गर्न चाहन्छ?",
-       "choices": [
-        "आफ्नो देशको भाषा सिकाउने",
-        "जापानी अभ्यास गर्न मद्दत लिने",
-        "पैसा तिर्ने",
-        "क्याफे बुक गर्ने"
-       ]
-      },
-      "en": {
-       "q": "What does this person want?",
-       "choices": [
-        "To be taught their country's language",
-        "To be helped with Japanese practice",
-        "To pay money",
-        "To reserve a cafe"
-       ]
+      "id": "N4-D-S-9033",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "ことばを教（おし）え合（あ）う仲間（なかま）",
+      "body": "日本語と外国語を教（おし）え合（あ）う仲間（なかま）をさがしています。わたしは日本語を話しますので、あなたの国のことばを教（おし）えてください。かわりに、日本語の練習（れんしゅう）を手伝（てつだ）います。会（あ）うのは、駅（えき）の近（ちか）くの図書館（としょかん）か、静（しず）かなカフェを考（かんが）えています。一週間（いっしゅうかん）に一回（いっかい）、一時間ぐらいでどうでしょうか。お金はおたがいにいりません。もし興味（きょうみ）があれば、下の紙（かみ）に連絡先（れんらくさき）を書いてください。曜日（ようび）はあなたの都合（つごう）に合（あ）わせます。",
+      "questions": [
+        {
+          "id": "N4-D-S-9033-q1",
+          "q": "この人がしてほしいことは何ですか。",
+          "choices": [
+            "自分（じぶん）の国のことばを教（おし）えること",
+            "日本語の練習（れんしゅう）を手伝（てつだ）ってもらうこと",
+            "お金をはらうこと",
+            "カフェを予約（よやく）すること"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्तिले के गर्न चाहन्छ?",
+              "choices": [
+                "आफ्नो देशको भाषा सिकाउने",
+                "जापानी अभ्यास गर्न मद्दत लिने",
+                "पैसा तिर्ने",
+                "क्याफे बुक गर्ने"
+              ]
+            },
+            "en": {
+              "q": "What does this person want?",
+              "choices": [
+                "To be taught their country's language",
+                "To be helped with Japanese practice",
+                "To pay money",
+                "To reserve a cafe"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "म जापानी र विदेशी भाषा सिकाउने साथीहरू खोज्दैछु। म जापानी बोल्छु, त्यसैले कृपया मलाई तपाईंको देशको भाषा सिकाउनुहोस्। यसको बदलामा, म तपाईंलाई जापानी अभ्यास गर्न मद्दत गर्नेछु। हामी स्टेशन नजिकको पुस्तकालय वा शान्त क्याफेमा भेट्ने विचार गर्दैछौं। हप्तामा एक पटक, लगभग एक घण्टा कस्तो होला? पैसा एकअर्कालाई चाहिँदैन। यदि तपाईंलाई रुचि छ भने, कृपया तलको कागजमा आफ्नो सम्पर्क जानकारी लेख्नुहोस्। दिन तपाईंको सुविधा अनुसार मिलाइनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "I'm looking for partners to teach each other Japanese and foreign languages. I speak Japanese, so please teach me your country's language. In return, I will help you practice Japanese. I'm thinking of meeting at a library near the station or a quiet cafe. How about once a week for about an hour? We don't need to pay each other. If you are interested, please write your contact information on the paper below. I will adjust the day of the week to your convenience."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "म जापानी र विदेशी भाषा सिकाउने साथीहरू खोज्दैछु। म जापानी बोल्छु, त्यसैले कृपया मलाई तपाईंको देशको भाषा सिकाउनुहोस्। यसको बदलामा, म तपाईंलाई जापानी अभ्यास गर्न मद्दत गर्नेछु। हामी स्टेशन नजिकको पुस्तकालय वा शान्त क्याफेमा भेट्ने विचार गर्दैछौं। हप्तामा एक पटक, लगभग एक घण्टा कस्तो होला? पैसा एकअर्कालाई चाहिँदैन। यदि तपाईंलाई रुचि छ भने, कृपया तलको कागजमा आफ्नो सम्पर्क जानकारी लेख्नुहोस्। दिन तपाईंको सुविधा अनुसार मिलाइनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "I'm looking for partners to teach each other Japanese and foreign languages. I speak Japanese, so please teach me your country's language. In return, I will help you practice Japanese. I'm thinking of meeting at a library near the station or a quiet cafe. How about once a week for about an hour? We don't need to pay each other. If you are interested, please write your contact information on the paper below. I will adjust the day of the week to your convenience."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9034",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "えさやり体験（たいけん）",
-   "body": "動物園（どうぶつえん）で、動物（どうぶつ）にえさをあげる体験（たいけん）ができます。時間は、毎日午後二時から三十分間です。あげられるのは、やぎとうさぎで、えさは係（かかり）の人が用意（ようい）します。自分（じぶん）で持（も）ってきた食べ物（もの）をあげることはできません。体験（たいけん）の前には、手（て）をきれいにあらってください。小さいお子さんは、大人と手（て）をつないで、そっとあげてください。人数（にんずう）が多（おお）いときは、早（はや）くならんだ方（かた）から順（じゅん）にご案内（あんない）します。",
-   "questions": [
     {
-     "id": "N4-D-S-9034-q1",
-     "q": "動物（どうぶつ）にあげるえさは、どうしますか。",
-     "choices": [
-      "係（かかり）の人が用意（ようい）する",
-      "自分（じぶん）で持（も）ってくる",
-      "売店（ばいてん）で買（か）う",
-      "家（いえ）からもらう"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「えさは係（かかり）の人が用意（ようい）します」とある。"
-      },
-      "ne": {
-       "q": "जनावरहरूलाई खुवाउने खाना कसरी प्राप्त गरिन्छ?",
-       "choices": [
-        "कर्मचारीले तयार पार्छन्",
-        "आफैंले ल्याउने",
-        "पसलबाट किन्ने",
-        "घरबाट ल्याउने"
-       ]
-      },
-      "en": {
-       "q": "What about the food for the animals?",
-       "choices": [
-        "The staff will prepare it",
-        "You bring it yourself",
-        "You buy it at the shop",
-        "You get it from home"
-       ]
+      "id": "N4-D-S-9034",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "えさやり体験（たいけん）",
+      "body": "動物園（どうぶつえん）で、動物（どうぶつ）にえさをあげる体験（たいけん）ができます。時間は、毎日午後二時から三十分間です。あげられるのは、やぎとうさぎで、えさは係（かかり）の人が用意（ようい）します。自分（じぶん）で持（も）ってきた食べ物（もの）をあげることはできません。体験（たいけん）の前には、手（て）をきれいにあらってください。小さいお子さんは、大人と手（て）をつないで、そっとあげてください。人数（にんずう）が多（おお）いときは、早（はや）くならんだ方（かた）から順（じゅん）にご案内（あんない）します。",
+      "questions": [
+        {
+          "id": "N4-D-S-9034-q1",
+          "q": "動物（どうぶつ）にあげるえさは、どうしますか。",
+          "choices": [
+            "係（かかり）の人が用意（ようい）する",
+            "自分（じぶん）で持（も）ってくる",
+            "売店（ばいてん）で買（か）う",
+            "家（いえ）からもらう"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "जनावरहरूलाई खुवाउने खाना कसरी प्राप्त गरिन्छ?",
+              "choices": [
+                "कर्मचारीले तयार पार्छन्",
+                "आफैंले ल्याउने",
+                "पसलबाट किन्ने",
+                "घरबाट ल्याउने"
+              ]
+            },
+            "en": {
+              "q": "What about the food for the animals?",
+              "choices": [
+                "The staff will prepare it",
+                "You bring it yourself",
+                "You buy it at the shop",
+                "You get it from home"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "चिडियाखानामा जनावरहरूलाई खाना खुवाउने अनुभव गर्न सकिन्छ। समय हरेक दिन दिउँसो २ बजेदेखि ३० मिनेटसम्म हो। खुवाउन सकिने जनावरहरू बाख्रा र खरायो हुन्, र खाना कर्मचारीले तयार पार्छन्। आफैंले ल्याएको खाना खुवाउन पाइँदैन। अनुभव गर्नुअघि, कृपया आफ्नो हात राम्ररी धुनुहोस्। साना बच्चाहरूले वयस्कसँग हात समातेर बिस्तारै खुवाउनुहोस्। धेरै मानिसहरू हुँदा, पहिले लाइनमा बस्नेहरूलाई प्राथमिकता दिइनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "You can experience feeding animals at the zoo. The time is from 2:00 PM for 30 minutes every day. You can feed goats and rabbits, and the staff will prepare the food. You cannot feed them food you brought yourself. Please wash your hands thoroughly before the experience. Small children should hold an adult's hand and feed them gently. If there are many people, we will guide those who lined up first."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "चिडियाखानामा जनावरहरूलाई खाना खुवाउने अनुभव गर्न सकिन्छ। समय हरेक दिन दिउँसो २ बजेदेखि ३० मिनेटसम्म हो। खुवाउन सकिने जनावरहरू बाख्रा र खरायो हुन्, र खाना कर्मचारीले तयार पार्छन्। आफैंले ल्याएको खाना खुवाउन पाइँदैन। अनुभव गर्नुअघि, कृपया आफ्नो हात राम्ररी धुनुहोस्। साना बच्चाहरूले वयस्कसँग हात समातेर बिस्तारै खुवाउनुहोस्। धेरै मानिसहरू हुँदा, पहिले लाइनमा बस्नेहरूलाई प्राथमिकता दिइनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "You can experience feeding animals at the zoo. The time is from 2:00 PM for 30 minutes every day. You can feed goats and rabbits, and the staff will prepare the food. You cannot feed them food you brought yourself. Please wash your hands thoroughly before the experience. Small children should hold an adult's hand and feed them gently. If there are many people, we will guide those who lined up first."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9035",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "案内",
-   "subtype": "naiyou_tan",
-   "title": "秋（あき）のマラソン大会（たいかい）",
-   "body": "秋（あき）のマラソン大会（たいかい）のご案内（あんない）です。コースは、公園（こうえん）を出発（しゅっぱつ）して川ぞいを走（はし）り、また公園（こうえん）にもどる五キロです。日にちは十月九日の日曜日（にちようび）、朝（あさ）八時にスタートします。走（はし）るのがおそくても大丈夫（だいじょうぶ）で、歩（ある）いてもかまいません。参加（さんか）する人は、当日（とうじつ）の七時までに受付（うけつけ）で番号（ばんごう）のついた紙（かみ）を受（う）け取（と）ってください。走（はし）り終（お）わった人には、あたたかいスープをお配（くば）りします。雨でも行いますが、大雨のときは中止（ちゅうし）します。",
-   "questions": [
     {
-     "id": "N4-D-S-9035-q1",
-     "q": "この大会（たいかい）について、正（ただ）しいものはどれですか。",
-     "choices": [
-      "歩（ある）いて参加（さんか）してもよい",
-      "走（はし）る速（はや）さが決（き）まっている",
-      "十キロのコースである",
-      "雨の日は必（かなら）ず中止（ちゅうし）する"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「歩（ある）いてもかまいません」とある。"
-      },
-      "ne": {
-       "q": "यस दौडको बारेमा कुन कुरा सही छ?",
-       "choices": [
-        "हिँडेर पनि सहभागी हुन सकिन्छ",
-        "दौडने गति निश्चित गरिएको छ",
-        "यो दस किलोमिटरको मार्ग हो",
-        "पानी परेको दिनमा सधैं रद्द गरिन्छ"
-       ]
-      },
-      "en": {
-       "q": "Which of the following is correct about this event?",
-       "choices": [
-        "You can participate by walking",
-        "There is a set running speed",
-        "It is a ten-kilometer course",
-        "It is always canceled on rainy days"
-       ]
+      "id": "N4-D-S-9035",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "案内",
+      "subtype": "naiyou_tan",
+      "title": "秋（あき）のマラソン大会（たいかい）",
+      "body": "秋（あき）のマラソン大会（たいかい）のご案内（あんない）です。コースは、公園（こうえん）を出発（しゅっぱつ）して川ぞいを走（はし）り、また公園（こうえん）にもどる五キロです。日にちは十月九日の日曜日（にちようび）、朝（あさ）八時にスタートします。走（はし）るのがおそくても大丈夫（だいじょうぶ）で、歩（ある）いてもかまいません。参加（さんか）する人は、当日（とうじつ）の七時までに受付（うけつけ）で番号（ばんごう）のついた紙（かみ）を受（う）け取（と）ってください。走（はし）り終（お）わった人には、あたたかいスープをお配（くば）りします。雨でも行いますが、大雨のときは中止（ちゅうし）します。",
+      "questions": [
+        {
+          "id": "N4-D-S-9035-q1",
+          "q": "この大会（たいかい）について、正（ただ）しいものはどれですか。",
+          "choices": [
+            "歩（ある）いて参加（さんか）してもよい",
+            "走（はし）る速（はや）さが決（き）まっている",
+            "十キロのコースである",
+            "雨の日は必（かなら）ず中止（ちゅうし）する"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यस दौडको बारेमा कुन कुरा सही छ?",
+              "choices": [
+                "हिँडेर पनि सहभागी हुन सकिन्छ",
+                "दौडने गति निश्चित गरिएको छ",
+                "यो दस किलोमिटरको मार्ग हो",
+                "पानी परेको दिनमा सधैं रद्द गरिन्छ"
+              ]
+            },
+            "en": {
+              "q": "Which of the following is correct about this event?",
+              "choices": [
+                "You can participate by walking",
+                "There is a set running speed",
+                "It is a ten-kilometer course",
+                "It is always canceled on rainy days"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "शरद ऋतुको म्याराथन दौडको जानकारी। दौडको मार्ग पार्कबाट सुरु भई नदीको किनारै किनार दौडेर फेरि पार्कमा फर्कने पाँच किलोमिटरको हो। मिति अक्टोबर ९, आइतबार, बिहान ८ बजे सुरु हुनेछ। बिस्तारै दौडे पनि ठीक छ, हिँडे पनि फरक पर्दैन। सहभागी हुनेहरूले दौडको दिन बिहान ७ बजेसम्म रिसेप्शनमा नम्बर भएको कागज लिनुहोस्। दौड पूरा गर्नेहरूलाई तातो सूप वितरण गरिनेछ। पानी परे पनि दौड हुनेछ, तर भारी वर्षा भएमा रद्द गरिनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Information about the autumn marathon. The course is five kilometers, starting from the park, running along the river, and returning to the park. The date is Sunday, October 9th, starting at 8:00 AM. It's okay if you run slowly, and walking is also fine. Participants should receive a numbered paper at the reception by 7:00 AM on the day of the event. Warm soup will be distributed to those who finish running. The event will be held even in rain, but it will be canceled in heavy rain."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "शरद ऋतुको म्याराथन दौडको जानकारी। दौडको मार्ग पार्कबाट सुरु भई नदीको किनारै किनार दौडेर फेरि पार्कमा फर्कने पाँच किलोमिटरको हो। मिति अक्टोबर ९, आइतबार, बिहान ८ बजे सुरु हुनेछ। बिस्तारै दौडे पनि ठीक छ, हिँडे पनि फरक पर्दैन। सहभागी हुनेहरूले दौडको दिन बिहान ७ बजेसम्म रिसेप्शनमा नम्बर भएको कागज लिनुहोस्। दौड पूरा गर्नेहरूलाई तातो सूप वितरण गरिनेछ। पानी परे पनि दौड हुनेछ, तर भारी वर्षा भएमा रद्द गरिनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "Information about the autumn marathon. The course is five kilometers, starting from the park, running along the river, and returning to the park. The date is Sunday, October 9th, starting at 8:00 AM. It's okay if you run slowly, and walking is also fine. Participants should receive a numbered paper at the reception by 7:00 AM on the day of the event. Warm soup will be distributed to those who finish running. The event will be held even in rain, but it will be canceled in heavy rain."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9036",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "クリーニングのお知（し）らせ",
-   "body": "いつもご利用（りよう）ありがとうございます。お預（あず）かりしていたコートのクリーニングができあがりました。よごれもきれいに落（お）ちています。お店（みせ）は、朝（あさ）九時から夜（よる）八時まで開（あ）いています。日曜日（にちようび）はお休みですので、ご注意（ちゅうい）ください。受（う）け取（と）りのときは、お預（あず）かりのときにお渡（わた）しした紙（かみ）をお持（も）ちください。紙（かみ）をなくされた場合（ばあい）は、お名前とお電話番号（ばんごう）でおさがしします。三か月をすぎても取（と）りに来られない品物（しなもの）は、お預（あず）かりできなくなります。",
-   "questions": [
     {
-     "id": "N4-D-S-9036-q1",
-     "q": "品物（しなもの）を受（う）け取（と）るとき、何を持（も）っていきますか。",
-     "choices": [
-      "預（あず）かりのときにもらった紙（かみ）",
-      "きれいになったコート",
-      "自分（じぶん）の電話番号（ばんごう）を書いた紙（かみ）",
-      "三か月分のお代金（だいきん）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「お預（あず）かりのときにお渡（わた）しした紙（かみ）をお持（も）ちください」とある。"
-      },
-      "ne": {
-       "q": "सामान लिन आउँदा के लिएर जानुपर्छ?",
-       "choices": [
-        "सामान राख्दा पाएको कागज",
-        "सफा भएको कोट",
-        "आफ्नो फोन नम्बर लेखिएको कागज",
-        "तीन महिनाको शुल्क"
-       ]
-      },
-      "en": {
-       "q": "What should you bring when picking up the item?",
-       "choices": [
-        "The paper received when dropping it off",
-        "The cleaned coat",
-        "A paper with your phone number written on it",
-        "Three months' worth of payment"
-       ]
+      "id": "N4-D-S-9036",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "クリーニングのお知（し）らせ",
+      "body": "いつもご利用（りよう）ありがとうございます。お預（あず）かりしていたコートのクリーニングができあがりました。よごれもきれいに落（お）ちています。お店（みせ）は、朝（あさ）九時から夜（よる）八時まで開（あ）いています。日曜日（にちようび）はお休みですので、ご注意（ちゅうい）ください。受（う）け取（と）りのときは、お預（あず）かりのときにお渡（わた）しした紙（かみ）をお持（も）ちください。紙（かみ）をなくされた場合（ばあい）は、お名前とお電話番号（ばんごう）でおさがしします。三か月をすぎても取（と）りに来られない品物（しなもの）は、お預（あず）かりできなくなります。",
+      "questions": [
+        {
+          "id": "N4-D-S-9036-q1",
+          "q": "品物（しなもの）を受（う）け取（と）るとき、何を持（も）っていきますか。",
+          "choices": [
+            "預（あず）かりのときにもらった紙（かみ）",
+            "きれいになったコート",
+            "自分（じぶん）の電話番号（ばんごう）を書いた紙（かみ）",
+            "三か月分のお代金（だいきん）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "सामान लिन आउँदा के लिएर जानुपर्छ?",
+              "choices": [
+                "सामान राख्दा पाएको कागज",
+                "सफा भएको कोट",
+                "आफ्नो फोन नम्बर लेखिएको कागज",
+                "तीन महिनाको शुल्क"
+              ]
+            },
+            "en": {
+              "q": "What should you bring when picking up the item?",
+              "choices": [
+                "The paper received when dropping it off",
+                "The cleaned coat",
+                "A paper with your phone number written on it",
+                "Three months' worth of payment"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "सधैं हाम्रो सेवा प्रयोग गर्नुभएकोमा धन्यवाद। तपाईंले राख्नुभएको कोटको क्लिनिङ तयार भइसकेको छ। फोहोर पनि राम्ररी सफा भएको छ। पसल बिहान ९ बजेदेखि राति ८ बजेसम्म खुल्ला रहन्छ। आइतबार बन्द हुने भएकोले कृपया ध्यान दिनुहोस्। सामान लिन आउँदा, तपाईंले सामान राख्दा दिइएको कागज ल्याउनुहोस्। यदि तपाईंले कागज हराउनुभयो भने, हामी तपाईंको नाम र फोन नम्बरबाट खोज्नेछौं। तीन महिनाभन्दा बढी समयसम्म लिन नआएका सामानहरू हामी राख्न सक्नेछैनौं।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Thank you for your continued patronage. The cleaning of the coat you entrusted to us is complete. The dirt has been removed cleanly. The store is open from 9:00 AM to 8:00 PM. Please note that Sundays are closed. When picking up your item, please bring the paper we gave you when you dropped it off. If you have lost the paper, we will search for it using your name and phone number. Items not picked up after three months cannot be kept."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "सधैं हाम्रो सेवा प्रयोग गर्नुभएकोमा धन्यवाद। तपाईंले राख्नुभएको कोटको क्लिनिङ तयार भइसकेको छ। फोहोर पनि राम्ररी सफा भएको छ। पसल बिहान ९ बजेदेखि राति ८ बजेसम्म खुल्ला रहन्छ। आइतबार बन्द हुने भएकोले कृपया ध्यान दिनुहोस्। सामान लिन आउँदा, तपाईंले सामान राख्दा दिइएको कागज ल्याउनुहोस्। यदि तपाईंले कागज हराउनुभयो भने, हामी तपाईंको नाम र फोन नम्बरबाट खोज्नेछौं। तीन महिनाभन्दा बढी समयसम्म लिन नआएका सामानहरू हामी राख्न सक्नेछैनौं।"
-     ]
     },
-    "en": {
-     "body": [
-      "Thank you for your continued patronage. The cleaning of the coat you entrusted to us is complete. The dirt has been removed cleanly. The store is open from 9:00 AM to 8:00 PM. Please note that Sundays are closed. When picking up your item, please bring the paper we gave you when you dropped it off. If you have lost the paper, we will search for it using your name and phone number. Items not picked up after three months cannot be kept."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9037",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "ホテルの予約（よやく）",
-   "body": "このたびはご予約（よやく）いただき、ありがとうございます。お泊（と）まりの日は、七月二十日から一泊（いっぱく）で、部屋（へや）は海（うみ）の見える二人部屋（へや）です。朝（あさ）ごはんは、一階（いっかい）の食堂（しょくどう）で、朝（あさ）七時から九時までめしあがれます。温泉（おんせん）は夜（よる）十一時まで、朝（あさ）は五時から入れます。駅（えき）からホテルまでは、無料（むりょう）のバスが出ています。バスに乗（の）るときは、駅前（えきまえ）でこのメールを見せてください。お車でお越（こ）しの方（かた）は、ホテルの前にとめられます。",
-   "questions": [
     {
-     "id": "N4-D-S-9037-q1",
-     "q": "駅（えき）から来る人はどうすればいいですか。",
-     "choices": [
-      "無料（むりょう）のバスに乗（の）る",
-      "車でホテルに行く",
-      "食堂（しょくどう）で待（ま）つ",
-      "メールを送（おく）る"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「駅（えき）からホテルまでは、無料（むりょう）のバスが」とある。"
-      },
-      "ne": {
-       "q": "स्टेशनबाट आउने मानिसहरूले के गर्नुपर्छ?",
-       "choices": [
-        "निःशुल्क बस चढ्ने",
-        "गाडीमा होटल जाने",
-        "भोजनालयमा पर्खने",
-        "इमेल पठाउने"
-       ]
-      },
-      "en": {
-       "q": "What should people coming from the station do?",
-       "choices": [
-        "Take the free bus",
-        "Go to the hotel by car",
-        "Wait in the dining hall",
-        "Send an email"
-       ]
+      "id": "N4-D-S-9037",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "ホテルの予約（よやく）",
+      "body": "このたびはご予約（よやく）いただき、ありがとうございます。お泊（と）まりの日は、七月二十日から一泊（いっぱく）で、部屋（へや）は海（うみ）の見える二人部屋（へや）です。朝（あさ）ごはんは、一階（いっかい）の食堂（しょくどう）で、朝（あさ）七時から九時までめしあがれます。温泉（おんせん）は夜（よる）十一時まで、朝（あさ）は五時から入れます。駅（えき）からホテルまでは、無料（むりょう）のバスが出ています。バスに乗（の）るときは、駅前（えきまえ）でこのメールを見せてください。お車でお越（こ）しの方（かた）は、ホテルの前にとめられます。",
+      "questions": [
+        {
+          "id": "N4-D-S-9037-q1",
+          "q": "駅（えき）から来る人はどうすればいいですか。",
+          "choices": [
+            "無料（むりょう）のバスに乗（の）る",
+            "車でホテルに行く",
+            "食堂（しょくどう）で待（ま）つ",
+            "メールを送（おく）る"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "स्टेशनबाट आउने मानिसहरूले के गर्नुपर्छ?",
+              "choices": [
+                "निःशुल्क बस चढ्ने",
+                "गाडीमा होटल जाने",
+                "भोजनालयमा पर्खने",
+                "इमेल पठाउने"
+              ]
+            },
+            "en": {
+              "q": "What should people coming from the station do?",
+              "choices": [
+                "Take the free bus",
+                "Go to the hotel by car",
+                "Wait in the dining hall",
+                "Send an email"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "यस पटक तपाईंले बुकिङ गर्नुभएकोमा धन्यवाद। तपाईं बस्ने दिन जुलाई २० देखि एक रातको लागि हो, र कोठा समुद्र देखिने दुई जनाको कोठा हो। बिहानको खाना पहिलो तल्लाको भोजनालयमा बिहान ७ बजेदेखि ९ बजेसम्म खान सकिन्छ। तातो पानीको मुहान (ओन्सेन) राति ११ बजेसम्म र बिहान ५ बजेदेखि प्रयोग गर्न सकिन्छ। स्टेशनबाट होटलसम्म निःशुल्क बस चल्छ। बसमा चढ्दा, स्टेशन अगाडि यो इमेल देखाउनुहोस्। गाडीमा आउनेहरूले होटल अगाडि पार्क गर्न सक्छन्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Thank you for your reservation. Your stay will be for one night from July 20th, in a double room with an ocean view. Breakfast is available on the first floor in the dining hall from 7 AM to 9 AM. The hot spring is open until 11 PM and from 5 AM in the morning. There is a free bus from the station to the hotel. When you board the bus, please show this email in front of the station. If you are coming by car, you can park in front of the hotel."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "यस पटक तपाईंले बुकिङ गर्नुभएकोमा धन्यवाद। तपाईं बस्ने दिन जुलाई २० देखि एक रातको लागि हो, र कोठा समुद्र देखिने दुई जनाको कोठा हो। बिहानको खाना पहिलो तल्लाको भोजनालयमा बिहान ७ बजेदेखि ९ बजेसम्म खान सकिन्छ। तातो पानीको मुहान (ओन्सेन) राति ११ बजेसम्म र बिहान ५ बजेदेखि प्रयोग गर्न सकिन्छ। स्टेशनबाट होटलसम्म निःशुल्क बस चल्छ। बसमा चढ्दा, स्टेशन अगाडि यो इमेल देखाउनुहोस्। गाडीमा आउनेहरूले होटल अगाडि पार्क गर्न सक्छन्।"
-     ]
     },
-    "en": {
-     "body": [
-      "Thank you for your reservation. Your stay will be for one night from July 20th, in a double room with an ocean view. Breakfast is available on the first floor in the dining hall from 7 AM to 9 AM. The hot spring is open until 11 PM and from 5 AM in the morning. There is a free bus from the station to the hotel. When you board the bus, please show this email in front of the station. If you are coming by car, you can park in front of the hotel."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9038",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "荷物（にもつ）のお届（とど）け",
-   "body": "お荷物（にもつ）をお届（とど）けにあがりましたが、ご不在（ふざい）でした。お荷物（にもつ）は、近（ちか）くの郵便局（ゆうびんきょく）でお預（あず）かりしています。もう一度（いちど）お届（とど）けすることもできます。その場合（ばあい）は、この紙（かみ）にある電話番号（ばんごう）にかけるか、インターネットで日にちと時間をお伝（つた）えください。受（う）け取（と）れる時間は、午前中か、午後の時間をいくつかからえらべます。郵便局（ゆうびんきょく）に取（と）りに来られる場合（ばあい）は、この紙（かみ）とみとめられるものをお持（も）ちください。一週間（いっしゅうかん）すぎると、送（おく）り主（ぬし）にお返（かえ）しします。",
-   "questions": [
     {
-     "id": "N4-D-S-9038-q1",
-     "q": "もう一度（いちど）届（とど）けてほしいときは、どうしますか。",
-     "choices": [
-      "電話かインターネットで伝（つた）える",
-      "一週間（いっしゅうかん）待（ま）つ",
-      "この紙（かみ）とみとめられるものを持（も）って行く",
-      "送（おく）り主（ぬし）に返（かえ）す"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「電話番号（ばんごう）にかけるか、インターネットで…お伝（つた）えください」とある。"
-      },
-      "ne": {
-       "q": "यदि फेरि सामान पुर्‍याउन चाहनुहुन्छ भने, के गर्नुहुन्छ?",
-       "choices": [
-        "फोन वा इन्टरनेटबाट जानकारी दिने",
-        "एक हप्ता पर्खने",
-        "यो कागज र मान्य परिचयपत्र लिएर जाने",
-        "पठाउने व्यक्तिलाई फिर्ता गर्ने"
-       ]
-      },
-      "en": {
-       "q": "What should you do if you want the package delivered again?",
-       "choices": [
-        "Tell them by phone or internet",
-        "Wait one week",
-        "Bring this paper and a form of identification",
-        "Return it to the sender"
-       ]
+      "id": "N4-D-S-9038",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "荷物（にもつ）のお届（とど）け",
+      "body": "お荷物（にもつ）をお届（とど）けにあがりましたが、ご不在（ふざい）でした。お荷物（にもつ）は、近（ちか）くの郵便局（ゆうびんきょく）でお預（あず）かりしています。もう一度（いちど）お届（とど）けすることもできます。その場合（ばあい）は、この紙（かみ）にある電話番号（ばんごう）にかけるか、インターネットで日にちと時間をお伝（つた）えください。受（う）け取（と）れる時間は、午前中か、午後の時間をいくつかからえらべます。郵便局（ゆうびんきょく）に取（と）りに来られる場合（ばあい）は、この紙（かみ）とみとめられるものをお持（も）ちください。一週間（いっしゅうかん）すぎると、送（おく）り主（ぬし）にお返（かえ）しします。",
+      "questions": [
+        {
+          "id": "N4-D-S-9038-q1",
+          "q": "もう一度（いちど）届（とど）けてほしいときは、どうしますか。",
+          "choices": [
+            "電話かインターネットで伝（つた）える",
+            "一週間（いっしゅうかん）待（ま）つ",
+            "この紙（かみ）とみとめられるものを持（も）って行く",
+            "送（おく）り主（ぬし）に返（かえ）す"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यदि फेरि सामान पुर्‍याउन चाहनुहुन्छ भने, के गर्नुहुन्छ?",
+              "choices": [
+                "फोन वा इन्टरनेटबाट जानकारी दिने",
+                "एक हप्ता पर्खने",
+                "यो कागज र मान्य परिचयपत्र लिएर जाने",
+                "पठाउने व्यक्तिलाई फिर्ता गर्ने"
+              ]
+            },
+            "en": {
+              "q": "What should you do if you want the package delivered again?",
+              "choices": [
+                "Tell them by phone or internet",
+                "Wait one week",
+                "Bring this paper and a form of identification",
+                "Return it to the sender"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हामी तपाईंको सामान पुर्‍याउन आएका थियौं, तर तपाईं घरमा हुनुहुन्नथ्यो। तपाईंको सामान नजिकैको हुलाक कार्यालयमा राखिएको छ। हामी फेरि पनि सामान पुर्‍याउन सक्छौं। त्यस अवस्थामा, यो कागजमा भएको फोन नम्बरमा कल गर्नुहोस् वा इन्टरनेटमा मिति र समय बताउनुहोस्। सामान लिन सकिने समय बिहान वा दिउँसोका केही समयहरूबाट छनोट गर्न सकिन्छ। यदि तपाईं हुलाक कार्यालयमा सामान लिन आउनुहुन्छ भने, यो कागज र <u>मान्य परिचयपत्र</u> ल्याउनुहोस्। एक हप्ताभन्दा बढी भएमा, सामान पठाउने व्यक्तिलाई फिर्ता गरिनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "We came to deliver your package, but you were not home. Your package is being held at a nearby post office. We can deliver it again. In that case, please call the phone number on this paper or tell us the date and time online. You can choose to receive it in the morning or select from several afternoon times. If you come to pick it up at the post office, please bring this paper and a form of identification. If a week passes, we will return it to the sender."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हामी तपाईंको सामान पुर्‍याउन आएका थियौं, तर तपाईं घरमा हुनुहुन्नथ्यो। तपाईंको सामान नजिकैको हुलाक कार्यालयमा राखिएको छ। हामी फेरि पनि सामान पुर्‍याउन सक्छौं। त्यस अवस्थामा, यो कागजमा भएको फोन नम्बरमा कल गर्नुहोस् वा इन्टरनेटमा मिति र समय बताउनुहोस्। सामान लिन सकिने समय बिहान वा दिउँसोका केही समयहरूबाट छनोट गर्न सकिन्छ। यदि तपाईं हुलाक कार्यालयमा सामान लिन आउनुहुन्छ भने, यो कागज र <u>मान्य परिचयपत्र</u> ल्याउनुहोस्। एक हप्ताभन्दा बढी भएमा, सामान पठाउने व्यक्तिलाई फिर्ता गरिनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "We came to deliver your package, but you were not home. Your package is being held at a nearby post office. We can deliver it again. In that case, please call the phone number on this paper or tell us the date and time online. You can choose to receive it in the morning or select from several afternoon times. If you come to pick it up at the post office, please bring this paper and a form of identification. If a week passes, we will return it to the sender."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9039",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "山登（のぼ）りの中止（ちゅうし）",
-   "body": "あすの朝（あさ）、みんなで山に登（のぼ）る予定（よてい）でしたが、ざんねんなお知（し）らせです。天気予報（よほう）によると、あすは朝（あさ）から強（つよ）い雨がふるそうです。山の道（みち）はすべりやすく、あぶないので、今回（こんかい）は中止（ちゅうし）にします。楽（たの）しみにしていたのに、本当（ほんとう）にごめんなさい。かわりに、来月の同（おな）じ土曜日（どようび）に、もう一度（いちど）計画（けいかく）したいと思（おも）います。その日のことは、また来週（らいしゅう）れんらくします。用意（ようい）していたおべんとうは、あすは家（いえ）で食べてくださいね。",
-   "questions": [
     {
-     "id": "N4-D-S-9039-q1",
-     "q": "山登（のぼ）りが中止（ちゅうし）になった理由（りゆう）は何ですか。",
-     "choices": [
-      "強（つよ）い雨がふるから",
-      "道（みち）が遠（とお）いから",
-      "人が集（あつ）まらないから",
-      "おべんとうがないから"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「あすは朝（あさ）から強（つよ）い雨が…あぶないので、中止（ちゅうし）に」とある。"
-      },
-      "ne": {
-       "q": "पहाड चढ्ने योजना रद्द हुनुको कारण के हो?",
-       "choices": [
-        "भारी वर्षा हुने भएकोले",
-        "बाटो टाढा भएकोले",
-        "मानिसहरू जम्मा नभएकोले",
-        "खाजा नभएकोले"
-       ]
-      },
-      "en": {
-       "q": "What is the reason for canceling the mountain climbing?",
-       "choices": [
-        "Because there will be heavy rain",
-        "Because the path is far",
-        "Because people are not gathering",
-        "Because there is no bento"
-       ]
+      "id": "N4-D-S-9039",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "山登（のぼ）りの中止（ちゅうし）",
+      "body": "あすの朝（あさ）、みんなで山に登（のぼ）る予定（よてい）でしたが、ざんねんなお知（し）らせです。天気予報（よほう）によると、あすは朝（あさ）から強（つよ）い雨がふるそうです。山の道（みち）はすべりやすく、あぶないので、今回（こんかい）は中止（ちゅうし）にします。楽（たの）しみにしていたのに、本当（ほんとう）にごめんなさい。かわりに、来月の同（おな）じ土曜日（どようび）に、もう一度（いちど）計画（けいかく）したいと思（おも）います。その日のことは、また来週（らいしゅう）れんらくします。用意（ようい）していたおべんとうは、あすは家（いえ）で食べてくださいね。",
+      "questions": [
+        {
+          "id": "N4-D-S-9039-q1",
+          "q": "山登（のぼ）りが中止（ちゅうし）になった理由（りゆう）は何ですか。",
+          "choices": [
+            "強（つよ）い雨がふるから",
+            "道（みち）が遠（とお）いから",
+            "人が集（あつ）まらないから",
+            "おべんとうがないから"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पहाड चढ्ने योजना रद्द हुनुको कारण के हो?",
+              "choices": [
+                "भारी वर्षा हुने भएकोले",
+                "बाटो टाढा भएकोले",
+                "मानिसहरू जम्मा नभएकोले",
+                "खाजा नभएकोले"
+              ]
+            },
+            "en": {
+              "q": "What is the reason for canceling the mountain climbing?",
+              "choices": [
+                "Because there will be heavy rain",
+                "Because the path is far",
+                "Because people are not gathering",
+                "Because there is no bento"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "भोलि बिहान सबैजना मिलेर पहाड चढ्ने योजना थियो, तर दुःखद खबर छ। मौसम पूर्वानुमान अनुसार, भोलि बिहानदेखि भारी वर्षा हुनेछ। पहाडी बाटो चिप्लो र खतरनाक हुने भएकाले, यस पटकको योजना रद्द गरिएको छ। तपाईंहरूले उत्सुकताका साथ पर्खिरहनुभएकोमा, साँच्चै माफी चाहन्छु। यसको सट्टा, अर्को महिनाको सोही शनिबार फेरि योजना बनाउनेछौं। त्यस दिनको बारेमा अर्को हप्ता फेरि सम्पर्क गर्नेछौं। तयार पारिएको खाजा भोलि घरमै खानुहोला।"
+          ]
+        },
+        "en": {
+          "body": [
+            "We had planned to climb a mountain together tomorrow morning, but I have some regrettable news. According to the weather forecast, there will be heavy rain from tomorrow morning. The mountain paths will be slippery and dangerous, so we are canceling this time. I am truly sorry, especially since you were looking forward to it. Instead, we would like to plan it again for the same Saturday next month. I will contact you again next week about that day. Please eat the bento you prepared at home tomorrow."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "भोलि बिहान सबैजना मिलेर पहाड चढ्ने योजना थियो, तर दुःखद खबर छ। मौसम पूर्वानुमान अनुसार, भोलि बिहानदेखि भारी वर्षा हुनेछ। पहाडी बाटो चिप्लो र खतरनाक हुने भएकाले, यस पटकको योजना रद्द गरिएको छ। तपाईंहरूले उत्सुकताका साथ पर्खिरहनुभएकोमा, साँच्चै माफी चाहन्छु। यसको सट्टा, अर्को महिनाको सोही शनिबार फेरि योजना बनाउनेछौं। त्यस दिनको बारेमा अर्को हप्ता फेरि सम्पर्क गर्नेछौं। तयार पारिएको खाजा भोलि घरमै खानुहोला।"
-     ]
     },
-    "en": {
-     "body": [
-      "We had planned to climb a mountain together tomorrow morning, but I have some regrettable news. According to the weather forecast, there will be heavy rain from tomorrow morning. The mountain paths will be slippery and dangerous, so we are canceling this time. I am truly sorry, especially since you were looking forward to it. Instead, we would like to plan it again for the same Saturday next month. I will contact you again next week about that day. Please eat the bento you prepared at home tomorrow."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N4-D-S-9040",
-   "level": "N4",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "手紙",
-   "subtype": "naiyou_tan",
-   "title": "引（ひ）っ越（こ）しのあいさつ",
-   "body": "となりに引（ひ）っ越（こ）してきた者（もの）です。このたびは、ごあいさつがおくれてしまい、しつれいしました。家族（かぞく）は三人で、小さい子どもが一人います。子どもがときどき大きな声（こえ）を出して、ごめいわくをおかけするかもしれません。何か気になることがあれば、遠慮（えんりょ）なく言（い）ってください。ごみを出す場所（ばしょ）や、町（まち）のきまりなど、分からないことも多（おお）いので、いろいろ教（おし）えていただけるとうれしいです。これからどうぞよろしくお願（ねが）いします。",
-   "questions": [
     {
-     "id": "N4-D-S-9040-q1",
-     "q": "この手紙（てがみ）を書いた人について、正（ただ）しいものはどれですか。",
-     "choices": [
-      "三人家族（かぞく）である",
-      "一人で住（す）んでいる",
-      "昔（むかし）からここに住（す）んでいる",
-      "町（まち）のきまりにくわしい"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「家族（かぞく）は三人で」とある。"
-      },
-      "ne": {
-       "q": "यो चिठी लेख्ने व्यक्तिको बारेमा, कुन कुरा सही छ?",
-       "choices": [
-        "तीन जनाको परिवार हो",
-        "एक्लै बस्छ",
-        "धेरै पहिलेदेखि यहाँ बस्दै आएको छ",
-        "सहरका नियमहरूमा जानकार छ"
-       ]
-      },
-      "en": {
-       "q": "Which of the following is true about the person who wrote this letter?",
-       "choices": [
-        "They are a family of three",
-        "They live alone",
-        "They have lived here for a long time",
-        "They are knowledgeable about town rules"
-       ]
+      "id": "N4-D-S-9040",
+      "level": "N4",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "手紙",
+      "subtype": "naiyou_tan",
+      "title": "引（ひ）っ越（こ）しのあいさつ",
+      "body": "となりに引（ひ）っ越（こ）してきた者（もの）です。このたびは、ごあいさつがおくれてしまい、しつれいしました。家族（かぞく）は三人で、小さい子どもが一人います。子どもがときどき大きな声（こえ）を出して、ごめいわくをおかけするかもしれません。何か気になることがあれば、遠慮（えんりょ）なく言（い）ってください。ごみを出す場所（ばしょ）や、町（まち）のきまりなど、分からないことも多（おお）いので、いろいろ教（おし）えていただけるとうれしいです。これからどうぞよろしくお願（ねが）いします。",
+      "questions": [
+        {
+          "id": "N4-D-S-9040-q1",
+          "q": "この手紙（てがみ）を書いた人について、正（ただ）しいものはどれですか。",
+          "choices": [
+            "三人家族（かぞく）である",
+            "一人で住（す）んでいる",
+            "昔（むかし）からここに住（す）んでいる",
+            "町（まち）のきまりにくわしい"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो चिठी लेख्ने व्यक्तिको बारेमा, कुन कुरा सही छ?",
+              "choices": [
+                "तीन जनाको परिवार हो",
+                "एक्लै बस्छ",
+                "धेरै पहिलेदेखि यहाँ बस्दै आएको छ",
+                "सहरका नियमहरूमा जानकार छ"
+              ]
+            },
+            "en": {
+              "q": "Which of the following is true about the person who wrote this letter?",
+              "choices": [
+                "They are a family of three",
+                "They live alone",
+                "They have lived here for a long time",
+                "They are knowledgeable about town rules"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "म छेउमा सरेर आएको व्यक्ति हुँ। यस पटक अभिवादन गर्न ढिलो भएकोमा माफी चाहन्छु। परिवारमा तीन जना छौं, एउटा सानो बच्चा छ। बच्चाले कहिलेकाहीँ ठूलो आवाज निकाल्न सक्छ, जसले तपाईंलाई असुविधा हुन सक्छ। यदि कुनै कुराले तपाईंलाई चिन्ता लाग्छ भने, कृपया नहिचकिचाई भन्नुहोस्। फोहोर फाल्ने ठाउँ र सहरका नियमहरू जस्ता धेरै कुराहरू मलाई थाहा छैन, त्यसैले यदि तपाईंले मलाई विभिन्न कुराहरू सिकाउनुभयो भने म खुसी हुनेछु। अबदेखि कृपया मलाई सहयोग गर्नुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "I am your new neighbor. I apologize for the delay in greeting you. There are three people in my family, including one small child. My child may sometimes make loud noises and cause you inconvenience. If anything bothers you, please do not hesitate to tell me. There are many things I don't know, such as where to put out garbage and town rules, so I would be grateful if you could teach me various things. I look forward to our future relationship."
+          ]
+        }
       }
-     }
     }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "म छेउमा सरेर आएको व्यक्ति हुँ। यस पटक अभिवादन गर्न ढिलो भएकोमा माफी चाहन्छु। परिवारमा तीन जना छौं, एउटा सानो बच्चा छ। बच्चाले कहिलेकाहीँ ठूलो आवाज निकाल्न सक्छ, जसले तपाईंलाई असुविधा हुन सक्छ। यदि कुनै कुराले तपाईंलाई चिन्ता लाग्छ भने, कृपया नहिचकिचाई भन्नुहोस्। फोहोर फाल्ने ठाउँ र सहरका नियमहरू जस्ता धेरै कुराहरू मलाई थाहा छैन, त्यसैले यदि तपाईंले मलाई विभिन्न कुराहरू सिकाउनुभयो भने म खुसी हुनेछु। अबदेखि कृपया मलाई सहयोग गर्नुहोस्।"
-     ]
-    },
-    "en": {
-     "body": [
-      "I am your new neighbor. I apologize for the delay in greeting you. There are three people in my family, including one small child. My child may sometimes make loud noises and cause you inconvenience. If anything bothers you, please do not hesitate to tell me. There are many things I don't know, such as where to put out garbage and town rules, so I would be grateful if you could teach me various things. I look forward to our future relationship."
-     ]
-    }
-   }
-  }
- ]
+  ]
 }

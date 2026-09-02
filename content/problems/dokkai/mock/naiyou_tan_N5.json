@@ -1,1754 +1,1664 @@
 {
- "schema": 1,
- "daimon": "naiyou_tan",
- "level": "N5",
- "pool": "mock",
- "languages": [
-  "ja",
-  "ne",
-  "en"
- ],
- "source": "opus-authored-mock-2026-08-30",
- "items": [
-  {
-   "id": "N5-D-S-9001",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メモ",
-   "subtype": "naiyou_tan",
-   "title": "母（はは）からのメモ",
-   "body": "れいぞうこにぎゅうにゅうがありません。学校（がっこう）のかえりに、スーパーでぎゅうにゅうを一本（いっぽん）かってきてください。おかねはテーブルの上（うえ）においてあります。パンはまだあるので、かわなくていいです。",
-   "questions": [
+  "schema": 1,
+  "daimon": "naiyou_tan",
+  "level": "N5",
+  "pool": "mock",
+  "languages": [
+    "ja",
+    "ne",
+    "en"
+  ],
+  "source": "opus-authored-mock-2026-08-30",
+  "items": [
     {
-     "id": "N5-D-S-9001-q1",
-     "q": "このメモを読（よ）んで、スーパーで何（なに）をかいますか。",
-     "choices": [
-      "ぎゅうにゅうをかう",
-      "パンをかってかえる",
-      "おかねをテーブルにおく",
-      "スーパーでやすむ"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「スーパーでぎゅうにゅうを一本（いっぽん）かってきてください」とある。"
-      },
-      "ne": {
-       "q": "यो मेमो पढेर, सुपरमार्केटमा के किन्नुहुन्छ?",
-       "choices": [
-        "दूध किन्ने",
-        "पाउरोटी किनेर फर्कने",
-        "पैसा टेबलमा राख्ने",
-        "सुपरमार्केटमा आराम गर्ने"
-       ]
-      },
-      "en": {
-       "q": "After reading this memo, what will you buy at the supermarket?",
-       "choices": [
-        "Buy milk",
-        "Buy bread and go home",
-        "Put money on the table",
-        "Rest at the supermarket"
-       ]
+      "id": "N5-D-S-9001",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メモ",
+      "subtype": "naiyou_tan",
+      "title": "母（はは）からのメモ",
+      "body": "れいぞうこにぎゅうにゅうがありません。学校（がっこう）のかえりに、スーパーでぎゅうにゅうを一本（いっぽん）かってきてください。おかねはテーブルの上（うえ）においてあります。パンはまだあるので、かわなくていいです。",
+      "questions": [
+        {
+          "id": "N5-D-S-9001-q1",
+          "q": "このメモを読（よ）んで、スーパーで何（なに）をかいますか。",
+          "choices": [
+            "ぎゅうにゅうをかう",
+            "パンをかってかえる",
+            "おかねをテーブルにおく",
+            "スーパーでやすむ"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो मेमो पढेर, सुपरमार्केटमा के किन्नुहुन्छ?",
+              "choices": [
+                "दूध किन्ने",
+                "पाउरोटी किनेर फर्कने",
+                "पैसा टेबलमा राख्ने",
+                "सुपरमार्केटमा आराम गर्ने"
+              ]
+            },
+            "en": {
+              "q": "After reading this memo, what will you buy at the supermarket?",
+              "choices": [
+                "Buy milk",
+                "Buy bread and go home",
+                "Put money on the table",
+                "Rest at the supermarket"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "फ्रिजमा दूध छैन। स्कुलबाट फर्कंदा, सुपरमार्केटबाट एक बोतल दूध किनेर ल्याइदिनुहोस्। पैसा टेबलमा राखिएको छ। पाउरोटी अझै छ, त्यसैले किन्नु पर्दैन।"
+          ]
+        },
+        "en": {
+          "body": [
+            "There's no milk in the refrigerator. On your way home from school, please buy one carton of milk at the supermarket. The money is on the table. We still have bread, so you don't need to buy any."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "फ्रिजमा दूध छैन। स्कुलबाट फर्कंदा, सुपरमार्केटबाट एक बोतल दूध किनेर ल्याइदिनुहोस्। पैसा टेबलमा राखिएको छ। पाउरोटी अझै छ, त्यसैले किन्नु पर्दैन।"
-     ]
     },
-    "en": {
-     "body": [
-      "There's no milk in the refrigerator. On your way home from school, please buy one carton of milk at the supermarket. The money is on the table. We still have bread, so you don't need to buy any."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9002",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "としょかんのおしらせ",
-   "body": "としょかんからのおしらせです。来週（らいしゅう）の月（げつ）よう日（び）は、本（ほん）のせいりのためおやすみです。火（か）よう日（び）からはいつもどおり、朝（あさ）九時（くじ）から夜（よる）八時（はちじ）まであいています。本（ほん）をかりている人（ひと）は、水（すい）よう日（び）までにかえしてください。",
-   "questions": [
     {
-     "id": "N5-D-S-9002-q1",
-     "q": "火（か）よう日（び）、としょかんは何時（なんじ）からあいていますか。",
-     "choices": [
-      "朝（あさ）九時（くじ）",
-      "夜（よる）八時（はちじ）",
-      "朝（あさ）八時（はちじ）",
-      "夜（よる）九時（くじ）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「朝（あさ）九時（くじ）から夜（よる）八時（はちじ）まであいています」とある。"
-      },
-      "ne": {
-       "q": "मंगलबार, पुस्तकालय कति बजेदेखि खुल्छ?",
-       "choices": [
-        "बिहान नौ बजे",
-        "राति आठ बजे",
-        "बिहान आठ बजे",
-        "राति नौ बजे"
-       ]
-      },
-      "en": {
-       "q": "On Tuesday, what time does the library open?",
-       "choices": [
-        "9 AM",
-        "8 PM",
-        "8 AM",
-        "9 PM"
-       ]
+      "id": "N5-D-S-9002",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "としょかんのおしらせ",
+      "body": "としょかんからのおしらせです。来週（らいしゅう）の月（げつ）よう日（び）は、本（ほん）のせいりのためおやすみです。火（か）よう日（び）からはいつもどおり、朝（あさ）九時（くじ）から夜（よる）八時（はちじ）まであいています。本（ほん）をかりている人（ひと）は、水（すい）よう日（び）までにかえしてください。",
+      "questions": [
+        {
+          "id": "N5-D-S-9002-q1",
+          "q": "火（か）よう日（び）、としょかんは何時（なんじ）からあいていますか。",
+          "choices": [
+            "朝（あさ）九時（くじ）",
+            "夜（よる）八時（はちじ）",
+            "朝（あさ）八時（はちじ）",
+            "夜（よる）九時（くじ）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "मंगलबार, पुस्तकालय कति बजेदेखि खुल्छ?",
+              "choices": [
+                "बिहान नौ बजे",
+                "राति आठ बजे",
+                "बिहान आठ बजे",
+                "राति नौ बजे"
+              ]
+            },
+            "en": {
+              "q": "On Tuesday, what time does the library open?",
+              "choices": [
+                "9 AM",
+                "8 PM",
+                "8 AM",
+                "9 PM"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "पुस्तकालयबाट सूचना। अर्को हप्ताको सोमबार, किताबहरू मिलाउनको लागि बन्द रहनेछ। मंगलबारदेखि सधैँझैँ, बिहान नौ बजेदेखि राति आठ बजेसम्म खुल्ला रहनेछ। किताब लिएका मानिसहरूले बुधबारसम्ममा फिर्ता गरिदिनुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Notice from the library.\nNext Monday, the library will be closed for book organization. From Tuesday, it will be open as usual, from 9 AM to 8 PM. Those who have borrowed books, please return them by Wednesday."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "पुस्तकालयबाट सूचना। अर्को हप्ताको सोमबार, किताबहरू मिलाउनको लागि बन्द रहनेछ। मंगलबारदेखि सधैँझैँ, बिहान नौ बजेदेखि राति आठ बजेसम्म खुल्ला रहनेछ। किताब लिएका मानिसहरूले बुधबारसम्ममा फिर्ता गरिदिनुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "Notice from the library.\nNext Monday, the library will be closed for book organization. From Tuesday, it will be open as usual, from 9 AM to 8 PM. Those who have borrowed books, please return them by Wednesday."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9003",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "友（とも）だちからのメール",
-   "body": "あしたはやすみだから、こうえんでいっしょにテニスをしませんか。朝（あさ）十時（じゅうじ）にえきの前（まえ）であいましょう。もし雨（あめ）がふったら、テニスはやめて、えきの近（ちか）くのカフェでおちゃをのみましょう。へんじをまっています。",
-   "questions": [
     {
-     "id": "N5-D-S-9003-q1",
-     "q": "雨（あめ）がふったら、二人（ふたり）は何（なに）をしますか。",
-     "choices": [
-      "カフェでおちゃをのむ",
-      "こうえんでテニスをする",
-      "えきの前（まえ）であそぶ",
-      "十時（じゅうじ）までねている"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「雨（あめ）がふったら…カフェでおちゃをのみましょう」とある。"
-      },
-      "ne": {
-       "q": "यदि पानी पर्यो भने, दुई जनाले के गर्छन्?",
-       "choices": [
-        "क्याफेमा चिया पिउने",
-        "पार्कमा टेनिस खेल्ने",
-        "स्टेशन अगाडि खेल्ने",
-        "दस बजेसम्म सुत्ने"
-       ]
-      },
-      "en": {
-       "q": "If it rains, what will the two people do?",
-       "choices": [
-        "Have tea at a cafe",
-        "Play tennis at the park",
-        "Play in front of the station",
-        "Sleep until ten o'clock"
-       ]
+      "id": "N5-D-S-9003",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "友（とも）だちからのメール",
+      "body": "あしたはやすみだから、こうえんでいっしょにテニスをしませんか。朝（あさ）十時（じゅうじ）にえきの前（まえ）であいましょう。もし雨（あめ）がふったら、テニスはやめて、えきの近（ちか）くのカフェでおちゃをのみましょう。へんじをまっています。",
+      "questions": [
+        {
+          "id": "N5-D-S-9003-q1",
+          "q": "雨（あめ）がふったら、二人（ふたり）は何（なに）をしますか。",
+          "choices": [
+            "カフェでおちゃをのむ",
+            "こうえんでテニスをする",
+            "えきの前（まえ）であそぶ",
+            "十時（じゅうじ）までねている"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यदि पानी पर्यो भने, दुई जनाले के गर्छन्?",
+              "choices": [
+                "क्याफेमा चिया पिउने",
+                "पार्कमा टेनिस खेल्ने",
+                "स्टेशन अगाडि खेल्ने",
+                "दस बजेसम्म सुत्ने"
+              ]
+            },
+            "en": {
+              "q": "If it rains, what will the two people do?",
+              "choices": [
+                "Have tea at a cafe",
+                "Play tennis at the park",
+                "Play in front of the station",
+                "Sleep until ten o'clock"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "भोलि बिदा भएकोले, पार्कमा सँगै टेनिस खेलौँ न? बिहान दस बजे स्टेशन अगाडि भेटौँला। यदि पानी पर्यो भने, टेनिस खेल्न छोडेर, स्टेशन नजिकको क्याफेमा चिया पिऔँला। जवाफको प्रतीक्षामा छु।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Tomorrow is a holiday, so would you like to play tennis together at the park? Let's meet at 10 AM in front of the station. If it rains, let's cancel tennis and have tea at a cafe near the station. I'm waiting for your reply."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "भोलि बिदा भएकोले, पार्कमा सँगै टेनिस खेलौँ न? बिहान दस बजे स्टेशन अगाडि भेटौँला। यदि पानी पर्यो भने, टेनिस खेल्न छोडेर, स्टेशन नजिकको क्याफेमा चिया पिऔँला। जवाफको प्रतीक्षामा छु।"
-     ]
     },
-    "en": {
-     "body": [
-      "Tomorrow is a holiday, so would you like to play tennis together at the park? Let's meet at 10 AM in front of the station. If it rains, let's cancel tennis and have tea at a cafe near the station. I'm waiting for your reply."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9004",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "エレベーターのおしらせ",
-   "body": "おしらせ。あさっての午前中（ごぜんちゅう）、エレベーターのてんけんがあります。この間（あいだ）、エレベーターはつかえません。かいだんをつかってください。午後（ごご）からはまたつかえるようになります。ごきょうりょくおねがいします。",
-   "questions": [
     {
-     "id": "N5-D-S-9004-q1",
-     "q": "あさっての午前中（ごぜんちゅう）、どうすればいいですか。",
-     "choices": [
-      "かいだんをつかう",
-      "エレベーターをつかう",
-      "午前中（ごぜんちゅう）は来（こ）ない",
-      "てんけんをする"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「かいだんをつかってください」とある。"
-      },
-      "ne": {
-       "q": "पर्सिको बिहान, के गर्नुपर्छ?",
-       "choices": [
-        "सिँढी प्रयोग गर्ने",
-        "लिफ्ट प्रयोग गर्ने",
-        "बिहान नआउने",
-        "मर्मत गर्ने"
-       ]
-      },
-      "en": {
-       "q": "What should you do the day after tomorrow morning?",
-       "choices": [
-        "Use the stairs",
-        "Use the elevator",
-        "Don't come in the morning",
-        "Do the inspection"
-       ]
+      "id": "N5-D-S-9004",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "エレベーターのおしらせ",
+      "body": "おしらせ。あさっての午前中（ごぜんちゅう）、エレベーターのてんけんがあります。この間（あいだ）、エレベーターはつかえません。かいだんをつかってください。午後（ごご）からはまたつかえるようになります。ごきょうりょくおねがいします。",
+      "questions": [
+        {
+          "id": "N5-D-S-9004-q1",
+          "q": "あさっての午前中（ごぜんちゅう）、どうすればいいですか。",
+          "choices": [
+            "かいだんをつかう",
+            "エレベーターをつかう",
+            "午前中（ごぜんちゅう）は来（こ）ない",
+            "てんけんをする"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पर्सिको बिहान, के गर्नुपर्छ?",
+              "choices": [
+                "सिँढी प्रयोग गर्ने",
+                "लिफ्ट प्रयोग गर्ने",
+                "बिहान नआउने",
+                "मर्मत गर्ने"
+              ]
+            },
+            "en": {
+              "q": "What should you do the day after tomorrow morning?",
+              "choices": [
+                "Use the stairs",
+                "Use the elevator",
+                "Don't come in the morning",
+                "Do the inspection"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "सूचना। पर्सिको बिहान, लिफ्टको मर्मत गरिनेछ। यो अवधिमा, लिफ्ट प्रयोग गर्न सकिँदैन। सिँढी प्रयोग गर्नुहोस्। दिउँसोदेखि फेरि प्रयोग गर्न सकिनेछ। सहयोगको लागि अनुरोध छ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Notice. The day after tomorrow morning, there will be an elevator inspection. During this time, the elevator cannot be used. Please use the stairs. It will be usable again from the afternoon. Thank you for your cooperation."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "सूचना। पर्सिको बिहान, लिफ्टको मर्मत गरिनेछ। यो अवधिमा, लिफ्ट प्रयोग गर्न सकिँदैन। सिँढी प्रयोग गर्नुहोस्। दिउँसोदेखि फेरि प्रयोग गर्न सकिनेछ। सहयोगको लागि अनुरोध छ।"
-     ]
     },
-    "en": {
-     "body": [
-      "Notice. The day after tomorrow morning, there will be an elevator inspection. During this time, the elevator cannot be used. Please use the stairs. It will be usable again from the afternoon. Thank you for your cooperation."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9005",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "日記",
-   "subtype": "naiyou_tan",
-   "title": "海（うみ）へ行（い）った日（ひ）",
-   "body": "きょうは家（か）ぞくで海（うみ）へ行（い）った。天気（てんき）がよくて、水（みず）がとてもきれいだった。わたしは弟（おとうと）といっしょにおよいだ。おひるは、母（はは）が作（つく）ったおべんとうを食（た）べた。とてもたのしい一日（いちにち）だった。また来月（らいげつ）も行（い）きたい。",
-   "questions": [
     {
-     "id": "N5-D-S-9005-q1",
-     "q": "この人（ひと）はきょう、だれとおよぎましたか。",
-     "choices": [
-      "弟（おとうと）",
-      "母（はは）",
-      "友（とも）だち",
-      "先生（せんせい）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「弟（おとうと）といっしょにおよいだ」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्ति आज कोसँग पौडी खेल्यो?",
-       "choices": [
-        "भाइ",
-        "आमा",
-        "साथी",
-        "शिक्षक"
-       ]
-      },
-      "en": {
-       "q": "Who did this person swim with today?",
-       "choices": [
-        "Younger brother",
-        "Mother",
-        "Friend",
-        "Teacher"
-       ]
+      "id": "N5-D-S-9005",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "日記",
+      "subtype": "naiyou_tan",
+      "title": "海（うみ）へ行（い）った日（ひ）",
+      "body": "きょうは家（か）ぞくで海（うみ）へ行（い）った。天気（てんき）がよくて、水（みず）がとてもきれいだった。わたしは弟（おとうと）といっしょにおよいだ。おひるは、母（はは）が作（つく）ったおべんとうを食（た）べた。とてもたのしい一日（いちにち）だった。また来月（らいげつ）も行（い）きたい。",
+      "questions": [
+        {
+          "id": "N5-D-S-9005-q1",
+          "q": "この人（ひと）はきょう、だれとおよぎましたか。",
+          "choices": [
+            "弟（おとうと）",
+            "母（はは）",
+            "友（とも）だち",
+            "先生（せんせい）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्ति आज कोसँग पौडी खेल्यो?",
+              "choices": [
+                "भाइ",
+                "आमा",
+                "साथी",
+                "शिक्षक"
+              ]
+            },
+            "en": {
+              "q": "Who did this person swim with today?",
+              "choices": [
+                "Younger brother",
+                "Mother",
+                "Friend",
+                "Teacher"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "आज परिवारसँग समुद्रमा गइयो। मौसम राम्रो थियो र पानी धेरै सफा थियो। म भाइसँग पौडी खेलेँ। दिउँसो, आमाले बनाएको बेन्तो (लन्च बक्स) खाइयो। धेरै रमाइलो दिन थियो। अर्को महिना पनि जान मन छ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Today, my family went to the beach. The weather was good, and the water was very clean. I swam with my younger brother. For lunch, we ate the bento my mother made. It was a very enjoyable day. I want to go again next month."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "आज परिवारसँग समुद्रमा गइयो। मौसम राम्रो थियो र पानी धेरै सफा थियो। म भाइसँग पौडी खेलेँ। दिउँसो, आमाले बनाएको बेन्तो (लन्च बक्स) खाइयो। धेरै रमाइलो दिन थियो। अर्को महिना पनि जान मन छ।"
-     ]
     },
-    "en": {
-     "body": [
-      "Today, my family went to the beach. The weather was good, and the water was very clean. I swam with my younger brother. For lunch, we ate the bento my mother made. It was a very enjoyable day. I want to go again next month."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9006",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "手紙",
-   "subtype": "naiyou_tan",
-   "title": "そぼへの手紙（てがみ）",
-   "body": "おばあちゃん、おげんきですか。わたしは東京（とうきょう）でげんきにべんきょうしています。さいきん、日本（にほん）ごの学校（がっこう）で新（あたら）しい友（とも）だちができました。こんどの冬休（ふゆやす）みに、そちらへあそびに行（い）きます。おばあちゃんのりょうりが食（た）べたいです。",
-   "questions": [
     {
-     "id": "N5-D-S-9006-q1",
-     "q": "この人（ひと）は冬休（ふゆやす）みに何（なに）をしますか。",
-     "choices": [
-      "おばあちゃんの家（いえ）へ行（い）く",
-      "日本（にほん）ごの学校（がっこう）へ行（い）く",
-      "おばあちゃんにりょうりを作（つく）る",
-      "東京（とうきょう）でべんきょうをする"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「冬休（ふゆやす）みに、そちらへあそびに行（い）きます」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्ति जाडो बिदामा के गर्छ?",
-       "choices": [
-        "हजुरआमाको घर जाने",
-        "जापानी भाषा स्कुल जाने",
-        "हजुरआमालाई खाना बनाउने",
-        "टोकियोमा पढ्ने"
-       ]
-      },
-      "en": {
-       "q": "What will this person do during winter break?",
-       "choices": [
-        "Go to Grandma's house",
-        "Go to Japanese language school",
-        "Cook for Grandma",
-        "Study in Tokyo"
-       ]
+      "id": "N5-D-S-9006",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "手紙",
+      "subtype": "naiyou_tan",
+      "title": "そぼへの手紙（てがみ）",
+      "body": "おばあちゃん、おげんきですか。わたしは東京（とうきょう）でげんきにべんきょうしています。さいきん、日本（にほん）ごの学校（がっこう）で新（あたら）しい友（とも）だちができました。こんどの冬休（ふゆやす）みに、そちらへあそびに行（い）きます。おばあちゃんのりょうりが食（た）べたいです。",
+      "questions": [
+        {
+          "id": "N5-D-S-9006-q1",
+          "q": "この人（ひと）は冬休（ふゆやす）みに何（なに）をしますか。",
+          "choices": [
+            "おばあちゃんの家（いえ）へ行（い）く",
+            "日本（にほん）ごの学校（がっこう）へ行（い）く",
+            "おばあちゃんにりょうりを作（つく）る",
+            "東京（とうきょう）でべんきょうをする"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्ति जाडो बिदामा के गर्छ?",
+              "choices": [
+                "हजुरआमाको घर जाने",
+                "जापानी भाषा स्कुल जाने",
+                "हजुरआमालाई खाना बनाउने",
+                "टोकियोमा पढ्ने"
+              ]
+            },
+            "en": {
+              "q": "What will this person do during winter break?",
+              "choices": [
+                "Go to Grandma's house",
+                "Go to Japanese language school",
+                "Cook for Grandma",
+                "Study in Tokyo"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "हजुरआमा, सन्चै हुनुहुन्छ? म टोकियोमा राम्ररी पढिरहेको छु। हालै, जापानी भाषा स्कुलमा नयाँ साथीहरू बनेका छन्। आउँदो जाडो बिदामा, म हजुरकहाँ घुम्न आउनेछु। हजुरआमाको खाना खान मन छ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Grandma, how are you? I'm studying well in Tokyo. Recently, I made new friends at my Japanese language school. I'm going to visit you during the next winter break. I want to eat your cooking, Grandma."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "हजुरआमा, सन्चै हुनुहुन्छ? म टोकियोमा राम्ररी पढिरहेको छु। हालै, जापानी भाषा स्कुलमा नयाँ साथीहरू बनेका छन्। आउँदो जाडो बिदामा, म हजुरकहाँ घुम्न आउनेछु। हजुरआमाको खाना खान मन छ।"
-     ]
     },
-    "en": {
-     "body": [
-      "Grandma, how are you? I'm studying well in Tokyo. Recently, I made new friends at my Japanese language school. I'm going to visit you during the next winter break. I want to eat your cooking, Grandma."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9007",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メモ",
-   "subtype": "naiyou_tan",
-   "title": "電話（でんわ）の伝言（でんごん）メモ",
-   "body": "さっき同（どう）りょうの人（ひと）から電話（でんわ）がありました。あしたの会（かい）ぎのばしょが、二（に）かいの会（かい）ぎしつから三（さん）がいの大（おお）きいへやにかわったそうです。時間（じかん）は前（まえ）と同（おな）じ午後（ごご）二時（にじ）です。あとでその人（ひと）に電話（でんわ）してくださいとのことです。",
-   "questions": [
     {
-     "id": "N5-D-S-9007-q1",
-     "q": "あしたの会（かい）ぎのばしょは、どこになりましたか。",
-     "choices": [
-      "三（さん）がいの大（おお）きいへや",
-      "二（に）かいの小（ちい）さい会（かい）ぎしつ",
-      "同（どう）りょうの人（ひと）の家（いえ）",
-      "午後（ごご）二時（にじ）のへや"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「三（さん）がいの大（おお）きいへやにかわった」とある。"
-      },
-      "ne": {
-       "q": "भोलिको बैठकको स्थान कहाँ भयो?",
-       "choices": [
-        "तेस्रो तल्लाको ठूलो कोठा",
-        "दोस्रो तल्लाको सानो बैठक कोठा",
-        "सहकर्मीको घर",
-        "दिउँसो २ बजेको कोठा"
-       ]
-      },
-      "en": {
-       "q": "Where will tomorrow's meeting be held?",
-       "choices": [
-        "The large room on the third floor",
-        "The small meeting room on the second floor",
-        "The colleague's house",
-        "The 2 PM room"
-       ]
+      "id": "N5-D-S-9007",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メモ",
+      "subtype": "naiyou_tan",
+      "title": "電話（でんわ）の伝言（でんごん）メモ",
+      "body": "さっき同（どう）りょうの人（ひと）から電話（でんわ）がありました。あしたの会（かい）ぎのばしょが、二（に）かいの会（かい）ぎしつから三（さん）がいの大（おお）きいへやにかわったそうです。時間（じかん）は前（まえ）と同（おな）じ午後（ごご）二時（にじ）です。あとでその人（ひと）に電話（でんわ）してくださいとのことです。",
+      "questions": [
+        {
+          "id": "N5-D-S-9007-q1",
+          "q": "あしたの会（かい）ぎのばしょは、どこになりましたか。",
+          "choices": [
+            "三（さん）がいの大（おお）きいへや",
+            "二（に）かいの小（ちい）さい会（かい）ぎしつ",
+            "同（どう）りょうの人（ひと）の家（いえ）",
+            "午後（ごご）二時（にじ）のへや"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "भोलिको बैठकको स्थान कहाँ भयो?",
+              "choices": [
+                "तेस्रो तल्लाको ठूलो कोठा",
+                "दोस्रो तल्लाको सानो बैठक कोठा",
+                "सहकर्मीको घर",
+                "दिउँसो २ बजेको कोठा"
+              ]
+            },
+            "en": {
+              "q": "Where will tomorrow's meeting be held?",
+              "choices": [
+                "The large room on the third floor",
+                "The small meeting room on the second floor",
+                "The colleague's house",
+                "The 2 PM room"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "अघि सहकर्मीबाट फोन आएको थियो। भोलिको बैठकको स्थान दोस्रो तल्लाको बैठक कोठाबाट तेस्रो तल्लाको ठूलो कोठामा सरेको छ रे। समय पहिलेकै दिउँसो २ बजे हो। पछि उहाँलाई फोन गरिदिनुहोला भन्नुभएको छ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "I just received a call from a colleague. They said that the meeting place for tomorrow has changed from the meeting room on the second floor to the large room on the third floor. The time is still 2 PM, the same as before. They also said to please call them later."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "अघि सहकर्मीबाट फोन आएको थियो। भोलिको बैठकको स्थान दोस्रो तल्लाको बैठक कोठाबाट तेस्रो तल्लाको ठूलो कोठामा सरेको छ रे। समय पहिलेकै दिउँसो २ बजे हो। पछि उहाँलाई फोन गरिदिनुहोला भन्नुभएको छ।"
-     ]
     },
-    "en": {
-     "body": [
-      "I just received a call from a colleague. They said that the meeting place for tomorrow has changed from the meeting room on the second floor to the large room on the third floor. The time is still 2 PM, the same as before. They also said to please call them later."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9008",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "パンやのおしらせ",
-   "body": "パンやからのおしらせです。来月（らいげつ）から、あさのかいてん時間（じかん）がはやくなります。今（いま）までは八時（はちじ）からでしたが、七時（しちじ）からになります。よるのへいてんは前（まえ）と同（おな）じ九時（くじ）です。日（にち）よう日（び）はおやすみです。よろしくおねがいします。",
-   "questions": [
     {
-     "id": "N5-D-S-9008-q1",
-     "q": "来月（らいげつ）から、店（みせ）は朝（あさ）何時（なんじ）にあきますか。",
-     "choices": [
-      "七時（しちじ）",
-      "八時（はちじ）",
-      "九時（くじ）",
-      "六時（ろくじ）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「あさ…七時（しちじ）からになります」とある。"
-      },
-      "ne": {
-       "q": "अर्को महिनादेखि पसल बिहान कति बजे खुल्छ?",
-       "choices": [
-        "सात बजे",
-        "आठ बजे",
-        "नौ बजे",
-        "छ बजे"
-       ]
-      },
-      "en": {
-       "q": "Starting next month, what time will the store open in the morning?",
-       "choices": [
-        "7 AM",
-        "8 AM",
-        "9 AM",
-        "6 AM"
-       ]
+      "id": "N5-D-S-9008",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "パンやのおしらせ",
+      "body": "パンやからのおしらせです。来月（らいげつ）から、あさのかいてん時間（じかん）がはやくなります。今（いま）までは八時（はちじ）からでしたが、七時（しちじ）からになります。よるのへいてんは前（まえ）と同（おな）じ九時（くじ）です。日（にち）よう日（び）はおやすみです。よろしくおねがいします。",
+      "questions": [
+        {
+          "id": "N5-D-S-9008-q1",
+          "q": "来月（らいげつ）から、店（みせ）は朝（あさ）何時（なんじ）にあきますか。",
+          "choices": [
+            "七時（しちじ）",
+            "八時（はちじ）",
+            "九時（くじ）",
+            "六時（ろくじ）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "अर्को महिनादेखि पसल बिहान कति बजे खुल्छ?",
+              "choices": [
+                "सात बजे",
+                "आठ बजे",
+                "नौ बजे",
+                "छ बजे"
+              ]
+            },
+            "en": {
+              "q": "Starting next month, what time will the store open in the morning?",
+              "choices": [
+                "7 AM",
+                "8 AM",
+                "9 AM",
+                "6 AM"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "बेकरीबाट सूचना। अर्को महिनादेखि बिहान पसल खुल्ने समय चाँडो हुनेछ। अहिलेसम्म ८ बजेदेखि खुल्ने गरेकोमा अब ७ बजेदेखि खुल्नेछ। राति पसल बन्द हुने समय पहिलेकै ९ बजे हो। आइतबार बिदा हुन्छ। धन्यवाद।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Notice from the bakery.\nStarting next month, our morning opening hours will be earlier. Until now, we opened at 8 AM, but it will change to 7 AM. Our evening closing time will remain the same at 9 PM. We are closed on Sundays. Thank you for your understanding."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "बेकरीबाट सूचना। अर्को महिनादेखि बिहान पसल खुल्ने समय चाँडो हुनेछ। अहिलेसम्म ८ बजेदेखि खुल्ने गरेकोमा अब ७ बजेदेखि खुल्नेछ। राति पसल बन्द हुने समय पहिलेकै ९ बजे हो। आइतबार बिदा हुन्छ। धन्यवाद।"
-     ]
     },
-    "en": {
-     "body": [
-      "Notice from the bakery.\nStarting next month, our morning opening hours will be earlier. Until now, we opened at 8 AM, but it will change to 7 AM. Our evening closing time will remain the same at 9 PM. We are closed on Sundays. Thank you for your understanding."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9009",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "先生（せんせい）へのメール",
-   "body": "先生（せんせい）、おはようございます。今日（きょう）、朝（あさ）からおなかがいたくて、これから病院（びょういん）へ行（い）きます。ですから、今日（きょう）の学校（がっこう）はやすみます。しゅくだいはあした、かならずもって行（い）きます。ごめいわくをおかけしてすみません。",
-   "questions": [
     {
-     "id": "N5-D-S-9009-q1",
-     "q": "この人（ひと）は今日（きょう）、なぜ学校（がっこう）をやすみますか。",
-     "choices": [
-      "おなかがいたいから",
-      "しゅくだいがないから",
-      "病院（びょういん）ではたらくから",
-      "先生（せんせい）にあいたいから"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「朝（あさ）からおなかがいたくて…学校（がっこう）はやすみます」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्ति आज किन स्कूलमा बिदा लिन्छ?",
-       "choices": [
-        "पेट दुखेकोले",
-        "गृहकार्य नभएकोले",
-        "अस्पतालमा काम गर्ने भएकोले",
-        "गुरुज्यूलाई भेट्न चाहेकोले"
-       ]
-      },
-      "en": {
-       "q": "Why is this person absent from school today?",
-       "choices": [
-        "Because they have a stomachache",
-        "Because they don't have homework",
-        "Because they work at the hospital",
-        "Because they want to see the teacher"
-       ]
+      "id": "N5-D-S-9009",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "先生（せんせい）へのメール",
+      "body": "先生（せんせい）、おはようございます。今日（きょう）、朝（あさ）からおなかがいたくて、これから病院（びょういん）へ行（い）きます。ですから、今日（きょう）の学校（がっこう）はやすみます。しゅくだいはあした、かならずもって行（い）きます。ごめいわくをおかけしてすみません。",
+      "questions": [
+        {
+          "id": "N5-D-S-9009-q1",
+          "q": "この人（ひと）は今日（きょう）、なぜ学校（がっこう）をやすみますか。",
+          "choices": [
+            "おなかがいたいから",
+            "しゅくだいがないから",
+            "病院（びょういん）ではたらくから",
+            "先生（せんせい）にあいたいから"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्ति आज किन स्कूलमा बिदा लिन्छ?",
+              "choices": [
+                "पेट दुखेकोले",
+                "गृहकार्य नभएकोले",
+                "अस्पतालमा काम गर्ने भएकोले",
+                "गुरुज्यूलाई भेट्न चाहेकोले"
+              ]
+            },
+            "en": {
+              "q": "Why is this person absent from school today?",
+              "choices": [
+                "Because they have a stomachache",
+                "Because they don't have homework",
+                "Because they work at the hospital",
+                "Because they want to see the teacher"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "गुरुज्यू, शुभ प्रभात। आज बिहानैदेखि पेट दुखेर अस्पताल जाँदैछु। त्यसैले, आज स्कूलमा बिदा लिन्छु। गृहकार्य भोलि पक्कै लिएर आउनेछु। असुविधाको लागि माफी चाहन्छु।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Good morning, teacher.\nToday, I've had a stomachache since this morning, so I'm going to the hospital now. Therefore, I will be absent from school today. I will definitely bring my homework tomorrow. I apologize for any inconvenience."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "गुरुज्यू, शुभ प्रभात। आज बिहानैदेखि पेट दुखेर अस्पताल जाँदैछु। त्यसैले, आज स्कूलमा बिदा लिन्छु। गृहकार्य भोलि पक्कै लिएर आउनेछु। असुविधाको लागि माफी चाहन्छु।"
-     ]
     },
-    "en": {
-     "body": [
-      "Good morning, teacher.\nToday, I've had a stomachache since this morning, so I'm going to the hospital now. Therefore, I will be absent from school today. I will definitely bring my homework tomorrow. I apologize for any inconvenience."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9010",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "こうえんのちゅうい",
-   "body": "このこうえんでは、ボールであそぶことはできません。小（ちい）さい子（こ）どももあそんでいて、あぶないからです。ボールであそびたい人（ひと）は、川（かわ）の近（ちか）くのひろばをつかってください。みんなでルールをまもってあそびましょう。",
-   "questions": [
     {
-     "id": "N5-D-S-9010-q1",
-     "q": "ボールであそびたい人（ひと）は、どこへ行（い）きますか。",
-     "choices": [
-      "川（かわ）の近（ちか）くのひろば",
-      "このこうえん",
-      "小（ちい）さい子（こ）どもの家（いえ）",
-      "ルールのへや"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「ボールであそびたい人（ひと）は、川（かわ）の近（ちか）くのひろばを」とある。"
-      },
-      "ne": {
-       "q": "बल खेल्न चाहनेहरू कहाँ जान्छन्?",
-       "choices": [
-        "नदी नजिकको <u>खुला मैदान</u>",
-        "यो पार्क",
-        "साना बच्चाहरूको घर",
-        "नियमको कोठा"
-       ]
-      },
-      "en": {
-       "q": "Where should people who want to play with balls go?",
-       "choices": [
-        "The plaza near the river",
-        "This park",
-        "Small children's houses",
-        "The rules room"
-       ]
+      "id": "N5-D-S-9010",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "こうえんのちゅうい",
+      "body": "このこうえんでは、ボールであそぶことはできません。小（ちい）さい子（こ）どももあそんでいて、あぶないからです。ボールであそびたい人（ひと）は、川（かわ）の近（ちか）くのひろばをつかってください。みんなでルールをまもってあそびましょう。",
+      "questions": [
+        {
+          "id": "N5-D-S-9010-q1",
+          "q": "ボールであそびたい人（ひと）は、どこへ行（い）きますか。",
+          "choices": [
+            "川（かわ）の近（ちか）くのひろば",
+            "このこうえん",
+            "小（ちい）さい子（こ）どもの家（いえ）",
+            "ルールのへや"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "बल खेल्न चाहनेहरू कहाँ जान्छन्?",
+              "choices": [
+                "नदी नजिकको <u>खुला मैदान</u>",
+                "यो पार्क",
+                "साना बच्चाहरूको घर",
+                "नियमको कोठा"
+              ]
+            },
+            "en": {
+              "q": "Where should people who want to play with balls go?",
+              "choices": [
+                "The plaza near the river",
+                "This park",
+                "Small children's houses",
+                "The rules room"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "यो पार्कमा बल खेल्न पाइँदैन। साना बच्चाहरू पनि खेलिरहेका हुन्छन् र यो खतरनाक हुन्छ। बल खेल्न चाहनेहरूले नदी नजिकको <u>खुला मैदान</u> प्रयोग गर्नुहोस्। सबैले नियम पालना गरेर खेलौं।"
+          ]
+        },
+        "en": {
+          "body": [
+            "You cannot play with balls in this park. This is because small children are also playing, and it is dangerous. People who want to play with balls, please use the <u>plaza near the river</u>. Let's all follow the rules and play."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "यो पार्कमा बल खेल्न पाइँदैन। साना बच्चाहरू पनि खेलिरहेका हुन्छन् र यो खतरनाक हुन्छ। बल खेल्न चाहनेहरूले नदी नजिकको <u>खुला मैदान</u> प्रयोग गर्नुहोस्। सबैले नियम पालना गरेर खेलौं।"
-     ]
     },
-    "en": {
-     "body": [
-      "You cannot play with balls in this park. This is because small children are also playing, and it is dangerous. People who want to play with balls, please use the <u>plaza near the river</u>. Let's all follow the rules and play."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9011",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "日記",
-   "subtype": "naiyou_tan",
-   "title": "はじめてのカレー",
-   "body": "きょうははじめて一人（ひとり）でカレーを作（つく）った。やさいを切（き）るのは少（すこ）しむずかしかったが、じょうずにできた。あじもとてもおいしくて、うれしかった。つぎは家（か）ぞくのために、もっとたくさん作（つく）りたいと思（おも）う。",
-   "questions": [
     {
-     "id": "N5-D-S-9011-q1",
-     "q": "この人（ひと）はきょう、はじめて何（なに）をしましたか。",
-     "choices": [
-      "一人（ひとり）でカレーを作（つく）った",
-      "やさいの切（き）り方（かた）をならった",
-      "家（か）ぞくにカレーを作（つく）った",
-      "店（みせ）でカレーを食（た）べた"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「はじめて一人（ひとり）でカレーを作（つく）った」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्तिले आज पहिलो पटक के गर्यो?",
-       "choices": [
-        "एक्लै करी बनायो",
-        "तरकारी काट्ने तरिका सिक्यो",
-        "परिवारको लागि करी बनायो",
-        "पसलमा करी खायो"
-       ]
-      },
-      "en": {
-       "q": "What did this person do for the first time today?",
-       "choices": [
-        "Made curry by themselves",
-        "Learned how to cut vegetables",
-        "Made curry for their family",
-        "Ate curry at a restaurant"
-       ]
+      "id": "N5-D-S-9011",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "日記",
+      "subtype": "naiyou_tan",
+      "title": "はじめてのカレー",
+      "body": "きょうははじめて一人（ひとり）でカレーを作（つく）った。やさいを切（き）るのは少（すこ）しむずかしかったが、じょうずにできた。あじもとてもおいしくて、うれしかった。つぎは家（か）ぞくのために、もっとたくさん作（つく）りたいと思（おも）う。",
+      "questions": [
+        {
+          "id": "N5-D-S-9011-q1",
+          "q": "この人（ひと）はきょう、はじめて何（なに）をしましたか。",
+          "choices": [
+            "一人（ひとり）でカレーを作（つく）った",
+            "やさいの切（き）り方（かた）をならった",
+            "家（か）ぞくにカレーを作（つく）った",
+            "店（みせ）でカレーを食（た）べた"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्तिले आज पहिलो पटक के गर्यो?",
+              "choices": [
+                "एक्लै करी बनायो",
+                "तरकारी काट्ने तरिका सिक्यो",
+                "परिवारको लागि करी बनायो",
+                "पसलमा करी खायो"
+              ]
+            },
+            "en": {
+              "q": "What did this person do for the first time today?",
+              "choices": [
+                "Made curry by themselves",
+                "Learned how to cut vegetables",
+                "Made curry for their family",
+                "Ate curry at a restaurant"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "आज पहिलो पटक एक्लै करी बनाएँ। तरकारी काट्न अलि गाह्रो भयो तर राम्ररी बन्यो। स्वाद पनि धेरै स्वादिष्ट थियो, खुसी लाग्यो। अर्को पटक परिवारको लागि अझ धेरै बनाउन चाहन्छु।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Today, I made curry by myself for the first time. Cutting the vegetables was a little difficult, but I did it well. The taste was also very delicious, and I was happy. Next, I want to make a lot more for my family."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "आज पहिलो पटक एक्लै करी बनाएँ। तरकारी काट्न अलि गाह्रो भयो तर राम्ररी बन्यो। स्वाद पनि धेरै स्वादिष्ट थियो, खुसी लाग्यो। अर्को पटक परिवारको लागि अझ धेरै बनाउन चाहन्छु।"
-     ]
     },
-    "en": {
-     "body": [
-      "Today, I made curry by myself for the first time. Cutting the vegetables was a little difficult, but I did it well. The taste was also very delicious, and I was happy. Next, I want to make a lot more for my family."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9012",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "手紙",
-   "subtype": "naiyou_tan",
-   "title": "お礼（れい）の手紙（てがみ）",
-   "body": "先週（せんしゅう）は、たんじょう日（び）のプレゼントをありがとうございました。いただいた本（ほん）は、前（まえ）からずっとほしかったものです。まいばんすこしずつ読（よ）んでいます。こんど、お礼（れい）にわたしの町（まち）のおかしをおくりますね。",
-   "questions": [
     {
-     "id": "N5-D-S-9012-q1",
-     "q": "この人（ひと）は先週（せんしゅう）、何（なに）をもらいましたか。",
-     "choices": [
-      "本（ほん）",
-      "おかし",
-      "町（まち）のちず",
-      "たんじょう日（び）のケーキ"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「いただいた本（ほん）は、前（まえ）からずっとほしかった」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्तिले गत हप्ता के पायो?",
-       "choices": [
-        "किताब",
-        "मिठाई",
-        "शहरको नक्सा",
-        "जन्मदिनको केक"
-       ]
-      },
-      "en": {
-       "q": "What did this person receive last week?",
-       "choices": [
-        "A book",
-        "Sweets",
-        "A town map",
-        "A birthday cake"
-       ]
+      "id": "N5-D-S-9012",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "手紙",
+      "subtype": "naiyou_tan",
+      "title": "お礼（れい）の手紙（てがみ）",
+      "body": "先週（せんしゅう）は、たんじょう日（び）のプレゼントをありがとうございました。いただいた本（ほん）は、前（まえ）からずっとほしかったものです。まいばんすこしずつ読（よ）んでいます。こんど、お礼（れい）にわたしの町（まち）のおかしをおくりますね。",
+      "questions": [
+        {
+          "id": "N5-D-S-9012-q1",
+          "q": "この人（ひと）は先週（せんしゅう）、何（なに）をもらいましたか。",
+          "choices": [
+            "本（ほん）",
+            "おかし",
+            "町（まち）のちず",
+            "たんじょう日（び）のケーキ"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्तिले गत हप्ता के पायो?",
+              "choices": [
+                "किताब",
+                "मिठाई",
+                "शहरको नक्सा",
+                "जन्मदिनको केक"
+              ]
+            },
+            "en": {
+              "q": "What did this person receive last week?",
+              "choices": [
+                "A book",
+                "Sweets",
+                "A town map",
+                "A birthday cake"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "गत हप्ता जन्मदिनको उपहारको लागि धन्यवाद। तपाईंले दिनुभएको किताब मलाई पहिलेदेखि नै चाहिएको थियो। हरेक रात अलिअलि पढिरहेको छु। अर्को पटक धन्यवाद स्वरूप मेरो शहरको मिठाई पठाउनेछु।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Thank you for the birthday present last week. The book you gave me is something I've wanted for a long time. I'm reading it little by little every night. Next time, as a thank you, I'll send you some sweets from my town."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "गत हप्ता जन्मदिनको उपहारको लागि धन्यवाद। तपाईंले दिनुभएको किताब मलाई पहिलेदेखि नै चाहिएको थियो। हरेक रात अलिअलि पढिरहेको छु। अर्को पटक धन्यवाद स्वरूप मेरो शहरको मिठाई पठाउनेछु।"
-     ]
     },
-    "en": {
-     "body": [
-      "Thank you for the birthday present last week. The book you gave me is something I've wanted for a long time. I'm reading it little by little every night. Next time, as a thank you, I'll send you some sweets from my town."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9013",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メモ",
-   "subtype": "naiyou_tan",
-   "title": "ケーキのメモ",
-   "body": "れいぞうこに、ケーキが二（ふた）つはいっています。一（ひと）つはわたしのですから、食（た）べないでください。もう一（ひと）つはあなたのおやつです。よるごはんのあとに食（た）べてくださいね。ジュースものんでいいですよ。",
-   "questions": [
     {
-     "id": "N5-D-S-9013-q1",
-     "q": "あなたのケーキは、いつ食（た）べますか。",
-     "choices": [
-      "よるごはんのあと",
-      "よるごはんの前（まえ）",
-      "あさごはんのあと",
-      "今（いま）すぐ"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「よるごはんのあとに食（た）べてくださいね」とある。"
-      },
-      "ne": {
-       "q": "तपाईंको केक कहिले खाने?",
-       "choices": [
-        "रातिको खानापछि",
-        "रातिको खानाअघि",
-        "बिहानको खानापछि",
-        "अहिले नै"
-       ]
-      },
-      "en": {
-       "q": "When will you eat your cake?",
-       "choices": [
-        "After dinner",
-        "Before dinner",
-        "After breakfast",
-        "Right now"
-       ]
+      "id": "N5-D-S-9013",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メモ",
+      "subtype": "naiyou_tan",
+      "title": "ケーキのメモ",
+      "body": "れいぞうこに、ケーキが二（ふた）つはいっています。一（ひと）つはわたしのですから、食（た）べないでください。もう一（ひと）つはあなたのおやつです。よるごはんのあとに食（た）べてくださいね。ジュースものんでいいですよ。",
+      "questions": [
+        {
+          "id": "N5-D-S-9013-q1",
+          "q": "あなたのケーキは、いつ食（た）べますか。",
+          "choices": [
+            "よるごはんのあと",
+            "よるごはんの前（まえ）",
+            "あさごはんのあと",
+            "今（いま）すぐ"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "तपाईंको केक कहिले खाने?",
+              "choices": [
+                "रातिको खानापछि",
+                "रातिको खानाअघि",
+                "बिहानको खानापछि",
+                "अहिले नै"
+              ]
+            },
+            "en": {
+              "q": "When will you eat your cake?",
+              "choices": [
+                "After dinner",
+                "Before dinner",
+                "After breakfast",
+                "Right now"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "फ्रिजमा दुईवटा केक छन्। एउटा मेरो हो, त्यसैले नखानुहोस्। अर्को तपाईंको खाजा हो। रातिको खानापछि खानुहोस् है। जुस पनि पिउन सक्नुहुन्छ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "There are two cakes in the refrigerator. One is mine, so please don't eat it. The other one is your snack. Please eat it after dinner. You can also drink juice."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "फ्रिजमा दुईवटा केक छन्। एउटा मेरो हो, त्यसैले नखानुहोस्। अर्को तपाईंको खाजा हो। रातिको खानापछि खानुहोस् है। जुस पनि पिउन सक्नुहुन्छ।"
-     ]
     },
-    "en": {
-     "body": [
-      "There are two cakes in the refrigerator. One is mine, so please don't eat it. The other one is your snack. Please eat it after dinner. You can also drink juice."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9014",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "ゴミの出（だ）し方（かた）",
-   "body": "マンションにすむみなさんへ。もえるゴミは、火（か）よう日（び）と金（きん）よう日（び）の朝（あさ）八時（はちじ）までに出（だ）してください。ペットボトルは水（すい）よう日（び）です。よる出（だ）すと、ねこがあらすのでやめてください。ばしょは一（いっ）かいのゴミおきばです。",
-   "questions": [
     {
-     "id": "N5-D-S-9014-q1",
-     "q": "もえるゴミは、いつ出（だ）しますか。",
-     "choices": [
-      "火（か）よう日（び）と金（きん）よう日（び）",
-      "水（すい）よう日（び）の朝（あさ）八時（はちじ）まで",
-      "土（ど）よう日（び）",
-      "毎日（まいにち）のよる"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「もえるゴミは、火（か）よう日（び）と金（きん）よう日（び）の朝（あさ）」とある。"
-      },
-      "ne": {
-       "q": "जल्ने फोहोर कहिले बाहिर राख्ने?",
-       "choices": [
-        "मंगलबार र शुक्रबार",
-        "बुधबार बिहान आठ बजेसम्म",
-        "शनिबार",
-        "हरेक रात"
-       ]
-      },
-      "en": {
-       "q": "When should burnable trash be put out?",
-       "choices": [
-        "Tuesdays and Fridays",
-        "By 8 AM on Wednesdays",
-        "Saturdays",
-        "Every night"
-       ]
+      "id": "N5-D-S-9014",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "ゴミの出（だ）し方（かた）",
+      "body": "マンションにすむみなさんへ。もえるゴミは、火（か）よう日（び）と金（きん）よう日（び）の朝（あさ）八時（はちじ）までに出（だ）してください。ペットボトルは水（すい）よう日（び）です。よる出（だ）すと、ねこがあらすのでやめてください。ばしょは一（いっ）かいのゴミおきばです。",
+      "questions": [
+        {
+          "id": "N5-D-S-9014-q1",
+          "q": "もえるゴミは、いつ出（だ）しますか。",
+          "choices": [
+            "火（か）よう日（び）と金（きん）よう日（び）",
+            "水（すい）よう日（び）の朝（あさ）八時（はちじ）まで",
+            "土（ど）よう日（び）",
+            "毎日（まいにち）のよる"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "जल्ने फोहोर कहिले बाहिर राख्ने?",
+              "choices": [
+                "मंगलबार र शुक्रबार",
+                "बुधबार बिहान आठ बजेसम्म",
+                "शनिबार",
+                "हरेक रात"
+              ]
+            },
+            "en": {
+              "q": "When should burnable trash be put out?",
+              "choices": [
+                "Tuesdays and Fridays",
+                "By 8 AM on Wednesdays",
+                "Saturdays",
+                "Every night"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "अपार्टमेन्टमा बस्ने सबैलाई। जल्ने फोहोर मंगलबार र शुक्रबार बिहान आठ बजेसम्म बाहिर राख्नुहोस्। प्लास्टिकका बोतल बुधबार। राति बाहिर राख्दा बिरालोले फोहोर पार्ने हुनाले नराख्नुहोस्। ठाउँ पहिलो तल्लाको फोहोर राख्ने ठाउँ हो।"
+          ]
+        },
+        "en": {
+          "body": [
+            "To all residents of the apartment building.\nPlease put out burnable trash by 8 AM on Tuesdays and Fridays. Plastic bottles are on Wednesdays. Please do not put trash out at night, as cats will make a mess. The location is the trash area on the first floor."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "अपार्टमेन्टमा बस्ने सबैलाई। जल्ने फोहोर मंगलबार र शुक्रबार बिहान आठ बजेसम्म बाहिर राख्नुहोस्। प्लास्टिकका बोतल बुधबार। राति बाहिर राख्दा बिरालोले फोहोर पार्ने हुनाले नराख्नुहोस्। ठाउँ पहिलो तल्लाको फोहोर राख्ने ठाउँ हो।"
-     ]
     },
-    "en": {
-     "body": [
-      "To all residents of the apartment building.\nPlease put out burnable trash by 8 AM on Tuesdays and Fridays. Plastic bottles are on Wednesdays. Please do not put trash out at night, as cats will make a mess. The location is the trash area on the first floor."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9015",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "待（ま）ち合（あ）わせの変更（へんこう）",
-   "body": "ごめん、あしたの待（ま）ち合（あ）わせのことだけど、えきの東口（ひがしぐち）じゃなくて西口（にしぐち）にかえてもいい。東口（ひがしぐち）は工事（こうじ）をしていて、人（ひと）がとても多（おお）いんだ。時間（じかん）は同（おな）じ十一時（じゅういちじ）で大（だい）じょうぶ。西口（にしぐち）のとけいの下（した）でまっているね。",
-   "questions": [
     {
-     "id": "N5-D-S-9015-q1",
-     "q": "あした、どこで待（ま）ち合（あ）わせますか。",
-     "choices": [
-      "えきの西口（にしぐち）",
-      "えきの東口（ひがしぐち）",
-      "とけいの店（みせ）",
-      "十一時（じゅういちじ）のホーム"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「西口（にしぐち）にかえてもいい…西口（にしぐち）のとけいの下（した）で」とある。"
-      },
-      "ne": {
-       "q": "भोलि कहाँ भेट्ने?",
-       "choices": [
-        "स्टेशनको पश्चिमी गेटमा",
-        "स्टेशनको पूर्वी गेटमा",
-        "घडी पसलमा",
-        "एघार बजेको प्लेटफर्ममा"
-       ]
-      },
-      "en": {
-       "q": "Where will they meet tomorrow?",
-       "choices": [
-        "The west exit of the station",
-        "The east exit of the station",
-        "A clock shop",
-        "The 11 o'clock platform"
-       ]
+      "id": "N5-D-S-9015",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "待（ま）ち合（あ）わせの変更（へんこう）",
+      "body": "ごめん、あしたの待（ま）ち合（あ）わせのことだけど、えきの東口（ひがしぐち）じゃなくて西口（にしぐち）にかえてもいい。東口（ひがしぐち）は工事（こうじ）をしていて、人（ひと）がとても多（おお）いんだ。時間（じかん）は同（おな）じ十一時（じゅういちじ）で大（だい）じょうぶ。西口（にしぐち）のとけいの下（した）でまっているね。",
+      "questions": [
+        {
+          "id": "N5-D-S-9015-q1",
+          "q": "あした、どこで待（ま）ち合（あ）わせますか。",
+          "choices": [
+            "えきの西口（にしぐち）",
+            "えきの東口（ひがしぐち）",
+            "とけいの店（みせ）",
+            "十一時（じゅういちじ）のホーム"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "भोलि कहाँ भेट्ने?",
+              "choices": [
+                "स्टेशनको पश्चिमी गेटमा",
+                "स्टेशनको पूर्वी गेटमा",
+                "घडी पसलमा",
+                "एघार बजेको प्लेटफर्ममा"
+              ]
+            },
+            "en": {
+              "q": "Where will they meet tomorrow?",
+              "choices": [
+                "The west exit of the station",
+                "The east exit of the station",
+                "A clock shop",
+                "The 11 o'clock platform"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "माफ गर, भोलिको भेटघाटको कुरा हो, स्टेशनको पूर्वी गेटको सट्टा पश्चिमी गेटमा परिवर्तन गर्न मिल्छ? पूर्वी गेटमा निर्माण कार्य भइरहेको छ र मानिसहरू धेरै छन्। समय उही एघार बजे ठीक छ। पश्चिमी गेटको <u>घडीमुनि</u> पर्खिरहेको हुनेछु।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Sorry, about our meeting tomorrow, would it be okay to change it from the <u>east exit of the station</u> to the <u>west exit</u>? The east exit is under construction and there are a lot of people. The time, 11 o'clock, is fine. I'll be waiting under the clock at the west exit."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "माफ गर, भोलिको भेटघाटको कुरा हो, स्टेशनको पूर्वी गेटको सट्टा पश्चिमी गेटमा परिवर्तन गर्न मिल्छ? पूर्वी गेटमा निर्माण कार्य भइरहेको छ र मानिसहरू धेरै छन्। समय उही एघार बजे ठीक छ। पश्चिमी गेटको <u>घडीमुनि</u> पर्खिरहेको हुनेछु।"
-     ]
     },
-    "en": {
-     "body": [
-      "Sorry, about our meeting tomorrow, would it be okay to change it from the <u>east exit of the station</u> to the <u>west exit</u>? The east exit is under construction and there are a lot of people. The time, 11 o'clock, is fine. I'll be waiting under the clock at the west exit."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9016",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "プールのおしらせ",
-   "body": "プールをつかう人（ひと）へ。あさは九時（くじ）から十二時（じゅうにじ）まで、午後（ごご）は一時（いちじ）から五時（ごじ）までつかえます。おひるの十二時（じゅうにじ）から一時（いちじ）まではおやすみです。プールに入（はい）る前（まえ）に、かならずシャワーをあびてください。ぼうしをわすれずに。",
-   "questions": [
     {
-     "id": "N5-D-S-9016-q1",
-     "q": "プールがつかえないのは、いつですか。",
-     "choices": [
-      "十二時（じゅうにじ）から一時（いちじ）",
-      "九時（くじ）から十二時（じゅうにじ）",
-      "一時（いちじ）から五時（ごじ）",
-      "あさ九時（くじ）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「十二時（じゅうにじ）から一時（いちじ）まではおやすみ」とある。"
-      },
-      "ne": {
-       "q": "पौडी पोखरी कहिले प्रयोग गर्न सकिँदैन?",
-       "choices": [
-        "बाह्र बजेदेखि एक बजेसम्म",
-        "नौ बजेदेखि बाह्र बजेसम्म",
-        "एक बजेदेखि पाँच बजेसम्म",
-        "बिहान नौ बजे"
-       ]
-      },
-      "en": {
-       "q": "When is the pool unavailable?",
-       "choices": [
-        "From 12 PM to 1 PM",
-        "From 9 AM to 12 PM",
-        "From 1 PM to 5 PM",
-        "9 AM"
-       ]
+      "id": "N5-D-S-9016",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "プールのおしらせ",
+      "body": "プールをつかう人（ひと）へ。あさは九時（くじ）から十二時（じゅうにじ）まで、午後（ごご）は一時（いちじ）から五時（ごじ）までつかえます。おひるの十二時（じゅうにじ）から一時（いちじ）まではおやすみです。プールに入（はい）る前（まえ）に、かならずシャワーをあびてください。ぼうしをわすれずに。",
+      "questions": [
+        {
+          "id": "N5-D-S-9016-q1",
+          "q": "プールがつかえないのは、いつですか。",
+          "choices": [
+            "十二時（じゅうにじ）から一時（いちじ）",
+            "九時（くじ）から十二時（じゅうにじ）",
+            "一時（いちじ）から五時（ごじ）",
+            "あさ九時（くじ）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पौडी पोखरी कहिले प्रयोग गर्न सकिँदैन?",
+              "choices": [
+                "बाह्र बजेदेखि एक बजेसम्म",
+                "नौ बजेदेखि बाह्र बजेसम्म",
+                "एक बजेदेखि पाँच बजेसम्म",
+                "बिहान नौ बजे"
+              ]
+            },
+            "en": {
+              "q": "When is the pool unavailable?",
+              "choices": [
+                "From 12 PM to 1 PM",
+                "From 9 AM to 12 PM",
+                "From 1 PM to 5 PM",
+                "9 AM"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "पौडी पोखरी प्रयोग गर्नेहरूका लागि। बिहान नौ बजेदेखि बाह्र बजेसम्म र दिउँसो एक बजेदेखि पाँच बजेसम्म प्रयोग गर्न सकिन्छ। दिउँसो बाह्र बजेदेखि एक बजेसम्म बन्द रहन्छ। पौडी पोखरीमा प्रवेश गर्नुअघि, अनिवार्य रूपमा नुहाउनुहोस्। टोपी नबिर्सनुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "To pool users.\nThe pool is available from 9 AM to 12 PM in the morning, and from 1 PM to 5 PM in the afternoon. It is closed from 12 PM to 1 PM for lunch. Please be sure to take a shower before entering the pool. Don't forget your swim cap."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "पौडी पोखरी प्रयोग गर्नेहरूका लागि। बिहान नौ बजेदेखि बाह्र बजेसम्म र दिउँसो एक बजेदेखि पाँच बजेसम्म प्रयोग गर्न सकिन्छ। दिउँसो बाह्र बजेदेखि एक बजेसम्म बन्द रहन्छ। पौडी पोखरीमा प्रवेश गर्नुअघि, अनिवार्य रूपमा नुहाउनुहोस्। टोपी नबिर्सनुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "To pool users.\nThe pool is available from 9 AM to 12 PM in the morning, and from 1 PM to 5 PM in the afternoon. It is closed from 12 PM to 1 PM for lunch. Please be sure to take a shower before entering the pool. Don't forget your swim cap."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9017",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "日記",
-   "subtype": "naiyou_tan",
-   "title": "わすれもの",
-   "body": "きょう、電車（でんしゃ）の中（なか）にかさをわすれてしまった。えきの人（ひと）に聞（き）いたら、まだ見（み）つかっていないと言（い）われた。あしたもう一（いち）どえきへ行（い）ってみるつもりだ。お気（き）に入（い）りのかさなので、見（み）つかるといいなと思（おも）う。",
-   "questions": [
     {
-     "id": "N5-D-S-9017-q1",
-     "q": "この人（ひと）は、電車（でんしゃ）の中（なか）に何（なに）をわすれましたか。",
-     "choices": [
-      "かさ",
-      "きっぷ",
-      "かばん",
-      "ぼうし"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「電車（でんしゃ）の中（なか）にかさをわすれてしまった」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्तिले रेलमा के बिर्सियो?",
-       "choices": [
-        "छाता",
-        "टिकट",
-        "झोला",
-        "टोपी"
-       ]
-      },
-      "en": {
-       "q": "What did this person forget on the train?",
-       "choices": [
-        "An umbrella",
-        "A ticket",
-        "A bag",
-        "A hat"
-       ]
+      "id": "N5-D-S-9017",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "日記",
+      "subtype": "naiyou_tan",
+      "title": "わすれもの",
+      "body": "きょう、電車（でんしゃ）の中（なか）にかさをわすれてしまった。えきの人（ひと）に聞（き）いたら、まだ見（み）つかっていないと言（い）われた。あしたもう一（いち）どえきへ行（い）ってみるつもりだ。お気（き）に入（い）りのかさなので、見（み）つかるといいなと思（おも）う。",
+      "questions": [
+        {
+          "id": "N5-D-S-9017-q1",
+          "q": "この人（ひと）は、電車（でんしゃ）の中（なか）に何（なに）をわすれましたか。",
+          "choices": [
+            "かさ",
+            "きっぷ",
+            "かばん",
+            "ぼうし"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्तिले रेलमा के बिर्सियो?",
+              "choices": [
+                "छाता",
+                "टिकट",
+                "झोला",
+                "टोपी"
+              ]
+            },
+            "en": {
+              "q": "What did this person forget on the train?",
+              "choices": [
+                "An umbrella",
+                "A ticket",
+                "A bag",
+                "A hat"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "आज, मैले रेलमा छाता बिर्सिएँ। स्टेशनका मानिसहरूलाई सोध्दा, उनीहरूले अझै भेटिएको छैन भने। भोलि फेरि एकपटक स्टेशन जाने विचारमा छु। यो मेरो मनपर्ने छाता हो, त्यसैले भेटिएला भन्ने आशा छ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Today, I left my umbrella on the train. When I asked the station staff, they said it hadn't been found yet. I plan to go to the station again tomorrow. It's my favorite umbrella, so I hope it's found."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "आज, मैले रेलमा छाता बिर्सिएँ। स्टेशनका मानिसहरूलाई सोध्दा, उनीहरूले अझै भेटिएको छैन भने। भोलि फेरि एकपटक स्टेशन जाने विचारमा छु। यो मेरो मनपर्ने छाता हो, त्यसैले भेटिएला भन्ने आशा छ।"
-     ]
     },
-    "en": {
-     "body": [
-      "Today, I left my umbrella on the train. When I asked the station staff, they said it hadn't been found yet. I plan to go to the station again tomorrow. It's my favorite umbrella, so I hope it's found."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9018",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "手紙",
-   "subtype": "naiyou_tan",
-   "title": "ひっこしのおしらせ",
-   "body": "おげんきですか。じつは来月（らいげつ）、となりの町（まち）へひっこすことになりました。新（あたら）しい家（いえ）は、駅（えき）から歩（ある）いて五分（ごふん）でとてもべんりです。前（まえ）の家（いえ）より広（ひろ）くなります。おちついたら、ぜひあそびに来（き）てくださいね。まっています。",
-   "questions": [
     {
-     "id": "N5-D-S-9018-q1",
-     "q": "新（あたら）しい家（いえ）は、どんな家（いえ）ですか。",
-     "choices": [
-      "駅（えき）から歩（ある）いて五分（ごふん）",
-      "駅（えき）から歩（ある）いて十五分（じゅうごふん）",
-      "前（まえ）の家（いえ）よりせまい",
-      "となりの駅（えき）の中（なか）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「駅（えき）から歩（ある）いて五分（ごふん）でとてもべんり」とある。"
-      },
-      "ne": {
-       "q": "नयाँ घर कस्तो छ?",
-       "choices": [
-        "स्टेशनबाट पाँच मिनेट पैदल दूरीमा",
-        "स्टेशनबाट पन्ध्र मिनेट पैदल दूरीमा",
-        "पुरानो घरभन्दा साँघुरो",
-        "छिमेकी स्टेशनभित्र"
-       ]
-      },
-      "en": {
-       "q": "What kind of house is the new house?",
-       "choices": [
-        "A five-minute walk from the station",
-        "A fifteen-minute walk from the station",
-        "Smaller than the previous house",
-        "Inside the next station"
-       ]
+      "id": "N5-D-S-9018",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "手紙",
+      "subtype": "naiyou_tan",
+      "title": "ひっこしのおしらせ",
+      "body": "おげんきですか。じつは来月（らいげつ）、となりの町（まち）へひっこすことになりました。新（あたら）しい家（いえ）は、駅（えき）から歩（ある）いて五分（ごふん）でとてもべんりです。前（まえ）の家（いえ）より広（ひろ）くなります。おちついたら、ぜひあそびに来（き）てくださいね。まっています。",
+      "questions": [
+        {
+          "id": "N5-D-S-9018-q1",
+          "q": "新（あたら）しい家（いえ）は、どんな家（いえ）ですか。",
+          "choices": [
+            "駅（えき）から歩（ある）いて五分（ごふん）",
+            "駅（えき）から歩（ある）いて十五分（じゅうごふん）",
+            "前（まえ）の家（いえ）よりせまい",
+            "となりの駅（えき）の中（なか）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "नयाँ घर कस्तो छ?",
+              "choices": [
+                "स्टेशनबाट पाँच मिनेट पैदल दूरीमा",
+                "स्टेशनबाट पन्ध्र मिनेट पैदल दूरीमा",
+                "पुरानो घरभन्दा साँघुरो",
+                "छिमेकी स्टेशनभित्र"
+              ]
+            },
+            "en": {
+              "q": "What kind of house is the new house?",
+              "choices": [
+                "A five-minute walk from the station",
+                "A fifteen-minute walk from the station",
+                "Smaller than the previous house",
+                "Inside the next station"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "सन्चै हुनुहुन्छ? वास्तवमा, अर्को महिना म छिमेकी सहरमा सर्ने भएँ। नयाँ घर स्टेशनबाट पाँच मिनेट पैदल दूरीमा छ र धेरै सुविधाजनक छ। यो पुरानो घरभन्दा फराकिलो हुनेछ। जब म स्थिर हुन्छु, कृपया भेट्न आउनुहोस् है। म पर्खिरहेको हुनेछु।"
+          ]
+        },
+        "en": {
+          "body": [
+            "How are you? Actually, I'm moving to the next town next month. My new house is very convenient, a five-minute walk from the station. It will be larger than my previous house. Once I'm settled, please come visit. I'll be waiting."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "सन्चै हुनुहुन्छ? वास्तवमा, अर्को महिना म छिमेकी सहरमा सर्ने भएँ। नयाँ घर स्टेशनबाट पाँच मिनेट पैदल दूरीमा छ र धेरै सुविधाजनक छ। यो पुरानो घरभन्दा फराकिलो हुनेछ। जब म स्थिर हुन्छु, कृपया भेट्न आउनुहोस् है। म पर्खिरहेको हुनेछु।"
-     ]
     },
-    "en": {
-     "body": [
-      "How are you? Actually, I'm moving to the next town next month. My new house is very convenient, a five-minute walk from the station. It will be larger than my previous house. Once I'm settled, please come visit. I'll be waiting."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9019",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メモ",
-   "subtype": "naiyou_tan",
-   "title": "犬（いぬ）のさんぽ",
-   "body": "わたしは今日（きょう）おそくなります。すみませんが、犬（いぬ）のさんぽをおねがいします。夕方（ゆうがた）六時（ろくじ）ごろ、家（いえ）の近（ちか）くのこうえんまでつれて行（い）ってください。さんぽのあと、犬（いぬ）にごはんをあげてください。水（みず）もわすれないでね。",
-   "questions": [
     {
-     "id": "N5-D-S-9019-q1",
-     "q": "さんぽのあと、何（なに）をしますか。",
-     "choices": [
-      "犬（いぬ）にごはんをあげる",
-      "犬（いぬ）とこうえんへ行（い）く",
-      "六時（ろくじ）までまつ",
-      "犬（いぬ）に水（みず）をかける"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「さんぽのあと、犬（いぬ）にごはんをあげてください」とある。"
-      },
-      "ne": {
-       "q": "घुमाइसकेपछि के गर्ने?",
-       "choices": [
-        "कुकुरलाई खाना दिने",
-        "कुकुरसँग पार्कमा जाने",
-        "६ बजेसम्म पर्खने",
-        "कुकुरलाई पानी छर्कने"
-       ]
-      },
-      "en": {
-       "q": "What should be done after the walk?",
-       "choices": [
-        "Feed the dog",
-        "Go to the park with the dog",
-        "Wait until 6 o'clock",
-        "Give the dog water"
-       ]
+      "id": "N5-D-S-9019",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メモ",
+      "subtype": "naiyou_tan",
+      "title": "犬（いぬ）のさんぽ",
+      "body": "わたしは今日（きょう）おそくなります。すみませんが、犬（いぬ）のさんぽをおねがいします。夕方（ゆうがた）六時（ろくじ）ごろ、家（いえ）の近（ちか）くのこうえんまでつれて行（い）ってください。さんぽのあと、犬（いぬ）にごはんをあげてください。水（みず）もわすれないでね。",
+      "questions": [
+        {
+          "id": "N5-D-S-9019-q1",
+          "q": "さんぽのあと、何（なに）をしますか。",
+          "choices": [
+            "犬（いぬ）にごはんをあげる",
+            "犬（いぬ）とこうえんへ行（い）く",
+            "六時（ろくじ）までまつ",
+            "犬（いぬ）に水（みず）をかける"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "घुमाइसकेपछि के गर्ने?",
+              "choices": [
+                "कुकुरलाई खाना दिने",
+                "कुकुरसँग पार्कमा जाने",
+                "६ बजेसम्म पर्खने",
+                "कुकुरलाई पानी छर्कने"
+              ]
+            },
+            "en": {
+              "q": "What should be done after the walk?",
+              "choices": [
+                "Feed the dog",
+                "Go to the park with the dog",
+                "Wait until 6 o'clock",
+                "Give the dog water"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "म आज ढिलो आउनेछु। माफ गर्नुहोस्, कृपया कुकुरलाई घुमाउन लैजानुहोस्। साँझ ६ बजेतिर घर नजिकको पार्कमा लैजानुहोस्। घुमाइसकेपछि कुकुरलाई खाना दिनुहोस्। पानी पनि नबिर्सनुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "I will be late today. I'm sorry, but please take the dog for a walk. Please take him to the park near the house around 6 PM. After the walk, please feed the dog. Don't forget the water."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "म आज ढिलो आउनेछु। माफ गर्नुहोस्, कृपया कुकुरलाई घुमाउन लैजानुहोस्। साँझ ६ बजेतिर घर नजिकको पार्कमा लैजानुहोस्। घुमाइसकेपछि कुकुरलाई खाना दिनुहोस्। पानी पनि नबिर्सनुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "I will be late today. I'm sorry, but please take the dog for a walk. Please take him to the park near the house around 6 PM. After the walk, please feed the dog. Don't forget the water."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9020",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "バスていのおしらせ",
-   "body": "バスをつかうみなさんへ。工事（こうじ）のため、来週（らいしゅう）から〇〇駅前（えきまえ）のバスていがすこし動（うご）きます。新（あたら）しいばしょは、ゆうびんきょくの前（まえ）です。今（いま）までのばしょにはとまりません。まちがえないようにきをつけてください。",
-   "questions": [
     {
-     "id": "N5-D-S-9020-q1",
-     "q": "来週（らいしゅう）から、バスはどこにとまりますか。",
-     "choices": [
-      "ゆうびんきょくの前（まえ）",
-      "〇〇駅（えき）の前（まえ）",
-      "工事（こうじ）のばしょ",
-      "今（いま）までの〇〇駅前（えきまえ）のばしょ"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「新（あたら）しいばしょは、ゆうびんきょくの前（まえ）です」とある。"
-      },
-      "ne": {
-       "q": "अर्को हप्तादेखि बस कहाँ रोकिन्छ?",
-       "choices": [
-        "हुलाक कार्यालयको अगाडि",
-        "〇〇 स्टेशनको अगाडि",
-        "निर्माण स्थलमा",
-        "पहिलेको 〇〇 स्टेशन अगाडिको ठाउँमा"
-       ]
-      },
-      "en": {
-       "q": "Where will the bus stop from next week?",
-       "choices": [
-        "In front of the post office",
-        "In front of 〇〇 Station",
-        "At the construction site",
-        "At the previous location in front of 〇〇 Station"
-       ]
+      "id": "N5-D-S-9020",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "バスていのおしらせ",
+      "body": "バスをつかうみなさんへ。工事（こうじ）のため、来週（らいしゅう）から〇〇駅前（えきまえ）のバスていがすこし動（うご）きます。新（あたら）しいばしょは、ゆうびんきょくの前（まえ）です。今（いま）までのばしょにはとまりません。まちがえないようにきをつけてください。",
+      "questions": [
+        {
+          "id": "N5-D-S-9020-q1",
+          "q": "来週（らいしゅう）から、バスはどこにとまりますか。",
+          "choices": [
+            "ゆうびんきょくの前（まえ）",
+            "〇〇駅（えき）の前（まえ）",
+            "工事（こうじ）のばしょ",
+            "今（いま）までの〇〇駅前（えきまえ）のばしょ"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "अर्को हप्तादेखि बस कहाँ रोकिन्छ?",
+              "choices": [
+                "हुलाक कार्यालयको अगाडि",
+                "〇〇 स्टेशनको अगाडि",
+                "निर्माण स्थलमा",
+                "पहिलेको 〇〇 स्टेशन अगाडिको ठाउँमा"
+              ]
+            },
+            "en": {
+              "q": "Where will the bus stop from next week?",
+              "choices": [
+                "In front of the post office",
+                "In front of 〇〇 Station",
+                "At the construction site",
+                "At the previous location in front of 〇〇 Station"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "बस प्रयोग गर्ने सबैलाई। निर्माण कार्यका कारण, अर्को हप्तादेखि 〇〇 स्टेशन अगाडिको बस स्टप अलि सर्नेछ। नयाँ ठाउँ हुलाक कार्यालयको अगाडि हो। पहिलेको ठाउँमा रोकिने छैन। गल्ती नगर्न सावधान रहनुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "To all bus users:\nDue to construction, the bus stop in front of 〇〇 Station will move slightly starting next week. The new location is in front of the post office. It will no longer stop at the previous location. Please be careful not to make a mistake."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "बस प्रयोग गर्ने सबैलाई। निर्माण कार्यका कारण, अर्को हप्तादेखि 〇〇 स्टेशन अगाडिको बस स्टप अलि सर्नेछ। नयाँ ठाउँ हुलाक कार्यालयको अगाडि हो। पहिलेको ठाउँमा रोकिने छैन। गल्ती नगर्न सावधान रहनुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "To all bus users:\nDue to construction, the bus stop in front of 〇〇 Station will move slightly starting next week. The new location is in front of the post office. It will no longer stop at the previous location. Please be careful not to make a mistake."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9021",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "会（かい）ぎの時間（じかん）変更（へんこう）",
-   "body": "おつかれさまです。あしたの会（かい）ぎのことですが、時間（じかん）が午前（ごぜん）十時（じゅうじ）から午後（ごご）二時（にじ）にかわりました。ばしょは前（まえ）と同（おな）じ会（かい）ぎしつです。しりょうは会（かい）ぎの前（まえ）に読（よ）んでおいてください。何（なに）かあれば、またメールします。",
-   "questions": [
     {
-     "id": "N5-D-S-9021-q1",
-     "q": "あしたの会（かい）ぎは、何時（なんじ）からになりましたか。",
-     "choices": [
-      "午後（ごご）二時（にじ）",
-      "午前（ごぜん）十時（じゅうじ）",
-      "会（かい）ぎしつ",
-      "あしたの朝（あさ）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「午前（ごぜん）十時（じゅうじ）から午後（ごご）二時（にじ）にかわりました」とある。"
-      },
-      "ne": {
-       "q": "भोलिको बैठक कति बजेदेखि भयो?",
-       "choices": [
-        "दिउँसो २ बजे",
-        "बिहान १० बजे",
-        "बैठक कोठा",
-        "भोलि बिहान"
-       ]
-      },
-      "en": {
-       "q": "What time is tomorrow's meeting now?",
-       "choices": [
-        "2 PM",
-        "10 AM",
-        "In the meeting room",
-        "Tomorrow morning"
-       ]
+      "id": "N5-D-S-9021",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "会（かい）ぎの時間（じかん）変更（へんこう）",
+      "body": "おつかれさまです。あしたの会（かい）ぎのことですが、時間（じかん）が午前（ごぜん）十時（じゅうじ）から午後（ごご）二時（にじ）にかわりました。ばしょは前（まえ）と同（おな）じ会（かい）ぎしつです。しりょうは会（かい）ぎの前（まえ）に読（よ）んでおいてください。何（なに）かあれば、またメールします。",
+      "questions": [
+        {
+          "id": "N5-D-S-9021-q1",
+          "q": "あしたの会（かい）ぎは、何時（なんじ）からになりましたか。",
+          "choices": [
+            "午後（ごご）二時（にじ）",
+            "午前（ごぜん）十時（じゅうじ）",
+            "会（かい）ぎしつ",
+            "あしたの朝（あさ）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "भोलिको बैठक कति बजेदेखि भयो?",
+              "choices": [
+                "दिउँसो २ बजे",
+                "बिहान १० बजे",
+                "बैठक कोठा",
+                "भोलि बिहान"
+              ]
+            },
+            "en": {
+              "q": "What time is tomorrow's meeting now?",
+              "choices": [
+                "2 PM",
+                "10 AM",
+                "In the meeting room",
+                "Tomorrow morning"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "शुभकामना। भोलिको बैठकको बारेमा, समय बिहान १० बजेदेखि दिउँसो २ बजेसम्म परिवर्तन भएको छ। ठाउँ पहिलेकै बैठक कोठा हो। कृपया बैठक अघि सामग्रीहरू पढ्नुहोस्। यदि केहि छ भने, म फेरि ईमेल गर्नेछु।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Good work today. Regarding tomorrow's meeting, the time has changed from 10 AM to 2 PM. The location is the same meeting room as before. Please read the materials before the meeting. If anything comes up, I will email you again."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "शुभकामना। भोलिको बैठकको बारेमा, समय बिहान १० बजेदेखि दिउँसो २ बजेसम्म परिवर्तन भएको छ। ठाउँ पहिलेकै बैठक कोठा हो। कृपया बैठक अघि सामग्रीहरू पढ्नुहोस्। यदि केहि छ भने, म फेरि ईमेल गर्नेछु।"
-     ]
     },
-    "en": {
-     "body": [
-      "Good work today. Regarding tomorrow's meeting, the time has changed from 10 AM to 2 PM. The location is the same meeting room as before. Please read the materials before the meeting. If anything comes up, I will email you again."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9022",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "じてんしゃのちゅうい",
-   "body": "じてんしゃにのる人（ひと）へ。ここにじてんしゃをとめてはいけません。みせの入口（いりぐち）の前（まえ）は、あぶないからです。じてんしゃは、ビルのうしろのおきばにとめてください。おきばは、あさ七時（しちじ）からよる十時（じゅうじ）まであいています。",
-   "questions": [
     {
-     "id": "N5-D-S-9022-q1",
-     "q": "じてんしゃは、どこにとめますか。",
-     "choices": [
-      "ビルのうしろのおきば",
-      "あぶないみせの入口（いりぐち）の前（まえ）",
-      "あさ七時（しちじ）のばしょ",
-      "ここ"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「ビルのうしろのおきばにとめてください」とある。"
-      },
-      "ne": {
-       "q": "साइकल कहाँ पार्क गर्ने?",
-       "choices": [
-        "भवनको पछाडिको पार्किङमा",
-        "खतरनाक पसलको प्रवेशद्वार अगाडि",
-        "बिहान ७ बजेको ठाउँमा",
-        "यहाँ"
-       ]
-      },
-      "en": {
-       "q": "Where should bicycles be parked?",
-       "choices": [
-        "In the parking area behind the building",
-        "In front of the dangerous store entrance",
-        "At the 7 AM spot",
-        "Here"
-       ]
+      "id": "N5-D-S-9022",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "じてんしゃのちゅうい",
+      "body": "じてんしゃにのる人（ひと）へ。ここにじてんしゃをとめてはいけません。みせの入口（いりぐち）の前（まえ）は、あぶないからです。じてんしゃは、ビルのうしろのおきばにとめてください。おきばは、あさ七時（しちじ）からよる十時（じゅうじ）まであいています。",
+      "questions": [
+        {
+          "id": "N5-D-S-9022-q1",
+          "q": "じてんしゃは、どこにとめますか。",
+          "choices": [
+            "ビルのうしろのおきば",
+            "あぶないみせの入口（いりぐち）の前（まえ）",
+            "あさ七時（しちじ）のばしょ",
+            "ここ"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "साइकल कहाँ पार्क गर्ने?",
+              "choices": [
+                "भवनको पछाडिको पार्किङमा",
+                "खतरनाक पसलको प्रवेशद्वार अगाडि",
+                "बिहान ७ बजेको ठाउँमा",
+                "यहाँ"
+              ]
+            },
+            "en": {
+              "q": "Where should bicycles be parked?",
+              "choices": [
+                "In the parking area behind the building",
+                "In front of the dangerous store entrance",
+                "At the 7 AM spot",
+                "Here"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "साइकल चलाउने व्यक्तिहरूलाई। यहाँ साइकल पार्क गर्न पाइँदैन। पसलको प्रवेशद्वार अगाडि खतरनाक छ। कृपया साइकल भवनको पछाडिको पार्किङमा पार्क गर्नुहोस्। पार्किङ बिहान ७ बजेदेखि राति १० बजेसम्म खुल्ला रहन्छ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "To people riding bicycles:\nYou must not park your bicycle here. This is because the area in front of the store entrance is dangerous. Please park your bicycle in the parking area behind the building. The parking area is open from 7 AM to 10 PM."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "साइकल चलाउने व्यक्तिहरूलाई। यहाँ साइकल पार्क गर्न पाइँदैन। पसलको प्रवेशद्वार अगाडि खतरनाक छ। कृपया साइकल भवनको पछाडिको पार्किङमा पार्क गर्नुहोस्। पार्किङ बिहान ७ बजेदेखि राति १० बजेसम्म खुल्ला रहन्छ।"
-     ]
     },
-    "en": {
-     "body": [
-      "To people riding bicycles:\nYou must not park your bicycle here. This is because the area in front of the store entrance is dangerous. Please park your bicycle in the parking area behind the building. The parking area is open from 7 AM to 10 PM."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9023",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "日記",
-   "subtype": "naiyou_tan",
-   "title": "病院（びょういん）へ行（い）った日（ひ）",
-   "body": "けさ、ねつが出（で）て頭（あたま）がいたかったので、はじめて近（ちか）くの病院（びょういん）へ行（い）った。お医者（いしゃ）さんは「かぜですね」と言（い）って、くすりをくれた。三日間（みっかかん）、ゆっくりやすめば元気（げんき）になるそうだ。今日（きょう）は早（はや）くねようと思（おも）う。",
-   "questions": [
     {
-     "id": "N5-D-S-9023-q1",
-     "q": "お医者（いしゃ）さんは、この人（ひと）に何（なに）と言（い）いましたか。",
-     "choices": [
-      "かぜだ",
-      "頭（あたま）のびょうきだ",
-      "もう元気（げんき）だ",
-      "三日（みっか）ではなおらない"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「お医者（いしゃ）さんは『かぜですね』と言（い）って」とある。"
-      },
-      "ne": {
-       "q": "डाक्टरले यो व्यक्तिलाई के भन्नुभयो?",
-       "choices": [
-        "रुघा लागेको छ",
-        "टाउकोको रोग लागेको छ",
-        "अहिले नै निको भयो",
-        "तीन दिनमा निको हुँदैन"
-       ]
-      },
-      "en": {
-       "q": "What did the doctor tell this person?",
-       "choices": [
-        "<u>It's a cold</u>",
-        "It's a head illness",
-        "They are already fine",
-        "They won't get better in three days"
-       ]
+      "id": "N5-D-S-9023",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "日記",
+      "subtype": "naiyou_tan",
+      "title": "病院（びょういん）へ行（い）った日（ひ）",
+      "body": "けさ、ねつが出（で）て頭（あたま）がいたかったので、はじめて近（ちか）くの病院（びょういん）へ行（い）った。お医者（いしゃ）さんは「かぜですね」と言（い）って、くすりをくれた。三日間（みっかかん）、ゆっくりやすめば元気（げんき）になるそうだ。今日（きょう）は早（はや）くねようと思（おも）う。",
+      "questions": [
+        {
+          "id": "N5-D-S-9023-q1",
+          "q": "お医者（いしゃ）さんは、この人（ひと）に何（なに）と言（い）いましたか。",
+          "choices": [
+            "かぜだ",
+            "頭（あたま）のびょうきだ",
+            "もう元気（げんき）だ",
+            "三日（みっか）ではなおらない"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "डाक्टरले यो व्यक्तिलाई के भन्नुभयो?",
+              "choices": [
+                "रुघा लागेको छ",
+                "टाउकोको रोग लागेको छ",
+                "अहिले नै निको भयो",
+                "तीन दिनमा निको हुँदैन"
+              ]
+            },
+            "en": {
+              "q": "What did the doctor tell this person?",
+              "choices": [
+                "<u>It's a cold</u>",
+                "It's a head illness",
+                "They are already fine",
+                "They won't get better in three days"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "आज बिहान ज्वरो आएर टाउको दुखेकोले, पहिलो पटक नजिकैको अस्पताल गएँ। डाक्टरले \"रुघा लागेको छ\" भन्नुभयो र औषधि दिनुभयो। तीन दिन आराम गरेपछि निको हुन्छ रे। आज चाँडै सुत्ने विचारमा छु।"
+          ]
+        },
+        "en": {
+          "body": [
+            "This morning, I had a fever and a headache, so I went to a nearby hospital for the first time. The doctor said, \"<u>It's a cold</u>,\" and gave me medicine. He said I would get better if I rested quietly for three days. I plan to go to bed early today."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "आज बिहान ज्वरो आएर टाउको दुखेकोले, पहिलो पटक नजिकैको अस्पताल गएँ। डाक्टरले \"रुघा लागेको छ\" भन्नुभयो र औषधि दिनुभयो। तीन दिन आराम गरेपछि निको हुन्छ रे। आज चाँडै सुत्ने विचारमा छु।"
-     ]
     },
-    "en": {
-     "body": [
-      "This morning, I had a fever and a headache, so I went to a nearby hospital for the first time. The doctor said, \"<u>It's a cold</u>,\" and gave me medicine. He said I would get better if I rested quietly for three days. I plan to go to bed early today."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9024",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メモ",
-   "subtype": "naiyou_tan",
-   "title": "えんそくのおしらせ",
-   "body": "あしたは学校（がっこう）でえんそくがありますが、その前（まえ）に一時間目（いちじかんめ）のじゅぎょうがあります。かんじのしゅくだいをわすれずにもって来（き）てください。おべんとうと水（すい）とうもひつようです。あめがふったら、えんそくはやすみです。",
-   "questions": [
     {
-     "id": "N5-D-S-9024-q1",
-     "q": "あめがふったら、どうなりますか。",
-     "choices": [
-      "えんそくがなくなる",
-      "じゅぎょうがなくなる",
-      "しゅくだいがなくなる",
-      "おべんとうがいらない"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「あめがふったら、えんそくはやすみです」とある。"
-      },
-      "ne": {
-       "q": "यदि पानी पर्यो भने के हुन्छ?",
-       "choices": [
-        "पिकनिक रद्द हुन्छ",
-        "कक्षा रद्द हुन्छ",
-        "गृहकार्य रद्द हुन्छ",
-        "खाजाको आवश्यकता पर्दैन"
-       ]
-      },
-      "en": {
-       "q": "What will happen if it rains?",
-       "choices": [
-        "The excursion will be canceled",
-        "The class will be canceled",
-        "The homework will be canceled",
-        "A bento lunch will not be needed"
-       ]
+      "id": "N5-D-S-9024",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メモ",
+      "subtype": "naiyou_tan",
+      "title": "えんそくのおしらせ",
+      "body": "あしたは学校（がっこう）でえんそくがありますが、その前（まえ）に一時間目（いちじかんめ）のじゅぎょうがあります。かんじのしゅくだいをわすれずにもって来（き）てください。おべんとうと水（すい）とうもひつようです。あめがふったら、えんそくはやすみです。",
+      "questions": [
+        {
+          "id": "N5-D-S-9024-q1",
+          "q": "あめがふったら、どうなりますか。",
+          "choices": [
+            "えんそくがなくなる",
+            "じゅぎょうがなくなる",
+            "しゅくだいがなくなる",
+            "おべんとうがいらない"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यदि पानी पर्यो भने के हुन्छ?",
+              "choices": [
+                "पिकनिक रद्द हुन्छ",
+                "कक्षा रद्द हुन्छ",
+                "गृहकार्य रद्द हुन्छ",
+                "खाजाको आवश्यकता पर्दैन"
+              ]
+            },
+            "en": {
+              "q": "What will happen if it rains?",
+              "choices": [
+                "The excursion will be canceled",
+                "The class will be canceled",
+                "The homework will be canceled",
+                "A bento lunch will not be needed"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "भोलि विद्यालयमा पिकनिक छ, तर त्यसअघि पहिलो घण्टीको कक्षा छ। कान्जीको गृहकार्य नबिर्सिकन लिएर आउनुहोस्। खाजा र पानीको बोतल पनि आवश्यक छ। यदि पानी पर्यो भने, पिकनिक रद्द हुनेछ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "Tomorrow there will be a school excursion, but before that, there will be the first period class. Please don't forget to bring your kanji homework. A bento lunch and a water bottle are also necessary. If it rains, the excursion will be canceled."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "भोलि विद्यालयमा पिकनिक छ, तर त्यसअघि पहिलो घण्टीको कक्षा छ। कान्जीको गृहकार्य नबिर्सिकन लिएर आउनुहोस्। खाजा र पानीको बोतल पनि आवश्यक छ। यदि पानी पर्यो भने, पिकनिक रद्द हुनेछ।"
-     ]
     },
-    "en": {
-     "body": [
-      "Tomorrow there will be a school excursion, but before that, there will be the first period class. Please don't forget to bring your kanji homework. A bento lunch and a water bottle are also necessary. If it rains, the excursion will be canceled."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9025",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "なつまつりのおしらせ",
-   "body": "町（まち）のなつまつりのおしらせです。今（こん）しゅうの土（ど）よう日（び）、〇〇こうえんでおまつりがあります。ゆうがた五時（ごじ）から、おいしい食（た）べものの店（みせ）がたくさんならびます。夜（よる）八時（はちじ）からは花火（はなび）もあります。ぜひ来（き）てください。",
-   "questions": [
     {
-     "id": "N5-D-S-9025-q1",
-     "q": "花火（はなび）は、何時（なんじ）からはじまりますか。",
-     "choices": [
-      "夜（よる）八時（はちじ）",
-      "ゆうがた五時（ごじ）",
-      "土（ど）よう日（び）の朝（あさ）",
-      "こうえんの前（まえ）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「夜（よる）八時（はちじ）からは花火（はなび）もあります」とある。"
-      },
-      "ne": {
-       "q": "आतिशबाजी कति बजेदेखि सुरु हुन्छ?",
-       "choices": [
-        "राति आठ बजे",
-        "साँझ पाँच बजे",
-        "शनिबार बिहान",
-        "पार्कको अगाडि"
-       ]
-      },
-      "en": {
-       "q": "What time do the fireworks start?",
-       "choices": [
-        "8 PM",
-        "5 PM",
-        "Saturday morning",
-        "In front of the park"
-       ]
+      "id": "N5-D-S-9025",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "なつまつりのおしらせ",
+      "body": "町（まち）のなつまつりのおしらせです。今（こん）しゅうの土（ど）よう日（び）、〇〇こうえんでおまつりがあります。ゆうがた五時（ごじ）から、おいしい食（た）べものの店（みせ）がたくさんならびます。夜（よる）八時（はちじ）からは花火（はなび）もあります。ぜひ来（き）てください。",
+      "questions": [
+        {
+          "id": "N5-D-S-9025-q1",
+          "q": "花火（はなび）は、何時（なんじ）からはじまりますか。",
+          "choices": [
+            "夜（よる）八時（はちじ）",
+            "ゆうがた五時（ごじ）",
+            "土（ど）よう日（び）の朝（あさ）",
+            "こうえんの前（まえ）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "आतिशबाजी कति बजेदेखि सुरु हुन्छ?",
+              "choices": [
+                "राति आठ बजे",
+                "साँझ पाँच बजे",
+                "शनिबार बिहान",
+                "पार्कको अगाडि"
+              ]
+            },
+            "en": {
+              "q": "What time do the fireworks start?",
+              "choices": [
+                "8 PM",
+                "5 PM",
+                "Saturday morning",
+                "In front of the park"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "यो सहरको गर्मी चाडपर्वको सूचना हो। यस हप्ताको शनिबार, 〇〇 पार्कमा चाडपर्व हुनेछ। साँझ पाँच बजेदेखि, स्वादिष्ट खानेकुराका धेरै पसलहरू लाइनमा लाग्नेछन्। राति आठ बजेदेखि आतिशबाजी पनि हुनेछ। कृपया आउनुहोला।"
+          ]
+        },
+        "en": {
+          "body": [
+            "This is an announcement for the town's summer festival. This Saturday, there will be a festival at 〇〇 Park. From 5 PM, many stalls with delicious food will be set up. There will also be fireworks from 8 PM. Please come!"
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "यो सहरको गर्मी चाडपर्वको सूचना हो। यस हप्ताको शनिबार, 〇〇 पार्कमा चाडपर्व हुनेछ। साँझ पाँच बजेदेखि, स्वादिष्ट खानेकुराका धेरै पसलहरू लाइनमा लाग्नेछन्। राति आठ बजेदेखि आतिशबाजी पनि हुनेछ। कृपया आउनुहोला।"
-     ]
     },
-    "en": {
-     "body": [
-      "This is an announcement for the town's summer festival. This Saturday, there will be a festival at 〇〇 Park. From 5 PM, many stalls with delicious food will be set up. There will also be fireworks from 8 PM. Please come!"
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9026",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メール",
-   "subtype": "naiyou_tan",
-   "title": "プレゼントのそうだん",
-   "body": "来月（らいげつ）、友（とも）だちのたんじょう日（び）だね。二人（ふたり）でいっしょにプレゼントをあげない。わたしは本（ほん）がいいと思（おも）うんだけど、どうかな。あの子（こ）は花（はな）もすきだよね。あなたのいけんも聞（き）きたいな。今（こん）どの土（ど）よう日（び）にえらびに行（い）こう。",
-   "questions": [
     {
-     "id": "N5-D-S-9026-q1",
-     "q": "この人（ひと）は、プレゼントに何（なに）がいいと思（おも）っていますか。",
-     "choices": [
-      "本（ほん）",
-      "花（はな）",
-      "土（ど）よう日（び）のよてい",
-      "たんじょう日（び）のケーキ"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「わたしは本（ほん）がいいと思（おも）う」とある。"
-      },
-      "ne": {
-       "q": "यो व्यक्ति उपहारको लागि के राम्रो ठान्छ?",
-       "choices": [
-        "किताब",
-        "फूल",
-        "शनिबारको योजना",
-        "जन्मदिनको केक"
-       ]
-      },
-      "en": {
-       "q": "What does this person think would be a good present?",
-       "choices": [
-        "A book",
-        "Flowers",
-        "Saturday's plans",
-        "A birthday cake"
-       ]
+      "id": "N5-D-S-9026",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メール",
+      "subtype": "naiyou_tan",
+      "title": "プレゼントのそうだん",
+      "body": "来月（らいげつ）、友（とも）だちのたんじょう日（び）だね。二人（ふたり）でいっしょにプレゼントをあげない。わたしは本（ほん）がいいと思（おも）うんだけど、どうかな。あの子（こ）は花（はな）もすきだよね。あなたのいけんも聞（き）きたいな。今（こん）どの土（ど）よう日（び）にえらびに行（い）こう。",
+      "questions": [
+        {
+          "id": "N5-D-S-9026-q1",
+          "q": "この人（ひと）は、プレゼントに何（なに）がいいと思（おも）っていますか。",
+          "choices": [
+            "本（ほん）",
+            "花（はな）",
+            "土（ど）よう日（び）のよてい",
+            "たんじょう日（び）のケーキ"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "यो व्यक्ति उपहारको लागि के राम्रो ठान्छ?",
+              "choices": [
+                "किताब",
+                "फूल",
+                "शनिबारको योजना",
+                "जन्मदिनको केक"
+              ]
+            },
+            "en": {
+              "q": "What does this person think would be a good present?",
+              "choices": [
+                "A book",
+                "Flowers",
+                "Saturday's plans",
+                "A birthday cake"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "अर्को महिना साथीको जन्मदिन छ, होइन र? हामी दुई जना मिलेर उपहार दिने होइन? मलाई लाग्छ किताब राम्रो हुन्छ, तिमीलाई कस्तो लाग्छ? उसलाई फूल पनि मन पर्छ, होइन र? म तिम्रो विचार पनि सुन्न चाहन्छु। अब कुन शनिबार छनोट गर्न जाने?"
+          ]
+        },
+        "en": {
+          "body": [
+            "Next month is our friend's birthday, isn't it? Shall we give a present together? I think a book would be good, what do you think? She also likes flowers. I'd like to hear your opinion too. Which Saturday should we go to choose it?"
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "अर्को महिना साथीको जन्मदिन छ, होइन र? हामी दुई जना मिलेर उपहार दिने होइन? मलाई लाग्छ किताब राम्रो हुन्छ, तिमीलाई कस्तो लाग्छ? उसलाई फूल पनि मन पर्छ, होइन र? म तिम्रो विचार पनि सुन्न चाहन्छु। अब कुन शनिबार छनोट गर्न जाने?"
-     ]
     },
-    "en": {
-     "body": [
-      "Next month is our friend's birthday, isn't it? Shall we give a present together? I think a book would be good, what do you think? She also likes flowers. I'd like to hear your opinion too. Which Saturday should we go to choose it?"
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9027",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "掲示",
-   "subtype": "naiyou_tan",
-   "title": "きょうしつのちゅうい",
-   "body": "きょうしつをつかったあとの人（ひと）へ。へやを出（で）るときは、かならず電気（でんき）とエアコンをけしてください。まどもしめてください。つぎの人（ひと）がつかうので、つくえの上（うえ）もきれいにしましょう。ごみはゴミばこにすててください。",
-   "questions": [
     {
-     "id": "N5-D-S-9027-q1",
-     "q": "へやを出（で）るとき、どうしますか。",
-     "choices": [
-      "電気（でんき）とエアコンをけす",
-      "電気（でんき）とエアコンをつける",
-      "まどをあけておく",
-      "つくえにごみをおく"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「かならず電気（でんき）とエアコンをけしてください」とある。"
-      },
-      "ne": {
-       "q": "कोठा छोड्दा के गर्ने?",
-       "choices": [
-        "बत्ती र एयरकन्डिसनर बन्द गर्ने",
-        "बत्ती र एयरकन्डिसनर अन गर्ने",
-        "झ्याल खुला छोड्ने",
-        "डेस्कमा फोहोर राख्ने"
-       ]
-      },
-      "en": {
-       "q": "What should you do when you leave the room?",
-       "choices": [
-        "Turn off the lights and air conditioner",
-        "Turn on the lights and air conditioner",
-        "Leave the windows open",
-        "Put trash on the desk"
-       ]
+      "id": "N5-D-S-9027",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "掲示",
+      "subtype": "naiyou_tan",
+      "title": "きょうしつのちゅうい",
+      "body": "きょうしつをつかったあとの人（ひと）へ。へやを出（で）るときは、かならず電気（でんき）とエアコンをけしてください。まどもしめてください。つぎの人（ひと）がつかうので、つくえの上（うえ）もきれいにしましょう。ごみはゴミばこにすててください。",
+      "questions": [
+        {
+          "id": "N5-D-S-9027-q1",
+          "q": "へやを出（で）るとき、どうしますか。",
+          "choices": [
+            "電気（でんき）とエアコンをけす",
+            "電気（でんき）とエアコンをつける",
+            "まどをあけておく",
+            "つくえにごみをおく"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "कोठा छोड्दा के गर्ने?",
+              "choices": [
+                "बत्ती र एयरकन्डिसनर बन्द गर्ने",
+                "बत्ती र एयरकन्डिसनर अन गर्ने",
+                "झ्याल खुला छोड्ने",
+                "डेस्कमा फोहोर राख्ने"
+              ]
+            },
+            "en": {
+              "q": "What should you do when you leave the room?",
+              "choices": [
+                "Turn off the lights and air conditioner",
+                "Turn on the lights and air conditioner",
+                "Leave the windows open",
+                "Put trash on the desk"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "कक्षाकोठा प्रयोग गरिसकेपछिका व्यक्तिहरूलाई। कोठा छोड्दा, कृपया बत्ती र एयरकन्डिसनर अनिवार्य रूपमा बन्द गर्नुहोस्। झ्यालहरू पनि बन्द गर्नुहोस्। अर्को व्यक्तिले प्रयोग गर्ने भएकोले, डेस्कको माथिल्लो भाग पनि सफा गरौं। फोहोरलाई फोहोरदानमा फालिदिनुहोस्।"
+          ]
+        },
+        "en": {
+          "body": [
+            "To those who use the classroom:\nWhen you leave the room, please be sure to turn off the lights and air conditioner. Please also close the windows. The next person will use it, so let's also clean the top of the desk. Please throw trash in the trash can."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "कक्षाकोठा प्रयोग गरिसकेपछिका व्यक्तिहरूलाई। कोठा छोड्दा, कृपया बत्ती र एयरकन्डिसनर अनिवार्य रूपमा बन्द गर्नुहोस्। झ्यालहरू पनि बन्द गर्नुहोस्। अर्को व्यक्तिले प्रयोग गर्ने भएकोले, डेस्कको माथिल्लो भाग पनि सफा गरौं। फोहोरलाई फोहोरदानमा फालिदिनुहोस्।"
-     ]
     },
-    "en": {
-     "body": [
-      "To those who use the classroom:\nWhen you leave the room, please be sure to turn off the lights and air conditioner. Please also close the windows. The next person will use it, so let's also clean the top of the desk. Please throw trash in the trash can."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9028",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "日記",
-   "subtype": "naiyou_tan",
-   "title": "山（やま）にのぼった日（ひ）",
-   "body": "日（にち）よう日（び）に、友（とも）だちと山（やま）にのぼった。朝（あさ）はさむかったが、のぼるとあつくなって、うわぎをぬいだ。山（やま）の上（うえ）からのけしきはとてもきれいで、写真（しゃしん）をたくさんとった。おべんとうを食（た）べて、午後（ごご）に下（お）りた。",
-   "questions": [
     {
-     "id": "N5-D-S-9028-q1",
-     "q": "山（やま）の上（うえ）で、この人（ひと）は何（なに）をしましたか。",
-     "choices": [
-      "写真（しゃしん）をとった",
-      "うわぎをぬいだ",
-      "友（とも）だちをまった",
-      "さむさをがまんした"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「山（やま）の上（うえ）からのけしき…写真（しゃしん）をたくさんとった」とある。"
-      },
-      "ne": {
-       "q": "पहाडको माथि, यो व्यक्तिले के गर्यो?",
-       "choices": [
-        "तस्बिर खिच्यो",
-        "माथिल्लो कपडा फुकाल्यो",
-        "साथीलाई पर्खियो",
-        "चिसो सह्यो"
-       ]
-      },
-      "en": {
-       "q": "What did this person do on the top of the mountain?",
-       "choices": [
-        "Took pictures",
-        "Took off their jacket",
-        "Waited for a friend",
-        "Endured the cold"
-       ]
+      "id": "N5-D-S-9028",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "日記",
+      "subtype": "naiyou_tan",
+      "title": "山（やま）にのぼった日（ひ）",
+      "body": "日（にち）よう日（び）に、友（とも）だちと山（やま）にのぼった。朝（あさ）はさむかったが、のぼるとあつくなって、うわぎをぬいだ。山（やま）の上（うえ）からのけしきはとてもきれいで、写真（しゃしん）をたくさんとった。おべんとうを食（た）べて、午後（ごご）に下（お）りた。",
+      "questions": [
+        {
+          "id": "N5-D-S-9028-q1",
+          "q": "山（やま）の上（うえ）で、この人（ひと）は何（なに）をしましたか。",
+          "choices": [
+            "写真（しゃしん）をとった",
+            "うわぎをぬいだ",
+            "友（とも）だちをまった",
+            "さむさをがまんした"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "पहाडको माथि, यो व्यक्तिले के गर्यो?",
+              "choices": [
+                "तस्बिर खिच्यो",
+                "माथिल्लो कपडा फुकाल्यो",
+                "साथीलाई पर्खियो",
+                "चिसो सह्यो"
+              ]
+            },
+            "en": {
+              "q": "What did this person do on the top of the mountain?",
+              "choices": [
+                "Took pictures",
+                "Took off their jacket",
+                "Waited for a friend",
+                "Endured the cold"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "आइतबार, साथीसँग पहाड चढें। बिहान चिसो थियो तर चढ्दै जाँदा गर्मी भयो र मैले <u>माथिल्लो कपडा फुकालें</u>। पहाडको माथिबाटको दृश्य धेरै सुन्दर थियो र मैले धेरै तस्बिरहरू खिचें। खाजा खाएर, दिउँसो ओर्लियौं।"
+          ]
+        },
+        "en": {
+          "body": [
+            "On Sunday, I climbed a mountain with a friend. It was cold in the morning, but as we climbed, it got hot, so I took off my <u>jacket</u>. The view from the top of the mountain was very beautiful, and I took many pictures. We ate lunch and came down in the afternoon."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "आइतबार, साथीसँग पहाड चढें। बिहान चिसो थियो तर चढ्दै जाँदा गर्मी भयो र मैले <u>माथिल्लो कपडा फुकालें</u>। पहाडको माथिबाटको दृश्य धेरै सुन्दर थियो र मैले धेरै तस्बिरहरू खिचें। खाजा खाएर, दिउँसो ओर्लियौं।"
-     ]
     },
-    "en": {
-     "body": [
-      "On Sunday, I climbed a mountain with a friend. It was cold in the morning, but as we climbed, it got hot, so I took off my <u>jacket</u>. The view from the top of the mountain was very beautiful, and I took many pictures. We ate lunch and came down in the afternoon."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9029",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "メモ",
-   "subtype": "naiyou_tan",
-   "title": "くすりのメモ",
-   "body": "かぜのくすりです。朝（あさ）と夜（よる）のごはんのあとに、一（ひと）つずつのんでください。ひるはのまなくていいです。ねむくなることがあるので、くすりをのんだあとは車（くるま）をうんてんしないでください。三日分（みっかぶん）あります。",
-   "questions": [
     {
-     "id": "N5-D-S-9029-q1",
-     "q": "くすりは、いつのみますか。",
-     "choices": [
-      "朝（あさ）と夜（よる）のごはんのあと",
-      "ひるごはんのあとに一（ひと）つ",
-      "ごはんの前（まえ）",
-      "うんてんの前（まえ）"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「朝（あさ）と夜（よる）のごはんのあとに、一（ひと）つずつ」とある。"
-      },
-      "ne": {
-       "q": "औषधि कहिले खाने?",
-       "choices": [
-        "बिहान र बेलुकाको खानापछि",
-        "दिउँसोको खानापछि एउटा",
-        "खाना अघि",
-        "गाडी चलाउनु अघि"
-       ]
-      },
-      "en": {
-       "q": "When should you take the medicine?",
-       "choices": [
-        "After breakfast and dinner",
-        "One after lunch",
-        "Before meals",
-        "Before driving"
-       ]
+      "id": "N5-D-S-9029",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "メモ",
+      "subtype": "naiyou_tan",
+      "title": "くすりのメモ",
+      "body": "かぜのくすりです。朝（あさ）と夜（よる）のごはんのあとに、一（ひと）つずつのんでください。ひるはのまなくていいです。ねむくなることがあるので、くすりをのんだあとは車（くるま）をうんてんしないでください。三日分（みっかぶん）あります。",
+      "questions": [
+        {
+          "id": "N5-D-S-9029-q1",
+          "q": "くすりは、いつのみますか。",
+          "choices": [
+            "朝（あさ）と夜（よる）のごはんのあと",
+            "ひるごはんのあとに一（ひと）つ",
+            "ごはんの前（まえ）",
+            "うんてんの前（まえ）"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "औषधि कहिले खाने?",
+              "choices": [
+                "बिहान र बेलुकाको खानापछि",
+                "दिउँसोको खानापछि एउटा",
+                "खाना अघि",
+                "गाडी चलाउनु अघि"
+              ]
+            },
+            "en": {
+              "q": "When should you take the medicine?",
+              "choices": [
+                "After breakfast and dinner",
+                "One after lunch",
+                "Before meals",
+                "Before driving"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "यो रुघाखोकीको औषधि हो। बिहान र बेलुकाको खानापछि, एक-एक वटा खानुहोस्। दिउँसो खानु पर्दैन। निद्रा लाग्न सक्ने भएकोले, औषधि खाएपछि गाडी नचलाउनुहोस्। तीन दिनको लागि छ।"
+          ]
+        },
+        "en": {
+          "body": [
+            "This is cold medicine. Please take one after breakfast and one after dinner. You don't need to take it at noon. It may make you sleepy, so please do not drive a car after taking the medicine. There are three days' worth."
+          ]
+        }
       }
-     }
-    }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "यो रुघाखोकीको औषधि हो। बिहान र बेलुकाको खानापछि, एक-एक वटा खानुहोस्। दिउँसो खानु पर्दैन। निद्रा लाग्न सक्ने भएकोले, औषधि खाएपछि गाडी नचलाउनुहोस्। तीन दिनको लागि छ।"
-     ]
     },
-    "en": {
-     "body": [
-      "This is cold medicine. Please take one after breakfast and one after dinner. You don't need to take it at noon. It may make you sleepy, so please do not drive a car after taking the medicine. There are three days' worth."
-     ]
-    }
-   }
-  },
-  {
-   "id": "N5-D-S-9030",
-   "level": "N5",
-   "category": "dokkai",
-   "type": "reading",
-   "format": "お知らせ",
-   "subtype": "naiyou_tan",
-   "title": "きょうしつ変更（へんこう）のおしらせ",
-   "body": "あしたの日本（にほん）ごのじゅぎょうについてのおしらせです。いつもの二（に）〇二（に）きょうしつがつかえないので、となりの二（に）〇三（さん）きょうしつでじゅぎょうをします。時間（じかん）はいつもと同（おな）じ午後（ごご）三時（さんじ）です。きょうかしょをわすれないでください。",
-   "questions": [
     {
-     "id": "N5-D-S-9030-q1",
-     "q": "あしたのじゅぎょうは、どこでしますか。",
-     "choices": [
-      "二（に）〇三（さん）きょうしつ",
-      "二（に）〇二（に）きょうしつ",
-      "となりの町（まち）",
-      "午後（ごご）三時（さんじ）のへや"
-     ],
-     "answerIndex": 0,
-     "i18n": {
-      "ja": {
-       "explain": "「となりの二（に）〇三（さん）きょうしつでじゅぎょうをします」とある。"
-      },
-      "ne": {
-       "q": "भोलिको कक्षा कहाँ हुन्छ?",
-       "choices": [
-        "203 कक्षाकोठा",
-        "202 कक्षाकोठा",
-        "छेउको सहर",
-        "दिउँसो तीन बजेको कोठा"
-       ]
-      },
-      "en": {
-       "q": "Where will tomorrow's class be held?",
-       "choices": [
-        "Classroom 203",
-        "Classroom 202",
-        "The neighboring town",
-        "The 3 PM room"
-       ]
+      "id": "N5-D-S-9030",
+      "level": "N5",
+      "category": "dokkai",
+      "type": "reading",
+      "format": "お知らせ",
+      "subtype": "naiyou_tan",
+      "title": "きょうしつ変更（へんこう）のおしらせ",
+      "body": "あしたの日本（にほん）ごのじゅぎょうについてのおしらせです。いつもの二（に）〇二（に）きょうしつがつかえないので、となりの二（に）〇三（さん）きょうしつでじゅぎょうをします。時間（じかん）はいつもと同（おな）じ午後（ごご）三時（さんじ）です。きょうかしょをわすれないでください。",
+      "questions": [
+        {
+          "id": "N5-D-S-9030-q1",
+          "q": "あしたのじゅぎょうは、どこでしますか。",
+          "choices": [
+            "二（に）〇三（さん）きょうしつ",
+            "二（に）〇二（に）きょうしつ",
+            "となりの町（まち）",
+            "午後（ごご）三時（さんじ）のへや"
+          ],
+          "answerIndex": 0,
+          "i18n": {
+            "ne": {
+              "q": "भोलिको कक्षा कहाँ हुन्छ?",
+              "choices": [
+                "203 कक्षाकोठा",
+                "202 कक्षाकोठा",
+                "छेउको सहर",
+                "दिउँसो तीन बजेको कोठा"
+              ]
+            },
+            "en": {
+              "q": "Where will tomorrow's class be held?",
+              "choices": [
+                "Classroom 203",
+                "Classroom 202",
+                "The neighboring town",
+                "The 3 PM room"
+              ]
+            }
+          }
+        }
+      ],
+      "i18n": {
+        "ne": {
+          "body": [
+            "भोलिको जापानी कक्षाको बारेमा सूचना हो। सधैंको 202 कक्षाकोठा प्रयोग गर्न नसकिने भएकोले, छेउको 203 कक्षाकोठामा कक्षा हुनेछ। समय सधैंको जस्तै दिउँसो तीन बजे हो। पाठ्यपुस्तक बिर्सनुहुन्न होला।"
+          ]
+        },
+        "en": {
+          "body": [
+            "This is an announcement about tomorrow's Japanese class. Since the usual classroom 202 cannot be used, class will be held in the adjacent classroom 203. The time will be the same as usual, 3 PM. Please don't forget your textbook."
+          ]
+        }
       }
-     }
     }
-   ],
-   "i18n": {
-    "ne": {
-     "body": [
-      "भोलिको जापानी कक्षाको बारेमा सूचना हो। सधैंको 202 कक्षाकोठा प्रयोग गर्न नसकिने भएकोले, छेउको 203 कक्षाकोठामा कक्षा हुनेछ। समय सधैंको जस्तै दिउँसो तीन बजे हो। पाठ्यपुस्तक बिर्सनुहुन्न होला।"
-     ]
-    },
-    "en": {
-     "body": [
-      "This is an announcement about tomorrow's Japanese class. Since the usual classroom 202 cannot be used, class will be held in the adjacent classroom 203. The time will be the same as usual, 3 PM. Please don't forget your textbook."
-     ]
-    }
-   }
-  }
- ]
+  ]
 }

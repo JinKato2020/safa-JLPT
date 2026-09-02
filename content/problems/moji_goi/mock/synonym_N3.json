@@ -5,7 +5,8 @@
   "pool": "mock",
   "note": "言い換え類義の模試専用プール(初見)。LLM(Opus)生成・機械検証(形)のみ。一意性の最終判断はユーザー。頻出50%+中頻度50%。",
   "languages": [
-    "ja"
+    "en",
+    "ne"
   ],
   "items": [
     {
@@ -20,7 +21,29 @@
         "疑（うたが）った",
         "悩（なや）んだ",
         "忘（わす）れた"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The doctor looked at the X-ray and immediately decided that surgery was necessary.",
+          "answer": "Decided",
+          "choices": [
+            "Got lost/Hesitated",
+            "Doubted",
+            "Worried/Troubled",
+            "Forgot"
+          ]
+        },
+        "ne": {
+          "sentence": "डाक्टरले एक्स-रे हेरेर तुरुन्तै शल्यक्रिया आवश्यक छ भनी निर्णय गरे।",
+          "answer": "निर्णय गरियो",
+          "choices": [
+            "अलमलियो",
+            "शंका गरियो",
+            "चिन्तित भयो",
+            "भुलियो"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0002",
@@ -34,7 +57,29 @@
         "作（つく）って",
         "運（はこ）んで",
         "直（なお）して"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "This store is selling new products.",
+          "answer": "Selling",
+          "choices": [
+            "Buying",
+            "Making",
+            "Carrying/Transporting",
+            "Fixing/Repairing"
+          ]
+        },
+        "ne": {
+          "sentence": "यो पसलले नयाँ सामानहरू बेचिरहेको छ।",
+          "answer": "बेचेर",
+          "choices": [
+            "किनेर",
+            "बनाएर",
+            "बोकेर/ढुवानी गरेर",
+            "मर्मत गरेर"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0003",
@@ -48,7 +93,29 @@
         "楽屋（がくや）",
         "会場（かいじょう）",
         "通路（つうろ）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The actors are performing on stage.",
+          "answer": "Stage",
+          "choices": [
+            "Audience seats",
+            "Dressing room",
+            "Venue",
+            "Aisle/Passageway"
+          ]
+        },
+        "ne": {
+          "sentence": "अभिनेताहरू मञ्चमा अभिनय गरिरहेका छन्।",
+          "answer": "मञ्च",
+          "choices": [
+            "दर्शकदीर्घा",
+            "मेकअप कक्ष",
+            "स्थल",
+            "गलियारा"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0004",
@@ -62,7 +129,29 @@
         "表紙（ひょうし）",
         "順番（じゅんばん）",
         "内容（ないよう）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I rewrote the last part of the report.",
+          "answer": "Part",
+          "choices": [
+            "Entirety",
+            "Cover page",
+            "Order/Sequence",
+            "Content"
+          ]
+        },
+        "ne": {
+          "sentence": "मैले प्रतिवेदनको अन्तिम भाग फेरि लेखेँ।",
+          "answer": "भाग",
+          "choices": [
+            "सम्पूर्ण",
+            "कभर पृष्ठ",
+            "क्रम",
+            "सामग्री"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0005",
@@ -76,7 +165,29 @@
         "広（ひろ）がった",
         "進（すす）んだ",
         "止（と）まった"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The appearance of the town has changed greatly in this past year.",
+          "answer": "Changed",
+          "choices": [
+            "Decided/Determined",
+            "Spread/Expanded",
+            "Progressed/Advanced",
+            "Stopped"
+          ]
+        },
+        "ne": {
+          "sentence": "यो एक वर्षमा सहरको स्वरूपमा ठूलो परिवर्तन आएको छ।",
+          "answer": "परिवर्तन भयो",
+          "choices": [
+            "निर्णय भयो",
+            "फैलियो",
+            "अगाडि बढ्यो",
+            "रोकियो"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0006",
@@ -90,7 +201,29 @@
         "速（はや）さ",
         "距離（きょり）",
         "高（たか）さ"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "Please proceed in the direction indicated by the arrow.",
+          "answer": "Direction",
+          "choices": [
+            "Order",
+            "Speed",
+            "Distance",
+            "Height"
+          ]
+        },
+        "ne": {
+          "sentence": "कृपया तीरले देखाएको दिशामा अगाडि बढ्नुहोस्।",
+          "answer": "दिशा",
+          "choices": [
+            "क्रम",
+            "गति",
+            "दूरी",
+            "उचाइ"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0007",
@@ -104,7 +237,29 @@
         "質問（しつもん）した",
         "命令（めいれい）した",
         "約束（やくそく）した"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I reported the results of the investigation to my boss.",
+          "answer": "Informed",
+          "choices": [
+            "Consulted",
+            "Asked",
+            "Ordered",
+            "Promised"
+          ]
+        },
+        "ne": {
+          "sentence": "मैले अनुसन्धानको नतिजा मेरो हाकिमलाई रिपोर्ट गरें।",
+          "answer": "जानकारी गराएँ",
+          "choices": [
+            "सल्लाह गरें",
+            "प्रश्न गरें",
+            "आदेश दिएँ",
+            "वाचा गरें"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0008",
@@ -118,7 +273,29 @@
         "目的（もくてき）",
         "結果（けっか）",
         "順番（じゅんばん）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I thought about how to solve this problem.",
+          "answer": "Method",
+          "choices": [
+            "Reason",
+            "Purpose",
+            "Result",
+            "Order"
+          ]
+        },
+        "ne": {
+          "sentence": "मैले यो समस्या कसरी समाधान गर्ने भनेर सोचें।",
+          "answer": "तरिका",
+          "choices": [
+            "कारण",
+            "उद्देश्य",
+            "नतिजा",
+            "क्रम"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0009",
@@ -132,7 +309,29 @@
         "招待（しょうたい）して",
         "掃除（そうじ）して",
         "予約（よやく）して"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I visited my teacher's house and thanked them.",
+          "answer": "Visited",
+          "choices": [
+            "Guided",
+            "Invited",
+            "Cleaned",
+            "Reserved"
+          ]
+        },
+        "ne": {
+          "sentence": "मैले शिक्षकको घरमा गएर धन्यवाद दिएँ।",
+          "answer": "भेट्न गएँ",
+          "choices": [
+            "डोर्याएँ",
+            "निमन्त्रणा गरें",
+            "सफा गरें",
+            "आरक्षण गरें"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0010",
@@ -146,7 +345,29 @@
         "練習（れんしゅう）",
         "逮捕（たいほ）",
         "会議（かいぎ）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The police are continuing their investigation of the incident.",
+          "answer": "Investigation",
+          "choices": [
+            "Observation tour",
+            "Practice",
+            "Arrest",
+            "Meeting"
+          ]
+        },
+        "ne": {
+          "sentence": "प्रहरीले घटनाको अनुसन्धान जारी राखेको छ।",
+          "answer": "अनुसन्धान",
+          "choices": [
+            "अवलोकन भ्रमण",
+            "अभ्यास",
+            "पक्राउ",
+            "बैठक"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0011",
@@ -160,7 +381,29 @@
         "捕（つか）まえる",
         "調（しら）べる",
         "増（ふ）やす"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "This forest is a place to protect rare animals.",
+          "answer": "to protect",
+          "choices": [
+            "to raise/nurture",
+            "to catch/capture",
+            "to investigate/examine",
+            "to increase"
+          ]
+        },
+        "ne": {
+          "sentence": "यो जंगल दुर्लभ जनावरहरूलाई संरक्षण गर्ने ठाउँ हो।",
+          "answer": "बचाउनु",
+          "choices": [
+            "हुर्काउनु",
+            "पक्रनु",
+            "जाँच गर्नु",
+            "बढाउनु"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0012",
@@ -174,7 +417,29 @@
         "太（ふと）った",
         "老（お）いた",
         "慣（な）れた"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The child grew both mentally and physically this year.",
+          "answer": "grew up",
+          "choices": [
+            "got tired",
+            "got fat",
+            "grew old",
+            "got used to"
+          ]
+        },
+        "ne": {
+          "sentence": "यो एक वर्षमा बच्चा मन र शरीर दुवैले बढ्यो।",
+          "answer": "हुर्कियो",
+          "choices": [
+            "थकित भयो",
+            "मोटो भयो",
+            "बुढो भयो",
+            "अभ्यस्त भयो"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0013",
@@ -188,7 +453,29 @@
         "天気（てんき）",
         "時間（じかん）",
         "理由（りゆう）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "It's the season for cherry blossoms to bloom.",
+          "answer": "time/around",
+          "choices": [
+            "place",
+            "weather",
+            "time",
+            "reason"
+          ]
+        },
+        "ne": {
+          "sentence": "यो चेरी फूल फुल्ने समय भएको छ।",
+          "answer": "समय/लगभग",
+          "choices": [
+            "ठाउँ",
+            "मौसम",
+            "समय",
+            "कारण"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0014",
@@ -202,7 +489,29 @@
         "いやいや",
         "たまに",
         "丁寧（ていねい）に"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "She actively expresses her opinions in meetings.",
+          "answer": "willingly/proactively",
+          "choices": [
+            "quietly",
+            "unwillingly/reluctantly",
+            "occasionally",
+            "politely"
+          ]
+        },
+        "ne": {
+          "sentence": "उनी बैठकमा सक्रिय रूपमा आफ्नो विचार व्यक्त गर्छिन्।",
+          "answer": "खुशीसाथ/सक्रिय रूपमा",
+          "choices": [
+            "चुपचाप",
+            "अनिच्छापूर्वक",
+            "कहिल्यैकाहीँ",
+            "विनम्रतापूर्वक"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0015",
@@ -216,7 +525,29 @@
         "不思議（ふしぎ）",
         "残念（ざんねん）",
         "危険（きけん）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "Since there is evidence, it is clear that he is the culprit.",
+          "answer": "is clear/obvious",
+          "choices": [
+            "ambiguous/vague",
+            "strange/mysterious",
+            "regrettable/unfortunate",
+            "dangerous"
+          ]
+        },
+        "ne": {
+          "sentence": "प्रमाण भएकोले, उनी अपराधी हुन् भन्ने स्पष्ट छ।",
+          "answer": "स्पष्ट छ",
+          "choices": [
+            "अस्पष्ट",
+            "अचम्मको",
+            "दुःखद",
+            "खतरनाक"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0016",
@@ -230,7 +561,29 @@
         "会議（かいぎ）",
         "工事（こうじ）",
         "行事（ぎょうじ）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "A major incident occurred in that town.",
+          "answer": "incident; event",
+          "choices": [
+            "accident",
+            "meeting; conference",
+            "construction work",
+            "event; function"
+          ]
+        },
+        "ne": {
+          "sentence": "त्यो सहरमा एउटा ठूलो घटना घट्यो।",
+          "answer": "घटना; कुरा",
+          "choices": [
+            "दुर्घटना",
+            "बैठक; सम्मेलन",
+            "निर्माण कार्य",
+            "कार्यक्रम; समारोह"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0017",
@@ -244,7 +597,29 @@
         "大（おお）きな",
         "立派（りっぱ）な",
         "大切（たいせつ）な"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The company announced a new plan.",
+          "answer": "new",
+          "choices": [
+            "detailed; fine",
+            "big; large",
+            "splendid; fine; admirable",
+            "important; precious"
+          ]
+        },
+        "ne": {
+          "sentence": "कम्पनीले नयाँ योजना घोषणा गर्यो।",
+          "answer": "नयाँ",
+          "choices": [
+            "विस्तृत; सानो",
+            "ठूलो",
+            "उत्कृष्ट; राम्रो; प्रशंसनीय",
+            "महत्त्वपूर्ण; अनमोल"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0018",
@@ -258,7 +633,29 @@
         "意見（いけん）",
         "予想（よそう）",
         "冗談（じょうだん）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "His story was a fact, not imagination.",
+          "answer": "truth; fact",
+          "choices": [
+            "lie",
+            "opinion",
+            "prediction; expectation",
+            "joke"
+          ]
+        },
+        "ne": {
+          "sentence": "उसको कुरा कल्पना नभई सत्य थियो।",
+          "answer": "सत्य; तथ्य",
+          "choices": [
+            "झूट",
+            "विचार",
+            "अनुमान; अपेक्षा",
+            "ठट्टा"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0019",
@@ -272,7 +669,29 @@
         "結果（けっか）",
         "方法（ほうほう）",
         "場所（ばしょ）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I explained the circumstances of my lateness to the teacher.",
+          "answer": "reason; why",
+          "choices": [
+            "feeling; emotion",
+            "result",
+            "method; way",
+            "place; location"
+          ]
+        },
+        "ne": {
+          "sentence": "मैले शिक्षकलाई ढिलो हुनुको कारण बताएँ।",
+          "answer": "कारण; किन",
+          "choices": [
+            "भावना; मन",
+            "नतिजा",
+            "विधि; तरिका",
+            "ठाउँ; स्थान"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0020",
@@ -286,7 +705,29 @@
         "完全（かんぜん）に",
         "急（きゅう）に",
         "やっと"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The train stopped temporarily due to construction work.",
+          "answer": "for a while; temporarily",
+          "choices": [
+            "always; continuously",
+            "completely; perfectly",
+            "suddenly; abruptly",
+            "finally; at last"
+          ]
+        },
+        "ne": {
+          "sentence": "निर्माण कार्यका कारण रेल केही समय रोकियो।",
+          "answer": "केही समयको लागि; अस्थायी रूपमा",
+          "choices": [
+            "सधैं; निरन्तर",
+            "पूर्ण रूपमा; पूर्णतया",
+            "अचानक; एक्कासी",
+            "अन्ततः; आखिरमा"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0021",
@@ -300,7 +741,29 @@
         "倉庫（そうこ）",
         "港（みなと）",
         "畑（はたけ）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I went to the market early in the morning to buy fish and vegetables.",
+          "answer": "market",
+          "choices": [
+            "factory",
+            "warehouse",
+            "port",
+            "field (farm)"
+          ]
+        },
+        "ne": {
+          "sentence": "म बिहान सबेरै माछा र तरकारी किन्न बजार गएँ।",
+          "answer": "बजार",
+          "choices": [
+            "कारखाना",
+            "गोदाम",
+            "बन्दरगाह",
+            "खेत"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0022",
@@ -314,7 +777,29 @@
         "大切（たいせつ）な",
         "有名（ゆうめい）な",
         "便利（べんり）な"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "It's a tool not commonly used in ordinary households.",
+          "answer": "ordinary, usual",
+          "choices": [
+            "special",
+            "important, precious",
+            "famous",
+            "convenient"
+          ]
+        },
+        "ne": {
+          "sentence": "यो सामान्य घरहरूमा धेरै प्रयोग नहुने औजार हो।",
+          "answer": "सामान्य, साधारण",
+          "choices": [
+            "विशेष",
+            "महत्त्वपूर्ण, बहुमूल्य",
+            "प्रसिद्ध",
+            "सुविधाजनक"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0023",
@@ -328,7 +813,29 @@
         "立（た）ち寄（よ）った",
         "引（ひ）っ越（こ）した",
         "休（やす）んだ"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "During my trip, I stayed at the hotel in front of the station.",
+          "answer": "stayed",
+          "choices": [
+            "gathered",
+            "stopped by",
+            "moved (house)",
+            "rested"
+          ]
+        },
+        "ne": {
+          "sentence": "यात्राको क्रममा, म स्टेशन अगाडिको होटलमा बसेँ।",
+          "answer": "बसेको",
+          "choices": [
+            "जम्मा भएको",
+            "रोकेको, छोटो समयको लागि गएको",
+            "सरेको",
+            "आराम गरेको"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0024",
@@ -342,7 +849,29 @@
         "副作用（ふくさよう）",
         "香（かお）り",
         "値段（ねだん）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "This medicine has the effect of lowering fever.",
+          "answer": "effect, action",
+          "choices": [
+            "ingredient, component",
+            "side effect",
+            "fragrance, scent",
+            "price"
+          ]
+        },
+        "ne": {
+          "sentence": "यो औषधीमा ज्वरो कम गर्ने काम गर्छ।",
+          "answer": "प्रभाव, कार्य",
+          "choices": [
+            "सामग्री, तत्व",
+            "साइड इफेक्ट, दुष्प्रभाव",
+            "सुगन्ध",
+            "मूल्य"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0025",
@@ -356,7 +885,29 @@
         "寒（さむ）い",
         "湿（しめ）った",
         "乾（かわ）いた"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "This region has a warm climate all year round.",
+          "answer": "warm",
+          "choices": [
+            "cool",
+            "cold",
+            "humid, damp",
+            "dry"
+          ]
+        },
+        "ne": {
+          "sentence": "यो क्षेत्रमा वर्षभरि न्यानो हावापानी हुन्छ।",
+          "answer": "न्यानो",
+          "choices": [
+            "चिसो",
+            "जाडो",
+            "ओसिलो",
+            "सुक्खा"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0026",
@@ -370,7 +921,29 @@
         "命令（めいれい）",
         "目標（もくひょう）",
         "流行（りゅうこう）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "It is this village's custom to hold a festival every autumn.",
+          "answer": "custom; habit",
+          "choices": [
+            "rule",
+            "order; command",
+            "goal; target",
+            "trend; fashion"
+          ]
+        },
+        "ne": {
+          "sentence": "हरेक शरद ऋतुमा चाड मनाउनु यस गाउँको चलन हो।",
+          "answer": "आदत; चलन",
+          "choices": [
+            "नियम",
+            "आदेश",
+            "लक्ष्य",
+            "प्रचलन; फेसन"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0027",
@@ -384,7 +957,29 @@
         "高価（こうか）な",
         "大（おお）きな",
         "甘（あま）い"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "Vegetables just taken out of the refrigerator are fresh.",
+          "answer": "fresh; juicy",
+          "choices": [
+            "old",
+            "expensive",
+            "big; large",
+            "sweet"
+          ]
+        },
+        "ne": {
+          "sentence": "भर्खरै फ्रिजबाट निकालेको तरकारी ताजा छ।",
+          "answer": "ताजा; रसिलो",
+          "choices": [
+            "पुरानो",
+            "महँगो",
+            "ठूलो",
+            "गुलियो"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0028",
@@ -398,7 +993,29 @@
         "質問（しつもん）",
         "感想（かんそう）",
         "命令（めいれい）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The customer complained to the staff because the service was bad.",
+          "answer": "complaint; dissatisfaction",
+          "choices": [
+            "thanks; gratitude",
+            "question",
+            "impression; thoughts",
+            "order; command"
+          ]
+        },
+        "ne": {
+          "sentence": "सेवा खराब भएकोले ग्राहकले कर्मचारीलाई गुनासो गरे।",
+          "answer": "गुनासो; असन्तुष्टि",
+          "choices": [
+            "धन्यवाद; कृतज्ञता",
+            "प्रश्न",
+            "छाप; विचार",
+            "आदेश"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0029",
@@ -412,7 +1029,29 @@
         "有利（ゆうり）",
         "便利（べんり）",
         "大切（たいせつ）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "That condition is disadvantageous to our team.",
+          "answer": "disadvantage; loss",
+          "choices": [
+            "advantage; gain",
+            "advantageous",
+            "convenient",
+            "important; precious"
+          ]
+        },
+        "ne": {
+          "sentence": "त्यो शर्त हाम्रो टोलीको लागि प्रतिकूल छ।",
+          "answer": "नोक्सान; घाटा",
+          "choices": [
+            "फाइदा; लाभ",
+            "फाइदाजनक",
+            "सुविधाजनक",
+            "महत्त्वपूर्ण; बहुमूल्य"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0030",
@@ -426,7 +1065,29 @@
         "入口（いりぐち）",
         "画面（がめん）",
         "階段（かいだん）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I sat in the third seat from the front in the movie theater.",
+          "answer": "seat",
+          "choices": [
+            "aisle; passage",
+            "entrance",
+            "screen",
+            "stairs"
+          ]
+        },
+        "ne": {
+          "sentence": "म सिनेमा हलमा अगाडिबाट तेस्रो सिटमा बसेँ।",
+          "answer": "सिट",
+          "choices": [
+            "गलियारा; बाटो",
+            "प्रवेशद्वार",
+            "पर्दा",
+            "सिँढी"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0031",
@@ -440,7 +1101,29 @@
         "親切（しんせつ）な",
         "正直（しょうじき）な",
         "平凡（へいぼん）な"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "He is a great scientist who left behind many inventions.",
+          "answer": "Splendid; fine; admirable",
+          "choices": [
+            "Famous",
+            "Kind",
+            "Honest",
+            "Ordinary; common"
+          ]
+        },
+        "ne": {
+          "sentence": "उनी एक महान वैज्ञानिक हुन् जसले धेरै आविष्कारहरू छोडेका छन्।",
+          "answer": "उत्कृष्ट; राम्रो; प्रशंसनीय",
+          "choices": [
+            "प्रसिद्ध",
+            "दयालु",
+            "इमानदार",
+            "सामान्य; साधारण"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0032",
@@ -454,7 +1137,29 @@
         "蹴（け）った",
         "つかんだ",
         "触（さわ）った"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The angry man punched the other person's face.",
+          "answer": "Hit; tapped",
+          "choices": [
+            "Pushed",
+            "Kicked",
+            "Grabbed; seized",
+            "Touched"
+          ]
+        },
+        "ne": {
+          "sentence": "क्रोधित मानिसले अर्को व्यक्तिको अनुहारमा मुक्का हान्यो।",
+          "answer": "हान्यो; ठोके",
+          "choices": [
+            "धकेल्यो",
+            "लात हान्यो",
+            "समात्यो",
+            "छोयो"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0033",
@@ -468,7 +1173,29 @@
         "確認（かくにん）した",
         "予想（よそう）した",
         "発表（はっぴょう）した"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "He counted the number of people by bending his fingers.",
+          "answer": "Counted",
+          "choices": [
+            "Recorded",
+            "Confirmed; checked",
+            "Predicted; expected",
+            "Announced; presented"
+          ]
+        },
+        "ne": {
+          "sentence": "उसले औंलाहरू मोडेर मानिसहरूको संख्या गणना गर्यो।",
+          "answer": "गणना गर्यो",
+          "choices": [
+            "रेकर्ड गर्यो",
+            "पुष्टि गर्यो; जाँच गर्यो",
+            "अनुमान गर्यो; अपेक्षा गर्यो",
+            "घोषणा गर्यो; प्रस्तुत गर्यो"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0034",
@@ -482,7 +1209,29 @@
         "伝（つた）えて",
         "忘（わす）れて",
         "我慢（がまん）して"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "He hid his surprise and put on a calm face.",
+          "answer": "Without showing",
+          "choices": [
+            "Expressing; showing",
+            "Conveying; telling",
+            "Forgetting",
+            "Enduring; tolerating"
+          ]
+        },
+        "ne": {
+          "sentence": "उसले आफ्नो आश्चर्य लुकाएर शान्त अनुहार बनायो।",
+          "answer": "नदेखाएर",
+          "choices": [
+            "व्यक्त गरेर; देखाएर",
+            "बताएर; सुनाएर",
+            "बिर्सेर",
+            "सहेर; सहन गरेर"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0035",
@@ -496,7 +1245,29 @@
         "運（はこ）ぶ",
         "掃除（そうじ）する",
         "設計（せっけい）する"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "This machine is complicated, so it's difficult to handle.",
+          "answer": "To operate; to manipulate",
+          "choices": [
+            "To repair",
+            "To carry; to transport",
+            "To clean",
+            "To design"
+          ]
+        },
+        "ne": {
+          "sentence": "यो मेसिन जटिल छ, त्यसैले यसलाई चलाउन गाह्रो छ।",
+          "answer": "सञ्चालन गर्नु; चलाउनु",
+          "choices": [
+            "मर्मत गर्नु",
+            "बोक्नु; ढुवानी गर्नु",
+            "सफा गर्नु",
+            "डिजाइन गर्नु"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0036",
@@ -510,7 +1281,29 @@
         "比（くら）べて",
         "疑（うたが）って",
         "無視（むし）して"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "We made the plan taking into account not only experience but also the opinions of young people.",
+          "answer": "incorporating; adopting",
+          "choices": [
+            "excluding; removing",
+            "comparing",
+            "doubting",
+            "ignoring"
+          ]
+        },
+        "ne": {
+          "sentence": "हामीले अनुभवका साथै युवाहरूको विचारलाई पनि ध्यानमा राखेर योजना बनायौं।",
+          "answer": "समावेश गरेर; अपनाएर",
+          "choices": [
+            "बाहेक; हटाएर",
+            "तुलना गरेर",
+            "शंका गरेर",
+            "बेवास्ता गरेर"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0037",
@@ -524,7 +1317,29 @@
         "命令（めいれい）",
         "感謝（かんしゃ）",
         "自信（じしん）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I value politeness when meeting someone for the first time.",
+          "answer": "manners",
+          "choices": [
+            "promise",
+            "order; command",
+            "gratitude; thanks",
+            "confidence"
+          ]
+        },
+        "ne": {
+          "sentence": "पहिलो पटक भेट्ने मानिसहरूसँग शिष्टाचारलाई म महत्त्व दिन्छु।",
+          "answer": "शिष्टाचार",
+          "choices": [
+            "वाचा",
+            "आदेश",
+            "धन्यवाद",
+            "आत्मविश्वास"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0038",
@@ -538,7 +1353,29 @@
         "喜（よろこ）んだ",
         "疲（つか）れた",
         "黙（だま）った"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "He panicked when his name was suddenly called.",
+          "answer": "panicked; flustered",
+          "choices": [
+            "got angry",
+            "rejoiced; was happy",
+            "got tired",
+            "kept silent"
+          ]
+        },
+        "ne": {
+          "sentence": "अचानक नाम बोलाउँदा ऊ आत्तियो।",
+          "answer": "आत्तियो; हतारियो",
+          "choices": [
+            "रिसायो",
+            "खुसी भयो",
+            "थकित भयो",
+            "चुप लाग्यो"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0039",
@@ -552,7 +1389,29 @@
         "静（しず）か",
         "大変（たいへん）",
         "便利（べんり）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The time I spent with my friends was very enjoyable.",
+          "answer": "fun; enjoyable",
+          "choices": [
+            "boring",
+            "quiet",
+            "difficult; tough",
+            "convenient"
+          ]
+        },
+        "ne": {
+          "sentence": "साथीहरूसँग बिताएको समय धेरै रमाइलो थियो।",
+          "answer": "रमाइलो",
+          "choices": [
+            "उबाऊ",
+            "शान्त",
+            "गाह्रो; कठिन",
+            "सुविधाजनक"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0040",
@@ -566,7 +1425,29 @@
         "登山（とざん）",
         "料理（りょうり）",
         "読書（どくしょ）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "He is good at swimming and even won the competition.",
+          "answer": "swimming",
+          "choices": [
+            "driving",
+            "mountain climbing",
+            "cooking",
+            "reading"
+          ]
+        },
+        "ne": {
+          "sentence": "ऊ पौडीमा निपुण छ र प्रतियोगितामा पनि जित्यो।",
+          "answer": "पौडी",
+          "choices": [
+            "गाडी चलाउने",
+            "पर्वतारोहण",
+            "खाना पकाउने",
+            "पढ्ने"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0041",
@@ -580,7 +1461,29 @@
         "恥（は）ずかしい",
         "憎（にく）らしい",
         "誇（ほこ）らしい"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The puppy wet in the rain looked so pitiful.",
+          "answer": "Pity; What a pity!",
+          "choices": [
+            "Enviable; I'm jealous.",
+            "Embarrassing; I'm ashamed.",
+            "Hateful; Annoying.",
+            "Proud; I'm proud."
+          ]
+        },
+        "ne": {
+          "sentence": "पानीमा भिजेको कुकुरको बच्चा निकै दयनीय देखिन्थ्यो।",
+          "answer": "दया लाग्दो; कस्तो दयनीय!",
+          "choices": [
+            "ईर्ष्या लाग्दो; मलाई डाहा लाग्यो।",
+            "लज्जास्पद; मलाई लाज लाग्यो।",
+            "घृणित; दिक्क लाग्दो।",
+            "गौरवशाली; मलाई गर्व छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0042",
@@ -594,7 +1497,29 @@
         "広（ひろ）げる",
         "我慢（がまん）する",
         "心配（しんぱい）する"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "By washing your hands well, you can prevent illnesses.",
+          "answer": "To prevent.",
+          "choices": [
+            "To cure; To heal.",
+            "To spread; To widen.",
+            "To endure; To put up with.",
+            "To worry."
+          ]
+        },
+        "ne": {
+          "sentence": "हात राम्ररी धुँदा रोगहरूबाट बच्न सकिन्छ।",
+          "answer": "रोकथाम गर्नु।",
+          "choices": [
+            "निको पार्नु।",
+            "फैलाउनु।",
+            "सहनु।",
+            "चिन्ता गर्नु।"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0043",
@@ -608,7 +1533,29 @@
         "見学（けんがく）",
         "おしゃべり",
         "遅刻（ちこく）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I dozed off during class and was warned by the teacher.",
+          "answer": "Dozing off; Napping.",
+          "choices": [
+            "Yawn.",
+            "Observation; Tour.",
+            "Chatting; Talking.",
+            "Being late."
+          ]
+        },
+        "ne": {
+          "sentence": "कक्षामा निदाएकोले शिक्षकले मलाई सचेत गराउनुभयो।",
+          "answer": "झकाउनु; निदाउनु।",
+          "choices": [
+            "हाइ।",
+            "अवलोकन; भ्रमण।",
+            "गफगाफ; कुराकानी।",
+            "ढिलो हुनु।"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0044",
@@ -622,7 +1569,29 @@
         "減（へ）って",
         "こぼれて",
         "腐（くさ）って"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "The soup had gotten cold, so I warmed it up again.",
+          "answer": "Became cold.",
+          "choices": [
+            "Became warm.",
+            "Decreased; Reduced.",
+            "Spilled.",
+            "Rotten; Spoiled."
+          ]
+        },
+        "ne": {
+          "sentence": "सुप चिसो भइसकेको थियो, त्यसैले मैले फेरि तताएँ।",
+          "answer": "चिसो भयो।",
+          "choices": [
+            "तातो भयो।",
+            "घट्यो।",
+            "पोखियो।",
+            "कुहियो।"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0045",
@@ -636,7 +1605,29 @@
         "集会（しゅうかい）",
         "広場（ひろば）",
         "通路（つうろ）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I lost sight of my friend in the crowd in front of the station.",
+          "answer": "Many people; A large crowd.",
+          "choices": [
+            "Queue; Line.",
+            "Assembly; Meeting.",
+            "Plaza; Square.",
+            "Passageway; Aisle."
+          ]
+        },
+        "ne": {
+          "sentence": "स्टेशन अगाडिको भीडमा मैले साथीलाई देख्न सकिनँ।",
+          "answer": "धेरै मानिस; ठूलो भीड।",
+          "choices": [
+            "लाइन; लाम।",
+            "सभा; भेला।",
+            "चोक; मैदान।",
+            "बाटो; गल्ली।"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0046",
@@ -650,7 +1641,29 @@
         "家族（かぞく）",
         "仲間（なかま）",
         "他人（たにん）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "You must think about this problem yourself.",
+          "answer": "myself/yourself/himself/herself/itself/themselves (referring to oneself)",
+          "choices": [
+            "the other person; opponent; partner",
+            "family",
+            "comrade; fellow; friend; associate",
+            "other people; stranger"
+          ]
+        },
+        "ne": {
+          "sentence": "यो समस्या तिमी आफैले सोच्नुपर्छ।",
+          "answer": "आफू",
+          "choices": [
+            "अर्को व्यक्ति; प्रतिद्वन्द्वी; साथी",
+            "परिवार",
+            "साथी; सहकर्मी; मित्र; सहयोगी",
+            "अरू मानिसहरू; अपरिचित"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0047",
@@ -664,7 +1677,29 @@
         "従（したが）った",
         "決（き）めた",
         "覚（おぼ）えた"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "I violated traffic rules by speeding.",
+          "answer": "broke; violated",
+          "choices": [
+            "protected; kept; observed",
+            "followed; obeyed",
+            "decided",
+            "remembered; learned"
+          ]
+        },
+        "ne": {
+          "sentence": "मैले तीव्र गतिमा गाडी चलाएर ट्राफिक नियम उल्लङ्घन गरें।",
+          "answer": "तोड्यो; उल्लङ्घन गर्यो",
+          "choices": [
+            "रक्षा गर्यो; राख्यो; पालना गर्यो",
+            "पछ्यायो; आज्ञा पालन गर्यो",
+            "निर्णय गर्यो",
+            "सम्झ्यो; सिक्यो"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0048",
@@ -678,7 +1713,29 @@
         "攻撃（こうげき）した",
         "招待（しょうたい）した",
         "案内（あんない）した"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "We provided a lot of food aid to the affected country.",
+          "answer": "supported; assisted",
+          "choices": [
+            "ordered; commanded",
+            "attacked",
+            "invited",
+            "guided; showed around"
+          ]
+        },
+        "ne": {
+          "sentence": "हामीले प्रभावित देशलाई धेरै खाद्यान्न सहायता गर्यौं।",
+          "answer": "समर्थन गर्यो; सहयोग गर्यो",
+          "choices": [
+            "आदेश दियो",
+            "आक्रमण गर्यो",
+            "निमन्त्रणा गर्यो",
+            "मार्गदर्शन गर्यो; घुमायो"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0049",
@@ -692,7 +1749,29 @@
         "客（きゃく）",
         "社員（しゃいん）",
         "選手（せんしゅ）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "If you become a member of this gym, you can use the pool freely too.",
+          "answer": "member",
+          "choices": [
+            "store clerk; shop assistant",
+            "customer; guest",
+            "employee; staff member",
+            "athlete; player"
+          ]
+        },
+        "ne": {
+          "sentence": "यदि तपाईं यस जिमको सदस्य बन्नुभयो भने, तपाईंले पौडी पोखरी पनि स्वतन्त्र रूपमा प्रयोग गर्न सक्नुहुन्छ।",
+          "answer": "सदस्य",
+          "choices": [
+            "पसलको कर्मचारी; सहायक",
+            "ग्राहक; पाहुना",
+            "कर्मचारी",
+            "खेलाडी"
+          ]
+        }
+      }
     },
     {
       "id": "N3-V-IM-0050",
@@ -706,7 +1785,29 @@
         "地方（ちほう）",
         "田舎（いなか）",
         "国内（こくない）"
-      ]
+      ],
+      "i18n": {
+        "en": {
+          "sentence": "He has been working overseas since graduating from university.",
+          "answer": "foreign country; abroad",
+          "choices": [
+            "city; urban area",
+            "region; district; rural area",
+            "countryside; rural area",
+            "domestic; within the country"
+          ]
+        },
+        "ne": {
+          "sentence": "उनले विश्वविद्यालयबाट स्नातक गरेदेखि विदेशमा काम गरिरहेका छन्।",
+          "answer": "विदेशी देश; विदेश",
+          "choices": [
+            "शहर; शहरी क्षेत्र",
+            "क्षेत्र; जिल्ला; ग्रामीण क्षेत्र",
+            "ग्रामीण इलाका; गाउँ",
+            "घरेलु; देश भित्र"
+          ]
+        }
+      }
     }
   ]
 }

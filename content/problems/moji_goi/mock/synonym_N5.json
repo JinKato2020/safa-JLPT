@@ -5,7 +5,8 @@
   "pool": "mock",
   "note": "言い換え類義の模試専用プール(初見)。LLM(Opus)生成・機械検証(形)のみ。一意性の最終判断はユーザー。頻出50%+中頻度50%。",
   "languages": [
-    "ja"
+    "en",
+    "ne"
   ],
   "items": [
     {
@@ -21,7 +22,27 @@
         "ご飯（はん）の前（まえ）に手（て）をつなぎます。"
       ],
       "stem": "ご飯（はん）の前（まえ）に手（て）を洗（あら）います。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "I wash my hands before meals.",
+          "answer": "I clean my hands before meals.",
+          "choices": [
+            "I warm my hands before meals.",
+            "I dry my hands before meals.",
+            "I hold hands before meals."
+          ]
+        },
+        "ne": {
+          "sentence": "खाना खानुअघि म हात धुन्छु।",
+          "answer": "खाना खानुअघि म हात सफा गर्छु।",
+          "choices": [
+            "खाना खानुअघि म हात तताउँछु।",
+            "खाना खानुअघि म हात सुकाउँछु।",
+            "खाना खानुअघि म हात समात्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0002",
@@ -36,7 +57,27 @@
         "母（はは）は毎日（まいにち）料理（りょうり）を教（おし）えます。"
       ],
       "stem": "母（はは）は毎日（まいにち）料理（りょうり）を作（つく）ります。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "My mother cooks meals every day.",
+          "answer": "My mother cooks every day.",
+          "choices": [
+            "My mother learns cooking every day.",
+            "My mother sells food every day.",
+            "My mother teaches cooking every day."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरी आमाले हरेक दिन खाना पकाउनुहुन्छ।",
+          "answer": "मेरी आमाले हरेक दिन खाना बनाउनुहुन्छ।",
+          "choices": [
+            "मेरी आमाले हरेक दिन खाना पकाउन सिक्नुहुन्छ।",
+            "मेरी आमाले हरेक दिन खाना बेच्नुहुन्छ।",
+            "मेरी आमाले हरेक दिन खाना पकाउन सिकाउनुहुन्छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0003",
@@ -51,7 +92,27 @@
         "私（わたし）はその約束（やくそく）をやめました。"
       ],
       "stem": "私（わたし）はその約束（やくそく）を忘（わす）れました。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "I forgot that promise.",
+          "answer": "I don't remember that promise.",
+          "choices": [
+            "I remember that promise.",
+            "I kept that promise.",
+            "I broke that promise."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले त्यो वाचा बिर्सें।",
+          "answer": "मलाई त्यो वाचा याद छैन।",
+          "choices": [
+            "मलाई त्यो वाचा याद छ।",
+            "मैले त्यो वाचा पूरा गरें।",
+            "मैले त्यो वाचा तोडें।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0004",
@@ -66,7 +127,27 @@
         "すみません、お風呂（ふろ）はどこですか。"
       ],
       "stem": "すみません、お手洗（てあら）いはどこですか。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "Excuse me, where is the restroom?",
+          "answer": "Excuse me, where is the toilet?",
+          "choices": [
+            "Excuse me, where is the kitchen?",
+            "Excuse me, where is the entrance?",
+            "Excuse me, where is the bath?"
+          ]
+        },
+        "ne": {
+          "sentence": "माफ गर्नुहोस्, शौचालय कहाँ छ?",
+          "answer": "माफ गर्नुहोस्, शौचालय कहाँ छ?",
+          "choices": [
+            "माफ गर्नुहोस्, भान्सा कहाँ छ?",
+            "माफ गर्नुहोस्, प्रवेशद्वार कहाँ छ?",
+            "माफ गर्नुहोस्, नुहाउने ठाउँ कहाँ छ?"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0005",
@@ -81,7 +162,27 @@
         "私（わたし）は友達（ともだち）と同（おな）じ先生（せんせい）です。"
       ],
       "stem": "私（わたし）は友達（ともだち）と同（おな）じクラスです。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I am in the same class as my friend.",
+          "answer": "I am in the same group as my friend.",
+          "choices": [
+            "I am in the same school as my friend.",
+            "I am in the same grade as my friend.",
+            "I have the same teacher as my friend."
+          ]
+        },
+        "ne": {
+          "sentence": "म मेरो साथीसँग एउटै कक्षामा छु।",
+          "answer": "म मेरो साथीसँग एउटै समूहमा छु।",
+          "choices": [
+            "म मेरो साथीसँग एउटै विद्यालयमा छु।",
+            "म मेरो साथीसँग एउटै कक्षा/ग्रेडमा छु।",
+            "म र मेरो साथीको एउटै शिक्षक हुनुहुन्छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0006",
@@ -98,7 +199,27 @@
       "stem": "寒（さむ）いのでコートがほしいです。",
       "pattern": "hypernym",
       "uniqRisk": "mid",
-      "uniqNote": "コートは寒いとき着る上着（上位語）に言い換え。帽子・手袋・マフラーは別の物。"
+      "uniqNote": "コートは寒いとき着る上着（上位語）に言い換え。帽子・手袋・マフラーは別の物。",
+      "i18n": {
+        "en": {
+          "sentence": "It's cold, so I want a coat.",
+          "answer": "It's cold, so I want a jacket.",
+          "choices": [
+            "It's cold, so I want a hat.",
+            "It's cold, so I want gloves.",
+            "It's cold, so I want a scarf."
+          ]
+        },
+        "ne": {
+          "sentence": "जाडो भएकाले मलाई कोट चाहिएको छ।",
+          "answer": "जाडो भएकाले मलाई ज्याकेट चाहिएको छ।",
+          "choices": [
+            "जाडो भएकाले मलाई टोपी चाहिएको छ।",
+            "जाडो भएकाले मलाई पन्जा चाहिएको छ।",
+            "जाडो भएकाले मलाई मफलर चाहिएको छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0007",
@@ -113,7 +234,27 @@
         "庭（にわ）に花（はな）がたくさん増（ふ）えました。"
       ],
       "stem": "庭（にわ）に花（はな）がたくさん咲（さ）きました。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "Many flowers bloomed in the garden.",
+          "answer": "Many flowers opened in the garden.",
+          "choices": [
+            "Many flowers withered in the garden.",
+            "Many flowers fell in the garden.",
+            "Many flowers increased in the garden."
+          ]
+        },
+        "ne": {
+          "sentence": "बगैँचामा धेरै फूलहरू फुले।",
+          "answer": "बगैँचामा धेरै फूलहरू खुले।",
+          "choices": [
+            "बगैँचामा धेरै फूलहरू ओइलाए।",
+            "बगैँचामा धेरै फूलहरू झरे।",
+            "बगैँचामा धेरै फूलहरू बढे।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0008",
@@ -128,7 +269,27 @@
         "分（わ）からない言葉（ことば）をノートで調（しら）べます。"
       ],
       "stem": "分（わ）からない言葉（ことば）を字引（じびき）で調（しら）べます。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I look up unknown words in a dictionary (wordbook).",
+          "answer": "I look up unknown words in a dictionary.",
+          "choices": [
+            "I look up unknown words in a textbook.",
+            "I look up unknown words on a map.",
+            "I look up unknown words in a notebook."
+          ]
+        },
+        "ne": {
+          "sentence": "मलाई थाहा नभएका शब्दहरू शब्दकोशमा हेर्छु।",
+          "answer": "मलाई थाहा नभएका शब्दहरू शब्दकोशमा हेर्छु।",
+          "choices": [
+            "मलाई थाहा नभएका शब्दहरू पाठ्यपुस्तकमा हेर्छु।",
+            "मलाई थाहा नभएका शब्दहरू नक्सामा हेर्छु।",
+            "मलाई थाहा नभएका शब्दहरू नोटबुकमा हेर्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0009",
@@ -145,7 +306,27 @@
       "stem": "私（わたし）のアパートは駅（えき）の近（ちか）くにあります。",
       "pattern": "hypernym",
       "uniqRisk": "mid",
-      "uniqNote": "住んでいるアパートは自分の家（住まいの上位語）に言い換え。会社・学校・店は住む場所でない。"
+      "uniqNote": "住んでいるアパートは自分の家（住まいの上位語）に言い換え。会社・学校・店は住む場所でない。",
+      "i18n": {
+        "en": {
+          "sentence": "My apartment is near the station.",
+          "answer": "My house is near the station.",
+          "choices": [
+            "My company is near the station.",
+            "My school is near the station.",
+            "My shop is near the station."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरो अपार्टमेन्ट स्टेशन नजिकै छ।",
+          "answer": "मेरो घर स्टेशन नजिकै छ।",
+          "choices": [
+            "मेरो कम्पनी स्टेशन नजिकै छ।",
+            "मेरो विद्यालय स्टेशन नजिकै छ।",
+            "मेरो पसल स्टेशन नजिकै छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0010",
@@ -162,7 +343,27 @@
       "stem": "部屋（へや）が寒（さむ）いのでストーブをつけます。",
       "pattern": "noun",
       "uniqRisk": "mid",
-      "uniqNote": "ストーブ＝ヒーター（部屋を暖める道具）。テレビ・電気・ラジオは暖房でない。"
+      "uniqNote": "ストーブ＝ヒーター（部屋を暖める道具）。テレビ・電気・ラジオは暖房でない。",
+      "i18n": {
+        "en": {
+          "sentence": "The room is cold, so I'll turn on the stove.",
+          "answer": "The room is cold, so I'll turn on the heater.",
+          "choices": [
+            "The room is cold, so I'll turn on the TV.",
+            "The room is cold, so I'll turn on the light.",
+            "The room is cold, so I'll turn on the radio."
+          ]
+        },
+        "ne": {
+          "sentence": "कोठा चिसो भएकाले म स्टोभ बाल्छु।",
+          "answer": "कोठा चिसो भएकाले म हीटर बाल्छु।",
+          "choices": [
+            "कोठा चिसो भएकाले म टिभी बाल्छु।",
+            "कोठा चिसो भएकाले म बत्ती बाल्छु।",
+            "कोठा चिसो भएकाले म रेडियो बाल्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0011",
@@ -177,7 +378,27 @@
         "駅（えき）の後（うし）ろに住（す）んでいます。"
       ],
       "stem": "駅（えき）の近（ちか）くに住（す）んでいます。",
-      "pattern": "adv"
+      "pattern": "adv",
+      "i18n": {
+        "en": {
+          "sentence": "I live near the station.",
+          "answer": "I live by the station.",
+          "choices": [
+            "I live far from the station.",
+            "I live in front of the station.",
+            "I live behind the station."
+          ]
+        },
+        "ne": {
+          "sentence": "म स्टेशन नजिक बस्छु।",
+          "answer": "म स्टेशनको छेउमा बस्छु।",
+          "choices": [
+            "म स्टेशनबाट टाढा बस्छु।",
+            "म स्टेशनको अगाडि बस्छु।",
+            "म स्टेशनको पछाडि बस्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0012",
@@ -192,7 +413,27 @@
         "でも、これから始（はじ）めましょう。"
       ],
       "stem": "では、これから始（はじ）めましょう。",
-      "pattern": "adv"
+      "pattern": "adv",
+      "i18n": {
+        "en": {
+          "sentence": "Well then, let's start now.",
+          "answer": "Well then, let's start now.",
+          "choices": [
+            "However, let's start now.",
+            "Therefore, let's start now.",
+            "But, let's start now."
+          ]
+        },
+        "ne": {
+          "sentence": "त्यसो भए, अब सुरु गरौं।",
+          "answer": "लौ, अब सुरु गरौं।",
+          "choices": [
+            "तर, अब सुरु गरौं।",
+            "त्यसैले, अब सुरु गरौं।",
+            "तर, अब सुरु गरौं।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0013",
@@ -209,7 +450,27 @@
       "stem": "母（はは）はデパートで服（ふく）を買（か）いました。",
       "pattern": "hypernym",
       "uniqRisk": "mid",
-      "uniqNote": "デパート＝大きい店。小さい店（反対）・本屋・八百屋は別の店。"
+      "uniqNote": "デパート＝大きい店。小さい店（反対）・本屋・八百屋は別の店。",
+      "i18n": {
+        "en": {
+          "sentence": "My mother bought clothes at the department store.",
+          "answer": "My mother bought clothes at a big store.",
+          "choices": [
+            "My mother bought clothes at a small store.",
+            "My mother bought clothes at the bookstore.",
+            "My mother bought clothes at the greengrocer's."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरी आमाले डिपार्टमेन्ट स्टोरमा लुगा किन्नुभयो।",
+          "answer": "मेरी आमाले ठूलो पसलमा लुगा किन्नुभयो।",
+          "choices": [
+            "मेरी आमाले सानो पसलमा लुगा किन्नुभयो।",
+            "मेरी आमाले किताब पसलमा लुगा किन्नुभयो।",
+            "मेरी आमाले तरकारी पसलमा लुगा किन्नुभयो।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0014",
@@ -226,7 +487,27 @@
       "stem": "部屋（へや）のドアを閉（し）めてください。",
       "pattern": "noun",
       "uniqRisk": "mid",
-      "uniqNote": "ドア＝戸（出入り口の扉）。窓・カーテン・冷蔵庫は別の物。"
+      "uniqNote": "ドア＝戸（出入り口の扉）。窓・カーテン・冷蔵庫は別の物。",
+      "i18n": {
+        "en": {
+          "sentence": "Please close the room's door.",
+          "answer": "Please close the room's door.",
+          "choices": [
+            "Please close the room's window.",
+            "Please close the room's curtains.",
+            "Please close the room's refrigerator."
+          ]
+        },
+        "ne": {
+          "sentence": "कृपया कोठाको ढोका बन्द गर्नुहोस्।",
+          "answer": "कृपया कोठाको ढोका बन्द गर्नुहोस्।",
+          "choices": [
+            "कृपया कोठाको झ्याल बन्द गर्नुहोस्।",
+            "कृपया कोठाको पर्दा बन्द गर्नुहोस्।",
+            "कृपया कोठाको फ्रिज बन्द गर्नुहोस्।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0015",
@@ -241,7 +522,27 @@
         "部屋（へや）に行（い）きたいです。"
       ],
       "stem": "トイレに行（い）きたいです。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I want to go to the toilet.",
+          "answer": "I want to go to the restroom.",
+          "choices": [
+            "I want to go to the kitchen.",
+            "I want to go to the bath.",
+            "I want to go to the room."
+          ]
+        },
+        "ne": {
+          "sentence": "म शौचालय जान चाहन्छु।",
+          "answer": "म शौचालय जान चाहन्छु।",
+          "choices": [
+            "म भान्सामा जान चाहन्छु।",
+            "म नुहाउन जान चाहन्छु।",
+            "म कोठामा जान चाहन्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0016",
@@ -258,7 +559,27 @@
       "stem": "この部屋（へや）はとても静（しず）かです。",
       "pattern": "negation_cross",
       "uniqRisk": "mid",
-      "uniqNote": "静か＝うるさくない。うるさい（反対）・暗い・明るいは別の物差し。"
+      "uniqNote": "静か＝うるさくない。うるさい（反対）・暗い・明るいは別の物差し。",
+      "i18n": {
+        "en": {
+          "sentence": "This room is very quiet.",
+          "answer": "This room is not very noisy.",
+          "choices": [
+            "This room is very noisy.",
+            "This room is very dark.",
+            "This room is very bright."
+          ]
+        },
+        "ne": {
+          "sentence": "यो कोठा धेरै शान्त छ।",
+          "answer": "यो कोठा धेरै हल्ला छैन।",
+          "choices": [
+            "यो कोठा धेरै हल्ला छ।",
+            "यो कोठा धेरै अँध्यारो छ।",
+            "यो कोठा धेरै उज्यालो छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0017",
@@ -273,7 +594,27 @@
         "父（ちち）は銀行（ぎんこう）で待（ま）っています。"
       ],
       "stem": "父（ちち）は銀行（ぎんこう）で働（はたら）いています。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "My father works at a bank.",
+          "answer": "My father is working at a bank.",
+          "choices": [
+            "My father is resting at the bank.",
+            "My father is playing at the bank.",
+            "My father is waiting at the bank."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरो बुबा बैंकमा काम गर्नुहुन्छ।",
+          "answer": "मेरो बुबा बैंकमा काम गर्दै हुनुहुन्छ।",
+          "choices": [
+            "मेरो बुबा बैंकमा आराम गर्दै हुनुहुन्छ।",
+            "मेरो बुबा बैंकमा खेल्दै हुनुहुन्छ।",
+            "मेरो बुबा बैंकमा पर्खिरहनुभएको छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0018",
@@ -288,7 +629,27 @@
         "お菓子（かし）はもう食（た）べましたか。"
       ],
       "stem": "晩御飯（ばんごはん）はもう食（た）べましたか。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "Have you already eaten dinner?",
+          "answer": "Have you already eaten dinner?",
+          "choices": [
+            "Have you already eaten breakfast?",
+            "Have you already eaten lunch?",
+            "Have you already eaten sweets?"
+          ]
+        },
+        "ne": {
+          "sentence": "के तपाईंले बेलुकाको खाना खाइसक्नुभयो?",
+          "answer": "के तपाईंले बेलुकाको खाना खाइसक्नुभयो?",
+          "choices": [
+            "के तपाईंले बिहानको खाना खाइसक्नुभयो?",
+            "के तपाईंले दिउँसोको खाना खाइसक्नुभयो?",
+            "के तपाईंले मिठाई खाइसक्नुभयो?"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0019",
@@ -303,7 +664,27 @@
         "この公園（こうえん）はとても暗（くら）くないです。"
       ],
       "stem": "この公園（こうえん）はとても広（ひろ）いです。",
-      "pattern": "negation_cross"
+      "pattern": "negation_cross",
+      "i18n": {
+        "en": {
+          "sentence": "This park is very spacious.",
+          "answer": "This park is not very narrow.",
+          "choices": [
+            "This park is very narrow.",
+            "This park is very dark.",
+            "This park is not very dark."
+          ]
+        },
+        "ne": {
+          "sentence": "यो पार्क धेरै फराकिलो छ।",
+          "answer": "यो पार्क धेरै साँघुरो छैन।",
+          "choices": [
+            "यो पार्क धेरै साँघुरो छ।",
+            "यो पार्क धेरै अँध्यारो छ।",
+            "यो पार्क धेरै अँध्यारो छैन।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0020",
@@ -318,7 +699,27 @@
         "毎朝（まいあさ）、歯（は）を治（なお）します。"
       ],
       "stem": "毎朝（まいあさ）、歯（は）を磨（みが）きます。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "I brush my teeth every morning.",
+          "answer": "I clean my teeth every morning.",
+          "choices": [
+            "I count my teeth every morning.",
+            "I show my teeth every morning.",
+            "I fix my teeth every morning."
+          ]
+        },
+        "ne": {
+          "sentence": "म हरेक बिहान दाँत माझ्छु।",
+          "answer": "म हरेक बिहान दाँत सफा गर्छु।",
+          "choices": [
+            "म हरेक बिहान दाँत गन्छु।",
+            "म हरेक बिहान दाँत देखाउँछु।",
+            "म हरेक बिहान दाँत ठीक गर्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0021",
@@ -333,7 +734,27 @@
         "駅（えき）の前（まえ）の病院（びょういん）で昼（ひる）ご飯（はん）を食（た）べました。"
       ],
       "stem": "駅（えき）の前（まえ）のレストランで昼（ひる）ご飯（はん）を食（た）べました。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I ate lunch at the restaurant in front of the station.",
+          "answer": "I ate lunch at the diner in front of the station.",
+          "choices": [
+            "I ate lunch at the coffee shop in front of the station.",
+            "I ate lunch at the bookstore in front of the station.",
+            "I ate lunch at the hospital in front of the station."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले स्टेशन अगाडिको रेस्टुरेन्टमा दिउँसोको खाना खाएँ।",
+          "answer": "मैले स्टेशन अगाडिको भोजनालयमा दिउँसोको खाना खाएँ।",
+          "choices": [
+            "मैले स्टेशन अगाडिको कफी पसलमा दिउँसोको खाना खाएँ।",
+            "मैले स्टेशन अगाडिको किताब पसलमा दिउँसोको खाना खाएँ।",
+            "मैले स्टेशन अगाडिको अस्पतालमा दिउँसोको खाना खाएँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0022",
@@ -348,7 +769,27 @@
         "窓（まど）が壊（こわ）れていますね。"
       ],
       "stem": "窓（まど）が開（あ）いていますね。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "The window is open, isn't it?",
+          "answer": "The window is not closed, is it?",
+          "choices": [
+            "The window is closed, isn't it?",
+            "The window is dirty, isn't it?",
+            "The window is broken, isn't it?"
+          ]
+        },
+        "ne": {
+          "sentence": "झ्याल खुला छ, होइन र?",
+          "answer": "झ्याल बन्द छैन, होइन र?",
+          "choices": [
+            "झ्याल बन्द छ, होइन र?",
+            "झ्याल फोहोर छ, होइन र?",
+            "झ्याल फुटेको छ, होइन र?"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0023",
@@ -363,7 +804,27 @@
         "もう、それでいいです。"
       ],
       "stem": "ええ、それでいいです。",
-      "pattern": "adv"
+      "pattern": "adv",
+      "i18n": {
+        "en": {
+          "sentence": "Yes, that's fine.",
+          "answer": "Yes, that's fine.",
+          "choices": [
+            "No, that's fine.",
+            "That's still fine.",
+            "That's already fine."
+          ]
+        },
+        "ne": {
+          "sentence": "हुन्छ, त्यो ठीक छ।",
+          "answer": "हुन्छ, त्यो ठीक छ।",
+          "choices": [
+            "होइन, त्यो ठीक छ।",
+            "अझै, त्यो ठीक छ।",
+            "अब, त्यो ठीक छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0024",
@@ -378,7 +839,27 @@
         "道（みち）で運転手（うんてんしゅ）に道（みち）を聞（き）きました。"
       ],
       "stem": "道（みち）で警官（けいかん）に道（みち）を聞（き）きました。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I asked a police officer for directions on the street.",
+          "answer": "I asked a police officer for directions on the street.",
+          "choices": [
+            "I asked a store clerk for directions on the street.",
+            "I asked a teacher for directions on the street.",
+            "I asked a driver for directions on the street."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले सडकमा एक प्रहरी अधिकारीलाई बाटो सोधें।",
+          "answer": "मैले सडकमा एक प्रहरी अधिकारीलाई बाटो सोधें।",
+          "choices": [
+            "मैले सडकमा एक पसलको कर्मचारीलाई बाटो सोधें।",
+            "मैले सडकमा एक शिक्षकलाई बाटो सोधें।",
+            "मैले सडकमा एक चालकलाई बाटो सोधें।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0025",
@@ -395,7 +876,27 @@
       "stem": "玄関（げんかん）で靴（くつ）を脱（ぬ）ぎます。",
       "pattern": "noun",
       "uniqRisk": "mid",
-      "uniqNote": "玄関＝家の入り口。台所・庭・屋上は別の場所。"
+      "uniqNote": "玄関＝家の入り口。台所・庭・屋上は別の場所。",
+      "i18n": {
+        "en": {
+          "sentence": "I take off my shoes at the entrance.",
+          "answer": "I take off my shoes at the entrance of the house.",
+          "choices": [
+            "I take off my shoes in the kitchen.",
+            "I take off my shoes in the garden.",
+            "I take off my shoes on the rooftop."
+          ]
+        },
+        "ne": {
+          "sentence": "म प्रवेशद्वारमा जुत्ता फुकाल्छु।",
+          "answer": "म घरको प्रवेशद्वारमा जुत्ता फुकाल्छु।",
+          "choices": [
+            "म भान्सामा जुत्ता फुकाल्छु।",
+            "म बगैंचामा जुत्ता फुकाल्छु।",
+            "म छतमा जुत्ता फुकाल्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0026",
@@ -412,7 +913,27 @@
       "stem": "祖母（そぼ）は元気（げんき）です。",
       "pattern": "adj",
       "uniqRisk": "mid",
-      "uniqNote": "元気＝体の調子がいい。調子が悪い（反対）・忙しい・疲れているは別。"
+      "uniqNote": "元気＝体の調子がいい。調子が悪い（反対）・忙しい・疲れているは別。",
+      "i18n": {
+        "en": {
+          "sentence": "My grandmother is fine/healthy.",
+          "answer": "My grandmother is in good physical condition.",
+          "choices": [
+            "My grandmother is in poor physical condition.",
+            "My grandmother is very busy.",
+            "My grandmother is very tired."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरी हजुरआमा स्वस्थ हुनुहुन्छ।",
+          "answer": "मेरी हजुरआमाको स्वास्थ्य अवस्था राम्रो छ।",
+          "choices": [
+            "मेरी हजुरआमाको स्वास्थ्य अवस्था राम्रो छैन।",
+            "मेरी हजुरआमा धेरै व्यस्त हुनुहुन्छ।",
+            "मेरी हजुरआमा धेरै थकित हुनुहुन्छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0027",
@@ -427,7 +948,27 @@
         "兄（あに）は病院（びょういん）に泊（と）まっています。"
       ],
       "stem": "兄（あに）は病院（びょういん）に勤（つと）めています。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "My older brother works at a hospital.",
+          "answer": "My older brother works at a hospital.",
+          "choices": [
+            "My older brother is resting at the hospital.",
+            "My older brother is hospitalized.",
+            "My older brother is staying overnight at the hospital."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरो दाइ अस्पतालमा काम गर्नुहुन्छ।",
+          "answer": "मेरो दाइ अस्पतालमा काम गर्नुहुन्छ।",
+          "choices": [
+            "मेरो दाइ अस्पतालमा आराम गर्दै हुनुहुन्छ।",
+            "मेरो दाइ अस्पतालमा भर्ना हुनुहुन्छ।",
+            "मेरो दाइ अस्पतालमा रात बिताउँदै हुनुहुन्छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0028",
@@ -442,7 +983,27 @@
         "毎週（まいしゅう）、日本語（にほんご）のテストがあります。"
       ],
       "stem": "来週（らいしゅう）、日本語（にほんご）のテストがあります。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "Next week, there will be a Japanese test.",
+          "answer": "Next week, there will be a Japanese test.",
+          "choices": [
+            "This week, there will be a Japanese test.",
+            "Next month, there will be a Japanese test.",
+            "Every week, there is a Japanese test."
+          ]
+        },
+        "ne": {
+          "sentence": "अर्को हप्ता, जापानी भाषाको परीक्षा छ।",
+          "answer": "अर्को हप्ता, जापानी भाषाको परीक्षा छ।",
+          "choices": [
+            "यो हप्ता, जापानी भाषाको परीक्षा छ।",
+            "अर्को महिना, जापानी भाषाको परीक्षा छ।",
+            "हरेक हप्ता, जापानी भाषाको परीक्षा हुन्छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0029",
@@ -457,7 +1018,27 @@
         "毎日（まいにち）、道（みち）を走（はし）るバスで会社（かいしゃ）へ行（い）きます。"
       ],
       "stem": "毎日（まいにち）、地下鉄（ちかてつ）で会社（かいしゃ）へ行（い）きます。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I go to the office by subway every day.",
+          "answer": "I go to the office every day by train that runs underground.",
+          "choices": [
+            "I go to the office every day by a vehicle that flies in the sky.",
+            "I go to the office every day by a vehicle that runs on the sea.",
+            "I go to the office every day by bus that runs on the road."
+          ]
+        },
+        "ne": {
+          "sentence": "म हरेक दिन सबवेबाट कम्पनी जान्छु।",
+          "answer": "म हरेक दिन भूमिगत चल्ने रेलबाट कम्पनी जान्छु।",
+          "choices": [
+            "म हरेक दिन आकाशमा उड्ने सवारी साधनबाट कम्पनी जान्छु।",
+            "म हरेक दिन समुद्रमा चल्ने सवारी साधनबाट कम्पनी जान्छु।",
+            "म हरेक दिन सडकमा चल्ने बसबाट कम्पनी जान्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0030",
@@ -472,7 +1053,27 @@
         "机（つくえ）の上（うえ）に重（おも）さが分（わ）かるものがあります。"
       ],
       "stem": "机（つくえ）の上（うえ）に時計（とけい）があります。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "There is a clock on the desk.",
+          "answer": "There is something on the desk that tells time.",
+          "choices": [
+            "There is something on the desk that tells the way.",
+            "There is something on the desk that tells the weather.",
+            "There is something on the desk that tells the weight."
+          ]
+        },
+        "ne": {
+          "sentence": "टेबलमा घडी छ।",
+          "answer": "टेबलमा समय बताउने चीज छ।",
+          "choices": [
+            "टेबलमा बाटो बताउने चीज छ।",
+            "टेबलमा मौसम बताउने चीज छ।",
+            "टेबलमा तौल बताउने चीज छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0031",
@@ -487,7 +1088,27 @@
         "手紙（てがみ）を出（だ）すので手紙（てがみ）を切（き）るものを買（か）いました。"
       ],
       "stem": "手紙（てがみ）を出（だ）すので切手（きって）を買（か）いました。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I bought a stamp because I'm sending a letter.",
+          "answer": "I bought something to stick on the letter because I'm sending a letter.",
+          "choices": [
+            "I bought something to put the letter in because I'm sending a letter.",
+            "I bought something to write the letter with because I'm sending a letter.",
+            "I bought something to cut the letter with because I'm sending a letter."
+          ]
+        },
+        "ne": {
+          "sentence": "चिठी पठाउनु पर्ने भएकोले मैले टिकट किनें।",
+          "answer": "चिठी पठाउनु पर्ने भएकोले मैले चिठीमा टाँस्ने चीज किनें।",
+          "choices": [
+            "चिठी पठाउनु पर्ने भएकोले मैले चिठी राख्ने चीज किनें।",
+            "चिठी पठाउनु पर्ने भएकोले मैले चिठी लेख्ने चीज किनें।",
+            "चिठी पठाउनु पर्ने भएकोले मैले चिठी काट्ने चीज किनें।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0032",
@@ -504,7 +1125,27 @@
       "stem": "兄（あに）は新（あたら）しい車（くるま）を買（か）いました。",
       "pattern": "negation_cross",
       "uniqRisk": "mid",
-      "uniqNote": "新しい＝古くない（中間語のない対義軸）。高い・高くないは値段の物差しで別。"
+      "uniqNote": "新しい＝古くない（中間語のない対義軸）。高い・高くないは値段の物差しで別。",
+      "i18n": {
+        "en": {
+          "sentence": "My older brother bought a new car.",
+          "answer": "My older brother bought a car that is not old.",
+          "choices": [
+            "My older brother bought an old car.",
+            "My older brother bought an expensive car.",
+            "My older brother bought a car that is not expensive."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरो दाइले नयाँ कार किन्नुभयो।",
+          "answer": "मेरो दाइले पुरानो नभएको कार किन्नुभयो।",
+          "choices": [
+            "मेरो दाइले पुरानो कार किन्नुभयो।",
+            "मेरो दाइले महँगो कार किन्नुभयो।",
+            "मेरो दाइले महँगो नभएको कार किन्नुभयो।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0033",
@@ -519,7 +1160,27 @@
         "私（わたし）は犬（いぬ）が嫌（きら）いです。"
       ],
       "stem": "私（わたし）は犬（いぬ）が大好（だいす）きです。",
-      "pattern": "adj"
+      "pattern": "adj",
+      "i18n": {
+        "en": {
+          "sentence": "I love dogs.",
+          "answer": "I like dogs very much.",
+          "choices": [
+            "I like dogs a little.",
+            "I don't like dogs.",
+            "I dislike dogs."
+          ]
+        },
+        "ne": {
+          "sentence": "मलाई कुकुरहरू धेरै मन पर्छ।",
+          "answer": "मलाई कुकुरहरू धेरै मन पर्छ।",
+          "choices": [
+            "मलाई कुकुरहरू अलि मन पर्छ।",
+            "मलाई कुकुरहरू मन पर्दैन।",
+            "मलाई कुकुरहरू मन पर्दैन।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0034",
@@ -534,7 +1195,27 @@
         "日曜日（にちようび）に服（ふく）をたたみます。"
       ],
       "stem": "日曜日（にちようび）に洗濯（せんたく）をします。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "I do laundry on Sundays.",
+          "answer": "I wash clothes on Sundays.",
+          "choices": [
+            "I buy clothes on Sundays.",
+            "I make clothes on Sundays.",
+            "I fold clothes on Sundays."
+          ]
+        },
+        "ne": {
+          "sentence": "म आइतबार लुगा धुन्छु।",
+          "answer": "म आइतबार लुगा धुन्छु।",
+          "choices": [
+            "म आइतबार लुगा किन्छु।",
+            "म आइतबार लुगा बनाउँछु।",
+            "म आइतबार लुगा पट्याउँछु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0035",
@@ -549,7 +1230,27 @@
         "電車（でんしゃ）の中（なか）で水（みず）を入（い）れるものをなくしました。"
       ],
       "stem": "電車（でんしゃ）の中（なか）で財布（さいふ）をなくしました。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I lost my wallet on the train.",
+          "answer": "I lost the thing that holds money on the train.",
+          "choices": [
+            "I lost the thing that holds books on the train.",
+            "I lost the thing that holds trash on the train.",
+            "I lost the thing that holds water on the train."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले रेलमा मेरो वालेट हराएँ।",
+          "answer": "मैले रेलमा पैसा राख्ने चिज हराएँ।",
+          "choices": [
+            "मैले रेलमा किताब राख्ने चिज हराएँ।",
+            "मैले रेलमा फोहोर राख्ने चिज हराएँ।",
+            "मैले रेलमा पानी राख्ने चिज हराएँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0036",
@@ -564,7 +1265,27 @@
         "分（わ）からない漢字（かんじ）をノートで調（しら）べます。"
       ],
       "stem": "分（わ）からない漢字（かんじ）を辞書（じしょ）で調（しら）べます。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I will look up the kanji I don't know in the dictionary.",
+          "answer": "I will look up the kanji I don't know in the dictionary.",
+          "choices": [
+            "I will look up the kanji I don't know in the textbook.",
+            "I will look up the kanji I don't know in the newspaper.",
+            "I will look up the kanji I don't know in my notebook."
+          ]
+        },
+        "ne": {
+          "sentence": "मलाई थाहा नभएको कान्जी शब्दकोशमा हेर्नेछु।",
+          "answer": "मलाई थाहा नभएको कान्जी शब्दकोशमा हेर्नेछु।",
+          "choices": [
+            "मलाई थाहा नभएको कान्जी पाठ्यपुस्तकमा हेर्नेछु।",
+            "मलाई थाहा नभएको कान्जी पत्रिकामा हेर्नेछु।",
+            "मलाई थाहा नभएको कान्जी नोटबुकमा हेर्नेछु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0037",
@@ -579,7 +1300,27 @@
         "ごみを入（い）れるものに住所（じゅうしょ）を書（か）きます。"
       ],
       "stem": "封筒（ふうとう）に住所（じゅうしょ）を書（か）きます。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I will write the address on the envelope.",
+          "answer": "I will write the address on the thing that holds letters.",
+          "choices": [
+            "I will write the address on the thing that holds money.",
+            "I will write the address on the thing that holds tea.",
+            "I will write the address on the thing that holds trash."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले खाममा ठेगाना लेख्नेछु।",
+          "answer": "मैले चिठी राख्ने चिजमा ठेगाना लेख्नेछु।",
+          "choices": [
+            "मैले पैसा राख्ने चिजमा ठेगाना लेख्नेछु।",
+            "मैले चिया राख्ने चिजमा ठेगाना लेख्नेछु।",
+            "मैले फोहोर राख्ने चिजमा ठेगाना लेख्नेछु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0038",
@@ -596,7 +1337,27 @@
       "stem": "熱（あつ）いお茶（ちゃ）を飲（の）みます。",
       "pattern": "adj",
       "uniqRisk": "mid",
-      "uniqNote": "熱い＝温度が高い。温度が低い（反対）・色が濃い・値段が高いは別。"
+      "uniqNote": "熱い＝温度が高い。温度が低い（反対）・色が濃い・値段が高いは別。",
+      "i18n": {
+        "en": {
+          "sentence": "I will drink hot tea.",
+          "answer": "I will drink tea that has a high temperature.",
+          "choices": [
+            "I will drink tea that has a low temperature.",
+            "I will drink dark-colored tea.",
+            "I will drink expensive tea."
+          ]
+        },
+        "ne": {
+          "sentence": "म तातो चिया पिउनेछु।",
+          "answer": "म उच्च तापक्रम भएको चिया पिउनेछु।",
+          "choices": [
+            "म कम तापक्रम भएको चिया पिउनेछु।",
+            "म गाढा रङको चिया पिउनेछु।",
+            "म महँगो चिया पिउनेछु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0039",
@@ -611,7 +1372,27 @@
         "このかばんはとても重（おも）いです。"
       ],
       "stem": "このかばんはとても丈夫（じょうぶ）です。",
-      "pattern": "adj"
+      "pattern": "adj",
+      "i18n": {
+        "en": {
+          "sentence": "This bag is very durable.",
+          "answer": "This bag is very hard to break.",
+          "choices": [
+            "This bag is very easy to break.",
+            "This bag is very light.",
+            "This bag is very heavy."
+          ]
+        },
+        "ne": {
+          "sentence": "यो झोला धेरै टिकाउ छ।",
+          "answer": "यो झोला तोड्न धेरै गाह्रो छ।",
+          "choices": [
+            "यो झोला तोड्न धेरै सजिलो छ।",
+            "यो झोला धेरै हल्का छ।",
+            "यो झोला धेरै भारी छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0040",
@@ -628,7 +1409,27 @@
       "stem": "道（みち）の向（む）こうに大（おお）きい店（みせ）があります。",
       "pattern": "adv",
       "uniqRisk": "mid",
-      "uniqNote": "向こう＝あちら（反対側）。こちら（反対）・となり・後ろは位置が違う。"
+      "uniqNote": "向こう＝あちら（反対側）。こちら（反対）・となり・後ろは位置が違う。",
+      "i18n": {
+        "en": {
+          "sentence": "There is a big store across the street.",
+          "answer": "There is a big store over there across the street.",
+          "choices": [
+            "There is a big store on this side of the street.",
+            "There is a big store next to the street.",
+            "There is a big store behind the street."
+          ]
+        },
+        "ne": {
+          "sentence": "सडक पारि एउटा ठूलो पसल छ।",
+          "answer": "सडक पारि त्यहाँ एउटा ठूलो पसल छ।",
+          "choices": [
+            "सडकको यो छेउमा एउटा ठूलो पसल छ।",
+            "सडकको छेउमा एउटा ठूलो पसल छ।",
+            "सडकको पछाडि एउटा ठूलो पसल छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0041",
@@ -643,7 +1444,27 @@
         "今日（きょう）は店（みせ）の客（きゃく）が若（わか）くないです。"
       ],
       "stem": "今日（きょう）は店（みせ）の客（きゃく）が少（すく）ないです。",
-      "pattern": "negation_cross"
+      "pattern": "negation_cross",
+      "i18n": {
+        "en": {
+          "sentence": "Today, there are few customers at the store.",
+          "answer": "Today, there are not many customers at the store.",
+          "choices": [
+            "Today, there are many customers at the store.",
+            "Today, the customers at the store are young.",
+            "Today, the customers at the store are not young."
+          ]
+        },
+        "ne": {
+          "sentence": "आज पसलमा ग्राहकहरू कम छन्।",
+          "answer": "आज पसलमा धेरै ग्राहकहरू छैनन्।",
+          "choices": [
+            "आज पसलमा धेरै ग्राहकहरू छन्।",
+            "आज पसलका ग्राहकहरू जवान छन्।",
+            "आज पसलका ग्राहकहरू जवान छैनन्।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0042",
@@ -658,7 +1479,27 @@
         "この電車（でんしゃ）はとても新（あたら）しくないです。"
       ],
       "stem": "この電車（でんしゃ）はとても遅（おそ）いです。",
-      "pattern": "negation_cross"
+      "pattern": "negation_cross",
+      "i18n": {
+        "en": {
+          "sentence": "This train is very slow.",
+          "answer": "This train is not very fast.",
+          "choices": [
+            "This train is very fast.",
+            "This train is very new.",
+            "This train is not very new."
+          ]
+        },
+        "ne": {
+          "sentence": "यो रेल धेरै ढिलो छ।",
+          "answer": "यो रेल धेरै छिटो छैन।",
+          "choices": [
+            "यो रेल धेरै छिटो छ।",
+            "यो रेल धेरै नयाँ छ।",
+            "यो रेल धेरै नयाँ छैन।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0043",
@@ -675,7 +1516,27 @@
       "stem": "あの選手（せんしゅ）はとても強（つよ）いです。",
       "pattern": "adj",
       "uniqRisk": "mid",
-      "uniqNote": "強い＝力がある。力がない（反対）・優しい・若いは別の性質。"
+      "uniqNote": "強い＝力がある。力がない（反対）・優しい・若いは別の性質。",
+      "i18n": {
+        "en": {
+          "sentence": "That athlete is very strong.",
+          "answer": "That athlete has a lot of strength.",
+          "choices": [
+            "That athlete does not have much strength.",
+            "That athlete is very kind.",
+            "That athlete is very young."
+          ]
+        },
+        "ne": {
+          "sentence": "त्यो खेलाडी धेरै बलियो छ।",
+          "answer": "त्यो खेलाडीमा धेरै बल छ।",
+          "choices": [
+            "त्यो खेलाडीमा धेरै बल छैन।",
+            "त्यो खेलाडी धेरै दयालु छ।",
+            "त्यो खेलाडी धेरै जवान छ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0044",
@@ -690,7 +1551,27 @@
         "クレヨンで手紙（てがみ）を書（か）きます。"
       ],
       "stem": "万年筆（まんねんひつ）で手紙（てがみ）を書（か）きます。",
-      "pattern": "hypernym"
+      "pattern": "hypernym",
+      "i18n": {
+        "en": {
+          "sentence": "I will write a letter with a fountain pen.",
+          "answer": "I will write a letter with a pen.",
+          "choices": [
+            "I will write a letter with a pencil.",
+            "I will write a letter with a brush.",
+            "I will write a letter with a crayon."
+          ]
+        },
+        "ne": {
+          "sentence": "म फाउन्टेन पेनले चिठी लेख्छु।",
+          "answer": "म पेनले चिठी लेख्छु।",
+          "choices": [
+            "म पेन्सिलले चिठी लेख्छु।",
+            "म ब्रसले चिठी लेख्छु।",
+            "म क्रेयोनले चिठी लेख्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0045",
@@ -705,7 +1586,27 @@
         "地下（ちか）を走（はし）る乗（の）り物（もの）で外国（がいこく）へ行（い）きます。"
       ],
       "stem": "飛行機（ひこうき）で外国（がいこく）へ行（い）きます。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I will go abroad by airplane.",
+          "answer": "I will go abroad by a vehicle that flies in the sky.",
+          "choices": [
+            "I will go abroad by a vehicle that runs on the sea.",
+            "I will go abroad by a vehicle that runs on the road.",
+            "I will go abroad by a vehicle that runs underground."
+          ]
+        },
+        "ne": {
+          "sentence": "म हवाईजहाजबाट विदेश जान्छु।",
+          "answer": "म आकाशमा उड्ने सवारीसाधनबाट विदेश जान्छु।",
+          "choices": [
+            "म समुद्रमा चल्ने सवारीसाधनबाट विदेश जान्छु।",
+            "म सडकमा चल्ने सवारीसाधनबाट विदेश जान्छु।",
+            "म भूमिगत चल्ने सवारीसाधनबाट विदेश जान्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0046",
@@ -720,7 +1621,27 @@
         "ご飯（はん）を食（た）べる所（ところ）で二時間（にじかん）勉強（べんきょう）しました。"
       ],
       "stem": "図書館（としょかん）で二時間（にじかん）勉強（べんきょう）しました。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "I studied for two hours at the library.",
+          "answer": "I studied for two hours at the place where I borrow books.",
+          "choices": [
+            "I studied for two hours at the place where I sell books.",
+            "I studied for two hours at the place where I make books.",
+            "I studied for two hours at the place where I eat meals."
+          ]
+        },
+        "ne": {
+          "sentence": "मैले पुस्तकालयमा दुई घण्टा अध्ययन गरें।",
+          "answer": "मैले किताबहरू उधारो लिने ठाउँमा दुई घण्टा अध्ययन गरें।",
+          "choices": [
+            "मैले किताबहरू बेच्ने ठाउँमा दुई घण्टा अध्ययन गरें।",
+            "मैले किताबहरू बनाउने ठाउँमा दुई घण्टा अध्ययन गरें।",
+            "मैले खाना खाने ठाउँमा दुई घण्टा अध्ययन गरें।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0047",
@@ -735,7 +1656,27 @@
         "毎朝（まいあさ）、ネクタイを買（か）います。"
       ],
       "stem": "毎朝（まいあさ）、ネクタイを締（し）めます。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "I tie my necktie every morning.",
+          "answer": "I put on my necktie every morning.",
+          "choices": [
+            "I take off my necktie every morning.",
+            "I wash my necktie every morning.",
+            "I buy a necktie every morning."
+          ]
+        },
+        "ne": {
+          "sentence": "म हरेक बिहान नेकटाई बाँध्छु।",
+          "answer": "म हरेक बिहान नेकटाई लगाउँछु।",
+          "choices": [
+            "म हरेक बिहान नेकटाई खोल्छु।",
+            "म हरेक बिहान नेकटाई धुन्छु।",
+            "म हरेक बिहान नेकटाई किन्छु।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0048",
@@ -750,7 +1691,27 @@
         "部屋（へや）に食（た）べるものが三（みっ）つあります。"
       ],
       "stem": "部屋（へや）に椅子（いす）が三（みっ）つあります。",
-      "pattern": "noun"
+      "pattern": "noun",
+      "i18n": {
+        "en": {
+          "sentence": "There are three chairs in the room.",
+          "answer": "There are three things to sit on in the room.",
+          "choices": [
+            "There are three things to sleep on in the room.",
+            "There are three things to write with in the room.",
+            "There are three things to eat in the room."
+          ]
+        },
+        "ne": {
+          "sentence": "कोठामा तीनवटा कुर्सीहरू छन्।",
+          "answer": "कोठामा बस्ने तीनवटा चीजहरू छन्।",
+          "choices": [
+            "कोठामा सुत्ने तीनवटा चीजहरू छन्।",
+            "कोठामा लेख्ने तीनवटा चीजहरू छन्।",
+            "कोठामा खाने तीनवटा चीजहरू छन्।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0049",
@@ -765,7 +1726,27 @@
         "私（わたし）は今（いま）、お金（かね）をたくさん借（か）りました。"
       ],
       "stem": "私（わたし）は今（いま）、お金（かね）がたくさん在（あ）ります。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "I have a lot of money right now.",
+          "answer": "I have a lot of money right now.",
+          "choices": [
+            "I don't have a lot of money right now.",
+            "I spent a lot of money just now.",
+            "I borrowed a lot of money just now."
+          ]
+        },
+        "ne": {
+          "sentence": "मसँग अहिले धेरै पैसा छ।",
+          "answer": "मसँग अहिले धेरै पैसा छ।",
+          "choices": [
+            "मसँग अहिले धेरै पैसा छैन।",
+            "मैले भर्खरै धेरै पैसा खर्च गरें।",
+            "मैले भर्खरै धेरै पैसा ऋण लिएँ।"
+          ]
+        }
+      }
     },
     {
       "id": "N5-V-IM-0050",
@@ -780,7 +1761,27 @@
         "私（わたし）の答（こた）えは友達（ともだち）のより少（すく）ないです。"
       ],
       "stem": "私（わたし）の答（こた）えは友達（ともだち）のと違（ちが）います。",
-      "pattern": "verb"
+      "pattern": "verb",
+      "i18n": {
+        "en": {
+          "sentence": "My answer is different from my friend's.",
+          "answer": "My answer is not the same as my friend's.",
+          "choices": [
+            "My answer is the same as my friend's.",
+            "My answer is more than my friend's.",
+            "My answer is less than my friend's."
+          ]
+        },
+        "ne": {
+          "sentence": "मेरो उत्तर साथीको भन्दा फरक छ।",
+          "answer": "मेरो उत्तर साथीको जस्तै छैन।",
+          "choices": [
+            "मेरो उत्तर साथीको जस्तै छ।",
+            "मेरो उत्तर साथीको भन्दा धेरै छ।",
+            "मेरो उत्तर साथीको भन्दा कम छ।"
+          ]
+        }
+      }
     }
   ]
 }
