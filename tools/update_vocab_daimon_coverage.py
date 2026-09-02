@@ -21,7 +21,7 @@ def covered(stem, lv):
     return len({it['vocabId'] for it in d['items'] if it.get('vocabId') and lvlOf.get(it['vocabId']) == lv})
 
 wb = load_workbook(XLSX)
-ws = wb['単語×大問カバー率']
+ws = wb['② カバー率' if '② カバー率' in wb.sheetnames else '単語×大問カバー率']
 cur_lv = None; done = []
 for r in range(1, ws.max_row + 1):
     a = ws.cell(r, 1).value

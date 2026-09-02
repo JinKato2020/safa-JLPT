@@ -48,6 +48,7 @@ $tests = @(
   'tools/content/validate.test.ts'
   'src/data/content/rehydrate.test.ts'
   'src/data/content/otaDiff.test.ts'
+  'src/data/content/explainTransPolicy.test.ts'
   'src/data/exam/passageTransNe.test.ts'
 )
 $log = Join-Path ([System.IO.Path]::GetTempPath()) 'jlpt-publish-test.log'

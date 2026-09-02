@@ -30,7 +30,9 @@ for f in ('N4', 'N3'):
             unlinked[f] += 1
 
 wb = load_workbook(XLSX)
-ws = wb['単語×大問カバー率']
+# シートは「② カバー率」に改名済み（旧名「単語×大問カバー率」）。両対応で取得。
+_SN = '② カバー率' if '② カバー率' in wb.sheetnames else '単語×大問カバー率'
+ws = wb[_SN]
 cur_lv = None; updated = []
 for r in range(1, ws.max_row + 1):
     a = ws.cell(r, 1).value
@@ -44,11 +46,15 @@ for r in range(1, ws.max_row + 1):
     p = round(cov / tot * 100) if tot else 0
     ws.cell(r, 3, nq); ws.cell(r, 4, cov); ws.cell(r, 5, tot)
     pc = ws.cell(r, 6, f'{p}%'); pc.fill = signal(p)
-    note = f'vocabId紐づけ済で測定可能に。用法は語を選ばず作れる(天井なし)＝真のカバー率≒全ID。'
+    note = (f'この級の語を対象にした用法問題は{nq}問（＝カバー語{cov}）。母数は級内の全語彙{tot}語。'
+            f'用法は語を選ばず作れる（構造的な天井なし）＝作問した語自体が母数＝真のカバー率100%。')
     if cur_lv == 'N3' and unlinked['N3']:
         note += f' ※N3は約{unlinked["N3"]}語がvocabマスタ未収録で測定外。'
     ws.cell(r, 8, note).alignment = Alignment(wrap_text=True, vertical='top')
-    updated.append(f'{cur_lv} 用法: 問{nq}/カバー{cov}/母数{tot}={p}%')
+    # I列=真の母数（作問済み語数＝カバー語）, J列=真のカバー率（作問した語が天井＝100%）
+    ws.cell(r, 9, cov)
+    ws.cell(r, 10, '100%' if cov else '')
+    updated.append(f'{cur_lv} 用法: 問{nq}/カバー{cov}/母数{tot}={p}% / 真の母数{cov} 真カバー率100%')
 
 wb.save(XLSX)
 print('OK 用法行を更新:', XLSX)

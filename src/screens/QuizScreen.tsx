@@ -321,6 +321,37 @@ export default function QuizScreen() {
             ) : null}
           </View>
         ) : null}
+        {/* 本文対訳: 回答後に問題文の下へ母語(en/ne)の意味を表示(データのある問題のみ)。 */}
+        {picked !== null && (meaningL1(settings) === 'ne' ? question.promptTransNe : question.promptTransEn) ? (
+          <View style={{ marginTop: 12, padding: 12, borderRadius: 12, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, gap: 6 }}>
+            <Text style={{ fontSize: 12, fontWeight: '800', color: c.blue, textAlign: 'center', letterSpacing: 1 }}>{t('quiz.sentence_meaning')}</Text>
+            <Text style={{ fontSize: 15, color: c.ink2, textAlign: 'center' }}>{meaningL1(settings) === 'ne' ? question.promptTransNe : question.promptTransEn}</Text>
+          </View>
+        ) : null}
+        {/* 用法: 回答後に「正解の文の意味」を表示(誤答は訳さない=わざと不自然な日本語のため)。 */}
+        {picked !== null && (meaningL1(settings) === 'ne' ? question.answerTransNe : question.answerTransEn) ? (
+          <View style={{ marginTop: 12, padding: 12, borderRadius: 12, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, gap: 6 }}>
+            <Text style={{ fontSize: 12, fontWeight: '800', color: c.blue, textAlign: 'center', letterSpacing: 1 }}>{t('quiz.answer_meaning')}</Text>
+            <Text style={{ fontSize: 15, color: c.ink2, textAlign: 'center' }}>{meaningL1(settings) === 'ne' ? question.answerTransNe : question.answerTransEn}</Text>
+          </View>
+        ) : null}
+        {/* 言い換え: 回答後に「本文の意味＋各選択肢の意味」を表示(誤答も正当な日本語語ゆえ訳あり)。番号は選択肢と同じ。 */}
+        {picked !== null && question.choiceTransEn ? (
+          <View style={{ marginTop: 12, padding: 12, borderRadius: 12, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, gap: 4 }}>
+            {(meaningL1(settings) === 'ne' ? question.synonymSentenceNe : question.synonymSentenceEn) ? (
+              <Text style={{ fontSize: 14, color: c.ink2, textAlign: 'center', marginBottom: 4 }}>{meaningL1(settings) === 'ne' ? question.synonymSentenceNe : question.synonymSentenceEn}</Text>
+            ) : null}
+            <Text style={{ fontSize: 12, fontWeight: '800', color: c.blue, textAlign: 'center', letterSpacing: 1 }}>{t('quiz.choice_meanings')}</Text>
+            {question.choices.map((_, i) => {
+              const m = meaningL1(settings) === 'ne' ? question.choiceTransNe?.[i] : question.choiceTransEn?.[i];
+              if (!m) return null;
+              const isAns = i === question.answerIndex;
+              return (
+                <Text key={i} style={{ fontSize: 13, color: isAns ? c.green : c.ink2 }}>{`${i + 1}. ${m}${isAns ? ' ✓' : ''}`}</Text>
+              );
+            })}
+          </View>
+        ) : null}
         {picked === null && <Text style={s.hint}>{t('quiz.hint')}</Text>}
       </ScrollView>
       {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(学習後にまとめて)。 */}

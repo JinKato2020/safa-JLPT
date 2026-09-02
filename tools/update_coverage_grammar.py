@@ -46,7 +46,7 @@ def stats(prefix, lv):
 
 
 wb = load_workbook(XLSX)
-ws = wb['単語×大問カバー率']
+ws = wb['② カバー率' if '② カバー率' in wb.sheetnames else '単語×大問カバー率']
 changed = []
 cur_lv = None
 for r in range(1, ws.max_row + 1):

@@ -1,21 +1,43 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 2 回・7 ターン
-- 往復 231 回
+- ツール呼び出し 3 回・11 ターン
+- 往復 282 回
 
 ## 何が変わったか
 - memory/handoff.md
-- assets/audio/N3-C-G-0027.mp3.tmp.mp3
-- assets/audio/N3-C-G-0026.mp3
-- assets/audio/N3-C-G-0025.mp3
-- assets/audio/N3-C-G-0024.mp3
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- memory/~$在庫・模試ストックまとめ.xlsx
+- memory/session-summary-LATEST.md
 
 ## 次の一手
+- **✅2026-09-02 対訳(en/ne)追加プロジェクト 完了（未commit/未配信）＝次は配信の明示指示待ち**。正本=`memory/trans-synonym-usage-inflight.md`。
+  - **問題翻訳(OTA配信物)**: 用法=正解文の対訳(1271問・¥26) / 言い換え=本文＋選択肢の対訳(2405問・¥192・誤答も正当な語ゆえ訳) / 穴埋め=完成文の対訳(1647問・¥36)。ツール=`tools/trans_daimon.py`にsynonym/usage(struct)・grammar_form(single)追加。manifest再生成(113files)・staleness baseline再生成・tsc緑・75テスト緑。
+  - **UI全訳(ビルド配信物)**: 7言語(bn/id/ko/my/th/vi/zh)を旧315キー破棄→ja全1405キーへ再翻訳(23%→100%・¥68)。新ツール=`tools/trans_i18n.py`。※7言語は番人なし=今後の追加UIは陳腐化しうる。
+  - **表示結線(次回ネイティブビルドで反映)**: QuizScreen=用法(正解文の意味)/言い換え(本文＋各選択肢の意味)/穴埋め(完成文の意味・既存「意味」カード流用)。rehydrate/daimon.ts/index.ts/quiz.ts/i18n(quiz.answer_meaning・quiz.choice_meanings)。
+  - **⑥翻訳状況シート更新済**: ①(7言語UI=100%)②(315→1405/23→100%)④(45言い換え/46用法/47穴埋め=en/ne100%)。
+  - **実費合計 ≈¥322**(Gemini2.5Flash: usage¥26＋synonym¥192＋grammar_form¥36＋UI¥68)。
+  - **✅content OTA配信済(2026-09-02)**: commit `80856c0d`・origin/main push・Pagesrun 33594077513。用法/言い換え/穴埋めの対訳データが端末へ差分DLで届く。※publish-content.ps1は `content/` だけcommit。
+  - **🚧残り=ネイティブビルドのみ(明示「ビルドして」待ち)**: UI訳(src/i18n 7言語+en/ne新キー)・表示結線(QuizScreen等の用法/言い換え/穴埋めの見せ方)は **src/側=未commit=ビルドで反映**。OTAデータはビルドが出るまで端末で非表示(dormant)。build.ps1がsrcをcommit+push+build。勝手にBuildしない。
+- **🚧2026-09-02 解説フィールド削除プロジェクト（途中・要仕上げ）＝最優先で続き**。方針(ユーザー確定): ①解説不要=文脈規定/漢字読み/表記/言い換え/用法+**文の組み立て(order)**+**読解内容理解(短)naiyou_tan** / ②翻訳不要=漢字読み/表記。
+  - **✅済(配信まで完了 commit 45efe73c・Pages OTA run 33580786766)**: 漢字読み・表記の i18n全撤去(翻訳+解説) / 文脈規定・言い換え・用法の解説撤去。コード=schema.ts(context/synonym/orthography translate:[])・rehydrate(cxMap/syMap/ogMap)・daimon.ts(context289/synonym304の explain除去)。番人新設=`src/data/content/explainTransPolicy.test.ts`(NO_EXPLAIN 5大問・NO_TRANS 2大問)＋package.json/publish-content.ps1に組込。旧テスト2件(rehydrate.test/validate.test)を新方針へ更新。md=00共通+01〜05に方針追記。⑥翻訳状況シート(在庫Excel)=漢字読み/表記/言い換え/用法/日付/脚注 更新済。
+  - **🔧方針修正(ユーザー2026-09-02後半)**: 文の組み立て(order)は explain=「回答後に見せる“正しい並びの文＋母語訳”」＝機能。**削除せず維持**。ただし母語訳(en/ne)が古い/実質未整備(823中1件)だったので**再翻訳**した。読解内容理解(短)naiyou_tanの設問解説は予定どおり**削除**。
+  - **✅済(このセッション・未commit/未配信)**: (a)order を git復元し ja正しい文823件を保全。(b)`tools/trans_daimon.py`を order対応に拡張(RUBY除去/order_texts/field=explain・keep=True＝jaを残しen/ne.explainに訳を足す・do_write汎用化)。(c)Gemini2.5Flashで order 823件を en/ne 再翻訳→**--write済**(langs=['en','ja','ne']・実測¥20)。キャッシュ=`scratchpad/pg/trans_order_cache.json`。(d)naiyou_tan の設問q.explain 440件を削除済(本文対訳body・設問訳q/choicesは残す)。
+  - **✅済(追加・未commit/未配信)**: (1)番人拡張=`explainTransPolicy.test.ts` の NO_EXPLAIN に `naiyou_tan` 追加＋**設問レベルの i18n.explain も検査**(orderは非対象=維持)。(2)`rebuild.ts`でmanifest再生成＋`trans_staleness.py`で種再生成済(order en/ne新規をbaselineへ)。(3)tsc緑・関連46テスト緑(explainTransPolicy/rehydrate/validate/manifest/transStaleness/orderMock/passageTransNe/readingMock/daimon4choices)。(4)⑥Excel更新済(並べ替え=正しい文＋母語訳 再翻訳100%・内容理解(短)=設問解説廃止/本文訳維持)。
+  - **✅済(2026-09-02追加・md文書化)**: order/naiyou_tan の2方針を md に追記＝`md/00_共通情報.md`(共通ブロック更新)＋`md/07_文の組み立て.md`(explainは解説でなく“正しい並びの文＋母語訳”機能=維持)＋`md/09_読解.md`(内容理解(短)の設問解説explainを廃止・本文対訳bodyは残す／旧「explain不変」を失効注記)。番人テスト再確認=2件緑。
+  - **🚧残り=配信のみ**: `tools\publish-content.ps1 -Message "..."` でOTA配信(明示指示待ち)。コード(daimon.ts orderX / rehydrate order mapping)は**未変更=正しい**(orderの正しい文表示を維持)。※コード側の解説削除(表示整理・番人)は content外ゆえ次回ネイティブビルドで反映。
 - **✅2026-09-02 ルビ振り synonym N3 完了（未commit・未build）**＝`src/data/dict/sentenceFuri.json` に①未生成647件を新規追記＋②旧824件の drift（本文を後で差替えたのに furi が古い別文＝MockScreen.tsx:925 が古文表示）を現行 sentence から付け直して上書き。計1471件を Opus9体で生成→機械検証（件数一致/strip(furi)==現行sentence 全一致/全角カッコ/漢字読み欠け0/読み非かな0）→マージ（10596→11243）。番人追加＝`src/data/synonymFormat.test.ts` に「N3全問 sentenceFuri 有＋本文一致」テスト（tsc0・同テスト16件緑）。**sentenceFuri は src import＝OTAでなく次ビルドで実機反映**（[[content-ota-vs-ui-build]]）。push/build はユーザー指示待ち。**残＝N4/N5 の synonym は文選択(stem)形式＝別描画（stem内ルビ半角カッコ・sentenceFuri不使用）ゆえ今回対象外**。
 - **✅2026-09-02 言い換え(synonym) 全レベルID欠番なしリナンバー完了（未commit・未build）**＝配列順のまま `N?-V-I-0001..N` に連番化（N5=236/N4=407/N3=1612・欠番0・重複0）。furigana辞書 `src/data/dict/sentenceFuri.json` を新IDへ連動（2202キー）＋幽霊キー132破棄。`_manifest.json`/`bundled.generated.ts` 再生成・全テスト緑。**配信は content OTA(synonym_*.json)＋ビルド(sentenceFuri=src)をセットで**（片方だけだとN3言い換えのルビ全消え）。学習履歴影響なし（マスタリーはvocabIdキー）。◎ついでに `usage_N3.json` の複合語ルビ誤結合 `話し声（はなしごえ）`→`話（はな）し声（ごえ）` 3箇所も修正済。
 - **✅2026-09-02 N3言い換え 品質チェック済＝合格練習として十分**（22問無作為精査＋全1612問form_check）。形式/量/品詞揃え/難易度/一意性いずれも良好。軽微＝0286「価値」の誤答「値段」が近縁(第2の正解リスク)・6誤答の一部でフィールドやや散(0066/0192)。form_check166候補は大半が偽陽性(fugashiが絶対/特別を名詞誤判定)。精緻化するなら「答えの近縁語が誤答に混ざってないか」の一意性LLM精査が費用対効果高。
-- **★次の一手＝（未定・ユーザー指示待ち）。ビルドはユーザー判断で「今はしない」（2026-09-02）＝作業ツリーに聴解模試800音声等の未コミット多数あり、build.ps1のgit add -Aで巻き込むため保留中。** ルビ規則＝自級と同じ漢字/自級より上の漢字に付ける（聴解スクリプト表示も同じ・CLAUDE.md §2）。
+- **✅2026-09-02 再ルビ 適用完了（無ルビ本文123件・joho除く）＝残＝OTA配信のみ（outward・承認待ち）**。正本＝`memory/reruby-inflight.md`。2分割Workflow(p1 run wf_aae872d7-f13/p2 run wf_ca4bb48b-f81・計12体Opus・MAXクォータ)で1725テキスト校正→apply検算OK1725/失敗0→8ファイルを元書式へ再直列化しdiff最小化(raw==real)。**joho(110件)は意図的無ルビ＝対象外**。
+- **✅2026-09-02 ②カバー率シート 用法行の古い数字を修正**＝シート改名(単語×大問カバー率→② カバー率)で `update_usage_coverage.py` が黙って失敗し行51が299問/14%のまま固着していた。スクリプトをシート名両対応＋真の母数/真カバー率(I/J列)書込みに直し再実行→**N3用法 F51=28%(595/2145)・I51=595**(600問中5問が下級語=包む/滑る/並べる/薄い/温い→N4/N5行へ計上)。姉妹スクリプト3本(synonym/vocab/grammar coverage)も同改名バグを両対応で修正。
+- **✅2026-09-02 OTA配信済み（usage_N3消しゴム修正＋再ルビ7ファイル）＝commit `c4dcdb1d`・content検証17/17緑・push→Pages run 33569158301。`tools/reruby/`の作業物掃除済(prepare/apply温存)。この一連(カバー率修正・再ルビ・配信)クローズ。**
+- **✅2026-09-02 翻訳ズレ（日本語改定で en/ne 訳が古いまま）検知＋修正＋番人 完了（未commit・未配信）**＝新ツール`tools/trans_staleness.py`(Git履歴照合＋機械チェック・ふりがな/数字ゆれは無視)で読解の古い訳 en43/ne46=**89単位**を検出→Opusサブエージェント1体で現在の日本語に再翻訳(選択肢43×en/ne・本文3×ne・位置対応/①②③④維持を機械検証0エラー)→content4ファイル(dokkai choubun/naiyou_chu/naiyou_tan N4/N5)へ差分最小適用(改行コードはファイル毎保持)。番人`src/data/exam/transStaleness.test.ts`(package.json登録済)＋種`src/data/exam/transSrcHash.json`(`--bless`で現状クリーン=借金0)。ツールは作業ツリーも最新状態として取込む(未コミット修正を反映)。実証済=日本語だけ改定→番人が赤。**費用¥0(Claude/Opus枠・有料API不使用)**。**残＝OTA配信のみ（`tools\publish-content.ps1`＝manifest再生成+commit+push・outward・承認待ち）**。正本メモリ=[[trans-staleness-guard]]。
+- **✅2026-09-02 各大問「本文対訳(en/ne)」付与プロジェクト 始動＝①文字語彙の1大問目「文脈規定」完了（未commit・未配信）**。正本＝`memory/trans-daimon-inflight.md`。方針: 文法(文章の文法)/読解(内容理解短中長)以外を対象に、本文＋文の選択肢のみ en/ne 化(解説は訳さず削除)・表示=回答後に本文下。順=①文字語彙→②文法→③聴解。文脈規定3774問(通常+模試)をGemini2.5Flashで対訳→content投入・解説削除・languages=en/ne・表示コード実装(quiz.ts/daimon.ts/rehydrate.ts/index.ts/QuizScreen＋i18n quiz.sentence_meaning)・テスト32緑・manifest再生成・④Excel(模試列新設/サブ行削除/文脈規定100%)。**実費≈¥87**。
+- **★次の一手＝文字語彙の次の大問へ（表記/漢字読み/言い換え/用法）。手順の正本＝`memory/trans-daimon-inflight.md`「★次の大問の進め方」節**（大問ごとの本文フィールド差異・選択肢を訳す大問=言い換え/用法・DAIMON設定追加→表示結線→dry-run/apply/write→解説削除→rebuild→④Excel）。有料だが文字語彙全体でも¥1000未満見込み(超えたらD1承認)。push/build/OTA配信は別途明示指示待ち。※旧残置(カバー率 update_*_coverage.py 4本＋②カバー率シート)は content外ゆえ未commit可。
+- **✅2026-09-02 異文字混入 横展開チェック済**＝全content JSONのJA表示欄を機械スキャン→混入は `N3-V-Y-0458`(usage_N3.json)の「消しゴム」がグジャラート文字મに化けた1件のみ→**修正済**（ゴ**ム**へ）。韓国語0187由来のハングル/キリル/デーヴァナーガリー等の残存=0。①②③(丸数字)は選択肢番号で正常。scan=`scratchpad/scan.py`。
+- **✅2026-09-02 暴走クリップ尺ガード実装済**＝大問×レベルの平均尺*1.5超を自動NG検知。ベースライン=`問題/tools/choukai/duration_baseline.json`（`build_duration_baseline.py`で更新）。`gen_choukai_json.py`に検知ゲート＋暴走一覧`memory/choukai_runaway.txt`出力。**再生成は既定オフ（TTS自動リトライ厳禁=[[tts-no-retry-single-call]]）＝`--regen-runaway`指定時のみ各1回だけ作り直す**（ユーザー決定=手動が既定）。旧11.5分暴走(690s)は閾値82sで確実に捕捉。
 - 言い換え(synonym)「正解と誤答の 品詞＋形 一致」修正＝**N3完了（2026-09-01・ユーザーレビュー反映済＝0178/0195再修正）**。277候補→Opus7体＋手修正5で各問を形一致の誤答3つに絞込・OTA再生成・テスト緑・一意性Excel(通常N3)で今回修正107問を緑塗り。**残＝N4/N5(文選択形式・語抽出の別実装)未着手／push・OTA公開は別承認**。正本＝`memory/言い換え形一致-inflight.md`。
   - ルール＝正解と全誤答を「品詞＋形(語尾)」まで揃える（揃わないと正解が浮いてバレる）。目標形＝正解の形。メモリ [[synonym-answer-distractor-same-pos-and-form]]。
   - 検出＝`tools/synonym_form_check.py`（無料・fugashi下ふるい）。**N3で形不一致候補460問**（要LLM確定＝上振れ可能性）。N3=語選択/N4N5=文選択(未対応)。

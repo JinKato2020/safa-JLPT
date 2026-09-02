@@ -17,12 +17,18 @@ export function rehydrateBanks(files: Record<string, Any>) {
   const krMap = (it: Any, level: string) => ({ ...stripI18n(it), level, daimon: 'kanji_read' });
   const KANJI_READ_BANK = bankItems(files, 'kanji_read', krMap);              // 学習(通常)
   const KANJI_READ_MOCK = bankItems(files, 'kanji_read', krMap, true);        // 模試専用プール(初見)
-  const ogMap = (it: Any, level: string) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain });
+  const ogMap = (it: Any, level: string) => ({ ...stripI18n(it), level }); // 表記の解説/母語訳は廃止(2026-09-02)
   const ORTHOGRAPHY_BANK = bankItems(files, 'orthography', ogMap);           // 学習(通常)
   const ORTHOGRAPHY_MOCK = bankItems(files, 'orthography', ogMap, true);     // 模試専用プール(初見)
-  const CONTEXT_BANK = bankItems(files, 'context', (it, level) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain }));
-  const CONTEXT_MOCK = bankItems(files, 'context', (it, level) => ({ ...stripI18n(it), level, explain: it.i18n?.ja?.explain, explainNe: it.i18n?.ne?.explain }), true); // 模試専用プール(初見)
-  const syMap = (it: Any, level: string) => ({ ...stripI18n(it), level, reason: it.i18n?.ja?.explain, reasonNe: it.i18n?.ne?.explain });
+  // 文脈規定は本文対訳(i18n.en/ne.prompt=空所を答えで埋めた完成文の訳)を回答後に表示。解説は廃止(2026-09-02)。
+  const cxMap = (it: Any, level: string) => ({ ...stripI18n(it), level, promptEn: it.i18n?.en?.prompt, promptNe: it.i18n?.ne?.prompt });
+  const CONTEXT_BANK = bankItems(files, 'context', cxMap);
+  const CONTEXT_MOCK = bankItems(files, 'context', cxMap, true); // 模試専用プール(初見)
+  // 言い換え(synonym): 解説は廃止。回答後の復習用に本文/答え/選択肢の対訳(en/ne)を復元(2026-09)。choicesEn/Ne は content の choices と同順。
+  const syMap = (it: Any, level: string) => ({ ...stripI18n(it), level,
+    sentenceEn: it.i18n?.en?.sentence, sentenceNe: it.i18n?.ne?.sentence,
+    answerEn: it.i18n?.en?.answer, answerNe: it.i18n?.ne?.answer,
+    choicesEn: it.i18n?.en?.choices, choicesNe: it.i18n?.ne?.choices });
   const SYNONYM_BANK = bankItems(files, 'synonym', syMap);              // 学習(通常)
   const SYNONYM_MOCK = bankItems(files, 'synonym', syMap, true);        // 模試専用プール(初見)
   // 全大問が「大問×レベル=1ファイル」構成(content/problems/<section>/<daimon>_<level>.json)。
@@ -31,10 +37,12 @@ export function rehydrateBanks(files: Record<string, Any>) {
   // 文脈規定は moji_goi/context_*.json のみ、文章の文法は passage_grammar_*.json のセット形式で持つ。
   const BANK_DAIMON = ['usage', 'grammar_form', 'order'] as const;
   const KNOWLEDGE_BANK = BANK_DAIMON.flatMap((daimon) =>
-    // order(文の組み立て)は回答後表示用に「正しい文(ja)＋母語の意味(en/ne)」を i18n.{lang}.explain から復元。
-    bankItems(files, daimon, (it, level) => ({ ...stripI18n(it), level, daimon, explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain })));
+    // order(文の組み立て)=「正しい文(ja)＋母語の意味(en/ne)」を i18n.{lang}.explain から復元。
+    // 用法(usage)=回答後に「正解の文の意味(en/ne)」を i18n.{lang}.answer から復元(誤答は訳さない=2026-09)。
+    // 穴埋め(grammar_form)=回答後に「完成文の意味(en/ne)」を i18n.{lang}.prompt から復元(選択肢=文法パーツは訳さない=2026-09)。
+    bankItems(files, daimon, (it, level) => ({ ...stripI18n(it), level, daimon, explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain, answerEn: it.i18n?.en?.answer, answerNe: it.i18n?.ne?.answer, promptEn: it.i18n?.en?.prompt, promptNe: it.i18n?.ne?.prompt })));
   // 用法(⑤)の模試専用プール(初見)。学習の KNOWLEDGE_BANK からは pool='mock' が除外されるので別に取り出す。
-  const USAGE_MOCK = bankItems(files, 'usage', (it, level) => ({ ...stripI18n(it), level, daimon: 'usage', explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain }), true);
+  const USAGE_MOCK = bankItems(files, 'usage', (it, level) => ({ ...stripI18n(it), level, daimon: 'usage', explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain, answerEn: it.i18n?.en?.answer, answerNe: it.i18n?.ne?.answer }), true);
   // 文法形式判断(⑥)の模試専用プール(初見)。学習の KNOWLEDGE_BANK からは pool='mock' が除外されるので別に取り出す。
   const GRAMMAR_FORM_MOCK = bankItems(files, 'grammar_form', (it, level) => ({ ...stripI18n(it), level, daimon: 'grammar_form', explain: it.i18n?.ja?.explain, explainEn: it.i18n?.en?.explain, explainNe: it.i18n?.ne?.explain }), true);
   // 組み立て(⑦)の模試専用プール(初見)。学習の KNOWLEDGE_BANK からは pool='mock' が除外されるので別に取り出す。回答後表示の正しい文は i18n.ja.explain から復元(学習の order と同じ)。

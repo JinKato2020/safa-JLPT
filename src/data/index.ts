@@ -264,7 +264,7 @@ export const KANJI_READ_BANK = _R.KANJI_READ_BANK as KanjiReadBankItem[];
 // 模試専用プール(初見の別文・通常学習には出さない)。同じ語(vocabId)に別sentenceを持つ。MockScreenが exam でのみ使う。
 export const KANJI_READ_MOCK = _R.KANJI_READ_MOCK as KanjiReadBankItem[];
 // 文脈規定(大問3)の固定問題集。id=cx:<vocabId>、choices=誤答3(正解は実行時にanswerを先頭付与)。
-export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; verified?: boolean; }
+export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; promptEn?: string; promptNe?: string; verified?: boolean; }
 export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];
 export const CONTEXT_MOCK = _R.CONTEXT_MOCK as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
@@ -276,7 +276,7 @@ export const CONTEXT_MOCK = _R.CONTEXT_MOCK as ContextBankItem[];
 // pattern=作問の型。adv=副詞・疑問詞(ちょうど/どう/なぜ/もう/大変…)。実データの一定数がこれで、
 // 型に無いと生成役が adj へ寄せ、adj の「正解の対義語を1つ入れる」規則が副詞に適用されて非文になる。
 export type SynonymPattern = 'noun' | 'adj' | 'adv' | 'verb' | 'hypernym' | 'negation_cross' | 'perspective_cross';
-export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; verified?: boolean; stem?: string; pattern?: SynonymPattern; }
+export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; verified?: boolean; stem?: string; pattern?: SynonymPattern; sentenceEn?: string; sentenceNe?: string; answerEn?: string; answerNe?: string; choicesEn?: string[]; choicesNe?: string[]; }
 export const SYNONYM_BANK = _R.SYNONYM_BANK as SynonymBankItem[];
 // 言い換え(④)の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う。
 export const SYNONYM_MOCK = _R.SYNONYM_MOCK as SynonymBankItem[];

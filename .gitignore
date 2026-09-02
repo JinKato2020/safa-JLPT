@@ -71,3 +71,6 @@ data-build/shots/raw_en/
 /言い換え類義_*.xlsx
 # 一意性チェックの確認用Excel(quality_excel.pyで再生成可・QA用・公開repoに入れない)
 /一意性チェック_*.xlsx
+
+# 翻訳ズレ検知などの生成レポート(コミット不要)
+tools/out/

@@ -12,10 +12,11 @@ test('checkIdsUnique: 重複を検出', () => {
   assert.deepEqual(checkIdsUnique([a, b]), ['x']);
   assert.deepEqual(checkIdsUnique([a]), []);
 });
-test('checkLangCompleteness: 欠けた訳を列挙', () => {
+test('checkLangCompleteness: 解説/訳の必須は全大問で廃止(translate:[])ゆえ空', () => {
+  // 2026-09-02: context/orthography/synonym の explain 必須を撤廃。translate が空なので欠落検出は起きない。
+  // 解説・翻訳の不要方針は src/data/content/explainTransPolicy.test.ts が正本。
   const file = { ...f('context', 'N4', [{ id: 'x', i18n: { ja: { explain: 'a' } } }]), languages: ['ja', 'ne'] } as ContentFile;
-  const miss = checkLangCompleteness(file, ['ja', 'ne']);
-  assert.deepEqual(miss, ['x#ne#explain']);
+  assert.deepEqual(checkLangCompleteness(file, ['ja', 'ne']), []);
 });
 test('checkLangCompleteness: translate空の大問はスキップ', () => {
   const file = f('kanji_read', 'N5', [{ id: 'k', i18n: {} }]);

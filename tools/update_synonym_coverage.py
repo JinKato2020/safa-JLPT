@@ -33,7 +33,7 @@ for lv in ('N5', 'N4', 'N3'):
 trueCov = {lv: len(covered[lv] & {vid for vid, o in poss.items() if o.get('p') == 1 and lvlOf.get(vid) == lv}) for lv in covered}
 
 wb = load_workbook(XLSX)
-ws = wb['単語×大問カバー率']
+ws = wb['② カバー率' if '② カバー率' in wb.sheetnames else '単語×大問カバー率']
 I, J = 9, 10  # 列I=真の母数, 列J=真のカバー率
 # ヘッダ行(単語種別で始まる)に列見出しを付ける
 for r in range(1, ws.max_row + 1):

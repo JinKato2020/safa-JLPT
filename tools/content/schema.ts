@@ -25,9 +25,9 @@ export type DaimonSpec = { daimon: string; prefix: string; folder: 'moji_goi' | 
 // 文字語彙・文法(単票バンク系)。読解/聴解/文章の文法はネスト構造のため個別処理(migrate側)。
 export const DAIMON_SPEC: DaimonSpec[] = [
   { daimon: 'kanji_read', prefix: 'kanji_read', folder: 'moji_goi', neutral: ['sentence', 'underline', 'answer', 'choices'], translate: [] },
-  { daimon: 'orthography', prefix: 'orthography', folder: 'moji_goi', neutral: ['sentence', 'underline', 'answer', 'choices'], translate: ['explain'], neField: 'explainNe' },
-  { daimon: 'context', prefix: 'context', folder: 'moji_goi', neutral: ['prompt', 'question', 'answer', 'choices'], translate: ['explain'], neField: 'explainNe' },
-  { daimon: 'synonym', prefix: 'synonym', folder: 'moji_goi', neutral: ['sentence', 'underline', 'word', 'answer', 'choices'], translate: ['explain'], neField: 'reasonNe' },
+  { daimon: 'orthography', prefix: 'orthography', folder: 'moji_goi', neutral: ['sentence', 'underline', 'answer', 'choices'], translate: [], neField: 'explainNe' }, // 解説・母語訳は廃止(2026-09-02)。読み/表記は下線語のデコード課題ゆえ訳不要。
+  { daimon: 'context', prefix: 'context', folder: 'moji_goi', neutral: ['prompt', 'question', 'answer', 'choices'], translate: [] }, // 解説は廃止(2026-09-02)。対訳は本文(i18n.en/ne.prompt)で任意。
+  { daimon: 'synonym', prefix: 'synonym', folder: 'moji_goi', neutral: ['sentence', 'underline', 'word', 'answer', 'choices'], translate: [] }, // 解説は廃止(2026-09-02)。
   // 用法/文法形式/組み立ては現状 解説データ無し(将来 i18n.<lang>.explain を追加)。今は訳必須にしない。
   // ★neutral には BankUnit(data/daimon.ts)が要るフィールドを漏らさず入れること。
   //   pointId … saveRefForBank が文法idの逆引きに使う。落とすと学習記録が保存されない。

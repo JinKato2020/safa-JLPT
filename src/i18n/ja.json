@@ -1398,6 +1398,9 @@
   "cat.expression": "あいさつ・表現",
   "cat.function": "機能語",
   "quiz.correct_sentence": "正しい文",
+  "quiz.sentence_meaning": "意味",
+  "quiz.answer_meaning": "正解の文の意味",
+  "quiz.choice_meanings": "選択肢の意味",
   "coach.mock_tap_hint": "タップで各回の成績表を見る",
   "kform.prompt": "意味・読みに合う正しい漢字はどれ？",
   "kform.empty": "この級では形の弁別問題がまだありません。"
