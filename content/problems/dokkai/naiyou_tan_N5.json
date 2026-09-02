@@ -42,19 +42,19 @@
       "ne": {
        "q": "B भोलि A लाई कहाँ पर्खिरहेको छ?",
        "choices": [
-        "एक पटकको प्रवेश",
-        "विद्यालयको क्यान्टिन",
-        "ए को डेस्क",
+        "पहिलो तलाको ढोकाको छेउ",
+        "विद्यालयको भोजनालय",
+        "A को टेबल",
         "१२ बजेको बस"
        ]
       },
       "en": {
        "q": "Where will Bさん wait for Aさん tomorrow?",
        "choices": [
-        "Entrance on the 1st floor",
-        "School cafeteria",
+        "At the first-floor door",
+        "The school cafeteria",
         "A's desk",
-        "12 o'clock bus"
+        "The 12 o'clock bus"
        ]
       }
      }
@@ -100,19 +100,19 @@
       "ne": {
        "q": "भोलि के लिएर जाने?",
        "choices": [
-        "पेन्सिल र इरेजर",
+        "रबर र पेन्सिल",
         "शब्दकोश र जापानी किताब",
-        "परीक्षाको किताब र नोटबुक",
+        "परीक्षाको किताब र कापी",
         "पेन्सिल र शब्दकोश"
        ]
       },
       "en": {
        "q": "What should I bring tomorrow?",
        "choices": [
-        "Pencil and eraser",
-        "Dictionary and Japanese book",
-        "Test book and notebook",
-        "Pencil and dictionary"
+        "An eraser and a pencil",
+        "A dictionary and a Japanese book",
+        "The test book and a notebook",
+        "A pencil and a dictionary"
        ]
       }
      }
@@ -158,18 +158,18 @@
       "ne": {
        "q": "A भोलि किन जान सक्दैन?",
        "choices": [
-        "किनभने काम छ",
-        "किनभने बिरामी छ",
-        "किनभने यात्रामा जाँदैछ",
-        "किनभने साथी आउँदैछ"
+        "काम परेकाले",
+        "बिरामी भएकाले",
+        "यात्रामा जाने भएकाले",
+        "साथी आउने भएकाले"
        ]
       },
       "en": {
        "q": "Why can't Mr./Ms. A go tomorrow?",
        "choices": [
-        "Because I have work",
-        "Because I'm sick",
-        "Because I'm going on a trip",
+        "Because they have work",
+        "Because they are sick",
+        "Because they are going on a trip",
         "Because a friend is coming"
        ]
       }
@@ -274,18 +274,18 @@
       "ne": {
        "q": "A अहिले कहाँ छ?",
        "choices": [
-        "स्टेशन भित्रको क्याफे",
-        "स्टेशन अगाडिको पसल",
-        "स्टेशन भित्रको पसल",
+        "स्टेसन भवनभित्रको क्याफे",
+        "स्टेसन अगाडिको पसल",
+        "स्टेसनभित्रको पसल",
         "पानी परिरहेको बाहिर"
        ]
       },
       "en": {
        "q": "Where is Mr./Ms. A now?",
        "choices": [
-        "Cafe inside the station",
-        "Shop in front of the station",
-        "Shop inside the station",
+        "A cafe in the station building",
+        "A shop in front of the station",
+        "A shop inside the station",
         "Outside in the rain"
        ]
       }
@@ -390,19 +390,19 @@
       "ne": {
        "q": "भोलि के लिएर जानुपर्छ?",
        "choices": [
-        "पेन्सिल र इरेजर",
-        "परीक्षाको किताब र नोटबुक",
-        "कक्षाकोठाको चाबी",
+        "रबर र पेन्सिल",
+        "परीक्षाको किताब र कापी",
+        "कक्षाकोठाको साँचो",
         "पेन्सिल र पैसा"
        ]
       },
       "en": {
        "q": "What should I bring tomorrow?",
        "choices": [
-        "Pencil and eraser",
-        "Test book and notebook",
-        "Classroom key",
-        "Pencil and money"
+        "An eraser and a pencil",
+        "The test book and a notebook",
+        "The classroom key",
+        "A pencil and money"
        ]
       }
      }
@@ -506,18 +506,18 @@
       "ne": {
        "q": "बिहानको बस कति बजे छुट्छ?",
        "choices": [
-        "8 बजे र 9 बजे",
-        "12 बजे",
-        "8 बजे मात्र",
-        "9 बजे र 12 बजे"
+        "९ बजे र ८ बजे",
+        "१२ बजे",
+        "८ बजे मात्र",
+        "९ बजे र १२ बजे"
        ]
       },
       "en": {
        "q": "What time does the morning bus leave?",
        "choices": [
-        "8 o'clock and 9 o'clock",
+        "9 o'clock and 8 o'clock",
         "12 o'clock",
-        "8 o'clock only",
+        "Only 8 o'clock",
         "9 o'clock and 12 o'clock"
        ]
       }
@@ -680,17 +680,17 @@
       "ne": {
        "q": "कहाँ भेट्ने हो?",
        "choices": [
-        "स्टेशनको उत्तरी निकास",
-        "सिनेमा हल भित्र",
-        "स्टेशनको दक्षिणी निकास",
-        "बी को घर"
+        "स्टेसनको उत्तरी गेट",
+        "सिनेमा हलभित्र",
+        "स्टेसनको दक्षिणी गेट",
+        "B को घर"
        ]
       },
       "en": {
        "q": "Where will they meet?",
        "choices": [
         "The north exit of the station",
-        "Inside the movie theater",
+        "Inside the cinema",
         "The south exit of the station",
         "B's house"
        ]
@@ -796,19 +796,19 @@
       "ne": {
        "q": "के लिएर जाने हो?",
        "choices": [
-        "बेन्टो र पेय पदार्थ",
+        "पेय र बाकसको खाना",
         "पहाडको किताब र नक्सा",
         "विद्यालयको छाता र कोट",
-        "पैसा र पेय पदार्थ"
+        "पैसा र पेय"
        ]
       },
       "en": {
        "q": "What should they bring?",
        "choices": [
-        "Bento and drinks",
-        "Mountain books and maps",
-        "School umbrella and coat",
-        "Money and drinks"
+        "A drink and a boxed lunch",
+        "A mountain book and a map",
+        "A school umbrella and coat",
+        "Money and a drink"
        ]
       }
      }
@@ -970,19 +970,19 @@
       "ne": {
        "q": "C-सान किन समस्यामा हुनुहुन्छ?",
        "choices": [
-        "छाता बिर्सेकोले",
-        "ए-सान नभएकोले",
-        "पानी रोकिएकोले",
-        "प्रवेशद्वार नभएकोले"
+        "छाता नभएकाले",
+        "A नभएकाले",
+        "पानी रोकिएकाले",
+        "प्रवेशद्वार नभएकाले"
        ]
       },
       "en": {
        "q": "Why is C-san in trouble?",
        "choices": [
-        "Because I forgot my umbrella",
-        "Because A is not here",
+        "Because they don't have an umbrella",
+        "Because A is not there",
         "Because the rain stopped",
-        "Because there is no entrance hall"
+        "Because there is no entrance"
        ]
       }
      }
@@ -1028,17 +1028,17 @@
       "ne": {
        "q": "「じてんしゃおきば」 कहाँ छ?",
        "choices": [
-        "स्टेशनको पूर्वपट्टि",
-        "स्टेशनको पश्चिमपट्टि",
+        "स्टेसनको पूर्वतिर",
+        "स्टेसनको पश्चिमपट्टि",
         "यहाँ",
-        "स्टेशन भित्र"
+        "स्टेसनभित्र"
        ]
       },
       "en": {
        "q": "Where is the bicycle parking lot?",
        "choices": [
-        "East side of the station",
-        "West side of the station",
+        "Toward the east of the station",
+        "The west side of the station",
         "Here",
         "Inside the station"
        ]
@@ -1318,10 +1318,10 @@
       "ne": {
        "q": "पहिलो पटक आउने व्यक्तिले रिसेप्सनमा के गर्छ?",
        "choices": [
-        "नाम लेख्छ",
-        "पैसा तिर्छ",
-        "कोठामा प्रवेश गर्छ",
-        "फोन गर्छ"
+        "नाम लेख्ने",
+        "पैसा तिर्ने",
+        "कोठामा पस्ने",
+        "फोन गर्ने"
        ]
       },
       "en": {
@@ -1434,16 +1434,16 @@
       "ne": {
        "q": "के किन्नुहुन्छ?",
        "choices": [
-        "अण्डा र रोटी र दूध",
-        "तरकारी र रोटी र दूध",
-        "अण्डा र तरकारी र दूध",
-        "रोटी र अण्डा र वालेट"
+        "अण्डा, दूध र पाउरोटी",
+        "तरकारी, पाउरोटी र दूध",
+        "अण्डा, तरकारी र दूध",
+        "पाउरोटी, अण्डा र पर्स"
        ]
       },
       "en": {
        "q": "What will you buy?",
        "choices": [
-        "Eggs, bread, and milk",
+        "Eggs, milk, and bread",
         "Vegetables, bread, and milk",
         "Eggs, vegetables, and milk",
         "Bread, eggs, and a wallet"
@@ -1550,19 +1550,19 @@
       "ne": {
        "q": "B-सान किन ढिलो हुनुहुन्छ?",
        "choices": [
-        "किनभने ट्रेन ढिलो भयो",
-        "कफी पिउन मन लागेकोले",
-        "किनभने मैले वाचा बिर्सेको थिएँ",
-        "किनभने पसल भीडभाड थियो"
+        "रेल ढिलो भएकाले",
+        "कफी पिउन चाहेकाले",
+        "वाचा बिर्सेकाले",
+        "पसल भीडभाड भएकाले"
        ]
       },
       "en": {
        "q": "Why is Ms. B late?",
        "choices": [
-        "Because the train is delayed.",
-        "Because she wants to drink coffee.",
-        "Because she forgot the appointment.",
-        "Because the store is crowded."
+        "Because the train is late",
+        "Because they want to drink coffee",
+        "Because they forgot the promise",
+        "Because the shop is crowded"
        ]
       }
      }
@@ -1666,19 +1666,19 @@
       "ne": {
        "q": "यो 「アルバイト」 कति बजे सुरु हुन्छ?",
        "choices": [
-        "रातको १० बजे",
+        "राति १० बजे",
         "बिहान ६ बजे",
         "११०० येन",
-        "स्वस्थ हुँदा"
+        "स्वस्थ भएको बेला"
        ]
       },
       "en": {
        "q": "What time does this part-time job start?",
        "choices": [
-        "10 PM",
-        "6 AM",
-        "1100 yen",
-        "When I'm healthy"
+        "10 o'clock at night",
+        "6 o'clock in the morning",
+        "1,100 yen",
+        "When feeling well"
        ]
       }
      }
@@ -1840,9 +1840,9 @@
       "ne": {
        "q": "कोठाको साँचो कहाँ छ?",
        "choices": [
-        "पोस्टबक्स भित्र",
-        "भान्सामा",
-        "B को हातमा",
+        "पत्रपेटीभित्र",
+        "भान्साघर",
+        "B को हात",
         "घरको अगाडि"
        ]
       },
@@ -1850,7 +1850,7 @@
        "q": "Where is the room key?",
        "choices": [
         "Inside the mailbox",
-        "Kitchen",
+        "The kitchen",
         "B's hand",
         "In front of the house"
        ]
@@ -2074,17 +2074,17 @@
        "choices": [
         "५०० येनको उपहार",
         "१००० येनको उपहार",
-        "खाना र पेय पदार्थ",
+        "खाना र पेय",
         "क्रिसमस कार्ड"
        ]
       },
       "en": {
        "q": "What should I bring to the meeting?",
        "choices": [
-        "500 yen present",
-        "1000 yen present",
-        "Food and drink",
-        "Christmas card"
+        "A 500-yen gift",
+        "A 1,000-yen present",
+        "Food and drinks",
+        "A Christmas card"
        ]
       }
      }
@@ -2130,19 +2130,19 @@
       "ne": {
        "q": "B-सानले के अर्डर गर्नुभयो?",
        "choices": [
-        "सामग्रीहरू प्रतिलिपि गर्ने",
-        "कोठालाई तेस्रो तल्लामा सार्ने",
+        "कागजातको प्रतिलिपि बनाउने",
+        "कोठा तेस्रो तलामा सार्ने",
         "२ बजे बैठक गर्ने",
-        "सामग्रीहरू तेस्रो तल्लामा लैजाने"
+        "कागजात तेस्रो तलामा लैजाने"
        ]
       },
       "en": {
        "q": "What did B ask for?",
        "choices": [
-        "Copy the materials",
-        "Change the room to the 3rd floor",
-        "Have a meeting at 2 o'clock",
-        "Take the materials to the 3rd floor"
+        "Make copies of the documents",
+        "Change the room to the third floor",
+        "Hold the meeting at 2 o'clock",
+        "Take the documents to the third floor"
        ]
       }
      }
@@ -2246,8 +2246,8 @@
       "ne": {
        "q": "सोमबार कहाँ जानुहुन्छ?",
        "choices": [
-        "कम्पनीको पहिलो तल्ला",
-        "स्वागत कक्षको दोस्रो तल्ला",
+        "कम्पनीको पहिलो तला",
+        "रिसेप्सन भएको दोस्रो तला",
         "९ बजेको कोठा",
         "सुटको पसल"
        ]
@@ -2255,10 +2255,10 @@
       "en": {
        "q": "Where will you go on Monday?",
        "choices": [
-        "First floor of the company",
-        "Second floor of the reception desk",
-        "9 o'clock room",
-        "Suit shop"
+        "The first floor of the company",
+        "The reception on the second floor",
+        "The 9 o'clock room",
+        "The suit shop"
        ]
       }
      }
@@ -2363,18 +2363,18 @@
        "q": "रेल किन ढिलो भइरहेको छ?",
        "choices": [
         "दुर्घटनाका कारण",
-        "वर्षाका कारण",
+        "पानीका कारण",
         "बसका कारण",
-        "पश्चिम निकासका कारण"
+        "पश्चिमी गेटका कारण"
        ]
       },
       "en": {
        "q": "Why is the train delayed?",
        "choices": [
         "Because of an accident",
-        "Because of rain",
+        "Because of the rain",
         "Because of the bus",
-        "Because of the West Exit"
+        "Because of the west exit"
        ]
       }
      }
@@ -2420,19 +2420,19 @@
       "ne": {
        "q": "शुक्रबार के छ?",
        "choices": [
-        "B को जन्मदिन",
+        "B जन्मेको दिन",
         "C को जन्मदिन",
-        "केकको बिक्री",
+        "केकको सेल",
         "यात्रा"
        ]
       },
       "en": {
        "q": "What is there on Friday?",
        "choices": [
-        "B's birthday",
+        "The day B was born",
         "C's birthday",
-        "Cake sale",
-        "Travel"
+        "A cake sale",
+        "A trip"
        ]
       }
      }
@@ -2480,8 +2480,8 @@
        "choices": [
         "शनिबार र आइतबार",
         "सोमबार र मंगलबार",
-        "बुधबार र बिहिबार",
-        "बिहान 9 बजे र बेलुका 5 बजे"
+        "बुधबार र बिहीबार",
+        "बिहान ९ बजे र साँझ ५ बजे"
        ]
       },
       "en": {
@@ -2490,7 +2490,7 @@
         "Saturday and Sunday",
         "Monday and Tuesday",
         "Wednesday and Thursday",
-        "9 AM and 5 PM"
+        "9 a.m. and 5 p.m."
        ]
       }
      }
@@ -2594,7 +2594,7 @@
       "ne": {
        "q": "A-सानले के किन्छ?",
        "choices": [
-        "आलु र गाजर",
+        "गाजर र आलु",
         "मासु र प्याज",
         "करी र भात",
         "आलु र मासु"
@@ -2603,7 +2603,7 @@
       "en": {
        "q": "What will A buy?",
        "choices": [
-        "Potatoes and carrots",
+        "Carrots and potatoes",
         "Meat and onions",
         "Curry and rice",
         "Potatoes and meat"
@@ -2712,15 +2712,15 @@
        "choices": [
         "अर्को हप्ताको सोमबार",
         "अर्को हप्ताको मंगलबार",
-        "भोलि बिहान 11 बजेदेखि",
-        "आज बिहान 11 बजेदेखि"
+        "भोलि ११ बजेदेखि",
+        "आज ११ बजेदेखि"
        ]
       },
       "en": {
        "q": "When is the test now?",
        "choices": [
-        "Next Monday",
-        "Next Tuesday",
+        "Monday of next week",
+        "Tuesday of next week",
         "From 11 o'clock tomorrow",
         "From 11 o'clock today"
        ]
@@ -2826,19 +2826,19 @@
       "ne": {
        "q": "कति बजेदेखि कति बजेसम्म गाडी भित्र जान मिल्दैन?",
        "choices": [
-        "८ बजेदेखि ९ बजेसम्म",
-        "९ बजेदेखि १० बजेसम्म",
-        "बिहानभरि",
+        "बिहान ८ देखि ९ बजेसम्म",
+        "९ देखि १० बजेसम्म",
+        "बिहान भरि",
         "८ बजे मात्र"
        ]
       },
       "en": {
        "q": "From what time to what time are cars not allowed?",
        "choices": [
-        "From 8 to 9 o'clock",
-        "From 9 to 10 o'clock",
+        "8 to 9 in the morning",
+        "9 to 10 o'clock",
         "All morning",
-        "Only at 8 o'clock"
+        "Only 8 o'clock"
        ]
       }
      }
@@ -3116,17 +3116,17 @@
       "ne": {
        "q": "「びじゅつかん」को भित्र के गर्न सकिन्छ?",
        "choices": [
-        "फोटो खिच्नुहोस्",
-        "ठूलो स्वरमा बोल्नुहोस्",
-        "पिउनुहोस्",
-        "सामान बोक्नुहोस्"
+        "फोटो खिच्ने",
+        "ठूलो स्वरमा बोल्ने",
+        "पेय पिउने",
+        "सामान बोक्ने"
        ]
       },
       "en": {
        "q": "What is allowed to be done inside the museum?",
        "choices": [
-        "Take pictures",
-        "Speak in a loud voice",
+        "Take photos",
+        "Talk in a loud voice",
         "Drink beverages",
         "Carry luggage"
        ]
@@ -3174,8 +3174,8 @@
       "ne": {
        "q": "भोलिको बैठक कहाँ हुन्छ?",
        "choices": [
-        "स्टेशन नजिकको कफी पसल",
-        "स्टेशन अगाडिको रेस्टुरेन्ट",
+        "स्टेसन नजिकको क्याफे",
+        "स्टेसन अगाडिको रेस्टुरेन्ट",
         "कम्पनीको ठूलो कोठा",
         "१ बजेको बैठक कोठा"
        ]
@@ -3183,9 +3183,9 @@
       "en": {
        "q": "Where will tomorrow's meeting be held?",
        "choices": [
-        "A coffee shop near the station",
+        "A cafe near the station",
         "A restaurant in front of the station",
-        "The company's large room",
+        "A big room in the company",
         "The 1 o'clock meeting room"
        ]
       }
@@ -3233,16 +3233,16 @@
        "q": "भोलि बिहान यो पुस्तकालय कस्तो हुन्छ?",
        "choices": [
         "बन्द छ",
-        "सधैं खुला छ",
-        "किताबहरू उधारो लिन सकिन्छ",
+        "सधैं खुला हुन्छ",
+        "किताब सापटी लिन सकिन्छ",
         "१ बजे बन्द हुन्छ"
        ]
       },
       "en": {
        "q": "What about this library tomorrow morning?",
        "choices": [
-        "It's closed",
-        "It's always open",
+        "It is closed",
+        "It is always open",
         "You can borrow books",
         "It closes at 1 o'clock"
        ]
@@ -3464,8 +3464,8 @@
       "ne": {
        "q": "यस कक्षामा, आफैले तयार गर्ने चीजहरू के हुन्?",
        "choices": [
-        "सामानको पैसा",
-        "खाना पकाउने एप्रन",
+        "सामग्री किन्ने पैसा",
+        "पकाउने एप्रन",
         "टेबल र कुर्सी",
         "ठूलो भाँडो"
        ]
@@ -3473,10 +3473,10 @@
       "en": {
        "q": "What should you prepare yourself in this classroom?",
        "choices": [
-        "Money for ingredients",
-        "Cooking apron",
-        "Desk and chair",
-        "A large pot"
+        "Money to buy ingredients",
+        "A cooking apron",
+        "A desk and a chair",
+        "A big pot"
        ]
       }
      }
@@ -3522,19 +3522,19 @@
       "ne": {
        "q": "साइकल कहाँ पार्क गर्ने?",
        "choices": [
-        "दायाँको भण्डारण स्थान",
+        "दायाँको राख्ने ठाउँ",
         "पसलको अगाडि",
-        "ग्राहकको गाडी भित्र",
+        "ग्राहकको कारभित्र",
         "बायाँको प्रवेशद्वार"
        ]
       },
       "en": {
        "q": "Where should you park your bicycle?",
        "choices": [
-        "Right storage area",
-        "In front of the store",
+        "The right-side storage area",
+        "In front of the shop",
         "Inside the customer's car",
-        "Left entrance"
+        "The left entrance"
        ]
       }
      }
@@ -3580,19 +3580,19 @@
       "ne": {
        "q": "मेमो पढेको व्यक्तिले पसलमा के किन्छ?",
        "choices": [
-        "दूध र अण्डा",
+        "अण्डा र दूध",
         "पाउरोटी र अण्डा",
         "दूध र पाउरोटी",
-        "चकलेट र जुस"
+        "खाजा र जुस"
        ]
       },
       "en": {
        "q": "What will the person who read the memo buy at the store?",
        "choices": [
-        "Milk and eggs",
+        "Eggs and milk",
         "Bread and eggs",
         "Milk and bread",
-        "Sweets and juice"
+        "Snacks and juice"
        ]
       }
      }
@@ -3812,19 +3812,19 @@
       "ne": {
        "q": "यो व्यक्तिले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
        "choices": [
-        "चित्र बनाउन मन पर्छ",
+        "चित्र बनाउन मन पराउँछन्",
         "छिमेकी सहर टाढा छ",
-        "पार्क मन पर्दैन",
-        "गत हप्ता व्यस्त थिएँ"
+        "पार्क मन पराउँदैनन्",
+        "गएको हप्ता व्यस्त थियो"
        ]
       },
       "en": {
        "q": "What is the most important thing this person wants to say?",
        "choices": [
-        "I like to draw pictures",
-        "The neighboring town is far away",
-        "I dislike parks",
-        "I was busy last week"
+        "They like drawing pictures",
+        "The neighboring town is far",
+        "They dislike the park",
+        "Last week was busy"
        ]
       }
      }
@@ -3870,19 +3870,19 @@
       "ne": {
        "q": "दिउँसोको सेटको बारेमा, कुन सही छ?",
        "choices": [
-        "पेय पदार्थ सँगै आउँछ",
-        "रातमा पनि सेट खान सकिन्छ",
+        "पेय सँगै आउँछ",
+        "राति पनि सेट खान सकिन्छ",
         "केक सँगै आउँछ",
-        "३ बजेसम्म खुल्ला रहन्छ"
+        "३ बजेसम्म खुला हुन्छ"
        ]
       },
       "en": {
        "q": "Regarding the お昼の セット, which is correct?",
        "choices": [
-        "A drink is included",
+        "A drink comes with it",
         "You can eat the set even at night",
-        "Cake is included",
-        "It's open until 3 o'clock"
+        "A cake comes with it",
+        "It is open until 3 o'clock"
        ]
       }
      }
@@ -4276,19 +4276,19 @@
       "ne": {
        "q": "पिउनेकुरा किन्न चाहने व्यक्तिले के गर्छ?",
        "choices": [
-        "दोस्रो तल्लाको मेसिनबाट किन्छ",
-        "पैसा फेरि हालेर पर्खन्छ",
-        "पसलको मान्छेलाई बोलाउँछ",
-        "बाहिरको पसलमा जान्छ"
+        "दोस्रो तलाको मेसिनबाट किन्ने",
+        "फेरि पैसा हालेर पर्खने",
+        "पसलको कर्मचारीलाई बोलाउने",
+        "बाहिरको पसलमा जाने"
        ]
       },
       "en": {
        "q": "What should people who want to buy drinks do?",
        "choices": [
-        "Buy from the machine on the 2nd floor",
+        "Buy from the machine on the second floor",
         "Insert money again and wait",
-        "Call the store clerk",
-        "Go to an outside store"
+        "Call a shop staff member",
+        "Go to a shop outside"
        ]
       }
      }
@@ -4624,19 +4624,19 @@
       "ne": {
        "q": "आज, विद्यालयमा भात खानको लागि के गर्नुपर्छ?",
        "choices": [
-        "ओबेन्तोउ (खाजा) लिएर जाने",
-        "शिक्षकलाई भनेर क्यान्टिनमा खाने",
-        "घर फर्केर खाने",
+        "बाकसको खाना लैजाने",
+        "शिक्षकलाई भनेर भोजनालयमा खाने",
+        "घर गएर खाने",
         "केही नखाने"
        ]
       },
       "en": {
        "q": "What should you do to eat lunch at school today?",
        "choices": [
-        "Bring a bento box",
+        "Bring a boxed lunch",
         "Tell the teacher and eat in the cafeteria",
         "Go home and eat",
-        "Don't eat anything"
+        "Eat nothing"
        ]
       }
      }
@@ -4682,19 +4682,19 @@
       "ne": {
        "q": "फर्काइएको किताब कहाँ छ?",
        "choices": [
-        "प्रवेशद्वारको बाकसको माथि",
-        "टेबल भित्र",
-        "किताब राख्ने दराज",
+        "प्रवेशद्वारको बाकसमाथि",
+        "टेबलभित्र",
+        "किताबको र्‍याक",
         "प्रवेशद्वारको ढोका बाहिर"
        ]
       },
       "en": {
        "q": "Where are the returned books?",
        "choices": [
-        "On top of the box in the entranceway",
+        "On the box at the entrance",
         "Inside the desk",
-        "Bookshelf",
-        "Outside the entranceway door"
+        "The bookshelf",
+        "Outside the entrance door"
        ]
       }
      }
@@ -5088,19 +5088,19 @@
       "ne": {
        "q": "रेल किन ढिलो भइरहेको छ?",
        "choices": [
-        "अघिल्लो स्टेशनमा दुर्घटना भएकोले",
-        "यो अघिल्लो स्टेशनमा पानी धेरै परेकोले",
-        "धेरै मानिस भएकोले",
-        "बस नआएकोले"
+        "अघिल्लो स्टेसनमा दुर्घटना भएकाले",
+        "यसअघिको स्टेसनमा पानी बाक्लो भएकाले",
+        "मानिस धेरै भएकाले",
+        "बस नआएकाले"
        ]
       },
       "en": {
        "q": "Why is the train delayed?",
        "choices": [
         "Because there was an accident at the previous station",
-        "Because the rain became strong at the previous station",
+        "Because the rain got heavy at the station just before",
         "Because there are too many people",
-        "Because the bus isn't coming"
+        "Because the bus does not come"
        ]
       }
      }

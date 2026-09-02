@@ -158,17 +158,17 @@
       "ne": {
        "q": "भोलि पानी परेमा, कहाँ भेट्नुहुन्छ?",
        "choices": [
-        "स्टेशन अगाडिको चिया पसल",
+        "स्टेसन अगाडिको क्याफे",
         "पार्कको प्रवेशद्वार",
         "पुस्तकालयको छेउमा",
-        "स्टेशन भित्र"
+        "स्टेसनभित्र"
        ]
       },
       "en": {
        "q": "If it rains tomorrow, where will we meet?",
        "choices": [
-        "Coffee shop in front of the station",
-        "Park entrance",
+        "A cafe in front of the station",
+        "The park entrance",
         "Next to the library",
         "Inside the station"
        ]
@@ -390,19 +390,19 @@
       "ne": {
        "q": "भोलि लैजाने सामान कुन हो?",
        "choices": [
-        "लंच बक्स र पेय पदार्थ",
-        "छाता र लंच बक्स",
-        "पेय पदार्थ र छाता",
-        "लंच बक्स मात्र"
+        "दिउँसोको खाना र पेय",
+        "छाता र बाकसको खाना",
+        "पेय र छाता",
+        "बाकसको खाना मात्र"
        ]
       },
       "en": {
        "q": "What should I bring tomorrow?",
        "choices": [
-        "Lunch box and drink",
-        "Umbrella and lunch box",
-        "Drink and umbrella",
-        "Lunch box only"
+        "Lunch and a drink",
+        "An umbrella and a boxed lunch",
+        "A drink and an umbrella",
+        "Only a boxed lunch"
        ]
       }
      }
@@ -2594,17 +2594,17 @@
       "ne": {
        "q": "हराएको सामान सजिलै फेला पार्न के गर्ने?",
        "choices": [
-        "आफ्नो सामानमा नाम लेख्ने",
+        "सामानमा नाम लेख्ने",
         "अगाडिको दराज खुला छोड्ने",
-        "एक महिनाभन्दा बढी पर्खने",
-        "फेला परेमा तुरुन्तै फ्याँकिदिने"
+        "एक महिना नबित्दासम्म पर्खिरहने",
+        "भेट्नेबित्तिकै फालिदिने"
        ]
       },
       "en": {
        "q": "What should you do to make it easier for lost items to be found?",
        "choices": [
         "Write your name on your belongings",
-        "Leave the front cabinet open",
+        "Leave the front cupboard open",
         "Wait until a month has passed",
         "Throw it away as soon as you find it"
        ]
@@ -2654,17 +2654,17 @@
        "choices": [
         "नयाँ घरको अगाडि",
         "पुरानो घरको अगाडि",
-        "स्टेशनको अगाडि",
+        "स्टेसन अगाडि",
         "ट्रक कम्पनी"
        ]
       },
       "en": {
        "q": "Where should A-kun go on Saturday?",
        "choices": [
-        "In front of the new house",
+        "In front of the new home",
         "In front of the old house",
         "In front of the station",
-        "Trucking company"
+        "The truck company"
        ]
       }
      }
@@ -3000,19 +3000,19 @@
       "ne": {
        "q": "हतारमा भएका व्यक्तिले के गर्नुपर्छ?",
        "choices": [
-        "सामान्य भन्दा छिटो बस चढ्ने",
+        "सधैंको भन्दा एउटा अगाडिको बस चढ्ने",
         "निर्माण भइरहेको सडकमा हिँड्ने",
-        "अर्को हप्तासम्म बस पर्खने",
-        "ढिलो आउने बस प्रयोग नगर्ने"
+        "अर्को हप्ता नआउँदासम्म बस पर्खने",
+        "ढिलो आउने बस नचढ्ने"
        ]
       },
       "en": {
        "q": "What should people in a hurry do?",
        "choices": [
-        "Take an earlier bus than usual",
-        "Walk on the road where construction is taking place",
+        "Take the bus one earlier than usual",
+        "Walk on the road under construction",
         "Wait for the bus until next week",
-        "Do not use the bus that comes late"
+        "Don't take the bus that comes late"
        ]
       }
      }
@@ -3116,17 +3116,17 @@
       "ne": {
        "q": "यो एपले के गर्न सक्दैन?",
        "choices": [
-        "अरू मानिसहरूसँग अंक तुलना गर्ने",
-        "अध्ययनको समयलाई ग्राफमा देखाउने",
-        "आफ्नो रेकर्ड हेर्ने",
-        "कडा परिश्रम गरेको दिन जान्ने"
+        "अंकमा कसैसँग प्रतिस्पर्धा गर्नु",
+        "पढाइको समयलाई ग्राफमा बनाउनु",
+        "आफ्नै रेकर्ड हेर्नु",
+        "मेहनत गरेको दिन थाहा पाउनु"
        ]
       },
       "en": {
        "q": "What can't you do with this app?",
        "choices": [
-        "Comparing scores with others",
-        "Graphing study time",
+        "Competing with someone over scores",
+        "Making a graph of study time",
         "Looking at your own records",
         "Knowing the days you worked hard"
        ]
