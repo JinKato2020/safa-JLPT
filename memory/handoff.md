@@ -2,7 +2,9 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **🔧2026-09-03 聴解 音声↔台本 整合監査＝正本 `memory/audio-audit-inflight.md`**。課題理解(kadai)＝**完了**：①窓をアンカー方式に改修(`_audit_work\audit_kadai.py`)→②私(Opus)が21件精査→本物16/誤検出5確定(`_audit_work\kadai\CONFIRMED_regenerate.txt`)→③本物16の音声を退避(`_audit_work\old_audio_kadai_2026-09-03\`)して再生成(走行 bg=bl1p9ojku・要完了確認/実費報告)。⚠再生成は`gen_choukai_json.py --ids`が**カンマ区切り**＋`memory/choukai_gen_done.txt`から当該id除去が必要。**次=/clear後に他4大問の監査**：入力は`問題\音声チェック\{sokuji,point,hatsuwa,gaiyou}\`(manifest+moji済・永続)。point/gaiyouはaudit_kadai.py流用、sokuji/hatsuwaは短文+3択の別チェッカー(inflightに詳細)。壊れis音声のみ＝直すも音声のみ(テキスト/翻訳/配信は正しい)。
+- **▶2026-09-03 次の一手＝聴解対訳の“表示コード”をビルドで届ける（hatsuwa/sokujiの選択肢訳のため）。** content対訳は**OTA配信済**（commit fe3956f7・Pages run 33693119327＝point/gaiyou/hatsuwa/sokujiのcontent JSON）。ただし**hatsuwa/sokujiは設問文qが空**で、選択肢訳を表示するには`rehydrate.ts`のQ_TRANS取り込み緩和（q無しでもchoices拾う）が要る＝**未commitのコード変更**。OTA(content)だけでは旧アプリのrehydrateがchoicesを落とすので**発話/即時の選択肢訳は出ない**（台本/場面文の訳は旧コードでも出る）。→ **ビルドすれば選択肢訳が点灯**。ビルド未実施（never-build-without-explicit-order＝明示指示待ち）。同梱すべき非content変更＝`src/data/content/rehydrate.ts`・`src/data/exam/passageTransNe.test.ts`・`src/data/exam/transSrcHash.json`(番人baseline)・`tools/trans_daimon.py`・`tools/excel_signal_color.py`。文字語彙/文法/読解の対訳は既済。
+- **▶2026-09-03 Excel信号色を仕組み化**＝`tools/excel_signal_color.py`（許可シートのみ塗る/既存色消さない）＋PostToolUseフック`~/.claude/hooks/color-excel-after-write.mjs`（.xlsx保存で自動起動）。詳細=メモリ[[excel-signal-color-mechanism]]。以後Excel編集で色付け忘れは仕組みで防止。
+- **✅2026-09-03 聴解 音声監査＝全5大問 完了・配信済**。正本 `memory/audio-audit-inflight.md`。kadai16件＋他4大問4件(N3-C-P-0148/N3-C-G-0014/N3-C-G-0017/N5-C-S-0199)の音声焼き付き不良を作り直し(計¥約83)。監査ツール=`_audit_work\audit_kadai.py`(kadai)/`audit_choukai.py <daimon>`(他4)。旧mp3退避=`_audit_work\old_audio_*`。**ビルド v1.1.31(2898) dispatch済**(commit 1c8722f0・iOS+Android・-NoWatch=結果監視しない)＝音声＋課題理解対訳表示コードを同梱配信。
 
 - **✅2026-09-02 対訳(en/ne)追加プロジェクト 完了（未commit/未配信）＝次は配信の明示指示待ち**。正本=`memory/trans-synonym-usage-inflight.md`。
   - **問題翻訳(OTA配信物)**: 用法=正解文の対訳(1271問・¥26) / 言い換え=本文＋選択肢の対訳(2405問・¥192・誤答も正当な語ゆえ訳) / 穴埋め=完成文の対訳(1647問・¥36)。ツール=`tools/trans_daimon.py`にsynonym/usage(struct)・grammar_form(single)追加。manifest再生成(113files)・staleness baseline再生成・tsc緑・75テスト緑。
@@ -406,14 +408,14 @@
 - a6e2e5da70893cd09 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/audio-audit-inflight.md
-- memory/choukai_gen_log.txt
-- memory/choukai_audio_rec.json
-- memory/choukai_runaway.txt
-- memory/choukai_gen_done.txt
-- assets/audio/N5-C-S-0199.mp3
-- 問題/聴解/N5/_master/4_即時応答/N5-C-S-0199-4.wav
-- 問題/聴解/N5/_master/4_即時応答/N5-C-S-0199-3.wav
+- memory/~$在庫・模試ストックまとめ.xlsx
+- memory/session-summary-LATEST.md
+- memory/handoff.md
+- memory/在庫・模試ストックまとめ.xlsx
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- memory/在庫問題数.txt
+- memory/trans-choukai-kadai-inflight.md
 
-_自動更新: 2026-09-03 07:56_
+_自動更新: 2026-09-03 19:21_
 <!-- AUTO:END -->

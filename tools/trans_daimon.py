@@ -82,6 +82,16 @@ DAIMON = {
     'usage':   {'glob': 'content/problems/moji_goi/**/usage_*.json',    'texts': usage_texts,   'kind': 'struct'},
     'grammar_form': {'glob': 'content/problems/bunpou/**/grammar_form_*.json', 'texts': grammar_form_texts, 'field': 'prompt', 'keep': False, 'kind': 'single'},
     'kadai':   {'glob': 'content/problems/choukai/**/kadai_*.json',    'texts': kadai_texts,   'kind': 'struct'},
+    # point(ポイント理解)=kadaiと同構造(会話script＋設問q＋画面表示の選択肢)。抽出/書込とも kadai を流用。
+    'point':   {'glob': 'content/problems/choukai/**/point_*.json',    'texts': kadai_texts,   'kind': 'struct'},
+    # gaiyou(概要理解)=audioChoices(選択肢は音声・画面は番号)だが、回答後は台本/設問/選択肢テキスト＋訳を表示(ListeningScreen:334)。
+    #   よって訳す対象は kadai/point と同じ script＋q＋choices。抽出/書込とも kadai を流用。N3のみ。
+    'gaiyou':  {'glob': 'content/problems/choukai/**/gaiyou_*.json',   'texts': kadai_texts,   'kind': 'struct'},
+    # hatsuwa(発話表現)=audioChoices。設問文qは無く(場面文=script)＋選択肢3つ。回答後は script訳(body)＋選択肢訳を表示。
+    #   訳す対象は script＋choices(qは空でkadai_texts側で自動スキップ)。抽出/書込とも kadai を流用。
+    'hatsuwa': {'glob': 'content/problems/choukai/**/hatsuwa_*.json', 'texts': kadai_texts,   'kind': 'struct'},
+    # sokuji(即時応答)=hatsuwaと同構造(場面文=script＋q空＋選択肢3つ=返し)。抽出/書込とも kadai を流用。
+    'sokuji':  {'glob': 'content/problems/choukai/**/sokuji_*.json',  'texts': kadai_texts,   'kind': 'struct'},
 }
 SEP = '\x01'  # struct: cache key = f'{itemId}{SEP}{fieldKey}'
 
@@ -233,11 +243,11 @@ def do_write_struct(daimon):
             json.dump(d, open(f, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
     print(f'[write] {daimon}(struct) files={len(files)} items={total} 書込={wrote} 未訳(スキップ)={missing}')
 
-def do_write_kadai():
-    # 課題理解(kadai): 読解と同型に投入。台本訳→item.i18n.{lang}.body(行配列)／設問訳→questions[0].i18n.{lang}.{q,choices}。
+def do_write_kadai(daimon='kadai'):
+    # 課題理解(kadai)/ポイント理解(point): 読解と同型に投入。台本訳→item.i18n.{lang}.body(行配列)／設問訳→questions[0].i18n.{lang}.{q,choices}。
     #   Gemini出力は台本の改行(話者ターン)を実際の \n で保持済み→\n で分割し行配列化。設問のjaは温存。
-    files = sorted(glob.glob(os.path.join(ROOT, DAIMON['kadai']['glob']), recursive=True))
-    cache = load_cache('kadai')
+    files = sorted(glob.glob(os.path.join(ROOT, DAIMON[daimon]['glob']), recursive=True))
+    cache = load_cache(daimon)
     total = wrote = missing = 0
     def to_lines(s):
         s = s.replace(' ⏎ ', '\n').replace('⏎', '\n')
@@ -249,31 +259,35 @@ def do_write_kadai():
             sid = it['id']
             sc = cache.get(f'{sid}{SEP}script')
             qs = it.get('questions') or []
-            qtr = cache.get(f'{sid}{SEP}q') if qs else None
-            choices = qs[0].get('choices', []) if qs else []
-            cen = []; cne = []; ok = bool(sc and qtr)
+            q0 = qs[0] if qs else {}
+            has_q = bool((q0.get('q') or '').strip())  # 発話表現は q が空(場面文=script)→q訳は要求しない
+            qtr = cache.get(f'{sid}{SEP}q') if has_q else None
+            choices = q0.get('choices', [])
+            cen = []; cne = []; ok = bool(sc) and (qtr is not None or not has_q)
             for i in range(len(choices)):
                 ctr = cache.get(f'{sid}{SEP}c{i}')
                 if not ctr: ok = False; break
                 cen.append(ctr['en']); cne.append(ctr['ne'])
-            if not ok:
+            if not ok or not qs:
                 missing += 1; continue
             it['i18n'] = {'en': {'body': to_lines(sc['en'])}, 'ne': {'body': to_lines(sc['ne'])}}
-            q0 = qs[0]; qi = q0.get('i18n') or {}
-            qi['en'] = {'q': qtr['en'], 'choices': cen}
-            qi['ne'] = {'q': qtr['ne'], 'choices': cne}
+            qi = q0.get('i18n') or {}
+            en_q = {'choices': cen}; ne_q = {'choices': cne}
+            if has_q and qtr:
+                en_q['q'] = qtr['en']; ne_q['q'] = qtr['ne']
+            qi['en'] = en_q; qi['ne'] = ne_q
             q0['i18n'] = qi
             wrote += 1; changed = True
         if changed:
             d['languages'] = ['en', 'ne']
             json.dump(d, open(f, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
-    print(f'[write] kadai files={len(files)} items={total} 書込={wrote} 未訳(スキップ)={missing}')
+    print(f'[write] {daimon} files={len(files)} items={total} 書込={wrote} 未訳(スキップ)={missing}')
     if missing:
         print(f'  ※ {missing} 件がキャッシュ未訳。先に --apply を完走させること。')
 
 def do_write(daimon):
-    if daimon == 'kadai':
-        return do_write_kadai()
+    if daimon in ('kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji'):
+        return do_write_kadai(daimon)
     cfg = DAIMON[daimon]
     if cfg.get('kind') == 'struct':
         return do_write_struct(daimon)

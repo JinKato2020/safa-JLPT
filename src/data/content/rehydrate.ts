@@ -74,8 +74,9 @@ export function rehydrateBanks(files: Record<string, Any>) {
     if (i18n?.ne?.body) PASSAGE_TRANS_NE[it.id] = i18n.ne.body;
     if (i18n?.en?.body) PASSAGE_TRANS_EN[it.id] = i18n.en.body;
     for (const q of (questions ?? [])) {
-      if (q.i18n?.ne?.q) Q_TRANS_NE[q.id] = { q: q.i18n.ne.q, choices: q.i18n.ne.choices ?? [] };
-      if (q.i18n?.en?.q) Q_TRANS_EN[q.id] = { q: q.i18n.en.q, choices: q.i18n.en.choices ?? [] };
+      // 発話表現(hatsuwa)は設問文qが無く選択肢だけ訳す→q無しでも choices があれば Q_TRANS に載せる。
+      if (q.i18n?.ne?.q || q.i18n?.ne?.choices) Q_TRANS_NE[q.id] = { q: q.i18n.ne.q ?? '', choices: q.i18n.ne.choices ?? [] };
+      if (q.i18n?.en?.q || q.i18n?.en?.choices) Q_TRANS_EN[q.id] = { q: q.i18n.en.q ?? '', choices: q.i18n.en.choices ?? [] };
     }
     return { ...rest, level, subtype: st, questions: (questions ?? []).map(restoreQ) };
   };

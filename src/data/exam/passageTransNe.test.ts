@@ -11,9 +11,10 @@ const wantReading: Record<string, number> = {};
 for (const r of [...(reading as any[]), ...(readingMock as any[])]) if (r.subtype !== 'joho') wantReading[r.id] = 1;
 const wantPg: Record<string, number> = {};
 for (const s of pg as any[]) wantPg[s.id] = s.passages.length;
-// 聴解 課題理解(kadai)は台本訳(行配列)を PASSAGE_TRANS_NE へ入れる(2026-09-02)。台本の行数は可変ゆえ
-// 期待本文数は実長を採る(行数一致チェックは自明成立・非空/デーヴァナーガリーは有効)。完全性は専用テストで別途見張る。
-const kadaiItems = [...(listening as any[]), ...(listeningMock as any[])].filter((l) => listeningSubtype(l) === 'kadai');
+// 聴解 課題理解(kadai)/ポイント理解(point)/概要理解(gaiyou)/発話表現(hatsuwa)は台本(場面文)訳を PASSAGE_TRANS_NE へ入れる(kadai=2026-09-02 / point,gaiyou,hatsuwa=2026-09-03)。
+// 台本の行数は可変ゆえ期待本文数は実長を採る(行数一致チェックは自明成立・非空/デーヴァナーガリーは有効)。完全性は専用テストで別途見張る。
+const scriptTransSubs = new Set(['kadai', 'point', 'gaiyou', 'hatsuwa', 'sokuji']);
+const kadaiItems = [...(listening as any[]), ...(listeningMock as any[])].filter((l) => scriptTransSubs.has(listeningSubtype(l)));
 const wantListening: Record<string, number> = {};
 for (const l of kadaiItems) wantListening[l.id] = T[l.id]?.length ?? 1;
 
@@ -39,9 +40,9 @@ test('文章の文法の未訳セット数が既知の借金から増えてい�
   );
 });
 
-test('聴解 課題理解(kadai)は全部ネパール語訳がある', () => {
+test('聴解 課題理解(kadai)/ポイント理解(point)は全部ネパール語訳がある', () => {
   const missing = kadaiItems.map((l) => l.id).filter((id) => !T[id]);
-  assert.equal(missing.length, 0, `kadai訳欠落: ${missing.slice(0, 5)}`);
+  assert.equal(missing.length, 0, `台本訳欠落(kadai/point): ${missing.slice(0, 5)}`);
 });
 
 test('存在する訳は本文数一致・非空・デーヴァナーガリー', () => {
