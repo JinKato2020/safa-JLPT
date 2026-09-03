@@ -3,7 +3,7 @@
   "daimon": "gaiyou",
   "level": "N3",
   "languages": [
-    "ja",
+    "en",
     "ne"
   ],
   "items": [
@@ -28,11 +28,42 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the woman talking about?",
+              "choices": [
+                "Daily efforts for good rest",
+                "Reasons not to look at your smartphone before bed",
+                "Brightness when sleeping in a dark room",
+                "How to increase concentration during the day"
+              ]
+            },
+            "ne": {
+              "q": "महिला के बारेमा कुरा गर्दैछिन्?",
+              "choices": [
+                "राम्रो आरामको लागि दैनिक प्रयासहरू",
+                "सुत्नुअघि स्मार्टफोन नहेर्नुको कारण",
+                "अँध्यारो कोठामा सुत्दाको उज्यालोपन",
+                "दिनको समयमा एकाग्रता बढाउने तरिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio.",
+            "Woman 1: Everyone, are you sleeping well at night? If you look at your smartphone before bed, the light will wake up your brain. If you darken your room and go to bed at roughly the same time every day, your body will remember the rhythm of sleep. Also, lowering the temperature of your bedroom a little or refraining from coffee from the evening onwards are good methods. When the quality of your sleep improves, your concentration during the day will also increase, and you'll feel brighter. You don't need any special tools. Don't overthink it; just try to continue one thing at a time from what you can do. Why not start a life where you value sleep from tonight?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक महिला बोलिरहेकी छिन्।",
+            "महिला १: सबैजना, के तपाईँहरू राति राम्ररी सुत्नुभएको छ? सुत्नुअघि स्मार्टफोन हेर्दा, त्यसको उज्यालोले दिमागलाई जगाउँछ। यदि तपाईँले आफ्नो कोठा अँध्यारो पारेर हरेक दिन लगभग एउटै समयमा सुत्नुभयो भने, तपाईँको शरीरले निद्राको ताल सम्झन्छ। साथै, सुत्ने कोठाको तापक्रम अलिकति घटाउनु वा साँझदेखि कफी कम पिउनु पनि राम्रो उपाय हो। जब निद्राको गुणस्तर सुधार हुन्छ, दिनको समयमा एकाग्रता पनि बढ्छ र मन पनि प्रफुल्लित हुन्छ। तपाईँलाई कुनै विशेष उपकरण चाहिँदैन। धेरै नसोच्नुहोस्; जे गर्न सक्नुहुन्छ, त्यसबाट एउटा-एउटा गर्दै निरन्तरता दिन प्रयास गर्नुहोस्। आज रातिदेखि निद्रालाई महत्त्व दिने जीवनशैली सुरु गर्ने प्रयास गर्नुहुन्छ कि?"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "健康体",
       "audio": true,
@@ -59,11 +90,42 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man want to say the most?",
+              "choices": [
+                "Physical signs that appear when stress builds up",
+                "The benefits of laughing often for body and mind",
+                "Tips for raising the corners of your mouth with a fake smile",
+                "Food to build strength to fight illness"
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले सबैभन्दा बढी के भन्न चाहन्छन्?",
+              "choices": [
+                "तनाव बढ्दा देखिने शारीरिक संकेतहरू",
+                "धेरै हाँस्नु शरीर र मनका लागि राम्रो कुरा",
+                "नक्कली हाँसोले ओठको कुना उठाउने तरिकाहरू",
+                "रोगसँग लड्ने शक्ति बढाउने खाना"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on a TV health program.",
+            "Man 1: It is said that people who laugh often are less likely to get sick. When you laugh, the body's power to fight illness reportedly strengthens. Moreover, even if something unpleasant happens, laughing can instantly lighten stress. It's okay even if there's nothing funny. Just by raising the corners of your mouth and making a fake smile, your brain apparently misunderstands it as enjoyable. Also, if there are smiling people around you, the atmosphere of the place brightens, and relationships between people become softer. It costs no money and no time, yet there are so many good things. Try smiling brightly in front of a mirror once a day."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनको स्वास्थ्य कार्यक्रममा एक पुरुष बोलिरहेका छन्।",
+            "पुरुष १: धेरै हाँस्ने मानिसहरूलाई रोग लाग्ने सम्भावना कम हुन्छ भनिन्छ। हाँस्दा शरीरमा रोगसँग लड्ने शक्ति बलियो हुन्छ रे। यसबाहेक, नराम्रो कुरा भए पनि, हाँस्दा तनाव तुरुन्तै कम हुन्छ। रमाइलो कुरा नभए पनि ठीक छ। केवल ओठको कुना माथि उठाएर नक्कली हाँसो हाँस्दा पनि, दिमागले त्यसलाई रमाइलो ठान्छ रे। साथै, यदि तपाईँको वरिपरि मुस्कुराउने मानिसहरू छन् भने, त्यस ठाउँको वातावरण उज्यालो हुन्छ र मानिसहरूबीचको सम्बन्ध पनि नरम हुन्छ। यसमा पैसा वा समय लाग्दैन, तैपनि यति धेरै राम्रा कुराहरू छन्। दिनमा एक पटक ऐनाको अगाडि मुस्कुराउने प्रयास गर्नुहोस्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audio": true,
@@ -90,11 +152,42 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the woman mainly want to convey?",
+              "choices": [
+                "How to do exercises to relieve stiff shoulders and lower back pain",
+                "Bad posture of looking down when using a smartphone",
+                "The benefits that good posture gives to mind and body",
+                "The correct way to breathe deeply"
+              ]
+            },
+            "ne": {
+              "q": "महिला मुख्यतया के भन्न चाहन्छिन्?",
+              "choices": [
+                "काँध र कम्मरको दुखाइ कम गर्ने व्यायाम गर्ने तरिका",
+                "स्मार्टफोन हेर्दा तल हेर्ने खराब आसन",
+                "राम्रो आसनले मन र शरीरलाई दिने फाइदाहरू",
+                "गहिरो सास फेर्ने सही तरिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A teacher is speaking in a health class.",
+            "Woman 1: When you use a computer or smartphone, do you notice your back becoming rounded? Bad posture not only causes stiff shoulders and lower back pain but also tends to make you feel down. Conversely, if you straighten your back, you can breathe deeply, and your head will feel clear. When your back is straight, you also appear brighter and more energetic to others. There's no need to overthink it. Just stand up once an hour and look straight ahead. Try to be conscious of it, especially when you're sitting for a long time. Good posture is the first step to an energetic everyday life!"
+          ]
+        },
+        "ne": {
+          "body": [
+            "स्वास्थ्य कक्षामा शिक्षिका बोलिरहेकी छिन्।",
+            "महिला १: कम्प्युटर वा स्मार्टफोन प्रयोग गर्दा, के तपाईँको ढाड झुकेको महसुस गर्नुहुन्छ? खराब आसनले काँध र कम्मर दुख्ने मात्र होइन, मन पनि उदास बनाउँछ। यसको विपरीत, यदि तपाईँले आफ्नो ढाड सीधा राख्नुभयो भने, तपाईँले गहिरो सास फेर्न सक्नुहुन्छ र दिमाग पनि सफा हुन्छ। ढाड सीधा हुँदा, तपाईँ अरूलाई पनि उज्यालो र ऊर्जावान देखिनुहुन्छ। यसलाई धेरै गाह्रो सोच्नु पर्दैन। हरेक घण्टा एक पटक उठेर सिधा अगाडि हेरे पुग्छ। विशेष गरी लामो समयसम्म बस्दा यसमा ध्यान दिनुहोस्। राम्रो आसन ऊर्जावान दैनिक जीवनको पहिलो कदम हो!"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audio": true,
@@ -121,11 +214,42 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this talk?",
+              "choices": [
+                "Precautions for using stairs instead of an elevator",
+                "Time it takes to walk one station's distance",
+                "Explanation of the structure of legs and heart",
+                "The benefits of continuing exercise without overdoing it"
+              ]
+            },
+            "ne": {
+              "q": "यस कुराकानीको विषय के हो?",
+              "choices": [
+                "लिफ्टको सट्टा सिँढी प्रयोग गर्दा ध्यान दिनुपर्ने कुराहरू",
+                "एक स्टेशनको दूरी हिँड्न लाग्ने समय",
+                "खुट्टा र मुटुको संरचना बारे व्याख्या",
+                "धेरै प्रयास नगरी व्यायाम जारी राख्नुको फाइदा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on the radio.",
+            "Man 1: Even though we know exercise is good for our bodies, many people find it hard to keep it up, right? But you don't need to do anything special. Use the stairs instead of the elevator, or walk one station's distance. Walking to a distant supermarket to shop is also a great exercise. Even such small things, if continued daily, will strengthen your heart and legs. The important thing is not to try too hard. It's okay to be a 'three-day monk' (someone who gives up quickly). Even if you stop again, you can just start again when you remember. Let's gradually create a habit of enjoying physical activity."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक पुरुष बोलिरहेका छन्।",
+            "पुरुष १: व्यायाम शरीरका लागि राम्रो हुन्छ भन्ने थाहा भए पनि, धेरै मानिसहरूलाई यसलाई निरन्तरता दिन गाह्रो हुन्छ, होइन र? तर तपाईँले कुनै विशेष कुरा गर्नुपर्दैन। लिफ्टको सट्टा सिँढी प्रयोग गर्नुहोस्, वा एक स्टेशनको दूरी हिँड्नुहोस्। टाढाको सुपरमार्केटसम्म हिँडेर किनमेल गर्न जानु पनि एउटा राम्रो व्यायाम हो। यस्ता साना कुराहरू पनि, यदि दैनिक गरियो भने, तपाईँको मुटु र खुट्टा बलियो हुन्छ। महत्त्वपूर्ण कुरा भनेको धेरै प्रयास नगर्नु हो। तीन दिनको सन्यासी (छिट्टै हार मान्ने व्यक्ति) भए पनि फरक पर्दैन। फेरि छोडे पनि, जब सम्झनुहुन्छ, तब फेरि सुरु गरे हुन्छ। रमाइलो गर्दै शरीरलाई चलाउने बानी बिस्तारै बनाउँदै जाऔँ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audio": true,
@@ -152,11 +276,42 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the woman talking about?",
+              "choices": [
+                "The benefits of looking up at the sky and feeling nature",
+                "Reasons why visible stars change with the seasons",
+                "Reasons why stars are hard to see in the city",
+                "How to view the moon with a telescope"
+              ]
+            },
+            "ne": {
+              "q": "महिला के बारेमा कुरा गर्दैछिन्?",
+              "choices": [
+                "आकाशमा हेरेर प्रकृति महसुस गर्नुको फाइदा",
+                "मौसम अनुसार देखिने ताराहरू परिवर्तन हुनुको कारण",
+                "सहरमा ताराहरू हेर्न गाह्रो हुनुको कारण",
+                "दूरबीनले चन्द्रमा हेर्ने तरिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on a radio program.",
+            "Woman 1: Everyone, have you looked up at the night sky recently? In our busy daily lives, we tend to look down all the time, don't we? But if you stop for a moment and look up at the sky, different stars shine in each season. Even without an expensive telescope, you can fully enjoy the moon and bright stars even in the city sky. During the day, just watching the shapes of the clouds slowly change can soothe your mind. You don't need special tools or a distant place. The time you spend simply gazing at the sky without thinking about anything will quietly calm and organize your mind."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियो कार्यक्रममा एक महिला बोलिरहेकी छिन्।",
+            "महिला १: सबैजना, के तपाईँहरूले हालसालै रातिको आकाश हेर्नुभएको छ? व्यस्त दैनिक जीवनमा, हामी प्रायः तल मात्र हेर्छौं, होइन र? तर यदि तपाईँ एकछिन रोकिएर आकाशमा हेर्नुभयो भने, हरेक मौसममा फरक-फरक ताराहरू चम्किरहेका हुन्छन्। महँगो दूरबीन नभए पनि, सहरको आकाशमा पनि चन्द्रमा र चम्किला ताराहरूको आनन्द लिन सकिन्छ। दिनको समयमा, बादलको आकार बिस्तारै परिवर्तन भएको हेर्दा मात्र पनि मन शान्त हुन्छ। तपाईँलाई कुनै विशेष उपकरण वा टाढाको ठाउँ चाहिँदैन। केही नसोची केवल आकाश हेर्ने समयले तपाईँको मनलाई शान्त र व्यवस्थित बनाउँछ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "社会自然",
       "audio": true,
@@ -183,11 +338,42 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man want to say the most?",
+              "choices": [
+                "The mechanism by which a rainbow appears in seven colors",
+                "Enjoying the wonders around us",
+                "The reason why the sky clears after the rain stops",
+                "The function of water droplets splitting light"
+              ]
+            },
+            "ne": {
+              "q": "मानिसले सबैभन्दा बढी के भन्न खोजेका छन्?",
+              "choices": [
+                "इन्द्रेणी सात रङमा देखिने प्रक्रिया",
+                "आफ्नो वरपरका आश्चर्यहरूको आनन्द लिनु",
+                "पानी रोकिएपछि आकाश सफा हुने कारण",
+                "पानीका थोपाहरूले प्रकाशलाई विभाजन गर्ने कार्य"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking in a science lecture.",
+            "Man 1: When the rain stops and you find a rainbow in the sky, it makes you happy, doesn't it? A rainbow appears in seven colors because tiny water droplets in the air split light. But what I want to convey more than the mechanism itself is the mindset of noticing these familiar wonders. Why is the color of the sky different in the morning and evening? Why does ice float on water? Even if you don't know the answer, the starting point is simply wondering about it. If you wonder 'why?' and investigate, the world will look even more interesting. Please cherish your small questions."
+          ]
+        },
+        "ne": {
+          "body": [
+            "विज्ञानको कक्षामा एकजना मानिस बोलिरहेका छन्।",
+            "मानिस १: पानी परेपछि आकाशमा इन्द्रेणी देख्दा खुसी लाग्छ, होइन र? इन्द्रेणी हावामा भएका साना पानीका थोपाहरूले प्रकाशलाई विभाजन गर्दा सात रङमा देखिन्छ। तर म यसको प्रक्रियाभन्दा पनि यस्ता सामान्य आश्चर्यहरूलाई बुझ्ने मनको बारेमा भन्न चाहन्छु। बिहान र बेलुका आकाशको रङ किन फरक हुन्छ? बरफ किन पानीमा तैरन्छ? उत्तर थाहा नभए पनि, पहिले अचम्म लाग्नु नै सुरुवात हो। 'किन होला?' भनेर सोचेर खोज्दा संसार अझ रमाइलो देखिन्छ। आफ्ना साना जिज्ञासाहरूलाई महत्त्व दिनुहोस्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -214,11 +400,42 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the woman mainly want to convey?",
+              "choices": [
+                "The reason why snow crystals become hexagonal",
+                "How to see small things with a microscope",
+                "Amazement at the beauty created by nature",
+                "The joy of photographing crystals with a microscope"
+              ]
+            },
+            "ne": {
+              "q": "महिलाले मुख्यतया के भन्न खोजेकी छिन्?",
+              "choices": [
+                "हिउँका क्रिस्टलहरू षट्कोण आकारका हुने कारण",
+                "माइक्रोस्कोपले साना चीजहरू हेर्ने तरिका",
+                "प्रकृतिले सिर्जना गर्ने सुन्दरताप्रति आश्चर्य",
+                "माइक्रोस्कोपले क्रिस्टलहरू खिच्ने रमाइलो"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on TV.",
+            "Woman 1: On snowy days, have you ever looked closely at the snow on your palm? Snow crystals, when viewed through a microscope, have beautiful hexagonal shapes. What's surprising is that no two shapes are exactly alike. Their shapes all change depending on the temperature and humidity of the sky. Even with the same snow, its texture and sound differ depending on the day it falls. Nature creates such intricate and beautiful things. It's also fun to look up at the sky and notice such small changes. Doesn't it make even a cold winter day a little more enjoyable when you think about it that way?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एकजना महिला बोलिरहेकी छिन्।",
+            "महिला १: हिउँ पर्ने दिनमा, आफ्नो हत्केलामा परेको हिउँलाई राम्ररी हेर्नुभएको छ? हिउँका क्रिस्टलहरूलाई माइक्रोस्कोपबाट हेर्दा सुन्दर षट्कोण आकारका देखिन्छन्। अचम्मको कुरा के हो भने, कुनै पनि दुई क्रिस्टलको आकार एकैनासको हुँदैन। आकाशको तापक्रम र आर्द्रता अनुसार तिनीहरूको आकार सबै परिवर्तन हुन्छ। एउटै हिउँ भए पनि, कुन दिन परेको हो भन्ने आधारमा यसको स्पर्श र आवाज पनि फरक हुन्छ। प्रकृतिले यति सूक्ष्म र सुन्दर चीजहरू सिर्जना गर्छ। आकाशमा हेरेर यस्ता साना परिवर्तनहरूलाई याद गर्नु पनि रमाइलो हुन्छ। चिसो जाडोको दिनमा पनि, यस्तो सोच्दा अलि रमाइलो लाग्दैन र?"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -245,11 +462,42 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this talk?",
+              "choices": [
+                "The story of trees absorbing carbon dioxide and releasing oxygen",
+                "The variety and large number of animals living in the forest",
+                "The flow of rainwater seeping into the soil",
+                "How forests support our lives"
+              ]
+            },
+            "ne": {
+              "q": "यस कुराको विषय के हो?",
+              "choices": [
+                "रूखहरूले कार्बनडाइअक्साइड सोसेर अक्सिजन दिने कुरा",
+                "जंगलमा बस्ने जनावरहरूको प्रकार र संख्याको अधिकता",
+                "वर्षाको पानी माटोमा छिर्ने प्रक्रिया",
+                "जंगलले हाम्रो जीवनलाई कसरी सहयोग गर्छ"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A male expert is speaking at a lecture.",
+            "Man 1: The forest that we usually see without much thought actually plays a very big role. Trees absorb carbon dioxide from the air and release clean oxygen. Forests are also home to many animals, and they have the role of storing rainwater and protecting rivers. With forests, the soil is firmly supported by roots, which also prevents landslides during heavy rains. Our lives are helped in many ways by these functions of the forest. It's easy to cut down a tree, but it takes a long time to grow one. We should not forget that our current lives exist thanks to the forest."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एकजना पुरुष विशेषज्ञले प्रवचनमा बोलिरहेका छन्।",
+            "मानिस १: हामीले सामान्यतया बेवास्ता गरेर हेर्ने जंगलले वास्तवमा धेरै ठूलो काम गर्छ। रूखहरूले हावाबाट कार्बनडाइअक्साइड सोसेर सफा अक्सिजन दिन्छन्। जंगल धेरै जनावरहरूको वासस्थान पनि हो, र यसले वर्षाको पानी सञ्चय गरेर नदीहरूलाई बचाउने भूमिका पनि खेल्छ। जंगल भएकोले माटो जराले बलियोसँग समातेको हुन्छ, जसले भारी वर्षा हुँदा पहिरो पनि रोक्छ। हाम्रो जीवनलाई जंगलका यस्ता धेरै कार्यहरूले मद्दत गरिरहेका छन्। एउटा रूख काट्न सजिलो छ, तर हुर्काउन धेरै समय लाग्छ। जंगलको कारणले हाम्रो अहिलेको जीवन सम्भव भएको हो भन्ने कुरा हामीले बिर्सनु हुँदैन।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -276,11 +524,42 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the woman talking about?",
+              "choices": [
+                "Ways to reduce waste in daily life",
+                "The aim of stores that charge for plastic bags",
+                "The process of recycling plastic bottles",
+                "How to keep reusable bags clean"
+              ]
+            },
+            "ne": {
+              "q": "महिला के बारेमा कुरा गरिरहेकी छिन्?",
+              "choices": [
+                "दैनिक जीवनमा फोहोर कम गर्ने उपायहरू",
+                "प्लास्टिकको झोलाको शुल्क लिने पसलहरूको उद्देश्य",
+                "प्लास्टिकका बोतलहरूलाई रिसाइकल गर्ने प्रक्रिया",
+                "माइब्यागलाई सफा राख्ने तरिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio.",
+            "Woman 1: More and more people are bringing their own reusable bags when they go shopping. Even refusing just one plastic bag definitely reduces waste. For drinks, if you carry a water bottle instead of buying plastic bottles, you can avoid producing plastic waste. It's also good to use the back of used paper for notes, or to give unwanted clothes to others. There's no need to overthink it. Even if one person's effort seems small, if everyone continues a little bit, it will lead to a big change. Why not try to find something you can start today?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना महिला बोलिरहेकी छिन्।",
+            "महिला १: किनमेल गर्न जाँदा आफ्नै झोला (माइब्याग) लिएर जाने मानिसहरूको संख्या बढ्दै गएको छ। एउटा मात्र प्लास्टिकको झोला नलिँदा पनि फोहोर निश्चित रूपमा कम हुन्छ। पेय पदार्थको लागि पनि, प्लास्टिकका बोतलहरू किन्नुको सट्टा पानीको बोतल बोक्दा प्लास्टिकको फोहोर उत्पादन गर्नुपर्दैन। प्रयोग गरिसकेको कागजको पछाडिको भागलाई नोट लेख्न प्रयोग गर्नु वा नचाहिने कपडाहरू अरूलाई दिनु पनि राम्रो हुन्छ। यसलाई गाह्रो सोच्नु पर्दैन। एक व्यक्तिको प्रयास सानो देखिए पनि, यदि सबैले थोरै-थोरै गरेर जारी राखे भने, यसले ठूलो परिवर्तन ल्याउँछ। आजैबाट सुरु गर्न सकिने कुरा खोज्ने प्रयास किन नगर्ने?"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "社会自然",
       "audio": true,
@@ -307,11 +586,42 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man want to say the most?",
+              "choices": [
+                "Tips for turning off the faucet while brushing teeth",
+                "The mindset of using limited water without waste",
+                "Which uses more water, shower or bath",
+                "The story of how tap water reaches homes"
+              ]
+            },
+            "ne": {
+              "q": "मानिसले सबैभन्दा बढी के भन्न खोजेका छन्?",
+              "choices": [
+                "दाँत माझ्दा धारा बन्द गर्ने तरिका",
+                "सीमित पानीलाई खेर नफाली प्रयोग गर्ने सोच",
+                "सावर वा नुहाउने टबमध्ये कुनले बढी पानी प्रयोग गर्छ",
+                "धाराको पानी घरसम्म कसरी पुग्छ भन्ने कुरा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking at a town meeting.",
+            "Man 1: We use water every day as a matter of course, but the amount of freely usable water on Earth is actually very small. For example, if you leave the faucet running while brushing your teeth, a lot of water goes to waste. Turn it on only when you use it, and turn off the shower frequently. Give the water used to wash rice to plants, or use leftover bathwater for laundry. With a little ingenuity, you can significantly reduce wasted water. Such small habits lead to protecting precious water. We should keep in mind that water is not something that is limitless."
+          ]
+        },
+        "ne": {
+          "body": [
+            "गाउँको सभामा एकजना मानिस बोलिरहेका छन्।",
+            "मानिस १: हामीले हरेक दिन सामान्य रूपमा प्रयोग गर्ने पानी, वास्तवमा पृथ्वीमा स्वतन्त्र रूपमा प्रयोग गर्न सकिने पानी धेरै कम छ। उदाहरणका लागि, दाँत माझ्दा धारा खुल्लै छोड्दा धेरै पानी खेर जान्छ। प्रयोग गर्दा मात्र खोल्ने, नुहाउँदा बारम्बार सावर बन्द गर्ने। चामल पखालेको पानी बिरुवामा हाल्ने, वा नुहाएको पानी लुगा धुन प्रयोग गर्ने। थोरै चलाखी गर्दा खेर जाने पानी धेरै कम गर्न सकिन्छ। यस्ता साना बानीहरूले महत्त्वपूर्ण पानीको संरक्षण गर्न मद्दत गर्छन्। पानी असीमित छैन भन्ने कुरा हामीले मनमा राख्नुपर्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -338,11 +648,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the woman mainly want to convey?",
+              "choices": [
+                "Guidelines for setting air conditioner temperature",
+                "The story of unused machines consuming electricity",
+                "Recommendation for a lifestyle that doesn't waste electricity",
+                "The habit of frequently turning off room lights"
+              ]
+            },
+            "ne": {
+              "q": "महिला मुख्यतया के भन्न चाहन्छिन्?",
+              "choices": [
+                "एयर कन्डिसनरको तापक्रम निर्धारण गर्ने मापदण्ड",
+                "प्रयोग नगरिएका उपकरणले बिजुली खपत गर्ने कुरा",
+                "बिजुली खेर नफाल्ने जीवनशैलीको सिफारिस",
+                "कोठाको बत्ती बारम्बार निभाउने बानी"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: Electricity is very convenient because you can use it with a single switch, but because of that, it's also easy to overlook wasteful use. For example, lights are on in an empty room, or unused appliances are left plugged in. Even with air conditioners, just changing the set temperature by one degree can significantly reduce electricity consumption. If you open the curtains during the day to brighten the room, you won't need to turn on the lights. Replacing old light bulbs with new ones that have the same brightness is also a good deal in the long run. Accumulating these small adjustments leads to a lifestyle that is kind to both the Earth and your household budget."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक महिला बोलिरहेकी छिन्। महिला १: बिजुली एउटै स्विचले प्रयोग गर्न सकिने हुनाले धेरै सुविधाजनक छ, तर त्यसैले गर्दा यसको अनावश्यक प्रयोगलाई बेवास्ता गर्न पनि सजिलो हुन्छ। उदाहरणका लागि, कोही नभएको कोठामा बत्ती बलिरहेको वा प्रयोग नगरिएका उपकरणहरू प्लगमा जोडिएका हुन सक्छन्। एयर कन्डिसनरमा पनि, सेट तापक्रम एक डिग्री मात्र परिवर्तन गर्दा बिजुलीको खपत धेरै कम हुन्छ। दिउँसो पर्दा खोलेर कोठा उज्यालो बनाउँदा बत्ती बाल्नु पर्दैन। पुरानो बल्बलाई उही उज्यालो दिने नयाँ बल्बले बदल्नु पनि लामो समयमा फाइदाजनक हुन्छ। यस्ता साना परिवर्तनहरूलाई जम्मा गर्दै जाँदा पृथ्वी र घरको बजेट दुवैका लागि अनुकूल जीवनशैली बन्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -369,11 +708,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this talk?",
+              "choices": [
+                "Tips for maintaining tools used for a long time",
+                "Tips for buying new items cheaply",
+                "Steps to recycle unused items",
+                "The feeling of treating things carefully"
+              ]
+            },
+            "ne": {
+              "q": "यस कुराको मुख्य विषय के हो?",
+              "choices": [
+                "लामो समयसम्म प्रयोग गरिएका उपकरणहरूको हेरचाह गर्ने तरिका",
+                "नयाँ सामान सस्तोमा किन्ने तरिका",
+                "प्रयोग नगरिएका सामानहरू रिसाइकल गर्ने प्रक्रिया",
+                "सामानहरूलाई सावधानीपूर्वक व्यवहार गर्ने भावना"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on TV. Man 1: When something breaks, do you immediately throw it away and buy something new? But there are surprisingly many things that can still be used if you fix them a little. Clothes with missing buttons can be worn again with a needle and thread. Tools used for a long time develop memories and attachment. Instead of immediately replacing things, take care of them and use them carefully. Just a little effort can save you money on buying new things, and the items will last longer. This not only reduces waste but also fosters a mindset of valuing things. Let's re-examine the things we already have."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एकजना पुरुष बोलिरहेका छन्। पुरुष १: जब केही बिग्रन्छ, के तपाईं तुरुन्तै फ्याँकेर नयाँ सामान किन्नुहुन्छ? तर, थोरै मर्मत गरेमा अझै प्रयोग गर्न सकिने धेरै सामानहरू हुन्छन्। बटन निस्किएको लुगा पनि सियो र धागो भएमा फेरि लगाउन सकिन्छ। लामो समयसम्म प्रयोग गरिएका उपकरणहरूसँग सम्झना र माया पनि जोडिएको हुन्छ। सामानहरू तुरुन्तै फेर्नुको सट्टा, तिनीहरूको हेरचाह गर्दै सावधानीपूर्वक प्रयोग गर्नुहोस्। थोरै मात्र प्रयास गर्दा नयाँ सामान किन्न पैसा पनि लाग्दैन र सामानहरू पनि लामो समय टिक्छन्। यसले फोहोर मात्र घटाउँदैन, तर सामानको कदर गर्ने भावना पनि विकास गर्छ। हामीसँग भएका सामानहरूलाई एकपटक फेरि हेरौं।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audio": true,
@@ -400,11 +768,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the woman talking about?",
+              "choices": [
+                "The daily leisure that early rising provides",
+                "How to stop staying up late and wake up early",
+                "Drinking tea during the quiet morning hours",
+                "Tips to reduce mornings of rushing out of the house"
+              ]
+            },
+            "ne": {
+              "q": "महिला के बारेमा कुरा गर्दैछिन्?",
+              "choices": [
+                "चाँडो उठ्दा प्राप्त हुने दिनभरिको फुर्सद",
+                "राति अबेरसम्म नबसी चाँडो उठ्ने तरिका",
+                "बिहानको शान्त समयमा चिया पिउने कुरा",
+                "हतार-हतार घरबाट निस्कने बिहानहरू कम गर्ने तरिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: If you wake up just a little earlier, you'll be surprised at how relaxed your morning can be. You can drink tea while it's still quiet, or plan your day. Unlike mornings when you rush out of the house, you'll have peace of mind. Light exercise while basking in the morning sun will clear your head and wake you up. Even just fifteen minutes of waking up earlier can change the start of your day. Just a little bit of time can support your entire day. Of course, it's also important not to stay up late for this. Why not try waking up a little earlier than usual tomorrow morning?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक महिला बोलिरहेकी छिन्। महिला १: यदि तपाईं अलिकति मात्र चाँडो उठ्नुभयो भने, बिहानको समय कति शान्त र आरामदायी हुन्छ भनेर अचम्म लाग्छ। शान्त वातावरणमा चिया पिउन वा दिनभरिको योजना बनाउन सकिन्छ। हतार-हतार घरबाट निस्कने बिहानभन्दा फरक, मनमा शान्ति मिल्छ। बिहानको घाममा हल्का व्यायाम गर्दा दिमाग पनि ताजा हुन्छ र निद्रा खुल्छ। केवल पन्ध्र मिनेट मात्र चाँडो उठ्दा पनि दिनको सुरुवात फरक हुन्छ। थोरै समयले तपाईंको पूरै दिनलाई साथ दिन्छ। अवश्य पनि, यसका लागि राति अबेरसम्म नबस्नु पनि महत्त्वपूर्ण छ। भोलि बिहान सधैंभन्दा अलिकति चाँडो उठ्ने प्रयास गर्नुहुन्छ कि?"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "生活くらし",
       "audio": true,
@@ -431,11 +828,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the main thing the man wants to say?",
+              "choices": [
+                "Tips for keeping your desk clean",
+                "That tidying up also tidies your mind",
+                "Steps to decide where to put things",
+                "Reasons why finding things takes time"
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले मुख्यतया के भन्न चाहन्छन्?",
+              "choices": [
+                "टेबुल सफा राख्ने तरिका",
+                "सरसफाइ गर्दा मन पनि व्यवस्थित हुन्छ भन्ने कुरा",
+                "सामान राख्ने ठाउँ तोक्ने प्रक्रिया",
+                "सामान खोज्न समय लाग्ने कारणहरू"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on a TV program. Man 1: When a room is messy, you somehow feel restless. Conversely, when your surroundings are tidy, your mind also feels clear. The trick is to decide where to put things. Just putting things back after using them reduces the time spent looking for them. If you know where everything is, you won't have to frantically search for things in the morning. When you sit down at a clean desk, you naturally feel motivated. Don't try to do everything at once; it's enough to progress little by little, like 'today, just the desk.' Organizing is not just about tidying your room, but also about tidying your mind."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजन कार्यक्रममा एकजना पुरुष बोलिरहेका छन्। पुरुष १: कोठा अव्यवस्थित हुँदा मन पनि कता-कता अशान्त हुन्छ। यसको विपरीत, जब आफ्नो वरपरको वातावरण व्यवस्थित हुन्छ, दिमाग पनि सफा हुन्छ। यसको रहस्य भनेको सामान राख्ने ठाउँ तोक्नु हो। प्रयोग गरेपछि त्यसलाई फेरि त्यसकै ठाउँमा राख्दा हराएका सामान खोज्ने समय पनि कम हुन्छ। कहाँ के छ भन्ने थाहा भएमा बिहान हतार-हतार सामान खोज्नु पर्दैन। सफा टेबुलमा बस्दा स्वाभाविक रूपमा काम गर्ने प्रेरणा मिल्छ। एकैचोटि सबै काम गर्ने प्रयास नगर्नुहोस्, 'आज टेबुल मात्र' भनेर बिस्तारै अगाडि बढ्नु पर्याप्त हुन्छ। सरसफाइ कोठाको मात्र नभई मनलाई पनि व्यवस्थित गर्ने समय हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audio": true,
@@ -462,11 +888,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the woman mainly want to convey?",
+              "choices": [
+                "Whether to write notes in a notebook or on a smartphone",
+                "How to deal with situations when you forget something important",
+                "The benefit of writing things down instead of relying solely on your memory",
+                "Tips for remembering people's names well"
+              ]
+            },
+            "ne": {
+              "q": "महिला मुख्यतया के भन्न चाहन्छिन्?",
+              "choices": [
+                "डायरीमा टिपोट गर्ने कि स्मार्टफोनमा",
+                "केही बिर्सँदा समस्यामा परेको बेलाको समाधान",
+                "दिमागमा मात्र भर नपरी लेख्नुको फाइदा",
+                "मानिसहरूको नाम राम्ररी सम्झने तरिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: Have you ever had the experience of thinking, 'I'll remember that later,' only to find you can't recall it after a while? Human memory is more unreliable than you might think. That's why it's recommended to immediately jot down anything you notice. A notebook or a smartphone is fine. When you think of something to buy, or when you make an appointment with someone, write it down right away. This will greatly reduce the trouble of trying to remember things later. If you write it down, you won't have to worry about forgetting, and your mind can be used for other things. The small habit of taking notes will significantly reduce careless mistakes."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक महिला बोलिरहेकी छिन्। महिला १: 'पछि सम्झन्छु' भनेर सोचेको कुरा केही समयपछि सम्झन नसकेको अनुभव छ कि? मानिसको स्मरणशक्ति सोचेभन्दा बढी अविश्वसनीय हुन्छ। त्यसैले, केही कुरा याद आउने बित्तिकै टिपोट गरिहाल्नु राम्रो हुन्छ। डायरी वा स्मार्टफोन जे भए पनि हुन्छ। केही किन्नुपर्ने कुरा याद आउँदा, वा कसैसँग भेट्ने योजना बनाउँदा, तुरुन्तै त्यही ठाउँमा लेखिहाल्नुहोस्। यसले पछि सम्झन खोज्दा हुने समस्या धेरै कम हुन्छ। लेखेर राखेपछि बिर्सने चिन्ता हुँदैन र दिमागलाई अन्य काममा लगाउन सकिन्छ। सानो टिपोट गर्ने बानीले असावधानीवश हुने गल्तीहरूलाई धेरै कम गर्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audio": true,
@@ -493,11 +948,42 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this talk?",
+              "choices": [
+                "Words to greet neighbors",
+                "Facial expressions when greeting with a smile",
+                "Differences in greetings used in the morning and at night",
+                "How greetings connect people"
+              ]
+            },
+            "ne": {
+              "q": "यस कुराकानीको विषय के हो?",
+              "choices": [
+                "छिमेकीलाई अभिवादन गर्ने शब्दहरू",
+                "मुस्कुराउँदै अभिवादन गर्दाको अनुहारको भाव",
+                "बिहान र बेलुका प्रयोग गरिने अभिवादनका भिन्नताहरू",
+                "अभिवादनले मानिसहरूलाई कसरी जोड्छ"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking at a community gathering.",
+            "Man 1: Just saying \"Good morning\" for a few seconds has great power. Everyone feels a little happy when they are greeted, don't they? Just by exchanging smiles and greetings with neighbors and colleagues, the atmosphere becomes softer. As you greet people you see every morning, you'll gradually start exchanging more words with them. Being able to help each other when in trouble comes from such connections. You don't need to do anything special. Just start by brightly greeting others yourself. That alone will gradually warm up your connections with those around you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक जना मानिस सामुदायिक भेलामा बोलिरहेका छन्।",
+            "पुरुष १: \"शुभ प्रभात\" भन्ने एक शब्द, केही सेकेन्डको मात्र भए पनि, ठूलो शक्ति राख्छ। अभिवादन गर्दा जो कोहीलाई पनि अलिकति खुसी लाग्छ, होइन र? छिमेकी वा सहकर्मीहरूसँग मुस्कुराउँदै कुरा गर्दा मात्र पनि वातावरण नरम हुन्छ। हरेक बिहान भेट्ने मानिसहरूलाई अभिवादन गर्दै जाँदा, बिस्तारै कुरा गर्ने मानिसहरूको संख्या बढ्दै जान्छ। समस्या पर्दा एकअर्कालाई मद्दत गर्न सक्नु पनि त्यस्तै सम्बन्धबाट आउँछ। कुनै विशेष कुरा आवश्यक छैन। पहिले आफैंले उज्यालो अभिवादन गर्ने प्रयास गर्नुहोस्। त्यसले मात्र पनि वरपरका मानिसहरूसँगको सम्बन्ध बिस्तारै न्यानो हुँदै जान्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -524,11 +1010,42 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the woman talking about?",
+              "choices": [
+                "The benefits of eating vegetables in season",
+                "Choosing stores to buy cheap vegetables",
+                "Types of nutrients abundant in seasonal vegetables",
+                "Names of vegetables available each season"
+              ]
+            },
+            "ne": {
+              "q": "महिला के बारेमा कुरा गर्दैछिन्?",
+              "choices": [
+                "मौसमी तरकारीहरू खाने फाइदाहरू",
+                "सस्तो तरकारी किन्न पसल छनौट गर्ने",
+                "मौसमी तरकारीहरूमा प्रशस्त पाइने पोषणका प्रकारहरू",
+                "प्रत्येक मौसममा पाइने तरकारीहरूको नाम"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on a cooking show.",
+            "Woman 1: When you go to the supermarket, you see various vegetables all year round. However, each vegetable has a season when it tastes best, its '旬' (shun) or peak season. Seasonal vegetables have a rich flavor and are packed with nutrients. Plus, since they are abundant, their prices are also lower. It's truly all good things. For example, summer tomatoes and winter daikon radishes taste best precisely in their respective seasons. If you choose seasonal ingredients, cooking is easy, and the flavors turn out great. When you're shopping, try to think about which vegetables are in season now. Eating meals while feeling the seasons is good for both your body and mind."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक महिला खाना पकाउने कार्यक्रममा बोलिरहेकी छिन्।",
+            "महिला १: सुपरमार्केट जाँदा, वर्षभरि विभिन्न तरकारीहरू देखिन्छन्। तर, प्रत्येक तरकारीको सबैभन्दा स्वादिष्ट हुने मौसम हुन्छ, जसलाई 'शुन' (shun) भनिन्छ। मौसमी तरकारीहरूको स्वाद गाढा हुन्छ र पोषणले भरिपूर्ण हुन्छ, साथै प्रशस्त मात्रामा पाइने हुनाले मूल्य पनि सस्तो हुन्छ। यो साँच्चै सबै राम्रो कुरा हो। उदाहरणका लागि, गर्मीका गोलभेंडा र जाडोका मुलाहरू ती मौसमहरूमा नै सबैभन्दा स्वादिष्ट हुन्छन्। मौसमी तरकारीहरू छनौट गर्दा, खाना पकाउन पनि सजिलो हुन्छ र स्वाद पनि राम्रो आउँछ। किनमेल गर्दा, अहिले कुन तरकारी मौसमी छ भनेर सोच्ने प्रयास गर्नुहोस्। मौसमको अनुभव गर्दै खाना खानु शरीर र मन दुवैका लागि खुसीको कुरा हो।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "趣味旅食",
       "audio": true,
@@ -555,11 +1072,42 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man most want to say?",
+              "choices": [
+                "The story of the brain feeling full and preventing overeating",
+                "The benefits that eating slowly gives to the body",
+                "The story of food being digested and the stomach feeling relieved",
+                "The guideline of chewing thirty times per bite"
+              ]
+            },
+            "ne": {
+              "q": "मानिस सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "मस्तिष्कले पेट भरिएको महसुस गर्ने र धेरै खानबाट रोक्ने कुरा",
+                "बिस्तारै खाना खाँदा शरीरलाई हुने फाइदाहरू",
+                "खाना पचेर पेटलाई आराम हुने कुरा",
+                "एक गाँस तीस पटक चपाउने मापदण्ड"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on the radio.",
+            "Man 1: When you eat, do you swallow without chewing much? Chewing your food well has many delightful benefits. First, eating slowly allows your brain to feel full more easily, preventing overeating. Additionally, finely chewed food is easier to digest, reducing the burden on your stomach. Chewing well also helps you truly taste the food. The mealtime itself becomes richer and more enjoyable. The guideline is often said to be thirty chews per bite, but start by just chewing a little more than usual. That alone will make your meals much gentler on your body."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक जना मानिस रेडियोमा बोलिरहेका छन्।",
+            "पुरुष १: खाना खाँदा, धेरै नचपाई निल्नुहुन्छ कि? राम्ररी चपाएर खाना खाँदा धेरै राम्रा फाइदाहरू हुन्छन्। पहिलो कुरा, बिस्तारै खाँदा मस्तिष्कले सजिलै पेट भरिएको महसुस गर्छ, जसले धेरै खानबाट रोक्छ। साथै, राम्ररी चपाइएको खाना पचाउन पनि सजिलो हुन्छ र पेटमा पर्ने भार पनि कम हुन्छ। राम्ररी चपाउँदा, खानाको वास्तविक स्वाद पनि राम्ररी थाहा हुन्छ। खाना खाने समय आफैंमा अझ समृद्ध र रमाइलो बन्छ। एक गाँसलाई तीस पटक चपाउनु पर्छ भन्ने एउटा मापदण्ड पनि छ, तर पहिले सामान्य भन्दा अलिकति बढी चपाउन सुरु गर्नुहोस्। त्यसले मात्र पनि खाना शरीरका लागि धेरै सहज बन्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audio": true,
@@ -586,11 +1134,42 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the woman mainly want to convey?",
+              "choices": [
+                "The story that body temperature rises with breakfast",
+                "The story that energy reaches the brain and allows for concentration",
+                "That morning meals energize the day",
+                "The story of having just one banana on a busy morning"
+              ]
+            },
+            "ne": {
+              "q": "महिला मुख्यतया के भन्न चाहन्छिन्?",
+              "choices": [
+                "बिहानको खानाले शरीरको तापक्रम बढ्छ भन्ने कुरा",
+                "मस्तिष्कमा ऊर्जा पुगेर एकाग्रता गर्न सकिने कुरा",
+                "बिहानको खानाले दिनभरि ऊर्जावान् बनाउँछ",
+                "व्यस्त बिहानमा एउटा केराले मात्र काम चलाउने कुरा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on TV.",
+            "Woman 1: Some people might skip breakfast because they're busy in the morning. However, breakfast plays an important role in getting your day started energetically. Eating raises your body temperature, waking up your sleeping body. Furthermore, energy reaches your brain, which makes a difference in your concentration during the morning. It's important to properly replenish the energy used during the night in the morning. Bread or rice, whatever you can easily continue with, is enough. If you don't have time, even just one banana is fine. Developing the habit of putting something in your mouth in the morning will support you throughout the day."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक महिला टिभीमा बोलिरहेकी छिन्।",
+            "महिला १: बिहान व्यस्त भएर बिहानको खाना छोड्ने मानिसहरू पनि होलान्। तर, बिहानको खानाले दिनभरि ऊर्जावान् भएर काम गर्नका लागि महत्त्वपूर्ण भूमिका खेल्छ। खाना खाँदा शरीरको तापक्रम बढ्छ र सुतेको शरीर जाग्छ। यसबाहेक, मस्तिष्कमा ऊर्जा पुग्ने हुनाले, बिहानको एकाग्रतामा पनि फरक पर्छ। रातभरि प्रयोग भएको ऊर्जालाई बिहान राम्ररी पूर्ति गर्नु महत्त्वपूर्ण छ। रोटी होस् वा भात, जुन तपाईंलाई निरन्तरता दिन सजिलो हुन्छ, त्यही पर्याप्त छ। समय छैन भने, एउटा केरा मात्र भए पनि हुन्छ। बिहान केही खाने बानी बसाल्नुले तपाईंलाई दिनभरि साथ दिन्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audio": true,
@@ -617,11 +1196,42 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this talk?",
+              "choices": [
+                "How to make miso soup by cooking vegetables in it",
+                "The story of warming a cold body from the inside",
+                "The story of vegetable nutrients dissolved in soup",
+                "The benefits of adding a warm dish to a meal"
+              ]
+            },
+            "ne": {
+              "q": "यस कुराकानीको विषय के हो?",
+              "choices": [
+                "मिसो सूपमा तरकारी हालेर पकाउने तरिका",
+                "चिसो शरीरलाई भित्रबाट न्यानो बनाउने कुरा",
+                "झोलमा घुलिएको तरकारीको पोषणको कुरा",
+                "खानासँग तातो परिकार थप्ने फाइदा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on a radio cooking segment.",
+            "Man 1: How about adding a warm soup dish to your daily meals? Miso soup and other soups warm your cold body from the inside. Moreover, if you cook various vegetables together, you can consume more quantity than eating them raw, and no nutrients are wasted. The umami from the vegetables also dissolves into the soup. The preparation is also very simple: just put the ingredients in a pot and cook them. If you add leftover vegetables from the previous day, there will be no waste. Not just rice and side dishes, but having a warm soup dish makes your meal much more satisfying. Please give it a try."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक जना मानिस रेडियोको खाना पकाउने कार्यक्रममा बोलिरहेका छन्।",
+            "पुरुष १: हरेक दिनको खानामा एक परिकार तातो झोलिलो खानेकुरा थप्ने प्रयास गर्नुहुन्छ कि? मिसो सूप वा अन्य सूपले चिसो शरीरलाई भित्रबाट न्यानो बनाउँछ। साथै, विभिन्न तरकारीहरू सँगै पकाउँदा, काँचो खानु भन्दा धेरै मात्रामा खान सकिन्छ र पोषण पनि खेर जाँदैन। तरकारीबाट निस्केको स्वाद पनि झोलमा घुलिएको हुन्छ। बनाउने तरिका पनि धेरै सजिलो छ, केवल भाँडोमा सामग्रीहरू राखेर पकाउने मात्र हो। अघिल्लो दिनको बाँकी तरकारीहरू हाल्दा खेर पनि जाँदैन। भात र तरकारी मात्र नभई, तातो झोलिलो खानेकुरा मात्र भए पनि खाना धेरै सन्तोषजनक बन्छ। कृपया प्रयास गर्नुहोस्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audio": true,
@@ -648,11 +1258,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the man talking about?",
+              "choices": [
+                "Clarity is more important than replying quickly.",
+                "Important details are easily missed when writing in a hurry.",
+                "It is best to reply to emails quickly.",
+                "The method of rereading once before sending."
+              ]
+            },
+            "ne": {
+              "q": "पुरुष के बारेमा कुरा गर्दै हुनुहुन्छ?",
+              "choices": [
+                "छिटो जवाफ दिनुभन्दा स्पष्टता महत्त्वपूर्ण छ।",
+                "हतारमा लेख्दा महत्त्वपूर्ण कुरा छुट्न सजिलो हुन्छ।",
+                "इमेलको छिटो जवाफ दिनु सबैभन्दा राम्रो हो।",
+                "पठाउनुअघि एकपटक पढेर हेर्ने तरिका।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a man is speaking. Man 1: Some people are only concerned with replying quickly to work emails. However, if you write in a hurry, important details might be missed, or the recipient might perceive it as cold. For example, just by writing the main points first and organizing them with numbers, it becomes much easier to read. I believe that rereading an email once before sending it and writing it so the recipient can understand it immediately is far more important than speed. Even if it takes a little time, it ultimately reduces the number of exchanges and speeds up the work. Not chasing speed alone can actually be the shortest path."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एकजना मानिस कुरा गर्दै हुनुहुन्छ। पुरुष १: कामको इमेलमा, छिटो जवाफ फर्काउने कुरामा मात्र ध्यान दिने मानिसहरू हुन्छन्। तर, हतारमा लेख्दा महत्त्वपूर्ण कुरा छुट्न सक्छ वा प्राप्तकर्तालाई रुखो लाग्न सक्छ। उदाहरणका लागि, मुख्य बुँदाहरू पहिले लेखेर, नम्बर लगाएर व्यवस्थित गर्दा मात्र पनि पढ्न धेरै सजिलो हुन्छ। मलाई लाग्छ कि पठाउनुअघि एकपटक इमेल पढेर, प्राप्तकर्ताले तुरुन्तै बुझ्ने गरी लेख्नु, गतिभन्दा धेरै महत्त्वपूर्ण छ। अलिकति समय लागे पनि, अन्ततः आदानप्रदानको संख्या घट्छ र काम पनि छिटो अगाडि बढ्छ। केवल गति पछ्याउनु नै वास्तवमा छोटो बाटो हुन सक्छ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "仕事",
       "audio": true,
@@ -679,11 +1318,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the main thing the woman wants to say?",
+              "choices": [
+                "Speaking for a long time in a meeting makes one seem more enthusiastic.",
+                "It is good to summarize and speak briefly in meetings.",
+                "Speaking at length about reasons before the conclusion.",
+                "Reasons why meetings do not end on time."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले मुख्य रूपमा के भन्न चाहनुहुन्छ?",
+              "choices": [
+                "बैठकमा लामो समयसम्म बोल्दा उत्साही देखिन्छ।",
+                "बैठकमा छोटोमा कुरा टुङ्ग्याएर बोल्नु राम्रो हुन्छ।",
+                "निष्कर्षभन्दा पहिले कारणहरूलाई लामो समयसम्म बताउनु।",
+                "बैठक समयमा नसकिनुको कारण।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a woman is speaking. Woman 1: Some people think that speaking for a long time in a meeting makes them seem enthusiastic. However, if a speech is long, the main points aren't conveyed, and only time passes. First, state the conclusion briefly, then add the reasons later. For example, narrow down what you want to say to one point and convey it in the very first sentence. Just doing that will make it easily understood by the listeners. That way, everyone will understand, and the discussion will proceed quickly. Speaking for a long time doesn't necessarily make you seem more enthusiastic. It's the concise, substantive talk that truly reaches the hearts of others."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एकजना महिला कुरा गर्दै हुनुहुन्छ। महिला १: बैठकमा आफ्नो विचार व्यक्त गर्दा लामो समयसम्म बोलेमा उत्साही देखिन्छ भन्ने सोच्ने मानिसहरू हुन्छन्। तर, कुरा लामो हुँदा मुख्य कुरा बुझिँदैन र समय मात्र बित्छ। पहिले निष्कर्षलाई छोटोमा भन्नुहोस्, कारणहरू पछि थप्नुहोस्। उदाहरणका लागि, भन्न चाहेको कुरालाई एउटामा सीमित गरेर, पहिलो वाक्यमै बताउनुहोस्। त्यति गर्दा मात्र पनि सुन्ने मानिसको दिमागमा सजिलै बस्छ। त्यसरी सबैले सजिलै बुझ्छन् र कुरा पनि छिटो अगाडि बढ्छ। लामो समयसम्म बोल्दैमा उत्साही देखिने होइन। छोटो भए पनि सारगर्भित कुराले नै अरूको मनमा पुग्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "仕事",
       "audio": true,
@@ -710,11 +1378,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man mainly want to convey?",
+              "choices": [
+                "One should solve problems by oneself.",
+                "Many people try to handle problems alone.",
+                "It is important to report problems early.",
+                "Many people postpone reporting."
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले मुख्य रूपमा के भन्न चाहनुहुन्छ?",
+              "choices": [
+                "समस्याहरू आफैँले समाधान गर्नुपर्छ।",
+                "धेरै मानिसहरू समस्या एक्लै बोक्छन्।",
+                "समस्या आउँदा चाँडै जानकारी दिनु महत्त्वपूर्ण छ।",
+                "धेरै मानिसहरू रिपोर्ट गर्न ढिलाइ गर्छन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a man is speaking. Man 1: When a problem arises at work, some people try to handle it themselves and postpone reporting it. However, the sooner a problem is communicated, the more easily everyone can fix it. The later it is, the bigger it becomes. If you consult when it's small, others can quickly lend a hand. Conversely, while you're hiding it, the problem will only grow. Even if it's embarrassing, report it first. Don't shoulder it alone; be brave and speak up. That helps others and ultimately makes things easier for yourself. An early word can prevent major confusion later."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एकजना मानिस कुरा गर्दै हुनुहुन्छ। पुरुष १: काममा समस्या आउँदा, केही मानिसहरू आफैँले समाधान गर्ने प्रयास गर्छन् र रिपोर्ट गर्न ढिलाइ गर्छन्। तर, समस्या जति छिटो बताइन्छ, त्यति नै सबैले मिलेर समाधान गर्न सक्छन्। जति ढिलो हुन्छ, त्यति नै ठूलो हुन्छ। सानो हुँदा नै सल्लाह गरेमा, अरूले पनि तुरुन्तै मद्दत गर्न सक्छन्। यसको विपरीत, लुकाउँदै जाँदा समस्या झन्-झन् बढ्दै जान्छ। लाज लागे पनि, पहिले जानकारी दिनुहोस्। एक्लै नबोक्नुहोस्, हिम्मत गरेर आवाज उठाउनुहोस्। त्यसले अरूलाई मद्दत गर्छ र अन्ततः आफूलाई पनि सजिलो बनाउँछ। समयमै एउटा सानो कुराले पछि आउने ठूलो समस्यालाई रोक्न सक्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "仕事",
       "audio": true,
@@ -741,11 +1438,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this talk?",
+              "choices": [
+                "You cannot see the other person's face on the phone.",
+                "It is good to speak quickly and only convey the message.",
+                "On the phone, one should convey only the message briefly.",
+                "The impression of the other person changes depending on how you speak."
+              ]
+            },
+            "ne": {
+              "q": "यस कुराको विषय के हो?",
+              "choices": [
+                "फोनमा अर्को व्यक्तिको अनुहार देखिँदैन।",
+                "छिटो-छिटो र केवल कामको कुरा मात्र बताउनु राम्रो हुन्छ।",
+                "फोनमा केवल कामको कुरालाई छोटोमा बताउनुपर्छ।",
+                "तपाईंले कसरी बोल्नुहुन्छ भन्नेमा अर्को व्यक्तिको छाप परिवर्तन हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a woman is speaking. Woman 1: On the phone, you can't see the other person's face, so the tone of your voice directly creates an impression. If you speak quickly and only convey the message, it can sound cold. Just by speaking a little slower and with a brighter voice, the other person feels at ease. For example, clearly state your company name and your name at the beginning, and nod along to what the other person says. Just doing that creates a much more polite impression. Even if the content is the same, the way it's conveyed changes greatly with just the tone of voice. Because you can't see the other person, your brightness and calmness of voice directly connect to the company's impression. A little thoughtfulness can create great trust."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एकजना महिला कुरा गर्दै हुनुहुन्छ। महिला १: फोनमा अर्को व्यक्तिको अनुहार देखिँदैन, त्यसैले आवाजको भावले नै सीधा छाप पार्छ। यदि तपाईंले छिटो-छिटो र केवल कामको कुरा मात्र बताउनुभयो भने, त्यो रुखो सुन्न सकिन्छ। अलिकति बिस्तारै र उज्यालो आवाजमा बोल्दा मात्र पनि अर्को व्यक्तिलाई ढुक्क महसुस हुन्छ। उदाहरणका लागि, सुरुमा कम्पनीको नाम र आफ्नो नाम स्पष्ट रूपमा भन्नुहोस्, र अर्को व्यक्तिको कुरामा 'उम्-हुम्' भन्दै सहमति जनाउनुहोस्। त्यति गर्दा मात्र पनि धेरै विनम्र छाप पर्छ। सामग्री उस्तै भए पनि, आवाजको टोनले मात्र पनि कुरा पुर्याउने तरिका धेरै फरक हुन्छ। अर्को व्यक्ति नदेखिने हुनाले, तपाईंको आवाजको उज्यालोपन र शान्तिले सीधा कम्पनीको छापसँग जोडिन्छ। सानो विचारले ठूलो विश्वास सिर्जना गर्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "仕事",
       "audio": true,
@@ -772,11 +1498,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the man talking about?",
+              "choices": [
+                "What is learned is only mastered through review.",
+                "Feeling like you understand the content on the day you learn it.",
+                "People forget a lot by the next day.",
+                "One should learn many new things every day."
+              ]
+            },
+            "ne": {
+              "q": "पुरुष के बारेमा कुरा गर्दै हुनुहुन्छ?",
+              "choices": [
+                "सिकेका कुराहरू दोहोर्याएर मात्र आत्मसात हुन्छन्।",
+                "सिकेको दिन सामग्री बुझेको जस्तो लाग्नु।",
+                "मानिसहरूले भोलिपल्ट धेरै कुरा बिर्सन्छन्।",
+                "हरेक दिन धेरै नयाँ कुराहरू सिक्नुपर्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In the classroom, a male teacher is speaking. Man 1: When you learn something new, you feel like you understand it that day. However, people forget a lot by the next day. Therefore, just by reviewing it a little the day after you learned it, the memory will stick much better. For example, try to recall what you learned that day in your head before going to bed. Even just that makes a big difference in how much you remember. It's more effective to repeat what you've learned once than to learn many new things. Nurturing what you've encountered once carefully leads to solid ability. Each time you recall something you've learned, the memory takes deeper root."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षाकोठामा एकजना पुरुष शिक्षक कुरा गर्दै हुनुहुन्छ। पुरुष १: जब तपाईंले केही नयाँ कुरा सिक्नुहुन्छ, त्यो दिन बुझेको जस्तो लाग्छ। तर, मानिसहरूले भोलिपल्ट धेरै कुरा बिर्सन्छन्। त्यसैले, सिकेको भोलिपल्ट अलिकति मात्र दोहोर्याएर हेर्दा पनि सम्झना धेरै राम्रोसँग रहन्छ। उदाहरणका लागि, त्यो दिन सिकेका कुराहरू सुत्नुअघि आफ्नो दिमागमा एकपटक फेरि सम्झने प्रयास गर्नुहोस्। त्यति गर्दा मात्र पनि सम्झना रहने तरिकामा धेरै फरक पर्छ। धेरै नयाँ कुराहरू सिक्नुभन्दा, एकपटक सिकेका कुराहरू दोहोर्याउनु बढी प्रभावकारी हुन्छ। एकपटक भेटेका कुराहरूलाई ध्यानपूर्वक पालनपोषण गर्नु नै वास्तविक शक्ति बन्छ। एकपटक सिकेका कुराहरूलाई जति धेरै पटक सम्झिन्छ, त्यति नै गहिरो गरी दिमागमा बस्छ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "学び",
       "audio": true,
@@ -803,11 +1558,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the woman want to say the most?",
+              "choices": [
+                "It is enough to read a foreign language only with your eyes.",
+                "Learning by reading aloud is more effective.",
+                "Reading aloud takes more time.",
+                "The method of reading using your mouth and ears."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले सबैभन्दा बढी के भन्न चाहन्छिन्?",
+              "choices": [
+                "विदेशी भाषालाई आँखाले मात्र पढ्नु पर्याप्त हुन्छ।",
+                "ठूलो स्वरले पढेर सिक्नु बढी प्रभावकारी हुन्छ।",
+                "ठूलो स्वरले पढ्दा बढी समय लाग्छ।",
+                "मुख र कान प्रयोग गरेर पढ्ने तरिका।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In the classroom, a female teacher is speaking. Woman 1: Many people are satisfied with just reading a foreign language with their eyes. However, if you read it aloud, your mouth and ears will learn together. It takes more time than reading silently, but the words will soak into your body and come out naturally when you speak. For example, try reading a sentence you want to memorize aloud little by little every day. As you repeat it many times, your mouth will move without you even thinking. It's harder to forget if you learn with your whole body rather than just following with your eyes. If you're in a hurry, I recommend reading aloud. Words that your mouth has learned once will naturally come out of your mouth when the time comes."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षामा एक महिला शिक्षिका बोलिरहेकी छिन्। महिला १: धेरै मानिसहरू विदेशी भाषालाई आँखाले मात्र पढेर सन्तुष्ट हुन्छन्। तर, यदि तपाईंले यसलाई ठूलो स्वरले पढ्नुभयो भने, तपाईंको मुख र कानले पनि सँगै सिक्छन्। मौन रूपमा पढ्नुभन्दा यसमा बढी समय लाग्छ, तर शब्दहरू तपाईंको शरीरमा भिज्छन् र बोल्दा स्वाभाविक रूपमा बाहिर आउँछन्। उदाहरणका लागि, तपाईंले याद गर्न चाहेको वाक्यलाई हरेक दिन थोरै-थोरै ठूलो स्वरले पढेर हेर्नुहोस्। धेरै पटक दोहोर्याउँदा, तपाईंले नसोचीकनै तपाईंको मुख चल्न थाल्छ। आँखाले मात्र पछ्याउनुभन्दा पूरै शरीरले सिक्नु बिर्सन गाह्रो हुन्छ। यदि तपाईं हतारमा हुनुहुन्छ भने, ठूलो स्वरले पढ्न सिफारिस गर्दछु। एक पटक मुखले सिकेका शब्दहरू आवश्यक पर्दा स्वाभाविक रूपमा मुखबाट निस्कन्छन्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -834,11 +1618,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man mainly want to convey?",
+              "choices": [
+                "The plan should be packed as much as possible.",
+                "Motivation only lasts at the beginning and doesn't continue for long.",
+                "Making a plan with an amount that can be continued.",
+                "Many people make unreasonable plans."
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले मुख्यतया के भन्न चाहन्छन्?",
+              "choices": [
+                "योजना सकेसम्म धेरै भर्नुपर्छ।",
+                "प्रेरणा सुरुमा मात्र रहन्छ र लामो समयसम्म टिक्दैन।",
+                "निरन्तरता दिन सकिने मात्राको योजना बनाउनु।",
+                "धेरै मानिसहरूले अव्यावहारिक योजनाहरू बनाउँछन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In the classroom, a male teacher is speaking. Man 1: When making a study plan, some people try to cram too much in. Even if they are motivated at first, they quickly can't keep it up. It's better to decide on a small amount that can be done every day. For example, try deciding to memorize only five words a day. Even if it seems small, it will become a large number if you continue for a year. Even a small amount, if continued, will make a big difference. The important thing is not to quit. A reasonable plan is what will carry you far. Rather than rushing to do everything at once, accumulating a little bit every day makes it easier to continue."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षामा एक पुरुष शिक्षक बोलिरहेका छन्। पुरुष १: अध्ययनको योजना बनाउँदा, कोही-कोहीले धेरै कुराहरू एकैचोटि भर्न खोज्छन्। सुरुमा उत्प्रेरित भए पनि, उनीहरूले चाँडै यसलाई निरन्तरता दिन सक्दैनन्। त्यसभन्दा, हरेक दिन गर्न सकिने सानो मात्रामा निर्णय गर्नु राम्रो हुन्छ। उदाहरणका लागि, एक दिनमा पाँचवटा शब्द मात्र याद गर्ने निर्णय गरेर हेर्नुहोस्। सानो देखिए पनि, यदि तपाईंले एक वर्षसम्म जारी राख्नुभयो भने यो ठूलो संख्या बन्छ। थोरै भए पनि, यदि जारी राखियो भने, यसले ठूलो फरक पार्छ। महत्त्वपूर्ण कुरा भनेको छोड्नु होइन। व्यावहारिक योजना नै हो जसले तपाईंलाई धेरै टाढासम्म पुर्याउँछ। एकैचोटि सबै कुरा गर्न हतार गर्नुभन्दा, हरेक दिन थोरै-थोरै जम्मा गर्दै जानुले निरन्तरता दिन सजिलो हुन्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -865,11 +1678,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this story?",
+              "choices": [
+                "Making mistakes leads to bad scores.",
+                "You should review the problems you answered correctly.",
+                "Many people get disappointed with test scores.",
+                "Mistakes are important things that can be utilized for the next step."
+              ]
+            },
+            "ne": {
+              "q": "यस कथाको विषयवस्तु के हो?",
+              "choices": [
+                "गल्ती गर्दा नराम्रो अंक आउँछ।",
+                "तपाईंले सही उत्तर दिएका प्रश्नहरूलाई समीक्षा गर्नुपर्छ।",
+                "धेरै मानिसहरू परीक्षाको अंकले निराश हुन्छन्।",
+                "गल्तीहरू अर्को चरणको लागि प्रयोग गर्न सकिने महत्त्वपूर्ण चीजहरू हुन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In the classroom, a female teacher is speaking. Woman 1: Many people get disappointed when they make mistakes on tests because of bad scores. However, the places where you made mistakes tell you your weak points. Reviewing the problems you got wrong is much more effective than reviewing the problems you answered correctly. For example, if you create a notebook just for the problems you got wrong, you can see your weaknesses at a glance. It becomes the biggest clue to not repeating the same mistakes. Mistakes are treasures for moving forward. So, there's no need to be afraid of making mistakes. The more you can make mistakes your allies, the more your abilities will grow rapidly."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षामा एक महिला शिक्षिका बोलिरहेकी छिन्। महिला १: परीक्षामा गल्ती गर्दा नराम्रो अंक आएर धेरै मानिसहरू निराश हुन्छन्। तर, तपाईंले गल्ती गरेका ठाउँहरूले तपाईंको कमजोर पक्षहरू बताउँछन्। सही उत्तर दिएका प्रश्नहरूलाई समीक्षा गर्नुभन्दा गलत उत्तर दिएका प्रश्नहरूलाई समीक्षा गर्दा धेरै शक्ति प्राप्त हुन्छ। उदाहरणका लागि, यदि तपाईंले गलत गरेका प्रश्नहरू मात्र सङ्कलन गरेर एउटा नोटबुक बनाउनुभयो भने, तपाईंले आफ्नो कमजोरीहरू एकै नजरमा देख्न सक्नुहुन्छ। यो एउटै गल्ती दोहोर्याउनबाट बच्नको लागि सबैभन्दा ठूलो सुराग बन्छ। गल्तीहरू अगाडि बढ्नका लागि खजाना हुन्। त्यसैले, गल्ती गर्न डराउनु पर्दैन। गल्तीलाई आफ्नो मित्र बनाउन सक्ने व्यक्तिले नै आफ्नो क्षमतालाई तीव्र गतिमा बढाउँछ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -896,11 +1738,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the man talking about?",
+              "choices": [
+                "It is important to know the wishes contained in events.",
+                "Decorations and food items for events also have meaning.",
+                "Seasonal events are just for enjoyment.",
+                "Many events wish for the safety of family."
+              ]
+            },
+            "ne": {
+              "q": "पुरुष के बारेमा कुरा गर्दैछन्?",
+              "choices": [
+                "चाडपर्वमा निहित कामनाहरू जान्नु महत्त्वपूर्ण छ।",
+                "चाडपर्वका सजावट र खानेकुराको पनि अर्थ हुन्छ।",
+                "मौसमी चाडपर्वहरू केवल रमाइलोका लागि मात्र हुन्।",
+                "धेरै चाडपर्वहरूले परिवारको सुरक्षाको कामना गर्छन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on the radio. Man 1: Seasonal events that have continued since ancient times are not just for enjoyment, but also contain feelings of gratitude towards nature and wishes for the safety of family. Each decoration and food item also has a meaning. For example, each item displayed for New Year's also contains a wish for health and a good harvest. When you prepare for these events while talking about their meanings with your family, the usual events become much more memorable. Knowing the wishes contained within them, rather than just imitating the forms, makes the events richer. A day welcomed with knowledge of its meaning is completely different from a day just spent, in terms of how it stays in your heart."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक पुरुष बोलिरहेका छन्। पुरुष १: प्राचीन कालदेखि चल्दै आएका मौसमी चाडपर्वहरू केवल रमाइलोका लागि मात्र होइनन्, तिनीहरूमा प्रकृतिप्रति कृतज्ञता र परिवारको सुरक्षाको कामना गर्ने भावना पनि निहित हुन्छ। प्रत्येक सजावट र खानेकुराको पनि आफ्नै अर्थ हुन्छ। उदाहरणका लागि, नयाँ वर्षमा सजाइने प्रत्येक वस्तुमा पनि स्वास्थ्य र राम्रो फसलको कामनाको अर्थ लुकेको हुन्छ। परिवारसँग ती अर्थहरूको बारेमा कुरा गर्दै तयारी गर्दा, सामान्य चाडपर्वहरू पनि मनमा गहिरो छाप छोड्ने बन्छन्। केवल रूपको नक्कल गर्नुभन्दा, त्यसमा निहित कामनाहरू जान्दा चाडपर्वहरू अझ समृद्ध हुन्छन्। अर्थ बुझेर मनाइएको दिन, केवल बिताइएको दिनभन्दा मनमा बस्ने तरिकामा पूर्णतया फरक हुन्छ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "文化行事",
       "audio": true,
@@ -927,11 +1798,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the woman want to say the most?",
+              "choices": [
+                "More expensive gifts are more appreciated.",
+                "The thought for the recipient is important in gifts.",
+                "How to find out what the recipient needs.",
+                "It takes time to choose a small item."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले सबैभन्दा बढी के भन्न चाहन्छिन्?",
+              "choices": [
+                "महँगा उपहारहरू बढी मन पर्छन्।",
+                "उपहारमा प्राप्त गर्ने व्यक्तिको लागि सोच महत्त्वपूर्ण हुन्छ।",
+                "प्राप्त गर्ने व्यक्तिलाई के आवश्यक छ भनेर पत्ता लगाउने तरिका।",
+                "सानो वस्तु छनोट गर्न समय लाग्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: When it comes to gifts, people tend to think that more expensive items are more appreciated. However, what truly remains in the heart are items chosen with the recipient in mind. It's not about the price, but the feeling of thinking about what that person needs right now that is conveyed. For example, choose while recalling the recipient's favorite color or something they've been troubled by recently. Items chosen in this way contain feelings that cannot be expressed by price. Even a small item, the time spent choosing it becomes the gift. The recipient will surely feel that thoughtfulness."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक महिला बोलिरहेकी छिन्। महिला १: उपहारको कुरा गर्दा, मानिसहरूलाई महँगो वस्तुहरू बढी मन पर्छन् भन्ने लाग्न सक्छ। तर, वास्तवमा मनमा बस्ने कुरा भनेको प्राप्त गर्ने व्यक्तिको बारेमा सोचेर छानिएको वस्तु हो। मूल्य होइन, तर त्यो व्यक्तिलाई अहिले के आवश्यक छ भनेर सोच्ने भावना व्यक्त हुन्छ। उदाहरणका लागि, प्राप्त गर्ने व्यक्तिको मनपर्ने रङ वा हालै उनीहरूलाई के कुराले समस्या पारेको छ भनेर सम्झँदै छान्नुहोस्। यसरी छानिएको वस्तुमा मूल्यले व्यक्त गर्न नसकिने भावना निहित हुन्छ। सानो वस्तु भए पनि, छनोटमा बिताएको समय नै उपहार बन्छ। प्राप्त गर्ने व्यक्तिले त्यो विचारशीलता पक्कै महसुस गर्नेछन्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audio": true,
@@ -958,11 +1858,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man mainly want to convey?",
+              "choices": [
+                "Handmade items are more expensive and take more time than machine-made ones.",
+                "Making things quickly and cheaply is the best.",
+                "The unique value of handmade items is being re-evaluated.",
+                "Handmade items each have a different shape."
+              ]
+            },
+            "ne": {
+              "q": "मानिसले मुख्यतया के भन्न खोजेका छन्?",
+              "choices": [
+                "हातले बनाएका सामानहरू मेसिनले बनाएका भन्दा महँगा हुन्छन् र समय पनि धेरै लाग्छ।",
+                "छिटो र सस्तोमा सामान बनाउनु नै सबैभन्दा राम्रो हो।",
+                "हातले बनाएका सामानहरूको विशेष महत्त्वलाई पुनः मूल्याङ्कन गरिँदैछ।",
+                "हातले बनाएका सामानहरूको आकार एक-एक फरक हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking at an exhibition. Man 1: Traditional handmade items are more expensive and take more time to make than machine-made ones. However, each one has a slightly different shape, and the more you use it, the more character it develops. The ingenuity and feelings of the maker are also conveyed. For example, wooden bowls and cloth accessories become more familiar to the hand and deepen in color and luster with use. The fact that no two are exactly alike is also a great appeal. Precisely because making things quickly and cheaply is the norm today, their value is being re-evaluated. More and more people are wanting to acquire them, even if they are a little more expensive."
+          ]
+        },
+        "ne": {
+          "body": [
+            "प्रदर्शनीमा एक जना मानिस बोलिरहेका छन्। मानिस १: हातले बनाइएका परम्परागत सामानहरू मेसिनले बनाएका सामानहरू भन्दा महँगा हुन्छन् र बनाउन धेरै समय लाग्छ। तर, प्रत्येकको आकार अलि फरक हुन्छ, र जति धेरै प्रयोग गरिन्छ, त्यति नै यसको विशेषता बढ्दै जान्छ। बनाउने व्यक्तिको सिर्जनात्मकता र भावना पनि व्यक्त हुन्छ। उदाहरणका लागि, काठका भाँडाहरू र कपडाका साना सामानहरू प्रयोग गर्दा हातमा मिल्दै जान्छन् र रङ र चमक पनि गहिरो हुँदै जान्छ। दुईवटा समान नहुनु पनि यसको ठूलो आकर्षण हो। आजभोलि छिटो र सस्तोमा सामान बनाउनु सामान्य भएकोले, यसको महत्त्वलाई पुनः मूल्याङ्कन गरिँदैछ। अलि महँगो भए पनि, यसलाई किन्न चाहने मानिसहरूको संख्या बढ्दै गएको छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "モノサービス",
       "audio": true,
@@ -989,11 +1918,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this talk?",
+              "choices": [
+                "The festival is lively with loud sounds and lights.",
+                "Recently, the number of tourists at the festival has increased.",
+                "It is a day to share the harvest from the fields with everyone.",
+                "Behind the liveliness, ancient wishes continue."
+              ]
+            },
+            "ne": {
+              "q": "यस कुराकानीको विषय के हो?",
+              "choices": [
+                "चाड ठूलो आवाज र उज्यालोले रमाइलो हुन्छ।",
+                "हालै चाडमा पर्यटकहरूको संख्या बढेको छ।",
+                "यो खेतको फसल सबैले बाँड्ने दिन हो।",
+                "रमाइलोको पछाडि, पुराना चाहनाहरू निरन्तर चलिरहेका छन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: The festival in this town is lively with loud sounds and lights, but it originally began to celebrate the harvest from the fields and to share it among everyone. Although the number of tourists has increased now, for the local people, it is an important day to appreciate a year's work and to connect to the next year. For example, the food distributed at the festival also contains the wishes of people from the past for health and a good harvest. We tend to be captivated by the flashy appearance, but the true meaning of the festival lies in the spirit behind it. Behind the liveliness, a quiet wish continues."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक महिला बोलिरहेकी छिन्। महिला १: यस सहरको चाड ठूलो आवाज र उज्यालोले रमाइलो हुन्छ, तर यो मूलतः खेतको फसलको खुसी मनाउन र सबैले बाँड्नका लागि सुरु भएको भनिन्छ। अहिले पर्यटकहरू पनि बढेका छन्, तर स्थानीय मानिसहरूका लागि यो एक वर्षको कामको कदर गर्न र अर्को वर्षसँग जोड्ने महत्त्वपूर्ण दिन हो। उदाहरणका लागि, चाडमा बाँडिने खानेकुरामा पनि स्वास्थ्य र राम्रो फसलको लागि पुराना मानिसहरूको चाहना लुकेको हुन्छ। हामी प्रायः यसको भड्किलो रूपमा आकर्षित हुन्छौं, तर चाडको वास्तविक अर्थ यसको पछाडिको भावनामा निहित छ। रमाइलोको पछाडि, एउटा शान्त चाहना निरन्तर चलिरहेको छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "文化行事",
       "audio": true,
@@ -1020,11 +1978,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the man talking about?",
+              "choices": [
+                "The less luggage you have, the lighter your trip will be.",
+                "You should take everything you're unsure about for now.",
+                "Heavy luggage makes you tired during travel.",
+                "Many people pack a lot of luggage for travel preparation."
+              ]
+            },
+            "ne": {
+              "q": "मानिस के बारेमा कुरा गर्दैछन्?",
+              "choices": [
+                "जति कम सामान हुन्छ, यात्रा त्यति नै हल्का हुन्छ।",
+                "दुविधा भएका सबै सामानहरू अहिलेको लागि लैजानुपर्छ।",
+                "भारी सामानले यात्राको बेला थकाउँछ।",
+                "यात्राको तयारीमा धेरै मानिसहरूले धेरै सामान प्याक गर्छन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on a travel program. Man 1: Some people pack a lot of luggage for a trip, thinking 'I might need this too.' However, heavy luggage makes travel tiring and slows down your movements. If you're unsure whether to use something, boldly leave it behind. For example, if you think you can wash clothes at your destination, your bag will be much lighter. If your steps are light, you can easily navigate stairs and narrow paths, and quickly stop for unexpected encounters. The lighter you are, the quicker you can move for interesting things you find on the spot. With less luggage, worries about forgetting or losing things also decrease, and your mind feels lighter too."
+          ]
+        },
+        "ne": {
+          "body": [
+            "यात्रा कार्यक्रममा एक जना मानिस बोलिरहेका छन्। मानिस १: यात्राको तयारीमा, 'यो पनि चाहिन्छ कि' भनेर धेरै सामानहरू प्याक गर्ने मानिसहरू हुन्छन्। तर, भारी सामानले यात्रालाई थकाउँछ र गतिलाई पनि सुस्त बनाउँछ। प्रयोग गर्ने कि नगर्ने भन्नेमा दुविधा भएका सामानहरूलाई हिम्मतका साथ छोडेर जानुहोस्। उदाहरणका लागि, यदि तपाईंले गन्तव्यमा कपडा धुन सकिन्छ भन्ने सोच्नुभयो भने, तपाईंको झोला धेरै हल्का हुनेछ। यदि तपाईंको पाइला हल्का भयो भने, तपाईं सिँढी र साँघुरा बाटोहरूमा सजिलै अगाडि बढ्न सक्नुहुन्छ, र अप्रत्याशित भेटघाटहरूमा पनि तुरुन्तै रोकिन सक्नुहुन्छ। जति हल्का हुनुहुन्छ, त्यति नै तपाईंले त्यही ठाउँमा भेट्टाएका रोचक चीजहरूका लागि तुरुन्तै अगाडि बढ्न सक्नुहुन्छ। कम सामान हुँदा, बिर्सने वा हराउने चिन्ता पनि कम हुन्छ, र मन पनि हल्का हुन्छ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "趣味旅食",
       "audio": true,
@@ -1051,11 +2038,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the woman most want to say?",
+              "choices": [
+                "Visiting famous places to take pictures.",
+                "Conversation with local people enriches the trip.",
+                "Recommended shops are listed in guidebooks.",
+                "How to research local life in books."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले मुख्यतया के भन्न चाहन्छिन्?",
+              "choices": [
+                "प्रसिद्ध ठाउँहरूको फोटो खिचेर घुम्नु।",
+                "स्थानीय मानिसहरूसँगको कुराकानीले यात्रालाई समृद्ध बनाउँछ।",
+                "सिफारिस गरिएका पसलहरू गाइडबुकमा पाइन्छन्।",
+                "किताबहरूमा स्थानीय जीवनशैलीको बारेमा अनुसन्धान गर्ने तरिका।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on a travel program. Woman 1: Traveling just to take pictures of famous places is fun, but if you talk a little with local people, your trip will become much deeper. Recommendations for shops and stories about local life are not found in guidebooks. For example, ask shopkeepers for recommendations, or exchange greetings with people you meet on the street. Just a short interaction can make you feel much closer to that place. A warmth that cannot be captured in photos will be etched in your heart. Even a single word of conversation can sometimes become an unforgettable memory."
+          ]
+        },
+        "ne": {
+          "body": [
+            "यात्रा कार्यक्रममा एक महिला बोलिरहेकी छिन्। महिला १: प्रसिद्ध ठाउँहरूको फोटो खिचेर मात्र घुम्ने यात्रा पनि रमाइलो हुन्छ, तर यदि तपाईंले स्थानीय मानिसहरूसँग अलिकति कुरा गर्नुभयो भने, यात्रा धेरै गहिरो हुन्छ। सिफारिस गरिएका पसलहरू र त्यस ठाउँको जीवनशैलीका कथाहरू गाइडबुकमा पाइँदैनन्। उदाहरणका लागि, पसलका मानिसहरूलाई सिफारिस सोध्नुहोस्, वा बाटोमा भेटिएका मानिसहरूसँग अभिवादन आदानप्रदान गर्नुहोस्। छोटो कुराकानीले मात्र पनि तपाईंलाई त्यस ठाउँसँग धेरै नजिक महसुस गराउँछ। फोटोमा मात्र नअटाउने न्यानोपन तपाईंको मनमा कुँदिन्छ। कहिलेकाहीँ एउटा सानो कुराकानी पनि अविस्मरणीय स्मृति बन्न सक्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "趣味旅食",
       "audio": true,
@@ -1082,11 +2098,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man mainly want to convey?",
+              "choices": [
+                "Popular tourist spots are crowded with many people during the day.",
+                "The light is soft in the morning.",
+                "You can enjoy tourist spots better by going early in the morning.",
+                "The air is refreshing and pleasant in the morning."
+              ]
+            },
+            "ne": {
+              "q": "मानिसले मुख्यतया के भन्न चाहन्छन्?",
+              "choices": [
+                "लोकप्रिय पर्यटकीय स्थलहरू दिउँसो धेरै मानिसहरूले भरिएका हुन्छन्।",
+                "बिहान प्रकाश नरम हुन्छ।",
+                "बिहान सबेरै जाँदा पर्यटकीय स्थलहरूलाई राम्ररी रमाइलो गर्न सकिन्छ।",
+                "बिहान हावा स्फूर्तिदायी र रमाइलो हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on a travel program. Man 1: Popular tourist spots are full of people during the day, and taking photos is a struggle. However, if you go early in the morning, it's so quiet you wouldn't think it's the same place. The air is refreshing, and the light is soft. For example, even famous temples have fewer people first thing in the morning, allowing you to pray peacefully. If you walk slowly while listening to the birds, you can feel the atmosphere of the place with your whole body. Just by waking up a little early, you can encounter the true beauty of that place. Precisely because there are fewer people, you can savor the unique tranquility and atmosphere of the place as if you have it all to yourself."
+          ]
+        },
+        "ne": {
+          "body": [
+            "यात्रा कार्यक्रममा एक जना मानिस बोलिरहेका छन्। मानिस १: लोकप्रिय पर्यटकीय स्थलहरू दिउँसो मानिसहरूले भरिएका हुन्छन्, र फोटो खिच्न पनि धेरै गाह्रो हुन्छ। तर, बिहान सबेरै जानुभयो भने, त्यो ठाउँ उस्तै हो भन्ने लाग्दैन, यति शान्त हुन्छ। हावा स्फूर्तिदायी हुन्छ, र प्रकाश पनि नरम हुन्छ। उदाहरणका लागि, प्रसिद्ध मन्दिरहरूमा पनि बिहान सबेरै कम मानिसहरू हुन्छन्, जसले गर्दा शान्तपूर्वक पूजा गर्न सकिन्छ। चराहरूको आवाज सुन्दै बिस्तारै हिँड्नुभयो भने, त्यस ठाउँको वातावरणलाई शरीरभरि महसुस गर्न सकिन्छ। अलिकति चाँडै उठ्दा मात्र पनि, तपाईंले त्यस ठाउँको वास्तविक सुन्दरताको अनुभव गर्न सक्नुहुन्छ। मानिसहरू कम भएको समय भएकोले, तपाईंले त्यस ठाउँको विशेष शान्ति र वातावरणलाई आफू एक्लैले उपभोग गरेजस्तै गरी अनुभव गर्न सक्नुहुन्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "趣味旅食",
       "audio": true,
@@ -1113,11 +2158,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this talk?",
+              "choices": [
+                "Spending money on new buildings and events",
+                "People who have visited once often do not come again",
+                "Not knowing a good way to attract people to the town",
+                "It is important to polish the existing good qualities of the town"
+              ]
+            },
+            "ne": {
+              "q": "यस कुराकानीको विषय के हो?",
+              "choices": [
+                "नयाँ भवन र कार्यक्रमहरूमा पैसा खर्च गर्ने कुरा",
+                "एकपटक आएका मानिसहरू प्रायः फेरि नआउने कुरा",
+                "सहरमा मानिसहरूलाई आकर्षित गर्ने राम्रो तरिका थाहा नहुने कुरा",
+                "सहरका मौलिक राम्रा पक्षहरूलाई निखार्नु महत्त्वपूर्ण छ"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking at the venue. Woman 1: There are places that spend money only on new buildings and events to attract people to their town. However, what makes people who have visited once want to come again is when they experience the unique scenery of that town and the warmth of its people. For example, traditional townscapes, local cuisine, and warm human relationships. These are treasures that other towns cannot imitate. Carefully polishing the existing good qualities, though it may seem like a detour, is actually the shortest path. Cherishing what already exists will make a town loved for a long time. Novelty becomes old with time, but the uniqueness of a town never fades."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यक्रम स्थलमा एक महिला बोलिरहेकी छिन्। महिला १: मानिसहरूलाई सहरमा आकर्षित गर्नका लागि नयाँ भवनहरू र कार्यक्रमहरूमा मात्र पैसा खर्च गर्ने ठाउँहरू छन्। तर, एकपटक आएका मानिसहरूलाई फेरि आउन मन लाग्ने कुरा भनेको त्यो सहरको आफ्नै मौलिक दृश्य र मानिसहरूको न्यानोपन अनुभव गर्दा हो। उदाहरणका लागि, पुरानो सहरको दृश्य, स्थानीय खाना, र न्यानो मानवीय सम्बन्धहरू। यस्ता कुराहरू अन्य सहरहरूले नक्कल गर्न नसक्ने खजाना हुन्। पहिलेदेखि नै भएका राम्रा कुराहरूलाई ध्यानपूर्वक निखार्नु, टाढाको बाटो जस्तो देखिए पनि, वास्तवमा सबैभन्दा छोटो बाटो हो। अहिले भएका कुराहरूलाई महत्त्व दिँदा सहर लामो समयसम्म प्रिय बन्छ। नयाँपन समयसँगै पुरानो हुन्छ, तर सहरको मौलिकता कहिल्यै मेटिँदैन।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -1144,11 +2218,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the man talking about?",
+              "choices": [
+                "It is important to decide how to use it yourself",
+                "Tending to look at the smartphone during free time",
+                "Realizing one has been looking at the screen for an hour",
+                "It is better to use a smartphone for as long as possible"
+              ]
+            },
+            "ne": {
+              "q": "पुरुष के कुरा गर्दै हुनुहुन्छ?",
+              "choices": [
+                "प्रयोग गर्ने तरिका आफैंले निर्धारण गर्नु महत्त्वपूर्ण छ",
+                "खाली समयमा स्मार्टफोन हेर्ने बानी लाग्ने कुरा",
+                "एक घण्टासम्म स्क्रिन हेरिरहेको थाहा हुने कुरा",
+                "स्मार्टफोन सकेसम्म लामो समयसम्म प्रयोग गर्नु राम्रो हुने कुरा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on the radio. Man 1: Smartphones are convenient, and I tend to pick them up whenever I have free time. But sometimes, I realize I've been looking at the screen for an hour. Tools are meant to be used, not to use us. For example, try setting your own rules, like putting it in your bag during meals or not looking at it an hour before bed. Then, you'll get back time to talk with your family and time to rest properly. Use it for a set time, and sometimes put it away. Choosing how to use it yourself is what truly makes the most of its convenience. The more convenient a tool is, the more important it is to know how to interact with it skillfully. It is none other than yourself who protects your own time."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना पुरुष बोलिरहेका छन्। पुरुष १: स्मार्टफोन सुविधाजनक छ, र खाली समय पाउँदा म यसलाई समातिहाल्छु। तर, कहिलेकाहीँ एक घण्टासम्म स्क्रिन हेरिरहेको छु भन्ने कुरा थाहा हुन्छ। उपकरणहरू प्रयोग गर्ने चीज हुन्, हामीलाई प्रयोग गर्ने होइनन्। उदाहरणका लागि, खाना खाने बेलामा झोलामा राख्ने, सुत्नुभन्दा एक घण्टा अगाडि नहेर्ने जस्ता नियमहरू आफैंले बनाउन प्रयास गर्नुहोस्। यसो गर्दा, परिवारसँग कुरा गर्ने समय र आराम गर्ने समय फिर्ता आउँछ। निश्चित समयका लागि प्रयोग गर्नुहोस्, र कहिलेकाहीँ यसलाई छोड्नुहोस्। आफैंले छनौट गरेर प्रयोग गर्नु नै यसको सुविधालाई साँच्चै सदुपयोग गर्नु हो। जति सुविधाजनक उपकरण हुन्छ, त्यति नै यसलाई राम्ररी प्रयोग गर्ने तरिका महत्त्वपूर्ण हुन्छ। आफ्नो समयको रक्षा गर्ने अरू कोही नभएर आफैं हो।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "生活くらし",
       "audio": true,
@@ -1175,11 +2278,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the most important thing the woman wants to say?",
+              "choices": [
+                "Translation apps are useful for travel and shopping",
+                "Don't rely too much on tools and develop your own abilities",
+                "Language ability is sufficient with just translation apps",
+                "Translation apps have advanced greatly in recent years"
+              ]
+            },
+            "ne": {
+              "q": "महिलाले सबैभन्दा बढी भन्न चाहेको कुरा के हो?",
+              "choices": [
+                "अनुवाद एपहरू यात्रा र किनमेलमा उपयोगी हुने कुरा",
+                "उपकरणहरूमा धेरै भर नपरी आफ्नो क्षमता पनि विकास गर्ने",
+                "अनुवाद एपहरूले मात्र भाषाको क्षमता पर्याप्त हुने कुरा",
+                "अनुवाद एपहरू हालैका वर्षहरूमा धेरै विकसित भएका कुरा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A female teacher is speaking in the classroom. Woman 1: Translation apps have advanced greatly, making it possible to understand foreign languages instantly. They are very helpful for travel and shopping. However, relying completely on them prevents the development of one's own ability to think and speak. For example, first try to say it yourself, and only check with the app for parts you don't understand. By doing so, you can utilize the convenience of the tool while gradually increasing your own vocabulary. It is important to skillfully use convenient tools while also gradually increasing your own vocabulary. Both are important. Instead of leaving everything to the tool, we should try to have a little time to think with our own minds."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षाकोठामा एक महिला शिक्षिका बोलिरहेकी छिन्। महिला १: अनुवाद एपहरू धेरै विकसित भएका छन्, जसले गर्दा विदेशी भाषा तुरुन्तै बुझ्न सकिन्छ। यात्रा र किनमेलमा तिनीहरू धेरै उपयोगी हुन्छन्। तर, यिनीहरूमा पूर्ण रूपमा भर पर्दा, आफैंले सोचेर बोल्ने क्षमताको विकास हुँदैन। उदाहरणका लागि, पहिले आफैंले भन्न प्रयास गर्नुहोस्, र नबुझेका ठाउँहरू मात्र एपबाट निश्चित गर्नुहोस्। यसो गर्दा, उपकरणको सुविधाको सदुपयोग गर्दै, आफ्नो शब्द भण्डार पनि बिस्तारै बढ्दै जान्छ। सुविधाजनक उपकरणहरूलाई कुशलतापूर्वक प्रयोग गर्दै, आफ्नो शब्द भण्डार पनि बिस्तारै बढाउँदै जानु महत्त्वपूर्ण छ। दुवै महत्त्वपूर्ण छन्। उपकरणमा मात्र भर नपरी, आफ्नो दिमागले सोच्ने समय पनि बिस्तारै राख्ने प्रयास गर्नुपर्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -1206,11 +2338,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man mainly want to convey?",
+              "choices": [
+                "The number of people paying without cash has increased",
+                "Paying with a card is fast and very convenient",
+                "Even if it's convenient, occasionally check the amount spent",
+                "The feeling of having spent money becomes diminished"
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले मुख्यतया के कुरा भन्न चाहनुहुन्छ?",
+              "choices": [
+                "नगद प्रयोग नगरी भुक्तानी गर्ने मानिसहरूको संख्या बढेको कुरा",
+                "कार्डबाट भुक्तानी गर्दा छिटो र धेरै सुविधाजनक हुने कुरा",
+                "सुविधाजनक भए पनि, खर्च भएको रकम कहिलेकाहीँ निश्चित गर्ने कुरा",
+                "पैसा खर्च गरेको अनुभूति कम हुने कुरा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on the radio. Man 1: The number of people paying with smartphones and cards instead of cash has increased. Wallets are lighter, and payments are fast and convenient. However, the feeling of having spent money is diminished, and one might end up overspending. For example, once a month, review your spending records and check how much you spent on what. When you see the numbers, you might realize you spent more than you thought. While enjoying the convenience, it's reassuring to occasionally check how much you've spent. Especially in an era where the flow of money is hard to see, the habit of checking the numbers yourself will protect your life."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना पुरुष बोलिरहेका छन्। पुरुष १: नगद प्रयोग नगरी स्मार्टफोन वा कार्डबाट भुक्तानी गर्ने मानिसहरूको संख्या बढेको छ। वालेट हल्का हुन्छ, र भुक्तानी छिटो र सुविधाजनक हुन्छ। तर, पैसा खर्च गरेको अनुभूति कम हुन्छ, र कहिलेकाहीँ धेरै खर्च हुन सक्छ। उदाहरणका लागि, महिनामा एकपटक खर्चको रेकर्ड हेर्नुहोस् र केमा कति खर्च भयो भनेर निश्चित गर्नुहोस्। अंकमा हेर्दा, सोचेभन्दा बढी खर्च भएको रहेछ भन्ने कुरा थाहा हुन सक्छ। सुविधाको आनन्द लिँदै, कहिलेकाहीँ कति खर्च भयो भनेर निश्चित गर्नु सुरक्षित हुन्छ। पैसाको प्रवाह देख्न गाह्रो हुने युगमा, आफैंले अंकहरू निश्चित गर्ने बानीले तपाईंको जीवनलाई सुरक्षित राख्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audio": true,
@@ -1237,11 +2398,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of this talk?",
+              "choices": [
+                "The era where everything can be done with a single button has arrived",
+                "Life should be made as convenient as possible",
+                "The joy of using one's hands decreases",
+                "Sometimes there is also goodness in choosing inconvenience"
+              ]
+            },
+            "ne": {
+              "q": "यस कुराकानीको विषय के हो?",
+              "choices": [
+                "एउटै बटनले सबै कुरा गर्न सकिने युग आएको कुरा",
+                "जीवनलाई सकेसम्म सुविधाजनक बनाउनुपर्छ भन्ने कुरा",
+                "हात चलाउने आनन्द कम हुने कुरा",
+                "कहिलेकाहीँ असुविधा छनौट गर्नुको पनि राम्रो पक्ष हुन्छ भन्ने कुरा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: In an era where everything can be done with a single button, life has become very easy. However, if it's too convenient, the joy of using our hands and the excitement of waiting time decrease. For example, sometimes take a long walk on your own feet, or write and send a letter. It takes effort, but in return, you might notice flowers by the roadside or experience the excitement of waiting for a reply. Sometimes choosing a more laborious method brings small joys back to everyday life. Convenience alone is not happiness. The true flavor of life is hidden within the effort."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक महिला बोलिरहेकी छिन्। महिला १: सबै कुरा एउटै बटनले गर्न सकिने युगमा, जीवन धेरै सजिलो भएको छ। तर, धेरै सुविधाजनक हुँदा, हात चलाउने आनन्द र पर्खने समयको उत्साह कम हुन्छ। उदाहरणका लागि, कहिलेकाहीँ आफ्नै खुट्टाले घुमेर हिँड्ने, वा चिठी लेखेर पठाउने। यसमा समय लाग्छ, तर त्यसको बदलामा, बाटोमा फूलहरू देख्न सकिन्छ वा जवाफको प्रतीक्षा गर्ने उत्साह अनुभव गर्न सकिन्छ। कहिलेकाहीँ अलि बढी मेहनत लाग्ने तरिका छनौट गर्दा, सामान्य जीवनमा सानो खुशीहरू फिर्ता आउँछन्। सुविधा मात्र खुशी होइन। जीवनको वास्तविक स्वाद मेहनत भित्र लुकेको हुन्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audio": true,
@@ -1268,11 +2458,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is she talking about?",
+              "choices": [
+                "It's good to stay home on rainy days instead of going out.",
+                "The joy of distinguishing sounds that change with the intensity of the rain.",
+                "Savoring the tranquility unique to rainy days.",
+                "Closing the window and spending time quietly on rainy days."
+              ]
+            },
+            "ne": {
+              "q": "उनी के कुरा गर्दैछिन्?",
+              "choices": [
+                "पानी परेको दिनमा बाहिर ननिस्केर घरमै बस्नु राम्रो हुन्छ।",
+                "पानीको तीव्रता अनुसार परिवर्तन हुने आवाज छुट्याउने आनन्द।",
+                "पानी परेको दिनको विशेष शान्तिको अनुभव गर्नु।",
+                "पानी परेको दिनमा झ्याल बन्द गरेर शान्तसँग समय बिताउनु।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: On rainy days, it's a hassle to go out, and you tend to feel down, don't you? But I believe there are things that can only be enjoyed precisely because it's a rainy day. Try opening the window a little and listening carefully to the sound of the rain hitting the roof and leaves. The sound is completely different between heavy rain and light rain. Listening to that sound, my mind strangely calms down. I think it's a way to spend quiet time that you can't do on a sunny day. I hope you don't just decide that rainy days are bad."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक महिला कुरा गर्दैछिन्। महिला १: पानी परेको दिनमा बाहिर जान झन्झट लाग्छ र मन भारी हुन्छ, होइन र? तर मलाई लाग्छ कि पानी परेको दिनमा मात्रै रमाइलो गर्न सकिने कुराहरू छन्। झ्याल अलिकति खोलेर, छत र पातमा पानी पर्दाको आवाज ध्यान दिएर सुन्नुहोस्। भारी वर्षा र हल्का वर्षामा सुनिने आवाज बिल्कुल फरक हुन्छ। त्यो आवाज सुन्दा, अचम्म लाग्ने गरी मन शान्त हुन्छ। घमाइलो दिनमा गर्न नसकिने, शान्त समय बिताउने तरिका हो जस्तो लाग्छ। पानी परेको दिनलाई मात्र नराम्रो भनेर नसोचिदिनुहोस् है।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "社会自然",
       "audio": true,
@@ -1299,11 +2518,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to say the most?",
+              "choices": [
+                "Paying attention to familiar things helps us understand nature.",
+                "The pleasantness of a sudden breeze on a hot day.",
+                "How ancient people predicted weather from the wind.",
+                "The real reason why the wind's direction and smell change."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "नजिकका कुराहरूमा ध्यान दिँदा प्रकृतिको अवस्था बुझ्न सकिन्छ।",
+                "गर्मीको दिनमा अचानक चल्ने हावाको आनन्द।",
+                "पुराना मानिसहरूले हावाबाट मौसम कसरी अनुमान गर्थे।",
+                "हावाको दिशा र गन्ध परिवर्तन हुने वास्तविक कारण।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on TV. Man 1: Do you usually pay attention to the wind? The wind that suddenly blows on a hot day feels good, but that's not all. When the direction or smell of the wind changes, it can be a sign that the weather is about to break. People in the past sensed these changes in the wind and used them to their advantage in daily life. We too, by paying a little attention to the wind that touches our cheeks, can see the movement of the seasons and the state of nature. I feel that the invisible wind contains many messages."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एकजना मानिस कुरा गर्दैछन्। पुरुष १: के तपाईँहरू सामान्यतया हावालाई ध्यान दिनुहुन्छ? गर्मीको दिनमा अचानक चल्ने हावा राम्रो लाग्छ, तर त्यो मात्र होइन। हावाको दिशा वा गन्ध परिवर्तन हुँदा, त्यो मौसम बिग्रने संकेत हुन सक्छ। पुराना मानिसहरूले हावाका यस्ता परिवर्तनहरू महसुस गरेर आफ्नो जीवनमा उपयोग गर्थे। हामी पनि, गालामा लाग्ने हावामा अलिकति ध्यान दिँदा मात्रै पनि, ऋतुहरूको चाल र प्रकृतिको अवस्था देख्न सक्छौँ। मलाई लाग्छ कि नदेखिने हावामा नै धेरै सन्देशहरू लुकेका हुन्छन्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -1330,11 +2578,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "How trees that bud in spring grow in summer.",
+                "The reason why tree leaves change color in autumn.",
+                "It's hard to notice changes when you see them every day.",
+                "Feeling the changes by continuing to visit without rushing."
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "वसन्तमा पालुवा हालेका रूखहरू गर्मीमा कसरी बढ्छन्।",
+                "शरद ऋतुमा रूखका पातहरूको रङ परिवर्तन हुने कारण।",
+                "हरेक दिन हेर्दा परिवर्तनहरू ध्यान दिन गाह्रो हुन्छ।",
+                "हतार नगरी लगातार गइरहेमा परिवर्तनहरू महसुस गर्नु।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "An expert is speaking at a lecture. Expert 1: If you walk the same path throughout the year, you can clearly see the seasons slowly changing. Trees that bud in spring become deep green in summer, change color in autumn, and shed their leaves in winter. If you look at them every day, the changes are small and hard to notice, but when you look back, the scenery has completely changed. Not rushing, and continuing to go to the same place. I believe that is the best way to feel the gentle flow of the seasons."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक विशेषज्ञले व्याख्यानमा कुरा गर्दैछन्। विशेषज्ञ १: यदि तपाईँ वर्षभरि एउटै बाटोमा हिँड्नुहुन्छ भने, ऋतुहरू बिस्तारै परिवर्तन भइरहेको स्पष्ट देख्न सक्नुहुन्छ। वसन्तमा पालुवा हालेका रूखहरू गर्मीमा गाढा हरियो हुन्छन्, शरदमा रङ परिवर्तन गर्छन्, र जाडोमा पातहरू झार्छन्। हरेक दिन हेर्दा परिवर्तनहरू सानो र ध्यान दिन गाह्रो हुन्छन्, तर फर्केर हेर्दा दृश्य पूर्ण रूपमा परिवर्तन भइसकेको हुन्छ। हतार नगरी, एउटै ठाउँमा लगातार गइरहनु। मलाई लाग्छ कि ऋतुहरूको कोमल प्रवाह महसुस गर्ने यो नै सबैभन्दा राम्रो तरिका हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -1361,11 +2638,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to convey the most?",
+              "choices": [
+                "That it's good to go to the mountains to see autumn leaves.",
+                "Those colors are the plants' ingenuity to prepare for the cold.",
+                "How to take good pictures of autumn leaves.",
+                "When do leaves turn red and yellow?"
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "शरद ऋतुका पातहरू हेर्न पहाडमा जानु राम्रो हुन्छ।",
+                "ती रङहरू चिसोको लागि तयारी गर्ने बिरुवाहरूको चलाखी हो।",
+                "शरद ऋतुका पातहरूको राम्रो फोटो कसरी लिने।",
+                "पातहरू कहिले रातो र पहेँलो हुन्छन्?"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on TV. Woman 1: In autumn, the trees in the mountains turn red and yellow, and they are so beautiful, aren't they? Many people go out to take pictures. But what I want to convey most is that autumn leaves are not just beautiful. Before it gets cold, trees stop sending nutrients to their leaves to protect themselves. As a result, the green color fades, and red and yellow appear. In other words, those colors are the trees' preparation to survive winter. When you look at them with that in mind, the autumn leaves appear different again."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एक महिला कुरा गर्दैछिन्। महिला १: शरद ऋतुमा, पहाडका रूखहरू रातो र पहेँलो रङमा रङ्गिएर धेरै सुन्दर देखिन्छन्, होइन र? धेरै मानिसहरू फोटो खिच्न जान्छन्। तर म सबैभन्दा बढी के भन्न चाहन्छु भने, शरद ऋतुका पातहरू केवल सुन्दर मात्र होइनन्। चिसो हुनुअघि, रूखहरूले आफूलाई बचाउन पातहरूमा पोषक तत्व पठाउन बन्द गर्छन्। त्यसको परिणाम स्वरूप, हरियो रङ हराउँछ र रातो तथा पहेँलो रङ देखा पर्छ। अर्थात्, ती रङहरू रूखहरूले जाडोमा बाँच्नको लागि गर्ने तयारीको रूप हो। त्यसरी सोचेर हेर्दा, शरद ऋतुका पातहरू फेरि फरक देखिन्छन्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -1392,11 +2698,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is he talking about?",
+              "choices": [
+                "The reason why car sounds disappear on a snowy day.",
+                "It's good to wake up early and stand outside on a snowy morning.",
+                "The beauty of the morning quietness that can only be experienced at that time of year.",
+                "The reason why accumulated snow has many gaps."
+              ]
+            },
+            "ne": {
+              "q": "उनी के कुरा गर्दैछन्?",
+              "choices": [
+                "हिउँ परेको दिनमा गाडीको आवाज हराउने कारण।",
+                "हिउँ परेको बिहान चाँडै उठेर बाहिर उभिनु राम्रो हुन्छ।",
+                "वर्षको त्यस समयमा मात्र अनुभव गर्न सकिने बिहानको शान्तिको सुन्दरता।",
+                "जमेको हिउँमा धेरै खाली ठाउँहरू हुने कारण।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on the radio. Man 1: On a snowy morning, when you go outside, haven't you ever felt that your usual town feels different? The sound of cars and people's voices somehow sound distant. Actually, freshly fallen snow has many small gaps, and sounds are absorbed into them. That's why everything becomes so quiet. I like this quietness of a snowy morning, and I sometimes intentionally wake up early and stand outside. It's cold, but I think it's a special quietness that can only be experienced at this time of year."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना मानिस कुरा गर्दैछन्। पुरुष १: हिउँ परेको बिहान, बाहिर निस्कँदा, तपाईँको सधैँको सहर फरक लागेको अनुभव भएको छैन? गाडीको आवाज र मानिसहरूको आवाज पनि कतै टाढाबाट आएको जस्तो सुनिन्छ। वास्तवमा, भर्खरै परेको हिउँमा धेरै साना खाली ठाउँहरू हुन्छन्, र त्यहाँ आवाजहरू सोसिन्छन्। त्यसैले वरिपरिको वातावरण शान्त हुन्छ। मलाई हिउँ परेको बिहानको यो शान्ति मन पर्छ, र म कहिलेकाहीँ जानीबुझी चाँडै उठेर बाहिर उभिन्छु। चिसो भए पनि, मलाई लाग्छ कि यो वर्षको यस समयमा मात्र अनुभव गर्न सकिने विशेष शान्ति हो।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "社会自然",
       "audio": true,
@@ -1423,11 +2758,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to say the most?",
+              "choices": [
+                "There is value in the time spent waiting for things that cannot be obtained immediately.",
+                "The sight of buds swelling and colors gradually becoming visible.",
+                "Worrying about the sky and weather before flowers bloom.",
+                "The joy of finding bloomed flowers in parks and gardens."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "तुरुन्तै प्राप्त गर्न नसकिने चीजहरूको प्रतीक्षामा बिताएको समयमा मूल्य हुन्छ।",
+                "कोपिलाहरू फुल्दै र बिस्तारै रङहरू देखिने दृश्य।",
+                "फूल फुल्नुअघि आकाश र मौसमको चिन्ता गर्नु।",
+                "पार्क र बगैंचामा फुलेका फूलहरू भेट्टाउनुको आनन्द।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking at a lecture. Woman 1: Haven't you ever experienced waiting eagerly for flowers to bloom in your garden or a park? When the buds swell and the colors gradually become visible, your heart flutters, doesn't it? But what I think is important is not the bloomed flower itself, but the feeling of waiting for it. You look up at the sky, wondering if it's time yet, and worry about the weather. It's precisely because of that waiting time that the joy of seeing it bloom becomes greater. I think flowers teach us the richness of waiting, something that isn't found in things that are immediately available."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक महिलाले प्रवचनमा कुरा गरिरहेकी छिन्। महिला १: के तपाईंले आफ्नो बगैंचा वा पार्कमा फूल फुल्ने प्रतीक्षामा उत्सुकतापूर्वक बसेको अनुभव गर्नुभएको छैन? जब कोपिलाहरू फुल्छन् र रङहरू बिस्तारै देखिन थाल्छन्, मन प्रफुल्लित हुन्छ, होइन र? तर मलाई लाग्छ कि महत्त्वपूर्ण कुरा फुलेको फूल आफैं होइन, तर त्यसको प्रतीक्षा गर्दाको भावना हो। तपाईं आकाशतिर हेर्नुहुन्छ, 'अझै भएन र?' भन्दै, र मौसमको चिन्ता गर्नुहुन्छ। त्यो प्रतीक्षाको समय भएकोले नै फूल फुल्दाको खुसी अझ ठूलो हुन्छ। मलाई लाग्छ कि फूलहरूले हामीलाई प्रतीक्षाको समृद्धि सिकाउँछन्, जुन तुरुन्तै प्राप्त हुने चीजहरूमा पाइँदैन।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -1454,11 +2818,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "Types of insects that chirp from late summer to autumn.",
+                "Reasons why insect sounds are heard more often in the evening.",
+                "The importance of checking the season with a calendar.",
+                "Knowing the progression of the season from changes heard with the ears."
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "गर्मीको अन्त्यदेखि शरद ऋतुसम्म कराउने कीराहरूको प्रकार।",
+                "साँझमा कीराहरूको आवाज बढी सुनिने कारणहरू।",
+                "पात्रोबाट मौसम जाँच गर्नुको महत्त्व।",
+                "कानले सुन्ने परिवर्तनबाट मौसमको प्रगति थाहा पाउनु।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A specialist is speaking at a lecture. Specialist 1: From late summer to autumn, you can hear various insect sounds in the evening, right? Actually, the types of insects that chirp gradually change as the season progresses. The insects that chirp when it's still hot are different from those that chirp when it gets cooler. So, if you listen carefully and notice that the 'owner' of the voice has changed, you can tell how far the season has progressed without even looking at a calendar. You can feel the season not only with your eyes but also with your ears. I want everyone to know about this way of enjoying the season."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक विशेषज्ञले प्रवचनमा कुरा गरिरहेका छन्। विशेषज्ञ १: गर्मीको अन्त्यदेखि शरद ऋतुसम्म, साँझमा विभिन्न कीराहरूको आवाज सुनिन्छ, होइन र? वास्तवमा, कराउने कीराहरूको प्रकार मौसम अगाडि बढ्दै जाँदा बिस्तारै परिवर्तन हुन्छ। जब गर्मी हुन्छ तब कराउने कीराहरू र चिसो भएपछि कराउने कीराहरू फरक हुन्छन्। त्यसैले, यदि तपाईंले ध्यान दिएर सुन्नुभयो र आवाजको 'मालिक' परिवर्तन भएको याद गर्नुभयो भने, तपाईंले पात्रो नहेरीकन मौसम कति अगाडि बढेको छ भनेर थाहा पाउन सक्नुहुन्छ। तपाईंले मौसमलाई आँखाले मात्र होइन, कानले पनि महसुस गर्न सक्नुहुन्छ। म चाहन्छु कि सबैले यस प्रकारको आनन्द लिने तरिका जानून्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -1485,11 +2878,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to convey the most?",
+              "choices": [
+                "You can grow plants on a balcony even without a large garden.",
+                "The habit of caring for plants organizes one's life.",
+                "Watering in the morning and checking the condition of the leaves.",
+                "The joy of making flowers bloom in a small pot."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "ठूलो बगैंचा नभए पनि बालकनीमा बिरुवा हुर्काउन सकिन्छ।",
+                "बिरुवाको हेरचाह गर्ने बानीले जीवनलाई व्यवस्थित गर्छ।",
+                "बिहान पानी हाल्ने र पातहरूको अवस्था हेर्ने।",
+                "सानो गमलामा फूल फुलाउनुको आनन्द।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: Even if you don't have a large garden, if you have a balcony, you can fully enjoy the pleasure of growing plants. You just need to place one small pot. However, what I want to convey most is that growing plants creates a rhythm in your daily life. When you wake up in the morning, you water them and check on their leaves. That small habit sets the tone for the start of your day. I think the time spent caring for them, rather than whether the flowers bloom or not, brings a sense of calm to your life."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक महिलाले रेडियोमा कुरा गरिरहेकी छिन्। महिला १: ठूलो बगैंचा नभए पनि, यदि तपाईंसँग बालकनी छ भने, तपाईंले बिरुवा हुर्काउने आनन्द पूर्ण रूपमा लिन सक्नुहुन्छ। एउटा सानो गमला राखे पुग्छ। तर, म सबैभन्दा बढी के भन्न चाहन्छु भने, बिरुवा हुर्काउँदा तपाईंको दैनिक जीवनमा एउटा ताल सिर्जना हुन्छ। बिहान उठ्दा पानी हाल्ने र पातहरूको अवस्था हेर्ने। त्यो सानो बानीले तपाईंको दिनको सुरुवातलाई व्यवस्थित गर्छ। मलाई लाग्छ कि फूल फुल्छ कि फुल्दैन भन्दा पनि, हेरचाह गर्ने समयले नै जीवनमा शान्ति ल्याउँछ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -1516,11 +2938,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is he talking about?",
+              "choices": [
+                "How living with animals warms the heart.",
+                "How to care for a pet when it gets sick.",
+                "The need for resolve to take responsibility for a creature's entire life.",
+                "The reason why animal lives last for more than ten years."
+              ]
+            },
+            "ne": {
+              "q": "उनी के बारेमा कुरा गर्दैछन्?",
+              "choices": [
+                "जनावरहरूसँग बस्दा कसरी हृदय न्यानो हुन्छ।",
+                "पाल्तु जनावर बिरामी हुँदा कसरी हेरचाह गर्ने।",
+                "एउटा प्राणीको सम्पूर्ण जीवनको जिम्मेवारी लिने संकल्पको आवश्यकता।",
+                "जनावरहरूको जीवन दश वर्षभन्दा बढी टिक्नुको कारण।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking at a lecture. Man 1: Living with animals is a wonderful thing that warms the heart. However, I believe that starting to keep a pet solely based on the feeling of 'cute' is a bit dangerous. Animals need to be fed daily, their physical condition monitored, and cared for when they are sick. Moreover, their lives can last for more than ten years. In other words, keeping a pet means taking responsibility for its entire life until the very end. I want you to carefully consider whether you have that resolve before getting a pet."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक पुरुषले प्रवचनमा कुरा गरिरहेका छन्। पुरुष १: जनावरहरूसँग बस्नु हृदयलाई न्यानो पार्ने एउटा अद्भुत कुरा हो। तर, मलाई लाग्छ कि 'प्यारो' भन्ने भावनाले मात्र पाल्न सुरु गर्नु अलि खतरनाक छ। जनावरहरूलाई हरेक दिन खाना खुवाउनुपर्छ, तिनीहरूको शारीरिक अवस्था हेर्नुपर्छ, र बिरामी हुँदा हेरचाह गर्नुपर्छ। यसबाहेक, तिनीहरूको जीवन दश वर्षभन्दा बढी पनि हुन सक्छ। अर्थात्, पाल्तु जनावर पाल्नु भनेको त्यसको सम्पूर्ण जीवनको अन्त्यसम्म जिम्मेवारी लिनु हो। म चाहन्छु कि तपाईंले पाल्तु जनावर पाल्नुअघि आफूसँग त्यो संकल्प छ कि छैन भनेर राम्ररी विचार गर्नुहोस्।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "生活くらし",
       "audio": true,
@@ -1547,11 +2998,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to say the most?",
+              "choices": [
+                "The time spent listening to casual sounds enriches the morning.",
+                "How to distinguish between high and low bird calls.",
+                "The reason why bird calls are all different.",
+                "How to identify birds using special tools."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "सामान्य आवाजहरू सुन्नमा बिताएको समयले बिहानलाई समृद्ध बनाउँछ।",
+                "चराहरूको उच्च र निम्न आवाजहरू कसरी छुट्याउने।",
+                "चराहरूको आवाज सबै फरक हुनुको कारण।",
+                "विशेष उपकरणहरू प्रयोग गरेर चराहरू कसरी चिन्ने।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: In the morning, I hear various bird calls from outside, but how much attention do you pay to them? I make listening to these bird calls my daily morning pleasure. Even if they sound similar, if you listen carefully, there are high and low voices, and their chirping methods are also different. When I listen while imagining the 'owner' of the voice, my heart feels light even on a busy morning. No special tools or money are needed. Just stop and listen carefully. I think that alone can make the start of your day a little richer."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक महिलाले रेडियोमा कुरा गरिरहेकी छिन्। महिला १: बिहान बाहिरबाट विभिन्न चराहरूको आवाज सुनिन्छ, तर तपाईंहरू कति ध्यान दिनुहुन्छ? म यी चराहरूको आवाज सुन्ने समयलाई हरेक बिहानको आनन्दको रूपमा लिन्छु। उस्तै सुनिने भए पनि, ध्यान दिएर सुन्दा उच्च र निम्न आवाजहरू हुन्छन्, र तिनीहरूको कराउने तरिका पनि फरक हुन्छ। आवाजको 'मालिक' को कल्पना गर्दै सुन्दा, व्यस्त बिहानमा पनि मन हल्का हुन्छ। कुनै विशेष उपकरण वा पैसा चाहिँदैन। केवल रोकिनुहोस् र ध्यान दिएर सुन्नुहोस्। मलाई लाग्छ कि त्यसले मात्र पनि तपाईंको दिनको सुरुवातलाई अलि समृद्ध बनाउन सक्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -1578,11 +3058,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "Differences in how animals find food",
+                "Types of animals that come to parks and riverbanks",
+                "The importance of learning about animals from TV and books",
+                "The joy of observing nearby creatures closely"
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "जनावरहरूले खाना खोज्ने तरिकामा भिन्नता",
+                "पार्क र नदी किनारमा आउने जनावरका प्रकारहरू",
+                "टिभी र किताबबाट जनावरहरूको बारेमा सिक्नुको महत्त्व",
+                "नजिकका जीवहरूलाई ध्यानपूर्वक नियाल्नुको रमाइलो"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A specialist is speaking on TV. Specialist 1: Have you ever observed animals closely in a park or by a river? Whether it's a bird or an insect, just stopping for a moment to watch can lead to unexpected discoveries. For example, you can see the unique ways each creature finds food or interacts with its companions. Unlike learning from TV or books, what you discover with your own eyes leaves a strong impression on your heart. You don't have to go to a special place; just observe familiar animals closely. I believe that's where the true joy of observation lies."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एक विशेषज्ञले कुरा गर्दै हुनुहुन्छ। विशेषज्ञ १: के तपाईंले कहिल्यै पार्क वा नदी किनारमा जनावरहरूलाई नजिकबाट नियालेर हेर्नुभएको छ? चरा होस् वा किरा, एकछिन रोकिएर हेर्दा मात्र पनि अप्रत्याशित कुराहरू पत्ता लाग्छन्। उदाहरणका लागि, खाना खोज्ने तरिका वा साथीहरूसँगको सम्बन्धमा, प्रत्येक जीवको आफ्नै अनौठो तरिका देख्न सकिन्छ। टिभी वा किताबबाट सिक्नुभन्दा फरक, आफ्नै आँखाले पत्ता लगाएका कुराहरू मनमा गहिरो छाप छोड्छन्। विशेष ठाउँमा जानु पर्दैन, नजिकका जनावरहरूलाई राम्ररी हेर्नुहोस्। मलाई लाग्छ, अवलोकनको वास्तविक आनन्द त्यहीँ छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -1609,11 +3118,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person most want to convey?",
+              "choices": [
+                "That cooking takes effort and is troublesome",
+                "There is joy in the process of moving one's hands itself",
+                "Tips for finishing cooking skillfully",
+                "How to enjoy the sound of cutting ingredients and their aroma"
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "खाना पकाउन मेहनत लाग्छ र झन्झटिलो हुन्छ भन्ने कुरा",
+                "हात चलाउने प्रक्रियामा नै आनन्द हुन्छ",
+                "खानालाई राम्ररी पकाउनका लागि सुझावहरू",
+                "सामग्री काट्दाको आवाज र सुगन्धको आनन्द लिने तरिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on the radio. Man 1: Many people might feel that cooking is troublesome and time-consuming. It certainly takes effort. But what I most want to convey is that cooking isn't just for eating. The sound of cutting ingredients, the pleasant aroma, the way it gradually takes shape—the process of making it itself is actually a very enjoyable time. Whether it turns out well or not is, honestly, secondary. I want you to savor the process of moving your hands and creating something. If you do that, daily meal preparation should become much more enjoyable."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना मानिस कुरा गर्दै हुनुहुन्छ। मानिस १: खाना पकाउनु झन्झटिलो र समय लाग्ने काम हो भन्ने धेरैलाई लाग्न सक्छ। पक्कै पनि यसमा मेहनत लाग्छ। तर म तपाईंहरूलाई सबैभन्दा बढी के भन्न चाहन्छु भने, खाना पकाउनु भनेको केवल खानको लागि मात्र होइन। सामग्री काट्दाको आवाज, मिठो सुगन्ध, बिस्तारै आकार लिँदै गएको दृश्य। बनाउने प्रक्रिया आफैंमा वास्तवमा धेरै रमाइलो समय हो। राम्रो बन्छ कि बन्दैन भन्ने कुरा, इमानदारीपूर्वक भन्नुपर्दा, दोस्रो कुरा हो। म चाहन्छु कि तपाईंहरूले हात चलाएर केही सिर्जना गर्ने प्रक्रियाको आनन्द लिनुहोस्। यदि तपाईंले त्यसो गर्नुभयो भने, हरेक दिनको खाना बनाउने काम अझ रमाइलो हुनेछ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "趣味旅食",
       "audio": true,
@@ -1640,11 +3178,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is she talking about?",
+              "choices": [
+                "It's good to always listen to music lightly in the background",
+                "How to distinguish the instruments playing in the background of a song",
+                "Engaging deeply with one thing allows for deeper appreciation",
+                "The joy of listening by paying attention to the lyrics"
+              ]
+            },
+            "ne": {
+              "q": "उनी केको बारेमा कुरा गर्दैछिन्?",
+              "choices": [
+                "संगीतलाई सधैं हल्का रूपमा पृष्ठभूमिमा बजाएर सुन्नु राम्रो हुन्छ",
+                "गीतको पृष्ठभूमिमा बजिरहेका वाद्ययन्त्रहरू कसरी छुट्याउने",
+                "एउटै कुरामा गहिरो रूपमा संलग्न हुँदा त्यसको गहिरो आनन्द लिन सकिन्छ",
+                "गीतका शब्दहरूमा ध्यान दिएर सुन्नुको आनन्द"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking at a lecture. Woman 1: Many people love music, but how they enjoy it varies from person to person. What I recommend is not just letting it play in the background, but occasionally listening to just one song carefully. Pay attention to the lyrics, or follow the sound of the instruments playing in the background. Even with the same song, if you change how you listen, you'll hear parts you never noticed before. Then, a familiar song can feel like a brand new one. I believe music can be enjoyed more deeply depending on how the listener engages with it."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक महिलाले प्रवचनमा कुरा गर्दै हुनुहुन्छ। महिला १: धेरै मानिसहरूलाई संगीत मन पर्छ, तर यसको आनन्द लिने तरिका व्यक्तिपिच्छे फरक हुन्छ। म के सिफारिस गर्छु भने, केवल पृष्ठभूमिमा बजाएर सुन्नुको सट्टा, कहिलेकाहीँ एउटा गीतलाई मात्र ध्यानपूर्वक सुन्नुहोस्। गीतका शब्दहरूमा ध्यान दिनुहोस्, वा पृष्ठभूमिमा बजिरहेका वाद्ययन्त्रहरूको आवाजलाई पछ्याउनुहोस्। एउटै गीत भए पनि, सुन्ने तरिका परिवर्तन गर्दा, तपाईंले पहिले कहिल्यै ध्यान नदिएका भागहरू सुन्नुहुनेछ। त्यसपछि, परिचित गीत पनि नयाँ गीतजस्तै लाग्न सक्छ। मलाई लाग्छ, संगीतलाई सुन्ने व्यक्तिको संलग्नता अनुसार अझ गहिरो रूपमा आनन्द लिन सकिन्छ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "趣味旅食",
       "audio": true,
@@ -1671,11 +3238,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person most want to say?",
+              "choices": [
+                "Cultivating the habit of continuing diligently every day",
+                "It's good to decide the number of pages to read in a day beforehand",
+                "Reading books on the train during spare time",
+                "How to read for a long time after making a block of time"
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्ति सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "हरेक दिन लगनशीलताका साथ निरन्तरता दिने बानीको विकास गर्नु",
+                "एक दिनमा पढ्ने पृष्ठहरूको संख्या पहिले नै निर्धारण गर्नु राम्रो हुन्छ",
+                "खाली समयमा ट्रेनमा किताब पढ्नु",
+                "धेरै समय निकालेर लामो समयसम्म पढ्ने तरिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on TV. Man 1: I often hear people say they don't have enough time to read books. But what I most want to convey is that you don't need to wait for a large block of time. Even five minutes on the train or before bed is fine. What's important is not reading for a long time, but continuing a little bit every day. If turning pages becomes a habit, books will become a part of your life before you know it. Don't worry about how many pages you read in a day. I want you to gradually cultivate the habit of reading itself."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एकजना मानिस कुरा गर्दै हुनुहुन्छ। मानिस १: किताब पढ्न समय पाइनँ भन्ने कुरा मैले प्रायः सुन्छु। तर म सबैभन्दा बढी के भन्न चाहन्छु भने, तपाईंले धेरै समयको लागि पर्खनु पर्दैन। ट्रेनमा वा सुत्नुअघिको पाँच मिनेट पनि पर्याप्त हुन्छ। महत्त्वपूर्ण कुरा लामो समयसम्म पढ्नुभन्दा पनि हरेक दिन थोरै-थोरै भए पनि निरन्तरता दिनु हो। यदि पाना पल्टाउनु सामान्य बानी भयो भने, किताबहरू तपाईंको जीवनको एक हिस्सा बन्नेछन्। एक दिनमा कति पाना पढियो भन्ने कुरामा चिन्ता नगर्नुहोस्। म चाहन्छु कि तपाईंले पढ्ने बानीलाई नै बिस्तारै विकास गर्दै जानुहोस्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -1702,11 +3298,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "That drawing is only for skilled people",
+                "How to accurately reproduce the shape and color of a cup",
+                "Practice for finishing drawings skillfully",
+                "Moving your hands develops the ability to observe things"
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "चित्र बनाउनु भनेको दक्ष मानिसहरूको लागि मात्र हो भन्ने कुरा",
+                "कपको आकार र रङलाई सही रूपमा कसरी उतार्ने",
+                "चित्रहरूलाई कुशलतापूर्वक पूरा गर्नका लागि अभ्यास",
+                "हात चलाउँदा वस्तुहरूलाई हेर्ने क्षमता विकास हुन्छ"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: Do you think drawing is something special only for skilled people? I don't think so. Even with a single cup in front of you, when you try to draw it, you'll look at its shape and color much more closely than usual. You realize that even though you thought you were looking, you actually weren't. In other words, drawing is more about developing the ability to observe things closely than about finishing a drawing skillfully. Don't worry about how good the finished product is; just look and move your hands. I want you to enjoy that time."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना महिला कुरा गर्दै हुनुहुन्छ। महिला १: के तपाईंलाई चित्र बनाउनु भनेको दक्ष मानिसहरूको लागि मात्र विशेष कुरा हो जस्तो लाग्छ? मलाई त्यस्तो लाग्दैन। तपाईंको अगाडि एउटा मात्र कप भए पनि, जब तपाईं त्यसलाई बनाउने प्रयास गर्नुहुन्छ, तपाईंले त्यसको आकार र रङलाई सामान्यभन्दा धेरै राम्ररी हेर्नुहुनेछ। तपाईंले महसुस गर्नुहुनेछ कि तपाईंले हेरिरहेको जस्तो लागे पनि, वास्तवमा तपाईंले हेरिरहनुभएको थिएन। अर्को शब्दमा भन्नुपर्दा, चित्र बनाउनु भनेको कुशलतापूर्वक चित्र पूरा गर्नुभन्दा पनि वस्तुहरूलाई राम्ररी हेर्ने क्षमता विकास गर्नु हो। बनेको चित्र कस्तो भयो भन्ने कुरामा चिन्ता नगर्नुहोस्, केवल हेर्नुहोस् र हात चलाउनुहोस्। म चाहन्छु कि तपाईंले त्यो समयको आनन्द लिनुहोस्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "趣味旅食",
       "audio": true,
@@ -1733,11 +3358,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person most want to convey?",
+              "choices": [
+                "It's a joy to increase the number of collected items.",
+                "What's important is not the quantity, but the background of each item.",
+                "Things you learn by researching collected items.",
+                "How to start a hobby of collecting stamps and stones."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्ति सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "सङ्कलन गरिएका वस्तुहरूको सङ्ख्या बढाउनु खुसीको कुरा हो।",
+                "महत्त्वपूर्ण कुरा मात्रा होइन, तर प्रत्येक वस्तुको पृष्ठभूमि हो।",
+                "सङ्कलन गरिएका वस्तुहरूको बारेमा अनुसन्धान गर्दा थाहा पाउने कुराहरू।",
+                "टिकट र ढुङ्गा सङ्कलन गर्ने शौक कसरी सुरु गर्ने।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking at a lecture. Man 1: Many people have hobbies of collecting something, whether it's stamps or stones, right? It's certainly a joy to see the number grow. But what I most want to convey is that the joy of collecting is not in the sheer quantity itself. It's in the memories of acquiring each item, and the things you learn by researching them. The true fun of collecting lies in the background of each and every one of these items. Instead of just competing on numbers, carefully engage with each item. I think that's the secret to continuing for a long time."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक जना मानिस प्रवचनमा बोल्दै हुनुहुन्छ। पुरुष १: टिकट होस् वा ढुङ्गा, केही सङ्कलन गर्ने शौक भएका मानिसहरू धेरै छन्, होइन र? सङ्ख्या बढ्दै जानु पक्कै पनि खुसीको कुरा हो। तर म सबैभन्दा बढी के भन्न चाहन्छु भने, सङ्कलन गर्ने आनन्द सङ्ख्याको अधिकतामा मात्र छैन। यो त प्रत्येक वस्तु प्राप्त गर्दाका सम्झनाहरूमा र त्यस वस्तुबारे अनुसन्धान गर्दा थाहा पाएका कुराहरूमा छ। सङ्कलन गर्ने वास्तविक रमाइलो प्रत्येक वस्तुको पृष्ठभूमिमा निहित छ। केवल सङ्ख्याको प्रतिस्पर्धा गर्नुको सट्टा, प्रत्येक वस्तुसँग सावधानीपूर्वक संलग्न हुनुहोस्। मलाई लाग्छ कि लामो समयसम्म जारी राख्ने रहस्य यही हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "趣味旅食",
       "audio": true,
@@ -1764,11 +3418,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is she talking about?",
+              "choices": [
+                "Preserving ordinary days as precious records.",
+                "How to skillfully photograph beautiful scenery.",
+                "The importance of taking photos on special days.",
+                "The joy of taking photos of roadside flowers."
+              ]
+            },
+            "ne": {
+              "q": "उनी के बारेमा कुरा गर्दैछिन्?",
+              "choices": [
+                "सामान्य दिनहरूलाई महत्त्वपूर्ण रेकर्डको रूपमा सुरक्षित राख्ने।",
+                "सुन्दर दृश्यहरूलाई कुशलतापूर्वक फोटो खिच्ने तरिका।",
+                "विशेष दिनहरूमा फोटो खिच्नुको महत्त्व।",
+                "बाटोको छेउमा फुलेका फूलहरूको फोटो खिच्ने आनन्द।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on TV. Woman 1: When it comes to photos, we tend to think of taking them of beautiful scenery or on special days, right? But what I recommend is to capture everyday moments in photos. Your usual dining table, or a small flower by the roadside. Even if they seem ordinary at the time, when you look back at them later, you realize it was a day that will never come again. The great meaning of photos is not in taking them skillfully, but in preserving them as a record to remember later. I want you to diligently take photos of ordinary days."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एक महिला बोल्दै हुनुहुन्छ। महिला १: फोटो भन्नाले सुन्दर दृश्य वा विशेष दिनमा खिच्ने कुरा हो भन्ने सोच्ने बानी हुन्छ, होइन र? तर म के सिफारिस गर्छु भने, सामान्य दिनहरूलाई पनि फोटोमा कैद गर्नुहोस्। तपाईंको सधैंको खाने टेबल, वा बाटोको छेउमा फुलेको सानो फूल। त्यसबेला सामान्य लागे पनि, पछि फर्केर हेर्दा, त्यो फेरि नआउने दिन थियो भन्ने महसुस हुन्छ। फोटोको ठूलो महत्त्व राम्रोसँग खिच्नुमा भन्दा पनि, पछि सम्झनका लागि रेकर्डको रूपमा राख्नुमा छ। म चाहन्छु कि तपाईंले सामान्य दिनहरूलाई पनि लगनशीलताका साथ फोटो खिच्नुहोस्।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "趣味旅食",
       "audio": true,
@@ -1795,11 +3478,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person most want to say?",
+              "choices": [
+                "Stretching is the same as intense exercise.",
+                "Reasons why the neck and shoulders become stiff in the same posture.",
+                "The longer you continue stretching, the better.",
+                "It's good to continue frequently, even for a short time."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्ति सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "स्ट्रेचिङ तीव्र व्यायाम जस्तै हो।",
+                "एउटै आसनमा घाँटी र काँध कडा हुनुका कारणहरू।",
+                "स्ट्रेचिङ जति लामो समयसम्म जारी राख्नुहुन्छ, त्यति नै राम्रो हुन्छ।",
+                "थोरै समय भए पनि, बारम्बार जारी राख्नु राम्रो हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A specialist is speaking on the radio. Specialist 1: If you spend all day in the same posture, your body gradually becomes stiff. That's why I recommend stretching. Unlike intense exercise, it doesn't make you out of breath and doesn't require much space. What I most want to convey is that you don't need to stretch for a long time. Just slowly stretch your neck and shoulders during work breaks. Even short, frequent loosening of your body is the quickest way to prevent stiffness and fatigue. Try moving a little bit whenever you notice it."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक विशेषज्ञ बोल्दै हुनुहुन्छ। विशेषज्ञ १: यदि तपाईं दिनभर एउटै आसनमा बस्नुहुन्छ भने, तपाईंको शरीर बिस्तारै कडा हुँदै जान्छ। त्यसैले म स्ट्रेचिङ सिफारिस गर्छु। तीव्र व्यायाम भन्दा फरक, यसले तपाईंलाई सास फेर्न गाह्रो बनाउँदैन र धेरै ठाउँ पनि लिँदैन। म सबैभन्दा बढी के भन्न चाहन्छु भने, स्ट्रेचिङ लामो समयसम्म गर्न आवश्यक छैन। कामको बीचमा, घाँटी र काँधलाई बिस्तारै तन्काए पुग्छ। छोटो भए पनि, शरीरलाई बारम्बार खुकुलो पार्नु कडापन र थकान जम्मा हुन नदिने सबैभन्दा छोटो बाटो हो। जब तपाईंलाई याद आउँछ, थोरै-थोरै चलाउने प्रयास गर्नुहोस्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audio": true,
@@ -1826,11 +3538,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "Reasons why breathing becomes shallow and fast when nervous.",
+                "Reasons why deep breathing requires tools and a place.",
+                "Regulating disturbed breathing to calm the mind.",
+                "How to speed up breathing to heighten feelings."
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "तनावमा हुँदा सास छोटो र छिटो हुनुका कारणहरू।",
+                "गहिरो श्वासप्रश्वासका लागि उपकरण र ठाउँ किन चाहिन्छ।",
+                "विचलित श्वासप्रश्वासलाई व्यवस्थित गरेर मनलाई शान्त पार्ने।",
+                "भावनाहरू बढाउन सासलाई कसरी छिटो पार्ने।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking at a lecture. Woman 1: What do you do when you're nervous or irritated? What I recommend is deep breathing: inhaling deeply and exhaling slowly. When you're feeling flustered, you unknowingly breathe shallowly and quickly. So, if you intentionally breathe slowly, your body calms down, and your mind follows suit. You don't need any special tools or a specific place. Just a few slow breaths. When your mind is disturbed, first regulate your breathing. I believe that's the shortcut to calming your mind."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक महिला प्रवचनमा बोल्दै हुनुहुन्छ। महिला १: जब तपाईं तनावमा हुनुहुन्छ वा चिडचिडा हुनुहुन्छ, तपाईं के गर्नुहुन्छ? म के सिफारिस गर्छु भने, गहिरो सास फेर्नुहोस् र बिस्तारै सास बाहिर निकाल्नुहोस्, अर्थात् गहिरो श्वासप्रश्वास। जब मन आत्तिएको हुन्छ, थाहै नपाई सास छोटो र छिटो हुन्छ। त्यसैले, जानाजानी बिस्तारै सास फेर्दा, शरीर शान्त हुन्छ, र त्यसको साथमा मन पनि शान्त हुँदै जान्छ। यसका लागि कुनै विशेष उपकरण वा ठाउँ चाहिँदैन। केवल केही पटक बिस्तारै सास फेर्नुहोस्। जब मन विचलित हुन्छ, पहिले सासलाई व्यवस्थित गर्नुहोस्। मलाई लाग्छ कि यो मनलाई शान्त पार्ने छोटो बाटो हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audio": true,
@@ -1857,11 +3598,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person most want to convey?",
+              "choices": [
+                "It's good to use eye drops when your eyes are tired.",
+                "Having time to frequently rest your eyes.",
+                "Reasons why screen time has increased.",
+                "Reasons why eye strain intensifies in the evening."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्ति सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "आँखा थाकेको बेला आँखामा थोपा हाल्नु राम्रो हुन्छ।",
+                "आँखालाई बारम्बार आराम दिने समय हुनु।",
+                "स्क्रिन हेर्ने समय बढेको कारणहरू।",
+                "साँझमा आँखाको थकान किन बढ्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A specialist is speaking on TV. Specialist 1: With the increased time spent looking at screens, more people are feeling eye strain. Using eye drops is good, but what I most want to convey is that it's most important to create time to rest your eyes above all else. It's not difficult. Just take your eyes off the screen for a bit and vaguely gaze out the window or at something far away. Eyes that have been looking only at nearby things relax when they look at something far away. Even once an hour, resting your eyes like this. Just that should significantly lighten your evening eye strain."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एक विशेषज्ञ बोल्दै हुनुहुन्छ। विशेषज्ञ १: स्क्रिन हेर्ने समय बढेसँगै, आँखाको थकान महसुस गर्ने मानिसहरूको सङ्ख्या बढ्दै गएको छ। आँखामा थोपा हाल्नु पनि राम्रो हो, तर म सबैभन्दा बढी के भन्न चाहन्छु भने, सबैभन्दा महत्त्वपूर्ण कुरा आँखालाई आराम दिने समय बनाउनु हो। यो गाह्रो छैन। केवल स्क्रिनबाट आँखा हटाएर, झ्याल बाहिर वा टाढाको कुनै कुरालाई अस्पष्ट रूपमा हेरे पुग्छ। नजिकका कुराहरू मात्र हेरिरहेका आँखाले टाढा हेर्दा आराम पाउँछन्। घण्टामा एक पटक भए पनि, यसरी आँखालाई आराम दिनुहोस्। यति मात्रले पनि साँझको आँखाको थकान धेरै कम हुनेछ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audio": true,
@@ -1888,11 +3658,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is she talking about?",
+              "choices": [
+                "It's good to keep writing a diary every day, even if it's short.",
+                "You should write a long account of the day's events in your diary.",
+                "Writing a diary helps you remember your past feelings.",
+                "Anyone can grow significantly by writing a diary."
+              ]
+            },
+            "ne": {
+              "q": "उनी केको बारेमा कुरा गर्दैछिन्?",
+              "choices": [
+                "छोटो भए पनि हरेक दिन डायरी लेखिरहनु राम्रो हुन्छ।",
+                "डायरीमा त्यस दिनका घटनाहरू लामो लेख्नुपर्छ।",
+                "डायरी लेख्दा आफ्नो विगतका भावनाहरू सम्झन सकिन्छ।",
+                "डायरी लेख्दा जो कोहीले पनि ठूलो प्रगति गर्न सक्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman 1: If you write a diary little by little every day, you can review what happened that day and your own feelings. You don't need to write a lot. It's important to continue even with just one line, like what you ate today or who you talked to. If you keep writing, you'll notice the difference between your past self and your current self, and you'll feel small growth. If you try to write well, it will actually be harder to continue. On days when you can't think of anything to write, just writing about the weather for that day is fine. So, even if it's short, I want you to first get into the habit of writing every day."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक महिला बोलिरहेकी छिन्। महिला १: यदि तपाईंले हरेक दिन थोरै-थोरै डायरी लेख्नुभयो भने, तपाईंले त्यस दिन भएका घटनाहरू र आफ्ना भावनाहरूलाई समीक्षा गर्न सक्नुहुन्छ। धेरै लेख्नु आवश्यक छैन। आज के खाइयो, कोसँग कुरा गरियो, त्यही स्तरको एक लाइन भए पनि निरन्तरता दिनु महत्त्वपूर्ण छ। लेखिरहनुभयो भने, तपाईंले आफ्नो विगतको आफू र वर्तमानको आफू बीचको भिन्नता महसुस गर्नुहुनेछ, र सानो प्रगति अनुभव गर्न सक्नुहुनेछ। राम्रो लेख्ने प्रयास गर्दा, उल्टो निरन्तरता दिन गाह्रो हुन्छ। लेख्ने कुरा नसुझेको दिन, त्यस दिनको मौसमको बारेमा मात्र लेखे पनि हुन्छ। त्यसैले, छोटो भए पनि, म तपाईंलाई पहिले हरेक दिन लेख्ने बानी बसाल्न चाहन्छु।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "生活くらし",
       "audio": true,
@@ -1919,11 +3718,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to say the most?",
+              "choices": [
+                "You should practice speaking a foreign language the most.",
+                "When learning a language, practicing listening first is important.",
+                "You must understand all the meaning when listening.",
+                "Getting your ears used to it every day will improve your pronunciation."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "विदेशी भाषामा बोल्ने अभ्यास सबैभन्दा बढी गर्नुपर्छ।",
+                "भाषा सिक्नको लागि पहिले सुन्ने अभ्यास महत्त्वपूर्ण छ।",
+                "सुन्दा सबै अर्थ बुझ्नुपर्छ।",
+                "हरेक दिन कानलाई बानी पार्दा उच्चारण राम्रो हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on TV. Man 1: When learning a foreign language, many people only practice speaking. However, if you can't understand what the other person is saying, the conversation won't continue. Even if you speak well, if you don't understand the reply, it stops there. First, it's important to listen a lot. Even if you don't understand everything, if you get your ears used to it every day using TV or music, sounds will gradually start to be heard as words. And the expressions you learn that way will naturally come out of your mouth. The ability to speak also develops from listening well."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एकजना पुरुष बोलिरहेका छन्। पुरुष १: विदेशी भाषा सिक्दा, धेरै मानिसहरू बोल्ने अभ्यास मात्र गर्छन्। तर, यदि तपाईंले अर्को व्यक्तिले के भनिरहेको छ भन्ने कुरा बुझ्न सक्नुभएन भने, कुराकानी अगाडि बढ्दैन। तपाईंले राम्रोसँग बोल्न सक्नुभए पनि, यदि जवाफ बुझ्नुभएन भने, त्यहीँ रोकिन्छ। पहिले, धेरै सुन्नु महत्त्वपूर्ण छ। सबै अर्थ बुझ्न नसके पनि, टिभी वा संगीत प्रयोग गरेर हरेक दिन कानलाई बानी पार्नुभयो भने, बिस्तारै आवाजहरू शब्दको रूपमा सुनिनेछन्। र त्यसरी सिकेका अभिव्यक्तिहरू स्वाभाविक रूपमा मुखबाट पनि निस्कनेछन्। बोल्ने क्षमता पनि राम्रोसँग सुन्ने बानीबाट विकसित हुन्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -1950,11 +3778,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "It's okay to leave things you don't understand in your studies as they are.",
+                "Many people think asking questions is embarrassing.",
+                "It's good to ask questions on the spot without embarrassment about things you don't understand.",
+                "Asking questions helps you understand the next content."
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "पढाइमा नबुझेका कुराहरूलाई त्यतिकै छोड्नु ठीक हुन्छ।",
+                "धेरै मानिसहरू प्रश्न सोध्नु लाजमर्दो कुरा हो भनी सोच्छन्।",
+                "नबुझेका कुराहरूलाई लाज नमानी तुरुन्तै सोध्नु राम्रो हुन्छ।",
+                "प्रश्न सोध्दा अर्को विषय बुझ्न सकिन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking at a lecture. Woman 1: When you're studying and you come across something you don't understand, do you just leave it as it is? Many people don't ask questions, thinking it would be embarrassing to ask such a thing. But if you leave it misunderstood, you won't understand the next content, which is built on that foundation. The parts you don't understand will just keep increasing. It's important to ask about small doubts immediately on the spot. Surely, there are others who are struggling with the same thing. Asking questions is never something to be ashamed of."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक महिलाले प्रवचनमा बोलिरहेकी छिन्। महिला १: पढ्दा नबुझेको कुरा आयो भने, के तपाईं त्यसलाई त्यतिकै छोड्नुहुन्छ? यस्तो कुरा सोध्दा लाज लाग्छ भनेर प्रश्न नगर्ने मानिसहरू कम छैनन्। तर, नबुझेको कुरालाई त्यतिकै छोड्नुभयो भने, त्यसको आधारमा रहेको अर्को विषय पनि बुझ्न सकिँदैन। नबुझेका भागहरू बढ्दै जान्छन्। साना शंकाहरूलाई पनि तुरुन्तै सोध्नु महत्त्वपूर्ण छ। पक्कै पनि, अरू मानिसहरू पनि त्यही कुरामा समस्यामा परेका हुन सक्छन्। प्रश्न सोध्नु कहिल्यै लाजमर्दो कुरा होइन।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -1981,11 +3838,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person most want to convey?",
+              "choices": [
+                "The library is only a place for borrowing books.",
+                "It's faster to do research on the internet.",
+                "It doesn't cost money to borrow books from the library.",
+                "It's good to use the library as a place for research."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "पुस्तकालय किताबहरू उधारो लिने ठाउँ मात्र हो।",
+                "अनुसन्धान इन्टरनेटमा गर्दा छिटो हुन्छ।",
+                "पुस्तकालयबाट किताबहरू उधारो लिन पैसा लाग्दैन।",
+                "पुस्तकालयलाई अनुसन्धानको लागि प्रयोग गर्नु राम्रो हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "The teacher is speaking in class. Man 1: Do you think the library is just a place to borrow books? Actually, it's very useful when you're doing research. For things you can't find on the internet alone, or information you're unsure if it's correct, you can find reliable answers by checking library books or asking knowledgeable library staff. You can also line up several books and compare them. There are also convenient tools available for people who come to research the same things. And it doesn't cost any money. I want you to use the library more as a place for research."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षामा शिक्षक बोलिरहेका छन्। पुरुष १: के तपाईं पुस्तकालयलाई किताबहरू उधारो लिने ठाउँ मात्र सोच्नुहुन्छ? वास्तवमा, यो अनुसन्धान गर्दा धेरै उपयोगी हुन्छ। इन्टरनेटमा मात्र नपाइने कुराहरू वा सही हो कि होइन भन्ने शंका लागेको जानकारी पनि, पुस्तकालयका किताबहरू वा जानकार पुस्तकालयका कर्मचारीहरूलाई सोधेर भरपर्दो जवाफ पाउन सकिन्छ। धेरै किताबहरू राखेर तुलना पनि गर्न सकिन्छ। एउटै कुरा अनुसन्धान गर्न आएका मानिसहरूका लागि उपयोगी उपकरणहरू पनि उपलब्ध छन्। र यसमा पैसा पनि लाग्दैन। म तपाईंहरूलाई पुस्तकालयलाई अनुसन्धानको लागि थप प्रयोग गर्न चाहन्छु।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -2012,11 +3898,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is he talking about?",
+              "choices": [
+                "Learning lasts longer if you start with what you like.",
+                "It's better to get difficult things out of the way first.",
+                "You can learn words from cooking and music too.",
+                "You forget about time when you're absorbed in something."
+              ]
+            },
+            "ne": {
+              "q": "उनी केको बारेमा कुरा गर्दैछन्?",
+              "choices": [
+                "मनपर्ने कुराबाट सुरु गर्दा सिकाइ लामो समयसम्म टिक्छ।",
+                "मन नपर्ने कुराहरू पहिले नै सिध्याउनु राम्रो हुन्छ।",
+                "खाना पकाउने र संगीतबाट पनि शब्दहरू सिक्न सकिन्छ।",
+                "कुनै कुरामा डुब्दा समय बिर्सिन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on the radio. Man 1: When learning something, if you start with what you're not good at, it's tough and hard to continue. But if it's something you like, you can get absorbed in it and forget about time. For example, you can learn words from recipes of your favorite dishes, or learn about a country from the lyrics of your favorite music. Feeling enjoyment becomes the power to continue learning for a long time. Even if it's a little difficult, if you like it, you can overcome it. And once you like one thing, your interest will naturally spread to things around it. First, let's start with something you like."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना पुरुष बोलिरहेका छन्। पुरुष १: केही सिक्दा, यदि तपाईंले आफूलाई मन नपर्ने कुराबाट सुरु गर्नुभयो भने, त्यो गाह्रो हुन्छ र निरन्तरता दिन कठिन हुन्छ। तर, यदि तपाईंलाई मनपर्ने कुरा हो भने, तपाईं समय बिर्सेर त्यसमा डुब्न सक्नुहुन्छ। उदाहरणका लागि, तपाईंले मनपर्ने परिकारको रेसिपीबाट शब्दहरू सिक्न सक्नुहुन्छ, वा मनपर्ने संगीतको गीतबाट त्यस देशको बारेमा जान्न सक्नुहुन्छ। रमाइलो महसुस गर्नु नै लामो समयसम्म सिक्ने शक्ति बन्छ। अलिकति गाह्रो भए पनि, यदि तपाईंलाई मनपर्छ भने, तपाईं त्यसलाई पार गर्न सक्नुहुन्छ। र एउटा कुरा मनपर्न थालेपछि, त्यसको वरपरका कुराहरूमा पनि स्वाभाविक रूपमा रुचि बढ्दै जान्छ। पहिले, तपाईंलाई मनपर्ने कुराबाट सुरु गरौं।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "学び",
       "audio": true,
@@ -2043,11 +3958,42 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to say the most?",
+              "choices": [
+                "That it's good to just look up the meaning of unfamiliar words immediately.",
+                "That looking up words in a dictionary itself brings enjoyment and discoveries.",
+                "That dictionaries also contain how to use words.",
+                "That looking up words in a dictionary takes a lot of time and is difficult."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न खोजेको हो?",
+              "choices": [
+                "नचिनेका शब्दहरूको अर्थ मात्र तुरुन्तै खोज्नु राम्रो हो।",
+                "शब्दकोश हेर्ने कार्य आफैंमा रमाइलो र खोजपूर्ण हुन्छ।",
+                "शब्दकोशमा शब्दहरूको प्रयोग विधि पनि लेखिएको हुन्छ।",
+                "शब्दकोश हेर्न धेरै समय लाग्छ र गाह्रो हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on TV.",
+            "Woman 1: When you encounter an unfamiliar word, do you just look up its meaning and stop there? Dictionaries also contain examples of how to use the word and subtle differences from similar words. When you look up one word, the words before and after it naturally catch your eye, leading to unexpected discoveries. You might be surprised to find words you didn't know existed. You might also realize that even words with similar meanings are used differently depending on the situation. It certainly takes time, but the act of looking up words in a dictionary is actually a lot of fun."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एउटी महिला बोलिरहेकी छिन्।",
+            "महिला १: जब तपाईंले कुनै अपरिचित शब्द भेट्नुहुन्छ, के तपाईं त्यसको अर्थ मात्र खोजेर छोडिदिनुहुन्छ? शब्दकोशमा त्यो शब्द कसरी प्रयोग गर्ने भन्ने उदाहरणहरू र उस्तै शब्दहरूसँगको सूक्ष्म भिन्नताहरू पनि लेखिएका हुन्छन्। एउटा शब्द खोज्दा, त्यसको अगाडि र पछाडि रहेका शब्दहरू पनि स्वाभाविक रूपमा आँखामा पर्छन्, जसले गर्दा अप्रत्याशित खोजहरू हुन्छन्। यस्ता शब्दहरू पनि रहेछन् भनेर तपाईं छक्क पर्न सक्नुहुन्छ। उस्तै अर्थ भए पनि, परिस्थिति अनुसार फरक-फरक तरिकाले प्रयोग गरिने शब्दहरू छन् भनेर पनि तपाईंले थाहा पाउन सक्नुहुन्छ। पक्कै पनि यसमा समय लाग्छ, तर शब्दकोश हेर्ने कार्य आफैंमा वास्तवमा धेरै रमाइलो हुन्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audio": true,
@@ -2074,11 +4020,42 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "That the more you continue without resting, the more work you can do.",
+                "That mistakes increase with a tired mind.",
+                "That taking frequent breaks leads to better work.",
+                "That resting is often thought to be the same as being lazy."
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "आराम नगरीकन जति धेरै निरन्तरता दिइन्छ, त्यति नै धेरै काम गर्न सकिन्छ।",
+                "थकित दिमागले गल्तीहरू बढ्छन्।",
+                "बारम्बार विश्राम लिँदा राम्रो काम हुन्छ।",
+                "आराम गर्नु अल्छी हुनु जस्तै हो भन्ने सोचाइ सामान्य छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking at a lecture.",
+            "Man 1: If you continue working or studying for a long time, your ability to concentrate gradually decreases. You might tend to think that you can do more if you work hard without resting, but with a tired mind, the same task takes many times longer, and mistakes increase. Taking short, frequent breaks refreshes your mind and actually helps you progress faster with your work. Even just closing your eyes for a few minutes or breathing fresh air makes a difference. Resting is not being lazy. It is precious time for working well."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एकजना पुरुष प्रवचनमा बोलिरहेका छन्।",
+            "पुरुष १: यदि तपाईंले लामो समयसम्म काम वा अध्ययन गरिरहनुभयो भने, तपाईंको एकाग्रता शक्ति बिस्तारै घट्दै जान्छ। आराम नगरीकन कडा परिश्रम गर्दा धेरै काम गर्न सकिन्छ भन्ने सोच्ने प्रवृत्ति हुन्छ, तर थकित दिमागले एउटै काममा धेरै गुणा बढी समय लाग्छ र गल्तीहरू पनि बढ्छन्। छोटो, बारम्बार विश्राम लिँदा दिमाग ताजा हुन्छ र काम वास्तवमा छिटो अगाडि बढ्छ। केही मिनेट आँखा चिम्लनु वा बाहिरको हावा मात्र फेर्नुले पनि फरक पार्छ। आराम गर्नु अल्छी हुनु होइन। यो राम्रोसँग काम गर्नको लागि महत्त्वपूर्ण समय हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "仕事",
       "audio": true,
@@ -2105,11 +4082,42 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to convey the most?",
+              "choices": [
+                "That there are limits to the amount of work one person can do alone.",
+                "That what people are good at differs from person to person.",
+                "That even difficult tasks can be finished quickly if divided.",
+                "That working together produces great results."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "एक्लै गर्न सकिने कामको मात्रामा सीमा हुन्छ।",
+                "मानिसहरूको क्षमता फरक-फरक हुन्छ।",
+                "गाह्रो काम पनि बाँडेमा छिटो सकिन्छ।",
+                "सहयोग गरेर काम गर्दा ठूलो नतिजा प्राप्त हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A teacher is speaking in class.",
+            "Woman 1: There are limits to what one person can do alone. Even difficult tasks can be completed quickly and well if everyone divides them up and helps each other. What people are good at differs from person to person. Some are good at calculations, others are good at talking to people. We should share our strengths and complement each other's weaknesses. If one person is in trouble, someone else can immediately support them. Working together in this way produces great results that one person alone could never achieve."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षामा शिक्षिका बोलिरहेकी छिन्।",
+            "महिला १: एक्लै गर्न सकिने कामको सीमा हुन्छ। गाह्रो काम पनि सबैले बाँडेर एकअर्कालाई सहयोग गरेमा छिटो र राम्रो तरिकाले पूरा गर्न सकिन्छ। मानिसहरूको क्षमता फरक-फरक हुन्छ। कोही हिसाबमा निपुण हुन्छन्, कोही मानिसहरूसँग कुरा गर्नमा निपुण हुन्छन्। हामीले आ-आफ्नो क्षमता देखाउनुपर्छ र एकअर्काको कमजोरीलाई पूरक बनाउनुपर्छ। यदि एकजना समस्यामा परेमा, अरू कसैले तुरुन्तै सहयोग गर्न सक्छन्। यसरी मिलेर काम गर्दा एक्लैले कहिल्यै हासिल गर्न नसकिने ठूलो नतिजा प्राप्त हुन्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "仕事",
       "audio": true,
@@ -2136,11 +4144,42 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is she talking about?",
+              "choices": [
+                "That it's important to listen to the other person's story until the end.",
+                "That sometimes you want to express your opinion in the middle of a conversation.",
+                "That the other person doesn't feel good when their speech is interrupted.",
+                "That if you listen to the end, the conversation will finish quickly."
+              ]
+            },
+            "ne": {
+              "q": "उनी के बारेमा कुरा गर्दैछिन्?",
+              "choices": [
+                "अर्को व्यक्तिको कुरा अन्त्यसम्म सुन्नु महत्त्वपूर्ण छ।",
+                "कुराकानीको बीचमा कहिलेकाहीँ आफ्नो विचार व्यक्त गर्न मन लाग्छ।",
+                "कुरा काटिँदा अर्को व्यक्तिलाई राम्रो लाग्दैन।",
+                "अन्त्यसम्म सुनेमा कुराकानी छिटो सकिन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio.",
+            "Woman 1: During a discussion, you might feel like expressing your opinion while the other person is still speaking. However, the person whose speech is interrupted doesn't feel good, and they might even forget what they wanted to say. If you speak after listening to the end, you will correctly understand the other person's thoughts, misunderstandings will decrease, and the conversation will proceed smoothly. If you listen while nodding, the other person can speak with ease. Let's prioritize listening to the other person's story to the end over speaking ourselves."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एउटी महिला बोलिरहेकी छिन्।",
+            "महिला १: कुराकानीको बेला, अर्को व्यक्ति बोलिरहेको बेला आफ्नो विचार व्यक्त गर्न मन लाग्न सक्छ। तर, कुरा काटिएको व्यक्तिलाई राम्रो लाग्दैन र उसले भन्न चाहेको कुरा बिर्सन पनि सक्छ। अन्त्यसम्म सुनेर मात्र बोलेमा, अर्को व्यक्तिको विचार सही रूपमा बुझिन्छ, गलत बुझाइ कम हुन्छ र कुराकानी पनि राम्रोसँग अगाडि बढ्छ। टाउको हल्लाउँदै सुनेमा, अर्को व्यक्तिले पनि ढुक्क भएर बोल्न सक्छ। हामीले आफैं बोल्नुभन्दा पहिले अर्को व्यक्तिको कुरा अन्त्यसम्म सुन्नुलाई महत्त्व दिऔं।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "社会自然",
       "audio": true,
@@ -2167,11 +4206,42 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to say the most?",
+              "choices": [
+                "That if you are grateful in your heart, it will be conveyed to the other person.",
+                "That gratitude should be properly expressed in words.",
+                "That the person who is thanked will want to help again.",
+                "That the short word \"thank you\" is enough."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न खोजेको हो?",
+              "choices": [
+                "मनमनै धन्यवाद दिएमा अर्को व्यक्तिलाई थाहा हुन्छ।",
+                "कृतज्ञता शब्दमा राम्ररी व्यक्त गर्नुपर्छ।",
+                "धन्यवाद पाएको व्यक्तिले फेरि सहयोग गर्न चाहन्छ।",
+                "\"धन्यवाद\" भन्ने छोटो शब्द पर्याप्त छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on TV.",
+            "Man 1: When someone does something for you, even if you are grateful in your heart, it won't be conveyed to the other person just by that. That's because the other person cannot see inside your heart. It's important to properly say the short word \"thank you\" at that moment. The person who is thanked will be happy and will want to help again. Just that one word warms the feelings between the two people. Conversely, if you say nothing, your good intentions will be as if they never existed. Gratitude only reaches the other person when it is expressed in words."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एकजना पुरुष बोलिरहेका छन्।",
+            "पुरुष १: जब कसैले तपाईंको लागि केही गर्छ, तपाईंले मनमनै धन्यवाद दिए पनि, त्यसले मात्र अर्को व्यक्तिलाई थाहा हुँदैन। किनभने अर्को व्यक्तिले तपाईंको मनभित्र हेर्न सक्दैन। त्यसैले, त्यसै बेला \"धन्यवाद\" भन्ने छोटो शब्द मुखबाट राम्ररी व्यक्त गर्नु महत्त्वपूर्ण छ। धन्यवाद पाएको व्यक्ति खुसी हुन्छ र फेरि सहयोग गर्न चाहन्छ। त्यो एउटा शब्दले मात्र दुई जनाबीचको भावनालाई न्यानो बनाउँछ। यसको विपरीत, यदि तपाईंले केही भन्नुभएन भने, तपाईंको राम्रो भावना पनि नभएको जस्तो हुन्छ। कृतज्ञता शब्दमा व्यक्त गरेपछि मात्र अर्को व्यक्तिसम्म पुग्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -2198,11 +4268,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "That being about five minutes late for an appointment is not a problem.",
+                "That being late wastes the time of the person waiting.",
+                "That keeping time leads to trust with others.",
+                "That people who always keep time never forget appointments."
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "भेटघाटमा पाँच मिनेट जति ढिलो भए पनि समस्या हुँदैन भन्ने कुरा।",
+                "ढिलो हुँदा पर्खिरहेको व्यक्तिको समय बर्बाद हुन्छ भन्ने कुरा।",
+                "समयको पालना गर्दा मानिसहरूसँग विश्वास बढ्छ भन्ने कुरा।",
+                "सधैं समयको पालना गर्ने मानिसहरूले भेटघाट कहिल्यै बिर्सँदैनन् भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking at a lecture. Woman 1: If you are late for an appointment, you waste the precious time of the person waiting. Even just five minutes can make the other person feel like they are not valued. If that happens repeatedly, your relationship with that person will deteriorate. On the contrary, people who always keep time are trusted just by that fact, making others feel 'I can rely on this person.' Important tasks are usually entrusted to such people. Keeping time, though seemingly a small thing, is fundamental to building trust with others."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक महिला प्रवचनमा बोल्दै हुनुहुन्छ। महिला १: यदि तपाईं भेट्ने समयमा ढिलो हुनुभयो भने, तपाईंले पर्खिरहेको व्यक्तिको बहुमूल्य समय बर्बाद गर्नुहुन्छ। केवल पाँच मिनेटले पनि अर्को व्यक्तिलाई 'मलाई महत्त्व दिइएको छैन' भन्ने महसुस गराउन सक्छ। यदि यो पटक-पटक भयो भने, त्यो व्यक्तिसँगको तपाईंको सम्बन्ध पनि बिग्रन्छ। यसको विपरीत, सधैं समयको पालना गर्ने व्यक्तिलाई त्यसैले 'यो व्यक्तिमाथि विश्वास गर्न सकिन्छ' भनेर विश्वास गरिन्छ। महत्त्वपूर्ण कामहरू प्रायः त्यस्ता व्यक्तिहरूलाई सुम्पिन्छ। समयको पालना गर्नु, सानो कुरा जस्तो देखिए पनि, मानिसहरूसँग विश्वास निर्माण गर्ने आधारभूत कुरा हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -2229,11 +4328,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person most want to convey?",
+              "choices": [
+                "That newcomers struggle because they can't ask about things they don't understand.",
+                "That it's difficult to speak up when those around you seem busy.",
+                "That one should proactively ask about things they don't understand.",
+                "That it's important to create an atmosphere where everyone feels comfortable asking questions."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "नयाँ आएका मानिसहरूले नबुझेका कुराहरू सोध्न नसकेर समस्यामा पर्छन् भन्ने कुरा।",
+                "वरपरका मानिसहरू व्यस्त देखिएमा बोल्न गाह्रो हुन्छ भन्ने कुरा।",
+                "नबुझेका कुराहरू आफैंले अगाडि बढेर सोध्नुपर्छ भन्ने कुरा।",
+                "सबैले सजिलै प्रश्न सोध्न सक्ने वातावरण बनाउनु महत्त्वपूर्ण छ भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A teacher is speaking in class. Man 1: Newcomers sometimes struggle alone, unable to ask questions about things they don't understand. If those around them seem busy, they might feel bad about interrupting and find it difficult to speak up. Therefore, it's important for experienced people to proactively ask, 'Are you having any trouble?' or show an attitude that welcomes any questions. Once they feel it's easy to ask, they will ask on their own next time. Creating an atmosphere where everyone feels comfortable asking questions helps everyone grow."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षामा शिक्षक बोल्दै हुनुहुन्छ। पुरुष १: नयाँ आएका मानिसहरूलाई नबुझेका कुराहरू सोध्न गाह्रो हुन्छ र उनीहरू एक्लै समस्यामा पर्छन्। यदि वरपरका मानिसहरू व्यस्त देखिए भने, उनीहरूले आफ्नो काम रोक्दा नराम्रो लाग्छ र बोल्न गाह्रो हुन्छ। त्यसैले, अनुभवी व्यक्तिहरूले 'केही समस्या छ?' भनेर सोध्नु वा कुनै पनि प्रश्नलाई स्वागत गर्ने मनोवृत्ति देखाउनु महत्त्वपूर्ण छ। एकपटक सोध्न सजिलो लाग्यो भने, अर्को पटकदेखि उनीहरू आफैं सोध्न सक्छन्। सबैले सजिलै प्रश्न सोध्न सक्ने वातावरण बनाउनु सबैको विकासमा मद्दत गर्छ।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "仕事",
       "audio": true,
@@ -2260,11 +4388,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is he talking about?",
+              "choices": [
+                "That it's good to set aside even a small amount first and save it.",
+                "That it's better to save money all at once.",
+                "That if you try to save the remaining money, nothing will be left.",
+                "That it's good to save after spending a fixed amount."
+              ]
+            },
+            "ne": {
+              "q": "उहाँ केको बारेमा कुरा गर्दै हुनुहुन्छ?",
+              "choices": [
+                "थोरै रकम भए पनि पहिले नै छुट्याएर बचत गर्नु राम्रो हुन्छ भन्ने कुरा।",
+                "पैसा एकैचोटि जम्मा गर्नु राम्रो हुन्छ भन्ने कुरा।",
+                "बाँकी पैसा बचत गर्ने प्रयास गरे पनि केही बाँकी रहँदैन भन्ने कुरा।",
+                "निश्चित रकम खर्च गरेपछि बचत गर्नु राम्रो हुन्छ भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking on the radio. Man 1: When you try to save money, if you try to save a lot at once, it becomes unsustainable and doesn't last long. Instead, it works better to set aside a fixed small amount each month before you spend it. As soon as you get your salary, put it aside. If you think you'll save what's left, people tend to spend it all, and usually nothing is left. If you set it aside first, you can live with peace of mind with the remaining money. Even small amounts, if continued, will eventually become a large saving. It's important to start with an amount that is not a burden."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना मानिस बोल्दै हुनुहुन्छ। पुरुष १: पैसा बचत गर्ने प्रयास गर्दा, यदि तपाईंले एकैचोटि धेरै बचत गर्ने प्रयास गर्नुभयो भने, त्यो असम्भव हुन्छ र लामो समय टिक्दैन। त्यसको सट्टा, प्रत्येक महिना निश्चित सानो रकम खर्च गर्नुअघि नै छुट्याएर राख्नु राम्रो हुन्छ। तलब आउने बित्तिकै, त्यसलाई छुट्टै राख्नुहोस्। यदि तपाईंले बाँकी रहेको पैसा बचत गर्ने सोच्नुभयो भने, मानिसहरूले त्यसलाई खर्च गरिहाल्छन् र प्रायः केही पनि बाँकी रहँदैन। पहिले नै छुट्याएर राख्नुभयो भने, बाँकी पैसाले ढुक्कसँग जीवन बिताउन सक्नुहुन्छ। सानो रकम भए पनि, निरन्तरता दिएमा अन्ततः ठूलो बचत हुन्छ। बोझ नहुने रकमबाट सुरु गर्नु महत्त्वपूर्ण छ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "生活くらし",
       "audio": true,
@@ -2291,11 +4448,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person most want to say?",
+              "choices": [
+                "That you should always buy new things when you need them.",
+                "That utilizing used items is a smart choice.",
+                "That used items are cheaper than new ones.",
+                "That throwing away usable items increases waste."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्ति सबैभन्दा बढी के भन्न चाहन्छ?",
+              "choices": [
+                "आवश्यक पर्दा सधैं नयाँ सामान किन्नुपर्छ भन्ने कुरा।",
+                "प्रयोग गरिएका सामानहरू प्रयोग गर्नु बुद्धिमानी छनौट हो भन्ने कुरा।",
+                "प्रयोग गरिएका सामानहरू नयाँ भन्दा सस्तो हुन्छन् भन्ने कुरा।",
+                "प्रयोग गर्न मिल्ने सामानहरू फाल्दा फोहोर बढ्छ भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on TV. Woman 1: When you need something, it doesn't necessarily have to be new. Used items are cheaper, and if you look a little, you can find many that are still perfectly clean and usable. If usable items are not thrown away and are utilized by the next person, it also leads to a reduction in waste. Resources for making new items can also be saved. You might also unexpectedly find something you like at a low price. Choosing used items is not something to be ashamed of; it is one of the smart choices that are kind to both your wallet and the environment."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा एक महिला बोल्दै हुनुहुन्छ। महिला १: जब तपाईंलाई केही चाहिन्छ, त्यो नयाँ नै हुनुपर्छ भन्ने छैन। प्रयोग गरिएका सामानहरू सस्तो हुन्छन्, र अलिकति खोज्नुभयो भने, अझै पनि पर्याप्त सफा र प्रयोग गर्न मिल्ने धेरै सामानहरू पाउन सकिन्छ। यदि प्रयोग गर्न मिल्ने सामानहरू फालिएनन् र अर्को व्यक्तिले प्रयोग गरे भने, यसले फोहोर घटाउन पनि मद्दत गर्छ। नयाँ बनाउनका लागि आवश्यक स्रोतहरू पनि बचत गर्न सकिन्छ। तपाईंले मनपर्ने चीज अप्रत्याशित रूपमा सस्तोमा पनि पाउन सक्नुहुन्छ। प्रयोग गरिएका सामानहरू छनौट गर्नु लाजमर्दो कुरा होइन; यो पैसा र वातावरण दुवैका लागि दयालु, एक बुद्धिमानी छनौट हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audio": true,
@@ -2322,11 +4508,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "That it's good to choose items based on their cheap price when shopping.",
+                "That cheap items often break quickly.",
+                "That one should choose based on its usefulness to oneself rather than the price.",
+                "That more expensive items can be used for a longer time, so they are more beneficial."
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "किनमेल गर्दा सस्तो मूल्यको आधारमा सामान छनौट गर्नु राम्रो हुन्छ भन्ने कुरा।",
+                "सस्ता सामानहरू प्रायः चाँडै बिग्रन्छन् भन्ने कुरा।",
+                "मूल्यभन्दा आफूलाई कति उपयोगी छ भन्ने आधारमा छनौट गर्नुपर्छ भन्ने कुरा।",
+                "महँगा सामानहरू लामो समयसम्म प्रयोग गर्न सकिने हुनाले बढी लाभदायक हुन्छन् भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man is speaking at a lecture. Man 1: When shopping, do you choose only because it's cheap? Even if it's cheap, if it breaks quickly or you don't use it as much as you thought, it ends up being a waste of money. You might even forget you bought it. Even if it's a little expensive, if it can be used for a long time and is truly necessary for you, that's ultimately more beneficial. What's important is not the price tag, but choosing based on how useful it is to you. Before buying, let's pause and think if there will truly be situations where you will use it."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एकजना मानिस प्रवचनमा बोल्दै हुनुहुन्छ। पुरुष १: किनमेल गर्दा, के तपाईं सस्तो छ भनेर मात्र छनौट गर्नुहुन्छ? सस्तो भए पनि, यदि त्यो चाँडै बिग्रियो वा सोचेभन्दा कम प्रयोग भयो भने, त्यो पैसाको बर्बादी हुन्छ। तपाईंले त्यो किनेको कुरा नै बिर्सन पनि सक्नुहुन्छ। अलि महँगो भए पनि, यदि त्यो लामो समयसम्म प्रयोग गर्न सकिन्छ र तपाईंको लागि साँच्चै आवश्यक छ भने, अन्ततः त्यो नै बढी लाभदायक हुन्छ। महत्त्वपूर्ण कुरा मूल्यको अंक होइन, तर त्यो तपाईंको लागि कति उपयोगी छ भन्ने आधारमा छनौट गर्नु हो। किन्नुअघि, के तपाईंले साँच्चै त्यो प्रयोग गर्ने अवसर पाउनुहुन्छ भनेर एकपटक सोचेर हेरौं।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audio": true,
@@ -2353,11 +4568,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the speaker's main point?",
+              "choices": [
+                "That you should buy things even if you only use them occasionally.",
+                "That buying things requires money and storage space.",
+                "That there are tools that are only used a few times a year.",
+                "That borrowing things you use occasionally is a good method."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न खोजेको हो?",
+              "choices": [
+                "कहिलेकाहीँ मात्र प्रयोग गर्ने भए पनि किन्नुपर्छ भन्ने कुरा।",
+                "किन्दा पैसा र राख्ने ठाउँ दुवै चाहिन्छ भन्ने कुरा।",
+                "वर्षमा केही पटक मात्र प्रयोग हुने उपकरणहरू पनि हुन्छन् भन्ने कुरा।",
+                "कहिलेकाहीँ प्रयोग हुने चीजहरू उधारो लिएर काम चलाउनु पनि राम्रो तरिका हो भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Teacher: Is it really necessary to buy things you only use occasionally? For tools you only use once or twice a year, it can be smarter to borrow them. Buying them costs money, and you also need a place to store them when not in use. If you borrow, you only have it when you need it, and after you're done, you just return it, so there's no hassle of tidying up. You don't have to worry about maintenance either. Recently, there are more systems that allow you to easily lend and borrow things in your neighborhood. Instead of buying everything, let's consider borrowing as an option."
+          ]
+        },
+        "ne": {
+          "body": [
+            "शिक्षक: कहिलेकाहीँ मात्र प्रयोग गर्ने चीजहरू किन्नु साँच्चै आवश्यक छ र? वर्षमा एक-दुई पटक मात्र प्रयोग हुने उपकरणहरूका लागि, उधारो लिएर काम चलाउनु बुद्धिमानी हुन सक्छ। किन्दा पैसा लाग्छ, साथै प्रयोग नगर्दा राख्ने ठाउँ पनि चाहिन्छ। यदि तपाईंले उधारो लिनुभयो भने, तपाईंलाई चाहिएको बेला मात्र उपलब्ध हुन्छ, र काम सकिएपछि फिर्ता मात्र गरे पुग्छ, सरसफाइको झन्झट पनि हुँदैन। मर्मतको चिन्ता पनि लिनु पर्दैन। हालसालै, छिमेकमा सजिलै सामानहरू आदानप्रदान गर्न सकिने प्रणालीहरू पनि बढ्दै गएका छन्। सबै कुरा किन्नुको सट्टा, उधारो लिने विकल्प पनि विचार गरौं।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audio": true,
@@ -2384,11 +4628,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is being talked about?",
+              "choices": [
+                "That volunteering enriches the heart of the helper.",
+                "That volunteering is only for the person in need.",
+                "That you can meet unknown people through volunteering.",
+                "That helping people makes the recipient grateful."
+              ]
+            },
+            "ne": {
+              "q": "केको बारेमा कुरा भइरहेको छ?",
+              "choices": [
+                "स्वयंसेवा गर्ने व्यक्ति स्वयंको मनलाई पनि समृद्ध बनाउँछ भन्ने कुरा।",
+                "स्वयंसेवा समस्यामा परेका व्यक्तिको लागि मात्र हो भन्ने कुरा।",
+                "स्वयंसेवामा अपरिचित मानिसहरूसँग भेट्न सकिन्छ भन्ने कुरा।",
+                "मानिसहरूलाई मद्दत गर्दा प्राप्तकर्ताबाट धन्यवाद पाइन्छ भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Man 1: People often think that volunteering to help those in need is solely for the benefit of the recipient. However, when you actually do it, the helper also gains much more than expected. You meet people you wouldn't normally encounter, receive sincere gratitude, and realize that you too have the power to be so helpful to others. A world different from work or home opens up. The experiences gained there also become useful in your daily life. Helping others actually enriches the heart of the person doing the helping."
+          ]
+        },
+        "ne": {
+          "body": [
+            "पुरुष १: समस्यामा परेका मानिसहरूलाई मद्दत गर्ने स्वयंसेवा केवल प्राप्तकर्ताको लागि मात्र हो भन्ने सोचाइ सामान्य छ। तर, वास्तवमा गर्दा, मद्दत गर्ने व्यक्तिले पनि सोचेभन्दा धेरै कुरा प्राप्त गर्छ। तपाईंले सामान्यतया भेट नहुने मानिसहरूसँग चिनजान गर्नुहुन्छ, सीधा धन्यवाद पाउनुहुन्छ, र आफूसँग पनि अरूलाई यति धेरै मद्दत गर्न सक्ने शक्ति रहेछ भन्ने महसुस गर्नुहुन्छ। काम वा घरभन्दा फरक संसार खुल्छ। त्यहाँबाट प्राप्त अनुभवहरू दैनिक जीवनमा पनि उपयोगी हुन्छन्। मानिसहरूलाई मद्दत गर्ने गतिविधिले वास्तवमा मद्दत गर्ने व्यक्तिको मनलाई पनि समृद्ध बनाउँछ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "社会自然",
       "audio": true,
@@ -2415,11 +4688,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does this person want to say the most?",
+              "choices": [
+                "That large stores have many items and low prices.",
+                "That using local small stores protects the town.",
+                "That small stores remember your face.",
+                "That if stores disappear, the town's liveliness will be lost."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न चाहेको हो?",
+              "choices": [
+                "ठूला पसलहरूमा धेरै सामानहरू हुन्छन् र मूल्य पनि सस्तो हुन्छ भन्ने कुरा।",
+                "स्थानीय साना पसलहरू प्रयोग गर्नु सहरको रक्षा गर्नु हो भन्ने कुरा।",
+                "साना पसलहरूमा अनुहार चिनिन्छ भन्ने कुरा।",
+                "पसलहरू हराएमा सहरको चहलपहल हराउँछ भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Woman 1: Large stores have many items and low prices, so people tend to go there. However, small local stores have unique advantages that large stores don't. They might remember your face or offer detailed advice. If such stores disappear one by one, the convenience of the town and the lively atmosphere where people gather will also be lost. Once a store is gone, it rarely comes back. Sometimes choosing to use local small stores helps protect our town."
+          ]
+        },
+        "ne": {
+          "body": [
+            "महिला १: ठूला पसलहरूमा धेरै सामानहरू हुन्छन् र मूल्य पनि सस्तो हुन्छ, त्यसैले मानिसहरू त्यतै जान्छन्। तर, छिमेकका साना पसलहरूमा ठूला पसलहरूमा नभएका आफ्नै विशेष राम्रा पक्षहरू हुन्छन्। उनीहरूले तपाईंको अनुहार चिन्न सक्छन्, वा विस्तृत सल्लाह दिन सक्छन्। यदि यस्ता पसलहरू एकपछि अर्को गर्दै हराउँदै गए भने, सहरको सुविधा र मानिसहरू भेला हुने चहलपहल पनि हराउँदै जान्छ। एक पटक हराएको पसल प्रायः कहिल्यै फर्केर आउँदैन। कहिलेकाहीँ स्थानीय साना पसलहरू प्रयोग गर्न रोज्नु हाम्रो सहरको रक्षा गर्नु हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -2446,11 +4748,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the theme of the talk?",
+              "choices": [
+                "That in places everyone uses, people should line up in order of arrival.",
+                "That cutting in from the side makes the people behind feel unpleasant.",
+                "That observing the order is an expression of caring for each other.",
+                "That if you observe the order, you can finish your business quickly."
+              ]
+            },
+            "ne": {
+              "q": "कुराकानीको विषय के हो?",
+              "choices": [
+                "सबैले प्रयोग गर्ने ठाउँमा पहिले आउने व्यक्तिबाट लाइनमा बसेर पर्खनुपर्छ भन्ने कुरा।",
+                "छेउबाट छिर्दा पछाडिका मानिसहरूलाई नराम्रो लाग्छ भन्ने कुरा।",
+                "पालो कुर्नु एकअर्काको ख्याल राख्ने भावना हो भन्ने कुरा।",
+                "पालो कुर्नुभयो भने आफ्नो काम पनि छिटो सकिन्छ भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Man 1: In places everyone uses, the rule is to line up and wait in order of arrival. If you cut in from the side just to be faster, the people behind you who were waiting properly will feel unpleasant. Waiting a little might seem troublesome, but precisely because everyone observes the same order, quarrels don't happen, and everyone can spend their time with peace of mind. If you observe the rules properly, those around you will naturally start to observe them too. Observing the order is not just about the person in front of you, but an expression of caring for each other."
+          ]
+        },
+        "ne": {
+          "body": [
+            "पुरुष १: सबैले प्रयोग गर्ने ठाउँमा, पहिले आउने व्यक्तिबाट क्रमशः लाइनमा बसेर पर्खनु नियम हो। यदि तपाईंले छिटो गर्नको लागि छेउबाट छिर्नुभयो भने, ठीकसँग पर्खिरहेका पछाडिका मानिसहरूलाई नराम्रो लाग्छ। थोरै पर्खनु झन्झटिलो लाग्न सक्छ, तर सबैले समान रूपमा पालो कुर्दै नियम पालना गर्दा मात्र झगडा हुँदैन र सबैले ढुक्कसँग समय बिताउन सक्छन्। यदि तपाईंले ठीकसँग नियम पालना गर्नुभयो भने, वरपरका मानिसहरूले पनि स्वाभाविक रूपमा पालना गर्न थाल्छन्। पालो कुर्नु भनेको अगाडिको व्यक्तिलाई मात्र नभई, एकअर्काको ख्याल राख्ने भावनाको अभिव्यक्ति हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audio": true,
@@ -2477,11 +4808,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the speaker's main point?",
+              "choices": [
+                "That it's good to travel during times when many people are on holiday.",
+                "That transportation and accommodation are expensive during crowded times.",
+                "That it's hard to get reservations during crowded times.",
+                "That it's good to choose a less crowded time for travel."
+              ]
+            },
+            "ne": {
+              "q": "यो व्यक्तिले सबैभन्दा बढी के भन्न खोजेको हो?",
+              "choices": [
+                "धेरै मानिसहरू छुट्टीमा हुने समयमा यात्रा गर्नु राम्रो हो भन्ने कुरा।",
+                "भीड हुने समयमा यातायात र आवास महँगो हुन्छ भन्ने कुरा।",
+                "भीड हुने समयमा रिजर्भेसन पाउन गाह्रो हुन्छ भन्ने कुरा।",
+                "भीड नहुने समय रोजेर यात्रा गर्नु राम्रो हो भन्ने कुरा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Man 1: If you travel during times when many people are on holiday, everywhere is crowded. Transportation and accommodation are expensive, it's hard to get reservations, and even when you arrive, you might spend all your time waiting in lines. Conversely, if you choose a less crowded time, prices are lower, and you can look around quietly and leisurely. You might even have time to talk to local people. Just shifting your dates a little can make the same place much more enjoyable and comfortable. You'll also have time to take photos at your leisure. It's smart to choose the right time for your trip."
+          ]
+        },
+        "ne": {
+          "body": [
+            "पुरुष १: धेरै मानिसहरू छुट्टीमा हुने समयमा यात्रा गर्दा, जताततै भीड हुन्छ। यातायात र आवास महँगो हुन्छ, रिजर्भेसन पाउन गाह्रो हुन्छ, र पुगेपछि पनि लाइनमा पर्खिरहनुपर्ने हुन सक्छ। यसको विपरीत, यदि तपाईंले भीड नहुने समय रोज्नुभयो भने, मूल्य पनि सस्तो हुन्छ र तपाईं शान्तपूर्वक र फुर्सदमा घुम्न सक्नुहुन्छ। स्थानीय मानिसहरूसँग फुर्सदमा कुरा गर्न पनि पाउनुहुन्छ। केही दिन मात्र सार्दा पनि, एउटै ठाउँमा धेरै सहज र रमाइलो अनुभव गर्न सकिन्छ। फुर्सदमा फोटो खिच्ने समय पनि मिल्छ। यात्राको लागि सही समय छनोट गरेर जानु बुद्धिमानी हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "趣味旅食",
       "audio": true,

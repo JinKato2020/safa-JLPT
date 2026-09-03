@@ -4,7 +4,8 @@
   "level": "N3",
   "pool": "mock",
   "languages": [
-    "ja"
+    "en",
+    "ne"
   ],
   "items": [
     {
@@ -30,11 +31,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the doctor mainly talking about?",
+              "choices": [
+                "The mechanism by which you sweat a lot and lose water in summer",
+                "The fact that your body tends to lack moisture without you realizing it",
+                "How to make and drink delicious warm tea",
+                "How to protect your skin from dry air"
+              ]
+            },
+            "ne": {
+              "q": "डाक्टरले मुख्यतया केको बारेमा कुरा गरिरहनुभएको छ?",
+              "choices": [
+                "गर्मीमा धेरै पसिना बगाएर पानी गुमाउने तरिका",
+                "थाहा नपाई शरीरमा पानीको कमी हुने कुरा",
+                "स्वादिष्ट तातो चिया बनाएर पिउने तरिका",
+                "सुख्खा हावाबाट छालालाई बचाउने तरिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A doctor is speaking on TV. Everyone, when it gets cold, the amount of water you drink naturally decreases. Since you don't feel thirsty easily, you become dehydrated without realizing it. In fact, in the dry winter air, water constantly escapes from your skin and breath even if you don't sweat. Especially in heated rooms, the air is drier than you might think. Therefore, it's important to get into the habit of drinking small amounts frequently before you feel thirsty. Warm tea is also fine."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टिभीमा एकजना डाक्टरले कुरा गरिरहनुभएको छ। सबैजना, जाडो भएपछि पानी पिउने मात्रा स्वतः घट्छ। तिर्खा लागेको महसुस गर्न गाह्रो हुने भएकोले, थाहै नपाई शरीरमा पानीको कमी हुन्छ। वास्तवमा, जाडोको सुख्खा हावामा, पसिना नआए पनि छाला र सासबाट पानी निरन्तर बाहिर निस्किरहन्छ। विशेषगरी तातो पारिएका कोठाहरूमा, सोचेभन्दा बढी हावा सुख्खा हुन्छ। त्यसैले, तिर्खा लाग्नुअघि नै, थोरै-थोरै गरी बारम्बार पानी पिउने बानी बसाल्नु महत्त्वपूर्ण छ। तातो चिया पनि ठीक छ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "健康体",
       "audioChoices": true
@@ -62,11 +92,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the expert want to convey the most?",
+              "choices": [
+                "It's better for your body to work steadily and consistently rather than trying hard all at once.",
+                "Running intensely for about two hours once a week is effective.",
+                "The longer you continue exercising every day, the better.",
+                "Before starting exercise, you should always spend time doing warm-up exercises."
+              ]
+            },
+            "ne": {
+              "q": "विशेषज्ञले सबैभन्दा बढी के भन्न चाहनुहुन्छ?",
+              "choices": [
+                "शरीरका लागि एकैचोटि धेरै प्रयास गर्नुभन्दा बिस्तारै र निरन्तर काम गर्नु राम्रो हुन्छ।",
+                "हप्तामा एक पटक दुई घण्टा जति कडा दौडनु प्रभावकारी हुन्छ।",
+                "हरेक दिन जति लामो समयसम्म व्यायाम जारी राख्नुहुन्छ, त्यति नै राम्रो हुन्छ।",
+                "व्यायाम सुरु गर्नुअघि सधैँ समय लगाएर वार्म-अप व्यायाम गर्नुपर्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "An exercise expert is speaking on the radio. It's often said that exercise is good for your health. However, continuing a little bit every day is much more effective than exercising intensely for a long time occasionally. For example, walking for ten minutes every day is better than running for two hours once a week. The important thing is to repeat a manageable amount as a habit without stopping. Even just ten minutes, if you continue, your body will definitely change. So, please try starting with a short walk from today."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना व्यायाम विशेषज्ञले कुरा गरिरहनुभएको छ। व्यायाम स्वास्थ्यका लागि राम्रो हुन्छ भनिन्छ। तर, कहिलेकाहीँ लामो समयसम्म कडा व्यायाम गर्नुभन्दा, हरेक दिन थोरै-थोरै गर्दै निरन्तर गर्नु धेरै प्रभावकारी हुन्छ। उदाहरणका लागि, हप्तामा एक पटक दुई घण्टा दौडनुभन्दा, हरेक दिन दस मिनेट हिँड्नु राम्रो हुन्छ। महत्त्वपूर्ण कुरा के हो भने, आफूलाई गाह्रो नहुने मात्रामा, नरोकिईकन बानीको रूपमा दोहोर्याउनु हो। केवल दस मिनेट मात्र भए पनि, यदि तपाईंले निरन्तर गर्नुभयो भने, शरीर निश्चित रूपमा परिवर्तन हुन्छ। त्यसैले, आजैदेखि छोटो हिँडडुल सुरु गर्ने प्रयास गर्नुहोस्।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "健康体",
       "audioChoices": true
@@ -94,11 +153,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "If you were to give a title to this story, which one would be best?",
+              "choices": [
+                "Eat something in the morning, even if it's simple.",
+                "Methods to improve concentration in the morning",
+                "Simple breakfast recipes using bananas and milk",
+                "Tips for eating well when you don't have an appetite"
+              ]
+            },
+            "ne": {
+              "q": "यदि यो कथालाई शीर्षक दिने हो भने, कुन सबैभन्दा राम्रो हुन्छ?",
+              "choices": [
+                "सजिलो भए पनि बिहान केही खाऔँ।",
+                "बिहान ध्यान केन्द्रित गर्ने तरिकाहरू",
+                "केरा र दूध प्रयोग गरेर बनाइने सजिलो बिहानको नास्ताको विधि",
+                "भोक नलागेको बेला राम्ररी खाने तरिकाहरू"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A cooking teacher is speaking on TV. The number of people who don't eat breakfast is increasing. There might be various reasons like not having time or not having an appetite. However, if you don't eat anything in the morning, your body and mind won't wake up properly. That's why you feel sluggish and can't concentrate in the morning. If your mind isn't working, your work and studies in the morning won't progress. You don't need to overthink it. Even just one banana or one glass of milk is fine. First, put something in your mouth. Just that will change the start of your day."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टिभीमा एकजना खाना पकाउने शिक्षकले कुरा गरिरहनुभएको छ। बिहानको खाना नखाने मानिसहरूको संख्या बढिरहेको छ। समय नहुने, भोक नलाग्ने जस्ता विभिन्न कारणहरू हुन सक्छन्। तर, बिहान केही नखाँदा, शरीर र दिमाग राम्ररी जाग्दैनन्। बिहान अल्छी लाग्ने र ध्यान केन्द्रित गर्न नसक्नुको कारण यही हो। दिमागले काम नगरेपछि, बिहानको काम र पढाइ अगाडि बढ्दैन। यसलाई जटिल रूपमा सोच्नु पर्दैन। एउटा केरा वा एक गिलास दूध मात्र भए पनि हुन्छ। पहिले मुखमा केही हाल्नुहोस्। त्यसले मात्र पनि दिनको सुरुवात परिवर्तन हुन्छ।"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "健康体",
       "audioChoices": true
@@ -126,11 +214,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the nurse talking about?",
+              "choices": [
+                "Tips for making sleep time as long as possible",
+                "How to adjust smartphone screen to be easy to see before bed",
+                "Tips for taking a short and effective nap",
+                "The importance of a restful way of sleeping"
+              ]
+            },
+            "ne": {
+              "q": "नर्सले केको बारेमा कुरा गरिरहनुभएको छ?",
+              "choices": [
+                "निद्राको समय सकेसम्म लामो बनाउने तरिकाहरू",
+                "सुत्नुअघि स्मार्टफोनको स्क्रिन हेर्न सजिलो हुने गरी मिलाउने तरिका",
+                "छोटो र प्रभावकारी दिउँसोको निद्रा लिने तरिकाहरू",
+                "राम्ररी आराम मिल्ने निद्राको तरिका महत्त्वपूर्ण छ भन्ने कुरा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A nurse is speaking at the venue. When it comes to sleep, many people seem to think that sleeping for a long time is good. However, what's truly important isn't just the length of time. Even with the same six hours, the level of fatigue relieved the next morning is completely different for those who sleep deeply and those who sleep lightly. To sleep deeply, it helps not to look at the bright screen of your smartphone before bed and to darken the room. It's also good to dim the room lights a bit an hour before going to bed. Please try it starting tonight."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यक्रम स्थलमा एकजना नर्सले कुरा गरिरहनुभएको छ। निद्राको कुरा गर्दा, धेरै मानिसहरू लामो समय सुते राम्रो हुन्छ भन्ने सोच्नुहुन्छ जस्तो लाग्छ। तर, वास्तवमा महत्त्वपूर्ण कुरा समयको लम्बाइ मात्र होइन। एउटै छ घण्टा सुते पनि, गहिरो निद्रा सुत्ने र हल्का निद्रा सुत्ने मानिसहरूको भोलिपल्ट बिहानको थकान हट्ने तरिका बिल्कुल फरक हुन्छ। गहिरो निद्रा सुत्नका लागि, सुत्नुअघि स्मार्टफोनको उज्यालो स्क्रिन नहेर्नु, र कोठालाई अँध्यारो पार्नु उपयोगी हुन्छ। सुत्नुभन्दा एक घण्टाअघि कोठाको बत्ती अलि कम गर्नु पनि राम्रो हुन्छ। आज रातिदेखि नै प्रयास गर्नुहोस्।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "健康体",
       "audioChoices": true
@@ -158,11 +275,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the man want to convey the most?",
+              "choices": [
+                "It works well if you buy storage boxes and shelves first.",
+                "To clean, you should first re-evaluate your belongings themselves.",
+                "It's good to increase containers so you can store many things.",
+                "Cleaning should be shared among all family members."
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले सबैभन्दा बढी के भन्न चाहनुहुन्छ?",
+              "choices": [
+                "पहिले भण्डारणका लागि बक्स र दराज किन्न गएमा राम्रो हुन्छ।",
+                "सफा गर्नका लागि पहिले आफ्ना सामानहरूलाई नै पुनरावलोकन गर्नुपर्छ।",
+                "धेरै सामानहरू राख्न सकिने गरी राख्ने ठाउँ बढाउनु राम्रो हुन्छ।",
+                "सफाई परिवारका सबै सदस्यहरूले मिलेर गर्नुपर्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Man on the radio: Have you ever tried to tidy up your room but couldn't make much progress? Many people first go to buy storage boxes and shelves. But that's the root of failure. If you increase the containers, you'll keep more things. Before you know it, your room will be overflowing with stuff again. If you really want to tidy up, the order is reversed. First, reduce unnecessary items. If you have fewer things, you won't even need new shelves in the first place."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एकजना पुरुषले कुरा गरिरहनुभएको छ। पुरुष: कोठा सफा गर्न खोज्दा पनि खासै प्रगति नभएको अनुभव छ? धेरै मानिसहरू पहिले भण्डारणका लागि बक्स वा दराज किन्न जान्छन्। तर, त्यो नै असफलताको कारण हो। यदि तपाईंले राख्ने ठाउँ बढाउनुभयो भने, त्यति नै धेरै सामानहरू राख्नुहुन्छ। थाहा नपाई, फेरि कोठा सामानले भरिन्छ। यदि तपाईं साँच्चै सफा गर्न चाहनुहुन्छ भने, क्रम उल्टो छ। पहिले अनावश्यक सामानहरू घटाउनुहोस्। सामानहरू कम भएपछि, नयाँ दराजहरूको आवश्यकता नै पर्दैन।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audioChoices": true
@@ -190,11 +336,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which of the following is a suitable title for this talk?",
+              "choices": [
+                "It's profitable to buy food in bulk when it's on sale.",
+                "Buying only what you can eat is ultimately profitable.",
+                "Tips for organizing your refrigerator effectively.",
+                "Correct storage methods for leftover food that couldn't be used up."
+              ]
+            },
+            "ne": {
+              "q": "यो कुराको शीर्षकको रूपमा कुन उपयुक्त छ?",
+              "choices": [
+                "सस्तोमा पाइँदा खानेकुरा धेरै किन्नु फाइदाजनक हुन्छ।",
+                "खान सकिने जति मात्र किन्नु अन्ततः फाइदाजनक हुन्छ।",
+                "फ्रिजलाई राम्ररी व्यवस्थित गर्ने तरिकाहरू।",
+                "प्रयोग गर्न नसकेर बाँकी रहेका खानेकुराको सही भण्डारण विधि।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on TV. Woman: When I go shopping, I tend to buy in bulk when things are cheap. Especially with food, I get happy when there's a sale and put a lot in my basket. However, when I get home, I put it in the fridge and then can't use it all, so it goes bad and I throw it away. This ends up being an expensive purchase. Even if I buy it cheaply, it's pointless if I throw it away. It's not about the cheapness itself, but whether it's a quantity I can use up. Thinking about that when buying is the shortest way to reduce waste."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टिभीमा एउटी महिला बोलिरहेकी छिन्। महिला: किनमेल गर्न जाँदा, सस्तो हुँदा धेरै किन्ने बानी छ। विशेषगरी खानेकुरामा, सस्तो पाएपछि खुसी भएर धेरै टोकरीमा हाल्ने गर्छु। तर, घर फर्केर फ्रिजमा राखेपछि, सबै प्रयोग गर्न नसकेर बिग्रिएर फ्याँक्छु। यसरी त अन्ततः महँगो किनमेल हुन्छ। सस्तोमा किने पनि, फ्याँकेपछि केही काम लाग्दैन। सस्तोपन आफैंमा भन्दा पनि, प्रयोग गर्न सकिने मात्रा हो कि होइन। त्यो सोचेर किन्नु नै फोहोर कम गर्ने सबैभन्दा छोटो बाटो हो।"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "生活くらし",
       "audioChoices": true
@@ -222,11 +397,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the official talking about?",
+              "choices": [
+                "New rules for taking out garbage that change from this month.",
+                "The correct procedure for washing and drying plastic containers.",
+                "Hours of the inquiry desk you can call if you're unsure about garbage separation.",
+                "Locations of stores selling new garbage bags."
+              ]
+            },
+            "ne": {
+              "q": "अधिकारीले के बारेमा कुरा गरिरहेका छन्?",
+              "choices": [
+                "यस महिनादेखि परिवर्तन हुने फोहोर निकाल्ने नयाँ नियमहरू।",
+                "प्लास्टिकका भाँडाहरू धोएर सुकाउने सही प्रक्रिया।",
+                "फोहोर छुट्याउनमा अलमल भएमा फोन गर्न सकिने कार्यालयको समय।",
+                "नयाँ फोहोरका झोला बेच्ने पसलहरूको स्थान।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A city official is speaking at the venue. The way you separate garbage in your residential area will change starting this month. Plastic containers that you previously put in burnable garbage will now need to be separated into a different bag. The basic rule is to wash and dry them before putting them out. This is because if they are dirty, they sometimes cannot be recycled. The collection days will also change, so please check the distributed schedule carefully. If you are unsure about how to separate garbage, please call the city's inquiry desk. We ask for your cooperation."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यक्रम स्थलमा शहरका एक अधिकारी बोलिरहेका छन्। तपाईंहरूको बसोबास क्षेत्रमा फोहोर छुट्याउने तरिका यस महिनादेखि नयाँ हुनेछ। यसअघि जलाउने फोहोरमा हाल्ने प्लास्टिकका भाँडाहरू अब छुट्टै झोलामा राखेर निकाल्नुपर्नेछ। धोएर सुकाएर निकाल्नु नै आधारभूत नियम हो। किनभने फोहोर भएको अवस्थामा, कहिलेकाहीँ रिसाइकल गर्न सकिँदैन। दिन पनि परिवर्तन हुनेछ, त्यसैले वितरण गरिएको तालिका राम्ररी जाँच गर्नुहोस्। फोहोर छुट्याउनमा अलमल भएमा, शहरको कार्यालयमा फोन गर्नुहोस्। हामी तपाईंहरूको सहयोगको अपेक्षा गर्दछौं।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "生活くらし",
       "audioChoices": true
@@ -254,11 +458,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the woman most want to convey?",
+              "choices": [
+                "Dealing with neighbors is troublesome, so it's better to avoid it.",
+                "Everyday familiarity with faces becomes a strength to support each other in times of need.",
+                "You should store food in preparation for earthquakes and fires.",
+                "It is important as a courtesy to greet others every day without fail."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले सबैभन्दा बढी के भन्न चाहन्छिन्?",
+              "choices": [
+                "छिमेकीहरूसँगको सम्बन्ध झन्झटिलो हुन्छ, त्यसैले यसलाई बेवास्ता गर्नु राम्रो हुन्छ।",
+                "दैनिक अनुहार चिनजानले आपत्कालीन अवस्थामा एकअर्कालाई सहयोग गर्ने शक्ति बन्छ।",
+                "भूकम्प र आगलागीको तयारीका लागि खानेकुरा भण्डारण गर्नुपर्छ।",
+                "हरेक दिन अनिवार्य रूपमा अभिवादन गर्नु शिष्टाचारको रूपमा महत्त्वपूर्ण छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman is speaking on the radio. Woman: I often hear people say that dealing with neighbors is troublesome. Certainly, greeting them every day might feel a little awkward. But just knowing their faces makes a huge difference in peace of mind when something unexpected happens. When you meet face to face, it naturally becomes easier to strike up a conversation. When unexpected things like earthquakes or fires happen, it's ultimately the people closest to you who can help each other. That's why I want to value those short, everyday greetings."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एउटी महिला बोलिरहेकी छिन्। महिला: छिमेकीहरूसँगको सम्बन्ध झन्झटिलो हुन्छ भन्ने कुरा म प्रायः सुन्छु। पक्कै पनि, हरेक दिन अभिवादन गर्नु अलि अप्ठ्यारो लाग्न सक्छ। तर, अनुहार चिनेको भरमा पनि, आपत्कालीन अवस्थामा हुने सुरक्षाको भावना बिल्कुलै फरक हुन्छ। अनुहार देख्दा, स्वाभाविक रूपमा कुरा गर्न सजिलो हुन्छ। भूकम्प वा आगलागी जस्ता अप्रत्याशित घटनाहरू हुँदा, अन्ततः एकअर्कालाई सहयोग गर्न सक्ने भनेको नजिकै बस्ने मानिसहरू नै हुन्। त्यसैले, म सामान्य दिनको छोटो अभिवादनलाई महत्त्वपूर्ण मान्न चाहन्छु।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "生活くらし",
       "audioChoices": true
@@ -286,11 +519,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "If you were to give a title to this talk, which one would be best?",
+              "choices": [
+                "Trees and plants have a hidden function of cooling the city.",
+                "Ways to plant trees and flowers to beautifully decorate the city.",
+                "Methods for effectively using air conditioning on hot summer days.",
+                "Enjoying growing vegetables in your home garden."
+              ]
+            },
+            "ne": {
+              "q": "यदि यो कुरालाई शीर्षक दिने हो भने, कुन सबैभन्दा राम्रो हुन्छ?",
+              "choices": [
+                "रूख र बोटबिरुवामा शहरलाई चिसो बनाउने लुकेको काम हुन्छ।",
+                "शहरलाई सुन्दर बनाउन रूख र फूलहरू रोप्ने तरिकाहरू।",
+                "गर्मीको तातो दिनमा एयर कन्डिसनरलाई राम्ररी प्रयोग गर्ने तरिकाहरू।",
+                "घरको बगैंचामा तरकारी खेतीको आनन्द लिने।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A researcher is speaking on TV. Many people think that planting trees and flowers in the city makes it look beautiful. Of course, that's true, but the role of greenery isn't just that. On hot summer days, the shade under trees significantly lowers the temperature compared to the surroundings. The moisture released from leaves also cools the air. The heat you feel on your body is completely different from places with only asphalt. In other words, urban greenery is not just decoration; it's also a natural air conditioner that softens the heat."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टिभीमा एक अनुसन्धानकर्ता बोलिरहेका छन्। शहरमा रूख र फूलहरू रोप्दा, यो सुन्दर देखिन्छ। धेरै मानिसहरू यस्तै सोच्छन्। पक्कै पनि त्यो पनि हो, तर हरियालीको भूमिका त्यति मात्र होइन। गर्मीको तातो दिनमा, रूखमुनिको छायाले वरपरको तापक्रम धेरै घटाउँछ। पातहरूबाट निस्कने चिस्यानले पनि हावालाई चिसो बनाउँछ। केवल डामर भएको ठाउँभन्दा शरीरमा महसुस हुने गर्मी बिल्कुलै फरक हुन्छ। अर्थात्, शहरको हरियाली सजावट मात्र होइन, गर्मीलाई कम गर्ने प्राकृतिक एयर कन्डिसनर पनि हो।"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "社会自然",
       "audioChoices": true
@@ -318,11 +580,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the expert talking about?",
+              "choices": [
+                "How to choose appropriate clothing for the cold windy season.",
+                "How to proceed with construction to build sturdy buildings.",
+                "Warning signs of sudden severe weather and how to escape at that time.",
+                "Precautions when fishing in rivers and low-lying areas."
+              ]
+            },
+            "ne": {
+              "q": "विशेषज्ञले के बारेमा कुरा गरिरहेका छन्?",
+              "choices": [
+                "चिसो हावा चल्ने मौसमका लागि उपयुक्त लुगा कसरी छनौट गर्ने।",
+                "बलियो भवनहरू निर्माण गर्नका लागि निर्माण कार्य कसरी अगाडि बढाउने।",
+                "मौसम अचानक बिग्रनु अघिका संकेतहरू र त्यसबेला कसरी भाग्ने।",
+                "नदी र होचो ठाउँमा माछा मार्दा ध्यान दिनुपर्ने कुराहरू।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A weather expert is speaking on the radio. Recently, there has been an increase in sudden, heavy rains for short periods. If the sky suddenly darkens and a cold wind blows, it's a sign that heavy rain is approaching. In such cases, move away from rivers and low-lying areas early and enter a sturdy building. The situation can change significantly in just ten minutes. Even a slight lapse in caution can lead to great danger. If you notice changes in the sky, acting immediately will protect you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा मौसम विशेषज्ञ बोलिरहेका छन्। हालै, छोटो समयमा अचानक भारी वर्षा हुने क्रम बढेको छ। यदि आकाश अचानक अँध्यारो भयो र चिसो हावा चल्यो भने, त्यो भारी वर्षा नजिकिँदैछ भन्ने संकेत हो। यस्तो बेला, नदी र होचो ठाउँबाट चाँडै टाढा भएर बलियो भवनभित्र जानुहोस्। केवल दश मिनेटमा स्थिति धेरै परिवर्तन हुन सक्छ। सानो लापरबाहीले पनि ठूलो खतरा निम्त्याउन सक्छ। आकाशमा परिवर्तन देख्ने बित्तिकै, तुरुन्तै कार्य गर्नुले तपाईंलाई सुरक्षित राख्छ।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "社会自然",
       "audioChoices": true
@@ -350,11 +641,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the official want to say the most?",
+              "choices": [
+                "It is most important to correctly separate and dispose of trash by type.",
+                "Broken items should be immediately replaced with new ones.",
+                "As many people as possible should participate in city clean-up activities.",
+                "It is important to live a life that doesn't produce things to throw away in the first place."
+              ]
+            },
+            "ne": {
+              "q": "अधिकारीले सबैभन्दा बढी के भन्न चाहन्छन्?",
+              "choices": [
+                "फोहोरलाई प्रकार अनुसार सही तरिकाले छुट्याएर फाल्नु सबैभन्दा महत्त्वपूर्ण छ।",
+                "बिग्रिएका सामानहरू तुरुन्तै नयाँले बदल्नुपर्छ।",
+                "सहर सफाइ अभियानमा सकेसम्म धेरै मानिसहरूले भाग लिनुपर्छ।",
+                "सुरुदेखि नै फोहोर हुने सामानहरू ननिकाल्ने जीवनशैली महत्त्वपूर्ण छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A city official is speaking at the venue. \"When you throw away something you've finished using, I want you to stop for a moment and think. Are you throwing it away even though it's still usable? Are you buying something new when it could be fixed if repaired? It's important to separate and dispose of trash, but even more important than that is to reduce the amount of things that become trash in the first place. I want you to think a little from the time you make or buy something. Each person using things carefully for a long time. The accumulation of these small efforts will make the future of our city beautiful.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यक्रम स्थलमा सहरका एक अधिकारीले बोलिरहेका छन्। “प्रयोग गरिसकेका सामानहरू फाल्दा, म तपाईंहरूलाई एकछिन रोकिएर सोच्न आग्रह गर्दछु। के तपाईंहरूले अझै प्रयोग गर्न सकिने सामान फालिरहनुभएको छ? मर्मत गर्दा ठीक हुने सामानको सट्टा नयाँ किनिरहनुभएको छ? फोहोरलाई छुट्याएर फाल्नु पनि महत्त्वपूर्ण छ, तर त्योभन्दा पनि महत्त्वपूर्ण कुरा त सुरुदेखि नै फोहोर हुने सामानको मात्रा घटाउनु हो। सामान बनाउँदा वा किन्दा नै अलिकति सोच्न आग्रह गर्दछु। हरेक व्यक्तिले सामानलाई लामो समयसम्म सावधानीपूर्वक प्रयोग गरून्। यस्ता साना प्रयासहरूको सङ्कलनले सहरको भविष्यलाई सुन्दर बनाउनेछ।”"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "社会自然",
       "audioChoices": true
@@ -382,11 +702,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which title best fits this story?",
+              "choices": [
+                "Winter travel to enjoy in warm southern regions",
+                "How ancient people found their way using the sun and stars",
+                "A day in the life of raising birds at the zoo",
+                "The mysterious ability of birds to reach distant places even for the first time"
+              ]
+            },
+            "ne": {
+              "q": "यस कथाको लागि कुन शीर्षक उपयुक्त हुन्छ?",
+              "choices": [
+                "न्यानो दक्षिणी क्षेत्रहरूमा रमाइलो गर्न जाडोको यात्रा",
+                "सूर्य र ताराहरूको भरमा प्राचीन मानिसहरूले बाटो पत्ता लगाउने तरिका",
+                "चिडियाखानामा चराहरू हुर्काउने कामको एक दिन",
+                "पहिलो पटक भए पनि टाढा पुग्न सक्ने चराहरूको रहस्यमय क्षमता"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A person from a zoo is speaking on TV. \"In winter, many birds embark on a long journey to warm southern regions. They fly thousands of kilometers across the sea. What's amazing is that even young birds making their first journey arrive at their destination without getting lost. It is said that they know their direction by sensing the position of the sun and stars, and the Earth's magnetism. They return precisely to the distant land where their parents were born. They have a magnificent map in their small bodies that we don't possess.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा चिडियाखानाका एक व्यक्तिले बोलिरहेका छन्। “जाडोमा धेरै चराहरू न्यानो दक्षिणी क्षेत्रहरूमा लामो यात्रामा निस्कन्छन्। तिनीहरू हजारौं किलोमिटर समुद्र पार गरेर उड्छन्। अचम्मको कुरा के हो भने, पहिलो पटक यात्रा गर्ने युवा चराहरू पनि बाटो नहराई आफ्नो गन्तव्यमा पुग्छन्। भनिन्छ कि तिनीहरूले सूर्य र ताराहरूको स्थिति, र पृथ्वीको चुम्बकीय शक्ति महसुस गरेर दिशा पत्ता लगाउँछन्। तिनीहरू आफ्ना आमाबाबु जन्मेको टाढाको भूमिमा ठ्याक्कै फर्कन्छन्। तिनीहरूको सानो शरीरमा हामीसँग नभएको एउटा अद्भुत नक्सा हुन्छ।”"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "社会自然",
       "audioChoices": true
@@ -414,11 +763,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the leader talking about?",
+              "choices": [
+                "Methods for completing work alone from start to finish",
+                "The correct way to redo something when a big correction is needed",
+                "The importance of consulting others early without accumulating doubts",
+                "Schedule for a welcome party for new employees"
+              ]
+            },
+            "ne": {
+              "q": "नेताले केको बारेमा कुरा गरिरहेका छन्?",
+              "choices": [
+                "काम एक्लै सुरुदेखि अन्त्यसम्म पूरा गर्ने तरिकाहरू",
+                "ठूलो गल्ती सच्याउनुपर्दा सही तरिकाले कसरी सच्याउने",
+                "शंकाहरू जम्मा नगरी चाँडै अरूसँग सल्लाह गर्ने महत्त्व",
+                "नयाँ कर्मचारीहरूका लागि स्वागत समारोहको तालिका"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A leader at the company is speaking. \"To all of you who have just joined, there's one thing I want to tell you. If you don't understand something at work, please don't hesitate to ask immediately. It will progress much faster and more accurately than if you try to handle it yourself and spend a lot of time. The time you spend worrying alone is the biggest waste. Asking questions is never something to be ashamed of. In fact, it helps everyone around you if you clarify things early. It's most troublesome if you proceed without understanding and then have to make big corrections later.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एक नेताले बोलिरहेका छन्। “भर्खरै भर्ना भएका तपाईंहरू सबैलाई, म एउटा कुरा भन्न चाहन्छु। काममा केही बुझ्नुभएन भने, नहिचकिचाई तुरुन्तै सोध्नुहोस्। आफैंले मात्रै सोचेर समय खर्च गर्नुभन्दा, त्यसरी धेरै छिटो र सही तरिकाले काम अगाडि बढ्छ। एक्लै चिन्ता गरेर बिताएको समय सबैभन्दा खेर गएको समय हो। प्रश्न सोध्नु कहिल्यै लाजमर्दो कुरा होइन। बरु, तपाईंले चाँडै स्पष्ट पार्नुभयो भने, वरपरका सबैलाई पनि मद्दत पुग्छ। नबुझी अगाडि बढेर पछि ठूलो गल्ती सच्याउनुपर्ने अवस्था आउनु सबैभन्दा समस्याजनक हुन्छ।”"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "仕事",
       "audioChoices": true
@@ -446,11 +824,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the owner want to convey the most?",
+              "choices": [
+                "Failures resulting from positive attempts should not be blamed but used for future growth.",
+                "Employees who repeat the same mistakes should be severely reprimanded.",
+                "Employees should always be made to choose only safe paths to protect the company.",
+                "Employee salaries should be increased according to their performance."
+              ]
+            },
+            "ne": {
+              "q": "मालिकले सबैभन्दा बढी के भन्न चाहन्छन्?",
+              "choices": [
+                "सकारात्मक प्रयासबाट उत्पन्न भएका असफलताहरूलाई दोष दिनुको सट्टा भविष्यको लागि प्रयोग गर्नुपर्छ।",
+                "एउटै गल्ती दोहोर्याउने कर्मचारीहरूलाई कडा रूपमा गाली गर्नुपर्छ।",
+                "कम्पनीलाई बचाउनका लागि कर्मचारीहरूलाई सधैं सुरक्षित बाटो मात्र रोज्न लगाउनुपर्छ।",
+                "कर्मचारीहरूको तलब उनीहरूको कार्यसम्पादन अनुसार बढाउनुपर्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A company owner is speaking on the radio. \"At our company, we don't scold employees who make mistakes. Of course, it's a problem if the same mistake is repeated many times. But if a mistake is the result of trying something new, I believe it's not something to be blamed for. If you scold for failure, people stop trying. They only choose safe paths. Then the company won't grow. That's why, instead of blaming failures, I try to think together about what we learned from them.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक कम्पनीका मालिकले बोलिरहेका छन्। “हाम्रो कम्पनीमा, हामी गल्ती गर्ने कर्मचारीहरूलाई गाली गर्दैनौं। पक्कै पनि, एउटै गल्ती बारम्बार दोहोर्याउनु समस्या हो। तर, यदि कुनै गल्ती नयाँ कुरा प्रयास गर्दाको परिणाम हो भने, मलाई लाग्छ कि त्यसको लागि दोष दिनु हुँदैन। यदि तपाईंले असफलताको लागि गाली गर्नुभयो भने, मानिसहरूले प्रयास गर्न छोड्छन्। तिनीहरूले सुरक्षित बाटो मात्र रोज्छन्। त्यसपछि कम्पनी बढ्दैन। त्यसैले, म असफलताको लागि दोष दिनुको सट्टा, त्यसबाट के सिकियो भनेर सँगै सोच्ने प्रयास गर्छु।”"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "仕事",
       "audioChoices": true
@@ -478,11 +885,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which title would be best for this story?",
+              "choices": [
+                "Organizing your surroundings is the first step to speeding up work.",
+                "How busy people can effectively divide their time in a day.",
+                "Tools for neatly storing many documents.",
+                "How to effectively decide on a workplace cleaning roster for comfortable work."
+              ]
+            },
+            "ne": {
+              "q": "यस कथाको लागि कुन शीर्षक सबैभन्दा राम्रो हुन्छ?",
+              "choices": [
+                "आफ्नो वरपरको वातावरण व्यवस्थित गर्नु कामलाई छिटो बनाउने पहिलो कदम हो।",
+                "व्यस्त मानिसहरूले दिनको समयलाई कसरी राम्ररी विभाजन गर्न सक्छन्।",
+                "धेरै कागजातहरू सफासँग भण्डारण गर्नका लागि उपकरणहरू।",
+                "आरामदायक कामको लागि कार्यस्थल सफाइको पालो कसरी प्रभावकारी रूपमा निर्धारण गर्ने।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A work style expert is speaking at the venue. \"The busier people are, the more their desks are covered with documents. But if you're spending several minutes a day just looking for things, that's a huge waste. Try tidying your desk for five minutes before you start work. Put only what you need within reach. Just doing that will organize your mind, and you'll clearly see what you need to do next. A messy desk makes your mind messy too. Tidying up isn't just cleaning; it's preparation to speed up your work.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यक्रम स्थलमा कार्यशैली विशेषज्ञले बोलिरहेका छन्। “व्यस्त मानिसहरूको डेस्क कागजातहरूले भरिएको हुन्छ। तर, यदि तपाईंले दिनमा केही मिनेट सामान खोज्नमा खर्च गरिरहनुभएको छ भने, त्यो ठूलो बर्बादी हो। काम सुरु गर्नुअघि पाँच मिनेट आफ्नो डेस्क सफा गर्ने प्रयास गर्नुहोस्। आवश्यक सामानहरू मात्र हातले भ्याउने ठाउँमा राख्नुहोस्। त्यति गर्दा मात्रै पनि तपाईंको दिमाग व्यवस्थित हुन्छ, र तपाईंले अर्को के गर्नुपर्छ भन्ने कुरा स्पष्ट रूपमा देख्नुहुनेछ। अव्यवस्थित डेस्कले तपाईंको दिमागलाई पनि अव्यवस्थित बनाउँछ। सरसफाइ केवल सफा गर्नु मात्र होइन, यो कामलाई छिटो बनाउने तयारी हो।”"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "仕事",
       "audioChoices": true
@@ -510,11 +946,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the senior colleague talking about?",
+              "choices": [
+                "Methods for correctly memorizing many specialized terms",
+                "How to effectively handle customer complaints",
+                "A way of speaking that truly conveys the content",
+                "Practice replacing difficult words with familiar examples"
+              ]
+            },
+            "ne": {
+              "q": "वरिष्ठ सहकर्मीले के बारेमा कुरा गरिरहनुभएको छ?",
+              "choices": [
+                "धेरै प्राविधिक शब्दहरू सही रूपमा याद गर्ने तरिकाहरू",
+                "ग्राहकका गुनासोहरूलाई कुशलतापूर्वक सम्बोधन गर्ने तरिका",
+                "सामग्री साँच्चै पुग्ने गरी बोल्ने तरिका",
+                "कठिन शब्दहरूलाई परिचित उदाहरणहरूमा बदल्ने अभ्यास"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a senior colleague is speaking. When explaining something to customers, we tend to use specialized terms. Even if it's obvious to us, it might not be understood by the other person at all. What's important is to speak while imagining how much the other person knows. Replace difficult words with familiar examples. Only when you can do that can you truly say it has been conveyed. No matter how politely you speak, it's meaningless if it doesn't reach the other person. Don't think about the quantity of what you say, but whether it reached the other person."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एक वरिष्ठ सहकर्मीले कुरा गरिरहनुभएको छ। ग्राहकहरूलाई केही कुरा बुझाउँदा, हामी प्रायः प्राविधिक शब्दहरू प्रयोग गर्छौं। हामीलाई सामान्य लागे पनि, अर्को व्यक्तिले बिल्कुलै नबुझ्न सक्छ। महत्त्वपूर्ण कुरा के हो भने, अर्को व्यक्तिले कति बुझेको छ भनेर कल्पना गर्दै कुरा गर्नु। कठिन शब्दहरूलाई परिचित उदाहरणहरूले प्रतिस्थापन गरेर बताउनु। त्यो गर्न सकेपछि मात्र, साँच्चै बुझाइयो भन्न सकिन्छ। जतिसुकै नम्रतापूर्वक बोले पनि, यदि अर्को व्यक्तिसम्म पुगेन भने त्यसको कुनै अर्थ हुँदैन। बोलेको मात्रामा होइन, तर अर्को व्यक्तिसम्म पुग्यो कि पुगेन भन्नेमा विचार गर्नुहोस्।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "仕事",
       "audioChoices": true
@@ -542,11 +1007,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the teacher most want to say?",
+              "choices": [
+                "You should memorize vocabulary and grammar more diligently.",
+                "What you've learned should be actually spoken out loud without fear of making mistakes.",
+                "You should prepare thoroughly and take your time before speaking to avoid mistakes.",
+                "It's better to start learning a foreign language when you are a child."
+              ]
+            },
+            "ne": {
+              "q": "शिक्षकले सबैभन्दा बढी के भन्न चाहनुहुन्छ?",
+              "choices": [
+                "शब्द र व्याकरण अझ बढी मेहनत गरेर याद गर्नुपर्छ।",
+                "सिकेका कुराहरू गल्ती गर्ने डर बिना वास्तवमा मुखबाट बोल्नुपर्छ।",
+                "गल्ती नहोस् भनेर बोल्नुअघि राम्ररी समय लगाएर तयारी गर्नुपर्छ।",
+                "विदेशी भाषा बच्चा छँदै सुरु गर्नु राम्रो हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "On the radio, a language teacher is speaking. I often get asked by people studying foreign languages why they can't seem to speak it. They work hard to memorize vocabulary and grammar, so why is that? The answer is simple: it's because they only memorize and don't use it out loud. It's okay to make mistakes. In fact, by using the language while making mistakes, it truly becomes your own. Take the knowledge stored in your notebook and actively use it. That is the shortest path to improvement."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा भाषा शिक्षकले कुरा गरिरहनुभएको छ। विदेशी भाषा पढिरहेका मानिसहरूबाट, बोल्न नसकेको बारेमा प्रायः सल्लाह लिइन्छ। शब्द र व्याकरण कडा मेहनत गरेर याद गरिरहेका छन्, तर किन? जवाफ सरल छ: किनभने उनीहरूले याद मात्र गर्छन्, मुखबाट प्रयोग गर्दैनन्। गल्ती भए पनि फरक पर्दैन। बरु, गल्ती गर्दै प्रयोग गर्दा मात्र भाषा आफ्नो हुन्छ। नोटबुकमा राखेको ज्ञानलाई बाहिर निकालेर प्रयोग गर्ने। त्यही नै सुधारको सबैभन्दा छोटो बाटो हो।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audioChoices": true
@@ -574,11 +1068,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which title best fits this story?",
+              "choices": [
+                "The importance of letting the person think for themselves instead of immediately showing the correct answer.",
+                "How to teach children the reason why the sky looks blue as simply as possible.",
+                "Knowledge for always answering children's questions correctly.",
+                "Tips for reading aloud that make children love books."
+              ]
+            },
+            "ne": {
+              "q": "यस कथाको लागि कुन शीर्षक उपयुक्त हुन्छ?",
+              "choices": [
+                "तुरुन्तै सही जवाफ नदेखाई व्यक्तिलाई आफै सोच्न लगाउनुको महत्त्व।",
+                "बच्चाहरूलाई आकाश किन निलो देखिन्छ भन्ने कारण सकेसम्म सजिलोसँग सिकाउने तरिका।",
+                "बच्चाहरूको प्रश्नको सधैं सही जवाफ दिनको लागि ज्ञान।",
+                "बच्चाहरूलाई किताब मन पराउने गरी पढेर सुनाउने तरिकाहरू।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "On TV, a university professor is speaking. When a child asks, \"Why is the sky blue?\" what do you do? It's good to tell them the correct answer right away. But before that, try asking back, \"Why do you think?\" The child will start to think in their own way. Thinking with their own mind, rather than just memorizing answers. That habit is the greatest strength that will support their future learning. An answer found by oneself is not easily forgotten. Don't give the answer immediately. That is also an important way of teaching."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा विश्वविद्यालयका प्राध्यापकले कुरा गरिरहनुभएको छ। जब बच्चाले “आकाश किन निलो हुन्छ?” भनेर सोध्छ, तपाईंहरू के गर्नुहुन्छ? तुरुन्तै सही जवाफ दिनु पनि राम्रो होला। तर, त्यसअघि “किन होला जस्तो लाग्छ?” भनेर सोधेर हेर्नुहोस्। बच्चाले आफ्नै तरिकाले सोच्न थाल्छ। जवाफ याद गर्नुभन्दा, आफ्नै दिमागले सोच्नु। त्यो बानी नै भविष्यको सिकाइलाई समर्थन गर्ने सबैभन्दा ठूलो शक्ति हो। आफैले पत्ता लगाएको जवाफ सजिलै बिर्सिँदैन। तुरुन्तै जवाफ नदिनुहोस्। त्यो पनि सिकाउने एउटा महत्त्वपूर्ण तरिका हो।"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "学び",
       "audioChoices": true
@@ -606,11 +1129,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the librarian talking about?",
+              "choices": [
+                "Methods for practicing to read books quickly.",
+                "The benefits of engaging deeply with one book rather than reading many.",
+                "How to choose tools for underlining sentences that catch your attention.",
+                "Rules for borrowing books from the library."
+              ]
+            },
+            "ne": {
+              "q": "पुस्तकालयका कर्मचारीले के बारेमा कुरा गरिरहनुभएको छ?",
+              "choices": [
+                "किताब छिटो पढ्न सक्ने अभ्यासका तरिकाहरू।",
+                "धेरै पढ्नुभन्दा एउटा किताबसँग गहिरो सम्बन्ध राख्नुको फाइदा।",
+                "मन परेको वाक्यमा रेखा कोर्नका लागि उपकरण छनौट गर्ने तरिका।",
+                "पुस्तकालयबाट किताब उधारो लिने नियमहरू।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the venue, a librarian is speaking. Many people want to be able to read books quickly. However, what I recommend is not reading quickly. It's about reading one book slowly, pausing along the way. Underline a sentence that caught your attention and think about why it moved you. One book deeply savored in this way will stay with you much longer than rushing through dozens of books. If you just flip through pages quickly, nothing will remain. There's no need to compete on the number of books."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यक्रम स्थलमा पुस्तकालयका कर्मचारीले कुरा गरिरहनुभएको छ। धेरै मानिसहरू किताब छिटो पढ्न चाहन्छन्। तर, मैले सिफारिस गर्न चाहेको कुरा छिटो पढ्नु होइन। एउटा किताबलाई रोकिँदै बिस्तारै पढ्नु हो। मन परेको एक वाक्यमा रेखा कोर्नुहोस् र किन मन छोयो भनेर सोच्नुहोस्। यसरी गहिरो गरी पढेको एउटा किताब, हतारमा दर्जनौं किताब पढ्नुभन्दा धेरै समयसम्म मनमा रहन्छ। हतारमा पाना पल्टाउँदा केही पनि बाँकी रहँदैन। किताबको संख्यामा प्रतिस्पर्धा गर्नुपर्दैन।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "学び",
       "audioChoices": true
@@ -638,11 +1190,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the expert most want to convey?",
+              "choices": [
+                "You should make getting good scores on tests your primary goal.",
+                "You should repeatedly re-memorize what you've studied so you don't forget it.",
+                "You should cultivate lifelong thinking skills rather than focusing on immediate evaluations.",
+                "Studying with friends lasts longer."
+              ]
+            },
+            "ne": {
+              "q": "विशेषज्ञले सबैभन्दा बढी के कुरा व्यक्त गर्न चाहनुहुन्छ?",
+              "choices": [
+                "परीक्षामा राम्रो अंक ल्याउनुलाई मुख्य लक्ष्य बनाउनुपर्छ।",
+                "पढेका कुराहरू नबिर्सियोस् भनेर बारम्बार याद गर्नुपर्छ।",
+                "तत्कालको मूल्याङ्कनभन्दा जीवनभर उपयोगी हुने सोचाइको क्षमता विकास गर्नुपर्छ।",
+                "साथीहरूसँग अध्ययन गर्दा लामो समयसम्म टिक्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "On the radio, an education expert is speaking. Many people probably aim to get good scores on tests. However, scores are merely a passing point. What's truly important is whether, through that study, you've acquired the ability to find problems yourself and think of solutions. Studying in a way that you forget everything as soon as the test is over is meaningless. The ability to think, which can be used for a lifetime, lies beyond the scores. That's what I want you to aim for."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा शिक्षा विशेषज्ञले कुरा गरिरहनुभएको छ। धेरै मानिसहरूले परीक्षामा राम्रो अंक ल्याउने लक्ष्य राखेका होलान्। तर, अंकहरू केवल एउटा माध्यम मात्र हुन्। साँच्चै महत्त्वपूर्ण कुरा के हो भने, त्यो अध्ययन मार्फत, आफैले समस्या पत्ता लगाउने र समाधान गर्ने तरिका सोच्ने क्षमता विकास भयो कि भएन। परीक्षा सकिने बित्तिकै सबै बिर्सिने गरी गरिएको अध्ययनको कुनै अर्थ हुँदैन। अंकभन्दा पर रहेको, जीवनभर प्रयोग गर्न सकिने सोच्ने क्षमता। त्यही लक्ष्य राख्नुहोस् भन्ने म चाहन्छु।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "学び",
       "audioChoices": true
@@ -670,11 +1251,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which of the following would be a good title for this story?",
+              "choices": [
+                "Introduction to shops where shoes and bags can be bought cheaply",
+                "Methods for maintaining new products to make them last as long as possible",
+                "Precautions when giving old items to others",
+                "Increase in people who cherish and continue to use their favorites without letting go"
+              ]
+            },
+            "ne": {
+              "q": "यो कथाको लागि कुन शीर्षक राम्रो होला?",
+              "choices": [
+                "जुत्ता र झोला सस्तोमा किन्न सकिने पसलहरूको परिचय",
+                "नयाँ उत्पादनहरूलाई सकेसम्म लामो समयसम्म टिकाउनका लागि मर्मत गर्ने तरिकाहरू",
+                "पुराना सामानहरू अरूलाई दिँदा ध्यान दिनुपर्ने कुराहरू",
+                "आफ्नो मनपर्ने चीजहरू नत्यागीकन माया गरेर प्रयोग गरिरहने मानिसहरूको वृद्धि"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "The shop owner is speaking on TV. Recently, the number of customers asking for repairs has increased. In the past, many people would replace broken items, but now, those who want to use their favorite items for a long time have returned. Whether it's shoes or bags, if you repair them carefully, you can use them for many more years. Moreover, well-used items develop a unique character that new items don't have. The longer you use them, the more they become one-of-a-kind items just for that person. I am happy to see that the desire to cherish things is gradually spreading."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टिभीमा पसलका मालिक बोलिरहेका छन्। हालै, मर्मत गर्न चाहने ग्राहकहरूको संख्या बढेको छ। पहिले, सामान बिग्रिएपछि नयाँ किन्ने धेरै हुन्थे, तर अहिले मनपर्ने सामान लामो समयसम्म प्रयोग गर्न चाहनेहरू फर्किएका छन्। जुत्ता होस् वा झोला, यदि राम्ररी मर्मत गरियो भने, तिनीहरूलाई धेरै वर्षसम्म प्रयोग गर्न सकिन्छ। यसबाहेक, प्रयोग गरिएका सामानहरूमा नयाँ सामानहरूमा नहुने विशेष स्वाद आउँछ। जति लामो समयसम्म प्रयोग गरिन्छ, त्यति नै त्यो व्यक्तिको लागि अद्वितीय वस्तु बन्छ। मलाई खुशी लागेको छ कि सामानको कदर गर्ने भावना बिस्तारै फैलिरहेको छ।"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "モノサービス",
       "audioChoices": true
@@ -702,11 +1312,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the staff member talking about?",
+              "choices": [
+                "Methods for handling fragile old materials carefully to avoid tearing them",
+                "A new system that allows borrowed items to be returned even during closed hours",
+                "Changes in the library's opening hours themselves",
+                "Increase in the number of books that can be borrowed at one time"
+              ]
+            },
+            "ne": {
+              "q": "कर्मचारीले के बारेमा कुरा गरिरहेका छन्?",
+              "choices": [
+                "सजिलै फुट्ने पुराना सामग्रीहरू च्यात्न नदिनका लागि सावधानीपूर्वक ह्यान्डल गर्ने तरिकाहरू",
+                "बन्द समयमा पनि उधारो लिएका सामानहरू फिर्ता गर्न सकिने नयाँ प्रणाली",
+                "पुस्तकालय खुल्ने समयमा नै परिवर्तन",
+                "एकै पटकमा उधारो लिन सकिने किताबहरूको संख्यामा वृद्धि"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A library staff member is speaking at the venue. This time, our library will be starting a new service. Until now, to return borrowed books, you had to come to the counter during opening hours. From now on, you can put them in the return post next to the entrance even at night or early morning when the library is closed. This will make it easier for people who cannot come during the day due to work to use the service. This should also reduce instances of forgetting to return books. Please make use of it. However, fragile materials should still be returned to the counter as before."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यक्रम स्थलमा पुस्तकालयका कर्मचारी बोलिरहेका छन्। यसपटक, हाम्रो पुस्तकालयले नयाँ सेवा सुरु गर्ने भएको छ। अहिलेसम्म, उधारो लिएका किताबहरू फिर्ता गर्नका लागि, तपाईंले खुल्ला समयमा काउन्टरमा आउनुपर्थ्यो। अबदेखि, पुस्तकालय बन्द भएको रात वा बिहान सबेरै पनि, तपाईंले प्रवेशद्वारको छेउमा रहेको फिर्ता पोस्टमा राख्न सक्नुहुनेछ। यसले कामको कारणले दिउँसो आउन नसक्नेहरूलाई पनि सेवा प्रयोग गर्न सजिलो बनाउनेछ। यसले किताब फिर्ता गर्न बिर्सने समस्या पनि कम गर्नेछ। कृपया यसको सदुपयोग गर्नुहोस्। तर, सजिलै फुट्ने सामग्रीहरू भने पहिले जस्तै काउन्टरमा नै फिर्ता गर्नुहोस्।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "モノサービス",
       "audioChoices": true
@@ -734,11 +1373,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the shop owner most want to convey?",
+              "choices": [
+                "It is important to win the price-cutting competition at all costs.",
+                "If prices are lowered, customers will definitely increase.",
+                "Rather than competing on discounts, we want to be chosen for our unique value.",
+                "We should continuously open new stores."
+              ]
+            },
+            "ne": {
+              "q": "पसलका मालिकले सबैभन्दा बढी के भन्न चाहन्छन्?",
+              "choices": [
+                "जसरी भए पनि मूल्य घटाउने प्रतिस्पर्धा जित्नु महत्त्वपूर्ण छ।",
+                "यदि मूल्य घटाइयो भने ग्राहकहरू अवश्य बढ्छन्।",
+                "छुटमा प्रतिस्पर्धा गर्नुभन्दा, हामी यहाँ मात्र पाइने मूल्यको लागि छानिन चाहन्छौं।",
+                "हामीले लगातार नयाँ पसलहरू खोल्नुपर्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A shop owner is speaking on the radio. 'If you lower prices, customers will come.' I used to think that. But now it's a little different. If you enter a price-cutting competition, it will eventually lead to unreasonable demands somewhere, and ultimately the quality of goods and services will decline. Instead, even if it's a little more expensive, prepare something that customers will think, 'I can only buy this here, I can only receive this service here.' That way, customers will continue to visit for a long time. Customers who come for cheapness will leave for cheapness. I want to aim for a shop chosen for its quality, rather than a shop chosen for its cheapness."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा एक पसलका मालिक बोलिरहेका छन्। 'यदि मूल्य घटाएमा ग्राहकहरू आउँछन्।' पहिले म यस्तै सोच्थेँ। तर अहिले अलि फरक छ। यदि मूल्य घटाउने प्रतिस्पर्धामा प्रवेश गरियो भने, कतै न कतै समस्या आउँछ र अन्ततः सामान वा सेवाको गुणस्तर घट्छ। त्यसको सट्टा, अलि महँगो भए पनि, ग्राहकहरूले 'यो यहाँ मात्र किन्न सकिन्छ, यो सेवा यहाँ मात्र पाउन सकिन्छ' भन्ने सोच्ने खालका सामानहरू तयार पार्नुपर्छ। त्यसरी नै ग्राहकहरू लामो समयसम्म आउँछन्। सस्तोपनको लागि आएका ग्राहकहरू सस्तोपनकै लागि छोडेर जान्छन्। म सस्तोपनको लागि छानिने पसल भन्दा गुणस्तरको लागि छानिने पसल बन्न चाहन्छु।"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "モノサービス",
       "audioChoices": true
@@ -766,11 +1434,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which of the following is a suitable title for this story?",
+              "choices": [
+                "How to choose a good umbrella that looks almost the same as a regular one",
+                "The correct way to fix an umbrella when it breaks",
+                "A new umbrella thoughtfully designed to last long even in strong winds",
+                "Introduction to shoes that keep your feet dry on rainy days"
+              ]
+            },
+            "ne": {
+              "q": "यो कथाको लागि उपयुक्त शीर्षक कुन हो?",
+              "choices": [
+                "सामान्य छाता जस्तै देखिने राम्रो छाता कसरी छनौट गर्ने",
+                "छाता भाँचिदा मर्मत गर्ने सही तरिका",
+                "तीव्र हावामा पनि लामो समय टिक्ने गरी सोचविचार गरेर बनाइएको नयाँ छाता",
+                "पानी परेको दिनमा खुट्टा नभिजाउने जुत्ताको परिचय"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A company representative is speaking on TV. This new umbrella we created looks just like a regular umbrella. However, we've designed the shape of the ribs to make it difficult to turn inside out even on windy days. When it receives strong wind, the ribs flex to release the wind. We made it to withstand sudden gusts of wind. It was born from the desire to eliminate the problem of umbrellas breaking repeatedly and needing to be replaced. We believe that creating durable items that can be used for a long time ultimately leads to reducing waste."
+          ]
+        },
+        "ne": {
+          "body": [
+            "टिभीमा कम्पनीका एक व्यक्ति बोलिरहेका छन्। हामीले भर्खरै बनाएको यो छाता हेर्दा सामान्य छाता जस्तै देखिन्छ। तर, हावाहुरी चल्ने दिनमा प्रयोग गर्दा पनि यो उल्टिन नदिनका लागि यसको हड्डीको आकारमा विशेष डिजाइन गरिएको छ। जब यसले तीव्र हावाको सामना गर्छ, हड्डीहरू लचिलो भएर हावालाई बाहिर निकाल्छन्। हामीले यसलाई अचानक आउने आँधीबेहरीलाई पनि राम्ररी सहन सक्ने गरी बनाएका छौं। यो छाता बारम्बार भाँचिने र नयाँ किन्नुपर्ने समस्या हटाउने चाहनाबाट जन्मिएको हो। हामी विश्वास गर्छौं कि लामो समयसम्म प्रयोग गर्न सकिने सामानहरू बनाउनु अन्ततः फोहोर कम गर्नमा पनि मद्दत गर्छ।"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "モノサービス",
       "audioChoices": true
@@ -798,11 +1495,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the person in charge talking about?",
+              "choices": [
+                "Information about a new large parking lot being built in front of the station plaza",
+                "Recruitment of people to set up local food stalls",
+                "Information about classes where you can learn taiko drumming",
+                "Announcement of where and what will be held at this year's summer event"
+              ]
+            },
+            "ne": {
+              "q": "जिम्मेवार व्यक्तिले के बारेमा कुरा गरिरहेका छन्?",
+              "choices": [
+                "स्टेशन चोक अगाडि बन्दै गरेको नयाँ ठूलो पार्किङ स्थलको जानकारी",
+                "स्थानीय खानाका स्टलहरू राख्ने मानिसहरूको भर्ती",
+                "तामाङ बाजा बजाउन सिक्न सकिने कक्षाहरूको जानकारी",
+                "यस वर्षको ग्रीष्मकालीन कार्यक्रम कहाँ र के आयोजना हुनेछ भन्ने जानकारी"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A festival organizer is speaking at the venue. I would like to inform you about this year's summer festival. This year, the venue will be different from previous years; it will be held at the plaza in front of the station. From 5 PM, there will be taiko drum performances and local food stalls. We will also have a play area for small children. Fireworks are also planned for the evening. Please note that there is no parking at the venue, so please come by train or bus. In case of rain, it will be postponed to the next day. We look forward to your visit."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यक्रम स्थलमा चाडपर्वका एक अधिकारी बोलिरहेका छन्। यस वर्षको ग्रीष्मकालीन चाडपर्वको बारेमा जानकारी गराउन चाहन्छु। यस वर्ष, कार्यक्रम स्थल विगतका वर्षहरू भन्दा फरक हुनेछ; यो स्टेशन अगाडिको चोकमा आयोजना गरिनेछ। साँझ ५ बजेदेखि, तामाङ बाजाको प्रदर्शन र स्थानीय खानाका स्टलहरू हुनेछन्। साना बच्चाहरूका लागि खेल मैदान पनि तयार पारिएको छ। साँझमा आतिशबाजीको पनि योजना छ। कृपया ध्यान दिनुहोस् कि कार्यक्रम स्थलमा पार्किङको व्यवस्था छैन, त्यसैले कृपया रेल वा बसबाट आउनुहोस्। यदि पानी परेमा, यो अर्को दिनको लागि स्थगित गरिनेछ। हामी तपाईंको आगमनको प्रतीक्षामा छौं।"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "文化行事",
       "audioChoices": true
@@ -830,11 +1556,40 @@
           ],
           "answerIndex": 2,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What does the craftsman want to convey the most?",
+              "choices": [
+                "Traditional pottery should be made cheaper.",
+                "I want to spread methods for making pottery faster using machines.",
+                "I want the goodness of traditional handcrafts to be passed down to future generations.",
+                "I want to open a pottery class and gather many students."
+              ]
+            },
+            "ne": {
+              "q": "कारीगरले सबैभन्दा बढी के कुरा भन्न चाहन्छन्?",
+              "choices": [
+                "परम्परागत भाँडाहरूको मूल्य अझ सस्तो बनाउनुपर्छ।",
+                "मेसिन प्रयोग गरेर भाँडाहरू छिटो बनाउने तरिकाहरू फैलाउन चाहन्छु।",
+                "पुरानो हस्तकलाको राम्रोपनलाई आउने पुस्ताले पनि अपनाओस् भन्ने चाहन्छु।",
+                "भाँडा बनाउने कक्षा खोलेर धेरै विद्यार्थीहरू जम्मा गर्न चाहन्छु।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A craftsman of traditional crafts is speaking on the radio. \"Traditional pottery, like the kind I make, takes more time and effort compared to machine-made products. Honestly, the price is not cheap either. Nevertheless, handmade items have unique expressions, each one different. No two are exactly alike. My greatest wish is to pass this skill on to the next generation. There is certainly a quality that you can only understand by touching it with your hands. Precisely because we live in such a convenient era, I want to preserve the warmth of handmade items.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा परम्परागत हस्तकलाका एक कारीगर बोल्दै हुनुहुन्छ। “मैले बनाउने जस्ता परम्परागत भाँडाहरू, मेसिनले बनाएका सामानहरूको तुलनामा, समय र मेहनत दुवै बढी लाग्छ। इमानदारीपूर्वक भन्नुपर्दा, मूल्य पनि सस्तो छैन। तैपनि, हातले बनाएका सामानहरूमा एउटा फरक किसिमको सुन्दरता हुन्छ, प्रत्येकको आफ्नै विशेषता हुन्छ। दुईवटा समान हुँदैनन्। यो सीपलाई अर्को पुस्तामा हस्तान्तरण गर्नु नै मेरो सबैभन्दा ठूलो इच्छा हो। हातले छोएर मात्र बुझ्न सकिने गुण पक्कै पनि हुन्छ। सुविधाजनक युगमा बाँचिरहेकाले नै, म हातले बनाएका सामानहरूको न्यानोपन जोगाउन चाहन्छु।”"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "文化行事",
       "audioChoices": true
@@ -862,11 +1617,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "If you were to give a title to this talk, which one would be best?",
+              "choices": [
+                "Old convenient inventions for living without electricity",
+                "Techniques for repairing old tools and using them for a long time",
+                "Route for enjoying a museum visit",
+                "What old household items make us realize today"
+              ]
+            },
+            "ne": {
+              "q": "यो कुरालाई शीर्षक दिने हो भने, कुन राम्रो हुन्छ?",
+              "choices": [
+                "बिजुली प्रयोग नगरी बाँच्नका लागि पुराना सुविधाजनक आविष्कारहरू",
+                "पुराना उपकरणहरू मर्मत गरेर लामो समयसम्म प्रयोग गर्ने प्रविधि",
+                "संग्रहालयको भ्रमणलाई रमाइलो बनाउनको लागि मार्ग",
+                "पुराना जीवनशैलीका सामानहरूले आज हामीलाई के कुराको बोध गराउँछन्"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A museum staff member is speaking on TV. \"When we look at the tools of people's lives from the past, we are often surprised. In an era without electricity, with only limited resources, how much ingenuity did they show? For example, even taking just this one old tool, it is made efficiently, without waste, and designed to be repaired and used for a long time if broken. This is vastly different from today, where throwing things away when they break is common. What we, in our convenient present, have rather forgotten—these old tools quietly seem to be teaching us that. Please take your time to look around.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा संग्रहालयका एक कर्मचारी बोल्दै हुनुहुन्छ। “पुरानो जमानाका मानिसहरूको जीवनका उपकरणहरू हेर्दा, हामी प्रायः छक्क पर्छौं। बिजुली नभएको युगमा, सीमित वस्तुहरू मात्र प्रयोग गरेर, उनीहरूले कति धेरै आविष्कार गरेका रहेछन्! उदाहरणका लागि, यो एउटा पुरानो उपकरणलाई मात्र हेर्दा पनि, यो अनावश्यक भागविहीन छ र बिग्रिएमा मर्मत गरेर लामो समयसम्म प्रयोग गर्न सकिने गरी बनाइएको छ। यो अहिलेको समयभन्दा धेरै फरक छ, जहाँ बिग्रिएपछि फ्याँक्नु सामान्य कुरा हो। सुविधाजनक वर्तमानमा हामीले बिर्सेका कुराहरू, यी पुराना उपकरणहरूले हामीलाई चुपचाप सिकाउँदै छन् जस्तो लाग्छ। कृपया फुर्सदमा हेर्नुहोला।”"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "文化行事",
       "audioChoices": true
@@ -894,11 +1678,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the person giving advice talking about?",
+              "choices": [
+                "A trip where you don't plan strictly and enjoy spontaneous encounters.",
+                "Methods for efficiently visiting many famous places.",
+                "How to effectively use a map to avoid getting lost while traveling.",
+                "Tips for keeping travel expenses as low as possible."
+              ]
+            },
+            "ne": {
+              "q": "जानकारी दिने व्यक्तिले के बारेमा कुरा गर्दै हुनुहुन्छ?",
+              "choices": [
+                "कडा योजना नगरी, त्यस ठाउँको संयोगको आनन्द लिने यात्रा।",
+                "प्रसिद्ध ठाउँहरूलाई कुशलतापूर्वक धेरै घुम्ने तरिकाहरू।",
+                "यात्रामा नहराउनको लागि नक्साको राम्रो प्रयोग गर्ने तरिका।",
+                "यात्रामा लाग्ने खर्च सकेसम्म कम राख्ने तरिकाहरू।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A person giving travel advice is speaking on the radio. \"When it comes to travel, people tend to pack their schedules, trying to visit many famous places. But what I recommend is a trip where you deliberately don't plan too much. Wander around an unfamiliar town without even looking at a map. Then, you'll discover small shops not listed in guidebooks and unexpected encounters with locals. Such coincidences are what become the most memorable memories later on. Unplanned events are often recalled with nostalgia later. Please try to experience the joy of unhurried travel.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा यात्राको जानकारी दिने व्यक्ति बोल्दै हुनुहुन्छ। “यात्रा भन्नासाथ, मानिसहरू धेरै प्रसिद्ध ठाउँहरू घुम्ने योजना बनाउँछन् र तालिका भरिभराउ पार्छन्। तर, मैले सिफारिस गर्न चाहेको कुरा चाहिँ धेरै योजना नबनाई गरिने यात्रा हो। अपरिचित सहरमा नक्सा पनि नहेरी यताउता घुम्नुहोस्। त्यसो गर्दा, तपाईंले गाइडबुकमा नभएका साना पसलहरू र स्थानीय मानिसहरूसँग अप्रत्याशित भेटघाटहरू पाउनुहुनेछ। यस्ता संयोगहरू नै पछि सबैभन्दा अविस्मरणीय सम्झना बन्छन्। योजनामा नभएका घटनाहरू नै पछि बढी याद आउँछन्। कृपया हतार नगरी गरिने यात्राको आनन्द अनुभव गर्नुहोस्।”"
+          ]
+        }
+      },
       "q_type": "何について",
       "genre": "趣味旅食",
       "audioChoices": true
@@ -926,11 +1739,40 @@
           ],
           "answerIndex": 1,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What is the person who enjoys cooking trying to say the most?",
+              "choices": [
+                "Cooking basics are to follow recipes accurately.",
+                "The quickest way to love cooking is to cook freely without being bound by rules.",
+                "It's important to be creative in using up ingredients in the fridge without waste.",
+                "It's better to properly equip yourself with good cooking tools."
+              ]
+            },
+            "ne": {
+              "q": "खाना पकाउने शौक भएका व्यक्तिले सबैभन्दा बढी के भन्न चाहन्छन्?",
+              "choices": [
+                "रेसिपी अनुसार सही तरिकाले बनाउनु नै खाना पकाउने आधार हो।",
+                "नियममा नअल्झिई, सहज रूपमा पकाउनु नै खाना पकाउन मन पराउने छिटो बाटो हो।",
+                "फ्रिजमा भएका सामानहरू खेर नफाली प्रयोग गर्ने उपाय महत्त्वपूर्ण छ।",
+                "खाना पकाउने राम्रा उपकरणहरू राम्ररी जुटाउनु राम्रो हुन्छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A person who enjoys cooking is speaking on TV. \"When I ask people who say they are not good at cooking why, they often say it's because they can't follow recipes exactly. But I think, cooking is not a test of following a recipe. Taste it, add a little salt. Try making something with what's in the fridge. You can change it however you like. Even if you fail, you can learn from it next time. Don't overthink it; just enjoy it freely first. I think that's the biggest secret to loving cooking.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "टेलिभिजनमा खाना पकाउने शौक भएका एक व्यक्ति बोल्दै हुनुहुन्छ। “खाना पकाउन गाह्रो लाग्छ भन्ने मानिसहरूलाई कारण सोध्दा, उनीहरू प्रायः भन्छन् कि उनीहरू रेसिपी अनुसार बनाउन सक्दैनन्। तर, मलाई लाग्छ, खाना पकाउनु रेसिपी पालना गर्ने परीक्षा होइन। चाखेर हेर्नुहोस्, अलिकति नुन थप्नुहोस्। फ्रिजमा भएका सामानहरूले बनाउने प्रयास गर्नुहोस्। यसरी, तपाईं आफ्नो मनपर्ने तरिकाले परिवर्तन गर्न सक्नुहुन्छ। असफल भए पनि, अर्को पटक त्यसबाट सिक्न सकिन्छ। यसलाई गाह्रो नसोच्नुहोस्, पहिले स्वतन्त्र रूपमा आनन्द लिनुहोस्। मलाई लाग्छ, यही नै खाना पकाउन मन पराउने सबैभन्दा ठूलो रहस्य हो।”"
+          ]
+        }
+      },
       "q_type": "主張",
       "genre": "趣味旅食",
       "audioChoices": true
@@ -958,11 +1800,40 @@
           ],
           "answerIndex": 3,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which title is suitable for this talk?",
+              "choices": [
+                "How to choose an expensive and magnificent camera for taking good photos.",
+                "How to skillfully use the functions of a smartphone camera.",
+                "How to organize taken photos to preserve them beautifully.",
+                "More than expensive equipment, the sense to find beauty is important."
+              ]
+            },
+            "ne": {
+              "q": "यो कुराको लागि कुन शीर्षक उपयुक्त हुन्छ?",
+              "choices": [
+                "राम्रो फोटो खिच्नको लागि महँगो र शानदार क्यामेरा कसरी छनौट गर्ने।",
+                "स्मार्टफोन क्यामेराका कार्यहरूलाई कुशलतापूर्वक कसरी प्रयोग गर्ने।",
+                "खिचिएका फोटोहरूलाई सुन्दर रूपमा सुरक्षित राख्नको लागि कसरी व्यवस्थित गर्ने।",
+                "महँगा उपकरणभन्दा पनि, सुन्दरता पत्ता लगाउने भावना महत्त्वपूर्ण छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A person who loves photography is speaking on the radio. \"Many people seem to think that you need an expensive and magnificent camera to take good photos. But I don't think so. What's important is not the equipment, but the eye that perceives beauty. Even on a path you always take, by changing the way light hits or by crouching down and changing the angle, you can capture a striking shot. The same place can look completely different depending on your perspective. Your smartphone is perfectly sufficient. First, notice the small beauties around you. That's where photography becomes interesting.\""
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेडियोमा फोटोग्राफी मन पराउने एक व्यक्ति बोल्दै हुनुहुन्छ। “राम्रो फोटो खिच्नको लागि महँगो र शानदार क्यामेरा चाहिन्छ भन्ने धेरै मानिसहरूलाई लाग्छ। तर, म त्यस्तो सोच्दिनँ। महत्त्वपूर्ण कुरा उपकरणभन्दा पनि सुन्दरता महसुस गर्ने आँखा हो। सधैँ हिँड्ने बाटोमा पनि, प्रकाश पर्ने तरिका वा झुकेर हेर्ने कोण परिवर्तन गर्दा मात्र पनि एउटा अचम्मको तस्बिर खिच्न सकिन्छ। एउटै ठाउँ पनि हेर्ने दृष्टिकोणले पूरै फरक देखिन्छ। तपाईंको स्मार्टफोन पनि पर्याप्त छ। पहिले, आफ्नो वरपरका साना सुन्दरताहरूलाई याद गर्नुहोस्। त्यहाँबाट नै फोटोग्राफी रोचक बन्छ।”"
+          ]
+        }
+      },
       "q_type": "タイトル",
       "genre": "趣味旅食",
       "audioChoices": true

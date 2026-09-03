@@ -4,7 +4,8 @@
   "level": "N3",
   "pool": "mock",
   "languages": [
-    "ja"
+    "en",
+    "ne"
   ],
   "items": [
     {
@@ -28,10 +29,36 @@
             "窓（まど）を開（あ）けてあげようか？"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Could you open the window?",
+                "Shall I open the window for you?",
+                "Shall I open the window?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "झ्याल खोलिदिन सक्छौ?",
+                "म तिम्रो लागि झ्याल खोलिदिऊँ?",
+                "झ्याल खोलिदिऊँ कि?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I want my friend to open the window at their house. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "म मेरो साथीलाई उसको घरमा झ्याल खोलिदिन भन्न चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "依頼",
       "scene": "家訪問",
       "axis": "授受方向",
@@ -58,10 +85,36 @@
             "資料（しりょう）を確認（かくにん）しておられますか。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Shall I check the materials for you?",
+                "Could you please check the materials?",
+                "Are you checking the materials?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "म तपाईंको लागि सामग्रीहरू जाँच गरिदिऊँ?",
+                "कृपया सामग्रीहरू जाँच गरिदिनुहुन्छ?",
+                "तपाईं सामग्रीहरू जाँच गरिरहनुभएको छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I want my boss to check the meeting materials. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "म मेरो हाकिमलाई बैठकको सामग्रीहरू जाँच गरिदिन भन्न चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "依頼",
       "scene": "職場",
       "axis": "敬語(謙譲尊敬)",
@@ -88,10 +141,36 @@
             "ペン、貸（か）してくれる？"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Could you buy me a pen?",
+                "Could you return the pen?",
+                "Could you lend me a pen?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "मलाई एउटा कलम किनिदिन सक्छौ?",
+                "कलम फिर्ता गरिदिन सक्छौ?",
+                "मलाई एउटा कलम सापटी दिन सक्छौ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I forgot my pen. I want to borrow one from a friend. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "मैले मेरो कलम बिर्सिएँ। म साथीबाट एउटा सापटी लिन चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "依頼",
       "scene": "学校",
       "axis": "同形動詞選択",
@@ -118,10 +197,36 @@
             "順番（じゅんばん）が来（き）たら呼（よ）んでもいいですか。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Could you please call me when my turn comes?",
+                "Shall I call you when your turn comes?",
+                "Is it okay if I call you when my turn comes?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "मेरो पालो आउँदा मलाई बोलाइदिनुहुन्छ?",
+                "तपाईंको पालो आउँदा म तपाईंलाई बोलाऊँ कि?",
+                "मेरो पालो आउँदा मैले बोलाए हुन्छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the hospital reception, I want them to call me when my turn comes. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "अस्पतालको रिसेप्सनमा, म मेरो पालो आउँदा मलाई बोलाइदिन भन्न चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "依頼",
       "scene": "病院",
       "axis": "許可依頼申出の弁別",
@@ -148,10 +253,36 @@
             "この辺（へん）で降（お）ろしましょうか。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Please get off around here.",
+                "Please let me off around here.",
+                "Shall I let you off around here?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "कृपया यहीँ कतै ओर्लनुहोस्।",
+                "कृपया मलाई यहीँ कतै ओरालिदिनुहोस्।",
+                "म तपाईंलाई यहीँ कतै ओरालिदिऊँ कि?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In a taxi, I want to get off around here. What should I say to the driver?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "ट्याक्सीमा, म यहीँ कतै ओर्लन चाहन्छु। ड्राइभरलाई के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "依頼",
       "scene": "交通",
       "axis": "視点立場",
@@ -178,10 +309,36 @@
             "その消（け）しゴム、拾（ひろ）ってくれる？"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Could you throw away that eraser?",
+                "Could you hide that eraser?",
+                "Could you pick up that eraser?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "त्यो इरेजर फालिदिन सक्छौ?",
+                "त्यो इरेजर लुकाइदिन सक्छौ?",
+                "त्यो इरेजर टिपिदिन सक्छौ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In the classroom, I dropped an eraser on the floor. I want my friend next to me to pick it up. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षाकोठामा, मैले भुइँमा एउटा इरेजर खसालेँ। म मेरो छेउको साथीलाई त्यो टिपिदिन भन्न चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "依頼",
       "scene": "学校",
       "axis": "同形動詞選択",
@@ -208,10 +365,36 @@
             "すみません、写真（しゃしん）をとっておきますか。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Excuse me, could you please take a picture?",
+                "Excuse me, shall I take a picture for you?",
+                "Excuse me, shall I take a picture?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "माफ गर्नुहोस्, कृपया एउटा फोटो खिचिदिनुहुन्छ?",
+                "माफ गर्नुहोस्, म तपाईंको लागि फोटो खिचिदिऊँ कि?",
+                "माफ गर्नुहोस्, म फोटो खिचिराखूँ कि?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a tourist spot, I want a passerby to take a picture. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "पर्यटकीय स्थलमा, म बाटोमा हिँडिरहेको मान्छेलाई फोटो खिचिदिन भन्न चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "依頼",
       "scene": "屋外その他",
       "axis": "敬語(謙譲尊敬)",
@@ -238,10 +421,36 @@
             "これ、包（つつ）んでもいいですか。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Shall I pack this for you?",
+                "Could you wrap this for me?",
+                "Is it okay if I wrap this?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "यो म तपाईंको लागि प्याक गरिदिऊँ कि?",
+                "के तपाईं यसलाई मेरो लागि बेरिदिनुहुन्छ?",
+                "के मैले यो बेरे भने हुन्छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a restaurant, I want to take home the leftover food. What should I say to the staff?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेस्टुरेन्टमा, म बाँकी रहेको खाना घर लैजान चाहन्छु। स्टाफलाई के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "依頼",
       "scene": "店飲食",
       "axis": "許可依頼申出の弁別",
@@ -268,10 +477,36 @@
             "お皿（さら）、洗（あら）ってあげようか？"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Will you wash the dishes?",
+                "Could you wash the dishes for me?",
+                "Shall I wash the dishes for you?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "के तपाईं भाँडा माझ्नुहुन्छ?",
+                "के तपाईंले मेरो लागि भाँडा माझिदिनुहुन्छ?",
+                "के म तपाईंको लागि भाँडा माझिदिऊँ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I want to help wash the dishes at my friend's house. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "म साथीको घरमा भाँडा माझ्न मद्दत गर्न चाहन्छु। मैले के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "申し出",
       "scene": "家訪問",
       "axis": "授受方向",
@@ -298,10 +533,36 @@
             "よかったら、席（せき）を代（か）わってください。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "If you don't mind, shall I switch seats with you?",
+                "If you don't mind, would you like to switch seats?",
+                "If you don't mind, please switch seats."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "यदि तपाईंलाई आपत्ति छैन भने, के म सिट साटौँ?",
+                "यदि तपाईंलाई आपत्ति छैन भने, के तपाईं सिट साट्न चाहनुहुन्छ?",
+                "यदि तपाईंलाई आपत्ति छैन भने, कृपया सिट साट्नुहोस्।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "On the train, I want to offer my seat to an elderly person who is standing. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेलमा, म उभिरहेको एक वृद्ध व्यक्तिलाई मेरो सिट दिन चाहन्छु। मैले के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "申し出",
       "scene": "交通",
       "axis": "許可依頼申出の弁別",
@@ -328,10 +589,36 @@
             "タクシーを呼（よ）んでくださいますか。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Would you like to call a taxi?",
+                "Shall I call a taxi for you?",
+                "Could you call a taxi for me?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "के तपाईं ट्याक्सी बोलाउनुहुन्छ?",
+                "के म तपाईंको लागि ट्याक्सी बोलाइदिऊँ?",
+                "के तपाईंले मेरो लागि ट्याक्सी बोलाइदिनुहुन्छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "The meeting is over, and the guests are leaving. I want to call a taxi for them. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "बैठक सकियो, र पाहुनाहरू जाँदैछन्। म उनीहरूको लागि ट्याक्सी बोलाउन चाहन्छु। मैले के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "申し出",
       "scene": "職場",
       "axis": "敬語(謙譲尊敬)",
@@ -358,10 +645,36 @@
             "よかったら、運（はこ）ぶのを手伝（てつだ）いましょうか。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "If you don't mind, would you help me carry it?",
+                "If you don't mind, could you help me carry it?",
+                "If you don't mind, shall I help you carry it?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "यदि तपाईंलाई आपत्ति छैन भने, के तपाईं मलाई बोक्न मद्दत गर्नुहुन्छ?",
+                "यदि तपाईंलाई आपत्ति छैन भने, के तपाईंले मलाई बोक्न मद्दत गरिदिनुहुन्छ?",
+                "यदि तपाईंलाई आपत्ति छैन भने, के म तपाईंलाई बोक्न मद्दत गरिदिऊँ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "My neighbor is having trouble with heavy luggage on the stairs. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "मेरो छिमेकीलाई सिँढीमा भारी सामान बोक्न समस्या भइरहेको छ। मैले के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "申し出",
       "scene": "近所住まい",
       "axis": "授受方向",
@@ -388,10 +701,36 @@
             "よかったら、店員（てんいん）さんに聞（き）いてもらう？"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "If you don't mind, shall I ask the staff for you?",
+                "If you don't mind, will you ask the staff?",
+                "If you don't mind, would you like me to ask the staff?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "यदि तपाईंलाई आपत्ति छैन भने, के म तपाईंको लागि कर्मचारीलाई सोधिदिऊँ?",
+                "यदि तपाईंलाई आपत्ति छैन भने, के तपाईं कर्मचारीलाई सोध्नुहुन्छ?",
+                "यदि तपाईंलाई आपत्ति छैन भने, के तपाईं मलाई कर्मचारीलाई सोध्न लगाउनुहुन्छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "My friend is having trouble deciding on the menu. I want to ask the staff for them. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "मेरो साथीलाई मेनुमा निर्णय गर्न समस्या भइरहेको छ। म उनीहरूको लागि कर्मचारीलाई सोध्न चाहन्छु। मैले के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "申し出",
       "scene": "店飲食",
       "axis": "授受方向",
@@ -418,10 +757,36 @@
             "ここで両替（りょうがえ）がしたいですか。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Do you exchange money here?",
+                "Can I exchange money here?",
+                "Do you want to exchange money here?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "के तपाईं यहाँ पैसा साट्नुहुन्छ?",
+                "के म यहाँ पैसा साट्न सक्छु?",
+                "के तपाईं यहाँ पैसा साट्न चाहनुहुन्छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the bank, I want to know if I can exchange foreign currency. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "बैंकमा, म विदेशी मुद्रा साट्न सकिन्छ कि भनेर जान्न चाहन्छु। मैले के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "質問情報",
       "scene": "公共窓口",
       "axis": "可能形存在確認",
@@ -448,10 +813,36 @@
             "パソコンを使（つか）わせていただけますか。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "May I be allowed to use the computer?",
+                "Shall I let you use the computer?",
+                "May I use the computer?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "के मलाई कम्प्युटर प्रयोग गर्न अनुमति दिइन्छ?",
+                "के म तपाईंलाई कम्प्युटर प्रयोग गर्न दिऊँ?",
+                "के म कम्प्युटर प्रयोग गर्न सक्छु?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, I want permission from the teacher to use a computer. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "विद्यालयमा, म शिक्षकबाट कम्प्युटर प्रयोग गर्ने अनुमति चाहन्छु। मैले के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "許可求め",
       "scene": "学校",
       "axis": "態(受身使役能動)",
@@ -478,10 +869,36 @@
             "もう中（なか）に入（はい）れましたか。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "May I go in now?",
+                "Could you please go in now?",
+                "Have you already gone in?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "के म अब भित्र जान सक्छु?",
+                "के तपाईं अब भित्र जानुहुन्छ?",
+                "के तपाईं पहिले नै भित्र जानुभयो?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the hospital, I'd like to enter the examination room soon. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "अस्पतालमा, म चाँडै जाँच कोठामा जान चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "許可求め",
       "scene": "病院",
       "axis": "可能形存在確認",
@@ -508,10 +925,36 @@
             "ここ、座（すわ）ってもらえますか。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Could you please sit here?",
+                "May I sit here?",
+                "Could you let me sit here?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "के तपाईं यहाँ बस्नुहुन्छ?",
+                "के म यहाँ बस्न सक्छु?",
+                "के तपाईं मलाई यहाँ बस्न दिनुहुन्छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In the waiting room at the government office, I want to sit on an empty chair. What should I say to the person next to me?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "सरकारी कार्यालयको प्रतीक्षा कक्षमा, म खाली कुर्सीमा बस्न चाहन्छु। छेउको व्यक्तिलाई के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "許可求め",
       "scene": "公共窓口",
       "axis": "許可依頼申出の弁別",
@@ -538,10 +981,36 @@
             "よかったら、一緒（いっしょ）にお昼（ひる）食（た）べない？"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "If you'd like, let's have lunch together.",
+                "If you'd like, we had lunch together, didn't we?",
+                "If you'd like, why don't we have lunch together?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "यदि तपाईंलाई मन पर्छ भने, सँगै दिउँसोको खाना खाऔं।",
+                "यदि तपाईंलाई मन पर्छ भने, हामीले सँगै दिउँसोको खाना खायौं, होइन?",
+                "यदि तपाईंलाई मन पर्छ भने, सँगै दिउँसोको खाना खाऔं न?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "After class, I want to invite a friend to lunch. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "कक्षापछि, म एक साथीलाई दिउँसोको खानामा निम्तो दिन चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "誘い",
       "scene": "店飲食",
       "axis": "定型句選択",
@@ -568,10 +1037,36 @@
             "よかったら、お祭（まつ）りに行（い）っていますか。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "If you'd like, why don't we go to the festival?",
+                "If you'd like, please go to the festival.",
+                "If you'd like, are you going to the festival?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "यदि तपाईंलाई मन पर्छ भने, चाडमा जाऔं न?",
+                "यदि तपाईंलाई मन पर्छ भने, कृपया चाडमा जानुहोस्।",
+                "यदि तपाईंलाई मन पर्छ भने, के तपाईं चाडमा जाँदै हुनुहुन्छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I want to invite my senior to the festival this weekend. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "म यस सप्ताहन्तमा मेरो सिनियरलाई चाडमा निम्तो दिन चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "誘い",
       "scene": "屋外その他",
       "axis": "定型句選択",
@@ -598,10 +1093,36 @@
             "一緒（いっしょ）に花火（はなび）、見（み）に行（い）ったね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Let's go see fireworks together, okay?",
+                "Why don't we go see fireworks together?",
+                "We went to see fireworks together, didn't we?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "सँगै आतिशबाजी हेर्न जाऔं, हुन्छ?",
+                "सँगै आतिशबाजी हेर्न जाऔं न?",
+                "हामी सँगै आतिशबाजी हेर्न गयौं, होइन?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I want to go see fireworks with my neighbor. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "म मेरो छिमेकीसँग आतिशबाजी हेर्न जान चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "誘い",
       "scene": "近所住まい",
       "axis": "視点立場",
@@ -628,10 +1149,36 @@
             "今度（こんど）、うちに遊（あそ）びに来（こ）ない？"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Next time, why don't I come visit your house?",
+                "Next time, please come visit my house.",
+                "Next time, why don't you come visit my house?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "अर्को पटक, म तपाईंको घरमा घुम्न आऊँ न?",
+                "अर्को पटक, कृपया मेरो घरमा घुम्न आउनुहोस्।",
+                "अर्को पटक, तपाईं मेरो घरमा घुम्न आउनुहुन्छ न?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I want to invite a friend to my house next time. What should I say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "म अर्को पटक एक साथीलाई मेरो घरमा निम्तो दिन चाहन्छु। के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "誘い",
       "scene": "家訪問",
       "axis": "視点立場",
@@ -658,10 +1205,36 @@
             "この電車（でんしゃ）は空港（くうこう）に行（い）きたいですか。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Does this train go to the airport?",
+                "Shall this train go to the airport?",
+                "Does this train want to go to the airport?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "के यो ट्रेन एयरपोर्ट जान्छ?",
+                "के यो ट्रेन एयरपोर्ट जाओस्?",
+                "के यो ट्रेन एयरपोर्ट जान चाहन्छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the station, I want to know if this train goes to the airport. What should I say to the station attendant?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "स्टेशनमा, म यो ट्रेन एयरपोर्ट जान्छ कि जान्दैन भनेर जान्न चाहन्छु। स्टेशन कर्मचारीलाई के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "質問情報",
       "scene": "公共窓口",
       "axis": "可能形存在確認",
@@ -688,10 +1261,36 @@
             "これの大（おお）きいサイズがいりますか。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Shall I take a larger size of this?",
+                "Do you have a larger size of this?",
+                "Do you need a larger size of this?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "के म यसको ठूलो साइज लिऊँ?",
+                "यसको ठूलो साइज छ?",
+                "तपाईंलाई यसको ठूलो साइज चाहिन्छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the store, I want a larger size of this clothing. What should I say to the store clerk?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "पसलमा, म यो कपडाको ठूलो साइज चाहन्छु। पसलको कर्मचारीलाई के भन्नुपर्छ?"
+          ]
+        }
+      },
       "function": "質問情報",
       "scene": "店飲食",
       "axis": "可能形存在確認",
@@ -718,10 +1317,36 @@
             "郵便局（ゆうびんきょく）はどこにありますか。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Where should the post office be?",
+                "Where is the post office going?",
+                "Where is the post office?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हुलाक कार्यालय कहाँ राख्ने?",
+                "हुलाक कार्यालय कहाँ जाँदैछ?",
+                "हुलाक कार्यालय कहाँ छ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "You are on the street and don't know where the post office is. What do you say to a passerby?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "तपाईं सडकमा हुनुहुन्छ र हुलाक कार्यालय कहाँ छ थाहा छैन। बटुवालाई के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "質問情報",
       "scene": "交通",
       "axis": "可能形存在確認",
@@ -748,10 +1373,36 @@
             "会議（かいぎ）は何時（なんじ）から始（はじ）まりましょうか。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "What time does the meeting start?",
+                "What time will you start the meeting?",
+                "What time shall we start the meeting?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "बैठक कति बजे सुरु हुन्छ?",
+                "तपाईं कति बजे बैठक सुरु गर्नुहुन्छ?",
+                "हामी कति बजे बैठक सुरु गरौं?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "You want to ask your boss what time the meeting starts. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "तपाईं आफ्नो हाकिमलाई बैठक कति बजे सुरु हुन्छ भनेर सोध्न चाहनुहुन्छ। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "質問情報",
       "scene": "職場",
       "axis": "同形動詞選択",
@@ -778,10 +1429,36 @@
             "ジュースをこぼされて、ごめんね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Sorry, the juice spilled.",
+                "Sorry, I spilled the juice.",
+                "Sorry that the juice was spilled (by someone else/something else)."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "माफ गर्नुहोस्, जुस पोखियो।",
+                "माफ गर्नुहोस्, मैले जुस पोखाएँ।",
+                "जुस पोखिएकोमा माफ गर्नुहोस्।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a friend's house, your hand bumped something and you spilled juice. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "साथीको घरमा, तपाईंको हातले केही छोयो र तपाईंले जुस पोखाउनुभयो। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "謝罪",
       "scene": "家訪問",
       "axis": "視点立場",
@@ -808,10 +1485,36 @@
             "遅刻（ちこく）して、すみませんでした。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "You're late, good work.",
+                "You're late, thank you.",
+                "I'm sorry for being late."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "तपाईं ढिलो हुनुभयो, राम्रो काम।",
+                "तपाईं ढिलो हुनुभयो, धन्यवाद।",
+                "ढिलो भएकोमा माफ गर्नुहोस्।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "You overslept and were late for work. What do you say to your boss?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "तपाईं धेरै सुत्नुभयो र काममा ढिलो हुनुभयो। आफ्नो हाकिमलाई के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "謝罪",
       "scene": "職場",
       "axis": "定型句選択",
@@ -838,10 +1541,36 @@
             "ご迷惑（めいわく）をかけられて、すみません。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "I'm sorry for causing you trouble.",
+                "I'm sorry for causing you trouble (honorific).",
+                "I'm sorry that trouble was caused (by someone else/something else)."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "तपाईंलाई समस्या दिएकोमा माफ गर्नुहोस्।",
+                "तपाईंलाई समस्या दिएकोमा माफ गर्नुहोस् (आदरार्थी)।",
+                "समस्या भएकोमा माफ गर्नुहोस्।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Last night, you made a lot of noise in your neighborhood. What do you say to your neighbor?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "हिजो राति, तपाईंले आफ्नो छिमेकमा धेरै हल्ला गर्नुभयो। आफ्नो छिमेकीलाई के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "謝罪",
       "scene": "近所住まい",
       "axis": "態(受身使役能動)",
@@ -868,10 +1597,36 @@
             "ドアをおさえてあげて、ありがとうございます。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Thank you for holding the door for me.",
+                "Thank you for holding the door for me (honorific).",
+                "Thank you for holding the door for me (casual)."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "मेरो लागि ढोका समातेकोमा धन्यवाद।",
+                "मेरो लागि ढोका समातेर दिनुभएकोमा धन्यवाद।",
+                "मेरो लागि ढोका समातेकोमा धन्यवाद।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "When entering a building, the person behind you held the door open and waited for you. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "भवनमा प्रवेश गर्दा, तपाईंको पछाडिको व्यक्तिले ढोका समातेर तपाईंलाई पर्ख्यो। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "お礼",
       "scene": "屋外その他",
       "axis": "敬語(謙譲尊敬)",
@@ -898,10 +1653,36 @@
             "わあ、おみやげをくれてありがとう。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Wow, thank you for giving me a souvenir.",
+                "Wow, thank you for receiving a souvenir.",
+                "Wow, thank you for giving me a souvenir."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "वाह, मलाई उपहार दिएकोमा धन्यवाद।",
+                "वाह, उपहार पाएकोमा धन्यवाद।",
+                "वाह, मलाई उपहार दिएकोमा धन्यवाद।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A friend gave you a souvenir from their trip. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक साथीले तपाईंलाई आफ्नो यात्राबाट उपहार दियो। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "お礼",
       "scene": "家訪問",
       "axis": "授受方向",
@@ -928,10 +1709,36 @@
             "助（たす）かりました。おめでとうございます。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "That was a great help. Thank you very much.",
+                "That was a great help. Good job.",
+                "That was a great help. Congratulations."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "धेरै मद्दत भयो। धेरै धेरै धन्यवाद।",
+                "धेरै मद्दत भयो। राम्रो काम गर्नुभयो।",
+                "धेरै मद्दत भयो। बधाई छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "My neighbor helped me carry my luggage. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "मेरो छिमेकीले मलाई सामान बोक्न मद्दत गर्नुभयो। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "お礼",
       "scene": "近所住まい",
       "axis": "定型句選択",
@@ -958,10 +1765,36 @@
             "おやすみなさい。いい天気（てんき）ですね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Good evening. Nice weather, isn't it?",
+                "Good morning. Nice weather, isn't it?",
+                "Good night. Nice weather, isn't it?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "शुभ साँझ। मौसम राम्रो छ, होइन र?",
+                "शुभ प्रभात। मौसम राम्रो छ, होइन र?",
+                "शुभ रात्री। मौसम राम्रो छ, होइन र?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I met my neighbor in the morning. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "मैले बिहान मेरो छिमेकीलाई भेटें। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "あいさつ定型",
       "scene": "近所住まい",
       "axis": "定型句選択",
@@ -988,10 +1821,36 @@
             "お先（さき）に失礼（しつれい）します。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "You go first.",
+                "I'll have it first.",
+                "Excuse me for leaving first."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "तपाईं पहिले जानुहोस्।",
+                "म पहिले लिन्छु।",
+                "पहिले गएकोमा माफ गर्नुहोस्।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "My work is finished, and I'm leaving before my colleagues who are still working. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "मेरो काम सकियो, र म अझै काम गरिरहेका मेरा सहकर्मीहरू भन्दा पहिले जाँदैछु। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "あいさつ定型",
       "scene": "職場",
       "axis": "定型句選択",
@@ -1018,10 +1877,36 @@
             "すみません、ハンカチを拾（ひろ）いますよ。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Excuse me, you dropped your handkerchief.",
+                "Excuse me, I'll drop your handkerchief.",
+                "Excuse me, I'll pick up your handkerchief."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "माफ गर्नुहोस्, तपाईंको रुमाल खस्यो।",
+                "माफ गर्नुहोस्, म तपाईंको रुमाल खसाल्छु।",
+                "माफ गर्नुहोस्, म तपाईंको रुमाल टिप्छु।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "The person walking in front dropped a handkerchief. What do you say when you want to tell them?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "अगाडि हिँडिरहेको व्यक्तिले रुमाल खसाले। तपाईंले भन्न चाहँदा के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "注意知らせ",
       "scene": "店飲食",
       "axis": "同形動詞選択",
@@ -1048,10 +1933,36 @@
             "かばんを忘（わす）れましょうか。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "I'll let you forget your bag.",
+                "You're forgetting your bag.",
+                "Shall I forget your bag?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "म तपाईंलाई आफ्नो झोला बिर्सन दिन्छु।",
+                "तपाईं आफ्नो झोला बिर्सँदै हुनुहुन्छ।",
+                "के म तपाईंको झोला बिर्सिदिऊँ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "On the train, the person next to me is about to get off, forgetting their bag. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेलमा, मेरो छेउको व्यक्ति आफ्नो झोला बिर्सेर ओर्लन लागेको छ। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "注意知らせ",
       "scene": "交通",
       "axis": "視点立場",
@@ -1078,10 +1989,36 @@
             "ここでは走（はし）らないでね。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Please run here.",
+                "You are being run here.",
+                "Please don't run here."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "कृपया यहाँ दौडिनुहोस्।",
+                "तपाईंलाई यहाँ दौडाइँदैछ।",
+                "कृपया यहाँ नदौडिनुहोस्।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the library, I want to warn a child who is running. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "पुस्तकालयमा, म दौडिरहेको बच्चालाई चेतावनी दिन चाहन्छु। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "注意知らせ",
       "scene": "公共窓口",
       "axis": "態(受身使役能動)",
@@ -1108,10 +2045,36 @@
             "車（くるま）のライトがつきますよ。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Your car lights are on.",
+                "I'll turn on your car lights.",
+                "Your car lights will turn on."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "तपाईंको गाडीको बत्ती बलिरहेको छ।",
+                "म तपाईंको गाडीको बत्ती बाल्छु।",
+                "तपाईंको गाडीको बत्ती बल्नेछ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In the parking lot, someone has their car lights on. What do you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "पार्किङ स्थलमा, कसैको गाडीको बत्ती बलिरहेको छ। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "注意知らせ",
       "scene": "屋外その他",
       "axis": "同形動詞選択",
@@ -1138,10 +2101,36 @@
             "資料（しりょう）ができたので、持（も）ってくれました。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "The documents are ready, so I brought them.",
+                "The documents are ready, so I brought them to you.",
+                "The documents are ready, so they brought them for me."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "कागजातहरू तयार भएकाले, मैले तिनीहरूलाई ल्याएँ।",
+                "कागजातहरू तयार भएकाले, मैले ल्याइदिएँ।",
+                "कागजातहरू तयार भएकाले, उहाँहरूले ल्याइदिनुभयो।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "The documents requested by my boss are ready. What do you say when reporting?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "मेरो हाकिमले अनुरोध गरेको कागजातहरू तयार छन्। रिपोर्ट गर्दा के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "報告申告",
       "scene": "職場",
       "axis": "敬語(謙譲尊敬)",
@@ -1168,10 +2157,36 @@
             "窓（まど）ガラスをわってしまいました。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "The window glass has broken.",
+                "I was made to break the window glass.",
+                "I broke the window glass."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "झ्यालको सिसा फुटेको छ।",
+                "मैले झ्यालको सिसा फुटाउन लगाएँ।",
+                "मैले झ्यालको सिसा फुटाइदिएँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, I kicked a ball and broke a window. What will you say to the teacher?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "स्कुलमा, मैले बलले हानेर झ्यालको सिसा फुटाइदिएँ। शिक्षकलाई के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "報告申告",
       "scene": "学校",
       "axis": "態(受身使役能動)",
@@ -1198,10 +2213,36 @@
             "きのうから、ずっと頭（あたま）が痛（いた）いですね。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "My head has been hurting continuously since yesterday.",
+                "Has your head been hurting continuously since yesterday?",
+                "Your head has been hurting continuously since yesterday, hasn't it?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हिजोदेखि मेरो टाउको लगातार दुखिरहेको छ।",
+                "हिजोदेखि तपाईंको टाउको लगातार दुखिरहेको छ?",
+                "हिजोदेखि तपाईंको टाउको लगातार दुखिरहेको छ, होइन र?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the hospital, I want to tell the doctor about my headache. What will you say?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "अस्पतालमा, म डाक्टरलाई टाउको दुखेको कुरा भन्न चाहन्छु। के भन्नुहुन्छ?"
+          ]
+        }
+      },
       "function": "報告申告",
       "scene": "病院",
       "axis": "視点立場",

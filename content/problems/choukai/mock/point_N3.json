@@ -4,7 +4,8 @@
   "level": "N3",
   "pool": "mock",
   "languages": [
-    "ja"
+    "en",
+    "ne"
   ],
   "items": [
     {
@@ -30,11 +31,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why was the woman late for the morning meeting?",
+              "choices": [
+                "Because she talked on the phone with her mother for a long time.",
+                "Because the train stopped midway.",
+                "Because she took her mother to the hospital.",
+                "Because she remembered the bus time incorrectly."
+              ]
+            },
+            "ne": {
+              "q": "महिला बिहानको बैठकमा किन ढिलो भइन्?",
+              "choices": [
+                "आमासँग फोनमा लामो समय कुरा गरिरहेकीले",
+                "रेल बीच बाटोमा रोकिएकोले",
+                "आमालाई अस्पताल लगेकीले",
+                "बसको समय गलत सम्झेकीले"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a man and a woman are talking. Why was the woman late for the morning meeting?",
+            "Man 1: Good morning. You weren't at this morning's meeting, were you? Did the train stop again?",
+            "Woman 1: No, the train was running fine. In fact, it was even less crowded than usual today.",
+            "Man 1: Then, did you oversleep?",
+            "Woman 1: That's not it either. Actually, before I left home, I got a call from my mother.",
+            "Man 1: Oh, did something happen?",
+            "Woman 1: She said she wasn't feeling well, so I was worried and kept talking to her, and time just flew by.",
+            "Man 1: I see. Is your mother okay?",
+            "Woman 1: Yes, it seems it wasn't anything serious. But because of that call, I couldn't catch my usual bus, and I had no choice but to wait for the next one.",
+            "Man 1: I see, so that's why you were late."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एक जना पुरुष र एक जना महिला कुरा गरिरहेका छन्। महिला बिहानको बैठकमा किन ढिलो भइन्?",
+            "पुरुष १: शुभ प्रभात। आज बिहानको बैठकमा आउनुभएन नि। फेरि रेल रोकिएको थियो कि क्या हो?",
+            "महिला १: होइन, रेल त राम्रैसँग चलिरहेको थियो। बरु आज त अझै खाली थियो।",
+            "पुरुष १: त्यसो भए, निद्राले ढिलो भयो कि?",
+            "महिला १: त्यो पनि होइन। खासमा घरबाट निस्कनुअघि आमाको फोन आएको थियो।",
+            "पुरुष १: ए, केही भएको थियो र?",
+            "महिला १: उहाँलाई अलि सन्चो छैन भन्नुभयो, त्यसैले चिन्ता लागेर कुरा गरिरहँदा समय बित्दै गयो।",
+            "पुरुष १: त्यस्तो पो रहेछ। आमालाई सन्चो छ?",
+            "महिला १: अँ, खासै ठूलो कुरा रहेनछ जस्तो छ। तर त्यो फोनको कारणले गर्दा, मैले सधैं चढ्ने बस चढ्न पाइनँ, र अर्को बस कुर्नुको विकल्प थिएन।",
+            "पुरुष १: बुझें, त्यसैले ढिलो भएको रहेछ।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -60,11 +108,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why couldn't the student submit the report?",
+              "choices": [
+                "Because the data of the written document was lost.",
+                "Because the necessary books could not be borrowed from the library.",
+                "Because the materials to be collected could not be found anywhere.",
+                "Because he hadn't asked the teacher for the submission date."
+              ]
+            },
+            "ne": {
+              "q": "विद्यार्थीले रिपोर्ट किन बुझाउन सकेन?",
+              "choices": [
+                "लेखेको लेखको डाटा हराएकोले",
+                "पुस्तकालयबाट आवश्यक किताबहरू लिन नसकेकोले",
+                "जम्मा गर्ने सामग्रीहरू कतै पनि नभेटिएकोले",
+                "शिक्षकलाई बुझाउने मिति नसोधेकोले"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the university, a teacher and a student are talking. Why couldn't the student submit the report?",
+            "Woman 1: You still haven't submitted last week's report, have you?",
+            "Man 1: I'm sorry. Actually, I was a little late in gathering the materials.",
+            "Woman 1: Couldn't you borrow books from the library?",
+            "Man 1: No, all the books were available. I also managed to gather them on time.",
+            "Woman 1: Then, what was the problem?",
+            "Man 1: I thought I had finished writing and saved the data, but it didn't save properly.",
+            "Woman 1: Oh dear.",
+            "Man 1: When I tried to open it the next day, all the content was gone. I'm rewriting it from scratch again now.",
+            "Woman 1: That's tough.",
+            "Man 1: Yes. Could you please wait just two more days?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "विश्वविद्यालयमा एक जना शिक्षक र एक जना विद्यार्थी कुरा गरिरहेका छन्। विद्यार्थीले रिपोर्ट किन बुझाउन सकेन?",
+            "महिला १: तिमीले गत हप्ताको रिपोर्ट अझै बुझाएका छैनौ नि।",
+            "पुरुष १: माफ गर्नुहोस्। खासमा, सामग्रीहरू जम्मा गर्न अलि ढिलो भयो।",
+            "महिला १: पुस्तकालयबाट किताबहरू लिन पाएनौ?",
+            "पुरुष १: होइन, किताबहरू सबै उपलब्ध थिए। जम्मा गर्न पनि समयमै भ्याएँ।",
+            "महिला १: त्यसो भए, के समस्या भयो?",
+            "पुरुष १: लेखेर सकिएपछि डाटा सेभ गरेको जस्तो लागेको थियो, तर राम्ररी सेभ भएको रहेनछ।",
+            "महिला १: ए।",
+            "पुरुष १: भोलिपल्ट खोल्न खोज्दा, भित्रको सबै कुरा हराएको रहेछ। अहिले फेरि सुरुदेखि नै लेखिरहेको छु।",
+            "महिला १: त्यो त गाह्रो भयो नि।",
+            "पुरुष १: हो। कृपया, दुई दिन मात्र पर्खिदिनुहुन्न कि?"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -90,11 +187,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why did the customer come back to return the clothes she bought?",
+              "choices": [
+                "Because the color faded when she washed it.",
+                "Because the size didn't fit her body and she couldn't wear it.",
+                "Because the fabric of the clothes was torn in several places.",
+                "Because the actual color was different from what she had imagined."
+              ]
+            },
+            "ne": {
+              "q": "ग्राहकले किनेको कपडा फिर्ता गर्न किन आइन्?",
+              "choices": [
+                "धुँदा रङ गएकोले",
+                "साइज शरीरमा नमिल्दा लगाउन नसकेकोले",
+                "कपडाको कपडा धेरै ठाउँमा च्यातिएकोले",
+                "सोचेको रङ र वास्तविक रङ फरक भएकोले"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the store, a customer and a store clerk are talking. Why did the customer come back to return the clothes she bought?",
+            "Woman 1: Excuse me, this shirt I bought here last week...",
+            "Man 1: Yes, what happened? Was the size not right?",
+            "Woman 1: No, the size was just right. I also like the color.",
+            "Man 1: Then, was it torn somewhere, or was there a stain?",
+            "Woman 1: Neither of those, but when I washed it at home once, the color faded a lot.",
+            "Man 1: Oh, that's...",
+            "Woman 1: Even other clothes I washed with it turned blue. Even a white towel.",
+            "Man 1: I am very sorry about that. We will exchange it for a new one immediately.",
+            "Woman 1: Please do."
+          ]
+        },
+        "ne": {
+          "body": [
+            "पसलमा एक जना ग्राहक र पसलको कर्मचारी कुरा गरिरहेका छन्। ग्राहकले किनेको कपडा फिर्ता गर्न किन आइन्?",
+            "महिला १: सुन्नुहोस्, मैले गत हप्ता यहाँ किनेको यो सर्ट...",
+            "पुरुष १: हजुर, के भयो? साइज मिलेन कि?",
+            "महिला १: होइन, साइज त ठिक्क थियो। रङ पनि मन परेको छ।",
+            "पुरुष १: त्यसो भए, कतै च्यातिएको थियो कि, वा दाग लागेको थियो कि?",
+            "महिला १: त्यो पनि होइन, तर एक पटक घरमा धोएपछि, रङ धेरै गयो।",
+            "पुरुष १: ए, त्यो त...",
+            "महिला १: सँगै धोएका अरू कपडाहरू पनि नीलो भए। सेतो तौलिया पनि।",
+            "पुरुष १: त्यसको लागि म माफी चाहन्छु। हामी तुरुन्तै नयाँसँग साटिदनेछौं।",
+            "महिला १: कृपया गरिदिनुहोस्।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -120,11 +264,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why can't the man go to tomorrow's gathering?",
+              "choices": [
+                "Because he is going to visit his hospitalized grandfather.",
+                "Because he suddenly got work and couldn't take a day off.",
+                "Because he himself became unwell.",
+                "Because he is helping with preparations to move to the countryside."
+              ]
+            },
+            "ne": {
+              "q": "पुरुष भोलिको भेलामा किन जान सक्दैन?",
+              "choices": [
+                "अस्पताल भर्ना भएका हजुरबुबालाई भेट्न जाने भएकोले",
+                "अचानक काम परेर बिदा लिन नसकेकोले",
+                "आफ्नो शरीरको अवस्था खराब भएकोले",
+                "गाउँमा सर्ने तयारीमा मद्दत गर्ने भएकोले"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At home, a woman and a man are talking. Why can't the man go to tomorrow's gathering?",
+            "Woman 1: You're coming to tomorrow's friends' gathering with me, right? I was looking forward to it.",
+            "Man 1: About that... I'm sorry, but it seems I can't go.",
+            "Woman 1: Eh, why? Did you get work?",
+            "Man 1: No, I was already off work. Actually, last night, I got a call from my mother in the countryside.",
+            "Woman 1: Did something happen?",
+            "Man 1: My grandfather suddenly collapsed and had to be hospitalized.",
+            "Woman 1: That's terrible. You're going to visit him, aren't you?",
+            "Man 1: Yes. I'll be heading there on an early morning train, so I don't think I'll be back until night.",
+            "Woman 1: I understand. Take care. I'll explain it to everyone.",
+            "Man 1: Thank you. That helps a lot."
+          ]
+        },
+        "ne": {
+          "body": [
+            "घरमा एक जना महिला र एक जना पुरुष कुरा गरिरहेका छन्। पुरुष भोलिको भेलामा किन जान सक्दैन?",
+            "महिला १: भोलिको साथीहरूको भेलामा मसँगै जाने हो नि। म त उत्साहित थिएँ।",
+            "पुरुष १: त्यसको बारेमा... माफ गर, म जान सक्ने जस्तो छैन।",
+            "महिला १: ए, किन? काम पर्यो कि?",
+            "पुरुष १: होइन, काम त पहिलेदेखि नै बिदा थियो। खासमा हिजो राति, गाउँमा बस्ने आमाको फोन आएको थियो।",
+            "महिला १: केही भएको थियो र?",
+            "पुरुष १: हजुरबुबा अचानक बिरामी परेर अस्पताल भर्ना हुनुभयो।",
+            "महिला १: त्यो त गाह्रो भयो। भेट्न जाने हो नि।",
+            "पुरुष १: अँ। बिहानैको रेलमा जानेछु, त्यसैले रातिसम्म फर्कन सक्दिनँ जस्तो लाग्छ।",
+            "महिला १: बुझें। ख्याल गर है। म सबैलाई राम्ररी भनिदिनेछु।",
+            "पुरुष १: धन्यवाद। त्यसले धेरै मद्दत गर्छ।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -150,11 +343,54 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why did they decide to change the presentation venue?",
+              "choices": [
+                "Because the original room echoed and was difficult to hear in.",
+                "Because the number of participants increased and there weren't enough chairs.",
+                "Because the meeting room was already unavailable due to another reservation.",
+                "Because the microphone was broken and no sound came out at all."
+              ]
+            },
+            "ne": {
+              "q": "उनीहरूले प्रस्तुतिको स्थान किन परिवर्तन गर्ने निर्णय गरे?",
+              "choices": [
+                "पुरानो कोठामा आवाज गुञ्जिएर सुन्न गाह्रो भएकोले",
+                "सहभागीहरूको संख्या बढेर कुर्सीहरू नपुगेकोले",
+                "बैठक कोठा अर्को बुकिङले पहिले नै प्रयोग गर्न नसकिने भएकोले",
+                "माइक बिग्रिएर आवाज बिल्कुल नआएकोले"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a woman and a man are talking. Why did they decide to change the presentation venue?",
+            "Woman 1: For next month's presentation, the usual meeting room is fine, right?",
+            "Man 1: Well, the number of participants seems to be increasing more than expected.",
+            "Woman 1: Oh, we might not have enough chairs. Then let's use a bigger room.",
+            "Man 1: That's one reason, but the main reason is different. In that room, the sound echoes a lot, and the microphone's voice is hard to hear and doesn't reach the back seats.",
+            "Woman 1: You're right. It would be a problem if important things couldn't be heard.",
+            "Man 1: So, we decided to rent the large hall next door. The sound won't be an issue there.",
+            "Woman 1: That's a good decision."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एक जना महिला र एक जना पुरुष कुरा गरिरहेका छन्। उनीहरूले प्रस्तुतिको स्थान किन परिवर्तन गर्ने निर्णय गरे?",
+            "महिला १: अर्को महिनाको प्रस्तुतिको लागि, सधैंको बैठक कोठा ठीक छ नि?",
+            "पुरुष १: त्यो त, सहभागीहरूको संख्या सोचेभन्दा बढी हुने जस्तो छ।",
+            "महिला १: ए, कुर्सीहरू नपुग्न सक्छन् नि। त्यसो भए ठूलो कोठा प्रयोग गरौं।",
+            "पुरुष १: त्यो पनि एउटा कारण हो, तर मुख्य कारण अर्कै छ। त्यो कोठामा आवाज धेरै गुञ्जिन्छ, र माइकको आवाज सुन्न गाह्रो हुन्छ, पछाडिको सिटसम्म पुग्दैन।",
+            "महिला १: हो नि। महत्त्वपूर्ण कुरा सुन्न नसकिँदा समस्या हुन्छ।",
+            "पुरुष १: त्यसैले, छेउको ठूलो हल भाडामा लिने निर्णय गर्यौं। त्यहाँ आवाजको समस्या हुँदैन।",
+            "महिला १: त्यो राम्रो निर्णय हो।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -180,11 +416,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why did the teacher praise the student?",
+              "choices": [
+                "Because she wrote about her own experiences in her own words.",
+                "Because she used many difficult kanji.",
+                "Because she correctly copied the content written in the book.",
+                "Because she submitted her essay earlier than other students."
+              ]
+            },
+            "ne": {
+              "q": "शिक्षकले छात्रालाई किन प्रशंसा गरे?",
+              "choices": [
+                "किनभने उनले आफ्नै अनुभवलाई आफ्नै शब्दमा लेखेकी थिइन्।",
+                "किनभने उनले धेरै कठिन कान्जी प्रयोग गरेकी थिइन्।",
+                "किनभने उनले किताबमा लेखिएको सामग्री सही रूपमा सारेकी थिइन्।",
+                "किनभने उनले अन्य विद्यार्थीहरू भन्दा पहिले निबन्ध बुझाएकी थिइन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, a male teacher and a female student are talking. Why did the teacher praise the student?",
+            "Woman 1: Um, was there anything wrong with my essay from last time?",
+            "Man 1: Not at all. It was very well written.",
+            "Woman 1: Thank you. I made sure to use a lot of kanji.",
+            "Man 1: The kanji was good, but that's not what impressed me.",
+            "Woman 1: Oh, what was it then?",
+            "Man 1: It was the way you wrote about what you actually saw and felt, in your own words.",
+            "Woman 1: Oh, you mean the scene from that trip, right?",
+            "Man 1: Yes. It's a completely different feeling when you read it, compared to a passage that's just copied from a book.",
+            "Woman 1: I'm so happy. It was worth spending time thinking about it.",
+            "Man 1: Please try to write the next one in the same way."
+          ]
+        },
+        "ne": {
+          "body": [
+            "विद्यालयमा एकजना पुरुष शिक्षक र एकजना छात्रा कुरा गर्दैछन्। शिक्षकले छात्रालाई किन प्रशंसा गरे?",
+            "छात्रा १: उम्, अघिल्लो निबन्धमा केही गल्ती थियो कि?",
+            "शिक्षक १: पटक्कै होइन। धेरै राम्रो लेखिएको थियो।",
+            "छात्रा १: धन्यवाद। मैले धेरै कान्जी प्रयोग गर्न ध्यान दिएकी थिएँ।",
+            "शिक्षक १: कान्जी पनि राम्रो थियो, तर मलाई प्रभावित पारेको त्यो होइन।",
+            "छात्रा १: ए, के थियो त?",
+            "शिक्षक १: तपाईंले वास्तवमा देखेका र महसुस गरेका कुराहरूलाई आफ्नै शब्दमा लेख्नुभएको थियो।",
+            "छात्रा १: ओहो, त्यो यात्राको दृश्यको कुरा हो, होइन?",
+            "शिक्षक १: हो। किताबबाट मात्र सारेको लेखभन्दा, पढ्दाको भावना पूरै फरक हुन्छ।",
+            "छात्रा १: म धेरै खुसी छु। समय लगाएर सोचेको सार्थक भयो।",
+            "शिक्षक १: त्यसैगरी अर्को पनि लेख्ने प्रयास गर्नुहोस्।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -210,11 +495,56 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "When will they depart for their business trip?",
+              "choices": [
+                "Thursday",
+                "Tuesday",
+                "Wednesday",
+                "Friday"
+              ]
+            },
+            "ne": {
+              "q": "उनीहरू कहिले व्यापार यात्रामा प्रस्थान गर्छन्?",
+              "choices": [
+                "बिहीबार",
+                "मंगलबार",
+                "बुधबार",
+                "शुक्रबार"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a company, a man and a woman are talking. When will they depart for their business trip?",
+            "Man 1: For next week's Osaka business trip, departing on Tuesday morning is fine, right?",
+            "Woman 1: About that, we received a call saying the company there is closed on Tuesday.",
+            "Man 1: Oh, is that so? Then, shall we make it Wednesday?",
+            "Woman 1: We have an important meeting here on Wednesday. We can't move it.",
+            "Man 1: Hmm, then how about the day after that?",
+            "Woman 1: That would be Thursday. I confirmed with the company there, and they replied that Thursday would be fine.",
+            "Man 1: I'm also free that day. So, it's decided then. Let's take the first Shinkansen of that morning.",
+            "Woman 1: I'll get the tickets."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एकजना पुरुष र एकजना महिला कुरा गर्दैछन्। उनीहरू कहिले व्यापार यात्रामा प्रस्थान गर्छन्?",
+            "पुरुष १: अर्को हप्ताको ओसाका व्यापार यात्राको लागि, मंगलबार बिहान प्रस्थान गर्दा ठीक हुन्छ, होइन?",
+            "महिला १: त्यसको बारेमा, उताको कम्पनी मंगलबार बन्द हुने खबर आएको छ।",
+            "पुरुष १: ओहो, त्यसो हो र? त्यसो भए बुधबार गरौँ कि?",
+            "महिला १: बुधबार यहाँ एउटा महत्त्वपूर्ण बैठक छ। सार्न मिल्दैन।",
+            "पुरुष १: हम्म, त्यसो भए त्यसपछिको दिन कस्तो होला?",
+            "महिला १: बिहीबार, होइन? उताको कम्पनीमा सोध्दा, बिहीबार भए समस्या छैन भनेर जवाफ आयो।",
+            "पुरुष १: म पनि त्यो दिन खाली छु। त्यसो भए पक्का भयो। त्यो दिन बिहानको पहिलो शिन्कान्सेनमा जाऔँ।",
+            "महिला १: म टिकट काटिदिन्छु।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -240,11 +570,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What time will the meeting start?",
+              "choices": [
+                "1 PM",
+                "2 PM",
+                "3 PM",
+                "Noon"
+              ]
+            },
+            "ne": {
+              "q": "बैठक कति बजे सुरु हुन्छ?",
+              "choices": [
+                "दिउँसो १ बजे",
+                "दिउँसो २ बजे",
+                "दिउँसो ३ बजे",
+                "दिउँसो १२ बजे"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a company, a woman is talking on the phone. What time will the meeting start?",
+            "Woman 1: Hello, I'm calling about tomorrow's meeting.",
+            "Man 1: Yes, it was scheduled for 2 PM, right? I'm preparing for it.",
+            "Woman 1: We initially told you that, but the manager's schedule suddenly changed.",
+            "Man 1: Oh, so the time is shifting. Will it be later?",
+            "Woman 1: No, actually the opposite. We were wondering if we could move it an hour earlier.",
+            "Man 1: An hour earlier? Uh, that would be right after lunch, then.",
+            "Woman 1: That's right. How does that suit you?",
+            "Man 1: That's fine. I'll come at that time.",
+            "Woman 1: That helps a lot. Thank you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एकजना महिला फोनमा कुरा गर्दैछिन्। बैठक कति बजे सुरु हुन्छ?",
+            "महिला १: हेलो, भोलिको बैठकको बारेमा सम्पर्क गरेकी हुँ।",
+            "पुरुष १: हजुर, दिउँसो २ बजेबाट थियो, होइन? म तयारी गर्दैछु।",
+            "महिला १: सुरुमा हामीले त्यही भनेका थियौँ, तर म्यानेजरको तालिका अचानक परिवर्तन भयो।",
+            "पुरुष १: ओहो, समय सर्ने भयो। ढिलो हुन्छ कि?",
+            "महिला १: होइन, उल्टो। एक घण्टा अगाडि सार्न मिल्छ कि भनेर सोचेका थियौँ।",
+            "पुरुष १: एक घण्टा अगाडि? अहँ, दिउँसोको खाना खाएर तुरुन्तै जस्तो भयो।",
+            "महिला १: त्यही हो। तपाईंलाई कस्तो हुन्छ?",
+            "पुरुष १: ठीक छ। म त्यही समयमा आउँछु।",
+            "महिला १: धेरै सहयोग भयो। धन्यवाद।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -270,11 +647,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "When will the package be delivered?",
+              "choices": [
+                "Tuesday morning",
+                "Sunday",
+                "Monday morning",
+                "Friday afternoon"
+              ]
+            },
+            "ne": {
+              "q": "सामान कहिले डेलिभरी हुन्छ?",
+              "choices": [
+                "मंगलबार बिहान",
+                "आइतबार",
+                "सोमबार बिहान",
+                "शुक्रबार दिउँसो"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a furniture store, a store clerk and a customer are talking. When will the package be delivered?",
+            "Man 1: Can you deliver this desk to my house?",
+            "Woman 1: Yes. Today is Friday, so if it's early, we can deliver it on Sunday.",
+            "Man 1: Oh, but I'll be out all day on Sunday.",
+            "Woman 1: In that case, how about Monday? We can promise a morning delivery.",
+            "Man 1: I have work from the morning on Monday, so there won't be anyone home.",
+            "Woman 1: Then, will you be home the day after that?",
+            "Man 1: Yes, I'll be home all day on Tuesday.",
+            "Woman 1: Understood. Then we'll bring it on Tuesday morning.",
+            "Man 1: That helps a lot. Thank you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "फर्निचर पसलमा पसलको कर्मचारी र ग्राहक कुरा गर्दैछन्। सामान कहिले डेलिभरी हुन्छ?",
+            "पुरुष १: यो डेस्क मेरो घरसम्म पुर्‍याइदिनुहुन्छ?",
+            "महिला १: हजुर। आज शुक्रबार हो, त्यसैले छिटो भए आइतबार डेलिभरी गर्न सक्छौँ।",
+            "पुरुष १: ओहो, तर आइतबार म दिनभर बाहिर हुन्छु।",
+            "महिला १: त्यसो भए सोमबार कस्तो हुन्छ? बिहानको समयमा डेलिभरी गर्न सक्छौँ।",
+            "पुरुष १: सोमबार बिहानदेखि काममा हुन्छु, त्यसैले घरमा कोही हुँदैन।",
+            "महिला १: त्यसो भए, त्यसपछिको दिन घरमा हुनुहुन्छ?",
+            "पुरुष १: हजुर, मंगलबार दिनभर घरमा हुन्छु।",
+            "महिला १: बुझें। त्यसो भए मंगलबार बिहान ल्याइदिन्छौँ।",
+            "पुरुष १: धेरै सहयोग भयो। धन्यवाद।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -300,11 +724,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "When is the homework due?",
+              "choices": [
+                "Next Tuesday",
+                "Tomorrow",
+                "Next Monday",
+                "This Friday"
+              ]
+            },
+            "ne": {
+              "q": "गृहकार्य बुझाउने दिन कहिले भयो?",
+              "choices": [
+                "अर्को मंगलबार",
+                "भोलि",
+                "अर्को सोमबार",
+                "यो शुक्रबार"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, a female student and a male student are talking. When is the homework due?",
+            "Woman 1: Math homework, it's due tomorrow, right? I've only finished half of it.",
+            "Man 1: Oh, the teacher just changed that. Because the problems are difficult.",
+            "Woman 1: Really? So, when is it due now?",
+            "Man 1: At first, he said he'd make it next Monday.",
+            "Woman 1: Monday, isn't that the test day?",
+            "Man 1: That's right. So the teacher realized it, and thought it would be tough on the same day as the test.",
+            "Woman 1: So he moved it?",
+            "Man 1: Yeah. He said it's fine to submit it the day after the test, on Tuesday.",
+            "Woman 1: That's good. We have a little more time now."
+          ]
+        },
+        "ne": {
+          "body": [
+            "विद्यालयमा एकजना छात्रा र एकजना छात्र कुरा गर्दैछन्। गृहकार्य बुझाउने दिन कहिले भयो?",
+            "छात्रा १: गणितको गृहकार्य, भोलिसम्म हो, होइन? मैले आधा मात्रै सकेकी छु।",
+            "छात्र १: ओहो, त्यो त भर्खरै सरले परिवर्तन गर्नुभयो। प्रश्नहरू गाह्रो भएकोले।",
+            "छात्रा १: साँच्चै? त्यसो भए कहिलेसम्म भयो?",
+            "छात्र १: सुरुमा अर्को हप्ताको सोमबार गर्ने भन्नुभएको थियो।",
+            "छात्रा १: सोमबार, त्यो त परीक्षाको दिन होइन र?",
+            "छात्र १: हो नि। त्यसैले सरले पनि याद गर्नुभयो, र परीक्षाकै दिन गाह्रो होला भनेर।",
+            "छात्रा १: त्यसो भए सार्नुभयो?",
+            "छात्र १: हो। परीक्षाको भोलिपल्ट, मंगलबार बुझाए हुन्छ भन्नुभयो।",
+            "छात्रा १: राम्रो भयो। अलि फुर्सद मिल्यो।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -330,11 +801,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "When will the two of them move?",
+              "choices": [
+                "Next month's Sunday",
+                "The 10th of next month",
+                "Next month's Saturday",
+                "The 10th of this month"
+              ]
+            },
+            "ne": {
+              "q": "उहाँहरू कहिले सर्दै हुनुहुन्छ?",
+              "choices": [
+                "अर्को महिनाको आइतबार",
+                "अर्को महिनाको दश गते",
+                "अर्को महिनाको शनिबार",
+                "यो महिनाको दश गते"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man and a woman are talking at home. When will they move?",
+            "Man 1: We can live in the new room from the 10th of next month.",
+            "Woman 1: So, we'll move on the 10th?",
+            "Man 1: I'd really like to, but the 10th is a weekday, and we both have work.",
+            "Woman 1: That's true. Then how about the Saturday of that week?",
+            "Man 1: I thought about Saturday, but I was told that the truck for moving our belongings is fully booked.",
+            "Woman 1: Oh, really? Then is the next day available?",
+            "Man 1: Yes, they said Sunday is fine. So I decided to ask for that day.",
+            "Woman 1: Understood. Then let's move our belongings from the morning on that day.",
+            "Man 1: I'll also ask a few people to help."
+          ]
+        },
+        "ne": {
+          "body": [
+            "घरमा एक जना पुरुष र एक जना महिला कुरा गर्दै हुनुहुन्छ। उहाँहरू कहिले सर्दै हुनुहुन्छ?",
+            "पुरुष १: नयाँ कोठामा अर्को महिनाको दश गतेदेखि बस्न मिल्ने रहेछ।",
+            "महिला १: त्यसो भए दश गते सर्ने हो त?",
+            "पुरुष १: खासमा त्यसो गर्न मन थियो, तर दश गते हप्ताको दिन हो, हामी दुवैको काम छ।",
+            "महिला १: हो नि। त्यसो भए त्यो हप्ताको शनिबार कस्तो हुन्छ?",
+            "पुरुष १: शनिबारको बारेमा सोचेको थिएँ, तर सामान सार्ने ट्रक पहिले नै बुक भइसकेको छ भन्नुभयो।",
+            "महिला १: ए त्यसो हो? त्यसो भए अर्को दिन खाली छ त?",
+            "पुरुष १: अँ, आइतबार ठीक छ भन्नुभयो। त्यसैले मैले त्यही दिनको लागि अनुरोध गर्ने निर्णय गरेँ।",
+            "महिला १: बुझेँ। त्यसो भए त्यो दिन बिहानदेखि सामान सारौँ।",
+            "पुरुष १: म केही मानिसहरूलाई पनि सहयोगको लागि अनुरोध गर्छु नि।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -360,11 +878,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What time will the two of them meet at the station?",
+              "choices": [
+                "3:00",
+                "3:30",
+                "2:30",
+                "4:00"
+              ]
+            },
+            "ne": {
+              "q": "उहाँहरू कति बजे स्टेशनमा भेट्नुहुन्छ?",
+              "choices": [
+                "तीन बजे",
+                "साढे तीन बजे",
+                "अढाई बजे",
+                "चार बजे"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A woman and a man are talking on the phone. What time will they meet at the station?",
+            "Woman 1: Tomorrow's movie is at 4 o'clock, right?",
+            "Man 1: Yes. So, how about meeting at the station at 3:30?",
+            "Woman 1: Oh, before that, I want to have lunch. I heard a new pasta restaurant opened near the station.",
+            "Man 1: Sounds good, let's go try it. But if it's a popular place, we might have to wait. So, how about an hour earlier?",
+            "Woman 1: No, if it's an hour earlier, we might end up waiting instead. Let's just make it 30 minutes earlier. I think that would be just right.",
+            "Man 1: Understood. Then, at that time, in front of the ticket gate."
+          ]
+        },
+        "ne": {
+          "body": [
+            "फोनमा एक जना महिला र एक जना पुरुष कुरा गर्दै हुनुहुन्छ। उहाँहरू कति बजे स्टेशनमा भेट्नुहुन्छ?",
+            "महिला १: भोलिको फिल्म चार बजे हो, होइन र?",
+            "पुरुष १: अँ। त्यसो भए साढे तीन बजे स्टेशनमा भेट्ने कसरी हुन्छ?",
+            "महिला १: ए, त्यसअघि म दिउँसोको खाना खान चाहन्छु। स्टेशन नजिकै नयाँ पास्ता पसल खुलेको रहेछ।",
+            "पुरुष १: राम्रो छ, गएर हेरौँ। तर लोकप्रिय पसल भए पर्खनुपर्ने हुन सक्छ। त्यसो भए एक घण्टा अगाडि गर्ने हो त?",
+            "महिला १: अहँ, एक घण्टा अगाडि गर्दा त उल्टै हामीले पर्खनुपर्ने हुन सक्छ। तीस मिनेट मात्र अगाडि गरौँ। मलाई लाग्छ त्यो ठीक हुन्छ।",
+            "पुरुष १: बुझेँ। त्यसो भए त्यो समयमा टिकट गेटको अगाडि नि।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -390,11 +949,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many copies of the documents will the man print?",
+              "choices": [
+                "Nine copies",
+                "Eight copies",
+                "Six copies",
+                "Ten copies"
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले कति प्रति कागजात छाप्नुहुन्छ?",
+              "choices": [
+                "नौ प्रति",
+                "आठ प्रति",
+                "छ प्रति",
+                "दश प्रति"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A man and a woman are talking at the office. How many copies of the documents will the man print?",
+            "Woman 1: Can you please print the documents for tomorrow's meeting?",
+            "Man 1: Yes. How many people are attending again?",
+            "Woman 1: Six people from our department, and two more from other departments.",
+            "Man 1: So, that's eight people in total, right? I'll prepare eight copies.",
+            "Woman 1: Oh, don't forget the manager's copy. He'll be there on the day.",
+            "Man 1: That's right. So, including the manager, I'll add one more copy.",
+            "Woman 1: Yes, please. It would be a problem if there are too many, so just the exact number is fine.",
+            "Man 1: Understood. I'll prepare the number that includes the manager's copy with everyone else's.",
+            "Woman 1: That helps. Thank you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एक जना पुरुष र एक जना महिला कुरा गर्दै हुनुहुन्छ। पुरुषले कति प्रति कागजात छाप्नुहुन्छ?",
+            "महिला १: भोलिको बैठकको कागजात छापिदिन सक्नुहुन्छ?",
+            "पुरुष १: हुन्छ। कति जना सहभागी हुनुहुन्थ्यो रे?",
+            "महिला १: हाम्रो विभागबाट छ जना, र अरू विभागबाट दुई जना आउनुहुन्छ।",
+            "पुरुष १: त्यसो भए जम्मा आठ जनाको लागि भयो नि। म आठ प्रति तयार गर्छु।",
+            "महिला १: ए, प्रबन्धकको प्रति नबिर्सनुहोला। उहाँ त्यस दिन आउनुहुन्छ।",
+            "पुरुष १: हो नि। त्यसो भए प्रबन्धकलाई पनि समावेश गरेर, म एक प्रति थप्छु नि।",
+            "महिला १: अँ, कृपया। धेरै भए समस्या हुन्छ, त्यसैले ठ्याक्कै संख्या भए पुग्छ।",
+            "पुरुष १: बुझेँ। म सबैको प्रतिमा प्रबन्धकको प्रति पनि थपेर तयार गर्छु।",
+            "महिला १: सहयोग भयो। धन्यवाद।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -420,11 +1026,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many people will the customer make a reservation for?",
+              "choices": [
+                "Six people",
+                "Four people",
+                "Five people",
+                "Two people"
+              ]
+            },
+            "ne": {
+              "q": "ग्राहकले कति जनाको लागि रिजर्भेसन गर्नुहुन्छ?",
+              "choices": [
+                "छ जना",
+                "चार जना",
+                "पाँच जना",
+                "दुई जना"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A staff member and a customer are talking on the phone at a restaurant. How many people will the customer make a reservation for?",
+            "Woman 1: I'd like to make a reservation for Saturday evening. Four adults.",
+            "Man 1: Understood. Are there any children?",
+            "Woman 1: Yes, I have two children. Oh, but my older child might not be able to come because of cram school.",
+            "Man 1: So, just one child, is that correct?",
+            "Woman 1: Please wait a moment. ...Ah, I checked, and it seems cram school is off.",
+            "Man 1: So both of them?",
+            "Woman 1: Yes, I'll bring both of them after all. My whole family will come.",
+            "Man 1: Understood. Then I will prepare seats for everyone.",
+            "Woman 1: Thank you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेस्टुरेन्टमा एक जना कर्मचारी र एक जना ग्राहक फोनमा कुरा गर्दै हुनुहुन्छ। ग्राहकले कति जनाको लागि रिजर्भेसन गर्नुहुन्छ?",
+            "महिला १: शनिबार साँझको लागि रिजर्भेसन गर्न चाहन्छु। चार जना वयस्क।",
+            "पुरुष १: बुझेँ। बच्चाहरू हुनुहुन्छ?",
+            "महिला १: अँ, दुई जना बच्चाहरू छन्। ए, तर मेरो ठूलो बच्चा ट्युसन भएकोले आउन नसक्ने हुन सक्छ।",
+            "पुरुष १: त्यसो भए, एक जना बच्चा मात्र, ठीक छ?",
+            "महिला १: एकछिन पर्खनुहोस् नि। ...ए, मैले सोधेँ, ट्युसन छुट्टी रहेछ।",
+            "पुरुष १: त्यसो भए दुवै जना?",
+            "महिला १: अँ, आखिर दुवै जनालाई लिएर जान्छु। मेरो पूरै परिवार आउँछ।",
+            "पुरुष १: बुझेँ। त्यसो भए म सबैको लागि सिट तयार गर्छु।",
+            "महिला १: धन्यवाद।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -450,11 +1103,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many eggs will the son buy?",
+              "choices": [
+                "Eight eggs",
+                "Six eggs",
+                "Two eggs",
+                "Ten eggs"
+              ]
+            },
+            "ne": {
+              "q": "छोराले कति वटा अण्डा किनेर ल्याउँछ?",
+              "choices": [
+                "आठ वटा अण्डा",
+                "छ वटा अण्डा",
+                "दुई वटा अण्डा",
+                "दश वटा अण्डा"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "A mother and son are talking at home. How many eggs will the son buy?",
+            "Woman 1: Can you go to the supermarket and buy some eggs?",
+            "Man 1: How many should I buy?",
+            "Woman 1: I'm using six eggs to make a cake.",
+            "Man 1: So, six eggs.",
+            "Woman 1: Oh, I'll also use them for tomorrow's breakfast, so add two more.",
+            "Man 1: Understood. Hmm, will that be enough?",
+            "Woman 1: That'll be enough for the eggs. Oh, and the milk was almost gone, so can you buy one carton?",
+            "Man 1: Yes, milk too. I'll put it in the basket with the eggs.",
+            "Woman 1: Thank you. Eggs are fragile, so be careful not to drop them."
+          ]
+        },
+        "ne": {
+          "body": [
+            "घरमा आमा र छोरा कुरा गर्दै हुनुहुन्छ। छोराले कति वटा अण्डा किनेर ल्याउँछ?",
+            "महिला १: सुपरमार्केटबाट अण्डा किनेर ल्याइदिन सक्छौ?",
+            "पुरुष १: कति वटा किन्नुपर्छ?",
+            "महिला १: केक बनाउनको लागि छ वटा प्रयोग गर्छु।",
+            "पुरुष १: त्यसो भए छ वटा नि।",
+            "महिला १: ए, भोलिको बिहानको खानाको लागि पनि प्रयोग गर्छु, त्यसैले दुई वटा थपिदेऊ।",
+            "पुरुष १: बुझेँ। अँ, त्यति भए पुग्छ होला।",
+            "महिला १: अण्डाको लागि त्यति भए पुग्छ। ए, अनि दूध पनि सकिन लागेको थियो, त्यसैले एक प्याकेट किनेर ल्याइदिन सक्छौ?",
+            "पुरुष १: अँ, दूध पनि नि। अण्डा सँगै टोकरीमा राखेर ल्याउँछु।",
+            "महिला १: धन्यवाद। अण्डा फुट्न सजिलो हुन्छ, त्यसैले नखसाल्न ध्यान दिनु नि।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -480,11 +1180,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many times a day should the patient take the medicine?",
+              "choices": [
+                "Twice",
+                "Three times",
+                "Once",
+                "Four times"
+              ]
+            },
+            "ne": {
+              "q": "बिरामीले दिनमा कति पटक औषधि खानुपर्छ?",
+              "choices": [
+                "दुई पटक",
+                "तीन पटक",
+                "एक पटक",
+                "चार पटक"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the hospital, a doctor and a patient are talking. How many times a day should the patient take the medicine?",
+            "Man 1: When should I take this medicine?",
+            "Woman 1: Please take it after meals. Usually, it's three times a day: morning, noon, and night.",
+            "Man 1: Three times, got it. How many days' worth will I receive in total?",
+            "Woman 1: I'll give you a week's worth. However, in your case, a little caution is needed.",
+            "Man 1: Caution, you say?",
+            "Woman 1: Your stomach is quite weak right now, isn't it? This medicine puts a strain on your stomach.",
+            "Man 1: Yes, I haven't been feeling well lately.",
+            "Woman 1: So, you don't need to take the midday dose. Let's just do morning and night.",
+            "Man 1: Oh, I see. So, twice a day, morning and night.",
+            "Woman 1: Yes, let's observe your condition with that frequency for a while."
+          ]
+        },
+        "ne": {
+          "body": [
+            "अस्पतालमा, एक डाक्टर र एक बिरामी कुरा गर्दैछन्। बिरामीले दिनमा कति पटक औषधि खानुपर्छ?",
+            "पुरुष १: यो औषधि कहिले खाने हो?",
+            "महिला १: कृपया खाना खाएपछि खानुहोस्। सामान्यतया, यो दिनमा तीन पटक, बिहान, दिउँसो र बेलुका हो।",
+            "पुरुष १: तीन पटक, बुझें। जम्मा कति दिनको लागि पाउँछु?",
+            "महिला १: म तपाईंलाई एक हप्ताको लागि दिनेछु। तर, तपाईंको मामलामा, अलिकति सावधानी आवश्यक छ।",
+            "पुरुष १: सावधानी, भन्नाले?",
+            "महिला १: तपाईंको पेट अहिले निकै कमजोर छ, होइन? यो औषधिले पेटमा दबाब दिन्छ।",
+            "पुरुष १: हो, मलाई हालै राम्रो महसुस भइरहेको छैन।",
+            "महिला १: त्यसैले, तपाईंले दिउँसोको खुराक खानु पर्दैन। बिहान र बेलुका मात्र गरौं।",
+            "पुरुष १: ओहो, त्यसो हो। त्यसो भए बिहान र बेलुका दुई पटक।",
+            "महिला १: हो, केही समयको लागि त्यो आवृत्तिमा तपाईंको अवस्था हेरौं।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -510,11 +1259,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many train tickets will the male student buy?",
+              "choices": [
+                "Six tickets",
+                "Seven tickets",
+                "Five tickets",
+                "Eight tickets"
+              ]
+            },
+            "ne": {
+              "q": "पुरुष विद्यार्थीले कतिवटा रेलको टिकट किन्नेछ?",
+              "choices": [
+                "छ वटा टिकट",
+                "सात वटा टिकट",
+                "पाँच वटा टिकट",
+                "आठ वटा टिकट"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, a female student and a male student are talking. How many train tickets will the male student buy?",
+            "Woman 1: For the weekend excursion, who's buying the train tickets?",
+            "Man 1: I'll buy them all together. How many people are going again?",
+            "Woman 1: Five from our class, right? Oh, and two kids from the next class are coming too.",
+            "Man 1: So that's seven people in total. I should buy seven tickets then.",
+            "Woman 1: Well, one of our five has a commuter pass.",
+            "Man 1: Oh, right. So we don't need a ticket for that person.",
+            "Woman 1: Yeah. If they have a pass, they don't need to pay extra.",
+            "Man 1: I see. So, it's seven tickets minus one.",
+            "Woman 1: Exactly. Thanks!"
+          ]
+        },
+        "ne": {
+          "body": [
+            "विद्यालयमा, एक छात्रा र एक छात्र कुरा गर्दैछन्। छात्रले कतिवटा रेलको टिकट किन्नेछ?",
+            "महिला १: सप्ताहन्तको भ्रमणको लागि, रेलको टिकट कसले किन्छ?",
+            "पुरुष १: म सबै एकैचोटि किनेर ल्याउँछु। कति जना जाने हो रे?",
+            "महिला १: हाम्रो कक्षाबाट पाँच जना, होइन? ओहो, अनि छेउको कक्षाबाट पनि दुई जना आउने रे।",
+            "पुरुष १: त्यसो भए जम्मा सात जना भए। सातवटा टिकट किने पुग्छ।",
+            "महिला १: त्यो त, हाम्रो पाँच जनामध्ये एक जनासँग मासिक पास छ नि।",
+            "पुरुष १: ओहो, हो त नि। त्यसो भए त्यो बच्चाको लागि टिकट चाहिँदैन।",
+            "महिला १: अँ। पास भएपछि थप पैसा लाग्दैन।",
+            "पुरुष १: बुझें। त्यसो भए सातवटाबाट एउटा घटाएको संख्या भयो।",
+            "महिला १: त्यही त। धन्यवाद है।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -540,11 +1336,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many more chairs does the woman need to carry?",
+              "choices": [
+                "Five chairs",
+                "Eight chairs",
+                "Three chairs",
+                "Twelve chairs"
+              ]
+            },
+            "ne": {
+              "q": "महिलाले अझै कतिवटा कुर्सी बोक्नुपर्छ?",
+              "choices": [
+                "पाँच वटा कुर्सी",
+                "आठ वटा कुर्सी",
+                "तीन वटा कुर्सी",
+                "बाह्र वटा कुर्सी"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the office, a man and a woman are talking. How many more chairs does the woman need to carry?",
+            "Man 1: We need twenty chairs in total for the venue. Can you help me prepare?",
+            "Woman 1: Of course. How many chairs are in the room right now?",
+            "Man 1: Twelve chairs are already arranged. I brought them from the back.",
+            "Woman 1: So, eight chairs are left then. I'll bring them from the warehouse.",
+            "Man 1: Oh, wait a minute. Someone from the next room just brought three chairs.",
+            "Woman 1: Oh, really? Then we don't need that many anymore.",
+            "Man 1: Right. Just bring the number of chairs we need, minus the ones we already have.",
+            "Woman 1: Let's see, twelve chairs plus three chairs makes fifteen, so we need five more chairs.",
+            "Man 1: Exactly. Please do that."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा, एक पुरुष र एक महिला कुरा गर्दैछन्। महिलाले अझै कतिवटा कुर्सी बोक्नुपर्छ?",
+            "पुरुष १: कार्यक्रम स्थलको लागि जम्मा बीस वटा कुर्सी चाहिन्छ। तयारीमा मद्दत गर्छौ?",
+            "महिला १: अवश्य। अहिले कोठामा कतिवटा कुर्सी छन्?",
+            "पुरुष १: बाह्र वटा कुर्सी त पहिले नै मिलाएर राखिसकेको छु। पछाडिबाट ल्याएको हो।",
+            "महिला १: त्यसो भए, बाँकी आठ वटा कुर्सी भए। म गोदामबाट ल्याउँछु।",
+            "पुरुष १: ओहो, एकछिन पर्ख। भर्खरै छेउको कोठाका मान्छेले तीन वटा कुर्सी ल्याइदिए।",
+            "महिला १: ओहो, त्यसो हो? त्यसो भए अब त्यति धेरै चाहिँदैन नि।",
+            "पुरुष १: अँ। बीस वटाबाट, अहिले भएकालाई घटाएर जति चाहिन्छ त्यति ल्याए पुग्छ।",
+            "महिला १: अँ, बाह्र वटा र तीन वटा गरेर पन्ध्र वटा छन्, त्यसैले अझै पाँच वटा चाहिन्छ।",
+            "पुरुष १: त्यही त। कृपया गरिदेऊ है।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -570,11 +1413,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the woman feel right now?",
+              "choices": [
+                "She is relieved to know her daughter is safe.",
+                "She is angry that her daughter didn't contact her.",
+                "She is troubled because going to pick her up is bothersome.",
+                "She is envious that her daughter went to a friend's house."
+              ]
+            },
+            "ne": {
+              "q": "महिलालाई अहिले कस्तो महसुस भइरहेको छ?",
+              "choices": [
+                "छोरी सकुशल छिन् भन्ने थाहा पाएर ढुक्क भएकी छिन्।",
+                "छोरीले सम्पर्क नगरेकोमा रिसाएकी छिन्।",
+                "लिन जान झन्झट भएकोले समस्यामा परेकी छिन्।",
+                "छोरी साथीको घरमा गएकोमा ईर्ष्या गरिरहेकी छिन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At home, a woman and a man are talking. How does the woman feel right now?",
+            "Woman 1: Hey, my daughter hasn't come home since a while ago. It's already nine o'clock.",
+            "Man 1: Cram school should have finished at eight, right? Hasn't she contacted you?",
+            "Woman 1: I called her, but she didn't answer, and I sent her an email, but she hasn't replied. Something might have happened...",
+            "Man 1: Thinking about an accident on the road or something makes me worried. Should I go pick her up?",
+            "Woman 1: Would you? I can't just sit still.",
+            "Man 1: Okay, I'll get the car ready.",
+            "Woman 1: Oh, wait. A message just came. ...She said she stopped by a friend's house.",
+            "Man 1: Oh, good, she's safe. That's a relief.",
+            "Woman 1: Really. Thank goodness... I suddenly feel all my strength leave me."
+          ]
+        },
+        "ne": {
+          "body": [
+            "घरमा, एक महिला र एक पुरुष कुरा गर्दैछन्। महिलालाई अहिले कस्तो महसुस भइरहेको छ?",
+            "महिला १: हेर्नुहोस् न, छोरी अघिदेखि घर आएकी छैन। नौ बजिसक्यो।",
+            "पुरुष १: ट्युसन त आठ बजे सकिनुपर्ने हो नि। सम्पर्क गरेकी छैन?",
+            "महिला १: फोन गर्दा पनि उठाउँदिन, इमेल पठाउँदा पनि जवाफ आएको छैन। केही भयो कि…।",
+            "पुरुष १: बाटोमा दुर्घटना पो भयो कि भनेर सोच्दा चिन्ता लाग्छ। म लिन जाऊँ कि?",
+            "महिला १: त्यसो गरिदिनुहुन्छ? म त चुपचाप बस्न सक्दिनँ।",
+            "पुरुष १: ल, म गाडी निकाल्छु।",
+            "महिला १: ओहो, पर्खनुहोस्। भर्खरै इमेल आयो। …साथीको घरमा गएकी रहेछ।",
+            "पुरुष १: के हो, सकुशल रहिछ, राम्रो भयो।",
+            "महिला १: साँच्चै। राम्रो भयो…। अचानक मेरो शक्ति नै हरायो।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -600,11 +1490,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the male student feel about his test results?",
+              "choices": [
+                "He didn't reach his goal, but he improved from before and is feeling positive.",
+                "His score was very bad, and he is completely depressed.",
+                "He greatly exceeded his goal and is very satisfied.",
+                "The test was too easy, and he feels it was rather boring."
+              ]
+            },
+            "ne": {
+              "q": "पुरुष विद्यार्थीलाई परीक्षाको नतिजाबारे कस्तो महसुस भइरहेको छ?",
+              "choices": [
+                "लक्ष्यमा पुग्न सकेन तर पहिलेभन्दा सुधार भएकोले सकारात्मक महसुस गरिरहेको छ।",
+                "नम्बर धेरै नराम्रो आएकोले पूर्ण रूपमा निराश छ।",
+                "लक्ष्यभन्दा धेरै माथि पुगेकोले धेरै सन्तुष्ट छ।",
+                "परीक्षा धेरै सजिलो भएकोले बरु बोरिङ महसुस गरिरहेको छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, a male student and a female student are talking. How does the male student feel about his test results?",
+            "Woman 1: How were your test scores?",
+            "Man 1: Hmm, I didn't quite reach my goal. I was just five points short.",
+            "Woman 1: Oh, I see. Are you feeling down? Are you okay?",
+            "Man 1: Honestly, when I first saw the results, I was disappointed.",
+            "Woman 1: I know. You worked hard, after all.",
+            "Man 1: But when I looked closely, my score was much higher than the previous test.",
+            "Woman 1: Wow, that's amazing!",
+            "Man 1: Yeah. Especially the calculation problems, which I was bad at, I was able to solve them properly this time.",
+            "Woman 1: That means you're growing.",
+            "Man 1: So, I feel like I can do even better next time."
+          ]
+        },
+        "ne": {
+          "body": [
+            "विद्यालयमा, एक छात्र र एक छात्रा कुरा गर्दैछन्। छात्रलाई परीक्षाको नतिजाबारे कस्तो महसुस भइरहेको छ?",
+            "महिला १: परीक्षाको नम्बर कस्तो आयो?",
+            "पुरुष १: उम्, लक्ष्यमा अलिकति पुग्न सकिनँ। पाँच नम्बर मात्र कम भयो।",
+            "महिला १: ओहो, त्यसो हो। निराश छौ? ठीक छौ?",
+            "पुरुष १: इमानदारीपूर्वक भन्नुपर्दा, नतिजा देख्दा सुरुमा त निराश भएँ।",
+            "महिला १: हो नि। तिमीले मेहनत गरेको थियौ नि।",
+            "पुरुष १: तर राम्ररी हेर्दा, अघिल्लो परीक्षाभन्दा धेरै नम्बर बढेको रहेछ।",
+            "महिला १: वाउ, त्यो त राम्रो कुरा हो नि!",
+            "पुरुष १: अँ। विशेषगरी, मलाई गाह्रो लाग्ने हिसाबका प्रश्नहरू, यसपटक राम्ररी हल गर्न सकेको रहेछु।",
+            "महिला १: त्यसको अर्थ तिमीले प्रगति गरिरहेका छौ।",
+            "पुरुष १: त्यसैले, अर्कोपटक अझ राम्रो गर्न सक्छु जस्तो लागिरहेको छ।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -630,11 +1569,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the man feel right now?",
+              "choices": [
+                "He is angry because the promise has been broken multiple times.",
+                "He is happy that the repair finished quickly.",
+                "He is worried whether the watch will be fixed or not.",
+                "He is embarrassed, thinking he made a mistake with the date."
+              ]
+            },
+            "ne": {
+              "q": "अहिले पुरुषलाई कस्तो महसुस भइरहेको छ?",
+              "choices": [
+                "प्रतिज्ञा पटक-पटक पालना नभएकोले उनी रिसाएका छन्।",
+                "मर्मत छिटो सकिएकोमा उनी खुसी छन्।",
+                "घडी ठीक हुन्छ कि हुँदैन भनेर उनी चिन्तित छन्।",
+                "आफूले मिति गलत बुझेको सोचेर उनी लज्जित छन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the shop, a man and a woman are talking. How does the man feel right now?",
+            "Man 1: Um, this is about the watch I asked you to repair here last week.",
+            "Woman 1: Yes, if I recall correctly, it was supposed to be ready by Friday, wasn't it?",
+            "Man 1: That's right. I specifically came to pick it up today, but I was told it's not ready yet.",
+            "Woman 1: I am terribly sorry.",
+            "Man 1: And what's more, this is the second time this has happened. I was told the same thing last time.",
+            "Woman 1: I am deeply sorry again.",
+            "Man 1: Next week, I have an important appointment where I need this watch. It won't be ready in time, will it?",
+            "Man 1: When on earth will it be fixed?",
+            "Woman 1: I will check with the craftsman immediately and make sure to contact you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "पसलमा एक जना पुरुष र एक जना महिला कुरा गर्दै हुनुहुन्छ। अहिले पुरुषलाई कस्तो महसुस भइरहेको छ?",
+            "पुरुष १: उम्, यो मैले गत हप्ता यहाँ मर्मत गर्न दिएको घडीको बारेमा हो।",
+            "महिला १: हजुर, मलाई याद भएसम्म, यो शुक्रबारसम्म तयार हुने कुरा थियो, होइन र?",
+            "पुरुष १: हो नि। म आज विशेष गरी लिन आएको थिएँ, तर अझै तयार भएको छैन भनियो।",
+            "महिला १: मलाई माफ गर्नुहोस्।",
+            "पुरुष १: अझ के भन्नु, यो दोस्रो पटक भयो। गत पटक पनि मलाई यस्तै भनिएको थियो।",
+            "महिला १: फेरि पनि मलाई धेरै माफ गर्नुहोस्।",
+            "पुरुष १: अर्को हप्ता, मलाई यो घडी चाहिने एउटा महत्त्वपूर्ण भेटघाट छ। यो समयमा तयार नहुने भयो नि त।",
+            "पुरुष १: आखिर कहिलेसम्ममा यो ठीक हुन्छ?",
+            "महिला १: म तुरुन्तै कारीगरसँग बुझेर तपाईंलाई अवश्य सम्पर्क गर्नेछु।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -660,11 +1646,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the woman feel before the presentation?",
+              "choices": [
+                "She is nervous and worried if she can speak well in a large venue.",
+                "She feels like giving up the presentation because her preparation is completely insufficient.",
+                "She is so excited and thrilled that she can't wait for the presentation.",
+                "She is completely angry because her colleague didn't help her."
+              ]
+            },
+            "ne": {
+              "q": "प्रस्तुतिभन्दा पहिले महिलालाई कस्तो महसुस भइरहेको छ?",
+              "choices": [
+                "उनी ठूलो हलमा राम्रोसँग बोल्न सक्छु कि सक्दिनँ भनेर चिन्तित र तनावमा छिन्।",
+                "तयारी बिल्कुलै अपुग भएकोले उनलाई प्रस्तुति रद्द गर्न मन लागेको छ।",
+                "उनी प्रस्तुतिको लागि यति धेरै उत्साहित छिन् कि पर्खन सकिरहेकी छैनन्।",
+                "सहकर्मीले सहयोग नगरेकोले उनी पूर्ण रूपमा रिसाएकी छिन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a woman and a man are talking. How does the woman feel before the presentation?",
+            "Man 1: Only ten minutes left until the presentation. Are you fully prepared?",
+            "Woman 1: I've reviewed the materials many times, but...",
+            "Man 1: Oh, you don't look well. Are you okay?",
+            "Woman 1: Actually, this is my first time speaking in such a large venue.",
+            "Man 1: Ah, you usually speak in smaller rooms, don't you?",
+            "Woman 1: I'm worried if I can speak well, and my hands have been trembling a little since a while ago.",
+            "Man 1: It's okay. You practiced so much, so just do it as you practiced.",
+            "Woman 1: Yeah, hearing you say that makes me feel a little calmer.",
+            "Man 1: I'll be listening from the front, too.",
+            "Woman 1: Thank you. But I'm still nervous."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एक जना महिला र एक जना पुरुष कुरा गर्दै हुनुहुन्छ। प्रस्तुतिभन्दा पहिले महिलालाई कस्तो महसुस भइरहेको छ?",
+            "पुरुष १: प्रस्तुतिको लागि अब दश मिनेट मात्र बाँकी छ। तयारी पूरा भयो?",
+            "महिला १: मैले सामग्रीहरू धेरै पटक हेरेँ, तर...",
+            "पुरुष १: ए, तिम्रो अनुहार राम्रो देखिएको छैन। ठीक छौ?",
+            "महिला १: वास्तवमा, यति ठूलो हलमा बोल्न लागेको यो मेरो पहिलो पटक हो।",
+            "पुरुष १: ए, तिमी सधैँ सानो कोठामा बोल्छौ नि।",
+            "महिला १: राम्रोसँग बोल्न सक्छु कि सक्दिनँ भनेर चिन्ता लागिरहेको छ, अघिदेखि मेरो हात अलिकति काँपिरहेको छ।",
+            "पुरुष १: ठीक छ। तिमीले यति धेरै अभ्यास गरेकी छौ, त्यसैले त्यसैअनुसार गर।",
+            "महिला १: अँ, तिमीले यसो भन्दा अलिकति शान्त महसुस भयो।",
+            "पुरुष १: म पनि अगाडि बसेर सुन्नेछु नि।",
+            "महिला १: धन्यवाद। तर, अझै पनि मुटु ढुकढुक गरिरहेको छ।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -690,11 +1725,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the man feel right now?",
+              "choices": [
+                "He is happy that he got the job he had long wished for.",
+                "He is anxious because he was ordered to make a sudden department transfer.",
+                "He is completely disappointed again because his wish was not granted this time either.",
+                "He is extremely tired because he came home late from work."
+              ]
+            },
+            "ne": {
+              "q": "अहिले पुरुषलाई कस्तो महसुस भइरहेको छ?",
+              "choices": [
+                "लामो समयदेखि चाहेको काम पाएकोमा उनी खुसी छन्।",
+                "अचानक विभाग परिवर्तन गर्न आदेश दिइएकोले उनी चिन्तित छन्।",
+                "उनको इच्छा यस पटक पनि पूरा नभएकोले उनी फेरि पूर्ण रूपमा निराश छन्।",
+                "कामबाट ढिलो घर आएकोले उनी धेरै थकित छन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At home, a man and a woman are talking. How does the man feel right now?",
+            "Woman 1: What's wrong? You've been smiling so much since a while ago.",
+            "Man 1: I just got a call from the company, and I'll be able to move to the department I wanted starting next month.",
+            "Woman 1: Really? That's the job you've always wanted to do, isn't it?",
+            "Man 1: Yeah. I've been requesting a transfer for many years.",
+            "Woman 1: For so many years?",
+            "Man 1: Honestly, I kept getting rejected, and I thought it might be impossible.",
+            "Woman 1: That's great! Congratulations!",
+            "Man 1: Thank you. I'm really glad I didn't give up.",
+            "Woman 1: We should celebrate!",
+            "Man 1: I'm really glad I came home early today and could share this news."
+          ]
+        },
+        "ne": {
+          "body": [
+            "घरमा एक जना पुरुष र एक जना महिला कुरा गर्दै हुनुहुन्छ। अहिले पुरुषलाई कस्तो महसुस भइरहेको छ?",
+            "महिला १: के भयो, अघिदेखि यति धेरै मुस्कुराइरहेका छौ?",
+            "पुरुष १: भर्खरै कम्पनीबाट फोन आएको थियो, अर्को महिनादेखि मैले चाहेको विभागमा जान पाउने भएँ।",
+            "महिला १: साँच्चै? त्यो त तिमीले सधैँ गर्न चाहेको काम हो नि।",
+            "पुरुष १: अँ। मैले धेरै वर्षदेखि सरुवाको लागि अनुरोध गरिरहेको थिएँ।",
+            "महिला १: यति धेरै वर्षदेखि?",
+            "पुरुष १: इमानदारीपूर्वक भन्नुपर्दा, मलाई बारम्बार अस्वीकार गरियो, र मलाई लाग्यो कि अब सम्भव नहुन सक्छ।",
+            "महिला १: राम्रो भयो नि। बधाई छ।",
+            "पुरुष १: धन्यवाद। हार नमानेकोमा साँच्चै खुसी छु।",
+            "महिला १: हामीले उत्सव मनाउनुपर्छ नि।",
+            "पुरुष १: आज चाँडै घर आएर यो कुरा गर्न पाएकोमा साँच्चै खुसी छु।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -720,11 +1804,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the female student feel right now?",
+              "choices": [
+                "She is troubled because she can't contact her partner and the preparation isn't progressing.",
+                "She is relieved that the presentation theme has finally been decided.",
+                "She is motivated because she will be able to do the presentation alone.",
+                "She is angry that her partner keeps missing school."
+              ]
+            },
+            "ne": {
+              "q": "अहिले छात्रालाई कस्तो महसुस भइरहेको छ?",
+              "choices": [
+                "उनी आफ्नो साथीसँग सम्पर्क गर्न नसकेको र तयारी अगाडि नबढेकोले समस्यामा छिन्।",
+                "प्रस्तुतिको विषय अन्ततः तय भएकोमा उनी ढुक्क छिन्।",
+                "एक्लै प्रस्तुति गर्न पाउने भएकोले उनी उत्साहित छिन्।",
+                "उनको साथी पटक-पटक विद्यालय नआएकोमा उनी रिसाएकी छिन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, a female student and a male student are talking. How does the female student feel right now?",
+            "Man 1: The presentation next week, that's the one we're doing together, right?",
+            "Woman 1: About that, actually, nothing has progressed yet.",
+            "Man 1: Huh? The theme isn't even decided?",
+            "Woman 1: No. I thought we'd meet up and discuss it, but the other student has been absent all the time.",
+            "Man 1: Can't you contact them?",
+            "Woman 1: I've called and emailed, but there's no reply at all.",
+            "Man 1: That's a problem.",
+            "Woman 1: I don't even know if I should decide everything by myself, and there's not much time left until the presentation.",
+            "Man 1: Why don't you consult with the teacher?",
+            "Woman 1: You're right... But I'm really at a loss as to what to do."
+          ]
+        },
+        "ne": {
+          "body": [
+            "विद्यालयमा एक जना छात्रा र एक जना छात्र कुरा गर्दै हुनुहुन्छ। अहिले छात्रालाई कस्तो महसुस भइरहेको छ?",
+            "पुरुष १: अर्को हप्ताको प्रस्तुति, त्यो हामी दुई जनाले गर्ने हो नि, होइन र?",
+            "महिला १: त्यसको बारेमा, वास्तवमा, अझै केही पनि अगाडि बढेको छैन।",
+            "पुरुष १: ए, विषय पनि तय भएको छैन?",
+            "महिला १: छैन। हामी दुई जना मिलेर छलफल गर्ने सोचेका थियौँ, तर अर्को साथी सधैँ अनुपस्थित छ।",
+            "पुरुष १: सम्पर्क गर्न सकिँदैन?",
+            "महिला १: फोन गरे पनि, इमेल गरे पनि, कुनै जवाफ आएको छैन।",
+            "पुरुष १: त्यो त समस्या भयो नि।",
+            "महिला १: मैले एक्लै सबै कुरा निर्णय गर्नुपर्छ कि पर्दैन भन्ने पनि थाहा छैन, र प्रस्तुतिको लागि समय पनि छैन।",
+            "पुरुष १: शिक्षकसँग सल्लाह गरे कसो होला?",
+            "महिला १: हो नि... तर के गर्ने, म साँच्चै अलमलमा छु।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -750,11 +1883,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which bag will the woman buy?",
+              "choices": [
+                "A bag that can hold documents and be carried on the shoulder.",
+                "A large backpack that can hold a lot of luggage.",
+                "A horizontal bag that can only be carried by hand.",
+                "A small bag with only a strap."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले कुन झोला किन्छिन्?",
+              "choices": [
+                "कागजपत्र अट्ने र काँधमा पनि झुन्ड्याउन मिल्ने झोला।",
+                "धेरै सामान अट्ने ठूलो ब्याग।",
+                "हातले मात्र बोक्न मिल्ने तेर्सो झोला।",
+                "सानो र डोरी मात्र भएको झोला।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a bag shop, a woman and a shop assistant are talking. Which bag will the woman buy?",
+            "Woman 1: I'm looking for a bag to use for work.",
+            "Man 1: How about this large backpack? It can hold a lot of luggage.",
+            "Woman 1: Hmm, a backpack is a bit... It would look strange to wear it in front of clients.",
+            "Man 1: Then, would a hand-held style be better?",
+            "Woman 1: Yes, that's right. I need something that can fit documents without folding them.",
+            "Man 1: In that case, how about this horizontal black bag? It's spacious inside and perfect for documents.",
+            "Woman 1: Oh, that's nice. But it would be even more helpful if both my hands were free.",
+            "Man 1: This one comes with a long strap that can be worn over the shoulder, in addition to the handle.",
+            "Woman 1: Okay, I'll take that one.",
+            "Man 1: Thank you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "झोला पसलमा एक जना महिला र एक जना पसलको कर्मचारी कुरा गर्दै हुनुहुन्छ। महिलाले कुन झोला किन्छिन्?",
+            "महिला १: म कामको लागि प्रयोग गर्ने झोला खोज्दै छु।",
+            "पुरुष १: यो ठूलो ब्याग कस्तो हुन्छ? यसमा धेरै सामान अट्छ।",
+            "महिला १: उम्, ब्याग अलि... ग्राहकहरूको अगाडि बोक्न पनि अनौठो देखिन्छ।",
+            "पुरुष १: त्यसो भए, हातले बोक्ने शैली राम्रो हुन्छ?",
+            "महिला १: हो, त्यही हो। कागजपत्र नखुम्चिने गरी अट्ने खालको राम्रो हुन्छ।",
+            "पुरुष १: त्यसो भए यो तेर्सो कालो झोला कस्तो हुन्छ? भित्र पनि फराकिलो छ र कागजपत्रको लागि एकदम उपयुक्त छ।",
+            "महिला १: ओहो, त्यो राम्रो छ। तर, दुवै हात खाली भए अझ बढी सजिलो हुन्थ्यो।",
+            "पुरुष १: यसमा ह्यान्डलका साथै काँधमा झुन्ड्याउन मिल्ने लामो डोरी पनि छ।",
+            "महिला १: ठीक छ, म त्यही लिन्छु।",
+            "पुरुष १: धन्यवाद।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -780,11 +1962,54 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which restaurant will they choose for the farewell party?",
+              "choices": [
+                "A Japanese restaurant with private rooms.",
+                "An Italian restaurant in front of the station.",
+                "A restaurant where rooms are not separated.",
+                "A restaurant that couldn't accommodate the number of people."
+              ]
+            },
+            "ne": {
+              "q": "उहाँहरूले बिदाइ भोज कुन रेस्टुरेन्टमा गर्नुहुन्छ?",
+              "choices": [
+                "निजी कोठाहरू भएको जापानी रेस्टुरेन्ट।",
+                "स्टेसन अगाडिको इटालियन रेस्टुरेन्ट।",
+                "कोठाहरू छुट्टिएका नभएको रेस्टुरेन्ट।",
+                "मानिसहरूको संख्या अटाउन नसकेको रेस्टुरेन्ट।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a man and a woman are talking. Which restaurant will they choose for the farewell party?",
+            "Man 1: How about the Italian restaurant in front of the station for the farewell party? The food there is highly rated.",
+            "Woman 1: The food is good, but the rooms aren't separated, so it's hard to talk if the people next to us are loud.",
+            "Man 1: Oh, you're right, it was noisy. Then, how about a Japanese restaurant with private rooms, even if it's a bit of a walk?",
+            "Woman 1: That's a good idea. We can talk calmly there, and we can have a relaxed conversation with the person we're sending off.",
+            "Man 1: But there will be many people, so I'm worried if everyone will fit in that private room.",
+            "Woman 1: I called and checked earlier. They said it's available on that day. I also asked them to make a reservation.",
+            "Man 1: Thank you. Then let's decide on that one."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एक जना पुरुष र एक जना महिला कुरा गर्दै हुनुहुन्छ। उहाँहरूले बिदाइ भोज कुन रेस्टुरेन्टमा गर्ने निर्णय गर्नुहुन्छ?",
+            "पुरुष १: बिदाइ भोजको लागि स्टेसन अगाडिको इटालियन रेस्टुरेन्ट कस्तो होला? त्यहाँको खानाको स्वाद राम्रो छ भनिन्छ।",
+            "महिला १: स्वाद त राम्रो छ, तर कोठाहरू छुट्टिएका छैनन्, त्यसैले छेउका मानिसहरूको आवाज ठूलो भयो भने कुरा गर्न गाह्रो हुन्छ नि।",
+            "पुरुष १: ए, हो, हल्ला थियो। त्यसो भए, अलि हिँड्नुपर्छ तर निजी कोठा भएको जापानी रेस्टुरेन्ट कस्तो होला?",
+            "महिला १: त्यो राम्रो हुन्छ। त्यहाँ शान्तसँग कुरा गर्न सकिन्छ, र बिदाइ गरिने व्यक्तिसँग पनि आरामले कुरा गर्न सकिन्छ।",
+            "पुरुष १: तर मानिसहरू धेरै हुनेछन्, त्यसैले त्यो निजी कोठामा सबै अटाउँछन् कि अटाउँदैनन् भन्ने चिन्ता छ।",
+            "महिला १: मैले भर्खरै फोन गरेर सोधेकी थिएँ। त्यो दिन खाली छ रे। मैले रिजर्भेसन पनि गर्न लगाएकी छु।",
+            "पुरुष १: धन्यवाद। त्यसो भए त्यही ठाउँमा गरौँ।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -810,11 +2035,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How will they travel for their trip?",
+              "choices": [
+                "Express bus",
+                "Their own car",
+                "Train",
+                "Airplane"
+              ]
+            },
+            "ne": {
+              "q": "उहाँहरू यात्रामा केमा जानुहुन्छ?",
+              "choices": [
+                "एक्सप्रेस बस",
+                "आफ्नै कार",
+                "रेल",
+                "हवाईजहाज"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At home, a woman and a man are talking. How will they travel for their trip?",
+            "Woman 1: For our next trip, should we go by car?",
+            "Man 1: A car is easy, but the roads around there get really crowded on weekends. Before, we didn't move for hours.",
+            "Woman 1: That would be tiring. Then, by train?",
+            "Man 1: The train has three transfers, and it's quite troublesome if we have a lot of luggage.",
+            "Woman 1: You're right. Is there any other way?",
+            "Man 1: Oh, speaking of which, I heard there's an express bus from in front of the station.",
+            "Woman 1: If it's a bus, there are no transfers, and we'll arrive while we're sleeping.",
+            "Man 1: And apparently, the fare is the cheapest too.",
+            "Woman 1: It's all good things, isn't it? Then let's go with that.",
+            "Man 1: Okay, I'll reserve the seats."
+          ]
+        },
+        "ne": {
+          "body": [
+            "घरमा एक जना महिला र एक जना पुरुष कुरा गर्दै हुनुहुन्छ। उहाँहरू यात्रामा केमा जानुहुन्छ?",
+            "महिला १: अर्को पटकको यात्रामा, कारमा जाने हो?",
+            "पुरुष १: कारमा सजिलो त हुन्छ, तर त्यो क्षेत्रमा सप्ताहन्तमा बाटो धेरै जाम हुन्छ। पहिले त घण्टौँसम्म हिँड्न पाइएन।",
+            "महिला १: त्यो त थकाइ लाग्छ नि। त्यसो भए रेलमा?",
+            "पुरुष १: रेलमा तीन पटक परिवर्तन गर्नुपर्छ, र सामान धेरै भयो भने निकै झन्झट हुन्छ।",
+            "महिला १: हो नि। अरू कुनै उपाय छ कि?",
+            "पुरुष १: ए, हो, स्टेसन अगाडिबाट एक्सप्रेस बस चल्छ रे।",
+            "महिला १: बसमा भए परिवर्तन पनि गर्नु पर्दैन, र सुतेको बेलामै पुगिन्छ।",
+            "पुरुष १: अनि भाडा पनि सबैभन्दा सस्तो छ रे।",
+            "महिला १: सबै राम्रा कुरा मात्रै छन् नि! त्यसो भए त्यहीमा जाऔँ।",
+            "पुरुष १: हुन्छ, म सिट रिजर्भ गर्छु।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -840,11 +2114,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "In which room will the meeting be held?",
+              "choices": [
+                "The small room on the fifth floor.",
+                "The usual room on the third floor.",
+                "The large room on the first floor.",
+                "The meeting room on the second floor."
+              ]
+            },
+            "ne": {
+              "q": "बैठक कुन कोठामा हुनेछ?",
+              "choices": [
+                "पाँचौँ तल्लाको सानो कोठा।",
+                "तेस्रो तल्लाको सधैँको कोठा।",
+                "पहिलो तल्लाको ठूलो कोठा।",
+                "दोस्रो तल्लाको बैठक कोठा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the company, a man and a woman are talking. In which room will the meeting be held?",
+            "Man 1: For the afternoon meeting, the usual room on the third floor is fine, right?",
+            "Woman 1: Actually, the third floor can't be used today due to air conditioner construction.",
+            "Man 1: Oh, I see. Then how about the large room on the first floor?",
+            "Woman 1: That room is being used all afternoon by another team for a meeting.",
+            "Man 1: Hmm, that's a problem. Are there any other available rooms?",
+            "Woman 1: The small room on the fifth floor was available. It's a bit small, though.",
+            "Man 1: How many people are gathering today again?",
+            "Woman 1: Only four people. In that case, I think it'll be fine even if it's small.",
+            "Man 1: Then, let's use that one. Please reserve it.",
+            "Woman 1: Yes, understood."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कम्पनीमा एक जना पुरुष र एक जना महिला कुरा गर्दै हुनुहुन्छ। बैठक कुन कोठामा हुनेछ?",
+            "पुरुष १: दिउँसोको बैठक, तेस्रो तल्लाको सधैँको कोठामा ठीक छ नि?",
+            "महिला १: वास्तवमा, तेस्रो तल्ला आज एयरकन्डिसनरको कामले गर्दा प्रयोग गर्न मिल्दैन।",
+            "पुरुष १: ए, हो र। त्यसो भए पहिलो तल्लाको ठूलो कोठा कस्तो होला?",
+            "महिला १: त्यो कोठा दिउँसोभरि अर्को टोलीले बैठकको लागि प्रयोग गर्दैछ।",
+            "पुरुष १: हम्म, समस्या भयो नि। अरू कुनै खाली कोठा छ कि?",
+            "महिला १: पाँचौँ तल्लाको सानो कोठा खाली थियो। अलि साँघुरो छ तर।",
+            "पुरुष १: आज कति जना जम्मा हुने हो रे?",
+            "महिला १: चार जना मात्रै हो। त्यसो भए साँघुरो भए पनि ठीकै हुन्छ जस्तो लाग्छ।",
+            "पुरुष १: त्यसो भए, त्यहीमा गरौँ। रिजर्भ गरिदिनुहोला।",
+            "महिला १: हुन्छ, बुझेँ।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -870,11 +2193,58 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which plate will the man buy?",
+              "choices": [
+                "A plate with a thin blue line on the rim.",
+                "A flashy plate with a large flower design.",
+                "A plain white plate with no pattern.",
+                "A plate entirely painted in dark blue."
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले कुन थाल किन्नुहुन्छ?",
+              "choices": [
+                "छेउमा पातलो नीलो रेखा भएको थाल।",
+                "ठूलो फूलको चित्र भएको चम्किलो थाल।",
+                "कुनै डिजाइन नभएको पूरै सेतो थाल।",
+                "पूरा गाढा नीलो रङले पोतिएको थाल।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a store, a man and a female clerk are talking. Which plate will the man buy?",
+            "Man 1: I'm looking for a plate as a gift for my mother.",
+            "Woman 1: This plate with a flower design is popular.",
+            "Man 1: It's cute. But my mother doesn't really like flashy patterns.",
+            "Woman 1: In that case, how about this plain white plate? It goes well with any dish.",
+            "Man 1: Hmm, a plain one might be a bit too simple. I want something with a slight pattern.",
+            "Woman 1: Then, how about this one? It has a thin blue line only on the rim, giving it a calm feel.",
+            "Man 1: Oh, that's nice. It's elegant.",
+            "Woman 1: It's also perfect for everyday use.",
+            "Man 1: My mother would probably like it. I'll take that one."
+          ]
+        },
+        "ne": {
+          "body": [
+            "पसलमा एक जना पुरुष र एक जना महिला कर्मचारी कुरा गर्दै हुनुहुन्छ। पुरुषले कुन थाल किन्नुहुन्छ?",
+            "पुरुष १: म आमाको लागि उपहारको रूपमा थाल खोज्दै छु।",
+            "महिला १: यो फूलको चित्र भएको थाल लोकप्रिय छ।",
+            "पुरुष १: राम्रो छ। तर मेरी आमालाई धेरै चम्किलो डिजाइन मन पर्दैन।",
+            "महिला १: त्यसो भए, यो सेतो सादा थाल कस्तो होला? यो जुनसुकै परिकारसँग पनि मिल्छ।",
+            "पुरुष १: हम्म, सादा भयो भने अलि खल्लो होला। मलाई अलिकति मात्रै डिजाइन भएको केही चाहिएको छ।",
+            "महिला १: त्यसो भए, यो कस्तो होला? यसको छेउमा मात्रै पातलो नीलो रेखा छ, जसले यसलाई शान्त देखाउँछ।",
+            "पुरुष १: ए, त्यो राम्रो छ। सुन्दर पनि छ।",
+            "महिला १: यो दैनिक प्रयोगको लागि पनि एकदमै उपयुक्त छ।",
+            "पुरुष १: मेरी आमालाई पनि मन पर्नेछ जस्तो लाग्छ। म त्यही लिन्छु।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -900,11 +2270,60 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What will they give to the teacher?",
+              "choices": [
+                "An easy-to-write pen with their name engraved.",
+                "A bouquet of fresh flowers that wither quickly.",
+                "A thin, hard pen that makes the hand very tired.",
+                "An ornament that cannot be written with, just for decoration."
+              ]
+            },
+            "ne": {
+              "q": "उहाँहरूले शिक्षकलाई के उपहार दिनुहुन्छ?",
+              "choices": [
+                "नाम लेखिएको, लेख्न सजिलो कलम।",
+                "छिट्टै ओइलाउने, जीवित फूलको गुच्छा।",
+                "हातलाई धेरै थकाउने, पातलो र कडा कलम।",
+                "लेख्न नमिल्ने, सजावटको लागि मात्र राखिने वस्तु।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, a female student and a male student are talking. What will they give to the teacher?",
+            "Woman 1: We should all give something to the teacher who has helped us so much.",
+            "Man 1: How about a bouquet of flowers? Teachers are happy when they receive them.",
+            "Woman 1: Flowers are nice, but they wither quickly, so something that lasts would be better.",
+            "Man 1: You're right. Then, how about a pen with their name engraved on it?",
+            "Woman 1: Oh, that's a good idea! They can use it for a long time.",
+            "Man 1: But the teacher always writes a lot and said their hand gets tired, didn't they?",
+            "Woman 1: They did. So, not just a regular pen.",
+            "Man 1: Right. Let's choose a good pen that makes writing easier on the hand. And engrave their name on it.",
+            "Woman 1: Wonderful! I'm sure they'll be happy.",
+            "Man 1: Then, let's decide on that."
+          ]
+        },
+        "ne": {
+          "body": [
+            "विद्यालयमा एक जना छात्रा र एक जना छात्र कुरा गर्दै हुनुहुन्छ। उहाँहरूले शिक्षकलाई के उपहार दिनुहुन्छ?",
+            "महिला १: हामीलाई धेरै सहयोग गर्नुभएको शिक्षकलाई सबै मिलेर केही उपहार दिनुपर्छ।",
+            "पुरुष १: फूलको गुच्छा कस्तो होला? दिँदा खुसी हुनुहुन्छ।",
+            "महिला १: फूल राम्रो त हुन्छ, तर छिट्टै ओइलाउँछ, त्यसैले पछि पनि रहने खालको केही राम्रो होला।",
+            "पुरुष १: हो नि। त्यसो भए, नाम लेखिएको कलम कस्तो होला?",
+            "महिला १: ए, त्यो राम्रो हुन्छ! सधैँ प्रयोग गर्न पनि मिल्छ।",
+            "पुरुष १: तर शिक्षकले सधैँ धेरै लेख्नुहुन्छ र हात दुख्छ भन्नुहुन्थ्यो नि?",
+            "महिला १: भन्नुहुन्थ्यो। त्यसो भए, सामान्य कलम मात्रै होइन।",
+            "पुरुष १: हो। लेख्दा हातलाई सजिलो हुने राम्रो कलम छनौट गरौँ। अनि त्यसमा नाम पनि लेखौँ।",
+            "महिला १: राम्रो! पक्कै खुसी हुनुहुनेछ।",
+            "पुरुष १: त्यसो भए, त्यही निर्णय गरौँ।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -930,11 +2349,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why will the woman come to the hospital again?",
+              "choices": [
+                "To confirm the test results",
+                "To get more medicine because she ran out",
+                "To have her medicine changed",
+                "To get an injection"
+              ]
+            },
+            "ne": {
+              "q": "महिला किन फेरि अस्पताल आउनुहुन्छ?",
+              "choices": [
+                "परीक्षणको नतिजा थाहा पाउन",
+                "सकिएको औषधि लिन आउन",
+                "खाने औषधि परिवर्तन गराउन",
+                "सुई लगाउन आउन"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the hospital, a doctor and a woman are talking. Why will the woman come to the hospital again? Man 1: Your complexion looks much better today. I'll give you a week's worth of medicine. Woman 1: Thank you. Um, should I come here next week too? Man 1: Let's see. You probably still have a lot of medicine left at home, so there's no need to come to pick it up. Woman 1: So, I don't need to do anything in particular, right? Man 1: No, that's not quite right. The results of the blood test you took last week will be out next week, so please come again to hear them. Woman 1: Understood. I'll come next week."
+          ]
+        },
+        "ne": {
+          "body": [
+            "अस्पतालमा एकजना डाक्टर र एकजना महिला कुरा गर्दै हुनुहुन्छ। महिला किन फेरि अस्पताल आउनुहुन्छ? पुरुष १: आज तपाईँको अनुहारको रङ्ग धेरै राम्रो देखिएको छ। म तपाईँलाई एक हप्ताको औषधि दिन्छु। महिला १: धन्यवाद। उम, के म अर्को हप्ता पनि यहाँ आउनुपर्छ? पुरुष १: हेरौँ। तपाईँको घरमा अझै धेरै औषधि बाँकी होला, त्यसैले त्यो लिन आउनु पर्दैन। महिला १: त्यसो भए, मैले खासै केही गर्नु पर्दैन, होइन? पुरुष १: होइन, त्यस्तो होइन। तपाईँले गत हप्ता गराउनुभएको रगत परीक्षणको नतिजा अर्को हप्ता आउँछ, त्यसैले त्यो सुन्न फेरि आउनुहोस्। महिला १: बुझेँ। म अर्को हप्ता आउँछु।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -960,11 +2408,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What time train will the woman take?",
+              "choices": [
+                "10:00 sharp",
+                "10:15",
+                "10:30",
+                "10:45"
+              ]
+            },
+            "ne": {
+              "q": "महिला कति बजेको रेलमा चढ्नुहुन्छ?",
+              "choices": [
+                "ठिक १०:०० बजे",
+                "१०:१५ बजे",
+                "१०:३० बजे",
+                "१०:४५ बजे"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the station, a station attendant and a woman are talking. What time train will the woman take? Woman 1: Excuse me, could you tell me about the trains at this time? Man 1: Yes. The next local train departs at 10:00 sharp. Woman 1: Oh, but if possible, I'd like to take the express train that arrives earlier. Man 1: The express train is scheduled for 10:30. However, due to an accident this morning, it's expected to be delayed by about 15 minutes. Woman 1: In that case, the express train will be quite a bit later. Actually, I'm in a bit of a hurry, so I'll just take the one that departs first after all. Man 1: Understood. Please go to that platform."
+          ]
+        },
+        "ne": {
+          "body": [
+            "स्टेशनमा एकजना स्टेशन कर्मचारी र एकजना महिला कुरा गर्दै हुनुहुन्छ। महिला कति बजेको रेलमा चढ्नुहुन्छ? महिला १: माफ गर्नुहोस्, के तपाईँले मलाई यो समयको रेलबारे बताउन सक्नुहुन्छ? पुरुष १: हुन्छ। अर्को साधारण रेल ठिक १०:०० बजे छुट्छ। महिला १: ओहो, तर यदि सम्भव भए, म छिटो पुग्ने एक्सप्रेस रेलमा चढ्न चाहन्छु। पुरुष १: एक्सप्रेस रेल १०:३० बजेको लागि निर्धारित छ। तर, आज बिहानको दुर्घटनाको कारणले गर्दा, यो लगभग १५ मिनेट ढिलो हुने सम्भावना छ। महिला १: त्यसो भए एक्सप्रेस रेल धेरै पछि हुने भयो। वास्तवमा, मलाई अलि हतार छ, त्यसैले म पहिले छुट्ने रेल नै लिन्छु। पुरुष १: बुझेँ। कृपया त्यो प्लेटफर्मबाट जानुहोस्।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -990,11 +2467,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many books will the man borrow today?",
+              "choices": [
+                "Four books",
+                "Three books",
+                "Five books",
+                "Two books"
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले आज कतिवटा किताब उधारो लिनुहुन्छ?",
+              "choices": [
+                "चारवटा किताब",
+                "तीनवटा किताब",
+                "पाँचवटा किताब",
+                "दुईवटा किताब"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the library, a receptionist and a man are talking. How many books will the man borrow today? Woman 1: This is your first time using our service, isn't it? You can borrow up to five books at a time. Man 1: Thank you. Um, I'd like to borrow these three novels, and also those two magazines over there. Woman 1: I apologize. Magazines are for reading inside the library only and cannot be borrowed. Man 1: Oh, I see. Then I'll skip the magazines and just take books. Woman 1: Understood. Man 1: Oh, and can I add this dictionary as well? Woman 1: Yes, that's fine."
+          ]
+        },
+        "ne": {
+          "body": [
+            "पुस्तकालयमा एकजना रिसेप्सनिस्ट र एकजना पुरुष कुरा गर्दै हुनुहुन्छ। पुरुषले आज कतिवटा किताब उधारो लिनुहुन्छ? महिला १: यो तपाईँको पहिलो पटकको प्रयोग हो, होइन? तपाईँले एक पटकमा पाँचवटासम्म किताब उधारो लिन सक्नुहुन्छ। पुरुष १: धन्यवाद। उम, म यी तीनवटा उपन्यास र त्यहाँका ती दुईवटा पत्रिका पनि लिन चाहन्छु। महिला १: माफ गर्नुहोस्। पत्रिका पुस्तकालय भित्र पढ्नको लागि मात्र हो, उधारो दिन मिल्दैन। पुरुष १: ओहो, त्यसो हो? त्यसो भए म पत्रिका लिन्नँ, किताब मात्र लिन्छु। महिला १: बुझेँ। पुरुष १: ओहो, र यो शब्दकोश पनि एउटा थप्न मिल्छ? महिला १: हुन्छ, मिल्छ।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -1020,11 +2526,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the woman feel right now?",
+              "choices": [
+                "She is a little worried about getting along with her neighbors.",
+                "Her new room is very small and she is having trouble living there.",
+                "She regrets moving because the station is far away.",
+                "She is angry because the unpacking is not progressing."
+              ]
+            },
+            "ne": {
+              "q": "महिलालाई अहिले कस्तो महसुस भइरहेको छ?",
+              "choices": [
+                "छिमेकीहरूसँगको सम्बन्धबारे अलि चिन्तित छिन्।",
+                "उनको नयाँ कोठा धेरै सानो छ र उनी त्यहाँ बस्न समस्यामा छिन्।",
+                "स्टेशन टाढा भएकोले बसाइँ सरेकोमा पछुतो मान्दै छिन्।",
+                "सामान मिलाउने काम अगाडि नबढेकोले उनी रिसाएकी छिन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In front of their new house, a man and a woman are talking. How does the woman feel right now? Man 1: We finally finished unpacking and settled in after the move, didn't we? Woman 1: Yeah. It's close to the station, and the room is much bigger than before, I really like it. Man 1: The old house was small and couldn't fit all our stuff. Woman 1: Exactly. However, I haven't even greeted the people in the next room yet. I'm just a little bit concerned about whether I can get along well with the people around here. Man 1: Well, everyone seemed like nice people, so I'm sure it'll be fine. Woman 1: I hope so."
+          ]
+        },
+        "ne": {
+          "body": [
+            "आफ्नो नयाँ घरको अगाडि एकजना पुरुष र एकजना महिला कुरा गर्दै हुनुहुन्छ। महिलालाई अहिले कस्तो महसुस भइरहेको छ? पुरुष १: बसाइँ सरेपछि सामान मिलाएर बल्ल शान्त भइयो, होइन? महिला १: हो। स्टेशनबाट पनि नजिक छ, र कोठा पनि पहिलेभन्दा धेरै ठूलो छ, मलाई धेरै मन परेको छ। पुरुष १: पुरानो घर सानो थियो र हाम्रो सबै सामान अटाउँदैनथ्यो। महिला १: हो नि। तर, मैले छेउको कोठाका मानिसहरूलाई अझै अभिवादन पनि गर्न पाएको छैन। मलाई यहाँका मानिसहरूसँग राम्रोसँग घुलमिल हुन सक्छु कि सक्दिनँ भन्ने कुरामा मात्र अलि चिन्ता छ। पुरुष १: ठिकै छ, सबै राम्रा मानिसहरू जस्तो देखिन्थे, त्यसैले पक्कै पनि ठिकै होला। महिला १: त्यस्तै होस् भन्ने आशा गर्छु।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -1050,11 +2585,40 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which documents will the man submit now?",
+              "choices": [
+                "The filled-out form and driver's license",
+                "The filled-out form and health insurance card",
+                "The filled-out form and a photo",
+                "Driver's license and health insurance card"
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले अब कुन कागजातहरू बुझाउनुहुन्छ?",
+              "choices": [
+                "भरेको फारम र ड्राइभिङ लाइसेन्स",
+                "भरेको फारम र स्वास्थ्य बीमा कार्ड",
+                "भरेको फारम र फोटो",
+                "ड्राइभिङ लाइसेन्स र स्वास्थ्य बीमा कार्ड"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the city hall, a receptionist and a man are talking. Which documents will the man submit now? Woman 1: You're here for moving procedures, aren't you? First, please fill in your name and address on this form. Man 1: Yes, I've written it. Um, I need to submit something to prove my identity as well, right? Woman 1: Yes. If you have a driver's license, you don't need your health insurance card. Man 1: I have my driver's license. Do I need a photo? Woman 1: A photo is not required for this procedure. Please take the form you filled out and your driver's license to that counter over there. Man 1: Understood. Thank you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "नगरपालिकामा एकजना रिसेप्सनिस्ट र एकजना पुरुष कुरा गर्दै हुनुहुन्छ। पुरुषले अब कुन कागजातहरू बुझाउनुहुन्छ? महिला १: तपाईँ बसाइँसराइको प्रक्रियाको लागि आउनुभएको हो, होइन? पहिले, कृपया यो फारममा आफ्नो नाम र ठेगाना भर्नुहोस्। पुरुष १: हुन्छ, मैले लेखेँ। उम, मैले आफ्नो परिचय प्रमाणित गर्ने कागजात पनि सँगै बुझाउनुपर्छ, होइन? महिला १: हो। यदि तपाईँसँग ड्राइभिङ लाइसेन्स छ भने, स्वास्थ्य बीमा कार्ड नभए पनि हुन्छ। पुरुष १: मसँग ड्राइभिङ लाइसेन्स छ। फोटो चाहिन्छ? महिला १: यो प्रक्रियाको लागि फोटो आवश्यक छैन। तपाईँले भर्नुभएको फारम र ड्राइभिङ लाइसेन्स त्यो काउन्टरमा लैजानुहोस्। पुरुष १: बुझेँ। धन्यवाद।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -1080,11 +2644,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why is the bus delayed?",
+              "choices": [
+                "Because there was an accident on the road.",
+                "Because there is road construction.",
+                "Because the road is very congested.",
+                "Because the bus broke down."
+              ]
+            },
+            "ne": {
+              "q": "बस किन ढिलो भइरहेको छ?",
+              "choices": [
+                "बाटोमा दुर्घटना भएकोले।",
+                "बाटोमा निर्माण कार्य भइरहेकोले।",
+                "बाटो धेरै जाम भएकोले।",
+                "बस बिग्रिएकोले।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the bus stop, a man and a woman are talking. Why is the bus delayed?",
+            "Woman 1: The bus isn't coming at all, is it? It's already twenty minutes past the scheduled time.",
+            "Man 1: There was an announcement at the bus stop earlier. At first, I thought it was because the road ahead was congested due to construction.",
+            "Woman 1: Oh, so it's not because of construction?",
+            "Man 1: That's not it. The construction actually finished last week, and it seems there was an accident at the intersection ahead. So, all the buses have reportedly stopped for a while.",
+            "Woman 1: Is that so? That's a problem."
+          ]
+        },
+        "ne": {
+          "body": [
+            "बस स्टपमा एक जना पुरुष र एक जना महिला कुरा गर्दै हुनुहुन्छ। बस किन ढिलो भइरहेको छ?",
+            "महिला १: बस आइरहेको छैन, होइन र? निर्धारित समयभन्दा २० मिनेट बढी भइसक्यो।",
+            "पुरुष १: अघि बस स्टपमा घोषणा भएको थियो। सुरुमा त मलाई अगाडिको निर्माण कार्यले गर्दा बाटो जाम भएको होला भन्ने लागेको थियो।",
+            "महिला १: ए, निर्माण कार्यले गर्दा होइन र?",
+            "पुरुष १: त्यो होइन। निर्माण कार्य त गत हप्ता नै सकिएको थियो, वास्तवमा अगाडिको चोकमा दुर्घटना भएको जस्तो छ। त्यसैले, सबै बसहरू केही समयका लागि रोकिएका छन् रे।",
+            "महिला १: त्यसो पो हो? त्यो त समस्या भयो नि।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -1110,11 +2713,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "When will the woman come next?",
+              "choices": [
+                "Next Saturday morning",
+                "This Saturday morning",
+                "This Thursday afternoon",
+                "Next Thursday afternoon"
+              ]
+            },
+            "ne": {
+              "q": "महिला अर्को पटक कहिले आउनेछिन्?",
+              "choices": [
+                "अर्को शनिबार बिहान",
+                "यो शनिबार बिहान",
+                "यो बिहीबार दिउँसो",
+                "अर्को बिहीबार दिउँसो"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the dentist's office, a receptionist and a woman are talking. When will the woman come next?",
+            "Woman 1: Alright, I'll make your next appointment. How about Thursday afternoon?",
+            "Woman 2: Thursday is a weekday, and I have work, so it's a bit difficult. If possible, a weekend would be great, but is Saturday available?",
+            "Woman 1: This Saturday is already fully booked. However, next Saturday, the morning slot is available.",
+            "Woman 2: Okay, I'll take that then.",
+            "Woman 1: Understood. Then, we'll be waiting for you next Saturday at 10 AM."
+          ]
+        },
+        "ne": {
+          "body": [
+            "दन्त चिकित्सकको क्लिनिकमा, रिसेप्सनिस्ट र एक महिला कुरा गर्दै हुनुहुन्छ। महिला अर्को पटक कहिले आउनेछिन्?",
+            "महिला १: ठीक छ, म तपाईंको अर्को अपोइन्टमेन्ट लिन्छु। बिहीबार दिउँसो कस्तो हुन्छ?",
+            "महिला २: बिहीबार हप्ताको दिन हो, र मेरो काम छ, त्यसैले अलि गाह्रो हुन्छ। यदि सम्भव भए, सप्ताहन्त राम्रो हुनेछ, तर शनिबार खाली छ?",
+            "महिला १: यो शनिबार त पहिले नै बुक भइसकेको छ। तर, अर्को शनिबार बिहानको समय उपलब्ध छ।",
+            "महिला २: ठीक छ, त्यही राखिदिनुहोस् न त।",
+            "महिला १: बुझें। त्यसो भए, अर्को शनिबार बिहान १० बजे तपाईंलाई पर्खिरहेका हुनेछौं।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -1140,11 +2782,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many stamps will the woman buy?",
+              "choices": [
+                "Five stamps",
+                "Six stamps",
+                "Four stamps",
+                "Three stamps"
+              ]
+            },
+            "ne": {
+              "q": "महिलाले कतिवटा टिकट किन्नेछिन्?",
+              "choices": [
+                "पाँचवटा टिकट",
+                "छवटा टिकट",
+                "चारवटा टिकट",
+                "तीनवटा टिकट"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the post office, a clerk and a woman are talking. How many stamps will the woman buy?",
+            "Woman 1: I want to send these three letters to friends abroad.",
+            "Man 1: For letters to foreign countries, due to weight, two stamps are required per letter.",
+            "Woman 1: So, that's six stamps for three letters, right? Oh, wait a minute. I made a mistake with the address on this one letter, and I'll actually send it to my parents' house domestically.",
+            "Man 1: For domestic mail, one stamp is enough for that one letter.",
+            "Woman 1: Is that so? Then, please include that with the foreign ones."
+          ]
+        },
+        "ne": {
+          "body": [
+            "हुलाक कार्यालयमा, एक कर्मचारी र एक महिला कुरा गर्दै हुनुहुन्छ। महिलाले कतिवटा टिकट किन्नेछिन्?",
+            "महिला १: म यी तीनवटा चिठी विदेशमा रहेका साथीहरूलाई पठाउन चाहन्छु।",
+            "पुरुष १: विदेशका चिठीहरूको लागि, तौलको कारणले, प्रति चिठी दुईवटा टिकट आवश्यक पर्छ।",
+            "महिला १: त्यसो भए, तीनवटा चिठीको लागि जम्मा छवटा टिकट भयो, होइन र? ए, एकछिन पर्खनुहोस्। मैले यो एउटा चिठीको ठेगाना गलत लेखेको रहेछु, र म यसलाई वास्तवमा देश भित्रै मेरो माइती घरमा पठाउँछु।",
+            "पुरुष १: देश भित्रको लागि, त्यो एउटा चिठीको लागि एउटा टिकट पर्याप्त हुन्छ।",
+            "महिला १: त्यसो हो? त्यसो भए, विदेशका चिठीहरूसँगै त्यो पनि मिलाएर दिनुहोस् न।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -1170,11 +2851,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the male student feel after hearing his test results?",
+              "choices": [
+                "He passed but is not yet satisfied.",
+                "He failed and is very depressed.",
+                "He did better than expected and is very satisfied.",
+                "He doesn't know the result and is worried."
+              ]
+            },
+            "ne": {
+              "q": "परीक्षाको नतिजा सुनेर छात्रलाई कस्तो लाग्यो?",
+              "choices": [
+                "पास भयो तर अझै सन्तुष्ट छैन।",
+                "फेल भयो र धेरै निराश छ।",
+                "सोचेभन्दा राम्रो भयो र धेरै सन्तुष्ट छ।",
+                "नतिजा थाहा छैन र चिन्तित छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, a male student and a female student are talking. How does the male student feel after hearing his test results?",
+            "Woman 1: Have the scores from the last test come out yet? How did you do?",
+            "Man 1: Well, I barely managed to reach the passing score.",
+            "Woman 1: Wow, that's great! Passing is good enough, isn't it?",
+            "Man 1: Yeah, it's good that I didn't fail. But my own goal was a much higher score, so honestly, I'm not satisfied with this result at all yet. Next time, I definitely want to get a much higher score.",
+            "Woman 1: It's good that you're so positive. I'm rooting for you!"
+          ]
+        },
+        "ne": {
+          "body": [
+            "विद्यालयमा, एक जना छात्र र एक जना छात्रा कुरा गर्दै हुनुहुन्छ। परीक्षाको नतिजा सुनेर छात्रलाई कस्तो लाग्यो?",
+            "महिला १: अघिल्लो परीक्षाको नतिजा आइसक्यो? कस्तो भयो?",
+            "पुरुष १: त्यो त, बल्लतल्ल पास हुने अंकमा पुगें।",
+            "महिला १: ए, राम्रो भयो नि! पास हुनु नै पर्याप्त हो नि।",
+            "पुरुष १: हो, फेल नहुनु राम्रो भयो। तर मेरो आफ्नै लक्ष्य त धेरै माथिको अंक थियो, त्यसैले इमानदारीपूर्वक भन्नुपर्दा म यो नतिजाबाट अझै सन्तुष्ट छैन। अर्को पटक त पक्कै पनि अझ राम्रो अंक ल्याउन चाहन्छु।",
+            "महिला १: यति सकारात्मक हुनु राम्रो हो। म तिमीलाई साथ दिन्छु!"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -1200,11 +2920,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which vacuum cleaner will the woman buy?",
+              "choices": [
+                "The quiet white vacuum cleaner",
+                "The lightest red vacuum cleaner",
+                "The loud white vacuum cleaner",
+                "The heaviest red vacuum cleaner"
+              ]
+            },
+            "ne": {
+              "q": "महिलाले कुन भ्याकुम क्लिनर किन्नेछिन्?",
+              "choices": [
+                "शान्त आवाज भएको सेतो भ्याकुम क्लिनर",
+                "सबैभन्दा हल्का रातो भ्याकुम क्लिनर",
+                "ठूलो आवाज भएको सेतो भ्याकुम क्लिनर",
+                "सबैभन्दा गह्रौं रातो भ्याकुम क्लिनर"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At an electronics store, a salesperson and a woman are talking. Which vacuum cleaner will the woman buy?",
+            "Woman 1: I live in an apartment, so I'm looking for a vacuum cleaner that's light and as quiet as possible.",
+            "Man 1: In that case, these two types are recommended. This red one is the lightest and most popular in the store, but it's a bit louder.",
+            "Woman 1: I want to use it at night too, so a loud noise is a bit concerning.",
+            "Man 1: In that case, how about this white one? This one operates very quietly, and its weight is almost the same as the red one.",
+            "Woman 1: Okay, then I'll take the quiet one."
+          ]
+        },
+        "ne": {
+          "body": [
+            "इलेक्ट्रोनिक्स पसलमा, एक सेल्सपर्सन र एक महिला कुरा गर्दै हुनुहुन्छ। महिलाले कुन भ्याकुम क्लिनर किन्नेछिन्?",
+            "महिला १: म अपार्टमेन्टमा बस्छु, त्यसैले म हल्का र सकेसम्म शान्त आवाज भएको भ्याकुम क्लिनर खोज्दै छु।",
+            "पुरुष १: त्यसो भए, यी दुई प्रकारका सिफारिस गरिन्छ। यो रातो रङको पसलमा सबैभन्दा हल्का र लोकप्रिय छ, तर यसको आवाज अलि ठूलो छ।",
+            "महिला १: म राति पनि प्रयोग गर्न चाहन्छु, त्यसैले ठूलो आवाज अलि चिन्ताको विषय हो।",
+            "पुरुष १: त्यसो भए, यो सेतो रङको कस्तो हुन्छ? यो धेरै शान्तसँग चल्छ, र यसको तौल रातो रङको भन्दा खासै फरक छैन।",
+            "महिला १: ठीक छ, त्यसो भए म त्यो शान्त आवाज भएको लिन्छु।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -1230,11 +2989,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why will the woman take a day off from work tomorrow?",
+              "choices": [
+                "Because she will take her child to the hospital.",
+                "Because she herself is feeling unwell.",
+                "Because she will go on a trip with her family.",
+                "Because she will undergo a medical examination at the hospital."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले भोलि किन कामबाट बिदा लिनेछिन्?",
+              "choices": [
+                "बच्चालाई अस्पताल लैजाने भएकोले।",
+                "आफ्नो स्वास्थ्य खराब भएकोले।",
+                "परिवारसँग घुम्न जाने भएकोले।",
+                "आफू अस्पतालमा जाँच गराउने भएकोले।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the office, a man and a woman are talking. Why will the woman take a day off from work tomorrow?",
+            "Man 1: I heard you're taking tomorrow off. Are you feeling unwell, by any chance?",
+            "Woman 1: No, no, I myself am perfectly fine.",
+            "Man 1: Then, are you going on a trip somewhere?",
+            "Woman 1: Well, my child suddenly developed a fever last night. This morning it went down a bit, but just to be safe, I have to take them to the hospital tomorrow.",
+            "Man 1: I see. That can't be helped then. I hope your child gets well soon. Take care.",
+            "Woman 1: Thank you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यालयमा एक जना पुरुष र एक जना महिला कुरा गर्दै हुनुहुन्छ। महिलाले भोलि किन कामबाट बिदा लिनेछिन्?",
+            "पुरुष १: भोलि बिदा लिने कुरा सुनेको थिएँ, कतै तपाईंलाई सन्चो छैन कि?",
+            "महिला १: होइन होइन, मलाई त एकदमै सन्चो छ।",
+            "पुरुष १: त्यसो भए, कतै घुम्न जान लाग्नुभएको हो कि?",
+            "महिला १: कुरा के हो भने, हिजो रातिदेखि बच्चालाई अचानक ज्वरो आएको छ। आज बिहान अलि कम भएको छ, तर ढुक्क हुनको लागि भोलि अस्पताल लैजानुपर्नेछ।",
+            "पुरुष १: ए त्यसो पो। त्यो त केही गर्न सकिँदैन। तपाईंको बच्चा छिट्टै निको होस्। ख्याल राख्नुहोला।",
+            "महिला १: धन्यवाद।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -1260,11 +3060,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "When will the preparations for the festival be made?",
+              "choices": [
+                "Two days before the festival.",
+                "The day before the festival.",
+                "On the day of the festival.",
+                "The first day of next month."
+              ]
+            },
+            "ne": {
+              "q": "चाडपर्वको तयारी कहिले गरिन्छ?",
+              "choices": [
+                "चाडपर्वको दुई दिन अगाडि।",
+                "चाडपर्वको अघिल्लो दिन।",
+                "चाडपर्वको दिन।",
+                "अर्को महिनाको पहिलो दिन।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the community center, a receptionist and a man are talking. When will the preparations for the festival be made?",
+            "Woman 1: Regarding the preparations for next month's local festival, could we ask for your help?",
+            "Man 1: Yes, of course. The preparations were supposed to be the day before the festival, right?",
+            "Woman 1: Yes, originally it was planned for the day before. However, the weather forecast for that day is showing rain.",
+            "Man 1: That's a problem, isn't it?",
+            "Woman 1: So, since there are some things that would be problematic if they get wet in the rain, it's a bit sudden, but it has been changed to two days before.",
+            "Man 1: Understood. Then I'll come here two days before."
+          ]
+        },
+        "ne": {
+          "body": [
+            "सामुदायिक भवनमा, रिसेप्सनिस्ट र एक जना पुरुष कुरा गर्दै हुनुहुन्छ। चाडपर्वको तयारी कहिले गरिन्छ?",
+            "महिला १: अर्को महिनाको स्थानीय चाडपर्वको तयारीको लागि, तपाईंको सहयोग पाउन सकिन्छ कि?",
+            "पुरुष १: हुन्छ, अवश्य। तयारी चाडपर्वको अघिल्लो दिन थियो, होइन र?",
+            "महिला १: हो, सुरुमा अघिल्लो दिन गर्ने योजना थियो। तर, त्यो दिनको मौसम पूर्वानुमानमा पानी पर्ने सम्भावना देखिएको छ।",
+            "पुरुष १: त्यो त समस्या भयो नि।",
+            "महिला १: त्यसैले, पानीले भिजेमा समस्या हुने केही सामानहरू पनि छन्, त्यसैले अलि हतार भए पनि, दुई दिन अगाडि सारिएको छ।",
+            "पुरुष १: बुझें। त्यसो भए म दुई दिन अगाडि यहाँ आउनेछु।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -1290,11 +3131,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many people will the man make a reservation for?",
+              "choices": [
+                "Five people.",
+                "Six people.",
+                "Four people.",
+                "Three people."
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले कति जनाको लागि रिजर्भेसन गर्छन्?",
+              "choices": [
+                "पाँच जना।",
+                "छ जना।",
+                "चार जना।",
+                "तीन जना।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a restaurant, a staff member and a man are talking on the phone. How many people will the man make a reservation for?",
+            "Woman 1: Thank you for calling. How many people will the reservation be for?",
+            "Man 1: Uh, next Sunday, please, for four adults and two children.",
+            "Woman 1: Understood. So, a total of six people, then.",
+            "Man 1: Oh, wait a moment. Excuse me, one of the adults won't be able to come due to an inconvenience, so it will be three adults. The two children remain the same.",
+            "Woman 1: Noted. We will prepare seats for that number of people."
+          ]
+        },
+        "ne": {
+          "body": [
+            "रेस्टुरेन्टमा, पसलको कर्मचारी र एक जना पुरुष फोनमा कुरा गर्दै हुनुहुन्छ। पुरुषले कति जनाको लागि रिजर्भेसन गर्छन्?",
+            "महिला १: फोन गर्नुभएकोमा धन्यवाद। कति जनाको लागि रिजर्भेसन हो?",
+            "पुरुष १: अहँ, अर्को आइतबारको लागि, चार जना वयस्क र दुई जना बच्चाहरूको लागि कृपया।",
+            "महिला १: बुझें। त्यसो भए, जम्मा छ जनाको लागि, होइन त?",
+            "पुरुष १: ए, एकछिन पर्खनुहोस्। माफ गर्नुहोस्, वयस्कहरू मध्ये एक जनालाई असुविधा भएकोले आउन नसक्ने हुनुभयो, त्यसैले अब तीन जना वयस्क हुनेछन्। दुई जना बच्चाहरू उस्तै छन्।",
+            "महिला १: जानकारी भयो। त्यसो भए, हामी त्यही संख्याका लागि सिट तयार गर्नेछौं।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -1320,11 +3200,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the man feel after hearing about the business trip?",
+              "choices": [
+                "He is happy to be entrusted with it.",
+                "He is reluctant and doesn't want to go.",
+                "He is fed up because it seems tiring.",
+                "He feels nothing and thinks it doesn't matter."
+              ]
+            },
+            "ne": {
+              "q": "व्यापार यात्राको कुरा सुनेर पुरुषलाई कस्तो महसुस भयो?",
+              "choices": [
+                "जिम्मेवारी पाएकोमा खुसी छन्।",
+                "जान मन नलागेर हिचकिचाइरहेका छन्।",
+                "थकाइ लाग्ने भएकोले दिक्क मानिरहेका छन्।",
+                "केही महसुस नगरी जे भए पनि फरक पर्दैन भन्ने सोचिरहेका छन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the office, a man and a woman are talking. How does the man feel after hearing about the business trip?",
+            "Woman 1: I heard you're going on a business trip to Osaka alone starting next week.",
+            "Man 1: Yes, that's right. Actually, this is my first time going on a business trip alone.",
+            "Woman 1: Oh, it's your first time, is it? Are you nervous, after all?",
+            "Man 1: To be honest, at first I was a little worried. But this is a job I've always wanted to try, so I'm very happy to be entrusted with it now. I'll do my best.",
+            "Woman 1: With that kind of enthusiasm, I'm sure it will go well."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यालयमा एक जना पुरुष र एक जना महिला कुरा गर्दै हुनुहुन्छ। व्यापार यात्राको कुरा सुनेर पुरुषलाई कस्तो महसुस भयो?",
+            "महिला १: अर्को हप्तादेखि एक्लै ओसाका व्यापार यात्रामा जाँदै हुनुहुन्छ भन्ने सुनेको थिएँ।",
+            "पुरुष १: हो, त्यही हो। वास्तवमा, एक्लै व्यापार यात्रामा जान लागेको यो मेरो पहिलो पटक हो।",
+            "महिला १: ए, पहिलो पटक हो र? आखिरमा, तपाईंलाई डर लागेको छ कि?",
+            "पुरुष १: इमानदारीपूर्वक भन्नुपर्दा, सुरुमा मलाई अलि चिन्ता थियो। तर, यो काम मैले सधैं गर्न चाहेको काम हो, त्यसैले मलाई यो जिम्मेवारी दिइएकोमा अहिले म धेरै खुसी छु। म राम्रोसँग गरेर आउनेछु।",
+            "महिला १: त्यस्तो उत्साहका साथ, पक्कै पनि राम्रो हुनेछ।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -1350,11 +3269,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "What color shirt will the woman buy?",
+              "choices": [
+                "Blue shirt.",
+                "White shirt.",
+                "Yellow shirt.",
+                "Red shirt."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले कुन रङको सर्ट किन्नेछिन्?",
+              "choices": [
+                "निलो सर्ट।",
+                "सेतो सर्ट।",
+                "पहेँलो सर्ट।",
+                "रातो सर्ट।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a clothing store, a salesperson and a woman are talking. What color shirt will the woman buy?",
+            "Woman 1: I'm looking for a shirt I can wear for work. Do you have any recommendations?",
+            "Man 1: In that case, these three colors – blue, white, and yellow – are selling well.",
+            "Woman 1: Yellow is bright and cute, but maybe a bit too flashy for work.",
+            "Man 1: That's true. Then how about white? However, white tends to show dirt easily, so if you're wearing it every day, I think this calm blue is easier to use.",
+            "Woman 1: That's certainly true. Okay, then I'll take the calm one."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कपडा पसलमा, एक जना सेल्सपर्सन र एक जना महिला कुरा गर्दै हुनुहुन्छ। महिलाले कुन रङको सर्ट किन्नेछिन्?",
+            "महिला १: म काममा लगाउन मिल्ने सर्ट खोज्दै छु, केही सिफारिस गर्नुहुन्छ कि?",
+            "पुरुष १: त्यसो भए, यो निलो, सेतो र पहेँलो गरी तीन रङका सर्टहरू धेरै बिक्री भइरहेका छन्।",
+            "महिला १: पहेँलो उज्यालो र राम्रो छ, तर काममा लगाउनको लागि अलि धेरै भड्किलो होला कि?",
+            "पुरुष १: हो नि। त्यसो भए सेतो कस्तो हुन्छ? तर, सेतोमा फोहोर सजिलै देखिने भएकोले, यदि तपाईं हरेक दिन लगाउनुहुन्छ भने, यो शान्त निलो रङ प्रयोग गर्न सजिलो हुन्छ जस्तो लाग्छ।",
+            "महिला १: त्यो त पक्कै पनि हो। ठीक छ, त्यसो भए म त्यो शान्त रङको लिन्छु।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -1380,11 +3338,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why does the pharmacist give him a different medicine than before?",
+              "choices": [
+                "Because the man drives a car.",
+                "Because the previous medicine was less effective.",
+                "Because the previous medicine is no longer sold.",
+                "Because the man requested a cheaper medicine."
+              ]
+            },
+            "ne": {
+              "q": "औषधि बिक्रेताले किन पहिलेको भन्दा फरक औषधि दिन्छन्?",
+              "choices": [
+                "पुरुषले गाडी चलाउने भएकोले।",
+                "पहिलेको औषधिको असर कम भएकोले।",
+                "पहिलेको औषधि अब बिक्रीमा नभएकोले।",
+                "पुरुषले सस्तो औषधि चाहेकोले।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the pharmacy, a pharmacist and a man are talking. Why does the pharmacist give him a different medicine than before?",
+            "Woman 1: Would you like the same medicine as last time today?",
+            "Man 1: Yes. However, I felt that the previous medicine was a little less effective.",
+            "Woman 1: Hmm, this medicine should be effective enough. However, there's one thing that concerns me. This medicine tends to make you sleepy, so I always recommend a different one for people who drive.",
+            "Man 1: Oh, I drive every day for work.",
+            "Woman 1: In that case, just to be safe, I'll switch you to this medicine, which is less likely to make you sleepy.",
+            "Man 1: Yes, please."
+          ]
+        },
+        "ne": {
+          "body": [
+            "फार्मेसीमा एकजना औषधि बिक्रेता र एकजना पुरुष कुरा गर्दै हुनुहुन्छ। औषधि बिक्रेताले किन पहिलेको भन्दा फरक औषधि दिन्छन्?",
+            "महिला १: आज पनि अघिल्लो पटककै औषधि दिऊँ कि?",
+            "पुरुष १: हुन्छ। तर, अघिल्लो औषधिको असर अलि कम भएको जस्तो लागेको थियो।",
+            "महिला १: हम्म, यो औषधिको असर पर्याप्त हुनुपर्ने हो। तर, एउटा कुराले मलाई चिन्ता लागेको छ। यो औषधि खाँदा निद्रा लाग्न सक्छ, त्यसैले गाडी चलाउनेहरूलाई म सधैँ अर्को औषधि सिफारिस गर्छु।",
+            "पुरुष १: ए, म काममा हरेक दिन गाडी चलाउँछु।",
+            "महिला १: त्यसो भए, सावधानीका लागि, निद्रा नलाग्ने यो औषधिमा परिवर्तन गरिदिन्छु है।",
+            "पुरुष १: हुन्छ, कृपया।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -1410,11 +3409,54 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "When should non-burnable trash be put out?",
+              "choices": [
+                "On the second and fourth Fridays.",
+                "Every Wednesday.",
+                "Every Monday and Thursday.",
+                "On the first Friday of every month."
+              ]
+            },
+            "ne": {
+              "q": "नजल्ने फोहोर कहिले फाल्नुपर्छ?",
+              "choices": [
+                "दोस्रो र चौथो शुक्रबार।",
+                "हरेक बुधबार।",
+                "हरेक सोमबार र बिहीबार।",
+                "हरेक महिनाको पहिलो शुक्रबार।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At an apartment, a manager and a woman are talking. When should non-burnable trash be put out?",
+            "Woman 1: I moved in last week, could you please tell me how to dispose of trash?",
+            "Man 1: Yes. First, please put out burnable trash every Monday and Thursday.",
+            "Woman 1: Understood. So, when is non-burnable trash?",
+            "Man 1: It used to be Wednesdays, but the collection day changed this spring.",
+            "Woman 1: Oh, really?",
+            "Man 1: Yes. Now it's only on the second and fourth Fridays, twice a month. Since it's less frequent, please be careful not to forget to put it out.",
+            "Woman 1: Understood. Fridays, then."
+          ]
+        },
+        "ne": {
+          "body": [
+            "अपार्टमेन्टमा एकजना व्यवस्थापक र एकजना महिला कुरा गर्दै हुनुहुन्छ। नजल्ने फोहोर कहिले फाल्नुपर्छ?",
+            "महिला १: म गत हप्ता सरेकी हुँ, कृपया मलाई फोहोर फाल्ने तरिका बताइदिनुहुन्छ कि?",
+            "पुरुष १: हुन्छ। पहिले, जल्ने फोहोर हरेक सोमबार र बिहीबार फाल्नुहोस्।",
+            "महिला १: बुझें। त्यसो भए, नजल्ने फोहोर कहिले हो?",
+            "पुरुष १: पहिले बुधबार थियो, तर यो वसन्तदेखि सङ्कलनको दिन परिवर्तन भएको छ।",
+            "महिला १: ए, त्यसो हो?",
+            "पुरुष १: हो। अब दोस्रो र चौथो शुक्रबार मात्र, महिनामा दुई पटक मात्र हो। सङ्कलन कम हुने भएकोले, फाल्न नबिर्सन ध्यान दिनुहोस्।",
+            "महिला १: बुझें। शुक्रबार, है।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -1440,11 +3482,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many forms will the man fill out?",
+              "choices": [
+                "Three forms.",
+                "Two forms.",
+                "One form.",
+                "Four forms."
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले कतिवटा फारम भर्छन्?",
+              "choices": [
+                "तीनवटा।",
+                "दुईवटा।",
+                "एउटा।",
+                "चारवटा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the bank, a bank employee and a man are talking. How many forms will the man fill out?",
+            "Woman 1: So you're opening a new account. In that case, please fill out this application form, one copy.",
+            "Man 1: Yes. Also, I'd like to create a card for payments at the same time.",
+            "Woman 1: Understood. For a card application, you'll need another separate form.",
+            "Man 1: I see, so that's two forms now. Oh, and can I also request internet banking service?",
+            "Woman 1: Yes. For that procedure, there's another form you'll need to fill out.",
+            "Man 1: Understood. I'll fill out all of them."
+          ]
+        },
+        "ne": {
+          "body": [
+            "बैंकमा एकजना बैंक कर्मचारी र एकजना पुरुष कुरा गर्दै हुनुहुन्छ। पुरुषले कतिवटा फारम भर्छन्?",
+            "महिला १: नयाँ खाता खोल्दै हुनुहुन्छ, हैन? त्यसो भए, पहिले यो आवेदन फारम एक प्रति भर्नुहोस्।",
+            "पुरुष १: हुन्छ। अनि, भुक्तानीका लागि कार्ड पनि सँगै बनाउन चाहन्छु।",
+            "महिला १: बुझें। कार्डको आवेदनका लागि, छुट्टै अर्को फारम आवश्यक पर्छ।",
+            "पुरुष १: बुझें, त्यसो भए यो दुईवटा भयो। ए, अनि इन्टरनेट सेवा पनि अनुरोध गर्न सक्छु कि?",
+            "महिला १: हुन्छ। त्यस प्रक्रियाका लागि पनि, तपाईंले भर्नुपर्ने अर्को फारम छ।",
+            "पुरुष १: बुझें। सबै भर्छु।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -1470,11 +3553,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the woman feel before her presentation?",
+              "choices": [
+                "She is nervous about whether she can do it well.",
+                "She is bored and wants it to end quickly.",
+                "She is angry because her preparation is insufficient.",
+                "She is confident that she will definitely succeed."
+              ]
+            },
+            "ne": {
+              "q": "प्रस्तुति दिनुअघि महिलालाई कस्तो महसुस हुन्छ?",
+              "choices": [
+                "राम्रोसँग गर्न सक्छु कि सक्दिनँ भनेर डराइरहेकी छिन्।",
+                "चाँडै सकियोस् भन्ने चाहनाका साथ दिक्क मानिरहेकी छिन्।",
+                "तयारी अपुग भएकोले रिसाएकी छिन्।",
+                "पक्कै सफल हुन्छु भन्नेमा विश्वस्त छिन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the venue, a woman and a man are talking. How does the woman feel before her presentation?",
+            "Man 1: It's almost your turn. Is your preparation perfect?",
+            "Woman 1: Well, I've practiced many times at home, but speaking in front of such a large audience is a first for me.",
+            "Man 1: I see. Are you nervous right now?",
+            "Woman 1: Yes, my heart has been pounding for a while now. Honestly, I'm very worried if I can speak well until the end.",
+            "Man 1: It'll be fine. You've practiced so much, so let's go with your usual mindset.",
+            "Woman 1: Yes, I'll try."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यक्रम स्थलमा एकजना महिला र एकजना पुरुष कुरा गर्दै हुनुहुन्छ। प्रस्तुति दिनुअघि महिलालाई कस्तो महसुस हुन्छ?",
+            "पुरुष १: अब तपाईंको पालो आउन लाग्यो। तयारी राम्रोसँग भएको छ?",
+            "महिला १: त्यो त, घरमा धेरै पटक अभ्यास गरेकी छु, तर यति धेरै दर्शकहरूको अगाडि बोल्न लागेको मेरो जीवनमा पहिलो पटक हो।",
+            "पुरुष १: बुझें। अहिले तपाईंलाई डर लागिरहेको छ?",
+            "महिला १: हो, अघिदेखि मेरो मुटु जोडले धड्किरहेको छ। इमानदारीपूर्वक भन्नुपर्दा, अन्त्यसम्म राम्रोसँग बोल्न सक्छु कि सक्दिनँ भनेर मलाई धेरै चिन्ता लागेको छ।",
+            "पुरुष १: ठिकै हुन्छ। तपाईंले यति धेरै अभ्यास गर्नुभएको छ, त्यसैले सधैँझैँ सामान्य मनस्थितिमा जाऔं।",
+            "महिला १: हुन्छ, म प्रयास गर्छु।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -1500,11 +3624,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Where does the woman park her car?",
+              "choices": [
+                "The back spot with a roof.",
+                "The spot near the entrance.",
+                "The first spot without a roof.",
+                "The spot near the exit."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले आफ्नो गाडी कहाँ पार्क गर्छिन्?",
+              "choices": [
+                "छत भएको पछाडिको ठाउँ।",
+                "प्रवेशद्वार नजिकको ठाउँ।",
+                "छत नभएको पहिलो ठाउँ।",
+                "निकास नजिकको ठाउँ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the parking lot, a manager and a woman are talking. Where does the woman park her car?",
+            "Woman 1: Excuse me, where is there an empty spot right now?",
+            "Man 1: Let's see, the spot closest to the entrance is empty. It's convenient because you don't have to walk far.",
+            "Woman 1: Oh, but that's a spot without a roof, isn't it?",
+            "Man 1: Yes, that's right. The spot with a roof is at the very back. However, you'll have to walk a little to get there.",
+            "Woman 1: It's been raining all morning today, so even if I have to walk a bit, I'd prefer a spot with a roof.",
+            "Man 1: Understood. Please go to the back then."
+          ]
+        },
+        "ne": {
+          "body": [
+            "पार्किङमा एकजना व्यवस्थापक र एकजना महिला कुरा गर्दै हुनुहुन्छ। महिलाले आफ्नो गाडी कहाँ पार्क गर्छिन्?",
+            "महिला १: माफ गर्नुहोस्, अहिले खाली ठाउँ कहाँ छ?",
+            "पुरुष १: हेरौं, प्रवेशद्वारको सबैभन्दा नजिकको ठाउँ खाली छ। धेरै हिँड्नु नपर्ने भएकोले सुविधाजनक छ।",
+            "महिला १: ए, तर त्यो छत नभएको ठाउँ हो, हैन?",
+            "पुरुष १: हो, त्यही हो। छत भएको ठाउँ सबैभन्दा पछाडि छ। तर, त्यहाँसम्म पुग्न अलि हिँड्नुपर्छ।",
+            "महिला १: आज बिहानदेखि पानी परिरहेको छ, त्यसैले अलि हिँड्नुपरे पनि, छत भएको ठाउँ भए राम्रो हुन्छ।",
+            "पुरुष १: बुझें। त्यसो भए पछाडिको ठाउँमा जानुहोस्।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -1530,11 +3695,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why was the sports day postponed?",
+              "choices": [
+                "Because the construction work at the venue is not finished.",
+                "Because the weather will be bad tomorrow and it will rain.",
+                "Because the teacher is unavailable and on holiday.",
+                "Because there are few students participating."
+              ]
+            },
+            "ne": {
+              "q": "खेलकुद दिवस किन स्थगित भयो?",
+              "choices": [
+                "कार्यक्रम स्थलको निर्माण कार्य नसकिएकाले।",
+                "भोलि मौसम खराब भएर पानी पर्ने भएकाले।",
+                "शिक्षकको असुविधाका कारण बिदामा भएकाले।",
+                "सहभागी विद्यार्थी कम भएकाले।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At school, a teacher and a female student are talking. Why was the sports day postponed?",
+            "Girl 1: Teacher, I heard that tomorrow's sports day has been postponed. Is it because of the rain forecast?",
+            "Boy 1: No, actually, the weather tomorrow seems to be rather clear and sunny.",
+            "Girl 1: Oh, then why was it postponed?",
+            "Boy 1: Well, the construction work on the sports ground where the sports day was supposed to be held is still ongoing, and it doesn't look like it will be finished by tomorrow. To ensure the safety of all the students and prevent injuries, it was decided to postpone it to next week.",
+            "Girl 1: So that's what happened. I understand."
+          ]
+        },
+        "ne": {
+          "body": [
+            "विद्यालयमा एक शिक्षक र एक छात्रा कुरा गर्दैछन्। खेलकुद दिवस किन स्थगित भयो?",
+            "छात्रा १: सर, भोलिको खेलकुद दिवस स्थगित भएको सुनेँ, के वर्षाको पूर्वानुमानका कारण हो?",
+            "छात्र १: होइन, वास्तवमा भोलिको मौसम बरु सफा र घमाइलो हुने देखिन्छ।",
+            "छात्रा १: ए, त्यसो भए किन स्थगित भयो?",
+            "छात्र १: त्यो के हो भने, खेलकुद दिवस गर्ने योजना भएको मैदानमा मर्मत कार्य अझै चलिरहेको छ, र भोलिसम्म सकिने जस्तो देखिँदैन। विद्यार्थीहरूलाई चोटपटक नलागोस् भनेर सुरक्षालाई ध्यानमा राखेर अर्को हप्तालाई सार्ने निर्णय गरियो।",
+            "छात्रा १: त्यसो पो रहेछ। बुझेँ।"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -1560,11 +3764,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "When will the man have his next examination?",
+              "choices": [
+                "Around the end of next month.",
+                "Around the beginning of next month.",
+                "Around the end of this month.",
+                "Around the beginning of the month after next."
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले अर्को जाँच कहिले गराउँछन्?",
+              "choices": [
+                "अर्को महिनाको अन्त्यतिर।",
+                "अर्को महिनाको सुरुतिर।",
+                "यो महिनाको अन्त्यतिर।",
+                "आउँदो महिनाको सुरुतिर।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the hospital, a nurse and a man are talking. When will the man have his next examination?",
+            "Nurse 1: Regarding your next examination, we are planning it for about a month from now.",
+            "Man 1: A month from now? Hmm, I have a business trip at the beginning of next month, so it's a bit difficult.",
+            "Nurse 1: I see. In that case, how about delaying it a bit, to around the end of next month?",
+            "Man 1: Yes, if it's the end of the month, my business trip will be over, so please arrange it for then.",
+            "Nurse 1: Understood. Then, I will book it for the 28th of next month, in the morning.",
+            "Man 1: Thank you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "अस्पतालमा एक नर्स र एक पुरुष कुरा गर्दैछन्। पुरुषले अर्को जाँच कहिले गराउँछन्?",
+            "नर्स १: अर्को जाँचको लागि, हामी लगभग एक महिनापछि गर्ने सोचमा छौं।",
+            "पुरुष १: एक महिनापछि? हम्म, अर्को महिनाको सुरुमा मेरो कामको लागि यात्रा छ, त्यसैले अलि गाह्रो हुन्छ।",
+            "नर्स १: त्यसो हो? त्यसो भए, केही दिन ढिलो गरेर अर्को महिनाको अन्त्यतिर कस्तो हुन्छ?",
+            "पुरुष १: हुन्छ, महिनाको अन्त्यतिर यात्रा पनि सकिनेछ, त्यसैले त्यसैमा मिलाइदिनुहोस्।",
+            "नर्स १: बुझेँ। त्यसो भए अर्को महिनाको २८ गते बिहानको लागि मिलाइदिन्छु है।",
+            "पुरुष १: धन्यवाद।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -1590,11 +3835,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many apples will they buy?",
+              "choices": [
+                "Five.",
+                "Three.",
+                "Two.",
+                "Seven."
+              ]
+            },
+            "ne": {
+              "q": "उनीहरूले कति स्याउ किन्छन्?",
+              "choices": [
+                "पाँचवटा।",
+                "तीनवटा।",
+                "दुईवटा।",
+                "सातवटा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the supermarket, a man and a woman are talking. How many apples will they buy?",
+            "Woman 1: Apples are cheap, aren't they? Let's buy about five for now.",
+            "Man 1: Hmm, can just the two of us eat that many? Even if we eat one every morning, three should be enough, right?",
+            "Woman 1: Oh, but a friend is coming to visit tomorrow, right? I was thinking of making an apple cake, and I need two more for that.",
+            "Man 1: Oh, right, I forgot about the cake. Well, let's buy enough for eating and for the cake, both combined.",
+            "Woman 1: Yeah, let's do that. I'll go put them in the basket."
+          ]
+        },
+        "ne": {
+          "body": [
+            "सुपरमार्केटमा एक पुरुष र एक महिला कुरा गर्दैछन्। उनीहरूले कति स्याउ किन्छन्?",
+            "महिला १: स्याउ सस्तो भएको छ, होइन? अहिलेलाई पाँचवटा जति किनौँ न।",
+            "पुरुष १: हम्म, हामी दुई जनाले मात्र त्यति धेरै खान सक्छौँ र? हरेक बिहान एउटा खाए पनि, तीनवटा पर्याप्त हुँदैन र?",
+            "महिला १: ए, तर भोलि साथी घरमा आउँदैछन् नि। म स्याउको केक बनाउने सोचमा थिएँ, त्यसको लागि अझै दुईवटा चाहिन्छ।",
+            "पुरुष १: ए हो, केकको लागि बिर्सेछु। त्यसो भए, खाने र केकको लागि दुवै मिलाएर किनौँ।",
+            "महिला १: हुन्छ, त्यसै गरौँ। म टोकरीमा राखेर आउँछु है।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -1620,11 +3904,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How did the woman feel after hearing the explanation?",
+              "choices": [
+                "She is relieved that it is not a serious illness.",
+                "She is sad because she found out it is a serious illness.",
+                "She is angry at the doctor's explanation.",
+                "She thinks it's boring that the dog is fine."
+              ]
+            },
+            "ne": {
+              "q": "व्याख्या सुनेर महिलालाई कस्तो लाग्यो?",
+              "choices": [
+                "गम्भीर रोग नभएकोले ढुक्क भएकी छिन्।",
+                "गम्भीर रोग भएको थाहा पाएर दुःखी भएकी छिन्।",
+                "डाक्टरको व्याख्यामा रिसाएकी छिन्।",
+                "कुकुर स्वस्थ भएकोले बोरिङ लागेको छ।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the animal hospital, a woman and a doctor are talking. How did the woman feel after hearing the explanation?",
+            "Woman 1: Doctor, my dog has been lethargic and unwell since last night. I'm so worried it might be a serious illness.",
+            "Doctor 1: I just finished a thorough examination, and I didn't find anything wrong with his body. It seems he was just a little tired.",
+            "Woman 1: Oh, is that so? That's good... I was so anxious until I came here.",
+            "Doctor 1: If you let him rest quietly at home for a few days, he'll be back to normal.",
+            "Woman 1: Yes. Hearing that really put my mind at ease. Thank you."
+          ]
+        },
+        "ne": {
+          "body": [
+            "पशु अस्पतालमा एक महिला र डाक्टर कुरा गर्दैछन्। व्याख्या सुनेर महिलालाई कस्तो लाग्यो?",
+            "महिला १: डाक्टर, मेरो कुकुर हिजो रातिदेखि सुस्त र कमजोर छ। मलाई डर लागिरहेको छ कि कतै कुनै गम्भीर रोग त होइन।",
+            "डाक्टर १: मैले भर्खरै सबै जाँच गरें, र उसको शरीरमा कुनै खराबी भेटिएन। यस्तो लाग्छ कि ऊ अलिकति थकित मात्र भएको रहेछ।",
+            "महिला १: ए, त्यसो हो? राम्रो भयो... यहाँ आउनुअघि म धेरै चिन्तित थिएँ।",
+            "डाक्टर १: केही दिन घरमा आराम गर्न दिनुभयो भने ऊ फेरि स्वस्थ हुनेछ।",
+            "महिला १: हुन्छ। त्यो सुनेर मलाई साँच्चै ढुक्क भयो। धन्यवाद।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -1650,11 +3973,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which room will the man go to see?",
+              "choices": [
+                "The room on the third floor, five minutes from the station.",
+                "The room on the first floor, twenty minutes from the station.",
+                "The room with the cheapest rent.",
+                "The room with the most expensive rent."
+              ]
+            },
+            "ne": {
+              "q": "पुरुष कुन कोठा हेर्न जान्छन्?",
+              "choices": [
+                "स्टेशनबाट पाँच मिनेटको तेस्रो तल्लाको कोठा।",
+                "स्टेशनबाट बीस मिनेटको पहिलो तल्लाको कोठा।",
+                "सबैभन्दा सस्तो भाडाको कोठा।",
+                "सबैभन्दा महँगो भाडाको कोठा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a real estate agency, a clerk and a man are talking. Which room will the man go to see?",
+            "Clerk 1: The preference you mentioned the other day was a room as close to the station as possible, right?",
+            "Man 1: Yes, that's right. Also, if possible, I'd appreciate it if the rent was as cheap as possible.",
+            "Clerk 1: I see. This room on the first floor has a very cheap rent, but it takes about twenty minutes to walk from the station. On the other hand, this room on the third floor is only five minutes from the station, and the rent is not that high.",
+            "Man 1: Hmm, considering my commute, please show me the one closer to the station after all.",
+            "Clerk 1: Understood. I will guide you then."
+          ]
+        },
+        "ne": {
+          "body": [
+            "एक घरजग्गा एजेन्सीमा एक कर्मचारी र एक पुरुष कुरा गर्दैछन्। पुरुष कुन कोठा हेर्न जान्छन्?",
+            "कर्मचारी १: तपाईंले अघिल्लो दिन भन्नुभएको प्राथमिकता स्टेशनको सकेसम्म नजिकको कोठा थियो, होइन?",
+            "पुरुष १: हो, त्यही हो। साथै, यदि सम्भव भए, भाडा पनि सकेसम्म सस्तो भए राम्रो हुन्थ्यो।",
+            "कर्मचारी १: बुझेँ। यो पहिलो तल्लाको कोठाको भाडा धेरै सस्तो छ, तर स्टेशनबाट हिँडेर करिब बीस मिनेट लाग्छ। अर्कोतर्फ, यो तेस्रो तल्लाको कोठा स्टेशनबाट केवल पाँच मिनेटमा छ, र भाडा पनि त्यति महँगो छैन।",
+            "पुरुष १: हम्म, काममा आउजाउको कुरा सोच्दा, आखिरमा स्टेशनको नजिकको नै देखाइदिनुहोस्।",
+            "कर्मचारी १: बुझेँ। त्यसो भए म तपाईंलाई देखाउन लैजान्छु।"
+          ]
+        }
+      },
       "kanten": "どれ"
     },
     {
@@ -1680,11 +4042,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Why is the train stopped?",
+              "choices": [
+                "Because electrical equipment is being inspected at the station ahead.",
+                "Because a very strong wind is still blowing fiercely.",
+                "Because the train they are on suddenly broke down.",
+                "Because an accident occurred nearby."
+              ]
+            },
+            "ne": {
+              "q": "रेल किन रोकिएको छ?",
+              "choices": [
+                "अगाडिको स्टेशनमा बिजुलीका उपकरणहरूको जाँच भइरहेकोले।",
+                "किनभने अहिले पनि धेरै तेज हावा चलिरहेको छ।",
+                "किनभने उनीहरू चढेको रेल अचानक बिग्रियो।",
+                "किनभने नजिकै दुर्घटना भयो।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the station, a station attendant and a man are talking. Why is the train stopped?",
+            "Man 1: Excuse me, the train hasn't come at all for a while now. Did something happen?",
+            "Woman 1: We apologize for the inconvenience. The wind was strong this morning, so you might think it's due to that.",
+            "Man 1: Huh? It's not because of the wind?",
+            "Woman 1: No. The strong wind has completely died down. Actually, at the station ahead, the inspection of the electrical equipment is taking longer than expected, and that's why the train is unable to move.",
+            "Man 1: I see. How much longer do you think it will be until it starts moving?",
+            "Woman 1: Could you please wait a little longer?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "स्टेशनमा एक स्टेशन कर्मचारी र एक जना मानिस कुरा गर्दैछन्। रेल किन रोकिएको छ?",
+            "पुरुष १: माफ गर्नुहोस्, केही समयदेखि रेल पटक्कै आएको छैन, केही भयो कि?",
+            "महिला १: असुविधाको लागि हामी क्षमाप्रार्थी छौं। आज बिहान हावा धेरै चलेको थियो, त्यसैले त्यसको असर होला भन्ने तपाईंलाई लाग्न सक्छ।",
+            "पुरुष १: ए, हावाको कारणले होइन र?",
+            "महिला १: होइन। तेज हावा पूरै रोकिसकेको छ। वास्तवमा, अगाडिको स्टेशनमा बिजुलीका उपकरणहरूको जाँचमा सोचेभन्दा बढी समय लागिरहेको छ, त्यसैले रेल चल्न नसक्ने अवस्थामा छ।",
+            "पुरुष १: त्यसो पो रहेछ। अब कति समयमा चल्न सक्छ होला?",
+            "महिला १: कृपया अझै केही बेर पर्खिदिनुहुन्छ कि?"
+          ]
+        }
+      },
       "kanten": "なぜ"
     },
     {
@@ -1710,11 +4113,52 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "When will the woman make her next appointment?",
+              "choices": [
+                "The twelfth of next month.",
+                "The tenth of next month.",
+                "The eighth of next month.",
+                "The twelfth of this month."
+              ]
+            },
+            "ne": {
+              "q": "महिलाले अर्को अपोइन्टमेन्ट कहिलेको लागि लिन्छिन्?",
+              "choices": [
+                "अर्को महिनाको बाह्र तारिख।",
+                "अर्को महिनाको दश तारिख।",
+                "अर्को महिनाको आठ तारिख।",
+                "यो महिनाको बाह्र तारिख।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the hair salon, a staff member and a woman are talking. When will the woman make her next appointment?",
+            "Woman 1: When your hair grows out, it would be just right if you came back in about a month.",
+            "Woman 2: Understood. Um, is the tenth of next month available?",
+            "Woman 1: I apologize. The tenth is the salon's day off. If it's around that time, we can book you for the eighth or the twelfth.",
+            "Woman 2: Hmm, I have another plan on the eighth, so please make it for a later date.",
+            "Woman 1: Certainly. Then I'll book you for the twelfth of next month.",
+            "Woman 2: Yes, please."
+          ]
+        },
+        "ne": {
+          "body": [
+            "ब्युटी पार्लरमा एक कर्मचारी र एक महिला कुरा गर्दैछन्। महिलाले अर्को अपोइन्टमेन्ट कहिलेको लागि लिन्छिन्?",
+            "महिला १: तपाईंको कपाल बढेपछि, अर्को पटक एक महिनापछि आउनुभयो भने ठीक हुन्छ।",
+            "महिला २: बुझें। अँ, अर्को महिनाको दश तारिखतिर खाली छ?",
+            "महिला १: माफ गर्नुहोस्। दश तारिख पसलको बिदाको दिन हो। त्यसको अगाडि वा पछाडि, आठ तारिख वा बाह्र तारिखमा तपाईंको अपोइन्टमेन्ट लिन सकिन्छ।",
+            "महिला २: उम्, आठ तारिखमा मेरो अर्कै योजना छ, त्यसैले पछिको दिनमा गरिदिनुहोस् न।",
+            "महिला १: हुन्छ। त्यसो भए अर्को महिनाको बाह्र तारिखको लागि बुक गरिदिन्छु है।",
+            "महिला २: हुन्छ, कृपया।"
+          ]
+        }
+      },
       "kanten": "いつ"
     },
     {
@@ -1740,11 +4184,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How many more chairs will they prepare?",
+              "choices": [
+                "Five.",
+                "Four.",
+                "Six.",
+                "Ten."
+              ]
+            },
+            "ne": {
+              "q": "उनीहरूले अब कतिवटा कुर्सीहरू तयार पार्छन्?",
+              "choices": [
+                "पाँच वटा।",
+                "चार वटा।",
+                "छ वटा।",
+                "दश वटा।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "In the meeting room, a man and a woman are talking. How many more chairs will they prepare?",
+            "Woman 1: For tomorrow's meeting, there are a total of ten participants, right?",
+            "Man 1: Yeah, that's what I heard. And when I counted the chairs in this room just now, there were only six.",
+            "Woman 1: Oh, that's not enough for the number of participants. We'll have to bring the missing ones from the next room.",
+            "Man 1: That's right. Oh, and I think it would also be convenient to have one separate chair for placing the compiled documents.",
+            "Woman 1: You're right. Well then, let's bring enough for everyone and for the documents too."
+          ]
+        },
+        "ne": {
+          "body": [
+            "बैठक कोठामा एक जना पुरुष र एक जना महिला कुरा गर्दैछन्। उनीहरूले अब कतिवटा कुर्सीहरू तयार पार्छन्?",
+            "महिला १: भोलिको बैठकमा जम्मा दश जना सहभागी छन्, होइन र?",
+            "पुरुष १: अँ, त्यही सुनेको छु। अनि, अहिले यो कोठामा भएका कुर्सीहरू गनेर हेर्दा, छ वटा मात्र रहेछ।",
+            "महिला १: ए, त्यसो भए सहभागीहरूको संख्यालाई पुग्दैन नि। नपुगेका कुर्सीहरू छेउको कोठाबाट ल्याउनुपर्छ।",
+            "पुरुष १: हो नि। ए, अनि, कागजातहरू मिलाएर राख्नको लागि पनि छुट्टै एउटा कुर्सी भयो भने सजिलो हुन्छ जस्तो लाग्छ मलाई।",
+            "महिला १: पक्कै पनि। त्यसो भए, सबैको लागि र त्यो कागजातको लागि पनि मिलाएर ल्याऔं।"
+          ]
+        }
+      },
       "kanten": "いくつ"
     },
     {
@@ -1770,11 +4253,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "How does the man feel about hearing that the department head is quitting?",
+              "choices": [
+                "He is sad that someone who helped him is leaving.",
+                "He is rather happy that someone he didn't get along with is leaving.",
+                "He is surprised by the sudden news and very angry.",
+                "He feels nothing in particular and is calm."
+              ]
+            },
+            "ne": {
+              "q": "विभाग प्रमुखले राजीनामा दिने कुरा सुनेर पुरुषलाई कस्तो महसुस भयो?",
+              "choices": [
+                "सहयोग गर्ने व्यक्ति नहुने भएर दुःखी छन्।",
+                "मन नपर्ने व्यक्ति नहुने भएर बरु खुसी छन्।",
+                "अचानकको खबरले छक्क परेर धेरै रिसाएका छन्।",
+                "विशेष केही महसुस नगरी शान्त छन्।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At the workplace, a man and a woman are talking. How does the man feel about hearing that the部長 (buchō, department head) is quitting?",
+            "Woman 1: Hey, did you hear? The department head is apparently leaving the company at the end of next month.",
+            "Man 1: What, really? He's been the one I've relied on ever since I joined this company.",
+            "Woman 1: I just heard it too and was very surprised.",
+            "Man 1: Yes. He's the one who carefully taught me how to do the job from scratch, and he always helped me when I was in trouble. Thinking that the department head won't be here anymore, I'm truly sad.",
+            "Woman 1: I understand. I feel exactly the same way."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कार्यस्थलमा एक जना पुरुष र एक जना महिला कुरा गर्दैछन्। विभाग प्रमुखले राजीनामा दिने कुरा सुनेर पुरुषलाई कस्तो महसुस भयो?",
+            "महिला १: हेर्नुस् न, सुन्नुभयो? विभाग प्रमुखले अर्को महिनाको अन्त्यसम्ममा कम्पनी छोड्ने रे।",
+            "पुरुष १: के, साँच्चै हो र? म यो कम्पनीमा आएदेखि नै उहाँले मलाई सधैं सहयोग गर्दै आउनुभएको व्यक्ति हुनुहुन्छ।",
+            "महिला १: मैले पनि भर्खरै सुनेर धेरै छक्क परें।",
+            "पुरुष १: हो नि। उहाँले मलाई काम गर्ने तरिका सुरुदेखि नै राम्ररी सिकाउनुभएको व्यक्ति हुनुहुन्छ, र समस्या पर्दा सधैं मद्दत गर्नुभएको छ। ती विभाग प्रमुख नहुने हुनुभयो भन्ने सोच्दा, साँच्चै दुःख लाग्छ।",
+            "महिला १: बुझें। मलाई पनि ठ्याक्कै त्यस्तै महसुस भइरहेको छ।"
+          ]
+        }
+      },
       "kanten": "気持ち"
     },
     {
@@ -1800,11 +4322,50 @@
           ],
           "answerIndex": 0,
           "i18n": {
-            "ja": {}
+            "ja": {},
+            "en": {
+              "q": "Which drink will the man order?",
+              "choices": [
+                "Cold coffee.",
+                "Cold tea.",
+                "Hot coffee.",
+                "Hot tea."
+              ]
+            },
+            "ne": {
+              "q": "पुरुषले कुन पेय पदार्थ अर्डर गर्छन्?",
+              "choices": [
+                "चिसो कफी।",
+                "चिसो चिया।",
+                "तातो कफी।",
+                "तातो चिया।"
+              ]
+            }
           }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "At a cafe, a staff member and a man are talking. Which drink will the man order?",
+            "Woman 1: Have you decided on your order? Would you like something hot or cold?",
+            "Man 1: Hmm, it was really hot outside today, so I think I'll have something cold. Between coffee and tea, which do you recommend?",
+            "Woman 1: Our tea is popular. However, sir, you mentioned earlier that you were a bit sleepy, didn't you?",
+            "Man 1: Oh, that's right, I did. I want to stay awake until the afternoon meeting, so in that case, I'll go with coffee after all. Cold, of course.",
+            "Woman 1: Certainly. Please wait a moment."
+          ]
+        },
+        "ne": {
+          "body": [
+            "क्याफेमा एक कर्मचारी र एक जना पुरुष कुरा गर्दैछन्। पुरुषले कुन पेय पदार्थ अर्डर गर्छन्?",
+            "महिला १: तपाईंको अर्डर निश्चित भयो? तातो कि चिसो, कुन लिनुहुन्छ?",
+            "पुरुष १: उम्, आज बाहिर धेरै गर्मी थियो, त्यसैले चिसो लिन्छु होला। कफी र चियामध्ये कुन सिफारिस गर्नुहुन्छ?",
+            "महिला १: हाम्रो चिया लोकप्रिय छ। तर, ग्राहकज्यू, तपाईंले अघि अलि निद्रा लागेको छ भन्नुभएको थियो नि, होइन र?",
+            "पुरुष १: ए, हो नि, भनेको थिएँ। दिउँसोको बैठकसम्म निद्रा भगाउन चाहन्छु, त्यसैले त्यसो भए त कफी नै लिन्छु। चिसो, पक्कै पनि।",
+            "महिला १: हुन्छ। कृपया केही बेर पर्खनुहोस्।"
+          ]
+        }
+      },
       "kanten": "どれ"
     }
   ]

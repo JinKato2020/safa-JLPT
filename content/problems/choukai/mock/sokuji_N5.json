@@ -4,7 +4,8 @@
   "level": "N5",
   "pool": "mock",
   "languages": [
-    "ja"
+    "en",
+    "ne"
   ],
   "items": [
     {
@@ -28,10 +29,36 @@
             "ええ、さっき 取（と）りに 行（い）きました。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, here you go.",
+                "No, salt is not spicy.",
+                "Yes, I went to get it a moment ago."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हुन्छ, लिनुहोस्।",
+                "होइन, नुन पिरो हुँदैन।",
+                "हो, भर्खरै लिन गएको थिएँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Excuse me, could you pass me that salt?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "माफ गर्नुहोस्, त्यो नुन दिनुहुन्छ कि?"
+          ]
+        }
+      },
       "function": "依頼",
       "pool": "mock"
     },
@@ -56,10 +83,36 @@
             "そうだね、荷物（にもつ）は 多（おお）いね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yeah, the luggage was light.",
+                "Sure, where should I carry it to?",
+                "That's right, there's a lot of luggage."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, सामान हलुका थियो।",
+                "हुन्छ, कहाँसम्म बोक्ने हो?",
+                "हो नि, सामान धेरै छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Sorry, but could you help me carry this luggage?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "माफ गर्नुहोस्, यो सामान बोक्न मद्दत गर्नुहुन्छ कि?"
+          ]
+        }
+      },
       "function": "依頼",
       "pool": "mock"
     },
@@ -84,10 +137,36 @@
             "うん、これ 使（つか）って いいよ。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Thanks, I borrowed the pen.",
+                "That's right, I like pens.",
+                "Yeah, you can use this."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "धन्यवाद, मैले कलम लिएँ।",
+                "हो, मलाई कलम मन पर्छ।",
+                "हुन्छ, यो प्रयोग गर्न सक्छौ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I'd like to borrow a pen for a moment."
+          ]
+        },
+        "ne": {
+          "body": [
+            "मलाई एकछिन कलम चाहिएको थियो।"
+          ]
+        }
+      },
       "function": "依頼",
       "pool": "mock"
     },
@@ -112,10 +191,36 @@
             "そう、手紙（てがみ）は 長（なが）かったね。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Okay, I'll put it in the mailbox.",
+                "Thank you, I received the letter.",
+                "That's right, the letter was long."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हुन्छ, म पोस्टबक्समा राखिदिन्छु नि।",
+                "धन्यवाद, मैले चिठी पाएँ।",
+                "हो, चिठी लामो थियो नि।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "If you're going to the station, could you mail this letter for me?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "यदि तिमी स्टेशन जाँदैछौ भने, यो चिठी पोस्ट गरिदेऊ न।"
+          ]
+        }
+      },
       "function": "依頼",
       "pool": "mock"
     },
@@ -140,10 +245,36 @@
             "ありがとう、席（せき）を 取（と）ってくれたんだ。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "No, there weren't any seats available.",
+                "Okay, I'll save two for us.",
+                "Thank you, you saved seats for us."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "अँ, सिटहरू खाली थिएनन् नि।",
+                "हुन्छ, म दुईवटा राखिदिन्छु नि।",
+                "धन्यवाद, तिमीले सिटहरू राखिदियौ नि।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Could you go in first and save us some seats?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "तिमी पहिले गएर सिटहरू राखिदिन सक्छौ?"
+          ]
+        }
+      },
       "function": "依頼",
       "pool": "mock"
     },
@@ -168,10 +299,36 @@
             "うん、すぐ 消（け）すね。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yeah, the light is on.",
+                "Yes, I already turned it on.",
+                "Okay, I'll turn it off right away."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "अँ, बत्ती बलिरहेको छ नि।",
+                "हो, मैले पहिले नै बालेँ।",
+                "हुन्छ, म तुरुन्तै निभाउँछु नि।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Sorry, but could you turn off the light?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "माफ गर, तर बत्ती निभाइदिन सक्छौ?"
+          ]
+        }
+      },
       "function": "依頼",
       "pool": "mock"
     },
@@ -196,10 +353,36 @@
             "うん、集合（しゅうごう）場所（ばしょ）は 駅（えき）だよ。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, 10 o'clock is correct.",
+                "Yes, the gathering was fun.",
+                "Yes, the meeting place is the station."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, दश बजे नै सही हो।",
+                "हो, भेटघाट रमाइलो थियो नि।",
+                "अँ, भेट्ने ठाउँ स्टेशन हो नि।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "The meeting tomorrow is at 10 o'clock, right?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "भोलिको भेटघाट दश बजे नै हो, होइन र?"
+          ]
+        }
+      },
       "function": "確認",
       "pool": "mock"
     },
@@ -224,10 +407,36 @@
             "ええ、日曜日（にちようび）は 楽（たの）しかったです。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "No, the store is clean.",
+                "Yes, it's open without a break.",
+                "Yes, Sunday was fun."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "होइन, पसल सफा छ।",
+                "हो, यो नरोकिई खुल्छ नि।",
+                "हो, आइतबार रमाइलो थियो।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Is that store open on Sundays too?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "त्यो पसल आइतबार पनि खुल्छ?"
+          ]
+        }
+      },
       "function": "確認",
       "pool": "mock"
     },
@@ -252,10 +461,36 @@
             "はい、昨日（きのう） 出（だ）しました。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "No, the report is difficult.",
+                "Yes, the teacher is kind.",
+                "Yes, I submitted it yesterday."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "होइन, रिपोर्ट गाह्रो छ।",
+                "हो, शिक्षक दयालु हुनुहुन्छ।",
+                "हो, मैले हिजो बुझाएँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Have you already submitted the report to the teacher?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "के तिमीले रिपोर्ट शिक्षकलाई बुझाइसक्यौ?"
+          ]
+        }
+      },
       "function": "確認",
       "pool": "mock"
     },
@@ -280,10 +515,36 @@
             "ええ、場所（ばしょ）は 広（ひろ）いですね。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "No, it's changed to the third floor.",
+                "Yes, the meeting was long.",
+                "Yes, the place is spacious."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "होइन, यो तेस्रो तल्लामा परिवर्तन भयो नि।",
+                "हो, बैठक लामो थियो।",
+                "हो, ठाउँ फराकिलो छ नि।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Is the meeting place on the second floor, correct?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "बैठकको ठाउँ दोस्रो तल्लामा नै हो, होइन र?"
+          ]
+        }
+      },
       "function": "確認",
       "pool": "mock"
     },
@@ -308,10 +569,36 @@
             "うん、ケーキを 食（た）べたいな。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "No, the cake is sweet.",
+                "Yes, I tried making it for the first time.",
+                "Yes, I want to eat cake."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "होइन, केक गुलियो छ।",
+                "हो, मैले पहिलो पटक बनाएर हेरेको हुँ।",
+                "हो, मलाई केक खान मन छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Did you make this cake?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "यो केक तिमीले बनाएको हो?"
+          ]
+        }
+      },
       "function": "確認",
       "pool": "mock"
     },
@@ -336,10 +623,36 @@
             "あっ、家（いえ）に 忘（わす）れて きちゃった。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, I like rain.",
+                "Oh, I was holding an umbrella.",
+                "Ah, I left it at home."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, मलाई पानी मन पर्छ।",
+                "हो, मैले छाता ओढेको थिएँ।",
+                "अहो, घरमै बिर्सेछु।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Did you bring an umbrella? It looks like it's going to rain."
+          ]
+        },
+        "ne": {
+          "body": [
+            "छाता ल्यायौ? पानी पर्ने जस्तो छ।"
+          ]
+        }
+      },
       "function": "確認",
       "pool": "mock"
     },
@@ -364,10 +677,36 @@
             "ええ、よく 動（うご）いていますね。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Okay, I'll take a look.",
+                "Yes, the printer is new, isn't it?",
+                "Yes, it's working well."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हुन्छ, म एकचोटि हेर्छु नि।",
+                "हो, प्रिन्टर नयाँ छ नि है?",
+                "हो, राम्ररी चलिरहेको छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Excuse me, the printer stopped working."
+          ]
+        },
+        "ne": {
+          "body": [
+            "माफ गर्नुहोस्, प्रिन्टरले काम गर्न छोड्यो।"
+          ]
+        }
+      },
       "function": "報告・知らせ",
       "pool": "mock"
     },
@@ -392,10 +731,36 @@
             "じゃあ、荷物（にもつ）を 送（おく）りましょう。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "The package hasn't arrived yet, has it?",
+                "Thank you, please leave it there.",
+                "Okay, let's send the package."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "सामान अझै आइपुगेको छैन नि है?",
+                "धन्यवाद, त्यहाँ राखिदिनुहोस्।",
+                "हुन्छ, सामान पठाऔँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Staff, the package just arrived."
+          ]
+        },
+        "ne": {
+          "body": [
+            "कर्मचारीज्यू, सामान भर्खरै आइपुग्यो।"
+          ]
+        }
+      },
       "function": "報告・知らせ",
       "pool": "mock"
     },
@@ -420,10 +785,36 @@
             "大丈夫（だいじょうぶ）？ お大事（だいじ）に。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "I want to drink hot tea.",
+                "Okay, let's go home together.",
+                "Are you okay? Take care of yourself."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "तातो चिया पिउन मन छ।",
+                "हुन्छ, सँगै घर जाऔँ।",
+                "ठीक छौ? आफ्नो ख्याल राख्नु।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I have a fever today, so I'm going home early."
+          ]
+        },
+        "ne": {
+          "body": [
+            "आज ज्वरो आएकोले म चाँडै घर जान्छु।"
+          ]
+        }
+      },
       "function": "報告・知らせ",
       "pool": "mock"
     },
@@ -448,10 +839,36 @@
             "うん、コップを 買（か）って きたよ。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Were you hurt? Be careful.",
+                "Please pour tea into the cup.",
+                "Yes, I bought a cup."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "चोट लागेन? ख्याल गर्नु है।",
+                "कपमा चिया हाल्नुहोस् है।",
+                "हो, मैले कप किनेर ल्याएँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Excuse me, I broke the cup."
+          ]
+        },
+        "ne": {
+          "body": [
+            "माफ गर्नुहोस्, मैले कप फुटाइदिएँ।"
+          ]
+        }
+      },
       "function": "報告・知らせ",
       "pool": "mock"
     },
@@ -476,10 +893,36 @@
             "じゃあ、早（はや）く 着（つ）きますね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "The train is fast, isn't it?",
+                "Understood, please come carefully.",
+                "Okay, I'll arrive early then."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "ट्रेन छिटो छ नि है?",
+                "बुझेँ, ख्याल गरेर आउनु है।",
+                "हुन्छ, त्यसो भए म चाँडै आइपुग्छु नि।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "The train is delayed, so I'll be a little late."
+          ]
+        },
+        "ne": {
+          "body": [
+            "ट्रेन ढिलो भएकोले म अलि ढिलो हुन्छु।"
+          ]
+        }
+      },
       "function": "報告・知らせ",
       "pool": "mock"
     },
@@ -504,10 +947,36 @@
             "あっ、すみません。静（しず）かに します。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, I'll speak louder.",
+                "Yes, it's quiet and nice, isn't it?",
+                "Oh, excuse me. I'll be quiet."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हुन्छ, म अझ ठूलो स्वरमा बोल्छु।",
+                "हो नि, शान्त र राम्रो छ नि है।",
+                "ओहो, माफ गर्नुहोस्। म शान्त हुन्छु।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Um, it's been a bit noisy for a while now."
+          ]
+        },
+        "ne": {
+          "body": [
+            "अँ, अघिदेखि अलि हल्ला भइरहेको छ नि।"
+          ]
+        }
+      },
       "function": "苦情・指摘",
       "pool": "mock"
     },
@@ -532,10 +1001,36 @@
             "ええ、この 料理（りょうり）は 人気（にんき）です。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "My apologies. I'll reheat it.",
+                "Yes, I'll bring you a cold drink.",
+                "Yes, this dish is popular."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "माफ गर्नुहोस्। म फेरि तताउँछु।",
+                "हुन्छ, म चिसो पेय ल्याइदिन्छु।",
+                "हो, यो परिकार लोकप्रिय छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "This dish is a little cold."
+          ]
+        },
+        "ne": {
+          "body": [
+            "यो परिकार अलि चिसो छ।"
+          ]
+        }
+      },
       "function": "苦情・指摘",
       "pool": "mock"
     },
@@ -560,10 +1055,36 @@
             "では、同（おな）じ 物（もの）を もう 一（ひと）つ どうぞ。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, there were many orders.",
+                "I am very sorry. I will exchange it immediately.",
+                "Then, please have another one of the same item."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, अर्डरहरू धेरै थिए।",
+                "धेरै माफी चाहन्छु। म तुरुन्तै साट्छु।",
+                "त्यसो भए, त्यही सामान अर्को एउटा लिनुहोस्।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I received something different from what I ordered."
+          ]
+        },
+        "ne": {
+          "body": [
+            "मैले अर्डर गरेको भन्दा फरक सामान आयो।"
+          ]
+        }
+      },
       "function": "苦情・指摘",
       "pool": "mock"
     },
@@ -588,10 +1109,36 @@
             "本当（ほんとう）だ、すぐ 直（なお）します。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, the handwriting is beautiful.",
+                "Yes, it's written correctly.",
+                "You're right, I'll fix it right away."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, अक्षर राम्रो छ नि।",
+                "हो, सही लेखिएको छ नि।",
+                "हो रहेछ, म तुरुन्तै सच्याउँछु।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "There's one wrong character here."
+          ]
+        },
+        "ne": {
+          "body": [
+            "यहाँ एउटा अक्षर गलत छ।"
+          ]
+        }
+      },
       "function": "苦情・指摘",
       "pool": "mock"
     },
@@ -616,10 +1163,36 @@
             "いいえ、傘（かさ）は 玄関（げんかん）に あります。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Oh, you're right. I'm sorry.",
+                "Yes, I bought an umbrella.",
+                "No, the umbrella is at the entrance."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "ओहो, हो रहेछ। माफ गर्नुहोस्।",
+                "हो, मैले छाता किनेँ।",
+                "होइन, छाता प्रवेशद्वारमा छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Isn't your umbrella mistaken for mine?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "तपाईंको छाता मेरोसँग साटिएको छैन र?"
+          ]
+        }
+      },
       "function": "苦情・指摘",
       "pool": "mock"
     },
@@ -644,10 +1217,36 @@
             "ええ、もう 座（すわ）りました。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, it's quiet here, isn't it?",
+                "Please, it's empty.",
+                "Yes, I've already sat down."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, यहाँ शान्त छ नि है।",
+                "बस्नुहोस्, खाली छ।",
+                "हो, म बसिसकेँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Excuse me, may I sit here?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "माफ गर्नुहोस्, म यहाँ बस्न सक्छु?"
+          ]
+        }
+      },
       "function": "許可求め",
       "pool": "mock"
     },
@@ -672,10 +1271,36 @@
             "ええ、どうぞ ご自由（じゆう）に。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, the pictures were beautiful.",
+                "No, I want to take a picture.",
+                "Yes, please feel free."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, फोटोहरू राम्रा थिए।",
+                "होइन, म फोटो खिच्न चाहन्छु।",
+                "हुन्छ, कृपया स्वतन्त्र महसुस गर्नुहोस्।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Is it okay if I take a picture?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "फोटो खिचे हुन्छ?"
+          ]
+        }
+      },
       "function": "許可求め",
       "pool": "mock"
     },
@@ -700,10 +1325,36 @@
             "はい、窓（まど）を 閉（し）めました。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, please open it.",
+                "Yes, the window is big, isn't it?",
+                "Yes, I closed the window."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हुन्छ, खोल्नुहोस्।",
+                "हो, झ्याल ठूलो छ नि है।",
+                "हो, मैले झ्याल बन्द गरेँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "May I open the window? It's hot."
+          ]
+        },
+        "ne": {
+          "body": [
+            "झ्याल खोल्न सक्छु? गर्मी भएर।"
+          ]
+        }
+      },
       "function": "許可求め",
       "pool": "mock"
     },
@@ -728,10 +1379,36 @@
             "いいえ、自転車（じてんしゃ）で 来（き）ました。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, bicycles are convenient, aren't they?",
+                "Yes, it's fine there.",
+                "No, I came by bicycle."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, साइकल सुविधाजनक हुन्छ, होइन र?",
+                "हो, त्यहाँ ठीक छ।",
+                "होइन, म साइकलमा आएँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "May I park my bicycle over there?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "के म मेरो साइकल त्यहाँ पार्क गर्न सक्छु?"
+          ]
+        }
+      },
       "function": "許可求め",
       "pool": "mock"
     },
@@ -756,10 +1433,36 @@
             "助（たす）かります、ぜひ。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, the fan is quiet, isn't it?",
+                "Yes, I turned off the fan.",
+                "That would be a great help, please."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, पंखा शान्त छ, होइन र?",
+                "हो, मैले पंखा बन्द गरें।",
+                "त्यो धेरै उपयोगी हुनेछ, कृपया।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "It's hot, isn't it? Shall I turn on the fan?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "गर्मी छ, होइन र? म पंखा खोलिदिऊँ?"
+          ]
+        }
+      },
       "function": "申し出",
       "pool": "mock"
     },
@@ -784,10 +1487,36 @@
             "ええ、車（くるま）を 買（か）いました。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Really? Yes, please.",
+                "Yes, the station is close, isn't it?",
+                "Yes, I bought a car."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "साँच्चै? कृपया।",
+                "हो, स्टेशन नजिकै छ, होइन र?",
+                "हो, मैले एउटा गाडी किनेँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Shall I drive you to the station?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "म तपाईंलाई स्टेशनसम्म गाडीमा पुर्याइदिऊँ?"
+          ]
+        }
+      },
       "function": "申し出",
       "pool": "mock"
     },
@@ -812,10 +1541,36 @@
             "ええ、傘（かさ）は 高（たか）かったです。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, I returned the umbrella.",
+                "Excuse me, I'll borrow it.",
+                "Yes, the umbrella was expensive."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, मैले छाता फिर्ता गरें।",
+                "माफ गर्नुहोस्, म यो लिन्छु।",
+                "हो, छाता महँगो थियो।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "If you'd like, please use this umbrella."
+          ]
+        },
+        "ne": {
+          "body": [
+            "यदि तपाईंलाई मन पर्छ भने, कृपया यो छाता प्रयोग गर्नुहोस्।"
+          ]
+        }
+      },
       "function": "申し出",
       "pool": "mock"
     },
@@ -840,10 +1595,36 @@
             "ありがとう、じゃあ お願（ねが）いします。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, I came alone.",
+                "Yes, I was very tired.",
+                "Thank you, then please."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, म एक्लै आएँ।",
+                "हो, म धेरै थाकेको थिएँ।",
+                "धन्यवाद, त्यसो भए कृपया।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Shall I help you? It must be tough by yourself."
+          ]
+        },
+        "ne": {
+          "body": [
+            "म तपाईंलाई मद्दत गरूँ? एक्लै गाह्रो होला।"
+          ]
+        }
+      },
       "function": "申し出",
       "pool": "mock"
     },
@@ -868,10 +1649,36 @@
             "ええ、ペンを 貸（か）して あげたよ。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "That would be a great help, thank you.",
+                "Yes, I wrote it with a pen.",
+                "Yes, I lent him/her a pen."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "त्यो धेरै उपयोगी हुनेछ, धन्यवाद।",
+                "हो, मैले कलमले लेखें।",
+                "हो, मैले उसलाई/उनलाई कलम दिएँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "If you'd like, shall I lend you my pen?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "यदि तपाईंलाई मन पर्छ भने, म मेरो कलम दिऊँ?"
+          ]
+        }
+      },
       "function": "申し出",
       "pool": "mock"
     },
@@ -896,10 +1703,36 @@
             "そう、プールの 水（みず）は 冷（つめ）たいね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, the pool felt good, didn't it?",
+                "Sounds good, I want to go!",
+                "That's right, the pool water is cold, isn't it?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, पूलमा राम्रो लाग्यो, होइन र?",
+                "राम्रो सुनिन्छ, म जान चाहन्छु!",
+                "हो, पूलको पानी चिसो छ, होइन र?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Next time, shall we go swimming at the pool together?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "अर्को पटक, हामी सँगै पौडी खेल्न पूलमा जाऔं न?"
+          ]
+        }
+      },
       "function": "誘い",
       "pool": "mock"
     },
@@ -924,10 +1757,36 @@
             "わあ、行（い）きたいです。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, the fireworks were beautiful, weren't they?",
+                "Yes, the sound of fireworks is loud, isn't it?",
+                "Wow, I want to go!"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, आतिशबाजी सुन्दर थियो, होइन र?",
+                "हो, पटकाको आवाज ठूलो हुन्छ, होइन र?",
+                "वाह, म जान चाहन्छु!"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "On Saturday, would you like to go see the fireworks?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "शनिबार, तपाईं आतिशबाजी हेर्न जानुहुन्छ?"
+          ]
+        }
+      },
       "function": "誘い",
       "pool": "mock"
     },
@@ -952,10 +1811,36 @@
             "そう、週末（しゅうまつ）は 雨（あめ）だったね。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "I agree, I'm looking forward to it.",
+                "Yes, the cherry blossom viewing was beautiful, wasn't it?",
+                "Yes, it rained on the weekend, didn't it?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "म सहमत छु, म उत्साहित छु।",
+                "हो, फूल हेर्नु सुन्दर थियो, होइन र?",
+                "हो, सप्ताहान्तमा पानी परेको थियो, होइन र?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Let's all go cherry blossom viewing on the weekend."
+          ]
+        },
+        "ne": {
+          "body": [
+            "सप्ताहान्तमा, हामी सबै फूल हेर्न जाऔं।"
+          ]
+        }
+      },
       "function": "誘い",
       "pool": "mock"
     },
@@ -980,10 +1865,36 @@
             "そう、今晩（こんばん）は 寒（さむ）いね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, the food was delicious.",
+                "Sounds good, may I come over?",
+                "Yes, it's cold tonight, isn't it?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, खाना स्वादिष्ट थियो।",
+                "राम्रो छ, म आउन सक्छु?",
+                "हो, आज राती चिसो छ, होइन र?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "How about having dinner together at my place tonight?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "आज राती मेरो घरमा सँगै खाना खाने कस्तो हुन्छ?"
+          ]
+        }
+      },
       "function": "誘い",
       "pool": "mock"
     },
@@ -1008,10 +1919,36 @@
             "そうですか、また 今度（こんど） 誘（さそ）いますね。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, please don't hesitate.",
+                "Yes, today was fun, wasn't it?",
+                "Is that so? I'll invite you again next time."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, कृपया संकोच नगर्नुहोस्।",
+                "हो, आज रमाइलो थियो, होइन र?",
+                "त्यसो हो? म तपाईंलाई अर्को पटक फेरि निम्तो दिनेछु।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "That's very kind of you, but I'll decline today."
+          ]
+        },
+        "ne": {
+          "body": [
+            "तपाईंको दयालु प्रस्तावको लागि धन्यवाद, तर आज म अस्वीकार गर्छु।"
+          ]
+        }
+      },
       "function": "断り・辞退",
       "pool": "mock"
     },
@@ -1036,10 +1973,36 @@
             "ええ、お金（かね）が 足（た）りませんね。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Is that so? Then I'll put it away.",
+                "Yes, please lend me money.",
+                "Yes, there isn't enough money, is there?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "त्यसो हो? त्यसो भए म यसलाई राख्छु।",
+                "हो, कृपया मलाई पैसा दिनुहोस्।",
+                "हो, पैसा पर्याप्त छैन, होइन र?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I appreciate it, but I cannot accept money."
+          ]
+        },
+        "ne": {
+          "body": [
+            "म यसको कदर गर्छु, तर म पैसा लिन सक्दिनँ।"
+          ]
+        }
+      },
       "function": "断り・辞退",
       "pool": "mock"
     },
@@ -1064,10 +2027,36 @@
             "ええ、その 日（ひ）は 晴（は）れましたね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, that day works well.",
+                "Understood, let's make it another day.",
+                "Yes, it was sunny that day, wasn't it?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, त्यो दिन उपयुक्त छ।",
+                "बुझें, अर्को दिन गरौं।",
+                "हो, त्यो दिन घाम लागेको थियो, होइन र?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I'm sorry, that day doesn't work for me."
+          ]
+        },
+        "ne": {
+          "body": [
+            "माफ गर्नुहोस्, त्यो दिन मलाई मिल्दैन।"
+          ]
+        }
+      },
       "function": "断り・辞退",
       "pool": "mock"
     },
@@ -1092,10 +2081,36 @@
             "そうですか、無理（むり）は しないでね。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, it's a difficult problem, isn't it?",
+                "Yes, let's definitely give it a try.",
+                "Is that so? Don't push yourself too hard."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, यो गाह्रो समस्या हो, होइन र?",
+                "हो, पक्कै पनि प्रयास गरौं।",
+                "त्यसो हो? आफूलाई धेरै दबाब नदिनुहोस्।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "It's still too difficult for me, so I'll pass."
+          ]
+        },
+        "ne": {
+          "body": [
+            "यो अझै पनि मेरो लागि धेरै गाह्रो छ, त्यसैले म गर्दिनँ।"
+          ]
+        }
+      },
       "function": "断り・辞退",
       "pool": "mock"
     },
@@ -1120,10 +2135,36 @@
             "そう、出発（しゅっぱつ）は 楽（たの）しかったね。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, I'll go right away.",
+                "Yes, there's plenty of time, isn't there?",
+                "Yes, the departure was fun, wasn't it?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, म तुरुन्तै जान्छु।",
+                "हो, प्रशस्त समय छ, होइन र?",
+                "हो, प्रस्थान रमाइलो थियो, होइन र?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "It's almost time to depart."
+          ]
+        },
+        "ne": {
+          "body": [
+            "अब प्रस्थान गर्ने समय भयो।"
+          ]
+        }
+      },
       "function": "催促",
       "pool": "mock"
     },
@@ -1148,10 +2189,36 @@
             "ええ、コピーを 頼（たの）みました。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, the copy is clean, isn't it?",
+                "Excuse me, I'll be done in just a moment.",
+                "Yes, I asked for a copy."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, कपी सफा छ, होइन र?",
+                "माफ गर्नुहोस्, अब अलिकति मात्र बाँकी छ।",
+                "हो, मैले कपी गर्न लगाएको थिएँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "The copy I asked for earlier, is it still not ready?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "अघि मैले अर्डर गरेको कपी, अझै भएन र?"
+          ]
+        }
+      },
       "function": "催促",
       "pool": "mock"
     },
@@ -1176,10 +2243,36 @@
             "わかった、すぐ 準備（じゅんび）するね。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yeah, the train was empty, wasn't it?",
+                "Right, let's go slowly.",
+                "Got it, I'll get ready right away."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, रेल खाली थियो, होइन र?",
+                "हो, बिस्तारै जाऔँ है।",
+                "बुझेँ, म तुरुन्तै तयारी गर्छु।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "If you don't hurry, you'll miss the train."
+          ]
+        },
+        "ne": {
+          "body": [
+            "छिटो नगरे रेल छुट्छ नि।"
+          ]
+        }
+      },
       "function": "催促",
       "pool": "mock"
     },
@@ -1204,10 +2297,36 @@
             "ええ、財布（さいふ）は 空（から）でしたよ。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "No problem, I'm glad it was found.",
+                "Yes, I dropped my wallet.",
+                "Yes, the wallet was empty."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "केही छैन, भेटियो खुसी लाग्यो।",
+                "हो, मैले पर्स खसालेको थिएँ।",
+                "हो, पर्स खाली थियो।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Thank you for returning the wallet I dropped."
+          ]
+        },
+        "ne": {
+          "body": [
+            "खसेको पर्स फिर्ता गरिदिनुभएकोमा धन्यवाद।"
+          ]
+        }
+      },
       "function": "お礼",
       "pool": "mock"
     },
@@ -1232,10 +2351,36 @@
             "そう、プレゼントは 高（たか）かった？"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yeah, I received a present.",
+                "I'm happy you liked it.",
+                "So, was the present expensive?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, मैले उपहार पाएँ।",
+                "तपाईंलाई मन परेकोमा म खुसी छु।",
+                "त्यसो भए, उपहार महँगो थियो?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Thank you so much for the wonderful present."
+          ]
+        },
+        "ne": {
+          "body": [
+            "यो राम्रो उपहारको लागि धेरै धेरै धन्यवाद।"
+          ]
+        }
+      },
       "function": "お礼",
       "pool": "mock"
     },
@@ -1260,10 +2405,36 @@
             "喜（よろこ）んで もらえて よかったです。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, it was rainy yesterday, wasn't it?",
+                "Yes, I also received a treat.",
+                "I'm glad you liked it."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, हिजो पानी परेको थियो, होइन र?",
+                "हो, मैले पनि भोज पाएँ।",
+                "तपाईंलाई मन परेकोमा म खुसी छु।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Thank you for the meal yesterday. It was very delicious."
+          ]
+        },
+        "ne": {
+          "body": [
+            "हिजोको खानाको लागि धन्यवाद। धेरै स्वादिष्ट थियो।"
+          ]
+        }
+      },
       "function": "お礼",
       "pool": "mock"
     },
@@ -1288,10 +2459,36 @@
             "ええ、遅（おそ）い 時間（じかん）だね。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "It's okay, don't worry about it.",
+                "Yeah, you came early.",
+                "Yes, it's late."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "ठीकै छ, चिन्ता नगर्नुहोस्।",
+                "हो, तिमी चाँडै आयौ।",
+                "हो, ढिलो भयो।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Sorry I'm late. For making you wait."
+          ]
+        },
+        "ne": {
+          "body": [
+            "ढिलो भएकोमा माफ गर्नुहोस्। तपाईंलाई पर्खाएकोमा।"
+          ]
+        }
+      },
       "function": "謝罪",
       "pool": "mock"
     },
@@ -1316,10 +2513,36 @@
             "そう、電話（でんわ）が 鳴（な）って いるよ。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yeah, call me early in the morning.",
+                "No, it's okay.",
+                "Oh, the phone is ringing."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, बिहान सबेरै फोन गर्नुहोस्।",
+                "होइन, ठीकै छ।",
+                "ओहो, फोन बजिरहेको छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Sorry for calling you late at night."
+          ]
+        },
+        "ne": {
+          "body": [
+            "राती अबेर फोन गरेकोमा माफ गर्नुहोस्।"
+          ]
+        }
+      },
       "function": "謝罪",
       "pool": "mock"
     },
@@ -1344,10 +2567,36 @@
             "ううん、もう 気（き）に して ないよ。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Okay, excuse me.",
+                "Yes, you said something good.",
+                "No, I don't mind it anymore."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हुन्छ, माफ गर्नुहोस्।",
+                "हो, तिमीले राम्रो कुरा भन्यौ।",
+                "होइन, मलाई अब कुनै मतलब छैन।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Sorry for saying something rude the other day."
+          ]
+        },
+        "ne": {
+          "body": [
+            "अर्को दिन असभ्य कुरा भनेकोमा माफ गर्नुहोस्।"
+          ]
+        }
+      },
       "function": "謝罪",
       "pool": "mock"
     },
@@ -1372,10 +2621,36 @@
             "そう、明日（あした）は 晴（は）れだね。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "It's okay, I'm sure it will go well.",
+                "Yes, the interview is over.",
+                "Yes, it will be sunny tomorrow."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "ठीक छ, पक्कै पनि राम्रो हुनेछ।",
+                "हो, अन्तर्वार्ता सकियो।",
+                "हो, भोलि घाम लाग्नेछ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I'm nervous about tomorrow's interview."
+          ]
+        },
+        "ne": {
+          "body": [
+            "भोलिको अन्तर्वार्ताले मलाई चिन्तित बनाएको छ।"
+          ]
+        }
+      },
       "function": "感想・共感",
       "pool": "mock"
     },
@@ -1400,10 +2675,36 @@
             "ええ、映画館（えいがかん）は 広（ひろ）いね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, let's go watch a movie.",
+                "Yes, I ended up crying at the end.",
+                "Yes, the movie theater is spacious."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, चलचित्र हेर्न जाऔँ।",
+                "हो, अन्त्यमा म रोएँ।",
+                "हो, सिनेमा हल फराकिलो छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Today's movie was very moving, wasn't it?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "आजको चलचित्र एकदमै भावुक थियो, होइन र?"
+          ]
+        }
+      },
       "function": "感想・共感",
       "pool": "mock"
     },
@@ -1428,10 +2729,36 @@
             "本当（ほんとう）に、早（はや）く 涼（すず）しく なって ほしいね。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, it's cold every day.",
+                "Yes, hot tea would be good.",
+                "Really, I hope it gets cooler soon."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, हरेक दिन चिसो छ।",
+                "हो, तातो चिया राम्रो हुन्छ।",
+                "साँच्चै, चाँडै चिसो होस् भन्ने आशा छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "It's hot every day, it's really tough, isn't it?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "हरेक दिन गर्मी छ, साँच्चै गाह्रो छ, होइन र?"
+          ]
+        }
+      },
       "function": "感想・共感",
       "pool": "mock"
     },
@@ -1456,10 +2783,36 @@
             "そう、床（ゆか）を ふいたよ。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Thank you, I'll be careful.",
+                "Yes, the floor is dry.",
+                "Yes, I wiped the floor."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "धन्यवाद, म ख्याल गर्नेछु।",
+                "हो, भुइँ सुकेको छ।",
+                "हो, मैले भुइँ पुछें।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Be careful there, the floor is wet."
+          ]
+        },
+        "ne": {
+          "body": [
+            "त्यहाँ भुइँ भिजेको छ, ख्याल गर्नुहोला।"
+          ]
+        }
+      },
       "function": "忠告・注意",
       "pool": "mock"
     },
@@ -1484,10 +2837,36 @@
             "ええ、風邪（かぜ）は 治（なお）ったよ。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, let's take off the jacket.",
+                "Yes, I'll wear it properly.",
+                "Yes, my cold is cured."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, ज्याकेट खोलौँ।",
+                "हो, म राम्ररी लगाएर जानेछु।",
+                "हो, मेरो रुघा निको भयो।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Wear a jacket so you don't catch a cold."
+          ]
+        },
+        "ne": {
+          "body": [
+            "चिसो नलागोस् भनेर ज्याकेट लगाउनुहोस्।"
+          ]
+        }
+      },
       "function": "忠告・注意",
       "pool": "mock"
     },
@@ -1512,10 +2891,36 @@
             "はい、気（き）を つけて 触（さわ）りません。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, machines are convenient.",
+                "Yes, let's try touching the machine.",
+                "Yes, I will be careful not to touch it."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, मेसिनहरू सुविधाजनक छन्।",
+                "हो, मेसिन छोएर हेरौँ।",
+                "हुन्छ, म ख्याल गरेर छुने छैन।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "It's dangerous, so don't touch that machine."
+          ]
+        },
+        "ne": {
+          "body": [
+            "खतरनाक छ, त्यसैले त्यो मेसिन नछुनुहोस्।"
+          ]
+        }
+      },
       "function": "忠告・注意",
       "pool": "mock"
     },
@@ -1540,10 +2945,36 @@
             "そう、二（ふた）つとも 買（か）ったの？"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "I think the blue one is better.",
+                "Yes, I painted it.",
+                "Yes, you bought both of them?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "मलाई नीलो रङ राम्रो लाग्छ।",
+                "हो, मैले रङ लगाए।",
+                "हो, तिमीले दुवै किन्यौ?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "Which color do you think is better out of these two?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "यी दुईमध्ये कुन रङ राम्रो लाग्छ?"
+          ]
+        }
+      },
       "function": "相談・意見求め",
       "pool": "mock"
     },
@@ -1568,10 +2999,36 @@
             "そう、最近（さいきん） 暖（あたた）かいね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yeah, it's good that you're sleeping well.",
+                "Why don't you get it checked out at the hospital once?",
+                "Yes, it's been warm lately, hasn't it?"
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, राम्ररी सुत्न पाएकोमा राम्रो भयो।",
+                "एकचोटि अस्पतालमा देखाए कसो होला?",
+                "हो, आजकल न्यानो छ नि, होइन र?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I haven't been sleeping well lately. What should I do?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "मलाई आजकल राम्ररी निद्रा लागिरहेको छैन, के गरूँ?"
+          ]
+        }
+      },
       "function": "相談・意見求め",
       "pool": "mock"
     },
@@ -1596,10 +3053,36 @@
             "私（わたし）も いい 店（みせ）だと 思（おも）うよ。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, the shop closed.",
+                "Yes, it's a shop that's not popular.",
+                "I also think it's a good shop."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, पसल बन्द भयो।",
+                "हो, यो मन नपर्ने पसल हो।",
+                "मलाई पनि राम्रो पसल लाग्छ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "This shop is popular with everyone, but what do you think?"
+          ]
+        },
+        "ne": {
+          "body": [
+            "यो पसल सबैलाई मन पर्छ, तिमीलाई कस्तो लाग्छ?"
+          ]
+        }
+      },
       "function": "相談・意見求め",
       "pool": "mock"
     },
@@ -1624,10 +3107,36 @@
             "そう、お店（みせ）で 買（か）い物（もの）しよう。"
           ],
           "answerIndex": 0,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Oh, really? I didn't know that.",
+                "Yes, the shop opened.",
+                "Yes, let's go shopping at the store."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "ए, त्यसो हो? मलाई थाहा थिएन।",
+                "हो, पसल खुल्यो।",
+                "हो, पसलमा किनमेल गरौँ।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I heard the shop next door is closing next week."
+          ]
+        },
+        "ne": {
+          "body": [
+            "छेउको पसल अर्को हप्ता बन्द हुँदैछ रे।"
+          ]
+        }
+      },
       "function": "伝聞・情報伝達",
       "pool": "mock"
     },
@@ -1652,10 +3161,36 @@
             "そう、雨（あめ）が やんで よかったね。"
           ],
           "answerIndex": 1,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, the weather was good yesterday, wasn't it?",
+                "Well then, I'll have to take an umbrella, won't I?",
+                "Yes, it's good that the rain stopped."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, हिजो मौसम राम्रो थियो नि, होइन र?",
+                "त्यसो भए, छाता लिएर जानुपर्छ नि, होइन र?",
+                "हो, पानी रोकिएकोमा राम्रो भयो।"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "It seems like it's going to rain continuously from tomorrow."
+          ]
+        },
+        "ne": {
+          "body": [
+            "भोलिदेखि पानी परिरहने जस्तो छ।"
+          ]
+        }
+      },
       "function": "伝聞・情報伝達",
       "pool": "mock"
     },
@@ -1680,10 +3215,36 @@
             "へえ、どんな 店（みせ）が できるのかな。"
           ],
           "answerIndex": 2,
-          "i18n": {}
+          "i18n": {
+            "en": {
+              "choices": [
+                "Yes, that shop is gone.",
+                "Yes, I walked to the station.",
+                "Oh, I wonder what kind of shop it will be."
+              ]
+            },
+            "ne": {
+              "choices": [
+                "हो, त्यो पसल बन्द भयो।",
+                "हो, म स्टेशनसम्म हिँडेँ।",
+                "ए, कस्तो पसल खुल्ने होला?"
+              ]
+            }
+          }
         }
       ],
-      "i18n": {},
+      "i18n": {
+        "en": {
+          "body": [
+            "I heard a new shop is opening in front of the station."
+          ]
+        },
+        "ne": {
+          "body": [
+            "स्टेशनको अगाडि नयाँ पसल खुल्दैछ रे।"
+          ]
+        }
+      },
       "function": "伝聞・情報伝達",
       "pool": "mock"
     }
