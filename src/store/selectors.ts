@@ -500,6 +500,22 @@ export function growthCurve(state: AppState, today: string, n = 14): GrowthPoint
   });
 }
 
+/** 直近 n 日の分類別カバー率(覚えた数)の推移。漢字/語彙/文法の3本折れ線用。
+ *  cov 未記録の日は直前値をキャリーフォワード(無ければ0)。過去は分類別に遡れないため、記録開始日(=今日以降)から線が伸びる。 */
+export interface CoveragePoint { day: string; kanji: number; vocab: number; grammar: number }
+export function coverageCurve(state: AppState, today: string, n = 14): CoveragePoint[] {
+  const pts = state.growth ?? [];
+  let i = 0;
+  let cur = { kanji: 0, vocab: 0, grammar: 0 };
+  return lastNDays(today, n).map((day) => {
+    while (i < pts.length && pts[i].day <= day) {
+      if (pts[i].cov) cur = pts[i].cov as { kanji: number; vocab: number; grammar: number };
+      i++;
+    }
+    return { day, ...cur };
+  });
+}
+
 export interface ProgressSnapshot {
   score: number;   // 準備度
   band: number;    // 信頼幅 ±

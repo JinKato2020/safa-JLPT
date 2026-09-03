@@ -1,18 +1,24 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 1 回・5 ターン
-- 往復 234 回
+- ツール呼び出し 28 回・53 ターン
+- 往復 123 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/~$在庫・模試ストックまとめ.xlsx
-- memory/session-summary-LATEST.md
-- memory/在庫・模試ストックまとめ.xlsx
-- content/_manifest.json
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
+- src/screens/AICoachScreen.tsx
+
+## ⚠️ 注意
+- - ⚠ 連続 53ターン（文脈 20万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 53ターン・ツール28回）— まとめ方を変える
 
 ## 次の一手
-- **▶2026-09-03 次の一手＝聴解対訳の“表示コード”をビルドで届ける（hatsuwa/sokujiの選択肢訳のため）。** content対訳は**OTA配信済**（commit fe3956f7・Pages run 33693119327＝point/gaiyou/hatsuwa/sokujiのcontent JSON）。ただし**hatsuwa/sokujiは設問文qが空**で、選択肢訳を表示するには`rehydrate.ts`のQ_TRANS取り込み緩和（q無しでもchoices拾う）が要る＝**未commitのコード変更**。OTA(content)だけでは旧アプリのrehydrateがchoicesを落とすので**発話/即時の選択肢訳は出ない**（台本/場面文の訳は旧コードでも出る）。→ **ビルドすれば選択肢訳が点灯**。ビルド未実施（never-build-without-explicit-order＝明示指示待ち）。同梱すべき非content変更＝`src/data/content/rehydrate.ts`・`src/data/exam/passageTransNe.test.ts`・`src/data/exam/transSrcHash.json`(番人baseline)・`tools/trans_daimon.py`・`tools/excel_signal_color.py`。文字語彙/文法/読解の対訳は既済。
+- **✅2026-09-03 聴解対訳 完全配信済（OTA＋ビルド）。** content対訳=OTA済（commit fe3956f7・Pages 33693119327）。表示コード（rehydrateのQ_TRANSをq無しでもchoices取り込み＝hatsuwa/sokujiの選択肢訳のため）＝**ビルド v1.1.32(2900) dispatch済**（commit 0550baa4・iOS+Android・run 33744240626・-NoWatch）。本日iOS 2/8回目。TestFlight反映後、発話/即時の選択肢訳が点灯する。→ **監視しない運用**。CI結果と実機確認はユーザー側で。
+- **✅2026-09-03 辞書コンテンツ欠落補充＝完了・OTA配信済**（commit 714f2702・Pages 33744241016）。正本=`memory/trans-dict-fill-inflight.md`。漢字例語グロスne 677（1182→1859）／語彙例文 en 705・ne 89 を補充＋幽霊n3-v-1005削除。**enもOTA overlayで配信**（index.ts:145 VOCAB_EXAMPLE＝同梱＋example overlay上書き）ゆえ**ビルド不要**。例文を語彙/文法ファイルに物理分割済（exampleGrammar_N?・kind:'example'・mergeLexで自動結合・rehydrate変更なし）。実費¥15。ツール=`tools/trans_dict_fill.py`。**src未commit（次ビルド同梱でよい）**＝vocabExamplesAi.json(en baseline)・bundled.generated.ts(分割import)。
+- **▶次の一手（明示指示待ち）**: 特になし。候補=(a)他7言語(bn/id/ko/my/th/vi/zh)の辞書・問題翻訳（大規模・要見積り）／(b)v1.1.32(2900)のCI結果確認（監視しない運用ゆえユーザー側で）。多言語比較xlsx=`翻訳比較_辞書.xlsx`(repo直下・.gitignore済/scratchpad)。
 - **▶2026-09-03 Excel信号色を仕組み化**＝`tools/excel_signal_color.py`（許可シートのみ塗る/既存色消さない）＋PostToolUseフック`~/.claude/hooks/color-excel-after-write.mjs`（.xlsx保存で自動起動）。詳細=メモリ[[excel-signal-color-mechanism]]。以後Excel編集で色付け忘れは仕組みで防止。
 - **✅2026-09-03 聴解 音声監査＝全5大問 完了・配信済**。正本 `memory/audio-audit-inflight.md`。kadai16件＋他4大問4件(N3-C-P-0148/N3-C-G-0014/N3-C-G-0017/N5-C-S-0199)の音声焼き付き不良を作り直し(計¥約83)。監査ツール=`_audit_work\audit_kadai.py`(kadai)/`audit_choukai.py <daimon>`(他4)。旧mp3退避=`_audit_work\old_audio_*`。**ビルド v1.1.31(2898) dispatch済**(commit 1c8722f0・iOS+Android・-NoWatch=結果監視しない)＝音声＋課題理解対訳表示コードを同梱配信。
 - **✅2026-09-02 対訳(en/ne)追加プロジェクト 完了（未commit/未配信）＝次は配信の明示指示待ち**。正本=`memory/trans-synonym-usage-inflight.md`。

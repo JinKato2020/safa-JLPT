@@ -923,7 +923,6 @@
   "coach.score_of": " / {n}点",
   "coach.pts_pred": "予想 {n}点",
   "coach.pts_pass": "合格ライン {n}点",
-  "coach.vol_title": "学習量（覚えた語/日・直近14日）",
   "coach.vol_recent": "直近14日で ＋{n}語",
   "coach.unit_days": "日",
   "coach.strip_streak": "連続学習",

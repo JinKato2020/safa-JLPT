@@ -75,3 +75,6 @@ data-build/shots/raw_en/
 # 翻訳ズレ検知などの生成レポート(コミット不要)
 tools/out/
 _audit_work/
+
+# 多言語比較の出力（ローカル閲覧用・publicリポに載せない）
+翻訳比較_辞書.xlsx

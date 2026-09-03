@@ -16,7 +16,7 @@ import { homeStatus, studyHM } from '../home/homeStatus';
 import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
 import { dayStr, lastNDays, type MockResult } from '../store/state';
 import type { Level } from '../engine/engine';
-import { expectedScoreFor, coverageBars } from '../store/selectors';
+import { expectedScoreFor, coverageBars, coverageCurve } from '../store/selectors';
 import { relativePositionFor, isOfficialLevel } from '../ladder/relativePosition';
 import { OFFICIAL_TOTAL_STAT, OFFICIAL_PASS_RATE, OFFICIAL_BASE_LABEL, type OfficialLevel } from '../data/officialStats';
 import { dueCount } from '../review/selectReview';
@@ -63,9 +63,12 @@ export default function AICoachScreen() {
     const relGengoCombined = lv === 'N4' || lv === 'N5';
     // 復習待ち(忘れかけ)の面数=面別マスタリーの due 数。
     const due = state.mastery ? dueCount(state.mastery, now) : 0;
-    // 学習量の推移: 累積「覚えた語」の日次差分=その日の新規習得数(15点→14本のバー)。
-    const cum = growthBars(state, today, 15);
-    const daily = cum.slice(1).map((v, i) => Math.max(0, v - cum[i]));
+    // 分類別カバー率(覚えた数)の推移=漢字/語彙/文法の3本折れ線(縦=累計語数・横=直近14日)。
+    // 旧「学習量の推移」バー(合算・日次)はこの折れ線に統合(線の傾き=その日の増加・高さ=累計)。
+    const covCurve = coverageCurve(state, today, 14);
+    const firstCov = covCurve[0];
+    const lastCov = covCurve[covCurve.length - 1];
+    const covGain = Math.max(0, (lastCov.kanji + lastCov.vocab + lastCov.grammar) - (firstCov.kanji + firstCov.vocab + firstCov.grammar));
     // カバー率(覚えた数)=書庫の3辞書(漢字/語彙/文法)の当該レベル総数を分母にする。
     // 読解・聴解はスキル(般化)で「語数」ではないため、覚えた数/カバー率の分母には含めない(単語タブの3カードと一致)。
     // 漢字ID有効化で漢字面が習得を持つため分割(ユーザー確定2026-08-23)＝漢字/語彙/文法の3バー。
@@ -97,7 +100,7 @@ export default function AICoachScreen() {
     const latestMock = scoredMocks.length ? scoredMocks[scoredMocks.length - 1] : null;
     const prevMock = scoredMocks.length > 1 ? scoredMocks[scoredMocks.length - 2] : null;
     const mockTrend = scoredMocks.slice(-8); // フル記録を保持(タップで成績表を開くため)
-    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, rel, official, relGengoCombined, due, daily, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
+    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, rel, official, relGengoCombined, due, covCurve, covGain, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
   }, [state]);
 
   const { st } = d;
@@ -268,6 +271,24 @@ export default function AICoachScreen() {
               );
             })}
           </View>
+          {/* 分類別の推移(漢字青/語彙緑/文法赤・縦=累計語数/横=直近14日)。旧「学習量の推移」バーをここへ統合(線の傾き=その日の増加・高さ=累計)。 */}
+          <View style={s.growthWrap}>
+            <LineChart c={c} width={chartW} data={d.covCurve} />
+            <View style={s.legendRow}>
+              {[
+                { k: 'cards.kanji', col: c.blue, v: d.covCurve[d.covCurve.length - 1].kanji },
+                { k: 'cards.vocab', col: c.green, v: d.covCurve[d.covCurve.length - 1].vocab },
+                { k: 'cards.grammar', col: c.red, v: d.covCurve[d.covCurve.length - 1].grammar },
+              ].map((lg) => (
+                <View key={lg.k} style={s.legendItem}>
+                  <View style={[s.legendDot, { backgroundColor: lg.col }]} />
+                  <Text style={s.legendLbl}>{t(lg.k)}</Text>
+                  <Text style={s.legendVal}>{lg.v}</Text>
+                </View>
+              ))}
+            </View>
+            <Text style={s.barCap}>{t('coach.vol_recent', { n: d.covGain })}</Text>
+          </View>
         </View>
 
         {/* ④ 復習の待ち(忘れかけ) */}
@@ -332,19 +353,6 @@ export default function AICoachScreen() {
           )}
         </View>
 
-        {/* いちばんの弱点 */}
-        <View style={[s.card, s.weakCard]}>
-          <View style={[s.chip, { backgroundColor: c.red + '22', borderColor: c.red + '55' }]}><Text style={[s.chipT, { color: c.red }]}>{t('coach.weak_chip')}</Text></View>
-          <Text style={s.weakT}>{t('coach.weak_text', { cat, pct: d.weakest.pct })}</Text>
-        </View>
-
-        {/* ⑦ 学習量の推移(覚えた語/日・直近14日)。※旧「ゴールまでの見通し」はヒーローのリング(予想得点vs合格ライン)と重複のため撤去。 */}
-        <View style={s.card}>
-          <SecLabel c={c} s={s} text={t('coach.vol_title')} />
-          <BarChart s={s} c={c} data={d.daily} />
-          <Text style={s.barCap}>{t('coach.vol_recent', { n: d.daily.reduce((a, b) => a + b, 0) })}</Text>
-        </View>
-
         {/* ⑥ 継続・学習量(継続ストリップ＋カレンダーを1枚に統合: 連続/時間/累計＋最長・フリーズ＋7日/28日ドット) */}
         <View style={s.card}>
           <SecLabel c={c} s={s} text={t('coach.cal_title')} />
@@ -362,10 +370,16 @@ export default function AICoachScreen() {
           </View>
         </View>
 
-        {/* コーチの一言(締め) */}
+        {/* コーチのアドバイス(いちばんの弱点＋締めの一言を1枚に統合＝同じアドバイス系のため) */}
         <View style={s.voice}>
           <View style={s.voiceB}><Text style={s.voiceBt}>◇</Text></View>
-          <Text style={s.voiceT}>{coachMsg}</Text>
+          <View style={s.voiceBody}>
+            <View style={s.weakLine}>
+              <View style={[s.chip, { backgroundColor: c.red + '22', borderColor: c.red + '55' }]}><Text style={[s.chipT, { color: c.red }]}>{t('coach.weak_chip')}</Text></View>
+              <Text style={s.weakInline}>{t('coach.weak_text', { cat, pct: d.weakest.pct })}</Text>
+            </View>
+            <Text style={s.voiceT}>{coachMsg}</Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -425,20 +439,32 @@ function FacetRadar({ data, c }: { data: { label: string; pct: number; color: st
   );
 }
 
-function BarChart({ s, c, data }: { s: Styles; c: ThemeColors; data: number[] }) {
-  const W = 320, H = 64, gap = 3;
+// 分類別カバー率(覚えた数)の3本折れ線。漢字=青/語彙=緑/文法=赤。縦=累計語数・横=直近14日。
+// 実px幅(width)で描く=viewBox伸縮による端点マーカーの歪みを避ける(BellCurveと同方針)。
+function LineChart({ c, width, data }: { c: ThemeColors; width: number; data: { day: string; kanji: number; vocab: number; grammar: number }[] }) {
+  const H = 132, padT = 12, padB = 12, padX = 6;
+  const W = Math.max(220, width);
   const n = Math.max(1, data.length);
-  const bw = (W - gap * (n - 1)) / n;
-  const max = Math.max(1, ...data);
+  const series = [
+    { key: 'kanji', color: c.blue, vals: data.map((d) => d.kanji) },
+    { key: 'vocab', color: c.green, vals: data.map((d) => d.vocab) },
+    { key: 'grammar', color: c.red, vals: data.map((d) => d.grammar) },
+  ];
+  const max = Math.max(1, ...series.flatMap((sr) => sr.vals));
+  const x = (i: number) => padX + (i * (W - 2 * padX)) / Math.max(1, n - 1);
+  const y = (v: number) => padT + (1 - v / max) * (H - padT - padB);
+  const line = (vals: number[]) => vals.map((v, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
   return (
-    <View style={s.bars}>
-      <Svg width="100%" height={H} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
-        {data.map((v, i) => {
-          const h = v > 0 ? Math.max(2, (v / max) * (H - 4)) : 0;
-          return <Rect key={i} x={i * (bw + gap)} y={H - h} width={bw} height={h} rx={1.5} fill={c.blue} opacity={v > 0 ? 0.85 : 0.16} />;
-        })}
-      </Svg>
-    </View>
+    <Svg width={W} height={H}>
+      <Line x1={padX} y1={H - padB} x2={W - padX} y2={H - padB} stroke={c.line} strokeWidth={1} />
+      {series.map((sr) => (
+        <Path key={sr.key} d={line(sr.vals)} fill="none" stroke={sr.color} strokeWidth={2.4} strokeLinejoin="round" strokeLinecap="round" />
+      ))}
+      {series.map((sr) => {
+        const li = sr.vals.length - 1;
+        return <Circle key={sr.key + 'e'} cx={x(li)} cy={y(sr.vals[li])} r={3.2} fill={sr.color} />;
+      })}
+    </Svg>
   );
 }
 
@@ -564,9 +590,14 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   dueUnit: { fontSize: 15, fontWeight: '800' },
   dueNote: { flex: 1, fontSize: 12, color: c.ink2, lineHeight: 18, fontWeight: '600' },
 
-  // 学習量の推移
-  bars: { marginTop: 2 },
-  barCap: { fontSize: 10.5, color: c.faint, fontWeight: '700', marginTop: 6, textAlign: 'right' },
+  // 分類別の推移(3本折れ線＝旧「学習量の推移」を統合)
+  growthWrap: { marginTop: spacing.sm, paddingTop: spacing.sm, borderTopWidth: 1, borderTopColor: c.line },
+  legendRow: { flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: spacing.md, marginTop: 6 },
+  legendItem: { flexDirection: 'row', alignItems: 'center', gap: 5 },
+  legendDot: { width: 9, height: 9, borderRadius: 5 },
+  legendLbl: { fontSize: 11.5, color: c.ink2, fontWeight: '700' },
+  legendVal: { fontSize: 11.5, color: c.ink, fontWeight: '900', fontVariant: ['tabular-nums'] },
+  barCap: { fontSize: 10.5, color: c.faint, fontWeight: '700', marginTop: 6, textAlign: 'center' },
 
   spark: { marginTop: spacing.md },
   sparkCap: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
@@ -595,7 +626,10 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   voice: { flexDirection: 'row', gap: 10, alignItems: 'flex-start', backgroundColor: c.blueLight, borderWidth: 1, borderColor: c.blue + '3a', borderLeftWidth: 3, borderLeftColor: c.blue, borderRadius: radius.md, padding: spacing.sm },
   voiceB: { width: 22, height: 22, borderRadius: 7, backgroundColor: c.blue, alignItems: 'center', justifyContent: 'center' },
   voiceBt: { color: '#fff', fontSize: 12, fontWeight: '900' },
-  voiceT: { flex: 1, fontSize: 12.5, color: c.ink, lineHeight: 19 },
+  voiceT: { fontSize: 12.5, color: c.ink, lineHeight: 19 },
+  voiceBody: { flex: 1, gap: 8 },
+  weakLine: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
+  weakInline: { flex: 1, minWidth: 130, fontSize: 12.5, color: c.ink, lineHeight: 19, fontWeight: '600' },
   cta: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: 14, marginTop: 2 },
   ctaT: { color: '#fff', fontSize: 15, fontWeight: '800' },
 });

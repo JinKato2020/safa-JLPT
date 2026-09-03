@@ -913,7 +913,6 @@
   "coach.score_of": " / {n} अङ्क",
   "coach.pts_pred": "अनुमान {n} अङ्क",
   "coach.pts_pass": "उत्तीर्ण रेखा {n} अङ्क",
-  "coach.vol_title": "अध्ययन मात्रा (शब्द/दिन, पछिल्लो १४ दिन)",
   "coach.vol_recent": "पछिल्लो १४ दिनमा +{n} शब्द",
   "coach.unit_days": "दिन",
   "coach.strip_streak": "लगातार",

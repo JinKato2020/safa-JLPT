@@ -913,7 +913,6 @@
   "coach.score_of": " / {n} pts",
   "coach.pts_pred": "Predicted {n} pts",
   "coach.pts_pass": "Pass line {n} pts",
-  "coach.vol_title": "Study volume (words/day, last 14 days)",
   "coach.vol_recent": "+{n} words in the last 14 days",
   "coach.unit_days": "days",
   "coach.strip_streak": "Streak",
