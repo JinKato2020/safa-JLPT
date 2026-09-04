@@ -100,6 +100,11 @@
   </section>
 
   <section>
+    <h2>国別リテンション（継続率 D1/D7/D30） <span class="note">インストールした人が「少なくともN日目まで残った割合」（ローリング）。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ。<b>D7母数</b>＝7日目に到達する時間が経った人数＝これが小さいうち（数人）は割合が跳ねるので参考値。国はIP由来。目安：D1≥40%／D7≥20%／D30≥10% で緑</span></h2>
+    <div class="scroll"><table id="tRetGeo"></table></div>
+  </section>
+
+  <section>
     <h2>紹介（誰が誰を紹介したか） <span class="note">紹介者＝ログイン済みメール／紹介された人＝メール（未ログインなら匿名IDの先頭＋名前）／状態＝保留・継続達成・報酬付与済・無効</span></h2>
     <div class="scroll"><table id="tReferrals"></table></div>
   </section>
@@ -182,6 +187,9 @@ async function loadAll(){
     ]);
     renderSummary(summary[0]||{});
     renderGeo(geo);
+    // 国別リテンション（ビュー未作成でも他は壊さない＝個別に取得して失敗は握る）
+    try { renderRetentionGeo(await api(url,key,'v_admin_retention_geo')); }
+    catch(e){ $('tRetGeo').innerHTML = `<tr><td class="empty">国別リテンションのビューが未作成です。docs/supabase/retention_monetization_views.sql を SQL Editor で実行してください。</td></tr>`; }
     renderReferrals(referrals);
     renderLevel(level);
     renderRelpos(level);
@@ -238,6 +246,26 @@ function renderGeo(geo){
     [{label:'国'},{label:'登録',num:1},{label:'匿名(概算)',num:1},{label:'全体(概算)',num:1}],
     (geo||[]).slice(),
     [ r=>`<b>${esc(countryLabel(r.country))}</b>`, r=>`${r.registered ?? 0}人`, r=>`${r.anonymous_est ?? 0}人`, r=>`${r.total_installs ?? 0}人` ]
+  );
+}
+
+// 継続率セル：目安を下回ると橙/赤で色付け。母数が小さいうちは参考値。
+function retCell(v, goodT, midT){
+  if(v==null || v==='') return '<span class="empty">—</span>';
+  const n = Number(v);
+  const cls = n>=goodT ? 'ok' : (n>=midT ? 'mid' : 'low');
+  return `<span class="${cls}">${n}%</span>`;
+}
+function renderRetentionGeo(rows){
+  simpleTbl($('tRetGeo'),
+    [{label:'国'},{label:'インストール',num:1},{label:'D1',num:1},{label:'D7',num:1},{label:'D30',num:1},{label:'D7母数',num:1}],
+    (rows||[]).slice(),
+    [ r=>`<b>${esc(countryLabel(r.country))}</b>`,
+      r=>`${r.installs ?? 0}`,
+      r=>retCell(r.d1_pct, 40, 20),
+      r=>retCell(r.d7_pct, 20, 10),
+      r=>retCell(r.d30_pct, 10, 5),
+      r=>`<span class="${(r.d7_base??0)>=10?'':'off'}">${r.d7_base ?? 0}</span>` ]
   );
 }
 

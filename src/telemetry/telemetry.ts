@@ -14,6 +14,7 @@ import type { Category } from '../engine/engine';
 import { supabase } from '../config/supabase';
 import { getCachedGeoCountry } from '../geo/geoClient';
 import { personalityOf, moodMsgOf } from '../plaza/persona';
+import { getDeviceId } from './deviceId';
 
 const APP_VERSION = '1.1.0';
 
@@ -64,9 +65,16 @@ function uuid(): string {
     return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
   });
 }
+// 匿名ID＝まず「端末に固定されたID(再インストールでも不変)」を採用し、install/リテンションの数字が
+// 入れ直しでズレないようにする。取得不可の端末だけ従来のローカルUUID(入れ直しで変わる)へフォールバック。
+let cachedAnon: string | null = null;
 async function anonId(): Promise<string> {
+  if (cachedAnon) return cachedAnon;
+  const dev = await getDeviceId();
+  if (dev) { cachedAnon = dev; return dev; }
   let id = await AsyncStorage.getItem(K_ANON);
   if (!id) { id = uuid(); await AsyncStorage.setItem(K_ANON, id); }
+  cachedAnon = id;
   return id;
 }
 

@@ -2,6 +2,8 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+- **▶2026-09-04 AIコーチUI刷新＋端末ID(フリーライド対策)＋Test Lab抑止＋リテンション計測＝正本 `memory/aicoach-deviceid-inflight.md`（必読）。** 未コミット多数（次ビルド v1.1.34 同梱・OTA不可）＝AIコーチ折れ線3本/横軸ラベル・本番位置3バー削除・弱点◇統合・GrowthPoint.cov記録・端末ID(deviceId.ts/anonId固定化/trialClient)・**②b Test Lab判定(modules/test-lab ネイティブ＋testLab.ts＋App.tsx/trialClient配線)**・i18n growth_ago/today。tsc緑。**プライバシー申告C＝完了**（iOS App Privacy/Android Data safety/ポリシーWebページ本文EN/NE/JA すべて反映確認済）。Supabase：device_trials.sql実行済＋trial-claim再デプロイ済／retention_monetization_views.sql は**要・再実行**（v_admin_retention_geo追加）／dashboard.htmlに国別リテンション欄追加。**次の一手＝(1)「ビルドして」でv1.1.34（ネイティブ3種含む＝要CI検証・Android Gradle注意／`modules/test-lab`でGradle失敗ならフォルダ削除して再ビルド＝JSは安全fallback）(2)retention views再実行 (3)承認後 iOS/Android同時リリース。**
+
 - **✅2026-09-03 聴解対訳 完全配信済（OTA＋ビルド）。** content対訳=OTA済（commit fe3956f7・Pages 33693119327）。表示コード（rehydrateのQ_TRANSをq無しでもchoices取り込み＝hatsuwa/sokujiの選択肢訳のため）＝**ビルド v1.1.32(2900) dispatch済**（commit 0550baa4・iOS+Android・run 33744240626・-NoWatch）。本日iOS 2/8回目。TestFlight反映後、発話/即時の選択肢訳が点灯する。→ **監視しない運用**。CI結果と実機確認はユーザー側で。
 - **✅2026-09-03 辞書コンテンツ欠落補充＝完了・OTA配信済**（commit 714f2702・Pages 33744241016）。正本=`memory/trans-dict-fill-inflight.md`。漢字例語グロスne 677（1182→1859）／語彙例文 en 705・ne 89 を補充＋幽霊n3-v-1005削除。**enもOTA overlayで配信**（index.ts:145 VOCAB_EXAMPLE＝同梱＋example overlay上書き）ゆえ**ビルド不要**。例文を語彙/文法ファイルに物理分割済（exampleGrammar_N?・kind:'example'・mergeLexで自動結合・rehydrate変更なし）。実費¥15。ツール=`tools/trans_dict_fill.py`。**src未commit（次ビルド同梱でよい）**＝vocabExamplesAi.json(en baseline)・bundled.generated.ts(分割import)。
 - **▶次の一手（明示指示待ち）**: 特になし。候補=(a)他7言語(bn/id/ko/my/th/vi/zh)の辞書・問題翻訳（大規模・要見積り）／(b)v1.1.32(2900)のCI結果確認（監視しない運用ゆえユーザー側で）。多言語比較xlsx=`翻訳比較_辞書.xlsx`(repo直下・.gitignore済/scratchpad)。
@@ -402,10 +404,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 53ターン（文脈 20万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 53ターン・ツール28回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - ac08266d08efbb099 general-purpose
 - aa2e1879c4793c31b general-purpose
@@ -414,14 +412,14 @@
 - a6e2e5da70893cd09 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/i18n/ne.json
-- src/i18n/en.json
-- src/i18n/ja.json
-- src/screens/AICoachScreen.tsx
-- src/store/selectors.ts
-- src/store/store.tsx
-- src/store/state.ts
+- docs/supabase/retention_monetization_views.sql
 - memory/session-summary-LATEST.md
+- memory/handoff.md
+- memory/aicoach-deviceid-inflight.md
+- src/pro/trialClient.ts
+- App.tsx
+- src/telemetry/testLab.ts
+- modules/test-lab/expo-module.config.json
 
-_自動更新: 2026-09-04 08:11_
+_自動更新: 2026-09-04 13:54_
 <!-- AUTO:END -->

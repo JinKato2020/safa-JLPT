@@ -924,6 +924,8 @@
   "coach.pts_pred": "予想 {n}点",
   "coach.pts_pass": "合格ライン {n}点",
   "coach.vol_recent": "直近14日で ＋{n}語",
+  "coach.growth_ago": "2週間前",
+  "coach.growth_today": "今日",
   "coach.unit_days": "日",
   "coach.strip_streak": "連続学習",
   "coach.strip_time": "学習時間",

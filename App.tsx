@@ -58,6 +58,7 @@ import { walletPoints } from './src/store/wallet';
 import SafeBoundary from './src/components/SafeBoundary';
 import { DesignThemeProvider } from './src/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers, sendLifecycleMetrics } from './src/telemetry/telemetry';
+import { isTestLab } from './src/telemetry/testLab';
 
 // ナビゲーション状態から現在の画面名(最深ルート)を取得。
 function activeRouteName(navState: unknown): string | undefined {
@@ -285,7 +286,7 @@ function Root() {
   // 匿名計測: 日次スナップショット＋アプリ往来/滞在＋回答flush＋クラッシュ報告。
   useEffect(() => {
     if (!hydrated) return;
-    setTelemetryEnabled(stateRef.current.settings.telemetry !== false);
+    setTelemetryEnabled(stateRef.current.settings.telemetry !== false && !isTestLab()); // Test Lab(自動試験)は計測しない
     // クラッシュ/エラーを匿名報告(既存ハンドラはそのまま呼ぶ)。
     const g = global as unknown as { ErrorUtils?: { getGlobalHandler?: () => ((e: unknown, f?: boolean) => void); setGlobalHandler?: (h: (e: unknown, f?: boolean) => void) => void } };
     const prev = g.ErrorUtils?.getGlobalHandler?.();
@@ -295,7 +296,7 @@ function Root() {
     });
     let activeSince = Date.now();
     const fire = (force: boolean) => {
-      setTelemetryEnabled(stateRef.current.settings.telemetry !== false);
+      setTelemetryEnabled(stateRef.current.settings.telemetry !== false && !isTestLab()); // Test Lab(自動試験)は計測しない
       void sendDailySnapshot(stateRef.current, Date.now(), force);
       void sendLifecycleMetrics(stateRef.current, Date.now()); // install / 翌日起動を1回だけ(§8)
     };

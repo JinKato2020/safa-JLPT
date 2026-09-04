@@ -914,6 +914,8 @@
   "coach.pts_pred": "Predicted {n} pts",
   "coach.pts_pass": "Pass line {n} pts",
   "coach.vol_recent": "+{n} words in the last 14 days",
+  "coach.growth_ago": "2 weeks ago",
+  "coach.growth_today": "Today",
   "coach.unit_days": "days",
   "coach.strip_streak": "Streak",
   "coach.strip_time": "Study time",

@@ -210,33 +210,20 @@ export default function AICoachScreen() {
 
         {/* ①' 本番受験者の中での位置。星ではなく「得点分布ベルカーブ」にあなたを重ねて直感的に示す
               (模試詳細結果と同じ図・ユーザー要望2026-08-25=星/上位%は分かりにくい)。 */}
-        {d.rel && d.official && (d.rel.total || d.rel.sections.length > 0) && (
+        {d.rel && d.official && d.rel.total && (
           <View style={s.card}>
             <SecLabel c={c} s={s} text={t('coach.rel_title')} />
-            {d.rel.total && (
-              <View style={s.relChart}>
-                <BellCurve
-                  level={state.settings.level as OfficialLevel}
-                  score={st.predScore}
-                  passTotal={st.passTotal}
-                  width={chartW}
-                  c={c}
-                  youLabel={t('mockres.you')}
-                  passLabel={t('mockres.passline')}
-                />
-              </View>
-            )}
-            {d.rel.sections.length > 0 && (
-              <View style={s.relList}>
-                <Text style={s.relAxis}>{t('coach.rel_axis')}</Text>
-                {d.rel.sections.map((sec) => (
-                  <View key={sec.key} style={s.relRow}>
-                    <Text style={s.relLabel}>{t(sec.key === 'gengo' && d.relGengoCombined ? 'mock.block_gengo_dokkai' : 'mock.block_' + sec.key)}</Text>
-                    <RankBar top={sec.top} c={c} />
-                  </View>
-                ))}
-              </View>
-            )}
+            <View style={s.relChart}>
+              <BellCurve
+                level={state.settings.level as OfficialLevel}
+                score={st.predScore}
+                passTotal={st.passTotal}
+                width={chartW}
+                c={c}
+                youLabel={t('mockres.you')}
+                passLabel={t('mockres.passline')}
+              />
+            </View>
             <Text style={s.relRef}>{t('coach.rel_ref', { label: d.official.base, mean: Math.round(d.official.mean), rate: d.official.passRate })}</Text>
             <Text style={s.diff}>{t('coach.rel_note')}</Text>
           </View>
@@ -273,7 +260,7 @@ export default function AICoachScreen() {
           </View>
           {/* 分類別の推移(漢字青/語彙緑/文法赤・縦=累計語数/横=直近14日)。旧「学習量の推移」バーをここへ統合(線の傾き=その日の増加・高さ=累計)。 */}
           <View style={s.growthWrap}>
-            <LineChart c={c} width={chartW} data={d.covCurve} />
+            <LineChart c={c} width={chartW} data={d.covCurve} leftLabel={t('coach.growth_ago')} rightLabel={t('coach.growth_today')} />
             <View style={s.legendRow}>
               {[
                 { k: 'cards.kanji', col: c.blue, v: d.covCurve[d.covCurve.length - 1].kanji },
@@ -395,22 +382,6 @@ function SecLabel({ c, s, text }: { c: ThemeColors; s: Styles; text: string }) {
   );
 }
 
-// 分野別の相対位置バー。左=下位・中央=平均・右=上位。あなたの立ち位置(上位top%→100-top)に点を置く。
-// 星や「上位85%」の数字より直感的(ユーザー要望2026-08-25)。
-function RankBar({ top, c }: { top: number; c: ThemeColors }) {
-  const pos = Math.max(3, Math.min(97, 100 - top)); // 0=下位 … 100=上位
-  const good = pos >= 50;
-  return (
-    <View style={{ flex: 1, height: 10, borderRadius: 10, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, position: 'relative', justifyContent: 'center' }}>
-      {/* 平均(中央の目盛り) */}
-      <View style={{ position: 'absolute', left: '50%', top: -2, bottom: -2, width: 1, backgroundColor: c.faint }} />
-      {/* あなた */}
-      <View style={{ position: 'absolute', left: `${pos}%`, marginLeft: -6, width: 12, height: 12, borderRadius: 6, backgroundColor: good ? c.green : c.amber, borderWidth: 2, borderColor: c.surface }} />
-    </View>
-  );
-}
-
-
 // 分野別到達度の5軸レーダー(漢字/語彙/文法/読解/聴解)。各頂点は区分色の点＋ラベル＋%。
 function FacetRadar({ data, c }: { data: { label: string; pct: number; color: string }[]; c: ThemeColors }) {
   const W = 300, H = 230, cx = W / 2, cy = H / 2, R = 66;
@@ -441,8 +412,8 @@ function FacetRadar({ data, c }: { data: { label: string; pct: number; color: st
 
 // 分類別カバー率(覚えた数)の3本折れ線。漢字=青/語彙=緑/文法=赤。縦=累計語数・横=直近14日。
 // 実px幅(width)で描く=viewBox伸縮による端点マーカーの歪みを避ける(BellCurveと同方針)。
-function LineChart({ c, width, data }: { c: ThemeColors; width: number; data: { day: string; kanji: number; vocab: number; grammar: number }[] }) {
-  const H = 132, padT = 12, padB = 12, padX = 6;
+function LineChart({ c, width, data, leftLabel, rightLabel }: { c: ThemeColors; width: number; data: { day: string; kanji: number; vocab: number; grammar: number }[]; leftLabel: string; rightLabel: string }) {
+  const H = 142, padT = 12, padB = 24, padX = 6; // padB を広めに取り、横軸の端ラベル(◯週間前→今日)を置く
   const W = Math.max(220, width);
   const n = Math.max(1, data.length);
   const series = [
@@ -453,10 +424,11 @@ function LineChart({ c, width, data }: { c: ThemeColors; width: number; data: { 
   const max = Math.max(1, ...series.flatMap((sr) => sr.vals));
   const x = (i: number) => padX + (i * (W - 2 * padX)) / Math.max(1, n - 1);
   const y = (v: number) => padT + (1 - v / max) * (H - padT - padB);
+  const base = H - padB;
   const line = (vals: number[]) => vals.map((v, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
   return (
     <Svg width={W} height={H}>
-      <Line x1={padX} y1={H - padB} x2={W - padX} y2={H - padB} stroke={c.line} strokeWidth={1} />
+      <Line x1={padX} y1={base} x2={W - padX} y2={base} stroke={c.line} strokeWidth={1} />
       {series.map((sr) => (
         <Path key={sr.key} d={line(sr.vals)} fill="none" stroke={sr.color} strokeWidth={2.4} strokeLinejoin="round" strokeLinecap="round" />
       ))}
@@ -464,6 +436,9 @@ function LineChart({ c, width, data }: { c: ThemeColors; width: number; data: { 
         const li = sr.vals.length - 1;
         return <Circle key={sr.key + 'e'} cx={x(li)} cy={y(sr.vals[li])} r={3.2} fill={sr.color} />;
       })}
+      {/* 横軸の端ラベル: 左=◯週間前 / 右=今日 */}
+      <SvgText x={padX} y={base + 15} fontSize={9} fill={c.faint} fontWeight="700">{leftLabel}</SvgText>
+      <SvgText x={W - padX} y={base + 15} fontSize={9} fill={c.faint} fontWeight="700" textAnchor="end">{rightLabel}</SvgText>
     </Svg>
   );
 }

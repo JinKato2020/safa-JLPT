@@ -2,7 +2,7 @@
   "expo": {
     "name": "まいにちJLPT",
     "slug": "safa-jlpt",
-    "version": "1.1.33",
+    "version": "1.1.34",
     "orientation": "portrait",
     "scheme": "safajlpt",
     "userInterfaceStyle": "automatic",
@@ -69,7 +69,8 @@
         {
           "userTrackingPermissionMessage": "許可すると、あなたの興味に合った広告が表示されます。学習の記録が第三者に共有されることはありません。"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "extra": {
       "eas": {

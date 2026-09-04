@@ -914,6 +914,8 @@
   "coach.pts_pred": "अनुमान {n} अङ्क",
   "coach.pts_pass": "उत्तीर्ण रेखा {n} अङ्क",
   "coach.vol_recent": "पछिल्लो १४ दिनमा +{n} शब्द",
+  "coach.growth_ago": "२ हप्ता अघि",
+  "coach.growth_today": "आज",
   "coach.unit_days": "दिन",
   "coach.strip_streak": "लगातार",
   "coach.strip_time": "अध्ययन समय",
