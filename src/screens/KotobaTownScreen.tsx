@@ -3,8 +3,8 @@
 //  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
 //  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert, Platform, KeyboardAvoidingView, Switch } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert, Platform, KeyboardAvoidingView } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // 絵文字/アイコン除去(気分などデータに含まれる絵文字を会話表示から外す)。国旗(talk.flag)は別扱いなので影響なし。
 const EMOJI_RE = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{2190}-\u{21FF}]/gu;
@@ -445,8 +445,16 @@ export default function KotobaTownScreen() {
   const { setSettings } = useAppActions();
   const { session } = useSync();
   const [friends, setFriends] = useState<VirtualLearner[]>([]);
-  // 友だちを町に登場させるか(日本語学習者の町ボタン=友だち一覧シートで切替・既定ON)。友だちはレベル無関係で必ず出る。
-  const showFriends = meState.settings.townShowFriends !== false;
+  const insets = useSafeAreaInsets();
+  // 友だちを町に登場させるかは「友だち個別」で選ぶ(友だち一覧シートの各行トグル)。townHiddenFriends に入れた user_id だけ町に出さない(未設定/空=全員表示)。
+  const hiddenFriends = meState.settings.townHiddenFriends ?? [];
+  const friendUid = (id: string) => id.replace(/^friend:/, '');
+  const isShownInTown = (uid: string) => !hiddenFriends.includes(uid);
+  const toggleFriendInTown = (uid: string) => {
+    const cur = meState.settings.townHiddenFriends ?? [];
+    const next = cur.includes(uid) ? cur.filter((x) => x !== uid) : [...cur, uid];
+    setSettings({ townHiddenFriends: next });
+  };
   // 相手の単語帳を見せてもらうモーダル(会話画面の一番下ボタンから開く)。友だち=本物 / 仮想NPC=レベル相応の見本。
   const [wordsOpen, setWordsOpen] = useState(false);
   const [wordsRefs, setWordsRefs] = useState<SaveRef[]>([]);
@@ -460,6 +468,12 @@ export default function KotobaTownScreen() {
   const nm = (key: string, fallback: string) => (l1 && l1 !== 'en' ? meaningIn(key, l1) : undefined) ?? fallback;
   const [members, setMembers] = useState<FriendProfile[]>([]); // 町の住人(招待して参加した友だち)。見出しタップの一覧＝メッセージ可能な相手。
   const [membersOpen, setMembersOpen] = useState(false);
+  // 友だち一覧は「上から」下りてくるドロワー。RN Modal の slide は下からのみなので translateY を自前で動かす。
+  const membersAnim = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    if (membersOpen) { membersAnim.setValue(0); Animated.timing(membersAnim, { toValue: 1, duration: 220, useNativeDriver: true }).start(); }
+  }, [membersOpen, membersAnim]);
+  const closeMembers = () => { Animated.timing(membersAnim, { toValue: 0, duration: 180, useNativeDriver: true }).start(() => setMembersOpen(false)); };
   // 木(前面レイヤー)の裏に隠れるセル群=仮想学習者の初期配置から除外する領域。
   const treeCellSet = useMemo(() => {
     const s = new Set<string>();
@@ -494,8 +508,8 @@ export default function KotobaTownScreen() {
   const [realUsers, setRealUsers] = useState(0);
   useEffect(() => { let ok = true; getAppUserCount().then((n) => { if (ok) setRealUsers(n); }); return () => { ok = false; }; }, []);
   const fakeF = fakeFactor(realUsers); // 1=最大 … 0=架空を出さない(実ユーザーが100超)
-  // 友だちを非表示にしている時は町の配置から丸ごと外す(仮想NPCだけの町になる)。
-  const activeFriends = useMemo(() => (showFriends ? friends : []), [showFriends, friends]);
+  // 個別トグルで「町に出さない」に選んだ友だちだけ配置から外す(既定は全員表示)。
+  const activeFriends = useMemo(() => friends.filter((f) => !hiddenFriends.includes(friendUid(f.id))), [friends, hiddenFriends]);
   // 友だち=ユーザー付近の近いマスから優先的に(2マス間隔で自然に)。
   const friendCells = useMemo(() => pickSpaced(pool, Math.min(activeFriends.length, MAX_WALK), 2), [pool, activeFriends.length]);
   // 歩行NPC=友だちが取らなかった残り(ユーザーから遠い側)を散らす。友だち/実ユーザーが多いほどNPCは減る。
@@ -897,45 +911,49 @@ export default function KotobaTownScreen() {
         </View>
       </SafeAreaView>
 
-      {/* 町の友だち一覧(見出しタップ)。招待して参加した人＝メッセージ(応援)を送れる相手。行タップで会話を開く。 */}
-      <Modal visible={membersOpen} transparent animationType="slide" onRequestClose={() => setMembersOpen(false)}>
-        <Pressable style={s.memberBackdrop} onPress={() => setMembersOpen(false)} />
-        <View style={s.memberSheet}>
+      {/* 町の友だち一覧(見出しタップ)。上から下りてくるドロワー(RN Modalのslideは下からのみ=translateYで自前アニメ)。 */}
+      <Modal visible={membersOpen} transparent animationType="none" onRequestClose={closeMembers}>
+        <Pressable style={s.memberBackdrop} onPress={closeMembers} />
+        <Animated.View style={[s.memberSheetTop, { paddingTop: insets.top + 12, transform: [{ translateY: membersAnim.interpolate({ inputRange: [0, 1], outputRange: [-VH, 0] }) }] }]}>
           <View style={s.memberHead}>
             <Text style={s.memberTitle}>{t('town.friends')}{members.length > 0 ? `（${members.length}）` : ''}</Text>
-            <Pressable onPress={() => setMembersOpen(false)} hitSlop={10}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
+            <Pressable onPress={closeMembers} hitSlop={10}><Ionicons name="close" size={22} color="#3a3128" /></Pressable>
           </View>
-          {/* 友だちを町に登場させるか(既定ON)。OFFにすると仮想の学習者だけの町になる。 */}
-          {session && (
-            <View style={s.friendToggleRow}>
-              <Text style={s.friendToggleT}>{t('town.show_friends')}</Text>
-              <Switch value={showFriends} onValueChange={(v) => setSettings({ townShowFriends: v })} />
-            </View>
-          )}
           {!session ? (
             <Text style={s.memberEmpty}>{t('town.friends_login')}</Text>
           ) : members.length === 0 ? (
             <Text style={s.memberEmpty}>{t('town.friends_empty')}</Text>
           ) : (
-            <ScrollView style={{ maxHeight: 380 }} showsVerticalScrollIndicator={false}>
-              {members.map((m) => (
-                <View key={m.user_id} style={s.memberRow}>
-                  <Pressable style={s.memberTapArea} onPress={() => { setMembersOpen(false); openTalk(friendToLearner(m, { col: 16, row: 16 })); }}>
-                    <Text style={s.memberName} numberOfLines={1}>{flagOf(m.country ?? 'XX')} {m.nickname}</Text>
-                    <View style={s.memberRight}>
-                      <Text style={s.memberMeta}>{t('town.member_meta', { lv: m.level, n: Math.max(0, m.streak ?? 0) })}</Text>
-                      <View style={s.memberSend}><Ionicons name="chatbubble-ellipses" size={13} color="#fff" /><Text style={s.memberSendT}>{t('town.cheer_btn')}</Text></View>
+            <>
+              {/* 👁ボタンで友だちごとに町に出す/出さないを切替(既定=全員表示)。 */}
+              <Text style={s.friendHint}>{t('town.show_in_town_hint')}</Text>
+              <ScrollView style={{ maxHeight: 380 }} showsVerticalScrollIndicator={false}>
+                {members.map((m) => {
+                  const shown = isShownInTown(m.user_id);
+                  return (
+                    <View key={m.user_id} style={s.memberRow}>
+                      {/* 町に表示するか(この友だちだけ)。緑👁=表示中 / 灰👁=非表示。 */}
+                      <Pressable onPress={() => toggleFriendInTown(m.user_id)} hitSlop={8} style={s.memberDel} accessibilityLabel={t('town.show_in_town')}>
+                        <Ionicons name={shown ? 'eye' : 'eye-off-outline'} size={20} color={shown ? '#2e9c6b' : '#a99f8f'} />
+                      </Pressable>
+                      <Pressable style={s.memberTapArea} onPress={() => { setMembersOpen(false); openTalk(friendToLearner(m, { col: 16, row: 16 })); }}>
+                        <Text style={s.memberName} numberOfLines={1}>{flagOf(m.country ?? 'XX')} {m.nickname}</Text>
+                        <View style={s.memberRight}>
+                          <Text style={s.memberMeta}>{t('town.member_meta', { lv: m.level, n: Math.max(0, m.streak ?? 0) })}</Text>
+                          <View style={s.memberSend}><Ionicons name="chatbubble-ellipses" size={13} color="#fff" /><Text style={s.memberSendT}>{t('town.cheer_btn')}</Text></View>
+                        </View>
+                      </Pressable>
+                      {/* 通報(不適切なユーザー/内容を報告→記録＋即ブロック)。UGC対策(Apple 1.2)。 */}
+                      <Pressable onPress={() => reportMember(m)} hitSlop={8} style={s.memberDel} accessibilityLabel={t('town.report_title')}><Ionicons name="flag-outline" size={17} color="#b3892f" /></Pressable>
+                      {/* 荒らし対策: 町から削除(以後この人はメッセージを送れない)。 */}
+                      <Pressable onPress={() => kickMember(m)} hitSlop={8} style={s.memberDel}><Ionicons name="trash-outline" size={18} color="#b34a4a" /></Pressable>
                     </View>
-                  </Pressable>
-                  {/* 通報(不適切なユーザー/内容を報告→記録＋即ブロック)。UGC対策(Apple 1.2)。 */}
-                  <Pressable onPress={() => reportMember(m)} hitSlop={8} style={s.memberDel} accessibilityLabel={t('town.report_title')}><Ionicons name="flag-outline" size={17} color="#b3892f" /></Pressable>
-                  {/* 荒らし対策: 町から削除(以後この人はメッセージを送れない)。 */}
-                  <Pressable onPress={() => kickMember(m)} hitSlop={8} style={s.memberDel}><Ionicons name="trash-outline" size={18} color="#b34a4a" /></Pressable>
-                </View>
-              ))}
-            </ScrollView>
+                  );
+                })}
+              </ScrollView>
+            </>
           )}
-        </View>
+        </Animated.View>
       </Modal>
 
       {/* 応援メッセージ画面: 定型(6種)＋自由メッセージ(80字まで)。友だちにだけ送れる。 */}
@@ -1340,6 +1358,9 @@ const s = StyleSheet.create({
   // 町の友だち一覧(ボトムシート)。
   memberBackdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)' },
   memberSheet: { position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: '#fbf7ef', borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 18, paddingTop: 14, paddingBottom: 30 },
+  // 友だち一覧は上から下りるドロワー(top固定・下側を丸める)。paddingTopは安全域ぶん実行時に足す。
+  memberSheetTop: { position: 'absolute', left: 0, right: 0, top: 0, backgroundColor: '#fbf7ef', borderBottomLeftRadius: 20, borderBottomRightRadius: 20, paddingHorizontal: 18, paddingBottom: 18, maxHeight: '82%' },
+  friendHint: { fontSize: 12, color: '#8a7f6e', marginBottom: 6 },
   // メッセージ入力シートをキーボードの上へ持ち上げるためのラッパ(画面下に固定し、KAVのpaddingで持ち上がる)。
   sheetKav: { position: 'absolute', left: 0, right: 0, bottom: 0 },
   sheetInKav: { position: 'relative' }, // KAV内では絶対配置を解除(KAVが下端固定・シートは通常フロー)

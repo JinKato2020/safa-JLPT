@@ -295,7 +295,7 @@ export default function AccountScreen() {
     return (
       <SafeAreaView style={s.c} edges={['top']}>
         {/* 紹介コード入力欄がキーボードに隠れないよう、ログイン済みビューもKAVで包む(iOS=padding)。 */}
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={0}>
         <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
           <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}><Text style={s.closeTxt}>✕</Text></Pressable>
           {/* 最上部: 自分のアバター＋ステータス(左にアバター/右にレベル・国・性別・性格・ムード) */}
@@ -359,7 +359,7 @@ export default function AccountScreen() {
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={0}>
         <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
           <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}>
             <Text style={s.closeTxt}>✕</Text>

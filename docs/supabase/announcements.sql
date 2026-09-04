@@ -48,3 +48,16 @@ grant select on public.announcements to anon, authenticated;
 --   'What''s new', 'We added new listening questions. Give them a try!',
 --   'नयाँ अपडेट', 'हामीले नयाँ श्रवण प्रश्नहरू थप्यौं। प्रयास गर्नुहोस्!'
 -- );
+
+-- ============================================================================
+-- 【お知らせを消す】まず(1)で中身を確認し、id を見てから(2)で消す(取り消せないため id 指定が安全)。
+--   シードの insert はコメントのままなので、消せば復活しない=「今後表示させない」を満たす。
+-- ============================================================================
+-- (1) 一覧を確認(新しい順)。18日前の「アップデートのお知らせ」の id を控える。
+-- select id, created_at, active, emoji, title_ja, body_ja
+--   from public.announcements order by created_at desc;
+--
+-- (2) その id を消す(完全削除)。<番号> を上で見た id に置き換える。
+-- delete from public.announcements where id = <番号>;
+--
+-- ※消さずに一時的に隠すだけなら(あとで戻せる): update public.announcements set active = false where id = <番号>;

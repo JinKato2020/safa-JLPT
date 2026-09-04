@@ -5,7 +5,7 @@
 // テーブル未作成時はinsert失敗→キューに滞留(無害・作成後にflushで再送)。RLSは anon/authenticated の INSERT のみ許可。
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dayStr, type AppState } from '../store/state';
-import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts, passageMasteryCounts, expectedScoreFor, strongFacetJa } from '../store/selectors';
+import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts, passageMasteryCounts, expectedScoreFor, strongFacetJa, facetAccuracies } from '../store/selectors';
 import { relativePositionFor, isOfficialLevel } from '../ladder/relativePosition';
 import { stockCounts } from './stock';
 import { allItemIdsFor } from '../data';
@@ -152,6 +152,8 @@ function snapshotBody(state: AppState, anon: string, now: number, geoCC?: string
   ]);
   // 得意(=いちばん正答率が高い区分)。5区分(漢字/語彙/文法/読解/聴解)で最も出来ている区分を送る。管理ダッシュボードのプロフィール列用。
   const strong = strongFacetJa(state, now);
+  // 分野別 正解率(5軸: 漢字/語彙/文法/読解/聴解の当て推量補正済み正答率 0-100)。管理ダッシュボードの「分野別正解率」カード用。未測定はnull。
+  const facetAcc = facetAccuracies(state, now);
   // 予想得点(アプリの主指標)。expectedScoreFor: { score(得点), max(満点), passTotal(合格ライン) }。失敗時はnull。
   const est = (() => { try { return expectedScoreFor(state, now); } catch { return null; } })();
   // 相対的な位置(本番受験者の中で上位何%相当か)。管理ダッシュボードの「相対位置」集計用。JLPT・公式統計を持つレベルのみ。
@@ -169,6 +171,8 @@ function snapshotBody(state: AppState, anon: string, now: number, geoCC?: string
     relTop: rel?.total ? Math.round(rel.total.top * 10) / 10 : null,
     relStars: rel?.total?.stars ?? null,
     relSections,
+    // 分野別 正解率(5軸)。管理ダッシュボードの「分野別正解率」カード=各レベル×5軸を10%帯の人数割合で表示。
+    facetAcc,
     // 量(カバー率)＋達成ランク
     coverage: covMap, rankPct: rank.pct, rankIndex: rank.rankIndex,
     daimonMastery: daimonMap, // 大問別 [習得数,母数]（8大問: 文字語彙5＋文法3）
@@ -187,6 +191,7 @@ function snapshotBody(state: AppState, anon: string, now: number, geoCC?: string
       mood: moodMsgOf(state.settings.moodMsg),
       personality: personalityOf(state.settings.personality)?.label ?? null,
       strong,
+      avatar: state.settings.avatar ?? null, // 選んだアバターのコード(m_boy1等)。管理ダッシュボードの利用者一覧＋使用割合カード用。
     },
 
     // 接続国(IP由来・Cloudflare trace)。管理ダッシュボードの国別(全体/匿名)を端末単位で数える=利用者削除と連動して減る。

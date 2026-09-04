@@ -5,7 +5,8 @@ run-name: "${{ inputs.build_number && format('{0} — まいにちJLPT {1} ビ�
 # まいにちJLPT — 1ワークフローに統合(ユーザー要望 2026-07-17):
 #  ① deploy-pages  : push(main)時 → GitHub Pages 配信(聴解音声/法務ページ/辞書/問題コンテンツ)
 #  ② build-ios     : 手動時 → iOS ビルド & TestFlight 提出 (com.safa.jlpt)
-#  ③ build-android : 手動時 → Android AAB → Playクローズドテストへ自動提出 (App C枠 com.safa.english)
+#  ③ build-android : 手動時 → Android AAB → Play内部テスト(internal)へ自動提出 (App C枠 com.safa.english)
+#                    ※internal=審査なしで即時反映=iOS TestFlight 相当(2026-09-04 alphaから変更)。テスターはPlayの「内部テスト」トラックに登録が必要。
 #  「ビルドして」= iOS+Android 両方が既定(platforms=both)。②③は別ランナーで並列に走る。
 #
 # 版番号(CLAUDE.md #0・最重要): run-name の先頭に必ず番号を出す。
@@ -54,10 +55,10 @@ on:
         type: boolean
         default: true
       track:
-        description: 'Playトラック(publish時)。alpha=クローズドテスト(既定) / internal=内部テスト / production=本番(⚠ユーザーの明示合図がある時だけ)'
+        description: 'Playトラック(publish時)。internal=内部テスト(既定・審査なしで即時=iOS TestFlight相当) / alpha=クローズドテスト(Google審査あり=反映が遅い) / production=本番(⚠ユーザーの明示合図がある時だけ)'
         type: choice
-        options: [alpha, internal, production]
-        default: alpha
+        options: [internal, alpha, production]
+        default: internal
 
 permissions:
   contents: read
@@ -318,7 +319,8 @@ jobs:
   # ③ Androidビルド(手動時のみ)。App C(com.safa.english)の既存Play枠へ「上書き」する AAB/APK。
   #    ・applicationId=com.safa.english(app.json)・versionCode=2000+commit(App C現1270より上)。
   #    ・署名= App C のアップロード鍵(Secrets)。Play App Signing 想定。
-  #    ・方針(2026-07-26 更新): ビルド後は「クローズドテスト(alpha)まで自動」。本番(production)は合図時のみ。
+  #    ・方針(2026-09-04 更新): ビルド後は「内部テスト(internal)まで自動」=審査なしで即時反映(iOS TestFlight相当)。本番(production)は合図時のみ。
+  #      旧方針(alpha=クローズドテスト)はGoogle審査待ちで反映が遅く、テストメールのインストール画面が古いままになる問題があった。
   #      ※旧既定(aab/publish=false)では2539〜2553の12回が全てPlay未提出のまま気づかれなかった。
   #        方針=自動なら既定値も自動側に置く(既定OFF+dispatch指定漏れ=黙って落ちる、を再発させない)。
   #    ・実機に直接入れるAPKが欲しい時は aab=false publish=false で起動する(AAB生成時はAPKを作らないため)。
@@ -410,7 +412,7 @@ jobs:
           else
             ./gradlew assembleRelease --no-daemon -x lintVitalRelease
           fi
-      - name: Upload AAB (Playクローズドテスト提出用・aab/publish時)
+      - name: Upload AAB (Play提出用・aab/publish時)
         if: ${{ inputs.aab || inputs.publish }}
         uses: actions/upload-artifact@v4
         with:

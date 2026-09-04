@@ -17,16 +17,11 @@ import type { ThemeMode } from '../store/state';
 import { useT, UI_LANGS, useUiLang } from '../i18n';
 import { legalUrl } from '../config/legal';
 import { nativeLangCC } from '../plaza/countries';
-import ListeningDownloadGate from '../components/ListeningDownloadGate';
-import { listeningAudioIdsFor } from '../data';
-import { LISTENING_CACHEABLE, listeningReady, listeningBytesEstimate } from '../data/listeningAudio';
 import Slider from '../components/Slider';
 import MiniCalendar from '../components/MiniCalendar';
 import { upcomingExams } from '../data/jlptDates';
 import { sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
-import * as Updates from 'expo-updates';
-import { syncContent } from '../data/content/ota';
 import { useSync } from '../auth/SyncProvider';
 import { deleteAccount } from '../auth/authClient';
 import { proStatus } from '../pro/entitlement';
@@ -36,39 +31,6 @@ import { UNLOCKS, type UnlockKey } from '../store/unlocks';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
-
-// 聴解音声の「レベル別・一括ダウンロード」1行。そのレベルがDL済みなら「✓ ダウンロード済」、未DLなら[一括ダウンロード]ボタン。
-// refreshKey が変わるたびに端末キャッシュの有無を再判定する(DL完了直後に済表示へ更新)。
-function LevelAudioRow({ level, refreshKey, onDownload, s, t }: {
-  level: Level; refreshKey: number; onDownload: (lv: Level) => void;
-  s: ReturnType<typeof makeStyles>; t: ReturnType<typeof useT>;
-}) {
-  const ids = useMemo(() => listeningAudioIdsFor(level), [level]);
-  const mb = Math.max(1, Math.round(listeningBytesEstimate(ids) / 1048576));
-  const [ready, setReady] = useState<boolean | null>(null);
-  useEffect(() => {
-    let alive = true;
-    if (!LISTENING_CACHEABLE) { setReady(true); return () => { alive = false; }; }
-    listeningReady(ids).then((r) => { if (alive) setReady(r); }).catch(() => { if (alive) setReady(false); });
-    return () => { alive = false; };
-  }, [ids, refreshKey]);
-  return (
-    <View style={s.dlRow}>
-      <View style={{ flex: 1 }}>
-        <Text style={s.dlLevel}>{level}</Text>
-        <Text style={s.dlSize}>{mb} MB</Text>
-      </View>
-      {ready ? (
-        <Text style={s.dlDone}>✓ {t('profile.audioDownloaded')}</Text>
-      ) : (
-        <Pressable style={s.dlBtn} onPress={() => onDownload(level)}>
-          <Text style={s.dlBtnTxt}>{t('profile.listeningAudio_download')}</Text>
-        </Pressable>
-      )}
-    </View>
-  );
-}
-
 
 export default function ProfileScreen() {
   const t = useT();
@@ -88,10 +50,6 @@ export default function ProfileScreen() {
   const [unlockPreview, setUnlockPreview] = useState<UnlockKey | null>(null);
   const previewUnlock = unlockPreview ? UNLOCKS.find((u) => u.key === unlockPreview) ?? null : null;
   const [langOpen, setLangOpen] = useState(false);
-  // 聴解音声のダウンロード: レベルごとに独立してDL(N5/N4/N3)。dlLevel=モーダルで開いているレベル。
-  // dlRefresh はDL完了後に各レベル行の「済/未」を再判定させるためのカウンタ。
-  const [dlLevel, setDlLevel] = useState<Level | null>(null);
-  const [dlRefresh, setDlRefresh] = useState(0);
   // 開発用セクションの隠しゲート: 一番下のバージョン表示を7回タップで解禁(TestFlight/本番でも使える・実ユーザーには見えない)。開発クライアントは既定で表示。
   // 解禁状態は state.settings.devToolsUnlocked に保存=全体で共有(大問の問題ID選択もこのフラグで表示)＋再起動後も維持。
   const devUnlocked = __DEV__ || state.settings.devToolsUnlocked === true;
@@ -124,26 +82,6 @@ export default function ProfileScreen() {
     } catch {
       // レビュー機能が使えない環境では何もしない
     }
-  };
-
-  // 問題・翻訳の手動更新(聞いてからDL)。force=セルラーでも実行。DL後は反映のため再読み込みを提案。
-  const [updating, setUpdating] = useState(false);
-  const onUpdateContent = async () => {
-    if (updating) return;
-    setUpdating(true);
-    try {
-      const n = await syncContent();
-      if (n > 0) {
-        Alert.alert(t('content.update_title'), t('content.update_done', { n }), [
-          { text: t('content.update_later'), style: 'cancel' },
-          { text: t('content.update_reload'), onPress: () => { Updates.reloadAsync().catch(() => {}); } },
-        ]);
-      } else {
-        Alert.alert(t('content.update_title'), t('content.update_latest'));
-      }
-    } catch {
-      Alert.alert(t('content.update_title'), t('content.update_fail'));
-    } finally { setUpdating(false); }
   };
 
   // 学習リマインド: 時:分をカウンター(±)で指定するシンプルUI。ONで通知を予約、OFFで解除。
@@ -277,13 +215,14 @@ export default function ProfileScreen() {
               ・telemetry / adTracking の値と初期化ロジックはそのまま維持(既定ON)。 */}
         </View>
 
-        {/* 聴解音声のダウンロード(レベル別・一括)。各レベルを独立して端末に保存=オフライン再生。 */}
+        {/* ダウンロード(2段階目へ)。聴解音声(レベル別)＋コンテンツ更新は DownloadScreen に集約＝設定はボタン1つでシンプルに。 */}
+        <Text style={s.sectionH}>{t('download.section')}</Text>
         <View style={s.card}>
-          <Text style={s.setLbl}>{t('profile.listeningAudio')}</Text>
-          <Text style={s.subtle}>{t('profile.listeningAudioHint_download')}</Text>
-          {LEVELS.map((lv) => (
-            <LevelAudioRow key={lv} level={lv} refreshKey={dlRefresh} onDownload={setDlLevel} s={s} t={t} />
-          ))}
+          <Pressable style={s.linkRow} onPress={() => nav.navigate('Download')}>
+            <Text style={s.linkTxt}>{t('profile.listeningAudio_download')}</Text>
+            <Text style={s.chev}>›</Text>
+          </Pressable>
+          <Text style={s.updNote}>{t('download.hint')}</Text>
         </View>
 
         {/* 聴解音声の再生スピード(0.5〜1.5倍。ネイティブ非依存の自作スライダー=OTA配信可) */}
@@ -306,16 +245,6 @@ export default function ProfileScreen() {
             町のアバターのプロフィール(勉強分野/性格/ムード/ニックネーム/国/性別/アバター)は
             アカウント画面(上部の人アイコン)に集約。設定タブには重複カードを置かない。 */}
 
-        {/* コンテンツ更新(問題・翻訳の追加ダウンロード)。自動同期はWi-Fiのみ・ここは手動で今すぐ取得。 */}
-        <Text style={s.sectionH}>{t('content.section')}</Text>
-        <View style={s.card}>
-          <Pressable style={s.linkRow} onPress={onUpdateContent} disabled={updating}>
-            <Text style={s.linkTxt}>{updating ? t('content.updating') : t('content.updateContent')}</Text>
-            <Text style={s.chev}>›</Text>
-          </Pressable>
-          <Text style={s.updNote}>{t('content.updateWifiNote')}</Text>
-        </View>
-
         {/* サポート・規約 */}
         <Text style={s.sectionH}>{t('profile.supportSection')}</Text>
         <View style={s.card}>
@@ -332,11 +261,6 @@ export default function ProfileScreen() {
           <View style={s.linkDiv} />
           <Pressable style={s.linkRow} onPress={() => Linking.openURL(legalUrl('terms', uiLang))}>
             <Text style={s.linkTxt}>{t('profile.terms')}</Text>
-            <Text style={s.chev}>↗</Text>
-          </Pressable>
-          {/* JLPT公式サンプル問題(外部リンク)。本番の出題形式を公式サイトで確認できる。 */}
-          <Pressable style={s.linkRow} onPress={() => Linking.openURL('https://www.jlpt.jp/samples/forlearners.html')}>
-            <Text style={s.linkTxt}>{t('profile.jlptSamples')}</Text>
             <Text style={s.chev}>↗</Text>
           </Pressable>
         </View>
@@ -534,11 +458,6 @@ export default function ProfileScreen() {
           </Text>
         </Pressable>
       </ScrollView>
-      {dlLevel ? (
-        <View style={StyleSheet.absoluteFill}>
-          <ListeningDownloadGate level={dlLevel} allowSkip manual autoStart onComplete={() => { setDlLevel(null); setDlRefresh((x) => x + 1); }} />
-        </View>
-      ) : null}
       {/* 開発用: 解禁演出の単体プレビュー(全体カバー率に達しなくても各画面を確認)。 */}
       <UnlockCelebration
         visible={previewUnlock !== null}

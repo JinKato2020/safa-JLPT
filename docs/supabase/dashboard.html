@@ -57,6 +57,23 @@
   .mono{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:var(--sub); }
   .updated{ font-size:12px; color:var(--sub); margin-left:auto; }
   .count{ font-size:12px; color:var(--sub); font-weight:400; }
+  /* 時系列カード(折れ線)。小さめのチャートをグリッドで並べる。 */
+  select{ padding:4px 8px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); font-size:12px; }
+  .charts-wrap{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+  .chart{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; }
+  .chart-t{ font-size:12px; color:var(--sub); font-weight:600; margin-bottom:2px; }
+  .chart-v{ font-size:15px; font-weight:800; margin-left:4px; }
+  .chart .spark{ width:100%; height:96px; display:block; }
+  .chart .ct{ font-size:9px; fill:var(--sub); }
+  .chart-x{ display:flex; justify-content:space-between; font-size:10px; color:var(--sub); margin-top:2px; }
+  .lvpick label{ margin-left:8px; cursor:pointer; white-space:nowrap; }
+  .lvpick input{ vertical-align:middle; margin-right:2px; cursor:pointer; }
+  /* アバター使用割合カード(画像＋棒グラフ) */
+  .avrow{ display:flex; align-items:center; gap:10px; padding:4px 0; }
+  .avlab{ width:84px; flex:0 0 auto; display:flex; align-items:center; gap:6px; font-size:13px; }
+  .avbarwrap{ flex:1; height:16px; background:var(--bg); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .avbar{ height:100%; background:var(--accent2); border-radius:8px 0 0 8px; }
+  .avnum{ width:96px; flex:0 0 auto; text-align:right; font-size:13px; font-variant-numeric:tabular-nums; }
   /* 削除用の選択列・危険ボタン・確認モーダル */
   .selcol{ width:34px; text-align:center; padding:6px 4px; }
   .selcol input{ width:16px; height:16px; cursor:pointer; vertical-align:middle; }
@@ -90,33 +107,74 @@
 <main id="app" style="display:none">
 
   <section>
-    <h2>全体サマリー</h2>
+    <h2>全体サマリー <span class="note">総ユーザー・今日/週間アクティブは<b>テスト由来（未ログイン＋学習0）を除外</b>した実ユーザー数。登録アカウント/同期/模試/エラーは元の実数</span></h2>
     <div class="cards" id="kpi"></div>
   </section>
 
   <section>
-    <h2>国別（接続国） <span class="note">端末(anon_id)単位で最新の接続国を集計。登録＝ログイン済み端末／全体＝全端末（インストール概算）／匿名＝一度もログインしていない端末。利用者一覧を消すと国別からも自動で消える（削除と連動）。国はIPからのおおよその判定・旧版は「??」</span></h2>
+    <h2>国別（接続国・定着率・指標） <span class="note"><b>アカウント名寄せ済みの人単位</b>で最新の接続国を集計。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ。全体＝実人数（名寄せ済み）／登録＝ログイン済み／匿名＝一度もログインしていない実端末。<b>定着率D1/D7/D30</b>＝インストール後「少なくともN日目まで残った割合」（ローリング）。<b>D7母数</b>が小さいうち（数人）は割合が跳ねる参考値。目安：D1≥40%／D7≥20%／D30≥10%で緑。<b>予想得点</b>＝平均／<b>正:漢語文読聴</b>＝分野別平均正解率（v1.1.35〜のみ）／<b>覆:漢語文</b>＝学習分野別カバー率（平均）／<b>模試回数</b>＝合計・<b>模試得点</b>＝平均／<b>学習回数</b>＝完了練習の合計・<b>学習時間</b>＝合計。平均は測定値がある人だけ。<b>母集団</b>＝右の切替で「7日/30日アクティブ or 全体」を選べる（<b>既定＝7日アクティブ</b>＝インストールしただけの幽霊ユーザーを外した実勢値。全体＝離脱者も含む累計）。定着率D1/D7/D30はコホート指標なので母集団切替の影響を受けない。国はIP由来・旧版は「??」。利用者一覧を消すと国別からも自動で消える</span>
+      <span class="note lvpick"> ｜ 母集団:
+        <label><input type="radio" name="geowin" class="geowin" value="7" checked> 7日</label>
+        <label><input type="radio" name="geowin" class="geowin" value="30"> 30日</label>
+        <label><input type="radio" name="geowin" class="geowin" value="all"> 全体</label>
+      </span></h2>
     <div class="scroll"><table id="tGeo"></table></div>
   </section>
 
   <section>
-    <h2>国別リテンション（継続率 D1/D7/D30） <span class="note">インストールした人が「少なくともN日目まで残った割合」（ローリング）。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ。<b>D7母数</b>＝7日目に到達する時間が経った人数＝これが小さいうち（数人）は割合が跳ねるので参考値。国はIP由来。目安：D1≥40%／D7≥20%／D30≥10% で緑</span></h2>
-    <div class="scroll"><table id="tRetGeo"></table></div>
-  </section>
-
-  <section>
-    <h2>紹介（誰が誰を紹介したか） <span class="note">紹介者＝ログイン済みメール／紹介された人＝メール（未ログインなら匿名IDの先頭＋名前）／状態＝保留・継続達成・報酬付与済・無効</span></h2>
-    <div class="scroll"><table id="tReferrals"></table></div>
-  </section>
-
-  <section>
-    <h2>レベル別 合計 <span class="note">人数・学習回数・学習時間は合計／<b>平均は「直近7日に使ったアクティブ人だけ」で計算</b>（インストールしただけの幽霊ユーザーは平均から除外）</span></h2>
+    <h2>レベル別 合計 <span class="note">人数・学習回数・学習時間は合計／<b>平均は「直近7日に使ったアクティブ人だけ」で計算</b>（インストールしただけの幽霊ユーザーは平均から除外）。予想得点・カバー率は下の「分布」カードへ移動</span></h2>
     <div class="scroll"><table id="tLevel"></table></div>
   </section>
 
   <section>
-    <h2>相対位置（本番受験者の中での位置） <span class="note">予想得点を公式の受験者データ（2025年 第2回）と比べた「上位◯%相当」。<b>★＝上位%の区分</b>（★5＝上位15%以内／★4＝~30%／★3＝~50%／★2＝~70%／★1＝70%超）。人数は直近7日のアクティブのみ</span></h2>
-    <div class="scroll"><table id="tRelpos"></table></div>
+    <h2>成長の推移（時系列） <span class="note">実ユーザーの<b>日ごとの推移</b>を折れ線で記録（直近45日・過去分も表示）。学習時間＝その日に増えた累計学習秒の合計。テスト由来ノイズは除外</span>
+      <span class="note lvpick"> ｜ 表示:
+        <label><input type="checkbox" class="lvchk" data-g="trend" value="*"> 全</label>
+        <label><input type="checkbox" class="lvchk" data-g="trend" value="N5" checked> N5</label>
+        <label><input type="checkbox" class="lvchk" data-g="trend" value="N4" checked> N4</label>
+        <label><input type="checkbox" class="lvchk" data-g="trend" value="N3" checked> N3</label>
+      </span>
+    </h2>
+    <div id="trendCharts" class="charts-wrap"></div>
+  </section>
+
+  <section>
+    <h2>分野別 正解率の分布 <span class="note">5軸（漢字／語彙／文法／読解／聴解）で、正解率（当て推量補正済み）を10%帯に分け、その帯にいる<b>実ユーザーの割合％</b>を表示（各行の合計＝100%）。<b>色が濃い帯ほど人が多い</b>。既定は全体、任意でレベル別も同時表示。アプリ v1.1.35〜が送信＝それ以前しか無い軸は「—」</span>
+      <span class="note lvpick"> ｜ 表示:
+        <label><input type="checkbox" class="lvchk" data-g="facet" value="*" checked> 全</label>
+        <label><input type="checkbox" class="lvchk" data-g="facet" value="N5"> N5</label>
+        <label><input type="checkbox" class="lvchk" data-g="facet" value="N4"> N4</label>
+        <label><input type="checkbox" class="lvchk" data-g="facet" value="N3"> N3</label>
+      </span>
+    </h2>
+    <div class="scroll"><table id="tFacetAcc"></table></div>
+  </section>
+
+  <section>
+    <h2>予想得点・カバー率の分布 <span class="note"><b>予想得点（満点180に対する%）</b>と<b>カバー率</b>を10%帯に分け、その帯にいる<b>実ユーザーの割合%</b>を表示（各行の合計＝100%）。色が濃い帯ほど人が多い。<b>既定は全体＋レベル別を同時表示</b>（チェックで増減）。人数＝その指標に値がある人（直近7日アクティブ）</span>
+      <span class="note lvpick"> ｜ 表示:
+        <label><input type="checkbox" class="lvchk" data-g="score" value="*" checked> 全</label>
+        <label><input type="checkbox" class="lvchk" data-g="score" value="N5" checked> N5</label>
+        <label><input type="checkbox" class="lvchk" data-g="score" value="N4" checked> N4</label>
+        <label><input type="checkbox" class="lvchk" data-g="score" value="N3" checked> N3</label>
+      </span>
+    </h2>
+    <div class="scroll"><table id="tScoreDist"></table></div>
+  </section>
+
+  <section>
+    <h2>模試の得点分布 <span class="note">模試の<b>実施回数</b>を得点10%帯に分け、各レベル（＋全体）で分布を表示（色が濃い帯ほど回数が多い・各行の合計＝100%）。回数＝その帯グループの模試回数（合算）。生データ tel_mock は自動削除しないので下の月次推移にも使える</span></h2>
+    <div class="scroll"><table id="tMockDist"></table></div>
+  </section>
+
+  <section>
+    <h2>模試の月次推移 <span class="note">月 × レベル（＋全体）で<b>模試回数</b>と<b>平均得点</b>。tel_mock は1回1行（日時つき）なので、月ごとの<b>時間変化</b>がそのまま出せる。積み重ねるほど「上達しているか」が見える</span></h2>
+    <div class="scroll"><table id="tMockMonthly"></table></div>
+  </section>
+
+  <section>
+    <h2>アバター使用割合 <span class="note">利用者が選んだアバターの内訳（実ユーザー・1人1つ＝現在レベルの行で集計）。画像＋人数＋割合の棒。アプリ v1.1.35 以降が送信＝それ以前は「—」</span></h2>
+    <div id="avatarUsage"></div>
   </section>
 
   <section>
@@ -125,7 +183,7 @@
   </section>
 
   <section>
-    <h2>利用者一覧 <span class="note">登録・匿名を同じ1表に。1人1行で全項目を横並び（見出しをクリックで並べ替え・右へスクロール）</span>
+    <h2>利用者一覧 <span class="note">登録・匿名を同じ1表に。1人1行で全項目を横並び（見出しをクリックで並べ替え・右へスクロール）。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ表示（レベル別・相対位置・在庫もこの表を集計）</span>
       <span class="count" id="devCount"></span></h2>
     <div class="bar">
       <input id="search" class="search" type="text" placeholder="絞り込み（メール・端末ID・レベル）" />
@@ -134,6 +192,16 @@
       <span class="note">左端のチェックで消したい人を選び、🗑 削除。取り消せません。</span>
     </div>
     <div class="scroll"><table id="tDevices"></table></div>
+  </section>
+
+  <section>
+    <h2>紹介（誰が誰を紹介したか） <span class="note">紹介者＝ログイン済みメール／紹介された人＝メール（未ログインなら匿名IDの先頭＋名前）／状態＝保留・継続達成・報酬付与済・無効／友だち＝各人の友だち人数</span></h2>
+    <div class="scroll"><table id="tReferrals"></table></div>
+  </section>
+
+  <section>
+    <h2>友だち（誰と誰が友だちか） <span class="note">招待制・相互（片方が招待→相手が参加で双方の町に出る）。<b>1ペア1行</b>で表示（招待した側／された側の区別はデータに残らないため無向）。身元＝メール（＋ニックネーム）</span></h2>
+    <div class="scroll"><table id="tFriends"></table></div>
   </section>
 
 </main>
@@ -186,16 +254,33 @@ async function loadAll(){
       api(url,key,'v_admin_devices'),
     ]);
     renderSummary(summary[0]||{});
-    renderGeo(geo);
-    // 国別リテンション（ビュー未作成でも他は壊さない＝個別に取得して失敗は握る）
-    try { renderRetentionGeo(await api(url,key,'v_admin_retention_geo')); }
-    catch(e){ $('tRetGeo').innerHTML = `<tr><td class="empty">国別リテンションのビューが未作成です。docs/supabase/retention_monetization_views.sql を SQL Editor で実行してください。</td></tr>`; }
+    // 国別（接続国＋定着率）を1表に。定着率ビュー未作成でも接続国だけは出す。
+    let retGeo = [];
+    try { retGeo = await api(url,key,'v_admin_retention_geo') || []; } catch(e){ retGeo = []; }
+    geoData = geo || []; geoRet = retGeo; renderGeo();
     renderReferrals(referrals);
+    // 友だち（誰と誰が友だちか・新ビュー）。未作成でも他は壊さない＝個別取得して失敗は握る。
+    try { renderFriends(await api(url,key,'v_admin_friends')); }
+    catch(e){ $('tFriends').innerHTML = `<tr><td class="empty">友だちビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`; }
     renderLevel(level);
-    renderRelpos(level);
+    // 分野別 正解率の分布（新ビュー・未作成でも他は壊さない＝個別取得して失敗は握る）
+    try { renderFacetAcc(await api(url,key,'v_admin_facet_acc')); }
+    catch(e){ $('tFacetAcc').innerHTML = `<tr><td class="empty">分野別正解率のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`; }
+    // 成長の推移（時系列・折れ線）
+    try { dailyData = await api(url,key,'v_admin_daily') || []; renderTrend(); }
+    catch(e){ dailyData = []; $('trendCharts').innerHTML = `<div class="empty">成長推移のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</div>`; }
+    // 予想得点・カバー率の分布（ヒートマップ）
+    try { renderScoreDist(await api(url,key,'v_admin_score_dist')); }
+    catch(e){ $('tScoreDist').innerHTML = `<tr><td class="empty">予想得点・カバー率の分布ビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`; }
+    // 模試の得点分布・月次推移（新ビュー・未作成でも他は壊さない）
+    try { renderMockDist(await api(url,key,'v_admin_mock_dist')); }
+    catch(e){ $('tMockDist').innerHTML = `<tr><td class="empty">模試得点分布ビューが未作成です。docs/supabase/dashboard_views.sql を（再）実行してください。</td></tr>`; }
+    try { renderMockMonthly(await api(url,key,'v_admin_mock_monthly')); }
+    catch(e){ $('tMockMonthly').innerHTML = `<tr><td class="empty">模試月次ビューが未作成です。docs/supabase/dashboard_views.sql を（再）実行してください。</td></tr>`; }
     renderStock(stock);
     devData = devices || [];
     renderDevices();
+    renderAvatarUsage();
     $('app').style.display = '';
     $('updated').textContent = '最終取得 ' + new Date().toLocaleString('ja-JP');
   }catch(e){
@@ -206,7 +291,7 @@ async function loadAll(){
 
 function renderSummary(s){
   const kpis = [
-    ['総ユーザー(匿名ID)', s.total_users ?? 0],
+    ['総ユーザー(実人数)', s.total_users ?? 0],
     ['今日のアクティブ', s.dau ?? 0],
     ['週間アクティブ', s.wau ?? 0],
     ['登録アカウント', s.accounts ?? 0],
@@ -231,21 +316,28 @@ function refWho(r){
   const id = `<span class="mono">${esc(String(r.new_user_ref||'').slice(0,8))}</span>`;
   return r.new_user_nickname ? `${id} <span class="muted">(${esc(r.new_user_nickname)})</span>` : id + ' <span class="muted">(未ログイン)</span>';
 }
-function renderReferrals(refs){
-  simpleTbl($('tReferrals'),
-    [{label:'紹介した人'},{label:'紹介された人'},{label:'状態'},{label:'継続達成日時'}],
-    (refs||[]).slice(),
-    [ r=>esc(r.referrer_email||'—'), r=>refWho(r),
-      r=>pill(REF_STATUS[r.status]||r.status||'—', (r.status==='qualified'||r.status==='rewarded')?'good':''),
-      r=>fmtDateTime(r.qualified_at) ]
+// 友だちの身元セル＝メール（＋ニックネーム）。どちらも無ければ「—」。
+function friendWho(email, nick){
+  if(email) return esc(email) + (nick? ` <span class="muted">(${esc(nick)})</span>` : '');
+  return nick ? `<span class="muted">${esc(nick)}</span>` : '<span class="empty">—</span>';
+}
+function renderFriends(rows){
+  simpleTbl($('tFriends'),
+    [{label:'友だち A'},{label:'友だち B'},{label:'成立日時'}],
+    (rows||[]).slice(),
+    [ r=>friendWho(r.email_a, r.nick_a), r=>friendWho(r.email_b, r.nick_b), r=>fmtDateTime(r.since) ]
   );
 }
-
-function renderGeo(geo){
-  simpleTbl($('tGeo'),
-    [{label:'国'},{label:'登録',num:1},{label:'匿名(概算)',num:1},{label:'全体(概算)',num:1}],
-    (geo||[]).slice(),
-    [ r=>`<b>${esc(countryLabel(r.country))}</b>`, r=>`${r.registered ?? 0}人`, r=>`${r.anonymous_est ?? 0}人`, r=>`${r.total_installs ?? 0}人` ]
+function renderReferrals(refs){
+  simpleTbl($('tReferrals'),
+    [{label:'紹介した人'},{label:'友だち',num:1},{label:'紹介された人'},{label:'友だち',num:1},{label:'状態'},{label:'継続達成日時'}],
+    (refs||[]).slice(),
+    [ r=>esc(r.referrer_email||'—'),
+      r=> (r.referrer_friends ?? 0),
+      r=>refWho(r),
+      r=> (r.new_user_friends ?? 0),
+      r=>pill(REF_STATUS[r.status]||r.status||'—', (r.status==='qualified'||r.status==='rewarded')?'good':''),
+      r=>fmtDateTime(r.qualified_at) ]
   );
 }
 
@@ -256,40 +348,192 @@ function retCell(v, goodT, midT){
   const cls = n>=goodT ? 'ok' : (n>=midT ? 'mid' : 'low');
   return `<span class="${cls}">${n}%</span>`;
 }
-function renderRetentionGeo(rows){
-  simpleTbl($('tRetGeo'),
-    [{label:'国'},{label:'インストール',num:1},{label:'D1',num:1},{label:'D7',num:1},{label:'D30',num:1},{label:'D7母数',num:1}],
-    (rows||[]).slice(),
+// 国別（接続国＋定着率）を1表に統合。どちらも国キーなので country で突き合わせる。
+// geoData=窓別(all/7/30)の全行を保持し、geoWin(既定7)で選んだ窓だけ描く（再取得不要で切替）。
+let geoData = [], geoRet = [], geoWin = '7';
+function renderGeo(){
+  const geo = geoData.filter(r=> String(r.win)===geoWin);   // ★選んだ母集団の窓(7/30/all)の行だけ
+  const ret = geoRet;
+  const rmap = {}; (ret||[]).forEach(r=>{ rmap[r.country] = r; });
+  const rows = (geo||[]).slice();
+  // 接続国に無いが定着率だけある国も拾う（通常は一致）
+  (ret||[]).forEach(r=>{ if(!rows.some(g=>g.country===r.country)) rows.push({ country:r.country, registered:null, anonymous_est:null, total_installs:r.installs }); });
+  rows.sort((a,b)=> Number(b.total_installs||0) - Number(a.total_installs||0));
+  const nc = v => (v==null||v==='') ? '<span class="empty">—</span>' : `${v}`;      // 数値 or —
+  const pc = v => (v==null||v==='') ? '<span class="empty">—</span>' : `${v}%`;     // %値 or —
+  simpleTbl($('tGeo'),
+    [{label:'国'},{label:'全体',num:1},{label:'登録',num:1},{label:'匿名',num:1},{label:'D1',num:1},{label:'D7',num:1},{label:'D30',num:1},{label:'D7母数',num:1},
+     {label:'予想得点',num:1},
+     {label:'正:漢',num:1},{label:'正:語',num:1},{label:'正:文',num:1},{label:'正:読',num:1},{label:'正:聴',num:1},
+     {label:'覆:漢',num:1},{label:'覆:語',num:1},{label:'覆:文',num:1},
+     {label:'模試回数',num:1},{label:'模試得点',num:1},{label:'学習回数',num:1},{label:'学習時間',num:1}],
+    rows,
     [ r=>`<b>${esc(countryLabel(r.country))}</b>`,
-      r=>`${r.installs ?? 0}`,
-      r=>retCell(r.d1_pct, 40, 20),
-      r=>retCell(r.d7_pct, 20, 10),
-      r=>retCell(r.d30_pct, 10, 5),
-      r=>`<span class="${(r.d7_base??0)>=10?'':'off'}">${r.d7_base ?? 0}</span>` ]
+      r=>`${r.total_installs ?? 0}`,
+      r=> r.registered==null ? '<span class="empty">—</span>' : `${r.registered}`,
+      r=> r.anonymous_est==null ? '<span class="empty">—</span>' : `${r.anonymous_est}`,
+      r=> retCell((rmap[r.country]||{}).d1_pct, 40, 20),
+      r=> retCell((rmap[r.country]||{}).d7_pct, 20, 10),
+      r=> retCell((rmap[r.country]||{}).d30_pct, 10, 5),
+      r=>{ const b=(rmap[r.country]||{}).d7_base; return `<span class="${(b??0)>=10?'':'off'}">${b ?? 0}</span>`; },
+      r=> nc(r.avg_pred_score),
+      r=> pc(r.acc_kanji), r=> pc(r.acc_vocab), r=> pc(r.acc_grammar), r=> pc(r.acc_dokkai), r=> pc(r.acc_choukai),
+      r=> pc(r.cov_kanji), r=> pc(r.cov_vocab), r=> pc(r.cov_grammar),
+      r=> nc(r.mock_total), r=> pc(r.avg_mock_pct), r=> nc(r.sessions),
+      r=> (r.study_min==null) ? '<span class="empty">—</span>' : hm(r.study_min) ]
   );
 }
 
 function renderLevel(level){
   simpleTbl($('tLevel'),
     [{label:'レベル'},{label:'人数',num:1},{label:'アクティブ(7日)',num:1},{label:'今日のアクティブ',num:1},{label:'学習回数',num:1},{label:'学習時間(合計)',num:1},
-     {label:'平均 予想得点',num:1},{label:'平均 カバー率',num:1},{label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
+     {label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
     (level||[]).slice().sort(byLevel),
     [ r=>`<b>${r.level}</b>`, r=>`${r.users}人`, r=>`${r.active_users ?? 0}人`, r=>`${r.dau ?? 0}人`, r=>`${r.sessions ?? 0}回`, r=>hm(r.study_min),
-      r=> (r.avg_pred_score==null?'<span class="empty">—</span>':`${r.avg_pred_score}<span class="muted">/${r.pred_max ?? 180}</span>`),
-      r=>pct(r.avg_cov_pct), r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.referred_total ?? 0}人`, r=>`${r.passing_users}人` ]
+      r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.referred_total ?? 0}人`, r=>`${r.passing_users}人` ]
   );
 }
 
-// ── 相対位置(本番受験者の中での位置)。v_admin_level の rel_* を再利用(追加取得なし) ──
-function renderRelpos(level){
-  simpleTbl($('tRelpos'),
-    [{label:'レベル'},{label:'平均 上位%',num:1},{label:'★5 上位15%内',num:1},{label:'★4 ~30%',num:1},{label:'★3 ~50%',num:1},{label:'★2 ~70%',num:1},{label:'★1 70%超',num:1},{label:'集計人数',num:1}],
-    (level||[]).slice().sort(byLevel),
-    [ r=>`<b>${r.level}</b>`,
-      r=> (r.avg_rel_top==null ? '<span class="empty">—</span>' : `上位 ${r.avg_rel_top}%`),
-      r=>`${r.rel_s5 ?? 0}人`, r=>`${r.rel_s4 ?? 0}人`, r=>`${r.rel_s3 ?? 0}人`, r=>`${r.rel_s2 ?? 0}人`, r=>`${r.rel_s1 ?? 0}人`,
-      r=>`${(r.rel_s5??0)+(r.rel_s4??0)+(r.rel_s3??0)+(r.rel_s2??0)+(r.rel_s1??0)}人` ]
+// ── 10%帯ヒートマップ(汎用)。行=レベル×軸／帯ごとの人数割合%を行内正規化のヒートマップで。分野別正解率・予想得点/カバー率で共用 ──
+// 帯の見出し(0-10 … 90-100)。b0..b9 と1対1。
+const BANDS10 = ['0–10','10–20','20–30','30–40','40–50','50–60','60–70','70–80','80–90','90–100'];
+// レベル表示の共通ヘルパー('*'=全レベル合算)。色/表示名/並び順。
+const LV_COLORS = { '*':'#8a7fd0', N5:'#3a7bc8', N4:'#2e9c6b', N3:'#c8483a' };
+const lvDisp = l => l==='*' ? '全' : l;
+const lvOrd  = l => l==='*' ? 0 : (LV_ORDER[l]||9);
+// 表示中(チェックon)のレベル値配列を返す。group='trend'|'facet'|'score'。
+function checkedLevels(group){
+  return [...document.querySelectorAll(`input.lvchk[data-g="${group}"]:checked`)].map(el=>el.value);
+}
+// rows=[{level,ord,label,measured,b0..b9}] / labelHead=2列目の見出し / bandTitle=帯グループの見出し
+function bandHeatmapHTML(rows, labelHead, bandTitle, unit='人'){
+  rows = (rows||[]).slice().sort((a,b)=> lvOrd(a.level)-lvOrd(b.level) || (Number(a.ord)-Number(b.ord)));
+  if(rows.length===0) return `<tr><td class="empty">データがまだありません。</td></tr>`;
+  const grp = `<tr><th class="grp" colspan="2">　</th><th class="grp gsep" colspan="${BANDS10.length}">${esc(bandTitle)}（低 → 高）・帯ごとの${unit}数割合%</th><th class="grp gsep">　</th></tr>`;
+  const head = `<tr><th>レベル</th><th>${esc(labelHead)}</th>` +
+    BANDS10.map((b,i)=>`<th class="num ${i===0?'gsep':''}">${b}</th>`).join('') +
+    `<th class="num gsep">${unit}数</th></tr>`;
+  const perLevel = {}; rows.forEach(r=>{ perLevel[r.level]=(perLevel[r.level]||0)+1; });
+  const seen = {};
+  const body = rows.map(r=>{
+    const m = Number(r.measured||0);
+    const bands = ['b0','b1','b2','b3','b4','b5','b6','b7','b8','b9'].map(k=>Number(r[k]||0));
+    const pcts = bands.map(n=> m>0 ? Math.round(100*n/m) : null);
+    const mx = Math.max(1, ...pcts.map(p=>p||0));       // その行の最も多い帯=最濃(行内で正規化)
+    const lvCell = seen[r.level] ? '' : `<td rowspan="${perLevel[r.level]}"><b>${esc(lvDisp(r.level))}</b></td>`;
+    seen[r.level] = true;
+    const cells = pcts.map((p,i)=>{
+      const sep = i===0 ? 'gsep' : '';
+      if(m===0)   return `<td class="num ${sep}"><span class="empty">—</span></td>`;
+      if(p===0)   return `<td class="num ${sep}"><span class="off">·</span></td>`;
+      const t = p/mx;
+      const a = (0.12 + 0.88*t).toFixed(2);
+      const col = t>0.5 ? 'color:#fff;' : '';
+      return `<td class="num ${sep}" title="${bands[i]}${unit} / ${m}${unit} = ${p}%" style="${col}background:rgba(58,123,200,${a})">${p}</td>`;
+    }).join('');
+    const mCell = `<td class="num gsep">${m>0 ? m : '<span class="empty">—</span>'}</td>`;
+    return `<tr class="row">${lvCell}<td>${esc(r.label)}</td>${cells}${mCell}</tr>`;
+  }).join('');
+  return grp + head + body;
+}
+// 分野別 正解率(5軸)。取得データを保持し、チェックon のレベル('全'含む)だけ描く。
+let facetAccRows = [], scoreDistRows = [];
+function renderFacetAcc(rows){ facetAccRows = rows || []; drawFacet(); }
+function drawFacet(){
+  const sel = checkedLevels('facet');
+  const rows = facetAccRows.filter(r=> sel.includes(r.level)).map(r=>({ ...r, label:r.facet }));
+  // 5軸正解率はアプリ v1.1.35 以降のみ送信。行はあるが measured が全0＝まだ届いていない、を分かりやすく出す。
+  const anyMeasured = rows.some(r=> Number(r.measured||0) > 0);
+  if(rows.length && anyMeasured){ $('tFacetAcc').innerHTML = bandHeatmapHTML(rows, '分野', '正解率の帯'); return; }
+  $('tFacetAcc').innerHTML = `<tr><td class="empty">${!sel.length ? '表示するレベルを選んでください。' : 'この指標はアプリ v1.1.35 以降が送るデータが必要です。v1.1.35 をリリースし、利用者が学習すると表示されます（予想得点・カバー率の分布と成長の推移は既存データで今すぐ出ます）。'}</td></tr>`;
+}
+// 予想得点・カバー率の分布。metric→label に読み替えて共用ヒートマップへ。
+function renderScoreDist(rows){ scoreDistRows = rows || []; drawScore(); }
+function drawScore(){
+  const sel = checkedLevels('score');
+  const rows = scoreDistRows.filter(r=> sel.includes(r.level)).map(r=>({ ...r, label:r.metric }));
+  $('tScoreDist').innerHTML = rows.length ? bandHeatmapHTML(rows, '指標', '帯（予想得点は満点比%）')
+    : `<tr><td class="empty">${sel.length ? 'データがまだありません。直近7日にアクティブな実ユーザーが出ると表示されます。' : '表示するレベルを選んでください。'}</td></tr>`;
+}
+// 模試の得点分布(各レベル×得点10帯×回数・合算)。回数は「回」単位で共用ヒートマップへ。
+function renderMockDist(rows){
+  rows = (rows||[]).map(r=>({ ...r }));   // v_admin_mock_dist は level/ord/label/measured/b0..b9 をそのまま持つ
+  const any = rows.some(r=> Number(r.measured||0) > 0);
+  $('tMockDist').innerHTML = (rows.length && any) ? bandHeatmapHTML(rows, '指標', '得点の帯', '回')
+    : `<tr><td class="empty">模試のデータがまだありません。利用者が模試を実施すると表示されます。</td></tr>`;
+}
+// 模試の月次推移(月×レベル)。回数と平均得点＝時系列の実例。
+function renderMockMonthly(rows){
+  simpleTbl($('tMockMonthly'),
+    [{label:'月'},{label:'レベル'},{label:'模試回数',num:1},{label:'平均得点',num:1}],
+    (rows||[]).slice(),
+    [ r=>esc(r.month), r=>`<b>${esc(lvDisp(r.level))}</b>`, r=>`${r.mocks ?? 0}回`, r=> (r.avg_pct==null)?'<span class="empty">—</span>':`${r.avg_pct}%` ]
   );
+}
+
+// ── 成長の推移(時系列・レベル別)。v_admin_daily を「日 × レベル」で複数線に。追加ライブラリなしのインラインSVG ──
+let dailyData = [];
+// 複数系列(レベル別)の折れ線。series=[{name,color,pts:[{d,v}]}]。全系列で同じ日軸・最大値でスケール。
+function multiLineChartSVG(label, series){
+  const base = series[0] ? series[0].pts : [];
+  if(base.length===0) return `<div class="chart"><div class="chart-t">${esc(label)}</div><div class="empty">—</div></div>`;
+  const W=300,H=112, pl=8,pr=8,pt=16,pb=6, iw=W-pl-pr, ih=H-pt-pb, n=base.length;
+  const mx=Math.max(1, ...series.flatMap(sr=>sr.pts.map(p=>p.v)));
+  const X=i=> pl + (n<=1 ? iw/2 : (i/(n-1))*iw);
+  const Y=v=> pt + ih - (v/mx)*ih;
+  const lines = series.map(sr=>{
+    const pl2 = sr.pts.map((p,i)=>`${X(i).toFixed(1)},${Y(p.v).toFixed(1)}`).join(' ');
+    const dots = n<=60 ? sr.pts.map((p,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="1.4" fill="${sr.color}"/>`).join('') : '';
+    return `<polyline points="${pl2}" fill="none" stroke="${sr.color}" stroke-width="1.6"></polyline>${dots}`;
+  }).join('');
+  const legend = series.map(sr=>`<span style="color:${sr.color};font-weight:800">●</span>${esc(sr.name)} <b>${sr.pts[n-1].v}</b>`).join('　');
+  return `<div class="chart">
+    <div class="chart-t">${esc(label)}</div>
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="spark" style="height:112px">
+      ${lines}
+      <text x="${pl}" y="11" class="ct">最大 ${mx}</text>
+    </svg>
+    <div class="chart-x"><span>${esc(base[0].d)}</span><span>${esc(base[n-1].d)}</span></div>
+    <div class="chart-x" style="justify-content:flex-start;gap:12px">${legend}</div>
+  </div>`;
+}
+function renderTrend(){
+  const el = $('trendCharts');
+  const sel = checkedLevels('trend');   // ['*'(全),'N5','N4','N3'] のうちonのもの
+  const all = (dailyData||[]).filter(r=> sel.includes(r.level));
+  if(all.length===0){ el.innerHTML = `<div class="empty">${sel.length ? 'データがまだありません。日々の利用が溜まると推移が出ます。' : '表示するレベルを選んでください。'}</div>`; return; }
+  const days = [...new Set(all.map(r=>r.day))].sort((a,b)=> String(a).localeCompare(String(b))).slice(-45);
+  const daySet = new Set(days);
+  const lab = d => String(d).slice(5);   // 'YYYY-MM-DD' → 'MM-DD'
+  const mk = (label,key)=> multiLineChartSVG(label, sel.slice().sort((a,b)=>lvOrd(a)-lvOrd(b)).map(lv=>{
+    const m = {}; all.forEach(r=>{ if(r.level===lv && daySet.has(r.day)) m[r.day] = Number(r[key]||0); });
+    return { name: lvDisp(lv), color: LV_COLORS[lv]||'#888', pts: days.map(d=>({ d:lab(d), v: m[d]||0 })) };
+  }));
+  el.innerHTML =
+    mk('アクティブ人数','active_users') +
+    mk('新規','new_users') +
+    mk('学習回数','sessions') +
+    mk('学習時間(分)','study_min');
+}
+
+// ── アバター使用割合。利用者一覧(devData・ノイズ除外済)の is_latest 行を avatar で集計し、画像＋人数＋割合バーで表示 ──
+function renderAvatarUsage(){
+  const el = $('avatarUsage');
+  const rows = (devData||[]).filter(r=> r.is_latest && r.avatar);
+  const total = rows.length;
+  if(total===0){ el.innerHTML = `<div class="empty">アバターのデータがまだありません。アプリ v1.1.35 以降の利用者が出ると表示されます。</div>`; return; }
+  const cnt = {}; rows.forEach(r=>{ cnt[r.avatar] = (cnt[r.avatar]||0) + 1; });
+  const mx = Math.max(1, ...Object.values(cnt));
+  // 既定順(男1..女5)→定義外コードは後ろ。使われたものだけ出す。
+  const order = AVATAR_ORDER.filter(c=>cnt[c]).concat(Object.keys(cnt).filter(c=> !AVATAR_ORDER.includes(c)));
+  el.innerHTML = order.map(code=>{
+    const n = cnt[code]||0, pct = Math.round(100*n/total);
+    return `<div class="avrow">
+      <div class="avlab">${avatarImgTag(code,28)} <b>${esc(avatarLabel(code))}</b></div>
+      <div class="avbarwrap"><div class="avbar" style="width:${Math.round(100*n/mx)}%"></div></div>
+      <div class="avnum">${n}人 <span class="muted">${pct}%</span></div>
+    </div>`;
+  }).join('');
 }
 
 // ── レベル別 在庫(行=レベル / 列=大問・単語タブの学習) ──
@@ -381,6 +625,18 @@ const RD = '大問別 正解/母数（読解・聴解）';
 const LANG_JA = { ja:'日本語', en:'英語', ne:'ネパール語', vi:'ベトナム語', my:'ミャンマー語', id:'インドネシア語', ko:'韓国語', zh:'中国語', bn:'ベンガル語', th:'タイ語' };
 const langLabel = code => { const c=String(code||'').toLowerCase(); return LANG_JA[c] || code; };
 
+// アバター(10種)。コード→表示ラベル(男1〜/女1〜)＋画像(リポジトリ相対パス＝dashboard.htmlをリポジトリ内で開くと表示。開けない環境ではonerrorで隠す)。
+const AVATAR_META = {
+  m_boy1:{l:'男1',img:'../../assets/kotoba/hero/down.png'},   m_boy2:{l:'男2',img:'../../assets/kotoba/hero_m2/down.png'},
+  m_boy3:{l:'男3',img:'../../assets/kotoba/hero_m3/down.png'}, m_boy4:{l:'男4',img:'../../assets/kotoba/hero_m4/down.png'},
+  m_boy5:{l:'男5',img:'../../assets/kotoba/hero_m5/down.png'}, f_g1:{l:'女1',img:'../../assets/kotoba/hero_f/down.png'},
+  f_g2:{l:'女2',img:'../../assets/kotoba/hero_f2/down.png'},   f_g3:{l:'女3',img:'../../assets/kotoba/hero_f3/down.png'},
+  f_g4:{l:'女4',img:'../../assets/kotoba/hero_f4/down.png'},   f_g5:{l:'女5',img:'../../assets/kotoba/hero_f5/down.png'},
+};
+const AVATAR_ORDER = ['m_boy1','m_boy2','m_boy3','m_boy4','m_boy5','f_g1','f_g2','f_g3','f_g4','f_g5'];
+const avatarLabel = code => (AVATAR_META[code]||{}).l || (code || '—');
+const avatarImgTag = (code, size) => { const m=AVATAR_META[code]; return m ? `<img src="${m.img}" width="${size}" height="${size}" style="object-fit:contain;vertical-align:middle" onerror="this.style.display='none'">` : ''; };
+
 // 国コード(ISO alpha-2)→日本語名。IP由来の接続国を国名で表示。未知コードはそのまま。
 const COUNTRY_JA = {
   JP:'日本', US:'アメリカ', NP:'ネパール', VN:'ベトナム', MM:'ミャンマー', ID:'インドネシア',
@@ -435,6 +691,8 @@ const COLS = [
     title:'課金の状態。無料＝Pro無し／1年Pro・1月Pro＝有料サブスク（RevenueCat課金・残り日数と自動更新の有無を併記）／7日Pro＝お試し・紹介の期間つきPro（紹介が続くと7日を超えて延びる）。有料と期間つきを両方持つ人は有料を主表示',
     val:r=>proEnd(r), cell:r=>proCell(r) },
   { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
+  { g:'プロフィール', key:'avatar',      label:'アバター', title:'選んだアバター(男1〜男5/女1〜女5)。アプリ v1.1.35 以降が送信',
+    val:r=>r.avatar||'', cell:r=> r.avatar ? `${avatarImgTag(r.avatar,20)} ${esc(avatarLabel(r.avatar))}` : '<span class="off">—</span>' },
   { g:'プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
   { g:'プロフィール', key:'geo_country',label:'国名', title:'接続国=IP由来のおおよその国(user_geo)。母語とは独立=英語話者でも日本にいれば「日本」。ログイン者のみ・匿名は—', val:r=>r.geo_country||'', cell:r=> esc(countryLabel(r.geo_country)) },
   { g:'プロフィール', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
@@ -473,6 +731,7 @@ const COLS = [
     cell:r=> r.daimon ? `${r.daimon_learned ?? 0}/${r.daimon_total ?? 0}` : '<span class="off">—</span>' },
   { g:'活動', key:'mylist_count', label:'単語帳', num:1, title:'私の単語帳に入れた語数', val:r=>numOr(r.mylist_count), cell:r=> (r.mylist_count ?? 0) },
   { g:'活動', key:'referred_qualified', label:'紹介', num:1, title:'自分が紹介して継続に達した人数', val:r=>numOr(r.referred_qualified), cell:r=> (r.referred_qualified ?? 0) },
+  { g:'活動', key:'friend_count', label:'友だち', num:1, title:'招待して友だちになった人数(相互・town_members)。匿名は0', val:r=>numOr(r.friend_count), cell:r=> (r.friend_count ?? 0) },
   { g:'活動', key:'learned',    label:'覚えた数', num:1, title:'これまでに覚えた語・文法の数(累計)', val:r=>numOr(r.learned),    cell:r=> (r.learned ?? 0) },
   { g:'活動', key:'mock_count', label:'模試',   num:1, title:'模試の実施回数',       val:r=>numOr(r.mock_count), cell:r=> (r.mock_count ?? 0) },
   { g:'活動', key:'streak',     label:'継続',   num:1, title:'連続学習日数',         val:r=>numOr(r.streak),     cell:r=> (r.streak ?? 0) },
@@ -642,6 +901,16 @@ $('tDevices').addEventListener('change', (ev)=>{
 $('btnDel').addEventListener('click', openDeleteModal);
 $('btnClear').addEventListener('click', ()=>{ selected.clear(); renderDevices(); });
 $('modal').addEventListener('click', (ev)=>{ if(ev.target.id==='modal') closeModal(); });
+// レベル表示チェックボックス(成長推移／分野別正解率／予想得点・カバー率)。onのレベルだけ手元データで描き直す(再取得不要)。
+document.addEventListener('change', (ev)=>{
+  const gw = ev.target && ev.target.closest ? ev.target.closest('input.geowin') : null;
+  if(gw){ geoWin = gw.value; renderGeo(); return; }   // 国別カードの母集団の窓を切替
+  const cb = ev.target && ev.target.closest ? ev.target.closest('input.lvchk') : null;
+  if(!cb) return;
+  if(cb.dataset.g==='trend') renderTrend();
+  else if(cb.dataset.g==='facet') drawFacet();
+  else if(cb.dataset.g==='score') drawScore();
+});
 $('load').addEventListener('click', loadAll);
 $('reload').addEventListener('click', loadAll);
 if($('key').value) loadAll();

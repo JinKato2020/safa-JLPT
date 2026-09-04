@@ -193,23 +193,32 @@ export function ringsFor(state: AppState, now: number, raw = false): Record<Cate
 // 得意(5区分)の大問割り: 漢字(文字)=漢字読み+表記 / 語彙=文脈規定+類義+用法。
 const KANJI_DAIMON: Daimon[] = ['kanji_read', 'orthography'];
 const VOCAB_DAIMON: Daimon[] = ['context', 'synonym', 'usage'];
-/** 得意(5区分: 漢字/語彙/文法/読解/聴解)のうち、いちばん正答率が高い区分の日本語ラベル。未測定はnull。
- *  文字・語彙リングを大問で漢字/語彙に割る(式は categoryPct の moji_goi と同じ=本番出題数で加重した正答率)。管理ダッシュボードのプロフィール「得意」用。 */
-export function strongFacetJa(state: AppState, now: number): string | null {
+export type FacetAcc = { kanji: number | null; vocab: number | null; grammar: number | null; dokkai: number | null; choukai: number | null };
+/** 5区分(漢字/語彙/文法/読解/聴解)それぞれの正解率(0-100・当て推量補正済み)。未測定はnull。
+ *  文字・語彙リングを大問で漢字/語彙に割る(式は categoryPct の moji_goi と同じ=本番出題数で加重した正答率)。
+ *  管理ダッシュボードの「分野別正解率」カード＋プロフィール「得意」用。 */
+export function facetAccuracies(state: AppState, now: number): FacetAcc {
   const lv = state.settings.level;
   const bp = DAIMON_BLUEPRINT[lv] ?? {};
   const ringOf = (ds: Daimon[]) => wAvgPct(ds.map((d) => [pctOfIds(state, now, daimonUnitIds(lv, d)), bp[d] ?? 0]));
   const rings = ringsFor(state, now);
+  return {
+    kanji: ringOf(KANJI_DAIMON),
+    vocab: ringOf(VOCAB_DAIMON),
+    grammar: rings.bunpou,
+    dokkai: rings.dokkai,
+    choukai: rings.choukai,
+  };
+}
+/** 得意(5区分のうち最も正答率が高い区分の日本語ラベル)。未測定はnull。管理ダッシュボードのプロフィール「得意」用。 */
+export function strongFacetJa(state: AppState, now: number): string | null {
+  const a = facetAccuracies(state, now);
   const vals: [string, number | null][] = [
-    ['漢字', ringOf(KANJI_DAIMON)],
-    ['語彙', ringOf(VOCAB_DAIMON)],
-    ['文法', rings.bunpou],
-    ['読解', rings.dokkai],
-    ['聴解', rings.choukai],
+    ['漢字', a.kanji], ['語彙', a.vocab], ['文法', a.grammar], ['読解', a.dokkai], ['聴解', a.choukai],
   ];
   const measured = vals.filter((v): v is [string, number] => v[1] !== null);
   if (!measured.length) return null;
-  return measured.reduce((a, b) => (b[1] > a[1] ? b : a))[0];
+  return measured.reduce((x, y) => (y[1] > x[1] ? y : x))[0];
 }
 /** 小リング(大問): 正答率(解いた問題の当て推量補正済み正答率)。文字語彙/文法の各大問用。 */
 export function daimonRingPct(state: AppState, now: number, daimon: Daimon): number | null {

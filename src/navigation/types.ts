@@ -7,6 +7,7 @@ export type RootStackParamList = {
   Main: undefined;
   Account: undefined; // アカウント作成/ログイン(段階1: メール+パスワード)
   Settings: undefined; // 設定(旧・設定タブ=ProfileScreen をモーダル化。上部の歯車から開く)
+  Download: undefined; // ダウンロード(設定の2段階目=聴解音声レベル別DL＋コンテンツ更新を集約。設定の「一括ダウンロード」から開く)
   AICoach: undefined; // AIコーチの助言(全タブ共通の上部アイコン✦から開くモーダル)
   QuestionReview: { q: StudiedQuestion }; // 学習後の正誤表から開く「問題の見直し」全画面(本文/台本/問題/選択肢)
   Paywall: undefined; // Pro購入画面(上限画面や🔒Proから開く。商品はRevenueCat Offeringsから取得)
