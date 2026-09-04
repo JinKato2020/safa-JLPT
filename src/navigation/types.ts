@@ -9,10 +9,11 @@ export type RootStackParamList = {
   Settings: undefined; // 設定(旧・設定タブ=ProfileScreen をモーダル化。上部の歯車から開く)
   Download: undefined; // ダウンロード(設定の2段階目=聴解音声レベル別DL＋コンテンツ更新を集約。設定の「一括ダウンロード」から開く)
   AICoach: undefined; // AIコーチの助言(全タブ共通の上部アイコン✦から開くモーダル)
+  ShareCard: undefined; // 結果カード共有(予想得点リング＋伸び＋紹介コード/QRを縦9:16画像化して共有)。入口=AIコーチ
   QuestionReview: { q: StudiedQuestion }; // 学習後の正誤表から開く「問題の見直し」全画面(本文/台本/問題/選択肢)
   Paywall: undefined; // Pro購入画面(上限画面や🔒Proから開く。商品はRevenueCat Offeringsから取得)
   Notifications: undefined; // 通知(リマインド)
-  Referral: { focus?: 'share' | 'enter' } | undefined; // 友だち紹介(自分のコード共有＋コード手入力)。focus=どちらの用途で開いたか(該当箇所へスクロール)
+  Referral: { focus?: 'share' | 'enter'; code?: string } | undefined; // 友だち紹介(自分のコード共有＋コード手入力)。focus=用途 / code=紹介リンク(safajlpt://referral?code=)から受け取ったコード(自動登録)
   Invite: { u?: string } | undefined; // 招待リンク(safajlpt://invite?u=ownerのuserId)から開く「町に参加/断る」画面
   KotobaTown: undefined; // 言葉の都(テスト): タイルマップ＋4方向移動＋当たり判定(エンジン検証用)
   CheerInbox: undefined; // 受信箱(友だちから届いた応援の一覧)。町の🔔から開く

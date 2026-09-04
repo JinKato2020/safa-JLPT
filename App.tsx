@@ -16,7 +16,7 @@ import { fetchAnnouncements, announceReadAtMs, markAnnounceRead, announceUnread 
 import { navigationRef } from './src/navigation/navRef';
 import AccountPrompt from './src/components/AccountPrompt';
 import { isWatercolor } from './src/store/state';
-import { useT, useUiLang } from './src/i18n';
+import { useT, useUiLang, setDemoLang } from './src/i18n';
 import type { RootStackParamList, WordsStackParamList, DictStackParamList, StudyStackParamList } from './src/navigation/types';
 import HomeScreen from './src/screens/HomeScreen';
 import StudyHomeScreen from './src/screens/StudyHomeScreen';
@@ -47,6 +47,7 @@ import AccountScreen from './src/screens/AccountScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import ShopScreen from './src/screens/ShopScreen';
 import AICoachScreen from './src/screens/AICoachScreen';
+import ShareCardScreen from './src/screens/ShareCardScreen';
 import QuestionReviewScreen from './src/screens/QuestionReviewScreen';
 import PaywallScreen from './src/screens/PaywallScreen';
 import ReferralScreen from './src/screens/ReferralScreen';
@@ -72,12 +73,49 @@ function activeRouteName(navState: unknown): string | undefined {
 const Tab = createMaterialTopTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-// ディープリンク: 招待リンク safajlpt://invite?u=<owner> を Invite 画面へ。u はルートパラメータへ自動マッピング。
-// https は配信サイトの招待ページ経由(ページの「アプリで開く」ボタンが safajlpt:// を呼ぶ)。
+// ディープリンク:
+//  ・招待リンク safajlpt://invite?u=<owner> を Invite 画面へ(u はルートパラメータへ自動マッピング)。
+//  ・紹介リンク safajlpt://referral?code=<紹介コード> を Referral 画面へ(結果カードのQR/リンクから)。code は自動マッピング→Referralで自動登録。
+// https は配信サイトのランディング(/invite/・/r/)経由(ページの「アプリで開く」ボタンが safajlpt:// を呼ぶ)。
 const LINKING = {
   prefixes: ['safajlpt://', 'https://jinkato2020.github.io/safa-JLPT'],
-  config: { screens: { Invite: 'invite' } },
+  config: { screens: { Invite: 'invite', Referral: 'referral' } },
 };
+
+// ── SNS用モック撮影ハーネス（Web専用・URLに ?snsdemo が付いた時だけ）─────────────
+// localStorage にダミー状態(tools/sns/*.json)を仕込んだ上でこのURLを開くと、AICoach画面だけを
+// 実コンポーネントで描画する。ヘッドレスChromeでフルページ撮影→各言語のSNSモック画像を量産する。
+// 本番では ?snsdemo が付かないので完全に不発（プロダクトに影響なし）。
+const SNS_DEMO = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('snsdemo');
+if (SNS_DEMO) { try { setDemoLang(new URLSearchParams(window.location.search).get('lang')); } catch { /* noop */ } }
+const DemoStack = createNativeStackNavigator();
+function SnsDemoInner() {
+  const hydrated = useHydrated();
+  const c = useColors();
+  const settings = useAppState().settings;
+  if (!hydrated) return <View style={{ flex: 1, backgroundColor: '#fff' }} />;
+  setActiveFont(settings.font ?? 'maru');
+  return (
+    <DesignThemeProvider scheme="light">
+      <View style={{ flex: 1, backgroundColor: c.bg }}>
+        <NavigationContainer>
+          <DemoStack.Navigator screenOptions={{ headerShown: false }}>
+            <DemoStack.Screen name="AICoach" component={AICoachScreen} />
+          </DemoStack.Navigator>
+        </NavigationContainer>
+      </View>
+    </DesignThemeProvider>
+  );
+}
+function SnsDemoRoot() {
+  return (
+    <AppProvider>
+      <SafeAreaProvider>
+        <SnsDemoInner />
+      </SafeAreaProvider>
+    </AppProvider>
+  );
+}
 const WordsStack = createNativeStackNavigator<WordsStackParamList>();
 function WordsTab() {
   // 単語タブ: 世界観ハブ(WordsHome) → 区分の練習ホーム(WordKubun=CardsScreen) → 学習リスト(WordList=BrowseScreen)。
@@ -391,6 +429,7 @@ function Root() {
             {/* AIコーチは全画面切替(card)。modalだと中から開く成績表(MockResultDetail=card)が
                 モーダルの下に潜って見えないため(ユーザー報告2026-08-25)。学習系と同じ card に統一。 */}
             <RootStack.Screen name="AICoach" component={AICoachScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="ShareCard" component={ShareCardScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="QuestionReview" component={QuestionReviewScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Paywall" component={PaywallScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
@@ -416,6 +455,7 @@ export default function App() {
   if (!fontsLoaded && !fontError) {
     return <View style={{ flex: 1, backgroundColor: '#0b1220' }} />;
   }
+  if (SNS_DEMO) return <SnsDemoRoot />; // SNSモック撮影（Web専用・useAppFonts の後なのでフック順は不変）
   // 防波堤はプロバイダの外側に置く(プロバイダ初期化中の例外も捕捉。native例外は捕捉不可)。
   return (
     <SafeBoundary

@@ -145,7 +145,13 @@ export default function AICoachScreen() {
             <Text style={s.brandT}>{t('home.ai_title')}</Text>
           </View>
         </View>
-        <Pressable onPress={() => nav.goBack()} hitSlop={12}><Ionicons name="close" size={24} color={c.mute} /></Pressable>
+        <View style={s.headRight}>
+          {/* 結果カードを画像化して共有(予想得点＋伸び＋紹介コード/QR)。 */}
+          <Pressable onPress={() => nav.navigate('ShareCard')} hitSlop={12} accessibilityLabel={t('share.title')}>
+            <Ionicons name="share-outline" size={22} color={c.blue} />
+          </Pressable>
+          <Pressable onPress={() => nav.goBack()} hitSlop={12}><Ionicons name="close" size={24} color={c.mute} /></Pressable>
+        </View>
       </View>
 
       <ScrollView contentContainerStyle={s.body} showsVerticalScrollIndicator={false}>
@@ -456,6 +462,7 @@ type Styles = ReturnType<typeof makeStyles>;
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
   head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xs },
+  headRight: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
   brand: { flexDirection: 'row', alignItems: 'center', gap: 9 },
   sigil: { width: 30, height: 30, borderRadius: 9, backgroundColor: c.blue, alignItems: 'center', justifyContent: 'center' },
   brandT: { fontSize: 15.5, fontWeight: '800', color: c.ink },

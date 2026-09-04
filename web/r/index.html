@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>まいにちJLPT — 紹介コード</title>
+<!-- アイコンは招待ページと共有(/invite/icon.png)。?v はキャッシュ破棄用。 -->
+<link rel="icon" href="../invite/icon.png?v=2" />
+<link rel="apple-touch-icon" href="../invite/icon.png?v=2" />
+<!-- SNS/メッセージで共有した時のプレビュー画像=アプリアイコン -->
+<meta property="og:title" content="まいにちJLPT — 紹介コード" />
+<meta property="og:description" content="紹介コードで登録すると、2人とも1週間Proがもらえます。いっしょに毎日、日本語を学びましょう。" />
+<meta property="og:image" content="https://jinkato2020.github.io/safa-JLPT/invite/icon.png?v=2" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://jinkato2020.github.io/safa-JLPT/invite/icon.png?v=2" />
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100dvh; display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+    background: linear-gradient(160deg, #eaf2fb 0%, #fbe9f1 100%); color: #2a2430; padding: 24px;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: linear-gradient(160deg, #16202e 0%, #241a24 100%); color: #f0ecf2; }
+    .card { background: #1d2432 !important; }
+    .meta, .sub { color: #b9c2d6 !important; }
+    .store { border-color: #39435a !important; color: #dfe6f5 !important; }
+    .codebox { background: #16233b !important; }
+  }
+  .card {
+    width: 100%; max-width: 420px; background: #fff; border-radius: 22px; padding: 30px 24px 26px;
+    box-shadow: 0 18px 50px rgba(60,40,80,.18); text-align: center;
+  }
+  .appicon { width: 82px; height: 82px; border-radius: 19px; margin: 0 auto 10px; display: block; box-shadow: 0 8px 22px rgba(60,40,80,.22); }
+  h1 { font-size: 20px; font-weight: 800; margin: 8px 0 6px; line-height: 1.5; }
+  .meta { color: #6a6472; font-size: 14px; line-height: 1.6; margin: 0 0 18px; }
+  .codebox {
+    background: #eef4fe; border-radius: 14px; padding: 14px; margin: 0 0 16px;
+  }
+  .codelabel { font-size: 12px; color: #6a6472; font-weight: 700; margin: 0 0 4px; }
+  .code { font-size: 30px; font-weight: 900; letter-spacing: 6px; color: #2f66c8; }
+  .cta {
+    display: block; width: 100%; border: 0; cursor: pointer; text-decoration: none;
+    background: #3f7bd6; color: #fff; font-size: 17px; font-weight: 800;
+    padding: 15px; border-radius: 999px; margin-bottom: 10px;
+  }
+  .cta:active { opacity: .9; }
+  .copy {
+    display: inline-block; border: 0; cursor: pointer; background: transparent;
+    color: #3f7bd6; font-size: 14px; font-weight: 700; padding: 6px 10px; margin-bottom: 8px;
+  }
+  .hint { font-size: 12.5px; color: #8a8494; margin: 14px 0 10px; }
+  .stores { display: flex; gap: 10px; }
+  .store {
+    flex: 1; text-decoration: none; border: 1px solid #e2dbe8; border-radius: 12px;
+    padding: 11px 8px; font-size: 13px; font-weight: 700; color: #4a4550;
+  }
+  .sub { font-size: 12px; color: #8a8494; margin-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="appicon" src="../invite/icon.png?v=2" alt="まいにちJLPT" />
+    <h1>紹介コードで、2人とも<br>1週間Proがもらえます</h1>
+    <p class="meta">「まいにちJLPT」で一緒に勉強しよう。<br>下のコードを入れて登録し、学習を続けると成立します。</p>
+    <div class="codebox">
+      <p class="codelabel">紹介コード / Referral code</p>
+      <div class="code" id="code">----</div>
+    </div>
+    <a class="cta" id="open" href="#">アプリで開く / Open in app</a>
+    <button class="copy" id="copy" type="button">コードをコピー / Copy code</button>
+    <p class="hint">アプリがまだない方は、入手してからコードを入れてください。<br><span class="sub">Get the app, then enter the code above.</span></p>
+    <div class="stores">
+      <!-- App Store の数値ID が確定したら差し替えてください(TestFlight中は未公開) -->
+      <a class="store" id="ios" href="#">App Store</a>
+      <a class="store" href="https://play.google.com/store/apps/details?id=com.safa.english">Google Play</a>
+    </div>
+  </div>
+<script>
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var code = (q.get('code') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (code) { document.getElementById('code').textContent = code; }
+    // 「アプリで開く」= カスタムスキームでアプリを起動(インストール済みなら Referral 画面で自動登録)。
+    document.getElementById('open').setAttribute('href', 'safajlpt://referral?code=' + encodeURIComponent(code));
+    // App Store は未確定のため、暫定でアプリ名検索に誘導(公開後に itms-apps の直URLへ差し替え)。
+    document.getElementById('ios').setAttribute('href', 'https://apps.apple.com/jp/search?term=' + encodeURIComponent('まいにちJLPT'));
+    // コードをクリップボードへコピー。
+    var copyBtn = document.getElementById('copy');
+    copyBtn.addEventListener('click', function () {
+      if (!code) return;
+      try {
+        navigator.clipboard.writeText(code).then(function () {
+          copyBtn.textContent = 'コピーしました / Copied';
+          setTimeout(function () { copyBtn.textContent = 'コードをコピー / Copy code'; }, 1800);
+        });
+      } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>

@@ -71,8 +71,15 @@ export function meaningL1(settings: { l1?: string; uiLang?: string }): string {
   return settings.l1 || 'en';
 }
 
+// SNSモック撮影(Web専用)用の言語オーバーライド。DICTにある10言語を強制表示できる
+// （UI_LANGS=選択可能言語は en/ja/ne のみだが、辞書は全10言語ぶん存在するため撮影は可能）。
+// 本番では App の ?snsdemo 分岐でしか呼ばれない＝通常動作に一切影響しない。
+let DEMO_LANG: string | null = null;
+export function setDemoLang(l: string | null): void { DEMO_LANG = l && DICT[l] ? l : null; }
+
 /** 現在のUI言語。設定(settings.uiLang)優先→端末判定。対応外は en。 */
 export function useUiLang(): string {
+  if (DEMO_LANG) return DEMO_LANG; // 撮影用オーバーライド（本番未使用）
   const st = useAppState();
   const lang = st.settings.uiLang;
   return lang && SUPPORTED.has(lang) ? lang : detectUiLang();

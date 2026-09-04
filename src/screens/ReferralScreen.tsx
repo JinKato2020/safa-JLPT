@@ -3,10 +3,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, Share, ActivityIndicator, Animated, Image, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { getMyCode } from '../referral/referralClient';
+import { useAppState, useAppActions } from '../store/store';
+import type { RootStackParamList } from '../navigation/types';
 
 const ENTRANCE = require('../../assets/referral/entrance.jpg'); // 紹介の入口=多様な学習者が一緒に学ぶ絵
 
@@ -15,10 +17,26 @@ export default function ReferralScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation();
+  const route = useRoute<RouteProp<RootStackParamList, 'Referral'>>();
   const { width: SW } = useWindowDimensions(); // 上端の入口イラストを画面幅いっぱいの大ヒーローで表示
+
+  const enteredCode = useAppState().referral?.enteredCode;
+  const { setEnteredCode } = useAppActions();
 
   const [code, setCode] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [justReceived, setJustReceived] = useState<string | null>(null);
+
+  // 紹介リンク(safajlpt://referral?code=XXX / 結果カードのQR)から開いた時=もらったコードを自動登録。
+  // すでに別のコードを登録済みなら上書きしない(受け取りは初回のみ有効)。
+  useEffect(() => {
+    const incoming = route.params?.code?.trim().toUpperCase();
+    if (incoming && !enteredCode) {
+      setEnteredCode(incoming);
+      setJustReceived(incoming);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [route.params?.code]);
 
   // 自分の紹介コードをサーバーから取得(無ければ採番)。失敗時は空文字→エラー表示。
   useEffect(() => {
@@ -63,6 +81,14 @@ export default function ReferralScreen() {
           <Text style={s.heroSub}>{t('referral.subhead')}</Text>
         </View>
 
+        {/* 紹介リンクから開いた=もらったコードを登録した確認バナー。 */}
+        {justReceived && (
+          <View style={s.receivedBanner}>
+            <Text style={s.receivedEmoji}>🎉</Text>
+            <Text style={s.receivedTxt}>{t('referral.entered', { code: justReceived })}</Text>
+          </View>
+        )}
+
         {/* 自分の紹介コード=ギフトチケット風＋淡い発光の呼吸。共有ボタン付き。 */}
         <View style={s.ticketWrap}>
           <Animated.View style={[s.ticketGlow, { opacity: glowOp, transform: [{ scale: glowSc }] }]} />
@@ -103,6 +129,9 @@ const makeStyles = (c: ThemeColors) =>
     // 上端ヒーロー: 画面幅いっぱい＋上/左右を余白の外まで出す(edge-to-edge)。実寸(幅=画面幅・正方形)はJSXで指定。
     heroImg: { marginTop: -spacing.lg, marginHorizontal: -spacing.lg, marginBottom: spacing.sm, backgroundColor: c.surface },
     heroText: { alignItems: 'center', gap: 8, marginBottom: spacing.xs },
+    receivedBanner: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.blueLight, borderRadius: radius.md, paddingHorizontal: spacing.md, paddingVertical: spacing.sm },
+    receivedEmoji: { fontSize: 22 },
+    receivedTxt: { flex: 1, fontSize: ty.body, fontWeight: '800', color: c.blueDark },
     heroTitle: { fontSize: ty.h2, fontWeight: '900', color: c.ink, lineHeight: 30, textAlign: 'center' },
     heroSub: { fontSize: ty.body, fontWeight: '700', color: c.ink2, lineHeight: 22, textAlign: 'center' },
 

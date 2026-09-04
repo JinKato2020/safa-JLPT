@@ -1,17 +1,20 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 10 回・28 ターン
-- 往復 249 回
 
 ## 何が変わったか
 - memory/handoff.md
-- tools/apply_views.mjs
 - memory/session-summary-LATEST.md
-- docs/supabase/dashboard_views.sql
-- docs/supabase/dashboard.html
+- 画像/SNS/1/bn/AICoach_passing_N4_BN.png
+- 画像/SNS/1/my/AICoach_passing_N4_MY.png
+- 画像/SNS/1/th/AICoach_passing_N4_TH.png
 
 ## 次の一手
+- **▶★2026-09-05 セッション状態（/clear直前・全て未コミット）。**
+  - **(A) ビルド済＝v1.1.35(2904) dispatch**（commit `0905cdde`・iOS+Android・run 33852652007・-NoWatch）＝設定2段階化(DownloadScreen新設)/サンプルリンク削除/分野別正解率5軸送信(facetAcc)/Androidキーボード修正/友だち個別トグル/Android internalトラック即時化/管理ダッシュボード大改修 を同梱。**CI結果（特にAndroid Gradle）＋TestFlight/内部テスト反映はユーザー側で確認。審査提出は承認後**（[[never-build-without-explicit-order]]）。
+  - **(B) ✅SNSモック画像＝完成（14枚）。** 学習前(始めたてN5・予想55/180)／学習後(合格圏内N4・予想123/180)を **7言語(ko/zh/vi/id/th/my/bn)** ぶん、**実AICoach画面をExpo Webで描画→ヘッドレスChromeでフルページ撮影**。保存＝`画像\SNS\1\<lang>\AICoach_{beginner_N5,passing_N4}_<LANG>.png`（1170px幅・縦長）。ja/en/neはユーザー既存分（今回対象外）。**再現パイプライン**＝`tools\sns\gen_state.ts`（ダミー状態生成・実データ実エンジン型／passing.json・beginner.json出力・数値は`buildState('N4',covFrac,skillFrac,ratio)`で調整）＋`tools\sns\shoot.mjs`（puppeteer-core+システムChrome・`node tools/sns/shoot.mjs [lang] [state]`）。**手順**＝①`node --import tsx tools/sns/gen_state.ts` ②`CI=1 BROWSER=none npx expo start --web --port 8081` ③`node tools/sns/shoot.mjs`。**このための恒久コード変更（本番無害）**＝`src\pro\ads.web.ts`（AdMobのWeb用no-opスタブ＝Web bundleを通す・native不変）／`src\i18n\index.ts` に`setDemoLang`（`?snsdemo`時のみ有効・UI_LANGSに無い7言語も撮影可）／`App.tsx` に`?snsdemo=1&lang=xx`のWebデモ分岐（本番不発）。tsc0。
+  - **(C) ▶保留＝「結果カード画像＋紹介リンク＋シェアボタン」機能（未着手・依存だけ導入済）。** 設計確定＝縦9:16(1080×1920)・中央に予想得点RingGauge＋成長＋下部に紹介コード/QR/CTA・入口=AICoach・画像化=react-native-view-shot＋共有=expo-sharing＋QR=react-native-qrcode-svg（全て導入済・package.json未コミット）・紹介URL=新設Pagesランディング`https://jinkato2020.github.io/safa-JLPT/r/?code=`（既存`/invite/`と同じ`web/`→build-jlpt.yml cp方式）。**次=ShareCardScreen実装＋route＋i18n(ja/en/ne)＋web/r/index.html＋workflow cp追記。native依存ゆえ配信は次ビルド同梱(OTA不可)。**
+  - **(D) ▶Pro料金＋ストア申請（元の宿題・継続）。** iOS=App Store Connect サブスク価格を国別に設定（cf-ipcountry方式のキャンペーンは別途）。Android=Play内容レーティング/広告/広告ID申告は確認済（ユーザー実施）。地域別無料キャンペーンは`pro_until`＋`cf-ipcountry`＋収穫カットオフ設計を議論済（未実装）。
 - **▶★次の一手（ユーザー指示 2026-09-04・/clear後にここから）＝Pro料金の設定＋ストア申請。** 手順の想定：(1)**Pro料金**＝App Store Connect のサブスク価格／Google Play の定期購入価格を設定し、RevenueCat の products/offerings と突き合わせ（現状Proは稼働中＝[[pro-monetization-now-live]]・キー設定済／地域戦略の下書き＝[[monetization-geo-campaign-plan]]）。価格・地域・プラン(1月/1年)をユーザーに確認してから設定（不可逆・課金ゆえ[[jlpt-release-order-monetization]]も参照）。(2)**ストア申請**＝未コミットの累積(v1.1.35同梱予定＝下の📌参照：DownloadScreen/サンプルリンク削除/facetAcc5軸/キーボード/友だち個別トグル/アバター)＋管理ダッシュ変更(下記✅)をコミット→`build-jlpt.yml`でビルド（[[build-jlpt-yml-is-canonical]]・番号=2000+commit）→TestFlight/内部テスト確認→**承認を得てから**審査提出（[[never-build-without-explicit-order]]／E1：公開リリースは明示確認必須・iOS 1日上限に注意[[build-cadence-preference]]）。※ビルド/push/提出はユーザー明示指示があるまで実行しない。
 - **✅2026-09-04 管理ダッシュボード大改修＝完了・本番適用済。** 一連(名寄せ人数・学習回数merge_key・成長推移レベル別・分布全体+個別・友だち列/テーブル・国別指標+母集団窓7/30/all・模試分布/月次)を `docs/supabase/dashboard_views.sql`＋`dashboard.html`＋`retention_monetization_views.sql` に実装。**適用の仕組み＝`tools/apply_views.mjs`**（Node fetchでSupabase Management API・依存ゼロ）。鍵PATは**リポジトリ外**`C:\API 秘密の鍵\JLPT\.env.local`(SUPABASE_PAT=)に保管＝スクリプトが最優先で読む。**両SQL適用済・全新ビュー201動作確認済**（JP人数=2で名寄せ確認）。以後ビュー編集→`node tools/apply_views.mjs`で即適用。dashboard.html/SQL/mjs は**未コミット**（上の申請時に同梱）。
 - **▶2026-09-04 AIコーチUI刷新＋端末ID(フリーライド対策)＋Test Lab抑止＋リテンション計測＝正本 `memory/aicoach-deviceid-inflight.md`（必読）。** 未コミット多数（次ビルド v1.1.34 同梱・OTA不可）＝AIコーチ折れ線3本/横軸ラベル・本番位置3バー削除・弱点◇統合・GrowthPoint.cov記録・端末ID(deviceId.ts/anonId固定化/trialClient)・**②b Test Lab判定(modules/test-lab ネイティブ＋testLab.ts＋App.tsx/trialClient配線)**・i18n growth_ago/today。tsc緑。**プライバシー申告C＝完了**（iOS App Privacy/Android Data safety/ポリシーWebページ本文EN/NE/JA すべて反映確認済）。Supabase：device_trials.sql実行済＋trial-claim再デプロイ済／retention_monetization_views.sql は**要・再実行**（v_admin_retention_geo追加）／dashboard.htmlに国別リテンション欄追加。**✅(1)ビルド済＝v1.1.34(2903) dispatch（commit 1f0d830b・iOS+Android・run 33838774591・-NoWatch）。ネイティブ3種含む＝CI(特にAndroid Gradle)はユーザー側で確認／`modules/test-lab`でGradle失敗ならフォルダ削除して再ビルド。残＝(2)Supabaseで**2本再実行**＝`dashboard_views.sql`(全体サマリー/接続国/利用者一覧の3ビューにテスト由来ノイズ除外=未ログイン+学習0を追加・利用者一覧経由でレベル別/相対位置/在庫も連動)＋`retention_monetization_views.sql`(v_admin_retention_geo追加後)→dashboard.html再取得で反映 (3)CI緑＆TestFlight/内部テスト反映を確認後、承認を得て iOS/Android同時リリース(審査提出)。**
