@@ -86,7 +86,13 @@ const LINKING = {
 // localStorage にダミー状態(tools/sns/*.json)を仕込んだ上でこのURLを開くと、AICoach画面だけを
 // 実コンポーネントで描画する。ヘッドレスChromeでフルページ撮影→各言語のSNSモック画像を量産する。
 // 本番では ?snsdemo が付かないので完全に不発（プロダクトに影響なし）。
-const SNS_DEMO = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('snsdemo');
+// ⚠ React Native(Hermes)では window は定義済みだが window.location は存在しない。
+//   window.location.search を無防備に読むと native の起動時(トップレベル評価)で TypeError→
+//   expo-updates のリカバリ経由で abort(起動即クラッシュ)。必ず location の存在を先に確認する。
+const SNS_DEMO =
+  typeof window !== 'undefined' &&
+  typeof window.location !== 'undefined' &&
+  new URLSearchParams(window.location.search).has('snsdemo');
 if (SNS_DEMO) { try { setDemoLang(new URLSearchParams(window.location.search).get('lang')); } catch { /* noop */ } }
 const DemoStack = createNativeStackNavigator();
 function SnsDemoInner() {
