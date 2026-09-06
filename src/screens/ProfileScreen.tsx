@@ -14,7 +14,7 @@ import { dayStr, daysBetween } from '../store/state';
 import { META } from '../data';
 import type { Level } from '../engine/engine';
 import type { ThemeMode } from '../store/state';
-import { useT, UI_LANGS, useUiLang } from '../i18n';
+import { useT, UI_LANGS, useUiLang, meaningLangFor } from '../i18n';
 import { legalUrl } from '../config/legal';
 import { nativeLangCC } from '../plaza/countries';
 import Slider from '../components/Slider';
@@ -131,7 +131,7 @@ export default function ProfileScreen() {
                     sendEvent('language_changed', { lang: o.code });
                     // 母語を一本化: UI言語＝意味の表示言語。意味翻訳がある言語(現状ネパール語)はその言語、無ければ英語で表示。
                     // アカウント画面の母語(＝uiLang表示)と連動。国旗(country)も母語から更新して一致させる。
-                    setSettings({ uiLang: o.code, l1: o.code === 'ne' ? 'ne' : 'en', country: nativeLangCC(o.code) });
+                    setSettings({ uiLang: o.code, l1: meaningLangFor(o.code), country: nativeLangCC(o.code) });
                     setLangOpen(false);
                   }}
                   style={s.dropdownItem}

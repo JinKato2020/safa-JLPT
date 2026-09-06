@@ -13,11 +13,11 @@ const files = {
   'lexicon/meaning_N4.json': { schema: 1, kind: 'meaning', level: 'N4', languages: ['ne'], items: { 'n4-v-1': { ne: 'M' } } },
 };
 
-test('rehydrateBanks: context に level/本文対訳(promptEn/Ne)を復元・解説なし', () => {
+test('rehydrateBanks: context に level/本文対訳(promptTr=lang→訳)を復元・解説なし', () => {
   const b = rehydrateBanks(files);
   const c = b.CONTEXT_BANK[0];
   assert.equal(c.id, 'cx:n4-v-1'); assert.equal(c.level, 'N4');
-  assert.equal(c.prompt, 'p'); assert.equal(c.promptEn, 'PE'); assert.equal(c.promptNe, 'PN');
+  assert.equal(c.prompt, 'p'); assert.equal(c.promptTr.en, 'PE'); assert.equal(c.promptTr.ne, 'PN');
   assert.equal(c.explain, undefined); assert.equal(c.explainNe, undefined); // 解説は廃止(2026-09-02)
   assert.equal(c.i18n, undefined); // 旧shapeにi18nは残さない
 });
@@ -27,12 +27,12 @@ test('rehydrateBanks: synonym は解説なし(reason/reasonNe を復元しない
   assert.equal(s.reason, undefined); assert.equal(s.reasonNe, undefined); // 解説は廃止(2026-09-02)
   assert.equal(s.level, 'N5'); assert.equal(s.word, 'w'); assert.equal(s.i18n, undefined);
 });
-test('rehydrateBanks: reading は subtype/level/format・question explain・passageTransNe(配列)', () => {
+test('rehydrateBanks: reading は subtype/level/format・question explain・PASSAGE_TRANS(lang→配列)', () => {
   const b = rehydrateBanks(files);
   const r = b.READING[0];
   assert.equal(r.subtype, 'naiyou_tan'); assert.equal(r.level, 'N4'); assert.equal(r.format, 'fmt'); assert.equal(r.category, 'dokkai');
   assert.equal(r.questions[0].explain, 'E'); assert.equal(r.questions[0].i18n, undefined);
-  assert.deepEqual(b.PASSAGE_TRANS_NE['r-N4-tan-1'], ['BN1', 'BN2']);
+  assert.deepEqual(b.PASSAGE_TRANS['r-N4-tan-1'].ne, ['BN1', 'BN2']);
 });
 test('rehydrateBanks: lexicon merge', () => {
   const b = rehydrateBanks(files);

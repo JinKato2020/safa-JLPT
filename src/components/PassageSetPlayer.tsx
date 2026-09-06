@@ -10,9 +10,9 @@ import { rubyNeeded } from '../data';
 import { useAppState, useAppActions } from '../store/store';
 import { shuffleChoices } from '../quiz/quiz';
 import { type PassageSet, type Figure } from '../quiz/passageSet';
-import { PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN } from '../data';
+import { PASSAGE_TRANS, Q_TRANS } from '../data';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
-import { useT, meaningL1 } from '../i18n';
+import { useT, meaningL1, pickTr } from '../i18n';
 import AnswerFooter from './AnswerFooter';
 
 // 旧・情報検索テーブル(Record<列,値>[])を figure(表1枚)へ変換する後方互換ヘルパ。新形式は figure を直接持つ。
@@ -65,10 +65,10 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
   const revealed = allAnswered && !mock; // 練習=全問回答で採点表示＆ロック / 模試=「次へ」までロックしない(選び直し可)
   // 模試中は正誤・解説・訳を出さない(採点記録はする)。最後に「解答・解説」でまとめて表示。
   const showFeedback = revealed;
-  const useNe = meaningL1(state.settings) === 'ne'; // ne母語=ネパール語訳／それ以外(ja UI/en/他言語)=英語訳
-  const trans = useNe ? PASSAGE_TRANS_NE[set.id] : PASSAGE_TRANS_EN[set.id]; // 本文ごとの訳(無ければundefined)
-  const qtr = useNe ? Q_TRANS_NE : Q_TRANS_EN; // 設問・選択肢の訳(内容理解のみ・key=設問id)
-  const hasTrans = !!trans || set.questions.some((q) => qtr[q.id]); // 訳トグルを出すか
+  const l1 = meaningL1(state.settings); // 母語コード。大問対訳を l1 でピック(無ければ英語)
+  const trans = pickTr(l1, PASSAGE_TRANS[set.id]); // 本文ごとの訳(無ければundefined)
+  const qtr = (qid: string) => pickTr(l1, Q_TRANS[qid]); // 設問・選択肢の訳(内容理解のみ・設問id→その言語の{q,choices})
+  const hasTrans = !!trans || set.questions.some((q) => qtr(q.id)); // 訳トグルを出すか
 
   // 一括採点＝各設問の正誤を1回だけ記録（冪等）。呼び出し元(模試等)の集計も同時に1回だけ発火。
   const gradeAndRecord = () => {
@@ -113,12 +113,12 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
           <View key={q.id} style={s.qBlock}>
             <Text style={s.qLabel}>{q.blankNo != null ? t('passage.blankLabel', { n: q.blankNo }) : t('passage.qLabel', { n: qi + 1 })}</Text>
             {q.q ? <RubyText text={q.q} style={s.qText} rubyStyle={s.rubyS} rubyGate={rubyGate} /> : null}
-            {showFeedback && showTrans && qtr[q.id]?.q ? <Text style={s.qTrans}>{qtr[q.id]!.q}</Text> : null}
+            {showFeedback && showTrans && qtr(q.id)?.q ? <Text style={s.qTrans}>{qtr(q.id)!.q}</Text> : null}
             <View style={s.choices}>
               {qs[qi].sh.choices.map((ch, ci) => {
                 const isAns = ci === qs[qi].sh.answerIndex;
                 const isPicked = ci === picked;
-                const ctr = showFeedback && showTrans ? qtr[q.id]?.choices[qs[qi].q.choices.indexOf(ch)] : undefined;
+                const ctr = showFeedback && showTrans ? qtr(q.id)?.choices[qs[qi].q.choices.indexOf(ch)] : undefined;
                 return (
                   <Pressable key={ci} style={[s.choice, showFeedback && isAns && s.choiceOk, showFeedback && isPicked && !isAns && s.choiceNg, !showFeedback && isPicked && s.choicePicked]} onPress={() => pick(qi, ci)} disabled={revealed}>
                     <View style={s.choiceTxtWrap}>

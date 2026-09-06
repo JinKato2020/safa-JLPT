@@ -8,7 +8,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
-import { useT, useUiLang } from '../i18n';
+import { useT, useUiLang, meaningLangFor } from '../i18n';
 import { signUp, signIn, signOut } from '../auth/authClient';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
@@ -187,7 +187,7 @@ export default function AccountScreen() {
             ? NATIVE_LANGS.map((ln) => {
                 const on = uiLang === ln.code;
                 return (
-                  <Pressable key={ln.code} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ uiLang: ln.code, l1: ln.code === 'ne' ? 'ne' : 'en', country: nativeLangCC(ln.code) }); setPickerOpen(null); }}>
+                  <Pressable key={ln.code} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ uiLang: ln.code, l1: meaningLangFor(ln.code), country: nativeLangCC(ln.code) }); setPickerOpen(null); }}>
                     <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{nativeLangFlag(ln.code)} {ln.label}</Text>
                     {on && <Text style={s.pickCheck}>✓</Text>}
                   </Pressable>

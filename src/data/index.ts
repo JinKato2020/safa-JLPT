@@ -264,7 +264,7 @@ export const KANJI_READ_BANK = _R.KANJI_READ_BANK as KanjiReadBankItem[];
 // 模試専用プール(初見の別文・通常学習には出さない)。同じ語(vocabId)に別sentenceを持つ。MockScreenが exam でのみ使う。
 export const KANJI_READ_MOCK = _R.KANJI_READ_MOCK as KanjiReadBankItem[];
 // 文脈規定(大問3)の固定問題集。id=cx:<vocabId>、choices=誤答3(正解は実行時にanswerを先頭付与)。
-export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; promptEn?: string; promptNe?: string; verified?: boolean; }
+export interface ContextBankItem { id: string; level: string; prompt: string; question: string; answer: string; choices: string[]; explain?: string; explainNe?: string; promptTr?: Record<string, string>; verified?: boolean; }
 export const CONTEXT_BANK = _R.CONTEXT_BANK as ContextBankItem[];
 export const CONTEXT_MOCK = _R.CONTEXT_MOCK as ContextBankItem[];
 // 言い換え類義(大問4)の固定問題集。文＋下線部(underline=文中で下線を引くスパン)→意味が近い語を4択で。
@@ -276,7 +276,7 @@ export const CONTEXT_MOCK = _R.CONTEXT_MOCK as ContextBankItem[];
 // pattern=作問の型。adv=副詞・疑問詞(ちょうど/どう/なぜ/もう/大変…)。実データの一定数がこれで、
 // 型に無いと生成役が adj へ寄せ、adj の「正解の対義語を1つ入れる」規則が副詞に適用されて非文になる。
 export type SynonymPattern = 'noun' | 'adj' | 'adv' | 'verb' | 'hypernym' | 'negation_cross' | 'perspective_cross';
-export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; verified?: boolean; stem?: string; pattern?: SynonymPattern; sentenceEn?: string; sentenceNe?: string; answerEn?: string; answerNe?: string; choicesEn?: string[]; choicesNe?: string[]; }
+export interface SynonymBankItem { id: string; level: string; sentence: string; word: string; underline: string; answer: string; choices: string[]; reason?: string; reasonNe?: string; verified?: boolean; stem?: string; pattern?: SynonymPattern; sentenceTr?: Record<string, string>; answerTr?: Record<string, string>; choicesTr?: Record<string, string[]>; }
 export const SYNONYM_BANK = _R.SYNONYM_BANK as SynonymBankItem[];
 // 言い換え(④)の模試専用プール(初見・通常学習には出さない)。MockScreenが exam でのみ使う。
 export const SYNONYM_MOCK = _R.SYNONYM_MOCK as SynonymBankItem[];
@@ -385,11 +385,10 @@ export interface ListeningItem {
 
 export const READING = _R.READING as ReadingItem[];
 export const LISTENING = _R.LISTENING as ListeningItem[];
-/** 読解パッセージの母語(ne)訳。id→行配列。PassageSetPlayer 等で表示。 */
-export const PASSAGE_TRANS_NE = _R.PASSAGE_TRANS_NE as Record<string, string[]>;
-export const PASSAGE_TRANS_EN = _R.PASSAGE_TRANS_EN as Record<string, string[]>;
-export const Q_TRANS_NE = _R.Q_TRANS_NE as Record<string, { q: string; choices: string[] }>;
-export const Q_TRANS_EN = _R.Q_TRANS_EN as Record<string, { q: string; choices: string[] }>;
+/** 読解/聴解/文章の文法の本文対訳。itemId→lang→行配列。lang は content の i18n にある言語すべて(言語追加はコード改修不要)。PassageSetPlayer 等で pickTr(l1, …) して表示。 */
+export const PASSAGE_TRANS = _R.PASSAGE_TRANS as Record<string, Record<string, string[]>>;
+/** 設問・選択肢の対訳。設問id→lang→{ q, choices[] }。 */
+export const Q_TRANS = _R.Q_TRANS as Record<string, Record<string, { q: string; choices: string[] }>>;
 
 // 文章の文法(大問⑧・セット形式=1文章＋5設問)。旧知識バンク(passage_grammar daimon)から本セットへ移行(BANKからは除外・daimon.ts)。
 // 生成: 問題/tools(文章の文法量産パイプライン)。id=pg-<Level>-<3桁連番>、設問id=pg-<Level>-<3桁>-q5..q9。

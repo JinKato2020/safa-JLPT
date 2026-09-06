@@ -1,8 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PASSAGE_TRANS_NE as trans, READING as reading, READING_MOCK as readingMock, PASSAGE_GRAMMAR as pg, LISTENING as listening, LISTENING_MOCK as listeningMock, listeningSubtype } from '../index'; // rehydrate由来(旧 exam/*.json 相当)
+import { PASSAGE_TRANS, READING as reading, READING_MOCK as readingMock, PASSAGE_GRAMMAR as pg, LISTENING as listening, LISTENING_MOCK as listeningMock, listeningSubtype } from '../index'; // rehydrate由来(旧 exam/*.json 相当)
 
-const T = trans as Record<string, string[]>;
+// PASSAGE_TRANS は itemId→lang→行配列。この番人は ne(ネパール語)の網羅を見張るので ne ビューへ畳む。
+const T: Record<string, string[]> = {};
+for (const [id, m] of Object.entries(PASSAGE_TRANS as Record<string, Record<string, string[]>>)) if (m.ne) T[id] = m.ne;
 
 // 期待する本文数。情報検索(joho)は図表主体で InfoSearchFigure が描画し、
 // PASSAGE_TRANS_NE(本文ネパール訳)を一切使わないので期待から除外する。

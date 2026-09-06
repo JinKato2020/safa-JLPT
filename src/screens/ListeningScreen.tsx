@@ -7,7 +7,7 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
-import { useT, meaningL1 } from '../i18n';
+import { useT, meaningL1, pickTr } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from '../components/AfterStudyReward';
 import type { StudiedQuestion } from '../data/studiedWords';
@@ -17,7 +17,7 @@ import ExamHeader from '../components/ExamHeader';
 import DevIdPicker from '../components/DevIdPicker';
 import RubyText from '../components/RubyText';
 import Slider from '../components/Slider';
-import { listeningItemsFor, listeningItemsForSub, listeningSubtype, rubyNeeded, PASSAGE_TRANS_NE, PASSAGE_TRANS_EN, Q_TRANS_NE, Q_TRANS_EN, type ListeningItem, type PassageQuestion } from '../data';
+import { listeningItemsFor, listeningItemsForSub, listeningSubtype, rubyNeeded, PASSAGE_TRANS, Q_TRANS, type ListeningItem, type PassageQuestion } from '../data';
 import { practicePool } from '../listening/pool';
 import type { RootStackParamList } from '../navigation/types';
 import { listeningSource } from '../data/listeningAudio';
@@ -220,10 +220,10 @@ export default function ListeningScreen() {
   const anyPicked = picked.some((p) => p != null);
   const allDone = step.qs.length > 0 && step.qs.every((_, qi) => picked[qi] != null);
   // 回答後の対訳(課題理解ほか): 台本訳=PASSAGE_TRANS[clip.id](行配列)／設問・選択肢訳=Q_TRANS[設問id]。ne母語=ネパール語訳・他=英語訳。
-  const useNe = meaningL1(state.settings) === 'ne';
-  const scriptTrans = useNe ? PASSAGE_TRANS_NE[step.clip.id] : PASSAGE_TRANS_EN[step.clip.id];
-  const qtr = useNe ? Q_TRANS_NE : Q_TRANS_EN;
-  const hasTrans = !!scriptTrans || step.qs.some((q) => qtr[q.id]); // 訳が1つでもあればトグルを出す
+  const l1 = meaningL1(state.settings); // 母語コード。大問対訳を l1 でピック(無ければ英語)
+  const scriptTrans = pickTr(l1, PASSAGE_TRANS[step.clip.id]);
+  const qtr = (qid: string) => pickTr(l1, Q_TRANS[qid]); // 設問id→その言語の{q,choices}(無ければen)
+  const hasTrans = !!scriptTrans || step.qs.some((q) => qtr(q.id)); // 訳が1つでもあればトグルを出す
 
   // スクリプトを行ごとにルビ付きで描画(空行は間隔)。話者ラベル「女1：」等もそのまま。
   const renderScript = (raw: string) =>
@@ -314,13 +314,13 @@ export default function ListeningScreen() {
             <View key={qi} style={s.qBlock}>
               {step.qs.length > 1 ? <Text style={s.qLabel}>{t('listening.q_label', { n: qi + 1, m: step.qs.length })}</Text> : null}
               {q.q ? <RubyText text={q.q} style={s.qText} rubyStyle={s.scriptRuby} rubyGate={rubyGate} /> : null}
-              {reveal && showTrans && qtr[q.id]?.q ? <Text style={s.qTransTxt}>{qtr[q.id]!.q}</Text> : null}
+              {reveal && showTrans && qtr(q.id)?.q ? <Text style={s.qTransTxt}>{qtr(q.id)!.q}</Text> : null}
               <View style={s.choices}>
                 {q.choices.map((ch, ci) => {
                   const isAnswer = ci === q.answerIndex;
                   const isPicked = ci === picked[qi];
                   // 選択肢はシャッフル表示だが Q_TRANS はデータ元順。元問題(step.clip.questions[qi])で ch の元indexを引いて訳を対応させる。
-                  const ctr = reveal && showTrans ? qtr[q.id]?.choices[step.clip.questions[qi]?.choices.indexOf(ch) ?? -1] : undefined;
+                  const ctr = reveal && showTrans ? qtr(q.id)?.choices[step.clip.questions[qi]?.choices.indexOf(ch) ?? -1] : undefined;
                   return (
                     <Pressable
                       key={ci}

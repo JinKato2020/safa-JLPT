@@ -38,8 +38,8 @@ BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
 CEN = Alignment(horizontal='center', vertical='center')
 WRAP = Alignment(horizontal='left', vertical='top', wrap_text=True)
 
-COLS = ['問題ID', '種別', '本文/読み物', '設問', '対象語', '選択肢', '正解', '一意性リスク', '理由', 'verified']
-WIDTHS = [22, 12, 52, 40, 14, 46, 20, 12, 34, 10]
+COLS = ['問題ID', '種別', '本文/読み物', '設問', '対象語', '選択肢', '正解', '一意性リスク', '理由', 'verified', '採用(×で除外)']
+WIDTHS = [22, 12, 52, 40, 14, 46, 20, 12, 34, 10, 12]
 
 # 本文/読み物として拾うキー（優先順）。読解=body/passages・聴解=script（scenarioは短い場面ラベルなので後回し）・
 # 文字語彙文法の単文=sentence/prompt/stem。※「本文がメイン」ゆえ運搬文を必ず出す（ユーザー厳命）。
@@ -155,6 +155,7 @@ def rows_for_item(it):
                 _txt(q, ['underline', 'word']),
                 _choices(q), _answer(q), r, _note(q, r) or _note(it, base_r),
                 q.get('verified', it.get('verified')),
+                '',  # 採用(×で除外): ユーザーが目視で除外印を入れる空欄
             ])
     else:
         out.append([
@@ -163,6 +164,7 @@ def rows_for_item(it):
             _txt(it, ['underline', 'word']),
             _choices(it), _answer(it), base_r, _note(it, base_r),
             it.get('verified'),
+            '',  # 採用(×で除外): ユーザーが目視で除外印を入れる空欄
         ])
     return out
 

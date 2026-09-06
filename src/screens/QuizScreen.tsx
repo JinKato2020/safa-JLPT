@@ -8,7 +8,7 @@ import AppButton from '../components/AppButton';
 import { useAppState, useAppActions } from '../store/store';
 import { type SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
-import { useT, meaningL1 } from '../i18n';
+import { useT, meaningL1, pickTr } from '../i18n';
 import AfterStudyReward from '../components/AfterStudyReward';
 import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
@@ -316,34 +316,34 @@ export default function QuizScreen() {
           <View style={{ marginTop: 12, padding: 12, borderRadius: 12, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, gap: 6 }}>
             <Text style={{ fontSize: 12, fontWeight: '800', color: c.blue, textAlign: 'center', letterSpacing: 1 }}>{t('quiz.correct_sentence')}</Text>
             <RubyText text={question.orderSentence} style={{ fontSize: 18, fontWeight: '700', color: c.ink, textAlign: 'center' }} rubyStyle={s.qRuby} rubyGate={rubyGate} center />
-            {(meaningL1(settings) === 'ne' ? question.orderMeaningNe : question.orderMeaningEn) ? (
-              <Text style={{ fontSize: 14, color: c.ink2, textAlign: 'center' }}>{meaningL1(settings) === 'ne' ? question.orderMeaningNe : question.orderMeaningEn}</Text>
+            {pickTr(meaningL1(settings), question.orderMeaningTr) ? (
+              <Text style={{ fontSize: 14, color: c.ink2, textAlign: 'center' }}>{pickTr(meaningL1(settings), question.orderMeaningTr)}</Text>
             ) : null}
           </View>
         ) : null}
         {/* 本文対訳: 回答後に問題文の下へ母語(en/ne)の意味を表示(データのある問題のみ)。 */}
-        {picked !== null && (meaningL1(settings) === 'ne' ? question.promptTransNe : question.promptTransEn) ? (
+        {picked !== null && pickTr(meaningL1(settings), question.promptTransTr) ? (
           <View style={{ marginTop: 12, padding: 12, borderRadius: 12, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, gap: 6 }}>
             <Text style={{ fontSize: 12, fontWeight: '800', color: c.blue, textAlign: 'center', letterSpacing: 1 }}>{t('quiz.sentence_meaning')}</Text>
-            <Text style={{ fontSize: 15, color: c.ink2, textAlign: 'center' }}>{meaningL1(settings) === 'ne' ? question.promptTransNe : question.promptTransEn}</Text>
+            <Text style={{ fontSize: 15, color: c.ink2, textAlign: 'center' }}>{pickTr(meaningL1(settings), question.promptTransTr)}</Text>
           </View>
         ) : null}
         {/* 用法: 回答後に「正解の文の意味」を表示(誤答は訳さない=わざと不自然な日本語のため)。 */}
-        {picked !== null && (meaningL1(settings) === 'ne' ? question.answerTransNe : question.answerTransEn) ? (
+        {picked !== null && pickTr(meaningL1(settings), question.answerTransTr) ? (
           <View style={{ marginTop: 12, padding: 12, borderRadius: 12, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, gap: 6 }}>
             <Text style={{ fontSize: 12, fontWeight: '800', color: c.blue, textAlign: 'center', letterSpacing: 1 }}>{t('quiz.answer_meaning')}</Text>
-            <Text style={{ fontSize: 15, color: c.ink2, textAlign: 'center' }}>{meaningL1(settings) === 'ne' ? question.answerTransNe : question.answerTransEn}</Text>
+            <Text style={{ fontSize: 15, color: c.ink2, textAlign: 'center' }}>{pickTr(meaningL1(settings), question.answerTransTr)}</Text>
           </View>
         ) : null}
         {/* 言い換え: 回答後に「本文の意味＋各選択肢の意味」を表示(誤答も正当な日本語語ゆえ訳あり)。番号は選択肢と同じ。 */}
-        {picked !== null && question.choiceTransEn ? (
+        {picked !== null && question.choiceTransTr ? (
           <View style={{ marginTop: 12, padding: 12, borderRadius: 12, backgroundColor: c.surface, borderWidth: 1, borderColor: c.blueLight, gap: 4 }}>
-            {(meaningL1(settings) === 'ne' ? question.synonymSentenceNe : question.synonymSentenceEn) ? (
-              <Text style={{ fontSize: 14, color: c.ink2, textAlign: 'center', marginBottom: 4 }}>{meaningL1(settings) === 'ne' ? question.synonymSentenceNe : question.synonymSentenceEn}</Text>
+            {pickTr(meaningL1(settings), question.synonymSentenceTr) ? (
+              <Text style={{ fontSize: 14, color: c.ink2, textAlign: 'center', marginBottom: 4 }}>{pickTr(meaningL1(settings), question.synonymSentenceTr)}</Text>
             ) : null}
             <Text style={{ fontSize: 12, fontWeight: '800', color: c.blue, textAlign: 'center', letterSpacing: 1 }}>{t('quiz.choice_meanings')}</Text>
             {question.choices.map((_, i) => {
-              const m = meaningL1(settings) === 'ne' ? question.choiceTransNe?.[i] : question.choiceTransEn?.[i];
+              const m = pickTr(meaningL1(settings), question.choiceTransTr)?.[i];
               if (!m) return null;
               const isAns = i === question.answerIndex;
               return (

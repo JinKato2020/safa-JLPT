@@ -2,10 +2,27 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+- **🎉✅完了 2026-09-06 大問対訳＝全10言語コンプリート。** ja/en/ne + id/th/zh/bn/ko/vi/my の全14大問(47,155ユニット)対訳を content に投入・`src\i18n\index.ts` UI_LANGS に10行・各`src\i18n\<lang>.json` 1422キー欠落0・Excel`memory\在庫・模試ストックまとめ.xlsx`⑥翻訳状況④全列100%/①全行フル/字数・実費記入・番人i18n(parity/passageTransNe)緑。**新規実費 Gemini2.5Flash＝th¥544/zh¥432/bn¥481/ko¥504/vi¥532/my¥719＝計≈¥3,212**（id¥473は既存）。ツール＝`tools\trans_daimon_lang.py`（apply→write）＋`tools\update_trans_status.py`。触り所＝[[daimon-trans-display-lang-levers]]。**次に新言語を足すなら**：`ALL --dry-run→--apply→--write --lang <code>`＋UI_LANGS1行＋Excel④列/①行更新（zh-hantはアプリ未対応ゆえ現状不要）。
+- **✅完了 2026-09-06 法務URL `/jlpt/`→`/lang/` 修正**＝`src\config\legal.ts`（アプリ全画面のprivacy/terms＝安全にドメイン据置`safa-lang.com`・新URL実在確認済）＋ストア申請doc（`ASC申請文言_iOS.md`/`Play申請文言_Android.md`）。⚠**ストア管理画面(ASC/Play Console)の申告URLは手修正が要る**（私からは不可）。
+- **⚠上記2件とも全て未コミット・表示にはビルド必要(OTA不可＝アプリコード)。commit/push/buildはユーザー明示OK後**（[[never-build-without-explicit-order]]）。
+
+- **✅完了（2026-09-06・インドネシア語 大問翻訳＋表示配線）＝全14大問(非聴解5/聴解5/読解3/文章の文法)の id 対訳を content i18n.id へ投入(64ファイル/14,060item・en/ne無傷)＋アプリを id 表示に配線(UI_LANGS に id・pickTr・ピッカーclamp・rehydrate/daimon/quiz/3画面)。実費 Gemini 2.5 Flash 約¥473(D2)。tsc0・番人13/13。正本＝`memory\trans-daimon-id-inflight.md`。ツール＝`tools\trans_daimon_lang.py`(新規)。⚠実表示はビルド必要(OTA不可)＝ユーザー明示OK後に次ビルド同梱。全て未コミット。**
+- **✅完了（2026-09-06・言語汎用化リファクタ）＝大問対訳を lang→訳 のマップに統一（byLang/PASSAGE_TRANS/Q_TRANS/pickTr record版/meaningLangFor）。tsc0・テスト49緑。以後 新言語は「UI_LANGS 1行＋データ」だけで出る。正本＝`memory\trans-daimon-multilang-inflight.md`。**
+- **▶★★次にやる（2026-09-06「多言語役」）＝大問対訳を残り6言語(bn/ko/my/th/vi/zh)へ展開。** 手順＝各言語 `python tools\trans_daimon_lang.py ALL --apply --lang <code>`→`--write`＋UI_LANGS に1行。⚠**D1**：6言語一括≈¥2,800(>¥1000)→ `--dry-run` 見積り提示→**ユーザー承認後に --apply**。まず「全6か一部か」を確認。表示はビルド必要(OTA不可)・commit/push/buildはユーザー明示OK後。触り所＝[[daimon-trans-display-lang-levers]]。
+- **▶（旧・参考）インドネシア語 大問翻訳の当初メモ＝/clear後に着手。** 各大問の本文対訳を id で作り content `i18n.id` へ投入＋`⑥翻訳状況`④のH列(id)を100%化。**正本＝`memory\trans-daimon-id-inflight.md`**。✅**Excel記入は仕組み化済**＝`tools\update_trans_status.py`（1コマンド・言語列動的特定・Excelロック時は強制終了して保存）／④大問の2行サマリ(出力字数61/概算実費62)作成済。翻訳の--write後に `python tools\update_trans_status.py daimon id --yen N [--chars N]`。⚠**最重要の前提**＝`tools\trans_daimon.py` は **en/ne決め打ち**(128/234-318行)でidに未対応→**大問版の多言語対応が必要**(辞書の`trans_dict_lang.py`が前例・既存en/neを壊さず追記)。規模≈14,000件(聴解含むかは要確認・シートは聴解id「なし」)。**D1: 合計>¥1000は--apply前に承認／D2実費報告**(dry-run見積り先行)。配信=content i18nゆえOTA。Excel挿入手順は inflight に検証済で記載(unmerge→insert→+N再merge・utf-8 stdout)。
+- **✅完了（2026-09-06・辞書訳コスト記入）**＝`memory\在庫・模試ストックまとめ.xlsx`「⑥翻訳状況」③辞書の旧37/38間に2行挿入(38=出力字数/39=概算実費・参考色FFFFF2CC)。id¥78実測/他6言語は概算/通算≈¥405(クラッシュ再開で実測欠落・正確額はGemini課金ダッシュボードのみ)。
+
+- **✅完了（2026-09-05・辞書の多言語化）＝commit `14898098`（未push・OTA未配信）。** 辞書4コーパス(意味4560/漢字グロス1859/例文3524/文法例文408=各10,351件)を **id＋bn/ko/my/th/vi/zh の7言語すべて翻訳→content/lexicon書込→manifest再生成(116files)→検証556/563pass**(fail2=migrate_problems.test.ts の toItem/explain＝辞書無関係の既存不具合・skip5)。⑥翻訳状況シート①③⑤の6言語列を100%へ更新済。ツール=`tools/trans_dict_lang.py`（stdout utf-8固定済＝cp932で集計print(≈)が落ちallが途中中断する事故を対策）。表示経路はapp改修不要(meaningIn/exampleIn/kanjiGlossIn が任意lang読む)。**実費(Gemini2.5Flash)＝id ¥78 ＋ 6言語 ≈¥125（今回計測in185,797/out95,985=¥91＋前回クラッシュ分zh/meaning4560件の推定¥34）= 通算 ≈¥203。** ▶**残り＝OTA配信(publish-content.ps1)は指示待ち・未実施。** ※別件の相談中＝結果カード共有(ShareCardScreen)のPNGモックを提示（リング拡大/空白埋め/ダーク版の検討・未着手）。
+- **▶★★次にやる（2026-09-05・用法N3新規300問）＝翻訳(en/ne)完了・残り=Excel一意性判定＋OTA配信。** 作問・ルビ・content マージ(600→900・id N3-V-Y-0652..0951)・誤答タグ・番人4緑まで完了。**翻訳300件も完了(apply→write・Gemini¥7)**。正本＝`memory\usage-n3-inflight.md`。**✅Excel正本化完了＝用法300問を正本 `一意性チェック_通常_N3.xlsx` 用法シートへ統合(900行・黄49色付き・採用列追加)＋stray(build_usage_n3_review_300.py=git rm/用法N3_新規300_確認用.xlsx=削除)駆除済。自己申告uniqRisk/uniqNoteはcontentへ恒久化。次=ユーザーが用法シート目視→除外指示→OTA配信**。用法300問＝**✅OTA配信済（2026-09-05・commit `ecb2ccb6`・Pages run 33951720284・ユーザー「とりあえず配信」）**。※別件対応済＝**iOS起動即クラッシュ(App.tsx window.location)を修正しv1.1.37(2906)ビルド起動 run 33951720119**＋UI18キー×8言語翻訳(commit ce397a6e push済)。
+  - **選定成果物（作問の入力）**＝`tools\out\usage_n3_selection_300.json`（300語・vocabId/word/reading/meaning/category/syn=近接類義語ヒント）。人手レビュー用Excel＝`C:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\用法選定_N3_300.xlsx`（採用列に×で除外可）。※tools/out と *.xlsx は .gitignore 済（公開repoに出ない）。
+  - **選定ロジック**＝母集団=N3語彙2145。既存用法N3(600本文+50模試=distinct vocabId 600/stem 646)を除外→未カバー1545→**近接類義語あり(iikaePossible p=1)**かつ弱カテゴリ(number/geo/expression)除外で候補1145→カテゴリ比例で300を層化抽出（above_only=上級類義しか無い語は後回し）。近接類義語=用法の最強ダミー型ゆえ p=1 を必須にした。
+  - **⚠作問時の注意**＝感情語(emotion 13語含む)は類義が密集し**非一意になりやすい**（★実バグ=探す）。危険な語は問題ごと落とす（05_用法.md 規律3・4）。**5問=対象語1つ＋正用文1＋近接類義語ダミー3**（各ダミーは別々の置換語=P1／殺し方2種以上=P2）。**新規4択は必ず usageDistractorTags 必須**（未タグ=番人失敗→`python tools\build_usage_distractor_tags.py`再生成）。**解説なし(explainフィールド持たない)**。
+  - **読むもの**＝`md\05_用法.md`（用法固有の作り方・罠タクソノミー）＋`md\00_共通情報.md`第IV/V部（品質規律）＋メモリ[[usage-distractor-near-synonym]] [[usage-distractor-diversity-guard]] [[author-quality-problems-not-mechanical]] [[unique-answer-question-design]] [[uniqueness-self-declaration-in-generation]]。作問手順＝`.claude\skills-archive\daimon-question-build\SKILL.md`。書き出し先＝`content/problems/moji_goi/usage_N3.json`（配列 or dict.items・既存と同スキーマ: id/stem/question/answer/choices/i18n/verified/vocabId）。生成後は在庫再生成チェーン＋一意性自己申告(uniqRisk/uniqNote)＋quality_excel.py でユーザーレビュー。**作問エージェント本数は最小に（B規律）。品質が命ゆえOpus（[[quality-critical-gen-use-opus]]）。**
+
 - **▶★2026-09-05 セッション状態（/clear直前・全て未コミット）。**
   - **(A) ビルド済＝v1.1.35(2904) dispatch**（commit `0905cdde`・iOS+Android・run 33852652007・-NoWatch）＝設定2段階化(DownloadScreen新設)/サンプルリンク削除/分野別正解率5軸送信(facetAcc)/Androidキーボード修正/友だち個別トグル/Android internalトラック即時化/管理ダッシュボード大改修 を同梱。**CI結果（特にAndroid Gradle）＋TestFlight/内部テスト反映はユーザー側で確認。審査提出は承認後**（[[never-build-without-explicit-order]]）。
   - **(B) ✅SNSモック画像＝完成（14枚）。** 学習前(始めたてN5・予想55/180)／学習後(合格圏内N4・予想123/180)を **7言語(ko/zh/vi/id/th/my/bn)** ぶん、**実AICoach画面をExpo Webで描画→ヘッドレスChromeでフルページ撮影**。保存＝`画像\SNS\1\<lang>\AICoach_{beginner_N5,passing_N4}_<LANG>.png`（1170px幅・縦長）。ja/en/neはユーザー既存分（今回対象外）。**再現パイプライン**＝`tools\sns\gen_state.ts`（ダミー状態生成・実データ実エンジン型／passing.json・beginner.json出力・数値は`buildState('N4',covFrac,skillFrac,ratio)`で調整）＋`tools\sns\shoot.mjs`（puppeteer-core+システムChrome・`node tools/sns/shoot.mjs [lang] [state]`）。**手順**＝①`node --import tsx tools/sns/gen_state.ts` ②`CI=1 BROWSER=none npx expo start --web --port 8081` ③`node tools/sns/shoot.mjs`。**このための恒久コード変更（本番無害）**＝`src\pro\ads.web.ts`（AdMobのWeb用no-opスタブ＝Web bundleを通す・native不変）／`src\i18n\index.ts` に`setDemoLang`（`?snsdemo`時のみ有効・UI_LANGSに無い7言語も撮影可）／`App.tsx` に`?snsdemo=1&lang=xx`のWebデモ分岐（本番不発）。tsc0。
-  - **(C) ▶保留＝「結果カード画像＋紹介リンク＋シェアボタン」機能（未着手・依存だけ導入済）。** 設計確定＝縦9:16(1080×1920)・中央に予想得点RingGauge＋成長＋下部に紹介コード/QR/CTA・入口=AICoach・画像化=react-native-view-shot＋共有=expo-sharing＋QR=react-native-qrcode-svg（全て導入済・package.json未コミット）・紹介URL=新設Pagesランディング`https://jinkato2020.github.io/safa-JLPT/r/?code=`（既存`/invite/`と同じ`web/`→build-jlpt.yml cp方式）。**次=ShareCardScreen実装＋route＋i18n(ja/en/ne)＋web/r/index.html＋workflow cp追記。native依存ゆえ配信は次ビルド同梱(OTA不可)。**
+  - **(C) ✅完了＝「結果カード画像＋紹介リンク＋シェアボタン」機能（実装＋ビルド同梱済）。** 縦9:16・予想得点RingGauge＋この7日の伸び＋下部に紹介コード/QR/CTA・入口=AICoach上部の共有アイコン・画像化=react-native-view-shot(captureRef 1080×1920)＋共有=expo-sharing＋QR=react-native-qrcode-svg。実装＝`src/screens/ShareCardScreen.tsx`新規／route(types.ts ShareCard・App.tsx modal)／i18n share.*(ja/en/ne・parity緑)／AICoachScreen共有ボタン／`web/r/index.html`新設(?code=・「アプリで開く」→safajlpt://referral)／build-jlpt.yml で web/r→_site/r をcp／LINKINGに`Referral:'referral'`追加＋ReferralScreenが受取codeを`setEnteredCode`で自動登録(既登録なら上書きしない・確認バナー)。native依存ゆえOTA不可＝**v1.1.36(2905)ビルドに同梱してdispatch済**(commit 4f820e0c・iOS+Android・run 33898472474・-NoWatch)。CI/TestFlight/内部テスト反映はユーザー確認。※料金Excel(アプリ価格.xlsx)＋*.xlsxを.gitignoreへ追加(公開repo保護)。既存tracked xlsx4件(在庫/漢字語彙分類/ne訳AB/面数分布)は意図的追跡ゆえ据え置き。
   - **(D) ▶Pro料金＋ストア申請（元の宿題・継続）。** iOS=App Store Connect サブスク価格を国別に設定（cf-ipcountry方式のキャンペーンは別途）。Android=Play内容レーティング/広告/広告ID申告は確認済（ユーザー実施）。地域別無料キャンペーンは`pro_until`＋`cf-ipcountry`＋収穫カットオフ設計を議論済（未実装）。
 
 
@@ -438,21 +455,21 @@
 <!-- AUTO:BEGIN -->
 
 ## 走行中の run（自動・完了通知が来ていないもの）
-- ac08266d08efbb099 general-purpose
-- aa2e1879c4793c31b general-purpose
-- a500569ad1fb84ab2 general-purpose
 - a0c48fa2ccfc548b1 general-purpose
 - a6e2e5da70893cd09 general-purpose
+- a3f41e1475e3c31cb general-purpose
+- a00df888ec67d5dc8 general-purpose
+- ac333d4514f04da09 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
 - memory/session-summary-LATEST.md
-- 画像/SNS/1/bn/AICoach_passing_N4_BN.png
-- 画像/SNS/1/my/AICoach_passing_N4_MY.png
-- 画像/SNS/1/th/AICoach_passing_N4_TH.png
-- 画像/SNS/1/id/AICoach_passing_N4_ID.png
-- 画像/SNS/1/vi/AICoach_passing_N4_VI.png
-- 画像/SNS/1/zh/AICoach_passing_N4_ZH.png
+- memory/handoff.md
+- memory/在庫問題数.txt
+- memory/在庫・模試ストックまとめ.xlsx
+- src/i18n/index.ts
+- content/problems/bunpou/passage_grammar_N5.json
+- content/problems/bunpou/passage_grammar_N4.json
+- content/problems/bunpou/passage_grammar_N3.json
 
-_自動更新: 2026-09-05 01:47_
+_自動更新: 2026-09-06 20:03_
 <!-- AUTO:END -->

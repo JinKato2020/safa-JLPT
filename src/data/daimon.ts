@@ -57,7 +57,7 @@ export const MOJI_DAIMON: Daimon[] = ['kanji_read', 'orthography', 'context', 's
 export const BUNPOU_DAIMON: Daimon[] = ['grammar_form', 'order', 'passage_grammar'];
 
 // 知識バンクの安定id(状態キー/重複排除用)。id = kb-NNNNNN(data由来・knowledgeBank.jsonに焼き込み済み。Task 1)。
-export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; pointId?: string; explain?: string; explainEn?: string; explainNe?: string; promptEn?: string; promptNe?: string; answerEn?: string; answerNe?: string; }
+export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; pointId?: string; explain?: string; explainTr?: Record<string, string>; promptTr?: Record<string, string>; answerTr?: Record<string, string>; }
 // 並べ替え(order)のうち一意性監査で「複数正解=曖昧」と判定された問題(ambiguous:true・108問)は出題プールから恒久除外。
 // 日本語は副詞・主語の位置が自由で★の答えが一意にならないため。監査=LLM一括(2026-07-10)。id は data由来なので filter後も安定。
 export const BANK: BankUnit[] = (KNOWLEDGE_BANK as BankUnit[])
@@ -261,11 +261,11 @@ export function questionForUnit(unit: string, rng: Rng = Math.random, useMock = 
     // 文法形式判断・文の組み立ては文中の漢字にレベル適応ルビを出す(カッコふりがな→上付きルビ)。stemをfuriとして渡す。
     const useFuri = bank.daimon === 'grammar_form' || bank.daimon === 'order';
     // 文の組み立て=回答後に正しい文＋母語の意味を出す(データがある問題のみ)。
-    const orderX = bank.daimon === 'order' && bank.explain ? { orderSentence: bank.explain, orderMeaningEn: bank.explainEn, orderMeaningNe: bank.explainNe } : {};
+    const orderX = bank.daimon === 'order' && bank.explain ? { orderSentence: bank.explain, orderMeaningTr: bank.explainTr } : {};
     // 用法=回答後に「正解の文の意味」を出す(誤答は訳さない・データがある問題のみ)。
-    const usageX = bank.daimon === 'usage' && bank.answerEn ? { answerTransEn: bank.answerEn, answerTransNe: bank.answerNe } : {};
+    const usageX = bank.daimon === 'usage' && bank.answerTr?.en ? { answerTransTr: bank.answerTr } : {};
     // 穴埋め=回答後に「完成文の意味」を既存の「意味」カード(promptTrans)へ出す(データがある問題のみ)。
-    const gfX = bank.daimon === 'grammar_form' && bank.promptEn ? { promptTransEn: bank.promptEn, promptTransNe: bank.promptNe } : {};
+    const gfX = bank.daimon === 'grammar_form' && bank.promptTr?.en ? { promptTransTr: bank.promptTr } : {};
     return { itemId: unit, prompt: bank.stem, question: bank.question, ...(useFuri ? { furi: bank.stem } : {}), format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, saveRef: saveRefForBank(bank), ...orderX, ...usageX, ...gfX };
   }
   // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
@@ -290,7 +290,7 @@ export function questionForUnit(unit: string, rng: Rng = Math.random, useMock = 
   const cx = (cxPool && cxPool.length) ? cxPool[Math.floor(rng() * cxPool.length)] : CTX_BANK_INDEX.get(unit);
   if (cx) {
     const { choices, answerIndex } = build4Choices(cx.answer, cx.choices, rng);
-    return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex, promptTransEn: cx.promptEn, promptTransNe: cx.promptNe, saveRef: saveRefForVocabUnit(unit) };
+    return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex, promptTransTr: cx.promptTr, saveRef: saveRefForVocabUnit(unit) };
   }
   // 言い換え類義=固定問題集。公式形式が級で違うので2通りに分岐する。
   // useMock=模試: 言い換えも模試専用プール(初見)を優先。無ければ学習バンクへフォールバック。
@@ -299,10 +299,16 @@ export function questionForUnit(unit: string, rng: Rng = Math.random, useMock = 
     const { choices, answerIndex } = build4Choices(sy.answer, sy.choices, rng);
     // 回答後の復習: 本文の意味(synonymSentence)＋各選択肢の意味。choicesEn/Ne は content の choices と同順なので
     // 表示順(shuffle後の choices)へ JA文字列で引き直す(誤答も正当な日本語ゆえ訳あり)。
-    const trEn = new Map<string, string>(); const trNe = new Map<string, string>();
-    if (sy.answerEn) trEn.set(sy.answer, sy.answerEn); if (sy.answerNe) trNe.set(sy.answer, sy.answerNe);
-    (sy.choices ?? []).forEach((c: string, i: number) => { const e = sy.choicesEn?.[i]; const n = sy.choicesNe?.[i]; if (e) trEn.set(c, e); if (n) trNe.set(c, n); });
-    const syX = { synonymSentenceEn: sy.sentenceEn, synonymSentenceNe: sy.sentenceNe, choiceTransEn: choices.map((c) => trEn.get(c)), choiceTransNe: choices.map((c) => trNe.get(c)) };
+    // 各言語について choices(表示順)へ JA文字列で訳を引き直す(誤答も正当な日本語ゆえ訳あり)。lang は content にある言語すべて。
+    const trLangs = new Set<string>([...Object.keys(sy.answerTr ?? {}), ...Object.keys(sy.choicesTr ?? {})]);
+    const choiceTransTr: Record<string, (string | undefined)[]> = {};
+    for (const l of trLangs) {
+      const m = new Map<string, string>();
+      if (sy.answerTr?.[l]) m.set(sy.answer, sy.answerTr[l]);
+      (sy.choices ?? []).forEach((c: string, i: number) => { const v = sy.choicesTr?.[l]?.[i]; if (v) m.set(c, v); });
+      choiceTransTr[l] = choices.map((c) => m.get(c));
+    }
+    const syX = { synonymSentenceTr: sy.sentenceTr, choiceTransTr };
     // N4公式=文レベル: 提示文と「だいたい同じ意味の文」を4文から選ぶ(選択肢が文)。
     // stem/選択肢のカッコふりがなは RubyText が自動でルビ化する(用法と同じ描画経路)。
     if (sy.stem) {

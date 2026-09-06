@@ -19,13 +19,13 @@ export const UI_LANGS: { code: string; name: string }[] = [
   { code: 'en', name: 'English' },
   { code: 'ja', name: '日本語' },
   { code: 'ne', name: 'नेपाली' }, // 母語=ネパール語(意味/例文/解説をneで表示。2026-07-06 再有効化)
-  // { code: 'vi', name: 'Tiếng Việt' },
-  // { code: 'my', name: 'မြန်မာ' },
-  // { code: 'id', name: 'Bahasa Indonesia' },
-  // { code: 'ko', name: '한국어' },
-  // { code: 'zh', name: '中文' },
-  // { code: 'bn', name: 'বাংলা' },
-  // { code: 'th', name: 'ไทয়' },
+  { code: 'id', name: 'Bahasa Indonesia' }, // 母語=インドネシア語(UI/辞書/大問対訳をidで表示。2026-09-06 有効化・neと同格)
+  { code: 'vi', name: 'Tiếng Việt' }, // 母語=ベトナム語(UI/辞書/大問対訳をviで表示。2026-09-06 有効化)
+  { code: 'my', name: 'မြန်မာ' }, // 母語=ミャンマー語(UI/辞書/大問対訳をmyで表示。2026-09-06 有効化・全10言語コンプリート)
+  { code: 'ko', name: '한국어' }, // 母語=韓国語(UI/辞書/大問対訳をkoで表示。2026-09-06 有効化)
+  { code: 'zh', name: '中文' }, // 母語=中国語(UI/辞書/大問対訳をzhで表示。2026-09-06 有効化・id/ne/thと同格)
+  { code: 'bn', name: 'বাংলা' }, // 母語=ベンガル語(UI/辞書/大問対訳をbnで表示。2026-09-06 有効化・id/ne/th/zhと同格)
+  { code: 'th', name: 'ไทย' }, // 母語=タイ語(UI/辞書/大問対訳をthで表示。2026-09-06 有効化・id/neと同格)
 ];
 
 const DICT: Record<string, Record<string, string>> = {
@@ -69,6 +69,20 @@ export function meaningL1(settings: { l1?: string; uiLang?: string }): string {
   const ui = settings.uiLang && SUPPORTED.has(settings.uiLang) ? settings.uiLang : detectUiLang();
   if (ui === 'ja') return 'en';
   return settings.l1 || 'en';
+}
+
+/** 大問対訳の表示言語ピック。lang→訳 のマップから l1(母語) を選び、無ければ en へフォールバック。
+ *  言語汎用: content に i18n.<lang> がある言語は rehydrate が自動で map に載せるので、言語追加でこの関数もcallも改修不要。 */
+export function pickTr<T>(l1: string, m?: Record<string, T>): T | undefined {
+  if (!m) return undefined;
+  return m[l1] ?? m.en;
+}
+
+/** 言語選択時に settings.l1(意味の表示言語) に入れる値。UI_LANGS にある言語のみ採用(ja は英語表示扱い)・他は en。
+ *  言語追加は UI_LANGS に1行足す＋大問対訳データを流すだけ(ピッカー側の分岐改修は不要)。 */
+export function meaningLangFor(code: string): string {
+  if (code === 'ja') return 'en';
+  return SUPPORTED.has(code) ? code : 'en';
 }
 
 // SNSモック撮影(Web専用)用の言語オーバーライド。DICTにある10言語を強制表示できる

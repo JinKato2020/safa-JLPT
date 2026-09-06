@@ -4,9 +4,15 @@
   "level": "N5",
   "pool": "mock",
   "languages": [
-    "ja",
+    "bn",
+    "en",
+    "id",
+    "ko",
+    "my",
     "ne",
-    "en"
+    "th",
+    "vi",
+    "zh"
   ],
   "source": "opus-authored-mock-2026-08-30",
   "items": [
@@ -48,6 +54,69 @@
                 "Put money on the table",
                 "Rest at the supermarket"
               ]
+            },
+            "id": {
+              "choices": [
+                "Membeli susu",
+                "Membeli roti lalu pulang",
+                "Meletakkan uang di meja",
+                "Beristirahat di supermarket"
+              ],
+              "q": "Setelah membaca memo ini, apa yang akan dibeli di supermarket?"
+            },
+            "th": {
+              "choices": [
+                "ซื้อนม",
+                "ซื้อขนมปังแล้วกลับบ้าน",
+                "วางเงินไว้บนโต๊ะ",
+                "พักผ่อนที่ซูเปอร์มาร์เก็ต"
+              ],
+              "q": "อ่านบันทึกนี้แล้วจะซื้ออะไรที่ซูเปอร์มาร์เก็ต"
+            },
+            "zh": {
+              "choices": [
+                "买牛奶",
+                "买面包回去",
+                "把钱放在桌子上",
+                "在超市休息"
+              ],
+              "q": "读了这张便条，会在超市买什么？"
+            },
+            "bn": {
+              "choices": [
+                "দুধ কিনবেন।",
+                "রুটি কিনে ফিরবেন।",
+                "টাকা টেবিলের উপর রাখবেন।",
+                "সুপারমার্কেটে বিশ্রাম নেবেন।"
+              ],
+              "q": "এই মেমোটি পড়ে, সুপারমার্কেট থেকে কী কিনবেন?"
+            },
+            "ko": {
+              "choices": [
+                "우유를 산다",
+                "빵을 사서 돌아온다",
+                "돈을 테이블에 놓는다",
+                "슈퍼에서 쉰다"
+              ],
+              "q": "이 메모를 읽고, 슈퍼에서 무엇을 삽니까?"
+            },
+            "vi": {
+              "choices": [
+                "Mua sữa",
+                "Mua bánh mì rồi về",
+                "Để tiền lên bàn",
+                "Nghỉ ngơi ở siêu thị"
+              ],
+              "q": "Đọc mẩu ghi chú này, bạn sẽ mua gì ở siêu thị?"
+            },
+            "my": {
+              "choices": [
+                "နို့ဝယ်မည်",
+                "ပေါင်မုန့်ဝယ်ပြီး ပြန်မည်",
+                "ပိုက်ဆံကို စားပွဲပေါ်တင်မည်",
+                "စူပါမားကတ်မှာ နားမည်"
+              ],
+              "q": "ဒီမှတ်စုကိုဖတ်ပြီး စူပါမားကတ်မှာ ဘာတွေဝယ်မလဲ။"
             }
           }
         }
@@ -61,6 +130,41 @@
         "en": {
           "body": [
             "There's no milk in the refrigerator. On your way home from school, please buy one carton of milk at the supermarket. The money is on the table. We still have bread, so you don't need to buy any."
+          ]
+        },
+        "id": {
+          "body": [
+            "Tidak ada susu di kulkas. Tolong belikan satu kotak susu di supermarket sepulang sekolah. Uangnya ada di atas meja. Roti masih ada, jadi tidak perlu dibeli."
+          ]
+        },
+        "th": {
+          "body": [
+            "ในตู้เย็นไม่มีนม ตอนกลับจากโรงเรียนช่วยซื้อนมที่ซูเปอร์มาร์เก็ตมาหนึ่งกล่องด้วยนะ เงินวางอยู่บนโต๊ะ ขนมปังยังมีอยู่ ไม่ต้องซื้อก็ได้"
+          ]
+        },
+        "zh": {
+          "body": [
+            "冰箱里没有牛奶了。放学回来的路上，请在超市买一盒牛奶。钱放在桌子上了。面包还有，所以不用买了。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "ফ্রিজে দুধ নেই। স্কুল থেকে ফেরার পথে, সুপারমার্কেট থেকে এক বোতল দুধ কিনে আনবেন। টাকা টেবিলের উপর রাখা আছে। রুটি এখনও আছে, তাই কিনতে হবে না।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "냉장고에 우유가 없습니다. 학교에서 돌아오는 길에 슈퍼에서 우유 한 팩을 사 와 주세요. 돈은 테이블 위에 놓여 있습니다. 빵은 아직 있으니 사지 않아도 됩니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Trong tủ lạnh không có sữa. Trên đường đi học về, hãy mua một hộp sữa ở siêu thị nhé. Tiền mẹ để trên bàn rồi. Bánh mì vẫn còn nên con không cần mua đâu."
+          ]
+        },
+        "my": {
+          "body": [
+            "ရေခဲသေတ္တာထဲမှာ နို့မရှိဘူး။ ကျောင်းကအပြန် စူပါမားကတ်မှာ နို့တစ်ဘူးဝယ်ခဲ့ပေးပါ။ ပိုက်ဆံကို စားပွဲပေါ်မှာ တင်ထားပါတယ်။ ပေါင်မုန့်ကတော့ ရှိသေးတာမို့ မဝယ်နဲ့တော့နော်။"
           ]
         }
       }
@@ -103,6 +207,69 @@
                 "8 AM",
                 "9 PM"
               ]
+            },
+            "id": {
+              "choices": [
+                "Jam sembilan pagi",
+                "Jam delapan malam",
+                "Jam delapan pagi",
+                "Jam sembilan malam"
+              ],
+              "q": "Pada hari Selasa, jam berapa perpustakaan buka?"
+            },
+            "th": {
+              "choices": [
+                "เก้าโมงเช้า",
+                "สองทุ่ม",
+                "แปดโมงเช้า",
+                "สามทุ่ม"
+              ],
+              "q": "วันอังคาร ห้องสมุดเปิดกี่โมง"
+            },
+            "zh": {
+              "choices": [
+                "上午九点",
+                "晚上八点",
+                "上午八点",
+                "晚上九点"
+              ],
+              "q": "周二图书馆几点开门？"
+            },
+            "bn": {
+              "choices": [
+                "সকাল ৯টা",
+                "রাত ৮টা",
+                "সকাল ৮টা",
+                "রাত ৯টা"
+              ],
+              "q": "মঙ্গলবার, লাইব্রেরি কয়টা থেকে খোলা থাকবে?"
+            },
+            "ko": {
+              "choices": [
+                "오전 9시",
+                "저녁 8시",
+                "오전 8시",
+                "저녁 9시"
+              ],
+              "q": "화요일, 도서관은 몇 시부터 문을 엽니까?"
+            },
+            "vi": {
+              "choices": [
+                "9 giờ sáng",
+                "8 giờ tối",
+                "8 giờ sáng",
+                "9 giờ tối"
+              ],
+              "q": "Thứ Ba, thư viện mở cửa từ mấy giờ?"
+            },
+            "my": {
+              "choices": [
+                "နံနက် ၉ နာရီ",
+                "ည ၈ နာရီ",
+                "နံနက် ၈ နာရီ",
+                "ည ၉ နာရီ"
+              ],
+              "q": "အင်္ဂါနေ့မှာ စာကြည့်တိုက်က ဘယ်အချိန်ကစပြီး ဖွင့်ပါသလဲ။"
             }
           }
         }
@@ -116,6 +283,41 @@
         "en": {
           "body": [
             "Notice from the library.\nNext Monday, the library will be closed for book organization. From Tuesday, it will be open as usual, from 9 AM to 8 PM. Those who have borrowed books, please return them by Wednesday."
+          ]
+        },
+        "id": {
+          "body": [
+            "Ini adalah pengumuman dari perpustakaan. Senin depan, perpustakaan akan tutup karena penataan buku. Mulai hari Selasa, perpustakaan akan buka seperti biasa, dari jam sembilan pagi sampai jam delapan malam. Bagi yang meminjam buku, mohon kembalikan paling lambat hari Rabu."
+          ]
+        },
+        "th": {
+          "body": [
+            "ประกาศจากห้องสมุด วันจันทร์หน้าจะปิดทำการเพื่อจัดระเบียบหนังสือ ตั้งแต่วันอังคารเป็นต้นไปจะเปิดทำการตามปกติ ตั้งแต่เก้าโมงเช้าถึงสองทุ่ม ผู้ที่ยืมหนังสือไปโปรดนำมาคืนภายในวันพุธ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "这是图书馆的通知。下周一，因整理书籍而闭馆。从周二开始照常开放，上午九点到晚上八点。借书的人请在周三之前归还。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "লাইব্রেরি থেকে বিজ্ঞপ্তি। আগামী সোমবার, বই গোছানোর জন্য বন্ধ থাকবে। মঙ্গলবার থেকে যথারীতি সকাল ৯টা থেকে রাত ৮টা পর্যন্ত খোলা থাকবে। যারা বই ধার নিয়েছেন, তারা বুধবারের মধ্যে ফেরত দেবেন।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "도서관에서 알려드립니다. 다음 주 월요일은 책 정리로 인해 휴관합니다. 화요일부터는 평소와 같이 오전 9시부터 저녁 8시까지 문을 엽니다. 책을 빌린 사람은 수요일까지 반납해 주세요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Đây là thông báo từ thư viện. Thứ Hai tuần tới, thư viện sẽ đóng cửa để sắp xếp sách. Từ thứ Ba trở đi, thư viện sẽ mở cửa như thường lệ, từ 9 giờ sáng đến 8 giờ tối. Những người đang mượn sách hãy trả trước thứ Tư."
+          ]
+        },
+        "my": {
+          "body": [
+            "စာကြည့်တိုက်မှ အသိပေးကြေညာခြင်းဖြစ်ပါသည်။ လာမည့်တနင်္လာနေ့သည် စာအုပ်များ စီစဉ်ရန်အတွက် ပိတ်ပါသည်။ အင်္ဂါနေ့မှစ၍ ပုံမှန်အတိုင်း နံနက် ၉ နာရီမှ ည ၈ နာရီအထိ ဖွင့်လှစ်ပါမည်။ စာအုပ်ငှားထားသူများသည် ဗုဒ္ဓဟူးနေ့ နောက်ဆုံးထား၍ ပြန်အပ်ပေးပါ။"
           ]
         }
       }
@@ -158,6 +360,69 @@
                 "Play in front of the station",
                 "Sleep until ten o'clock"
               ]
+            },
+            "id": {
+              "choices": [
+                "Minum teh di kafe",
+                "Bermain tenis di taman",
+                "Bermain di depan stasiun",
+                "Tidur sampai jam sepuluh"
+              ],
+              "q": "Jika hujan, apa yang akan dilakukan oleh kedua orang itu?"
+            },
+            "th": {
+              "choices": [
+                "ดื่มชาที่คาเฟ่",
+                "เล่นเทนนิสที่สวนสาธารณะ",
+                "เล่นอยู่หน้าสถานีรถไฟ",
+                "นอนจนถึงสิบโมง"
+              ],
+              "q": "ถ้าฝนตก ทั้งสองคนจะทำอะไร"
+            },
+            "zh": {
+              "choices": [
+                "在咖啡馆喝茶",
+                "在公园打网球",
+                "在车站前玩",
+                "睡到十点"
+              ],
+              "q": "如果下雨，两个人会做什么？"
+            },
+            "bn": {
+              "choices": [
+                "ক্যাফেতে চা পান করবে।",
+                "পার্কে টেনিস খেলবে।",
+                "স্টেশনের সামনে খেলাধুলা করবে।",
+                "১০টা পর্যন্ত ঘুমাবে।"
+              ],
+              "q": "বৃষ্টি হলে, দুজন কী করবে?"
+            },
+            "ko": {
+              "choices": [
+                "카페에서 차를 마신다",
+                "공원에서 테니스를 친다",
+                "역 앞에서 논다",
+                "10시까지 잔다"
+              ],
+              "q": "비가 오면, 두 사람은 무엇을 합니까?"
+            },
+            "vi": {
+              "choices": [
+                "Uống trà ở quán cà phê",
+                "Chơi tennis ở công viên",
+                "Chơi trước nhà ga",
+                "Ngủ đến 10 giờ"
+              ],
+              "q": "Nếu trời mưa, hai người sẽ làm gì?"
+            },
+            "my": {
+              "choices": [
+                "ကော်ဖီဆိုင်မှာ လက်ဖက်ရည်သောက်မည်",
+                "ပန်းခြံမှာ တင်းနစ်ကစားမည်",
+                "ဘူတာရုံရှေ့မှာ ဆော့မည်",
+                "၁၀ နာရီအထိ အိပ်မည်"
+              ],
+              "q": "မိုးရွာရင် သူတို့နှစ်ယောက် ဘာလုပ်ကြမလဲ။"
             }
           }
         }
@@ -171,6 +436,41 @@
         "en": {
           "body": [
             "Tomorrow is a holiday, so would you like to play tennis together at the park? Let's meet at 10 AM in front of the station. If it rains, let's cancel tennis and have tea at a cafe near the station. I'm waiting for your reply."
+          ]
+        },
+        "id": {
+          "body": [
+            "Besok libur, bagaimana kalau kita bermain tenis bersama di taman? Mari bertemu di depan stasiun jam sepuluh pagi. Jika hujan, kita batalkan tenis dan minum teh di kafe dekat stasiun. Saya tunggu balasannya."
+          ]
+        },
+        "th": {
+          "body": [
+            "พรุ่งนี้หยุด ไปเล่นเทนนิสด้วยกันที่สวนสาธารณะไหม? เจอกันหน้าสถานีรถไฟตอนสิบโมงเช้า ถ้าฝนตก เราจะเลิกเล่นเทนนิสแล้วไปดื่มชาที่คาเฟ่ใกล้สถานีรถไฟนะ รอคำตอบอยู่"
+          ]
+        },
+        "zh": {
+          "body": [
+            "明天休息，要不要一起去公园打网球？上午十点在车站前见面吧。如果下雨，就取消网球，在车站附近的咖啡馆喝茶吧。等你回复。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "কাল ছুটি, তাই পার্কে একসাথে টেনিস খেলবেন নাকি? সকাল ১০টায় স্টেশনের সামনে দেখা করি। যদি বৃষ্টি হয়, তাহলে টেনিস বাদ দিয়ে স্টেশনের কাছের ক্যাফেতে চা পান করি। উত্তরের অপেক্ষায় আছি।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "내일은 쉬는 날이니까, 공원에서 같이 테니스 치지 않을래요? 아침 10시에 역 앞에서 만나요. 만약 비가 오면, 테니스는 그만두고 역 근처 카페에서 차를 마셔요. 답장을 기다릴게요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Mai là ngày nghỉ nên chúng mình cùng chơi tennis ở công viên nhé? Gặp nhau lúc 10 giờ sáng trước nhà ga. Nếu trời mưa, chúng mình sẽ không chơi tennis mà đi uống trà ở quán cà phê gần nhà ga nhé. Tớ đang đợi câu trả lời của cậu."
+          ]
+        },
+        "my": {
+          "body": [
+            "မနက်ဖြန်က ပိတ်ရက်ဆိုတော့ ပန်းခြံမှာ အတူတူ တင်းနစ်မကစားချင်ဘူးလား။ မနက် ၁၀ နာရီမှာ ဘူတာရုံရှေ့မှာ တွေ့ကြရအောင်။ မိုးရွာရင်တော့ တင်းနစ်ကစားတာကို ဖျက်ပြီး ဘူတာရုံနားက ကော်ဖီဆိုင်မှာ လက်ဖက်ရည်သောက်ကြရအောင်။ အကြောင်းပြန်တာကို စောင့်နေပါတယ်။"
           ]
         }
       }
@@ -213,6 +513,69 @@
                 "Don't come in the morning",
                 "Do the inspection"
               ]
+            },
+            "id": {
+              "choices": [
+                "Menggunakan tangga",
+                "Menggunakan lift",
+                "Tidak datang di pagi hari",
+                "Melakukan inspeksi"
+              ],
+              "q": "Lusa pagi, apa yang harus dilakukan?"
+            },
+            "th": {
+              "choices": [
+                "ใช้บันได",
+                "ใช้ลิฟต์",
+                "ไม่มาในช่วงเช้า",
+                "ตรวจเช็ก"
+              ],
+              "q": "มะรืนนี้ช่วงเช้าควรทำอย่างไร"
+            },
+            "zh": {
+              "choices": [
+                "走楼梯",
+                "乘电梯",
+                "上午不来",
+                "进行检查"
+              ],
+              "q": "后天上午该怎么办？"
+            },
+            "bn": {
+              "choices": [
+                "সিঁড়ি ব্যবহার করুন",
+                "লিফট ব্যবহার করুন",
+                "সকালে আসে না",
+                "পরিদর্শন করা"
+              ],
+              "q": "আগামী পরশু সকালে, কী করতে হবে?"
+            },
+            "ko": {
+              "choices": [
+                "계단을 이용하다",
+                "엘리베이터를 이용하다",
+                "오전 중에는 오지 않는다",
+                "점검을 하다"
+              ],
+              "q": "모레 오전에 어떻게 해야 합니까?"
+            },
+            "vi": {
+              "choices": [
+                "Dùng cầu thang",
+                "Dùng thang máy",
+                "Không đến vào buổi sáng",
+                "Kiểm tra, bảo dưỡng"
+              ],
+              "q": "Sáng ngày mốt, phải làm gì?"
+            },
+            "my": {
+              "choices": [
+                "လှေကားကိုသုံးသည်",
+                "ဓာတ်လှေကားကိုသုံးသည်",
+                "မနက်ပိုင်းမှာ မလာဘူး",
+                "စစ်ဆေးသည်"
+              ],
+              "q": "သန်ဘက်ခါ နံနက်ပိုင်းမှာ ဘယ်လိုလုပ်ရမလဲ။"
             }
           }
         }
@@ -226,6 +589,41 @@
         "en": {
           "body": [
             "Notice. The day after tomorrow morning, there will be an elevator inspection. During this time, the elevator cannot be used. Please use the stairs. It will be usable again from the afternoon. Thank you for your cooperation."
+          ]
+        },
+        "id": {
+          "body": [
+            "Pengumuman. Lusa pagi akan ada pemeriksaan elevator. Selama waktu tersebut, elevator tidak dapat digunakan. Mohon gunakan tangga. Elevator akan dapat digunakan kembali mulai sore hari. Mohon kerja samanya."
+          ]
+        },
+        "th": {
+          "body": [
+            "ประกาศ: มะรืนนี้ช่วงเช้าจะมีการตรวจสอบลิฟต์ ในช่วงเวลานี้จะไม่สามารถใช้ลิฟต์ได้ โปรดใช้บันได จะสามารถใช้ได้อีกครั้งตั้งแต่ช่วงบ่ายเป็นต้นไป ขอความร่วมมือด้วยครับ/ค่ะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "通知。后天上午，电梯将进行检修。在此期间，电梯无法使用。请使用楼梯。下午将恢复使用。感谢您的合作。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "বিজ্ঞপ্তি। আগামী পরশু সকালে, লিফটের রক্ষণাবেক্ষণ করা হবে। এই সময়ে, লিফট ব্যবহার করা যাবে না। সিঁড়ি ব্যবহার করুন। দুপুর থেকে আবার ব্যবহার করা যাবে। আপনাদের সহযোগিতা কামনা করছি।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "안내. 모레 오전에 엘리베이터 점검이 있습니다. 이 시간 동안 엘리베이터는 사용할 수 없습니다. 계단을 이용해 주십시오. 오후부터는 다시 사용할 수 있게 됩니다. 협조 부탁드립니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Thông báo. Sáng ngày mốt, thang máy sẽ được bảo trì. Trong thời gian này, thang máy sẽ không sử dụng được. Xin hãy dùng cầu thang bộ. Thang máy sẽ hoạt động lại từ buổi chiều. Xin cảm ơn sự hợp tác của quý vị."
+          ]
+        },
+        "my": {
+          "body": [
+            "အသိပေးကြေညာခြင်း။ သန်ဘက်ခါ နံနက်ပိုင်းတွင် ဓာတ်လှေကား စစ်ဆေးခြင်း ပြုလုပ်ပါမည်။ ထိုအချိန်အတွင်း ဓာတ်လှေကားကို အသုံးပြု၍ မရပါ။ လှေကားကို အသုံးပြုပေးပါ။ နေ့လယ်ပိုင်းမှစ၍ ပြန်လည်အသုံးပြုနိုင်ပါမည်။ ပူးပေါင်းဆောင်ရွက်ပေးပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။"
           ]
         }
       }
@@ -268,6 +666,69 @@
                 "Friend",
                 "Teacher"
               ]
+            },
+            "id": {
+              "choices": [
+                "Adik laki-laki",
+                "Ibu",
+                "Teman",
+                "Guru"
+              ],
+              "q": "Dengan siapa orang ini berenang hari ini?"
+            },
+            "th": {
+              "choices": [
+                "น้องชาย",
+                "แม่",
+                "เพื่อน",
+                "คุณครู"
+              ],
+              "q": "วันนี้คนคนนี้ว่ายน้ำกับใคร"
+            },
+            "zh": {
+              "choices": [
+                "弟弟",
+                "妈妈",
+                "朋友",
+                "老师"
+              ],
+              "q": "这个人今天和谁一起游泳了？"
+            },
+            "bn": {
+              "choices": [
+                "ছোট ভাই",
+                "মা",
+                "বন্ধু",
+                "শিক্ষক"
+              ],
+              "q": "এই ব্যক্তি আজ কার সাথে সাঁতার কেটেছিলেন?"
+            },
+            "ko": {
+              "choices": [
+                "남동생",
+                "엄마",
+                "친구",
+                "선생님"
+              ],
+              "q": "이 사람은 오늘 누구와 수영했습니까?"
+            },
+            "vi": {
+              "choices": [
+                "Em trai",
+                "Mẹ",
+                "Bạn bè",
+                "Giáo viên"
+              ],
+              "q": "Hôm nay người này đã bơi với ai?"
+            },
+            "my": {
+              "choices": [
+                "ညီလေး",
+                "အမေ",
+                "သူငယ်ချင်း",
+                "ဆရာ"
+              ],
+              "q": "ဒီလူက ဒီနေ့ ဘယ်သူနဲ့ ရေကူးခဲ့တာလဲ။"
             }
           }
         }
@@ -281,6 +742,41 @@
         "en": {
           "body": [
             "Today, my family went to the beach. The weather was good, and the water was very clean. I swam with my younger brother. For lunch, we ate the bento my mother made. It was a very enjoyable day. I want to go again next month."
+          ]
+        },
+        "id": {
+          "body": [
+            "Hari ini saya pergi ke laut bersama keluarga. Cuacanya bagus dan airnya sangat bersih. Saya berenang bersama adik laki-laki saya. Untuk makan siang, kami makan bekal yang dibuat ibu. Itu adalah hari yang sangat menyenangkan. Saya ingin pergi lagi bulan depan."
+          ]
+        },
+        "th": {
+          "body": [
+            "วันนี้ฉันไปทะเลกับครอบครัว อากาศดีมากและน้ำก็ใสสุด ๆ ฉันว่ายน้ำกับน้องชาย ตอนเที่ยงฉันกินข้าวกล่องที่แม่ทำ เป็นวันที่สนุกมากเลย เดือนหน้าก็อยากไปอีก"
+          ]
+        },
+        "zh": {
+          "body": [
+            "今天我和家人一起去了海边。天气很好，海水很清澈。我跟弟弟一起游泳了。中午吃了妈妈做的便当。这是非常开心的一天。下个月还想再去。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "আজ পরিবার নিয়ে সমুদ্র সৈকতে গিয়েছিলাম। আবহাওয়া ভালো ছিল এবং জল খুব পরিষ্কার ছিল। আমি আমার ছোট ভাইয়ের সাথে সাঁতার কেটেছিলাম। দুপুরে, মায়ের বানানো লাঞ্চ বক্স খেয়েছিলাম। এটি একটি খুব মজার দিন ছিল। আগামী মাসে আবার যেতে চাই।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "오늘은 가족과 바다에 갔다. 날씨가 좋고, 물이 아주 깨끗했다. 나는 남동생과 함께 수영했다. 점심은 엄마가 만든 도시락을 먹었다. 아주 즐거운 하루였다. 다음 달에도 또 가고 싶다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Hôm nay tôi đã đi biển với gia đình. Thời tiết đẹp và nước rất trong. Tôi đã bơi cùng em trai. Buổi trưa, chúng tôi ăn cơm hộp mẹ làm. Đó là một ngày rất vui. Tôi muốn đi nữa vào tháng tới."
+          ]
+        },
+        "my": {
+          "body": [
+            "ဒီနေ့ မိသားစုနဲ့အတူ ပင်လယ်ကိုသွားခဲ့တယ်။ ရာသီဥတုကောင်းပြီး ရေက အရမ်းကြည်လင်တယ်။ ကျွန်တော်က ညီလေးနဲ့အတူ ရေကူးခဲ့တယ်။ နေ့လယ်စာကို အမေလုပ်ပေးတဲ့ ထမင်းဘူးစားခဲ့တယ်။ အရမ်းပျော်စရာကောင်းတဲ့ တစ်နေ့တာပါပဲ။ နောက်လလည်း ထပ်သွားချင်တယ်။"
           ]
         }
       }
@@ -323,6 +819,69 @@
                 "Cook for Grandma",
                 "Study in Tokyo"
               ]
+            },
+            "id": {
+              "choices": [
+                "Pergi ke rumah nenek",
+                "Pergi ke sekolah bahasa Jepang",
+                "Memasak untuk nenek",
+                "Belajar di Tokyo"
+              ],
+              "q": "Apa yang akan dilakukan orang ini saat liburan musim dingin?"
+            },
+            "th": {
+              "choices": [
+                "ไปบ้านคุณย่า",
+                "ไปโรงเรียนสอนภาษาญี่ปุ่น",
+                "ทำอาหารให้คุณย่า",
+                "เรียนที่โตเกียว"
+              ],
+              "q": "คนคนนี้จะทำอะไรในวันหยุดฤดูหนาว"
+            },
+            "zh": {
+              "choices": [
+                "去奶奶家",
+                "去日语学校",
+                "给奶奶做饭",
+                "在东京学习"
+              ],
+              "q": "这个人寒假会做什么？"
+            },
+            "bn": {
+              "choices": [
+                "ঠাকুমার বাড়িতে যাবেন",
+                "জাপানি ভাষার স্কুলে যাবেন",
+                "ঠাকুমার জন্য রান্না করবেন",
+                "টোকিওতে পড়াশোনা করবেন"
+              ],
+              "q": "এই ব্যক্তি শীতের ছুটিতে কী করবেন?"
+            },
+            "ko": {
+              "choices": [
+                "할머니 댁에 간다",
+                "일본어 학교에 간다",
+                "할머니에게 요리를 만들어 드린다",
+                "도쿄에서 공부를 한다"
+              ],
+              "q": "이 사람은 겨울 방학에 무엇을 합니까?"
+            },
+            "vi": {
+              "choices": [
+                "Đi đến nhà bà",
+                "Đi đến trường tiếng Nhật",
+                "Nấu ăn cho bà",
+                "Học tập ở Tokyo"
+              ],
+              "q": "Người này sẽ làm gì vào kỳ nghỉ đông?"
+            },
+            "my": {
+              "choices": [
+                "အဘွားအိမ်ကိုသွားမယ်",
+                "ဂျပန်စာကျောင်းကိုသွားမယ်",
+                "အဘွားအတွက် ဟင်းချက်ပေးမယ်",
+                "တိုကျိုမှာ စာသင်မယ်"
+              ],
+              "q": "ဒီလူက ဆောင်းရာသီကျောင်းပိတ်ရက်မှာ ဘာလုပ်မလဲ။"
             }
           }
         }
@@ -336,6 +895,41 @@
         "en": {
           "body": [
             "Grandma, how are you? I'm studying well in Tokyo. Recently, I made new friends at my Japanese language school. I'm going to visit you during the next winter break. I want to eat your cooking, Grandma."
+          ]
+        },
+        "id": {
+          "body": [
+            "Nenek, apa kabar? Saya belajar dengan giat di Tokyo. Baru-baru ini, saya mendapat teman baru di sekolah bahasa Jepang. Liburan musim dingin nanti, saya akan pergi berkunjung ke sana. Saya ingin makan masakan nenek."
+          ]
+        },
+        "th": {
+          "body": [
+            "คุณย่าคะ สบายดีไหมคะ หนูเรียนอยู่ที่โตเกียวสบายดีค่ะ ช่วงนี้หนูมีเพื่อนใหม่ที่โรงเรียนสอนภาษาญี่ปุ่นค่ะ วันหยุดฤดูหนาวที่จะถึงนี้ หนูจะไปเยี่ยมคุณย่าค่ะ หนูอยากกินอาหารที่คุณย่าทำค่ะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "奶奶，您身体好吗？我在东京学习，身体很好。最近，我在日语学校交了新朋友。今年寒假，我会去您那里玩。我想吃奶奶做的菜。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "ঠাকুমা, কেমন আছেন? আমি টোকিওতে ভালো আছি এবং পড়াশোনা করছি। সম্প্রতি, জাপানি ভাষার স্কুলে আমার নতুন বন্ধু হয়েছে। এই শীতের ছুটিতে আমি আপনার সাথে দেখা করতে যাব। আমি আপনার রান্না খেতে চাই।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "할머니, 잘 지내세요? 저는 도쿄에서 건강하게 공부하고 있습니다. 최근에 일본어 학교에서 새로운 친구가 생겼어요. 이번 겨울 방학에 그곳으로 놀러 갈 거예요. 할머니 요리가 먹고 싶어요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Bà ơi, bà có khỏe không ạ? Cháu đang học tập ở Tokyo rất khỏe. Gần đây, cháu đã kết bạn mới ở trường tiếng Nhật. Kỳ nghỉ đông tới, cháu sẽ đến thăm bà. Cháu muốn ăn món ăn của bà."
+          ]
+        },
+        "my": {
+          "body": [
+            "အဘွား၊ နေကောင်းလား။ ကျွန်တော်က တိုကျိုမှာ ကျန်းကျန်းမာမာနဲ့ စာသင်နေပါတယ်။ မကြာသေးခင်က ဂျပန်စာကျောင်းမှာ သူငယ်ချင်းအသစ်တွေ ရခဲ့တယ်။ လာမယ့်ဆောင်းရာသီကျောင်းပိတ်ရက်မှာ အဘွားဆီ လာလည်ပါမယ်။ အဘွားရဲ့ ဟင်းတွေကို စားချင်ပါတယ်။"
           ]
         }
       }
@@ -378,6 +972,69 @@
                 "The colleague's house",
                 "The 2 PM room"
               ]
+            },
+            "id": {
+              "choices": [
+                "Ruangan besar di lantai tiga",
+                "Ruang rapat kecil di lantai dua",
+                "Rumah rekan kerja",
+                "Ruangan jam dua siang"
+              ],
+              "q": "Di mana tempat rapat besok?"
+            },
+            "th": {
+              "choices": [
+                "ห้องใหญ่ชั้นสาม",
+                "ห้องประชุมเล็กชั้นสอง",
+                "บ้านของเพื่อนร่วมงาน",
+                "ห้องเวลาบ่ายสองโมง"
+              ],
+              "q": "สถานที่ประชุมพรุ่งนี้เปลี่ยนเป็นที่ไหน"
+            },
+            "zh": {
+              "choices": [
+                "三楼的大房间",
+                "二楼的小会议室",
+                "同事的家",
+                "下午两点的房间"
+              ],
+              "q": "明天的会议地点改到哪里了？"
+            },
+            "bn": {
+              "choices": [
+                "তৃতীয় তলার বড় রুম",
+                "দ্বিতীয় তলার ছোট মিটিং রুম",
+                "সহকর্মীর বাড়ি",
+                "দুপুর ২টার রুম"
+              ],
+              "q": "আগামীকালকের মিটিংয়ের স্থান কোথায় হয়েছে?"
+            },
+            "ko": {
+              "choices": [
+                "3층 큰 방",
+                "2층 작은 회의실",
+                "동료의 집",
+                "오후 2시 방"
+              ],
+              "q": "내일 회의 장소는 어디가 되었습니까?"
+            },
+            "vi": {
+              "choices": [
+                "Phòng lớn tầng ba",
+                "Phòng họp nhỏ tầng hai",
+                "Nhà của đồng nghiệp",
+                "Phòng hai giờ chiều"
+              ],
+              "q": "Địa điểm cuộc họp ngày mai đã trở thành ở đâu?"
+            },
+            "my": {
+              "choices": [
+                "တတိယထပ်က အခန်းကြီး",
+                "ဒုတိယထပ်က အစည်းအဝေးခန်းမငယ်",
+                "လုပ်ဖော်ကိုင်ဖက်ရဲ့အိမ်",
+                "ညနေ ၂ နာရီအခန်း"
+              ],
+              "q": "မနက်ဖြန်အစည်းအဝေးနေရာက ဘယ်နေရာဖြစ်သွားပြီလဲ။"
             }
           }
         }
@@ -391,6 +1048,41 @@
         "en": {
           "body": [
             "I just received a call from a colleague. They said that the meeting place for tomorrow has changed from the meeting room on the second floor to the large room on the third floor. The time is still 2 PM, the same as before. They also said to please call them later."
+          ]
+        },
+        "id": {
+          "body": [
+            "Barusan saya menerima telepon dari rekan kerja. Katanya, tempat rapat besok berubah dari ruang rapat di lantai dua menjadi ruangan besar di lantai tiga. Waktunya sama seperti sebelumnya, jam dua siang. Katanya, tolong telepon orang itu nanti."
+          ]
+        },
+        "th": {
+          "body": [
+            "เมื่อกี้มีโทรศัพท์จากเพื่อนร่วมงานครับ เขาบอกว่าสถานที่ประชุมพรุ่งนี้เปลี่ยนจากห้องประชุมชั้นสองเป็นห้องใหญ่ชั้นสามครับ เวลายังคงเป็นบ่ายสองโมงเหมือนเดิมครับ เขาบอกว่าให้โทรกลับหาเขาด้วยครับ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "刚才同事给我打电话了。听说明天会议的地点从二楼的会议室改到了三楼的大房间。时间还是和以前一样，下午两点。他说之后请你给他回个电话。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "কিছুক্ষণ আগে একজন সহকর্মীর কাছ থেকে ফোন এসেছিল। আগামীকালকের মিটিংয়ের স্থান দ্বিতীয় তলার মিটিং রুম থেকে তৃতীয় তলার বড় রুমে পরিবর্তিত হয়েছে। সময় আগের মতোই দুপুর ২টা। পরে তাকে ফোন করতে বলা হয়েছে।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "아까 동료에게서 전화가 왔습니다. 내일 회의 장소가 2층 회의실에서 3층 큰 방으로 바뀌었다고 합니다. 시간은 전과 같은 오후 2시입니다. 나중에 그 사람에게 전화해 달라고 합니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Vừa nãy có điện thoại từ đồng nghiệp. Nghe nói địa điểm cuộc họp ngày mai đã thay đổi từ phòng họp tầng hai sang phòng lớn tầng ba. Thời gian vẫn là hai giờ chiều như trước. Người đó nói hãy gọi điện lại cho anh ấy sau."
+          ]
+        },
+        "my": {
+          "body": [
+            "ခဏက လုပ်ဖော်ကိုင်ဖက်တစ်ယောက်ဆီက ဖုန်းလာတယ်။ မနက်ဖြန်အစည်းအဝေးနေရာက ဒုတိယထပ်က အစည်းအဝေးခန်းမကနေ တတိယထပ်က အခန်းကြီးကို ပြောင်းသွားတယ်လို့ ပြောတယ်။ အချိန်ကတော့ အရင်အတိုင်း ညနေ ၂ နာရီပါပဲ။ နောက်မှ အဲဒီလူကို ဖုန်းပြန်ခေါ်ပေးပါလို့ ပြောတယ်။"
           ]
         }
       }
@@ -433,6 +1125,69 @@
                 "9 AM",
                 "6 AM"
               ]
+            },
+            "id": {
+              "choices": [
+                "Jam tujuh",
+                "Pukul delapan",
+                "Pukul sembilan",
+                "Pukul enam"
+              ],
+              "q": "Mulai bulan depan, jam berapa toko akan buka di pagi hari?"
+            },
+            "th": {
+              "choices": [
+                "เจ็ดโมง",
+                "แปดโมง",
+                "เก้าโมง",
+                "หกโมง"
+              ],
+              "q": "ตั้งแต่เดือนหน้าเป็นต้นไป ร้านจะเปิดกี่โมงในตอนเช้า"
+            },
+            "zh": {
+              "choices": [
+                "七点",
+                "八点",
+                "九点",
+                "六点"
+              ],
+              "q": "从下个月开始，店里早上几点开门？"
+            },
+            "bn": {
+              "choices": [
+                "সাতটা",
+                "আটটা",
+                "ন'টা",
+                "ছ'টা"
+              ],
+              "q": "আগামী মাস থেকে দোকান সকালে কয়টায় খুলবে?"
+            },
+            "ko": {
+              "choices": [
+                "7시",
+                "8시",
+                "9시",
+                "6시"
+              ],
+              "q": "다음 달부터 가게는 아침 몇 시에 엽니까?"
+            },
+            "vi": {
+              "choices": [
+                "Bảy giờ",
+                "Tám giờ",
+                "Chín giờ",
+                "Sáu giờ"
+              ],
+              "q": "Từ tháng tới, cửa hàng sẽ mở cửa lúc mấy giờ sáng?"
+            },
+            "my": {
+              "choices": [
+                "၇ နာရီ",
+                "ရှစ်နာရီ",
+                "ကိုးနာရီ",
+                "ခြောက်နာရီ"
+              ],
+              "q": "လာမည့်လမှစ၍ ဆိုင်သည် မနက်ဘယ်အချိန်ဖွင့်မည်လဲ။"
             }
           }
         }
@@ -446,6 +1201,41 @@
         "en": {
           "body": [
             "Notice from the bakery.\nStarting next month, our morning opening hours will be earlier. Until now, we opened at 8 AM, but it will change to 7 AM. Our evening closing time will remain the same at 9 PM. We are closed on Sundays. Thank you for your understanding."
+          ]
+        },
+        "id": {
+          "body": [
+            "Pengumuman dari toko roti. Mulai bulan depan, jam buka pagi akan lebih awal. Sebelumnya jam delapan, tapi akan menjadi jam tujuh. Jam tutup malam sama seperti sebelumnya, jam sembilan. Hari Minggu libur. Mohon kerja samanya."
+          ]
+        },
+        "th": {
+          "body": [
+            "ประกาศจากร้านขนมปังครับ ตั้งแต่เดือนหน้าเป็นต้นไป เวลาเปิดร้านตอนเช้าจะเร็วขึ้นครับ จากเดิมแปดโมงเช้า จะเป็นเจ็ดโมงเช้าครับ เวลาปิดร้านตอนกลางคืนยังคงเป็นสามทุ่มเหมือนเดิมครับ วันอาทิตย์หยุดครับ ขอความกรุณาด้วยครับ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "这是面包店的通知。从下个月开始，早上的营业时间会提前。以前是八点开始，现在改为七点开始。晚上的关门时间还是和以前一样，九点。星期天休息。请多关照。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "বেকারি থেকে বিজ্ঞপ্তি। আগামী মাস থেকে সকালের খোলার সময় এগিয়ে আনা হবে। এখন পর্যন্ত আটটা থেকে ছিল, কিন্তু সাতটা থেকে হবে। রাতের বন্ধের সময় আগের মতোই রাত নয়টা। রবিবার বন্ধ থাকবে। ধন্যবাদ।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "빵집에서 알려드립니다. 다음 달부터 아침 개점 시간이 빨라집니다. 지금까지는 8시부터였지만, 7시부터가 됩니다. 저녁 폐점은 전과 같은 9시입니다. 일요일은 쉽니다. 잘 부탁드립니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Thông báo từ tiệm bánh. Từ tháng tới, giờ mở cửa buổi sáng sẽ sớm hơn. Cho đến bây giờ là từ tám giờ, nhưng sẽ là từ bảy giờ. Giờ đóng cửa buổi tối vẫn là chín giờ như trước. Chủ nhật là ngày nghỉ. Xin cảm ơn."
+          ]
+        },
+        "my": {
+          "body": [
+            "ပေါင်မုန့်ဆိုင်မှ သတင်းအချက်အလက်ဖြစ်ပါသည်။ လာမည့်လမှစ၍ နံနက်ဖွင့်ချိန် စောပါမည်။ ယခင်က ၈ နာရီမှဖြစ်သော်လည်း ၇ နာရီမှ စတင်ပါမည်။ ညပိတ်ချိန်ကတော့ အရင်အတိုင်း ၉ နာရီပါပဲ။ တနင်္ဂနွေနေ့ကတော့ ပိတ်ရက်ဖြစ်ပါသည်။ ကျေးဇူးပြု၍ နားလည်ပေးပါ။"
           ]
         }
       }
@@ -488,6 +1278,69 @@
                 "Because they work at the hospital",
                 "Because they want to see the teacher"
               ]
+            },
+            "id": {
+              "choices": [
+                "Karena sakit perut",
+                "Karena tidak ada pekerjaan rumah",
+                "Karena bekerja di rumah sakit",
+                "Karena ingin bertemu guru"
+              ],
+              "q": "Mengapa orang ini tidak masuk sekolah hari ini?"
+            },
+            "th": {
+              "choices": [
+                "เพราะปวดท้อง",
+                "เพราะไม่มีการบ้าน",
+                "เพราะทำงานที่โรงพยาบาล",
+                "เพราะอยากเจอคุณครู"
+              ],
+              "q": "วันนี้คนผู้นี้หยุดเรียนเพราะอะไร"
+            },
+            "zh": {
+              "choices": [
+                "因为肚子疼",
+                "因为没有作业",
+                "因为在医院工作",
+                "因为想见老师"
+              ],
+              "q": "这个人今天为什么请假不去学校？"
+            },
+            "bn": {
+              "choices": [
+                "পেট ব্যথা করছে বলে",
+                "বাড়ির কাজ নেই বলে",
+                "হাসপাতালে কাজ করে বলে",
+                "শিক্ষকের সাথে দেখা করতে চায় বলে"
+              ],
+              "q": "এই ব্যক্তি আজ কেন স্কুলে যাবে না?"
+            },
+            "ko": {
+              "choices": [
+                "배가 아프기 때문에",
+                "숙제가 없기 때문에",
+                "병원에서 일하기 때문에",
+                "선생님을 만나고 싶기 때문에"
+              ],
+              "q": "이 사람은 오늘 왜 학교를 쉬나요?"
+            },
+            "vi": {
+              "choices": [
+                "Vì bị đau bụng",
+                "Vì không có bài tập về nhà",
+                "Vì làm việc ở bệnh viện",
+                "Vì muốn gặp thầy/cô"
+              ],
+              "q": "Người này hôm nay tại sao lại nghỉ học?"
+            },
+            "my": {
+              "choices": [
+                "ဗိုက်နာလို့",
+                "အိမ်စာမရှိလို့",
+                "ဆေးရုံမှာအလုပ်လုပ်လို့",
+                "ဆရာမနဲ့တွေ့ချင်လို့"
+              ],
+              "q": "ဒီလူက ဒီနေ့ ဘာလို့ကျောင်းနားတာလဲ။"
             }
           }
         }
@@ -501,6 +1354,41 @@
         "en": {
           "body": [
             "Good morning, teacher.\nToday, I've had a stomachache since this morning, so I'm going to the hospital now. Therefore, I will be absent from school today. I will definitely bring my homework tomorrow. I apologize for any inconvenience."
+          ]
+        },
+        "id": {
+          "body": [
+            "Guru, selamat pagi. Hari ini, perut saya sakit sejak pagi, jadi saya akan pergi ke rumah sakit. Oleh karena itu, saya tidak masuk sekolah hari ini. Saya pasti akan membawa pekerjaan rumah besok. Maaf atas ketidaknyamanannya."
+          ]
+        },
+        "th": {
+          "body": [
+            "คุณครูครับ/คะ สวัสดีครับ/ค่ะ วันนี้ผม/ดิฉันปวดท้องตั้งแต่เช้า เลยจะไปโรงพยาบาลครับ/ค่ะ ดังนั้นวันนี้ผม/ดิฉันจะหยุดเรียนครับ/ค่ะ การบ้านจะนำมาส่งพรุ่งนี้แน่นอนครับ/ค่ะ ขออภัยในความไม่สะดวกครับ/ค่ะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "老师，早上好。今天我从早上开始肚子就疼，现在要去医院。所以，今天学校的课我请假。作业我明天一定会带去。给您添麻烦了，非常抱歉。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "শিক্ষক মহাশয়, সুপ্রভাত। আজ সকাল থেকে আমার পেট ব্যথা করছে, তাই এখন হাসপাতালে যাব। এই কারণে, আজ আমি স্কুলে যাব না। বাড়ির কাজ আগামীকাল অবশ্যই নিয়ে আসব। আপনাদের অসুবিধা করার জন্য দুঃখিত।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "선생님, 안녕하세요. 오늘 아침부터 배가 아파서, 지금부터 병원에 갈 거예요. 그래서 오늘 학교는 쉴게요. 숙제는 내일 꼭 가져갈게요. 폐를 끼쳐 죄송합니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Thưa thầy/cô, chào buổi sáng. Hôm nay, em bị đau bụng từ sáng nên bây giờ em sẽ đi bệnh viện. Vì vậy, hôm nay em xin nghỉ học. Em nhất định sẽ mang bài tập về nhà vào ngày mai. Em xin lỗi vì đã làm phiền ạ."
+          ]
+        },
+        "my": {
+          "body": [
+            "ဆရာမ မင်္ဂလာနံနက်ခင်းပါ။ ဒီနေ့ မနက်ကတည်းက ဗိုက်နာနေလို့ ဆေးရုံသွားမလို့ပါ။ ဒါကြောင့် ဒီနေ့ကျောင်းနားပါမယ်။ အိမ်စာကိုတော့ မနက်ဖြန် သေချာပေါက် ယူလာခဲ့ပါမယ်။ အနှောင့်အယှက်ပေးမိတဲ့အတွက် တောင်းပန်ပါတယ်။"
           ]
         }
       }
@@ -543,6 +1431,69 @@
                 "Small children's houses",
                 "The rules room"
               ]
+            },
+            "id": {
+              "choices": [
+                "Lapangan di dekat sungai",
+                "Taman ini",
+                "Rumah anak kecil",
+                "Ruang peraturan"
+              ],
+              "q": "Orang yang ingin bermain bola, pergi ke mana?"
+            },
+            "th": {
+              "choices": [
+                "ลานกว้างใกล้แม่น้ำ",
+                "สวนสาธารณะแห่งนี้",
+                "บ้านของเด็กเล็ก",
+                "ห้องกฎกติกา"
+              ],
+              "q": "ผู้ที่ต้องการเล่นลูกบอลจะไปที่ไหน"
+            },
+            "zh": {
+              "choices": [
+                "河边的广场",
+                "这个公园",
+                "小孩子的家",
+                "规则室"
+              ],
+              "q": "想玩球的人要去哪里？"
+            },
+            "bn": {
+              "choices": [
+                "নদীর কাছের খোলা জায়গা",
+                "এই পার্ক",
+                "ছোট বাচ্চাদের বাড়ি",
+                "নিয়মের ঘর"
+              ],
+              "q": "যারা বল নিয়ে খেলতে চায়, তারা কোথায় যাবে?"
+            },
+            "ko": {
+              "choices": [
+                "강 근처 광장",
+                "이 공원",
+                "어린아이의 집",
+                "규칙의 방"
+              ],
+              "q": "공놀이를 하고 싶은 사람은 어디로 가야 하나요?"
+            },
+            "vi": {
+              "choices": [
+                "Quảng trường gần sông",
+                "Công viên này",
+                "Nhà của trẻ nhỏ",
+                "Phòng quy tắc"
+              ],
+              "q": "Những người muốn chơi bóng sẽ đi đâu?"
+            },
+            "my": {
+              "choices": [
+                "မြစ်နားက ကွင်းပြင်",
+                "ဒီပန်းခြံ",
+                "ကလေးငယ်လေးတွေရဲ့အိမ်",
+                "စည်းကမ်းခန်း"
+              ],
+              "q": "ဘောလုံးနဲ့ကစားချင်တဲ့သူတွေက ဘယ်ကိုသွားရမလဲ။"
             }
           }
         }
@@ -556,6 +1507,41 @@
         "en": {
           "body": [
             "You cannot play with balls in this park. This is because small children are also playing, and it is dangerous. People who want to play with balls, please use the <u>plaza near the river</u>. Let's all follow the rules and play."
+          ]
+        },
+        "id": {
+          "body": [
+            "Di taman ini, tidak boleh bermain bola. Karena ada anak-anak kecil yang bermain juga, dan itu berbahaya. Orang yang ingin bermain bola, silakan gunakan lapangan di dekat sungai. Mari kita bermain dengan mematuhi peraturan bersama-sama."
+          ]
+        },
+        "th": {
+          "body": [
+            "ที่สวนสาธารณะแห่งนี้ ห้ามเล่นลูกบอลครับ/ค่ะ เพราะมีเด็กเล็กเล่นอยู่ด้วย ซึ่งอาจเป็นอันตรายได้ครับ/ค่ะ ผู้ที่ต้องการเล่นลูกบอล กรุณาใช้ลานกว้างใกล้แม่น้ำครับ/ค่ะ มาเล่นโดยรักษากฎกติกาด้วยกันนะครับ/คะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "在这个公园里，不能玩球。因为有小孩子在玩，很危险。想玩球的人，请使用河边的广场。大家一起遵守规则玩耍吧。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "এই পার্কে বল নিয়ে খেলা করা যাবে না। ছোট বাচ্চারাও খেলছে, তাই এটি বিপজ্জনক। যারা বল নিয়ে খেলতে চান, তারা নদীর কাছের খোলা জায়গাটি ব্যবহার করুন। আসুন সবাই নিয়ম মেনে খেলি।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "이 공원에서는 공놀이를 할 수 없습니다. 어린아이들도 놀고 있어서 위험하기 때문입니다. 공놀이를 하고 싶은 사람은 강 근처 광장을 이용해 주세요. 모두 함께 규칙을 지키며 놉시다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Ở công viên này, không được chơi bóng. Vì có cả trẻ nhỏ đang chơi, rất nguy hiểm. Những người muốn chơi bóng, hãy sử dụng quảng trường gần sông. Mọi người hãy cùng tuân thủ luật lệ và chơi nhé."
+          ]
+        },
+        "my": {
+          "body": [
+            "ဒီပန်းခြံထဲမှာ ဘောလုံးနဲ့ကစားလို့မရပါဘူး။ ကလေးငယ်လေးတွေလည်း ကစားနေလို့ အန္တရာယ်များလို့ပါ။ ဘောလုံးနဲ့ကစားချင်တဲ့သူတွေက မြစ်နားက ကွင်းပြင်ကို သုံးပေးပါ။ အားလုံး စည်းကမ်းလိုက်နာပြီး ကစားကြရအောင်။"
           ]
         }
       }
@@ -598,6 +1584,69 @@
                 "Made curry for their family",
                 "Ate curry at a restaurant"
               ]
+            },
+            "id": {
+              "choices": [
+                "Membuat kari sendirian",
+                "Belajar cara memotong sayuran",
+                "Membuat kari untuk keluarga",
+                "Makan kari di toko"
+              ],
+              "q": "Apa yang pertama kali dilakukan orang ini hari ini?"
+            },
+            "th": {
+              "choices": [
+                "ทำแกงกะหรี่คนเดียว",
+                "เรียนรู้วิธีหั่นผัก",
+                "ทำแกงกะหรี่ให้ครอบครัว",
+                "กินแกงกะหรี่ที่ร้าน"
+              ],
+              "q": "วันนี้คนผู้นี้ทำอะไรเป็นครั้งแรก"
+            },
+            "zh": {
+              "choices": [
+                "一个人做了咖喱",
+                "学习了切蔬菜的方法",
+                "为家人做了咖喱",
+                "在店里吃了咖喱"
+              ],
+              "q": "这个人今天第一次做了什么？"
+            },
+            "bn": {
+              "choices": [
+                "একা কারি রান্না করেছে",
+                "সবজি কাটা শিখেছে",
+                "পরিবারের জন্য কারি রান্না করেছে",
+                "দোকানে কারি খেয়েছে"
+              ],
+              "q": "এই ব্যক্তি আজ প্রথমবার কী করেছে?"
+            },
+            "ko": {
+              "choices": [
+                "혼자 카레를 만들었다",
+                "야채 써는 법을 배웠다",
+                "가족에게 카레를 만들어 주었다",
+                "가게에서 카레를 먹었다"
+              ],
+              "q": "이 사람은 오늘 처음으로 무엇을 했나요?"
+            },
+            "vi": {
+              "choices": [
+                "Tự mình nấu cà ri",
+                "Học cách cắt rau",
+                "Nấu cà ri cho gia đình",
+                "Ăn cà ri ở cửa hàng"
+              ],
+              "q": "Người này hôm nay đã làm gì lần đầu tiên?"
+            },
+            "my": {
+              "choices": [
+                "တစ်ယောက်တည်း ကာရီချက်ခဲ့တယ်",
+                "ဟင်းသီးဟင်းရွက်လှီးနည်းကို သင်ယူခဲ့တယ်",
+                "မိသားစုအတွက် ကာရီချက်ခဲ့တယ်",
+                "ဆိုင်မှာ ကာရီစားခဲ့တယ်"
+              ],
+              "q": "ဒီလူက ဒီနေ့ ပထမဆုံးအကြိမ် ဘာလုပ်ခဲ့လဲ။"
             }
           }
         }
@@ -611,6 +1660,41 @@
         "en": {
           "body": [
             "Today, I made curry by myself for the first time. Cutting the vegetables was a little difficult, but I did it well. The taste was also very delicious, and I was happy. Next, I want to make a lot more for my family."
+          ]
+        },
+        "id": {
+          "body": [
+            "Hari ini, saya pertama kalinya membuat kari sendirian. Memotong sayuran sedikit sulit, tetapi saya berhasil melakukannya dengan baik. Rasanya juga sangat enak, dan saya senang. Selanjutnya, saya ingin membuat lebih banyak untuk keluarga saya."
+          ]
+        },
+        "th": {
+          "body": [
+            "วันนี้ฉันทำแกงกะหรี่คนเดียวเป็นครั้งแรก การหั่นผักค่อนข้างยากนิดหน่อย แต่ก็ทำออกมาได้ดี รสชาติก็อร่อยมาก ฉันดีใจมากเลย ครั้งหน้าฉันอยากจะทำเยอะกว่านี้เพื่อครอบครัว"
+          ]
+        },
+        "zh": {
+          "body": [
+            "今天我第一次一个人做了咖喱。切蔬菜有点难，但做得很好。味道也非常好吃，我很开心。下次我想为家人做更多。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "আজ আমি প্রথমবার একা কারি রান্না করেছি। সবজি কাটাটা একটু কঠিন ছিল, কিন্তু আমি ভালোভাবে করতে পেরেছি। স্বাদও খুব ভালো ছিল, আমি খুশি হয়েছি। পরেরবার আমি পরিবারের জন্য আরও বেশি রান্না করতে চাই।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "오늘은 처음으로 혼자 카레를 만들었다. 야채를 써는 것은 조금 어려웠지만, 능숙하게 만들 수 있었다. 맛도 아주 좋아서 기뻤다. 다음에는 가족을 위해 더 많이 만들고 싶다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Hôm nay tôi lần đầu tiên tự mình nấu cà ri. Việc cắt rau hơi khó một chút nhưng tôi đã làm rất khéo léo. Món ăn cũng rất ngon, tôi rất vui. Lần tới, tôi muốn nấu nhiều hơn cho gia đình."
+          ]
+        },
+        "my": {
+          "body": [
+            "ဒီနေ့ ပထမဆုံးအကြိမ်အဖြစ် တစ်ယောက်တည်း ကာရီချက်တယ်။ ဟင်းသီးဟင်းရွက်လှီးရတာ နည်းနည်းခက်ပေမဲ့ ကောင်းကောင်းလုပ်နိုင်ခဲ့တယ်။ အရသာလည်း အရမ်းကောင်းလို့ ဝမ်းသာတယ်။ နောက်တစ်ခါ မိသားစုအတွက် ပိုပြီးအများကြီး ချက်ချင်တယ်။"
           ]
         }
       }
@@ -653,6 +1737,69 @@
                 "A town map",
                 "A birthday cake"
               ]
+            },
+            "id": {
+              "choices": [
+                "Buku",
+                "Kue",
+                "Peta kota",
+                "Kue ulang tahun"
+              ],
+              "q": "Apa yang diterima orang ini minggu lalu?"
+            },
+            "th": {
+              "choices": [
+                "หนังสือ",
+                "ขนม",
+                "แผนที่เมือง",
+                "เค้กวันเกิด"
+              ],
+              "q": "คนผู้นี้ได้รับอะไรเมื่อสัปดาห์ที่แล้ว"
+            },
+            "zh": {
+              "choices": [
+                "书",
+                "点心",
+                "城镇地图",
+                "生日蛋糕"
+              ],
+              "q": "这个人上周收到了什么？"
+            },
+            "bn": {
+              "choices": [
+                "বই",
+                "মিষ্টি",
+                "শহরের মানচিত্র",
+                "জন্মদিনের কেক"
+              ],
+              "q": "এই ব্যক্তি গত সপ্তাহে কী পেয়েছে?"
+            },
+            "ko": {
+              "choices": [
+                "책",
+                "과자",
+                "마을 지도",
+                "생일 케이크"
+              ],
+              "q": "이 사람은 지난주에 무엇을 받았나요?"
+            },
+            "vi": {
+              "choices": [
+                "Sách",
+                "Bánh kẹo",
+                "Bản đồ thị trấn",
+                "Bánh sinh nhật"
+              ],
+              "q": "Người này tuần trước đã nhận được gì?"
+            },
+            "my": {
+              "choices": [
+                "စာအုပ်",
+                "မုန့်",
+                "မြို့မြေပုံ",
+                "မွေးနေ့ကိတ်"
+              ],
+              "q": "ဒီလူက ပြီးခဲ့တဲ့အပတ်က ဘာရခဲ့လဲ။"
             }
           }
         }
@@ -666,6 +1813,41 @@
         "en": {
           "body": [
             "Thank you for the birthday present last week. The book you gave me is something I've wanted for a long time. I'm reading it little by little every night. Next time, as a thank you, I'll send you some sweets from my town."
+          ]
+        },
+        "id": {
+          "body": [
+            "Terima kasih atas hadiah ulang tahunnya minggu lalu. Buku yang saya terima adalah buku yang sudah lama saya inginkan. Saya membacanya sedikit demi sedikit setiap malam. Lain kali, sebagai ucapan terima kasih, saya akan mengirimkan kue dari kota saya."
+          ]
+        },
+        "th": {
+          "body": [
+            "ขอบคุณสำหรับของขวัญวันเกิดเมื่อสัปดาห์ที่แล้วนะคะ หนังสือที่ได้รับมาเป็นสิ่งที่ฉันอยากได้มานานแล้วค่ะ ฉันอ่านทีละนิดทุกคืนเลยค่ะ ครั้งหน้าฉันจะส่งขนมจากเมืองของฉันไปให้เพื่อเป็นการตอบแทนนะคะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "上周，谢谢您的生日礼物。您送的书是我一直以来都想要的东西。我每天晚上都读一点点。下次，我会寄我镇上的点心作为回礼。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "গত সপ্তাহে জন্মদিনের উপহারের জন্য ধন্যবাদ। যে বইটি পেয়েছি, সেটি আমি অনেকদিন ধরে চেয়েছিলাম। প্রতিদিন একটু একটু করে পড়ছি। পরেরবার, ধন্যবাদস্বরূপ আমার শহরের মিষ্টি পাঠাব।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "지난주에 생일 선물을 주셔서 감사합니다. 받은 책은 전부터 계속 갖고 싶었던 거예요. 매일 밤 조금씩 읽고 있어요. 다음에 답례로 저희 동네 과자를 보내드릴게요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Cảm ơn bạn vì món quà sinh nhật tuần trước. Cuốn sách tôi nhận được là thứ tôi đã muốn từ rất lâu rồi. Mỗi tối tôi đều đọc một chút. Lần tới, tôi sẽ gửi bánh kẹo đặc sản của thị trấn tôi để cảm ơn nhé."
+          ]
+        },
+        "my": {
+          "body": [
+            "ပြီးခဲ့တဲ့အပတ်က မွေးနေ့လက်ဆောင်အတွက် ကျေးဇူးတင်ပါတယ်။ ရရှိခဲ့တဲ့စာအုပ်က အရင်ကတည်းက လိုချင်နေခဲ့တာပါ။ ညတိုင်း နည်းနည်းစီ ဖတ်နေပါတယ်။ နောက်တစ်ခါ ကျေးဇူးတုံ့ပြန်တဲ့အနေနဲ့ ကျွန်တော့်မြို့က မုန့်တွေ ပို့ပေးပါ့မယ်နော်။"
           ]
         }
       }
@@ -708,6 +1890,69 @@
                 "After breakfast",
                 "Right now"
               ]
+            },
+            "id": {
+              "choices": [
+                "Setelah makan malam",
+                "Sebelum makan malam",
+                "Setelah sarapan",
+                "Sekarang juga"
+              ],
+              "q": "Kapan Anda akan makan kue Anda?"
+            },
+            "th": {
+              "choices": [
+                "หลังอาหารเย็น",
+                "ก่อนอาหารเย็น",
+                "หลังอาหารเช้า",
+                "ตอนนี้เลย"
+              ],
+              "q": "คุณจะกินเค้กของคุณเมื่อไหร่"
+            },
+            "zh": {
+              "choices": [
+                "晚饭后",
+                "晚饭前",
+                "早饭后",
+                "现在立刻"
+              ],
+              "q": "你的蛋糕什么时候吃？"
+            },
+            "bn": {
+              "choices": [
+                "রাতের খাবারের পর",
+                "রাতের খাবারের আগে",
+                "সকালের নাস্তার পর",
+                "এখনই"
+              ],
+              "q": "আপনার কেক কখন খাবেন?"
+            },
+            "ko": {
+              "choices": [
+                "저녁 식사 후",
+                "저녁 식사 전",
+                "아침 식사 후",
+                "지금 바로"
+              ],
+              "q": "당신의 케이크는 언제 먹을 건가요?"
+            },
+            "vi": {
+              "choices": [
+                "Sau bữa tối",
+                "Trước bữa tối",
+                "Sau bữa sáng",
+                "Ngay bây giờ"
+              ],
+              "q": "Bạn sẽ ăn bánh của mình khi nào?"
+            },
+            "my": {
+              "choices": [
+                "ညစာစားပြီးနောက်",
+                "ညစာမစားမီ",
+                "မနက်စာစားပြီးနောက်",
+                "အခုချက်ချင်း"
+              ],
+              "q": "မင်းရဲ့ကိတ်ကို ဘယ်တော့စားမလဲ။"
             }
           }
         }
@@ -721,6 +1966,41 @@
         "en": {
           "body": [
             "There are two cakes in the refrigerator. One is mine, so please don't eat it. The other one is your snack. Please eat it after dinner. You can also drink juice."
+          ]
+        },
+        "id": {
+          "body": [
+            "Ada dua kue di dalam kulkas. Salah satunya milik saya, jadi tolong jangan dimakan. Yang satunya lagi adalah camilan Anda. Tolong makan setelah makan malam, ya. Anda juga boleh minum jus."
+          ]
+        },
+        "th": {
+          "body": [
+            "ในตู้เย็นมีเค้กอยู่สองชิ้น ชิ้นหนึ่งเป็นของฉัน เพราะฉะนั้นอย่ากินนะ อีกชิ้นเป็นของว่างของคุณ กินหลังอาหารเย็นนะ ดื่มน้ำผลไม้ก็ได้นะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "冰箱里有两个蛋糕。其中一个是我的，请不要吃。另一个是你的点心。请在晚饭后吃哦。果汁也可以喝。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "ফ্রিজে দুটি কেক আছে। একটি আমার, তাই খাবেন না। অন্যটি আপনার নাস্তার জন্য। রাতের খাবারের পর খাবেন। জুসও পান করতে পারেন।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "냉장고에 케이크가 두 개 들어있습니다. 하나는 제 것이니 먹지 말아 주세요. 다른 하나는 당신 간식입니다. 저녁 식사 후에 드세요. 주스도 마셔도 괜찮습니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Trong tủ lạnh có hai cái bánh. Một cái là của tôi, nên đừng ăn nhé. Cái còn lại là đồ ăn vặt của bạn. Hãy ăn sau bữa tối nhé. Bạn cũng có thể uống nước trái cây."
+          ]
+        },
+        "my": {
+          "body": [
+            "ရေခဲသေတ္တာထဲမှာ ကိတ်နှစ်လုံးရှိပါတယ်။ တစ်လုံးက ကျွန်တော့်အတွက်မို့ မစားပါနဲ့။ နောက်တစ်လုံးကတော့ မင်းရဲ့မုန့်ပါ။ ညစာစားပြီးမှ စားပါ။ ဖျော်ရည်လည်း သောက်လို့ရပါတယ်။"
           ]
         }
       }
@@ -763,6 +2043,69 @@
                 "Saturdays",
                 "Every night"
               ]
+            },
+            "id": {
+              "choices": [
+                "Selasa dan Jumat",
+                "Paling lambat jam 8 pagi hari Rabu",
+                "Sabtu",
+                "Setiap malam"
+              ],
+              "q": "Kapan sampah yang bisa dibakar dibuang?"
+            },
+            "th": {
+              "choices": [
+                "วันอังคารและวันศุกร์",
+                "ภายในเวลา 8 โมงเช้าของวันพุธ",
+                "วันเสาร์",
+                "ทุกคืน"
+              ],
+              "q": "ขยะเผาได้จะทิ้งเมื่อไหร่"
+            },
+            "zh": {
+              "choices": [
+                "周二和周五",
+                "周三早上八点前",
+                "周六",
+                "每天晚上"
+              ],
+              "q": "可燃垃圾什么时候扔？"
+            },
+            "bn": {
+              "choices": [
+                "মঙ্গলবার ও শুক্রবার",
+                "বুধবার সকাল ৮টার মধ্যে",
+                "শনিবার",
+                "প্রতিদিন রাতে"
+              ],
+              "q": "দাহ্য আবর্জনা কখন ফেলবেন?"
+            },
+            "ko": {
+              "choices": [
+                "화요일과 금요일",
+                "수요일 아침 8시까지",
+                "토요일",
+                "매일 밤"
+              ],
+              "q": "타는 쓰레기는 언제 배출하나요?"
+            },
+            "vi": {
+              "choices": [
+                "Thứ Ba và thứ Sáu",
+                "Trước 8 giờ sáng thứ Tư",
+                "Thứ Bảy",
+                "Mỗi tối"
+              ],
+              "q": "Rác cháy được, đổ khi nào?"
+            },
+            "my": {
+              "choices": [
+                "အင်္ဂါနေ့နှင့် သောကြာနေ့",
+                "ဗုဒ္ဓဟူးနေ့ နံနက် ၈ နာရီအထိ",
+                "စနေနေ့",
+                "နေ့တိုင်းညဘက်"
+              ],
+              "q": "မီးလောင်နိုင်သော အမှိုက်များကို ဘယ်တော့ စွန့်ပစ်ရမလဲ။"
             }
           }
         }
@@ -776,6 +2119,41 @@
         "en": {
           "body": [
             "To all residents of the apartment building.\nPlease put out burnable trash by 8 AM on Tuesdays and Fridays. Plastic bottles are on Wednesdays. Please do not put trash out at night, as cats will make a mess. The location is the trash area on the first floor."
+          ]
+        },
+        "id": {
+          "body": [
+            "Untuk semua penghuni apartemen. Sampah yang bisa dibakar harap dibuang paling lambat jam 8 pagi pada hari Selasa dan Jumat. Botol plastik pada hari Rabu. Tolong jangan membuangnya pada malam hari karena kucing akan mengacak-acaknya. Tempatnya ada di tempat sampah di lantai satu."
+          ]
+        },
+        "th": {
+          "body": [
+            "ถึงผู้อยู่อาศัยในคอนโดทุกท่าน ขยะเผาได้กรุณานำออกมาทิ้งภายในเวลา 8 โมงเช้าของวันอังคารและวันศุกร์ ขวดพลาสติกเป็นวันพุธ กรุณาอย่านำออกมาทิ้งตอนกลางคืนเพราะแมวจะคุ้ยเขี่ย สถานที่ทิ้งคือที่ทิ้งขยะชั้น 1"
+          ]
+        },
+        "zh": {
+          "body": [
+            "致住在公寓的各位。可燃垃圾请在周二和周五早上八点前扔掉。塑料瓶是周三。请不要在晚上扔，因为猫会翻乱。地点是一楼的垃圾场。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "অ্যাপার্টমেন্টে বসবাসকারী সকলের প্রতি। দাহ্য আবর্জনা মঙ্গলবার ও শুক্রবার সকাল ৮টার মধ্যে ফেলুন। প্লাস্টিকের বোতল বুধবার। রাতে ফেললে বিড়ালরা নষ্ট করে, তাই দয়া করে রাতে ফেলবেন না। স্থানটি নিচতলার আবর্জনা ফেলার জায়গা।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "아파트에 사시는 여러분께. 타는 쓰레기는 화요일과 금요일 아침 8시까지 배출해 주세요. 페트병은 수요일입니다. 밤에 내놓으면 고양이가 헤집어 놓으니 삼가 주세요. 장소는 1층 쓰레기장입니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Gửi đến tất cả cư dân sống trong chung cư. Rác cháy được, hãy đổ trước 8 giờ sáng thứ Ba và thứ Sáu. Chai nhựa là vào thứ Tư. Xin đừng đổ vào buổi tối vì mèo sẽ bới tung. Địa điểm là nơi đổ rác ở tầng một."
+          ]
+        },
+        "my": {
+          "body": [
+            "တိုက်ခန်းတွင်နေထိုင်သူများအားလုံးသို့။ မီးလောင်နိုင်သော အမှိုက်များကို အင်္ဂါနေ့နှင့် သောကြာနေ့ နံနက် ၈ နာရီ နောက်ဆုံးထား၍ စွန့်ပစ်ပါ။ ပလတ်စတစ်ပုလင်းများကို ဗုဒ္ဓဟူးနေ့တွင် စွန့်ပစ်ပါ။ ညဘက်စွန့်ပစ်ပါက ကြောင်များ ဖျက်ဆီးတတ်သောကြောင့် မစွန့်ပစ်ပါနှင့်။ နေရာမှာ ပထမထပ် အမှိုက်ပစ်ရာနေရာ ဖြစ်ပါတယ်။"
           ]
         }
       }
@@ -818,6 +2196,69 @@
                 "A clock shop",
                 "The 11 o'clock platform"
               ]
+            },
+            "id": {
+              "choices": [
+                "Pintu keluar barat stasiun",
+                "Pintu keluar timur stasiun",
+                "Toko jam",
+                "Peron jam 11"
+              ],
+              "q": "Besok, di mana kita akan bertemu?"
+            },
+            "th": {
+              "choices": [
+                "ทางออกทิศตะวันตกของสถานี",
+                "ทางออกทิศตะวันออกของสถานี",
+                "ร้านนาฬิกา",
+                "ชานชาลาเวลา 11 โมง"
+              ],
+              "q": "พรุ่งนี้จะนัดเจอกันที่ไหน"
+            },
+            "zh": {
+              "choices": [
+                "车站西口",
+                "车站东口",
+                "钟表店",
+                "十一点的站台"
+              ],
+              "q": "明天在哪里碰头？"
+            },
+            "bn": {
+              "choices": [
+                "স্টেশনের পশ্চিম গেট",
+                "স্টেশনের পূর্ব গেট",
+                "ঘড়ির দোকান",
+                "এগারোটার প্ল্যাটফর্ম"
+              ],
+              "q": "কাল কোথায় দেখা করবেন?"
+            },
+            "ko": {
+              "choices": [
+                "역 서쪽 출구",
+                "역 동쪽 출구",
+                "시계 가게",
+                "11시 플랫폼"
+              ],
+              "q": "내일 어디에서 만날 건가요?"
+            },
+            "vi": {
+              "choices": [
+                "Cửa Tây nhà ga",
+                "Cửa Đông nhà ga",
+                "Cửa hàng đồng hồ",
+                "Sân ga lúc 11 giờ"
+              ],
+              "q": "Ngày mai, sẽ hẹn gặp ở đâu?"
+            },
+            "my": {
+              "choices": [
+                "ဘူတာ၏အနောက်ဘက်ထွက်ပေါက်",
+                "ဘူတာ၏အရှေ့ဘက်ထွက်ပေါက်",
+                "နာရီဆိုင်",
+                "၁၁ နာရီ ပလက်ဖောင်း"
+              ],
+              "q": "မနက်ဖြန် ဘယ်မှာ ချိန်းတွေ့ကြမလဲ။"
             }
           }
         }
@@ -831,6 +2272,41 @@
         "en": {
           "body": [
             "Sorry, about our meeting tomorrow, would it be okay to change it from the <u>east exit of the station</u> to the <u>west exit</u>? The east exit is under construction and there are a lot of people. The time, 11 o'clock, is fine. I'll be waiting under the clock at the west exit."
+          ]
+        },
+        "id": {
+          "body": [
+            "Maaf, tentang janji bertemu besok, bisakah kita mengubahnya dari pintu keluar timur stasiun menjadi pintu keluar barat? Pintu keluar timur sedang dalam pembangunan dan sangat ramai. Waktunya tetap jam 11, tidak masalah. Aku akan menunggumu di bawah jam di pintu keluar barat."
+          ]
+        },
+        "th": {
+          "body": [
+            "ขอโทษนะ เรื่องนัดเจอกันพรุ่งนี้ เปลี่ยนจากทางออกทิศตะวันออกของสถานีเป็นทางออกทิศตะวันตกได้ไหม ทางออกทิศตะวันออกกำลังก่อสร้างอยู่ คนเยอะมากเลย เวลายังคงเป็น 11 โมงเหมือนเดิมนะ ฉันจะรออยู่ใต้หอนาฬิกาทางออกทิศตะวันตกนะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "抱歉，关于明天的碰头，能不能把地点从车站东口改成西口？东口正在施工，人非常多。时间还是十一点没问题。我在西口的钟楼下等你哦。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "দুঃখিত, কালকের সাক্ষাতের ব্যাপারে, স্টেশনের পূর্ব গেটের পরিবর্তে পশ্চিম গেটে পরিবর্তন করলে কেমন হয়? পূর্ব গেটে নির্মাণ কাজ চলছে এবং অনেক ভিড়। সময় একই, এগারোটা ঠিক আছে। পশ্চিম গেটের ঘড়ির নিচে অপেক্ষা করব।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "미안, 내일 약속 말인데, 역 동쪽 출구 말고 서쪽 출구로 바꿔도 괜찮을까? 동쪽 출구는 공사 중이라 사람이 너무 많아. 시간은 똑같이 11시로 괜찮아. 서쪽 출구 시계탑 아래에서 기다릴게."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Xin lỗi, về cuộc hẹn ngày mai, thay vì Cửa Đông nhà ga, đổi sang Cửa Tây được không? Cửa Đông đang sửa chữa nên rất đông người. Thời gian vẫn là 11 giờ thì ổn. Mình sẽ đợi ở dưới đồng hồ tại Cửa Tây nhé."
+          ]
+        },
+        "my": {
+          "body": [
+            "တောင်းပန်ပါတယ်၊ မနက်ဖြန် ချိန်းထားတဲ့ကိစ္စနဲ့ပတ်သက်ပြီး ဘူတာရဲ့အရှေ့ဘက်ထွက်ပေါက်အစား အနောက်ဘက်ထွက်ပေါက်ကို ပြောင်းလို့ရမလား။ အရှေ့ဘက်ထွက်ပေါက်မှာ ဆောက်လုပ်ရေးလုပ်ငန်းတွေလုပ်နေလို့ လူအရမ်းများတယ်။ အချိန်ကတော့ ၁၁ နာရီအတိုင်းပဲ အဆင်ပြေပါတယ်။ အနောက်ဘက်ထွက်ပေါက်က နာရီအောက်မှာ စောင့်နေမယ်နော်။"
           ]
         }
       }
@@ -873,6 +2349,69 @@
                 "From 1 PM to 5 PM",
                 "9 AM"
               ]
+            },
+            "id": {
+              "choices": [
+                "Dari jam 12 sampai jam 1",
+                "Dari jam 9 sampai jam 12",
+                "Dari jam 1 sampai jam 5",
+                "Jam sembilan pagi"
+              ],
+              "q": "Kapan kolam renang tidak bisa digunakan?"
+            },
+            "th": {
+              "choices": [
+                "ตั้งแต่ 12 โมงถึงบ่ายโมง",
+                "ตั้งแต่ 9 โมงถึง 12 โมง",
+                "ตั้งแต่บ่ายโมงถึง 5 โมง",
+                "เก้าโมงเช้า"
+              ],
+              "q": "สระว่ายน้ำไม่สามารถใช้ได้เมื่อไหร่"
+            },
+            "zh": {
+              "choices": [
+                "十二点到一点",
+                "九点到十二点",
+                "一点到五点",
+                "早上九点"
+              ],
+              "q": "游泳池什么时候不能用？"
+            },
+            "bn": {
+              "choices": [
+                "১২টা থেকে ১টা",
+                "৯টা থেকে ১২টা",
+                "১টা থেকে ৫টা",
+                "সকাল ৯টা"
+              ],
+              "q": "সুইমিং পুল কখন ব্যবহার করা যাবে না?"
+            },
+            "ko": {
+              "choices": [
+                "12시부터 1시",
+                "9시부터 12시",
+                "1시부터 5시",
+                "아침 9시"
+              ],
+              "q": "수영장을 이용할 수 없는 시간은 언제인가요?"
+            },
+            "vi": {
+              "choices": [
+                "Từ 12 giờ đến 1 giờ",
+                "Từ 9 giờ đến 12 giờ",
+                "Từ 1 giờ đến 5 giờ",
+                "Chín giờ sáng"
+              ],
+              "q": "Hồ bơi không sử dụng được khi nào?"
+            },
+            "my": {
+              "choices": [
+                "၁၂ နာရီမှ ၁ နာရီ",
+                "၉ နာရီမှ ၁၂ နာရီ",
+                "၁ နာရီမှ ၅ နာရီ",
+                "မနက် ၉ နာရီ"
+              ],
+              "q": "ရေကူးကန်ကို ဘယ်အချိန်မှာ အသုံးမပြုနိုင်တာလဲ။"
             }
           }
         }
@@ -886,6 +2425,41 @@
         "en": {
           "body": [
             "To pool users.\nThe pool is available from 9 AM to 12 PM in the morning, and from 1 PM to 5 PM in the afternoon. It is closed from 12 PM to 1 PM for lunch. Please be sure to take a shower before entering the pool. Don't forget your swim cap."
+          ]
+        },
+        "id": {
+          "body": [
+            "Untuk pengguna kolam renang. Kolam renang dapat digunakan dari jam 9 pagi sampai jam 12 siang, dan dari jam 1 siang sampai jam 5 sore. Istirahat dari jam 12 siang sampai jam 1 siang. Sebelum masuk kolam renang, pastikan untuk mandi. Jangan lupa topi renang."
+          ]
+        },
+        "th": {
+          "body": [
+            "ถึงผู้ใช้สระว่ายน้ำ ช่วงเช้าสามารถใช้ได้ตั้งแต่ 9 โมงถึง 12 โมง ช่วงบ่ายตั้งแต่บ่ายโมงถึง 5 โมง ช่วงพักกลางวันคือตั้งแต่ 12 โมงถึงบ่ายโมง ก่อนลงสระว่ายน้ำ กรุณาอาบน้ำให้เรียบร้อย อย่าลืมหมวกด้วยนะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "致使用游泳池的人。早上九点到十二点，下午一点到五点可以使用。中午十二点到一点是休息时间。进入游泳池前，请务必淋浴。不要忘记戴帽子。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "যারা সুইমিং পুল ব্যবহার করবেন তাদের জন্য। সকালে ৯টা থেকে ১২টা পর্যন্ত এবং বিকেলে ১টা থেকে ৫টা পর্যন্ত ব্যবহার করা যাবে। দুপুর ১২টা থেকে ১টা পর্যন্ত বন্ধ থাকবে। পুলে নামার আগে অবশ্যই শাওয়ার নিন। টুপি ভুলবেন না।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "수영장을 이용하는 분들께. 아침은 9시부터 12시까지, 오후는 1시부터 5시까지 이용할 수 있습니다. 점심시간인 12시부터 1시까지는 휴식 시간입니다. 수영장에 들어가기 전에 반드시 샤워를 해주세요. 수영모를 잊지 마세요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Gửi những người sử dụng hồ bơi. Buổi sáng có thể sử dụng từ 9 giờ đến 12 giờ, buổi chiều từ 1 giờ đến 5 giờ. Từ 12 giờ trưa đến 1 giờ chiều là thời gian nghỉ. Trước khi vào hồ bơi, hãy chắc chắn tắm vòi sen. Đừng quên mũ bơi."
+          ]
+        },
+        "my": {
+          "body": [
+            "ရေကူးကန်အသုံးပြုသူများသို့။ နံနက် ၉ နာရီမှ ၁၂ နာရီအထိ၊ နေ့လယ် ၁ နာရီမှ ၅ နာရီအထိ အသုံးပြုနိုင်ပါတယ်။ နေ့လယ် ၁၂ နာရီမှ ၁ နာရီအထိ ပိတ်ပါတယ်။ ရေကူးကန်ထဲမဝင်ခင် ရေချိုးခန်းမှာ ရေချိုးပေးပါ။ ဦးထုပ်မမေ့ပါနဲ့။"
           ]
         }
       }
@@ -928,6 +2502,69 @@
                 "A bag",
                 "A hat"
               ]
+            },
+            "id": {
+              "choices": [
+                "Payung",
+                "Tiket",
+                "Tas",
+                "Topi"
+              ],
+              "q": "Apa yang dilupakan orang ini di kereta?"
+            },
+            "th": {
+              "choices": [
+                "ร่ม",
+                "ตั๋ว",
+                "กระเป๋า",
+                "หมวก"
+              ],
+              "q": "คนนี้ลืมอะไรไว้ในรถไฟ"
+            },
+            "zh": {
+              "choices": [
+                "伞",
+                "车票",
+                "包",
+                "帽子"
+              ],
+              "q": "这个人把什么忘在电车里了？"
+            },
+            "bn": {
+              "choices": [
+                "ছাতা",
+                "টিকিট",
+                "ব্যাগ",
+                "টুপি"
+              ],
+              "q": "এই ব্যক্তি ট্রেনে কী ফেলে এসেছেন?"
+            },
+            "ko": {
+              "choices": [
+                "우산",
+                "표",
+                "가방",
+                "모자"
+              ],
+              "q": "이 사람은 전철 안에 무엇을 두고 내렸습니까?"
+            },
+            "vi": {
+              "choices": [
+                "Ô",
+                "Vé",
+                "Túi xách",
+                "Mũ"
+              ],
+              "q": "Người này đã quên gì trên tàu điện?"
+            },
+            "my": {
+              "choices": [
+                "ထီး",
+                "လက်မှတ်",
+                "အိတ်",
+                "ဦးထုပ်"
+              ],
+              "q": "ဒီလူက မီးရထားထဲမှာ ဘာမေ့ကျန်ခဲ့တာလဲ။"
             }
           }
         }
@@ -941,6 +2578,41 @@
         "en": {
           "body": [
             "Today, I left my umbrella on the train. When I asked the station staff, they said it hadn't been found yet. I plan to go to the station again tomorrow. It's my favorite umbrella, so I hope it's found."
+          ]
+        },
+        "id": {
+          "body": [
+            "Hari ini, saya lupa payung saya di kereta. Ketika saya bertanya kepada petugas stasiun, mereka mengatakan payung itu belum ditemukan. Saya berencana untuk pergi ke stasiun lagi besok. Saya harap payung kesayangan saya itu ditemukan."
+          ]
+        },
+        "th": {
+          "body": [
+            "วันนี้ฉันลืมร่มไว้ในรถไฟ พอถามเจ้าหน้าที่สถานี เขาก็บอกว่ายังหาไม่เจอ พรุ่งนี้ฉันตั้งใจว่าจะลองไปที่สถานีอีกครั้ง ฉันหวังว่ามันจะเจอ เพราะเป็นร่มที่ฉันชอบมาก"
+          ]
+        },
+        "zh": {
+          "body": [
+            "今天，我把伞忘在电车里了。问了车站的工作人员，他们说还没找到。我打算明天再去车站看看。那是我很喜欢的一把伞，希望能找到。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "আজ ট্রেনে আমার ছাতা ফেলে এসেছি। স্টেশনের লোকজনকে জিজ্ঞাসা করলে তারা বলল, এখনও খুঁজে পাওয়া যায়নি। কালকে আরেকবার স্টেশনে গিয়ে দেখব ভাবছি। এটা আমার প্রিয় ছাতা, তাই আশা করি খুঁজে পাব।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "오늘, 전철 안에 우산을 두고 내렸어요. 역무원에게 물어보니 아직 찾지 못했다고 했어요. 내일 다시 한번 역에 가볼 생각이에요. 제가 좋아하는 우산이라 찾으면 좋겠다고 생각해요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Hôm nay, tôi đã để quên ô trên tàu điện. Khi hỏi nhân viên nhà ga, họ nói vẫn chưa tìm thấy. Tôi định ngày mai sẽ đến nhà ga một lần nữa. Vì là chiếc ô yêu thích nên tôi hy vọng sẽ tìm thấy nó."
+          ]
+        },
+        "my": {
+          "body": [
+            "ဒီနေ့ မီးရထားထဲမှာ ထီးမေ့ကျန်ခဲ့တယ်။ ဘူတာကလူတွေကို မေးကြည့်တော့ မတွေ့သေးဘူးလို့ ပြောတယ်။ မနက်ဖြန် နောက်တစ်ခါ ဘူတာကို သွားကြည့်ဖို့ စဉ်းစားထားတယ်။ အကြိုက်ဆုံးထီးဖြစ်လို့ ပြန်တွေ့ရင် ကောင်းမယ်လို့ ထင်တယ်။"
           ]
         }
       }
@@ -983,6 +2655,69 @@
                 "Smaller than the previous house",
                 "Inside the next station"
               ]
+            },
+            "id": {
+              "choices": [
+                "Lima menit jalan kaki dari stasiun",
+                "Lima belas menit jalan kaki dari stasiun",
+                "Lebih sempit dari rumah sebelumnya",
+                "Di dalam stasiun sebelah"
+              ],
+              "q": "Rumah baru itu, rumah yang seperti apa?"
+            },
+            "th": {
+              "choices": [
+                "เดินจากสถานีห้านาที",
+                "เดินจากสถานีสิบห้านาที",
+                "แคบกว่าบ้านหลังเก่า",
+                "ในสถานีข้างๆ"
+              ],
+              "q": "บ้านใหม่เป็นบ้านแบบไหน"
+            },
+            "zh": {
+              "choices": [
+                "离车站步行五分钟",
+                "离车站步行十五分钟",
+                "比以前的家窄",
+                "隔壁车站里"
+              ],
+              "q": "新家是怎样的房子？"
+            },
+            "bn": {
+              "choices": [
+                "স্টেশন থেকে হেঁটে পাঁচ মিনিট",
+                "স্টেশন থেকে হেঁটে পনেরো মিনিট",
+                "আগের বাড়ির চেয়ে ছোট",
+                "পাশের স্টেশনের ভিতরে"
+              ],
+              "q": "নতুন বাড়িটি কেমন?"
+            },
+            "ko": {
+              "choices": [
+                "역에서 걸어서 5분",
+                "역에서 걸어서 15분",
+                "이전 집보다 좁다",
+                "옆 역 안"
+              ],
+              "q": "새집은 어떤 집입니까?"
+            },
+            "vi": {
+              "choices": [
+                "Cách ga tàu điện 5 phút đi bộ",
+                "Cách ga tàu điện 15 phút đi bộ",
+                "Hẹp hơn ngôi nhà cũ",
+                "Trong ga tàu điện bên cạnh"
+              ],
+              "q": "Ngôi nhà mới là ngôi nhà như thế nào?"
+            },
+            "my": {
+              "choices": [
+                "ဘူတာကနေ လမ်းလျှောက်ရင် ၅ မိနစ်",
+                "ဘူတာကနေ လမ်းလျှောက်ရင် ၁၅ မိနစ်",
+                "အရင်အိမ်ထက် ကျဉ်းတယ်",
+                "ဘေးနားကဘူတာထဲမှာ"
+              ],
+              "q": "အိမ်အသစ်က ဘယ်လိုအိမ်မျိုးလဲ။"
             }
           }
         }
@@ -996,6 +2731,41 @@
         "en": {
           "body": [
             "How are you? Actually, I'm moving to the next town next month. My new house is very convenient, a five-minute walk from the station. It will be larger than my previous house. Once I'm settled, please come visit. I'll be waiting."
+          ]
+        },
+        "id": {
+          "body": [
+            "Apa kabar? Sebenarnya, bulan depan saya akan pindah ke kota sebelah. Rumah baru saya sangat nyaman, hanya lima menit jalan kaki dari stasiun. Rumah itu akan lebih luas dari rumah sebelumnya. Setelah saya beres-beres, tolong datang berkunjung ya. Saya akan menunggu."
+          ]
+        },
+        "th": {
+          "body": [
+            "สบายดีไหมครับ/คะ? จริงๆ แล้วเดือนหน้าผม/ดิฉันจะย้ายไปเมืองข้างๆ ครับ/ค่ะ บ้านใหม่เดินจากสถานีแค่ห้านาที สะดวกมากเลยครับ/ค่ะ และจะกว้างกว่าบ้านหลังเก่าด้วยครับ/ค่ะ ถ้าเข้าที่เข้าทางแล้ว มาเที่ยวหาบ้างนะครับ/คะ รออยู่นะครับ/คะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "您好吗？其实我下个月要搬到隔壁的城镇了。新家离车站步行五分钟，非常方便。比以前的家要宽敞。安顿下来后，请务必来玩哦。我等着您。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "কেমন আছেন? আসলে, আগামী মাসে আমি পাশের শহরে চলে যাচ্ছি। নতুন বাড়িটি স্টেশন থেকে হেঁটে পাঁচ মিনিটের দূরত্বে, যা খুবই সুবিধাজনক। এটি আগের বাড়ির চেয়ে বড় হবে। সব ঠিকঠাক হলে, অবশ্যই বেড়াতে আসবেন। আমি অপেক্ষা করব।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "잘 지내시죠? 사실 다음 달에 옆 동네로 이사하게 되었어요. 새집은 역에서 걸어서 5분 거리라 아주 편리해요. 이전 집보다 넓어질 거예요. 자리 잡으면 꼭 놀러 오세요. 기다릴게요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Bạn có khỏe không? Thực ra, tháng tới tôi sẽ chuyển đến thị trấn bên cạnh. Ngôi nhà mới cách ga tàu điện 5 phút đi bộ nên rất tiện lợi. Nó sẽ rộng hơn ngôi nhà cũ. Khi nào ổn định, hãy ghé chơi nhé. Tôi sẽ đợi."
+          ]
+        },
+        "my": {
+          "body": [
+            "နေကောင်းလား။ တကယ်တော့ နောက်လမှာ ဘေးနားကမြို့ကို ပြောင်းရွှေ့တော့မယ်။ အိမ်အသစ်က ဘူတာကနေ လမ်းလျှောက်ရင် ၅ မိနစ်ပဲ ကြာပြီး အရမ်းအဆင်ပြေတယ်။ အရင်အိမ်ထက် ပိုကျယ်တယ်။ အခြေချပြီးရင် လာလည်ပါဦးနော်။ စောင့်နေမယ်။"
           ]
         }
       }
@@ -1038,6 +2808,69 @@
                 "Wait until 6 o'clock",
                 "Give the dog water"
               ]
+            },
+            "id": {
+              "choices": [
+                "Memberi makan anjing",
+                "Pergi ke taman bersama anjing",
+                "Menunggu sampai jam enam",
+                "Memberi air pada anjing"
+              ],
+              "q": "Setelah jalan-jalan, apa yang akan dilakukan?"
+            },
+            "th": {
+              "choices": [
+                "ให้อาหารหมา",
+                "พาหมาไปสวนสาธารณะ",
+                "รอจนถึงหกโมง",
+                "รดน้ำให้หมา"
+              ],
+              "q": "หลังเดินเล่นแล้ว จะทำอะไร"
+            },
+            "zh": {
+              "choices": [
+                "给狗喂食",
+                "带狗去公园",
+                "等到六点",
+                "给狗浇水"
+              ],
+              "q": "遛完狗后做什么？"
+            },
+            "bn": {
+              "choices": [
+                "কুকুরকে খাবার দেবেন",
+                "কুকুরকে নিয়ে পার্কে যাবেন",
+                "৬টা পর্যন্ত অপেক্ষা করবেন",
+                "কুকুরের গায়ে জল দেবেন"
+              ],
+              "q": "হাঁটার পর কী করবেন?"
+            },
+            "ko": {
+              "choices": [
+                "강아지에게 밥을 준다",
+                "강아지와 공원에 간다",
+                "6시까지 기다린다",
+                "강아지에게 물을 뿌린다"
+              ],
+              "q": "산책 후에 무엇을 합니까?"
+            },
+            "vi": {
+              "choices": [
+                "Cho chó ăn cơm",
+                "Đi công viên với chó",
+                "Đợi đến sáu giờ",
+                "Tưới nước cho chó"
+              ],
+              "q": "Sau khi đi dạo, sẽ làm gì?"
+            },
+            "my": {
+              "choices": [
+                "ခွေးကို အစာကျွေးရမယ်",
+                "ခွေးနဲ့ ပန်းခြံကို သွားရမယ်",
+                "၆ နာရီအထိ စောင့်ရမယ်",
+                "ခွေးကို ရေလောင်းရမယ်"
+              ],
+              "q": "လမ်းလျှောက်ပြီးရင် ဘာလုပ်ရမလဲ။"
             }
           }
         }
@@ -1051,6 +2884,41 @@
         "en": {
           "body": [
             "I will be late today. I'm sorry, but please take the dog for a walk. Please take him to the park near the house around 6 PM. After the walk, please feed the dog. Don't forget the water."
+          ]
+        },
+        "id": {
+          "body": [
+            "Saya akan pulang terlambat hari ini. Maaf, tolong bantu ajak anjing jalan-jalan. Sekitar jam enam sore, tolong bawa dia ke taman dekat rumah. Setelah jalan-jalan, tolong beri makan anjing. Jangan lupa airnya juga ya."
+          ]
+        },
+        "th": {
+          "body": [
+            "วันนี้ฉันจะกลับดึก ขอโทษนะ รบกวนช่วยพาหมาไปเดินเล่นหน่อยนะ ประมาณหกโมงเย็น ช่วยพาไปที่สวนสาธารณะใกล้บ้านด้วยนะ หลังเดินเล่นแล้ว ช่วยให้อาหารหมาด้วยนะ อย่าลืมให้น้ำด้วยล่ะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "我今天会晚回来。不好意思，麻烦您帮我遛狗。傍晚六点左右，请带它去家附近的公园。遛完狗后，请给狗喂食。也别忘了给水哦。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "আজ আমার ফিরতে দেরি হবে। দুঃখিত, কিন্তু কুকুরের হাঁটার ব্যবস্থাটা করে দেবেন। সন্ধ্যা ৬টার দিকে বাড়ির কাছের পার্কে নিয়ে যাবেন। হাঁটার পর কুকুরকে খাবার দেবেন। জল দিতে ভুলবেন না যেন।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "저는 오늘 늦을 거예요. 죄송하지만, 강아지 산책을 부탁해요. 저녁 6시쯤, 집 근처 공원까지 데리고 가주세요. 산책 후에 강아지에게 밥을 주세요. 물도 잊지 마세요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Hôm nay tôi sẽ về muộn. Xin lỗi, làm ơn dắt chó đi dạo giúp tôi nhé. Khoảng sáu giờ tối, hãy đưa nó đến công viên gần nhà. Sau khi đi dạo, hãy cho chó ăn cơm. Đừng quên nước nhé."
+          ]
+        },
+        "my": {
+          "body": [
+            "ကျွန်မ ဒီနေ့ နောက်ကျမယ်။ တောင်းပန်ပါတယ်၊ ခွေးကို လမ်းလျှောက်ခေါ်ပေးပါဦး။ ညနေ ၆ နာရီလောက် အိမ်နားက ပန်းခြံအထိ ခေါ်သွားပေးပါ။ လမ်းလျှောက်ပြီးရင် ခွေးကို အစာကျွေးပေးပါ။ ရေလည်း မမေ့နဲ့နော်။"
           ]
         }
       }
@@ -1093,6 +2961,69 @@
                 "At the construction site",
                 "At the previous location in front of 〇〇 Station"
               ]
+            },
+            "id": {
+              "choices": [
+                "Di depan kantor pos",
+                "Di depan Stasiun ○○",
+                "Lokasi konstruksi",
+                "Lokasi lama di depan Stasiun ○○"
+              ],
+              "q": "Mulai minggu depan, bus akan berhenti di mana?"
+            },
+            "th": {
+              "choices": [
+                "หน้าไปรษณีย์",
+                "หน้าสถานี〇〇",
+                "สถานที่ก่อสร้าง",
+                "สถานที่เดิมหน้าสถานี〇〇"
+              ],
+              "q": "ตั้งแต่สัปดาห์หน้า รถบัสจะจอดที่ไหน"
+            },
+            "zh": {
+              "choices": [
+                "邮局前面",
+                "〇〇站前面",
+                "施工地点",
+                "以前〇〇站前面的地点"
+              ],
+              "q": "从下周起，巴士将在哪里停靠？"
+            },
+            "bn": {
+              "choices": [
+                "পোস্ট অফিসের সামনে",
+                "〇〇 স্টেশনের সামনে",
+                "নির্মাণের স্থানে",
+                "আগের 〇〇 স্টেশনের সামনের স্থানে"
+              ],
+              "q": "আগামী সপ্তাহ থেকে বাস কোথায় থামবে?"
+            },
+            "ko": {
+              "choices": [
+                "우체국 앞",
+                "○○역 앞",
+                "공사 장소",
+                "기존 ○○역 앞 장소"
+              ],
+              "q": "다음 주부터 버스는 어디에 정차합니까?"
+            },
+            "vi": {
+              "choices": [
+                "Trước bưu điện",
+                "Trước ga 〇〇",
+                "Địa điểm công trình",
+                "Địa điểm cũ trước ga 〇〇"
+              ],
+              "q": "Từ tuần sau, xe buýt sẽ dừng ở đâu?"
+            },
+            "my": {
+              "choices": [
+                "စာတိုက်ရှေ့",
+                "○○ဘူတာရှေ့",
+                "ဆောက်လုပ်ရေးနေရာ",
+                "ယခင် ○○ဘူတာရှေ့နေရာ"
+              ],
+              "q": "လာမည့်အပတ်မှစ၍ ဘတ်စ်ကားသည် မည်သည့်နေရာတွင် ရပ်မည်နည်း။"
             }
           }
         }
@@ -1106,6 +3037,41 @@
         "en": {
           "body": [
             "To all bus users:\nDue to construction, the bus stop in front of 〇〇 Station will move slightly starting next week. The new location is in front of the post office. It will no longer stop at the previous location. Please be careful not to make a mistake."
+          ]
+        },
+        "id": {
+          "body": [
+            "Untuk semua pengguna bus. Karena adanya konstruksi, mulai minggu depan halte bus di depan Stasiun ○○ akan sedikit bergeser. Lokasi baru ada di depan kantor pos. Bus tidak akan berhenti di lokasi yang lama. Harap berhati-hati agar tidak salah."
+          ]
+        },
+        "th": {
+          "body": [
+            "ถึงผู้ใช้บริการรถบัสทุกท่าน เนื่องจากมีการก่อสร้าง ตั้งแต่สัปดาห์หน้าเป็นต้นไป ป้ายรถบัสหน้าสถานี〇〇จะย้ายเล็กน้อย สถานที่ใหม่คือหน้าไปรษณีย์ จะไม่จอดที่เดิมอีกต่อไป โปรดระมัดระวังอย่าให้ผิดพลาด"
+          ]
+        },
+        "zh": {
+          "body": [
+            "致各位乘坐巴士的乘客。由于施工，从下周起，〇〇站前的巴士站将稍微移动。新地点在邮局前面。不再停靠原来的地点。请注意不要搞错。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "বাস ব্যবহারকারী সকলের প্রতি। নির্মাণের কারণে, আগামী সপ্তাহ থেকে 〇〇 স্টেশনের সামনের বাস স্টপটি কিছুটা সরে যাবে। নতুন স্থানটি পোস্ট অফিসের সামনে। এটি আগের স্থানে থামবে না। ভুল না করার জন্য সতর্ক থাকবেন।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "버스를 이용하시는 여러분께. 공사로 인해 다음 주부터 ○○역 앞 버스 정류장이 조금 이동합니다. 새로운 장소는 우체국 앞입니다. 기존 장소에는 정차하지 않습니다. 착오 없으시길 바랍니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Gửi đến quý khách sử dụng xe buýt. Do công trình xây dựng, từ tuần sau, trạm xe buýt trước ga 〇〇 sẽ di chuyển một chút. Địa điểm mới là trước bưu điện. Xe buýt sẽ không dừng ở địa điểm cũ nữa. Xin hãy cẩn thận để không nhầm lẫn."
+          ]
+        },
+        "my": {
+          "body": [
+            "ဘတ်စ်ကားအသုံးပြုသူများ အားလုံးသို့။ ဆောက်လုပ်ရေးလုပ်ငန်းများကြောင့် လာမည့်အပတ်မှစ၍ ○○ဘူတာရှေ့ရှိ ဘတ်စ်ကားမှတ်တိုင်သည် အနည်းငယ် ရွှေ့ပြောင်းသွားမည်ဖြစ်သည်။ နေရာအသစ်မှာ စာတိုက်ရှေ့ဖြစ်သည်။ ယခင်နေရာတွင် ရပ်တော့မည်မဟုတ်ပါ။ မှားယွင်းမှုမရှိစေရန် သတိပြုပါ။"
           ]
         }
       }
@@ -1148,6 +3114,69 @@
                 "In the meeting room",
                 "Tomorrow morning"
               ]
+            },
+            "id": {
+              "choices": [
+                "Jam 2 siang",
+                "Jam 10 pagi",
+                "Ruang rapat",
+                "Besok pagi"
+              ],
+              "q": "Rapat besok jadi jam berapa?"
+            },
+            "th": {
+              "choices": [
+                "บ่ายสองโมง",
+                "สิบโมงเช้า",
+                "ห้องประชุม",
+                "เช้าพรุ่งนี้"
+              ],
+              "q": "การประชุมพรุ่งนี้เป็นเวลาเท่าไหร่ครับ/คะ"
+            },
+            "zh": {
+              "choices": [
+                "下午两点",
+                "上午十点",
+                "会议室",
+                "明天早上"
+              ],
+              "q": "明天的会议，是从几点开始了？"
+            },
+            "bn": {
+              "choices": [
+                "দুপুর দুইটা",
+                "সকাল দশটা",
+                "মিটিং রুম",
+                "আগামীকাল সকালে"
+              ],
+              "q": "আগামীকালের মিটিং কয়টা থেকে হয়েছে?"
+            },
+            "ko": {
+              "choices": [
+                "오후 2시",
+                "오전 10시",
+                "회의실",
+                "내일 아침"
+              ],
+              "q": "내일 회의는 몇 시부터가 되었습니까?"
+            },
+            "vi": {
+              "choices": [
+                "2 giờ chiều",
+                "10 giờ sáng",
+                "Phòng họp",
+                "Sáng mai"
+              ],
+              "q": "Cuộc họp ngày mai sẽ bắt đầu từ mấy giờ?"
+            },
+            "my": {
+              "choices": [
+                "ညနေ ၂ နာရီ",
+                "မနက် ၁၀ နာရီ",
+                "အစည်းအဝေးခန်း",
+                "မနက်ဖြန်မနက်"
+              ],
+              "q": "မနက်ဖြန် အစည်းအဝေးက ဘယ်အချိန်ကနေ ဖြစ်သွားတာလဲ။"
             }
           }
         }
@@ -1161,6 +3190,41 @@
         "en": {
           "body": [
             "Good work today. Regarding tomorrow's meeting, the time has changed from 10 AM to 2 PM. The location is the same meeting room as before. Please read the materials before the meeting. If anything comes up, I will email you again."
+          ]
+        },
+        "id": {
+          "body": [
+            "Kerja bagus. Mengenai rapat besok, waktunya telah berubah dari jam 10 pagi menjadi jam 2 siang. Tempatnya di ruang rapat yang sama seperti sebelumnya. Mohon baca materi sebelum rapat. Jika ada sesuatu, saya akan mengirim email lagi."
+          ]
+        },
+        "th": {
+          "body": [
+            "สวัสดีครับ/ค่ะ เรื่องการประชุมพรุ่งนี้ เวลามีการเปลี่ยนแปลงจากสิบโมงเช้าเป็นบ่ายสองโมง สถานที่ยังคงเป็นห้องประชุมเดิม โปรดอ่านเอกสารก่อนการประชุม หากมีอะไรจะแจ้งให้ทราบทางอีเมลอีกครั้งครับ/ค่ะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "您辛苦了。关于明天的会议，时间从上午十点改到了下午两点。地点和之前一样，在同一个会议室。请在会议前阅读资料。如果有任何问题，我会再发邮件给您。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "আপনার পরিশ্রমের জন্য ধন্যবাদ। আগামীকালের মিটিং সম্পর্কে, সময় সকাল দশটা থেকে দুপুর দুইটা পর্যন্ত পরিবর্তন করা হয়েছে। স্থান আগের মতোই মিটিং রুম। মিটিংয়ের আগে দয়া করে কাগজপত্র পড়ে রাখবেন। যদি কিছু থাকে, আমি আবার ইমেল করব।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "수고 많으십니다. 내일 회의 말인데요, 시간이 오전 10시부터 오후 2시로 변경되었습니다. 장소는 전과 동일한 회의실입니다. 자료는 회의 전에 읽어 주십시오. 뭔가 있으면 다시 메일 드리겠습니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Chào bạn. Về cuộc họp ngày mai, thời gian đã thay đổi từ 10 giờ sáng thành 2 giờ chiều. Địa điểm là phòng họp cũ. Xin hãy đọc tài liệu trước cuộc họp. Nếu có gì, tôi sẽ gửi email lại cho bạn."
+          ]
+        },
+        "my": {
+          "body": [
+            "အားလုံးပဲ ပင်ပန်းကြပါပြီ။ မနက်ဖြန် အစည်းအဝေးနဲ့ ပတ်သက်ပြီး အချိန်က မနက် ၁၀ နာရီကနေ ညနေ ၂ နာရီကို ပြောင်းသွားပါတယ်။ နေရာကတော့ အရင်အတိုင်း အစည်းအဝေးခန်းပါ။ အစည်းအဝေးမတိုင်ခင် စာရွက်စာတမ်းတွေကို ဖတ်ထားပေးပါ။ တစ်ခုခုရှိရင် ထပ်ပြီး မေးလ်ပို့ပေးပါမယ်။"
           ]
         }
       }
@@ -1203,6 +3267,69 @@
                 "At the 7 AM spot",
                 "Here"
               ]
+            },
+            "id": {
+              "choices": [
+                "Tempat parkir di belakang gedung",
+                "Depan pintu masuk toko yang berbahaya",
+                "Tempat jam 7 pagi",
+                "Di sini"
+              ],
+              "q": "Di mana harus memarkir sepeda?"
+            },
+            "th": {
+              "choices": [
+                "ลานจอดด้านหลังอาคาร",
+                "หน้าทางเข้าร้านที่อันตราย",
+                "สถานที่เจ็ดโมงเช้า",
+                "ที่นี่"
+              ],
+              "q": "จะจอดจักรยานที่ไหนครับ/คะ"
+            },
+            "zh": {
+              "choices": [
+                "大楼后面的停车场",
+                "危险的商店入口前",
+                "早上七点的地方",
+                "这里"
+              ],
+              "q": "自行车停在哪里？"
+            },
+            "bn": {
+              "choices": [
+                "বিল্ডিংয়ের পেছনের পার্কিং লট",
+                "বিপজ্জনক দোকানের প্রবেশপথের সামনে",
+                "সকাল সাতটার স্থান",
+                "এখানে"
+              ],
+              "q": "সাইকেল কোথায় রাখবেন?"
+            },
+            "ko": {
+              "choices": [
+                "건물 뒤편 주차장",
+                "위험한 가게 입구 앞",
+                "아침 7시 장소",
+                "여기"
+              ],
+              "q": "자전거는 어디에 세웁니까?"
+            },
+            "vi": {
+              "choices": [
+                "Bãi đỗ phía sau tòa nhà",
+                "Phía trước lối vào cửa hàng nguy hiểm",
+                "Địa điểm lúc 7 giờ sáng",
+                "Ở đây"
+              ],
+              "q": "Đỗ xe đạp ở đâu?"
+            },
+            "my": {
+              "choices": [
+                "အဆောက်အအုံနောက်က စက်ဘီးရပ်နားရာနေရာ",
+                "အန္တရာယ်များတဲ့ ဆိုင်ဝင်ပေါက်ရှေ့",
+                "မနက် ၇ နာရီနေရာ",
+                "ဒီနေရာ"
+              ],
+              "q": "စက်ဘီးတွေကို ဘယ်မှာ ရပ်ရမလဲ။"
             }
           }
         }
@@ -1216,6 +3343,41 @@
         "en": {
           "body": [
             "To people riding bicycles:\nYou must not park your bicycle here. This is because the area in front of the store entrance is dangerous. Please park your bicycle in the parking area behind the building. The parking area is open from 7 AM to 10 PM."
+          ]
+        },
+        "id": {
+          "body": [
+            "Untuk pengendara sepeda. Anda tidak boleh memarkir sepeda di sini. Karena depan pintu masuk toko berbahaya. Harap parkir sepeda di tempat parkir di belakang gedung. Tempat parkir buka dari jam 7 pagi sampai jam 10 malam."
+          ]
+        },
+        "th": {
+          "body": [
+            "ถึงผู้ที่ขี่จักรยาน: ห้ามจอดจักรยานที่นี่ เพราะบริเวณหน้าทางเข้าร้านอันตราย โปรดจอดจักรยานที่ลานจอดด้านหลังอาคาร ลานจอดเปิดตั้งแต่เจ็ดโมงเช้าถึงสี่ทุ่ม"
+          ]
+        },
+        "zh": {
+          "body": [
+            "致骑自行车的人：这里禁止停放自行车。因为商店入口前很危险。请将自行车停放在大楼后面的停车场。停车场从早上七点开放到晚上十点。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "যারা সাইকেল চালান তাদের জন্য। এখানে সাইকেল রাখা যাবে না। দোকানের প্রবেশপথের সামনে বিপজ্জনক। সাইকেল বিল্ডিংয়ের পেছনের পার্কিং লটে রাখুন। পার্কিং লট সকাল সাতটা থেকে রাত দশটা পর্যন্ত খোলা থাকে।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "자전거를 타는 분들께. 여기에 자전거를 세우면 안 됩니다. 가게 입구 앞은 위험하기 때문입니다. 자전거는 건물 뒤편 주차장에 세워 주십시오. 주차장은 아침 7시부터 밤 10시까지 열려 있습니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Gửi những người đi xe đạp. Không được đỗ xe đạp ở đây. Vì phía trước lối vào cửa hàng rất nguy hiểm. Xin hãy đỗ xe đạp ở bãi đỗ phía sau tòa nhà. Bãi đỗ mở cửa từ 7 giờ sáng đến 10 giờ tối."
+          ]
+        },
+        "my": {
+          "body": [
+            "စက်ဘီးစီးသူများသို့။ ဒီနေရာမှာ စက်ဘီးရပ်လို့ မရပါဘူး။ ဆိုင်ဝင်ပေါက်ရှေ့က အန္တရာယ်များလို့ပါ။ စက်ဘီးတွေကို အဆောက်အအုံနောက်က စက်ဘီးရပ်နားရာနေရာမှာ ရပ်ပေးပါ။ စက်ဘီးရပ်နားရာနေရာက မနက် ၇ နာရီကနေ ည ၁၀ နာရီအထိ ဖွင့်ပါတယ်။"
           ]
         }
       }
@@ -1258,6 +3420,69 @@
                 "They are already fine",
                 "They won't get better in three days"
               ]
+            },
+            "id": {
+              "choices": [
+                "Flu",
+                "Penyakit kepala",
+                "Sudah sehat",
+                "Tidak akan sembuh dalam tiga hari"
+              ],
+              "q": "Apa yang dikatakan dokter kepada orang ini?"
+            },
+            "th": {
+              "choices": [
+                "เป็นหวัด",
+                "เป็นโรคทางสมอง",
+                "หายดีแล้ว",
+                "สามวันก็ไม่หาย"
+              ],
+              "q": "คุณหมอบอกอะไรกับคนคนนี้ครับ/คะ"
+            },
+            "zh": {
+              "choices": [
+                "是感冒",
+                "是头部疾病",
+                "已经好了",
+                "三天好不了"
+              ],
+              "q": "医生对这个人说了什么？"
+            },
+            "bn": {
+              "choices": [
+                "ঠান্ডা লেগেছে",
+                "মাথার রোগ",
+                "ইতিমধ্যেই সুস্থ",
+                "তিন দিনে ভালো হবে না"
+              ],
+              "q": "ডাক্তার এই ব্যক্তিকে কী বলেছিলেন?"
+            },
+            "ko": {
+              "choices": [
+                "감기다",
+                "머리 병이다",
+                "이미 건강하다",
+                "사흘 만에는 낫지 않는다"
+              ],
+              "q": "의사 선생님은 이 사람에게 뭐라고 말했습니까?"
+            },
+            "vi": {
+              "choices": [
+                "Bị cảm",
+                "Bị bệnh ở đầu",
+                "Đã khỏe rồi",
+                "Không khỏi trong ba ngày"
+              ],
+              "q": "Bác sĩ đã nói gì với người này?"
+            },
+            "my": {
+              "choices": [
+                "တုပ်ကွေးဖြစ်တာ",
+                "ခေါင်းရောဂါဖြစ်တာ",
+                "ခုပဲ ပြန်ကောင်းသွားပြီ",
+                "သုံးရက်နဲ့ မပျောက်ဘူး"
+              ],
+              "q": "ဆရာဝန်က ဒီလူကို ဘာပြောခဲ့လဲ။"
             }
           }
         }
@@ -1271,6 +3496,41 @@
         "en": {
           "body": [
             "This morning, I had a fever and a headache, so I went to a nearby hospital for the first time. The doctor said, \"<u>It's a cold</u>,\" and gave me medicine. He said I would get better if I rested quietly for three days. I plan to go to bed early today."
+          ]
+        },
+        "id": {
+          "body": [
+            "Pagi ini, saya demam dan sakit kepala, jadi untuk pertama kalinya saya pergi ke rumah sakit terdekat. Dokter berkata, \"Anda flu,\" dan memberi saya obat. Katanya, jika saya istirahat dengan baik selama tiga hari, saya akan pulih. Saya berencana untuk tidur lebih awal hari ini."
+          ]
+        },
+        "th": {
+          "body": [
+            "เมื่อเช้านี้มีไข้และปวดหัว เลยไปโรงพยาบาลใกล้บ้านเป็นครั้งแรก คุณหมอบอกว่าเป็นหวัดและให้ยามา บอกว่าถ้าพักผ่อนให้เพียงพอสามวันก็จะหายดี วันนี้ตั้งใจว่าจะนอนเร็ว"
+          ]
+        },
+        "zh": {
+          "body": [
+            "今天早上，我发烧头痛，所以第一次去了附近的医院。医生说“是感冒”，然后给了我药。他说休息三天就会好起来。我打算今天早点睡觉。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "আজ সকালে জ্বর ও মাথাব্যথা হওয়ায় প্রথমবারের মতো কাছের হাসপাতালে গিয়েছিলাম। ডাক্তার বললেন, \"আপনার ঠান্ডা লেগেছে\" এবং ওষুধ দিলেন। তিন দিন বিশ্রাম নিলে সুস্থ হয়ে উঠব। আজ তাড়াতাড়ি ঘুমানোর কথা ভাবছি।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "오늘 아침, 열이 나고 머리가 아파서 처음으로 근처 병원에 갔다. 의사 선생님은 \"감기네요\"라고 말하며 약을 주셨다. 사흘 동안 푹 쉬면 건강해진다고 한다. 오늘은 일찍 자야겠다고 생각한다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Sáng nay, tôi bị sốt và đau đầu, nên lần đầu tiên tôi đến bệnh viện gần nhà. Bác sĩ nói \"Bạn bị cảm rồi\" và cho tôi thuốc. Nghe nói nếu nghỉ ngơi ba ngày thì sẽ khỏe lại. Hôm nay tôi định đi ngủ sớm."
+          ]
+        },
+        "my": {
+          "body": [
+            "ဒီမနက် ဖျားပြီး ခေါင်းကိုက်လို့ ပထမဆုံးအကြိမ်အဖြစ် အနီးနားက ဆေးရုံကို သွားခဲ့တယ်။ ဆရာဝန်က \"တုပ်ကွေးဖြစ်တာပါ\" လို့ ပြောပြီး ဆေးပေးတယ်။ သုံးရက်လောက် ကောင်းကောင်းအနားယူရင် ပြန်ကောင်းလာမယ်တဲ့။ ဒီနေ့တော့ စောစောအိပ်မယ်လို့ စဉ်းစားထားတယ်။"
           ]
         }
       }
@@ -1313,6 +3573,69 @@
                 "The homework will be canceled",
                 "A bento lunch will not be needed"
               ]
+            },
+            "id": {
+              "choices": [
+                "Karyawisata dibatalkan",
+                "Pelajaran dibatalkan",
+                "PR dibatalkan",
+                "Tidak perlu bekal"
+              ],
+              "q": "Jika hujan, apa yang akan terjadi?"
+            },
+            "th": {
+              "choices": [
+                "ทัศนศึกษาจะถูกยกเลิก",
+                "การเรียนจะถูกยกเลิก",
+                "การบ้านจะถูกยกเลิก",
+                "ไม่จำเป็นต้องมีข้าวกล่อง"
+              ],
+              "q": "ถ้าฝนตกจะเป็นอย่างไรครับ/คะ"
+            },
+            "zh": {
+              "choices": [
+                "远足取消",
+                "课取消",
+                "作业取消",
+                "不需要便当"
+              ],
+              "q": "如果下雨，会怎么样？"
+            },
+            "bn": {
+              "choices": [
+                "পিকনিক বাতিল হবে",
+                "ক্লাস বাতিল হবে",
+                "হোমওয়ার্ক বাতিল হবে",
+                "লাঞ্চবক্সের প্রয়োজন হবে না"
+              ],
+              "q": "বৃষ্টি হলে কী হবে?"
+            },
+            "ko": {
+              "choices": [
+                "소풍이 없어진다",
+                "수업이 없어진다",
+                "숙제가 없어진다",
+                "도시락이 필요 없다"
+              ],
+              "q": "비가 오면 어떻게 됩니까?"
+            },
+            "vi": {
+              "choices": [
+                "Chuyến dã ngoại bị hủy",
+                "Tiết học bị hủy",
+                "Bài tập bị hủy",
+                "Không cần cơm hộp"
+              ],
+              "q": "Nếu trời mưa thì sao?"
+            },
+            "my": {
+              "choices": [
+                "ခရီးထွက်တာ ပျက်သွားမယ်",
+                "စာသင်ခန်း ပျက်သွားမယ်",
+                "အိမ်စာ ပျက်သွားမယ်",
+                "ထမင်းဘူး မလိုဘူး"
+              ],
+              "q": "မိုးရွာရင် ဘာဖြစ်မလဲ။"
             }
           }
         }
@@ -1326,6 +3649,41 @@
         "en": {
           "body": [
             "Tomorrow there will be a school excursion, but before that, there will be the first period class. Please don't forget to bring your kanji homework. A bento lunch and a water bottle are also necessary. If it rains, the excursion will be canceled."
+          ]
+        },
+        "id": {
+          "body": [
+            "Besok ada karyawisata di sekolah, tapi sebelum itu ada pelajaran jam pertama. Jangan lupa membawa PR kanji. Bekal dan botol minum juga diperlukan. Jika hujan, karyawisata dibatalkan."
+          ]
+        },
+        "th": {
+          "body": [
+            "พรุ่งนี้โรงเรียนมีทัศนศึกษา แต่ก่อนหน้านั้นมีเรียนคาบแรก อย่าลืมนำการบ้านคันจิมาด้วย จำเป็นต้องมีข้าวกล่องและกระติกน้ำด้วย หากฝนตก ทัศนศึกษาจะงด"
+          ]
+        },
+        "zh": {
+          "body": [
+            "明天学校有远足，但在此之前有一节课。请不要忘记带汉字作业。还需要便当和水壶。如果下雨，远足就取消。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "আগামীকাল স্কুলে একটি পিকনিক আছে, তবে তার আগে প্রথম পিরিয়ডের ক্লাস আছে। কাঞ্জির হোমওয়ার্ক আনতে ভুলবেন না। লাঞ্চবক্স এবং জলের বোতলও প্রয়োজন। বৃষ্টি হলে পিকনিক বাতিল হবে।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "내일은 학교에서 소풍이 있지만, 그전에 1교시 수업이 있습니다. 한자 숙제를 잊지 말고 가져오세요. 도시락과 물통도 필요합니다. 비가 오면 소풍은 쉽니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Ngày mai trường có chuyến dã ngoại, nhưng trước đó có tiết học đầu tiên. Đừng quên mang theo bài tập Kanji. Cần có cơm hộp và bình nước. Nếu trời mưa, chuyến dã ngoại sẽ bị hủy."
+          ]
+        },
+        "my": {
+          "body": [
+            "မနက်ဖြန် ကျောင်းမှာ ခရီးထွက်တာ ရှိပေမယ့် အဲဒါမတိုင်ခင် ပထမဆုံးအချိန် စာသင်ခန်းရှိပါတယ်။ ကန်ဂျိအိမ်စာကို မမေ့ဘဲ ယူလာပေးပါ။ ထမင်းဘူးနဲ့ ရေသန့်ဘူးလည်း လိုအပ်ပါတယ်။ မိုးရွာရင် ခရီးထွက်တာ ပိတ်ပါတယ်။"
           ]
         }
       }
@@ -1368,6 +3726,69 @@
                 "Saturday morning",
                 "In front of the park"
               ]
+            },
+            "id": {
+              "choices": [
+                "Jam 8 malam",
+                "Jam 5 sore",
+                "Sabtu pagi",
+                "Depan taman"
+              ],
+              "q": "Kembang apinya, mulai jam berapa?"
+            },
+            "th": {
+              "choices": [
+                "สองทุ่ม",
+                "ห้าโมงเย็น",
+                "เช้าวันเสาร์",
+                "หน้าสวนสาธารณะ"
+              ],
+              "q": "ดอกไม้ไฟจะเริ่มกี่โมงครับ/คะ"
+            },
+            "zh": {
+              "choices": [
+                "晚上八点",
+                "傍晚五点",
+                "星期六早上",
+                "公园前"
+              ],
+              "q": "烟花几点开始？"
+            },
+            "bn": {
+              "choices": [
+                "রাত আটটায়",
+                "সন্ধ্যা পাঁচটায়",
+                "শনিবার সকালে",
+                "পার্কের সামনে"
+              ],
+              "q": "আতশবাজি কখন শুরু হবে?"
+            },
+            "ko": {
+              "choices": [
+                "저녁 8시",
+                "오후 5시",
+                "토요일 아침",
+                "공원 앞"
+              ],
+              "q": "불꽃놀이는 몇 시부터 시작하나요?"
+            },
+            "vi": {
+              "choices": [
+                "Tám giờ tối",
+                "Năm giờ chiều",
+                "Sáng thứ Bảy",
+                "Trước công viên"
+              ],
+              "q": "Pháo hoa bắt đầu từ mấy giờ vậy?"
+            },
+            "my": {
+              "choices": [
+                "ည ၈ နာရီ",
+                "ညနေ ၅ နာရီ",
+                "စနေနေ့မနက်",
+                "ပန်းခြံရှေ့"
+              ],
+              "q": "မီးရှူးမီးပန်းက ဘယ်အချိန်ကစမှာလဲ။"
             }
           }
         }
@@ -1381,6 +3802,41 @@
         "en": {
           "body": [
             "This is an announcement for the town's summer festival. This Saturday, there will be a festival at 〇〇 Park. From 5 PM, many stalls with delicious food will be set up. There will also be fireworks from 8 PM. Please come!"
+          ]
+        },
+        "id": {
+          "body": [
+            "Ini adalah pengumuman festival musim panas kota. Sabtu minggu ini, akan ada festival di Taman ○○. Mulai jam 5 sore, banyak toko makanan lezat akan berjejer. Mulai jam 8 malam juga ada kembang api. Pastikan untuk datang."
+          ]
+        },
+        "th": {
+          "body": [
+            "ประกาศเทศกาลฤดูร้อนของเมือง: วันเสาร์นี้จะมีเทศกาลที่สวนสาธารณะ〇〇 ตั้งแต่ห้าโมงเย็นจะมีร้านอาหารอร่อยๆ มากมายเรียงราย ตั้งแต่สองทุ่มจะมีดอกไม้ไฟด้วย เชิญมากันนะครับ/คะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "这是关于城镇夏日祭典的通知。本周六，〇〇公园将举行祭典。傍晚五点开始，会有很多美味的食物摊位。晚上八点开始还有烟花。请务必前来参加。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "শহরের গ্রীষ্মকালীন উৎসবের ঘোষণা। এই শনিবার, 〇〇 পার্কে একটি উৎসব হবে। সন্ধ্যা পাঁচটা থেকে সুস্বাদু খাবারের অনেক দোকান থাকবে। রাত আটটা থেকে আতশবাজিও থাকবে। দয়া করে আসুন।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "마을 여름 축제 안내입니다. 이번 주 토요일, ○○공원에서 축제가 있습니다. 저녁 5시부터 맛있는 음식점들이 많이 늘어섭니다. 밤 8시부터는 불꽃놀이도 있습니다. 꼭 와주세요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Thông báo về lễ hội mùa hè của thị trấn. Thứ Bảy tuần này, sẽ có lễ hội tại công viên ○○. Từ 5 giờ chiều, sẽ có nhiều gian hàng đồ ăn ngon. Từ 8 giờ tối cũng có pháo hoa. Mời bạn đến tham dự."
+          ]
+        },
+        "my": {
+          "body": [
+            "မြို့ရဲ့ နွေရာသီပွဲတော် အသိပေးကြေညာခြင်းပါ။ ဒီအပတ် စနေနေ့မှာ ○○ ပန်းခြံမှာ ပွဲတော်ရှိပါတယ်။ ညနေ ၅ နာရီကစပြီး အရသာရှိတဲ့ အစားအသောက်ဆိုင်တွေ အများကြီး တန်းစီနေပါလိမ့်မယ်။ ည ၈ နာရီကစပြီး မီးရှူးမီးပန်းတွေလည်း ရှိပါတယ်။ ကျေးဇူးပြုပြီး လာခဲ့ကြပါ။"
           ]
         }
       }
@@ -1423,6 +3879,69 @@
                 "Saturday's plans",
                 "A birthday cake"
               ]
+            },
+            "id": {
+              "choices": [
+                "Buku",
+                "Bunga",
+                "Jadwal hari Sabtu",
+                "Kue ulang tahun"
+              ],
+              "q": "Orang ini berpikir apa yang bagus untuk hadiah?"
+            },
+            "th": {
+              "choices": [
+                "หนังสือ",
+                "ดอกไม้",
+                "กำหนดการวันเสาร์",
+                "เค้กวันเกิด"
+              ],
+              "q": "คนนี้คิดว่าอะไรดีสำหรับของขวัญ"
+            },
+            "zh": {
+              "choices": [
+                "书",
+                "花",
+                "星期六的计划",
+                "生日蛋糕"
+              ],
+              "q": "这个人觉得送什么礼物好呢？"
+            },
+            "bn": {
+              "choices": [
+                "বই",
+                "ফুল",
+                "শনিবারের পরিকল্পনা",
+                "জন্মদিনের কেক"
+              ],
+              "q": "এই ব্যক্তি উপহার হিসেবে কী ভালো মনে করেন?"
+            },
+            "ko": {
+              "choices": [
+                "책",
+                "꽃",
+                "토요일 예정",
+                "생일 케이크"
+              ],
+              "q": "이 사람은 선물로 무엇이 좋다고 생각하고 있습니까?"
+            },
+            "vi": {
+              "choices": [
+                "Sách",
+                "Hoa",
+                "Kế hoạch cho thứ Bảy",
+                "Bánh sinh nhật"
+              ],
+              "q": "Người này nghĩ món quà nào là tốt?"
+            },
+            "my": {
+              "choices": [
+                "စာအုပ်",
+                "ပန်း",
+                "စနေနေ့ အစီအစဉ်",
+                "မွေးနေ့ကိတ်"
+              ],
+              "q": "ဒီလူက လက်ဆောင်အတွက် ဘာကောင်းမယ်လို့ ထင်နေတာလဲ။"
             }
           }
         }
@@ -1436,6 +3955,41 @@
         "en": {
           "body": [
             "Next month is our friend's birthday, isn't it? Shall we give a present together? I think a book would be good, what do you think? She also likes flowers. I'd like to hear your opinion too. Which Saturday should we go to choose it?"
+          ]
+        },
+        "id": {
+          "body": [
+            "Bulan depan ulang tahun teman ya. Bagaimana kalau kita berdua memberinya hadiah bersama? Aku rasa buku bagus, bagaimana menurutmu? Dia juga suka bunga kan. Aku juga ingin mendengar pendapatmu. Hari Sabtu yang mana kita akan pergi memilihnya?"
+          ]
+        },
+        "th": {
+          "body": [
+            "เดือนหน้าเป็นวันเกิดเพื่อนนะ เราสองคนช่วยกันให้ของขวัญไหม ฉันคิดว่าหนังสือดีนะ เธอว่าไง เด็กคนนั้นก็ชอบดอกไม้ด้วยนะ ฉันอยากฟังความเห็นของเธอด้วยนะ ตอนนี้จะไปเลือกซื้อในวันเสาร์ไหนดี"
+          ]
+        },
+        "zh": {
+          "body": [
+            "下个月是朋友的生日呢。我们两个人一起送礼物怎么样？我觉得书不错，你觉得呢？她也喜欢花呢。我也想听听你的意见。我们现在哪个星期六去选呢？"
+          ]
+        },
+        "bn": {
+          "body": [
+            "আগামী মাসে বন্ধুর জন্মদিন, তাই না? আমরা দুজন মিলে কি ওকে একটা উপহার দেব না? আমার মনে হয় বই ভালো হবে, তোমার কী মনে হয়? ও ফুলও পছন্দ করে, তাই না? তোমার মতামতও জানতে চাই। এখন কোন শনিবার আমরা উপহার কিনতে যাব?"
+          ]
+        },
+        "ko": {
+          "body": [
+            "다음 달에 친구 생일이네. 둘이 같이 선물 주지 않을래? 나는 책이 좋을 것 같은데, 어때? 그 친구는 꽃도 좋아하잖아. 네 의견도 듣고 싶어. 지금 어느 토요일에 고르러 갈까?"
+          ]
+        },
+        "vi": {
+          "body": [
+            "Tháng sau là sinh nhật của bạn mình rồi nhỉ. Hai đứa mình cùng tặng quà không? Mình nghĩ sách thì tốt đấy, cậu thấy sao? Bạn ấy cũng thích hoa nữa. Mình cũng muốn nghe ý kiến của cậu. Bây giờ mình đi chọn vào thứ Bảy nào đây?"
+          ]
+        },
+        "my": {
+          "body": [
+            "လာမယ့်လက သူငယ်ချင်းရဲ့ မွေးနေ့ပဲနော်။ နှစ်ယောက်အတူတူ လက်ဆောင်ပေးကြမလား။ ငါကတော့ စာအုပ်ကောင်းမယ်လို့ ထင်တယ်၊ ဘယ်လိုလဲ။ သူက ပန်းလည်း ကြိုက်တယ်နော်။ မင်းရဲ့အမြင်ကိုလည်း နားထောင်ချင်တယ်။ အခု ဘယ်စနေနေ့မှာ ရွေးဖို့သွားကြမလဲ။"
           ]
         }
       }
@@ -1478,6 +4032,69 @@
                 "Leave the windows open",
                 "Put trash on the desk"
               ]
+            },
+            "id": {
+              "choices": [
+                "Mematikan lampu dan AC",
+                "Menyalakan lampu dan AC",
+                "Membuka jendela",
+                "Meletakkan sampah di meja"
+              ],
+              "q": "Saat meninggalkan ruangan, apa yang harus dilakukan?"
+            },
+            "th": {
+              "choices": [
+                "ปิดไฟและเครื่องปรับอากาศ",
+                "เปิดไฟและเครื่องปรับอากาศ",
+                "เปิดหน้าต่างทิ้งไว้",
+                "วางขยะบนโต๊ะ"
+              ],
+              "q": "เมื่อออกจากห้อง จะทำอย่างไร"
+            },
+            "zh": {
+              "choices": [
+                "关掉电灯和空调",
+                "打开电灯和空调",
+                "开着窗户",
+                "把垃圾放在桌子上"
+              ],
+              "q": "离开房间时，会怎么做？"
+            },
+            "bn": {
+              "choices": [
+                "আলো এবং এয়ার কন্ডিশনার বন্ধ করা",
+                "আলো এবং এয়ার কন্ডিশনার চালু করা",
+                "জানালা খোলা রাখা",
+                "টেবিলের উপর আবর্জনা রাখা"
+              ],
+              "q": "ঘর থেকে বের হওয়ার সময় কী করবেন?"
+            },
+            "ko": {
+              "choices": [
+                "전기와 에어컨을 끈다",
+                "전기와 에어컨을 켠다",
+                "창문을 열어둔다",
+                "책상에 쓰레기를 둔다"
+              ],
+              "q": "방을 나갈 때, 어떻게 합니까?"
+            },
+            "vi": {
+              "choices": [
+                "Tắt điện và điều hòa",
+                "Bật điện và điều hòa",
+                "Để cửa sổ mở",
+                "Để rác trên bàn"
+              ],
+              "q": "Khi rời khỏi phòng, sẽ làm gì?"
+            },
+            "my": {
+              "choices": [
+                "မီးနဲ့ အဲယားကွန်းကို ပိတ်မယ်။",
+                "မီးနဲ့ အဲယားကွန်းကို ဖွင့်မယ်။",
+                "ပြတင်းပေါက်ကို ဖွင့်ထားမယ်။",
+                "စားပွဲပေါ်မှာ အမှိုက်ထားမယ်။"
+              ],
+              "q": "အခန်းထဲက ထွက်တဲ့အခါ ဘာလုပ်ရမလဲ။"
             }
           }
         }
@@ -1491,6 +4108,41 @@
         "en": {
           "body": [
             "To those who use the classroom:\nWhen you leave the room, please be sure to turn off the lights and air conditioner. Please also close the windows. The next person will use it, so let's also clean the top of the desk. Please throw trash in the trash can."
+          ]
+        },
+        "id": {
+          "body": [
+            "Untuk orang yang telah menggunakan ruang kelas. Saat meninggalkan ruangan, pastikan untuk mematikan lampu dan AC. Harap tutup juga jendelanya. Karena orang berikutnya akan menggunakannya, mari kita bersihkan juga bagian atas meja. Buang sampah ke tempat sampah."
+          ]
+        },
+        "th": {
+          "body": [
+            "ถึงผู้ที่ใช้ห้องเรียนแล้ว เมื่อออกจากห้อง กรุณาปิดไฟและเครื่องปรับอากาศทุกครั้ง กรุณาปิดหน้าต่างด้วย เนื่องจากคนต่อไปจะใช้งาน กรุณาทำความสะอาดบนโต๊ะด้วย ขยะกรุณาทิ้งลงถังขยะ"
+          ]
+        },
+        "zh": {
+          "body": [
+            "致使用教室后的人。离开房间时，请务必关掉电灯和空调。也请关上窗户。因为下一个人会使用，所以请把桌子也收拾干净。垃圾请扔到垃圾桶里。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "যারা ক্লাসরুম ব্যবহার করেছেন তাদের জন্য। ঘর থেকে বের হওয়ার সময় অবশ্যই আলো এবং এয়ার কন্ডিশনার বন্ধ করুন। জানালাও বন্ধ করুন। পরের ব্যক্তি ব্যবহার করবেন, তাই টেবিলের উপরিভাগও পরিষ্কার রাখুন। আবর্জনা ডাস্টবিনে ফেলুন।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "교실을 사용한 후의 분들께. 방을 나갈 때는 반드시 전기와 에어컨을 꺼주세요. 창문도 닫아주세요. 다음 사람이 사용하므로, 책상 위도 깨끗하게 정리합시다. 쓰레기는 쓰레기통에 버려주세요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Gửi người dùng phòng học xong. Khi rời khỏi phòng, nhất định hãy tắt điện và điều hòa. Cũng hãy đóng cửa sổ lại. Vì người tiếp theo sẽ sử dụng, nên hãy dọn dẹp sạch sẽ mặt bàn. Rác thì hãy vứt vào thùng rác."
+          ]
+        },
+        "my": {
+          "body": [
+            "အတန်းခန်းကို အသုံးပြုပြီးသူများသို့။ အခန်းထဲက ထွက်တဲ့အခါ မီးနဲ့ အဲယားကွန်းကို မဖြစ်မနေ ပိတ်ပေးပါ။ ပြတင်းပေါက်တွေကိုလည်း ပိတ်ပေးပါ။ နောက်လူတွေ သုံးမှာဖြစ်လို့ စားပွဲပေါ်ကိုလည်း သန့်ရှင်းအောင် လုပ်ပေးပါ။ အမှိုက်တွေကို အမှိုက်ပုံးထဲ ထည့်ပေးပါ။"
           ]
         }
       }
@@ -1533,6 +4185,69 @@
                 "Waited for a friend",
                 "Endured the cold"
               ]
+            },
+            "id": {
+              "choices": [
+                "Mengambil foto",
+                "Melepas jaket",
+                "Menunggu teman",
+                "Menahan dingin"
+              ],
+              "q": "Di puncak gunung, apa yang dilakukan orang ini?"
+            },
+            "th": {
+              "choices": [
+                "ถ่ายรูป",
+                "ถอดเสื้อนอก",
+                "รอเพื่อน",
+                "ทนความหนาว"
+              ],
+              "q": "บนเขา คนนี้ทำอะไร"
+            },
+            "zh": {
+              "choices": [
+                "拍了照片",
+                "脱掉了外套",
+                "等了朋友",
+                "忍受寒冷"
+              ],
+              "q": "在山顶上，这个人做了什么？"
+            },
+            "bn": {
+              "choices": [
+                "ছবি তুলেছিলেন",
+                "জ্যাকেট খুলেছিলেন",
+                "বন্ধুর জন্য অপেক্ষা করেছিলেন",
+                "ঠান্ডা সহ্য করেছিলেন"
+              ],
+              "q": "পাহাড়ের উপরে এই ব্যক্তি কী করেছিলেন?"
+            },
+            "ko": {
+              "choices": [
+                "사진을 찍었다",
+                "겉옷을 벗었다",
+                "친구를 기다렸다",
+                "추위를 참았다"
+              ],
+              "q": "산 위에서, 이 사람은 무엇을 했습니까?"
+            },
+            "vi": {
+              "choices": [
+                "Chụp ảnh",
+                "Cởi áo khoác ngoài",
+                "Đợi bạn bè",
+                "Chịu đựng cái lạnh"
+              ],
+              "q": "Trên núi, người này đã làm gì?"
+            },
+            "my": {
+              "choices": [
+                "ဓာတ်ပုံရိုက်ခဲ့တယ်။",
+                "အပေါ်ဝတ်အင်္ကျီကို ချွတ်ခဲ့တယ်။",
+                "သူငယ်ချင်းကို စောင့်ခဲ့တယ်။",
+                "အအေးဒဏ်ကို ခံနိုင်ရည်ရှိခဲ့တယ်။"
+              ],
+              "q": "တောင်ပေါ်မှာ ဒီလူက ဘာလုပ်ခဲ့လဲ။"
             }
           }
         }
@@ -1546,6 +4261,41 @@
         "en": {
           "body": [
             "On Sunday, I climbed a mountain with a friend. It was cold in the morning, but as we climbed, it got hot, so I took off my <u>jacket</u>. The view from the top of the mountain was very beautiful, and I took many pictures. We ate lunch and came down in the afternoon."
+          ]
+        },
+        "id": {
+          "body": [
+            "Pada hari Minggu, saya mendaki gunung bersama teman. Pagi hari dingin, tetapi saat mendaki menjadi panas, jadi saya melepas jaket. Pemandangan dari puncak gunung sangat indah, dan saya mengambil banyak foto. Saya makan bekal dan turun pada sore hari."
+          ]
+        },
+        "th": {
+          "body": [
+            "วันอาทิตย์ ฉันปีนเขาพร้อมกับเพื่อน ตอนเช้าอากาศหนาว แต่พอปีนขึ้นไปก็ร้อนขึ้น เลยถอดเสื้อนอกออก วิวจากบนเขาสวยมาก เลยถ่ายรูปไปเยอะแยะ กินข้าวกล่องแล้วก็ลงมาตอนบ่าย"
+          ]
+        },
+        "zh": {
+          "body": [
+            "星期天，我和朋友去爬山了。早上很冷，但爬着爬着就热了，于是脱掉了外套。山顶的景色非常美，拍了很多照片。吃了便当，下午就下山了。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "রবিবার বন্ধুর সাথে পাহাড়ে চড়েছিলাম। সকালে ঠান্ডা ছিল, কিন্তু উপরে ওঠার পর গরম লাগতে শুরু করায় জ্যাকেট খুলে ফেললাম। পাহাড়ের উপর থেকে দৃশ্যটি খুব সুন্দর ছিল, অনেক ছবি তুলেছিলাম। দুপুরের খাবার খেয়ে বিকেলে নেমে এলাম।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "일요일에 친구와 산에 올랐다. 아침에는 추웠지만, 올라가니 더워져서 겉옷을 벗었다. 산 위에서의 경치는 매우 아름다워서, 사진을 많이 찍었다. 도시락을 먹고, 오후에 내려왔다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Vào Chủ Nhật, tôi đã leo núi cùng bạn bè. Buổi sáng trời lạnh, nhưng khi leo lên thì nóng dần nên tôi đã cởi áo khoác ngoài. Phong cảnh từ trên núi rất đẹp nên tôi đã chụp rất nhiều ảnh. Chúng tôi ăn cơm hộp rồi xuống núi vào buổi chiều."
+          ]
+        },
+        "my": {
+          "body": [
+            "တနင်္ဂနွေနေ့မှာ သူငယ်ချင်းနဲ့ တောင်တက်ခဲ့တယ်။ မနက်ပိုင်းက ချမ်းပေမယ့် တက်လာတော့ ပူလာပြီး အပေါ်ဝတ်အင်္ကျီကို ချွတ်လိုက်တယ်။ တောင်ပေါ်က ရှုခင်းက အရမ်းလှလို့ ဓာတ်ပုံတွေ အများကြီး ရိုက်ခဲ့တယ်။ ထမင်းဘူးစားပြီး နေ့လယ်ပိုင်းမှာ ဆင်းခဲ့တယ်။"
           ]
         }
       }
@@ -1588,6 +4338,69 @@
                 "Before meals",
                 "Before driving"
               ]
+            },
+            "id": {
+              "choices": [
+                "Setelah sarapan dan makan malam",
+                "Satu setelah makan siang",
+                "Sebelum makan",
+                "Sebelum mengemudi"
+              ],
+              "q": "Kapan obatnya diminum?"
+            },
+            "th": {
+              "choices": [
+                "หลังอาหารเช้าและอาหารเย็น",
+                "หนึ่งเม็ดหลังอาหารกลางวัน",
+                "ก่อนอาหาร",
+                "ก่อนขับรถ"
+              ],
+              "q": "จะกินยาเมื่อไหร่"
+            },
+            "zh": {
+              "choices": [
+                "早饭和晚饭后",
+                "午饭后一个",
+                "饭前",
+                "开车前"
+              ],
+              "q": "药什么时候服用？"
+            },
+            "bn": {
+              "choices": [
+                "সকাল এবং রাতের খাবারের পর",
+                "দুপুরের খাবারের পর একটি",
+                "খাবারের আগে",
+                "গাড়ি চালানোর আগে"
+              ],
+              "q": "ঔষধ কখন সেবন করবেন?"
+            },
+            "ko": {
+              "choices": [
+                "아침, 저녁 식사 후",
+                "점심 식사 후에 하나",
+                "식사 전",
+                "운전 전"
+              ],
+              "q": "약은 언제 복용합니까?"
+            },
+            "vi": {
+              "choices": [
+                "Sau bữa sáng và bữa tối",
+                "Một viên sau bữa trưa",
+                "Trước bữa ăn",
+                "Trước khi lái xe"
+              ],
+              "q": "Thuốc uống khi nào?"
+            },
+            "my": {
+              "choices": [
+                "မနက်စာနဲ့ ညစာစားပြီးနောက်",
+                "နေ့လယ်စာစားပြီးနောက် တစ်ခု",
+                "ထမင်းမစားခင်",
+                "ကားမောင်းမခင်"
+              ],
+              "q": "ဆေးကို ဘယ်အချိန်မှာ သောက်ရမလဲ။"
             }
           }
         }
@@ -1601,6 +4414,41 @@
         "en": {
           "body": [
             "This is cold medicine. Please take one after breakfast and one after dinner. You don't need to take it at noon. It may make you sleepy, so please do not drive a car after taking the medicine. There are three days' worth."
+          ]
+        },
+        "id": {
+          "body": [
+            "Ini adalah obat flu. Minumlah satu setelah sarapan dan makan malam. Tidak perlu minum di siang hari. Karena bisa menyebabkan kantuk, jangan mengemudi setelah minum obat. Ada untuk tiga hari."
+          ]
+        },
+        "th": {
+          "body": [
+            "นี่คือยาแก้หวัด กรุณากินครั้งละหนึ่งเม็ดหลังอาหารเช้าและเย็น ไม่ต้องกินตอนกลางวัน เนื่องจากอาจทำให้ง่วงนอนได้ กรุณาอย่าขับรถหลังจากกินยา มีสำหรับสามวัน"
+          ]
+        },
+        "zh": {
+          "body": [
+            "这是感冒药。请在早饭和晚饭后各服用一粒。中午不用服用。服用药物后可能会犯困，所以请不要开车。有三天的量。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "এটি সর্দি-কাশির ঔষধ। সকাল এবং রাতের খাবারের পর একটি করে সেবন করুন। দুপুরে সেবন করার প্রয়োজন নেই। যেহেতু ঘুম আসতে পারে, ঔষধ সেবনের পর গাড়ি চালাবেন না। তিন দিনের ঔষধ আছে।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "감기약입니다. 아침과 저녁 식사 후에, 하나씩 복용해 주세요. 점심에는 복용하지 않아도 됩니다. 졸릴 수 있으므로, 약을 복용한 후에는 차를 운전하지 마세요. 3일분이 있습니다."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Đây là thuốc cảm. Hãy uống mỗi lần một viên sau bữa ăn sáng và tối. Buổi trưa thì không cần uống. Vì có thể gây buồn ngủ, nên sau khi uống thuốc đừng lái xe. Có ba ngày thuốc."
+          ]
+        },
+        "my": {
+          "body": [
+            "ဒါက အအေးမိဆေးပါ။ မနက်နဲ့ ညစာစားပြီးတဲ့အခါ တစ်လုံးစီ သောက်ပေးပါ။ နေ့လယ်မှာ သောက်စရာမလိုပါဘူး။ အိပ်ငိုက်နိုင်တာကြောင့် ဆေးသောက်ပြီးတဲ့နောက် ကားမမောင်းပါနဲ့။ သုံးရက်စာ ရှိပါတယ်။"
           ]
         }
       }
@@ -1643,6 +4491,69 @@
                 "The neighboring town",
                 "The 3 PM room"
               ]
+            },
+            "id": {
+              "choices": [
+                "Ruang kelas 203",
+                "Ruang kelas 202",
+                "Kota sebelah",
+                "Ruangan jam 3 sore"
+              ],
+              "q": "Di mana pelajaran besok akan diadakan?"
+            },
+            "th": {
+              "choices": [
+                "ห้องเรียน 203",
+                "ห้องเรียน 202",
+                "เมืองข้างๆ",
+                "ห้องเวลาบ่าย 3 โมง"
+              ],
+              "q": "การเรียนในวันพรุ่งนี้จะเรียนที่ไหน"
+            },
+            "zh": {
+              "choices": [
+                "203教室",
+                "202教室",
+                "隔壁的城镇",
+                "下午三点的房间"
+              ],
+              "q": "明天的课在哪里上？"
+            },
+            "bn": {
+              "choices": [
+                "২০৩ নম্বর ক্লাসরুম",
+                "২০২ নম্বর ক্লাসরুম",
+                "পাশের শহর",
+                "বিকেল ৩টার রুম"
+              ],
+              "q": "আগামীকালের ক্লাস কোথায় হবে?"
+            },
+            "ko": {
+              "choices": [
+                "203호 교실",
+                "202호 교실",
+                "옆 동네",
+                "오후 3시의 방"
+              ],
+              "q": "내일 수업은 어디에서 합니까?"
+            },
+            "vi": {
+              "choices": [
+                "Phòng 203",
+                "Phòng 202",
+                "Thị trấn bên cạnh",
+                "Phòng lúc 3 giờ chiều"
+              ],
+              "q": "Buổi học ngày mai sẽ diễn ra ở đâu?"
+            },
+            "my": {
+              "choices": [
+                "၂၀၃ ခန်း",
+                "၂၀၂ ခန်း",
+                "ဘေးနားကမြို့",
+                "ညနေ ၃ နာရီအခန်း"
+              ],
+              "q": "မနက်ဖြန် သင်တန်းကို ဘယ်မှာလုပ်မှာလဲ။"
             }
           }
         }
@@ -1656,6 +4567,41 @@
         "en": {
           "body": [
             "This is an announcement about tomorrow's Japanese class. Since the usual classroom 202 cannot be used, class will be held in the adjacent classroom 203. The time will be the same as usual, 3 PM. Please don't forget your textbook."
+          ]
+        },
+        "id": {
+          "body": [
+            "Ini adalah pengumuman mengenai pelajaran bahasa Jepang besok. Karena ruang kelas 202 yang biasa tidak bisa digunakan, pelajaran akan diadakan di ruang kelas 203 di sebelahnya. Waktunya sama seperti biasa, jam 3 sore. Jangan lupa membawa buku pelajaran."
+          ]
+        },
+        "th": {
+          "body": [
+            "นี่คือประกาศเกี่ยวกับการเรียนภาษาญี่ปุ่นในวันพรุ่งนี้ เนื่องจากห้องเรียน 202 ไม่สามารถใช้งานได้ เราจะเรียนในห้องเรียน 203 ที่อยู่ข้างๆ เวลาเรียนยังคงเป็นบ่าย 3 โมงเหมือนเดิม กรุณาอย่าลืมนำตำราเรียนมาด้วย"
+          ]
+        },
+        "zh": {
+          "body": [
+            "这是关于明天日语课的通知。因为平时使用的202教室无法使用，所以将在隔壁的203教室上课。时间仍是下午3点。请不要忘记带教科书。"
+          ]
+        },
+        "bn": {
+          "body": [
+            "আগামীকালের জাপানিজ ক্লাস সম্পর্কে একটি ঘোষণা। সবসময়কার ২০২ নম্বর ক্লাসরুমটি ব্যবহার করা যাবে না, তাই পাশের ২০৩ নম্বর ক্লাসরুমে ক্লাস হবে। সময় সবসময়কার মতোই বিকেল ৩টা। পাঠ্যবই ভুলবেন না।"
+          ]
+        },
+        "ko": {
+          "body": [
+            "내일 일본어 수업에 대한 안내입니다. 평소 202호 교실을 사용할 수 없으므로, 옆 203호 교실에서 수업을 진행합니다. 시간은 평소와 같은 오후 3시입니다. 교과서를 잊지 마세요."
+          ]
+        },
+        "vi": {
+          "body": [
+            "Đây là thông báo về buổi học tiếng Nhật ngày mai. Vì phòng học 202 không thể sử dụng được, chúng ta sẽ học ở phòng 203 bên cạnh. Thời gian vẫn là 3 giờ chiều như thường lệ. Xin đừng quên mang theo sách giáo khoa."
+          ]
+        },
+        "my": {
+          "body": [
+            "မနက်ဖြန် ဂျပန်စာသင်တန်းနဲ့ပတ်သက်တဲ့ အသိပေးချက်ပါ။ ပုံမှန် ၂၀၂ ခန်းကို အသုံးပြုလို့မရတဲ့အတွက် ဘေးက ၂၀၃ ခန်းမှာ သင်တန်းလုပ်ပါမယ်။ အချိန်ကတော့ ပုံမှန်အတိုင်း ညနေ ၃ နာရီပါ။ ကျေးဇူးပြုပြီး ကျောင်းသုံးစာအုပ် မမေ့ပါနဲ့။"
           ]
         }
       }

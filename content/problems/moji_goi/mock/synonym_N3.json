@@ -5,8 +5,15 @@
   "pool": "mock",
   "note": "言い換え類義の模試専用プール(初見)。LLM(Opus)生成・機械検証(形)のみ。一意性の最終判断はユーザー。頻出50%+中頻度50%。",
   "languages": [
+    "bn",
     "en",
-    "ne"
+    "id",
+    "ko",
+    "my",
+    "ne",
+    "th",
+    "vi",
+    "zh"
   ],
   "items": [
     {
@@ -41,6 +48,76 @@
             "शंका गरियो",
             "चिन्तित भयो",
             "भुलियो"
+          ]
+        },
+        "id": {
+          "sentence": "Dokter melihat hasil rontgen dan segera memutuskan bahwa operasi diperlukan.",
+          "answer": "Memutuskan",
+          "choices": [
+            "Ragu",
+            "Mencurigai",
+            "Khawatir",
+            "Lupa"
+          ]
+        },
+        "th": {
+          "sentence": "หมอตรวจฟิล์มเอกซเรย์และตัดสินว่าจำเป็นต้องผ่าตัดทันที",
+          "answer": "ตัดสินใจแล้ว",
+          "choices": [
+            "ลังเล",
+            "สงสัย",
+            "กังวลใจ",
+            "ลืม"
+          ]
+        },
+        "zh": {
+          "sentence": "医生看了X光片，判断需要立即进行手术。",
+          "answer": "决定了",
+          "choices": [
+            "犹豫了",
+            "怀疑了",
+            "烦恼了",
+            "忘记了"
+          ]
+        },
+        "bn": {
+          "sentence": "ডাক্তার এক্স-রে দেখে দ্রুত সিদ্ধান্ত নিলেন যে অস্ত্রোপচার প্রয়োজন।",
+          "answer": "সিদ্ধান্ত নিয়েছিলাম",
+          "choices": [
+            "দ্বিধাগ্রস্ত ছিলাম",
+            "সন্দেহ করেছিলাম",
+            "চিন্তিত ছিলাম",
+            "ভুলে গিয়েছিলাম"
+          ]
+        },
+        "ko": {
+          "sentence": "의사는 엑스레이를 보고 즉시 수술이 필요하다고 판단했다.",
+          "answer": "결정했다",
+          "choices": [
+            "망설였다",
+            "의심했다",
+            "고민했다",
+            "잊었다"
+          ]
+        },
+        "vi": {
+          "sentence": "Bác sĩ xem phim X-quang và ngay lập tức phán đoán là cần phải phẫu thuật.",
+          "answer": "Đã quyết định",
+          "choices": [
+            "Đã phân vân",
+            "Đã nghi ngờ",
+            "Đã lo lắng",
+            "Đã quên"
+          ]
+        },
+        "my": {
+          "sentence": "ဆရာဝန်က ဓာတ်မှန်ကိုကြည့်ပြီး ချက်ချင်းခွဲစိတ်ဖို့ လိုအပ်တယ်လို့ ဆုံးဖြတ်လိုက်တယ်။",
+          "answer": "ဆုံးဖြတ်ခဲ့သည်",
+          "choices": [
+            "တွေဝေခဲ့သည်",
+            "သံသယရှိခဲ့သည်",
+            "စိတ်ပူခဲ့သည်",
+            "မေ့ခဲ့သည်"
           ]
         }
       }
@@ -78,6 +155,76 @@
             "बोकेर/ढुवानी गरेर",
             "मर्मत गरेर"
           ]
+        },
+        "id": {
+          "sentence": "Toko ini menjual produk-produk baru.",
+          "answer": "Menjual",
+          "choices": [
+            "Membeli",
+            "Membuat",
+            "Mengangkut",
+            "Memperbaiki"
+          ]
+        },
+        "th": {
+          "sentence": "ร้านนี้กำลังวางจำหน่ายสินค้าใหม่",
+          "answer": "ขาย",
+          "choices": [
+            "ซื้อ",
+            "ทำ",
+            "ขนส่ง",
+            "ซ่อม"
+          ]
+        },
+        "zh": {
+          "sentence": "这家店正在销售新商品。",
+          "answer": "卖",
+          "choices": [
+            "买",
+            "制作",
+            "搬运",
+            "修理"
+          ]
+        },
+        "bn": {
+          "sentence": "এই দোকানে নতুন পণ্য বিক্রি হচ্ছে।",
+          "answer": "বিক্রি করে",
+          "choices": [
+            "কিনে",
+            "তৈরি করে",
+            "বহন করে",
+            "ঠিক করে"
+          ]
+        },
+        "ko": {
+          "sentence": "이 가게에서는 새로운 상품을 판매하고 있다.",
+          "answer": "팔고",
+          "choices": [
+            "사고",
+            "만들고",
+            "운반하고",
+            "고치고"
+          ]
+        },
+        "vi": {
+          "sentence": "Cửa hàng này đang bán sản phẩm mới.",
+          "answer": "Bán",
+          "choices": [
+            "Mua",
+            "Làm/Chế tạo",
+            "Vận chuyển",
+            "Sửa chữa"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီဆိုင်မှာ ကုန်ပစ္စည်းအသစ်တွေ ရောင်းချနေပါတယ်။",
+          "answer": "ရောင်းပြီး",
+          "choices": [
+            "ဝယ်ပြီး",
+            "လုပ်ပြီး",
+            "သယ်ပြီး",
+            "ပြင်ပြီး"
+          ]
         }
       }
     },
@@ -113,6 +260,76 @@
             "मेकअप कक्ष",
             "स्थल",
             "गलियारा"
+          ]
+        },
+        "id": {
+          "sentence": "Para aktor sedang berakting di atas panggung.",
+          "answer": "Panggung",
+          "choices": [
+            "Kursi penonton",
+            "Ruang ganti",
+            "Tempat acara",
+            "Lorong"
+          ]
+        },
+        "th": {
+          "sentence": "นักแสดงกำลังแสดงอยู่บนเวที",
+          "answer": "เวที",
+          "choices": [
+            "ที่นั่งผู้ชม",
+            "ห้องแต่งตัว",
+            "สถานที่จัดงาน",
+            "ทางเดิน"
+          ]
+        },
+        "zh": {
+          "sentence": "演员们在舞台上表演。",
+          "answer": "舞台",
+          "choices": [
+            "观众席",
+            "化妆室",
+            "会场",
+            "通道"
+          ]
+        },
+        "bn": {
+          "sentence": "অভিনেতারা মঞ্চের উপর অভিনয় করছেন।",
+          "answer": "মঞ্চ",
+          "choices": [
+            "দর্শকাসন",
+            "মেকআপ রুম",
+            "ভেন্যু",
+            "গলি"
+          ]
+        },
+        "ko": {
+          "sentence": "배우들이 무대 위에서 연기하고 있다.",
+          "answer": "무대",
+          "choices": [
+            "객석",
+            "분장실",
+            "회장",
+            "통로"
+          ]
+        },
+        "vi": {
+          "sentence": "Các diễn viên đang biểu diễn trên sân khấu.",
+          "answer": "Sân khấu",
+          "choices": [
+            "Ghế khán giả",
+            "Phòng chờ/Phòng hóa trang",
+            "Hội trường/Địa điểm tổ chức",
+            "Lối đi"
+          ]
+        },
+        "my": {
+          "sentence": "သရုပ်ဆောင်တွေက စင်ပေါ်မှာ သရုပ်ဆောင်နေကြတယ်။",
+          "answer": "စင်",
+          "choices": [
+            "ပရိသတ်နေရာ",
+            "မိတ်ကပ်ခန်း",
+            "ပွဲကျင်းပရာနေရာ",
+            "စင်္ကြံ"
           ]
         }
       }
@@ -150,6 +367,76 @@
             "क्रम",
             "सामग्री"
           ]
+        },
+        "id": {
+          "sentence": "Saya menulis ulang bagian terakhir laporan.",
+          "answer": "Sebagian",
+          "choices": [
+            "Keseluruhan",
+            "Sampul",
+            "Urutan",
+            "Isi"
+          ]
+        },
+        "th": {
+          "sentence": "ฉันเขียนส่วนสุดท้ายของรายงานใหม่",
+          "answer": "ส่วนหนึ่ง",
+          "choices": [
+            "ทั้งหมด",
+            "หน้าปก",
+            "ลำดับ",
+            "เนื้อหา"
+          ]
+        },
+        "zh": {
+          "sentence": "重写了报告的最后一部分。",
+          "answer": "一部分",
+          "choices": [
+            "整体",
+            "封面",
+            "顺序",
+            "内容"
+          ]
+        },
+        "bn": {
+          "sentence": "রিপোর্টের শেষ অংশটি আবার লিখেছি।",
+          "answer": "কিছু অংশ",
+          "choices": [
+            "পুরোটা",
+            "কভার পেজ",
+            "ক্রম",
+            "বিষয়বস্তু"
+          ]
+        },
+        "ko": {
+          "sentence": "보고서의 마지막 부분을 다시 썼다.",
+          "answer": "일부",
+          "choices": [
+            "전체",
+            "표지",
+            "순서",
+            "내용"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã viết lại phần cuối của báo cáo.",
+          "answer": "Một phần",
+          "choices": [
+            "Toàn bộ",
+            "Bìa",
+            "Thứ tự",
+            "Nội dung"
+          ]
+        },
+        "my": {
+          "sentence": "အစီရင်ခံစာရဲ့ နောက်ဆုံးအပိုင်းကို ပြန်ရေးခဲ့တယ်။",
+          "answer": "တစ်စိတ်တစ်ပိုင်း",
+          "choices": [
+            "တစ်ခုလုံး",
+            "မျက်နှာဖုံး",
+            "အစီအစဥ်",
+            "အကြောင်းအရာ"
+          ]
         }
       }
     },
@@ -185,6 +472,76 @@
             "फैलियो",
             "अगाडि बढ्यो",
             "रोकियो"
+          ]
+        },
+        "id": {
+          "sentence": "Dalam satu tahun ini, penampilan kota telah banyak berubah.",
+          "answer": "Berubah",
+          "choices": [
+            "Memutuskan",
+            "Meluas",
+            "Maju",
+            "Berhenti"
+          ]
+        },
+        "th": {
+          "sentence": "ในหนึ่งปีนี้ สภาพของเมืองได้เปลี่ยนแปลงไปอย่างมาก",
+          "answer": "เปลี่ยนไป",
+          "choices": [
+            "ถูกกำหนด",
+            "แผ่ขยายออกไป",
+            "คืบหน้าไป",
+            "หยุดแล้ว"
+          ]
+        },
+        "zh": {
+          "sentence": "在这一年里，城镇的面貌发生了巨大变化。",
+          "answer": "变了",
+          "choices": [
+            "决定了",
+            "扩大了",
+            "前进了",
+            "停了"
+          ]
+        },
+        "bn": {
+          "sentence": "এই এক বছরে শহরের চেহারা অনেক বদলে গেছে।",
+          "answer": "পরিবর্তিত হয়েছে",
+          "choices": [
+            "স্থির করা হয়েছে",
+            "ছড়িয়ে পড়েছে",
+            "এগিয়েছে",
+            "থেমেছে"
+          ]
+        },
+        "ko": {
+          "sentence": "지난 1년간 마을의 모습이 크게 변했다.",
+          "answer": "변했다",
+          "choices": [
+            "정해졌다",
+            "퍼졌다",
+            "나아갔다",
+            "멈췄다"
+          ]
+        },
+        "vi": {
+          "sentence": "Trong một năm qua, diện mạo của thị trấn đã thay đổi đáng kể.",
+          "answer": "Đã thay đổi",
+          "choices": [
+            "Đã được quyết định",
+            "Đã lan rộng",
+            "Đã tiến lên",
+            "Đã dừng lại"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီတစ်နှစ်အတွင်း မြို့ရဲ့ပုံစံက အကြီးအကျယ် ပြောင်းလဲသွားခဲ့တယ်။",
+          "answer": "ပြောင်းလဲသွားခဲ့သည်။",
+          "choices": [
+            "ဆုံးဖြတ်ပြီးဖြစ်သည်။",
+            "ကျယ်ပြန့်လာခဲ့သည်။",
+            "တိုးတက်ခဲ့သည်။",
+            "ရပ်တန့်သွားခဲ့သည်။"
           ]
         }
       }
@@ -222,6 +579,76 @@
             "दूरी",
             "उचाइ"
           ]
+        },
+        "id": {
+          "sentence": "Silakan maju ke arah yang ditunjukkan panah.",
+          "answer": "Arah",
+          "choices": [
+            "Urutan",
+            "Kecepatan",
+            "Jarak",
+            "Tinggi"
+          ]
+        },
+        "th": {
+          "sentence": "กรุณาเดินหน้าไปในทิศทางที่ลูกศรชี้",
+          "answer": "ทิศทาง",
+          "choices": [
+            "ลำดับ",
+            "ความเร็ว",
+            "ระยะทาง",
+            "ความสูง"
+          ]
+        },
+        "zh": {
+          "sentence": "请沿着箭头所示的方向前进。",
+          "answer": "方向",
+          "choices": [
+            "顺序",
+            "速度",
+            "距离",
+            "高度"
+          ]
+        },
+        "bn": {
+          "sentence": "তীরচিহ্ন যেদিকে নির্দেশ করছে, সেদিকে এগিয়ে যান।",
+          "answer": "দিক",
+          "choices": [
+            "ক্রম",
+            "গতি",
+            "দূরত্ব",
+            "উচ্চতা"
+          ]
+        },
+        "ko": {
+          "sentence": "화살표가 가리키는 방향으로 나아가세요.",
+          "answer": "방향",
+          "choices": [
+            "순서",
+            "속도",
+            "거리",
+            "높이"
+          ]
+        },
+        "vi": {
+          "sentence": "Hãy tiến về phía mũi tên chỉ.",
+          "answer": "Hướng",
+          "choices": [
+            "Thứ tự",
+            "Tốc độ",
+            "Khoảng cách",
+            "Chiều cao"
+          ]
+        },
+        "my": {
+          "sentence": "မြှားပြထားတဲ့အတိုင်း ရှေ့ဆက်သွားပါ။",
+          "answer": "ဦးတည်ရာ",
+          "choices": [
+            "အစီအစဥ်",
+            "အမြန်နှုန်း",
+            "အကွာအဝေး",
+            "အမြင့်"
+          ]
         }
       }
     },
@@ -257,6 +684,76 @@
             "प्रश्न गरें",
             "आदेश दिएँ",
             "वाचा गरें"
+          ]
+        },
+        "id": {
+          "sentence": "Saya melaporkan hasil survei kepada atasan saya.",
+          "answer": "Memberitahukan",
+          "choices": [
+            "Berkonsultasi",
+            "Bertanya",
+            "Memerintahkan",
+            "Berjanji"
+          ]
+        },
+        "th": {
+          "sentence": "รายงานผลการสำรวจให้หัวหน้าทราบ",
+          "answer": "แจ้งให้ทราบ",
+          "choices": [
+            "ปรึกษา",
+            "ถามคำถาม",
+            "สั่งการ",
+            "สัญญา"
+          ]
+        },
+        "zh": {
+          "sentence": "我向老板报告了调查结果。",
+          "answer": "通知了",
+          "choices": [
+            "商量了",
+            "提问了",
+            "命令了",
+            "约定了"
+          ]
+        },
+        "bn": {
+          "sentence": "আমি তদন্তের ফলাফল আমার বসের কাছে রিপোর্ট করেছি।",
+          "answer": "জানিয়েছি",
+          "choices": [
+            "পরামর্শ করেছি",
+            "প্রশ্ন করেছি",
+            "আদেশ করেছি",
+            "প্রতিশ্রুতি দিয়েছি"
+          ]
+        },
+        "ko": {
+          "sentence": "조사 결과를 상사에게 보고했다.",
+          "answer": "알렸다",
+          "choices": [
+            "상담했다",
+            "질문했다",
+            "명령했다",
+            "약속했다"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã báo cáo kết quả điều tra cho cấp trên.",
+          "answer": "Đã thông báo",
+          "choices": [
+            "Đã thảo luận/tham khảo",
+            "Đã hỏi",
+            "Đã ra lệnh",
+            "Đã hứa"
+          ]
+        },
+        "my": {
+          "sentence": "စစ်တမ်းရလဒ်ကို အထက်လူကြီးထံ အစီရင်ခံခဲ့သည်။",
+          "answer": "အသိပေးခဲ့သည်။",
+          "choices": [
+            "တိုင်ပင်ဆွေးနွေးခဲ့သည်။",
+            "မေးခွန်းထုတ်ခဲ့သည်။",
+            "အမိန့်ပေးခဲ့သည်။",
+            "ကတိပေးခဲ့သည်။"
           ]
         }
       }
@@ -294,6 +791,76 @@
             "नतिजा",
             "क्रम"
           ]
+        },
+        "id": {
+          "sentence": "Saya memikirkan cara untuk menyelesaikan masalah ini.",
+          "answer": "Cara melakukan",
+          "choices": [
+            "Alasan",
+            "Tujuan",
+            "Hasil",
+            "Urutan"
+          ]
+        },
+        "th": {
+          "sentence": "คิดหาวิธีแก้ปัญหานี้",
+          "answer": "วิธีการ",
+          "choices": [
+            "เหตุผล",
+            "วัตถุประสงค์",
+            "ผลลัพธ์",
+            "ลำดับ"
+          ]
+        },
+        "zh": {
+          "sentence": "我想出了解决这个问题的方法。",
+          "answer": "方法",
+          "choices": [
+            "理由",
+            "目的",
+            "结果",
+            "顺序"
+          ]
+        },
+        "bn": {
+          "sentence": "আমি এই সমস্যা সমাধানের একটি উপায় ভেবেছি।",
+          "answer": "পদ্ধতি",
+          "choices": [
+            "কারণ",
+            "উদ্দেশ্য",
+            "ফলাফল",
+            "ক্রম"
+          ]
+        },
+        "ko": {
+          "sentence": "이 문제를 해결할 방법을 생각했다.",
+          "answer": "방법",
+          "choices": [
+            "이유",
+            "목적",
+            "결과",
+            "순서"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã nghĩ ra cách giải quyết vấn đề này.",
+          "answer": "Cách làm",
+          "choices": [
+            "Lý do",
+            "Mục đích",
+            "Kết quả",
+            "Thứ tự"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီပြဿနာကို ဖြေရှင်းဖို့ နည်းလမ်းကို စဉ်းစားခဲ့တယ်။",
+          "answer": "လုပ်နည်း",
+          "choices": [
+            "အကြောင်းပြချက်",
+            "ရည်ရွယ်ချက်",
+            "ရလဒ်",
+            "အစီအစဥ်"
+          ]
         }
       }
     },
@@ -329,6 +896,76 @@
             "निमन्त्रणा गरें",
             "सफा गरें",
             "आरक्षण गरें"
+          ]
+        },
+        "id": {
+          "sentence": "Saya mengunjungi rumah guru dan mengucapkan terima kasih.",
+          "answer": "Mengunjungi",
+          "choices": [
+            "Tunjukkan jalannya",
+            "Undanglah",
+            "Bersihkanlah",
+            "Pesanlah"
+          ]
+        },
+        "th": {
+          "sentence": "ไปเยี่ยมบ้านอาจารย์และกล่าวขอบคุณ",
+          "answer": "ไปเยี่ยม",
+          "choices": [
+            "ช่วยนำทางหน่อย",
+            "ช่วยเชิญหน่อย",
+            "ช่วยทำความสะอาดหน่อย",
+            "ช่วยจองหน่อย"
+          ]
+        },
+        "zh": {
+          "sentence": "我拜访了老师家，并表达了感谢。",
+          "answer": "拜访了",
+          "choices": [
+            "带路",
+            "邀请",
+            "打扫",
+            "预约"
+          ]
+        },
+        "bn": {
+          "sentence": "আমি শিক্ষকের বাড়িতে গিয়ে ধন্যবাদ জানিয়েছি।",
+          "answer": "সাক্ষাৎ করে",
+          "choices": [
+            "পথ দেখান/গাইড করুন",
+            "আমন্ত্রণ করুন",
+            "পরিষ্কার করুন",
+            "বুক করুন/রিজার্ভ করুন"
+          ]
+        },
+        "ko": {
+          "sentence": "선생님 댁을 방문해서 감사의 말씀을 전했다.",
+          "answer": "찾아가서",
+          "choices": [
+            "안내해 줘",
+            "초대해 줘",
+            "청소해 줘",
+            "예약해 줘"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã đến thăm nhà thầy giáo và cảm ơn.",
+          "answer": "Đã ghé thăm",
+          "choices": [
+            "Hướng dẫn",
+            "Mời",
+            "Dọn dẹp",
+            "Đặt trước"
+          ]
+        },
+        "my": {
+          "sentence": "ဆရာ့အိမ်ကို သွားရောက်ပြီး ကျေးဇူးတင်စကား ပြောခဲ့သည်။",
+          "answer": "သွားရောက်ပြီး",
+          "choices": [
+            "လမ်းပြပေးပါ",
+            "ဖိတ်ကြားပေးပါ",
+            "သန့်ရှင်းရေးလုပ်ပေးပါ",
+            "ကြိုတင်မှာယူပေးပါ"
           ]
         }
       }
@@ -366,6 +1003,76 @@
             "पक्राउ",
             "बैठक"
           ]
+        },
+        "id": {
+          "sentence": "Polisi terus menyelidiki kasus tersebut.",
+          "answer": "Penyelidikan",
+          "choices": [
+            "Kunjungan/Studi banding",
+            "Latihan",
+            "Penangkapan",
+            "Rapat"
+          ]
+        },
+        "th": {
+          "sentence": "ตำรวจยังคงสืบสวนคดีต่อไป",
+          "answer": "การสำรวจ/การตรวจสอบ",
+          "choices": [
+            "การเยี่ยมชม (เพื่อศึกษาดูงาน)",
+            "การฝึกซ้อม",
+            "การจับกุม",
+            "การประชุม"
+          ]
+        },
+        "zh": {
+          "sentence": "警察正在继续调查案件。",
+          "answer": "调查",
+          "choices": [
+            "参观",
+            "练习",
+            "逮捕",
+            "会议"
+          ]
+        },
+        "bn": {
+          "sentence": "পুলিশ ঘটনার তদন্ত চালিয়ে যাচ্ছে।",
+          "answer": "তদন্ত",
+          "choices": [
+            "পরিদর্শন",
+            "অনুশীলন",
+            "গ্রেফতার",
+            "সভা"
+          ]
+        },
+        "ko": {
+          "sentence": "경찰이 사건 수사를 계속하고 있다.",
+          "answer": "조사",
+          "choices": [
+            "견학",
+            "연습",
+            "체포",
+            "회의"
+          ]
+        },
+        "vi": {
+          "sentence": "Cảnh sát đang tiếp tục điều tra vụ án.",
+          "answer": "Điều tra",
+          "choices": [
+            "Tham quan học hỏi",
+            "Luyện tập",
+            "Bắt giữ",
+            "Hội nghị"
+          ]
+        },
+        "my": {
+          "sentence": "ရဲတွေက အမှုကို ဆက်လက်စုံစမ်းနေပါတယ်။",
+          "answer": "စစ်တမ်းကောက်ယူခြင်း",
+          "choices": [
+            "လေ့လာရေးခရီး",
+            "လေ့ကျင့်ခန်း",
+            "ဖမ်းဆီးခြင်း",
+            "အစည်းအဝေး"
+          ]
         }
       }
     },
@@ -401,6 +1108,76 @@
             "पक्रनु",
             "जाँच गर्नु",
             "बढाउनु"
+          ]
+        },
+        "id": {
+          "sentence": "Hutan ini adalah tempat untuk melindungi hewan langka.",
+          "answer": "Melindungi",
+          "choices": [
+            "Membesarkan/Mengembangkan",
+            "Menangkap",
+            "Menyelidiki",
+            "Memperbanyak"
+          ]
+        },
+        "th": {
+          "sentence": "ป่าแห่งนี้เป็นสถานที่สำหรับคุ้มครองสัตว์หายาก",
+          "answer": "ปกป้อง",
+          "choices": [
+            "เลี้ยงดู",
+            "จับกุม",
+            "ตรวจสอบ",
+            "เพิ่ม"
+          ]
+        },
+        "zh": {
+          "sentence": "这片森林是为了保护珍稀动物的地方。",
+          "answer": "保护",
+          "choices": [
+            "养育",
+            "抓住",
+            "调查",
+            "增加"
+          ]
+        },
+        "bn": {
+          "sentence": "এই বন বিরল প্রাণী সংরক্ষণের জন্য একটি জায়গা।",
+          "answer": "রক্ষা করা",
+          "choices": [
+            "লালন-পালন করা",
+            "ধরা",
+            "অনুসন্ধান করা",
+            "বৃদ্ধি করা"
+          ]
+        },
+        "ko": {
+          "sentence": "이 숲은 희귀 동물을 보호하기 위한 장소이다.",
+          "answer": "지키다",
+          "choices": [
+            "기르다",
+            "붙잡다",
+            "조사하다",
+            "늘리다"
+          ]
+        },
+        "vi": {
+          "sentence": "Khu rừng này là nơi để bảo vệ các loài động vật quý hiếm.",
+          "answer": "Bảo vệ",
+          "choices": [
+            "Nuôi dưỡng",
+            "Bắt giữ",
+            "Điều tra",
+            "Tăng lên"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီသစ်တောက ရှားပါးတိရစ္ဆာန်တွေကို ကာကွယ်ဖို့နေရာဖြစ်တယ်။",
+          "answer": "ကာကွယ်သည်",
+          "choices": [
+            "ပြုစုပျိုးထောင်သည်",
+            "ဖမ်းဆီးသည်",
+            "စုံစမ်းစစ်ဆေးသည်",
+            "တိုးပွားစေသည်"
           ]
         }
       }
@@ -438,6 +1215,76 @@
             "बुढो भयो",
             "अभ्यस्त भयो"
           ]
+        },
+        "id": {
+          "sentence": "Anak itu telah tumbuh baik secara mental maupun fisik dalam satu tahun ini.",
+          "answer": "Tumbuh",
+          "choices": [
+            "Lelah",
+            "Gemuk",
+            "Menua",
+            "Terbiasa"
+          ]
+        },
+        "th": {
+          "sentence": "เด็กคนนี้เติบโตทั้งร่างกายและจิตใจในปีนี้",
+          "answer": "เติบโต",
+          "choices": [
+            "เหนื่อย",
+            "อ้วนขึ้น",
+            "แก่ลง",
+            "คุ้นเคย"
+          ]
+        },
+        "zh": {
+          "sentence": "孩子在这一年里身心都成长了。",
+          "answer": "成长",
+          "choices": [
+            "累了",
+            "胖了",
+            "老了",
+            "习惯了"
+          ]
+        },
+        "bn": {
+          "sentence": "এই এক বছরে শিশুটি মন ও শরীর উভয় দিক থেকে বেড়ে উঠেছে।",
+          "answer": "বেড়ে উঠেছে",
+          "choices": [
+            "ক্লান্ত",
+            "মোটা হয়েছে",
+            "বৃদ্ধ হয়েছে",
+            "অভ্যস্ত হয়েছে"
+          ]
+        },
+        "ko": {
+          "sentence": "아이는 이 1년간 몸도 마음도 성장했다.",
+          "answer": "자랐다",
+          "choices": [
+            "피곤했다",
+            "살쪘다",
+            "늙었다",
+            "익숙해졌다"
+          ]
+        },
+        "vi": {
+          "sentence": "Đứa trẻ đã trưởng thành cả về thể chất lẫn tinh thần trong năm nay.",
+          "answer": "Đã lớn",
+          "choices": [
+            "Đã mệt",
+            "Đã béo lên",
+            "Đã già đi",
+            "Đã quen"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီကလေးက ဒီတစ်နှစ်အတွင်း စိတ်ရောကိုယ်ပါ ကြီးထွားလာခဲ့တယ်။",
+          "answer": "ကြီးပြင်းလာခဲ့သည်",
+          "choices": [
+            "ပင်ပန်းခဲ့သည်",
+            "ဝလာခဲ့သည်",
+            "အိုမင်းခဲ့သည်",
+            "အသားကျခဲ့သည်"
+          ]
         }
       }
     },
@@ -473,6 +1320,76 @@
             "मौसम",
             "समय",
             "कारण"
+          ]
+        },
+        "id": {
+          "sentence": "Sudah waktunya bunga sakura mekar.",
+          "answer": "Waktu/Sekitar",
+          "choices": [
+            "Tempat",
+            "Cuaca",
+            "Waktu",
+            "Alasan"
+          ]
+        },
+        "th": {
+          "sentence": "ถึงช่วงเวลาที่ซากุระบานแล้ว",
+          "answer": "ช่วงเวลา",
+          "choices": [
+            "สถานที่",
+            "สภาพอากาศ",
+            "เวลา",
+            "เหตุผล"
+          ]
+        },
+        "zh": {
+          "sentence": "到了樱花盛开的时期。",
+          "answer": "时候",
+          "choices": [
+            "地方",
+            "天气",
+            "时间",
+            "理由"
+          ]
+        },
+        "bn": {
+          "sentence": "চেরি ফুল ফোটার সময় হয়েছে।",
+          "answer": "সময়",
+          "choices": [
+            "স্থান",
+            "আবহাওয়া",
+            "সময়",
+            "কারণ"
+          ]
+        },
+        "ko": {
+          "sentence": "벚꽃이 피는 시기가 되었다.",
+          "answer": "무렵",
+          "choices": [
+            "장소",
+            "날씨",
+            "시간",
+            "이유"
+          ]
+        },
+        "vi": {
+          "sentence": "Đã đến mùa hoa anh đào nở.",
+          "answer": "Khoảng thời gian",
+          "choices": [
+            "Địa điểm",
+            "Thời tiết",
+            "Thời gian",
+            "Lý do"
+          ]
+        },
+        "my": {
+          "sentence": "Sakura ပွင့်တဲ့အချိန် ရောက်လာပြီ။",
+          "answer": "အချိန်",
+          "choices": [
+            "နေရာ",
+            "ရာသီဥတု",
+            "အချိန်",
+            "အကြောင်းပြချက်"
           ]
         }
       }
@@ -510,6 +1427,76 @@
             "कहिल्यैकाहीँ",
             "विनम्रतापूर्वक"
           ]
+        },
+        "id": {
+          "sentence": "Dia secara aktif menyampaikan pendapatnya dalam rapat.",
+          "answer": "Dengan sukarela",
+          "choices": [
+            "Dengan tenang",
+            "Dengan enggan",
+            "Kadang-kadang",
+            "Dengan sopan"
+          ]
+        },
+        "th": {
+          "sentence": "เธอแสดงความคิดเห็นอย่างกระตือรือร้นในการประชุม",
+          "answer": "ด้วยความเต็มใจ",
+          "choices": [
+            "อย่างเงียบ ๆ",
+            "อย่างไม่เต็มใจ",
+            "บางครั้ง",
+            "อย่างสุภาพ"
+          ]
+        },
+        "zh": {
+          "sentence": "她在会议上积极发表意见。",
+          "answer": "主动地",
+          "choices": [
+            "安静地",
+            "不情愿地",
+            "偶尔",
+            "恭敬地；礼貌地"
+          ]
+        },
+        "bn": {
+          "sentence": "সে মিটিংয়ে সক্রিয়ভাবে মতামত দেয়।",
+          "answer": "স্বেচ্ছায়",
+          "choices": [
+            "শান্তভাবে",
+            "অনিচ্ছাসত্ত্বেও",
+            "মাঝে মাঝে",
+            "ভদ্রভাবে"
+          ]
+        },
+        "ko": {
+          "sentence": "그녀는 회의에서 적극적으로 의견을 말한다.",
+          "answer": "자진해서",
+          "choices": [
+            "조용히",
+            "마지못해",
+            "가끔",
+            "정중하게"
+          ]
+        },
+        "vi": {
+          "sentence": "Cô ấy tích cực đưa ra ý kiến trong cuộc họp.",
+          "answer": "Một cách chủ động",
+          "choices": [
+            "Một cách yên tĩnh",
+            "Một cách miễn cưỡng",
+            "Thỉnh thoảng",
+            "Một cách lịch sự, cẩn thận"
+          ]
+        },
+        "my": {
+          "sentence": "သူမသည် အစည်းအဝေးတွင် တက်ကြွစွာ ထင်မြင်ယူဆချက်များကို ပြောကြားခဲ့သည်။",
+          "answer": "ဆန္ဒအလျောက်",
+          "choices": [
+            "တိတ်တိတ်ဆိတ်ဆိတ်",
+            "မချင့်မရဲ",
+            "တစ်ခါတစ်ရံ",
+            "ယဉ်ကျေးစွာ"
+          ]
         }
       }
     },
@@ -545,6 +1532,76 @@
             "अचम्मको",
             "दुःखद",
             "खतरनाक"
+          ]
+        },
+        "id": {
+          "sentence": "Karena ada bukti, jelas bahwa dia adalah pelakunya.",
+          "answer": "Jelas",
+          "choices": [
+            "Tidak jelas/Samar-samar",
+            "Aneh/Misterius",
+            "Sayang sekali",
+            "Bahaya"
+          ]
+        },
+        "th": {
+          "sentence": "มีหลักฐาน ดังนั้นจึงชัดเจนว่าเขาคือคนร้าย",
+          "answer": "ชัดเจน",
+          "choices": [
+            "คลุมเครือ",
+            "แปลกประหลาด",
+            "น่าเสียดาย",
+            "อันตราย"
+          ]
+        },
+        "zh": {
+          "sentence": "有证据，所以他就是犯人这一点很明显。",
+          "answer": "清楚的",
+          "choices": [
+            "模糊的",
+            "不可思议的",
+            "遗憾的",
+            "危险的"
+          ]
+        },
+        "bn": {
+          "sentence": "প্রমাণ আছে, তাই সে যে অপরাধী তা স্পষ্ট।",
+          "answer": "স্পষ্ট",
+          "choices": [
+            "অস্পষ্ট",
+            "আশ্চর্যজনক",
+            "দুঃখজনক",
+            "বিপজ্জনক"
+          ]
+        },
+        "ko": {
+          "sentence": "증거가 있으므로, 그가 범인인 것은 명백하다.",
+          "answer": "분명하다",
+          "choices": [
+            "애매하다",
+            "이상하다",
+            "아쉽다",
+            "위험하다"
+          ]
+        },
+        "vi": {
+          "sentence": "Vì có bằng chứng nên rõ ràng anh ta là thủ phạm.",
+          "answer": "Rõ ràng",
+          "choices": [
+            "Mơ hồ",
+            "Kỳ lạ",
+            "Đáng tiếc",
+            "Nguy hiểm"
+          ]
+        },
+        "my": {
+          "sentence": "သက်သေအထောက်အထားရှိသောကြောင့် သူသည် တရားခံဖြစ်သည်မှာ ထင်ရှားသည်။",
+          "answer": "ရှင်းလင်းပြတ်သားသော",
+          "choices": [
+            "မရေရာသော",
+            "ထူးဆန်းသော",
+            "စိတ်မကောင်းစရာ",
+            "အန္တရာယ်ရှိသော"
           ]
         }
       }
@@ -582,6 +1639,76 @@
             "निर्माण कार्य",
             "कार्यक्रम; समारोह"
           ]
+        },
+        "id": {
+          "sentence": "Sebuah insiden besar terjadi di kota itu.",
+          "answer": "Kejadian",
+          "choices": [
+            "Kecelakaan",
+            "Rapat",
+            "Konstruksi",
+            "Acara"
+          ]
+        },
+        "th": {
+          "sentence": "เกิดเหตุการณ์สำคัญขึ้นในเมืองนั้น",
+          "answer": "เหตุการณ์",
+          "choices": [
+            "อุบัติเหตุ",
+            "การประชุม",
+            "การก่อสร้าง",
+            "กิจกรรม"
+          ]
+        },
+        "zh": {
+          "sentence": "那个镇上发生了一起大事件。",
+          "answer": "事件",
+          "choices": [
+            "事故",
+            "会议",
+            "施工",
+            "活动"
+          ]
+        },
+        "bn": {
+          "sentence": "সেই শহরে একটি বড় ঘটনা ঘটেছে।",
+          "answer": "ঘটনা",
+          "choices": [
+            "দুর্ঘটনা",
+            "সভা",
+            "নির্মাণ কাজ",
+            "অনুষ্ঠান"
+          ]
+        },
+        "ko": {
+          "sentence": "그 마을에서 큰 사건이 일어났다.",
+          "answer": "사건",
+          "choices": [
+            "사고",
+            "회의",
+            "공사",
+            "행사"
+          ]
+        },
+        "vi": {
+          "sentence": "Một vụ án lớn đã xảy ra ở thị trấn đó.",
+          "answer": "Sự việc",
+          "choices": [
+            "Tai nạn",
+            "Cuộc họp",
+            "Công trình",
+            "Sự kiện"
+          ]
+        },
+        "my": {
+          "sentence": "ထိုမြို့တွင် ကြီးမားသော အဖြစ်အပျက်တစ်ခု ဖြစ်ပွားခဲ့သည်။",
+          "answer": "အဖြစ်အပျက်",
+          "choices": [
+            "မတော်တဆမှု",
+            "အစည်းအဝေး",
+            "ဆောက်လုပ်ရေးလုပ်ငန်း",
+            "ပွဲလမ်းသဘင်"
+          ]
         }
       }
     },
@@ -617,6 +1744,76 @@
             "ठूलो",
             "उत्कृष्ट; राम्रो; प्रशंसनीय",
             "महत्त्वपूर्ण; अनमोल"
+          ]
+        },
+        "id": {
+          "sentence": "Perusahaan mengumumkan rencana baru.",
+          "answer": "Baru",
+          "choices": [
+            "Rinci/Kecil",
+            "Besar",
+            "Hebat; Berwibawa",
+            "Penting; Berharga"
+          ]
+        },
+        "th": {
+          "sentence": "บริษัทได้ประกาศแผนการใหม่",
+          "answer": "ใหม่",
+          "choices": [
+            "ละเอียด",
+            "ใหญ่",
+            "ยอดเยี่ยม, สง่างาม",
+            "สำคัญ, ล้ำค่า"
+          ]
+        },
+        "zh": {
+          "sentence": "公司公布了新的计划。",
+          "answer": "新的",
+          "choices": [
+            "细小的",
+            "大的",
+            "出色的；了不起的",
+            "重要的；宝贵的"
+          ]
+        },
+        "bn": {
+          "sentence": "কোম্পানি একটি নতুন পরিকল্পনা ঘোষণা করেছে।",
+          "answer": "নতুন",
+          "choices": [
+            "বিস্তারিত",
+            "বড়",
+            "চমৎকার/সুযোগ্য",
+            "গুরুত্বপূর্ণ/মূল্যবান"
+          ]
+        },
+        "ko": {
+          "sentence": "회사는 새로운 계획을 발표했다.",
+          "answer": "새로운",
+          "choices": [
+            "자세한",
+            "큰",
+            "훌륭한",
+            "소중한"
+          ]
+        },
+        "vi": {
+          "sentence": "Công ty đã công bố một kế hoạch mới.",
+          "answer": "Mới",
+          "choices": [
+            "Chi tiết, nhỏ",
+            "Lớn",
+            "Tuyệt vời, xuất sắc, lộng lẫy",
+            "Quan trọng, quý giá"
+          ]
+        },
+        "my": {
+          "sentence": "ကုမ္ပဏီသည် စီမံကိန်းအသစ်တစ်ခုကို ကြေညာခဲ့သည်။",
+          "answer": "အသစ်",
+          "choices": [
+            "အသေးစိတ်",
+            "ကြီးမားသော",
+            "ခမ်းနားထည်ဝါသော",
+            "အရေးကြီးသော"
           ]
         }
       }
@@ -654,6 +1851,76 @@
             "अनुमान; अपेक्षा",
             "ठट्टा"
           ]
+        },
+        "id": {
+          "sentence": "Ceritanya bukan imajinasi, melainkan fakta.",
+          "answer": "Kenyataan",
+          "choices": [
+            "Bohong",
+            "Pendapat",
+            "Prediksi",
+            "Lelucon"
+          ]
+        },
+        "th": {
+          "sentence": "เรื่องที่เขาพูดไม่ใช่เรื่องสมมติ แต่เป็นเรื่องจริง",
+          "answer": "เรื่องจริง",
+          "choices": [
+            "เรื่องโกหก",
+            "ความคิดเห็น",
+            "การคาดการณ์",
+            "เรื่องตลก"
+          ]
+        },
+        "zh": {
+          "sentence": "他的话不是想象，而是事实。",
+          "answer": "真实的事情",
+          "choices": [
+            "谎言",
+            "意见",
+            "预测",
+            "玩笑"
+          ]
+        },
+        "bn": {
+          "sentence": "তার কথা কল্পনা ছিল না, বরং বাস্তব ছিল।",
+          "answer": "সত্যি কথা",
+          "choices": [
+            "মিথ্যা",
+            "মতামত",
+            "পূর্বাভাস",
+            "ঠাট্টা"
+          ]
+        },
+        "ko": {
+          "sentence": "그의 이야기는 상상이 아니라 사실이었다.",
+          "answer": "진실",
+          "choices": [
+            "거짓말",
+            "의견",
+            "예상",
+            "농담"
+          ]
+        },
+        "vi": {
+          "sentence": "Câu chuyện của anh ấy không phải là tưởng tượng mà là sự thật.",
+          "answer": "Sự thật",
+          "choices": [
+            "Nói dối",
+            "Ý kiến",
+            "Dự đoán",
+            "Trò đùa"
+          ]
+        },
+        "my": {
+          "sentence": "သူ့စကားတွေက စိတ်ကူးယဉ်မဟုတ်ဘဲ အမှန်တရားတွေ ဖြစ်တယ်။",
+          "answer": "အမှန်တရား",
+          "choices": [
+            "လိမ်ညာမှု",
+            "အမြင်",
+            "ခန့်မှန်းချက်",
+            "ဟာသ"
+          ]
         }
       }
     },
@@ -689,6 +1956,76 @@
             "नतिजा",
             "विधि; तरिका",
             "ठाउँ; स्थान"
+          ]
+        },
+        "id": {
+          "sentence": "Saya menjelaskan kepada guru alasan keterlambatan saya.",
+          "answer": "Alasan",
+          "choices": [
+            "Perasaan",
+            "Hasil",
+            "Metode",
+            "Tempat"
+          ]
+        },
+        "th": {
+          "sentence": "ฉันอธิบายสถานการณ์ที่ทำให้มาสายให้คุณครูฟัง",
+          "answer": "เหตุผล, สาเหตุ",
+          "choices": [
+            "ความรู้สึก",
+            "ผลลัพธ์",
+            "วิธี",
+            "สถานที่"
+          ]
+        },
+        "zh": {
+          "sentence": "我向老师解释了迟到的原因。",
+          "answer": "原因；缘故",
+          "choices": [
+            "心情；感受",
+            "结果",
+            "方法",
+            "场所；地点"
+          ]
+        },
+        "bn": {
+          "sentence": "দেরি করার কারণ শিক্ষককে ব্যাখ্যা করলাম।",
+          "answer": "কারণ",
+          "choices": [
+            "অনুভূতি",
+            "ফলাফল",
+            "পদ্ধতি",
+            "স্থান"
+          ]
+        },
+        "ko": {
+          "sentence": "지각한 사정을 선생님께 설명했다.",
+          "answer": "이유",
+          "choices": [
+            "기분",
+            "결과",
+            "방법",
+            "장소"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã giải thích với giáo viên về lý do đến muộn.",
+          "answer": "Lý do, nguyên nhân",
+          "choices": [
+            "Cảm xúc",
+            "Kết quả",
+            "Phương pháp",
+            "Địa điểm"
+          ]
+        },
+        "my": {
+          "sentence": "နောက်ကျရတဲ့အကြောင်းရင်းကို ဆရာ့ကို ရှင်းပြခဲ့တယ်။",
+          "answer": "အကြောင်းရင်း",
+          "choices": [
+            "ခံစားချက်",
+            "ရလဒ်",
+            "နည်းလမ်း",
+            "နေရာ"
           ]
         }
       }
@@ -726,6 +2063,76 @@
             "अचानक; एक्कासी",
             "अन्ततः; आखिरमा"
           ]
+        },
+        "id": {
+          "sentence": "Kereta berhenti sementara karena adanya konstruksi.",
+          "answer": "Sebentar",
+          "choices": [
+            "Selalu; Terus-menerus",
+            "Sepenuhnya",
+            "Tiba-tiba",
+            "Akhirnya"
+          ]
+        },
+        "th": {
+          "sentence": "รถไฟหยุดชั่วคราวเนื่องจากการก่อสร้าง",
+          "answer": "ชั่วขณะ, สักพัก",
+          "choices": [
+            "ตลอดไป, ตลอดเวลา",
+            "อย่างสมบูรณ์",
+            "ทันทีทันใด, กะทันหัน",
+            "ในที่สุด"
+          ]
+        },
+        "zh": {
+          "sentence": "由于施工，电车暂时停运了。",
+          "answer": "暂时；一会儿",
+          "choices": [
+            "一直",
+            "完全地",
+            "突然地",
+            "终于"
+          ]
+        },
+        "bn": {
+          "sentence": "নির্মাণের কারণে ট্রেনটি সাময়িকভাবে থেমে গিয়েছিল।",
+          "answer": "কিছুক্ষণের জন্য",
+          "choices": [
+            "সবসময়/অনেকক্ষণ ধরে",
+            "সম্পূর্ণরূপে",
+            "হঠাৎ",
+            "অবশেষে"
+          ]
+        },
+        "ko": {
+          "sentence": "공사 때문에 전철은 일시 정지했다.",
+          "answer": "잠시",
+          "choices": [
+            "계속",
+            "완전히",
+            "갑자기",
+            "드디어"
+          ]
+        },
+        "vi": {
+          "sentence": "Do công trình xây dựng, tàu điện đã tạm dừng.",
+          "answer": "Một lúc, một lát",
+          "choices": [
+            "Mãi mãi, luôn luôn",
+            "Hoàn toàn",
+            "Đột nhiên",
+            "Cuối cùng (sau bao nỗ lực)"
+          ]
+        },
+        "my": {
+          "sentence": "ဆောက်လုပ်ရေးလုပ်ငန်းကြောင့် ရထားခဏရပ်သွားတယ်။",
+          "answer": "ခဏတာ",
+          "choices": [
+            "အမြဲတမ်း",
+            "လုံးဝ",
+            "ရုတ်တရက်",
+            "နောက်ဆုံးတော့"
+          ]
         }
       }
     },
@@ -761,6 +2168,76 @@
             "गोदाम",
             "बन्दरगाह",
             "खेत"
+          ]
+        },
+        "id": {
+          "sentence": "Pagi-pagi sekali saya pergi ke pasar untuk membeli ikan dan sayuran.",
+          "answer": "Pasar",
+          "choices": [
+            "Pabrik",
+            "Gudang",
+            "Pelabuhan",
+            "Ladang"
+          ]
+        },
+        "th": {
+          "sentence": "ฉันไปตลาดแต่เช้าเพื่อซื้อปลาและผัก",
+          "answer": "ตลาด",
+          "choices": [
+            "โรงงาน",
+            "โกดัง",
+            "ท่าเรือ",
+            "ทุ่งนา, ไร่"
+          ]
+        },
+        "zh": {
+          "sentence": "一大早去市场买鱼和蔬菜了。",
+          "answer": "市场",
+          "choices": [
+            "工厂",
+            "仓库",
+            "港口",
+            "农田"
+          ]
+        },
+        "bn": {
+          "sentence": "সকালে তাড়াতাড়ি মাছ ও সবজি কিনতে বাজারে গিয়েছিলাম।",
+          "answer": "বাজার",
+          "choices": [
+            "কারখানা",
+            "গুদাম",
+            "বন্দর",
+            "কৃষি জমি"
+          ]
+        },
+        "ko": {
+          "sentence": "아침 일찍 시장에 생선과 야채를 사러 갔다.",
+          "answer": "마켓",
+          "choices": [
+            "공장",
+            "창고",
+            "항구",
+            "밭"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã đi chợ sớm để mua cá và rau.",
+          "answer": "Chợ",
+          "choices": [
+            "Nhà máy",
+            "Nhà kho",
+            "Bến cảng",
+            "Cánh đồng, nương rẫy"
+          ]
+        },
+        "my": {
+          "sentence": "မနက်စောစော ငါးနဲ့ ဟင်းသီးဟင်းရွက်ဝယ်ဖို့ ဈေးကိုသွားခဲ့တယ်။",
+          "answer": "ဈေး",
+          "choices": [
+            "စက်ရုံ",
+            "ဂိုဒေါင်",
+            "ဆိပ်ကမ်း",
+            "လယ်ကွင်း"
           ]
         }
       }
@@ -798,6 +2275,76 @@
             "प्रसिद्ध",
             "सुविधाजनक"
           ]
+        },
+        "id": {
+          "sentence": "Ini adalah alat yang tidak banyak digunakan di rumah tangga pada umumnya.",
+          "answer": "Biasa",
+          "choices": [
+            "Spesial",
+            "Penting",
+            "Terkenal",
+            "Praktis"
+          ]
+        },
+        "th": {
+          "sentence": "เป็นอุปกรณ์ที่ครอบครัวทั่วไปไม่ค่อยได้ใช้",
+          "answer": "ทั่วไป, ปกติ",
+          "choices": [
+            "พิเศษ",
+            "สำคัญ",
+            "มีชื่อเสียง",
+            "สะดวกสบาย"
+          ]
+        },
+        "zh": {
+          "sentence": "这是普通家庭不怎么使用的工具。",
+          "answer": "普通的",
+          "choices": [
+            "特别的",
+            "重要的",
+            "有名的",
+            "方便的"
+          ]
+        },
+        "bn": {
+          "sentence": "এটি এমন একটি সরঞ্জাম যা সাধারণ পরিবারে খুব বেশি ব্যবহৃত হয় না।",
+          "answer": "সাধারণ",
+          "choices": [
+            "বিশেষ",
+            "গুরুত্বপূর্ণ",
+            "বিখ্যাত",
+            "সুবিধাজনক"
+          ]
+        },
+        "ko": {
+          "sentence": "일반 가정에서는 잘 사용하지 않는 도구이다.",
+          "answer": "보통의",
+          "choices": [
+            "특별한",
+            "소중한",
+            "유명한",
+            "편리한"
+          ]
+        },
+        "vi": {
+          "sentence": "Đây là dụng cụ mà các gia đình bình thường ít khi sử dụng.",
+          "answer": "Bình thường",
+          "choices": [
+            "Đặc biệt",
+            "Quan trọng",
+            "Nổi tiếng",
+            "Tiện lợi"
+          ]
+        },
+        "my": {
+          "sentence": "ဒါကတော့ သာမန်အိမ်တွေမှာ သိပ်မသုံးတဲ့ ကိရိယာတစ်ခုပါ။",
+          "answer": "သာမန်",
+          "choices": [
+            "အထူး",
+            "အရေးကြီးသော",
+            "နာမည်ကြီးသော",
+            "အဆင်ပြေသော"
+          ]
         }
       }
     },
@@ -833,6 +2380,76 @@
             "रोकेको, छोटो समयको लागि गएको",
             "सरेको",
             "आराम गरेको"
+          ]
+        },
+        "id": {
+          "sentence": "Selama perjalanan, saya menginap di hotel depan stasiun.",
+          "answer": "Menginap",
+          "choices": [
+            "Berkumpul",
+            "Mampir",
+            "Pindah rumah",
+            "Beristirahat"
+          ]
+        },
+        "th": {
+          "sentence": "ระหว่างเดินทาง ฉันพักที่โรงแรมหน้าสถานีรถไฟ",
+          "answer": "พักค้างคืน",
+          "choices": [
+            "รวมตัวกัน",
+            "แวะ",
+            "ย้ายบ้าน",
+            "พักผ่อน"
+          ]
+        },
+        "zh": {
+          "sentence": "旅行期间，我住在车站前的酒店。",
+          "answer": "住了",
+          "choices": [
+            "聚集了",
+            "顺道去了",
+            "搬家了",
+            "休息了"
+          ]
+        },
+        "bn": {
+          "sentence": "ভ্রমণের সময় আমি স্টেশনের সামনের হোটেলে ছিলাম।",
+          "answer": "অবস্থান করেছিল",
+          "choices": [
+            "একত্রিত হয়েছিল",
+            "থেমেছিল/দাঁড়িয়েছিল",
+            "স্থানান্তর হয়েছিল",
+            "বিশ্রাম নিয়েছিল"
+          ]
+        },
+        "ko": {
+          "sentence": "여행 중에는 역 앞 호텔에 숙박했다.",
+          "answer": "묵었다",
+          "choices": [
+            "모였다",
+            "들렀다",
+            "이사했다",
+            "쉬었다"
+          ]
+        },
+        "vi": {
+          "sentence": "Trong chuyến du lịch, tôi đã ở tại khách sạn trước ga.",
+          "answer": "Đã trọ lại",
+          "choices": [
+            "Đã tập trung",
+            "Đã ghé qua",
+            "Đã chuyển nhà",
+            "Đã nghỉ ngơi"
+          ]
+        },
+        "my": {
+          "sentence": "ခရီးသွားနေတုန်း ဘူတာရုံရှေ့က ဟိုတယ်မှာ တည်းခိုခဲ့တယ်။",
+          "answer": "တည်းခိုခဲ့သည်",
+          "choices": [
+            "စုဝေးခဲ့သည်",
+            "ဝင်ရောက်ခဲ့သည်",
+            "ပြောင်းရွှေ့ခဲ့သည်",
+            "နားခဲ့သည်"
           ]
         }
       }
@@ -870,6 +2487,76 @@
             "सुगन्ध",
             "मूल्य"
           ]
+        },
+        "id": {
+          "sentence": "Obat ini memiliki fungsi untuk menurunkan demam.",
+          "answer": "Efek",
+          "choices": [
+            "Kandungan",
+            "Efek samping",
+            "Aroma",
+            "Harga"
+          ]
+        },
+        "th": {
+          "sentence": "ยานี้มีฤทธิ์ลดไข้",
+          "answer": "ฤทธิ์, การออกฤทธิ์",
+          "choices": [
+            "ส่วนประกอบ",
+            "ผลข้างเคียง",
+            "กลิ่นหอม",
+            "ราคา"
+          ]
+        },
+        "zh": {
+          "sentence": "这种药有退烧的作用。",
+          "answer": "作用",
+          "choices": [
+            "成分",
+            "副作用",
+            "香气",
+            "价格"
+          ]
+        },
+        "bn": {
+          "sentence": "এই ওষুধের জ্বর কমানোর ক্ষমতা আছে।",
+          "answer": "প্রভাব",
+          "choices": [
+            "উপাদান",
+            "পার্শ্বপ্রতিক্রিয়া",
+            "সুগন্ধ",
+            "দাম"
+          ]
+        },
+        "ko": {
+          "sentence": "이 약에는 열을 내리는 작용이 있다.",
+          "answer": "작용",
+          "choices": [
+            "성분",
+            "부작용",
+            "향기",
+            "가격"
+          ]
+        },
+        "vi": {
+          "sentence": "Loại thuốc này có tác dụng hạ sốt.",
+          "answer": "Tác dụng",
+          "choices": [
+            "Thành phần",
+            "Tác dụng phụ",
+            "Mùi hương",
+            "Giá cả"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီဆေးမှာ အဖျားကျစေတဲ့ အာနိသင်ရှိတယ်။",
+          "answer": "အာနိသင်",
+          "choices": [
+            "ပါဝင်ပစ္စည်း",
+            "ဘေးထွက်ဆိုးကျိုး",
+            "ရနံ့",
+            "စျေးနှုန်း"
+          ]
         }
       }
     },
@@ -905,6 +2592,76 @@
             "जाडो",
             "ओसिलो",
             "सुक्खा"
+          ]
+        },
+        "id": {
+          "sentence": "Wilayah ini memiliki iklim yang hangat sepanjang tahun.",
+          "answer": "Hangat",
+          "choices": [
+            "Sejuk",
+            "Dingin",
+            "Lembap",
+            "Kering"
+          ]
+        },
+        "th": {
+          "sentence": "ภูมิภาคนี้มีสภาพอากาศอบอุ่นตลอดทั้งปี",
+          "answer": "อบอุ่น",
+          "choices": [
+            "เย็นสบาย",
+            "หนาว",
+            "ชื้น",
+            "แห้ง"
+          ]
+        },
+        "zh": {
+          "sentence": "这个地区一年四季气候温暖。",
+          "answer": "温暖的",
+          "choices": [
+            "凉爽的",
+            "寒冷的",
+            "潮湿的",
+            "干燥的"
+          ]
+        },
+        "bn": {
+          "sentence": "এই অঞ্চলের জলবায়ু সারা বছর উষ্ণ থাকে।",
+          "answer": "উষ্ণ",
+          "choices": [
+            "ঠান্ডা",
+            "শীতল",
+            "আর্দ্র",
+            "শুষ্ক"
+          ]
+        },
+        "ko": {
+          "sentence": "이 지방은 일 년 내내 온난한 기후이다.",
+          "answer": "따뜻한",
+          "choices": [
+            "시원한",
+            "추운",
+            "습한",
+            "건조한"
+          ]
+        },
+        "vi": {
+          "sentence": "Khu vực này có khí hậu ôn hòa quanh năm.",
+          "answer": "Ấm áp",
+          "choices": [
+            "Mát mẻ",
+            "Lạnh",
+            "Ẩm ướt",
+            "Khô ráo"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီဒေသက တစ်နှစ်ပတ်လုံး သမမျှတတဲ့ ရာသီဥတုရှိတယ်။",
+          "answer": "နွေးထွေးသော",
+          "choices": [
+            "အေးမြသော",
+            "အေးသော",
+            "စိုစွတ်သော",
+            "ခြောက်သွေ့သော"
           ]
         }
       }
@@ -942,6 +2699,76 @@
             "लक्ष्य",
             "प्रचलन; फेसन"
           ]
+        },
+        "id": {
+          "sentence": "Mengadakan festival setiap musim gugur adalah kebiasaan desa ini.",
+          "answer": "Kebiasaan",
+          "choices": [
+            "Aturan",
+            "Perintah",
+            "Tujuan",
+            "Tren"
+          ]
+        },
+        "th": {
+          "sentence": "การจัดงานเทศกาลทุกฤดูใบไม้ร่วงเป็นธรรมเนียมปฏิบัติของหมู่บ้านแห่งนี้",
+          "answer": "ธรรมเนียม",
+          "choices": [
+            "กฎ",
+            "คำสั่ง",
+            "เป้าหมาย",
+            "แฟชั่น"
+          ]
+        },
+        "zh": {
+          "sentence": "每年秋天举行祭典，是这个村子的惯例。",
+          "answer": "习惯",
+          "choices": [
+            "规则",
+            "命令",
+            "目标",
+            "流行"
+          ]
+        },
+        "bn": {
+          "sentence": "প্রতি বছর শরৎকালে উৎসব করা এই গ্রামের একটি প্রথা।",
+          "answer": "অভ্যাস",
+          "choices": [
+            "নিয়ম",
+            "আদেশ",
+            "লক্ষ্য",
+            "প্রবণতা"
+          ]
+        },
+        "ko": {
+          "sentence": "매년 가을에 축제를 여는 것은 이 마을의 관행이다.",
+          "answer": "습관",
+          "choices": [
+            "규칙",
+            "명령",
+            "목표",
+            "유행"
+          ]
+        },
+        "vi": {
+          "sentence": "Tổ chức lễ hội vào mùa thu hàng năm là thông lệ của ngôi làng này.",
+          "answer": "Thói quen",
+          "choices": [
+            "Quy tắc",
+            "Mệnh lệnh",
+            "Mục tiêu",
+            "Thịnh hành"
+          ]
+        },
+        "my": {
+          "sentence": "နှစ်တိုင်း ဆောင်းဦးရာသီမှာ ပွဲတော်ကျင်းပတာက ဒီရွာရဲ့ ထုံးတမ်းစဉ်လာပဲ။",
+          "answer": "အလေ့အထ",
+          "choices": [
+            "စည်းကမ်း",
+            "အမိန့်",
+            "ပန်းတိုင်",
+            "ခေတ်စားမှု"
+          ]
         }
       }
     },
@@ -977,6 +2804,76 @@
             "महँगो",
             "ठूलो",
             "गुलियो"
+          ]
+        },
+        "id": {
+          "sentence": "Sayuran yang baru dikeluarkan dari kulkas itu segar.",
+          "answer": "Segar/berair",
+          "choices": [
+            "Lama",
+            "Mahal",
+            "Besar",
+            "Manis"
+          ]
+        },
+        "th": {
+          "sentence": "ผักที่เพิ่งนำออกมาจากตู้เย็นสดใหม่มาก",
+          "answer": "สดฉ่ำ",
+          "choices": [
+            "เก่า",
+            "แพง",
+            "ใหญ่",
+            "หวาน"
+          ]
+        },
+        "zh": {
+          "sentence": "刚从冰箱里拿出来的蔬菜很新鲜。",
+          "answer": "水灵灵的",
+          "choices": [
+            "旧的",
+            "昂贵的",
+            "大的",
+            "甜的"
+          ]
+        },
+        "bn": {
+          "sentence": "ফ্রিজ থেকে এইমাত্র বের করা সবজি তাজা।",
+          "answer": "রসালো",
+          "choices": [
+            "পুরানো",
+            "দামি",
+            "বড়",
+            "মিষ্টি"
+          ]
+        },
+        "ko": {
+          "sentence": "냉장고에서 막 꺼낸 채소는 신선하다.",
+          "answer": "싱싱하다",
+          "choices": [
+            "오래된",
+            "고가인",
+            "큰",
+            "달콤한"
+          ]
+        },
+        "vi": {
+          "sentence": "Rau vừa lấy ra từ tủ lạnh rất tươi.",
+          "answer": "Mọng nước",
+          "choices": [
+            "Cũ",
+            "Đắt tiền",
+            "Lớn",
+            "Ngọt"
+          ]
+        },
+        "my": {
+          "sentence": "ရေခဲသေတ္တာထဲက အခုမှထုတ်ထားတဲ့ ဟင်းသီးဟင်းရွက်တွေက လတ်ဆတ်တယ်။",
+          "answer": "လတ်ဆတ်သော",
+          "choices": [
+            "ဟောင်းနွမ်းသော",
+            "ဈေးကြီးသော",
+            "ကြီးမားသော",
+            "ချိုသော"
           ]
         }
       }
@@ -1014,6 +2911,76 @@
             "छाप; विचार",
             "आदेश"
           ]
+        },
+        "id": {
+          "sentence": "Karena pelayanannya buruk, pelanggan mengeluh kepada staf toko.",
+          "answer": "Keluhan",
+          "choices": [
+            "Ucapan terima kasih",
+            "Pertanyaan",
+            "Kesan",
+            "Perintah"
+          ]
+        },
+        "th": {
+          "sentence": "ลูกค้าบ่นกับพนักงานว่าบริการไม่ดี",
+          "answer": "ความไม่พอใจ",
+          "choices": [
+            "คำขอบคุณ",
+            "คำถาม",
+            "ความรู้สึก/ความเห็น",
+            "คำสั่ง"
+          ]
+        },
+        "zh": {
+          "sentence": "服务不好，客人向店员抱怨。",
+          "answer": "不满",
+          "choices": [
+            "感谢",
+            "问题",
+            "感想",
+            "命令"
+          ]
+        },
+        "bn": {
+          "sentence": "পরিষেবা খারাপ হওয়ায় গ্রাহক দোকান কর্মচারীর কাছে অভিযোগ করলেন।",
+          "answer": "অসন্তোষ",
+          "choices": [
+            "ধন্যবাদ",
+            "প্রশ্ন",
+            "অনুভূতি",
+            "আদেশ"
+          ]
+        },
+        "ko": {
+          "sentence": "서비스가 나쁘자 손님이 점원에게 불평했다.",
+          "answer": "불만",
+          "choices": [
+            "감사 인사",
+            "질문",
+            "감상",
+            "명령"
+          ]
+        },
+        "vi": {
+          "sentence": "Dịch vụ kém, khách hàng đã phàn nàn với nhân viên.",
+          "answer": "Bất mãn",
+          "choices": [
+            "Cảm ơn",
+            "Câu hỏi",
+            "Cảm tưởng",
+            "Mệnh lệnh"
+          ]
+        },
+        "my": {
+          "sentence": "ဝန်ဆောင်မှုမကောင်းလို့ ဖောက်သည်က ဆိုင်ဝန်ထမ်းကို မကျေနပ်ကြောင်း ပြောတယ်။",
+          "answer": "မကျေနပ်ချက်",
+          "choices": [
+            "ကျေးဇူးတင်စကား",
+            "မေးခွန်း",
+            "အထင်အမြင်",
+            "အမိန့်"
+          ]
         }
       }
     },
@@ -1049,6 +3016,76 @@
             "फाइदाजनक",
             "सुविधाजनक",
             "महत्त्वपूर्ण; बहुमूल्य"
+          ]
+        },
+        "id": {
+          "sentence": "Kondisi itu merugikan tim kami.",
+          "answer": "Rugi",
+          "choices": [
+            "Untung",
+            "Menguntungkan",
+            "Praktis",
+            "Penting"
+          ]
+        },
+        "th": {
+          "sentence": "เงื่อนไขนั้นไม่เป็นผลดีต่อทีมของเรา",
+          "answer": "เสียเปรียบ",
+          "choices": [
+            "ได้เปรียบ",
+            "เป็นประโยชน์",
+            "สะดวก",
+            "สำคัญ"
+          ]
+        },
+        "zh": {
+          "sentence": "那个条件对我们队不利。",
+          "answer": "损失",
+          "choices": [
+            "利益",
+            "有利",
+            "方便",
+            "重要"
+          ]
+        },
+        "bn": {
+          "sentence": "সেই শর্তটি আমাদের দলের জন্য প্রতিকূল।",
+          "answer": "ক্ষতি",
+          "choices": [
+            "লাভ",
+            "সুবিধাজনক",
+            "সহজ",
+            "গুরুত্বপূর্ণ"
+          ]
+        },
+        "ko": {
+          "sentence": "그 조건은 우리 팀에게 불리하다.",
+          "answer": "손해",
+          "choices": [
+            "이득",
+            "유리",
+            "편리",
+            "소중"
+          ]
+        },
+        "vi": {
+          "sentence": "Điều kiện đó bất lợi cho đội của chúng ta.",
+          "answer": "Thiệt thòi",
+          "choices": [
+            "Lợi ích",
+            "Có lợi",
+            "Tiện lợi",
+            "Quan trọng"
+          ]
+        },
+        "my": {
+          "sentence": "အဲဒီအခြေအနေက ကျွန်တော်တို့အဖွဲ့အတွက် အားနည်းချက်ဖြစ်တယ်။",
+          "answer": "ဆုံးရှုံးမှု",
+          "choices": [
+            "အကျိုးအမြတ်",
+            "အကျိုးရှိသော",
+            "အဆင်ပြေသော",
+            "အရေးကြီးသော"
           ]
         }
       }
@@ -1086,6 +3123,76 @@
             "पर्दा",
             "सिँढी"
           ]
+        },
+        "id": {
+          "sentence": "Saya duduk di kursi ketiga dari depan di bioskop.",
+          "answer": "Kursi",
+          "choices": [
+            "Lorong",
+            "Pintu masuk",
+            "Layar",
+            "Tangga"
+          ]
+        },
+        "th": {
+          "sentence": "ฉันนั่งที่นั่งแถวที่สามจากด้านหน้าในโรงภาพยนตร์",
+          "answer": "ที่นั่ง",
+          "choices": [
+            "ทางเดิน",
+            "ทางเข้า",
+            "หน้าจอ",
+            "บันได"
+          ]
+        },
+        "zh": {
+          "sentence": "在电影院里，我坐在了从前面数第三个座位。",
+          "answer": "座位",
+          "choices": [
+            "通道",
+            "入口",
+            "画面",
+            "楼梯"
+          ]
+        },
+        "bn": {
+          "sentence": "সিনেমা হলে আমি সামনে থেকে তৃতীয় আসনে বসেছিলাম।",
+          "answer": "আসন",
+          "choices": [
+            "গলি/পথ",
+            "প্রবেশপথ",
+            "পর্দা",
+            "সিঁড়ি"
+          ]
+        },
+        "ko": {
+          "sentence": "영화관에서는 앞에서 세 번째 좌석에 앉았다.",
+          "answer": "좌석",
+          "choices": [
+            "통로",
+            "입구",
+            "화면",
+            "계단"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã ngồi ở ghế thứ ba từ phía trước trong rạp chiếu phim.",
+          "answer": "Chỗ ngồi",
+          "choices": [
+            "Lối đi",
+            "Lối vào",
+            "Màn hình",
+            "Cầu thang"
+          ]
+        },
+        "my": {
+          "sentence": "ရုပ်ရှင်ရုံမှာ ရှေ့ဆုံးကနေ သုံးနေရာမြောက် ထိုင်ခုံမှာ ထိုင်ခဲ့တယ်။",
+          "answer": "ထိုင်ခုံ",
+          "choices": [
+            "စင်္ကြံ",
+            "ဝင်ပေါက်",
+            "မျက်နှာပြင်",
+            "လှေကား"
+          ]
         }
       }
     },
@@ -1121,6 +3228,76 @@
             "दयालु",
             "इमानदार",
             "सामान्य; साधारण"
+          ]
+        },
+        "id": {
+          "sentence": "Dia adalah seorang ilmuwan hebat yang meninggalkan banyak penemuan.",
+          "answer": "Hebat; Bagus sekali",
+          "choices": [
+            "Terkenal",
+            "Baik hati",
+            "Jujur",
+            "Biasa saja; Umum"
+          ]
+        },
+        "th": {
+          "sentence": "เขาเป็นนักวิทยาศาสตร์ผู้ยิ่งใหญ่ที่ทิ้งผลงานการประดิษฐ์ไว้มากมาย",
+          "answer": "ยอดเยี่ยม, สง่างาม",
+          "choices": [
+            "มีชื่อเสียง",
+            "ใจดี",
+            "ซื่อสัตย์",
+            "ธรรมดา"
+          ]
+        },
+        "zh": {
+          "sentence": "他是一位留下了许多发明的伟大科学家。",
+          "answer": "出色的",
+          "choices": [
+            "有名的",
+            "亲切的",
+            "诚实的",
+            "平凡的"
+          ]
+        },
+        "bn": {
+          "sentence": "তিনি অনেক আবিষ্কার রেখে যাওয়া একজন মহান বিজ্ঞানী।",
+          "answer": "চমৎকার",
+          "choices": [
+            "বিখ্যাত",
+            "দয়ালু",
+            "সৎ",
+            "সাধারণ"
+          ]
+        },
+        "ko": {
+          "sentence": "그는 많은 발명을 남긴 위대한 과학자이다.",
+          "answer": "훌륭한",
+          "choices": [
+            "유명한",
+            "친절한",
+            "정직한",
+            "평범한"
+          ]
+        },
+        "vi": {
+          "sentence": "Ông ấy là một nhà khoa học vĩ đại đã để lại nhiều phát minh.",
+          "answer": "Tuyệt vời, xuất sắc",
+          "choices": [
+            "Nổi tiếng",
+            "Tốt bụng",
+            "Trung thực",
+            "Bình thường, tầm thường"
+          ]
+        },
+        "my": {
+          "sentence": "သူသည် တီထွင်မှုများစွာကို ချန်ထားခဲ့သော သိပ္ပံပညာရှင်ကြီးတစ်ဦးဖြစ်သည်။",
+          "answer": "ခမ်းနားသော",
+          "choices": [
+            "နာမည်ကြီးသော",
+            "ကြင်နာသော",
+            "ရိုးသားသော",
+            "သာမန်"
           ]
         }
       }
@@ -1158,6 +3335,76 @@
             "समात्यो",
             "छोयो"
           ]
+        },
+        "id": {
+          "sentence": "Pria yang marah itu memukul wajah lawannya.",
+          "answer": "Memukul",
+          "choices": [
+            "Mendorong",
+            "Menendang",
+            "Memegang",
+            "Menyentuh"
+          ]
+        },
+        "th": {
+          "sentence": "ชายที่โกรธต่อยหน้าคู่กรณี",
+          "answer": "ตบ, ตี",
+          "choices": [
+            "ผลัก",
+            "เตะ",
+            "จับ",
+            "สัมผัส"
+          ]
+        },
+        "zh": {
+          "sentence": "生气的男人打了对方的脸。",
+          "answer": "拍了",
+          "choices": [
+            "推了",
+            "踢了",
+            "抓了",
+            "摸了"
+          ]
+        },
+        "bn": {
+          "sentence": "রাগান্বিত লোকটি প্রতিপক্ষের মুখে ঘুষি মারল।",
+          "answer": "আঘাত করেছিল",
+          "choices": [
+            "ধাক্কা দিয়েছিল",
+            "লাথি মেরেছিল",
+            "ধরেছিল",
+            "স্পর্শ করেছিল"
+          ]
+        },
+        "ko": {
+          "sentence": "화난 남자가 상대방의 얼굴을 때렸다.",
+          "answer": "두드렸다",
+          "choices": [
+            "밀었다",
+            "찼다",
+            "붙잡았다",
+            "만졌다"
+          ]
+        },
+        "vi": {
+          "sentence": "Người đàn ông tức giận đã đấm vào mặt đối phương.",
+          "answer": "Đã đánh, đã gõ",
+          "choices": [
+            "Đã đẩy",
+            "Đã đá",
+            "Đã nắm, đã tóm",
+            "Đã chạm"
+          ]
+        },
+        "my": {
+          "sentence": "ဒေါသထွက်နေသော အမျိုးသားက တစ်ဖက်လူ၏မျက်နှာကို ထိုးလိုက်သည်။",
+          "answer": "ရိုက်လိုက်သည်",
+          "choices": [
+            "တွန်းလိုက်သည်",
+            "ကန်လိုက်သည်",
+            "ဆွဲကိုင်လိုက်သည်",
+            "ထိလိုက်သည်"
+          ]
         }
       }
     },
@@ -1193,6 +3440,76 @@
             "पुष्टि गर्यो; जाँच गर्यो",
             "अनुमान गर्यो; अपेक्षा गर्यो",
             "घोषणा गर्यो; प्रस्तुत गर्यो"
+          ]
+        },
+        "id": {
+          "sentence": "Dia menghitung jumlah orang dengan melipat jari-jarinya.",
+          "answer": "Menghitung",
+          "choices": [
+            "Mencatat",
+            "Memastikan; Mengonfirmasi",
+            "Memprediksi",
+            "Mengumumkan"
+          ]
+        },
+        "th": {
+          "sentence": "เขานับจำนวนคนโดยการงอนิ้ว",
+          "answer": "นับ",
+          "choices": [
+            "บันทึก",
+            "ยืนยัน",
+            "คาดการณ์",
+            "ประกาศ"
+          ]
+        },
+        "zh": {
+          "sentence": "他掰着手指头数人数。",
+          "answer": "数了",
+          "choices": [
+            "记录了",
+            "确认了",
+            "预测了",
+            "发表了"
+          ]
+        },
+        "bn": {
+          "sentence": "সে আঙুল গুনে লোকসংখ্যা হিসাব করল।",
+          "answer": "গণনা করেছিল",
+          "choices": [
+            "রেকর্ড করেছিল",
+            "যাচাই করেছিল",
+            "ভবিষ্যদ্বাণী করেছিল",
+            "ঘোষণা করেছিল"
+          ]
+        },
+        "ko": {
+          "sentence": "그는 손가락을 꼽아 인원수를 계산했다.",
+          "answer": "세었다",
+          "choices": [
+            "기록했다",
+            "확인했다",
+            "예상했다",
+            "발표했다"
+          ]
+        },
+        "vi": {
+          "sentence": "Anh ấy đã gập ngón tay để đếm số người.",
+          "answer": "Đã đếm",
+          "choices": [
+            "Đã ghi lại",
+            "Đã xác nhận",
+            "Đã dự đoán",
+            "Đã công bố"
+          ]
+        },
+        "my": {
+          "sentence": "သူသည် လူဦးရေကို လက်ချောင်းများဖြင့် ရေတွက်ခဲ့သည်။",
+          "answer": "ရေတွက်ခဲ့သည်",
+          "choices": [
+            "မှတ်တမ်းတင်ခဲ့သည်",
+            "အတည်ပြုခဲ့သည်",
+            "ခန့်မှန်းခဲ့သည်",
+            "ကြေညာခဲ့သည်"
           ]
         }
       }
@@ -1230,6 +3547,76 @@
             "बिर्सेर",
             "सहेर; सहन गरेर"
           ]
+        },
+        "id": {
+          "sentence": "Dia menyembunyikan keterkejutannya dan memasang wajah tenang.",
+          "answer": "Tanpa menunjukkan",
+          "choices": [
+            "Mengungkapkan",
+            "Menyampaikan",
+            "Melupakan",
+            "Bersabar"
+          ]
+        },
+        "th": {
+          "sentence": "เขาซ่อนความประหลาดใจและทำหน้าตาเฉย",
+          "answer": "ไม่แสดง",
+          "choices": [
+            "แสดงออกมา",
+            "ถ่ายทอด",
+            "ลืม",
+            "อดทน"
+          ]
+        },
+        "zh": {
+          "sentence": "他隐藏起惊讶的心情，装作若无其事的样子。",
+          "answer": "不表现出来",
+          "choices": [
+            "表达",
+            "传达",
+            "忘记",
+            "忍耐"
+          ]
+        },
+        "bn": {
+          "sentence": "সে তার অবাক হওয়া অনুভূতি লুকিয়ে স্বাভাবিক মুখভঙ্গি করল।",
+          "answer": "না দেখিয়ে",
+          "choices": [
+            "প্রকাশ করে",
+            "জানিয়ে",
+            "ভুলে গিয়ে",
+            "ধৈর্য ধরে"
+          ]
+        },
+        "ko": {
+          "sentence": "그는 놀란 마음을 숨기고, 태연한 얼굴을 했다.",
+          "answer": "보이지 않고",
+          "choices": [
+            "표현하고",
+            "전하고",
+            "잊고",
+            "참고"
+          ]
+        },
+        "vi": {
+          "sentence": "Anh ấy đã giấu đi sự ngạc nhiên và tỏ ra bình thản.",
+          "answer": "Không cho thấy",
+          "choices": [
+            "Biểu thị, thể hiện",
+            "Truyền đạt",
+            "Quên",
+            "Chịu đựng, nhẫn nại"
+          ]
+        },
+        "my": {
+          "sentence": "သူသည် အံ့အားသင့်နေသော ခံစားချက်ကို ဖုံးကွယ်၍ ပုံမှန်မျက်နှာထားဖြင့် နေခဲ့သည်။",
+          "answer": "မပြဘဲ",
+          "choices": [
+            "ဖော်ပြပြီး",
+            "ပြောပြပြီး",
+            "မေ့လျော့ပြီး",
+            "သည်းခံပြီး"
+          ]
         }
       }
     },
@@ -1265,6 +3652,76 @@
             "बोक्नु; ढुवानी गर्नु",
             "सफा गर्नु",
             "डिजाइन गर्नु"
+          ]
+        },
+        "id": {
+          "sentence": "Mesin ini rumit, jadi sulit untuk dioperasikan.",
+          "answer": "Mengoperasikan",
+          "choices": [
+            "Memperbaiki",
+            "Membawa",
+            "Membersihkan",
+            "Mendesain"
+          ]
+        },
+        "th": {
+          "sentence": "เครื่องจักรนี้ซับซ้อน จึงใช้งานยาก",
+          "answer": "ควบคุม/ใช้งาน",
+          "choices": [
+            "ซ่อมแซม",
+            "ขนส่ง",
+            "ทำความสะอาด",
+            "ออกแบบ"
+          ]
+        },
+        "zh": {
+          "sentence": "这台机器很复杂，所以操作起来很难。",
+          "answer": "操作",
+          "choices": [
+            "修理",
+            "搬运",
+            "打扫",
+            "设计"
+          ]
+        },
+        "bn": {
+          "sentence": "এই যন্ত্রটি জটিল, তাই এটি পরিচালনা করা কঠিন।",
+          "answer": "পরিচালনা করা",
+          "choices": [
+            "মেরামত করা",
+            "বহন করা",
+            "পরিষ্কার করা",
+            "নকশা করা"
+          ]
+        },
+        "ko": {
+          "sentence": "이 기계는 복잡해서 다루기 어렵다.",
+          "answer": "조작하다",
+          "choices": [
+            "수리하다",
+            "운반하다",
+            "청소하다",
+            "설계하다"
+          ]
+        },
+        "vi": {
+          "sentence": "Cái máy này phức tạp nên khó sử dụng.",
+          "answer": "Thao tác, vận hành",
+          "choices": [
+            "Sửa chữa",
+            "Vận chuyển",
+            "Dọn dẹp, quét dọn",
+            "Thiết kế"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီစက်က ရှုပ်ထွေးလို့ ကိုင်တွယ်ရခက်တယ်။",
+          "answer": "လုပ်ဆောင်ပြီး",
+          "choices": [
+            "ပြင်ဆင်ပြီး",
+            "သယ်ယူပြီး",
+            "သန့်ရှင်းရေးလုပ်ပြီး",
+            "ဒီဇိုင်းဆွဲပြီး"
           ]
         }
       }
@@ -1302,6 +3759,76 @@
             "शंका गरेर",
             "बेवास्ता गरेर"
           ]
+        },
+        "id": {
+          "sentence": "Kami membuat rencana dengan mempertimbangkan tidak hanya pengalaman, tetapi juga pendapat kaum muda.",
+          "answer": "Memasukkan",
+          "choices": [
+            "Menghilangkan",
+            "Membandingkan",
+            "Mencurigai",
+            "Mengabaikan"
+          ]
+        },
+        "th": {
+          "sentence": "เราวางแผนโดยคำนึงถึงความคิดเห็นของคนหนุ่มสาวด้วย ไม่ใช่แค่ประสบการณ์เท่านั้น",
+          "answer": "นำมาใช้",
+          "choices": [
+            "ยกเว้น",
+            "เปรียบเทียบ",
+            "สงสัย",
+            "เพิกเฉย"
+          ]
+        },
+        "zh": {
+          "sentence": "我们不仅考虑了经验，还采纳了年轻人的意见来制定计划。",
+          "answer": "采纳",
+          "choices": [
+            "排除",
+            "比较",
+            "怀疑",
+            "无视"
+          ]
+        },
+        "bn": {
+          "sentence": "অভিজ্ঞতার পাশাপাশি তরুণদের মতামতও বিবেচনা করে পরিকল্পনা তৈরি করা হয়েছে।",
+          "answer": "অন্তর্ভুক্ত করে",
+          "choices": [
+            "বাদ দিয়ে",
+            "তুলনা করে",
+            "সন্দেহ করে",
+            "উপেক্ষা করে"
+          ]
+        },
+        "ko": {
+          "sentence": "경험뿐만 아니라 젊은 사람들의 의견도 가미하여 계획을 세웠다.",
+          "answer": "받아들여서",
+          "choices": [
+            "제외하고",
+            "비교해서",
+            "의심해서",
+            "무시하고"
+          ]
+        },
+        "vi": {
+          "sentence": "Chúng tôi đã lập kế hoạch có tính đến không chỉ kinh nghiệm mà còn cả ý kiến của những người trẻ tuổi.",
+          "answer": "Tiếp thu, áp dụng",
+          "choices": [
+            "Loại trừ, loại bỏ",
+            "So sánh",
+            "Nghi ngờ",
+            "Phớt lờ, bỏ qua"
+          ]
+        },
+        "my": {
+          "sentence": "အတွေ့အကြုံအပြင် လူငယ်တွေရဲ့အမြင်တွေကိုပါ ထည့်သွင်းစဉ်းစားပြီး စီမံကိန်းရေးဆွဲခဲ့တယ်။",
+          "answer": "ထည့်သွင်းပြီး",
+          "choices": [
+            "ဖယ်ထုတ်ပြီး",
+            "နှိုင်းယှဉ်ပြီး",
+            "သံသယဝင်ပြီး",
+            "လျစ်လျူရှုပြီး"
+          ]
         }
       }
     },
@@ -1337,6 +3864,76 @@
             "आदेश",
             "धन्यवाद",
             "आत्मविश्वास"
+          ]
+        },
+        "id": {
+          "sentence": "Penting untuk menjaga kesopanan saat bertemu orang untuk pertama kalinya.",
+          "answer": "Etika",
+          "choices": [
+            "Janji",
+            "Perintah",
+            "Terima kasih",
+            "Kepercayaan diri"
+          ]
+        },
+        "th": {
+          "sentence": "ให้ความสำคัญกับมารยาทเมื่อพบคนครั้งแรก",
+          "answer": "มารยาท",
+          "choices": [
+            "สัญญา",
+            "คำสั่ง",
+            "ความรู้สึกขอบคุณ",
+            "ความมั่นใจ"
+          ]
+        },
+        "zh": {
+          "sentence": "初次见面的人要注重礼仪。",
+          "answer": "礼仪",
+          "choices": [
+            "约定",
+            "命令",
+            "感谢",
+            "自信"
+          ]
+        },
+        "bn": {
+          "sentence": "প্রথমবার দেখা হওয়া মানুষের সাথে ভদ্রতা বজায় রাখা গুরুত্বপূর্ণ।",
+          "answer": "আচার-ব্যবহার",
+          "choices": [
+            "প্রতিশ্রুতি",
+            "আদেশ",
+            "কৃতজ্ঞতা",
+            "আত্মবিশ্বাস"
+          ]
+        },
+        "ko": {
+          "sentence": "첫 만남의 사람에게는 예의를 중요하게 생각한다.",
+          "answer": "매너",
+          "choices": [
+            "약속",
+            "명령",
+            "감사",
+            "자신감"
+          ]
+        },
+        "vi": {
+          "sentence": "Đối với người lần đầu gặp mặt, hãy coi trọng lễ nghi.",
+          "answer": "Cách cư xử, phép tắc",
+          "choices": [
+            "Lời hứa",
+            "Mệnh lệnh",
+            "Sự cảm ơn",
+            "Sự tự tin"
+          ]
+        },
+        "my": {
+          "sentence": "ပထမဆုံးတွေ့တဲ့သူကို ယဉ်ကျေးမှုရှိရှိ ဆက်ဆံတယ်။",
+          "answer": "စည်းကမ်း",
+          "choices": [
+            "ကတိ",
+            "အမိန့်",
+            "ကျေးဇူးတင်ခြင်း",
+            "ယုံကြည်မှု"
           ]
         }
       }
@@ -1374,6 +3971,76 @@
             "थकित भयो",
             "चुप लाग्यो"
           ]
+        },
+        "id": {
+          "sentence": "Dia panik ketika namanya dipanggil tiba-tiba.",
+          "answer": "Panik",
+          "choices": [
+            "Marah",
+            "Senang",
+            "Lelah",
+            "Diam"
+          ]
+        },
+        "th": {
+          "sentence": "เขาตกใจเมื่อถูกเรียกชื่อกะทันหัน",
+          "answer": "รีบร้อน/ลนลาน",
+          "choices": [
+            "โกรธ",
+            "ดีใจ",
+            "เหนื่อย",
+            "เงียบ"
+          ]
+        },
+        "zh": {
+          "sentence": "突然被叫到名字，他慌张了。",
+          "answer": "着急",
+          "choices": [
+            "生气",
+            "很高兴",
+            "累了",
+            "沉默了"
+          ]
+        },
+        "bn": {
+          "sentence": "হঠাৎ নাম ধরে ডাকলে সে ঘাবড়ে গেল।",
+          "answer": "ব্যতিব্যস্ত হয়ে পড়েছিল",
+          "choices": [
+            "রেগে গিয়েছিল",
+            "আনন্দিত হয়েছিল",
+            "ক্লান্ত হয়েছিল",
+            "চুপ করে ছিল"
+          ]
+        },
+        "ko": {
+          "sentence": "갑자기 이름이 불리자 그는 당황했다.",
+          "answer": "초조해했다",
+          "choices": [
+            "화냈다",
+            "기뻐했다",
+            "피곤했다",
+            "침묵했다"
+          ]
+        },
+        "vi": {
+          "sentence": "Bị gọi tên đột ngột, anh ấy đã hoảng hốt.",
+          "answer": "Vội vàng, luống cuống",
+          "choices": [
+            "Tức giận",
+            "Đã vui/hân hoan",
+            "Đã mệt",
+            "Đã im lặng"
+          ]
+        },
+        "my": {
+          "sentence": "ရုတ်တရက် နာမည်ခေါ်လိုက်တော့ သူလန့်သွားတယ်။",
+          "answer": "ပူပန်ပြီး",
+          "choices": [
+            "ဒေါသထွက်ပြီး",
+            "ပျော်ရွှင်ခဲ့သည်",
+            "ပင်ပန်းခဲ့သည်",
+            "တိတ်ဆိတ်ခဲ့သည်"
+          ]
         }
       }
     },
@@ -1409,6 +4076,76 @@
             "शान्त",
             "गाह्रो; कठिन",
             "सुविधाजनक"
+          ]
+        },
+        "id": {
+          "sentence": "Waktu yang dihabiskan bersama teman-teman sangat menyenangkan.",
+          "answer": "Menyenangkan",
+          "choices": [
+            "Membosankan",
+            "Tenang",
+            "Sulit/Melelahkan",
+            "Praktis"
+          ]
+        },
+        "th": {
+          "sentence": "เวลาที่ได้ใช้กับเพื่อนสนุกมาก",
+          "answer": "สนุก",
+          "choices": [
+            "น่าเบื่อ",
+            "เงียบสงบ",
+            "แย่มาก/ลำบาก",
+            "สะดวก"
+          ]
+        },
+        "zh": {
+          "sentence": "和朋友一起度过的时光非常愉快。",
+          "answer": "开心",
+          "choices": [
+            "无聊",
+            "安静",
+            "糟糕",
+            "方便"
+          ]
+        },
+        "bn": {
+          "sentence": "বন্ধুদের সাথে কাটানো সময়টা খুবই আনন্দদায়ক ছিল।",
+          "answer": "আনন্দদায়ক",
+          "choices": [
+            "বিরক্তিকর",
+            "শান্ত",
+            "কষ্টকর/ভয়ানক",
+            "সুবিধাজনক"
+          ]
+        },
+        "ko": {
+          "sentence": "친구와 보낸 시간은 매우 유쾌했다.",
+          "answer": "즐겁다",
+          "choices": [
+            "지루하다",
+            "조용하다",
+            "힘들다",
+            "편리하다"
+          ]
+        },
+        "vi": {
+          "sentence": "Thời gian ở bên bạn bè thật sự rất vui vẻ.",
+          "answer": "Vui vẻ",
+          "choices": [
+            "Buồn chán",
+            "Yên tĩnh",
+            "Vất vả, khó khăn",
+            "Tiện lợi"
+          ]
+        },
+        "my": {
+          "sentence": "သူငယ်ချင်းတွေနဲ့ ကုန်ဆုံးခဲ့တဲ့အချိန်တွေက အရမ်းပျော်စရာကောင်းခဲ့တယ်။",
+          "answer": "ပျော်စရာကောင်းသော",
+          "choices": [
+            "ပျင်းရိဖွယ်",
+            "တိတ်ဆိတ်သော",
+            "ခက်ခဲသော",
+            "အဆင်ပြေသော"
           ]
         }
       }
@@ -1446,6 +4183,76 @@
             "खाना पकाउने",
             "पढ्ने"
           ]
+        },
+        "id": {
+          "sentence": "Dia pandai berenang, bahkan memenangkan kejuaraan.",
+          "answer": "Berenang",
+          "choices": [
+            "Mengemudi",
+            "Mendaki gunung",
+            "Memasak",
+            "Membaca"
+          ]
+        },
+        "th": {
+          "sentence": "เขาว่ายน้ำเก่งมาก และยังชนะการแข่งขันอีกด้วย",
+          "answer": "การว่ายน้ำ",
+          "choices": [
+            "การขับรถ",
+            "การปีนเขา",
+            "การทำอาหาร",
+            "การอ่านหนังสือ"
+          ]
+        },
+        "zh": {
+          "sentence": "他擅长游泳，还在比赛中获得了冠军。",
+          "answer": "游泳",
+          "choices": [
+            "驾驶",
+            "登山",
+            "烹饪",
+            "阅读"
+          ]
+        },
+        "bn": {
+          "sentence": "সে সাঁতারে পারদর্শী এবং প্রতিযোগিতায় চ্যাম্পিয়নও হয়েছিল।",
+          "answer": "সাঁতার",
+          "choices": [
+            "গাড়ি চালানো",
+            "পর্বতারোহণ",
+            "রান্না",
+            "বই পড়া"
+          ]
+        },
+        "ko": {
+          "sentence": "그는 수영을 잘해서 대회에서도 우승했다.",
+          "answer": "수영",
+          "choices": [
+            "운전",
+            "등산",
+            "요리",
+            "독서"
+          ]
+        },
+        "vi": {
+          "sentence": "Anh ấy bơi rất giỏi và đã vô địch tại giải đấu.",
+          "answer": "Bơi lội",
+          "choices": [
+            "Lái xe",
+            "Leo núi",
+            "Nấu ăn",
+            "Đọc sách"
+          ]
+        },
+        "my": {
+          "sentence": "သူက ရေကူးတာတော်ပြီး ပြိုင်ပွဲမှာလည်း အနိုင်ရခဲ့တယ်။",
+          "answer": "ရေကူးခြင်း",
+          "choices": [
+            "မောင်းနှင်ခြင်း",
+            "တောင်တက်ခြင်း",
+            "ဟင်းချက်ခြင်း",
+            "စာဖတ်ခြင်း"
+          ]
         }
       }
     },
@@ -1481,6 +4288,76 @@
             "लज्जास्पद; मलाई लाज लाग्यो।",
             "घृणित; दिक्क लाग्दो।",
             "गौरवशाली; मलाई गर्व छ।"
+          ]
+        },
+        "id": {
+          "sentence": "Anak anjing yang basah kuyup kehujanan itu menyedihkan.",
+          "answer": "Menyedihkan/Kasihan",
+          "choices": [
+            "Iri",
+            "Malu",
+            "Menjengkelkan",
+            "Banggalah"
+          ]
+        },
+        "th": {
+          "sentence": "ลูกหมาที่เปียกฝนดูน่าสงสาร",
+          "answer": "น่าสงสาร",
+          "choices": [
+            "น่าอิจฉา",
+            "น่าอาย",
+            "น่าชัง",
+            "น่าภาคภูมิใจ"
+          ]
+        },
+        "zh": {
+          "sentence": "雨中湿漉漉的小狗真可怜。",
+          "answer": "可怜",
+          "choices": [
+            "羡慕",
+            "害羞",
+            "可恨",
+            "自豪"
+          ]
+        },
+        "bn": {
+          "sentence": "বৃষ্টিতে ভেজা কুকুরছানাটিকে দেখে মায়া হয়েছিল।",
+          "answer": "দুঃখজনক/করুণ",
+          "choices": [
+            "ঈর্ষণীয়",
+            "লজ্জাজনক",
+            "ঘৃণ্য",
+            "গর্বের"
+          ]
+        },
+        "ko": {
+          "sentence": "비 속에서 젖어있는 강아지가 불쌍했다.",
+          "answer": "안쓰럽다",
+          "choices": [
+            "부럽다",
+            "부끄럽다",
+            "얄밉다",
+            "자랑스럽다"
+          ]
+        },
+        "vi": {
+          "sentence": "Thật tội nghiệp chú chó con bị ướt trong mưa.",
+          "answer": "Đáng thương, tội nghiệp",
+          "choices": [
+            "Đáng ghen tị",
+            "Xấu hổ",
+            "Đáng ghét",
+            "Đáng tự hào"
+          ]
+        },
+        "my": {
+          "sentence": "မိုးထဲမှာ စိုနေတဲ့ ခွေးကလေးကို သနားစရာကောင်းလိုက်တာ။",
+          "answer": "သနားစရာကောင်းသော",
+          "choices": [
+            "အားကျဖွယ်",
+            "ရှက်စရာကောင်းသော",
+            "မုန်းစရာကောင်းသော",
+            "ဂုဏ်ယူဖွယ်"
           ]
         }
       }
@@ -1518,6 +4395,76 @@
             "सहनु।",
             "चिन्ता गर्नु।"
           ]
+        },
+        "id": {
+          "sentence": "Dengan sering mencuci tangan, kita bisa mencegah penyakit.",
+          "answer": "Mencegah",
+          "choices": [
+            "Menyembuhkan",
+            "Menyebarkan",
+            "Bersabar",
+            "Khawatir"
+          ]
+        },
+        "th": {
+          "sentence": "การล้างมือบ่อยๆ สามารถป้องกันโรคได้",
+          "answer": "ป้องกัน",
+          "choices": [
+            "รักษา",
+            "แผ่ขยาย",
+            "อดทน",
+            "เป็นห่วง"
+          ]
+        },
+        "zh": {
+          "sentence": "勤洗手可以预防疾病。",
+          "answer": "预防",
+          "choices": [
+            "治疗",
+            "扩大",
+            "忍耐",
+            "担心"
+          ]
+        },
+        "bn": {
+          "sentence": "ভালোভাবে হাত ধোয়ার মাধ্যমে রোগ প্রতিরোধ করা যায়।",
+          "answer": "প্রতিরোধ করা",
+          "choices": [
+            "সুস্থ করা",
+            "ছড়িয়ে দেওয়া",
+            "ধৈর্য ধারণ করা",
+            "চিন্তা করা"
+          ]
+        },
+        "ko": {
+          "sentence": "손을 잘 씻음으로써 병을 예방할 수 있다.",
+          "answer": "예방하다",
+          "choices": [
+            "고치다",
+            "넓히다",
+            "참다",
+            "걱정하다"
+          ]
+        },
+        "vi": {
+          "sentence": "Rửa tay thường xuyên có thể phòng ngừa bệnh tật.",
+          "answer": "Phòng ngừa",
+          "choices": [
+            "Chữa trị",
+            "Mở rộng",
+            "Chịu đựng, nhẫn nại",
+            "Lo lắng"
+          ]
+        },
+        "my": {
+          "sentence": "လက်ကို သေချာဆေးကြောခြင်းဖြင့် ရောဂါများကို ကာကွယ်နိုင်ပါတယ်။",
+          "answer": "ကာကွယ်သည်",
+          "choices": [
+            "ကုသသည်",
+            "ဖြန့်ကျက်သည်",
+            "သည်းခံသည်",
+            "စိုးရိမ်သည်"
+          ]
         }
       }
     },
@@ -1553,6 +4500,76 @@
             "अवलोकन; भ्रमण।",
             "गफगाफ; कुराकानी।",
             "ढिलो हुनु।"
+          ]
+        },
+        "id": {
+          "sentence": "Saya ditegur guru karena tertidur saat pelajaran.",
+          "answer": "Tertidur sebentar",
+          "choices": [
+            "Menguap",
+            "Kunjungan/Studi banding",
+            "Mengobrol",
+            "Terlambat"
+          ]
+        },
+        "th": {
+          "sentence": "เผลอหลับในห้องเรียนเลยโดนคุณครูเตือน",
+          "answer": "การสัปหงก",
+          "choices": [
+            "การหาว",
+            "การเยี่ยมชม",
+            "การพูดคุย",
+            "การมาสาย"
+          ]
+        },
+        "zh": {
+          "sentence": "上课时打瞌睡被老师提醒了。",
+          "answer": "打盹",
+          "choices": [
+            "打哈欠",
+            "参观",
+            "聊天",
+            "迟到"
+          ]
+        },
+        "bn": {
+          "sentence": "ক্লাসের মধ্যে ঘুমানোর কারণে শিক্ষক আমাকে বকা দিয়েছেন।",
+          "answer": "হালকা ঘুম",
+          "choices": [
+            "হাঁচি",
+            "পরিদর্শন",
+            "গল্প করা",
+            "দেরি"
+          ]
+        },
+        "ko": {
+          "sentence": "수업 중에 졸다가 선생님께 지적받았다.",
+          "answer": "선잠",
+          "choices": [
+            "하품",
+            "견학",
+            "수다",
+            "지각"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã ngủ gật trong giờ học và bị giáo viên nhắc nhở.",
+          "answer": "Ngủ gật",
+          "choices": [
+            "Ngáp",
+            "Tham quan học hỏi",
+            "Trò chuyện, nói chuyện phiếm",
+            "Đi trễ, đến muộn"
+          ]
+        },
+        "my": {
+          "sentence": "အတန်းထဲမှာ အိပ်ငိုက်လို့ ဆရာက သတိပေးတယ်။",
+          "answer": "တရေးတမော အိပ်ခြင်း",
+          "choices": [
+            "သမ်းခြင်း",
+            "လေ့လာရေး သွားရောက်ကြည့်ရှုခြင်း",
+            "စကားပြောခြင်း",
+            "နောက်ကျခြင်း"
           ]
         }
       }
@@ -1590,6 +4607,76 @@
             "पोखियो।",
             "कुहियो।"
           ]
+        },
+        "id": {
+          "sentence": "Supnya sudah dingin, jadi saya menghangatkannya lagi.",
+          "answer": "Menjadi dingin",
+          "choices": [
+            "Menjadi hangat",
+            "Berkurang",
+            "Tumpah",
+            "Membusuk"
+          ]
+        },
+        "th": {
+          "sentence": "ซุปเย็นชืดไปแล้ว เลยอุ่นอีกครั้ง",
+          "answer": "เย็นชืด",
+          "choices": [
+            "อุ่นขึ้น",
+            "ลดลง",
+            "หก",
+            "เน่าเสีย"
+          ]
+        },
+        "zh": {
+          "sentence": "汤凉了，我又热了一遍。",
+          "answer": "变凉",
+          "choices": [
+            "变暖",
+            "减少",
+            "洒出来",
+            "腐烂"
+          ]
+        },
+        "bn": {
+          "sentence": "স্যুপ ঠান্ডা হয়ে গিয়েছিল, তাই আমি এটি আবার গরম করেছি।",
+          "answer": "ঠান্ডা হয়ে",
+          "choices": [
+            "গরম হয়ে",
+            "কমে গিয়ে",
+            "ছড়িয়ে পড়ে",
+            "পচে গিয়ে"
+          ]
+        },
+        "ko": {
+          "sentence": "수프가 식어버려서, 다시 데웠다.",
+          "answer": "차가워져서",
+          "choices": [
+            "따뜻해져서",
+            "줄어서",
+            "넘쳐서",
+            "썩어서"
+          ]
+        },
+        "vi": {
+          "sentence": "Vì súp đã nguội nên tôi đã hâm nóng lại một lần nữa.",
+          "answer": "Đã trở nên lạnh",
+          "choices": [
+            "Đã trở nên ấm",
+            "Đã giảm đi",
+            "Đã bị đổ ra",
+            "Đã bị thối, ươn"
+          ]
+        },
+        "my": {
+          "sentence": "ဟင်းချိုက အေးသွားလို့ နောက်တစ်ခါ ပြန်နွှေးလိုက်တယ်။",
+          "answer": "အေးသွားခြင်း",
+          "choices": [
+            "နွေးသွားခြင်း",
+            "လျော့နည်းသွားခြင်း",
+            "ဖိတ်စင်သွားခြင်း",
+            "ပုပ်သိုးသွားခြင်း"
+          ]
         }
       }
     },
@@ -1625,6 +4712,76 @@
             "सभा; भेला।",
             "चोक; मैदान।",
             "बाटो; गल्ली।"
+          ]
+        },
+        "id": {
+          "sentence": "Saya kehilangan teman di tengah keramaian di depan stasiun.",
+          "answer": "Banyak orang",
+          "choices": [
+            "Antrean",
+            "Rapat/Pertemuan",
+            "Alun-alun",
+            "Lorong"
+          ]
+        },
+        "th": {
+          "sentence": "ฉันคลาดกับเพื่อนในฝูงชนหน้าสถานี",
+          "answer": "ผู้คนจำนวนมาก",
+          "choices": [
+            "แถว (คิว)",
+            "การประชุม",
+            "ลานกว้าง",
+            "ทางเดิน"
+          ]
+        },
+        "zh": {
+          "sentence": "在车站前的人群中，我找不到朋友了。",
+          "answer": "很多人",
+          "choices": [
+            "队伍",
+            "集会",
+            "广场",
+            "通道"
+          ]
+        },
+        "bn": {
+          "sentence": "স্টেশনের সামনের ভিড়ের মধ্যে আমি আমার বন্ধুকে হারিয়ে ফেলেছি।",
+          "answer": "অনেক মানুষ",
+          "choices": [
+            "সারি",
+            "সভা",
+            "চত্বর",
+            "পথ"
+          ]
+        },
+        "ko": {
+          "sentence": "역 앞 인파 속에서, 친구를 놓쳤다.",
+          "answer": "많은 사람",
+          "choices": [
+            "행렬",
+            "집회",
+            "광장",
+            "통로"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã lạc mất bạn trong đám đông trước nhà ga.",
+          "answer": "Đông người",
+          "choices": [
+            "Hàng người, xếp hàng",
+            "Cuộc họp, buổi mít tinh",
+            "Quảng trường",
+            "Lối đi"
+          ]
+        },
+        "my": {
+          "sentence": "ဘူတာရှေ့က လူအုပ်ထဲမှာ သူငယ်ချင်းကို ရှာမတွေ့တော့ဘူး။",
+          "answer": "လူအများအပြား",
+          "choices": [
+            "တန်းစီခြင်း",
+            "အစည်းအဝေး",
+            "ရင်ပြင်",
+            "စင်္ကြံ"
           ]
         }
       }
@@ -1662,6 +4819,76 @@
             "साथी; सहकर्मी; मित्र; सहयोगी",
             "अरू मानिसहरू; अपरिचित"
           ]
+        },
+        "id": {
+          "sentence": "Kamu harus memikirkan masalah ini sendiri.",
+          "answer": "Diri sendiri",
+          "choices": [
+            "Lawan/Mitra",
+            "Keluarga",
+            "Teman/Rekan",
+            "Orang lain"
+          ]
+        },
+        "th": {
+          "sentence": "ปัญหาข้อนี้เธอต้องคิดด้วยตัวเอง",
+          "answer": "ตัวเอง",
+          "choices": [
+            "อีกฝ่าย",
+            "ครอบครัว",
+            "พวกพ้อง",
+            "คนอื่น"
+          ]
+        },
+        "zh": {
+          "sentence": "这个问题你必须自己思考。",
+          "answer": "自己",
+          "choices": [
+            "对方",
+            "家人",
+            "伙伴",
+            "别人"
+          ]
+        },
+        "bn": {
+          "sentence": "এই সমস্যাটি তোমাকে নিজেরই ভাবতে হবে।",
+          "answer": "নিজেকে",
+          "choices": [
+            "অন্য পক্ষ",
+            "পরিবার",
+            "সহকর্মী",
+            "অন্যান্য ব্যক্তি/অপর"
+          ]
+        },
+        "ko": {
+          "sentence": "이 문제는 너 스스로 생각해야만 한다.",
+          "answer": "자신",
+          "choices": [
+            "상대",
+            "가족",
+            "동료",
+            "타인"
+          ]
+        },
+        "vi": {
+          "sentence": "Bạn phải tự mình suy nghĩ về vấn đề này.",
+          "answer": "Bản thân",
+          "choices": [
+            "Đối phương",
+            "Gia đình",
+            "Bạn bè, đồng nghiệp",
+            "Người khác"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီပြဿနာကို မင်းကိုယ်တိုင် စဉ်းစားရမယ်။",
+          "answer": "ကိုယ်တိုင်",
+          "choices": [
+            "တစ်ဖက်လူ",
+            "မိသားစု",
+            "အပေါင်းအသင်း",
+            "တခြားသူ"
+          ]
         }
       }
     },
@@ -1697,6 +4924,76 @@
             "पछ्यायो; आज्ञा पालन गर्यो",
             "निर्णय गर्यो",
             "सम्झ्यो; सिक्यो"
+          ]
+        },
+        "id": {
+          "sentence": "Saya melanggar peraturan lalu lintas karena ngebut.",
+          "answer": "Melanggar",
+          "choices": [
+            "Mematuhi",
+            "Mengikuti",
+            "Memutuskan",
+            "Mengingat"
+          ]
+        },
+        "th": {
+          "sentence": "ขับรถเร็วเกินไปและฝ่าฝืนกฎจราจร",
+          "answer": "ฝ่าฝืน",
+          "choices": [
+            "ปฏิบัติตาม",
+            "เชื่อฟัง",
+            "ตัดสินใจ",
+            "จดจำ"
+          ]
+        },
+        "zh": {
+          "sentence": "因超速违反了交通规则。",
+          "answer": "打破了",
+          "choices": [
+            "遵守了",
+            "服从了",
+            "决定了",
+            "记住了"
+          ]
+        },
+        "bn": {
+          "sentence": "খুব দ্রুত গতিতে গাড়ি চালিয়ে ট্র্যাফিকের নিয়ম লঙ্ঘন করেছে।",
+          "answer": "ভঙ্গ করেছে",
+          "choices": [
+            "মেনে চলেছে",
+            "অনুসরণ করেছে",
+            "সিদ্ধান্ত নিয়েছে",
+            "মনে রেখেছে"
+          ]
+        },
+        "ko": {
+          "sentence": "과속으로 교통 법규를 위반했다.",
+          "answer": "어겼다",
+          "choices": [
+            "지켰다",
+            "따랐다",
+            "정했다",
+            "외웠다"
+          ]
+        },
+        "vi": {
+          "sentence": "Tôi đã vi phạm luật giao thông vì chạy quá tốc độ.",
+          "answer": "Đã phá vỡ",
+          "choices": [
+            "Đã tuân thủ",
+            "Đã tuân theo",
+            "Đã quyết định",
+            "Đã nhớ"
+          ]
+        },
+        "my": {
+          "sentence": "အရှိန်လွန်မောင်းနှင်ခဲ့လို့ ယာဉ်စည်းကမ်းဖောက်ဖျက်ခဲ့ပါတယ်။",
+          "answer": "ဖောက်ဖျက်ခဲ့သည်",
+          "choices": [
+            "လိုက်နာခဲ့သည်",
+            "နာခံခဲ့သည်",
+            "ဆုံးဖြတ်ခဲ့သည်",
+            "မှတ်မိခဲ့သည်"
           ]
         }
       }
@@ -1734,6 +5031,76 @@
             "निमन्त्रणा गर्यो",
             "मार्गदर्शन गर्यो; घुमायो"
           ]
+        },
+        "id": {
+          "sentence": "Kami memberikan banyak bantuan makanan kepada negara yang terkena dampak.",
+          "answer": "Mendukung",
+          "choices": [
+            "Memerintahkan",
+            "Menyerang",
+            "Mengundang",
+            "Memandu"
+          ]
+        },
+        "th": {
+          "sentence": "ช่วยเหลือด้านอาหารจำนวนมากแก่ประเทศที่ได้รับความเสียหาย",
+          "answer": "สนับสนุน",
+          "choices": [
+            "สั่งการ",
+            "โจมตี",
+            "เชิญชวน",
+            "นำทาง"
+          ]
+        },
+        "zh": {
+          "sentence": "援助了受灾国大量的食物。",
+          "answer": "支援了",
+          "choices": [
+            "命令了",
+            "攻击了",
+            "邀请了",
+            "引导了"
+          ]
+        },
+        "bn": {
+          "sentence": "ক্ষতিগ্রস্ত দেশকে প্রচুর খাদ্য সহায়তা করা হয়েছে।",
+          "answer": "সমর্থন করেছে",
+          "choices": [
+            "আদেশ করেছে",
+            "আক্রমণ করেছে",
+            "আমন্ত্রণ করেছে",
+            "পথ দেখিয়েছে/পরিচালনা করেছে"
+          ]
+        },
+        "ko": {
+          "sentence": "피해를 입은 나라에 많은 식량을 원조했다.",
+          "answer": "지원했다",
+          "choices": [
+            "명령했다",
+            "공격했다",
+            "초대했다",
+            "안내했다"
+          ]
+        },
+        "vi": {
+          "sentence": "Chúng tôi đã viện trợ rất nhiều lương thực cho quốc gia bị thiệt hại.",
+          "answer": "Đã hỗ trợ",
+          "choices": [
+            "Đã ra lệnh",
+            "Đã tấn công",
+            "Đã mời",
+            "Đã hướng dẫn"
+          ]
+        },
+        "my": {
+          "sentence": "ထိခိုက်နစ်နာခဲ့တဲ့နိုင်ငံတွေကို အစားအသောက်အများအပြား ထောက်ပံ့ခဲ့ပါတယ်။",
+          "answer": "ပံ့ပိုးခဲ့သည်",
+          "choices": [
+            "အမိန့်ပေးခဲ့သည်",
+            "တိုက်ခိုက်ခဲ့သည်",
+            "ဖိတ်ကြားခဲ့သည်",
+            "လမ်းပြခဲ့သည်"
+          ]
         }
       }
     },
@@ -1770,6 +5137,76 @@
             "कर्मचारी",
             "खेलाडी"
           ]
+        },
+        "id": {
+          "sentence": "Jika Anda menjadi anggota gym ini, Anda juga dapat menggunakan kolam renang secara bebas.",
+          "answer": "Anggota",
+          "choices": [
+            "Karyawan toko",
+            "Pelanggan",
+            "Karyawan perusahaan",
+            "Atlet"
+          ]
+        },
+        "th": {
+          "sentence": "หากเป็นสมาชิกของยิมนี้ จะสามารถใช้สระว่ายน้ำได้อย่างอิสระด้วย",
+          "answer": "สมาชิก",
+          "choices": [
+            "พนักงานร้าน",
+            "ลูกค้า",
+            "พนักงานบริษัท",
+            "นักกีฬา"
+          ]
+        },
+        "zh": {
+          "sentence": "成为这家健身房的会员，游泳池也可以自由使用。",
+          "answer": "会员",
+          "choices": [
+            "店员",
+            "顾客",
+            "职员",
+            "选手"
+          ]
+        },
+        "bn": {
+          "sentence": "এই জিমের সদস্য হলে, সুইমিং পুলও অবাধে ব্যবহার করা যাবে।",
+          "answer": "সদস্য",
+          "choices": [
+            "দোকানের কর্মচারী",
+            "ক্রেতা/অতিথি",
+            "কর্মচারী",
+            "খেলোয়াড়"
+          ]
+        },
+        "ko": {
+          "sentence": "이 헬스클럽 회원이 되면 수영장도 자유롭게 이용할 수 있다.",
+          "answer": "멤버",
+          "choices": [
+            "점원",
+            "손님",
+            "사원",
+            "선수"
+          ]
+        },
+        "vi": {
+          "sentence": "Nếu trở thành thành viên của phòng gym này, bạn cũng có thể tự do sử dụng hồ bơi.",
+          "answer": "Thành viên",
+          "choices": [
+            "Nhân viên cửa hàng",
+            "Khách hàng",
+            "Nhân viên công ty",
+            "Tuyển thủ/Vận động viên"
+          ]
+        },
+        "my": {
+          "sentence": "ဒီအားကစားရုံရဲ့ အသင်းဝင်ဖြစ်သွားရင် ရေကူးကန်ကိုလည်း လွတ်လပ်စွာအသုံးပြုနိုင်ပါတယ်။",
+          "answer": "အသင်းဝင်",
+          "choices": [
+            "ဆိုင်ဝန်ထမ်း",
+            "ဧည့်သည်",
+            "ဝန်ထမ်း",
+            "အားကစားသမား"
+          ]
         }
       }
     },
@@ -1805,6 +5242,76 @@
             "क्षेत्र; जिल्ला; ग्रामीण क्षेत्र",
             "ग्रामीण इलाका; गाउँ",
             "घरेलु; देश भित्र"
+          ]
+        },
+        "id": {
+          "sentence": "Dia telah bekerja di luar negeri sejak lulus kuliah.",
+          "answer": "Luar negeri",
+          "choices": [
+            "Kota besar",
+            "Daerah",
+            "Pedesaan",
+            "Dalam negeri"
+          ]
+        },
+        "th": {
+          "sentence": "เขาทำงานในต่างประเทศหลังจากเรียนจบมหาวิทยาลัย",
+          "answer": "ต่างประเทศ",
+          "choices": [
+            "เมืองใหญ่",
+            "ภูมิภาค",
+            "ชนบท",
+            "ในประเทศ"
+          ]
+        },
+        "zh": {
+          "sentence": "他大学毕业后就在海外工作。",
+          "answer": "外国",
+          "choices": [
+            "都市",
+            "地方",
+            "乡村",
+            "国内"
+          ]
+        },
+        "bn": {
+          "sentence": "সে বিশ্ববিদ্যালয় থেকে স্নাতক হওয়ার পর থেকে বিদেশে কাজ করছে।",
+          "answer": "বিদেশ",
+          "choices": [
+            "শহর",
+            "অঞ্চল/প্রদেশ",
+            "গ্রাম",
+            "দেশের অভ্যন্তরে"
+          ]
+        },
+        "ko": {
+          "sentence": "그는 대학교를 졸업하고 나서 해외에서 일하고 있다.",
+          "answer": "외국",
+          "choices": [
+            "도시",
+            "지방",
+            "시골",
+            "국내"
+          ]
+        },
+        "vi": {
+          "sentence": "Anh ấy đã làm việc ở nước ngoài sau khi tốt nghiệp đại học.",
+          "answer": "Nước ngoài",
+          "choices": [
+            "Thành phố",
+            "Địa phương",
+            "Nông thôn",
+            "Trong nước"
+          ]
+        },
+        "my": {
+          "sentence": "သူက တက္ကသိုလ်ကနေ ဘွဲ့ရပြီးကတည်းက နိုင်ငံခြားမှာ အလုပ်လုပ်နေပါတယ်။",
+          "answer": "နိုင်ငံခြား",
+          "choices": [
+            "မြို့ပြ",
+            "နယ်",
+            "ကျေးလက်",
+            "ပြည်တွင်း"
           ]
         }
       }
