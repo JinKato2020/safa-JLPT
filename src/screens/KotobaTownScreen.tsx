@@ -30,7 +30,7 @@ const LEVEL_TOTALS: Record<string, { kanji: number; vocab: number; grammar: numb
 import type { RootStackParamList } from '../navigation/types';
 import { VIRTUAL_LEARNERS, type VirtualLearner } from '../plaza/virtualLearners';
 import { moodMsgText, personaLine, traitLabel } from '../plaza/persona';
-import { useT, meaningL1 } from '../i18n';
+import { useT, meaningL1, useUiLang } from '../i18n';
 import { useSync } from '../auth/SyncProvider';
 import { friendPublish, townMembers, cheerSend, townKick, friendReport, type FriendProfile } from '../plaza/friendsClient';
 import { friendToLearner } from '../plaza/friendResidents';
@@ -162,6 +162,9 @@ const SCENE_KEYS = ['town', 'tree', 'pond'];
 const DLG_LIGHT = require('../../assets/kotoba/ui/dlg_light.png');
 const DLG_DARK = require('../../assets/kotoba/ui/dlg_dark.png');
 const STATUSBOX = require('../../assets/kotoba/ui/statusbox.png');
+// 上下に字形が伸びる言語(ミャンマー/ベンガル/タイ等)は明示lineHeightが低いと頭切れする。
+// これらの言語ではステータス値の明示lineHeightを外し(=フォント自然の行高)、adjustsFontSizeToFitで罫線内に収める。
+const TALL_SCRIPTS = new Set(['my', 'bn', 'th', 'km', 'hi', 'si', 'ta']);
 // 会話を始めるたびにシーンをランダムに選ぶ(固定ではなく多様性を持たせる)。昼夜は実時刻(isDay)で切替。
 
 // 桜(マスコット)。8方向・歩行アニメ付き([立ち, 右足, 左足])。近づいて話すと努力を褒めてくれる。
@@ -434,6 +437,8 @@ function AmbientNpc({ sprites, spot, tag, sink, sinkKey }: {
 export default function KotobaTownScreen() {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const t = useT();
+  const uiLang = useUiLang(); // ステータス値の頭切れ対策(背の高い字形の言語判定)に使う
+  const tallScript = TALL_SCRIPTS.has(uiLang);
   const { width: VW, height: VH } = useWindowDimensions();
   // 選んだアバターで自分の見た目を切替(女の子1/女の子2 は専用スプライト、それ以外=男の子)。
   const avatarCode = useAppState().settings.avatar;
@@ -1177,8 +1182,8 @@ export default function KotobaTownScreen() {
                   // 帯の縦中央にラベル+値を寄せる=日本語(1行)は中央にゆったり、母語(2行)は詰まって収まる。
                   const cell = (x: number, lab: string, val: string, w: number) => (
                     <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, height: bandH, justifyContent: 'center' }}>
-                      <Text numberOfLines={1} style={{ color: subCol, fontSize: fsLab, fontWeight: '600', marginBottom: Math.round(fsLab * 0.3) }}>{lab}</Text>
-                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.6} style={{ color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
+                      <Text numberOfLines={1} style={{ color: subCol, fontSize: fsLab, fontWeight: '600', marginBottom: Math.round(fsLab * (tallScript ? 0.12 : 0.3)) }}>{lab}</Text>
+                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={tallScript ? 0.5 : 0.6} style={{ color: inkCol, fontSize: tallScript ? Math.round(fsVal * 0.9) : fsVal, lineHeight: tallScript ? undefined : Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
                     </View>
                   );
                   return (
@@ -1304,8 +1309,8 @@ export default function KotobaTownScreen() {
                   const bandH = stH * 0.112;            // ラベル+値を収める帯(下線まで)。上下中央に寄せる。
                   const cell = (x: number, lab: string, val: string, w: number) => (
                     <View style={{ position: 'absolute', left: FW * x, width: FW * w, top: y, height: bandH, justifyContent: 'center' }}>
-                      <Text numberOfLines={1} style={{ color: subCol, fontSize: fsLab, fontWeight: '600', marginBottom: Math.round(fsLab * 0.3) }}>{lab}</Text>
-                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.6} style={{ color: inkCol, fontSize: fsVal, lineHeight: Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
+                      <Text numberOfLines={1} style={{ color: subCol, fontSize: fsLab, fontWeight: '600', marginBottom: Math.round(fsLab * (tallScript ? 0.12 : 0.3)) }}>{lab}</Text>
+                      <Text numberOfLines={2} adjustsFontSizeToFit minimumFontScale={tallScript ? 0.5 : 0.6} style={{ color: inkCol, fontSize: tallScript ? Math.round(fsVal * 0.9) : fsVal, lineHeight: tallScript ? undefined : Math.round(fsVal * 1.25), fontWeight: '600' }}>{val}</Text>
                     </View>
                   );
                   return (

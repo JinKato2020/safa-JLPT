@@ -2,6 +2,18 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+- **🧭2026-09-07 引き継ぎサマリ＝未コミット97件（最新コミット `986125ac` v1.1.40 以降）。次はビルド1回で全部反映できる状態。** 内訳の全て tsc0・番人緑・作業ツリー保存済み(=/clear安全)：
+  1. **ミャンマー語 会話ステータスの頭切れ修正**（`src\screens\KotobaTownScreen.tsx`・TALL_SCRIPTS）
+  2. **「苦手な単語に挑戦する」ボタンの1段化**（`src\screens\AICoachScreen.tsx`＋共有`src\components\GradientButton.tsx`）
+  3. **台湾繁体字コードを zh-Hant→zh2 に全面改名**（i18n/countries/legal(URL_SLUG zh2→zh-hant)/schema/content i18n.zh2 83ファイル/zh2.json/gen_zh_hant.py/shoot.mjs）＋SNS画像 zh2 フォルダ済み
+  - **次の一手＝ユーザーが「ビルドして」と言ったら** `tools\build.ps1 -Approved -NoWatch`（pwsh 7で実行・旧powershellはUTF-8誤読でhere-string失敗）。UIはビルド必須・contentはOTA。commit/push/buildはユーザー明示OK後（[[never-build-without-explicit-order]]）。
+
+- **▶★2026-09-07 完了・要ビルド＝台湾繁体字のアプリ内コードを `zh-Hant`→`zh2` に全面改名（ユーザー指定・国イニシャル統一）。** 音声は不要(聴解音声は日本語=全言語共通、繁体字専用音声なし)。改名箇所＝`src\i18n\index.ts`(import zh2.json/UI_LANGS/DICT/zhVariant)・`src\plaza\countries.ts`(NATIVE_LANGS/detectNativeLang)・`src\config\legal.ts`(LEGAL_LANGS＋**URL_SLUG {zh2:'zh-hant'}**=WEBの繁体字ページは /jlpt/zh-hant/ ゆえマップ必須)・`tools\content\schema.ts` LANGS・content/lexicon の `i18n.zh-Hant`→`i18n.zh2`(83ファイル29,961)＋`src\i18n\zh2.json`(旧zh-Hant.json削除)・生成器`tools\gen_zh_hant.py`(zh2出力・旧zh-Hant自動改名)・`tools\sns\shoot.mjs`(LANGSにzh2)。端末が台湾/香港/マカオor-Hantなら自動でzh2。番人=tsc0・parity/rehydrate/otaDiff 10緑。SNS画像も zh2 フォルダ済。**次=ビルド**(UIゆえOTA不可・contentはOTA)。未コミット。※申請mdのWEB URL slug は zh-hant のままで正(変更不要)。
+
+- **▶2026-09-07 完了・要ビルド＝「苦手な単語に挑戦する」(cards.reco)ボタンがミャンマー語で2段になる→1段化。** 修正＝`src\screens\AICoachScreen.tsx` 主導線CTA(Text に numberOfLines=1・adjustsFontSizeToFit・minimumFontScale0.7・flexShrink1)＋共有 `src\components\GradientButton.tsx`(HomeScreen等の全ボタン・Textに同設定)。長い訳は折返さず自動縮小で1行に収まる。tsc0。未コミット。**次=ビルド**(UI・OTA不可)。
+
+- **▶2026-09-07 完了・要ビルド＝町(会話)ステータスの頭切れ修正(ミャンマー語等・背の高い字形)。** 原因＝`src\screens\KotobaTownScreen.tsx` の値テキストが `lineHeight: fsVal*1.25`(自然行高より低い)＋adjustsFontSizeToFitで、my/bn/th等の上部が罫線内で切れる。修正＝`TALL_SCRIPTS`(my/bn/th/km/hi/si/ta)判定で、値は明示lineHeightを外し(自然行高＝縮小時もフォント追従)＋fontSize*0.9＋minFontScale0.5、ラベルは下余白を詰める(NPC・桜の両cell)。日本語/英語は現状維持。tsc0。未コミット。**次=ビルド**(UI・OTA不可)。
+
 - **▶★2026-09-06 完了・要ビルド＝bn等8言語の「聴解翻訳/大問対訳・辞書訳が英語化」バグ修正(根本原因1行)。** 原因＝`App.tsx` Root が `l1` を毎回 en/ne に固定(旧「意味データはne のみ」前提)。母語ピッカーは uiLang/l1 に母語コードを入れるのに上書きされ、大問対訳(pickTr=meaningL1)＝聴解ScriptTrans/Q_TRANS・読解PassageSetPlayer・文法/用法QuizScreen、及び辞書意味(meaningIn)が全部英語化。**修正＝`meaningLang = uiLang==='ja'?'en':uiLang`**(母語をl1に。ja/未設定のみen)。安全＝learnCardFor/resolveStudiedWords/meaningIn/pickTr は未訳時 英語フォールバック(確認済)。データは全11言語(bn/zh-Hant含む)入済み(choukai i18n確認済)。tsc0。既存ユーザーは次回起動で effect が l1 自己修復。**次=ビルド**(UIゆえOTA不可)。未コミット。
 
 - **▶★2026-09-06 完了・要ビルド＝OTAコンテンツDLを「起動時に はい/いいえ 確認」へ変更（ユーザー要望）。** 起動(hydration後・onboarded時)に `checkContentUpdate()`(新規・`src\data\content\ota.ts`)で新コンテンツ有無を軽量チェック(タイムアウト5秒)→有ればAlert「新しいコンテンツがあります／{n}件…はい・いいえ」→はい=`syncContent()`→`Updates.reloadAsync()`で反映。誤検知防止=`effectiveShas`でバンドル同梱済みは更新扱いしない(新アプリ導入直後に既存分の再DL要求を出さない)。設置=`App.tsx` Root の useEffect＋DL中オーバーレイ。**設定の「コンテンツ更新」カードは削除**＝`src\screens\DownloadScreen.tsx`(聴解音声レベル別DLは残置)。i18n=`content.launch_title/msg/yes/no`+`content.downloading`(ja/en/ne・他8言語はja fallback=backlog)。番人=tsc0・parity/otaDiff緑。旧「手動更新のみ(2026-08-20)」を置換。**次=ビルド**(UIゆえOTA不可)。未コミット。
@@ -470,13 +482,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - memory/handoff.md
-- App.tsx
-- 画像/SNS/1/ko/勉強法あっている？ko.png
-- 画像/SNS/1/bn/勉強法あっている？bn.png
-- 画像/SNS/1/bn/漢字・語彙.jpg
-- 画像/SNS/1/bn/日本語学習者の町.jpg
-- 画像/SNS/1/bn/ホーム.jpg
-- 画像/SNS/1/bn/模試.jpg
+- memory/session-summary-LATEST.md
+- memory/在庫問題数.txt
+- tools/gen_zh_hant.py
+- tools/sns/shoot.mjs
+- src/config/legal.ts
+- tools/content/schema.ts
+- src/plaza/countries.ts
 
-_自動更新: 2026-09-06 23:50_
+_自動更新: 2026-09-07 01:48_
 <!-- AUTO:END -->

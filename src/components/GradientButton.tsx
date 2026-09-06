@@ -49,7 +49,7 @@ export default function GradientButton({
           <Rect x={1} y={1} width={size.w - 2} height={size.h - 2} rx={r} ry={r} fill="url(#gbGloss)" />
         </Svg>
       )}
-      <Text style={styles.txt}>{label}</Text>
+      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={styles.txt}>{label}</Text>
     </Pressable>
   );
 }

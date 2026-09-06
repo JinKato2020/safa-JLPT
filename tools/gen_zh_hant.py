@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-簡体字(zh) → 繁体字(zh-Hant) を OpenCC s2twp で機械生成する（全3層）。
-  ① UI      : src/i18n/zh.json          -> src/i18n/zh-Hant.json（全値変換）
-  ② コンテンツ: content/problems/**/*.json の i18n.zh -> i18n.zh-Hant（zhの直後に挿入）
-  ③ 辞書    : content/lexicon/**/*.json の i18n.zh -> i18n.zh-Hant
+簡体字(zh) → 台湾繁体字(zh2) を OpenCC s2twp で機械生成する（全3層）。※コードは zh2（国イニシャル統一）。
+  ① UI      : src/i18n/zh.json          -> src/i18n/zh2.json（全値変換）
+  ② コンテンツ: content/problems/**/*.json の i18n.zh -> i18n.zh2（zhの直後に挿入）
+  ③ 辞書    : content/lexicon/**/*.json の i18n.zh -> i18n.zh2
 
-方針: zh は簡体字として温存し、zh-Hant を"追加"するだけ（既存ユーザー・既存訳を壊さない）。
-冪等: 何度でも再実行可。zh を直したら再実行すれば zh-Hant が最新に追随する。
+方針: zh は簡体字として温存し、zh2 を"追加"するだけ（既存ユーザー・既存訳を壊さない）。旧キー zh-Hant は自動で zh2 へ改名。
+冪等: 何度でも再実行可。zh を直したら再実行すれば zh2 が最新に追随する。
 旗は使わず文字ラベル（中文（简体）/中文（繁體））で区別する方針。
 """
 import json, glob, os, sys, io
@@ -36,7 +36,8 @@ def conv(v):
     return v
 
 def inject(node):
-    """node配下で 'zh' キーを持つ全dictに 'zh-Hant'(=s2twp(zh)) を zh の直後へ追加。変更有無を返す。"""
+    """node配下で 'zh' キーを持つ全dictに 'zh2'(=s2twp(zh)・台湾繁体字) を zh の直後へ追加。
+    旧キー 'zh-Hant' が残っていれば除去して 'zh2' へ改名する。変更有無を返す。"""
     changed = False
     if isinstance(node, dict):
         for v in node.values():
@@ -44,14 +45,14 @@ def inject(node):
                 changed = True
         if 'zh' in node:
             newv = conv(node['zh'])
-            if node.get('zh-Hant') != newv:
+            if node.get('zh2') != newv or 'zh-Hant' in node:
                 items = []
                 for k, v in node.items():
-                    if k == 'zh-Hant':
+                    if k == 'zh2' or k == 'zh-Hant':
                         continue
                     items.append((k, v))
                     if k == 'zh':
-                        items.append(('zh-Hant', newv))
+                        items.append(('zh2', newv))
                 node.clear()
                 node.update(items)
                 changed = True
@@ -75,8 +76,8 @@ def dump(path, obj, nl):
 # ① UI
 zh, nl = load('src/i18n/zh.json')
 zhh = {k: (CC.convert(v) if isinstance(v, str) else conv(v)) for k, v in zh.items()}
-dump('src/i18n/zh-Hant.json', zhh, nl)
-print(f'[UI]  src/i18n/zh-Hant.json  keys={len(zhh)}')
+dump('src/i18n/zh2.json', zhh, nl)
+print(f'[UI]  src/i18n/zh2.json  keys={len(zhh)}')
 
 # ②③ コンテンツ＋辞書
 files = sorted(glob.glob('content/problems/**/*.json', recursive=True)
@@ -106,5 +107,5 @@ for p in files:
         dump(p, obj, nl)
         n_files += 1
         n_zh_blocks += before
-print(f'[CONTENT] 変更ファイル {n_files} / 走査 {len(files)}・zh-Hant付与ブロック合計 {n_zh_blocks}')
+print(f'[CONTENT] 変更ファイル {n_files} / 走査 {len(files)}・zh2付与ブロック合計 {n_zh_blocks}')
 print('DONE')

@@ -296,7 +296,7 @@ export default function AICoachScreen() {
         {/* ⑤ 苦手な単語に挑戦(主導線)。練習画面のボタンと同じ文言(cards.reco)を使う。 */}
         <Pressable style={({ pressed }) => [s.cta, pressed && { opacity: 0.9 }]} onPress={startLearn}>
           <Ionicons name="sparkles" size={16} color="#fff" />
-          <Text style={s.ctaT}>{t('cards.reco')}</Text>
+          <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={[s.ctaT, { flexShrink: 1 }]}>{t('cards.reco')}</Text>
         </Pressable>
 
         {/* ⑥' 模試の記録(実戦の予想得点)。※旧「この7日の成長」は重複(予想得点/伸びた分野)のため撤去し、

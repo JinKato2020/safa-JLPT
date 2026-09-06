@@ -14,7 +14,7 @@ const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const STATE_KEY = 'safa-jlpt:state:v1';
 const URL = 'http://localhost:8081/?snsdemo=1&lang=';
 
-const LANGS = ['ko', 'zh', 'vi', 'id', 'th', 'my', 'bn'];
+const LANGS = ['ko', 'zh', 'zh2', 'vi', 'id', 'th', 'my', 'bn'];
 const LEVEL = { passing: 'N4', beginner: 'N5' };
 const STATES = ['beginner', 'passing'];
 

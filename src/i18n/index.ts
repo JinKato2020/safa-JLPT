@@ -11,7 +11,7 @@ import my from './my.json';
 import id from './id.json';
 import ko from './ko.json';
 import zh from './zh.json';
-import zhHant from './zh-Hant.json';
+import zh2 from './zh2.json';
 import bn from './bn.json';
 import th from './th.json';
 
@@ -25,7 +25,7 @@ export const UI_LANGS: { code: string; name: string }[] = [
   { code: 'my', name: 'မြန်မာ' }, // 母語=ミャンマー語(UI/辞書/大問対訳をmyで表示。2026-09-06 有効化・全10言語コンプリート)
   { code: 'ko', name: '한국어' }, // 母語=韓国語(UI/辞書/大問対訳をkoで表示。2026-09-06 有効化)
   { code: 'zh', name: '中文（简体）' }, // 母語=中国語 簡体字(2026-09-06 有効化)。2026-09-06 に繁体字と分離
-  { code: 'zh-Hant', name: '中文（繁體）' }, // 母語=中国語 繁体字(OpenCC s2twp で zh から生成)。旗は使わず文字で区別
+  { code: 'zh2', name: '中文（繁體）' }, // 母語=台湾繁体字(コード=zh2・国イニシャル統一)。OpenCC s2twp で zh から生成。URL slug は zh-hant
   { code: 'bn', name: 'বাংলা' }, // 母語=ベンガル語(UI/辞書/大問対訳をbnで表示。2026-09-06 有効化・id/ne/th/zhと同格)
   { code: 'th', name: 'ไทย' }, // 母語=タイ語(UI/辞書/大問対訳をthで表示。2026-09-06 有効化・id/neと同格)
 ];
@@ -39,17 +39,17 @@ const DICT: Record<string, Record<string, string>> = {
   id: id as Record<string, string>,
   ko: ko as Record<string, string>,
   zh: zh as Record<string, string>,
-  'zh-Hant': zhHant as Record<string, string>,
+  zh2: zh2 as Record<string, string>,
   bn: bn as Record<string, string>,
   th: th as Record<string, string>,
 };
 const SUPPORTED = new Set(UI_LANGS.map((l) => l.code));
 
-/** 中国語は簡体字(zh)と繁体字(zh-Hant)に分離。端末のlanguageTag(...-Hant)や地域(TW/HK/MO)で繁体字を判定。 */
+/** 中国語は簡体字(zh)と繁体字(zh2=台湾繁体字)に分離。端末のlanguageTag(...-Hant)や地域(TW/HK/MO)で繁体字を判定。 */
 function zhVariant(loc: { languageTag?: string | null; regionCode?: string | null }): string {
   const tag = (loc.languageTag || '').toLowerCase();
   const region = (loc.regionCode || '').toUpperCase();
-  return tag.includes('hant') || ['TW', 'HK', 'MO'].includes(region) ? 'zh-Hant' : 'zh';
+  return tag.includes('hant') || ['TW', 'HK', 'MO'].includes(region) ? 'zh2' : 'zh';
 }
 
 /** UI言語判定。端末言語が対応(en/ja)ならそれ、対応外は en。中国語は簡体/繁体を地域で判定。 */
