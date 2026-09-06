@@ -49,7 +49,7 @@ EVERYTHING IN ONE PLACE
 • Streaks, growth charts, and badges to keep you motivated
 
 STUDY IN YOUR LANGUAGE
-The interface is available in 10 languages: English, Japanese, Nepali, Vietnamese, Burmese, Indonesian, Korean, Chinese, Bengali, and Thai.
+The interface is available in 11 languages: English, Japanese, Nepali, Vietnamese, Burmese, Indonesian, Korean, Chinese (Simplified), Chinese (Traditional), Bengali, and Thai.
 
 WORKS OFFLINE
 Vocabulary, kanji, grammar, and reading work fully offline. Listening audio can be downloaded per level, so you can study on the train or on a plane.
@@ -111,7 +111,7 @@ JLPTに今どれくらい受かりそうか――その「準備度」を見え�
 ・継続記録・成長グラフ・バッジ
 
 ■ あなたの言語で
-英語・日本語・ネパール語・ベトナム語・ミャンマー語・インドネシア語・韓国語・中国語・ベンガル語・タイ語の10言語に対応。
+英語・日本語・ネパール語・ベトナム語・ミャンマー語・インドネシア語・韓国語・中国語（簡体字）・中国語（繁体字）・ベンガル語・タイ語の11言語に対応。
 
 ■ オフライン対応
 語彙・漢字・文法・読解はオフラインで利用できます。聴解音声はレベルごとにダウンロードでき、電車や飛行機の中でも学べます。
@@ -137,10 +137,10 @@ JLPTに今どれくらい受かりそうか――その「準備度」を見え�
 | Price | **Free**（無料） |
 | App Privacy | **「データを収集していません」**（分析/トラッキングSDK無し・アカウント無し・通知はローカル・OTAは更新取得のみで個人データ非収集）。⚠ASCのプライバシー質問で全て「No」を選択 |
 | Encryption | `ITSAppUsesNonExemptEncryption=false` を app.json に設定済み → ASCの輸出コンプライアンスは自動でクリア |
-| Support URL（**必須**） | **en** `https://www.safa-lang.com/lang/en/` ／ **ja** `https://www.safa-lang.com/lang/ja/`（各言語LP＝問い合わせ導線あり） |
-| Privacy Policy URL（**必須**） | **en** `https://www.safa-lang.com/lang/en/privacy/` ／ **ja** `https://www.safa-lang.com/lang/ja/privacy/`（末尾スラッシュ。✅実体確認済=「Privacy Policy \| Mainichi JLPT … The App does not collect」） |
-| Marketing URL | **en** `https://www.safa-lang.com/lang/en/`（任意・Support兼用可） |
-| ✅ **提出前提（解決済）** | WEBセッションが `/lang/en`(+ja) の **LP・privacy・terms を実コンテンツで公開済**（2026-06-23確認。タイトル/本文ともASCコピーと一致）。en/ja の privacy・terms すべて200・実体あり=**ブロッカー解消** |
+| Support URL（**必須**） | **en** `https://www.safa-lang.com/jlpt/en/` ／ **ja** `https://www.safa-lang.com/jlpt/ja/`（各言語LP＝問い合わせ導線あり） |
+| Privacy Policy URL（**必須**） | **en** `https://www.safa-lang.com/jlpt/en/privacy/` ／ **ja** `https://www.safa-lang.com/jlpt/ja/privacy/`（末尾スラッシュ。✅実体確認済=「Privacy Policy \| Mainichi JLPT … The App does not collect」） |
+| Marketing URL | **en** `https://www.safa-lang.com/jlpt/en/`（任意・Support兼用可） |
+| ✅ **提出前提（解決済）** | WEBセッションが `/jlpt/en`(+ja) の **LP・privacy・terms を実コンテンツで公開済**（2026-06-23確認。タイトル/本文ともASCコピーと一致）。en/ja の privacy・terms すべて200・実体あり=**ブロッカー解消** |
 | Screenshots | **実画面の実キャプチャ・枠なし1320×2868**。**en（英語UI）= `申請スクショ\en\`** ／ **ja（日本語UI）= `申請スクショ\ja\`**（各 `0X_*.png`）。enロケールに英語UI版、jaロケールに日本語UI版を割当 |
 | App Icon | assets/icon.png（設定済） |
 | Build | iOS build（version 1.0.0）を TestFlight 経由で選択（ビルド処理完了後） |
@@ -148,12 +148,12 @@ JLPTに今どれくらい受かりそうか――その「準備度」を見え�
 ### 決定事項（2026-06-23）
 1. ✅ 英語App名 = **Mainichi JLPT**（端末名と統一）
 2. ✅ 日本語App名 = **まいにちJLPT**（端末名と統一）
-3. ✅ URL = **safa-lang.com/lang/<lang>**（Support/Marketing）＋ **/lang/<lang>/privacy・/terms**（WEBセッションが構築）
+3. ✅ URL = **safa-lang.com/jlpt/<lang>**（Support/Marketing）＋ **/jlpt/<lang>/privacy・/terms**（WEBセッションが構築）
 4. ✅ スクショ = **実画面の実キャプチャ5枚**（1320×2868・枠なし）＝`申請スクショ\`（合成版は廃止）。en/ja共用
 5. ✅ build 1020（TestFlightへアップロード済）
 
 ### 残り（提出前）
-- ✅ ~~WEBセッションが /lang/ LP・privacy・terms 公開~~（**完了**＝ブロッカー解消）
+- ✅ ~~WEBセッションが /jlpt/ LP・privacy・terms 公開~~（**完了**＝ブロッカー解消）
 - ✅ 英語UI版スクショ撮影（`申請スクショ\en\`）＋日本語UI版（`申請スクショ\ja\`）
 - ⏳ build 1020 が TestFlight 処理完了（ASCでビルド選択可能に）
 - ⏳ ASCに文言入力（en/ja）＋実スクショ5枚アップ＋App Privacy=データ収集なし＋ビルド選択

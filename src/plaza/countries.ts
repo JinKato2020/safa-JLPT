@@ -41,7 +41,8 @@ export const countryName = (code: string | undefined | null): string => countryL
 export type NativeLang = { code: string; label: string; cc: string };
 export const NATIVE_LANGS: NativeLang[] = [
   { code: 'en', label: 'English', cc: 'US' },
-  { code: 'zh', label: '中文', cc: 'CN' },
+  { code: 'zh', label: '中文（简体）', cc: 'CN' },
+  { code: 'zh-Hant', label: '中文（繁體）', cc: 'TW' }, // 繁体字。旗は文字ラベルで区別する方針・cc=TWはアバター既定(暫定)
   { code: 'ko', label: '한국어', cc: 'KR' },
   { code: 'vi', label: 'Tiếng Việt', cc: 'VN' },
   { code: 'ne', label: 'नेपाली', cc: 'NP' },
@@ -64,7 +65,13 @@ export const nativeLangCC = (code: string): string => NATIVE_LANGS.find((l) => l
 /** 端末の言語から母語を推定(=デバイスの言語をデフォルト選択)。対応外は英語。 */
 export function detectNativeLang(): string {
   try {
-    const lang = (Localization.getLocales?.()[0]?.languageCode || '').toLowerCase();
+    const loc = Localization.getLocales?.()[0];
+    const lang = (loc?.languageCode || '').toLowerCase();
+    if (lang === 'zh') {
+      const tag = (loc?.languageTag || '').toLowerCase();
+      const region = (loc?.regionCode || '').toUpperCase();
+      return tag.includes('hant') || ['TW', 'HK', 'MO'].includes(region) ? 'zh-Hant' : 'zh';
+    }
     if (NATIVE_LANGS.some((l) => l.code === lang)) return lang;
   } catch { /* noop */ }
   return 'en';

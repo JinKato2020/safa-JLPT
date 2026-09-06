@@ -1,17 +1,17 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 3 回・8 ターン
-- 往復 287 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
 - memory/在庫問題数.txt
-- memory/在庫・模試ストックまとめ.xlsx
 - src/i18n/index.ts
+- content/problems/moji_goi/usage_N4.json
+- content/problems/moji_goi/usage_N3.json
 
 ## 次の一手
+- **▶★★2026-09-06 完了・要ビルド＝中国語を 簡体字(zh)/繁体字(zh-Hant) に分割。** 方針=既存zhは簡体字のまま温存し繁体字を"追加"（既存ユーザー・既存訳を壊さない）。**OpenCC s2twp で全3層を機械生成**＝①UI `src\i18n\zh-Hant.json`(1422キー) ②③content/lexicon 83ファイル・29,961ブロックに `i18n.zh-Hant` を zh直後へ付与（大問対訳のzhも含む）。配線＝`src\i18n\index.ts`(import/UI_LANGS「中文（简体）」+「中文（繁體）」/DICT/`zhVariant`=languageTag Hant・地域TW/HK/MOで繁体字自動判定)／`src\plaza\countries.ts`(NATIVE_LANGS に zh-Hant・detectNativeLang も同判定)／`src\config\legal.ts`(`/jlpt/`＋zh-Hant・URLスラッグ小文字 zh-hant)／`tools\content\schema.ts` LANGS。**生成器=`tools\gen_zh_hant.py`（冪等・zhを直したら再実行で追随）。** 番人=tsc0・parity/rehydrate 8緑。旗は文字ラベルで区別(ユーザー方針)。**⚠繁体字アバターの既定旗 cc='TW' は暫定（要ユーザー確認）。** **次=ビルド**（build.ps1がmanifest自動再生成／UIはビルド必須・contentはOTA）。commit/push/buildはユーザー明示OK後（[[never-build-without-explicit-order]]）。全て未コミット。
+- **✅2026-09-06 申請doc更新＝`ASC申請文言_iOS.md`/`Play申請文言_Android.md` のURLを `/lang/`→`/jlpt/`・言語数10→11(中国語→簡体字/繁体字)へ。** ストア管理画面(ASC/Play Console)の申告URLはユーザーが既に `/jlpt/` へ更新済との認識(私からは確認不可)。※旧 `/lang/` も現状200で生存。
 - **🎉✅完了 2026-09-06 大問対訳＝全10言語コンプリート。** ja/en/ne + id/th/zh/bn/ko/vi/my の全14大問(47,155ユニット)対訳を content に投入・`src\i18n\index.ts` UI_LANGS に10行・各`src\i18n\<lang>.json` 1422キー欠落0・Excel`memory\在庫・模試ストックまとめ.xlsx`⑥翻訳状況④全列100%/①全行フル/字数・実費記入・番人i18n(parity/passageTransNe)緑。**新規実費 Gemini2.5Flash＝th¥544/zh¥432/bn¥481/ko¥504/vi¥532/my¥719＝計≈¥3,212**（id¥473は既存）。ツール＝`tools\trans_daimon_lang.py`（apply→write）＋`tools\update_trans_status.py`。触り所＝[[daimon-trans-display-lang-levers]]。**次に新言語を足すなら**：`ALL --dry-run→--apply→--write --lang <code>`＋UI_LANGS1行＋Excel④列/①行更新（zh-hantはアプリ未対応ゆえ現状不要）。
 - **✅完了 2026-09-06 法務URL `/jlpt/`→`/lang/` 修正**＝`src\config\legal.ts`（アプリ全画面のprivacy/terms＝安全にドメイン据置`safa-lang.com`・新URL実在確認済）＋ストア申請doc（`ASC申請文言_iOS.md`/`Play申請文言_Android.md`）。⚠**ストア管理画面(ASC/Play Console)の申告URLは手修正が要る**（私からは不可）。
 - **⚠上記2件とも全て未コミット・表示にはビルド必要(OTA不可＝アプリコード)。commit/push/buildはユーザー明示OK後**（[[never-build-without-explicit-order]]）。
