@@ -1,15 +1,19 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
+- ツール呼び出し 11 回・30 ターン
+- 往復 224 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/在庫問題数.txt
-- src/i18n/index.ts
-- content/problems/moji_goi/usage_N4.json
-- content/problems/moji_goi/usage_N3.json
+- App.tsx
+- 画像/SNS/1/ko/勉強法あっている？ko.png
+- 画像/SNS/1/bn/勉強法あっている？bn.png
+- 画像/SNS/1/bn/漢字・語彙.jpg
 
 ## 次の一手
+- **▶★2026-09-06 完了・要ビルド＝bn等8言語の「聴解翻訳/大問対訳・辞書訳が英語化」バグ修正(根本原因1行)。** 原因＝`App.tsx` Root が `l1` を毎回 en/ne に固定(旧「意味データはne のみ」前提)。母語ピッカーは uiLang/l1 に母語コードを入れるのに上書きされ、大問対訳(pickTr=meaningL1)＝聴解ScriptTrans/Q_TRANS・読解PassageSetPlayer・文法/用法QuizScreen、及び辞書意味(meaningIn)が全部英語化。**修正＝`meaningLang = uiLang==='ja'?'en':uiLang`**(母語をl1に。ja/未設定のみen)。安全＝learnCardFor/resolveStudiedWords/meaningIn/pickTr は未訳時 英語フォールバック(確認済)。データは全11言語(bn/zh-Hant含む)入済み(choukai i18n確認済)。tsc0。既存ユーザーは次回起動で effect が l1 自己修復。**次=ビルド**(UIゆえOTA不可)。未コミット。
+- **▶★2026-09-06 完了・要ビルド＝OTAコンテンツDLを「起動時に はい/いいえ 確認」へ変更（ユーザー要望）。** 起動(hydration後・onboarded時)に `checkContentUpdate()`(新規・`src\data\content\ota.ts`)で新コンテンツ有無を軽量チェック(タイムアウト5秒)→有ればAlert「新しいコンテンツがあります／{n}件…はい・いいえ」→はい=`syncContent()`→`Updates.reloadAsync()`で反映。誤検知防止=`effectiveShas`でバンドル同梱済みは更新扱いしない(新アプリ導入直後に既存分の再DL要求を出さない)。設置=`App.tsx` Root の useEffect＋DL中オーバーレイ。**設定の「コンテンツ更新」カードは削除**＝`src\screens\DownloadScreen.tsx`(聴解音声レベル別DLは残置)。i18n=`content.launch_title/msg/yes/no`+`content.downloading`(ja/en/ne・他8言語はja fallback=backlog)。番人=tsc0・parity/otaDiff緑。旧「手動更新のみ(2026-08-20)」を置換。**次=ビルド**(UIゆえOTA不可)。未コミット。
 - **▶★★2026-09-06 完了・要ビルド＝中国語を 簡体字(zh)/繁体字(zh-Hant) に分割。** 方針=既存zhは簡体字のまま温存し繁体字を"追加"（既存ユーザー・既存訳を壊さない）。**OpenCC s2twp で全3層を機械生成**＝①UI `src\i18n\zh-Hant.json`(1422キー) ②③content/lexicon 83ファイル・29,961ブロックに `i18n.zh-Hant` を zh直後へ付与（大問対訳のzhも含む）。配線＝`src\i18n\index.ts`(import/UI_LANGS「中文（简体）」+「中文（繁體）」/DICT/`zhVariant`=languageTag Hant・地域TW/HK/MOで繁体字自動判定)／`src\plaza\countries.ts`(NATIVE_LANGS に zh-Hant・detectNativeLang も同判定)／`src\config\legal.ts`(`/jlpt/`＋zh-Hant・URLスラッグ小文字 zh-hant)／`tools\content\schema.ts` LANGS。**生成器=`tools\gen_zh_hant.py`（冪等・zhを直したら再実行で追随）。** 番人=tsc0・parity/rehydrate 8緑。旗は文字ラベルで区別(ユーザー方針)。**⚠繁体字アバターの既定旗 cc='TW' は暫定（要ユーザー確認）。** **次=ビルド**（build.ps1がmanifest自動再生成／UIはビルド必須・contentはOTA）。commit/push/buildはユーザー明示OK後（[[never-build-without-explicit-order]]）。全て未コミット。
 - **✅2026-09-06 申請doc更新＝`ASC申請文言_iOS.md`/`Play申請文言_Android.md` のURLを `/lang/`→`/jlpt/`・言語数10→11(中国語→簡体字/繁体字)へ。** ストア管理画面(ASC/Play Console)の申告URLはユーザーが既に `/jlpt/` へ更新済との認識(私からは確認不可)。※旧 `/lang/` も現状200で生存。
 - **🎉✅完了 2026-09-06 大問対訳＝全10言語コンプリート。** ja/en/ne + id/th/zh/bn/ko/vi/my の全14大問(47,155ユニット)対訳を content に投入・`src\i18n\index.ts` UI_LANGS に10行・各`src\i18n\<lang>.json` 1422キー欠落0・Excel`memory\在庫・模試ストックまとめ.xlsx`⑥翻訳状況④全列100%/①全行フル/字数・実費記入・番人i18n(parity/passageTransNe)緑。**新規実費 Gemini2.5Flash＝th¥544/zh¥432/bn¥481/ko¥504/vi¥532/my¥719＝計≈¥3,212**（id¥473は既存）。ツール＝`tools\trans_daimon_lang.py`（apply→write）＋`tools\update_trans_status.py`。触り所＝[[daimon-trans-display-lang-levers]]。**次に新言語を足すなら**：`ALL --dry-run→--apply→--write --lang <code>`＋UI_LANGS1行＋Excel④列/①行更新（zh-hantはアプリ未対応ゆえ現状不要）。

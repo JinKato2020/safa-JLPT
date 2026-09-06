@@ -2,7 +2,7 @@
 // 旧・設定タブに分かれていた「聴解音声(レベル別)」カードと「コンテンツ更新」カードをここに統合＝設定画面をシンプルに保つ。
 // 流れ: 設定 →[一括ダウンロード]→ この画面でレベルを選んで聴解音声をDL / 問題・翻訳を更新。
 import { useMemo, useState, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -11,8 +11,6 @@ import type { Level } from '../engine/engine';
 import ListeningDownloadGate from '../components/ListeningDownloadGate';
 import { listeningAudioIdsFor } from '../data';
 import { LISTENING_CACHEABLE, listeningReady, listeningBytesEstimate } from '../data/listeningAudio';
-import { syncContent } from '../data/content/ota';
-import * as Updates from 'expo-updates';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 
@@ -56,25 +54,8 @@ export default function DownloadScreen() {
   // 聴解音声のDL: レベルごとに独立(N5/N4/N3)。dlLevel=モーダルで開いているレベル。dlRefresh=完了後に各行の済/未を再判定。
   const [dlLevel, setDlLevel] = useState<Level | null>(null);
   const [dlRefresh, setDlRefresh] = useState(0);
-  // 問題・翻訳の手動更新(聞いてからDL)。DL後は反映のため再読み込みを提案。
-  const [updating, setUpdating] = useState(false);
-  const onUpdateContent = async () => {
-    if (updating) return;
-    setUpdating(true);
-    try {
-      const n = await syncContent();
-      if (n > 0) {
-        Alert.alert(t('content.update_title'), t('content.update_done', { n }), [
-          { text: t('content.update_later'), style: 'cancel' },
-          { text: t('content.update_reload'), onPress: () => { Updates.reloadAsync().catch(() => {}); } },
-        ]);
-      } else {
-        Alert.alert(t('content.update_title'), t('content.update_latest'));
-      }
-    } catch {
-      Alert.alert(t('content.update_title'), t('content.update_fail'));
-    } finally { setUpdating(false); }
-  };
+  // コンテンツ更新(問題・翻訳)は起動時の「はい/いいえ」確認へ移設(App.tsx)＝この画面からは削除。
+  // ここは聴解音声(レベル別・オフライン再生用)のダウンロード専用。
 
   return (
     <SafeAreaView style={s.c} edges={['top']}>
@@ -94,16 +75,6 @@ export default function DownloadScreen() {
           {LEVELS.map((lv) => (
             <LevelAudioRow key={lv} level={lv} refreshKey={dlRefresh} onDownload={setDlLevel} s={s} t={t} />
           ))}
-        </View>
-
-        {/* コンテンツ更新(問題・翻訳の追加ダウンロード)。自動同期はWi-Fiのみ・ここは手動で今すぐ取得。 */}
-        <Text style={s.sectionH}>{t('content.section')}</Text>
-        <View style={s.card}>
-          <Pressable style={s.linkRow} onPress={onUpdateContent} disabled={updating}>
-            <Text style={s.linkTxt}>{updating ? t('content.updating') : t('content.updateContent')}</Text>
-            <Text style={s.chev}>›</Text>
-          </Pressable>
-          <Text style={s.updNote}>{t('content.updateWifiNote')}</Text>
         </View>
       </ScrollView>
       {dlLevel ? (

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, AppState, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
+import { ActivityIndicator, Alert, AppState, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
+import * as Updates from 'expo-updates';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, DefaultTheme, useNavigation, useNavigationState, StackActions } from '@react-navigation/native';
@@ -314,12 +315,14 @@ function Root() {
   stateRef.current = state;
   const c = useColors();
 
-  // 言語の一本化: 表示言語(uiLang＝設定or端末自動判定)と「意味の表示言語(l1)」を常に一致させる。
-  // 端末が日本語だと uiLang は自動で ja になるのに、l1 が初回オンボーディングの ne のまま残り
-  // 「日本語表示なのに意味がネパール語」になっていた食い違いをここで解消する。
-  // 意味データがあるのはネパール語のみ→ne は ne、それ以外(ja/en)は英語で表示。
+  // 言語の一本化: 意味の表示言語(l1)を母語(uiLang)に一致させる。辞書・大問対訳は全対応言語ぶんデータがあり、
+  // 個別に欠けていれば各所で英語へフォールバックする(learnCardFor/resolveStudiedWords/pickTr)。
+  // 旧: 意味データがネパール語のみ前提で l1 を en/ne に固定していた→ bn等の聴解/大問対訳・辞書訳が英語化する不具合。
+  // 端末/UIが日本語(uiLang=ja)のときだけ意味は英語(日本語話者に母語=日本語の意味は不要)。
   const uiLang = useUiLang();
-  const meaningLang = uiLang === 'ne' ? 'ne' : 'en';
+  const t = useT();
+  const [dlBusy, setDlBusy] = useState(false);
+  const meaningLang = uiLang === 'ja' ? 'en' : uiLang;
   useEffect(() => {
     if (!hydrated) return;
     if (settings.l1 !== meaningLang) setSettings({ l1: meaningLang });
@@ -327,6 +330,37 @@ function Root() {
     // l1(=意味の翻訳言語 en/ne)や既定'vi'ではなく本当の母語を送れるようにする。
     if (!settings.uiLang && uiLang) setSettings({ uiLang });
   }, [hydrated, meaningLang, uiLang]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 起動時: 新コンテンツがあれば「はい/いいえ」で確認してDL(ユーザー要望2026-09-06。設定の手動更新のみ→起動時確認へ)。
+  // 誤検知防止=バンドル同梱済みは更新扱いしない(ota.effectiveShas)。オフライン/失敗はプロンプトを出さない。
+  useEffect(() => {
+    if (!hydrated || !settings.onboarded) return;
+    let alive = true;
+    (async () => {
+      try {
+        const { checkContentUpdate } = await import('./src/data/content/ota');
+        const n = await checkContentUpdate();
+        if (!alive || n <= 0) return;
+        Alert.alert(t('content.launch_title'), t('content.launch_msg', { n }), [
+          { text: t('content.launch_no'), style: 'cancel' },
+          {
+            text: t('content.launch_yes'),
+            onPress: () => {
+              setDlBusy(true);
+              (async () => {
+                try {
+                  const { syncContent } = await import('./src/data/content/ota');
+                  await syncContent();
+                  await Updates.reloadAsync(); // DL済みを反映するため再起動(次回起動でキャッシュ適用)
+                } catch { setDlBusy(false); }
+              })();
+            },
+          },
+        ], { cancelable: false });
+      } catch { /* オフライン/失敗は無害 */ }
+    })();
+    return () => { alive = false; };
+  }, [hydrated, settings.onboarded]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 匿名計測: 日次スナップショット＋アプリ往来/滞在＋回答flush＋クラッシュ報告。
   useEffect(() => {
@@ -449,6 +483,12 @@ function Root() {
       </RootStack.Navigator>
     </NavigationContainer>
     {settings.onboarded && !session && !settings.accountPromptSeen && <AccountPrompt />}
+    {dlBusy && (
+      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.55)', alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator color="#fff" size="large" />
+        <Text style={{ color: '#fff', marginTop: 12, fontWeight: '700' }}>{t('content.downloading')}</Text>
+      </View>
+    )}
     </View>
     </DesignThemeProvider>
   );

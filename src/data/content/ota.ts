@@ -45,15 +45,41 @@ export async function loadCachedFiles(): Promise<Record<string, unknown>> {
   } catch { return {}; }
 }
 
+/** いま端末が実際に持っているコンテンツの sha 一覧。バンドル(baseline)を土台に、バンドルタグ一致時のみ
+ *  OTAキャッシュ(cachedShas)を重ねる(loadCachedFiles と同じ優先順)。新バンドル導入直後に「既に同梱済みの
+ *  ファイル」を更新扱いしない＝起動時プロンプトの誤検知(既に持っている問題の再DL要求)を防ぐ。 */
+async function effectiveShas(cachedShas: Record<string, string>): Promise<Record<string, string>> {
+  const bundled = (bundledManifest as { files?: Record<string, { sha256: string }> }).files ?? {};
+  const base: Record<string, string> = {};
+  for (const k of Object.keys(bundled)) base[k] = bundled[k].sha256;
+  const storedTag = await FileSystem.readAsStringAsync(BUNDLE_TAG_PATH).catch(() => '');
+  return storedTag === bundleTag() ? { ...base, ...cachedShas } : base;
+}
+
+/** 起動時チェック用: DLせずに「更新が必要なファイル数」だけ返す(タイムアウト5秒=起動を待たせない)。
+ *  オフライン/失敗は0(=プロンプトを出さない=無害)。バンドル同梱済みは effectiveShas で更新扱いにしない。 */
+export async function checkContentUpdate(): Promise<number> {
+  try {
+    const cachedShas = await readJson<Record<string, string>>(SHA_PATH, {});
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 5000);
+    let remote: { files: Record<string, { sha256: string }> };
+    try {
+      remote = JSON.parse(await (await fetch(BASE + '_manifest.json', { signal: ctrl.signal })).text());
+    } finally { clearTimeout(timer); }
+    return diffManifest(remote, await effectiveShas(cachedShas)).length;
+  } catch { return 0; }
+}
+
 /** Pagesのmanifestを見て、sha変化/新規のファイルだけ逐次DL→キャッシュ保存。失敗/オフラインは無害(baselineで継続)。
- *  ※自動(裏)同期は廃止。呼び出しは設定の手動「今すぐ更新」のみ(ユーザー方針 2026-08-20)。
- *  戻り値=今回DLしたファイル数(手動更新の結果表示に使う)。反映は呼び出し側の reload で即時。 */
+ *  呼び出しは起動時の「はい/いいえ」確認(ユーザー要望2026-09-06)。旧・設定の手動更新のみ(2026-08-20)を置換。
+ *  戻り値=今回DLしたファイル数。反映は呼び出し側の reload で即時。 */
 export async function syncContent(): Promise<number> {
   try {
     await FileSystem.makeDirectoryAsync(DIR, { intermediates: true }).catch(() => {});
     const cachedShas = await readJson<Record<string, string>>(SHA_PATH, {});
     const remote = JSON.parse(await (await fetch(BASE + '_manifest.json')).text()) as { files: Record<string, { sha256: string }> };
-    const todo = diffManifest(remote, cachedShas);
+    const todo = diffManifest(remote, await effectiveShas(cachedShas));
     let n = 0;
     for (const p of todo) { // 逐次(順次)=帯域を独占しない
       try {
