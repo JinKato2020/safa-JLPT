@@ -103,6 +103,8 @@ jobs:
           cp -r assets/audio _site/assets/audio
           # 発話表現イラスト(オンデマンドDL用・同梱しない)
           [ -d assets/hatsuwa ] && cp -r assets/hatsuwa _site/assets/hatsuwa || true
+          # ポスター朗読の画像/音声(テーマ別・オンデマンドDL用・同梱しない): /assets/poster/<theme>/...
+          [ -d assets/poster ] && cp -r assets/poster _site/assets/poster || true
           [ -f privacy.html ] && cp privacy.html _site/ || true
           [ -f terms.html ] && cp terms.html _site/ || true
           # ダウンロード中継ページ(/download.html)。端末でApp Store/Google Playへ自動振り分け。

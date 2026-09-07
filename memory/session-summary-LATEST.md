@@ -1,22 +1,28 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 2 回・8 ターン
-- 往復 384 回
+- ツール呼び出し 35 回・89 ターン
+- 往復 205 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
-- memory/在庫問題数.txt
-- tools/gen_zh_hant.py
-- tools/sns/shoot.mjs
+- assets/poster/food/audio/title_zh2.mp3
+- assets/poster/food/audio/20_zh2.mp3
+- assets/poster/food/audio/19_zh2.mp3
+- assets/poster/food/audio/18_zh2.mp3
+
+## ⚠️ 注意
+- - ⚠ 連続 89ターン（文脈 25万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 89ターン・ツール35回）— まとめ方を変える
 
 ## 次の一手
-- **🧭2026-09-07 引き継ぎサマリ＝未コミット97件（最新コミット `986125ac` v1.1.40 以降）。次はビルド1回で全部反映できる状態。** 内訳の全て tsc0・番人緑・作業ツリー保存済み(=/clear安全)：
-  1. **ミャンマー語 会話ステータスの頭切れ修正**（`src\screens\KotobaTownScreen.tsx`・TALL_SCRIPTS）
-  2. **「苦手な単語に挑戦する」ボタンの1段化**（`src\screens\AICoachScreen.tsx`＋共有`src\components\GradientButton.tsx`）
-  3. **台湾繁体字コードを zh-Hant→zh2 に全面改名**（i18n/countries/legal(URL_SLUG zh2→zh-hant)/schema/content i18n.zh2 83ファイル/zh2.json/gen_zh_hant.py/shoot.mjs）＋SNS画像 zh2 フォルダ済み
-  - **次の一手＝ユーザーが「ビルドして」と言ったら** `tools\build.ps1 -Approved -NoWatch`（pwsh 7で実行・旧powershellはUTF-8誤読でhere-string失敗）。UIはビルド必須・contentはOTA。commit/push/buildはユーザー明示OK後（[[never-build-without-explicit-order]]）。
+- **🧭2026-09-07 進行中＝「ポスター朗読」機能を JLPTアプリへ移植（聞いて話せる日本語からの移植）。** 決定事項：①パイロット=3テーマ(family/01_家族20枚・body/03_体24枚・food/05_食べ物20枚) ②言語別ポスター＝`多言語教材\01_日本語教材\05_アプリ用ポスター\<lang>\NN_テーマ_plain_<lang>.png`(plain=広告なし・全10言語 bn/en/id/ko/my/ne/th/vi/zh/zh2 × 31テーマ=310枚 確認済) ③音声=`多言語教材\00_共通\音声\<LANGDIR>\NN_テーマ\MM_<lang>.mp3`+title(11言語 ja+10) ④入口=単語(書斎)タブ WordsHubScreen の語彙リスト下に「ポスター朗読」カード→テーマ選択→朗読画面。
+  - 技術確認済：箱検出=グレー枠#e6e8ec方式がplainでも完璧(家族20/体24本・全しきい安定)→座標全自動。JLPT音声=**expo-av**(Audio.Sound・旧はexpo-audioなので再生層を書換)。配信=Pages+端末キャッシュ(雛形`src\data\listeningImage.ts`/`audioBase.ts`・base=`https://jinkato2020.github.io/safa-JLPT/assets/`・FSは`expo-file-system/legacy`)。画面登録=App.tsx RootStackに1画面追加(聴解Listeningと同型)+types。i18n=`useT()/useUiLang()`・poster.*をja/en/neへ(番人parity.test.ts)。色=`useColors()`。
+  - **✅コード実装 完了(tsc0・parity4/4緑・未コミット)**：`tools\poster\gen_poster.py`(箱検出+TS生成+--stage-assets)／`src\data\posterLessons.ts`(3テーマ生成済)／`src\data\posterAssets.ts`(ensurePosterTheme/posterUri/isPosterReady・Pages+キャッシュ)／`src\screens\PosterAudioScreen.tsx`(expo-av逐次再生に書換・単一ページ簡素化)／`src\screens\PosterListScreen.tsx`(テーマ選択)／`src\components\KubunCard.tsx`(語彙リスト直下に`cards.poster`→PosterList)／`App.tsx`(PosterList/PosterAudio登録)＋`types.ts`／i18n ja/en/ne(cards.poster・poster.list_title/list_sub/hint/preparing)。
+  - **✅素材 用意済(未コミット)**：`assets\poster\{family,body,food}\`＝png30+mp3737(32k/24kHz+0.25s pad)・12MB。`.github\workflows\build-jlpt.yml`に`cp -r assets/poster _site/assets/poster`追加(Pages公開)。base=`https://jinkato2020.github.io/safa-JLPT/assets/poster/`。
+  - **次の一手＝外向き(要ユーザー明示)**：(1)commit+**push**→Pagesがポスター素材を公開(deploy-pagesジョブ) (2)**ビルド**→新UI(ポスター朗読画面)がTestFlight/Playへ(UIはOTA不可)。※実機未検証(expo-av再生・箱座標の見た目)。全31テーマ展開は`gen_poster.py`のTHEMESに追記して再実行(--stage-assets)。
+- **🧭2026-09-07 ビルド dispatch 済み＝v1.1.41(Build 2912)・both(iOS+Android)・コミット `8a432da0`・run https://github.com/JinKato2020/safa-JLPT/actions/runs/34046893703 。** 上記97件(頭切れ修正/ボタン1段化/zh-Hant→zh2 改名/content多言語)を1ビルドに反映。push 済みで OTA(Pages)も同時起動。-NoWatch ゆえ監視せず＝GitHub Actions で進行中。本日 iOS 1/8 回。
+  - **次の一手＝ビルド結果の確認**（Actions が緑になれば TestFlight/Play(App C枠)へ提出済。失敗時 `gh run view 34046893703 --log-failed`）。それ以外の未処理タスクは現状なし。
 - **▶★2026-09-07 完了・要ビルド＝台湾繁体字のアプリ内コードを `zh-Hant`→`zh2` に全面改名（ユーザー指定・国イニシャル統一）。** 音声は不要(聴解音声は日本語=全言語共通、繁体字専用音声なし)。改名箇所＝`src\i18n\index.ts`(import zh2.json/UI_LANGS/DICT/zhVariant)・`src\plaza\countries.ts`(NATIVE_LANGS/detectNativeLang)・`src\config\legal.ts`(LEGAL_LANGS＋**URL_SLUG {zh2:'zh-hant'}**=WEBの繁体字ページは /jlpt/zh-hant/ ゆえマップ必須)・`tools\content\schema.ts` LANGS・content/lexicon の `i18n.zh-Hant`→`i18n.zh2`(83ファイル29,961)＋`src\i18n\zh2.json`(旧zh-Hant.json削除)・生成器`tools\gen_zh_hant.py`(zh2出力・旧zh-Hant自動改名)・`tools\sns\shoot.mjs`(LANGSにzh2)。端末が台湾/香港/マカオor-Hantなら自動でzh2。番人=tsc0・parity/rehydrate/otaDiff 10緑。SNS画像も zh2 フォルダ済。**次=ビルド**(UIゆえOTA不可・contentはOTA)。未コミット。※申請mdのWEB URL slug は zh-hant のままで正(変更不要)。
 - **▶2026-09-07 完了・要ビルド＝「苦手な単語に挑戦する」(cards.reco)ボタンがミャンマー語で2段になる→1段化。** 修正＝`src\screens\AICoachScreen.tsx` 主導線CTA(Text に numberOfLines=1・adjustsFontSizeToFit・minimumFontScale0.7・flexShrink1)＋共有 `src\components\GradientButton.tsx`(HomeScreen等の全ボタン・Textに同設定)。長い訳は折返さず自動縮小で1行に収まる。tsc0。未コミット。**次=ビルド**(UI・OTA不可)。
 - **▶2026-09-07 完了・要ビルド＝町(会話)ステータスの頭切れ修正(ミャンマー語等・背の高い字形)。** 原因＝`src\screens\KotobaTownScreen.tsx` の値テキストが `lineHeight: fsVal*1.25`(自然行高より低い)＋adjustsFontSizeToFitで、my/bn/th等の上部が罫線内で切れる。修正＝`TALL_SCRIPTS`(my/bn/th/km/hi/si/ta)判定で、値は明示lineHeightを外し(自然行高＝縮小時もフォント追従)＋fontSize*0.9＋minFontScale0.5、ラベルは下余白を詰める(NPC・桜の両cell)。日本語/英語は現状維持。tsc0。未コミット。**次=ビルド**(UI・OTA不可)。

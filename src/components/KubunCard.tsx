@@ -61,6 +61,7 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
     add('cards.gorder', () => nav.navigate('WordDrill', { kind: 'gBuild' }), UNLOCK_NEED.gbuild); // 文法パズル(産出)=文法20%
   }
   if (kubun === 'vocab') {
+    add('cards.poster', () => nav.navigate('PosterList'), 0);                                            // ポスター朗読(語彙リスト直下・常時解禁)
     add('cards.vmeaning', () => nav.navigate('WordDrill', { kind: 'vMeaning' }), 0);                    // 語彙の意味(認識)=初期解禁・文脈なし4択
     add('cards.vreading', () => nav.navigate('WordDrill', { kind: 'vReading' }), 0);                    // 語彙の読み(認識)=初期解禁・ルビ無し4択
     add('cards.vwriting', () => nav.navigate('WordDrill', { kind: 'vWriting' }), 0);                    // 語彙の表記(かたち・認識)=初期解禁・意味→漢字表記4択

@@ -36,6 +36,8 @@ export type RootStackParamList = {
   KanjiRecognition: { mode?: 'mean' | 'read' } | undefined; // 漢字認識テスト(字を単独提示→意味/読み4択)。mode=意味/読みを別ボタンに分離
   KanjiForm: undefined; // 漢字の形の弁別テスト(似た字4択→正しい字を選ぶ・form面)
   WordDrill: { kind: 'vProduce' | 'gBuild' | 'gMeaning' | 'vMeaning' | 'vReading' | 'vWriting' | 'mixed'; level?: 'N5' | 'N4' | 'N3' }; // 単語タブ新形式(意味から単語/文をつくる/意味を選ぶ/語彙の意味認識/読み認識/表記認識(かたち)/今日のオススメ=横断)
+  PosterList: undefined; // ポスター朗読のテーマ選択(単語タブ→語彙カード「ポスター朗読」から)
+  PosterAudio: { lessonId?: string } | undefined; // ポスター朗読(画像＋カードをハイライトしながら母語→日本語で連続再生)
 };
 
 export type Kubun = 'kanji' | 'vocab' | 'grammar';

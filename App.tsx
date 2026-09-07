@@ -43,6 +43,8 @@ import ListeningQuizScreen from './src/screens/ListeningQuizScreen';
 import KanjiRecognitionScreen from './src/screens/KanjiRecognitionScreen';
 import KanjiFormScreen from './src/screens/KanjiFormScreen';
 import WordDrillScreen from './src/screens/WordDrillScreen';
+import PosterListScreen from './src/screens/PosterListScreen';
+import PosterAudioScreen from './src/screens/PosterAudioScreen';
 import MyWordsScreen from './src/screens/MyWordsScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
@@ -460,6 +462,8 @@ function Root() {
             <RootStack.Screen name="KanjiRecognition" component={KanjiRecognitionScreen} options={{ presentation: 'card' }} />
             <RootStack.Screen name="KanjiForm" component={KanjiFormScreen} options={{ presentation: 'card' }} />
             <RootStack.Screen name="WordDrill" component={WordDrillScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="PosterList" component={PosterListScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="PosterAudio" component={PosterAudioScreen} options={{ presentation: 'card' }} />
             {/* 以下は overlay/ダイアログ的なのでモーダル(下から)のまま。 */}
             <RootStack.Screen name="KanjiDetail" component={KanjiDetailScreen} options={{ presentation: 'modal' }} />
             {/* My単語帳は辞書タブ内(DictStack)へ移設=タブ内画面。ボトムナビを消さない(ユーザー要望2026-07-27)。 */}
