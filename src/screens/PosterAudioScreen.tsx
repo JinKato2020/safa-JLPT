@@ -12,7 +12,7 @@ import Svg, { Path } from 'react-native-svg';
 import { spacing, radius, useColors } from '../theme';
 import { useT, useUiLang } from '../i18n';
 import { POSTER_LESSONS, type PosterLesson, type PosterCard } from '../data/posterLessons';
-import { posterUri, ensurePosterTheme } from '../data/posterAssets';
+import { posterUri, ensurePosterPack } from '../data/posterAssets';
 
 type QItem = { idx: number; phase: 'ja' | 'l1'; src?: string };
 
@@ -75,7 +75,7 @@ export default function PosterAudioScreen() {
     setReady(false); setIdx(0); setPhase('l1');
     scrollRef.current?.scrollTo({ y: 0, animated: false });
     (async () => {
-      try { await ensurePosterTheme(lesson, lang); } catch { /* 失敗は握りつぶし(欠落許容) */ }
+      try { await ensurePosterPack(lang); } catch { /* 失敗は握りつぶし(欠落許容) */ }
       if (alive) setReady(true);
     })();
     return () => { alive = false; };

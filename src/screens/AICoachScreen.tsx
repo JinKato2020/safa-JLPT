@@ -517,9 +517,10 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   // 科目別の予想得点＋基準点
   scoreList: { gap: spacing.xs },
   scoreItem: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 9, paddingHorizontal: 10, gap: 6 },
-  scoreHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
-  scoreLabel: { fontSize: 12.5, fontWeight: '800', color: c.ink },
-  scoreStatus: { fontSize: 11.5, fontWeight: '800' },
+  // tall scripts(my/bn/th)＋長文でもカード枠に収める: flex-start(頭切れ回避)＋両テキストを縮小/折返し可に。
+  scoreHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 },
+  scoreLabel: { fontSize: 12.5, fontWeight: '800', color: c.ink, flexShrink: 1 },
+  scoreStatus: { fontSize: 11.5, fontWeight: '800', flexShrink: 1, textAlign: 'right' },
   scoreBar: { height: 7, borderRadius: 7, backgroundColor: c.surface, position: 'relative', overflow: 'hidden', borderWidth: 1, borderColor: c.line },
   scoreBarFill: { position: 'absolute', top: 0, bottom: 0, left: 0, borderRadius: 7 },
   scoreMk: { position: 'absolute', top: -3, bottom: -3, width: 2, backgroundColor: c.ink2 },

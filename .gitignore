@@ -82,3 +82,6 @@ _audit_work/
 # 料金・価格の検討用Excel(業務情報・公開repoに絶対入れない)
 /アプリ価格.xlsx
 *.xlsx
+
+# ポスター配信パック(GitHub Releaseで配布・repoには入れない)
+tools/poster/_packs/

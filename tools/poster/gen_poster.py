@@ -33,11 +33,21 @@ LANGDIR = {"ja": "JA", "bn": "BN", "en": "EN", "id": "ID", "ko": "KO", "my": "MY
 DETECT_L1 = "ne"   # box検出に使う代表言語(行レイアウトは全言語共通)
 
 # パイロット: (id, 素材フォルダ名)。全31へ広げる時はここに追記するだけ。
-THEMES = [
-    ("family", "01_家族"),
-    ("body", "03_体"),
-    ("food", "05_食べ物"),
-]
+import sys as _sys, json as _json
+_sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from poster_themes import THEMES as THEME_DEFS  # (slug, folder, ja_title)
+THEMES = [(s, f) for s, f, _ in THEME_DEFS]
+JA_TITLE = {s: jt for s, f, jt in THEME_DEFS}
+GOI = os.path.join(GENBA, "00_共通", "語彙")
+TITLE_FIELD = {"en": "enTitle", "ne": "npTitle", "bn": "bnTitle", "id": "idTitle", "ko": "koTitle",
+               "my": "myTitle", "th": "thTitle", "vi": "viTitle", "zh": "zhTitle", "zh2": "zh2Title"}
+def title_l1(lid, folder):
+    j = _json.load(open(os.path.join(GOI, folder, "words.json"), encoding="utf-8"))
+    d = {"ja": JA_TITLE[lid]}
+    for l in LANGS:
+        v = j.get(TITLE_FIELD[l])
+        if v: d[l] = str(v).replace("<br>", " ").strip()
+    return d
 
 # テーマ名の各言語訳(一覧表示用)。ja + 10言語。パイロット3テーマ分(高信頼の基本語)。
 TITLE_L1 = {
@@ -54,8 +64,8 @@ def poster_path(folder, lang):
     return os.path.join(POSTER_SRC, lang, f"{folder}_plain_{lang}.png")
 
 def cell_count(folder):
-    d = os.path.join(AUDIO_SRC, "JA", folder)
-    return len([f for f in os.listdir(d) if re.match(r"^\d+_ja\.mp3$", f)])
+    j = _json.load(open(os.path.join(GOI, folder, "words.json"), encoding="utf-8"))
+    return len(j["words"])
 
 # --- box検出(グレー枠#e6e8ec の横罫線を左カード幅で拾い、適応しきいで丁度2R本にする) ---
 COLF = [(56 / 2480, 1214 / 2480), (1264 / 2480, 2422 / 2480)]  # 左右2列のx範囲(画像幅比・基準2480px)
@@ -152,9 +162,9 @@ def emit_ts(lessons):
     ]
     for ls in lessons:
         lid = ls["id"]
-        img = ", ".join([f"{l}:'{lid}/poster_{l}.png'" for l in LANGS])
+        img = ", ".join([f"{l}:'{lid}/poster_{l}.webp'" for l in LANGS])
         tl1 = ", ".join([f"{l}:'{lid}/audio/title_{l}.mp3'" for l in LANGS])
-        tl = TITLE_L1[lid]
+        tl = title_l1(lid, ls['folder'])
         tlstr = ", ".join([f"{k}:'{tl[k]}'" for k in TITLE_ORDER if k in tl])
         L.append(f" {{ id:'{lid}', title:'{ls['title']}', titleL1:{{ {tlstr} }}, posterW:{ls['W']}, posterH:{ls['H']},")
         L.append(f"   imageL1:{{ {img} }},")
