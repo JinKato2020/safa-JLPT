@@ -117,6 +117,13 @@ node --import tsx tools/content/rebuild.ts | Out-Null
 if ($LASTEXITCODE -ne 0) { Die 'rebuild.ts が失敗しました。' }
 Write-Host '  _manifest.json / bundled.generated.ts を再生成'
 
+# ---- 2.5 i18n 自動翻訳(新規UIキーを全11言語へ) ----------------------------
+# 【仕組み・ユーザー厳命 2026-09-07】ja に有って他言語に無いUIキーを Gemini で差分翻訳(zh2=OpenCC同期)。
+# en/ne は元々ここで手当済・他8言語も自動で埋める＝新UI追加→ビルドで全11言語翻訳。
+# 未訳0なら API を呼ばない。失敗しても続行(=下の番人 parity.test.ts が未訳を検出して止める)。
+Step '2.5' 'i18n 自動翻訳(全11言語・差分fill)'
+python tools/trans_i18n.py --fill 2>&1 | Select-Object -Last 14 | ForEach-Object { Write-Host "  $_" }
+
 # ---- 3. 検証 ---------------------------------------------------------------
 # passageTransNe.test.ts は除外。翻訳保留中で赤のまま＝想定内（CIにテスト段は無いのでビルドは通る）。
 Step 3 'テスト + tsc'

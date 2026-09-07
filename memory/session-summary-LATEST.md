@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 6 回・19 ターン
-- 往復 141 回
+- ツール呼び出し 1 回・5 ターン
+- 往復 251 回
 
 ## 何が変わったか
 - memory/handoff.md
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
-- tools/poster/regen_rest.py
+- tools/poster/_packs/poster-ko.zip
+- tools/poster/_packs/poster-id.zip
+- tools/poster/_packs/poster-en.zip
+- tools/poster/_packs/poster-bn.zip
 
 ## 次の一手
 - **🧭2026-09-07 進行中＝「ポスター朗読」機能を JLPTアプリへ移植（聞いて話せる日本語からの移植）。** 決定事項：①パイロット=3テーマ(family/01_家族20枚・body/03_体24枚・food/05_食べ物20枚) ②言語別ポスター＝`多言語教材\01_日本語教材\05_アプリ用ポスター\<lang>\NN_テーマ_plain_<lang>.png`(plain=広告なし・全10言語 bn/en/id/ko/my/ne/th/vi/zh/zh2 × 31テーマ=310枚 確認済) ③音声=`多言語教材\00_共通\音声\<LANGDIR>\NN_テーマ\MM_<lang>.mp3`+title(11言語 ja+10) ④入口=単語(書斎)タブ WordsHubScreen の語彙リスト下に「ポスター朗読」カード→テーマ選択→朗読画面。

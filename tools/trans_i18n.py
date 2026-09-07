@@ -7,9 +7,14 @@
 #   python tools/trans_i18n.py --dry-run           # API呼ばず 件数/バッチ/概算費用(全7言語)
 #   python tools/trans_i18n.py --apply             # Gemini実行→langごとキャッシュに保存(バッチ毎=再開可)
 #   python tools/trans_i18n.py --write             # キャッシュを src/i18n/<lang>.json へ書込(ja全キーで作り直し=旧315破棄)
+#   python tools/trans_i18n.py --fill              # 【仕組み・既定運用】差分だけ翻訳し既存を壊さず追記+zh2をOpenCC同期(全8言語を最新に)
 #   python tools/trans_i18n.py --lang th --apply   # 1言語だけ
 # キャッシュ = scratchpad/pg/trans_i18n_<lang>_cache.json  {key: translation}。--apply は既訳keyをスキップ(再開)。
-import os, re, sys, json, time, urllib.request, urllib.error
+#
+# 【仕組み(ユーザー厳命 2026-09-07)】新規UIキーは全11言語同時に翻訳する。en/ne=番人parity.test.tsが強制、
+#   他8言語(bn/id/ko/my/th/vi/zh/zh2)は --fill が差分翻訳(zh2はzhからOpenCC)。番人も全11へ拡張済＝未訳はビルドで停止。
+#   build.ps1 が検証前に --fill を自動実行(=新キー追加→ビルドで自動翻訳)。--write(全消し再翻訳)とは別物。
+import os, re, sys, json, time, subprocess, urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 I18N = os.path.join(ROOT, 'src', 'i18n')
@@ -152,6 +157,69 @@ def do_write(only):
         print(f'[write] {lang}.json keys={len(out)}/{len(keys)}' + (f'  未訳(ja表示){miss}' if miss else '  =100%'))
 
 
+def _translate_missing(pairs, lang_name):
+    """pairs=[(key,ja),..] を lang_name へ翻訳して {key: 訳} を返す。バッチ→部分失敗は半分割で再試行(単発drop可)。"""
+    def chunk(ps):
+        if not ps:
+            return {}
+        try:
+            out, _pi, _po = gemini_batch(ps, lang_name)
+        except Exception as e:
+            if len(ps) == 1:
+                print(f'  drop key={ps[0][0]} {type(e).__name__}', file=sys.stderr)
+                return {}
+            mid = len(ps) // 2
+            return {**chunk(ps[:mid]), **chunk(ps[mid:])}
+        miss = [c for c in ps if c[0] not in out]
+        if miss and len(ps) > 1:
+            out.update(chunk(miss))
+        return out
+    got = {}
+    for b in range(0, len(pairs), BATCH):
+        got.update(chunk(pairs[b:b + BATCH]))
+    return got
+
+
+def do_fill(only):
+    """差分だけ翻訳して既存訳を壊さず <lang>.json へ追記(ja順で末尾追加)。zh2 は zh 反映後に OpenCC 再生成。"""
+    if not KEY:
+        print('GEMINI_API_KEY 未設定'); sys.exit(1)
+    ja = load_ja()
+    keys = list(ja)
+    langs_to = [only] if (only and only in TARGETS) else ([] if only else list(TARGETS))
+    total_new = 0
+    zh_touched = False
+    for lang in langs_to:
+        p = os.path.join(I18N, f'{lang}.json')
+        cur = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {}
+        missing = [(k, ja[k]) for k in keys if k not in cur]
+        if not missing:
+            print(f'[fill] {lang}: 未訳0（最新）'); continue
+        print(f'[fill] {lang}({TARGETS[lang]}) 未訳 {len(missing)} 件を翻訳...', file=sys.stderr)
+        got = _translate_missing(missing, TARGETS[lang])
+        merged = {**cur, **got}  # 既存の順序/訳を保持し、新キーを末尾に追加
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(merged, f, ensure_ascii=False, indent=2); f.write('\n')
+        still = [k for k, _ in missing if k not in got]
+        print(f'[fill] {lang}: +{len(got)} 追加' + (f' / 未訳残 {len(still)}(次回再試行)' if still else ' =最新'))
+        total_new += len(got)
+        if lang == 'zh' and got:
+            zh_touched = True
+    # zh2(台湾繁体字)は zh から OpenCC s2twp で機械変換(UIのみ)。content側のzh2は gen_zh_hant.py の担当で別。
+    if zh_touched or only == 'zh2' or (not only):
+        try:
+            import opencc
+            cc = opencc.OpenCC('s2twp')
+            zh = json.load(open(os.path.join(I18N, 'zh.json'), encoding='utf-8'))
+            zh2 = {k: (cc.convert(v) if isinstance(v, str) else v) for k, v in zh.items()}
+            with open(os.path.join(I18N, 'zh2.json'), 'w', encoding='utf-8') as f:
+                json.dump(zh2, f, ensure_ascii=False, indent=2); f.write('\n')
+            print(f'[fill] zh2.json を zh から同期 keys={len(zh2)}', file=sys.stderr)
+        except Exception as e:
+            print(f'  ⚠ zh2同期失敗({type(e).__name__}) opencc未導入かも(pip install opencc)', file=sys.stderr)
+    print(f'[fill] 完了 追加合計 {total_new} キー。')
+
+
 if __name__ == '__main__':
     import argparse
     ap = argparse.ArgumentParser()
@@ -159,8 +227,10 @@ if __name__ == '__main__':
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--apply', action='store_true')
     ap.add_argument('--write', action='store_true')
+    ap.add_argument('--fill', action='store_true')
     a = ap.parse_args()
-    if a.dry_run: do_dry_run(a.lang)
+    if a.fill: do_fill(a.lang)
+    elif a.dry_run: do_dry_run(a.lang)
     elif a.apply: do_apply(a.lang)
     elif a.write: do_write(a.lang)
     else: do_dry_run(a.lang)

@@ -1,18 +1,34 @@
-// 【仕組み・番人／ユーザー厳命 2026-08-14】新規UI文字列は ja だけでなく en・ne も必ず同時に用意する。
-// en(英語)/ne(ネパール語)は母語として常時選択でき、UIをその言語で表示する。ja にキーが有って
-// en/ne に無いと「その言語なのに日本語が出る」バグになる(相対位置カードで実際に発生)。
+// 【仕組み・番人／ユーザー厳命 2026-08-14→2026-09-07 全11言語へ拡張】新規UI文字列は ja だけでなく
+// 全表示言語(en/ne/bn/id/ko/my/th/vi/zh/zh2)に必ず訳を用意する。ja にキーが有って或る言語に無いと
+// 「その言語なのに日本語が出る」バグになる(相対位置カード・ポスター朗読で実際に発生)。
 // この番人が「未訳キー」と「プレースホルダ({n}等)の欠落/余分」を検出してビルドを止める。
-// ※ 他8言語(bn/id/ko/my/th/vi/zh)はバックログ運用(tools/i18n_backlog.py・指示時のみ一括翻訳)＝対象外。
-// 追加UIの手順: ja.json にキー追加 → 同時に en.json・ne.json にも訳を追加(英語とネパール語を必ず作る)。
+// 追加UIの手順: ja.json にキー追加 → en.json・ne.json に訳を書く → `python tools/trans_i18n.py --fill` で
+//   他8言語(zh2=OpenCC)を自動翻訳(build.ps1が検証前に自動実行)。旧「他8言語はバックログ=対象外」は失効。
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import ja from './ja.json';
 import en from './en.json';
 import ne from './ne.json';
+import bn from './bn.json';
+import id from './id.json';
+import ko from './ko.json';
+import my from './my.json';
+import th from './th.json';
+import vi from './vi.json';
+import zh from './zh.json';
+import zh2 from './zh2.json';
 
 const REQUIRED: Record<string, Record<string, string>> = {
   en: en as Record<string, string>,
   ne: ne as Record<string, string>,
+  bn: bn as Record<string, string>,
+  id: id as Record<string, string>,
+  ko: ko as Record<string, string>,
+  my: my as Record<string, string>,
+  th: th as Record<string, string>,
+  vi: vi as Record<string, string>,
+  zh: zh as Record<string, string>,
+  zh2: zh2 as Record<string, string>,
 };
 const JA = ja as Record<string, string>;
 

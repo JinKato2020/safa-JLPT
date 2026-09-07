@@ -1420,5 +1420,15 @@
   "share.week_gain": "+{n} poin dalam 7 hari",
   "share.your_code": "Kode referral",
   "town.show_in_town": "Tampilkan di kota",
-  "town.show_in_town_hint": "Ketuk 👁 untuk memilih teman yang tampil di kota (default semua tampil)."
+  "town.show_in_town_hint": "Ketuk 👁 untuk memilih teman yang tampil di kota (default semua tampil).",
+  "cards.poster": "Membaca Poster",
+  "poster.list_title": "Membaca Poster",
+  "poster.list_sub": "Pilih tema, lalu dengarkan sambil melihat gambar",
+  "poster.hint": "Ketuk kartu untuk memutar, ketuk perbesar untuk menghentikan",
+  "poster.preparing": "Mempersiapkan...",
+  "content.launch_title": "Konten baru tersedia",
+  "content.launch_msg": "Ada {n} soal/terjemahan terbaru. Unduh sekarang?",
+  "content.launch_yes": "Ya",
+  "content.launch_no": "Tidak",
+  "content.downloading": "Mengunduh..."
 }

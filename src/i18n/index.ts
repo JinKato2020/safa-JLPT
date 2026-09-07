@@ -1,5 +1,5 @@
 // UI多言語化(i18n)。UI文字列のみ(語彙等のコンテンツは対象外)。
-// 基準=ja.json。各言語JSONに無いキーは ja → key の順でフォールバック。{name} はプレースホルダ。
+// 基準=ja.json。各言語JSONに無いキーは en → ja → key の順でフォールバック(未訳は日本語でなく英語で出す。en は ja と全キー parity)。{name} はプレースホルダ。
 // 既定UI言語=端末言語の自動判定(対応外は en)。設定で手動変更可(settings.uiLang)。
 import * as Localization from 'expo-localization';
 import { useAppState } from '../store/store';
@@ -70,7 +70,7 @@ function fmt(s: string, p?: Record<string, string | number>): string {
 
 /** 純粋翻訳(lang指定)。lang→ja→key の順でフォールバック。 */
 export function translate(lang: string, key: string, p?: Record<string, string | number>): string {
-  const s = DICT[lang]?.[key] ?? DICT.ja[key] ?? key;
+  const s = DICT[lang]?.[key] ?? DICT.en[key] ?? DICT.ja[key] ?? key;
   return fmt(s, p);
 }
 

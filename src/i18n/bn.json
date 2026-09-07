@@ -1420,5 +1420,15 @@
   "share.week_gain": "৭ দিনে +{n} পয়েন্ট",
   "share.your_code": "রেফারেল কোড",
   "town.show_in_town": "শহরে দেখান",
-  "town.show_in_town_hint": "শহরে কোন বন্ধুদের দেখানো হবে তা বেছে নিতে 👁 ট্যাপ করুন (ডিফল্টে সবাই দেখানো হয়)।"
+  "town.show_in_town_hint": "শহরে কোন বন্ধুদের দেখানো হবে তা বেছে নিতে 👁 ট্যাপ করুন (ডিফল্টে সবাই দেখানো হয়)।",
+  "cards.poster": "পোস্টার পড়া",
+  "poster.list_title": "পোস্টার পড়া",
+  "poster.list_sub": "একটি থিম বেছে নিন এবং ছবি দেখতে দেখতে শুনুন",
+  "poster.hint": "প্লে করতে কার্ডে ট্যাপ করুন, থামাতে ম্যাগনিফাই ট্যাপ করুন",
+  "poster.preparing": "প্রস্তুতি চলছে...",
+  "content.launch_title": "নতুন কন্টেন্ট উপলব্ধ",
+  "content.launch_msg": "নতুন প্রশ্ন ও অনুবাদ আছে {n}টি। এখনই ডাউনলোড করবেন?",
+  "content.launch_yes": "হ্যাঁ",
+  "content.launch_no": "না",
+  "content.downloading": "ডাউনলোড হচ্ছে..."
 }

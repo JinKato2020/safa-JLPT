@@ -26,14 +26,14 @@ export default function PosterListScreen() {
       </View>
       <ScrollView contentContainerStyle={styles.list}>
         <Text style={[styles.sub, { color: c.mute }]}>{t('poster.list_sub')}</Text>
-        {POSTER_LESSONS.map((l) => {
+        {POSTER_LESSONS.map((l, i) => {
           const l1 = pick(l.titleL1);
           const showL1 = l1 && l1 !== l.title;
           return (
             <Pressable key={l.id}
               style={({ pressed }) => [styles.row, { backgroundColor: c.surface, borderColor: c.line }, pressed && { backgroundColor: c.bgSoft }]}
               onPress={() => nav.navigate('PosterAudio', { lessonId: l.id })}>
-              <View style={[styles.badge, { backgroundColor: c.blueLight }]}><Text style={[styles.badgeTxt, { color: c.blueDark }]}>{l.title.slice(0, 1)}</Text></View>
+              <View style={[styles.badge, { backgroundColor: c.blueLight }]}><Text style={[styles.badgeTxt, { color: c.blueDark }]}>{i + 1}</Text></View>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.rowTitle, { color: c.ink }]}>{l.title}</Text>
                 {showL1 && <Text style={[styles.rowSub, { color: c.mute }]} numberOfLines={1}>{l1}</Text>}

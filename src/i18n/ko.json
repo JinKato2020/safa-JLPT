@@ -1420,5 +1420,15 @@
   "share.week_gain": "최근 7일간 +{n}점",
   "share.your_code": "추천 코드",
   "town.show_in_town": "마을에 표시",
-  "town.show_in_town_hint": "👁을 눌러 마을에 표시할 친구를 선택하세요(기본값은 모두 표시)."
+  "town.show_in_town_hint": "👁을 눌러 마을에 표시할 친구를 선택하세요(기본값은 모두 표시).",
+  "cards.poster": "포스터 낭독",
+  "poster.list_title": "포스터 낭독",
+  "poster.list_sub": "테마를 선택하고 그림을 보면서 들어보세요",
+  "poster.hint": "카드를 탭하면 재생, 확대를 탭하면 정지",
+  "poster.preparing": "준비 중...",
+  "content.launch_title": "새로운 콘텐츠가 있습니다",
+  "content.launch_msg": "최신 문제/번역 {n}개가 있습니다. 지금 다운로드하시겠습니까?",
+  "content.launch_yes": "예",
+  "content.launch_no": "아니요",
+  "content.downloading": "다운로드 중..."
 }

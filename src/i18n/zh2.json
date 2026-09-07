@@ -1420,5 +1420,15 @@
   "share.week_gain": "近7天 +{n}分",
   "share.your_code": "邀請碼",
   "town.show_in_town": "在城鎮顯示",
-  "town.show_in_town_hint": "點選👁選擇在城鎮顯示的好友（預設全部顯示）。"
+  "town.show_in_town_hint": "點選👁選擇在城鎮顯示的好友（預設全部顯示）。",
+  "cards.poster": "海報朗讀",
+  "poster.list_title": "海報朗讀",
+  "poster.list_sub": "選擇主題，邊看圖邊聽",
+  "poster.hint": "點選卡片播放，點選放大停止",
+  "poster.preparing": "準備中…",
+  "content.launch_title": "有新內容",
+  "content.launch_msg": "有{n}個最新問題/翻譯。現在下載嗎？",
+  "content.launch_yes": "是",
+  "content.launch_no": "否",
+  "content.downloading": "下載中…"
 }

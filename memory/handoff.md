@@ -493,14 +493,14 @@
 - ac333d4514f04da09 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
-- tools/poster/regen_rest.py
-- tools/poster/poster_themes.py
-- tools/poster/gen_poster.py
-- tools/poster/build_packs.py
-- src/screens/PosterAudioScreen.tsx
+- tools/poster/_packs/poster-ko.zip
+- tools/poster/_packs/poster-id.zip
+- tools/poster/_packs/poster-en.zip
+- tools/poster/_packs/poster-bn.zip
+- memory/session-summary-LATEST.md
+- memory/handoff.md
+- 画像/SNS/1/my/AI1.jpg
+- 画像/SNS/1/my/AI2.jpg
 
-_自動更新: 2026-09-07 21:20_
+_自動更新: 2026-09-07 22:06_
 <!-- AUTO:END -->
