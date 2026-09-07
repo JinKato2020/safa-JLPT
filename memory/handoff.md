@@ -6,7 +6,17 @@
   - 技術確認済：箱検出=グレー枠#e6e8ec方式がplainでも完璧(家族20/体24本・全しきい安定)→座標全自動。JLPT音声=**expo-av**(Audio.Sound・旧はexpo-audioなので再生層を書換)。配信=Pages+端末キャッシュ(雛形`src\data\listeningImage.ts`/`audioBase.ts`・base=`https://jinkato2020.github.io/safa-JLPT/assets/`・FSは`expo-file-system/legacy`)。画面登録=App.tsx RootStackに1画面追加(聴解Listeningと同型)+types。i18n=`useT()/useUiLang()`・poster.*をja/en/neへ(番人parity.test.ts)。色=`useColors()`。
   - **✅コード実装 完了(tsc0・parity4/4緑・未コミット)**：`tools\poster\gen_poster.py`(箱検出+TS生成+--stage-assets)／`src\data\posterLessons.ts`(3テーマ生成済)／`src\data\posterAssets.ts`(ensurePosterTheme/posterUri/isPosterReady・Pages+キャッシュ)／`src\screens\PosterAudioScreen.tsx`(expo-av逐次再生に書換・単一ページ簡素化)／`src\screens\PosterListScreen.tsx`(テーマ選択)／`src\components\KubunCard.tsx`(語彙リスト直下に`cards.poster`→PosterList)／`App.tsx`(PosterList/PosterAudio登録)＋`types.ts`／i18n ja/en/ne(cards.poster・poster.list_title/list_sub/hint/preparing)。
   - **✅素材 用意済(未コミット)**：`assets\poster\{family,body,food}\`＝png30+mp3737(32k/24kHz+0.25s pad)・12MB。`.github\workflows\build-jlpt.yml`に`cp -r assets/poster _site/assets/poster`追加(Pages公開)。base=`https://jinkato2020.github.io/safa-JLPT/assets/poster/`。
-  - **次の一手＝外向き(要ユーザー明示)**：(1)commit+**push**→Pagesがポスター素材を公開(deploy-pagesジョブ) (2)**ビルド**→新UI(ポスター朗読画面)がTestFlight/Playへ(UIはOTA不可)。※実機未検証(expo-av再生・箱座標の見た目)。全31テーマ展開は`gen_poster.py`のTHEMESに追記して再実行(--stage-assets)。
+  - **✅ビルド dispatch 済み=v1.1.42(Build 2913)・both・コミット`b909235b`・run https://github.com/JinKato2020/safa-JLPT/actions/runs/34079723383 (2026-09-07・本日iOS 2/8)。** push済で assets/poster(767ファイル)も Pages 公開起動。-NoWatch=監視せず。
+  - **次の一手（2026-09-07 更新）＝ポスター音声の作り直し＋配信を版管理化(本筋版)**。詳細=メモリ[[poster-audio-pack-canonical]]。
+    - ✅ 済：音声の中身修正。JA=元アプリRelease採用(検証済)。非JA6月古い分(en/ne/bn/vi/zh/ko)を最新words.json順で再生成→`多言語教材\00_共通\音声\_正規化\<BIG>\{01_家族,03_体,05_食べ物}\NN_<lang>.mp3`(family21/body25/food21)。ID/MY/TH/ZH2は9月生成済。共有ツール修正済=gen_tts_edge.py(ne→npフィールド対応)・gen_tts_edge/chirp(tts_textで`<br>`除去)。実費=Google Chirp3-HD 1346字≈¥6。
+    - ✅ 済：パック生成。`tools\poster\build_packs.py`で`tools\poster\_packs\poster-<lang>.zip`×11＋`poster-catalog.json`を生成。STORED zip・エントリ`<theme>/audio/NN_<lang>.mp3`+`title_<lang>.mp3`+(非JA)`<theme>/poster_<lang>.webp`。JAは音声のみ。**軽量化=音声24kHz mono/画像WebP幅1080**。合計6.75MB・**1ユーザーはja+母語の2言語だけ**=約1.1MB。検証済(24kHz/webp1080×1528 76KB/STORED)。
+    - ✅ 決定(2026-09-07)＝スマホ最適化は「**見た目そのまま・軽量化優先**」(WebP+24kHz)。レイアウト再設計はしない。
+    - ✅ **全テーマ化＋配信 実装完了(2026-09-07)**。ポスター28テーマ(語彙31−図形3)。詳細=[[poster-audio-pack-canonical]]。
+      - 音声：JA=_正規化(検証済)・非JAの6月古い分(en/ne/bn/vi/zh/ko)を全28テーマ最新words.json順で再生成(spot検証OK)・id/my/th/zh2=9月版。共有ツール修正=gen_tts_edge.py(np対応)・edge/chirp(<br>除去)。実費=Google Chirp3-HD 13,961字≈¥66。
+      - 配信：`build_packs.py`で`tools\poster\_packs\`(gitignore)に poster-<lang>.zip×11(28テーマ・音声24kHz/画像WebP1080・STORED)+catalog生成→**safa-JLPT Release(tag packs-poster)公開済**(実URLでDL確認)。per-user=ja+母語 約10MB。録り直し=build_packs.pyのVERSION+1→再アップのみ。
+      - アプリ：`posterAssets.ts`=版管理ローダ移植済(POSTER_CATALOG_URL=safa-JLPT・`ensurePosterPack(lang)`)。`posterLessons.ts`28テーマ再生成(webp)。`poster_themes.py`にテーマ一元化。PosterListは自動28表示。旧`assets/poster`(12MB)撤去・build-jlpt.ymlのPagesコピー撤去。tsc0。**別件AIコーチのミャンマー語はみ出しも修正**(AICoachScreen scoreHead)。
+      - Excel=`ポスター単語一覧_全テーマ.xlsx`(28シート・未コミット)。
+    - ⬜ **次の一手＝実機確認→ビルド**。ローカルコミット済(ブランチ`feat/poster-all-themes-packs`・`4ac90916`・**push/ビルドなし**=ユーザー選択「実機確認後にビルド」)。実機/シミュで(1)ポスター28テーマ表示・箱ハイライト (2)音声(ja+母語)連続再生 (3)AIコーチ ミャンマー語カード を確認→OKなら`git push`→ビルド(build.ps1・iOS+Android・-Approved)。ポスターは実機未検証。
 - **🧭2026-09-07 ビルド dispatch 済み＝v1.1.41(Build 2912)・both(iOS+Android)・コミット `8a432da0`・run https://github.com/JinKato2020/safa-JLPT/actions/runs/34046893703 。** 上記97件(頭切れ修正/ボタン1段化/zh-Hant→zh2 改名/content多言語)を1ビルドに反映。push 済みで OTA(Pages)も同時起動。-NoWatch ゆえ監視せず＝GitHub Actions で進行中。本日 iOS 1/8 回。
   - **次の一手＝ビルド結果の確認**（Actions が緑になれば TestFlight/Play(App C枠)へ提出済。失敗時 `gh run view 34046893703 --log-failed`）。それ以外の未処理タスクは現状なし。
 
@@ -475,10 +485,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 89ターン（文脈 25万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 89ターン・ツール35回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a0c48fa2ccfc548b1 general-purpose
 - a6e2e5da70893cd09 general-purpose
@@ -487,14 +493,14 @@
 - ac333d4514f04da09 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
-- assets/poster/food/audio/title_zh2.mp3
-- assets/poster/food/audio/20_zh2.mp3
-- assets/poster/food/audio/19_zh2.mp3
-- assets/poster/food/audio/18_zh2.mp3
-- assets/poster/food/audio/17_zh2.mp3
-- assets/poster/food/audio/16_zh2.mp3
-- assets/poster/food/audio/15_zh2.mp3
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- app.json
+- tools/poster/regen_rest.py
+- tools/poster/poster_themes.py
+- tools/poster/gen_poster.py
+- tools/poster/build_packs.py
+- src/screens/PosterAudioScreen.tsx
 
-_自動更新: 2026-09-07 11:12_
+_自動更新: 2026-09-07 21:20_
 <!-- AUTO:END -->
