@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import { AppState, type ImageSourcePropType } from 'react-native';
 import { daylightAt, type Daylight } from './daylight';
+import { useAppState } from '../store/store';
 
 export type TabKey = 'word' | 'exam' | 'dict';
 export { daylightAt, type Daylight };
@@ -32,7 +33,9 @@ export const TAB_BLINK: Partial<Record<TabKey, Partial<Record<Daylight, ImageSou
 };
 
 // 現在の昼/夜を返し、境界跨ぎ(60秒間隔)とフォアグラウンド復帰で自動更新するフック。
+// 【開発用】settings.devDaylight('day'|'night')が設定されていれば時刻に関係なくそれを返す(設定の開発セクションで切替)。
 export function useDaylight(): Daylight {
+  const override = useAppState().settings.devDaylight;
   const [dl, setDl] = useState<Daylight>(() => daylightAt(new Date()));
   useEffect(() => {
     const update = () => setDl(daylightAt(new Date()));
@@ -41,7 +44,7 @@ export function useDaylight(): Daylight {
     const sub = AppState.addEventListener('change', (s) => { if (s === 'active') update(); });
     return () => { clearInterval(id); sub.remove(); };
   }, []);
-  return dl;
+  return override === 'day' || override === 'night' ? override : dl;
 }
 
 // 指定タブの、いまの時刻に応じた背景を返す。

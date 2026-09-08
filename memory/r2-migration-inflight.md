@@ -37,8 +37,8 @@
      R2_SECRET_ACCESS_KEY = （発行済シークレット）
      R2_ENDPOINT = https://37405f28673fcc75c547e3e97d9bc7bb.r2.cloudflarestorage.com
    - ※このトークンは削除しない＝配信キーとして常用。漏れた時だけローテート。
-3. 【ユーザー合図後】commit → ビルド（新URLを載せる）。build.ps1 の -Approved ゲート経由。
-4. 全ユーザー更新後に github.io / GitHub Release 退役 → username痕跡ゼロ完成
+3. ✅【ビルド dispatch 済 2026-09-08】v1.1.45(Build 2917)・both・commit 30fde1bc・run https://github.com/JinKato2020/safa-JLPT/actions/runs/34216325036 。secrets 3つ登録済でpush→deploy-pagesのR2同期ステップが**初回起動**（未検証＝次に確認するとよい。ただしデータは既にrcloneで投入済＝app動作はR2で担保される）。-NoWatch。本日iOS 1/8。
+4. 【残】全ユーザーが新アプリ更新後に github.io / GitHub Release 退役 → username痕跡ゼロ完成。CI R2同期の初回成否を一度確認（run 34216325036 の "Sync _site to Cloudflare R2" ステップ）。secretsが正しければ緑。
 
 ## 現在の作業ツリー（未コミット）
 - 変更: src/data/{audioBase,dict/dictRemote,content/ota,listeningImage,posterAssets}.ts, src/data/audioBase.test.ts, src/screens/{ShareCardScreen,KotobaTownScreen}.tsx, App.tsx, web/{invite,r}/index.html, tools/poster/build_packs.py, .github/workflows/build-jlpt.yml, content/_manifest.json（再生成）, tools/poster/_packs/poster-catalog.json（URL書換）

@@ -1,19 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 41 回・89 ターン
-- 往復 145 回
+- ツール呼び出し 15 回・37 ターン
+- 往復 231 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/r2-migration-inflight.md
-- tools/poster/_packs/poster-catalog.json
-- src/data/posterAssets.ts
-- tools/poster/build_packs.py
-
-## ⚠️ 注意
-- - ⚠ 連続 89ターン（文脈 21万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 89ターン・ツール41回）— まとめ方を変える
+- src/screens/ProfileScreen.tsx
+- src/data/tabArt.ts
+- src/store/state.ts
+- memory/session-summary-LATEST.md
 
 ## 次の一手
 - **▶2026-09-07 完了・要ビルド＝ポスター朗読の表示が遅い→ローカル優先で即表示。** 原因＝`PosterAudioScreen.tsx` が `ready` を `ensurePosterPack(lang)` 完了後にのみ true 化し、同関数が**毎回** GitHub カタログを `cache:'no-store'`＋時刻付きで取得(8s×3)→DL済でも通信待ちで画像が真っ白。修正＝mount 時にまず `isPosterReady(lesson,lang)`(ローカルmarker判定・無通信)で揃っていれば即 `setReady(true)`、最新版チェック/初回DLは裏で(版一致なら即スキップ)。2回目以降ほぼ一瞬。初回のみ従来通り重い(全28テーマ音声を1zip展開・小分け配信は未着手)。tsc0。未コミット。**次=次ビルドに同梱**(UI・OTA不可)。ユーザー選択=①様子見。

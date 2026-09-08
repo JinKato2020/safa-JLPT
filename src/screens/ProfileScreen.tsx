@@ -370,6 +370,24 @@ export default function ProfileScreen() {
               <Text style={[s.ppChipTxt, devPass == null && s.ppChipTxtOn]}>自動</Text>
             </Pressable>
           </View>
+          {/* 背景 昼/夜を固定(開発用): 各タブ・ホームの背景イラストを時刻に関係なく昼・夜で確認。 */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>背景 昼／夜を固定</Text>
+              <Text style={s.subtle}>各タブ・ホームの背景イラストを時刻に関係なく昼／夜で確認。「自動」で通常の時刻切替に戻す（開発用）</Text>
+            </View>
+          </View>
+          <View style={s.ppChips}>
+            <Pressable onPress={() => setSettings({ devDaylight: null })} style={[s.ppChip, { flex: 1 }, (state.settings.devDaylight ?? null) == null && s.ppChipOn]}>
+              <Text style={[s.ppChipTxt, (state.settings.devDaylight ?? null) == null && s.ppChipTxtOn]}>自動</Text>
+            </Pressable>
+            <Pressable onPress={() => setSettings({ devDaylight: 'day' })} style={[s.ppChip, { flex: 1 }, state.settings.devDaylight === 'day' && s.ppChipOn]}>
+              <Text style={[s.ppChipTxt, state.settings.devDaylight === 'day' && s.ppChipTxtOn]}>昼</Text>
+            </Pressable>
+            <Pressable onPress={() => setSettings({ devDaylight: 'night' })} style={[s.ppChip, { flex: 1 }, state.settings.devDaylight === 'night' && s.ppChipOn]}>
+              <Text style={[s.ppChipTxt, state.settings.devDaylight === 'night' && s.ppChipTxtOn]}>夜</Text>
+            </Pressable>
+          </View>
           {/* 模試終了後の画面を確認(開発用): 模試終了→計算演出→合否の証明書を直接開く。 */}
           <View style={s.telemRow}>
             <View style={s.telemTxt}>

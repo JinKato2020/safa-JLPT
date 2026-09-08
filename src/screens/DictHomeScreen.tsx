@@ -4,7 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList, DictStackParamList, Kubun } from '../navigation/types';
-import { ImmersiveTab, StartCard, type TabEntry } from '../components/TabScene';
+import { ImmersiveTab, type TabEntry } from '../components/TabScene';
 import { useTabBg, useTabBlink } from '../data/tabArt';
 import { useAppState } from '../store/store';
 import { useColors } from '../theme';
@@ -27,9 +27,6 @@ export default function DictHomeScreen() {
   // 書庫の背景=昼/夜で切替(段階成長は廃止・ユーザー指定2026-08-11)。
   const bg = useTabBg('dict');
   const blinkBg = useTabBlink('dict');
-  // 復習対象=my単語帳に保存した語彙＋漢字＋文法のid(該当データが無いidはFlashcard側で自動除外)。
-  const reviewIds = (myList ?? []).map((r) => r.id);
-
   return (
     <View style={[styles.c, { backgroundColor: c.bg }]}>
       <ImmersiveTab
@@ -39,12 +36,7 @@ export default function DictHomeScreen() {
         entries={[
           ...DICTS.map((d) => ({ key: d.view, glyph: d.glyph, label: t(d.labelKey), accent: d.accent, onGo: () => nav.navigate('DictList', { view: d.view }) })),
           { key: 'mywords', glyph: '★', label: t('mywords.card'), accent: '#c05580', count: myList?.length ?? 0, onGo: () => nav.navigate('MyWords') },
-          // 桜(図書館の机に座るキャラ)タップ=my単語帳の復習を「はじめる」確認カード。保存が無ければ単語帳へ誘導。
-          { key: 'review', hidden: true, label: t('mywords.review'), accent: '#c05580',
-            renderCard: () => <StartCard glyph="復" accent="#c05580" title={t('mywords.review')} cta={t('cards.reco_start')}
-              onStart={() => { if (reviewIds.length) nav.navigate('Flashcard', { ids: reviewIds }); else nav.navigate('MyWords'); }} /> },
         ] as TabEntry[]}
-        hotspots={[{ key: 'review', label: t('mywords.review'), area: { left: '37%', top: '46%', width: '28%', height: '22%' } }]}
       />
     </View>
   );

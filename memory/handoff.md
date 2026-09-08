@@ -487,10 +487,6 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 89ターン（文脈 21万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 89ターン・ツール41回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a0c48fa2ccfc548b1 general-purpose
 - a6e2e5da70893cd09 general-purpose
@@ -499,14 +495,14 @@
 - ac333d4514f04da09 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/screens/ProfileScreen.tsx
+- src/data/tabArt.ts
+- src/store/state.ts
+- memory/session-summary-LATEST.md
+- memory/handoff.md
+- src/screens/DictHomeScreen.tsx
+- src/screens/WordsHubScreen.tsx
 - memory/r2-migration-inflight.md
-- tools/poster/_packs/poster-catalog.json
-- src/data/posterAssets.ts
-- tools/poster/build_packs.py
-- src/screens/ShareCardScreen.tsx
-- src/screens/KotobaTownScreen.tsx
-- web/r/index.html
-- web/invite/index.html
 
-_自動更新: 2026-09-08 07:21_
+_自動更新: 2026-09-08 21:24_
 <!-- AUTO:END -->

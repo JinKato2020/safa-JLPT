@@ -3,10 +3,8 @@
 // KubunCard(成長バッジ/バー/リスト/聞き取り/書き取り 等)をトグル表示する。✦=オススメは遷移。
 import { useEffect, useMemo, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList, WordsStackParamList, Kubun } from '../navigation/types';
-import { ImmersiveTab, StartCard, type TabEntry } from '../components/TabScene';
+import type { Kubun } from '../navigation/types';
+import { ImmersiveTab, type TabEntry } from '../components/TabScene';
 import { useTabBg, useTabBlink } from '../data/tabArt';
 import KubunCard from '../components/KubunCard';
 import UnlockCelebration from '../components/UnlockCelebration';
@@ -15,10 +13,7 @@ import { firstUnseenUnlock, currentlyUnlocked, type UnlockKey } from '../store/u
 import { useColors } from '../theme';
 import { useT } from '../i18n';
 
-type Nav = NativeStackNavigationProp<WordsStackParamList & RootStackParamList>;
-
 export default function WordsHubScreen() {
-  const nav = useNavigation<Nav>();
   const t = useT();
   const c = useColors();
   const bg = useTabBg('word');
@@ -51,16 +46,11 @@ export default function WordsHubScreen() {
           { key: 'kanji', glyph: '漢', label: t('cards.kanji'), accent: '#d9743f', renderCard: card('kanji') },
           { key: 'vocab', glyph: '語', label: t('cards.vocab'), accent: '#3f9d5a', renderCard: card('vocab') },
           { key: 'grammar', glyph: '文', label: t('cards.grammar'), accent: '#7b6bd6', renderCard: card('grammar') },
-          // 桜(机に座る桜)タップで「試験問題の復習(統合復習)」の開始カード。旧mixedはここへ吸収。
-          { key: 'reco', hidden: true, label: t('cards.reco'), accent: '#2f80b8',
-            renderCard: () => <StartCard glyph="✦" accent="#2f80b8" title={t('cards.reco')} cta={t('cards.reco_start')} onStart={() => nav.navigate('Quiz', { review: true })} /> },
         ] as TabEntry[]}
         hotspots={[
           { key: 'vocab', label: t('cards.vocab'), area: { left: '12%', top: '17%', width: '15%', height: '11%' } },
           { key: 'grammar', label: t('cards.grammar'), area: { left: '28%', top: '16%', width: '15%', height: '11%' } },
           { key: 'kanji', label: t('cards.kanji'), area: { left: '42%', top: '17%', width: '15%', height: '11%' } },
-          // 桜(机に座る桜)=新背景(書斎)では中央やや下。タップでオススメ開始カード。
-          { key: 'reco', label: t('cards.reco'), area: { left: '35%', top: '41%', width: '31%', height: '25%' } },
         ]}
       />
       <UnlockCelebration
