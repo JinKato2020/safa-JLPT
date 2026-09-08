@@ -16,7 +16,7 @@ import { mockScoreEstimate } from '../store/selectors';
 import { relativePositionFor, isOfficialLevel } from '../ladder/relativePosition';
 import {
   OFFICIAL_TOTAL_STAT, OFFICIAL_SECTION_STATS, OFFICIAL_PASS_RATE,
-  OFFICIAL_BASE_LABEL, OFFICIAL_SOURCE, type OfficialLevel, type OfficialSecKey,
+  OFFICIAL_SOURCE, type OfficialLevel, type OfficialSecKey,
 } from '../data/officialStats';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
@@ -239,7 +239,7 @@ export default function MockResultScreen() {
             <View style={s.card}>
               <Text style={s.cardH}>{t('mockres.dist_title')}</Text>
               <BellCurve level={official} score={est.score} passTotal={est.passTotal} width={chartW} c={c} youLabel={t('mockres.you')} passLabel={t('mockres.passline')} />
-              <Text style={s.cardCap}>{t('mockres.dist_caption', { base: OFFICIAL_BASE_LABEL, mean: Math.round(OFFICIAL_TOTAL_STAT[official].mean), rate: OFFICIAL_PASS_RATE[official] })}</Text>
+              <Text style={s.cardCap}>{t('mockres.dist_caption', { base: t('official.base_label'), mean: Math.round(OFFICIAL_TOTAL_STAT[official].mean), rate: OFFICIAL_PASS_RATE[official] })}</Text>
             </View>
           ) : null}
 
@@ -288,7 +288,7 @@ export default function MockResultScreen() {
           {/* 注記＋出典 */}
           {official ? (
             <>
-              <Text style={s.note}>{t('mockres.note', { base: OFFICIAL_BASE_LABEL })}</Text>
+              <Text style={s.note}>{t('mockres.note', { base: t('official.base_label') })}</Text>
               <Text style={s.source}>{t('mockres.source', { src: OFFICIAL_SOURCE })}</Text>
             </>
           ) : null}

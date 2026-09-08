@@ -1430,5 +1430,6 @@
   "content.launch_msg": "Có {n} vấn đề/bản dịch mới nhất. Bạn có muốn tải xuống ngay không?",
   "content.launch_yes": "Có",
   "content.launch_no": "Không",
-  "content.downloading": "Đang tải xuống..."
+  "content.downloading": "Đang tải xuống...",
+  "official.base_label": "Kỳ 2 năm 2025 (Tháng 12)"
 }

@@ -1430,5 +1430,6 @@
   "content.launch_msg": "Ada {n} soal/terjemahan terbaru. Unduh sekarang?",
   "content.launch_yes": "Ya",
   "content.launch_no": "Tidak",
-  "content.downloading": "Mengunduh..."
+  "content.downloading": "Mengunduh...",
+  "official.base_label": "2025, Periode 2 (Desember)"
 }

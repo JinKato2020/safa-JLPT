@@ -1430,5 +1430,6 @@
   "content.launch_msg": "নতুন প্রশ্ন ও অনুবাদ আছে {n}টি। এখনই ডাউনলোড করবেন?",
   "content.launch_yes": "হ্যাঁ",
   "content.launch_no": "না",
-  "content.downloading": "ডাউনলোড হচ্ছে..."
+  "content.downloading": "ডাউনলোড হচ্ছে...",
+  "official.base_label": "২০২৫ দ্বিতীয়বার (ডিসেম্বর)"
 }

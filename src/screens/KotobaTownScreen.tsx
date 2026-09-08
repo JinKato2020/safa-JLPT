@@ -15,6 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
 import { useAppState, useAppActions } from '../store/store';
 import { KANJI, VOCAB, GRAMMAR, meaningIn } from '../data';
+import { useDaylight } from '../data/tabArt';
 import type { SaveRef } from '../store/state';
 import { sampleNotebook } from '../plaza/sampleNotebook';
 // 「覚えた単語」の分母＝そのレベルの全単語数(漢字/語彙/文法)。exact-level(§4カバー率と同じ定義)で1度だけ集計。
@@ -538,7 +539,7 @@ export default function KotobaTownScreen() {
   }, [benchCap, shuffledPool]);
   const sittersRef = useRef<Sitter[]>(sitters);
   sittersRef.current = sitters; // 移動ループ(閉包)から最新の座り手を参照するため
-  const isDay = useMemo(() => { const h = new Date().getHours(); return h >= 6 && h < 18; }, []);
+  const isDay = useDaylight() === 'day'; // 開発用 昼/夜固定(devDaylight)を尊重・時刻でも自動更新。町/会話の背景・ダイアログ昼夜に反映
   const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
   const MAP_TREE = isDay ? MAP_TREE_DAY : MAP_TREE_NIGHT; // 木の最前面レイヤーも昼夜で切替(夜も木の裏を通れる)
 

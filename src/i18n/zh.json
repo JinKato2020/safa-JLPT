@@ -1430,5 +1430,6 @@
   "content.launch_msg": "有{n}个最新问题/翻译。现在下载吗？",
   "content.launch_yes": "是",
   "content.launch_no": "否",
-  "content.downloading": "下载中…"
+  "content.downloading": "下载中…",
+  "official.base_label": "2025年 第2回(12月)"
 }

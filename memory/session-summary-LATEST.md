@@ -1,33 +1,22 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 15 回・37 ターン
-- 往復 231 回
+- ツール呼び出し 4 回・10 ターン
+- 往復 40 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/screens/ProfileScreen.tsx
-- src/data/tabArt.ts
-- src/store/state.ts
 - memory/session-summary-LATEST.md
+- src/i18n/zh2.json
+- src/i18n/zh.json
+- src/i18n/vi.json
 
 ## 次の一手
-- **▶2026-09-07 完了・要ビルド＝ポスター朗読の表示が遅い→ローカル優先で即表示。** 原因＝`PosterAudioScreen.tsx` が `ready` を `ensurePosterPack(lang)` 完了後にのみ true 化し、同関数が**毎回** GitHub カタログを `cache:'no-store'`＋時刻付きで取得(8s×3)→DL済でも通信待ちで画像が真っ白。修正＝mount 時にまず `isPosterReady(lesson,lang)`(ローカルmarker判定・無通信)で揃っていれば即 `setReady(true)`、最新版チェック/初回DLは裏で(版一致なら即スキップ)。2回目以降ほぼ一瞬。初回のみ従来通り重い(全28テーマ音声を1zip展開・小分け配信は未着手)。tsc0。未コミット。**次=次ビルドに同梱**(UI・OTA不可)。ユーザー選択=①様子見。
-- **🧭2026-09-07 進行中＝「ポスター朗読」機能を JLPTアプリへ移植（聞いて話せる日本語からの移植）。** 決定事項：①パイロット=3テーマ(family/01_家族20枚・body/03_体24枚・food/05_食べ物20枚) ②言語別ポスター＝`多言語教材\01_日本語教材\05_アプリ用ポスター\<lang>\NN_テーマ_plain_<lang>.png`(plain=広告なし・全10言語 bn/en/id/ko/my/ne/th/vi/zh/zh2 × 31テーマ=310枚 確認済) ③音声=`多言語教材\00_共通\音声\<LANGDIR>\NN_テーマ\MM_<lang>.mp3`+title(11言語 ja+10) ④入口=単語(書斎)タブ WordsHubScreen の語彙リスト下に「ポスター朗読」カード→テーマ選択→朗読画面。
-  - 技術確認済：箱検出=グレー枠#e6e8ec方式がplainでも完璧(家族20/体24本・全しきい安定)→座標全自動。JLPT音声=**expo-av**(Audio.Sound・旧はexpo-audioなので再生層を書換)。配信=Pages+端末キャッシュ(雛形`src\data\listeningImage.ts`/`audioBase.ts`・base=`https://jinkato2020.github.io/safa-JLPT/assets/`・FSは`expo-file-system/legacy`)。画面登録=App.tsx RootStackに1画面追加(聴解Listeningと同型)+types。i18n=`useT()/useUiLang()`・poster.*をja/en/neへ(番人parity.test.ts)。色=`useColors()`。
-  - **✅コード実装 完了(tsc0・parity4/4緑・未コミット)**：`tools\poster\gen_poster.py`(箱検出+TS生成+--stage-assets)／`src\data\posterLessons.ts`(3テーマ生成済)／`src\data\posterAssets.ts`(ensurePosterTheme/posterUri/isPosterReady・Pages+キャッシュ)／`src\screens\PosterAudioScreen.tsx`(expo-av逐次再生に書換・単一ページ簡素化)／`src\screens\PosterListScreen.tsx`(テーマ選択)／`src\components\KubunCard.tsx`(語彙リスト直下に`cards.poster`→PosterList)／`App.tsx`(PosterList/PosterAudio登録)＋`types.ts`／i18n ja/en/ne(cards.poster・poster.list_title/list_sub/hint/preparing)。
-  - **✅素材 用意済(未コミット)**：`assets\poster\{family,body,food}\`＝png30+mp3737(32k/24kHz+0.25s pad)・12MB。`.github\workflows\build-jlpt.yml`に`cp -r assets/poster _site/assets/poster`追加(Pages公開)。base=`https://jinkato2020.github.io/safa-JLPT/assets/poster/`。
-  - **✅ビルド dispatch 済み=v1.1.42(Build 2913)・both・コミット`b909235b`・run https://github.com/JinKato2020/safa-JLPT/actions/runs/34079723383 (2026-09-07・本日iOS 2/8)。** push済で assets/poster(767ファイル)も Pages 公開起動。-NoWatch=監視せず。
-  - **次の一手（2026-09-07 更新）＝ポスター音声の作り直し＋配信を版管理化(本筋版)**。詳細=メモリ[[poster-audio-pack-canonical]]。
-    - ✅ 済：音声の中身修正。JA=元アプリRelease採用(検証済)。非JA6月古い分(en/ne/bn/vi/zh/ko)を最新words.json順で再生成→`多言語教材\00_共通\音声\_正規化\<BIG>\{01_家族,03_体,05_食べ物}\NN_<lang>.mp3`(family21/body25/food21)。ID/MY/TH/ZH2は9月生成済。共有ツール修正済=gen_tts_edge.py(ne→npフィールド対応)・gen_tts_edge/chirp(tts_textで`<br>`除去)。実費=Google Chirp3-HD 1346字≈¥6。
-    - ✅ 済：パック生成。`tools\poster\build_packs.py`で`tools\poster\_packs\poster-<lang>.zip`×11＋`poster-catalog.json`を生成。STORED zip・エントリ`<theme>/audio/NN_<lang>.mp3`+`title_<lang>.mp3`+(非JA)`<theme>/poster_<lang>.webp`。JAは音声のみ。**軽量化=音声24kHz mono/画像WebP幅1080**。合計6.75MB・**1ユーザーはja+母語の2言語だけ**=約1.1MB。検証済(24kHz/webp1080×1528 76KB/STORED)。
-    - ✅ 決定(2026-09-07)＝スマホ最適化は「**見た目そのまま・軽量化優先**」(WebP+24kHz)。レイアウト再設計はしない。
-    - ✅ **全テーマ化＋配信 実装完了(2026-09-07)**。ポスター28テーマ(語彙31−図形3)。詳細=[[poster-audio-pack-canonical]]。
-      - 音声：JA=_正規化(検証済)・非JAの6月古い分(en/ne/bn/vi/zh/ko)を全28テーマ最新words.json順で再生成(spot検証OK)・id/my/th/zh2=9月版。共有ツール修正=gen_tts_edge.py(np対応)・edge/chirp(<br>除去)。実費=Google Chirp3-HD 13,961字≈¥66。
-      - 配信：`build_packs.py`で`tools\poster\_packs\`(gitignore)に poster-<lang>.zip×11(28テーマ・音声24kHz/画像WebP1080・STORED)+catalog生成→**safa-JLPT Release(tag packs-poster)公開済**(実URLでDL確認)。per-user=ja+母語 約10MB。録り直し=build_packs.pyのVERSION+1→再アップのみ。
-      - アプリ：`posterAssets.ts`=版管理ローダ移植済(POSTER_CATALOG_URL=safa-JLPT・`ensurePosterPack(lang)`)。`posterLessons.ts`28テーマ再生成(webp)。`poster_themes.py`にテーマ一元化。PosterListは自動28表示。旧`assets/poster`(12MB)撤去・build-jlpt.ymlのPagesコピー撤去。tsc0。**別件AIコーチのミャンマー語はみ出しも修正**(AICoachScreen scoreHead)。
-      - Excel=`ポスター単語一覧_全テーマ.xlsx`(28シート・未コミット)。
-    - ⬜ **次の一手＝実機確認→ビルド**。ローカルコミット済(ブランチ`feat/poster-all-themes-packs`・`4ac90916`・**push/ビルドなし**=ユーザー選択「実機確認後にビルド」)。実機/シミュで(1)ポスター28テーマ表示・箱ハイライト (2)音声(ja+母語)連続再生 (3)AIコーチ ミャンマー語カード を確認→OKなら`git push`→ビルド(build.ps1・iOS+Android・-Approved)。ポスターは実機未検証。
+- **▶2026-09-08 未ビルドの修正2件＝次ビルドに同梱（未コミット・tsc0・parity20/20）。** ①**町/会話が「昼」設定でも夜**＝私の昼夜機能の実装漏れ。`KotobaTownScreen.tsx` の `isDay` を `new Date().getHours()`直判定→`useDaylight()==='day'`(devDaylight尊重)に修正。②**英語等で「Basis: 2025年 第2回(12月)」が日本語のまま**＝`officialStats.ts`の固定ラベルが非i18n。新キー `official.base_label` を ja/en/ne＋fill8言語へ追加し `AICoachScreen`/`MockResultScreen` を `t('official.base_label')` に差替。
+- **▶2026-09-08 桜吹き出しが日本語(ne/en以外)の申告→現行コードは全10言語翻訳済み**（`voice.*`156キー＋`sakura.reco_hint`、機械集計で仮名0／ja除く）。私の直近コミット(R2/桜タップ削除/昼夜)は i18n・SakuraSpeech・voice を**未変更**(git確認)。=**古いビルド疑い**。ユーザーへ「言語＋実際に見えた文」を要求中→もらえたらキー特定して直す。
+- **▶2026-09-08 R2移設 完了＝配信を `jlpt.safa-lang.com`(Cloudflare R2)へ統一・v1.1.46(2918)出荷済。** 詳細=`memory\r2-migration-inflight.md`。GitHub username痕跡除去。CI R2同期 初回OK(2026-09-08 ユーザー確認)。secrets3つ登録済。旧 github.io は当面フォールバック(全ユーザー更新後に退役)。**※このhandoff下部のポスター等に残る `jinkato2020.github.io/safa-JLPT` 記述は旧情報＝現配信先はR2。**
+- **▶2026-09-08 ストア申請スクショ(AIコーチ)作成＝ja/en 各3枚(1242x2688)。** `画像\申請スクショ\{ja,en}\AI{1,2,3}_caption_1242x2688.jpg`。様式=store正本(1_home)に合わせ**クリーム背景+ピンク/濃紺見出し+灰サブ+端末フレーム(シルバー縁+角丸+影)**、丸ゴシック(ZenMaruGothic-Bold)。生成器は scratchpad(gen_caption.py/gen_caption_en.py・clearで消失→本様式で再作成可)。他言語版は各言語の画面キャプチャが要る。
+- **▶ポスター朗読 完了＝31テーマで main マージ・出荷済(v1.1.46/2918)。** 版管理パック配信(R2)・音声(ja+母語)・箱ハイライト・テーマ番号UI 実装済。※旧「28テーマ・feat/poster-all-themes-packs 未push/未ビルド・実機確認待ち」記述は失効(2026-09-08 削除)。表示遅延のローカル優先即表示・AIコーチ ミャンマー語はみ出し修正も同梱済。
 - **🧭2026-09-07 ビルド dispatch 済み＝v1.1.41(Build 2912)・both(iOS+Android)・コミット `8a432da0`・run https://github.com/JinKato2020/safa-JLPT/actions/runs/34046893703 。** 上記97件(頭切れ修正/ボタン1段化/zh-Hant→zh2 改名/content多言語)を1ビルドに反映。push 済みで OTA(Pages)も同時起動。-NoWatch ゆえ監視せず＝GitHub Actions で進行中。本日 iOS 1/8 回。
   - **次の一手＝ビルド結果の確認**（Actions が緑になれば TestFlight/Play(App C枠)へ提出済。失敗時 `gh run view 34046893703 --log-failed`）。それ以外の未処理タスクは現状なし。
 - **▶★2026-09-07 完了・要ビルド＝台湾繁体字のアプリ内コードを `zh-Hant`→`zh2` に全面改名（ユーザー指定・国イニシャル統一）。** 音声は不要(聴解音声は日本語=全言語共通、繁体字専用音声なし)。改名箇所＝`src\i18n\index.ts`(import zh2.json/UI_LANGS/DICT/zhVariant)・`src\plaza\countries.ts`(NATIVE_LANGS/detectNativeLang)・`src\config\legal.ts`(LEGAL_LANGS＋**URL_SLUG {zh2:'zh-hant'}**=WEBの繁体字ページは /jlpt/zh-hant/ ゆえマップ必須)・`tools\content\schema.ts` LANGS・content/lexicon の `i18n.zh-Hant`→`i18n.zh2`(83ファイル29,961)＋`src\i18n\zh2.json`(旧zh-Hant.json削除)・生成器`tools\gen_zh_hant.py`(zh2出力・旧zh-Hant自動改名)・`tools\sns\shoot.mjs`(LANGSにzh2)。端末が台湾/香港/マカオor-Hantなら自動でzh2。番人=tsc0・parity/rehydrate/otaDiff 10緑。SNS画像も zh2 フォルダ済。**次=ビルド**(UIゆえOTA不可・contentはOTA)。未コミット。※申請mdのWEB URL slug は zh-hant のままで正(変更不要)。

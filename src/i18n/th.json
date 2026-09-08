@@ -1430,5 +1430,6 @@
   "content.launch_msg": "มีปัญหาและการแปลใหม่ {n} รายการ ต้องการดาวน์โหลดตอนนี้หรือไม่?",
   "content.launch_yes": "ใช่",
   "content.launch_no": "ไม่",
-  "content.downloading": "กำลังดาวน์โหลด..."
+  "content.downloading": "กำลังดาวน์โหลด...",
+  "official.base_label": "ครั้งที่ 2 (ธ.ค.) ปี 2025"
 }

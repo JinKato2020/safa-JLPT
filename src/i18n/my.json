@@ -1430,5 +1430,6 @@
   "content.launch_msg": "နောက်ဆုံးထွက် မေးခွန်းများနှင့် ဘာသာပြန်များ {n} ခု ရှိပါသည်။ ယခုဒေါင်းလုဒ်လုပ်မလား။",
   "content.launch_yes": "ဟုတ်ကဲ့",
   "content.launch_no": "မဟုတ်ဘူး",
-  "content.downloading": "ဒေါင်းလုဒ်လုပ်နေသည်..."
+  "content.downloading": "ဒေါင်းလုဒ်လုပ်နေသည်...",
+  "official.base_label": "2025 ခုနှစ် ဒုတိယအကြိမ် (ဒီဇင်ဘာ)"
 }

@@ -1430,5 +1430,6 @@
   "content.launch_msg": "최신 문제/번역 {n}개가 있습니다. 지금 다운로드하시겠습니까?",
   "content.launch_yes": "예",
   "content.launch_no": "아니요",
-  "content.downloading": "다운로드 중..."
+  "content.downloading": "다운로드 중...",
+  "official.base_label": "2025년 제2회(12월)"
 }

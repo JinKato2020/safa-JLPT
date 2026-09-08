@@ -18,7 +18,7 @@ import { dayStr, lastNDays, type MockResult } from '../store/state';
 import type { Level } from '../engine/engine';
 import { expectedScoreFor, coverageBars, coverageCurve } from '../store/selectors';
 import { relativePositionFor, isOfficialLevel } from '../ladder/relativePosition';
-import { OFFICIAL_TOTAL_STAT, OFFICIAL_PASS_RATE, OFFICIAL_BASE_LABEL, type OfficialLevel } from '../data/officialStats';
+import { OFFICIAL_TOTAL_STAT, OFFICIAL_PASS_RATE, type OfficialLevel } from '../data/officialStats';
 import { dueCount } from '../review/selectReview';
 import { avatarOf } from '../plaza/avatars';
 import RingGauge from '../components/RingGauge';
@@ -57,7 +57,7 @@ export default function AICoachScreen() {
     const isJlpt = (state.settings.targetExam ?? 'jlpt') !== 'jft';
     const rel = isJlpt && score ? relativePositionFor(lv, score.sections, score.score) : null;
     const official = isJlpt && isOfficialLevel(lv)
-      ? { mean: OFFICIAL_TOTAL_STAT[lv].mean, passRate: OFFICIAL_PASS_RATE[lv], base: OFFICIAL_BASE_LABEL }
+      ? { mean: OFFICIAL_TOTAL_STAT[lv].mean, passRate: OFFICIAL_PASS_RATE[lv], base: t('official.base_label') }
       : null;
     // N4/N5 は公式配点で「言語知識・読解」が合算1区分(N3以上は別区分)。相対位置カードのラベルを合算表記に。
     const relGengoCombined = lv === 'N4' || lv === 'N5';
