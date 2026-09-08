@@ -5,8 +5,9 @@
 - ✅ ポスター3テーマ追加(数字/色と形/時曜日)＝全31・番号順。words.json合成・posterLessons再生成・パックv2をRelease packs-posterへアップ済(公開catalog v2確認)。TTS不要。
 - ✅ UI: テーマリスト左端の漢字1字→連番。画像=WebP1080/q80(最適化済)。
 - ✅ i18n仕組み: trans_i18n.py --fill(差分翻訳・zh2=OpenCC)＋build.ps1が検証前に自動実行＋parity.test全11言語＋index.tsフォールバックja→en。8言語の未訳10キー(ポスター等)実翻訳済(全11=1432/0)。菱形=現状維持で確定。
-- ⬜ **残る操作＝新ビルド v1.1.44(both)**。上記のposterLessons/UI/i18nは全て未コミットの作業ツリー(main)＝ビルドしないと端末に出ない。パックv2は既にRelease上。build.ps1 -Approved -NoWatch -Platforms both。iOS本日3/8→4/8。
-- 作業ツリー(未コミット)= src/data/posterLessons.ts, src/screens/PosterListScreen.tsx, src/i18n/*(index.ts/parity.test/8言語json/zh2), tools/poster/*(poster_themes/build_packs), tools/trans_i18n.py, tools/build.ps1, memory/*。素材側(repo外)= 04/02/13のwords.json新規。
+- ✅ **新ビルド v1.1.44(Build 2916) dispatch 済**(commit 093b9152・both・iOS 4/8)。run: https://github.com/JinKato2020/safa-JLPT/actions/runs/34128935036 。ビルド前 i18n 自動fill=全言語未訳0(仕組み動作確認)。tests 71/0・tsc0。
+- ⬜ 残＝CI緑を待つ→TestFlight/Play反映→ユーザー実機更新で確認(31テーマ+連番/母語表示/父ちち)。CI失敗時 `gh run view 34128935036 --log-failed`。
+- コミット済ゆえ /clear 安全。
 
 
 ## 結論（一次情報で確認済み）

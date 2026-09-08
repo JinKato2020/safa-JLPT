@@ -12,7 +12,7 @@ import Svg, { Path } from 'react-native-svg';
 import { spacing, radius, useColors } from '../theme';
 import { useT, useUiLang } from '../i18n';
 import { POSTER_LESSONS, type PosterLesson, type PosterCard } from '../data/posterLessons';
-import { posterUri, ensurePosterPack } from '../data/posterAssets';
+import { posterUri, ensurePosterPack, isPosterReady } from '../data/posterAssets';
 
 type QItem = { idx: number; phase: 'ja' | 'l1'; src?: string };
 
@@ -75,6 +75,9 @@ export default function PosterAudioScreen() {
     setReady(false); setIdx(0); setPhase('l1');
     scrollRef.current?.scrollTo({ y: 0, animated: false });
     (async () => {
+      // ローカル優先: 既にパックが端末に揃っていれば通信を待たず即表示(=毎回のカタログ問い合わせで真っ白になるのを防ぐ)。
+      try { if (await isPosterReady(lesson, lang) && alive) setReady(true); } catch {}
+      // 最新版チェック/初回DLは裏で。版が同じなら即スキップ、違えば取り直し。完了で(まだなら)ready=true。
       try { await ensurePosterPack(lang); } catch { /* 失敗は握りつぶし(欠落許容) */ }
       if (alive) setReady(true);
     })();

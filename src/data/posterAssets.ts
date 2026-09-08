@@ -1,4 +1,4 @@
-// ポスター朗読の資源(音声mp3・ポスターwebp)のローダ。アプリ同梱をやめ、GitHub Release(packs-poster)の
+// ポスター朗読の資源(音声mp3・ポスターwebp)のローダ。アプリ同梱をやめ、Cloudflare R2(jlpt.safa-lang.com/poster/)の
 //  言語別 STORED zip パックとして取得し端末キャッシュする。版管理=カタログの langごと version。
 //   - poster-catalog.json = { version, langs:{ ja:{url,bytes,version}, bn:.., .. } }
 //   - poster-<L>.zip は STORED(無圧縮)。エントリ名 "<theme>/audio/NN_<L>.mp3" / "title_<L>.mp3" /
@@ -9,7 +9,7 @@ import * as FileSystem from 'expo-file-system/legacy';
 import type { PosterLesson } from './posterLessons';
 
 export const POSTER_CATALOG_URL =
-  'https://github.com/JinKato2020/safa-JLPT/releases/download/packs-poster/poster-catalog.json';
+  'https://jlpt.safa-lang.com/poster/poster-catalog.json';
 
 const posterRoot = () => `${FileSystem.documentDirectory}poster/`;
 const markerUri = (lang: string) => `${posterRoot()}${lang}.version`;

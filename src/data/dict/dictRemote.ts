@@ -8,7 +8,7 @@ import * as FileSystemNS from 'expo-file-system/legacy';
 import { Platform } from 'react-native';
 
 // 配信元(GitHub Pages)。repo/移行時はこの1行だけ差し替え。App B も同じURLを使う。
-export const DICT_BASE_URL = 'https://jinkato2020.github.io/safa-JLPT/dict/';
+export const DICT_BASE_URL = 'https://jlpt.safa-lang.com/dict/';
 export const DICT_FILES = ['ja-vocab.json', 'ja-kanji.json', 'ja-synonyms.json', 'ja-examples.json', 'ja-kanji-examples.json'] as const;
 
 const FS = FileSystemNS as unknown as {

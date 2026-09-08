@@ -4,7 +4,7 @@ import * as FileSystem from 'expo-file-system/legacy';
 import { diffManifest } from './otaDiff';
 import bundledManifest from '../../../content/_manifest.json';
 
-const BASE = 'https://jinkato2020.github.io/safa-JLPT/content/';
+const BASE = 'https://jlpt.safa-lang.com/content/';
 const DIR = FileSystem.cacheDirectory + 'content/';
 const SHA_PATH = DIR + '_shas.json';
 const BUNDLE_TAG_PATH = DIR + '_bundle.tag';

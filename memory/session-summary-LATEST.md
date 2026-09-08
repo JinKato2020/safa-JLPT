@@ -1,17 +1,22 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 1 回・5 ターン
-- 往復 251 回
+- ツール呼び出し 41 回・89 ターン
+- 往復 145 回
 
 ## 何が変わったか
 - memory/handoff.md
-- tools/poster/_packs/poster-ko.zip
-- tools/poster/_packs/poster-id.zip
-- tools/poster/_packs/poster-en.zip
-- tools/poster/_packs/poster-bn.zip
+- memory/r2-migration-inflight.md
+- tools/poster/_packs/poster-catalog.json
+- src/data/posterAssets.ts
+- tools/poster/build_packs.py
+
+## ⚠️ 注意
+- - ⚠ 連続 89ターン（文脈 21万）— ループが長い
+- - ツール呼び出しループが長い（指示1件に対し 89ターン・ツール41回）— まとめ方を変える
 
 ## 次の一手
+- **▶2026-09-07 完了・要ビルド＝ポスター朗読の表示が遅い→ローカル優先で即表示。** 原因＝`PosterAudioScreen.tsx` が `ready` を `ensurePosterPack(lang)` 完了後にのみ true 化し、同関数が**毎回** GitHub カタログを `cache:'no-store'`＋時刻付きで取得(8s×3)→DL済でも通信待ちで画像が真っ白。修正＝mount 時にまず `isPosterReady(lesson,lang)`(ローカルmarker判定・無通信)で揃っていれば即 `setReady(true)`、最新版チェック/初回DLは裏で(版一致なら即スキップ)。2回目以降ほぼ一瞬。初回のみ従来通り重い(全28テーマ音声を1zip展開・小分け配信は未着手)。tsc0。未コミット。**次=次ビルドに同梱**(UI・OTA不可)。ユーザー選択=①様子見。
 - **🧭2026-09-07 進行中＝「ポスター朗読」機能を JLPTアプリへ移植（聞いて話せる日本語からの移植）。** 決定事項：①パイロット=3テーマ(family/01_家族20枚・body/03_体24枚・food/05_食べ物20枚) ②言語別ポスター＝`多言語教材\01_日本語教材\05_アプリ用ポスター\<lang>\NN_テーマ_plain_<lang>.png`(plain=広告なし・全10言語 bn/en/id/ko/my/ne/th/vi/zh/zh2 × 31テーマ=310枚 確認済) ③音声=`多言語教材\00_共通\音声\<LANGDIR>\NN_テーマ\MM_<lang>.mp3`+title(11言語 ja+10) ④入口=単語(書斎)タブ WordsHubScreen の語彙リスト下に「ポスター朗読」カード→テーマ選択→朗読画面。
   - 技術確認済：箱検出=グレー枠#e6e8ec方式がplainでも完璧(家族20/体24本・全しきい安定)→座標全自動。JLPT音声=**expo-av**(Audio.Sound・旧はexpo-audioなので再生層を書換)。配信=Pages+端末キャッシュ(雛形`src\data\listeningImage.ts`/`audioBase.ts`・base=`https://jinkato2020.github.io/safa-JLPT/assets/`・FSは`expo-file-system/legacy`)。画面登録=App.tsx RootStackに1画面追加(聴解Listeningと同型)+types。i18n=`useT()/useUiLang()`・poster.*をja/en/neへ(番人parity.test.ts)。色=`useColors()`。
   - **✅コード実装 完了(tsc0・parity4/4緑・未コミット)**：`tools\poster\gen_poster.py`(箱検出+TS生成+--stage-assets)／`src\data\posterLessons.ts`(3テーマ生成済)／`src\data\posterAssets.ts`(ensurePosterTheme/posterUri/isPosterReady・Pages+キャッシュ)／`src\screens\PosterAudioScreen.tsx`(expo-av逐次再生に書換・単一ページ簡素化)／`src\screens\PosterListScreen.tsx`(テーマ選択)／`src\components\KubunCard.tsx`(語彙リスト直下に`cards.poster`→PosterList)／`App.tsx`(PosterList/PosterAudio登録)＋`types.ts`／i18n ja/en/ne(cards.poster・poster.list_title/list_sub/hint/preparing)。

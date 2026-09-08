@@ -19,9 +19,9 @@ import { avatarOf } from '../plaza/avatars';
 import { getMyCode } from '../referral/referralClient';
 import RingGauge from '../components/RingGauge';
 
-// 紹介ランディング(GitHub Pages)。web/r/index.html を build-jlpt.yml が /r/ へ配置。
-// QR/リンク=このURL＋?code=<自分の紹介コード>。既存の招待ページ(/invite/)と同じ流儀。
-const REF_BASE = 'https://jinkato2020.github.io/safa-JLPT/r/';
+// 紹介ランディング(Cloudflare R2・jlpt.safa-lang.com)。web/r/index.html を r/index.html として配置。
+// QR/リンク=このURL＋?code=<自分の紹介コード>。R2はindex自動配信しないため index.html を明示。
+const REF_BASE = 'https://jlpt.safa-lang.com/r/index.html';
 
 export default function ShareCardScreen() {
   const t = useT();

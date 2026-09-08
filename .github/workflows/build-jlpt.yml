@@ -121,6 +121,29 @@ jobs:
           # アイコンは /invite/icon.png を相対参照で共有(重複配置しない)。
           [ -d web/r ] && cp -r web/r _site/r || true
           echo "::notice::_site contents:"; find _site -maxdepth 3 | head -40
+      # 新アプリ(v1.1.44以降)の配信元 = Cloudflare R2(jlpt.safa-lang.com)。github.io と両方へ上げる。
+      #  ・サブツリー毎に sync(削除も反映)。poster/ は build_packs.py が版管理するのでここでは触らない。
+      #  ・ルートHTML(privacy/terms/download/confirm)は copy(他のルートを消さないため)。
+      #  ・secrets 未設定なら黙ってスキップ=github.io のみ配信(移行前でもジョブが落ちない)。
+      #  必要 secrets: R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY / R2_ENDPOINT
+      - name: Sync _site to Cloudflare R2 (jlpt.safa-lang.com)
+        env:
+          RCLONE_CONFIG_R2_TYPE: s3
+          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+          RCLONE_CONFIG_R2_REGION: auto
+          RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          if [ -z "$RCLONE_CONFIG_R2_ACCESS_KEY_ID" ]; then
+            echo "::warning::R2 secrets 未設定 → R2同期をスキップ(github.io のみ配信)"; exit 0
+          fi
+          curl -fsSL https://rclone.org/install.sh | sudo bash
+          for d in assets content dict invite r; do
+            [ -d "_site/$d" ] && rclone sync "_site/$d" "r2:jlpt-assets/$d" --s3-no-check-bucket --transfers 32 --checkers 32 --fast-list
+          done
+          rclone copy _site "r2:jlpt-assets" --include "/*.html" --s3-no-check-bucket
+          echo "::notice::R2 sync 完了 → https://jlpt.safa-lang.com/"
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

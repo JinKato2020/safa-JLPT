@@ -20,7 +20,7 @@ MAT = f"{ROOT}/多言語教材"
 NORM = f"{MAT}/00_共通/音声/_正規化"
 POSTERSRC = f"{MAT}/01_日本語教材/05_アプリ用ポスター"
 OUT = f"{ROOT}/JLPTアプリ/tools/poster/_packs"
-REL_BASE = "https://github.com/JinKato2020/safa-JLPT/releases/download/packs-poster/"
+REL_BASE = "https://jlpt.safa-lang.com/poster/"  # Cloudflare R2(バケット jlpt-assets の poster/)。zip/catalog はここへ rclone で配置。
 
 LANGS = ["ja", "bn", "en", "id", "ko", "my", "ne", "th", "vi", "zh", "zh2"]
 VERSION = 2  # v2=数字/色と形/時曜日の3テーマ追加(全31)。録り直し/テーマ追加の度に +1(catalog全体+該当langも)。

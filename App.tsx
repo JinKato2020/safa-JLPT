@@ -81,7 +81,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 //  ・紹介リンク safajlpt://referral?code=<紹介コード> を Referral 画面へ(結果カードのQR/リンクから)。code は自動マッピング→Referralで自動登録。
 // https は配信サイトのランディング(/invite/・/r/)経由(ページの「アプリで開く」ボタンが safajlpt:// を呼ぶ)。
 const LINKING = {
-  prefixes: ['safajlpt://', 'https://jinkato2020.github.io/safa-JLPT'],
+  prefixes: ['safajlpt://', 'https://jlpt.safa-lang.com'],
   config: { screens: { Invite: 'invite', Referral: 'referral' } },
 };
 

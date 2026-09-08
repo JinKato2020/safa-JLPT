@@ -5,7 +5,7 @@ import * as FileSystemNS from 'expo-file-system/legacy';
 import { Platform } from 'react-native';
 
 // 配信元(GitHub Pages)。assets/hatsuwa/ に発話表現イラスト(384px png)。
-export const ILLUST_BASE_URL = 'https://jinkato2020.github.io/safa-JLPT/assets/hatsuwa/';
+export const ILLUST_BASE_URL = 'https://jlpt.safa-lang.com/assets/hatsuwa/';
 
 const FS = FileSystemNS as unknown as {
   documentDirectory?: string | null;

@@ -690,7 +690,7 @@ export default function KotobaTownScreen() {
     if (!session) { nav.navigate('Account'); return; } // 招待にはログイン(=安定したuserId)が必要
     const u = session.user.id;
     const n = encodeURIComponent(meState.settings.nickname ?? '');
-    const url = `https://jinkato2020.github.io/safa-JLPT/invite/?u=${u}&n=${n}`;
+    const url = `https://jlpt.safa-lang.com/invite/index.html?u=${u}&n=${n}`;
     const text = t('town.share_text');
     try {
       // iOS: url を独立フィールドで渡す→共有シートがリンク扱いになり、招待ページのog:image(アプリアイコン)がプレビューに出る。
