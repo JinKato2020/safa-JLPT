@@ -70,7 +70,7 @@ env:
 
 jobs:
   # ① Pages配信(push時): 音声と法務ページをGitHub Pagesへ。URL構造を従来どおり維持
-  #    (/assets/audio/*.mp3 ・ /privacy.html ・ /terms.html)。
+  #    (/assets/audio/*.mp3 など。プライバシー/規約は本番 www.safa-lang.com へ移行済み)。
   deploy-pages:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -104,8 +104,8 @@ jobs:
           # 発話表現イラスト(オンデマンドDL用・同梱しない)
           [ -d assets/hatsuwa ] && cp -r assets/hatsuwa _site/assets/hatsuwa || true
           # ポスター朗読の音声/画像は GitHub Release(packs-poster)から配信(版管理付き)へ移行。Pagesコピー廃止。
-          [ -f privacy.html ] && cp privacy.html _site/ || true
-          [ -f terms.html ] && cp terms.html _site/ || true
+          # プライバシー/規約は本番 www.safa-lang.com/jlpt/<lang>/privacy(・terms) へ移行済み。
+          # 旧 privacy.html/terms.html(「収集しない」版・幽霊)は 2026-09-10 に撤去。ここでの配信は廃止。
           # ダウンロード中継ページ(/download.html)。端末でApp Store/Google Playへ自動振り分け。
           [ -f download.html ] && cp download.html _site/ || true
           # メール確認後のリダイレクト先(Supabase Site URL)。localhostエラー回避。

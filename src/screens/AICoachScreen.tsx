@@ -231,7 +231,6 @@ export default function AICoachScreen() {
               />
             </View>
             <Text style={s.relRef}>{t('coach.rel_ref', { label: d.official.base, mean: Math.round(d.official.mean), rate: d.official.passRate })}</Text>
-            <Text style={s.diff}>{t('coach.rel_note')}</Text>
           </View>
         )}
 

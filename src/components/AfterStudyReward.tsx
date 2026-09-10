@@ -117,7 +117,7 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
     const withData = st.subjects.filter((x) => x.pct > 0);
     const strong = withData.length ? withData.reduce((a, b) => (b.pct > a.pct ? b : a)) : null;
     const weak = st.subjects.reduce((a, b) => (b.pct < a.pct ? b : a));
-    return { reach: Math.round(st.passPct), strong, weak, hasData: withData.length > 0 };
+    return { predScore: st.predScore, predMax: st.predMax, passTotal: st.passTotal, strong, weak, hasData: withData.length > 0 };
   }, [state]);
 
   return (
@@ -250,7 +250,7 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
         </View>
         {coach.hasData ? (
           <View style={s.coachLines}>
-            <Text style={s.coachLine}>{t('afterstudy.coach_reach', { p: coach.reach, r: 100 - coach.reach })}</Text>
+            <Text style={s.coachLine}>{t('afterstudy.coach_reach', { score: coach.predScore, max: coach.predMax, r: Math.max(0, coach.passTotal - coach.predScore) })}</Text>
             {coach.strong && coach.strong.pct >= 40 && (
               <Text style={s.coachLine}>{t('afterstudy.coach_strong', { s: t(coach.strong.labelKey), p: coach.strong.pct })}</Text>
             )}

@@ -1,7 +1,8 @@
 # まいにちJLPT — App Store 申請素材（下書き・2026-06-23 生成）
 
-対象: bundle `com.safa.jlpt` / App Store ID `6782896670` / 無料 / N5・N4・N3 / privacy=`https://jinkato2020.github.io/safa-JLPT/privacy.html`
-⚠️ 実提出・本番公開はユーザー合図後（不可逆ルール）。本ファイルは下書き。
+対象: bundle `com.safa.jlpt` / App Store ID `6782896670` / 無料 / N5・N4・N3 / privacy=`https://www.safa-lang.com/jlpt/ja/privacy/`（en=`.../en/privacy/`。旧`jinkato2020.github.io/...`は失効・使わない）
+⚠️ 実提出・本番公開はユーザー合図後（不可逆ルール）。
+⚠️ **このファイルは2026-06の古い下書き**。文言の正本＝`画像\申請スクショ\ストア文言_11言語.xlsx`／設定の正本＝`ASC申請文言_iOS.md`。ここはスクショ仕様の参照用のみ。
 
 ## (A) スクリーンショット仕様（2026-06時点）
 - **最低限かつ最適**: **6.9インチ・縦・PNG・1320×2868px を 3〜5枚**。これ1セットで全iPhoneに自動スケール適用（2024-09以降のApple運用）。

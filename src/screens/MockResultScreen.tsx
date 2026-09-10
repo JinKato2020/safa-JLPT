@@ -199,27 +199,8 @@ export default function MockResultScreen() {
                 </View>
                 <Text style={s.heroFrac}>{t('mockres.correct_frac', { n: correct, m: total, t: mmss(elapsedMs) })}</Text>
               </View>
-              {grade ? (
-                <View style={s.gradeWrap}>
-                  <Text style={s.gradeCap}>{t('mockres.grade_label')}</Text>
-                  <Text style={[s.gradeLetter, { color: grade.color(c) }]}>{grade.letter}</Text>
-                  {topTotal != null ? <Stars n={rel!.total!.stars} c={c} size={15} /> : null}
-                </View>
-              ) : null}
             </View>
             <View style={s.heroStats}>
-              {totalHensachi != null ? (
-                <View style={s.hstat}>
-                  <Text style={s.hstatV}>{totalHensachi}</Text>
-                  <Text style={s.hstatL}>{t('mockres.hensachi_label')}</Text>
-                </View>
-              ) : null}
-              {topTotal != null ? (
-                <View style={s.hstat}>
-                  <Text style={s.hstatV}>{t('mockres.rank_top', { n: Math.round(topTotal) })}</Text>
-                  <Text style={s.hstatL}>{t('mockres.examinees')}</Text>
-                </View>
-              ) : null}
               <View style={s.hstat}>
                 <Text style={[s.hstatV, { color: chance.color }]}>{t(chance.key)}</Text>
                 <Text style={s.hstatL}>{t('mockres.pass_chance')}</Text>
@@ -258,8 +239,6 @@ export default function MockResultScreen() {
               <Text style={[s.th, s.tSec]}>{t('mockres.col_section')}</Text>
               <Text style={[s.th, s.tNum]}>{t('mockres.col_score')}</Text>
               <Text style={[s.th, s.tNum]}>{t('mockres.col_min')}</Text>
-              {secStat ? <Text style={[s.th, s.tNum]}>{t('mockres.col_hensachi')}</Text> : null}
-              {rel ? <Text style={[s.th, s.tNum]}>{t('mockres.col_top')}</Text> : null}
             </View>
             {est.sections.map((sec) => {
               const relKey = sec.key === 'gengo_dokkai' ? 'gengo' : sec.key;
@@ -271,8 +250,6 @@ export default function MockResultScreen() {
                   <Text style={[s.td, s.tSec]} numberOfLines={1}>{t(BLOCK_LABEL[sec.key] ?? sec.key)}</Text>
                   <Text style={[s.td, s.tNum, sec.below && { color: c.red, fontWeight: '800' }]}>{sec.score}/{sec.max}</Text>
                   <Text style={[s.td, s.tNum, s.tMute]}>{sec.min}</Text>
-                  {secStat ? <Text style={[s.td, s.tNum]}>{hh ?? '—'}</Text> : null}
-                  {rel ? <Text style={[s.td, s.tNum, s.tMute]}>{tp != null ? `${Math.round(tp)}%` : '—'}</Text> : null}
                 </View>
               );
             })}
@@ -288,7 +265,6 @@ export default function MockResultScreen() {
           {/* 注記＋出典 */}
           {official ? (
             <>
-              <Text style={s.note}>{t('mockres.note', { base: t('official.base_label') })}</Text>
               <Text style={s.source}>{t('mockres.source', { src: OFFICIAL_SOURCE })}</Text>
             </>
           ) : null}

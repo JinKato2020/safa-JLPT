@@ -1,160 +1,75 @@
-# App Store Connect 申請文言 — まいにちJLPT (iOS / com.safa.jlpt)
+# App Store Connect 申請チェックリスト — まいにちJLPT (iOS / com.safa.jlpt)
 
-- **プライマリ言語 = English (U.S.)** ／ **ローカライズ = 日本語**（この2ロケールのみ。Androidは App C 流用のため対象外）
-- 各フィールドに文字数 / 上限を併記。**そのままコピペ可**。⚠は提出前に決める/用意するもの。
-- アプリ対応レベル＝**N5・N4・N3**（誇大表現を避けるため N1/N2 は記載しない）。
-
----
-
-## 🇺🇸 English (U.S.) — Primary
-
-### App Name  （上限30）
-```
-Mainichi JLPT
-```
-（13字・**決定**＝端末表示名と統一）
-
-### Subtitle  （上限30）
-```
-Pass readiness, raised daily
-```
-（28字）
-
-### Promotional Text  （上限170・審査なしで後から変更可）
-```
-See how ready you are to pass the JLPT — then raise that score every day with short sessions in kanji, vocabulary, grammar, reading, and listening.
-```
-（145字）
-
-### Keywords  （上限100・カンマ区切り・スペース無し・名前/カテゴリの語は入れない）
-```
-japanese,nihongo,n5,n4,n3,kanji,vocabulary,grammar,listening,reading,furigana,flashcards,srs,exam
-```
-（96字）
-
-### Description  （上限4000）
-```
-Know exactly how ready you are to pass the JLPT — and raise that readiness a little more every day.
-
-Mainichi JLPT turns the vague goal of "passing" into a clear daily number. A readiness gauge estimates how prepared you are, broken down into the three sections the real exam scores: Language Knowledge (vocabulary, kanji, grammar), Reading, and Listening. Because the JLPT requires a minimum score in each section, the app surfaces your weakest section first — so you always study what actually moves your result.
-
-A FEW MINUTES A DAY
-Short daily sessions fit a real schedule. Practice vocabulary, kanji, grammar, mini-reading, and mini-listening, with spaced repetition that brings back the items you're about to forget and eases off the ones you've mastered.
-
-EVERYTHING IN ONE PLACE
-• Vocabulary, kanji, and grammar with example sentences
-• Furigana and clear kanji readings (on'yomi / kun'yomi)
-• Mini reading and listening practice every day
-• Full mock tests to check your level
-• Streaks, growth charts, and badges to keep you motivated
-
-STUDY IN YOUR LANGUAGE
-The interface is available in 11 languages: English, Japanese, Nepali, Vietnamese, Burmese, Indonesian, Korean, Chinese (Simplified), Chinese (Traditional), Bengali, and Thai.
-
-WORKS OFFLINE
-Vocabulary, kanji, grammar, and reading work fully offline. Listening audio can be downloaded per level, so you can study on the train or on a plane.
-
-LEVELS
-Currently supports N5, N4, and N3, with content that keeps growing.
-
-Free to use. Start today and watch your readiness climb.
-
-Mainichi JLPT is an independent study app and is not affiliated with or endorsed by the Japan Foundation or the official JLPT.
-```
-（約1,500字）
-
-### What's New (Release Notes)
-- v1.0.0（初回提出）= **不要**（初回審査では表示されない）。次回更新時から記入。
+> ⚠️ **文言の正本は `画像\申請スクショ\ストア文言_11言語.xlsx`（iOS+Android・全11言語）です。**
+> このファイルは **申請の設定チェックリスト**（ロケール/カテゴリ/URL/プライバシー/スクショ/ビルド等）に用途を絞っています。**文言はここに転記しません**（二重管理で古くなるため）。
+> 指標ラベルは必ず **「予想得点（180点満点）」**。到達度/合格率/準備度/readiness は使いません。
+> アプリ対応レベル＝**N5・N4・N3**（誇大表現を避けるため N1/N2 は記載しない）。
 
 ---
 
-## 🇯🇵 日本語 — ローカライズ
+## 1. ロケール（App Store 掲載言語）
 
-### App Name  （上限30）
-```
-まいにちJLPT
-```
-（9字・**決定**＝端末表示名と統一）
-
-### Subtitle  （上限30）
-```
-合格準備度を、毎日すこしずつ上げる
-```
-（16字）
-
-### Promotional Text  （上限170）
-```
-JLPTに今どれくらい受かりそうか――その「準備度」を見える化。語彙・漢字・文法・読解・聴解を毎日少しずつ。いちばん弱い区分から、合格に直結する学習を積み上げます。
-```
-（80字）
-
-### Keywords  （上限100）
-```
-日本語能力試験,日本語,N5,N4,N3,漢字,語彙,単語,文法,聴解,読解,ふりがな,模試,試験対策,過去問,日本語学習,リスニング
-```
-（67字）
-
-### Description  （上限4000）
-```
-「いま受けたら、受かる？」――その答えを、数字で。
-
-まいにちJLPTは、ばくぜんとした「合格」という目標を、毎日見える「準備度」に変えるアプリです。本番と同じ3区分――言語知識（語彙・漢字・文法）／読解／聴解――ごとに、あなたの準備度をゲージで表示します。JLPTは区分ごとに基準点があるため、いちばん弱い区分を最前面に。だから、合格に直結する学習だけに集中できます。
-
-■ 1日数分でいい
-短い毎日の学習が、忙しい生活にフィットします。語彙・漢字・文法・ミニ読解・ミニ聴解を、忘れかけた項目をちょうど良いタイミングで復習する「間隔反復」で。覚えた項目は出題をひかえめにします。
-
-■ これひとつで
-・例文つきの語彙・漢字・文法
-・ふりがな＆わかりやすい漢字の読み（音読み／訓読み）
-・毎日のミニ読解・ミニ聴解
-・実力チェックの模試
-・継続記録・成長グラフ・バッジ
-
-■ あなたの言語で
-英語・日本語・ネパール語・ベトナム語・ミャンマー語・インドネシア語・韓国語・中国語（簡体字）・中国語（繁体字）・ベンガル語・タイ語の11言語に対応。
-
-■ オフライン対応
-語彙・漢字・文法・読解はオフラインで利用できます。聴解音声はレベルごとにダウンロードでき、電車や飛行機の中でも学べます。
-
-■ 対応レベル
-現在 N5・N4・N3 に対応。コンテンツは順次拡充していきます。
-
-無料で使えます。今日から始めて、準備度が上がっていくのを見てください。
-
-※本アプリは独立した学習アプリであり、国際交流基金および公式のJLPTとは関係ありません。
-```
-（約700字）
+- **プライマリ言語 = English (U.S. / en-US)**
+- **App Store 掲載ロケール = 8 言語**（正本Excelで「対応」の行）:
+  `ja / en-US / id / ko / th / vi / zh-Hans / zh-Hant`
+- **ストア非掲載 = ne / bn / my**（正本Excelで「非対応」）。※アプリUIは11言語だが、App Store の掲載言語は8。
+- App Name（各30字）/ Subtitle（各30字）/ Promotional Text / Keywords / Description は **すべて正本Excelから該当ロケール列をコピペ**。
+  - App Name: en=`Mainichi JLPT` / ja=`まいにちJLPT`（端末表示名と統一）。
+  - ⚠ **Subtitle（副題・30字）は現状の正本Excelに列が無い**。旧版は en=「Your predicted JLPT score」/ ja=「予想得点を、毎日すこしずつ上げる」。**副題を出すなら別途決定してExcelに追加**するか、意図的に空欄にするか要判断。
+- What's New（リリースノート）: v1.0.0 初回は不要。更新提出時から記入。
 
 ---
 
-## 提出チェックリスト（文言以外・要決定/準備）
+## 2. App Privacy（プライバシー）【✅ ASC上は既に「収集あり」で申告済み・追加入力不要】
+
+**✅ 2026-09初旬、App Store Connect の App Privacy は既に正しく「収集あり」で入力済み**（プレビュー＝追跡:ID/使用状況、関連付け:購入/位置情報/ID/連絡先/ユーザコンテンツ/使用状況。データタイプ9種＝購入履歴・クラッシュ・おおよその場所・広告データ・ユーザID・デバイスID・メールアドレス・ユーザコンテンツ・製品の操作）。**編集ボタンを押す必要なし。**
+以下は根拠と旧メモ誤りの記録：**旧チェックリストの「データを収集していません・トラッキングSDK無し・アカウント無し」は誤り**（手元メモだけが古く、実際のASCは正しかった）。現在の実装（`package.json`/`app.json` で確認）＝ **「データを収集します」が正**。
+
+実装済みSDK:
+- **AdMob**（`react-native-google-mobile-ads`）＝広告
+- **ATT**（`expo-tracking-transparency`）＝トラッキング許可ダイアログのプラグインあり
+- **Supabase**（`@supabase/supabase-js`）＝アカウント（メール）・クラウド同期
+- **RevenueCat**（`react-native-purchases`）＝アプリ内課金（サブスク）
+
+広告の実挙動（`src/pro/ads.ts`）＝**リワード広告のみ・既定は非パーソナライズ**。iOSは「トラッキング許可」トグルON＋ATT許可のときだけIDFAでパーソナライズ、拒否/未設定なら非パーソナライズ。
+
+これを ASC の App Privacy に落とすと:
+
+| Apple区分 | データ | 由来 | 用途 |
+|---|---|---|---|
+| **あなたを追跡するために使用されるデータ** | 識別子（デバイスID/IDFA）・使用状況データ | AdMob | サードパーティ広告（同意時のみ追跡だが「追跡し得る」ため「はい」） |
+| **あなたにリンクされるデータ** | メールアドレス・ユーザーID | Supabase（アカウント） | アプリ機能（アカウント/同期） |
+| 〃 | 購入（Purchases） | RevenueCat | アプリ機能/分析 |
+| 〃 | 識別子 | AdMob | 広告 |
+
+**ATT文言＝設定済み**（`expo-tracking-transparency` プラグインの `userTrackingPermissionMessage`。ビルド時に `NSUserTrackingUsageDescription` を自動注入）:
+> 「許可すると、あなたの興味に合った広告が表示されます。学習の記録が第三者に共有されることはありません。」
+
+**ATT文言＝全11言語化 実装済み（2026-09-10・選択C）**：Expo標準の `expo.locales` で `locales/<lang>.json`（ja/en/ne/bn/id/ko/my/th/vi/zh-Hans/zh-Hant）に `NSUserTrackingUsageDescription` を用意。`expo prebuild --clean`（CI）で各言語の `InfoPlist.strings` が生成され、**ATTダイアログの説明文が端末の言語で表示**される。基本フォールバック（開発言語）は `expo-tracking-transparency` プラグインの日本語文。
+- ✅ 次のiOSビルド実機で「端末を英語/ネパール語等にした時、ATTの説明文がその言語で出るか」を目視確認。
+- 参考：iOS でも AdMob を実際に配信するのか（地域限定運用か）は運用判断。配信しないなら申告を軽くできるが、現状は「収集あり」で申告済みなので問題なし。
+
+---
+
+## 3. 提出チェックリスト（設定・URL・スクショ）
 
 | 項目 | 推奨 / 状態 |
 |---|---|
-| Primary Category | **Education**（教育） |
+| Primary Category | **Education（教育）** |
 | Secondary Category | Reference（辞書/参考）または無し |
-| Age Rating | **4+**（不適切表現なし） |
-| Price | **Free**（無料） |
-| App Privacy | **「データを収集していません」**（分析/トラッキングSDK無し・アカウント無し・通知はローカル・OTAは更新取得のみで個人データ非収集）。⚠ASCのプライバシー質問で全て「No」を選択 |
-| Encryption | `ITSAppUsesNonExemptEncryption=false` を app.json に設定済み → ASCの輸出コンプライアンスは自動でクリア |
-| Support URL（**必須**） | **en** `https://www.safa-lang.com/jlpt/en/` ／ **ja** `https://www.safa-lang.com/jlpt/ja/`（各言語LP＝問い合わせ導線あり） |
-| Privacy Policy URL（**必須**） | **en** `https://www.safa-lang.com/jlpt/en/privacy/` ／ **ja** `https://www.safa-lang.com/jlpt/ja/privacy/`（末尾スラッシュ。✅実体確認済=「Privacy Policy \| Mainichi JLPT … The App does not collect」） |
-| Marketing URL | **en** `https://www.safa-lang.com/jlpt/en/`（任意・Support兼用可） |
-| ✅ **提出前提（解決済）** | WEBセッションが `/jlpt/en`(+ja) の **LP・privacy・terms を実コンテンツで公開済**（2026-06-23確認。タイトル/本文ともASCコピーと一致）。en/ja の privacy・terms すべて200・実体あり=**ブロッカー解消** |
-| Screenshots | **実画面の実キャプチャ・枠なし1320×2868**。**en（英語UI）= `申請スクショ\en\`** ／ **ja（日本語UI）= `申請スクショ\ja\`**（各 `0X_*.png`）。enロケールに英語UI版、jaロケールに日本語UI版を割当 |
+| Age Rating | **4+**（不適切表現なし。※広告ありのため広告設定は要確認） |
+| Price | **Free**（無料・アプリ内課金あり=Proサブスク） |
+| Encryption | `ITSAppUsesNonExemptEncryption=false` を app.json に設定済み → 輸出コンプライアンスは自動クリア |
+| Support URL（**必須**） | en `https://www.safa-lang.com/jlpt/en/` ／ ja `https://www.safa-lang.com/jlpt/ja/` ／ 他掲載ロケールも各言語LP。⚠ **提出前に各URLが200で開くか要再確認**（配信は Cloudflare R2＝jlpt.safa-lang.com へ移設済だが、LP/privacy/terms は www.safa-lang.com 側。実体の生存確認を） |
+| Privacy Policy URL（**必須**） | en `https://www.safa-lang.com/jlpt/en/privacy/` ／ ja `https://www.safa-lang.com/jlpt/ja/privacy/`（末尾スラッシュ）。⚠ **プライバシー本文も「データ収集なし」で書いていないか要確認**（App Privacy を「収集あり」に直すなら本文も整合させる） |
+| Marketing URL | 任意（Support兼用可） |
+| Screenshots | 実画面の実キャプチャ・枠なし 1320×2868。en（英語UI）=`申請スクショ\en\` ／ ja（日本語UI）=`申請スクショ\ja\`。他掲載ロケール分のUI言語スクショも用意 |
 | App Icon | assets/icon.png（設定済） |
-| Build | iOS build（version 1.0.0）を TestFlight 経由で選択（ビルド処理完了後） |
-
-### 決定事項（2026-06-23）
-1. ✅ 英語App名 = **Mainichi JLPT**（端末名と統一）
-2. ✅ 日本語App名 = **まいにちJLPT**（端末名と統一）
-3. ✅ URL = **safa-lang.com/jlpt/<lang>**（Support/Marketing）＋ **/jlpt/<lang>/privacy・/terms**（WEBセッションが構築）
-4. ✅ スクショ = **実画面の実キャプチャ5枚**（1320×2868・枠なし）＝`申請スクショ\`（合成版は廃止）。en/ja共用
-5. ✅ build 1020（TestFlightへアップロード済）
+| Build | **v1.1.47**（app.json version）。iOS ビルド番号は CI（build-jlpt.yml）が自動採番（2000+コミット数）。TestFlight 処理完了後に ASC で選択 |
 
 ### 残り（提出前）
-- ✅ ~~WEBセッションが /jlpt/ LP・privacy・terms 公開~~（**完了**＝ブロッカー解消）
-- ✅ 英語UI版スクショ撮影（`申請スクショ\en\`）＋日本語UI版（`申請スクショ\ja\`）
-- ⏳ build 1020 が TestFlight 処理完了（ASCでビルド選択可能に）
-- ⏳ ASCに文言入力（en/ja）＋実スクショ5枚アップ＋App Privacy=データ収集なし＋ビルド選択
-- ⏳ 審査提出は**ユーザー合図後**（無断提出しない）
+- ⏳ **App Privacy を「収集あり」で申告し直す**（上記2章。旧「収集なし」は使わない）＋ ATT メッセージ確認
+- ⏳ Subtitle を出すか決定（出すなら正本Excelに追加）
+- ⏳ Support / Privacy / Terms の各言語URLが200で開くか再確認
+- ⏳ 掲載8ロケール分の文言を正本Excelからコピペ＋各UI言語スクショ
+- ⏳ 審査提出は **ユーザー合図後**（無断提出しない）
