@@ -1420,7 +1420,6 @@
   "official.base_label": "2025年 第2回(12月)",
   "weekly.title": "来自樱的信",
   "weekly.greet": "这周也辛苦了。我们一起来看看吧。",
-  "weekly.words": "这周新记住了 {n} 个单词",
   "weekly.more": "别着急，没关系。保持这个状态，一点一点进步吧。",
   "weekly.close": "谢谢",
   "weekly.later": "下次再说",
@@ -1429,5 +1428,13 @@
   "weekly.rate_line": "你喜欢这个应用吗？",
   "weekly.rate_yes": "嗯，我很喜欢",
   "weekly.rate_no": "下次再说",
-  "weekly.cover_up": "掌握范围扩大了 {n}"
+  "weekly.k_pred": "预估分数",
+  "weekly.k_cover": "覆盖率",
+  "weekly.k_words": "已学单词",
+  "weekly.v_pred": "{now}／{max}分",
+  "weekly.v_pct": "{n}%",
+  "weekly.v_words": "{n}词",
+  "weekly.up_point": "＋{n}分",
+  "weekly.up_pct": "＋{n}%",
+  "weekly.up_words": "＋{n}词"
 }

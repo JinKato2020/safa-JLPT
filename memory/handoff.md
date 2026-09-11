@@ -494,14 +494,14 @@
 - ac333d4514f04da09 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/i18n/zh2.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- app.json
+- memory/session-summary-LATEST.md
 - memory/handoff.md
 - src/screens/HomeScreen.tsx
-- memory/session-summary-LATEST.md
 - src/home/homeStatus.ts
-- 画像/SNS/1/zh2/MainichiJLPT-Ad-TW.mp4
-- 画像/SNS/1/zh/MainichiJLPT-Ad-ZH.mp4
-- src/screens/AICoachScreen.tsx
-- src/home/__tests__/homeStatus.test.ts
 
-_自動更新: 2026-09-11 20:20_
+_自動更新: 2026-09-11 20:29_
 <!-- AUTO:END -->

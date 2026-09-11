@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 4 回・13 ターン
-- 往復 305 回
+- ツール呼び出し 21 回・37 ターン
+- 往復 37 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/screens/HomeScreen.tsx
-- memory/session-summary-LATEST.md
-- src/home/homeStatus.ts
-- 画像/SNS/1/zh2/MainichiJLPT-Ad-TW.mp4
+- src/i18n/zh2.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- app.json
 
 ## 次の一手
 - **▶次の一手（2026-09-11 区切り・要ユーザー指示）**＝未コミットの累積あり：①用法N3新300問＋欠番掃除（content＝OTA対象）②予想得点一本化（UI＝要ビルド・OTA不可）③ストア掲載（画像/文言）④**週次「桜のおたより」(成長サマリ＋友だち紹介/アプリ評価をそっと交互)新規実装**（`src\home\WeeklyLetter.tsx`＋HomeScreen常設＋設定の開発者用プレビュー3種＋i18n全11言語＋Settings3フラグ。UI＝要ビルド・OTA不可）。⑤**合格率(廃止指標)をアプリから撤去＋予想得点へ全面移行(完了)**＝段階/称号/勲章/桜貝の基準を**合格ライン到達度**`homeStatus.reachPct`(＝(予想得点−満点25%の当てずっぽう下駄)÷(合格ライン−下駄)×100・初学者0%→合格ライン100%)へ。(a)成長おたより/AICoachから合格率除去→`coverGain`/`scoreGain`(新規)・週数予測も予想得点ベース (b)`GrowthPoint.pred`日次記録・passProb記録停止 (c)selectorsのMC合格率上書き(ladderPassPct)撤去・telemetryのpassProbログ削除 (d)桜貝の節目を再設計＝旧pass50/70/80(合格率大台)の上乗せ廃止→**到達度100%(合格ライン到達)で`passLine`+150を1回だけ**・tier1..9(10%刻み各+100)は維持 (e)死にコード削除=coachLines一式/statusカード4部品/passGain・passCurve/幽霊i18nキー(旧合格率14種×全11言語) (f)HomeScreen(桜貝)/InventoryScreen(合格圏勲章)をreachPctへ。**残存=公式統計の合格率(coach.rel_ref/mockres.dist_caption)＋ladder/passRate.passProbability純関数(休眠・未参照)のみ**。tsc0・触れた領域テスト全緑(39/0)。詳細=メモリ[[metric-label-is-predicted-score]]。**ビルド・commit・publishは明示指示まで実行しない**（[[never-build-without-explicit-order]]）。着手候補＝(a)コミット→ビルド/publish、(b)一意性Excel（`一意性チェック_通常_N3.xlsx`赤10/黄111）のレビュー反映、(c)ストア/Androidローカライズ（下の★★行）。

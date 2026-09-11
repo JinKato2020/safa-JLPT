@@ -1420,7 +1420,6 @@
   "official.base_label": "2025, Periode 2 (Desember)",
   "weekly.title": "Surat dari Sakura",
   "weekly.greet": "Kerja bagus minggu ini! Mari kita lihat bersama.",
-  "weekly.words": "Kamu telah mempelajari {n} kata baru minggu ini",
   "weekly.more": "Jangan khawatir. Mari terus maju sedikit demi sedikit.",
   "weekly.close": "Terima kasih",
   "weekly.later": "Nanti saja",
@@ -1429,5 +1428,13 @@
   "weekly.rate_line": "Apakah kamu menyukai aplikasi ini?",
   "weekly.rate_yes": "Ya, saya menyukainya",
   "weekly.rate_no": "Nanti saja",
-  "weekly.cover_up": "Jangkauan hafalanmu bertambah {n}!"
+  "weekly.k_pred": "Skor Prediksi",
+  "weekly.k_cover": "Cakupan",
+  "weekly.k_words": "Kata Dikuasai",
+  "weekly.v_pred": "{now}/{max} poin",
+  "weekly.v_pct": "{n}%",
+  "weekly.v_words": "{n} kata",
+  "weekly.up_point": "+{n} poin",
+  "weekly.up_pct": "+{n}%",
+  "weekly.up_words": "+{n} kata"
 }

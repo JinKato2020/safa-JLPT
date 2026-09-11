@@ -1420,7 +1420,6 @@
   "official.base_label": "Kỳ 2 năm 2025 (Tháng 12)",
   "weekly.title": "Thư từ Sakura",
   "weekly.greet": "Tuần này bạn đã làm rất tốt. Cùng xem nhé.",
-  "weekly.words": "Tuần này bạn đã học được {n} từ mới",
   "weekly.more": "Đừng lo lắng. Cứ giữ vững phong độ này và tiến lên từng chút một nhé.",
   "weekly.close": "Cảm ơn bạn",
   "weekly.later": "Để sau nhé",
@@ -1429,5 +1428,13 @@
   "weekly.rate_line": "Bạn có thích ứng dụng này không?",
   "weekly.rate_yes": "Có, tôi thích",
   "weekly.rate_no": "Để sau nhé",
-  "weekly.cover_up": "Phạm vi đã nhớ mở rộng thêm {n}"
+  "weekly.k_pred": "Điểm dự kiến",
+  "weekly.k_cover": "Tỷ lệ bao phủ",
+  "weekly.k_words": "Từ đã học",
+  "weekly.v_pred": "{now}/{max} điểm",
+  "weekly.v_pct": "{n}%",
+  "weekly.v_words": "{n} từ",
+  "weekly.up_point": "+{n} điểm",
+  "weekly.up_pct": "+{n}%",
+  "weekly.up_words": "+{n} từ"
 }

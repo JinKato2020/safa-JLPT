@@ -1420,7 +1420,6 @@
   "official.base_label": "2025년 제2회(12월)",
   "weekly.title": "사쿠라의 편지",
   "weekly.greet": "이번 주도 수고 많으셨어요. 함께 확인해 볼까요?",
-  "weekly.words": "이번 주에 새로운 단어 {n}개를 외웠어요",
   "weekly.more": "조급해하지 않아도 괜찮아요. 이대로 꾸준히 나아가요.",
   "weekly.close": "고마워요",
   "weekly.later": "다음에 할게요",
@@ -1429,5 +1428,13 @@
   "weekly.rate_line": "이 앱이 마음에 드시나요?",
   "weekly.rate_yes": "네, 마음에 들어요",
   "weekly.rate_no": "다음에 할게요",
-  "weekly.cover_up": "학습 범위가 {n} 넓어졌어요!"
+  "weekly.k_pred": "예상 점수",
+  "weekly.k_cover": "커버율",
+  "weekly.k_words": "학습한 단어",
+  "weekly.v_pred": "{now}/{max}점",
+  "weekly.v_pct": "{n}%",
+  "weekly.v_words": "{n}단어",
+  "weekly.up_point": "+{n}점",
+  "weekly.up_pct": "+{n}%",
+  "weekly.up_words": "+{n}단어"
 }

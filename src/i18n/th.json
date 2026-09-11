@@ -1420,7 +1420,6 @@
   "official.base_label": "ครั้งที่ 2 (ธ.ค.) ปี 2025",
   "weekly.title": "จดหมายจากซากุระ",
   "weekly.greet": "สัปดาห์นี้คุณพยายามได้ดีมาก! มาดูกันเลย",
-  "weekly.words": "สัปดาห์นี้คุณจำคำศัพท์ใหม่ได้ {n} คำ",
   "weekly.more": "ไม่ต้องรีบร้อนนะ ค่อยๆ ก้าวไปทีละนิดตามจังหวะนี้ได้เลย",
   "weekly.close": "ขอบคุณ",
   "weekly.later": "ไว้คราวหน้า",
@@ -1429,5 +1428,13 @@
   "weekly.rate_line": "คุณชอบแอปนี้ไหม?",
   "weekly.rate_yes": "ใช่, ฉันชอบ",
   "weekly.rate_no": "ไว้คราวหน้า",
-  "weekly.cover_up": "ขยายช่วงที่จำได้แล้ว {n}"
+  "weekly.k_pred": "คะแนนคาดการณ์",
+  "weekly.k_cover": "อัตราครอบคลุม",
+  "weekly.k_words": "คำศัพท์ที่จำได้",
+  "weekly.v_pred": "{now}/{max} คะแนน",
+  "weekly.v_pct": "{n}%",
+  "weekly.v_words": "{n} คำ",
+  "weekly.up_point": "+{n} คะแนน",
+  "weekly.up_pct": "+{n}%",
+  "weekly.up_words": "+{n} คำ"
 }

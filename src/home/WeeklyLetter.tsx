@@ -8,10 +8,11 @@ import { Modal, View, Text, Image, Pressable, StyleSheet, useWindowDimensions } 
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
-import * as StoreReview from 'expo-store-review';
 import { useAppState, useAppActions } from '../store/store';
 import { dayStr, daysBetween, type Settings } from '../store/state';
-import { weekGain, coverGain } from './growthStats';
+import { weekGain, coverGain, scoreGain, growthBars } from './growthStats';
+import { coverageBars, expectedScoreFor } from '../store/selectors';
+import { askStoreReview } from '../util/storeReview';
 import { GUIDE } from '../data/mywordsArt';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
@@ -37,16 +38,27 @@ export default function WeeklyLetter({ preview = null, onPreviewClose }: { previ
   const now = nowRef.current;
   const today = dayStr(now);
 
-  // 今週の伸び(既存データ・合格率は使わない)。覚えた語＋カバー率(覚えた範囲)の伸び。
-  const wGain = useMemo(() => weekGain(state, today), [state, today]);
-  const cGain = useMemo(() => coverGain(state, today), [state, today]);
+  // 今週の伸び(既存データ・合格率は使わない)。おたよりは3指標(予想得点・カバー率・覚えた語)を報告する。
+  const wGain = useMemo(() => weekGain(state, today), [state, today]);           // 今週 覚えた語の増加
+  const cGain = useMemo(() => coverGain(state, today), [state, today]);          // 今週 カバー(漢字+ことば+文法)の増加(件数)
+  const sGain = useMemo(() => scoreGain(state, today), [state, today]);          // 今週 予想得点の増加(点)
+  // 現在値はホームと同じ関数で出す(表示が食い違わないように)。
+  const est = useMemo(() => { try { return expectedScoreFor(state, now); } catch { return null; } }, [state, now]);
+  const bars = useMemo(() => { try { return coverageBars(state, now); } catch { return [] as ReturnType<typeof coverageBars>; } }, [state, now]);
+  const covLearned = bars.reduce((a, b) => a + b.learned, 0);
+  const covTotal = bars.reduce((a, b) => a + b.total, 0);
+  const coverPct = covTotal > 0 ? Math.round((covLearned / covTotal) * 100) : 0;  // 今のカバー率(%)
+  const coverUpPct = covTotal > 0 ? Math.round((cGain / covTotal) * 100) : 0;      // 今週のカバー率の伸び(%)
+  const totalWords = useMemo(() => { const g = growthBars(state, today, 1); return g[g.length - 1] ?? 0; }, [state, today]); // 覚えた語の累計
+  const predScore = est?.score ?? 0;
+  const predMax = est?.max ?? 180;
 
   // 出すかどうか(すべて満たす時だけ)。
   const installedDay = state.installedAt ? dayStr(state.installedAt) : null;
   const ageOK = !installedDay || daysBetween(installedDay, today) >= WEEK; // 初回はインストール7日後から
   const last = state.settings.weeklyLetterDay;
   const gapOK = !last || daysBetween(last, today) >= WEEK;                 // 前回から7日以上あき
-  const hasGrowth = wGain > 0 || cGain > 0;                                // 伸びゼロの週は出さない(空振りで押し付けない)
+  const hasGrowth = wGain > 0 || cGain > 0 || sGain > 0;                    // 伸びゼロの週は出さない(空振りで押し付けない)
   const notBusy = (state.ticketNotice ?? 0) === 0;                         // 模試チケット配布の祝いと重ねない
   const eligible = ageOK && gapOK && hasGrowth && notBusy;
 
@@ -55,7 +67,7 @@ export default function WeeklyLetter({ preview = null, onPreviewClose }: { previ
   const previewHost = onPreviewClose != null; // プレビュー用(設定画面)のインスタンス=自動表示しない
   const turn = state.settings.weeklyLetterTurn ?? 0;
   const ratingSlot = turn % 2 === 1;
-  const goodWeek = wGain >= 5 || cGain > 0;                                  // 評価は良い週だけ
+  const goodWeek = wGain >= 5 || cGain > 0 || sGain > 0;                     // 評価は良い週だけ
   const rateDue = now - (state.settings.ratingAskedAt ?? 0) > RATE_GAP_MS;   // 数ヶ月に1度まで
   const service: Service = forced ? (preview as Service) : ratingSlot ? (goodWeek && rateDue ? 'rating' : 'none') : 'referral';
 
@@ -82,17 +94,17 @@ export default function WeeklyLetter({ preview = null, onPreviewClose }: { previ
   const visible = forced ? !previewDismissed : autoVisible;
   const close = () => { if (forced) { setPreviewDismissed(true); onPreviewClose?.(); } else setAutoVisible(false); };
   const onRefer = () => { close(); nav.navigate('Referral', { focus: 'share' }); };
-  // 桜が先に「気に入ってくれてる?」と聞き、“うん”の時だけOSの評価画面を出す(いやな人には出さない=低評価を招かない)。
-  const onRate = async () => {
-    close();
-    try { if (await StoreReview.isAvailableAsync()) await StoreReview.requestReview(); } catch { /* 使えない環境では何もしない */ }
-  };
+  // 桜が先に「気に入ってくれてる?」と聞き、“うん”の時だけ評価へ誘導(いやな人には出さない=低評価を招かない)。
+  // 本番はOSの評価ダイアログ、開発プレビュー(forced)は必ずストアのレビューページを開いて動作確認できる。
+  const onRate = async () => { close(); await askStoreReview(forced); };
 
   if (!visible) return null;
 
-  // プレビューで伸びが0でもレイアウトを確認できるよう見本の数字を補う(プレビュー時のみ)。
-  const showW = forced ? (wGain || 12) : wGain;
-  const showC = forced ? (cGain || 6) : cGain;
+  // プレビュー(設定の開発用)では伸び0でもレイアウトを確認できるよう見本の数字を補う(プレビュー時のみ)。
+  const pv = (real: number, sample: number) => (forced ? (real || sample) : real);
+  const dPred = pv(predScore, 124), dPredUp = pv(sGain, 6);
+  const dCover = pv(coverPct, 38), dCoverUp = pv(coverUpPct, 3);
+  const dWords = pv(totalWords, 312), dWordsUp = pv(wGain, 12);
 
   const dims = Image.resolveAssetSource(GUIDE.open);
   const aspect = dims?.width && dims?.height ? dims.width / dims.height : 1;
@@ -108,20 +120,26 @@ export default function WeeklyLetter({ preview = null, onPreviewClose }: { previ
           <Text style={s.title}>{t('weekly.title')}</Text>
           <Text style={s.greet}>{t('weekly.greet')}</Text>
 
-          {/* 今週のがんばり(伸びのある項目だけ) */}
+          {/* 今週のようす=3指標の報告(予想得点・カバー率・覚えた語)。各行=指標名｜今の値｜今週の伸び。合格率は使わない。 */}
           <View style={s.gains}>
-            {showW > 0 ? (
-              <View style={s.gainRow}>
-                <Text style={s.gainIco}>🌱</Text>
-                <Text style={s.gainTxt}>{t('weekly.words', { n: showW })}</Text>
-              </View>
-            ) : null}
-            {showC > 0 ? (
-              <View style={s.gainRow}>
-                <Text style={s.gainIco}>📖</Text>
-                <Text style={s.gainTxt}>{t('weekly.cover_up', { n: showC })}</Text>
-              </View>
-            ) : null}
+            <View style={s.mRow}>
+              <Text style={s.mIco}>📊</Text>
+              <Text style={s.mLabel}>{t('weekly.k_pred')}</Text>
+              <Text style={s.mVal}>{t('weekly.v_pred', { now: dPred, max: predMax })}</Text>
+              {dPredUp > 0 ? <Text style={s.mUp}>{t('weekly.up_point', { n: dPredUp })}</Text> : null}
+            </View>
+            <View style={s.mRow}>
+              <Text style={s.mIco}>📖</Text>
+              <Text style={s.mLabel}>{t('weekly.k_cover')}</Text>
+              <Text style={s.mVal}>{t('weekly.v_pct', { n: dCover })}</Text>
+              {dCoverUp > 0 ? <Text style={s.mUp}>{t('weekly.up_pct', { n: dCoverUp })}</Text> : null}
+            </View>
+            <View style={s.mRow}>
+              <Text style={s.mIco}>🌱</Text>
+              <Text style={s.mLabel}>{t('weekly.k_words')}</Text>
+              <Text style={s.mVal}>{t('weekly.v_words', { n: dWords })}</Text>
+              {dWordsUp > 0 ? <Text style={s.mUp}>{t('weekly.up_words', { n: dWordsUp })}</Text> : null}
+            </View>
           </View>
           <Text style={s.more}>{t('weekly.more')}</Text>
 
@@ -168,10 +186,12 @@ const makeStyles = (c: ThemeColors) =>
     },
     title: { fontSize: ty.h2, fontWeight: '900', color: c.ink, marginTop: spacing.xs },
     greet: { fontSize: ty.body, fontWeight: '700', color: c.ink2, textAlign: 'center', lineHeight: 24 },
-    gains: { width: '100%', gap: 6, backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.md, paddingHorizontal: spacing.md, marginTop: spacing.xs },
-    gainRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm },
-    gainIco: { fontSize: 20 },
-    gainTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    gains: { width: '100%', gap: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.md, paddingHorizontal: spacing.md, marginTop: spacing.xs },
+    mRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+    mIco: { fontSize: 18, width: 24, textAlign: 'center' },
+    mLabel: { flex: 1, fontSize: ty.body, fontWeight: '800', color: c.ink2 },
+    mVal: { fontSize: ty.body, fontWeight: '900', color: c.ink },
+    mUp: { fontSize: ty.small, fontWeight: '900', color: '#2e9e5b', backgroundColor: 'rgba(46,158,91,0.12)', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2, overflow: 'hidden', minWidth: 46, textAlign: 'center' },
     more: { fontSize: ty.small, fontWeight: '700', color: c.mute, textAlign: 'center', marginTop: spacing.xs, lineHeight: 22 },
     cta: { width: '100%', alignItems: 'center', gap: spacing.sm, marginTop: spacing.sm, borderTopWidth: 1, borderTopColor: c.line, paddingTop: spacing.md },
     ctaLine: { fontSize: ty.body, fontWeight: '700', color: c.ink, textAlign: 'center', lineHeight: 24 },

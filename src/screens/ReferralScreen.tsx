@@ -1,7 +1,7 @@
 // 友だち紹介の遷移先画面: 入口イラスト＋「自分の紹介コードを共有する」だけ。
 // コード入力(受け取り)はアカウント画面にインライン移設したので、この画面には入力欄を置かない。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Share, ActivityIndicator, Animated, Image, useWindowDimensions } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Share, ActivityIndicator, Animated, Image, useWindowDimensions, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -63,8 +63,13 @@ export default function ReferralScreen() {
 
   const onShare = async () => {
     if (!code) return;
+    // 共有シートのプレビューに招待ページのog:image(=アプリのホームアイコン)を出すため、リンクURLを添える。
+    // iOS: url を独立フィールドで渡すとリンク扱いになりプレビュー画像が出る。Android: 本文へURLを連結。
+    const url = `https://jlpt.safa-lang.com/r/index.html?code=${encodeURIComponent(code)}`;
+    const message = t('referral.share_message', { code });
     try {
-      await Share.share({ message: t('referral.share_message', { code }) });
+      if (Platform.OS === 'ios') await Share.share({ message, url });
+      else await Share.share({ message: `${message}\n${url}` });
     } catch {
       // 共有シートを閉じただけ等は無視
     }

@@ -1420,7 +1420,6 @@
   "official.base_label": "২০২৫ দ্বিতীয়বার (ডিসেম্বর)",
   "weekly.title": "সাকুরা থেকে একটি বার্তা",
   "weekly.greet": "এই সপ্তাহে আপনি খুব ভালো করেছেন। চলুন একসাথে দেখি।",
-  "weekly.words": "এই সপ্তাহে আপনি {n}টি নতুন শব্দ শিখেছেন",
   "weekly.more": "চিন্তা করবেন না। এই গতিতে, আসুন একটু একটু করে এগিয়ে যাই।",
   "weekly.close": "ধন্যবাদ",
   "weekly.later": "পরে আবার",
@@ -1429,5 +1428,13 @@
   "weekly.rate_line": "আপনি কি এই অ্যাপটি পছন্দ করেন?",
   "weekly.rate_yes": "হ্যাঁ, আমি এটা পছন্দ করি",
   "weekly.rate_no": "পরে আবার",
-  "weekly.cover_up": "আপনার শেখার পরিসর {n} বৃদ্ধি পেয়েছে!"
+  "weekly.k_pred": "আনুমানিক স্কোর",
+  "weekly.k_cover": "কভারেজ",
+  "weekly.k_words": "শেখা শব্দ",
+  "weekly.v_pred": "{now}／{max} পয়েন্ট",
+  "weekly.v_pct": "{n}％",
+  "weekly.v_words": "{n} শব্দ",
+  "weekly.up_point": "＋{n} পয়েন্ট",
+  "weekly.up_pct": "＋{n}％",
+  "weekly.up_words": "＋{n} শব্দ"
 }

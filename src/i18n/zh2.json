@@ -1420,7 +1420,6 @@
   "official.base_label": "2025年 第2回(12月)",
   "weekly.title": "來自櫻的信",
   "weekly.greet": "這周也辛苦了。我們一起來看看吧。",
-  "weekly.words": "這周新記住了 {n} 個單詞",
   "weekly.more": "彆著急，沒關係。保持這個狀態，一點一點進步吧。",
   "weekly.close": "謝謝",
   "weekly.later": "下次再說",
@@ -1429,5 +1428,13 @@
   "weekly.rate_line": "你喜歡這個應用嗎？",
   "weekly.rate_yes": "嗯，我很喜歡",
   "weekly.rate_no": "下次再說",
-  "weekly.cover_up": "掌握範圍擴大了 {n}"
+  "weekly.k_pred": "預估分數",
+  "weekly.k_cover": "覆蓋率",
+  "weekly.k_words": "已學單詞",
+  "weekly.v_pred": "{now}／{max}分",
+  "weekly.v_pct": "{n}%",
+  "weekly.v_words": "{n}詞",
+  "weekly.up_point": "＋{n}分",
+  "weekly.up_pct": "＋{n}%",
+  "weekly.up_words": "＋{n}詞"
 }
