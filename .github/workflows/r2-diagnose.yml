@@ -1,0 +1,50 @@
+name: R2 診断 (読み取り専用・一時/原因調査用)
+# deploy-pages の R2同期が毎回失敗する原因の切り分け。
+#  ・書き込み/削除は一切しない(lsd/lsf/lsjson=読み取り専用)。
+#  ・原因が判明したら本ファイルは削除する(使い捨て)。
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    env:
+      RCLONE_CONFIG_R2_TYPE: s3
+      RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+      RCLONE_CONFIG_R2_REGION: auto
+      RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+      RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+    steps:
+      - name: install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: endpoint の形だけ検査(値は出さない)
+        run: |
+          E="$RCLONE_CONFIG_R2_ENDPOINT"
+          echo "length: ${#E}"
+          case "$E" in https://*) echo "starts_https: yes";; *) echo "starts_https: NO";; esac
+          case "$E" in */) echo "trailing_slash: YES";; *) echo "trailing_slash: no";; esac
+          case "$E" in *r2.cloudflarestorage.com*) echo "cloudflarestorage: yes";; *) echo "cloudflarestorage: NO";; esac
+          case "$E" in *jlpt-assets*) echo "contains_bucket_name: YES(要修正)";; *) echo "contains_bucket_name: no";; esac
+          if printf '%s' "$E" | grep -q $'\r'; then echo "has_CR: YES(要修正)"; else echo "has_CR: no"; fi
+
+      - name: rclone が r2 リモートを認識しているか
+        run: |
+          echo "== config dump (値はGHがマスク) =="
+          rclone config dump 2>&1 | head -40 || true
+
+      - name: 認証＋リモート解決(バケット一覧)
+        run: |
+          echo "== lsd r2: (ここで 'is a file not a directory' なら env設定が未認識) =="
+          rclone lsd r2: --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -20 || true
+
+      - name: バケット直下の中身(衝突オブジェクト調査)
+        run: |
+          echo "== lsf r2:jlpt-assets --max-depth 1 =="
+          rclone lsf "r2:jlpt-assets" --max-depth 1 --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -60 || true
+          echo "== 直下に assets/content/dict という『ファイル』が居ないか(lsjson) =="
+          rclone lsjson "r2:jlpt-assets" --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -100 || true
