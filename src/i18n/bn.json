@@ -1436,5 +1436,10 @@
   "weekly.v_words": "{n} শব্দ",
   "weekly.up_point": "＋{n} পয়েন্ট",
   "weekly.up_pct": "＋{n}％",
-  "weekly.up_words": "＋{n} শব্দ"
+  "weekly.up_words": "＋{n} শব্দ",
+  "weekly.seal": "নং {n}",
+  "weekly.streak": "{n} দিনের ধারাবাহিকতা🔥",
+  "weekly.best": "এই সপ্তাহের সেরা",
+  "weekly.to_pass": "পাস করতে আর {n} পয়েন্ট দরকার",
+  "weekly.reached": "আপনি পাস মার্ক পেয়ে গেছেন!🎉"
 }

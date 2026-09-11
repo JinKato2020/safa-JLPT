@@ -1436,5 +1436,10 @@
   "weekly.v_words": "{n} ဝေါဟာရ",
   "weekly.up_point": "+{n} မှတ်",
   "weekly.up_pct": "+{n}%",
-  "weekly.up_words": "+{n} ဝေါဟာရ"
+  "weekly.up_words": "+{n} ဝေါဟာရ",
+  "weekly.seal": "အမှတ်စဉ် {n}",
+  "weekly.streak": "{n} ရက် ဆက်တိုက်🔥",
+  "weekly.best": "ဒီအပတ် အကောင်းဆုံး",
+  "weekly.to_pass": "အောင်မှတ်ရဖို့ {n} မှတ်လို",
+  "weekly.reached": "အောင်မှတ်ရပြီနော်🎉"
 }

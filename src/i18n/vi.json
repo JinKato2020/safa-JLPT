@@ -1436,5 +1436,10 @@
   "weekly.v_words": "{n} từ",
   "weekly.up_point": "+{n} điểm",
   "weekly.up_pct": "+{n}%",
-  "weekly.up_words": "+{n} từ"
+  "weekly.up_words": "+{n} từ",
+  "weekly.seal": "Số thứ {n}",
+  "weekly.streak": "{n} ngày liên tiếp🔥",
+  "weekly.best": "Hay nhất tuần này",
+  "weekly.to_pass": "Còn {n} điểm nữa là Đạt",
+  "weekly.reached": "Đã đạt yêu cầu🎉"
 }

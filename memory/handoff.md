@@ -486,6 +486,10 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 76ターン（文脈 16万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 76ターン・ツール40回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - a0c48fa2ccfc548b1 general-purpose
 - a6e2e5da70893cd09 general-purpose
@@ -495,13 +499,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - src/i18n/zh2.json
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
-- memory/session-summary-LATEST.md
-- memory/handoff.md
-- src/screens/HomeScreen.tsx
-- src/home/homeStatus.ts
+- src/i18n/zh.json
+- src/i18n/vi.json
+- src/i18n/th.json
+- src/i18n/my.json
+- src/i18n/ko.json
+- src/i18n/id.json
+- src/i18n/bn.json
 
-_自動更新: 2026-09-11 20:29_
+_自動更新: 2026-09-11 21:23_
 <!-- AUTO:END -->

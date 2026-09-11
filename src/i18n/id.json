@@ -1436,5 +1436,10 @@
   "weekly.v_words": "{n} kata",
   "weekly.up_point": "+{n} poin",
   "weekly.up_pct": "+{n}%",
-  "weekly.up_words": "+{n} kata"
+  "weekly.up_words": "+{n} kata",
+  "weekly.seal": "No. {n}",
+  "weekly.streak": "{n} Hari Beruntun🔥",
+  "weekly.best": "Terbaik Minggu Ini",
+  "weekly.to_pass": "Tersisa {n} poin menuju batas kelulusan",
+  "weekly.reached": "Sudah mencapai batas kelulusan!🎉"
 }

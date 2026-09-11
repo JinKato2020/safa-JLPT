@@ -1436,5 +1436,10 @@
   "weekly.v_words": "{n}단어",
   "weekly.up_point": "+{n}점",
   "weekly.up_pct": "+{n}%",
-  "weekly.up_words": "+{n}단어"
+  "weekly.up_words": "+{n}단어",
+  "weekly.seal": "제{n}호",
+  "weekly.streak": "{n}일 연속🔥",
+  "weekly.best": "이번 주 베스트",
+  "weekly.to_pass": "합격선까지 {n}점 남음",
+  "weekly.reached": "합격선 달성!🎉"
 }

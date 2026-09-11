@@ -1436,5 +1436,10 @@
   "weekly.v_words": "{n}词",
   "weekly.up_point": "＋{n}分",
   "weekly.up_pct": "＋{n}%",
-  "weekly.up_words": "＋{n}词"
+  "weekly.up_words": "＋{n}词",
+  "weekly.seal": "第{n}号",
+  "weekly.streak": "连续{n}天🔥",
+  "weekly.best": "本周最佳",
+  "weekly.to_pass": "距合格线还差{n}分",
+  "weekly.reached": "已达到合格线🎉"
 }
