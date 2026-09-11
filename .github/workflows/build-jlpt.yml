@@ -138,6 +138,9 @@ jobs:
           if [ -z "$RCLONE_CONFIG_R2_ACCESS_KEY_ID" ]; then
             echo "::warning::R2 secrets 未設定 → R2同期をスキップ(github.io のみ配信)"; exit 0
           fi
+          # endpoint secret に混入しがちな末尾改行/空白を除去(2026-09-11 実害: これが原因で endpoint 解決が
+          #  失敗し「Invalid region」誤表示でR2同期が毎回失敗＝OTA配信が届いていなかった)。secret側も是正済だが二重防御。
+          RCLONE_CONFIG_R2_ENDPOINT=$(printf '%s' "$RCLONE_CONFIG_R2_ENDPOINT" | tr -d '[:space:]'); export RCLONE_CONFIG_R2_ENDPOINT
           curl -fsSL https://rclone.org/install.sh | sudo bash
           for d in assets content dict invite r; do
             [ -d "_site/$d" ] && rclone sync "_site/$d" "r2:jlpt-assets/$d" --s3-no-check-bucket --transfers 32 --checkers 32 --fast-list
