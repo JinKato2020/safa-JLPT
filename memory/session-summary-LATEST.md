@@ -1,15 +1,20 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
+- ツール呼び出し 4 回・13 ターン
+- 往復 305 回
 
 ## 何が変わったか
 - memory/handoff.md
-- ASC申請文言_iOS.md
-- app.json
-- locales/zh-Hant.json
-- locales/zh-Hans.json
+- src/screens/HomeScreen.tsx
+- memory/session-summary-LATEST.md
+- src/home/homeStatus.ts
+- 画像/SNS/1/zh2/MainichiJLPT-Ad-TW.mp4
 
 ## 次の一手
+- **▶次の一手（2026-09-11 区切り・要ユーザー指示）**＝未コミットの累積あり：①用法N3新300問＋欠番掃除（content＝OTA対象）②予想得点一本化（UI＝要ビルド・OTA不可）③ストア掲載（画像/文言）④**週次「桜のおたより」(成長サマリ＋友だち紹介/アプリ評価をそっと交互)新規実装**（`src\home\WeeklyLetter.tsx`＋HomeScreen常設＋設定の開発者用プレビュー3種＋i18n全11言語＋Settings3フラグ。UI＝要ビルド・OTA不可）。⑤**合格率(廃止指標)をアプリから撤去＋予想得点へ全面移行(完了)**＝段階/称号/勲章/桜貝の基準を**合格ライン到達度**`homeStatus.reachPct`(＝(予想得点−満点25%の当てずっぽう下駄)÷(合格ライン−下駄)×100・初学者0%→合格ライン100%)へ。(a)成長おたより/AICoachから合格率除去→`coverGain`/`scoreGain`(新規)・週数予測も予想得点ベース (b)`GrowthPoint.pred`日次記録・passProb記録停止 (c)selectorsのMC合格率上書き(ladderPassPct)撤去・telemetryのpassProbログ削除 (d)桜貝の節目を再設計＝旧pass50/70/80(合格率大台)の上乗せ廃止→**到達度100%(合格ライン到達)で`passLine`+150を1回だけ**・tier1..9(10%刻み各+100)は維持 (e)死にコード削除=coachLines一式/statusカード4部品/passGain・passCurve/幽霊i18nキー(旧合格率14種×全11言語) (f)HomeScreen(桜貝)/InventoryScreen(合格圏勲章)をreachPctへ。**残存=公式統計の合格率(coach.rel_ref/mockres.dist_caption)＋ladder/passRate.passProbability純関数(休眠・未参照)のみ**。tsc0・触れた領域テスト全緑(39/0)。詳細=メモリ[[metric-label-is-predicted-score]]。**ビルド・commit・publishは明示指示まで実行しない**（[[never-build-without-explicit-order]]）。着手候補＝(a)コミット→ビルド/publish、(b)一意性Excel（`一意性チェック_通常_N3.xlsx`赤10/黄111）のレビュー反映、(c)ストア/Androidローカライズ（下の★★行）。
+- **✅2026-09-11 完了＝N3用法300問 作成**（詳細＝`memory\usage-n3-300-inflight.md`）。usage_N3 900→**1200問**。P1/内容不一致0・カバー率N3用法56%・一意性Excel生成済(赤10/黄111・要ユーザーレビュー)。※apply の uniqRisk 取りこぼしを修正済。backlog 残950語。
+- **✅2026-09-11 完了＝欠番掃除（ユーザー指示・安全な範囲のみ）**。ID を欠番なし連番に振り直し：usage_N3(→0001..1200)＋regular6ファイル(grammar_form_N4/N5・order_N4・context_N5・orthography_N3/N4→各0001..N)。参照系も同一対応表で一括整合＝usageDistractorTags/sentenceFuri(幽霊135掃除)/transSrcHash/kbIdMigration(残骸3削除)/SNS。**聴解・mock は ID帯規約([[listening-id-band-convention]]・pool.ts依存)ゆえ意図的に除外**（詰めると練習/模試が衝突）。全テスト＝既存2失敗(`migrate_problems.test.ts` toItem・HEADから・無関係)以外オール緑。manifest+barrel再生成済。**未コミット・ビルドしていない**（指示待ち）。手順script＝`scratchpad/usage_n3_300/renumber_all_safe.py`。
 - **★★2026-09-09(本セッション) ストアスクショを新様式で作り直し＝クリーム背景#FAF5ED＋紺#2B213C/ピンク#C42A72の2行見出し＋ピンク短線＋灰サブ＋シルバー金属枠(1242×2688)。** 正本=`画像\申請スクショ\make_store_jlpt.py`(HTML+ヘッドレスChrome)＋手順書`画像\申請スクショ\README_ストア画像生成.md`＋メモリ[[store-screenshot-generator]]。キャプションは`_jobs_<lang>.json`(Gemini生成)or `JOBS_EN/JOBS_JA`。フォント: 日=Yu Gothic UI/デーヴァナーガリ・ベンガル=Nirmala UI/ビルマ=Myanmar Text(CSS登録済)。**中心指標は必ず「予想得点/predicted score(180点満点)」**(到達度/準備度/合格率/readiness禁止=[[metric-label-is-predicted-score]])。**生成済=en9・ja7・ne8・my8・bn8枚**(各`画像\申請スクショ\<lang>\store\`)。**残=id/ko/th/vi/zh/zh2**。使い方=`python make_store_jlpt.py <lang>`(素材=`<lang>\`、出力=`<lang>\store\`自動作成)。⚠**旧様式(黒ベゼル・scratchpad gen_store_multi.mjs・th/vi/id/zh/zh2/ko・1_home..10_friends＝下の別2026-09-09行)とは別物**＝様式統一するなら旧6言語も新様式で作り直し要。／本セッションで併せて①`画像\申請スクショ\ストア文言_11言語.xlsx`にAndroid列(J〜M=アプリ名/短い説明80/詳しい説明=概要流用/字数)追加済、②`ASC申請文言_iOS.md`/`Play申請文言_Android.md`の旧ラベル準備度→予想得点に修正＋文言正本はxlsxへ移行の注記追加。ユーザー「クリアしたい」で区切り。
 - **★★2026-09-09 次セッションの主タスク＝Androidストアのローカライズ＋画像追加（ユーザー指示）。** 仕組み確認済＝`build-jlpt.yml` は**AABをPlay internalトラックへ上げるだけ**で、**ストア掲載（タイトル/説明/スクショ）の多言語化は未整備**（fastlaneに android metadata 無し＝Play Console手動 or fastlane supply 新設が要る）。**iOSと違う重要点**：①テキスト項目＝**アプリ名(30字)/簡単な説明(80字)/詳しい説明(4000字)・キーワード欄なし**（iOSのプロモ/キーワードは使わない。詳しい説明は`画像\申請スクショ\ストア文言_11言語.xlsx`のE概要を流用可・**アプリ名/簡単な説明は新規作成要**）。②スクショ＝Playは**縦横比 最大2:1**。iOSの1242x2688(≈2.16:1)も生スクショ869x1884(≈2.17:1)も**2:1超で不可**→キャンバス比を変えて**作り直し要**（例 1080x1920=9:16 等 ≤2:1）。生成器=scratchpad `gen_store_multi.mjs`（clearで消えるが本handoffの様式＝クリーム背景+2行見出し[navy#232A46/pink#E5548B]+ピンク下線+黒ベゼル端末枠、フォント: タイLeelawadee/越SegoeUI/簡体YaHei/繁体JhengHei/韓Malgun/日ZenMaruGothic-Bold で再作成可・raw=`画像\申請スクショ\<lang>\`の10枚[AI1-3/ホーム/会話/文法=試験タブ/日本語学習者の町/模試/漢字・語彙=4択解説/聴解]）。③**Play対応言語はApp Storeより広い**（ne/bn/my も可の可能性＝要確認）。Android=com.safa.english(App C枠)・internal。**着手手順＝(a)Play対応ロケール確認→(b)アプリ名/簡単な説明を11言語作成しExcelへ列追加→(c)スクショを≤2:1で再生成→(d)Play Console手貼り or fastlane supply整備。** ※文言・画像は ja/en 以外私訳＝ネイティブ確認推奨。
 - **★2026-09-09 次の一手（クリア後の最優先）**＝(1)**ビルド指示待ち**＝未コミットの「予想得点一本化」（模試/学習後/AIコーチ/i18n11言語・下の2026-09-09行）はUI変更ゆえOTA不可・次ビルドで実機反映。実行＝`tools\build.ps1 -Approved -NoWatch`（both）。(2)**ストア掲載の投入**＝画像6言語（th/vi/id/zh/zh2/ko・各10枚・`画像\申請スクショ\<lang>\store\`）＋`画像\申請スクショ\ストア文言_11言語.xlsx`（プロモ/概要/キーワード/メモ・全KW先頭JLPT・制限内）を fastlane配置→`asc-screenshots-jlpt.yml`/`asc-push-jlpt.yml`で投入 or ASC UI手貼り（指示待ち）。(3)**要点検**＝ミャンマー語 概要にラテン文字混入の可能性1箇所／画像・文言は ja/en 以外すべて私訳＝公開前ネイティブ確認推奨。

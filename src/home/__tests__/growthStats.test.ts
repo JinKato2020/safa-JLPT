@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { INITIAL_STATE, type AppState } from '../../store/state';
-import { growthBars, weekGain } from '../growthStats';
+import { growthBars, weekGain, scoreGain, coverGain } from '../growthStats';
 
 const withGrowth = (growth: { day: string; learned: number }[]): AppState => ({ ...INITIAL_STATE, growth });
 
@@ -26,4 +26,22 @@ test('weekGain: 直近7日の増加分(負値は0)', () => {
 
 test('weekGain: 空growthは0', () => {
   assert.equal(weekGain(withGrowth([]), '2026-07-15', 7), 0);
+});
+
+test('scoreGain: 予想得点(pred)の直近7日の変化。データ不足は0', () => {
+  const s: AppState = { ...INITIAL_STATE, growth: [
+    { day: '2026-07-08', learned: 0, pred: 60 },
+    { day: '2026-07-14', learned: 0, pred: 78 },
+  ] };
+  assert.equal(scoreGain(s, '2026-07-15', 7), 18); // 60→78
+  assert.equal(scoreGain(withGrowth([]), '2026-07-15', 7), 0);
+});
+
+test('coverGain: カバー率(漢字+語彙+文法)の直近7日の増加。負値は0', () => {
+  const s: AppState = { ...INITIAL_STATE, growth: [
+    { day: '2026-07-08', learned: 0, cov: { kanji: 10, vocab: 20, grammar: 5 } },
+    { day: '2026-07-14', learned: 0, cov: { kanji: 14, vocab: 26, grammar: 7 } },
+  ] };
+  assert.equal(coverGain(s, '2026-07-15', 7), 12); // (14+26+7)-(10+20+5)=47-35
+  assert.equal(coverGain(withGrowth([]), '2026-07-15', 7), 0);
 });

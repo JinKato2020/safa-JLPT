@@ -28,6 +28,7 @@ import { proStatus } from '../pro/entitlement';
 import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
 import UnlockCelebration from '../components/UnlockCelebration';
 import { UNLOCKS, type UnlockKey } from '../store/unlocks';
+import WeeklyLetter, { type WeeklyService } from '../home/WeeklyLetter';
 
 const LEVELS: Level[] = ['N5', 'N4', 'N3'];
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -49,6 +50,8 @@ export default function ProfileScreen() {
   // 【開発用】書斎の解禁演出を単体プレビューする(全体カバー率に達しなくても各画面を確認)。
   const [unlockPreview, setUnlockPreview] = useState<UnlockKey | null>(null);
   const previewUnlock = unlockPreview ? UNLOCKS.find((u) => u.key === unlockPreview) ?? null : null;
+  // 【開発用】週次「桜のおたより」(成長サマリ＋友だち紹介/アプリ評価)を条件を無視して確認する。
+  const [letterPreview, setLetterPreview] = useState<WeeklyService | null>(null);
   const [langOpen, setLangOpen] = useState(false);
   // 開発用セクションの隠しゲート: 一番下のバージョン表示を7回タップで解禁(TestFlight/本番でも使える・実ユーザーには見えない)。開発クライアントは既定で表示。
   // 解禁状態は state.settings.devToolsUnlocked に保存=全体で共有(大問の問題ID選択もこのフラグで表示)＋再起動後も維持。
@@ -459,6 +462,24 @@ export default function ProfileScreen() {
               </Pressable>
             ))}
           </View>
+          {/* 週次「桜のおたより」を確認(開発用): 成長サマリ＋友だち紹介/アプリ評価を条件を無視して表示。本番は週1回・伸びのある時だけ自動で出る。 */}
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>成長のおたよりを確認</Text>
+              <Text style={s.subtle}>週1回「桜からのおたより」（今週の伸び＋友だち紹介／アプリ評価）を条件を無視して表示。本番は前回から7日以上あき＋伸びのある週にホームで自動表示（開発用）</Text>
+            </View>
+          </View>
+          <View style={s.ppChips}>
+            <Pressable onPress={() => setLetterPreview('none')} style={[s.ppChip, { flex: 1 }]}>
+              <Text style={s.ppChipTxt} numberOfLines={1}>成長のみ</Text>
+            </Pressable>
+            <Pressable onPress={() => setLetterPreview('referral')} style={[s.ppChip, { flex: 1 }]}>
+              <Text style={s.ppChipTxt} numberOfLines={1}>＋友だち紹介</Text>
+            </Pressable>
+            <Pressable onPress={() => setLetterPreview('rating')} style={[s.ppChip, { flex: 1 }]}>
+              <Text style={s.ppChipTxt} numberOfLines={1}>＋アプリ評価</Text>
+            </Pressable>
+          </View>
         </View>
         </>)}
 
@@ -484,6 +505,8 @@ export default function ProfileScreen() {
         need={previewUnlock?.need ?? 0}
         onClose={() => setUnlockPreview(null)}
       />
+      {/* 開発用: 週次「桜のおたより」の単体プレビュー(条件を無視して表示・設定は書き換えない)。 */}
+      <WeeklyLetter preview={letterPreview} onPreviewClose={() => setLetterPreview(null)} />
     </SafeAreaView>
   );
 }

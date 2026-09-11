@@ -8,7 +8,7 @@ import { newItemState, recordQuiz, recordMock, effectiveP } from '../engine/engi
 import { type Settings, type MockResult, type SaveRef, INITIAL_STATE, dayStr, toggleMyList, withUpdatedAt } from './state';
 export type { AppState } from './state';
 import type { AppState } from './state';
-import { readinessFor, coverageBars } from './selectors';
+import { coverageBars, expectedScoreFor } from './selectors';
 import { recordAnswer, sendEvent } from '../telemetry/telemetry';
 import { applyStudyDay } from './streak';
 import { loadState, saveState, clearState } from './storage';
@@ -64,14 +64,14 @@ function withStudyDay(state: AppState, now: number): AppState {
   const day = dayStr(now);
   const streak = applyStudyDay(state.streak, day);
   const learned = countLearned(state.items, now);
-  const passProb = readinessFor(state, now).passProbability; // その日時点の合格率(推移グラフ用)
+  const pred = (() => { try { return expectedScoreFor(state, now).score; } catch { return undefined; } })(); // その日時点の予想得点(予想得点の推移/週数予測の正本)。合格率は廃止=記録しない。
   // その日時点の分類別カバー率(覚えた数)。折れ線グラフ(漢字/語彙/文法)用に今日から記録する。
   const cb = coverageBars(state, now);
   const covOf = (k: string) => cb.find((x) => x.key === k)?.learned ?? 0;
   const cov = { kanji: covOf('kanji'), vocab: covOf('vocab'), grammar: covOf('grammar') };
   const prev = state.growth ?? [];
   const last = prev[prev.length - 1];
-  const point = { day, learned, passProb, cov };
+  const point = { day, learned, pred, cov };
   const growth = last && last.day === day
     ? [...prev.slice(0, -1), point] // 同日は最新値で上書き
     : [...prev, point];

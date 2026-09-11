@@ -61,6 +61,9 @@ export interface Settings {
   lastSakuraSpeechAt?: number | null;       // 桜の癒し吹き出しを最後に出した時刻(ms)。約5時間に1度に絞るためのゲート
   sakuraRecoDay?: string;                    // 桜が「今日のオススメ」案内を出した日(YYYY-M-D)。毎日最初の一言だけこの案内にする
   afterStudyCount?: number;                  // 学習後のご褒美(イラスト＋励まし＋AIコーチ)を約10回に1度出すためのカウンタ
+  weeklyLetterDay?: string;                  // 週次「桜のおたより」(今週の成長サマリ)を最後に出した日(YYYY-MM-DD)。前回から7日以上あき＋その週に伸びがある時だけ出す。
+  weeklyLetterTurn?: number;                 // おたよりの通算表示回数。偶数→友だち紹介スロット / 奇数→アプリ評価スロット(1通につき最大1つだけ・交互)。
+  ratingAskedAt?: number;                    // 桜がアプリ評価を最後に尋ねた時刻(ms)。良い週だけ＋数ヶ月に1度に絞り、押し付けない。
 }
 
 export interface Streak {
@@ -74,7 +77,8 @@ export interface Streak {
 export interface GrowthPoint {
   day: string;       // YYYY-MM-DD
   learned: number;   // その日時点の「覚えた語」数(成長カーブ用スナップショット)
-  passProb?: number; // その日時点の合格率(%)。合格率推移グラフ用。旧データには無い→省略可。
+  passProb?: number; // 【廃止・旧データ互換のみ】合格率(%)。廃止指標([[metric-label-is-predicted-score]])。新規では記録しない(読みもしない)。成長/予測は pred(予想得点)を使う。
+  pred?: number;     // その日時点の予想得点(点)。予想得点の推移/週数予測の正本。旧データには無い→省略可(今日から記録)。
   cov?: { kanji: number; vocab: number; grammar: number }; // その日時点の分類別カバー率(覚えた数)。折れ線グラフ用。旧データには無い→省略可(過去は分類別に遡れないため今日から記録)。
 }
 

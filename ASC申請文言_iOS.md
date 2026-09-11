@@ -61,8 +61,11 @@
 | Price | **Free**（無料・アプリ内課金あり=Proサブスク） |
 | Encryption | `ITSAppUsesNonExemptEncryption=false` を app.json に設定済み → 輸出コンプライアンスは自動クリア |
 | Support URL（**必須**） | en `https://www.safa-lang.com/jlpt/en/` ／ ja `https://www.safa-lang.com/jlpt/ja/` ／ 他掲載ロケールも各言語LP。⚠ **提出前に各URLが200で開くか要再確認**（配信は Cloudflare R2＝jlpt.safa-lang.com へ移設済だが、LP/privacy/terms は www.safa-lang.com 側。実体の生存確認を） |
-| Privacy Policy URL（**必須**） | en `https://www.safa-lang.com/jlpt/en/privacy/` ／ ja `https://www.safa-lang.com/jlpt/ja/privacy/`（末尾スラッシュ）。⚠ **プライバシー本文も「データ収集なし」で書いていないか要確認**（App Privacy を「収集あり」に直すなら本文も整合させる） |
+| Privacy Policy URL（**必須**） | en `https://www.safa-lang.com/jlpt/en/privacy/` ／ ja `https://www.safa-lang.com/jlpt/ja/privacy/`（末尾スラッシュ）。✅ **本文は現行実装（アカウント/Supabase同期/AdMob/RevenueCat/ATT）を正しく記載＝ja・en 実体確認済（2026-09-10 WebFetch）**。App Privacy「収集あり」と整合。 |
 | Marketing URL | 任意（Support兼用可） |
+| 連絡先メール（EU DSA/公開） | **contact@safa-lang.com**（本番の法務ページと統一・自宅/私用を出さない） |
+| 連絡先電話（EU DSA/公開） | **050-1720-1914**（SUBLINE） |
+| 連絡先住所（EU DSA trader/公開） | ⏳ **バーチャルオフィス 審査待ち**。承認後に App Store Connect の「コンプライアンス情報（EU DSA trader）」へ記入。**公開はEU向けストアのみ**・自宅住所は使わない | 
 | Screenshots | 実画面の実キャプチャ・枠なし 1320×2868。en（英語UI）=`申請スクショ\en\` ／ ja（日本語UI）=`申請スクショ\ja\`。他掲載ロケール分のUI言語スクショも用意 |
 | App Icon | assets/icon.png（設定済） |
 | Build | **v1.1.47**（app.json version）。iOS ビルド番号は CI（build-jlpt.yml）が自動採番（2000+コミット数）。TestFlight 処理完了後に ASC で選択 |

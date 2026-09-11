@@ -9,7 +9,7 @@ import { facetsForUnit, type Facet } from '../review/facetMap';
 import { facetEffectiveP } from '../review/facetMastery';
 import kanjiFacetFlags from '../data/words/kanjiFacets.json';
 import kanjiSimilar from '../data/words/kanjiSimilar.json';
-import { passProbability as ladderPassProbability, itemP as ladderItemP, expectedScore as ladderExpectedScore, type DaimonExpectation, type ScoreEstimate } from '../ladder/passRate';
+import { itemP as ladderItemP, expectedScore as ladderExpectedScore, type DaimonExpectation, type ScoreEstimate } from '../ladder/passRate';
 import { type Level as LadderLevel } from '../ladder/facets';
 import type { AppState, GrowthPoint } from './state';
 import { lastNDays } from './state';
@@ -328,11 +328,8 @@ export function ladderPassEntries(state: AppState, now: number): DaimonExpectati
   entries.push({ daimon: 'listening', n: sumCounts(CHOUKAI_BLUEPRINT[lv]), mu: skillMu('choukai') });
   return entries;
 }
-function ladderPassPct(state: AppState, now: number): number {
-  return Math.round(100 * ladderPassProbability(state.settings.level as LadderLevel, ladderPassEntries(state, now), 2000, 1));
-}
 
-/** 予想得点(受験レベルの 予想得点/総得点180)。合格率と同じ大問配点で期待値算出。 */
+/** 予想得点(受験レベルの 予想得点/総得点180)。大問配点で期待値算出。 */
 export function expectedScoreFor(state: AppState, now: number): ScoreEstimate {
   return ladderExpectedScore(state.settings.level as LadderLevel, ladderPassEntries(state, now));
 }
@@ -387,8 +384,8 @@ export function readinessFor(state: AppState, now: number) {
   const sections: SectionInput[] = secEntries.map(({ max, ...s }) => s);
   const overallMinPct = Math.round((100 * pm.overall) / pm.maxTotal);
   const r = computeReadiness(sections, overallPct, overallMinPct, evidenceTotal, true, unmeasuredCats);
-  // 大リング【合格率】を新モンテカルロに差し替え(設計方針=既存engineは残骸)。失敗時は既存値のまま。
-  try { r.passProbability = ladderPassPct(state, now); } catch { /* fallback: computeReadiness の値 */ }
+  // 合格率(passProbability)は廃止指標([[metric-label-is-predicted-score]])。モンテカルロ上書きは撤去。
+  // 段階/称号/ごほうびは予想得点の「合格ライン到達率」(homeStatus.reachPct)で駆動する。
   return r;
 }
 

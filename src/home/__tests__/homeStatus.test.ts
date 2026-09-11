@@ -18,7 +18,7 @@ test('homeStatus: 5区分(漢字/語彙を分割)・順序・0-100・空stateで
   assert.equal(s.subjects.length, 5);
   assert.deepEqual(s.subjects.map((x) => x.key), ['kanji', 'vocab', 'grammar', 'dokkai', 'choukai']);
   for (const sub of s.subjects) assert.ok(sub.pct >= 0 && sub.pct <= 100);
-  assert.ok(s.passPct >= 0 && s.passPct <= 100);
+  assert.ok(s.reachPct >= 0 && s.reachPct <= 100);
   assert.equal(typeof s.rankTitleKey, 'string');
   assert.equal(s.streakDays, 0);
   assert.equal(s.studySeconds, 0);

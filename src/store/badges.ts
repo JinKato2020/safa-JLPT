@@ -1,4 +1,4 @@
-// バッジ(達成棚)= 純粋関数。継続/習得/準備度の数値でしきい値解錠。掲示板 自分タブ④。
+// バッジ(達成棚)= 純粋関数。継続/習得/合格ライン到達率(予想得点ベース)の数値でしきい値解錠。掲示板 自分タブ④。
 // 入力をフラットにして RN/ストア非依存にし、単体テスト可能にする。
 
 export interface Badge {
@@ -13,7 +13,7 @@ export interface BadgeInput {
   studyDays: number;     // 学習した延べ日数
   longestStreak: number; // 最長連続
   learned: number;       // 覚えた語数(減衰後 p>=0.6)
-  score: number;         // 準備度(0-100)
+  score: number;         // 合格ライン到達率(0-100・予想得点÷合格ライン×100)
 }
 
 export function computeBadges(i: BadgeInput): Badge[] {
@@ -25,6 +25,6 @@ export function computeBadges(i: BadgeInput): Badge[] {
     { id: 'vocab50', emoji: '📚', label: '語彙50', hint: '50語を習得', unlocked: i.learned >= 50 },
     { id: 'vocab200', emoji: '📖', label: '語彙200', hint: '200語を習得', unlocked: i.learned >= 200 },
     { id: 'vocab500', emoji: '🎓', label: '語彙500', hint: '500語を習得', unlocked: i.learned >= 500 },
-    { id: 'pass', emoji: '🎯', label: '合格圏', hint: '合格ライン(合格率80%)到達', unlocked: i.score >= 80 },
+    { id: 'pass', emoji: '🎯', label: '合格圏', hint: '予想得点が合格ライン水準に到達', unlocked: i.score >= 80 },
   ];
 }

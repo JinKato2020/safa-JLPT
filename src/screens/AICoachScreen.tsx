@@ -13,7 +13,7 @@ import { spacing, radius, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { useAppState } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
-import { weekGain, passGain, passCurve, growthBars } from '../home/growthStats';
+import { weekGain, scoreGain, growthBars } from '../home/growthStats';
 import { dayStr, lastNDays, type MockResult } from '../store/state';
 import type { Level } from '../engine/engine';
 import { expectedScoreFor, coverageBars, coverageCurve } from '../store/selectors';
@@ -43,12 +43,14 @@ export default function AICoachScreen() {
     const weakest = subs.reduce((a, b) => (b.pct < a.pct ? b : a), subs[0]);
     const strongest = subs.reduce((a, b) => (b.pct > a.pct ? b : a), subs[0]);
     const wg = weekGain(state, today, 7);
-    const pg = Math.round(passGain(state, today, 7));
-    const curve = passCurve(state, today, 14);
+    // 合格圏までの週数は「予想得点」の7日の伸びで見積もる(合格率は廃止指標=使わない・[[metric-label-is-predicted-score]])。
+    const sg = scoreGain(state, today, 7); // 予想得点の7日の伸び(点/週)
     const bars = growthBars(state, today, 14);
     const learned = bars.length ? bars[bars.length - 1] : 0;
     const { h, m } = studyHM(st.studySeconds);
-    const weeks = st.passPct >= 80 ? 0 : pg > 0 ? Math.max(1, Math.ceil((80 - st.passPct) / pg)) : null;
+    const weeks = st.passTotal > 0 && st.predScore >= st.passTotal
+      ? 0
+      : sg > 0 ? Math.max(1, Math.ceil((st.passTotal - st.predScore) / sg)) : null;
     // 科目別の予想得点＋基準点(合格率が予想得点より低い理由=科目落ちの可視化)。
     let score: ReturnType<typeof expectedScoreFor> | null = null;
     try { score = expectedScoreFor(state, now); } catch { score = null; }
@@ -100,12 +102,12 @@ export default function AICoachScreen() {
     const latestMock = scoredMocks.length ? scoredMocks[scoredMocks.length - 1] : null;
     const prevMock = scoredMocks.length > 1 ? scoredMocks[scoredMocks.length - 2] : null;
     const mockTrend = scoredMocks.slice(-8); // フル記録を保持(タップで成績表を開くため)
-    return { st, subs, weakest, strongest, wg, pg, curve, learned, h, m, weeks, score, rel, official, relGengoCombined, due, covCurve, covGain, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
+    return { st, subs, weakest, strongest, wg, sg, learned, h, m, weeks, score, rel, official, relGengoCombined, due, covCurve, covGain, coverage, covLearned, covTotalAll, nextGoal, streak, week, month, studied, today, latestMock, prevMock, mockTrend };
   }, [state]);
 
   const { st } = d;
   const levelLabel = (state.settings.targetExam ?? 'jlpt') === 'jft' ? 'JFT' : state.settings.level;
-  // 合格率(passPct)はユーザー指定で非表示(計算は残す=あとで復活可)。表示は予想得点＋科目別基準点に集約。
+  // 合格率は廃止指標([[metric-label-is-predicted-score]])＝アプリから撤去済み。表示は予想得点＋科目別基準点に集約。
   const scorePct = st.predMax > 0 ? Math.round((st.predScore / st.predMax) * 100) : 0;
   const goalPct = st.predMax > 0 ? Math.round((st.passTotal / st.predMax) * 100) : 50;
   // 予想得点=主役。合格ラインに届いていれば緑・未満は橙。

@@ -14,6 +14,7 @@ import { useHomeBg } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
 import HomeCoach from '../home/HomeCoach';
 import SakuraSpeech from '../home/SakuraSpeech';
+import WeeklyLetter from '../home/WeeklyLetter';
 import SafeBoundary from '../components/SafeBoundary';
 import GradientButton from '../components/GradientButton';
 
@@ -39,14 +40,14 @@ export default function HomeScreen() {
     // 毎日はじめての学習=30貝は「今日の最初の学習の直後(AfterStudyReward)」で付与・表示する。ホームでは付与しない。
     if (state.streak.current >= 7) awardOnce('streak7', 50);
     if (state.streak.current >= 30) awardOnce('streak30', 200);
-    const p = status.passPct;
-    if (p >= 50) awardOnce('pass50', 150);
-    if (p >= 70) awardOnce('pass70', 150);
-    if (p >= 80) awardOnce('pass80', 150);
+    const p = status.reachPct; // 合格ライン到達度(予想得点ベース・0%起点)。旧・合格率は廃止。
+    // 10%きざみの基本ラダー(tier1..9=10..90%・各+100)。
     for (let i = 1; i <= Math.min(9, Math.floor(p / 10)); i++) awardOnce('tier' + i, 100);
+    // 合格ライン到達(到達度100%=予想得点≥合格ライン)で一度だけの特別ボーナス。旧pass50/70/80の上乗せは廃止(tierに一本化)。
+    if (p >= 100) awardOnce('passLine', 150);
     const learned = learnedNow(state, now);
     for (let k = 1; k <= Math.floor(learned / 100); k++) awardOnce('learned' + (k * 100), 30);
-  }, [state, status.passPct]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [state, status.reachPct]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 呼吸グロー(0→1→0 をゆっくりループ・useNativeDriver で軽量)。
   // ホームで静止(無操作)10秒ごとに桜の一言を出すための合図。画面のどこかに触れると10秒を測り直す。
@@ -132,6 +133,10 @@ export default function HomeScreen() {
         {/* 桜の今日の一言(受験日 > 出迎え)。1日1回・タップで消える。減衰レイヤーが頻度を絞る。 */}
         <SafeBoundary tag="sakuraspeech" fallback={null}>
           <SakuraSpeech idleTick={idleTick} />
+        </SafeBoundary>
+        {/* 週に1度の「桜からのおたより」(今週の成長＋そっと 友だち紹介/アプリ評価を交互に)。条件は内部で判定。 */}
+        <SafeBoundary tag="weeklyletter" fallback={null}>
+          <WeeklyLetter />
         </SafeBoundary>
         {/* 今日のおすすめ(統合復習=苦手単語の復習)。桜/柴犬の下・ボトムナビの上に常設。分析はAIコーチにも有り。
             見た目は試験タブ「試験に挑戦する」と統一(GradientButton=斜めグラデ＋光沢の高級ピル)。 */}

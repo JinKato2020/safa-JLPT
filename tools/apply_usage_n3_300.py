@@ -66,6 +66,11 @@ for q in allq:
         'verified': True,
         'vocabId': vid,
     }
+    # 生成時の一意性自己申告を保持（quality_excel のレビュー対象＝[[uniqueness-self-declaration-in-generation]]）
+    if q.get('uniqRisk'):
+        item['uniqRisk'] = q['uniqRisk']
+        if q.get('uniqNote'):
+            item['uniqNote'] = q['uniqNote']
     new_items.append(item)
     types = [map_type(dd['type']) for dd in q['distractors']]
     repls = [dd['repl'] for dd in q['distractors']]

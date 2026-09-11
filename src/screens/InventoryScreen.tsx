@@ -49,7 +49,7 @@ export default function InventoryScreen() {
   const totalLearned = bars.reduce((a, b) => a + b.learned, 0);
   const totalItems = bars.reduce((a, b) => a + b.total, 0);
   const coverPct = totalItems > 0 ? Math.round((totalLearned / totalItems) * 100) : 0;
-  const passPct = status.passPct;
+  const reachPct = status.reachPct; // 合格ライン到達率(予想得点ベース)。「合格圏」勲章=100%(予想得点≥合格ライン)で解錠。
   const badgeSet = state.settings.badgeSet ?? 'gorgeous';
   const [coll, setColl] = useState<{ metric: BadgeMetric; pct: number } | null>(null);
 
@@ -134,7 +134,7 @@ export default function InventoryScreen() {
         {SHOW_BADGES && (
           <>
             <Text style={s.section}>{t('inventory.badges')}</Text>
-            {badgeRow('pass', passPct, badgeSet === 'natural' ? 'inventory.badge_pass_nat' : 'inventory.badge_pass')}
+            {badgeRow('pass', reachPct, badgeSet === 'natural' ? 'inventory.badge_pass_nat' : 'inventory.badge_pass')}
             {badgeRow('cover', coverPct, 'inventory.badge_cover')}
           </>
         )}

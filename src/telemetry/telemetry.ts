@@ -162,8 +162,8 @@ function snapshotBody(state: AppState, anon: string, now: number, geoCC?: string
   return {
     v: 4, anonId: anon, app: APP_VERSION, platform: getPlatform().OS, osVersion: String(getPlatform().Version ?? ''),
     uiLang: state.settings.uiLang || '', level, exam, day: dayStr(now),
-    // 質(正解率リング)＋合格率＋信頼幅
-    readiness: { total: r.score, passProb: r.passProbability, band: r.band, passing: r.passing,
+    // 質(正解率リング)＋合格判定＋信頼幅。合格率(passProb)は廃止指標のためログしない([[metric-label-is-predicted-score]])。
+    readiness: { total: r.score, band: r.band, passing: r.passing,
       moji_goi: rings.moji_goi, bunpou: rings.bunpou, dokkai: rings.dokkai, choukai: rings.choukai,
       // 予想得点(現行の主指標)。管理ダッシュボードの「到達度」列を予想得点に更新するため。
       predScore: est?.score ?? null, predMax: est?.max ?? null, passTotal: est?.passTotal ?? null },
