@@ -51,13 +51,19 @@ jobs:
             )
           done
 
-      - name: 旧版 rclone(1.68.2) での再試験(region=auto・読み取り専用)
+      - name: endpoint トリムの決定的テスト(読み取り専用)
         run: |
-          mkdir -p /tmp/rc168 && cd /tmp/rc168
-          curl -fsSL -o rc.zip https://downloads.rclone.org/v1.68.2/rclone-v1.68.2-linux-amd64.zip
-          unzip -q rc.zip
-          RC168=$(find . -name rclone -type f | head -1); chmod +x "$RC168"
-          echo "==== rclone1.68.2 / region=auto ===="
-          RCLONE_CONFIG_R2_REGION=auto "$RC168" lsd r2: --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -4
-          echo "==== rclone1.68.2 / region=auto / lsf root ===="
-          RCLONE_CONFIG_R2_REGION=auto "$RC168" lsf r2:jlpt-assets --max-depth 1 --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -30
+          RAW="$RCLONE_CONFIG_R2_ENDPOINT"
+          echo "raw length: ${#RAW}"
+          EP=$(printf '%s' "$RAW" | tr -d '[:space:]')
+          echo "trimmed length: ${#EP} (正しい値なら65)"
+          export RCLONE_CONFIG_R2_ENDPOINT="$EP"
+          for r in auto unset; do
+            echo "==== trimmed endpoint / region=$r ===="
+            (
+              case "$r" in unset) unset RCLONE_CONFIG_R2_REGION ;; *) export RCLONE_CONFIG_R2_REGION="$r" ;; esac
+              rclone lsd r2: --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -6
+            )
+          done
+          echo "==== trimmed endpoint / region=auto / lsf root(成功なら中身が出る) ===="
+          RCLONE_CONFIG_R2_REGION=auto rclone lsf r2:jlpt-assets --max-depth 1 --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -40
