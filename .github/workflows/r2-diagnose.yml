@@ -37,14 +37,27 @@ jobs:
           echo "== config dump (値はGHがマスク) =="
           rclone config dump 2>&1 | head -40 || true
 
-      - name: 認証＋リモート解決(バケット一覧)
+      - name: 修正候補の実地テスト(region違い・全て読み取り専用)
         run: |
-          echo "== lsd r2: (ここで 'is a file not a directory' なら env設定が未認識) =="
-          rclone lsd r2: --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -20 || true
+          for r in auto unset us-east-1 empty; do
+            echo "==== rclone1.75 / region=$r ===="
+            (
+              case "$r" in
+                unset) unset RCLONE_CONFIG_R2_REGION ;;
+                empty) export RCLONE_CONFIG_R2_REGION= ;;
+                *)     export RCLONE_CONFIG_R2_REGION="$r" ;;
+              esac
+              rclone lsd r2: --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -4
+            )
+          done
 
-      - name: バケット直下の中身(衝突オブジェクト調査)
+      - name: 旧版 rclone(1.68.2) での再試験(region=auto・読み取り専用)
         run: |
-          echo "== lsf r2:jlpt-assets --max-depth 1 =="
-          rclone lsf "r2:jlpt-assets" --max-depth 1 --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -60 || true
-          echo "== 直下に assets/content/dict という『ファイル』が居ないか(lsjson) =="
-          rclone lsjson "r2:jlpt-assets" --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -100 || true
+          mkdir -p /tmp/rc168 && cd /tmp/rc168
+          curl -fsSL -o rc.zip https://downloads.rclone.org/v1.68.2/rclone-v1.68.2-linux-amd64.zip
+          unzip -q rc.zip
+          RC168=$(find . -name rclone -type f | head -1); chmod +x "$RC168"
+          echo "==== rclone1.68.2 / region=auto ===="
+          RCLONE_CONFIG_R2_REGION=auto "$RC168" lsd r2: --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -4
+          echo "==== rclone1.68.2 / region=auto / lsf root ===="
+          RCLONE_CONFIG_R2_REGION=auto "$RC168" lsf r2:jlpt-assets --max-depth 1 --s3-no-check-bucket --low-level-retries 1 --retries 1 2>&1 | head -30
