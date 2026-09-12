@@ -95,6 +95,11 @@ DAIMON = {
 }
 SEP = '\x01'  # struct: cache key = f'{itemId}{SEP}{fieldKey}'
 
+# オプトインのid絞り込み。TRANS_ONLY_IDS_FILE=<jsonの配列> を指定すると、その id のみ翻訳対象にする
+# (指定なし=None=従来どおり全件)。新規追加分だけを翻訳する時に使う。trans_daimon_lang からも参照。
+_ONLY_F = os.environ.get('TRANS_ONLY_IDS_FILE', '')
+_ONLY = set(json.load(open(_ONLY_F, encoding='utf-8'))) if _ONLY_F else None
+
 def load_items(daimon):
     cfg = DAIMON[daimon]
     files = sorted(glob.glob(os.path.join(ROOT, cfg['glob']), recursive=True))
@@ -102,6 +107,8 @@ def load_items(daimon):
     for f in files:
         d = json.load(open(f, encoding='utf-8'))
         for it in d['items']:
+            if _ONLY is not None and it['id'] not in _ONLY:
+                continue
             t = cfg['texts'](it)
             if t:  # 訳す文が無い item はスキップ
                 items.append((it['id'], t))

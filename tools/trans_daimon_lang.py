@@ -92,6 +92,8 @@ def load_items(daimon):
     for f in files_for(daimon):
         d = json.load(open(f, encoding='utf-8'))
         for it in d['items']:
+            if td._ONLY is not None and it['id'] not in td._ONLY:  # TRANS_ONLY_IDS_FILE 絞り込み(共有)
+                continue
             t = extract_item(daimon, it)
             if t: items.append((it['id'], t))
     return items
