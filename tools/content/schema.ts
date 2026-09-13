@@ -1,5 +1,5 @@
 // app/tools/content/schema.ts — 新コンテンツ形式のスキーマ定数(移行/検証/manifestで共有)。
-export const LANGS = ['ja', 'ne', 'vi', 'en', 'zh', 'zh2', 'ko', 'th', 'id', 'bn', 'my'] as const;
+export const LANGS = ['ja', 'ne', 'vi', 'en', 'zh', 'zh2', 'ko', 'th', 'id', 'bn', 'my', 'hi'] as const;
 export type Lang = (typeof LANGS)[number];
 
 // i18n値は基本string(explain等)。読解/聴解のパッセージ訳(body)は行配列=string[]を許す。

@@ -4,7 +4,7 @@
 --  ・運営(あなた)が1件書くと、全ユーザーの受信箱(ホーム上部の🔔)に同じお知らせが並ぶ。
 --  ・未ログインの人にも表示する(誰でも読めるテーブル=select は anon/authenticated に開放)。
 --  ・書き込みは service_role だけ(=この SQL Editor / ダッシュボードから)。アプリ内に投稿画面は無い。
---  ・多言語: ja は必須。en/ne は任意(未入力なら ja にフォールバックして表示)。
+--  ・多言語: ja は必須。en/ne/hi は任意(未入力なら en→ja にフォールバックして表示)。
 --  ・既読管理はアプリ側で端末ローカルに持つ(未ログインでも動くように)。サーバーに既読テーブルは作らない。
 -- クライアントからの読み方(参考):
 --   supabase.from('announcements').select('*').eq('active', true).order('created_at', { ascending:false })
@@ -20,8 +20,14 @@ create table if not exists public.announcements (
   title_en   text,
   body_en    text,
   title_ne   text,
-  body_ne    text
+  body_ne    text,
+  title_hi   text,                                 -- ヒンディー語(任意。未入力なら en→ja にフォールバック)
+  body_hi    text
 );
+
+-- 既にテーブルがある場合の追加(初回作成なら上のCREATEで足りる。再実行しても安全)。
+alter table public.announcements add column if not exists title_hi text;
+alter table public.announcements add column if not exists body_hi  text;
 
 -- 新しい順に引く用のインデックス(active な最新を素早く)。
 create index if not exists announcements_active_created_idx on public.announcements (active, created_at desc);
@@ -42,11 +48,12 @@ grant select on public.announcements to anon, authenticated;
 --   ・ja は必ず入れる。en/ne は空でもよい(その言語のユーザーには ja が出る)。
 --   ・取り下げたい時: update public.announcements set active = false where id = <番号>;
 -- ============================================================================
--- insert into public.announcements (emoji, title_ja, body_ja, title_en, body_en, title_ne, body_ne) values (
+-- insert into public.announcements (emoji, title_ja, body_ja, title_en, body_en, title_ne, body_ne, title_hi, body_hi) values (
 --   '📣',
 --   'アップデートのお知らせ', '新しい聴解問題を追加しました。ぜひ挑戦してください。',
 --   'What''s new', 'We added new listening questions. Give them a try!',
---   'नयाँ अपडेट', 'हामीले नयाँ श्रवण प्रश्नहरू थप्यौं। प्रयास गर्नुहोस्!'
+--   'नयाँ अपडेट', 'हामीले नयाँ श्रवण प्रश्नहरू थप्यौं। प्रयास गर्नुहोस्!',
+--   'नया अपडेट', 'हमने नए श्रवण (सुनने के) प्रश्न जोड़े हैं। ज़रूर आज़माएँ!'
 -- );
 
 -- ============================================================================

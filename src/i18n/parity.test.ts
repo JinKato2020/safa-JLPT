@@ -17,6 +17,7 @@ import th from './th.json';
 import vi from './vi.json';
 import zh from './zh.json';
 import zh2 from './zh2.json';
+import hi from './hi.json';
 
 const REQUIRED: Record<string, Record<string, string>> = {
   en: en as Record<string, string>,
@@ -29,6 +30,7 @@ const REQUIRED: Record<string, Record<string, string>> = {
   vi: vi as Record<string, string>,
   zh: zh as Record<string, string>,
   zh2: zh2 as Record<string, string>,
+  hi: hi as Record<string, string>,
 };
 const JA = ja as Record<string, string>;
 

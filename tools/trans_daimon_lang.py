@@ -28,7 +28,7 @@ SEP = td.SEP
 RUBY = td.RUBY
 
 LANGNAME = {'id': 'Indonesian', 'th': 'Thai', 'vi': 'Vietnamese', 'ko': 'Korean',
-            'zh': 'Chinese (Simplified)', 'bn': 'Bengali', 'my': 'Burmese'}
+            'zh': 'Chinese (Simplified)', 'bn': 'Bengali', 'my': 'Burmese', 'hi': 'Hindi'}
 
 def deruby(s):
     return RUBY.sub('', s or '').strip()

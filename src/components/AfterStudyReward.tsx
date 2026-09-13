@@ -73,9 +73,11 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
     if (topUp > 0) addPoints(topUp, { cap: true }); // 全問正解=20貝へ正規化(不足分だけ上乗せ)
     if (grantedDaily) awardOnce(dailyKey, 30);
 
-    // 紹介の継続トリガー: 1セット(約60問=distinct scored)以上完了した日だけを適格学習日に記録(水増し防止)。
+    // 紹介の継続トリガー: この画面(ご褒美＋正誤リスト)に到達=1回の学習を完了した日。
+    // AfterStudyReward はセッション完了時のみ描画されるので、問題数に依らず「到達=その日アクティブ」として
+    // 適格学習日に記録する(同日は recordQualifyingDay が distinct 化。1日1回だけ数える)。
     const now = Date.now();
-    const qualifying = scored >= 60;
+    const qualifying = true;
     markStudyDay(qualifying);
     // 新規(=コード入力済み)の人だけ、「今回で成立した」瞬間に1回だけサーバーへ報告(冪等・失敗は握る)。
     const code = state.referral?.enteredCode;

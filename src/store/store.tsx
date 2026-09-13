@@ -166,7 +166,7 @@ export function reducer(state: AppState, action: Action): AppState {
       // 出迎え(daily_greet)を「今日出した」と記録=減衰レイヤーで1日1回に絞る。付与ロジックには一切触れない。
       return { ...state, storyDecay: recordDecay(state.storyDecay, action.id, action.now, { skipped: action.skipped }) };
     case 'SET_COMPLETED': {
-      // セット完了(約60問)＝適格学習日。qualifyingの時だけ当日を distinct 追加(水増し防止)。
+      // 学習完了(ご褒美画面に到達)＝適格学習日。qualifyingの時だけ当日を distinct 追加(1日1回)。
       if (!action.qualifying) return state;
       const days = recordQualifyingDay(state.referral?.qualifyingDays ?? [], action.day);
       return { ...state, referral: { ...state.referral, qualifyingDays: days } };

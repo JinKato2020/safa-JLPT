@@ -30,7 +30,7 @@ RUBY = re.compile(r'（[ぁ-んァ-ヶー・]+）')
 IN_PER_M, OUT_PER_M, YEN = 0.30, 2.50, 155.0
 CORPORA = ['meaning', 'kanjigloss', 'vocab_ex', 'grammar_ex']
 LANG_NAME = {'bn': 'Bengali', 'id': 'Indonesian', 'ko': 'Korean', 'my': 'Burmese (Myanmar)',
-             'th': 'Thai', 'vi': 'Vietnamese', 'zh': 'Simplified Chinese'}
+             'th': 'Thai', 'vi': 'Vietnamese', 'zh': 'Simplified Chinese', 'hi': 'Hindi'}
 OVERLAY_KIND = {'meaning': 'meaning', 'kanjigloss': 'kanjigloss', 'vocab_ex': 'example', 'grammar_ex': 'exampleGrammar'}
 
 

@@ -25,7 +25,7 @@ BATCH = 30
 IN_PER_M, OUT_PER_M, YEN = 0.30, 2.50, 155.0
 # 7言語(バックログ)。en/ne は番人維持ゆえ対象外。ja は元。
 TARGETS = {'bn': 'Bengali', 'id': 'Indonesian', 'ko': 'Korean', 'my': 'Burmese (Myanmar)',
-           'th': 'Thai', 'vi': 'Vietnamese', 'zh': 'Simplified Chinese'}
+           'th': 'Thai', 'vi': 'Vietnamese', 'zh': 'Simplified Chinese', 'hi': 'Hindi'}
 PLACE = re.compile(r'\{[^}]+\}')  # {n} {level} 等
 
 

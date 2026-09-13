@@ -10,6 +10,7 @@ export type Announcement = {
   title_ja: string; body_ja: string;
   title_en: string | null; body_en: string | null;
   title_ne: string | null; body_ne: string | null;
+  title_hi: string | null; body_hi: string | null; // 母語=ヒンディー語(2026-09-12 追加・neと同格)
 };
 
 /** active なお知らせを新しい順に取得(最大50件)。失敗時は空配列(=安全側)。 */
@@ -23,14 +24,19 @@ export async function fetchAnnouncements(): Promise<Announcement[]> {
   } catch { return []; }
 }
 
-/** 表示言語に合わせて題名・本文を選ぶ。ne→(無ければ)en→ja、en系/その他→en→ja の順でフォールバック。 */
+/** 表示言語に合わせて題名・本文を選ぶ。母語カラム(title_<lang>・現状 ne/hi)があればそれを最優先→無ければ en→ja。
+ *  ※(a as Record)で title_<lang> を動的に見るので、DBに母語カラムを足すだけで新言語に対応(この関数は無改修)。 */
 export function pickAnnounce(a: Announcement, lang: string): { title: string; body: string } {
-  const en = a.title_en ? { title: a.title_en, body: a.body_en ?? a.body_ja } : null;
-  const ne = a.title_ne ? { title: a.title_ne, body: a.body_ne ?? a.body_ja } : null;
   const ja = { title: a.title_ja, body: a.body_ja };
   if (lang === 'ja') return ja;
-  if (lang === 'ne') return ne ?? en ?? ja;
-  return en ?? ja; // en および他言語(日本語/ネパール語以外)は英語→日本語
+  const en = a.title_en ? { title: a.title_en, body: a.body_en ?? a.body_ja } : null;
+  const rec = a as unknown as Record<string, string | null>;
+  const t = rec[`title_${lang}`];
+  if (typeof t === 'string' && t) {
+    const b = rec[`body_${lang}`];
+    return { title: t, body: typeof b === 'string' && b ? b : a.body_ja };
+  }
+  return en ?? ja; // 母語カラムが無い/未入力の言語は英語→日本語
 }
 
 const READ_KEY = 'announceReadAt'; // 端末ローカルの「最後に受信箱を開いた時刻」(ISO)

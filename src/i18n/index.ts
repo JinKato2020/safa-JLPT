@@ -14,6 +14,7 @@ import zh from './zh.json';
 import zh2 from './zh2.json';
 import bn from './bn.json';
 import th from './th.json';
+import hi from './hi.json';
 
 // 英語＋日本語を提供(2026-06-29 日本語を追加)。他言語に戻す時は下をアンコメント。
 export const UI_LANGS: { code: string; name: string }[] = [
@@ -28,6 +29,7 @@ export const UI_LANGS: { code: string; name: string }[] = [
   { code: 'zh2', name: '中文（繁體）' }, // 母語=台湾繁体字(コード=zh2・国イニシャル統一)。OpenCC s2twp で zh から生成。URL slug は zh-hant
   { code: 'bn', name: 'বাংলা' }, // 母語=ベンガル語(UI/辞書/大問対訳をbnで表示。2026-09-06 有効化・id/ne/th/zhと同格)
   { code: 'th', name: 'ไทย' }, // 母語=タイ語(UI/辞書/大問対訳をthで表示。2026-09-06 有効化・id/neと同格)
+  { code: 'hi', name: 'हिन्दी' }, // 母語=ヒンディー語(UI/辞書/大問対訳をhiで表示。2026-09-12 有効化・neと同じデーヴァナーガリー字体)
 ];
 
 const DICT: Record<string, Record<string, string>> = {
@@ -42,6 +44,7 @@ const DICT: Record<string, Record<string, string>> = {
   zh2: zh2 as Record<string, string>,
   bn: bn as Record<string, string>,
   th: th as Record<string, string>,
+  hi: hi as Record<string, string>,
 };
 const SUPPORTED = new Set(UI_LANGS.map((l) => l.code));
 

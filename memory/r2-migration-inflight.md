@@ -38,7 +38,8 @@
      R2_ENDPOINT = https://37405f28673fcc75c547e3e97d9bc7bb.r2.cloudflarestorage.com
    - ※このトークンは削除しない＝配信キーとして常用。漏れた時だけローテート。
 3. ✅【ビルド dispatch 済 2026-09-08】v1.1.45(Build 2917)・both・commit 30fde1bc・run https://github.com/JinKato2020/safa-JLPT/actions/runs/34216325036 。secrets 3つ登録済でpush→deploy-pagesのR2同期ステップが**初回起動**（未検証＝次に確認するとよい。ただしデータは既にrcloneで投入済＝app動作はR2で担保される）。-NoWatch。本日iOS 1/8。
-4. 【残】全ユーザーが新アプリ更新後に github.io / GitHub Release 退役 → username痕跡ゼロ完成。CI R2同期の初回成否を一度確認（run 34216325036 の "Sync _site to Cloudflare R2" ステップ）。secretsが正しければ緑。
+4. ✅【2026-09-11 検証・修復完了】CI の R2同期は移行以降ずっと**失敗**していた（push毎の deploy-pages が赤）。真因＝**R2_ENDPOINT secret の末尾に改行が混入**（66字・正しくは65字）でrclone のendpoint解決が壊れていた（rclone1.75は紛らわしく「Invalid region: region was not a valid DNS name」と誤表示・1.68は「endpoint was not a valid URI」）。修復＝①secret再設定で改行除去 ②build-jlpt.yml の R2同期で `RCLONE_CONFIG_R2_ENDPOINT` を `tr -d '[:space:]'` でトリム（二重防御）。run 34608769461 で "Sync _site to Cloudflare R2" ＝success 確認（Pages配信も緑）。※ListBucketsの403は正常（トークンはバケット限定・全一覧権限なし）。region=auto はトリム後は問題なし。バケット構造 assets/content/dict/invite/poster/r も健全。
+5. 【残】全ユーザーが新アプリ更新後に github.io / GitHub Release 退役 → username痕跡ゼロ完成。
 
 ## 現在の作業ツリー（未コミット）
 - 変更: src/data/{audioBase,dict/dictRemote,content/ota,listeningImage,posterAssets}.ts, src/data/audioBase.test.ts, src/screens/{ShareCardScreen,KotobaTownScreen}.tsx, App.tsx, web/{invite,r}/index.html, tools/poster/build_packs.py, .github/workflows/build-jlpt.yml, content/_manifest.json（再生成）, tools/poster/_packs/poster-catalog.json（URL書換）

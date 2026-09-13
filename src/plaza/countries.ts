@@ -13,6 +13,7 @@ export const COUNTRIES: Country[] = [
   { code: 'VN', name: 'Vietnam', ja: 'ベトナム' }, { code: 'CN', name: 'China', ja: '中国' }, { code: 'TW', name: 'Taiwan', ja: '台湾' },
   { code: 'KR', name: 'Korea', ja: '韓国' }, { code: 'NP', name: 'Nepal', ja: 'ネパール' }, { code: 'ID', name: 'Indonesia', ja: 'インドネシア' },
   { code: 'MM', name: 'Myanmar', ja: 'ミャンマー' }, { code: 'TH', name: 'Thailand', ja: 'タイ' }, { code: 'BD', name: 'Bangladesh', ja: 'バングラデシュ' },
+  { code: 'IN', name: 'India', ja: 'インド' },
   { code: 'JP', name: 'Japan', ja: '日本' }, { code: 'US', name: 'USA', ja: 'アメリカ' },
   { code: 'XX', name: 'Other', ja: 'その他' },
 ];
@@ -50,6 +51,7 @@ export const NATIVE_LANGS: NativeLang[] = [
   { code: 'my', label: 'မြန်မာ', cc: 'MM' },
   { code: 'th', label: 'ไทย', cc: 'TH' },
   { code: 'bn', label: 'বাংলা', cc: 'BD' },
+  { code: 'hi', label: 'हिन्दी', cc: 'IN' }, // 母語=ヒンディー語(2026-09-12 有効化・neと同じデーヴァナーガリー字体)
   { code: 'ja', label: '日本語', cc: 'JP' },
 ];
 
