@@ -1,22 +1,18 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 31 回・88 ターン
-- 往復 173 回
+- ツール呼び出し 3 回・10 ターン
+- 往復 10 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/在庫問題数.txt
-- memory/在庫・模試ストックまとめ.xlsx
+- memory/session-summary-LATEST.md
+- src/i18n/zh2.json
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
 
-## ⚠️ 注意
-- - ⚠ 連続 88ターン（文脈 19万）— ループが長い
-- - ツール呼び出しループが長い（指示1件に対し 88ターン・ツール31回）— まとめ方を変える
-
 ## 次の一手
-- **▶次の一手（2026-09-13 夜 → ヒンディー語 残2件 完了・Build準備OK・未コミット）**＝前回の続き(UI/辞書/お知らせ/OTAは下の行で完了済)に加え、今回で**残り2件を完了**：**①大問対訳hi**＝全14大問 47,755ユニット(136万字)をGemini2.5-flashで翻訳→`--write`で content の i18n[hi] へ全書込(未訳スキップ0)→`tools\content\rebuild.ts`で`_manifest.json`+`bundled.generated.ts`再生成(116ファイル)。`tools\trans_daimon_lang.py`のLANGNAMEに'hi'追加済。**実測≈¥525**。**②規約/プライバシーhi**＝`app_website\src\pages\jlpt\hi\{privacy,terms}.astro`(EN全文→手訳Opus)＋`app_website\src\components\{JlptHeaderHi,JlptFooterHi}.astro`新規＋`src\config\legal.ts`の**LEGAL_LANGSに'hi'追加**(アプリが/jlpt/hi/privacy・/termsを開く=要アプリビルド)。`npx astro build`で/jlpt/hi/{privacy,terms}/生成確認(EXIT0)。hiランディング(index)は依頼外=未作成ゆえhiページのホーム/ナビは/jlpt/en/へ誘導。**③Excel⑥**＝`memory\在庫・模試ストックまとめ.xlsx`の`⑥ 翻訳状況`に hi 行追加(表①=17行目・表②=zh2直上)。検証＝**build.ps1の番人18本 全緑(EXIT0)・tsc --noEmit 0エラー・i18n parity緑**。※`tools\content\migrate_problems.test.ts`の2赤は**ビルドゲート対象外の既存stale**(解説廃止2026-09-02で陳腐化・今回と無関係)。**次の一手＝ユーザー指示で `powershell -File tools\build.ps1 -Approved -NoWatch`（both）＝commit→push(daimon hi content は OTA配信)→app build(UI: hi全選択可+hi規約リンク)。別途 app_website をデプロイすると safa-lang.com/jlpt/hi/ の規約ページがライブ反映。** ビルド/push/dispatchは明示指示まで実行しない[[never-build-without-explicit-order]]。
+- **▶次の一手（2026-09-13 夜 → ヒンディー語 残2件 完了・Build準備OK・未コミット）**＝前回の続き(UI/辞書/お知らせ/OTAは下の行で完了済)に加え、今回で**残り2件を完了**：**①大問対訳hi**＝全14大問 47,755ユニット(136万字)をGemini2.5-flashで翻訳→`--write`で content の i18n[hi] へ全書込(未訳スキップ0)→`tools\content\rebuild.ts`で`_manifest.json`+`bundled.generated.ts`再生成(116ファイル)。`tools\trans_daimon_lang.py`のLANGNAMEに'hi'追加済。**実測≈¥525**。**②規約/プライバシーhi**＝`app_website\src\pages\jlpt\hi\{privacy,terms}.astro`(EN全文→手訳Opus)＋`app_website\src\components\{JlptHeaderHi,JlptFooterHi}.astro`新規＋`src\config\legal.ts`の**LEGAL_LANGSに'hi'追加**(アプリが/jlpt/hi/privacy・/termsを開く=要アプリビルド)。`npx astro build`で/jlpt/hi/{privacy,terms}/生成確認(EXIT0)。hiランディング(index)は依頼外=未作成ゆえhiページのホーム/ナビは/jlpt/en/へ誘導。**③Excel⑥**＝`memory\在庫・模試ストックまとめ.xlsx`の`⑥ 翻訳状況`に hi 行追加(表①=17行目・表②=zh2直上)。検証＝**build.ps1の番人18本 全緑(EXIT0)・tsc --noEmit 0エラー・i18n parity緑**。※`tools\content\migrate_problems.test.ts`の2赤は**ビルドゲート対象外の既存stale**(解説廃止2026-09-02で陳腐化・今回と無関係)。**✅ビルド起動済（2026-09-13 夜・ユーザー「Buildして」指示）＝ v1.1.52(Build 2932)・both・commit 804badf0・run 34727723039・-NoWatch（監視しない運用）。** push で daimon hi content は OTA配信。番人71/0・tsc0。**次の一手＝(1) CI結果確認（緑なら iOS=TestFlight / Android=Play App C枠 へ提出済。失敗時 `gh run view 34727723039 --log-failed`）。(2) app_website を別途デプロイ → safa-lang.com/jlpt/hi/{privacy,terms}/ がライブ反映（hi規約ページ・app_websiteは別repo/別デプロイ）。** ※pwshで実行（`powershell`=5.1はbuild.ps1のhere-stringでパースエラー）。
 - **▶次の一手（2026-09-13 → ヒンディー語 UI＋辞書＋お知らせ 対応完了・未コミット）**＝母語にヒンディー語(hi)を追加。字体はネパール語(ne)と同じデーヴァナーガリーゆえフォント改修不要。**①UI**：`src\i18n\index.ts`(import/UI_LANGS/DICT)＋`src\i18n\parity.test.ts`(番人・全12言語)＋`src\plaza\countries.ts`(NATIVE_LANGSにhi=cc:IN＋COUNTRIESにインドIN)＋`tools\trans_i18n.py`(TARGETSにhi)＋**新規`src\i18n\hi.json`**(ja全1443キーをGemini翻訳・約¥25)。**②辞書**：`tools\trans_dict_lang.py`のLANG_NAMEにhi追加→`hi all --apply/--write`で**約10,352件**(意味4560/漢字語義1859/例文3524/文法例408)を`content\lexicon\*.json`のhiフィールド＋languages配列へ書込(Gemini・実費≈¥155)。幽霊`n3-v-1005`はne専用で他7言語も無し=hi欠けは整合(非表示)。**③お知らせ(掲示板)**：`src\plaza\announceClient.ts`(型にtitle_hi/body_hi＋pickAnnounceを母語カラム汎用に書換=今後の言語追加は無改修)＋`docs\supabase\announcements.sql`(hi列＋ALTER＋投稿テンプレ)。**ユーザーがSupabaseでALTER実行済**。**④OTA**：`tools\content\schema.ts`のLANGSにhi追加→`tools\content\rebuild.ts`で`content\_manifest.json`+`bundled.generated.ts`再生成(languagesにhi・辞書lexiconのsha256更新=OTA配信可)。検証=番人38テスト全緑＋i18n parity 22/22＋tsc --noEmit エラー0。**残り(未実施・別段)**＝(a)**大問対訳(問題文/選択肢の解説)のhi翻訳**＝未着手（[[daimon-trans-display-lang-levers]]の触り所`trans_daimon.py`/`trans_daimon_lang.py`・大規模・要ビルドOTA不可）。(b)`src\config\legal.ts`のLEGAL_LANGSはhi未追加＝**規約/プライバシーは英語にフォールバック**。規約HTMLは`www.safa-lang.com/jlpt/<lang>/`にホスト＝**このリポジトリ外**(置き場所は未確認)。hiページ作成後にLEGAL_LANGSへ'hi'追加で繋がる。**配信境界**＝辞書lexicon＝OTA(publish-content.ps1でビルド無し)／UI文字列(hi.json)＝要ビルド[[content-ota-vs-ui-build]]。**次の一手＝ユーザー指示でコミット→辞書はpublish-content(OTA)・UIは次ビルドに同梱。**
 - **▶次の一手（2026-09-12 夕 → 未コミット2件のビルド待ち）**＝今セッションで**紹介トリガーのバグ修正＋評価お願い間隔の変更**を実装（UI/ロジック＝OTA不可・次ビルドで実機反映・push/ビルドはユーザー明示指示待ち[[never-build-without-explicit-order]]）。未コミット：(1)`src\components\AfterStudyReward.tsx`＝適格学習日の判定を`scored>=60`→**`qualifying=true`**に（旧は「1セッションで新規60項目」で事実上到達不能だった＝練習は`SESSION_SIZE=10`問・`scored`=初回採点項目の累計差分。今は**ご褒美画面に到達したら問題数不問で当日アクティブ**・1日1回distinct。店/店2のコメントも更新＝`store.tsx`/`referral\trigger.ts`）。(2)`src\home\WeeklyLetter.tsx`＝`RATE_GAP_MS`を75日→**30日**（評価お願いの最短間隔・実ダイアログ頻度はOSが年数回に制御）。サーバー`referral-qualify`は無変更（14日内別々7日の再計算はそのまま整合）。i18n翻訳欠けは機械チェック済＝**穴なし**（全11言語・1443キー・キー欠け/幽霊/プレースホルダ/未翻訳コピー全て0。中国語のcat.*中点「・」は任意磨き込み）。関連=[[referral-program-design]]／[[pro-monetization-now-live]]。**次の一手＝ユーザー指示でコミット→次ビルドに同梱。**
 - **▶（完了）用法N3新300問＋対訳＝配信済み（2026-09-12）**＝用法N3 1200→1500問・**usage大問全2171問の10言語対訳を完備(未翻訳0)**。配信commit c35d5df8→81f6e945(対訳ズレ修正)→01f3be21(タグ)→a179689d(既存借金300翻訳)・全origin/main。番人緑・breadth70%。**残=一意性Excel(`一意性チェック_通常_N3.xlsx`🔴6/🟡151が新分)レビューのみ**。詳細=[[usage-n3-300-inflight]]。commit/build/publishは明示指示まで実行しない。
