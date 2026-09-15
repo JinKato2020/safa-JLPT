@@ -1462,5 +1462,9 @@
   "bug.failTitle": "Gagal mengirim",
   "bug.failMsg": "Mohon periksa koneksi internet Anda dan coba lagi.",
   "bug.report": "Laporan",
-  "bug.ok": "OK"
+  "bug.ok": "OK",
+  "bug.tooSoon": "Tidak bisa mengirim secara berurutan dalam interval singkat. Mohon tunggu sebentar lalu coba lagi.",
+  "bug.loginRequiredTitle": "Perlu login",
+  "bug.loginRequired": "Untuk mengirim laporan bug/masalah, Anda perlu login (untuk mencegah pengiriman spam secara berurutan).",
+  "bug.goLogin": "Login / Akun"
 }

@@ -2,7 +2,7 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶（要ユーザー操作／2026-09-16 実装完了）バグ報告機能＝Supabase SQL を貼って実行が残**＝アプリ内バグ報告フォームを新規実装（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→フォーム。即送信せず症状記入＋確認ダイアログ。未ログインでも送信可・連絡先は集めない）。**機能を有効化するには `docs\supabase\bug_reports.sql`（絶対パス：c:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\docs\supabase\bug_reports.sql）を Supabase の SQL Editor に貼って実行が必須**（テーブル`bug_reports`＋RPC`submit_bug_report`＋anon/authへgrant execute）。未実行の間は送信が「送信できませんでした」で安全に失敗。新規=BugReportScreen.tsx/bugReportClient.ts/bug_reports.sql、改=ExamHeader(onReport)+Quiz/Reading/PassageGrammar/Listening+ProfileScreen+App+types+i18n(ja/en/ne手書き→--fillで全11言語)。tsc0・parity緑。**commit/buildは明示指示まで実行しない**。
+- **▶（🔴SQL再実行が必須＋次ビルド待ち／2026-09-16）バグ報告機能**＝アプリ内バグ報告フォーム実装済。**基本版は v1.1.54(2934) で配信済**（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→症状記入＋確認ダイアログ→送信。連絡先は集めない）。レビュー後の強化を追加＝**(B)送信はログイン必須(anon実行禁止)＋(C)同一アカウント20秒の連投ガード**＋聴解の音声停止漏れ修正＋**管理ダッシュボードに「バグ報告」欄を最下部に追加**（dashboard.html・`bug_reports`をservice_roleで直接読む/新しい順500件）。**これらの強化は commit+push 済だが push は Pages配信のみ起動＝ネイティブは未ビルド。次のまとまったビルドで反映**（build-jlpt.yml: build-ios/android は workflow_dispatch 限定・pushでは走らない）。**🔴 サーバー関数を変更したので `bug_reports.sql`（c:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\docs\supabase\bug_reports.sql）を Supabase SQL Editor で再実行が必須**（未再実行だと旧仕様＝anon送信可・ガード無しのまま。create or replace で再実行安全）。届いた報告の確認＝Supabaseダッシュボード最下部「バグ報告」欄 or Table Editor `bug_reports`。将来=[[dashboard-future-paging-csv]]。commit/buildは明示指示まで実行しない。
 
 - **▶（次にやる／2026-09-16 決定）/clear 後にコードレビューでソース側を固める**＝`/code-review`（差分 or main ブランチ）を回し、ソースの論理バグ・null漏れ・翻訳漏れ・データ不整合を拾う。**Play リリース前レポート(ロボテスト)は今回は走らせない方針**（ユーザー判断：自分で触って問題ないので今は不要）。
   - 経緯/一次情報：リリース前レポートが1件も生成されていない原因＝**build-jlpt.yml の Android提出先トラック既定=`internal`**で、**build.ps1 が dispatch時に track を渡さない**（[tools/build.ps1:202](tools/build.ps1#L202)）＝**内部テストではロボテストが走らない**ため。走らせるなら `gh workflow run build-jlpt.yml -f platforms=android -f track=alpha` が必要。ただし**前回 alpha 2903(9/4) でもレポート未生成の謎が残る（原因未確認）**＝alphaに上げても空振りの可能性あり。commit/build は明示指示まで実行しない。
@@ -508,17 +508,16 @@
 - a3f41e1475e3c31cb general-purpose
 - a00df888ec67d5dc8 general-purpose
 - ac333d4514f04da09 general-purpose
-- abc567f3e00e80683 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/session-summary-LATEST.md
-- memory/handoff.md
 - src/i18n/zh2.json
 - src/i18n/hi.json
 - src/i18n/zh.json
 - src/i18n/vi.json
 - src/i18n/th.json
 - src/i18n/my.json
+- src/i18n/ko.json
+- src/i18n/id.json
 
-_自動更新: 2026-09-16 01:31_
+_自動更新: 2026-09-16 02:10_
 <!-- AUTO:END -->

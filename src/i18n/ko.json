@@ -1462,5 +1462,9 @@
   "bug.failTitle": "전송 실패",
   "bug.failMsg": "네트워크 환경을 확인하고 다시 시도해 주세요.",
   "bug.report": "보고",
-  "bug.ok": "OK"
+  "bug.ok": "OK",
+  "bug.tooSoon": "너무 짧은 간격으로 연속해서 보낼 수 없습니다. 잠시 기다린 후 다시 시도해 주세요.",
+  "bug.loginRequiredTitle": "로그인이 필요합니다",
+  "bug.loginRequired": "버그/오류 보고서를 보내려면 로그인이 필요합니다 (스팸 방지).",
+  "bug.goLogin": "로그인 / 계정"
 }

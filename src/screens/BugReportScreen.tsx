@@ -8,6 +8,7 @@ import { useNavigation, useRoute, type RouteProp } from '@react-navigation/nativ
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT, useUiLang } from '../i18n';
 import { useAppState } from '../store/store';
+import { useSync } from '../auth/SyncProvider';
 import { submitBugReport, type BugKind } from '../support/bugReportClient';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -21,6 +22,7 @@ export default function BugReportScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'BugReport'>>();
   const settings = useAppState().settings;
   const uiLang = useUiLang();
+  const { session } = useSync(); // (B) 送信はログイン必須＝未ログインならフォームを出さずログイン導線を出す
 
   const ctxItemId = route.params?.itemId;
   const ctxDaimon = route.params?.daimon;
@@ -35,11 +37,15 @@ export default function BugReportScreen() {
   const kindLabel = (k: BugKind) => t(k === 'bug' ? 'bug.kind_bug' : k === 'content' ? 'bug.kind_content' : 'bug.kind_other');
   const canSend = msg.trim().length > 0 && !busy;
 
+  const goLogin = () => (nav.navigate as (n: string) => void)('Account');
+
   const doSend = async () => {
     setBusy(true);
-    const ok = await submitBugReport({ message: msg, kind, level, uiLang, itemId: ctxItemId, daimon: ctxDaimon, screen: ctxScreen });
+    const r = await submitBugReport({ message: msg, kind, level, uiLang, itemId: ctxItemId, daimon: ctxDaimon, screen: ctxScreen });
     setBusy(false);
-    if (ok) Alert.alert(t('bug.thanksTitle'), t('bug.thanksMsg'), [{ text: t('bug.ok'), onPress: () => nav.goBack() }]);
+    if (r === 'ok') Alert.alert(t('bug.thanksTitle'), t('bug.thanksMsg'), [{ text: t('bug.ok'), onPress: () => nav.goBack() }]);
+    else if (r === 'too_soon') Alert.alert(t('bug.failTitle'), t('bug.tooSoon'));           // (C) 連投ガード
+    else if (r === 'need_login') Alert.alert(t('bug.loginRequiredTitle'), t('bug.loginRequired')); // (B) ログイン切れ等
     else Alert.alert(t('bug.failTitle'), t('bug.failMsg'));
   };
 
@@ -60,6 +66,14 @@ export default function BugReportScreen() {
       </View>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
+          {!session ? (
+            /* (B) 未ログイン=フォームを出さず、ログインへ誘導(迷惑な連続送信を防ぐため送信はログイン必須)。 */
+            <View style={s.loginBox}>
+              <Text style={s.intro}>{t('bug.loginRequired')}</Text>
+              <Pressable onPress={goLogin} style={s.sendBtn}><Text style={s.sendTxt}>{t('bug.goLogin')}</Text></Pressable>
+            </View>
+          ) : (
+          <>
           <Text style={s.intro}>{t('bug.intro')}</Text>
 
           {/* 問題から来た時=対象の問題を添付表示(読み取り専用)。 */}
@@ -96,6 +110,8 @@ export default function BugReportScreen() {
           <Pressable onPress={onSendPress} disabled={!canSend} style={[s.sendBtn, !canSend && s.sendBtnOff]}>
             {busy ? <ActivityIndicator color="#fff" /> : <Text style={s.sendTxt}>{t('bug.send')}</Text>}
           </Pressable>
+          </>
+          )}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -110,6 +126,7 @@ const makeStyles = (c: ThemeColors) =>
     x: { fontSize: 26, lineHeight: 28, color: c.mute, fontWeight: '700' },
     body: { padding: spacing.lg, paddingTop: spacing.xs, gap: spacing.sm, paddingBottom: spacing.xl },
     intro: { fontSize: ty.body, color: c.ink2, lineHeight: 22, marginBottom: spacing.xs },
+    loginBox: { gap: spacing.md, paddingTop: spacing.md },
 
     ctxBox: { backgroundColor: c.blueLight, borderRadius: radius.md, padding: spacing.md, gap: 4 },
     ctxLabel: { fontSize: ty.small, fontWeight: '800', color: c.blueDark },

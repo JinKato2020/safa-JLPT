@@ -204,6 +204,12 @@
     <div class="scroll"><table id="tFriends"></table></div>
   </section>
 
+  <section>
+    <h2>バグ・不具合の報告 <span class="note">アプリ内フォーム（設定タブ／各問題画面の⚠報告）から届いた報告。<b>新しい順</b>。種類＝<b>問題の間違い</b>／<b>アプリ不具合</b>／その他。付随情報（版・OS・級・問題ID・大問・画面）は送信時に自動付与。<b>送信はログイン必須</b>＝身元はアカウントで分かる。最大500件（超過分はSupabaseに残り、SQLで取り出せる）</span>
+      <span class="count" id="bugCount"></span></h2>
+    <div class="scroll"><table id="tBugs"></table></div>
+  </section>
+
 </main>
 
 <div id="modal" class="modal-bg" style="display:none"><div class="modal" id="modalBox"></div></div>
@@ -236,6 +242,41 @@ async function api(url, key, view){
   if(!res.ok){ throw new Error(`${view}: HTTP ${res.status}\n${await res.text()}`); }
   return res.json();
 }
+// select/order/limit などのクエリを自分で付けて叩く版（bug_reports を新しい順・上限つきで直接読む用）。
+async function apiRaw(url, key, path){
+  const res = await fetch(`${url}/rest/v1/${path}`, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
+  if(!res.ok){ throw new Error(`${path}: HTTP ${res.status}\n${await res.text()}`); }
+  return res.json();
+}
+
+// バグ・不具合の報告表。context(jsonb) から付随情報を展開。行数は取得側で新しい順500件に制限済み＝常に軽い。
+const BUG_KIND_LABEL = { bug:'アプリ不具合', content:'問題の間違い', other:'その他' };
+function renderBugs(rows){
+  rows = rows || [];
+  $('bugCount').textContent = rows.length ? `（${rows.length}件${rows.length>=500?'＝上限・古い分はSQLで':''}）` : '（0件）';
+  const el = $('tBugs');
+  if(!rows.length){ el.innerHTML = '<tr><td class="empty">まだ報告はありません。</td></tr>'; return; }
+  const head = '<tr><th>日時</th><th>種類</th><th>内容</th><th>級</th><th>問題ID</th><th>大問</th><th>画面</th><th>版</th><th>端末</th><th>母語</th><th>身元</th></tr>';
+  const body = rows.map(r => {
+    const cx = (r && typeof r.context==='object' && r.context) ? r.context : {};
+    const kind = BUG_KIND_LABEL[r.kind] || r.kind || '—';
+    const who = r.account_id ? String(r.account_id).slice(0,8) : (cx.anon ? '旧匿名 '+String(cx.anon).slice(0,8) : '—');
+    return '<tr class="row">'
+      + `<td>${fmtDateTime(r.created_at)}</td>`
+      + `<td>${esc(kind)}</td>`
+      + `<td style="white-space:normal;min-width:260px;max-width:560px">${esc(r.message)}</td>`
+      + `<td>${esc(cx.level||'—')}</td>`
+      + `<td class="mono">${esc(cx.itemId||'—')}</td>`
+      + `<td>${esc(cx.daimon||'—')}</td>`
+      + `<td>${esc(cx.screen||'—')}</td>`
+      + `<td>${esc(cx.app||'—')}</td>`
+      + `<td>${esc(cx.platform||'—')}</td>`
+      + `<td>${esc(cx.uiLang||'—')}</td>`
+      + `<td class="mono">${esc(who)}</td>`
+      + '</tr>';
+  }).join('');
+  el.innerHTML = head + body;
+}
 
 async function loadAll(){
   const url = $('url').value.trim().replace(/\/+$/,'');
@@ -254,6 +295,9 @@ async function loadAll(){
       api(url,key,'v_admin_devices'),
     ]);
     renderSummary(summary[0]||{});
+    // バグ・不具合の報告（service_role で bug_reports 表を直接読む・新しい順500件。未作成でも他は壊さない）
+    try { renderBugs(await apiRaw(url,key,'bug_reports?select=*&order=created_at.desc&limit=500')); }
+    catch(e){ $('tBugs').innerHTML = `<tr><td class="empty">bug_reports テーブルが未作成です。docs/supabase/bug_reports.sql を SQL Editor で実行してください。</td></tr>`; }
     // 国別（接続国＋定着率）を1表に。定着率ビュー未作成でも接続国だけは出す。
     let retGeo = [];
     try { retGeo = await api(url,key,'v_admin_retention_geo') || []; } catch(e){ retGeo = []; }

@@ -1462,5 +1462,9 @@
   "bug.failTitle": "Không thể gửi",
   "bug.failMsg": "Vui lòng kiểm tra kết nối mạng và thử lại.",
   "bug.report": "Báo cáo",
-  "bug.ok": "OK"
+  "bug.ok": "OK",
+  "bug.tooSoon": "Không thể gửi liên tiếp trong thời gian ngắn. Vui lòng đợi một lát và thử lại.",
+  "bug.loginRequiredTitle": "Cần đăng nhập",
+  "bug.loginRequired": "Cần đăng nhập để gửi báo cáo lỗi/sự cố (để tránh gửi liên tục gây phiền nhiễu).",
+  "bug.goLogin": "Đăng nhập / Tài khoản"
 }

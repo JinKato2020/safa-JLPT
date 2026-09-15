@@ -1462,5 +1462,9 @@
   "bug.failTitle": "发送失败",
   "bug.failMsg": "请检查网络连接，然后重试。",
   "bug.report": "报告",
-  "bug.ok": "OK"
+  "bug.ok": "OK",
+  "bug.tooSoon": "请勿频繁发送。请稍候片刻再试。",
+  "bug.loginRequiredTitle": "需要登录",
+  "bug.loginRequired": "发送Bug/问题报告需要登录（以防止垃圾信息）。",
+  "bug.goLogin": "登录 / 账户"
 }

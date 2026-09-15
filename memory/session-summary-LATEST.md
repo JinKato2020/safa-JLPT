@@ -1,14 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- 往復 116 回
+- ツール呼び出し 15 回・29 ターン
+- 往復 208 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
 - src/i18n/zh2.json
 - src/i18n/hi.json
 - src/i18n/zh.json
+- src/i18n/vi.json
 
 ## 次の一手
 - **▶（要ユーザー操作／2026-09-16 実装完了）バグ報告機能＝Supabase SQL を貼って実行が残**＝アプリ内バグ報告フォームを新規実装（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→フォーム。即送信せず症状記入＋確認ダイアログ。未ログインでも送信可・連絡先は集めない）。**機能を有効化するには `docs\supabase\bug_reports.sql`（絶対パス：c:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\docs\supabase\bug_reports.sql）を Supabase の SQL Editor に貼って実行が必須**（テーブル`bug_reports`＋RPC`submit_bug_report`＋anon/authへgrant execute）。未実行の間は送信が「送信できませんでした」で安全に失敗。新規=BugReportScreen.tsx/bugReportClient.ts/bug_reports.sql、改=ExamHeader(onReport)+Quiz/Reading/PassageGrammar/Listening+ProfileScreen+App+types+i18n(ja/en/ne手書き→--fillで全11言語)。tsc0・parity緑。**commit/buildは明示指示まで実行しない**。

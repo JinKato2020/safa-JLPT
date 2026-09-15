@@ -1462,5 +1462,9 @@
   "bug.failTitle": "傳送失敗",
   "bug.failMsg": "請檢查網路連線，然後重試。",
   "bug.report": "報告",
-  "bug.ok": "OK"
+  "bug.ok": "OK",
+  "bug.tooSoon": "請勿頻繁傳送。請稍候片刻再試。",
+  "bug.loginRequiredTitle": "需要登入",
+  "bug.loginRequired": "傳送Bug/問題報告需要登入（以防止垃圾資訊）。",
+  "bug.goLogin": "登入 / 賬戶"
 }
