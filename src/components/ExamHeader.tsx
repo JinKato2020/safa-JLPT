@@ -9,7 +9,8 @@ import { spacing, type as ty, useColors, type ThemeColors } from '../theme';
 
 // count=分数文字列("3 / 10" 等) / id=問題ID。どちらも無い画面では省略可(存在すれば必ず同じ位置に出る)。
 // onPressId=問題IDをタップした時の処理(開発用のID選択を開く等)。渡された時だけIDが押せる見た目になる。
-export default function ExamHeader({ title, count, id, onClose, onPressId }: { title?: string; count?: string; id?: string; onClose: () => void; onPressId?: () => void }) {
+// onReport=右端の⚠報告ボタン(この問題のバグ報告フォームを開く)。渡された時だけ表示。reportA11y=読み上げラベル。
+export default function ExamHeader({ title, count, id, onClose, onPressId, onReport, reportA11y }: { title?: string; count?: string; id?: string; onClose: () => void; onPressId?: () => void; onReport?: () => void; reportA11y?: string }) {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   return (
@@ -30,7 +31,14 @@ export default function ExamHeader({ title, count, id, onClose, onPressId }: { t
             : <Text style={s.sub} numberOfLines={1}>{id}</Text>
         ) : null}
       </View>
-      <View style={s.side} />
+      {/* 右端: ⚠報告(この問題のバグ報告を開く)。渡されない画面では対称のための余白のまま。 */}
+      {onReport ? (
+        <Pressable onPress={onReport} hitSlop={10} style={[s.side, s.reportSide]} accessibilityLabel={reportA11y}>
+          <Text style={s.report}>⚠</Text>
+        </Pressable>
+      ) : (
+        <View style={s.side} />
+      )}
     </View>
   );
 }
@@ -49,4 +57,7 @@ const makeStyles = (c: ThemeColors) =>
     sub: { textAlign: 'center', fontSize: ty.tiny, color: c.faint, fontWeight: '700', marginTop: 1 },
     // 開発用にタップ可能な時: 押せると分かるよう色を強め下線を付ける。
     subTap: { color: c.blue, textDecorationLine: 'underline' },
+    // 右端の⚠報告: 右寄せ。閉じる✕(左)と対称の位置。
+    reportSide: { alignItems: 'flex-end' },
+    report: { fontSize: ty.body, color: c.mute },
   });

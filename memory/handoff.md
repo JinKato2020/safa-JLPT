@@ -2,7 +2,16 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶（起動中）ヒンディー語hi 母語対応ビルド（2026-09-13 承認・-Approved -NoWatch）**＝`UI_LANGS`に`hi`は入っていた(index.ts:32・commit 804badf0)が、母語ピッカー=UI=ビルド配信のため未ビルドでアプリに出ていなかった。iOS+Android同時でビルド起動。**run ID / Build番号 = 起動後にここへ追記**。TestFlight/Play配信待ち・監視しない運用。次=配信後にアプリで母語にヒンディー語が出るか確認。
+- **▶（要ユーザー操作／2026-09-16 実装完了）バグ報告機能＝Supabase SQL を貼って実行が残**＝アプリ内バグ報告フォームを新規実装（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→フォーム。即送信せず症状記入＋確認ダイアログ。未ログインでも送信可・連絡先は集めない）。**機能を有効化するには `docs\supabase\bug_reports.sql`（絶対パス：c:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\docs\supabase\bug_reports.sql）を Supabase の SQL Editor に貼って実行が必須**（テーブル`bug_reports`＋RPC`submit_bug_report`＋anon/authへgrant execute）。未実行の間は送信が「送信できませんでした」で安全に失敗。新規=BugReportScreen.tsx/bugReportClient.ts/bug_reports.sql、改=ExamHeader(onReport)+Quiz/Reading/PassageGrammar/Listening+ProfileScreen+App+types+i18n(ja/en/ne手書き→--fillで全11言語)。tsc0・parity緑。**commit/buildは明示指示まで実行しない**。
+
+- **▶（次にやる／2026-09-16 決定）/clear 後にコードレビューでソース側を固める**＝`/code-review`（差分 or main ブランチ）を回し、ソースの論理バグ・null漏れ・翻訳漏れ・データ不整合を拾う。**Play リリース前レポート(ロボテスト)は今回は走らせない方針**（ユーザー判断：自分で触って問題ないので今は不要）。
+  - 経緯/一次情報：リリース前レポートが1件も生成されていない原因＝**build-jlpt.yml の Android提出先トラック既定=`internal`**で、**build.ps1 が dispatch時に track を渡さない**（[tools/build.ps1:202](tools/build.ps1#L202)）＝**内部テストではロボテストが走らない**ため。走らせるなら `gh workflow run build-jlpt.yml -f platforms=android -f track=alpha` が必要。ただし**前回 alpha 2903(9/4) でもレポート未生成の謎が残る（原因未確認）**＝alphaに上げても空振りの可能性あり。commit/build は明示指示まで実行しない。
+
+- **▶（次にやる）Android=Google Play Console で業務用連絡先の住所登録**＝iOS(App Store Connect)側のDSA(デジタルサービス法)トレーダー情報は**業務用連絡先で登録済・審査中(2026-09-14提出/更新)**。氏名確認書類・住所確認書類も提出済。**次はPlay側で同じ"公開される"連絡先を登録**する。使う値＝新宿バーチャル住所(〒160-0022 東京都新宿区新宿2丁目8番15号 パークフロント新宿202号室)/電話050-1720-1914/メールcontact@safa-lang.com＝メモリ`[[safa-business-contact]]`。**Play ConsoleのDSA/デベロッパー連絡先(公開)や販売者情報の該当画面を一次情報で確認してから進める**(自宅/私用を公開欄に入れない)。※Androidアプリ枠はApp C(com.safa.english)へ上書き運用＝`[[android-appc-closedtest]]`。
+- **▶（保留・未完）TestFlightで友人をテスターに配信**＝目的=友人に使ってもらう。**外部テストのグループが未作成**(内部テストのInternalのみ在り)。方針=A案「外部テスト＝公開リンク」推奨(友人に権限を渡さない・初回ベータ審査1回≈1日)。B案「内部テスト」は審査ゼロだが友人をユーザとアクセスに追加=ASCアクセス権を渡す(最小役割Customer Support+対象アプリ限定+終了後に削除)。B案の友人=赤沼さとる akanuma1973@yahoo.co.jp をCustomer Supportで招待しかけて中断。暗号化ITSAppUsesNonExemptEncryption=false設定済(app.json:33)で外部審査はスムーズ。配布したいビルド=1.1.53(2933)。手順詳細は本セッションのやりとり参照。
+
+- **▶（起動中）ヒンディー語hi 母語対応ビルド（2026-09-13 承認・-Approved -NoWatch）**＝`UI_LANGS`に`hi`は入っていた(index.ts:32・commit 804badf0)が、母語ピッカー=UI=ビルド配信のため未ビルドでアプリに出ていなかった。iOS+Android同時でビルド起動＝**v1.1.53(2933)・run 34737485892**（https://github.com/JinKato2020/safa-JLPT/actions/runs/34737485892 ）・commit 5835b9d5。TestFlight/Play配信待ち・監視しない運用（-NoWatch）。次=配信後にアプリで母語にヒンディー語が出るか確認。
+  - **（完了 2026-09-13）hi版SNS画像2枚をローカル撮影で作成**＝`画像\SNS\1\hi\AICoach_passing_N4_HI.png`(N4 103点)／`AICoach_beginner_N5_HI.png`(N5 53点)。**「これまでと同じ方法」＝web版アプリをhi UIで実描画→puppeteer撮影**（`tools\sns\shoot.mjs` + seed `passing.json`/`beginner.json`・`?snsdemo=1&lang=hi`）。手順＝①`CI=1 BROWSER=none npx expo start --web --port 8081`起動→②`node tools\sns\shoot.mjs hi`。**注意＝1枚目(beginner)は初回バンドル遅延で全黒失敗→バンドル温まった後に`shoot.mjs hi beginner`で撮り直すと成功**（今後hi再撮時も1枚目は捨て or 個別再撮）。shoot.mjsのLANGS配列にhiは未追加（引数指定で撮った）。他言語と同一体裁・デーヴァナーガリー正常描画を検品済。
 
 - **▶次の一手（2026-09-13 夜 → ヒンディー語 残2件 完了・Build準備OK・未コミット）**＝前回の続き(UI/辞書/お知らせ/OTAは下の行で完了済)に加え、今回で**残り2件を完了**：**①大問対訳hi**＝全14大問 47,755ユニット(136万字)をGemini2.5-flashで翻訳→`--write`で content の i18n[hi] へ全書込(未訳スキップ0)→`tools\content\rebuild.ts`で`_manifest.json`+`bundled.generated.ts`再生成(116ファイル)。`tools\trans_daimon_lang.py`のLANGNAMEに'hi'追加済。**実測≈¥525**。**②規約/プライバシーhi**＝`app_website\src\pages\jlpt\hi\{privacy,terms}.astro`(EN全文→手訳Opus)＋`app_website\src\components\{JlptHeaderHi,JlptFooterHi}.astro`新規＋`src\config\legal.ts`の**LEGAL_LANGSに'hi'追加**(アプリが/jlpt/hi/privacy・/termsを開く=要アプリビルド)。`npx astro build`で/jlpt/hi/{privacy,terms}/生成確認(EXIT0)。hiランディング(index)は依頼外=未作成ゆえhiページのホーム/ナビは/jlpt/en/へ誘導。**③Excel⑥**＝`memory\在庫・模試ストックまとめ.xlsx`の`⑥ 翻訳状況`に hi 行追加(表①=17行目・表②=zh2直上)。検証＝**build.ps1の番人18本 全緑(EXIT0)・tsc --noEmit 0エラー・i18n parity緑**。※`tools\content\migrate_problems.test.ts`の2赤は**ビルドゲート対象外の既存stale**(解説廃止2026-09-02で陳腐化・今回と無関係)。**✅ビルド起動済（2026-09-13 夜・ユーザー「Buildして」指示）＝ v1.1.52(Build 2932)・both・commit 804badf0・run 34727723039・-NoWatch（監視しない運用）。** push で daimon hi content は OTA配信。番人71/0・tsc0。**次の一手＝(1) CI結果確認（緑なら iOS=TestFlight / Android=Play App C枠 へ提出済。失敗時 `gh run view 34727723039 --log-failed`）。(2) app_website を別途デプロイ → safa-lang.com/jlpt/hi/{privacy,terms}/ がライブ反映（hi規約ページ・app_websiteは別repo/別デプロイ）。** ※pwshで実行（`powershell`=5.1はbuild.ps1のhere-stringでパースエラー）。
 - **▶次の一手（2026-09-13 → ヒンディー語 UI＋辞書＋お知らせ 対応完了・未コミット）**＝母語にヒンディー語(hi)を追加。字体はネパール語(ne)と同じデーヴァナーガリーゆえフォント改修不要。**①UI**：`src\i18n\index.ts`(import/UI_LANGS/DICT)＋`src\i18n\parity.test.ts`(番人・全12言語)＋`src\plaza\countries.ts`(NATIVE_LANGSにhi=cc:IN＋COUNTRIESにインドIN)＋`tools\trans_i18n.py`(TARGETSにhi)＋**新規`src\i18n\hi.json`**(ja全1443キーをGemini翻訳・約¥25)。**②辞書**：`tools\trans_dict_lang.py`のLANG_NAMEにhi追加→`hi all --apply/--write`で**約10,352件**(意味4560/漢字語義1859/例文3524/文法例408)を`content\lexicon\*.json`のhiフィールド＋languages配列へ書込(Gemini・実費≈¥155)。幽霊`n3-v-1005`はne専用で他7言語も無し=hi欠けは整合(非表示)。**③お知らせ(掲示板)**：`src\plaza\announceClient.ts`(型にtitle_hi/body_hi＋pickAnnounceを母語カラム汎用に書換=今後の言語追加は無改修)＋`docs\supabase\announcements.sql`(hi列＋ALTER＋投稿テンプレ)。**ユーザーがSupabaseでALTER実行済**。**④OTA**：`tools\content\schema.ts`のLANGSにhi追加→`tools\content\rebuild.ts`で`content\_manifest.json`+`bundled.generated.ts`再生成(languagesにhi・辞書lexiconのsha256更新=OTA配信可)。検証=番人38テスト全緑＋i18n parity 22/22＋tsc --noEmit エラー0。**残り(未実施・別段)**＝(a)**大問対訳(問題文/選択肢の解説)のhi翻訳**＝未着手（[[daimon-trans-display-lang-levers]]の触り所`trans_daimon.py`/`trans_daimon_lang.py`・大規模・要ビルドOTA不可）。(b)`src\config\legal.ts`のLEGAL_LANGSはhi未追加＝**規約/プライバシーは英語にフォールバック**。規約HTMLは`www.safa-lang.com/jlpt/<lang>/`にホスト＝**このリポジトリ外**(置き場所は未確認)。hiページ作成後にLEGAL_LANGSへ'hi'追加で繋がる。**配信境界**＝辞書lexicon＝OTA(publish-content.ps1でビルド無し)／UI文字列(hi.json)＝要ビルド[[content-ota-vs-ui-build]]。**次の一手＝ユーザー指示でコミット→辞書はpublish-content(OTA)・UIは次ビルドに同梱。**
@@ -499,16 +508,17 @@
 - a3f41e1475e3c31cb general-purpose
 - a00df888ec67d5dc8 general-purpose
 - ac333d4514f04da09 general-purpose
+- abc567f3e00e80683 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
 - src/i18n/zh2.json
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
-- memory/在庫問題数.txt
-- memory/在庫・模試ストックまとめ.xlsx
+- src/i18n/hi.json
+- src/i18n/zh.json
+- src/i18n/vi.json
+- src/i18n/th.json
+- src/i18n/my.json
 
-_自動更新: 2026-09-13 13:13_
+_自動更新: 2026-09-16 01:31_
 <!-- AUTO:END -->

@@ -97,7 +97,7 @@ export default function PassageGrammarScreen() {
 
   return (
     <SafeAreaView style={s.c}>
-      <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} />
+      <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: set.id, level: state.settings.level, daimon: route.params?.title, screen: 'PassageGrammar' })} reportA11y={t('bug.report')} />
       {devTools ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={set.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
       <PassageSetPlayer key={set.id} set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
     </SafeAreaView>

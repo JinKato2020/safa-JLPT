@@ -243,7 +243,7 @@ export default function QuizScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={title} id={question.idLabel ?? question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} onPressId={canDevPick ? () => setPickerOpen(true) : undefined} />
+        <ExamHeader title={title} id={question.idLabel ?? question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} onPressId={canDevPick ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: question.itemId ?? answerId, level: settings.level, daimon: title, screen: 'Quiz' })} reportA11y={t('bug.report')} />
         {canDevPick ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={(question.itemId ?? answerId) as string} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
 
         <View style={s.promptCard}>

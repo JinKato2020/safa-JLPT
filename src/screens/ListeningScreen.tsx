@@ -263,7 +263,7 @@ export default function ListeningScreen() {
   return (
     <SafeAreaView style={s.c}>
       <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={route.params?.title} id={step?.clip.id} onClose={async () => { await stopSound(); nav.goBack(); }} count={`${idx + 1} / ${steps.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} />
+        <ExamHeader title={route.params?.title} id={step?.clip.id} onClose={async () => { await stopSound(); nav.goBack(); }} count={`${idx + 1} / ${steps.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: step?.clip.id, level: state.settings.level, daimon: route.params?.title, screen: 'Listening' })} reportA11y={t('bug.report')} />
         {devTools ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={step?.clip.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
 
         <View style={s.clipCard}>

@@ -38,6 +38,9 @@ export type RootStackParamList = {
   WordDrill: { kind: 'vProduce' | 'gBuild' | 'gMeaning' | 'vMeaning' | 'vReading' | 'vWriting' | 'mixed'; level?: 'N5' | 'N4' | 'N3' }; // 単語タブ新形式(意味から単語/文をつくる/意味を選ぶ/語彙の意味認識/読み認識/表記認識(かたち)/今日のオススメ=横断)
   PosterList: undefined; // ポスター朗読のテーマ選択(単語タブ→語彙カード「ポスター朗読」から)
   PosterAudio: { lessonId?: string } | undefined; // ポスター朗読(画像＋カードをハイライトしながら母語→日本語で連続再生)
+  // バグ・不具合の報告フォーム。入口=設定タブ「サポート・規約」/ 各問題画面ヘッダーの⚠報告。
+  // 問題画面から開いた時だけ itemId/level/daimon/screen が入り、対象の問題を添付して送る。
+  BugReport: { itemId?: string; level?: string; daimon?: string; screen?: string } | undefined;
 };
 
 export type Kubun = 'kanji' | 'vocab' | 'grammar';

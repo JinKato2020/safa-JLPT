@@ -255,6 +255,12 @@ export default function ProfileScreen() {
             <Text style={s.linkTxt}>{t('profile.rateApp')}</Text>
             <Text style={s.chev}>›</Text>
           </Pressable>
+          {/* バグ・不具合の報告(アプリ内フォーム→Supabase)。即送信せず症状を書いてもらう画面へ。 */}
+          <View style={s.linkDiv} />
+          <Pressable style={s.linkRow} onPress={() => nav.navigate('BugReport')}>
+            <Text style={s.linkTxt}>{t('profile.reportBug')}</Text>
+            <Text style={s.chev}>›</Text>
+          </Pressable>
           {/* プライバシーポリシー/利用規約=本番URL(各言語)をブラウザで開く。アプリ内本文は持たない(内容が実態と乖離しないよう一元管理)。 */}
           <View style={s.linkDiv} />
           <Pressable style={s.linkRow} onPress={() => Linking.openURL(legalUrl('privacy', uiLang))}>
