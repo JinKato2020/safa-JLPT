@@ -279,11 +279,17 @@ function buildExam(levels: Level[], full: boolean, jft: boolean, seen: Seen): Mo
   // 各大問を順に組み立て、先に使った語は後の大問でスキップ(プール自体は大問間で重複可・別回で再利用可)。
   const usedWords = new Set<string>();
   // 知識区分: JLPT=大問別(漢字読み/表記/文脈規定/言い換え/用法/文法形式/組み立て/文章の文法)、JFT=区分2つ。
-  // passage_grammar(大問⑧)はセット形式で別途扱う(BANKからは除外済=Task 5)。daimonCountsからは除いてknowledgeForDaimonに渡さない。
+  // 【意図的な例外・永久ルール mock-cross-daimon-no-word-reuse の例外】
+  //   大問横断の語ユニーク化(usedWords)には、単発問題の大問①〜⑦のみが参加する。
+  //   passage_grammar(大問⑧「文章の文法」)は "文章まるごと" のセット形式で専用プールから丸ごと出題するため、
+  //   語単位で弾くと文章が崩れる/出題数が足りなくなる。よって usedWords には参加させない(＝daimonCounts から
+  //   passage_grammar を除外し、passageGrammarItems には usedWords を渡さない)。この例外により、同一模試内で
+  //   ⑧と①〜⑦の間で文法語が重なりうるのは許容する。番人=src/mock/passageGrammarDedupException.test.ts が
+  //   この除外マーカーを固定(将来うっかり参加/除外解除されたら失敗し、この判断を読み直させる)。
   const knowledge = jft
     ? [...jftKnowledgeItems(levels, 'moji_goi', bp.moji_goi, seen, usedWords), ...jftKnowledgeItems(levels, 'bunpou', bp.bunpou, seen, usedWords)]
     : daimonCounts(levels[0], full).filter((d) => d.daimon !== 'passage_grammar').flatMap((d) => knowledgeForDaimon(levels, d.daimon, d.count, seen, usedWords));
-  const passageGrammar = jft ? [] : passageGrammarItems(levels, seen); // JFTにJLPTの文章の文法は無い
+  const passageGrammar = jft ? [] : passageGrammarItems(levels, seen); // JFTにJLPTの文章の文法は無い。⑧はusedWords不参加(上記の意図的な例外)
   // JLPT=本番の小区分構成どおりに読解/聴解を組む(短文/中文/長文/情報検索・課題/ポイント/概要/発話/即時)。JFTは従来の予約枠。
   const reading = jft ? readingSetItems(levels, bp.dokkai, seen) : readingByBlueprint(levels, levels[0], full, seen);
   const listening = jft ? listeningItems(levels, bp.choukai, seen) : listeningByBlueprint(levels, levels[0], full, seen);
