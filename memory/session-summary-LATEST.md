@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 2 回・7 ターン
-- 往復 131 回
+- ツール呼び出し 9 回・27 ターン
+- 往復 168 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/session-summary-LATEST.md
-- docs/supabase/schema.sql
-- src/support/bugReportClient.ts
-- docs/supabase/bug_reports.sql
+- src/i18n/zh2.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
 
 ## 次の一手
 - **▶（2026-09-16 コードレビュー→①〜⑤すべて修正済・未コミット／要SQL再実行＋再ビルド）公開前の `/code-review`（範囲 747de076..HEAD）で同期2件＋軽微3件を確定・全修正**：
@@ -19,7 +19,8 @@
   - **④【修正済・要SQL】** バグ報告のエラー種別を例外文字列一致で判定→SQLに明示SQLSTATE(`PT401`/`PT429`/`PT400`)、クライアントは `error.code` 優先判定(文字列一致は保険)。**🔴 `docs\supabase\bug_reports.sql` を再実行が必要**(errcode追加のため。前回実行済でも再実行を)。
   - **⑤【修正済・要SQL】** `bug_reports` に `(account_id, created_at desc)` 複合索引を追加(連投ガードの走査を軽く)。↑④と同じ bug_reports.sql 再実行に含まれる。
   - 検証：tsc 0・関連テスト 12/12緑。**未コミット。**
-  - **SQL反映状況(2026-09-16)：✅②④⑤すべてユーザー実行済＝サーバー側反映完了。** `bug_reports.sql`(④⑤)＝実行OK。`schema.sql`(②RPC)＝最初 policy 42710 で失敗→user_state ポリシーを drop→create で冪等化して修正、ユーザーは RPC 単体ブロックを実行OK(=`push_user_state` デプロイ済・サーバー側LWWガード有効)。**残る作業＝①〜⑤の未コミット分をコミットして1回で再ビルド(ユーザーの明示Go待ち)。build/commitは明示指示まで実行しない。**
+  - **SQL反映状況(2026-09-16)：✅②④⑤すべてユーザー実行済＝サーバー側反映完了。** `bug_reports.sql`(④⑤)＝実行OK。`schema.sql`(②RPC)＝最初 policy 42710 で失敗→user_state ポリシーを drop→create で冪等化して修正、ユーザーは RPC 単体ブロックを実行OK(=`push_user_state` デプロイ済・サーバー側LWWガード有効)。
+  - **✅ビルド済(2026-09-16 ユーザー「ビルド」指示)＝commit `3ec3230e`／v1.1.56(Build 2941)・both・run 35070999045・-NoWatch。** 版数上げはHEADにコミット済(app.json=1.1.56・ahead=0で確認)＝CIは正しく1.1.56をビルド。①〜⑤すべてこのビルドで実機反映。**次＝CI緑確認(失敗時 `gh run view 35070999045 --log-failed`)。公開判断はDSA審査/Play連絡先登録の残務(下の行)を片付けてから別途Goで。**
 - **▶（2026-09-16 全体レビュー＝コミット待ち）同期データ消失バグを修正**＝多端末で「勉強していない端末を開いただけ」で updatedAt が進み、実際に学習した端末をLWWで上書き→クラウド進捗が消える不具合を修正。updatedAt を `reducer` で「本当のデータ変更のときだけ」刻む（`NO_STAMP` で起動時/サーバー由来 housekeeping を除外）／保存は `saveState(state)`／push も `Date.now()` 上書き廃止。回帰テスト＝`src/store/updatedAt.test.ts`。あわせて古いテスト2本（`tools/content/migrate_problems.test.ts`＝解説2026-09-02廃止の取り残し）を現仕様へ修正。詳細＝[[sync-updatedat-only-on-real-change]]。**commit `a43379c0`／⑧例外 `5e09af66`＝両方 push 済(origin/main)**。／深掘り(selectors/MockScreen)＝重大バグ無し。⑧「文章の文法」が模試の語ユニーク化(usedWords)不参加はB案（意図的例外として明文化＋番人固定）確定＝`MockScreen.tsx`コメント強化＋番人`src/mock/passageGrammarDedupException.test.ts`。／保守リスク対応：**usedWords順序依存の出題数不足＝修正済**（`knowledgeForDaimon`に spill 穴埋め＝本番出題数に届かない時だけ既使用語を再利用・問題数が本番より減らない）。予想得点の0.25縁ケース＝**不具合でない**(未着手0.25は意図仕様・全問未着手と同挙動)ので変更せず。buildExamのマウント時同期実行＝未計測ゆえ大改修は見送り(下の切り出しでRisk1は安全着手可に)。／★**模試組み立ての切り出し完了**＝`buildExam`/`knowledgeForDaimon`等を画面(MockScreen.tsx)から純ロジック`src/mock/buildExam.ts`へ移設(挙動不変・verbatim)。MockItem/Sec/Seen型もそこへ。これで node 直接テスト可＝挙動テスト`src/mock/buildExam.test.ts`(spill穴埋め・ユニーク化・生成スモーク)追加、⑧例外の番人はbuildExam.tsを参照するよう更新。**tsc 0・全531本パス。****build/publish は明示指示まで実行しない。**
 - **▶（✅SQL再実行 済／✅ビルド起動済 v1.1.55(2940)・run 35057466645／2026-09-16）バグ報告機能**＝強化分(ログイン必須+20秒連投ガード+ダッシュボード欄)はこのビルドで実機反映。／アプリ内バグ報告フォーム実装済。**基本版は v1.1.54(2934) で配信済**（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→症状記入＋確認ダイアログ→送信。連絡先は集めない）。レビュー後の強化を追加＝**(B)送信はログイン必須(anon実行禁止)＋(C)同一アカウント20秒の連投ガード**＋聴解の音声停止漏れ修正＋**管理ダッシュボードに「バグ報告」欄を最下部に追加**（dashboard.html・`bug_reports`をservice_roleで直接読む/新しい順500件）。**これらの強化は commit+push 済だが push は Pages配信のみ起動＝ネイティブは未ビルド。次のまとまったビルドで反映**（build-jlpt.yml: build-ios/android は workflow_dispatch 限定・pushでは走らない）。**✅ サーバー関数の再実行＝完了（2026-09-16 ユーザーが Supabase SQL Editor で `bug_reports.sql` を再実行済＝ログイン必須＋20秒連投ガードがサーバー側でも有効）。**届いた報告の確認＝Supabaseダッシュボード最下部「バグ報告」欄 or Table Editor `bug_reports`。将来=[[dashboard-future-paging-csv]]。commit/buildは明示指示まで実行しない。
 - **▶（次にやる／2026-09-16 決定）/clear 後にコードレビューでソース側を固める**＝`/code-review`（差分 or main ブランチ）を回し、ソースの論理バグ・null漏れ・翻訳漏れ・データ不整合を拾う。**Play リリース前レポート(ロボテスト)は今回は走らせない方針**（ユーザー判断：自分で触って問題ないので今は不要）。

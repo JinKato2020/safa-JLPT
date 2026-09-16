@@ -162,6 +162,12 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && (inputs.platforms == 'both' || inputs.platforms == 'ios')
     runs-on: macos-26
     timeout-minutes: 90
+    env:
+      # Sentry: 認証トークン(Secret)が在ればビルド時にシンボルをアップロード、無ければアップロードを無効化する。
+      # トークン必須のアップロード段でビルドが落ちる問題(2934以降の失敗の真因)を防ぐ。B(トークン登録)へ格上げ時は
+      # GitHub Secret に SENTRY_AUTH_TOKEN を足すだけで自動でアップロード有効(yml再編集不要)。
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      SENTRY_DISABLE_AUTO_UPLOAD: ${{ secrets.SENTRY_AUTH_TOKEN == '' && 'true' || 'false' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -358,6 +364,12 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && (inputs.platforms == 'both' || inputs.platforms == 'android')
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    env:
+      # Sentry: 認証トークン(Secret)が在ればビルド時にシンボルをアップロード、無ければアップロードを無効化する。
+      # トークン必須のアップロード段でビルドが落ちる問題(2934以降の失敗の真因)を防ぐ。B(トークン登録)へ格上げ時は
+      # GitHub Secret に SENTRY_AUTH_TOKEN を足すだけで自動でアップロード有効(yml再編集不要)。
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      SENTRY_DISABLE_AUTO_UPLOAD: ${{ secrets.SENTRY_AUTH_TOKEN == '' && 'true' || 'false' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
