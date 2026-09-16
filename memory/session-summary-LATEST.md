@@ -1,18 +1,19 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 15 回・29 ターン
-- 往復 208 回
+- ツール呼び出し 2 回・5 ターン
+- 往復 15 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/i18n/zh2.json
-- src/i18n/hi.json
-- src/i18n/zh.json
-- src/i18n/vi.json
+- memory/session-summary-LATEST.md
+- package.json
+- src/mock/buildExam.test.ts
+- src/mock/passageGrammarDedupException.test.ts
 
 ## 次の一手
-- **▶（要ユーザー操作／2026-09-16 実装完了）バグ報告機能＝Supabase SQL を貼って実行が残**＝アプリ内バグ報告フォームを新規実装（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→フォーム。即送信せず症状記入＋確認ダイアログ。未ログインでも送信可・連絡先は集めない）。**機能を有効化するには `docs\supabase\bug_reports.sql`（絶対パス：c:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\docs\supabase\bug_reports.sql）を Supabase の SQL Editor に貼って実行が必須**（テーブル`bug_reports`＋RPC`submit_bug_report`＋anon/authへgrant execute）。未実行の間は送信が「送信できませんでした」で安全に失敗。新規=BugReportScreen.tsx/bugReportClient.ts/bug_reports.sql、改=ExamHeader(onReport)+Quiz/Reading/PassageGrammar/Listening+ProfileScreen+App+types+i18n(ja/en/ne手書き→--fillで全11言語)。tsc0・parity緑。**commit/buildは明示指示まで実行しない**。
+- **▶（2026-09-16 全体レビュー＝コミット待ち）同期データ消失バグを修正**＝多端末で「勉強していない端末を開いただけ」で updatedAt が進み、実際に学習した端末をLWWで上書き→クラウド進捗が消える不具合を修正。updatedAt を `reducer` で「本当のデータ変更のときだけ」刻む（`NO_STAMP` で起動時/サーバー由来 housekeeping を除外）／保存は `saveState(state)`／push も `Date.now()` 上書き廃止。回帰テスト＝`src/store/updatedAt.test.ts`。あわせて古いテスト2本（`tools/content/migrate_problems.test.ts`＝解説2026-09-02廃止の取り残し）を現仕様へ修正。詳細＝[[sync-updatedat-only-on-real-change]]。**commit `a43379c0`／⑧例外 `5e09af66`＝両方 push 済(origin/main)**。／深掘り(selectors/MockScreen)＝重大バグ無し。⑧「文章の文法」が模試の語ユニーク化(usedWords)不参加はB案（意図的例外として明文化＋番人固定）確定＝`MockScreen.tsx`コメント強化＋番人`src/mock/passageGrammarDedupException.test.ts`。／保守リスク対応：**usedWords順序依存の出題数不足＝修正済**（`knowledgeForDaimon`に spill 穴埋め＝本番出題数に届かない時だけ既使用語を再利用・問題数が本番より減らない）。予想得点の0.25縁ケース＝**不具合でない**(未着手0.25は意図仕様・全問未着手と同挙動)ので変更せず。buildExamのマウント時同期実行＝未計測ゆえ大改修は見送り(下の切り出しでRisk1は安全着手可に)。／★**模試組み立ての切り出し完了**＝`buildExam`/`knowledgeForDaimon`等を画面(MockScreen.tsx)から純ロジック`src/mock/buildExam.ts`へ移設(挙動不変・verbatim)。MockItem/Sec/Seen型もそこへ。これで node 直接テスト可＝挙動テスト`src/mock/buildExam.test.ts`(spill穴埋め・ユニーク化・生成スモーク)追加、⑧例外の番人はbuildExam.tsを参照するよう更新。**tsc 0・全531本パス。****build/publish は明示指示まで実行しない。**
+- **▶（✅SQL再実行 済／次ビルド待ち／2026-09-16）バグ報告機能**＝アプリ内バグ報告フォーム実装済。**基本版は v1.1.54(2934) で配信済**（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→症状記入＋確認ダイアログ→送信。連絡先は集めない）。レビュー後の強化を追加＝**(B)送信はログイン必須(anon実行禁止)＋(C)同一アカウント20秒の連投ガード**＋聴解の音声停止漏れ修正＋**管理ダッシュボードに「バグ報告」欄を最下部に追加**（dashboard.html・`bug_reports`をservice_roleで直接読む/新しい順500件）。**これらの強化は commit+push 済だが push は Pages配信のみ起動＝ネイティブは未ビルド。次のまとまったビルドで反映**（build-jlpt.yml: build-ios/android は workflow_dispatch 限定・pushでは走らない）。**✅ サーバー関数の再実行＝完了（2026-09-16 ユーザーが Supabase SQL Editor で `bug_reports.sql` を再実行済＝ログイン必須＋20秒連投ガードがサーバー側でも有効）。**届いた報告の確認＝Supabaseダッシュボード最下部「バグ報告」欄 or Table Editor `bug_reports`。将来=[[dashboard-future-paging-csv]]。commit/buildは明示指示まで実行しない。
 - **▶（次にやる／2026-09-16 決定）/clear 後にコードレビューでソース側を固める**＝`/code-review`（差分 or main ブランチ）を回し、ソースの論理バグ・null漏れ・翻訳漏れ・データ不整合を拾う。**Play リリース前レポート(ロボテスト)は今回は走らせない方針**（ユーザー判断：自分で触って問題ないので今は不要）。
   - 経緯/一次情報：リリース前レポートが1件も生成されていない原因＝**build-jlpt.yml の Android提出先トラック既定=`internal`**で、**build.ps1 が dispatch時に track を渡さない**（[tools/build.ps1:202](tools/build.ps1#L202)）＝**内部テストではロボテストが走らない**ため。走らせるなら `gh workflow run build-jlpt.yml -f platforms=android -f track=alpha` が必要。ただし**前回 alpha 2903(9/4) でもレポート未生成の謎が残る（原因未確認）**＝alphaに上げても空振りの可能性あり。commit/build は明示指示まで実行しない。
 - **▶（次にやる）Android=Google Play Console で業務用連絡先の住所登録**＝iOS(App Store Connect)側のDSA(デジタルサービス法)トレーダー情報は**業務用連絡先で登録済・審査中(2026-09-14提出/更新)**。氏名確認書類・住所確認書類も提出済。**次はPlay側で同じ"公開される"連絡先を登録**する。使う値＝新宿バーチャル住所(〒160-0022 東京都新宿区新宿2丁目8番15号 パークフロント新宿202号室)/電話050-1720-1914/メールcontact@safa-lang.com＝メモリ`[[safa-business-contact]]`。**Play ConsoleのDSA/デベロッパー連絡先(公開)や販売者情報の該当画面を一次情報で確認してから進める**(自宅/私用を公開欄に入れない)。※Androidアプリ枠はApp C(com.safa.english)へ上書き運用＝`[[android-appc-closedtest]]`。
