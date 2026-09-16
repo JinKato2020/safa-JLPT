@@ -5,7 +5,7 @@ import {
   type Dispatch, type ReactNode,
 } from 'react';
 import { newItemState, recordQuiz, recordMock, effectiveP } from '../engine/engine';
-import { type Settings, type MockResult, type SaveRef, INITIAL_STATE, dayStr, toggleMyList, withUpdatedAt } from './state';
+import { type Settings, type MockResult, type SaveRef, INITIAL_STATE, dayStr, toggleMyList } from './state';
 export type { AppState } from './state';
 import type { AppState } from './state';
 import { coverageBars, expectedScoreFor } from './selectors';
@@ -92,7 +92,7 @@ function grammarNovelty(state: AppState, unit: string): { mul: number; gFmt: Rec
   return { mul, gFmt: { ...gFmt, [key]: n + 1 } };
 }
 
-export function reducer(state: AppState, action: Action): AppState {
+function reduceCore(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'HYDRATE':
       return action.state;
@@ -192,6 +192,27 @@ export function reducer(state: AppState, action: Action): AppState {
   }
 }
 
+// updatedAt を進めない action(=クラウド同期LWWの基準を汚さないもの)。
+//  ・HYDRATE=ディスクからの復元(変更ではない・読み込んだ値を保つ)
+//  ・SYNC_TICKETS=起動毎に走る時刻由来の再計算(両端末で同じ結果=勝敗に使わない)
+//  ・Pro/お試し/紹介統計=サーバーが真実(端末の updatedAt で上書き勝負をしない)
+//  ・演出の既読フラグ=端末ローカルのUI状態
+// ここを刻むと「勉強していない端末を開いただけ」で相手端末の学習を上書きする多端末データ消失が起きる。
+const NO_STAMP: ReadonlySet<Action['type']> = new Set([
+  'HYDRATE', 'SYNC_TICKETS', 'SET_PURCHASE_ACTIVE', 'GRANT_PRO_DAYS',
+  'SET_REFERRAL_STATS', 'SET_TRIAL_START', 'MARK_STORY_SHOWN',
+  'MARK_UNLOCK_SEEN', 'SEED_UNLOCKS_SEEN',
+]);
+
+// updatedAt は「本当のデータ変更のとき」だけ刻む(クラウド同期LWWの基準)。保存側は state をそのまま書く。
+export function reducer(state: AppState, action: Action): AppState {
+  const next = reduceCore(state, action);
+  if (next === state) return state;            // 変更なし=刻まない
+  if (NO_STAMP.has(action.type)) return next;  // 起動時/サーバー由来の housekeeping=刻まない
+  const now = 'now' in action && typeof action.now === 'number' ? action.now : Date.now();
+  return { ...next, updatedAt: now };
+}
+
 const StateCtx = createContext<AppState>(INITIAL_STATE);
 const DispatchCtx = createContext<Dispatch<Action>>(() => undefined);
 const HydratedCtx = createContext<boolean>(false);
@@ -214,9 +235,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     })();
   }, []);
 
-  // 変更を永続化(復元前は保存しない=初期値で上書きしない)。保存の都度 updatedAt を刻む(同期のLWW基準)。
+  // 変更を永続化(復元前は保存しない=初期値で上書きしない)。updatedAt は reducer が
+  // 「本当のデータ変更のとき」だけ刻むので、ここでは state をそのまま書く(起動時のhousekeeping では進めない)。
   useEffect(() => {
-    if (hydrated) saveState(withUpdatedAt(state, Date.now()));
+    if (hydrated) saveState(state);
   }, [state, hydrated]);
 
   return (

@@ -111,7 +111,9 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     if (!session || !hydrated || !initialSyncDone.current) return;
     if (pushTimer.current) clearTimeout(pushTimer.current);
     pushTimer.current = setTimeout(() => {
-      const local = { ...stateRef.current, updatedAt: Date.now() };
+      // updatedAt は reducer が実データ変更時に刻んだ値をそのまま送る(ここで Date.now() に上書きしない
+      // =起動時 housekeeping で無意味に時刻が進み、勉強してない端末が相手を上書きするのを防ぐ)。
+      const local = { ...stateRef.current, updatedAt: stateRef.current.updatedAt ?? Date.now() };
       void pushState(session.user.id, local).then(() => setLastSyncedAt(Date.now()));
     }, PUSH_DEBOUNCE_MS);
     return () => {
