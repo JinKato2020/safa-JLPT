@@ -47,9 +47,11 @@ export async function submitBugReport(inp: BugReportInput): Promise<SubmitResult
       p_context: context,
     });
     if (!error) return 'ok';
+    // まず SQLSTATE(error.code)で堅牢に判定=サーバーの文言が変わっても壊れない。文字列一致は後方互換の保険。
+    const code = (error as { code?: string }).code ?? '';
     const m = String(error.message ?? '').toLowerCase();
-    if (m.includes('too soon')) return 'too_soon';       // (C) 連投ガードにかかった
-    if (m.includes('login required')) return 'need_login';
+    if (code === 'PT429' || m.includes('too soon')) return 'too_soon';       // (C) 連投ガードにかかった
+    if (code === 'PT401' || m.includes('login required')) return 'need_login';
     return 'error';
   } catch {
     return 'error';

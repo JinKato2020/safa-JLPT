@@ -19,6 +19,8 @@ create table if not exists public.bug_reports (
   created_at timestamptz not null default now()
 );
 create index if not exists bug_reports_created on public.bug_reports (created_at desc);
+-- 連投ガードは「同一アカウントの直近送信」を毎回引くので (account_id, created_at) 複合索引で O(1) 近くに。
+create index if not exists bug_reports_account_created on public.bug_reports (account_id, created_at desc);
 
 alter table public.bug_reports enable row level security;
 revoke all on public.bug_reports from anon, authenticated; -- 直書き・読み取り禁止(関数経由のみ)
@@ -35,12 +37,13 @@ declare
   msg     text := left(coalesce(p_message, ''), 4000);
   last_at timestamptz;
 begin
-  if uid is null then raise exception 'login required'; end if;              -- (B) ログイン必須
-  if length(btrim(msg)) = 0 then raise exception 'empty message'; end if;
+  -- 明示SQLSTATEを付す(クライアントは error.code で堅牢に判定・文言変更に強い。文言も後方互換で残す)。
+  if uid is null then raise exception 'login required' using errcode = 'PT401'; end if; -- (B) ログイン必須
+  if length(btrim(msg)) = 0 then raise exception 'empty message' using errcode = 'PT400'; end if;
   -- (C) 連投ガード: 同一アカウントの直近送信から20秒未満は拒否(auth.uid()基準=詐称不可)。
   select max(created_at) into last_at from public.bug_reports where account_id = uid;
   if last_at is not null and now() - last_at < interval '20 seconds' then
-    raise exception 'too soon';
+    raise exception 'too soon' using errcode = 'PT429';
   end if;
   insert into public.bug_reports(account_id, kind, message, context)
     values (

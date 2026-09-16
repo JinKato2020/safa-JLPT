@@ -1,19 +1,27 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 2 回・5 ターン
-- 往復 15 回
+- ツール呼び出し 2 回・7 ターン
+- 往復 131 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/session-summary-LATEST.md
-- package.json
-- src/mock/buildExam.test.ts
-- src/mock/passageGrammarDedupException.test.ts
+- docs/supabase/schema.sql
+- src/support/bugReportClient.ts
+- docs/supabase/bug_reports.sql
 
 ## 次の一手
+- **▶（2026-09-16 コードレビュー→①〜⑤すべて修正済・未コミット／要SQL再実行＋再ビルド）公開前の `/code-review`（範囲 747de076..HEAD）で同期2件＋軽微3件を確定・全修正**：
+  - **①【修正済】** `ADD_STUDY_SECONDS`(前面滞在秒・App.tsx:390で背景化のたび発火)が `NO_STAMP` 外→開いて閉じただけで updatedAt が進み今回の同期修正を骨抜きにしていた。`store.tsx` の `NO_STAMP` に追加＋回帰テスト`updatedAt.test.ts`。／※`a43379c0`(同期修正)は「起動時上振れ」スコープで①未対応・かつ 2940 が初ビルド=過去に修正/ビルド済みではないと git 確認済。
+  - **②【修正済・要SQL】** `syncClient.ts pushState` の無条件 upsert→サーバー側LWWガード。新RPC `public.push_user_state`(schema.sql・既存 client_updated_at 以上のときだけ書く)を追加、クライアントはRPC呼び出し＋RPC未在時のみ従来upsertにフォールバック(貼るまで同期は止まらない/貼れば自動でガード有効)。**🔴 `docs\supabase\schema.sql` を Supabase SQL Editor で再実行が必要**(create or replace=安全)。
+  - **③【修正済】** 模試spill穴埋めが同一大問内の同語2問を出し得た→`buildExam.ts` に `outWords` を追加し**同一大問内の重複だけ弾く**(大問横断の穴埋め=出題数維持は継続)。
+  - **④【修正済・要SQL】** バグ報告のエラー種別を例外文字列一致で判定→SQLに明示SQLSTATE(`PT401`/`PT429`/`PT400`)、クライアントは `error.code` 優先判定(文字列一致は保険)。**🔴 `docs\supabase\bug_reports.sql` を再実行が必要**(errcode追加のため。前回実行済でも再実行を)。
+  - **⑤【修正済・要SQL】** `bug_reports` に `(account_id, created_at desc)` 複合索引を追加(連投ガードの走査を軽く)。↑④と同じ bug_reports.sql 再実行に含まれる。
+  - 検証：tsc 0・関連テスト 12/12緑。**未コミット。**
+  - **SQL反映状況(2026-09-16)：✅②④⑤すべてユーザー実行済＝サーバー側反映完了。** `bug_reports.sql`(④⑤)＝実行OK。`schema.sql`(②RPC)＝最初 policy 42710 で失敗→user_state ポリシーを drop→create で冪等化して修正、ユーザーは RPC 単体ブロックを実行OK(=`push_user_state` デプロイ済・サーバー側LWWガード有効)。**残る作業＝①〜⑤の未コミット分をコミットして1回で再ビルド(ユーザーの明示Go待ち)。build/commitは明示指示まで実行しない。**
 - **▶（2026-09-16 全体レビュー＝コミット待ち）同期データ消失バグを修正**＝多端末で「勉強していない端末を開いただけ」で updatedAt が進み、実際に学習した端末をLWWで上書き→クラウド進捗が消える不具合を修正。updatedAt を `reducer` で「本当のデータ変更のときだけ」刻む（`NO_STAMP` で起動時/サーバー由来 housekeeping を除外）／保存は `saveState(state)`／push も `Date.now()` 上書き廃止。回帰テスト＝`src/store/updatedAt.test.ts`。あわせて古いテスト2本（`tools/content/migrate_problems.test.ts`＝解説2026-09-02廃止の取り残し）を現仕様へ修正。詳細＝[[sync-updatedat-only-on-real-change]]。**commit `a43379c0`／⑧例外 `5e09af66`＝両方 push 済(origin/main)**。／深掘り(selectors/MockScreen)＝重大バグ無し。⑧「文章の文法」が模試の語ユニーク化(usedWords)不参加はB案（意図的例外として明文化＋番人固定）確定＝`MockScreen.tsx`コメント強化＋番人`src/mock/passageGrammarDedupException.test.ts`。／保守リスク対応：**usedWords順序依存の出題数不足＝修正済**（`knowledgeForDaimon`に spill 穴埋め＝本番出題数に届かない時だけ既使用語を再利用・問題数が本番より減らない）。予想得点の0.25縁ケース＝**不具合でない**(未着手0.25は意図仕様・全問未着手と同挙動)ので変更せず。buildExamのマウント時同期実行＝未計測ゆえ大改修は見送り(下の切り出しでRisk1は安全着手可に)。／★**模試組み立ての切り出し完了**＝`buildExam`/`knowledgeForDaimon`等を画面(MockScreen.tsx)から純ロジック`src/mock/buildExam.ts`へ移設(挙動不変・verbatim)。MockItem/Sec/Seen型もそこへ。これで node 直接テスト可＝挙動テスト`src/mock/buildExam.test.ts`(spill穴埋め・ユニーク化・生成スモーク)追加、⑧例外の番人はbuildExam.tsを参照するよう更新。**tsc 0・全531本パス。****build/publish は明示指示まで実行しない。**
-- **▶（✅SQL再実行 済／次ビルド待ち／2026-09-16）バグ報告機能**＝アプリ内バグ報告フォーム実装済。**基本版は v1.1.54(2934) で配信済**（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→症状記入＋確認ダイアログ→送信。連絡先は集めない）。レビュー後の強化を追加＝**(B)送信はログイン必須(anon実行禁止)＋(C)同一アカウント20秒の連投ガード**＋聴解の音声停止漏れ修正＋**管理ダッシュボードに「バグ報告」欄を最下部に追加**（dashboard.html・`bug_reports`をservice_roleで直接読む/新しい順500件）。**これらの強化は commit+push 済だが push は Pages配信のみ起動＝ネイティブは未ビルド。次のまとまったビルドで反映**（build-jlpt.yml: build-ios/android は workflow_dispatch 限定・pushでは走らない）。**✅ サーバー関数の再実行＝完了（2026-09-16 ユーザーが Supabase SQL Editor で `bug_reports.sql` を再実行済＝ログイン必須＋20秒連投ガードがサーバー側でも有効）。**届いた報告の確認＝Supabaseダッシュボード最下部「バグ報告」欄 or Table Editor `bug_reports`。将来=[[dashboard-future-paging-csv]]。commit/buildは明示指示まで実行しない。
+- **▶（✅SQL再実行 済／✅ビルド起動済 v1.1.55(2940)・run 35057466645／2026-09-16）バグ報告機能**＝強化分(ログイン必須+20秒連投ガード+ダッシュボード欄)はこのビルドで実機反映。／アプリ内バグ報告フォーム実装済。**基本版は v1.1.54(2934) で配信済**（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→症状記入＋確認ダイアログ→送信。連絡先は集めない）。レビュー後の強化を追加＝**(B)送信はログイン必須(anon実行禁止)＋(C)同一アカウント20秒の連投ガード**＋聴解の音声停止漏れ修正＋**管理ダッシュボードに「バグ報告」欄を最下部に追加**（dashboard.html・`bug_reports`をservice_roleで直接読む/新しい順500件）。**これらの強化は commit+push 済だが push は Pages配信のみ起動＝ネイティブは未ビルド。次のまとまったビルドで反映**（build-jlpt.yml: build-ios/android は workflow_dispatch 限定・pushでは走らない）。**✅ サーバー関数の再実行＝完了（2026-09-16 ユーザーが Supabase SQL Editor で `bug_reports.sql` を再実行済＝ログイン必須＋20秒連投ガードがサーバー側でも有効）。**届いた報告の確認＝Supabaseダッシュボード最下部「バグ報告」欄 or Table Editor `bug_reports`。将来=[[dashboard-future-paging-csv]]。commit/buildは明示指示まで実行しない。
 - **▶（次にやる／2026-09-16 決定）/clear 後にコードレビューでソース側を固める**＝`/code-review`（差分 or main ブランチ）を回し、ソースの論理バグ・null漏れ・翻訳漏れ・データ不整合を拾う。**Play リリース前レポート(ロボテスト)は今回は走らせない方針**（ユーザー判断：自分で触って問題ないので今は不要）。
   - 経緯/一次情報：リリース前レポートが1件も生成されていない原因＝**build-jlpt.yml の Android提出先トラック既定=`internal`**で、**build.ps1 が dispatch時に track を渡さない**（[tools/build.ps1:202](tools/build.ps1#L202)）＝**内部テストではロボテストが走らない**ため。走らせるなら `gh workflow run build-jlpt.yml -f platforms=android -f track=alpha` が必要。ただし**前回 alpha 2903(9/4) でもレポート未生成の謎が残る（原因未確認）**＝alphaに上げても空振りの可能性あり。commit/build は明示指示まで実行しない。
 - **▶（次にやる）Android=Google Play Console で業務用連絡先の住所登録**＝iOS(App Store Connect)側のDSA(デジタルサービス法)トレーダー情報は**業務用連絡先で登録済・審査中(2026-09-14提出/更新)**。氏名確認書類・住所確認書類も提出済。**次はPlay側で同じ"公開される"連絡先を登録**する。使う値＝新宿バーチャル住所(〒160-0022 東京都新宿区新宿2丁目8番15号 パークフロント新宿202号室)/電話050-1720-1914/メールcontact@safa-lang.com＝メモリ`[[safa-business-contact]]`。**Play ConsoleのDSA/デベロッパー連絡先(公開)や販売者情報の該当画面を一次情報で確認してから進める**(自宅/私用を公開欄に入れない)。※Androidアプリ枠はApp C(com.safa.english)へ上書き運用＝`[[android-appc-closedtest]]`。

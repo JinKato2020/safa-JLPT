@@ -79,6 +79,7 @@ export function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: numbe
   const fresh = sample(units.filter((u) => !seen[u]), units.length);
   const stale = sample(units.filter((u) => !!seen[u]), units.length);
   const out: MockItem[] = [];
+  const outWords = new Set<string>(); // この大問内で out に入れた語(同一大問内で同じ語を2問出さないため)。
   const spill: MockItem[] = []; // 大問横断で既使用の語ゆえ避けた候補(本番出題数に満たない時だけ穴埋めに使う)。
   for (const unit of [...fresh, ...stale]) {
     if (out.length >= count) break;
@@ -93,11 +94,20 @@ export function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: numbe
     };
     if (usedWords.has(wkey)) { spill.push(item); continue; } // 別の大問で既に使った語=まず避ける(不足時のみ後で使う)
     usedWords.add(wkey);
+    outWords.add(wkey);
     out.push(item);
   }
   // 重複回避を優先しても本番の出題数に届かない時だけ、避けた候補で穴埋め(数量>厳密なユニーク性)。
   // プールが薄い/kanji_read↔orthography等の共有saveRefで語が枯れても、大問の問題数が本番より減らないようにする。
-  for (const item of spill) { if (out.length >= count) break; out.push(item); }
+  // ただし「同一大問内で同じ語が2問」出るのはユーザーに不具合に見えるので、この大問で既出の語は穴埋めにも使わない
+  // (別大問と語が重なるのは許容=数量優先。同じ大問内の重複だけは避ける)。
+  for (const item of spill) {
+    if (out.length >= count) break;
+    const wkey = item.saveRef ? `${item.saveRef.type}:${item.saveRef.id}` : item.id.split('#')[0];
+    if (outWords.has(wkey)) continue; // この大問で既に出した語=穴埋めにも入れない
+    outWords.add(wkey);
+    out.push(item);
+  }
   return out;
 }
 

@@ -11,6 +11,11 @@ create table if not exists public.user_state (
 alter table public.user_state enable row level security;
 
 -- 自分の行のみ read/write。他人の行は一切見えない・触れない。
+-- 再実行しても「already exists」(42710)で止まらないよう drop してから作り直す(冪等)。
+drop policy if exists "user_state own select" on public.user_state;
+drop policy if exists "user_state own insert" on public.user_state;
+drop policy if exists "user_state own update" on public.user_state;
+drop policy if exists "user_state own delete" on public.user_state;
 create policy "user_state own select" on public.user_state
   for select using (auth.uid() = user_id);
 create policy "user_state own insert" on public.user_state
@@ -24,6 +29,35 @@ create policy "user_state own delete" on public.user_state
 -- upsert(同期の保存)が 42501 permission denied で黙って弾かれ、user_state が空のままになる。
 -- RLSで「自分の行のみ」に限定済みなので、全CRUDを付与しても他人の行は一切触れない。
 grant select, insert, update, delete on public.user_state to authenticated;
+
+-- --- 同期の保存(サーバー側LWWガード)。クラウドが持つ時刻より新しい書き込みだけ通す。 ---
+-- 素の upsert は client_updated_at の新旧を比べず上書きするため、古い端末が push すると
+-- 新しいクラウドを stale state で塗り替え、別端末の学習が消える余地があった([[sync-updatedat-only-on-real-change]])。
+-- この関数は「既存 client_updated_at <= 今回の値」のときだけ書く(古い書き込みは黙って無視)。
+-- クライアント: supabase.rpc('push_user_state', { p_state, p_client_updated_at, p_version })。
+-- ※Supabase の SQL Editor に貼って実行(create or replace=再実行安全)。次ビルド前に必ず実行。
+create or replace function public.push_user_state(
+  p_state jsonb,
+  p_client_updated_at int8,
+  p_version int default 1
+)
+returns void language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid := auth.uid();
+begin
+  if uid is null then raise exception 'login required'; end if; -- 未ログインは書かせない
+  insert into public.user_state(user_id, state, client_updated_at, version, updated_at)
+    values (uid, p_state, coalesce(p_client_updated_at, 0), coalesce(p_version, 1), now())
+  on conflict (user_id) do update
+    set state             = excluded.state,
+        client_updated_at = excluded.client_updated_at,
+        version           = excluded.version,
+        updated_at        = excluded.updated_at
+    where public.user_state.client_updated_at <= excluded.client_updated_at; -- 古い(=既存より前の)書き込みは無視
+end $$;
+
+revoke execute on function public.push_user_state(jsonb, int8, int) from anon;
+grant  execute on function public.push_user_state(jsonb, int8, int) to authenticated;
 
 
 -- ============================================================================

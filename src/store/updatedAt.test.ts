@@ -40,6 +40,13 @@ test('reducer: 本当の学習(QUIZ_ANSWER)では updatedAt が now に進む', 
   assert.equal(out.updatedAt, now);
 });
 
+test('reducer: 前面滞在秒(ADD_STUDY_SECONDS)では updatedAt が進まない(=開いて閉じただけで相手を上書きしない)', () => {
+  const s: AppState = { ...INITIAL_STATE, updatedAt: T };
+  const out = reducer(s, { type: 'ADD_STUDY_SECONDS', sec: 120 });
+  assert.equal(out.studySeconds, 120);  // 秒は加算される
+  assert.equal(out.updatedAt, T);       // が、LWW基準は進めない
+});
+
 test('reducer: 変更のない action では updatedAt を進めない', () => {
   const s: AppState = { ...INITIAL_STATE, updatedAt: T, unlocksSeen: ['x'] };
   const out = reducer(s, { type: 'MARK_UNLOCK_SEEN', key: 'x' }); // 既に既読=no-op
