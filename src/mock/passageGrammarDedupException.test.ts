@@ -2,7 +2,7 @@
 // "意図的に除外" している設計を固定する。永久ルール mock-cross-daimon-no-word-reuse の
 // 唯一の例外(⑧はセット形式=文章まるごと専用プール出題ゆえ語単位で弾けない)。
 // ここが失敗したら「⑧をusedWordsに参加させた/除外を解除した」等の変更が入ったということ。
-// その変更は例外の解消(=ルール厳格化)か破壊のどちらか。必ず MockScreen.tsx の該当コメントと
+// その変更は例外の解消(=ルール厳格化)か破壊のどちらか。必ず src/mock/buildExam.ts の該当コメントと
 // この例外の判断(B案で確定)を読み直してから、意図的なら本テストを更新すること。
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -10,7 +10,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-const SRC = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../screens/MockScreen.tsx'), 'utf8');
+const SRC = readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'buildExam.ts'), 'utf8');
 
 test('⑧文章の文法は knowledge(usedWords共有)の組み立てから除外されている', () => {
   // daimonCounts から passage_grammar を除いて knowledgeForDaimon に渡す=usedWords 共有に参加しない。
