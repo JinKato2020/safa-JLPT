@@ -184,20 +184,25 @@ function knowledgeForDaimon(levels: Level[], daimon: Daimon, count: number, seen
   const fresh = sample(units.filter((u) => !seen[u]), units.length);
   const stale = sample(units.filter((u) => !!seen[u]), units.length);
   const out: MockItem[] = [];
+  const spill: MockItem[] = []; // 大問横断で既使用の語ゆえ避けた候補(本番出題数に満たない時だけ穴埋めに使う)。
   for (const unit of [...fresh, ...stale]) {
     if (out.length >= count) break;
     const q = questionForUnit(unit, Math.random, useMock);
     if (!q) continue;
     // 大問横断の語キー: saveRef(type:id=語彙/漢字/文法の実体)があればそれ、無ければユニットidの語部分。
     const wkey = q.saveRef ? `${q.saveRef.type}:${q.saveRef.id}` : unit.split('#')[0];
-    if (usedWords.has(wkey)) continue; // 別の大問で既に使った語はこの模試では出さない
-    usedWords.add(wkey);
-    out.push({
+    const item: MockItem = {
       kind: 'word', id: unit, section: sec, daimon,
       question: q.question, choices: q.choices, answerIndex: q.answerIndex,
       prompt: q.prompt || undefined, reading: q.reading, example: q.example, furi: q.furi, furiTarget: q.furiTarget, noTargetRuby: q.noTargetRuby, explain: q.explain, itemId: q.itemId, idLabel: q.idLabel, saveRef: q.saveRef,
-    });
+    };
+    if (usedWords.has(wkey)) { spill.push(item); continue; } // 別の大問で既に使った語=まず避ける(不足時のみ後で使う)
+    usedWords.add(wkey);
+    out.push(item);
   }
+  // 重複回避を優先しても本番の出題数に届かない時だけ、避けた候補で穴埋め(数量>厳密なユニーク性)。
+  // プールが薄い/kanji_read↔orthography等の共有saveRefで語が枯れても、大問の問題数が本番より減らないようにする。
+  for (const item of spill) { if (out.length >= count) break; out.push(item); }
   return out;
 }
 // 読解=1文章(+全設問)をpassage-setステップに。PassageSetPlayerが本文＋全設問を一括提示→一括採点(設問単位でスコア加算)。

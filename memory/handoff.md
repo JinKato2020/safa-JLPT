@@ -2,7 +2,7 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **▶（2026-09-16 全体レビュー＝コミット待ち）同期データ消失バグを修正**＝多端末で「勉強していない端末を開いただけ」で updatedAt が進み、実際に学習した端末をLWWで上書き→クラウド進捗が消える不具合を修正。updatedAt を `reducer` で「本当のデータ変更のときだけ」刻む（`NO_STAMP` で起動時/サーバー由来 housekeeping を除外）／保存は `saveState(state)`／push も `Date.now()` 上書き廃止。回帰テスト＝`src/store/updatedAt.test.ts`。あわせて古いテスト2本（`tools/content/migrate_problems.test.ts`＝解説2026-09-02廃止の取り残し）を現仕様へ修正。詳細＝[[sync-updatedat-only-on-real-change]]。**commit `a43379c0`（push未）**。／深掘り(selectors/MockScreen)＝重大バグ無し。⑧「文章の文法」が模試の語ユニーク化(usedWords)に不参加の件はユーザー判断でB案（意図的例外として明文化＋番人固定）確定＝`MockScreen.tsx`コメント強化＋番人`src/mock/passageGrammarDedupException.test.ts`追加(package.json test列挙にも追記)。**tsc 0・全528本パス。** 残りの保守リスク（buildExamのマウント時同期実行＝初回描画ブロック／usedWords順序依存の出題数不足／予想得点の0.25縁ケース）は未着手＝要否はユーザー判断。**build/publish は明示指示まで実行しない。**
+- **▶（2026-09-16 全体レビュー＝コミット待ち）同期データ消失バグを修正**＝多端末で「勉強していない端末を開いただけ」で updatedAt が進み、実際に学習した端末をLWWで上書き→クラウド進捗が消える不具合を修正。updatedAt を `reducer` で「本当のデータ変更のときだけ」刻む（`NO_STAMP` で起動時/サーバー由来 housekeeping を除外）／保存は `saveState(state)`／push も `Date.now()` 上書き廃止。回帰テスト＝`src/store/updatedAt.test.ts`。あわせて古いテスト2本（`tools/content/migrate_problems.test.ts`＝解説2026-09-02廃止の取り残し）を現仕様へ修正。詳細＝[[sync-updatedat-only-on-real-change]]。**commit `a43379c0`／⑧例外 `5e09af66`＝両方 push 済(origin/main)**。／深掘り(selectors/MockScreen)＝重大バグ無し。⑧「文章の文法」が模試の語ユニーク化(usedWords)不参加はB案（意図的例外として明文化＋番人固定）確定＝`MockScreen.tsx`コメント強化＋番人`src/mock/passageGrammarDedupException.test.ts`。／保守リスク対応：**usedWords順序依存の出題数不足＝修正済**（`knowledgeForDaimon`に spill 穴埋め＝本番出題数に届かない時だけ既使用語を再利用・問題数が本番より減らない）。予想得点の0.25縁ケース＝**不具合でない**(未着手0.25は意図仕様・全問未着手と同挙動)ので変更せず。buildExamのマウント時同期実行＝**未計測ゆえ大改修は見送り**。**tsc 0・全528本パス。** ★次の候補＝模試組み立て(`buildExam`/`knowledgeForDaimon`)を `src/mock/` の純ロジックへ切り出す構造改善（番人テスト可・Risk1安全着手・⑧を挙動テスト化）＝ユーザー判断待ち。**build/publish は明示指示まで実行しない。**
 - **▶（🔴SQL再実行が必須＋次ビルド待ち／2026-09-16）バグ報告機能**＝アプリ内バグ報告フォーム実装済。**基本版は v1.1.54(2934) で配信済**（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→症状記入＋確認ダイアログ→送信。連絡先は集めない）。レビュー後の強化を追加＝**(B)送信はログイン必須(anon実行禁止)＋(C)同一アカウント20秒の連投ガード**＋聴解の音声停止漏れ修正＋**管理ダッシュボードに「バグ報告」欄を最下部に追加**（dashboard.html・`bug_reports`をservice_roleで直接読む/新しい順500件）。**これらの強化は commit+push 済だが push は Pages配信のみ起動＝ネイティブは未ビルド。次のまとまったビルドで反映**（build-jlpt.yml: build-ios/android は workflow_dispatch 限定・pushでは走らない）。**🔴 サーバー関数を変更したので `bug_reports.sql`（c:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\docs\supabase\bug_reports.sql）を Supabase SQL Editor で再実行が必須**（未再実行だと旧仕様＝anon送信可・ガード無しのまま。create or replace で再実行安全）。届いた報告の確認＝Supabaseダッシュボード最下部「バグ報告」欄 or Table Editor `bug_reports`。将来=[[dashboard-future-paging-csv]]。commit/buildは明示指示まで実行しない。
 
 - **▶（次にやる／2026-09-16 決定）/clear 後にコードレビューでソース側を固める**＝`/code-review`（差分 or main ブランチ）を回し、ソースの論理バグ・null漏れ・翻訳漏れ・データ不整合を拾う。**Play リリース前レポート(ロボテスト)は今回は走らせない方針**（ユーザー判断：自分で触って問題ないので今は不要）。
@@ -509,16 +509,17 @@
 - a3f41e1475e3c31cb general-purpose
 - a00df888ec67d5dc8 general-purpose
 - ac333d4514f04da09 general-purpose
+- a400a4e2ac610e0b6 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/screens/MockScreen.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- package.json
+- src/mock/passageGrammarDedupException.test.ts
 - tools/content/migrate_problems.test.ts
 - src/store/updatedAt.test.ts
 - src/auth/SyncProvider.tsx
-- src/store/store.tsx
-- docs/supabase/dashboard.html
-- src/i18n/zh2.json
 
-_自動更新: 2026-09-16 13:14_
+_自動更新: 2026-09-16 13:25_
 <!-- AUTO:END -->
