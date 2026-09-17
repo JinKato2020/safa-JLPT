@@ -58,26 +58,30 @@ jobs:
             (subs["data"]||[]).each do |s|
               a = s["attributes"]||{}
               puts "\n=== SUB #{a["productId"]} | name=#{a["name"]} | period=#{a["subscriptionPeriod"]} | state=#{a["state"]} ==="
-              rows = {}
+              rows = Hash.new{|h,k| h[k]=[]}
               path = "/v1/subscriptions/#{s["id"]}/prices?include=subscriptionPricePoint,territory&limit=200"
               while path
                 pr = get(path, tok)
                 inc = {}; (pr["included"]||[]).each{|i| inc[[i["type"],i["id"]]] = i}
                 (pr["data"]||[]).each do |p|
+                  attr = p["attributes"]||{}
                   rel = p["relationships"]||{}
                   tid = rel.dig("territory","data","id")
                   ppid = rel.dig("subscriptionPricePoint","data","id")
                   pp = inc[["subscriptionPricePoints", ppid]]
                   cust = pp && pp.dig("attributes","customerPrice")
-                  rows[tid] = cust if tid && cust
+                  rows[tid] << { p: cust, sd: attr["startDate"], pres: attr["preserved"] } if tid && cust
                 end
                 path = pr.dig("links","next")
               end
               puts "  territories total=#{rows.size}"
-              WANT.each{|t| puts "   #{t}: #{rows[t]} #{CUR[t]}" if rows[t] }
-              # WANT外で価格が付いている代表(最初の5件)も参考表示
-              others = rows.keys - WANT
-              puts "  (other territories sample: #{others.first(5).map{|t| "#{t}=#{rows[t]}"}.join(", ")} ...)" unless others.empty?
+              sched_terr = rows.select{|_,v| v.size > 1 || v.any?{|e| e[:sd]}}.keys
+              puts "  ★予約(将来日付)を持つ地域: #{sched_terr.empty? ? "なし(全て即時価格のみ)" : sched_terr.join(", ")}"
+              WANT.each do |t|
+                next if rows[t].empty?
+                desc = rows[t].sort_by{|e| e[:sd].to_s}.map{|e| "#{e[:p]}#{CUR[t]}#{e[:sd] ? "(#{e[:sd]}から)" : "(現在)"}#{e[:pres] ? "[据置]" : ""}"}.join("  →  ")
+                puts "   #{t}: #{desc}"
+              end
             end
           end
           puts "\n########## IN-APP PURCHASES v2 (1回課金: 消耗/非消耗/非更新サブスク) ##########"
