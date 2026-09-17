@@ -46,7 +46,8 @@ jobs:
 
             puts "================ APP INFOS (name/subtitle/privacy = appInfoLocalizations) ================"
             begin
-              app.get_app_infos.each do |ai|
+              app_infos = (Spaceship::ConnectAPI::AppInfo.all(app_id: app.id, includes: "appInfoLocalizations") rescue [])
+              app_infos.each do |ai|
                 puts "AppInfo id=#{ai.id} state=#{(ai.app_store_state rescue ai.state rescue "?")}"
                 locs = (ai.get_app_info_localizations rescue [])
                 puts "  localizations: #{locs.map(&:locale).inspect}"
