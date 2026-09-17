@@ -26,7 +26,7 @@ export const TEST_DEVICE_IDS: string[] = [];
 // 理由: アプリがストア未公開(AdMob承認状況=要審査)の間は本番広告が配信されない。テスト広告なら公開前でも出るので
 //       「広告の読み込み〜表示までアプリ側が正常に動くか」を確認できる。テスト広告が出れば残る原因はAdMob審査だけ。
 // ⚠ 一般公開の前に必ず false に戻すこと(本番アプリでテスト広告を出すのはポリシー違反)。
-export const FORCE_TEST_ADS = true;
+export const FORCE_TEST_ADS = false;
 
 /** 本番のリワードIDが設定済みか(=テストでなく本物の広告を出す状態か)。UIの表示切替に使える。 */
 export function adsConfigured(): boolean {

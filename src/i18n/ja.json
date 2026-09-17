@@ -843,6 +843,7 @@
   "paywall.privacy": "プライバシーポリシー",
   "paywall.close": "とじる",
   "paywall.thanks": "Proになりました。ありがとうございます！",
+  "paywall.purchased_msg": "{period}Proを購入しました。アプリの機能を最大限お楽しみください。",
   "paywall.restored": "購入を復元しました。",
   "paywall.no_restore": "復元できる購入はありませんでした。",
   "paywall.legal_note": "サブスクリプションは期間終了時に自動更新されます。更新の停止は、購入後いつでもストアの設定から行えます。",

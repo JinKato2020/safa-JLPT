@@ -1466,5 +1466,6 @@
   "bug.tooSoon": "Không thể gửi liên tiếp trong thời gian ngắn. Vui lòng đợi một lát và thử lại.",
   "bug.loginRequiredTitle": "Cần đăng nhập",
   "bug.loginRequired": "Cần đăng nhập để gửi báo cáo lỗi/sự cố (để tránh gửi liên tục gây phiền nhiễu).",
-  "bug.goLogin": "Đăng nhập / Tài khoản"
+  "bug.goLogin": "Đăng nhập / Tài khoản",
+  "paywall.purchased_msg": "Đã mua {period}Pro. Tận hưởng tối đa các tính năng của ứng dụng."
 }

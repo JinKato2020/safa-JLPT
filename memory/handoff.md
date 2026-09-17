@@ -2,6 +2,16 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+- **★現在地(2026-09-17 第2セッション クリア時点)＝この会話で未コミットの修正4件が“要ビルド”待機（アプリ本体コード・OTA不可・tsc0）。次の一手＝ユーザー指示でビルド(build.ps1 -Approved・番人71+tsc・iOS+Android)→実機検証。build/公開は勝手にしない。**
+  - ①**OTAコンテンツをサイレント自動更新化**：起動時プロンプト「はい/いいえ」廃止→**背景DL・次回起動で反映**。`syncContent`に**タイムアウト＋10件ごと逐次保存＋新バンドル時キャッシュ再作成**＝Androidの「85件くるくる回って落ちない/同じ画面に戻る」**無限ループ修正**（App.tsx＋`src/data/content/ota.ts`。EAS Update `u.expo.dev`は休眠のまま使わず・カスタムR2 OTAを堅牢化）。※未使用化した i18n `content.launch_*`/`downloading` は無害で残置。
+  - ②**Pro購入の自動反映**（実バグ修正）：**初回購入でその場でPROにならず手動Restore必須**だった→購入後に権利未反映なら**自動再同期**＋**CustomerInfo更新リスナー**で後追い反映（`PaywallScreen.tsx` onBuy＋`src/pro/purchases.ts` addProUpdateListener＋App.tsx 起動effectで購読/解除）。※アプリ側は解約APIを呼ばない(AccountScreen.tsx:117明記)＝「テスト定期購入が自動解約」はGoogleのテスト仕様で正常。
+  - ③**Pro画面の並び順を 1→3→6→12ヶ月(短い順)**（`PaywallScreen.tsx` PERIOD_RANK。旧12→1を反転）。
+  - ④**購入成功メッセージ**「{period}Proを購入しました。アプリの機能を最大限お楽しみください。」＝新キー`paywall.purchased_msg`(ja/en/ne記入済・**他8言語はbuild.ps1の`--fill`で自動翻訳**・parity番人対象)。
+  - **検証観点(ビルド後)**：Androidで「Restore不要で初回購入即PRO」「コンテンツ更新が聞かれず静かに通る(85件)」／iOSも同。
+  - **公開前の残務(別件・継続)**＝iOS DSA審査の通過確認＋Android(Play)の公開連絡先(新宿バーチャル住所)登録／任意=Sentry B格上げ(Secret `SENTRY_AUTH_TOKEN`追加のみ)。
+  - **【2026-09-17 追記・受信メール対応＋ASC/配信確認セッション】**：(a)**✅iOS 1.1.57 を審査提出済＝状態「審査待ち(WAITING_FOR_REVIEW)」(2026-09-17)。初の一般公開へ向けAppleの審査列に投入。** 9言語ローカライズ(zh-Hans/ko/zh-Hant/ja/id/vi/th/hi/en-US)完備。提出が詰まっていた真因＝アプリ最上部の帯にあった**未完の必須項目(App Privacy公開/契約 等)**で、それを埋めたら「審査に追加→App Reviewへ提出」が通り審査待ちへ。**次=審査結果待ち(通常24〜48h・承認後リリースは自動/手動どちらか要確認。初公開は手動リリース推奨)。リジェクト時はResolution Center文面をユーザーが貼る。** 経緯：この日ASC状態が PREPARE_FOR_SUBMISSION→READY_FOR_REVIEW→WAITING_FOR_REVIEW と進行(診断WF asc-diagnose 読取専用で確認)。**※旧記録の「1.1.47下書き」「未公開404」は失効。** 年齢制限の新質問(ソーシャルメディア/機能)も回答済＝メッセージ=はい/広告=はい・無制限Web/UGC広範/ソーシャルメディア=いいえ(友だち招待制・自由文は相互友だち限定80字・通報即ブロックでUGC1.2充足)。／(b)**App Store Small Business Program 申請完了**(Apple審査中・承認で手数料30→15%・前暦年手取り<100万$宣誓済・関係口座なし)。／(c)**ポスター朗読31テーマ=コード([posterLessons.ts]31)・登録簿([poster_themes.py]31)・R2配信(poster-catalog v2 全11言語・pack内に verbs/adjectives/adverbs 実在)すべて完成デプロイ済＝作業不要**(当初の「20/11未組込」は私の数え間違い)。／(d)**盲点未解消**：asc-diagnose の App Info階層(プライバシーURL/各言語名/サブタイトル)は `Spaceship::ConnectAPI::AppInfo.all` が空を返し**未読取**(git履歴3aba1d1aでは設定済のはず=未確認)。診断WFの当該修正は commit b21e76f0 で push 済(App Info読出しは別クセで要再修正)。／(e)**✅Android(Play)申請状況チェック済(2026-09-17)＝iOSと違い一般公開されている**。公開ページ https://play.google.com/store/apps/details?id=com.safa.english は **HTTP 200・アプリ名「まいにちJLPT」(開発者safa)・説明=予想得点(180点満点)…で現行と一致・「インストール」ボタンあり・国/端末制限なし**＝本番production公開済で一般ユーザー入手可(iOSはTestFlightのみ・公開404)。**未確認=公開中の本番versionCodeがどのビルドか**(公開HTMLに版数なし)。仕組み上 新ビルドは既定で **internal(内部テスト)トラック**へ提出([build-jlpt.yml:61] default:internal)・**production は明示合図時のみ**([build-jlpt.yml:58])ゆえ「公開中listingは古めの本番・最新2942は内部テスト止まり」の可能性あり。正確確認は **Play Consoleログイン**か **Play Developer API(サービスアカウント鍵=Secrets)** が要る。
+  - **【2026-09-17 第2セッション・課金/公開状況】**：(f)**Pro価格を一次確認済**＝iOSはASC API(読取専用WF `asc-prices-jlpt.yml`=push済でリポジトリ常設)、AndroidはユーザーがPlay Console(収益化→商品→定期購入→商品→基本プラン→地域別価格)で確認。**4サブスク=jlpt_pro_monthly/3month/6month/yearly(全ONE_MONTH/3M/6M/ONE_YEAR・APPROVED)・買い切りIAPは0件**。日本¥1,000/2,200/4,000/7,000。**米国は$10→$12値上げが2026-09-05適用済**(既存$10据置・新規$12/27/50/85)＝**意図的**(米国はテストで高め・他国はPPPで差別化・揃えない方針=ユーザー決定、以後私は価格戦略に口出し不要)。／(g)**Android公開状況(Play Console 公開の概要)**：管理対象の公開=**オン**。**2942(製品版・完全公開)は審査OK＝「変更の公開準備完了」で“公開ボタン待ち”(未公開)**。**ストア掲載情報の言語追加16件(th/vi/ko/zh-CN…**ヒンディー含む**)は“審査に未送信”の下書き**＝「16件の変更を審査に送信」を押して初審査→公開可(**アプリ再ビルド不要**)。**iOSと同時公開したいなら2942の公開ボタンは保留**(管理対象公開オンで保留可)。掲載情報の審査は通常数時間〜2日(公式上限7日)。／(h)**再インストール復元**＝アカウント再ログインでクラウドから復元(`sync.ts:43`・空で上書きしない)。**未ログイン(匿名)は端末内のみ＝削除で消失**。／(i)**入金**＝Apple:会計月締め後30〜45日/Google:翌月15日前後・手数料引いた手取り(Apple SBP承認で15%)・テスト購入は¥0。／(j)後始末：未使用の `play-prices-jlpt.yml` は削除済(Play価格はユーザーがConsoleで確認したため)。
+
 - **▶（2026-09-16 コードレビュー→①〜⑤すべて修正済・未コミット／要SQL再実行＋再ビルド）公開前の `/code-review`（範囲 747de076..HEAD）で同期2件＋軽微3件を確定・全修正**：
   - **①【修正済】** `ADD_STUDY_SECONDS`(前面滞在秒・App.tsx:390で背景化のたび発火)が `NO_STAMP` 外→開いて閉じただけで updatedAt が進み今回の同期修正を骨抜きにしていた。`store.tsx` の `NO_STAMP` に追加＋回帰テスト`updatedAt.test.ts`。／※`a43379c0`(同期修正)は「起動時上振れ」スコープで①未対応・かつ 2940 が初ビルド=過去に修正/ビルド済みではないと git 確認済。
   - **②【修正済・要SQL】** `syncClient.ts pushState` の無条件 upsert→サーバー側LWWガード。新RPC `public.push_user_state`(schema.sql・既存 client_updated_at 以上のときだけ書く)を追加、クライアントはRPC呼び出し＋RPC未在時のみ従来upsertにフォールバック(貼るまで同期は止まらない/貼れば自動でガード有効)。**🔴 `docs\supabase\schema.sql` を Supabase SQL Editor で再実行が必要**(create or replace=安全)。
@@ -10,7 +20,9 @@
   - **⑤【修正済・要SQL】** `bug_reports` に `(account_id, created_at desc)` 複合索引を追加(連投ガードの走査を軽く)。↑④と同じ bug_reports.sql 再実行に含まれる。
   - 検証：tsc 0・関連テスト 12/12緑。**未コミット。**
   - **SQL反映状況(2026-09-16)：✅②④⑤すべてユーザー実行済＝サーバー側反映完了。** `bug_reports.sql`(④⑤)＝実行OK。`schema.sql`(②RPC)＝最初 policy 42710 で失敗→user_state ポリシーを drop→create で冪等化して修正、ユーザーは RPC 単体ブロックを実行OK(=`push_user_state` デプロイ済・サーバー側LWWガード有効)。
-  - **✅ビルド済(2026-09-16 ユーザー「ビルド」指示)＝commit `3ec3230e`／v1.1.56(Build 2941)・both・run 35070999045・-NoWatch。** 版数上げはHEADにコミット済(app.json=1.1.56・ahead=0で確認)＝CIは正しく1.1.56をビルド。①〜⑤すべてこのビルドで実機反映。**次＝CI緑確認(失敗時 `gh run view 35070999045 --log-failed`)。公開判断はDSA審査/Play連絡先登録の残務(下の行)を片付けてから別途Goで。**
+  - **🔴重大事故(2026-09-16判明)：ネイティブビルドが 2934 以降ずっと失敗し、2933(9/13)以降のものは①〜⑤含め1つも実機に届いていなかった。** 真因＝**Sentry(2934で有効化)のビルド時シンボルアップロード段が `SENTRY_AUTH_TOKEN` 必須なのにCI未設定→両OSでビルド失敗**（Android: `SentryUpload...FAILED / Auth token is required`。iOSも同因でarchive失敗）。Pages(OTA)は毎回成功していたので気づきにくかった＋私が -NoWatch で結果未確認だったのが発覚遅れの原因。**教訓＝-NoWatchでも各ビルドの成否は必ず1回確認する。**
+  - **✅A案で復旧(2026-09-16 ユーザー承認「まずAで即復旧→後でB」)＝commit `c3aebe38`／build-jlpt.yml の iOS/Android 両ジョブに env 追加：`SENTRY_AUTH_TOKEN`(Secret) が在ればアップロード、無ければ `SENTRY_DISABLE_AUTO_UPLOAD=true` で無効化(実行時クラッシュ検知は継続)。B格上げ＝GitHub Secret に `SENTRY_AUTH_TOKEN` 追加のみ(yml再編集不要)。** 再ビルド＝**v1.1.57(Build 2942)・both・run 35106494029**。①〜⑤＋バグ報告強化＋ヒンディー語等 2934以降の全未反映分がまとめて乗る。**✅成功確定(監視で確認)：build-ios 成功(26分)→TestFlight提出済／build-android 成功(13分)→Play内部テスト(App C枠)公開済。2933以来初のネイティブ成功。**（旧記載の2940/2941は失敗・2939は版数宙浮きでキャンセル）
+  - **B格上げ(任意・後日)＝Sentryでシンボル化されたスタックトレースが欲しくなったら**：Sentry(org safa-s9/project safa-jlpt)で auth token 発行(scope: project:releases+org:read)→GitHub の repo Secrets に `SENTRY_AUTH_TOKEN` 追加→次ビルドから自動でアップロード有効(yml再編集不要)。
 
 - **▶（2026-09-16 全体レビュー＝コミット待ち）同期データ消失バグを修正**＝多端末で「勉強していない端末を開いただけ」で updatedAt が進み、実際に学習した端末をLWWで上書き→クラウド進捗が消える不具合を修正。updatedAt を `reducer` で「本当のデータ変更のときだけ」刻む（`NO_STAMP` で起動時/サーバー由来 housekeeping を除外）／保存は `saveState(state)`／push も `Date.now()` 上書き廃止。回帰テスト＝`src/store/updatedAt.test.ts`。あわせて古いテスト2本（`tools/content/migrate_problems.test.ts`＝解説2026-09-02廃止の取り残し）を現仕様へ修正。詳細＝[[sync-updatedat-only-on-real-change]]。**commit `a43379c0`／⑧例外 `5e09af66`＝両方 push 済(origin/main)**。／深掘り(selectors/MockScreen)＝重大バグ無し。⑧「文章の文法」が模試の語ユニーク化(usedWords)不参加はB案（意図的例外として明文化＋番人固定）確定＝`MockScreen.tsx`コメント強化＋番人`src/mock/passageGrammarDedupException.test.ts`。／保守リスク対応：**usedWords順序依存の出題数不足＝修正済**（`knowledgeForDaimon`に spill 穴埋め＝本番出題数に届かない時だけ既使用語を再利用・問題数が本番より減らない）。予想得点の0.25縁ケース＝**不具合でない**(未着手0.25は意図仕様・全問未着手と同挙動)ので変更せず。buildExamのマウント時同期実行＝未計測ゆえ大改修は見送り(下の切り出しでRisk1は安全着手可に)。／★**模試組み立ての切り出し完了**＝`buildExam`/`knowledgeForDaimon`等を画面(MockScreen.tsx)から純ロジック`src/mock/buildExam.ts`へ移設(挙動不変・verbatim)。MockItem/Sec/Seen型もそこへ。これで node 直接テスト可＝挙動テスト`src/mock/buildExam.test.ts`(spill穴埋め・ユニーク化・生成スモーク)追加、⑧例外の番人はbuildExam.tsを参照するよう更新。**tsc 0・全531本パス。****build/publish は明示指示まで実行しない。**
 - **▶（✅SQL再実行 済／✅ビルド起動済 v1.1.55(2940)・run 35057466645／2026-09-16）バグ報告機能**＝強化分(ログイン必須+20秒連投ガード+ダッシュボード欄)はこのビルドで実機反映。／アプリ内バグ報告フォーム実装済。**基本版は v1.1.54(2934) で配信済**（設定タブ「サポート・規約」＋各問題画面ヘッダーの⚠報告→症状記入＋確認ダイアログ→送信。連絡先は集めない）。レビュー後の強化を追加＝**(B)送信はログイン必須(anon実行禁止)＋(C)同一アカウント20秒の連投ガード**＋聴解の音声停止漏れ修正＋**管理ダッシュボードに「バグ報告」欄を最下部に追加**（dashboard.html・`bug_reports`をservice_roleで直接読む/新しい順500件）。**これらの強化は commit+push 済だが push は Pages配信のみ起動＝ネイティブは未ビルド。次のまとまったビルドで反映**（build-jlpt.yml: build-ios/android は workflow_dispatch 限定・pushでは走らない）。**✅ サーバー関数の再実行＝完了（2026-09-16 ユーザーが Supabase SQL Editor で `bug_reports.sql` を再実行済＝ログイン必須＋20秒連投ガードがサーバー側でも有効）。**届いた報告の確認＝Supabaseダッシュボード最下部「バグ報告」欄 or Table Editor `bug_reports`。将来=[[dashboard-future-paging-csv]]。commit/buildは明示指示まで実行しない。
@@ -523,12 +535,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/i18n/zh2.json
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
-- docs/supabase/schema.sql
-- src/support/bugReportClient.ts
+- src/screens/PaywallScreen.tsx
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
+- App.tsx
+- src/pro/purchases.ts
 
-_自動更新: 2026-09-16 23:04_
+_自動更新: 2026-09-17 22:02_
 <!-- AUTO:END -->

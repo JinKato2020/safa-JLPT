@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Alert, AppState, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
-import * as Updates from 'expo-updates';
+import { ActivityIndicator, AppState, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, DefaultTheme, useNavigation, useNavigationState, StackActions } from '@react-navigation/native';
@@ -58,7 +57,7 @@ import KotobaTownScreen from './src/screens/KotobaTownScreen';
 import CheerInboxScreen from './src/screens/CheerInboxScreen';
 import InviteScreen from './src/screens/InviteScreen';
 import BugReportScreen from './src/screens/BugReportScreen';
-import { initPurchases, syncEntitlement, linkAccount, unlinkAccount } from './src/pro/purchases';
+import { initPurchases, syncEntitlement, linkAccount, unlinkAccount, addProUpdateListener } from './src/pro/purchases';
 import { initAds } from './src/pro/ads';
 import { walletPoints } from './src/store/wallet';
 import SafeBoundary from './src/components/SafeBoundary';
@@ -324,7 +323,6 @@ function Root() {
   // 端末/UIが日本語(uiLang=ja)のときだけ意味は英語(日本語話者に母語=日本語の意味は不要)。
   const uiLang = useUiLang();
   const t = useT();
-  const [dlBusy, setDlBusy] = useState(false);
   const meaningLang = uiLang === 'ja' ? 'en' : uiLang;
   useEffect(() => {
     if (!hydrated) return;
@@ -334,35 +332,17 @@ function Root() {
     if (!settings.uiLang && uiLang) setSettings({ uiLang });
   }, [hydrated, meaningLang, uiLang]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // 起動時: 新コンテンツがあれば「はい/いいえ」で確認してDL(ユーザー要望2026-09-06。設定の手動更新のみ→起動時確認へ)。
-  // 誤検知防止=バンドル同梱済みは更新扱いしない(ota.effectiveShas)。オフライン/失敗はプロンプトを出さない。
+  // 起動時: 新コンテンツがあれば「静かに」背景ダウンロード(プロンプトなし・両OS共通)。適用は次回起動時
+  // (BootGate の loadCachedFiles がキャッシュを読む)。UIはブロックしない(背景実行)。オフライン/失敗は無害。
+  // syncContent 側でタイムアウト＋逐次保存(固まり/無限ループ対策)。旧「はい/いいえ確認」方式を置換(2026-09-17)。
   useEffect(() => {
     if (!hydrated || !settings.onboarded) return;
-    let alive = true;
     (async () => {
       try {
-        const { checkContentUpdate } = await import('./src/data/content/ota');
-        const n = await checkContentUpdate();
-        if (!alive || n <= 0) return;
-        Alert.alert(t('content.launch_title'), t('content.launch_msg', { n }), [
-          { text: t('content.launch_no'), style: 'cancel' },
-          {
-            text: t('content.launch_yes'),
-            onPress: () => {
-              setDlBusy(true);
-              (async () => {
-                try {
-                  const { syncContent } = await import('./src/data/content/ota');
-                  await syncContent();
-                  await Updates.reloadAsync(); // DL済みを反映するため再起動(次回起動でキャッシュ適用)
-                } catch { setDlBusy(false); }
-              })();
-            },
-          },
-        ], { cancelable: false });
+        const { syncContent } = await import('./src/data/content/ota');
+        await syncContent(); // 背景で差分DL・逐次保存。次回起動で反映。
       } catch { /* オフライン/失敗は無害 */ }
     })();
-    return () => { alive = false; };
   }, [hydrated, settings.onboarded]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 匿名計測: 日次スナップショット＋アプリ往来/滞在＋回答flush＋クラッシュ報告。
@@ -402,6 +382,7 @@ function Root() {
   useEffect(() => {
     if (!hydrated) return;
     let cancelled = false;
+    let removeProListener: (() => void) | undefined;
     (async () => {
       await initPurchases(userId ?? null);
       let active: boolean | null;
@@ -410,8 +391,10 @@ function Root() {
       if (!cancelled && typeof active === 'boolean') setPurchaseActive(active);
       // 課金同期でPro状態が確定した後に、模試チケットを再整合(Pro:登録日起点の月次付与 / 非Pro:0にクリア)。
       if (!cancelled) syncTickets();
+      // 権利が後から有効化された時(購入直後の遅延付与・自動更新・他端末での変化)も自動でPRO反映＝手動Restore不要(2026-09-17)。
+      if (!cancelled) removeProListener = addProUpdateListener((pro) => setPurchaseActive(pro));
     })();
-    return () => { cancelled = true; };
+    return () => { cancelled = true; removeProListener?.(); };
   }, [hydrated, userId]); // eslint-disable-line react-hooks/exhaustive-deps
   // 広告(AdMob)の初期化。iOSはATT(トラッキング許可)を尋ねてから。SDK未リンクなら安全に no-op。
   // オンボ完了後に初回だけ実行=「トラッキングを許可する」チェックの結果でATTを尋ねる/尋ねない。
@@ -489,12 +472,6 @@ function Root() {
       </RootStack.Navigator>
     </NavigationContainer>
     {settings.onboarded && !session && !settings.accountPromptSeen && <AccountPrompt />}
-    {dlBusy && (
-      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.55)', alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator color="#fff" size="large" />
-        <Text style={{ color: '#fff', marginTop: 12, fontWeight: '700' }}>{t('content.downloading')}</Text>
-      </View>
-    )}
     </View>
     </DesignThemeProvider>
   );

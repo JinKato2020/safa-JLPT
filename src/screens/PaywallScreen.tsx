@@ -29,12 +29,12 @@ function periodKey(t: PACKAGE_TYPE): string | null {
   }
 }
 
-// 画面の表示順を固定(12ヶ月→6ヶ月→3ヶ月→1ヶ月)。RevenueCatのオファリング内の並びに依存しない。
+// 画面の表示順を固定(1ヶ月→3ヶ月→6ヶ月→12ヶ月＝短い順)。RevenueCatのオファリング内の並びに依存しない。
 const PERIOD_RANK: Partial<Record<PACKAGE_TYPE, number>> = {
-  [PACKAGE_TYPE.ANNUAL]: 0,
-  [PACKAGE_TYPE.SIX_MONTH]: 1,
-  [PACKAGE_TYPE.THREE_MONTH]: 2,
-  [PACKAGE_TYPE.MONTHLY]: 3,
+  [PACKAGE_TYPE.MONTHLY]: 0,
+  [PACKAGE_TYPE.THREE_MONTH]: 1,
+  [PACKAGE_TYPE.SIX_MONTH]: 2,
+  [PACKAGE_TYPE.ANNUAL]: 3,
 };
 
 export default function PaywallScreen() {
@@ -74,10 +74,15 @@ export default function PaywallScreen() {
   async function onBuy(pkg: PurchasesPackage) {
     if (busy) return;
     setBusy(true);
-    const ok = await purchase(pkg);
+    let ok = await purchase(pkg);
+    // 自動回復: 購入は通ったのに権利がまだ返らない(RevenueCat↔ストア照合の遅延)／既に所有(すでに定期購入)の場合、
+    // 権利を1回再同期して拾う。これで購入直後にPROへならず手動Restoreを強いる不具合を防ぐ(2026-09-17)。
+    if (!ok) { ok = (await syncEntitlement()) === true; }
     if (ok) {
       setPurchaseActive(true);
-      Alert.alert(t('paywall.thanks'));
+      const pk = periodKey(pkg.packageType);
+      const period = pk ? t(pk) : pkg.product.title; // 例: 「1ヶ月」。商品に応じて動的に。
+      Alert.alert(t('paywall.purchased_msg', { period }));
       nav.goBack();
     } else {
       // キャンセルも false。静かに戻すだけ(失敗メッセージは通信/在庫エラー時のみに寄せない=誤タップ配慮)

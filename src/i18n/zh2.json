@@ -1466,5 +1466,6 @@
   "bug.tooSoon": "請勿頻繁傳送。請稍候片刻再試。",
   "bug.loginRequiredTitle": "需要登入",
   "bug.loginRequired": "傳送Bug/問題報告需要登入（以防止垃圾資訊）。",
-  "bug.goLogin": "登入 / 賬戶"
+  "bug.goLogin": "登入 / 賬戶",
+  "paywall.purchased_msg": "已購買{period}Pro。請盡情享受應用的全部功能。"
 }

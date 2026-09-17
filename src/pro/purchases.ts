@@ -40,6 +40,19 @@ export async function syncEntitlement(): Promise<boolean | null> {
   }
 }
 
+/** CustomerInfo が更新される度(購入直後の遅延付与・自動更新・他端末での変化)に「今Proか」をコールバック。
+ *  戻り値=解除関数。購入直後に権利が返らずPROに切り替わらない不具合の保険(手動Restore不要にする)。 */
+export function addProUpdateListener(cb: (isPro: boolean) => void): () => void {
+  if (!configured) return () => {};
+  try {
+    const listener = (info: CustomerInfo) => cb(isProActive(info));
+    Purchases.addCustomerInfoUpdateListener(listener);
+    return () => { try { Purchases.removeCustomerInfoUpdateListener(listener); } catch { /* noop */ } };
+  } catch {
+    return () => {};
+  }
+}
+
 /** 購入画面に出す商品一式。未設定・失敗時は null(画面は「まもなく提供」を出す)。 */
 export async function getCurrentOffering(): Promise<PurchasesOffering | null> {
   if (!configured) return null;

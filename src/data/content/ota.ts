@@ -71,28 +71,56 @@ export async function checkContentUpdate(): Promise<number> {
   } catch { return 0; }
 }
 
-/** Pagesのmanifestを見て、sha変化/新規のファイルだけ逐次DL→キャッシュ保存。失敗/オフラインは無害(baselineで継続)。
- *  呼び出しは起動時の「はい/いいえ」確認(ユーザー要望2026-09-06)。旧・設定の手動更新のみ(2026-08-20)を置換。
- *  戻り値=今回DLしたファイル数。反映は呼び出し側の reload で即時。 */
+/** 1ファイルをタイムアウト付きで取得(res.ok以外/失敗はnull)。Androidで通信が固まっても全体を止めない。 */
+async function fetchTextTO(url: string, ms: number): Promise<string | null> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  try {
+    const res = await fetch(url, { signal: ctrl.signal });
+    return res.ok ? await res.text() : null;
+  } catch { return null; } finally { clearTimeout(timer); }
+}
+
+/** Pagesのmanifestを見て、sha変化/新規のファイルだけ「背景で」逐次DL→キャッシュ保存(プロンプトなし・両OS静かに更新)。
+ *  適用は次回起動時(loadCachedFilesが読む)。呼び出しは App.tsx 起動useEffect(2026-09-17 サイレント化。旧「はい/いいえ確認」を置換)。
+ *  堅牢化: ①各DLにタイムアウト＋1回リトライ ②進捗を10件ごとに逐次保存(途中で切れても次回は残りだけ=無限ループ防止)
+ *  ③新バンドル(アプリ更新後の初回)は古いOTAキャッシュを破棄して作り直す。戻り値=今回DLしたファイル数。失敗/オフラインは無害。 */
 export async function syncContent(): Promise<number> {
   try {
-    await FileSystem.makeDirectoryAsync(DIR, { intermediates: true }).catch(() => {});
-    const cachedShas = await readJson<Record<string, string>>(SHA_PATH, {});
-    const remote = JSON.parse(await (await fetch(BASE + '_manifest.json')).text()) as { files: Record<string, { sha256: string }> };
+    const tag = bundleTag();
+    const storedTag = await FileSystem.readAsStringAsync(BUNDLE_TAG_PATH).catch(() => '');
+    let cachedShas: Record<string, string>;
+    if (storedTag !== tag) {
+      // 新バンドル: 古いOTAキャッシュは新バンドルより古い可能性→捨てて作り直し、以後このバンドルのキャッシュとして有効化。
+      // タグを先に書くことで、以降の逐次保存(cachedShas)が次回起動から効く(部分DLでも残りだけで済む)。
+      await FileSystem.deleteAsync(DIR, { idempotent: true }).catch(() => {});
+      await FileSystem.makeDirectoryAsync(DIR, { intermediates: true }).catch(() => {});
+      await FileSystem.writeAsStringAsync(BUNDLE_TAG_PATH, tag);
+      cachedShas = {};
+    } else {
+      await FileSystem.makeDirectoryAsync(DIR, { intermediates: true }).catch(() => {});
+      cachedShas = await readJson<Record<string, string>>(SHA_PATH, {});
+    }
+    const manifestText = await fetchTextTO(BASE + '_manifest.json', 8000);
+    if (!manifestText) return 0; // manifest取得不可(オフライン等)→無害に終了
+    const remote = JSON.parse(manifestText) as { files: Record<string, { sha256: string }> };
     const todo = diffManifest(remote, await effectiveShas(cachedShas));
-    let n = 0;
+    let n = 0, sinceSave = 0;
     for (const p of todo) { // 逐次(順次)=帯域を独占しない
+      let text = await fetchTextTO(BASE + p, 15000);
+      if (text === null) text = await fetchTextTO(BASE + p, 15000); // 1回だけリトライ
+      if (text === null) continue; // 個別失敗はスキップ(次回再取得)
       try {
-        const res = await fetch(BASE + p);
-        if (!res.ok) continue;
-        const text = await res.text();
         await FileSystem.writeAsStringAsync(DIR + enc(p), text);
         cachedShas[p] = remote.files[p].sha256;
-        n++;
-      } catch { /* 個別失敗はスキップ(次回再取得) */ }
+        n++; sinceSave++;
+        if (sinceSave >= 10) { // 10件ごとに進捗を保存=途中で切れても次回は残りだけ(無限ループ防止)
+          await FileSystem.writeAsStringAsync(SHA_PATH, JSON.stringify(cachedShas));
+          sinceSave = 0;
+        }
+      } catch { /* 書込失敗はスキップ(次回再取得) */ }
     }
     await FileSystem.writeAsStringAsync(SHA_PATH, JSON.stringify(cachedShas));
-    await FileSystem.writeAsStringAsync(BUNDLE_TAG_PATH, bundleTag()); // このバンドル版で同期完了=次回からキャッシュ有効
     return n;
   } catch { return 0; /* オフライン/失敗は無害 */ }
 }

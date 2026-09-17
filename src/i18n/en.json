@@ -836,6 +836,7 @@
   "paywall.privacy": "Privacy Policy",
   "paywall.close": "Close",
   "paywall.thanks": "You're Pro now. Thank you!",
+  "paywall.purchased_msg": "You've purchased {period} Pro. Enjoy the full features of the app!",
   "paywall.restored": "Your purchases have been restored.",
   "paywall.no_restore": "No purchases to restore.",
   "paywall.legal_note": "Subscriptions renew automatically at the end of each period. You can turn off renewal anytime in your store settings after purchase.",

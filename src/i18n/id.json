@@ -1466,5 +1466,6 @@
   "bug.tooSoon": "Tidak bisa mengirim secara berurutan dalam interval singkat. Mohon tunggu sebentar lalu coba lagi.",
   "bug.loginRequiredTitle": "Perlu login",
   "bug.loginRequired": "Untuk mengirim laporan bug/masalah, Anda perlu login (untuk mencegah pengiriman spam secara berurutan).",
-  "bug.goLogin": "Login / Akun"
+  "bug.goLogin": "Login / Akun",
+  "paywall.purchased_msg": "Anda telah membeli {period}Pro. Nikmati semua fitur aplikasi secara maksimal."
 }
