@@ -1,0 +1,110 @@
+name: ASC Prices (Mainichi JLPT)
+run-name: "ASC subscription prices (read-only)"
+
+# 読み取り専用。com.safa.jlpt のサブスクリプション各商品の「地域別 顧客価格」を
+# App Store Connect API から取得してダンプする。何も書き込まない。
+# 既存 Secrets 流用: APP_STORE_CONNECT_KEY_ID / _ISSUER_ID / _API_KEY_BASE64
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - name: Install jwt gem
+        run: gem install jwt --no-document
+      - name: Build ASC API key
+        env:
+          KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          KEY_B64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+        run: |
+          printf '%s' "$KEY_ID" | tr -d '\r\n[:space:]' > /tmp/kid
+          printf '%s' "$ISSUER_ID" | tr -d '\r\n[:space:]' > /tmp/iid
+          printf '%s' "$KEY_B64" | base64 --decode > /tmp/AuthKey.p8
+      - name: Dump subscription prices (read-only)
+        run: |
+          cat > /tmp/prices.rb <<'RUBY'
+          require "jwt"; require "net/http"; require "json"; require "openssl"
+          kid = File.read("/tmp/kid").strip
+          iid = File.read("/tmp/iid").strip
+          pk  = OpenSSL::PKey::EC.new(File.read("/tmp/AuthKey.p8"))
+          now = Time.now.to_i
+          tok = JWT.encode({ iss: iid, iat: now, exp: now+18*60, aud: "appstoreconnect-v1" }, pk, "ES256", { kid: kid, typ: "JWT" })
+          def get(path, tok)
+            url = path.start_with?("http") ? path : "https://api.appstoreconnect.apple.com#{path}"
+            uri = URI(url); req = Net::HTTP::Get.new(uri); req["Authorization"] = "Bearer #{tok}"
+            res = Net::HTTP.start(uri.host, uri.port, use_ssl: true){|h| h.request(req)}
+            JSON.parse(res.body) rescue { "error" => res.code, "body" => res.body[0,300] }
+          end
+          # 通貨ラベル(主要エリアのみ・表示用)
+          CUR = {"JPN"=>"JPY","USA"=>"USD","CHN"=>"CNY","KOR"=>"KRW","VNM"=>"VND","IDN"=>"IDR","THA"=>"THB",
+                 "IND"=>"INR","GBR"=>"GBP","DEU"=>"EUR","FRA"=>"EUR","TWN"=>"TWD","HKG"=>"HKD","PHL"=>"PHP",
+                 "BRA"=>"BRL","MEX"=>"MXN","CAN"=>"CAD","AUS"=>"AUD","NPL"=>"NPR","BGD"=>"BDT"}
+          WANT = %w[JPN USA CHN TWN HKG KOR VNM IDN THA IND PHL NPL BGD GBR DEU FRA CAN AUS BRA MEX]
+          apps = get("/v1/apps?filter[bundleId]=com.safa.jlpt", tok)
+          aid = apps.dig("data",0,"id") or abort("APP NOT FOUND: #{apps.inspect[0,300]}")
+          puts "APP id=#{aid}"
+          puts "\n########## AUTO-RENEWABLE SUBSCRIPTIONS (自動更新サブスク) ##########"
+          groups = get("/v1/apps/#{aid}/subscriptionGroups?limit=200", tok)
+          (groups["data"]||[]).each do |g|
+            gid = g["id"]
+            subs = get("/v1/subscriptionGroups/#{gid}/subscriptions?limit=200", tok)
+            (subs["data"]||[]).each do |s|
+              a = s["attributes"]||{}
+              puts "\n=== SUB #{a["productId"]} | name=#{a["name"]} | period=#{a["subscriptionPeriod"]} | state=#{a["state"]} ==="
+              rows = {}
+              path = "/v1/subscriptions/#{s["id"]}/prices?include=subscriptionPricePoint,territory&limit=200"
+              while path
+                pr = get(path, tok)
+                inc = {}; (pr["included"]||[]).each{|i| inc[[i["type"],i["id"]]] = i}
+                (pr["data"]||[]).each do |p|
+                  rel = p["relationships"]||{}
+                  tid = rel.dig("territory","data","id")
+                  ppid = rel.dig("subscriptionPricePoint","data","id")
+                  pp = inc[["subscriptionPricePoints", ppid]]
+                  cust = pp && pp.dig("attributes","customerPrice")
+                  rows[tid] = cust if tid && cust
+                end
+                path = pr.dig("links","next")
+              end
+              puts "  territories total=#{rows.size}"
+              WANT.each{|t| puts "   #{t}: #{rows[t]} #{CUR[t]}" if rows[t] }
+              # WANT外で価格が付いている代表(最初の5件)も参考表示
+              others = rows.keys - WANT
+              puts "  (other territories sample: #{others.first(5).map{|t| "#{t}=#{rows[t]}"}.join(", ")} ...)" unless others.empty?
+            end
+          end
+          puts "\n########## IN-APP PURCHASES v2 (1回課金: 消耗/非消耗/非更新サブスク) ##########"
+          iaps = get("/v1/apps/#{aid}/inAppPurchasesV2?limit=200", tok)
+          list = iaps["data"]||[]
+          puts "count=#{list.size}"
+          list.each do |ip|
+            a = ip["attributes"]||{}
+            puts "\n=== IAP #{a["productId"]} | name=#{a["name"]} | type=#{a["inAppPurchaseType"]} | state=#{a["state"]} ==="
+            sched = get("/v2/inAppPurchases/#{ip["id"]}/iapPriceSchedule", tok)
+            sid = sched.dig("data","id")
+            (puts "  (price schedule none: #{sched.inspect[0,160]})"; next) unless sid
+            mp = get("/v1/inAppPurchasePriceSchedules/#{sid}/manualPrices?include=inAppPurchasePricePoint,territory&limit=200", tok)
+            inc = {}; (mp["included"]||[]).each{|i| inc[[i["type"],i["id"]]] = i}
+            rows = {}
+            (mp["data"]||[]).each do |p|
+              rel = p["relationships"]||{}
+              tid = rel.dig("territory","data","id")
+              ppid = rel.dig("inAppPurchasePricePoint","data","id")
+              pp = inc[["inAppPurchasePricePoints", ppid]]
+              cust = pp && pp.dig("attributes","customerPrice")
+              rows[tid] = cust if tid && cust
+            end
+            puts "  territories(manual) total=#{rows.size}"
+            WANT.each{|t| puts "   #{t}: #{rows[t]} #{CUR[t]}" if rows[t] }
+            puts "  (raw manualPrices: #{mp.inspect[0,220]})" if rows.empty?
+          end
+          RUBY
+          ruby /tmp/prices.rb
+          rm -f /tmp/AuthKey.p8 /tmp/kid /tmp/iid /tmp/prices.rb
