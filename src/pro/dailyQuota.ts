@@ -6,7 +6,23 @@ import { dayStr } from '../store/state';
 import { proStatus } from './entitlement';
 
 export const FREE_SESSIONS_PER_DAY = 3; // 無料の1日あたり回数
-export const AD_BONUS_PER_DAY_MAX = 2;  // 広告で足せる回数の上限(=1日に見られる本数)
+export const AD_BONUS_PER_DAY_MAX = 2;  // 広告で足せる回数の上限(=1日に見られる本数)。既定(下の無制限地域を除く)
+
+// 端末の地域コードがこれなら「広告で足せる回数」を無制限にする(=広告を見続ければ練習し放題)。
+// 途上アジア(非課金層)向けに広告で拡散する方針。判定は端末の地域(regionCode)のみ。
+export const UNLIMITED_AD_REGIONS = new Set(['NP', 'MM', 'BD']); // ネパール / ミャンマー / バングラデシュ
+let adBonusMaxOverride: number | null = null; // 起動時に端末地域から解決(未解決なら既定=AD_BONUS_PER_DAY_MAX)
+
+/** 起動時に1回: 端末の地域コードから「広告で足せる1日の上限」を決める。純関数の判定はこの値を見る。 */
+export function setAdBonusMaxForRegion(region?: string | null): void {
+  const r = (region || '').toUpperCase();
+  adBonusMaxOverride = UNLIMITED_AD_REGIONS.has(r) ? Infinity : AD_BONUS_PER_DAY_MAX;
+}
+
+/** いまの「広告で足せる1日の上限」。地域未解決なら既定(=AD_BONUS_PER_DAY_MAX)。無制限地域は Infinity。 */
+export function adBonusMax(): number {
+  return adBonusMaxOverride ?? AD_BONUS_PER_DAY_MAX;
+}
 
 export interface Quota {
   unlimited: boolean;  // Pro
@@ -30,12 +46,12 @@ export function quotaFor(state: AppState, now: number): Quota {
   if (proStatus(state, now).isPro) {
     return { unlimited: true, limit: Infinity, used, left: Infinity, bonus, canPractice: true, canWatchAd: false };
   }
-  const limit = FREE_SESSIONS_PER_DAY + Math.min(bonus, AD_BONUS_PER_DAY_MAX);
+  const limit = FREE_SESSIONS_PER_DAY + Math.min(bonus, adBonusMax());
   const left = Math.max(0, limit - used);
   return {
     unlimited: false, limit, used, left, bonus,
     canPractice: left > 0,
-    canWatchAd: left === 0 && bonus < AD_BONUS_PER_DAY_MAX,
+    canWatchAd: left === 0 && bonus < adBonusMax(),
   };
 }
 
@@ -49,6 +65,6 @@ export function consumeSession(state: AppState, now: number): AppState {
 /** 広告を最後まで見た報酬: 今日の回数を+1。上限に達していれば不変。 */
 export function grantAdBonus(state: AppState, now: number): AppState {
   const { used, bonus } = todayCounts(state, now);
-  if (bonus >= AD_BONUS_PER_DAY_MAX) return state;
+  if (bonus >= adBonusMax()) return state;
   return { ...state, dailyQuota: { day: dayStr(now), used, bonus: bonus + 1 } };
 }

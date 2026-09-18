@@ -2,7 +2,14 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **★現在地(2026-09-17 第2セッション クリア時点)＝この会話で未コミットの修正4件が“要ビルド”待機（アプリ本体コード・OTA不可・tsc0）。次の一手＝ユーザー指示でビルド(build.ps1 -Approved・番人71+tsc・iOS+Android)→実機検証。build/公開は勝手にしない。**
+- **★現在地(2026-09-17 第3セッション・広告本番化ビルド起動済)＝`FORCE_TEST_ADS=false`(一般公開でテスト広告を出さない)＋既存未コミット4件をまとめて v1.1.58(Build 2946)・both で dispatch 済(run 35225568780・-NoWatch)。テスト71pass/tsc0。iOS→TestFlight/Android→internal(既定)。build.ps1は production を触らない=一般公開は別ステップ。**
+  - **ビルド結果=✅2946 both 成功(2026-09-17 確認)**：build-ios success→TestFlight／build-android success→Play internal(既定track)。deploy-pagesはdispatch側runでskip=正常(Pagesはpush側別runで走る)。
+  - **✅iOS=2946へ差し替え審査再提出済(2026-09-18 ユーザー実施)**：審査列にあるのは広告本番化(FORCE_TEST_ADS=false)の正しいビルド。ATT説明文(NSUserTrackingUsageDescription)は[app.json:81-83]のexpo-tracking-transparencyでビルド同梱済=説明文欠落リジェクトは無し。**残確認=ASCのApp Privacyで「トラッキングに使用(IDFA/第三者広告)」を申告済みか**(私からは見えない・metadataフォーム)。**次=Apple審査結果待ち(24〜48h)。承認後リリースは初公開ゆえ手動推奨。リジェクト時はResolution Center文面をユーザーが貼る。**
+  - **✅Android 2946 製品版に公開完了(2026-09-18 1:40 JST)**：Play Console 製品版→リリースで「2946 ✓Google Playで公開・9/18 1:40公開」を確認。CIはinternalへ上げ、ユーザーが製品版へ昇格→公開済。※製品版に「2946 未公開」の重複ドラフトも並存(昇格を繰り返して出来た余り・破棄推奨。ライブ版に影響なし)。リリース作成で毎回「App Bundle追加なし/アップグレード不可」エラーが出たのは"2946が既に現行の製品版バンドル=二重公開不可"だったため。**Android一般公開=完了(広告本番版FORCE_TEST_ADS=false)。**
+  - **公開後タスク(優先順)**：①**Pro購入の実機確認=✅済(2026-09-18)**。ライセンステスターでテスト購入→即Proになり購入完了メッセージも表示＝RevenueCat⇔Google Play接続は動作OK。※軽微UI残: 購入完了メッセージが`Alert.alert(msg)`の引数1つ=Android"タイトル"扱いで2行に切れ「…」表示になる。直し=`Alert.alert(短タイトル, 本文, [{text:'OK',onPress:()=>nav.goBack()}])`(PaywallScreen.tsx onBuy)。要ビルド(OTA不可)ゆえ次ビルドに相乗り。②**AdMob有効化=ほぼ完了(2026-09-18)**：AdMobで Androidアプリ(com.safa.english)を Google Play掲載にリンク成功(承認状況=要審査→承認へ進行中・数h〜24h)。app-ads.txt=`google.com, pub-8926100627445480, DIRECT, f08c47fec0942fa0`を **www.safa-lang.com のルートに設置・実測OK**(別リポ=app_websiteセッション/Cloudflare Pages public/・commit 4476369 push済・https://www.safa-lang.com/app-ads.txt と safa-lang.com/app-ads.txt 両方で1行返る)。publisher ID=admob.ts/AdMobコンソール両方と一致で確認済。**残=AdMob承認待ちのみ(承認後に実機で広告表示を1回確認)。監視ループは回さない。**③ストア掲載16言語の下書きを審査送信(再ビルド不要)=未。
+  - **iOS**=1.1.58(2946)審査待ち(結果待ち)。App Privacyのトラッキング申告=済(広告データ:サードパーティ広告+トラッキング目的に使用/ID)。iPadスクショ=supportsTablet:falseで不要だが、任意で en/store/ipad の9枚を2064x2752へ変換済(アップロードは任意)。
+  - **メール認証/確認メール=Brevo カスタムSMTP 実装済(2026-09-18 確認)**：Supabase Auth→Emails→SMTP Settings=**ON**・Host `smtp-relay.brevo.com`:587・Username `b1b889001@smtp-brevo.com`・Sender `noreply@safa-lang.com`(mainichi JLPT)・パスワード保存済。Brevoアカウント=safa.co.official@gmail.com・**safa-lang.com=Authenticated(DKIM済)**。DNS実測=**DMARC有**(`_dmarc.safa-lang.com`=`v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com`)／SPF(root)=`v=spf1 include:_spf.mx.cloudflare.net ~all`でBrevo未包含だが、Brevoは戻り先自社ドメイン+DKIM整合でDMARC通るため**問題なし・SPFは触らない**(Cloudflare受信転送を壊すため)。Brevo無料枠=**300通/日**(超過は当日送信停止・課金なし)。**「確認メールが迷惑メール」報告の真因=SMTP未実装ではない**(実装済)→濃厚なのは①設定前の古いメールを見ていた②新ドメインの評価不足(送信実績が過去7日で1通=ウォームアップ不足)。**未実施の確定手順=新規メール登録で1通テスト→受信トレイか迷惑メールか実測＋mail-tester.comでDKIM/SPF/DMARCの合否スコア確認**。ソーシャルログイン(Google/Apple)は稼働=メール不要ユーザーはそちらで回避可。将来UX案=ソーシャル主導線化/確認の後追い(ソフト検証)/再送ボタン(要ビルド)。
+  - **旧・次の一手(公開・ユーザー明示合図でのみ)**：②**公開後にAdMob有効化**(両OS共通・公開しないと実広告出ない)＝AdMobで各アプリを「ストア掲載情報にリンク」→自動審査~24h＋app-ads.txt(pub-8926100627445480)をPages配信。承認前はshowRewardedAdが安全にfalse(=クラッシュ無・+1付かないだけ)。フラグは既にfalse=追加ビルド不要。③広告リワードのコードは実装済み(無料3回/日＋広告アンロック1日2回=最大5回/日・grantAdBonus/AD_BONUS_PER_DAY_MAX=2・回数変更はビルド要でOTA不可)=別途実装作業は無い。**build/公開は明示指示まで勝手にしない。**
   - ①**OTAコンテンツをサイレント自動更新化**：起動時プロンプト「はい/いいえ」廃止→**背景DL・次回起動で反映**。`syncContent`に**タイムアウト＋10件ごと逐次保存＋新バンドル時キャッシュ再作成**＝Androidの「85件くるくる回って落ちない/同じ画面に戻る」**無限ループ修正**（App.tsx＋`src/data/content/ota.ts`。EAS Update `u.expo.dev`は休眠のまま使わず・カスタムR2 OTAを堅牢化）。※未使用化した i18n `content.launch_*`/`downloading` は無害で残置。
   - ②**Pro購入の自動反映**（実バグ修正）：**初回購入でその場でPROにならず手動Restore必須**だった→購入後に権利未反映なら**自動再同期**＋**CustomerInfo更新リスナー**で後追い反映（`PaywallScreen.tsx` onBuy＋`src/pro/purchases.ts` addProUpdateListener＋App.tsx 起動effectで購読/解除）。※アプリ側は解約APIを呼ばない(AccountScreen.tsx:117明記)＝「テスト定期購入が自動解約」はGoogleのテスト仕様で正常。
   - ③**Pro画面の並び順を 1→3→6→12ヶ月(短い順)**（`PaywallScreen.tsx` PERIOD_RANK。旧12→1を反転）。
@@ -528,19 +535,17 @@
 <!-- AUTO:BEGIN -->
 
 ## 走行中の run（自動・完了通知が来ていないもの）
-- a3f41e1475e3c31cb general-purpose
-- a00df888ec67d5dc8 general-purpose
-- ac333d4514f04da09 general-purpose
+- なし
 
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/screens/PaywallScreen.tsx
-- src/i18n/ne.json
-- src/i18n/en.json
-- src/i18n/ja.json
+- memory/在庫・模試ストックまとめ.xlsx
+- 画像/申請スクショ/en/Googleフィーチャーグラフィック_2048x1152.png
 - App.tsx
-- src/pro/purchases.ts
+- src/pro/dailyQuota.ts
+- 画像/SNS/2/jlpt-ad-1080x1920_zh2_sns_bgm.mp4
+- 画像/SNS/2/jlpt-ad-1080x1920_zh_sns_bgm.mp4
 
-_自動更新: 2026-09-17 22:02_
+_自動更新: 2026-09-18 18:53_
 <!-- AUTO:END -->

@@ -44,6 +44,6 @@ Test Lab（Google Playテスト前レポートの自動試験）では計測/お
 ## 参考（本セッションのSNS/戦略・要点だけ）
 - 方針：**すぐ一般リリース**（フォロワー少TikTok100/FB50＝事前登録は不発。iOS/Android同時・承認済み保留分ではなくv1.1.34を提出=再審査）。
 - 無料の締め時＝install数でなく **D7リテンション安定＋レビュー数十件＋紹介ループ**。floor目安 1000-3000/国。途上アジア(ネパール)は無料継続。
-- 共通DL URL＝ `https://jinkato2020.github.io/safa-JLPT/download.html`（生存200・端末振り分け）。
+- 共通DL URL＝ `https://safa-lang.com/j`（短縮版・302→中継ページで端末振り分け。旧 github.io/…/download.html を直接配るのは失効）。詳細＝[[download-url-canonical]]。
 - SNS素材：予告①絵コンテ artifact / AIコーチ忠実再現スクショ6枚(ja/en/ne×始めたて/合格圏内)=`C:\Users\jwpsa\Downloads\AIコーチ_*.png`ほか / 生成器=scratchpad `render.mjs`＋playwright。※scratchpadは一時。
 - 別件（JLPT無関係）：Apple「再訪問記録」アプリ 9/2 Rejected・案件102951179706 → App Review の Reply で対応。

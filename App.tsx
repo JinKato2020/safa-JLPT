@@ -59,6 +59,8 @@ import InviteScreen from './src/screens/InviteScreen';
 import BugReportScreen from './src/screens/BugReportScreen';
 import { initPurchases, syncEntitlement, linkAccount, unlinkAccount, addProUpdateListener } from './src/pro/purchases';
 import { initAds } from './src/pro/ads';
+import { setAdBonusMaxForRegion } from './src/pro/dailyQuota';
+import * as Localization from 'expo-localization';
 import { walletPoints } from './src/store/wallet';
 import SafeBoundary from './src/components/SafeBoundary';
 import { DesignThemeProvider } from './src/design';
@@ -400,6 +402,8 @@ function Root() {
   // オンボ完了後に初回だけ実行=「トラッキングを許可する」チェックの結果でATTを尋ねる/尋ねない。
   useEffect(() => {
     if (!hydrated || !settings.onboarded) return;
+    // 端末の地域(NP/MM/BD)なら広告で足せる回数を無制限にする。取れなくても既定(1日2回)で安全に動く。
+    try { setAdBonusMaxForRegion(Localization.getLocales?.()[0]?.regionCode ?? null); } catch { /* 既定のまま */ }
     void initAds(settings.adTracking !== false);
   }, [hydrated, settings.onboarded, settings.adTracking]);
   // 現在フォントを設定値に同期(このレンダー→配下の全Textが新フォントで描画)。既定=maru(丸ゴシック)。
