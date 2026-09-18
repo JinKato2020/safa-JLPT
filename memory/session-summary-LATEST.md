@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 1 回・4 ターン
-- 往復 196 回
+- ツール呼び出し 7 回・20 ターン
+- 往復 252 回
 
 ## 何が変わったか
 - memory/handoff.md
+- src/home/WeeklyLetter.tsx
 - memory/session-summary-LATEST.md
-- memory/在庫・模試ストックまとめ.xlsx
-- 画像/申請スクショ/en/Googleフィーチャーグラフィック_2048x1152.png
-- App.tsx
+- src/i18n/zh2.json
+- content/_manifest.json
 
 ## 次の一手
 - **★現在地(2026-09-17 第3セッション・広告本番化ビルド起動済)＝`FORCE_TEST_ADS=false`(一般公開でテスト広告を出さない)＋既存未コミット4件をまとめて v1.1.58(Build 2946)・both で dispatch 済(run 35225568780・-NoWatch)。テスト71pass/tsc0。iOS→TestFlight/Android→internal(既定)。build.ps1は production を触らない=一般公開は別ステップ。**

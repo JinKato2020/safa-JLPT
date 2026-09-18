@@ -535,17 +535,17 @@
 <!-- AUTO:BEGIN -->
 
 ## 走行中の run（自動・完了通知が来ていないもの）
-- なし
+- ad22bf622cd8db975 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/home/WeeklyLetter.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- src/i18n/zh2.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- app.json
 - memory/在庫・模試ストックまとめ.xlsx
-- 画像/申請スクショ/en/Googleフィーチャーグラフィック_2048x1152.png
-- App.tsx
-- src/pro/dailyQuota.ts
-- 画像/SNS/2/jlpt-ad-1080x1920_zh2_sns_bgm.mp4
-- 画像/SNS/2/jlpt-ad-1080x1920_zh_sns_bgm.mp4
 
-_自動更新: 2026-09-18 18:53_
+_自動更新: 2026-09-18 20:32_
 <!-- AUTO:END -->
