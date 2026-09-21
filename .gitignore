@@ -15,6 +15,11 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 
+# Firebase 設定ファイル（APIキーを含む・公開repoに絶対コミットしない。CIはbase64 Secretから復元。
+#  正本＝C:\API 秘密の鍵\JLPT\firebase\ / ローカルはそこからコピーして配置）
+google-services.json
+GoogleService-Info.plist
+
 # Metro
 .metro-health-check*
 

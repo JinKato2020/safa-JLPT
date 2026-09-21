@@ -204,6 +204,23 @@ jobs:
           APP_VERSION=$(node -p "require('./app.json').expo.version" 2>/dev/null || echo "?")
           echo "## 📦 ${BUILD_NUMBER} — iOS build ・ まいにちJLPT v$APP_VERSION (TestFlight)" >> $GITHUB_STEP_SUMMARY
 
+      # Firebase Analytics 設定ファイルを base64 Secret から復元(公開repoに置けないため)。
+      #  prebuild が @react-native-firebase/app プラグインでネイティブへ取り込む前に必要。
+      #  正本=C:\API 秘密の鍵\JLPT\firebase\ / GitHub Secret 名は下記2つ。
+      - name: Decode Firebase config files (Analytics)
+        env:
+          GS_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+          GS_PLIST_B64: ${{ secrets.GOOGLESERVICE_INFO_PLIST_BASE64 }}
+        run: |
+          if [ -z "$GS_JSON_B64" ] || [ -z "$GS_PLIST_B64" ]; then
+            echo "::error::Firebase secrets 未設定 (GOOGLE_SERVICES_JSON_BASE64 / GOOGLESERVICE_INFO_PLIST_BASE64)。safa-JLPT に追加してください"; exit 1
+          fi
+          printf '%s' "$GS_JSON_B64" | base64 --decode > google-services.json
+          printf '%s' "$GS_PLIST_B64" | base64 --decode > GoogleService-Info.plist
+          test -s google-services.json || { echo "::error::google-services.json decode 失敗"; exit 1; }
+          test -s GoogleService-Info.plist || { echo "::error::GoogleService-Info.plist decode 失敗"; exit 1; }
+          echo "::notice::Firebase config files decoded"
+
       - name: Expo prebuild (iOS)
         env:
           EXPO_NO_TELEMETRY: '1'
@@ -408,6 +425,21 @@ jobs:
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           APP_VERSION=$(node -p "require('./app.json').expo.version" 2>/dev/null || echo "?")
           echo "## 🤖 ${BUILD_NUMBER} — Android AAB ・ まいにちJLPT v$APP_VERSION (App C枠 com.safa.english)" >> $GITHUB_STEP_SUMMARY
+      # Firebase Analytics 設定ファイルを base64 Secret から復元(公開repoに置けないため)。
+      - name: Decode Firebase config files (Analytics)
+        env:
+          GS_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+          GS_PLIST_B64: ${{ secrets.GOOGLESERVICE_INFO_PLIST_BASE64 }}
+        run: |
+          if [ -z "$GS_JSON_B64" ] || [ -z "$GS_PLIST_B64" ]; then
+            echo "::error::Firebase secrets 未設定 (GOOGLE_SERVICES_JSON_BASE64 / GOOGLESERVICE_INFO_PLIST_BASE64)。safa-JLPT に追加してください"; exit 1
+          fi
+          printf '%s' "$GS_JSON_B64" | base64 --decode > google-services.json
+          printf '%s' "$GS_PLIST_B64" | base64 --decode > GoogleService-Info.plist
+          test -s google-services.json || { echo "::error::google-services.json decode 失敗"; exit 1; }
+          test -s GoogleService-Info.plist || { echo "::error::GoogleService-Info.plist decode 失敗"; exit 1; }
+          echo "::notice::Firebase config files decoded"
+
       - name: Expo prebuild (Android)
         env:
           EXPO_NO_TELEMETRY: '1'

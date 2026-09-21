@@ -1419,8 +1419,6 @@
   "content.downloading": "Đang tải xuống...",
   "official.base_label": "Kỳ 2 năm 2025 (Tháng 12)",
   "weekly.title": "Thư từ Sakura",
-  "weekly.greet": "Tuần này bạn đã làm rất tốt. Cùng xem nhé.",
-  "weekly.more": "Đừng lo lắng. Cứ giữ vững phong độ này và tiến lên từng chút một nhé.",
   "weekly.close": "Cảm ơn bạn",
   "weekly.later": "Để sau nhé",
   "weekly.refer_line": "Nếu bạn muốn, hãy giới thiệu cho bạn bè đang cố gắng nhé? Cả hai bạn sẽ nhận được 1 tuần Pro.",
@@ -1467,5 +1465,7 @@
   "bug.loginRequiredTitle": "Cần đăng nhập",
   "bug.loginRequired": "Cần đăng nhập để gửi báo cáo lỗi/sự cố (để tránh gửi liên tục gây phiền nhiễu).",
   "bug.goLogin": "Đăng nhập / Tài khoản",
-  "paywall.purchased_msg": "Đã mua {period}Pro. Tận hưởng tối đa các tính năng của ứng dụng."
+  "paywall.purchased_msg": "Đã mua {period}Pro. Tận hưởng tối đa các tính năng của ứng dụng.",
+  "weekly.greet": "Bạn đã làm rất tốt trong tuần này.\nBạn đã phát triển được chừng này trong một tuần.",
+  "weekly.more": "Đừng lo lắng, cứ bình tĩnh.\nHãy tiếp tục từng chút một như thế này nhé."
 }

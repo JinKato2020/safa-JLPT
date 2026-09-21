@@ -4,7 +4,7 @@
 //  1通につき「友だち紹介」「アプリ評価」のどちらか1つだけを“そっと”添える(交互・強く押さない)。評価は良い週だけ＋数ヶ月に1度。
 //  出す条件: 初回はインストール7日後以降・前回から7日以上あき・その週に伸びがある時だけ。模試チケット配布の祝い中は出さない。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Modal, View, Text, Image, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
+import { Modal, View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
@@ -13,9 +13,11 @@ import { dayStr, daysBetween, type Settings } from '../store/state';
 import { weekGain, coverGain, scoreGain, growthBars } from './growthStats';
 import { coverageBars, expectedScoreFor } from '../store/selectors';
 import { askStoreReview } from '../util/storeReview';
-import { GUIDE } from '../data/mywordsArt';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
+
+// 桜からのおたより カード上部のヘッダー画像(透過PNG・従来のアバターに替えて掲示)。カード内幅にフィット。
+const LETTER_IMG = require('../../assets/home/weekly_letter.png');
 
 const WEEK = 7;                          // 出す間隔(日)
 const RATE_GAP_MS = 30 * 86_400_000;     // アプリ評価を尋ねる最短間隔(約1ヶ月)。OS側は年数回しか実際のダイアログを出さない(頻度はOSが制御)。
@@ -31,7 +33,6 @@ export default function WeeklyLetter({ preview = null, onPreviewClose }: { previ
   const t = useT();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
-  const { width } = useWindowDimensions();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const nowRef = useRef(Date.now());
@@ -106,17 +107,12 @@ export default function WeeklyLetter({ preview = null, onPreviewClose }: { previ
   const dCover = pv(coverPct, 38), dCoverUp = pv(coverUpPct, 3);
   const dWords = pv(totalWords, 312), dWordsUp = pv(wGain, 12);
 
-  const dims = Image.resolveAssetSource(GUIDE.open);
-  const aspect = dims?.width && dims?.height ? dims.width / dims.height : 1;
-  const imgW = Math.min(132, Math.round(width * 0.34));
-  const imgH = Math.round(imgW / aspect);
-
   return (
     <Modal visible transparent animationType="fade" onRequestClose={close}>
       <Pressable style={s.backdrop} onPress={close}>
         {/* カード本体のタップは閉じない(内側でstopPropagation代わりにonPress空) */}
         <Pressable style={s.card} onPress={() => {}}>
-          <Image source={GUIDE.open} style={{ width: imgW, height: imgH }} resizeMode="contain" />
+          <Image source={LETTER_IMG} style={s.letter} resizeMode="contain" />
           <Text style={s.title}>{t('weekly.title')}</Text>
           <Text style={s.greet}>{t('weekly.greet')}</Text>
 
@@ -184,6 +180,7 @@ const makeStyles = (c: ThemeColors) =>
       paddingVertical: spacing.lg, paddingHorizontal: spacing.lg,
       shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 14, shadowOffset: { width: 0, height: 6 }, elevation: 6,
     },
+    letter: { width: '100%', aspectRatio: 2, marginTop: -spacing.sm, marginBottom: spacing.xs },
     title: { fontSize: ty.h2, fontWeight: '900', color: c.ink, marginTop: spacing.xs },
     greet: { fontSize: ty.body, fontWeight: '700', color: c.ink2, textAlign: 'center', lineHeight: 24 },
     gains: { width: '100%', gap: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.md, paddingHorizontal: spacing.md, marginTop: spacing.xs },

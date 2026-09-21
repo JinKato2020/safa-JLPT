@@ -8,6 +8,7 @@ import Purchases, {
   type PurchasesPackage,
 } from 'react-native-purchases';
 import { revenueCatApiKey, purchasesConfigured, PRO_ENTITLEMENT_ID } from '../config/revenuecat';
+import { logPurchase } from '../analytics/analytics';
 
 let configured = false;
 
@@ -68,7 +69,12 @@ export async function purchase(pkg: PurchasesPackage): Promise<boolean> {
   if (!configured) return false;
   try {
     const { customerInfo } = await Purchases.purchasePackage(pkg);
-    return isProActive(customerInfo);
+    const ok = isProActive(customerInfo);
+    if (ok) {
+      // 広告の最適化ターゲット。売上として集計されるよう value/currency も送る。
+      logPurchase({ value: pkg.product?.price, currency: pkg.product?.currencyCode, item_id: pkg.product?.identifier });
+    }
+    return ok;
   } catch {
     return false; // キャンセルもここに来る(RevenueCatはキャンセルを例外で返す)
   }

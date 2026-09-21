@@ -1,7 +1,7 @@
 // 連続学習→連続テスト の共通フロー（掲示板「学習フロー」）。
 // ①まず batch(最大size件) を続けて「学習」(採点なし・各画面が renderLearnCard で表示)
 // → ②同じ batch を続けて4択「テスト」(客観・重み3=recordQuiz)。間違いは分散再出題(relearn)。
-import { useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useState, useEffect, useRef, type ReactNode } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +16,7 @@ import type { SaveRef } from '../store/state';
 import { buildQueue, makeQuestion, reinsertForRelearn, EXAM_FORMATS } from '../quiz/quiz';
 import type { StudyItem } from '../data';
 import { useT, meaningL1 } from '../i18n';
+import { logStudyComplete } from '../analytics/analytics';
 
 const RELEARN_GAP = 3;
 
@@ -51,6 +52,15 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
 
   const testItem = testQueue[testIdx];
   const question = useMemo(() => (testItem ? makeQuestion(testItem, pool, Math.random, EXAM_FORMATS) : null), [testItem?.id, testIdx]);
+
+  // 学習完了を1回だけ計測(広告最適化の高頻度イベント)。テストを出し切った時に発火。
+  const doneLogged = useRef(false);
+  useEffect(() => {
+    if (phase === 'test' && batch.length > 0 && (!testItem || !question) && !doneLogged.current) {
+      doneLogged.current = true;
+      logStudyComplete({ correct, total: answered, category: pool[0]?.category ?? 'study' });
+    }
+  }, [phase, batch.length, testItem, question, correct, answered, pool]);
 
   // テスト: 解答後は自動で進めず、手動「次へ」で前進(試験タブと統一)。前進処理は advance()。
 

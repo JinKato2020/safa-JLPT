@@ -1419,8 +1419,6 @@
   "content.downloading": "다운로드 중...",
   "official.base_label": "2025년 제2회(12월)",
   "weekly.title": "사쿠라의 편지",
-  "weekly.greet": "이번 주도 수고 많으셨어요. 함께 확인해 볼까요?",
-  "weekly.more": "조급해하지 않아도 괜찮아요. 이대로 꾸준히 나아가요.",
   "weekly.close": "고마워요",
   "weekly.later": "다음에 할게요",
   "weekly.refer_line": "열심히 공부하는 친구에게도 알려줄까요? 두 분 모두 1주일 Pro를 받을 수 있어요.",
@@ -1467,5 +1465,7 @@
   "bug.loginRequiredTitle": "로그인이 필요합니다",
   "bug.loginRequired": "버그/오류 보고서를 보내려면 로그인이 필요합니다 (스팸 방지).",
   "bug.goLogin": "로그인 / 계정",
-  "paywall.purchased_msg": "{period}Pro를 구매했습니다. 앱의 기능을 최대한 즐겨보세요."
+  "paywall.purchased_msg": "{period}Pro를 구매했습니다. 앱의 기능을 최대한 즐겨보세요.",
+  "weekly.greet": "이번 주도 수고 많으셨습니다.\n일주일 동안 이렇게 성장했어요.",
+  "weekly.more": "조급해하지 마세요.\n이대로 조금씩 나아가 봐요."
 }
