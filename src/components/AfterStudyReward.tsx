@@ -4,7 +4,7 @@
 //  ③単語帳の登録チェック＋正誤リスト(毎回)。※復習(私の単語帳)モードでは、記憶した(正解した)単語だけ
 //    チェックを外して単語帳から除外できる(外す前に確認ダイアログ)。通常は☑で「私の単語帳」へ追加。
 //  ・AIコーチ(成長分析)は最下部に添える。※付与ロジックは②の貝(全問正解=20)を正規化する所だけ触る(表示＋不足分の上乗せ)。
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, useWindowDimensions, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -171,7 +171,17 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
         <View style={s.listCard}>
           <View style={s.listHead}>
             <Text style={s.listH}>{review ? t('reward.list_review') : t('reward.list_add')}</Text>
-            {reviewByRef && Object.keys(reviewByRef).length > 0 ? <Text style={s.listHint}>{t('reward.list_hint_review')}</Text> : null}
+            {reviewByRef && Object.keys(reviewByRef).length > 0 ? (
+              // 「›」(U+203A)は端末フォントで欠字になり消える不具合があった。行末と同じ実アイコンに置換(全言語共通・›の位置で分割)。
+              <View style={s.listHintRow}>
+                {t('reward.list_hint_review').split(/[›>»]/).map((part, i) => (
+                  <Fragment key={i}>
+                    {i > 0 ? <Ionicons name="chevron-forward" size={11} color={c.blue} /> : null}
+                    {part ? <Text style={s.listHint}>{part}</Text> : null}
+                  </Fragment>
+                ))}
+              </View>
+            ) : null}
           </View>
           {words.map((w) => {
             const saved = !w.noSave && isInMyList(state.myList ?? [], w.ref);
@@ -297,6 +307,7 @@ const makeStyles = (c: ThemeColors) =>
     wmean: { flex: 1, fontSize: ty.small, color: c.mute },
     wexpand: { padding: 4, marginLeft: 2 },
     listHint: { fontSize: ty.tiny, color: c.blue, fontWeight: '800' },
+    listHintRow: { flexDirection: 'row', alignItems: 'center', flexShrink: 1 },
     // 問題の見直し一覧(読解・聴解)の行
     qrow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, paddingVertical: 9, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.line },
     qrowLabel: { flex: 1, fontSize: ty.small, color: c.ink2, fontWeight: '700' },

@@ -543,14 +543,14 @@
 - ae7242744b8ff5435 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- docs/supabase/dashboard.html
+- memory/session-summary-LATEST.md
+- memory/handoff.md
+- src/screens/ProfileScreen.tsx
+- src/components/AfterStudyReward.tsx
 - src/i18n/zh2.json
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- app.json
-- memory/session-summary-LATEST.md
-- memory/handoff.md
-- md/OTA配信の仕組み.md
-- src/home/WeeklyLetter.tsx
 
-_自動更新: 2026-09-21 22:30_
+_自動更新: 2026-09-22 00:06_
 <!-- AUTO:END -->

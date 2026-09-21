@@ -1,7 +1,7 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
 import { useMemo, useState, useRef, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Alert } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Alert, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -497,7 +497,15 @@ export default function ProfileScreen() {
         ) : null}
 
         {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示)。7回タップで開発用セクションを表示(隠しゲート)。 */}
-        <Pressable onPress={() => { devTapRef.current += 1; if (devTapRef.current >= 7) setSettings({ devToolsUnlocked: true }); }}>
+        <Pressable onPress={() => {
+          devTapRef.current += 1;
+          // 開発モード解禁は隠しゲート。自分以外が解禁したら分かるよう、解禁の瞬間に1回だけ計測イベントを送る。
+          // tel_event に anonId(端末) ＋ account_id(ログイン時) が自動で載る→自分の既知IDと突き合わせれば他人を特定できる。
+          if (devTapRef.current >= 7 && state.settings.devToolsUnlocked !== true) {
+            setSettings({ devToolsUnlocked: true });
+            void sendEvent('dev_mode_unlocked', { platform: Platform.OS, ver: Application.nativeApplicationVersion ?? '', build: Application.nativeBuildVersion ?? '' });
+          }
+        }}>
           <Text style={s.version}>
             v{Application.nativeApplicationVersion ?? '1.1.0'} (build {Application.nativeBuildVersion ?? '—'})
           </Text>
