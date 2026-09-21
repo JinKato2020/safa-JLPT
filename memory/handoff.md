@@ -2,7 +2,9 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-- **★最新(2026-09-21 Firebase Analytics導入セッション・未コミット/未ビルド)＝Google広告アプリキャンペーンの「アプリ内イベント最適化」用にFirebase計測を組み込み中。** 完了(コード)：`@react-native-firebase/app`+`/analytics` v26.4.0導入・`app.json`(plugins追加＋iOS`useFrameworks:static`(expo-build-properties)＋android/ios`googleServicesFile`)・計測ラッパー新規`src\analytics\analytics.ts`(遅延require+全try/catchでテスト/web安全・logPurchase/logStudyComplete/logTrialStart)・配線=`src\pro\purchases.ts`purchase成功で`purchase`(value/currency/item_id)＋`src\components\LearnTestSession.tsx`テスト完了で`study_complete`(1回だけuseEffect)。CI=`.github\workflows\build-jlpt.yml`のiOS/Android両ジョブに「Firebase設定をbase64 Secretから復号(prebuild前)」ステップ追加。設定ファイル正本=`C:\API 秘密の鍵\JLPT\firebase\{google-services.json,GoogleService-Info.plist}`(repoルートにもコピー済だが`.gitignore`で除外＝公開repoに出さない)。検証=`expo config --type prebuild`緑・`tsc --noEmit`0・i18n番人22/22緑。**残り(ユーザー作業)＝(1)GitHub Secret 2つ登録：`GOOGLE_SERVICES_JSON_BASE64`/`GOOGLESERVICE_INFO_PLIST_BASE64`(base64は`C:\API 秘密の鍵\JLPT\firebase\*BASE64.txt`に生成済／`gh secret set`で私が投入可・repo=JinKato2020/safa-JLPT)。(2)Firebaseコンソール→Analyticsでpurchase/study_complete/trial_startを「コンバージョンにマーク」→Google広告とリンク→広告でインポート。(3)trial_startは`claimTrial`が既存日も返す作りゆえ未配線＝UI「お試し開始」ボタン側で`logTrialStart()`を後日配線。** ⚠**iOS初回ビルドの唯一のリスク＝`useFrameworks:static`とAdMob(react-native-google-mobile-ads)のpod同居**。落ちたらPodfileに`$RNGoogleMobileAdsAsStaticFramework=true`等の小修正が要る可能性。**コミット/ビルドはユーザー明示指示まで実行しない[[never-build-without-explicit-order]]。**
+- **★最新(2026-09-21 ビルド実行)＝v1.1.61(Build 2949) both dispatch済(run 35601476256・-NoWatch)。** 中身=Firebase Analytics導入(purchase/study_complete計測・CI base64 Secret復号)＋GitHub Secret 2件(`GOOGLE_SERVICES_JSON_BASE64`/`GOOGLESERVICE_INFO_PLIST_BASE64`)を`gh secret set`で登録済(repo=JinKato2020/safa-JLPT)＋「桜からのおたより」カード上部に桜イラスト(`assets/home/weekly_letter.png`=元`画像/アプリ画像/桜からのおたより.png`を720x360/340KBへ最適化)を追加し従来アバター(GUIDE.open)を削除([src/home/WeeklyLetter.tsx])。test71pass/tsc0。⚠**iOS初回ビルドのpod同居リスク継続(useFrameworks:static×AdMob=react-native-google-mobile-ads)＝iOS失敗時はPodfileに`$RNGoogleMobileAdsAsStaticFramework=true`等の小修正**。**次の一手＝(1)CI結果=Actionsが赤ならiOS pod修正(監視はしない・ユーザー報告で対処)。緑ならTestFlight/Play internalへ。(2)アプリ配信後~24hでFirebase Events(purchase/study_complete)にデータが乗ったら→キーイベントにマーク→Google広告とリンク→広告でインポート(Firebaseコンソール=データ来るまで「データがありません」表示で正常・2026-09-21確認)。(3)trial_start配線=UI「お試し開始」ボタンに`logTrialStart()`を後日追加。** UI変更ゆえ実機反映は2949から(OTA不可)。関連=[[google-payments-address-verification-pending]]。
+
+- **★(旧・2026-09-21 Firebase実装→v1.1.61/2949でビルド済)＝Google広告アプリキャンペーンの「アプリ内イベント最適化」用にFirebase計測を組み込み中。** 完了(コード)：`@react-native-firebase/app`+`/analytics` v26.4.0導入・`app.json`(plugins追加＋iOS`useFrameworks:static`(expo-build-properties)＋android/ios`googleServicesFile`)・計測ラッパー新規`src\analytics\analytics.ts`(遅延require+全try/catchでテスト/web安全・logPurchase/logStudyComplete/logTrialStart)・配線=`src\pro\purchases.ts`purchase成功で`purchase`(value/currency/item_id)＋`src\components\LearnTestSession.tsx`テスト完了で`study_complete`(1回だけuseEffect)。CI=`.github\workflows\build-jlpt.yml`のiOS/Android両ジョブに「Firebase設定をbase64 Secretから復号(prebuild前)」ステップ追加。設定ファイル正本=`C:\API 秘密の鍵\JLPT\firebase\{google-services.json,GoogleService-Info.plist}`(repoルートにもコピー済だが`.gitignore`で除外＝公開repoに出さない)。検証=`expo config --type prebuild`緑・`tsc --noEmit`0・i18n番人22/22緑。**残り(ユーザー作業)＝(1)GitHub Secret 2つ登録：`GOOGLE_SERVICES_JSON_BASE64`/`GOOGLESERVICE_INFO_PLIST_BASE64`(base64は`C:\API 秘密の鍵\JLPT\firebase\*BASE64.txt`に生成済／`gh secret set`で私が投入可・repo=JinKato2020/safa-JLPT)。(2)Firebaseコンソール→Analyticsでpurchase/study_complete/trial_startを「コンバージョンにマーク」→Google広告とリンク→広告でインポート。(3)trial_startは`claimTrial`が既存日も返す作りゆえ未配線＝UI「お試し開始」ボタン側で`logTrialStart()`を後日配線。** ⚠**iOS初回ビルドの唯一のリスク＝`useFrameworks:static`とAdMob(react-native-google-mobile-ads)のpod同居**。落ちたらPodfileに`$RNGoogleMobileAdsAsStaticFramework=true`等の小修正が要る可能性。**コミット/ビルドはユーザー明示指示まで実行しない[[never-build-without-explicit-order]]。**
 
 - **★現在地(2026-09-21 SNS/拡散セッション＋アプリ2ビルド)＝(1)v1.1.59(Build 2947)=端末地域NP/MM/BDのみ広告(練習ボーナス回数)を無制限化(`src/pro/dailyQuota.ts` adBonusMax/UNLIMITED_AD_REGIONS＋`App.tsx`でLocalization regionCode解決・他国は従来1日2回)＋共通DL URLを`safa-lang.com/j`に統一。(2)v1.1.60(Build 2948)=「桜からのおたより」(`src/home/WeeklyLetter.tsx`)が全面リニューUIで縦長化し閉じる×/背景タップが画面外に出て操作不能になる不具合を修正＝機能維持のままリニュー前のコンパクトUI(a0e5befd)へ復帰。両方 both dispatch・-NoWatch(結果未監視)・テスト71pass/tsc0。⚠**Android製品版=2947が「完全公開100%＋管理公開オフ＝審査承認で自動一般公開」待ち。2947には"おたより修正"が入っていない(修正は2948=内部テスト止まり)。固着バグを一般に出したくないなら"2948を製品版へ昇格" or "公開の概要で管理公開オンに戻して2947保留"。** 併せて判明=対応言語は**12言語**(hi追加・UI_LANGS正本)・全問題**約20,701問**(stock_report 2026-09-13)。ただし宣伝物(YouTube説明/`作業中/SNSアカウント.xlsx`)とCLAUDE.md/一部メモリは**「11言語」表記で古い→要更新**。**次の一手＝ユーザー判断(①2948を製品版へ上げるか ②11→12言語の宣伝/docs修正 ③CAEアプリのIAP審査提出サポートは別アプリ)。** SNS成果物=`画像/SNS/2/`に各言語広告動画(BGM付き・軽量化)＋英語ナレmp3 `画像/SNS/2/音声/en_01〜15.mp3`(声Kore・1.05倍/en_06は2.5s)、YouTubeバナー=`画像/`配下。**
 - **★(旧)現在地(2026-09-17 第3セッション・広告本番化ビルド起動済)＝`FORCE_TEST_ADS=false`(一般公開でテスト広告を出さない)＋既存未コミット4件をまとめて v1.1.58(Build 2946)・both で dispatch 済(run 35225568780・-NoWatch)。テスト71pass/tsc0。iOS→TestFlight/Android→internal(既定)。build.ps1は production を触らない=一般公開は別ステップ。**
@@ -541,14 +543,14 @@
 - ae7242744b8ff5435 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/home/WeeklyLetter.tsx
-- assets/home/weekly_letter.png
-- 画像/アプリ画像/桜からのおたより.png
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/components/LearnTestSession.tsx
-- src/pro/purchases.ts
-- src/analytics/analytics.ts
+- app.json
+- md/OTA配信の仕組み.md
+- src/i18n/zh2.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- src/home/WeeklyLetter.tsx
 
-_自動更新: 2026-09-21 21:42_
+_自動更新: 2026-09-21 22:27_
 <!-- AUTO:END -->
