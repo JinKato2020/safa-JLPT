@@ -315,12 +315,38 @@ jobs:
           </plist>
           EOF
 
-      - name: Build archive
+      # 署名はアプリ本体ターゲットにだけ焼く。xcodebuild のコマンドライン引数で署名を渡すと
+      # ワークスペース全ターゲット(=Podのライブラリ群)に一律適用され、プロファイル非対応の
+      # Pod(ExpoSplashScreen/Firebase等)が「非対応なのに手動プロファイル指定」で archive を落とす
+      # (2026-09-21 build 2950 実害・Firebase追加で表面化)。ここでアプリ本体だけに Manual 署名を
+      # 設定し、archive からは一律指定を外すことで Pod ライブラリは無署名(静的リンクなので本体署名に吸収)。
+      - name: Apply manual signing to app target only
         env:
           TEAM_ID_RAW: ${{ secrets.IOS_TEAM_ID }}
         run: |
-          set -o pipefail
           TEAM_ID=$(printf '%s' "$TEAM_ID_RAW" | tr -d '\r\n[:space:]')
+          ruby -rxcodeproj -e 'nil' 2>/dev/null || gem install xcodeproj --no-document
+          cat > "$RUNNER_TEMP/appsign.rb" <<'RUBY'
+          require 'xcodeproj'
+          name = ENV['PROJECT_NAME']
+          proj = Xcodeproj::Project.open("ios/#{name}.xcodeproj")
+          app = proj.targets.find { |t| t.name == name } ||
+                proj.targets.find { |t| t.product_type == 'com.apple.product-type.application' }
+          abort "app target not found (name=#{name})" unless app
+          app.build_configurations.each do |c|
+            c.build_settings['CODE_SIGN_STYLE'] = 'Manual'
+            c.build_settings['DEVELOPMENT_TEAM'] = ENV['TEAM_ID']
+            c.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = ENV['PROFILE_UUID']
+            c.build_settings['CODE_SIGN_IDENTITY'] = 'Apple Distribution'
+          end
+          proj.save
+          puts "Manual signing applied to app target '#{app.name}'; #{proj.targets.size - 1} pod/other targets left unsigned"
+          RUBY
+          TEAM_ID="$TEAM_ID" ruby "$RUNNER_TEMP/appsign.rb"
+
+      - name: Build archive
+        run: |
+          set -o pipefail
           cd ios
           xcodebuild \
             -workspace "${PROJECT_NAME}.xcworkspace" \
@@ -328,10 +354,6 @@ jobs:
             -configuration Release \
             -destination "generic/platform=iOS" \
             -archivePath "build/App.xcarchive" \
-            CODE_SIGN_STYLE=Manual \
-            DEVELOPMENT_TEAM="$TEAM_ID" \
-            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_UUID" \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
             archive
 
       - name: Export IPA

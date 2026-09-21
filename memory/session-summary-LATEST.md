@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 2 回・7 ターン
-- 往復 69 回
+- ツール呼び出し 2 回・8 ターン
+- 往復 77 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
-- app.json
-- md/OTA配信の仕組み.md
 - src/i18n/zh2.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- app.json
 
 ## 次の一手
 - **★最新(2026-09-21 ビルド実行)＝v1.1.61(Build 2949) both dispatch済(run 35601476256・-NoWatch)。** 中身=Firebase Analytics導入(purchase/study_complete計測・CI base64 Secret復号)＋GitHub Secret 2件(`GOOGLE_SERVICES_JSON_BASE64`/`GOOGLESERVICE_INFO_PLIST_BASE64`)を`gh secret set`で登録済(repo=JinKato2020/safa-JLPT)＋「桜からのおたより」カード上部に桜イラスト(`assets/home/weekly_letter.png`=元`画像/アプリ画像/桜からのおたより.png`を720x360/340KBへ最適化)を追加し従来アバター(GUIDE.open)を削除([src/home/WeeklyLetter.tsx])。test71pass/tsc0。⚠**iOS初回ビルドのpod同居リスク継続(useFrameworks:static×AdMob=react-native-google-mobile-ads)＝iOS失敗時はPodfileに`$RNGoogleMobileAdsAsStaticFramework=true`等の小修正**。**次の一手＝(1)CI結果=Actionsが赤ならiOS pod修正(監視はしない・ユーザー報告で対処)。緑ならTestFlight/Play internalへ。(2)アプリ配信後~24hでFirebase Events(purchase/study_complete)にデータが乗ったら→キーイベントにマーク→Google広告とリンク→広告でインポート(Firebaseコンソール=データ来るまで「データがありません」表示で正常・2026-09-21確認)。(3)trial_start配線=UI「お試し開始」ボタンに`logTrialStart()`を後日追加。** UI変更ゆえ実機反映は2949から(OTA不可)。関連=[[google-payments-address-verification-pending]]。
