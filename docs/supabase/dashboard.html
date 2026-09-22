@@ -119,6 +119,22 @@
     <div style="overflow:auto"><table id="tDevUnlock"><tr><td class="empty">「データ取得」を押すと表示されます。</td></tr></table></div>
   </section>
 
+  <section id="secGrantPro" style="border-left:4px solid #2e7d32">
+    <h2>⭐ Pro付与（メール指定） <span class="note">メールアドレスでそのアカウントを<b>恒久Pro</b>（または期限付き／失効）にします。<b>entitlements.pro_until</b> を書き込み、対象が<b>ログイン中にアプリ起動/再起動</b>で反映（課金=RevenueCatとは別系統）。<b>service_role キーが必要</b>。事前に <b>docs/supabase/admin_grant_pro.sql</b> を一度 SQL Editor で実行しておくこと。</span></h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input id="grantEmail" type="email" placeholder="user@example.com" style="min-width:260px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px" />
+      <select id="grantDur" style="padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px">
+        <option value="forever">恒久</option>
+        <option value="365">365日</option>
+        <option value="90">90日</option>
+        <option value="30">30日</option>
+        <option value="revoke">失効（無料に戻す）</option>
+      </select>
+      <button id="btnGrantPro" style="padding:6px 14px;border:1px solid #2e7d32;border-radius:8px;background:#2e7d32;color:#fff;font-weight:700;cursor:pointer">付与する</button>
+      <span id="grantSt" class="note" style="white-space:pre-wrap"></span>
+    </div>
+  </section>
+
   <section>
     <h2>国別（接続国・定着率・指標） <span class="note"><b>アカウント名寄せ済みの人単位</b>で最新の接続国を集計。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ。全体＝実人数（名寄せ済み）／登録＝ログイン済み／匿名＝一度もログインしていない実端末。<b>定着率D1/D7/D30</b>＝インストール後「少なくともN日目まで残った割合」（ローリング）。<b>D7母数</b>が小さいうち（数人）は割合が跳ねる参考値。目安：D1≥40%／D7≥20%／D30≥10%で緑。<b>予想得点</b>＝平均／<b>正:漢語文読聴</b>＝分野別平均正解率（v1.1.35〜のみ）／<b>覆:漢語文</b>＝学習分野別カバー率（平均）／<b>模試回数</b>＝合計・<b>模試得点</b>＝平均／<b>学習回数</b>＝完了練習の合計・<b>学習時間</b>＝合計。平均は測定値がある人だけ。<b>母集団</b>＝右の切替で「7日/30日アクティブ or 全体」を選べる（<b>既定＝7日アクティブ</b>＝インストールしただけの幽霊ユーザーを外した実勢値。全体＝離脱者も含む累計）。定着率D1/D7/D30はコホート指標なので母集団切替の影響を受けない。国はIP由来・旧版は「??」。利用者一覧を消すと国別からも自動で消える</span>
       <span class="note lvpick"> ｜ 母集団:
@@ -941,6 +957,38 @@ async function del(path){
   if(!res.ok && res.status!==404){ throw new Error(`${path.split('?')[0]} → HTTP ${res.status} ${(await res.text()).slice(0,200)}`); }
 }
 
+// service_role で RPC(POST)を呼ぶ小ヘルパー。
+async function rpcPost(name, body){
+  const url = $('url').value.trim().replace(/\/+$/,'');
+  const key = $('key').value.trim();
+  const res = await fetch(`${url}/rest/v1/rpc/${name}`, { method:'POST',
+    headers:{ apikey:key, Authorization:`Bearer ${key}`, 'Content-Type':'application/json' },
+    body: JSON.stringify(body) });
+  if(!res.ok){ throw new Error(`rpc ${name} → HTTP ${res.status} ${(await res.text()).slice(0,200)}`); }
+  return res.json().catch(()=>null);
+}
+
+// メール指定で pro_until を書き込む(恒久/期限/失効)。admin_grant_pro(SQL関数)を service_role で呼ぶ。
+async function grantPro(){
+  const email = ($('grantEmail').value||'').trim();
+  const st = $('grantSt');
+  if(!email){ st.textContent = 'メールアドレスを入力してください。'; return; }
+  if(!$('url').value.trim() || !$('key').value.trim()){ st.textContent = '上部の URL と service_role キーを入れてください。'; return; }
+  const dur = $('grantDur').value;
+  let until, label;
+  if(dur==='forever'){ until='2999-12-31T00:00:00Z'; label='恒久'; }
+  else if(dur==='revoke'){ until=new Date(Date.now()-86400000).toISOString(); label='失効'; }
+  else { until=new Date(Date.now()+Number(dur)*86400000).toISOString(); label=dur+'日'; }
+  const btn = $('btnGrantPro'); btn.disabled = true; st.textContent = '付与中…';
+  try{
+    const r = await rpcPost('admin_grant_pro', { p_email: email, p_until: until });
+    const row = Array.isArray(r) ? r[0] : r;
+    st.textContent = `✓ ${email} → Pro(${label})。user ${row&&row.user_id?String(row.user_id).slice(0,8):'?'}。対象がログイン中にアプリ再起動で反映されます。`;
+  }catch(e){
+    st.textContent = '失敗: ' + e.message + '\n（admin_grant_pro が未作成なら docs/supabase/admin_grant_pro.sql を SQL Editor で実行。該当メールが存在しないと no user for email）';
+  }finally{ btn.disabled = false; }
+}
+
 async function doDelete(){
   const btn = $('btnDoDel'); btn.disabled = true;
   const st = $('delSt'); st.textContent = '削除中…';
@@ -1007,6 +1055,7 @@ $('tDevUnlock').addEventListener('click', (ev)=>{
   $('selfId').value = ids.join(',');
   renderDevUnlocks(devUnlockRows);
 });
+$('btnGrantPro').addEventListener('click', grantPro);
 $('load').addEventListener('click', loadAll);
 $('reload').addEventListener('click', loadAll);
 if($('key').value) loadAll();

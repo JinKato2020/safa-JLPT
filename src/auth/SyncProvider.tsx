@@ -9,6 +9,7 @@ import { pullState, pushState } from './syncClient';
 import { decideLoginSync, mergeRestoredState } from './sync';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { claimTrial } from '../pro/trialClient';
+import { pullProUntil } from '../pro/entitlementClient';
 import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
 import { registerPushToken } from '../push/pushClient';
@@ -25,7 +26,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   const state = useAppState();
   const hydrated = useHydrated();
   const fromDisk = useHydratedFromDisk();
-  const { hydrate, setTrialStart } = useAppActions();
+  const { hydrate, setTrialStart, setProUntil } = useAppActions();
   const [session, setSession] = useState<Session | null>(null);
   const [lastSyncedAt, setLastSyncedAt] = useState<number | null>(null);
   const stateRef = useRef(state);
@@ -99,6 +100,10 @@ export function SyncProvider({ children }: { children: ReactNode }) {
         // 状態統合の後に実行=復元(hydrate)で受取日が上書きされるレースを避ける。未ログイン扱いにはならない(session確定済み)。
         const claimedAt = await claimTrial();
         if (!cancelled && claimedAt) setTrialStart(claimedAt);
+        // 管理/紹介/お試し由来のPro(サーバー entitlements.pro_until)を本人の行から取り込む。
+        // これで Supabase 側で pro_until を未来にするだけで恒久/期限付きProを配れる(課金=RevenueCatとは別系統)。
+        const proUntil = await pullProUntil(session.user.id);
+        if (!cancelled && proUntil != null) setProUntil(proUntil);
       }
     })();
     return () => {

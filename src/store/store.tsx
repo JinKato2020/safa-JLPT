@@ -52,6 +52,7 @@ type Action =
   | { type: 'MARK_UNLOCK_SEEN'; key: string }
   | { type: 'SEED_UNLOCKS_SEEN'; keys: string[] }
   | { type: 'SET_TRIAL_START'; at: number }
+  | { type: 'SET_PRO_UNTIL'; until: number }
   | { type: 'RESET' };
 
 function countLearned(items: AppState['items'], now: number): number {
@@ -185,6 +186,10 @@ function reduceCore(state: AppState, action: Action): AppState {
     case 'SET_TRIAL_START':
       // 「消えない別キー」由来のお試し起点を注入。既に同値なら不変(不要な再保存を避ける)。
       return state.trialStartedAt === action.at ? state : { ...state, trialStartedAt: action.at };
+    case 'SET_PRO_UNTIL':
+      // サーバー(entitlements.pro_until)由来の期限つきProを反映。絶対値で上書き=管理付与・紹介・失効を正しく反映。
+      // 同値なら不変。proStatus が proUntil>now を isPro として拾う(課金purchaseActiveとは独立)。
+      return state.entitlements?.proUntil === action.until ? state : { ...state, entitlements: { ...state.entitlements, proUntil: action.until } };
     case 'RESET':
       return INITIAL_STATE;
     default:
@@ -204,7 +209,7 @@ function reduceCore(state: AppState, action: Action): AppState {
 // ここを刻むと「勉強していない端末を開いただけ」で相手端末の学習を上書きする多端末データ消失が起きる。
 const NO_STAMP: ReadonlySet<Action['type']> = new Set([
   'HYDRATE', 'SYNC_TICKETS', 'SET_PURCHASE_ACTIVE', 'GRANT_PRO_DAYS',
-  'SET_REFERRAL_STATS', 'SET_TRIAL_START', 'MARK_STORY_SHOWN',
+  'SET_REFERRAL_STATS', 'SET_TRIAL_START', 'SET_PRO_UNTIL', 'MARK_STORY_SHOWN',
   'MARK_UNLOCK_SEEN', 'SEED_UNLOCKS_SEEN', 'ADD_STUDY_SECONDS',
 ]);
 
@@ -315,6 +320,7 @@ export function useAppActions() {
     seedUnlocksSeen: (keys: string[]) => dispatch({ type: 'SEED_UNLOCKS_SEEN', keys }),
     hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
     setTrialStart: (at: number) => dispatch({ type: 'SET_TRIAL_START', at }), // サーバー確定のお試し受取日(アカウント単位)を反映
+    setProUntil: (until: number) => dispatch({ type: 'SET_PRO_UNTIL', until }), // サーバー(entitlements.pro_until)由来の期限つきProを反映
 
     reset: () => {
       clearState();
