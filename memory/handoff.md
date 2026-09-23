@@ -9,7 +9,9 @@
 - **② 2.1(b) IAPにたどり着けない＝コード修正済(要ビルド)。** 原因=お試し自動付与で新規垢が即Pro→Pro入口が `disabled`。[src/screens/AccountScreen.tsx:126] の `disabled={isPro}` を除去=Pro/お試し中でも購入画面を開ける。**残(ユーザーのASC確認)＝4つのIAPが v1.1.64 に紐付いて提出済か＋有料App契約が締結済か**(これが無いとペイウォールに商品が出ない)。
 - **模試チケット配布タイミング修正＝コード修正済(要ビルド)。** バグ=歓迎チケットがログアウト時に配られていた(syncTicketsがお試し有効化前に走り起点リセット→再整合されず→ログアウト時のsyncTicketsで初配布)。修正=[App.tsx] にPro判定入力(trialStartedAt/proUntil/purchaseActive)変化時のsyncTickets再整合effectを追加→**お試しPro開始(オンボ後ログイン)で歓迎1枚配布=お試し週に1回模試可**・ログアウトで二重配布しない。tsc0。お試しはログアウトで消さない方針(未使用チケットが消えるため)。
 - **未コミット(今セッション追加)＝** `src/screens/AccountScreen.tsx`・`App.tsx`(＋既存未コミットの docs/supabase/* と恒久Pro5ファイル)。**コード修正の実機反映にはビルドが必要=[[never-build-without-explicit-order]]でユーザー明示指示待ち。**
-- **新規メモリ＝[[credential-expiry-tracker]]**(期限つき認証の時限爆弾一覧・正本=memory/credential-expiry-tracker.md)。判明分=ドメインsafa-lang.com 2027-05-24/Apple秘密鍵 2027-03-22。**未確認=iOS配布証明書の期限・Apple Developer会費更新日**(ユーザーがApple Developer→Certificates/Membershipで確認して追記予定)。
+- **新規メモリ＝[[credential-expiry-tracker]]**(期限つき認証の時限爆弾一覧・正本=memory/credential-expiry-tracker.md)。判明分=ドメインsafa-lang.com 2027-05-24/Apple秘密鍵 2027-03-22/有料App契約 2027-05-21(有効)。**未確認=iOS配布証明書の期限・Apple Developer会費更新日**(ユーザーがApple Developer→Certificates/Membershipで確認して追記予定)。
+- **ASC確認②=両方合格。** 有料App契約=有効(2027-05-21)／4サブスク(jlpt_pro_yearly/6month/3month/monthly)=全て承認済み。※英語のグループ表示名だけ「提出準備中」だが商品は承認済みで購入に無影響(任意で「審査用に追加」)。**IAPは元から正常＝リジェクトの真因は“購入画面に到達不可”のみ→コード修正済。**
+- **✅ビルド実行済=v1.1.66(2954) both dispatch(run 35821014572・-NoWatch)。** test71pass/tsc0/commit 2e008f30。同梱=AccountScreen(disabled除去)＋App.tsx(チケット配布タイミング)＋docs/supabase。**次=CI緑を確認(監視しない)→iOSは 1.1.66 をApp Reviewへ再提出＋Resolution CenterにApple返信(IAP到達手順=アカウントタブのPro行→4プラン表示)を貼る。Android内部テスト→製品版昇格はユーザー判断。** Apple返信文は未作成(ユーザー希望で英日作成)。
 
 ★現在地(2026-09-22 セッション)＝
 - **Build v1.1.65(2953) both dispatch済(-NoWatch)**：恒久Pro(サーバー付与pro_until)実装＝admin_grant_pro RPC＋pullProUntil＋SyncProvider取込＋ダッシュボードPro付与UI。`docs/supabase/admin_grant_pro.sql`は42702(user_id曖昧)を`#variable_conflict use_column`で修正済(**要SQL Editor再実行**)。`docs/supabase/dashboard.html`は利用者一覧「状態」列に「永続Pro」表示追加(pro_until≧西暦2900=恒久)。**この2ファイル(docs配下)は未コミット=次回まとめてpush(ビルド不要)**。
@@ -563,8 +565,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- src/i18n/zh2.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- app.json
 - App.tsx
 - src/screens/AccountScreen.tsx
 
-_自動更新: 2026-09-23 14:02_
+_自動更新: 2026-09-23 14:52_
 <!-- AUTO:END -->
