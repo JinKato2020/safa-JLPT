@@ -123,7 +123,9 @@ export default function AccountScreen() {
   };
   const proCard = (
     <>
-      <Pressable style={s.proRow} onPress={() => nav.navigate('Paywall')} disabled={isPro} hitSlop={4}>
+      {/* Pro/お試し中でも必ずタップで購入画面を開ける(disabledにしない)。理由=お試し自動付与で新規アカウントが即Proになり、
+          審査担当がIAPにたどり着けず 2.1(b) で差し戻された(2026-09-23)。Proでもペイウォールは4プランを表示する。 */}
+      <Pressable style={s.proRow} onPress={() => nav.navigate('Paywall')} hitSlop={4}>
         <View style={s.proIco}><Ionicons name="star" size={20} color={c.pink} /></View>
         <View style={{ flex: 1 }}>
           <Text style={s.proTitle}>{t('account.pro_title')}</Text>

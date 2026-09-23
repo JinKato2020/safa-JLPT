@@ -758,6 +758,9 @@ const countryLabel = code => { const c=String(code||'').trim().toUpperCase(); re
 // 2種類のProがある。①有料サブスク(1月/1年Pro)=RevenueCat Webhookで pro_store_until/pro_plan に同期。
 // ②期間つきPro(7日Pro)=お試し(trial_claimed_at)・紹介(pro_until)。どちらも「期間つき」なので1本にまとめ残日数を併記。
 // 表示優先は 有料 > 期間つき > 無料。有料と期間つきを両方持つ人は有料を主表示し、期間つきの残りは注記に回す。
+// pro_until がこの閾値(西暦2900年)以降＝管理付与の恒久Pro(admin_grant_pro の forever=2999-12-31)。期限つきPro(365日等)と区別する。
+const FOREVER_MS = Date.parse('2900-01-01T00:00:00Z');
+function isForeverPro(r){ return r.pro_until && Date.parse(r.pro_until) >= FOREVER_MS; }     // 管理付与の恒久Pro
 function paidEnd(r){ return r.pro_store_until ? Date.parse(r.pro_store_until) : 0; }        // 有料サブスクの期限
 function grantEnd(r){                                                                         // お試し/紹介の期限
   const until = r.pro_until ? Date.parse(r.pro_until) : 0;
@@ -772,6 +775,8 @@ function planLabel(r){
 }
 function proCell(r){
   const now = Date.now(), paid = paidEnd(r), grant = grantEnd(r);
+  // ⓪ 管理付与の恒久Pro(pro_until が遥か未来=forever)。期限なしなので残日数を出さず「永続Pro」を最優先表示。
+  if(isForeverPro(r)) return pill('永続Pro','good');
   if(paid > now){  // ① 有料サブスクが有効(最優先表示)
     const days = Math.ceil((paid - now)/864e5);
     const renew = r.pro_will_renew === false ? ' <span class="muted" title="自動更新オフ。期限までは有効">更新オフ</span>' : '';
@@ -792,7 +797,7 @@ const COLS = [
     cell:r=> r.email ? esc(r.email) : `<span class="mono">${esc(String(r.anon_id||'').slice(0,8))}</span>` },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'利用者', key:'pro_state', label:'状態',
-    title:'課金の状態。無料＝Pro無し／1年Pro・1月Pro＝有料サブスク（RevenueCat課金・残り日数と自動更新の有無を併記）／7日Pro＝お試し・紹介の期間つきPro（紹介が続くと7日を超えて延びる）。有料と期間つきを両方持つ人は有料を主表示',
+    title:'課金の状態。無料＝Pro無し／永続Pro＝管理付与の恒久Pro（admin_grant_pro forever・期限なし・最優先表示）／1年Pro・1月Pro＝有料サブスク（RevenueCat課金・残り日数と自動更新の有無を併記）／7日Pro＝お試し・紹介の期間つきPro（紹介が続くと7日を超えて延びる）。有料と期間つきを両方持つ人は有料を主表示',
     val:r=>proEnd(r), cell:r=>proCell(r) },
   { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
   { g:'プロフィール', key:'avatar',      label:'アバター', title:'選んだアバター(男1〜男5/女1〜女5)。アプリ v1.1.35 以降が送信',

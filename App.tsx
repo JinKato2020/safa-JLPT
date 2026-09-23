@@ -398,6 +398,20 @@ function Root() {
     })();
     return () => { cancelled = true; removeProListener?.(); };
   }, [hydrated, userId]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 【模試チケットの配布タイミング修正 2026-09-23】
+  // 起動直後に1度走る syncTickets(上)は、お試しProがまだ有効化される前(claimTrialはSyncProviderで後追い)に走るため
+  // 「まだ非Pro」と判断して起点(proSince)をリセットしてしまう。その後お試しが有効化されても再整合が走らず、
+  // 歓迎の模試チケットが配られない → ログアウト時にだけ syncTickets が再実行され、そこで初めて配られる“ズレ”になっていた。
+  // 対策: Pro判定の入力(お試し受取日/期限つきPro/購入フラグ)が確定・変化するたびに再整合する。
+  // これで「オンボ後ログインでお試しProが立った瞬間」に歓迎チケット1枚が配られ(=お試し週に1回 模試に挑戦できる)、
+  // ログアウト時は既に配布済み(proSince確定)なので二重配布されない。syncMockTickets は冪等(配布不要なら不変)。
+  const trialStartedAt = state.trialStartedAt;
+  const proUntil = state.entitlements?.proUntil;
+  const purchaseActive = state.entitlements?.purchaseActive;
+  useEffect(() => {
+    if (!hydrated) return;
+    syncTickets();
+  }, [hydrated, trialStartedAt, proUntil, purchaseActive]); // eslint-disable-line react-hooks/exhaustive-deps
   // 広告(AdMob)の初期化。iOSはATT(トラッキング許可)を尋ねてから。SDK未リンクなら安全に no-op。
   // オンボ完了後に初回だけ実行=「トラッキングを許可する」チェックの結果でATTを尋ねる/尋ねない。
   useEffect(() => {

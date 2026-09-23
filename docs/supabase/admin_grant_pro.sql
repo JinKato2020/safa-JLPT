@@ -12,6 +12,9 @@ language plpgsql
 security definer
 set search_path = public, auth
 as $$
+-- RETURNS TABLE の出力名(user_id/pro_until)が entitlements の列名と衝突し、ON CONFLICT (user_id) が
+-- 「変数か列か」曖昧(42702)になるのを防ぐ。曖昧な名前は列側に確定させる(出力列名は変えない=DL側 row.user_id 維持)。
+#variable_conflict use_column
 declare uid uuid;
 begin
   select id into uid from auth.users where lower(auth.users.email) = lower(p_email);
