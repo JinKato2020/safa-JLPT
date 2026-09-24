@@ -29,6 +29,8 @@
   "account.cta_create": "アカウントを作成",
   "account.cta_login": "ログイン",
   "account.logout": "ログアウト",
+  "account.blocked_title": "別の端末で使用中",
+  "account.blocked_msg": "いまこのアカウントは別の端末でログイン中です。同時に使えるのは1台だけです。その端末でログアウトするか、数分待ってからもう一度お試しください。",
   "account.delete": "アカウントを削除",
   "account.delete_confirm": "本当に削除しますか？（元に戻せません）",
   "account.delete_yes": "はい（削除）",

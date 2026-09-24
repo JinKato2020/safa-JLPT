@@ -29,6 +29,8 @@
   "account.cta_create": "Create account",
   "account.cta_login": "Log in",
   "account.logout": "Log out",
+  "account.blocked_title": "In use on another device",
+  "account.blocked_msg": "This account is currently signed in on another device. Only one device can be used at a time. Please sign out on that device, or wait a few minutes and try again.",
   "account.delete": "Delete account",
   "account.delete_confirm": "Delete for good? This cannot be undone.",
   "account.delete_yes": "Yes, delete",

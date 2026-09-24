@@ -4,9 +4,10 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import { AppState as RNAppState } from 'react-native';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../config/supabase';
-import { getSession, onAuthStateChange } from './authClient';
+import { getSession, onAuthStateChange, signOut } from './authClient';
 import { pullState, pushState } from './syncClient';
 import { decideLoginSync, mergeRestoredState } from './sync';
+import { claimDeviceSession, heartbeatDeviceSession } from './deviceSession';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { claimTrial } from '../pro/trialClient';
 import { pullProUntil } from '../pro/entitlementClient';
@@ -14,8 +15,8 @@ import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
 import { registerPushToken } from '../push/pushClient';
 
-type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null };
-const Ctx = createContext<SyncCtx>({ session: null, email: null, lastSyncedAt: null });
+type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null; blocked: { label: string | null } | null };
+const Ctx = createContext<SyncCtx>({ session: null, email: null, lastSyncedAt: null, blocked: null });
 export function useSync(): SyncCtx {
   return useContext(Ctx);
 }
@@ -29,6 +30,9 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   const { hydrate, setTrialStart, setProUntil } = useAppActions();
   const [session, setSession] = useState<Session | null>(null);
   const [lastSyncedAt, setLastSyncedAt] = useState<number | null>(null);
+  // 「同時ログインは1台だけ」：この端末が枠を保持しているか(holds)と、別端末使用中でブロックされた表示(blocked)。
+  const [holds, setHolds] = useState(false);
+  const [blocked, setBlocked] = useState<{ label: string | null } | null>(null);
   const stateRef = useRef(state);
   stateRef.current = state;
   // 初回のpull/reconcileが終わるまでは push を止める(空データでリモートを上書きしない=再インストール時のデータ消失防止)。
@@ -83,6 +87,17 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     initialSyncDone.current = false; // 新しいセッションの統合が終わるまで push を止める
     let cancelled = false;
     (async () => {
+      // 同時ログインは1台だけ。まず枠を取りに行く。別端末が使用中なら、このセッションは使わせずログアウト。
+      const claim = await claimDeviceSession();
+      if (cancelled) return;
+      if (!claim.ok) {
+        setHolds(false);
+        setBlocked({ label: claim.activeLabel });
+        await signOut(); // 別端末が使用中＝このセッションは確立させない
+        return;
+      }
+      setHolds(true);
+      setBlocked(null);
       const remote = await pullState(session.user.id);
       if (cancelled) return;
       const local = stateRef.current;
@@ -126,5 +141,20 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     };
   }, [state, session, hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <Ctx.Provider value={{ session, email: session?.user?.email ?? null, lastSyncedAt }}>{children}</Ctx.Provider>;
+  // ログイン中は60秒ごとに「使用中」をサーバーへ通知(ハートビート)。これが3分途切れると枠が自動解放され、別端末が入れる。
+  // もし別端末に枠を奪われていた(revoked)ら、この端末は自動ログアウトする。
+  useEffect(() => {
+    if (!session || !holds) return;
+    const tick = async () => {
+      const { revoked } = await heartbeatDeviceSession();
+      if (revoked) { setHolds(false); setBlocked({ label: null }); await signOut(); }
+    };
+    const id = setInterval(() => { void tick(); }, 60000);
+    return () => clearInterval(id);
+  }, [session, holds]);
+
+  // ログアウト等でセッションが消えたら、枠の保持フラグも下ろす(念のための保険)。
+  useEffect(() => { if (!session) setHolds(false); }, [session]);
+
+  return <Ctx.Provider value={{ session, email: session?.user?.email ?? null, lastSyncedAt, blocked }}>{children}</Ctx.Provider>;
 }

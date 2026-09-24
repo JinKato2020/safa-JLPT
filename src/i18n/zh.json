@@ -1467,5 +1467,7 @@
   "bug.goLogin": "登录 / 账户",
   "paywall.purchased_msg": "已购买{period}Pro。请尽情享受应用的全部功能。",
   "weekly.greet": "这周也辛苦了。\n你在一周内取得了这些进步。",
-  "weekly.more": "别着急，没关系。\n保持这个节奏，循序渐进吧。"
+  "weekly.more": "别着急，没关系。\n保持这个节奏，循序渐进吧。",
+  "account.blocked_title": "正在其他设备上使用",
+  "account.blocked_msg": "此账号目前正在其他设备上登录。您只能同时在一台设备上使用。请在该设备上退出登录，或等待几分钟后重试。"
 }

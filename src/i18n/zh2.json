@@ -1467,5 +1467,7 @@
   "bug.goLogin": "登入 / 賬戶",
   "paywall.purchased_msg": "已購買{period}Pro。請盡情享受應用的全部功能。",
   "weekly.greet": "這周也辛苦了。\n你在一週內取得了這些進步。",
-  "weekly.more": "彆著急，沒關係。\n保持這個節奏，循序漸進吧。"
+  "weekly.more": "彆著急，沒關係。\n保持這個節奏，循序漸進吧。",
+  "account.blocked_title": "正在其他裝置上使用",
+  "account.blocked_msg": "此賬號目前正在其他裝置上登入。您只能同時在一臺裝置上使用。請在該裝置上退出登入，或等待幾分鐘後重試。"
 }

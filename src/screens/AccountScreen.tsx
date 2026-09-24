@@ -9,7 +9,8 @@ import type { RootStackParamList } from '../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useT, useUiLang, meaningLangFor } from '../i18n';
-import { signUp, signIn, signOut } from '../auth/authClient';
+import { signUp, signIn, signOut, deleteAccount } from '../auth/authClient';
+import { releaseDeviceSession } from '../auth/deviceSession';
 import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
 import { mapAuthError } from '../auth/authErrors';
 import { useAppState, useAppActions } from '../store/store';
@@ -29,10 +30,10 @@ export default function AccountScreen() {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { session, email: acctEmail, lastSyncedAt } = useSync();
+  const { session, email: acctEmail, lastSyncedAt, blocked } = useSync();
   // 最上部プロフィール: 桜ではなく自分のアバター立ち絵＋ステータス(レベル/国/性別/性格/ムード)。性格・ムードは変更可。
   const appState = useAppState();
-  const { setSettings, setReferralStats, setEnteredCode, spendAvatarChange } = useAppActions();
+  const { setSettings, setReferralStats, setEnteredCode, spendAvatarChange, reset } = useAppActions();
   const st0 = appState.settings;
   const myAvatarImg = avatarOf(st0.avatar).image;
   // アバターは登録後は既定で変更不可。ショップの「すがた変えドリンク」を買うと券が増え、1回だけ変更できる。
@@ -291,6 +292,17 @@ export default function AccountScreen() {
 
   const canSubmit = email.trim().length > 3 && pw.length >= 8 && !busy;
 
+  // アカウント削除(ログイン中のみ・ログアウトの下に配置)。Apple審査要件=アプリ内から退会できること。誤タップ防止に確認ダイアログ。
+  const onDelete = () => {
+    if (!session) return;
+    const uid = session.user.id;
+    Alert.alert(t('account.delete'), t('account.delete_confirm'), [
+      { text: t('account.delete_no'), style: 'cancel' },
+      // 退会=クラウド(②③)を消した後、端末内(名前・進捗)もまっさらにする。①利用ログ(匿名ID)は分析用に残す。
+      { text: t('account.delete_yes'), style: 'destructive', onPress: () => { void deleteAccount(uid).finally(() => reset()); } },
+    ]);
+  };
+
   // ログイン中は「ログイン中の状態」＋「ログアウト」だけを表示(他カード/アカウント削除は出さない=ユーザー指定)。
   if (session) {
     const syncedLabel = lastSyncedAt ? new Date(lastSyncedAt).toLocaleTimeString() : t('account.not_synced');
@@ -348,9 +360,13 @@ export default function AccountScreen() {
           </View>
           {/* ログアウトは一番下へ押し下げる */}
           <View style={s.spacer} />
-          <Pressable style={s.manageBtn} onPress={() => { void signOut(); }}>
+          <Pressable style={s.manageBtn} onPress={() => { void (async () => { await releaseDeviceSession(); await signOut(); })(); }}>
             <Ionicons name="log-out-outline" size={20} color={c.ink} />
             <Text style={s.manageTxt}>{t('account.logout')}</Text>
+          </Pressable>
+          {/* アカウント削除: ログアウトのすぐ下に控えめに置く(Apple審査要件=アプリ内退会)。 */}
+          <Pressable style={s.deleteRow} onPress={onDelete} hitSlop={6}>
+            <Text style={s.deleteTxt}>{t('account.delete')}</Text>
           </Pressable>
         </ScrollView>
         </KeyboardAvoidingView>
@@ -372,6 +388,14 @@ export default function AccountScreen() {
             <Text style={s.benefitTitle}>{t('account.benefit_title')}</Text>
             <Text style={s.benefitSub}>{t('account.benefit_sub')}</Text>
           </View>
+
+          {/* 同時ログインは1台だけ。別端末が使用中でログインをブロックされた時の案内。 */}
+          {blocked ? (
+            <View style={s.notice}>
+              <Text style={s.noticeTitle}>{t('account.blocked_title')}</Text>
+              <Text style={s.noticeBody}>{t('account.blocked_msg')}</Text>
+            </View>
+          ) : null}
 
           {/* 未ログインでも直近の試験情報カードを表示(試験日/残日数/申込期間/費用)。 */}
           <ExamInfoCard />

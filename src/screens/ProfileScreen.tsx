@@ -1,7 +1,7 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
 import { useMemo, useState, useRef, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Alert, Platform } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -23,7 +23,6 @@ import { upcomingExams } from '../data/jlptDates';
 import { sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
 import { useSync } from '../auth/SyncProvider';
-import { deleteAccount } from '../auth/authClient';
 import { proStatus } from '../pro/entitlement';
 import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
 import UnlockCelebration from '../components/UnlockCelebration';
@@ -68,16 +67,6 @@ export default function ProfileScreen() {
       ? t('pro.state_pro')
       : t('pro.state_free', { n: FREE_SESSIONS_PER_DAY });
 
-  // アカウント削除(ログイン中のみ・設定の最後に配置)。Apple審査要件=アプリ内から退会できること。
-  const onDelete = () => {
-    if (!session) return;
-    const uid = session.user.id;
-    Alert.alert(t('account.delete'), t('account.delete_confirm'), [
-      { text: t('account.delete_no'), style: 'cancel' },
-      // 退会=クラウド(②③)を消した後、端末内(名前・進捗)もまっさらにする。①利用ログ(匿名ID)は分析用に残す。
-      { text: t('account.delete_yes'), style: 'destructive', onPress: () => { void deleteAccount(uid).finally(() => reset()); } },
-    ]);
-  };
 
   const rate = async () => {
     try {
@@ -489,12 +478,7 @@ export default function ProfileScreen() {
         </View>
         </>)}
 
-        {/* アカウント削除(ログイン中のみ・設定の一番下)。誤タップ防止に確認ダイアログ。 */}
-        {session ? (
-          <Pressable style={s.deleteBottom} onPress={onDelete} hitSlop={6}>
-            <Text style={s.deleteBottomTxt}>{t('account.delete')}</Text>
-          </Pressable>
-        ) : null}
+        {/* アカウント削除はアカウント画面(ログアウトの下)へ移動。Apple審査要件の導線をログイン画面に集約。 */}
 
         {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示)。7回タップで開発用セクションを表示(隠しゲート)。 */}
         <Pressable onPress={() => {
@@ -616,6 +600,4 @@ const makeStyles = (c: ThemeColors) =>
     acctGuide: { width: 48, height: 54 },
     acctTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
     acctEmail: { fontSize: ty.body, fontWeight: '700', color: c.ink, marginTop: spacing.xs },
-    deleteBottom: { alignItems: 'center', paddingVertical: spacing.md, marginTop: spacing.sm },
-    deleteBottomTxt: { fontSize: ty.small, color: c.red, fontWeight: '700' },
   });

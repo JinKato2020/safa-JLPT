@@ -2,6 +2,15 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+★現在地(2026-09-24 セッション＝同時ログイン1台制限＋ダッシュボード改修)＝
+- **「同時ログインは1台だけ」機能をコード実装（未コミット・要SQL適用＋ビルドで反映）。** 1アカウント=同時に1台のみログイン可。2台目はブロック。60秒ハートビートが3分切れると自動解放（強制切替ボタン無し=共有抑止）。端末替えは前端末でログアウト→新端末がクラウド最新を引き継ぐ（1台しか書かない=衝突/マージ不要）。動機=Pro課金アカウントのID/PW共有で他人が使える件を塞ぐ。
+  - **要デプロイ=Supabase SQL Editorに `C:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\docs\supabase\active_sessions.sql` を1回貼る**（active_sessionsテーブル＋claim/touch/release RPC・SECURITY DEFINER・grant済）。貼るまでは fail-open で機能OFF（RPCエラー時は{ok:true}＝既存挙動を壊さない）。
+  - 実装ファイル=新規 `src\auth\deviceSession.ts`(RPC境界・fail-open)／`src\auth\SyncProvider.tsx`(ログイン時claim→ブロック時signOut＋blockedをContext公開／holds中は60秒heartbeat→revokedで自動logout)／`src\screens\AccountScreen.tsx`(blockedバナー＋ログアウト時にreleaseDeviceSession)／i18n `account.blocked_title`・`account.blocked_msg`(ja/en/ne手書き＋--fillで全11言語)。**tsc0・test532pass**。
+  - RevenueCat課金はアカウント紐づけ(linkAccount=Purchases.logIn(userId))のまま=別端末でも同アカウントならPro有効。だが同時1台制限で「2人同時利用」は塞げる。
+  - **✅SQL適用済(Supabase・ユーザー実施2026-09-24)。残=ビルドで実機反映のみ。** ⚠️**ビルドはApple審査(2955)が通過してから**行う方針（ユーザー指示2026-09-24）＝審査中に別ビルドを重ねない。審査通過後にコミット＋ビルド（[[never-build-without-explicit-order]]・明示指示で）。それまでこの機能は配信されない（旧ビルドは枠取りRPCを呼ばずfail-open）。
+- **管理ダッシュボード 利用者一覧=列順並べ替え＋左固定を実装（未コミット・ビルド不要）。** `docs\supabase\dashboard.html`。列順=ID/メール→名前→国名→母語→種別→状態‖端末→アバター→性格→気分→得意→…。**状態まで(＋選択列)をsticky固定**、端末から右を横スクロール。固定left幅はJS(`freezeCols`)で実測・並べ替え/リサイズで再計算。`FROZEN_COUNT=6`で管理。node --check OK。
+- **⚠️前セッション(2026-09-23)のApple審査対応は完了済**：2955を1.1.64枠へ審査提出(審査待ち)・返信2通投稿・鍵修正(新期限2027-03-22)。**18:03返信文の手順2が「top-right」誤り(正=左上)→訂正文＋注釈画像2枚(`C:\Users\jwpsa\Downloads\review_1_account.jpg`/`review_2_subscriptions.jpg`)は用意済・未送信(審査待ちで返信欄なし)→次の却下時に送る。** ストア全文訳7言語(id/th/hi/vi/ko/zh/zh2)を `md\appstore_metadata_translations.md` に追記済。
+
 ★現在地(2026-09-23 セッション＝審査リジェクト対応/Appleログイン修復/模試チケット修正)＝
 - **Apple審査 v1.1.64 が 2.1(a)+2.1(b) でリジェクト → 原因を全て対処。**
 - **① 2.1(a) Appleログインがエラー＝✅修復・実機で認証成功確認。** 原因=Web OAuth設定の複合。直した内容(全てダッシュボード側・コード変更なし)：(1)Apple Services ID `com.safa.jlpt.signin` の Return URLs から https無しの壊れURLを削除(正=`https://nxovouiqelynryumjvyq.supabase.co/auth/v1/callback`)。(2)**Supabase→Auth→Providers→Apple の Client IDs を Services ID 先頭に並べ替え**(`com.safa.jlpt.signin,com.safa.jlpt`)＝これが決定打(旧先頭=App IDでinvalid_request)。(3)Apple秘密鍵(JWT)を **sub=com.safa.jlpt.signin** で再生成しSecret Keyへ貼替(材料=Team 7PM6FU3AB5/KeyID J4GQDX6M2Q/.p8=`C:\API 秘密の鍵\JLPT\AuthKey_J4GQDX6M2Q.p8`・生成=scratchpad/gen_apple_secret.py・**新期限2027-03-22**)。
@@ -11,7 +20,14 @@
 - **未コミット(今セッション追加)＝** `src/screens/AccountScreen.tsx`・`App.tsx`(＋既存未コミットの docs/supabase/* と恒久Pro5ファイル)。**コード修正の実機反映にはビルドが必要=[[never-build-without-explicit-order]]でユーザー明示指示待ち。**
 - **新規メモリ＝[[credential-expiry-tracker]]**(期限つき認証の時限爆弾一覧・正本=memory/credential-expiry-tracker.md)。判明分=ドメインsafa-lang.com 2027-05-24/Apple秘密鍵 2027-03-22/有料App契約 2027-05-21(有効)。**未確認=iOS配布証明書の期限・Apple Developer会費更新日**(ユーザーがApple Developer→Certificates/Membershipで確認して追記予定)。
 - **ASC確認②=両方合格。** 有料App契約=有効(2027-05-21)／4サブスク(jlpt_pro_yearly/6month/3month/monthly)=全て承認済み。※英語のグループ表示名だけ「提出準備中」だが商品は承認済みで購入に無影響(任意で「審査用に追加」)。**IAPは元から正常＝リジェクトの真因は“購入画面に到達不可”のみ→コード修正済。**
-- **✅ビルド実行済=v1.1.66(2954) both dispatch(run 35821014572・-NoWatch)。** test71pass/tsc0/commit 2e008f30。同梱=AccountScreen(disabled除去)＋App.tsx(チケット配布タイミング)＋docs/supabase。**次=CI緑を確認(監視しない)→iOSは 1.1.66 をApp Reviewへ再提出＋Resolution CenterにApple返信(IAP到達手順=アカウントタブのPro行→4プラン表示)を貼る。Android内部テスト→製品版昇格はユーザー判断。** Apple返信文は未作成(ユーザー希望で英日作成)。
+- **✅ビルド2本=v1.1.66(2954)→v1.1.64(2955) both dispatch(-NoWatch)。** ともにtest71pass/tsc0。同梱=AccountScreen(disabled除去)＋App.tsx(チケット配布タイミング)＋docs/supabase。
+  - **⚠️ASC再提出の版番号ハマり=解決策=1.1.64で作り直し。** 却下枠は「1.1.64」なのに2954は1.1.66→版番号不一致でASCのビルド選択欄に出ない。ASCは却下版を削除できず「＋バージョン追加」も出ない(却下版が枠を占有)。→ **app.jsonを1.1.63に戻してビルド→build.ps1が1.1.64へ自動更新=v1.1.64(2955・commit 9b674c49・run 35824374509)。** ビルド番号2955>却下版2952で提出可。TestFlightに未使用の2953(1.1.65)/2954(1.1.66)が残るが無害。
+  - **✅2955をASCの1.1.64枠へ差し替えて審査提出済(ユーザー実施・TestFlight処理"終了"確認)。CI緑(build-ios/android success)。**
+  - **⚠️2回目リジェクト(2026-09-23)は"古い2952"を審査した結果=「Version reviewed: 1.1.64 (2952)」。** 修正が効いてないのではなくAppleが修正前2952を見ただけ(②IAP修正はコード=2955のみ・2952に無い/①Appleログイン・デモ垢はサーバー設定側で共通に効くが審査は修正完了前を見た可能性)。→対策=2955を確実に審査させる(提出済)。**次にリジェクト来たら必ず先に「Version reviewed」番号=2955か確認。2952ならまだ修正版未審査。**
+  - **✅Resolution Centerへ返信投稿済(2通)＝**昨日9:43(詳細版・3.1.2c対応・**動画terms_privacy.mp4添付**=課金画面/規約リンク実演)＋今日18:03(2.1b課金場所+2.1a Appleログイン鍵修正+デモ垢)。ステータス=**審査待ち(2955)**。デモ垢=jwjinkato@yahoo.co.jp/jwjk1914。
+  - **⚠️18:03文の手順2が「top-right」誤り。正=左上(person-circle)。** ホーム上部バーは左→右=アカウント(人)/貝殻/町/通知/設定(歯車=右端)＝[App.tsx:258-285]で確認。**右上は設定**。ただし9:43の動画で課金画面は実演済のためリスク低。**訂正文＋注釈画像2枚は作成済だが未送信**(審査待ちで返信欄が無い)＝`C:\Users\jwpsa\Downloads\review_1_account.jpg`(アカウント画面Pro行に赤枠+矢印+英ラベル)/`review_2_subscriptions.jpg`(4プラン$12/$27/$50/$85を赤枠+英ラベル)。**次の却下時に返信欄が復活したら、この訂正文+画像2枚を送る。**
+  - **次の一手=Apple審査結果待ち(対象2955)。** 却下ならまず「Version reviewed」が2955か確認(2952なら修正版未審査)→返信欄復活で上記の訂正文＋画像2枚を送る。承認ならAndroid内部テスト→製品版昇格はユーザー判断(内部testからプロモート)。
+  - **ストアメタデータ=作成済→正本ファイル `md\appstore_metadata_translations.md`(絶対パス=`C:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\md\appstore_metadata_translations.md`)。** 内容=①プロモテキスト(英80字＋11言語)②概要(英原文＋8言語 en/ne/my/bn除外)＋**2b=本番用 概要 日本語改訂版(プロモ調に刷新・これが最新のストア説明文)**③Apple返信文(英)。**⚠️言語記載「11言語」のまま=hi(ヒンディー)が実表示言語か次回一次情報確認し要なら12言語へ。** **★2026-09-23追記=最新ストア説明文(概要 日本語改訂版)の全文訳7言語(id/th/hi/vi/ko/zh/zh2)を作成し同ファイル第2節に追記済(ユーザー指定=en/ne/my/bn除外)。各言語の規約/プライバシーURLは`/jlpt/{lang}/terms|privacy/`(legal.ts LEGAL_LANGSに全対応)。Apple返信文(第3節)の手順2を「top-left」に修正済＋2.1(a)説明を真因(鍵再生成)に更新済。**
 
 ★現在地(2026-09-22 セッション)＝
 - **Build v1.1.65(2953) both dispatch済(-NoWatch)**：恒久Pro(サーバー付与pro_until)実装＝admin_grant_pro RPC＋pullProUntil＋SyncProvider取込＋ダッシュボードPro付与UI。`docs/supabase/admin_grant_pro.sql`は42702(user_id曖昧)を`#variable_conflict use_column`で修正済(**要SQL Editor再実行**)。`docs/supabase/dashboard.html`は利用者一覧「状態」列に「永続Pro」表示追加(pro_until≧西暦2900=恒久)。**この2ファイル(docs配下)は未コミット=次回まとめてpush(ビルド不要)**。
@@ -561,16 +577,17 @@
 
 ## 走行中の run（自動・完了通知が来ていないもの）
 - ae7242744b8ff5435 general-purpose
+- ae286b0fb4a4b805a general-purpose
 
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- src/i18n/zh2.json
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
-- App.tsx
+- 画像/申請スクショ/サブスク課金画面_1024.jpg
+- 画像/申請スクショ/サブスク課金画面.jpg
+- src/screens/ProfileScreen.tsx
 - src/screens/AccountScreen.tsx
+- src/i18n/zh2.json
+- src/i18n/hi.json
 
-_自動更新: 2026-09-23 14:52_
+_自動更新: 2026-09-25 00:05_
 <!-- AUTO:END -->

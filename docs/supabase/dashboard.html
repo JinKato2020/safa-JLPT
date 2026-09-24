@@ -49,6 +49,12 @@
   td .ok{ color:var(--good); } td .mid{ color:var(--warn); } td .low{ color:var(--bad); }
   td .off{ color:var(--sub); opacity:.55; }
   .scroll{ overflow-x:auto; }
+  /* 利用者一覧：左側(ID/メール〜状態)を固定して横スクロール。leftはJS(freezeCols)で実測して設定 */
+  #tDevices{ border-collapse:separate; border-spacing:0; }
+  #tDevices .frz{ position:sticky; z-index:2; background:var(--card); }
+  #tDevices th.grp.frz{ background:var(--bg); }
+  #tDevices tr.row:hover td.frz{ background:var(--bg); }
+  #tDevices .frzend{ box-shadow:2px 0 0 rgba(0,0,0,.12); }
   .empty{ color:var(--sub); font-size:13px; padding:8px 0; }
   .warn{ font-size:12px; color:var(--warn); }
   .err{ color:var(--bad); font-size:13px; white-space:pre-wrap; }
@@ -793,26 +799,27 @@ function proCell(r){
   return pill('無料');
 }
 const COLS = [
+  // ── 固定表示(左)：ID/メール〜状態まで（FROZEN_COUNT枚）。この順序と枚数を変えたら FROZEN_COUNT も合わせる ──
   { g:'利用者', key:'who',   label:'ID / メール', val:r=>(r.email||r.anon_id||''),
     cell:r=> r.email ? esc(r.email) : `<span class="mono">${esc(String(r.anon_id||'').slice(0,8))}</span>` },
+  { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
+  { g:'プロフィール', key:'geo_country',label:'国名', title:'接続国=IP由来のおおよその国(user_geo)。母語とは独立=英語話者でも日本にいれば「日本」。ログイン者のみ・匿名は—', val:r=>r.geo_country||'', cell:r=> esc(countryLabel(r.geo_country)) },
+  { g:'プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'利用者', key:'pro_state', label:'状態',
     title:'課金の状態。無料＝Pro無し／永続Pro＝管理付与の恒久Pro（admin_grant_pro forever・期限なし・最優先表示）／1年Pro・1月Pro＝有料サブスク（RevenueCat課金・残り日数と自動更新の有無を併記）／7日Pro＝お試し・紹介の期間つきPro（紹介が続くと7日を超えて延びる）。有料と期間つきを両方持つ人は有料を主表示',
     val:r=>proEnd(r), cell:r=>proCell(r) },
-  { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
+  // ── ここから右は横スクロール ──
+  { g:'利用者', key:'platform', label:'端末', val:r=>r.platform||'', cell:r=> esc(r.platform||'—') },
   { g:'プロフィール', key:'avatar',      label:'アバター', title:'選んだアバター(男1〜男5/女1〜女5)。アプリ v1.1.35 以降が送信',
     val:r=>r.avatar||'', cell:r=> r.avatar ? `${avatarImgTag(r.avatar,20)} ${esc(avatarLabel(r.avatar))}` : '<span class="off">—</span>' },
-  { g:'プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
-  { g:'プロフィール', key:'geo_country',label:'国名', title:'接続国=IP由来のおおよその国(user_geo)。母語とは独立=英語話者でも日本にいれば「日本」。ログイン者のみ・匿名は—', val:r=>r.geo_country||'', cell:r=> esc(countryLabel(r.geo_country)) },
-  { g:'プロフィール', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
   { g:'プロフィール', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
+  { g:'プロフィール', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
   { g:'プロフィール', key:'strong',      label:'得意', title:'いちばん正答率が高い区分（漢字／語彙／文法／読解／聴解の5区分）', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },
-  // レベルを切り替えて使った人は、レベルごとに1行ずつ出る(同じメール/IDが複数行に並ぶ=正常)。
-  // 「今」＝その人がいま使っているレベル。印の無い行は過去に使っていたレベルの記録。
+  // レベルを切り替えて使った人は、レベルごとに1行ずつ出る(同じメール/IDが複数行に並ぶ=正常)。「今」＝いま使っているレベル。
   { g:'利用者', key:'level', label:'レベル', title:'レベルごとに1行。「今」＝現在のレベル／印なし＝過去に使ったレベル',
     val:r=>(r.level||'')+(r.is_latest?' 1':' 0'),
     cell:r=> (r.level||'—') + (r.is_latest ? ' <span class="pill good">今</span>' : ' <span class="off" title="過去に使っていたレベル">過去</span>') },
-  { g:'利用者', key:'platform', label:'端末', val:r=>r.platform||'', cell:r=> esc(r.platform||'—') },
   { g:'利用者', key:'app',   label:'アプリ版', title:'その端末が動かしているアプリの版(古いと母数も古い)',
     val:r=>r.app||'', cell:r=> `<span class="mono">${esc(r.app||'—')}</span>` },
   { g:'予想得点', key:'pred_score', label:'予想得点', num:1, title:'アプリの主指標＝いまの実力での予想得点(満点／合格ライン)。緑＝合格ライン到達',
@@ -849,6 +856,7 @@ const COLS = [
   { g:'活動', key:'first_ts',   label:'初回日時', title:'このIDが初めて記録された日時＝実質のインストール日時(日本時間)', val:r=>r.first_ts||'', cell:r=> fmtDateTime(r.first_ts) },
   { g:'活動', key:'last_ts',    label:'最終日時', title:'最後に記録した日時(日本時間)', val:r=>r.last_ts||'', cell:r=> fmtDateTime(r.last_ts) },
 ];
+const FROZEN_COUNT = 6; // 利用者一覧で左に固定表示する列数（ID/メール・名前・国名・母語・種別・状態）
 const isFirstOfGroup = (i) => i===0 || COLS[i-1].g !== COLS[i].g;
 // 同じグループ内でも罫線を入れたい境界(大問の意味の切れ目)。この列の左に縦罫線を引く。
 //  d_grammar_form=文字語彙|文法 / d_choukai_kadai=読解|聴解 / daimon_learned=聴解|合計
@@ -863,15 +871,18 @@ function filtered(){
 
 // 1段目=グループ見出し(同じ g をまとめる) / 2段目=項目見出し(クリックで並べ替え)
 function headHtml(){
-  let grp = '<th class="grp selcol" rowspan="2" title="削除する行を選ぶ／ここで表示中を全選択"><input type="checkbox" id="chkAll"></th>';
+  let grp = '<th class="grp selcol frz" rowspan="2" title="削除する行を選ぶ／ここで表示中を全選択"><input type="checkbox" id="chkAll"></th>';
   for(let i=0; i<COLS.length; ){
     let j = i; while(j<COLS.length && COLS[j].g===COLS[i].g) j++;
-    grp += `<th class="grp gsep" colspan="${j-i}">${COLS[i].g}</th>`;
+    if(i<FROZEN_COUNT && j>FROZEN_COUNT) j = FROZEN_COUNT; // 固定境界をまたぐグループ見出しは作らない
+    const fz = i<FROZEN_COUNT ? ' frz'+(j===FROZEN_COUNT?' frzend':'') : '';
+    grp += `<th class="grp gsep${fz}" colspan="${j-i}">${COLS[i].g}</th>`;
     i = j;
   }
   const cols = COLS.map((c,i)=>{
     const arw = c.key===sortKey ? `<span class="arw">${sortDir<0?'▼':'▲'}</span>` : '';
-    return `<th class="sortable ${c.num?'num ':''}${needsSep(i)?'gsep':''}" data-k="${c.key}" title="${esc(c.title||c.label)}">${c.label}${arw}</th>`;
+    const fz = i<FROZEN_COUNT ? ' frz'+(i===FROZEN_COUNT-1?' frzend':'') : '';
+    return `<th class="sortable ${c.num?'num ':''}${needsSep(i)?'gsep':''}${fz}" data-k="${c.key}" title="${esc(c.title||c.label)}">${c.label}${arw}</th>`;
   }).join('');
   return `<tr>${grp}</tr><tr>${cols}</tr>`;
 }
@@ -900,11 +911,42 @@ function renderDevices(){
     return;
   }
   el.innerHTML = headHtml() + rows.map(r =>
-    '<tr class="row"><td class="selcol"><input type="checkbox" class="rowchk" data-k="'+esc(rowKey(r))+'"'+(selected.has(rowKey(r))?' checked':'')+'></td>'
-    + COLS.map((c,i)=>`<td class="${c.num?'num ':''}${needsSep(i)?'gsep':''}">${c.cell(r)}</td>`).join('') + '</tr>'
+    '<tr class="row"><td class="selcol frz"><input type="checkbox" class="rowchk" data-k="'+esc(rowKey(r))+'"'+(selected.has(rowKey(r))?' checked':'')+'></td>'
+    + COLS.map((c,i)=>{ const fz = i<FROZEN_COUNT ? ' frz'+(i===FROZEN_COUNT-1?' frzend':'') : ''; return `<td class="${c.num?'num ':''}${needsSep(i)?'gsep':''}${fz}">${c.cell(r)}</td>`; }).join('') + '</tr>'
   ).join('');
+  freezeCols();
   updateSelBar();
 }
+
+// 利用者一覧の左側(ID/メール〜状態)を固定表示。列幅は実測してleftを設定(可変幅対応)。行が無ければ何もしない。
+function freezeCols(){
+  const tbl = $('tDevices');
+  const bodyRow = tbl && tbl.querySelector('tr.row');
+  if(!bodyRow) return;
+  const bcells = bodyRow.children; // 0=選択列, 1.. = 各列
+  const L = [0];
+  for(let i=0;i<=FROZEN_COUNT;i++){ L[i+1] = L[i] + (bcells[i] ? bcells[i].getBoundingClientRect().width : 0); }
+  // 本体の各行：選択列(0)〜固定列(FROZEN_COUNT)に left を設定
+  tbl.querySelectorAll('tr.row').forEach(tr=>{
+    for(let i=0;i<=FROZEN_COUNT;i++){ if(tr.children[i]) tr.children[i].style.left = L[i]+'px'; }
+  });
+  const trs = tbl.querySelectorAll('tr');
+  const grp = trs[0], item = trs[1];
+  // 見出し2段目(項目)は選択列が無いので、本体の i+1 に対応
+  if(item){ for(let i=0;i<FROZEN_COUNT;i++){ if(item.children[i]) item.children[i].style.left = L[i+1]+'px'; } }
+  // 見出し1段目(グループ)：先頭=選択列(left0)、以降は colspan を足しながら
+  if(grp){
+    if(grp.children[0]) grp.children[0].style.left = '0px';
+    let bodyCol = 1;
+    for(let k=1;k<grp.children.length;k++){
+      const cell = grp.children[k];
+      if(!cell.classList.contains('frz')) break;
+      cell.style.left = L[bodyCol]+'px';
+      bodyCol += parseInt(cell.getAttribute('colspan')||'1',10);
+    }
+  }
+}
+let _frzT; window.addEventListener('resize', ()=>{ clearTimeout(_frzT); _frzT=setTimeout(freezeCols,120); });
 
 // 削除ボタンの文言/活性と、ヘッダーの全選択チェックの状態を、選択に合わせて更新。
 function updateSelBar(){
