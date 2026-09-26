@@ -108,6 +108,11 @@ alter table public.entitlements add column if not exists pro_will_renew boolean;
 alter table public.entitlements add column if not exists pro_store_event text;       -- 最後に受けたイベント種別(監査用)
 alter table public.entitlements add column if not exists pro_store_updated_at timestamptz; -- 最後にWebhookで更新した時刻
 
+-- 開発モード(開発用セクション/大問の問題ID選択など)の解禁フラグ。管理側が admin_grant_dev(メール指定)で on/off する。
+-- 旧「バージョン7回タップ」の自己解禁は廃止=このサーバーフラグだけが唯一の解禁経路(__DEV__ ビルドは常時解禁)。
+-- 反映: 対象がログイン中にアプリ起動/再起動で SyncProvider が dev_tools を取り込む。null/false=解禁なし。
+alter table public.entitlements add column if not exists dev_tools boolean not null default false;
+
 alter table public.referral_codes enable row level security;
 alter table public.referrals enable row level security;
 alter table public.entitlements enable row level security;

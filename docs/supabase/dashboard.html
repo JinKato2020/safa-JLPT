@@ -117,12 +117,17 @@
     <div class="cards" id="kpi"></div>
   </section>
 
-  <section id="secDevUnlock" style="border-left:4px solid var(--line)">
-    <h2>🔓 開発モード解禁ユーザー <span id="devUnlockCount" class="note"></span>
-      <span class="note">バージョン<b>7回タップ</b>で開発モードを解禁した端末の一覧（新しい順）。<b>自分の解禁行で「自分に設定」を押す</b>とその端末IDを自分として記憶し、以後は<b>あなた以外の解禁だけ赤く</b>目立たせます（下の入力欄にIDを直接入れてもOK）。未ログインは端末ID(anon_id)のみ＝正体までは不明だが「別端末が解禁した」ことは分かる。計測OFFの人は記録されません。</span>
-    </h2>
-    <div style="margin-bottom:8px"><input id="selfId" placeholder="自分のID（anon_id / account_id・カンマ区切りで複数可）" style="min-width:340px;max-width:100%;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:12px" /></div>
-    <div style="overflow:auto"><table id="tDevUnlock"><tr><td class="empty">「データ取得」を押すと表示されます。</td></tr></table></div>
+  <section id="secGrantDev" style="border-left:4px solid #6a1b9a">
+    <h2>🔓 開発モード付与（メール指定） <span class="note">メールアドレスでそのアカウントの<b>開発モード</b>（開発用セクション／大問の問題ID選択など）を<b>解禁／取消</b>します。<b>entitlements.dev_tools</b> を書き込み、対象が<b>ログイン中にアプリ起動/再起動</b>で反映。旧「<b>バージョン7回タップ</b>で自己解禁」は廃止＝解禁経路はこの管理付与だけ。<b>service_role キーが必要</b>。事前に <b>docs/supabase/admin_grant_dev.sql</b> を一度 SQL Editor で実行しておくこと。</span></h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input id="grantDevEmail" type="email" placeholder="user@example.com" style="min-width:260px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px" />
+      <select id="grantDevMode" style="padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px">
+        <option value="on">解禁（開発モードON）</option>
+        <option value="off">取消（開発モードOFF）</option>
+      </select>
+      <button id="btnGrantDev" style="padding:6px 14px;border:1px solid #6a1b9a;border-radius:8px;background:#6a1b9a;color:#fff;font-weight:700;cursor:pointer">適用する</button>
+      <span id="grantDevSt" class="note" style="white-space:pre-wrap"></span>
+    </div>
   </section>
 
   <section id="secGrantPro" style="border-left:4px solid #2e7d32">
@@ -251,9 +256,6 @@ const $ = (id) => document.getElementById(id);
 
 $('url').value = localStorage.getItem('dash_url') || DEFAULT_URL;
 $('key').value = localStorage.getItem('dash_key') || '';
-let devUnlockRows = [];
-$('selfId').value = localStorage.getItem('dash_self_id') || '';
-$('selfId').addEventListener('input', ()=>{ localStorage.setItem('dash_self_id', $('selfId').value); renderDevUnlocks(devUnlockRows); });
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function fmtDate(s){ if(!s) return '—'; return String(s).slice(0,10); }
@@ -311,35 +313,6 @@ function renderBugs(rows){
   el.innerHTML = head + body;
 }
 
-function renderDevUnlocks(rows){
-  rows = rows || [];
-  const selfIds = (localStorage.getItem('dash_self_id')||'').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
-  const isSelf = r => selfIds.some(id => (r.anon_id&&String(r.anon_id).toLowerCase()===id) || (r.account_id&&String(r.account_id).toLowerCase()===id));
-  const others = rows.filter(r=>!isSelf(r));
-  if($('devUnlockCount')) $('devUnlockCount').textContent = rows.length ? `（解禁 ${rows.length}件・うち自分以外 ${others.length}件）` : '（0件）';
-  const sec = $('secDevUnlock'); if(sec) sec.style.borderLeftColor = others.length ? '#d9534f' : 'var(--line)';
-  const el = $('tDevUnlock'); if(!el) return;
-  if(!rows.length){ el.innerHTML = '<tr><td class="empty">まだ解禁はありません。</td></tr>'; return; }
-  const head = '<tr><th>日時</th><th>判定</th><th>アカウント</th><th>端末ID</th><th>OS / 版 / build</th></tr>';
-  const body = rows.map(r=>{
-    const p = (r && typeof r.props==='object' && r.props) ? r.props : {};
-    const self = isSelf(r);
-    const acc = r.account_id ? String(r.account_id).slice(0,8) : '未ログイン';
-    const anon = r.anon_id ? String(r.anon_id).slice(0,10) : '—';
-    const dev = [p.platform||'—', p.ver||'', p.build?('build '+p.build):''].filter(Boolean).join(' / ');
-    const verdict = self
-      ? '<span style="color:var(--sub)">自分</span>'
-      : `<span style="color:#d9534f;font-weight:700">⚠ 他ユーザー</span> <button class="markSelf" data-anon="${esc(r.anon_id||'')}" data-acc="${esc(r.account_id||'')}" style="font-size:11px;padding:2px 6px;margin-left:6px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--sub);cursor:pointer">自分に設定</button>`;
-    return `<tr class="row"${self?' style="opacity:.45"':''}>`
-      + `<td>${fmtDateTime(r.created_at)}</td>`
-      + `<td style="white-space:nowrap">${verdict}</td>`
-      + `<td class="mono">${esc(acc)}</td>`
-      + `<td class="mono">${esc(anon)}</td>`
-      + `<td>${esc(dev)}</td>`
-      + '</tr>';
-  }).join('');
-  el.innerHTML = head + body;
-}
 
 async function loadAll(){
   const url = $('url').value.trim().replace(/\/+$/,'');
@@ -358,9 +331,6 @@ async function loadAll(){
       api(url,key,'v_admin_devices'),
     ]);
     renderSummary(summary[0]||{});
-    // 開発モード解禁ユーザー（tel_event を service_role で直接読む・新しい順200件）。未作成/権限無しでも他は壊さない。
-    try { devUnlockRows = await apiRaw(url,key,'tel_event?name=eq.dev_mode_unlocked&select=anon_id,account_id,props,created_at&order=created_at.desc&limit=200'); renderDevUnlocks(devUnlockRows); }
-    catch(e){ const el=$('tDevUnlock'); if(el) el.innerHTML = '<tr><td class="empty">tel_event が未作成、または権限がありません（service_role キーを確認）。</td></tr>'; }
     // バグ・不具合の報告（service_role で bug_reports 表を直接読む・新しい順500件。未作成でも他は壊さない）
     try { renderBugs(await apiRaw(url,key,'bug_reports?select=*&order=created_at.desc&limit=500')); }
     catch(e){ $('tBugs').innerHTML = `<tr><td class="empty">bug_reports テーブルが未作成です。docs/supabase/bug_reports.sql を SQL Editor で実行してください。</td></tr>`; }
@@ -1036,6 +1006,23 @@ async function grantPro(){
   }finally{ btn.disabled = false; }
 }
 
+// メール指定で dev_tools を書き込む(解禁/取消)。admin_grant_dev(SQL関数)を service_role で呼ぶ。
+async function grantDev(){
+  const email = ($('grantDevEmail').value||'').trim();
+  const st = $('grantDevSt');
+  if(!email){ st.textContent = 'メールアドレスを入力してください。'; return; }
+  if(!$('url').value.trim() || !$('key').value.trim()){ st.textContent = '上部の URL と service_role キーを入れてください。'; return; }
+  const on = $('grantDevMode').value === 'on';
+  const btn = $('btnGrantDev'); btn.disabled = true; st.textContent = '適用中…';
+  try{
+    const r = await rpcPost('admin_grant_dev', { p_email: email, p_on: on });
+    const row = Array.isArray(r) ? r[0] : r;
+    st.textContent = `✓ ${email} → 開発モード${on?'解禁':'取消'}。user ${row&&row.user_id?String(row.user_id).slice(0,8):'?'}。対象がログイン中にアプリ再起動で反映されます。`;
+  }catch(e){
+    st.textContent = '失敗: ' + e.message + '\n（admin_grant_dev が未作成なら docs/supabase/admin_grant_dev.sql を SQL Editor で実行。該当メールが存在しないと no user for email）';
+  }finally{ btn.disabled = false; }
+}
+
 async function doDelete(){
   const btn = $('btnDoDel'); btn.disabled = true;
   const st = $('delSt'); st.textContent = '削除中…';
@@ -1094,15 +1081,8 @@ document.addEventListener('change', (ev)=>{
   else if(cb.dataset.g==='facet') drawFacet();
   else if(cb.dataset.g==='score') drawScore();
 });
-$('tDevUnlock').addEventListener('click', (ev)=>{
-  const b = ev.target.closest('button.markSelf'); if(!b) return;
-  const ids = (localStorage.getItem('dash_self_id')||'').split(',').map(s=>s.trim()).filter(Boolean);
-  for(const v of [b.dataset.anon, b.dataset.acc]){ if(v && !ids.includes(v)) ids.push(v); }
-  localStorage.setItem('dash_self_id', ids.join(','));
-  $('selfId').value = ids.join(',');
-  renderDevUnlocks(devUnlockRows);
-});
 $('btnGrantPro').addEventListener('click', grantPro);
+$('btnGrantDev').addEventListener('click', grantDev);
 $('load').addEventListener('click', loadAll);
 $('reload').addEventListener('click', loadAll);
 if($('key').value) loadAll();

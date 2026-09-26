@@ -3,6 +3,7 @@
 import kanji from './dict/kanji.json';
 import vocab from './shared/vocab.json';
 import grammar from './shared/grammar.json';
+import grammarExtraJson from './shared/grammarExtra.json';
 import vocabExamplesAi from './dict/vocabExamplesAi.json';
 import metaJson from './settings/meta.json';
 import grammarClozeOkJson from './exam/grammarClozeOk.json';
@@ -97,6 +98,17 @@ export function rubyNeeded(run: string, userLevel: string): boolean {
 export const VOCAB = overlayFix(vocab as VocabItem[], VOCAB_FIX, (v) => v.id, ['word', 'reading', 'meaning']);
 // 文法の 見出し/ローマ字/意味/例文(ja・en) は同梱 grammar.json を初期値に、grammarfix(OTA)で表示上書き可能(id単位)。
 export const GRAMMAR = overlayFix(grammar as GrammarItem[], GRAMMAR_FIX, (g) => g.id, ['point', 'romaji', 'meaning', 'exampleJa', 'exampleEn']);
+
+// 文法辞書の「追加例文」(1文法点につき既存例文とは別バリエーションを2つ)。id → [{ja(ルビ付),en,tr:10言語訳}]。
+// 辞書タブの文法詳細で本例文の下に並べて表示。tr は母語(l1)訳・無ければ en にフォールバック。翻訳は build 同梱(UI変更を伴う機能のため)。
+export interface GrammarExtraExample { ja: string; en: string; tr: Record<string, string> }
+const GRAMMAR_EXTRA = grammarExtraJson as Record<string, GrammarExtraExample[]>;
+/** 文法点idの追加例文(0〜2件)。未登録は空配列。 */
+export const grammarExtraFor = (id: string): GrammarExtraExample[] => GRAMMAR_EXTRA[id] ?? [];
+/** 追加例文の訳: 母語(lang)優先・無ければ英訳にフォールバック。 */
+export const grammarExtraTr = (ex: GrammarExtraExample, lang?: string): string =>
+  (lang && lang !== 'en' ? ex.tr?.[lang] : undefined) || ex.en;
+
 export const META = metaJson as Meta;
 
 /** 穴埋め(cloze)が適切な文法ID集合(LLM判定・答えが一意にならない曖昧な文法は除外)。 */

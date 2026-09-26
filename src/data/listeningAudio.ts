@@ -24,7 +24,8 @@ const FS = FileSystemNS as unknown as {
 // 同名{id}.mp3はキャッシュ優先で再DLされないため、内容更新はこの版上げが唯一の伝達手段。
 // v2(2026-07-25): 発話001-010を差し替え(All Chirp3-HD・正解位置シャッフル)。
 // v3(2026-08-09): 全520本を48kbpsモノラルへ再エンコード=配信容量 272.5MB→102.2MB(-62.5%)。話し声は聞き分け不可の劣化のみ。
-const LISTENING_CACHE_VER = 'v3';
+// v4(2026-09-26): 配信/再生を mp3→opus に切替=一括DL容量 604MB→276MB(-54%)。旧v3(mp3)キャッシュは破棄され opus を再DL。
+const LISTENING_CACHE_VER = 'v4';
 const cacheDir = Platform.OS !== 'web' && FS.documentDirectory ? `${FS.documentDirectory}listening_${LISTENING_CACHE_VER}/` : null;
 /** キャッシュ可能な端末か(web等はストリーミングのみ=事前DL不要)。 */
 export const LISTENING_CACHEABLE = !!cacheDir && typeof FS.downloadAsync === 'function' && typeof FS.getInfoAsync === 'function';
@@ -43,11 +44,11 @@ async function ensureDir(): Promise<void> {
  *  ・web/非対応端末・失敗時は常にストリーミング。
  */
 export async function listeningSource(id: string, opts?: { stream?: boolean }): Promise<AudioSource | null> {
-  const url = `${AUDIO_BASE_URL}${id}.mp3`;
+  const url = `${AUDIO_BASE_URL}${id}.opus`;
   if (!LISTENING_CACHEABLE) return { uri: url };
   try {
     await ensureDir();
-    const local = `${cacheDir}${id}.mp3`;
+    const local = `${cacheDir}${id}.opus`;
     const info = await FS.getInfoAsync!(local);
     if (info?.exists) return { uri: local };
     if (opts?.stream) return { uri: url }; // 配信モード: DLせずストリーミング
@@ -63,7 +64,7 @@ export async function listeningReady(ids: string[]): Promise<boolean> {
   if (!LISTENING_CACHEABLE) return true;
   for (const id of ids) {
     try {
-      const info = await FS.getInfoAsync!(`${cacheDir}${id}.mp3`);
+      const info = await FS.getInfoAsync!(`${cacheDir}${id}.opus`);
       if (!info?.exists) return false;
     } catch { return false; }
   }
@@ -77,18 +78,18 @@ export async function prefetchListening(ids: string[], onProgress?: (done: numbe
   let done = 0;
   for (const id of ids) {
     try {
-      const local = `${cacheDir}${id}.mp3`;
+      const local = `${cacheDir}${id}.opus`;
       const info = await FS.getInfoAsync!(local);
-      if (!info?.exists) await FS.downloadAsync!(`${AUDIO_BASE_URL}${id}.mp3`, local);
+      if (!info?.exists) await FS.downloadAsync!(`${AUDIO_BASE_URL}${id}.opus`, local);
     } catch { /* 個別失敗は無視 */ }
     onProgress?.(++done, ids.length);
   }
 }
 
-// DL前のサイズ概算に使う「1本あたり平均KB」。48kbpsモノラル再エンコード後の実測平均(級で長さが違う)。
+// DL前のサイズ概算に使う「1本あたり平均KB」。opus(v4)化後の実測平均(級で長さが違う)。
 // idは "N3-…"/"N4-…"/"N5-…" と級で始まるので、先頭2文字で級別平均を当てる。
-const AVG_KB_BY_LEVEL: Record<string, number> = { N3: 250, N4: 193, N5: 148 };
+const AVG_KB_BY_LEVEL: Record<string, number> = { N3: 107, N4: 92, N5: 74 };
 /** DL前のサイズ概算(bytes)。級別の実測平均×件数(同意画面の目安用。厳密なHEAD合計は省略)。 */
 export function listeningBytesEstimate(ids: string[]): number {
-  return ids.reduce((sum, id) => sum + (AVG_KB_BY_LEVEL[id.slice(0, 2)] ?? 197) * 1024, 0);
+  return ids.reduce((sum, id) => sum + (AVG_KB_BY_LEVEL[id.slice(0, 2)] ?? 92) * 1024, 0);
 }

@@ -1,7 +1,7 @@
 // 設定タブ(旧「自分」)= 設定特化。目標級・母語(端末言語から自動)・試験日・テーマ＋評価/ポリシー/規約＋出典/リセット。
 // 継続・成長・バッジ・到達度はホーム(ダッシュボード)へ移動。
-import { useMemo, useState, useRef, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking, Platform } from 'react-native';
+import { useMemo, useState, useEffect } from 'react';
+import { View, Text, Pressable, StyleSheet, ScrollView, Switch, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -52,10 +52,10 @@ export default function ProfileScreen() {
   // 【開発用】週次「桜のおたより」(成長サマリ＋友だち紹介/アプリ評価)を条件を無視して確認する。
   const [letterPreview, setLetterPreview] = useState<WeeklyService | null>(null);
   const [langOpen, setLangOpen] = useState(false);
-  // 開発用セクションの隠しゲート: 一番下のバージョン表示を7回タップで解禁(TestFlight/本番でも使える・実ユーザーには見えない)。開発クライアントは既定で表示。
+  // 開発用セクションの表示ゲート。解禁は管理ダッシュボードのメール指定(admin_grant_dev)だけ=対象アカウントが
+  // ログイン中にアプリ起動/再起動で SyncProvider が devToolsUnlocked に取り込む。開発クライアント(__DEV__)は常時表示。
   // 解禁状態は state.settings.devToolsUnlocked に保存=全体で共有(大問の問題ID選択もこのフラグで表示)＋再起動後も維持。
   const devUnlocked = __DEV__ || state.settings.devToolsUnlocked === true;
-  const devTapRef = useRef(0);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { session } = useSync();
 
@@ -480,20 +480,11 @@ export default function ProfileScreen() {
 
         {/* アカウント削除はアカウント画面(ログアウトの下)へ移動。Apple審査要件の導線をログイン画面に集約。 */}
 
-        {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示)。7回タップで開発用セクションを表示(隠しゲート)。 */}
-        <Pressable onPress={() => {
-          devTapRef.current += 1;
-          // 開発モード解禁は隠しゲート。自分以外が解禁したら分かるよう、解禁の瞬間に1回だけ計測イベントを送る。
-          // tel_event に anonId(端末) ＋ account_id(ログイン時) が自動で載る→自分の既知IDと突き合わせれば他人を特定できる。
-          if (devTapRef.current >= 7 && state.settings.devToolsUnlocked !== true) {
-            setSettings({ devToolsUnlocked: true });
-            void sendEvent('dev_mode_unlocked', { platform: Platform.OS, ver: Application.nativeApplicationVersion ?? '', build: Application.nativeBuildVersion ?? '' });
-          }
-        }}>
-          <Text style={s.version}>
-            v{Application.nativeApplicationVersion ?? '1.1.0'} (build {Application.nativeBuildVersion ?? '—'})
-          </Text>
-        </Pressable>
+        {/* バージョン＋Build番号(全セッション共通ルール: 画面に版を表示)。
+            旧「7回タップで開発モード解禁」は廃止=解禁は管理ダッシュボードのメール指定(admin_grant_dev→SyncProviderが取り込み)だけ。 */}
+        <Text style={s.version}>
+          v{Application.nativeApplicationVersion ?? '1.1.0'} (build {Application.nativeBuildVersion ?? '—'})
+        </Text>
       </ScrollView>
       {/* 開発用: 解禁演出の単体プレビュー(全体カバー率に達しなくても各画面を確認)。 */}
       <UnlockCelebration

@@ -12,7 +12,7 @@ import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { isInMyList, type SaveRef } from '../store/state';
-import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, kanjiGlossIn, cardFaceReadings } from '../data';
+import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, kanjiGlossIn, cardFaceReadings, grammarExtraFor, grammarExtraTr } from '../data';
 import { effectiveP } from '../engine/engine';
 import type { StudyItem } from '../data';
 import { loadSharedDict, syncDictCache, type SharedDict } from '../data/dict/dictRemote';
@@ -309,6 +309,11 @@ export default function BrowseScreen() {
           {corner({ type: 'grammar', id: item.id })}
         </View>
         {renderSentence(item.exampleJa, tgt ?? item.point, gex)}
+        {grammarExtraFor(item.id).map((ex, i) => (
+          <View key={i} style={s.extraExample}>
+            {renderSentence(ex.ja, tgt ?? item.point, grammarExtraTr(ex, l1))}
+          </View>
+        ))}
         {idNode}
       </View>
     );
@@ -447,6 +452,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   meaningEn: { fontSize: ty.tiny, color: c.faint, marginTop: 1 },
   example: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.xs },
   exampleRubyWrap: { marginTop: spacing.xs },
+  extraExample: { marginTop: spacing.sm },
   exampleRubyBase: { fontSize: ty.body, color: c.ink },
   exampleRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },
   exampleHit: { color: c.ink, textDecorationLine: 'underline' },

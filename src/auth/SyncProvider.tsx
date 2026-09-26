@@ -10,7 +10,7 @@ import { decideLoginSync, mergeRestoredState } from './sync';
 import { claimDeviceSession, heartbeatDeviceSession } from './deviceSession';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { claimTrial } from '../pro/trialClient';
-import { pullProUntil } from '../pro/entitlementClient';
+import { pullProUntil, pullDevTools } from '../pro/entitlementClient';
 import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
 import { registerPushToken } from '../push/pushClient';
@@ -27,7 +27,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   const state = useAppState();
   const hydrated = useHydrated();
   const fromDisk = useHydratedFromDisk();
-  const { hydrate, setTrialStart, setProUntil } = useAppActions();
+  const { hydrate, setTrialStart, setProUntil, setSettings } = useAppActions();
   const [session, setSession] = useState<Session | null>(null);
   const [lastSyncedAt, setLastSyncedAt] = useState<number | null>(null);
   // 「同時ログインは1台だけ」：この端末が枠を保持しているか(holds)と、別端末使用中でブロックされた表示(blocked)。
@@ -119,6 +119,10 @@ export function SyncProvider({ children }: { children: ReactNode }) {
         // これで Supabase 側で pro_until を未来にするだけで恒久/期限付きProを配れる(課金=RevenueCatとは別系統)。
         const proUntil = await pullProUntil(session.user.id);
         if (!cancelled && proUntil != null) setProUntil(proUntil);
+        // 開発モード(開発用セクション等)の解禁も本人の行から取り込む。旧「7回タップ」の自己解禁は廃止し、
+        // 管理側 admin_grant_dev(メール指定)だけが解禁経路。true=解禁/false=取消(どちらも反映)・null=未付与で現状維持。
+        const devTools = await pullDevTools(session.user.id);
+        if (!cancelled && devTools != null) setSettings({ devToolsUnlocked: devTools });
       }
     })();
     return () => {

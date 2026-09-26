@@ -2,6 +2,31 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+★Apple審査1.1.65(2956)却下→原因確定＋音声圧縮対応中(2026-09-26)＝
+- 却下2件＝**4.2.3(ii)**(追加リソースDLのサイズ非開示/プロンプト無し)＋**2.1(a)**(DLできず使えない)。**原因確定＝聴解音声の一括DLが巨大**(N3=200MB)＋`autoStart`でサイズ確認画面をスキップ即DL＋DL中キャンセル無し([src/components/ListeningDownloadGate.tsx:35](src/components/ListeningDownloadGate.tsx#L35),L47)。※コンテンツOTAは無罪=同梱sha vs 配信sha 117/117一致で初回DL 0MB。音声CDN(jlpt.safa-lang.com/assets/audio/)は生存(N3 200 OK)。
+- **音声圧縮 実施済(未コミット/未配信/未ビルド)**：聴解3096本を mp3(48k)→**opus(24k mono)を併置生成**完了(合計604MB→276MB=−54%・欠落0・番人緑)。opusは現行48kから変換(git原本は不使用=内容不変・ユーザー厳命)。ツール=`tools/audio/build_opus.py`／番人=`src/data/audioOpusParity.test.ts`／ルール=メモリ[[audio-dual-format-mp3-and-opus]](新規/修正時は mp3・opus 両方更新)。Opus24kはiOS/Android実機再生OK(メール経由)・**アプリ内(expo-av)再生は未確認**。
+- **次の一手(本番反映・未着手・要承認)**：①publish(build-jlpt.yml等)に`.opus`アップロード追加(.mp3残置=旧アプリ互換) ②`src/data/listeningAudio.ts`を`.opus`取得へ(+.mp3フォールバック)＋AVG_KB/陳腐化コメント(102.2MBは誤り)更新 ③審査対策=`autoStart`廃止+DL前サイズ提示+DL中キャンセル ④まとめて1ビルド(**明示指示待ち・勝手にbuild厳禁**)。Apple返信案=「問題/辞書/翻訳は同梱でDL不要・音声は任意DL」。
+- 注意：opus3096本(約210MB)＋mp3が公開リポに併存。vocab(3800)/kanji(168)辞書音声は未opus化(対象外)。
+
+★N1/N2下調べ(2026-09-26)＝公式PDFから構成・ねらい・採点を取得し保存済＝`問題作成の参考\N2\_公式資料_試験構成と採点(全レベル).md`／`md\00_共通情報.md`(N2/N1ブロック追加)／`問題作成の参考\JLPT出題傾向_N5N4N3.xlsx`(N2/N1シート追加)／`md\N1N2_作問基準_大問構成とねらい.md`。**N2問題例5PDFのOCR完了・検品済(空でない/ページ区切り一致)＝`問題作成の参考\N2\{聴解スクリプト,01漢字・語彙,02文法,03読解,04聴解}_テキスト.txt`。** ※注意:04聴解は元PDFに冊子ページ「聴解-9」欠落・03読解p06は白紙。N1/N2の実作問はまだ未着手(語彙anki_n1/n2.csv・漢字が土台)。
+
+★現在地(2026-09-26 セッション＝開発モードのメール付与化 ＋ 文法辞書の追加例文 N5/N4/N3 全完成)＝
+- **本セッションの成果は2件とも「コード/データ完了・tsc0・テスト緑・未コミット・未ビルド」。次にビルドする時に同梱される。** ①開発モード解禁を7回タップ→管理ダッシュボードのメール指定に変更(要Supabase SQL2本=schema.sqlのdev_tools列 と admin_grant_dev.sql をSQL Editorで実行。ユーザーが実行済みか未確認→次回確認)。②文法辞書の追加例文=全408点×2=816例文(各10言語訳)=[src/data/shared/grammarExtra.json]。詳細は下の各✅行。
+- **次の一手＝(a)Apple審査結果待ち(下記2026-09-25ブロック) (b)次ビルド時に上記2件が入る。ビルドは必ずユーザーの明示指示を待つ(勝手にbuild厳禁)。** 実機での辞書追加例文の見た目確認は未実施(ユーザー保留)。
+
+★現在地(2026-09-25 セッション＝Apple審査3回目却下対応→ビルド→再提出完了・審査待ち)＝
+- **Apple審査 2955(1.1.64) が再び却下(2026-09-24 iPad Air M3)。理由2つ＝(a)5.1.1(v)アカウント削除が無い (b)2.1(b)IAP(サブスク)が審査未提出。**
+- **(a)5.1.1(v)＝✅コード修正済＋ビルド済。** アカウント削除の導線を「設定(プロフィール)最下部」→「アカウント画面のログアウト直下」へ移動([src/screens/AccountScreen.tsx]・確認ダイアログ→deleteAccount→reset)。ProfileScreen側の削除UI/onDelete/import/孤立スタイル撤去。**理由=Appleがアカウント画面を見て削除導線を発見できず却下→ログイン導線と同じ場所に集約。**
+- **(b)2.1(b)＝コードでなくASC手続き。** サブスク「Pro 12ヶ月」は提出準備完了だが**単体では提出不可＝新アプリバージョンと一緒に審査提出**が必要(ASCの「提出物の下書き」で"アプリバージョンを追加してください"と表示)。→新ビルド2956を出したので、ASCで新バージョンにこのビルドを紐付け＋サブスクを同じ提出に入れて提出。**1024×1024の「画像(任意)」欄は任意＝空でOK**(IAPプロモ画像。埋めたいなら`画像\申請スクショ\サブスク課金画面_1024.jpg`=比率維持余白付き)。**必須の"審査用スクショ"は別欄(縦長スクショ`画像\申請スクショ\サブスク課金画面.jpg` 869×1884でOK)。**
+- **✅ビルド=v1.1.65(Build 2956) both dispatch(-NoWatch)・commit bf5786b8・run 36018235645・test71pass/tsc0・CI緑(build-ios/android success)・altool UPLOAD SUCCEEDED(Delivery UUID 5801b452…)。** 同梱=アカウント削除移動＋**同時ログイン1台制限機能(deviceSession/SyncProvider/blockedバナー・active_sessions SQL適用済＝この2956で実機初反映)**＋ダッシュボード列並べ替え/左固定＋ストア訳＋i18n全11言語。
+- **⚠️版番号の落とし穴(解決済)＝2956は版1.1.65。** build.ps1が1.1.64→1.1.65へ自動bumpしたが、TestFlightには既に1.1.65(2953)/1.1.66(2954)が前から在り、新ビルドが「最新に見える1.1.66」より低い版で埋もれ「8時間出ない」と誤認→実際は**TestFlightの1.1.65グループに2956あり(正常処理済・2026-09-25確認)。作り直し不要。** 1.1.66(2954)は未使用の残り物=無視。**次ビルドは版番号を最新超へ(例1.1.67)にして散らかりを解消推奨。**
+- **✅ASC提出完了(2026-09-25 ユーザー実施)＝App Storeバージョン1.1.65にビルド2956を紐付けて審査提出済。** サブスクは**全て承認済み(承認済み=「審査用に追加」がグレーで押せない)ため箱に入れ直し不要→ビルド単体で提出**(2.1bの真因は購入画面到達不可でありサブスク未提出ではなかった=2956で到達可に修正済)。メモ欄(Notes)に英文で(a)アカウント削除の場所(アカウント画面→ログアウト直下)＋(b)サブスクは承認済みで2956で到達可、を記載。**却下メール(Resolution Center)にアカウント削除フローの画面録画を添付して返信済**(動画はメモ欄でなくResolution Center側)。
+- **⚠️提出したビルド=2956(2953ではない)＝アカウント削除修正入り。** 同版1.1.65に旧2953(修正なし)も在るため取り違え注意だったが2956で提出。
+- **次の一手＝Apple審査結果待ち(対象=1.1.65 build 2956)。** 却下なら「Version reviewed」番号が2956か必ず先に確認(古い番号なら修正版未審査)。承認ならAndroidは内部テスト→製品版昇格はユーザー判断。**次にiOSビルドする時は版番号を最新超(例1.1.67)にして散らかり解消。**
+- **✅開発モード解禁を「7回タップ」→「管理ダッシュボードのメール指定」に変更(2026-09-25・コード完了/未ビルド/未デプロイ)。** Pro付与と同型：entitlements.dev_tools列＋RPC `admin_grant_dev(email,on)`([docs/supabase/admin_grant_dev.sql])＋クライアント`pullDevTools`([src/pro/entitlementClient.ts])＋SyncProvider起動時取り込み(false=取消も反映)＋ProfileScreenの7回タップ/dev_mode_unlockedテレメトリ撤去＋ダッシュボードの検知パネルを付与パネルに置換([docs/supabase/dashboard.html] btnGrantDev)。tsc0。**要作業＝①Supabaseで schema.sql の dev_tools 列追加(alter)と admin_grant_dev.sql を SQL Editor で実行 ②反映は次ビルド(UI/SyncProvider変更のためOTA不可)。** 未ログイン端末の旧ローカル解禁フラグは残るが新規解禁はメール指定のみ。
+- **✅文法辞書の追加例文(各点2つ・既存と別バリエーション)N5/N4/N3 全完成(2026-09-26・未ビルド)。** N5=91・N4=131・N3=186点=**全408点×2=816例文**、各10言語訳つき。保存=[src/data/shared/grammarExtra.json](id→[{ja(ルビ),en,tr:10言語=ne/id/bn/ko/my/th/vi/zh/zh2/hi}])・配線=index.ts grammarExtraFor/grammarExtraTr・表示=BrowseScreen文法詳細で本例文の下に2つ縦並び(全級id共通=コード改変不要)。作問=Opus並行(N3:4体+N4/N5:5体・レベル相当のやさしさ指定)。翻訳=[tools/trans_grammar_extra.py](gemini-2.5-flash・実費 N3≈¥43+N4N5≈¥51・zh2はOpenCC・キャッシュ再開可)。番人=[src/data/grammarExtra.test.ts](N5/N4/N3 全点×2/ルビ/10訳/既存と別文を検査・npm testに追加済)。tsc0・test3pass。**反映は要ビルド(同梱src+BrowseScreen UI変更のためOTA不可)=未ビルド・勝手にbuild禁止。** 一意性自己申告は模試用で辞書例文は対象外。
+- **Google Play本人確認=✅完了(good standing・2026-09-24 Playサポートより)。ただしお支払いプロファイル側は別問題が残りPayments Supportへ連絡要。** 詳細=[[google-payments-address-verification-pending]]。返信方針(決定済)＝現バーチャル住所で登録できない/個人事業に登録変更できるまでは個人名義・自宅住所で通す。
+
 ★現在地(2026-09-24 セッション＝同時ログイン1台制限＋ダッシュボード改修)＝
 - **「同時ログインは1台だけ」機能をコード実装（未コミット・要SQL適用＋ビルドで反映）。** 1アカウント=同時に1台のみログイン可。2台目はブロック。60秒ハートビートが3分切れると自動解放（強制切替ボタン無し=共有抑止）。端末替えは前端末でログアウト→新端末がクラウド最新を引き継ぐ（1台しか書かない=衝突/マージ不要）。動機=Pro課金アカウントのID/PW共有で他人が使える件を塞ぐ。
   - **要デプロイ=Supabase SQL Editorに `C:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\docs\supabase\active_sessions.sql` を1回貼る**（active_sessionsテーブル＋claim/touch/release RPC・SECURITY DEFINER・grant済）。貼るまでは fail-open で機能OFF（RPCエラー時は{ok:true}＝既存挙動を壊さない）。
@@ -577,17 +602,16 @@
 
 ## 走行中の run（自動・完了通知が来ていないもの）
 - ae7242744b8ff5435 general-purpose
-- ae286b0fb4a4b805a general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/data/listeningAudio.ts
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- 画像/申請スクショ/サブスク課金画面_1024.jpg
-- 画像/申請スクショ/サブスク課金画面.jpg
-- src/screens/ProfileScreen.tsx
-- src/screens/AccountScreen.tsx
-- src/i18n/zh2.json
-- src/i18n/hi.json
+- assets/audio/N5-C-S-0760.opus
+- assets/audio/N5-C-S-0758.opus
+- assets/audio/N5-C-S-0759.opus
+- assets/audio/N5-C-S-0756.opus
+- assets/audio/N5-C-S-0757.opus
 
-_自動更新: 2026-09-25 00:05_
+_自動更新: 2026-09-26 23:46_
 <!-- AUTO:END -->

@@ -22,3 +22,24 @@ export async function pullProUntil(userId: string): Promise<number | null> {
     return null;
   }
 }
+
+/**
+ * 本人の開発モード解禁フラグ(dev_tools)をサーバーから読む。
+ * 管理側が admin_grant_dev(メール指定)で on/off したものを、対象アカウントが取り込む。
+ * 行なし/取得失敗は null(=呼び出し側は状態を変えない)。true/false はそのまま返す(false=取消も反映)。
+ */
+export async function pullDevTools(userId: string): Promise<boolean | null> {
+  try {
+    const { data, error } = await supabase
+      .from('entitlements')
+      .select('dev_tools')
+      .eq('user_id', userId)
+      .maybeSingle();
+    if (error) return null;
+    const v = (data as { dev_tools?: boolean | null } | null)?.dev_tools;
+    if (v == null) return null; // 付与レコードなし=既存の状態を保つ(未取得と取消を取り違えない)
+    return v === true;
+  } catch {
+    return null;
+  }
+}
