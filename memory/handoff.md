@@ -2,9 +2,9 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-★ビルド発行(2026-09-27)＝**v1.1.65(2957) dispatch済**(run 36250861991・iOS/Android・監視なし)。中身＝①opus切替(listeningAudio.ts mp3→opus・キャッシュv4・AVG_KB更新) ②機能A サーバー付与の開発モード(admin_grant_dev・7回タップ廃止) ③機能B 文法追加例文(grammarExtra 408点)。版番号は却下枠1.1.65へ据え置き(app.json一旦1.1.64→build.ps1が+1)。コミット=cae3c989。
-- **要確認(取り返しつかない=Apple提出前)**：最新却下 4.2.3(ii)/2.1(a) に対し、現コードは✅サイズ開示(各行 {mb}MB)✅DL任意(オンボ既定=配信/明示タップ時のみDL)✅opusで縮小、まで対応済み。**残る穴＝DL中キャンセル無し([ListeningDownloadGate.tsx] phase 'dl' は進捗のみ・cancel/skipボタン無し)**。Apple再指摘の芽。入れるなら小改修+1ビルド(本日iOS 1/8)。
-- **次の一手**：(a)ビルド結果確認(GitHub Actions run 36250861991) (b)**opusのアプリ内(expo-av)実機再生を必ず確認**(iOSはOgg/Opus非対応の通説あり・build_opus.pyコメントは「iOS/Android再生確認済」だが要現物) (c)DL中キャンセルを入れるか判断 (d)ASCで1.1.65枠にビルド2957を紐付け+サブスク同梱で**手動提出**(opus実機OK確認後)。※1.1.65枠が却下/編集可状態であることが前提(承認済/審査中なら1.1.66要)。
+★ビルド発行(2026-09-27)＝**採用=v1.1.65(2958) dispatch済**(run 36251512882・コミット019c0720)。※先行の2957(run 36250861991・cae3c989)は走らせたまま放置=使わない。2958が最新。中身(累積)＝①opus切替(listeningAudio.ts mp3→opus・キャッシュv4・AVG_KB更新) ②機能A サーバー付与の開発モード(admin_grant_dev・7回タップ廃止) ③機能B 文法追加例文(grammarExtra 408点) ④**DL中『中止』ボタン追加**(ListeningDownloadGate 'dl'フェーズ+prefetchListening shouldCancel・i18n dl.cancel 全11言語)。版番号は却下枠1.1.65へ据え置き(app.json一旦1.1.64→build.ps1が+1)。iOS本日2/8。
+- **最新却下 4.2.3(ii)/2.1(a) 対応=完了見込み**：✅サイズ開示(各行{mb}MB)✅DL任意(オンボ既定=配信/明示タップ時のみDL)✅opusで縮小(N3 200→約115MB)✅**DL中キャンセル**(2958で追加)。前々却下の 5.1.1(v)削除導線/2.1(b)課金導線 も既済(bf5786b8)。
+- **次の一手(Apple提出前・取り返しつかない)**：(a)**opusのアプリ内(expo-av)実機再生を必ず確認**(iOSはOgg/Opus非対応の通説あり・build_opus.pyは「iOS/Android再生確認済」だが要現物。鳴らなければ容器をAAC/m4a か CAF/Opusへ) (b)DL中の中止が効くか実機で確認 (c)ASCで**1.1.65枠にビルド2958を紐付け+サブスク同梱で手動提出**(2957でなく2958)。※1.1.65枠が却下/編集可状態が前提(承認済/審査中なら1.1.66要)。
 
 ★Apple審査1.1.65(2956)却下→原因確定＋音声圧縮対応中(2026-09-26)＝
 - 却下2件＝**4.2.3(ii)**(追加リソースDLのサイズ非開示/プロンプト無し)＋**2.1(a)**(DLできず使えない)。**原因確定＝聴解音声の一括DLが巨大**(N3=200MB)＋`autoStart`でサイズ確認画面をスキップ即DL＋DL中キャンセル無し([src/components/ListeningDownloadGate.tsx:35](src/components/ListeningDownloadGate.tsx#L35),L47)。※コンテンツOTAは無罪=同梱sha vs 配信sha 117/117一致で初回DL 0MB。音声CDN(jlpt.safa-lang.com/assets/audio/)は生存(N3 200 OK)。
@@ -604,22 +604,18 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 68ターン（文脈 16万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 68ターン・ツール25回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - ae7242744b8ff5435 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/session-summary-LATEST.md
 - memory/handoff.md
 - src/i18n/zh2.json
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
-- memory/session-summary-LATEST.md
-- src/data/listeningAudio.ts
-- assets/audio/N5-C-S-0760.opus
+- src/i18n/hi.json
+- src/i18n/zh.json
+- src/i18n/vi.json
+- src/i18n/th.json
+- src/i18n/my.json
 
-_自動更新: 2026-09-27 00:11_
+_自動更新: 2026-09-27 01:02_
 <!-- AUTO:END -->

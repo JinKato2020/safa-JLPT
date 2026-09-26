@@ -80,19 +80,30 @@ export async function prefetchListening(
   ids: string[],
   onProgress?: (done: number, total: number) => void,
   shouldCancel?: () => boolean,
+  concurrency = 8,
 ): Promise<void> {
   if (!LISTENING_CACHEABLE) { onProgress?.(ids.length, ids.length); return; }
   await ensureDir();
+  const total = ids.length;
   let done = 0;
-  for (const id of ids) {
-    if (shouldCancel?.()) return; // ユーザーが中止=残りは落とさずここで抜ける(取得済みは保持)
-    try {
-      const local = `${cacheDir}${id}.opus`;
-      const info = await FS.getInfoAsync!(local);
-      if (!info?.exists) await FS.downloadAsync!(`${AUDIO_BASE_URL}${id}.opus`, local);
-    } catch { /* 個別失敗は無視 */ }
-    onProgress?.(++done, ids.length);
-  }
+  let next = 0;
+  // 並行ワーカー: 小さいクリップ数百本を1本ずつ落とすと接続の往復待ちが積み重なって遅い(Apple審査 2.1(a)=DLできず不合格の主因)。
+  // 同時に concurrency 本まで走らせて往復待ちを重ねる=数倍速。JSは単一スレッドなので next++ は await 間で競合しない。
+  const worker = async (): Promise<void> => {
+    for (;;) {
+      if (shouldCancel?.()) return;      // 中止=このワーカーは撤収(取得済みは保持=次回続きから)
+      const i = next++;
+      if (i >= total) return;
+      const id = ids[i];
+      try {
+        const local = `${cacheDir}${id}.opus`;
+        const info = await FS.getInfoAsync!(local);
+        if (!info?.exists) await FS.downloadAsync!(`${AUDIO_BASE_URL}${id}.opus`, local);
+      } catch { /* 個別失敗は無視(後で再試行可) */ }
+      onProgress?.(++done, total);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(concurrency, total) }, () => worker()));
 }
 
 // DL前のサイズ概算に使う「1本あたり平均KB」。opus(v4)化後の実測平均(級で長さが違う)。
