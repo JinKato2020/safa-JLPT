@@ -71,12 +71,21 @@ export async function listeningReady(ids: string[]): Promise<boolean> {
   return true;
 }
 
-/** レベルの全音声を一括DL→キャッシュ。onProgress(done,total)。個別失敗は黙ってスキップ(後で再試行可)。 */
-export async function prefetchListening(ids: string[], onProgress?: (done: number, total: number) => void): Promise<void> {
+/**
+ * レベルの全音声を一括DL→キャッシュ。onProgress(done,total)。個別失敗は黙ってスキップ(後で再試行可)。
+ * shouldCancel()=true になったら次のクリップに進む前に中断する(Apple審査 2.1(a)対策=DL中に中止できる)。
+ * 中断は例外にせず正常終了。落とせた分はキャッシュに残る=次回は続きからDLされる。
+ */
+export async function prefetchListening(
+  ids: string[],
+  onProgress?: (done: number, total: number) => void,
+  shouldCancel?: () => boolean,
+): Promise<void> {
   if (!LISTENING_CACHEABLE) { onProgress?.(ids.length, ids.length); return; }
   await ensureDir();
   let done = 0;
   for (const id of ids) {
+    if (shouldCancel?.()) return; // ユーザーが中止=残りは落とさずここで抜ける(取得済みは保持)
     try {
       const local = `${cacheDir}${id}.opus`;
       const info = await FS.getInfoAsync!(local);

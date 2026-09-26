@@ -1469,5 +1469,6 @@
   "weekly.greet": "Kerja bagus minggu ini!\nKamu telah berkembang pesat dalam seminggu.",
   "weekly.more": "Tidak perlu terburu-buru.\nTeruslah maju sedikit demi sedikit dengan kecepatan ini.",
   "account.blocked_title": "Digunakan di perangkat lain",
-  "account.blocked_msg": "Akun ini sedang masuk di perangkat lain. Hanya satu perangkat yang dapat digunakan pada satu waktu. Harap keluar dari perangkat tersebut atau tunggu beberapa menit lalu coba lagi."
+  "account.blocked_msg": "Akun ini sedang masuk di perangkat lain. Hanya satu perangkat yang dapat digunakan pada satu waktu. Harap keluar dari perangkat tersebut atau tunggu beberapa menit lalu coba lagi.",
+  "dl.cancel": "Batal"
 }

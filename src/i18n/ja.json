@@ -175,6 +175,7 @@
   "dl.later": "あとで",
   "dl.now": "今すぐダウンロード",
   "dl.progress": "ダウンロード中… {n}%",
+  "dl.cancel": "中止する",
   "dl.retry": "再試行",
   "dl.title": "聴解音声をダウンロード",
   "exam.jft_band_a1": "基礎レベル（A1）",

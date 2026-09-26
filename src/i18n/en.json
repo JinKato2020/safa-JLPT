@@ -175,6 +175,7 @@
   "dl.later": "Later",
   "dl.now": "Download now",
   "dl.progress": "Downloading… {n}%",
+  "dl.cancel": "Stop",
   "dl.retry": "Retry",
   "dl.title": "Download listening audio",
   "exam.jft_band_a1": "Basic level (A1)",

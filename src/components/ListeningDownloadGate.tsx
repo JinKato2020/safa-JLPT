@@ -1,7 +1,7 @@
 // 聴解音声のレベル一括ダウンロード・ゲート。
 // オンボード(レベル選択時・スキップ可)と聴解開始時に使用。
 // 既にキャッシュ済 or 非対応端末(web)は即 onComplete。同意→DL(進捗)→完了/失敗(再試行)。
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Pressable, ActivityIndicator } from 'react-native';
 import { spacing, radius, type as ty, useColors } from '../theme';
 import { useT } from '../i18n';
@@ -16,15 +16,24 @@ export default function ListeningDownloadGate({ level, allowSkip, manual, autoSt
   const ids = useMemo(() => listeningAudioIdsFor(level), [level]);
   const [phase, setPhase] = useState<'check' | 'consent' | 'dl' | 'error'>('check');
   const [pct, setPct] = useState(0);
+  // DL中の中止(Apple審査 2.1(a)=DLに縛られず中断できること)。ref=ループから同期参照・state=ボタン表示切替。
+  const cancelRef = useRef(false);
+  const [cancelling, setCancelling] = useState(false);
 
   const mb = Math.max(1, Math.round(listeningBytesEstimate(ids) / 1048576));
   const start = async () => {
+    cancelRef.current = false; setCancelling(false);
     setPhase('dl'); setPct(0);
     try {
-      await prefetchListening(ids, (d, tot) => setPct(tot > 0 ? Math.round((d / tot) * 100) : 0));
-      onComplete();
+      await prefetchListening(
+        ids,
+        (d, tot) => setPct(tot > 0 ? Math.round((d / tot) * 100) : 0),
+        () => cancelRef.current,
+      );
+      onComplete(); // 完了 or 中止(残りは未取得)いずれもオーバーレイを閉じる。中止時は行が「未DL」のまま=再開可。
     } catch { setPhase('error'); }
   };
+  const onCancel = () => { cancelRef.current = true; setCancelling(true); }; // 次クリップ前に prefetch が抜ける
 
   useEffect(() => {
     let alive = true;
@@ -50,6 +59,9 @@ export default function ListeningDownloadGate({ level, allowSkip, manual, autoSt
           <View style={{ width: 220, height: 6, borderRadius: 3, backgroundColor: c.bgSoft, overflow: 'hidden' }}>
             <View style={{ width: `${pct}%`, height: '100%', backgroundColor: c.blue }} />
           </View>
+          <Pressable onPress={onCancel} disabled={cancelling} hitSlop={8} style={{ marginTop: spacing.lg, opacity: cancelling ? 0.5 : 1 }}>
+            <Text style={{ color: c.mute, fontSize: ty.small, fontWeight: '600' }}>{t('dl.cancel')}</Text>
+          </Pressable>
         </>
       ) : phase === 'error' ? (
         <>

@@ -1469,5 +1469,6 @@
   "weekly.greet": "Bạn đã làm rất tốt trong tuần này.\nBạn đã phát triển được chừng này trong một tuần.",
   "weekly.more": "Đừng lo lắng, cứ bình tĩnh.\nHãy tiếp tục từng chút một như thế này nhé.",
   "account.blocked_title": "Đang sử dụng trên thiết bị khác",
-  "account.blocked_msg": "Tài khoản này hiện đang được đăng nhập trên một thiết bị khác. Bạn chỉ có thể sử dụng trên một thiết bị cùng lúc. Vui lòng đăng xuất khỏi thiết bị đó hoặc đợi vài phút rồi thử lại."
+  "account.blocked_msg": "Tài khoản này hiện đang được đăng nhập trên một thiết bị khác. Bạn chỉ có thể sử dụng trên một thiết bị cùng lúc. Vui lòng đăng xuất khỏi thiết bị đó hoặc đợi vài phút rồi thử lại.",
+  "dl.cancel": "Hủy"
 }
