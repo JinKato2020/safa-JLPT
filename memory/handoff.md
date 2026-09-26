@@ -2,14 +2,11 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-★ビルド発行(2026-09-27)＝**採用=v1.1.65(2958) dispatch済**(run 36251512882・コミット019c0720)。※先行の2957(run 36250861991・cae3c989)は走らせたまま放置=使わない。2958が最新。中身(累積)＝①opus切替(listeningAudio.ts mp3→opus・キャッシュv4・AVG_KB更新) ②機能A サーバー付与の開発モード(admin_grant_dev・7回タップ廃止) ③機能B 文法追加例文(grammarExtra 408点) ④**DL中『中止』ボタン追加**(ListeningDownloadGate 'dl'フェーズ+prefetchListening shouldCancel・i18n dl.cancel 全11言語)。版番号は却下枠1.1.65へ据え置き(app.json一旦1.1.64→build.ps1が+1)。iOS本日2/8。
-- **最新却下 4.2.3(ii)/2.1(a) 対応=完了見込み**：✅サイズ開示(各行{mb}MB)✅DL任意(オンボ既定=配信/明示タップ時のみDL)✅opusで縮小(N3 200→約115MB)✅**DL中キャンセル**(2958で追加)。前々却下の 5.1.1(v)削除導線/2.1(b)課金導線 も既済(bf5786b8)。
-- **次の一手(Apple提出前・取り返しつかない)**：(a)**opusのアプリ内(expo-av)実機再生を必ず確認**(iOSはOgg/Opus非対応の通説あり・build_opus.pyは「iOS/Android再生確認済」だが要現物。鳴らなければ容器をAAC/m4a か CAF/Opusへ) (b)DL中の中止が効くか実機で確認 (c)ASCで**1.1.65枠にビルド2958を紐付け+サブスク同梱で手動提出**(2957でなく2958)。※1.1.65枠が却下/編集可状態が前提(承認済/審査中なら1.1.66要)。
-
-★Apple審査1.1.65(2956)却下→原因確定＋音声圧縮対応中(2026-09-26)＝
-- 却下2件＝**4.2.3(ii)**(追加リソースDLのサイズ非開示/プロンプト無し)＋**2.1(a)**(DLできず使えない)。**原因確定＝聴解音声の一括DLが巨大**(N3=200MB)＋`autoStart`でサイズ確認画面をスキップ即DL＋DL中キャンセル無し([src/components/ListeningDownloadGate.tsx:35](src/components/ListeningDownloadGate.tsx#L35),L47)。※コンテンツOTAは無罪=同梱sha vs 配信sha 117/117一致で初回DL 0MB。音声CDN(jlpt.safa-lang.com/assets/audio/)は生存(N3 200 OK)。
-- **音声圧縮 実施済(未コミット/未配信/未ビルド)**：聴解3096本を mp3(48k)→**opus(24k mono)を併置生成**完了(合計604MB→276MB=−54%・欠落0・番人緑)。opusは現行48kから変換(git原本は不使用=内容不変・ユーザー厳命)。ツール=`tools/audio/build_opus.py`／番人=`src/data/audioOpusParity.test.ts`／ルール=メモリ[[audio-dual-format-mp3-and-opus]](新規/修正時は mp3・opus 両方更新)。Opus24kはiOS/Android実機再生OK(メール経由)・**アプリ内(expo-av)再生は未確認**。
-- **次の一手(本番反映・未着手・要承認)**：①publish(build-jlpt.yml等)に`.opus`アップロード追加(.mp3残置=旧アプリ互換) ②`src/data/listeningAudio.ts`を`.opus`取得へ(+.mp3フォールバック)＋AVG_KB/陳腐化コメント(102.2MBは誤り)更新 ③審査対策=`autoStart`廃止+DL前サイズ提示+DL中キャンセル ④まとめて1ビルド(**明示指示待ち・勝手にbuild厳禁**)。Apple返信案=「問題/辞書/翻訳は同梱でDL不要・音声は任意DL」。
+★ビルド発行(2026-09-27)＝**採用=v1.1.65(2959) dispatch済**(run 36254137144・コミットdeb4d175)。※先行の2957(cae3c989)/2958(019c0720)は放置=使わない。2959が最新。中身(累積)＝①opus切替(listeningAudio.ts mp3→opus・キャッシュv4・AVG_KB更新) ②サーバー付与の開発モード(admin_grant_dev・7回タップ廃止) ③文法追加例文(grammarExtra 408点) ④DL中『中止』ボタン(ListeningDownloadGate+shouldCancel・i18n dl.cancel 全11言語) ⑤**一括DLの並行化**(prefetchListening=同時8本ワーカープール・逐次の往復待ちを解消=数倍速)。版番号は却下枠1.1.65へ据え置き(app.json一旦1.1.64→build.ps1が+1)。iOS本日3/8。
+- **最新却下 4.2.3(ii)/2.1(a)＝対応完了**：✅サイズ開示(各行{mb}MB)✅DL任意(オンボ既定=配信/明示タップ時のみDL・聴解はDL無しでも[ListeningScreen]で配信再生可) ✅opus縮小 ✅DL中キャンセル ✅並行DLで高速化(2.1(a)『DLできず不合格』の主因=遅い逐次DLを解消)。**実機確認済(ユーザー2026-09-27)＝opus再生OK/中止OK/N4=66MB DL可**(残:並行DLで体感速くなったかは2959で要再確認)。前々却下の5.1.1(v)削除導線・2.1(b)課金導線は既済(bf5786b8)で今回文面には無し。
+- **却下メッセージ原文(2956/9-26)**：4.2.3(ii)=DLサイズ非開示/選ばせない。2.1(a)=iPhone17ProMax・iPadAir5(iOS/iPadOS27.0)でDLできずアクセス不可(何度も再現)。→2959で全対応。
+- **次の一手(Apple提出=ユーザー手動・私は提出しない)**：(a)2959をTestFlightで最終確認(並行DLで速いか) (b)ASCで**1.1.65枠にビルド2959を紐付け+サブスク同梱で手動提出**(2957/2958でなく2959)※1.1.65枠が却下/編集可前提(承認済/審査中なら1.1.66要) (c)証明動画=DL周りのみ(サイズ表示→任意DL→速く完了→中止で抜ける→未DLでも配信で聴ける。削除/Paywallは今回不要)＋Resolution Centerに各番号対応の返信。
+- opus本体=公開リポにopus3096本併置(mp3も残置=旧アプリ互換)。R2同期はbuild-jlpt.ymlがassets/audioを配信。番人=src/data/audioOpusParity.test.ts。詳細メモリ[[audio-dual-format-mp3-and-opus]]。
 - 注意：opus3096本(約210MB)＋mp3が公開リポに併存。vocab(3800)/kanji(168)辞書音声は未opus化(対象外)。
 
 ★N1/N2下調べ(2026-09-26)＝公式PDFから構成・ねらい・採点を取得し保存済＝`問題作成の参考\N2\_公式資料_試験構成と採点(全レベル).md`／`md\00_共通情報.md`(N2/N1ブロック追加)／`問題作成の参考\JLPT出題傾向_N5N4N3.xlsx`(N2/N1シート追加)／`md\N1N2_作問基準_大問構成とねらい.md`。**N2問題例5PDFのOCR完了・検品済(空でない/ページ区切り一致)＝`問題作成の参考\N2\{聴解スクリプト,01漢字・語彙,02文法,03読解,04聴解}_テキスト.txt`。** ※注意:04聴解は元PDFに冊子ページ「聴解-9」欠落・03読解p06は白紙。N1/N2の実作問はまだ未着手(語彙anki_n1/n2.csv・漢字が土台)。
@@ -608,14 +605,14 @@
 - ae7242744b8ff5435 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- src/components/ExamHeader.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
 - src/i18n/zh2.json
-- src/i18n/hi.json
-- src/i18n/zh.json
-- src/i18n/vi.json
-- src/i18n/th.json
-- src/i18n/my.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- app.json
+- src/data/listeningAudio.ts
 
-_自動更新: 2026-09-27 01:02_
+_自動更新: 2026-09-27 02:34_
 <!-- AUTO:END -->

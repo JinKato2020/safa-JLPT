@@ -9,7 +9,7 @@ import { spacing, type as ty, useColors, type ThemeColors } from '../theme';
 
 // count=分数文字列("3 / 10" 等) / id=問題ID。どちらも無い画面では省略可(存在すれば必ず同じ位置に出る)。
 // onPressId=問題IDをタップした時の処理(開発用のID選択を開く等)。渡された時だけIDが押せる見た目になる。
-// onReport=右端の⚠報告ボタン(この問題のバグ報告フォームを開く)。渡された時だけ表示。reportA11y=読み上げラベル。
+// onReport=右端の報告ボタン(⚑旗アイコン=この問題のバグ報告フォームを開く)。渡された時だけ表示。reportA11y=読み上げラベル。
 export default function ExamHeader({ title, count, id, onClose, onPressId, onReport, reportA11y }: { title?: string; count?: string; id?: string; onClose: () => void; onPressId?: () => void; onReport?: () => void; reportA11y?: string }) {
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
@@ -34,7 +34,7 @@ export default function ExamHeader({ title, count, id, onClose, onPressId, onRep
       {/* 右端: ⚠報告(この問題のバグ報告を開く)。渡されない画面では対称のための余白のまま。 */}
       {onReport ? (
         <Pressable onPress={onReport} hitSlop={10} style={[s.side, s.reportSide]} accessibilityLabel={reportA11y}>
-          <Text style={s.report}>⚠</Text>
+          <Text style={s.report}>⚑</Text>
         </Pressable>
       ) : (
         <View style={s.side} />
