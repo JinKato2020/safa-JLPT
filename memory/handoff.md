@@ -2,12 +2,18 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-★ビルド発行(2026-09-27)＝**採用=v1.1.65(2959) dispatch済**(run 36254137144・コミットdeb4d175)。※先行の2957(cae3c989)/2958(019c0720)は放置=使わない。2959が最新。中身(累積)＝①opus切替(listeningAudio.ts mp3→opus・キャッシュv4・AVG_KB更新) ②サーバー付与の開発モード(admin_grant_dev・7回タップ廃止) ③文法追加例文(grammarExtra 408点) ④DL中『中止』ボタン(ListeningDownloadGate+shouldCancel・i18n dl.cancel 全11言語) ⑤**一括DLの並行化**(prefetchListening=同時8本ワーカープール・逐次の往復待ちを解消=数倍速)。版番号は却下枠1.1.65へ据え置き(app.json一旦1.1.64→build.ps1が+1)。iOS本日3/8。
-- **最新却下 4.2.3(ii)/2.1(a)＝対応完了**：✅サイズ開示(各行{mb}MB)✅DL任意(オンボ既定=配信/明示タップ時のみDL・聴解はDL無しでも[ListeningScreen]で配信再生可) ✅opus縮小 ✅DL中キャンセル ✅並行DLで高速化(2.1(a)『DLできず不合格』の主因=遅い逐次DLを解消)。**実機確認済(ユーザー2026-09-27)＝opus再生OK/中止OK/N4=66MB DL可**(残:並行DLで体感速くなったかは2959で要再確認)。前々却下の5.1.1(v)削除導線・2.1(b)課金導線は既済(bf5786b8)で今回文面には無し。
-- **却下メッセージ原文(2956/9-26)**：4.2.3(ii)=DLサイズ非開示/選ばせない。2.1(a)=iPhone17ProMax・iPadAir5(iOS/iPadOS27.0)でDLできずアクセス不可(何度も再現)。→2959で全対応。
-- **次の一手(Apple提出=ユーザー手動・私は提出しない)**：(a)2959をTestFlightで最終確認(並行DLで速いか) (b)ASCで**1.1.65枠にビルド2959を紐付け+サブスク同梱で手動提出**(2957/2958でなく2959)※1.1.65枠が却下/編集可前提(承認済/審査中なら1.1.66要) (c)証明動画=DL周りのみ(サイズ表示→任意DL→速く完了→中止で抜ける→未DLでも配信で聴ける。削除/Paywallは今回不要)＋Resolution Centerに各番号対応の返信。
-- opus本体=公開リポにopus3096本併置(mp3も残置=旧アプリ互換)。R2同期はbuild-jlpt.ymlがassets/audioを配信。番人=src/data/audioOpusParity.test.ts。詳細メモリ[[audio-dual-format-mp3-and-opus]]。
-- 注意：opus3096本(約210MB)＋mp3が公開リポに併存。vocab(3800)/kanji(168)辞書音声は未opus化(対象外)。
+★ビルド発行(2026-09-27)＝**採用=v1.1.65(2960) dispatch済**(run 36260447981・コミットaed3024e)。※先行の2957/2958/2959は放置=使わない。2960が最新。中身(累積)＝①**聴解音声=AAC(m4a 40k mono)に統一**(opusは廃止・下記) ②サーバー付与の開発モード(admin_grant_dev・7回タップ廃止) ③文法追加例文(grammarExtra 408点) ④DL中『中止』ボタン(i18n dl.cancel 全11言語) ⑤**一括DLを並列16**(逐次の往復待ちを解消=高速) ⑥バグ報告アイコン⚠→⚑(落ち着いた旗)。版番号は却下枠1.1.65へ据え置き(app.json一旦1.1.64→build.ps1が+1)。iOS本日4/8。
+- **【重要】opus廃止→AAC統一の経緯**：opusは**iPad(iOS)で再生できない端末**があった(同iPadで単語mp3は鳴るのに聴解opusのみ無音=Ogg/OpusはiOS端末依存で不安定。iPhoneは鳴る)。**審査端末=iPad Air**なので致命的→ AAC(m4a)へ。AACはiOS/iPad/Android全端末で確実再生。容量: mp3 604MB→m4a 493MB(-18%・N5124/N4164/N3205MB)。opusファイル3096は全削除・m4a3096併置(mp3残置=旧アプリ互換)。ツール=`tools/audio/build_m4a.py`／番人=`src/data/audioM4aParity.test.ts`(build.ps1検証に追加済)。listeningAudio.ts=.m4a取得/キャッシュv5/並列16。詳細メモリ[[audio-dual-format-mp3-and-opus]]。
+- **最新却下 4.2.3(ii)/2.1(a)＝対応完了(2960)**：✅サイズ開示(各行{mb}MB)✅DL任意(オンボ既定=配信/明示タップ時のみDL・聴解はDL無しでも[ListeningScreen]で配信再生可) ✅DL中キャンセル ✅並列16で高速化 ✅**AACでiPad含む全端末で再生可**。前々却下の5.1.1(v)削除導線・2.1(b)課金導線は既済(bf5786b8)で今回文面には無し。
+- **却下メッセージ原文(2956/9-26)**：4.2.3(ii)=DLサイズ非開示/選ばせない。2.1(a)=iPhone17ProMax・iPadAir5(iOS/iPadOS27.0)でDLできずアクセス不可(何度も再現)。→2960で全対応。
+- **次の一手(Apple提出=ユーザー手動・私は提出しない)**：(a)**2960をTestFlightで実機確認**＝特に**iPadで聴解の音が鳴るか(AAC)**＋並列16で速いか (b)ASCで**1.1.65枠にビルド2960を紐付け+サブスク同梱で手動提出**(2957〜2959でなく2960)※1.1.65枠が却下/編集可前提(承認済/審査中なら1.1.66要)。サブスク=未承認なら同梱、承認済ならアプリのみ (c)証明動画=DL周りのみ(サイズ表示→任意DL→速く完了→中止で抜ける→**未DLでも配信で聴ける**。削除/Paywallは今回不要)＋Resolution Centerに各番号対応の返信(英文案は前セッションで作成済み=4.2.3(ii)/2.1(a)対応)。
+- 補足：m4aが大きめ(N3 205MB)でも、DLは任意＝ストリーミングで使えるので2.1(a)は満たす。もっと小さくしたい場合はbuild_m4a.pyのBITRATEを32kに下げて--force再生成→再ビルド(音質はやや低下)。vocab(3800)/kanji(168)辞書音声はmp3のまま(対象外)。
+
+★模試チケット関連 2件(2026-09-27・コード完了・**未コミット/未ビルド**・2960に乗っていない)＝
+- (1)歓迎再配布バグ修正：ログアウト→ログインで歓迎チケットが再配布される穴。原因=旧`syncMockTickets`が歓迎を「経過月+1」に混ぜ、非ProでproSinceリセット→再ログインで初回誤認。対策=恒久フラグ`welcomeTicketClaimed`(state.ts追加・非Pro化でも消さない)で歓迎を一生1回に固定・月次は分離(退会期間は遡らない)。番人=tickets.test.ts 回帰テスト追加(7/7緑)。ポリシー=ユーザー確認「歓迎は初回インストール直後の一生1回」。
+- (2)配布モーダルのデザイン統一：ホームの「配布しました」モーダルの券アイコンを、ショップの模試チケットと同じ見た目(角丸タイル+bgSoft背景+shop定義の絵文字📝)に変更(HomeScreen.tsx・🎟️を廃止)。絵文字はSHOP_BY_ID['tool_mock_ticket']から引く=ズレ防止。
+- 補足(セキュリティ確認済)：アカウント削除→新規作成の繰返しで無限模試は**できない**。お試しPro付与`trial-claim`が端末IDでもゲート(device_trials)＋deviceIdはKeychain保存でiOS再インストールでも残る。**ただしdevice_trials.sqlの本番適用が前提=要確認**。別物理端末は新お試し(仕方ない範囲)。
+- →次ビルド(2961)に(1)(2)を同梱するか要判断。
 
 ★N1/N2下調べ(2026-09-26)＝公式PDFから構成・ねらい・採点を取得し保存済＝`問題作成の参考\N2\_公式資料_試験構成と採点(全レベル).md`／`md\00_共通情報.md`(N2/N1ブロック追加)／`問題作成の参考\JLPT出題傾向_N5N4N3.xlsx`(N2/N1シート追加)／`md\N1N2_作問基準_大問構成とねらい.md`。**N2問題例5PDFのOCR完了・検品済(空でない/ページ区切り一致)＝`問題作成の参考\N2\{聴解スクリプト,01漢字・語彙,02文法,03読解,04聴解}_テキスト.txt`。** ※注意:04聴解は元PDFに冊子ページ「聴解-9」欠落・03読解p06は白紙。N1/N2の実作問はまだ未着手(語彙anki_n1/n2.csv・漢字が土台)。
 
@@ -605,14 +611,14 @@
 - ae7242744b8ff5435 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- src/components/ExamHeader.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- src/screens/HomeScreen.tsx
+- src/store/tickets.test.ts
+- src/store/tickets.ts
+- src/store/state.ts
 - src/i18n/zh2.json
 - content/_manifest.json
-- src/data/content/bundled.generated.ts
-- app.json
-- src/data/listeningAudio.ts
 
-_自動更新: 2026-09-27 02:34_
+_自動更新: 2026-09-27 09:58_
 <!-- AUTO:END -->

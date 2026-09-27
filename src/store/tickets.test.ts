@@ -52,6 +52,26 @@ test('syncMockTickets: 配布枚数は ticketNotice に載り、消費しても�
   assert.equal(mockTicketCount(s), 1);
 });
 
+test('syncMockTickets: 歓迎は一生1回=ログアウト(非Pro)→ログイン(Pro)で再配布されない', () => {
+  const t0 = ymd(2026, 1, 2);
+  // 1) Pro化直後=歓迎1枚。welcomeTicketClaimed が立つ。
+  let s = syncMockTickets(pro(), t0);
+  assert.equal(mockTicketCount(s), 1);
+  assert.equal(s.welcomeTicketClaimed, true);
+  // 2) 使い切る => 0
+  s = spendMockTicket(s, t0 + 1);
+  assert.equal(mockTicketCount(s), 0);
+  // 3) ログアウト=非Pro化: 所持0・proSinceリセット。ただし welcomeTicketClaimed は温存。
+  let off: AppState = syncMockTickets({ ...s, settings: { ...s.settings, devPro: false } }, t0 + 2);
+  assert.equal(mockTicketCount(off), 0);
+  assert.equal(off.proSince, undefined);
+  assert.equal(off.welcomeTicketClaimed, true);
+  // 4) 再ログイン=再Pro(同月内): 歓迎は再配布されない(★旧実装ではここで1枚増えていた)。
+  const on: AppState = syncMockTickets({ ...off, settings: { ...off.settings, devPro: true } }, t0 + 3);
+  assert.equal(mockTicketCount(on), 0);
+  assert.equal(on.welcomeTicketClaimed, true);
+});
+
 test('buyMockTicket: Proのみ・累計3枚まで・残高必要', () => {
   const t0 = ymd(2026, 1, 2);
   let s = pro({ mockTickets: 0, mockTicketsPurchased: 0, wallet: { points: MOCK_TICKET_PRICE * 5 } });

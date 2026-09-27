@@ -32,29 +32,34 @@ function monthsSince(fromMs: number, nowMs: number): number {
 
 /**
  * 起動時＋課金同期後に呼ぶ: Pro状態に応じてチケットを整える。
- *  ・無料(非Pro): 模試ロック→所持を0にクリア(残っていた分は消す)・起点/消化もリセット。
- *  ・Pro: 初めてProになった時刻を proSince に確定。歓迎1枚＋暦月ごと+1(所持上限なし)。
- *         付与できた枚数を ticketNotice に載せる(ホームで通知)。
+ *  ・無料(非Pro): 模試ロック→所持を0にクリア・月次起点(proSince)/消化もリセット。ただし歓迎の配布済みフラグ(welcomeTicketClaimed)は消さない。
+ *  ・Pro: 月次=proSince起点で暦月ごと+1(Pro期間ごとに張り直し=退会期間は数えない)。歓迎=welcomeTicketClaimedが未設定の時だけ1枚(一生1回)。
+ *         付与できた枚数を ticketNotice に載せる(ホームで通知)。所持上限なし。
+ *  ※歓迎を月次から切り離した理由: 旧実装は歓迎を「経過月+1」に混ぜていたため、非ProでproSinceがリセット→再ログインで
+ *    「初めてPro」と誤認して歓迎を再配布していた(ログアウト→ログインで無限に歓迎が増える穴)。welcomeTicketClaimedで一意化。
  */
 export function syncMockTickets(state: AppState, now: number): AppState {
   const s0 = ensureInstall(state, now);
   const isPro = proStatus(s0, now).isPro;
   if (!isPro) {
-    // 非Pro=模試ロック。チケットは持たせない(既存の無料チケットは消す)。既にクリア済みなら不変。
+    // 非Pro=模試ロック。所持と月次起点はクリア(退会期間の遡り配布を防ぐ)。welcomeTicketClaimedは温存=歓迎は再配布しない。既にクリア済みなら不変。
     if ((s0.mockTickets ?? 0) === 0 && s0.proSince == null && (s0.mockGrantsClaimed ?? 0) === 0 && !s0.ticketNotice) return s0;
     return { ...s0, mockTickets: 0, proSince: undefined, mockGrantsClaimed: 0, ticketNotice: 0 };
   }
-  // 初めてProになった時=起点(proSince)を確定し、消化カウントも0から数え直す(旧30日方式の値は引き継がない)。
+  // Pro: 月次は proSince 起点。初回だけ proSince を確定し消化を0から数え直す(旧30日方式の値は引き継がない)。
   const firstAnchor = s0.proSince == null;
   const proSince = s0.proSince ?? now;
   const claimed = firstAnchor ? 0 : (s0.mockGrantsClaimed ?? 0);
-  const due = (monthsSince(proSince, now) + 1) - claimed;                // 歓迎1 + 暦月ごと1
+  const monthlyDue = Math.max(0, monthsSince(proSince, now) - claimed);  // 暦月ごと+1(歓迎は含めない)
+  const welcomeDue = s0.welcomeTicketClaimed ? 0 : 1;                    // 歓迎=一生1回(未配布の時だけ)
+  const due = monthlyDue + welcomeDue;
   if (due <= 0) return firstAnchor ? { ...s0, proSince, mockGrantsClaimed: 0 } : s0;
   return {
     ...s0,
     proSince,
     mockTickets: (s0.mockTickets ?? 0) + due,        // 所持上限なし
-    mockGrantsClaimed: claimed + due,
+    mockGrantsClaimed: claimed + monthlyDue,         // 月次のみ加算(歓迎は別管理)
+    welcomeTicketClaimed: true,                      // 歓迎を配ったら恒久フラグ(既にtrueなら不変)
     ticketNotice: (s0.ticketNotice ?? 0) + due,      // ホームで「◯枚配布」演出
   };
 }

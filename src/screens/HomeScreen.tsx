@@ -17,6 +17,8 @@ import SakuraSpeech from '../home/SakuraSpeech';
 import WeeklyLetter from '../home/WeeklyLetter';
 import SafeBoundary from '../components/SafeBoundary';
 import GradientButton from '../components/GradientButton';
+import { useColors } from '../theme';
+import { SHOP_BY_ID } from '../data/shop';
 
 const RING = require('../../assets/home/pass_ring.png');
 const GLOW = require('../../assets/home/ring_glow.png');
@@ -28,6 +30,7 @@ export default function HomeScreen() {
   const homeBg = useHomeBg(); // 昼/夜で自動切替
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const t = useT();
+  const c = useColors(); // 配布モーダルの模試チケット券をショップと同じ色(bgSoft)で描くため
   // 到達度の左に出す現在レベル(JFT目標はレベル無し=「JFT」)。
   const levelLabel = (state.settings.targetExam ?? 'jlpt') === 'jft' ? 'JFT' : state.settings.level;
 
@@ -145,7 +148,10 @@ export default function HomeScreen() {
         <Modal visible={ticketNotice > 0} transparent animationType="fade" onRequestClose={clearTicketNotice}>
           <Pressable style={styles.noticeBackdrop} onPress={clearTicketNotice}>
             <View style={styles.noticeCard}>
-              <Text style={styles.noticeEmoji}>🎟️</Text>
+              {/* ショップの模試チケットと同じ見た目に統一(角丸タイル＋同じ絵文字)。絵文字はshop定義から引く=ズレ防止。 */}
+              <View style={[styles.noticeTicket, { backgroundColor: c.bgSoft }]}>
+                <Text style={styles.noticeTicketEmoji}>{SHOP_BY_ID['tool_mock_ticket']?.emoji ?? '📝'}</Text>
+              </View>
               <Text style={styles.noticeTitle}>{t('ticket.granted_title')}</Text>
               <Text style={styles.noticeBody}>{t('ticket.granted_body', { n: ticketNotice })}</Text>
               <Pressable style={styles.noticeBtn} onPress={clearTicketNotice} accessibilityLabel={t('ticket.granted_cta')}>
@@ -174,7 +180,9 @@ const styles = StyleSheet.create({
   // 模試チケット配布の祝いモーダル(中央・カード)。
   noticeBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', alignItems: 'center', justifyContent: 'center', padding: 32 },
   noticeCard: { width: '100%', maxWidth: 360, backgroundColor: '#fffdf8', borderRadius: 22, alignItems: 'center', paddingVertical: 26, paddingHorizontal: 22, borderWidth: 1, borderColor: 'rgba(184,146,74,0.5)', shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 12 },
-  noticeEmoji: { fontSize: 52, marginBottom: 6 },
+  // 模試チケット券(ショップの prev+prevEmoji と同じ=角丸の正方形タイルに絵文字)。
+  noticeTicket: { width: 96, height: 96, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
+  noticeTicketEmoji: { fontSize: 44 },
   noticeTitle: { fontSize: 19, fontWeight: '900', color: '#3a2f22', textAlign: 'center' },
   noticeBody: { fontSize: 14, color: '#6b5c44', textAlign: 'center', lineHeight: 21, marginTop: 8 },
   noticeBtn: { marginTop: 18, backgroundColor: '#2f62d8', borderRadius: 999, paddingVertical: 12, paddingHorizontal: 40 },

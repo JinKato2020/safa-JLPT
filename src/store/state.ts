@@ -119,8 +119,9 @@ export interface AppState {
   installedAt?: number;                 // 初回起動(ダウンロード)日時 epoch ms。模試チケット月次付与の起点。未設定→初回起動で確定。
   trialStartedAt?: number;              // 無料お試し(7日Pro)の起点 epoch ms。正本はサーバー(entitlements.trial_claimed_at)で、ログイン時に trial-claim から注入。アカウント単位で1回だけ発行=再インストール→再ログインしても再付与されない(荒稼ぎ防止)。未ログイン/未受取=未設定=お試しなし。
   mockTickets?: number;                 // 模試チケット所持数(所持上限なし)。模試はProの機能=非Proは常に0。未設定→0。
-  mockGrantsClaimed?: number;           // 消化済み付与数(proSinceからの経過月＋歓迎1枚と比較して差分を付与)。
-  proSince?: number;                    // 初めてProになった時刻 epoch ms。模試チケット月次付与の起点(暦月ごと・同じ日)。非Pro化でクリア。
+  mockGrantsClaimed?: number;           // 消化済みの「月次」付与数(proSinceからの経過月と比較して差分を付与)。歓迎は含めない(welcomeTicketClaimedで別管理)。
+  proSince?: number;                    // 初めてProになった時刻 epoch ms。模試チケット月次付与の起点(暦月ごと・同じ日)。非Pro化でクリア(=Pro期間ごとに張り直し・退会期間は数えない)。
+  welcomeTicketClaimed?: boolean;       // 歓迎チケット(初回1枚)を配布済みか。一度trueにしたら二度と戻さない=ログアウト/ログインでも再配布しない(一生1回)。非Pro化でもクリアしない。
   mockTicketsPurchased?: number;        // 貝ポイントで購入した累計枚数(上限3=模試問題の在庫保護)。所持数とは別に累計で数える。
   ticketNotice?: number;                // 直近の配布で増えた枚数(ホームで「配布しました」演出を出したら0に戻す。過渡的フラグ)。
   avatarChangeTokens?: number;          // アバター変更券の所持数。登録後アバターは既定で変更不可。「すがた変えドリンク」購入で+1、変更実行で-1。未設定→0
