@@ -88,8 +88,11 @@ def main():
     total_ans, total_distr = 0, 0
     log = []
 
-    for lv in LEVELS:
-        path = os.path.join(DIR, f"kanji_read_{lv}.json")
+    paths = [os.path.join(DIR, f"kanji_read_{lv}.json") for lv in LEVELS]
+    paths += [os.path.join(DIR, "mock", f"kanji_read_{lv}.json") for lv in LEVELS]  # 模試プールも
+    for path in paths:
+        if not os.path.exists(path):
+            continue
         raw = io.open(path, encoding="utf-8", newline="").read()  # 改行を翻訳せず保持
         crlf = "\r\n" in raw                     # N4/N3 は CRLF、N5 は改行なし
         minified = "\n" not in raw.strip()       # N5 はミニファイ1行、N4/N3 は indent=2

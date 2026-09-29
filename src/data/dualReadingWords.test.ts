@@ -15,12 +15,16 @@ const WORDS: Record<string, Rule> = JSON.parse(
 ).words;
 
 const CONTENT = fileURLToPath(new URL('../../content/problems/moji_goi/', import.meta.url));
-const items = (lv: string): Item[] =>
-  JSON.parse(readFileSync(CONTENT + `kanji_read_${lv}.json`, 'utf8')).items;
+// 通常プールと模試プール(mock/)の両方を検査＝全クラスで潰す
+const files = (['N5', 'N4', 'N3'] as const).flatMap((lv) => [
+  `kanji_read_${lv}.json`,
+  `mock/kanji_read_${lv}.json`,
+]);
+const items = (rel: string): Item[] => JSON.parse(readFileSync(CONTENT + rel, 'utf8')).items;
 
-test('複数読みの熟語は答えが統一され、別の正しい読みを誤答に混ぜない', () => {
-  for (const lv of ['N5', 'N4', 'N3'] as const) {
-    for (const it of items(lv)) {
+test('複数読みの熟語は答えが統一され、別の正しい読みを誤答に混ぜない(通常+模試)', () => {
+  for (const rel of files) {
+    for (const it of items(rel)) {
       const rule = WORDS[it.underline];
       if (!rule) continue;
       const valid = new Set(rule.readings);
