@@ -314,6 +314,124 @@ function renderBugs(rows){
 }
 
 
+// ===== タブ（遅延読み込み）=====
+// 重い分析ビュー(tel_event/tel_mock を集計)は既定タブでは取得せず、そのタブを開いた時だけ読む。
+// 各 section は「中に持つ既知ID」から実行時に振り分ける（HTMLの<section>を書き換えないため安全）。
+const TAB_OF = {
+  kpi:'core', secGrantDev:'core', secGrantPro:'core', tGeo:'core', tLevel:'core',
+  avatarUsage:'core', tStock:'core', tDevices:'core',
+  trendCharts:'analysis', tFacetAcc:'analysis', tScoreDist:'analysis', tMockDist:'analysis', tMockMonthly:'analysis',
+  tReferrals:'relations', tFriends:'relations', tBugs:'relations',
+};
+const TABS = [['core','概要'],['analysis','学習分析（重い）'],['relations','関係・報告']];
+const loadedTabs = new Set();
+let curTab = 'core';
+let _url = '', _key = '';
+const dataOk = v => v && !v.__err;
+
+async function grabAll(map){
+  const R = {};
+  await Promise.all(Object.entries(map).map(async ([k,pr])=>{ try{ R[k] = await pr; }catch(e){ R[k] = { __err:e }; } }));
+  return R;
+}
+
+function classifySections(){
+  for(const [id,tab] of Object.entries(TAB_OF)){
+    const sec = document.getElementById(id)?.closest('section');
+    if(sec) sec.dataset.tab = tab;
+  }
+  // 取りこぼした section は概要に入れる（想定外の追加セクション対策）。
+  document.querySelectorAll('#app > section:not([data-tab])').forEach(s=> s.dataset.tab = 'core');
+}
+
+function buildTabBar(){
+  if(document.getElementById('tabbar')) return;
+  const st = document.createElement('style');
+  st.textContent = '.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px;position:sticky;top:0;z-index:5;background:#fff;padding:10px 0;border-bottom:1px solid #eee}.tabbtn{padding:8px 18px;border:1px solid #ccc;border-radius:9px;background:#f4f4f4;cursor:pointer;font-weight:800;font-size:14px;color:#333}.tabbtn.on{background:#2e7d32;color:#fff;border-color:#2e7d32}';
+  document.head.appendChild(st);
+  const bar = document.createElement('div');
+  bar.id = 'tabbar'; bar.className = 'tabbar';
+  bar.innerHTML = TABS.map(([k,l])=>`<button type="button" class="tabbtn" data-t="${k}">${l}</button>`).join('');
+  const app = document.getElementById('app');
+  app.insertBefore(bar, app.firstChild);
+  bar.querySelectorAll('.tabbtn').forEach(b=> b.addEventListener('click', ()=> showTab(b.dataset.t)));
+}
+
+function applyTabVisibility(name){
+  document.querySelectorAll('#app > section').forEach(s=>{ s.style.display = (s.dataset.tab===name) ? '' : 'none'; });
+  document.querySelectorAll('#tabbar .tabbtn').forEach(b=> b.classList.toggle('on', b.dataset.t===name));
+}
+
+async function showTab(name){
+  curTab = name;
+  applyTabVisibility(name);
+  if(loadedTabs.has(name)) return;
+  loadedTabs.add(name);
+  try{ await loadTab(name); }
+  catch(e){ loadedTabs.delete(name); $('err').textContent = 'エラー: ' + e.message; }
+}
+
+function loadTab(name){
+  if(name==='analysis') return loadAnalysis();
+  if(name==='relations') return loadRelations();
+  return loadCore();
+}
+
+// 概要タブ（常用・比較的軽い）＝既定で即読み込み。
+async function loadCore(){
+  const R = await grabAll({
+    summary: api(_url,_key,'v_admin_summary'),
+    geo:     api(_url,_key,'v_admin_geo'),
+    retGeo:  api(_url,_key,'v_admin_retention_geo'),
+    level:   api(_url,_key,'v_admin_level'),
+    stock:   api(_url,_key,'v_admin_stock'),
+    devices: api(_url,_key,'v_admin_devices'),
+  });
+  // 主要ビューが落ちたら全体エラーに倒す（キー/権限ミスの早期検知）。定着率は任意。
+  for(const k of ['summary','geo','level','stock','devices']){ if(!dataOk(R[k])) throw R[k].__err; }
+  renderSummary(R.summary[0]||{});
+  geoData = R.geo || []; geoRet = dataOk(R.retGeo) ? (R.retGeo||[]) : []; renderGeo();
+  renderLevel(R.level);
+  renderStock(R.stock);
+  devData = R.devices || []; renderDevices(); renderAvatarUsage();
+}
+
+// 学習分析タブ（重い＝tel_event/tel_mock を集計）＝タブを開いた時だけ取得。
+async function loadAnalysis(){
+  const R = await grabAll({
+    daily:       api(_url,_key,'v_admin_daily'),
+    facetAcc:    api(_url,_key,'v_admin_facet_acc'),
+    scoreDist:   api(_url,_key,'v_admin_score_dist'),
+    mockDist:    api(_url,_key,'v_admin_mock_dist'),
+    mockMonthly: api(_url,_key,'v_admin_mock_monthly'),
+  });
+  if(dataOk(R.daily)){ dailyData = R.daily||[]; renderTrend(); }
+  else { dailyData = []; $('trendCharts').innerHTML = `<div class="empty">成長推移のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</div>`; }
+  if(dataOk(R.facetAcc)) renderFacetAcc(R.facetAcc);
+  else $('tFacetAcc').innerHTML = `<tr><td class="empty">分野別正解率のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`;
+  if(dataOk(R.scoreDist)) renderScoreDist(R.scoreDist);
+  else $('tScoreDist').innerHTML = `<tr><td class="empty">予想得点・カバー率の分布ビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`;
+  if(dataOk(R.mockDist)) renderMockDist(R.mockDist);
+  else $('tMockDist').innerHTML = `<tr><td class="empty">模試得点分布ビューが未作成です。docs/supabase/dashboard_views.sql を（再）実行してください。</td></tr>`;
+  if(dataOk(R.mockMonthly)) renderMockMonthly(R.mockMonthly);
+  else $('tMockMonthly').innerHTML = `<tr><td class="empty">模試月次ビューが未作成です。docs/supabase/dashboard_views.sql を（再）実行してください。</td></tr>`;
+}
+
+// 関係・報告タブ（紹介・友だち・バグ）＝タブを開いた時だけ取得。
+async function loadRelations(){
+  const R = await grabAll({
+    referrals: api(_url,_key,'v_admin_referrals'),
+    friends:   api(_url,_key,'v_admin_friends'),
+    bugs:      apiRaw(_url,_key,'bug_reports?select=*&order=created_at.desc&limit=500'),
+  });
+  if(dataOk(R.referrals)) renderReferrals(R.referrals);
+  else $('tReferrals').innerHTML = `<tr><td class="empty">紹介ビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`;
+  if(dataOk(R.friends)) renderFriends(R.friends);
+  else $('tFriends').innerHTML = `<tr><td class="empty">友だちビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`;
+  if(dataOk(R.bugs)) renderBugs(R.bugs);
+  else $('tBugs').innerHTML = `<tr><td class="empty">bug_reports テーブルが未作成です。docs/supabase/bug_reports.sql を SQL Editor で実行してください。</td></tr>`;
+}
+
 async function loadAll(){
   const url = $('url').value.trim().replace(/\/+$/,'');
   const key = $('key').value.trim();
@@ -321,47 +439,15 @@ async function loadAll(){
   if(!url || !key){ $('err').textContent = 'URL と service_role キーを入力してください。'; return; }
   localStorage.setItem('dash_url', url);
   localStorage.setItem('dash_key', key);
+  _url = url; _key = key;
   try{
-    const [summary, geo, referrals, level, stock, devices] = await Promise.all([
-      api(url,key,'v_admin_summary'),
-      api(url,key,'v_admin_geo'),
-      api(url,key,'v_admin_referrals'),
-      api(url,key,'v_admin_level'),
-      api(url,key,'v_admin_stock'),
-      api(url,key,'v_admin_devices'),
-    ]);
-    renderSummary(summary[0]||{});
-    // バグ・不具合の報告（service_role で bug_reports 表を直接読む・新しい順500件。未作成でも他は壊さない）
-    try { renderBugs(await apiRaw(url,key,'bug_reports?select=*&order=created_at.desc&limit=500')); }
-    catch(e){ $('tBugs').innerHTML = `<tr><td class="empty">bug_reports テーブルが未作成です。docs/supabase/bug_reports.sql を SQL Editor で実行してください。</td></tr>`; }
-    // 国別（接続国＋定着率）を1表に。定着率ビュー未作成でも接続国だけは出す。
-    let retGeo = [];
-    try { retGeo = await api(url,key,'v_admin_retention_geo') || []; } catch(e){ retGeo = []; }
-    geoData = geo || []; geoRet = retGeo; renderGeo();
-    renderReferrals(referrals);
-    // 友だち（誰と誰が友だちか・新ビュー）。未作成でも他は壊さない＝個別取得して失敗は握る。
-    try { renderFriends(await api(url,key,'v_admin_friends')); }
-    catch(e){ $('tFriends').innerHTML = `<tr><td class="empty">友だちビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`; }
-    renderLevel(level);
-    // 分野別 正解率の分布（新ビュー・未作成でも他は壊さない＝個別取得して失敗は握る）
-    try { renderFacetAcc(await api(url,key,'v_admin_facet_acc')); }
-    catch(e){ $('tFacetAcc').innerHTML = `<tr><td class="empty">分野別正解率のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`; }
-    // 成長の推移（時系列・折れ線）
-    try { dailyData = await api(url,key,'v_admin_daily') || []; renderTrend(); }
-    catch(e){ dailyData = []; $('trendCharts').innerHTML = `<div class="empty">成長推移のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</div>`; }
-    // 予想得点・カバー率の分布（ヒートマップ）
-    try { renderScoreDist(await api(url,key,'v_admin_score_dist')); }
-    catch(e){ $('tScoreDist').innerHTML = `<tr><td class="empty">予想得点・カバー率の分布ビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`; }
-    // 模試の得点分布・月次推移（新ビュー・未作成でも他は壊さない）
-    try { renderMockDist(await api(url,key,'v_admin_mock_dist')); }
-    catch(e){ $('tMockDist').innerHTML = `<tr><td class="empty">模試得点分布ビューが未作成です。docs/supabase/dashboard_views.sql を（再）実行してください。</td></tr>`; }
-    try { renderMockMonthly(await api(url,key,'v_admin_mock_monthly')); }
-    catch(e){ $('tMockMonthly').innerHTML = `<tr><td class="empty">模試月次ビューが未作成です。docs/supabase/dashboard_views.sql を（再）実行してください。</td></tr>`; }
-    renderStock(stock);
-    devData = devices || [];
-    renderDevices();
-    renderAvatarUsage();
+    classifySections();
+    buildTabBar();
+    loadedTabs.clear();               // 再読込＝全タブを取り直し対象に戻す
+    await loadCore();                  // 既定タブ「概要」だけ先に取得（重い分析は開いた時に読む）
+    loadedTabs.add('core');
     $('app').style.display = '';
+    await showTab(curTab || 'core');   // 前回開いていたタブを復元（core以外なら遅延取得）
     $('updated').textContent = '最終取得 ' + new Date().toLocaleString('ja-JP');
   }catch(e){
     $('err').textContent = 'エラー: ' + e.message +
