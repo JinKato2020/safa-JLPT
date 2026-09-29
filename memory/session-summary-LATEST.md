@@ -1,18 +1,20 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 6 回・20 ターン
-- 往復 250 回
+- ツール呼び出し 5 回・13 ターン
+- 往復 66 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/在庫・模試ストックまとめ.xlsx
+- src/pro/purchases.ts
 - memory/session-summary-LATEST.md
-- memory/在庫問題数.txt
+- src/i18n/zh2.json
 - content/_manifest.json
 
 ## 次の一手
-★現在地(2026-09-29 pt3 セッション＝複数読み熟語の読み統一)＝
+★現在地(2026-09-29 pt3 セッション＝複数読み統一／ストア文翻訳／繁体字URL修正+ビルド)＝
+- **✅ストア掲載文を11言語＋日本語へ翻訳し `C:\Users\jwpsa\Documents\desktop\作業中\SNSアカウント.xlsx` のX列(シート「アカウント」row2-13)へ書き込み済み**。URLは各ロケール(en/ne/vi/bn/zh/ko/th/id/my/hi/zh2/ja)。編集前バックアップ=scratchpad。品質は主要言語◎、ne/bn/my/hiはネイティブ確認推奨。
+- **✅繁体字の規約/プライバシーURL不具合を発見・修正**。本番実測(2026-09-29)で `/jlpt/zh-hant/` は日本語トップへフォールバック=NG、正しくは **`/jlpt/zh2/`**(使用條款 lang=zh-Hant)。全12言語×terms/privacy=24ページを実測し zh-hant以外は全部OK。**[src/config/legal.ts] の `URL_SLUG={zh2:'zh-hant'}` を `{}` に修正**(zh2→/jlpt/zh2/)。これによりアプリ内の繁体字ユーザーの規約リンク切れも解消。xlsxのrow12 URLも zh2 に修正済み。**ビルド=v1.1.68(2971) both dispatch(-NoWatch)・commit 9a58af3b・run 36541632468**(TestFlight/内部テストまで・公開はしていない・CI結果はユーザー確認)。iOS本日2回目(上限8)。
 - **✅複数読み熟語の読み統一(漢字読み・全級)＝配信済み**。毎月/毎年で機械が「まいげつ/まいねん」を答えにしていた件を全級で是正。ユーザー裁定でA群=毎月まいつき/毎年まいとし/工場こうじょう/日本にほん/明後日あさって/年月ねんげつ/文字もじ/大分だいぶ/本当ほんとう に統一、B群=明日(あした/あす)・一日(いちにち/ついたち)・今日(きょう/こんにち)は両読み可だが片方が答えの時もう片方を誤答に混ぜない。**答え統一10件＋誤答差替4件**(差替は自然形=本当ほんとお・大分だいぶう・一日いちにちい)。単漢字(中/先/日/分等)は文脈で読みが決まり別読みは正当な誤答=対象外(機械一括差替は却下)。正本=[src/data/dualReadingWords.json]／適用=[tools/fix_dual_reading.py]／番人=[src/data/dualReadingWords.test.ts](緑)。**配信=commit 9cf69fa6+1944d072(content OTA・push済)、仕組みファイル=commit e2f252a8(push済)**。詳細メモリ=[[dual-reading-compound-unification]]。
 - **次の一手（明示指示待ち）**：特に必須はなし(複数読み統一は配信完了)。候補=(a)ビルド2963(v1.1.67)のCI結果をユーザー側で確認(緑=iOS TestFlight/Android内部テスト提出) (b)未完リストの D(Android新ビルドが内部テストに上がらない=1286未アップロード・要調査) と E(device_trials.sql 本番適用確認) (c)プロモ開始時にBの後半=GA4↔Google広告リンク＋trial_startをコンバージョン指定(コンソール作業) (d)ダッシュボードがまだ重ければ③(各ビューに直近90日窓＋夜間事前集計)。**push/build/公開は勝手にしない。**
 - **✅ビルド=v1.1.67(2963) both dispatch(-NoWatch)・commit dd69def9・run 36509371114**。中身=①trial_start配線 ②ダッシュボード列並べ替え(A・確認済) ③版1.1.67へ整理(未使用1.1.66回避)。**TestFlight/内部テストまで(公開はしていない)。CI結果はユーザー確認。**

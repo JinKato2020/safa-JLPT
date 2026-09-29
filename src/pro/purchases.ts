@@ -71,8 +71,13 @@ export async function purchase(pkg: PurchasesPackage): Promise<boolean> {
     const { customerInfo } = await Purchases.purchasePackage(pkg);
     const ok = isProActive(customerInfo);
     if (ok) {
-      // 広告の最適化ターゲット。売上として集計されるよう value/currency も送る。
-      logPurchase({ value: pkg.product?.price, currency: pkg.product?.currencyCode, item_id: pkg.product?.identifier });
+      // テスト(サンドボックス)購入は計測に入れない。TestFlight/Play内部テスト等は isSandbox=true になるので
+      // Firebaseの収益・購入コンバージョンが「本番の実売上」だけになる(テストで数字が汚れない)。
+      const isSandbox = customerInfo.entitlements.active[PRO_ENTITLEMENT_ID]?.isSandbox === true;
+      if (!isSandbox) {
+        // 広告の最適化ターゲット。売上として集計されるよう value/currency も送る。
+        logPurchase({ value: pkg.product?.price, currency: pkg.product?.currencyCode, item_id: pkg.product?.identifier });
+      }
     }
     return ok;
   } catch {
