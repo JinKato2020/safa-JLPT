@@ -59,18 +59,19 @@ drop view if exists public.v_admin_devices cascade;
 --   →ログインした匿名は登録者として吸収され、初回/最終/日数は本人の全記録の通算になる。
 --   ※一度もログインしていない匿名端末は結び付ける相手が無いので端末単位のまま(誰の物か判定不能)。端末→アカウントは1対1想定。
 create view public.v_admin_devices as
-with snap as (
-  select s.*,
-    coalesce(
-      (select s2.account_id from public.tel_snapshot s2
-         where s2.anon_id = s.anon_id and s2.account_id is not null
-         order by s2.created_at desc limit 1),
-      s.account_id
-    )                                                          as eff_account   -- 端末が一度でもログインしたアカウント(無ければnull=純粋な匿名)
-  from public.tel_snapshot s
+with acct as (
+  -- ★各端末(anon_id)が「最後にログインしたアカウント」を1回で割り出す。
+  --   旧実装は行ごとに tel_snapshot を引き直す相関サブクエリ=O(N^2)で激遅(729行で4.7s)だったのを、distinct on で1パスに。
+  select distinct on (anon_id) anon_id, account_id
+  from public.tel_snapshot
+  where account_id is not null
+  order by anon_id, created_at desc
 ), keyed as (
-  select snap.*, coalesce(eff_account::text, anon_id)          as merge_key     -- 統合単位: 端末が紐づくアカウント / 未ログイン端末はその端末
-  from snap
+  select s.*,
+    coalesce(a.account_id, s.account_id)                          as eff_account,  -- 端末が一度でもログインしたアカウント(無ければnull=純粋な匿名)
+    coalesce(coalesce(a.account_id, s.account_id)::text, s.anon_id) as merge_key    -- 統合単位: 端末が紐づくアカウント / 未ログイン端末はその端末
+  from public.tel_snapshot s
+  left join acct a on a.anon_id = s.anon_id
 ), real_keys as (
   -- ★テスト由来ノイズ(未ログイン かつ 学習0)を除外＝実ユーザーの端末だけ。retention_geo と同じ基準。
   -- ノイズ端末はログインしないので merge_key=anon_id のまま=本人の記録を巻き添えにしない。
@@ -78,6 +79,15 @@ with snap as (
   group by merge_key
   having bool_or(eff_account is not null)
       or max(coalesce((data->>'learned')::int, 0)) > 0
+), agg as (
+  -- ★初回日/初回時刻/利用日数を merge_key×level ごとに1回で集計。
+  --   旧実装は出力行ごとに keyed(CTE=索引不可)を丸ごと走査する相関サブクエリ3本=これが4.7sの主因。
+  select merge_key as mk, (data->>'level') as lvl,
+    min(day)            as first_day,
+    min(created_at)     as first_ts,
+    count(distinct day) as days
+  from keyed
+  group by merge_key, (data->>'level')
 )
 select
   t.*,
@@ -166,13 +176,11 @@ from (
     day                                                         as last_day,
     created_at                                                  as last_ts,   -- 最終「日時」= この行(最新スナップショット)の記録時刻
     -- 初回日/利用日数は「そのレベルを使っていた期間」で数える(行=レベルなので行の中で辻褄が合う)。
-    (select min(s2.day)            from keyed s2
-       where s2.merge_key = s.merge_key and s2.data->>'level' is not distinct from s.data->>'level') as first_day,
-    (select min(s2.created_at)     from keyed s2
-       where s2.merge_key = s.merge_key and s2.data->>'level' is not distinct from s.data->>'level') as first_ts,  -- 初回「日時」
-    (select count(distinct s2.day) from keyed s2
-       where s2.merge_key = s.merge_key and s2.data->>'level' is not distinct from s.data->>'level') as days
+    agg.first_day                                               as first_day,
+    agg.first_ts                                                as first_ts,   -- 初回「日時」
+    agg.days                                                    as days
   from keyed s
+  join agg on agg.mk = s.merge_key and agg.lvl is not distinct from (s.data->>'level')
   where s.merge_key in (select merge_key from real_keys)   -- ★テスト由来ノイズ端末を除外(利用者一覧→レベル別/相対位置/在庫も自動連動)
   order by merge_key, data->>'level', day desc, created_at desc
 ) t
