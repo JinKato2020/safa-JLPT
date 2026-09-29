@@ -10,6 +10,7 @@ import { decideLoginSync, mergeRestoredState } from './sync';
 import { claimDeviceSession, heartbeatDeviceSession } from './deviceSession';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { claimTrial } from '../pro/trialClient';
+import { logTrialStart } from '../analytics/analytics';
 import { pullProUntil, pullDevTools } from '../pro/entitlementClient';
 import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
@@ -113,8 +114,14 @@ export function SyncProvider({ children }: { children: ReactNode }) {
         setLastSyncedAt(Date.now());
         // 無料お試し(7日)をアカウント単位で受取。初回=サーバーが受取日を確定/以降=既存日を返す(再ログインで再付与しない)。
         // 状態統合の後に実行=復元(hydrate)で受取日が上書きされるレースを避ける。未ログイン扱いにはならない(session確定済み)。
+        const hadTrialBefore = !!stateRef.current.trialStartedAt; // 統合後の値=既にお試しを持っていたか
         const claimedAt = await claimTrial();
-        if (!cancelled && claimedAt) setTrialStart(claimedAt);
+        if (!cancelled && claimedAt) {
+          setTrialStart(claimedAt);
+          // 広告最適化(Google広告のコンバージョン)用: このアカウント/端末で「初めてお試しが始まった時」だけ1回送る。
+          // 再ログイン/再インストール復元(既に trialStartedAt を持つ)では送らない=水増し防止。
+          if (!hadTrialBefore) logTrialStart();
+        }
         // 管理/紹介/お試し由来のPro(サーバー entitlements.pro_until)を本人の行から取り込む。
         // これで Supabase 側で pro_until を未来にするだけで恒久/期限付きProを配れる(課金=RevenueCatとは別系統)。
         const proUntil = await pullProUntil(session.user.id);

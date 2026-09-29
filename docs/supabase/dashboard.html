@@ -772,20 +772,22 @@ const COLS = [
   // ── 固定表示(左)：ID/メール〜状態まで（FROZEN_COUNT枚）。この順序と枚数を変えたら FROZEN_COUNT も合わせる ──
   { g:'利用者', key:'who',   label:'ID / メール', val:r=>(r.email||r.anon_id||''),
     cell:r=> r.email ? esc(r.email) : `<span class="mono">${esc(String(r.anon_id||'').slice(0,8))}</span>` },
-  { g:'プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
-  { g:'プロフィール', key:'geo_country',label:'国名', title:'接続国=IP由来のおおよその国(user_geo)。母語とは独立=英語話者でも日本にいれば「日本」。ログイン者のみ・匿名は—', val:r=>r.geo_country||'', cell:r=> esc(countryLabel(r.geo_country)) },
-  { g:'プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
+  { g:'言語プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
+  { g:'言語プロフィール', key:'geo_country',label:'国名', title:'接続国=IP由来のおおよその国(user_geo)。母語とは独立=英語話者でも日本にいれば「日本」。ログイン者のみ・匿名は—', val:r=>r.geo_country||'', cell:r=> esc(countryLabel(r.geo_country)) },
+  { g:'言語プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
+  // 学習時間は「言語プロフィール」と「利用者(種別/状態)」の間に配置(ユーザー指定)。左固定列に含める。
+  { g:'活動', key:'study_min',  label:'学習時間', num:1, title:'累計の学習時間(アプリを前面で使った時間の合計)', val:r=>numOr(r.study_min),  cell:r=> hm(r.study_min ?? 0) },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'利用者', key:'pro_state', label:'状態',
     title:'課金の状態。無料＝Pro無し／永続Pro＝管理付与の恒久Pro（admin_grant_pro forever・期限なし・最優先表示）／1年Pro・1月Pro＝有料サブスク（RevenueCat課金・残り日数と自動更新の有無を併記）／7日Pro＝お試し・紹介の期間つきPro（紹介が続くと7日を超えて延びる）。有料と期間つきを両方持つ人は有料を主表示',
     val:r=>proEnd(r), cell:r=>proCell(r) },
   // ── ここから右は横スクロール ──
   { g:'利用者', key:'platform', label:'端末', val:r=>r.platform||'', cell:r=> esc(r.platform||'—') },
-  { g:'プロフィール', key:'avatar',      label:'アバター', title:'選んだアバター(男1〜男5/女1〜女5)。アプリ v1.1.35 以降が送信',
+  { g:'ステータス', key:'avatar',      label:'アバター', title:'選んだアバター(男1〜男5/女1〜女5)。アプリ v1.1.35 以降が送信',
     val:r=>r.avatar||'', cell:r=> r.avatar ? `${avatarImgTag(r.avatar,20)} ${esc(avatarLabel(r.avatar))}` : '<span class="off">—</span>' },
-  { g:'プロフィール', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
-  { g:'プロフィール', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
-  { g:'プロフィール', key:'strong',      label:'得意', title:'いちばん正答率が高い区分（漢字／語彙／文法／読解／聴解の5区分）', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },
+  { g:'ステータス', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
+  { g:'ステータス', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
+  { g:'ステータス', key:'strong',      label:'得意', title:'いちばん正答率が高い区分（漢字／語彙／文法／読解／聴解の5区分）', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },
   // レベルを切り替えて使った人は、レベルごとに1行ずつ出る(同じメール/IDが複数行に並ぶ=正常)。「今」＝いま使っているレベル。
   { g:'利用者', key:'level', label:'レベル', title:'レベルごとに1行。「今」＝現在のレベル／印なし＝過去に使ったレベル',
     val:r=>(r.level||'')+(r.is_latest?' 1':' 0'),
@@ -821,12 +823,11 @@ const COLS = [
   { g:'活動', key:'learned',    label:'覚えた数', num:1, title:'これまでに覚えた語・文法の数(累計)', val:r=>numOr(r.learned),    cell:r=> (r.learned ?? 0) },
   { g:'活動', key:'mock_count', label:'模試',   num:1, title:'模試の実施回数',       val:r=>numOr(r.mock_count), cell:r=> (r.mock_count ?? 0) },
   { g:'活動', key:'streak',     label:'継続',   num:1, title:'連続学習日数',         val:r=>numOr(r.streak),     cell:r=> (r.streak ?? 0) },
-  { g:'活動', key:'study_min',  label:'学習時間', num:1, title:'累計の学習時間(アプリを前面で使った時間の合計)', val:r=>numOr(r.study_min),  cell:r=> hm(r.study_min ?? 0) },
   { g:'活動', key:'days',       label:'日数',   num:1, title:'データを送ってきた日数(使った日数)', val:r=>numOr(r.days), cell:r=> (r.days ?? '—') },
   { g:'活動', key:'first_ts',   label:'初回日時', title:'このIDが初めて記録された日時＝実質のインストール日時(日本時間)', val:r=>r.first_ts||'', cell:r=> fmtDateTime(r.first_ts) },
   { g:'活動', key:'last_ts',    label:'最終日時', title:'最後に記録した日時(日本時間)', val:r=>r.last_ts||'', cell:r=> fmtDateTime(r.last_ts) },
 ];
-const FROZEN_COUNT = 6; // 利用者一覧で左に固定表示する列数（ID/メール・名前・国名・母語・種別・状態）
+const FROZEN_COUNT = 7; // 利用者一覧で左に固定表示する列数（ID/メール・名前・国名・母語・学習時間・種別・状態）
 const isFirstOfGroup = (i) => i===0 || COLS[i-1].g !== COLS[i].g;
 // 同じグループ内でも罫線を入れたい境界(大問の意味の切れ目)。この列の左に縦罫線を引く。
 //  d_grammar_form=文字語彙|文法 / d_choukai_kadai=読解|聴解 / daimon_learned=聴解|合計
