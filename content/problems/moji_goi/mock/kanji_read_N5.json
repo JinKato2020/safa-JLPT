@@ -349,7 +349,7 @@
       "vocabId": "n5-v-616",
       "sentence": "毎月 いっさつ ざっしを かいます。",
       "underline": "毎月",
-      "answer": "まいげつ",
+      "answer": "まいつき",
       "choices": [
         "まいにち",
         "まいしゅう",
@@ -769,7 +769,7 @@
       "vocabId": "n5-v-619",
       "sentence": "毎年 ふるさとへ かえります。",
       "underline": "毎年",
-      "answer": "まいねん",
+      "answer": "まいとし",
       "choices": [
         "まいれん",
         "まいねえ",
