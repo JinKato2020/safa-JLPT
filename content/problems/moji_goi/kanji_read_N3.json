@@ -959,7 +959,7 @@
       "vocabId": "n3-v-1611",
       "sentence": "長い年月が過ぎた。",
       "underline": "年月",
-      "answer": "としつき",
+      "answer": "ねんげつ",
       "choices": [
         "としづき",
         "どしつき",
@@ -1103,7 +1103,7 @@
       "vocabId": "n3-v-1686",
       "sentence": "日本 は島国だ。",
       "underline": "日本",
-      "answer": "にっぽん",
+      "answer": "にほん",
       "choices": [
         "にっぼん",
         "にっぽ",
@@ -2603,7 +2603,7 @@
       "vocabId": "n3-v-894",
       "sentence": "父は町の工場で働いている。",
       "underline": "工場",
-      "answer": "こうば",
+      "answer": "こうじょう",
       "choices": [
         "こば",
         "ごうば",
@@ -2855,7 +2855,7 @@
       "vocabId": "n3-v-1068",
       "sentence": "古い石に文字が刻まれている。",
       "underline": "文字",
-      "answer": "もんじ",
+      "answer": "もじ",
       "choices": [
         "もんし",
         "もんじい",
@@ -15995,7 +15995,7 @@
       "vocabId": "n3-v-1958",
       "sentence": "それは 本当 の 話だ。",
       "underline": "本当",
-      "answer": "ほんと",
+      "answer": "ほんとう",
       "choices": [
         "ぼんと",
         "ほんど",
@@ -21131,7 +21131,7 @@
       "vocabId": "n3-v-1022",
       "sentence": "明後日には出発します。",
       "underline": "明後日",
-      "answer": "みょうごにち",
+      "answer": "あさって",
       "choices": [
         "みょうごび",
         "みょうごじつ",
