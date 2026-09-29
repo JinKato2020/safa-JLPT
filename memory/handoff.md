@@ -2,6 +2,17 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+★現在地(2026-09-29 pt3 セッション＝複数読み統一／ストア文翻訳／繁体字URL修正+ビルド)＝
+- **✅ストア掲載文を11言語＋日本語へ翻訳し `C:\Users\jwpsa\Documents\desktop\作業中\SNSアカウント.xlsx` のX列(シート「アカウント」row2-13)へ書き込み済み**。URLは各ロケール(en/ne/vi/bn/zh/ko/th/id/my/hi/zh2/ja)。編集前バックアップ=scratchpad。品質は主要言語◎、ne/bn/my/hiはネイティブ確認推奨。
+- **✅繁体字の規約/プライバシーURL不具合を発見・修正**。本番実測(2026-09-29)で `/jlpt/zh-hant/` は日本語トップへフォールバック=NG、正しくは **`/jlpt/zh2/`**(使用條款 lang=zh-Hant)。全12言語×terms/privacy=24ページを実測し zh-hant以外は全部OK。**[src/config/legal.ts] の `URL_SLUG={zh2:'zh-hant'}` を `{}` に修正**(zh2→/jlpt/zh2/)。これによりアプリ内の繁体字ユーザーの規約リンク切れも解消。xlsxのrow12 URLも zh2 に修正済み。**この修正を載せてビルド実施(下記)。**
+- **✅複数読み熟語の読み統一(漢字読み・全級)＝配信済み**。毎月/毎年で機械が「まいげつ/まいねん」を答えにしていた件を全級で是正。ユーザー裁定でA群=毎月まいつき/毎年まいとし/工場こうじょう/日本にほん/明後日あさって/年月ねんげつ/文字もじ/大分だいぶ/本当ほんとう に統一、B群=明日(あした/あす)・一日(いちにち/ついたち)・今日(きょう/こんにち)は両読み可だが片方が答えの時もう片方を誤答に混ぜない。**答え統一10件＋誤答差替4件**(差替は自然形=本当ほんとお・大分だいぶう・一日いちにちい)。単漢字(中/先/日/分等)は文脈で読みが決まり別読みは正当な誤答=対象外(機械一括差替は却下)。正本=[src/data/dualReadingWords.json]／適用=[tools/fix_dual_reading.py]／番人=[src/data/dualReadingWords.test.ts](緑)。**配信=commit 9cf69fa6+1944d072(content OTA・push済)、仕組みファイル=commit e2f252a8(push済)**。詳細メモリ=[[dual-reading-compound-unification]]。
+- **次の一手（明示指示待ち）**：特に必須はなし(複数読み統一は配信完了)。候補=(a)ビルド2963(v1.1.67)のCI結果をユーザー側で確認(緑=iOS TestFlight/Android内部テスト提出) (b)未完リストの D(Android新ビルドが内部テストに上がらない=1286未アップロード・要調査) と E(device_trials.sql 本番適用確認) (c)プロモ開始時にBの後半=GA4↔Google広告リンク＋trial_startをコンバージョン指定(コンソール作業) (d)ダッシュボードがまだ重ければ③(各ビューに直近90日窓＋夜間事前集計)。**push/build/公開は勝手にしない。**
+- **✅ビルド=v1.1.67(2963) both dispatch(-NoWatch)・commit dd69def9・run 36509371114**。中身=①trial_start配線 ②ダッシュボード列並べ替え(A・確認済) ③版1.1.67へ整理(未使用1.1.66回避)。**TestFlight/内部テストまで(公開はしていない)。CI結果はユーザー確認。**
+- **✅trial_start配線(広告コンバージョン計測)**＝`logTrialStart()`は定義only未呼び出しだった穴を塞いだ。[src/auth/SyncProvider.tsx] claimTrial成功時、**初回お試し(trialStartedAt未設定)に限り1回**送信(再ログイン/再インストール復元では送らず水増し防止)。効かせるにはコンソール側(GA4↔Google広告リンク＋trial_startをコンバージョン指定)が別途必要=プロモ開始時に。purchaseは既に送信済。
+- **✅AdMob iOS＝App Storeリンク完了(2026-09-29)・照合はGoogleクロール待ち(正常)**。詳細は下の(C)ブロック。app-ads.txtは www/裸ドメイン両方に設置済&内容一致を実確認。**直す所なし・~24hで自動承認見込み。**
+- **✅管理ダッシュボード高速化(commit d454a386・push済=Pages配信)**＝12人でも激遅だった主因は「ユーザー数でなく増え続けるテレメトリ表の全走査＋直列取得」。対策3点：①全ビュー取得を直列→**並列化** ②**索引追加**(`tel_event(anon_id)`・`tel_mock(anon_id)`=`docs/supabase/dashboard_perf_indexes.sql`・**ユーザー実行済2026-09-29**) ③**タブ遅延読み込み**([docs/supabase/dashboard.html])=重い集計ビュー(成長推移/分野別/得点分布/模試分布/月次)を「学習分析」タブへ隔離しそのタブを開いた時だけ取得。既定「概要」は軽い常用のみ即読込・「関係・報告」(紹介/友だち/バグ)も遅延・一度開いたタブはキャッシュ・node構文チェック済。**残(任意)=③本命の期間窓＋夜間事前集計(500人超で必要なら)。** メモリ[[dashboard-future-paging-csv]]。
+  - **【真因の訂正・重要】** 概要タブが激遅だった主因は「表の全走査」ではなく **`v_admin_devices` の O(N²) 相関サブクエリ**だった(snapshotsは729行・73端末しかないのに4757ms)。①並列化と最初の索引2本(tel_event/tel_mock)は**学習分析タブ用で概要タブには無効**。真の修正=**ビュー書き換え**(commit 98074f3b・`docs/supabase/dashboard_views.sql`)：eff_accountを行ごとに引き直す相関サブクエリ→`acct`CTE(distinct on)で1パス化／first_day/first_ts/days の相関サブクエリ3本→`agg`CTE(merge_key×level集計)へ。**実測4757ms→152ms(約31倍)・ユーザーがdashboard_views.sql全体を再実行済(2026-09-29)**。出力列不変=依存ビュー影響なし。教訓=遅い時はまず`explain analyze`で実測してから直す(索引を推測で足さない)。
+
 ★ビルド発行(2026-09-27)＝**採用=v1.1.65(2961) dispatch済**(run 36284733310・コミット3e54c565)。※先行の2957〜2960は放置=使わない。2961が最新。中身(累積)＝①**聴解音声=AAC(m4a 40k mono)に統一**(opusは廃止・下記) ②サーバー付与の開発モード(admin_grant_dev・7回タップ廃止) ③文法追加例文(grammarExtra 408点) ④DL中『中止』ボタン(i18n dl.cancel 全11言語) ⑤**一括DLを並列16**(逐次の往復待ちを解消=高速) ⑥バグ報告アイコン⚠→⚑(落ち着いた旗) ⑦**歓迎チケット一生1回**(welcomeTicketClaimed・再配布バグ修正) ⑧**配布モーダルの券デザインをショップと統一**。版番号は却下枠1.1.65へ据え置き(app.json一旦1.1.64→build.ps1が+1)。iOS本日5/8。
 - **【重要】opus廃止→AAC統一の経緯**：opusは**iPad(iOS)で再生できない端末**があった(同iPadで単語mp3は鳴るのに聴解opusのみ無音=Ogg/OpusはiOS端末依存で不安定。iPhoneは鳴る)。**審査端末=iPad Air**なので致命的→ AAC(m4a)へ。AACはiOS/iPad/Android全端末で確実再生。容量: mp3 604MB→m4a 493MB(-18%・N5124/N4164/N3205MB)。opusファイル3096は全削除・m4a3096併置(mp3残置=旧アプリ互換)。ツール=`tools/audio/build_m4a.py`／番人=`src/data/audioM4aParity.test.ts`(build.ps1検証に追加済)。listeningAudio.ts=.m4a取得/キャッシュv5/並列16。詳細メモリ[[audio-dual-format-mp3-and-opus]]。
 - **最新却下 4.2.3(ii)/2.1(a)＝対応完了(2960)**：✅サイズ開示(各行{mb}MB)✅DL任意(オンボ既定=配信/明示タップ時のみDL・聴解はDL無しでも[ListeningScreen]で配信再生可) ✅DL中キャンセル ✅並列16で高速化 ✅**AACでiPad含む全端末で再生可**。前々却下の5.1.1(v)削除導線・2.1(b)課金導線は既済(bf5786b8)で今回文面には無し。
@@ -627,13 +638,14 @@
 - ae7242744b8ff5435 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
+- memory/在庫・模試ストックまとめ.xlsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- docs/supabase/dashboard.html
+- memory/在庫問題数.txt
 - content/_manifest.json
 - src/data/content/bundled.generated.ts
-- memory/在庫問題数.txt
-- content/problems/moji_goi/kanji_read_N5.json
+- src/data/dualReadingWords.test.ts
+- content/problems/moji_goi/mock/kanji_read_N5.json
 
-_自動更新: 2026-09-29 10:39_
+_自動更新: 2026-09-29 17:08_
 <!-- AUTO:END -->
