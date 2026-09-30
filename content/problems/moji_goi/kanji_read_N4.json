@@ -345,8 +345,8 @@
     {
       "id": "N4-V-K-0029",
       "vocabId": "n4-v-506",
-      "sentence": "気温が急に下る。",
-      "underline": "下る",
+      "sentence": "気温が急に下がる。",
+      "underline": "下がる",
       "answer": "さがる",
       "choices": [
         "あがる",
@@ -1161,8 +1161,8 @@
     {
       "id": "N4-V-K-0097",
       "vocabId": "n4-v-302",
-      "sentence": "休みの日は音楽を楽む。",
-      "underline": "楽む",
+      "sentence": "休みの日は音楽を楽しむ。",
+      "underline": "楽しむ",
       "answer": "たのしむ",
       "choices": [
         "たのしぶ",
@@ -1475,11 +1475,11 @@
       "vocabId": "n4-v-431",
       "sentence": "ちちは 都で はたらいて います。",
       "underline": "都",
-      "answer": "と",
+      "answer": "みやこ",
       "choices": [
-        "ど",
-        "とう",
-        "つ"
+        "みやご",
+        "みなこ",
+        "みやく"
       ]
     },
     {
@@ -2145,8 +2145,8 @@
     {
       "id": "N4-V-K-0179",
       "vocabId": "n4-v-42",
-      "sentence": "道に落ちていたごみを拾うて捨てた。",
-      "underline": "拾う",
+      "sentence": "道に落ちていたごみを拾って捨てた。",
+      "underline": "拾っ",
       "answer": "ひろっ",
       "choices": [
         "ひらっ",
@@ -2157,8 +2157,8 @@
     {
       "id": "N4-V-K-0180",
       "vocabId": "n4-v-45",
-      "sentence": "兄と弟の背を比べるてみた。",
-      "underline": "比べる",
+      "sentence": "兄と弟の背を比べてみた。",
+      "underline": "比べ",
       "answer": "くらべ",
       "choices": [
         "くらへ",
@@ -2373,8 +2373,8 @@
     {
       "id": "N4-V-K-0198",
       "vocabId": "n4-v-98",
-      "sentence": "りんごが 木から 落る。",
-      "underline": "落る",
+      "sentence": "りんごが 木から 落ちる。",
+      "underline": "落ちる",
       "answer": "おちる",
       "choices": [
         "おりる",
