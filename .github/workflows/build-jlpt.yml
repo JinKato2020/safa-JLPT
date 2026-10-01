@@ -108,8 +108,12 @@ jobs:
           # 旧 privacy.html/terms.html(「収集しない」版・幽霊)は 2026-09-10 に撤去。ここでの配信は廃止。
           # ダウンロード中継ページ(/download.html)。端末でApp Store/Google Playへ自動振り分け。
           [ -f download.html ] && cp download.html _site/ || true
-          # メール確認後のリダイレクト先(Supabase Site URL)。localhostエラー回避。
+          # メール確認後のリダイレクト先(Supabase Site URL)。localhostエラー回避。アプリ(生徒)用。
           [ -f confirm.html ] && cp confirm.html _site/ || true
+          # 先生用の確認完了ページ(開くと teacher.html へ自動遷移。ログイン状態を引き継ぐ)。
+          [ -f confirm_for_teacher.html ] && cp confirm_for_teacher.html _site/ || true
+          # 教師専用サイト(先生が自校の生徒の学習/成長を閲覧)。docs配下から同ドメインへ配信。
+          [ -f docs/supabase/teacher.html ] && cp docs/supabase/teacher.html _site/ || true
           # 共有辞書を1か所で配信(JLPT・App B 共通の単一ソース): /dict/ja-*.json
           [ -d dict ] && cp -r dict _site/dict || true
           # 問題コンテンツ(大問×レベル・i18n inline)を /content/ で配信=逐次OTAの取得元。

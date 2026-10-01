@@ -146,6 +146,28 @@
     </div>
   </section>
 
+  <section id="secSchool" style="border-left:4px solid #3a7bc8">
+    <h2>🏫 学校・先生/生徒 管理（団体ライセンス） <span class="note">日本語学校向け。メールで先生/生徒を学校に所属させると、先生は <b>教師専用サイト（teacher.html）</b> で<b>自校の生徒だけ</b>閲覧できる。<b>service_role キーが必要</b>。事前に <b>docs/supabase/school_teacher.sql</b> を SQL Editor で実行しておくこと。生徒は<b>ログイン＆学習</b>後に表示される。先生は teacher.html で<b>自分で新規登録</b>（メール＋パスワード）→ここで同じメールを「先生」として登録すればOK。</span></h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <input id="scName" type="text" placeholder="学校名（例：カトマンズ日本語学校）" style="min-width:260px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px" />
+      <button id="btnScCreate" style="padding:6px 14px;border:1px solid #3a7bc8;border-radius:8px;background:#3a7bc8;color:#fff;font-weight:700;cursor:pointer">学校を作成</button>
+      <button id="btnScLoad" class="ghost">一覧を読み込む</button>
+      <span id="scSt" class="note" style="white-space:pre-wrap"></span>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px">
+      <span class="note">学校:</span>
+      <select id="scSel" style="padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px"></select>
+      <input id="scmEmail" type="email" placeholder="メール（先生/生徒）" style="min-width:240px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px" />
+      <select id="scmRole" style="padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px">
+        <option value="student">生徒</option>
+        <option value="teacher">先生</option>
+      </select>
+      <button id="btnScmAdd" style="padding:6px 14px;border:1px solid #3a7bc8;border-radius:8px;background:#3a7bc8;color:#fff;font-weight:700;cursor:pointer">追加</button>
+      <span id="scmSt" class="note" style="white-space:pre-wrap"></span>
+    </div>
+    <div class="scroll"><table id="scmTbl"></table></div>
+  </section>
+
   <section>
     <h2>国別（接続国・定着率・指標） <span class="note"><b>アカウント名寄せ済みの人単位</b>で最新の接続国を集計。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ。全体＝実人数（名寄せ済み）／登録＝ログイン済み／匿名＝一度もログインしていない実端末。<b>定着率D1/D7/D30</b>＝インストール後「少なくともN日目まで残った割合」（ローリング）。<b>D7母数</b>が小さいうち（数人）は割合が跳ねる参考値。目安：D1≥40%／D7≥20%／D30≥10%で緑。<b>予想得点</b>＝平均／<b>正:漢語文読聴</b>＝分野別平均正解率（v1.1.35〜のみ）／<b>覆:漢語文</b>＝学習分野別カバー率（平均）／<b>模試回数</b>＝合計・<b>模試得点</b>＝平均／<b>学習回数</b>＝完了練習の合計・<b>学習時間</b>＝合計。平均は測定値がある人だけ。<b>母集団</b>＝右の切替で「7日/30日アクティブ or 全体」を選べる（<b>既定＝7日アクティブ</b>＝インストールしただけの幽霊ユーザーを外した実勢値。全体＝離脱者も含む累計）。定着率D1/D7/D30はコホート指標なので母集団切替の影響を受けない。国はIP由来・旧版は「??」。利用者一覧を消すと国別からも自動で消える</span>
       <span class="note lvpick"> ｜ 母集団:
@@ -218,7 +240,7 @@
   </section>
 
   <section>
-    <h2>利用者一覧 <span class="note">登録・匿名を同じ1表に。1人1行で全項目を横並び（見出しをクリックで並べ替え・右へスクロール）。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ表示（レベル別・相対位置・在庫もこの表を集計）</span>
+    <h2>利用者一覧 <span class="note">登録・匿名を同じ1表に。<b>1アカウント1行＝今のレベル(最新)だけ表示</b>（過去に使ったレベルの行は出しません）。見出しをクリックで並べ替え・右へスクロール。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ表示（レベル別・相対位置・在庫の集計は全レベルのデータを使用）</span>
       <span class="count" id="devCount"></span></h2>
     <div class="bar">
       <input id="search" class="search" type="text" placeholder="絞り込み（メール・端末ID・レベル）" />
@@ -874,12 +896,15 @@ const COLS = [
   { g:'ステータス', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
   { g:'ステータス', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
   { g:'ステータス', key:'strong',      label:'得意', title:'いちばん正答率が高い区分（漢字／語彙／文法／読解／聴解の5区分）', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },
-  // レベルを切り替えて使った人は、レベルごとに1行ずつ出る(同じメール/IDが複数行に並ぶ=正常)。「今」＝いま使っているレベル。
-  { g:'利用者', key:'level', label:'レベル', title:'レベルごとに1行。「今」＝現在のレベル／印なし＝過去に使ったレベル',
+  // 1アカウント1行＝「今のレベル(is_latest)」だけを表示する。過去に使ったレベルの行は出さない。
+  { g:'利用者', key:'level', label:'レベル', title:'そのアカウントが今使っているレベル(最新のみ表示・過去に使ったレベルは非表示)',
     val:r=>(r.level||'')+(r.is_latest?' 1':' 0'),
-    cell:r=> (r.level||'—') + (r.is_latest ? ' <span class="pill good">今</span>' : ' <span class="off" title="過去に使っていたレベル">過去</span>') },
+    cell:r=> (r.level||'—') + (r.is_latest ? ' <span class="pill good">今</span>' : '') },
   { g:'利用者', key:'app',   label:'アプリ版', title:'その端末が動かしているアプリの版(古いと母数も古い)',
     val:r=>r.app||'', cell:r=> `<span class="mono">${esc(r.app||'—')}</span>` },
+  // 初回日時・最終日時は「利用者」と「予想得点」の間に配置(ユーザー指定)。値はアカウントの全レベル行から集計(displayedRows)。
+  { g:'日時', key:'first_ts', label:'初回日時', title:'このアカウントが初めて記録された日時＝実質のインストール日時(全レベルの最小・日本時間)', val:r=>r.first_ts||'', cell:r=> fmtDateTime(r.first_ts) },
+  { g:'日時', key:'last_ts',  label:'最終日時', title:'このアカウントが最後に記録した日時(全レベルの最大・日本時間)', val:r=>r.last_ts||'', cell:r=> fmtDateTime(r.last_ts) },
   { g:'予想得点', key:'pred_score', label:'予想得点', num:1, title:'アプリの主指標＝いまの実力での予想得点(満点／合格ライン)。緑＝合格ライン到達',
     val:r=>numOr(r.pred_score),
     cell:r=> (r.pred_score==null ? '<span class="empty">—</span>'
@@ -910,8 +935,6 @@ const COLS = [
   { g:'活動', key:'mock_count', label:'模試',   num:1, title:'模試の実施回数',       val:r=>numOr(r.mock_count), cell:r=> (r.mock_count ?? 0) },
   { g:'活動', key:'streak',     label:'継続',   num:1, title:'連続学習日数',         val:r=>numOr(r.streak),     cell:r=> (r.streak ?? 0) },
   { g:'活動', key:'days',       label:'日数',   num:1, title:'データを送ってきた日数(使った日数)', val:r=>numOr(r.days), cell:r=> (r.days ?? '—') },
-  { g:'活動', key:'first_ts',   label:'初回日時', title:'このIDが初めて記録された日時＝実質のインストール日時(日本時間)', val:r=>r.first_ts||'', cell:r=> fmtDateTime(r.first_ts) },
-  { g:'活動', key:'last_ts',    label:'最終日時', title:'最後に記録した日時(日本時間)', val:r=>r.last_ts||'', cell:r=> fmtDateTime(r.last_ts) },
 ];
 const FROZEN_COUNT = 7; // 利用者一覧で左に固定表示する列数（ID/メール・名前・国名・母語・学習時間・種別・状態）
 const isFirstOfGroup = (i) => i===0 || COLS[i-1].g !== COLS[i].g;
@@ -925,6 +948,25 @@ function filtered(){
   if(!q) return devData;
   return devData.filter(r => `${r.email||''} ${r.anon_id||''} ${r.level||''} ${r.kind||''} ${r.platform||''} ${r.app||''}`.toLowerCase().includes(q));
 }
+
+// 画面に出す行＝1アカウント1行。検索で絞ったあと、アカウント(登録=account_id / 匿名=anon_id)ごとに畳み、
+// 「今のレベル(is_latest)」の行だけを代表として返す(過去に使ったレベルの行は表示しない)。
+// ※devData自体は全レベルの行を保持したまま＝レベル別/相対位置/在庫などの集計は従来どおり全行を使う。
+function displayedRows(){
+  const groups = new Map();
+  filtered().forEach(r=>{ const gk = r.account_id || r.anon_id; if(!groups.has(gk)) groups.set(gk, []); groups.get(gk).push(r); });
+  const minTs = a => a.reduce((m,x)=> (!m || new Date(x) < new Date(m)) ? x : m, null);
+  const maxTs = a => a.reduce((m,x)=> (!m || new Date(x) > new Date(m)) ? x : m, null);
+  return [...groups.values()].map(rs => {
+    const rep = rs.find(r=>r.is_latest) || rs[0];
+    // 初回/最終日時はアカウントの全レベル行から集計(レベルを変えても正しく出す)。他の列は今のレベルの値をそのまま使う。
+    const firsts = rs.map(r=>r.first_ts).filter(Boolean);
+    const lasts  = rs.map(r=>r.last_ts).filter(Boolean);
+    return { ...rep, first_ts: minTs(firsts) || rep.first_ts, last_ts: maxTs(lasts) || rep.last_ts };
+  });
+}
+// アカウント総数(account_id/anon_id のユニーク数)。「全 X 人」の分母に使う。
+function accountTotal(){ return new Set(devData.map(r=> r.account_id || r.anon_id)).size; }
 
 // 1段目=グループ見出し(同じ g をまとめる) / 2段目=項目見出し(クリックで並べ替え)
 function headHtml(){
@@ -952,15 +994,10 @@ function renderDevices(){
     if(typeof x==='number' || typeof y==='number'){ x = x==null?-1:Number(x); y = y==null?-1:Number(y); return sortDir*(x-y); }
     return sortDir*String(x).localeCompare(String(y),'ja');
   };
-  // 同じアカウント(登録=account_id / 匿名=anon_id)の行は隣どうしに並べ、その中はレベル降順(N3が上・N5が下)。
-  // グループ同士の並び順は、選んだ列で「今のレベル(is_latest)の行」を代表にして決める。
-  const groups = new Map();
-  filtered().forEach(r=>{ const gk = r.account_id || r.anon_id; if(!groups.has(gk)) groups.set(gk, []); groups.get(gk).push(r); });
-  const rep = (rs)=> rs.find(r=>r.is_latest) || rs[0];
-  const rows = [...groups.values()]
-    .sort((ga,gb)=> cmp(rep(ga), rep(gb)))
-    .flatMap(rs => rs.slice().sort((a,b)=> (LV_ORDER[b.level]||0) - (LV_ORDER[a.level]||0)));
-  $('devCount').textContent = `全 ${devData.length} 人` + ($('search').value.trim()? `（表示 ${rows.length}）`:'');
+  // 1アカウント＝1行(今のレベルの代表行だけ)。選んだ列で並べ替える。
+  const rows = displayedRows().sort(cmp);
+  // 「全 X 人」は行数ではなくアカウント数で数える(過去レベルの行を含めない)。
+  $('devCount').textContent = `全 ${accountTotal()} 人` + ($('search').value.trim()? `（表示 ${rows.length}）`:'');
 
   if(rows.length===0){
     el.innerHTML = headHtml() + `<tr><td class="empty" colspan="${COLS.length+1}">該当する利用者がいません。</td></tr>`;
@@ -1011,14 +1048,18 @@ function updateSelBar(){
   const b = $('btnDel');
   if(b){ b.disabled = n===0; b.textContent = n===0 ? '🗑 削除' : `🗑 選択した ${n} 件を削除`; }
   const all = $('chkAll');
-  if(all){ const f = filtered(); all.checked = f.length>0 && f.every(r=>selected.has(rowKey(r))); }
+  if(all){ const f = displayedRows(); all.checked = f.length>0 && f.every(r=>selected.has(rowKey(r))); }
 }
 
 // 選択した行を消す確認モーダル。選んだ行が端末の全レベルなら「端末まるごと」、一部レベルだけなら
 // 「そのレベルのスナップショットだけ」を消す(イベント/模試はレベル別に分かれていないので残す)。
 function openDeleteModal(){
   if(selected.size===0) return;
-  const rows = devData.filter(r=>selected.has(rowKey(r)));
+  // 表示は1アカウント1行(今のレベル)なので、選んだ行はそのアカウントの全レベル行に広げてから削除する
+  // (=アカウントまるごと削除。過去レベルのスナップショットも一緒に消える)。
+  const gk = r => r.account_id || r.anon_id;
+  const selGroups = new Set(devData.filter(r=>selected.has(rowKey(r))).map(gk));
+  const rows = devData.filter(r=> selGroups.has(gk(r)));
   const byAnon = new Map();
   rows.forEach(r=>{ if(!byAnon.has(r.anon_id)) byAnon.set(r.anon_id, []); byAnon.get(r.anon_id).push(r); });
   pendingFull = []; pendingPartial = []; const accMap = new Map();
@@ -1070,6 +1111,60 @@ async function rpcPost(name, body){
     body: JSON.stringify(body) });
   if(!res.ok){ throw new Error(`rpc ${name} → HTTP ${res.status} ${(await res.text()).slice(0,200)}`); }
   return res.json().catch(()=>null);
+}
+
+// ===== 学校・先生/生徒 管理(団体ライセンス) =====
+// service_role で schools / school_members を直接 CRUD する(SQL不要で画面から運用)。
+function _conn(){ return { url: $('url').value.trim().replace(/\/+$/,''), key: $('key').value.trim() }; }
+async function _sb(method, path, body){
+  const { url, key } = _conn();
+  if(!url || !key) throw new Error('上部の URL と service_role キーを入れてください。');
+  const opt = { method, headers:{ apikey:key, Authorization:`Bearer ${key}` } };
+  if(body){ opt.headers['Content-Type']='application/json'; opt.headers['Prefer']='return=representation'; opt.body=JSON.stringify(body); }
+  const res = await fetch(`${url}/rest/v1/${path}`, opt);
+  if(!res.ok && res.status!==404) throw new Error(`HTTP ${res.status} ${(await res.text()).slice(0,200)}`);
+  return res.status===204 ? null : res.json().catch(()=>null);
+}
+async function schoolCreate(){
+  const st=$('scSt'); const name=($('scName').value||'').trim();
+  if(!name){ st.textContent='学校名を入力してください。'; return; }
+  try{ const r=await _sb('POST','schools',{ name }); const id=r&&r[0]&&r[0].id;
+    $('scName').value=''; st.textContent=`✓ 学校「${name}」を作成（id=${id}）`; await schoolLoad(); if(id) $('scSel').value=String(id); await memberLoad(); }
+  catch(e){ st.textContent='失敗: '+e.message+'\n（school_teacher.sql を実行済みか確認）'; }
+}
+async function schoolLoad(){
+  const sel=$('scSel');
+  try{ const rows=await _sb('GET','schools?select=id,name&order=name');
+    sel.innerHTML = (rows&&rows.length) ? rows.map(s=>`<option value="${s.id}">${esc(s.name)}（id=${s.id}）</option>`).join('') : '<option value="">(学校なし)</option>';
+    await memberLoad();
+  }catch(e){ $('scSt').textContent='読み込み失敗: '+e.message; }
+}
+async function memberAdd(){
+  const st=$('scmSt'); const sid=$('scSel').value; const email=($('scmEmail').value||'').trim().toLowerCase(); const role=$('scmRole').value;
+  if(!sid){ st.textContent='先に学校を作成/選択してください。'; return; }
+  if(!email){ st.textContent='メールアドレスを入力してください。'; return; }
+  try{ await _sb('POST','school_members',{ school_id:Number(sid), email, role });
+    $('scmEmail').value=''; st.textContent=`✓ ${role==='teacher'?'先生':'生徒'} ${email} を登録`; await memberLoad(); }
+  catch(e){ st.textContent='失敗: '+e.message+(/duplicate|conflict/i.test(e.message)?'（既に登録済み）':''); }
+}
+async function memberDel(email, role){
+  const sid=$('scSel').value;
+  try{ await _sb('DELETE',`school_members?school_id=eq.${sid}&email=eq.${encodeURIComponent(email)}&role=eq.${role}`); await memberLoad(); }
+  catch(e){ $('scmSt').textContent='削除失敗: '+e.message; }
+}
+async function memberLoad(){
+  const sid=$('scSel').value; const el=$('scmTbl');
+  if(!sid){ el.innerHTML=''; return; }
+  try{ const rows=await _sb('GET',`school_members?school_id=eq.${sid}&select=email,role&order=role,email`);
+    if(!rows||!rows.length){ el.innerHTML='<tr><td class="empty">まだ誰も登録されていません。</td></tr>'; return; }
+    el.innerHTML='<tr><th>役割</th><th>メール</th><th></th></tr>'+rows.map(r=>`<tr><td>${r.role==='teacher'?'👩‍🏫 先生':'生徒'}</td><td>${esc(r.email)}</td><td><button onclick="memberDel('${esc(r.email)}','${r.role}')" style="padding:3px 10px;border:1px solid var(--bad);border-radius:6px;background:transparent;color:var(--bad);cursor:pointer;font-size:12px">削除</button></td></tr>`).join('');
+  }catch(e){ el.innerHTML=`<tr><td class="empty">読み込み失敗: ${esc(e.message)}</td></tr>`; }
+}
+if($('btnScCreate')){
+  $('btnScCreate').addEventListener('click', schoolCreate);
+  $('btnScLoad').addEventListener('click', schoolLoad);
+  $('btnScmAdd').addEventListener('click', memberAdd);
+  $('scSel').addEventListener('change', memberLoad);
 }
 
 // メール指定で pro_until を書き込む(恒久/期限/失効)。admin_grant_pro(SQL関数)を service_role で呼ぶ。
@@ -1153,7 +1248,7 @@ $('tDevices').addEventListener('change', (ev)=>{
   const cb = ev.target.closest('input.rowchk');
   if(cb){ if(cb.checked) selected.add(cb.dataset.k); else selected.delete(cb.dataset.k); updateSelBar(); return; }
   const all = ev.target.closest('#chkAll');
-  if(all){ const f = filtered(); f.forEach(r=> all.checked ? selected.add(rowKey(r)) : selected.delete(rowKey(r))); renderDevices(); }
+  if(all){ const f = displayedRows(); f.forEach(r=> all.checked ? selected.add(rowKey(r)) : selected.delete(rowKey(r))); renderDevices(); }
 });
 $('btnDel').addEventListener('click', openDeleteModal);
 $('btnClear').addEventListener('click', ()=>{ selected.clear(); renderDevices(); });
