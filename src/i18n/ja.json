@@ -1216,7 +1216,7 @@
   "voice.newcomer.3": "あなたのペースで大丈夫。少しずつ、はじめていこうね。",
   "voice.newcomer.4": "ここから一歩ずつ。わたしがそばで、ずっと応援してるからね。",
   "voice.newcomer.5": "あなたが来てくれて、うれしいな。さあ、はじめよう。",
-  "sakura.reco_hint": "「今日のオススメ」を学習すると、苦手な単語の復習ができるよ。",
+  "sakura.reco_hint": "「苦手な単語に挑戦する」を押すと、前にまちがえた言葉をまとめて復習できるよ。",
   "persona.trait.akarui": "明るい",
   "persona.trait.majime": "まじめ",
   "persona.trait.ottori": "おっとり",
@@ -1470,5 +1470,15 @@
   "coach.mock_tap_hint": "タップで各回の成績表を見る",
   "kform.prompt": "意味・読みに合う正しい漢字はどれ？",
   "kform.empty": "この級では形の弁別問題がまだありません。",
-  "official.base_label": "2025年 第2回(12月)"
+  "official.base_label": "2025年 第2回(12月)",
+  "teacher.portal_title": "教師サイトを開く",
+  "teacher.portal_sub": "{school} の生徒の学習状況を見る・生徒を登録する",
+  "teacher.portal_need_login": "先にログインしてください。",
+  "teacher.join_title": "学校の団体コード",
+  "teacher.join_hint": "先生からもらった団体コードを入れると、あなたの学習状況が先生に共有されます（団体ライセンス）。",
+  "teacher.join_placeholder": "コードを入力（例：ABC123）",
+  "teacher.join_button": "参加する",
+  "teacher.join_belongs": "所属：{school}",
+  "teacher.join_ok": "参加しました。",
+  "teacher.join_err": "参加できませんでした。コードをご確認ください。"
 }

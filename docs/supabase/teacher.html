@@ -24,6 +24,7 @@
     color:var(--ink); font-size:14px; min-width:240px; }
   button{ padding:9px 16px; border:0; border-radius:8px; background:var(--accent); color:#fff;
     font-size:14px; cursor:pointer; }
+  button:disabled{ opacity:.45; cursor:not-allowed; }
   button.ghost{ background:transparent; color:var(--accent); border:1px solid var(--accent); }
   .login{ max-width:380px; margin:8vh auto 0; background:var(--card); border:1px solid var(--line);
     border-radius:14px; padding:26px 24px; }
@@ -32,6 +33,18 @@
   .login input{ width:100%; }
   .err{ color:var(--bad); font-size:13px; white-space:pre-wrap; margin-top:10px; }
   .spacer{ flex:1; }
+  .splash{ max-width:380px; margin:16vh auto 0; text-align:center; color:var(--sub); }
+  /* 生徒の登録バー */
+  .manage{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:4px 2px 16px; }
+  .manage .top{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .manage .count{ font-weight:700; font-size:15px; }
+  .manage .count .cap{ color:var(--sub); font-weight:400; font-size:13px; }
+  .manage .coderow{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
+  .manage .code{ font-weight:700; font-size:20px; letter-spacing:.14em; font-variant-numeric:tabular-nums;
+    padding:4px 12px; border-radius:8px; background:var(--chip); border:1px solid var(--line); }
+  .manage form{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:10px; }
+  .manage .hint{ font-size:12px; color:var(--sub); margin-top:8px; }
+  .manage .msg{ font-size:13px; margin-top:8px; white-space:pre-wrap; }
   .scroll{ overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:12px; }
   table{ width:100%; border-collapse:collapse; font-size:13px; }
   th,td{ text-align:left; padding:7px 9px; border-bottom:1px solid var(--line); white-space:nowrap; }
@@ -41,15 +54,24 @@
   .who{ font-weight:600; } .who .mail{ font-weight:400; color:var(--sub); font-size:11px; display:block; }
   .ok{ color:var(--good); } .mid{ color:var(--warn); } .low{ color:var(--bad); } .off{ color:var(--sub); opacity:.5; }
   .lv{ font-size:11px; padding:1px 8px; border-radius:99px; background:var(--chip); border:1px solid var(--line); }
+  .pending{ font-size:11px; padding:1px 8px; border-radius:99px; background:var(--chip); border:1px dashed var(--line); color:var(--sub); }
   .empty{ color:var(--sub); padding:24px 8px; }
   .gsep{ border-left:1px solid var(--line); }
+  .delx{ padding:3px 10px; border:1px solid var(--bad); border-radius:6px; background:transparent; color:var(--bad); cursor:pointer; font-size:12px; }
 </style>
 </head>
 <body>
 
+<!-- アプリから引き継ぎ中などの一瞬の待ち表示(チラつき防止) -->
+<div id="splashView" class="splash">読み込み中…</div>
+
 <div id="loginView" class="login" hidden>
   <h2>教師専用サイト</h2>
   <div class="muted">まいにちJLPT ／ 先生用ログイン</div>
+  <div class="muted" style="margin-top:10px; font-size:12px">
+    ふだんは <b>まいにちJLPTアプリ</b> の「アカウント」→「教師サイトを開く」から入ると、ここで入力は不要です。<br>
+    下はアプリを使わずブラウザだけで入る場合です。
+  </div>
   <button id="googleBtn" class="ghost" style="width:100%; margin-top:14px">Googleでログイン（アプリと同じGoogle）</button>
   <div class="muted" style="text-align:center; margin:12px 0 2px">または メール＋パスワード</div>
   <div class="row"><input id="email" type="email" placeholder="メールアドレス" autocomplete="username"></div>
@@ -58,8 +80,8 @@
   <button id="signupBtn" class="ghost" style="margin-top:10px; width:100%">新規登録（初めての先生）</button>
   <div id="loginErr" class="err"></div>
   <div class="muted" style="margin-top:14px; font-size:12px">
-    ※ 初めての先生は「新規登録」でメール＋パスワードを作成してください。<br>
-    登録後、管理者がそのメールを学校に登録すると、自校の生徒だけが見えます。
+    ※ アプリと同じメール／Googleでログインしてください。<br>
+    管理者がそのメールを「先生」として学校に登録すると、生徒を登録できるようになります。
   </div>
 </div>
 
@@ -73,6 +95,30 @@
     <button id="logoutBtn" class="ghost">ログアウト</button>
   </header>
   <main>
+    <!-- 先生でない場合の案内 -->
+    <div id="notTeacher" class="empty" hidden></div>
+
+    <!-- 生徒の登録(自分の生徒・最大20人) -->
+    <div id="manage" class="manage" hidden>
+      <div class="top">
+        <span class="count">生徒 <span id="stuCount">0</span><span class="cap"> / <span id="stuCap">20</span>人</span></span>
+        <span class="spacer"></span>
+      </div>
+      <div class="coderow">
+        <span class="muted">団体コード（生徒がアプリで入力）:</span>
+        <span id="codeVal" class="code">—</span>
+        <button id="copyCodeBtn" class="ghost" type="button">コピー</button>
+        <button id="regenCodeBtn" class="ghost" type="button">作り直す</button>
+      </div>
+      <div class="hint"><b>方法①（おすすめ）</b>：生徒がアプリでアカウントを作成 → アカウント画面の「学校の団体コード」に<b>このコードを入力</b>すると、自動であなたの生徒になります。<br>
+      <b>方法②</b>：下に生徒のメールを入れて直接追加（生徒がアプリで使う／使う予定のメール）。学習が始まると下の表に成績が出ます。<b>1人の先生につき20人まで。</b></div>
+      <form id="addForm">
+        <input id="addEmail" type="email" placeholder="生徒のメールアドレス" autocomplete="off">
+        <button id="addBtn" type="submit">生徒をメールで追加</button>
+      </form>
+      <div id="manageMsg" class="msg"></div>
+    </div>
+
     <div class="muted" id="summary" style="margin:6px 2px 12px"></div>
     <div class="scroll">
       <table id="tbl">
@@ -83,6 +129,7 @@
           <th class="num gsep">正答 漢</th><th class="num">語</th><th class="num">文</th><th class="num">読</th><th class="num">聴</th>
           <th class="num gsep">学習時間</th><th class="num">学習日</th><th class="num">連続</th><th class="num">模試</th>
           <th class="gsep">最終アクセス</th><th class="num">利用日数</th>
+          <th class="gsep"></th>
         </tr>
         <tr class="muted" style="font-size:11px">
           <th colspan="2">名前 / メール</th>
@@ -91,6 +138,7 @@
           <th class="num gsep" colspan="5">分野別 正答率(%)</th>
           <th class="num gsep">合計</th><th class="num">日</th><th class="num">日</th><th class="num">回</th>
           <th class="gsep"></th><th class="num">日</th>
+          <th class="gsep"></th>
         </tr></thead>
         <tbody id="rows"></tbody>
       </table>
@@ -107,8 +155,10 @@ const SUPABASE_ANON_KEY = 'sb_publishable_bfqPNA4Z83i87E99YLwUyQ_I5NFMC3v';
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const $ = (id) => document.getElementById(id);
-const loginView = $('loginView'), appView = $('appView');
+const splashView = $('splashView'), loginView = $('loginView'), appView = $('appView');
+let homeInfo = null;   // teacher_home() の結果(学校名・生徒数・上限)。先生でなければ null。
 
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 function pct(v){ // 色つき % 表示
   if (v === null || v === undefined) return '<span class="off">—</span>';
   const n = Math.round(Number(v));
@@ -120,35 +170,75 @@ function mins(m){
   const h = Math.floor(m/60), mm = m%60;
   return h ? `${h}h${mm ? mm+'m' : ''}` : `${mm}m`;
 }
-function cell(v){ return (v === null || v === undefined || v === '') ? '<span class="off">—</span>' : v; }
+function cell(v){ return (v === null || v === undefined || v === '') ? '<span class="off">—</span>' : esc(v); }
 
+function showSplash(){ splashView.hidden = false; loginView.hidden = true; appView.hidden = true; }
+function showLogin(){ splashView.hidden = true; appView.hidden = true; loginView.hidden = false; }
 async function showApp(){
-  loginView.hidden = true; appView.hidden = false;
+  splashView.hidden = true; loginView.hidden = true; appView.hidden = false;
   const { data:{ user } } = await sb.auth.getUser();
   $('meLabel').textContent = user ? user.email : '';
   await load();
 }
-function showLogin(){ appView.hidden = true; loginView.hidden = false; }
 
 async function load(){
   $('rows').innerHTML = '';
   $('emptyMsg').hidden = true;
-  const { data, error } = await sb.from('v_teacher_students').select('*')
-    .order('last_day', { ascending:false });
-  if (error){ $('emptyMsg').hidden = false; $('emptyMsg').textContent = '読み込みエラー: ' + error.message; return; }
-  if (!data || data.length === 0){
-    $('emptyMsg').hidden = false;
-    $('emptyMsg').textContent = '表示できる生徒がいません。（登録したメールの生徒がまだログイン・学習していないか、先生として登録されていません）';
-    $('schoolName').textContent = ''; $('summary').textContent = '';
+
+  // 1) 自分(先生)のホーム情報。先生でなければ案内を出して終わり。
+  try{
+    const { data: home, error: he } = await sb.rpc('teacher_home');
+    if (he) throw he;
+    homeInfo = home || null;
+  }catch(e){ homeInfo = null; }
+
+  if (!homeInfo){
+    $('manage').hidden = true;
+    $('schoolName').textContent = '';
+    $('summary').textContent = '';
+    $('notTeacher').hidden = false;
+    $('notTeacher').textContent = 'このアカウントはまだ「先生」として学校に登録されていません。管理者にメールアドレスを伝えて、先生として登録してもらってください。登録後、このページを「更新」すると生徒を登録できます。';
     return;
   }
-  $('schoolName').textContent = '／ ' + (data[0].school_name || '');
+  $('notTeacher').hidden = true;
+  $('schoolName').textContent = '／ ' + (homeInfo.school_name || '');
+  $('manage').hidden = false;
+  renderCount();
+
+  // 団体コード: 未発行なら発行して表示。
+  if (!homeInfo.teacher_code){
+    try{ const { data: code } = await sb.rpc('teacher_code'); if (code) homeInfo.teacher_code = code; }catch(_){}
+  }
+  renderCode();
+
+  // 2) 自分が登録した生徒(未ログインの子も含む)。
+  const { data, error } = await sb.from('v_teacher_students').select('*')
+    .order('has_data', { ascending:false }).order('last_day', { ascending:false });
+  if (error){ $('emptyMsg').hidden = false; $('emptyMsg').textContent = '読み込みエラー: ' + error.message; return; }
+  if (!data || data.length === 0){
+    $('summary').textContent = 'まだ生徒を登録していません。上の「生徒を追加」からメールを登録してください。';
+    return;
+  }
   const active = data.filter(r => r.last_day && (Date.now() - new Date(r.last_day).getTime()) < 7*864e5).length;
-  $('summary').textContent = `生徒 ${data.length}人（直近7日に学習 ${active}人）`;
-  $('rows').innerHTML = data.map(r => `
-    <tr>
-      <td class="who">${cell(r.nickname) === '<span class="off">—</span>' ? '' : (r.nickname||'')}
-        <span class="mail">${r.email||''}</span></td>
+  const studying = data.filter(r => r.has_data).length;
+  $('summary').textContent = `登録 ${data.length}人（学習中 ${studying}人・直近7日に学習 ${active}人）`;
+  $('rows').innerHTML = data.map(r => {
+    const del = `<td class="gsep"><button class="delx" data-email="${esc(r.email)}">削除</button></td>`;
+    if (!r.has_data){
+      // 登録済みだがまだログイン/学習していない生徒。
+      return `<tr>
+        <td class="who"><span class="mail" style="font-size:13px">${esc(r.email)}</span></td>
+        <td><span class="pending">未ログイン</span></td>
+        <td class="num gsep off">—</td><td class="num off">—</td>
+        <td class="num gsep off">—</td><td class="num off">—</td><td class="num off">—</td>
+        <td class="num gsep off">—</td><td class="num off">—</td><td class="num off">—</td><td class="num off">—</td><td class="num off">—</td>
+        <td class="num gsep off">—</td><td class="num off">—</td><td class="num off">—</td><td class="num off">—</td>
+        <td class="gsep off">—</td><td class="num off">—</td>
+        ${del}
+      </tr>`;
+    }
+    return `<tr>
+      <td class="who">${r.nickname ? esc(r.nickname) : ''}<span class="mail">${esc(r.email)}</span></td>
       <td><span class="lv">${cell(r.level)}</span></td>
       <td class="num gsep">${r.pred_score!=null ? r.pred_score : '<span class="off">—</span>'}</td>
       <td class="num">${pct(r.pass_pct)}</td>
@@ -156,9 +246,73 @@ async function load(){
       <td class="num gsep">${pct(r.acc_kanji)}</td><td class="num">${pct(r.acc_vocab)}</td><td class="num">${pct(r.acc_grammar)}</td><td class="num">${pct(r.acc_dokkai)}</td><td class="num">${pct(r.acc_choukai)}</td>
       <td class="num gsep">${mins(r.study_min)}</td><td class="num">${cell(r.study_days)}</td><td class="num">${cell(r.streak)}</td><td class="num">${cell(r.mock_count)}</td>
       <td class="gsep">${cell(r.last_day)}</td><td class="num">${cell(r.days)}</td>
-    </tr>`).join('');
+      ${del}
+    </tr>`;
+  }).join('');
 }
 
+function renderCount(){
+  if (!homeInfo) return;
+  const n = homeInfo.student_count ?? 0, cap = homeInfo.student_cap ?? 20;
+  $('stuCount').textContent = n;
+  $('stuCap').textContent = cap;
+  $('addBtn').disabled = n >= cap;
+  $('addEmail').disabled = n >= cap;
+  $('manageMsg').textContent = n >= cap ? '登録は上限の20人に達しています。追加するには、どなたかを削除してください。' : '';
+  $('manageMsg').style.color = n >= cap ? 'var(--warn)' : '';
+}
+function renderCode(){
+  $('codeVal').textContent = (homeInfo && homeInfo.teacher_code) ? homeInfo.teacher_code : '—';
+}
+$('copyCodeBtn').onclick = async () => {
+  const code = homeInfo && homeInfo.teacher_code; if (!code) return;
+  try{ await navigator.clipboard.writeText(code); const b=$('copyCodeBtn'); const o=b.textContent; b.textContent='コピーしました'; setTimeout(()=>b.textContent=o, 1200); }
+  catch(_){ /* 失敗しても画面のコードを手入力してもらえる */ }
+};
+$('regenCodeBtn').onclick = async () => {
+  if (!confirm('コードを作り直すと、前のコードは使えなくなります（配布済みの生徒には新しいコードを伝えてください）。よろしいですか？')) return;
+  try{ const { data: code, error } = await sb.rpc('teacher_code', { p_regenerate: true }); if (error) throw error;
+    if (homeInfo) homeInfo.teacher_code = code; renderCode();
+    $('manageMsg').style.color='var(--good)'; $('manageMsg').textContent='新しい団体コードを発行しました。';
+  }catch(e){ $('manageMsg').style.color='var(--bad)'; $('manageMsg').textContent='コードの作り直しに失敗: '+(e.message||e); }
+};
+
+// ===== 生徒の追加/削除(RPC経由=上限20人・本人の学校に固定) =====
+$('addForm').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const email = ($('addEmail').value || '').trim().toLowerCase();
+  const msg = $('manageMsg');
+  if (!email){ msg.style.color='var(--bad)'; msg.textContent='メールアドレスを入力してください。'; return; }
+  $('addBtn').disabled = true;
+  try{
+    const { data, error } = await sb.rpc('teacher_add_student', { p_email: email });
+    if (error) throw error;
+    $('addEmail').value = '';
+    if (homeInfo) homeInfo.student_count = (data && data.count != null) ? data.count : (homeInfo.student_count+1);
+    msg.style.color = 'var(--good)';
+    msg.textContent = (data && data.duplicate) ? `${email} は登録済みです。` : `✓ ${email} を登録しました。`;
+    await load();
+  }catch(e){
+    msg.style.color = 'var(--bad)';
+    msg.textContent = '追加できません: ' + (e.message || e);
+    renderCount();
+  }
+});
+$('rows').addEventListener('click', async (ev) => {
+  const btn = ev.target.closest('button.delx'); if (!btn) return;
+  const email = btn.dataset.email;
+  if (!confirm(`${email} を生徒一覧から外しますか？（学習データ自体は消えません）`)) return;
+  const msg = $('manageMsg');
+  try{
+    const { data, error } = await sb.rpc('teacher_remove_student', { p_email: email });
+    if (error) throw error;
+    if (homeInfo && data && data.count != null) homeInfo.student_count = data.count;
+    msg.style.color = 'var(--good)'; msg.textContent = `${email} を外しました。`;
+    await load();
+  }catch(e){ msg.style.color='var(--bad)'; msg.textContent = '削除できません: ' + (e.message || e); }
+});
+
+// ===== ログイン(ブラウザ単独で入る場合のフォールバック) =====
 function creds(){ return { email: $('email').value.trim(), password: $('pass').value }; }
 function sayErr(msg){ $('loginErr').style.color = ''; $('loginErr').textContent = msg; }
 function sayOk(msg){ $('loginErr').style.color = 'var(--good)'; $('loginErr').textContent = msg; }
@@ -169,24 +323,21 @@ $('loginBtn').onclick = async () => {
   if (!email || !password){ sayErr('メールとパスワードを入力してください。'); return; }
   const { error } = await sb.auth.signInWithPassword({ email, password });
   if (error){ sayErr('ログインできません: ' + error.message); return; }
-  showApp();
 };
 $('signupBtn').onclick = async () => {
   sayErr('');
   const { email, password } = creds();
   if (!email || !password){ sayErr('メールとパスワードを入力してください。'); return; }
   if (password.length < 6){ sayErr('パスワードは6文字以上にしてください。'); return; }
-  // 確認メールの戻り先=先生用の確認ページ(そこから teacher.html へ自動遷移)。
-  // 同じドメインに置く前提で、teacher.html の隣の confirm_for_teacher.html を指す。
+  // 確認メールの戻り先=先生用の確認ページ(そこから teacher.html へ自動遷移・ログイン状態を引き継ぐ)。
   const redirect = new URL('confirm_for_teacher.html', window.location.href).href;
   const { data, error } = await sb.auth.signUp({ email, password, options: { emailRedirectTo: redirect } });
   if (error){ sayErr('登録できません: ' + error.message); return; }
-  if (data.session){ showApp(); }          // 確認不要の設定なら即ログイン
+  if (data.session){ /* 確認不要の設定なら即ログイン(onAuthStateChangeで遷移) */ }
   else { sayOk('登録しました。届いた確認メールのリンクを開くと、この教師ページに戻って自動でログインされます。'); }
 };
 $('googleBtn').onclick = async () => {
   sayErr('');
-  // アプリと同じGoogleアカウントで入る。終わったらこのページに戻る。
   const { error } = await sb.auth.signInWithOAuth({
     provider: 'google',
     options: { redirectTo: window.location.href.split('#')[0].split('?')[0] }
@@ -197,10 +348,30 @@ $('pass').addEventListener('keydown', e => { if (e.key === 'Enter') $('loginBtn'
 $('reloadBtn').onclick = load;
 $('logoutBtn').onclick = async () => { await sb.auth.signOut(); showLogin(); };
 
-// 起動時 + ログイン/ログアウト/OAuth戻りを一元処理(INITIAL_SESSION/SIGNED_IN/SIGNED_OUT)。
-sb.auth.onAuthStateChange((_event, session) => {
-  if (session) showApp(); else showLogin();
-});
+// ===== アプリからのログイン引き継ぎ(#t_at=...&t_rt=...) =====
+// まいにちJLPTアプリの「教師サイトを開く」は、今のログイン情報をURLの#断片に載せて開く。
+// それを使って setSession すれば、先生はログイン画面を一切見ずにそのまま入れる。
+async function consumeHandoff(){
+  const h = window.location.hash || '';
+  if (!h.includes('t_at=')) return false;
+  const p = new URLSearchParams(h.replace(/^#/, ''));
+  const access_token = p.get('t_at'), refresh_token = p.get('t_rt');
+  // URLからトークンを即消す(履歴/アドレスバーに残さない)。
+  history.replaceState(null, '', window.location.pathname + window.location.search);
+  if (!access_token || !refresh_token) return false;
+  const { error } = await sb.auth.setSession({ access_token, refresh_token });
+  return !error;
+}
+
+// 起動: まずアプリからの引き継ぎを処理 → セッション有無で画面を出す。
+// 以降のログイン/ログアウト/OAuth戻りは onAuthStateChange が一元処理。
+(async () => {
+  showSplash();
+  try{ await consumeHandoff(); }catch(_){}
+  const { data:{ session } } = await sb.auth.getSession();
+  if (session) await showApp(); else showLogin();
+  sb.auth.onAuthStateChange((_event, s) => { if (s) showApp(); else showLogin(); });
+})();
 </script>
 </body>
 </html>

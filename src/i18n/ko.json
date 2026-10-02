@@ -1137,7 +1137,6 @@
   "voice.newcomer.3": "당신의 페이스대로 괜찮아요. 조금씩 시작해 봐요.",
   "voice.newcomer.4": "여기서부터 한 걸음씩. 제가 곁에서 계속 응원할게요.",
   "voice.newcomer.5": "와주셔서 기뻐요. 자, 시작해 봐요.",
-  "sakura.reco_hint": "'오늘의 추천'을 학습하면 어려워하는 단어를 복습할 수 있어요.",
   "persona.trait.akarui": "밝음",
   "persona.trait.majime": "성실함",
   "persona.trait.ottori": "느긋함",
@@ -1470,5 +1469,16 @@
   "weekly.more": "조급해하지 마세요.\n이대로 조금씩 나아가 봐요.",
   "account.blocked_title": "다른 기기에서 사용 중",
   "account.blocked_msg": "현재 이 계정은 다른 기기에서 로그인되어 있습니다. 동시에 한 대의 기기만 사용할 수 있습니다. 해당 기기에서 로그아웃하거나 몇 분 후에 다시 시도해 주세요.",
-  "dl.cancel": "취소"
+  "dl.cancel": "취소",
+  "sakura.reco_hint": "「틀린 단어 챌린지」를 누르면 이전에 틀렸던 단어들을 한 번에 복습할 수 있어요.",
+  "teacher.portal_title": "교사용 사이트 열기",
+  "teacher.portal_sub": "{school} 학생 학습 상황 확인 및 등록",
+  "teacher.portal_need_login": "먼저 로그인해 주세요.",
+  "teacher.join_title": "학교 단체 코드",
+  "teacher.join_hint": "선생님께 받은 단체 코드를 입력하면 학습 상황이 선생님과 공유됩니다 (단체 라이선스).",
+  "teacher.join_placeholder": "코드 입력 (예: ABC123)",
+  "teacher.join_button": "참가하기",
+  "teacher.join_belongs": "소속: {school}",
+  "teacher.join_ok": "참가했습니다.",
+  "teacher.join_err": "참가할 수 없었습니다. 코드를 확인해 주세요."
 }

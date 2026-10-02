@@ -1137,7 +1137,6 @@
   "voice.newcomer.3": "Bạn cứ học theo tốc độ của mình. Chúng ta sẽ bắt đầu từng chút một nhé.",
   "voice.newcomer.4": "Từng bước một từ đây. Mình sẽ luôn ở bên và cổ vũ bạn.",
   "voice.newcomer.5": "Mình rất vui vì bạn đã đến. Nào, chúng ta hãy bắt đầu thôi.",
-  "sakura.reco_hint": "Khi học \"Đề xuất hôm nay\", bạn có thể ôn lại các từ vựng còn yếu.",
   "persona.trait.akarui": "Vui vẻ",
   "persona.trait.majime": "Nghiêm túc",
   "persona.trait.ottori": "Điềm đạm",
@@ -1470,5 +1469,16 @@
   "weekly.more": "Đừng lo lắng, cứ bình tĩnh.\nHãy tiếp tục từng chút một như thế này nhé.",
   "account.blocked_title": "Đang sử dụng trên thiết bị khác",
   "account.blocked_msg": "Tài khoản này hiện đang được đăng nhập trên một thiết bị khác. Bạn chỉ có thể sử dụng trên một thiết bị cùng lúc. Vui lòng đăng xuất khỏi thiết bị đó hoặc đợi vài phút rồi thử lại.",
-  "dl.cancel": "Hủy"
+  "dl.cancel": "Hủy",
+  "sakura.reco_hint": "Nhấn \"Thử thách từ vựng yếu\" để ôn lại những từ bạn đã sai trước đây.",
+  "teacher.portal_title": "Mở trang giáo viên",
+  "teacher.portal_sub": "Xem tình hình học tập/Đăng ký học sinh của {school}",
+  "teacher.portal_need_login": "Vui lòng đăng nhập trước.",
+  "teacher.join_title": "Mã tổ chức của trường",
+  "teacher.join_hint": "Nhập mã tổ chức do giáo viên cung cấp để chia sẻ tình hình học tập của bạn với giáo viên (giấy phép tổ chức).",
+  "teacher.join_placeholder": "Nhập mã (ví dụ: ABC123)",
+  "teacher.join_button": "Tham gia",
+  "teacher.join_belongs": "Trực thuộc: {school}",
+  "teacher.join_ok": "Đã tham gia.",
+  "teacher.join_err": "Không thể tham gia. Vui lòng kiểm tra mã."
 }

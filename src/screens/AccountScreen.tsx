@@ -22,6 +22,7 @@ import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
 import { getReferredQualifiedCount } from '../referral/referralClient';
 import { proStatus } from '../pro/entitlement';
+import { getTeacherHome, buildTeacherPortalUrl, getStudentHome, joinSchoolByCode, type TeacherHome, type StudentHome } from '../auth/teacherPortal';
 
 type Tab = 'signup' | 'login';
 
@@ -48,6 +49,42 @@ export default function AccountScreen() {
     return () => { alive = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
+  // 団体ライセンスの「先生」だけに、教師専用サイトへの入口を出す。先生でなければ null のまま非表示。
+  const [teacherHome, setTeacherHome] = useState<TeacherHome | null>(null);
+  useEffect(() => {
+    let alive = true;
+    if (!session) { setTeacherHome(null); return; }
+    getTeacherHome().then((h) => { if (alive) setTeacherHome(h); });
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
+  // 今のログイン情報を載せて教師サイトを開く(先生はログイン画面を見ずそのまま入れる)。
+  const openTeacherPortal = async () => {
+    const url = await buildTeacherPortalUrl();
+    if (!url) { Alert.alert(t('teacher.portal_title'), t('teacher.portal_need_login')); return; }
+    Linking.openURL(url).catch(() => { /* 開けなくてもアプリは落とさない */ });
+  };
+  // 生徒: 団体コードで先生に紐づく。所属済みなら学校名を表示。
+  const [studentHome, setStudentHome] = useState<StudentHome | null>(null);
+  const [groupCode, setGroupCode] = useState('');
+  const [joinMsg, setJoinMsg] = useState<string | null>(null);
+  const [joining, setJoining] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    if (!session) { setStudentHome(null); return; }
+    getStudentHome().then((h) => { if (alive) setStudentHome(h); });
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
+  const onJoinGroup = async () => {
+    const code = groupCode.trim().toUpperCase();
+    if (!code || joining) return;
+    setJoining(true); setJoinMsg(null);
+    const r = await joinSchoolByCode(code);
+    setJoining(false);
+    if (r.ok) { setStudentHome({ school_name: r.schoolName ?? '' }); setGroupCode(''); setJoinMsg(t('teacher.join_ok')); }
+    else { setJoinMsg(r.error ?? t('teacher.join_err')); }
+  };
   // 紹介コード入力(この画面でそのまま登録。別画面へ遷移しない)。
   const enteredCode = appState.referral?.enteredCode;
   const [refInput, setRefInput] = useState('');
@@ -358,6 +395,44 @@ export default function AccountScreen() {
               </View>
             )}
           </View>
+          {/* 団体ライセンス: 生徒は先生からもらった「団体コード」を入れると自動で紐づく */}
+          <View style={s.referralEnter}>
+            <Text style={s.referralTitle}>{t('teacher.join_title')}</Text>
+            <Text style={s.referralSub}>{t('teacher.join_hint')}</Text>
+            {studentHome ? (
+              <View style={s.referralEnteredBox}>
+                <Text style={s.referralEnteredEmoji}>🏫</Text>
+                <Text style={s.referralEntered}>{t('teacher.join_belongs', { school: studentHome.school_name })}</Text>
+              </View>
+            ) : (
+              <View style={s.referralInputRow}>
+                <TextInput
+                  style={s.referralInput}
+                  value={groupCode}
+                  onChangeText={setGroupCode}
+                  placeholder={t('teacher.join_placeholder')}
+                  placeholderTextColor={c.faint}
+                  autoCapitalize="characters"
+                  autoCorrect={false}
+                />
+                <Pressable style={[s.referralSaveBtn, (!groupCode.trim() || joining) && s.referralSaveOff]} onPress={() => { void onJoinGroup(); }} disabled={!groupCode.trim() || joining}>
+                  <Text style={s.referralSaveTxt}>{t('teacher.join_button')}</Text>
+                </Pressable>
+              </View>
+            )}
+            {joinMsg ? <Text style={[s.referralSub, { marginTop: spacing.sm }]}>{joinMsg}</Text> : null}
+          </View>
+          {/* 団体ライセンスの先生だけ: 教師専用サイトの入口(認証を引き継いでそのまま開く) */}
+          {teacherHome ? (
+            <Pressable style={s.referralRow} onPress={() => { void openTeacherPortal(); }}>
+              <View style={s.referralIco}><Ionicons name="school-outline" size={20} color={c.blue} /></View>
+              <View style={{ flex: 1 }}>
+                <Text style={s.referralTitle}>{t('teacher.portal_title')}</Text>
+                <Text style={s.referralSub}>{t('teacher.portal_sub', { school: teacherHome.school_name })}</Text>
+              </View>
+              <Ionicons name="open-outline" size={18} color={c.faint} />
+            </Pressable>
+          ) : null}
           {/* ログアウトは一番下へ押し下げる */}
           <View style={s.spacer} />
           <Pressable style={s.manageBtn} onPress={() => { void (async () => { await releaseDeviceSession(); await signOut(); })(); }}>

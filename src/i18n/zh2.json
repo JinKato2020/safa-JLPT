@@ -1137,7 +1137,6 @@
   "voice.newcomer.3": "按照你的節奏來就好。我們一點一點地開始吧。",
   "voice.newcomer.4": "從這裡一步一個腳印。我會在你身邊，一直為你加油哦。",
   "voice.newcomer.5": "你來了，真開心。那麼，開始吧。",
-  "sakura.reco_hint": "學習“今日推薦”，可以複習不擅長的單詞哦。",
   "persona.trait.akarui": "開朗",
   "persona.trait.majime": "認真",
   "persona.trait.ottori": "溫和",
@@ -1470,5 +1469,16 @@
   "weekly.more": "彆著急，沒關係。\n保持這個節奏，循序漸進吧。",
   "account.blocked_title": "正在其他裝置上使用",
   "account.blocked_msg": "此賬號目前正在其他裝置上登入。您只能同時在一臺裝置上使用。請在該裝置上退出登入，或等待幾分鐘後重試。",
-  "dl.cancel": "取消"
+  "dl.cancel": "取消",
+  "sakura.reco_hint": "點選“挑戰弱項單詞”，即可複習之前答錯的所有單詞。",
+  "teacher.portal_title": "開啟教師網站",
+  "teacher.portal_sub": "檢視 {school} 學生學習情況/註冊學生",
+  "teacher.portal_need_login": "請先登入。",
+  "teacher.join_title": "學校團體程式碼",
+  "teacher.join_hint": "輸入老師給的團體程式碼後，您的學習情況將分享給老師（團體授權）。",
+  "teacher.join_placeholder": "輸入程式碼（例：ABC123）",
+  "teacher.join_button": "加入",
+  "teacher.join_belongs": "所屬：{school}",
+  "teacher.join_ok": "已加入。",
+  "teacher.join_err": "未能加入。請檢查程式碼。"
 }

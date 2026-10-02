@@ -595,6 +595,22 @@ from m
 group by grouping sets ((mon, level), (mon))        -- (mon) = 全レベル合算
 order by mon, level;
 
+-- ⑬ 登録者の推移(日次)。auth.users.created_at を日ごとに集計＝「本当の登録数」の時系列。
+--    new_signups=その日の新規登録数 / cumulative=その日までの累計(抜けの日はダッシュボード側で0埋め)。
+--    タイムゾーンは他ビューと同じ UTC(created_at::date)。auth.users を読むため service_role 専用。
+create view public.v_admin_signups as
+with d as (
+  select created_at::date as day, count(*) as new_signups
+  from auth.users
+  group by 1
+)
+select
+  day,
+  new_signups,
+  sum(new_signups) over (order by day) as cumulative
+from d
+order by day;
+
 -- 旧「アカウント別 横並び」ビューは撤去(登録者は上の v_admin_devices に統合済み=メール＋合格率まで1表で見える)。
 drop view if exists public.v_admin_accounts;
 
@@ -611,7 +627,8 @@ grant select on
   public.v_admin_referrals,
   public.v_admin_friends,
   public.v_admin_mock_dist,
-  public.v_admin_mock_monthly
+  public.v_admin_mock_monthly,
+  public.v_admin_signups
 to service_role;
 
 -- ダッシュボードの「ごみ箱」ボタンは、これらの元表を service_role で REST DELETE する。

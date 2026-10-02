@@ -1137,7 +1137,6 @@
   "voice.newcomer.3": "Ikuti saja kecepatanmu. Mari kita mulai sedikit demi sedikit.",
   "voice.newcomer.4": "Satu langkah demi satu langkah dari sini. Aku akan selalu di sisimu, mendukungmu.",
   "voice.newcomer.5": "Aku senang kamu datang. Nah, mari kita mulai.",
-  "sakura.reco_hint": "Dengan mempelajari \"Rekomendasi Hari Ini\", kamu bisa mengulang kata-kata yang sulit.",
   "persona.trait.akarui": "Ceria",
   "persona.trait.majime": "Serius",
   "persona.trait.ottori": "Tenang",
@@ -1470,5 +1469,16 @@
   "weekly.more": "Tidak perlu terburu-buru.\nTeruslah maju sedikit demi sedikit dengan kecepatan ini.",
   "account.blocked_title": "Digunakan di perangkat lain",
   "account.blocked_msg": "Akun ini sedang masuk di perangkat lain. Hanya satu perangkat yang dapat digunakan pada satu waktu. Harap keluar dari perangkat tersebut atau tunggu beberapa menit lalu coba lagi.",
-  "dl.cancel": "Batal"
+  "dl.cancel": "Batal",
+  "sakura.reco_hint": "Tekan \"Coba Kata Sulit\" untuk meninjau semua kata yang salah sebelumnya.",
+  "teacher.portal_title": "Buka Situs Pengajar",
+  "teacher.portal_sub": "Lihat Progres Belajar & Daftarkan Siswa {school}",
+  "teacher.portal_need_login": "Silakan login terlebih dahulu.",
+  "teacher.join_title": "Kode Organisasi Sekolah",
+  "teacher.join_hint": "Masukkan kode organisasi yang diberikan oleh pengajar Anda untuk membagikan progres belajar Anda kepada pengajar (Lisensi Organisasi).",
+  "teacher.join_placeholder": "Masukkan kode (contoh: ABC123)",
+  "teacher.join_button": "Gabung",
+  "teacher.join_belongs": "Organisasi: {school}",
+  "teacher.join_ok": "Berhasil bergabung.",
+  "teacher.join_err": "Gagal bergabung. Mohon periksa kode Anda."
 }

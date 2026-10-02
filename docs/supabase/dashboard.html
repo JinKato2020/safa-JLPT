@@ -29,6 +29,9 @@
   button.ghost{ background:transparent; color:var(--accent); border:1px solid var(--accent); }
   section{ background:var(--card); border:1px solid var(--line); border-radius:12px;
     padding:14px 16px; margin:14px 0; }
+  /* 管理操作3パネル(開発モード/Pro/団体ライセンス)を横並びに。狭い画面では自動で折り返す。 */
+  .admin-row{ display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start; margin:14px 0; }
+  .admin-row > section{ flex:1 1 320px; min-width:0; margin:0; }
   section h2{ font-size:15px; margin:0 0 10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   section h2 .note{ font-size:12px; color:var(--sub); font-weight:400; }
   .cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
@@ -117,6 +120,12 @@
     <div class="cards" id="kpi"></div>
   </section>
 
+  <section>
+    <h2>登録者の推移（時系列） <span class="note">アカウント<b>登録数</b>（auth.users の作成日時）の推移。<b>累計</b>＝その日までの総登録者、<b>新規登録/日</b>＝その日に登録した人数。同期済み・匿名端末ではなく<b>アカウント実数（本当の登録数）</b>。横軸＝時間（タイムゾーンUTC・登録ゼロの日は0で補完・直近90日）</span></h2>
+    <div id="signupCharts" class="charts-wrap"></div>
+  </section>
+
+  <div class="admin-row">
   <section id="secGrantDev" style="border-left:4px solid #6a1b9a">
     <h2>🔓 開発モード付与（メール指定） <span class="note">メールアドレスでそのアカウントの<b>開発モード</b>（開発用セクション／大問の問題ID選択など）を<b>解禁／取消</b>します。<b>entitlements.dev_tools</b> を書き込み、対象が<b>ログイン中にアプリ起動/再起動</b>で反映。旧「<b>バージョン7回タップ</b>で自己解禁」は廃止＝解禁経路はこの管理付与だけ。<b>service_role キーが必要</b>。事前に <b>docs/supabase/admin_grant_dev.sql</b> を一度 SQL Editor で実行しておくこと。</span></h2>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
@@ -145,27 +154,26 @@
       <span id="grantSt" class="note" style="white-space:pre-wrap"></span>
     </div>
   </section>
+  </div>
 
   <section id="secSchool" style="border-left:4px solid #3a7bc8">
-    <h2>🏫 学校・先生/生徒 管理（団体ライセンス） <span class="note">日本語学校向け。メールで先生/生徒を学校に所属させると、先生は <b>教師専用サイト（teacher.html）</b> で<b>自校の生徒だけ</b>閲覧できる。<b>service_role キーが必要</b>。事前に <b>docs/supabase/school_teacher.sql</b> を SQL Editor で実行しておくこと。生徒は<b>ログイン＆学習</b>後に表示される。先生は teacher.html で<b>自分で新規登録</b>（メール＋パスワード）→ここで同じメールを「先生」として登録すればOK。</span></h2>
+    <h2>🏫 学校・先生 管理（団体ライセンス） <span class="note">日本語学校向け。ここでは<b>学校の作成</b>と<b>先生の登録/削除</b>、各学校の<b>先生数・生徒数（カウントのみ）</b>を扱う。<b>生徒の登録は先生自身が教師専用サイト（teacher.html）から行う</b>（1先生あたり最大20人）。先生は自分が登録した生徒だけを閲覧できる。<b>service_role キーが必要</b>。事前に <b>docs/supabase/school_teacher.sql</b> を SQL Editor で実行しておくこと。先生は<b>アプリ（またはteacher.html）で先にログイン</b>→ここで同じメールを「先生」として登録すればOK。</span></h2>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
       <input id="scName" type="text" placeholder="学校名（例：カトマンズ日本語学校）" style="min-width:260px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px" />
       <button id="btnScCreate" style="padding:6px 14px;border:1px solid #3a7bc8;border-radius:8px;background:#3a7bc8;color:#fff;font-weight:700;cursor:pointer">学校を作成</button>
-      <button id="btnScLoad" class="ghost">一覧を読み込む</button>
       <span id="scSt" class="note" style="white-space:pre-wrap"></span>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px">
       <span class="note">学校:</span>
       <select id="scSel" style="padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px"></select>
-      <input id="scmEmail" type="email" placeholder="メール（先生/生徒）" style="min-width:240px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px" />
-      <select id="scmRole" style="padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px">
-        <option value="student">生徒</option>
-        <option value="teacher">先生</option>
-      </select>
-      <button id="btnScmAdd" style="padding:6px 14px;border:1px solid #3a7bc8;border-radius:8px;background:#3a7bc8;color:#fff;font-weight:700;cursor:pointer">追加</button>
+      <input id="scmEmail" type="email" placeholder="先生のメールアドレス" style="min-width:240px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px" />
+      <button id="btnScmAdd" style="padding:6px 14px;border:1px solid #3a7bc8;border-radius:8px;background:#3a7bc8;color:#fff;font-weight:700;cursor:pointer">先生を追加</button>
       <span id="scmSt" class="note" style="white-space:pre-wrap"></span>
     </div>
     <div class="scroll"><table id="scmTbl"></table></div>
+    <h2 style="margin-top:18px">👥 学校ごとの人数 <span class="note">各学校の<b>先生数・生徒数</b>だけを集計（<b>v_school_counts</b>）。生徒は先生が教師サイトで登録した人数。</span>
+      <button id="btnScCounts" class="ghost" style="margin-left:8px">人数を更新</button></h2>
+    <div class="scroll"><table id="scCountTbl"></table></div>
   </section>
 
   <section>
@@ -340,12 +348,12 @@ function renderBugs(rows){
 // 重い分析ビュー(tel_event/tel_mock を集計)は既定タブでは取得せず、そのタブを開いた時だけ読む。
 // 各 section は「中に持つ既知ID」から実行時に振り分ける（HTMLの<section>を書き換えないため安全）。
 const TAB_OF = {
-  kpi:'core', secGrantDev:'core', secGrantPro:'core', tGeo:'core', tLevel:'core',
-  avatarUsage:'core', tStock:'core', tDevices:'core',
+  kpi:'core', secGrantDev:'core', secGrantPro:'core', tGeo:'core', tLevel:'analysis',
+  avatarUsage:'analysis', tStock:'analysis', tDevices:'core', signupCharts:'core', secSchool:'school',
   trendCharts:'analysis', tFacetAcc:'analysis', tScoreDist:'analysis', tMockDist:'analysis', tMockMonthly:'analysis',
   tReferrals:'relations', tFriends:'relations', tBugs:'relations',
 };
-const TABS = [['core','概要'],['analysis','学習分析（重い）'],['relations','関係・報告']];
+const TABS = [['core','概要'],['analysis','学習分析（重い）'],['relations','関係・報告'],['school','団体ライセンス']];
 const loadedTabs = new Set();
 let curTab = 'core';
 let _url = '', _key = '';
@@ -364,6 +372,8 @@ function classifySections(){
   }
   // 取りこぼした section は概要に入れる（想定外の追加セクション対策）。
   document.querySelectorAll('#app > section:not([data-tab])').forEach(s=> s.dataset.tab = 'core');
+  // 横並びラッパ(.admin-row)は1ブロックとしてタブ切替（中の管理3パネルは全て概要=core）。
+  document.querySelectorAll('#app > .admin-row').forEach(r=> r.dataset.tab = 'core');
 }
 
 function buildTabBar(){
@@ -380,14 +390,15 @@ function buildTabBar(){
 }
 
 function applyTabVisibility(name){
-  document.querySelectorAll('#app > section').forEach(s=>{ s.style.display = (s.dataset.tab===name) ? '' : 'none'; });
+  document.querySelectorAll('#app > section, #app > .admin-row').forEach(s=>{ s.style.display = (s.dataset.tab===name) ? '' : 'none'; });
   document.querySelectorAll('#tabbar .tabbtn').forEach(b=> b.classList.toggle('on', b.dataset.t===name));
 }
 
 async function showTab(name){
   curTab = name;
   applyTabVisibility(name);
-  if(loadedTabs.has(name)) return;
+  // 団体ライセンスは軽い(学校/先生/人数だけ)ので、開くたびに最新化する。他タブは一度読んだらキャッシュ。
+  if(name !== 'school' && loadedTabs.has(name)) return;
   loadedTabs.add(name);
   try{ await loadTab(name); }
   catch(e){ loadedTabs.delete(name); $('err').textContent = 'エラー: ' + e.message; }
@@ -396,7 +407,13 @@ async function showTab(name){
 function loadTab(name){
   if(name==='analysis') return loadAnalysis();
   if(name==='relations') return loadRelations();
+  if(name==='school') return loadSchoolTab();
   return loadCore();
+}
+// 団体ライセンスタブ: 学校・先生・人数を自動で読み込む(キー未入力なら何もしない)。
+async function loadSchoolTab(){
+  if(!$('url').value.trim() || !$('key').value.trim()) return;
+  try{ await schoolLoad(); }catch(_){}
 }
 
 // 概要タブ（常用・比較的軽い）＝既定で即読み込み。
@@ -408,6 +425,7 @@ async function loadCore(){
     level:   api(_url,_key,'v_admin_level'),
     stock:   api(_url,_key,'v_admin_stock'),
     devices: api(_url,_key,'v_admin_devices'),
+    signups: api(_url,_key,'v_admin_signups'),
   });
   // 主要ビューが落ちたら全体エラーに倒す（キー/権限ミスの早期検知）。定着率は任意。
   for(const k of ['summary','geo','level','stock','devices']){ if(!dataOk(R[k])) throw R[k].__err; }
@@ -416,6 +434,8 @@ async function loadCore(){
   renderLevel(R.level);
   renderStock(R.stock);
   devData = R.devices || []; renderDevices(); renderAvatarUsage();
+  if(dataOk(R.signups)) renderSignups(R.signups);
+  else $('signupCharts').innerHTML = `<div class="empty">登録者推移のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</div>`;
 }
 
 // 学習分析タブ（重い＝tel_event/tel_mock を集計）＝タブを開いた時だけ取得。
@@ -675,11 +695,12 @@ function multiLineChartSVG(label, series){
     return `<polyline points="${pl2}" fill="none" stroke="${sr.color}" stroke-width="1.6"></polyline>${dots}`;
   }).join('');
   const legend = series.map(sr=>`<span style="color:${sr.color};font-weight:800">●</span>${esc(sr.name)} <b>${sr.pts[n-1].v}</b>`).join('　');
+  // 「最大 N」はSVGの外(タイトル行)に出す。SVGは preserveAspectRatio="none" で横に引き伸ばすため、
+  // 中に置いた文字まで横伸びしてしまう。折れ線だけをSVGに残す。
   return `<div class="chart">
-    <div class="chart-t">${esc(label)}</div>
+    <div class="chart-t">${esc(label)} <span class="muted" style="font-weight:600">最大 ${mx}</span></div>
     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="spark" style="height:112px">
       ${lines}
-      <text x="${pl}" y="11" class="ct">最大 ${mx}</text>
     </svg>
     <div class="chart-x"><span>${esc(base[0].d)}</span><span>${esc(base[n-1].d)}</span></div>
     <div class="chart-x" style="justify-content:flex-start;gap:12px">${legend}</div>
@@ -702,6 +723,28 @@ function renderTrend(){
     mk('新規','new_users') +
     mk('学習回数','sessions') +
     mk('学習時間(分)','study_min');
+}
+
+// ── 登録者の推移(時系列)。v_admin_signups(auth.users の登録日時を日次集計)を累計線＋新規線に。
+//    ビューは登録があった日だけ返すので、ここで連続した日軸を作り抜けの日は0で埋める(直近90日)。──
+let signupData = [];
+function renderSignups(rows){
+  const el = $('signupCharts');
+  signupData = rows || [];
+  if(signupData.length===0){ el.innerHTML = `<div class="empty">まだ登録者がいません。アカウント登録が増えると推移が出ます。</div>`; return; }
+  const byDay = {}; signupData.forEach(r=>{ byDay[String(r.day)] = Number(r.new_signups||0); });
+  const days = Object.keys(byDay).sort((a,b)=> a.localeCompare(b));
+  const axis = [];
+  for(let t = new Date(days[0]+'T00:00:00Z'), end = new Date(days[days.length-1]+'T00:00:00Z'); t <= end; t.setUTCDate(t.getUTCDate()+1)){
+    axis.push(t.toISOString().slice(0,10));
+  }
+  let cum = 0; const cumMap = {};
+  axis.forEach(d=>{ cum += (byDay[d]||0); cumMap[d] = cum; });
+  const recent = axis.slice(-90);
+  const lab = d => String(d).slice(5);   // 'YYYY-MM-DD' → 'MM-DD'
+  const cumSeries = [{ name:'累計', color:'#1f3a5e', pts: recent.map(d=>({ d:lab(d), v: cumMap[d] })) }];
+  const newSeries = [{ name:'新規', color:'#2e86c1', pts: recent.map(d=>({ d:lab(d), v: byDay[d]||0 })) }];
+  el.innerHTML = multiLineChartSVG('登録者（累計）', cumSeries) + multiLineChartSVG('新規登録/日', newSeries);
 }
 
 // ── アバター使用割合。利用者一覧(devData・ノイズ除外済)の is_latest 行を avatar で集計し、画像＋人数＋割合バーで表示 ──
@@ -1137,34 +1180,51 @@ async function schoolLoad(){
   try{ const rows=await _sb('GET','schools?select=id,name&order=name');
     sel.innerHTML = (rows&&rows.length) ? rows.map(s=>`<option value="${s.id}">${esc(s.name)}（id=${s.id}）</option>`).join('') : '<option value="">(学校なし)</option>';
     await memberLoad();
+    await countsLoad();
   }catch(e){ $('scSt').textContent='読み込み失敗: '+e.message; }
 }
+// 先生の登録(role は teacher 固定。生徒は先生が教師サイトで登録する)。
 async function memberAdd(){
-  const st=$('scmSt'); const sid=$('scSel').value; const email=($('scmEmail').value||'').trim().toLowerCase(); const role=$('scmRole').value;
+  const st=$('scmSt'); const sid=$('scSel').value; const email=($('scmEmail').value||'').trim().toLowerCase();
   if(!sid){ st.textContent='先に学校を作成/選択してください。'; return; }
-  if(!email){ st.textContent='メールアドレスを入力してください。'; return; }
-  try{ await _sb('POST','school_members',{ school_id:Number(sid), email, role });
-    $('scmEmail').value=''; st.textContent=`✓ ${role==='teacher'?'先生':'生徒'} ${email} を登録`; await memberLoad(); }
+  if(!email){ st.textContent='先生のメールアドレスを入力してください。'; return; }
+  try{ await _sb('POST','school_members',{ school_id:Number(sid), email, role:'teacher' });
+    $('scmEmail').value=''; st.textContent=`✓ 先生 ${email} を登録`; await memberLoad(); await countsLoad(); }
   catch(e){ st.textContent='失敗: '+e.message+(/duplicate|conflict/i.test(e.message)?'（既に登録済み）':''); }
 }
 async function memberDel(email, role){
   const sid=$('scSel').value;
-  try{ await _sb('DELETE',`school_members?school_id=eq.${sid}&email=eq.${encodeURIComponent(email)}&role=eq.${role}`); await memberLoad(); }
+  try{ await _sb('DELETE',`school_members?school_id=eq.${sid}&email=eq.${encodeURIComponent(email)}&role=eq.${role}`); await memberLoad(); await countsLoad(); }
   catch(e){ $('scmSt').textContent='削除失敗: '+e.message; }
 }
+// 選択中の学校の「先生」一覧(生徒は扱わない)。各先生の担当生徒数も併記。
 async function memberLoad(){
   const sid=$('scSel').value; const el=$('scmTbl');
   if(!sid){ el.innerHTML=''; return; }
-  try{ const rows=await _sb('GET',`school_members?school_id=eq.${sid}&select=email,role&order=role,email`);
-    if(!rows||!rows.length){ el.innerHTML='<tr><td class="empty">まだ誰も登録されていません。</td></tr>'; return; }
-    el.innerHTML='<tr><th>役割</th><th>メール</th><th></th></tr>'+rows.map(r=>`<tr><td>${r.role==='teacher'?'👩‍🏫 先生':'生徒'}</td><td>${esc(r.email)}</td><td><button onclick="memberDel('${esc(r.email)}','${r.role}')" style="padding:3px 10px;border:1px solid var(--bad);border-radius:6px;background:transparent;color:var(--bad);cursor:pointer;font-size:12px">削除</button></td></tr>`).join('');
+  try{
+    const teachers=await _sb('GET',`school_members?school_id=eq.${sid}&role=eq.teacher&select=email&order=email`);
+    const students=await _sb('GET',`school_members?school_id=eq.${sid}&role=eq.student&select=teacher_email`);
+    const per={}; (students||[]).forEach(s=>{ const k=(s.teacher_email||'').toLowerCase(); per[k]=(per[k]||0)+1; });
+    if(!teachers||!teachers.length){ el.innerHTML='<tr><td class="empty">まだ先生が登録されていません。先生のメールを追加してください。</td></tr>'; return; }
+    el.innerHTML='<tr><th>先生</th><th>担当生徒数</th><th></th></tr>'+teachers.map(r=>`<tr><td>👩‍🏫 ${esc(r.email)}</td><td>${per[(r.email||'').toLowerCase()]||0} 人</td><td><button onclick="memberDel('${esc(r.email)}','teacher')" style="padding:3px 10px;border:1px solid var(--bad);border-radius:6px;background:transparent;color:var(--bad);cursor:pointer;font-size:12px">削除</button></td></tr>`).join('');
   }catch(e){ el.innerHTML=`<tr><td class="empty">読み込み失敗: ${esc(e.message)}</td></tr>`; }
+}
+// 学校ごとの先生数・生徒数(カウントのみ)。
+async function countsLoad(){
+  const el=$('scCountTbl');
+  try{ const rows=await _sb('GET','v_school_counts?select=id,name,teachers,students&order=name');
+    if(!rows||!rows.length){ el.innerHTML='<tr><td class="empty">学校がありません。</td></tr>'; return; }
+    const tT=rows.reduce((a,r)=>a+(r.teachers||0),0), tS=rows.reduce((a,r)=>a+(r.students||0),0);
+    el.innerHTML='<tr><th>学校</th><th>先生</th><th>生徒</th></tr>'
+      +rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.teachers||0} 人</td><td>${r.students||0} 人</td></tr>`).join('')
+      +`<tr style="font-weight:700;border-top:2px solid var(--line)"><td>合計（${rows.length}校）</td><td>${tT} 人</td><td>${tS} 人</td></tr>`;
+  }catch(e){ el.innerHTML=`<tr><td class="empty">読み込み失敗: ${esc(e.message)}（school_teacher.sql を実行して v_school_counts を作成）</td></tr>`; }
 }
 if($('btnScCreate')){
   $('btnScCreate').addEventListener('click', schoolCreate);
-  $('btnScLoad').addEventListener('click', schoolLoad);
   $('btnScmAdd').addEventListener('click', memberAdd);
-  $('scSel').addEventListener('change', memberLoad);
+  $('btnScCounts').addEventListener('click', countsLoad);
+  $('scSel').addEventListener('change', ()=>{ memberLoad(); });
 }
 
 // メール指定で pro_until を書き込む(恒久/期限/失効)。admin_grant_pro(SQL関数)を service_role で呼ぶ。

@@ -88,8 +88,8 @@ _audit_work/
 /アプリ価格.xlsx
 *.xlsx
 
-# 団体ライセンス商談用の提案PDF(業務書類・公開repoに入れない。言語版も含む)
-/まいにちJLPT_団体ライセンス提案_*.pdf
+# 団体ライセンス商談/プレゼン用PDF(業務書類・公開repoに入れない。提案・デモ・各言語版すべて)
+/まいにちJLPT_*.pdf
 
 # ポスター配信パック(GitHub Releaseで配布・repoには入れない)
 tools/poster/_packs/

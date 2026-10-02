@@ -1,14 +1,19 @@
 -- ============================================================================
--- 教師専用サイト用: 学校グループ + 教師ビュー(案B 最小版)
---   目的  : 日本語学校の先生が「自校の生徒だけ」の学習状況/成長を閲覧できる。
---   方針  : (パイロット) 管理者が SQL Editor でメールを指定し、先生・生徒を学校に所属させる。
---           先生はそのメールでログインすると、自校の生徒だけが見える。
---   安全性: 生徒の学習データは v_admin_devices(service_roleのみ) に入っている。これを
---           直接公開せず、auth.email() で「ログイン中の先生の学校」に絞った専用ビュー
---           v_teacher_students 経由でのみ authenticated に見せる。
---           生徒や無関係なログイン者が開いても、教師でなければ 0 件しか返らない。
+-- 教師専用サイト用: 学校グループ + 教師ビュー + 教師セルフ運用RPC(案C)
+--   目的  : 日本語学校の先生が「自分が登録した生徒だけ」の学習状況/成長を閲覧できる。
+--   運用方針(案C):
+--     ・管理ダッシュボード(dashboard.html / service_role)は【学校の作成】と【先生の登録/削除】、
+--       そして【学校ごとの先生数・生徒数(カウントのみ)】を扱う。生徒個々は扱わない。
+--     ・生徒の登録/削除は【先生自身】が teacher.html から行う(1先生あたり最大20人)。
+--       先生は認証(ログイン中のメール=auth.email())で本人確認され、専用RPC経由でのみ操作できる。
+--   安全性:
+--     ・生徒の学習データは v_admin_devices(service_roleのみ)に入っている。これを直接公開せず、
+--       auth.email() で「ログイン中の先生が登録した生徒」に絞った専用ビュー v_teacher_students 経由で
+--       のみ authenticated に見せる。無関係なログイン者が開いても 0 件。
+--     ・school_members への書き込みは RLS で塞ぎ、SECURITY DEFINER の teacher_* 関数(20人上限を内蔵)
+--       だけが代理で書く。クライアントは学校IDや他人の生徒を自由に操作できない。
 --
---   ⚠️ 依存注意: このビューは public.v_admin_devices を参照する。dashboard_views.sql は
+--   ⚠️ 依存注意: v_teacher_students は public.v_admin_devices を参照する。dashboard_views.sql は
 --      先頭で `drop view v_admin_devices cascade` を行うため、dashboard_views.sql を
 --      再実行したら、この school_teacher.sql も必ず再実行すること(cascadeで一緒に消える)。
 -- ============================================================================
@@ -20,17 +25,33 @@ create table if not exists public.schools (
   created_at timestamptz not null default now()
 );
 
--- 2) 所属(メールで指定) role: 'teacher'(閲覧できる) / 'student'(見られる対象) --------
+-- 2) 所属(メールで指定)
+--    role: 'teacher'(閲覧できる人) / 'student'(見られる対象)
+--    teacher_email: その生徒を登録した先生のメール(role='student' のときだけ入る。先生行は NULL)
+--                   → 「1先生=最大20人」「先生は自分が登録した生徒だけ見える」を成立させる鍵。
 create table if not exists public.school_members (
-  school_id  bigint not null references public.schools(id) on delete cascade,
-  email      text   not null,
-  role       text   not null check (role in ('teacher','student')),
-  created_at timestamptz not null default now(),
+  school_id     bigint not null references public.schools(id) on delete cascade,
+  email         text   not null,
+  role          text   not null check (role in ('teacher','student')),
+  teacher_email text,                                   -- 生徒を登録した先生(生徒行のみ)
+  teacher_code  text,                                   -- 団体コード(先生行のみ)
+  created_at    timestamptz not null default now(),
   primary key (school_id, email, role)
 );
-create index if not exists ix_school_members_email on public.school_members (lower(email));
+-- teacher_code: 先生ごとの「団体コード」(先生行だけ)。生徒はアプリでこのコードを入力すると
+--               その先生の生徒として自動で紐づく(友だち紹介コードと同じ発想)。
+--   → 登録方法は2通り: ①先生がメールで個別追加(teacher_add_student) ②生徒がコードで自己参加(join_school_by_code)。
+-- 既存DBへの追加(列が無ければ足す。既存の案B最小版からの移行用)。
+alter table public.school_members add column if not exists teacher_email text;
+alter table public.school_members add column if not exists teacher_code  text;
+create index if not exists ix_school_members_email         on public.school_members (lower(email));
+create index if not exists ix_school_members_teacher_email on public.school_members (lower(teacher_email));
+-- 団体コードは全体で一意(先生行のみ)。大文字小文字を無視して重複禁止。
+create unique index if not exists ux_school_members_teacher_code
+  on public.school_members (lower(teacher_code)) where teacher_code is not null;
 
--- 直接APIから触れないように(管理はSQL Editor/管理ダッシュボード=service_roleのみ)。
+-- 直接APIから触れないように(管理はSQL Editor/管理ダッシュボード=service_role、
+-- 生徒登録は下の teacher_* 関数=SECURITY DEFINER のみ)。
 -- ポリシー無し=anon/authenticatedは直接select/insert不可。所有者/service_roleはRLSを迂回。
 alter table public.schools        enable row level security;
 alter table public.school_members enable row level security;
@@ -40,16 +61,19 @@ alter table public.school_members enable row level security;
 grant select, insert, update, delete on public.schools        to service_role;
 grant select, insert, update, delete on public.school_members to service_role;
 
--- 3) 教師専用ビュー -----------------------------------------------------------
---    security_invoker=false(所有者権限)で v_admin_devices を読み、
---    WHERE を auth.email()(JWT由来=クライアント改ざん不可)で自校の生徒に限定。
+-- 3) 教師専用ビュー(自分が登録した生徒だけ) -----------------------------------
+--    security_invoker=false(所有者権限)で v_admin_devices を読み、WHERE を auth.email()
+--    (JWT由来=クライアント改ざん不可)で「ログイン中の先生が登録した生徒」に限定。
+--    LEFT JOIN なので、まだログイン/学習していない生徒も「登録済み・データ—」で表示される。
 drop view if exists public.v_teacher_students cascade;
 create view public.v_teacher_students
 with (security_invoker = false) as
 select
   sm.school_id,
   sc.name                                    as school_name,
-  d.email,
+  sm.email,                                  -- 先生が登録したメール(名簿の正本)
+  sm.teacher_email,                          -- 登録した先生
+  (d.email is not null)                      as has_data,   -- ログイン&学習済みか
   d.nickname,
   d.level,
   d.pred_score,                              -- 予想得点
@@ -66,42 +90,292 @@ select
   d.first_day,                               -- 初回日
   d.last_day,                                -- 最終アクセス
   d.days                                     -- 利用日数
-from public.v_admin_devices d
-join public.school_members sm
-     on sm.role = 'student'
-    and lower(sm.email) = lower(d.email)
+from public.school_members sm
 join public.schools sc on sc.id = sm.school_id
-where d.is_latest                            -- 1生徒=今使っているレベルの1行
-  and d.account_id is not null               -- ログイン済み(メールあり)のみ
-  and sm.school_id in (
-    select school_id from public.school_members
-    where role = 'teacher'
-      and lower(email) = lower(coalesce(auth.email(), ''))
-  );
+left join public.v_admin_devices d
+       on lower(d.email) = lower(sm.email)
+      and d.is_latest                        -- 1生徒=今使っているレベルの1行
+      and d.account_id is not null           -- ログイン済み(メールあり)のみ
+where sm.role = 'student'
+  and lower(coalesce(sm.teacher_email, '')) = lower(coalesce(auth.email(), ''));
 
 revoke all on public.v_teacher_students from anon;
 grant select on public.v_teacher_students to authenticated;
 
+-- 4) 教師セルフ運用RPC(先生が teacher.html から呼ぶ) --------------------------
+--    すべて SECURITY DEFINER(所有者権限)。本人確認は auth.email()(JWT由来)で行い、
+--    クライアントが学校IDや他人の生徒を指定しても効かない(自分の所属/自分の生徒に固定)。
+
+-- 4-1) 自分(先生)のホーム情報: 学校名・登録済み生徒数・上限。先生でなければ null。
+create or replace function public.teacher_home()
+returns json
+language plpgsql
+security definer
+set search_path = public
+stable
+as $$
+declare
+  v_me     text := lower(coalesce(auth.email(), ''));
+  v_school bigint;
+  v_name   text;
+  v_code   text;
+  v_cnt    int;
+begin
+  if v_me = '' then return null; end if;
+  select sm.school_id, sc.name, sm.teacher_code into v_school, v_name, v_code
+  from public.school_members sm
+  join public.schools sc on sc.id = sm.school_id
+  where sm.role = 'teacher' and lower(sm.email) = v_me
+  order by sm.school_id
+  limit 1;
+  if v_school is null then return null; end if;
+  select count(*) into v_cnt
+  from public.school_members
+  where role = 'student' and lower(teacher_email) = v_me;
+  return json_build_object(
+    'school_id',     v_school,
+    'school_name',   v_name,
+    'teacher_code',  v_code,            -- 団体コード(未発行なら null)
+    'student_count', v_cnt,
+    'student_cap',   20
+  );
+end;
+$$;
+
+-- 4-1b) 団体コードを取得(無ければ発行)。p_regenerate=true で作り直す。
+--       生徒はこのコードをアプリで入力して自分で紐づく(join_school_by_code)。
+create or replace function public.teacher_code(p_regenerate boolean default false)
+returns text
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_me     text := lower(coalesce(auth.email(), ''));
+  v_school bigint;
+  v_cur    text;
+  v_new    text;
+  v_try    int := 0;
+begin
+  if v_me = '' then raise exception '先生としてログインしていません。'; end if;
+  select school_id, teacher_code into v_school, v_cur
+  from public.school_members
+  where role = 'teacher' and lower(email) = v_me
+  order by school_id limit 1;
+  if not found then raise exception 'この学校の先生として登録されていません。'; end if;
+  if v_cur is not null and not p_regenerate then return v_cur; end if;
+
+  -- 紛らわしい文字(0/O/1/I/L)を避けた6桁コードを一意になるまで生成。1つの先生行(1校)に付与。
+  loop
+    v_try := v_try + 1;
+    select string_agg(substr('ABCDEFGHJKMNPQRSTUVWXYZ23456789',
+                             (floor(random()*31)::int)+1, 1), '')
+      into v_new
+      from generate_series(1, 6);
+    begin
+      update public.school_members
+        set teacher_code = v_new
+        where role = 'teacher' and lower(email) = v_me and school_id = v_school;
+      return v_new;
+    exception when unique_violation then
+      if v_try > 20 then raise exception 'コードの発行に失敗しました。もう一度お試しください。'; end if;
+    end;
+  end loop;
+end;
+$$;
+
+-- 4-2) 生徒を1人登録(最大20人)。既に自分の生徒なら冪等に成功を返す。
+create or replace function public.teacher_add_student(p_email text)
+returns json
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_me     text := lower(coalesce(auth.email(), ''));
+  v_school bigint;
+  v_email  text := lower(trim(coalesce(p_email, '')));
+  v_cnt    int;
+begin
+  if v_me = '' then raise exception '先生としてログインしていません。'; end if;
+  select school_id into v_school
+  from public.school_members
+  where role = 'teacher' and lower(email) = v_me
+  order by school_id limit 1;
+  if v_school is null then raise exception 'この学校の先生として登録されていません。管理者にご確認ください。'; end if;
+  if v_email = '' or position('@' in v_email) = 0 then raise exception 'メールアドレスの形式が正しくありません。'; end if;
+
+  -- 既に自分の生徒 → 冪等成功(上限に二重計上しない)。
+  if exists (
+    select 1 from public.school_members
+    where role = 'student' and school_id = v_school
+      and lower(email) = v_email and lower(coalesce(teacher_email,'')) = v_me
+  ) then
+    select count(*) into v_cnt from public.school_members
+    where role = 'student' and lower(teacher_email) = v_me;
+    return json_build_object('ok', true, 'duplicate', true, 'count', v_cnt, 'cap', 20);
+  end if;
+
+  select count(*) into v_cnt from public.school_members
+  where role = 'student' and lower(teacher_email) = v_me;
+  if v_cnt >= 20 then raise exception '登録できる生徒は20人までです(現在20人)。'; end if;
+
+  insert into public.school_members (school_id, email, role, teacher_email)
+  values (v_school, v_email, 'student', v_me)
+  on conflict (school_id, email, role)
+    do update set teacher_email = excluded.teacher_email;   -- 他の先生の生徒だった場合は引き継ぐ
+
+  select count(*) into v_cnt from public.school_members
+  where role = 'student' and lower(teacher_email) = v_me;
+  return json_build_object('ok', true, 'count', v_cnt, 'cap', 20);
+end;
+$$;
+
+-- 4-3) 自分の生徒を1人削除。
+create or replace function public.teacher_remove_student(p_email text)
+returns json
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_me    text := lower(coalesce(auth.email(), ''));
+  v_email text := lower(trim(coalesce(p_email, '')));
+  v_cnt   int;
+begin
+  if v_me = '' then raise exception '先生としてログインしていません。'; end if;
+  delete from public.school_members
+  where role = 'student' and lower(email) = v_email and lower(coalesce(teacher_email,'')) = v_me;
+  select count(*) into v_cnt from public.school_members
+  where role = 'student' and lower(teacher_email) = v_me;
+  return json_build_object('ok', true, 'count', v_cnt, 'cap', 20);
+end;
+$$;
+
+-- 4-4) 生徒が「団体コード」で自分の先生に紐づく(アプリのコード入力欄から呼ぶ)。
+--      本人=auth.email() を生徒として登録。先生側の20人上限をここでも守る。
+create or replace function public.join_school_by_code(p_code text)
+returns json
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_me       text := lower(coalesce(auth.email(), ''));
+  v_code     text := upper(trim(coalesce(p_code, '')));
+  v_school   bigint;
+  v_teacher  text;
+  v_name     text;
+  v_cnt      int;
+begin
+  if v_me = '' then raise exception 'ログインしてから入力してください。'; end if;
+  if v_code = '' then raise exception '団体コードを入力してください。'; end if;
+
+  -- コードから先生(と学校)を特定。
+  select sm.school_id, lower(sm.email), sc.name
+    into v_school, v_teacher, v_name
+  from public.school_members sm
+  join public.schools sc on sc.id = sm.school_id
+  where sm.role = 'teacher' and upper(sm.teacher_code) = v_code
+  limit 1;
+  if v_school is null then raise exception '団体コードが見つかりません。先生に確認してください。'; end if;
+
+  -- 先生自身がコードを入れた場合は何もしない。
+  if v_teacher = v_me then
+    return json_build_object('ok', true, 'school_name', v_name, 'self', true);
+  end if;
+
+  -- 既にこの先生の生徒 → 冪等成功。
+  if exists (
+    select 1 from public.school_members
+    where role = 'student' and school_id = v_school
+      and lower(email) = v_me and lower(coalesce(teacher_email,'')) = v_teacher
+  ) then
+    return json_build_object('ok', true, 'school_name', v_name, 'duplicate', true);
+  end if;
+
+  -- 先生の20人上限。
+  select count(*) into v_cnt from public.school_members
+  where role = 'student' and lower(teacher_email) = v_teacher;
+  if v_cnt >= 20 then raise exception 'この先生の登録枠(20人)がいっぱいです。先生に確認してください。'; end if;
+
+  insert into public.school_members (school_id, email, role, teacher_email)
+  values (v_school, v_me, 'student', v_teacher)
+  on conflict (school_id, email, role)
+    do update set teacher_email = excluded.teacher_email;
+  return json_build_object('ok', true, 'school_name', v_name);
+end;
+$$;
+
+-- 4-5) 生徒の現在の所属(学校名)。アプリで「所属: 〇〇」を出すため。所属なしは null。
+create or replace function public.student_home()
+returns json
+language plpgsql
+security definer
+set search_path = public
+stable
+as $$
+declare
+  v_me   text := lower(coalesce(auth.email(), ''));
+  v_name text;
+begin
+  if v_me = '' then return null; end if;
+  select sc.name into v_name
+  from public.school_members sm
+  join public.schools sc on sc.id = sm.school_id
+  where sm.role = 'student' and lower(sm.email) = v_me
+  order by sm.school_id limit 1;
+  if v_name is null then return null; end if;
+  return json_build_object('school_name', v_name);
+end;
+$$;
+
+revoke all on function public.teacher_home()                  from anon;
+revoke all on function public.teacher_code(boolean)           from anon;
+revoke all on function public.teacher_add_student(text)       from anon;
+revoke all on function public.teacher_remove_student(text)    from anon;
+revoke all on function public.join_school_by_code(text)       from anon;
+revoke all on function public.student_home()                  from anon;
+grant execute on function public.teacher_home()               to authenticated;
+grant execute on function public.teacher_code(boolean)        to authenticated;
+grant execute on function public.teacher_add_student(text)    to authenticated;
+grant execute on function public.teacher_remove_student(text) to authenticated;
+grant execute on function public.join_school_by_code(text)    to authenticated;
+grant execute on function public.student_home()               to authenticated;
+
+-- 5) 管理ダッシュボード用: 学校ごとの先生数・生徒数(カウントのみ) --------------
+create or replace view public.v_school_counts as
+select
+  sc.id,
+  sc.name,
+  count(*) filter (where sm.role = 'teacher') as teachers,
+  count(*) filter (where sm.role = 'student') as students
+from public.schools sc
+left join public.school_members sm on sm.school_id = sc.id
+group by sc.id, sc.name
+order by sc.name;
+grant select on public.v_school_counts to service_role;
+
 -- ============================================================================
--- 【管理者の使い方】SQL Editor(service_role)で実行。メールは実物に置換。
---   前提: 生徒・先生は事前にアカウント登録(ログイン)していること。
---         先生アカウントは Supabase → Authentication → Add user で作って auto-confirm しても良い。
+-- 【管理者の使い方】SQL Editor(service_role)で学校と先生を用意する(生徒は先生がサイトで登録)。
+--   前提: 先生は事前にアプリ(またはteacher.html)でアカウント登録(ログイン)していること。
 --
---   -- 学校を作る(返り値 id を控える)
+--   -- 学校を作る(返り値 id を控える)。※ダッシュボードの「学校を作成」でも可。
 --   insert into public.schools (name) values ('カトマンズ日本語学校') returning id;
 --
---   -- 先生・生徒を登録(上で得た id を使う。例では 1)
+--   -- 先生を登録(上で得た id を使う。例では 1)。※ダッシュボードの「先生を追加」でも可。
 --   insert into public.school_members (school_id, email, role) values
---     (1, 'teacher@example.com',  'teacher'),
---     (1, 'student1@example.com', 'student'),
---     (1, 'student2@example.com', 'student');
+--     (1, 'teacher@example.com', 'teacher');
 --
---   -- 所属の確認
---   select sc.name, sm.role, sm.email
---   from public.school_members sm join public.schools sc on sc.id = sm.school_id
---   order by sc.name, sm.role, sm.email;
+--   -- 学校ごとの先生数・生徒数
+--   select * from public.v_school_counts;
 --
---   -- 生徒を外す / 学校ごと消す
---   delete from public.school_members where school_id=1 and email='student2@example.com';
---   delete from public.schools where id=1;   -- 所属も連動削除(on delete cascade)
+--   -- 先生を外す / 学校ごと消す(所属・生徒も連動削除)
+--   delete from public.school_members where school_id=1 and email='teacher@example.com' and role='teacher';
+--   delete from public.schools where id=1;
+--
+--   -- (移行)案B最小版でダッシュボードから直接入れた旧・生徒行は teacher_email=NULL のため
+--   --   どの先生にも表示されない。必要なら担当の先生へ割り当てる:
+--   --   update public.school_members set teacher_email='teacher@example.com'
+--   --     where school_id=1 and role='student' and teacher_email is null;
 -- ============================================================================

@@ -1,22 +1,47 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 5 回・13 ターン
-- 往復 66 回
+- 往復 214 回
 
 ## 何が変わったか
 - memory/handoff.md
-- src/pro/purchases.ts
 - memory/session-summary-LATEST.md
-- src/i18n/zh2.json
-- content/_manifest.json
+- docs/supabase/dashboard.html
+- docs/supabase/school_teacher.sql
+- src/i18n/ne.json
 
 ## 次の一手
+★現在地(2026-10-02 教師ポータル アップグレード)＝**⚠️未commit/SQL未apply/未build・ビルドは明示指示待ち**
+- **団体ライセンスの役割分担を刷新(案C)**。①管理ダッシュボード=学校作成＋**先生だけ**登録/削除＋**学校ごとの人数(先生/生徒)カウントのみ**。②生徒登録は**コード＋メールの両方**(ユーザー指示): (a)**団体コード方式**=先生ごとの6桁コードを教師サイトで表示/作り直し→生徒がアプリの「学校の団体コード」に入力して自己紐づけ(`join_school_by_code`・20人上限サーバー判定) (b)**メール方式**=先生が教師サイトで生徒メールを個別追加(`teacher_add_student`)。③各先生は**自分が登録した生徒だけ**閲覧(未ログインの子も名簿表示)。④**アプリ→教師サイトのログイン引き継ぎ**=アカウント画面に先生だけ出る「教師サイトを開く」→今のセッションを`#t_at/#t_rt`断片で`https://jlpt.safa-lang.com/teacher.html`へ渡し`setSession`→ログイン画面を見ずに入る(URLから即消す)。「2重認証しない」=この引き継ぎで解決。メール確認(Supabase設定)は触らない方針に決定。
+- 変更ファイル=`docs/supabase/school_teacher.sql`(全面改訂: `teacher_email`/`teacher_code`列追加・v_teacher_students を自分の生徒LEFT JOINに作替・RPC `teacher_home`/`teacher_code`/`teacher_add_student`(20人上限)/`teacher_remove_student`/`join_school_by_code`/`student_home`・`v_school_counts`)／`docs/supabase/teacher.html`(引き継ぎ＋コード表示＋生徒メール追加UI)／`docs/supabase/dashboard.html`(先生のみ＋人数表)／`src/auth/teacherPortal.ts`(新: portal/join/student_home)／`src/screens/AccountScreen.tsx`(先生=教師サイト入口／生徒=団体コード入力)／i18n ja/en/ne に`teacher.portal_*`+`teacher.join_*`。
+- **次の一手(手動・勝手にやらない)**：(1)Supabase SQL Editorで`docs/supabase/school_teacher.sql`を実行(⚠️dashboard_views.sql再実行時はcascade消滅で要再実行)。(2)教師サイト/ダッシュボードはデプロイ(push→deploy-pages)で反映。(3)アプリの入口はUI文字列=要ビルド(OTA不可・build.ps1が`trans_i18n --fill`で他8言語を自動翻訳)。(4)「メール確認を無くす」はSupabase Auth設定=アプリ全体に影響→やるか要相談。**検証=tsc変更ファイルOK。型チェック以外は未実行(parity.testは--fill前なので意図的に未実行)。**
+★現在地(2026-10-02 ダッシュボード改修＋広告相談＋桜セリフ修正)＝**⚠️未commit/ビュー未apply/未build**
+- **ダッシュボード `docs/supabase/dashboard.html`**：①**登録者の推移(横軸=時間・累計+新規/日)を概要タブ上部に新設**(新ビュー`v_admin_signups`=auth.users.created_atの日次集計＝本当の登録数・`dashboard_views.sql`に定義+grant追加済／描画`renderSignups`は歯抜け日を0埋めし直近90日)。②**管理3パネル(開発モード/Pro/団体ライセンス)を`.admin-row`で横並び**(狭画面は折返し・団体は`flex:1 1 460px`)。`classifySections`/`showTab`を`#app > .admin-row`対応に修正(でないと横並び3パネルがタブ切替対象から外れ全タブ出っぱなしになる=修正済)。③**アバター使用率を学習分析タブへ移動**(`TAB_OF` avatarUsage:'analysis')。④**グラフ「最大N」の横伸び修正**(SVGは`preserveAspectRatio=none`で折れ線を横伸ばし=中の文字も伸びていた→文字をタイトル行のHTMLへ出した。成長推移グラフ共通で改善)。**Chromiumで全タブ表示切替/JSエラー無し/グラフ描画を実機確認済。**
+  - **次の一手=本番反映するなら (1)`node tools/apply_views.mjs`(PAT=`C:\API 秘密の鍵\JLPT\.env.local`自動読込) か SQL Editorで`dashboard_views.sql`再実行で`v_admin_signups`作成 (2)`dashboard.html`を開き直す(ビルド不要)。勝手にpush/applyしない。**
+- **桜セリフ`sakura.reco_hint`を全11言語更新(未commit/未build)**。旧「『今日のオススメ』を学習すると苦手な単語の復習」は失効＝そのボタンは今「苦手な単語に挑戦する」(`cards.reco`・HomeScreen)、別物の「今日のオススメ」は`study.reco`=試験タブの“苦手な大問mock”で単語復習ではない。新文言=「『苦手な単語に挑戦する』を押すと前にまちがえた言葉をまとめて復習できるよ」。ja/en/ne手書き+他8言語は該当キー削除→`python tools\trans_i18n.py --fill`(Gemini2.5-flash・実費≒¥0・zh2はzhからOpenCC)。11言語キー存在確認済。**UI文字列＝要ビルド(OTA不可)。**
+- **団体ライセンス提案PDF 英語/ネパール語を生成**(プロジェクト直下・日本語版と同体裁=紺帯+表+1ページ・Devanagari整形OK)。生成器=`scratchpad/gen_proposal.py`(Playwright+Chromium・無料)。
+- **Apple検索広告=2026-10-01開始・1日目**(日本CPA¥396/米国¥580・予算使い切り・install計5=サンプル極小)。数日様子見・初日で入札や予算を触らない。CPTは競争で決まり既に上限未満＝下げると表示/installが減る。
+- **Supabase管理ダッシュボードの鍵＝legacy service_role JWT(`eyJ…`)を使う**。新`sb_secret_`はブラウザ使用禁止で401("Forbidden use of secret API key in browser")。Settings→API Keys→「Legacy anon, service_role API keys」でReveal。**「Disable legacy keys」は押さない。**
+★現在地(2026-09-30 管理ダッシュボード改修)＝**⚠️未commit(ディスク保存済・push未)**
+- **✅利用者一覧を「1アカウント1行=今のレベル(is_latest)だけ表示」に変更**(過去レベル行は非表示)。`docs/supabase/dashboard.html`。共通関数 displayedRows()/accountTotal() を追加し renderDevices・updateSelBar・全選択で共用。「全X人」はアカウント数で計上。全選択/削除もアカウント単位=選択削除はそのアカウントの全レベル行へ拡張して削除(openDeleteModal)。集計(レベル別/相対位置/在庫)はdevData全行のまま=無影響。
+- **✅初回日時・最終日時を「利用者」と「予想得点」の間へ移動**(新グループ'日時')。1行=最新レベル表示で日時がズレる問題を、displayedRowsで初回=全レベル行の最小first_ts/最終=最大last_tsに集計して補正。
+- 検証=node構文チェックOK＋畳み込み/削除拡張/日時集計をユニット実証済。**次の一手=ユーザーが本番反映を望めばpush(勝手にpushしない)。**
+★現在地(2026-09-30 文脈規定レビュー セッション)＝
+- **✅文脈規定 通常N5/N4/N3 レビュー完了・N5解放を配信**。機械スキャン(全項目)＝誤答重複0/正解の誤答混入0/空欄0/本文露出0で全クリーン(選択肢3〜5個はdaimon.tsがランダム3抽出→4択の仕様通り)。目視(N5未検証17全件+N3未検証15無作為)＝全て一意・誤答競合なしの良問。uniqRiskは通常問題では未設定(自己申告は模試用)。
+- **重要=文脈規定はverified=trueだけ配信するゲート([daimon.ts] CONTEXT_BANK.filter verified===true)。配信状況: N5 687→704 / N4 655全 / N3 787のみ(未検証1318=63%が非配信)。**
+- **✅N5の未検証17問=目視良問→verified化して配信解放。commit 336be804(content OTA)・push済(run 36704210568)。**
+- **✅N3の未検証1318問=ユーザー判断で全verified化して配信解放。commit 11bdec89(content OTA)・_manifest再生成・検証20/20・push済(run 36713458595)。⚠️機械スキャンはクリーンだが目視は無作為15問のみ=残1303は未監査のまま解放(=verified=trueは“監査通過”ではなく“ユーザー承認で配信”の意)。N3文脈規定は現在2105問全て配信対象。**
+- **注意=N3ファイルはCRLF改行(N5はLF)。全体再ダンプ時は\n→\r\n変換しないと全面diffになる(2026-09-30に踏んだ)。**
+- **次の一手(任意)**：解放した1303問の事後品質チェックをしたい場合はサブエージェント(要トークン見積り・A10で無断起動しない)。今は完了。
+★現在地(2026-09-30 漢字読み/表記の誤り一掃セッション)＝
+- **✅漢字読み(通常N5/N4/N3)の誤読を一掃=配信済**。answer×sentenceFuri の機械照合で抽出→ユーザー裁定で反映。削除4(対1050/何0095/否0578/十0089)・正解修正16・綴りミス文修正6・正解変更に伴う誤答を正解読み類似のかなへ再作成12・ふりがな同期12。**配信=commit 2ebd2a73(content OTA)+da2c28ea(ふりがなsrc=要ビルドで届く)+97cac7b9(表記3件)。全push済・検証20/20。** 照合スクリプトはscratchpad(正本化せず)。
+- **✅表記(orthography)レビュー=構造欠陥3件のみ修正・配信済**(いけ/つぎ=誤答を単漢字化・よあけ=誤答にけ補完 commit 97cac7b9)。**重要知見=表記の一意性は機械化不可**：読み一致の誤答は狙い通りの良問(互≠5・腹≠服)。真の欠陥「誤答が“その語”の正しい別表記で文脈でも成立」は意味判断=LLMレビューが要る。
+- **次の一手(明示指示待ち・要トークン見積り)**：(1)**表記の一意性=LLM意味レビュー**(通常3350問)＝コスト見積り提示してから起動(A10・勝手起動しない)。まず別漢字が正当な高リスク語(あう/とる/はかる/かえる等)に絞る案。(2)**模試プールの読み/表記は未チェック**(sentenceFuri未登録の1019問)。(3)以下★2026-09-29以前のApple審査/ビルド案件は従来通り継続。
 ★現在地(2026-09-29 pt3 セッション＝複数読み統一／ストア文翻訳／繁体字URL修正+ビルド)＝
 - **✅ストア掲載文を11言語＋日本語へ翻訳し `C:\Users\jwpsa\Documents\desktop\作業中\SNSアカウント.xlsx` のX列(シート「アカウント」row2-13)へ書き込み済み**。URLは各ロケール(en/ne/vi/bn/zh/ko/th/id/my/hi/zh2/ja)。編集前バックアップ=scratchpad。品質は主要言語◎、ne/bn/my/hiはネイティブ確認推奨。
 - **✅繁体字の規約/プライバシーURL不具合を発見・修正**。本番実測(2026-09-29)で `/jlpt/zh-hant/` は日本語トップへフォールバック=NG、正しくは **`/jlpt/zh2/`**(使用條款 lang=zh-Hant)。全12言語×terms/privacy=24ページを実測し zh-hant以外は全部OK。**[src/config/legal.ts] の `URL_SLUG={zh2:'zh-hant'}` を `{}` に修正**(zh2→/jlpt/zh2/)。これによりアプリ内の繁体字ユーザーの規約リンク切れも解消。xlsxのrow12 URLも zh2 に修正済み。**ビルド=v1.1.68(2971) both dispatch(-NoWatch)・commit 9a58af3b・run 36541632468**(TestFlight/内部テストまで・公開はしていない・CI結果はユーザー確認)。iOS本日2回目(上限8)。
 - **✅複数読み熟語の読み統一(漢字読み・全級)＝配信済み**。毎月/毎年で機械が「まいげつ/まいねん」を答えにしていた件を全級で是正。ユーザー裁定でA群=毎月まいつき/毎年まいとし/工場こうじょう/日本にほん/明後日あさって/年月ねんげつ/文字もじ/大分だいぶ/本当ほんとう に統一、B群=明日(あした/あす)・一日(いちにち/ついたち)・今日(きょう/こんにち)は両読み可だが片方が答えの時もう片方を誤答に混ぜない。**答え統一10件＋誤答差替4件**(差替は自然形=本当ほんとお・大分だいぶう・一日いちにちい)。単漢字(中/先/日/分等)は文脈で読みが決まり別読みは正当な誤答=対象外(機械一括差替は却下)。正本=[src/data/dualReadingWords.json]／適用=[tools/fix_dual_reading.py]／番人=[src/data/dualReadingWords.test.ts](緑)。**配信=commit 9cf69fa6+1944d072(content OTA・push済)、仕組みファイル=commit e2f252a8(push済)**。詳細メモリ=[[dual-reading-compound-unification]]。
-- **次の一手（明示指示待ち）**：特に必須はなし(複数読み統一は配信完了)。候補=(a)ビルド2963(v1.1.67)のCI結果をユーザー側で確認(緑=iOS TestFlight/Android内部テスト提出) (b)未完リストの D(Android新ビルドが内部テストに上がらない=1286未アップロード・要調査) と E(device_trials.sql 本番適用確認) (c)プロモ開始時にBの後半=GA4↔Google広告リンク＋trial_startをコンバージョン指定(コンソール作業) (d)ダッシュボードがまだ重ければ③(各ビューに直近90日窓＋夜間事前集計)。**push/build/公開は勝手にしない。**
+- **次の一手（明示指示待ち）**：必須なし。**今セッション(2026-09-30)=Google系プロモの案内＋テスト購入を計測除外＋そのビルド**。①テスト購入除外＝[src/pro/purchases.ts] 購入成功時 `entitlements.active[PRO].isSandbox===true` なら `logPurchase` を送らない=Firebase収益/購入コンバージョンが本番の実売上だけになる(TestFlight/Play内部テスト/サンドボックスは除外)。②既存の$84等はテスト込み・遡り削除はしない・本物の売上はRevenueCat/ストア売上レポートが正。候補=(a)今回ビルドのCI結果をユーザー確認(緑=iOS TestFlight/Android内部テスト) (b)プロモ本格化時のコンソール作業=Firebaseに計測届くか確認→GA4でpurchase/trial_startをキーイベント指定→GA4↔Google広告リンク(アプリ側計測は完成済・コード不要) (c)AdMob iOS照合はGoogleクロール待ち(直す所なし) (d)未完=Android新ビルドが内部テストに上がらない/device_trials.sql本番適用確認。**push/build/公開は勝手にしない。**
 - **✅ビルド=v1.1.67(2963) both dispatch(-NoWatch)・commit dd69def9・run 36509371114**。中身=①trial_start配線 ②ダッシュボード列並べ替え(A・確認済) ③版1.1.67へ整理(未使用1.1.66回避)。**TestFlight/内部テストまで(公開はしていない)。CI結果はユーザー確認。**
 - **✅trial_start配線(広告コンバージョン計測)**＝`logTrialStart()`は定義only未呼び出しだった穴を塞いだ。[src/auth/SyncProvider.tsx] claimTrial成功時、**初回お試し(trialStartedAt未設定)に限り1回**送信(再ログイン/再インストール復元では送らず水増し防止)。効かせるにはコンソール側(GA4↔Google広告リンク＋trial_startをコンバージョン指定)が別途必要=プロモ開始時に。purchaseは既に送信済。
 - **✅AdMob iOS＝App Storeリンク完了(2026-09-29)・照合はGoogleクロール待ち(正常)**。詳細は下の(C)ブロック。app-ads.txtは www/裸ドメイン両方に設置済&内容一致を実確認。**直す所なし・~24hで自動承認見込み。**

@@ -1137,7 +1137,6 @@
   "voice.newcomer.3": "按照你的节奏来就好。我们一点一点地开始吧。",
   "voice.newcomer.4": "从这里一步一个脚印。我会在你身边，一直为你加油哦。",
   "voice.newcomer.5": "你来了，真开心。那么，开始吧。",
-  "sakura.reco_hint": "学习“今日推荐”，可以复习不擅长的单词哦。",
   "persona.trait.akarui": "开朗",
   "persona.trait.majime": "认真",
   "persona.trait.ottori": "温和",
@@ -1470,5 +1469,16 @@
   "weekly.more": "别着急，没关系。\n保持这个节奏，循序渐进吧。",
   "account.blocked_title": "正在其他设备上使用",
   "account.blocked_msg": "此账号目前正在其他设备上登录。您只能同时在一台设备上使用。请在该设备上退出登录，或等待几分钟后重试。",
-  "dl.cancel": "取消"
+  "dl.cancel": "取消",
+  "sakura.reco_hint": "点击“挑战弱项单词”，即可复习之前答错的所有单词。",
+  "teacher.portal_title": "打开教师网站",
+  "teacher.portal_sub": "查看 {school} 学生学习情况/注册学生",
+  "teacher.portal_need_login": "请先登录。",
+  "teacher.join_title": "学校团体代码",
+  "teacher.join_hint": "输入老师给的团体代码后，您的学习情况将分享给老师（团体授权）。",
+  "teacher.join_placeholder": "输入代码（例：ABC123）",
+  "teacher.join_button": "加入",
+  "teacher.join_belongs": "所属：{school}",
+  "teacher.join_ok": "已加入。",
+  "teacher.join_err": "未能加入。请检查代码。"
 }

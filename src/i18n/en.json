@@ -1201,7 +1201,7 @@
   "voice.newcomer.3": "Your own pace is fine. Let's begin, little by little.",
   "voice.newcomer.4": "One step at a time from here. I'll be beside you, cheering all the way.",
   "voice.newcomer.5": "I'm glad you came. Now, let's begin.",
-  "sakura.reco_hint": "Study 'Today's Pick' to review the words you find tricky.",
+  "sakura.reco_hint": "Tap ‘Practice your weak words’ to review the words you got wrong before, all in one go.",
   "persona.trait.akarui": "Cheerful",
   "persona.trait.majime": "Diligent",
   "persona.trait.ottori": "Easygoing",
@@ -1470,5 +1470,15 @@
   "coach.mock_tap_hint": "Tap any result to open its full report card",
   "kform.prompt": "Which kanji fits the meaning & reading?",
   "kform.empty": "No look-alike questions for this level yet.",
-  "official.base_label": "2025 Session 2 (Dec)"
+  "official.base_label": "2025 Session 2 (Dec)",
+  "teacher.portal_title": "Open Teacher Site",
+  "teacher.portal_sub": "View your students at {school} and add students",
+  "teacher.portal_need_login": "Please sign in first.",
+  "teacher.join_title": "School Group Code",
+  "teacher.join_hint": "Enter the group code from your teacher to share your progress with them (group license).",
+  "teacher.join_placeholder": "Enter code (e.g. ABC123)",
+  "teacher.join_button": "Join",
+  "teacher.join_belongs": "School: {school}",
+  "teacher.join_ok": "You have joined.",
+  "teacher.join_err": "Could not join. Please check the code."
 }
