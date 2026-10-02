@@ -180,9 +180,9 @@
         <option value="180" selected>180日</option>
         <option value="365">365日</option>
         <option value="forever">恒久</option>
-        <option value="revoke">失効（新規付与を止める）</option>
       </select>
       <button id="btnScLic" style="padding:6px 14px;border:1px solid #2e7d32;border-radius:8px;background:#2e7d32;color:#fff;font-weight:700;cursor:pointer">有効化（全生徒へPro付与）</button>
+      <button id="btnScRevoke" style="padding:6px 14px;border:1px solid var(--bad);border-radius:8px;background:transparent;color:var(--bad);font-weight:700;cursor:pointer">全生徒のPro停止</button>
       <span id="scLicSt" class="note" style="white-space:pre-wrap"></span>
     </div>
     <div class="note" style="margin:0 0 8px;opacity:.85">※ 団体ライセンス＝Pro全機能解放。期限までProになり、期限で自動的に無料へ戻る。アカウント未作成の生徒は、本人がアプリ起動時に自動で受け取る。</div>
@@ -1247,7 +1247,6 @@ async function licenseGrant(){
   if(!sid){ st.textContent='先に学校を選択してください。'; return; }
   let until, label;
   if(dur==='forever'){ until='2999-12-31T00:00:00Z'; label='恒久'; }
-  else if(dur==='revoke'){ until=new Date(Date.now()-86400000).toISOString(); label='失効'; }
   else { until=new Date(Date.now()+Number(dur)*86400000).toISOString(); label=dur+'日'; }
   const btn=$('btnScLic'); btn.disabled=true; st.textContent='付与中…';
   try{ const r=await rpcPost('admin_grant_school_license',{ p_school_id:Number(sid), p_until:until });
@@ -1257,11 +1256,26 @@ async function licenseGrant(){
   }catch(e){ st.textContent='失敗: '+e.message+'\n（admin_grant_school_license 未作成なら docs/supabase/school_teacher.sql を再実行）'; }
   finally{ btn.disabled=false; }
 }
+// 学校ライセンスの停止＝全生徒の付与Proを失効(admin_revoke_school_pro)。※別途ストア課金のProは残る。
+async function licenseRevoke(){
+  const st=$('scLicSt'); const sid=$('scSel').value;
+  if(!sid){ st.textContent='先に学校を選択してください。'; return; }
+  const name=($('scSel').selectedOptions[0]&&$('scSel').selectedOptions[0].textContent)||('id='+sid);
+  if(!confirm(`「${name}」の全生徒のPro（団体ライセンス付与分）を停止します。よろしいですか？\n※ 生徒が自分でストア購入したProは残ります。`)) return;
+  const btn=$('btnScRevoke'); btn.disabled=true; st.textContent='停止中…';
+  try{ const r=await rpcPost('admin_revoke_school_pro',{ p_school_id:Number(sid) });
+    const row=Array.isArray(r)?r[0]:r;
+    st.textContent=`✓ 停止。生徒 ${row&&row.revoked!=null?row.revoked:'?'}/${row&&row.students!=null?row.students:'?'} 人のProを失効（対象がアプリ再起動で無料に戻る）`;
+    await countsLoad();
+  }catch(e){ st.textContent='失敗: '+e.message+'\n（admin_revoke_school_pro 未作成なら docs/supabase/school_teacher.sql を再実行）'; }
+  finally{ btn.disabled=false; }
+}
 if($('btnScCreate')){
   $('btnScCreate').addEventListener('click', schoolCreate);
   $('btnScmAdd').addEventListener('click', memberAdd);
   $('btnScCounts').addEventListener('click', countsLoad);
   $('btnScLic').addEventListener('click', licenseGrant);
+  $('btnScRevoke').addEventListener('click', licenseRevoke);
   $('scSel').addEventListener('change', ()=>{ memberLoad(); });
 }
 

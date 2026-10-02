@@ -440,6 +440,41 @@ $$;
 revoke all on function public.admin_grant_school_license(bigint, timestamptz) from public, anon, authenticated;
 grant execute on function public.admin_grant_school_license(bigint, timestamptz) to service_role;
 
+-- 6b) 管理ダッシュボード用: 学校ライセンスを停止＝全生徒の付与Proを失効させる ----
+--     license_until を過去にし、その学校の生徒(アカウント有り)の entitlements.pro_until を過去に落とす。
+--     ※ greatest を使う付与と違い、ここは「下げる」= 実際にProを止める。
+--     ※ ストア課金(RevenueCatのpurchaseActive)はここでは触れない=別途購入した生徒はPro維持。
+--       pro_until は紹介/お試し由来とも共用の1列なので、それらも一緒に失効する点は許容(パイロット前提)。
+--     返り値: 実際に失効させた人数 / 登録生徒数。
+create or replace function public.admin_revoke_school_pro(p_school_id bigint)
+returns json
+language plpgsql
+security definer
+set search_path = public, auth
+as $$
+declare v_total int := 0; v_revoked int := 0; r record; v_uid uuid; v_past timestamptz := now() - interval '1 day';
+begin
+  update public.schools set license_until = v_past where id = p_school_id;
+  if not found then raise exception 'school % が見つかりません', p_school_id; end if;
+  for r in
+    select distinct lower(email) as email
+    from public.school_members where school_id = p_school_id and role = 'student'
+  loop
+    v_total := v_total + 1;
+    select id into v_uid from auth.users where lower(email) = r.email;
+    if v_uid is not null then
+      update public.entitlements
+        set pro_until = v_past, updated_at = now()
+        where user_id = v_uid and pro_until > v_past;   -- 現在Pro中の人だけ落とす
+      if found then v_revoked := v_revoked + 1; end if;
+    end if;
+  end loop;
+  return json_build_object('ok', true, 'revoked', v_revoked, 'students', v_total);
+end;
+$$;
+revoke all on function public.admin_revoke_school_pro(bigint) from public, anon, authenticated;
+grant execute on function public.admin_revoke_school_pro(bigint) to service_role;
+
 -- ============================================================================
 -- 【管理者の使い方】SQL Editor(service_role)で学校と先生を用意する(生徒は先生がサイトで登録)。
 --   前提: 先生は事前にアプリ(またはteacher.html)でアカウント登録(ログイン)していること。
