@@ -157,7 +157,9 @@
   </div>
 
   <section id="secSchool" style="border-left:4px solid #3a7bc8">
-    <h2>🏫 学校・先生 管理（団体ライセンス） <span class="note">日本語学校向け。ここでは<b>学校の作成</b>と<b>先生の登録/削除</b>、各学校の<b>先生数・生徒数（カウントのみ）</b>を扱う。<b>生徒の登録は先生自身が教師専用サイト（teacher.html）から行う</b>（1先生あたり最大20人）。先生は自分が登録した生徒だけを閲覧できる。<b>service_role キーが必要</b>。事前に <b>docs/supabase/school_teacher.sql</b> を SQL Editor で実行しておくこと。先生は<b>アプリ（またはteacher.html）で先にログイン</b>→ここで同じメールを「先生」として登録すればOK。</span></h2>
+    <h2>🏫 学校・先生 管理（団体ライセンス）
+      <a href="https://jlpt.safa-lang.com/teacher.html" target="_blank" rel="noopener" style="margin-left:10px;padding:5px 12px;border:1px solid #3a7bc8;border-radius:8px;background:transparent;color:#3a7bc8;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap">教師専用サイトを開く ↗</a>
+      <span class="note">日本語学校向け。ここでは<b>学校の作成</b>と<b>先生の登録/削除</b>、各学校の<b>先生数・生徒数（カウントのみ）</b>を扱う。<b>生徒の登録は先生自身が教師専用サイト（teacher.html）から行う</b>（1先生あたり最大20人）。先生は自分が登録した生徒だけを閲覧できる。<b>service_role キーが必要</b>。事前に <b>docs/supabase/school_teacher.sql</b> を SQL Editor で実行しておくこと。先生は<b>アプリ（またはteacher.html）で先にログイン</b>→ここで同じメールを「先生」として登録すればOK。</span></h2>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
       <input id="scName" type="text" placeholder="学校名（例：カトマンズ日本語学校）" style="min-width:260px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px" />
       <button id="btnScCreate" style="padding:6px 14px;border:1px solid #3a7bc8;border-radius:8px;background:#3a7bc8;color:#fff;font-weight:700;cursor:pointer">学校を作成</button>
