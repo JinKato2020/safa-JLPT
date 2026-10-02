@@ -1,14 +1,14 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 9 回・25 ターン
-- 往復 331 回
+- ツール呼び出し 4 回・12 ターン
+- 往復 343 回
 
 ## 何が変わったか
 - memory/handoff.md
 - docs/supabase/dashboard.html
-- memory/session-summary-LATEST.md
 - docs/supabase/school_teacher.sql
+- memory/session-summary-LATEST.md
 - src/screens/AccountScreen.tsx
 
 ## 次の一手

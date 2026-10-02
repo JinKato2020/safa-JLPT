@@ -673,13 +673,13 @@
 
 ## 直近24時間の変更ファイル（自動）
 - docs/supabase/dashboard.html
+- docs/supabase/school_teacher.sql
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- docs/supabase/school_teacher.sql
 - src/screens/AccountScreen.tsx
 - src/auth/SyncProvider.tsx
 - src/pro/entitlementClient.ts
 - src/i18n/zh2.json
 
-_自動更新: 2026-10-02 13:32_
+_自動更新: 2026-10-02 13:33_
 <!-- AUTO:END -->

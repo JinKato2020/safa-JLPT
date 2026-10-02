@@ -110,8 +110,8 @@ grant select on public.v_teacher_students to authenticated;
 --    すべて SECURITY DEFINER(所有者権限)。本人確認は auth.email()(JWT由来)で行い、
 --    クライアントが学校IDや他人の生徒を指定しても効かない(自分の所属/自分の生徒に固定)。
 
--- 4-0) 内部: メールの生徒に、所属する学校の有効ライセンス期限まで Pro を付与する。
---      団体ライセンス = Pro全機能解放。生徒がコード参加/メール登録された時点で呼ぶ。
+-- 4-0) 内部: メールのメンバー(生徒/先生)に、所属する学校の有効ライセンス期限まで Pro を付与する。
+--      団体ライセンス = Pro全機能解放(生徒も先生も)。コード参加/メール登録/一括付与/起動時claimから呼ぶ。
 --      アカウント未作成(user_id無し)なら何もしない→本人がアプリで claim_school_entitlement() 実行時に付与。
 --      既存の pro_until より短くはしない(本人が買ったProや他校の期限を縮めない)=greatest。
 create or replace function public._grant_school_pro_by_email(p_email text)
@@ -128,7 +128,7 @@ begin
   select max(sc.license_until) into v_until
   from public.school_members sm
   join public.schools sc on sc.id = sm.school_id
-  where sm.role = 'student' and lower(sm.email) = v_email
+  where sm.role in ('student','teacher') and lower(sm.email) = v_email   -- 生徒も先生も対象
     and sc.license_until is not null and sc.license_until > now();
   if v_until is null then return null; end if;            -- 有効なライセンス無し
   insert into public.entitlements (user_id, pro_until)
@@ -238,6 +238,7 @@ begin
   order by school_id limit 1;
   if v_school is null then raise exception 'この学校の先生として登録されていません。管理者にご確認ください。'; end if;
   if v_email = '' or position('@' in v_email) = 0 then raise exception 'メールアドレスの形式が正しくありません。'; end if;
+  if v_email = v_me then raise exception '先生自身は生徒として登録できません。'; end if;  -- 教師サイトに先生自身のスコアを出さないため
 
   -- 既に自分の生徒 → 冪等成功(上限に二重計上しない)。
   if exists (
@@ -427,14 +428,14 @@ begin
   if not found then raise exception 'school % が見つかりません', p_school_id; end if;
   for r in
     select distinct lower(email) as email
-    from public.school_members where school_id = p_school_id and role = 'student'
+    from public.school_members where school_id = p_school_id   -- 生徒＋先生の両方
   loop
     v_total := v_total + 1;
     if public._grant_school_pro_by_email(r.email) is not null then
       v_granted := v_granted + 1;
     end if;
   end loop;
-  return json_build_object('ok', true, 'granted', v_granted, 'students', v_total, 'until', p_until);
+  return json_build_object('ok', true, 'granted', v_granted, 'members', v_total, 'until', p_until);
 end;
 $$;
 revoke all on function public.admin_grant_school_license(bigint, timestamptz) from public, anon, authenticated;
@@ -458,7 +459,7 @@ begin
   if not found then raise exception 'school % が見つかりません', p_school_id; end if;
   for r in
     select distinct lower(email) as email
-    from public.school_members where school_id = p_school_id and role = 'student'
+    from public.school_members where school_id = p_school_id   -- 生徒＋先生の両方
   loop
     v_total := v_total + 1;
     select id into v_uid from auth.users where lower(email) = r.email;
@@ -469,7 +470,7 @@ begin
       if found then v_revoked := v_revoked + 1; end if;
     end if;
   end loop;
-  return json_build_object('ok', true, 'revoked', v_revoked, 'students', v_total);
+  return json_build_object('ok', true, 'revoked', v_revoked, 'members', v_total);
 end;
 $$;
 revoke all on function public.admin_revoke_school_pro(bigint) from public, anon, authenticated;
