@@ -2,7 +2,8 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-★現在地(2026-10-02 教師ポータル アップグレード)＝**✅v1.1.70(2980)ビルド起動済み(run 36961267850)／その後に団体ライセンス=Pro付与を追加実装(⚠️未commit/未build=次ビルドが要る)／⚠️Supabase SQL(更新版)未apply**
+★現在地(2026-10-02 教師ポータル アップグレード)＝**✅v1.1.70(2980)ビルド済／✅Web面はpush済=deploy-pages run 36965716941(dashboard/teacher.html本番反映・4commit 8f96fc42..76a7b9c2)／⚠️アプリ仕上げ(SyncProvider claim・参加直後即反映)は未build=次ビルド待ち／⚠️Supabase SQLは“先生Pro/停止/自己登録ガード入りの最新版”を要再実行**
+- **先生にもPro付与する決定・実装済**(付与/一括/停止/claim すべて role in student,teacher)。Pro停止=`admin_revoke_school_pro`(実際にpro_until落とす・ストア購入Proは残す)。ダッシュボードに「全員へPro付与」「全員のPro停止」ボタン＋教師サイトへのリンク。先生の自己生徒登録は禁止(教師サイトに先生スコア出さない)。これらはpush済=ダッシュボード本番反映済だが**SQL最新版の再applyが要る**(admin_revoke_school_pro等が新規)。
 - **【追加】団体ライセンス=Pro全機能解放＋進捗共有(ユーザー決定)**。生徒がコード参加/先生メール登録された時点で、所属校の`schools.license_until`までPro付与(`entitlements.pro_until`にgreatestで)。未アカウントの子はアプリ起動時に`claim_school_entitlement()`で自動受取(SyncProviderがpull前に呼ぶ)。管理者はダッシュボード「団体ライセンス」タブの**ライセンス有効化(90/180/365/恒久/失効)**=`admin_grant_school_license(school_id,until)`で**全生徒へ一括Pro付与**。SQL追加=`_grant_school_pro_by_email`(内部)/`claim_school_entitlement`(authenticated)/`admin_grant_school_license`(service_role)/`schools.license_until`列/`v_school_counts`に期限。アプリ=SyncProvider claim・AccountScreen参加直後にpull即反映。**型OK。次ビルドで反映(要build指示)。**
 - **次に必ず要る手動作業**：Supabase SQL Editorで**更新版**`docs/supabase/school_teacher.sql`を実行(Pro付与関数/license列を含む最新)。未実行だと教師ポータル＋Pro付与が全滅。⚠️`dashboard_views.sql`再実行時は`school_teacher.sql`も再実行(cascade消滅)。TestFlight提出はワークフロー内(公開リリースはしていない)。
 - i18n `--fill`実行済=teacher.*10キー×8言語+zh2同期で全11言語そろった(parityもう赤でない見込み)。
@@ -672,14 +673,14 @@
 - ae7242744b8ff5435 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- docs/supabase/dashboard.html
-- docs/supabase/school_teacher.sql
-- memory/session-summary-LATEST.md
 - memory/handoff.md
+- memory/session-summary-LATEST.md
+- docs/supabase/school_teacher.sql
+- docs/supabase/dashboard.html
 - src/screens/AccountScreen.tsx
 - src/auth/SyncProvider.tsx
 - src/pro/entitlementClient.ts
 - src/i18n/zh2.json
 
-_自動更新: 2026-10-02 13:33_
+_自動更新: 2026-10-02 13:43_
 <!-- AUTO:END -->

@@ -340,7 +340,11 @@ $('googleBtn').onclick = async () => {
   sayErr('');
   const { error } = await sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: window.location.href.split('#')[0].split('?')[0] }
+    options: {
+      redirectTo: window.location.href.split('#')[0].split('?')[0],
+      // Googleアカウントを複数持つ人のために、毎回アカウント選択画面を出す(自動で前回のアカウントに入らない)。
+      queryParams: { prompt: 'select_account' }
+    }
   });
   if (error){ sayErr('Googleログイン開始に失敗: ' + error.message); }
 };
