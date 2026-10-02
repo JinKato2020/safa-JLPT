@@ -11,7 +11,7 @@ import { claimDeviceSession, heartbeatDeviceSession } from './deviceSession';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { claimTrial } from '../pro/trialClient';
 import { logTrialStart } from '../analytics/analytics';
-import { pullProUntil, pullDevTools } from '../pro/entitlementClient';
+import { pullProUntil, pullDevTools, claimSchoolEntitlement } from '../pro/entitlementClient';
 import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
 import { registerPushToken } from '../push/pushClient';
@@ -122,7 +122,10 @@ export function SyncProvider({ children }: { children: ReactNode }) {
           // 再ログイン/再インストール復元(既に trialStartedAt を持つ)では送らない=水増し防止。
           if (!hadTrialBefore) logTrialStart();
         }
-        // 管理/紹介/お試し由来のPro(サーバー entitlements.pro_until)を本人の行から取り込む。
+        // 団体ライセンスの生徒(先生がメール登録した子も含む)が、所属校の有効期限ぶんのProを受け取る(冪等)。
+        // これを pull の前に行うことで、メール登録→後からアカウント作成した生徒も起動時にProになる。
+        await claimSchoolEntitlement();
+        // 管理/紹介/お試し/団体由来のPro(サーバー entitlements.pro_until)を本人の行から取り込む。
         // これで Supabase 側で pro_until を未来にするだけで恒久/期限付きProを配れる(課金=RevenueCatとは別系統)。
         const proUntil = await pullProUntil(session.user.id);
         if (!cancelled && proUntil != null) setProUntil(proUntil);

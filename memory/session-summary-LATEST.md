@@ -1,17 +1,20 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- 往復 214 回
+- 往復 306 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/session-summary-LATEST.md
-- docs/supabase/dashboard.html
 - docs/supabase/school_teacher.sql
-- src/i18n/ne.json
+- src/screens/AccountScreen.tsx
+- src/auth/SyncProvider.tsx
 
 ## 次の一手
-★現在地(2026-10-02 教師ポータル アップグレード)＝**⚠️未commit/SQL未apply/未build・ビルドは明示指示待ち**
+★現在地(2026-10-02 教師ポータル アップグレード)＝**✅v1.1.70(2980)ビルド起動済み(run 36961267850)／その後に団体ライセンス=Pro付与を追加実装(⚠️未commit/未build=次ビルドが要る)／⚠️Supabase SQL(更新版)未apply**
+- **【追加】団体ライセンス=Pro全機能解放＋進捗共有(ユーザー決定)**。生徒がコード参加/先生メール登録された時点で、所属校の`schools.license_until`までPro付与(`entitlements.pro_until`にgreatestで)。未アカウントの子はアプリ起動時に`claim_school_entitlement()`で自動受取(SyncProviderがpull前に呼ぶ)。管理者はダッシュボード「団体ライセンス」タブの**ライセンス有効化(90/180/365/恒久/失効)**=`admin_grant_school_license(school_id,until)`で**全生徒へ一括Pro付与**。SQL追加=`_grant_school_pro_by_email`(内部)/`claim_school_entitlement`(authenticated)/`admin_grant_school_license`(service_role)/`schools.license_until`列/`v_school_counts`に期限。アプリ=SyncProvider claim・AccountScreen参加直後にpull即反映。**型OK。次ビルドで反映(要build指示)。**
+- **次に必ず要る手動作業**：Supabase SQL Editorで**更新版**`docs/supabase/school_teacher.sql`を実行(Pro付与関数/license列を含む最新)。未実行だと教師ポータル＋Pro付与が全滅。⚠️`dashboard_views.sql`再実行時は`school_teacher.sql`も再実行(cascade消滅)。TestFlight提出はワークフロー内(公開リリースはしていない)。
+- i18n `--fill`実行済=teacher.*10キー×8言語+zh2同期で全11言語そろった(parityもう赤でない見込み)。
 - **団体ライセンスの役割分担を刷新(案C)**。①管理ダッシュボード=学校作成＋**先生だけ**登録/削除＋**学校ごとの人数(先生/生徒)カウントのみ**。②生徒登録は**コード＋メールの両方**(ユーザー指示): (a)**団体コード方式**=先生ごとの6桁コードを教師サイトで表示/作り直し→生徒がアプリの「学校の団体コード」に入力して自己紐づけ(`join_school_by_code`・20人上限サーバー判定) (b)**メール方式**=先生が教師サイトで生徒メールを個別追加(`teacher_add_student`)。③各先生は**自分が登録した生徒だけ**閲覧(未ログインの子も名簿表示)。④**アプリ→教師サイトのログイン引き継ぎ**=アカウント画面に先生だけ出る「教師サイトを開く」→今のセッションを`#t_at/#t_rt`断片で`https://jlpt.safa-lang.com/teacher.html`へ渡し`setSession`→ログイン画面を見ずに入る(URLから即消す)。「2重認証しない」=この引き継ぎで解決。メール確認(Supabase設定)は触らない方針に決定。
 - 変更ファイル=`docs/supabase/school_teacher.sql`(全面改訂: `teacher_email`/`teacher_code`列追加・v_teacher_students を自分の生徒LEFT JOINに作替・RPC `teacher_home`/`teacher_code`/`teacher_add_student`(20人上限)/`teacher_remove_student`/`join_school_by_code`/`student_home`・`v_school_counts`)／`docs/supabase/teacher.html`(引き継ぎ＋コード表示＋生徒メール追加UI)／`docs/supabase/dashboard.html`(先生のみ＋人数表)／`src/auth/teacherPortal.ts`(新: portal/join/student_home)／`src/screens/AccountScreen.tsx`(先生=教師サイト入口／生徒=団体コード入力)／i18n ja/en/ne に`teacher.portal_*`+`teacher.join_*`。
 - **次の一手(手動・勝手にやらない)**：(1)Supabase SQL Editorで`docs/supabase/school_teacher.sql`を実行(⚠️dashboard_views.sql再実行時はcascade消滅で要再実行)。(2)教師サイト/ダッシュボードはデプロイ(push→deploy-pages)で反映。(3)アプリの入口はUI文字列=要ビルド(OTA不可・build.ps1が`trans_i18n --fill`で他8言語を自動翻訳)。(4)「メール確認を無くす」はSupabase Auth設定=アプリ全体に影響→やるか要相談。**検証=tsc変更ファイルOK。型チェック以外は未実行(parity.testは--fill前なので意図的に未実行)。**

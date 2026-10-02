@@ -23,6 +23,8 @@ import ExamInfoCard from '../home/ExamInfoCard';
 import { getReferredQualifiedCount } from '../referral/referralClient';
 import { proStatus } from '../pro/entitlement';
 import { getTeacherHome, buildTeacherPortalUrl, getStudentHome, joinSchoolByCode, type TeacherHome, type StudentHome } from '../auth/teacherPortal';
+import { supabase } from '../config/supabase';
+import { pullProUntil } from '../pro/entitlementClient';
 
 type Tab = 'signup' | 'login';
 
@@ -34,7 +36,7 @@ export default function AccountScreen() {
   const { session, email: acctEmail, lastSyncedAt, blocked } = useSync();
   // 最上部プロフィール: 桜ではなく自分のアバター立ち絵＋ステータス(レベル/国/性別/性格/ムード)。性格・ムードは変更可。
   const appState = useAppState();
-  const { setSettings, setReferralStats, setEnteredCode, spendAvatarChange, reset } = useAppActions();
+  const { setSettings, setReferralStats, setEnteredCode, spendAvatarChange, reset, setProUntil } = useAppActions();
   const st0 = appState.settings;
   const myAvatarImg = avatarOf(st0.avatar).image;
   // アバターは登録後は既定で変更不可。ショップの「すがた変えドリンク」を買うと券が増え、1回だけ変更できる。
@@ -81,9 +83,12 @@ export default function AccountScreen() {
     if (!code || joining) return;
     setJoining(true); setJoinMsg(null);
     const r = await joinSchoolByCode(code);
+    if (r.ok) {
+      setStudentHome({ school_name: r.schoolName ?? '' }); setGroupCode(''); setJoinMsg(t('teacher.join_ok'));
+      // 団体ライセンスが有効なら参加時にサーバーがProを付与済み。即反映のため読み直す。
+      try { const { data: { user } } = await supabase.auth.getUser(); if (user) { const pu = await pullProUntil(user.id); if (pu != null) setProUntil(pu); } } catch { /* 反映は次回起動でも入る */ }
+    } else { setJoinMsg(r.error ?? t('teacher.join_err')); }
     setJoining(false);
-    if (r.ok) { setStudentHome({ school_name: r.schoolName ?? '' }); setGroupCode(''); setJoinMsg(t('teacher.join_ok')); }
-    else { setJoinMsg(r.error ?? t('teacher.join_err')); }
   };
   // 紹介コード入力(この画面でそのまま登録。別画面へ遷移しない)。
   const enteredCode = appState.referral?.enteredCode;

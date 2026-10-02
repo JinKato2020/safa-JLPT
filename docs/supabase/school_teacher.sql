@@ -19,11 +19,15 @@
 -- ============================================================================
 
 -- 1) 学校 ---------------------------------------------------------------------
+--    license_until: 団体ライセンスの有効期限。入金確認後に管理者が設定=学校の「有効化」。
+--      この学校の生徒(登録済み)は license_until まで Pro 全機能が使える(entitlements.pro_until に反映)。
 create table if not exists public.schools (
-  id         bigint generated always as identity primary key,
-  name       text not null,
-  created_at timestamptz not null default now()
+  id            bigint generated always as identity primary key,
+  name          text not null,
+  license_until timestamptz,                         -- null=未有効化
+  created_at    timestamptz not null default now()
 );
+alter table public.schools add column if not exists license_until timestamptz;
 
 -- 2) 所属(メールで指定)
 --    role: 'teacher'(閲覧できる人) / 'student'(見られる対象)
@@ -105,6 +109,36 @@ grant select on public.v_teacher_students to authenticated;
 -- 4) 教師セルフ運用RPC(先生が teacher.html から呼ぶ) --------------------------
 --    すべて SECURITY DEFINER(所有者権限)。本人確認は auth.email()(JWT由来)で行い、
 --    クライアントが学校IDや他人の生徒を指定しても効かない(自分の所属/自分の生徒に固定)。
+
+-- 4-0) 内部: メールの生徒に、所属する学校の有効ライセンス期限まで Pro を付与する。
+--      団体ライセンス = Pro全機能解放。生徒がコード参加/メール登録された時点で呼ぶ。
+--      アカウント未作成(user_id無し)なら何もしない→本人がアプリで claim_school_entitlement() 実行時に付与。
+--      既存の pro_until より短くはしない(本人が買ったProや他校の期限を縮めない)=greatest。
+create or replace function public._grant_school_pro_by_email(p_email text)
+returns timestamptz
+language plpgsql
+security definer
+set search_path = public, auth
+as $$
+declare v_uid uuid; v_until timestamptz; v_email text := lower(trim(coalesce(p_email,'')));
+begin
+  if v_email = '' then return null; end if;
+  select id into v_uid from auth.users where lower(email) = v_email;
+  if v_uid is null then return null; end if;              -- まだアカウント無し(後で claim で付与)
+  select max(sc.license_until) into v_until
+  from public.school_members sm
+  join public.schools sc on sc.id = sm.school_id
+  where sm.role = 'student' and lower(sm.email) = v_email
+    and sc.license_until is not null and sc.license_until > now();
+  if v_until is null then return null; end if;            -- 有効なライセンス無し
+  insert into public.entitlements (user_id, pro_until)
+    values (v_uid, v_until)
+    on conflict (user_id) do update
+      set pro_until = greatest(public.entitlements.pro_until, excluded.pro_until), updated_at = now();
+  return v_until;
+end;
+$$;
+revoke all on function public._grant_school_pro_by_email(text) from public, anon, authenticated;
 
 -- 4-1) 自分(先生)のホーム情報: 学校名・登録済み生徒数・上限。先生でなければ null。
 create or replace function public.teacher_home()
@@ -225,6 +259,8 @@ begin
   on conflict (school_id, email, role)
     do update set teacher_email = excluded.teacher_email;   -- 他の先生の生徒だった場合は引き継ぐ
 
+  perform public._grant_school_pro_by_email(v_email);       -- 団体ライセンス有効なら即Pro付与(未登録アカウントは後でclaim)
+
   select count(*) into v_cnt from public.school_members
   where role = 'student' and lower(teacher_email) = v_me;
   return json_build_object('ok', true, 'count', v_cnt, 'cap', 20);
@@ -303,6 +339,7 @@ begin
   values (v_school, v_me, 'student', v_teacher)
   on conflict (school_id, email, role)
     do update set teacher_email = excluded.teacher_email;
+  perform public._grant_school_pro_by_email(v_me);          -- 団体ライセンス有効なら即Pro付与
   return json_build_object('ok', true, 'school_name', v_name);
 end;
 $$;
@@ -330,7 +367,20 @@ begin
 end;
 $$;
 
+-- 4-6) 生徒本人が、所属校の有効ライセンス分の Pro を受け取る(アプリ起動時/参加直後に呼ぶ)。
+--      先生にメールで登録されたがアカウントを後から作った生徒も、これで Pro を受け取れる。
+--      返り値=付与後の pro_until(epoch的にはクライアントが解釈)。対象外は null。
+create or replace function public.claim_school_entitlement()
+returns timestamptz
+language sql
+security definer
+set search_path = public, auth
+as $$
+  select public._grant_school_pro_by_email(lower(coalesce(auth.email(), '')));
+$$;
+
 revoke all on function public.teacher_home()                  from anon;
+revoke all on function public.claim_school_entitlement()      from anon;
 revoke all on function public.teacher_code(boolean)           from anon;
 revoke all on function public.teacher_add_student(text)       from anon;
 revoke all on function public.teacher_remove_student(text)    from anon;
@@ -342,19 +392,53 @@ grant execute on function public.teacher_add_student(text)    to authenticated;
 grant execute on function public.teacher_remove_student(text) to authenticated;
 grant execute on function public.join_school_by_code(text)    to authenticated;
 grant execute on function public.student_home()               to authenticated;
+grant execute on function public.claim_school_entitlement()   to authenticated;
 
--- 5) 管理ダッシュボード用: 学校ごとの先生数・生徒数(カウントのみ) --------------
-create or replace view public.v_school_counts as
+-- 5) 管理ダッシュボード用: 学校ごとの先生数・生徒数＋ライセンス期限(カウントのみ) ----
+-- 旧版(license_until 無し)が既にあると create or replace は列の途中追加を許さず 42P16 になる。drop して作り直す。
+drop view if exists public.v_school_counts cascade;
+create view public.v_school_counts as
 select
   sc.id,
   sc.name,
+  sc.license_until,
   count(*) filter (where sm.role = 'teacher') as teachers,
   count(*) filter (where sm.role = 'student') as students
 from public.schools sc
 left join public.school_members sm on sm.school_id = sc.id
-group by sc.id, sc.name
+group by sc.id, sc.name, sc.license_until
 order by sc.name;
 grant select on public.v_school_counts to service_role;
+
+-- 6) 管理ダッシュボード用: 学校ライセンスの有効化＋全生徒へ一括Pro付与 ----------
+--    入金確認後に管理者が呼ぶ。schools.license_until を設定し、その学校の既存生徒(アカウント有り)
+--    全員に license_until まで Pro を付与(greatest=既存の長いProは縮めない)。
+--    まだアカウント未作成の生徒は、本人がアプリ起動時に claim_school_entitlement() で受け取る。
+--    返り値: 付与できた人数 / 登録生徒数。
+create or replace function public.admin_grant_school_license(p_school_id bigint, p_until timestamptz)
+returns json
+language plpgsql
+security definer
+set search_path = public, auth
+as $$
+declare v_total int := 0; v_granted int := 0; r record;
+begin
+  update public.schools set license_until = p_until where id = p_school_id;
+  if not found then raise exception 'school % が見つかりません', p_school_id; end if;
+  for r in
+    select distinct lower(email) as email
+    from public.school_members where school_id = p_school_id and role = 'student'
+  loop
+    v_total := v_total + 1;
+    if public._grant_school_pro_by_email(r.email) is not null then
+      v_granted := v_granted + 1;
+    end if;
+  end loop;
+  return json_build_object('ok', true, 'granted', v_granted, 'students', v_total, 'until', p_until);
+end;
+$$;
+revoke all on function public.admin_grant_school_license(bigint, timestamptz) from public, anon, authenticated;
+grant execute on function public.admin_grant_school_license(bigint, timestamptz) to service_role;
 
 -- ============================================================================
 -- 【管理者の使い方】SQL Editor(service_role)で学校と先生を用意する(生徒は先生がサイトで登録)。

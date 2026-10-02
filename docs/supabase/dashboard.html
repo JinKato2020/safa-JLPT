@@ -171,7 +171,20 @@
       <span id="scmSt" class="note" style="white-space:pre-wrap"></span>
     </div>
     <div class="scroll"><table id="scmTbl"></table></div>
-    <h2 style="margin-top:18px">👥 学校ごとの人数 <span class="note">各学校の<b>先生数・生徒数</b>だけを集計（<b>v_school_counts</b>）。生徒は先生が教師サイトで登録した人数。</span>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 4px">
+      <span class="note"><b>ライセンス有効化</b>（選択中の学校・入金確認後に）:</span>
+      <select id="scLicDur" style="padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:13px">
+        <option value="90">90日</option>
+        <option value="180" selected>180日</option>
+        <option value="365">365日</option>
+        <option value="forever">恒久</option>
+        <option value="revoke">失効（新規付与を止める）</option>
+      </select>
+      <button id="btnScLic" style="padding:6px 14px;border:1px solid #2e7d32;border-radius:8px;background:#2e7d32;color:#fff;font-weight:700;cursor:pointer">有効化（全生徒へPro付与）</button>
+      <span id="scLicSt" class="note" style="white-space:pre-wrap"></span>
+    </div>
+    <div class="note" style="margin:0 0 8px;opacity:.85">※ 団体ライセンス＝Pro全機能解放。期限までProになり、期限で自動的に無料へ戻る。アカウント未作成の生徒は、本人がアプリ起動時に自動で受け取る。</div>
+    <h2 style="margin-top:14px">👥 学校ごとの人数・期限 <span class="note">各学校の<b>先生数・生徒数・ライセンス期限</b>を集計（<b>v_school_counts</b>）。生徒は先生が教師サイトで登録した人数。</span>
       <button id="btnScCounts" class="ghost" style="margin-left:8px">人数を更新</button></h2>
     <div class="scroll"><table id="scCountTbl"></table></div>
   </section>
@@ -1209,21 +1222,44 @@ async function memberLoad(){
     el.innerHTML='<tr><th>先生</th><th>担当生徒数</th><th></th></tr>'+teachers.map(r=>`<tr><td>👩‍🏫 ${esc(r.email)}</td><td>${per[(r.email||'').toLowerCase()]||0} 人</td><td><button onclick="memberDel('${esc(r.email)}','teacher')" style="padding:3px 10px;border:1px solid var(--bad);border-radius:6px;background:transparent;color:var(--bad);cursor:pointer;font-size:12px">削除</button></td></tr>`).join('');
   }catch(e){ el.innerHTML=`<tr><td class="empty">読み込み失敗: ${esc(e.message)}</td></tr>`; }
 }
-// 学校ごとの先生数・生徒数(カウントのみ)。
+// 学校ごとの先生数・生徒数・ライセンス期限。
+function licLabel(until){
+  if(!until) return '<span class="note">未</span>';
+  const t=new Date(until).getTime(); const d=new Date(until).toLocaleDateString();
+  if(t>Date.now()) return `<span style="color:#2e7d32;font-weight:700">有効</span> <span class="note">〜${d}</span>`;
+  return `<span style="color:#c8483a">期限切れ</span> <span class="note">${d}</span>`;
+}
 async function countsLoad(){
   const el=$('scCountTbl');
-  try{ const rows=await _sb('GET','v_school_counts?select=id,name,teachers,students&order=name');
+  try{ const rows=await _sb('GET','v_school_counts?select=id,name,teachers,students,license_until&order=name');
     if(!rows||!rows.length){ el.innerHTML='<tr><td class="empty">学校がありません。</td></tr>'; return; }
     const tT=rows.reduce((a,r)=>a+(r.teachers||0),0), tS=rows.reduce((a,r)=>a+(r.students||0),0);
-    el.innerHTML='<tr><th>学校</th><th>先生</th><th>生徒</th></tr>'
-      +rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.teachers||0} 人</td><td>${r.students||0} 人</td></tr>`).join('')
-      +`<tr style="font-weight:700;border-top:2px solid var(--line)"><td>合計（${rows.length}校）</td><td>${tT} 人</td><td>${tS} 人</td></tr>`;
+    el.innerHTML='<tr><th>学校</th><th>先生</th><th>生徒</th><th>ライセンス</th></tr>'
+      +rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.teachers||0} 人</td><td>${r.students||0} 人</td><td>${licLabel(r.license_until)}</td></tr>`).join('')
+      +`<tr style="font-weight:700;border-top:2px solid var(--line)"><td>合計（${rows.length}校）</td><td>${tT} 人</td><td>${tS} 人</td><td></td></tr>`;
   }catch(e){ el.innerHTML=`<tr><td class="empty">読み込み失敗: ${esc(e.message)}（school_teacher.sql を実行して v_school_counts を作成）</td></tr>`; }
+}
+// 学校ライセンスの有効化＝全生徒へ一括Pro付与(admin_grant_school_license を service_role で呼ぶ)。
+async function licenseGrant(){
+  const st=$('scLicSt'); const sid=$('scSel').value; const dur=$('scLicDur').value;
+  if(!sid){ st.textContent='先に学校を選択してください。'; return; }
+  let until, label;
+  if(dur==='forever'){ until='2999-12-31T00:00:00Z'; label='恒久'; }
+  else if(dur==='revoke'){ until=new Date(Date.now()-86400000).toISOString(); label='失効'; }
+  else { until=new Date(Date.now()+Number(dur)*86400000).toISOString(); label=dur+'日'; }
+  const btn=$('btnScLic'); btn.disabled=true; st.textContent='付与中…';
+  try{ const r=await rpcPost('admin_grant_school_license',{ p_school_id:Number(sid), p_until:until });
+    const row=Array.isArray(r)?r[0]:r;
+    st.textContent=`✓ ${label}。生徒 ${row&&row.granted!=null?row.granted:'?'}/${row&&row.students!=null?row.students:'?'} 人へPro付与（アカウント未作成の子はアプリ起動時に自動付与）`;
+    await countsLoad();
+  }catch(e){ st.textContent='失敗: '+e.message+'\n（admin_grant_school_license 未作成なら docs/supabase/school_teacher.sql を再実行）'; }
+  finally{ btn.disabled=false; }
 }
 if($('btnScCreate')){
   $('btnScCreate').addEventListener('click', schoolCreate);
   $('btnScmAdd').addEventListener('click', memberAdd);
   $('btnScCounts').addEventListener('click', countsLoad);
+  $('btnScLic').addEventListener('click', licenseGrant);
   $('scSel').addEventListener('change', ()=>{ memberLoad(); });
 }
 
