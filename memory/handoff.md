@@ -673,14 +673,14 @@
 - ae7242744b8ff5435 general-purpose
 
 ## 直近24時間の変更ファイル（自動）
-- memory/handoff.md
 - memory/session-summary-LATEST.md
+- memory/handoff.md
+- docs/supabase/teacher.html
 - docs/supabase/school_teacher.sql
 - docs/supabase/dashboard.html
 - src/screens/AccountScreen.tsx
 - src/auth/SyncProvider.tsx
 - src/pro/entitlementClient.ts
-- src/i18n/zh2.json
 
-_自動更新: 2026-10-02 13:43_
+_自動更新: 2026-10-02 14:04_
 <!-- AUTO:END -->

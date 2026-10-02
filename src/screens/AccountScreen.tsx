@@ -62,7 +62,7 @@ export default function AccountScreen() {
   }, [session]);
   // 今のログイン情報を載せて教師サイトを開く(先生はログイン画面を見ずそのまま入れる)。
   const openTeacherPortal = async () => {
-    const url = await buildTeacherPortalUrl();
+    const url = await buildTeacherPortalUrl(st0.uiLang);
     if (!url) { Alert.alert(t('teacher.portal_title'), t('teacher.portal_need_login')); return; }
     Linking.openURL(url).catch(() => { /* 開けなくてもアプリは落とさない */ });
   };

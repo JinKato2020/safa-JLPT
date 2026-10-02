@@ -20,8 +20,9 @@
   h1{ font-size:18px; margin:0; }
   .muted{ color:var(--sub); font-size:13px; }
   main{ max-width:1500px; margin:0 auto; padding:18px 16px 60px; }
-  input{ padding:9px 11px; border:1px solid var(--line); border-radius:8px; background:var(--card);
-    color:var(--ink); font-size:14px; min-width:240px; }
+  input,select{ padding:9px 11px; border:1px solid var(--line); border-radius:8px; background:var(--card);
+    color:var(--ink); font-size:14px; }
+  input{ min-width:240px; }
   button{ padding:9px 16px; border:0; border-radius:8px; background:var(--accent); color:#fff;
     font-size:14px; cursor:pointer; }
   button:disabled{ opacity:.45; cursor:not-allowed; }
@@ -34,16 +35,15 @@
   .err{ color:var(--bad); font-size:13px; white-space:pre-wrap; margin-top:10px; }
   .spacer{ flex:1; }
   .splash{ max-width:380px; margin:16vh auto 0; text-align:center; color:var(--sub); }
-  /* 生徒の登録バー */
+  .langsel{ font-size:13px; padding:6px 8px; }
   .manage{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:4px 2px 16px; }
   .manage .top{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .manage .count{ font-weight:700; font-size:15px; }
-  .manage .count .cap{ color:var(--sub); font-weight:400; font-size:13px; }
   .manage .coderow{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
   .manage .code{ font-weight:700; font-size:20px; letter-spacing:.14em; font-variant-numeric:tabular-nums;
     padding:4px 12px; border-radius:8px; background:var(--chip); border:1px solid var(--line); }
   .manage form{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:10px; }
-  .manage .hint{ font-size:12px; color:var(--sub); margin-top:8px; }
+  .manage .hint{ font-size:12px; color:var(--sub); margin-top:8px; white-space:pre-wrap; }
   .manage .msg{ font-size:13px; margin-top:8px; white-space:pre-wrap; }
   .scroll{ overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:12px; }
   table{ width:100%; border-collapse:collapse; font-size:13px; }
@@ -62,59 +62,56 @@
 </head>
 <body>
 
-<!-- アプリから引き継ぎ中などの一瞬の待ち表示(チラつき防止) -->
-<div id="splashView" class="splash">読み込み中…</div>
+<div id="splashView" class="splash">…</div>
 
 <div id="loginView" class="login" hidden>
-  <h2>教師専用サイト</h2>
-  <div class="muted">まいにちJLPT ／ 先生用ログイン</div>
+  <div style="text-align:right;margin-bottom:6px"><select id="langSelLogin" class="langsel"></select></div>
+  <h2 data-i18n="login_h2">教師専用サイト</h2>
+  <div class="muted" data-i18n="login_sub">まいにちJLPT ／ 先生用ログイン</div>
   <div class="muted" style="margin-top:10px; font-size:12px">
-    ふだんは <b>まいにちJLPTアプリ</b> の「アカウント」→「教師サイトを開く」から入ると、ここで入力は不要です。<br>
-    下はアプリを使わずブラウザだけで入る場合です。
+    <span data-i18n="login_hint_app">ふだんは まいにちJLPTアプリ の「アカウント」→「教師サイトを開く」から入ると、ここで入力は不要です。</span><br>
+    <span data-i18n="login_hint_browser">下はアプリを使わずブラウザだけで入る場合です。</span>
   </div>
-  <button id="googleBtn" class="ghost" style="width:100%; margin-top:14px">Googleでログイン（アプリと同じGoogle）</button>
-  <div class="muted" style="text-align:center; margin:12px 0 2px">または メール＋パスワード</div>
-  <div class="row"><input id="email" type="email" placeholder="メールアドレス" autocomplete="username"></div>
-  <div class="row"><input id="pass" type="password" placeholder="パスワード" autocomplete="current-password"></div>
-  <button id="loginBtn">ログイン</button>
-  <button id="signupBtn" class="ghost" style="margin-top:10px; width:100%">新規登録（初めての先生）</button>
+  <button id="googleBtn" class="ghost" style="width:100%; margin-top:14px" data-i18n="btn_google">Googleでログイン（アプリと同じGoogle）</button>
+  <div class="muted" style="text-align:center; margin:12px 0 2px" data-i18n="or_email">または メール＋パスワード</div>
+  <div class="row"><input id="email" type="email" data-i18n-ph="ph_email" placeholder="メールアドレス" autocomplete="username"></div>
+  <div class="row"><input id="pass" type="password" data-i18n-ph="ph_pass" placeholder="パスワード" autocomplete="current-password"></div>
+  <button id="loginBtn" data-i18n="btn_login">ログイン</button>
+  <button id="signupBtn" class="ghost" style="margin-top:10px; width:100%" data-i18n="btn_signup">新規登録（初めての先生）</button>
   <div id="loginErr" class="err"></div>
-  <div class="muted" style="margin-top:14px; font-size:12px">
-    ※ アプリと同じメール／Googleでログインしてください。<br>
-    管理者がそのメールを「先生」として学校に登録すると、生徒を登録できるようになります。
+  <div class="muted" style="margin-top:14px; font-size:12px" data-i18n="login_foot">
+    ※ アプリと同じメール／Googleでログインしてください。管理者がそのメールを「先生」として学校に登録すると、生徒を登録できるようになります。
   </div>
 </div>
 
 <div id="appView" hidden>
   <header>
-    <h1>教師専用サイト</h1>
+    <h1 data-i18n="login_h2">教師専用サイト</h1>
     <span id="schoolName" class="muted"></span>
     <span class="spacer"></span>
+    <select id="langSel" class="langsel"></select>
     <span id="meLabel" class="muted"></span>
-    <button id="reloadBtn" class="ghost">更新</button>
-    <button id="logoutBtn" class="ghost">ログアウト</button>
+    <button id="reloadBtn" class="ghost" data-i18n="btn_reload">更新</button>
+    <button id="logoutBtn" class="ghost" data-i18n="btn_logout">ログアウト</button>
   </header>
   <main>
-    <!-- 先生でない場合の案内 -->
     <div id="notTeacher" class="empty" hidden></div>
 
-    <!-- 生徒の登録(自分の生徒・最大20人) -->
     <div id="manage" class="manage" hidden>
       <div class="top">
-        <span class="count">生徒 <span id="stuCount">0</span><span class="cap"> / <span id="stuCap">20</span>人</span></span>
+        <span class="count"><span data-i18n="count_students">生徒</span> <span id="stuCount">0</span><span class="muted"> / <span id="stuCap">20</span><span data-i18n="count_people">人</span></span></span>
         <span class="spacer"></span>
       </div>
       <div class="coderow">
-        <span class="muted">団体コード（生徒がアプリで入力）:</span>
+        <span class="muted" data-i18n="code_label">団体コード（生徒がアプリで入力）:</span>
         <span id="codeVal" class="code">—</span>
-        <button id="copyCodeBtn" class="ghost" type="button">コピー</button>
-        <button id="regenCodeBtn" class="ghost" type="button">作り直す</button>
+        <button id="copyCodeBtn" class="ghost" type="button" data-i18n="btn_copy">コピー</button>
+        <button id="regenCodeBtn" class="ghost" type="button" data-i18n="btn_regen">作り直す</button>
       </div>
-      <div class="hint"><b>方法①（おすすめ）</b>：生徒がアプリでアカウントを作成 → アカウント画面の「学校の団体コード」に<b>このコードを入力</b>すると、自動であなたの生徒になります。<br>
-      <b>方法②</b>：下に生徒のメールを入れて直接追加（生徒がアプリで使う／使う予定のメール）。学習が始まると下の表に成績が出ます。<b>1人の先生につき20人まで。</b></div>
+      <div class="hint" id="manageHint" data-i18n="manage_hint"></div>
       <form id="addForm">
-        <input id="addEmail" type="email" placeholder="生徒のメールアドレス" autocomplete="off">
-        <button id="addBtn" type="submit">生徒をメールで追加</button>
+        <input id="addEmail" type="email" data-i18n-ph="ph_add_email" placeholder="生徒のメールアドレス" autocomplete="off">
+        <button id="addBtn" type="submit" data-i18n="btn_add">生徒をメールで追加</button>
       </form>
       <div id="manageMsg" class="msg"></div>
     </div>
@@ -123,21 +120,12 @@
     <div class="scroll">
       <table id="tbl">
         <thead><tr>
-          <th>生徒</th><th>レベル</th>
-          <th class="num gsep">予想得点</th><th class="num">合格率</th>
-          <th class="num gsep">漢字</th><th class="num">語彙</th><th class="num">文法</th>
-          <th class="num gsep">正答 漢</th><th class="num">語</th><th class="num">文</th><th class="num">読</th><th class="num">聴</th>
-          <th class="num gsep">学習時間</th><th class="num">学習日</th><th class="num">連続</th><th class="num">模試</th>
-          <th class="gsep">最終アクセス</th><th class="num">利用日数</th>
-          <th class="gsep"></th>
-        </tr>
-        <tr class="muted" style="font-size:11px">
-          <th colspan="2">名前 / メール</th>
-          <th class="num gsep">／180</th><th class="num">%</th>
-          <th class="num gsep" colspan="3">覚えた範囲(%)</th>
-          <th class="num gsep" colspan="5">分野別 正答率(%)</th>
-          <th class="num gsep">合計</th><th class="num">日</th><th class="num">日</th><th class="num">回</th>
-          <th class="gsep"></th><th class="num">日</th>
+          <th data-i18n="th_student">生徒</th><th data-i18n="th_level">レベル</th>
+          <th class="num gsep" data-i18n="th_pred">予想得点</th><th class="num" data-i18n="th_pass">合格率</th>
+          <th class="num gsep" data-i18n="th_kanji">漢字</th><th class="num" data-i18n="th_vocab">語彙</th><th class="num" data-i18n="th_grammar">文法</th>
+          <th class="num gsep" data-i18n="th_acc_k">正答 漢</th><th class="num" data-i18n="th_acc_v">語</th><th class="num" data-i18n="th_acc_g">文</th><th class="num" data-i18n="th_acc_r">読</th><th class="num" data-i18n="th_acc_l">聴</th>
+          <th class="num gsep" data-i18n="th_studytime">学習時間</th><th class="num" data-i18n="th_studydays">学習日</th><th class="num" data-i18n="th_streak">連続</th><th class="num" data-i18n="th_mock">模試</th>
+          <th class="gsep" data-i18n="th_last">最終アクセス</th><th class="num" data-i18n="th_days">利用日数</th>
           <th class="gsep"></th>
         </tr></thead>
         <tbody id="rows"></tbody>
@@ -146,6 +134,771 @@
     <div id="emptyMsg" class="empty" hidden></div>
   </main>
 </div>
+
+<script>
+/* I18N-START (このブロックは tools/teacher_site_i18n.py が ja を元に全11言語へ上書きします) */
+const I18N = {
+  "ja": {
+    "app_title": "まいにちJLPT 教師専用サイト",
+    "login_h2": "教師専用サイト",
+    "login_sub": "まいにちJLPT ／ 先生用ログイン",
+    "login_hint_app": "ふだんは まいにちJLPTアプリ の「アカウント」→「教師サイトを開く」から入ると、ここで入力は不要です。",
+    "login_hint_browser": "下はアプリを使わずブラウザだけで入る場合です。",
+    "btn_google": "Googleでログイン（アプリと同じGoogle）",
+    "or_email": "または メール＋パスワード",
+    "ph_email": "メールアドレス",
+    "ph_pass": "パスワード",
+    "btn_login": "ログイン",
+    "btn_signup": "新規登録（初めての先生）",
+    "login_foot": "※ アプリと同じメール／Googleでログインしてください。管理者がそのメールを「先生」として学校に登録すると、生徒を登録できるようになります。",
+    "btn_reload": "更新",
+    "btn_logout": "ログアウト",
+    "count_students": "生徒",
+    "count_people": "人",
+    "code_label": "団体コード（生徒がアプリで入力）:",
+    "btn_copy": "コピー",
+    "copied": "コピーしました",
+    "btn_regen": "作り直す",
+    "manage_hint": "方法①（おすすめ）：生徒がアプリでアカウントを作成 → アカウント画面の「学校の団体コード」にこのコードを入力すると、自動であなたの生徒になります。\n方法②：下に生徒のメールを入れて直接追加（生徒がアプリで使う／使う予定のメール）。学習が始まると下の表に成績が出ます。1人の先生につき20人まで。",
+    "ph_add_email": "生徒のメールアドレス",
+    "btn_add": "生徒をメールで追加",
+    "btn_delete": "削除",
+    "pending": "未ログイン",
+    "not_teacher": "このアカウントはまだ「先生」として学校に登録されていません。管理者にメールアドレスを伝えて、先生として登録してもらってください。登録後、このページを「更新」すると生徒を登録できます。",
+    "cap_reached": "登録は上限の{cap}人に達しています。追加するには、どなたかを削除してください。",
+    "summary_none": "まだ生徒を登録していません。上の「生徒を追加」からメールを登録してください。",
+    "summary_counts": "登録 {total}人（学習中 {studying}人・直近7日に学習 {active}人）",
+    "load_error": "読み込みエラー: {msg}",
+    "add_need_email": "メールアドレスを入力してください。",
+    "add_dup": "{email} は登録済みです。",
+    "add_ok": "✓ {email} を登録しました。",
+    "add_fail": "追加できません: {msg}",
+    "remove_confirm": "{email} を生徒一覧から外しますか？（学習データ自体は消えません）",
+    "remove_ok": "{email} を外しました。",
+    "remove_fail": "削除できません: {msg}",
+    "regen_confirm": "コードを作り直すと、前のコードは使えなくなります（配布済みの生徒には新しいコードを伝えてください）。よろしいですか？",
+    "regen_ok": "新しい団体コードを発行しました。",
+    "regen_fail": "コードの作り直しに失敗: {msg}",
+    "login_need": "メールとパスワードを入力してください。",
+    "login_fail": "ログインできません: {msg}",
+    "signup_shortpw": "パスワードは6文字以上にしてください。",
+    "signup_fail": "登録できません: {msg}",
+    "signup_sent": "登録しました。届いた確認メールのリンクを開くと、この教師ページに戻って自動でログインされます。",
+    "google_fail": "Googleログイン開始に失敗: {msg}",
+    "th_student": "生徒",
+    "th_level": "レベル",
+    "th_pred": "予想得点",
+    "th_pass": "合格率",
+    "th_kanji": "漢字",
+    "th_vocab": "語彙",
+    "th_grammar": "文法",
+    "th_acc_k": "正答 漢字",
+    "th_acc_v": "語彙",
+    "th_acc_g": "文法",
+    "th_acc_r": "読解",
+    "th_acc_l": "聴解",
+    "th_studytime": "学習時間",
+    "th_studydays": "学習日",
+    "th_streak": "連続",
+    "th_mock": "模試",
+    "th_last": "最終アクセス",
+    "th_days": "利用日数"
+  },
+  "en": {
+    "app_title": "Mainichi JLPT Teacher Site",
+    "login_h2": "Teacher Site",
+    "login_sub": "Mainichi JLPT / Teacher Login",
+    "login_hint_app": "If you usually access from the Mainichi JLPT app via \"Account\" → \"Open Teacher Site,\" you don't need to enter anything here.",
+    "login_hint_browser": "The following is for logging in directly via browser without using the app.",
+    "btn_google": "Log in with Google (same Google as app)",
+    "or_email": "Or Email + Password",
+    "ph_email": "Email Address",
+    "ph_pass": "Password",
+    "btn_login": "Log In",
+    "btn_signup": "Register (First-time Teacher)",
+    "login_foot": "* Please log in with the same email/Google account as the app. Once an administrator registers that email as a \"teacher\" for a school, you will be able to register students.",
+    "btn_reload": "Refresh",
+    "btn_logout": "Log Out",
+    "count_students": "Students",
+    "count_people": "people",
+    "code_label": "Group Code (students enter in app):",
+    "btn_copy": "Copy",
+    "copied": "Copied",
+    "btn_regen": "Generate New",
+    "manage_hint": "Method ① (Recommended): Students create an account in the app → enter this code into \"School Group Code\" on their account screen, and they will automatically become your students.\nMethod ②: Enter student emails below to add them directly (email they use/plan to use with the app). Once they start studying, their scores will appear in the table below. Up to 20 students per teacher.",
+    "ph_add_email": "Student Email Address",
+    "btn_add": "Add Student by Email",
+    "btn_delete": "Delete",
+    "pending": "Not Logged In",
+    "not_teacher": "This account is not yet registered as a \"teacher\" for a school. Please provide your email address to an administrator and ask them to register you as a teacher. After registration, \"Refresh\" this page to register students.",
+    "cap_reached": "Registration has reached the limit of {cap} people. To add more, please delete someone.",
+    "summary_none": "You haven't registered any students yet. Please register emails using \"Add Student\" above.",
+    "summary_counts": "Registered {total} ({studying} studying · {active} studied in last 7 days)",
+    "load_error": "Loading Error: {msg}",
+    "add_need_email": "Enter email address",
+    "add_dup": "{email} is already registered.",
+    "add_ok": "✓ Registered {email}.",
+    "add_fail": "Cannot add: {msg}",
+    "remove_confirm": "Remove {email} from student list? (Learning data will not be deleted)",
+    "remove_ok": "Removed {email}.",
+    "remove_fail": "Cannot delete: {msg}",
+    "regen_confirm": "If you regenerate the code, the previous code will become invalid (please inform students who have received the old code of the new one). Are you sure?",
+    "regen_ok": "New organization code issued.",
+    "regen_fail": "Failed to regenerate code: {msg}",
+    "login_need": "Enter email and password",
+    "login_fail": "Cannot log in: {msg}",
+    "signup_shortpw": "Password must be at least 6 characters.",
+    "signup_fail": "Cannot register: {msg}",
+    "signup_sent": "Registered. Open the link in the confirmation email to return to this teacher page and be automatically logged in.",
+    "google_fail": "Failed to start Google login: {msg}",
+    "th_student": "Student",
+    "th_level": "Level",
+    "th_pred": "Predicted Score",
+    "th_pass": "Pass Rate",
+    "th_kanji": "Kanji",
+    "th_vocab": "Vocabulary",
+    "th_grammar": "Grammar",
+    "th_acc_k": "Correct Kanji",
+    "th_acc_v": "Vocabulary",
+    "th_acc_g": "Grammar",
+    "th_acc_r": "Reading",
+    "th_acc_l": "Listening",
+    "th_studytime": "Study Time",
+    "th_studydays": "Study Days",
+    "th_streak": "Streak",
+    "th_mock": "Mock Test",
+    "th_last": "Last Accessed",
+    "th_days": "Days Used"
+  },
+  "ne": {
+    "app_title": "माईनिची JLPT शिक्षक विशेष साइट",
+    "login_h2": "शिक्षक विशेष साइट",
+    "login_sub": "माईनिची JLPT / शिक्षक लगइन",
+    "login_hint_app": "सामान्यतया, यदि तपाईं माईनिची JLPT एपको \"खाता\" -> \"शिक्षक साइट खोल्नुहोस्\" बाट लगइन गर्नुहुन्छ भने, यहाँ इनपुट आवश्यक पर्दैन।",
+    "login_hint_browser": "तलको विकल्प एप प्रयोग नगरी ब्राउजरबाट मात्र लगइन गर्नका लागि हो।",
+    "btn_google": "गुगलबाट लगइन गर्नुहोस् (एपमा प्रयोग गरिएको गुगल)",
+    "or_email": "वा इमेल + पासवर्ड",
+    "ph_email": "इमेल ठेगाना",
+    "ph_pass": "पासवर्ड",
+    "btn_login": "लगइन",
+    "btn_signup": "नयाँ दर्ता (पहिलो पटकका शिक्षकहरूका लागि)",
+    "login_foot": "※ कृपया एपमा प्रयोग गरिएको इमेल/गुगलबाट लगइन गर्नुहोस्। जब प्रशासकले त्यो इमेललाई विद्यालयमा \"शिक्षक\" को रूपमा दर्ता गर्छ, तब तपाईंले विद्यार्थीहरू दर्ता गर्न सक्नुहुनेछ।",
+    "btn_reload": "अद्यावधिक गर्नुहोस्",
+    "btn_logout": "लगआउट",
+    "count_students": "विद्यार्थी",
+    "count_people": "जना",
+    "code_label": "समूह कोड (विद्यार्थीले एपमा प्रविष्ट गर्ने):",
+    "btn_copy": "प्रतिलिपि गर्नुहोस्",
+    "copied": "प्रतिलिपि गरियो",
+    "btn_regen": "पुनः सिर्जना गर्नुहोस्",
+    "manage_hint": "विधि ① (सिफारिस गरिएको): विद्यार्थीले एपमा खाता सिर्जना गर्छ -> खाता स्क्रिनमा रहेको \"विद्यालय समूह कोड\" मा यो कोड प्रविष्ट गर्छ, र स्वचालित रूपमा तपाईंको विद्यार्थी बन्छ।\nविधि ②: तल विद्यार्थीको इमेल प्रविष्ट गरेर सिधै थप्नुहोस् (विद्यार्थीले एपमा प्रयोग गर्ने/प्रयोग गर्ने योजना बनाएको इमेल)। जब अध्ययन सुरु हुन्छ, तलको तालिकामा नतिजाहरू देखिनेछन्। प्रति शिक्षक २० जनासम्म।",
+    "ph_add_email": "विद्यार्थीको इमेल ठेगाना",
+    "btn_add": "इमेलद्वारा विद्यार्थी थप्नुहोस्",
+    "btn_delete": "मेट्नुहोस्",
+    "pending": "लगइन नगरिएको",
+    "not_teacher": "यो खाता अझै \"शिक्षक\" को रूपमा विद्यालयमा दर्ता गरिएको छैन। कृपया प्रशासकलाई आफ्नो इमेल ठेगाना दिनुहोस् र शिक्षकको रूपमा दर्ता गर्न लगाउनुहोस्। दर्ता भएपछि, यो पृष्ठलाई \"अद्यावधिक\" गर्दा तपाईंले विद्यार्थीहरू दर्ता गर्न सक्नुहुनेछ।",
+    "cap_reached": "दर्ता {cap} जनाको अधिकतम सीमामा पुगेको छ। थप्नका लागि, कृपया कसैलाई हटाउनुहोस्।",
+    "summary_none": "तपाईंले अझै विद्यार्थी दर्ता गर्नुभएको छैन। कृपया माथिको \"विद्यार्थी थप्नुहोस्\" बाट इमेल दर्ता गर्नुहोस्।",
+    "summary_counts": "दर्ता भएका {total} जना (अध्ययनरत {studying} जना · पछिल्लो ७ दिनमा अध्ययन गरेका {active} जना)",
+    "load_error": "लोडिङ त्रुटि: {msg}",
+    "add_need_email": "इमेल ठेगाना प्रविष्ट गर्नुहोस्।",
+    "add_dup": "{email} पहिले नै दर्ता भइसकेको छ।",
+    "add_ok": "✓ {email} दर्ता गरियो।",
+    "add_fail": "थप्न सकिएन: {msg}",
+    "remove_confirm": "{email} लाई विद्यार्थी सूचीबाट हटाउने हो? (सिकाई डेटा मेटिने छैन)",
+    "remove_ok": "{email} हटाइयो।",
+    "remove_fail": "मेट्न सकिएन: {msg}",
+    "regen_confirm": "यदि तपाईंले कोड पुन: सिर्जना गर्नुभयो भने, अघिल्लो कोड प्रयोग गर्न सकिँदैन (वितरण गरिएका विद्यार्थीहरूलाई नयाँ कोड बताउनुहोस्)। के तपाईं निश्चित हुनुहुन्छ?",
+    "regen_ok": "नयाँ संस्था कोड जारी गरियो।",
+    "regen_fail": "कोड पुन: सिर्जना गर्न असफल: {msg}",
+    "login_need": "इमेल र पासवर्ड प्रविष्ट गर्नुहोस्।",
+    "login_fail": "लगइन गर्न सकिएन: {msg}",
+    "signup_shortpw": "पासवर्ड कम्तिमा ६ अक्षरको हुनुपर्छ।",
+    "signup_fail": "दर्ता गर्न सकिएन: {msg}",
+    "signup_sent": "दर्ता गरियो। प्राप्त भएको पुष्टिकरण इमेलमा रहेको लिङ्क खोल्नुहोस्, तपाईं यो शिक्षक पृष्ठमा फर्कनुहुनेछ र स्वचालित रूपमा लगइन हुनुहुनेछ।",
+    "google_fail": "गुगल लगइन सुरु गर्न असफल: {msg}",
+    "th_student": "विद्यार्थी",
+    "th_level": "स्तर",
+    "th_pred": "अनुमानित स्कोर",
+    "th_pass": "उत्तीर्ण दर",
+    "th_kanji": "कान्जी",
+    "th_vocab": "शब्दावली",
+    "th_grammar": "व्याकरण",
+    "th_acc_k": "सही उत्तर कान्जी",
+    "th_acc_v": "शब्दावली",
+    "th_acc_g": "व्याकरण",
+    "th_acc_r": "पढ्ने बोध",
+    "th_acc_l": "सुन्ने बोध",
+    "th_studytime": "अध्ययन समय",
+    "th_studydays": "अध्ययन मिति",
+    "th_streak": "लगातार",
+    "th_mock": "नक्कली परीक्षा",
+    "th_last": "अन्तिम पहुँच",
+    "th_days": "प्रयोग गरिएका दिनहरू"
+  },
+  "bn": {
+    "app_title": "প্রতিদিন JLPT শিক্ষক সাইট",
+    "login_h2": "শিক্ষক সাইট",
+    "login_sub": "প্রতিদিন JLPT / শিক্ষক লগইন",
+    "login_hint_app": "সাধারণত, প্রতিদিন JLPT অ্যাপের \"অ্যাকাউন্ট\" → \"শিক্ষক সাইট খুলুন\" থেকে প্রবেশ করলে এখানে ইনপুট করার প্রয়োজন হয় না।",
+    "login_hint_browser": "নীচের অংশটি শুধুমাত্র ব্রাউজার ব্যবহার করে অ্যাপ ছাড়া প্রবেশ করার জন্য।",
+    "btn_google": "Google দিয়ে লগইন করুন (অ্যাপের মতো একই Google)",
+    "or_email": "অথবা ইমেল + পাসওয়ার্ড",
+    "ph_email": "ইমেল ঠিকানা",
+    "ph_pass": "পাসওয়ার্ড",
+    "btn_login": "লগইন",
+    "btn_signup": "নতুন নিবন্ধন (প্রথমবার শিক্ষক)",
+    "login_foot": "※ অ্যাপের মতো একই ইমেল/Google দিয়ে লগইন করুন। প্রশাসক সেই ইমেলটিকে \"শিক্ষক\" হিসাবে স্কুলে নিবন্ধন করলে, আপনি শিক্ষার্থীদের নিবন্ধন করতে পারবেন।",
+    "btn_reload": "আপডেট করুন",
+    "btn_logout": "লগআউট",
+    "count_students": "শিক্ষার্থী",
+    "count_people": "জন",
+    "code_label": "গ্রুপ কোড (শিক্ষার্থীরা অ্যাপে ইনপুট করবে):",
+    "btn_copy": "কপি করুন",
+    "copied": "কপি করা হয়েছে",
+    "btn_regen": "পুনরায় তৈরি করুন",
+    "manage_hint": "পদ্ধতি ① (প্রস্তাবিত): শিক্ষার্থীরা অ্যাপে অ্যাকাউন্ট তৈরি করবে → অ্যাকাউন্ট স্ক্রিনে \"স্কুল গ্রুপ কোড\"-এ এই কোডটি ইনপুট করলে, তারা স্বয়ংক্রিয়ভাবে আপনার শিক্ষার্থী হয়ে যাবে।\nপদ্ধতি ②: নিচে শিক্ষার্থীর ইমেল প্রবেশ করিয়ে সরাসরি যোগ করুন (শিক্ষার্থী অ্যাপে যে ইমেল ব্যবহার করে/করবে)। শেখা শুরু হলে নিচের টেবিলে ফলাফল দেখা যাবে। একজন শিক্ষক সর্বোচ্চ 20 জন শিক্ষার্থী যোগ করতে পারবেন।",
+    "ph_add_email": "শিক্ষার্থীর ইমেল ঠিকানা",
+    "btn_add": "ইমেলের মাধ্যমে শিক্ষার্থী যোগ করুন",
+    "btn_delete": "মুছুন",
+    "pending": "লগইন করা হয়নি",
+    "not_teacher": "এই অ্যাকাউন্টটি এখনও \"শিক্ষক\" হিসাবে স্কুলে নিবন্ধিত হয়নি। প্রশাসকের কাছে আপনার ইমেল ঠিকানা জানিয়ে শিক্ষক হিসাবে নিবন্ধন করতে বলুন। নিবন্ধনের পর, এই পৃষ্ঠাটি \"আপডেট\" করলে আপনি শিক্ষার্থী নিবন্ধন করতে পারবেন।",
+    "cap_reached": "নিবন্ধন সর্বোচ্চ {cap} জনে পৌঁছেছে। যোগ করতে হলে, কাউকে মুছে ফেলুন।",
+    "summary_none": "আপনি এখনও কোনো শিক্ষার্থী নিবন্ধন করেননি। উপরের \"শিক্ষার্থী যোগ করুন\" থেকে ইমেল নিবন্ধন করুন।",
+    "summary_counts": "নিবন্ধিত {total} জন (শিক্ষারত {studying} জন・গত 7 দিনে সক্রিয় {active} জন)",
+    "load_error": "লোড করার ত্রুটি: {msg}",
+    "add_need_email": "ইমেল ঠিকানা লিখুন।",
+    "add_dup": "{email} ইতিমধ্যে নিবন্ধিত।",
+    "add_ok": "✓ {email} নিবন্ধিত হয়েছে।",
+    "add_fail": "যোগ করা যায়নি: {msg}",
+    "remove_confirm": "{email}-কে কি শিক্ষার্থীর তালিকা থেকে সরাবেন? (শিক্ষার ডেটা মোছা হবে না)",
+    "remove_ok": "{email}-কে সরানো হয়েছে।",
+    "remove_fail": "মোছা যায়নি: {msg}",
+    "regen_confirm": "আপনি যদি কোডটি পুনরায় তৈরি করেন, তাহলে পূর্বের কোডটি আর ব্যবহার করা যাবে না (বিতরণ করা শিক্ষার্থীদের নতুন কোডটি জানাতে হবে)। আপনি কি নিশ্চিত?",
+    "regen_ok": "নতুন সংস্থা কোড জারি করা হয়েছে।",
+    "regen_fail": "কোড পুনরায় তৈরি করতে ব্যর্থ: {msg}",
+    "login_need": "ইমেল এবং পাসওয়ার্ড লিখুন।",
+    "login_fail": "লগইন করা যায়নি: {msg}",
+    "signup_shortpw": "পাসওয়ার্ড ৬ অক্ষরের বেশি হতে হবে।",
+    "signup_fail": "নিবন্ধন করা যায়নি: {msg}",
+    "signup_sent": "নিবন্ধন সম্পন্ন হয়েছে। আপনার প্রাপ্ত নিশ্চিতকরণ ইমেলের লিঙ্কে ক্লিক করলে, আপনি এই শিক্ষক পৃষ্ঠায় ফিরে আসবেন এবং স্বয়ংক্রিয়ভাবে লগইন হবেন।",
+    "google_fail": "Google লগইন শুরু করতে ব্যর্থ: {msg}",
+    "th_student": "শিক্ষার্থী",
+    "th_level": "লেভেল",
+    "th_pred": "আনুমানিক স্কোর",
+    "th_pass": "পাশের হার",
+    "th_kanji": "কাঞ্জি",
+    "th_vocab": "শব্দভান্ডার",
+    "th_grammar": "ব্যাকরণ",
+    "th_acc_k": "সঠিক উত্তর কাঞ্জি",
+    "th_acc_v": "শব্দভান্ডার",
+    "th_acc_g": "ব্যাকরণ",
+    "th_acc_r": "পঠন",
+    "th_acc_l": "শ্রবণ",
+    "th_studytime": "শিক্ষার সময়",
+    "th_studydays": "শিক্ষার দিন",
+    "th_streak": "ধারাবাহিক",
+    "th_mock": "মক টেস্ট",
+    "th_last": "শেষ অ্যাক্সেস",
+    "th_days": "ব্যবহারের দিন"
+  },
+  "id": {
+    "app_title": "Situs Guru Mainichi JLPT",
+    "login_h2": "Situs Guru",
+    "login_sub": "Mainichi JLPT / Login Guru",
+    "login_hint_app": "Biasanya, Anda dapat masuk dari aplikasi Mainichi JLPT melalui \"Akun\" → \"Buka Situs Guru\", sehingga tidak perlu memasukkan apa pun di sini.",
+    "login_hint_browser": "Di bawah ini adalah jika Anda masuk hanya dengan browser tanpa menggunakan aplikasi.",
+    "btn_google": "Login dengan Google (Google yang sama dengan aplikasi)",
+    "or_email": "Atau Email + Kata Sandi",
+    "ph_email": "Alamat Email",
+    "ph_pass": "Kata Sandi",
+    "btn_login": "Login",
+    "btn_signup": "Daftar Baru (Guru Pertama Kali)",
+    "login_foot": "※ Harap login dengan email/Google yang sama dengan aplikasi. Setelah administrator mendaftarkan email tersebut sebagai \"guru\" di sekolah, Anda dapat mendaftarkan siswa.",
+    "btn_reload": "Perbarui",
+    "btn_logout": "Logout",
+    "count_students": "Siswa",
+    "count_people": "Orang",
+    "code_label": "Kode Grup (siswa masukkan di aplikasi):",
+    "btn_copy": "Salin",
+    "copied": "Tersalin",
+    "btn_regen": "Buat Ulang",
+    "manage_hint": "Metode ① (disarankan): Siswa membuat akun di aplikasi → Masukkan kode ini di \"Kode Grup Sekolah\" pada layar akun, dan mereka akan otomatis menjadi siswa Anda.\nMetode ②: Masukkan email siswa di bawah untuk menambahkannya secara langsung (email yang akan/sedang digunakan siswa di aplikasi). Setelah pembelajaran dimulai, nilai akan muncul di tabel di bawah. Maksimal 20 siswa per guru.",
+    "ph_add_email": "Alamat Email Siswa",
+    "btn_add": "Tambah Siswa dengan Email",
+    "btn_delete": "Hapus",
+    "pending": "Belum Login",
+    "not_teacher": "Akun ini belum terdaftar sebagai \"guru\" di sekolah. Harap beritahu administrator alamat email Anda dan minta mereka untuk mendaftarkan Anda sebagai guru. Setelah terdaftar, Anda dapat mendaftarkan siswa dengan \"Memperbarui\" halaman ini.",
+    "cap_reached": "Pendaftaran telah mencapai batas {cap} orang. Untuk menambahkan, harap hapus seseorang.",
+    "summary_none": "Anda belum mendaftarkan siswa. Harap daftarkan email dari \"Tambah Siswa\" di atas.",
+    "summary_counts": "Terdaftar {total} orang (Belajar {studying} orang・Belajar dalam 7 hari terakhir {active} orang)",
+    "load_error": "Kesalahan memuat: {msg}",
+    "add_need_email": "Masukkan alamat email Anda.",
+    "add_dup": "{email} sudah terdaftar.",
+    "add_ok": "✓ {email} telah terdaftar.",
+    "add_fail": "Tidak dapat menambahkan: {msg}",
+    "remove_confirm": "Hapus {email} dari daftar siswa? (Data belajar tidak akan terhapus)",
+    "remove_ok": "{email} telah dihapus.",
+    "remove_fail": "Tidak dapat menghapus: {msg}",
+    "regen_confirm": "Jika Anda membuat ulang kode, kode sebelumnya tidak akan berlaku lagi (harap berikan kode baru kepada siswa yang sudah memiliki kode lama). Lanjutkan?",
+    "regen_ok": "Kode grup baru telah diterbitkan.",
+    "regen_fail": "Gagal membuat ulang kode: {msg}",
+    "login_need": "Masukkan email dan kata sandi Anda.",
+    "login_fail": "Tidak dapat masuk: {msg}",
+    "signup_shortpw": "Kata sandi harus lebih dari 6 karakter.",
+    "signup_fail": "Tidak dapat mendaftar: {msg}",
+    "signup_sent": "Pendaftaran berhasil. Buka tautan di email konfirmasi yang Anda terima untuk kembali ke halaman guru ini dan masuk secara otomatis.",
+    "google_fail": "Gagal memulai login Google: {msg}",
+    "th_student": "Siswa",
+    "th_level": "Level",
+    "th_pred": "Perkiraan Skor",
+    "th_pass": "Tingkat Kelulusan",
+    "th_kanji": "Kanji",
+    "th_vocab": "Kosakata",
+    "th_grammar": "Tata Bahasa",
+    "th_acc_k": "Jawaban Benar Kanji",
+    "th_acc_v": "Kosakata",
+    "th_acc_g": "Tata Bahasa",
+    "th_acc_r": "Pemahaman Bacaan",
+    "th_acc_l": "Pemahaman Mendengarkan",
+    "th_studytime": "Waktu Belajar",
+    "th_studydays": "Tanggal Belajar",
+    "th_streak": "Beruntun",
+    "th_mock": "Uji Coba",
+    "th_last": "Akses Terakhir",
+    "th_days": "Hari Penggunaan"
+  },
+  "ko": {
+    "app_title": "마이니치 JLPT 교사용 사이트",
+    "login_h2": "교사용 사이트",
+    "login_sub": "마이니치 JLPT / 선생님 로그인",
+    "login_hint_app": "평소에는 마이니치 JLPT 앱의 '계정' → '교사 사이트 열기'로 접속하시면 여기서 입력할 필요가 없습니다.",
+    "login_hint_browser": "아래는 앱을 사용하지 않고 브라우저로만 접속하는 경우입니다.",
+    "btn_google": "Google로 로그인 (앱과 동일한 Google 계정)",
+    "or_email": "또는 이메일 + 비밀번호",
+    "ph_email": "이메일 주소",
+    "ph_pass": "비밀번호",
+    "btn_login": "로그인",
+    "btn_signup": "신규 등록 (첫 이용 선생님)",
+    "login_foot": "※ 앱과 동일한 이메일/Google 계정으로 로그인해 주세요. 관리자가 해당 이메일을 '선생님'으로 학교에 등록하면 학생을 등록할 수 있게 됩니다.",
+    "btn_reload": "새로고침",
+    "btn_logout": "로그아웃",
+    "count_students": "학생",
+    "count_people": "명",
+    "code_label": "단체 코드 (학생이 앱에서 입력):",
+    "btn_copy": "복사",
+    "copied": "복사되었습니다",
+    "btn_regen": "재생성",
+    "manage_hint": "방법 ① (추천): 학생이 앱에서 계정 생성 → 계정 화면의 '학교 단체 코드'에 이 코드를 입력하면 자동으로 선생님의 학생이 됩니다.\n방법 ②: 아래에 학생 이메일을 입력하여 직접 추가 (학생이 앱에서 사용 중이거나 사용할 예정인 이메일). 학습이 시작되면 아래 표에 성적이 표시됩니다. 선생님 한 분당 최대 20명까지 등록 가능합니다.",
+    "ph_add_email": "학생 이메일 주소",
+    "btn_add": "이메일로 학생 추가",
+    "btn_delete": "삭제",
+    "pending": "미로그인",
+    "not_teacher": "이 계정은 아직 '선생님'으로 학교에 등록되지 않았습니다. 관리자에게 이메일 주소를 알려 선생님으로 등록해 달라고 요청해 주세요. 등록 후 이 페이지를 '새로고침'하면 학생을 등록할 수 있습니다.",
+    "cap_reached": "등록 인원이 최대 {cap}명에 도달했습니다. 추가하려면 다른 학생을 삭제해 주세요.",
+    "summary_none": "아직 학생을 등록하지 않았습니다. 위의 '학생 추가'에서 이메일을 등록해 주세요.",
+    "summary_counts": "등록 {total}명 (학습 중 {studying}명 · 최근 7일 학습 {active}명)",
+    "load_error": "로드 오류: {msg}",
+    "add_need_email": "이메일 주소를 입력해주세요.",
+    "add_dup": "{email}은 이미 등록되었습니다.",
+    "add_ok": "✓ {email}을 등록했습니다.",
+    "add_fail": "추가할 수 없습니다: {msg}",
+    "remove_confirm": "{email}을 학생 목록에서 제외하시겠습니까? (학습 데이터 자체는 삭제되지 않습니다)",
+    "remove_ok": "{email}을 제외했습니다.",
+    "remove_fail": "삭제할 수 없습니다: {msg}",
+    "regen_confirm": "코드를 다시 만들면 이전 코드는 사용할 수 없게 됩니다 (배포된 학생들에게는 새 코드를 알려주세요). 괜찮으시겠습니까?",
+    "regen_ok": "새 단체 코드를 발급했습니다.",
+    "regen_fail": "코드 재생성 실패: {msg}",
+    "login_need": "이메일과 비밀번호를 입력해주세요.",
+    "login_fail": "로그인할 수 없습니다: {msg}",
+    "signup_shortpw": "비밀번호는 6자 이상으로 해주세요.",
+    "signup_fail": "등록할 수 없습니다: {msg}",
+    "signup_sent": "등록되었습니다. 도착한 확인 이메일의 링크를 열면 이 교사 페이지로 돌아와 자동으로 로그인됩니다.",
+    "google_fail": "Google 로그인 시작 실패: {msg}",
+    "th_student": "학생",
+    "th_level": "레벨",
+    "th_pred": "예상 점수",
+    "th_pass": "합격률",
+    "th_kanji": "한자",
+    "th_vocab": "어휘",
+    "th_grammar": "문법",
+    "th_acc_k": "정답 한자",
+    "th_acc_v": "어휘",
+    "th_acc_g": "문법",
+    "th_acc_r": "독해",
+    "th_acc_l": "청해",
+    "th_studytime": "학습 시간",
+    "th_studydays": "학습일",
+    "th_streak": "연속",
+    "th_mock": "모의고사",
+    "th_last": "마지막 접속",
+    "th_days": "이용 일수"
+  },
+  "my": {
+    "app_title": "မိုင်နီချိ JLPT ဆရာများအတွက် ဝဘ်ဆိုက်",
+    "login_h2": "ဆရာများအတွက် ဝဘ်ဆိုက်",
+    "login_sub": "မိုင်နီချိ JLPT / ဆရာဝင်ရောက်ရန်",
+    "login_hint_app": "ပုံမှန်အားဖြင့် မိုင်နီချိ JLPT အက်ပ်၏ \"အကောင့်\" → \"ဆရာဆိုက်ဖွင့်ရန်\" မှတစ်ဆင့် ဝင်ရောက်ပါက ဤနေရာတွင် ထည့်သွင်းရန် မလိုအပ်ပါ။",
+    "login_hint_browser": "အောက်ပါတို့သည် အက်ပ်ကို အသုံးမပြုဘဲ ဘရောက်ဆာမှတစ်ဆင့် ဝင်ရောက်ခြင်းအတွက် ဖြစ်သည်။",
+    "btn_google": "Google ဖြင့် ဝင်ရောက်ပါ (အက်ပ်နှင့် တူညီသော Google)",
+    "or_email": "သို့မဟုတ် အီးမေးလ် + စကားဝှက်",
+    "ph_email": "အီးမေးလ်လိပ်စာ",
+    "ph_pass": "စကားဝှက်",
+    "btn_login": "ဝင်ရောက်ရန်",
+    "btn_signup": "အကောင့်အသစ်ဖွင့်ရန် (ဆရာအသစ်)",
+    "login_foot": "※ အက်ပ်နှင့် တူညီသော အီးမေးလ်/Google ဖြင့် ဝင်ရောက်ပါ။ စီမံခန့်ခွဲသူက ထိုအီးမေးလ်ကို ကျောင်းတွင် \"ဆရာ\" အဖြစ် မှတ်ပုံတင်ပြီးပါက ကျောင်းသားများကို မှတ်ပုံတင်နိုင်မည်ဖြစ်သည်။",
+    "btn_reload": "အသစ်တင်ရန်",
+    "btn_logout": "ထွက်ရန်",
+    "count_students": "ကျောင်းသား",
+    "count_people": "ဦး",
+    "code_label": "အဖွဲ့အစည်းကုဒ် (ကျောင်းသားများ အက်ပ်တွင် ထည့်သွင်းရန်):",
+    "btn_copy": "ကူးယူရန်",
+    "copied": "ကူးယူပြီးပါပြီ",
+    "btn_regen": "ပြန်လည်ဖန်တီးရန်",
+    "manage_hint": "နည်းလမ်း ① (အကြံပြု): ကျောင်းသားက အက်ပ်တွင် အကောင့်တစ်ခု ဖန်တီးပါ → အကောင့်မျက်နှာပြင်ရှိ \"ကျောင်းအဖွဲ့အစည်းကုဒ်\" တွင် ဤကုဒ်ကို ထည့်သွင်းပါက သင်၏ကျောင်းသား ဖြစ်လာမည်ဖြစ်သည်။\nနည်းလမ်း ②: အောက်တွင် ကျောင်းသား၏ အီးမေးလ်ကို ထည့်သွင်းပြီး တိုက်ရိုက်ထည့်ပါ (ကျောင်းသားက အက်ပ်တွင် အသုံးပြုမည့်/အသုံးပြုရန် စီစဉ်ထားသော အီးမေးလ်)။ သင်ယူမှု စတင်သည်နှင့် အောက်ပါဇယားတွင် ရလဒ်များ ပေါ်လာမည်ဖြစ်သည်။ ဆရာတစ်ဦးလျှင် အများဆုံး 20 ဦးအထိ။",
+    "ph_add_email": "ကျောင်းသား၏ အီးမေးလ်လိပ်စာ",
+    "btn_add": "အီးမေးလ်ဖြင့် ကျောင်းသားထည့်ရန်",
+    "btn_delete": "ဖျက်ရန်",
+    "pending": "ဝင်ရောက်မှုမရှိသေးပါ",
+    "not_teacher": "ဤအကောင့်ကို ကျောင်းတွင် \"ဆရာ\" အဖြစ် မှတ်ပုံတင်ထားခြင်း မရှိသေးပါ။ စီမံခန့်ခွဲသူကို အီးမေးလ်လိပ်စာ ပေးပြီး ဆရာအဖြစ် မှတ်ပုံတင်ခိုင်းပါ။ မှတ်ပုံတင်ပြီးနောက် ဤစာမျက်နှာကို \"အသစ်တင်ရန်\" လုပ်ပါက ကျောင်းသားများကို မှတ်ပုံတင်နိုင်မည်ဖြစ်သည်။",
+    "cap_reached": "မှတ်ပုံတင်ခြင်းသည် အများဆုံး {cap} ဦးအထိ ရောက်ရှိနေပြီဖြစ်သည်။ ထပ်ထည့်ရန် တစ်ဦးဦးကို ဖျက်ပါ။",
+    "summary_none": "ကျောင်းသားများကို မှတ်ပုံတင်ရသေးခြင်း မရှိပါ။ အပေါ်ရှိ \"ကျောင်းသားထည့်ရန်\" မှတစ်ဆင့် အီးမေးလ်ကို မှတ်ပုံတင်ပါ။",
+    "summary_counts": "မှတ်ပုံတင်ထားသူ {total} ဦး (သင်ယူနေသူ {studying} ဦး၊ လွန်ခဲ့သော ၇ ရက်အတွင်း သင်ယူသူ {active} ဦး)",
+    "load_error": "တင်ရန် အမှား: {msg}",
+    "add_need_email": "အီးမေးလ်လိပ်စာ ထည့်ပါ။",
+    "add_dup": "{email} ကို မှတ်ပုံတင်ထားပြီးသားပါ။",
+    "add_ok": "✓ {email} ကို မှတ်ပုံတင်ပြီးပါပြီ။",
+    "add_fail": "ထည့်၍မရပါ- {msg}",
+    "remove_confirm": "{email} ကို ကျောင်းသားစာရင်းမှ ဖယ်ရှားမလား။ (သင်ယူမှုဒေတာ မပျက်စီးပါ)",
+    "remove_ok": "{email} ကို ဖယ်ရှားပြီးပါပြီ။",
+    "remove_fail": "ဖျက်၍မရပါ- {msg}",
+    "regen_confirm": "ကုဒ်အသစ်တစ်ခု ဖန်တီးပါက ယခင်ကုဒ်ကို အသုံးပြုနိုင်တော့မည် မဟုတ်ပါ။ (ဖြန့်ဝေထားသော ကျောင်းသားများအား ကုဒ်အသစ်ကို အသိပေးပါ) ဆက်လုပ်မလား။",
+    "regen_ok": "အဖွဲ့အစည်းကုဒ်အသစ် ထုတ်ပေးပြီးပါပြီ။",
+    "regen_fail": "ကုဒ်အသစ်ပြန်လည်ဖန်တီးခြင်း မအောင်မြင်ပါ- {msg}",
+    "login_need": "အီးမေးလ်နှင့် စကားဝှက် ထည့်ပါ။",
+    "login_fail": "ဝင်ရောက်၍မရပါ- {msg}",
+    "signup_shortpw": "စကားဝှက်သည် စာလုံး ၆ လုံးနှင့်အထက် ဖြစ်ရပါမည်။",
+    "signup_fail": "မှတ်ပုံတင်၍မရပါ- {msg}",
+    "signup_sent": "မှတ်ပုံတင်ပြီးပါပြီ။ အတည်ပြုအီးမေးလ်ရှိ လင့်ခ်ကို ဖွင့်လိုက်ပါက ဤဆရာစာမျက်နှာသို့ ပြန်ရောက်ပြီး အလိုအလျောက် ဝင်ရောက်သွားပါမည်။",
+    "google_fail": "Google ဖြင့် ဝင်ရောက်ခြင်း မအောင်မြင်ပါ- {msg}",
+    "th_student": "ကျောင်းသား",
+    "th_level": "အဆင့်",
+    "th_pred": "ခန့်မှန်းရမှတ်",
+    "th_pass": "အောင်မြင်မှုနှုန်း",
+    "th_kanji": "ခန်ဂျိ",
+    "th_vocab": "ဝေါဟာရ",
+    "th_grammar": "သဒ္ဒါ",
+    "th_acc_k": "မှန်ကန်သောအဖြေ ခန်ဂျိ",
+    "th_acc_v": "ဝေါဟာရ",
+    "th_acc_g": "သဒ္ဒါ",
+    "th_acc_r": "စာဖတ်ခြင်း",
+    "th_acc_l": "နားထောင်ခြင်း",
+    "th_studytime": "လေ့လာချိန်",
+    "th_studydays": "လေ့လာသည့်ရက်",
+    "th_streak": "ဆက်တိုက်",
+    "th_mock": "အစမ်းစာမေးပွဲ",
+    "th_last": "နောက်ဆုံးဝင်ရောက်မှု",
+    "th_days": "အသုံးပြုသည့်ရက်"
+  },
+  "th": {
+    "app_title": "เว็บไซต์สำหรับครูผู้สอน JLPT รายวัน",
+    "login_h2": "เว็บไซต์สำหรับครูผู้สอน",
+    "login_sub": "JLPT รายวัน / เข้าสู่ระบบสำหรับครู",
+    "login_hint_app": "โดยปกติ หากเข้าสู่ระบบผ่านแอป \"JLPT รายวัน\" โดยไปที่ \"บัญชี\" → \"เปิดเว็บไซต์สำหรับครู\" คุณไม่จำเป็นต้องกรอกข้อมูลที่นี่",
+    "login_hint_browser": "ด้านล่างนี้ใช้สำหรับเข้าสู่ระบบผ่านเบราว์เซอร์โดยไม่ใช้แอป",
+    "btn_google": "เข้าสู่ระบบด้วย Google (Google เดียวกับในแอป)",
+    "or_email": "หรือ อีเมล + รหัสผ่าน",
+    "ph_email": "ที่อยู่อีเมล",
+    "ph_pass": "รหัสผ่าน",
+    "btn_login": "เข้าสู่ระบบ",
+    "btn_signup": "ลงทะเบียนใหม่ (สำหรับครูใหม่)",
+    "login_foot": "※ โปรดเข้าสู่ระบบด้วยอีเมล/Google เดียวกับในแอป เมื่อผู้ดูแลระบบลงทะเบียนอีเมลนั้นเป็น \"ครู\" ในโรงเรียน คุณจะสามารถลงทะเบียนนักเรียนได้",
+    "btn_reload": "อัปเดต",
+    "btn_logout": "ออกจากระบบ",
+    "count_students": "นักเรียน",
+    "count_people": "คน",
+    "code_label": "รหัสองค์กร (นักเรียนกรอกในแอป):",
+    "btn_copy": "คัดลอก",
+    "copied": "คัดลอกแล้ว",
+    "btn_regen": "สร้างใหม่",
+    "manage_hint": "วิธีที่ 1 (แนะนำ): ให้นักเรียนสร้างบัญชีในแอป → กรอกรหัสนี้ในช่อง \"รหัสองค์กรของโรงเรียน\" บนหน้าจอบัญชี นักเรียนจะกลายเป็นนักเรียนของคุณโดยอัตโนมัติ\nวิธีที่ 2: กรอกอีเมลนักเรียนด้านล่างเพื่อเพิ่มโดยตรง (อีเมลที่นักเรียนใช้/จะใช้ในแอป) เมื่อเริ่มเรียน ผลการเรียนจะปรากฏในตารางด้านล่าง ครู 1 ท่านสามารถเพิ่มนักเรียนได้สูงสุด 20 คน",
+    "ph_add_email": "ที่อยู่อีเมลของนักเรียน",
+    "btn_add": "เพิ่มนักเรียนด้วยอีเมล",
+    "btn_delete": "ลบ",
+    "pending": "ยังไม่ได้เข้าสู่ระบบ",
+    "not_teacher": "บัญชีนี้ยังไม่ได้ลงทะเบียนเป็น \"ครู\" ในโรงเรียน โปรดแจ้งที่อยู่อีเมลของคุณให้ผู้ดูแลระบบทราบเพื่อลงทะเบียนเป็นครู หลังจากลงทะเบียนแล้ว คุณสามารถ \"อัปเดต\" หน้านี้เพื่อลงทะเบียนนักเรียนได้",
+    "cap_reached": "การลงทะเบียนถึงขีดจำกัดที่ {cap} คนแล้ว หากต้องการเพิ่ม โปรดลบใครบางคนออก",
+    "summary_none": "คุณยังไม่ได้ลงทะเบียนนักเรียน โปรดลงทะเบียนอีเมลจาก \"เพิ่มนักเรียน\" ด้านบน",
+    "summary_counts": "ลงทะเบียนแล้ว {total} คน (กำลังเรียน {studying} คน · เรียนใน 7 วันล่าสุด {active} คน)",
+    "load_error": "ข้อผิดพลาดในการโหลด: {msg}",
+    "add_need_email": "กรุณากรอกอีเมล",
+    "add_dup": "{email} ได้รับการลงทะเบียนแล้ว",
+    "add_ok": "✓ ลงทะเบียน {email} แล้ว",
+    "add_fail": "ไม่สามารถเพิ่มได้: {msg}",
+    "remove_confirm": "คุณต้องการลบ {email} ออกจากรายชื่อนักเรียนหรือไม่? (ข้อมูลการเรียนรู้จะไม่ถูกลบ)",
+    "remove_ok": "ลบ {email} ออกแล้ว",
+    "remove_fail": "ไม่สามารถลบได้: {msg}",
+    "regen_confirm": "หากสร้างรหัสใหม่ รหัสเดิมจะไม่สามารถใช้งานได้ (โปรดแจ้งรหัสใหม่แก่นักเรียนที่ได้รับรหัสไปแล้ว) ดำเนินการต่อหรือไม่?",
+    "regen_ok": "ออกรหัสองค์กรใหม่แล้ว",
+    "regen_fail": "สร้างรหัสใหม่ไม่สำเร็จ: {msg}",
+    "login_need": "กรุณากรอกอีเมลและรหัสผ่าน",
+    "login_fail": "ไม่สามารถเข้าสู่ระบบได้: {msg}",
+    "signup_shortpw": "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร",
+    "signup_fail": "ไม่สามารถลงทะเบียนได้: {msg}",
+    "signup_sent": "ลงทะเบียนแล้ว เมื่อเปิดลิงก์ในอีเมลยืนยัน คุณจะกลับมาที่หน้าครูนี้และเข้าสู่ระบบโดยอัตโนมัติ",
+    "google_fail": "เริ่มต้นเข้าสู่ระบบด้วย Google ไม่สำเร็จ: {msg}",
+    "th_student": "นักเรียน",
+    "th_level": "ระดับ",
+    "th_pred": "คะแนนคาดการณ์",
+    "th_pass": "อัตราการสอบผ่าน",
+    "th_kanji": "คันจิ",
+    "th_vocab": "คำศัพท์",
+    "th_grammar": "ไวยากรณ์",
+    "th_acc_k": "คำตอบที่ถูกต้อง คันจิ",
+    "th_acc_v": "คำศัพท์",
+    "th_acc_g": "ไวยากรณ์",
+    "th_acc_r": "การอ่าน",
+    "th_acc_l": "การฟัง",
+    "th_studytime": "เวลาเรียน",
+    "th_studydays": "วันที่เรียน",
+    "th_streak": "ต่อเนื่อง",
+    "th_mock": "ข้อสอบจำลอง",
+    "th_last": "เข้าถึงล่าสุด",
+    "th_days": "จำนวนวันที่ใช้งาน"
+  },
+  "vi": {
+    "app_title": "Trang giáo viên Maichi JLPT",
+    "login_h2": "Trang giáo viên",
+    "login_sub": "Mainichi JLPT / Đăng nhập giáo viên",
+    "login_hint_app": "Nếu bạn truy cập từ \"Tài khoản\" → \"Mở trang giáo viên\" trong ứng dụng Mainichi JLPT, bạn không cần nhập thông tin ở đây.",
+    "login_hint_browser": "Phần dưới đây dành cho trường hợp bạn chỉ sử dụng trình duyệt mà không dùng ứng dụng.",
+    "btn_google": "Đăng nhập bằng Google (cùng tài khoản Google với ứng dụng)",
+    "or_email": "Hoặc Email + Mật khẩu",
+    "ph_email": "Địa chỉ email",
+    "ph_pass": "Mật khẩu",
+    "btn_login": "Đăng nhập",
+    "btn_signup": "Đăng ký mới (giáo viên lần đầu)",
+    "login_foot": "※ Vui lòng đăng nhập bằng cùng email/Google với ứng dụng. Khi quản trị viên đăng ký email đó là \"giáo viên\" cho trường, bạn sẽ có thể đăng ký học sinh.",
+    "btn_reload": "Cập nhật",
+    "btn_logout": "Đăng xuất",
+    "count_students": "Học sinh",
+    "count_people": "người",
+    "code_label": "Mã nhóm (học sinh nhập trong ứng dụng):",
+    "btn_copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "btn_regen": "Tạo lại",
+    "manage_hint": "Cách 1 (khuyên dùng): Học sinh tạo tài khoản trong ứng dụng → Nhập mã này vào mục \"Mã nhóm của trường\" trên màn hình tài khoản, học sinh sẽ tự động trở thành học sinh của bạn.\nCách 2: Nhập email của học sinh bên dưới để thêm trực tiếp (email học sinh dùng/sẽ dùng trong ứng dụng). Khi việc học bắt đầu, điểm số sẽ hiển thị trong bảng bên dưới. Tối đa 20 học sinh cho mỗi giáo viên.",
+    "ph_add_email": "Địa chỉ email của học sinh",
+    "btn_add": "Thêm học sinh bằng email",
+    "btn_delete": "Xóa",
+    "pending": "Chưa đăng nhập",
+    "not_teacher": "Tài khoản này chưa được đăng ký là \"giáo viên\" cho trường. Vui lòng thông báo địa chỉ email của bạn cho quản trị viên để được đăng ký làm giáo viên. Sau khi đăng ký, bạn có thể đăng ký học sinh bằng cách \"Cập nhật\" trang này.",
+    "cap_reached": "Đăng ký đã đạt giới hạn {cap} người. Vui lòng xóa một người để thêm.",
+    "summary_none": "Bạn chưa đăng ký học sinh nào. Vui lòng đăng ký email từ mục \"Thêm học sinh\" ở trên.",
+    "summary_counts": "Đã đăng ký {total} người (đang học {studying} người, học trong 7 ngày gần nhất {active} người)",
+    "load_error": "Lỗi tải: {msg}",
+    "add_need_email": "Vui lòng nhập địa chỉ email của bạn.",
+    "add_dup": "{email} đã được đăng ký.",
+    "add_ok": "✓ Đã đăng ký {email}.",
+    "add_fail": "Không thể thêm: {msg}",
+    "remove_confirm": "Bạn có muốn xóa {email} khỏi danh sách học viên không? (Dữ liệu học tập sẽ không bị xóa)",
+    "remove_ok": "Đã xóa {email}.",
+    "remove_fail": "Không thể xóa: {msg}",
+    "regen_confirm": "Nếu bạn tạo lại mã, mã trước đó sẽ không còn sử dụng được (vui lòng thông báo mã mới cho những học viên đã được cấp). Bạn có chắc chắn không?",
+    "regen_ok": "Đã phát hành mã tổ chức mới.",
+    "regen_fail": "Không thể tạo lại mã: {msg}",
+    "login_need": "Vui lòng nhập email và mật khẩu.",
+    "login_fail": "Không thể đăng nhập: {msg}",
+    "signup_shortpw": "Mật khẩu phải có ít nhất 6 ký tự.",
+    "signup_fail": "Không thể đăng ký: {msg}",
+    "signup_sent": "Đăng ký thành công. Mở liên kết trong email xác nhận đã gửi, bạn sẽ được tự động đăng nhập lại vào trang giáo viên này.",
+    "google_fail": "Không thể bắt đầu đăng nhập bằng Google: {msg}",
+    "th_student": "Học viên",
+    "th_level": "Cấp độ",
+    "th_pred": "Điểm dự đoán",
+    "th_pass": "Tỷ lệ đỗ",
+    "th_kanji": "Kanji",
+    "th_vocab": "Từ vựng",
+    "th_grammar": "Ngữ pháp",
+    "th_acc_k": "Trả lời đúng Kanji",
+    "th_acc_v": "Từ vựng",
+    "th_acc_g": "Ngữ pháp",
+    "th_acc_r": "Đọc hiểu",
+    "th_acc_l": "Nghe hiểu",
+    "th_studytime": "Thời gian học",
+    "th_studydays": "Ngày học",
+    "th_streak": "Liên tục",
+    "th_mock": "Thi thử",
+    "th_last": "Truy cập cuối",
+    "th_days": "Số ngày sử dụng"
+  },
+  "zh": {
+    "app_title": "每日JLPT 教师专用网站",
+    "login_h2": "教师专用网站",
+    "login_sub": "每日JLPT / 教师登录",
+    "login_hint_app": "通常情况下，从每日JLPT App的“账号”→“打开教师网站”进入，无需在此输入。",
+    "login_hint_browser": "以下是仅使用浏览器而不通过App进入的情况。",
+    "btn_google": "使用Google登录（与App相同的Google账号）",
+    "or_email": "或 邮箱+密码",
+    "ph_email": "邮箱地址",
+    "ph_pass": "密码",
+    "btn_login": "登录",
+    "btn_signup": "新用户注册（首次使用的教师）",
+    "login_foot": "※ 请使用与App相同的邮箱/Google账号登录。管理员将该邮箱注册为学校的“教师”后，您即可注册学生。",
+    "btn_reload": "更新",
+    "btn_logout": "退出登录",
+    "count_students": "学生",
+    "count_people": "人",
+    "code_label": "团体代码（学生在App中输入）:",
+    "btn_copy": "复制",
+    "copied": "已复制",
+    "btn_regen": "重新生成",
+    "manage_hint": "方法①（推荐）：学生在App中创建账号 → 在账号界面的“学校团体代码”中输入此代码，即可自动成为您的学生。\n方法②：在下方输入学生的邮箱直接添加（学生在App中使用/计划使用的邮箱）。学习开始后，成绩将显示在下表中。每位教师最多可添加20名学生。",
+    "ph_add_email": "学生的邮箱地址",
+    "btn_add": "通过邮箱添加学生",
+    "btn_delete": "删除",
+    "pending": "未登录",
+    "not_teacher": "此账号尚未注册为学校的“教师”。请告知管理员您的邮箱地址，并请他们将您注册为教师。注册后，刷新此页面即可注册学生。",
+    "cap_reached": "注册人数已达上限{cap}人。如需添加，请先删除部分学生。",
+    "summary_none": "您尚未注册学生。请通过上方的“添加学生”注册邮箱。",
+    "summary_counts": "已注册 {total}人（学习中 {studying}人・近7天学习 {active}人）",
+    "load_error": "加载错误: {msg}",
+    "add_need_email": "请输入邮箱地址。",
+    "add_dup": "{email} 已注册。",
+    "add_ok": "✓ 已注册 {email}。",
+    "add_fail": "无法添加: {msg}",
+    "remove_confirm": "要将 {email} 从学生列表中移除吗？（学习数据本身不会被删除）",
+    "remove_ok": "已移除 {email}。",
+    "remove_fail": "无法删除: {msg}",
+    "regen_confirm": "重新生成代码后，之前的代码将失效（请告知已分发的学生新代码）。确定吗？",
+    "regen_ok": "已发布新的团体代码。",
+    "regen_fail": "重新生成代码失败: {msg}",
+    "login_need": "请输入邮箱和密码。",
+    "login_fail": "无法登录: {msg}",
+    "signup_shortpw": "密码请至少输入6个字符。",
+    "signup_fail": "无法注册: {msg}",
+    "signup_sent": "已注册。打开收到的确认邮件中的链接后，您将返回此教师页面并自动登录。",
+    "google_fail": "Google登录启动失败: {msg}",
+    "th_student": "学生",
+    "th_level": "级别",
+    "th_pred": "预估分数",
+    "th_pass": "合格率",
+    "th_kanji": "汉字",
+    "th_vocab": "词汇",
+    "th_grammar": "语法",
+    "th_acc_k": "正确率 汉字",
+    "th_acc_v": "词汇",
+    "th_acc_g": "语法",
+    "th_acc_r": "阅读",
+    "th_acc_l": "听力",
+    "th_studytime": "学习时间",
+    "th_studydays": "学习日期",
+    "th_streak": "连续",
+    "th_mock": "模拟测试",
+    "th_last": "最后访问",
+    "th_days": "使用天数"
+  },
+  "zh2": {
+    "app_title": "每日JLPT 教師專用網站",
+    "login_h2": "教師專用網站",
+    "login_sub": "每日JLPT ／ 教師登入",
+    "login_hint_app": "若您是從每日JLPT App 的「帳號」→「開啟教師網站」進入，則無需在此輸入。",
+    "login_hint_browser": "以下為不使用App，僅透過瀏覽器進入的情況。",
+    "btn_google": "使用 Google 登入（與App使用相同Google帳號）",
+    "or_email": "或 電子郵件＋密碼",
+    "ph_email": "電子郵件地址",
+    "ph_pass": "密碼",
+    "btn_login": "登入",
+    "btn_signup": "註冊（首次使用的教師）",
+    "login_foot": "※ 請使用與App相同的電子郵件／Google帳號登入。管理員將該電子郵件註冊為學校的「教師」後，您即可註冊學生。",
+    "btn_reload": "更新",
+    "btn_logout": "登出",
+    "count_students": "學生",
+    "count_people": "人",
+    "code_label": "團體代碼（學生在App中輸入）:",
+    "btn_copy": "複製",
+    "copied": "已複製",
+    "btn_regen": "重新產生",
+    "manage_hint": "方法①（推薦）：學生在App中建立帳號 → 在帳號畫面的「學校團體代碼」中輸入此代碼，即可自動成為您的學生。\n方法②：在下方輸入學生的電子郵件直接新增（學生在App中會使用／預計使用的電子郵件）。開始學習後，成績將顯示在下方的表格中。每位教師最多可新增20人。",
+    "ph_add_email": "學生的電子郵件地址",
+    "btn_add": "透過電子郵件新增學生",
+    "btn_delete": "刪除",
+    "pending": "未登入",
+    "not_teacher": "此帳號尚未註冊為學校的「教師」。請告知管理員您的電子郵件地址，並請他們將您註冊為教師。註冊後，請「更新」此頁面即可註冊學生。",
+    "cap_reached": "註冊人數已達上限 {cap} 人。若要新增，請先刪除其中一位。",
+    "summary_none": "尚未註冊學生。請透過上方的「新增學生」註冊電子郵件。",
+    "summary_counts": "已註冊 {total} 人（學習中 {studying} 人・近7天有學習 {active} 人）",
+    "load_error": "載入錯誤: {msg}",
+    "add_need_email": "請輸入電子郵件地址。",
+    "add_dup": "{email} 已註冊。",
+    "add_ok": "✓ 已註冊 {email}。",
+    "add_fail": "無法新增: {msg}",
+    "remove_confirm": "要將 {email} 從學生清單中移除嗎？ (學習資料本身不會被刪除)",
+    "remove_ok": "已移除 {email}。",
+    "remove_fail": "無法刪除: {msg}",
+    "regen_confirm": "重新建立代碼後，舊代碼將失效（請告知已發送代碼的學生新代碼）。確定嗎？",
+    "regen_ok": "已發行新的團體代碼。",
+    "regen_fail": "建立代碼失敗: {msg}",
+    "login_need": "請輸入電子郵件和密碼。",
+    "login_fail": "無法登入: {msg}",
+    "signup_shortpw": "密碼請設定為6個字元以上。",
+    "signup_fail": "無法註冊: {msg}",
+    "signup_sent": "已註冊。開啟收到的驗證信中的連結後，將會自動登入並返回此教師頁面。",
+    "google_fail": "Google登入失敗: {msg}",
+    "th_student": "學生",
+    "th_level": "等級",
+    "th_pred": "預估分數",
+    "th_pass": "合格率",
+    "th_kanji": "漢字",
+    "th_vocab": "詞彙",
+    "th_grammar": "文法",
+    "th_acc_k": "答對 漢字",
+    "th_acc_v": "詞彙",
+    "th_acc_g": "文法",
+    "th_acc_r": "閱讀",
+    "th_acc_l": "聽力",
+    "th_studytime": "學習時間",
+    "th_studydays": "學習日",
+    "th_streak": "連續",
+    "th_mock": "模擬考",
+    "th_last": "上次存取",
+    "th_days": "使用天數"
+  }
+};
+/* I18N-END */
+
+const LANG_CODES = ['ja','en','ne','bn','id','ko','my','th','vi','zh','zh2'];
+const LANG_NAMES = { ja:'日本語', en:'English', ne:'नेपाली', bn:'বাংলা', id:'Indonesia', ko:'한국어', my:'မြန်မာ', th:'ไทย', vi:'Tiếng Việt', zh:'简体中文', zh2:'繁體中文' };
+let LANG = 'ja';
+
+function t(k, vars){
+  let s = (I18N[LANG] && I18N[LANG][k]) || (I18N.ja && I18N.ja[k]) || k;
+  if (vars) for (const p in vars) s = s.split('{'+p+'}').join(String(vars[p]));
+  return s;
+}
+function pickLang(fromParam){
+  if (fromParam && LANG_CODES.includes(fromParam)) return fromParam;
+  try{
+    const stored = localStorage.getItem('teacher_lang');
+    if (stored && LANG_CODES.includes(stored)) return stored;
+  }catch(_){}
+  const n = (navigator.language || '').toLowerCase();
+  if (n.startsWith('zh')) return (n.includes('tw') || n.includes('hk') || n.includes('hant')) ? 'zh2' : 'zh';
+  const two = n.split('-')[0];
+  return LANG_CODES.includes(two) ? two : 'ja';
+}
+function fillLangSelectors(){
+  const opts = LANG_CODES.filter(c => I18N[c]).map(c => `<option value="${c}">${LANG_NAMES[c]||c}</option>`).join('');
+  ['langSel','langSelLogin'].forEach(id => { const el = document.getElementById(id); if (el){ el.innerHTML = opts; el.value = LANG; } });
+}
+function applyLang(){
+  document.documentElement.lang = (LANG === 'zh2') ? 'zh-Hant' : LANG;
+  document.title = t('app_title');
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.getAttribute('data-i18n'); if (I18N.ja[k] !== undefined || (I18N[LANG] && I18N[LANG][k] !== undefined)) el.textContent = t(k); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))));
+  ['langSel','langSelLogin'].forEach(id => { const el = document.getElementById(id); if (el) el.value = LANG; });
+}
+</script>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -156,10 +909,18 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const $ = (id) => document.getElementById(id);
 const splashView = $('splashView'), loginView = $('loginView'), appView = $('appView');
-let homeInfo = null;   // teacher_home() の結果(学校名・生徒数・上限)。先生でなければ null。
+let homeInfo = null;
+
+// 言語切替(load/appView を使うのでモジュール側に置く)。t/LANG/applyLang は先のクラシックscriptの共有グローバル。
+function setLang(code, reload){
+  LANG = LANG_CODES.includes(code) ? code : 'ja';
+  try{ localStorage.setItem('teacher_lang', LANG); }catch(_){}
+  applyLang();
+  if (reload && !appView.hidden) load();
+}
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-function pct(v){ // 色つき % 表示
+function pct(v){
   if (v === null || v === undefined) return '<span class="off">—</span>';
   const n = Math.round(Number(v));
   const cls = n >= 70 ? 'ok' : n >= 40 ? 'mid' : 'low';
@@ -184,8 +945,6 @@ async function showApp(){
 async function load(){
   $('rows').innerHTML = '';
   $('emptyMsg').hidden = true;
-
-  // 1) 自分(先生)のホーム情報。先生でなければ案内を出して終わり。
   try{
     const { data: home, error: he } = await sb.rpc('teacher_home');
     if (he) throw he;
@@ -197,7 +956,7 @@ async function load(){
     $('schoolName').textContent = '';
     $('summary').textContent = '';
     $('notTeacher').hidden = false;
-    $('notTeacher').textContent = 'このアカウントはまだ「先生」として学校に登録されていません。管理者にメールアドレスを伝えて、先生として登録してもらってください。登録後、このページを「更新」すると生徒を登録できます。';
+    $('notTeacher').textContent = t('not_teacher');
     return;
   }
   $('notTeacher').hidden = true;
@@ -205,30 +964,24 @@ async function load(){
   $('manage').hidden = false;
   renderCount();
 
-  // 団体コード: 未発行なら発行して表示。
   if (!homeInfo.teacher_code){
     try{ const { data: code } = await sb.rpc('teacher_code'); if (code) homeInfo.teacher_code = code; }catch(_){}
   }
   renderCode();
 
-  // 2) 自分が登録した生徒(未ログインの子も含む)。
   const { data, error } = await sb.from('v_teacher_students').select('*')
     .order('has_data', { ascending:false }).order('last_day', { ascending:false });
-  if (error){ $('emptyMsg').hidden = false; $('emptyMsg').textContent = '読み込みエラー: ' + error.message; return; }
-  if (!data || data.length === 0){
-    $('summary').textContent = 'まだ生徒を登録していません。上の「生徒を追加」からメールを登録してください。';
-    return;
-  }
+  if (error){ $('emptyMsg').hidden = false; $('emptyMsg').textContent = t('load_error', { msg: error.message }); return; }
+  if (!data || data.length === 0){ $('summary').textContent = t('summary_none'); return; }
   const active = data.filter(r => r.last_day && (Date.now() - new Date(r.last_day).getTime()) < 7*864e5).length;
   const studying = data.filter(r => r.has_data).length;
-  $('summary').textContent = `登録 ${data.length}人（学習中 ${studying}人・直近7日に学習 ${active}人）`;
+  $('summary').textContent = t('summary_counts', { total: data.length, studying, active });
   $('rows').innerHTML = data.map(r => {
-    const del = `<td class="gsep"><button class="delx" data-email="${esc(r.email)}">削除</button></td>`;
+    const del = `<td class="gsep"><button class="delx" data-email="${esc(r.email)}">${t('btn_delete')}</button></td>`;
     if (!r.has_data){
-      // 登録済みだがまだログイン/学習していない生徒。
       return `<tr>
         <td class="who"><span class="mail" style="font-size:13px">${esc(r.email)}</span></td>
-        <td><span class="pending">未ログイン</span></td>
+        <td><span class="pending">${t('pending')}</span></td>
         <td class="num gsep off">—</td><td class="num off">—</td>
         <td class="num gsep off">—</td><td class="num off">—</td><td class="num off">—</td>
         <td class="num gsep off">—</td><td class="num off">—</td><td class="num off">—</td><td class="num off">—</td><td class="num off">—</td>
@@ -258,31 +1011,28 @@ function renderCount(){
   $('stuCap').textContent = cap;
   $('addBtn').disabled = n >= cap;
   $('addEmail').disabled = n >= cap;
-  $('manageMsg').textContent = n >= cap ? '登録は上限の20人に達しています。追加するには、どなたかを削除してください。' : '';
+  $('manageMsg').textContent = n >= cap ? t('cap_reached', { cap }) : '';
   $('manageMsg').style.color = n >= cap ? 'var(--warn)' : '';
 }
-function renderCode(){
-  $('codeVal').textContent = (homeInfo && homeInfo.teacher_code) ? homeInfo.teacher_code : '—';
-}
+function renderCode(){ $('codeVal').textContent = (homeInfo && homeInfo.teacher_code) ? homeInfo.teacher_code : '—'; }
+
 $('copyCodeBtn').onclick = async () => {
   const code = homeInfo && homeInfo.teacher_code; if (!code) return;
-  try{ await navigator.clipboard.writeText(code); const b=$('copyCodeBtn'); const o=b.textContent; b.textContent='コピーしました'; setTimeout(()=>b.textContent=o, 1200); }
-  catch(_){ /* 失敗しても画面のコードを手入力してもらえる */ }
+  try{ await navigator.clipboard.writeText(code); const b=$('copyCodeBtn'); const o=b.textContent; b.textContent=t('copied'); setTimeout(()=>b.textContent=o, 1200); }catch(_){}
 };
 $('regenCodeBtn').onclick = async () => {
-  if (!confirm('コードを作り直すと、前のコードは使えなくなります（配布済みの生徒には新しいコードを伝えてください）。よろしいですか？')) return;
+  if (!confirm(t('regen_confirm'))) return;
   try{ const { data: code, error } = await sb.rpc('teacher_code', { p_regenerate: true }); if (error) throw error;
     if (homeInfo) homeInfo.teacher_code = code; renderCode();
-    $('manageMsg').style.color='var(--good)'; $('manageMsg').textContent='新しい団体コードを発行しました。';
-  }catch(e){ $('manageMsg').style.color='var(--bad)'; $('manageMsg').textContent='コードの作り直しに失敗: '+(e.message||e); }
+    $('manageMsg').style.color='var(--good)'; $('manageMsg').textContent=t('regen_ok');
+  }catch(e){ $('manageMsg').style.color='var(--bad)'; $('manageMsg').textContent=t('regen_fail', { msg: (e.message||e) }); }
 };
 
-// ===== 生徒の追加/削除(RPC経由=上限20人・本人の学校に固定) =====
 $('addForm').addEventListener('submit', async (ev) => {
   ev.preventDefault();
   const email = ($('addEmail').value || '').trim().toLowerCase();
   const msg = $('manageMsg');
-  if (!email){ msg.style.color='var(--bad)'; msg.textContent='メールアドレスを入力してください。'; return; }
+  if (!email){ msg.style.color='var(--bad)'; msg.textContent=t('add_need_email'); return; }
   $('addBtn').disabled = true;
   try{
     const { data, error } = await sb.rpc('teacher_add_student', { p_email: email });
@@ -290,51 +1040,48 @@ $('addForm').addEventListener('submit', async (ev) => {
     $('addEmail').value = '';
     if (homeInfo) homeInfo.student_count = (data && data.count != null) ? data.count : (homeInfo.student_count+1);
     msg.style.color = 'var(--good)';
-    msg.textContent = (data && data.duplicate) ? `${email} は登録済みです。` : `✓ ${email} を登録しました。`;
+    msg.textContent = (data && data.duplicate) ? t('add_dup', { email }) : t('add_ok', { email });
     await load();
   }catch(e){
     msg.style.color = 'var(--bad)';
-    msg.textContent = '追加できません: ' + (e.message || e);
+    msg.textContent = t('add_fail', { msg: (e.message || e) });
     renderCount();
   }
 });
 $('rows').addEventListener('click', async (ev) => {
   const btn = ev.target.closest('button.delx'); if (!btn) return;
   const email = btn.dataset.email;
-  if (!confirm(`${email} を生徒一覧から外しますか？（学習データ自体は消えません）`)) return;
+  if (!confirm(t('remove_confirm', { email }))) return;
   const msg = $('manageMsg');
   try{
     const { data, error } = await sb.rpc('teacher_remove_student', { p_email: email });
     if (error) throw error;
     if (homeInfo && data && data.count != null) homeInfo.student_count = data.count;
-    msg.style.color = 'var(--good)'; msg.textContent = `${email} を外しました。`;
+    msg.style.color = 'var(--good)'; msg.textContent = t('remove_ok', { email });
     await load();
-  }catch(e){ msg.style.color='var(--bad)'; msg.textContent = '削除できません: ' + (e.message || e); }
+  }catch(e){ msg.style.color='var(--bad)'; msg.textContent = t('remove_fail', { msg: (e.message || e) }); }
 });
 
-// ===== ログイン(ブラウザ単独で入る場合のフォールバック) =====
 function creds(){ return { email: $('email').value.trim(), password: $('pass').value }; }
-function sayErr(msg){ $('loginErr').style.color = ''; $('loginErr').textContent = msg; }
-function sayOk(msg){ $('loginErr').style.color = 'var(--good)'; $('loginErr').textContent = msg; }
+function sayErr(m){ $('loginErr').style.color = ''; $('loginErr').textContent = m; }
+function sayOk(m){ $('loginErr').style.color = 'var(--good)'; $('loginErr').textContent = m; }
 
 $('loginBtn').onclick = async () => {
   sayErr('');
   const { email, password } = creds();
-  if (!email || !password){ sayErr('メールとパスワードを入力してください。'); return; }
+  if (!email || !password){ sayErr(t('login_need')); return; }
   const { error } = await sb.auth.signInWithPassword({ email, password });
-  if (error){ sayErr('ログインできません: ' + error.message); return; }
+  if (error){ sayErr(t('login_fail', { msg: error.message })); return; }
 };
 $('signupBtn').onclick = async () => {
   sayErr('');
   const { email, password } = creds();
-  if (!email || !password){ sayErr('メールとパスワードを入力してください。'); return; }
-  if (password.length < 6){ sayErr('パスワードは6文字以上にしてください。'); return; }
-  // 確認メールの戻り先=先生用の確認ページ(そこから teacher.html へ自動遷移・ログイン状態を引き継ぐ)。
+  if (!email || !password){ sayErr(t('login_need')); return; }
+  if (password.length < 6){ sayErr(t('signup_shortpw')); return; }
   const redirect = new URL('confirm_for_teacher.html', window.location.href).href;
   const { data, error } = await sb.auth.signUp({ email, password, options: { emailRedirectTo: redirect } });
-  if (error){ sayErr('登録できません: ' + error.message); return; }
-  if (data.session){ /* 確認不要の設定なら即ログイン(onAuthStateChangeで遷移) */ }
-  else { sayOk('登録しました。届いた確認メールのリンクを開くと、この教師ページに戻って自動でログインされます。'); }
+  if (error){ sayErr(t('signup_fail', { msg: error.message })); return; }
+  if (!data.session){ sayOk(t('signup_sent')); }
 };
 $('googleBtn').onclick = async () => {
   sayErr('');
@@ -342,34 +1089,35 @@ $('googleBtn').onclick = async () => {
     provider: 'google',
     options: {
       redirectTo: window.location.href.split('#')[0].split('?')[0],
-      // Googleアカウントを複数持つ人のために、毎回アカウント選択画面を出す(自動で前回のアカウントに入らない)。
-      queryParams: { prompt: 'select_account' }
+      queryParams: { prompt: 'select_account' }   // 複数Googleアカウントの人が毎回選べる
     }
   });
-  if (error){ sayErr('Googleログイン開始に失敗: ' + error.message); }
+  if (error){ sayErr(t('google_fail', { msg: error.message })); }
 };
 $('pass').addEventListener('keydown', e => { if (e.key === 'Enter') $('loginBtn').click(); });
 $('reloadBtn').onclick = load;
 $('logoutBtn').onclick = async () => { await sb.auth.signOut(); showLogin(); };
+$('langSel').addEventListener('change', e => setLang(e.target.value, true));
+$('langSelLogin').addEventListener('change', e => setLang(e.target.value, false));
 
-// ===== アプリからのログイン引き継ぎ(#t_at=...&t_rt=...) =====
-// まいにちJLPTアプリの「教師サイトを開く」は、今のログイン情報をURLの#断片に載せて開く。
-// それを使って setSession すれば、先生はログイン画面を一切見ずにそのまま入れる。
+// アプリからのログイン引き継ぎ(#t_at=...&t_rt=...&lang=xx)。lang があればその言語で開く。
 async function consumeHandoff(){
   const h = window.location.hash || '';
-  if (!h.includes('t_at=')) return false;
+  if (!h.includes('t_at=') && !h.includes('lang=')) return;
   const p = new URLSearchParams(h.replace(/^#/, ''));
+  const lang = p.get('lang');
+  if (lang) setLang(lang, false);
   const access_token = p.get('t_at'), refresh_token = p.get('t_rt');
-  // URLからトークンを即消す(履歴/アドレスバーに残さない)。
   history.replaceState(null, '', window.location.pathname + window.location.search);
-  if (!access_token || !refresh_token) return false;
-  const { error } = await sb.auth.setSession({ access_token, refresh_token });
-  return !error;
+  if (access_token && refresh_token){
+    try{ await sb.auth.setSession({ access_token, refresh_token }); }catch(_){}
+  }
 }
 
-// 起動: まずアプリからの引き継ぎを処理 → セッション有無で画面を出す。
-// 以降のログイン/ログアウト/OAuth戻りは onAuthStateChange が一元処理。
 (async () => {
+  LANG = pickLang(null);
+  fillLangSelectors();
+  applyLang();
   showSplash();
   try{ await consumeHandoff(); }catch(_){}
   const { data:{ session } } = await sb.auth.getSession();

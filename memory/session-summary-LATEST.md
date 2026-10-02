@@ -1,15 +1,15 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 3 回・11 ターン
-- 往復 379 回
+- ツール呼び出し 1 回・5 ターン
+- 往復 403 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/session-summary-LATEST.md
+- docs/supabase/teacher.html
 - docs/supabase/school_teacher.sql
 - docs/supabase/dashboard.html
-- src/screens/AccountScreen.tsx
 
 ## 次の一手
 ★現在地(2026-10-02 教師ポータル アップグレード)＝**✅v1.1.70(2980)ビルド済／✅Web面はpush済=deploy-pages run 36965716941(dashboard/teacher.html本番反映・4commit 8f96fc42..76a7b9c2)／⚠️アプリ仕上げ(SyncProvider claim・参加直後即反映)は未build=次ビルド待ち／⚠️Supabase SQLは“先生Pro/停止/自己登録ガード入りの最新版”を要再実行**

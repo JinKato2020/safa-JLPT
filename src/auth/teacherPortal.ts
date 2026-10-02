@@ -53,14 +53,16 @@ export async function joinSchoolByCode(
   }
 }
 
-// 今のセッションを載せた教師サイトURL。未ログインなら null。
-export async function buildTeacherPortalUrl(): Promise<string | null> {
+// 今のセッション＋表示言語を載せた教師サイトURL。未ログインなら null。
+// lang を渡すと教師サイトがその言語で開く(アプリと同じ言語で自動表示)。
+export async function buildTeacherPortalUrl(lang?: string): Promise<string | null> {
   try {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session?.access_token || !session?.refresh_token) return null;
     const at = encodeURIComponent(session.access_token);
     const rt = encodeURIComponent(session.refresh_token);
-    return `${PORTAL_URL}#t_at=${at}&t_rt=${rt}`;
+    const l = lang ? `&lang=${encodeURIComponent(lang)}` : '';
+    return `${PORTAL_URL}#t_at=${at}&t_rt=${rt}${l}`;
   } catch {
     return null;
   }
