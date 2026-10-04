@@ -1,25 +1,33 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 1 回・5 ターン
-- 往復 403 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/session-summary-LATEST.md
-- docs/supabase/teacher.html
-- docs/supabase/school_teacher.sql
-- docs/supabase/dashboard.html
+- memory/在庫・模試ストックまとめ.xlsx
+- 画像/申請スクショ/zh2/単語学習アプリの紹介画面-7.png
+- 画像/申請スクショ/zh2/台湾華語版・聴力学習アプリ紹介-6.png
 
 ## 次の一手
-★現在地(2026-10-02 教師ポータル アップグレード)＝**✅v1.1.70(2980)ビルド済／✅Web面はpush済=deploy-pages run 36965716941(dashboard/teacher.html本番反映・4commit 8f96fc42..76a7b9c2)／⚠️アプリ仕上げ(SyncProvider claim・参加直後即反映)は未build=次ビルド待ち／⚠️Supabase SQLは“先生Pro/停止/自己登録ガード入りの最新版”を要再実行**
-- **先生にもPro付与する決定・実装済**(付与/一括/停止/claim すべて role in student,teacher)。Pro停止=`admin_revoke_school_pro`(実際にpro_until落とす・ストア購入Proは残す)。ダッシュボードに「全員へPro付与」「全員のPro停止」ボタン＋教師サイトへのリンク。先生の自己生徒登録は禁止(教師サイトに先生スコア出さない)。これらはpush済=ダッシュボード本番反映済だが**SQL最新版の再applyが要る**(admin_revoke_school_pro等が新規)。
-- **【追加】団体ライセンス=Pro全機能解放＋進捗共有(ユーザー決定)**。生徒がコード参加/先生メール登録された時点で、所属校の`schools.license_until`までPro付与(`entitlements.pro_until`にgreatestで)。未アカウントの子はアプリ起動時に`claim_school_entitlement()`で自動受取(SyncProviderがpull前に呼ぶ)。管理者はダッシュボード「団体ライセンス」タブの**ライセンス有効化(90/180/365/恒久/失効)**=`admin_grant_school_license(school_id,until)`で**全生徒へ一括Pro付与**。SQL追加=`_grant_school_pro_by_email`(内部)/`claim_school_entitlement`(authenticated)/`admin_grant_school_license`(service_role)/`schools.license_until`列/`v_school_counts`に期限。アプリ=SyncProvider claim・AccountScreen参加直後にpull即反映。**型OK。次ビルドで反映(要build指示)。**
-- **次に必ず要る手動作業**：Supabase SQL Editorで**更新版**`docs/supabase/school_teacher.sql`を実行(Pro付与関数/license列を含む最新)。未実行だと教師ポータル＋Pro付与が全滅。⚠️`dashboard_views.sql`再実行時は`school_teacher.sql`も再実行(cascade消滅)。TestFlight提出はワークフロー内(公開リリースはしていない)。
-- i18n `--fill`実行済=teacher.*10キー×8言語+zh2同期で全11言語そろった(parityもう赤でない見込み)。
-- **団体ライセンスの役割分担を刷新(案C)**。①管理ダッシュボード=学校作成＋**先生だけ**登録/削除＋**学校ごとの人数(先生/生徒)カウントのみ**。②生徒登録は**コード＋メールの両方**(ユーザー指示): (a)**団体コード方式**=先生ごとの6桁コードを教師サイトで表示/作り直し→生徒がアプリの「学校の団体コード」に入力して自己紐づけ(`join_school_by_code`・20人上限サーバー判定) (b)**メール方式**=先生が教師サイトで生徒メールを個別追加(`teacher_add_student`)。③各先生は**自分が登録した生徒だけ**閲覧(未ログインの子も名簿表示)。④**アプリ→教師サイトのログイン引き継ぎ**=アカウント画面に先生だけ出る「教師サイトを開く」→今のセッションを`#t_at/#t_rt`断片で`https://jlpt.safa-lang.com/teacher.html`へ渡し`setSession`→ログイン画面を見ずに入る(URLから即消す)。「2重認証しない」=この引き継ぎで解決。メール確認(Supabase設定)は触らない方針に決定。
-- 変更ファイル=`docs/supabase/school_teacher.sql`(全面改訂: `teacher_email`/`teacher_code`列追加・v_teacher_students を自分の生徒LEFT JOINに作替・RPC `teacher_home`/`teacher_code`/`teacher_add_student`(20人上限)/`teacher_remove_student`/`join_school_by_code`/`student_home`・`v_school_counts`)／`docs/supabase/teacher.html`(引き継ぎ＋コード表示＋生徒メール追加UI)／`docs/supabase/dashboard.html`(先生のみ＋人数表)／`src/auth/teacherPortal.ts`(新: portal/join/student_home)／`src/screens/AccountScreen.tsx`(先生=教師サイト入口／生徒=団体コード入力)／i18n ja/en/ne に`teacher.portal_*`+`teacher.join_*`。
-- **次の一手(手動・勝手にやらない)**：(1)Supabase SQL Editorで`docs/supabase/school_teacher.sql`を実行(⚠️dashboard_views.sql再実行時はcascade消滅で要再実行)。(2)教師サイト/ダッシュボードはデプロイ(push→deploy-pages)で反映。(3)アプリの入口はUI文字列=要ビルド(OTA不可・build.ps1が`trans_i18n --fill`で他8言語を自動翻訳)。(4)「メール確認を無くす」はSupabase Auth設定=アプリ全体に影響→やるか要相談。**検証=tsc変更ファイルOK。型チェック以外は未実行(parity.testは--fill前なので意図的に未実行)。**
+★現在地(2026-10-02 教師ポータル=団体ライセンス)＝アプリv1.1.70(2980)稼働／Web面はほぼ本番反映済／アプリ仕上げは未build
+【次の一手（重要順・勝手に実行しない）】
+1. **⚠️Supabase SQL 再実行**：SQL Editorで**最新**`docs/supabase/school_teacher.sql`を丸ごと実行(`create or replace`で安全)。ユーザーは早い版を1回実行済だが、その後 Pro付与/停止`admin_revoke_school_pro`/先生Pro/自己登録ガード/`schools.license_until`等を追加。未実行だと停止ボタン・先生Pro等がエラー。⚠️`dashboard_views.sql`再実行時はcascade消滅で`school_teacher.sql`も再実行。**【2026-10-02追加】さらに `schools.country`列・`school_applications`表・公開フォーム自己登録RPC `register_school_trial`(承認なしで1ヶ月お試し即開始)・`v_school_counts`へ国を追加。この最新版の再実行で有効化される。**
+2. **⚠️Supabase Auth 許可リスト**：教師サイトのGoogleログインが戻りで404になる件＝Authentication→URL Configuration の Redirect URLs に `https://jlpt.safa-lang.com/teacher.html` と `…/confirm_for_teacher.html`(or `…/**`)を追加＋Site URLを実在ページに。未確認(ユーザー対応待ち)。
+3. **未pushコミット `6a60cf4b`(教師サイト11言語化)をpushするか**＝ユーザー未回答。pushでdeploy-pages→教師サイト多言語版が本番へ。
+4. **アプリのビルド**(iOS/Android同時・要明示指示・-Approved)：未buildの`src/`変更＝(a)団体ライセンスPro claim(SyncProvider)(b)参加直後の即Pro反映(AccountScreen)(c)教師サイトを**アプリの表示言語**で開く(buildTeacherPortalUrl(lang))。※v1.1.70には教師サイト入口ボタン＋コード参加UIは入っているが上記3つは未。
+5. **価格体系**＝唯一の未決(頭脳 `販売戦略掲示板.md` 正本)。決まれば団体ライセンス専用サイトの料金表記確定。
+6. **app_website セッション**：団体ライセンス専用サイトを `app_website/団体ライセンス_専用サイト仕様.md`(正本) に沿って作成(機能/申込/請求書払い案内)。掲示板連絡ログにも記載済。
+7. **団体お試し自己登録フォーム `/schools/`(新規・2026-10-02・未deploy)**＝`web/schools/index.html`(ja/en/ne・Supabase `register_school_trial` 呼び出し)。`build-jlpt.yml`に配信配線済(push/buildで `jlpt.safa-lang.com/schools/` へ)。⚠️ユーザー希望URL `safa-lang.com/schools/` は**別の本番Webプロジェクト**(このrepoでない)ゆえ、そちら側で `jlpt.safa-lang.com/schools/` への302リダイレクト追加が必要。ダッシュボード団体タブ=国列＋「お試し自己登録ログ」追加済。他8言語(bn/id/ko/my/th/vi/zh/zh2)はフォーム未翻訳=依頼時に追加。
+【確定事項(決定済・再質問しない)】
+- 団体ライセンス=**Pro全機能解放＋進捗共有**。付与対象は**生徒＋先生の両方**。有効期限つき(schools.license_until)、期限で自動無料化。
+- 生徒登録=**団体コード(先生ごと6桁)＋メール追加の両方**。1先生**20人上限**(サーバー判定)。各先生は**自分の生徒だけ**閲覧。先生自身のスコアは教師サイトに出さない(自己登録禁止ガード)。
+- ダッシュボード「団体ライセンス」=独立タブ。学校作成＋先生登録＋人数/期限表示＋「全員へPro付与(有効化90/180/365/恒久)」「全員のPro停止」＋教師サイトへのリンク。生徒個々は扱わない。「レベル別合計/在庫」は学習分析タブへ移動済。
+- 教師サイト：アプリから`#t_at/#t_rt`でログイン引き継ぎ(二重認証なし)。GoogleはアカウントPicker強制(prompt=select_account)。全11言語(`#lang`/ブラウザ言語自動/手動セレクタ)。メール確認(Supabase設定)は触らない方針。
+- Pro実体=`entitlements.pro_until`(既存admin_grant_proと同系統)。ストア購入Pro(RevenueCat)は団体停止でも残す。
+【主な実装ファイル】`docs/supabase/school_teacher.sql`(schema+RPC群:teacher_home/teacher_code/teacher_add_student/teacher_remove_student/join_school_by_code/student_home/claim_school_entitlement/admin_grant_school_license/admin_revoke_school_pro/_grant_school_pro_by_email・v_teacher_students・v_school_counts)／`docs/supabase/dashboard.html`(団体タブ)／`docs/supabase/teacher.html`(11言語UI・I18Nブロックは`tools/teacher_site_i18n.py`がjaからGemini生成)／`src/auth/teacherPortal.ts`／`src/screens/AccountScreen.tsx`／`src/auth/SyncProvider.tsx`／`src/pro/entitlementClient.ts`。
+【コミット】push済=…4604763b(団体ライセンス一式+Picker)。未push=`6a60cf4b`(11言語化)。検証=tsc変更ファイルOK・teacher.html両script node --check OK。
+【別件・営業リスト(2026-10-02)】インドの日本語学校の営業先リストを作成＝`C:\Users\jwpsa\Documents\desktop\claude\営業\インド日本語学校_営業リスト.xlsx`(**公開リポジトリ外**に保存)。2シート: ①大手/全国・オンライン(verified12/要確認7) ②小規模・ローカル(メール有7=うちverified2・無し13)。**メールは公式/掲載の実アドレスのみ・捏造なし**、要確認は送信前に出典URLで目視確認。知見=小規模ほどメール非公開でWhatsApp/FB/UrbanPro主流。未対応の提案=営業文面の下書き(WhatsApp短文+メール版・英/英日)／Pune・Coimbatore・Kochi等の深掘り。価格未確定(頭脳)。
 ★現在地(2026-10-02 ダッシュボード改修＋広告相談＋桜セリフ修正)＝**⚠️未commit/ビュー未apply/未build**
 - **ダッシュボード `docs/supabase/dashboard.html`**：①**登録者の推移(横軸=時間・累計+新規/日)を概要タブ上部に新設**(新ビュー`v_admin_signups`=auth.users.created_atの日次集計＝本当の登録数・`dashboard_views.sql`に定義+grant追加済／描画`renderSignups`は歯抜け日を0埋めし直近90日)。②**管理3パネル(開発モード/Pro/団体ライセンス)を`.admin-row`で横並び**(狭画面は折返し・団体は`flex:1 1 460px`)。`classifySections`/`showTab`を`#app > .admin-row`対応に修正(でないと横並び3パネルがタブ切替対象から外れ全タブ出っぱなしになる=修正済)。③**アバター使用率を学習分析タブへ移動**(`TAB_OF` avatarUsage:'analysis')。④**グラフ「最大N」の横伸び修正**(SVGは`preserveAspectRatio=none`で折れ線を横伸ばし=中の文字も伸びていた→文字をタイトル行のHTMLへ出した。成長推移グラフ共通で改善)。**Chromiumで全タブ表示切替/JSエラー無し/グラフ描画を実機確認済。**
   - **次の一手=本番反映するなら (1)`node tools/apply_views.mjs`(PAT=`C:\API 秘密の鍵\JLPT\.env.local`自動読込) か SQL Editorで`dashboard_views.sql`再実行で`v_admin_signups`作成 (2)`dashboard.html`を開き直す(ビルド不要)。勝手にpush/applyしない。**
