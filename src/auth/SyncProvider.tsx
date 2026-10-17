@@ -1,0 +1,174 @@
+// 認証セッションを購読し、ログイン中は AppState をクラウドへ pull/push(デバウンス)する副作用層。
+// ローカル永続(store)は不変。ここは「その上のバックアップ層」。
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
+import { AppState as RNAppState } from 'react-native';
+import type { Session } from '@supabase/supabase-js';
+import { supabase } from '../config/supabase';
+import { getSession, onAuthStateChange, signOut } from './authClient';
+import { pullState, pushState } from './syncClient';
+import { decideLoginSync, mergeRestoredState } from './sync';
+import { claimDeviceSession, heartbeatDeviceSession } from './deviceSession';
+import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
+import { claimTrial } from '../pro/trialClient';
+import { logTrialStart } from '../analytics/analytics';
+import { pullProUntil, pullDevTools, claimSchoolEntitlement } from '../pro/entitlementClient';
+import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
+import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
+import { registerPushToken } from '../push/pushClient';
+
+type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null; blocked: { label: string | null } | null };
+const Ctx = createContext<SyncCtx>({ session: null, email: null, lastSyncedAt: null, blocked: null });
+export function useSync(): SyncCtx {
+  return useContext(Ctx);
+}
+
+const PUSH_DEBOUNCE_MS = 3000;
+
+export function SyncProvider({ children }: { children: ReactNode }) {
+  const state = useAppState();
+  const hydrated = useHydrated();
+  const fromDisk = useHydratedFromDisk();
+  const { hydrate, setTrialStart, setProUntil, setSettings } = useAppActions();
+  const [session, setSession] = useState<Session | null>(null);
+  const [lastSyncedAt, setLastSyncedAt] = useState<number | null>(null);
+  // 「同時ログインは1台だけ」：この端末が枠を保持しているか(holds)と、別端末使用中でブロックされた表示(blocked)。
+  const [holds, setHolds] = useState(false);
+  const [blocked, setBlocked] = useState<{ label: string | null } | null>(null);
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  // 初回のpull/reconcileが終わるまでは push を止める(空データでリモートを上書きしない=再インストール時のデータ消失防止)。
+  const initialSyncDone = useRef(false);
+  const pushTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // セッション取得＋購読＋RN前後でトークン自動更新を制御。
+  useEffect(() => {
+    void getSession().then(setSession);
+    const unsub = onAuthStateChange((s) => setSession(s));
+    supabase.auth.startAutoRefresh();
+    const rn = RNAppState.addEventListener('change', (st) => {
+      if (st === 'active') supabase.auth.startAutoRefresh();
+      else supabase.auth.stopAutoRefresh();
+    });
+    return () => {
+      unsub();
+      rn.remove();
+      supabase.auth.stopAutoRefresh();
+    };
+  }, []);
+
+  // テレメトリにアカウントID(=紐づけ)を注入。未ログイン→null(匿名)。ログイン/ログアウトで切替。
+  useEffect(() => {
+    setTelemetryAccount(session?.user?.id ?? null);
+  }, [session]);
+
+  // 接続国(IP由来)を起動時にキャッシュ。テレメトリのスナップショットに載せ、国別(全体/匿名)を端末単位で数える=利用者削除と連動。
+  useEffect(() => {
+    void cacheGeoCountry();
+  }, []);
+
+  // 接続国(IP由来)をログインごとに1回だけ記録(統計・課金計算用)。トークン更新では再実行しない(user_id 変化のみ)。
+  const geoUserRef = useRef<string | null>(null);
+  useEffect(() => {
+    const uid = session?.user?.id ?? null;
+    if (!uid) { geoUserRef.current = null; return; }
+    if (geoUserRef.current === uid) return;
+    geoUserRef.current = uid;
+    void recordGeoCountry();
+    void registerPushToken(); // 友だちの応援などをスマホへ届けるための端末登録(許可があれば)
+    // ログイン確立時に account_id 付きスナップショットを即送信。ダッシュボードは最新行を見るので「匿名→登録」が即反映される。
+    void sendDailySnapshot(stateRef.current, Date.now(), true);
+  }, [session]);
+
+  // ログイン確立時: リモートを引いて安全に統合する。
+  //  ・ローカルが「ディスク未復元」(=まっさらな新規/再インストール。state.updatedAt が無い)なら、
+  //    リモートが在れば無条件でリモートを復元する。空のローカルでバックアップを上書きしない。
+  //  ・それ以外は updatedAt の LWW(新しい方を採用)。ローカルが新しければリモートへ push。
+  useEffect(() => {
+    if (!session || !hydrated) return;
+    initialSyncDone.current = false; // 新しいセッションの統合が終わるまで push を止める
+    let cancelled = false;
+    (async () => {
+      // 同時ログインは1台だけ。まず枠を取りに行く。別端末が使用中なら、このセッションは使わせずログアウト。
+      const claim = await claimDeviceSession();
+      if (cancelled) return;
+      if (!claim.ok) {
+        setHolds(false);
+        setBlocked({ label: claim.activeLabel });
+        await signOut(); // 別端末が使用中＝このセッションは確立させない
+        return;
+      }
+      setHolds(true);
+      setBlocked(null);
+      const remote = await pullState(session.user.id);
+      if (cancelled) return;
+      const local = stateRef.current;
+      if (decideLoginSync(local, remote, fromDisk) === 'restore' && remote) {
+        // 復元。ただしリモートに欠けているプロフィール項目(アバター等)はローカルで補完し、
+        // 古いバックアップでアバターが既定(男の子1)に戻る事故を防ぐ。
+        hydrate(mergeRestoredState(local, remote));
+      } else {
+        await pushState(session.user.id, { ...local, updatedAt: local.updatedAt ?? Date.now() });
+      }
+      if (!cancelled) {
+        initialSyncDone.current = true; // 統合完了=以降のローカル変更を push してよい
+        setLastSyncedAt(Date.now());
+        // 無料お試し(7日)をアカウント単位で受取。初回=サーバーが受取日を確定/以降=既存日を返す(再ログインで再付与しない)。
+        // 状態統合の後に実行=復元(hydrate)で受取日が上書きされるレースを避ける。未ログイン扱いにはならない(session確定済み)。
+        const hadTrialBefore = !!stateRef.current.trialStartedAt; // 統合後の値=既にお試しを持っていたか
+        const claimedAt = await claimTrial();
+        if (!cancelled && claimedAt) {
+          setTrialStart(claimedAt);
+          // 広告最適化(Google広告のコンバージョン)用: このアカウント/端末で「初めてお試しが始まった時」だけ1回送る。
+          // 再ログイン/再インストール復元(既に trialStartedAt を持つ)では送らない=水増し防止。
+          if (!hadTrialBefore) logTrialStart();
+        }
+        // 団体ライセンスの生徒(先生がメール登録した子も含む)が、所属校の有効期限ぶんのProを受け取る(冪等)。
+        // これを pull の前に行うことで、メール登録→後からアカウント作成した生徒も起動時にProになる。
+        await claimSchoolEntitlement();
+        // 管理/紹介/お試し/団体由来のPro(サーバー entitlements.pro_until)を本人の行から取り込む。
+        // これで Supabase 側で pro_until を未来にするだけで恒久/期限付きProを配れる(課金=RevenueCatとは別系統)。
+        const proUntil = await pullProUntil(session.user.id);
+        if (!cancelled && proUntil != null) setProUntil(proUntil);
+        // 開発モード(開発用セクション等)の解禁も本人の行から取り込む。旧「7回タップ」の自己解禁は廃止し、
+        // 管理側 admin_grant_dev(メール指定)だけが解禁経路。true=解禁/false=取消(どちらも反映)・null=未付与で現状維持。
+        const devTools = await pullDevTools(session.user.id);
+        if (!cancelled && devTools != null) setSettings({ devToolsUnlocked: devTools });
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [session, hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ログイン中のローカル変更: デバウンスして push。初回統合が終わるまでは push しない(空上書き防止)。
+  useEffect(() => {
+    if (!session || !hydrated || !initialSyncDone.current) return;
+    if (pushTimer.current) clearTimeout(pushTimer.current);
+    pushTimer.current = setTimeout(() => {
+      // updatedAt は reducer が実データ変更時に刻んだ値をそのまま送る(ここで Date.now() に上書きしない
+      // =起動時 housekeeping で無意味に時刻が進み、勉強してない端末が相手を上書きするのを防ぐ)。
+      const local = { ...stateRef.current, updatedAt: stateRef.current.updatedAt ?? Date.now() };
+      void pushState(session.user.id, local).then(() => setLastSyncedAt(Date.now()));
+    }, PUSH_DEBOUNCE_MS);
+    return () => {
+      if (pushTimer.current) clearTimeout(pushTimer.current);
+    };
+  }, [state, session, hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ログイン中は60秒ごとに「使用中」をサーバーへ通知(ハートビート)。これが3分途切れると枠が自動解放され、別端末が入れる。
+  // もし別端末に枠を奪われていた(revoked)ら、この端末は自動ログアウトする。
+  useEffect(() => {
+    if (!session || !holds) return;
+    const tick = async () => {
+      const { revoked } = await heartbeatDeviceSession();
+      if (revoked) { setHolds(false); setBlocked({ label: null }); await signOut(); }
+    };
+    const id = setInterval(() => { void tick(); }, 60000);
+    return () => clearInterval(id);
+  }, [session, holds]);
+
+  // ログアウト等でセッションが消えたら、枠の保持フラグも下ろす(念のための保険)。
+  useEffect(() => { if (!session) setHolds(false); }, [session]);
+
+  return <Ctx.Provider value={{ session, email: session?.user?.email ?? null, lastSyncedAt, blocked }}>{children}</Ctx.Provider>;
+}

@@ -1,0 +1,347 @@
+// 診断クイズの出題ロジック(純粋・RN非依存・テスト可)。
+// 4択生成 / 出題キュー(優先順) / 間違い再挿入(分散学習)。
+import type { StudyItem } from '../data';
+import { VOCAB_EXAMPLE, GRAMMAR_CLOZE_OK, VOCAB_CLOZE_OK, VOCAB_SYN, VOCAB_FREQ } from '../data';
+import { highlightSegments } from './highlight';
+import { effectiveP, type ItemState } from '../engine/engine';
+
+// 問題形式(弱点ヒートマップの軸＋出題の多様化)。
+export type QFormat = 'reading' | 'meaning' | 'reverse' | 'cloze' | 'usage' | 'orthography' | 'synonym';
+// 本番(JLPT)の大問に対応する出題形式。学習/模試で「意味は？」「意味→語」等の非本番形式を除く用。
+// ※漢字単体は本番大問でないため、漢字itemはこの集合に該当形式が無く makeQuestion 内で全形式にフォールバック(意味学習は残る)。
+export const EXAM_FORMATS: QFormat[] = ['reading', 'orthography', 'cloze', 'synonym', 'usage'];
+export const FORMAT_LABEL: Record<QFormat, string> = {
+  reading: '読み',
+  meaning: '意味',
+  reverse: '意味→語',
+  orthography: '表記',
+  synonym: '類義語',
+  cloze: '穴埋め',
+  usage: '文法・用法',
+};
+
+// 例文ヒント = 下線セグメント列(共通 highlightSegments の結果)。多部分(A〜B)・1文字対応。
+export type ExampleHint = { text: string; hit: boolean }[];
+
+// my単語帳への保存参照。語daimon→vocab.json id、文法daimon→grammar.json id、漢字→kanji.json id(詳細画面の★保存)。
+export type SaveRef = { type: 'vocab' | 'grammar' | 'kanji'; id: string };
+
+export interface Question {
+  itemId: string;
+  prompt: string;     // 提示(語/漢字/文法点)
+  reading?: string;   // 補助(ローマ字など)
+  example?: ExampleHint; // 例文ヒント(下線付き・文法用)
+  question: string;   // 設問文
+  format: QFormat;    // 問題形式(ヒートマップ集計用)
+  choices: string[];
+  answerIndex: number;
+  explain?: string;   // 解説(バンク問題のみ。模試の採点後表示用)
+  explainNe?: string; // 解説の母語(ネパール語)訳。l1=neのとき解答後に併記。
+  // 本文対訳: 回答後に問題文の下へ母語訳を出す(文脈規定など)。空所は答えで埋めた完成文の訳。lang→訳(content にある言語すべて・pickTrで選ぶ)。
+  promptTransTr?: Record<string, string>;
+  // 文の組み立て(order)専用: 回答後に「正しい文(日本語)＋母語の意味」を表示する。
+  orderSentence?: string;   // 正しく並べた文(ふりがな付き・日本語)
+  orderMeaningTr?: Record<string, string>;  // その文の意味(lang→訳)
+  // 用法(usage)専用: 回答後に「正解の文の意味」を表示する(誤答は訳さない)。
+  answerTransTr?: Record<string, string>;
+  // 言い換え(synonym)専用: 回答後に「本文の意味」＋「各選択肢の意味」を表示する。choiceTrans は表示順(choices)に整列。
+  synonymSentenceTr?: Record<string, string>;
+  choiceTransTr?: Record<string, (string | undefined)[]>;
+  furi?: string;      // ふりがな付き問題文(漢字（かな）)。レベル適応ルビで描画。
+  furiTarget?: string; // 下線対象語(furi中で下線を引く語)。
+  noTargetRuby?: boolean; // ①漢字読み: 対象語にはふりがなを出さない(読みが問題)。
+  saveRef?: SaveRef; // my単語帳への保存対象(解決できた問題のみ)。
+  idLabel?: string; // ヘッダー表示専用のID文字列。itemId(=状態/採点キー)は変えず、漢字読み/表記だけ「n5-v-403#kanji_read（漢字/N4）」の形で対象の級を併記する。無ければ itemId を表示。
+}
+
+export type Rng = () => number;
+
+const KANJI_RE = /[㐀-龯豈-﫿]/;
+export function hasKanji(s: string): boolean {
+  return KANJI_RE.test(s);
+}
+
+function shuffle<T>(arr: T[], rng: Rng): T[] {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/** 選択肢の語義は最初の1つだけ(英gloss はカンマ区切りで長いため短く) */
+function firstSense(meaning: string): string {
+  return meaning.split(/[,、;；]/)[0].trim();
+}
+
+// 正解と候補の「紛らわしさ」スコア。文字の共有・先頭/末尾一致・長さの近さで近いほど高い。
+function similarity(answer: string, v: string): number {
+  const a = new Set(answer);
+  const b = new Set(v);
+  let shared = 0;
+  for (const ch of a) if (b.has(ch)) shared++;
+  const union = new Set([...answer, ...v]).size || 1;
+  const jaccard = shared / union;
+  const first = answer[0] === v[0] ? 1 : 0;
+  const last = answer[answer.length - 1] === v[v.length - 1] ? 1 : 0;
+  const lenPenalty = Math.abs(answer.length - v.length) * 0.5;
+  return jaccard * 3 + first + last - lenPenalty;
+}
+
+/** 誤答=正解に「紛らわしい(似た)」上位プールから無作為に n 件(完全ランダムより弁別力UP)。 */
+function distractors(values: string[], answer: string, n: number, rng: Rng): string[] {
+  const uniq = Array.from(new Set(values.filter((v) => v && v !== answer)));
+  const ranked = uniq
+    .map((v) => ({ v, score: similarity(answer, v) }))
+    .sort((x, y) => y.score - x.score)
+    .map((x) => x.v);
+  const pool = ranked.slice(0, Math.max(n * 3, 8)); // 似ている上位だけに絞る
+  return shuffle(pool, rng).slice(0, n);
+}
+
+// 類義語(言い換え)の選択肢を「正解と同じ語形」に揃えるための粗い分類(表層のみ)。
+// う段かな終わり=動詞、…い終わり=い形容詞、他=名詞等。名詞でもう段かな終わりはあり得るが、
+// 選択肢の見た目を揃える(=正解だけ品詞で浮かせない)用途には十分な近似。
+const U_DAN = new Set('うくぐすずつづぬふぶむゆるぷ');
+function wordForm(s: string): 'verb' | 'iadj' | 'other' {
+  if (!s) return 'other';
+  const last = s[s.length - 1];
+  if (s.length >= 2 && last === 'い') return 'iadj';
+  if (U_DAN.has(last)) return 'verb';
+  return 'other';
+}
+// 検証済み類義語の全値を語形でグループ化(誤答プール用・モジュール読込時に一度だけ)。
+const ALL_SYN_VALUES = Object.values(VOCAB_SYN);
+const SYN_BY_FORM: Record<'verb' | 'iadj' | 'other', string[]> = { verb: [], iadj: [], other: [] };
+for (const v of ALL_SYN_VALUES) if (v) SYN_BY_FORM[wordForm(v)].push(v);
+/** 類義語の誤答候補=他の検証済み類義語のうち正解と同じ語形。同形が少なければ全体にフォールバック。 */
+function synonymCandidates(answer: string): string[] {
+  const same = SYN_BY_FORM[wordForm(answer)];
+  return same.length >= 6 ? same : ALL_SYN_VALUES;
+}
+
+const FURI = /（[^）]*）/g;
+const noWave = (s: string) => (s || '').replace(/[～~]/g, '');
+
+/** 語彙の例文中の語を〔　〕に。例文が無い/語が含まれないなら null。 */
+function vocabCloze(item: StudyItem): string | null {
+  if (item.type !== 'vocab') return null;
+  const ex = VOCAB_EXAMPLE[item.id];
+  const w = noWave(item.word);
+  if (!ex || !ex.ja || !w || !ex.ja.includes(w)) return null;
+  return ex.ja.replace(w, '〔　〕');
+}
+/** 文法の例文中の該当文法を〔　〕に。空所化した語(=答え)も返す。条件を満たさなければ null。
+ * 厳格条件(誤穴埋めバグ対策):
+ *  ①不連続パターン(X〜Y で両側に語がある=「さえ〜ば」等)は単一空所にできない→不可。
+ *  ②文法語が例文中に【完全一致】で現れる場合のみ(活用ズレ「ようとする/ようとした」は前方一致で誤切り出しになるため不可)。
+ *  ③同じ語が例文中に2か所以上→曖昧→不可。
+ * ※答えは「実際に空所化した語」=表示と一致(item.pointの辞書形と例文の活用形のズレを排除)。 */
+function grammarCloze(item: StudyItem): { cloze: string; answer: string } | null {
+  if (item.type !== 'grammar' || !item.exampleJa) return null;
+  const plain = item.exampleJa.replace(FURI, '');
+  const parts = item.point
+    .replace(FURI, '')
+    .split(/[〜～]/)
+    .map((p) => p.replace(/\s/g, '').trim())
+    .filter(Boolean);
+  if (parts.length !== 1) return null; // ①不連続(X〜Y)は不可
+  const core = parts[0];
+  if (core.length < 2) return null;
+  const at = plain.indexOf(core); // ②完全一致のみ
+  if (at < 0) return null;
+  if (plain.indexOf(core, at + core.length) >= 0) return null; // ③複数出現→曖昧
+  return { cloze: `${plain.slice(0, at)}〔　〕${plain.slice(at + core.length)}`, answer: core };
+}
+/** 文法の例文中の該当文法の位置を返す(下線表示用・furigana除去)。見つからなければ null。 */
+function grammarHighlight(item: StudyItem): ExampleHint | null {
+  if (item.type !== 'grammar' || !item.exampleJa) return null;
+  const segs = highlightSegments(item.exampleJa.replace(FURI, ''), item.point);
+  return segs.some((sg) => sg.hit) ? segs : null;
+}
+
+interface Built {
+  prompt: string;
+  reading?: string;
+  example?: ExampleHint;
+  question: string;
+  format: QFormat;
+  answer: string;
+  valueOf: (x: StudyItem) => string;
+}
+
+/** itemの型ごとの出題フォーマット候補(複数)。makeQuestion が rng で1つ選ぶ＝多様化。 */
+function buildersFor(item: StudyItem): Built[] {
+  const out: Built[] = [];
+  if (item.type === 'vocab') {
+    const meaning = firstSense(item.meaning);
+    const vMean = (x: StudyItem) => (x.type === 'vocab' ? firstSense(x.meaning) : '');
+    const vWord = (x: StudyItem) => (x.type === 'vocab' ? x.word : '');
+    if (hasKanji(item.word)) {
+      out.push({ prompt: item.word, question: '読みは？', format: 'reading', answer: item.reading, valueOf: (x) => (x.type === 'vocab' ? x.reading : '') });
+    }
+    out.push({ prompt: item.word, question: '意味は？', format: 'meaning', answer: meaning, valueOf: vMean });
+    out.push({ prompt: meaning, question: 'この意味の語は？', format: 'reverse', answer: item.word, valueOf: vWord });
+    const cz = vocabCloze(item);
+    // 穴埋めは「答えが一意に決まる」とLLM判定された語彙のみ(VOCAB_CLOZE_OK)。曖昧語(彼/妻・青/赤等)は除外。
+    if (cz && VOCAB_CLOZE_OK.has(item.id)) out.push({ prompt: cz, question: '〔　〕に入る語は？', format: 'cloze', answer: item.word, valueOf: vWord });
+    // 表記(JLPT問題2): ひらがな(読み)→正しい漢字。漢字を含む語のみ。
+    if (hasKanji(item.word)) {
+      out.push({ prompt: item.reading, question: '正しい漢字（表記）は？', format: 'orthography', answer: item.word, valueOf: vWord });
+    }
+    // 類義語(JLPT問題4 言い換え類義): 検証済みの近い意味の語があるもののみ。
+    const syn = VOCAB_SYN[item.id];
+    if (syn) out.push({ prompt: item.word, question: '意味がいちばん近いのは？', format: 'synonym', answer: syn, valueOf: vWord });
+  } else if (item.type === 'kanji') {
+    const meaning = firstSense(item.meaning);
+    out.push({ prompt: item.char, question: '意味は？', format: 'meaning', answer: meaning, valueOf: (x) => (x.type === 'kanji' ? firstSense(x.meaning) : '') });
+    out.push({ prompt: meaning, question: 'この意味の漢字は？', format: 'reverse', answer: item.char, valueOf: (x) => (x.type === 'kanji' ? x.char : '') });
+  } else {
+    const meaning = firstSense(item.meaning);
+    const gPoint = (x: StudyItem) => (x.type === 'grammar' ? x.point : '');
+    const exPlain = item.exampleJa ? item.exampleJa.replace(FURI, '') : '';
+    const hl = grammarHighlight(item);
+    out.push({
+      prompt: item.point,
+      reading: hl ? undefined : exPlain || item.romaji,
+      example: hl ?? undefined,
+      question: hl ? '意味・用法は？（下線部の文法）' : exPlain ? '意味・用法は？（例文がヒント）' : '意味・用法は？',
+      format: 'usage', answer: meaning, valueOf: (x) => (x.type === 'grammar' ? firstSense(x.meaning) : ''),
+    });
+    out.push({ prompt: meaning, question: 'この意味の文法は？', format: 'reverse', answer: item.point, valueOf: gPoint });
+    // 穴埋め(cloze)は「答えが一意に決まる」とLLM判定された文法のみ(GRAMMAR_CLOZE_OK)。曖昧なものは除外。
+    if (GRAMMAR_CLOZE_OK.has(item.id)) {
+      const cz = grammarCloze(item);
+      if (cz) out.push({ prompt: cz.cloze, question: '〔　〕に入るのは？', format: 'cloze', answer: cz.answer, valueOf: gPoint });
+    }
+  }
+  return out;
+}
+
+/** 1項目 → 4択問題。型ごとに複数形式(読み/意味/意味→語/穴埋め 等)から rng で選び多様化。誤答は同型プールから賢く。
+ *  allowed 指定時はその形式に限定(模試=本番の大問形式のみに絞る用)。該当が無ければ全形式にフォールバック。 */
+export function makeQuestion(item: StudyItem, pool: StudyItem[], rng: Rng = Math.random, allowed?: QFormat[]): Question {
+  let builders = buildersFor(item);
+  if (allowed && allowed.length) {
+    const f = builders.filter((b) => allowed.includes(b.format));
+    if (f.length) builders = f;
+  }
+  const b = builders[Math.floor(rng() * builders.length)] ?? builders[0];
+  // 類義語の誤答は「他の検証済み類義語のうち正解と同じ語形(動詞/い形容詞/名詞)」から採る。
+  // 従来は pool の生の見出し語(名詞/動詞が混在)を使ったため、動詞句の正解(例 音がする)だけ浮いていた。
+  let cands = b.format === 'synonym' ? synonymCandidates(b.answer) : pool.map(b.valueOf);
+  // 穴埋め(cloze)の誤答に「◯〜◯型」(たり〜たり・あまり〜ない等、範囲パターンの文法見出し)が混ざると、
+  // 単一の空所には絶対に入らない=明らかな誤答になる。cloze の誤答からは 〜/～ を含む見出しを除外する。
+  if (b.format === 'cloze') cands = cands.filter((v) => !/[〜～]/.test(v));
+  const wrongs = distractors(cands.filter((v) => v !== b.prompt), b.answer, 3, rng);
+  const choices = shuffle([b.answer, ...wrongs], rng);
+  return { itemId: item.id, prompt: b.prompt, reading: b.reading, example: b.example, question: b.question, format: b.format, choices, answerIndex: choices.indexOf(b.answer) };
+}
+
+/** 新出導入の難易度(小=易)。語彙=使用頻度、漢字=学年+画数。文法/読解/聴解はNaN(=順序付けしない)。 */
+function itemDifficulty(it: StudyItem): number {
+  if (it.type === 'vocab') return VOCAB_FREQ[it.id] ?? 50;
+  if (it.type === 'kanji') return (it.grade || 9) * 7 + (it.strokes || 0) * 0.3;
+  return NaN;
+}
+
+/** 出題キュー: ①再学習/期限切れ(古い順) → ②未測定を「易しい順」で導入(復習量に応じ新出を自動調整=軽量D)。最大 n 件。 */
+export function buildQueue(
+  items: StudyItem[],
+  states: Record<string, ItemState>,
+  now: number,
+  n: number,
+  rng: Rng = Math.random,
+): StudyItem[] {
+  const due: StudyItem[] = [];
+  const fresh: StudyItem[] = [];
+  for (const it of items) {
+    const st = states[it.id];
+    if (st && st.dueAt <= now) due.push(it);
+    else if (!st) fresh.push(it);
+  }
+  // 復習は「学習中(reps0)を先に」だけ優先し、各層の中はシャッフル＝毎回先頭が変わる(同じ問題順の固定を解消)。
+  const dueLearning = shuffle(due.filter((it) => states[it.id].reps === 0), rng);
+  const dueReview = shuffle(due.filter((it) => states[it.id].reps > 0), rng);
+  due.length = 0;
+  due.push(...dueLearning, ...dueReview);
+  // A: 新出は易しい順(頻度/学年)。ただし毎回同じ並びにならないよう、易しい上位プールからランダム抽出して多様化。
+  const easy = fresh.filter((it) => Number.isFinite(itemDifficulty(it))).sort((a, b) => itemDifficulty(a) - itemDifficulty(b));
+  const other = shuffle(fresh.filter((it) => !Number.isFinite(itemDifficulty(it))), rng);
+  // 軽量D: 復習が溜まっているほど新出を減らす(個人の定着ペースに自動調整)。
+  const maxNew = Math.max(2, Math.round(n * (due.length > 20 ? 0.25 : due.length > 8 ? 0.5 : 1)));
+  // 易しい上位(maxNew*2.5)からランダムにmaxNew件＝易しさは保ちつつ毎回違う出題に。
+  const easyPick = sample(easy.slice(0, Math.max(maxNew, Math.ceil(maxNew * 2.5))), maxNew, rng);
+  const freshSel = [...easyPick, ...other].slice(0, maxNew);
+  return [...due, ...freshSel].slice(0, n);
+}
+
+/** 大問(学習区分)の出題キュー: ユニットid(`項目#大問`/バンクid)版。期限切れ→新出。SRSは項目#大問キーで独立。 */
+export function buildUnitQueue(
+  units: string[],
+  states: Record<string, ItemState>,
+  now: number,
+  n: number,
+  rng: Rng = Math.random,
+): string[] {
+  const due: string[] = [];
+  const fresh: string[] = [];
+  for (const u of units) {
+    const st = states[u];
+    if (st && st.dueAt <= now) due.push(u);
+    else if (!st) fresh.push(u);
+  }
+  const dueLearning = shuffle(due.filter((u) => states[u].reps === 0), rng);
+  const dueReview = shuffle(due.filter((u) => states[u].reps > 0), rng);
+  const maxNew = Math.max(2, Math.round(n * (due.length > 20 ? 0.25 : due.length > 8 ? 0.5 : 1)));
+  const freshSel = sample(fresh, maxNew, rng);
+  return [...dueLearning, ...dueReview, ...freshSel].slice(0, n);
+}
+
+/** 間違えた item を現在位置から gap 問後に差し込む(分散学習・末尾超過は末尾)。 */
+export function reinsertForRelearn<T>(remaining: T[], item: T, gap: number): T[] {
+  const next = remaining.slice();
+  next.splice(Math.min(gap, next.length), 0, item);
+  return next;
+}
+
+/** 配列から重複なく最大 n 件を無作為抽出(模試の総合サンプリング用)。 */
+export function sample<T>(arr: T[], n: number, rng: Rng = Math.random): T[] {
+  return shuffle(arr, rng).slice(0, n);
+}
+
+/** 手書き4択(読解/聴解)の選択肢をシャッフルし正答位置を再計算。データは正答=先頭で持ち、表示で位置をランダム化。 */
+export function shuffleChoices(choices: string[], answerIndex: number, rng: Rng = Math.random): { choices: string[]; answerIndex: number } {
+  const correct = choices[answerIndex];
+  const sh = shuffle(choices, rng);
+  return { choices: sh, answerIndex: Math.max(0, sh.indexOf(correct)) };
+}
+
+export interface DueStats {
+  due: number;     // 期限切れ=今日の復習
+  fresh: number;   // 未測定=新規
+  learned: number; // 習得済(減衰後 p>=0.6)
+  total: number;
+}
+
+/** 学習ホームのカード用件数。buildQueue と同じ区分け(due/fresh)＋習得済を数える。 */
+export function dueStats(
+  items: { id: string }[],
+  states: Record<string, ItemState>,
+  now: number,
+): DueStats {
+  let due = 0;
+  let fresh = 0;
+  let learned = 0;
+  for (const it of items) {
+    const st = states[it.id];
+    if (!st) {
+      fresh++;
+      continue;
+    }
+    if (st.dueAt <= now) due++;
+    if (effectiveP(st, now) >= 0.6) learned++;
+  }
+  return { due, fresh, learned, total: items.length };
+}

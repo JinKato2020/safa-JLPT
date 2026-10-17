@@ -1,0 +1,7 @@
+"C:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\md\09_読解.md"
+"C:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\問題作成の参考\N5_読解.pdf"
+"C:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\問題作成の参考\N3_読解.pdf"
+"C:\Users\jwpsa\Documents\desktop\claude\JLPTアプリ\問題作成の参考\N4_読解.pdf"
+
+情報検索
+公式問題に最大限近づけて各レベルの問題を作りたい。問題は文章ではなく図表がメイン。スキャニング能力をはかる。図表は画像やイラストではなく、もっと軽量のデータで実装したい。geminiで各レベル2問ずつ作問して、あなたが良いと思う方法で図表を実装してから、ビルドして

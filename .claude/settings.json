@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "cd \"C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ\" && python tools/check_handoff.py 2>/dev/null; node .claude/hooks/session-summary-read.mjs 2>/dev/null || true",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "cd \"C:/Users/jwpsa/Documents/desktop/claude/JLPTアプリ\" && python tools/session_state.py 2>/dev/null || true",
+            "timeout": 40,
+            "statusMessage": "在庫と handoff を更新中"
+          }
+        ]
+      }
+    ]
+  }
+}

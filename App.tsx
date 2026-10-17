@@ -1,0 +1,528 @@
+import { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, AppState, Pressable, StyleSheet, Text, View, useColorScheme } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer, DefaultTheme, useNavigation, useNavigationState, StackActions } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createNativeStackNavigator, type NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useColors } from './src/theme';
+import { useAppFonts, setActiveFont } from './src/theme/fonts';
+import WatercolorBackground from './src/components/WatercolorBackground';
+import { AppProvider, useAppState, useAppActions, useHydrated } from './src/store/store';
+import { SyncProvider, useSync } from './src/auth/SyncProvider';
+import { cheerUnreadCount } from './src/plaza/friendsClient';
+import { fetchAnnouncements, announceReadAtMs, markAnnounceRead, announceUnread } from './src/plaza/announceClient';
+import { navigationRef } from './src/navigation/navRef';
+import AccountPrompt from './src/components/AccountPrompt';
+import { isWatercolor } from './src/store/state';
+import { useT, useUiLang, setDemoLang } from './src/i18n';
+import type { RootStackParamList, WordsStackParamList, DictStackParamList, StudyStackParamList } from './src/navigation/types';
+import HomeScreen from './src/screens/HomeScreen';
+import StudyHomeScreen from './src/screens/StudyHomeScreen';
+import StudyCategoryScreen from './src/screens/StudyCategoryScreen';
+import WordsHubScreen from './src/screens/WordsHubScreen';
+import DictHomeScreen from './src/screens/DictHomeScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import DownloadScreen from './src/screens/DownloadScreen';
+import OnboardingScreen from './src/screens/OnboardingScreen';
+import QuizScreen from './src/screens/QuizScreen';
+import FlashcardScreen from './src/screens/FlashcardScreen';
+import MockScreen from './src/screens/MockScreen';
+import MockResultScreen from './src/screens/MockResultScreen';
+import MockIntroScreen from './src/screens/MockIntroScreen';
+import ReadingScreen from './src/screens/ReadingScreen';
+import PassageGrammarScreen from './src/screens/PassageGrammarScreen';
+import ListeningScreen from './src/screens/ListeningScreen';
+import BrowseScreen from './src/screens/BrowseScreen';
+import CardsScreen from './src/screens/CardsScreen';
+import KakitoriScreen from './src/screens/KakitoriScreen';
+import KanjiDetailScreen from './src/screens/KanjiDetailScreen';
+import ListeningQuizScreen from './src/screens/ListeningQuizScreen';
+import KanjiRecognitionScreen from './src/screens/KanjiRecognitionScreen';
+import KanjiFormScreen from './src/screens/KanjiFormScreen';
+import WordDrillScreen from './src/screens/WordDrillScreen';
+import PosterListScreen from './src/screens/PosterListScreen';
+import PosterAudioScreen from './src/screens/PosterAudioScreen';
+import MyWordsScreen from './src/screens/MyWordsScreen';
+import AccountScreen from './src/screens/AccountScreen';
+import NotificationsScreen from './src/screens/NotificationsScreen';
+import ShopScreen from './src/screens/ShopScreen';
+import AICoachScreen from './src/screens/AICoachScreen';
+import ShareCardScreen from './src/screens/ShareCardScreen';
+import QuestionReviewScreen from './src/screens/QuestionReviewScreen';
+import PaywallScreen from './src/screens/PaywallScreen';
+import ReferralScreen from './src/screens/ReferralScreen';
+import KotobaTownScreen from './src/screens/KotobaTownScreen';
+import CheerInboxScreen from './src/screens/CheerInboxScreen';
+import InviteScreen from './src/screens/InviteScreen';
+import BugReportScreen from './src/screens/BugReportScreen';
+import { initPurchases, syncEntitlement, linkAccount, unlinkAccount, addProUpdateListener } from './src/pro/purchases';
+import { initAds } from './src/pro/ads';
+import { setAdBonusMaxForRegion } from './src/pro/dailyQuota';
+import * as Localization from 'expo-localization';
+import { walletPoints } from './src/store/wallet';
+import SafeBoundary from './src/components/SafeBoundary';
+import { DesignThemeProvider } from './src/design';
+import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers, sendLifecycleMetrics } from './src/telemetry/telemetry';
+import { isTestLab } from './src/telemetry/testLab';
+
+// ナビゲーション状態から現在の画面名(最深ルート)を取得。
+function activeRouteName(navState: unknown): string | undefined {
+  const st = navState as { index?: number; routes?: { name: string; state?: unknown }[] } | undefined;
+  if (!st || typeof st.index !== 'number' || !st.routes) return undefined;
+  const route = st.routes[st.index];
+  return route?.state ? activeRouteName(route.state) : route?.name;
+}
+
+const Tab = createMaterialTopTabNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
+
+// ディープリンク:
+//  ・招待リンク safajlpt://invite?u=<owner> を Invite 画面へ(u はルートパラメータへ自動マッピング)。
+//  ・紹介リンク safajlpt://referral?code=<紹介コード> を Referral 画面へ(結果カードのQR/リンクから)。code は自動マッピング→Referralで自動登録。
+// https は配信サイトのランディング(/invite/・/r/)経由(ページの「アプリで開く」ボタンが safajlpt:// を呼ぶ)。
+const LINKING = {
+  prefixes: ['safajlpt://', 'https://jlpt.safa-lang.com'],
+  config: { screens: { Invite: 'invite', Referral: 'referral' } },
+};
+
+// ── SNS用モック撮影ハーネス（Web専用・URLに ?snsdemo が付いた時だけ）─────────────
+// localStorage にダミー状態(tools/sns/*.json)を仕込んだ上でこのURLを開くと、AICoach画面だけを
+// 実コンポーネントで描画する。ヘッドレスChromeでフルページ撮影→各言語のSNSモック画像を量産する。
+// 本番では ?snsdemo が付かないので完全に不発（プロダクトに影響なし）。
+// ⚠ React Native(Hermes)では window は定義済みだが window.location は存在しない。
+//   window.location.search を無防備に読むと native の起動時(トップレベル評価)で TypeError→
+//   expo-updates のリカバリ経由で abort(起動即クラッシュ)。必ず location の存在を先に確認する。
+const SNS_DEMO =
+  typeof window !== 'undefined' &&
+  typeof window.location !== 'undefined' &&
+  new URLSearchParams(window.location.search).has('snsdemo');
+if (SNS_DEMO) { try { setDemoLang(new URLSearchParams(window.location.search).get('lang')); } catch { /* noop */ } }
+const DemoStack = createNativeStackNavigator();
+function SnsDemoInner() {
+  const hydrated = useHydrated();
+  const c = useColors();
+  const settings = useAppState().settings;
+  if (!hydrated) return <View style={{ flex: 1, backgroundColor: '#fff' }} />;
+  setActiveFont(settings.font ?? 'maru');
+  return (
+    <DesignThemeProvider scheme="light">
+      <View style={{ flex: 1, backgroundColor: c.bg }}>
+        <NavigationContainer>
+          <DemoStack.Navigator screenOptions={{ headerShown: false }}>
+            <DemoStack.Screen name="AICoach" component={AICoachScreen} />
+          </DemoStack.Navigator>
+        </NavigationContainer>
+      </View>
+    </DesignThemeProvider>
+  );
+}
+function SnsDemoRoot() {
+  return (
+    <AppProvider>
+      <SafeAreaProvider>
+        <SnsDemoInner />
+      </SafeAreaProvider>
+    </AppProvider>
+  );
+}
+const WordsStack = createNativeStackNavigator<WordsStackParamList>();
+function WordsTab() {
+  // 単語タブ: 世界観ハブ(WordsHome) → 区分の練習ホーム(WordKubun=CardsScreen) → 学習リスト(WordList=BrowseScreen)。
+  return (
+    <WordsStack.Navigator screenOptions={{ headerShown: false }}>
+      <WordsStack.Screen name="WordsHome" component={WordsHubScreen} />
+      <WordsStack.Screen name="WordKubun" component={CardsScreen} />
+      <WordsStack.Screen name="WordList" component={BrowseScreen} initialParams={{ mode: 'study' }} />
+    </WordsStack.Navigator>
+  );
+}
+const DictStack = createNativeStackNavigator<DictStackParamList>();
+function DictTab() {
+  // 辞書タブ: 没入する図書館ホーム(DictHome) → 各辞書リスト(DictList=BrowseScreen) / My単語帳(MyWords)。
+  // My単語帳はタブ内画面(スタック)に置く=下からせり上がるモーダルにせず、ボトムナビを消さない(ユーザー要望)。
+  return (
+    <DictStack.Navigator screenOptions={{ headerShown: false }}>
+      <DictStack.Screen name="DictHome" component={DictHomeScreen} />
+      <DictStack.Screen name="DictList" component={BrowseScreen} />
+      <DictStack.Screen name="MyWords" component={MyWordsScreen} />
+    </DictStack.Navigator>
+  );
+}
+const StudyStack = createNativeStackNavigator<StudyStackParamList>();
+function StudyTab() {
+  // 試験タブ: 世界観タイルホーム(StudyHome) → 各カテゴリ詳細(StudyCategory)。
+  return (
+    <StudyStack.Navigator screenOptions={{ headerShown: false }}>
+      <StudyStack.Screen name="StudyHome" component={StudyHomeScreen} />
+      <StudyStack.Screen name="StudyCategory" component={StudyCategoryScreen} />
+    </StudyStack.Navigator>
+  );
+}
+
+const TABS = [
+  { name: 'ホーム', component: HomeScreen, icon: 'home', iconOff: 'home-outline', labelKey: 'nav.home' },
+  { name: '単語', component: WordsTab, icon: 'language', iconOff: 'language-outline', labelKey: 'cards.tab' },
+  { name: '学習', component: StudyTab, icon: 'book', iconOff: 'book-outline', labelKey: 'study.tab' },
+  { name: '辞書', component: DictTab, icon: 'library', iconOff: 'library-outline', labelKey: 'dict.tab' },
+] as const;
+
+// 上部の共通アイコン列(アカウント/レベル/設定/通知)を隠す画面: 辞書リスト(DictList)と
+// 単語タブの練習ホーム・学習リスト(WordKubun/WordList)。各画面自身に×/←戻り＋見出しがあり、没入して学習に集中できる。
+const HIDE_TOPBAR = new Set(['DictList', 'WordKubun', 'WordList', 'MyWords']);
+
+function MainTabs() {
+  const c = useColors();
+  const t = useT();
+  const insets = useSafeAreaInsets();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const state = useAppState();
+  const { session } = useSync();
+  const hideTopBar = useNavigationState((s) => HIDE_TOPBAR.has(activeRouteName(s) ?? ''));
+  // 友だちからの応援メッセージの未読数(ヘッダーの鐘に赤バッジ)。ログイン中だけ・60秒ごとに確認して「届いたら知らせる」。
+  const [cheerUnread, setCheerUnread] = useState(0);
+  useEffect(() => {
+    if (!session) { setCheerUnread(0); return; }
+    let alive = true;
+    const tick = () => { cheerUnreadCount().then((n) => { if (alive) setCheerUnread(n); }).catch(() => { /* 取得失敗は無視 */ }); };
+    tick();
+    const id = setInterval(tick, 60000);
+    return () => { alive = false; clearInterval(id); };
+  }, [session]);
+  // 運営からのお知らせの未読数(全員一律・未ログインでも表示)。60秒ごとに確認。既読基準は端末ローカル。
+  const [announceN, setAnnounceN] = useState(0);
+  useEffect(() => {
+    let alive = true;
+    const tick = async () => {
+      const [list, readAt] = await Promise.all([fetchAnnouncements(), announceReadAtMs()]);
+      if (alive) setAnnounceN(announceUnread(list, readAt));
+    };
+    void tick();
+    const id = setInterval(() => { void tick(); }, 60000);
+    return () => { alive = false; clearInterval(id); };
+  }, []);
+  // ベルに出す合計未読 = 運営のお知らせ + (ログイン中なら)友だちの応援。
+  const bellUnread = announceN + (session ? cheerUnread : 0);
+  const openInbox = () => { setCheerUnread(0); setAnnounceN(0); void markAnnounceRead(); nav.navigate('CheerInbox'); };
+  // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
+  // 設定タブは廃止 → 画面上部に共通の操作列(左から): アカウント/JLPTレベル/設定/通知。
+  const iconBtn = [topBar.btn, { backgroundColor: c.surface, borderColor: c.line }];
+  return (
+    <View style={{ flex: 1 }}>
+    <Tab.Navigator
+      tabBarPosition="bottom"
+      screenOptions={{
+        swipeEnabled: true,
+        lazy: true,
+        tabBarActiveTintColor: c.blue,
+        tabBarInactiveTintColor: c.faint,
+        tabBarShowIcon: true,
+        tabBarPressColor: 'transparent',
+        tabBarLabelStyle: { fontSize: 10, textTransform: 'none', margin: 0, marginTop: 2 },
+        tabBarItemStyle: { paddingVertical: 4 },
+        tabBarIndicatorStyle: { height: 0 }, // 上のインジケータ線は隠す(ボトムナビ風)
+        tabBarStyle: {
+          backgroundColor: c.surface,
+          borderTopWidth: 1,
+          borderTopColor: c.line,
+          height: 54 + insets.bottom,
+          paddingBottom: insets.bottom,
+          elevation: 0,
+          shadowOpacity: 0,
+        },
+      }}
+    >
+      {TABS.map((tab) => (
+        <Tab.Screen
+          key={tab.name}
+          name={tab.name}
+          component={tab.component}
+          // タブから離れたら、そのタブの入れ子スタックを先頭(ハブ=背景画像の画面)まで戻す。
+          // 再度スワイプで戻った時に、前に開いていたカード/リストではなく既定の背景が出るように(ユーザー要望)。
+          listeners={({ navigation, route }) => ({
+            blur: () => {
+              const parent = navigation.getState();
+              const r = parent.routes.find((x) => x.key === route.key);
+              const nestedKey = (r?.state as { key?: string } | undefined)?.key;
+              if (nestedKey) navigation.dispatch({ ...StackActions.popToTop(), target: nestedKey });
+            },
+          })}
+          options={{
+            tabBarLabel: t(tab.labelKey),
+            tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? tab.icon : tab.iconOff} size={22} color={color} />,
+          }}
+        />
+      ))}
+    </Tab.Navigator>
+      {/* 全タブ共通の上部操作列(左から): アカウント / JLPTレベル / ショップ / 設定(一番右)。辞書リストでは非表示。
+          ※持ち物(アイテム一覧)は「桜/柴のタップで購入済みを確認」に集約したため上部アイコンは廃止。 */}
+      {!hideTopBar && (
+      <View style={[topBar.row, { top: insets.top + 6 }]}>
+        {/* 上部操作列は全アイコン等間隔(space-between)。左→右: アカウント / 貝殻 / 設定。
+            ・AIコーチ=ホームの合格リングをタップで開く(ヘッダーの✨は廃止)。
+            ・模試チケット🎫は廃止(模試は学習タブの「試」カードから。残数はショップ/持ち物で確認)。 */}
+        <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="person-circle-outline" size={26} color={c.ink} />
+        </Pressable>
+        {/* 貝殻ポイント(タップでショップへ)。 */}
+        <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.points_label')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
+          <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
+        </Pressable>
+        {/* 日本語学習者の町(外の世界を歩く入口)。設定より左に置く(設定は右端固定)。 */}
+        <Pressable onPress={() => nav.navigate('KotobaTown')} accessibilityLabel="日本語学習者の町" hitSlop={6} style={iconBtn}>
+          <Ionicons name="footsteps-outline" size={22} color={c.ink} />
+        </Pressable>
+        {/* 通知(受信箱): 運営からのお知らせ＋友だちの応援。設定の左に固定。未読があれば赤バッジ。
+            運営のお知らせは全員一律で未ログインでも出すため、ベル自体は常時表示する。 */}
+        <Pressable onPress={openInbox} accessibilityLabel={t('inbox.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="notifications-outline" size={22} color={c.ink} />
+          {bellUnread > 0 && <View style={[topBar.badge, { borderColor: c.surface }]}><Text style={topBar.badgeT}>{bellUnread > 99 ? '99+' : bellUnread}</Text></View>}
+        </Pressable>
+        {/* 設定(歯車)は必ず一番右。今後も動かさない(固定・ユーザー指定)。 */}
+        <Pressable onPress={() => nav.navigate('Settings')} accessibilityLabel={t('profile.title')} hitSlop={6} style={iconBtn}>
+          <Ionicons name="settings-outline" size={22} color={c.ink} />
+        </Pressable>
+      </View>
+      )}
+    </View>
+  );
+}
+
+const topBar = StyleSheet.create({
+  row: { position: 'absolute', left: 12, right: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', zIndex: 20 },
+  btn: {
+    width: 40, height: 40, borderRadius: 20, borderWidth: 1, alignItems: 'center', justifyContent: 'center',
+    shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
+  },
+  pill: {
+    height: 40, minWidth: 46, paddingHorizontal: 14, borderRadius: 20, borderWidth: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+    shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, elevation: 5,
+  },
+  pillTxt: { fontSize: 16, fontWeight: '900', letterSpacing: 0.5 },
+  badge: { position: 'absolute', top: -3, right: -3, minWidth: 16, height: 16, borderRadius: 8, backgroundColor: '#e23b3b', borderWidth: 1.5, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 },
+  badgeT: { color: '#fff', fontSize: 9, fontWeight: '900' },
+  backdrop: { flex: 1 },
+  menu: { position: 'absolute', left: 60, minWidth: 92, borderRadius: 14, borderWidth: 1, paddingVertical: 4, overflow: 'hidden', elevation: 8, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } },
+  menuItem: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10, paddingHorizontal: 16 },
+  menuTxt: { fontSize: 16, fontWeight: '700' },
+  menuCheck: { fontSize: 15, fontWeight: '900' },
+});
+
+function Root() {
+  const hydrated = useHydrated();
+  const state = useAppState();
+  const { addStudySeconds, setPurchaseActive, setSettings, syncTickets } = useAppActions();
+  const { session } = useSync();
+  const { settings } = state;
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  const c = useColors();
+
+  // 言語の一本化: 意味の表示言語(l1)を母語(uiLang)に一致させる。辞書・大問対訳は全対応言語ぶんデータがあり、
+  // 個別に欠けていれば各所で英語へフォールバックする(learnCardFor/resolveStudiedWords/pickTr)。
+  // 旧: 意味データがネパール語のみ前提で l1 を en/ne に固定していた→ bn等の聴解/大問対訳・辞書訳が英語化する不具合。
+  // 端末/UIが日本語(uiLang=ja)のときだけ意味は英語(日本語話者に母語=日本語の意味は不要)。
+  const uiLang = useUiLang();
+  const t = useT();
+  const meaningLang = uiLang === 'ja' ? 'en' : uiLang;
+  useEffect(() => {
+    if (!hydrated) return;
+    if (settings.l1 !== meaningLang) setSettings({ l1: meaningLang });
+    // 母語(ダッシュボード計測用)= 実際に解決したUI言語。未保存(匿名の初回等)なら端末言語で確定させ、
+    // l1(=意味の翻訳言語 en/ne)や既定'vi'ではなく本当の母語を送れるようにする。
+    if (!settings.uiLang && uiLang) setSettings({ uiLang });
+  }, [hydrated, meaningLang, uiLang]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 起動時: 新コンテンツがあれば「静かに」背景ダウンロード(プロンプトなし・両OS共通)。適用は次回起動時
+  // (BootGate の loadCachedFiles がキャッシュを読む)。UIはブロックしない(背景実行)。オフライン/失敗は無害。
+  // syncContent 側でタイムアウト＋逐次保存(固まり/無限ループ対策)。旧「はい/いいえ確認」方式を置換(2026-09-17)。
+  useEffect(() => {
+    if (!hydrated || !settings.onboarded) return;
+    (async () => {
+      try {
+        const { syncContent } = await import('./src/data/content/ota');
+        await syncContent(); // 背景で差分DL・逐次保存。次回起動で反映。
+      } catch { /* オフライン/失敗は無害 */ }
+    })();
+  }, [hydrated, settings.onboarded]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 匿名計測: 日次スナップショット＋アプリ往来/滞在＋回答flush＋クラッシュ報告。
+  useEffect(() => {
+    if (!hydrated) return;
+    setTelemetryEnabled(stateRef.current.settings.telemetry !== false && !isTestLab()); // Test Lab(自動試験)は計測しない
+    // クラッシュ/エラーを匿名報告(既存ハンドラはそのまま呼ぶ)。
+    const g = global as unknown as { ErrorUtils?: { getGlobalHandler?: () => ((e: unknown, f?: boolean) => void); setGlobalHandler?: (h: (e: unknown, f?: boolean) => void) => void } };
+    const prev = g.ErrorUtils?.getGlobalHandler?.();
+    g.ErrorUtils?.setGlobalHandler?.((e: unknown, isFatal?: boolean) => {
+      try { void sendError((e as { message?: string })?.message || String(e), !!isFatal); } catch { /* noop */ }
+      prev?.(e, isFatal);
+    });
+    let activeSince = Date.now();
+    const fire = (force: boolean) => {
+      setTelemetryEnabled(stateRef.current.settings.telemetry !== false && !isTestLab()); // Test Lab(自動試験)は計測しない
+      void sendDailySnapshot(stateRef.current, Date.now(), force);
+      void sendLifecycleMetrics(stateRef.current, Date.now()); // install / 翌日起動を1回だけ(§8)
+    };
+    fire(false);
+    const sub = AppState.addEventListener('change', (s) => {
+      if (s === 'active') { activeSince = Date.now(); fire(false); }
+      else if (s === 'background') {
+        const sec = Math.round((Date.now() - activeSince) / 1000);
+        if (sec > 0 && sec < 6 * 3600) addStudySeconds(sec); // 前面滞在秒を累計学習時間へ(異常値は加算しない)
+        void sendEvent('app_session', { sec });
+        void flushAnswers();
+        fire(true); // 閉じる時=学習後の状態で当日分を上書き(1行のまま)
+      }
+    });
+    return () => sub.remove();
+  }, [hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 課金(RevenueCat)の初期化とPro状態の同期。キー未設定(src/config/revenuecat.ts が空)なら全て no-op。
+  // ログイン中は実IDへ紐付け(機種変で権利がfollow)、匿名なら匿名IDで同期。結果を端末へ保存(通信断でもProが剥がれない)。
+  const userId = session?.user?.id;
+  useEffect(() => {
+    if (!hydrated) return;
+    let cancelled = false;
+    let removeProListener: (() => void) | undefined;
+    (async () => {
+      await initPurchases(userId ?? null);
+      let active: boolean | null;
+      if (userId) active = await linkAccount(userId);
+      else { await unlinkAccount(); active = await syncEntitlement(); }
+      if (!cancelled && typeof active === 'boolean') setPurchaseActive(active);
+      // 課金同期でPro状態が確定した後に、模試チケットを再整合(Pro:登録日起点の月次付与 / 非Pro:0にクリア)。
+      if (!cancelled) syncTickets();
+      // 権利が後から有効化された時(購入直後の遅延付与・自動更新・他端末での変化)も自動でPRO反映＝手動Restore不要(2026-09-17)。
+      if (!cancelled) removeProListener = addProUpdateListener((pro) => setPurchaseActive(pro));
+    })();
+    return () => { cancelled = true; removeProListener?.(); };
+  }, [hydrated, userId]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 【模試チケットの配布タイミング修正 2026-09-23】
+  // 起動直後に1度走る syncTickets(上)は、お試しProがまだ有効化される前(claimTrialはSyncProviderで後追い)に走るため
+  // 「まだ非Pro」と判断して起点(proSince)をリセットしてしまう。その後お試しが有効化されても再整合が走らず、
+  // 歓迎の模試チケットが配られない → ログアウト時にだけ syncTickets が再実行され、そこで初めて配られる“ズレ”になっていた。
+  // 対策: Pro判定の入力(お試し受取日/期限つきPro/購入フラグ)が確定・変化するたびに再整合する。
+  // これで「オンボ後ログインでお試しProが立った瞬間」に歓迎チケット1枚が配られ(=お試し週に1回 模試に挑戦できる)、
+  // ログアウト時は既に配布済み(proSince確定)なので二重配布されない。syncMockTickets は冪等(配布不要なら不変)。
+  const trialStartedAt = state.trialStartedAt;
+  const proUntil = state.entitlements?.proUntil;
+  const purchaseActive = state.entitlements?.purchaseActive;
+  useEffect(() => {
+    if (!hydrated) return;
+    syncTickets();
+  }, [hydrated, trialStartedAt, proUntil, purchaseActive]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 広告(AdMob)の初期化。iOSはATT(トラッキング許可)を尋ねてから。SDK未リンクなら安全に no-op。
+  // オンボ完了後に初回だけ実行=「トラッキングを許可する」チェックの結果でATTを尋ねる/尋ねない。
+  useEffect(() => {
+    if (!hydrated || !settings.onboarded) return;
+    // 端末の地域(NP/MM/BD)なら広告で足せる回数を無制限にする。取れなくても既定(1日2回)で安全に動く。
+    try { setAdBonusMaxForRegion(Localization.getLocales?.()[0]?.regionCode ?? null); } catch { /* 既定のまま */ }
+    void initAds(settings.adTracking !== false);
+  }, [hydrated, settings.onboarded, settings.adTracking]);
+  // 現在フォントを設定値に同期(このレンダー→配下の全Textが新フォントで描画)。既定=maru(丸ゴシック)。
+  setActiveFont(settings.font ?? 'maru');
+  const sys = useColorScheme();
+  // 水彩テーマ(桜/空/緑/藤/茜)はライト系。ナビ背景を透明化して背後の水彩レイヤーを見せる。
+  const skin = isWatercolor(settings.theme) ? settings.theme : null;
+  const scheme: 'light' | 'dark' = skin ? 'light' : settings.theme === 'auto' ? (sys ?? 'light') : settings.theme === 'dark' ? 'dark' : 'light';
+  const navTheme = {
+    ...DefaultTheme,
+    colors: { ...DefaultTheme.colors, background: skin ? 'transparent' : c.bg, card: c.surface, text: c.ink, border: c.line, primary: c.blue },
+  };
+
+  if (!hydrated) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: c.bg }}>
+        <ActivityIndicator color={c.blue} />
+      </View>
+    );
+  }
+
+  return (
+    <DesignThemeProvider scheme={scheme}>
+    <View style={{ flex: 1, backgroundColor: c.bg }}>
+    {skin ? <WatercolorBackground skin={skin} /> : null}
+    <NavigationContainer ref={navigationRef} linking={LINKING} key={`${settings.font ?? 'maru'}-${settings.theme ?? 'auto'}`} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
+        {!settings.onboarded ? (
+          <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
+        ) : (
+          <>
+            <RootStack.Screen name="Main" component={MainTabs} />
+            {/* 学習系(試験/単語タブ→学習)は全画面切替(card)。下から持ち上がる部分モーダル(上部に背景が覗く)をやめる。ユーザー要望2026-07-17。 */}
+            <RootStack.Screen name="Quiz" component={QuizScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Flashcard" component={FlashcardScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="MockIntro" component={MockIntroScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Mock" component={MockScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="MockResultDetail" component={MockResultScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Reading" component={ReadingScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="PassageGrammar" component={PassageGrammarScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Listening" component={ListeningScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="Kakitori" component={KakitoriScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="ListeningQuiz" component={ListeningQuizScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="KanjiRecognition" component={KanjiRecognitionScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="KanjiForm" component={KanjiFormScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="WordDrill" component={WordDrillScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="PosterList" component={PosterListScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="PosterAudio" component={PosterAudioScreen} options={{ presentation: 'card' }} />
+            {/* 以下は overlay/ダイアログ的なのでモーダル(下から)のまま。 */}
+            <RootStack.Screen name="KanjiDetail" component={KanjiDetailScreen} options={{ presentation: 'modal' }} />
+            {/* My単語帳は辞書タブ内(DictStack)へ移設=タブ内画面。ボトムナビを消さない(ユーザー要望2026-07-27)。 */}
+            <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Download" component={DownloadScreen} options={{ presentation: 'modal' }} />
+            {/* AIコーチは全画面切替(card)。modalだと中から開く成績表(MockResultDetail=card)が
+                モーダルの下に潜って見えないため(ユーザー報告2026-08-25)。学習系と同じ card に統一。 */}
+            <RootStack.Screen name="AICoach" component={AICoachScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="ShareCard" component={ShareCardScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="QuestionReview" component={QuestionReviewScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Paywall" component={PaywallScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Notifications" component={NotificationsScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Shop" component={ShopScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Referral" component={ReferralScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="Invite" component={InviteScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="KotobaTown" component={KotobaTownScreen} options={{ presentation: 'card' }} />
+            <RootStack.Screen name="CheerInbox" component={CheerInboxScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="BugReport" component={BugReportScreen} options={{ presentation: 'modal' }} />
+          </>
+        )}
+      </RootStack.Navigator>
+    </NavigationContainer>
+    {settings.onboarded && !session && !settings.accountPromptSeen && <AccountPrompt />}
+    </View>
+    </DesignThemeProvider>
+  );
+}
+
+export default function App() {
+  const [fontsLoaded, fontError] = useAppFonts();
+  // フォント読込前は端末既定で表示(白画面回避)。読込後に丸ゴシック等へ差し替わる。
+  // 読込エラー時は待たずに端末既定フォントで起動する(フォント失敗でスプラッシュに固着させない)。
+  if (!fontsLoaded && !fontError) {
+    return <View style={{ flex: 1, backgroundColor: '#0b1220' }} />;
+  }
+  if (SNS_DEMO) return <SnsDemoRoot />; // SNSモック撮影（Web専用・useAppFonts の後なのでフック順は不変）
+  // 防波堤はプロバイダの外側に置く(プロバイダ初期化中の例外も捕捉。native例外は捕捉不可)。
+  return (
+    <SafeBoundary
+      tag="app"
+      fallback={(
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24, backgroundColor: '#0b1220' }}>
+          <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', lineHeight: 24 }}>
+            問題が発生しました。アプリを再起動してください。{'\n'}Something went wrong. Please restart the app.
+          </Text>
+        </View>
+      )}
+    >
+      <AppProvider>
+        <SyncProvider>
+          <SafeAreaProvider>
+            <Root />
+            <StatusBar style="auto" />
+          </SafeAreaProvider>
+        </SyncProvider>
+      </AppProvider>
+    </SafeBoundary>
+  );
+}

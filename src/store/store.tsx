@@ -1,0 +1,330 @@
+// アプリ状態ストア: Context + useReducer + AsyncStorage 永続化。
+// エンジン(習得更新/SRS/客観クイズ)と streak ロジックを統合する単一の真実。
+import {
+  createContext, useContext, useEffect, useReducer, useState,
+  type Dispatch, type ReactNode,
+} from 'react';
+import { newItemState, recordQuiz, recordMock, effectiveP } from '../engine/engine';
+import { type Settings, type MockResult, type SaveRef, INITIAL_STATE, dayStr, toggleMyList } from './state';
+export type { AppState } from './state';
+import type { AppState } from './state';
+import { coverageBars, expectedScoreFor } from './selectors';
+import { recordAnswer, sendEvent } from '../telemetry/telemetry';
+import { applyStudyDay } from './streak';
+import { loadState, saveState, clearState } from './storage';
+import { applyKakitoriProgress } from '../kakitori/progress';
+import { recordFacet } from '../review/facetMastery';
+import { facetsForUnit, grammarFormatOf, GRAMMAR_NOVELTY_LAMBDA } from '../review/facetMap';
+import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, buyAvatarDrink as walletBuyAvatarDrink, spendAvatarChange as walletSpendAvatarChange, type ShopKind } from './wallet';
+import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket, clearTicketNotice } from './tickets';
+import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
+import { setPurchaseActive as proSetPurchase, grantProDays as proGrantDays } from '../pro/entitlement';
+import { recordDecay } from '../story/decay';
+import { recordQualifyingDay } from '../referral/trigger';
+
+type Action =
+  | { type: 'HYDRATE'; state: AppState }
+  | { type: 'SET_SETTINGS'; patch: Partial<Settings> }
+  | { type: 'QUIZ_ANSWER'; itemId: string; correct: boolean; now: number }
+  | { type: 'MOCK_ANSWER'; itemId: string; correct: boolean; now: number }
+  | { type: 'RECORD_MOCK'; result: MockResult }
+  | { type: 'KAKITORI_PROGRESS'; char: string; step: number; score: number; skipped?: boolean; now?: number }
+  | { type: 'ADD_TO_MY_LIST'; ref: SaveRef }
+  | { type: 'ADD_STUDY_SECONDS'; sec: number }
+  | { type: 'ADD_POINTS'; amount: number; now: number; cap?: boolean }
+  | { type: 'AWARD_ONCE'; key: string; amount: number }
+  | { type: 'BUY_ITEM'; item: { id: string; price: number }; now: number }
+  | { type: 'EQUIP_ITEM'; item: { id: string; kind: ShopKind } }
+  | { type: 'SYNC_TICKETS'; now: number }
+  | { type: 'BUY_TICKET'; now: number }
+  | { type: 'SPEND_TICKET'; now: number }
+  | { type: 'CLEAR_TICKET_NOTICE' }
+  | { type: 'BUY_AVATAR_DRINK'; now: number }
+  | { type: 'SPEND_AVATAR_CHANGE'; now: number }
+  | { type: 'CONSUME_SESSION'; now: number }
+  | { type: 'GRANT_AD_BONUS'; now: number }
+  | { type: 'SET_PURCHASE_ACTIVE'; active: boolean; now: number }
+  | { type: 'GRANT_PRO_DAYS'; days: number; now: number }
+  | { type: 'MARK_STORY_SHOWN'; id: string; now: number; skipped?: boolean }
+  | { type: 'SET_COMPLETED'; day: string; qualifying: boolean }
+  | { type: 'SET_ENTERED_CODE'; code: string }
+  | { type: 'SET_REFERRAL_STATS'; qualified: number }
+  | { type: 'MARK_UNLOCK_SEEN'; key: string }
+  | { type: 'SEED_UNLOCKS_SEEN'; keys: string[] }
+  | { type: 'SET_TRIAL_START'; at: number }
+  | { type: 'SET_PRO_UNTIL'; until: number }
+  | { type: 'RESET' };
+
+function countLearned(items: AppState['items'], now: number): number {
+  let n = 0;
+  for (const it of Object.values(items)) if (effectiveP(it, now) >= 0.6) n++;
+  return n;
+}
+
+function withStudyDay(state: AppState, now: number): AppState {
+  const day = dayStr(now);
+  const streak = applyStudyDay(state.streak, day);
+  const learned = countLearned(state.items, now);
+  const pred = (() => { try { return expectedScoreFor(state, now).score; } catch { return undefined; } })(); // その日時点の予想得点(予想得点の推移/週数予測の正本)。合格率は廃止=記録しない。
+  // その日時点の分類別カバー率(覚えた数)。折れ線グラフ(漢字/語彙/文法)用に今日から記録する。
+  const cb = coverageBars(state, now);
+  const covOf = (k: string) => cb.find((x) => x.key === k)?.learned ?? 0;
+  const cov = { kanji: covOf('kanji'), vocab: covOf('vocab'), grammar: covOf('grammar') };
+  const prev = state.growth ?? [];
+  const last = prev[prev.length - 1];
+  const point = { day, learned, pred, cov };
+  const growth = last && last.day === day
+    ? [...prev.slice(0, -1), point] // 同日は最新値で上書き
+    : [...prev, point];
+  return { ...state, streak, growth };
+}
+
+// 文法の「出題形式novelty」重み。同じ文法点でも未着手/回答の少ない形式(穴埋め/組み立て/文章の文法)ほど
+// 1回の正誤を強く反映する(ソフト)。到達自体はどの形式でも可能=減点で塞がない。倍率=1+λ/(1+その形式の回答数)。
+function grammarNovelty(state: AppState, unit: string): { mul: number; gFmt: Record<string, number> } {
+  const gFmt = state.gFmt ?? {};
+  const fmt = grammarFormatOf(unit);
+  if (!fmt) return { mul: 1, gFmt };
+  const gt = facetsForUnit(unit).find((t) => t.facet === 'grammar' && t.weight >= 1);
+  if (!gt) return { mul: 1, gFmt };
+  const key = `${gt.itemId}#${fmt}`;
+  const n = gFmt[key] ?? 0;
+  const mul = 1 + GRAMMAR_NOVELTY_LAMBDA / (1 + n);
+  return { mul, gFmt: { ...gFmt, [key]: n + 1 } };
+}
+
+function reduceCore(state: AppState, action: Action): AppState {
+  switch (action.type) {
+    case 'HYDRATE':
+      return action.state;
+    case 'SET_SETTINGS':
+      return { ...state, settings: { ...state.settings, ...action.patch } };
+    case 'QUIZ_ANSWER': {
+      const prev = state.items[action.itemId] ?? newItemState(action.now);
+      // 漢字読み/表記は答えが一つで暗記懸念が薄い→不正解は即再出題OK。他大問(文脈/用法/文法等)は翌日以降(ユーザー要望2026-07-17)。
+      const immediate = action.itemId.endsWith('#kanji_read') || action.itemId.endsWith('#orthography');
+      const next = recordQuiz(prev, action.correct, action.now, immediate);
+      // 面別マスタリーへも合流(additive・従来のitems記録は維持)。統合復習/予想得点の正本。
+      // 文法は出題形式noveltyで更新強度を可変(少ない形式ほど強く)。
+      const { mul: gMul, gFmt } = grammarNovelty(state, action.itemId);
+      const mastery = recordFacet(state.mastery ?? {}, facetsForUnit(action.itemId), action.correct, 'practice', action.now, gMul);
+      const withDay = withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next }, mastery, gFmt }, action.now);
+      // 1問正解=2貝は quizAnswer 側の ADD_POINTS で付与(MOCK_ANSWERと同経路)。ここで足すと二重取りになるため学習日の記録だけ返す。
+      return withDay;
+    }
+    case 'MOCK_ANSWER': {
+      // 模試は「その項目が初見(state.itemsに無い)のときだけ」evidenceに記録(初見保証で正当=模試は常に初見プール)。
+      // 既出(万一の再出題)は学習日のみ→暗記/再出題の水増しを防ぐ。台帳/非台帳(kb-/usg-/moji)を問わず統一。
+      if (state.items[action.itemId]) return withStudyDay(state, action.now);
+      const next = recordMock(newItemState(action.now), action.correct, action.now);
+      // 面へも合流(初見時のみ=itemsと同条件。mockは重み5)。文法は形式noveltyで更新強度を可変。
+      const { mul: gMul, gFmt } = grammarNovelty(state, action.itemId);
+      const mastery = recordFacet(state.mastery ?? {}, facetsForUnit(action.itemId), action.correct, 'mock', action.now, gMul);
+      return withStudyDay({ ...state, items: { ...state.items, [action.itemId]: next }, mastery, gFmt }, action.now);
+    }
+    case 'RECORD_MOCK':
+      return { ...state, mockHistory: [...(state.mockHistory ?? []), action.result].slice(-60) };
+    case 'KAKITORI_PROGRESS': {
+      const map = state.kakitori ?? {};
+      // 書き取りは「練習ツール」＝面(マスタリー)には計上しない(ユーザー方針2026-08-26)。
+      // 手書き産出は難度が高く到達も遅いので、漢字の「覚えた」判定は 読み/意味/聞き取り/形 の4面で測る。
+      // 書き取り自身の進捗(★/SRS due)は state.kakitori に従来どおり残る(練習の記録として)。
+      return { ...state, kakitori: { ...map, [action.char]: applyKakitoriProgress(map[action.char], action) } };
+    }
+    case 'ADD_TO_MY_LIST':
+      return { ...state, myList: toggleMyList(state.myList ?? [], action.ref) };
+    case 'ADD_STUDY_SECONDS':
+      return { ...state, studySeconds: (state.studySeconds ?? 0) + Math.max(0, Math.round(action.sec)) };
+    case 'ADD_POINTS':
+      return walletAdd(state, action.amount, action.now, { cap: action.cap });
+    case 'AWARD_ONCE':
+      return walletAwardOnce(state, action.key, action.amount);
+    case 'BUY_ITEM':
+      return walletBuy(state, action.item, action.now);
+    case 'EQUIP_ITEM':
+      return walletEquip(state, action.item);
+    case 'SYNC_TICKETS':
+      return syncMockTickets(state, action.now);
+    case 'BUY_TICKET':
+      return ticketBuy(state, action.now);
+    case 'SPEND_TICKET':
+      return spendMockTicket(state, action.now);
+    case 'CLEAR_TICKET_NOTICE':
+      return clearTicketNotice(state);
+    case 'BUY_AVATAR_DRINK':
+      return walletBuyAvatarDrink(state, action.now);
+    case 'SPEND_AVATAR_CHANGE':
+      return walletSpendAvatarChange(state, action.now);
+    case 'CONSUME_SESSION':
+      return quotaConsume(state, action.now);
+    case 'GRANT_AD_BONUS':
+      return quotaAdBonus(state, action.now);
+    case 'SET_PURCHASE_ACTIVE':
+      return proSetPurchase(state, action.active, action.now);
+    case 'GRANT_PRO_DAYS':
+      return proGrantDays(state, action.days, action.now);
+    case 'MARK_STORY_SHOWN':
+      // 出迎え(daily_greet)を「今日出した」と記録=減衰レイヤーで1日1回に絞る。付与ロジックには一切触れない。
+      return { ...state, storyDecay: recordDecay(state.storyDecay, action.id, action.now, { skipped: action.skipped }) };
+    case 'SET_COMPLETED': {
+      // 学習完了(ご褒美画面に到達)＝適格学習日。qualifyingの時だけ当日を distinct 追加(1日1回)。
+      if (!action.qualifying) return state;
+      const days = recordQualifyingDay(state.referral?.qualifyingDays ?? [], action.day);
+      return { ...state, referral: { ...state.referral, qualifyingDays: days } };
+    }
+    case 'SET_ENTERED_CODE':
+      // 新規が初回に入力した紹介コードを保存(成立時にこのコードで報告する)。
+      return { ...state, referral: { ...state.referral, enteredCode: action.code } };
+    case 'SET_REFERRAL_STATS':
+      // 自分が紹介した継続人数(サーバー集計)をキャッシュ。テレメトリ/アカウント画面が参照。
+      return { ...state, referral: { ...state.referral, referredQualified: action.qualified } };
+    case 'MARK_UNLOCK_SEEN':
+      return (state.unlocksSeen ?? []).includes(action.key) ? state : { ...state, unlocksSeen: [...(state.unlocksSeen ?? []), action.key] };
+    case 'SEED_UNLOCKS_SEEN':
+      // 初回のみ(未定義時)現解禁分を無音記録。既存ユーザーが更新直後に一斉演出されるのを防ぐ。
+      return state.unlocksSeen === undefined ? { ...state, unlocksSeen: action.keys } : state;
+    case 'SET_TRIAL_START':
+      // 「消えない別キー」由来のお試し起点を注入。既に同値なら不変(不要な再保存を避ける)。
+      return state.trialStartedAt === action.at ? state : { ...state, trialStartedAt: action.at };
+    case 'SET_PRO_UNTIL':
+      // サーバー(entitlements.pro_until)由来の期限つきProを反映。絶対値で上書き=管理付与・紹介・失効を正しく反映。
+      // 同値なら不変。proStatus が proUntil>now を isPro として拾う(課金purchaseActiveとは独立)。
+      return state.entitlements?.proUntil === action.until ? state : { ...state, entitlements: { ...state.entitlements, proUntil: action.until } };
+    case 'RESET':
+      return INITIAL_STATE;
+    default:
+      return state;
+  }
+}
+
+// updatedAt を進めない action(=クラウド同期LWWの基準を汚さないもの)。
+//  ・HYDRATE=ディスクからの復元(変更ではない・読み込んだ値を保つ)
+//  ・SYNC_TICKETS=起動毎に走る時刻由来の再計算(両端末で同じ結果=勝敗に使わない)
+//  ・Pro/お試し/紹介統計=サーバーが真実(端末の updatedAt で上書き勝負をしない)
+//  ・演出の既読フラグ=端末ローカルのUI状態
+//  ・ADD_STUDY_SECONDS=アプリ前面滞在秒の加算(App.tsx で background 化のたび発火)。
+//    「開いて閉じただけ」でも増えるので、これで updatedAt を刻むと勉強していない端末が
+//    学習端末を LWW で上書きしてしまう(本修正が防ぐはずの多端末データ消失そのもの)。
+//    総滞在秒は柔らかい統計ゆえ、実学習(QUIZ_ANSWER 等)が刻む updatedAt に相乗りで同期させる。
+// ここを刻むと「勉強していない端末を開いただけ」で相手端末の学習を上書きする多端末データ消失が起きる。
+const NO_STAMP: ReadonlySet<Action['type']> = new Set([
+  'HYDRATE', 'SYNC_TICKETS', 'SET_PURCHASE_ACTIVE', 'GRANT_PRO_DAYS',
+  'SET_REFERRAL_STATS', 'SET_TRIAL_START', 'SET_PRO_UNTIL', 'MARK_STORY_SHOWN',
+  'MARK_UNLOCK_SEEN', 'SEED_UNLOCKS_SEEN', 'ADD_STUDY_SECONDS',
+]);
+
+// updatedAt は「本当のデータ変更のとき」だけ刻む(クラウド同期LWWの基準)。保存側は state をそのまま書く。
+export function reducer(state: AppState, action: Action): AppState {
+  const next = reduceCore(state, action);
+  if (next === state) return state;            // 変更なし=刻まない
+  if (NO_STAMP.has(action.type)) return next;  // 起動時/サーバー由来の housekeeping=刻まない
+  const now = 'now' in action && typeof action.now === 'number' ? action.now : Date.now();
+  return { ...next, updatedAt: now };
+}
+
+const StateCtx = createContext<AppState>(INITIAL_STATE);
+const DispatchCtx = createContext<Dispatch<Action>>(() => undefined);
+const HydratedCtx = createContext<boolean>(false);
+// このセッションのローカル state が「ディスクの永続データから復元された」か。
+// false=まっさらな新規/再インストール(保持すべきローカルデータ無し)。クラウド同期の統合判断で使う。
+const HydratedFromDiskCtx = createContext<boolean>(false);
+
+export function AppProvider({ children }: { children: ReactNode }) {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [hydrated, setHydrated] = useState(false);
+  const [fromDisk, setFromDisk] = useState(false);
+
+  // 起動時に永続状態を復元
+  useEffect(() => {
+    (async () => {
+      const saved = await loadState();
+      if (saved) { dispatch({ type: 'HYDRATE', state: saved }); setFromDisk(true); }
+      dispatch({ type: 'SYNC_TICKETS', now: Date.now() }); // Pro:登録日起点で歓迎1+暦月ごと+1(上限なし) / 非Pro:0にクリア(課金同期後に再実行=App.tsx)
+      setHydrated(true);
+    })();
+  }, []);
+
+  // 変更を永続化(復元前は保存しない=初期値で上書きしない)。updatedAt は reducer が
+  // 「本当のデータ変更のとき」だけ刻むので、ここでは state をそのまま書く(起動時のhousekeeping では進めない)。
+  useEffect(() => {
+    if (hydrated) saveState(state);
+  }, [state, hydrated]);
+
+  return (
+    <StateCtx.Provider value={state}>
+      <DispatchCtx.Provider value={dispatch}>
+        <HydratedCtx.Provider value={hydrated}>
+          <HydratedFromDiskCtx.Provider value={fromDisk}>{children}</HydratedFromDiskCtx.Provider>
+        </HydratedCtx.Provider>
+      </DispatchCtx.Provider>
+    </StateCtx.Provider>
+  );
+}
+
+export function useAppState(): AppState {
+  return useContext(StateCtx);
+}
+
+export function useHydrated(): boolean {
+  return useContext(HydratedCtx);
+}
+
+/** ローカル state がディスクの永続データから復元されたか。false=新規/再インストール。 */
+export function useHydratedFromDisk(): boolean {
+  return useContext(HydratedFromDiskCtx);
+}
+
+export function useAppActions() {
+  const dispatch = useContext(DispatchCtx);
+  return {
+    setSettings: (patch: Partial<Settings>) => { void sendEvent('setting_changed', patch as Record<string, unknown>); dispatch({ type: 'SET_SETTINGS', patch }); },
+    quizAnswer: (itemId: string, correct: boolean) => {
+      recordAnswer(itemId, correct); // 全回答を匿名記録(問題別正答率の資源化)
+      dispatch({ type: 'QUIZ_ANSWER', itemId, correct, now: Date.now() });
+      if (correct) dispatch({ type: 'ADD_POINTS', amount: 2, now: Date.now(), cap: true });
+    },
+    mockAnswer: (itemId: string, correct: boolean) => {
+      recordAnswer(itemId, correct);
+      dispatch({ type: 'MOCK_ANSWER', itemId, correct, now: Date.now() });
+      if (correct) dispatch({ type: 'ADD_POINTS', amount: 2, now: Date.now(), cap: true });
+    },
+    recordMockResult: (result: MockResult) => {
+      dispatch({ type: 'RECORD_MOCK', result });
+      dispatch({ type: 'ADD_POINTS', amount: 50, now: Date.now(), cap: true }); // 模試完了
+    },
+    recordKakitori: (char: string, step: number, score: number, opts?: { skipped?: boolean; now?: number }) => {
+      dispatch({ type: 'KAKITORI_PROGRESS', char, step, score, skipped: opts?.skipped, now: opts?.now });
+      if (step >= 3 && !opts?.skipped && score >= 2) dispatch({ type: 'ADD_POINTS', amount: 5, now: Date.now(), cap: true }); // 漢字マスター
+    },
+    addToMyList: (ref: SaveRef) => dispatch({ type: 'ADD_TO_MY_LIST', ref }),
+    addStudySeconds: (sec: number) => dispatch({ type: 'ADD_STUDY_SECONDS', sec }),
+    addPoints: (amount: number, opts?: { cap?: boolean }) => dispatch({ type: 'ADD_POINTS', amount, now: Date.now(), cap: opts?.cap }),
+    awardOnce: (key: string, amount: number) => dispatch({ type: 'AWARD_ONCE', key, amount }),
+    buyItem: (item: { id: string; price: number }) => dispatch({ type: 'BUY_ITEM', item, now: Date.now() }),
+    equipItem: (item: { id: string; kind: ShopKind }) => dispatch({ type: 'EQUIP_ITEM', item }),
+    syncTickets: () => dispatch({ type: 'SYNC_TICKETS', now: Date.now() }),
+    buyMockTicket: () => dispatch({ type: 'BUY_TICKET', now: Date.now() }),
+    spendMockTicket: () => dispatch({ type: 'SPEND_TICKET', now: Date.now() }),
+    clearTicketNotice: () => dispatch({ type: 'CLEAR_TICKET_NOTICE' }),
+    buyAvatarDrink: () => dispatch({ type: 'BUY_AVATAR_DRINK', now: Date.now() }),
+    spendAvatarChange: () => dispatch({ type: 'SPEND_AVATAR_CHANGE', now: Date.now() }),
+    consumeSession: () => dispatch({ type: 'CONSUME_SESSION', now: Date.now() }),
+    grantAdBonus: () => dispatch({ type: 'GRANT_AD_BONUS', now: Date.now() }),
+    setPurchaseActive: (active: boolean) => dispatch({ type: 'SET_PURCHASE_ACTIVE', active, now: Date.now() }),
+    grantProDays: (days: number) => dispatch({ type: 'GRANT_PRO_DAYS', days, now: Date.now() }),
+    markStoryShown: (id: string, skipped = false) => dispatch({ type: 'MARK_STORY_SHOWN', id, now: Date.now(), skipped }),
+    markStudyDay: (qualifying: boolean) => dispatch({ type: 'SET_COMPLETED', day: dayStr(Date.now()), qualifying }),
+    setEnteredCode: (code: string) => dispatch({ type: 'SET_ENTERED_CODE', code }),
+    setReferralStats: (qualified: number) => dispatch({ type: 'SET_REFERRAL_STATS', qualified }),
+    markUnlockSeen: (key: string) => dispatch({ type: 'MARK_UNLOCK_SEEN', key }),
+    seedUnlocksSeen: (keys: string[]) => dispatch({ type: 'SEED_UNLOCKS_SEEN', keys }),
+    hydrate: (s: AppState) => dispatch({ type: 'HYDRATE', state: s }),
+    setTrialStart: (at: number) => dispatch({ type: 'SET_TRIAL_START', at }), // サーバー確定のお試し受取日(アカウント単位)を反映
+    setProUntil: (until: number) => dispatch({ type: 'SET_PRO_UNTIL', until }), // サーバー(entitlements.pro_until)由来の期限つきProを反映
+
+    reset: () => {
+      clearState();
+      dispatch({ type: 'RESET' });
+    },
+  };
+}

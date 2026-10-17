@@ -1,0 +1,798 @@
+{
+  "n3-v-130": {
+    "ja": "この肉は上の品だ。",
+    "en": "This meat is top-grade."
+  },
+  "n3-v-1451": {
+    "ja": "この地に長く住んでいる。",
+    "en": "I have lived in this area for a long time."
+  },
+  "n3-v-1892": {
+    "ja": "筆で習字を書く。",
+    "en": "I write calligraphy with a brush."
+  },
+  "n3-v-319": {
+    "ja": "先生が生徒に問題を与える。",
+    "en": "The teacher gives the students a problem."
+  },
+  "n3-v-436": {
+    "ja": "寒いので上着を着る。",
+    "en": "It is cold, so I put on a jacket."
+  },
+  "n3-v-642": {
+    "ja": "川の上のほうへ歩いて行く。",
+    "en": "I walk toward the upper part of the river."
+  },
+  "n3-v-875": {
+    "ja": "このお茶は色が濃い。",
+    "en": "This tea has a dark color."
+  },
+  "n3-v-942": {
+    "ja": "机の上の塵をふく。",
+    "en": "I wipe the dust off the desk."
+  },
+  "n4-v-108": {
+    "ja": "ガムを噛む。",
+    "en": "I chew gum."
+  },
+  "n4-v-157": {
+    "ja": "ボールを投げる。",
+    "en": "I throw a ball."
+  },
+  "n4-v-380": {
+    "ja": "指を切って血が出た。",
+    "en": "I cut my finger and it bled."
+  },
+  "n5-v-509": {
+    "ja": "小さい猫がいます。",
+    "en": "There is a small cat."
+  },
+  "n5-v-76": {
+    "ja": "机の上に本があります。",
+    "en": "There is a book on the desk."
+  },
+  "n3-v-1076": {
+    "ja": "この映画は本当にあった話を基にして作られた。",
+    "en": "This movie was made based on a true story."
+  },
+  "n3-v-1085": {
+    "ja": "庭で古い紙やごみを燃やす。",
+    "en": "We burn old paper and trash in the garden."
+  },
+  "n3-v-1120": {
+    "ja": "小さいミスなら先生は許す。",
+    "en": "The teacher forgives small mistakes."
+  },
+  "n3-v-1175": {
+    "ja": "この店は毎日開いているが、正月だけは例外だ。",
+    "en": "This shop is open every day, but New Year's is the only exception."
+  },
+  "n3-v-1212": {
+    "ja": "駅で店についてのアンケートに答えた。",
+    "en": "At the station I answered a survey about the shop."
+  },
+  "n3-v-1214": {
+    "ja": "会議で全員の意をまとめた。",
+    "en": "At the meeting we brought everyone's intentions together."
+  },
+  "n3-v-1250": {
+    "ja": "その本は来月刊行される。",
+    "en": "That book will be published next month."
+  },
+  "n3-v-1286": {
+    "ja": "分からない語句を辞書で調べる。",
+    "en": "I look up words and phrases I don't understand in the dictionary."
+  },
+  "n3-v-1294": {
+    "ja": "みんなでいい策を考えた。",
+    "en": "We all thought about a good plan together."
+  },
+  "n3-v-1305": {
+    "ja": "この洗剤でお皿を洗う。",
+    "en": "I wash the dishes with this detergent."
+  },
+  "n3-v-1368": {
+    "ja": "二つの色は美しい対照になっている。",
+    "en": "The two colors form a beautiful contrast."
+  },
+  "n3-v-1371": {
+    "ja": "祖父は大戦の時代に生まれた。",
+    "en": "My grandfather was born in the era of the great war."
+  },
+  "n3-v-1379": {
+    "ja": "この本の題名を教えてください。",
+    "en": "Please tell me the title of this book."
+  },
+  "n3-v-1400": {
+    "ja": "困っている人を助ける。",
+    "en": "I help people who are in trouble."
+  },
+  "n3-v-1456": {
+    "ja": "おばあさんは生活の知恵をたくさん知っている。",
+    "en": "My grandmother knows a lot of everyday wisdom."
+  },
+  "n3-v-1522": {
+    "ja": "小さなミスが大きな事故に繋がることがある。",
+    "en": "A small mistake can lead to a big accident."
+  },
+  "n3-v-1528": {
+    "ja": "彼は自分の罪を認めて謝った。",
+    "en": "He admitted his crime and apologized."
+  },
+  "n3-v-1565": {
+    "ja": "彼はまじめな日本人の典型だ。",
+    "en": "He is a typical serious Japanese person."
+  },
+  "n3-v-1705": {
+    "ja": "この店は一年中開いている。",
+    "en": "This shop is open all year round."
+  },
+  "n3-v-1708": {
+    "ja": "広い野に花が咲いている。",
+    "en": "Flowers are blooming in the wide field."
+  },
+  "n3-v-1720": {
+    "ja": "窓から外を覗く。",
+    "en": "I peek outside through the window."
+  },
+  "n3-v-1737": {
+    "ja": "テストで八十パーセントの点を取った。",
+    "en": "I got eighty percent on the test."
+  },
+  "n3-v-1754": {
+    "ja": "彼は気持ちが悪くなって吐く。",
+    "en": "He feels sick and vomits."
+  },
+  "n3-v-1767": {
+    "ja": "天気予報が外れることもある。",
+    "en": "Sometimes the weather forecast is wrong."
+  },
+  "n3-v-1812": {
+    "ja": "二つの店の値段を比較する。",
+    "en": "I compare the prices of the two shops."
+  },
+  "n3-v-1815": {
+    "ja": "パイロットは安全に飛行した。",
+    "en": "The pilot flew safely."
+  },
+  "n3-v-182": {
+    "ja": "大事な言葉に赤い印をつける。",
+    "en": "I put a red mark on important words."
+  },
+  "n3-v-1829": {
+    "ja": "二つの箱の重さは等しい。",
+    "en": "The weights of the two boxes are equal."
+  },
+  "n3-v-1831": {
+    "ja": "先生は生徒一人一人に声をかけた。",
+    "en": "The teacher spoke to each student one by one."
+  },
+  "n3-v-1856": {
+    "ja": "旅行から無事に帰ってきた。",
+    "en": "I came back safely from the trip."
+  },
+  "n3-v-1867": {
+    "ja": "このジュースはたくさんの砂糖を含む。",
+    "en": "This juice contains a lot of sugar."
+  },
+  "n3-v-1903": {
+    "ja": "彼は手を大きく振る。",
+    "en": "He waves his hand widely."
+  },
+  "n3-v-1915": {
+    "ja": "このクラスの平均点は八十点だ。",
+    "en": "The average score of this class is eighty points."
+  },
+  "n3-v-1933": {
+    "ja": "店員がプレゼントをきれいに包装した。",
+    "en": "The clerk wrapped the present neatly."
+  },
+  "n3-v-1936": {
+    "ja": "来てくださった方々にお礼を言った。",
+    "en": "I thanked the people who came."
+  },
+  "n3-v-1952": {
+    "ja": "寒くて頬が赤くなった。",
+    "en": "It was cold and my cheeks turned red."
+  },
+  "n3-v-1953": {
+    "ja": "寒くて頬が赤くなった。",
+    "en": "It was cold and my cheeks turned red."
+  },
+  "n3-v-1996": {
+    "ja": "子供は親の真似をする。",
+    "en": "Children imitate their parents."
+  },
+  "n3-v-2002": {
+    "ja": "鉄は空気にふれると酸化する。",
+    "en": "Iron oxidizes when it touches air."
+  },
+  "n3-v-2026": {
+    "ja": "「は」や「を」は日本語の助詞だ。",
+    "en": "'Wa' and 'wo' are Japanese particles."
+  },
+  "n3-v-2057": {
+    "ja": "兵隊たちが列になって歩いている。",
+    "en": "The soldiers are walking in a line."
+  },
+  "n3-v-2079": {
+    "ja": "友だちに伝言をたのんだ。",
+    "en": "I asked my friend to pass on a message."
+  },
+  "n3-v-2099": {
+    "ja": "たばこは肺に悪い。",
+    "en": "Cigarettes are bad for the lungs."
+  },
+  "n3-v-2108": {
+    "ja": "公園に古い碑が立っている。",
+    "en": "An old stone monument stands in the park."
+  },
+  "n3-v-2110": {
+    "ja": "この人が一番多くの票を集めた。",
+    "en": "This person collected the most votes."
+  },
+  "n3-v-2132": {
+    "ja": "世の中にはいろいろな人がいる。",
+    "en": "There are many kinds of people in the world."
+  },
+  "n3-v-215": {
+    "ja": "健康のために十分な睡眠を取りましょう。",
+    "en": "Let's get enough sleep for our health."
+  },
+  "n3-v-25": {
+    "ja": "この店の料理はおいしくて、しかも安い。",
+    "en": "The food at this restaurant is delicious, and moreover cheap."
+  },
+  "n3-v-263": {
+    "ja": "電話代を請求された。",
+    "en": "I was billed for the phone charges."
+  },
+  "n3-v-277": {
+    "ja": "水をやると、植物がよく生長する。",
+    "en": "When you water them, plants grow well."
+  },
+  "n3-v-315": {
+    "ja": "授業で先生が例を挙げる。",
+    "en": "The teacher gives an example in class."
+  },
+  "n3-v-339": {
+    "ja": "二つのチームが優勝を争う。",
+    "en": "The two teams compete for the championship."
+  },
+  "n3-v-352": {
+    "ja": "せっけんの泡で手を洗う。",
+    "en": "I wash my hands with soap bubbles."
+  },
+  "n3-v-353": {
+    "ja": "時計を正しい時間に合わせる。",
+    "en": "I set the clock to the correct time."
+  },
+  "n3-v-400": {
+    "ja": "みんなの意見が一致した。",
+    "en": "Everyone's opinions agreed."
+  },
+  "n3-v-413": {
+    "ja": "季節に合わせて衣服を選ぶ。",
+    "en": "Choose clothes according to the season."
+  },
+  "n3-v-426": {
+    "ja": "家族で兄の合格を祝う。",
+    "en": "The family celebrates my brother passing."
+  },
+  "n3-v-43": {
+    "ja": "山の自然はとても美しい。",
+    "en": "The nature in the mountains is very beautiful."
+  },
+  "n3-v-434": {
+    "ja": "レポートに本の言葉を引用した。",
+    "en": "I quoted words from a book in my report."
+  },
+  "n3-v-444": {
+    "ja": "彼の話が本当かどうか疑う。",
+    "en": "I doubt whether his story is true."
+  },
+  "n3-v-486": {
+    "ja": "老いは誰にでもやってくる。",
+    "en": "Old age comes to everyone."
+  },
+  "n3-v-508": {
+    "ja": "昔、王が国を治める。",
+    "en": "Long ago, a king ruled the country."
+  },
+  "n3-v-526": {
+    "ja": "泳げない人は水で溺れる。",
+    "en": "People who cannot swim may drown in the water."
+  },
+  "n3-v-536": {
+    "ja": "たばこは体に悪い影響を及ぼす。",
+    "en": "Cigarettes have a bad influence on the body."
+  },
+  "n3-v-537": {
+    "ja": "社長が最後の決定を下す。",
+    "en": "The president makes the final decision."
+  },
+  "n3-v-55": {
+    "ja": "決めたことをすぐに実行した。",
+    "en": "I immediately carried out what I had decided."
+  },
+  "n3-v-619": {
+    "ja": "博物館で古い刀を見た。",
+    "en": "I saw an old sword at the museum."
+  },
+  "n3-v-644": {
+    "ja": "急に雷が鳴り出した。",
+    "en": "Suddenly thunder began to roar."
+  },
+  "n3-v-653": {
+    "ja": "父が庭の草を刈る。",
+    "en": "My father cuts the grass in the garden."
+  },
+  "n3-v-655": {
+    "ja": "りんごの皮をむいて食べた。",
+    "en": "I peeled the apple and ate it."
+  },
+  "n3-v-680": {
+    "ja": "この本は動物に関することが書いてある。",
+    "en": "This book contains things related to animals."
+  },
+  "n3-v-689": {
+    "ja": "この事件と彼は関連がある。",
+    "en": "This incident is related to him."
+  },
+  "n3-v-703": {
+    "ja": "船が川の岸に着いた。",
+    "en": "The boat arrived at the riverbank."
+  },
+  "n3-v-71": {
+    "ja": "彼はしばしば学校に遅れる。",
+    "en": "He is often late for school."
+  },
+  "n3-v-710": {
+    "ja": "水を熱すると気体になる。",
+    "en": "When you heat water, it becomes gas."
+  },
+  "n3-v-752": {
+    "ja": "二人には共通の趣味がある。",
+    "en": "The two have a common hobby."
+  },
+  "n3-v-760": {
+    "ja": "犬は大きな音を嫌う。",
+    "en": "Dogs dislike loud noises."
+  },
+  "n3-v-773": {
+    "ja": "この道具は金属でできている。",
+    "en": "This tool is made of metal."
+  },
+  "n3-v-811": {
+    "ja": "年の暮れは忙しい。",
+    "en": "The year-end is busy."
+  },
+  "n3-v-901": {
+    "ja": "家族といる時が一番幸福だ。",
+    "en": "I am happiest when I am with my family."
+  },
+  "n3-v-939": {
+    "ja": "子どもは甘いものを好む。",
+    "en": "Children like sweet things."
+  },
+  "n3-v-971": {
+    "ja": "この川が二つの町の境になっている。",
+    "en": "This river forms the boundary between two towns."
+  },
+  "n3-v-986": {
+    "ja": "彼は地図の町を指す。",
+    "en": "He points at the town on the map."
+  },
+  "n3-v-992": {
+    "ja": "さいふに千円札が三枚ある。",
+    "en": "There are three 1000-yen bills in my wallet."
+  },
+  "n4-v-111": {
+    "ja": "彼はすぐに嘘をつくので、みんなに信じてもらえない。",
+    "en": "He tells lies so easily that no one believes him."
+  },
+  "n4-v-131": {
+    "ja": "明日、席の順番が決まる。",
+    "en": "The seating order will be decided tomorrow."
+  },
+  "n4-v-198": {
+    "ja": "いらない紙はここに捨てる。",
+    "en": "Throw away paper you don't need here."
+  },
+  "n4-v-20": {
+    "ja": "紙を半分に折る。",
+    "en": "Fold the paper in half."
+  },
+  "n4-v-209": {
+    "ja": "もう一度説明してください。",
+    "en": "Please explain it once more."
+  },
+  "n4-v-210": {
+    "ja": "助けてくれた友だちにお礼を言った。",
+    "en": "I thanked the friend who helped me."
+  },
+  "n4-v-222": {
+    "ja": "台所からいい匂いがする。",
+    "en": "A good smell is coming from the kitchen."
+  },
+  "n4-v-230": {
+    "ja": "机の上に本を立てる。",
+    "en": "I stand the book up on the desk."
+  },
+  "n4-v-243": {
+    "ja": "映画館の大きいスクリーンで映画を見た。",
+    "en": "I watched a movie on the big screen at the theater."
+  },
+  "n4-v-249": {
+    "ja": "弟はゲームばかりしている。",
+    "en": "My little brother does nothing but play games."
+  },
+  "n4-v-253": {
+    "ja": "わすれ物を友だちの家に届ける。",
+    "en": "I deliver the forgotten item to my friend's house."
+  },
+  "n4-v-263": {
+    "ja": "せんたく物が外でよく乾く。",
+    "en": "The laundry dries well outside."
+  },
+  "n4-v-275": {
+    "ja": "本屋で読みたい本を探す。",
+    "en": "I look for a book I want to read at the bookstore."
+  },
+  "n4-v-277": {
+    "ja": "父は毎日車の運転をする。",
+    "en": "My father drives a car every day."
+  },
+  "n4-v-286": {
+    "ja": "庭で花を育てる。",
+    "en": "I grow flowers in the garden."
+  },
+  "n4-v-288": {
+    "ja": "友だちのたんじょう日をお祝いする。",
+    "en": "I celebrate my friend's birthday."
+  },
+  "n4-v-290": {
+    "ja": "駅までの道を案内する。",
+    "en": "I show the way to the station."
+  },
+  "n4-v-304": {
+    "ja": "わたしはその考えに反対です。",
+    "en": "I am against that idea."
+  },
+  "n4-v-315": {
+    "ja": "出かける前にかばんの中をチェックする。",
+    "en": "I check inside my bag before going out."
+  },
+  "n4-v-323": {
+    "ja": "このカレーは味がとてもいい。",
+    "en": "This curry tastes very good."
+  },
+  "n4-v-329": {
+    "ja": "わたしは日本のアニメに興味がある。",
+    "en": "I am interested in Japanese anime."
+  },
+  "n4-v-343": {
+    "ja": "妹は今年小学校に入学した。",
+    "en": "My little sister entered elementary school this year."
+  },
+  "n4-v-360": {
+    "ja": "川で魚を釣る。",
+    "en": "I catch fish in the river."
+  },
+  "n4-v-362": {
+    "ja": "ボールをバットで打つ。",
+    "en": "I hit the ball with a bat."
+  },
+  "n4-v-365": {
+    "ja": "昼間は家にだれもいない。",
+    "en": "During the daytime, no one is at home."
+  },
+  "n4-v-366": {
+    "ja": "子どもの教育は大切だ。",
+    "en": "Children's education is important."
+  },
+  "n4-v-388": {
+    "ja": "ふとんを押し入れに入れる。",
+    "en": "I put the futon in the closet."
+  },
+  "n4-v-391": {
+    "ja": "夏はサンダルをはく。",
+    "en": "I wear sandals in summer."
+  },
+  "n4-v-394": {
+    "ja": "テレビのチャンネルを変える。",
+    "en": "I change the TV channel."
+  },
+  "n4-v-399": {
+    "ja": "ここでしばらく待ってください。",
+    "en": "Please wait here for a while."
+  },
+  "n4-v-409": {
+    "ja": "健康の為に毎日歩く。",
+    "en": "I walk every day for my health."
+  },
+  "n4-v-411": {
+    "ja": "信号が赤に変わる。",
+    "en": "The traffic light changes to red."
+  },
+  "n4-v-412": {
+    "ja": "私以外みんな来た。",
+    "en": "Everyone came except me."
+  },
+  "n4-v-413": {
+    "ja": "この仕事は一時間で済む。",
+    "en": "This work will be finished in an hour."
+  },
+  "n4-v-429": {
+    "ja": "この店は肉を外国から輸入する。",
+    "en": "This shop imports meat from abroad."
+  },
+  "n4-v-433": {
+    "ja": "この話を先生に伝える。",
+    "en": "I will tell this to the teacher."
+  },
+  "n4-v-441": {
+    "ja": "テレビをつけたまま寝た。",
+    "en": "I fell asleep with the TV on."
+  },
+  "n4-v-466": {
+    "ja": "父は政治の話が好きだ。",
+    "en": "My father likes talking about politics."
+  },
+  "n4-v-472": {
+    "ja": "答えを見つけるのは難しい。",
+    "en": "It is hard to find the answer."
+  },
+  "n4-v-489": {
+    "ja": "この寺はとても古い。",
+    "en": "This temple is very old."
+  },
+  "n4-v-498": {
+    "ja": "子どもたちが元気に笑う。",
+    "en": "The children laugh cheerfully."
+  },
+  "n4-v-501": {
+    "ja": "窓から朝の光が入る。",
+    "en": "Morning light comes in through the window."
+  },
+  "n4-v-504": {
+    "ja": "山田様、会議は三時からです。",
+    "en": "Mr. Yamada, the meeting starts at three."
+  },
+  "n4-v-505": {
+    "ja": "その話はもうご存じですか。",
+    "en": "Do you already know that story?"
+  },
+  "n4-v-508": {
+    "ja": "日本はアジアにある国だ。",
+    "en": "Japan is a country in Asia."
+  },
+  "n4-v-512": {
+    "ja": "富士山は日本で最も高い山だ。",
+    "en": "Mt. Fuji is the highest mountain in Japan."
+  },
+  "n4-v-513": {
+    "ja": "この服は私によく合う。",
+    "en": "These clothes suit me well."
+  },
+  "n4-v-521": {
+    "ja": "汽車が駅に着いた。",
+    "en": "The steam train arrived at the station."
+  },
+  "n4-v-527": {
+    "ja": "この様に書いてください。",
+    "en": "Please write it this way."
+  },
+  "n4-v-530": {
+    "ja": "御家族はお元気ですか。",
+    "en": "Is your family well?"
+  },
+  "n4-v-532": {
+    "ja": "この時計はすぐ直る。",
+    "en": "This clock will get fixed soon."
+  },
+  "n4-v-541": {
+    "ja": "この国には一億人以上が住んでいる。",
+    "en": "More than one hundred million people live in this country."
+  },
+  "n4-v-544": {
+    "ja": "ここでお金を払う。",
+    "en": "You pay the money here."
+  },
+  "n4-v-552": {
+    "ja": "私のことはかまうな。",
+    "en": "Don't worry about me."
+  },
+  "n4-v-554": {
+    "ja": "うっかりお金を落す。",
+    "en": "I carelessly drop my money."
+  },
+  "n4-v-557": {
+    "ja": "お写真を拝見します。",
+    "en": "May I see your photograph?"
+  },
+  "n4-v-567": {
+    "ja": "台風で木が倒れる。",
+    "en": "The tree falls over in the typhoon."
+  },
+  "n4-v-575": {
+    "ja": "歩けない程つかれた。",
+    "en": "I am so tired I can't walk."
+  },
+  "n4-v-578": {
+    "ja": "父は工業の会社で働く。",
+    "en": "My father works at an industrial company."
+  },
+  "n4-v-579": {
+    "ja": "来月、東京へ移る。",
+    "en": "I will move to Tokyo next month."
+  },
+  "n4-v-590": {
+    "ja": "庭に小さな虫がいる。",
+    "en": "There is a small insect in the garden."
+  },
+  "n4-v-595": {
+    "ja": "外で遊ぶと、服がすぐに汚れる。",
+    "en": "If you play outside, your clothes get dirty quickly."
+  },
+  "n4-v-601": {
+    "ja": "古いシャツを新しいのに取り替える。",
+    "en": "I replace the old shirt with a new one."
+  },
+  "n4-v-616": {
+    "ja": "朝の電車はいつも込む。",
+    "en": "The morning train is always crowded."
+  },
+  "n4-v-633": {
+    "ja": "階段を上がると、教室があります。",
+    "en": "When you go up the stairs, there is a classroom."
+  },
+  "n4-v-645": {
+    "ja": "ボタンを糸で付ける。",
+    "en": "I attach a button with thread."
+  },
+  "n4-v-660": {
+    "ja": "この店の料理は大分おいしくなった。",
+    "en": "The food at this restaurant has become considerably better."
+  },
+  "n4-v-8": {
+    "ja": "授業が終わると、ベルが鳴る。",
+    "en": "When class ends, the bell rings."
+  },
+  "n5-v-150": {
+    "ja": "借りた本を、明日返す。",
+    "en": "I will return the borrowed book tomorrow."
+  },
+  "n5-v-174": {
+    "ja": "寒いので、帽子をかぶる。",
+    "en": "It's cold, so I put on a hat."
+  },
+  "n5-v-194": {
+    "ja": "駅は、ここから北にあります。",
+    "en": "The station is to the north from here."
+  },
+  "n5-v-229": {
+    "ja": "肉を三百グラム買いました。",
+    "en": "I bought three hundred grams of meat."
+  },
+  "n5-v-232": {
+    "ja": "私のかばんは黒です。",
+    "en": "My bag is black."
+  },
+  "n5-v-238": {
+    "ja": "姉は来年、結婚します。",
+    "en": "My older sister will get married next year."
+  },
+  "n5-v-25": {
+    "ja": "この本はとても厚い。",
+    "en": "This book is very thick."
+  },
+  "n5-v-266": {
+    "ja": "図書館で本をコピーする。",
+    "en": "I copy a book at the library."
+  },
+  "n5-v-278": {
+    "ja": "この先に、大きい公園があります。",
+    "en": "A little further ahead, there is a big park."
+  },
+  "n5-v-279": {
+    "ja": "春になると、花が咲く。",
+    "en": "When spring comes, flowers bloom."
+  },
+  "n5-v-290": {
+    "ja": "私の妹は四さいです。",
+    "en": "My little sister is four years old."
+  },
+  "n5-v-305": {
+    "ja": "この字引はとても古い。",
+    "en": "This dictionary is very old."
+  },
+  "n5-v-33": {
+    "ja": "毎朝、シャワーを浴びる。",
+    "en": "I take a shower every morning."
+  },
+  "n5-v-350": {
+    "ja": "私の部屋は狭いです。",
+    "en": "My room is small."
+  },
+  "n5-v-356": {
+    "ja": "日曜日に洗濯をします。",
+    "en": "I do the laundry on Sunday."
+  },
+  "n5-v-39": {
+    "ja": "ご飯の前に手を洗う。",
+    "en": "I wash my hands before eating."
+  },
+  "n5-v-394": {
+    "ja": "朝ごはんに卵を食べる。",
+    "en": "I eat eggs for breakfast."
+  },
+  "n5-v-430": {
+    "ja": "私は日本語を話すことができる。",
+    "en": "I can speak Japanese."
+  },
+  "n5-v-443": {
+    "ja": "今日はとても暑くて、三十度です。",
+    "en": "It is very hot today, thirty degrees."
+  },
+  "n5-v-474": {
+    "ja": "公園で友だちの写真を撮る。",
+    "en": "I take a photo of my friend in the park."
+  },
+  "n5-v-477": {
+    "ja": "今日はお金がない。",
+    "en": "I have no money today."
+  },
+  "n5-v-482": {
+    "ja": "電車の中で切符を無くす。",
+    "en": "I lose my ticket on the train."
+  },
+  "n5-v-491": {
+    "ja": "私は先生に日本語を習う。",
+    "en": "I learn Japanese from a teacher."
+  },
+  "n5-v-492": {
+    "ja": "みんな、店の前に並ぶ。",
+    "en": "Everyone lines up in front of the store."
+  },
+  "n5-v-499": {
+    "ja": "私の家は駅の西にあります。",
+    "en": "My house is to the west of the station."
+  },
+  "n5-v-506": {
+    "ja": "家に入る前に、靴を脱ぐ。",
+    "en": "I take off my shoes before entering the house."
+  },
+  "n5-v-552": {
+    "ja": "朝ごはんにパンを食べる。",
+    "en": "I eat bread for breakfast."
+  },
+  "n5-v-557": {
+    "ja": "私の学校は駅の東にあります。",
+    "en": "My school is to the east of the station."
+  },
+  "n5-v-569": {
+    "ja": "この本は百円です。",
+    "en": "This book costs one hundred yen."
+  },
+  "n5-v-588": {
+    "ja": "今日は朝から雨が降る。",
+    "en": "It rains from the morning today."
+  },
+  "n5-v-682": {
+    "ja": "父はゆっくりと歩きます。",
+    "en": "My father walks slowly."
+  },
+  "n5-v-689": {
+    "ja": "先生が私の名前を呼ぶ。",
+    "en": "The teacher calls my name."
+  },
+  "n5-v-717": {
+    "ja": "青になったら、道を渡る。",
+    "en": "When the light turns green, I cross the road."
+  },
+  "n5-v-74": {
+    "ja": "私の好きな色は青です。",
+    "en": "My favorite color is blue."
+  }
+}

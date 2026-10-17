@@ -1,0 +1,653 @@
+// アカウント作成/ログイン(段階1)。メール+パスワード。確認メールON=新規作成後は確認案内→ログイン。
+// 案内=桜(既存アセット GUIDE.open)。文言は i18n(個人名を使わない)。
+import { useEffect, useMemo, useState } from 'react';
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator, KeyboardAvoidingView, Platform, Modal, Alert, Linking, Switch } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/types';
+import { Ionicons } from '@expo/vector-icons';
+import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { useT, useUiLang, meaningLangFor } from '../i18n';
+import { signUp, signIn, signOut, deleteAccount } from '../auth/authClient';
+import { releaseDeviceSession } from '../auth/deviceSession';
+import { signInWithProvider, signInWithApple, isAppleAvailable } from '../auth/oauth';
+import { mapAuthError } from '../auth/authErrors';
+import { useAppState, useAppActions } from '../store/store';
+import { avatarChangeTokens } from '../store/wallet';
+import { avatarOf, AVATARS } from '../plaza/avatars';
+import { NATIVE_LANGS, nativeLangFlag, nativeLangCC } from '../plaza/countries';
+import { PERSONALITIES, MOOD_MESSAGES, personalityOf, traitLabel, moodMsgText } from '../plaza/persona';
+import { useSync } from '../auth/SyncProvider';
+import ExamInfoCard from '../home/ExamInfoCard';
+import { getReferredQualifiedCount } from '../referral/referralClient';
+import { proStatus } from '../pro/entitlement';
+import { getTeacherHome, buildTeacherPortalUrl, getStudentHome, joinSchoolByCode, type TeacherHome, type StudentHome } from '../auth/teacherPortal';
+import { supabase } from '../config/supabase';
+import { pullProUntil } from '../pro/entitlementClient';
+
+type Tab = 'signup' | 'login';
+
+export default function AccountScreen() {
+  const t = useT();
+  const c = useColors();
+  const s = useMemo(() => makeStyles(c), [c]);
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { session, email: acctEmail, lastSyncedAt, blocked } = useSync();
+  // 最上部プロフィール: 桜ではなく自分のアバター立ち絵＋ステータス(レベル/国/性別/性格/ムード)。性格・ムードは変更可。
+  const appState = useAppState();
+  const { setSettings, setReferralStats, setEnteredCode, spendAvatarChange, reset, setProUntil } = useAppActions();
+  const st0 = appState.settings;
+  const myAvatarImg = avatarOf(st0.avatar).image;
+  // アバターは登録後は既定で変更不可。ショップの「すがた変えドリンク」を買うと券が増え、1回だけ変更できる。
+  const avatarTokens = avatarChangeTokens(appState);
+  const per = personalityOf(st0.personality);
+  const moodTxt = moodMsgText(t, st0.moodMsg);
+  const referredQualified = appState.referral?.referredQualified ?? 0;
+  // 自分が紹介して継続に達した人数をサーバーから取得(ログイン中のみ意味を持つ)。アカウント画面とテレメトリで参照。
+  useEffect(() => {
+    let alive = true;
+    getReferredQualifiedCount().then((n) => { if (alive) setReferralStats(n); });
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
+  // 団体ライセンスの「先生」だけに、教師専用サイトへの入口を出す。先生でなければ null のまま非表示。
+  const [teacherHome, setTeacherHome] = useState<TeacherHome | null>(null);
+  useEffect(() => {
+    let alive = true;
+    if (!session) { setTeacherHome(null); return; }
+    getTeacherHome().then((h) => { if (alive) setTeacherHome(h); });
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
+  // 今のログイン情報を載せて教師サイトを開く(先生はログイン画面を見ずそのまま入れる)。
+  const openTeacherPortal = async () => {
+    const url = await buildTeacherPortalUrl(st0.uiLang);
+    if (!url) { Alert.alert(t('teacher.portal_title'), t('teacher.portal_need_login')); return; }
+    Linking.openURL(url).catch(() => { /* 開けなくてもアプリは落とさない */ });
+  };
+  // 生徒: 団体コードで先生に紐づく。所属済みなら学校名を表示。
+  const [studentHome, setStudentHome] = useState<StudentHome | null>(null);
+  const [groupCode, setGroupCode] = useState('');
+  const [joinMsg, setJoinMsg] = useState<string | null>(null);
+  const [joining, setJoining] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    if (!session) { setStudentHome(null); return; }
+    getStudentHome().then((h) => { if (alive) setStudentHome(h); });
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
+  const onJoinGroup = async () => {
+    const code = groupCode.trim().toUpperCase();
+    if (!code || joining) return;
+    setJoining(true); setJoinMsg(null);
+    const r = await joinSchoolByCode(code);
+    if (r.ok) {
+      setStudentHome({ school_name: r.schoolName ?? '' }); setGroupCode(''); setJoinMsg(t('teacher.join_ok'));
+      // 団体ライセンスが有効なら参加時にサーバーがProを付与済み。即反映のため読み直す。
+      try { const { data: { user } } = await supabase.auth.getUser(); if (user) { const pu = await pullProUntil(user.id); if (pu != null) setProUntil(pu); } } catch { /* 反映は次回起動でも入る */ }
+    } else { setJoinMsg(r.error ?? t('teacher.join_err')); }
+    setJoining(false);
+  };
+  // 紹介コード入力(この画面でそのまま登録。別画面へ遷移しない)。
+  const enteredCode = appState.referral?.enteredCode;
+  const [refInput, setRefInput] = useState('');
+  const onSaveRefCode = () => { const v = refInput.trim().toUpperCase(); if (!v) return; setEnteredCode(v); setRefInput(''); };
+  const [pickerOpen, setPickerOpen] = useState<null | 'personality' | 'mood' | 'avatar' | 'nativelang' | 'gender' | 'name'>(null);
+  const [nameInput, setNameInput] = useState('');
+  const openAvatarPicker = () => {
+    if (avatarTokens > 0) { setPickerOpen('avatar'); return; }
+    Alert.alert(
+      t('account.avatar_locked_title'),
+      t('account.avatar_locked_msg'),
+      [{ text: t('account.close'), style: 'cancel' }, { text: t('account.to_shop'), onPress: () => nav.navigate('Shop') }],
+    );
+  };
+  // アバター確定: 別のアバターを選んだ時だけ券を1枚消費(同じ選択は無消費)。
+  const chooseAvatar = (code: string, gender: 'm' | 'f') => {
+    if (code !== st0.avatar && avatarTokens > 0) { setSettings({ avatar: code, gender }); spendAvatarChange(); }
+    setPickerOpen(null);
+  };
+  const uiLang = useUiLang(); // 母語=アプリ表示言語(uiLang)を唯一の正本に(設定画面の母語と連動)
+  const nativeLabel = NATIVE_LANGS.find((l) => l.code === uiLang)?.label ?? 'English';
+  const profileHeader = (
+    <View style={s.profHeader}>
+      <Pressable onPress={openAvatarPicker} style={s.profAvatarWrap} accessibilityLabel={t('account.a11y_change_avatar')}>
+        {myAvatarImg != null
+          ? <Image source={myAvatarImg} style={s.profAvatar} resizeMode="contain" />
+          : <View style={s.profAvatar} />}
+        {/* 券がある=変更可(鉛筆) / 無い=変更不可(鍵)。 */}
+        <View style={s.profAvatarEdit}><Ionicons name={avatarTokens > 0 ? 'pencil' : 'lock-closed'} size={12} color="#fff" /></View>
+      </Pressable>
+      <View style={s.profStats}>
+        {/* 先頭の「名前+国旗」は下の「名前」行と重複するため削除(上詰め) */}
+        <Pressable style={s.profRow} onPress={() => { setNameInput(st0.nickname ?? ''); setPickerOpen('name'); }}>
+          <Text style={s.profK}>{t('account.k_name')}</Text>
+          <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{st0.nickname || t('account.unset')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
+        <View style={s.profRow}><Text style={s.profK}>{t('account.k_level')}</Text><Text style={s.profV}>{st0.level}</Text></View>
+        <Pressable style={s.profRow} onPress={() => setPickerOpen('nativelang')}>
+          <Text style={s.profK}>{t('account.k_native')}</Text>
+          <View style={s.profVrow}><Text style={s.profV}>{nativeLangFlag(uiLang)} {nativeLabel}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
+        <Pressable style={s.profRow} onPress={() => setPickerOpen('gender')}>
+          <Text style={s.profK}>{t('account.k_gender')}</Text>
+          <View style={s.profVrow}><Text style={s.profV}>{t(st0.gender === 'f' ? 'onboarding.gender_f' : 'onboarding.gender_m')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
+        <Pressable style={s.profRow} onPress={() => setPickerOpen('personality')}>
+          <Text style={s.profK}>{t('account.k_personality')}</Text>
+          <View style={s.profVrow}><Text style={s.profV}>{per ? `${per.emoji} ${traitLabel(t, per.key)}` : t('account.choose')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
+        <Pressable style={s.profRow} onPress={() => setPickerOpen('mood')}>
+          <Text style={s.profK}>{t('account.k_mood')}</Text>
+          <View style={s.profVrow}><Text style={s.profV} numberOfLines={1}>{moodTxt ?? t('account.choose')}</Text><Ionicons name="chevron-forward" size={15} color={c.faint} /></View>
+        </Pressable>
+        {/* 単語帳を町の相手に見せてよいか(既定ON)。OFFにすると会話画面で相手側に単語帳ボタンが出ない。 */}
+        <View style={s.profRow}>
+          <Text style={s.profK}>{t('account.k_share_words')}</Text>
+          <Switch value={st0.shareWords !== false} onValueChange={(v) => setSettings({ shareWords: v })} />
+        </View>
+        <View style={s.profRow}>
+          <Text style={s.profK}>{t('account.k_referred')}</Text>
+          <Text style={s.profV}>{t('account.people', { n: referredQualified })}</Text>
+        </View>
+      </View>
+    </View>
+  );
+  // Pro課金への入口。既にProなら「有効中」を出し、未加入なら購入画面(Paywall)へ。
+  const isPro = proStatus(appState, Date.now()).isPro;
+  // サブスクの解約はApple/Google側で行う(アプリ内で直接は解約できない仕様)。加入者はここからストアの管理画面へ。
+  const openManageSub = () => {
+    const url = Platform.OS === 'android'
+      ? 'https://play.google.com/store/account/subscriptions'
+      : 'https://apps.apple.com/account/subscriptions';
+    Linking.openURL(url).catch(() => { /* 開けなくてもアプリは落とさない */ });
+  };
+  const proCard = (
+    <>
+      {/* Pro/お試し中でも必ずタップで購入画面を開ける(disabledにしない)。理由=お試し自動付与で新規アカウントが即Proになり、
+          審査担当がIAPにたどり着けず 2.1(b) で差し戻された(2026-09-23)。Proでもペイウォールは4プランを表示する。 */}
+      <Pressable style={s.proRow} onPress={() => nav.navigate('Paywall')} hitSlop={4}>
+        <View style={s.proIco}><Ionicons name="star" size={20} color={c.pink} /></View>
+        <View style={{ flex: 1 }}>
+          <Text style={s.proTitle}>{t('account.pro_title')}</Text>
+          <Text style={s.proSub}>{isPro ? t('account.pro_active') : t('account.pro_sub')}</Text>
+        </View>
+        {isPro
+          ? <Ionicons name="checkmark-circle" size={22} color={c.green} />
+          : <View style={s.proCta}><Text style={s.proCtaTxt}>{t('account.pro_cta')}</Text></View>}
+      </Pressable>
+      {/* 加入者向け: サブスクの管理・解約(ストアの管理画面を開く)。Apple/Googleの仕様で解約はストア側で行う。 */}
+      {isPro && (
+        <Pressable style={s.manageSubRow} onPress={openManageSub} hitSlop={6}>
+          <Ionicons name="settings-outline" size={15} color={c.mute} />
+          <Text style={s.manageSubTxt}>{t('account.manage_sub')}</Text>
+        </Pressable>
+      )}
+    </>
+  );
+  const pickerModal = (
+    <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
+      <Pressable style={s.pickBackdrop} onPress={() => setPickerOpen(null)} />
+      <View style={s.pickSheet}>
+        <Text style={s.pickTitle}>{
+          pickerOpen === 'avatar' ? t('account.pick_avatar')
+          : pickerOpen === 'name' ? t('account.pick_name')
+          : pickerOpen === 'nativelang' ? t('account.pick_native')
+          : pickerOpen === 'gender' ? t('account.pick_gender')
+          : pickerOpen === 'personality' ? t('account.pick_personality')
+          : t('account.pick_mood')
+        }</Text>
+        {pickerOpen === 'name' ? (
+          <View style={{ paddingTop: spacing.sm, gap: spacing.md }}>
+            <TextInput
+              value={nameInput}
+              onChangeText={setNameInput}
+              maxLength={20}
+              placeholder={t('account.k_name')}
+              placeholderTextColor={c.faint}
+              style={s.nameInput}
+              autoFocus
+            />
+            <Pressable style={[s.nameSave, !nameInput.trim() && { opacity: 0.5 }]} disabled={!nameInput.trim()} onPress={() => { const v = nameInput.trim(); if (v) setSettings({ nickname: v }); setPickerOpen(null); }}>
+              <Text style={s.nameSaveT}>{t('account.save')}</Text>
+            </Pressable>
+          </View>
+        ) : (
+        <ScrollView style={{ maxHeight: 380 }} contentContainerStyle={{ paddingBottom: 8 }}>
+          {pickerOpen === 'avatar' ? (
+            <View style={s.avGrid}>
+              {AVATARS.map((a) => {
+                const on = st0.avatar === a.code;
+                return (
+                  <Pressable key={a.code} style={[s.avCell, on && s.avCellOn]} onPress={() => chooseAvatar(a.code, a.gender)}>
+                    {a.image != null ? <Image source={a.image} style={s.avImg} resizeMode="contain" /> : <Text style={s.avEmoji}>{a.emoji}</Text>}
+                    {on && <View style={s.avCheck}><Text style={s.avCheckT}>✓</Text></View>}
+                  </Pressable>
+                );
+              })}
+            </View>
+          ) : pickerOpen === 'nativelang'
+            ? NATIVE_LANGS.map((ln) => {
+                const on = uiLang === ln.code;
+                return (
+                  <Pressable key={ln.code} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ uiLang: ln.code, l1: meaningLangFor(ln.code), country: nativeLangCC(ln.code) }); setPickerOpen(null); }}>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{nativeLangFlag(ln.code)} {ln.label}</Text>
+                    {on && <Text style={s.pickCheck}>✓</Text>}
+                  </Pressable>
+                );
+              })
+          : pickerOpen === 'gender'
+            ? (['m', 'f'] as const).map((g) => {
+                const on = (st0.gender ?? 'm') === g;
+                return (
+                  <Pressable key={g} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ gender: g }); setPickerOpen(null); }}>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{t(g === 'f' ? 'onboarding.gender_f' : 'onboarding.gender_m')}</Text>
+                    {on && <Text style={s.pickCheck}>✓</Text>}
+                  </Pressable>
+                );
+              })
+          : pickerOpen === 'personality'
+            ? PERSONALITIES.map((p) => {
+                const on = st0.personality === p.key;
+                return (
+                  <Pressable key={p.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ personality: p.key }); setPickerOpen(null); }}>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{p.emoji} {traitLabel(t, p.key)}</Text>
+                    {on && <Text style={s.pickCheck}>✓</Text>}
+                  </Pressable>
+                );
+              })
+            : MOOD_MESSAGES.map((m) => {
+                const on = st0.moodMsg === m.key;
+                return (
+                  <Pressable key={m.key} style={[s.pickRow, on && s.pickRowOn]} onPress={() => { setSettings({ moodMsg: m.key }); setPickerOpen(null); }}>
+                    <Text style={[s.pickRowTxt, on && s.pickRowTxtOn]}>{t('persona.mood.' + m.key)}</Text>
+                    {on && <Text style={s.pickCheck}>✓</Text>}
+                  </Pressable>
+                );
+              })}
+        </ScrollView>
+        )}
+      </View>
+    </Modal>
+  );
+  const [tab, setTab] = useState<Tab>('signup');
+  const [email, setEmail] = useState('');
+  const [pw, setPw] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [errKey, setErrKey] = useState<string | null>(null);
+  const [confirmSent, setConfirmSent] = useState(false);
+  const [showPw, setShowPw] = useState(false);
+  const [appleOk, setAppleOk] = useState(false);
+  useEffect(() => { void isAppleAvailable().then(setAppleOk); }, []);
+
+  const submit = async () => {
+    setErrKey(null);
+    setConfirmSent(false);
+    setBusy(true);
+    try {
+      if (tab === 'signup') {
+        const r = await signUp(email.trim(), pw);
+        if (r.error) { setErrKey(mapAuthError(r.error)); return; }
+        if (r.needsConfirm) { setConfirmSent(true); setTab('login'); return; }
+        nav.goBack(); // 確認不要設定なら即ログイン→戻る
+      } else {
+        const r = await signIn(email.trim(), pw);
+        if (r.error) { setErrKey(mapAuthError(r.error)); return; }
+        nav.goBack(); // ログイン成功→設定へ戻る(SyncProviderがpull/push)
+      }
+    } catch {
+      setErrKey('account.err_network');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const onGoogle = async () => {
+    setErrKey(null);
+    setConfirmSent(false);
+    setBusy(true);
+    try {
+      const r = await signInWithProvider('google');
+      if (r.error === 'cancelled') return; // ユーザーが閉じた=エラー表示しない
+      if (r.error) { setErrKey(r.error.startsWith('account.') ? r.error : 'account.err_oauth'); return; }
+      nav.goBack(); // 成功→設定へ戻る(SyncProviderがpull/push)
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const onApple = async () => {
+    setErrKey(null);
+    setConfirmSent(false);
+    setBusy(true);
+    try {
+      const r = await signInWithApple();
+      if (r.error === 'cancelled') return;
+      if (r.error) { setErrKey(r.error.startsWith('account.') ? r.error : 'account.err_oauth'); return; }
+      nav.goBack();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const canSubmit = email.trim().length > 3 && pw.length >= 8 && !busy;
+
+  // アカウント削除(ログイン中のみ・ログアウトの下に配置)。Apple審査要件=アプリ内から退会できること。誤タップ防止に確認ダイアログ。
+  const onDelete = () => {
+    if (!session) return;
+    const uid = session.user.id;
+    Alert.alert(t('account.delete'), t('account.delete_confirm'), [
+      { text: t('account.delete_no'), style: 'cancel' },
+      // 退会=クラウド(②③)を消した後、端末内(名前・進捗)もまっさらにする。①利用ログ(匿名ID)は分析用に残す。
+      { text: t('account.delete_yes'), style: 'destructive', onPress: () => { void deleteAccount(uid).finally(() => reset()); } },
+    ]);
+  };
+
+  // ログイン中は「ログイン中の状態」＋「ログアウト」だけを表示(他カード/アカウント削除は出さない=ユーザー指定)。
+  if (session) {
+    const syncedLabel = lastSyncedAt ? new Date(lastSyncedAt).toLocaleTimeString() : t('account.not_synced');
+    return (
+      <SafeAreaView style={s.c} edges={['top']}>
+        {/* 紹介コード入力欄がキーボードに隠れないよう、ログイン済みビューもKAVで包む(iOS=padding)。 */}
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={0}>
+        <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
+          <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}><Text style={s.closeTxt}>✕</Text></Pressable>
+          {/* 最上部: 自分のアバター＋ステータス(左にアバター/右にレベル・国・性別・性格・ムード) */}
+          {profileHeader}
+          <View style={s.loginMeta}>
+            <Text style={s.benefitTitle}>{t('account.logged_in_title')}</Text>
+            <Text style={s.acctEmail}>{acctEmail}</Text>
+            <Text style={s.benefitSub}>{t('account.synced_at', { t: syncedLabel })}</Text>
+          </View>
+          {/* 最終同期の下に試験情報カード(試験日/残日数/申込期間/費用)。ホームのリングシートから移設。 */}
+          <ExamInfoCard />
+          {/* Pro課金への入口 */}
+          {proCard}
+          {/* 友だちを紹介: 遷移先で自分の紹介コードを共有する。 */}
+          <Pressable style={s.referralRow} onPress={() => nav.navigate('Referral', { focus: 'share' })}>
+            <View style={s.referralIco}><Ionicons name="gift-outline" size={20} color={c.blue} /></View>
+            <View style={{ flex: 1 }}>
+              <Text style={s.referralTitle}>{t('account.referral_title')}</Text>
+              <Text style={s.referralSub}>{t('account.referral_sub')}</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={c.faint} />
+          </Pressable>
+          {/* 紹介コードを入力(遷移せずこの場で登録)。 */}
+          <View style={s.referralEnter}>
+            <Text style={s.referralTitle}>{t('referral.enter_title')}</Text>
+            <Text style={s.referralSub}>{t('referral.enter_hint')}</Text>
+            {enteredCode ? (
+              <View style={s.referralEnteredBox}>
+                <Text style={s.referralEnteredEmoji}>🎉</Text>
+                <Text style={s.referralEntered}>{t('referral.entered', { code: enteredCode })}</Text>
+              </View>
+            ) : (
+              <View style={s.referralInputRow}>
+                <TextInput
+                  style={s.referralInput}
+                  value={refInput}
+                  onChangeText={setRefInput}
+                  placeholder={t('referral.enter_placeholder')}
+                  placeholderTextColor={c.faint}
+                  autoCapitalize="characters"
+                  autoCorrect={false}
+                />
+                <Pressable style={[s.referralSaveBtn, !refInput.trim() && s.referralSaveOff]} onPress={onSaveRefCode} disabled={!refInput.trim()}>
+                  <Text style={s.referralSaveTxt}>{t('referral.enter_save')}</Text>
+                </Pressable>
+              </View>
+            )}
+          </View>
+          {/* 団体ライセンス: 生徒は先生からもらった「団体コード」を入れると自動で紐づく */}
+          <View style={s.referralEnter}>
+            <Text style={s.referralTitle}>{t('teacher.join_title')}</Text>
+            <Text style={s.referralSub}>{t('teacher.join_hint')}</Text>
+            {studentHome ? (
+              <View style={s.referralEnteredBox}>
+                <Text style={s.referralEnteredEmoji}>🏫</Text>
+                <Text style={s.referralEntered}>{t('teacher.join_belongs', { school: studentHome.school_name })}</Text>
+              </View>
+            ) : (
+              <View style={s.referralInputRow}>
+                <TextInput
+                  style={s.referralInput}
+                  value={groupCode}
+                  onChangeText={setGroupCode}
+                  placeholder={t('teacher.join_placeholder')}
+                  placeholderTextColor={c.faint}
+                  autoCapitalize="characters"
+                  autoCorrect={false}
+                />
+                <Pressable style={[s.referralSaveBtn, (!groupCode.trim() || joining) && s.referralSaveOff]} onPress={() => { void onJoinGroup(); }} disabled={!groupCode.trim() || joining}>
+                  <Text style={s.referralSaveTxt}>{t('teacher.join_button')}</Text>
+                </Pressable>
+              </View>
+            )}
+            {joinMsg ? <Text style={[s.referralSub, { marginTop: spacing.sm }]}>{joinMsg}</Text> : null}
+          </View>
+          {/* 団体ライセンスの先生だけ: 教師専用サイトの入口(認証を引き継いでそのまま開く) */}
+          {teacherHome ? (
+            <Pressable style={s.referralRow} onPress={() => { void openTeacherPortal(); }}>
+              <View style={s.referralIco}><Ionicons name="school-outline" size={20} color={c.blue} /></View>
+              <View style={{ flex: 1 }}>
+                <Text style={s.referralTitle}>{t('teacher.portal_title')}</Text>
+                <Text style={s.referralSub}>{t('teacher.portal_sub', { school: teacherHome.school_name })}</Text>
+              </View>
+              <Ionicons name="open-outline" size={18} color={c.faint} />
+            </Pressable>
+          ) : null}
+          {/* ログアウトは一番下へ押し下げる */}
+          <View style={s.spacer} />
+          <Pressable style={s.manageBtn} onPress={() => { void (async () => { await releaseDeviceSession(); await signOut(); })(); }}>
+            <Ionicons name="log-out-outline" size={20} color={c.ink} />
+            <Text style={s.manageTxt}>{t('account.logout')}</Text>
+          </Pressable>
+          {/* アカウント削除: ログアウトのすぐ下に控えめに置く(Apple審査要件=アプリ内退会)。 */}
+          <Pressable style={s.deleteRow} onPress={onDelete} hitSlop={6}>
+            <Text style={s.deleteTxt}>{t('account.delete')}</Text>
+          </Pressable>
+        </ScrollView>
+        </KeyboardAvoidingView>
+        {pickerModal}
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <SafeAreaView style={s.c} edges={['top']}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={0}>
+        <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
+          <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}>
+            <Text style={s.closeTxt}>✕</Text>
+          </Pressable>
+
+          {profileHeader}
+          <View style={s.loginMeta}>
+            <Text style={s.benefitTitle}>{t('account.benefit_title')}</Text>
+            <Text style={s.benefitSub}>{t('account.benefit_sub')}</Text>
+          </View>
+
+          {/* 同時ログインは1台だけ。別端末が使用中でログインをブロックされた時の案内。 */}
+          {blocked ? (
+            <View style={s.notice}>
+              <Text style={s.noticeTitle}>{t('account.blocked_title')}</Text>
+              <Text style={s.noticeBody}>{t('account.blocked_msg')}</Text>
+            </View>
+          ) : null}
+
+          {/* 未ログインでも直近の試験情報カードを表示(試験日/残日数/申込期間/費用)。 */}
+          <ExamInfoCard />
+          {/* Pro課金への入口(ログイン前でも購入は可能) */}
+          {proCard}
+
+          <Pressable style={[s.googleBtn, busy && s.ctaOff]} onPress={onGoogle} disabled={busy}>
+            <Ionicons name="logo-google" size={20} color="#EA4335" />
+            <Text style={s.googleTxt}>{t('account.google')}</Text>
+          </Pressable>
+          {appleOk ? (
+            <Pressable style={[s.appleBtn, busy && s.ctaOff]} onPress={onApple} disabled={busy}>
+              <Ionicons name="logo-apple" size={20} color="#fff" />
+              <Text style={s.appleTxt}>{t('account.apple')}</Text>
+            </Pressable>
+          ) : null}
+          <View style={s.divider}>
+            <View style={s.divLine} />
+            <Text style={s.divTxt}>{t('account.or')}</Text>
+            <View style={s.divLine} />
+          </View>
+
+          <View style={s.tabs}>
+            {(['signup', 'login'] as const).map((tb) => (
+              <Pressable key={tb} onPress={() => { setTab(tb); setErrKey(null); }} style={[s.tab, tab === tb && s.tabOn]}>
+                <Text style={[s.tabTxt, tab === tb && s.tabTxtOn]}>{t(tb === 'signup' ? 'account.tab_signup' : 'account.tab_login')}</Text>
+              </Pressable>
+            ))}
+          </View>
+
+          {confirmSent ? (
+            <View style={s.notice}>
+              <Text style={s.noticeTitle}>{t('account.confirm_sent')}</Text>
+              <Text style={s.noticeBody}>{t('account.confirm_hint')}</Text>
+            </View>
+          ) : null}
+
+          <Text style={s.label}>{t('account.email')}</Text>
+          <TextInput
+            style={s.input}
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            autoCorrect={false}
+            placeholder="you@example.com"
+            placeholderTextColor={c.faint}
+          />
+
+          <Text style={s.label}>{t('account.password')}</Text>
+          <View style={s.pwRow}>
+            <TextInput
+              style={s.pwInput}
+              value={pw}
+              onChangeText={setPw}
+              secureTextEntry={!showPw}
+              autoCapitalize="none"
+              placeholder={t('account.pw_hint')}
+              placeholderTextColor={c.faint}
+            />
+            <Pressable onPress={() => setShowPw((v) => !v)} hitSlop={8} style={s.pwEye} accessibilityLabel={t(showPw ? 'account.pw_hide' : 'account.pw_show')}>
+              <Ionicons name={showPw ? 'eye-off-outline' : 'eye-outline'} size={22} color={c.mute} />
+            </Pressable>
+          </View>
+
+          {errKey ? <Text style={s.err}>{t(errKey)}</Text> : null}
+
+          <Pressable style={[s.cta, !canSubmit && s.ctaOff]} onPress={submit} disabled={!canSubmit}>
+            {busy ? <ActivityIndicator color="#fff" /> : (
+              <Text style={s.ctaTxt}>{t(tab === 'signup' ? 'account.cta_create' : 'account.cta_login')}</Text>
+            )}
+          </Pressable>
+        </ScrollView>
+      </KeyboardAvoidingView>
+      {pickerModal}
+    </SafeAreaView>
+  );
+}
+
+const makeStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    c: { flex: 1, backgroundColor: c.bg },
+    body: { padding: spacing.lg, gap: spacing.sm, paddingBottom: spacing.xl, flexGrow: 1 },
+    spacer: { flex: 1, minHeight: spacing.lg },
+    close: { alignSelf: 'flex-end', padding: spacing.xs },
+    closeTxt: { fontSize: ty.h2, color: c.mute, fontWeight: '700' },
+    hero: { alignItems: 'center', gap: spacing.xs, marginBottom: spacing.md },
+    guide: { width: 120, height: 134 },
+    guideFull: { width: 168, height: 230 }, // 全身立ち絵(民族衣装/背負い筆)は縦長(≒864x1184)
+    // 最上部プロフィール(アバター左＋ステータス右)
+    profHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, marginTop: spacing.sm, marginBottom: spacing.md },
+    profAvatarWrap: { width: 108, height: 116 },
+    profAvatar: { width: 108, height: 116 },
+    profAvatarEdit: { position: 'absolute', right: 2, bottom: 2, width: 26, height: 26, borderRadius: 13, backgroundColor: c.blue, borderWidth: 2, borderColor: c.bg, alignItems: 'center', justifyContent: 'center' },
+    // アバター選択グリッド
+    avGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, justifyContent: 'center', paddingVertical: 4 },
+    avCell: { width: 92, height: 100, borderRadius: radius.lg, borderWidth: 2, borderColor: c.line, backgroundColor: c.surface, alignItems: 'center', justifyContent: 'center' },
+    avCellOn: { borderColor: c.blue, backgroundColor: c.blueLight },
+    avImg: { width: 84, height: 92 },
+    avEmoji: { fontSize: 44 },
+    avCheck: { position: 'absolute', right: 4, top: 4, width: 22, height: 22, borderRadius: 11, backgroundColor: c.blue, alignItems: 'center', justifyContent: 'center' },
+    avCheckT: { color: '#fff', fontSize: 13, fontWeight: '900' },
+    profStats: { flex: 1, gap: 2 },
+    profRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 5, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: c.line },
+    profK: { width: 76, fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'left' },
+    profV: { flex: 1, fontSize: ty.body, color: c.ink, fontWeight: '800', textAlign: 'center' },
+    profVrow: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 2 },
+    loginMeta: { alignItems: 'center', gap: spacing.xs, marginBottom: spacing.md },
+    // 性格/ムードのリスト選択
+    pickBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
+    pickSheet: { backgroundColor: c.bg, borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 16, paddingTop: 14, paddingBottom: 24 },
+    pickTitle: { fontSize: ty.body, fontWeight: '900', color: c.ink, marginBottom: 10, textAlign: 'center' },
+    nameInput: { borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, color: c.ink, fontSize: ty.body, fontWeight: '700', paddingHorizontal: spacing.md, paddingVertical: spacing.md, textAlign: 'center' },
+    nameSave: { backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.md, alignItems: 'center' },
+    nameSaveT: { color: '#fff', fontSize: ty.body, fontWeight: '900' },
+    pickRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 13, paddingHorizontal: 14, borderRadius: radius.lg, marginBottom: 4 },
+    pickRowOn: { backgroundColor: c.blueLight },
+    pickRowTxt: { fontSize: ty.body, color: c.ink, fontWeight: '700' },
+    pickRowTxtOn: { color: c.blue, fontWeight: '900' },
+    pickCheck: { fontSize: 16, color: c.blue, fontWeight: '900' },
+    benefitTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
+    benefitSub: { fontSize: ty.small, color: c.mute, textAlign: 'center' },
+    acctEmail: { fontSize: ty.body, fontWeight: '800', color: c.ink, textAlign: 'center' },
+    // Pro課金カード(枠は標準カードに統一=友だち招待/コード入力と同じ。アクセントのみ桜ピンク=アイコン/ボタン)
+    proRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
+    proIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: c.pinkLight, alignItems: 'center', justifyContent: 'center' },
+    proTitle: { fontSize: ty.body, fontWeight: '900', color: c.ink },
+    proSub: { fontSize: ty.small, color: c.mute, marginTop: 1 },
+    proCta: { paddingVertical: spacing.xs, paddingHorizontal: spacing.md, borderRadius: radius.pill, backgroundColor: c.pink },
+    proCtaTxt: { fontSize: ty.small, fontWeight: '900', color: '#fff' },
+    manageSubRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: spacing.sm, marginTop: spacing.xs },
+    manageSubTxt: { fontSize: ty.small, color: c.mute, fontWeight: '700', textDecorationLine: 'underline' },
+    referralRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm },
+    referralIco: { width: 36, height: 36, borderRadius: radius.md, backgroundColor: c.blueLight, alignItems: 'center', justifyContent: 'center' },
+    referralTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    referralSub: { fontSize: ty.small, color: c.mute, marginTop: 1, lineHeight: 19 },
+    // 紹介コード入力(インライン・遷移なし)
+    referralEnter: { borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, backgroundColor: c.surface, padding: spacing.md, marginTop: spacing.sm, gap: spacing.sm },
+    referralInputRow: { flexDirection: 'row', gap: spacing.sm, alignItems: 'center' },
+    referralInput: { flex: 1, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: spacing.sm, paddingHorizontal: spacing.md, fontSize: ty.body, fontWeight: '800', color: c.ink, letterSpacing: 2, backgroundColor: c.bgSoft },
+    referralSaveBtn: { paddingVertical: spacing.sm, paddingHorizontal: spacing.md, borderRadius: radius.md, backgroundColor: c.blue },
+    referralSaveOff: { opacity: 0.4 },
+    referralSaveTxt: { fontSize: ty.small, fontWeight: '800', color: '#fff' },
+    referralEnteredBox: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.green + '14', borderRadius: radius.md, padding: spacing.md },
+    referralEnteredEmoji: { fontSize: 22 },
+    referralEntered: { flex: 1, fontSize: ty.body, fontWeight: '800', color: c.green },
+    manageBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.md, marginTop: spacing.md },
+    manageTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    deleteRow: { alignItems: 'center', paddingVertical: spacing.md, marginTop: spacing.sm },
+    deleteTxt: { fontSize: ty.small, color: c.red, fontWeight: '700' },
+    tabs: { flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.sm },
+    tab: { flex: 1, paddingVertical: spacing.sm, alignItems: 'center', borderRadius: radius.pill, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface },
+    tabOn: { borderColor: c.blue, backgroundColor: c.blueLight },
+    tabTxt: { fontSize: ty.body, color: c.ink2, fontWeight: '700' },
+    tabTxtOn: { color: c.blueDark, fontWeight: '800' },
+    notice: { backgroundColor: c.blueLight, borderRadius: radius.md, padding: spacing.md, gap: spacing.xs },
+    noticeTitle: { fontSize: ty.body, fontWeight: '800', color: c.blueDark },
+    noticeBody: { fontSize: ty.small, color: c.ink2, lineHeight: 18 },
+    label: { fontSize: ty.small, fontWeight: '700', color: c.ink2, marginTop: spacing.sm },
+    input: { borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.sm, paddingHorizontal: spacing.md, fontSize: ty.body, color: c.ink },
+    pwRow: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingRight: spacing.xs },
+    pwInput: { flex: 1, paddingVertical: spacing.sm, paddingHorizontal: spacing.md, fontSize: ty.body, color: c.ink },
+    pwEye: { padding: spacing.xs },
+    err: { fontSize: ty.small, color: c.red, marginTop: spacing.xs },
+    cta: { marginTop: spacing.md, backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.md, alignItems: 'center' },
+    ctaOff: { opacity: 0.5 },
+    ctaTxt: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
+    googleBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, backgroundColor: c.surface, paddingVertical: spacing.md },
+    googleTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+    appleBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, borderRadius: radius.md, backgroundColor: '#000', paddingVertical: spacing.md, marginTop: spacing.sm },
+    appleTxt: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
+    divider: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.md, marginBottom: spacing.xs },
+    divLine: { flex: 1, height: 1, backgroundColor: c.line },
+    divTxt: { fontSize: ty.small, color: c.faint },
+  });

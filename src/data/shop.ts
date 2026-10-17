@@ -1,0 +1,69 @@
+// 桜貝ショップの商品カタログ。大分類(タブ)=着せ替え/仲間/道具。
+//  ・着せ替え=髪型/服/筆(スロット別に各1つ装備)。仲間=相棒1体を選択。道具=消耗品/お守り(所持、効果は順次実装)。
+//  ・背景テーマ・フォントは設定画面へ移設(ここには含めない)。通貨=桜貝(wallet.points)。
+import type { ImageSourcePropType } from 'react-native';
+import type { ShopKind } from '../store/wallet';
+
+// タブ(大分類)。
+export type ShopCat = 'dressup' | 'companion' | 'tool';
+
+export type ShopItem = {
+  id: string; cat: ShopCat; kind: ShopKind; price: number; name: string; emoji?: string; asset?: ImageSourcePropType;
+  rarity?: number; // 希少度(1〜5)。価値の目安として★で表示。省略=無印
+  celebrate?: ImageSourcePropType; // 購入直後に2秒表示する演出画像(桜が筆を持ち上げて喜ぶ絵)
+  // ホームで常駐する桜の絵(筆を背負う姿)。装備中に表示。髪型に応じて長短を出し分ける(標準=ロング)。
+  homeLong?: ImageSourcePropType;  // ロング髪版
+  homeShort?: ImageSourcePropType; // ショート髪版(ショート髪型を装備時)
+  homeScale?: number; // 仲間(companion)がホームで桜の左に並ぶ時の大きさ。桜の幅に対する比(0.50=桜の半分)。番号が上がるほど大きい。
+};
+
+export const SHOP: ShopItem[] = [
+  // 着せ替え(髪型/服/筆) — 桜の見た目。髪型・服・筆はそれぞれ別スロットで同時装備できる。
+  // ロング=標準髪型。初期から所持＋装備(INITIAL_STATE)。ショートを装備した後もここから戻せる。
+  { id: 'hair_long', cat: 'dressup', kind: 'hair', price: 0, name: 'ロング', asset: require('../../assets/home/hair/hair_long.png') },
+  { id: 'hair_short', cat: 'dressup', kind: 'hair', price: 800, name: 'ボブ', asset: require('../../assets/home/hair/hair_bob.png') },
+  { id: 'hair_halfup', cat: 'dressup', kind: 'hair', price: 800, name: 'ハーフアップ', asset: require('../../assets/home/hair/hair_halfup.png') },
+  { id: 'hair_low_twintail', cat: 'dressup', kind: 'hair', price: 800, name: '低めツインテール', asset: require('../../assets/home/hair/hair_low_twintail.png') },
+  { id: 'hair_sidepony', cat: 'dressup', kind: 'hair', price: 800, name: 'サイドポニー', asset: require('../../assets/home/hair/hair_sidepony.png') },
+  { id: 'hair_hime', cat: 'dressup', kind: 'hair', price: 800, name: '姫カット', asset: require('../../assets/home/hair/hair_hime.png') },
+  { id: 'hair_wave', cat: 'dressup', kind: 'hair', price: 800, name: 'ウェーブロング', asset: require('../../assets/home/hair/hair_wave.png') },
+  { id: 'hair_braid_half', cat: 'dressup', kind: 'hair', price: 800, name: '三つ編みハーフアップ', asset: require('../../assets/home/hair/hair_braid_half.png') },
+  { id: 'hair_low_pony', cat: 'dressup', kind: 'hair', price: 800, name: '低めロングポニー', asset: require('../../assets/home/hair/hair_low_pony.png') },
+  { id: 'hair_side_braid', cat: 'dressup', kind: 'hair', price: 800, name: '片側三つ編み', asset: require('../../assets/home/hair/hair_side_braid.png') },
+  { id: 'brush_none', cat: 'dressup', kind: 'brush', price: 0, name: '筆なし', emoji: '🚫' },
+  { id: 'brush_take', cat: 'dressup', kind: 'brush', price: 0, name: '竹の筆', rarity: 1, asset: require('../../assets/shop/brush/brush_take.png'), celebrate: require('../../assets/shop/celebrate/brush_take.png'), homeLong: require('../../assets/home/seoi/long/take.png'), homeShort: require('../../assets/home/seoi/short/take.png') },
+  { id: 'brush_sakura', cat: 'dressup', kind: 'brush', price: 400, name: '桜染めの筆', rarity: 2, asset: require('../../assets/shop/brush/brush_sakura.png'), celebrate: require('../../assets/shop/celebrate/brush_sakura.png'), homeLong: require('../../assets/home/seoi/long/sakura.png'), homeShort: require('../../assets/home/seoi/short/sakura.png') },
+  { id: 'brush_makie', cat: 'dressup', kind: 'brush', price: 900, name: '金蒔絵の筆', rarity: 3, asset: require('../../assets/shop/brush/brush_makie.png'), celebrate: require('../../assets/shop/celebrate/brush_makie.png'), homeLong: require('../../assets/home/seoi/long/makie.png'), homeShort: require('../../assets/home/seoi/short/makie.png') },
+  { id: 'brush_raden', cat: 'dressup', kind: 'brush', price: 1600, name: '螺鈿の筆', rarity: 4, asset: require('../../assets/shop/brush/brush_raden.png'), celebrate: require('../../assets/shop/celebrate/brush_raden.png'), homeLong: require('../../assets/home/seoi/long/raden.png'), homeShort: require('../../assets/home/seoi/short/raden.png') },
+  { id: 'brush_tenpitsu', cat: 'dressup', kind: 'brush', price: 2800, name: '輝く光筆', rarity: 5, asset: require('../../assets/shop/brush/brush_tenpitsu.png'), celebrate: require('../../assets/shop/celebrate/brush_tenpitsu.png'), homeLong: require('../../assets/home/seoi/long/tenpitsu.png'), homeShort: require('../../assets/home/seoi/short/tenpitsu.png') },
+  // 民族衣装 — 桜が各国の民族衣装をまとう全身アバター。装備するとホームの桜がその姿になる(髪型/筆より優先)。
+  { id: 'costume_none', cat: 'dressup', kind: 'costume', price: 0, name: '民族衣装なし', emoji: '🚫' },
+  { id: 'costume_vietnam', cat: 'dressup', kind: 'costume', price: 1200, name: 'アオザイ（ベトナム）', asset: require('../../assets/shop/costume/vietnam.png') },
+  { id: 'costume_nepal', cat: 'dressup', kind: 'costume', price: 1200, name: 'クルタ・スルワール（ネパール）', asset: require('../../assets/shop/costume/nepal.png') },
+  { id: 'costume_china', cat: 'dressup', kind: 'costume', price: 1200, name: 'チャイナドレス（中国）', asset: require('../../assets/shop/costume/china.png') },
+  { id: 'costume_bangladesh', cat: 'dressup', kind: 'costume', price: 1200, name: 'サリー（バングラデシュ）', asset: require('../../assets/shop/costume/bangladesh.png') },
+  { id: 'costume_indonesia', cat: 'dressup', kind: 'costume', price: 1200, name: 'クバヤ（インドネシア）', asset: require('../../assets/shop/costume/indonesia.png') },
+  { id: 'costume_myanmar', cat: 'dressup', kind: 'costume', price: 1200, name: 'ロンジー（ミャンマー）', asset: require('../../assets/shop/costume/myanmar.png') },
+  { id: 'costume_philippines', cat: 'dressup', kind: 'costume', price: 1200, name: 'テルノ（フィリピン）', asset: require('../../assets/shop/costume/philippines.png') },
+  { id: 'costume_korea', cat: 'dressup', kind: 'costume', price: 1200, name: 'ハンボク（韓国）', asset: require('../../assets/shop/costume/korea.png') },
+  // 仲間 — 桜と一緒にホームに常駐する相棒(柴犬)。1体を選んで装備。柴1(茶①)は初期から所持＝はじめの仲間。
+  //  番号が上がるほどホームで大きく表示(homeScale)。黒柴は色違いで少し高め。
+  { id: 'pet_shiba1', cat: 'companion', kind: 'companion', price: 0,    name: '茶柴①', rarity: 1, asset: require('../../assets/shop/companion/shiba1.png'), homeScale: 0.50 },
+  { id: 'pet_shiba2', cat: 'companion', kind: 'companion', price: 300,  name: '茶柴②', rarity: 1, asset: require('../../assets/shop/companion/shiba2.png'), homeScale: 0.57 },
+  { id: 'pet_shiba3', cat: 'companion', kind: 'companion', price: 500,  name: '茶柴③', rarity: 2, asset: require('../../assets/shop/companion/shiba3.png'), homeScale: 0.64 },
+  { id: 'pet_shiba4', cat: 'companion', kind: 'companion', price: 800,  name: '茶柴④', rarity: 2, asset: require('../../assets/shop/companion/shiba4.png'), homeScale: 0.72 },
+  { id: 'pet_shiba5', cat: 'companion', kind: 'companion', price: 1200, name: '茶柴⑤', rarity: 3, asset: require('../../assets/shop/companion/shiba5.png'), homeScale: 0.80 },
+  { id: 'pet_shiba6', cat: 'companion', kind: 'companion', price: 1600, name: '茶柴⑥', rarity: 4, asset: require('../../assets/shop/companion/shiba6.png'), homeScale: 0.90 },
+  { id: 'pet_kuro1',  cat: 'companion', kind: 'companion', price: 500,  name: '黒柴①', rarity: 2, asset: require('../../assets/shop/companion/kuro1.png'), homeScale: 0.50 },
+  { id: 'pet_kuro2',  cat: 'companion', kind: 'companion', price: 800,  name: '黒柴②', rarity: 2, asset: require('../../assets/shop/companion/kuro2.png'), homeScale: 0.57 },
+  { id: 'pet_kuro3',  cat: 'companion', kind: 'companion', price: 1100, name: '黒柴③', rarity: 3, asset: require('../../assets/shop/companion/kuro3.png'), homeScale: 0.64 },
+  { id: 'pet_kuro4',  cat: 'companion', kind: 'companion', price: 1500, name: '黒柴④', rarity: 3, asset: require('../../assets/shop/companion/kuro4.png'), homeScale: 0.72 },
+  { id: 'pet_kuro5',  cat: 'companion', kind: 'companion', price: 2000, name: '黒柴⑤', rarity: 4, asset: require('../../assets/shop/companion/kuro5.png'), homeScale: 0.80 },
+  { id: 'pet_kuro6',  cat: 'companion', kind: 'companion', price: 2600, name: '黒柴⑥', rarity: 5, asset: require('../../assets/shop/companion/kuro6.png'), homeScale: 0.90 },
+  // 道具 — 学習を助ける消耗品・お守り(所持。消費/効果は順次実装)。
+  { id: 'tool_mock_ticket', cat: 'tool', kind: 'tool', price: 300, name: '模試チケット', emoji: '📝' },
+  // すがた変えドリンク: 購入すると「アバターを1回だけ変更できる権利」を得る(消耗品・何度でも購入可)。
+  { id: 'tool_avatar_drink', cat: 'tool', kind: 'tool', price: 2000, name: 'すがた変えドリンク', emoji: '🧪' },
+];
+export const SHOP_BY_ID: Record<string, ShopItem> = Object.fromEntries(SHOP.map((i) => [i.id, i]));
+// タブ/スロットの表示名は画面側の i18n(shop.tab_*)で解決するため、ここには持たない。

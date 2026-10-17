@@ -1,0 +1,404 @@
+// 大問(学習区分)モデル = 本番JLPTの大問で学習/出題/評価を統一する基盤。
+//  ・文字語彙/文法は1項目を複数の大問で問う(漢字読み/表記/文脈規定/言い換え/用法・文法形式/組み立て/文章の文法)。
+//    → 習得度は「項目#大問」キーで大問ごとに別管理(本番精度・ユーザー指定(A))。
+//  ・各大問は出題形式を固定(makeQuestionにallowedで強制 or 知識バンクの4択)。
+//  ・読解/聴解は1問=1ユニット(設問id)で既にサブタイプ別＝本モジュールは文字語彙/文法を担当。
+import { VOCAB, GRAMMAR, GRAMMAR_CLOZE_OK, KNOWLEDGE_BANK, USAGE_MOCK, GRAMMAR_FORM_MOCK, ORDER_MOCK, KANJI, VOCAB_EXAMPLE, KANJI_READ_BANK, KANJI_READ_MOCK, CONTEXT_BANK, CONTEXT_MOCK, SYNONYM_BANK, SYNONYM_MOCK, ORTHOGRAPHY_BANK, ORTHOGRAPHY_MOCK, SENTENCE_FURI, LEARN_FURI, JFT_EXPRESSION, passageGrammarSetsFor, meaningIn, type StudyItem } from './index';
+import type { Daimon } from './examBlueprint';
+import { hasKanji, makeQuestion, sample, shuffleChoices, type Question, type QFormat, type Rng, type SaveRef } from '../quiz/quiz';
+import type { Level } from '../engine/engine';
+import METRIC_EXCLUDED_ARR from './exam/metricExcludedPoints.json';
+import VOCAB_KANJI_CLASS from './shared/vocabKanjiClass.json';
+// 漢字読み/表記の出題級 = その語の testLevel = MAX(語彙級, 全漢字の級)。ユーザー決定(2026-08-24)=現状ベストの近似。
+// 旧JLPT基準ゆえ稀に公式より辛い(空=N4だが公式はN5等)が例外は少数で許容。範囲外(常用外=kana_only)は漢字読み/表記なし=単語のみ。
+// class=kanji(漢字級で出題)/kana_only(範囲外漢字)/kana(漢字なし)/katakana(表記のみ語彙級で)。src/data/shared/vocabKanjiClass.json。
+const VKC = (VOCAB_KANJI_CLASS as { items: Record<string, { class: string; testLevel?: string }> }).items;
+
+// 学習指標(母数/カバー率/予想得点)から除外する文法点。本文非依存の活用ドリル等=出題はするが数えない。
+export const METRIC_EXCLUDED_POINTS = new Set<string>(METRIC_EXCLUDED_ARR as string[]);
+
+// my単語帳 saveRef 解決用の索引。
+// 文法daimon(grammar_form/order/passage_grammar)の bank.pointId → grammar.json 実在id のみ採用(欠落/不整合は無視)。
+const GRAMMAR_ID_SET = new Set(GRAMMAR.map((g) => g.id));
+// 用法(usage)の bank.stem(語。ふりがな括弧を含み得る) → vocab.json id の逆引き。同語は最初の一致を採用。
+const FURI_PAREN = /（[^）]*）/g;
+const WORD_TO_VOCAB_ID = new Map<string, string>();
+for (const v of VOCAB) { if (!WORD_TO_VOCAB_ID.has(v.word)) WORD_TO_VOCAB_ID.set(v.word, v.id); }
+/** 用法バンクの stem(例: "出（だ）す")からふりがなを除いた語で vocab id を逆引き。解決不能なら null。 */
+function saveRefForUsageStem(stem: string): SaveRef | null {
+  const word = (stem || '').replace(FURI_PAREN, '');
+  const id = WORD_TO_VOCAB_ID.get(word);
+  return id ? { type: 'vocab', id } : null;
+}
+/** BANK_INDEX分岐(usage/文法系)の saveRef。解決不能(pointId欠落・未知id・stem不一致)なら undefined。 */
+function saveRefForBank(bank: BankUnit): SaveRef | undefined {
+  if (bank.daimon === 'grammar_form' || bank.daimon === 'order' || bank.daimon === 'passage_grammar') {
+    return bank.pointId && GRAMMAR_ID_SET.has(bank.pointId) ? { type: 'grammar', id: bank.pointId } : undefined;
+  }
+  if (bank.daimon === 'usage') return saveRefForUsageStem(bank.stem) ?? undefined;
+  return undefined;
+}
+/** `<vocabId>#daimon` 形式のユニットidから vocabId を取り出し saveRef を作る(漢字読み/表記/文脈規定/言い換え共通)。 */
+function saveRefForVocabUnit(unit: string): SaveRef {
+  return { type: 'vocab', id: unit.split('#')[0] };
+}
+
+// 大問 → 固定出題形式(makeQuestion用QFormat) / 'bank'(知識バンクの4択)。
+export const DAIMON_FORMAT: Record<Daimon, QFormat | 'bank'> = {
+  kanji_read: 'reading', orthography: 'orthography', context: 'cloze', synonym: 'synonym', usage: 'bank',
+  grammar_form: 'cloze', order: 'bank', passage_grammar: 'bank',
+};
+// 文字語彙/文法のヒートマップ表示用に大問→QFormat(バンク系も近い形式へ寄せる)。
+const DAIMON_QFORMAT: Record<Daimon, QFormat> = {
+  kanji_read: 'reading', orthography: 'orthography', context: 'cloze', synonym: 'synonym', usage: 'usage',
+  grammar_form: 'cloze', order: 'cloze', passage_grammar: 'cloze',
+};
+export const MOJI_DAIMON: Daimon[] = ['kanji_read', 'orthography', 'context', 'synonym', 'usage'];
+export const BUNPOU_DAIMON: Daimon[] = ['grammar_form', 'order', 'passage_grammar'];
+
+// 知識バンクの安定id(状態キー/重複排除用)。id = kb-NNNNNN(data由来・knowledgeBank.jsonに焼き込み済み。Task 1)。
+export interface BankUnit { id: string; level: string; daimon: Daimon; stem: string; question: string; choices: string[]; answer: string; ambiguous?: boolean; pointId?: string; explain?: string; explainTr?: Record<string, string>; promptTr?: Record<string, string>; answerTr?: Record<string, string>; }
+// 並べ替え(order)のうち一意性監査で「複数正解=曖昧」と判定された問題(ambiguous:true・108問)は出題プールから恒久除外。
+// 日本語は副詞・主語の位置が自由で★の答えが一意にならないため。監査=LLM一括(2026-07-10)。id は data由来なので filter後も安定。
+export const BANK: BankUnit[] = (KNOWLEDGE_BANK as BankUnit[])
+  .filter((b) => !(b.daimon === 'order' && b.ambiguous))
+  .filter((b) => b.daimon !== 'passage_grammar'); // 文章の文法は passageGrammar.json(セット形式)へ移行(Task 5)。PassageGrammarScreen+PassageSetPlayerで出題。
+const BANK_BY = new Map<string, BankUnit[]>();
+for (const b of BANK) { const k = `${b.level}:${b.daimon}`; (BANK_BY.get(k) ?? BANK_BY.set(k, []).get(k)!).push(b); }
+const bankOf = (level: string, daimon: Daimon): BankUnit[] => BANK_BY.get(`${level}:${daimon}`) ?? [];
+const BANK_INDEX = new Map(BANK.map((b) => [b.id, b] as const));
+// 知識バンクid(kb-NNNNNN) → 級。skillWeight等、状態キーだけから難易度を逆引きしたい呼び出し元向け。
+const BANK_LEVEL = new Map(BANK.map((b) => [b.id, b.level] as const));
+export function bankLevelOf(id: string): string | undefined { return BANK_LEVEL.get(id); }
+
+// 固定問題集(漢字読み/表記/文脈規定/類義)の語id。新ID=vocabIdフィールド / 旧ID=先頭3文字(kr:等)を除去。
+// これで問題IDは自由な連番にでき、単語との連携(ユニットキー <vocabId>#daimon)は保たれる。
+const vocabOf = (x: { id: string; vocabId?: string }) => x.vocabId ?? x.id.slice(3);
+// 漢字読み/表記の対象語=固定問題集(KANJI_READ_BANK)にエントリがある語。交ぜ書き方式で作成済み。
+// ユニットキー <vocabId>#kanji_read / #orthography の集合を単一ソースにする。
+const KR_UNIT_SET = new Set(KANJI_READ_BANK.map((e) => `${vocabOf(e)}#${e.daimon}`));
+// 表記(公式形式)=固定問題集(ORTHOGRAPHY_BANK)にエントリがある語。ユニットキー <vocabId>#orthography。
+const OG_UNIT_SET = new Set(ORTHOGRAPHY_BANK.map((e) => `${vocabOf(e)}#orthography`));
+// 文脈規定=固定問題集(CONTEXT_BANK)にエントリがある語。id cx:<vid> → ユニット <vid>#context。
+const CTX_UNIT_SET = new Set(CONTEXT_BANK.map((e) => `${vocabOf(e)}#context`));
+// 文脈規定は verified(作り直し＋独立の反証2回＋揃い監査を通過)だけを出題する級がある。
+// 旧データの誤答は分野違いで当てずっぽうに消せる(例 作法→湿度/酸素/時刻)ため測定にならない。
+// 【重要】級を絞ること。全級に一律で掛けると、まだ作り直していない級の文脈規定が丸ごと消滅する。
+const CTX_GATED_LEVELS = new Set<string>(['N5', 'N4', 'N3']); // 作り直し済みの級だけ。N5=揃え直し599問verified済(2026-07-18)・残73は手作り待ちで非表示
+const CTX_VERIFIED_SET = new Set(
+  CONTEXT_BANK.filter((e) => e.verified === true).map((e) => `${vocabOf(e)}#context`),
+);
+// その級に verified が1問でもある級だけを記録(実際に読み込まれたデータに基づく)。
+const CTX_VERIFIED_LEVELS = new Set(CONTEXT_BANK.filter((e) => e.verified === true).map((e) => e.level));
+// 【安全網】ゲート対象級でも、実データの verified が0件なら【ゲートしない】(=全部出す)。
+// 理由: 既存ユーザーはOTAキャッシュ(古い=verified無し)を焼き込みデータへ上書きして起動するため、
+// ゲートだけ先に効くと検証済みデータが届くまで文脈規定が丸ごと消える(2026-07-18・N5初回起動で実際に発生)。
+// 「古い問題を出す」方が「大問が空」より遥かにマシ。背景同期後の再起動で verified が入ればゲートが効く。
+export function contextGated(level: string, gatedLevels = CTX_GATED_LEVELS, verifiedLevels = CTX_VERIFIED_LEVELS): boolean {
+  return gatedLevels.has(level) && verifiedLevels.has(level);
+}
+// 言い換え類義=固定問題集(SYNONYM_BANK)にエントリがある語。id sy:<vid> → ユニット <vid>#synonym。
+const SY_UNIT_SET = new Set(SYNONYM_BANK.map((e) => `${vocabOf(e)}#synonym`));
+
+// 大問に適格な「項目(語彙/文法)」。漢字読み/表記=固定問題集に在る語、文脈=固定問題集に在る語、言い換え=類義あり、文法形式=cloze可文法。
+function eligibleItems(level: Level, daimon: Daimon): StudyItem[] {
+  // 表記=漢字語は漢字級(testLevel=MAX)で、カタカナ語は語彙級で出題。かな/範囲外(kana_only)は表記対象外(単語のみ)。
+  if (daimon === 'orthography') return VOCAB.filter((v) => { const r = VKC[v.id]; const lv = r?.class === 'kanji' ? r.testLevel : r?.class === 'katakana' ? v.level : null; return lv === level && OG_UNIT_SET.has(`${v.id}#orthography`); });
+  // 漢字読み=漢字語だけ・出題級は漢字級(testLevel=MAX(語彙級,全漢字級))。範囲外/かな/カタカナは読み対象外。
+  if (daimon === 'kanji_read') return VOCAB.filter((v) => { const r = VKC[v.id]; return r?.class === 'kanji' && r.testLevel === level && KR_UNIT_SET.has(`${v.id}#kanji_read`); });
+  if (daimon === 'context') {
+    const gated = contextGated(level); // 安全網: その級にverifiedが0件ならゲートしない(大問を空にしない)
+    return VOCAB.filter((v) => v.level === level && CTX_UNIT_SET.has(`${v.id}#context`)
+      && (!gated || CTX_VERIFIED_SET.has(`${v.id}#context`)));
+  }
+  if (daimon === 'synonym') return VOCAB.filter((v) => v.level === level && SY_UNIT_SET.has(`${v.id}#synonym`));
+  if (daimon === 'grammar_form') return GRAMMAR.filter((g) => g.level === level && GRAMMAR_CLOZE_OK.has(g.id));
+  return [];
+}
+
+// 学習/模試の分割: EXAM_EVERY 個に1つ(=末尾側)を模試専用(初見)に確保、残りが学習集合。
+// ★模試専用プール(pool='mock')を別に持つ大問は、学習側の抜き取りを廃止=全語を学習に回す(初見は別プールから)。
+const HAS_MOCK_POOL = new Set<Daimon>(['kanji_read', 'orthography', 'context', 'synonym', 'usage', 'grammar_form', 'order']);
+const EXAM_EVERY = 7;
+function split(all: string[], mode: 'all' | 'learn' | 'exam'): string[] {
+  if (mode === 'all') return all;
+  return all.filter((_, i) => (i % EXAM_EVERY === EXAM_EVERY - 1) === (mode === 'exam'));
+}
+/** ある級・大問の学習ユニットid列。item系=`<itemId>#<daimon>`、bank系=bank id。mode=all/learn(学習)/exam(模試専用)。
+ *  context/grammar_form は item系＋バンク併用、usage/order は純バンク、passage_grammar はセット(passageGrammar.json)設問id。 */
+export function daimonUnitIds(level: Level, daimon: Daimon, mode: 'all' | 'learn' | 'exam' = 'all'): string[] {
+  // 文章の文法=BANKから除外済(Task 5)。母数/リング/カバー率は passageGrammar.json の全設問idを分母にする
+  // (PassageGrammarScreen+PassageSetPlayerが quizAnswer(q.id,...) を記録=同じ状態キー空間に乗る)。
+  // 文章の文法=設問idを母数に。ただし指標対象外の点(本文非依存の活用ドリル)は分母から除外(出題自体はセットで継続)。
+  if (daimon === 'passage_grammar') return split(passageGrammarSetsFor(level).flatMap((s) => s.questions.filter((q) => !METRIC_EXCLUDED_POINTS.has((q as { pointId?: string }).pointId ?? '')).map((q) => q.id)), mode);
+  const items = eligibleItems(level, daimon).map((it) => `${it.id}#${daimon}`);
+  const fmt = DAIMON_FORMAT[daimon];
+  const all = fmt === 'bank'
+    ? bankOf(level, daimon).map((b) => b.id)
+    : daimon === 'grammar_form'
+      ? bankOf(level, daimon).map((b) => b.id) // 文法形式も検証済の固定バンクのみ(旧例文clozeは廃止)
+      : items; // context/kanji_read/orthography/synonym は固定問題集(item系)のみ
+  // 模試専用プールを持つ大問(漢字読み)は抜き取り廃止=全語を学習/模試とも返す(初見は別プール KANJI_READ_MOCK)。
+  if (HAS_MOCK_POOL.has(daimon)) return all;
+  return split(all, mode);
+}
+
+/** 文字語彙/文法セクションの大問。 */
+export const SECTION_DAIMONS: Record<'moji_goi' | 'bunpou', Daimon[]> = { moji_goi: MOJI_DAIMON, bunpou: BUNPOU_DAIMON };
+/** セクション(文字語彙/文法)の全大問の学習ユニットid(横断)。リング分母/カバー率/評価の母数用。 */
+export function sectionUnitIds(level: Level, section: 'moji_goi' | 'bunpou', mode: 'all' | 'learn' | 'exam' = 'all'): string[] {
+  return SECTION_DAIMONS[section].flatMap((d) => daimonUnitIds(level, d, mode));
+}
+/** ある級・セクションで実在する大問(ユニットが1件以上あるもの)。学習タブのサブカード用。 */
+export function daimonsWithUnits(level: Level, section: 'moji_goi' | 'bunpou'): { daimon: Daimon; n: number }[] {
+  return SECTION_DAIMONS[section].map((d) => ({ daimon: d, n: daimonUnitIds(level, d, 'all').length })).filter((x) => x.n > 0);
+}
+
+const ITEM_INDEX = new Map<string, StudyItem>([...VOCAB, ...GRAMMAR].map((it) => [it.id, it] as const));
+
+// 漢字読み=固定問題集。1語に複数問(学習拡張)を持つので unit(<vid>#kanji_read) → 問題配列。questionForUnit が rng で1つ選ぶ(多様化)。
+function _krMulti<T extends { vocabId?: string; id: string }>(bank: T[]): Map<string, T[]> {
+  const m = new Map<string, T[]>();
+  for (const e of bank) { const k = `${vocabOf(e)}#kanji_read`; const a = m.get(k); if (a) a.push(e); else m.set(k, [e]); }
+  return m;
+}
+const KR_BANK_MULTI = _krMulti(KANJI_READ_BANK.filter((e) => e.daimon === 'kanji_read')); // 学習(通常)
+const KR_MOCK_MULTI = _krMulti(KANJI_READ_MOCK);                                          // 模試専用プール(初見)
+/** 模試(初見)で出せる漢字読みユニット列(そのレベルの模試プールに問題がある語)。MockScreenが exam の出所に使う。 */
+export function mockUnitIds(level: Level, daimon: Daimon): string[] {
+  // 用法=模試バンクの id をそのまま出題ユニットに使う(学習と同じく bank id 単位)。
+  if (daimon === 'usage') return (USAGE_MOCK as unknown as BankUnit[]).filter((e) => e.level === level).map((e) => e.id);
+  // 文法形式=模試バンクの id をそのまま出題ユニットに使う(用法と同型・bank id 単位)。
+  if (daimon === 'grammar_form') return (GRAMMAR_FORM_MOCK as unknown as BankUnit[]).filter((e) => e.level === level).map((e) => e.id);
+  // 組み立て=模試バンクの id をそのまま出題ユニットに使う(用法/文法形式と同型・bank id 単位)。
+  if (daimon === 'order') return (ORDER_MOCK as unknown as BankUnit[]).filter((e) => e.level === level).map((e) => e.id);
+  const pool = daimon === 'kanji_read' ? KR_MOCK_MULTI : daimon === 'orthography' ? OG_MOCK_MULTI : daimon === 'context' ? CTX_MOCK_MULTI : daimon === 'synonym' ? SY_MOCK_MULTI : null;
+  if (!pool) return [];
+  const out: string[] = [];
+  for (const [u, arr] of pool) if (arr.some((e) => e.level === level)) out.push(u);
+  return out;
+}
+// 表記(大問2・公式形式)の固定問題集(id og:<vid> → ユニット <vid>#orthography)。
+const OG_BANK_INDEX = new Map<string, (typeof ORTHOGRAPHY_BANK)[number]>(
+  ORTHOGRAPHY_BANK.map((e) => [`${vocabOf(e)}#orthography`, e]),
+);
+// 表記も1語に複数文(漢字読み文の流用で拡張)を持てる。unit → 問題配列。questionForUnit が rng で1つ選ぶ(多様化・漢字読みと同方式)。
+const OG_BANK_MULTI = new Map<string, (typeof ORTHOGRAPHY_BANK)[number][]>();
+for (const e of ORTHOGRAPHY_BANK) { const k = `${vocabOf(e)}#orthography`; const a = OG_BANK_MULTI.get(k); if (a) a.push(e); else OG_BANK_MULTI.set(k, [e]); }
+// 表記の模試専用プール(初見)。漢字読みと同じく useMock 時にここから rng で1つ選ぶ。
+const OG_MOCK_MULTI = new Map<string, (typeof ORTHOGRAPHY_MOCK)[number][]>();
+for (const e of ORTHOGRAPHY_MOCK) { const k = `${vocabOf(e)}#orthography`; const a = OG_MOCK_MULTI.get(k); if (a) a.push(e); else OG_MOCK_MULTI.set(k, [e]); }
+// 文脈規定の固定問題集(id cx:<vid> → ユニット <vid>#context)。
+const CTX_BANK_INDEX = new Map<string, (typeof CONTEXT_BANK)[number]>(
+  CONTEXT_BANK.map((e) => [`${vocabOf(e)}#context`, e]),
+);
+// 文脈規定の模試専用プール(初見)。表記/漢字読みと同じく useMock 時にここから rng で1つ選ぶ(1語1問だが将来複数化に耐える形)。
+const CTX_MOCK_MULTI = new Map<string, (typeof CONTEXT_MOCK)[number][]>();
+for (const e of CONTEXT_MOCK) { const k = `${vocabOf(e)}#context`; const a = CTX_MOCK_MULTI.get(k); if (a) a.push(e); else CTX_MOCK_MULTI.set(k, [e]); }
+// 言い換え類義の固定問題集(id sy:<vid> → ユニット <vid>#synonym)。
+const SY_BANK_INDEX = new Map<string, (typeof SYNONYM_BANK)[number]>(
+  SYNONYM_BANK.map((e) => [`${vocabOf(e)}#synonym`, e]),
+);
+// 言い換えの模試専用プール(初見)。useMock 時にこちらを引き、無ければ学習INDEXへフォールバック。
+const SY_MOCK_INDEX = new Map<string, (typeof SYNONYM_MOCK)[number]>(
+  SYNONYM_MOCK.map((e) => [`${vocabOf(e)}#synonym`, e]),
+);
+const SY_MOCK_MULTI = new Map<string, (typeof SYNONYM_MOCK)[number][]>();
+for (const e of SYNONYM_MOCK) { const k = `${vocabOf(e)}#synonym`; const a = SY_MOCK_MULTI.get(k); if (a) a.push(e); else SY_MOCK_MULTI.set(k, [e]); }
+// 用法の模試専用プール(初見)。学習(BANK_INDEX)と別に id→エントリで引く。
+const USAGE_MOCK_INDEX = new Map<string, BankUnit>((USAGE_MOCK as unknown as BankUnit[]).map((e) => [e.id, e] as const));
+// 文法形式の模試専用プール(初見)。学習(BANK_INDEX)と別に id→エントリで引く(用法と同型)。
+const GF_MOCK_INDEX = new Map<string, BankUnit>((GRAMMAR_FORM_MOCK as unknown as BankUnit[]).map((e) => [e.id, e] as const));
+// 組み立ての模試専用プール(初見)。学習(BANK_INDEX)と別に id→エントリで引く(用法/文法形式と同型)。
+const ORDER_MOCK_INDEX = new Map<string, BankUnit>((ORDER_MOCK as unknown as BankUnit[]).map((e) => [e.id, e] as const));
+// 言い換えは verified(誤答を作り直し独立の反証で一意性を確認済)の有無にかかわらず全て出題する。
+// 未検証(旧データ=分野違いの易しすぎるダミー。例 作法→天気/音楽/地図)も出す方針:
+// 一般ユーザーは存在せず開発者しか触らないため、出題を止めるより未修正の問題も見えている方がよい
+// (ユーザー判断 2026-07-17)。verified は「どこまで作り直したか」の進捗メタとして残す。
+// JFT会話と表現(id=jx-… をユニットidにそのまま使う)。JFTの学習/模試で場面→適切な表現を出題。
+const EXPR_INDEX = new Map<string, (typeof JFT_EXPRESSION)[number]>(JFT_EXPRESSION.map((e) => [e.id, e]));
+/** JFT会話と表現の全ユニットid(A1+A2)。 */
+export const expressionUnitIds = (): string[] => JFT_EXPRESSION.map((e) => e.id);
+// 文＋下線スパンを ExampleHint(下線セグメント列)へ。
+function underlineSegments(sentence: string, span: string): { text: string; hit: boolean }[] {
+  const i = span ? sentence.indexOf(span) : -1;
+  if (i < 0) return [{ text: sentence, hit: false }];
+  const segs = [] as { text: string; hit: boolean }[];
+  if (i > 0) segs.push({ text: sentence.slice(0, i), hit: false });
+  segs.push({ text: span, hit: true });
+  if (i + span.length < sentence.length) segs.push({ text: sentence.slice(i + span.length), hit: false });
+  return segs;
+}
+
+/**
+ * 正解＋誤答プール → 4択。誤答が3個を超える大問は出題ごとに動的3抽出(毎回同じ3個だと暗記される)。
+ * 3個以下(組み立て/文法形式など)はプールを全て使う。
+ */
+export function build4Choices(answer: string, pool: string[], rng: Rng): { choices: string[]; answerIndex: number } {
+  const distractors = pool.filter((x) => x !== answer);
+  const picked = distractors.length > 3 ? sample(distractors, 3, rng) : distractors;
+  return shuffleChoices([answer, ...picked].slice(0, 4), 0, rng);
+}
+
+// 漢字読み・表記のヘッダー表示専用タグ。「（漢字/N4）」等＝この大問は漢字(class=kanji)/カタカナ(class=katakana)で級が決まることを可視化。
+// itemId(=状態/採点キー)は変えず、表示文字列にだけ付ける。級は漢字級(testLevel)/語彙級(katakana)。
+function kanjiLevelTag(unit: string): string {
+  const hash = unit.indexOf('#');
+  const vid = hash >= 0 ? unit.slice(0, hash) : unit;
+  const r = VKC[vid];
+  if (!r) return '';
+  if (r.class === 'kanji' && r.testLevel) return `（漢字/${r.testLevel}）`;
+  if (r.class === 'katakana') { const lv = ITEM_INDEX.get(vid)?.level; return lv ? `（カタカナ/${lv}）` : ''; }
+  return '';
+}
+
+/** 学習ユニットid → 4択問題(出題形式は大問で固定)。Question.itemId はユニットid(=状態キー)にする。 */
+export function questionForUnit(unit: string, rng: Rng = Math.random, useMock = false): Question | null {
+  // useMock=模試: 用法は模試専用プール(初見)を優先。無ければ学習バンクへフォールバック。
+  const bank = (useMock ? (USAGE_MOCK_INDEX.get(unit) ?? GF_MOCK_INDEX.get(unit) ?? ORDER_MOCK_INDEX.get(unit)) : undefined) ?? BANK_INDEX.get(unit);
+  if (bank) {
+    const { choices, answerIndex } = build4Choices(bank.answer, bank.choices, rng);
+    // 文法形式判断・文の組み立ては文中の漢字にレベル適応ルビを出す(カッコふりがな→上付きルビ)。stemをfuriとして渡す。
+    const useFuri = bank.daimon === 'grammar_form' || bank.daimon === 'order';
+    // 文の組み立て=回答後に正しい文＋母語の意味を出す(データがある問題のみ)。
+    const orderX = bank.daimon === 'order' && bank.explain ? { orderSentence: bank.explain, orderMeaningTr: bank.explainTr } : {};
+    // 用法=回答後に「正解の文の意味」を出す(誤答は訳さない・データがある問題のみ)。
+    const usageX = bank.daimon === 'usage' && bank.answerTr?.en ? { answerTransTr: bank.answerTr } : {};
+    // 穴埋め=回答後に「完成文の意味」を既存の「意味」カード(promptTrans)へ出す(データがある問題のみ)。
+    const gfX = bank.daimon === 'grammar_form' && bank.promptTr?.en ? { promptTransTr: bank.promptTr } : {};
+    return { itemId: unit, prompt: bank.stem, question: bank.question, ...(useFuri ? { furi: bank.stem } : {}), format: DAIMON_QFORMAT[bank.daimon], choices, answerIndex, saveRef: saveRefForBank(bank), ...orderX, ...usageX, ...gfX };
+  }
+  // 表記=固定問題集(公式形式・文中の対象語をかなで下線→正しい漢字/カタカナを4択)。prompt空・exampleに下線付き文。
+  // useMock=模試: 表記も模試専用プール(初見)から。無ければ学習プールへフォールバック。
+  const ogPool = useMock ? (OG_MOCK_MULTI.get(unit) ?? OG_BANK_MULTI.get(unit)) : OG_BANK_MULTI.get(unit);
+  if (ogPool && ogPool.length) {
+    const og = ogPool[Math.floor(rng() * ogPool.length)]; // 1語複数文は rng で1つ(漢字読みと同じ多様化)
+    const { choices, answerIndex } = build4Choices(og.answer, og.choices, rng);
+    return { itemId: unit, idLabel: unit + kanjiLevelTag(unit), prompt: '', example: underlineSegments(og.sentence, og.underline), furi: SENTENCE_FURI[og.id], furiTarget: og.underline, question: '下線の言葉を漢字・カタカナで書くと？', format: 'orthography', choices, answerIndex, saveRef: saveRefForVocabUnit(unit) };
+  }
+  // 漢字読み=固定問題集(公式形式・文中の漢字を下線→読み方を4択)。prompt空・exampleに下線付き文。
+  // useMock=模試: 模試専用プール(初見)から。無ければ学習プールへフォールバック。1語複数問は rng で1つ選ぶ(多様化)。
+  const krPool = useMock ? (KR_MOCK_MULTI.get(unit) ?? KR_BANK_MULTI.get(unit)) : KR_BANK_MULTI.get(unit);
+  if (krPool && krPool.length) {
+    const kr = krPool[Math.floor(rng() * krPool.length)];
+    const { choices, answerIndex } = build4Choices(kr.answer, kr.choices, rng);
+    return { itemId: unit, idLabel: unit + kanjiLevelTag(unit), prompt: '', example: underlineSegments(kr.sentence, kr.underline), furi: SENTENCE_FURI[kr.id], furiTarget: kr.underline, noTargetRuby: true, question: '下線の言葉の読み方は？', format: 'reading', choices, answerIndex, saveRef: saveRefForVocabUnit(unit) };
+  }
+  // 文脈規定=固定問題集(全内容語のオリジナル文＋非競合誤答)。
+  // useMock=模試: 文脈規定も模試専用プール(初見)から。無ければ学習プールへフォールバック。
+  const cxPool = useMock ? CTX_MOCK_MULTI.get(unit) : undefined;
+  const cx = (cxPool && cxPool.length) ? cxPool[Math.floor(rng() * cxPool.length)] : CTX_BANK_INDEX.get(unit);
+  if (cx) {
+    const { choices, answerIndex } = build4Choices(cx.answer, cx.choices, rng);
+    return { itemId: unit, prompt: cx.prompt, furi: SENTENCE_FURI[cx.id], question: cx.question, format: 'cloze', choices, answerIndex, promptTransTr: cx.promptTr, saveRef: saveRefForVocabUnit(unit) };
+  }
+  // 言い換え類義=固定問題集。公式形式が級で違うので2通りに分岐する。
+  // useMock=模試: 言い換えも模試専用プール(初見)を優先。無ければ学習バンクへフォールバック。
+  const sy = (useMock ? SY_MOCK_INDEX.get(unit) : undefined) ?? SY_BANK_INDEX.get(unit);
+  if (sy) {
+    const { choices, answerIndex } = build4Choices(sy.answer, sy.choices, rng);
+    // 回答後の復習: 本文の意味(synonymSentence)＋各選択肢の意味。choicesEn/Ne は content の choices と同順なので
+    // 表示順(shuffle後の choices)へ JA文字列で引き直す(誤答も正当な日本語ゆえ訳あり)。
+    // 各言語について choices(表示順)へ JA文字列で訳を引き直す(誤答も正当な日本語ゆえ訳あり)。lang は content にある言語すべて。
+    const trLangs = new Set<string>([...Object.keys(sy.answerTr ?? {}), ...Object.keys(sy.choicesTr ?? {})]);
+    const choiceTransTr: Record<string, (string | undefined)[]> = {};
+    for (const l of trLangs) {
+      const m = new Map<string, string>();
+      if (sy.answerTr?.[l]) m.set(sy.answer, sy.answerTr[l]);
+      (sy.choices ?? []).forEach((c: string, i: number) => { const v = sy.choicesTr?.[l]?.[i]; if (v) m.set(c, v); });
+      choiceTransTr[l] = choices.map((c) => m.get(c));
+    }
+    const syX = { synonymSentenceTr: sy.sentenceTr, choiceTransTr };
+    // N4公式=文レベル: 提示文と「だいたい同じ意味の文」を4文から選ぶ(選択肢が文)。
+    // stem/選択肢のカッコふりがなは RubyText が自動でルビ化する(用法と同じ描画経路)。
+    if (sy.stem) {
+      // 提示文(stem)は「漢字（かな）」形式のふりがな付き。furi に載せて RubyText でルビ化する
+      // (以前は prompt のみ=素のTextで括弧のまま表示されていた)。下線は対象語(underline)。
+      return { itemId: unit, prompt: sy.stem, furi: sy.stem, furiTarget: sy.underline, question: 'だいたい同じ意味の文はどれですか。', format: 'usage', choices, answerIndex, saveRef: saveRefForVocabUnit(unit), ...syX };
+    }
+    // N3公式=語レベル: 文中の下線語と意味が最も近い語を4語から選ぶ。
+    return { itemId: unit, prompt: '', example: underlineSegments(sy.sentence, sy.underline), furi: SENTENCE_FURI[sy.id], furiTarget: sy.underline, question: '下線の言葉と意味がいちばん近いのは？', format: 'synonym', choices, answerIndex, saveRef: saveRefForVocabUnit(unit), ...syX };
+  }
+  // JFT会話と表現=場面(situation)に適切な表現を4択で。
+  const ex = EXPR_INDEX.get(unit);
+  if (ex) {
+    const { choices, answerIndex } = build4Choices(ex.answer, ex.choices, rng);
+    return { itemId: unit, prompt: ex.situation, question: '', format: 'usage', choices, answerIndex, explain: ex.explain };
+  }
+  const hash = unit.lastIndexOf('#');
+  if (hash < 0) return null;
+  const itemId = unit.slice(0, hash); const daimon = unit.slice(hash + 1) as Daimon;
+  const item = ITEM_INDEX.get(itemId);
+  if (!item) return null;
+  const pool = (item.type === 'grammar' ? GRAMMAR : VOCAB) as StudyItem[];
+  const q = makeQuestion(item, pool, rng, [DAIMON_FORMAT[daimon] as QFormat]);
+  return { ...q, itemId: unit }; // 状態キーを項目#大問に
+}
+
+export const isBankUnit = (unit: string): boolean => BANK_INDEX.has(unit);
+
+/** 学習カード表示用データ。大問の4択に入る前に「まず覚える」ための1枚分。 */
+export interface LearnCard { title: string; sub?: string; body?: string; note?: string; hit?: string; }
+/** ふりがな付き文(漢字（かな）)の中で、素の対象語(target)を見つけて【】で囲う(下線用)。targetの各文字は直後に(かな)を伴い得る。 */
+function markFuri(furi: string, target: string): string {
+  if (!target || !furi) return furi;
+  const esc = (ch: string) => ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const pat = [...target].map((ch) => `${esc(ch)}(?:[（(][^）)]*[）)])?`).join('');
+  try { return furi.replace(new RegExp(pat), (m) => `【${m}】`); } catch { return furi; }
+}
+/** 学習ユニットid → 学習カード。項目系=語/文法の情報、バンク系=正解＋文脈＋解説。 */
+export function learnCardFor(unit: string, l1?: string): LearnCard | null {
+  // 意味(body)は母語(l1)訳があればそれを、無ければ英語glossを出す。語彙=item.id / 文法=item.id をキーに引く。
+  const mean = (id: string, en: string) => ((l1 && l1 !== 'en' ? meaningIn(id, l1) : undefined) ?? en);
+  const bank = BANK_INDEX.get(unit);
+  if (bank) {
+    // 用法=対象語＋正しい使い方の文。文法(⑥⑦⑧)=正解＋空所を埋めた例文のみ(解説は学習カードでは出さない)。
+    // ⑤用法はLEARN_FURI(kuroshiro＋校正)でふりがなを付ける。ルビ描画は上位のLearnTextがレベル適応で行う。
+    // ⑤用法: 例文(answer)の中の対象語(stem)を下線＋ルビで示す。hitで対象語を明示し、
+    // RubyTextのhighlightHits(活用語尾も追従)で下線するので、活用した動詞でも正しく引ける。
+    if (bank.daimon === 'usage') {
+      const title = LEARN_FURI[bank.stem] ?? bank.stem;
+      const plain = title.replace(/[（(][ぁ-ゖァ-ヶー]+[）)]/g, '');
+      const sent = LEARN_FURI[bank.answer] ?? bank.answer;
+      return { title, body: sent, hit: plain };
+    }
+    // ⑦文の組み立て・⑧文章の文法は「解いて学ぶ」技能問題(語順の組み立て/文脈の流れ)。
+    // 学習カードで完成文や正解を先に見せるとテストの意味が無くなるため、学習カードは出さない。
+    if (bank.daimon === 'order' || bank.daimon === 'passage_grammar') return null;
+    const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
+    return { title: bank.answer, body: filled };
+  }
+  const hash = unit.lastIndexOf('#');
+  if (hash < 0) return null;
+  const itemId = unit.slice(0, hash);
+  const daimon = unit.slice(hash + 1) as Daimon;
+  const item = ITEM_INDEX.get(itemId);
+  if (!item) return null;
+  if (item.type === 'vocab') {
+    const ex = VOCAB_EXAMPLE[item.id];
+    // ①〜④の例文はSENTENCE_FURI(ふりがな付き)を使い、対象語(下線)をmarkFuriで【】囲い。ルビ描画はLearnTextがレベル適応で行う。
+    if (daimon === 'synonym') {
+      const sy = SY_BANK_INDEX.get(unit);
+      const note = sy ? markFuri(SENTENCE_FURI[sy.id] ?? sy.sentence, sy.underline) : ex?.ja;
+      return { title: item.word, sub: item.reading, body: `≒ ${sy?.answer ?? ''}`, note };
+    }
+    if (daimon === 'context') {
+      const cx = CTX_BANK_INDEX.get(unit);
+      const base = cx ? (SENTENCE_FURI[cx.id]?.includes('〔　〕') ? SENTENCE_FURI[cx.id] : cx.prompt) : '';
+      const filled = cx ? base.replace('〔　〕', `【${cx.answer}】`) : ex?.ja;
+      return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: filled };
+    }
+    // ①漢字読み・②表記: クイズと同じ固定問題集の例文を使い、対象語(下線)を【】で囲って下線＋ルビ表示する。
+    if (daimon === 'kanji_read') {
+      const kr = KR_BANK_MULTI.get(unit)?.[0]; // 学習カードは代表文(先頭)で安定表示
+      return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: kr ? markFuri(SENTENCE_FURI[kr.id] ?? kr.sentence, kr.underline) : ex?.ja };
+    }
+    if (daimon === 'orthography') {
+      const og = OG_BANK_INDEX.get(unit);
+      return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: og ? markFuri(SENTENCE_FURI[og.id] ?? og.sentence, og.underline) : ex?.ja };
+    }
+    return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: ex?.ja };
+  }
+  if (item.type === 'grammar') return { title: item.point, sub: item.romaji, body: mean(item.id, item.meaning), note: item.exampleJa };
+  return null;
+}

@@ -1,0 +1,121 @@
+// WebView用の自己完結HTML。HanziWriter＋田/米グリッド(SVG)＋見本＋アニメを内包し、
+// RNからは KW.* を injectJavaScript で呼ぶ。ネットには触れない(字形はRNが注入)。
+import { HANZI_WRITER_JS } from './hanziWriterLib';
+
+export function buildEngineHtml(): string {
+  return `<!doctype html><html><head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>html,body{margin:0;padding:0;background:transparent;height:100%;overflow:hidden}
+#wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+#grid{position:absolute;pointer-events:none}#t{touch-action:none}
+/* あ/ぬ等「自分の線が交差する」筆画で、iOS WKWebView が miter 結合＋自己交差クリップを
+   誤ってレンダリングし、交差点で線が途切れる不具合を防ぐ。全 path を round 結合・
+   nonzero 塗り(=自己重なり部を穴にしない)に上書きする。CSS はプレゼンテーション属性より優先。 */
+#t svg path{stroke-linejoin:round;fill-rule:nonzero;clip-rule:nonzero}</style>
+</head><body>
+<div id="wrap"><svg id="grid"></svg><div id="t"></div></div>
+<script>${HANZI_WRITER_JS}</script>
+<script>
+var writer=null, curChar=null, curData=null, curStep=0, free=false;
+var COLORS={stroke:'#2f7bf6',outline:'#cbd5e1',grid:'#94a3b8',highlight:'#22c55e'};
+var SPEED={slow:0.5,normal:1,fast:2}, DELAY={slow:320,normal:180,fast:90}, speed='normal';
+function post(o){if(window.ReactNativeWebView)window.ReactNativeWebView.postMessage(JSON.stringify(o));}
+function size(){return Math.min(window.innerWidth,window.innerHeight);}
+function drawGrid(kind){
+  var S=size(), svg=document.getElementById('grid');
+  svg.setAttribute('width',S);svg.setAttribute('height',S);
+  svg.setAttribute('viewBox','0 0 '+S+' '+S);
+  var g=COLORS.grid, o='<rect x="1" y="1" width="'+(S-2)+'" height="'+(S-2)+'" fill="none" stroke="'+g+'" stroke-width="1.5" opacity="0.5"/>';
+  if(kind==='ta'||kind==='kome'){
+    o+='<line x1="'+(S/2)+'" y1="0" x2="'+(S/2)+'" y2="'+S+'" stroke="'+g+'" stroke-width="1" opacity="0.4"/>';
+    o+='<line x1="0" y1="'+(S/2)+'" x2="'+S+'" y2="'+(S/2)+'" stroke="'+g+'" stroke-width="1" opacity="0.4"/>';
+  }
+  if(kind==='kome'){
+    o+='<line x1="0" y1="0" x2="'+S+'" y2="'+S+'" stroke="'+g+'" stroke-width="1" stroke-dasharray="4 5" opacity="0.28"/>';
+    o+='<line x1="'+S+'" y1="0" x2="0" y2="'+S+'" stroke="'+g+'" stroke-width="1" stroke-dasharray="4 5" opacity="0.28"/>';
+  }
+  svg.innerHTML=o;
+}
+function KW(){}
+KW.setColors=function(c){for(var k in c)COLORS[k]=c[k];};
+KW.setGrid=function(kind){window._grid=kind;drawGrid(kind);};
+KW.setSpeed=function(s){speed=s;};
+KW.load=function(char,dataJson){curChar=char;curData=typeof dataJson==='string'?JSON.parse(dataJson):dataJson;post({type:'loaded',char:char});};
+function make(opts){
+  document.getElementById('t').innerHTML='';
+  var S=size();
+  return HanziWriter.create('t',curChar,Object.assign({
+    width:S,height:S,padding:Math.round(S*0.08),
+    strokeColor:COLORS.stroke,outlineColor:COLORS.outline,drawingColor:COLORS.stroke,highlightColor:COLORS.highlight,
+    strokeAnimationSpeed:SPEED[speed],delayBetweenStrokes:DELAY[speed],
+    charDataLoader:function(c,onComplete){onComplete(curData);}
+  },opts));
+}
+KW.setStep=function(step){
+  curStep=step;free=false;
+  var showOutline=(step===0);
+  var len=(step===2?1.0:(step===1?1.2:1.4));
+  writer=make({showCharacter:false,showOutline:showOutline,leniency:len});
+  if(step===0){writer.animateCharacter();}
+  writer.quiz({
+    showHintAfterMisses: step===0?1:(step===1?3:999),
+    highlightOnComplete:true,
+    onMistake:function(s){post({type:'mistake',stroke:s.strokeNum});},
+    onComplete:function(s){post({type:'complete',mistakes:s.totalMistakes});}
+  });
+  post({type:'started',step:step});
+};
+KW.setFree=function(on){
+  free=on;
+  // on: enter free practice(採点/前進なし・なぞり相当の既定). off: caller(RN)が続けて KW.setStep(...) で再初期化する契約。
+  if(on){writer=make({showCharacter:false,showOutline:true,leniency:2.0});writer.quiz({showHintAfterMisses:1,highlightOnComplete:false});post({type:'started',step:-1});}
+};
+KW.setFreeStep=function(step){
+  // 自由練習内のモード選択(なぞり/見て書く/見ないで書く)。setStepと同じ外形/ゴースト/leniencyだが
+  // onComplete/onMistakeを登録しない=採点イベントをpostしない(前進/記録が起きない契約)。
+  curStep=step;free=true;
+  var showOutline=(step===0);
+  var len=(step===2?1.0:(step===1?1.2:1.4));
+  writer=make({showCharacter:false,showOutline:showOutline,leniency:len});
+  if(step===0){writer.animateCharacter();}
+  writer.quiz({
+    showHintAfterMisses: step===0?1:(step===1?3:999),
+    highlightOnComplete:true,
+    onComplete:function(s){post({type:'freeComplete'});}
+  });
+  post({type:'started',step:-1});
+};
+KW.animate=function(){if(writer)writer.animateCharacter();};
+KW.showAnswer=function(){if(!writer)return;writer.showOutline();writer.animateCharacter();};
+KW.clear=function(){if(writer&&writer.cancelQuiz){writer.cancelQuiz();} if(free){KW.setFreeStep(curStep);} else {KW.setStep(curStep);}};
+window.KW=KW;
+// あ/ぬ等「自分の線が交差する」筆画で、交差から先が途切れる(最後まで筆が続かない)問題の"本命"対策。
+// HanziWriter は中心線を stroke-dasharray="L,L" で伸ばして描く(L=内部計算の線長)が、path に
+// pathLength 属性を付けていない。iOS WKWebView は自己交差する曲線の"実測長"が L とズレるため、
+// dash 1本(=L)が全長に届かず、余り(=交差より先)が dash の空白に落ちて消える。
+// → 生成される dash 付き path に pathLength=L を与えて path 長を L に正規化。dash が常に全長を
+//   覆い、端まで描画される(アニメの伸び方=dashoffset は維持されるので描画演出はそのまま)。
+function fixPath(p){
+  if(!p||p.nodeType!==1)return;
+  p.setAttribute('stroke-linejoin','round');
+  p.setAttribute('stroke-linecap','round');
+  var da=p.getAttribute('stroke-dasharray');
+  if(da){var L=parseFloat(da);if(L>0&&!p.hasAttribute('pathLength'))p.setAttribute('pathLength',String(L));}
+}
+function fixAll(root){
+  if(!root||root.nodeType!==1)return;
+  if(root.tagName&&root.tagName.toLowerCase()==='path')fixPath(root);
+  if(root.querySelectorAll){var ps=root.querySelectorAll('path');for(var i=0;i<ps.length;i++)fixPath(ps[i]);}
+}
+try{
+  var _t=document.getElementById('t');
+  var _mo=new MutationObserver(function(muts){
+    for(var i=0;i<muts.length;i++){var a=muts[i].addedNodes;for(var j=0;j<a.length;j++)fixAll(a[j]);}
+  });
+  _mo.observe(_t,{childList:true,subtree:true});
+}catch(e){}
+window.addEventListener('resize',function(){if(window._grid)drawGrid(window._grid);});
+post({type:'ready'});
+</script>
+</body></html>`;
+}

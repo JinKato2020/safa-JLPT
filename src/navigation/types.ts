@@ -1,0 +1,60 @@
+import type { Category, Level } from '../engine/engine';
+import type { Daimon } from '../data/examBlueprint';
+import type { StudiedQuestion } from '../data/studiedWords';
+
+export type RootStackParamList = {
+  Onboarding: undefined;
+  Main: undefined;
+  Account: undefined; // アカウント作成/ログイン(段階1: メール+パスワード)
+  Settings: undefined; // 設定(旧・設定タブ=ProfileScreen をモーダル化。上部の歯車から開く)
+  Download: undefined; // ダウンロード(設定の2段階目=聴解音声レベル別DL＋コンテンツ更新を集約。設定の「一括ダウンロード」から開く)
+  AICoach: undefined; // AIコーチの助言(全タブ共通の上部アイコン✦から開くモーダル)
+  ShareCard: undefined; // 結果カード共有(予想得点リング＋伸び＋紹介コード/QRを縦9:16画像化して共有)。入口=AIコーチ
+  QuestionReview: { q: StudiedQuestion }; // 学習後の正誤表から開く「問題の見直し」全画面(本文/台本/問題/選択肢)
+  Paywall: undefined; // Pro購入画面(上限画面や🔒Proから開く。商品はRevenueCat Offeringsから取得)
+  Notifications: undefined; // 通知(リマインド)
+  Referral: { focus?: 'share' | 'enter'; code?: string } | undefined; // 友だち紹介(自分のコード共有＋コード手入力)。focus=用途 / code=紹介リンク(safajlpt://referral?code=)から受け取ったコード(自動登録)
+  Invite: { u?: string } | undefined; // 招待リンク(safajlpt://invite?u=ownerのuserId)から開く「町に参加/断る」画面
+  KotobaTown: undefined; // 言葉の都(テスト): タイルマップ＋4方向移動＋当たり判定(エンジン検証用)
+  CheerInbox: undefined; // 受信箱(友だちから届いた応援の一覧)。町の🔔から開く
+
+  Inventory: undefined; // アイテム(所持品・道具・バッジ一覧。上部の袋アイコンから開く)
+  Shop: undefined; // ショップ(桜貝で着せ替え購入)
+  // 診断クイズ / 弱点ドリル(itemIds 指定でその語だけを出題) / 大問学習(daimon 指定=本番の大問を固定形式で連続出題)
+  Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon; expression?: boolean; review?: boolean } | undefined; // review=面別マスタリー統合復習(苦手な面だけを忘却曲線で)
+  Flashcard: { ids?: string[] } | undefined; // 漢字・語彙 連続学習→連続テスト(個別漢字79字を含む)。ids指定時はその語id集合だけを復習(my単語帳の「復習する」)
+  MockIntro: { full?: boolean } | undefined; // 模試の説明(いきなり始めず遷移)。案内キャラ＋目安
+  Mock: { full?: boolean; preview?: 'pass' | 'fail' } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)。preview=開発者用に終了画面(合格/不合格)を直接表示
+  // 模試成績表(詳細結果)。合否画面の「詳細結果を見る」から遷移。JLPT専用。区分別実測(byCat)から得点/相対位置/偏差値をその場で算出。
+  MockResultDetail: { level: Level; byCat: Record<string, { c: number; t: number }>; passed: boolean; elapsedMs: number };
+  Reading: { subtype?: 'naiyou_tan' | 'naiyou_chu' | 'choubun' | 'joho'; title?: string } | undefined;   // 読解(小区分つき)。title=大問名ヘッダー
+  PassageGrammar: { title?: string } | undefined; // 文章の文法(大問⑧・セット形式=1文章＋5設問。passageGrammar.json)。title=大問名ヘッダー
+  Listening: { subtype?: 'kadai' | 'point' | 'gaiyou' | 'hatsuwa' | 'sokuji'; title?: string } | undefined; // 聴解(小区分つき)。title=大問名ヘッダー
+  Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review'; char?: string; script?: 'kanji' | 'hiragana' | 'katakana' } | undefined; // 書き取り(漢字/ひらがな/カタカナ・3ステップ、単字自由練習対応)
+  KanjiDetail: { char: string; scope?: 'level' | 'all' }; // scope=level:自レベル読み(単語タブ) / all(既定):全読み(辞書)
+  ListeningQuiz: { kind: 'vocab' | 'kanji' }; // 聞き取りドリル(学習→テスト・語彙/漢字)
+  KanjiRecognition: { mode?: 'mean' | 'read' } | undefined; // 漢字認識テスト(字を単独提示→意味/読み4択)。mode=意味/読みを別ボタンに分離
+  KanjiForm: undefined; // 漢字の形の弁別テスト(似た字4択→正しい字を選ぶ・form面)
+  WordDrill: { kind: 'vProduce' | 'gBuild' | 'gMeaning' | 'vMeaning' | 'vReading' | 'vWriting' | 'mixed'; level?: 'N5' | 'N4' | 'N3' }; // 単語タブ新形式(意味から単語/文をつくる/意味を選ぶ/語彙の意味認識/読み認識/表記認識(かたち)/今日のオススメ=横断)
+  PosterList: undefined; // ポスター朗読のテーマ選択(単語タブ→語彙カード「ポスター朗読」から)
+  PosterAudio: { lessonId?: string } | undefined; // ポスター朗読(画像＋カードをハイライトしながら母語→日本語で連続再生)
+  // バグ・不具合の報告フォーム。入口=設定タブ「サポート・規約」/ 各問題画面ヘッダーの⚠報告。
+  // 問題画面から開いた時だけ itemId/level/daimon/screen が入り、対象の問題を添付して送る。
+  BugReport: { itemId?: string; level?: string; daimon?: string; screen?: string } | undefined;
+};
+
+export type Kubun = 'kanji' | 'vocab' | 'grammar';
+export type WordsStackParamList = {
+  WordsHome: undefined;                       // 世界観ハブ(掛軸=語彙/文法/漢字・今日の目標札)
+  WordKubun: { kubun: Kubun };                // 1区分の練習ホーム(カバー率＋各ドリル。旧CardsScreenの1カード分)
+  WordList: { view: Kubun; mode: 'study' };
+};
+export type DictStackParamList = {
+  DictHome: undefined;                        // 図書館ホーム(4カード=語彙/漢字/文法辞書＋My単語帳)
+  DictList: { view: Kubun };                  // 各辞書リスト(BrowseScreen)
+  MyWords: undefined;                         // my単語帳(保存した語/文法)一覧。タブ内画面=ボトムナビを消さない
+};
+export type StudyStackParamList = {
+  StudyHome: undefined;                       // 試験タブ 世界観ホーム(タイル=オススメ/4カテゴリ/模試)
+  StudyCategory: { cat: Category };           // 1カテゴリ詳細(全体正答率＋ミックス＋大問)
+};

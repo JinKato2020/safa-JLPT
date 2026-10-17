@@ -1,0 +1,363 @@
+{
+ "note": "言い換え類義EXCELのQAで青セル削除された語。真の母数(iikaePossible p=1)から除外済(was_p1=1のみ実際に母数から減算=N5 5/N4 16)。",
+ "date": "2026-08-24",
+ "N5": [
+  {
+   "vocabId": "n5-v-17",
+   "word": "あそこ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-202",
+   "word": "牛肉",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-252",
+   "word": "ここ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-255",
+   "word": "九つ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-258",
+   "word": "こちら",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-259",
+   "word": "こっち",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-26",
+   "word": "あっち",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-271",
+   "word": "今週",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n5-v-272",
+   "word": "こんな",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-308",
+   "word": "閉める",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n5-v-362",
+   "word": "そちら",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-363",
+   "word": "そっち",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-364",
+   "word": "外",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-368",
+   "word": "それ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-385",
+   "word": "立つ",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n5-v-43",
+   "word": "あれ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-451",
+   "word": "十",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-462",
+   "word": "どっち",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-472",
+   "word": "鶏肉",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-482",
+   "word": "無くす",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n5-v-485",
+   "word": "夏休み",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-5",
+   "word": "赤",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-565",
+   "word": "一つ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-566",
+   "word": "一月",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-63",
+   "word": "五つ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-673",
+   "word": "八つ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-688",
+   "word": "四つ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-714",
+   "word": "私",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-716",
+   "word": "渡す",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n5-v-720",
+   "word": "バナナ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n5-v-721",
+   "word": "レモン",
+   "was_p1": 0
+  }
+ ],
+ "N4": [
+  {
+   "vocabId": "n4-v-548",
+   "word": "冷える",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-399",
+   "word": "しばらく",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-425",
+   "word": "遠く",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-363",
+   "word": "あんな",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-454",
+   "word": "彼女",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-351",
+   "word": "彼ら",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-81",
+   "word": "葉",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-559",
+   "word": "背中",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-302",
+   "word": "楽しむ",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-380",
+   "word": "血",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-521",
+   "word": "汽車",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-652",
+   "word": "木綿",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-294",
+   "word": "小鳥",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-357",
+   "word": "着物",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-483",
+   "word": "高校",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-247",
+   "word": "以下",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-568",
+   "word": "スーパー",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-476",
+   "word": "昼休み",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-446",
+   "word": "帰り",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-485",
+   "word": "～おわる",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-353",
+   "word": "アメリカ",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-595",
+   "word": "汚れる",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-579",
+   "word": "移る",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-101",
+   "word": "中学校",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-24",
+   "word": "僕",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-66",
+   "word": "彼",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-406",
+   "word": "こう",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-377",
+   "word": "周り",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-213",
+   "word": "歯医者",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-263",
+   "word": "乾く",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-348",
+   "word": "火事",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-379",
+   "word": "不便",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-452",
+   "word": "髪",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-600",
+   "word": "警察",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-634",
+   "word": "翻訳",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-182",
+   "word": "寝坊",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-597",
+   "word": "経験",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-437",
+   "word": "道具",
+   "was_p1": 1
+  },
+  {
+   "vocabId": "n4-v-659",
+   "word": "神社",
+   "was_p1": 0
+  },
+  {
+   "vocabId": "n4-v-147",
+   "word": "人形",
+   "was_p1": 0
+  }
+ ]
+}
