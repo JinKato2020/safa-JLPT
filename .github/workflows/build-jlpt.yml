@@ -10,7 +10,7 @@ run-name: "${{ inputs.build_number && format('{0} — まいにちJLPT {1} ビ�
 #  「ビルドして」= iOS+Android 両方が既定(platforms=both)。②③は別ランナーで並列に走る。
 #
 # 版番号(CLAUDE.md #0・最重要): run-name の先頭に必ず番号を出す。
-#   ★Build番号 = Android versionCode = 2000 + commit数 (iOS/Android で【同一値】。2026-07-17統一)
+#   ★Build番号 = Android versionCode = 3000 + commit数 (iOS/Android で【同一値】。2026-07-17統一・2026-10-17 squashでbase 2000→3000)
 #   起点2000の理由: Play は前回 versionCode 超えが必須で、App C の既存枠(現1270)を超える必要がある。
 #   iOS(旧 1000+commit)を大きい側へ寄せた。iOS の CFBundleVersion は増加さえしていればよく、
 #   1508→2508 の飛びは無害。逆に Android を下げることはできない(Play が受け付けない)。
@@ -197,7 +197,10 @@ jobs:
         run: |
           # ★Android の versionCode と同一値(2000+commit)。iOS は増加さえしていればよいので
           #   旧採番(1000+commit)から大きい側へ寄せた。混乱を避けるため両OSで1つの番号にする。
-          BUILD_NUMBER=$((2000 + $(git rev-list --count HEAD)))
+          # 2026-10-17 履歴squashでcommit数が1に激減→base 2000では番号が2001へ退行し、
+          #   直近最大ビルド2987より小さくなりApple/Playに却下される。base を 3000 に引き上げ(3001〜)。
+          #   ※将来また squash する場合は、当時の最大ビルド番号を超えるよう base を上げること。
+          BUILD_NUMBER=$((3000 + $(git rev-list --count HEAD)))
           # run-name に出した番号(dispatch入力)と実際のビルド番号がズレたら、版の追跡が壊れる。
           # (dispatch後に別コミットが載った等)。黙って進めず落とす。
           WANT="${{ inputs.build_number }}"
@@ -443,7 +446,10 @@ jobs:
         run: npm ci || npm install
       - name: Calculate versionCode (2000+commit, App C 1270 超・iOS Build番号と同一値)
         run: |
-          BUILD_NUMBER=$((2000 + $(git rev-list --count HEAD)))
+          # 2026-10-17 履歴squashでcommit数が1に激減→base 2000では番号が2001へ退行し、
+          #   直近最大ビルド2987より小さくなりApple/Playに却下される。base を 3000 に引き上げ(3001〜)。
+          #   ※将来また squash する場合は、当時の最大ビルド番号を超えるよう base を上げること。
+          BUILD_NUMBER=$((3000 + $(git rev-list --count HEAD)))
           # run-name に出した番号(dispatch入力)と実際の versionCode がズレたら版の追跡が壊れる。黙って進めず落とす。
           WANT="${{ inputs.build_number }}"
           if [ -n "$WANT" ] && [ "$WANT" != "$BUILD_NUMBER" ]; then
