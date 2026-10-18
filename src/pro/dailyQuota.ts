@@ -6,7 +6,7 @@ import { dayStr } from '../store/state';
 import { proStatus } from './entitlement';
 
 export const FREE_SESSIONS_PER_DAY = 3; // 無料の1日あたり回数
-export const AD_BONUS_PER_DAY_MAX = 2;  // 広告で足せる回数の上限(=1日に見られる本数)。既定(下の無制限地域を除く)
+export const AD_BONUS_PER_DAY_MAX = 10;  // 広告で足せる回数の上限(=1日に見られる本数)。既定(下の無制限地域を除く)。2026-10-18 2→10
 
 // 端末の地域コードがこれなら「広告で足せる回数」を無制限にする(=広告を見続ければ練習し放題)。
 // 途上アジア(非課金層)向けに広告で拡散する方針。判定は端末の地域(regionCode)のみ。

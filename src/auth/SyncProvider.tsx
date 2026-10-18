@@ -56,6 +56,35 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  // 【Pro権利の自動追従】団体ライセンス/管理付与のProを「アプリ前面復帰のたび」に取り込み直す。
+  //  目的: 管理側で license_until 設定/pro_until 更新 → ユーザーは"アプリを開く(前面に戻す)"だけで反映。
+  //  再ログイン(サインアウト→サインイン)を一切不要にする(商品要件)。初回ログイン時の取り込みは下の統合useEffectが担当。
+  //  useAppActions は毎レンダー新関数を返すため ref 経由で最新を呼ぶ(安定クロージャ)。
+  const sessionRef = useRef<Session | null>(null);
+  sessionRef.current = session;
+  const entActionsRef = useRef({ setProUntil, setSettings });
+  entActionsRef.current = { setProUntil, setSettings };
+  const lastEntRefresh = useRef(0);
+  useEffect(() => {
+    const sub = RNAppState.addEventListener('change', (st) => {
+      if (st !== 'active') return;
+      const s = sessionRef.current;
+      if (!s || !initialSyncDone.current) return;              // 未ログイン/初回統合前はスキップ
+      if (Date.now() - lastEntRefresh.current < 10000) return; // 連続復帰の多重実行を抑制(10秒)
+      lastEntRefresh.current = Date.now();
+      void (async () => {
+        try {
+          await claimSchoolEntitlement();                      // 団体ライセンス→pro_until付与(冪等・失敗無視)
+          const proUntil = await pullProUntil(s.user.id);
+          if (proUntil != null) entActionsRef.current.setProUntil(proUntil);
+          const devTools = await pullDevTools(s.user.id);
+          if (devTools != null) entActionsRef.current.setSettings({ devToolsUnlocked: devTools });
+        } catch { /* ネット断等は無視=現状維持 */ }
+      })();
+    });
+    return () => sub.remove();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // テレメトリにアカウントID(=紐づけ)を注入。未ログイン→null(匿名)。ログイン/ログアウトで切替。
   useEffect(() => {
     setTelemetryAccount(session?.user?.id ?? null);

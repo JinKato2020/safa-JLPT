@@ -116,7 +116,10 @@ export default function ReadingScreen() {
 
   return (
     <SafeAreaView style={s.c}>
-      <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: set.id, level: state.settings.level, daimon: route.params?.title, screen: 'Reading' })} reportA11y={t('bug.report')} />
+      {/* 聴解(ScrollView body padding=lg)と中断✕の位置を揃える。読解はヘッダー直置きのため横余白が無く✕が画面端に寄っていた。 */}
+      <View style={s.headerPad}>
+        <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: set.id, level: state.settings.level, daimon: route.params?.title, screen: 'Reading' })} reportA11y={t('bug.report')} />
+      </View>
       {devTools ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={set.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
       <PassageSetPlayer key={set.id} set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
     </SafeAreaView>
@@ -125,6 +128,8 @@ export default function ReadingScreen() {
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
+  // 中断✕を含むヘッダーの横/上余白。聴解の本文パディング(spacing.lg)と同値にして✕の位置を揃える。
+  headerPad: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg },
   doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
   top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
   close: { fontSize: ty.h2, color: c.mute },
