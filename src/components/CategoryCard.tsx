@@ -1,5 +1,6 @@
 // 試験タブの1カテゴリ(文字語彙/文法/読解/聴解)カードをインライン表示する自己完結コンポーネント。
-// 全体正答率リング＋大問毎リング(タップで個別出題)。タブ画面の背景の下に差し込む。
+// 全体正答率リング＋大問リスト(各行=大問ラベル＋右端に正答率リング・タップで個別出題)。
+// 練習(書斎)タブの KubunCard と同じ「縦リスト+右端インジケータ」スタイルで統一(2026-10-18)。
 import { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -17,7 +18,6 @@ import type { RootStackParamList, StudyStackParamList } from '../navigation/type
 import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<StudyStackParamList & RootStackParamList>;
-const SUB_CODE = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 interface SubRing { key: string; label: string; value: number | null; onPress: () => void; }
 
 export default function CategoryCard({ cat }: { cat: Category }) {
@@ -58,7 +58,6 @@ export default function CategoryCard({ cat }: { cat: Category }) {
     return listeningSubs.map((sub) => ({ key: sub.key, label: t(sub.labelKey), value: idsRingPct(state, now, listeningItemsForSub(lv, sub.key).flatMap((x) => x.questions.map((q) => q.id))), onPress: () => nav.navigate('Listening', { subtype: sub.key, title: t(sub.labelKey) }) }));
   };
   const subs = subRingsFor(cat);
-  // ミックス出題(全部混ぜ)は撤去済み(語彙/文法=統合復習へ・読解/聴解=大問リングから開く)。ここには置かない。
 
   return (
     <View style={s.card}>
@@ -69,18 +68,13 @@ export default function CategoryCard({ cat }: { cat: Category }) {
       {subs.length ? (
         <>
           <Text style={s.tapHint}>{t('study.tap_daimon')}</Text>
-          <View style={s.subRingRow}>
-            {subs.map((sr, i) => (
-              <Pressable key={sr.key} style={({ pressed }) => [s.subRingBtn, pressed && s.subRingBtnPressed]} onPress={sr.onPress}>
-                <RingGauge value={sr.value} color={ringColor(sr.value)} size={38} stroke={5} label={SUB_CODE[i]} />
-              </Pressable>
-            ))}
-          </View>
-          <View style={s.legend}>
-            {subs.map((sr, i) => (
-              <Text key={sr.key} style={s.legendItem}><Text style={s.legendCode}>{SUB_CODE[i]}</Text>：{sr.label}</Text>
-            ))}
-          </View>
+          {/* 大問を縦リストで表示。各行=ラベル(左)＋右端に正答率リング(%)。タップで個別出題へ。 */}
+          {subs.map((sr) => (
+            <Pressable key={sr.key} style={({ pressed }) => [s.rowBtn, pressed && s.rowPressed]} onPress={sr.onPress}>
+              <Text style={s.rowLabel} numberOfLines={1}>{sr.label}</Text>
+              <RingGauge value={sr.value} color={ringColor(sr.value)} size={36} stroke={5} />
+            </Pressable>
+          ))}
         </>
       ) : null}
     </View>
@@ -92,10 +86,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   cardHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   cardTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
   tapHint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
-  subRingRow: { flexDirection: 'row', justifyContent: 'space-around', marginTop: spacing.xs, flexWrap: 'wrap', rowGap: spacing.sm },
-  subRingBtn: { alignItems: 'center', paddingVertical: spacing.xs, borderRadius: radius.md, minWidth: 56 },
-  subRingBtnPressed: { backgroundColor: c.bgSoft, transform: [{ scale: 0.96 }] },
-  legend: { flexDirection: 'row', flexWrap: 'wrap', columnGap: spacing.sm, rowGap: 2, marginTop: spacing.xs, paddingHorizontal: 2 },
-  legendItem: { fontSize: ty.tiny, color: c.mute, lineHeight: 15 },
-  legendCode: { fontWeight: '800', color: c.ink2 },
+  // 大問の行ボタン(練習タブ KubunCard の linkBtn と同形)。右端にリングを置くため alignItems=center。
+  rowBtn: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.xs, paddingHorizontal: spacing.md },
+  rowPressed: { backgroundColor: c.bgSoft, opacity: 0.85 },
+  rowLabel: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
 });

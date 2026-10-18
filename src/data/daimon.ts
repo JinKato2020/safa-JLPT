@@ -359,12 +359,22 @@ export function learnCardFor(unit: string, l1?: string): LearnCard | null {
     if (bank.daimon === 'usage') {
       const title = LEARN_FURI[bank.stem] ?? bank.stem;
       const plain = title.replace(/[（(][ぁ-ゖァ-ヶー]+[）)]/g, '');
-      const sent = LEARN_FURI[bank.answer] ?? bank.answer;
+      // 学習は語の辞書例文(VOCAB_EXAMPLE)を見せ、テスト(用法の正解文 bank.answer)とは別の文にする(丸写し防止・2026-10-18)。
+      // 辞書例文が無い語(約15%)だけ従来どおり正解文にフォールバック。
+      const vid = saveRefForUsageStem(bank.stem)?.id;
+      const ex = vid ? VOCAB_EXAMPLE[vid] : undefined;
+      const sent = ex?.ja ?? LEARN_FURI[bank.answer] ?? bank.answer;
       return { title, body: sent, hit: plain };
     }
     // ⑦文の組み立て・⑧文章の文法は「解いて学ぶ」技能問題(語順の組み立て/文脈の流れ)。
     // 学習カードで完成文や正解を先に見せるとテストの意味が無くなるため、学習カードは出さない。
     if (bank.daimon === 'order' || bank.daimon === 'passage_grammar') return null;
+    // ⑥文法形式: 学習は文法点の辞書例文(GRAMMAR.exampleJa)を見せ、テスト(問題文)とは別の文にする(2026-10-18)。
+    // 例文が無ければ従来どおり答えを埋めた問題文にフォールバック。
+    const gpoint = bank.pointId ? ITEM_INDEX.get(bank.pointId) : undefined;
+    if (gpoint && gpoint.type === 'grammar' && gpoint.exampleJa) {
+      return { title: gpoint.point, sub: gpoint.romaji, body: mean(gpoint.id, gpoint.meaning), note: gpoint.exampleJa };
+    }
     const filled = bank.stem.includes('〔　〕') ? bank.stem.replace('〔　〕', `【${bank.answer}】`) : bank.stem;
     return { title: bank.answer, body: filled };
   }
@@ -378,11 +388,16 @@ export function learnCardFor(unit: string, l1?: string): LearnCard | null {
     const ex = VOCAB_EXAMPLE[item.id];
     // ①〜④の例文はSENTENCE_FURI(ふりがな付き)を使い、対象語(下線)をmarkFuriで【】囲い。ルビ描画はLearnTextがレベル適応で行う。
     if (daimon === 'synonym') {
+      // 学習の例文を語の辞書例文(ex)に差し替え、テスト文とは別の文にする(丸写し防止・2026-10-18)。
+      // 類義の対応(≒Y)は学習内容として残す(synonymは「X≒Y」を覚える大問のため)。例文が無ければ従来の問題文。
       const sy = SY_BANK_INDEX.get(unit);
-      const note = sy ? markFuri(SENTENCE_FURI[sy.id] ?? sy.sentence, sy.underline) : ex?.ja;
+      const note = ex?.ja ?? (sy ? markFuri(SENTENCE_FURI[sy.id] ?? sy.sentence, sy.underline) : undefined);
       return { title: item.word, sub: item.reading, body: `≒ ${sy?.answer ?? ''}`, note };
     }
     if (daimon === 'context') {
+      // 学習は語の辞書例文(ex)を見せ、テスト(文脈問題文)とは別の文にする(丸写し防止・2026-10-18)。
+      // 辞書例文が無い語だけ従来どおり問題文(答え入り)にフォールバック。
+      if (ex?.ja) return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: ex.ja };
       const cx = CTX_BANK_INDEX.get(unit);
       const base = cx ? (SENTENCE_FURI[cx.id]?.includes('〔　〕') ? SENTENCE_FURI[cx.id] : cx.prompt) : '';
       const filled = cx ? base.replace('〔　〕', `【${cx.answer}】`) : ex?.ja;
@@ -390,10 +405,14 @@ export function learnCardFor(unit: string, l1?: string): LearnCard | null {
     }
     // ①漢字読み・②表記: クイズと同じ固定問題集の例文を使い、対象語(下線)を【】で囲って下線＋ルビ表示する。
     if (daimon === 'kanji_read') {
+      // 学習は語の辞書例文(ex)を見せ、テスト(問題文)とは別の文にする(丸写し防止・2026-10-18)。例文が無ければ従来の問題文例。
+      if (ex?.ja) return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: ex.ja };
       const kr = KR_BANK_MULTI.get(unit)?.[0]; // 学習カードは代表文(先頭)で安定表示
       return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: kr ? markFuri(SENTENCE_FURI[kr.id] ?? kr.sentence, kr.underline) : ex?.ja };
     }
     if (daimon === 'orthography') {
+      // 学習は語の辞書例文(ex)を見せ、テスト(問題文)とは別の文にする(丸写し防止・2026-10-18)。例文が無ければ従来の問題文例。
+      if (ex?.ja) return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: ex.ja };
       const og = OG_BANK_INDEX.get(unit);
       return { title: item.word, sub: item.reading, body: mean(item.id, item.meaning), note: og ? markFuri(SENTENCE_FURI[og.id] ?? og.sentence, og.underline) : ex?.ja };
     }

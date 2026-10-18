@@ -2,6 +2,10 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+★現在地(2026-10-18c)＝**大問の学習カードを「辞書の在庫例文」に変更・実装/検証済(未commit/未build)**。狙い=学習で見た文の丸写しでテストを解けないよう、学習例文≠テスト問題文にする。対象3大問を`learnCardFor`([src/data/daimon.ts])で変更：③文脈規定=語の例文VOCAB_EXAMPLE(ex.ja)／⑤用法=stem語を逆引き(saveRefForUsageStem→VOCAB_EXAMPLE)／⑥文法形式=文法点ITEM_INDEX.get(pointId).exampleJa。いずれも例文が無ければ従来(答え入り問題文)にフォールバック。さらに①漢字読み②表記④言い換えも同方式(辞書例文VOCAB_EXAMPLE)へ拡張=**対象6大問すべて完了**(①②=KR/OG_BANK文が96%単一文のため辞書例文が唯一解・ex100%／④=語数2255中ex100%・類義の答え≒Yは学習内容として残しnoteの例文だけ別文化)。在庫カバー=文脈/文法形式/①②④=100%・用法85%(残15%≒320問は従来動作)。tsc 0エラー・実データ検証で6大問とも「学習≠テスト=YES」・関連テストpass。**UI/ロジック=要ビルド(OTA不可)。** 既知の軽微点=辞書例文はふりがな無し(ルビ出ない・後でSENTENCE_FURI生成)／文法形式は同一点が1セッションに2問出ると学習例文重複／④synonymは≒Yを学習で見せる設計は維持(例文のみ別)。次の一手=このμ変更/タブ名/試験UI/6大問をまとめてビルド。
+
+★現在地(2026-10-18b)＝**タブ改名＋試験タブUI刷新・実装/検証済(未commit/未build)**。①タブ名: `cards.tab`書斎→**練習問題** / `study.tab`試験→**試験問題**(全11言語・src/i18n/*.json・手訳で統一/parity22件pass)。タブ定義参照=`App.tsx:166-167`(labelKeyのみ=i18n値変更で反映)。②`src\components\CategoryCard.tsx`(試験タブのカード)を、旧「横並び小リング+A/B凡例」から練習タブ`KubunCard`風の**縦リスト(各行=大問ラベル+右端に正答率リング%・タップで個別出題)**へ全面書換(SUB_CODE/legend撤去)。tsc --noEmit 0エラー。**UI=要ビルド(OTA不可)。** 内部タイトル(cards.title/study.title)はタブ名でないので未変更。次の一手=ユーザーが望めば次ビルドに載せる(上の予想得点μ変更と同梱)。勝手にpush/buildしない。
+
 ★現在地(2026-10-18)＝**予想得点μを観測ベース縮小式へ変更・実装/検証済(未commit/未build)**。`src\store\selectors.ts` の `ladderPassEntries` 内 `meanPredicted` を、旧「未着手=0.25で全プール平均(母数巨大なN3/N4で実力が反映されず離脱要因)」から「学習済み項目の習得度だけ・未着手は分母に入れない・少数は0.25へ安全係数K=10で収縮(`ladderItemP(swm/(sw+K))`)」へ。予想得点も合格率モンテカルロも同じμ由来で同時に改善(ただし合格率engineは死にコード/非表示)。読解聴解は従来どおり観測正答率(既に同方式)。番人=`src\store\predictedScoreResponsive.test.ts`(新規3件pass)。カバー率は`coverageBars`が別に担う(得点に広さを二重計上しない)。**selectors.ts=アプリ主指標ロジック=要ビルド(OTA不可)。次の一手=ユーザーが望めば次ビルドに載せる。勝手にpush/buildしない。** ※ローカルnode_modulesは掃除で消えていたのでnpm install済(984 pkg)。
 
 ★現在地(2026-10-05)＝アプリ**v1.1.71(2987)** ビルド済み。**iOS=TestFlight成功 / Android=失敗(Google一時障害)**。ストア申請素材(概要12言語・横向きスクショ)ほぼ整備完了。
@@ -686,19 +690,18 @@
 
 <!-- AUTO:BEGIN -->
 
-## ⚠ 会話が重くなっている（自動）
-- ⚠ 連続 49ターン（文脈 16万）— ループが長い
-- ツール呼び出しループが長い（指示1件に対し 49ターン・ツール18回）— まとめ方を変える
-
 ## 走行中の run（自動・完了通知が来ていないもの）
 - なし
 
 ## 直近24時間の変更ファイル（自動）
 - memory/handoff.md
-- package-lock.json
-- src/store/predictedScoreResponsive.test.ts
-- src/store/selectors.ts
+- src/data/daimon.ts
 - memory/session-summary-LATEST.md
+- src/i18n/zh2.json
+- src/i18n/zh.json
+- src/i18n/vi.json
+- src/i18n/th.json
+- src/i18n/my.json
 
-_自動更新: 2026-10-18 10:12_
+_自動更新: 2026-10-18 13:30_
 <!-- AUTO:END -->
