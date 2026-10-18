@@ -597,3 +597,58 @@ grant execute on function public.register_school_trial(text, text, text, text, t
 --   --   update public.school_members set teacher_email='teacher@example.com'
 --   --     where school_id=1 and role='student' and teacher_email is null;
 -- ============================================================================
+
+-- ============================================================================
+-- 8) 【一元化】会員ステータスの正本(キー=メール) ------------------------------
+--    所属表示・Pro(学校由来)を"同じ1関数 member_status()"から導出する。これまで
+--    所属=email / 名簿=teacher_email / Pro=user_id と判定キーが3つに割れていて、
+--    「所属は出るのにProにならない/名簿に出ない」というズレが起きていた。正本を
+--    school_members×schools(キー=メール)に一本化してこれを構造的に無くす。
+--    ・user_id に依存しない → 同じメールの別ログイン(Google/Apple/メール登録で
+--      user_id が別でも)同じ所属・同じProになる。重複アカウントでズレない。
+--    ・返す license_until は生値(null=未有効化 / 過去=失効)。クライアントは
+--      「保存値(紹介/管理=entitlements) と license_until の大きい方」を有効Pro期限にする
+--      (src/pro/entitlement.ts mergeProUntil)。所属○ ⇔ 同じ行から導いたPro、で必ず一致。
+create or replace function public.member_status()
+returns json
+language sql
+security definer
+set search_path = public, auth
+stable
+as $$
+  select json_build_object(
+    'school_id',     sm.school_id,
+    'school_name',   sc.name,
+    'role',          sm.role,
+    'teacher_email', sm.teacher_email,
+    'license_until', sc.license_until   -- 生値(null=未有効化/過去=失効)。学校Proの導出元。
+  )
+  from public.school_members sm
+  join public.schools sc on sc.id = sm.school_id
+  where lower(sm.email) = lower(coalesce(auth.email(), ''))
+  order by sc.license_until desc nulls last, (sm.role = 'student') desc, sm.school_id
+  limit 1;
+$$;
+revoke all on function public.member_status() from anon;
+grant execute on function public.member_status() to authenticated;
+
+-- 8-1) teacher_email 必須化(student行)。所属と名簿がズレる唯一の原因=NULLを禁止。
+--      NOT VALID=新規/更新に適用(既存の歴史データでの一括検証はしない=安全)。
+--      書込み経路は join_school_by_code / teacher_add_student だけで、両者とも必ず
+--      teacher_email を入れる。ダッシュボードからの直挿入(teacher_email無し)はこの制約で弾く。
+alter table public.school_members drop constraint if exists student_needs_teacher;
+alter table public.school_members
+  add constraint student_needs_teacher
+  check (role <> 'student' or teacher_email is not null) not valid;
+
+-- 8-2) 既存の teacher_email=NULL の生徒行を、同じ学校の先生(1人に定まる場合のみ)へ割り当てる。
+--      これで「所属○/名簿×」の旧行が名簿にも出るようになる。先生が複数いる学校は
+--      自動では決められないので手動(上のコメント例)で割り当てる。
+update public.school_members s
+  set teacher_email = (
+    select min(t.email) from public.school_members t
+    where t.school_id = s.school_id and t.role = 'teacher')
+  where s.role = 'student' and s.teacher_email is null
+    and (select count(*) from public.school_members t
+         where t.school_id = s.school_id and t.role = 'teacher') = 1;
+-- ============================================================================

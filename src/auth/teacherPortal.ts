@@ -26,18 +26,8 @@ export async function getTeacherHome(): Promise<TeacherHome | null> {
   }
 }
 
-export type StudentHome = { school_name: string };
-
-// このアカウントが「生徒」として学校に所属していれば学校名を返す。未所属なら null。
-export async function getStudentHome(): Promise<StudentHome | null> {
-  try {
-    const { data, error } = await supabase.rpc('student_home');
-    if (error || !data) return null;
-    return data as StudentHome;
-  } catch {
-    return null;
-  }
-}
+// 所属表示は pullMemberStatus()(src/pro/entitlementClient・正本=member_status・メール導出)へ一元化した。
+// 以前の getStudentHome()/StudentHome(student_home RPC)は廃止(所属とProを同じ1応答から出すため)。
 
 // 団体コードを入力して、自分を先生の生徒として紐づける(20人上限はサーバーで判定)。
 export async function joinSchoolByCode(

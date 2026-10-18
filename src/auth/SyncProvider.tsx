@@ -11,7 +11,8 @@ import { claimDeviceSession, heartbeatDeviceSession } from './deviceSession';
 import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '../store/store';
 import { claimTrial } from '../pro/trialClient';
 import { logTrialStart } from '../analytics/analytics';
-import { pullProUntil, pullDevTools, claimSchoolEntitlement } from '../pro/entitlementClient';
+import { pullProUntil, pullDevTools, pullMemberStatus } from '../pro/entitlementClient';
+import { mergeProUntil } from '../pro/entitlement';
 import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
 import { registerPushToken } from '../push/pushClient';
@@ -74,9 +75,12 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       lastEntRefresh.current = Date.now();
       void (async () => {
         try {
-          await claimSchoolEntitlement();                      // 団体ライセンス→pro_until付与(冪等・失敗無視)
-          const proUntil = await pullProUntil(s.user.id);
-          if (proUntil != null) entActionsRef.current.setProUntil(proUntil);
+          // 【一元化】有効Pro期限 = 保存値(紹介/管理=entitlements, user_id) と 学校ライセンス(member_status, メール導出) の大きい方。
+          // 学校分をメールで導出するので、同じメールの別ログイン(Google/Apple/メール登録)でも同じProになる(重複アカウントでズレない)。
+          const stored = await pullProUntil(s.user.id);
+          const ms = await pullMemberStatus();
+          const eff = mergeProUntil(stored, ms?.licenseUntil ?? null);
+          if (eff != null) entActionsRef.current.setProUntil(eff);
           const devTools = await pullDevTools(s.user.id);
           if (devTools != null) entActionsRef.current.setSettings({ devToolsUnlocked: devTools });
         } catch { /* ネット断等は無視=現状維持 */ }
@@ -151,13 +155,14 @@ export function SyncProvider({ children }: { children: ReactNode }) {
           // 再ログイン/再インストール復元(既に trialStartedAt を持つ)では送らない=水増し防止。
           if (!hadTrialBefore) logTrialStart();
         }
-        // 団体ライセンスの生徒(先生がメール登録した子も含む)が、所属校の有効期限ぶんのProを受け取る(冪等)。
-        // これを pull の前に行うことで、メール登録→後からアカウント作成した生徒も起動時にProになる。
-        await claimSchoolEntitlement();
-        // 管理/紹介/お試し/団体由来のPro(サーバー entitlements.pro_until)を本人の行から取り込む。
-        // これで Supabase 側で pro_until を未来にするだけで恒久/期限付きProを配れる(課金=RevenueCatとは別系統)。
-        const proUntil = await pullProUntil(session.user.id);
-        if (!cancelled && proUntil != null) setProUntil(proUntil);
+        // 【一元化】有効Pro期限の正本を1つに合流: 保存値(管理/紹介=entitlements.pro_until, user_id由来)
+        // と 学校ライセンス(member_status=メール導出)の大きい方。学校分はメールで導出するので、同じメールの
+        // 別ログイン(Google/Apple/メール登録で user_id が別でも)同じProになる(重複アカウントでズレない)。
+        // 団体ライセンスはメール登録→後からアカウント作成した生徒も、この member_status で起動時にProになる。
+        const stored = await pullProUntil(session.user.id);
+        const ms = await pullMemberStatus();
+        const eff = mergeProUntil(stored, ms?.licenseUntil ?? null);
+        if (!cancelled && eff != null) setProUntil(eff);
         // 開発モード(開発用セクション等)の解禁も本人の行から取り込む。旧「7回タップ」の自己解禁は廃止し、
         // 管理側 admin_grant_dev(メール指定)だけが解禁経路。true=解禁/false=取消(どちらも反映)・null=未付与で現状維持。
         const devTools = await pullDevTools(session.user.id);

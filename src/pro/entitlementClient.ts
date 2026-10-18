@@ -23,8 +23,28 @@ export async function pullProUntil(userId: string): Promise<number | null> {
   }
 }
 
+/** 学校メンバーシップの正本(キー=メール)を1回で読む。所属校名＋ライセンス期限(学校Proの導出元)。
+ *  member_status() はログイン中メール(auth.email())で school_members×schools を1行に解決する。
+ *  user_id に依存しないので、同じメールの別ログイン(Google/Apple/メール登録)でも同じ結果になる。
+ *  licenseUntil は epoch ms(null=未所属/未有効化, 過去=失効)。所属表示とPro(学校由来)はこの1応答から出す。 */
+export type MemberStatus = { schoolName: string | null; role: string | null; licenseUntil: number | null };
+export async function pullMemberStatus(): Promise<MemberStatus | null> {
+  try {
+    const { data, error } = await supabase.rpc('member_status');
+    if (error || !data) return null;
+    const d = data as { school_name?: string | null; role?: string | null; license_until?: string | number | null };
+    const lu = d.license_until == null ? NaN : (typeof d.license_until === 'number' ? d.license_until : Date.parse(d.license_until));
+    return { schoolName: d.school_name ?? null, role: d.role ?? null, licenseUntil: Number.isFinite(lu) ? lu : null };
+  } catch {
+    return null;
+  }
+}
+
 /**
  * 団体ライセンスの生徒が、所属校の有効期限ぶんの Pro をサーバーで受け取る(冪等)。
+ * 【補足】Pro反映の正本は上の pullMemberStatus()(メール導出・起動/前面復帰で合流)へ一元化した。
+ * この関数は join_school_by_code 等サーバー側の付与(entitlements への書込み=ダッシュボード表示用)と
+ * 対で残す。アプリの Pro 判定はもう user_id 保存値に依存しない(mergeProUntil で license と合流)。
  * 先生にメールで登録された生徒（アカウントを後から作った場合も含む）が、起動時にProを受け取れる。
  * サーバー側 claim_school_entitlement() が entitlements.pro_until を greatest で更新。失敗は無視（既存状態を保つ）。
  * この後に pullProUntil を呼べば、付与された pro_until が読める。

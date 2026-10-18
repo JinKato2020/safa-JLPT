@@ -21,10 +21,10 @@ import { PERSONALITIES, MOOD_MESSAGES, personalityOf, traitLabel, moodMsgText } 
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
 import { getReferredQualifiedCount } from '../referral/referralClient';
-import { proStatus } from '../pro/entitlement';
-import { getTeacherHome, buildTeacherPortalUrl, getStudentHome, joinSchoolByCode, type TeacherHome, type StudentHome } from '../auth/teacherPortal';
+import { proStatus, mergeProUntil } from '../pro/entitlement';
+import { getTeacherHome, buildTeacherPortalUrl, joinSchoolByCode, type TeacherHome } from '../auth/teacherPortal';
 import { supabase } from '../config/supabase';
-import { pullProUntil } from '../pro/entitlementClient';
+import { pullProUntil, pullMemberStatus } from '../pro/entitlementClient';
 
 type Tab = 'signup' | 'login';
 
@@ -66,15 +66,15 @@ export default function AccountScreen() {
     if (!url) { Alert.alert(t('teacher.portal_title'), t('teacher.portal_need_login')); return; }
     Linking.openURL(url).catch(() => { /* 開けなくてもアプリは落とさない */ });
   };
-  // 生徒: 団体コードで先生に紐づく。所属済みなら学校名を表示。
-  const [studentHome, setStudentHome] = useState<StudentHome | null>(null);
+  // 生徒: 団体コードで先生に紐づく。所属済みなら学校名を表示(正本=member_status・メール導出)。
+  const [studentHome, setStudentHome] = useState<{ school_name: string } | null>(null);
   const [groupCode, setGroupCode] = useState('');
   const [joinMsg, setJoinMsg] = useState<string | null>(null);
   const [joining, setJoining] = useState(false);
   useEffect(() => {
     let alive = true;
     if (!session) { setStudentHome(null); return; }
-    getStudentHome().then((h) => { if (alive) setStudentHome(h); });
+    pullMemberStatus().then((ms) => { if (alive) setStudentHome(ms?.schoolName ? { school_name: ms.schoolName } : null); });
     return () => { alive = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
@@ -85,8 +85,14 @@ export default function AccountScreen() {
     const r = await joinSchoolByCode(code);
     if (r.ok) {
       setStudentHome({ school_name: r.schoolName ?? '' }); setGroupCode(''); setJoinMsg(t('teacher.join_ok'));
-      // 団体ライセンスが有効なら参加時にサーバーがProを付与済み。即反映のため読み直す。
-      try { const { data: { user } } = await supabase.auth.getUser(); if (user) { const pu = await pullProUntil(user.id); if (pu != null) setProUntil(pu); } } catch { /* 反映は次回起動でも入る */ }
+      // 団体ライセンスが有効なら参加で即Pro。保存値(user_id)と学校ライセンス(メール導出)の大きい方を即反映。
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        const stored = user ? await pullProUntil(user.id) : null;
+        const ms = await pullMemberStatus();
+        const eff = mergeProUntil(stored, ms?.licenseUntil ?? null);
+        if (eff != null) setProUntil(eff);
+      } catch { /* 反映は次回起動でも入る */ }
     } else { setJoinMsg(r.error ?? t('teacher.join_err')); }
     setJoining(false);
   };

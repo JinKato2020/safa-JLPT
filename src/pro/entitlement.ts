@@ -35,6 +35,17 @@ export function proStatus(state: AppState, now: number): ProStatus {
   return { isPro: false, source: 'none', trialDaysLeft: 0 };
 }
 
+/** 【Pro期限の一元合成】有効なPro期限(ms)を1つに決める。
+ *  stored      = 保存値(紹介/管理付与=サーバー entitlements.pro_until。user_id由来)
+ *  licenseUntil= 学校ライセンス(member_status のメール導出。null=未所属/未有効化, 過去=失効)
+ *  両方あれば大きい方(期間を短くしない)。両方 null なら null=「未取得」で現状維持
+ *  (= 呼び出し側は setProUntil を呼ばない。失効は過去値として渡るので Pro が落ちる)。
+ *  学校分をメールで導出することで、同じメールの別ログイン(Google/Apple/メール登録)でも同じProになる。 */
+export function mergeProUntil(stored: number | null, licenseUntil: number | null): number | null {
+  const vals = [stored, licenseUntil].filter((v): v is number => v != null);
+  return vals.length ? Math.max(...vals) : null;
+}
+
 /** 紹介などで days 日ぶん延長。お試し中なら「お試し終了日」から積む(期間を二重取りさせない)。 */
 export function grantProDays(state: AppState, days: number, now: number): AppState {
   const from = Math.max(state.entitlements?.proUntil ?? 0, trialEndsAt(state) ?? 0, now);

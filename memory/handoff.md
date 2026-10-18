@@ -2,6 +2,8 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+★現在地(2026-10-18c)＝**学校ライセンスPro/所属/名簿の一元化・実装＋番人test済(未commit/未build)**。原因=判定キーが3つに割れていた(所属=email `student_home` / 名簿=teacher_email `v_teacher_students` / Pro=user_id `entitlements.pro_until`)→「所属○なのにPro×・名簿×」。safaは生徒行 teacher_email=NULL(ダッシュボード直挿入)＋学校Proが user_id 保存で、Google/Apple等の別アカウントとズレ。**設計=email正本・teacher_email必須・導出型Pro**。実装: ①SQL `docs/supabase/school_teacher.sql` 末尾に `member_status()`(メールで school_members×schools を1行解決・license_until生値を返す)＋`student_needs_teacher` CHECK(not valid)＋既存NULL生徒の単一先生への移行UPDATE。②`src/pro/entitlement.ts` に純関数 `mergeProUntil(stored,license)`=大きい方/両null=null。③`src/pro/entitlementClient.ts` に `pullMemberStatus()`。④`SyncProvider.tsx` 前面復帰+ログイン2か所を `claim+pull` から `pullProUntil & pullMemberStatus → mergeProUntil` へ。⑤`AccountScreen.tsx` 所属表示と参加時Proを member_status 一本に(getStudentHome廃止)。⑥`teacherPortal.ts` getStudentHome/StudentHome 削除(F3)。番人=`src/pro/mergeProUntil.test.ts`(7件pass・所属○⇔Pro○の不変条件)。**要ビルド(アプリ側読取り変更)＋Supabaseで school_teacher.sql 再実行が必要。** 次の一手=ユーザーのGOでcommit→build。safaはこの改修で学校ライセンス有効なら自動Pro(手動付与不要・重複アカウント無効化)。勝手にpush/buildしない。
+
 ★現在地(2026-10-18e)＝**Pro権利の自動追従＋広告上限10＋読解/文章の文法の✕位置をまとめてビルド**。(1)`src\auth\SyncProvider.tsx`=アプリ前面復帰のたびにclaimSchoolEntitlement+pullProUntilを実行し団体/管理Proを自動取り込み(再ログイン不要・10秒スロットル・initialSyncDone後のみ)。(2)`src\pro\dailyQuota.ts` AD_BONUS_PER_DAY_MAX 2→10(無料が広告で足せる1日本数)。(3)`src\screens\ReadingScreen.tsx`/`PassageGrammarScreen.tsx`=ExamHeaderをheaderPad(paddingHorizontal/Top=spacing.lg)で囲い中断✕を聴解と同位置へ。tsc 0。**学校Proの前提=サーバーでschools.license_until>nowが必要**(未設定だと所属してもProにならない=別途SQL `_grant_school_pro_by_email`/UPDATE schools)。R8(app.json)は3005で検証ビルド成功済・実機動作は未確認(AdMob等要確認)。
 
 ★現在地(2026-10-18c)＝**大問の学習カードを「辞書の在庫例文」に変更・実装/検証済(未commit/未build)**。狙い=学習で見た文の丸写しでテストを解けないよう、学習例文≠テスト問題文にする。対象3大問を`learnCardFor`([src/data/daimon.ts])で変更：③文脈規定=語の例文VOCAB_EXAMPLE(ex.ja)／⑤用法=stem語を逆引き(saveRefForUsageStem→VOCAB_EXAMPLE)／⑥文法形式=文法点ITEM_INDEX.get(pointId).exampleJa。いずれも例文が無ければ従来(答え入り問題文)にフォールバック。さらに①漢字読み②表記④言い換えも同方式(辞書例文VOCAB_EXAMPLE)へ拡張=**対象6大問すべて完了**(①②=KR/OG_BANK文が96%単一文のため辞書例文が唯一解・ex100%／④=語数2255中ex100%・類義の答え≒Yは学習内容として残しnoteの例文だけ別文化)。在庫カバー=文脈/文法形式/①②④=100%・用法85%(残15%≒320問は従来動作)。tsc 0エラー・実データ検証で6大問とも「学習≠テスト=YES」・関連テストpass。**UI/ロジック=要ビルド(OTA不可)。** 既知の軽微点=辞書例文はふりがな無し(ルビ出ない・後でSENTENCE_FURI生成)／文法形式は同一点が1セッションに2問出ると学習例文重複／④synonymは≒Yを学習で見せる設計は維持(例文のみ別)。次の一手=このμ変更/タブ名/試験UI/6大問をまとめてビルド。
@@ -698,12 +700,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
+- src/pro/mergeProUntil.test.ts
+- src/auth/teacherPortal.ts
+- src/screens/AccountScreen.tsx
 - src/auth/SyncProvider.tsx
-- src/pro/dailyQuota.ts
-- src/screens/PassageGrammarScreen.tsx
-- src/screens/ReadingScreen.tsx
-- app.json
-- src/data/daimon.ts
+- src/pro/entitlementClient.ts
+- src/pro/entitlement.ts
 
-_自動更新: 2026-10-18 15:35_
+_自動更新: 2026-10-18 20:56_
 <!-- AUTO:END -->
