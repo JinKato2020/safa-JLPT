@@ -2,6 +2,8 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
+★現在地(2026-10-18)＝**予想得点μを観測ベース縮小式へ変更・実装/検証済(未commit/未build)**。`src\store\selectors.ts` の `ladderPassEntries` 内 `meanPredicted` を、旧「未着手=0.25で全プール平均(母数巨大なN3/N4で実力が反映されず離脱要因)」から「学習済み項目の習得度だけ・未着手は分母に入れない・少数は0.25へ安全係数K=10で収縮(`ladderItemP(swm/(sw+K))`)」へ。予想得点も合格率モンテカルロも同じμ由来で同時に改善(ただし合格率engineは死にコード/非表示)。読解聴解は従来どおり観測正答率(既に同方式)。番人=`src\store\predictedScoreResponsive.test.ts`(新規3件pass)。カバー率は`coverageBars`が別に担う(得点に広さを二重計上しない)。**selectors.ts=アプリ主指標ロジック=要ビルド(OTA不可)。次の一手=ユーザーが望めば次ビルドに載せる。勝手にpush/buildしない。** ※ローカルnode_modulesは掃除で消えていたのでnpm install済(984 pkg)。
+
 ★現在地(2026-10-05)＝アプリ**v1.1.71(2987)** ビルド済み。**iOS=TestFlight成功 / Android=失敗(Google一時障害)**。ストア申請素材(概要12言語・横向きスクショ)ほぼ整備完了。
 
 【次の一手（重要順・勝手に実行しない）】
@@ -684,12 +686,19 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- ⚠ 連続 49ターン（文脈 16万）— ループが長い
+- ツール呼び出しループが長い（指示1件に対し 49ターン・ツール18回）— まとめ方を変える
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - なし
 
 ## 直近24時間の変更ファイル（自動）
-- memory/session-summary-LATEST.md
 - memory/handoff.md
+- package-lock.json
+- src/store/predictedScoreResponsive.test.ts
+- src/store/selectors.ts
+- memory/session-summary-LATEST.md
 
-_自動更新: 2026-10-17 21:29_
+_自動更新: 2026-10-18 10:12_
 <!-- AUTO:END -->

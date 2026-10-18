@@ -301,18 +301,29 @@ export const SECTION_LABEL: Record<string, string> = {
 /** 総合準備度＋公式ゲート(総合点＋区分別基準点)による合格圏判定。試験プロファイルで切替。
  *  区分別 達成度は categoryPct(知識=カバー率×習得 / 読解聴解=難易度重み正答率)で統一。
  *  セクション/総合は区分の平均(各区分等価)。 */
-// 大リング【合格率】= 新モンテカルロ(面別マスタリー→大問→公式得点区分・設計書 §6)。
-// 既存 state.items を大問プールで束ねて予測正答率μを作り、ladder passProbability に流す。
-// 予測正答率 μ = mean( item ? itemP(effectiveP) : 0.25 )（未着手は推測下限0.25＝カバー率が自然に効く）。
+// 予想得点(＝アプリ主指標)と合格率モンテカルロの共通入力。各大問の (予測正答率μ, 出題数n) を作る。
+// 予測正答率 μ = 観測ベース(縮小式): その大問で実際に学習した項目の習得度だけから出す(未着手は分母に入れない)。
+//   ・広さ(カバー率)は coverageBars が別に担う。得点に広さを二重計上しない。
+//   ・学習量が少ないうちは当てずっぽう(0.25)へ収縮(安全係数 SAFETY_K)。解くほど実測へ自動接近。
+//   ・旧式「未着手=0.25で全プール平均」は母数が巨大な級(N3/N4語彙)で実力が反映されず(10問正解してもμがほぼ
+//     動かない)、離脱要因だった。2026-10-18 観測ベース縮小式へ変更(読解/聴解は従来どおり観測正答率=既に同方式)。
 // 各大問の重み n = 本番出題数(DAIMON/DOKKAI/CHOUKAI_BLUEPRINT)。1問=同じ点・大問の重み=出題数(本番準拠)。
 //   ※旧実装は全大問 n=6/n=10 均等で、用法5問を文法形式13問と同格に扱う不正確があった(他計算=categoryPctは既に出題数で重み付け済)。
 export function ladderPassEntries(state: AppState, now: number): DaimonExpectation[] {
   const lv = state.settings.level;
+  // 安全係数K: 0.25への収縮の強さ。標本=学習済み項目の難易度重み合計 sw。sw≪K なら控えめ、sw≫K なら実測へ。
+  // 知識は項目が多く評価に証拠が要るため K=10(読解/聴解=般化スキルは pctOfIds の K=2 で軽め・既存)。
+  const SAFETY_K = 10;
   const meanPredicted = (ids: string[]): number => {
-    if (!ids.length) return 0.25;
-    let s = 0;
-    for (const id of ids) { const m = unitMasteryWithTransfer(state, now, id); s += m === null ? 0.25 : ladderItemP(m); }
-    return s / ids.length;
+    let sw = 0, swm = 0;
+    for (const id of ids) {
+      const m = unitMasteryWithTransfer(state, now, id);
+      if (m === null) continue; // 未着手は分母に入れない(カバー率は別指標 coverageBars が担う)
+      const w = skillWeight(id);
+      sw += w; swm += w * m;
+    }
+    if (sw === 0) return 0.25; // 1問も学習していない=当てずっぽう下限
+    return ladderItemP(swm / (sw + SAFETY_K)); // 習得を0方向へ収縮→観測確率(0.25+0.75m)
   };
   const skillMu = (cat: Category): number => {
     const p = categoryPct(state, now, cat, false); // 読解/聴解=観測正答率(true能力・当て推量補正済)
