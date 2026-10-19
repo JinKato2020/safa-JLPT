@@ -13,7 +13,7 @@ import GradientButton from '../components/GradientButton';
 import { useAppState } from '../store/store';
 import { examOf } from '../engine/examProfile';
 import type { Category } from '../engine/engine';
-import { proStatus } from '../pro/entitlement';
+import { useProStatus } from '../pro/useProStatus';
 import { useColors } from '../theme';
 import { useT } from '../i18n';
 
@@ -33,11 +33,11 @@ export default function StudyHomeScreen() {
   const t = useT();
   const c = useColors();
   const state = useAppState();
-  const now = Date.now();
   const prof = useMemo(() => examOf(state.settings.targetExam), [state.settings.targetExam]);
   // 模試はProの機能。無料ユーザーはロック→ペイウォールへ誘導(ユーザー指定2026-08-29)。
   // Proは所持チケットで挑戦(暦月ごとに配布・購入も可)=イントロ側でチケット残数を判定。
-  const isPro = proStatus(state, now).isPro;
+  // useProStatus=キャンペーン等のフラグ変化でも再描画（実質Proなのに🔒が残る矛盾を防ぐ）。
+  const isPro = useProStatus().isPro;
   const bg = useTabBg('exam');
 
   return (

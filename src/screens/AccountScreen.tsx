@@ -21,10 +21,12 @@ import { PERSONALITIES, MOOD_MESSAGES, personalityOf, traitLabel, moodMsgText } 
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
 import { getReferredQualifiedCount } from '../referral/referralClient';
-import { proStatus, mergeProUntil } from '../pro/entitlement';
+import { mergeProUntil } from '../pro/entitlement';
+import { useProStatus } from '../pro/useProStatus';
 import { getTeacherHome, buildTeacherPortalUrl, joinSchoolByCode, type TeacherHome } from '../auth/teacherPortal';
 import { supabase } from '../config/supabase';
 import { pullProUntil, pullMemberStatus } from '../pro/entitlementClient';
+import CampaignBanner from '../components/CampaignBanner';
 
 type Tab = 'signup' | 'login';
 
@@ -162,7 +164,7 @@ export default function AccountScreen() {
     </View>
   );
   // Pro課金への入口。既にProなら「有効中」を出し、未加入なら購入画面(Paywall)へ。
-  const isPro = proStatus(appState, Date.now()).isPro;
+  const isPro = useProStatus().isPro; // キャンペーン等の変化でも再描画される（表示の矛盾防止）
   // サブスクの解約はApple/Google側で行う(アプリ内で直接は解約できない仕様)。加入者はここからストアの管理画面へ。
   const openManageSub = () => {
     const url = Platform.OS === 'android'
@@ -362,6 +364,7 @@ export default function AccountScreen() {
           <Pressable style={s.close} onPress={() => nav.goBack()} hitSlop={12}><Text style={s.closeTxt}>✕</Text></Pressable>
           {/* 最上部: 自分のアバター＋ステータス(左にアバター/右にレベル・国・性別・性格・ムード) */}
           {profileHeader}
+          <CampaignBanner />
           <View style={s.loginMeta}>
             <Text style={s.benefitTitle}>{t('account.logged_in_title')}</Text>
             <Text style={s.acctEmail}>{acctEmail}</Text>
@@ -470,6 +473,7 @@ export default function AccountScreen() {
           </Pressable>
 
           {profileHeader}
+          <CampaignBanner />
           <View style={s.loginMeta}>
             <Text style={s.benefitTitle}>{t('account.benefit_title')}</Text>
             <Text style={s.benefitSub}>{t('account.benefit_sub')}</Text>

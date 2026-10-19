@@ -2,11 +2,12 @@
 // 優先順位: 開発スイッチ(無料→Pro) → 購入(レシート同期のキャッシュ) → 期限つき(紹介) → お試し7日 → 無料。
 // 通信断でもProが剥がれないよう、購入状態は端末に保存した値を信じる(正本はストアのレシート)。
 import type { AppState } from '../store/state';
+import { isCampaignProActive } from './campaignFlag';
 
 export const DAY_MS = 24 * 60 * 60 * 1000;
 export const TRIAL_DAYS = 7; // 初回起動からのお試し期間
 
-export type ProSource = 'dev' | 'purchase' | 'referral' | 'trial' | 'none';
+export type ProSource = 'dev' | 'purchase' | 'campaign' | 'referral' | 'trial' | 'none';
 
 export interface ProStatus {
   isPro: boolean;
@@ -29,6 +30,9 @@ export function proStatus(state: AppState, now: number): ProStatus {
   if (state.settings.devFree) return { isPro: false, source: 'none', trialDaysLeft: 0 };
   if (state.settings.devPro) return { isPro: true, source: 'dev', trialDaysLeft };
   if (state.entitlements?.purchaseActive) return { isPro: true, source: 'purchase', trialDaysLeft };
+  // 地域キャンペーン（例: 台湾の完全Pro無料）。端末ローカル判定（campaignFlag・同期しない）。
+  // 課金者より下＝payerには出さない／紹介・お試しより上＝対象地域では一貫して campaign 表示（周知バナー用）。
+  if (isCampaignProActive()) return { isPro: true, source: 'campaign', trialDaysLeft };
   const until = state.entitlements?.proUntil ?? 0;
   if (until > now) return { isPro: true, source: 'referral', until, trialDaysLeft };
   if (trialEnd && trialEnd > now) return { isPro: true, source: 'trial', until: trialEnd, trialDaysLeft };

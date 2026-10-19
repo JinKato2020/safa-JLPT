@@ -1480,5 +1480,7 @@
   "teacher.join_button": "Join",
   "teacher.join_belongs": "School: {school}",
   "teacher.join_ok": "You have joined.",
-  "teacher.join_err": "Could not join. Please check the code."
+  "teacher.join_err": "Could not join. Please check the code.",
+  "campaign.free_title": "Free campaign",
+  "campaign.free_note": "Enjoy unlimited practice, unlocked mock exams, and no ads. This will become paid in the future—we'll let you know in advance."
 }

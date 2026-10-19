@@ -15,6 +15,7 @@ import { pullProUntil, pullDevTools, pullMemberStatus } from '../pro/entitlement
 import { mergeProUntil } from '../pro/entitlement';
 import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
+import { initFreeProCampaign } from '../pro/campaign';
 import { registerPushToken } from '../push/pushClient';
 
 type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null; blocked: { label: string | null } | null };
@@ -97,6 +98,8 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   // 接続国(IP由来)を起動時にキャッシュ。テレメトリのスナップショットに載せ、国別(全体/匿名)を端末単位で数える=利用者削除と連動。
   useEffect(() => {
     void cacheGeoCountry();
+    // 地域キャンペーン（完全Pro無料）の判定をリモートから取り込む（ログイン不要・端末地域で判定）。
+    void initFreeProCampaign();
   }, []);
 
   // 接続国(IP由来)をログインごとに1回だけ記録(統計・課金計算用)。トークン更新では再実行しない(user_id 変化のみ)。

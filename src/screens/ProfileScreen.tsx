@@ -23,7 +23,7 @@ import { upcomingExams } from '../data/jlptDates';
 import { sendEvent } from '../telemetry/telemetry';
 import * as Application from 'expo-application';
 import { useSync } from '../auth/SyncProvider';
-import { proStatus } from '../pro/entitlement';
+import { useProStatus } from '../pro/useProStatus';
 import { FREE_SESSIONS_PER_DAY } from '../pro/dailyQuota';
 import UnlockCelebration from '../components/UnlockCelebration';
 import { UNLOCKS, type UnlockKey } from '../store/unlocks';
@@ -60,7 +60,7 @@ export default function ProfileScreen() {
   const { session } = useSync();
 
   // 今の状態(Pro / お試し中 / 無料)。判定は proStatus ただ1つに任せる(画面では判定しない)。
-  const pro = proStatus(state, Date.now());
+  const pro = useProStatus(); // キャンペーン等の変化でも再描画される（表示の矛盾防止）
   const proText = pro.source === 'trial'
     ? t('pro.state_trial', { n: pro.trialDaysLeft })
     : pro.isPro

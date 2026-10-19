@@ -1480,5 +1480,7 @@
   "teacher.join_button": "参加する",
   "teacher.join_belongs": "所属：{school}",
   "teacher.join_ok": "参加しました。",
-  "teacher.join_err": "参加できませんでした。コードをご確認ください。"
+  "teacher.join_err": "参加できませんでした。コードをご確認ください。",
+  "campaign.free_title": "無料キャンペーン中",
+  "campaign.free_note": "練習は回数無制限、模試も解禁、広告なしでお使いいただけます。将来有料になる予定で、その際は事前にお知らせします。"
 }
