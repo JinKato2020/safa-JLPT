@@ -8,7 +8,7 @@
     tools\build.ps1 -Message "..." -NoWatch         # dispatch まで（監視しない＝既定の運用方針）
 
   やること: manifest再生成 → テスト+tsc → commit → push → Build番号算出 → dispatch → 監視(-NoWatch で省略)
-  Build番号 = 2000 + commit数（push後に数える。ズレると各ジョブが黙って落ちる）
+  Build番号 = 3000 + commit数（push後に数える。2026-10-17 squashで base 2000→3000・workflowと一致必須）
   ※アプリの実体はリポジトリ直下（submodule 撤去・独立化で app/ は廃止）。$APP=リポジトリルート。
 
   意図的に用意していない口:
@@ -166,7 +166,7 @@ Write-Host '  tsc エラー0'
 if ($DryRun) {
   $n = git rev-list --count origin/main
   Write-Host "`nDryRun のためここで終了。push も dispatch もしていません。" -ForegroundColor Yellow
-  Write-Host "  push すれば Build 番号は $(2000 + [int]$n + $(if ($dirty -and -not $NoCommit) { 1 } else { 0 })) になる見込みです。"
+  Write-Host "  push すれば Build 番号は $(3000 + [int]$n + $(if ($dirty -and -not $NoCommit) { 1 } else { 0 })) になる見込みです。"
   exit 0
 }
 
@@ -195,7 +195,9 @@ Write-Host '  origin/main へ push 済み'
 # ---- 6. Build 番号（push 後に数える）--------------------------------------
 Step 6 'Build 番号'
 $commits = git rev-list --count origin/main
-$build = 2000 + [int]$commits
+# ★base=3000。2026-10-17 の履歴squashでcommit数が激減→workflow(build-jlpt.yml)は base を 2000→3000 に上げた。
+# build.ps1 も同じ base に揃える（ズレると workflow の番号不一致ガードで dispatch が黙って失敗する）。
+$build = 3000 + [int]$commits
 Write-Host "  commits=$commits -> Build $build"
 
 # ---- 7. dispatch -----------------------------------------------------------
