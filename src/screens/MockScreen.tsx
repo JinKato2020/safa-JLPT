@@ -21,6 +21,7 @@ import { type PassageSet } from '../quiz/passageSet';
 import { listeningSource } from '../data/listeningAudio';
 import { mockTicketCount } from '../store/tickets';
 import { sendMock } from '../telemetry/telemetry';
+import { maybeAskForReview } from '../pro/reviewPrompt';
 import { DAIMON_LABEL, type Daimon } from '../data/examBlueprint';
 import { buildExam, type MockItem, type Sec, type Seen } from '../mock/buildExam';
 import type { Level } from '../engine/engine';
@@ -207,6 +208,7 @@ export default function MockScreen() {
     const sections: Record<string, number | null> = {};
     for (const k of ['moji_goi', 'bunpou', 'dokkai', 'choukai']) sections[k] = byc[k] ? Math.round((100 * byc[k].c) / byc[k].t) : null;
     void sendMock({ level: state.settings.level, full, pct: Math.round((100 * correctN) / answers.length), sections, timedOut, elapsedSec: Math.round(((endedAt ?? now) - startedAt) / 1000) });
+    void maybeAskForReview(); // 模試を1本やり切った＝高関与の好機に評価をお願い（合否に依らず全員・頻度制限は関数内・規約準拠）
   }, [phase]);
 
   const cur = exam[idx];

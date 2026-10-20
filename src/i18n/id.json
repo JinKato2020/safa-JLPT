@@ -1480,5 +1480,7 @@
   "teacher.join_button": "Gabung",
   "teacher.join_belongs": "Organisasi: {school}",
   "teacher.join_ok": "Berhasil bergabung.",
-  "teacher.join_err": "Gagal bergabung. Mohon periksa kode Anda."
+  "teacher.join_err": "Gagal bergabung. Mohon periksa kode Anda.",
+  "campaign.free_title": "Promo Gratis",
+  "campaign.free_note": "Latihan tanpa batas, ujian tiruan terbuka, dan bebas iklan. Aplikasi ini mungkin akan berbayar di masa mendatang, dan Anda akan diberi tahu sebelumnya."
 }

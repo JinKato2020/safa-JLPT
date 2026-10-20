@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Localization from 'expo-localization';
 import { supabase } from '../config/supabase';
 import { setCampaignProActive } from './campaignFlag';
+import { matchesCampaign } from './campaignMatch';
 
 const CACHE_KEY = 'free_pro_regions_v1';
 
@@ -36,12 +37,12 @@ export async function initFreeProCampaign(): Promise<void> {
     const cached = await AsyncStorage.getItem(CACHE_KEY);
     if (cached) {
       const regions = JSON.parse(cached) as string[];
-      setCampaignProActive(region !== '' && regions.includes(region));
+      setCampaignProActive(matchesCampaign(regions, region));
     }
   } catch { /* 無視 */ }
   // 2) サーバー取得で更新
   const regions = await fetchActiveRegions();
   if (regions == null) return; // 取得失敗＝キャッシュのまま
-  setCampaignProActive(region !== '' && regions.includes(region));
+  setCampaignProActive(matchesCampaign(regions, region));
   try { await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(regions)); } catch { /* 無視 */ }
 }

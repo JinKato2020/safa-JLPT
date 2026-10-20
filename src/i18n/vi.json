@@ -1480,5 +1480,7 @@
   "teacher.join_button": "Tham gia",
   "teacher.join_belongs": "Trực thuộc: {school}",
   "teacher.join_ok": "Đã tham gia.",
-  "teacher.join_err": "Không thể tham gia. Vui lòng kiểm tra mã."
+  "teacher.join_err": "Không thể tham gia. Vui lòng kiểm tra mã.",
+  "campaign.free_title": "Đang có ưu đãi miễn phí",
+  "campaign.free_note": "Luyện tập không giới hạn số lần, mở khóa đề thi thử, không quảng cáo. Trong tương lai có thể thu phí, chúng tôi sẽ thông báo trước cho bạn."
 }

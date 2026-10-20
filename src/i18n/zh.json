@@ -1480,5 +1480,7 @@
   "teacher.join_button": "加入",
   "teacher.join_belongs": "所属：{school}",
   "teacher.join_ok": "已加入。",
-  "teacher.join_err": "未能加入。请检查代码。"
+  "teacher.join_err": "未能加入。请检查代码。",
+  "campaign.free_title": "免费活动进行中",
+  "campaign.free_note": "练习次数无限制，解锁模拟测试，无广告。此功能未来可能会收费，届时会提前通知您。"
 }

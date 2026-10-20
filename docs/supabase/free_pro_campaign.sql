@@ -33,9 +33,17 @@ revoke all on public.free_pro_campaigns from anon, authenticated;
 grant select on public.free_pro_campaigns to anon, authenticated;
 grant select, insert, update, delete on public.free_pro_campaigns to service_role;
 
--- 台湾の完全Pro無料キャンペーンを開始（無期限＝active=true・終了日は切らない）。
-insert into public.free_pro_campaigns (region, active, note)
-  values ('TW', true, '台湾 完全Pro無料キャンペーン（拡散テスト・将来有料化を周知）')
+-- 地域限定の完全Pro無料キャンペーンを開始（無期限＝active=true・終了日は切らない）。
+-- 対象6地域: 台湾(TW)・日本(JP)・タイ(TH)・インドネシア(ID)・ベトナム(VN)・韓国(KR)。
+-- ※日本を含む＝本拠地市場の課金収入を一時停止する判断（ユーザー承認 2026-10-21）。
+-- これ以外の国は従来どおり有料のまま。やめたい国は個別に active=false にできる（再ビルド不要）。
+insert into public.free_pro_campaigns (region, active, note) values
+  ('TW', true, '台湾 完全Pro無料キャンペーン（拡散テスト・将来有料化を周知）'),
+  ('JP', true, '日本 完全Pro無料キャンペーン（将来有料化を周知）'),
+  ('TH', true, 'タイ 完全Pro無料キャンペーン（将来有料化を周知）'),
+  ('ID', true, 'インドネシア 完全Pro無料キャンペーン（将来有料化を周知）'),
+  ('VN', true, 'ベトナム 完全Pro無料キャンペーン（将来有料化を周知）'),
+  ('KR', true, '韓国 完全Pro無料キャンペーン（将来有料化を周知）')
   on conflict (region) do update
     set active = excluded.active, note = excluded.note, updated_at = now();
 
@@ -50,4 +58,13 @@ insert into public.free_pro_campaigns (region, active, note)
 --   -- 別地域も同じ仕組みで追加可能（例: 香港）
 --   insert into public.free_pro_campaigns (region, active, note)
 --     values ('HK', true, '香港 無料キャンペーン') on conflict (region) do nothing;
+--
+--   -- 【全世界で無料化】region='ALL' を active=true にすると、端末地域に関わらず全員が対象。
+--   --   端末側は activeRegions に 'ALL' が含まれれば地域コード不問でPro（src/pro/campaignMatch.ts）。
+--   --   ※ 全世界キャンペーンは大きな決断（既存の有料導線を一時停止する想定）。周知バナーと合わせて実施。
+--   insert into public.free_pro_campaigns (region, active, note)
+--     values ('ALL', true, '全世界 完全Pro無料キャンペーン（拡散・将来有料化を事前周知）')
+--     on conflict (region) do update set active = excluded.active, note = excluded.note, updated_at = now();
+--   -- 全世界キャンペーン終了（通常の無料/課金へ戻す）:
+--   update public.free_pro_campaigns set active = false, updated_at = now() where region = 'ALL';
 -- ----------------------------------------------------------------------------

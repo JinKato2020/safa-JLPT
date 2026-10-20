@@ -1480,5 +1480,7 @@
   "teacher.join_button": "참가하기",
   "teacher.join_belongs": "소속: {school}",
   "teacher.join_ok": "참가했습니다.",
-  "teacher.join_err": "참가할 수 없었습니다. 코드를 확인해 주세요."
+  "teacher.join_err": "참가할 수 없었습니다. 코드를 확인해 주세요.",
+  "campaign.free_title": "무료 캠페인 중",
+  "campaign.free_note": "연습은 횟수 무제한, 모의고사도 해금, 광고 없이 이용하실 수 있습니다. 향후 유료화될 예정이며, 유료화 시 사전 안내해 드립니다."
 }
