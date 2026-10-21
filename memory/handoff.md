@@ -2,7 +2,7 @@
 
 ## 次の一手（LIVE＝いま動いている / 次にやる）
 
-★現在地(2026-10-21)＝**上位表示戦略「(A)壁を外す＋(B)評価収集＋(C)初日離脱診断」を実装/調査(未commit/未build)**。狙い=Google Play上位化（現状28日で獲得15・7日維持率ほぼ1・掲載CVR31.65%＝入口は良いが定着が壊滅）。**(A)全世界無料化の仕組み**: `src/pro/campaignMatch.ts`(純関数`matchesCampaign`=activeRegionsに'ALL'あれば地域不問で対象/なければ端末region一致)を新設し`campaign.ts`の2判定を差替。`docs/supabase/free_pro_campaign.sql`に 'ALL' 運用コマンド(コメント)追記=SQLで`region='ALL' active=true`にすれば全端末Pro無料。番人=`src/pro/campaignMatch.test.ts`(7件pass)。**(B)アプリ内レビュー**: `src/pro/reviewPrompt.ts`新設=OS標準シート(expo-store-review・導入済)を規約準拠(全員同条件/謝礼なし/星指定なし・60日間隔・生涯3回・OS文言=翻訳不要)で。発火=全ドリル共通`components/AfterStudyReward.tsx`のsession_complete effect＋模試完了`screens/MockScreen.tsx` resultで`maybeAskForReview()`。型チェック通過。**(C)初日離脱診断(Exploreagent)**＝主因: ①未ログイン=お試し無し→初日から壁(最重要) ②QuizScreen入室だけで1回消費(回答前) ③3回制限が初日ON・出口が課金/広告/紹介のみ ④模試が初日に🔒即Paywall ⑤重いオンボ(ニックネーム必須/2秒強制待ち/町プロフィール必須級)。※(A)のALL無料化中は①〜④が自然消滅(全員Pro)→**残る本丸は⑤オンボ軽量化＋初回の価値提示**。次の一手=ユーザー選択待ち(⑤オンボ軽量化を実装するか/(A)(B)をいつbuildするか/ALLをいつSQLでONにするか)。**勝手にpush/build/SQL実行しない**。
+★現在地(2026-10-21)＝**上位表示戦略「(A)壁を外す＋(B)評価収集＋(C)初日離脱診断」を実装/調査(未commit/未build)**。狙い=Google Play上位化（現状28日で獲得15・7日維持率ほぼ1・掲載CVR31.65%＝入口は良いが定着が壊滅）。**(A)全世界無料化の仕組み**: `src/pro/campaignMatch.ts`(純関数`matchesCampaign`=activeRegionsに'ALL'あれば地域不問で対象/なければ端末region一致)を新設し`campaign.ts`の2判定を差替。`docs/supabase/free_pro_campaign.sql`に 'ALL' 運用コマンド(コメント)追記=SQLで`region='ALL' active=true`にすれば全端末Pro無料。番人=`src/pro/campaignMatch.test.ts`(7件pass)。**(B)アプリ内レビュー**: `src/pro/reviewPrompt.ts`新設=OS標準シート(expo-store-review・導入済)を規約準拠(全員同条件/謝礼なし/星指定なし・60日間隔・生涯3回・OS文言=翻訳不要)で。発火=全ドリル共通`components/AfterStudyReward.tsx`のsession_complete effect＋模試完了`screens/MockScreen.tsx` resultで`maybeAskForReview()`。型チェック通過。**(C)初日離脱診断(Exploreagent)**＝主因: ①未ログイン=お試し無し→初日から壁(最重要) ②QuizScreen入室だけで1回消費(回答前) ③3回制限が初日ON・出口が課金/広告/紹介のみ ④模試が初日に🔒即Paywall ⑤重いオンボ(ニックネーム必須/2秒強制待ち/町プロフィール必須級)。※(A)のALL無料化中は①〜④が自然消滅(全員Pro)→**残る本丸は⑤オンボ軽量化＋初回の価値提示**。**状況更新(2026-10-21)**: ⑤オンボ軽量化は**やらない**(ユーザー却下)。範囲は全世界→**地域限定6か国に変更**＝台湾TW/日本JP/タイTH/インドネシアID/ベトナムVN/韓国KR(**日本含む=本拠地収益停止をユーザー承認**)。`docs/supabase/free_pro_campaign.sql`を6地域insertに確定。**build v1.1.73 (3009) both をdispatch済**(run 39460770033)。※build.ps1が旧base2000のまま2009を渡しworkflowの番号不一致ガードで最初のrun(39460253193)が失敗→build.ps1をbase3000へ修正(commit 9f22ba8)し3009で再dispatch(3007<3009で番号OK)。**次の一手=build3009が配信(TestFlight審査通過→公開/Play)されたら、Supabase SQL Editorで `free_pro_campaign.sql` を実行して6地域キャンペーン有効化。ストアのサブスクは触らない(審査で必要/将来有料化用)。** 注意=SQLは必ずbuild配信後(現行本番にキャンペーン対応が無く、先に実行しても無反応)。**勝手にpush/build/SQL実行しない**。
 
 
 ★現在地(2026-10-19)＝**台湾 完全Pro無料キャンペーン（端末地域＋リモートフラグ・ログイン不要）実装済・番人test済(未commit/未build)**。方針＝**無期限で開始・将来有料化を事前周知・有料化時は既存含め全員変換(grandfatherなし)・サーバーのactiveフラグで即ON/OFF(再ビルド不要)・IP条件なし(端末地域のみ=拡散優先)**。実装: **A)** `docs/supabase/free_pro_campaign.sql`(free_pro_campaigns表・anon読取・TW active=true)＝**未実行(配信後に実行)**。**B)** `src/pro/campaignFlag.ts`(端末ローカル外部store・★同期しない=地域差漏れ防止)／`src/pro/campaign.ts`(init=リモート取得→端末regionCode判定・anon)／`entitlement.ts`に source'campaign' 分岐(優先順 devFree>devPro>purchase>campaign>referral>trial)／`SyncProvider`起動時に`initFreeProCampaign`／`components/CampaignBanner.tsx`(useSyncExternalStore・周知文言)を`AccountScreen`上部(ログイン前後 両view)／i18n `campaign.free_title`・`campaign.free_note`(ja/en/ne・残8言語はbuild --fill)。番人＝`src/pro/campaign.test.ts`(4件pass・既存pro系21件もpass)。**C)** ストア手動＝App Store Connect/Play ConsoleでProサブスクの提供地域から台湾を除外(課金バッジ非表示)。**D)公開順(厳守)**＝①ビルド配信→②SQLでTW active=true→③ストアで台湾除外(必ず②→③・逆だと「課金も無料でもない」台湾ユーザーが出る)。次の一手＝ユーザーGOでcommit→build、その後①→②→③。学校Pro一元化(member_status)はbuild**3007**で公開済。勝手にpush/buildしない。
@@ -703,14 +703,14 @@
 - なし
 
 ## 直近24時間の変更ファイル（自動）
+- src/i18n/ne.json
+- src/i18n/en.json
+- src/i18n/ja.json
+- App.tsx
+- src/components/CampaignIntroDialog.tsx
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- docs/supabase/free_pro_campaign.sql
-- src/screens/MockScreen.tsx
-- src/components/AfterStudyReward.tsx
-- src/pro/campaign.ts
-- src/pro/campaignMatch.test.ts
-- src/pro/reviewPrompt.ts
+- docs/supabase/school_teacher.sql
 
-_自動更新: 2026-10-21 01:38_
+_自動更新: 2026-10-21 13:56_
 <!-- AUTO:END -->

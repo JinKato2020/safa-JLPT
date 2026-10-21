@@ -6,10 +6,12 @@ import { useSyncExternalStore } from 'react';
 import { useAppState } from '../store/store';
 import { proStatus, type ProStatus } from './entitlement';
 import { subscribeCampaign, isCampaignProActive } from './campaignFlag';
+import { subscribeSchool, getSchoolLicenseUntil } from './schoolFlag';
 
-/** 画面で Pro 判定を使う時はこれを使う（appStateの変化＋キャンペーンフラグの変化の両方で再描画）。 */
+/** 画面で Pro 判定を使う時はこれを使う（appState＋キャンペーン＋学校ライセンスの各変化で再描画）。 */
 export function useProStatus(): ProStatus {
   const state = useAppState();
   useSyncExternalStore(subscribeCampaign, isCampaignProActive); // campaign フラグ変化で再描画させる
+  useSyncExternalStore(subscribeSchool, getSchoolLicenseUntil); // 学校ライセンス変化（名簿から外れた等）で再描画
   return proStatus(state, Date.now());
 }

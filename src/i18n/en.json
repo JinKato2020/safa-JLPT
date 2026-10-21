@@ -1482,5 +1482,8 @@
   "teacher.join_ok": "You have joined.",
   "teacher.join_err": "Could not join. Please check the code.",
   "campaign.free_title": "Free campaign",
+  "campaign.intro_title": "Free for now 🎁",
+  "campaign.intro_body": "Right now in your region, you can use all Pro features — unlimited practice, mock exams and no ads — for free. It will become paid in the future, but we'll always tell you in the app before that happens. You'll never be charged without notice.",
+  "campaign.intro_ok": "Got it",
   "campaign.free_note": "Enjoy unlimited practice, unlocked mock exams, and no ads. This will become paid in the future—we'll let you know in advance."
 }

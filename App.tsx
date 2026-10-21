@@ -15,6 +15,7 @@ import { cheerUnreadCount } from './src/plaza/friendsClient';
 import { fetchAnnouncements, announceReadAtMs, markAnnounceRead, announceUnread } from './src/plaza/announceClient';
 import { navigationRef } from './src/navigation/navRef';
 import AccountPrompt from './src/components/AccountPrompt';
+import CampaignIntroDialog from './src/components/CampaignIntroDialog';
 import { isWatercolor } from './src/store/state';
 import { useT, useUiLang, setDemoLang } from './src/i18n';
 import type { RootStackParamList, WordsStackParamList, DictStackParamList, StudyStackParamList } from './src/navigation/types';
@@ -490,6 +491,8 @@ function Root() {
       </RootStack.Navigator>
     </NavigationContainer>
     {settings.onboarded && !session && !settings.accountPromptSeen && <AccountPrompt />}
+    {/* 無料キャンペーンの初回告知(ハレーション防止)。対象地域＆未読のときだけ自己表示。アカウント案内と重ならないよう後に出す。 */}
+    {settings.onboarded && (session || settings.accountPromptSeen) && <CampaignIntroDialog />}
     </View>
     </DesignThemeProvider>
   );

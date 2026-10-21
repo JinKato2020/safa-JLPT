@@ -1482,5 +1482,8 @@
   "teacher.join_ok": "Berhasil bergabung.",
   "teacher.join_err": "Gagal bergabung. Mohon periksa kode Anda.",
   "campaign.free_title": "Promo Gratis",
-  "campaign.free_note": "Latihan tanpa batas, ujian tiruan terbuka, dan bebas iklan. Aplikasi ini mungkin akan berbayar di masa mendatang, dan Anda akan diberi tahu sebelumnya."
+  "campaign.free_note": "Latihan tanpa batas, ujian tiruan terbuka, dan bebas iklan. Aplikasi ini mungkin akan berbayar di masa mendatang, dan Anda akan diberi tahu sebelumnya.",
+  "campaign.intro_title": "Promo Gratis Sekarang Juga! 🎁",
+  "campaign.intro_body": "Saat ini, di wilayah Anda, Anda dapat menggunakan fitur Pro secara gratis: latihan tanpa batas, ujian tiruan tidak terkunci, dan bebas iklan. Fitur ini akan berbayar di masa mendatang, tetapi kami pasti akan memberi tahu Anda di aplikasi sebelum perubahan (Anda tidak akan ditagih secara tiba-tiba).",
+  "campaign.intro_ok": "Ya, saya mengerti"
 }

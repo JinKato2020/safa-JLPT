@@ -40,22 +40,9 @@ export async function pullMemberStatus(): Promise<MemberStatus | null> {
   }
 }
 
-/**
- * 団体ライセンスの生徒が、所属校の有効期限ぶんの Pro をサーバーで受け取る(冪等)。
- * 【補足】Pro反映の正本は上の pullMemberStatus()(メール導出・起動/前面復帰で合流)へ一元化した。
- * この関数は join_school_by_code 等サーバー側の付与(entitlements への書込み=ダッシュボード表示用)と
- * 対で残す。アプリの Pro 判定はもう user_id 保存値に依存しない(mergeProUntil で license と合流)。
- * 先生にメールで登録された生徒（アカウントを後から作った場合も含む）が、起動時にProを受け取れる。
- * サーバー側 claim_school_entitlement() が entitlements.pro_until を greatest で更新。失敗は無視（既存状態を保つ）。
- * この後に pullProUntil を呼べば、付与された pro_until が読める。
- */
-export async function claimSchoolEntitlement(): Promise<void> {
-  try {
-    await supabase.rpc('claim_school_entitlement');
-  } catch {
-    /* 失敗しても既存の状態を変えない */
-  }
-}
+// （旧 claimSchoolEntitlement は廃止）学校Proは pullMemberStatus() の license_until を端末ローカルの
+// ライブフラグ(schoolFlag/applySchoolLicense)で導出する方式へ移行。entitlements.pro_until へ焼き付けないので
+// 名簿から外れたら即PRO終了＝残骸ゼロ。サーバーの claim/grant も pro_until を書かない（docs/supabase/school_teacher.sql）。
 
 /**
  * 本人の開発モード解禁フラグ(dev_tools)をサーバーから読む。

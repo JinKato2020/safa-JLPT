@@ -1482,5 +1482,8 @@
   "teacher.join_ok": "已加入。",
   "teacher.join_err": "未能加入。请检查代码。",
   "campaign.free_title": "免费活动进行中",
-  "campaign.free_note": "练习次数无限制，解锁模拟测试，无广告。此功能未来可能会收费，届时会提前通知您。"
+  "campaign.free_note": "练习次数无限制，解锁模拟测试，无广告。此功能未来可能会收费，届时会提前通知您。",
+  "campaign.intro_title": "限时免费活动🎁",
+  "campaign.intro_body": "您所在地区的用户目前可免费使用Pro功能，包括无限次练习、解锁模拟测试和免广告。将来此功能会收费，但我们会在切换前通过应用通知您（绝不会突然收费）。",
+  "campaign.intro_ok": "好的，知道了"
 }

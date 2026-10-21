@@ -12,7 +12,7 @@ import { useAppState, useAppActions, useHydrated, useHydratedFromDisk } from '..
 import { claimTrial } from '../pro/trialClient';
 import { logTrialStart } from '../analytics/analytics';
 import { pullProUntil, pullDevTools, pullMemberStatus } from '../pro/entitlementClient';
-import { mergeProUntil } from '../pro/entitlement';
+import { applySchoolLicense, initSchoolFlag } from '../pro/school';
 import { setTelemetryAccount, sendDailySnapshot } from '../telemetry/telemetry';
 import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
 import { initFreeProCampaign } from '../pro/campaign';
@@ -76,12 +76,12 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       lastEntRefresh.current = Date.now();
       void (async () => {
         try {
-          // 【一元化】有効Pro期限 = 保存値(紹介/管理=entitlements, user_id) と 学校ライセンス(member_status, メール導出) の大きい方。
-          // 学校分をメールで導出するので、同じメールの別ログイン(Google/Apple/メール登録)でも同じProになる(重複アカウントでズレない)。
+          // Pro期限の正本を分離: proUntil=購入/紹介/お試し(entitlements, user_id)。学校(団体ライセンス)は
+          // member_status(メール導出)を端末ローカルのライブフラグへ反映＝所属中だけPro・名簿から外れたら即終了(焼き付けない)。
           const stored = await pullProUntil(s.user.id);
+          if (stored != null) entActionsRef.current.setProUntil(stored);
           const ms = await pullMemberStatus();
-          const eff = mergeProUntil(stored, ms?.licenseUntil ?? null);
-          if (eff != null) entActionsRef.current.setProUntil(eff);
+          void applySchoolLicense(ms?.licenseUntil ?? null);
           const devTools = await pullDevTools(s.user.id);
           if (devTools != null) entActionsRef.current.setSettings({ devToolsUnlocked: devTools });
         } catch { /* ネット断等は無視=現状維持 */ }
@@ -98,6 +98,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   // 接続国(IP由来)を起動時にキャッシュ。テレメトリのスナップショットに載せ、国別(全体/匿名)を端末単位で数える=利用者削除と連動。
   useEffect(() => {
     void cacheGeoCountry();
+    void initSchoolFlag();
     // 地域キャンペーン（完全Pro無料）の判定をリモートから取り込む（ログイン不要・端末地域で判定）。
     void initFreeProCampaign();
   }, []);
@@ -158,14 +159,15 @@ export function SyncProvider({ children }: { children: ReactNode }) {
           // 再ログイン/再インストール復元(既に trialStartedAt を持つ)では送らない=水増し防止。
           if (!hadTrialBefore) logTrialStart();
         }
-        // 【一元化】有効Pro期限の正本を1つに合流: 保存値(管理/紹介=entitlements.pro_until, user_id由来)
-        // と 学校ライセンス(member_status=メール導出)の大きい方。学校分はメールで導出するので、同じメールの
-        // 別ログイン(Google/Apple/メール登録で user_id が別でも)同じProになる(重複アカウントでズレない)。
-        // 団体ライセンスはメール登録→後からアカウント作成した生徒も、この member_status で起動時にProになる。
+        // Pro期限の正本を分離: proUntil=購入/紹介/お試し(entitlements.pro_until, user_id由来)。
+        // 学校(団体ライセンス)は member_status(メール導出)を端末ローカルのライブフラグへ反映＝所属中だけPro。
+        // 名簿から外れたら次回同期で null→即PRO終了(pro_until に焼き付けないので残骸ゼロ)。メール導出なので
+        // 同じメールの別ログイン(Google/Apple/メール登録で user_id が別でも)同じ学校Proになる。未作成アカウントの
+        // 生徒も、メール登録→アカウント作成後の起動時に member_status でProになる。
         const stored = await pullProUntil(session.user.id);
+        if (!cancelled && stored != null) setProUntil(stored);
         const ms = await pullMemberStatus();
-        const eff = mergeProUntil(stored, ms?.licenseUntil ?? null);
-        if (!cancelled && eff != null) setProUntil(eff);
+        if (!cancelled) void applySchoolLicense(ms?.licenseUntil ?? null);
         // 開発モード(開発用セクション等)の解禁も本人の行から取り込む。旧「7回タップ」の自己解禁は廃止し、
         // 管理側 admin_grant_dev(メール指定)だけが解禁経路。true=解禁/false=取消(どちらも反映)・null=未付与で現状維持。
         const devTools = await pullDevTools(session.user.id);

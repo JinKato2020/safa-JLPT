@@ -21,11 +21,10 @@ import { PERSONALITIES, MOOD_MESSAGES, personalityOf, traitLabel, moodMsgText } 
 import { useSync } from '../auth/SyncProvider';
 import ExamInfoCard from '../home/ExamInfoCard';
 import { getReferredQualifiedCount } from '../referral/referralClient';
-import { mergeProUntil } from '../pro/entitlement';
+import { applySchoolLicense } from '../pro/school';
 import { useProStatus } from '../pro/useProStatus';
 import { getTeacherHome, buildTeacherPortalUrl, joinSchoolByCode, type TeacherHome } from '../auth/teacherPortal';
-import { supabase } from '../config/supabase';
-import { pullProUntil, pullMemberStatus } from '../pro/entitlementClient';
+import { pullMemberStatus } from '../pro/entitlementClient';
 import CampaignBanner from '../components/CampaignBanner';
 
 type Tab = 'signup' | 'login';
@@ -38,7 +37,7 @@ export default function AccountScreen() {
   const { session, email: acctEmail, lastSyncedAt, blocked } = useSync();
   // 最上部プロフィール: 桜ではなく自分のアバター立ち絵＋ステータス(レベル/国/性別/性格/ムード)。性格・ムードは変更可。
   const appState = useAppState();
-  const { setSettings, setReferralStats, setEnteredCode, spendAvatarChange, reset, setProUntil } = useAppActions();
+  const { setSettings, setReferralStats, setEnteredCode, spendAvatarChange, reset } = useAppActions();
   const st0 = appState.settings;
   const myAvatarImg = avatarOf(st0.avatar).image;
   // アバターは登録後は既定で変更不可。ショップの「すがた変えドリンク」を買うと券が増え、1回だけ変更できる。
@@ -87,13 +86,10 @@ export default function AccountScreen() {
     const r = await joinSchoolByCode(code);
     if (r.ok) {
       setStudentHome({ school_name: r.schoolName ?? '' }); setGroupCode(''); setJoinMsg(t('teacher.join_ok'));
-      // 団体ライセンスが有効なら参加で即Pro。保存値(user_id)と学校ライセンス(メール導出)の大きい方を即反映。
+      // 団体ライセンスが有効なら参加で即Pro。学校Proは member_status をライブフラグへ反映(所属中だけ・焼き付けない)。
       try {
-        const { data: { user } } = await supabase.auth.getUser();
-        const stored = user ? await pullProUntil(user.id) : null;
         const ms = await pullMemberStatus();
-        const eff = mergeProUntil(stored, ms?.licenseUntil ?? null);
-        if (eff != null) setProUntil(eff);
+        await applySchoolLicense(ms?.licenseUntil ?? null);
       } catch { /* 反映は次回起動でも入る */ }
     } else { setJoinMsg(r.error ?? t('teacher.join_err')); }
     setJoining(false);

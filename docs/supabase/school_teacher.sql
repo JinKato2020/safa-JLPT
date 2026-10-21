@@ -112,35 +112,50 @@ grant select on public.v_teacher_students to authenticated;
 --    すべて SECURITY DEFINER(所有者権限)。本人確認は auth.email()(JWT由来)で行い、
 --    クライアントが学校IDや他人の生徒を指定しても効かない(自分の所属/自分の生徒に固定)。
 
--- 4-0) 内部: メールのメンバー(生徒/先生)に、所属する学校の有効ライセンス期限まで Pro を付与する。
---      団体ライセンス = Pro全機能解放(生徒も先生も)。コード参加/メール登録/一括付与/起動時claimから呼ぶ。
---      アカウント未作成(user_id無し)なら何もしない→本人がアプリで claim_school_entitlement() 実行時に付与。
---      既存の pro_until より短くはしない(本人が買ったProや他校の期限を縮めない)=greatest。
+-- 4-0) 内部: メールのメンバー(生徒/先生)の「有効な学校ライセンス期限」を返す（＝有効か/いつまでか）。
+--      【(B)導出型へ移行・2026-10-21】団体ライセンスPro は entitlements.pro_until へ“焼き付けない”。
+--        所属している間だけ member_status.license_until からアプリがライブ導出する方式へ変更したため、
+--        この関数は entitlements への書込みをやめ、有効期限を“返すだけ”にした（名簿から外れたら即PRO終了＝残骸ゼロ）。
+--        呼び出し側(teacher_add_student / join_school_by_code / admin_grant_school_license)の互換・件数表示のため関数は残す。
 create or replace function public._grant_school_pro_by_email(p_email text)
 returns timestamptz
 language plpgsql
 security definer
 set search_path = public, auth
 as $$
-declare v_uid uuid; v_until timestamptz; v_email text := lower(trim(coalesce(p_email,'')));
+declare v_until timestamptz; v_email text := lower(trim(coalesce(p_email,'')));
 begin
   if v_email = '' then return null; end if;
-  select id into v_uid from auth.users where lower(email) = v_email;
-  if v_uid is null then return null; end if;              -- まだアカウント無し(後で claim で付与)
   select max(sc.license_until) into v_until
   from public.school_members sm
   join public.schools sc on sc.id = sm.school_id
   where sm.role in ('student','teacher') and lower(sm.email) = v_email   -- 生徒も先生も対象
     and sc.license_until is not null and sc.license_until > now();
-  if v_until is null then return null; end if;            -- 有効なライセンス無し
-  insert into public.entitlements (user_id, pro_until)
-    values (v_uid, v_until)
-    on conflict (user_id) do update
-      set pro_until = greatest(public.entitlements.pro_until, excluded.pro_until), updated_at = now();
-  return v_until;
+  return v_until;   -- ★entitlements.pro_until へは書き込まない（導出型）。null=有効ライセンス無し。
 end;
 $$;
 revoke all on function public._grant_school_pro_by_email(text) from public, anon, authenticated;
+
+-- ----------------------------------------------------------------------------
+-- 【(B)移行SQL】pro_until に“焼き付いた”学校Proの残骸を失効させる（1回・★必ずビルド配信後に実行）。
+--   仕組み変更後、学校Proは member_status からライブ導出する。過去に pro_until へ書き込まれた分を過去日に
+--   落として整理する（現所属者はライブ導出でPro維持・名簿から外れた人はここで失効）。
+--   注意: pro_until は紹介/お試しと共用の1列。学校メンバーの紹介/お試しProも一緒に失効する（パイロット前提で許容）。
+--         購入(purchaseActive)は別列なので影響しない。
+--   ※先に実行すると旧クライアント（ライブ導出なし）では現所属者のProが一時的に消えるので、必ず配信後。
+--
+--   -- ① 現在/過去の学校メンバーの焼き付きを解消（現所属者はライブ導出でPro維持）:
+--   update public.entitlements e set pro_until = now() - interval '1 day', updated_at = now()
+--   from auth.users u
+--   where u.id = e.user_id
+--     and lower(u.email) in (select lower(email) from public.school_members)
+--     and e.pro_until is not null and e.pro_until > now();
+--
+--   -- ② 既に名簿から外した人（school_members に居ない）で、まだ pro_until が残る1名を個別に失効:
+--   update public.entitlements e set pro_until = now() - interval '1 day', updated_at = now()
+--   from auth.users u
+--   where u.id = e.user_id and lower(u.email) = lower('外した先生のメール@example.com');
+-- ----------------------------------------------------------------------------
 
 -- 4-1) 自分(先生)のホーム情報: 学校名・登録済み生徒数・上限。先生でなければ null。
 create or replace function public.teacher_home()
