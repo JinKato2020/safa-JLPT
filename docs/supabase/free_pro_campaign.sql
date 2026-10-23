@@ -34,7 +34,8 @@ grant select on public.free_pro_campaigns to anon, authenticated;
 grant select, insert, update, delete on public.free_pro_campaigns to service_role;
 
 -- 地域限定の完全Pro無料キャンペーンを開始（無期限＝active=true・終了日は切らない）。
--- 対象6地域: 台湾(TW)・日本(JP)・タイ(TH)・インドネシア(ID)・ベトナム(VN)・韓国(KR)。
+-- 対象地域: 台湾(TW)・日本(JP)・タイ(TH)・インドネシア(ID)・ベトナム(VN)・韓国(KR)・アメリカ(US)・インド(IN)・イギリス(GB)・シンガポール(SG)。
+--   ※イギリスのISO2は 'GB'（'UK'ではない）。端末のregionCode(ISO2)と一致させるため 'GB' で登録。
 -- ※日本を含む＝本拠地市場の課金収入を一時停止する判断（ユーザー承認 2026-10-21）。
 -- これ以外の国は従来どおり有料のまま。やめたい国は個別に active=false にできる（再ビルド不要）。
 insert into public.free_pro_campaigns (region, active, note) values
@@ -43,7 +44,11 @@ insert into public.free_pro_campaigns (region, active, note) values
   ('TH', true, 'タイ 完全Pro無料キャンペーン（将来有料化を周知）'),
   ('ID', true, 'インドネシア 完全Pro無料キャンペーン（将来有料化を周知）'),
   ('VN', true, 'ベトナム 完全Pro無料キャンペーン（将来有料化を周知）'),
-  ('KR', true, '韓国 完全Pro無料キャンペーン（将来有料化を周知）')
+  ('KR', true, '韓国 完全Pro無料キャンペーン（将来有料化を周知）'),
+  ('US', true, 'アメリカ 完全Pro無料キャンペーン（将来有料化を周知）'),
+  ('IN', true, 'インド 完全Pro無料キャンペーン（将来有料化を周知）'),
+  ('GB', true, 'イギリス 完全Pro無料キャンペーン（将来有料化を周知。UKのISO2は GB）'),
+  ('SG', true, 'シンガポール 完全Pro無料キャンペーン（将来有料化を周知）')
   on conflict (region) do update
     set active = excluded.active, note = excluded.note, updated_at = now();
 

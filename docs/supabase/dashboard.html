@@ -446,6 +446,7 @@ async function loadCore(){
     stock:   api(_url,_key,'v_admin_stock'),
     devices: api(_url,_key,'v_admin_devices'),
     signups: api(_url,_key,'v_admin_signups'),
+    campaigns: apiRaw(_url,_key,'free_pro_campaigns?select=region&active=eq.true'),
   });
   // 主要ビューが落ちたら全体エラーに倒す（キー/権限ミスの早期検知）。定着率は任意。
   for(const k of ['summary','geo','level','stock','devices']){ if(!dataOk(R[k])) throw R[k].__err; }
@@ -453,6 +454,8 @@ async function loadCore(){
   geoData = R.geo || []; geoRet = dataOk(R.retGeo) ? (R.retGeo||[]) : []; renderGeo();
   renderLevel(R.level);
   renderStock(R.stock);
+  // 系統A(地域キャンペーンPro)の対象地域。free_pro_campaigns(active=true)。テーブル未作成でも他は壊さない(任意)。
+  campaignRegions = dataOk(R.campaigns) ? (R.campaigns||[]).map(x=>String(x.region||'').toUpperCase()).filter(Boolean) : [];
   devData = R.devices || []; renderDevices(); renderAvatarUsage();
   if(dataOk(R.signups)) renderSignups(R.signups);
   else $('signupCharts').innerHTML = `<div class="empty">登録者推移のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</div>`;
@@ -939,6 +942,27 @@ function proCell(r){
   }
   return pill('無料');
 }
+
+// ── 系統A: 地域キャンペーンPro(完全無料) ──
+// キャンペーンは端末のOS地域設定(regionCode)で判定され、サーバーに保存されない([[free_pro_campaign]])。
+// 正確表示にはアプリが送る device_region を使い、未送信(旧版/旧匿名)は IP国(geo_country)で推定(ズレ得る)。
+let campaignRegions = []; // free_pro_campaigns(active=true) の対象地域。loadCoreでセット。'ALL'=全世界。
+function campaignStatus(r){
+  const dev = String(r.device_region||'').toUpperCase(); // 端末OS地域(正確=キャンペーン判定の実値)
+  const ip  = String(r.geo_country||'').toUpperCase();    // IP国(フォールバック=推定)
+  if(campaignRegions.includes('ALL')) return { on:true, approx:false, code:(dev||ip||'ALL') };
+  if(dev) return { on: campaignRegions.includes(dev), approx:false, code:dev };
+  if(ip)  return { on: campaignRegions.includes(ip),  approx:true,  code:ip  };
+  return { on:null, approx:false, code:'' }; // 端末地域もIP国も無い=判定不能
+}
+function campaignCell(r){
+  const s = campaignStatus(r);
+  if(s.on===null) return `<span class="pill" title="端末の地域設定もIP国も無い(匿名の旧版など)。キャンペーンProの判定ができません">系A <span class="muted">不明</span></span>`;
+  const est  = s.approx ? ` <span class="muted" title="端末の地域設定が未送信のため、IP国からの推定。端末の設定とズレることがあります">推定</span>` : '';
+  const code = s.code ? `(${esc(s.code)})` : '';
+  if(s.on) return `<span class="pill good" title="地域キャンペーンで完全Pro無料${s.approx?'(IP国からの推定)':'(端末の地域設定=正確)'}。地域コード=${esc(s.code)}">系A 無料Pro${code}</span>${est}`;
+  return `<span class="pill" title="キャンペーン対象地域ではない${s.approx?'(IP推定)':'(端末の地域設定)'}。地域コード=${esc(s.code)}">系A 対象外${code}</span>${est}`;
+}
 const COLS = [
   // ── 固定表示(左)：ID/メール〜状態まで（FROZEN_COUNT枚）。この順序と枚数を変えたら FROZEN_COUNT も合わせる ──
   { g:'利用者', key:'who',   label:'ID / メール', val:r=>(r.email||r.anon_id||''),
@@ -950,8 +974,8 @@ const COLS = [
   { g:'活動', key:'study_min',  label:'学習時間', num:1, title:'累計の学習時間(アプリを前面で使った時間の合計)', val:r=>numOr(r.study_min),  cell:r=> hm(r.study_min ?? 0) },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'利用者', key:'pro_state', label:'状態',
-    title:'課金の状態。無料＝Pro無し／永続Pro＝管理付与の恒久Pro（admin_grant_pro forever・期限なし・最優先表示）／1年Pro・1月Pro＝有料サブスク（RevenueCat課金・残り日数と自動更新の有無を併記）／7日Pro＝お試し・紹介の期間つきPro（紹介が続くと7日を超えて延びる）。有料と期間つきを両方持つ人は有料を主表示',
-    val:r=>proEnd(r), cell:r=>proCell(r) },
+    title:'Proは2系統を併記。系A＝地域キャンペーンPro（完全無料・端末のOS地域設定で判定・サーバー未保存→アプリが送るregionCodeで正確表示／未送信はIP国で「推定」）。系B＝サーバー付与（無料／永続Pro＝管理付与／1年・1月Pro＝有料サブスク／7日Pro＝お試し・紹介）。',
+    val:r=>proEnd(r), cell:r=>`<span style="white-space:nowrap">${campaignCell(r)}<span class="muted" style="margin:0 6px">｜</span>系B ${proCell(r)}</span>` },
   // ── ここから右は横スクロール ──
   { g:'利用者', key:'platform', label:'端末', val:r=>r.platform||'', cell:r=> esc(r.platform||'—') },
   { g:'ステータス', key:'avatar',      label:'アバター', title:'選んだアバター(男1〜男5/女1〜女5)。アプリ v1.1.35 以降が送信',

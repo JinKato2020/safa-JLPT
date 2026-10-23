@@ -8,6 +8,7 @@ import { dayStr, type AppState } from '../store/state';
 import { readinessFor, ringsFor, learnedNow, coverageBars, levelRank, daimonMasteryCounts, passageMasteryCounts, expectedScoreFor, strongFacetJa, facetAccuracies } from '../store/selectors';
 import { relativePositionFor, isOfficialLevel } from '../ladder/relativePosition';
 import { stockCounts } from './stock';
+import { deviceRegion } from '../pro/campaign'; // 端末OSの地域設定(regionCode)。地域キャンペーンProが判定に使う実値=管理ダッシュボードの「系統A」正確表示用に送る。
 import { allItemIdsFor } from '../data';
 import { daysBetween } from '../store/state';
 import type { Category } from '../engine/engine';
@@ -15,8 +16,11 @@ import { supabase } from '../config/supabase';
 import { getCachedGeoCountry } from '../geo/geoClient';
 import { personalityOf, moodMsgOf } from '../plaza/persona';
 import { getDeviceId } from './deviceId';
+import * as Application from 'expo-application';
 
-const APP_VERSION = '1.1.0';
+// アプリの実バージョン(app.json の version=ネイティブの CFBundleShortVersionString / versionName)を実行時に読む。
+// 旧実装は '1.1.0' 固定で、版を上げても管理ダッシュボードが古い版を表示し続けるバグがあった。取得不可(null)のみ''。
+const APP_VERSION = Application.nativeApplicationVersion ?? '';
 
 // ── ライフサイクル計測(install / first_session / next_day_open)。願い(wish)非依存の素の継続シグナル。
 const M_INSTALL = 'install';
@@ -196,6 +200,8 @@ function snapshotBody(state: AppState, anon: string, now: number, geoCC?: string
 
     // 接続国(IP由来・Cloudflare trace)。管理ダッシュボードの国別(全体/匿名)を端末単位で数える=利用者削除と連動して減る。
     geoCountry: geoCC ?? null,
+    // 端末OSの地域設定(regionCode・ISO2大文字)。地域キャンペーンPro(完全無料)が実際に判定に使う実値=管理ダッシュボードの「系統A(キャンペーン)」を正確表示するため。取得不可は''。
+    region: deviceRegion(),
     daysToExam, badgeSet: state.settings.badgeSet ?? 'gorgeous', theme: state.settings.theme,
     reminderOn: !!state.settings.reminder,
     remaining, total, exhausted,

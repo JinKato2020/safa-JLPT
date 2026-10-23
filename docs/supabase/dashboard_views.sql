@@ -122,6 +122,8 @@ from (
     data->>'level'                                              as level,
     data->>'exam'                                               as exam,
     data->>'platform'                                           as platform,
+    -- 端末OSの地域設定(regionCode)。地域キャンペーンPro(完全無料)の判定に使う実値=「系統A」の正確表示用。未送信(旧スナップショット/旧版)はnull→ダッシュボードはIP国(geo_country)で推定表示。
+    data->>'region'                                             as device_region,
     -- 「この行は誰か」を特定するための身元列(アプリ版/OS/初回日/利用日数)。
     -- 匿名IDは端末のアプリ内保存に作るUUID＝入れ直し/データ削除/別バンドルで新しいIDになる。
     data->>'app'                                                as app,
