@@ -114,6 +114,8 @@ jobs:
           [ -f confirm_for_teacher.html ] && cp confirm_for_teacher.html _site/ || true
           # 教師専用サイト(先生が自校の生徒の学習/成長を閲覧)。docs配下から同ドメインへ配信。
           [ -f docs/supabase/teacher.html ] && cp docs/supabase/teacher.html _site/ || true
+          # 管理ダッシュボード(スマホ閲覧用・noindex・鍵は画面入力でファイルに無し)
+          [ -f docs/supabase/dashboard.html ] && cp docs/supabase/dashboard.html _site/ || true
           # 共有辞書を1か所で配信(JLPT・App B 共通の単一ソース): /dict/ja-*.json
           [ -d dict ] && cp -r dict _site/dict || true
           # 問題コンテンツ(大問×レベル・i18n inline)を /content/ で配信=逐次OTAの取得元。
