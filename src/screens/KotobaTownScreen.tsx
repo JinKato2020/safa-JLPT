@@ -241,8 +241,8 @@ const DIR8: { d: Dir; ux: number; uy: number }[] = [
 ];
 const MAP_DAY = require('../../assets/kotoba/map/day.jpg');
 const MAP_NIGHT = require('../../assets/kotoba/map/night.jpg');
-const MAP_TREE_DAY = require('../../assets/kotoba/map/tree.png'); // 昼: 中央の木だけの透過レイヤー(最前面=人が裏に隠れる)
-const MAP_TREE_NIGHT = require('../../assets/kotoba/map/tree_night.png'); // 夜: 同じ形で夜マップの木の色に合わせた透過レイヤー
+const MAP_TREE_DAY = require('../../assets/kotoba/map/autumn_tree_day.png'); // 昼: 中央の木だけの透過レイヤー(最前面=人が裏に隠れる)
+const MAP_TREE_NIGHT = require('../../assets/kotoba/map/autumn_tree_night.png'); // 夜: 同じ形で夜マップの木の色に合わせた透過レイヤー
 // 家の前面レイヤー(木と同じ最前面=屋根+壁の下を歩く=入口に入ると家の前に隠れる「建物に入る」演出)。書斎/書庫×昼夜。
 // 家の躯体は当たり判定で塞がっているため、屋根だけだと下に入れない→屋根+壁の家シルエットを最前面にして入口で隠す。
 const ROOFS = [
@@ -269,7 +269,13 @@ const WARP_ZONES: { x: number; y: number; w: number; h: number; t: WarpTarget }[
 ];
 
 // 中央の木レイヤー(ユーザー提供のきれいな切り抜き tree.png)を最前面に重ねる。幹の付け根をマップの木に合わせて配置。
-const TREE = { x: 259, y: 165, w: 437, h: 285 };
+const TREE = { x: 259, y: 165, w: 437, h: 285 }; // 夏版と同じNPC初期配置の除外範囲を維持。
+// 原寸1254pxの地図と樹木の元切り抜きは画素一致で位置確認済み。
+// 表示だけ1024pxワールドへ変換。当たり判定・ワープ・NPC配置には使わない。
+const AUTUMN_TREE_FRAME = {
+  day: { x: 404 * 1024 / 1254, y: 247 * 1024 / 1254, w: 390 * 1024 / 1254, h: 267 * 1024 / 1254 },
+  night: { x: 411 * 1024 / 1254, y: 258 * 1024 / 1254, w: 373 * 1024 / 1254, h: 240 * 1024 / 1254 },
+};
 
 // 応援コメント(固定6種・自由入力なし=荒らし不可)。仮想学習者にも送れる(ローカル反応のみ)。
 const CHEERS: { key: string; emoji: string; label: string; reply: string }[] = [
@@ -541,6 +547,7 @@ export default function KotobaTownScreen() {
   sittersRef.current = sitters; // 移動ループ(閉包)から最新の座り手を参照するため
   const isDay = useDaylight() === 'day'; // 開発用 昼/夜固定(devDaylight)を尊重・時刻でも自動更新。町/会話の背景・ダイアログ昼夜に反映
   const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
+  const treeFrame = AUTUMN_TREE_FRAME[isDay ? 'day' : 'night'];
   const MAP_TREE = isDay ? MAP_TREE_DAY : MAP_TREE_NIGHT; // 木の最前面レイヤーも昼夜で切替(夜も木の裏を通れる)
 
   const start = useRef({ x: (START_COL + 0.5) * CELL - SPRITE / 2, y: (START_ROW + 0.5) * CELL - SPRITE * 0.82 }).current;
@@ -840,7 +847,7 @@ export default function KotobaTownScreen() {
       <View style={s.viewport}>
         <Animated.View style={{ position: 'absolute', width: WORLD, height: WORLD, transform: [{ translateX: worldOff.x }, { translateY: worldOff.y }] }}>
           {/* 下: マップ本体 */}
-          <Image source={MAP_IMG} style={{ position: 'absolute', width: WORLD, height: WORLD }} resizeMode="cover" />
+          <Image source={MAP_IMG} style={{ zIndex: 0, position: 'absolute', width: WORLD, height: WORLD }} resizeMode="cover" />
           {/* ベンチ付近の仮想学習者(動かない)。立ちと同じ現行スプライトを SPRITE サイズで表示＋名前/Lv名札。 */}
           {sitters.map((si, i) => {
             const SET = AVATAR_SETS[si.v.avatar] || HERO;
@@ -864,7 +871,7 @@ export default function KotobaTownScreen() {
             <Animated.Image source={SPRITES[dir][poseIdx]} style={{ width: SPRITE, height: SPRITE, transform: [{ translateY: bobY }] }} resizeMode="contain" />
           </Animated.View>
           {/* 上: 木のレイヤー(人より前面=木の裏に回ると隠れる)。day.jpgと同じ位置に重ねる。zIndex=2000でアバター(最大WORLD=1024)より必ず前面。 */}
-          <Image source={MAP_TREE} style={{ position: 'absolute', left: TREE.x, top: TREE.y, width: TREE.w, height: TREE.h, zIndex: 2000 }} resizeMode="stretch" />
+          <Image source={MAP_TREE} style={{ position: 'absolute', left: treeFrame.x, top: treeFrame.y, width: treeFrame.w, height: treeFrame.h, zIndex: 2000 }} resizeMode="stretch" />
           {/* 上: 家の屋根レイヤー(人より前面=屋根の下を歩くと隠れる)。昼夜で切替。 */}
           {ROOFS.map((rf, i) => (
             <Image key={i} source={isDay ? rf.day : rf.night} style={{ position: 'absolute', left: rf.x, top: isDay ? rf.y : ((rf as { nightY?: number }).nightY ?? rf.y), width: rf.w, height: rf.h, zIndex: 2000 }} resizeMode="stretch" />

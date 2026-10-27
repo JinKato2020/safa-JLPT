@@ -18,6 +18,7 @@ import { recordQualifyingDay, isTriggerMet } from '../referral/trigger';
 import { reportQualified, getDeviceRef } from '../referral/referralClient';
 import { composeVoice, pickFlavor, renderVoice } from '../story/voice';
 import { pickAfterStudyImage } from '../data/afterStudyArt';
+import { useDaylight } from '../data/tabArt';
 import { homeStatus } from '../home/homeStatus';
 import RubyText from './RubyText';
 import { useT } from '../i18n';
@@ -97,7 +98,8 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ①イラスト(毎回)=学習ごとに1枚ずつ順送り(afterStudyCount が種)。マンネリ防止(気分転換)。
-  const img = useMemo(() => pickAfterStudyImage(state.settings.afterStudyCount ?? 0, Date.now()), []); // eslint-disable-line react-hooks/exhaustive-deps
+  const daylight = useDaylight();
+  const img = useMemo(() => pickAfterStudyImage(state.settings.afterStudyCount ?? 0, Date.now(), daylight), []); // eslint-disable-line react-hooks/exhaustive-deps
   const dims = img ? Image.resolveAssetSource(img) : null;
   const aspect = dims && dims.width && dims.height ? dims.width / dims.height : 3 / 2;
   const frameW = width - spacing.lg * 2;

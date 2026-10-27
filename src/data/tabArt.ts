@@ -9,7 +9,7 @@ import { useAppState } from '../store/store';
 export type TabKey = 'word' | 'exam' | 'dict';
 export { daylightAt, type Daylight };
 
-// ホーム背景(ユーザー提供 HOME.png)。昼=home_bg.jpg / 夜=home_bg_night.jpg を時刻で切替。
+// 秋版ホーム背景(ユーザー提供 HOME_秋_昼/夜.png)。昼=home_bg.jpg / 夜=home_bg_night.jpg を時刻で切替。
 export const HOME_BG_BY: Record<Daylight, ImageSourcePropType> = {
   day: require('../../assets/tabs/home_bg.jpg'),
   night: require('../../assets/tabs/home_bg_night.jpg'),
@@ -17,7 +17,7 @@ export const HOME_BG_BY: Record<Daylight, ImageSourcePropType> = {
 // 後方互換(昼)。現行の参照が残っていても壊れないように。
 export const HOME_BG: ImageSourcePropType = HOME_BG_BY.day;
 
-// 各タブの全画面背景(昼/夜)。word=単語タブ, exam=試験タブ, dict=辞書タブ。
+// 秋版の各タブ背景(昼/夜)。word=単語タブ, exam=試験タブ, dict=辞書タブ。
 export const TAB_BG: Record<TabKey, Record<Daylight, ImageSourcePropType>> = {
   word: { day: require('../../assets/tabs/word_bg_day.jpg'), night: require('../../assets/tabs/word_bg_night.jpg') },
   exam: { day: require('../../assets/tabs/exam_bg_day.jpg'), night: require('../../assets/tabs/exam_bg_night.jpg') },
