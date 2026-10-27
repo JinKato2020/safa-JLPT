@@ -60,11 +60,11 @@
   #tDevices tr.row:hover td.frz{ background:var(--bg); }
   #tDevices .frzend{ box-shadow:2px 0 0 rgba(0,0,0,.12); }
   /* スマホでは固定7列が画面全体を覆ってしまうため、表全体を横に流す。 */
-  @media (max-width:768px){
+  @media (max-width:1024px), (any-pointer:coarse){
     main{ padding:12px 8px 40px; }
     section{ min-width:0; padding:12px 10px; }
     .admin-row > section{ flex-basis:100%; }
-    #tDevices .frz{ position:static; }
+    #tDevices .frz{ position:static !important; left:auto !important; z-index:auto; }
     #tDevices .frzend{ box-shadow:none; }
   }
   .empty{ color:var(--sub); font-size:13px; padding:8px 0; }
@@ -1112,6 +1112,11 @@ function renderDevices(){
 // 利用者一覧の左側(ID/メール〜状態)を固定表示。列幅は実測してleftを設定(可変幅対応)。行が無ければ何もしない。
 function freezeCols(){
   const tbl = $('tDevices');
+  // 横向きやPC版サイト表示のスマホも対象。固定列の幅が端末幅を覆わないようにする。
+  if(window.matchMedia('(max-width:1024px), (any-pointer:coarse)').matches){
+    if(tbl) tbl.querySelectorAll('.frz').forEach(cell=>{ cell.style.left = ''; });
+    return;
+  }
   const bodyRow = tbl && tbl.querySelector('tr.row');
   if(!bodyRow) return;
   const bcells = bodyRow.children; // 0=選択列, 1.. = 各列
