@@ -979,11 +979,6 @@ const COLS = [
     val:r=>proEnd(r), cell:r=>`<span style="white-space:nowrap">${campaignCell(r)}<span class="muted" style="margin:0 6px">｜</span>系B ${proCell(r)}</span>` },
   // ── ここから右は横スクロール ──
   { g:'利用者', key:'platform', label:'端末', val:r=>r.platform||'', cell:r=> esc(r.platform||'—') },
-  { g:'ステータス', key:'avatar',      label:'アバター', title:'選んだアバター(男1〜男5/女1〜女5)。アプリ v1.1.35 以降が送信',
-    val:r=>r.avatar||'', cell:r=> r.avatar ? `${avatarImgTag(r.avatar,20)} ${esc(avatarLabel(r.avatar))}` : '<span class="off">—</span>' },
-  { g:'ステータス', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
-  { g:'ステータス', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
-  { g:'ステータス', key:'strong',      label:'得意', title:'いちばん正答率が高い区分（漢字／語彙／文法／読解／聴解の5区分）', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },
   // 1アカウント1行＝「今のレベル(is_latest)」だけを表示する。過去に使ったレベルの行は出さない。
   { g:'利用者', key:'level', label:'レベル', title:'そのアカウントが今使っているレベル(最新のみ表示・過去に使ったレベルは非表示)',
     val:r=>(r.level||'')+(r.is_latest?' 1':' 0'),
@@ -998,6 +993,12 @@ const COLS = [
     cell:r=> (r.pred_score==null ? '<span class="empty">—</span>'
       : `<b style="${(r.pass_total!=null && r.pred_score>=r.pass_total)?'color:#2e7d32':''}">${r.pred_score}</b><span class="muted">/${r.pred_max ?? 180}</span>`
         + (r.pass_total!=null ? `<span class="muted" title="合格ライン"> 合${r.pass_total}</span>` : '')) },
+  // ステータス(アバター/性格/気分/得意)は予想得点の直後に配置(ユーザー指定)。
+  { g:'ステータス', key:'avatar',      label:'アバター', title:'選んだアバター(男1〜男5/女1〜女5)。アプリ v1.1.35 以降が送信',
+    val:r=>r.avatar||'', cell:r=> r.avatar ? `${avatarImgTag(r.avatar,20)} ${esc(avatarLabel(r.avatar))}` : '<span class="off">—</span>' },
+  { g:'ステータス', key:'personality', label:'性格', title:'選んだ性格(20種)', val:r=>r.personality||'', cell:r=> esc(r.personality||'—') },
+  { g:'ステータス', key:'mood',        label:'気分', title:'いまの気分ひとこと', val:r=>r.mood||'', cell:r=> esc(r.mood||'—') },
+  { g:'ステータス', key:'strong',      label:'得意', title:'いちばん正答率が高い区分（漢字／語彙／文法／読解／聴解の5区分）', val:r=>r.strong||'', cell:r=> esc(r.strong||'—') },
   { g:'カバー率', key:'cov_kanji',   label:'漢字', num:1, val:r=>numOr(r.cov_kanji),   cell:r=> pct(r.cov_kanji) },
   { g:'カバー率', key:'cov_vocab',   label:'語彙', num:1, val:r=>numOr(r.cov_vocab),   cell:r=> pct(r.cov_vocab) },
   { g:'カバー率', key:'cov_grammar', label:'文法', num:1, val:r=>numOr(r.cov_grammar), cell:r=> pct(r.cov_grammar) },
