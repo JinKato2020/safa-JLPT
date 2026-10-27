@@ -1490,5 +1490,7 @@
   "grammarNote.patterns": "Thể",
   "grammarNote.examples": "Ví dụ",
   "grammarNote.pitfalls": "Lỗi thường gặp",
-  "grammarNote.loadFailed": "Không thể tải giải thích. Vui lòng kết nối Internet và mở lại."
+  "grammarNote.loadFailed": "Không thể tải giải thích. Vui lòng kết nối Internet và mở lại.",
+  "home.coach_btn": "HLV AI",
+  "sakura.coach_hint": "Nhấn vào vòng tròn phía trên hoặc \"HLV AI\" để phân tích sự tiến bộ và điểm yếu của bạn, đồng thời gợi ý những gì cần làm tiếp theo."
 }

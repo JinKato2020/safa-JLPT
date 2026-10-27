@@ -1490,5 +1490,7 @@
   "grammarNote.patterns": "形式",
   "grammarNote.examples": "例句",
   "grammarNote.pitfalls": "常见错误",
-  "grammarNote.loadFailed": "无法加载解释。请连接互联网后重试。"
+  "grammarNote.loadFailed": "无法加载解释。请连接互联网后重试。",
+  "home.coach_btn": "AI教练",
+  "sakura.coach_hint": "点击上方的圆环或“AI教练”，它会分析你的成长和弱点，并告诉你接下来该怎么做。"
 }

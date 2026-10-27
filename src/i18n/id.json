@@ -1490,5 +1490,7 @@
   "grammarNote.patterns": "Bentuk",
   "grammarNote.examples": "Contoh Kalimat",
   "grammarNote.pitfalls": "Kesalahan Umum",
-  "grammarNote.loadFailed": "Gagal memuat penjelasan. Harap sambungkan ke internet dan coba lagi."
+  "grammarNote.loadFailed": "Gagal memuat penjelasan. Harap sambungkan ke internet dan coba lagi.",
+  "home.coach_btn": "Pelatih AI",
+  "sakura.coach_hint": "Ketuk cincin di atas atau \"Pelatih AI\" untuk menganalisis kemajuan dan kelemahan Anda, lalu memberi tahu apa yang harus dilakukan selanjutnya."
 }

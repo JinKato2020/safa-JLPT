@@ -102,8 +102,8 @@ export default function HomeScreen() {
     <View style={styles.c} onStartShouldSetResponderCapture={() => { armIdle(); return false; }}>
       <TabBackground source={homeBg}>
         <SafeBoundary tag="homering" fallback={null}>
-          {/* リングをタップ=AIコーチ(分析ホーム)を開く。成長/継続の詳細分析はそこへ集約。 */}
-          <Pressable style={[styles.wrap, { top, left, width: ringW, height: ringW }]} onPress={() => nav.navigate('AICoach')} accessibilityLabel={t('home.a11y_open_coach')}>
+          {/* リングをタップ=AIコーチ(分析ホーム)を開く。成長/継続の詳細分析はそこへ集約。押している間は少し縮む=押せる手ごたえ。 */}
+          <Pressable style={({ pressed }) => [styles.wrap, { top, left, width: ringW, height: ringW }, pressed && styles.pressed]} onPress={() => nav.navigate('AICoach')} accessibilityLabel={t('home.a11y_open_coach')}>
             {/* 画像は必ず明示サイズ(=ringW)で拘束する。absoluteFill+containは実機で実寸化する事故があるため使わない。 */}
             {/* グロー(1重) */}
             <Animated.Image
@@ -130,6 +130,18 @@ export default function HomeScreen() {
               </View>
             </View>
           </Pressable>
+          {/* リングが押せると気づかない人向けの入口。リング下(グローの外側)に「AIコーチ ›」。 */}
+          <View style={[styles.coachBtnRow, { top: top + ringW + Math.round(ringW * 0.14) }]} pointerEvents="box-none">
+            <Pressable
+              style={({ pressed }) => [styles.coachBtn, pressed && styles.pressed]}
+              onPress={() => nav.navigate('AICoach')}
+              hitSlop={8}
+              accessibilityRole="button"
+              accessibilityLabel={t('home.a11y_open_coach')}
+            >
+              <Text numberOfLines={1} style={styles.coachBtnTxt}>{t('home.coach_btn')} ›</Text>
+            </Pressable>
+          </View>
         </SafeBoundary>
         {!simple && (
         <SafeBoundary tag="homecoach" fallback={null}>
@@ -174,6 +186,11 @@ const styles = StyleSheet.create({
   c: { flex: 1 },
   wrap: { position: 'absolute', alignItems: 'center', justifyContent: 'center' },
   glow: { position: 'absolute' },
+  pressed: { transform: [{ scale: 0.95 }], opacity: 0.85 },
+  // リング下の「AIコーチ ›」(半透明の濃紺ピル＋白字=リング中央の文字と同じ白系)。
+  coachBtnRow: { position: 'absolute', left: 0, right: 0, alignItems: 'center' },
+  coachBtn: { backgroundColor: 'rgba(16,28,64,0.55)', borderRadius: 999, borderWidth: 1, borderColor: 'rgba(255,255,255,0.45)', paddingVertical: 7, paddingHorizontal: 18 },
+  coachBtnTxt: { color: '#ffffff', fontSize: 14, fontWeight: '800', letterSpacing: 0.5, textShadowColor: 'rgba(0,0,0,0.6)', textShadowRadius: 3, textShadowOffset: { width: 0, height: 1 } },
   pct: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
   center: { alignItems: 'center', justifyContent: 'center' },
   pctInner: { alignItems: 'center', justifyContent: 'center' },

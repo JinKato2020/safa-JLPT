@@ -1,7 +1,7 @@
 // AIコーチ＝「分析ホーム」。合格の見込み(合格率＋予想得点)・分野別到達度・この7日の成長(証拠つき)・
 // 弱点・ゴールまでの見通し・継続/学習量 を1画面に集約。癒し(桜)とは分け、淡々とした分析専用画面。
 //  ・データは homeStatus / growthStats の実データ。数値ロジックには触れない(表示のみ)。
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, Image, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +11,7 @@ import Svg, { Path, Circle, Rect, Defs, LinearGradient, Stop, Polygon, Line, Tex
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
-import { useAppState } from '../store/store';
+import { useAppState, useAppActions } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
 import { weekGain, scoreGain, growthBars } from '../home/growthStats';
 import { dayStr, lastNDays, type MockResult } from '../store/state';
@@ -34,6 +34,11 @@ export default function AICoachScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const { width: winW } = useWindowDimensions();
   const chartW = winW - spacing.lg * 2 - spacing.md * 2; // 画面(body:lg)＋カード(md)のパディング分
+  // 一度でも開いたら、桜の「リングでAIコーチが開く」案内はもう出さない(SakuraSpeech)。
+  const { setSettings } = useAppActions();
+  useEffect(() => {
+    if (!state.settings.coachOpened) setSettings({ coachOpened: true });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const d = useMemo(() => {
     const now = Date.now();

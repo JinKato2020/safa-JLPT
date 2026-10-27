@@ -1490,5 +1490,7 @@
   "grammarNote.patterns": "形式",
   "grammarNote.examples": "例句",
   "grammarNote.pitfalls": "常見錯誤",
-  "grammarNote.loadFailed": "無法載入解釋。請連線網際網路後重試。"
+  "grammarNote.loadFailed": "無法載入解釋。請連線網際網路後重試。",
+  "home.coach_btn": "AI教練",
+  "sakura.coach_hint": "點選上方的圓環或“AI教練”，它會分析你的成長和弱點，並告訴你接下來該怎麼做。"
 }

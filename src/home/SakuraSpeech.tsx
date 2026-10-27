@@ -71,6 +71,10 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
       const n = 1 + Math.floor((now / 1000) % NEWCOMER_COUNT);
       text = t('voice.newcomer.' + n);
       setSettings({ lastSakuraSpeechAt: now }); // sakuraRecoDayはまだ立てない(1語覚えたら通常導線へ)
+    } else if (!state.settings.coachOpened && !state.settings.coachHintShown) {
+      // AIコーチをまだ開いたことがない人に、一度だけ「リング(下のボタン)でAIコーチが開く」と教える。
+      text = t('sakura.coach_hint');
+      setSettings({ coachHintShown: true, lastSakuraSpeechAt: now });
     } else if (state.settings.sakuraRecoDay !== today) {
       text = t('sakura.reco_hint');
       setSettings({ sakuraRecoDay: today, lastSakuraSpeechAt: now });
@@ -114,7 +118,8 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
   const charH = Math.round(charW * (costumeImg ? 1.37 : 1.12)); // HomeCoach と同式
   const ringBottomY = Math.round(height * 0.15 + width * 0.40);  // リング下端(HomeScreen と同式)
   const headBottom = 74 + charH + Math.round(height * 0.02);      // 桜の頭上(画面下からの距離)。wrap.bottom=74 と一致
-  const maxBottom = height - ringBottomY - 96;                    // これ以上上げるとリングに被る
+  const coachBtnSpace = Math.round(width * 0.40 * 0.14) + 40;     // リング下の「AIコーチ ›」ボタン分(HomeScreen coachBtnRow と同式)
+  const maxBottom = height - ringBottomY - 96 - coachBtnSpace;    // これ以上上げるとリング/ボタンに被る
   const bubbleBottom = Math.max(Math.round(height * 0.14), Math.min(headBottom, maxBottom));
   return (
     <Animated.View style={[s.wrap, { bottom: bubbleBottom, opacity: fade }]} pointerEvents="box-none">
