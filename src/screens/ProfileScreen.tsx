@@ -293,6 +293,19 @@ export default function ProfileScreen() {
         <View style={s.card}>
           <View style={s.telemRow}>
             <View style={s.telemTxt}>
+              <Text style={s.telemLbl}>シンプルモード(ミニマル殻の確認)</Text>
+              <Text style={s.subtle}>ON=没入演出(全画面イラスト/マスコット/🐚・町)を外したミニマル表示。別アプリ「ミニマル殻」は既定ON固定。</Text>
+            </View>
+            <Switch
+              style={s.telemSwitch}
+              value={state.settings.simpleMode === true}
+              onValueChange={(v) => setSettings({ simpleMode: v })}
+              trackColor={{ true: c.blueLight, false: c.line }}
+              thumbColor={c.faint}
+            />
+          </View>
+          <View style={s.telemRow}>
+            <View style={s.telemTxt}>
               <Text style={s.telemLbl}>ポイント無限</Text>
               <Text style={s.subtle}>ONでショップを桜貝の残高に関係なく無制限に購入＋獲得の1日上限(300貝)も無視(テスト用)</Text>
             </View>

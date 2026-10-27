@@ -17,6 +17,7 @@ import { getCachedGeoCountry } from '../geo/geoClient';
 import { personalityOf, moodMsgOf } from '../plaza/persona';
 import { getDeviceId } from './deviceId';
 import * as Application from 'expo-application';
+import { APP_FLAVOR } from '../app/flavor';
 
 // アプリの実バージョン(app.json の version=ネイティブの CFBundleShortVersionString / versionName)を実行時に読む。
 // 旧実装は '1.1.0' 固定で、版を上げても管理ダッシュボードが古い版を表示し続けるバグがあった。取得不可(null)のみ''。
@@ -202,6 +203,8 @@ function snapshotBody(state: AppState, anon: string, now: number, geoCC?: string
     geoCountry: geoCC ?? null,
     // 端末OSの地域設定(regionCode・ISO2大文字)。地域キャンペーンPro(完全無料)が実際に判定に使う実値=管理ダッシュボードの「系統A(キャンペーン)」を正確表示するため。取得不可は''。
     region: deviceRegion(),
+    // どのアプリ(殻)か。immersive=没入版 / minimal=ミニマル殻。bundle idから導出(src/app/flavor.ts)。管理ダッシュボードで「どちらのUIが各国で人気か」をアプリ別×国別に可視化するため。
+    flavor: APP_FLAVOR,
     daysToExam, badgeSet: state.settings.badgeSet ?? 'gorgeous', theme: state.settings.theme,
     reminderOn: !!state.settings.reminder,
     remaining, total, exhausted,

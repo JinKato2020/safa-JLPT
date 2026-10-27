@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, ScrollView, StyleSheet, useWindowDimensions, type DimensionValue, type ImageSourcePropType } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { useColors, useSimpleMode } from '../theme/useColors';
 
 export const IMMERSIVE = {
   card: 'rgba(255,251,244,0.88)',
@@ -19,9 +20,11 @@ export const IMMERSIVE = {
 // blinkSource=「閉じ目版」の全画面画像(元絵と目以外は完全同一)を渡すと、その画像を背景に重ねて
 // 透明度を 2回/6秒 で 0→1→0 させる=目だけが閉じて見える(他は同一なのでチラつかない)。
 export function TabBackground({ source, blinkSource, scrim = 0, children }: { source: ImageSourcePropType; blinkSource?: ImageSourcePropType; scrim?: number; children?: React.ReactNode }) {
+  const simple = useSimpleMode();
+  const c = useColors();
   const blink = useRef(new Animated.Value(0)).current;
   useEffect(() => {
-    if (!blinkSource) return;
+    if (!blinkSource || simple) return;
     const once = () => Animated.sequence([
       Animated.timing(blink, { toValue: 1, duration: 80, useNativeDriver: true }),
       Animated.timing(blink, { toValue: 0, duration: 95, useNativeDriver: true }),
@@ -32,7 +35,9 @@ export function TabBackground({ source, blinkSource, scrim = 0, children }: { so
     ]));
     loop.start();
     return () => loop.stop();
-  }, [blinkSource, blink]);
+  }, [blinkSource, blink, simple]);
+  // シンプルモード: 全画面イラストの代わりに無地背景(前景の文字色は各要素で ink に切替)。
+  if (simple) return <View style={[styles.fill, { backgroundColor: c.bg }]}>{children}</View>;
   return (
     <View style={styles.fill}>
       <Image source={source} style={styles.bg} resizeMode="cover" />
@@ -44,7 +49,9 @@ export function TabBackground({ source, blinkSource, scrim = 0, children }: { so
 }
 
 export function SceneTitle({ children }: { children: React.ReactNode }) {
-  return <Text style={styles.title}>{children}</Text>;
+  const simple = useSimpleMode();
+  const c = useColors();
+  return <Text style={[styles.title, simple && { color: c.ink, textShadowColor: 'transparent' }]}>{children}</Text>;
 }
 
 // イラスト下端(ボトムナビの上)に固定する小アイコンの操作列。和紙調の細い帯に載せる。
@@ -57,13 +64,15 @@ export function BottomIconBar({ children }: { children: React.ReactNode }) {
 export function TabIconButton({ glyph, icon, label, accent, count, active, onPress }: {
   glyph?: string; icon?: React.ComponentProps<typeof Ionicons>['name']; label: string; accent: string; count?: number; active?: boolean; onPress: () => void;
 }) {
+  const simple = useSimpleMode();
+  const c = useColors();
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [styles.btn, pressed && styles.btnPressed]} accessibilityLabel={label}>
       <View style={[styles.circle, { borderColor: accent }, active && { borderWidth: 3, backgroundColor: '#fff', transform: [{ translateY: -3 }] }]}>
         {icon ? <Ionicons name={icon} size={20} color={accent} /> : <Text style={[styles.glyph, { color: accent }]}>{glyph}</Text>}
         {count != null && count > 0 ? <Text style={[styles.badge, { backgroundColor: accent }]}>{count}</Text> : null}
       </View>
-      <Text style={styles.btnLabel} numberOfLines={1}>{label}</Text>
+      <Text style={[styles.btnLabel, simple && { color: c.ink, textShadowColor: 'transparent' }]} numberOfLines={1}>{label}</Text>
     </Pressable>
   );
 }

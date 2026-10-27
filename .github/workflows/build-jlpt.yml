@@ -1,5 +1,5 @@
 name: まいにちJLPT (Pages配信 + iOS/Android ビルド)
-run-name: "${{ inputs.build_number && format('{0} — まいにちJLPT {1} ビルド', inputs.build_number, inputs.platforms) || format('Pages — まいにちJLPT 配信 ({0})', github.event.head_commit.message) }}"
+run-name: "${{ inputs.build_number && format('{0} — {1} {2} ビルド', inputs.build_number, inputs.variant == 'minimal' && 'JLPT lite' || 'まいにちJLPT', inputs.platforms) || format('Pages — まいにちJLPT 配信 ({0})', github.event.head_commit.message) }}"
 
 # =============================================================================
 # まいにちJLPT — 1ワークフローに統合(ユーザー要望 2026-07-17):
@@ -20,6 +20,9 @@ run-name: "${{ inputs.build_number && format('{0} — まいにちJLPT {1} ビ�
 #   iOS     : IOS_DIST_CERT_BASE64 / IOS_DIST_CERT_PASSWORD / IOS_TEAM_ID
 #             APP_STORE_CONNECT_KEY_ID / APP_STORE_CONNECT_ISSUER_ID / APP_STORE_CONNECT_API_KEY_BASE64
 #             IOS_PROVISIONING_PROFILE_JLPT_BASE64
+#   iOS(minimal殻 com.safa.jlpt2 / variant=minimal 時のみ):
+#             IOS_PROVISIONING_PROFILE_JLPT2_BASE64 / GOOGLESERVICE_INFO_PLIST_LITE_BASE64
+#             (任意) MINIMAL_ADMOB_IOS_APP_ID … 未設定なら app.config.js が没入版の値を仮置き
 #   Android : ANDROID_KEYSTORE_BASE64 / ANDROID_KEYSTORE_PASSWORD / ANDROID_KEY_ALIAS / ANDROID_KEY_PASSWORD
 #             (publish時のみ) GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_BASE64
 # =============================================================================
@@ -35,6 +38,12 @@ on:
         default: 'both'
         type: choice
         options: ['both', 'ios', 'android']
+      variant:
+        description: 'アプリの殻。immersive=没入版(既定・com.safa.jlpt) / minimal=ミニマル殻 Mainichi JLPT lite(com.safa.jlpt2・iOS専用)'
+        required: false
+        default: 'immersive'
+        type: choice
+        options: ['immersive', 'minimal']
       build_number:
         description: 'Build番号=Android versionCode(=2000+commit数・iOS/Android同一値)。run-name先頭に出すため dispatch 側で渡す。空ならジョブ内で計算'
         required: false
@@ -116,6 +125,8 @@ jobs:
           [ -f docs/supabase/teacher.html ] && cp docs/supabase/teacher.html _site/ || true
           # 管理ダッシュボード(スマホ閲覧用・noindex・鍵は画面入力でファイルに無し)
           [ -f docs/supabase/dashboard.html ] && cp docs/supabase/dashboard.html _site/ || true
+          # 文法の「くわしい解説」(サイトの解説を取り込み=tools/import_grammar_notes.py)。アプリが開いた時に1点ずつ取得。
+          [ -d web/grammar-notes ] && cp -r web/grammar-notes _site/grammar-notes || true
           # 共有辞書を1か所で配信(JLPT・App B 共通の単一ソース): /dict/ja-*.json
           [ -d dict ] && cp -r dict _site/dict || true
           # 問題コンテンツ(大問×レベル・i18n inline)を /content/ で配信=逐次OTAの取得元。
@@ -150,7 +161,7 @@ jobs:
           #  失敗し「Invalid region」誤表示でR2同期が毎回失敗＝OTA配信が届いていなかった)。secret側も是正済だが二重防御。
           RCLONE_CONFIG_R2_ENDPOINT=$(printf '%s' "$RCLONE_CONFIG_R2_ENDPOINT" | tr -d '[:space:]'); export RCLONE_CONFIG_R2_ENDPOINT
           curl -fsSL https://rclone.org/install.sh | sudo bash
-          for d in assets content dict invite r schools; do
+          for d in assets content dict invite r schools grammar-notes; do
             [ -d "_site/$d" ] && rclone sync "_site/$d" "r2:jlpt-assets/$d" --s3-no-check-bucket --transfers 32 --checkers 32 --fast-list
           done
           rclone copy _site "r2:jlpt-assets" --include "/*.html" --s3-no-check-bucket
@@ -195,6 +206,20 @@ jobs:
       - name: Install npm dependencies
         run: npm ci || npm install
 
+      # 殻(variant)を解決: 以降の段は BUNDLE_ID / APP_VARIANT を読む。
+      #  APP_VARIANT は app.config.js が prebuild 時に読む(immersive=app.jsonそのまま=従来と同一)。
+      - name: Resolve variant (bundle id / APP_VARIANT)
+        run: |
+          if [ "${{ inputs.variant }}" = "minimal" ]; then
+            echo "BUNDLE_ID=com.safa.jlpt2" >> $GITHUB_ENV
+            echo "APP_VARIANT=minimal" >> $GITHUB_ENV
+            echo "::notice::variant=minimal (Mainichi JLPT lite / com.safa.jlpt2)"
+          else
+            echo "BUNDLE_ID=com.safa.jlpt" >> $GITHUB_ENV
+            echo "APP_VARIANT=immersive" >> $GITHUB_ENV
+            echo "::notice::variant=immersive (まいにちJLPT / com.safa.jlpt)"
+          fi
+
       - name: Calculate build number
         run: |
           # ★Android の versionCode と同一値(2000+commit)。iOS は増加さえしていればよいので
@@ -213,28 +238,43 @@ jobs:
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           echo "::notice::Build number: $BUILD_NUMBER"
           APP_VERSION=$(node -p "require('./app.json').expo.version" 2>/dev/null || echo "?")
-          echo "## 📦 ${BUILD_NUMBER} — iOS build ・ まいにちJLPT v$APP_VERSION (TestFlight)" >> $GITHUB_STEP_SUMMARY
+          APP_LABEL=$([ "$APP_VARIANT" = "minimal" ] && echo "Mainichi JLPT lite" || echo "まいにちJLPT")
+          echo "## 📦 ${BUILD_NUMBER} — iOS build ・ $APP_LABEL v$APP_VERSION (TestFlight / $BUNDLE_ID)" >> $GITHUB_STEP_SUMMARY
 
       # Firebase Analytics 設定ファイルを base64 Secret から復元(公開repoに置けないため)。
       #  prebuild が @react-native-firebase/app プラグインでネイティブへ取り込む前に必要。
-      #  正本=C:\API 秘密の鍵\JLPT\firebase\ / GitHub Secret 名は下記2つ。
+      #  正本=C:\API 秘密の鍵\JLPT\firebase\ (minimal殻=C:\API 秘密の鍵\JLPT lite\)。
+      #  minimal は app.config.js の googleServicesFile(=MINIMAL_GS_PLIST)へ lite用 plist を置く。
       - name: Decode Firebase config files (Analytics)
         env:
           GS_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
           GS_PLIST_B64: ${{ secrets.GOOGLESERVICE_INFO_PLIST_BASE64 }}
+          GS_PLIST_LITE_B64: ${{ secrets.GOOGLESERVICE_INFO_PLIST_LITE_BASE64 }}
         run: |
-          if [ -z "$GS_JSON_B64" ] || [ -z "$GS_PLIST_B64" ]; then
-            echo "::error::Firebase secrets 未設定 (GOOGLE_SERVICES_JSON_BASE64 / GOOGLESERVICE_INFO_PLIST_BASE64)。safa-JLPT に追加してください"; exit 1
+          if [ "$APP_VARIANT" = "minimal" ]; then
+            if [ -z "$GS_PLIST_LITE_B64" ]; then
+              echo "::error::minimal殻の Firebase secret 未設定 (GOOGLESERVICE_INFO_PLIST_LITE_BASE64)。safa-JLPT に追加してください"; exit 1
+            fi
+            printf '%s' "$GS_PLIST_LITE_B64" | base64 --decode > GoogleService-Info-lite.plist
+            test -s GoogleService-Info-lite.plist || { echo "::error::GoogleService-Info-lite.plist decode 失敗"; exit 1; }
+            echo "::notice::Firebase config (lite) decoded"
+          else
+            if [ -z "$GS_JSON_B64" ] || [ -z "$GS_PLIST_B64" ]; then
+              echo "::error::Firebase secrets 未設定 (GOOGLE_SERVICES_JSON_BASE64 / GOOGLESERVICE_INFO_PLIST_BASE64)。safa-JLPT に追加してください"; exit 1
+            fi
+            printf '%s' "$GS_JSON_B64" | base64 --decode > google-services.json
+            printf '%s' "$GS_PLIST_B64" | base64 --decode > GoogleService-Info.plist
+            test -s google-services.json || { echo "::error::google-services.json decode 失敗"; exit 1; }
+            test -s GoogleService-Info.plist || { echo "::error::GoogleService-Info.plist decode 失敗"; exit 1; }
+            echo "::notice::Firebase config files decoded"
           fi
-          printf '%s' "$GS_JSON_B64" | base64 --decode > google-services.json
-          printf '%s' "$GS_PLIST_B64" | base64 --decode > GoogleService-Info.plist
-          test -s google-services.json || { echo "::error::google-services.json decode 失敗"; exit 1; }
-          test -s GoogleService-Info.plist || { echo "::error::GoogleService-Info.plist decode 失敗"; exit 1; }
-          echo "::notice::Firebase config files decoded"
 
       - name: Expo prebuild (iOS)
         env:
           EXPO_NO_TELEMETRY: '1'
+          # app.config.js の差し込み口(minimal時のみ読まれる。immersive では無視=従来と同一)。
+          MINIMAL_GS_PLIST: ./GoogleService-Info-lite.plist
+          MINIMAL_ADMOB_IOS_APP_ID: ${{ secrets.MINIMAL_ADMOB_IOS_APP_ID }}
         run: npx expo prebuild --platform ios --clean
 
       - name: Detect Xcode project name
@@ -287,8 +327,11 @@ jobs:
 
       - name: Install provisioning profile
         env:
-          PROFILE_B64: ${{ secrets.IOS_PROVISIONING_PROFILE_JLPT_BASE64 }}
+          PROFILE_B64_IMMERSIVE: ${{ secrets.IOS_PROVISIONING_PROFILE_JLPT_BASE64 }}
+          PROFILE_B64_MINIMAL: ${{ secrets.IOS_PROVISIONING_PROFILE_JLPT2_BASE64 }}
         run: |
+          if [ "$APP_VARIANT" = "minimal" ]; then PROFILE_B64="$PROFILE_B64_MINIMAL"; else PROFILE_B64="$PROFILE_B64_IMMERSIVE"; fi
+          if [ -z "$PROFILE_B64" ]; then echo "::error::provisioning profile secret 未設定 (variant=$APP_VARIANT)"; exit 1; fi
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           echo "$PROFILE_B64" | base64 --decode > profile.mobileprovision
           PROFILE_UUID=$(security cms -D -i profile.mobileprovision | plutil -extract UUID raw -o - -)
@@ -411,7 +454,8 @@ jobs:
   #        方針=自動なら既定値も自動側に置く(既定OFF+dispatch指定漏れ=黙って落ちる、を再発させない)。
   #    ・実機に直接入れるAPKが欲しい時は aab=false publish=false で起動する(AAB生成時はAPKを作らないため)。
   build-android:
-    if: github.event_name == 'workflow_dispatch' && (inputs.platforms == 'both' || inputs.platforms == 'android')
+    # minimal殻(Mainichi JLPT lite)は iOS専用。variant=minimal の時は platforms に関わらず Android を作らない。
+    if: github.event_name == 'workflow_dispatch' && inputs.variant != 'minimal' && (inputs.platforms == 'both' || inputs.platforms == 'android')
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:

@@ -31,7 +31,8 @@ export type RootStackParamList = {
   PassageGrammar: { title?: string } | undefined; // 文章の文法(大問⑧・セット形式=1文章＋5設問。passageGrammar.json)。title=大問名ヘッダー
   Listening: { subtype?: 'kadai' | 'point' | 'gaiyou' | 'hatsuwa' | 'sokuji'; title?: string } | undefined; // 聴解(小区分つき)。title=大問名ヘッダー
   Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review'; char?: string; script?: 'kanji' | 'hiragana' | 'katakana' } | undefined; // 書き取り(漢字/ひらがな/カタカナ・3ステップ、単字自由練習対応)
-  KanjiDetail: { char: string; scope?: 'level' | 'all' }; // scope=level:自レベル読み(単語タブ) / all(既定):全読み(辞書)
+  KanjiDetail: { char: string; scope?: 'level' | 'all' };
+  GrammarNote: { id: string }; // 文法の「くわしい解説」(サイトの解説を取り込み・grammarNotes.ts) // scope=level:自レベル読み(単語タブ) / all(既定):全読み(辞書)
   ListeningQuiz: { kind: 'vocab' | 'kanji' }; // 聞き取りドリル(学習→テスト・語彙/漢字)
   KanjiRecognition: { mode?: 'mean' | 'read' } | undefined; // 漢字認識テスト(字を単独提示→意味/読み4択)。mode=意味/読みを別ボタンに分離
   KanjiForm: undefined; // 漢字の形の弁別テスト(似た字4択→正しい字を選ぶ・form面)

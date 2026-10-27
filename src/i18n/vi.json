@@ -1485,5 +1485,10 @@
   "campaign.free_note": "Luyện tập không giới hạn số lần, mở khóa đề thi thử, không quảng cáo. Trong tương lai có thể thu phí, chúng tôi sẽ thông báo trước cho bạn.",
   "campaign.intro_title": "Ưu đãi miễn phí có hạn🎁",
   "campaign.intro_body": "Hiện tại, tại khu vực này, bạn có thể sử dụng miễn phí các tính năng Pro: luyện tập không giới hạn số lần, mở khóa đề thi thử, và không quảng cáo. Trong tương lai sẽ có phí, nhưng chúng tôi sẽ thông báo trong ứng dụng trước khi chuyển đổi (bạn sẽ không bị tính phí đột ngột).",
-  "campaign.intro_ok": "Vâng, tôi đã hiểu"
+  "campaign.intro_ok": "Vâng, tôi đã hiểu",
+  "grammarNote.open": "Giải thích chi tiết",
+  "grammarNote.patterns": "Thể",
+  "grammarNote.examples": "Ví dụ",
+  "grammarNote.pitfalls": "Lỗi thường gặp",
+  "grammarNote.loadFailed": "Không thể tải giải thích. Vui lòng kết nối Internet và mở lại."
 }

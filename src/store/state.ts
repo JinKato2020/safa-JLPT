@@ -22,6 +22,7 @@ export interface Settings {
   l1: string;              // 母語コード (vi/ne/id/my/en/zh)
   examDate: string | null; // 試験日 YYYY-MM-DD
   theme: ThemeMode;
+  simpleMode?: boolean;    // シンプルモード=没入演出(全画面イラスト/マスコット/ゲーム要素)を外したミニマル表示。未設定/false=通常(没入)。ミニマル殻アプリ(別bundle id)は既定ON固定(src/app/flavor.ts)。
   reminder: string | null; // 学習リマインド "HH:MM"
   onboarded: boolean;      // オンボーディング(自己チェック)完了
   // 広場/町のプロフィール(オンボーディングで入力)。未設定=未入力(旧stateにも無い)

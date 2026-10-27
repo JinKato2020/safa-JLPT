@@ -6,7 +6,7 @@ import { NavigationContainer, DefaultTheme, useNavigation, useNavigationState, S
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator, type NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useColors } from './src/theme';
+import { useColors, useSimpleMode } from './src/theme';
 import { useAppFonts, setActiveFont } from './src/theme/fonts';
 import WatercolorBackground from './src/components/WatercolorBackground';
 import { AppProvider, useAppState, useAppActions, useHydrated } from './src/store/store';
@@ -39,6 +39,7 @@ import BrowseScreen from './src/screens/BrowseScreen';
 import CardsScreen from './src/screens/CardsScreen';
 import KakitoriScreen from './src/screens/KakitoriScreen';
 import KanjiDetailScreen from './src/screens/KanjiDetailScreen';
+import GrammarNoteScreen from './src/screens/GrammarNoteScreen';
 import ListeningQuizScreen from './src/screens/ListeningQuizScreen';
 import KanjiRecognitionScreen from './src/screens/KanjiRecognitionScreen';
 import KanjiFormScreen from './src/screens/KanjiFormScreen';
@@ -208,6 +209,7 @@ function MainTabs() {
   const openInbox = () => { setCheerUnread(0); setAnnounceN(0); void markAnnounceRead(); nav.navigate('CheerInbox'); };
   // ボトムタブの見た目を保ちつつ、画面間を横スワイプで移動可能に(material-top-tabs を下配置)。
   // 設定タブは廃止 → 画面上部に共通の操作列(左から): アカウント/JLPTレベル/設定/通知。
+  const simple = useSimpleMode();
   const iconBtn = [topBar.btn, { backgroundColor: c.surface, borderColor: c.line }];
   return (
     <View style={{ flex: 1 }}>
@@ -266,14 +268,18 @@ function MainTabs() {
         <Pressable onPress={() => nav.navigate('Account')} accessibilityLabel={t('account.title')} hitSlop={6} style={iconBtn}>
           <Ionicons name="person-circle-outline" size={26} color={c.ink} />
         </Pressable>
-        {/* 貝殻ポイント(タップでショップへ)。 */}
+        {/* 貝殻ポイント(タップでショップへ)。シンプルモード(ミニマル殻)ではゲーム要素として非表示。 */}
+        {!simple && (
         <Pressable onPress={() => nav.navigate('Shop')} accessibilityLabel={t('shop.points_label')} hitSlop={6} style={[topBar.pill, { backgroundColor: c.surface, borderColor: c.line }]}>
           <Text style={[topBar.pillTxt, { color: c.ink }]}>🐚 {walletPoints(state)}</Text>
         </Pressable>
-        {/* 日本語学習者の町(外の世界を歩く入口)。設定より左に置く(設定は右端固定)。 */}
+        )}
+        {/* 日本語学習者の町(外の世界を歩く入口)。設定より左に置く(設定は右端固定)。シンプルモードでは非表示。 */}
+        {!simple && (
         <Pressable onPress={() => nav.navigate('KotobaTown')} accessibilityLabel="日本語学習者の町" hitSlop={6} style={iconBtn}>
           <Ionicons name="footsteps-outline" size={22} color={c.ink} />
         </Pressable>
+        )}
         {/* 通知(受信箱): 運営からのお知らせ＋友だちの応援。設定の左に固定。未読があれば赤バッジ。
             運営のお知らせは全員一律で未ログインでも出すため、ベル自体は常時表示する。 */}
         <Pressable onPress={openInbox} accessibilityLabel={t('inbox.title')} hitSlop={6} style={iconBtn}>
@@ -469,6 +475,7 @@ function Root() {
             <RootStack.Screen name="PosterAudio" component={PosterAudioScreen} options={{ presentation: 'card' }} />
             {/* 以下は overlay/ダイアログ的なのでモーダル(下から)のまま。 */}
             <RootStack.Screen name="KanjiDetail" component={KanjiDetailScreen} options={{ presentation: 'modal' }} />
+            <RootStack.Screen name="GrammarNote" component={GrammarNoteScreen} options={{ presentation: 'modal' }} />
             {/* My単語帳は辞書タブ内(DictStack)へ移設=タブ内画面。ボトムナビを消さない(ユーザー要望2026-07-27)。 */}
             <RootStack.Screen name="Account" component={AccountScreen} options={{ presentation: 'modal' }} />
             <RootStack.Screen name="Settings" component={ProfileScreen} options={{ presentation: 'modal' }} />

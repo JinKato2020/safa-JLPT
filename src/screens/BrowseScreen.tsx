@@ -23,6 +23,7 @@ import RubyText from '../components/RubyText';
 import { rubyForWord } from '../kakitori/furigana';
 import Dropdown from '../components/Dropdown';
 import { levelListFor } from '../words/levelList';
+import { hasGrammarNote } from '../data/grammarNotes';
 import { studySections } from '../words/sections';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
@@ -314,6 +315,11 @@ export default function BrowseScreen() {
             {renderSentence(ex.ja, tgt ?? item.point, grammarExtraTr(ex, l1))}
           </View>
         ))}
+        {hasGrammarNote(item.id) && (
+          <Pressable style={s.noteBtn} hitSlop={6} onPress={() => nav.navigate('GrammarNote', { id: item.id })}>
+            <Text style={s.noteBtnTxt}>{t('grammarNote.open')} ›</Text>
+          </Pressable>
+        )}
         {idNode}
       </View>
     );
@@ -453,6 +459,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   example: { fontSize: ty.body, color: c.ink, lineHeight: 24, marginTop: spacing.xs },
   exampleRubyWrap: { marginTop: spacing.xs },
   extraExample: { marginTop: spacing.sm },
+  // 文法カード下の「くわしい解説 ›」(GrammarNoteScreen へ)。
+  noteBtn: { alignSelf: 'flex-start', marginTop: spacing.sm, paddingVertical: 4 },
+  noteBtnTxt: { fontSize: ty.small, fontWeight: '800', color: c.blue },
   exampleRubyBase: { fontSize: ty.body, color: c.ink },
   exampleRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },
   exampleHit: { color: c.ink, textDecorationLine: 'underline' },

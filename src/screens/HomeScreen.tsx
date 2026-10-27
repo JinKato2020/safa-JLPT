@@ -17,7 +17,7 @@ import SakuraSpeech from '../home/SakuraSpeech';
 import WeeklyLetter from '../home/WeeklyLetter';
 import SafeBoundary from '../components/SafeBoundary';
 import GradientButton from '../components/GradientButton';
-import { useColors } from '../theme';
+import { useColors, useSimpleMode } from '../theme';
 import { SHOP_BY_ID } from '../data/shop';
 
 const RING = require('../../assets/home/pass_ring.png');
@@ -28,6 +28,7 @@ export default function HomeScreen() {
   const now = Date.now();
   const { width, height } = useWindowDimensions();
   const homeBg = useHomeBg(); // 昼/夜で自動切替
+  const simple = useSimpleMode();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const t = useT();
   const c = useColors(); // 配布モーダルの模試チケット券をショップと同じ色(bgSoft)で描くため
@@ -130,13 +131,17 @@ export default function HomeScreen() {
             </View>
           </Pressable>
         </SafeBoundary>
+        {!simple && (
         <SafeBoundary tag="homecoach" fallback={null}>
           <HomeCoach status={status} learned={learnedNow(state, now)} />
         </SafeBoundary>
-        {/* 桜の今日の一言(受験日 > 出迎え)。1日1回・タップで消える。減衰レイヤーが頻度を絞る。 */}
+        )}
+        {/* 桜の今日の一言(受験日 > 出迎え)。1日1回・タップで消える。シンプルモードでは非表示。 */}
+        {!simple && (
         <SafeBoundary tag="sakuraspeech" fallback={null}>
           <SakuraSpeech idleTick={idleTick} />
         </SafeBoundary>
+        )}
         {/* 週に1度の「桜からのおたより」(今週の成長＋そっと 友だち紹介/アプリ評価を交互に)。条件は内部で判定。 */}
         <SafeBoundary tag="weeklyletter" fallback={null}>
           <WeeklyLetter />

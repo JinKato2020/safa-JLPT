@@ -5,6 +5,7 @@
     tools\build.ps1 -NoCommit                       # コミット済み・ビルドだけ
     tools\build.ps1 -Message "..." -DryRun          # 検証まで（push も dispatch もしない）
     tools\build.ps1 -Message "..." -Platforms ios   # 既定は both
+    tools\build.ps1 -Message "..." -Variant minimal # ミニマル殻 Mainichi JLPT lite(com.safa.jlpt2・iOS専用)
     tools\build.ps1 -Message "..." -NoWatch         # dispatch まで（監視しない＝既定の運用方針）
 
   やること: manifest再生成 → テスト+tsc → commit → push → Build番号算出 → dispatch → 監視(-NoWatch で省略)
@@ -25,7 +26,10 @@ param(
   [switch]$Approved,           # ★勝手にBuild厳禁ゲート。ユーザーが明示的に「ビルドして」と言った時だけ付ける。
   [switch]$Major,              # バージョンをメジャー更新（中央+1・末尾を1へ）。既定はマイナー更新（末尾+1）。
   [ValidateSet('both', 'ios', 'android')]
-  [string]$Platforms = 'both'
+  [string]$Platforms = 'both',
+  # アプリの殻。minimal=ミニマル殻 Mainichi JLPT lite(com.safa.jlpt2・iOS専用)。既定=没入版。
+  [ValidateSet('immersive', 'minimal')]
+  [string]$Variant = 'immersive'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -52,6 +56,12 @@ Claude はユーザーの明示指示なしに -Approved を付けないこと�
 '@
 }
 
+# ---- 0.5 minimal殻は iOS専用 -----------------------------------------------
+if ($Variant -eq 'minimal' -and $Platforms -ne 'ios') {
+  Write-Host "  variant=minimal は iOS専用のため Platforms を '$Platforms' → 'ios' に矯正します。" -ForegroundColor Yellow
+  $Platforms = 'ios'
+}
+
 # ---- 1. 前提チェック -------------------------------------------------------
 Step 1 '前提チェック'
 if (-not (Test-Path (Join-Path $APP 'app.json'))) { Die "リポジトリルートに app.json が見つかりません: $APP" }
@@ -76,11 +86,15 @@ if (-not $DryRun -and $Platforms -ne 'android') {
   $today = (Get-Date).ToString('yyyy-MM-dd')
   $iosToday = 0
   if (Test-Path $DISPATCH_LEDGER) {
-    $iosToday = @(Get-Content $DISPATCH_LEDGER | Where-Object { $_ -match "`"date`":`"$today`"" -and $_ -match '"ios":true' }).Count
+    # Appleの上限はアプリ単位なので殻ごとに数える(variant欄の無い旧記録=没入版)。
+    $isMinimal = $Variant -eq 'minimal'
+    $iosToday = @(Get-Content $DISPATCH_LEDGER | Where-Object {
+        $_ -match "`"date`":`"$today`"" -and $_ -match '"ios":true' -and (($_ -match '"variant":"minimal"') -eq $isMinimal)
+      }).Count
   }
   if ($iosToday -ge $IOS_DAILY_CAP) {
     if (-not $Force) {
-      Die "今日すでに iOS を $iosToday 回ビルド済み。これ以上上げると Apple の1日アップロード上限(error 90382 = Upload limit reached)に当たり、当日は提出できなくなります。修正はためて明日まとめるのが安全です。どうしても必要なら -Force を付けて再実行してください。"
+      Die "今日すでに iOS($Variant) を $iosToday 回ビルド済み。これ以上上げると Apple の1日アップロード上限(error 90382 = Upload limit reached)に当たり、当日は提出できなくなります。修正はためて明日まとめるのが安全です。どうしても必要なら -Force を付けて再実行してください。"
     }
     Write-Host "  ⚠ 今日 $($iosToday + 1) 回目の iOS ビルド。-Force 指定のため続行しますが 90382 の恐れあり。" -ForegroundColor Yellow
   }
@@ -201,8 +215,8 @@ $build = 3000 + [int]$commits
 Write-Host "  commits=$commits -> Build $build"
 
 # ---- 7. dispatch -----------------------------------------------------------
-Step 7 "ビルド起動（platforms=$Platforms）"
-gh workflow run build-jlpt.yml -f platforms=$Platforms -f build_number=$build
+Step 7 "ビルド起動（platforms=$Platforms / variant=$Variant）"
+gh workflow run build-jlpt.yml -f platforms=$Platforms -f build_number=$build -f variant=$Variant
 if ($LASTEXITCODE -ne 0) { Die 'dispatch に失敗しました。' }
 Start-Sleep -Seconds 8
 $runId = gh run list --workflow=build-jlpt.yml --event workflow_dispatch --limit 1 --json databaseId -q '.[0].databaseId'
@@ -212,7 +226,7 @@ Write-Host "  run $runId — https://github.com/JinKato2020/safa-JLPT/actions/ru
 # 1日ガード用の台帳へ記録（iOSを含む=both/ios を ios:true で残す。翌日リセットは日付で自然に）。
 try {
   $iosFlag = if ($Platforms -eq 'android') { 'false' } else { 'true' }
-  Add-Content -Path $DISPATCH_LEDGER -Encoding utf8 -Value "{`"date`":`"$((Get-Date).ToString('yyyy-MM-dd'))`",`"build`":$build,`"platforms`":`"$Platforms`",`"ios`":$iosFlag,`"run`":`"$runId`"}"
+  Add-Content -Path $DISPATCH_LEDGER -Encoding utf8 -Value "{`"date`":`"$((Get-Date).ToString('yyyy-MM-dd'))`",`"build`":$build,`"platforms`":`"$Platforms`",`"variant`":`"$Variant`",`"ios`":$iosFlag,`"run`":`"$runId`"}"
 } catch { Write-Host "  (台帳記録は失敗しましたが続行) $($_.Exception.Message)" -ForegroundColor DarkYellow }
 
 if ($NoWatch) {

@@ -1485,5 +1485,10 @@
   "campaign.free_note": "練習次數無限制，解鎖模擬測試，無廣告。此功能未來可能會收費，屆時會提前通知您。",
   "campaign.intro_title": "限時免費活動🎁",
   "campaign.intro_body": "您所在地區的使用者目前可免費使用Pro功能，包括無限次練習、解鎖模擬測試和免廣告。將來此功能會收費，但我們會在切換前透過應用通知您（絕不會突然收費）。",
-  "campaign.intro_ok": "好的，知道了"
+  "campaign.intro_ok": "好的，知道了",
+  "grammarNote.open": "詳細解釋",
+  "grammarNote.patterns": "形式",
+  "grammarNote.examples": "例句",
+  "grammarNote.pitfalls": "常見錯誤",
+  "grammarNote.loadFailed": "無法載入解釋。請連線網際網路後重試。"
 }

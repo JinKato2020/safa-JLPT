@@ -707,10 +707,12 @@
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- docs/supabase/free_pro_campaign.sql
-- src/telemetry/telemetry.ts
-- docs/supabase/dashboard.html
-- docs/supabase/dashboard_views.sql
+- web/grammar-notes/zh2/n5-g-91.json
+- src/data/grammarNoteIds.json
+- web/grammar-notes/zh/n5-g-91.json
+- web/grammar-notes/vi/n5-g-91.json
+- web/grammar-notes/th/n5-g-91.json
+- web/grammar-notes/my/n5-g-91.json
 
-_自動更新: 2026-10-23 12:09_
+_自動更新: 2026-10-27 10:14_
 <!-- AUTO:END -->
