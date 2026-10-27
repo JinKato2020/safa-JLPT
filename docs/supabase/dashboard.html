@@ -198,7 +198,7 @@
   </section>
 
   <section>
-    <h2>国別（接続国・定着率・指標） <span class="note"><b>アカウント名寄せ済みの人単位</b>で最新の接続国を集計。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ。全体＝実人数（名寄せ済み）／登録＝ログイン済み／匿名＝一度もログインしていない実端末。<b>定着率D1/D7/D30</b>＝インストール後「少なくともN日目まで残った割合」（ローリング）。<b>D7母数</b>が小さいうち（数人）は割合が跳ねる参考値。目安：D1≥40%／D7≥20%／D30≥10%で緑。<b>予想得点</b>＝平均／<b>正:漢語文読聴</b>＝分野別平均正解率（v1.1.35〜のみ）／<b>覆:漢語文</b>＝学習分野別カバー率（平均）／<b>模試回数</b>＝合計・<b>模試得点</b>＝平均／<b>学習回数</b>＝完了練習の合計・<b>学習時間</b>＝合計。平均は測定値がある人だけ。<b>母集団</b>＝右の切替で「7日/30日アクティブ or 全体」を選べる（<b>既定＝7日アクティブ</b>＝インストールしただけの幽霊ユーザーを外した実勢値。全体＝離脱者も含む累計）。定着率D1/D7/D30はコホート指標なので母集団切替の影響を受けない。国はIP由来・旧版は「??」。利用者一覧を消すと国別からも自動で消える</span>
+    <h2>国別（接続国・定着率・指標） <span class="note"><b>アカウント名寄せ済みの人単位</b>で最新の接続国を集計。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ。全体＝実人数（名寄せ済み）／登録＝ログイン済み／匿名＝一度もログインしていない実端末。<b>定着率D1/D7/D30</b>＝インストール後「少なくともN日目まで残った割合」（ローリング）。<b>D7母数</b>が小さいうち（数人）は割合が跳ねる参考値。目安：D1≥40%／D7≥20%／D30≥10%で緑。<b>予想得点</b>＝平均／<b>正:漢語文読聴</b>＝分野別平均正解率（v1.1.35〜のみ）／<b>覆:漢語文</b>＝学習分野別カバー率（平均）／<b>模試回数</b>＝合計・<b>模試得点</b>＝平均／<b>学習回数</b>＝完了練習の合計・<b>アプリ利用時間</b>＝合計。平均は測定値がある人だけ。<b>母集団</b>＝右の切替で「7日/30日アクティブ or 全体」を選べる（<b>既定＝7日アクティブ</b>＝インストールしただけの幽霊ユーザーを外した実勢値。全体＝離脱者も含む累計）。定着率D1/D7/D30はコホート指標なので母集団切替の影響を受けない。国はIP由来・旧版は「??」。利用者一覧を消すと国別からも自動で消える</span>
       <span class="note lvpick"> ｜ 母集団:
         <label><input type="radio" name="geowin" class="geowin" value="7" checked> 7日</label>
         <label><input type="radio" name="geowin" class="geowin" value="30"> 30日</label>
@@ -208,12 +208,12 @@
   </section>
 
   <section>
-    <h2>レベル別 合計 <span class="note">人数・学習回数・学習時間は合計／<b>平均は「直近7日に使ったアクティブ人だけ」で計算</b>（インストールしただけの幽霊ユーザーは平均から除外）。予想得点・カバー率は下の「分布」カードへ移動</span></h2>
+    <h2>レベル別 合計 <span class="note">人数・学習回数・アプリ利用時間は合計／<b>平均は「直近7日に使ったアクティブ人だけ」で計算</b>（インストールしただけの幽霊ユーザーは平均から除外）。予想得点・カバー率は下の「分布」カードへ移動</span></h2>
     <div class="scroll"><table id="tLevel"></table></div>
   </section>
 
   <section>
-    <h2>成長の推移（時系列） <span class="note">実ユーザーの<b>日ごとの推移</b>を折れ線で記録（直近45日・過去分も表示）。学習時間＝その日に増えた累計学習秒の合計。テスト由来ノイズは除外</span>
+    <h2>成長の推移（時系列） <span class="note">実ユーザーの<b>日ごとの推移</b>を折れ線で記録（直近45日・過去分も表示）。アプリ利用時間＝その日に増えた累計学習秒の合計。テスト由来ノイズは除外</span>
       <span class="note lvpick"> ｜ 表示:
         <label><input type="checkbox" class="lvchk" data-g="trend" value="*"> 全</label>
         <label><input type="checkbox" class="lvchk" data-g="trend" value="N5" checked> N5</label>
@@ -534,7 +534,7 @@ function renderSummary(s){
   $('kpi').innerHTML = kpis.map(([l,n])=>`<div class="kpi"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
 }
 
-// 分を「◯時間◯分」に(60分未満はそのまま)。合計学習時間が読みやすくなる。
+// 分を「◯時間◯分」に(60分未満はそのまま)。合計アプリ利用時間が読みやすくなる。
 function hm(min){
   const m = Number(min||0);
   return m < 60 ? `${m}分` : `${Math.floor(m/60)}時間${m%60}分`;
@@ -598,7 +598,7 @@ function renderGeo(){
      {label:'予想得点',num:1},
      {label:'正:漢',num:1},{label:'正:語',num:1},{label:'正:文',num:1},{label:'正:読',num:1},{label:'正:聴',num:1},
      {label:'覆:漢',num:1},{label:'覆:語',num:1},{label:'覆:文',num:1},
-     {label:'模試回数',num:1},{label:'模試得点',num:1},{label:'学習回数',num:1},{label:'学習時間',num:1}],
+     {label:'模試回数',num:1},{label:'模試得点',num:1},{label:'学習回数',num:1},{label:'アプリ利用時間',num:1}],
     rows,
     [ r=>`<b>${esc(countryLabel(r.country))}</b>`,
       r=>`${r.total_installs ?? 0}`,
@@ -618,8 +618,8 @@ function renderGeo(){
 
 function renderLevel(level){
   simpleTbl($('tLevel'),
-    [{label:'レベル'},{label:'人数',num:1},{label:'アクティブ(7日)',num:1},{label:'今日のアクティブ',num:1},{label:'学習回数',num:1},{label:'学習時間(合計)',num:1},
-     {label:'平均 学習時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
+    [{label:'レベル'},{label:'人数',num:1},{label:'アクティブ(7日)',num:1},{label:'今日のアクティブ',num:1},{label:'学習回数',num:1},{label:'アプリ利用時間(合計)',num:1},
+     {label:'平均 アプリ利用時間',num:1},{label:'平均 継続日数',num:1},{label:'紹介(継続)',num:1},{label:'合格圏',num:1}],
     (level||[]).slice().sort(byLevel),
     [ r=>`<b>${r.level}</b>`, r=>`${r.users}人`, r=>`${r.active_users ?? 0}人`, r=>`${r.dau ?? 0}人`, r=>`${r.sessions ?? 0}回`, r=>hm(r.study_min),
       r=>hm(r.avg_study_min), r=>r.avg_streak, r=>`${r.referred_total ?? 0}人`, r=>`${r.passing_users}人` ]
@@ -746,7 +746,7 @@ function renderTrend(){
     mk('アクティブ人数','active_users') +
     mk('新規','new_users') +
     mk('学習回数','sessions') +
-    mk('学習時間(分)','study_min');
+    mk('アプリ利用時間(分)','study_min');
 }
 
 // ── 登録者の推移(時系列)。v_admin_signups(auth.users の登録日時を日次集計)を累計線＋新規線に。
@@ -971,8 +971,8 @@ const COLS = [
   { g:'言語プロフィール', key:'nickname',    label:'名前', title:'本人が設定した表示名', val:r=>r.nickname||'', cell:r=> esc(r.nickname||'—') },
   { g:'言語プロフィール', key:'geo_country',label:'国名', title:'接続国=IP由来のおおよその国(user_geo)。母語とは独立=英語話者でも日本にいれば「日本」。ログイン者のみ・匿名は—', val:r=>r.geo_country||'', cell:r=> esc(countryLabel(r.geo_country)) },
   { g:'言語プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
-  // 学習時間は「言語プロフィール」と「利用者(種別/状態)」の間に配置(ユーザー指定)。左固定列に含める。
-  { g:'活動', key:'study_min',  label:'学習時間', num:1, title:'累計の学習時間(アプリを前面で使った時間の合計)', val:r=>numOr(r.study_min),  cell:r=> hm(r.study_min ?? 0) },
+  // アプリ利用時間は「言語プロフィール」と「利用者(種別/状態)」の間に配置(ユーザー指定)。左固定列に含める。
+  { g:'活動', key:'study_min',  label:'アプリ利用時間', num:1, title:'累計のアプリ利用時間(前面・アクティブな時間。ホームや設定の閲覧も含む。対応版では15秒ごとに加算、60秒ごとと中断時に送信)', val:r=>numOr(r.study_min),  cell:r=> hm(r.study_min ?? 0) },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'利用者', key:'pro_state', label:'状態',
     title:'Proは2系統を併記。系A＝地域キャンペーンPro（完全無料・端末のOS地域設定で判定・サーバー未保存→アプリが送るregionCodeで正確表示／未送信はIP国で「推定」）。系B＝サーバー付与（無料／永続Pro＝管理付与／1年・1月Pro＝有料サブスク／7日Pro＝お試し・紹介）。',
@@ -1025,7 +1025,7 @@ const COLS = [
   { g:'活動', key:'streak',     label:'継続',   num:1, title:'連続学習日数',         val:r=>numOr(r.streak),     cell:r=> (r.streak ?? 0) },
   { g:'活動', key:'days',       label:'日数',   num:1, title:'データを送ってきた日数(使った日数)', val:r=>numOr(r.days), cell:r=> (r.days ?? '—') },
 ];
-const FROZEN_COUNT = 7; // 利用者一覧で左に固定表示する列数（ID/メール・名前・国名・母語・学習時間・種別・状態）
+const FROZEN_COUNT = 7; // 利用者一覧で左に固定表示する列数（ID/メール・名前・国名・母語・アプリ利用時間・種別・状態）
 const isFirstOfGroup = (i) => i===0 || COLS[i-1].g !== COLS[i].g;
 // 同じグループ内でも罫線を入れたい境界(大問の意味の切れ目)。この列の左に縦罫線を引く。
 //  d_grammar_form=文字語彙|文法 / d_choukai_kadai=読解|聴解 / daimon_learned=聴解|合計

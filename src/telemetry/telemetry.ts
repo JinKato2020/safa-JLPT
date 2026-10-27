@@ -18,6 +18,7 @@ import { personalityOf, moodMsgOf } from '../plaza/persona';
 import { getDeviceId } from './deviceId';
 import * as Application from 'expo-application';
 import { APP_FLAVOR } from '../app/flavor';
+import { createSerialTask } from './serialTask';
 
 // アプリの実バージョン(app.json の version=ネイティブの CFBundleShortVersionString / versionName)を実行時に読む。
 // 旧実装は '1.1.0' 固定で、版を上げても管理ダッシュボードが古い版を表示し続けるバグがあった。取得不可(null)のみ''。
@@ -187,7 +188,7 @@ function snapshotBody(state: AppState, anon: string, now: number, geoCC?: string
     learned: learnedNow(state, now),
     streak: state.streak.current, streakLongest: state.streak.longest, freezes: state.streak.freezes,
     mockCount: (state.mockHistory ?? []).length, studyDays: (state.growth ?? []).length,
-    studySeconds: state.studySeconds ?? 0, // 累計学習時間(秒)＝前面滞在の合算
+    studySeconds: state.studySeconds ?? 0, // 累計アプリ利用時間(秒)＝前面・アクティブな時間の合算
     // 管理ダッシュボードのプロフィール列(名前/母語/国名/気分/性格/得意)。読める日本語で送る(気分/性格はキー→ラベル解決済み)。
     profile: {
       nickname: state.settings.nickname ?? null,
@@ -237,15 +238,20 @@ export async function sendError(message: string, fatal: boolean, screen?: string
   await send('events', { v: 1, anonId: await anonId(), app: APP_VERSION, ts: Math.floor(Date.now() / 1000), name: 'error', props: { message: String(message).slice(0, 300), fatal, screen: screen || '' } });
 }
 
-/** 到達度スナップショット。force=false(前面化)=同日1回のみ / force=true(アプリを閉じる時)=学習後の状態で必ず更新。
+/** 到達度スナップショット。force=false(前面化)=同日1回のみ / force=true(前面中60秒ごと・中断時)=加算後の状態で必ず更新。
  *  サーバは (anonId, day) で upsert ＝ 1ユーザー/日 1行のまま(送信回数が増えても行は増えない)。 */
-export async function sendDailySnapshot(state: AppState, now: number, force = false): Promise<void> {
-  if (!enabled || state.settings.telemetry === false) return;
-  const day = dayStr(now);
-  if (!force && (await AsyncStorage.getItem(K_DAY)) === day) { await flush(); return; }
-  await send('snapshot', snapshotBody(state, await anonId(), now, await getCachedGeoCountry()));
-  await AsyncStorage.setItem(K_DAY, day);
-  await flush();
+const serialSnapshot = createSerialTask();
+export function sendDailySnapshot(state: AppState, now: number, force = false): Promise<void> {
+  if (!enabled || state.settings.telemetry === false) return Promise.resolve();
+  return serialSnapshot(async () => {
+    if (!enabled || state.settings.telemetry === false) return;
+    // Replay older offline samples BEFORE the latest one, never over it.
+    await flush();
+    const day = dayStr(now);
+    if (!force && (await AsyncStorage.getItem(K_DAY)) === day) return;
+    await send('snapshot', snapshotBody(state, await anonId(), now, await getCachedGeoCountry()));
+    await AsyncStorage.setItem(K_DAY, day);
+  });
 }
 
 /** 模試完了イベント。 */

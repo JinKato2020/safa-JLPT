@@ -68,6 +68,7 @@ import SafeBoundary from './src/components/SafeBoundary';
 import { DesignThemeProvider } from './src/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers, sendLifecycleMetrics } from './src/telemetry/telemetry';
 import { isTestLab } from './src/telemetry/testLab';
+import { createForegroundUsage, USAGE_TICK_MS } from './src/telemetry/foregroundUsage';
 
 // ナビゲーション状態から現在の画面名(最深ルート)を取得。
 function activeRouteName(navState: unknown): string | undefined {
@@ -366,24 +367,30 @@ function Root() {
       try { void sendError((e as { message?: string })?.message || String(e), !!isFatal); } catch { /* noop */ }
       prev?.(e, isFatal);
     });
-    let activeSince = Date.now();
     const fire = (force: boolean) => {
       setTelemetryEnabled(stateRef.current.settings.telemetry !== false && !isTestLab()); // Test Lab(自動試験)は計測しない
       void sendDailySnapshot(stateRef.current, Date.now(), force);
-      void sendLifecycleMetrics(stateRef.current, Date.now()); // install / 翌日起動を1回だけ(§8)
+      if (!force) void sendLifecycleMetrics(stateRef.current, Date.now()); // install / 翌日起動を1回だけ(§8)
     };
-    fire(false);
-    const sub = AppState.addEventListener('change', (s) => {
-      if (s === 'active') { activeSince = Date.now(); fire(false); }
-      else if (s === 'background') {
-        const sec = Math.round((Date.now() - activeSince) / 1000);
-        if (sec > 0 && sec < 6 * 3600) addStudySeconds(sec); // 前面滞在秒を累計学習時間へ(異常値は加算しない)
-        void sendEvent('app_session', { sec });
-        void flushAnswers();
-        fire(true); // 閉じる時=学習後の状態で当日分を上書き(1行のまま)
-      }
+    const usage = createForegroundUsage({
+      addSeconds: (sec) => {
+        // dispatch is asynchronous. Project the same increment into the ref BEFORE
+        // snapshotting, so the final foreground segment is included immediately.
+        stateRef.current = { ...stateRef.current, studySeconds: (stateRef.current.studySeconds ?? 0) + sec };
+        addStudySeconds(sec);
+      },
+      snapshot: fire,
+      session: (sec) => { void sendEvent('app_session', { sec }); void flushAnswers(); },
     });
-    return () => sub.remove();
+    // performance.now is monotonic: wall-clock/time-zone corrections cannot add hours.
+    const now = () => performance.now();
+    if (AppState.currentState === 'active') usage.active(now());
+    const timer = setInterval(() => usage.tick(now()), USAGE_TICK_MS);
+    const sub = AppState.addEventListener('change', (s) => {
+      if (s === 'active') usage.active(now());
+      else usage.pause(now()); // Stop at inactive, including notification/OS overlays.
+    });
+    return () => { clearInterval(timer); sub.remove(); usage.pause(now()); };
   }, [hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 課金(RevenueCat)の初期化とPro状態の同期。キー未設定(src/config/revenuecat.ts が空)なら全て no-op。

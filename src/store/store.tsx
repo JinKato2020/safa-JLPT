@@ -202,7 +202,7 @@ function reduceCore(state: AppState, action: Action): AppState {
 //  ・SYNC_TICKETS=起動毎に走る時刻由来の再計算(両端末で同じ結果=勝敗に使わない)
 //  ・Pro/お試し/紹介統計=サーバーが真実(端末の updatedAt で上書き勝負をしない)
 //  ・演出の既読フラグ=端末ローカルのUI状態
-//  ・ADD_STUDY_SECONDS=アプリ前面滞在秒の加算(App.tsx で background 化のたび発火)。
+//  ・ADD_STUDY_SECONDS=アプリ利用秒の加算(App.tsx で前面中15秒ごと・非アクティブ化時に発火)。
 //    「開いて閉じただけ」でも増えるので、これで updatedAt を刻むと勉強していない端末が
 //    学習端末を LWW で上書きしてしまう(本修正が防ぐはずの多端末データ消失そのもの)。
 //    総滞在秒は柔らかい統計ゆえ、実学習(QUIZ_ANSWER 等)が刻む updatedAt に相乗りで同期させる。
