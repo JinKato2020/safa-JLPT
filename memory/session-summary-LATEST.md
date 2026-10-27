@@ -1,15 +1,19 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- ツール呼び出し 12 回・22 ターン
-- 往復 965 回
+- 往復 1038 回
 
 ## 何が変わったか
 - memory/handoff.md
 - memory/session-summary-LATEST.md
-- web/grammar-notes/zh2/n5-g-91.json
-- src/data/grammarNoteIds.json
-- web/grammar-notes/zh/n5-g-91.json
+- app.json
+- src/i18n/zh2.json
+- content/_manifest.json
+
+## ⚠️ 注意
+- - 🔴 文脈 18万／20万（92%）・1038往復 — まもなく強制圧縮。区切りをつけて /clear を
+- - 今のモデル opus-5-5 は標準20万窓。settings.json の70万は1M窓モデル(Opus 4.8[1m])の時だけ効く
+- - 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
 
 ## 次の一手
 ★現在地(2026-10-21b)＝**学校Pro導出型(B)＋無料キャンペーン初回告知ダイアログ(11言語)を実装し build v1.1.74(3011) both dispatch済**(run 39547251029・commit 42411a8)。**3011が“全部入り”**＝3009(キャンペーンALL対応+アプリ内レビュー)に加え、**学校(B)導出型**(学校Proを pro_untilに焼き付けずschoolFlagでライブ導出=名簿removeで即失効。新ファイル src/pro/schoolFlag.ts・school.ts・番人schoolFlag.test.ts／entitlement.tsにsource'school'分岐／SyncProvider・AccountScreenをproUntil=購入/紹介/お試しのみに分離／SQL _grant_school_pro_by_email を“pro_untilに書かない”化＋移行SQLコメント／mergeProUntil廃止)、**キャンペーン初回ダイアログ**(src/components/CampaignIntroDialog.tsx＝対象地域で初回1回「今だけ無料・将来有料・事前通知」・端末ローカル既読・App.tsxにマウント・i18n campaign.intro_title/body/ok 全11言語)、**キャンペーンSQL=7か国で実行済(2026-10-21)**(TW/JP/TH/ID/VN/KR＋**US追加**・日本含む承認済・CNは「サイト訪問の中国44はボット/IP誤判定の推定でストア配信未確認」のため最終的に除外)。**公開は3011を使う(3009は旧)。** ビルド番号=3000+commit(build.ps1 base修正済 commit 9f22ba8)。次の一手＝**① キャンペーンSQL実行済(7か国active=true・効果は3011配信後に発現)** **② 3011が学校ユーザーに行き渡ってから学校(B)移行SQL**(docs/supabase/school_teacher.sql末尾コメント・pro_until焼き付き掃除・購入は無影響/紹介お試しは共失効) **③外した先生1名の72日は個別SQL(メール要)で今すぐ可**。勝手にpush/build/SQL実行しない。

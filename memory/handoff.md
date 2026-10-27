@@ -701,18 +701,23 @@
 
 <!-- AUTO:BEGIN -->
 
+## ⚠ 会話が重くなっている（自動）
+- 🔴 文脈 18万／20万（92%）・1038往復 — まもなく強制圧縮。区切りをつけて /clear を
+- 今のモデル opus-5-5 は標準20万窓。settings.json の70万は1M窓モデル(Opus 4.8[1m])の時だけ効く
+- 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
+
 ## 走行中の run（自動・完了通知が来ていないもの）
 - なし
 
 ## 直近24時間の変更ファイル（自動）
 - memory/session-summary-LATEST.md
 - memory/handoff.md
-- web/grammar-notes/zh2/n5-g-91.json
-- src/data/grammarNoteIds.json
-- web/grammar-notes/zh/n5-g-91.json
-- web/grammar-notes/vi/n5-g-91.json
-- web/grammar-notes/th/n5-g-91.json
-- web/grammar-notes/my/n5-g-91.json
+- app.json
+- src/i18n/zh2.json
+- content/_manifest.json
+- src/data/content/bundled.generated.ts
+- src/i18n/vi.json
+- src/i18n/bn.json
 
-_自動更新: 2026-10-27 10:14_
+_自動更新: 2026-10-27 11:02_
 <!-- AUTO:END -->

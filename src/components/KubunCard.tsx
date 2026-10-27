@@ -61,10 +61,6 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
     // 表示順(ユーザー方針2026-08-26): リスト→書き取り(練習)→ドリルを難易度の易しい順(意味→読み→形→聞き取り)。
     // 書き取りは「練習」＝面に非計上(手書き産出の練習ツール)。★/SRSはKakitori側で従来どおり記録。
     add('cards.kakitori_entry', () => nav.navigate('Kakitori', { level: state.settings.level, mode: 'drill', script: 'kanji' })); // 漢字書き取り(練習)
-    if (state.settings.level === 'N5') { // カタカナ/ひらがな書き取り(練習)はN5のみ・書き取りの直後
-      add('cards.kakitori_kata', () => nav.navigate('Kakitori', { mode: 'drill', script: 'katakana' }));
-      add('cards.kakitori_hira', () => nav.navigate('Kakitori', { mode: 'drill', script: 'hiragana' }));
-    }
     add('cards.kanji_mean', () => nav.navigate('KanjiRecognition', { mode: 'mean' })); // ①意味(認識・易)
     add('cards.kanji_read', () => nav.navigate('KanjiRecognition', { mode: 'read' })); // ②読み(認識)
     add('cards.kanji_form', () => nav.navigate('KanjiForm'));                            // ③形の弁別(似た字4択)
