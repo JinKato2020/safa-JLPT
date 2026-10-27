@@ -1492,5 +1492,15 @@
   "campaign.intro_title": "いまだけ無料キャンペーン中🎁",
   "campaign.intro_body": "いまこの地域では、練習が回数無制限・模試も解禁・広告なしで、Pro機能を無料でお使いいただけます。将来は有料になりますが、切り替えの前にかならずアプリでお知らせします（いきなり課金されることはありません）。",
   "campaign.intro_ok": "はい、わかりました",
-  "campaign.free_note": "練習は回数無制限、模試も解禁、広告なしでお使いいただけます。将来有料になる予定で、その際は事前にお知らせします。"
+  "campaign.free_note": "練習は回数無制限、模試も解禁、広告なしでお使いいただけます。将来有料になる予定で、その際は事前にお知らせします。",
+  "coach.countdown_label": "JLPT試験まで",
+  "coach.countdown_label_exam": "試験まで",
+  "coach.countdown_days": "あと {n} 日",
+  "coach.countdown_today": "今日が試験日！",
+  "coach.countdown_est": "（次回のJLPT・目安）",
+  "sakura.exam_far": "JLPTまであと{n}日。まだ時間はあるから、あせらずコツコツいこうね。応援してるよ！",
+  "sakura.exam_month": "試験まであと{n}日！毎日の少しずつが、本番の力になるよ。がんばってね！",
+  "sakura.exam_week": "試験まであと{n}日。ラストスパート、いっしょにがんばろう！",
+  "sakura.exam_tomorrow": "明日はいよいよ試験だね。今日はしっかり休んで、自信をもってね。応援してるよ！",
+  "sakura.exam_today": "今日は試験の日！ここまでがんばってきたあなたなら大丈夫。落ち着いて、いってらっしゃい！"
 }

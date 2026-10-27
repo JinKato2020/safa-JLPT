@@ -1492,5 +1492,15 @@
   "grammarNote.pitfalls": "Kesalahan Umum",
   "grammarNote.loadFailed": "Gagal memuat penjelasan. Harap sambungkan ke internet dan coba lagi.",
   "home.coach_btn": "Pelatih AI",
-  "sakura.coach_hint": "Ketuk cincin di atas atau \"Pelatih AI\" untuk menganalisis kemajuan dan kelemahan Anda, lalu memberi tahu apa yang harus dilakukan selanjutnya."
+  "sakura.coach_hint": "Ketuk cincin di atas atau \"Pelatih AI\" untuk menganalisis kemajuan dan kelemahan Anda, lalu memberi tahu apa yang harus dilakukan selanjutnya.",
+  "coach.countdown_label": "Sampai Ujian JLPT",
+  "coach.countdown_label_exam": "Sampai Ujian",
+  "coach.countdown_days": "{n} Hari Lagi",
+  "coach.countdown_today": "Hari Ini Ujian!",
+  "coach.countdown_est": "(Perkiraan JLPT Berikutnya)",
+  "sakura.exam_far": "{n} hari lagi sampai JLPT. Masih ada waktu, jadi jangan terburu-buru dan teruslah belajar sedikit demi sedikit. Aku mendukungmu!",
+  "sakura.exam_month": "{n} hari lagi sampai ujian! Sedikit demi sedikit setiap hari akan menjadi kekuatanmu di hari H. Semangat!",
+  "sakura.exam_week": "{n} hari lagi sampai ujian. Mari kita berjuang bersama untuk sprint terakhir!",
+  "sakura.exam_tomorrow": "Besok adalah hari ujian. Istirahatlah yang cukup hari ini dan percaya dirilah. Aku mendukungmu!",
+  "sakura.exam_today": "Hari ini adalah hari ujian! Kamu pasti bisa karena sudah berusaha keras sampai sekarang. Tetap tenang dan semoga berhasil!"
 }

@@ -1492,5 +1492,15 @@
   "campaign.intro_title": "Free for now 🎁",
   "campaign.intro_body": "Right now in your region, you can use all Pro features — unlimited practice, mock exams and no ads — for free. It will become paid in the future, but we'll always tell you in the app before that happens. You'll never be charged without notice.",
   "campaign.intro_ok": "Got it",
-  "campaign.free_note": "Enjoy unlimited practice, unlocked mock exams, and no ads. This will become paid in the future—we'll let you know in advance."
+  "campaign.free_note": "Enjoy unlimited practice, unlocked mock exams, and no ads. This will become paid in the future—we'll let you know in advance.",
+  "coach.countdown_label": "Until the JLPT",
+  "coach.countdown_label_exam": "Until your exam",
+  "coach.countdown_days": "{n} days left",
+  "coach.countdown_today": "Exam day is today!",
+  "coach.countdown_est": "(next JLPT, estimated)",
+  "sakura.exam_far": "{n} days until the JLPT. There’s still time, so keep going step by step. I’m cheering for you!",
+  "sakura.exam_month": "{n} days until the exam! A little every day builds your strength for the real test. You can do it!",
+  "sakura.exam_week": "Only {n} days until the exam. Let’s do the final sprint together!",
+  "sakura.exam_tomorrow": "The exam is tomorrow! Rest well today and be confident. I’m cheering for you!",
+  "sakura.exam_today": "Today is exam day! You’ve worked so hard — you’ll be fine. Stay calm, and good luck!"
 }

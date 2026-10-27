@@ -719,7 +719,7 @@ export default function KotobaTownScreen() {
   // ワープ: 足元がゾーンに入ったら対応画面へ。一度ゾーン外に出るまで再発火しない(戻ってきた直後の連続発火を防ぐ)。
   const warpArmed = useRef(true);
   // タブの並び(App.tsx の TABS と一致させる)。書斎=単語 / 書庫=辞書。
-  const TAB_ORDER = ['ホーム', '単語', '学習', '辞書'];
+  const TAB_ORDER = ['ホーム', '学習', '単語', '辞書']; // App.tsx の TABS と同じ順
   const warp = (t: WarpTarget) => {
     if (t === 'Shop') { nav.navigate('Shop'); return; }
     if (t === 'MockIntro') { nav.navigate('MockIntro'); return; }

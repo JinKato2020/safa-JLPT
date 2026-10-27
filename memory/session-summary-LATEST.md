@@ -1,17 +1,18 @@
 # 前セッション圧縮情報
 
 ## 何をしたか
-- 往復 1038 回
+- ツール呼び出し 15 回・25 ターン
+- 往復 1110 回
 
 ## 何が変わったか
 - memory/handoff.md
-- memory/session-summary-LATEST.md
-- app.json
 - src/i18n/zh2.json
-- content/_manifest.json
+- src/i18n/hi.json
+- src/i18n/zh.json
+- src/i18n/vi.json
 
 ## ⚠️ 注意
-- - 🔴 文脈 18万／20万（92%）・1038往復 — まもなく強制圧縮。区切りをつけて /clear を
+- - 🔴 文脈 22万／20万（112%）・1110往復 — まもなく強制圧縮。区切りをつけて /clear を
 - - 今のモデル opus-5-5 は標準20万窓。settings.json の70万は1M窓モデル(Opus 4.8[1m])の時だけ効く
 - - 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
 

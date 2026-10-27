@@ -165,8 +165,9 @@ function StudyTab() {
 
 const TABS = [
   { name: 'ホーム', component: HomeScreen, icon: 'home', iconOff: 'home-outline', labelKey: 'nav.home' },
-  { name: '単語', component: WordsTab, icon: 'language', iconOff: 'language-outline', labelKey: 'cards.tab' },
+  // 並び(ユーザー指定 2026-10-27): ホーム→試験問題→練習問題→書庫。※KotobaTownScreen の TAB_ORDER も同じ順にそろえる。
   { name: '学習', component: StudyTab, icon: 'book', iconOff: 'book-outline', labelKey: 'study.tab' },
+  { name: '単語', component: WordsTab, icon: 'language', iconOff: 'language-outline', labelKey: 'cards.tab' },
   { name: '辞書', component: DictTab, icon: 'library', iconOff: 'library-outline', labelKey: 'dict.tab' },
 ] as const;
 

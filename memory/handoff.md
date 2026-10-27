@@ -702,7 +702,7 @@
 <!-- AUTO:BEGIN -->
 
 ## ⚠ 会話が重くなっている（自動）
-- 🔴 文脈 18万／20万（92%）・1038往復 — まもなく強制圧縮。区切りをつけて /clear を
+- 🔴 文脈 22万／20万（112%）・1110往復 — まもなく強制圧縮。区切りをつけて /clear を
 - 今のモデル opus-5-5 は標準20万窓。settings.json の70万は1M窓モデル(Opus 4.8[1m])の時だけ効く
 - 続けるなら「次の一手」を1行で書いてから /clear すること（この行は解消すると自動で消える）
 
@@ -710,14 +710,14 @@
 - なし
 
 ## 直近24時間の変更ファイル（自動）
-- memory/session-summary-LATEST.md
-- memory/handoff.md
-- app.json
 - src/i18n/zh2.json
-- content/_manifest.json
-- src/data/content/bundled.generated.ts
+- src/i18n/hi.json
+- src/i18n/zh.json
 - src/i18n/vi.json
-- src/i18n/bn.json
+- src/i18n/th.json
+- src/i18n/my.json
+- src/i18n/ko.json
+- src/i18n/id.json
 
-_自動更新: 2026-10-27 11:02_
+_自動更新: 2026-10-27 15:57_
 <!-- AUTO:END -->

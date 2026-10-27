@@ -13,6 +13,7 @@ import { spacing, radius, useColors, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
 import { homeStatus, studyHM } from '../home/homeStatus';
+import { examCountdown } from '../home/examCountdown';
 import { weekGain, scoreGain, growthBars } from '../home/growthStats';
 import { dayStr, lastNDays, type MockResult } from '../store/state';
 import type { Level } from '../engine/engine';
@@ -34,6 +35,7 @@ export default function AICoachScreen() {
   const s = useMemo(() => makeStyles(c), [c]);
   const { width: winW } = useWindowDimensions();
   const chartW = winW - spacing.lg * 2 - spacing.md * 2; // 画面(body:lg)＋カード(md)のパディング分
+  const exam = useMemo(() => examCountdown(state, Date.now()), [state]);
   // 一度でも開いたら、桜の「リングでAIコーチが開く」案内はもう出さない(SakuraSpeech)。
   const { setSettings } = useAppActions();
   useEffect(() => {
@@ -218,6 +220,14 @@ export default function AICoachScreen() {
               {cleared ? t('coach.goal_cleared') : d.weeks != null ? t('coach.goal_weeks', { n: d.weeks }) : t('coach.goal_none')}
             </Text>
             <Text style={s.diff}>{t('coach.hero_note')}</Text>
+            {/* 試験までのカウントダウン(カードの一番下・目立つ帯)。試験日未設定は次回JLPTを「目安」で。JFTで未設定なら出さない。 */}
+            {exam && (
+              <View style={s.cd}>
+                <Text style={s.cdLabel}>{exam.jft ? t('coach.countdown_label_exam') : t('coach.countdown_label')}</Text>
+                <Text style={s.cdDays}>{exam.days === 0 ? t('coach.countdown_today') : t('coach.countdown_days', { n: exam.days })}</Text>
+                <Text style={s.cdDate}>{exam.date.replace(/-/g, '/')}{exam.estimated ? ' ' + t('coach.countdown_est') : ''}</Text>
+              </View>
+            )}
           </View>
         </View>
 
@@ -515,6 +525,11 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   passbarFill: { position: 'absolute', top: 0, bottom: 0, left: 0, borderRadius: 6 },
   passbarGoal: { position: 'absolute', top: -2, bottom: -2, width: 2, backgroundColor: c.ink2, borderRadius: 2 },
   diff: { fontSize: 10.5, color: c.faint, marginTop: spacing.sm, lineHeight: 15, textAlign: 'center' },
+  // 試験カウントダウン帯(合格見込みカードの一番下)。数字を大きく＝ひと目で残り日数が分かる。
+  cd: { marginTop: spacing.md, borderRadius: radius.md, backgroundColor: c.blue, paddingVertical: spacing.sm, paddingHorizontal: spacing.md, alignItems: 'center' },
+  cdLabel: { fontSize: 13, fontWeight: '800', color: '#ffffff', opacity: 0.92 },
+  cdDays: { fontSize: 30, fontWeight: '900', color: '#ffffff', marginTop: 2 },
+  cdDate: { fontSize: 11.5, fontWeight: '700', color: '#ffffff', opacity: 0.85, marginTop: 2 },
   heroGoal: { fontSize: 12.5, fontWeight: '800', textAlign: 'center', marginTop: spacing.sm },
 
   card: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.md, ...shadow1(c) },

@@ -1,5 +1,6 @@
 // 桜の吹き出し。ホーム常駐中、約30分に1度だけ、そっと励まし・応援の一言を出す。
 //  ・寄り添い口調=AIコーチ風ではない(voice.ts の daily＋季節/時間flavor)。数字/日付/合否/願い/物語世界(かけら)は言わない。
+//    例外=試験までの残り日数の応援(ユーザー指定 2026-10-27・examDue)。
 //  ・前回表示から30分たっていれば、ホームを開いて数秒後に1回だけ出す→約11秒で自然に消える。タップでも即消える。
 //  ・付与・課金・出題ロジックには一切触れない。分析・アドバイスは別空間(ご褒美/AIコーチ)が担当。
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -9,6 +10,8 @@ import { useAppState, useAppActions } from '../store/store';
 import type { AppState } from '../store/state';
 import { composeVoice, pickFlavor, renderVoice } from '../story/voice';
 import { learnedNow } from '../store/selectors';
+import { dayStr, daysBetween } from '../store/state';
+import { examCountdown } from './examCountdown';
 import { SHOP_BY_ID } from '../data/shop';
 import { useT } from '../i18n';
 
@@ -57,6 +60,14 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
     if (hideTimer.current) { clearTimeout(hideTimer.current); hideTimer.current = null; }
     Animated.timing(fade, { toValue: 0, duration: 380, useNativeDriver: true }).start(({ finished }) => { if (finished) setVisible(false); });
   };
+  // 試験の応援を出す日か。試験日が無い(JFTで未設定)なら出さない。前回から 30日以内=1日 / それより前=3日 あいていれば出す。
+  const examDue = (now: number) => {
+    const ex = examCountdown(state, now);
+    if (!ex) return false;
+    const last = state.settings.sakuraExamDay;
+    const gap = ex.days <= 30 ? 1 : 3;
+    return !last || daysBetween(last, dayStr(now)) >= gap;
+  };
   // 桜の一言を出す(表示中なら何もしない)。
   //  毎日「最初の一言」は必ず『今日のオススメ』の案内にする(苦手単語の復習ができることを伝える)。2回目以降は通常の癒し。
   const reveal = () => {
@@ -78,6 +89,12 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
     } else if (state.settings.sakuraRecoDay !== today) {
       text = t('sakura.reco_hint');
       setSettings({ sakuraRecoDay: today, lastSakuraSpeechAt: now });
+    } else if (examDue(now)) {
+      // 時々「試験まであと◯日」と応援(残り30日以内は毎日1回・それより前は3日に1回)。直前は文面を変える。
+      const ex = examCountdown(state, now)!;
+      const k = ex.days === 0 ? 'today' : ex.days === 1 ? 'tomorrow' : ex.days <= 7 ? 'week' : ex.days <= 30 ? 'month' : 'far';
+      text = t('sakura.exam_' + k, { n: ex.days });
+      setSettings({ sakuraExamDay: dayStr(now), lastSakuraSpeechAt: now });
     } else {
       text = renderVoice(pickBubbleIds(state, now), t) || t('voice.fallback_daily');
       setSettings({ lastSakuraSpeechAt: now });

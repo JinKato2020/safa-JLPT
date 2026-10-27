@@ -1492,5 +1492,15 @@
   "grammarNote.pitfalls": "常见错误",
   "grammarNote.loadFailed": "无法加载解释。请连接互联网后重试。",
   "home.coach_btn": "AI教练",
-  "sakura.coach_hint": "点击上方的圆环或“AI教练”，它会分析你的成长和弱点，并告诉你接下来该怎么做。"
+  "sakura.coach_hint": "点击上方的圆环或“AI教练”，它会分析你的成长和弱点，并告诉你接下来该怎么做。",
+  "coach.countdown_label": "距JLPT考试",
+  "coach.countdown_label_exam": "距考试",
+  "coach.countdown_days": "还剩 {n} 天",
+  "coach.countdown_today": "今天就是考试日！",
+  "coach.countdown_est": "（下次JLPT考试预估）",
+  "sakura.exam_far": "距JLPT考试还有{n}天。时间还充裕，别着急，循序渐进地学习吧。我支持你！",
+  "sakura.exam_month": "距考试还有{n}天！每天的点滴积累，都会成为你正式考试的实力。加油！",
+  "sakura.exam_week": "距考试还有{n}天。最后冲刺，我们一起加油！",
+  "sakura.exam_tomorrow": "明天终于要考试了。今天好好休息，充满自信。我支持你！",
+  "sakura.exam_today": "今天就是考试日！努力到现在的你一定没问题。放轻松，去吧！"
 }

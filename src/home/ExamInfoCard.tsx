@@ -8,24 +8,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState } from '../store/store';
 import { useT } from '../i18n';
 import { dayStr, daysBetween } from '../store/state';
-
-// 7月・12月の「第1日曜」= JLPT実施日(ProfileScreenと同じ算出)。
-function firstSundayOf(year: number, month: number): string {
-  for (let d = 1; d <= 7; d++) {
-    if (new Date(Date.UTC(year, month - 1, d)).getUTCDay() === 0) {
-      return `${year}-${String(month).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    }
-  }
-  return `${year}-${String(month).padStart(2, '0')}-01`;
-}
-// 今日より後で最も近いJLPT実施日。設定の試験日が無い/過去の時のフォールバック。
-function nextJlpt(today: string): string {
-  const y = Number(today.slice(0, 4));
-  return (
-    [firstSundayOf(y, 7), firstSundayOf(y, 12), firstSundayOf(y + 1, 7), firstSundayOf(y + 1, 12)].find((d) => d > today) ??
-    firstSundayOf(y + 1, 7)
-  );
-}
+import { nextJlpt } from './examCountdown';
 
 export default function ExamInfoCard() {
   const c = useColors();

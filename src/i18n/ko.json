@@ -1492,5 +1492,15 @@
   "grammarNote.pitfalls": "자주 하는 실수",
   "grammarNote.loadFailed": "해설을 불러올 수 없습니다. 인터넷에 연결한 후 다시 열어주세요.",
   "home.coach_btn": "AI 코치",
-  "sakura.coach_hint": "상단 링 또는 'AI 코치'를 누르면, 학습 성장과 취약점을 분석하여 다음에 무엇을 해야 할지 알려줍니다."
+  "sakura.coach_hint": "상단 링 또는 'AI 코치'를 누르면, 학습 성장과 취약점을 분석하여 다음에 무엇을 해야 할지 알려줍니다.",
+  "coach.countdown_label": "JLPT 시험까지",
+  "coach.countdown_label_exam": "시험까지",
+  "coach.countdown_days": "{n}일 남음",
+  "coach.countdown_today": "오늘이 시험일!",
+  "coach.countdown_est": "(다음 JLPT 예상)",
+  "sakura.exam_far": "JLPT까지 {n}일 남았습니다. 아직 시간 있으니, 조급해하지 말고 꾸준히 해봐요. 응원할게요!",
+  "sakura.exam_month": "시험까지 {n}일 남았습니다! 매일 조금씩 노력하는 것이 실력이 될 거예요. 힘내세요!",
+  "sakura.exam_week": "시험까지 {n}일 남았습니다. 마지막 스퍼트, 함께 힘내요!",
+  "sakura.exam_tomorrow": "내일이 드디어 시험이네요. 오늘은 푹 쉬고 자신감을 가지세요. 응원할게요!",
+  "sakura.exam_today": "오늘은 시험일! 지금까지 열심히 노력한 당신이라면 괜찮을 거예요. 침착하게, 잘 다녀오세요!"
 }
