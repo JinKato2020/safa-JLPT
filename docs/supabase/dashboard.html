@@ -52,13 +52,21 @@
   .gsep{ border-left:1px solid var(--line); }
   td .ok{ color:var(--good); } td .mid{ color:var(--warn); } td .low{ color:var(--bad); }
   td .off{ color:var(--sub); opacity:.55; }
-  .scroll{ overflow-x:auto; }
+  .scroll{ overflow-x:auto; max-width:100%; min-width:0; -webkit-overflow-scrolling:touch; }
   /* 利用者一覧：左側(ID/メール〜状態)を固定して横スクロール。leftはJS(freezeCols)で実測して設定 */
   #tDevices{ border-collapse:separate; border-spacing:0; }
   #tDevices .frz{ position:sticky; z-index:2; background:var(--card); }
   #tDevices th.grp.frz{ background:var(--bg); }
   #tDevices tr.row:hover td.frz{ background:var(--bg); }
   #tDevices .frzend{ box-shadow:2px 0 0 rgba(0,0,0,.12); }
+  /* スマホでは固定7列が画面全体を覆ってしまうため、表全体を横に流す。 */
+  @media (max-width:768px){
+    main{ padding:12px 8px 40px; }
+    section{ min-width:0; padding:12px 10px; }
+    .admin-row > section{ flex-basis:100%; }
+    #tDevices .frz{ position:static; }
+    #tDevices .frzend{ box-shadow:none; }
+  }
   .empty{ color:var(--sub); font-size:13px; padding:8px 0; }
   .warn{ font-size:12px; color:var(--warn); }
   .err{ color:var(--bad); font-size:13px; white-space:pre-wrap; }
