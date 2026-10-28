@@ -102,6 +102,8 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Validate dashboard rendering
+        run: node --test docs/supabase/dashboard.test.cjs
       - name: Regenerate content manifest (配信前に目録を実ファイルと一致=OTAズレ防止)
         run: |
           npx --yes tsx tools/content/rebuild.ts
