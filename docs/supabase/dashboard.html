@@ -454,6 +454,7 @@ async function loadCore(){
     level:   api(_url,_key,'v_admin_level'),
     stock:   api(_url,_key,'v_admin_stock'),
     devices: api(_url,_key,'v_admin_devices'),
+    studyStarts: api(_url,_key,'v_admin_study_sessions'),
     signups: api(_url,_key,'v_admin_signups'),
     campaigns: apiRaw(_url,_key,'free_pro_campaigns?select=region&active=eq.true'),
   });
@@ -465,7 +466,12 @@ async function loadCore(){
   renderStock(R.stock);
   // 系統A(地域キャンペーンPro)の対象地域。free_pro_campaigns(active=true)。テーブル未作成でも他は壊さない(任意)。
   campaignRegions = dataOk(R.campaigns) ? (R.campaigns||[]).map(x=>String(x.region||'').toUpperCase()).filter(Boolean) : [];
-  devData = R.devices || []; renderDevices(); renderAvatarUsage();
+  const studyStarts = new Map((dataOk(R.studyStarts) ? R.studyStarts : []).map(r=>[r.merge_key,r]));
+  devData = (R.devices || []).map(r=>{
+    const count = studyStarts.get(r.account_id || r.anon_id);
+    return {...r, study_sessions:count?.study_sessions ?? null, study_measured_since:count?.measured_since ?? null, study_legacy_completed:count?.legacy_completed_sessions ?? 0};
+  });
+  renderDevices(); renderAvatarUsage();
   if(dataOk(R.signups)) renderSignups(R.signups);
   else $('signupCharts').innerHTML = `<div class="empty">登録者推移のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</div>`;
 }
@@ -981,6 +987,9 @@ const COLS = [
   { g:'言語プロフィール', key:'l1',          label:'母語', title:'ユーザーが選んだUI言語(=学習者の母語)。未選択は端末言語', val:r=>r.l1||'', cell:r=> esc(r.l1? langLabel(r.l1) : '—') },
   // アプリ利用時間は「言語プロフィール」と「利用者(種別/状態)」の間に配置(ユーザー指定)。左固定列に含める。
   { g:'活動', key:'study_min',  label:'アプリ利用時間', num:1, title:'累計のアプリ利用時間(前面・アクティブな時間。ホームや設定の閲覧も含む。対応版では15秒ごとに加算、60秒ごとと中断時に送信)', val:r=>numOr(r.study_min),  cell:r=> hm(r.study_min ?? 0) },
+  { g:'活動', key:'study_sessions', label:'学習回数', num:1,
+    title:'試験問題・練習問題のセット開始回数（10問のセットでも1回、途中終了も含む）。模試・カード閲覧は対象外。過去分は完了記録から復元した下限値（○回以上）。記録がない旧版は—。',
+    val:r=>numOr(r.study_sessions), cell:r=>r.study_sessions==null ? '<span class="empty" title="開始回数は未計測です。対応版で利用後に表示されます">—</span>' : `<span title="${r.study_legacy_completed > 0 ? '過去の完了記録を含む下限値。過去の途中終了分は含みません。' : '開始時から計測。'} 計測開始: ${esc(fmtDateTime(r.study_measured_since))}">${nc(r.study_sessions)}回${r.study_legacy_completed > 0 ? '以上' : ''}</span>` },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'利用者', key:'pro_state', label:'状態',
     title:'Proは2系統を併記。系A＝地域キャンペーンPro（完全無料・端末のOS地域設定で判定・サーバー未保存→アプリが送るregionCodeで正確表示／未送信はIP国で「推定」）。系B＝サーバー付与（無料／永続Pro＝管理付与／1年・1月Pro＝有料サブスク／7日Pro＝お試し・紹介）。',
@@ -1033,7 +1042,7 @@ const COLS = [
   { g:'活動', key:'streak',     label:'継続',   num:1, title:'連続学習日数',         val:r=>numOr(r.streak),     cell:r=> (r.streak ?? 0) },
   { g:'活動', key:'days',       label:'日数',   num:1, title:'データを送ってきた日数(使った日数)', val:r=>numOr(r.days), cell:r=> (r.days ?? '—') },
 ];
-const FROZEN_COUNT = 7; // 利用者一覧で左に固定表示する列数（ID/メール・名前・国名・母語・アプリ利用時間・種別・状態）
+const FROZEN_COUNT = 8; // 利用者一覧で左に固定表示する列数（ID/メール・名前・国名・母語・アプリ利用時間・学習回数・種別・状態）
 const isFirstOfGroup = (i) => i===0 || COLS[i-1].g !== COLS[i].g;
 // 同じグループ内でも罫線を入れたい境界(大問の意味の切れ目)。この列の左に縦罫線を引く。
 //  d_grammar_form=文字語彙|文法 / d_choukai_kadai=読解|聴解 / daimon_learned=聴解|合計
