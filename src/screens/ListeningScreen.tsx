@@ -24,7 +24,6 @@ import { listeningSource } from '../data/listeningAudio';
 import { illustSource } from '../data/listeningImage';
 import { sample, reinsertForRelearn, shuffleChoices } from '../quiz/quiz';
 import { effectiveP } from '../engine/engine';
-import { useStudySessionStart } from '../telemetry/useStudySessionStart';
 
 const SESSION_CLIPS = 3;
 const RELEARN_GAP = 2;
@@ -63,7 +62,6 @@ export default function ListeningScreen() {
     return clips.map((cl) => ({ clip: cl, qs: cl.questions.map((q) => (cl.audioChoices ? { ...q } : { ...q, ...shuffleChoices(q.choices, q.answerIndex) })) }));
   });
   const [idx, setIdx] = useState(0);
-  useStudySessionStart(steps.length > 0);
   const [pickerOpen, setPickerOpen] = useState(false); // 開発用: 問題IDタップで同じ大問の全問へジャンプ
   const [picked, setPicked] = useState<(number | null)[]>([]); // 現クリップの設問ごとの選択(qIndex→choiceIndex)
   const [showTrans, setShowTrans] = useState(false); // 回答後の対訳(台本/設問/選択肢)トグル。区分によっては訳が無い(hasTrans=false)。

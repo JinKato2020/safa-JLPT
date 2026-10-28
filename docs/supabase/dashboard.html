@@ -988,8 +988,8 @@ const COLS = [
   // アプリ利用時間は「言語プロフィール」と「利用者(種別/状態)」の間に配置(ユーザー指定)。左固定列に含める。
   { g:'活動', key:'study_min',  label:'アプリ利用時間', num:1, title:'累計のアプリ利用時間(前面・アクティブな時間。ホームや設定の閲覧も含む。対応版では15秒ごとに加算、60秒ごとと中断時に送信)', val:r=>numOr(r.study_min),  cell:r=> hm(r.study_min ?? 0) },
   { g:'活動', key:'study_sessions', label:'学習回数', num:1,
-    title:'試験問題・練習問題のセット開始回数（10問のセットでも1回、途中終了も含む）。模試・カード閲覧は対象外。過去分は完了記録から復元した下限値（○回以上）。記録がない旧版は—。',
-    val:r=>numOr(r.study_sessions), cell:r=>r.study_sessions==null ? '<span class="empty" title="開始回数は未計測です。対応版で利用後に表示されます">—</span>' : `<span title="${r.study_legacy_completed > 0 ? '過去の完了記録を含む下限値。過去の途中終了分は含みません。' : '開始時から計測。'} 計測開始: ${esc(fmtDateTime(r.study_measured_since))}">${nc(r.study_sessions)}回${r.study_legacy_completed > 0 ? '以上' : ''}</span>` },
+    title:'試験問題・練習問題を1セット最後まで完了すると1回（10問でも1回）。途中終了・模試・カード閲覧は対象外。過去分は保存されている完了記録の範囲で集計。',
+    val:r=>numOr(r.study_sessions), cell:r=>r.study_sessions==null ? '<span class="empty" title="完了回数を取得できませんでした">—</span>' : `${nc(r.study_sessions)}回` },
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'利用者', key:'pro_state', label:'状態',
     title:'Proは2系統を併記。系A＝地域キャンペーンPro（完全無料・端末のOS地域設定で判定・サーバー未保存→アプリが送るregionCodeで正確表示／未送信はIP国で「推定」）。系B＝サーバー付与（無料／永続Pro＝管理付与／1年・1月Pro＝有料サブスク／7日Pro＝お試し・紹介）。',

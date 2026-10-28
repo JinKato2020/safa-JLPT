@@ -28,6 +28,7 @@ import type { Level } from '../engine/engine';
 import { useT } from '../i18n';
 import { useSessionGate } from '../pro/useSessionGate';
 import LimitReachedSheet from '../pro/LimitReachedSheet';
+import { sendEvent } from '../telemetry/telemetry';
 
 const STEP_KEYS = ['kakitori.step_trace', 'kakitori.step_guided', 'kakitori.step_recall'];
 const SET_SIZE = 5; // 1セット=5字。5字を練習(3段)→同じ5字をヒント無しテスト→セッション終了。
@@ -180,7 +181,12 @@ export default function KakitoriScreen() {
       return;
     }
     if (idx + 1 < chars.length) { setIdx(idx + 1); loadChar(chars[idx + 1], 2); }
-    else setIdx(chars.length); // テスト5字完了 → done画面へ
+    else {
+      setIdx(chars.length); // テスト5字完了 → done画面へ
+      if (chars.length > 0 && state.settings.telemetry !== false) {
+        void sendEvent('session_complete', { mode: 'kakitori', scored: chars.length, sessionId: route.key }, level);
+      }
+    }
   };
   const skipChar = () => { if (!free) advance(); }; // スキップ=このターンの次の字へ
   // 自由練習: 3モード(なぞり/見て/見ないで)を直接選ぶ。学習ターン: なぞり↔見て書くのスイッチ。

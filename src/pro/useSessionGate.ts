@@ -1,7 +1,6 @@
 // 練習を始める前の共通ゲート。回数の消費をここ1か所に集約する(画面ごとに書かない)。
 // 使い方は各練習画面の冒頭で begin() を1回だけ呼ぶ(Task 5 の定型ブロック)。
-import { useRef, useState } from 'react';
-import { useStudySessionStart } from '../telemetry/useStudySessionStart';
+import { useState } from 'react';
 import { useAppState, useAppActions } from '../store/store';
 import { quotaFor, type Quota } from './dailyQuota';
 import { GATING_ENABLED } from './gating';
@@ -16,13 +15,9 @@ export function useSessionGate(): SessionGate {
   const state = useAppState();
   const { consumeSession } = useAppActions();
   const [limited, setLimited] = useState(false);
-  const [started, setStarted] = useState(false);
-  const admitted = useRef(false);
-  useStudySessionStart(started);
   const quota = quotaFor(state, Date.now());
 
   function begin(): boolean {
-    if (admitted.current) return true;
     // 【開発用】devFree の時だけは、この端末で本当に上限をかける(無料ユーザーの見え方を確認するため)
     const gateOn = GATING_ENABLED || state.settings.devFree === true;
     if (gateOn && !quotaFor(state, Date.now()).canPractice) {
@@ -30,8 +25,6 @@ export function useSessionGate(): SessionGate {
       return false;
     }
     consumeSession(); // OFFの間も回数だけは数えておく(Phase 1 でONにした時に挙動が変わらない)
-    admitted.current = true;
-    setStarted(true);
     return true;
   }
 

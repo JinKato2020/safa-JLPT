@@ -7,7 +7,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, useWindowDimensions, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
@@ -50,6 +50,7 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
   const { addToMyList, setSettings, awardOnce, addPoints, markStudyDay } = useAppActions();
   const t = useT();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute();
   const c = useColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const { width, height } = useWindowDimensions();
@@ -70,8 +71,9 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
 
   // 匿名計測＋ご褒美カウンタ+1(毎回=イラスト順送りの種)＋貝の不足分＋今日はじめてなら30貝を1回だけ。
   useEffect(() => {
-    // New versions already counted this set at START; do not add its completion again.
-    void sendEvent('session_complete', { mode, scored, startTracked: true });
+    if (totalN > 0 && state.settings.telemetry !== false) {
+      void sendEvent('session_complete', { mode, scored, total: totalN, sessionId: route.key }, state.settings.level);
+    }
     void maybeAskForReview(); // 学習を1回やり切った好機にOS標準の評価シートをお願い（頻度制限は関数内・規約準拠）
     void sendFirstSessionOnce(state);
     setSettings({ afterStudyCount: (state.settings.afterStudyCount ?? 0) + 1 });

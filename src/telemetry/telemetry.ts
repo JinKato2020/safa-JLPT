@@ -189,7 +189,6 @@ function snapshotBody(state: AppState, anon: string, now: number, geoCC?: string
     streak: state.streak.current, streakLongest: state.streak.longest, freezes: state.streak.freezes,
     mockCount: (state.mockHistory ?? []).length, studyDays: (state.growth ?? []).length,
     studySeconds: state.studySeconds ?? 0, // 累計アプリ利用時間(秒)＝前面・アクティブな時間の合算
-    studyStartsMeasured: true, // 開始回数の未計測(旧版)と計測済み0回を区別する。
     // 管理ダッシュボードのプロフィール列(名前/母語/国名/気分/性格/得意)。読める日本語で送る(気分/性格はキー→ラベル解決済み)。
     profile: {
       nickname: state.settings.nickname ?? null,
