@@ -1,3 +1,4 @@
+import { useProStatus } from '../pro/useProStatus';
 // ミニ模試(言語知識20問) / フル模試(全区分=漢字語彙＋文法＋読解＋聴解)。本番形式・客観採点(重み5)。
 // 採点後: 区分別の弱点ヒートマップ → 語彙/文法の弱点だけ復習(Quiz)へ。掲示板§5(UWorld閉ループ)。
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -286,7 +287,9 @@ export default function MockScreen() {
   // これから始める科目(=現ブロック)を開始する。最初の科目スタートでチケットを1回だけ消費。
   //  開発用の無制限モード(devUnlimitedMock)はチケット不要・消費なし。通常はチケット0なら開始不可。
   const unlimitedMock = state.settings.devUnlimitedMock === true;
+  const isPro = useProStatus().isPro;
   const startSection = async () => {
+    if (!unlimitedMock && !isPro) { nav.navigate('Paywall'); return; }
     if (!ticketSpentRef.current && !unlimitedMock && mockTicketCount(state) <= 0) {
       Alert.alert(t('mock.no_ticket_title'), t('mock.no_ticket_body'));
       return;

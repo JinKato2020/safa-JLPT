@@ -1502,5 +1502,10 @@
   "sakura.exam_month": "Còn {n} ngày nữa là đến kỳ thi! Mỗi ngày một chút sẽ tạo nên sức mạnh thực sự. Cố gắng lên nhé!",
   "sakura.exam_week": "Còn {n} ngày nữa là đến kỳ thi. Cùng nhau tăng tốc về đích nào!",
   "sakura.exam_tomorrow": "Ngày mai là kỳ thi rồi. Hôm nay hãy nghỉ ngơi thật tốt và tự tin nhé. Mình luôn ủng hộ bạn!",
-  "sakura.exam_today": "Hôm nay là ngày thi! Bạn đã cố gắng đến tận bây giờ thì chắc chắn sẽ làm được thôi. Hãy bình tĩnh và đi thi nhé!"
+  "sakura.exam_today": "Hôm nay là ngày thi! Bạn đã cố gắng đến tận bây giờ thì chắc chắn sẽ làm được thôi. Hãy bình tĩnh và đi thi nhé!",
+  "paywall.level_title": "Pro trọn đời {level}",
+  "paywall.level_subtitle": "Mua riêng N3, N4 và N5. Quyền truy cập trọn đời chỉ áp dụng cho cấp độ đã mua.",
+  "paywall.level_mock": "• Thi thử (cần vé)",
+  "paywall.lifetime_note": "Mua một lần, không tự động gia hạn. Chỉ bao gồm cấp độ đã mua; các cấp độ khác được bán riêng. Khôi phục bằng cùng tài khoản cửa hàng.",
+  "paywall.owned": "Đã mua"
 }

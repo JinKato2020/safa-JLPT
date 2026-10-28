@@ -132,6 +132,8 @@ export interface AppState {
   unlocksSeen?: string[];               // 書斎タブの段階解禁で「解禁演出を見せ済み」のモードキー。未設定→初回に現解禁分を無音でseed(既存ユーザーが一斉に演出されないように)
   entitlements?: {              // Pro(有料)の権利。未設定→無料
     purchaseActive?: boolean;   // RevenueCat同期結果のキャッシュ(正本はストアのレシート)
+    purchaseLevels?: Level[];   // 買い切りで購入済みのレベル。共通purchaseActiveとは別=他レベルを解放しない。
+    purchaseOwnerId?: string;  // アカウント切替時に前の人の購入キャッシュを引き継がない。
     purchaseCheckedAt?: number; // 最後に同期できた時刻 epoch ms
     proUntil?: number;          // 期限つきPro(紹介など)の終了時刻 epoch ms
   };

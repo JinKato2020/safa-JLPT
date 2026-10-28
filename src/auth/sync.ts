@@ -16,7 +16,15 @@ export function mergeRestoredState(local: AppState, remote: AppState): AppState 
       Object.assign(settings, { [k]: local.settings[k] });
     }
   }
-  return { ...remote, settings };
+  // Store rights are a device RevenueCat snapshot, never a cloud-backup authority.
+  // A stale backup must not resurrect refunded rights or overwrite a fresh SDK sync.
+  const entitlements = { ...remote.entitlements,
+    purchaseActive: local.entitlements?.purchaseActive,
+    purchaseLevels: local.entitlements?.purchaseLevels,
+    purchaseCheckedAt: local.entitlements?.purchaseCheckedAt,
+    purchaseOwnerId: local.entitlements?.purchaseOwnerId,
+  };
+  return { ...remote, settings, entitlements };
 }
 
 /** LWW: リモートが厳密に新しい時だけ remote。無い/同値/古い時は local。 */

@@ -40,7 +40,10 @@ function monthsSince(fromMs: number, nowMs: number): number {
  */
 export function syncMockTickets(state: AppState, now: number): AppState {
   const s0 = ensureInstall(state, now);
-  const isPro = proStatus(s0, now).isPro;
+  // レベルを切り替えただけで購入レベル用の残券・月次起点を消さない。
+  // 配布プールは従来どおり共通、使用可否は選択中のレベルのPro権利で判定する。
+  const isPro = proStatus(s0, now).isPro
+    || s0.entitlements?.purchaseLevels?.some(level => proStatus(s0, now, level).isPro);
   if (!isPro) {
     // 非Pro=模試ロック。所持と月次起点はクリア(退会期間の遡り配布を防ぐ)。welcomeTicketClaimedは温存=歓迎は再配布しない。既にクリア済みなら不変。
     if ((s0.mockTickets ?? 0) === 0 && s0.proSince == null && (s0.mockGrantsClaimed ?? 0) === 0 && !s0.ticketNotice) return s0;

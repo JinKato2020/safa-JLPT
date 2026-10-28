@@ -1,3 +1,4 @@
+import { useProStatus } from '../pro/useProStatus';
 // 模試イントロ「N◯模試に挑戦」。試験タブの「模試」をタップ→いきなり始めず、1画面で説明してから開始。
 //  1画面に: 大きなイラスト(全体表示)＋(試験時間/合格の目安/足切り＋各分野の制限時間)＋チケット残数＋[また今度][模試を始める]。
 //  背景・文字・カードはアプリのライト/ダークテーマに統一(useColors)。
@@ -37,10 +38,12 @@ export default function MockIntroScreen() {
   const insets = useSafeAreaInsets();
   const level = (state.settings.level as Level) ?? 'N5';
   const info = MOCK_INFO[level] ?? MOCK_INFO.N5;
-  const tickets = mockTicketCount(state);
+  const isPro = useProStatus().isPro;
+  const tickets = isPro ? mockTicketCount(state) : 0;
   const unlimitedMock = state.settings.devUnlimitedMock === true;
   // チケットが無い時は模試を始めさせない(開発用の無制限モードは除く)。
   const begin = () => {
+    if (!unlimitedMock && !isPro) { nav.navigate('Paywall'); return; }
     if (!unlimitedMock && tickets <= 0) { Alert.alert(t('mock.no_ticket_title'), t('mock.no_ticket_body')); return; }
     nav.replace('Mock', { full: route.params?.full ?? true });
   };

@@ -1502,5 +1502,10 @@
   "sakura.exam_month": "시험까지 {n}일 남았습니다! 매일 조금씩 노력하는 것이 실력이 될 거예요. 힘내세요!",
   "sakura.exam_week": "시험까지 {n}일 남았습니다. 마지막 스퍼트, 함께 힘내요!",
   "sakura.exam_tomorrow": "내일이 드디어 시험이네요. 오늘은 푹 쉬고 자신감을 가지세요. 응원할게요!",
-  "sakura.exam_today": "오늘은 시험일! 지금까지 열심히 노력한 당신이라면 괜찮을 거예요. 침착하게, 잘 다녀오세요!"
+  "sakura.exam_today": "오늘은 시험일! 지금까지 열심히 노력한 당신이라면 괜찮을 거예요. 침착하게, 잘 다녀오세요!",
+  "paywall.level_title": "{level} 평생 Pro",
+  "paywall.level_subtitle": "N3·N4·N5를 각각 구매하세요. 구매한 레벨만 기간 제한 없이 이용할 수 있습니다.",
+  "paywall.level_mock": "• 모의고사 기능 (티켓 필요)",
+  "paywall.lifetime_note": "일회성 구매이며 자동 갱신되지 않습니다. 구매한 레벨만 포함되며 다른 레벨은 별도 판매합니다. 동일한 스토어 계정으로 구매를 복원할 수 있습니다.",
+  "paywall.owned": "구매 완료"
 }

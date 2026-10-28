@@ -171,19 +171,22 @@ export default function AccountScreen() {
   const proCard = (
     <>
       {/* Pro/お試し中でも必ずタップで購入画面を開ける(disabledにしない)。理由=お試し自動付与で新規アカウントが即Proになり、
-          審査担当がIAPにたどり着けず 2.1(b) で差し戻された(2026-09-23)。Proでもペイウォールは4プランを表示する。 */}
+          審査担当がIAPにたどり着けず 2.1(b) で差し戻された(2026-09-23)。Proでもレベル別買い切りを表示する。 */}
       <Pressable style={s.proRow} onPress={() => nav.navigate('Paywall')} hitSlop={4}>
         <View style={s.proIco}><Ionicons name="star" size={20} color={c.pink} /></View>
         <View style={{ flex: 1 }}>
           <Text style={s.proTitle}>{t('account.pro_title')}</Text>
           <Text style={s.proSub}>{isPro ? t('account.pro_active') : t('account.pro_sub')}</Text>
+          {(appState.entitlements?.purchaseLevels ?? []).map(level => (
+            <Text key={level} style={s.proSub}>{t('paywall.level_title', { level })}</Text>
+          ))}
         </View>
         {isPro
           ? <Ionicons name="checkmark-circle" size={22} color={c.green} />
           : <View style={s.proCta}><Text style={s.proCtaTxt}>{t('account.pro_cta')}</Text></View>}
       </Pressable>
       {/* 加入者向け: サブスクの管理・解約(ストアの管理画面を開く)。Apple/Googleの仕様で解約はストア側で行う。 */}
-      {isPro && (
+      {appState.entitlements?.purchaseActive && (
         <Pressable style={s.manageSubRow} onPress={openManageSub} hitSlop={6}>
           <Ionicons name="settings-outline" size={15} color={c.mute} />
           <Text style={s.manageSubTxt}>{t('account.manage_sub')}</Text>

@@ -7,7 +7,8 @@ import Purchases, {
   type PurchasesOffering,
   type PurchasesPackage,
 } from 'react-native-purchases';
-import { revenueCatApiKey, purchasesConfigured, PRO_ENTITLEMENT_ID } from '../config/revenuecat';
+import { revenueCatApiKey, purchasesConfigured } from '../config/revenuecat';
+import { LEVEL_OFFERING_ID, LEVEL_PRODUCTS, purchaseAccessFromInfo, purchasedPackage, levelForPackage, type PurchaseAccess } from './levelPurchases';
 import { logPurchase } from '../analytics/analytics';
 
 let configured = false;
@@ -25,28 +26,23 @@ export async function initPurchases(appUserID?: string | null): Promise<void> {
   }
 }
 
-/** CustomerInfo から「今Proか」を読む純粋な写像。 */
-function isProActive(info: CustomerInfo): boolean {
-  return !!info.entitlements.active[PRO_ENTITLEMENT_ID];
-}
-
-/** RevenueCat と同期して「今Proか」を返す。呼び出し側は結果を setPurchaseActive で保存する。
+/** RevenueCat と同期して購入権利一式を返す。呼び出し側は結果を setPurchaseAccess で保存する。
  *  未設定・通信失敗時は null(=状態を変えない＝端末に保存済みの前回値を保つ)。 */
-export async function syncEntitlement(): Promise<boolean | null> {
+export async function syncEntitlement(): Promise<PurchaseAccess | null> {
   if (!configured) return null;
   try {
-    return isProActive(await Purchases.getCustomerInfo());
+    return purchaseAccessFromInfo(await Purchases.getCustomerInfo());
   } catch {
     return null;
   }
 }
 
-/** CustomerInfo が更新される度(購入直後の遅延付与・自動更新・他端末での変化)に「今Proか」をコールバック。
+/** CustomerInfo が更新される度(購入直後の遅延付与・自動更新・他端末での変化)に購入権利一式をコールバック。
  *  戻り値=解除関数。購入直後に権利が返らずPROに切り替わらない不具合の保険(手動Restore不要にする)。 */
-export function addProUpdateListener(cb: (isPro: boolean) => void): () => void {
+export function addProUpdateListener(cb: (access: PurchaseAccess) => void): () => void {
   if (!configured) return () => {};
   try {
-    const listener = (info: CustomerInfo) => cb(isProActive(info));
+    const listener = (info: CustomerInfo) => cb(purchaseAccessFromInfo(info));
     Purchases.addCustomerInfoUpdateListener(listener);
     return () => { try { Purchases.removeCustomerInfoUpdateListener(listener); } catch { /* noop */ } };
   } catch {
@@ -58,49 +54,43 @@ export function addProUpdateListener(cb: (isPro: boolean) => void): () => void {
 export async function getCurrentOffering(): Promise<PurchasesOffering | null> {
   if (!configured) return null;
   try {
-    return (await Purchases.getOfferings()).current ?? null;
+    // Defaultは旧公開版向けに温存。新アプリはレベル別買い切りだけを提示する。
+    return (await Purchases.getOfferings()).all[LEVEL_OFFERING_ID] ?? null;
   } catch {
     return null;
   }
 }
 
-/** 購入。成功して権利(pro)が立ったら true。ユーザーキャンセル・失敗は false。 */
-export async function purchase(pkg: PurchasesPackage): Promise<boolean> {
-  if (!configured) return false;
+/** 購入。選択した商品と対応するレベル権利を確認する。キャンセル・失敗は null。 */
+export async function purchase(pkg: PurchasesPackage): Promise<{ access: PurchaseAccess; confirmed: boolean } | null> {
+  if (!configured || !levelForPackage(pkg.identifier)) return null;
   try {
     const { customerInfo } = await Purchases.purchasePackage(pkg);
-    const ok = isProActive(customerInfo);
-    if (ok) {
-      // テスト(サンドボックス)購入は計測に入れない。TestFlight/Play内部テスト等は isSandbox=true になるので
-      // Firebaseの収益・購入コンバージョンが「本番の実売上」だけになる(テストで数字が汚れない)。
-      const isSandbox = customerInfo.entitlements.active[PRO_ENTITLEMENT_ID]?.isSandbox === true;
-      if (!isSandbox) {
-        // 広告の最適化ターゲット。売上として集計されるよう value/currency も送る。
-        logPurchase({ value: pkg.product?.price, currency: pkg.product?.currencyCode, item_id: pkg.product?.identifier });
-      }
+    const confirmed = purchasedPackage(customerInfo, pkg.identifier, pkg.product.identifier);
+    const level = levelForPackage(pkg.identifier)!;
+    if (confirmed && !customerInfo.entitlements.active[LEVEL_PRODUCTS[level].entitlement]?.isSandbox) {
+      logPurchase({ value: pkg.product.price, currency: pkg.product.currencyCode, item_id: pkg.product.identifier });
     }
-    return ok;
-  } catch {
-    return false; // キャンセルもここに来る(RevenueCatはキャンセルを例外で返す)
-  }
+    return { access: purchaseAccessFromInfo(customerInfo), confirmed };
+  } catch { return null; } // キャンセル・通信失敗は権利キャッシュを消さない。
 }
 
-/** 購入の復元(Apple審査で必須)。復元後にProなら true。 */
-export async function restore(): Promise<boolean> {
-  if (!configured) return false;
+/** 購入の復元(Apple審査で必須)。復元した購入権利一式を返す。 */
+export async function restore(): Promise<PurchaseAccess | null> {
+  if (!configured) return null;
   try {
-    return isProActive(await Purchases.restorePurchases());
+    return purchaseAccessFromInfo(await Purchases.restorePurchases());
   } catch {
-    return false;
+    return null;
   }
 }
 
 /** ログイン時: RevenueCat のユーザーを実IDへ紐付け(機種変・複数端末で権利がfollowする)。→ 現在Proか。 */
-export async function linkAccount(userId: string): Promise<boolean | null> {
+export async function linkAccount(userId: string): Promise<PurchaseAccess | null> {
   if (!configured) return null;
   try {
     const { customerInfo } = await Purchases.logIn(userId);
-    return isProActive(customerInfo);
+    return purchaseAccessFromInfo(customerInfo);
   } catch {
     return null;
   }

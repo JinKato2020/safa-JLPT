@@ -71,6 +71,7 @@ import { isTestLab } from './src/telemetry/testLab';
 import { createForegroundUsage, USAGE_TICK_MS } from './src/telemetry/foregroundUsage';
 import { completedProfileSnapshotKey } from './src/telemetry/profileSnapshot';
 import { syncAfterStudyArt } from './src/data/afterStudyRemote';
+import { EMPTY_PURCHASE_ACCESS, type PurchaseAccess } from './src/pro/levelPurchases';
 
 // ナビゲーション状態から現在の画面名(最深ルート)を取得。
 function activeRouteName(navState: unknown): string | undefined {
@@ -323,8 +324,8 @@ const topBar = StyleSheet.create({
 function Root() {
   const hydrated = useHydrated();
   const state = useAppState();
-  const { addStudySeconds, setPurchaseActive, setSettings, syncTickets } = useAppActions();
-  const { session } = useSync();
+  const { addStudySeconds, setPurchaseAccess, setSettings, syncTickets } = useAppActions();
+  const { session, authReady } = useSync();
   const { settings } = state;
   const stateRef = useRef(state);
   stateRef.current = state;
@@ -420,22 +421,25 @@ function Root() {
   // ログイン中は実IDへ紐付け(機種変で権利がfollow)、匿名なら匿名IDで同期。結果を端末へ保存(通信断でもProが剥がれない)。
   const userId = session?.user?.id;
   useEffect(() => {
-    if (!hydrated) return;
+    if (!hydrated || !authReady) return;
     let cancelled = false;
     let removeProListener: (() => void) | undefined;
+    const ownerId = userId ?? 'anonymous';
+    // 起動時は認証復元を待つ。同一アカウントのオフライン権利は保持し、別人のキャッシュは消す。
+    const previousOwner = stateRef.current.entitlements?.purchaseOwnerId;
+    if (previousOwner && previousOwner !== ownerId) setPurchaseAccess(EMPTY_PURCHASE_ACCESS, ownerId);
+    const apply = (access: PurchaseAccess) => { if (!cancelled) setPurchaseAccess(access, ownerId); };
     (async () => {
       await initPurchases(userId ?? null);
-      let active: boolean | null;
-      if (userId) active = await linkAccount(userId);
-      else { await unlinkAccount(); active = await syncEntitlement(); }
-      if (!cancelled && typeof active === 'boolean') setPurchaseActive(active);
-      // 課金同期でPro状態が確定した後に、模試チケットを再整合(Pro:登録日起点の月次付与 / 非Pro:0にクリア)。
+      const active = userId
+        ? await linkAccount(userId)
+        : (await unlinkAccount(), await syncEntitlement());
+      if (active) apply(active);
       if (!cancelled) syncTickets();
-      // 権利が後から有効化された時(購入直後の遅延付与・自動更新・他端末での変化)も自動でPRO反映＝手動Restore不要(2026-09-17)。
-      if (!cancelled) removeProListener = addProUpdateListener((pro) => setPurchaseActive(pro));
+      if (!cancelled) removeProListener = addProUpdateListener(apply);
     })();
     return () => { cancelled = true; removeProListener?.(); };
-  }, [hydrated, userId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [hydrated, authReady, userId]); // eslint-disable-line react-hooks/exhaustive-deps
   // 【模試チケットの配布タイミング修正 2026-09-23】
   // 起動直後に1度走る syncTickets(上)は、お試しProがまだ有効化される前(claimTrialはSyncProviderで後追い)に走るため
   // 「まだ非Pro」と判断して起点(proSince)をリセットしてしまう。その後お試しが有効化されても再整合が走らず、
@@ -446,10 +450,11 @@ function Root() {
   const trialStartedAt = state.trialStartedAt;
   const proUntil = state.entitlements?.proUntil;
   const purchaseActive = state.entitlements?.purchaseActive;
+  const purchaseLevels = state.entitlements?.purchaseLevels;
   useEffect(() => {
     if (!hydrated) return;
     syncTickets();
-  }, [hydrated, trialStartedAt, proUntil, purchaseActive]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [hydrated, trialStartedAt, proUntil, purchaseActive, purchaseLevels]); // eslint-disable-line react-hooks/exhaustive-deps
   // 広告(AdMob)の初期化。iOSはATT(トラッキング許可)を尋ねてから。SDK未リンクなら安全に no-op。
   // オンボ完了後に初回だけ実行=「トラッキングを許可する」チェックの結果でATTを尋ねる/尋ねない。
   useEffect(() => {

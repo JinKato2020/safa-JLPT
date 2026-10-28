@@ -18,7 +18,8 @@ import { facetsForUnit, grammarFormatOf, GRAMMAR_NOVELTY_LAMBDA } from '../revie
 import { addPoints as walletAdd, awardOnce as walletAwardOnce, buy as walletBuy, equip as walletEquip, buyAvatarDrink as walletBuyAvatarDrink, spendAvatarChange as walletSpendAvatarChange, type ShopKind } from './wallet';
 import { syncMockTickets, buyMockTicket as ticketBuy, spendMockTicket, clearTicketNotice } from './tickets';
 import { consumeSession as quotaConsume, grantAdBonus as quotaAdBonus } from '../pro/dailyQuota';
-import { setPurchaseActive as proSetPurchase, grantProDays as proGrantDays } from '../pro/entitlement';
+import { setPurchaseActive as proSetPurchase, setPurchaseAccess as proSetAccess, grantProDays as proGrantDays } from '../pro/entitlement';
+import type { PurchaseAccess } from '../pro/levelPurchases';
 import { recordDecay } from '../story/decay';
 import { recordQualifyingDay } from '../referral/trigger';
 
@@ -44,6 +45,7 @@ type Action =
   | { type: 'CONSUME_SESSION'; now: number }
   | { type: 'GRANT_AD_BONUS'; now: number }
   | { type: 'SET_PURCHASE_ACTIVE'; active: boolean; now: number }
+  | { type: 'SET_PURCHASE_ACCESS'; access: PurchaseAccess; now: number; ownerId?: string }
   | { type: 'GRANT_PRO_DAYS'; days: number; now: number }
   | { type: 'MARK_STORY_SHOWN'; id: string; now: number; skipped?: boolean }
   | { type: 'SET_COMPLETED'; day: string; qualifying: boolean }
@@ -161,6 +163,8 @@ function reduceCore(state: AppState, action: Action): AppState {
       return quotaAdBonus(state, action.now);
     case 'SET_PURCHASE_ACTIVE':
       return proSetPurchase(state, action.active, action.now);
+    case 'SET_PURCHASE_ACCESS':
+      return proSetAccess(state, action.access, action.now, action.ownerId);
     case 'GRANT_PRO_DAYS':
       return proGrantDays(state, action.days, action.now);
     case 'MARK_STORY_SHOWN':
@@ -208,7 +212,7 @@ function reduceCore(state: AppState, action: Action): AppState {
 //    総滞在秒は柔らかい統計ゆえ、実学習(QUIZ_ANSWER 等)が刻む updatedAt に相乗りで同期させる。
 // ここを刻むと「勉強していない端末を開いただけ」で相手端末の学習を上書きする多端末データ消失が起きる。
 const NO_STAMP: ReadonlySet<Action['type']> = new Set([
-  'HYDRATE', 'SYNC_TICKETS', 'SET_PURCHASE_ACTIVE', 'GRANT_PRO_DAYS',
+  'HYDRATE', 'SYNC_TICKETS', 'SET_PURCHASE_ACTIVE', 'SET_PURCHASE_ACCESS', 'GRANT_PRO_DAYS',
   'SET_REFERRAL_STATS', 'SET_TRIAL_START', 'SET_PRO_UNTIL', 'MARK_STORY_SHOWN',
   'MARK_UNLOCK_SEEN', 'SEED_UNLOCKS_SEEN', 'ADD_STUDY_SECONDS',
 ]);
@@ -311,6 +315,7 @@ export function useAppActions() {
     consumeSession: () => dispatch({ type: 'CONSUME_SESSION', now: Date.now() }),
     grantAdBonus: () => dispatch({ type: 'GRANT_AD_BONUS', now: Date.now() }),
     setPurchaseActive: (active: boolean) => dispatch({ type: 'SET_PURCHASE_ACTIVE', active, now: Date.now() }),
+    setPurchaseAccess: (access: PurchaseAccess, ownerId?: string) => dispatch({ type: 'SET_PURCHASE_ACCESS', access, ownerId, now: Date.now() }),
     grantProDays: (days: number) => dispatch({ type: 'GRANT_PRO_DAYS', days, now: Date.now() }),
     markStoryShown: (id: string, skipped = false) => dispatch({ type: 'MARK_STORY_SHOWN', id, now: Date.now(), skipped }),
     markStudyDay: (qualifying: boolean) => dispatch({ type: 'SET_COMPLETED', day: dayStr(Date.now()), qualifying }),

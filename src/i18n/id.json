@@ -1502,5 +1502,10 @@
   "sakura.exam_month": "{n} hari lagi sampai ujian! Sedikit demi sedikit setiap hari akan menjadi kekuatanmu di hari H. Semangat!",
   "sakura.exam_week": "{n} hari lagi sampai ujian. Mari kita berjuang bersama untuk sprint terakhir!",
   "sakura.exam_tomorrow": "Besok adalah hari ujian. Istirahatlah yang cukup hari ini dan percaya dirilah. Aku mendukungmu!",
-  "sakura.exam_today": "Hari ini adalah hari ujian! Kamu pasti bisa karena sudah berusaha keras sampai sekarang. Tetap tenang dan semoga berhasil!"
+  "sakura.exam_today": "Hari ini adalah hari ujian! Kamu pasti bisa karena sudah berusaha keras sampai sekarang. Tetap tenang dan semoga berhasil!",
+  "paywall.level_title": "Pro Seumur Hidup {level}",
+  "paywall.level_subtitle": "Beli N3, N4, dan N5 secara terpisah. Akses seumur hidup hanya untuk level yang dibeli.",
+  "paywall.level_mock": "• Simulasi ujian (memerlukan tiket)",
+  "paywall.lifetime_note": "Pembelian sekali, tanpa perpanjangan otomatis. Hanya mencakup level yang dibeli; level lain dijual terpisah. Pulihkan dengan akun toko yang sama.",
+  "paywall.owned": "Sudah dibeli"
 }

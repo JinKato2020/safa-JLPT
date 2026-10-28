@@ -1502,5 +1502,10 @@
   "sakura.exam_month": "{n} days until the exam! A little every day builds your strength for the real test. You can do it!",
   "sakura.exam_week": "Only {n} days until the exam. Let’s do the final sprint together!",
   "sakura.exam_tomorrow": "The exam is tomorrow! Rest well today and be confident. I’m cheering for you!",
-  "sakura.exam_today": "Today is exam day! You’ve worked so hard — you’ll be fine. Stay calm, and good luck!"
+  "sakura.exam_today": "Today is exam day! You’ve worked so hard — you’ll be fine. Stay calm, and good luck!",
+  "paywall.level_title": "{level} Lifetime Pro",
+  "paywall.level_subtitle": "Buy N3, N4, and N5 separately. Lifetime access applies only to the level you purchase.",
+  "paywall.level_mock": "• Mock exams (tickets required)",
+  "paywall.lifetime_note": "One-time purchase. No automatic renewal. Only the purchased level is included; other levels are sold separately. Restore with the same store account.",
+  "paywall.owned": "Purchased"
 }

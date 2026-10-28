@@ -1502,5 +1502,10 @@
   "sakura.exam_month": "距考试还有{n}天！每天的点滴积累，都会成为你正式考试的实力。加油！",
   "sakura.exam_week": "距考试还有{n}天。最后冲刺，我们一起加油！",
   "sakura.exam_tomorrow": "明天终于要考试了。今天好好休息，充满自信。我支持你！",
-  "sakura.exam_today": "今天就是考试日！努力到现在的你一定没问题。放轻松，去吧！"
+  "sakura.exam_today": "今天就是考试日！努力到现在的你一定没问题。放轻松，去吧！",
+  "paywall.level_title": "{level} 永久Pro",
+  "paywall.level_subtitle": "N3、N4、N5分别买断。仅购买的级别可永久使用。",
+  "paywall.level_mock": "・模拟考功能（需使用考试券）",
+  "paywall.lifetime_note": "一次性购买，不自动续费。仅包含已购买的级别，其他级别需另购。可使用同一商店账号恢复购买。",
+  "paywall.owned": "已购买"
 }

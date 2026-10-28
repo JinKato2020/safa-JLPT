@@ -30,21 +30,20 @@ test('日付が変わると3回に戻る', () => {
   assert.equal(q.canPractice, true);
 });
 
-test('広告は1日2本まで・1本で+1回(合計5回)', () => {
+test('広告は設定された1日上限まで・1本で+1回', () => {
   let s = st();
   for (let i = 0; i < 3; i++) s = consumeSession(s, FREE_NOW);
-  s = grantAdBonus(s, FREE_NOW);
-  assert.equal(quotaFor(s, FREE_NOW).left, 1);
-  s = consumeSession(s, FREE_NOW);
-  s = grantAdBonus(s, FREE_NOW);
-  assert.equal(quotaFor(s, FREE_NOW).left, 1);
-  s = consumeSession(s, FREE_NOW);
+  for (let i = 0; i < AD_BONUS_PER_DAY_MAX; i++) {
+    s = grantAdBonus(s, FREE_NOW);
+    assert.equal(quotaFor(s, FREE_NOW).left, 1);
+    s = consumeSession(s, FREE_NOW);
+  }
   const q = quotaFor(s, FREE_NOW);
-  assert.equal(q.used, 5);
+  assert.equal(q.used, FREE_SESSIONS_PER_DAY + AD_BONUS_PER_DAY_MAX);
   assert.equal(q.limit, FREE_SESSIONS_PER_DAY + AD_BONUS_PER_DAY_MAX);
   assert.equal(q.canPractice, false);
-  assert.equal(q.canWatchAd, false);                              // 3本目は見られない
-  assert.deepEqual(grantAdBonus(s, FREE_NOW).dailyQuota, s.dailyQuota); // 3本目を叩いても不変
+  assert.equal(q.canWatchAd, false);
+  assert.deepEqual(grantAdBonus(s, FREE_NOW).dailyQuota, s.dailyQuota); // 上限後は不変
 });
 
 test('残りがあるうちは広告を勧めない', () => {

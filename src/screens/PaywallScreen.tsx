@@ -6,36 +6,18 @@ import { View, Text, Image, Pressable, StyleSheet, ScrollView, ActivityIndicator
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { PACKAGE_TYPE, type PurchasesOffering, type PurchasesPackage } from 'react-native-purchases';
+import { type PurchasesOffering, type PurchasesPackage } from 'react-native-purchases';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
 import { useT, useUiLang } from '../i18n';
 import { legalUrl } from '../config/legal';
-import { useAppActions } from '../store/store';
-import { getCurrentOffering, purchase, restore, syncEntitlement } from '../pro/purchases';
+import { useAppActions, useAppState } from '../store/store';
+import { useSync } from '../auth/SyncProvider';
+import { levelForPackage, PURCHASE_LEVELS } from '../pro/levelPurchases';
+import { getCurrentOffering, purchase, restore } from '../pro/purchases';
 
 // 画面上部のバナー(桜が書斎で迎えるイラスト)。course/UIアセットなのでassets配下にASCII名で配置。
 const BANNER = require('../../assets/pro/subscribe.jpg');
-
-/** パッケージ種別 → 期間ラベルのi18nキー。無ければ商品タイトルを使う。 */
-function periodKey(t: PACKAGE_TYPE): string | null {
-  switch (t) {
-    case PACKAGE_TYPE.ANNUAL: return 'paywall.period_year';
-    case PACKAGE_TYPE.MONTHLY: return 'paywall.period_month';
-    case PACKAGE_TYPE.SIX_MONTH: return 'paywall.period_6month';
-    case PACKAGE_TYPE.THREE_MONTH: return 'paywall.period_3month';
-    case PACKAGE_TYPE.LIFETIME: return 'paywall.period_lifetime';
-    default: return null;
-  }
-}
-
-// 画面の表示順を固定(1ヶ月→3ヶ月→6ヶ月→12ヶ月＝短い順)。RevenueCatのオファリング内の並びに依存しない。
-const PERIOD_RANK: Partial<Record<PACKAGE_TYPE, number>> = {
-  [PACKAGE_TYPE.MONTHLY]: 0,
-  [PACKAGE_TYPE.THREE_MONTH]: 1,
-  [PACKAGE_TYPE.SIX_MONTH]: 2,
-  [PACKAGE_TYPE.ANNUAL]: 3,
-};
 
 export default function PaywallScreen() {
   const c = useColors();
@@ -43,7 +25,11 @@ export default function PaywallScreen() {
   const uiLang = useUiLang();
   const s = styles(c);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { setPurchaseActive } = useAppActions();
+  const { setPurchaseAccess } = useAppActions();
+  const state = useAppState();
+  const { session } = useSync();
+  const ownerId = session?.user?.id ?? 'anonymous';
+  const owned = state.entitlements?.purchaseLevels ?? [];
   const { width: SW, height: SH } = useWindowDimensions(); // 画面いっぱいの大迫力バナー(高さ=画面の約40%)
 
   const [offering, setOffering] = useState<PurchasesOffering | null>(null);
@@ -72,20 +58,16 @@ export default function PaywallScreen() {
   }, []);
 
   async function onBuy(pkg: PurchasesPackage) {
-    if (busy) return;
+    const level = levelForPackage(pkg.identifier);
+    if (busy || !level || owned.includes(level)) return;
     setBusy(true);
-    let ok = await purchase(pkg);
-    // 自動回復: 購入は通ったのに権利がまだ返らない(RevenueCat↔ストア照合の遅延)／既に所有(すでに定期購入)の場合、
-    // 権利を1回再同期して拾う。これで購入直後にPROへならず手動Restoreを強いる不具合を防ぐ(2026-09-17)。
-    if (!ok) { ok = (await syncEntitlement()) === true; }
-    if (ok) {
-      setPurchaseActive(true);
-      const pk = periodKey(pkg.packageType);
-      const period = pk ? t(pk) : pkg.product.title; // 例: 「1ヶ月」。商品に応じて動的に。
-      Alert.alert(t('paywall.purchased_msg', { period }));
+    const result = await purchase(pkg);
+    if (result) setPurchaseAccess(result.access, ownerId);
+    // キャンセルやエラーを、既存の別レベル/旧サブスク権利で「購入成功」にしない。
+    if (result?.confirmed) {
+      Alert.alert(t('paywall.purchased_msg', { period: t('paywall.level_title', { level }) }));
       nav.goBack();
     } else {
-      // キャンセルも false。静かに戻すだけ(失敗メッセージは通信/在庫エラー時のみに寄せない=誤タップ配慮)
       setBusy(false);
     }
   }
@@ -93,18 +75,17 @@ export default function PaywallScreen() {
   async function onRestore() {
     if (busy) return;
     setBusy(true);
-    const ok = await restore();
-    // 復元後に念のため最新化して保存
-    const active = ok ? true : await syncEntitlement();
-    if (typeof active === 'boolean') setPurchaseActive(active);
+    const restored = await restore();
+    if (restored) setPurchaseAccess(restored, ownerId);
+    const ok = !!restored && (restored.allLevels || restored.levels.length > 0);
     setBusy(false);
     Alert.alert(ok ? t('paywall.restored') : t('paywall.no_restore'));
     if (ok) nav.goBack();
   }
 
-  const packages = [...(offering?.availablePackages ?? [])].sort(
-    (a, b) => (PERIOD_RANK[a.packageType] ?? 99) - (PERIOD_RANK[b.packageType] ?? 99),
-  );
+  const packages = [...(offering?.availablePackages ?? [])]
+    .filter(pkg => levelForPackage(pkg.identifier) !== null)
+    .sort((a, b) => PURCHASE_LEVELS.indexOf(levelForPackage(a.identifier)!) - PURCHASE_LEVELS.indexOf(levelForPackage(b.identifier)!));
 
   return (
     <SafeAreaView style={s.c}>
@@ -113,11 +94,11 @@ export default function PaywallScreen() {
         {/* 画面上部: 桜のイラストバナー(画面幅いっぱい×画面高の約40%=大迫力ヒーロー) */}
         <Image source={BANNER} style={[s.banner, { width: SW, height: Math.round(SH * 0.40) }]} resizeMode="cover" />
         <Text style={s.title}>{t('paywall.title')}</Text>
-        <Text style={s.subtitle}>{t('paywall.subtitle')}</Text>
+        <Text style={s.subtitle}>{t('paywall.level_subtitle')}</Text>
 
         <View style={s.benefits}>
           <Text style={s.benefit}>{t('paywall.benefit_unlimited')}</Text>
-          <Text style={s.benefit}>{t('paywall.benefit_mock')}</Text>
+          <Text style={s.benefit}>{t('paywall.level_mock')}</Text>
           <Text style={s.benefit}>{t('paywall.benefit_noads')}</Text>
         </View>
 
@@ -127,28 +108,28 @@ export default function PaywallScreen() {
           <Text style={s.soon}>{t('paywall.soon')}</Text>
         ) : (
           packages.map((pkg) => {
-            const pk = periodKey(pkg.packageType);
-            const period = pk ? t(pk) : pkg.product.title;
+            const level = levelForPackage(pkg.identifier)!;
+            const purchased = owned.includes(level);
             return (
               <Pressable
                 key={pkg.identifier}
-                style={[s.pkg, busy && s.pkgBusy]}
+                style={[s.pkg, (busy || purchased) && s.pkgBusy]}
                 onPress={() => onBuy(pkg)}
-                disabled={busy}
+                disabled={busy || purchased}
                 hitSlop={4}
               >
                 <View style={s.pkgTxt}>
-                  <Text style={s.pkgPeriod}>{`Pro ${period}`}</Text>
-                  <Text style={s.pkgPrice}>{pkg.product.priceString}</Text>
+                  <Text style={s.pkgPeriod}>{t('paywall.level_title', { level })}</Text>
+                  <Text style={s.pkgPrice}>{purchased ? t('paywall.owned') : pkg.product.priceString}</Text>
                 </View>
-                <Text style={s.pkgGo}>{'›'}</Text>
+                <Text style={s.pkgGo}>{purchased ? '✓' : '›'}</Text>
               </Pressable>
             );
           })
         )}
 
-        {/* 自動更新の明示(Apple審査で必須) */}
-        <Text style={s.legal}>{t('paywall.legal_note')}</Text>
+        {/* 買い切り・対象レベル・自動更新なしを明記。 */}
+        <Text style={s.legal}>{t('paywall.lifetime_note')}</Text>
 
         <Pressable style={s.restore} onPress={onRestore} disabled={busy} hitSlop={8}>
           <Text style={s.restoreTxt}>{t('paywall.restore')}</Text>

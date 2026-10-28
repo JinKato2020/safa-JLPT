@@ -18,8 +18,8 @@ import { recordGeoCountry, cacheGeoCountry } from '../geo/geoClient';
 import { initFreeProCampaign } from '../pro/campaign';
 import { registerPushToken } from '../push/pushClient';
 
-type SyncCtx = { session: Session | null; email: string | null; lastSyncedAt: number | null; blocked: { label: string | null } | null };
-const Ctx = createContext<SyncCtx>({ session: null, email: null, lastSyncedAt: null, blocked: null });
+type SyncCtx = { authReady: boolean; session: Session | null; email: string | null; lastSyncedAt: number | null; blocked: { label: string | null } | null };
+const Ctx = createContext<SyncCtx>({ authReady: false, session: null, email: null, lastSyncedAt: null, blocked: null });
 export function useSync(): SyncCtx {
   return useContext(Ctx);
 }
@@ -31,6 +31,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   const hydrated = useHydrated();
   const fromDisk = useHydratedFromDisk();
   const { hydrate, setTrialStart, setProUntil, setSettings } = useAppActions();
+  const [authReady, setAuthReady] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const [lastSyncedAt, setLastSyncedAt] = useState<number | null>(null);
   // 「同時ログインは1台だけ」：この端末が枠を保持しているか(holds)と、別端末使用中でブロックされた表示(blocked)。
@@ -44,8 +45,8 @@ export function SyncProvider({ children }: { children: ReactNode }) {
 
   // セッション取得＋購読＋RN前後でトークン自動更新を制御。
   useEffect(() => {
-    void getSession().then(setSession);
-    const unsub = onAuthStateChange((s) => setSession(s));
+    void getSession().then(s => { setSession(s); setAuthReady(true); }).catch(() => setAuthReady(true));
+    const unsub = onAuthStateChange((s) => { setSession(s); setAuthReady(true); });
     supabase.auth.startAutoRefresh();
     const rn = RNAppState.addEventListener('change', (st) => {
       if (st === 'active') supabase.auth.startAutoRefresh();
@@ -212,5 +213,5 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   // ログアウト等でセッションが消えたら、枠の保持フラグも下ろす(念のための保険)。
   useEffect(() => { if (!session) setHolds(false); }, [session]);
 
-  return <Ctx.Provider value={{ session, email: session?.user?.email ?? null, lastSyncedAt, blocked }}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{ authReady, session, email: session?.user?.email ?? null, lastSyncedAt, blocked }}>{children}</Ctx.Provider>;
 }
