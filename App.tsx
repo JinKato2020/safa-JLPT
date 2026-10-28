@@ -69,6 +69,8 @@ import { DesignThemeProvider } from './src/design';
 import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnswers, sendLifecycleMetrics } from './src/telemetry/telemetry';
 import { isTestLab } from './src/telemetry/testLab';
 import { createForegroundUsage, USAGE_TICK_MS } from './src/telemetry/foregroundUsage';
+import { completedProfileSnapshotKey } from './src/telemetry/profileSnapshot';
+import { syncAfterStudyArt } from './src/data/afterStudyRemote';
 
 // ナビゲーション状態から現在の画面名(最深ルート)を取得。
 function activeRouteName(navState: unknown): string | undefined {
@@ -356,6 +358,16 @@ function Root() {
     })();
   }, [hydrated, settings.onboarded]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // 学習後画像は保存済み→サーバー更新の順で準備。起動や復帰を待たせない。
+  useEffect(() => {
+    if (!hydrated) return;
+    void syncAfterStudyArt();
+    const sub = AppState.addEventListener('change', status => {
+      if (status === 'active') void syncAfterStudyArt();
+    });
+    return () => sub.remove();
+  }, [hydrated]);
+
   // 匿名計測: 日次スナップショット＋アプリ往来/滞在＋回答flush＋クラッシュ報告。
   useEffect(() => {
     if (!hydrated) return;
@@ -392,6 +404,17 @@ function Root() {
     });
     return () => { clearInterval(timer); sub.remove(); usage.pause(now()); };
   }, [hydrated]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 初期設定の保存をReactが反映してから必ず送信。開始ボタン内で送ると旧stateになる。
+  // 初期設定完了済みの既存ユーザーも起動時に再送し、旧版が残した空の表示を更新する。
+  const profileSnapshotKey = completedProfileSnapshotKey(settings, session?.user?.id ?? null);
+  const lastProfileSnapshot = useRef<string | null>(null);
+  useEffect(() => {
+    if (!hydrated || !profileSnapshotKey) { lastProfileSnapshot.current = null; return; }
+    if (lastProfileSnapshot.current === profileSnapshotKey) return;
+    lastProfileSnapshot.current = profileSnapshotKey;
+    void sendDailySnapshot(stateRef.current, Date.now(), true);
+  }, [hydrated, profileSnapshotKey]);
 
   // 課金(RevenueCat)の初期化とPro状態の同期。キー未設定(src/config/revenuecat.ts が空)なら全て no-op。
   // ログイン中は実IDへ紐付け(機種変で権利がfollow)、匿名なら匿名IDで同期。結果を端末へ保存(通信断でもProが剥がれない)。

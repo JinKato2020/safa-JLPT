@@ -112,6 +112,8 @@ jobs:
           cp -r assets/audio _site/assets/audio
           # 発話表現イラスト(オンデマンドDL用・同梱しない)
           [ -d assets/hatsuwa ] && cp -r assets/hatsuwa _site/assets/hatsuwa || true
+          # 学習後画像のリモート一覧＋画像。以降の差し替えはアプリビルド不要。
+          [ -d web/afterstudy ] && cp -r web/afterstudy _site/afterstudy || true
           # ポスター朗読の音声/画像は GitHub Release(packs-poster)から配信(版管理付き)へ移行。Pagesコピー廃止。
           # プライバシー/規約は本番 www.safa-lang.com/jlpt/<lang>/privacy(・terms) へ移行済み。
           # 旧 privacy.html/terms.html(「収集しない」版・幽霊)は 2026-09-10 に撤去。ここでの配信は廃止。
@@ -161,7 +163,7 @@ jobs:
           #  失敗し「Invalid region」誤表示でR2同期が毎回失敗＝OTA配信が届いていなかった)。secret側も是正済だが二重防御。
           RCLONE_CONFIG_R2_ENDPOINT=$(printf '%s' "$RCLONE_CONFIG_R2_ENDPOINT" | tr -d '[:space:]'); export RCLONE_CONFIG_R2_ENDPOINT
           curl -fsSL https://rclone.org/install.sh | sudo bash
-          for d in assets content dict invite r schools grammar-notes; do
+          for d in assets content dict invite r schools grammar-notes afterstudy; do
             [ -d "_site/$d" ] && rclone sync "_site/$d" "r2:jlpt-assets/$d" --s3-no-check-bucket --transfers 32 --checkers 32 --fast-list
           done
           rclone copy _site "r2:jlpt-assets" --include "/*.html" --s3-no-check-bucket

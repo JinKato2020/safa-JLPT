@@ -19,6 +19,7 @@ import { reportQualified, getDeviceRef } from '../referral/referralClient';
 import { composeVoice, pickFlavor, renderVoice } from '../story/voice';
 import { pickAfterStudyImage } from '../data/afterStudyArt';
 import { useDaylight } from '../data/tabArt';
+import { cachedAfterStudyImage } from '../data/afterStudyRemote';
 import { homeStatus } from '../home/homeStatus';
 import RubyText from './RubyText';
 import { useT } from '../i18n';
@@ -99,7 +100,8 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
 
   // ①イラスト(毎回)=学習ごとに1枚ずつ順送り(afterStudyCount が種)。マンネリ防止(気分転換)。
   const daylight = useDaylight();
-  const img = useMemo(() => pickAfterStudyImage(state.settings.afterStudyCount ?? 0, Date.now(), daylight), []); // eslint-disable-line react-hooks/exhaustive-deps
+  const bundledImage = useMemo(() => pickAfterStudyImage(state.settings.afterStudyCount ?? 0, Date.now(), daylight), []); // eslint-disable-line react-hooks/exhaustive-deps
+  const [img, setImg] = useState(() => cachedAfterStudyImage(state.settings.afterStudyCount ?? 0, daylight) ?? bundledImage);
   const dims = img ? Image.resolveAssetSource(img) : null;
   const aspect = dims && dims.width && dims.height ? dims.width / dims.height : 3 / 2;
   const frameW = width - spacing.lg * 2;
@@ -131,7 +133,7 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
       {/* ① イラスト(毎回・順送り)＋桜のねぎらい */}
       {img && (
         <View style={[s.imgFrame, { width: frameW, height: frameH }]}>
-          <Image source={img} style={s.img} resizeMode="cover" />
+          <Image source={img} style={s.img} resizeMode="cover" onError={() => setImg(bundledImage)} />
         </View>
       )}
       {!!line && (

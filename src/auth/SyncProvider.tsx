@@ -112,8 +112,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     geoUserRef.current = uid;
     void recordGeoCountry();
     void registerPushToken(); // 友だちの応援などをスマホへ届けるための端末登録(許可があれば)
-    // ログイン確立時に account_id 付きスナップショットを即送信。ダッシュボードは最新行を見るので「匿名→登録」が即反映される。
-    void sendDailySnapshot(stateRef.current, Date.now(), true);
+    // プロフィール送信は下のpull/reconcile後。復元前の空stateを登録者の最新行にしない。
   }, [session]);
 
   // ログイン確立時: リモートを引いて安全に統合する。
@@ -139,15 +138,19 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       const remote = await pullState(session.user.id);
       if (cancelled) return;
       const local = stateRef.current;
+      let reconciled = local;
       if (decideLoginSync(local, remote, fromDisk) === 'restore' && remote) {
         // 復元。ただしリモートに欠けているプロフィール項目(アバター等)はローカルで補完し、
         // 古いバックアップでアバターが既定(男の子1)に戻る事故を防ぐ。
-        hydrate(mergeRestoredState(local, remote));
+        reconciled = mergeRestoredState(local, remote);
+        hydrate(reconciled);
       } else {
         await pushState(session.user.id, { ...local, updatedAt: local.updatedAt ?? Date.now() });
       }
       if (!cancelled) {
         initialSyncDone.current = true; // 統合完了=以降のローカル変更を push してよい
+        // hydrateのdispatch直後はstateRefが旧値。確定した統合結果を直接渡す。
+        void sendDailySnapshot(reconciled, Date.now(), true);
         setLastSyncedAt(Date.now());
         // 無料お試し(7日)をアカウント単位で受取。初回=サーバーが受取日を確定/以降=既存日を返す(再ログインで再付与しない)。
         // 状態統合の後に実行=復元(hydrate)で受取日が上書きされるレースを避ける。未ログイン扱いにはならない(session確定済み)。
