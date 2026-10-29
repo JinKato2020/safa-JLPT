@@ -71,6 +71,7 @@ import { isTestLab } from './src/telemetry/testLab';
 import { createForegroundUsage, USAGE_TICK_MS } from './src/telemetry/foregroundUsage';
 import { completedProfileSnapshotKey } from './src/telemetry/profileSnapshot';
 import { syncAfterStudyArt } from './src/data/afterStudyRemote';
+import { syncSceneArt } from './src/data/sceneArtRemote';
 import { EMPTY_PURCHASE_ACCESS, type PurchaseAccess } from './src/pro/levelPurchases';
 
 // ナビゲーション状態から現在の画面名(最深ルート)を取得。
@@ -363,8 +364,9 @@ function Root() {
   useEffect(() => {
     if (!hydrated) return;
     void syncAfterStudyArt();
+    void syncSceneArt(); // 季節の背景・町マップ(届くまでは同梱画像)
     const sub = AppState.addEventListener('change', status => {
-      if (status === 'active') void syncAfterStudyArt();
+      if (status === 'active') { void syncAfterStudyArt(); void syncSceneArt(); }
     });
     return () => sub.remove();
   }, [hydrated]);

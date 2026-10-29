@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { AppState, type ImageSourcePropType } from 'react-native';
 import { daylightAt, type Daylight } from './daylight';
 import { useAppState } from '../store/store';
+import { sceneImage, useSceneArt } from './sceneArtRemote';
 
 export type TabKey = 'word' | 'exam' | 'dict';
 export { daylightAt, type Daylight };
@@ -47,17 +48,24 @@ export function useDaylight(): Daylight {
   return override === 'day' || override === 'night' ? override : dl;
 }
 
-// 指定タブの、いまの時刻に応じた背景を返す。
+// 指定タブの、いまの時刻に応じた背景を返す。季節のOTA画像(sceneArtRemote)があればそれ、無ければ同梱画像。
 export function useTabBg(key: TabKey): ImageSourcePropType {
-  return TAB_BG[key][useDaylight()];
+  const dl = useDaylight();
+  useSceneArt();
+  return sceneImage(key, dl) ?? TAB_BG[key][dl];
 }
 
-// ホーム背景の、いまの時刻に応じた昼/夜を返す。
+// ホーム背景の、いまの時刻に応じた昼/夜を返す(OTA画像を優先)。
 export function useHomeBg(): ImageSourcePropType {
-  return HOME_BG_BY[useDaylight()];
+  const dl = useDaylight();
+  useSceneArt();
+  return sceneImage('home', dl) ?? HOME_BG_BY[dl];
 }
 
 // 指定タブの、いまの時刻に応じた「閉じ目版」を返す(未登録なら undefined=まばたきなし)。
+//  閉じ目版は同梱の絵と対なので、OTA画像に差し替わっている間は出さない(別の絵に目だけ重なるのを防ぐ)。
 export function useTabBlink(key: TabKey): ImageSourcePropType | undefined {
-  return TAB_BLINK[key]?.[useDaylight()];
+  const dl = useDaylight();
+  useSceneArt();
+  return sceneImage(key, dl) ? undefined : TAB_BLINK[key]?.[dl];
 }

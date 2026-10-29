@@ -3,7 +3,7 @@
 //  ・当たり判定=src/plaza/mapCollision.ts(色解析で自動生成した MAP_G×MAP_G。'.'歩ける/'#'止まる)。X/Yを別々に判定=壁ずり移動。
 //  ・描画: マップ画像1枚＋プレイヤー。移動は transform を毎フレーム setValue(再描画なし=軽い)。向き変化時だけ画像差し替え。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert, Platform, KeyboardAvoidingView } from 'react-native';
+import { View, Text, Image, Animated, Pressable, PanResponder, ScrollView, StyleSheet, useWindowDimensions, Share, Modal, TextInput, Alert, Platform, KeyboardAvoidingView, type ImageSourcePropType } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // 絵文字/アイコン除去(気分などデータに含まれる絵文字を会話表示から外す)。国旗(talk.flag)は別扱いなので影響なし。
@@ -16,6 +16,7 @@ import { MAP_G, MAP_WALK } from '../plaza/mapCollision';
 import { useAppState, useAppActions } from '../store/store';
 import { KANJI, VOCAB, GRAMMAR, meaningIn } from '../data';
 import { useDaylight } from '../data/tabArt';
+import { sceneImage, sceneLayer, useSceneArt } from '../data/sceneArtRemote';
 import type { SaveRef } from '../store/state';
 import { sampleNotebook } from '../plaza/sampleNotebook';
 // 「覚えた単語」の分母＝そのレベルの全単語数(漢字/語彙/文法)。exact-level(§4カバー率と同じ定義)で1度だけ集計。
@@ -245,9 +246,10 @@ const MAP_TREE_DAY = require('../../assets/kotoba/map/autumn_tree_day.png'); // 
 const MAP_TREE_NIGHT = require('../../assets/kotoba/map/autumn_tree_night.png'); // 夜: 同じ形で夜マップの木の色に合わせた透過レイヤー
 // 家の前面レイヤー(木と同じ最前面=屋根+壁の下を歩く=入口に入ると家の前に隠れる「建物に入る」演出)。書斎/書庫×昼夜。
 // 家の躯体は当たり判定で塞がっているため、屋根だけだと下に入れない→屋根+壁の家シルエットを最前面にして入口で隠す。
-const ROOFS = [
-  { day: require('../../assets/kotoba/map/house_shosai_day.png'), night: require('../../assets/kotoba/map/house_shosai_night.png'), x: 742, y: 448, w: 256, h: 160 }, // 書斎(右) 屋根のみ=ユーザー仕上げ・背景と厳密一致(SSD=0)
-  { day: require('../../assets/kotoba/map/house_shoko_day.png'), night: require('../../assets/kotoba/map/house_shoko_night.png'), x: 349, y: 625, w: 356, h: 180, nightY: 623 }, // 書庫(下) 屋根全体=前面レイヤー。上・左右へ12px大膨張し周囲の景色ごと余裕被覆(軒先の凹凸窪みも消す)・下は軒先でクリップし建物本体は覆わない・半透明なし。夜は勾配相関で-2px(nightY)
+// 位置(x,y,w,h)は src/data/sceneArtCore.ts の BUNDLED_FRAMES(季節のOTA画像と共用)。
+const ROOFS: { slot: 'roof_shosai' | 'roof_shoko'; day: ImageSourcePropType; night: ImageSourcePropType }[] = [
+  { slot: 'roof_shosai', day: require('../../assets/kotoba/map/house_shosai_day.png'), night: require('../../assets/kotoba/map/house_shosai_night.png') }, // 書斎(右) 屋根のみ=ユーザー仕上げ・背景と厳密一致(SSD=0)
+  { slot: 'roof_shoko', day: require('../../assets/kotoba/map/house_shoko_day.png'), night: require('../../assets/kotoba/map/house_shoko_night.png') }, // 書庫(下) 屋根全体=前面レイヤー。上・左右へ12px大膨張し周囲の景色ごと余裕被覆(軒先の凹凸窪みも消す)・下は軒先でクリップし建物本体は覆わない・半透明なし。夜は勾配相関で-2px
 ];
 
 const WORLD = 1024;            // マップ表示サイズ(正方)。当たり判定グリッドはこの中を MAP_G 等分。
@@ -270,12 +272,7 @@ const WARP_ZONES: { x: number; y: number; w: number; h: number; t: WarpTarget }[
 
 // 中央の木レイヤー(ユーザー提供のきれいな切り抜き tree.png)を最前面に重ねる。幹の付け根をマップの木に合わせて配置。
 const TREE = { x: 259, y: 165, w: 437, h: 285 }; // 夏版と同じNPC初期配置の除外範囲を維持。
-// 原寸1254pxの地図と樹木の元切り抜きは画素一致で位置確認済み。
-// 表示だけ1024pxワールドへ変換。当たり判定・ワープ・NPC配置には使わない。
-const AUTUMN_TREE_FRAME = {
-  day: { x: 404 * 1024 / 1254, y: 247 * 1024 / 1254, w: 390 * 1024 / 1254, h: 267 * 1024 / 1254 },
-  night: { x: 411 * 1024 / 1254, y: 258 * 1024 / 1254, w: 373 * 1024 / 1254, h: 240 * 1024 / 1254 },
-};
+// 木レイヤーの表示位置は src/data/sceneArtCore.ts の BUNDLED_FRAMES.map_tree(当たり判定・ワープ・NPC配置には使わない)。
 
 // 応援コメント(固定6種・自由入力なし=荒らし不可)。仮想学習者にも送れる(ローカル反応のみ)。
 const CHEERS: { key: string; emoji: string; label: string; reply: string }[] = [
@@ -546,9 +543,11 @@ export default function KotobaTownScreen() {
   const sittersRef = useRef<Sitter[]>(sitters);
   sittersRef.current = sitters; // 移動ループ(閉包)から最新の座り手を参照するため
   const isDay = useDaylight() === 'day'; // 開発用 昼/夜固定(devDaylight)を尊重・時刻でも自動更新。町/会話の背景・ダイアログ昼夜に反映
-  const MAP_IMG = isDay ? MAP_DAY : MAP_NIGHT;
-  const treeFrame = AUTUMN_TREE_FRAME[isDay ? 'day' : 'night'];
-  const MAP_TREE = isDay ? MAP_TREE_DAY : MAP_TREE_NIGHT; // 木の最前面レイヤーも昼夜で切替(夜も木の裏を通れる)
+  const period = isDay ? 'day' : 'night';
+  useSceneArt(); // 季節のOTA画像(背景＋木＋家の4枠セット)が届いたら差し替える。無ければ同梱の秋版。
+  const MAP_IMG = sceneImage('map', period) ?? (isDay ? MAP_DAY : MAP_NIGHT);
+  // 木の最前面レイヤーも昼夜で切替(夜も木の裏を通れる)
+  const { source: MAP_TREE, frame: treeFrame } = sceneLayer('map_tree', period, isDay ? MAP_TREE_DAY : MAP_TREE_NIGHT);
 
   const start = useRef({ x: (START_COL + 0.5) * CELL - SPRITE / 2, y: (START_ROW + 0.5) * CELL - SPRITE * 0.82 }).current;
   const pos = useRef({ x: start.x, y: start.y });
@@ -873,9 +872,10 @@ export default function KotobaTownScreen() {
           {/* 上: 木のレイヤー(人より前面=木の裏に回ると隠れる)。day.jpgと同じ位置に重ねる。zIndex=2000でアバター(最大WORLD=1024)より必ず前面。 */}
           <Image source={MAP_TREE} style={{ position: 'absolute', left: treeFrame.x, top: treeFrame.y, width: treeFrame.w, height: treeFrame.h, zIndex: 2000 }} resizeMode="stretch" />
           {/* 上: 家の屋根レイヤー(人より前面=屋根の下を歩くと隠れる)。昼夜で切替。 */}
-          {ROOFS.map((rf, i) => (
-            <Image key={i} source={isDay ? rf.day : rf.night} style={{ position: 'absolute', left: rf.x, top: isDay ? rf.y : ((rf as { nightY?: number }).nightY ?? rf.y), width: rf.w, height: rf.h, zIndex: 2000 }} resizeMode="stretch" />
-          ))}
+          {ROOFS.map((rf, i) => {
+            const { source, frame } = sceneLayer(rf.slot, period, isDay ? rf.day : rf.night);
+            return <Image key={i} source={source} style={{ position: 'absolute', left: frame.x, top: frame.y, width: frame.w, height: frame.h, zIndex: 2000 }} resizeMode="stretch" />;
+          })}
           {/* 最前面: 名前・Lvの名札は前面レイヤ(木/屋根)より上に描く=裏に隠れても位置が分かる。 */}
           {/* 座りキャラ(ベンチ)の名札。動かないので固定座標で。 */}
           {sitters.map((si, i) => {

@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { parseArtManifest } from '../src/data/afterStudyRemoteCore.ts';
+import { dimensions } from './lib/imageDimensions.mjs';
 
 const args = process.argv.slice(2);
 const sourceIndex = args.indexOf('--source');
@@ -11,29 +12,6 @@ if (sourceIndex >= 0 && !args[sourceIndex + 1]) throw new Error('--source requir
 const source = resolve(sourceIndex >= 0 ? args[sourceIndex + 1] : 'assets/afterstudy');
 const output = resolve('web/afterstudy');
 
-// Only PNG/JPEG, with dimensions read from the file itself (no extra dependency).
-function dimensions(bytes) {
-  if (bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
-    return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20), extension: 'png' };
-  }
-  if (bytes[0] === 255 && bytes[1] === 216) {
-    let offset = 2;
-    while (offset + 8 < bytes.length) {
-      if (bytes[offset++] !== 255) continue;
-      let marker = bytes[offset++];
-      while (marker === 255) marker = bytes[offset++];
-      if (marker === 0xDA || marker === 0xD9) break;
-      if (marker === 0x01 || (marker >= 0xD0 && marker <= 0xD8)) continue;
-      const length = bytes.readUInt16BE(offset);
-      if (length < 2) break;
-      if ([0xC0, 0xC1, 0xC2].includes(marker)) {
-        return { width: bytes.readUInt16BE(offset + 5), height: bytes.readUInt16BE(offset + 3), extension: 'jpg' };
-      }
-      offset += length;
-    }
-  }
-  throw new Error('Unsupported or corrupt PNG/JPEG');
-}
 const names = readdirSync(source).filter(n => /\.(png|jpe?g)$/i.test(n)).sort();
 const manifest = { schema: 1, day: [], night: [] };
 const images = [];
