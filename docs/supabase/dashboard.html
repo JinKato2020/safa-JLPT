@@ -72,6 +72,17 @@
   .err{ color:var(--bad); font-size:13px; white-space:pre-wrap; }
   .pill{ font-size:11px; padding:1px 8px; border-radius:99px; background:var(--chip); border:1px solid var(--line); color:var(--sub); }
   .pill.good{ border-color:var(--good); color:var(--good); }
+  /* 利用者一覧「状態」列の色札(凡例=#stLegend)。系A=地域キャンペーン / 系B=サーバー付与のPro。 */
+  .st{ display:inline-block; font-size:11px; font-weight:700; line-height:18px; padding:0 6px; margin-right:3px; border-radius:4px; color:#fff; border:1px solid transparent; }
+  .st-a{ background:var(--good); }
+  .st-ax{ background:transparent; color:var(--sub); border-color:var(--line); }
+  .st-none{ background:transparent; color:var(--sub); border:1px dashed var(--sub); }
+  .st-life{ background:#7b4fc8; }
+  .st-paid{ background:var(--accent2); }
+  .st-off{ opacity:.55; }
+  .st-grant{ background:var(--warn); }
+  .st-free{ background:var(--chip); color:var(--sub); border-color:var(--line); }
+  #stLegend{ margin:6px 0 8px; font-size:12px; color:var(--sub); display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center; }
   .mono{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:var(--sub); }
   .updated{ font-size:12px; color:var(--sub); margin-left:auto; }
   .count{ font-size:12px; color:var(--sub); font-weight:400; }
@@ -284,6 +295,18 @@
       <button id="btnDel" class="danger" disabled>🗑 削除</button>
       <button id="btnClear" class="ghost">選択解除</button>
       <span class="note">左端のチェックで消したい人を選び、🗑 削除。取り消せません。</span>
+    </div>
+    <div id="stLegend"><b>状態の色</b>
+      <span><span class="st st-a">日本</span>地域キャンペーンで無料Pro（文字＝国・地域）</span>
+      <span><span class="st st-ax">日本</span>キャンペーン対象外</span>
+      <span><span class="st st-ax">日本~</span>~＝IP国からの推定</span>
+      <span><span class="st st-none">?</span>地域の判定不能</span>
+      <span><span class="st st-life">∞N4</span>永続Pro（買い切り・N4／全＝全レベル）</span>
+      <span><span class="st st-life">∞管</span>永続Pro（管理付与）</span>
+      <span><span class="st st-paid">年120</span>有料サブスク 1年・残120日（月＝1か月／薄い＝自動更新オフ）</span>
+      <span><span class="st st-grant">7日5</span>お試し・紹介 残5日</span>
+      <span><span class="st st-free">無</span>無料</span>
+      <span>※札にカーソルを当てると詳細</span>
     </div>
     <div class="scroll"><table id="tDevices"></table></div>
   </section>
@@ -938,35 +961,36 @@ function planLabel(r){
   if(r.pro_plan === 'monthly') return '1月Pro';
   return '課金Pro';  // 商品IDから月/年を判別できなくても、課金Proである事は分かる
 }
-// 買い切り(永続Pro)の商品ID → 表示名。全レベル版は「全」、レベル別は N3/N4/N5。iOS(大文字)・Android(小文字)とも。
-function lifetimeLabel(r){
+// 状態列は色つきの短い札(.st)で表す。意味は表の上の凡例(#stLegend)・詳細は札のツールチップ。
+function st(cls, txt, title){ return `<span class="st ${cls}" title="${esc(title)}">${txt}</span>`; }
+// 買い切り(永続Pro)の商品ID → レベル札。全レベル版は「全」、レベル別は N3/N4/N5。iOS(大文字)・Android(小文字)とも。
+function lifetimeTags(r){
   const ids = Array.isArray(r.pro_lifetime_products) ? r.pro_lifetime_products : [];
   const tags = [...new Set(ids.map(id=>{ const m=/^jlpt_pro_(n[345]|all)$/i.exec(String(id)); return m ? (m[1].toLowerCase()==='all' ? '全' : m[1].toUpperCase()) : null; }).filter(Boolean))];
-  if(!tags.length) return '';
-  tags.sort((a,b)=> a==='全' ? -1 : b==='全' ? 1 : a.localeCompare(b));
-  return `<span title="${esc(ids.join(', '))}">${pill('永続Pro('+tags.join('・')+')','good')}</span>`;
+  return tags.sort((a,b)=> a==='全' ? -1 : b==='全' ? 1 : a.localeCompare(b));
 }
 function proCell(r){
   const now = Date.now(), paid = paidEnd(r), grant = grantEnd(r);
-  // ⓪ 管理付与の恒久Pro(pro_until が遥か未来=forever)。期限なしなので残日数を出さず「永続Pro」を最優先表示。
-  if(isForeverPro(r)) return pill('永続Pro','good');
-  // ⓪' 買い切りの永続Pro(ストア購入/オファーコード)。有効なサブスクも残っていれば注記する。
-  const life = lifetimeLabel(r);
-  if(life) return life + (paid > now ? ` <span class="muted" title="サブスクも期限まで有効">＋${esc(planLabel(r))}</span>` : '');
-  if(paid > now){  // ① 有料サブスクが有効(最優先表示)
+  const out = [];
+  // ⓪ 管理付与の恒久Pro(pro_until が遥か未来=forever)。
+  if(isForeverPro(r)) out.push(st('st-life', '∞管', '永続Pro(管理付与)'));
+  // ⓪' 買い切りの永続Pro(ストア購入/オファーコード)。
+  const life = lifetimeTags(r);
+  if(life.length) out.push(st('st-life', '∞'+life.join('・'), '永続Pro(買い切り): '+(r.pro_lifetime_products||[]).join(', ')));
+  // ① 有料サブスク(期限内)。自動更新オフは薄く。
+  if(paid > now){
     const days = Math.ceil((paid - now)/864e5);
-    const renew = r.pro_will_renew === false ? ' <span class="muted" title="自動更新オフ。期限までは有効">更新オフ</span>' : '';
-    const pidT = r.pro_product_id ? ` title="${esc(String(r.pro_product_id))}"` : '';
-    const g = grant > now ? ` <span class="muted" title="お試し/紹介の期間つきProも保有">＋7日Pro</span>` : '';
-    return `<span${pidT}>${pill(planLabel(r),'good')}</span> <span class="muted">残${days}日</span>` + renew + g;
+    const short = r.pro_plan === 'yearly' ? '年' : r.pro_plan === 'monthly' ? '月' : '課';
+    const off = r.pro_will_renew === false;
+    out.push(st('st-paid'+(off?' st-off':''), short+days, planLabel(r)+' 残'+days+'日'+(off?'・自動更新オフ(期限までは有効)':'')+(r.pro_product_id?' / '+r.pro_product_id:'')));
   }
-  if(grant > now){  // ② お試し/紹介の期間つきPro
+  // ② お試し/紹介の期間つきPro(7日Pro)。
+  if(grant > now){
     const days = Math.ceil((grant - now)/864e5);
     const g = Number(r.reward_grant_count||0);
-    const extra = g>0 ? ` <span class="muted" title="紹介の継続達成でのべ${g}回 ＋7日された">紹介${g}</span>` : '';
-    return pill('7日Pro','good') + ` <span class="muted">残${days}日</span>` + extra;
+    out.push(st('st-grant', '7日'+days, '7日Pro(お試し/紹介) 残'+days+'日'+(g>0?'・紹介でのべ'+g+'回 +7日':'')));
   }
-  return pill('無料');
+  return out.length ? out.join('') : st('st-free', '無', '無料');
 }
 
 // ── 系統A: 地域キャンペーンPro(完全無料) ──
@@ -983,11 +1007,11 @@ function campaignStatus(r){
 }
 function campaignCell(r){
   const s = campaignStatus(r);
-  if(s.on===null) return `<span class="pill" title="端末の地域設定もIP国も無い(匿名の旧版など)。キャンペーンProの判定ができません">系A <span class="muted">不明</span></span>`;
-  const est  = s.approx ? ` <span class="muted" title="端末の地域設定が未送信のため、IP国からの推定。端末の設定とズレることがあります">推定</span>` : '';
-  const code = s.code ? `(${esc(s.code)})` : '';
-  if(s.on) return `<span class="pill good" title="地域キャンペーンで完全Pro無料${s.approx?'(IP国からの推定)':'(端末の地域設定=正確)'}。地域コード=${esc(s.code)}">系A 無料Pro${code}</span>${est}`;
-  return `<span class="pill" title="キャンペーン対象地域ではない${s.approx?'(IP推定)':'(端末の地域設定)'}。地域コード=${esc(s.code)}">系A 対象外${code}</span>${est}`;
+  if(s.on===null) return st('st-none', '?', '系A 不明: 端末の地域設定もIP国も無い(匿名の旧版など)。キャンペーンProの判定ができません');
+  const code = esc(s.code ? countryLabel(s.code) : '—') + (s.approx ? '~' : '');  // 国名(日本/ベトナム…)。表に無いコードはそのまま
+  const how = s.approx ? 'IP国からの推定(端末の設定とズレることがあります)' : '端末の地域設定=正確';
+  return s.on ? st('st-a', code, `系A 地域キャンペーンで完全Pro無料(${how})。地域コード=${s.code}`)
+              : st('st-ax', code, `系A キャンペーン対象地域ではない(${how})。地域コード=${s.code}`);
 }
 const COLS = [
   // ── 固定表示(左)：ID/メール〜状態まで（FROZEN_COUNT枚）。この順序と枚数を変えたら FROZEN_COUNT も合わせる ──
@@ -1004,7 +1028,7 @@ const COLS = [
   { g:'利用者', key:'kind',  label:'種別',   val:r=>r.kind||'',  cell:r=> r.kind==='登録'?pill('登録','good'):pill('匿名') },
   { g:'利用者', key:'pro_state', label:'状態',
     title:'Proは2系統を併記。系A＝地域キャンペーンPro（完全無料・端末のOS地域設定で判定・サーバー未保存→アプリが送るregionCodeで正確表示／未送信はIP国で「推定」）。系B＝サーバー付与（無料／永続Pro＝管理付与／1年・1月Pro＝有料サブスク／7日Pro＝お試し・紹介）。',
-    val:r=>proEnd(r), cell:r=>`<span style="white-space:nowrap">${campaignCell(r)}<span class="muted" style="margin:0 6px">｜</span>系B ${proCell(r)}</span>` },
+    val:r=>proEnd(r), cell:r=>`<span style="white-space:nowrap">${campaignCell(r)}${proCell(r)}</span>` },
   // ── ここから右は横スクロール ──
   { g:'利用者', key:'platform', label:'端末', val:r=>r.platform||'', cell:r=> esc(r.platform||'—') },
   // 1アカウント1行＝「今のレベル(is_latest)」だけを表示する。過去に使ったレベルの行は出さない。
