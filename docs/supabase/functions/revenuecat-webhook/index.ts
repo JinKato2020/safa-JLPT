@@ -5,6 +5,7 @@
 //         それを環境変数 RC_WEBHOOK_AUTH と一致比較する(合わなければ 401)。JWT ではないので
 //         このEFは verify_jwt=false でデプロイすること(下の README 手順参照)。
 // ■ 書き込み: service_role でDBを更新(RLS素通り)。触るのは新設の pro_* 列だけ。
+//   ・買い切り(永続Pro)は期限が無いので pro_store_* に書かず、pro_lifetime_products(商品IDの配列)へ足し引きする。
 //   ・pro_until(紹介/お試し)や trial_claimed_at には一切触れない=既存の付与ロジックと独立。
 // ■ 冪等: 同じイベントを2回受けても結果は同じ(期限を上書きするだけ)。RevenueCat は 2xx 以外だと再送する。
 // ■ app_user_id: アプリはログイン時 Purchases.logIn(userId) で実アカウントIDを使う(App.tsx:307)。
@@ -23,6 +24,11 @@ function planOf(productId: string | null | undefined): string | null {
   if (/year|annual|yr|12\s*month|1y|年/.test(p)) return 'yearly';
   if (/month|mo\b|1m|30\s*day|月/.test(p)) return 'monthly';
   return null;
+}
+
+// 買い切りの永続Pro(レベル別 JLPT_PRO_N3〜N5／全レベル JLPT_PRO_ALL。Androidは同名の小文字)。
+function isLifetime(productId: string | null | undefined): boolean {
+  return /^jlpt_pro_(n[345]|all)$/i.test(productId ?? '');
 }
 
 // イベント種別ごとに「自動更新が続く見込みか」。期限(expiration_at_ms)自体は全イベントでそのまま保存する。
@@ -72,6 +78,30 @@ Deno.serve(async (req) => {
   const url = Deno.env.get('SUPABASE_URL')!;
   const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
   const admin = createClient(url, serviceRole);
+
+  // 買い切り: サブスク用の pro_store_* に書くと「期限なし=無料」に見え、後から来たサブスクの通知にも上書きされる。
+  //   →別列に商品IDを足す(購入)/引く(払い戻し等)。サブスクの記録には触れない。
+  if (isLifetime(productId)) {
+    const add = type === 'NON_RENEWING_PURCHASE' || type === 'INITIAL_PURCHASE';
+    const remove = type === 'CANCELLATION' || type === 'EXPIRATION';
+    if (!add && !remove) return json({ ok: true, skipped: 'lifetime event', event: type });
+    const { data: row, error: readErr } = await admin.from('entitlements')
+      .select('pro_lifetime_products').eq('user_id', appUserId).maybeSingle();
+    if (readErr) return json({ error: readErr.message }, 500);
+    const owned = new Set<string>((row?.pro_lifetime_products as string[] | null) ?? []);
+    if (add) owned.add(productId!); else owned.delete(productId!);
+    const { error: lifeErr } = await admin.from('entitlements').upsert(
+      { user_id: appUserId, pro_lifetime_products: [...owned].sort(), updated_at: nowIso },
+      { onConflict: 'user_id' },
+    );
+    if (lifeErr) {
+      if ((lifeErr as { code?: string }).code === '23503') {
+        return json({ ok: true, skipped: 'unknown account (fk)', user_id: appUserId });
+      }
+      return json({ error: lifeErr.message }, 500);
+    }
+    return json({ ok: true, user_id: appUserId, event: type, lifetime: [...owned] });
+  }
 
   // 新設 pro_* 列だけを upsert(既存の pro_until / trial_claimed_at は指定しない=保持)。
   const { error } = await admin.from('entitlements').upsert(

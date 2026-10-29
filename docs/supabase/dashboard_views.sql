@@ -112,6 +112,7 @@ select
   en.pro_product_id,
   en.pro_store_until,
   en.pro_will_renew,
+  en.pro_lifetime_products,  -- 買い切り(永続Pro)の商品ID配列。例 {JLPT_PRO_N4}。サブスクとは別に記録(revenuecat-webhook)
   -- 接続国=IP由来のおおよその国(user_geo)。母語(l1)とは独立=英語話者でも日本にいれば JP。ログイン者のみ(匿名はnull)。
   ug.country as geo_country
 from (
