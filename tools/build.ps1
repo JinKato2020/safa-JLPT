@@ -108,7 +108,8 @@ if (-not $DryRun -and $Platforms -ne 'android') {
 # 既定＝マイナー更新（末尾+1・例 1.1.1→1.1.2）／ -Major＝メジャー更新（中央+1・末尾を1へ・例 1.1.x→1.2.1）。
 # minor/major の判断（=-Major を付けるか）だけが人の仕事。Build番号(2000+commit)は別系統で自動。
 # DryRun は commit しないので app.json を汚さないようスキップ。
-if (-not $DryRun) {
+# -NoCommit も同じ(上げた版番号がコミットされず、ビルドが旧版番号のまま走る＝2026-10-30 実害)。版を上げてビルドしたい時は -Message を使う。
+if (-not $DryRun -and -not $NoCommit) {
   Step '1.5' 'バージョン自動更新'
   $appJson = Join-Path $APP 'app.json'
   $raw = Get-Content $appJson -Raw
