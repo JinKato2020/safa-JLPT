@@ -72,6 +72,7 @@ import { createForegroundUsage, USAGE_TICK_MS } from './src/telemetry/foreground
 import { completedProfileSnapshotKey } from './src/telemetry/profileSnapshot';
 import { syncAfterStudyArt } from './src/data/afterStudyRemote';
 import { syncSceneArt } from './src/data/sceneArtRemote';
+import { syncAppArt } from './src/data/appArtRemote'; // 読み込んだ時点で同梱画像の差し替え口を登録
 import { EMPTY_PURCHASE_ACCESS, type PurchaseAccess } from './src/pro/levelPurchases';
 
 // ナビゲーション状態から現在の画面名(最深ルート)を取得。
@@ -365,8 +366,9 @@ function Root() {
     if (!hydrated) return;
     void syncAfterStudyArt();
     void syncSceneArt(); // 季節の背景・町マップ(届くまでは同梱画像)
+    void syncAppArt(); // 同梱画像すべて(桜・柴・ショップ等)の差し替え
     const sub = AppState.addEventListener('change', status => {
-      if (status === 'active') { void syncAfterStudyArt(); void syncSceneArt(); }
+      if (status === 'active') { void syncAfterStudyArt(); void syncSceneArt(); void syncAppArt(); }
     });
     return () => sub.remove();
   }, [hydrated]);

@@ -5,8 +5,9 @@ import * as FS from 'expo-file-system/legacy';
 import { Platform } from 'react-native';
 import { createArtCache, type ArtCatalog, type ArtEntry } from './afterStudyRemoteCore';
 
-export function createRemoteArtStore<M>(opts: { base: string; index: string; dir: string; catalog: ArtCatalog<M> }) {
-  const { base, index, catalog } = opts;
+export function createRemoteArtStore<M>(opts: { base: string; index: string; dir: string; catalog: ArtCatalog<M>; maxManifestChars?: number }) {
+  const { base, index, catalog, maxManifestChars = 32_000 } = opts;
+  const listeners = new Set<() => void>();
   const DIR = FS.documentDirectory ? FS.documentDirectory + opts.dir : null;
   const supported = Platform.OS !== 'web' && !!DIR;
 
@@ -23,6 +24,7 @@ export function createRemoteArtStore<M>(opts: { base: string; index: string; dir
     },
     save: async manifest => { await AsyncStorage.setItem(index, JSON.stringify(manifest)); },
     valid,
+    restored: () => listeners.forEach(fn => fn()),
     fetchManifest: async () => {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 5000);
@@ -30,7 +32,7 @@ export function createRemoteArtStore<M>(opts: { base: string; index: string; dir
         const res = await fetch(base + 'manifest.json', { signal: controller.signal, cache: 'no-store' });
         if (!res.ok) throw new Error('Art manifest unavailable');
         const text = await res.text();
-        if (text.length > 32_000) throw new Error('Art manifest too large');
+        if (text.length > maxManifestChars) throw new Error('Art manifest too large');
         return JSON.parse(text);
       } finally { clearTimeout(timer); }
     },
@@ -67,7 +69,6 @@ export function createRemoteArtStore<M>(opts: { base: string; index: string; dir
     }
   }
 
-  const listeners = new Set<() => void>();
   let lastCheck = -Infinity;
   let syncing: Promise<void> | null = null;
   /** Nonblocking at launch and foreground return. A screen keeps its selected art until it closes. */

@@ -40,6 +40,8 @@ export type ArtStorage<M = ArtManifest> = {
   valid: (entry: ArtEntry) => Promise<boolean>;
   download: (entry: ArtEntry) => Promise<void>;
   fetchManifest: () => Promise<unknown>;
+  /** Called once the saved catalog is restored (before the network check), so screens can switch early. */
+  restored?: () => void;
 };
 /** How a catalog kind is validated and which files it needs. Default = after-study rotation. */
 export type ArtCatalog<M> = { parse: (value: unknown) => M; entries: (m: M) => ArtEntry[] };
@@ -59,7 +61,7 @@ export function createArtCache<M = ArtManifest>(io: ArtStorage<M>, catalog: ArtC
         if (!restored) {
           try {
             const cached = parse(await io.load());
-            if ((await Promise.all(entries(cached).map(entry => io.valid(entry)))).every(Boolean)) current = cached;
+            if ((await Promise.all(entries(cached).map(entry => io.valid(entry)))).every(Boolean)) { current = cached; io.restored?.(); }
           } catch { /* First launch / corrupt index: keep bundled fallback. */ }
           restored = true;
         }

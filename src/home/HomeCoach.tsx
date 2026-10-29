@@ -7,8 +7,9 @@ import { View, Text, Image, Animated, Pressable, StyleSheet, useWindowDimensions
 import { useT } from '../i18n';
 import { useAppState, useAppActions } from '../store/store';
 import { SHOP_BY_ID, SHOP, type ShopItem } from '../data/shop';
-import { HAIR_NORM, DOG_NORM, COSTUME_NORM, HAIR_REF_CHAR_H, COSTUME_REF_FACE_W, DOG_BASE_SIZE, DOG_BASE_SCALE } from './charNorm';
+import { HAIR_NORM, DOG_NORM, COSTUME_NORM, HAIR_REF_CHAR_H, DOG_BASE_SIZE, DOG_BASE_SCALE } from './charNorm';
 import SwipeSheet from '../components/SwipeSheet';
+import { appArtFor, useAppArt } from '../data/appArtRemote';
 import { useColors, type ThemeColors } from '../theme';
 import type { HomeStatus } from './homeStatus';
 
@@ -26,6 +27,7 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
   const { width } = useWindowDimensions();
   const state = useAppState();
   const { equipItem } = useAppActions();
+  useAppArt(); // 画像がOTAで差し替わったら描き直す(寸法・実測値も配信版に切替)
   // 筆キャラは廃止。桜は筆を背負わない。装備中の髪型(10種)の立ち絵を表示する。
   const eqHair = state.equipped?.hair;
   const hairImg = (eqHair ? SHOP_BY_ID[eqHair]?.asset : undefined) ?? SAKURA_FALLBACK;
@@ -69,31 +71,28 @@ export default function HomeCoach({ status, learned }: { status: HomeStatus; lea
     return () => { loop.stop(); sway.stop(); wag.stop(); };
   }, [bob, dogSway, tailWag]);
 
-  // 桜の表示サイズ。
-  //  ・民族衣装装備時: 髪型とは別セット・別の切り取り(頭〜太もも)なので全体高さで揃えると大きく見える。
-  //    そこで「顔の幅」を目印に hair_long の桜と同じ顔サイズへ正規化(charW を faceFrac から逆算)。
-  //  ・既定の髪型(10種): PNGごとにキャンバス寸法もキャラ占有域も違うため、hair_long のキャラ高さに正規化する。
-  //    表示枠はそのPNGのキャンバス比(aspect)に合わせ余白を無くし、キャラ高さ=HAIR_REF_CHAR_H になる枠高を逆算。
-  let charW: number, charH: number;
-  if (charImg) {
-    const cn = (eqCostume ? COSTUME_NORM[eqCostume] : undefined) ?? { aspect: 0.7297, faceFrac: 0.55 };
-    charW = Math.round((width * COSTUME_REF_FACE_W) / cn.faceFrac); // 顔幅を hair_long に揃える枠幅
-    charH = Math.round(charW / cn.aspect);                          // 枠比=キャンバス比(余白なし)
-  } else {
-    const hn = HAIR_NORM[eqHair ?? 'hair_long'] ?? HAIR_NORM.hair_long;
-    charH = Math.round((width * HAIR_REF_CHAR_H) / hn.hfrac); // キャラ高さを基準に揃える枠高
-    charW = Math.round(charH * hn.aspect);
-  }
+  // 少女版は髪型・民族衣装とも全身の透過PNG。服や髪の余白に関わらず人物の高さを揃える。
+  const bundledNorm = (charImg
+    ? (eqCostume ? COSTUME_NORM[eqCostume] : undefined)
+    : HAIR_NORM[eqHair ?? 'hair_long']) ?? HAIR_NORM.hair_long;
+  // OTAで差し替えた絵は、配信時に測った縦横比・人物の高さ割合を使う(同梱の実測値は旧画像のもの)。
+  const charOta = appArtFor(charImg ?? hairImg);
+  const charNorm = charOta ? { aspect: charOta.width / charOta.height, hfrac: charOta.hfrac ?? bundledNorm.hfrac } : bundledNorm;
+  const charH = Math.round((width * HAIR_REF_CHAR_H) / charNorm.hfrac);
+  const charW = Math.round(charH * charNorm.aspect);
   const bobY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -9] });
   const dogSwayDeg = dogSway.interpolate({ inputRange: [0, 1], outputRange: ['-3deg', '3deg'] });
   // 尻尾は「開いた空間側へ持ち上がる」-方向のみで振る(胴体側へ振ると付け根に隙間が出るため)。
   const tailWagDeg = tailWag.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '-9deg'] });
-  const isShiba1 = state.equipped?.companion === 'pet_shiba1'; // 柴1だけ尻尾フリフリ
+  // 柴1だけ尻尾フリフリ。柴1の絵だけOTAで差し替え、胴体/尻尾レイヤーが同梱のままなら、絵がずれるので1枚絵で出す。
+  const isShiba1 = state.equipped?.companion === 'pet_shiba1' && (!appArtFor(compImg) || !!appArtFor(SHIBA1_BODY));
   // 仲間の表示サイズ=柴1を基準にキャラの見かけ「サイズ(面積)」を正規化してから成長倍率をかける。
   //  ・各犬PNGはキャンバス寸法・縦横比がバラバラなので、幅一律スケールだと見かけの大小が崩れる。
   //  ・そこでキャラ面積の幾何平均(sizeFrac)と縦横比(aspect)で、キャラの実効サイズが growth に比例するよう枠高を逆算。
   //  ・growth = homeScale / 柴1のhomeScale(柴1=1.0基準・番号が上がるほど相対的に大きい)。
-  const dn = (eqComp ? DOG_NORM[eqComp] : undefined) ?? { aspect: compAspect, sizeFrac: 1 };
+  const bundledDn = (eqComp ? DOG_NORM[eqComp] : undefined) ?? { aspect: compAspect, sizeFrac: 1 };
+  const compOta = appArtFor(compImg);
+  const dn = compOta ? { aspect: compOta.width / compOta.height, sizeFrac: compOta.sizeFrac ?? bundledDn.sizeFrac } : bundledDn;
   const growth = compScale / DOG_BASE_SCALE;
   const targetS = width * DOG_BASE_SIZE * growth;           // この犬のキャラ目標サイズ(linear)
   const compH = compImg ? Math.round(targetS / (Math.sqrt(dn.aspect) * dn.sizeFrac)) : 0;
