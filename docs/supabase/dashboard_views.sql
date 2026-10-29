@@ -96,7 +96,7 @@ with acct as (
 )
 select
   t.*,
-  (row_number() over (partition by t.merge_key order by t.last_day desc)) = 1 as is_latest,
+  (row_number() over (partition by t.merge_key order by t.last_day desc, t.last_ts desc)) = 1 as is_latest, -- 同じ日に複数レベル(初回起動の既定レベル→オンボで選んだレベル)があれば、最後に送った行=名前/アバター入りを採る
   case when t.account_id is not null then '登録' else '匿名' end as kind,
   u.email,
   -- 友だち数(招待制・相互)。town_members は owner↔member 双方向で1友だち=2行ゆえ owner=本人 の行数=友だち人数。匿名(account_id null)=0。

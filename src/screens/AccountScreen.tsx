@@ -196,6 +196,8 @@ export default function AccountScreen() {
   );
   const pickerModal = (
     <Modal visible={pickerOpen !== null} transparent animationType="slide" onRequestClose={() => setPickerOpen(null)}>
+      {/* Modalは別ウィンドウ=画面側のKeyboardAvoidingViewが効かない→名前入力でキーボードがシートを隠す。シートごと持ち上げる。 */}
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Pressable style={s.pickBackdrop} onPress={() => setPickerOpen(null)} />
       <View style={s.pickSheet}>
         <Text style={s.pickTitle}>{
@@ -277,6 +279,7 @@ export default function AccountScreen() {
         </ScrollView>
         )}
       </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
   const [tab, setTab] = useState<Tab>('signup');
