@@ -28,7 +28,7 @@ export const COSTUME_NORM: Record<string, { aspect: number; hfrac: number }> = {
   costume_bangladesh: { aspect: 0.6040, hfrac: 0.9600 },
   costume_indonesia: { aspect: 0.6040, hfrac: 0.9600 },
   costume_myanmar: { aspect: 0.6040, hfrac: 0.9600 },
-  costume_philippines: { aspect: 0.6040, hfrac: 0.7900 },
+  costume_philippines: { aspect: 0.6040, hfrac: 0.9600 },
   costume_korea: { aspect: 0.6040, hfrac: 0.9360 },
 };
 

@@ -1,4 +1,14 @@
 {
   "schema": 1,
-  "images": {}
+  "images": {
+    "shop/costume/philippines.png": {
+      "file": "shop_costume_philippines.6a667c783af7dc4bdce9b427d570ef9f.png",
+      "md5": "6a667c783af7dc4bdce9b427d570ef9f",
+      "bytes": 307664,
+      "width": 302,
+      "height": 500,
+      "hfrac": 0.96,
+      "sizeFrac": 0.9618
+    }
+  }
 }
