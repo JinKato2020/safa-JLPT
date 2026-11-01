@@ -1507,5 +1507,10 @@
   "paywall.level_subtitle": "N3、N4、N5分别买断。仅购买的级别可永久使用。",
   "paywall.level_mock": "・模拟考功能（需使用考试券）",
   "paywall.lifetime_note": "一次性购买，不自动续费。仅包含已购买的级别，其他级别需另购。可使用同一商店账号恢复购买。",
-  "paywall.owned": "已购买"
+  "paywall.owned": "已购买",
+  "feedback.title": "欢迎提出意见与建议",
+  "feedback.body": "如有希望添加的功能或需要改进的地方，请通过邮件告诉我们。",
+  "feedback.send": "发送意见邮件",
+  "feedback.subject": "每日JLPT 意见与建议",
+  "feedback.email_error": "无法打开邮件应用，请发送邮件至 {email}。"
 }

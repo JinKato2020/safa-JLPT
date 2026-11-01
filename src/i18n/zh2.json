@@ -1507,5 +1507,10 @@
   "paywall.level_subtitle": "N3、N4、N5分別買斷。僅購買的級別可永久使用。",
   "paywall.level_mock": "・模擬考功能（需使用考試券）",
   "paywall.lifetime_note": "一次性購買，不自動續費。僅包含已購買的級別，其他級別需另購。可使用同一商店賬號恢復購買。",
-  "paywall.owned": "已購買"
+  "paywall.owned": "已購買",
+  "feedback.title": "歡迎提出意見與建議",
+  "feedback.body": "如有希望新增的功能或需要改善的地方，請透過電子郵件告訴我們。",
+  "feedback.send": "寄送意見郵件",
+  "feedback.subject": "每日JLPT 意見與建議",
+  "feedback.email_error": "無法開啟郵件應用程式，請寄信至 {email}。"
 }

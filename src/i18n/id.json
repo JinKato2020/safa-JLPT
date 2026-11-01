@@ -1507,5 +1507,10 @@
   "paywall.level_subtitle": "Beli N3, N4, dan N5 secara terpisah. Akses seumur hidup hanya untuk level yang dibeli.",
   "paywall.level_mock": "• Simulasi ujian (memerlukan tiket)",
   "paywall.lifetime_note": "Pembelian sekali, tanpa perpanjangan otomatis. Hanya mencakup level yang dibeli; level lain dijual terpisah. Pulihkan dengan akun toko yang sama.",
-  "paywall.owned": "Sudah dibeli"
+  "paywall.owned": "Sudah dibeli",
+  "feedback.title": "Bagikan saran dan permintaan Anda",
+  "feedback.body": "Beri tahu kami lewat email tentang fitur yang Anda inginkan atau hal yang perlu diperbaiki.",
+  "feedback.send": "Kirim masukan lewat email",
+  "feedback.subject": "Mainichi JLPT: saran dan permintaan",
+  "feedback.email_error": "Aplikasi email tidak dapat dibuka. Silakan kirim email ke {email}."
 }

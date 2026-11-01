@@ -1507,5 +1507,10 @@
   "paywall.level_subtitle": "Mua riêng N3, N4 và N5. Quyền truy cập trọn đời chỉ áp dụng cho cấp độ đã mua.",
   "paywall.level_mock": "• Thi thử (cần vé)",
   "paywall.lifetime_note": "Mua một lần, không tự động gia hạn. Chỉ bao gồm cấp độ đã mua; các cấp độ khác được bán riêng. Khôi phục bằng cùng tài khoản cửa hàng.",
-  "paywall.owned": "Đã mua"
+  "paywall.owned": "Đã mua",
+  "feedback.title": "Chia sẻ góp ý và yêu cầu của bạn",
+  "feedback.body": "Hãy gửi email cho chúng tôi về tính năng bạn muốn có hoặc những điều cần cải thiện.",
+  "feedback.send": "Gửi góp ý qua email",
+  "feedback.subject": "Mainichi JLPT: góp ý và yêu cầu",
+  "feedback.email_error": "Không thể mở ứng dụng email. Vui lòng gửi email đến {email}."
 }

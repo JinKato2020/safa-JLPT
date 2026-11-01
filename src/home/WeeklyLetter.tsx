@@ -1,12 +1,12 @@
 // 週に1度だけ、桜がそっと「今週のがんばり」を届けるおたより(モーダル)。
 //  目的=①学習意欲 ②アプリへの愛着。数字は既存の成長データ(覚えた語 weekGain ＋ カバー率の伸び coverGain)を使うだけ=新しい計算はしない。
 //  ※【厳守】「合格率」は廃止指標(ユーザー厳命・[[metric-label-is-predicted-score]])。成長表示に合格率/passGain は一切使わない。
-//  1通につき「友だち紹介」「アプリ評価」のどちらか1つだけを“そっと”添える(交互・強く押さない)。評価は良い週だけ＋数ヶ月に1度。
+//  友だち紹介を隔回に添える。評価依頼と要望メールは独立した4日サイクルへ集約。
 //  出す条件: 初回はインストール7日後以降・前回から7日以上あき・その週に伸びがある時だけ。模試チケット配布の祝い中は出さない。
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Modal, View, Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { useAppState, useAppActions } from '../store/store';
@@ -21,15 +21,16 @@ import { useT } from '../i18n';
 const LETTER_IMG = require('../../assets/home/weekly_letter.png');
 
 const WEEK = 7;                          // 出す間隔(日)
-const RATE_GAP_MS = 30 * 86_400_000;     // アプリ評価を尋ねる最短間隔(約1ヶ月)。OS側は年数回しか実際のダイアログを出さない(頻度はOSが制御)。
+// 評価依頼は ReviewFeedbackCard の4日サイクルへ集約。
 const REVEAL_MS = 700;                   // ホーム到着から少し落ち着いてから出す
 
 export type WeeklyService = 'referral' | 'rating' | 'none';
 type Service = WeeklyService;
 
 // preview を渡すと(設定の開発者用エリア)、条件を無視してそのサービスで即表示する。プレビューは設定を一切書き換えない。
-export default function WeeklyLetter({ preview = null, onPreviewClose }: { preview?: Service | null; onPreviewClose?: () => void } = {}) {
+export default function WeeklyLetter({ preview = null, onPreviewClose, suppressed = false }: { preview?: Service | null; onPreviewClose?: () => void; suppressed?: boolean } = {}) {
   const state = useAppState();
+  const isFocused = useIsFocused();
   const { setSettings } = useAppActions();
   const t = useT();
   const c = useColors();
@@ -62,16 +63,13 @@ export default function WeeklyLetter({ preview = null, onPreviewClose }: { previ
   const gapOK = !last || daysBetween(last, today) >= WEEK;                 // 前回から7日以上あき
   const hasGrowth = wGain > 0 || cGain > 0 || sGain > 0;                    // 伸びゼロの週は出さない(空振りで押し付けない)
   const notBusy = (state.ticketNotice ?? 0) === 0;                         // 模試チケット配布の祝いと重ねない
-  const eligible = ageOK && gapOK && hasGrowth && notBusy;
+  const eligible = isFocused && !suppressed && ageOK && gapOK && hasGrowth && notBusy;
 
   // この通に添える“そっと”した1サービス(交互・最大1つ)。
   const forced = preview != null;
   const previewHost = onPreviewClose != null; // プレビュー用(設定画面)のインスタンス=自動表示しない
   const turn = state.settings.weeklyLetterTurn ?? 0;
-  const ratingSlot = turn % 2 === 1;
-  const goodWeek = wGain >= 5 || cGain > 0 || sGain > 0;                     // 評価は良い週だけ
-  const rateDue = now - (state.settings.ratingAskedAt ?? 0) > RATE_GAP_MS;   // 数ヶ月に1度まで
-  const service: Service = forced ? (preview as Service) : ratingSlot ? (goodWeek && rateDue ? 'rating' : 'none') : 'referral';
+  const service: Service = forced ? (preview as Service) : turn % 2 === 0 ? 'referral' : 'none';
 
   const [autoVisible, setAutoVisible] = useState(false);
   const [previewDismissed, setPreviewDismissed] = useState(false);
@@ -83,20 +81,19 @@ export default function WeeklyLetter({ preview = null, onPreviewClose }: { previ
   // マウント後に1回だけ判定して出す(プレビュー時は自動表示しない)。出した瞬間に「最後に出した日・通算回数(＋評価なら尋ねた時刻)」を記録。
   useEffect(() => {
     if (forced || previewHost || shownRef.current || !eligible) return;
-    shownRef.current = true;
     const id = setTimeout(() => {
+      shownRef.current = true;
       setAutoVisible(true);
       const patch: Partial<Settings> = { weeklyLetterDay: today, weeklyLetterTurn: turn + 1 };
-      if (service === 'rating') patch.ratingAskedAt = now;
       setSettings(patch);
     }, REVEAL_MS);
     return () => clearTimeout(id);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [eligible, forced, previewHost, service, turn, today, setSettings]);
 
   const visible = forced ? !previewDismissed : autoVisible;
   const close = () => { if (forced) { setPreviewDismissed(true); onPreviewClose?.(); } else setAutoVisible(false); };
   const onRefer = () => { close(); nav.navigate('Referral', { focus: 'share' }); };
-  // 桜が先に「気に入ってくれてる?」と聞き、“うん”の時だけ評価へ誘導(いやな人には出さない=低評価を招かない)。
+  // 評価サービスは開発プレビュー専用。本番は標準APIの4日サイクルへ集約。
   // 本番はOSの評価ダイアログ、開発プレビュー(forced)は必ずストアのレビューページを開いて動作確認できる。
   const onRate = async () => { close(); await askStoreReview(forced); };
 

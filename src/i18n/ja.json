@@ -1507,5 +1507,10 @@
   "paywall.level_subtitle": "N3・N4・N5を個別に買い切り。購入したレベルだけを期限なく利用できます。",
   "paywall.level_mock": "・模試機能（チケット制）",
   "paywall.lifetime_note": "買い切り・自動更新なし。購入したレベルのみが対象です。他のレベルは別売りです。購入は同じストアアカウントで復元できます。",
-  "paywall.owned": "購入済み"
+  "paywall.owned": "購入済み",
+  "feedback.title": "ご意見・ご要望をお聞かせください",
+  "feedback.body": "追加してほしい機能や改善してほしいことがあれば、メールでお知らせください。",
+  "feedback.send": "要望をメールで送る",
+  "feedback.subject": "まいにちJLPT ご意見・ご要望",
+  "feedback.email_error": "メールアプリを開けませんでした。{email} 宛にお送りください。"
 }

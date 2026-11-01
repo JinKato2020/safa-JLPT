@@ -1,32 +1,28 @@
-// OS標準の「アプリ内レビュー」シートを、良いタイミングで“規約準拠”にお願いする薄いラッパ。
-//  ・全ユーザーに同条件で出す（満足した人だけ誘導する review gating はしない）。謝礼なし・星数指定なし。
-//  ・OS標準シート（iOS=SKStoreReview / Android=In-App Review API）なので文言はOSが各言語でローカライズ
-//    ＝アプリ側の翻訳は不要（11言語の追加作業なし）。
-//  ・頻度制限: 前回から60日以上 かつ 生涯3回まで（OSも別途 年1回程度に自動制限）。
-//  呼び出し元＝学習完了(AfterStudyReward)・模試完了(MockScreen result)。失敗は握りつぶす（学習体験に影響させない）。
+// 約4日ごとの評価・要望サイクル。実際の評価画面の表示可否・回数はOSが制御する。
+// 満足度や成績による選別・謝礼は設けない。要望メールはユーザー操作で作成する。
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as StoreReview from 'expo-store-review';
+import { reviewIsDue } from './reviewPromptCore';
 
-const LAST_KEY = 'review_ask_last_v1';   // 前回お願いした時刻(ms)
-const COUNT_KEY = 'review_ask_count_v1'; // これまでにお願いした回数
-const MIN_INTERVAL_MS = 60 * 24 * 60 * 60 * 1000; // 60日
-const MAX_ASKS = 3;                                // 生涯の最大お願い回数
+const LAST_KEY = 'review_ask_last_v1'; // 旧バージョンの日時も引き継ぐ
+let checking = false;
 
-export async function maybeAskForReview(): Promise<void> {
+export async function maybeAskForReview(installedAt: number): Promise<boolean> {
+  if (checking) return false;
+  checking = true;
   try {
-    if (!(await StoreReview.isAvailableAsync())) return; // 非対応端末/ストア未接続は何もしない
-    const [lastRaw, countRaw] = await Promise.all([
-      AsyncStorage.getItem(LAST_KEY),
-      AsyncStorage.getItem(COUNT_KEY),
-    ]);
-    const last = lastRaw ? Number(lastRaw) : 0;
-    const count = countRaw ? Number(countRaw) : 0;
-    if (count >= MAX_ASKS) return;
-    if (last && Date.now() - last < MIN_INTERVAL_MS) return;
-    // 記録を先に進めてから依頼（再入・連打で二重に出さない）。
-    await AsyncStorage.multiSet([[LAST_KEY, String(Date.now())], [COUNT_KEY, String(count + 1)]]);
-    await StoreReview.requestReview();
+    const last = Number(await AsyncStorage.getItem(LAST_KEY));
+    const now = Date.now();
+    if (!reviewIsDue(installedAt, last, now)) return false;
+    // OSが表示を省略しても4日あける。旧・生涯3回のアプリ側制限は廃止。
+    await AsyncStorage.setItem(LAST_KEY, String(now));
+    try {
+      if (await StoreReview.isAvailableAsync()) await StoreReview.requestReview();
+    } catch { /* 評価機能が使えなくても要望の入口は表示する */ }
+    return true;
   } catch {
-    /* 評価は失敗しても学習体験に影響させない */
+    return false;
+  } finally {
+    checking = false;
   }
 }

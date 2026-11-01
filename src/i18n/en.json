@@ -1507,5 +1507,10 @@
   "paywall.level_subtitle": "Buy N3, N4, and N5 separately. Lifetime access applies only to the level you purchase.",
   "paywall.level_mock": "• Mock exams (tickets required)",
   "paywall.lifetime_note": "One-time purchase. No automatic renewal. Only the purchased level is included; other levels are sold separately. Restore with the same store account.",
-  "paywall.owned": "Purchased"
+  "paywall.owned": "Purchased",
+  "feedback.title": "Share your ideas and requests",
+  "feedback.body": "Tell us by email about features you would like or things we can improve.",
+  "feedback.send": "Send feedback by email",
+  "feedback.subject": "Mainichi JLPT feedback and requests",
+  "feedback.email_error": "Could not open your email app. Please email {email}."
 }

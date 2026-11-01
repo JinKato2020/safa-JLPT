@@ -13,7 +13,6 @@ import type { RootStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { isInMyList, dayStr } from '../store/state';
-import { maybeAskForReview } from '../pro/reviewPrompt';
 import { recordQualifyingDay, isTriggerMet } from '../referral/trigger';
 import { reportQualified, getDeviceRef } from '../referral/referralClient';
 import { composeVoice, pickFlavor, renderVoice } from '../story/voice';
@@ -74,7 +73,6 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
     if (totalN > 0 && state.settings.telemetry !== false) {
       void sendEvent('session_complete', { mode, scored, total: totalN, sessionId: route.key }, state.settings.level);
     }
-    void maybeAskForReview(); // 学習を1回やり切った好機にOS標準の評価シートをお願い（頻度制限は関数内・規約準拠）
     void sendFirstSessionOnce(state);
     setSettings({ afterStudyCount: (state.settings.afterStudyCount ?? 0) + 1 });
     if (topUp > 0) addPoints(topUp, { cap: true }); // 全問正解=20貝へ正規化(不足分だけ上乗せ)
