@@ -15,7 +15,6 @@ import { homeStatus } from '../home/homeStatus';
 import HomeCoach from '../home/HomeCoach';
 import SakuraSpeech from '../home/SakuraSpeech';
 import WeeklyLetter from '../home/WeeklyLetter';
-import ReviewFeedbackCard from '../home/ReviewFeedbackCard';
 import SafeBoundary from '../components/SafeBoundary';
 import GradientButton from '../components/GradientButton';
 import { useColors, useSimpleMode } from '../theme';
@@ -26,7 +25,6 @@ const GLOW = require('../../assets/home/ring_glow.png');
 
 export default function HomeScreen() {
   const state = useAppState();
-  const [reviewPromptBusy, setReviewPromptBusy] = useState(true);
   const now = Date.now();
   const { width, height } = useWindowDimensions();
   const homeBg = useHomeBg(); // 昼/夜で自動切替
@@ -156,10 +154,9 @@ export default function HomeScreen() {
           <SakuraSpeech idleTick={idleTick} />
         </SafeBoundary>
         )}
-        <ReviewFeedbackCard onBusyChange={setReviewPromptBusy} />
-        {/* 約4日ごとの評価・要望案内と、週次のおたよりを重ねない。 */}
+        {/* 週次のおたより。評価・要望案内は学習完了画面に表示。 */}
         <SafeBoundary tag="weeklyletter" fallback={null}>
-          <WeeklyLetter suppressed={reviewPromptBusy} />
+          <WeeklyLetter />
         </SafeBoundary>
         {/* 今日のおすすめ(統合復習=苦手単語の復習)。桜/柴犬の下・ボトムナビの上に常設。分析はAIコーチにも有り。
             見た目は試験タブ「試験に挑戦する」と統一(GradientButton=斜めグラデ＋光沢の高級ピル)。 */}

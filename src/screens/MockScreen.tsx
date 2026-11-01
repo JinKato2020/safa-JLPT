@@ -1,3 +1,4 @@
+import ReviewFeedbackCard from '../home/ReviewFeedbackCard';
 import { useProStatus } from '../pro/useProStatus';
 // ミニ模試(言語知識20問) / フル模試(全区分=漢字語彙＋文法＋読解＋聴解)。本番形式・客観採点(重み5)。
 // 採点後: 区分別の弱点ヒートマップ → 語彙/文法の弱点だけ復習(Quiz)へ。掲示板§5(UWorld閉ループ)。
@@ -521,6 +522,7 @@ export default function MockScreen() {
     const certSrc = IMG_CERT[passed ? 'pass' : 'fail'][level];  // レベルは画像に焼き込み済(端末フォント差でズレない)
     return (
       <View style={s.fullImgWrap}>
+        <ReviewFeedbackCard completed={phase === 'result' && !preview && answers.length > 0} floating />
         <ScrollView showsVerticalScrollIndicator={!preview}>
           {/* 第1レイヤ: 模試終了(空〜桜)の全画面。画面遷移はさせず、この上に合否証明書を「空の辺り」へ別レイヤで重ねる。 */}
           <View style={{ width: winW, height: winH }}>

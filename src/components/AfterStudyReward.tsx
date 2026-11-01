@@ -1,3 +1,4 @@
+import ReviewFeedbackCard from '../home/ReviewFeedbackCard';
 // 学習後の共通テンプレ(全ドリル=試験/単語/辞書タブ共通)。画面は上から:
 //  ①イラスト(毎回)＝マンネリ防止で学習ごとに1枚ずつ順送り(afterStudyArt の pickAfterStudyImage)。桜のねぎらい一言を添える。
 //  ②貝の取得情報(毎回)=「◯問正解 ＋◯貝」。全問正解=20貝(問題数に依らず。10問ない大問は 20÷問題数/問)。＋今日はじめての学習は30貝ボーナス。
@@ -142,6 +143,8 @@ export default function AfterStudyReward({ words = [], reviewByRef, reviewList, 
           <Text style={s.voice}>{line}</Text>
         </View>
       )}
+
+      <ReviewFeedbackCard completed={totalN > 0} />
 
       {/* ② 獲得した貝(毎回)。合計を主役に大きく→正解内訳/ボーナスは小さな数字の小計で下に添える。 */}
       <View style={s.shellCard}>
