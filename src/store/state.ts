@@ -61,6 +61,7 @@ export interface Settings {
   devUnlockAll?: boolean;                      // 【開発用】ON=書斎の学習モードを全体カバー率に関係なく全解禁(動作確認用)。ポイント無限とは独立
   lastSakuraSpeechAt?: number | null;       // 桜の癒し吹き出しを最後に出した時刻(ms)。約5時間に1度に絞るためのゲート
   sakuraRecoDay?: string;                    // 桜が「今日のオススメ」案内を出した日(YYYY-M-D)。毎日最初の一言だけこの案内にする
+  sakuraExamAllDay?: string;                 // 桜が「試験タブの全大問を1回ずつ解こう」と案内した日(YYYY-M-D)。未着手の大問がある間、1日1回
   coachOpened?: boolean;                     // AIコーチを一度でも開いた(開いた人には桜のAIコーチ案内を出さない)
   coachHintShown?: boolean;                  // 桜が「リングでAIコーチが開く」案内を出した(一生に1回だけ)
   sakuraExamDay?: string;                    // 桜が「試験まであと◯日」の応援を出した日(YYYY-MM-DD)。間隔は残り日数で変える

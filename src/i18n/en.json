@@ -1512,5 +1512,8 @@
   "feedback.body": "Tell us by email about features you would like or things we can improve.",
   "feedback.send": "Send feedback by email",
   "feedback.subject": "Mainichi JLPT feedback and requests",
-  "feedback.email_error": "Could not open your email app. Please email {email}."
+  "feedback.email_error": "Could not open your email app. Please email {email}.",
+  "sakura.exam_all": "There are {n} sections in the Exam tab you haven’t tried yet ({names}). Try every section once and your predicted score will become accurate.",
+  "sakura.exam_all_more": "There are {n} sections in the Exam tab you haven’t tried yet ({names}, and more). Try every section once and your predicted score will become accurate.",
+  "sakura.exam_all_sep": ", "
 }

@@ -220,6 +220,27 @@ export function strongFacetJa(state: AppState, now: number): string | null {
   if (!measured.length) return null;
   return measured.reduce((x, y) => (y[1] > x[1] ? y : x))[0];
 }
+/** 試験タブで「まだ1問も解いていない大問」(本番に出る大問だけ・試験タブの並び順)。
+ *  予想得点は未着手の大問を当てずっぽう相当で数えるため、全大問を1回ずつ解かないと正しく出ない。ホームの桜の案内用。
+ *  labelKey=表示名のi18nキー。JFT(大問の構成が違う)は対象外=空。 */
+export function untouchedExamDaimons(state: AppState): { key: string; labelKey: string }[] {
+  if ((state.settings.targetExam ?? 'jlpt') === 'jft') return [];
+  const lv = state.settings.level;
+  const touched = (ids: string[] | undefined) => !ids?.length || ids.some((id) => !!state.items[id]);
+  const out: { key: string; labelKey: string }[] = [];
+  const bp = DAIMON_BLUEPRINT[lv] ?? {};
+  for (const d of [...MOJI_DAIMON, ...BUNPOU_DAIMON]) {
+    if ((bp[d] ?? 0) > 0 && !touched(daimonUnitIds(lv, d))) out.push({ key: d, labelKey: `mock.dai_${d}` });
+  }
+  const rd = readingIdsBySub(lv, true), ls = listeningIdsBySub(lv, true);
+  for (const k of Object.keys(DOKKAI_BLUEPRINT[lv] ?? {})) {
+    if (!touched(rd[k as keyof typeof rd])) out.push({ key: `dokkai_${k}`, labelKey: `study.sub_${k}` });
+  }
+  for (const k of Object.keys(CHOUKAI_BLUEPRINT[lv] ?? {})) {
+    if (!touched(ls[k as keyof typeof ls])) out.push({ key: `choukai_${k}`, labelKey: `study.lsub_${k}` });
+  }
+  return out;
+}
 /** 小リング(大問): 正答率(解いた問題の当て推量補正済み正答率)。文字語彙/文法の各大問用。 */
 export function daimonRingPct(state: AppState, now: number, daimon: Daimon): number | null {
   return pctOfIds(state, now, daimonUnitIds(state.settings.level, daimon));

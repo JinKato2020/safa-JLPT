@@ -9,7 +9,7 @@ import { spacing, radius, type as ty, useColors, type ThemeColors } from '../the
 import { useAppState, useAppActions } from '../store/store';
 import type { AppState } from '../store/state';
 import { composeVoice, pickFlavor, renderVoice } from '../story/voice';
-import { learnedNow } from '../store/selectors';
+import { learnedNow, untouchedExamDaimons } from '../store/selectors';
 import { dayStr, daysBetween } from '../store/state';
 import { examCountdown } from './examCountdown';
 import { SHOP_BY_ID } from '../data/shop';
@@ -86,6 +86,12 @@ export default function SakuraSpeech({ idleTick = 0 }: { idleTick?: number }) {
       // AIコーチをまだ開いたことがない人に、一度だけ「リング(下のボタン)でAIコーチが開く」と教える。
       text = t('sakura.coach_hint');
       setSettings({ coachHintShown: true, lastSakuraSpeechAt: now });
+    } else if (state.settings.sakuraExamAllDay !== today && untouchedExamDaimons(state).length > 0) {
+      // 試験タブに未着手の大問がある間は、毎日最初に「全大問を1回ずつ解くと予想得点が正しく出る」と案内する(ユーザー指定 2026-11-14)。
+      const left = untouchedExamDaimons(state);
+      const names = left.slice(0, 3).map((d) => t(d.labelKey)).join(t('sakura.exam_all_sep'));
+      text = t(left.length > 3 ? 'sakura.exam_all_more' : 'sakura.exam_all', { n: left.length, names });
+      setSettings({ sakuraExamAllDay: today, lastSakuraSpeechAt: now });
     } else if (state.settings.sakuraRecoDay !== today) {
       text = t('sakura.reco_hint');
       setSettings({ sakuraRecoDay: today, lastSakuraSpeechAt: now });

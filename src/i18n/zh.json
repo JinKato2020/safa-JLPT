@@ -1512,5 +1512,8 @@
   "feedback.body": "如有希望添加的功能或需要改进的地方，请通过邮件告诉我们。",
   "feedback.send": "发送意见邮件",
   "feedback.subject": "每日JLPT 意见与建议",
-  "feedback.email_error": "无法打开邮件应用，请发送邮件至 {email}。"
+  "feedback.email_error": "无法打开邮件应用，请发送邮件至 {email}。",
+  "sakura.exam_all": "考试标签页中，有{n}个大题（{names}）您还未解答。所有大题都解答一遍后，才能正确显示预估分数。",
+  "sakura.exam_all_more": "考试标签页中，有{n}个大题（如{names}）您还未解答。所有大题都解答一遍后，才能正确显示预估分数。",
+  "sakura.exam_all_sep": "、"
 }

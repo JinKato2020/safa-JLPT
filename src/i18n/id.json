@@ -1512,5 +1512,8 @@
   "feedback.body": "Beri tahu kami lewat email tentang fitur yang Anda inginkan atau hal yang perlu diperbaiki.",
   "feedback.send": "Kirim masukan lewat email",
   "feedback.subject": "Mainichi JLPT: saran dan permintaan",
-  "feedback.email_error": "Aplikasi email tidak dapat dibuka. Silakan kirim email ke {email}."
+  "feedback.email_error": "Aplikasi email tidak dapat dibuka. Silakan kirim email ke {email}.",
+  "sakura.exam_all": "Ada {n} pertanyaan besar yang belum Anda coba di tab Ujian ({names}). Setelah Anda mencoba setiap pertanyaan besar sekali, skor prediksi akan ditampilkan dengan benar.",
+  "sakura.exam_all_more": "Ada {n} pertanyaan besar yang belum Anda coba di tab Ujian (seperti {names}). Setelah Anda mencoba setiap pertanyaan besar sekali, skor prediksi akan ditampilkan dengan benar.",
+  "sakura.exam_all_sep": ", "
 }

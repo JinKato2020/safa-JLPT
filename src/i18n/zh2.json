@@ -1512,5 +1512,8 @@
   "feedback.body": "如有希望新增的功能或需要改善的地方，請透過電子郵件告訴我們。",
   "feedback.send": "寄送意見郵件",
   "feedback.subject": "每日JLPT 意見與建議",
-  "feedback.email_error": "無法開啟郵件應用程式，請寄信至 {email}。"
+  "feedback.email_error": "無法開啟郵件應用程式，請寄信至 {email}。",
+  "sakura.exam_all": "考試標籤頁中，有{n}個大題（{names}）您還未解答。所有大題都解答一遍後，才能正確顯示預估分數。",
+  "sakura.exam_all_more": "考試標籤頁中，有{n}個大題（如{names}）您還未解答。所有大題都解答一遍後，才能正確顯示預估分數。",
+  "sakura.exam_all_sep": "、"
 }

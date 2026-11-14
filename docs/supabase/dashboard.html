@@ -1045,6 +1045,11 @@ const COLS = [
     cell:r=> (r.pred_score==null ? '<span class="empty">—</span>'
       : `<b style="${(r.pass_total!=null && r.pred_score>=r.pass_total)?'color:#2e7d32':''}">${r.pred_score}</b><span class="muted">/${r.pred_max ?? 180}</span>`
         + (r.pass_total!=null ? `<span class="muted" title="合格ライン"> 合${r.pass_total}</span>` : '')) },
+  // 分野別の正答率は予想得点のすぐ隣(ユーザー指定 2026-11-14)。アプリが送る facetAcc＝当て推量補正済み正答率0-100(v1.1.35〜)。未測定＝—。
+  { g:'正答率', key:'acc_kanji',   label:'漢字', num:1, title:'漢字(漢字読み＋表記)の正答率。当てずっぽう分を差し引いた値', val:r=>numOr(r.acc_kanji),   cell:r=> pct(r.acc_kanji) },
+  { g:'正答率', key:'acc_grammar', label:'文法', num:1, title:'文法(文法形式・文の組み立て・文章の文法)の正答率', val:r=>numOr(r.acc_grammar), cell:r=> pct(r.acc_grammar) },
+  { g:'正答率', key:'acc_dokkai',  label:'読解', num:1, title:'読解の正答率', val:r=>numOr(r.acc_dokkai),  cell:r=> pct(r.acc_dokkai) },
+  { g:'正答率', key:'acc_choukai', label:'聴解', num:1, title:'聴解の正答率', val:r=>numOr(r.acc_choukai), cell:r=> pct(r.acc_choukai) },
   // ステータス(アバター/性格/気分/得意)は予想得点の直後に配置(ユーザー指定)。
   { g:'ステータス', key:'avatar',      label:'アバター', title:'選んだアバター(男1〜男5/女1〜女5)。アプリ v1.1.35 以降が送信',
     val:r=>r.avatar||'', cell:r=> r.avatar ? `${avatarImgTag(r.avatar,20)} ${esc(avatarLabel(r.avatar))}` : '<span class="off">—</span>' },
