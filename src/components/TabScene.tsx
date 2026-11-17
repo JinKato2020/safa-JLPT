@@ -3,9 +3,9 @@
 //  - SceneTitle: イラスト上部中央の見出し。
 //  - BottomIconBar / TabIconButton: イラスト下端(ボトムナビの上)に置く小アイコンの操作列。
 //  - Hotspot: 背景の描き込み要素に重ねる透明タップ領域(必要時)。
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, ScrollView, StyleSheet, useWindowDimensions, type DimensionValue, type ImageSourcePropType } from 'react-native';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { didSwitchTab } from '../navigation/tabReturn';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors, useSimpleMode } from '../theme/useColors';
@@ -133,20 +133,24 @@ export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, h
 
   // 詳細画面を開く時はカードを残し、戻ると元の練習一覧を表示する。
   // タブ自体を切り替えた時だけ、従来どおり背景画面へリセットする。
-  useFocusEffect(useCallback(() => () => {
+  // 子の学習リスト表示中はハブが既にblur済みなので、タブのstate変化を購読する。
+  useEffect(() => {
     let child = navigation;
     let parent = child.getParent();
     while (parent) {
       const state = parent.getState();
       if (state.type === 'tab') {
         const stackKey = child.getState()?.key;
-        if (stackKey && didSwitchTab(state, stackKey)) setOpenKey(null);
-        return;
+        if (!stackKey) return;
+        const tabNavigation = parent;
+        return tabNavigation.addListener('state', () => {
+          if (didSwitchTab(tabNavigation.getState(), stackKey)) setOpenKey(null);
+        });
       }
       child = parent;
       parent = parent.getParent();
     }
-  }, [navigation]));
+  }, [navigation]);
 
   const handle = (e: TabEntry) => {
     if (e.disabled) return;
