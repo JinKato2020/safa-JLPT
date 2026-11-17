@@ -124,6 +124,10 @@ export default function CardsScreen() {
 
               {card.key === 'kanji' && (
                 <>
+                  <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('RadicalLessons')}>
+                    <Text style={s.linkTxt}>{t('cards.radical_lessons')}</Text>
+                    <Text style={s.chevron}>›</Text>
+                  </Pressable>
                   {kakitoriDueToday(state.kakitori, todayStr()).length ? (
                     <Pressable style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={() => nav.navigate('Kakitori', { mode: 'review' })}>
                       <Text style={s.linkTxt}>{t('cards.kakitori_review')}</Text>

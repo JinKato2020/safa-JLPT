@@ -47,6 +47,7 @@ export function contentView(route: ContentRoute): { content: string; level?: str
     case 'PosterList':
     case 'PosterAudio':
     case 'KanjiForm':
+    case 'RadicalLessons':
     case 'PassageGrammar':
     case 'AICoach':
       return content(route.name);
