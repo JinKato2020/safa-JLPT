@@ -57,6 +57,7 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
     add('cards.produce', () => nav.navigate('WordDrill', { kind: 'vProduce' }));       // 語彙パズル(産出)
   }
   if (kubun === 'kanji') {
+    add('cards.radical_lessons', () => nav.navigate('RadicalLessons'));
     // 漢字の面=4面(読み/意味/聞き取り/形)。認識テストは意味/読みを別ボタンに分離(ユーザー方針2026-08-26)。
     // 表示順(ユーザー方針2026-08-26): リスト→書き取り(練習)→ドリルを難易度の易しい順(意味→読み→形→聞き取り)。
     // 書き取りは「練習」＝面に非計上(手書き産出の練習ツール)。★/SRSはKakitori側で従来どおり記録。
