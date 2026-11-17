@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, usePreventRemove } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Asset } from 'expo-asset';
 import { File } from 'expo-file-system';
@@ -31,9 +31,23 @@ export default function RadicalLessonsScreen() {
   const [template, setTemplate] = useState<string>();
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [lessonOpen, setLessonOpen] = useState(false);
   const completed = useRef<Record<string, boolean>>({});
   const audioGeneration = useRef(0);
   const webView = useRef<WebView>(null);
+
+  function returnToLessonList() {
+    // The WebView lesson is one navigation step inside this native screen.
+    // The level hash also works with previously cached course HTML.
+    audioGeneration.current++;
+    void Speech.stop();
+    void stopVocab();
+    webView.current?.injectJavaScript(`location.hash=${JSON.stringify(level)};true;`);
+    setLessonOpen(false);
+  }
+
+  // Covers Android system back and iOS back gestures as well as our header.
+  usePreventRemove(lessonOpen && !failed, returnToLessonList);
 
   useEffect(() => {
     let active = true;
@@ -68,7 +82,9 @@ export default function RadicalLessonsScreen() {
     let message: Record<string, unknown>;
     try { message = JSON.parse(event.nativeEvent.data) ?? {}; } catch { return; }
     const { type, id, word } = message;
-    if (type === 'stop-audio') {
+    if (type === 'menu' && message.level === level) {
+      setLessonOpen(false);
+    } else if (type === 'stop-audio') {
       audioGeneration.current++;
       void Speech.stop();
       void stopVocab();
@@ -99,6 +115,7 @@ export default function RadicalLessonsScreen() {
       })().catch(() => notify('error'));
     } else if (typeof id === 'string' && /^[a-z0-9-]{1,32}$/.test(id)) {
       if (type === 'view' && (message.level === level)) {
+        setLessonOpen(true);
         void sendEvent('screen_view', { name: 'RadicalLessons', content: `RadicalLesson:${id}` }, level);
       } else if (type === 'complete') {
         completed.current[id] = true;
@@ -111,7 +128,7 @@ export default function RadicalLessonsScreen() {
     <SafeAreaView style={[styles.screen, { backgroundColor: colors.bg }]}>
       <View style={styles.header}>
         <Pressable accessibilityRole="button" accessibilityLabel={t('mockintro.back')} hitSlop={12}
-          onPress={() => navigation.goBack()}>
+          onPress={() => lessonOpen && !failed ? returnToLessonList() : navigation.goBack()}>
           <Text style={[styles.back, { color: colors.ink }]}>‹</Text>
         </Pressable>
         <Text style={[styles.title, { color: colors.ink }]}>{t('cards.radical_lessons')}</Text>
@@ -122,6 +139,10 @@ export default function RadicalLessonsScreen() {
         </Pressable>
       ) : source ? (
         <WebView ref={webView} source={source} originWhitelist={['*']}
+          onNavigationStateChange={({ url }) => {
+            // Older cached lessons did not emit a menu event.
+            if (url === LESSON_ORIGIN + '/#' + level) setLessonOpen(false);
+          }}
           onShouldStartLoadWithRequest={({ url }) => {
             if (url === 'about:blank' || url === LESSON_ORIGIN + '/' || url.startsWith(LESSON_ORIGIN + '/#')) return true;
             if (/^https:\/\/www\.(kanjipedia\.jp|mext\.go\.jp)\//.test(url)) void Linking.openURL(url).catch(() => {});
