@@ -70,7 +70,7 @@ const RADICAL_LESSONS = [
   {
     "id": "wood",
     "level": "N5",
-    "title": "木 → 本",
+    "title": "木＝木・植物",
     "english": "TREE / PLANTS",
     "name": "き・きへん",
     "image": "sakura-radical-wood.png",
@@ -204,7 +204,7 @@ const RADICAL_LESSONS = [
   {
     "id": "mouth",
     "level": "N5",
-    "title": "夕＋口＝名",
+    "title": "口＝口・声",
     "english": "MOUTH / VOICE",
     "name": "くち・くちへん",
     "image": "sakura-radical-mouth.png",
@@ -328,7 +328,7 @@ const RADICAL_LESSONS = [
   {
     "id": "gate",
     "level": "N5",
-    "title": "門のかたち → 間・聞",
+    "title": "門＝門・出入口",
     "english": "GATE / ENTRANCE",
     "name": "もんがまえ",
     "image": "sakura-radical-gate.png",
@@ -1542,7 +1542,7 @@ const RADICAL_LESSONS = [
   {
     "id": "n4-wood",
     "level": "N4",
-    "title": "木＋木＝林",
+    "title": "木＝木・植物",
     "english": "TREE / PLANTS",
     "name": "き・きへん",
     "image": "sakura-radical-wood.png",
@@ -1705,7 +1705,7 @@ const RADICAL_LESSONS = [
   {
     "id": "n4-sun",
     "level": "N4",
-    "title": "日＋月＝明",
+    "title": "日＝ひ・とき",
     "english": "SUN / TIME",
     "name": "ひ・ひへん",
     "image": "sakura-radical-sun.png",
@@ -1795,13 +1795,13 @@ const RADICAL_LESSONS = [
   {
     "id": "n3-water",
     "level": "N3",
-    "title": "氵＋青＝清",
-    "english": "CLEAR / PURE",
-    "name": "意味と音のつながり",
+    "title": "氵＝水",
+    "english": "WATER",
+    "name": "さんずい",
     "image": "sakura-radical-n4-water.png",
     "radical": {
-      "ja": "N4の水の仲間を、清へ。今回は青が音の手がかりです。",
-      "en": "Apply the N4 water family to 清. Here 青 provides the sound clue."
+      "ja": "水（みず）が左では氵。この部分が「水に関係する」という意味の手がかりです。これを意符（いふ）と呼びます。",
+      "en": "水 becomes 氵 on the left. It gives a water-related meaning clue. A meaning-bearing part is called an 意符 (semantic component)."
     },
     "insight": {
       "ja": "N4の水の仲間を、清へ。今回は青が音の手がかりです。",
@@ -1857,13 +1857,13 @@ const RADICAL_LESSONS = [
   {
     "id": "n3-sun",
     "level": "N3",
-    "title": "日＋青＝晴",
-    "english": "CLEAR WEATHER",
-    "name": "意味と音のつながり",
+    "title": "日＝ひ・とき",
+    "english": "SUN / TIME",
+    "name": "ひ・ひへん",
     "image": "sakura-radical-sun.png",
     "radical": {
-      "ja": "N5の日が、N3では空の晴れ方の手がかりになります。",
-      "en": "The 日 learned in N5 helps you learn about clear skies in N3."
+      "ja": "日（ひ）は太陽の形からできた字。「一日」のように、時間にもつながります。",
+      "en": "日 began as a picture of the sun. It also relates to time, as in one day."
     },
     "insight": {
       "ja": "N5の日が、N3では空の晴れ方の手がかりになります。",
@@ -1919,13 +1919,13 @@ const RADICAL_LESSONS = [
   {
     "id": "n3-human",
     "level": "N3",
-    "title": "亻＋動＝働",
-    "english": "WORK",
-    "name": "意味と音のつながり",
+    "title": "亻＝人",
+    "english": "PERSON",
+    "name": "にんべん",
     "image": "sakura-resting-under-tree.png",
     "radical": {
-      "ja": "休では人が休み、働では人が動く。人の仲間を別の場面へ広げよう。",
-      "en": "In 休 a person rests; in 働 a person is active. Extend the person family to a new scene."
+      "ja": "人（ひと）が、左では「亻」になります。人や、人の行動を考える手がかりです。",
+      "en": "人 means person. On the left it becomes 亻. Think of a person or something a person does."
     },
     "insight": {
       "ja": "休では人が休み、働では人が動く。人の仲間を別の場面へ広げよう。",

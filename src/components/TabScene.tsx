@@ -5,7 +5,8 @@
 //  - Hotspot: 背景の描き込み要素に重ねる透明タップ領域(必要時)。
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Pressable, ScrollView, StyleSheet, useWindowDimensions, type DimensionValue, type ImageSourcePropType } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { didSwitchTab } from '../navigation/tabReturn';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors, useSimpleMode } from '../theme/useColors';
 
@@ -127,11 +128,25 @@ export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, h
 }) {
   const { height } = useWindowDimensions();
   const [openKey, setOpenKey] = useState<string | null>(null);
+  const navigation = useNavigation();
   const activeEntry = entries.find((e) => e.key === openKey && e.renderCard);
 
-  // タブから離れたら開いていたカード(ポップオーバー)を必ず閉じる=戻った時は既定の背景に戻す
-  // (タブ移動で画面をリセットする方針。入れ子スタックの popToTop と対で「開いている画面を保存しない」を満たす)。
-  useFocusEffect(useCallback(() => () => setOpenKey(null), []));
+  // 詳細画面を開く時はカードを残し、戻ると元の練習一覧を表示する。
+  // タブ自体を切り替えた時だけ、従来どおり背景画面へリセットする。
+  useFocusEffect(useCallback(() => () => {
+    let child = navigation;
+    let parent = child.getParent();
+    while (parent) {
+      const state = parent.getState();
+      if (state.type === 'tab') {
+        const stackKey = child.getState()?.key;
+        if (stackKey && didSwitchTab(state, stackKey)) setOpenKey(null);
+        return;
+      }
+      child = parent;
+      parent = parent.getParent();
+    }
+  }, [navigation]));
 
   const handle = (e: TabEntry) => {
     if (e.disabled) return;

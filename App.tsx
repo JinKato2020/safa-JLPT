@@ -44,6 +44,7 @@ import ListeningQuizScreen from './src/screens/ListeningQuizScreen';
 import KanjiRecognitionScreen from './src/screens/KanjiRecognitionScreen';
 import KanjiFormScreen from './src/screens/KanjiFormScreen';
 import RadicalLessonsScreen from './src/screens/RadicalLessonsScreen';
+import { didSwitchTab } from './src/navigation/tabReturn';
 import WordDrillScreen from './src/screens/WordDrillScreen';
 import PosterListScreen from './src/screens/PosterListScreen';
 import PosterAudioScreen from './src/screens/PosterAudioScreen';
@@ -251,11 +252,12 @@ function MainTabs() {
           key={tab.name}
           name={tab.name}
           component={tab.component}
-          // タブから離れたら、そのタブの入れ子スタックを先頭(ハブ=背景画像の画面)まで戻す。
+          // 別タブへ移った時だけ先頭へ戻す。部首などの詳細画面からは元の一覧へ戻れるよう履歴を残す。
           // 再度スワイプで戻った時に、前に開いていたカード/リストではなく既定の背景が出るように(ユーザー要望)。
           listeners={({ navigation, route }) => ({
             blur: () => {
               const parent = navigation.getState();
+              if (!didSwitchTab(parent, route.key)) return;
               const r = parent.routes.find((x) => x.key === route.key);
               const nestedKey = (r?.state as { key?: string } | undefined)?.key;
               if (nestedKey) navigation.dispatch({ ...StackActions.popToTop(), target: nestedKey });

@@ -14,12 +14,16 @@ test('offline scroll course exposes 24 complete lessons and native dictionary-au
  await page.setViewport({width:320,height:740});await page.setRequestInterception(true);
  page.on('request',r=>r.url().startsWith('data:')?r.continue():r.abort());
  await page.goto('about:blank');await page.setContent(lessonHtml(),{waitUntil:'load'});
- assert.equal(await page.$eval('.level-tab.selected',e=>e.textContent.slice(0,2)),'N4');
+ assert.equal(await page.evaluate(()=>currentLevel),'N4');
  for(const level of ['N5','N4','N3']) {
  await page.goto('about:blank');await page.setContent(lessonHtml(level),{waitUntil:'load'});
- assert.equal((await page.$$('.level-tab')).length,1);
+ assert.equal((await page.$$('.level-tab')).length,0);
+ assert.equal(await page.$('.level-tabs'),null);
  const ids=await page.evaluate(level=>lessons.filter(l=>l.level===level).map(l=>l.id),level);
  assert.equal((await page.$$('.lesson-card')).length,ids.length);
+ const titles=await page.$$eval('.lesson-card h2',els=>els.map(e=>e.textContent));
+ for(const title of titles) assert.match(title,/^[^＋→＝]+＝[^＝]+$/);
+ if(level==='N3'){assert(titles.includes('氵＝水'));assert(titles.includes('亻＝人'));}
  for(const id of ids){await page.evaluate(id=>location.hash=id,id);await page.waitForFunction(id=>current?.id===id,{},id);assert.equal((await page.$$('.reading-section')).length,4);await page.waitForFunction(()=>document.querySelector('.hero-art').naturalWidth>0);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));}
  await page.evaluate(level=>location.hash=level==='N5'?'n3-feelings':'human',level);
  await page.waitForSelector('.lesson-grid');assert.equal(await page.$('.reading-lesson'),null);
