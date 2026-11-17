@@ -564,9 +564,9 @@ async function loadAnalysis(){
   if(dataOk(R.daily)){ dailyData = R.daily||[]; renderTrend(); }
   else { dailyData = []; $('trendCharts').innerHTML = `<div class="empty">成長推移のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</div>`; }
   if(dataOk(R.facetAcc)) renderFacetAcc(R.facetAcc);
+  else $('tFacetAcc').innerHTML = `<tr><td class="empty">分野別正解率のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`;
   if(dataOk(R.contentUsage)) renderContentUsage(R.contentUsage);
   else $('tContentUsage').innerHTML = '<tr><td class="empty">集計の接続を確認してください。初回設定は docs/supabase/dashboard_content_usage.sql を実行します。</td></tr>';
-  else $('tFacetAcc').innerHTML = `<tr><td class="empty">分野別正解率のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`;
   if(dataOk(R.scoreDist)) renderScoreDist(R.scoreDist);
   else $('tScoreDist').innerHTML = `<tr><td class="empty">予想得点・カバー率の分布ビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`;
   if(dataOk(R.mockDist)) renderMockDist(R.mockDist);

@@ -4,6 +4,32 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const path = require('node:path');
 
+test('every dashboard script parses before any connection is attempted', () => {
+  const html = fs.readFileSync(path.join(__dirname, 'dashboard.html'), 'utf8');
+  const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)];
+  assert.ok(scripts.length > 0);
+  for (const [, source] of scripts) assert.doesNotThrow(() => new vm.Script(source));
+});
+
+test('analysis handles unavailable views independently', async () => {
+  const html = fs.readFileSync(path.join(__dirname, 'dashboard.html'), 'utf8');
+  const source = html.slice(html.indexOf('async function loadAnalysis(){'), html.indexOf('const CONTENT_NAMES ='));
+  for (const available of [true, false]) {
+    const nodes = {};
+    const rendered = [];
+    const ctx = {
+      _url: '', _key: '', api: () => null,
+      grabAll: async () => ({ facetAcc: available ? [] : {__err: true}, contentUsage: available ? {__err: true} : [] }),
+      dataOk: value => value && !value.__err,
+      $: id => nodes[id] ||= {}, renderTrend: () => {},
+      renderFacetAcc: () => rendered.push('facet'), renderContentUsage: () => rendered.push('content'),
+    };
+    await vm.runInNewContext(source + '\nloadAnalysis();', ctx);
+    assert.deepEqual(rendered, [available ? 'facet' : 'content']);
+    assert.match(nodes[available ? 'tContentUsage' : 'tFacetAcc'].innerHTML, /<td/);
+  }
+});
+
 test('user study count renders in its actual column scope without summary helpers', () => {
   const html = fs.readFileSync(path.join(__dirname, 'dashboard.html'), 'utf8');
   const start = html.indexOf('const COLS = [');
