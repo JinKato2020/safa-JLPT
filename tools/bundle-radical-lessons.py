@@ -27,6 +27,16 @@ def image_uri(name):
 def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     data = read('radicals-lessons.js')
+    lessons = json.loads(data.split('const RADICAL_LESSONS =', 1)[1].strip().removesuffix(';'))
+    levels = json.loads((ROOT / 'src/data/dict/kanjiJlptLevel.json').read_text(encoding='utf-8'))['items']
+    for lesson in lessons:
+        targets = [card['char'] for card in lesson['cards']] + [word[0] for word in lesson['words']]
+        for target in targets:
+            for char in target:
+                if '\u4e00' <= char <= '\u9fff':
+                    rank = levels.get(char, '')
+                    if rank not in ('N5', 'N4', 'N3') or int(rank[1]) < int(lesson['level'][1]):
+                        raise ValueError(f"{lesson['id']}: out-of-level character {char}")
     names = set(re.findall(r'"image"\s*:\s*"(sakura-[\w-]+\.png)"', data))
     if not names:
         raise ValueError('No lesson illustrations found')

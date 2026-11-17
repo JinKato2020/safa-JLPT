@@ -19,6 +19,15 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build radical lessons from their current source
+        run: |
+          python -m pip install Pillow==12.2.0
+          node --check docs/previews/radicals-lessons.js
+          node --check docs/previews/radicals-n5.js
+          python tools/bundle-radical-lessons.py
       - name: Rebuild manifest and validate content
         env:
           CONTENT_VERSION: ${{ github.sha }}
