@@ -24,7 +24,14 @@ test('offline scroll course exposes 24 complete lessons and native dictionary-au
  const titles=await page.$$eval('.lesson-card h2',els=>els.map(e=>e.textContent));
  for(const title of titles) assert.match(title,/^[^＋→＝]+＝[^＝]+$/);
  if(level==='N3'){assert(titles.includes('氵＝水'));assert(titles.includes('亻＝人'));}
- for(const id of ids){await page.evaluate(id=>location.hash=id,id);await page.waitForFunction(id=>current?.id===id,{},id);assert.equal((await page.$$('.reading-section')).length,4);await page.waitForFunction(()=>document.querySelector('.hero-art').naturalWidth>0);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));}
+ for(const id of ids){
+  await page.evaluate(id=>location.hash=id,id);await page.waitForFunction(id=>current?.id===id,{},id);
+  assert.equal((await page.$$('.reading-section')).length,4);
+  const source=await page.evaluate(()=>current.radicalSource);
+  if(source) assert.equal(await page.$eval('.radical-source',e=>e.href),source);
+  await page.waitForFunction(()=>document.querySelector('.hero-art').naturalWidth>0);
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),id+' fits 320px');
+ }
  await page.evaluate(level=>location.hash=level==='N5'?'n3-feelings':'human',level);
  await page.waitForSelector('.lesson-grid');assert.equal(await page.$('.reading-lesson'),null);
  }

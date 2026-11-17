@@ -337,8 +337,8 @@ const RADICAL_LESSONS = [
       "en": "門 looks like a gate with two doors. Other parts can fit inside it."
     },
     "insight": {
-      "ja": "外は門。中を見ると、別の意味につながる。",
-      "en": "A gate outside, another part inside: one familiar frame holds different meanings."
+      "ja": "門のすき間に見える光。外側の門と、中の形を分けて覚えましょう。",
+      "en": "Light visible through a gap in a gate: remember the outer gate and the shape inside separately."
     },
     "cards": [
       {
@@ -352,8 +352,8 @@ const RADICAL_LESSONS = [
           ],
           [
             "日",
-            "太陽",
-            "sun",
+            "今の内側の形",
+            "modern inner shape",
             "shape"
           ]
         ],
@@ -363,11 +363,11 @@ const RADICAL_LESSONS = [
           "en": "space between"
         },
         "story": {
-          "ja": "門のすき間から日が見える。そんな場面で「間＝あいだ」を覚えましょう。字の形を使った覚え方です。",
-          "en": "Imagine sunlight showing through a gap in a gate. Use that scene to remember 間, space between."
+          "ja": "門のすき間から、月が見える。漢字ペディアでは、この場面から「あいだ・すき間」を表したと説明されています。古い形の中は月で、今よく使う形では日になっています。「門のすき間に光」を思い浮かべると、形と意味がつながります。",
+          "en": "Kanjipedia explains the older form through the moon visible in a gap between gate doors. That gives the meaning “gap” or “between.” The older inner shape was 月; today’s usual form has 日. Light through the gate provides a link between the shape and the meaning."
         },
-        "kind": "memory",
-        "source": ""
+        "kind": "origin",
+        "source": "https://www.kanjipedia.jp/kanji/0001083500"
       },
       {
         "char": "聞",
@@ -391,10 +391,10 @@ const RADICAL_LESSONS = [
           "en": "hear / listen"
         },
         "story": {
-          "ja": "門の向こうの声を、耳で聞く。門の中の耳に注目すると、聞く動作と結びつきます。 成り立ちでは耳が意味、門が音のパートです。この場面は形を覚えるためのお話です。",
-          "en": "Imagine listening with your ear to a voice beyond a gate. The ear inside helps you remember “listen.” In its origin, 耳 supplies meaning and 門 supplies sound. The scene is a memory aid for the shape."
+          "ja": "聞では、耳が「聞く」という意味、門が音の手がかりを受け持ちます。「門の向こうの声を聞く」は形を覚えるためのお話。字源の説明とは分けます。辞書での聞の部首は耳です。同じ門の形が見えても、字の中での役割は同じとは限りません。",
+          "en": "In 聞, 耳 provides the meaning “hear” and 門 is the sound component. Hearing a voice beyond a gate can be a memory story, but it is not the etymology. 聞 is classified under the radical 耳. The same visible component can play different roles in different characters."
         },
-        "kind": "memory",
+        "kind": "structure",
         "source": "https://www.kanjipedia.jp/kanji/0006190200"
       }
     ],
@@ -595,8 +595,8 @@ const RADICAL_LESSONS = [
     "name": "こころ",
     "image": "sakura-radical-n4-heart.png",
     "radical": {
-      "ja": "心（こころ）は、気持ちや考えにつながる部品。字の下に置かれることもあります。",
-      "en": "心 points to feelings or thoughts. It can sit at the bottom of a character."
+      "ja": "心は、胸の中の心臓の形がもとです。昔の人は、考えることや感じることを心臓の働きと結びつけていました。そのため心は、気持ちや考えに関係する漢字の手がかりになります。",
+      "en": "心 began as a picture of the heart inside the body. Ancient people associated thought and feeling with the heart’s activity. This helps explain why 心 appears in characters about emotions and thinking."
     },
     "insight": {
       "ja": "心と、あたま。二つを使って考えるから、思う。",
@@ -647,7 +647,8 @@ const RADICAL_LESSONS = [
     "transfer": {
       "ja": "思うは、おもう。心は字の下にあっても、心のはたらきを知らせる手がかりです。",
       "en": "思う is おもう. At the bottom of the character, 心 still points to an activity of the mind."
-    }
+    },
+    "radicalSource": "https://www.kanjipedia.jp/kanji/0003574900"
   },
   {
     "id": "n4-speech",
@@ -757,12 +758,12 @@ const RADICAL_LESSONS = [
     "name": "いとへん",
     "image": "sakura-radical-n4-thread.png",
     "radical": {
-      "ja": "糸（いと）は、糸や布、結びつきの手がかり。左に入ると、いとへんと呼びます。",
-      "en": "糸 gives a clue about thread, fabric or connections. On the left it is called いとへん."
+      "ja": "糸は、まゆから取り出した細い糸を、より合わせた形がもとです。昔の字の中に、糸を作る手仕事が残っています。いとへんを見たら、糸・布・結びつきを思い浮かべましょう。",
+      "en": "糸 began as a picture of fine silk strands drawn from a cocoon and twisted together. The shape preserves a trace of making thread by hand. As a component, 糸 can lead you to thread, cloth and connections."
     },
     "insight": {
-      "ja": "細かい六画を、一つの糸のまとまりとして覚えよう。",
-      "en": "See the six strokes as one familiar thread component."
+      "ja": "「終わる」の中にも糸があります。糸の端を結ぶ動作が、おしまいにつながります。",
+      "en": "Even “finish” has a thread in it: tying off the end of a thread gives a concrete picture of an ending."
     },
     "cards": [
       {
@@ -804,9 +805,9 @@ const RADICAL_LESSONS = [
           ],
           [
             "冬",
-            "冬",
-            "winter",
-            "shape"
+            "もとは糸結びの形",
+            "earlier tied-thread shape",
+            "meaning"
           ]
         ],
         "reading": "シュウ・おわる",
@@ -815,11 +816,11 @@ const RADICAL_LESSONS = [
           "en": "finish"
         },
         "story": {
-          "ja": "「冬になる前に、糸の仕事を終える」と想像して、糸＋冬を覚えよう。冬の読みトウを、そのまま終に使うことはできません。",
-          "en": "Imagine finishing your thread work before winter. This is a memory story for 糸 + 冬. Do not copy 冬’s reading TŌ directly onto 終."
+          "ja": "漢字ペディアでは、糸と、古くは糸結びを表した部分を合わせた字と説明されています。糸の端を結んで、そこでおしまい。この「結びどめ」から、物事が終わる意味につながります。右は今の字では冬の形ですが、冬という季節を足すだけの説明ではありません。",
+          "en": "Kanjipedia connects 終 with thread and a component that earlier depicted a knot. Tie off the end of the thread: that is where it finishes. This concrete ending extends to finishing other things. The right side now looks like 冬, but the origin is not simply “thread plus the winter season.”"
         },
-        "kind": "memory",
-        "source": ""
+        "kind": "origin",
+        "source": "https://www.kanjipedia.jp/kanji/0003122200"
       }
     ],
     "words": [
@@ -842,7 +843,8 @@ const RADICAL_LESSONS = [
     "transfer": {
       "ja": "紙は、かみ。用紙は、ようし。同じ紙でも、ことばによって読みがかわります。音のパートが助けるシを、用紙で聞こう。",
       "en": "紙 is かみ, while 用紙 is ようし. Hear SHI, the sound suggested by its phonetic part, in 用紙."
-    }
+    },
+    "radicalSource": "https://www.kanjipedia.jp/kanji/0002735800"
   },
   {
     "id": "n4-sisters",
@@ -952,8 +954,8 @@ const RADICAL_LESSONS = [
     "name": "りっしんべん",
     "image": "sakura-radical-n3-feelings.png",
     "radical": {
-      "ja": "心（こころ）が左に入ると忄。気持ちや心の状態を表す漢字を、一つの家族で覚えられます。",
-      "en": "心 becomes 忄 on the left. This lets you group characters about feelings and states of mind into one family."
+      "ja": "心は心臓の形からできた字。昔の人は、気持ちや考えを心臓の働きと結びつけていました。左側に入ると忄になります。形は変わっても、心の状態を表す手がかりは受け継がれています。",
+      "en": "心 began as a picture of the heart, which ancient people associated with thought and feeling. On the left it takes the form 忄. The shape changes, while its connection to states of mind remains."
     },
     "insight": {
       "ja": "「心を亡くすほど忙しい」。そんな一場面なら、忙という字が記憶に残ります。",
@@ -1042,7 +1044,8 @@ const RADICAL_LESSONS = [
     "transfer": {
       "ja": "青の仲間：晴・清はセイ、情は感情のジョウ。同じ音符でも、今の読みは完全には一致しません。「近い音の候補」として使い、単語の音声で確かめます。",
       "en": "The 青 family: 晴 and 清 can be SEI, while 情 is JŌ in 感情. A shared sound part does not guarantee an identical modern reading. Treat it as a candidate and confirm with word audio."
-    }
+    },
+    "radicalSource": "https://www.kanjipedia.jp/kanji/0003574900"
   },
   {
     "id": "n3-shrine",
@@ -1052,12 +1055,12 @@ const RADICAL_LESSONS = [
     "name": "しめすへん",
     "image": "sakura-radical-n3-shrine.png",
     "radical": {
-      "ja": "礻は示が変わった形。神や祈り、幸福に関係する漢字の手がかりになります。",
-      "en": "礻 is a form of 示. It gives a clue about deities, prayer or blessings."
+      "ja": "礻のもとは示。漢字ペディアでは、神を迎えてまつるための木の台をかたどった字と説明されています。その形が、神や祈りに関係する漢字の目印になりました。礻を見たら、祈る場所を思い浮かべましょう。",
+      "en": "礻 comes from 示. Kanjipedia traces 示 to a wooden stand used to welcome and worship a deity. This gives the component its connection to gods and prayer. Think of a place of worship when you see 礻."
     },
     "insight": {
-      "ja": "桜が神社で祈る場面を、礻の家族の目印に。",
-      "en": "Use Sakura praying at a shrine as the scene that connects the 礻 family."
+      "ja": "神をまつる台の形が、神や幸福を表す漢字の中に残っています。",
+      "en": "A stand used in worship survives as a component in characters about deities and blessings."
     },
     "cards": [
       {
@@ -1093,15 +1096,15 @@ const RADICAL_LESSONS = [
         "parts": [
           [
             "礻",
-            "祈り",
-            "prayer",
+            "神・祈り",
+            "deities / prayer",
             "meaning"
           ],
           [
             "畐",
-            "右の形",
-            "right-hand part",
-            "shape"
+            "フクの音",
+            "FUKU sound",
+            "sound"
           ]
         ],
         "reading": "フク",
@@ -1110,11 +1113,11 @@ const RADICAL_LESSONS = [
           "en": "good fortune"
         },
         "story": {
-          "ja": "「大切な人の幸福を祈る」と想像して、礻と福をつなげよう。右の部分もひとまとまりとして覚えます。",
-          "en": "Imagine praying for someone’s happiness. Connect 礻 with 福 and remember the right-hand part as one chunk."
+          "ja": "礻が神に関係する意味を、畐がフクの音を受け持ちます。福は、神から与えられる助けやしあわせ。「幸福（こうふく）」の福です。祈りに関係する左側と、音を表す右側。二つの役割をまとめて覚えましょう。",
+          "en": "礻 contributes the connection to a deity, and 畐 supplies the FUKU sound. 福 means blessing or happiness, as in 幸福 (こうふく). Remember two jobs: the left side connects to worship, and the right side provides the sound."
         },
-        "kind": "memory",
-        "source": ""
+        "kind": "structure",
+        "source": "https://www.kanjipedia.jp/kanji/0006113400"
       }
     ],
     "words": [
@@ -1137,7 +1140,8 @@ const RADICAL_LESSONS = [
     "transfer": {
       "ja": "礻と衤は似ていますが、衤は衣の仲間です。「祈る話かな、服の話かな？」と、意味の家族を分けて考えます。",
       "en": "礻 resembles 衤, but 衤 belongs to the clothing family, 衣. Ask whether the character relates to prayer or clothing."
-    }
+    },
+    "radicalSource": "https://www.kanjipedia.jp/kanji/0002841600"
   },
   {
     "id": "n3-road",
@@ -1188,15 +1192,15 @@ const RADICAL_LESSONS = [
         "parts": [
           [
             "辶",
-            "道",
-            "path",
+            "道・移動",
+            "path / movement",
             "meaning"
           ],
           [
             "隹",
-            "鳥の形",
-            "bird shape",
-            "shape"
+            "音のパート",
+            "sound component",
+            "sound"
           ]
         ],
         "reading": "シン・すすむ",
@@ -1205,11 +1209,11 @@ const RADICAL_LESSONS = [
           "en": "advance"
         },
         "story": {
-          "ja": "「鳥が道を前へ進む」と想像して、辶＋隹を覚えよう。右側を細かい線でなく、一つのまとまりにします。",
-          "en": "Picture a bird moving forward along a path. This memory scene groups 辶 and 隹 into two pieces."
+          "ja": "漢字ペディアでは、辶が移動の意味を、隹が音の手がかりを受け持つ字と説明されています。進は「すすむ」。道を前へ進む自分を思い浮かべ、辶を移動の目印として覚えましょう。右側もひとまとまりにすると、細かい線を一画ずつ覚える負担が減ります。",
+          "en": "Kanjipedia explains 進 as the movement component 辶 combined with the sound component 隹. 進む means to move forward. Picture yourself going along a path and connect 辶 with movement. Remember the right side as one unit too, rather than a collection of separate strokes."
         },
-        "kind": "memory",
-        "source": ""
+        "kind": "structure",
+        "source": "https://www.kanjipedia.jp/kanji/0003638300"
       }
     ],
     "words": [
@@ -1247,12 +1251,12 @@ const RADICAL_LESSONS = [
     "name": "かい・かいへん",
     "image": "sakura-radical-n3-shell.png",
     "radical": {
-      "ja": "貝（かい）は、お金や財産に関係する漢字の目印になります。",
-      "en": "貝 is a useful clue in characters about money, property and value."
+      "ja": "古代中国では、子安貝（こやすがい）という貝のからがお金として使われました。「貝」の字も、この貝の形からできています。だから、買う・費用・資金のように、お金に関係する字に貝が残っています。",
+      "en": "In ancient China, cowrie shells were used as money. The character 貝 began as a picture of a cowrie shell. That history helps explain the 貝 in 買 (buy), 費 (expense) and 資 (funds): the shared part points to money."
     },
     "insight": {
-      "ja": "買う・費用・資金。お金が動く場面を、貝でつなげよう。",
-      "en": "Buying, expenses and funds: let 貝 connect scenes where money is involved."
+      "ja": "貝は、昔の中国で本当にお金でした。その歴史が、今の漢字にも残っています。",
+      "en": "Shells really were money in ancient China. Today’s kanji still carry a trace of that history."
     },
     "cards": [
       {
@@ -1260,9 +1264,9 @@ const RADICAL_LESSONS = [
         "parts": [
           [
             "罒",
-            "上の形",
-            "top part",
-            "shape"
+            "網の形",
+            "net shape",
+            "meaning"
           ],
           [
             "貝",
@@ -1277,20 +1281,20 @@ const RADICAL_LESSONS = [
           "en": "buy"
         },
         "story": {
-          "ja": "「網のような袋に、お金を入れて買い物へ」と想像すると、上の罒と下の貝を覚えられます。",
-          "en": "Imagine putting money in a net-like bag and going shopping. This memory story connects 罒 above and 貝 below."
+          "ja": "上の罒は網（あみ）の形、下の貝はお金。漢字ペディアでは、網で貝を集める意味から「買う」へつながった字と説明されています。貝がお金だったと知ると、海の話から買い物の話へ意味がつながります。",
+          "en": "The top 罒 represents a net, and 貝 represents money. Kanjipedia explains 買 through gathering shells in a net, with the meaning later extending to buying. Knowing that shells served as money makes the connection to shopping easier to understand."
         },
-        "kind": "memory",
-        "source": ""
+        "kind": "origin",
+        "source": "https://www.kanjipedia.jp/kanji/0005597500"
       },
       {
         "char": "費",
         "parts": [
           [
             "弗",
-            "上の形",
-            "top part",
-            "shape"
+            "音のパート",
+            "sound component",
+            "sound"
           ],
           [
             "貝",
@@ -1305,11 +1309,39 @@ const RADICAL_LESSONS = [
           "en": "expense"
         },
         "story": {
-          "ja": "費用は使うお金。「旅行に使うお金」と具体的に考え、下の貝を意味の目印にします。",
-          "en": "An expense is money you spend. Think of money spent on a trip and let 貝 at the bottom anchor the meaning."
+          "ja": "貝がお金の意味を、上の弗が音の手がかりを受け持ちます。費は、使って減っていくお金。旅行にかかるお金を「費用（ひよう）」と考えると、暮らしの場面につながります。費の読みはヒですが、弗だけをいつもヒと読むわけではありません。",
+          "en": "貝 supplies the money connection; 弗 is the sound component. 費 concerns spending and expenses. Think of the money a trip costs: 費用 (ひよう). 費 is read ヒ here, but that does not mean 弗 by itself is always read ヒ."
         },
-        "kind": "memory",
-        "source": ""
+        "kind": "structure",
+        "source": "https://www.kanjipedia.jp/kanji/0005839100"
+      },
+      {
+        "char": "資",
+        "parts": [
+          [
+            "次",
+            "音のパート",
+            "sound component",
+            "sound"
+          ],
+          [
+            "貝",
+            "お金・財産",
+            "money / property",
+            "meaning"
+          ]
+        ],
+        "reading": "シ",
+        "meaning": {
+          "ja": "もとで・資金",
+          "en": "resources / funds"
+        },
+        "story": {
+          "ja": "下の貝はお金や財産、上の次は音のパートです。資は、何かを始めたり続けたりするためのもとで。お店を開くために用意するお金なら「資金（しきん）」です。買う、使う、用意する。同じ貝の仲間でも、お金の役割が変わります。",
+          "en": "貝 gives the connection to money and property; the top 次 is the sound component. 資 refers to resources or funds used as a basis for something. Money prepared to open a shop is 資金 (しきん). The same 貝 links buying, spending and funding, while the complete characters express different roles."
+        },
+        "kind": "structure",
+        "source": "https://www.kanjipedia.jp/kanji/0002821200"
       }
     ],
     "words": [
@@ -1330,9 +1362,10 @@ const RADICAL_LESSONS = [
       ]
     ],
     "transfer": {
-      "ja": "買う、費用、資金。貝がある字を、お金を使う場面でまとめて覚えよう。",
-      "en": "Group 買, 費 and 資 through scenes of buying, expenses and funds. The shared 貝 is a clue to money and value."
-    }
+      "ja": "買う＝お金を払って手に入れる。費用＝使うお金。資金＝何かのために用意するお金。共通する貝で「お金の仲間」と気づき、単語でそれぞれの意味を確かめましょう。",
+      "en": "買う: pay to get something. 費用: the money it costs. 資金: money available to fund something. Use 貝 to recognize the money family, then learn the exact meaning through each word."
+    },
+    "radicalSource": "https://www.kanjipedia.jp/kanji/0000838600"
   },
   {
     "id": "n3-roof",
@@ -1346,8 +1379,8 @@ const RADICAL_LESSONS = [
       "en": "宀 suggests a roof. It gives a clue about houses or places inside them."
     },
     "insight": {
-      "ja": "家・客・宿を、一つの宿の物語で覚えよう。",
-      "en": "Connect house, guest and inn through one story about staying at an inn."
+      "ja": "屋根の下に、人と寝るための敷きもの。宿の字には、泊まる場面が入っています。",
+      "en": "Under a roof: a person and a sleeping mat. 宿 holds a small scene of staying the night."
     },
     "cards": [
       {
@@ -1383,14 +1416,20 @@ const RADICAL_LESSONS = [
         "parts": [
           [
             "宀",
-            "屋根",
-            "roof",
+            "屋根・家",
+            "roof / house",
             "meaning"
           ],
           [
-            "亻＋百",
-            "下の形",
-            "lower parts",
+            "亻",
+            "人",
+            "person",
+            "meaning"
+          ],
+          [
+            "百",
+            "もとは敷きものの形",
+            "earlier mat shape",
             "shape"
           ]
         ],
@@ -1400,11 +1439,11 @@ const RADICAL_LESSONS = [
           "en": "inn / lodging"
         },
         "story": {
-          "ja": "「屋根の下で、百人が休める宿」と想像して、宀＋亻＋百を覚えよう。今の字形を使った語呂合わせです。",
-          "en": "Imagine an inn where a hundred people can rest under one roof. This is a memory story for the modern parts 宀 + 亻 + 百."
+          "ja": "宀は家、亻は人。百に見える部分は、もとは敷きものの形です。家の中で人が敷きものに寝る、その場面が「宿る」につながります。百人泊まれるから宿、という成り立ちではありません。",
+          "en": "宀 is the house and 亻 is a person. The part that now looks like 百 originally depicted a mat. A person lying on a mat inside a house gives the scene of staying overnight. The character is not about a hundred guests."
         },
-        "kind": "memory",
-        "source": ""
+        "kind": "origin",
+        "source": "https://www.kanjipedia.jp/kanji/0003198000"
       }
     ],
     "words": [
@@ -1442,8 +1481,8 @@ const RADICAL_LESSONS = [
     "name": "にくづき",
     "image": "sakura-radical-n3-body.png",
     "radical": {
-      "ja": "腹の左の月は、肉（にく）が変わった形。にくづきと呼びます。空の月とは、意味の仲間が違います。",
-      "en": "The 月 shape on the left of 腹 comes from 肉, flesh. It is called にくづき and belongs to a different meaning family from the moon."
+      "ja": "肉は、切った肉の形からできた字です。腹や胸の左では、肉が月に似た形になっていて「にくづき」と呼びます。空の月とは別の成り立ち。形だけでなく、何を表す部品なのかを見ると、体の漢字をまとめられます。",
+      "en": "肉 began as a picture of a piece of flesh. In 腹 and 胸 it appears on the left in a form resembling 月, called にくづき. It has a different origin from the moon. Following the component’s meaning, not just its outline, helps you group body-related kanji."
     },
     "insight": {
       "ja": "同じように見える形でも、意味は二つ。「月」か「からだ」かを考えよう。",
@@ -1537,7 +1576,8 @@ const RADICAL_LESSONS = [
     "transfer": {
       "ja": "腹のフクは、空腹（くうふく）で聞けます。胸は、むね。にくづきで意味をまとめ、ことばの音声でそれぞれの読みを覚えよう。",
       "en": "Hear FUKU in 空腹 (くうふく). 胸 is むね. Group them by the body component, then learn each word’s pronunciation."
-    }
+    },
+    "radicalSource": "https://www.kanjipedia.jp/kanji/0005428500"
   },
   {
     "id": "n4-wood",
@@ -1652,8 +1692,8 @@ const RADICAL_LESSONS = [
       "en": "人 means person. On the left it becomes 亻. Think of a person or something a person does."
     },
     "insight": {
-      "ja": "一画ずつ覚えるより、「人＋木」の二つで覚えよう。",
-      "en": "Remember two meaningful pieces—person + tree—instead of separate strokes."
+      "ja": "体の左にも、人の形。「からだ」を、人の仲間として覚えましょう。",
+      "en": "The left side of 体 is a person: place “body” in the person family."
     },
     "cards": [
       {
@@ -1678,11 +1718,11 @@ const RADICAL_LESSONS = [
           "en": "body"
         },
         "story": {
-          "ja": "「人のもとになるもの＝体」と想像すると、亻＋本を覚えやすくなります。",
-          "en": "Imagine the body as the base of a person. This memory story connects 亻 and 本."
+          "ja": "今の形は亻＋本。「人のもとになるもの＝体」と考えるのは、形を覚えるためのお話です。もとの字源ではありません。体は、骨の部分を持つ古い字体に代わって使われる形です。今の書き方と、昔の成り立ちを区別しましょう。",
+          "en": "Today’s shape is 亻 + 本. “A person’s foundation is their body” is a memory aid for that shape, not its historical origin. 体 is used in place of an older form containing a bone component. Modern shape and historical formation are different things."
         },
         "kind": "memory",
-        "source": ""
+        "source": "https://www.kanjipedia.jp/kanji/0004428700"
       }
     ],
     "words": [
@@ -1768,11 +1808,11 @@ const RADICAL_LESSONS = [
           "en": "early"
         },
         "story": {
-          "ja": "「十時より早く、日がのぼる」と想像して、日＋十＝早を覚えよう。これは形を覚えるためのお話です。",
-          "en": "Imagine the sun rising before ten o’clock. This is a memory story for 日 + 十 = 早."
+          "ja": "日がのぼるころ、早く起きる自分を思い浮かべて「早い」を覚えましょう。これは今の形を使った覚え方です。漢字ペディアは、字の起源をさじの形とし、そこから「はやい」の意味に借りて使われたと説明しています。",
+          "en": "Picture yourself waking early as the sun rises. This is a memory aid for today’s shape. Kanjipedia gives a different historical account: the character originally depicted a spoon and was borrowed to express “early.”"
         },
         "kind": "memory",
-        "source": ""
+        "source": "https://www.kanjipedia.jp/kanji/0004205400"
       }
     ],
     "words": [
