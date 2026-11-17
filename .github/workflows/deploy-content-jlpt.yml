@@ -46,6 +46,10 @@ jobs:
           # 古い目録を読み込んだ直後の端末も取得できるよう、公開済みパスは残す。
           rclone copy content "$dest" --exclude '/_manifest.json' --checksum "${flags[@]}"
           rclone copyto content/_manifest.json "$dest/_manifest.json" --ignore-times --header-upload 'Cache-Control: no-cache' "${flags[@]}"
+          if [ -f web/radical-lessons/manifest.json ]; then
+            rclone copy web/radical-lessons r2:jlpt-assets/radical-lessons --exclude '/manifest.json' --checksum "${flags[@]}"
+            rclone copyto web/radical-lessons/manifest.json r2:jlpt-assets/radical-lessons/manifest.json --ignore-times --header-upload 'Cache-Control: no-cache' "${flags[@]}"
+          fi
 
       - name: Verify the manifest at the app's public URL
         run: |

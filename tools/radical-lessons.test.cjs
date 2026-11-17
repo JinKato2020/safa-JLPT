@@ -3,48 +3,36 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { test } = require('node:test');
 const { launch } = require('puppeteer-core');
-
-function lessonHtml(name) {
-  return fs.readFileSync(path.join(__dirname, '../assets/radical-lessons', name + '.html'), 'utf8')
-    .replace('/*APP_LESSON_CONFIG*/ {}', '{"language":"en","level":"N4","completed":{}}')
-    .replace('<head>', '<head><script>window.sent=[];window.ReactNativeWebView={postMessage:s=>sent.push(JSON.parse(s))};</script>');
+function lessonHtml(level = 'N4') {
+ return fs.readFileSync(path.join(__dirname,'../assets/radical-lessons/course.html'),'utf8')
+  .replace('/*APP_LESSON_CONFIG*/ {}',JSON.stringify({language:'en',level,completed:{}}))
+  .replace('<head>','<head><script>window.sent=[];window.ReactNativeWebView={postMessage:s=>sent.push(JSON.parse(s))};</script>');
 }
-
-test('the embedded course and person lesson open offline and report lesson selection', async () => {
-  const browser = await launch({ executablePath: process.env.JLPT_TEST_CHROME, headless: true });
-  try {
-    const page = await browser.newPage();
-    const errors = [];
-    page.on('pageerror', error => errors.push(String(error)));
-    await page.setRequestInterception(true);
-    page.on('request', request => request.url().startsWith('data:') ? request.continue() : request.abort());
-    await page.setContent(lessonHtml('course'), { waitUntil: 'load' });
-    assert.equal(await page.$eval('.level-tab.selected', el => el.textContent.slice(0, 2)), 'N4');
-
-    for (const level of ['N5', 'N4', 'N3']) {
-      await page.evaluate(level => { location.hash = level; }, level);
-      await page.waitForFunction(level => document.querySelector('.level-tab.selected').textContent.startsWith(level), {}, level);
-      assert.equal((await page.$$('.lesson-card')).length, 6);
-      await page.$$eval('.lesson-card img', images => images.forEach(image => { image.loading = 'eager'; }));
-      await page.waitForFunction(() => [...document.querySelectorAll('.lesson-card img')]
-        .every(image => image.src.startsWith('data:image/') && image.naturalWidth > 0));
-    }
-    await page.click('.lesson-card');
-    await page.waitForFunction(() => sent.some(event => event.type === 'view' && event.id === 'n3-feelings'));
-    assert.ok(await page.$eval('.scene', image => image.src.startsWith('data:image/')));
-    await page.waitForFunction(() => document.querySelector('.scene').naturalWidth > 0);
-    await page.evaluate(() => { location.hash = 'N5'; });
-    await page.waitForSelector('[data-app-page=human]');
-    await page.click('[data-app-page=human]');
-    assert.ok(await page.evaluate(() => sent.some(event => event.type === 'page' && event.page === 'human')));
-
-    const human = await browser.newPage();
-    human.on('pageerror', error => errors.push(String(error)));
-    await human.setContent(lessonHtml('human'), { waitUntil: 'load' });
-    assert.ok(await human.$('[data-app-page=course]'));
-    assert.ok(await human.$eval('.sakura-person', image => image.complete && image.naturalWidth > 0));
-    assert.deepEqual(errors, []);
-  } finally {
-    await browser.close();
-  }
+test('offline scroll course exposes 24 complete lessons and native dictionary-audio/progress events', async()=>{
+ const browser=await launch({executablePath:process.env.JLPT_TEST_CHROME,headless:true});
+ try{const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));
+ await page.setViewport({width:320,height:740});await page.setRequestInterception(true);
+ page.on('request',r=>r.url().startsWith('data:')?r.continue():r.abort());
+ await page.goto('about:blank');await page.setContent(lessonHtml(),{waitUntil:'load'});
+ assert.equal(await page.$eval('.level-tab.selected',e=>e.textContent.slice(0,2)),'N4');
+ for(const level of ['N5','N4','N3']) {
+ await page.goto('about:blank');await page.setContent(lessonHtml(level),{waitUntil:'load'});
+ assert.equal((await page.$$('.level-tab')).length,1);
+ const ids=await page.evaluate(level=>lessons.filter(l=>l.level===level).map(l=>l.id),level);
+ assert.equal((await page.$$('.lesson-card')).length,ids.length);
+ for(const id of ids){await page.evaluate(id=>location.hash=id,id);await page.waitForFunction(id=>current?.id===id,{},id);assert.equal((await page.$$('.reading-section')).length,4);await page.waitForFunction(()=>document.querySelector('.hero-art').naturalWidth>0);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));}
+ await page.evaluate(level=>location.hash=level==='N5'?'n3-feelings':'human',level);
+ await page.waitForSelector('.lesson-grid');assert.equal(await page.$('.reading-lesson'),null);
+ }
+ await page.goto('about:blank');await page.setContent(lessonHtml('N4'),{waitUntil:'load'});
+ await page.evaluate(()=>location.hash='n4-water');await page.waitForSelector('[data-word="池"]');await page.click('[data-word="池"]');
+ const request=await page.evaluate(()=>sent.findLast(e=>e.type==='speak'));
+ assert.equal(request.word,'池');assert.equal(request.reading,'いけ');assert.equal(typeof request.requestId,'number');
+ await page.evaluate(id=>window.onNativeAudioStatus(id,'recording'),request.requestId);assert.match(await page.$eval('#audio-status',e=>e.textContent),/Dictionary audio/);
+ await page.click('#mark-read');assert(await page.evaluate(()=>sent.some(e=>e.type==='complete'&&e.id==='n4-water')));
+ await page.evaluate(()=>location.hash='human');await page.waitForSelector('.lesson-grid');assert.equal(await page.evaluate(()=>sent.some(e=>e.type==='view'&&e.level==='N5')),false);
+ assert(await page.evaluate(()=>sent.some(e=>e.type==='stop-audio')));assert.deepEqual(errors,[]);
+ }finally{await browser.close();}
 });
+
+test('targets and example words stay within the app kanji level',()=>{const vm=require('node:vm');const lessons=vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../docs/previews/radicals-lessons.js'),'utf8')+';RADICAL_LESSONS');const levels=require('../src/data/dict/kanjiJlptLevel.json').items;for(const l of lessons)for(const text of [...l.cards.map(c=>c.char),...l.words.map(w=>w[0])])for(const char of text.match(/\p{Script=Han}/gu)||[])assert(levels[char]&&Number(levels[char].slice(1))>=Number(l.level.slice(1)),l.id+' '+char);});

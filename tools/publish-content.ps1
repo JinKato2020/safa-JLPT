@@ -31,13 +31,15 @@ if (-not $DryRun) {
   gh auth status *> $null
   if ($LASTEXITCODE -ne 0) { Die 'gh にログインしていません。`gh auth login` を実行してください。' }
   if (-not $NoCommit -and (git diff --cached --name-only)) { Die '先にステージ済みの変更を整理してください。' }
-  if (-not $NoCommit -and (git status --porcelain -- content/) -and -not $Message) {
+  if (-not $NoCommit -and (git status --porcelain -- content/ docs/previews/ web/radical-lessons/ assets/radical-lessons/) -and -not $Message) {
     Die '教材に未コミットの変更があります。-Message "..." を渡してください。'
   }
 }
 
 # manifest 再生成（忘れると OTA の sha256 照合が古いまま＝新しい問題/翻訳が端末に届かない）
-Step 2 'content manifest 再生成'
+Step 2 'content manifest・部首教材 再生成'
+python tools/bundle-radical-lessons.py
+if ($LASTEXITCODE -ne 0) { Die '部首教材の生成に失敗しました。' }
 node --import tsx tools/content/rebuild.ts | Out-Null
 if ($LASTEXITCODE -ne 0) { Die 'rebuild.ts が失敗しました。' }
 Write-Host '  _manifest.json / bundled.generated.ts を再生成'
@@ -65,10 +67,10 @@ if ($DryRun) { Write-Host "`nDryRun のため終了。push していません。
 
 Step 4 'コミット'
 if ($NoCommit) { Write-Host '  -NoCommit のため飛ばします' }
-elseif (-not (git status --porcelain -- content/)) { Write-Host '  教材の変更なし。飛ばします' }
+elseif (-not (git status --porcelain -- content/ docs/previews/ web/radical-lessons/ assets/radical-lessons/)) { Write-Host '  教材の変更なし。飛ばします' }
 else {
   if (-not $Message) { Die '再生成で教材に差分が出ました。-Message "..." を渡してください。' }
-  git add -- content/
+  git add -- content/ docs/previews/ web/radical-lessons/ assets/radical-lessons/
   if ($LASTEXITCODE -ne 0) { Die '教材のステージに失敗しました。' }
   git commit -q -m $Message
   if ($LASTEXITCODE -ne 0) { Die 'commit に失敗しました。' }

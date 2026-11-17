@@ -1,21 +1,22 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Asset } from 'expo-asset';
 import { File } from 'expo-file-system';
+import { cachedRadicalCourse, syncRadicalCourse } from '../data/radicalCourseRemote';
 import * as Speech from 'expo-speech';
+import { Audio } from 'expo-av';
+import { playVocab, stopVocab } from '../data/vocabAudio';
+import { vocabIdForWord } from '../words/vocabIndex';
 import { WebView, type WebViewMessageEvent } from 'react-native-webview';
 import { useT, useUiLang } from '../i18n';
 import { useAppState } from '../store/store';
 import { sendEvent } from '../telemetry/telemetry';
 import { spacing, useColors } from '../theme';
 
-const FILES = {
-  course: require('../../assets/radical-lessons/course.html'),
-  human: require('../../assets/radical-lessons/human.html'),
-};
+const COURSE = require('../../assets/radical-lessons/course.html');
 const PROGRESS_KEY = 'safa-jlpt:radical-lessons-completed';
 const LESSON_ORIGIN = 'https://radical-lessons.invalid';
 
@@ -25,24 +26,26 @@ export default function RadicalLessonsScreen() {
   const t = useT();
   const uiLang = useUiLang();
   const level = useAppState().settings.level;
-  const [language, setLanguage] = useState(uiLang === 'ja' ? 'ja' : 'en');
-  const [page, setPage] = useState<keyof typeof FILES>('course');
-  const [initialLevel, setInitialLevel] = useState(level);
+  const [language] = useState(uiLang === 'ja' ? 'ja' : 'en');
+  
   const [template, setTemplate] = useState<string>();
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const completed = useRef<Record<string, boolean>>({});
+  const audioGeneration = useRef(0);
+  const webView = useRef<WebView>(null);
 
   useEffect(() => {
     let active = true;
     async function load() {
       try {
         const [asset, saved] = await Promise.all([
-          Asset.fromModule(FILES[page]).downloadAsync(),
+          Asset.fromModule(COURSE).downloadAsync(),
           AsyncStorage.getItem(PROGRESS_KEY).catch(() => null),
         ]);
         if (!asset.localUri) throw new Error('Missing lesson asset');
-        const html = await new File(asset.localUri).text();
+        const html = await cachedRadicalCourse() ?? await new File(asset.localUri).text();
+        void syncRadicalCourse();
         if (!active) return;
         try { completed.current = { ...JSON.parse(saved ?? '{}'), ...completed.current }; } catch { /* keep current progress */ }
         setTemplate(html);
@@ -51,38 +54,52 @@ export default function RadicalLessonsScreen() {
       }
     }
     void load();
-    return () => { active = false; void Speech.stop(); };
-  }, [attempt, page]);
+    return () => { active = false; audioGeneration.current++; void Speech.stop(); void stopVocab(); };
+  }, [attempt]);
 
   const source = useMemo(() => template ? {
     baseUrl: LESSON_ORIGIN + '/',
     html: template.replace('/*APP_LESSON_CONFIG*/ {}', JSON.stringify({
-      language, level: initialLevel, completed: completed.current,
+      language, level: level, completed: completed.current,
     }).replaceAll('<', '\\u003c')),
-  } : undefined, [template, initialLevel, language]);
-
-  function showPage(next: keyof typeof FILES, nextLanguage = language) {
-    setTemplate(undefined);
-    setFailed(false);
-    setLanguage(nextLanguage);
-    setInitialLevel('N5');
-    setPage(next);
-    if (next === 'human') {
-      void sendEvent('screen_view', { name: 'RadicalLessons', content: 'RadicalLesson:human' }, 'N5');
-    }
-  }
+  } : undefined, [template, level, language]);
 
   function onMessage(event: WebViewMessageEvent) {
     let message: Record<string, unknown>;
     try { message = JSON.parse(event.nativeEvent.data) ?? {}; } catch { return; }
     const { type, id, word } = message;
-    if (type === 'page' && (message.page === 'course' || message.page === 'human') && message.page !== page) {
-      showPage(message.page, message.language === 'ja' ? 'ja' : 'en');
-    } else if (type === 'speak' && typeof word === 'string' && word.length <= 60) {
-      void Speech.stop().then(() => Speech.speak(word, { language: 'ja-JP', rate: 0.8 })).catch(() => {});
+    if (type === 'stop-audio') {
+      audioGeneration.current++;
+      void Speech.stop();
+      void stopVocab();
+    } else if (type === 'speak' && typeof word === 'string' && word.length <= 60 &&
+      typeof message.reading === 'string' && message.reading.length <= 60 &&
+      typeof message.requestId === 'number' && Number.isSafeInteger(message.requestId)) {
+      const generation = ++audioGeneration.current;
+      const reading = message.reading;
+      const requestId = message.requestId;
+      const notify = (status: 'recording' | 'speech' | 'error') => {
+        if (generation !== audioGeneration.current) return;
+        webView.current?.injectJavaScript(`window.onNativeAudioStatus?.(${requestId},${JSON.stringify(status)});true;`);
+      };
+      void (async () => {
+        await Promise.all([Speech.stop(), stopVocab()]);
+        await Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {});
+        if (generation !== audioGeneration.current) return;
+        // Same exact word/reading resolver and cached recording player as the dictionary.
+        const id = vocabIdForWord(word, reading) ??
+          (word === '終わる' && reading === 'おわる' ? vocabIdForWord('終る', reading) : null);
+        const played = id ? await playVocab(id) : false;
+        if (generation !== audioGeneration.current) return;
+        if (played) notify('recording');
+        else {
+          Speech.speak(reading, { language: 'ja-JP', onError: () => notify('error') });
+          notify('speech');
+        }
+      })().catch(() => notify('error'));
     } else if (typeof id === 'string' && /^[a-z0-9-]{1,32}$/.test(id)) {
-      if (type === 'view' && (message.level === 'N3' || message.level === 'N4' || message.level === 'N5')) {
-        void sendEvent('screen_view', { name: 'RadicalLessons', content: `RadicalLesson:${id}` }, message.level);
+      if (type === 'view' && (message.level === level)) {
+        void sendEvent('screen_view', { name: 'RadicalLessons', content: `RadicalLesson:${id}` }, level);
       } else if (type === 'complete') {
         completed.current[id] = true;
         void AsyncStorage.setItem(PROGRESS_KEY, JSON.stringify(completed.current)).catch(() => {});
@@ -94,7 +111,7 @@ export default function RadicalLessonsScreen() {
     <SafeAreaView style={[styles.screen, { backgroundColor: colors.bg }]}>
       <View style={styles.header}>
         <Pressable accessibilityRole="button" accessibilityLabel={t('mockintro.back')} hitSlop={12}
-          onPress={() => page === 'human' ? showPage('course') : navigation.goBack()}>
+          onPress={() => navigation.goBack()}>
           <Text style={[styles.back, { color: colors.ink }]}>‹</Text>
         </Pressable>
         <Text style={[styles.title, { color: colors.ink }]}>{t('cards.radical_lessons')}</Text>
@@ -104,9 +121,12 @@ export default function RadicalLessonsScreen() {
           <Text style={{ color: colors.ink }}>{t('dl.retry')}</Text>
         </Pressable>
       ) : source ? (
-        <WebView source={source} originWhitelist={['*']}
-          onShouldStartLoadWithRequest={({ url }) =>
-            url === 'about:blank' || url === LESSON_ORIGIN + '/' || url.startsWith(LESSON_ORIGIN + '/#')}
+        <WebView ref={webView} source={source} originWhitelist={['*']}
+          onShouldStartLoadWithRequest={({ url }) => {
+            if (url === 'about:blank' || url === LESSON_ORIGIN + '/' || url.startsWith(LESSON_ORIGIN + '/#')) return true;
+            if (/^https:\/\/www\.(kanjipedia\.jp|mext\.go\.jp)\//.test(url)) void Linking.openURL(url).catch(() => {});
+            return false;
+          }}
           onError={() => setFailed(true)} onMessage={onMessage} />
       ) : (
         <View style={styles.center}><ActivityIndicator color={colors.blue} /></View>
