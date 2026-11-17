@@ -1,0 +1,53 @@
+name: JLPT 教材配信 (R2 / OTA)
+run-name: "JLPT 教材配信 — ${{ github.sha }}"
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+concurrency:
+  group: jlpt-content-r2
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+      - name: Rebuild manifest and validate content
+        env:
+          CONTENT_VERSION: ${{ github.sha }}
+        run: |
+          npx --yes tsx@4.22.4 tools/content/rebuild.ts
+          npx --yes tsx@4.22.4 --test tools/content/manifest.test.ts tools/content/validate.test.ts src/data/content/rehydrate.test.ts src/data/content/otaDiff.test.ts src/data/content/explainTransPolicy.test.ts src/data/exam/passageTransNe.test.ts
+
+      - name: Upload content first, then its manifest
+        env:
+          RCLONE_CONFIG_R2_TYPE: s3
+          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+          RCLONE_CONFIG_R2_REGION: auto
+          RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          set -euo pipefail
+          export RCLONE_CONFIG_R2_ENDPOINT="$(printf '%s' "$RCLONE_CONFIG_R2_ENDPOINT" | tr -d '[:space:]')"
+          : "${RCLONE_CONFIG_R2_ENDPOINT:?Missing R2_ENDPOINT}"
+          : "${RCLONE_CONFIG_R2_ACCESS_KEY_ID:?Missing R2_ACCESS_KEY_ID}"
+          : "${RCLONE_CONFIG_R2_SECRET_ACCESS_KEY:?Missing R2_SECRET_ACCESS_KEY}"
+          curl -fsSL https://rclone.org/install.sh | sudo bash
+          dest='r2:jlpt-assets/content'
+          flags=(--s3-no-check-bucket --transfers 32 --checkers 32 --fast-list)
+          # 古い目録を読み込んだ直後の端末も取得できるよう、公開済みパスは残す。
+          rclone copy content "$dest" --exclude '/_manifest.json' --checksum "${flags[@]}"
+          rclone copyto content/_manifest.json "$dest/_manifest.json" --ignore-times --header-upload 'Cache-Control: no-cache' "${flags[@]}"
+
+      - name: Verify the manifest at the app's public URL
+        run: |
+          curl -fsSL --retry 3 "https://jlpt.safa-lang.com/content/_manifest.json?sha=${GITHUB_SHA}" -o "$RUNNER_TEMP/jlpt-manifest.json"
+          cmp content/_manifest.json "$RUNNER_TEMP/jlpt-manifest.json"

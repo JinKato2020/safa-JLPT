@@ -169,7 +169,8 @@ jobs:
           #  失敗し「Invalid region」誤表示でR2同期が毎回失敗＝OTA配信が届いていなかった)。secret側も是正済だが二重防御。
           RCLONE_CONFIG_R2_ENDPOINT=$(printf '%s' "$RCLONE_CONFIG_R2_ENDPOINT" | tr -d '[:space:]'); export RCLONE_CONFIG_R2_ENDPOINT
           curl -fsSL https://rclone.org/install.sh | sudo bash
-          for d in assets content dict invite r schools grammar-notes afterstudy scene-art app-art; do
+          # アプリの教材 /content は deploy-content-jlpt.yml が手動配信する。
+          for d in assets dict invite r schools grammar-notes afterstudy scene-art app-art; do
             [ -d "_site/$d" ] && rclone sync "_site/$d" "r2:jlpt-assets/$d" --s3-no-check-bucket --transfers 32 --checkers 32 --fast-list
           done
           rclone copy _site "r2:jlpt-assets" --include "/*.html" --s3-no-check-bucket

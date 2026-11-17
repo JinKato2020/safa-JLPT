@@ -1,5 +1,5 @@
 // tools/content/rebuild.ts — content/ を正本として _manifest.json と bundled.generated.ts を再生成する恒常ツール。
-// 移行後の運用: content/**.json を手編集 → node --import tsx tools/content/rebuild.ts → git push(deploy-pagesが公開)。
+// 運用: content/**.json を編集 → tools/publish-content.ps1 で検証・push・R2配信。
 // (build_content.ts は旧バンクから content/ を作る一度きりの移行ツール。旧バンク削除後は本ツールを使う。)
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';

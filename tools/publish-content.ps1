@@ -1,14 +1,14 @@
 <#
-  まいにちJLPT コンテンツ配信（ビルドなし・GitHubからOTAダウンロード方式）
+  まいにちJLPT コンテンツ配信（Cloudflare R2 / OTA）
 
-    tools\publish-content.ps1 -Message "fix(読解): 選択肢の訳を修正"   # commit してPages配信
+    tools\publish-content.ps1 -Message "fix(読解): 選択肢の訳を修正"   # commit・push後、教材配信を起動
     tools\publish-content.ps1 -NoCommit                                  # commit済み・配信だけ
     tools\publish-content.ps1 -Message "..." -DryRun                     # 検証まで（push しない）
 
   使う場面: 問題の本文/設問/選択肢/解説やその翻訳＝content JSON を変えた時。
-            端末は起動時に GitHub Pages の _manifest.json を見て差分DL→次回起動で反映（ビルド不要）。
+            端末は起動時に R2 の _manifest.json を見て差分DL→次回起動で反映（ビルド不要）。
 
-  やること: manifest再生成 → content検証 → commit → push（Pages=OTA配信が自動起動）。ネイティブビルドは dispatch しない。
+  やること: manifest再生成 → content検証 → commit → push → 教材配信ワークフローを起動。
   ※UI文字列(src/i18n)・画面・ロジックを変えた時は、これではなく tools\build.ps1（ビルド）を使うこと。
 #>
 [CmdletBinding()]
@@ -27,13 +27,14 @@ if (-not (Test-Path (Join-Path $APP 'app.json'))) { Die "リポジトリルー�
 Set-Location $APP
 $branch = git rev-parse --abbrev-ref HEAD
 if ($branch -ne 'main') { Die "ブランチが main ではありません（現在: $branch）。" }
-gh auth status *> $null
-if ($LASTEXITCODE -ne 0) { Die 'gh にログインしていません。`gh auth login` を実行してください。' }
-$dirty = git status --porcelain
-if (-not $NoCommit -and $dirty -and -not $Message) {
-  Die '未コミットの変更があります。-Message "..." を渡すか -NoCommit を付けてください。'
+if (-not $DryRun) {
+  gh auth status *> $null
+  if ($LASTEXITCODE -ne 0) { Die 'gh にログインしていません。`gh auth login` を実行してください。' }
+  if (-not $NoCommit -and (git diff --cached --name-only)) { Die '先にステージ済みの変更を整理してください。' }
+  if (-not $NoCommit -and (git status --porcelain -- content/) -and -not $Message) {
+    Die '教材に未コミットの変更があります。-Message "..." を渡してください。'
+  }
 }
-Write-Host "  branch=main / 未コミット $((($dirty | Measure-Object).Count)) 件"
 
 # manifest 再生成（忘れると OTA の sha256 照合が古いまま＝新しい問題/翻訳が端末に届かない）
 Step 2 'content manifest 再生成'
@@ -64,18 +65,20 @@ if ($DryRun) { Write-Host "`nDryRun のため終了。push していません。
 
 Step 4 'コミット'
 if ($NoCommit) { Write-Host '  -NoCommit のため飛ばします' }
-elseif (-not (git status --porcelain)) { Write-Host '  変更なし。飛ばします' }
+elseif (-not (git status --porcelain -- content/)) { Write-Host '  教材の変更なし。飛ばします' }
 else {
-  git add content/                                     # content配信は content/ だけをコミット(memory等の巻き込み防止)
-  if (-not (git diff --cached --name-only)) { Die 'content/ にステージ対象がありません。content 以外の変更は build.ps1 か手動commitで。' }
-  git commit -q -m "$Message`n`nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  if (-not $Message) { Die '再生成で教材に差分が出ました。-Message "..." を渡してください。' }
+  git add -- content/
+  if ($LASTEXITCODE -ne 0) { Die '教材のステージに失敗しました。' }
+  git commit -q -m $Message
   if ($LASTEXITCODE -ne 0) { Die 'commit に失敗しました。' }
   Write-Host "  $(git log --oneline -1)"
 }
 
-Step 5 'push（Pages=OTA配信が自動起動）'
+Step 5 'push'
 git push -q origin main
 if ($LASTEXITCODE -ne 0) { Die 'push に失敗しました。' }
-$pagesRun = gh run list --workflow=build-jlpt.yml --event push --limit 1 --json databaseId -q '.[0].databaseId' 2>$null
-Write-Host "  origin/main へ push 済み。Pages配信 run: https://github.com/JinKato2020/safa-JLPT/actions/runs/$pagesRun" -ForegroundColor Green
-Write-Host "  端末は次回起動時に GitHub から差分DL→そのまた次の起動で反映（ビルド不要）。" -ForegroundColor Green
+Step 6 'R2教材配信を起動'
+gh workflow run deploy-content-jlpt.yml --ref main
+if ($LASTEXITCODE -ne 0) { Die '教材配信の起動に失敗しました。' }
+Write-Host '  ワークフローの成功後、端末が起動時に差分を取得し、次回起動時に反映します。' -ForegroundColor Green

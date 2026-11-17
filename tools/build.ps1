@@ -201,8 +201,8 @@ else {
   Write-Host "  $(git log --oneline -1)"
 }
 
-# ---- 5. push（これで Pages＝OTA配信 が自動起動する）------------------------
-Step 5 'push（OTA配信も起動）'
+# ---- 5. push（Pages配信が自動起動する）------------------------------------
+Step 5 'push（Pages配信も起動）'
 git push -q origin main
 if ($LASTEXITCODE -ne 0) { Die 'push に失敗しました。' }
 Write-Host '  origin/main へ push 済み'
@@ -253,7 +253,7 @@ else {
   Write-Host "v$ver($build) 失敗" -ForegroundColor Red
 }
 $jobs | ForEach-Object { Write-Host "  $_" }
-Write-Host "  OTA配信(Pages): $pages"
+Write-Host "  Pages配信: $pages"
 if ($watchExit -ne 0) {
   Write-Host "`n原因: gh run view $runId --log-failed" -ForegroundColor Yellow
   exit 1
