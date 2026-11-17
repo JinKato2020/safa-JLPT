@@ -1513,6 +1513,7 @@
   "feedback.send": "Gửi góp ý qua email",
   "feedback.subject": "Mainichi JLPT: góp ý và yêu cầu",
   "feedback.email_error": "Không thể mở ứng dụng email. Vui lòng gửi email đến {email}.",
+  "home.first_lesson": "Bắt đầu với 5 câu hỏi",
   "sakura.exam_all": "Bạn còn {n} câu hỏi lớn chưa làm trong tab Bài kiểm tra ({names}). Hoàn thành tất cả các câu hỏi lớn một lần để điểm dự đoán hiển thị chính xác.",
   "sakura.exam_all_more": "Bạn còn {n} câu hỏi lớn chưa làm trong tab Bài kiểm tra (ví dụ: {names}). Hoàn thành tất cả các câu hỏi lớn một lần để điểm dự đoán hiển thị chính xác.",
   "sakura.exam_all_sep": ", "

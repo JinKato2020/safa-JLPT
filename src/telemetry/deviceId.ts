@@ -5,8 +5,9 @@
 // ※これは「不正防止・分析」目的の識別子。第三者トラッキングや広告(ATT対象)には使わない。プライバシー申告に開示すること。
 // ※react-native / expo-* は node:test(単体テスト)で静的importするとクラッシュするため、すべて遅延require。
 
+import { createCachedIdResolver } from './cachedId';
+
 const KEY = 'safa-jlpt.deviceId';
-let cached: string | null = null;
 
 function platformOS(): string {
   try {
@@ -23,15 +24,14 @@ function uuid(): string {
 }
 
 /** 端末に固定された匿名ID。取得できなければ null（呼び出し側でフォールバック）。 */
-export async function getDeviceId(): Promise<string | null> {
-  if (cached) return cached;
+export const getDeviceId = createCachedIdResolver(async (): Promise<string | null> => {
   try {
     if (platformOS() === 'android') {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const App = require('expo-application') as typeof import('expo-application');
       const getAid = (App as unknown as { getAndroidId?: () => string }).getAndroidId;
       const aid = (typeof getAid === 'function' ? getAid() : (App as unknown as { androidId?: string }).androidId) ?? '';
-      if (aid) { cached = `and_${aid}`; return cached; }
+      if (aid) return `and_${aid}`;
     }
     // iOS（および Android で ANDROID_ID を取得できない時）: Keychain の UUID（再インストール耐性）。
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -41,9 +41,8 @@ export async function getDeviceId(): Promise<string | null> {
       id = uuid();
       await Secure.setItemAsync(KEY, id, { keychainAccessible: Secure.AFTER_FIRST_UNLOCK });
     }
-    cached = id;
     return id;
   } catch {
     return null;
   }
-}
+});

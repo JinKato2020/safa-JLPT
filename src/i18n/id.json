@@ -1513,6 +1513,7 @@
   "feedback.send": "Kirim masukan lewat email",
   "feedback.subject": "Mainichi JLPT: saran dan permintaan",
   "feedback.email_error": "Aplikasi email tidak dapat dibuka. Silakan kirim email ke {email}.",
+  "home.first_lesson": "Mulai dengan 5 soal",
   "sakura.exam_all": "Ada {n} pertanyaan besar yang belum Anda coba di tab Ujian ({names}). Setelah Anda mencoba setiap pertanyaan besar sekali, skor prediksi akan ditampilkan dengan benar.",
   "sakura.exam_all_more": "Ada {n} pertanyaan besar yang belum Anda coba di tab Ujian (seperti {names}). Setelah Anda mencoba setiap pertanyaan besar sekali, skor prediksi akan ditampilkan dengan benar.",
   "sakura.exam_all_sep": ", "

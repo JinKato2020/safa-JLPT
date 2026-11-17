@@ -73,6 +73,7 @@ export default function QuizScreen() {
   const category = route.params?.category ?? 'all';
   const itemIds = route.params?.itemIds;
   const review = route.params?.review; // 面別マスタリー統合復習(既習の苦手な面だけを忘却曲線で)
+  const sessionSize = route.params?.firstLesson ? 5 : SESSION_SIZE;
   const paramTitle = route.params?.title;
   const daimon = route.params?.daimon; // 大問学習(本番の大問を固定形式で連続出題・状態は「項目#大問」キー)
   const expression = route.params?.expression; // JFT会話と表現(場面→適切な表現)
@@ -101,7 +102,7 @@ export default function QuizScreen() {
       return buildQueue(itemsFor(settings.level, 'moji_goi'), items, Date.now(), SESSION_SIZE);
     }
     if (expression) return buildUnitQueue(expressionUnitIds(), items, Date.now(), SESSION_SIZE);
-    if (daimon) return buildUnitQueue(daimonUnitIds(settings.level, daimon, 'learn'), items, Date.now(), SESSION_SIZE);
+    if (daimon) return buildUnitQueue(daimonUnitIds(settings.level, daimon, 'learn'), items, Date.now(), sessionSize);
     if (itemIds && itemIds.length) {
       // 模試の弱点ドリルも復習/学習と同じ検証済みバンクから出す。idは模試が daimonUnitIds→questionForUnit で
       // 出した検証済みユニット＝文字列のまま questionForUnit で描く(makeQuestionの自動生成＝文法2正解バグ源を通さない)。

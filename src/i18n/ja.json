@@ -1513,6 +1513,7 @@
   "feedback.send": "要望をメールで送る",
   "feedback.subject": "まいにちJLPT ご意見・ご要望",
   "feedback.email_error": "メールアプリを開けませんでした。{email} 宛にお送りください。",
+  "home.first_lesson": "まずは5問から始める",
   "sakura.exam_all": "試験タブに、まだ一度も解いていない大問が{n}つあるよ（{names}）。すべての大問を1回ずつ解くと、予想得点が正しく出るようになるよ。",
   "sakura.exam_all_more": "試験タブに、まだ一度も解いていない大問が{n}つあるよ（{names}など）。すべての大問を1回ずつ解くと、予想得点が正しく出るようになるよ。",
   "sakura.exam_all_sep": "、"

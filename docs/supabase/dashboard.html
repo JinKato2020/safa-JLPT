@@ -136,7 +136,7 @@
 <main id="app" style="display:none">
 
   <section>
-    <h2>全体サマリー <span class="note"><b>現役ユーザー</b>＝退会(アカウント削除)を除いた今いる実ユーザー。<b>総ユーザー(累計)</b>＝退会者も含むこれまでの実ユーザー。どちらも<b>テスト由来（未ログイン＋学習0）を除外</b>。今日/週間アクティブも同基準。登録アカウント/模試/エラーは元の実数</span></h2>
+    <h2>全体サマリー <span class="note"><b>現役ユーザー</b>＝退会(アカウント削除)を除いた今いる実ユーザー。<b>総ユーザー(累計)</b>＝退会者も含むこれまでの実ユーザー。どちらも<b>未ログインかつ習得0の利用者を除外（初回離脱者も含む）</b>。今日/週間アクティブも同基準。登録アカウント/模試/エラーは元の実数</span></h2>
     <div class="cards" id="kpi"></div>
   </section>
 
@@ -217,7 +217,7 @@
   </section>
 
   <section>
-    <h2>国別（接続国・定着率・指標） <span class="note"><b>アカウント名寄せ済みの人単位</b>で最新の接続国を集計。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ。全体＝実人数（名寄せ済み）／登録＝ログイン済み／匿名＝一度もログインしていない実端末。<b>定着率D1/D7/D30</b>＝インストール後「少なくともN日目まで残った割合」（ローリング）。<b>D7母数</b>が小さいうち（数人）は割合が跳ねる参考値。目安：D1≥40%／D7≥20%／D30≥10%で緑。<b>予想得点</b>＝平均／<b>正:漢語文読聴</b>＝分野別平均正解率（v1.1.35〜のみ）／<b>覆:漢語文</b>＝学習分野別カバー率（平均）／<b>模試回数</b>＝合計・<b>模試得点</b>＝平均／<b>学習回数</b>＝完了練習の合計・<b>アプリ利用時間</b>＝合計。平均は測定値がある人だけ。<b>母集団</b>＝右の切替で「7日/30日アクティブ or 全体」を選べる（<b>既定＝7日アクティブ</b>＝インストールしただけの幽霊ユーザーを外した実勢値。全体＝離脱者も含む累計）。定着率D1/D7/D30はコホート指標なので母集団切替の影響を受けない。国はIP由来・旧版は「??」。利用者一覧を消すと国別からも自動で消える</span>
+    <h2>国別（接続国・定着率・指標） <span class="note"><b>アカウント名寄せ済みの人単位</b>で最新の接続国を集計。<b>未ログインかつ習得0の利用者は除外</b>。初回離脱者も除外されるため、全インストールの人数ではありません。全体＝実人数（名寄せ済み）／登録＝ログイン済み／匿名＝一度もログインしていない実端末。<b>再訪率D1+/D7+/D30+</b>＝インストール後「少なくともN日目まで残った割合」（ローリング）。<b>D7母数</b>が小さいうち（数人）は割合が跳ねる参考値。運用上の仮の目安：D1+≥40%／D7+≥20%／D30+≥10%で緑（業界基準ではありません）。<b>予想得点</b>＝平均／<b>正:漢語文読聴</b>＝分野別平均正解率（v1.1.35〜のみ）／<b>覆:漢語文</b>＝学習分野別カバー率（平均）／<b>模試回数</b>＝合計・<b>模試得点</b>＝平均／<b>学習回数</b>＝完了練習の合計・<b>アプリ利用時間</b>＝合計。平均は測定値がある人だけ。<b>母集団</b>＝右の切替で「7日/30日アクティブ or 全体」を選べる（<b>既定＝7日アクティブ</b>＝直近7日間に利用記録のある人。全体＝上記の除外条件を適用した累計）。再訪率D1+/D7+/D30+はコホート指標なので母集団切替の影響を受けない。国はIP由来・旧版は「??」。利用者一覧を消すと国別からも自動で消える</span>
       <span class="note lvpick"> ｜ 母集団:
         <label><input type="radio" name="geowin" class="geowin" value="7" checked> 7日</label>
         <label><input type="radio" name="geowin" class="geowin" value="30"> 30日</label>
@@ -232,7 +232,7 @@
   </section>
 
   <section>
-    <h2>成長の推移（時系列） <span class="note">実ユーザーの<b>日ごとの推移</b>を折れ線で記録（直近45日・過去分も表示）。アプリ利用時間＝その日に増えた累計学習秒の合計。テスト由来ノイズは除外</span>
+    <h2>成長の推移（時系列） <span class="note">実ユーザーの<b>日ごとの推移</b>を折れ線で記録（直近45日・過去分も表示）。アプリ利用時間＝その日に増えた累計学習秒の合計。未ログインかつ習得0の利用者は除外（初回離脱者も含む）</span>
       <span class="note lvpick"> ｜ 表示:
         <label><input type="checkbox" class="lvchk" data-g="trend" value="*"> 全</label>
         <label><input type="checkbox" class="lvchk" data-g="trend" value="N5" checked> N5</label>
@@ -241,6 +241,11 @@
       </span>
     </h2>
     <div id="trendCharts" class="charts-wrap"></div>
+  </section>
+
+  <section>
+    <h2>コンテンツ利用 <span class="note">直近30日。コンテンツと学習レベルごとの利用者数・画面を開いた回数。対応版の利用から集計します。</span></h2>
+    <div class="scroll"><table id="tContentUsage"></table></div>
   </section>
 
   <section>
@@ -288,7 +293,7 @@
   </section>
 
   <section>
-    <h2>利用者一覧 <span class="note">登録・匿名を同じ1表に。<b>1アカウント1行＝今のレベル(最新)だけ表示</b>（過去に使ったレベルの行は出しません）。見出しをクリックで並べ替え・右へスクロール。<b>テスト由来（未ログイン＋学習0）は除外</b>＝実ユーザーだけ表示（レベル別・相対位置・在庫の集計は全レベルのデータを使用）</span>
+    <h2>利用者一覧 <span class="note">登録・匿名を同じ1表に。<b>1アカウント1行＝今のレベル(最新)だけ表示</b>（過去に使ったレベルの行は出しません）。見出しをクリックで並べ替え・右へスクロール。<b>未ログインかつ習得0の利用者は除外</b>。初回離脱者も除外されるため、全インストールの人数ではありません（レベル別・相対位置・在庫の集計は全レベルのデータを使用）</span>
       <span class="count" id="devCount"></span></h2>
     <div class="bar">
       <input id="search" class="search" type="text" placeholder="絞り込み（メール・端末ID・レベル）" />
@@ -402,7 +407,7 @@ function renderBugs(rows){
 const TAB_OF = {
   kpi:'core', secGrantDev:'core', secGrantPro:'core', tGeo:'core', tLevel:'analysis',
   avatarUsage:'analysis', tStock:'analysis', tDevices:'core', signupCharts:'core', secSchool:'school',
-  trendCharts:'analysis', tFacetAcc:'analysis', tScoreDist:'analysis', tMockDist:'analysis', tMockMonthly:'analysis',
+  trendCharts:'analysis', tContentUsage:'analysis', tFacetAcc:'analysis', tScoreDist:'analysis', tMockDist:'analysis', tMockMonthly:'analysis',
   tReferrals:'relations', tFriends:'relations', tBugs:'relations',
 };
 const TABS = [['core','概要'],['analysis','学習分析（重い）'],['relations','関係・報告'],['school','団体ライセンス']];
@@ -503,6 +508,7 @@ async function loadCore(){
 async function loadAnalysis(){
   const R = await grabAll({
     daily:       api(_url,_key,'v_admin_daily'),
+    contentUsage: api(_url,_key,'v_admin_content_usage'),
     facetAcc:    api(_url,_key,'v_admin_facet_acc'),
     scoreDist:   api(_url,_key,'v_admin_score_dist'),
     mockDist:    api(_url,_key,'v_admin_mock_dist'),
@@ -511,6 +517,8 @@ async function loadAnalysis(){
   if(dataOk(R.daily)){ dailyData = R.daily||[]; renderTrend(); }
   else { dailyData = []; $('trendCharts').innerHTML = `<div class="empty">成長推移のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</div>`; }
   if(dataOk(R.facetAcc)) renderFacetAcc(R.facetAcc);
+  if(dataOk(R.contentUsage)) renderContentUsage(R.contentUsage);
+  else $('tContentUsage').innerHTML = '<tr><td class="empty">集計の接続を確認してください。初回設定は docs/supabase/dashboard_content_usage.sql を実行します。</td></tr>';
   else $('tFacetAcc').innerHTML = `<tr><td class="empty">分野別正解率のビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`;
   if(dataOk(R.scoreDist)) renderScoreDist(R.scoreDist);
   else $('tScoreDist').innerHTML = `<tr><td class="empty">予想得点・カバー率の分布ビューが未作成です。docs/supabase/dashboard_views.sql を SQL Editor で（再）実行してください。</td></tr>`;
@@ -518,6 +526,38 @@ async function loadAnalysis(){
   else $('tMockDist').innerHTML = `<tr><td class="empty">模試得点分布ビューが未作成です。docs/supabase/dashboard_views.sql を（再）実行してください。</td></tr>`;
   if(dataOk(R.mockMonthly)) renderMockMonthly(R.mockMonthly);
   else $('tMockMonthly').innerHTML = `<tr><td class="empty">模試月次ビューが未作成です。docs/supabase/dashboard_views.sql を（再）実行してください。</td></tr>`;
+}
+
+const CONTENT_NAMES = {
+  'Quiz:firstLesson':'初回学習', 'Quiz:review':'復習', 'Quiz:expression':'会話と表現', 'Quiz:general':'クイズ',
+  'Quiz:kanji_read':'漢字読み', 'Quiz:orthography':'表記', 'Quiz:context':'文脈規定',
+  'Quiz:synonym':'類義語', 'Quiz:usage':'用法', 'Quiz:grammar_form':'文法形式', 'Quiz:order':'文の組み立て',
+  'Quiz:passage_grammar':'文章の文法（クイズ）', PassageGrammar:'文章の文法',
+  'Reading:all':'読解', 'Reading:naiyou_tan':'読解・短文', 'Reading:naiyou_chu':'読解・中文',
+  'Reading:choubun':'読解・長文', 'Reading:joho':'読解・情報検索',
+  'Listening:all':'聴解', 'Listening:kadai':'聴解・課題理解', 'Listening:point':'聴解・ポイント理解',
+  'Listening:gaiyou':'聴解・概要理解', 'Listening:hatsuwa':'聴解・発話表現', 'Listening:sokuji':'聴解・即時応答',
+  'Kakitori:kanji':'漢字の書き取り', 'Kakitori:hiragana':'ひらがなの書き取り', 'Kakitori:katakana':'カタカナの書き取り',
+  'WordDrill:vProduce':'意味から単語', 'WordDrill:gBuild':'文をつくる', 'WordDrill:gMeaning':'文法の意味',
+  'WordDrill:vMeaning':'語彙の意味', 'WordDrill:vReading':'語彙の読み', 'WordDrill:vWriting':'語彙の表記',
+  'WordDrill:mixed':'おすすめドリル', 'WordDrill:all':'単語・文法ドリル',
+  'ListeningQuiz:vocab':'語彙の聞き取り', 'ListeningQuiz:kanji':'漢字の聞き取り', 'ListeningQuiz:all':'聞き取りドリル',
+  'KanjiRecognition:mean':'漢字の意味', 'KanjiRecognition:read':'漢字の読み', 'KanjiRecognition:all':'漢字認識',
+  KanjiForm:'漢字の形', KanjiDetail:'漢字の詳細', GrammarNote:'文法の解説',
+  'WordList:kanji':'漢字一覧', 'WordList:vocab':'語彙一覧', 'WordList:grammar':'文法一覧', 'WordList:all':'学習一覧',
+  'DictList:kanji':'漢字辞書', 'DictList:vocab':'語彙辞書', 'DictList:grammar':'文法辞書', 'DictList:all':'辞書',
+  MyWords:'私の単語帳', Flashcard:'フラッシュカード', 'Flashcard:myWords':'単語帳の復習',
+  'Mock:full':'フル模試', 'Mock:mini':'ミニ模試', PosterList:'ポスター一覧', PosterAudio:'ポスター朗読画面',
+  AICoach:'AIコーチ',
+};
+
+function renderContentUsage(rows){
+  const sorted = [...rows].sort((a,b) => b.users-a.users || b.opens-a.opens);
+  simpleTbl($('tContentUsage'),
+    [{label:'コンテンツ'},{label:'レベル'},{label:'利用者数',num:1},{label:'閲覧回数',num:1}],
+    sorted,
+    [r=>esc(Object.hasOwn(CONTENT_NAMES,r.content) ? CONTENT_NAMES[r.content] : r.content), r=>esc(r.level),
+     r=>Number(r.users).toLocaleString('ja-JP'), r=>Number(r.opens).toLocaleString('ja-JP')]);
 }
 
 // 関係・報告タブ（紹介・友だち・バグ）＝タブを開いた時だけ取得。
@@ -631,7 +671,7 @@ function renderGeo(){
   const nc = v => (v==null||v==='') ? '<span class="empty">—</span>' : `${v}`;      // 数値 or —
   const pc = v => (v==null||v==='') ? '<span class="empty">—</span>' : `${v}%`;     // %値 or —
   simpleTbl($('tGeo'),
-    [{label:'国'},{label:'全体',num:1},{label:'登録',num:1},{label:'匿名',num:1},{label:'D1',num:1},{label:'D7',num:1},{label:'D30',num:1},{label:'D7母数',num:1},
+    [{label:'国'},{label:'全体',num:1},{label:'登録',num:1},{label:'匿名',num:1},{label:'D1+',num:1},{label:'D7+',num:1},{label:'D30+',num:1},{label:'D7母数',num:1},
      {label:'予想得点',num:1},
      {label:'正:漢',num:1},{label:'正:語',num:1},{label:'正:文',num:1},{label:'正:読',num:1},{label:'正:聴',num:1},
      {label:'覆:漢',num:1},{label:'覆:語',num:1},{label:'覆:文',num:1},

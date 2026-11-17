@@ -70,6 +70,7 @@ import { setTelemetryEnabled, sendDailySnapshot, sendEvent, sendError, flushAnsw
 import { isTestLab } from './src/telemetry/testLab';
 import { createForegroundUsage, USAGE_TICK_MS } from './src/telemetry/foregroundUsage';
 import { completedProfileSnapshotKey } from './src/telemetry/profileSnapshot';
+import { contentView } from './src/telemetry/contentView';
 import { syncAfterStudyArt } from './src/data/afterStudyRemote';
 import { syncSceneArt } from './src/data/sceneArtRemote';
 import { syncAppArt } from './src/data/appArtRemote'; // 読み込んだ時点で同梱画像の差し替え口を登録
@@ -478,6 +479,15 @@ function Root() {
     colors: { ...DefaultTheme.colors, background: skin ? 'transparent' : c.bg, card: c.surface, text: c.ink, border: c.line, primary: c.blue },
   };
 
+  const previousRoute = useRef<string | undefined>(undefined);
+  const trackScreen = () => {
+    const route = navigationRef.getCurrentRoute();
+    if (!route || route.key === previousRoute.current) return;
+    previousRoute.current = route.key;
+    const view = contentView(route);
+    void sendEvent('screen_view', { name: route.name, content: view?.content }, view?.level ?? settings.level);
+  };
+
   if (!hydrated) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: c.bg }}>
@@ -490,7 +500,7 @@ function Root() {
     <DesignThemeProvider scheme={scheme}>
     <View style={{ flex: 1, backgroundColor: c.bg }}>
     {skin ? <WatercolorBackground skin={skin} /> : null}
-    <NavigationContainer ref={navigationRef} linking={LINKING} key={`${settings.font ?? 'maru'}-${settings.theme ?? 'auto'}`} theme={navTheme} onStateChange={(st) => { const n = activeRouteName(st); if (n) void sendEvent('screen_view', { name: n }); }}>
+    <NavigationContainer ref={navigationRef} linking={LINKING} key={`${settings.font ?? 'maru'}-${settings.theme ?? 'auto'}`} theme={navTheme} onReady={trackScreen} onStateChange={trackScreen}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!settings.onboarded ? (
           <RootStack.Screen name="Onboarding" component={OnboardingScreen} />

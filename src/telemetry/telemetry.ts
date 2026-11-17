@@ -19,6 +19,7 @@ import { getDeviceId } from './deviceId';
 import * as Application from 'expo-application';
 import { APP_FLAVOR } from '../app/flavor';
 import { createSerialTask } from './serialTask';
+import { createCachedIdResolver } from './cachedId';
 
 // アプリの実バージョン(app.json の version=ネイティブの CFBundleShortVersionString / versionName)を実行時に読む。
 // 旧実装は '1.1.0' 固定で、版を上げても管理ダッシュボードが古い版を表示し続けるバグがあった。取得不可(null)のみ''。
@@ -73,16 +74,13 @@ function uuid(): string {
 }
 // 匿名ID＝まず「端末に固定されたID(再インストールでも不変)」を採用し、install/リテンションの数字が
 // 入れ直しでズレないようにする。取得不可の端末だけ従来のローカルUUID(入れ直しで変わる)へフォールバック。
-let cachedAnon: string | null = null;
-async function anonId(): Promise<string> {
-  if (cachedAnon) return cachedAnon;
+const anonId = createCachedIdResolver(async (): Promise<string> => {
   const dev = await getDeviceId();
-  if (dev) { cachedAnon = dev; return dev; }
+  if (dev) return dev;
   let id = await AsyncStorage.getItem(K_ANON);
   if (!id) { id = uuid(); await AsyncStorage.setItem(K_ANON, id); }
-  cachedAnon = id;
   return id;
-}
+});
 
 // 送信先を Supabase テーブルへ INSERT に切替。path(snapshot/mock/events)でテーブルと整形を分岐。
 // 失敗(error/例外)は false を返し、既存のキュー(enqueue/flush)が再送する。

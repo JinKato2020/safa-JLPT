@@ -1513,6 +1513,7 @@
   "feedback.send": "이메일로 의견 보내기",
   "feedback.subject": "마이니치 JLPT 의견 및 요청",
   "feedback.email_error": "이메일 앱을 열 수 없습니다. {email} 주소로 보내주세요.",
+  "home.first_lesson": "5문제로 시작하기",
   "sakura.exam_all": "시험 탭에 아직 풀지 않은 대문항이 {n}개 있어요({names}). 모든 대문항을 한 번씩 풀면 예상 점수가 올바르게 표시됩니다.",
   "sakura.exam_all_more": "시험 탭에 아직 풀지 않은 대문항이 {n}개 있어요({names} 등). 모든 대문항을 한 번씩 풀면 예상 점수가 올바르게 표시됩니다.",
   "sakura.exam_all_sep": ", "
