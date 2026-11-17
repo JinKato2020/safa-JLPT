@@ -121,14 +121,21 @@
 <body>
 <header>
   <h1>まいにちJLPT 管理ダッシュボード</h1>
-  <div class="muted">Supabase の利用データを日本語で1画面に横並び表示（管理者用・ローカルで開くページ）</div>
+  <div class="muted">Supabase の利用データを日本語で1画面に横並び表示（管理者用）</div>
   <div class="bar">
-    <input id="url" type="text" placeholder="Supabase URL" />
-    <input id="key" type="password" placeholder="service_role キー（秘密）" />
+    <input id="url" name="supabase-url" type="text" placeholder="Supabase URL" value="https://nxovouiqelynryumjvyq.supabase.co" aria-label="Supabase URL" autocomplete="url" />
+    <input id="key" name="supabase-service-role" type="password" placeholder="service_role キー（秘密）" aria-label="service_role キー（秘密）" autocomplete="current-password" />
     <button id="load">読み込む</button>
     <button id="reload" class="ghost">再取得</button>
     <span class="updated" id="updated"></span>
   </div>
+  <div id="connectionStatus" class="muted" role="status" aria-live="polite"></div>
+  <details class="muted"><summary>保存したキーが表示されない場合</summary>
+    保存はブラウザとサイトごとに別です。いつも使うブラウザの通常タブで、同じURLを開いてください。
+    github.io と jlpt.safa-lang.com、アプリ内ブラウザとChrome/Safariの間では引き継がれません。
+    サイトデータを削除した場合は、元の service_role キーを再入力して「読み込む」を押してください。
+    Supabase の個人用アクセストークン（sbp_ で始まるもの）は、この欄のキーとは別です。
+  </details>
   <div class="warn">⚠️ ここに入れる <b>service_role</b> キーは全データを読める“合鍵”です。自分の端末だけで使い、他人・スクショ・共有は厳禁。キーはこの端末のブラウザにだけ保存されます（ファイルには残りません）。</div>
   <div id="err" class="err"></div>
 </header>
@@ -341,8 +348,48 @@ const DEFAULT_URL = 'https://nxovouiqelynryumjvyq.supabase.co';
 // 大問(8種)のラベルと並び順は COLS の dmCol(...) 側で定義(文字語彙5→文法3)。
 const $ = (id) => document.getElementById(id);
 
-$('url').value = localStorage.getItem('dash_url') || DEFAULT_URL;
-$('key').value = localStorage.getItem('dash_key') || '';
+// Storage can be blocked independently of network access. Never let it abort startup/loadAll.
+// Keep existing dash_* names so updates continue to read previously saved credentials.
+function readConnection(storeName){
+  try {
+    const store = window[storeName];
+    return { url: store.getItem('dash_url') || DEFAULT_URL, key: store.getItem('dash_key') || '' };
+  } catch { return null; }
+}
+function writeConnection(storeName, url, key){
+  try {
+    const store = window[storeName];
+    store.setItem('dash_url', url);
+    store.setItem('dash_key', key);
+    return store.getItem('dash_url') === url && store.getItem('dash_key') === key;
+  } catch { return false; }
+}
+function connectionStatus(message){
+  const target = $('connectionStatus');
+  if(target) target.textContent = message + ' 保存先：' + (location.host || 'このローカルファイル');
+}
+function restoreConnection(){
+  const saved = readConnection('localStorage');
+  const tab = readConnection('sessionStorage');
+  const connection = saved?.key ? saved : tab?.key ? tab : saved || tab || {url:DEFAULT_URL,key:''};
+  $('url').value = connection.url;
+  $('key').value = connection.key;
+  if(saved?.key){
+    writeConnection('sessionStorage', connection.url, connection.key);
+    connectionStatus('このブラウザに保存済みの接続情報を読み込みました。');
+  } else if(tab?.key){
+    const restored = writeConnection('localStorage', connection.url, connection.key);
+    connectionStatus(restored ? 'このタブの接続情報からブラウザ保存を復元しました。' : 'このタブの接続情報を復元しました。ブラウザへの永続保存は利用できません。');
+  } else {
+    connectionStatus(saved === null ? 'ブラウザの保存領域を利用できません。キーを入力すれば接続はできます。' : 'このサイト・ブラウザにはキーが保存されていません。以前のキーを入力してください。');
+  }
+}
+function saveConnection(url, key){
+  const permanent = writeConnection('localStorage', url, key);
+  const tab = writeConnection('sessionStorage', url, key);
+  connectionStatus(permanent ? 'このブラウザに接続情報を保存しました。' : tab ? 'このタブ内だけに保存しました。閉じると再入力が必要です。' : '接続情報を保存できません。この画面では利用できますが、開き直すと再入力が必要です。');
+}
+restoreConnection();
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function fmtDate(s){ if(!s) return '—'; return String(s).slice(0,10); }
@@ -587,8 +634,7 @@ async function loadAll(){
   const key = $('key').value.trim();
   $('err').textContent = '';
   if(!url || !key){ $('err').textContent = 'URL と service_role キーを入力してください。'; return; }
-  localStorage.setItem('dash_url', url);
-  localStorage.setItem('dash_key', key);
+  saveConnection(url, key);
   _url = url; _key = key;
   try{
     classifySections();

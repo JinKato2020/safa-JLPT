@@ -43,3 +43,28 @@ test('content usage ranks by user count, then by screen opens', () => {
     ['ポスター朗読画面', 'N4', '5', '90'],
   ]);
 });
+
+test('dashboard restores saved settings even when persistent storage is blocked', () => {
+  const html = fs.readFileSync(path.join(__dirname, 'dashboard.html'), 'utf8');
+  const start = html.indexOf('function readConnection(');
+  const end = html.indexOf('function esc(', start);
+  const makeStore = init => { const data = new Map(Object.entries(init || {})); return { getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v) }; };
+  function run(local, session) {
+    const nodes = {url:{},key:{},connectionStatus:{}};
+    const window = {};
+    Object.defineProperty(window,'localStorage',{get(){if(local===null)throw new Error('blocked');return local;}});
+    Object.defineProperty(window,'sessionStorage',{get(){if(session===null)throw new Error('blocked');return session;}});
+    const context={window,location:{host:'dashboard.example'},DEFAULT_URL:'https://project.supabase.co',$:id=>nodes[id]};
+    vm.runInNewContext(html.slice(start,end),context);
+    return {nodes,context};
+  }
+  const old=run(makeStore({dash_url:'https://saved.supabase.co',dash_key:'test-key'}),makeStore());
+  assert.equal(old.nodes.url.value,'https://saved.supabase.co');assert.equal(old.nodes.key.value,'test-key');
+  const blocked=run(null,makeStore({dash_key:'tab-test-key'}));
+  assert.equal(blocked.nodes.key.value,'tab-test-key');assert.match(blocked.nodes.connectionStatus.textContent,/永続保存は利用できません/);
+  const denied=run(null,null);assert.equal(denied.nodes.url.value,'https://project.supabase.co');assert.equal(denied.nodes.key.value,'');
+  assert.doesNotThrow(()=>vm.runInNewContext("saveConnection('https://project.supabase.co','example-key')",denied.context));
+  assert.match(denied.nodes.connectionStatus.textContent,/保存できません/);
+  const empty=makeStore(), recovered=run(empty,makeStore({dash_key:'recover-test-key'}));
+  assert.equal(empty.getItem('dash_key'),'recover-test-key');assert.match(recovered.nodes.connectionStatus.textContent,/復元しました/);
+});
