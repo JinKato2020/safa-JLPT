@@ -8,7 +8,8 @@ import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, shadow, type ThemeColors } from '../theme';
+import { StudySceneBanner, useStudyColors, useStudyScroll, studyPaper, studyChoice, studyBadge } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import { walletPoints } from '../store/wallet';
 import { buildDrill, type DrillProblem } from '../ladder/wordDrill';
@@ -34,7 +35,7 @@ export default function WordDrillScreen() {
   const route = useRoute<Rt>();
   const state = useAppState();
   const actions = useAppActions();
-  const c = useColors();
+  const c = useStudyColors();
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
 
@@ -48,6 +49,7 @@ export default function WordDrillScreen() {
   );
 
   const [i, setI] = useState(0);
+  const studyScroll = useStudyScroll(i);
   const [placed, setPlaced] = useState<number[]>([]); // vProduce/gOrder: 置いたタイルの原index列
   const [sel, setSel] = useState<number | null>(null); // gMeaning: 選んだ選択肢
   const [judged, setJudged] = useState<null | boolean>(null);
@@ -134,7 +136,8 @@ export default function WordDrillScreen() {
     <SafeAreaView style={s.c} edges={['top']}>
       <Header title={t(titleKey)} onClose={() => nav.goBack()} s={s}
         progress={(i + (judged !== null ? 1 : 0)) / problems.length} count={`${i + 1}/${problems.length}`} />
-      <ScrollView contentContainerStyle={s.body}>
+      <ScrollView ref={studyScroll} contentContainerStyle={s.body}>
+        <StudySceneBanner />
         <Text style={s.ask}>{t(askKeyFor(p.kind))}</Text>
 
         {(p.kind === 'vProduce' || p.kind === 'gBuild') && (
@@ -147,7 +150,7 @@ export default function WordDrillScreen() {
 
       {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(学習後にまとめて)。 */}
       {judged !== null && (
-        <AnswerFooter correct={judged} onNext={next} nextKind="next" />
+        <AnswerFooter study correct={judged} onNext={next} nextKind="next" />
       )}
     </SafeAreaView>
   );
@@ -265,9 +268,9 @@ function MeaningView({ p, sel, setSel, judged, record, s }: {
           const isAns = k === p.answerIndex;
           const picked = sel === k;
           return (
-            <Pressable key={k} style={[s.choice, judged !== null && isAns && s.choiceOk, judged !== null && picked && !isAns && s.choiceNg]} onPress={() => tap(k)}>
+            <Pressable key={k} accessibilityRole="button" accessibilityState={{ disabled: judged !== null, selected: picked }} disabled={judged !== null} style={[s.choice, judged !== null && isAns && s.choiceOk, judged !== null && picked && !isAns && s.choiceNg]} onPress={() => tap(k)}>
               <View style={[s.cBadge, judged !== null && isAns && s.cBadgeOk, judged !== null && picked && !isAns && s.cBadgeNg]}>
-                <Text style={s.cBadgeTxt}>{judged !== null && isAns ? '✓' : CODE[k]}</Text>
+                <Text style={s.cBadgeTxt}>{judged !== null && isAns ? '✓' : judged !== null && picked ? '✕' : CODE[k]}</Text>
               </View>
               <Text style={s.choiceTxt}>{ch}</Text>
             </Pressable>
@@ -288,15 +291,15 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
   doneScore: { fontSize: ty.h2, fontWeight: '800', color: c.blue },
   header: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.sm, borderBottomWidth: 1, borderBottomColor: c.line },
-  hTitle: { fontSize: ty.small, fontWeight: '800', color: c.blueDark },
-  prog: { flex: 1, height: 5, borderRadius: 3, backgroundColor: c.bgSoft, overflow: 'hidden' },
+  hTitle: { fontSize: ty.small, fontWeight: '800', color: c.blueDark, flexShrink: 1 },
+  prog: { flex: 1, minWidth: 28, height: 5, borderRadius: 3, backgroundColor: c.bgSoft, overflow: 'hidden' },
   progFill: { height: '100%', backgroundColor: c.blue, borderRadius: 3 },
   hCount: { fontSize: ty.tiny, fontWeight: '700', color: c.mute },
   x: { width: 26, height: 26, borderRadius: 13, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
   xTxt: { fontSize: 13, color: c.ink2, fontWeight: '800' },
   ask: { fontSize: ty.small, fontWeight: '700', color: c.mute },
   // prompt
-  prompt: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: spacing.xs },
+  prompt: { ...studyPaper(c), padding: spacing.lg, alignItems: 'center', gap: spacing.xs },
   promptEn: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
   promptPt: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
   // gMeaning: 文法点の用例(対象語に下線)。意味だけでは判別しづらいため併設。
@@ -333,13 +336,13 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   oTileTxt: { fontSize: 16, fontWeight: '700', color: c.ink },
   oPlaceholder: { flex: 1 },
   // meaning choices
-  choices: { gap: 9 },
-  choice: { flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.md, paddingVertical: 13, paddingHorizontal: 14 },
+  choices: { gap: 10 },
+  choice: { ...studyChoice(c), flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 13, paddingHorizontal: 14 },
   choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
   choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
-  cBadge: { width: 24, height: 24, borderRadius: 12, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line, alignItems: 'center', justifyContent: 'center' },
-  cBadgeOk: { backgroundColor: c.green, borderColor: c.green },
-  cBadgeNg: { backgroundColor: c.red, borderColor: c.red },
+  cBadge: { ...studyBadge(c) },
+  cBadgeOk: { backgroundColor: c.okBg },
+  cBadgeNg: { backgroundColor: c.ngBg },
   cBadgeTxt: { fontSize: 12, fontWeight: '800', color: c.ink2 },
   choiceTxt: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
   // footer

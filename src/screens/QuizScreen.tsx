@@ -3,7 +3,8 @@ import { View, Text, Pressable, StyleSheet, ScrollView, type StyleProp, type Tex
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
-import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
+import { StudySceneBanner, useStudyColors, useStudyScroll, studyPaper, studyChoice, studyBadge } from '../components/StudyPresentation';
 import AppButton from '../components/AppButton';
 import { useAppState, useAppActions } from '../store/store';
 import { type SaveRef } from '../store/state';
@@ -80,7 +81,7 @@ export default function QuizScreen() {
   const state = useAppState();
   const { settings, items } = state;
   const { quizAnswer, addToMyList } = useAppActions();
-  const c = useColors();
+  const c = useStudyColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
   const title = review ? t('review.title') : paramTitle; // 復習はヘッダー名を「試験問題の復習」に
@@ -124,6 +125,7 @@ export default function QuizScreen() {
   const [phase, setPhase] = useState<'learn' | 'test'>(() => (daimon && learnList.length ? 'learn' : 'test'));
   const [learnIdx, setLearnIdx] = useState(0);
   const [idx, setIdx] = useState(0);
+  const studyScroll = useStudyScroll(idx);
   const [pickerOpen, setPickerOpen] = useState(false); // 開発用: 問題IDタップで同じ大問の全問へジャンプ
   const [picked, setPicked] = useState<number | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
@@ -243,9 +245,10 @@ export default function QuizScreen() {
 
   return (
     <SafeAreaView style={s.c}>
-      <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={title} id={question.idLabel ?? question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} onPressId={canDevPick ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: question.itemId ?? answerId, level: settings.level, daimon: title, screen: 'Quiz' })} reportA11y={t('bug.report')} />
+      <ScrollView ref={studyScroll} contentContainerStyle={s.body}>
+        <ExamHeader study title={title} id={question.idLabel ?? question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} onPressId={canDevPick ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: question.itemId ?? answerId, level: settings.level, daimon: title, screen: 'Quiz' })} reportA11y={t('bug.report')} />
         {canDevPick ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={(question.itemId ?? answerId) as string} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
+        <StudySceneBanner current={idx + 1} total={total} />
 
         <View style={s.promptCard}>
           {question.furi ? (
@@ -285,11 +288,12 @@ export default function QuizScreen() {
             return (
               <Pressable
                 key={i}
+                accessibilityRole="button"
+                accessibilityState={{ disabled: reveal, selected: isPicked }}
                 onPress={() => onPick(i)}
                 disabled={reveal}
                 style={({ pressed }) => [
                   s.choice,
-                  shadow(1),
                   pressed && !reveal && s.choicePressed,
                   showOk && s.choiceCorrect,
                   showNg && s.choiceWrong,
@@ -357,7 +361,7 @@ export default function QuizScreen() {
       </ScrollView>
       {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(学習後にまとめて)。 */}
       {picked !== null && (
-        <AnswerFooter correct={picked === question.answerIndex} onNext={advance} nextKind={idx + 1 >= total ? 'result' : 'next'} />
+        <AnswerFooter study correct={picked === question.answerIndex} onNext={advance} nextKind={idx + 1 >= total ? 'result' : 'next'} />
       )}
     </SafeAreaView>
   );
@@ -372,11 +376,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   progress: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
   drillTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink, textAlign: 'center' },
   promptCard: {
-    backgroundColor: c.surface,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: c.line,
-    padding: spacing.xl,
+    ...studyPaper(c),
+    padding: spacing.lg,
     alignItems: 'center',
     gap: spacing.xs,
   },
@@ -392,18 +393,15 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   learnRuby: { fontSize: 9, lineHeight: 11, color: c.mute, textAlign: 'center' },
   promptRuby: { fontSize: 12, lineHeight: 14, color: c.mute, textAlign: 'center' }, // 見出し(title)のルビ(大きめ本文用)
   learnSkip: { fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'center', marginTop: spacing.xs, textDecorationLine: 'underline' },
-  exHit: { color: c.ink, textDecorationLine: 'underline' },
+  exHit: { color: c.blueDark, textDecorationLine: 'underline' },
   qRuby: { fontSize: 10, lineHeight: 12, color: c.mute, textAlign: 'center' },
   qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
   choices: { gap: spacing.sm + 2 },
   choice: {
+    ...studyChoice(c),
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,
-    backgroundColor: c.surface,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: c.line,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.md,
   },
@@ -413,15 +411,14 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1, fontWeight: '600' },
   choiceRubyWrap: { flex: 1 },
   cRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },
-  // 選択肢先頭の丸バッジ(番号→正誤で✓✕)
+  // 選択肢先頭の木色の札(番号→正誤で✓✕)
   cbadge: {
-    width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center',
-    backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line,
+    ...studyBadge(c),
   },
-  cbadgeOk: { backgroundColor: c.green, borderColor: c.green },
-  cbadgeNg: { backgroundColor: c.red, borderColor: c.red },
+  cbadgeOk: { backgroundColor: c.okBg },
+  cbadgeNg: { backgroundColor: c.ngBg },
   cbadgeTxt: { fontSize: ty.body, fontWeight: '800', color: c.mute },
-  cbadgeTxtOn: { color: '#ffffff' },
+  cbadgeTxtOn: { color: c.ink },
   cta: {
     marginTop: spacing.sm,
     backgroundColor: c.blue,

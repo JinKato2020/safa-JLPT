@@ -5,13 +5,14 @@
 //  左端に閉じる(✕)、右端は対称のための余白。すべての大問画面(Quiz/読解/聴解/文章の文法/単語ドリル)で同一。
 import { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { spacing, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, type as ty, type ThemeColors } from '../theme';
+import { useStudyColors } from './StudyPresentation';
 
 // count=分数文字列("3 / 10" 等) / id=問題ID。どちらも無い画面では省略可(存在すれば必ず同じ位置に出る)。
 // onPressId=問題IDをタップした時の処理(開発用のID選択を開く等)。渡された時だけIDが押せる見た目になる。
 // onReport=右端の報告ボタン(⚑旗アイコン=この問題のバグ報告フォームを開く)。渡された時だけ表示。reportA11y=読み上げラベル。
-export default function ExamHeader({ title, count, id, onClose, onPressId, onReport, reportA11y }: { title?: string; count?: string; id?: string; onClose: () => void; onPressId?: () => void; onReport?: () => void; reportA11y?: string }) {
-  const c = useColors();
+export default function ExamHeader({ title, count, id, onClose, onPressId, onReport, reportA11y, study = false }: { title?: string; count?: string; id?: string; onClose: () => void; onPressId?: () => void; onReport?: () => void; reportA11y?: string; study?: boolean }) {
+  const c = useStudyColors(study);
   const s = useMemo(() => makeStyles(c), [c]);
   return (
     <View style={s.wrap}>

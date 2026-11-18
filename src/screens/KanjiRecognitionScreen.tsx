@@ -5,7 +5,8 @@ import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
+import { StudySceneBanner, useStudyColors, useStudyScroll, studyPaper, studyChoice, studyBadge } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import type { SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
@@ -35,7 +36,7 @@ export default function KanjiRecognitionScreen() {
   useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const state = useAppState();
   const actions = useAppActions();
-  const c = useColors();
+  const c = useStudyColors();
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
   const l1 = meaningL1(state.settings);
@@ -59,6 +60,7 @@ export default function KanjiRecognitionScreen() {
   }, [level, l1, jft, mode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [idx, setIdx] = useState(0);
+  const studyScroll = useStudyScroll(idx);
   const [picked, setPicked] = useState<number | null>(null);
   const [correct, setCorrect] = useState(0);
   const [phase, setPhase] = useState<'quiz' | 'done'>('quiz');
@@ -115,22 +117,23 @@ export default function KanjiRecognitionScreen() {
   return (
     <SafeAreaView style={s.c} edges={['top']}>
       <View style={s.head}><Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable><Text style={s.headTitle}>{idx + 1} / {questions.length}</Text><View style={{ width: 30 }} /></View>
-      <ScrollView contentContainerStyle={s.body}>
+      <ScrollView ref={studyScroll} contentContainerStyle={s.body}>
+        <StudySceneBanner current={idx + 1} total={questions.length} />
         <Text style={s.prompt}>{t(q.kind === 'mean' ? 'krecog.prompt_mean' : 'krecog.prompt_read')}</Text>
         <View style={s.charCard}><Text style={s.bigChar}>{q.char}</Text></View>
         <View style={s.choices}>
           {q.choices.map((ch, i) => {
             const isAns = i === q.answerIndex; const isPk = i === picked;
             return (
-              <Pressable key={i} onPress={() => onPick(i)} disabled={reveal} style={[s.choice, reveal && isAns && s.choiceOk, reveal && isPk && !isAns && s.choiceNg]}>
+              <Pressable key={i} accessibilityRole="button" accessibilityState={{ disabled: reveal, selected: isPk }} onPress={() => onPick(i)} disabled={reveal} style={[s.choice, reveal && isAns && s.choiceOk, reveal && isPk && !isAns && s.choiceNg]}>
+                <View style={s.badge}><Text style={s.badgeTxt}>{reveal && isAns ? '✓' : reveal && isPk ? '✕' : i + 1}</Text></View>
                 <Text style={s.choiceTxt}>{ch}</Text>
-                {reveal && isAns ? <Text style={s.mark}>✓</Text> : null}
               </Pressable>
             );
           })}
         </View>
       </ScrollView>
-      {reveal && <AnswerFooter correct={picked === q.answerIndex} onNext={advance} nextKind={idx + 1 >= questions.length ? 'finish' : 'next'} />}
+      {reveal && <AnswerFooter study correct={picked === q.answerIndex} onNext={advance} nextKind={idx + 1 >= questions.length ? 'finish' : 'next'} />}
     </SafeAreaView>
   );
 }
@@ -145,14 +148,15 @@ const makeStyles = (c: ThemeColors) =>
     doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
     center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: spacing.md, padding: spacing.lg },
     prompt: { fontSize: ty.body, fontWeight: '700', color: c.ink, textAlign: 'center' },
-    charCard: { alignSelf: 'center', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.xl, paddingHorizontal: spacing.xl, marginVertical: spacing.sm, minWidth: 160, alignItems: 'center' },
+    charCard: { ...studyPaper(c), alignSelf: 'center', paddingVertical: spacing.md, paddingHorizontal: spacing.xl, marginVertical: spacing.sm, minWidth: 160, alignItems: 'center' },
     bigChar: { fontSize: 96, fontWeight: '800', color: c.ink, lineHeight: 104, textAlign: 'center' },
     choices: { gap: spacing.sm + 2, marginTop: spacing.sm },
-    choice: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: c.surface, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.md, paddingHorizontal: spacing.md },
+    choice: { ...studyChoice(c), flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: spacing.md, paddingHorizontal: spacing.md },
+    badge: { ...studyBadge(c) },
+    badgeTxt: { fontSize: ty.small, color: c.ink2, fontWeight: '700' },
     choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
     choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
     choiceTxt: { fontSize: ty.body, fontWeight: '700', color: c.ink2, flex: 1 },
-    mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.sm, width: '100%' },
     ctaTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
   });
