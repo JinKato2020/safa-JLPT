@@ -251,7 +251,7 @@
   </section>
 
   <section>
-    <h2>コンテンツ利用 <span class="note">直近30日。コンテンツと学習レベルごとの利用者数・画面を開いた回数。対応版の利用から集計します。</span></h2>
+    <h2>コンテンツ利用 <span class="note">直近30日。学習メニューとレベルごとに、開いた人数と回数を集計します。辞書・AIコーチなどの閲覧も含みます。</span></h2>
     <div class="scroll"><table id="tContentUsage"></table></div>
   </section>
 
@@ -576,41 +576,36 @@ async function loadAnalysis(){
 }
 
 const CONTENT_NAMES = {
-  'Quiz:firstLesson':'初回学習', 'Quiz:review':'復習', 'Quiz:expression':'会話と表現', 'Quiz:general':'クイズ',
-  'Quiz:kanji_read':'漢字読み', 'Quiz:orthography':'表記', 'Quiz:context':'文脈規定',
-  'Quiz:synonym':'類義語', 'Quiz:usage':'用法', 'Quiz:grammar_form':'文法形式', 'Quiz:order':'文の組み立て',
-  'Quiz:passage_grammar':'文章の文法（クイズ）', PassageGrammar:'文章の文法',
-  'Reading:all':'読解', 'Reading:naiyou_tan':'読解・短文', 'Reading:naiyou_chu':'読解・中文',
-  'Reading:choubun':'読解・長文', 'Reading:joho':'読解・情報検索',
-  'Listening:all':'聴解', 'Listening:kadai':'聴解・課題理解', 'Listening:point':'聴解・ポイント理解',
-  'Listening:gaiyou':'聴解・概要理解', 'Listening:hatsuwa':'聴解・発話表現', 'Listening:sokuji':'聴解・即時応答',
-  'Kakitori:kanji':'漢字の書き取り', 'Kakitori:hiragana':'ひらがなの書き取り', 'Kakitori:katakana':'カタカナの書き取り',
-  'WordDrill:vProduce':'意味から単語', 'WordDrill:gBuild':'文をつくる', 'WordDrill:gMeaning':'文法の意味',
-  'WordDrill:vMeaning':'語彙の意味', 'WordDrill:vReading':'語彙の読み', 'WordDrill:vWriting':'語彙の表記',
-  'WordDrill:mixed':'おすすめドリル', 'WordDrill:all':'単語・文法ドリル',
-  'ListeningQuiz:vocab':'語彙の聞き取り', 'ListeningQuiz:kanji':'漢字の聞き取り', 'ListeningQuiz:all':'聞き取りドリル',
-  'KanjiRecognition:mean':'漢字の意味', 'KanjiRecognition:read':'漢字の読み', 'KanjiRecognition:all':'漢字認識',
-  KanjiForm:'漢字の形', KanjiDetail:'漢字の詳細', GrammarNote:'文法の解説',
-  'WordList:kanji':'漢字一覧', 'WordList:vocab':'語彙一覧', 'WordList:grammar':'文法一覧', 'WordList:all':'学習一覧',
-  'DictList:kanji':'漢字辞書', 'DictList:vocab':'語彙辞書', 'DictList:grammar':'文法辞書', 'DictList:all':'辞書',
-  MyWords:'私の単語帳', Flashcard:'フラッシュカード', 'Flashcard:myWords':'単語帳の復習',
-  'Mock:full':'フル模試', 'Mock:mini':'ミニ模試', PosterList:'ポスター一覧', PosterAudio:'ポスター朗読画面',
-  AICoach:'AIコーチ',
-  RadicalLessons:'部首レッスン一覧',
-  'RadicalLesson:human':'部首・人のなかま', 'RadicalLesson:wood':'部首・木', 'RadicalLesson:sun':'部首・日',
-  'RadicalLesson:mouth':'部首・口', 'RadicalLesson:field':'部首・田', 'RadicalLesson:gate':'部首・門',
-  'RadicalLesson:n4-hand':'部首・てへん', 'RadicalLesson:n4-water':'部首・さんずい', 'RadicalLesson:n4-heart':'部首・下にある心',
-  'RadicalLesson:n4-speech':'部首・ごんべん', 'RadicalLesson:n4-thread':'部首・糸', 'RadicalLesson:n4-sisters':'部首・おんなへん',
-  'RadicalLesson:n3-feelings':'部首・りっしんべん', 'RadicalLesson:n3-shrine':'部首・しめすへん', 'RadicalLesson:n3-road':'部首・しんにょう',
-  'RadicalLesson:n3-shell':'部首・貝', 'RadicalLesson:n3-roof':'部首・うかんむり', 'RadicalLesson:n3-body':'部首・にくづき',
+  kanji_reading:'漢字：読み', kanji_meaning:'漢字：意味', kanji_form:'漢字：似た字の見分け',
+  kanji_writing:'漢字：書き取り', kanji_listening:'漢字：聞き取り', radicals:'漢字：部首',
+  vocab_reading:'語彙：読み', vocab_writing:'語彙：表記', vocab_meaning:'語彙：意味',
+  vocab_produce:'語彙：意味から単語', vocab_listening:'語彙：聞き取り', vocab_context:'語彙：文脈規定',
+  vocab_synonym:'語彙：言い換え', vocab_usage:'語彙：用法',
+  grammar_form:'文法：形式', grammar_order:'文法：文の組み立て', grammar_passage:'文法：文章の文法',
+  grammar_build:'文法：文をつくる', grammar_meaning:'文法：意味',
+  reading_short:'読解：短文', reading_medium:'読解：中文', reading_long:'読解：長文', reading_info:'読解：情報検索',
+  listening_task:'聴解：課題理解', listening_point:'聴解：ポイント理解', listening_outline:'聴解：概要理解',
+  listening_expression:'聴解：発話表現', listening_response:'聴解：即時応答',
+  poster:'語彙：ポスター朗読', flashcard:'フラッシュカード', review:'試験問題の復習',
+  expression:'会話と表現', mock:'模試',
+  ai_coach:'AIコーチ', dictionary:'辞書', my_words:'私の単語帳',
+  kanji_detail:'漢字：詳しい解説', grammar_note:'文法：詳しい解説', study_list:'漢字・語彙・文法の学習リスト',
+  first_lesson:'初回学習', general_quiz:'試験問題：分類なし', general_drill:'練習問題：分類なし',
+  reading_general:'読解：分類なし', listening_general:'聴解：分類なし', listening_drill:'聞き取り：分類なし',
+  kanji_recognition:'漢字認識：分類なし',
 };
 
 function renderContentUsage(rows){
+  // 旧ビューの分類キーを混ぜると人数を正しく統合できない。
+  if (rows.some(r => !Object.hasOwn(CONTENT_NAMES, r.content))) {
+    $('tContentUsage').innerHTML = '<tr><td class="empty">集計の更新が必要です。docs/supabase/dashboard_content_usage.sql を実行してください。</td></tr>';
+    return;
+  }
   const sorted = [...rows].sort((a,b) => b.users-a.users || b.opens-a.opens);
   simpleTbl($('tContentUsage'),
-    [{label:'コンテンツ'},{label:'レベル'},{label:'利用者数',num:1},{label:'閲覧回数',num:1}],
+    [{label:'学習コンテンツ'},{label:'レベル'},{label:'利用者数',num:1},{label:'開いた回数',num:1}],
     sorted,
-    [r=>esc(Object.hasOwn(CONTENT_NAMES,r.content) ? CONTENT_NAMES[r.content] : r.content), r=>esc(r.level),
+    [r=>esc(CONTENT_NAMES[r.content]), r=>esc(r.level),
      r=>Number(r.users).toLocaleString('ja-JP'), r=>Number(r.opens).toLocaleString('ja-JP')]);
 }
 
