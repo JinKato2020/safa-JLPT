@@ -45,7 +45,7 @@ test('user study count renders in its actual column scope without summary helper
   assert.equal(cols[cols.indexOf(count) - 1].key, 'study_min');
 });
 
-test('content usage ranks by user count, then by screen opens', () => {
+test('content usage groups mock, practice and other, then ranks by users and opens', () => {
   const html = fs.readFileSync(path.join(__dirname, 'dashboard.html'), 'utf8');
   const start = html.indexOf('const CONTENT_NAMES =');
   const end = html.indexOf('// 関係・報告タブ', start);
@@ -59,14 +59,18 @@ test('content usage ranks by user count, then by screen opens', () => {
     },
   });
   render([
+    { content: 'ai_coach', level: 'N4', users: '100', opens: '100' },
+    { content: 'kanji_form', level: 'N4', users: '12', opens: '19' },
     { content: 'poster', level: 'N4', users: '5', opens: '90' },
     { content: 'mock', level: 'N5', users: '12', opens: '14' },
     { content: 'radicals', level: 'N3', users: '12', opens: '20' },
   ]);
   assert.deepEqual(table.rows, [
-    ['漢字：部首', 'N3', '12', '20'],
-    ['模試', 'N5', '12', '14'],
-    ['語彙：ポスター朗読', 'N4', '5', '90'],
+    ['模試問題', '模試', 'N5', '12', '14'],
+    ['練習問題', '漢字：部首', 'N3', '12', '20'],
+    ['練習問題', '漢字：似た字の見分け', 'N4', '12', '19'],
+    ['練習問題', '語彙：ポスター朗読', 'N4', '5', '90'],
+    ['その他', 'AIコーチ', 'N4', '100', '100'],
   ]);
   render([{ content: 'RadicalLesson:wood', level: 'N5', users: 1, opens: 3 }]);
   assert.match(table.innerHTML, /集計の更新が必要/);

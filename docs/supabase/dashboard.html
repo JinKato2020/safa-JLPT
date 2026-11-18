@@ -586,14 +586,21 @@ const CONTENT_NAMES = {
   reading_short:'読解：短文', reading_medium:'読解：中文', reading_long:'読解：長文', reading_info:'読解：情報検索',
   listening_task:'聴解：課題理解', listening_point:'聴解：ポイント理解', listening_outline:'聴解：概要理解',
   listening_expression:'聴解：発話表現', listening_response:'聴解：即時応答',
-  poster:'語彙：ポスター朗読', flashcard:'フラッシュカード', review:'試験問題の復習',
+  poster:'語彙：ポスター朗読', flashcard:'学習カードの復習', review:'試験問題の復習',
   expression:'会話と表現', mock:'模試',
   ai_coach:'AIコーチ', dictionary:'辞書', my_words:'私の単語帳',
   kanji_detail:'漢字：詳しい解説', grammar_note:'文法：詳しい解説', study_list:'漢字・語彙・文法の学習リスト',
-  first_lesson:'初回学習', general_quiz:'試験問題：分類なし', general_drill:'練習問題：分類なし',
-  reading_general:'読解：分類なし', listening_general:'聴解：分類なし', listening_drill:'聞き取り：分類なし',
-  kanji_recognition:'漢字認識：分類なし',
+  first_lesson:'初回学習', general_quiz:'試験問題：総合', general_drill:'練習問題：総合',
+  reading_general:'読解：総合', listening_general:'聴解：総合', listening_drill:'聞き取り：総合',
+  kanji_recognition:'漢字認識：総合',
 };
+
+const CONTENT_GROUPS = ['模試問題', '練習問題', 'その他'];
+const OTHER_CONTENT = new Set(['ai_coach', 'dictionary', 'my_words', 'kanji_detail', 'grammar_note', 'study_list']);
+function contentGroup(content) {
+  if (content === 'mock') return 0;
+  return OTHER_CONTENT.has(content) ? 2 : 1;
+}
 
 function renderContentUsage(rows){
   // 旧ビューの分類キーを混ぜると人数を正しく統合できない。
@@ -601,11 +608,13 @@ function renderContentUsage(rows){
     $('tContentUsage').innerHTML = '<tr><td class="empty">集計の更新が必要です。docs/supabase/dashboard_content_usage.sql を実行してください。</td></tr>';
     return;
   }
-  const sorted = [...rows].sort((a,b) => b.users-a.users || b.opens-a.opens);
+  const sorted = [...rows].sort((a,b) => contentGroup(a.content)-contentGroup(b.content)
+    || b.users-a.users || b.opens-a.opens || CONTENT_NAMES[a.content].localeCompare(CONTENT_NAMES[b.content], 'ja')
+    || a.level.localeCompare(b.level));
   simpleTbl($('tContentUsage'),
-    [{label:'学習コンテンツ'},{label:'レベル'},{label:'利用者数',num:1},{label:'開いた回数',num:1}],
+    [{label:'区分'},{label:'コンテンツ'},{label:'レベル'},{label:'利用者数',num:1},{label:'開いた回数',num:1}],
     sorted,
-    [r=>esc(CONTENT_NAMES[r.content]), r=>esc(r.level),
+    [r=>CONTENT_GROUPS[contentGroup(r.content)], r=>esc(CONTENT_NAMES[r.content]), r=>esc(r.level),
      r=>Number(r.users).toLocaleString('ja-JP'), r=>Number(r.opens).toLocaleString('ja-JP')]);
 }
 
