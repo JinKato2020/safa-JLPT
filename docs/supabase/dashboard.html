@@ -56,6 +56,10 @@
   /* 利用者一覧：左側(ID/メール〜状態)を固定して横スクロール。leftはJS(freezeCols)で実測して設定 */
   #tDevices{ border-collapse:separate; border-spacing:0; }
   #tDevices .frz{ position:sticky; z-index:2; background:var(--card); }
+  #tContentUsage{ min-width:600px; }
+  #tContentUsage tbody th{ color:var(--ink); font-size:13px; font-weight:500; }
+  #tContentUsage .level-start{ border-left:1px solid var(--line); }
+  #tContentUsage tbody + tbody tr:first-child > *{ border-top:2px solid var(--line); }
   #tDevices th.grp.frz{ background:var(--bg); }
   #tDevices tr.row:hover td.frz{ background:var(--bg); }
   #tDevices .frzend{ box-shadow:2px 0 0 rgba(0,0,0,.12); }
@@ -251,7 +255,7 @@
   </section>
 
   <section>
-    <h2>コンテンツ利用 <span class="note">直近30日。学習メニューとレベルごとに、開いた人数と回数を集計します。辞書・AIコーチなどの閲覧も含みます。</span></h2>
+    <h2>コンテンツ利用 <span class="note">直近30日。学習コンテンツ順に、N5・N4・N3の利用者数と開いた回数を表示します。</span></h2>
     <div class="scroll"><table id="tContentUsage"></table></div>
   </section>
 
@@ -555,7 +559,7 @@ async function loadCore(){
 async function loadAnalysis(){
   const R = await grabAll({
     daily:       api(_url,_key,'v_admin_daily'),
-    contentUsage: api(_url,_key,'v_admin_learning_content_usage'),
+    contentUsage: api(_url,_key,'v_admin_learning_content_matrix'),
     facetAcc:    api(_url,_key,'v_admin_facet_acc'),
     scoreDist:   api(_url,_key,'v_admin_score_dist'),
     mockDist:    api(_url,_key,'v_admin_mock_dist'),
@@ -575,58 +579,70 @@ async function loadAnalysis(){
   else $('tMockMonthly').innerHTML = `<tr><td class="empty">模試月次ビューが未作成です。docs/supabase/dashboard_views.sql を（再）実行してください。</td></tr>`;
 }
 
-const CONTENT_NAMES = {
-  exam_writing:'表記', exam_reading:'読み', kanji_list:'漢字リスト',
-  kanji_reading:'漢字：読み', kanji_meaning:'漢字：意味', kanji_form:'漢字：似た字の見分け',
-  kanji_writing:'書き取り', kanji_listening:'漢字：聞き取り', radicals:'部首',
-  vocab_reading:'語彙：読み', vocab_writing:'語彙：表記', vocab_meaning:'語彙：意味',
-  vocab_produce:'語彙：意味から単語', vocab_listening:'語彙：聞き取り', vocab_context:'語彙：文脈規定',
-  vocab_synonym:'語彙：言い換え', vocab_usage:'語彙：用法',
-  grammar_form:'文法：形式', grammar_order:'文法：文の組み立て', grammar_passage:'文法：文章の文法',
-  grammar_build:'文法：文をつくる', grammar_meaning:'文法：意味',
-  reading_short:'読解：短文', reading_medium:'読解：中文', reading_long:'読解：長文', reading_info:'読解：情報検索',
-  listening_task:'聴解：課題理解', listening_point:'聴解：ポイント理解', listening_outline:'聴解：概要理解',
-  listening_expression:'聴解：発話表現', listening_response:'聴解：即時応答',
-  poster:'語彙：ポスター朗読', flashcard:'学習カードの復習', review:'試験問題の復習',
-  expression:'会話と表現', mock:'模試（フル・ミニ）',
-  ai_coach:'AIコーチ', dictionary:'辞書', my_words:'私の単語帳',
-  kanji_detail:'漢字：詳しい解説', grammar_note:'文法：詳しい解説', study_list:'漢字・語彙・文法の学習リスト',
-  first_lesson:'初回学習', general_quiz:'試験問題：総合', general_drill:'練習問題：総合',
-  reading_general:'読解：総合', listening_general:'聴解：総合', listening_drill:'聞き取り：総合',
-  kanji_recognition:'漢字認識：総合',
-};
-
-const CONTENT_GROUPS = ['模試問題', '練習問題', 'その他'];
-const OTHER_CONTENT = new Set(['ai_coach', 'dictionary', 'my_words', 'kanji_detail', 'grammar_note', 'study_list']);
-const EXAM_CONTENT = new Set(['exam_writing', 'exam_reading', 'mock', 'vocab_context', 'vocab_synonym',
-  'vocab_usage', 'grammar_form', 'grammar_order', 'grammar_passage', 'reading_short', 'reading_medium',
-  'reading_long', 'reading_info', 'listening_task', 'listening_point', 'listening_outline', 'listening_expression',
-  'listening_response', 'general_quiz', 'reading_general', 'listening_general']);
-const PINNED_CONTENT = ['exam_writing', 'exam_reading', 'kanji_list', 'radicals', 'kanji_writing'];
-function contentOrder(content) {
-  const index = PINNED_CONTENT.indexOf(content);
-  return index < 0 ? PINNED_CONTENT.length : index;
-}
-function contentGroup(content) {
-  if (EXAM_CONTENT.has(content)) return 0;
-  return OTHER_CONTENT.has(content) ? 2 : 1;
-}
+const CONTENT_LEVELS = ['N5', 'N4', 'N3'];
+// 行の順序はアプリの学習メニューに合わせる。利用件数では並べ替えない。
+const CONTENT_SECTIONS = [
+  [
+    ['exam_reading', '模試：漢字読み'], ['exam_writing', '模試：表記'],
+    ['vocab_context', '模試：文脈規定'], ['vocab_synonym', '模試：言い換え類語'], ['vocab_usage', '模試：用法'],
+  ],
+  [
+    ['grammar_form', '模試：文法形式'], ['grammar_order', '模試：文の組み立て'], ['grammar_passage', '模試：文章の文法'],
+  ],
+  [
+    ['reading_short', '模試：短文'], ['reading_medium', '模試：中文'], ['reading_long', '模試：長文'],
+    ['reading_info', '模試：情報検索'], ['reading_general', '模試：読解（総合）'],
+  ],
+  [
+    ['listening_task', '模試：課題理解'], ['listening_point', '模試：ポイント理解'],
+    ['listening_outline', '模試：概要理解'], ['listening_expression', '模試：発話表現'],
+    ['listening_response', '模試：即時応答'], ['listening_general', '模試：聴解（総合）'], ['general_quiz', '模試：総合'],
+  ],
+  [
+    ['kanji_list', '練習：漢字リスト'], ['radicals', '練習：部首'], ['kanji_writing', '練習：書き取り'],
+    ['kanji_meaning', '練習：意味'], ['kanji_reading', '練習：読み'], ['kanji_form', '練習：似た漢字'],
+    ['kanji_listening', '練習：聞き取り'], ['kanji_recognition', '練習：漢字認識（総合）'],
+  ],
+  [
+    ['vocab_list', '練習：語彙リスト'], ['poster', '練習：ポスター朗読'], ['vocab_meaning', '練習：語彙の意味'],
+    ['vocab_reading', '練習：語彙の読み'], ['vocab_writing', '練習：語彙の表記'],
+    ['vocab_listening', '練習：語彙の聞き取り'], ['vocab_produce', '練習：意味から単語'],
+    ['grammar_list', '練習：文法リスト'], ['grammar_meaning', '練習：文法の意味'], ['grammar_build', '練習：文をつくる'],
+    ['study_list', '練習：学習リスト（総合）'], ['general_drill', '練習：総合'], ['listening_drill', '練習：聞き取り（総合）'],
+    ['review', '練習：試験問題の復習'], ['flashcard', '練習：学習カードの復習'],
+    ['first_lesson', '練習：初回学習'], ['expression', '練習：会話と表現'],
+  ],
+  [
+    ['dictionary_kanji', '辞書：漢字'], ['dictionary_vocab', '辞書：語彙'],
+    ['dictionary_grammar', '辞書：文法'], ['my_words', '辞書：単語帳'],
+  ],
+  [
+    ['ai_coach', 'AIコーチ'], ['mock', '模試試験'], ['town', '日本語の町'],
+    ['shop', 'ショップ'], ['account', 'アカウント'], ['settings', '設定'],
+  ],
+];
+const OPTIONAL_CONTENT = [
+  ['dictionary_general', '辞書：総合'], ['kanji_detail', '漢字の詳しい解説'], ['grammar_note', '文法の詳しい解説'],
+];
 
 function renderContentUsage(rows){
-  // 旧ビューの分類キーを混ぜると人数を正しく統合できない。
-  if (rows.some(r => !Object.hasOwn(CONTENT_NAMES, r.content))) {
-    $('tContentUsage').innerHTML = '<tr><td class="empty">集計の更新が必要です。docs/supabase/dashboard_content_usage.sql を実行してください。</td></tr>';
-    return;
-  }
-  const sorted = [...rows].sort((a,b) => contentGroup(a.content)-contentGroup(b.content)
-    || contentOrder(a.content)-contentOrder(b.content)
-    || b.users-a.users || b.opens-a.opens || CONTENT_NAMES[a.content].localeCompare(CONTENT_NAMES[b.content], 'ja')
-    || a.level.localeCompare(b.level));
-  simpleTbl($('tContentUsage'),
-    [{label:'学習コンテンツ'},{label:'レベル'},{label:'利用者数',num:1},{label:'開いた回数',num:1}],
-    sorted,
-    [r=>esc(CONTENT_GROUPS[contentGroup(r.content)] + '：' + CONTENT_NAMES[r.content]), r=>esc(r.level),
-     r=>Number(r.users).toLocaleString('ja-JP'), r=>Number(r.opens).toLocaleString('ja-JP')]);
+  const lookup = new Map(rows.map(row => [row.content + '/' + row.level, row]));
+  const count = (value, unit) => Number(value ?? 0).toLocaleString('ja-JP') + unit;
+  const sections = [...CONTENT_SECTIONS];
+  const supplemental = OPTIONAL_CONTENT.filter(([key]) => CONTENT_LEVELS.some(level => lookup.has(key + '/' + level)));
+  if (supplemental.length) sections.splice(sections.length - 1, 0, supplemental);
+  const head = '<thead><tr><th scope="col" rowspan="2">学習コンテンツ</th>'
+    + CONTENT_LEVELS.map(level => `<th class="grp" scope="colgroup" colspan="2">${level}</th>`).join('')
+    + '</tr><tr>' + CONTENT_LEVELS.map(() => '<th class="num level-start" scope="col">利用者数</th><th class="num" scope="col">開いた回数</th>').join('')
+    + '</tr></thead>';
+  const body = sections.map(section => '<tbody>' + section.map(([key, label]) => {
+    const cells = CONTENT_LEVELS.map(level => {
+      const usage = lookup.get(key + '/' + level);
+      return `<td class="num level-start">${count(usage?.users, '人')}</td><td class="num">${count(usage?.opens, '回')}</td>`;
+    }).join('');
+    return `<tr><th scope="row">${esc(label)}</th>${cells}</tr>`;
+  }).join('') + '</tbody>').join('');
+  $('tContentUsage').innerHTML = head + body;
 }
 
 // 関係・報告タブ（紹介・友だち・バグ）＝タブを開いた時だけ取得。

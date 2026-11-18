@@ -1,11 +1,11 @@
 -- 既存の screen_view を学習メニュー単位にまとめ、ユーザーの重複を除いてから集計する。
-create or replace view public.v_admin_learning_content_usage with (security_invoker = true) as
+create or replace view public.v_admin_learning_content_matrix with (security_invoker = true) as
 with raw as (
-  select anon_id, account_id, level, props->>'content' as content
+  select anon_id, account_id, level,
+    coalesce(nullif(props->>'content', ''), props->>'name') as content
   from public.tel_event
   where name = 'screen_view'
     and created_at >= now() - interval '30 days'
-    and nullif(props->>'content', '') is not null
     and level in ('N3', 'N4', 'N5')
 ), menu_map(raw_content, content) as (
   values
@@ -29,11 +29,12 @@ with raw as (
     ('Quiz:review', 'review'), ('Quiz:expression', 'expression'),
     ('Mock:full', 'mock'), ('Mock:mini', 'mock'),
     ('AICoach', 'ai_coach'), ('MyWords', 'my_words'),
-    ('DictList:kanji', 'dictionary'), ('DictList:vocab', 'dictionary'),
-    ('DictList:grammar', 'dictionary'), ('DictList:all', 'dictionary'),
+    ('DictList:kanji', 'dictionary_kanji'), ('DictList:vocab', 'dictionary_vocab'),
+    ('DictList:grammar', 'dictionary_grammar'), ('DictList:all', 'dictionary_general'),
+    ('KotobaTown', 'town'), ('Shop', 'shop'), ('Account', 'account'), ('Settings', 'settings'),
     ('KanjiDetail', 'kanji_detail'), ('GrammarNote', 'grammar_note'),
-    ('WordList:kanji', 'kanji_list'), ('WordList:vocab', 'study_list'),
-    ('WordList:grammar', 'study_list'), ('WordList:all', 'study_list'),
+    ('WordList:kanji', 'kanji_list'), ('WordList:vocab', 'vocab_list'),
+    ('WordList:grammar', 'grammar_list'), ('WordList:all', 'study_list'),
     ('Quiz:firstLesson', 'first_lesson'), ('Quiz:general', 'general_quiz'),
     ('Reading:all', 'reading_general'), ('Listening:all', 'listening_general'),
     ('WordDrill:mixed', 'general_drill'), ('WordDrill:all', 'general_drill'),
@@ -59,5 +60,5 @@ from recent r
 left join accounts a using (anon_id)
 group by r.content, r.level;
 
-revoke all on public.v_admin_learning_content_usage from public, anon, authenticated;
-grant select on public.v_admin_learning_content_usage to service_role;
+revoke all on public.v_admin_learning_content_matrix from public, anon, authenticated;
+grant select on public.v_admin_learning_content_matrix to service_role;

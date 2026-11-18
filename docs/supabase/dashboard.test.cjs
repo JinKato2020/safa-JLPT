@@ -13,7 +13,7 @@ test('every dashboard script parses before any connection is attempted', () => {
 
 test('analysis handles unavailable views independently', async () => {
   const html = fs.readFileSync(path.join(__dirname, 'dashboard.html'), 'utf8');
-  const source = html.slice(html.indexOf('async function loadAnalysis(){'), html.indexOf('const CONTENT_NAMES ='));
+  const source = html.slice(html.indexOf('async function loadAnalysis(){'), html.indexOf('const CONTENT_LEVELS ='));
   for (const available of [true, false]) {
     const nodes = {};
     const rendered = [];
@@ -45,43 +45,36 @@ test('user study count renders in its actual column scope without summary helper
   assert.equal(cols[cols.indexOf(count) - 1].key, 'study_min');
 });
 
-test('content usage groups mock, practice and other, then ranks by users and opens', () => {
+test('content usage shows one row per menu in fixed order with N5, N4, N3 pairs', () => {
   const html = fs.readFileSync(path.join(__dirname, 'dashboard.html'), 'utf8');
-  const start = html.indexOf('const CONTENT_NAMES =');
+  const start = html.indexOf('const CONTENT_LEVELS =');
   const end = html.indexOf('// 関係・報告タブ', start);
-  assert.ok(start >= 0 && end > start);
   const table = {};
   const render = vm.runInNewContext(html.slice(start, end) + '\nrenderContentUsage;', {
-    $: () => table,
-    esc: value => String(value).replaceAll('<', '&lt;'),
-    simpleTbl: (el, columns, rows, cells) => {
-      el.rows = Array.from(rows, row => Array.from(cells, cell => cell(row)));
-    },
+    $: () => table, esc: value => value,
   });
   render([
-    { content: 'exam_reading', level: 'N4', users: '20', opens: '35' },
-    { content: 'exam_writing', level: 'N4', users: '2', opens: '12' },
-    { content: 'kanji_writing', level: 'N4', users: '20', opens: '30' },
-    { content: 'ai_coach', level: 'N4', users: '100', opens: '100' },
-    { content: 'kanji_list', level: 'N4', users: '2', opens: '2' },
-    { content: 'kanji_form', level: 'N4', users: '12', opens: '19' },
-    { content: 'poster', level: 'N4', users: '12', opens: '18' },
-    { content: 'mock', level: 'N5', users: '12', opens: '14' },
-    { content: 'radicals', level: 'N3', users: '12', opens: '20' },
+    {content:'exam_reading', level:'N3', users:'3', opens:'30'},
+    {content:'exam_reading', level:'N5', users:'1', opens:'100'},
+    {content:'exam_writing', level:'N4', users:'20', opens:'40'},
+    {content:'kanji_writing', level:'N4', users:'9', opens:'99'},
+    {content:'dictionary_vocab', level:'N5', users:'2', opens:'10'},
   ]);
-  assert.deepEqual(table.rows, [
-    ['模試問題：表記', 'N4', '2', '12'],
-    ['模試問題：読み', 'N4', '20', '35'],
-    ['模試問題：模試（フル・ミニ）', 'N5', '12', '14'],
-    ['練習問題：漢字リスト', 'N4', '2', '2'],
-    ['練習問題：部首', 'N3', '12', '20'],
-    ['練習問題：書き取り', 'N4', '20', '30'],
-    ['練習問題：漢字：似た字の見分け', 'N4', '12', '19'],
-    ['練習問題：語彙：ポスター朗読', 'N4', '12', '18'],
-    ['その他：AIコーチ', 'N4', '100', '100'],
+  const headers = [...table.innerHTML.matchAll(/scope="colgroup" colspan="2">(N[345])/g)].map(m => m[1]);
+  assert.deepEqual(headers, ['N5', 'N4', 'N3']);
+  const rows = [...table.innerHTML.matchAll(/<tr><th scope="row">([^<]+)<\/th>(.*?)<\/tr>/g)];
+  const labels = rows.map(row => row[1]);
+  assert.deepEqual(labels.slice(0, 9), [
+    '模試：漢字読み', '模試：表記', '模試：文脈規定', '模試：言い換え類語', '模試：用法',
+    '模試：文法形式', '模試：文の組み立て', '模試：文章の文法', '模試：短文',
   ]);
-  render([{ content: 'RadicalLesson:wood', level: 'N5', users: 1, opens: 3 }]);
-  assert.match(table.innerHTML, /集計の更新が必要/);
+  const i = labels.indexOf('練習：漢字リスト');
+  assert.deepEqual(labels.slice(i, i+7), ['練習：漢字リスト', '練習：部首', '練習：書き取り', '練習：意味', '練習：読み', '練習：似た漢字', '練習：聞き取り']);
+  assert.deepEqual(labels.slice(-10), ['辞書：漢字', '辞書：語彙', '辞書：文法', '辞書：単語帳', 'AIコーチ', '模試試験', '日本語の町', 'ショップ', 'アカウント', '設定']);
+  const cells = row => [...row[2].matchAll(/<td[^>]*>([^<]+)/g)].map(m => m[1]);
+  assert.deepEqual(cells(rows[0]), ['1人', '100回', '0人', '0回', '3人', '30回']);
+  assert.deepEqual(cells(rows[1]), ['0人', '0回', '20人', '40回', '0人', '0回']);
+  assert.deepEqual(cells(rows.find(row => row[1] === '辞書：語彙')), ['2人', '10回', '0人', '0回', '0人', '0回']);
 });
 
 test('dashboard restores saved settings even when persistent storage is blocked', () => {
