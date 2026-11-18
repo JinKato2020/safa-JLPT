@@ -4,6 +4,7 @@ import io
 import json
 import re
 import hashlib
+import runpy
 from pathlib import Path
 from PIL import Image
 
@@ -43,6 +44,14 @@ def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     data = read('radicals-lessons.js')
     lessons = json.loads(data.split('const RADICAL_LESSONS =', 1)[1].strip().removesuffix(';'))
+    localization = runpy.run_path(str(ROOT / 'tools' / 'translate-radical-lessons.py'))
+    locales = json.loads(read('radicals-locales.js').split('const RADICAL_LOCALES =', 1)[1].strip().removesuffix(';'))
+    required = set(localization['course_strings']())
+    for language in localization['LOCALES']:
+        entries = locales.get(language, {})
+        missing = required - {key for key, value in entries.items() if isinstance(value, str) and value.strip()}
+        if missing:
+            raise ValueError(f'{language}: {len(missing)} missing translations')
     glyphs = json.loads(read('radicals-glyphs.js').split('const RADICAL_GLYPHS =', 1)[1].strip().removesuffix(';'))
     missing = sorted({c for c in data if 0x20000 <= ord(c) <= 0x323AF and not glyphs.get(c, {}).get('path')})
     if missing:
@@ -71,7 +80,7 @@ def main():
     template = re.sub(r'<!--.*?-->', '', read('radicals-n5.html'), flags=re.S)
     template = template.replace('<head>', '<head>' + bridge)
     template = template.replace('<link rel="stylesheet" href="radicals-n5.css">', '<style>' + read('radicals-n5.css') + '</style>')
-    for name in ['radicals-glyphs.js', 'radicals-lessons.js', 'radicals-audio.js', 'radicals-n5.js']:
+    for name in ['radicals-glyphs.js', 'radicals-lessons.js', 'radicals-audio.js', 'radicals-locales.js', 'radicals-n5.js']:
         template = template.replace(f'<script src="{name}"></script>', '<script>' + read(name) + '</script>')
     if re.search(r'<script\s+src=|<link\s+rel="stylesheet"', template):
         raise ValueError('Unbundled JS or CSS remains')

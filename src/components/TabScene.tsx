@@ -4,7 +4,7 @@
 //  - BottomIconBar / TabIconButton: イラスト下端(ボトムナビの上)に置く小アイコンの操作列。
 //  - Hotspot: 背景の描き込み要素に重ねる透明タップ領域(必要時)。
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Image, Animated, Pressable, ScrollView, StyleSheet, useWindowDimensions, type DimensionValue, type ImageSourcePropType } from 'react-native';
+import { View, Text, Image, Animated, Pressable, ScrollView, StyleSheet, type LayoutChangeEvent, type DimensionValue, type ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { didSwitchTab } from '../navigation/tabReturn';
 import { Ionicons } from '@expo/vector-icons';
@@ -56,8 +56,8 @@ export function SceneTitle({ children }: { children: React.ReactNode }) {
 }
 
 // イラスト下端(ボトムナビの上)に固定する小アイコンの操作列。和紙調の細い帯に載せる。
-export function BottomIconBar({ children }: { children: React.ReactNode }) {
-  return <View style={styles.bar}>{children}</View>;
+export function BottomIconBar({ children, onLayout }: { children: React.ReactNode; onLayout?: (event: LayoutChangeEvent) => void }) {
+  return <View style={styles.bar} onLayout={onLayout}>{children}</View>;
 }
 
 // 小アイコンボタン: 丸縁(区分色)＋グリフ or Ionicon＋極小ラベル。任意で件数バッジ。
@@ -115,7 +115,7 @@ export function PopoverBar({ entries }: { entries: TabEntry[] }) {
 // 没入タブの統合部品: 全画面背景イラスト＋下端ボタン列＋「ボタン上トグル・ポップオーバー」。
 //  - renderCard を持つボタンをタップ = その区分カードをボタン列の"すぐ上"にフロート表示。
 //    画面遷移せず、背景イラストも動かさない。再タップ or 背景の薄暗幕タップで閉じる(開くのは常に1枚)。
-//  - カードは maxHeight でキャップし、超過分はカード内スクロール。初期は何も開かない(イラストが主役)。
+//  - カードがタブ内の表示領域を超える場合のみカード内スクロール。初期は何も開かない(イラストが主役)。
 //  - hotspots = 背景の描き込み要素に重ねる透明タップ領域。対応する key のカードをトグルする。
 export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, hotspots, aboveBar }: {
   source: ImageSourcePropType;
@@ -126,7 +126,8 @@ export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, h
   hotspots?: { key: string; area: Area; label?: string }[];
   aboveBar?: React.ReactNode; // 下端アイコン列の"すぐ上"に常設する要素(CTA等)。カード(ポップオーバー)が開いている間は隠す。
 }) {
-  const { height } = useWindowDimensions();
+  const [iconBarHeight, setIconBarHeight] = useState(64);
+  const panelBottom = 20 + iconBarHeight;
   const [openKey, setOpenKey] = useState<string | null>(null);
   const navigation = useNavigation();
   const activeEntry = entries.find((e) => e.key === openKey && e.renderCard);
@@ -171,12 +172,11 @@ export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, h
         ))}
         {activeEntry ? (
           <>
-            <Pressable style={styles.popScrim} onPress={() => setOpenKey(null)} accessibilityLabel="close" />
-            <View style={styles.popWrap} pointerEvents="box-none">
+            <Pressable style={[styles.popScrim, { bottom: panelBottom }]} onPress={() => setOpenKey(null)} accessibilityLabel="close" />
+            <View style={[styles.popWrap, { bottom: panelBottom }]} pointerEvents="box-none">
               <ScrollView
-                style={{ maxHeight: height * 0.62 }}
+                style={styles.popScroll}
                 contentContainerStyle={styles.popScrollContent}
-                showsVerticalScrollIndicator={false}
                 bounces={false}
               >
                 {activeEntry.renderCard!()}
@@ -186,7 +186,7 @@ export function ImmersiveTab({ source, blinkSource, scrim = 0, title, entries, h
         ) : null}
         {/* 下端アイコン列のすぐ上に置くCTA等。カードを開いている間は隠して、同じ場所にカードを出す。 */}
         {aboveBar && !activeEntry ? aboveBar : null}
-        <BottomIconBar>
+        <BottomIconBar onLayout={({ nativeEvent }) => setIconBarHeight(nativeEvent.layout.height)}>
           {entries.filter((e) => !e.hidden).map((e) => (
             <TabIconButton
               key={e.key}
@@ -256,8 +256,9 @@ const styles = StyleSheet.create({
   badge: { position: 'absolute', top: -4, right: -6, minWidth: 16, fontSize: 10, fontWeight: '800', color: '#fff', borderRadius: 8, paddingHorizontal: 4, textAlign: 'center', overflow: 'hidden' },
   // ポップオーバー(タップしたアイコンの上に出るカード)。
   // popScrim=カードの外側全面をタップで閉じる薄暗幕(ボタン列の上まで)。
-  popScrim: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 82, backgroundColor: 'rgba(0,0,0,0.18)' },
-  popWrap: { position: 'absolute', left: 10, right: 10, bottom: 84 },
+  popScrim: { position: 'absolute', left: 0, right: 0, top: 0, backgroundColor: 'rgba(0,0,0,0.18)' },
+  popWrap: { position: 'absolute', left: 10, right: 10, top: 8, justifyContent: 'flex-end' },
+  popScroll: { flexGrow: 0, flexShrink: 1 },
   popScrollContent: { paddingBottom: 2 },
   popCard: {
     flexDirection: 'row', alignItems: 'center', gap: 12,

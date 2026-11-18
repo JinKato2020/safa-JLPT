@@ -1,14 +1,14 @@
 // 試験タブの1カテゴリ(文字語彙/文法/読解/聴解)カードをインライン表示する自己完結コンポーネント。
-// 全体正答率リング＋大問リスト(各行=大問ラベル＋右端に正答率リング・タップで個別出題)。
-// 練習(書斎)タブの KubunCard と同じ「縦リスト+右端インジケータ」スタイルで統一(2026-10-18)。
+// 全体と大問別の正答率を表示し、各項目から個別出題へ進む。
+// 練習タブと表示部品を共用し、カテゴリ別の出題ルートと集計だけを持つ。
 import { useMemo } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
+import { useColors } from '../theme';
 import { useAppState } from '../store/store';
 import { ringsFor, daimonRingPct, idsRingPct } from '../store/selectors';
-import RingGauge from './RingGauge';
+import StudyMenuCard from './StudyMenuCard';
 import { readingItemsForSub, READING_SUBTYPES, listeningItemsForSub, LISTENING_SUBTYPES } from '../data';
 import { daimonsWithUnits } from '../data/daimon';
 import { DAIMON_LABEL } from '../data/examBlueprint';
@@ -26,7 +26,6 @@ export default function CategoryCard({ cat }: { cat: Category }) {
   const { settings } = state;
   const c = useColors();
   const t = useT();
-  const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
   const lv = settings.level;
   const prof = examOf(settings.targetExam);
@@ -59,35 +58,16 @@ export default function CategoryCard({ cat }: { cat: Category }) {
   };
   const subs = subRingsFor(cat);
 
+  const percent = (value: number | null) => value === null ? '–' : `${value}%`;
+  const accuracy = t('study.accuracy');
   return (
-    <View style={s.card}>
-      <View style={s.cardHead}>
-        <Text style={s.cardTitle}>{catName(cat)}</Text>
-        <RingGauge value={rings[cat]} color={ringColor(rings[cat])} size={54} stroke={6} label={t('study.accuracy')} />
-      </View>
-      {subs.length ? (
-        <>
-          <Text style={s.tapHint}>{t('study.tap_daimon')}</Text>
-          {/* 大問を縦リストで表示。各行=ラベル(左)＋右端に正答率リング(%)。タップで個別出題へ。 */}
-          {subs.map((sr) => (
-            <Pressable key={sr.key} style={({ pressed }) => [s.rowBtn, pressed && s.rowPressed]} onPress={sr.onPress}>
-              <Text style={s.rowLabel} numberOfLines={1}>{sr.label}</Text>
-              <RingGauge value={sr.value} color={ringColor(sr.value)} size={36} stroke={5} />
-            </Pressable>
-          ))}
-        </>
-      ) : null}
-    </View>
+    <StudyMenuCard
+      title={catName(cat)}
+      summary={<Text style={{ color: c.mute, fontSize: 12, flexShrink: 1 }}>{accuracy} {percent(rings[cat])}</Text>}
+      entries={subs.map((entry) => ({
+        key: entry.key, label: entry.label, onPress: entry.onPress,
+        detail: { text: percent(entry.value), color: ringColor(entry.value), accessibilityLabel: `${accuracy} ${percent(entry.value)}` },
+      }))}
+    />
   );
 }
-
-const makeStyles = (c: ThemeColors) => StyleSheet.create({
-  card: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.sm, ...shadow(1) },
-  cardHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  cardTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
-  tapHint: { fontSize: ty.tiny, color: c.faint, marginTop: spacing.xs },
-  // 大問の行ボタン(練習タブ KubunCard の linkBtn と同形)。右端にリングを置くため alignItems=center。
-  rowBtn: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.xs, paddingHorizontal: spacing.md },
-  rowPressed: { backgroundColor: c.bgSoft, opacity: 0.85 },
-  rowLabel: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
-});

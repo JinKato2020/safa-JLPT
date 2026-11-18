@@ -3,9 +3,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { test } = require('node:test');
 const { launch } = require('puppeteer-core');
-function lessonHtml(level = 'N4') {
+function lessonHtml(level = 'N4', language = 'en') {
  return fs.readFileSync(path.join(__dirname,'../assets/radical-lessons/course.html'),'utf8')
-  .replace('/*APP_LESSON_CONFIG*/ {}',JSON.stringify({language:'en',level,completed:{}}))
+  .replace('/*APP_LESSON_CONFIG*/ {}',JSON.stringify({language,level,completed:{}}))
   .replace('<head>','<head><script>window.sent=[];window.ReactNativeWebView={postMessage:s=>sent.push(JSON.parse(s))};</script>');
 }
 test('expanded offline course renders every lesson with native dictionary-audio/progress events', async()=>{
@@ -58,6 +58,42 @@ test('expanded offline course renders every lesson with native dictionary-audio/
  await page.evaluate(()=>location.hash='human');await page.waitForSelector('.lesson-grid');assert.equal(await page.evaluate(()=>sent.some(e=>e.type==='view'&&e.level==='N5')),false);
  assert(await page.evaluate(()=>sent.some(e=>e.type==='stop-audio')));assert.deepEqual(errors,[]);
  }finally{await browser.close();}
+});
+
+test('all 12 locales show the expected lesson and language without a language switch', async () => {
+ const browser = await launch({executablePath:process.env.JLPT_TEST_CHROME,headless:true});
+ try {
+  const page = await browser.newPage();
+  const errors = [];
+  page.on('pageerror', error => errors.push(String(error)));
+  await page.setViewport({width:320,height:700});
+  const locales = ['ja','en','ne','id','vi','my','ko','zh','zh2','bn','th','hi'];
+  for (const [level, id] of [['N5','human'],['N4','n4-water'],['N3','n3-feelings']]) {
+   for (const lang of locales) {
+    await page.goto('about:blank');
+    await page.setContent(lessonHtml(level, lang),{waitUntil:'load'});
+    const langAttr = {zh:'zh-Hans',zh2:'zh-Hant'}[lang] || lang;
+    assert.equal(await page.$eval('html', node => node.lang), langAttr);
+    assert.equal(await page.$('#language'), null);
+    await page.evaluate(id => location.hash = id, id);
+    await page.waitForFunction(id => current?.id === id, {}, id);
+    const result = await page.evaluate(() => ({
+     expected: language === 'ja' ? current.insight.ja : (RADICAL_LOCALES[language]?.[current.insight.en] ?? current.insight.en),
+     original: current.insight.en,
+     language: document.querySelector('.hero-insight p').lang,
+     actual: document.querySelector('.hero-insight p').textContent,
+     fits: document.documentElement.scrollWidth <= innerWidth,
+    }));
+    assert.equal(result.actual, result.expected, lang + '/' + level);
+    assert.equal(result.language, langAttr);
+    if (lang !== 'ja' && lang !== 'en') assert.notEqual(result.actual, result.original);
+    assert(result.fits, lang + '/' + level + ' fits 320 px');
+   }
+  }
+  assert.deepEqual(errors,[]);
+ } finally {
+  await browser.close();
+ }
 });
 
 test('every rare course character has an offline SVG outline rather than a device-font dependency',()=>{

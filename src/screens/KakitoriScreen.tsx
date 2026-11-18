@@ -254,7 +254,7 @@ export default function KakitoriScreen() {
         <Text style={s.count}>{idx + 1} / {chars.length}</Text>
         <Text style={s.stars}>{'★'.repeat(stars)}{'☆'.repeat(3 - stars)}</Text>
       </View>
-      <ScrollView contentContainerStyle={s.body} stickyHeaderIndices={[isKana && !singleChar ? 2 : 1]}>
+      <ScrollView style={s.scroll} contentContainerStyle={s.body} stickyHeaderIndices={[isKana && !singleChar ? 2 : 1]}>
         <View><StudySceneBanner inset={0} /></View>
         {isKana && !singleChar && (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.rowSel}>
@@ -330,13 +330,13 @@ export default function KakitoriScreen() {
           <Pressable onPress={() => { if (readyRef.current) inject('KW.clear()'); }} style={s.tool}><Text style={s.toolTxt}>{t('kakitori.clear')}</Text></Pressable>
         </View>
 
-        {!free && (
-          <View style={s.actions}>
-            <Pressable style={[s.actBtn, s.actGhost]} onPress={skipChar}><Text style={s.actGhostTxt}>{t('kakitori.skip')}</Text></Pressable>
-            <Pressable style={[s.actBtn, s.actPrimary]} onPress={advance}><Text style={s.actPrimaryTxt}>{(turn === 'learn' && idx + 1 >= chars.length) ? t('kakitori.to_test') : t('kakitori.next')} →</Text></Pressable>
-          </View>
-        )}
       </ScrollView>
+      {!free && (
+        <View style={s.actions}>
+          <Pressable accessibilityRole="button" style={[s.actBtn, s.actGhost]} onPress={skipChar}><Text style={s.actGhostTxt}>{t('kakitori.skip')}</Text></Pressable>
+          <Pressable testID="kakitori-next-fixed" accessibilityRole="button" style={[s.actBtn, s.actPrimary]} onPress={advance}><Text style={s.actPrimaryTxt}>{(turn === 'learn' && idx + 1 >= chars.length) ? t('kakitori.to_test') : t('kakitori.next')} →</Text></Pressable>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -350,7 +350,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
   close: { fontSize: 30, color: c.mute, fontWeight: '700' }, count: { fontSize: ty.small, fontWeight: '700', color: c.mute },
   stars: { fontSize: ty.h2, color: c.amber, letterSpacing: 2 },
-  body: { paddingBottom: spacing.xl },
+  scroll: { flex: 1 },
+  body: { paddingBottom: spacing.md },
   rowSel: { paddingVertical: spacing.xs, paddingHorizontal: spacing.lg },
   rowChip: { paddingVertical: 6, paddingHorizontal: 12, borderRadius: radius.pill, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, marginRight: 6 },
   rowChipOn: { borderColor: c.blue, backgroundColor: c.blueLight },
@@ -391,8 +392,8 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   toolbar: { flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.md, paddingHorizontal: spacing.lg },
   tool: { paddingVertical: spacing.xs, paddingHorizontal: spacing.md, borderRadius: radius.md, backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line },
   toolOn: { backgroundColor: c.blue, borderColor: c.blue }, toolTxt: { fontSize: ty.small, fontWeight: '700', color: c.ink }, toolTxtOn: { color: '#fff' },
-  actions: { flexDirection: 'row', gap: spacing.md, paddingHorizontal: spacing.lg, marginTop: spacing.lg },
-  actBtn: { flex: 1, paddingVertical: spacing.md, borderRadius: radius.md, alignItems: 'center' },
-  actGhost: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line }, actGhostTxt: { fontSize: ty.body, fontWeight: '800', color: c.mute },
-  actPrimary: { backgroundColor: c.blue }, actPrimaryTxt: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
+  actions: { flexDirection: 'row', gap: spacing.sm, paddingHorizontal: spacing.lg, paddingVertical: spacing.sm, borderTopWidth: 1, borderTopColor: c.line, backgroundColor: c.surface },
+  actBtn: { flex: 1, minHeight: 48, paddingVertical: spacing.sm, paddingHorizontal: spacing.sm, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center' },
+  actGhost: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line }, actGhostTxt: { textAlign: 'center', fontSize: ty.body, fontWeight: '800', color: c.mute },
+  actPrimary: { flex: 2, backgroundColor: c.blue }, actPrimaryTxt: { textAlign: 'center', fontSize: ty.body, fontWeight: '800', color: '#fff' },
 });

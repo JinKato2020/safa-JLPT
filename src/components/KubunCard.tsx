@@ -4,20 +4,21 @@ import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
+import { useColors } from '../theme';
 import { useAppState } from '../store/store';
 import { coverageBars } from '../store/selectors';
 import Badge from './Badge';
+import StudyMenuCard, { type StudyMenuEntry } from './StudyMenuCard';
 import BadgeCollection from './BadgeCollection';
 import { badgeTierIndex } from '../data/badges';
 import type { RootStackParamList, WordsStackParamList, Kubun } from '../navigation/types';
 import { useT } from '../i18n';
 
 type Nav = NativeStackNavigationProp<WordsStackParamList & RootStackParamList>;
-const META: Record<Kubun, { emoji: string; labelKey: string; listKey: string }> = {
-  kanji: { emoji: '漢', labelKey: 'cards.kanji', listKey: 'cards.kanji_list' },
-  vocab: { emoji: '語', labelKey: 'cards.vocab', listKey: 'cards.vocab_list' },
-  grammar: { emoji: '文', labelKey: 'cards.grammar', listKey: 'cards.grammar_list' },
+const META: Record<Kubun, { labelKey: string; listKey: string }> = {
+  kanji: { labelKey: 'cards.kanji', listKey: 'cards.kanji_list' },
+  vocab: { labelKey: 'cards.vocab', listKey: 'cards.vocab_list' },
+  grammar: { labelKey: 'cards.grammar', listKey: 'cards.grammar_list' },
 };
 
 export default function KubunCard({ kubun }: { kubun: Kubun }) {
@@ -25,7 +26,6 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
   const state = useAppState();
   const c = useColors();
   const t = useT();
-  const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
   const badgeSet = state.settings.badgeSet ?? 'gorgeous';
   const cov = useMemo(() => coverageBars(state, now), [state]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -35,13 +35,8 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
   const m = META[kubun];
 
   // 入口ボタン。旧「全体カバー率◯%で解禁」の段階解禁は廃止(ユーザー方針2026-10-27)=全モード最初から解禁。
-  const entries: React.ReactNode[] = [];
-  const add = (labelKey: string, onPress: () => void) => entries.push(
-    <Pressable key={labelKey} style={({ pressed }) => [s.linkBtn, pressed && s.pressed]} onPress={onPress}>
-      <Text style={s.linkTxt}>{t(labelKey)}</Text>
-      <Text style={s.chevron}>›</Text>
-    </Pressable>,
-  );
+  const entries: StudyMenuEntry[] = [];
+  const add = (key: string, onPress: () => void, badge?: string) => entries.push({ key, label: t(key), onPress, badge });
 
   add(m.listKey, () => nav.navigate('WordList', { view: kubun, mode: 'study' })); // 辞書リスト(土台)
   if (kubun === 'grammar') {
@@ -57,7 +52,7 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
     add('cards.produce', () => nav.navigate('WordDrill', { kind: 'vProduce' }));       // 語彙パズル(産出)
   }
   if (kubun === 'kanji') {
-    add('cards.radical_lessons', () => nav.navigate('RadicalLessons'));
+    add('cards.radical_lessons', () => nav.navigate('RadicalLessons'), t('cards.new_feature'));
     // 漢字の面=4面(読み/意味/聞き取り/形)。認識テストは意味/読みを別ボタンに分離(ユーザー方針2026-08-26)。
     // 表示順(ユーザー方針2026-08-26): リスト→書き取り(練習)→ドリルを難易度の易しい順(意味→読み→形→聞き取り)。
     // 書き取りは「練習」＝面に非計上(手書き産出の練習ツール)。★/SRSはKakitori側で従来どおり記録。
@@ -68,41 +63,33 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
     add('cards.listening', () => nav.navigate('ListeningQuiz', { kind: 'kanji' })); // ④聞き取り(難)
   }
 
+  const tier = t('home.coverTier' + badgeTierIndex(pct));
   return (
-    <View style={s.card}>
-      <View style={s.cardHead}>
-        <View style={s.badge}><Text style={s.badgeTxt}>{m.emoji}</Text></View>
-        <Text style={s.cardTitle}>{t(m.labelKey)}</Text>
-        <Pressable style={s.covBadgeWrap} onPress={() => setCollPct(pct)}>
-          <Badge set={badgeSet} metric="cover" pct={pct} size={54} />
-          <Text style={s.covTierName}>{t('home.coverTier' + badgeTierIndex(pct))}</Text>
-        </Pressable>
-      </View>
-      <View style={s.covBarRow}>
-        <View style={s.covTrack}><View style={[s.covFill, { width: `${pct}%`, backgroundColor: c.blue }]} /></View>
-        <Text style={s.covFrac}>{b.learned}/{b.total}</Text>
-      </View>
-
-      {entries}
+    <>
+      <StudyMenuCard
+        title={t(m.labelKey)}
+        summary={
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`${tier} · ${b.learned}/${b.total}`}
+            onPress={() => setCollPct(pct)}
+            style={styles.progress}
+          >
+            <Badge set={badgeSet} metric="cover" pct={pct} size={28} />
+            <View style={styles.progressText}>
+              <Text style={{ color: c.ink2, fontSize: 11, fontWeight: '700' }}>{b.learned}/{b.total}</Text>
+              <Text style={{ color: c.mute, fontSize: 10 }}>{tier}</Text>
+            </View>
+          </Pressable>
+        }
+        entries={entries}
+      />
       <BadgeCollection visible={collPct !== null} onClose={() => setCollPct(null)} set={badgeSet} metric="cover" pct={collPct} />
-    </View>
+    </>
   );
 }
 
-const makeStyles = (c: ThemeColors) => StyleSheet.create({
-  card: { ...shadow(1), backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.sm },
-  cardHead: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
-  badge: { width: 44, height: 44, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center', backgroundColor: c.blueLight },
-  badgeTxt: { color: c.blueDark, fontSize: ty.h2, fontWeight: '800' },
-  cardTitle: { flex: 1, fontSize: ty.h2, fontWeight: '800', color: c.ink, letterSpacing: 0.5 },
-  covBadgeWrap: { width: 64, alignItems: 'center' },
-  covTierName: { fontSize: 9, color: c.mute, fontWeight: '700', marginTop: 2, textAlign: 'center' },
-  covBarRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  covTrack: { flex: 1, height: 8, borderRadius: 4, backgroundColor: c.bgSoft, overflow: 'hidden' },
-  covFill: { height: 8, borderRadius: 4 },
-  covFrac: { fontSize: ty.small, fontWeight: '700', color: c.ink2, minWidth: 56, textAlign: 'right' },
-  linkBtn: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md },
-  linkTxt: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
-  chevron: { fontSize: 24, color: c.trace, fontWeight: '700' },
-  pressed: { backgroundColor: c.bgSoft, opacity: 0.85 },
+const styles = StyleSheet.create({
+  progress: { flexDirection: 'row', alignItems: 'center', minHeight: 44, gap: 4, flexShrink: 1 },
+  progressText: { flexShrink: 1 },
 });

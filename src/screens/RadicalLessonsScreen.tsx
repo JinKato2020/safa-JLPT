@@ -26,7 +26,7 @@ export default function RadicalLessonsScreen() {
   const t = useT();
   const uiLang = useUiLang();
   const level = useAppState().settings.level;
-  const [language] = useState(uiLang === 'ja' ? 'ja' : 'en');
+  const language = uiLang;
   
   const [template, setTemplate] = useState<string>();
   const [failed, setFailed] = useState(false);
@@ -58,7 +58,9 @@ export default function RadicalLessonsScreen() {
           AsyncStorage.getItem(PROGRESS_KEY).catch(() => null),
         ]);
         if (!asset.localUri) throw new Error('Missing lesson asset');
-        const html = await cachedRadicalCourse() ?? await new File(asset.localUri).text();
+        const cached = await cachedRadicalCourse();
+        // 古いOTA教材は日英のみで表示切り替えボタンもあるため、ローカライズ対応版を使う。
+        const html = cached?.includes('const RADICAL_LOCALES =') ? cached : await new File(asset.localUri).text();
         void syncRadicalCourse();
         if (!active) return;
         try { completed.current = { ...JSON.parse(saved ?? '{}'), ...completed.current }; } catch { /* keep current progress */ }
