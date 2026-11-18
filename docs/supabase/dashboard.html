@@ -56,7 +56,13 @@
   /* 利用者一覧：左側(ID/メール〜状態)を固定して横スクロール。leftはJS(freezeCols)で実測して設定 */
   #tDevices{ border-collapse:separate; border-spacing:0; }
   #tDevices .frz{ position:sticky; z-index:2; background:var(--card); }
+  .usage-legend{ display:flex; align-items:center; flex-wrap:wrap; gap:5px 8px; margin:0 0 8px; color:var(--sub); font-size:12px; }
+  .usage-legend span{ border-radius:4px; padding:2px 7px; color:#1d392c; }
+  .usage-low{ background:#eff7f0; }
+  .usage-medium{ background:#d8eedc; }
+  .usage-high{ background:#b2dcb9; font-weight:700; }
   #tContentUsage{ min-width:600px; }
+  #tContentUsage td[class*="usage-"]{ color:#1d392c; }
   #tContentUsage tbody th{ color:var(--ink); font-size:13px; font-weight:500; }
   #tContentUsage .level-start{ border-left:1px solid var(--line); }
   #tContentUsage tbody + tbody tr:first-child > *{ border-top:2px solid var(--line); }
@@ -256,6 +262,9 @@
 
   <section>
     <h2>コンテンツ利用 <span class="note">直近30日。学習コンテンツ順に、N5・N4・N3の利用者数と開いた回数を表示します。</span></h2>
+    <p class="usage-legend">各レベルの最多利用者数に対する割合
+      <span class="usage-low">25%以上</span><span class="usage-medium">50%以上</span><span class="usage-high">75%以上</span>
+    </p>
     <div class="scroll"><table id="tContentUsage"></table></div>
   </section>
 
@@ -628,9 +637,24 @@ const OPTIONAL_CONTENT = [
 function renderContentUsage(rows){
   const lookup = new Map(rows.map(row => [row.content + '/' + row.level, row]));
   const count = (value, unit) => Number(value ?? 0).toLocaleString('ja-JP') + unit;
+  const peak = Object.fromEntries(CONTENT_LEVELS.map(level => [level, 0]));
   const sections = [...CONTENT_SECTIONS];
   const supplemental = OPTIONAL_CONTENT.filter(([key]) => CONTENT_LEVELS.some(level => lookup.has(key + '/' + level)));
   if (supplemental.length) sections.splice(sections.length - 1, 0, supplemental);
+  for (const [key] of sections.flat()) {
+    for (const level of CONTENT_LEVELS) {
+      const users = Number(lookup.get(key + '/' + level)?.users ?? 0);
+      peak[level] = Math.max(peak[level], users);
+    }
+  }
+  const demandClass = (users, level) => {
+    if (!peak[level]) return '';
+    const share = Number(users ?? 0) / peak[level];
+    if (share >= 0.75) return ' usage-high';
+    if (share >= 0.5) return ' usage-medium';
+    if (share >= 0.25) return ' usage-low';
+    return '';
+  };
   const head = '<thead><tr><th scope="col" rowspan="2">学習コンテンツ</th>'
     + CONTENT_LEVELS.map(level => `<th class="grp" scope="colgroup" colspan="2">${level}</th>`).join('')
     + '</tr><tr>' + CONTENT_LEVELS.map(() => '<th class="num level-start" scope="col">利用者数</th><th class="num" scope="col">開いた回数</th>').join('')
@@ -638,7 +662,8 @@ function renderContentUsage(rows){
   const body = sections.map(section => '<tbody>' + section.map(([key, label]) => {
     const cells = CONTENT_LEVELS.map(level => {
       const usage = lookup.get(key + '/' + level);
-      return `<td class="num level-start">${count(usage?.users, '人')}</td><td class="num">${count(usage?.opens, '回')}</td>`;
+      const color = demandClass(usage?.users, level);
+      return `<td class="num level-start${color}">${count(usage?.users, '人')}</td><td class="num${color}">${count(usage?.opens, '回')}</td>`;
     }).join('');
     return `<tr><th scope="row">${esc(label)}</th>${cells}</tr>`;
   }).join('') + '</tbody>').join('');

@@ -59,6 +59,7 @@ test('content usage shows one row per menu in fixed order with N5, N4, N3 pairs'
     {content:'exam_writing', level:'N4', users:'20', opens:'40'},
     {content:'kanji_writing', level:'N4', users:'9', opens:'99'},
     {content:'dictionary_vocab', level:'N5', users:'2', opens:'10'},
+    {content:'radicals', level:'N4', users:'10', opens:'13'},
   ]);
   const headers = [...table.innerHTML.matchAll(/scope="colgroup" colspan="2">(N[345])/g)].map(m => m[1]);
   assert.deepEqual(headers, ['N5', 'N4', 'N3']);
@@ -74,7 +75,12 @@ test('content usage shows one row per menu in fixed order with N5, N4, N3 pairs'
   const cells = row => [...row[2].matchAll(/<td[^>]*>([^<]+)/g)].map(m => m[1]);
   assert.deepEqual(cells(rows[0]), ['1人', '100回', '0人', '0回', '3人', '30回']);
   assert.deepEqual(cells(rows[1]), ['0人', '0回', '20人', '40回', '0人', '0回']);
-  assert.deepEqual(cells(rows.find(row => row[1] === '辞書：語彙')), ['2人', '10回', '0人', '0回', '0人', '0回']);
+  const dictionary = rows.find(row => row[1] === '辞書：語彙');
+  assert.deepEqual(cells(dictionary), ['2人', '10回', '0人', '0回', '0人', '0回']);
+  assert.match(rows[0][2], /usage-medium">1人<\/td><td class="num usage-medium">100回/);
+  assert.match(rows[0][2], /class="num level-start">0人/);
+  assert.match(dictionary[2], /usage-high">2人/);
+  assert.match(rows.find(row => row[1] === '練習：書き取り')[2], /usage-low">9人/);
 });
 
 test('dashboard restores saved settings even when persistent storage is blocked', () => {
