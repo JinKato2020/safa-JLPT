@@ -59,15 +59,17 @@ test('content usage ranks by user count, then by screen opens', () => {
     },
   });
   render([
-    { content: 'PosterAudio', level: 'N4', users: '5', opens: '90' },
-    { content: 'Mock:mini', level: 'N5', users: '12', opens: '14' },
-    { content: '<custom>', level: 'N3', users: '12', opens: '20' },
+    { content: 'poster', level: 'N4', users: '5', opens: '90' },
+    { content: 'mock', level: 'N5', users: '12', opens: '14' },
+    { content: 'radicals', level: 'N3', users: '12', opens: '20' },
   ]);
   assert.deepEqual(table.rows, [
-    ['&lt;custom>', 'N3', '12', '20'],
-    ['ミニ模試', 'N5', '12', '14'],
-    ['ポスター朗読画面', 'N4', '5', '90'],
+    ['漢字：部首', 'N3', '12', '20'],
+    ['模試', 'N5', '12', '14'],
+    ['語彙：ポスター朗読', 'N4', '5', '90'],
   ]);
+  render([{ content: 'RadicalLesson:wood', level: 'N5', users: 1, opens: 3 }]);
+  assert.match(table.innerHTML, /集計の更新が必要/);
 });
 
 test('dashboard restores saved settings even when persistent storage is blocked', () => {
