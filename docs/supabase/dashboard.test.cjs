@@ -59,18 +59,26 @@ test('content usage groups mock, practice and other, then ranks by users and ope
     },
   });
   render([
+    { content: 'exam_reading', level: 'N4', users: '20', opens: '35' },
+    { content: 'exam_writing', level: 'N4', users: '2', opens: '12' },
+    { content: 'kanji_writing', level: 'N4', users: '20', opens: '30' },
     { content: 'ai_coach', level: 'N4', users: '100', opens: '100' },
+    { content: 'kanji_list', level: 'N4', users: '2', opens: '2' },
     { content: 'kanji_form', level: 'N4', users: '12', opens: '19' },
-    { content: 'poster', level: 'N4', users: '5', opens: '90' },
+    { content: 'poster', level: 'N4', users: '12', opens: '18' },
     { content: 'mock', level: 'N5', users: '12', opens: '14' },
     { content: 'radicals', level: 'N3', users: '12', opens: '20' },
   ]);
   assert.deepEqual(table.rows, [
-    ['模試問題', '模試', 'N5', '12', '14'],
-    ['練習問題', '漢字：部首', 'N3', '12', '20'],
-    ['練習問題', '漢字：似た字の見分け', 'N4', '12', '19'],
-    ['練習問題', '語彙：ポスター朗読', 'N4', '5', '90'],
-    ['その他', 'AIコーチ', 'N4', '100', '100'],
+    ['模試問題：表記', 'N4', '2', '12'],
+    ['模試問題：読み', 'N4', '20', '35'],
+    ['模試問題：模試（フル・ミニ）', 'N5', '12', '14'],
+    ['練習問題：漢字リスト', 'N4', '2', '2'],
+    ['練習問題：部首', 'N3', '12', '20'],
+    ['練習問題：書き取り', 'N4', '20', '30'],
+    ['練習問題：漢字：似た字の見分け', 'N4', '12', '19'],
+    ['練習問題：語彙：ポスター朗読', 'N4', '12', '18'],
+    ['その他：AIコーチ', 'N4', '100', '100'],
   ]);
   render([{ content: 'RadicalLesson:wood', level: 'N5', users: 1, opens: 3 }]);
   assert.match(table.innerHTML, /集計の更新が必要/);

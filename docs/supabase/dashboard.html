@@ -555,7 +555,7 @@ async function loadCore(){
 async function loadAnalysis(){
   const R = await grabAll({
     daily:       api(_url,_key,'v_admin_daily'),
-    contentUsage: api(_url,_key,'v_admin_content_usage'),
+    contentUsage: api(_url,_key,'v_admin_learning_content_usage'),
     facetAcc:    api(_url,_key,'v_admin_facet_acc'),
     scoreDist:   api(_url,_key,'v_admin_score_dist'),
     mockDist:    api(_url,_key,'v_admin_mock_dist'),
@@ -576,8 +576,9 @@ async function loadAnalysis(){
 }
 
 const CONTENT_NAMES = {
+  exam_writing:'表記', exam_reading:'読み', kanji_list:'漢字リスト',
   kanji_reading:'漢字：読み', kanji_meaning:'漢字：意味', kanji_form:'漢字：似た字の見分け',
-  kanji_writing:'漢字：書き取り', kanji_listening:'漢字：聞き取り', radicals:'漢字：部首',
+  kanji_writing:'書き取り', kanji_listening:'漢字：聞き取り', radicals:'部首',
   vocab_reading:'語彙：読み', vocab_writing:'語彙：表記', vocab_meaning:'語彙：意味',
   vocab_produce:'語彙：意味から単語', vocab_listening:'語彙：聞き取り', vocab_context:'語彙：文脈規定',
   vocab_synonym:'語彙：言い換え', vocab_usage:'語彙：用法',
@@ -587,7 +588,7 @@ const CONTENT_NAMES = {
   listening_task:'聴解：課題理解', listening_point:'聴解：ポイント理解', listening_outline:'聴解：概要理解',
   listening_expression:'聴解：発話表現', listening_response:'聴解：即時応答',
   poster:'語彙：ポスター朗読', flashcard:'学習カードの復習', review:'試験問題の復習',
-  expression:'会話と表現', mock:'模試',
+  expression:'会話と表現', mock:'模試（フル・ミニ）',
   ai_coach:'AIコーチ', dictionary:'辞書', my_words:'私の単語帳',
   kanji_detail:'漢字：詳しい解説', grammar_note:'文法：詳しい解説', study_list:'漢字・語彙・文法の学習リスト',
   first_lesson:'初回学習', general_quiz:'試験問題：総合', general_drill:'練習問題：総合',
@@ -597,8 +598,17 @@ const CONTENT_NAMES = {
 
 const CONTENT_GROUPS = ['模試問題', '練習問題', 'その他'];
 const OTHER_CONTENT = new Set(['ai_coach', 'dictionary', 'my_words', 'kanji_detail', 'grammar_note', 'study_list']);
+const EXAM_CONTENT = new Set(['exam_writing', 'exam_reading', 'mock', 'vocab_context', 'vocab_synonym',
+  'vocab_usage', 'grammar_form', 'grammar_order', 'grammar_passage', 'reading_short', 'reading_medium',
+  'reading_long', 'reading_info', 'listening_task', 'listening_point', 'listening_outline', 'listening_expression',
+  'listening_response', 'general_quiz', 'reading_general', 'listening_general']);
+const PINNED_CONTENT = ['exam_writing', 'exam_reading', 'kanji_list', 'radicals', 'kanji_writing'];
+function contentOrder(content) {
+  const index = PINNED_CONTENT.indexOf(content);
+  return index < 0 ? PINNED_CONTENT.length : index;
+}
 function contentGroup(content) {
-  if (content === 'mock') return 0;
+  if (EXAM_CONTENT.has(content)) return 0;
   return OTHER_CONTENT.has(content) ? 2 : 1;
 }
 
@@ -609,12 +619,13 @@ function renderContentUsage(rows){
     return;
   }
   const sorted = [...rows].sort((a,b) => contentGroup(a.content)-contentGroup(b.content)
+    || contentOrder(a.content)-contentOrder(b.content)
     || b.users-a.users || b.opens-a.opens || CONTENT_NAMES[a.content].localeCompare(CONTENT_NAMES[b.content], 'ja')
     || a.level.localeCompare(b.level));
   simpleTbl($('tContentUsage'),
-    [{label:'区分'},{label:'コンテンツ'},{label:'レベル'},{label:'利用者数',num:1},{label:'開いた回数',num:1}],
+    [{label:'学習コンテンツ'},{label:'レベル'},{label:'利用者数',num:1},{label:'開いた回数',num:1}],
     sorted,
-    [r=>CONTENT_GROUPS[contentGroup(r.content)], r=>esc(CONTENT_NAMES[r.content]), r=>esc(r.level),
+    [r=>esc(CONTENT_GROUPS[contentGroup(r.content)] + '：' + CONTENT_NAMES[r.content]), r=>esc(r.level),
      r=>Number(r.users).toLocaleString('ja-JP'), r=>Number(r.opens).toLocaleString('ja-JP')]);
 }
 
