@@ -1,13 +1,16 @@
+import StudyChoiceList from './StudyChoiceList';
+import AnswerFooter from './AnswerFooter';
+import { StudySceneBanner, useStudyColors } from './StudyPresentation';
 // 情報検索(joho)の図表主体プレイヤー。N5/N4/N3 共通。画像を使わず軽量な figure データを
 // ネイティブ描画。公式3型に対応: route=経路図 / card=ポスター表 / notice=掲示板 / table=グリッド。
 // 見た目は「掲示物風」＝和紙色の紙＋画びょう＋印刷罫の表＋※お知らせ枠(2026-08-21改修)。
 //   紙(figureCard=keiji)はダークでも紙色で固定＝実物の掲示に寄せる。周囲UI(設問/選択肢/解説)はテーマ追従。
 // 選択肢タップで即採点→解説→「次へ」。全テキストは RubyText＋レベルゲート(同級以上のみルビ)。
 import { useState } from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import RubyText from './RubyText';
 import { type Figure, type FigureBlock, type FigureTable } from '../quiz/passageSet';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
 type Props = {
@@ -28,7 +31,7 @@ type Props = {
 
 export function InfoSearchFigure(props: Props) {
   const { title, situation, figure, question, choices, answer, explain, rubyGate, isLast, mock, onGraded, onNext } = props;
-  const c = useColors();
+  const c = useStudyColors(!props.mock);
   const s = makeStyles(c);
   const t = useT();
   const [picked, setPicked] = useState<number | null>(null);
@@ -153,7 +156,9 @@ export function InfoSearchFigure(props: Props) {
   const legacyTables = figure?.tables ?? [];
 
   return (
+    <View style={{ flex: 1 }}>
     <ScrollView contentContainerStyle={s.body}>
+      {!mock && <StudySceneBanner />}
       {title ? R(title, s.title) : null}
 
       {situation ? (
@@ -186,24 +191,8 @@ export function InfoSearchFigure(props: Props) {
 
       {question ? R(question, s.question) : null}
 
-      <View style={s.choices}>
-        {choices.map((ch, idx) => {
-          const isAns = idx === answer;
-          const isPicked = idx === picked;
-          return (
-            <Pressable
-              key={idx}
-              style={[s.choice, showFeedback && isAns && s.choiceOk, showFeedback && isPicked && !isAns && s.choiceNg, !showFeedback && isPicked && s.choicePicked]}
-              onPress={() => pick(idx)}
-              disabled={locked}
-            >
-              <Text style={s.choiceNum}>{idx + 1}</Text>
-              <View style={s.choiceTxtWrap}>{R(ch, s.choiceTxt)}</View>
-              {showFeedback && isAns ? <Text style={s.mark}>✓</Text> : null}
-            </Pressable>
-          );
-        })}
-      </View>
+      <StudyChoiceList study={!mock} choices={choices} selectedIndex={picked} answerIndex={answer}
+        revealed={showFeedback} disabled={locked} onSelect={pick} renderChoice={(ch, _index, textStyle) => R(ch, textStyle)} />
 
       {revealed ? (
         <>
@@ -212,14 +201,14 @@ export function InfoSearchFigure(props: Props) {
               {explain.split('\n').map((line, i) => (line ? R(line, s.explainText, { key: i }) : <View key={i} style={s.gap} />))}
             </View>
           ) : null}
-          <Pressable style={s.nextBtn} onPress={handleNext}>
-            <Text style={s.nextTxt}>{isLast ? t('passage.toResult') : t('passage.next')}</Text>
-          </Pressable>
+
         </>
       ) : (
         <Text style={s.hint}>{t('passage.hint')}</Text>
       )}
     </ScrollView>
+    {revealed && <AnswerFooter study={!mock} onNext={handleNext} nextKind={isLast ? 'result' : 'next'} />}
+    </View>
   );
 }
 
@@ -305,18 +294,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   footer: { fontSize: ty.tiny, color: FAINT_P, textAlign: 'right', marginTop: spacing.xs },
 
   question: { fontSize: ty.body, fontWeight: '700', color: c.ink, marginTop: spacing.xs },
-  choices: { gap: spacing.sm },
-  choice: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md },
-  choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
-  choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
-  choicePicked: { borderColor: c.blue, backgroundColor: c.blueLight }, // 模試中=選んだ肢を中立色で
-  choiceNum: { fontSize: ty.body, fontWeight: '800', color: c.mute, width: 18, textAlign: 'center' },
-  choiceTxtWrap: { flex: 1 },
-  choiceTxt: { fontSize: ty.body, color: c.ink2 },
-  mark: { fontSize: ty.body, color: c.green, fontWeight: '800' },
   explainCard: { backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: 2 },
   explainText: { fontSize: ty.small, color: c.ink2, lineHeight: 24 },
-  nextBtn: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.sm },
-  nextTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
 });

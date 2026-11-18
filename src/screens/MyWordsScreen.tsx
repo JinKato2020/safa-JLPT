@@ -8,7 +8,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, shadow, type ThemeColors } from '../theme';
+import { useStudyColors, studyPaper, StudySceneBanner } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import type { SaveRef } from '../store/state';
 import { VOCAB, GRAMMAR, KANJI, meaningIn } from '../data';
@@ -25,7 +26,7 @@ export default function MyWordsScreen() {
   const nav = useNavigation<Nav>();
   const state = useAppState();
   const { addToMyList } = useAppActions();
-  const c = useColors();
+  const c = useStudyColors();
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
 
@@ -78,7 +79,7 @@ export default function MyWordsScreen() {
   );
 
   return (
-    <SafeAreaView style={s.screen} edges={['top']}>
+    <SafeAreaView style={s.screen} edges={['top', 'bottom']}>
       <View style={s.top}>
         <Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>✕</Text></Pressable>
         <Text style={s.title}>{t('mywords.title')}</Text>
@@ -95,7 +96,7 @@ export default function MyWordsScreen() {
               onPress={() => setView(k)}
               style={[s.tab, on ? { backgroundColor: accentOf(k), borderColor: accentOf(k) } : null]}
             >
-              <Text style={[s.tabTxt, on && s.tabTxtOn]} numberOfLines={1}>{bookTitle(k)}</Text>
+              <Text style={[s.tabTxt, on && s.tabTxtOn]} >{bookTitle(k)}</Text>
               <Text style={[s.tabCount, on ? s.tabCountOn : { color: accentOf(k) }]}>{counts[k]}</Text>
             </Pressable>
           );
@@ -106,6 +107,7 @@ export default function MyWordsScreen() {
         <View style={s.listEmpty}><Text style={s.emptyTxt}>{t('mywords.book_empty')}</Text></View>
       ) : (
         <FlatList
+          ListHeaderComponent={<View style={{ marginBottom: spacing.md }}><StudySceneBanner /></View>}
           data={rows}
           keyExtractor={(r) => `${r.ref.type}:${r.ref.id}`}
           contentContainerStyle={s.list}
@@ -121,15 +123,15 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   screen: { flex: 1, backgroundColor: c.bg },
   top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingVertical: spacing.md },
   close: { fontSize: ty.h2, color: c.ink2, width: 30 },
-  title: { fontSize: ty.h2, fontWeight: '800', color: c.ink, letterSpacing: 1 },
+  title: { flex: 1, textAlign: 'center', fontSize: ty.h2, fontWeight: '800', color: c.ink, letterSpacing: 1 },
 
   // 上部切り替えボタン
   tabs: { flexDirection: 'row', gap: spacing.sm, paddingHorizontal: spacing.lg, marginBottom: spacing.md },
   tab: {
-    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6,
+    flex: 1, minWidth: 0, alignItems: 'center', justifyContent: 'center', gap: 4,
     paddingVertical: spacing.sm, borderRadius: radius.pill, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface,
   },
-  tabTxt: { fontSize: ty.small, fontWeight: '800', color: c.ink2 },
+  tabTxt: { textAlign: 'center', fontSize: ty.small, fontWeight: '800', color: c.ink2 },
   tabTxtOn: { color: '#fff' },
   tabCount: { fontSize: ty.small, fontWeight: '800' },
   tabCountOn: { color: '#fff' },
@@ -138,7 +140,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   list: { paddingHorizontal: spacing.lg, paddingBottom: spacing.xl },
   listEmpty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl },
   emptyTxt: { fontSize: ty.body, color: c.mute, textAlign: 'center' },
-  row: { ...shadow(1), flexDirection: 'row', alignItems: 'center', backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, overflow: 'hidden', paddingRight: spacing.md },
+  row: { ...shadow(1), flexDirection: 'row', alignItems: 'center', ...studyPaper(c), overflow: 'hidden', paddingRight: spacing.md },
   accentBar: { width: 5, alignSelf: 'stretch' },
   rowText: { flex: 1, paddingVertical: spacing.md, paddingLeft: spacing.md },
   rowTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },

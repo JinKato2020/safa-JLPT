@@ -31,6 +31,8 @@ test('expanded offline course renders every lesson with native dictionary-audio/
   assert.equal((await page.$$('.kanji-card')).length,count);
   assert.equal((await page.$$('.kanji-index button')).length,count);
   assert.equal((await page.$$('.card-example [data-word]')).length,count);
+  const rareCount=await page.evaluate(()=>current.cards.flatMap(c=>c.parts).reduce((n,p)=>n+Array.from(p[0]).filter(c=>c.codePointAt(0)>0xffff).length,0));
+  assert.equal((await page.$$('.decomposition .rare-glyph path')).length,rareCount,id+' has portable component outlines');
   const source=await page.evaluate(()=>current.radicalSource);
   if(source) assert.equal(await page.$eval('.radical-source',e=>e.href),source);
   await page.waitForFunction(()=>document.querySelector('.hero-art').naturalWidth>0);
@@ -56,6 +58,21 @@ test('expanded offline course renders every lesson with native dictionary-audio/
  await page.evaluate(()=>location.hash='human');await page.waitForSelector('.lesson-grid');assert.equal(await page.evaluate(()=>sent.some(e=>e.type==='view'&&e.level==='N5')),false);
  assert(await page.evaluate(()=>sent.some(e=>e.type==='stop-audio')));assert.deepEqual(errors,[]);
  }finally{await browser.close();}
+});
+
+test('every rare course character has an offline SVG outline rather than a device-font dependency',()=>{
+ const vm=require('node:vm');
+ const source=fs.readFileSync(path.join(__dirname,'../docs/previews/radicals-lessons.js'),'utf8');
+ const glyphs=vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../docs/previews/radicals-glyphs.js'),'utf8')+';RADICAL_GLYPHS');
+ const chars=new Set(Array.from(source).filter(c=>c.codePointAt(0)>=0x20000&&c.codePointAt(0)<=0x323af));
+ assert(chars.has('𠮠'),'the reported missing component is covered');
+ for(const c of chars){assert.match(glyphs[c]?.path??'',/^M/,'outline for '+c);assert.match(glyphs[c].viewBox,/^0 0 \d+ \d+$/);}
+ const renderSource=fs.readFileSync(path.join(__dirname,'../docs/previews/radicals-n5.js'),'utf8');
+ const context=vm.createContext({RADICAL_LESSONS:[],RADICAL_GLYPHS:glyphs,window:{},document:{getElementById:()=>null},URLSearchParams,location:{search:''},localStorage:{getItem:()=>null}});
+ // Exercise the real renderer helpers without registering the page's navigation handlers.
+ vm.runInContext(renderSource.slice(0,renderSource.indexOf('function renderMenu()')),context);
+ const markup=vm.runInContext('glyphMarkup("𠮠＋刂 <script>")',context);
+ assert.match(markup,/<svg[^>]+aria-label="𠮠"/);assert.match(markup,/<path /);assert.match(markup,/&lt;script&gt;/);assert(!markup.includes('<script>'));
 });
 
 test('expanded family data has sourced examples and the same exact audio mapping as the dictionary',()=>{

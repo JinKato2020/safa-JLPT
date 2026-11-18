@@ -2,7 +2,7 @@
 // フロー: 各字を なぞり(外形+アニメ)→見ながら書く→見ないで書く の3段。前進は全て手動[次へ]
 //   (自動前進しない=本人のペース。見ないでは[次へ]まで何度でも書き直せる)。[スキップ]で字ごと飛ばし。
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ActivityIndicator, Platform, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ActivityIndicator, Platform, ScrollView, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { WebView, type WebViewMessageEvent } from 'react-native-webview';
@@ -10,9 +10,12 @@ import * as Speech from 'expo-speech';
 import * as Haptics from 'expo-haptics';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
+import { useStudyColors, studyPaper, StudySceneBanner } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import { kanjiListFor, kanjiInfo } from '../kakitori/list';
+import { kakitoriReadingLine } from '../kakitori/prompt';
+import { meaningIn } from '../data';
 import { romajiOf, KANA_ROWS, kanaRowChars } from '../words/kana';
 import { buildEngineHtml } from '../kakitori/engineHtml';
 import { fetchCharData } from '../kakitori/charData';
@@ -25,7 +28,7 @@ import { playVocab, playKanjiRep } from '../data/vocabAudio';
 import { vocabIdForWord } from '../words/vocabIndex';
 import type { RootStackParamList } from '../navigation/types';
 import type { Level } from '../engine/engine';
-import { useT } from '../i18n';
+import { useT, meaningL1 } from '../i18n';
 import { useSessionGate } from '../pro/useSessionGate';
 import LimitReachedSheet from '../pro/LimitReachedSheet';
 import { sendEvent } from '../telemetry/telemetry';
@@ -34,10 +37,6 @@ const STEP_KEYS = ['kakitori.step_trace', 'kakitori.step_guided', 'kakitori.step
 const SET_SIZE = 5; // 1セット=5字。5字を練習(3段)→同じ5字をヒント無しテスト→セッション終了。
 const KOME_SIDE = 64; // お手本の米マスセルの一辺(px)。
 
-function readingLine(char: string): string {
-  const arr = (levelReadings as Record<string, Array<{ reading: string }>>)[char];
-  return arr?.slice(0, 3).map((r) => r.reading).join('・') ?? '';
-}
 function exampleWord(char: string): string {
   const arr = (levelReadings as unknown as Record<string, Array<{ examples?: [string, string][] }>>)[char];
   const ex = arr?.find((r) => r.examples && r.examples.length)?.examples?.[0];
@@ -68,9 +67,11 @@ export default function KakitoriScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'Kakitori'>>();
   const state = useAppState();
   const { recordKakitori } = useAppActions();
-  const c = useColors();
+  const c = useStudyColors();
   const t = useT();
   const s = makeStyles(c);
+  const { width } = useWindowDimensions();
+  const canvasSize = Math.min(280, Math.max(160, width - spacing.lg * 2));
   const webRef = useRef<WebView>(null);
   const html = useMemo(() => buildEngineHtml(), []);
 
@@ -111,6 +112,9 @@ export default function KakitoriScreen() {
   const done = !free && turn === 'test' && idx >= chars.length; // テスト5字完了で終了(自由練習は終了しない)。
   const char = idx < chars.length ? chars[idx] : '';
   const info = char ? kanjiInfo(char) : undefined;
+  const reading = isKana ? romajiOf(char) : kakitoriReadingLine(char);
+  const meaning = isKana ? t(script === 'hiragana' ? 'common.hiragana' : 'common.katakana')
+    : meaningIn(char, meaningL1(state.settings)) || info?.meaning || '';
   // 実効ステップ(WebViewへ渡す): 自由練習=freeStep / 学習ターン=選択中の書き方 / テストターン=見ないで(2)。
   const effStep = free ? freeStep : (turn === 'learn' ? learnMode : 2);
   const stars = char ? (state.kakitori?.[char]?.stars ?? 0) : 0;
@@ -130,7 +134,7 @@ export default function KakitoriScreen() {
     setLoading(true); setError(false);
     try {
       const data = await fetchCharData(ch);
-      inject(`KW.setColors(${JSON.stringify({ stroke: c.blue, outline: c.line, grid: c.mute, highlight: '#22c55e' })}); KW.setGrid(${JSON.stringify(grid)}); KW.setSpeed(${JSON.stringify(speed)}); KW.load(${JSON.stringify(ch)}, ${JSON.stringify(data)});`);
+      inject(`KW.setColors(${JSON.stringify({ stroke: c.ink, outline: c.line, grid: c.mute, highlight: c.green })}); KW.setGrid(${JSON.stringify(grid)}); KW.setSpeed(${JSON.stringify(speed)}); KW.load(${JSON.stringify(ch)}, ${JSON.stringify(data)});`);
       if (free) inject(`KW.setFreeStep(${st})`); else inject(`KW.setStep(${st})`);
       setLoading(false);
     } catch { setLoading(false); setError(true); }
@@ -151,8 +155,8 @@ export default function KakitoriScreen() {
     // 発話は curated 代表(自然)読みを優先。雨→あめ(×ウ「う」)。全612件がひらがな自然読みで音読み単発を回避。
     const rep = (kanjiDrillReps as Record<string, { reading: string }>)[ch]?.reading;
     if (rep) return rep;
-    const r = readingLine(ch);
-    if (r) return r.split('・')[0];
+    const r = kakitoriReadingLine(ch);
+    if (r) return r.split('・')[0].replace(/[（）]/g, '');
     const info = kanjiInfo(ch);            // 読み欠けは kanji.json の音/訓 先頭へフォールバック
     const on = (info?.on ?? '').split('、')[0].split('・')[0];
     const kun = (info?.kun ?? '').split('、')[0].split('.')[0];
@@ -228,7 +232,7 @@ export default function KakitoriScreen() {
 
   if (Platform.OS === 'web') {
     return (
-      <SafeAreaView style={s.c} edges={['top']}>
+      <SafeAreaView style={s.c} edges={['top', 'bottom']}>
         <View style={s.center}><Text style={s.doneEmoji}>✍️</Text><Text style={s.doneTxt}>{t('kakitori.web_only')}</Text>
           <Pressable style={s.doneBtn} onPress={() => nav.goBack()}><Text style={s.doneBtnTxt}>{t('kakitori.clear')}</Text></Pressable></View>
       </SafeAreaView>
@@ -236,7 +240,7 @@ export default function KakitoriScreen() {
   }
   if (done) {
     return (
-      <SafeAreaView style={s.c} edges={['top']}>
+      <SafeAreaView style={s.c} edges={['top', 'bottom']}>
         <View style={s.center}><Text style={s.doneEmoji}>🎉</Text><Text style={s.doneTxt}>{t('learntestsession.done_title')}</Text>
           <Pressable style={s.doneBtn} onPress={() => nav.goBack()}><Text style={s.doneBtnTxt}>{t('learntestsession.back_home')}</Text></Pressable></View>
       </SafeAreaView>
@@ -244,13 +248,14 @@ export default function KakitoriScreen() {
   }
 
   return (
-    <SafeAreaView style={s.c} edges={['top']}>
+    <SafeAreaView style={s.c} edges={['top', 'bottom']}>
       <View style={s.head}>
         <Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable>
         <Text style={s.count}>{idx + 1} / {chars.length}</Text>
         <Text style={s.stars}>{'★'.repeat(stars)}{'☆'.repeat(3 - stars)}</Text>
       </View>
-      <ScrollView contentContainerStyle={s.body}>
+      <ScrollView contentContainerStyle={s.body} stickyHeaderIndices={[isKana && !singleChar ? 2 : 1]}>
+        <View><StudySceneBanner inset={0} /></View>
         {isKana && !singleChar && (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.rowSel}>
             {KANA_ROWS.map((r) => (
@@ -260,15 +265,24 @@ export default function KakitoriScreen() {
             ))}
           </ScrollView>
         )}
-        <View style={s.infoRow}>
-          {/* お手本の文字は米マス(格子＋枠)の中に表示。見ないで段(effStep2)ではお手本を隠す=？。 */}
-          <KomeCell ch={effStep === 2 ? '？' : char} s={s} />
-          <View style={{ flex: 1 }}>
-            <Text style={s.infoReading}>{isKana ? romajiOf(char) : readingLine(char)}</Text>
-            <Text style={s.infoMeaning} numberOfLines={1}>{isKana ? t(script === 'hiragana' ? 'common.hiragana' : 'common.katakana') : (info?.meaning ?? '')}</Text>
+        <View style={s.infoSticky}>
+          <View style={s.infoCard}>
+            <View style={s.infoRow}>
+              <View testID="kakitori-reading" style={s.infoReadings}>
+                {reading.split('・').map((part, i) => <Text key={i} style={s.infoReading}>{i > 0 ? '・' : ''}{part}</Text>)}
+              </View>
+              <Pressable accessibilityRole="button" accessibilityLabel={t('worddrill.listen')} style={s.audioButton}
+                onPress={() => (isKana ? (Speech.stop(), Speech.speak(char, { language: 'ja-JP' })) : speak(char, { manual: true }))}>
+                <Ionicons name="headset-outline" size={26} color={c.blue} />
+              </Pressable>
+            </View>
+            <View style={s.infoRow}>
+              {/* 見ないで書く段では字形を隠す。読みと意味はヒントとして常に残す。 */}
+              <KomeCell ch={effStep === 2 ? '？' : char} s={s} />
+              <Text testID="kakitori-meaning" style={s.infoMeaning}>{meaning}</Text>
+            </View>
             {!isKana && !!exampleWord(char) && effStep !== 2 && <Text style={s.infoExample}>{t('kakitori.model')}: {exampleWord(char)}</Text>}
           </View>
-          <Pressable onPress={() => (isKana ? (Speech.stop(), Speech.speak(char, { language: 'ja-JP' })) : speak(char, { manual: true }))} hitSlop={10}><Ionicons name="headset-outline" size={26} color={c.blue} /></Pressable>
         </View>
 
         {/* 自由練習=3モード直接選択。ドリル/仮名=2ターン制。学習ターンは「なぞり/見て書く」をスイッチで選び、
@@ -299,7 +313,7 @@ export default function KakitoriScreen() {
           </View>
         )}
 
-        <View style={s.canvas}>
+        <View testID="kakitori-canvas" style={[s.canvas, { width: canvasSize, height: canvasSize }]}>
           <WebView ref={webRef} originWhitelist={['*']} source={{ html }} onMessage={onMessage}
             style={s.web} scrollEnabled={false} javaScriptEnabled domStorageEnabled />
           {loading && <View style={s.loader}><ActivityIndicator color={c.blue} /><Text style={s.loaderTxt}>{t('kakitori.loading_char')}</Text></View>}
@@ -342,7 +356,11 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   rowChipOn: { borderColor: c.blue, backgroundColor: c.blueLight },
   rowChipTxt: { fontSize: ty.body, fontWeight: '800', color: c.ink2 },
   rowChipTxtOn: { color: c.blueDark },
-  infoRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, paddingHorizontal: spacing.lg, marginTop: spacing.sm },
+  infoSticky: { backgroundColor: c.bg, paddingHorizontal: spacing.lg, paddingVertical: spacing.sm },
+  infoCard: { ...studyPaper(c), padding: spacing.sm + 4, gap: spacing.sm },
+  infoRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  infoReadings: { flex: 1, minWidth: 0, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' },
+  audioButton: { width: 40, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
   // お手本の米マスセル(枠＋縦横中心線＋2本の対角線)。文字はセル中央に重ねる。
   komeCell: { width: KOME_SIDE, height: KOME_SIDE, borderRadius: 6, borderWidth: 1.5, borderColor: c.line, backgroundColor: c.surface, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
   komeLineV: { position: 'absolute', left: KOME_SIDE / 2 - 0.5, top: 0, bottom: 0, width: 1, backgroundColor: c.mute, opacity: 0.4 },
@@ -351,8 +369,9 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   komeDiag1: { transform: [{ rotate: '45deg' }] },
   komeDiag2: { transform: [{ rotate: '-45deg' }] },
   komeChar: { fontSize: 38, fontWeight: '800', color: c.ink },
-  infoReading: { fontSize: ty.body, fontWeight: '700', color: c.ink }, infoMeaning: { fontSize: ty.small, color: c.mute },
-  infoExample: { fontSize: ty.small, color: c.blue }, speak: { fontSize: 26 },
+  infoReading: { fontSize: 20, lineHeight: 29, fontWeight: '800', color: c.blueDark },
+  infoMeaning: { flex: 1, fontSize: 17, lineHeight: 25, fontWeight: '700', color: c.ink },
+  infoExample: { fontSize: ty.small, lineHeight: 18, color: c.mute },
   dots: { flexDirection: 'row', justifyContent: 'center', gap: spacing.xl, marginTop: spacing.md },
   dotWrap: { alignItems: 'center', gap: 4 }, dot: { width: 12, height: 12, borderRadius: 6, backgroundColor: c.line },
   dotOn: { backgroundColor: c.blue }, dotLabel: { fontSize: ty.small, color: c.mute }, dotLabelOn: { color: c.blue, fontWeight: '800' },
@@ -365,7 +384,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   switchBtnOn: { backgroundColor: c.blue },
   switchTxt: { fontSize: ty.small, fontWeight: '800', color: c.ink2 },
   switchTxtOn: { color: '#fff' },
-  canvas: { alignSelf: 'center', width: SIZE, height: SIZE, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, overflow: 'hidden', marginTop: spacing.md },
+  canvas: { alignSelf: 'center', borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, overflow: 'hidden', marginTop: spacing.md },
   web: { flex: 1, backgroundColor: 'transparent' },
   loader: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center', gap: spacing.sm, backgroundColor: c.surface },
   loaderTxt: { fontSize: ty.small, color: c.mute },
@@ -377,4 +396,3 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   actGhost: { backgroundColor: c.bgSoft, borderWidth: 1, borderColor: c.line }, actGhostTxt: { fontSize: ty.body, fontWeight: '800', color: c.mute },
   actPrimary: { backgroundColor: c.blue }, actPrimaryTxt: { fontSize: ty.body, fontWeight: '800', color: '#fff' },
 });
-const SIZE = 320;

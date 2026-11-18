@@ -1,3 +1,8 @@
+import StudyAudioButton from '../components/StudyAudioButton';
+import { useStudyColors } from '../components/StudyPresentation';
+import StudyLayout from '../components/StudyLayout';
+import StudyChoiceList from '../components/StudyChoiceList';
+import { StudyInstruction } from '../components/StudyPrompt';
 // 聞き取りドリル(モーダル)。学習(10件予習)→テスト(音声4択)→スコア。語彙=意味/漢字=字。
 import { useMemo, useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
@@ -7,7 +12,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import * as Speech from 'expo-speech';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { type SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
@@ -39,7 +44,7 @@ export default function ListeningQuizScreen() {
   const kind = route.params?.kind ?? 'vocab';
   const state = useAppState();
   const actions = useAppActions();
-  const c = useColors();
+  const c = useStudyColors();
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
   const l1 = meaningL1(state.settings);
@@ -108,9 +113,9 @@ export default function ListeningQuizScreen() {
 
   if (phase === 'study') {
     return (
-      <SafeAreaView style={s.c} edges={['top']}>
-        <View style={s.head}><Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable><Text style={s.headTitle}>{t(kind === 'vocab' ? 'listening2.vocab_title' : 'listening2.kanji_title')}</Text><View style={{ width: 30 }} /></View>
-        <ScrollView contentContainerStyle={s.body}>
+      <StudyLayout title={t(kind === 'vocab' ? 'listening2.vocab_title' : 'listening2.kanji_title')} current={0} total={rows.length}
+        scrollKey="preview" onClose={() => nav.goBack()}
+        footer={<AnswerFooter study label={t('listening2.start_btn')} onNext={() => { setPhase('quiz'); setIdx(0); setPicked(null); }} />}>
           <Text style={s.studyH}>{t('listening2.study_title')}</Text>
           {rows.map((r) => {
             const inner = (
@@ -127,9 +132,7 @@ export default function ListeningQuizScreen() {
               <View key={r.key} style={s.studyRow}>{inner}</View>
             );
           })}
-          <Pressable style={s.cta} onPress={() => { setPhase('quiz'); setIdx(0); setPicked(null); }}><Text style={s.ctaTxt}>{t('listening2.start_btn')}</Text></Pressable>
-        </ScrollView>
-      </SafeAreaView>
+      </StudyLayout>
     );
   }
 
@@ -168,32 +171,16 @@ export default function ListeningQuizScreen() {
   const bigChoice = kind === 'kanji';
 
   return (
-    <SafeAreaView style={s.c} edges={['top']}>
-      <View style={s.head}><Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable><Text style={s.headTitle}>{idx + 1} / {questions.length}</Text><View style={{ width: 30 }} /></View>
-      <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.prompt}>{t(kind === 'vocab' ? 'listening2.prompt_vocab' : 'listening2.prompt_kanji')}</Text>
-        <Pressable style={s.playBig} onPress={() => play(q.audioVocabId, q.audioReading, q.audioChar)}><Ionicons name="volume-high" size={40} color="#fff" /></Pressable>
+    <StudyLayout title={t('cards.listening')} current={idx + 1} total={questions.length} onClose={() => nav.goBack()}
+      footer={picked !== null ? <AnswerFooter study correct={picked === q.answerIndex} onNext={advance} nextKind={idx + 1 >= questions.length ? 'finish' : 'next'} /> : null}>
+        <StudyInstruction>{t(kind === 'vocab' ? 'listening2.prompt_vocab' : 'listening2.prompt_kanji')}</StudyInstruction>
+        <StudyAudioButton label={t('listening.play')} onPress={() => play(q.audioVocabId, q.audioReading, q.audioChar)} />
         <Pressable style={s.playAgain} hitSlop={8} onPress={() => play(q.audioVocabId, q.audioReading, q.audioChar)}><Text style={s.playAgainTxt}>{t('listening2.again')}</Text></Pressable>
-        <View style={s.choices}>
-          {q.choices.map((ch, i) => {
-            const reveal = picked !== null; const isAns = i === q.answerIndex; const isPk = i === picked;
-            return (
-              <Pressable key={i} onPress={() => onPick(i)} disabled={reveal} style={[bigChoice ? s.choiceKanji : s.choice, reveal && isAns && s.choiceOk, reveal && isPk && !isAns && s.choiceNg]}>
-                <Text style={bigChoice ? s.choiceKanjiTxt : s.choiceTxt}>{ch}</Text>
-              </Pressable>
-            );
-          })}
-        </View>
+        <StudyChoiceList choices={q.choices} selectedIndex={picked} answerIndex={q.answerIndex} revealed={picked !== null} onSelect={onPick} layout={bigChoice ? 'grid' : 'list'} />
         {picked !== null && rows[idx] ? (
           <Text style={s.reveal}>✓ {rows[idx].main && rows[idx].main !== rows[idx].sub ? `${rows[idx].main}（${rows[idx].sub}）` : rows[idx].sub}</Text>
         ) : null}
-      </ScrollView>
-
-      {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(終了画面でまとめて☑登録)。 */}
-      {picked !== null && (
-        <AnswerFooter correct={picked === q.answerIndex} onNext={advance} nextKind={idx + 1 >= questions.length ? 'finish' : 'next'} />
-      )}
-    </SafeAreaView>
+    </StudyLayout>
   );
 }
 
@@ -201,9 +188,7 @@ const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     c: { flex: 1, backgroundColor: c.bg },
     head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
-    headTitle: { fontSize: ty.small, fontWeight: '700', color: c.mute },
     close: { fontSize: 30, color: c.mute, fontWeight: '700' },
-    body: { padding: spacing.lg, gap: spacing.sm },
     doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
     center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: spacing.md, padding: spacing.lg },
     studyH: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
@@ -213,25 +198,9 @@ const makeStyles = (c: ThemeColors) =>
     studyMeaning: { fontSize: ty.small, color: c.ink2 },
     studyPlay: { padding: spacing.sm },
     prompt: { fontSize: ty.body, fontWeight: '700', color: c.ink, textAlign: 'center' },
-    playBig: { alignSelf: 'center', width: 96, height: 96, borderRadius: 48, backgroundColor: c.blue, alignItems: 'center', justifyContent: 'center', marginVertical: spacing.sm },
     playAgain: { alignSelf: 'center' },
     playAgainTxt: { fontSize: ty.small, color: c.blue, fontWeight: '700' },
-    choices: { gap: spacing.sm + 2, marginTop: spacing.sm, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
-    choice: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, alignItems: 'center', width: '100%' },
-    choiceKanji: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, alignItems: 'center', justifyContent: 'center', width: '46%', aspectRatio: 1 },
-    choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
-    choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
-    choiceTxt: { fontSize: ty.body, fontWeight: '700', color: c.ink },
-    // 大きな漢字グリフを上下左右とも中央へ。固定lineHeight(=fontSize)はiOSで字が下寄せになるため付けず、
-    // 自然な行ボックス＋カードの中央寄せ(justify/alignItems center)に任せる。Androidは padding除去+縦中央指定。
-    choiceKanjiTxt: { fontSize: 48, fontWeight: '800', color: c.ink, textAlign: 'center', textAlignVertical: 'center', includeFontPadding: false },
     reveal: { fontSize: ty.h2, fontWeight: '800', color: c.green, textAlign: 'center' },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.sm, width: '100%' },
     ctaTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
-    // 下端固定フッター(WordDrillと統一): 正誤(左・flex) ＋ ブックマーク ＋ 次へ。
-    footer: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, padding: spacing.lg, borderTopWidth: 1, borderTopColor: c.line, backgroundColor: c.surface },
-    fbTxt: { fontSize: ty.h2, fontWeight: '800', flex: 1 },
-    saveBtn: { width: 40, height: 40, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
-    footCta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, paddingHorizontal: spacing.xl, alignItems: 'center' },
-    bigEmoji: { fontSize: 56 }, doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink }, doneScore: { fontSize: ty.h2, fontWeight: '700', color: c.ink2 },
   });

@@ -8,12 +8,13 @@ import { useT } from '../i18n';
 
 export type NextKind = 'next' | 'result' | 'finish';
 
-export default function AnswerFooter({ correct, onNext, nextKind = 'next', answerHint, study = false }: {
+export default function AnswerFooter({ correct, onNext, nextKind = 'next', answerHint, study = false, label }: {
   correct?: boolean;      // 正誤(true=正解)。省略時は正誤を出さず「次へ」ボタンのみ(セット型=複数問一括の画面用)
   onNext: () => void;     // 次へ/結果へ
   nextKind?: NextKind;    // ボタン文言: next=次へ / result=結果を見る / finish=終わる
   answerHint?: string;    // 任意: 「答え ◯◯」等を正誤の下に小さく
-  study?: boolean;        // 書斎の紙面と緑のボタン。模試などは従来の表示を維持。
+  study?: boolean;        // 書斎の紙面と緑のボタン。模試などは従来の配色を維持。
+  label?: string;         // 予習からテストへ進む場合も、同じ操作バーで表示する。
 }) {
   const c = useStudyColors(study);
   const simple = useSimpleMode();
@@ -21,37 +22,34 @@ export default function AnswerFooter({ correct, onNext, nextKind = 'next', answe
   const companion = study && !simple && correct && width >= 380 && fontScale <= 1.2;
   const t = useT();
   const s = makeStyles(c);
-  const nextLabel = nextKind === 'result' ? t('answer.result') : nextKind === 'finish' ? t('answer.finish') : t('answer.next');
+  const nextLabel = label ?? (nextKind === 'result' ? t('answer.result') : nextKind === 'finish' ? t('answer.finish') : t('answer.next'));
   const soloBtn = correct === undefined; // 正誤なし=ボタン全幅
   return (
-    <View style={[s.footer, study && s.studyFooter]}>
+    <View style={s.footer}>
       {!soloBtn && (
-        <View style={[s.left, study && s.studyLeft]}>
+        <View style={s.left}>
           {companion && <Image source={require('../../assets/shop/companion/shiba1.png')} style={s.companion} resizeMode="contain" accessible={false} accessibilityElementsHidden importantForAccessibility="no" />}
-          <View style={study ? s.judgement : undefined}>
+          <View style={s.judgement}>
             <Text style={[s.judge, correct ? s.ok : s.ng]}>{correct ? t('answer.correct') : t('answer.wrong')}</Text>
             {!!answerHint && <Text style={s.hint} numberOfLines={1}>{answerHint}</Text>}
           </View>
         </View>
       )}
-      <Pressable accessibilityRole="button" style={[s.cta, study && s.studyCta, soloBtn && s.ctaFull]} onPress={onNext} hitSlop={6}><Text style={s.ctaTxt}>{nextLabel}</Text></Pressable>
+      <Pressable accessibilityRole="button" style={[s.cta, soloBtn && s.ctaFull]} onPress={onNext} hitSlop={6}><Text style={s.ctaTxt}>{nextLabel}</Text></Pressable>
     </View>
   );
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
-  footer: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, paddingHorizontal: spacing.lg, paddingVertical: spacing.md, borderTopWidth: 1, borderTopColor: c.line, backgroundColor: c.surface },
-  left: { flex: 1, gap: 2 },
+  footer: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: spacing.sm, paddingHorizontal: spacing.lg, paddingVertical: spacing.md, borderTopWidth: 1, borderTopColor: c.line, backgroundColor: c.bg },
+  left: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: spacing.sm, minWidth: 120 },
   judge: { fontSize: ty.h2, fontWeight: '800' },
   ok: { color: c.green },
   ng: { color: c.red },
   hint: { fontSize: ty.small, color: c.mute },
-  cta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, paddingHorizontal: spacing.xl, alignItems: 'center' },
+  cta: { backgroundColor: c.blue, borderRadius: radius.md, maxWidth: '100%', minHeight: 48, paddingVertical: spacing.md, paddingHorizontal: spacing.lg, alignItems: 'center', justifyContent: 'center' },
   ctaFull: { flex: 1 },
   ctaTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
-  studyFooter: { flexWrap: 'wrap', gap: spacing.sm, backgroundColor: c.bg },
-  studyLeft: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, minWidth: 120 },
-  judgement: { flex: 1 },
+  judgement: { flex: 1, gap: 2 },
   companion: { width: 40, height: 46 },
-  studyCta: { borderRadius: radius.md, maxWidth: '100%', paddingHorizontal: spacing.lg, minHeight: 48, justifyContent: 'center' },
 });

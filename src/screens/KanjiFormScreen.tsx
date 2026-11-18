@@ -1,3 +1,6 @@
+import StudyLayout from '../components/StudyLayout';
+import StudyChoiceList from '../components/StudyChoiceList';
+import StudyPrompt, { StudyInstruction } from '../components/StudyPrompt';
 // 漢字の「形の弁別」テスト(モーダル)。意味＋読みを手がかりに、似た字4択から正しい字を選ぶ。
 // 音声なし。結果は char の form 面へ計上(quizAnswer の answerId=`${char}#kdiscrim_form`→facetMap)。
 // 書き取り(産出)より易しい認識レベルで、"似た字の取り違え"だけを独立に測る踏み石。
@@ -7,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, type ThemeColors } from '../theme';
-import { StudySceneBanner, useStudyColors, useStudyScroll, studyPaper, studyChoice } from '../components/StudyPresentation';
+import { useStudyColors } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import type { SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
@@ -65,7 +68,6 @@ export default function KanjiFormScreen() {
   }, [level, l1, jft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [idx, setIdx] = useState(0);
-  const studyScroll = useStudyScroll(idx);
   const [picked, setPicked] = useState<number | null>(null);
   const [correct, setCorrect] = useState(0);
   const [phase, setPhase] = useState<'quiz' | 'done'>('quiz');
@@ -120,27 +122,12 @@ export default function KanjiFormScreen() {
   const advance = () => { if (idx + 1 >= questions.length) { setPhase('done'); return; } setIdx((i) => i + 1); setPicked(null); };
 
   return (
-    <SafeAreaView style={s.c} edges={['top']}>
-      <View style={s.head}><Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable><Text style={s.headTitle}>{idx + 1} / {questions.length}</Text><View style={{ width: 30 }} /></View>
-      <ScrollView ref={studyScroll} contentContainerStyle={s.body}>
-        <StudySceneBanner current={idx + 1} total={questions.length} />
-        <Text style={s.prompt}>{t('kform.prompt')}</Text>
-        <View style={s.hintCard}><Text style={s.hintTxt}>{q.hint}</Text></View>
-        <View style={s.choices}>
-          {q.choices.map((ch, i) => {
-            const isAns = i === q.answerIndex; const isPk = i === picked;
-            return (
-              <Pressable key={i} accessibilityRole="button" accessibilityState={{ disabled: reveal, selected: isPk }} onPress={() => onPick(i)} disabled={reveal} style={[s.choice, reveal && isAns && s.choiceOk, reveal && isPk && !isAns && s.choiceNg]}>
-                <Text style={s.choiceKanji}>{ch}</Text>
-                {reveal && isAns ? <Text style={s.mark}>✓</Text> : null}
-                {reveal && isPk && !isAns ? <Text style={[s.mark, { color: c.red }]}>✕</Text> : null}
-              </Pressable>
-            );
-          })}
-        </View>
-      </ScrollView>
-      {reveal && <AnswerFooter study correct={picked === q.answerIndex} onNext={advance} nextKind={idx + 1 >= questions.length ? 'finish' : 'next'} />}
-    </SafeAreaView>
+    <StudyLayout title={t('cards.kanji_form')} current={idx + 1} total={questions.length} onClose={() => nav.goBack()}
+      footer={picked !== null ? <AnswerFooter study correct={picked === q.answerIndex} onNext={advance} nextKind={idx + 1 >= questions.length ? 'finish' : 'next'} /> : null}>
+        <StudyInstruction>{t('kform.prompt')}</StudyInstruction>
+        <StudyPrompt><Text style={s.hintTxt}>{q.hint}</Text></StudyPrompt>
+        <StudyChoiceList choices={q.choices} selectedIndex={picked} answerIndex={q.answerIndex} revealed={picked !== null} onSelect={onPick} layout="grid" />
+    </StudyLayout>
   );
 }
 
@@ -148,20 +135,11 @@ const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     c: { flex: 1, backgroundColor: c.bg },
     head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
-    headTitle: { fontSize: ty.small, fontWeight: '700', color: c.mute },
     close: { fontSize: 30, color: c.mute, fontWeight: '700' },
-    body: { padding: spacing.lg, gap: spacing.sm },
     doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
     center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: spacing.md, padding: spacing.lg },
     prompt: { fontSize: ty.body, fontWeight: '700', color: c.ink, textAlign: 'center' },
-    hintCard: { ...studyPaper(c), alignSelf: 'stretch', paddingVertical: spacing.lg, paddingHorizontal: spacing.md, marginVertical: spacing.sm, alignItems: 'center' },
     hintTxt: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
-    choices: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', gap: spacing.sm, marginTop: spacing.sm, alignSelf: 'center', width: '100%', maxWidth: 320 },
-    choice: { ...studyChoice(c), width: '48%', minHeight: 120, paddingVertical: spacing.md, alignItems: 'center', justifyContent: 'center' },
-    choiceKanji: { fontSize: 72, fontWeight: '800', color: c.ink, lineHeight: 80, textAlign: 'center' },
-    choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
-    choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
-    mark: { position: 'absolute', top: 6, right: 8, fontSize: 20, color: c.green, fontWeight: '900' },
     cta: { backgroundColor: c.blue, borderRadius: radius.md, paddingVertical: spacing.md, paddingHorizontal: spacing.xl, alignItems: 'center' },
     ctaTxt: { color: '#fff', fontSize: ty.body, fontWeight: '800' },
   });

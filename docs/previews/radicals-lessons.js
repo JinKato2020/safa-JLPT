@@ -10792,8 +10792,8 @@ const RADICAL_LESSONS = [
           ],
           [
             "七",
-            "意味と音のパート",
-            "meaning and sound",
+            "古い「切断」の意味＋音",
+            "earlier cutting meaning + sound",
             "both"
           ]
         ],
@@ -10803,8 +10803,8 @@ const RADICAL_LESSONS = [
           "en": "cut"
         },
         "story": {
-          "ja": "刀が刃物、七は断ち切ることと音にも関わります。七を数字だけで考えるとつながりが見えません。切るという古い意味のつながりから覚えよう。",
-          "en": "刀 is a blade; 七 contributes a historical connection with cutting and sound. Treating 七 only as the number seven misses that link."
+          "ja": "参照した辞典では、七はもともと線を断ち切る様子を表した字とされます。その字が数の「なな」にも使われ、刀を添えた切が「切る」を表すようになったと説明されています。七は古い「切断」の意味と、切の音読み「セツ」に関わる部分です。「七つに切る」という意味ではありません。「きる」は訓読みで、七から導く読みではありません。",
+          "en": "The cited dictionary traces 七 to a sign for cutting a line. It was also used for the number seven; adding 刀 gave 切 the meaning “cut.” In this account, 七 contributes an earlier cutting meaning and a historical sound connection to the on-reading セツ. It does not mean cutting into seven pieces. The kun-reading きる is not derived from 七."
         },
         "kind": "structure",
         "source": "https://www.kanjipedia.jp/kanji/0003984200",
@@ -10819,9 +10819,9 @@ const RADICAL_LESSONS = [
         "parts": [
           [
             "𠮠",
-            "骨から変わった形",
-            "changed bone shape",
-            "shape"
+            "骨（形が変化）",
+            "bone (changed form)",
+            "meaning"
           ],
           [
             "刂",
@@ -10836,8 +10836,8 @@ const RADICAL_LESSONS = [
           "en": "separate"
         },
         "story": {
-          "ja": "刂は刀、左側は骨を表した形から変わったものです。刃物で骨と肉を分けることから、別れる意味へ。「口と力の物語」ではなく、古い形の変化があります。",
-          "en": "刂 is a blade; the left side developed from a bone shape. Separating meat from bone connects to parting. The history involves changed shapes, not a new story made from 口 and 力."
+          "ja": "左の部品は、もとは骨を表した「冎」という字から形が変わったものです。刀（刂）と組み合わせ、骨から肉を切り分けることを表しました。そこから、分ける・別れるという意味につながります。",
+          "en": "The left component developed from 冎, an early character for bone. Combined with a blade (刂), it represented separating meat from bone. This connects to the meanings “divide” and “part.”"
         },
         "kind": "origin",
         "source": "https://www.kanjipedia.jp/kanji/0006243300",

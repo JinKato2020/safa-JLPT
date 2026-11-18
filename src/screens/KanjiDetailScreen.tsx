@@ -6,7 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
+import { useStudyColors, studyPaper, StudySceneBanner } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import { isInMyList } from '../store/state';
 import { KANJI, KANJI_CARDS, meaningIn, readingAboveUserLevel } from '../data';
@@ -49,7 +50,7 @@ export default function KanjiDetailScreen() {
   const state = useAppState();
   const { settings } = state;
   const { addToMyList } = useAppActions();
-  const c = useColors();
+  const c = useStudyColors();
   const s = useMemo(() => makeStyles(c), [c]);
 
   const l1 = meaningL1(settings);
@@ -97,7 +98,7 @@ export default function KanjiDetailScreen() {
   );
 
   return (
-    <SafeAreaView style={s.c} edges={['top']}>
+    <SafeAreaView style={s.c} edges={['top', 'bottom']}>
       <View style={s.head}>
         <Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable>
         {saveRef ? (
@@ -108,6 +109,7 @@ export default function KanjiDetailScreen() {
         ) : <View style={{ width: 30 }} />}
       </View>
       <ScrollView contentContainerStyle={s.body}>
+        <StudySceneBanner />
         <Text style={s.bigChar}>{char}</Text>
         {!!meaning && <Text style={s.meaning}>{meaning}</Text>}
         {!!meaningFull && meaningFull !== meaning && <Text style={s.meaningEn}>{meaningFull}</Text>}
@@ -149,10 +151,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   strokes: { fontSize: ty.small, color: c.mute, marginTop: spacing.xs },
   readingsBox: {
     alignSelf: 'stretch',
-    backgroundColor: c.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: c.line,
+    ...studyPaper(c),
     padding: spacing.md,
     marginTop: spacing.lg,
     gap: spacing.md,

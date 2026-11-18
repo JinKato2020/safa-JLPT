@@ -5,6 +5,13 @@ const sendNative = (type, values = {}) => window.ReactNativeWebView?.postMessage
 const imageURL = name => window.RADICAL_ART?.[name] || 'assets/' + name;
 const el = id => document.getElementById(id);
 const escapeHTML = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// SVG paths keep rare components visible even when the device has no matching font.
+function glyphMarkup(text) {
+  return Array.from(String(text), character => {
+    const glyph = RADICAL_GLYPHS[character];
+    return glyph ? `<svg class="rare-glyph" viewBox="${glyph.viewBox}" role="img" aria-label="${escapeHTML(character)}"><path fill="currentColor" transform="${glyph.transform}" d="${glyph.path}"/></svg>` : escapeHTML(character);
+  }).join('');
+}
 let language = appLesson.language === 'en' ? 'en' : 'ja';
 let current = null;
 const fixedLevel = appLesson.level || new URLSearchParams(location.search).get('level');
@@ -14,7 +21,7 @@ if (!window.ReactNativeWebView) try { completed = JSON.parse(localStorage.getIte
 const L = (ja, en) => language === 'ja' ? ja : en;
 function bilingual(value, cls = '') {
   const first = language === 'ja' ? 'ja' : 'en', second = first === 'ja' ? 'en' : 'ja';
-  return `<div class="bilingual ${cls}"><p lang="${first}">${escapeHTML(value[first])}</p><p class="translation" lang="${second}">${escapeHTML(value[second])}</p></div>`;
+  return `<div class="bilingual ${cls}"><p lang="${first}">${glyphMarkup(value[first])}</p><p class="translation" lang="${second}">${glyphMarkup(value[second])}</p></div>`;
 }
 function wordButton([word, reading, meaning]) {
   return `<button class="word" data-word="${escapeHTML(word)}" data-reading="${escapeHTML(reading)}" aria-label="${escapeHTML(word)}（${escapeHTML(reading)}） ${L('音声を聞く','Listen')}"><span class="word-copy"><ruby lang="ja">${escapeHTML(word)}<rt>${escapeHTML(reading)}</rt></ruby><span lang="en" class="word-meaning">${escapeHTML(meaning)}</span></span><span class="play" aria-hidden="true">▶</span></button>`;
@@ -25,7 +32,7 @@ function flow(lesson) {
 function cardMarkup(card) {
   const tags = {origin:L('成り立ち','ORIGIN'),structure:L('意味と音','MEANING + SOUND'),memory:L('覚えるためのお話','MEMORY STORY')};
   const partLabels = {meaning:L('意味の手がかり','MEANING'),sound:L('音の手がかり','SOUND'),both:L('意味と音','MEANING + SOUND'),shape:L('形のまとまり','SHAPE')};
-  const pieces = card.parts.map(part=>`<div class="part ${part[3]} ${Array.from(part[0]).length>2?'wide-glyph':''}"><span class="part-role">${partLabels[part[3]]}</span><strong lang="ja">${part[0]}</strong><span lang="ja">${part[1]}</span><small lang="en">${part[2]}</small></div>`).join('<span class="operator" aria-hidden="true">＋</span>');
+  const pieces = card.parts.map(part=>`<div class="part ${part[3]} ${Array.from(part[0]).length>2?'wide-glyph':''}"><span class="part-role">${partLabels[part[3]]}</span><strong lang="ja">${glyphMarkup(part[0])}</strong><span lang="ja">${part[1]}</span><small lang="en">${part[2]}</small></div>`).join('<span class="operator" aria-hidden="true">＋</span>');
   return `<article class="kanji-card" id="kanji-${card.char}"><header><span class="tag ${card.kind}">${tags[card.kind]}</span><span class="card-reading" lang="ja">${card.reading}</span></header><div class="decomposition">${pieces}${pieces?'<span class="operator" aria-hidden="true">＝</span>':''}<div class="part result"><strong lang="ja">${card.char}</strong><span lang="ja">${card.meaning.ja}</span><small lang="en">${card.meaning.en}</small></div></div>${bilingual(card.story)}${card.word?`<div class="card-example">${wordButton(card.word)}</div>`:''}${card.source?`<a class="source-inline" href="${card.source}" target="_blank" rel="noopener noreferrer">${L('成り立ちの出典','Origin reference')} ↗</a>`:''}</article>`;
 }
 function renderMenu() {

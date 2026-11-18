@@ -1,3 +1,6 @@
+import StudyLayout from '../components/StudyLayout';
+import StudyChoiceList from '../components/StudyChoiceList';
+import StudyPrompt, { StudyInstruction } from '../components/StudyPrompt';
 // 漢字認識テスト(モーダル)。字を単独提示→意味/読みを4択(文脈文なし)。設計正本=段階B①。
 // 音声なし。結果は char の mean/read 面へ計上(quizAnswer の answerId=`${char}#krecog_*`→facetMap)。
 import { useMemo, useState, useEffect } from 'react';
@@ -6,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, type ThemeColors } from '../theme';
-import { StudySceneBanner, useStudyColors, useStudyScroll, studyPaper, studyChoice, studyBadge } from '../components/StudyPresentation';
+import { useStudyColors } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import type { SaveRef } from '../store/state';
 import { progressSnapshot } from '../store/selectors';
@@ -60,7 +63,6 @@ export default function KanjiRecognitionScreen() {
   }, [level, l1, jft, mode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [idx, setIdx] = useState(0);
-  const studyScroll = useStudyScroll(idx);
   const [picked, setPicked] = useState<number | null>(null);
   const [correct, setCorrect] = useState(0);
   const [phase, setPhase] = useState<'quiz' | 'done'>('quiz');
@@ -115,26 +117,12 @@ export default function KanjiRecognitionScreen() {
   const advance = () => { if (idx + 1 >= questions.length) { setPhase('done'); return; } setIdx((i) => i + 1); setPicked(null); };
 
   return (
-    <SafeAreaView style={s.c} edges={['top']}>
-      <View style={s.head}><Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable><Text style={s.headTitle}>{idx + 1} / {questions.length}</Text><View style={{ width: 30 }} /></View>
-      <ScrollView ref={studyScroll} contentContainerStyle={s.body}>
-        <StudySceneBanner current={idx + 1} total={questions.length} />
-        <Text style={s.prompt}>{t(q.kind === 'mean' ? 'krecog.prompt_mean' : 'krecog.prompt_read')}</Text>
-        <View style={s.charCard}><Text style={s.bigChar}>{q.char}</Text></View>
-        <View style={s.choices}>
-          {q.choices.map((ch, i) => {
-            const isAns = i === q.answerIndex; const isPk = i === picked;
-            return (
-              <Pressable key={i} accessibilityRole="button" accessibilityState={{ disabled: reveal, selected: isPk }} onPress={() => onPick(i)} disabled={reveal} style={[s.choice, reveal && isAns && s.choiceOk, reveal && isPk && !isAns && s.choiceNg]}>
-                <View style={s.badge}><Text style={s.badgeTxt}>{reveal && isAns ? '✓' : reveal && isPk ? '✕' : i + 1}</Text></View>
-                <Text style={s.choiceTxt}>{ch}</Text>
-              </Pressable>
-            );
-          })}
-        </View>
-      </ScrollView>
-      {reveal && <AnswerFooter study correct={picked === q.answerIndex} onNext={advance} nextKind={idx + 1 >= questions.length ? 'finish' : 'next'} />}
-    </SafeAreaView>
+    <StudyLayout title={t(q.kind === 'mean' ? 'cards.kanji_mean' : 'cards.kanji_read')} current={idx + 1} total={questions.length} onClose={() => nav.goBack()}
+      footer={picked !== null ? <AnswerFooter study correct={picked === q.answerIndex} onNext={advance} nextKind={idx + 1 >= questions.length ? 'finish' : 'next'} /> : null}>
+        <StudyInstruction>{t(q.kind === 'mean' ? 'krecog.prompt_mean' : 'krecog.prompt_read')}</StudyInstruction>
+        <StudyPrompt style={{ alignItems: 'center' }}><Text style={s.bigChar}>{q.char}</Text></StudyPrompt>
+        <StudyChoiceList choices={q.choices} selectedIndex={picked} answerIndex={q.answerIndex} revealed={picked !== null} onSelect={onPick} />
+    </StudyLayout>
   );
 }
 
@@ -142,21 +130,11 @@ const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     c: { flex: 1, backgroundColor: c.bg },
     head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
-    headTitle: { fontSize: ty.small, fontWeight: '700', color: c.mute },
     close: { fontSize: 30, color: c.mute, fontWeight: '700' },
-    body: { padding: spacing.lg, gap: spacing.sm },
     doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
     center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: spacing.md, padding: spacing.lg },
     prompt: { fontSize: ty.body, fontWeight: '700', color: c.ink, textAlign: 'center' },
-    charCard: { ...studyPaper(c), alignSelf: 'center', paddingVertical: spacing.md, paddingHorizontal: spacing.xl, marginVertical: spacing.sm, minWidth: 160, alignItems: 'center' },
     bigChar: { fontSize: 96, fontWeight: '800', color: c.ink, lineHeight: 104, textAlign: 'center' },
-    choices: { gap: spacing.sm + 2, marginTop: spacing.sm },
-    choice: { ...studyChoice(c), flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: spacing.md, paddingHorizontal: spacing.md },
-    badge: { ...studyBadge(c) },
-    badgeTxt: { fontSize: ty.small, color: c.ink2, fontWeight: '700' },
-    choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
-    choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
-    choiceTxt: { fontSize: ty.body, fontWeight: '700', color: c.ink2, flex: 1 },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center', marginTop: spacing.sm, width: '100%' },
     ctaTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
   });

@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, type as ty, type ThemeColors } from '../theme';
+import { useStudyColors, studyPaper } from '../components/StudyPresentation';
 import { useAppState } from '../store/store';
 import { meaningL1, useT } from '../i18n';
 import { itemsFor, allWordsFor, VOCAB, KANJI, GRAMMAR, cardFaceReadings, VOCAB_EXAMPLE, VOCAB_FURIGANA, meaningIn, exampleIn, rubyNeeded } from '../data';
@@ -20,7 +21,7 @@ import { useSessionGate } from '../pro/useSessionGate';
 import LimitReachedSheet from '../pro/LimitReachedSheet';
 
 function VocabKanjiCard({ item }: { item: StudyItem }) {
-  const c = useColors();
+  const c = useStudyColors();
   const t = useT();
   const s = useMemo(() => cardStyles(c), [c]);
   const { settings } = useAppState();
@@ -123,10 +124,7 @@ export default function FlashcardScreen() {
 const cardStyles = (c: ThemeColors) =>
   StyleSheet.create({
     card: {
-      backgroundColor: c.surface,
-      borderRadius: radius.lg,
-      borderWidth: 1,
-      borderColor: c.line,
+      ...studyPaper(c),
       paddingVertical: spacing.xl,
       paddingHorizontal: spacing.lg,
       alignItems: 'center',

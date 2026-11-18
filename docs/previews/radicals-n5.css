@@ -4,3 +4,5 @@
 .kanji-index{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px}.kanji-index button{min-width:44px;min-height:44px;padding:5px 12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--green);font-size:23px}.kanji-card{scroll-margin-top:80px}.part.both{background:linear-gradient(135deg,#edf2e7,#edf0fa)}.part.wide-glyph>strong{font-size:25px}.card-example{margin-top:20px}.card-example .word{width:100%;padding:17px 15px}.card-example .word ruby{font-size:23px}.card-example .word-meaning{overflow-wrap:anywhere}.part>span:not(.part-role){overflow-wrap:anywhere}.card-family{overflow-wrap:anywhere}
 
 .learning-flow .flow-radical{font-size:clamp(24px,6vw,40px);white-space:nowrap}
+
+.rare-glyph{display:inline-block;width:1em;height:1em;vertical-align:-.12em;overflow:visible}

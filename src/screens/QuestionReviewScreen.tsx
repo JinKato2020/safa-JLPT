@@ -5,7 +5,8 @@ import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, type as ty, type ThemeColors } from '../theme';
+import { useStudyColors, studyPaper, studyChoice, studyBadge } from '../components/StudyPresentation';
 import { useAppState } from '../store/store';
 import { useT } from '../i18n';
 import { rubyNeeded } from '../data';
@@ -19,7 +20,7 @@ function scriptLines(sc: string): string[] {
 }
 
 export default function QuestionReviewScreen() {
-  const c = useColors();
+  const c = useStudyColors();
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
   const nav = useNavigation();
@@ -33,7 +34,7 @@ export default function QuestionReviewScreen() {
     <SafeAreaView style={s.c} edges={['top', 'bottom']}>
       <View style={s.head}>
         <Text style={s.headT}>{t('qreview.title')}</Text>
-        <Pressable onPress={() => nav.goBack()} hitSlop={12}><Ionicons name="close" size={24} color={c.mute} /></Pressable>
+        <Pressable onPress={() => nav.goBack()} accessibilityRole="button" accessibilityLabel={t('listening2.close')} style={{ width: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }}><Ionicons name="close" size={24} color={c.mute} /></Pressable>
       </View>
       <ScrollView contentContainerStyle={s.body} showsVerticalScrollIndicator={false}>
         {/* 読解の本文 */}
@@ -103,9 +104,9 @@ export default function QuestionReviewScreen() {
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
   head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xs },
-  headT: { fontSize: ty.body, fontWeight: '800', color: c.ink },
+  headT: { flex: 1, fontSize: ty.body, fontWeight: '800', color: c.ink },
   body: { padding: spacing.lg, paddingTop: spacing.xs, gap: spacing.sm },
-  card: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: radius.lg, padding: spacing.md, gap: spacing.xs },
+  card: { ...studyPaper(c), padding: spacing.md, gap: spacing.xs },
   cardLabel: { fontSize: 11, letterSpacing: 1.2, color: c.ink2, fontWeight: '800', marginBottom: 2 },
   passage: { fontSize: ty.body, color: c.ink, lineHeight: 26 },
   scriptBox: { gap: 3 },
@@ -115,10 +116,10 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   hit: { color: c.ink, fontWeight: '800', textDecorationLine: 'underline' },
   qtext: { fontSize: ty.small, color: c.mute, fontWeight: '600', marginTop: 2 },
   choices: { gap: spacing.sm, marginTop: spacing.xs },
-  choice: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md },
+  choice: { ...studyChoice(c), flexDirection: 'row', alignItems: 'center', gap: spacing.sm, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md },
   choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
   choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
-  badge: { width: 24, height: 24, borderRadius: 12, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, alignItems: 'center', justifyContent: 'center' },
+  badge: studyBadge(c),
   badgeOk: { backgroundColor: c.green, borderColor: c.green },
   badgeNg: { backgroundColor: c.red, borderColor: c.red },
   badgeT: { fontSize: 12, fontWeight: '800', color: c.mute },

@@ -6,7 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, type as ty, type ThemeColors } from '../theme';
+import { useStudyColors, studyPaper, StudySceneBanner } from '../components/StudyPresentation';
 import { useT, useUiLang } from '../i18n';
 import RubyText from '../components/RubyText';
 import { loadGrammarNote, type GrammarNote } from '../data/grammarNotes';
@@ -19,7 +20,7 @@ export default function GrammarNoteScreen() {
   const id = route.params?.id ?? '';
   const t = useT();
   const lang = useUiLang();
-  const c = useColors();
+  const c = useStudyColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const [note, setNote] = useState<GrammarNote | null | undefined>(undefined); // undefined=読込中 / null=失敗
 
@@ -33,7 +34,7 @@ export default function GrammarNoteScreen() {
   const section = (label: string) => <Text style={s.section}>{label}</Text>;
 
   return (
-    <SafeAreaView style={s.c} edges={['top']}>
+    <SafeAreaView style={s.c} edges={['top', 'bottom']}>
       <View style={s.head}>
         <Pressable onPress={() => nav.goBack()} hitSlop={12}><Text style={s.close}>×</Text></Pressable>
       </View>
@@ -43,6 +44,7 @@ export default function GrammarNoteScreen() {
         <View style={s.center}><Text style={s.noData}>{t('grammarNote.loadFailed')}</Text></View>
       ) : (
         <ScrollView contentContainerStyle={s.body}>
+          <StudySceneBanner />
           <Text style={s.title}>{note.title}</Text>
           {!!note.summary && <Text style={s.summary}>{note.summary}</Text>}
 
@@ -102,12 +104,12 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   body: { paddingHorizontal: spacing.lg, paddingBottom: spacing.xl, gap: spacing.md },
   title: { fontSize: ty.h2, fontWeight: '800', color: c.ink, marginTop: spacing.sm },
   summary: { fontSize: ty.body, color: c.ink2, lineHeight: 24 },
-  box: { backgroundColor: c.surface, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.sm },
+  box: { ...studyPaper(c), padding: spacing.md, gap: spacing.sm },
   section: { fontSize: ty.small, fontWeight: '800', color: c.mute },
   item: { gap: 2 },
   form: { fontSize: ty.body, fontWeight: '800', color: c.ink },
   sub: { fontSize: ty.small, color: c.mute, lineHeight: 20 },
-  para: { gap: 4 },
+  para: { ...studyPaper(c), padding: spacing.md, gap: spacing.sm },
   h: { fontSize: ty.body, fontWeight: '800', color: c.ink },
   p: { fontSize: ty.body, color: c.ink2, lineHeight: 24 },
   exJa: { fontSize: ty.body, color: c.ink },

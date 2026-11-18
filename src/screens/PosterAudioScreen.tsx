@@ -9,7 +9,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Audio, type AVPlaybackStatus } from 'expo-av';
 import Svg, { Path } from 'react-native-svg';
-import { spacing, radius, useColors } from '../theme';
+import { spacing, radius } from '../theme';
+import { useStudyColors } from '../components/StudyPresentation';
 import { useT, useUiLang } from '../i18n';
 import { POSTER_LESSONS, type PosterLesson, type PosterCard } from '../data/posterLessons';
 import { posterUri, ensurePosterPack, isPosterReady } from '../data/posterAssets';
@@ -19,7 +20,7 @@ type QItem = { idx: number; phase: 'ja' | 'l1'; src?: string };
 export default function PosterAudioScreen() {
   const route = useRoute<any>();
   const nav = useNavigation<any>();
-  const c = useColors();
+  const c = useStudyColors();
   const t = useT();
   const lang = useUiLang();
   const { width, height } = useWindowDimensions();
@@ -174,12 +175,12 @@ export default function PosterAudioScreen() {
   const onDockLayout = (e: any) => { const h = Math.round(e.nativeEvent.layout.height); setLay((l) => Math.abs(l.dock - h) > 1 ? { ...l, dock: h } : l); };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: c.bg }]} edges={['top']}>
+    <SafeAreaView style={[styles.container, { backgroundColor: c.bg }]} edges={['top', 'bottom']}>
       <View style={styles.topBar}>
         <Pressable onPress={() => nav.goBack()} hitSlop={12} style={styles.back}>
           <Svg width={24} height={24} viewBox="0 0 24 24"><Path d="M15 18l-6-6 6-6" stroke={c.ink} strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round" /></Svg>
         </Pressable>
-        <Text style={[styles.title, { color: c.ink }]} numberOfLines={1}>{lesson.title}</Text>
+        <Text style={[styles.title, { color: c.ink }]} >{lesson.title}</Text>
         <View style={styles.back} />
       </View>
 
@@ -199,7 +200,7 @@ export default function PosterAudioScreen() {
           </View>
         </ScrollView>
 
-        <View style={[styles.dock, { backgroundColor: c.surface, borderTopColor: c.line }]} onLayout={onDockLayout}>
+        <View style={[styles.dock, { backgroundColor: c.surface, borderTopColor: c.amber }]} onLayout={onDockLayout}>
           <Pressable onPress={toggle} style={[styles.zoomWrap, { width: ZOOM_W, height: zoomH }]}>
             {ready && lessonImageUri && (
               <Image key={lessonImageUri} source={{ uri: lessonImageUri }}
@@ -207,9 +208,9 @@ export default function PosterAudioScreen() {
                 resizeMode="contain" />
             )}
             {!ready ? (
-              <View style={styles.playHint}><ActivityIndicator color="#fff" /></View>
+              <View style={[styles.playHint, { backgroundColor: c.blue }]}><ActivityIndicator color="#fff" /></View>
             ) : !playing && (
-              <View style={styles.playHint}><Svg width={26} height={26} viewBox="0 0 24 24"><Path d="M8 5v14l11-7z" fill="#fff" /></Svg></View>
+              <View style={[styles.playHint, { backgroundColor: c.blue }]}><Svg width={26} height={26} viewBox="0 0 24 24"><Path d="M8 5v14l11-7z" fill="#fff" /></Svg></View>
             )}
           </Pressable>
           <View style={styles.bar}>
@@ -225,14 +226,14 @@ export default function PosterAudioScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   topBar: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: spacing.md, paddingVertical: spacing.sm },
-  back: { width: 40, alignItems: 'center', justifyContent: 'center' },
+  back: { width: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
   title: { flex: 1, textAlign: 'center', fontSize: 18, fontWeight: '700' },
   body: { flex: 1 },
   hl: { position: 'absolute', borderWidth: 1.5, borderRadius: 12, backgroundColor: 'transparent' },
-  dock: { position: 'absolute', left: 0, right: 0, bottom: 0, borderTopWidth: 1, paddingHorizontal: spacing.md, paddingTop: spacing.sm, paddingBottom: spacing.md },
+  dock: { position: 'absolute', left: 0, right: 0, bottom: 0, borderTopWidth: 3, paddingHorizontal: spacing.md, paddingTop: spacing.sm, paddingBottom: spacing.md },
   zoomWrap: { overflow: 'hidden', backgroundColor: '#fff', alignSelf: 'center' },
   playHint: { position: 'absolute', top: '50%', left: '50%', marginLeft: -24, marginTop: -24, width: 48, height: 48, borderRadius: 24, backgroundColor: 'rgba(40,48,74,0.78)', alignItems: 'center', justifyContent: 'center' },
-  bar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, marginTop: spacing.sm },
+  bar: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: spacing.sm, marginTop: spacing.sm },
   count: { fontSize: 14, fontWeight: '700' },
-  hint: { fontSize: 12, letterSpacing: 0.3 },
+  hint: { fontSize: 12, letterSpacing: 0.3, textAlign: 'center', flexShrink: 1 },
 });

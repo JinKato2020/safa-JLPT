@@ -9,7 +9,8 @@ import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
 import { playVocab } from '../data/vocabAudio';
 import type { RootStackParamList } from '../navigation/types';
-import { spacing, radius, type as ty, shadow, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, shadow, type ThemeColors } from '../theme';
+import { useStudyColors, studyPaper, StudySceneBanner } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import { isInMyList, type SaveRef } from '../store/state';
 import { KANJI, VOCAB, GRAMMAR, KANJI_CARDS, VOCAB_EXAMPLE, VOCAB_FURIGANA, DICT_EXT_VOCAB, DICT_EXT_KANJI, meaningIn, exampleIn, kanjiGlossIn, cardFaceReadings, grammarExtraFor, grammarExtraTr } from '../data';
@@ -71,7 +72,7 @@ export default function BrowseScreen() {
   // 辞書は常にルビ表示(引くためのツールなので、レベル適応ゲートを免除して全漢字にルビ)。
   const rubyGate = (_run?: string) => true;
   const nav = useNavigation<Nav>();
-  const c = useColors();
+  const c = useStudyColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const now = Date.now();
   const l1 = meaningL1(settings); // 母語コード(日本語UIは英語)
@@ -378,6 +379,7 @@ export default function BrowseScreen() {
               <Text style={s.catHeader}>{t('cat.' + section.catId)}</Text>
             </View>
           )}
+          ListHeaderComponent={<StudySceneBanner inset={spacing.md} />}
           stickySectionHeadersEnabled={false}
           initialNumToRender={20}
           contentContainerStyle={s.listBody}
@@ -430,10 +432,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   // カード=縦積み。見出し行(見出し語＋右上の操作列)の下に、例文/例語をカード幅いっぱいで表示。
   row: {
     flexDirection: 'column',
-    backgroundColor: c.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: c.line,
+    ...studyPaper(c),
     padding: spacing.md,
     marginTop: spacing.sm,
     gap: 2,

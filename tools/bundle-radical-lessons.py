@@ -43,6 +43,10 @@ def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     data = read('radicals-lessons.js')
     lessons = json.loads(data.split('const RADICAL_LESSONS =', 1)[1].strip().removesuffix(';'))
+    glyphs = json.loads(read('radicals-glyphs.js').split('const RADICAL_GLYPHS =', 1)[1].strip().removesuffix(';'))
+    missing = sorted({c for c in data if 0x20000 <= ord(c) <= 0x323AF and not glyphs.get(c, {}).get('path')})
+    if missing:
+        raise ValueError(f'Rare components need SVG outlines: {missing}. Run build-radical-glyphs.py.')
     levels = json.loads((ROOT / 'src/data/dict/kanjiJlptLevel.json').read_text(encoding='utf-8'))['items']
     for lesson in lessons:
         for card in lesson['cards']:
@@ -67,7 +71,7 @@ def main():
     template = re.sub(r'<!--.*?-->', '', read('radicals-n5.html'), flags=re.S)
     template = template.replace('<head>', '<head>' + bridge)
     template = template.replace('<link rel="stylesheet" href="radicals-n5.css">', '<style>' + read('radicals-n5.css') + '</style>')
-    for name in ['radicals-lessons.js', 'radicals-audio.js', 'radicals-n5.js']:
+    for name in ['radicals-glyphs.js', 'radicals-lessons.js', 'radicals-audio.js', 'radicals-n5.js']:
         template = template.replace(f'<script src="{name}"></script>', '<script>' + read(name) + '</script>')
     if re.search(r'<script\s+src=|<link\s+rel="stylesheet"', template):
         raise ValueError('Unbundled JS or CSS remains')

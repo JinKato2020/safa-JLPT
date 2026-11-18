@@ -1,10 +1,13 @@
+import StudyLayout from '../components/StudyLayout';
+import StudyChoiceList from '../components/StudyChoiceList';
+import StudyPrompt, { StudyInstruction } from '../components/StudyPrompt';
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, type StyleProp, type TextStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
+
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
-import { spacing, radius, type as ty, type ThemeColors } from '../theme';
-import { StudySceneBanner, useStudyColors, useStudyScroll, studyPaper, studyChoice, studyBadge } from '../components/StudyPresentation';
+import { spacing, type as ty, type ThemeColors } from '../theme';
+import { useStudyColors } from '../components/StudyPresentation';
 import AppButton from '../components/AppButton';
 import { useAppState, useAppActions } from '../store/store';
 import { type SaveRef } from '../store/state';
@@ -14,7 +17,7 @@ import AfterStudyReward from '../components/AfterStudyReward';
 import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords, type StudiedQuestion } from '../data/studiedWords';
-import ExamHeader from '../components/ExamHeader';
+
 import DevIdPicker from '../components/DevIdPicker';
 import { itemsFor, allWordsFor, rubyNeeded } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, EXAM_FORMATS } from '../quiz/quiz';
@@ -123,9 +126,7 @@ export default function QuizScreen() {
       : [],
   );
   const [phase, setPhase] = useState<'learn' | 'test'>(() => (daimon && learnList.length ? 'learn' : 'test'));
-  const [learnIdx, setLearnIdx] = useState(0);
   const [idx, setIdx] = useState(0);
-  const studyScroll = useStudyScroll(idx);
   const [pickerOpen, setPickerOpen] = useState(false); // 開発用: 問題IDタップで同じ大問の全問へジャンプ
   const [picked, setPicked] = useState<number | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
@@ -168,25 +169,34 @@ export default function QuizScreen() {
   if (gateAllowed === null) return null;
   if (!gateAllowed) return <LimitReachedSheet onClose={() => nav.goBack()} />;
 
-  // 学習フェーズ: 大問の4択に入る前にカードで自習。「テストへ進む」でスキップ可。
+  // 学習フェーズは同じセットのカードを縦一覧で読む。開始ボタンは一覧の上と下に置く。
   if (phase === 'learn') {
-    const lc = learnList[learnIdx]?.card;
-    const last = learnIdx >= learnList.length - 1;
     const goTest = () => setPhase('test');
+    const startButton = (position: 'top' | 'bottom') => (
+      <Pressable testID={`learn-start-${position}`} accessibilityRole="button" onPress={goTest}
+        style={({ pressed }) => [s.learnStart, pressed && { opacity: 0.8 }]}>
+        <Text style={s.learnStartText}>{t('quiz.learn_start')}</Text>
+      </Pressable>
+    );
     return (
-      <SafeAreaView style={s.c}>
-        <ScrollView contentContainerStyle={s.body}>
-          <ExamHeader title={title} onClose={() => nav.goBack()} count={`${t('quiz.learn_tag')} ${learnIdx + 1} / ${learnList.length}`} />
-          <View style={s.promptCard}>
-            {lc?.title ? <LearnText text={lc.title} style={[s.prompt, lc.title.length > 10 && s.promptLong]} hitStyle={s.learnHit} rubyStyle={s.promptRuby} rubyGate={rubyGate} /> : null}
-            {lc?.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
-            {lc?.body ? <LearnText text={lc.body} target={lc.hit} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
-            {lc?.note ? <LearnText text={lc.note} style={s.learnNote} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
+      <StudyLayout title={[t('quiz.learn_tag'), title].filter(Boolean).join(' · ')} current={0} total={learnList.length}
+        countLabel={t('quiz.learn_count', { n: learnList.length })} showProgress={false}
+        scrollKey="learn-list" onClose={() => nav.goBack()}>
+        {startButton('top')}
+        <StudyInstruction>{t('quiz.learn_scroll')}</StudyInstruction>
+        {learnList.map(({ unit, card: lc }, i) => (
+          <View key={`${unit}-${i}`} testID="learn-card">
+            <StudyPrompt>
+              <Text style={s.learnNumber}>{String(i + 1).padStart(2, '0')} / {learnList.length}</Text>
+              {lc.title ? <LearnText text={lc.title} style={[s.prompt, lc.title.length > 10 && s.promptLong]} hitStyle={s.learnHit} rubyStyle={s.promptRuby} rubyGate={rubyGate} /> : null}
+              {lc.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
+              {lc.body ? <LearnText text={lc.body} target={lc.hit} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
+              {lc.note ? <LearnText text={lc.note} style={s.learnNote} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
+            </StudyPrompt>
           </View>
-          <AppButton label={last ? t('quiz.learn_start') : t('quiz.learn_next')} onPress={() => (last ? goTest() : setLearnIdx((i) => i + 1))} />
-          <Pressable onPress={goTest} hitSlop={8}><Text style={s.learnSkip}>{t('quiz.learn_skip')}</Text></Pressable>
-        </ScrollView>
-      </SafeAreaView>
+        ))}
+        {startButton('bottom')}
+      </StudyLayout>
     );
   }
 
@@ -244,13 +254,11 @@ export default function QuizScreen() {
   const total = queue.length;
 
   return (
-    <SafeAreaView style={s.c}>
-      <ScrollView ref={studyScroll} contentContainerStyle={s.body}>
-        <ExamHeader study title={title} id={question.idLabel ?? question.itemId ?? answerId} onClose={() => nav.goBack()} count={`${idx + 1} / ${total}`} onPressId={canDevPick ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: question.itemId ?? answerId, level: settings.level, daimon: title, screen: 'Quiz' })} reportA11y={t('bug.report')} />
+    <StudyLayout current={idx + 1} total={total} title={title} id={question.idLabel ?? question.itemId ?? answerId} onClose={() => nav.goBack()} onPressId={canDevPick ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: question.itemId ?? answerId, level: settings.level, daimon: title, screen: 'Quiz' })} reportA11y={t('bug.report')}  footer={picked !== null ? <AnswerFooter study correct={picked === question.answerIndex} onNext={advance} nextKind={idx + 1 >= total ? 'result' : 'next'} /> : null}>
         {canDevPick ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={(question.itemId ?? answerId) as string} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
-        <StudySceneBanner current={idx + 1} total={total} />
 
-        <View style={s.promptCard}>
+        {!!question.question && <StudyInstruction>{question.question}</StudyInstruction>}
+        <StudyPrompt>
           {question.furi ? (
             // ふりがな付き問題文=レベル適応ルビ(同レベル以上の漢字のみ)。①漢字読みは対象語のルビを抑止。
             <RubyText text={question.furi} target={question.furiTarget} style={s.sentence} hitStyle={s.exHit} rubyStyle={s.qRuby} rubyGate={rubyGate} noRubyOnHit={question.noTargetRuby} center />
@@ -275,46 +283,13 @@ export default function QuizScreen() {
               ) : null}
             </>
           )}
-          <Text style={s.qtext}>{question.question}</Text>
-        </View>
+        </StudyPrompt>
 
-        <View style={s.choices}>
-          {question.choices.map((ch, i) => {
-            const isAnswer = i === question.answerIndex;
-            const isPicked = i === picked;
-            const reveal = picked !== null;
-            const showOk = reveal && isAnswer;
-            const showNg = reveal && isPicked && !isAnswer;
-            return (
-              <Pressable
-                key={i}
-                accessibilityRole="button"
-                accessibilityState={{ disabled: reveal, selected: isPicked }}
-                onPress={() => onPick(i)}
-                disabled={reveal}
-                style={({ pressed }) => [
-                  s.choice,
-                  pressed && !reveal && s.choicePressed,
-                  showOk && s.choiceCorrect,
-                  showNg && s.choiceWrong,
-                ]}
-              >
-                <View style={[s.cbadge, showOk && s.cbadgeOk, showNg && s.cbadgeNg]}>
-                  <Text style={[s.cbadgeTxt, (showOk || showNg) && s.cbadgeTxtOn]}>
-                    {showOk ? '✓' : showNg ? '✕' : String(i + 1)}
-                  </Text>
-                </View>
-                {/[（(]/.test(ch) ? (
-                  <View style={s.choiceRubyWrap}>
-                    <RubyText text={ch} style={s.choiceTxt} rubyStyle={s.cRuby} rubyGate={rubyGate} />
-                  </View>
-                ) : (
-                  <Text style={s.choiceTxt}>{ch}</Text>
-                )}
-              </Pressable>
-            );
-          })}
-        </View>
+        <StudyChoiceList choices={question.choices} selectedIndex={picked} answerIndex={question.answerIndex}
+          revealed={picked !== null} onSelect={onPick}
+          renderChoice={(ch, _index, textStyle) => /[（(]/.test(ch)
+            ? <RubyText text={ch} style={textStyle} rubyStyle={s.cRuby} rubyGate={rubyGate} />
+            : <Text style={textStyle}>{ch}</Text>} />
 
         {/* 文の組み立て: 回答後に「正しい文(日本語順)＋母語の意味」を表示(データのある問題のみ)。 */}
         {picked !== null && question.orderSentence ? (
@@ -358,29 +333,13 @@ export default function QuizScreen() {
           </View>
         ) : null}
         {picked === null && <Text style={s.hint}>{t('quiz.hint')}</Text>}
-      </ScrollView>
-      {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(学習後にまとめて)。 */}
-      {picked !== null && (
-        <AnswerFooter study correct={picked === question.answerIndex} onNext={advance} nextKind={idx + 1 >= total ? 'result' : 'next'} />
-      )}
-    </SafeAreaView>
+    </StudyLayout>
   );
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
-  body: { padding: spacing.lg, gap: spacing.md },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: spacing.sm },
-  top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  close: { fontSize: ty.h2, color: c.mute },
-  progress: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
-  drillTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink, textAlign: 'center' },
-  promptCard: {
-    ...studyPaper(c),
-    padding: spacing.lg,
-    alignItems: 'center',
-    gap: spacing.xs,
-  },
   prompt: { fontSize: 34, fontWeight: '800', color: c.ink },
   promptLong: { fontSize: ty.h2, lineHeight: 30, textAlign: 'left', alignSelf: 'stretch' }, // 穴埋め/バンク=長文プロンプト
 
@@ -392,49 +351,14 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   learnHit: { color: c.ink, fontWeight: '800', textDecorationLine: 'underline' },
   learnRuby: { fontSize: 9, lineHeight: 11, color: c.mute, textAlign: 'center' },
   promptRuby: { fontSize: 12, lineHeight: 14, color: c.mute, textAlign: 'center' }, // 見出し(title)のルビ(大きめ本文用)
-  learnSkip: { fontSize: ty.small, color: c.mute, fontWeight: '700', textAlign: 'center', marginTop: spacing.xs, textDecorationLine: 'underline' },
+  learnNumber: { fontSize: ty.small, color: c.blueDark, fontWeight: '800' },
+  learnStart: { minHeight: 52, borderRadius: 12, paddingVertical: spacing.md, paddingHorizontal: spacing.lg, alignItems: 'center', justifyContent: 'center', backgroundColor: c.blue },
+  learnStartText: { fontSize: ty.h2, fontWeight: '800', color: '#fff', textAlign: 'center' },
   exHit: { color: c.blueDark, textDecorationLine: 'underline' },
   qRuby: { fontSize: 10, lineHeight: 12, color: c.mute, textAlign: 'center' },
-  qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
-  choices: { gap: spacing.sm + 2 },
-  choice: {
-    ...studyChoice(c),
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.md,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.md,
-  },
-  choicePressed: { transform: [{ scale: 0.98 }], backgroundColor: c.bgSoft, borderColor: c.trace },
-  choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
-  choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
-  choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1, fontWeight: '600' },
-  choiceRubyWrap: { flex: 1 },
   cRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },
-  // 選択肢先頭の木色の札(番号→正誤で✓✕)
-  cbadge: {
-    ...studyBadge(c),
-  },
-  cbadgeOk: { backgroundColor: c.okBg },
-  cbadgeNg: { backgroundColor: c.ngBg },
-  cbadgeTxt: { fontSize: ty.body, fontWeight: '800', color: c.mute },
-  cbadgeTxtOn: { color: c.ink },
-  cta: {
-    marginTop: spacing.sm,
-    backgroundColor: c.blue,
-    borderRadius: radius.lg,
-    padding: spacing.md,
-    alignItems: 'center',
-  },
-  ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center', marginTop: spacing.sm },
-  saveBtn: { alignSelf: 'center', marginTop: spacing.xs, width: 44, height: 44, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
-  judge: { fontSize: ty.h2, fontWeight: '800', textAlign: 'center', marginTop: spacing.sm },
-  judgeOk: { color: c.green },
-  judgeNg: { color: c.red },
   bigEmoji: { fontSize: 56 },
-  doneDaimon: { fontSize: ty.small, fontWeight: '800', color: c.blueDark, letterSpacing: 1 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
-  doneRate: { fontSize: 40, fontWeight: '900', color: c.blue, marginTop: spacing.xs },
   doneSub: { fontSize: ty.body, color: c.mute },
 });

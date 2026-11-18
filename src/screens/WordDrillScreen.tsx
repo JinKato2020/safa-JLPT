@@ -1,3 +1,6 @@
+import StudyLayout from '../components/StudyLayout';
+import StudyChoiceList from '../components/StudyChoiceList';
+import StudyPrompt, { StudyInstruction } from '../components/StudyPrompt';
 // 単語タブ「新形式問題」画面(1画面3形式)。試験タブと独立した産出/受容ドリル。
 //  ・vProduce  意味 → かなタイルで単語を組む(産出)
 //  ・gOrder    全タイルを正しい順に並べる(完全並べ替え・産出)
@@ -9,13 +12,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { spacing, radius, type as ty, shadow, type ThemeColors } from '../theme';
-import { StudySceneBanner, useStudyColors, useStudyScroll, studyPaper, studyChoice, studyBadge } from '../components/StudyPresentation';
+import { useStudyColors } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import { walletPoints } from '../store/wallet';
 import { buildDrill, type DrillProblem } from '../ladder/wordDrill';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward, { type StudiedWord } from '../components/AfterStudyReward';
 import AnswerFooter from '../components/AnswerFooter';
+import ExamHeader from '../components/ExamHeader';
 import RubyText from '../components/RubyText';
 import { useT } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
@@ -49,7 +53,6 @@ export default function WordDrillScreen() {
   );
 
   const [i, setI] = useState(0);
-  const studyScroll = useStudyScroll(i);
   const [placed, setPlaced] = useState<number[]>([]); // vProduce/gOrder: 置いたタイルの原index列
   const [sel, setSel] = useState<number | null>(null); // gMeaning: 選んだ選択肢
   const [judged, setJudged] = useState<null | boolean>(null);
@@ -106,7 +109,7 @@ export default function WordDrillScreen() {
   if (!problems.length) {
     return (
       <SafeAreaView style={s.c} edges={['top']}>
-        <Header title={t(titleKey)} onClose={() => nav.goBack()} s={s} />
+        <View style={{ padding: spacing.lg }}><ExamHeader study title={t(titleKey)} onClose={() => nav.goBack()} /></View>
         <View style={s.center}><Text style={s.emptyTxt}>{t('worddrill.empty')}</Text></View>
       </SafeAreaView>
     );
@@ -114,7 +117,7 @@ export default function WordDrillScreen() {
   if (i >= problems.length) {
     return (
       <SafeAreaView style={s.c} edges={['top']}>
-        <Header title={t(titleKey)} onClose={() => nav.goBack()} s={s} />
+        <View style={{ padding: spacing.lg }}><ExamHeader study title={t(titleKey)} onClose={() => nav.goBack()} /></View>
         <ScrollView contentContainerStyle={s.doneBody}>
           <AfterStudyReward
             words={studiedWords}
@@ -133,12 +136,9 @@ export default function WordDrillScreen() {
   }
 
   return (
-    <SafeAreaView style={s.c} edges={['top']}>
-      <Header title={t(titleKey)} onClose={() => nav.goBack()} s={s}
-        progress={(i + (judged !== null ? 1 : 0)) / problems.length} count={`${i + 1}/${problems.length}`} />
-      <ScrollView ref={studyScroll} contentContainerStyle={s.body}>
-        <StudySceneBanner />
-        <Text style={s.ask}>{t(askKeyFor(p.kind))}</Text>
+    <StudyLayout title={t(titleKey)} current={i + 1} total={problems.length} onClose={() => nav.goBack()}
+      footer={judged !== null ? <AnswerFooter study correct={judged} onNext={next} nextKind={i + 1 >= problems.length ? 'finish' : 'next'} /> : null}>
+        <StudyInstruction>{t(askKeyFor(p.kind))}</StudyInstruction>
 
         {(p.kind === 'vProduce' || p.kind === 'gBuild') && (
           <ProduceView p={p} placed={placed} setPlaced={setPlaced} judged={judged} record={record} s={s} c={c} t={t} />
@@ -146,28 +146,7 @@ export default function WordDrillScreen() {
         {(p.kind === 'gMeaning' || p.kind === 'vMeaning' || p.kind === 'vReading' || p.kind === 'vWriting') && (
           <MeaningView p={p} sel={sel} setSel={setSel} judged={judged} record={record} s={s} />
         )}
-      </ScrollView>
-
-      {/* 全ドリル共通の回答フッター(正誤＋次へ)。毎問登録は廃止(学習後にまとめて)。 */}
-      {judged !== null && (
-        <AnswerFooter study correct={judged} onNext={next} nextKind="next" />
-      )}
-    </SafeAreaView>
-  );
-}
-
-function Header({ title, onClose, progress, count, s }: { title: string; onClose: () => void; progress?: number; count?: string; s: Styles }) {
-  return (
-    <View style={s.header}>
-      <Text style={s.hTitle}>{title}</Text>
-      {progress != null ? (
-        <>
-          <View style={s.prog}><View style={[s.progFill, { width: `${Math.round(progress * 100)}%` }]} /></View>
-          <Text style={s.hCount}>{count}</Text>
-        </>
-      ) : <View style={{ flex: 1 }} />}
-      <Pressable hitSlop={10} onPress={onClose} style={s.x}><Text style={s.xTxt}>✕</Text></Pressable>
-    </View>
+    </StudyLayout>
   );
 }
 
@@ -188,7 +167,7 @@ function ProduceView({ p, placed, setPlaced, judged, record, s, c, t }: {
   };
   return (
     <>
-      <View style={s.prompt}>
+      <StudyPrompt>
         {p.kind === 'vProduce' ? (
           // 音声再生は置かない(読みを聞けると産出の答えになるため。ユーザー指示2026-08-22)。
           <Text style={s.promptEn}>{p.prompt}</Text>
@@ -198,7 +177,7 @@ function ProduceView({ p, placed, setPlaced, judged, record, s, c, t }: {
             {!!p.hint && <Text style={s.promptHint}>{p.hint}</Text>}
           </>
         )}
-      </View>
+      </StudyPrompt>
       {p.kind === 'vProduce' && !!p.example && (
         <View style={s.exampleBox}>
           <RubyText text={p.example} style={s.exampleTxt} rubyStyle={s.exampleRuby} center />
@@ -234,7 +213,6 @@ function MeaningView({ p, sel, setSel, judged, record, s }: {
   p: Extract<DrillProblem, { kind: 'gMeaning' | 'vMeaning' | 'vReading' | 'vWriting' }>; sel: number | null; setSel: (v: number) => void;
   judged: null | boolean; record: (correct: boolean, id: string) => void; s: Styles;
 }) {
-  const CODE = ['A', 'B', 'C', 'D'];
   const tap = (k: number) => {
     if (judged !== null) return;
     setSel(k);
@@ -243,11 +221,11 @@ function MeaningView({ p, sel, setSel, judged, record, s }: {
   return (
     <>
       {/* 提示: 読み認識=語をルビ無しで(ルビ=答え)／表記認識(かたち)=意味を提示／他は漢字＋ルビ。 */}
-      <View style={s.prompt}>
+      <StudyPrompt>
         {p.kind === 'vReading' || p.kind === 'vWriting'
           ? <Text style={s.promptPt}>{p.prompt}</Text>
           : <RubyText text={p.prompt} style={s.promptPt} rubyStyle={s.exampleRuby} center />}
-      </View>
+      </StudyPrompt>
       {p.kind === 'gMeaning' && !!p.example && (
         <View style={s.exampleBox}>
           <RubyText text={p.example} target={p.hit} style={s.exampleTxt} hitStyle={s.exampleHit} rubyStyle={s.exampleRuby} center />
@@ -263,43 +241,16 @@ function MeaningView({ p, sel, setSel, judged, record, s }: {
       {p.kind === 'vWriting' && judged !== null && (
         <Text style={s.answerHint}>{p.reading}</Text>
       )}
-      <View style={s.choices}>
-        {p.choices.map((ch, k) => {
-          const isAns = k === p.answerIndex;
-          const picked = sel === k;
-          return (
-            <Pressable key={k} accessibilityRole="button" accessibilityState={{ disabled: judged !== null, selected: picked }} disabled={judged !== null} style={[s.choice, judged !== null && isAns && s.choiceOk, judged !== null && picked && !isAns && s.choiceNg]} onPress={() => tap(k)}>
-              <View style={[s.cBadge, judged !== null && isAns && s.cBadgeOk, judged !== null && picked && !isAns && s.cBadgeNg]}>
-                <Text style={s.cBadgeTxt}>{judged !== null && isAns ? '✓' : judged !== null && picked ? '✕' : CODE[k]}</Text>
-              </View>
-              <Text style={s.choiceTxt}>{ch}</Text>
-            </Pressable>
-          );
-        })}
-      </View>
+      <StudyChoiceList choices={p.choices} selectedIndex={sel} answerIndex={p.answerIndex} revealed={judged !== null} onSelect={tap} />
     </>
   );
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
-  body: { padding: spacing.lg, gap: spacing.md, paddingBottom: 40 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: spacing.md },
   emptyTxt: { fontSize: ty.body, color: c.mute, textAlign: 'center' },
   doneBody: { padding: spacing.lg, gap: spacing.lg, alignItems: 'center' },
-  doneEmoji: { fontSize: 56 },
-  doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
-  doneScore: { fontSize: ty.h2, fontWeight: '800', color: c.blue },
-  header: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.sm, borderBottomWidth: 1, borderBottomColor: c.line },
-  hTitle: { fontSize: ty.small, fontWeight: '800', color: c.blueDark, flexShrink: 1 },
-  prog: { flex: 1, minWidth: 28, height: 5, borderRadius: 3, backgroundColor: c.bgSoft, overflow: 'hidden' },
-  progFill: { height: '100%', backgroundColor: c.blue, borderRadius: 3 },
-  hCount: { fontSize: ty.tiny, fontWeight: '700', color: c.mute },
-  x: { width: 26, height: 26, borderRadius: 13, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
-  xTxt: { fontSize: 13, color: c.ink2, fontWeight: '800' },
-  ask: { fontSize: ty.small, fontWeight: '700', color: c.mute },
-  // prompt
-  prompt: { ...studyPaper(c), padding: spacing.lg, alignItems: 'center', gap: spacing.xs },
   promptEn: { fontSize: ty.h2, fontWeight: '800', color: c.ink, textAlign: 'center' },
   promptPt: { fontSize: ty.h1, fontWeight: '800', color: c.ink, textAlign: 'center' },
   // gMeaning: 文法点の用例(対象語に下線)。意味だけでは判別しづらいため併設。
@@ -309,8 +260,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   exampleRuby: { color: c.mute },
   promptJa: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
   promptHint: { fontSize: ty.small, color: c.mute, fontWeight: '700', marginTop: spacing.xs, textAlign: 'center' },
-  listen: { flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 2 },
-  listenTxt: { fontSize: ty.small, fontWeight: '800', color: c.blueDark },
   // produce slots
   slots: { flexDirection: 'row', flexWrap: 'wrap', gap: 7, justifyContent: 'center' },
   slot: { width: 46, height: 52, borderRadius: 11, borderWidth: 2, borderColor: c.line, borderStyle: 'dashed', alignItems: 'center', justifyContent: 'center' },
@@ -323,32 +272,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   bank: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center' },
   tile: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: 11, paddingVertical: 11, paddingHorizontal: 14, ...shadow(1) },
   tileTxt: { fontSize: 20, fontWeight: '800', color: c.ink },
-  tileK: { paddingVertical: 9, paddingHorizontal: 12 },
-  tileKTxt: { fontSize: 16, fontWeight: '700', color: c.ink },
   tileUsed: { opacity: 0.3 },
-  // order rows
-  orderRows: { gap: 8 },
-  oslot: { flexDirection: 'row', alignItems: 'center', minHeight: 46, borderRadius: 11, borderWidth: 2, borderColor: c.line, borderStyle: 'dashed', paddingHorizontal: 12, gap: 9 },
-  oslotFilled: { borderStyle: 'solid', borderColor: c.blue, backgroundColor: c.blueLight },
-  oslotOk: { borderColor: c.green, backgroundColor: c.okBg },
-  oslotNg: { borderColor: c.red, backgroundColor: c.ngBg },
-  oNum: { width: 20, height: 20, borderRadius: 10, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, textAlign: 'center', lineHeight: 20, fontSize: 11, color: c.mute, fontWeight: '700', overflow: 'hidden' },
-  oTileTxt: { fontSize: 16, fontWeight: '700', color: c.ink },
-  oPlaceholder: { flex: 1 },
-  // meaning choices
-  choices: { gap: 10 },
-  choice: { ...studyChoice(c), flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 13, paddingHorizontal: 14 },
-  choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
-  choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
-  cBadge: { ...studyBadge(c) },
-  cBadgeOk: { backgroundColor: c.okBg },
-  cBadgeNg: { backgroundColor: c.ngBg },
-  cBadgeTxt: { fontSize: 12, fontWeight: '800', color: c.ink2 },
-  choiceTxt: { flex: 1, fontSize: ty.body, fontWeight: '700', color: c.ink2 },
-  // footer
-  footer: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, padding: spacing.lg, borderTopWidth: 1, borderTopColor: c.line, backgroundColor: c.surface },
-  fbTxt: { fontSize: ty.h2, fontWeight: '800', flex: 1 },
-  saveBtn: { width: 40, height: 40, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, paddingVertical: spacing.md, paddingHorizontal: spacing.xl, alignItems: 'center' },
   ctaTxt: { color: '#fff', fontSize: ty.h2, fontWeight: '800' },
 });

@@ -114,7 +114,10 @@ try{
   });
   _mo.observe(_t,{childList:true,subtree:true});
 }catch(e){}
-window.addEventListener('resize',function(){if(window._grid)drawGrid(window._grid);});
+window.addEventListener('resize',function(){
+  if(window._grid)drawGrid(window._grid);
+  if(writer){var S=size();writer.updateDimensions({width:S,height:S,padding:Math.round(S*0.08)});}
+});
 post({type:'ready'});
 </script>
 </body></html>`;

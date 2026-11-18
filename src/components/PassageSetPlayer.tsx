@@ -1,9 +1,12 @@
+import StudyChoiceList from './StudyChoiceList';
+import StudyPrompt from './StudyPrompt';
+import { StudySceneBanner, useStudyColors, useStudyScroll } from './StudyPresentation';
 // 1文章＋全設問を一括提示→各問回答(正誤は出さない)→全問回答で一括採点(色付け)＋quizAnswer記録→「次へ」待機。
 // 読解・文章の文法・模試で共用。ルビは同級以上のみ(rubyNeeded)。解説なし。pointIdある問は＋my単語帳。
 // テーブル型(情報検索)は別コンポーネントにルーティング。
 import { useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+
 import RubyText from './RubyText';
 import { InfoSearchFigure } from './InfoSearchFigure';
 import { rubyNeeded } from '../data';
@@ -11,7 +14,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { shuffleChoices } from '../quiz/quiz';
 import { type PassageSet, type Figure } from '../quiz/passageSet';
 import { PASSAGE_TRANS, Q_TRANS } from '../data';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
 import { useT, meaningL1, pickTr } from '../i18n';
 import AnswerFooter from './AnswerFooter';
 
@@ -24,7 +27,8 @@ function tableToFigure(rows: Record<string, string | number>[]): Figure {
 export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }: { set: PassageSet; isLast: boolean; onNext: () => void; onGraded?: (results: { id: string; correct: boolean }[]) => void; mock?: boolean }) {
   const state = useAppState();
   const { quizAnswer } = useAppActions();
-  const c = useColors();
+  const c = useStudyColors(!mock);
+  const scrollRef = useStudyScroll(set.id);
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
   const rubyGate = (run: string) => rubyNeeded(run, state.settings.level);
@@ -89,16 +93,18 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
   };
 
   return (
-    <ScrollView contentContainerStyle={s.body}>
+    <View style={{ flex: 1 }}>
+    <ScrollView ref={scrollRef} contentContainerStyle={s.body}>
+      {!mock && <StudySceneBanner />}
       {set.passages.map((p, pi) => (
-        <View key={pi} style={s.passageCard}>
+        <StudyPrompt key={pi} study={!mock}>
           {p.format ? <Text style={s.fmtTag}>{p.format}</Text> : null}
           {p.title ? <RubyText text={p.title} style={s.passageTitle} rubyStyle={s.rubyS} rubyGate={rubyGate} /> : null}
           <View style={s.passageBodyWrap}>
             {p.body.split('\n').map((line, i) => (line ? <RubyText key={i} text={line} style={s.passageBody} rubyStyle={s.rubyS} rubyGate={rubyGate} /> : <View key={i} style={s.blankLine} />))}
           </View>
           {showFeedback && showTrans && trans?.[pi] ? <Text style={s.transTxt}>{trans[pi]}</Text> : null}
-        </View>
+        </StudyPrompt>
       ))}
 
       {showFeedback && hasTrans ? (
@@ -114,22 +120,12 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
             <Text style={s.qLabel}>{q.blankNo != null ? t('passage.blankLabel', { n: q.blankNo }) : t('passage.qLabel', { n: qi + 1 })}</Text>
             {q.q ? <RubyText text={q.q} style={s.qText} rubyStyle={s.rubyS} rubyGate={rubyGate} /> : null}
             {showFeedback && showTrans && qtr(q.id)?.q ? <Text style={s.qTrans}>{qtr(q.id)!.q}</Text> : null}
-            <View style={s.choices}>
-              {qs[qi].sh.choices.map((ch, ci) => {
-                const isAns = ci === qs[qi].sh.answerIndex;
-                const isPicked = ci === picked;
+            <StudyChoiceList study={!mock} choices={qs[qi].sh.choices} selectedIndex={picked}
+              answerIndex={qs[qi].sh.answerIndex} revealed={revealed} onSelect={(ci) => pick(qi, ci)}
+              renderChoice={(ch, _ci, textStyle) => {
                 const ctr = showFeedback && showTrans ? qtr(q.id)?.choices[qs[qi].q.choices.indexOf(ch)] : undefined;
-                return (
-                  <Pressable key={ci} style={[s.choice, showFeedback && isAns && s.choiceOk, showFeedback && isPicked && !isAns && s.choiceNg, !showFeedback && isPicked && s.choicePicked]} onPress={() => pick(qi, ci)} disabled={revealed}>
-                    <View style={s.choiceTxtWrap}>
-                      <RubyText text={ch} style={s.choiceTxt} rubyStyle={s.rubyS} rubyGate={rubyGate} />
-                      {ctr ? <Text style={s.choiceTrans}>{ctr}</Text> : null}
-                    </View>
-                    {showFeedback && isAns ? <Text style={s.mark}>✓</Text> : null}
-                  </Pressable>
-                );
-              })}
-            </View>
+                return <><RubyText text={ch} style={textStyle} rubyStyle={s.rubyS} rubyGate={rubyGate} />{ctr ? <Text style={s.choiceTrans}>{ctr}</Text> : null}</>;
+              }} />
             {showFeedback && q.explain ? (
               <View style={s.explainBox}>
                 <Text style={s.explainLabel}>{t('passage.explainLabel')}</Text>
@@ -141,18 +137,15 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
         );
       })}
 
-      {allAnswered ? (
-        <AnswerFooter onNext={handleNext} nextKind={isLast ? 'result' : 'next'} />
-      ) : (
-        <Text style={s.hint}>{t('passage.hint')}</Text>
-      )}
+      {!allAnswered && <Text style={s.hint}>{t('passage.hint')}</Text>}
     </ScrollView>
+    {allAnswered && <AnswerFooter study={!mock} onNext={handleNext} nextKind={isLast ? 'result' : 'next'} />}
+    </View>
   );
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   body: { padding: spacing.lg, gap: spacing.md },
-  passageCard: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.md, gap: spacing.xs },
   fmtTag: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, letterSpacing: 1 },
   passageTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
   passageBodyWrap: { gap: 2 },
@@ -170,16 +163,5 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   qBlock: { gap: spacing.sm },
   qLabel: { fontSize: ty.small, fontWeight: '800', color: c.blueDark },
   qText: { fontSize: ty.body, color: c.ink },
-  choices: { gap: spacing.sm },
-  choice: { flexDirection: 'row', alignItems: 'center', backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, paddingVertical: spacing.sm + 2, paddingHorizontal: spacing.md },
-  choicePicked: { borderColor: c.blue, backgroundColor: c.blueLight },
-  choiceOk: { borderColor: c.green, backgroundColor: c.okBg },
-  choiceNg: { borderColor: c.red, backgroundColor: c.ngBg },
-  choiceTxtWrap: { flex: 1 },
-  choiceTxt: { fontSize: ty.body, color: c.ink2 },
-  mark: { fontSize: ty.body, color: c.green, fontWeight: '800' },
-  saveBtn: { alignSelf: 'flex-start', width: 40, height: 40, borderRadius: radius.md, borderWidth: 1, borderColor: c.line, backgroundColor: c.bgSoft, alignItems: 'center', justifyContent: 'center' },
-  nextBtn: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.sm },
-  nextTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
 });

@@ -51,27 +51,25 @@ export function studyBadge(c: ThemeColors): ViewStyle {
 }
 
 /** 長い問題を下まで読んだ後も、次問は問題文から表示する。 */
-export function useStudyScroll(questionIndex: number) {
+export function useStudyScroll(questionIndex: string | number) {
   const ref = useRef<ScrollView>(null);
   useEffect(() => { ref.current?.scrollTo({ y: 0, animated: false }); }, [questionIndex]);
   return ref;
 }
 
 /** ScrollView の本文(padding=lg)内に置き、問題を読むときは絵を上へ流せるようにする。 */
-export function StudySceneBanner({ current, total }: { current?: number; total?: number }) {
+export function StudySceneBanner({ inset = spacing.lg }: { inset?: number }) {
   const simple = useSimpleMode();
   if (simple) return null;
-  return <StudySceneArt current={current} total={total} />;
+  return <StudySceneArt inset={inset} />;
 }
 
-function StudySceneArt({ current, total }: { current?: number; total?: number }) {
+function StudySceneArt({ inset }: { inset: number }) {
   const source = useTabBg('word'); // 昼夜・季節のOTA更新・オフラインの同梱画像を共用。
   const c = useStudyColors();
   const { height } = useWindowDimensions();
-  const progress = total && current !== undefined ? Math.max(0, Math.min(1, current / total)) : null;
   return (
-    <View style={styles.banner} pointerEvents="none" accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
-      {progress !== null && <View style={[styles.track, { backgroundColor: c.bgSoft }]}><View style={{ height: '100%', width: `${progress * 100}%`, backgroundColor: c.blue }} /></View>}
+    <View style={[styles.banner, { marginHorizontal: -inset }]} pointerEvents="none" accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
       <Image source={source} resizeMode="cover" style={{ width: '100%', height: height < 700 ? 76 : 104 }} />
       <View style={{ height: 2, backgroundColor: c.line }} />
     </View>
@@ -79,6 +77,5 @@ function StudySceneArt({ current, total }: { current?: number; total?: number })
 }
 
 const styles = StyleSheet.create({
-  banner: { marginHorizontal: -spacing.lg, overflow: 'hidden' },
-  track: { height: 4 },
+  banner: { alignSelf: 'stretch', overflow: 'hidden' },
 });

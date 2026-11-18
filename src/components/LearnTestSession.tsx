@@ -5,11 +5,14 @@ import { useMemo, useState, useEffect, useRef, type ReactNode } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from './AfterStudyReward';
 import AnswerFooter from './AnswerFooter';
+import StudyLayout from './StudyLayout';
+import StudyChoiceList from './StudyChoiceList';
+import { studyPaper, useStudyColors } from './StudyPresentation';
 import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords } from '../data/studiedWords';
 import type { SaveRef } from '../store/state';
@@ -34,7 +37,7 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
   const state = useAppState();
   const { items } = state;
   const { quizAnswer } = useAppActions();
-  const c = useColors();
+  const c = useStudyColors();
   const s = useMemo(() => makeStyles(c), [c]);
 
   const maxCards = (overrideBatch ? overrideBatch.length : size) * 3 + 4; // relearn 再出題の上限
@@ -85,29 +88,21 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
     const learnItem = batch[learnIdx];
     const last = learnIdx + 1 >= batch.length;
     return (
-      <SafeAreaView style={s.c}>
-        <ScrollView contentContainerStyle={s.body}>
-          <View style={s.top}>
-            <Pressable onPress={() => nav.goBack()} hitSlop={12}>
-              <Text style={s.close}>✕</Text>
+      <StudyLayout title={t('learntestsession.learn_phase')} current={learnIdx + 1} total={batch.length}
+        onClose={() => nav.goBack()} scrollKey={`learn-${learnIdx}`}>
+        <View>{renderLearnCard(learnItem)}</View>
+        <View style={s.navRow}>
+          {learnIdx > 0 ? (
+            <Pressable style={s.ctaBack} onPress={() => setLearnIdx((i) => Math.max(0, i - 1))}>
+              <Text style={s.ctaBackTxt}>{t('learntestsession.back')}</Text>
             </Pressable>
-            <Text style={s.progress}>{t('learntestsession.learn_progress', { n: learnIdx + 1, m: batch.length })}</Text>
-          </View>
-          <Text style={s.phase}>{t('learntestsession.learn_phase')}</Text>
-          <View>{renderLearnCard(learnItem)}</View>
-          <View style={s.navRow}>
-            {learnIdx > 0 ? (
-              <Pressable style={s.ctaBack} onPress={() => setLearnIdx((i) => Math.max(0, i - 1))}>
-                <Text style={s.ctaBackTxt}>{t('learntestsession.back')}</Text>
-              </Pressable>
-            ) : null}
-            <Pressable style={[s.cta, s.ctaFlex]} onPress={() => (last ? setPhase('test') : setLearnIdx((i) => i + 1))}>
-              <Text style={s.ctaTxt}>{last ? t('learntestsession.go_test', { n: batch.length }) : t('learntestsession.next')}</Text>
-            </Pressable>
-          </View>
-          {last ? <Text style={s.hint}>{t('learntestsession.learn_hint', { n: batch.length })}</Text> : null}
-        </ScrollView>
-      </SafeAreaView>
+          ) : null}
+          <Pressable style={[s.cta, s.ctaFlex]} onPress={() => (last ? setPhase('test') : setLearnIdx((i) => i + 1))}>
+            <Text style={s.ctaTxt}>{last ? t('learntestsession.go_test', { n: batch.length }) : t('learntestsession.next')}</Text>
+          </Pressable>
+        </View>
+        {last ? <Text style={s.hint}>{t('learntestsession.learn_hint', { n: batch.length })}</Text> : null}
+      </StudyLayout>
     );
   }
 
@@ -157,70 +152,37 @@ export default function LearnTestSession({ pool, size, renderLearnCard, override
   const reveal = picked !== null;
 
   return (
-    <SafeAreaView style={s.c}>
-      <ScrollView contentContainerStyle={s.body}>
-        <View style={s.top}>
-          <Pressable onPress={() => nav.goBack()} hitSlop={12}>
-            <Text style={s.close}>✕</Text>
-          </Pressable>
-          <Text style={s.progress}>{t('learntestsession.test_progress', { n: testIdx + 1, m: total })}</Text>
-        </View>
-        <Text style={s.phase}>{t('learntestsession.test_phase')}</Text>
+    <StudyLayout title={t('learntestsession.test_phase')} current={testIdx + 1} total={total}
+      onClose={() => nav.goBack()} scrollKey={`test-${testIdx}`}
+      footer={reveal ? <AnswerFooter correct={picked === question.answerIndex} onNext={advance} nextKind="next" /> : undefined}>
+      <View style={s.promptCard}>
+        <Text style={s.prompt}>{question.prompt}</Text>
+        {question.example ? (
+          <Text style={s.reading}>
+            {question.example.map((sg, i) => (
+              <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
+            ))}
+          </Text>
+        ) : question.reading ? (
+          <Text style={s.reading}>{question.reading}</Text>
+        ) : null}
+        <Text style={s.qtext}>{question.question}</Text>
+      </View>
 
-        <View style={s.promptCard}>
-          <Text style={s.prompt}>{question.prompt}</Text>
-          {question.example ? (
-            <Text style={s.reading}>
-              {question.example.map((sg, i) => (
-                <Text key={i} style={sg.hit ? s.exHit : undefined}>{sg.text}</Text>
-              ))}
-            </Text>
-          ) : question.reading ? (
-            <Text style={s.reading}>{question.reading}</Text>
-          ) : null}
-          <Text style={s.qtext}>{question.question}</Text>
-        </View>
+      <StudyChoiceList choices={question.choices} selectedIndex={picked} answerIndex={question.answerIndex}
+        revealed={reveal} onSelect={onPick} />
 
-        <View style={s.choices}>
-          {question.choices.map((ch, i) => {
-            const isAnswer = i === question.answerIndex;
-            const isPicked = i === picked;
-            return (
-              <Pressable
-                key={i}
-                style={[s.choice, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
-                onPress={() => onPick(i)}
-                disabled={reveal}
-              >
-                <Text style={s.choiceTxt}>{ch}</Text>
-                {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
-              </Pressable>
-            );
-          })}
-        </View>
-
-        {!reveal && <Text style={s.hint}>{t('learntestsession.test_hint')}</Text>}
-      </ScrollView>
-      {/* 全ドリル共通の回答フッター(正誤＋次へ)。 */}
-      {reveal && <AnswerFooter correct={picked === question.answerIndex} onNext={advance} nextKind="next" />}
-    </SafeAreaView>
+      {!reveal && <Text style={s.hint}>{t('learntestsession.test_hint')}</Text>}
+    </StudyLayout>
   );
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
-  body: { padding: spacing.lg, gap: spacing.md },
   doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: spacing.sm },
-  top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  close: { fontSize: ty.h2, color: c.mute },
-  progress: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
-  phase: { fontSize: ty.small, fontWeight: '800', color: c.blue, letterSpacing: 1 },
   promptCard: {
-    backgroundColor: c.surface,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: c.line,
+    ...studyPaper(c),
     paddingVertical: spacing.xl,
     paddingHorizontal: spacing.lg,
     alignItems: 'center',
@@ -232,22 +194,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   reading: { fontSize: ty.small, color: c.mute },
   exHit: { color: c.ink, textDecorationLine: 'underline' },
   qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.xs },
-  choices: { gap: spacing.sm },
-  choice: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: c.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: c.line,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.md,
-  },
-  choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
-  choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
-  choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
-  mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   navRow: { flexDirection: 'row', gap: spacing.sm, marginTop: spacing.xs },
@@ -257,9 +203,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
     paddingVertical: spacing.md, paddingHorizontal: spacing.lg, alignItems: 'center', justifyContent: 'center',
   },
   ctaBackTxt: { color: c.ink2, fontSize: ty.body, fontWeight: '700' },
-  judge: { fontSize: ty.h2, fontWeight: '800', textAlign: 'center', marginTop: spacing.sm },
-  judgeOk: { color: c.green },
-  judgeNg: { color: c.red },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
   bigEmoji: { fontSize: 56 },
   doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },

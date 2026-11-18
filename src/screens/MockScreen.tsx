@@ -1,3 +1,8 @@
+import StudyChoiceList from '../components/StudyChoiceList';
+import StudyPrompt from '../components/StudyPrompt';
+import StudyAudioButton from '../components/StudyAudioButton';
+import { useStudyScroll } from '../components/StudyPresentation';
+
 import ReviewFeedbackCard from '../home/ReviewFeedbackCard';
 import { useProStatus } from '../pro/useProStatus';
 // ミニ模試(言語知識20問) / フル模試(全区分=漢字語彙＋文法＋読解＋聴解)。本番形式・客観採点(重み5)。
@@ -11,20 +16,20 @@ import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { useT } from '../i18n';
 import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
-import { isInMyList } from '../store/state';
+
 import { guessCorrect, jftMockScore, mockScoreEstimate } from '../store/selectors';
 import { dayStr } from '../store/state';
 import { rubyNeeded, READING_SUBTYPES } from '../data';
 import RubyText from '../components/RubyText';
-import AppButton from '../components/AppButton';
+
 import PassageSetPlayer from '../components/PassageSetPlayer';
 import AnswerFooter from '../components/AnswerFooter';
-import { type PassageSet } from '../quiz/passageSet';
+
 import { listeningSource } from '../data/listeningAudio';
 import { mockTicketCount } from '../store/tickets';
 import { sendMock } from '../telemetry/telemetry';
 import { DAIMON_LABEL, type Daimon } from '../data/examBlueprint';
-import { buildExam, type MockItem, type Sec, type Seen } from '../mock/buildExam';
+import { buildExam, type MockItem, type Sec } from '../mock/buildExam';
 import type { Level } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -163,6 +168,7 @@ export default function MockScreen() {
   const curBlock = blocks[blockIdx] ?? blocks[0];
   const multiBlock = blocks.length > 1;
   const [idx, setIdx] = useState(0);
+  const questionScrollRef = useStudyScroll(idx);
   const [picked, setPicked] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [startedAt] = useState(() => Date.now());
@@ -745,9 +751,10 @@ export default function MockScreen() {
         // 読解/文章の文法=1文章＋全設問を一括提示。採点は設問単位(PassageSetPlayerのonGraded)。「次へ」もPassageSetPlayer側で統一。
         <PassageSetPlayer key={cur.set.id} set={cur.set} mock isLast={idx + 1 >= curBlock.to && blockIdx + 1 >= blocks.length} onNext={next} onGraded={accumulateScore} />
       ) : (
-        <ScrollView contentContainerStyle={s.body}>
+        <View style={{ flex: 1 }}>
+        <ScrollView ref={questionScrollRef} contentContainerStyle={s.body}>
           {cur.kind === 'word' ? (
-            <View style={s.promptCard}>
+            <StudyPrompt study={false} style={s.promptCard}>
               {cur.furi ? (
                 // ふりがな付き問題文=レベル適応ルビ(同レベル以上の漢字のみ)。①漢字読みは対象語のルビを抑止。
                 <RubyText text={cur.furi} target={cur.furiTarget} style={s.mockSentence} hitStyle={s.exHit} rubyStyle={s.mockRuby} rubyGate={rubyGate} noRubyOnHit={cur.noTargetRuby} center />
@@ -766,53 +773,32 @@ export default function MockScreen() {
                 </>
               )}
               <Text style={s.qtext}>{cur.question}</Text>
-            </View>
+            </StudyPrompt>
           ) : (
-            <View style={s.passageCard}>
+            <StudyPrompt study={false}>
               <Text style={s.passTitle}>{cur.title}</Text>
               {(() => {
                 const remaining = LISTEN_MAX - playCount;
                 const used = remaining <= 0; // 上限に達したら再生不可(本番=JLPT 1回/JFT 2回)
                 return (
-                  <Pressable style={[s.playBtn, playing && s.playBtnOn, used && !playing && s.playBtnUsed]} onPress={play} disabled={used && !playing}>
-                    <Text style={[s.playTxt, playing && s.playTxtOn]}>
-                      {playing ? t('mock.playing') : used ? t('mock.play_used', { n: LISTEN_MAX }) : isJft ? t('mock.play_jft', { n: remaining }) : t('mock.play_audio')}
-                    </Text>
-                  </Pressable>
+                  <StudyAudioButton study={false} playing={playing} onPress={play} disabled={used && !playing}
+                    label={playing ? t('mock.playing') : used ? t('mock.play_used', { n: LISTEN_MAX }) : isJft ? t('mock.play_jft', { n: remaining }) : t('mock.play_audio')} />
                 );
               })()}
               {/* 模試中はスクリプトを出さない(最後の「解答・解説」でまとめて表示)。 */}
-            </View>
+            </StudyPrompt>
           )}
 
           {cur.kind !== 'word' ? <RubyText text={cur.question ?? ''} style={s.qtextBig} rubyStyle={s.mockRuby} rubyGate={rubyGate} /> : null}
 
-          <View style={s.choices}>
-            {cur.choices.map((ch, i) => {
-              const isPicked = i === picked;
-              return (
-                <Pressable
-                  key={i}
-                  // 模試中は正誤(緑/赤)を出さない。選んだ肢だけ中立の色で示す。「次へ」まで何度でも選び直せる。
-                  // 概要/発話/即時(audioChoices)=選択肢は音声で読まれる=本番同様に番号のみ表示(テキスト非表示・シャッフルなし)。
-                  style={[s.choice, cur.audioChoices && s.choiceNum, isPicked && s.choicePicked]}
-                  onPress={() => onPick(i)}
-                >
-                  {cur.audioChoices
-                    ? <Text style={s.numBadge}>{i + 1}</Text>
-                    : <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.mockRuby} rubyGate={rubyGate} /></View>}
-                </Pressable>
-              );
-            })}
-          </View>
+          <StudyChoiceList study={false} choices={cur.choices} selectedIndex={picked} onSelect={onPick}
+            numbersOnly={!!cur.audioChoices}
+            renderChoice={(ch, _index, textStyle) => <RubyText text={ch} style={textStyle} rubyStyle={s.mockRuby} rubyGate={rubyGate} />} />
 
-          {/* 模試は回答後に正誤を出さない=中立の「次へ」だけ(correctを渡さない)。 */}
-          {reveal ? (
-            <AnswerFooter onNext={next} nextKind={idx + 1 >= curBlock.to && blockIdx + 1 >= blocks.length ? 'result' : 'next'} />
-          ) : (
-            <Text style={s.hint}>{t('mock.hint')}</Text>
-          )}
+          {!reveal && <Text style={s.hint}>{t('mock.hint')}</Text>}
         </ScrollView>
+        {reveal && <AnswerFooter onNext={next} nextKind={idx + 1 >= curBlock.to && blockIdx + 1 >= blocks.length ? 'result' : 'next'} />}
+        </View>
       )}
     </SafeAreaView>
   );
@@ -856,10 +842,7 @@ const makeStyles = (c: ThemeColors) =>
     // 出題中(exam)画面の上部バー(閉じる/タイマー/進捗+区分タグ)。passage-setはPassageSetPlayer(自前ScrollView)を
     // ネストさせない為、ScrollViewの外に出して常設表示する(word/listening/passageSet共通)。
     topWrap: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.sm, gap: spacing.sm },
-    top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
     close: { fontSize: ty.h2, color: c.mute },
-    progress: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
-    timer: { fontSize: ty.small, color: c.ink2, fontWeight: '800' },
     timerLow: { color: c.red },
     timeup: { fontSize: ty.small, color: c.red, fontWeight: '800', marginTop: spacing.xs },
     secTag: { fontSize: ty.tiny, fontWeight: '800', color: c.blue, letterSpacing: 1, flexShrink: 1 },
@@ -902,15 +885,12 @@ const makeStyles = (c: ThemeColors) =>
     calcTrack: { width: '100%', height: 9, borderRadius: 999, backgroundColor: '#e9e1d3', overflow: 'hidden' },
     calcFill: { height: '100%', backgroundColor: c.blue, borderRadius: 999 },
     calcPct: { fontSize: ty.h1, fontWeight: '900', color: c.blue, fontVariant: ['tabular-nums'] },
-    // 合否証明書(結果画面上部・模試終了画面を背景に空の辺りへ重ねる)
-    certHero: { width: '100%', borderRadius: radius.lg, overflow: 'hidden', backgroundColor: '#cfe3f5', alignItems: 'center', justifyContent: 'flex-start', marginBottom: spacing.md },
     // 証明書に重ねるレベル文字(元N3の位置・濃紺のセリフ体で証明書に馴染ませる)
     // レベル文字。数字が下がらない字形(ライニング数字)のセリフ体にする=NとN以外の数字が同じ高さ・同じベースラインで揃う(Georgiaは旧字体数字でズレる)。
     previewNote: { fontSize: ty.small, color: '#fff', fontWeight: '800', textAlign: 'center', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
     // 結果画面(模試終了の全画面＋証明書オーバーレイ)。上部バー・スクロール誘導は空の上に載るので白＋影で視認性確保。
     topOnImg: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
     closeOnImg: { fontSize: ty.h2, color: '#fff', fontWeight: '800', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
-    progressOnImg: { fontSize: ty.small, color: '#fff', fontWeight: '800', textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 } },
     previewFooter: { paddingHorizontal: spacing.lg, paddingBottom: spacing.lg, alignItems: 'center', gap: spacing.sm },
     imgCloseBtn: { alignSelf: 'stretch', backgroundColor: 'rgba(255,255,255,0.94)', borderRadius: radius.lg, paddingVertical: spacing.md, alignItems: 'center' },
     imgCloseT: { color: '#241a10', fontSize: ty.body, fontWeight: '900', letterSpacing: 1, textAlign: 'center' },
@@ -926,8 +906,7 @@ const makeStyles = (c: ThemeColors) =>
     sakuraBubbleT: { fontSize: ty.body, color: '#241a10', fontWeight: '700', lineHeight: 23, textAlign: 'center' },
     sakuraTail: { width: 0, height: 0, borderLeftWidth: 9, borderRightWidth: 9, borderTopWidth: 12, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderTopColor: 'rgba(255,255,255,0.96)', marginTop: -1 },
     promptCard: {
-      backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line,
-      paddingVertical: spacing.xl, paddingHorizontal: spacing.lg, alignItems: 'center', gap: spacing.xs, minHeight: 130, justifyContent: 'center',
+      paddingVertical: spacing.xl, alignItems: 'center', gap: spacing.xs, minHeight: 130, justifyContent: 'center',
     },
     prompt: { fontSize: 30, fontWeight: '800', color: c.ink, textAlign: 'center' },
     readingHint: { fontSize: ty.small, color: c.mute },
@@ -935,31 +914,9 @@ const makeStyles = (c: ThemeColors) =>
     mockRuby: { fontSize: 10, lineHeight: 12, color: c.mute, textAlign: 'center' },
     exHit: { color: c.ink, textDecorationLine: 'underline' },
     qtext: { fontSize: ty.small, color: c.faint, marginTop: spacing.sm },
-    passageCard: { backgroundColor: c.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: c.line, padding: spacing.lg, gap: spacing.sm },
     passTitle: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, letterSpacing: 1 },
-    passBody: { fontSize: ty.body, color: c.ink2 },
-    passBodyWrap: { marginTop: spacing.xs, gap: 4 },
-    passBlank: { height: 8 },
     choiceTxtWrap: { flex: 1 },
     qtextBig: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
-    playBtn: { backgroundColor: c.bgSoft, borderRadius: radius.md, borderWidth: 1, borderColor: c.choukai, paddingVertical: spacing.md, alignItems: 'center' },
-    playBtnUsed: { opacity: 0.45, borderColor: c.line },
-    playBtnOn: { backgroundColor: c.okBg, borderColor: c.green },
-    playTxt: { fontSize: ty.body, fontWeight: '800', color: c.choukai, textAlign: 'center' },
-    playTxtOn: { color: c.green },
-    choices: { gap: spacing.sm },
-    choice: {
-      flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-      backgroundColor: c.surface, borderRadius: radius.md, borderWidth: 1, borderColor: c.line,
-      paddingVertical: spacing.md, paddingHorizontal: spacing.md,
-    },
-    choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
-    choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
-    choicePicked: { borderColor: c.blue, backgroundColor: c.blueLight }, // 模試中=選んだ肢を中立色で(正誤は出さない)
-    choiceNum: { justifyContent: 'center', paddingVertical: spacing.lg }, // 番号のみ表示(概要/発話/即時)=中央・やや高め
-    numBadge: { fontSize: ty.h1, fontWeight: '800', color: c.choukai, minWidth: 28, textAlign: 'center' },
-    choiceTxt: { fontSize: ty.body, color: c.ink2, flex: 1 },
-    mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
     // 解答・解説まとめ画面(review)
     reviewBtn: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.blue, borderRadius: radius.pill, paddingVertical: 12, paddingHorizontal: 28, alignItems: 'center', alignSelf: 'center', marginTop: spacing.xs },
     reviewBtnT: { color: c.blueDark, fontWeight: '800', fontSize: ty.body, textAlign: 'center' },
@@ -992,7 +949,6 @@ const makeStyles = (c: ThemeColors) =>
     rvExplain: { backgroundColor: c.bgSoft, borderRadius: radius.sm, borderLeftWidth: 3, borderLeftColor: c.blue, padding: spacing.sm, marginTop: 2 },
     rvExplainLbl: { fontSize: ty.tiny, fontWeight: '800', color: c.blueDark, marginBottom: 2 },
     rvExplainTxt: { fontSize: ty.small, color: c.ink, lineHeight: 21 },
-    myListBtn: { alignSelf: 'center', marginTop: spacing.xs },
     cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
     ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800', textAlign: 'center' },
     hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },

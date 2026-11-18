@@ -1,3 +1,8 @@
+import StudyAudioButton from '../components/StudyAudioButton';
+import { useStudyColors } from '../components/StudyPresentation';
+import StudyLayout from '../components/StudyLayout';
+import StudyChoiceList from '../components/StudyChoiceList';
+import StudyPrompt from '../components/StudyPrompt';
 // ミニ聴解。会話/独話の音声(Google TTS生成)を聞いて4択で自動採点(重み3)→聴解リング点灯。
 // スクリプトは既定で隠す(本物の聴解)。解答後に表示＋解説。採点は quizAnswer(設問id) 流用。掲示板§4(聴解)。
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -5,7 +10,7 @@ import { View, Text, Pressable, StyleSheet, ScrollView, ActivityIndicator, Image
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { Audio, type AVPlaybackStatus } from 'expo-av';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
 import { useAppState, useAppActions } from '../store/store';
 import { useT, meaningL1, pickTr } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
@@ -13,7 +18,7 @@ import AfterStudyReward from '../components/AfterStudyReward';
 import type { StudiedQuestion } from '../data/studiedWords';
 import AnswerFooter from '../components/AnswerFooter';
 import { walletPoints } from '../store/wallet';
-import ExamHeader from '../components/ExamHeader';
+
 import DevIdPicker from '../components/DevIdPicker';
 import RubyText from '../components/RubyText';
 import Slider from '../components/Slider';
@@ -40,7 +45,7 @@ export default function ListeningScreen() {
   const nav = useNavigation();
   const state = useAppState();
   const { quizAnswer, setSettings } = useAppActions();
-  const c = useColors();
+  const c = useStudyColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
   // ルビ(ふりがな)は自レベル以上の漢字だけに出す(読解・単語と同じレベルゲート)。共通仕様§3。
@@ -261,12 +266,10 @@ export default function ListeningScreen() {
   const audioControls = (<>{scriptBlock}{speedBar}</>); // 音声のある区分=スクリプトトグル＋スピードバー
 
   return (
-    <SafeAreaView style={s.c}>
-      <ScrollView contentContainerStyle={s.body}>
-        <ExamHeader title={route.params?.title} id={step?.clip.id} onClose={async () => { await stopSound(); nav.goBack(); }} count={`${idx + 1} / ${steps.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} onReport={async () => { await stopSound(); (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: step?.clip.id, level: state.settings.level, daimon: route.params?.title, screen: 'Listening' }); }} reportA11y={t('bug.report')} />
+    <StudyLayout current={idx + 1} total={steps.length} title={route.params?.title} id={step?.clip.id} onClose={async () => { await stopSound(); nav.goBack(); }} onPressId={devTools ? () => setPickerOpen(true) : undefined} onReport={async () => { await stopSound(); (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: step?.clip.id, level: state.settings.level, daimon: route.params?.title, screen: 'Listening' }); }} reportA11y={t('bug.report')}  footer={allDone ? <AnswerFooter study onNext={advance} nextKind={idx + 1 >= steps.length ? 'result' : 'next'} /> : null}>
         {devTools ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={step?.clip.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
 
-        <View style={s.clipCard}>
+        <StudyPrompt>
           <Text style={s.clipTitle}>{step.clip.title}</Text>
           {isAudioChoices ? (
             <>
@@ -277,9 +280,7 @@ export default function ListeningScreen() {
                   <View style={s.hatsuwaImgPh}><ActivityIndicator color={c.blue} /></View>
                 )
               ) : null}
-              <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
-                <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
-              </Pressable>
+              <StudyAudioButton playing={playing} label={playing ? t('listening.playing') : t('listening.play')} onPress={play} />
               {audioControls}
             </>
           ) : isHatsuwa ? (
@@ -293,9 +294,7 @@ export default function ListeningScreen() {
             </>
           ) : (step.clip.audio || isGaiyou) ? (
             <>
-              <Pressable style={[s.playBtn, playing && s.playBtnOn]} onPress={play}>
-                <Text style={[s.playTxt, playing && s.playTxtOn]}>{playing ? t('listening.playing') : t('listening.play')}</Text>
-              </Pressable>
+              <StudyAudioButton playing={playing} label={playing ? t('listening.playing') : t('listening.play')} onPress={play} />
               {audioControls}
             </>
           ) : (
@@ -304,10 +303,10 @@ export default function ListeningScreen() {
               {scriptBlock}
             </>
           )}
-        </View>
+        </StudyPrompt>
 
         {step.qs.length === 0 || picked.length === 0 ? <Text style={s.hint}>{t(isHatsuwa ? 'listening.hint_hatsuwa' : step.clip.audio ? 'listening.hint' : 'listening.dev_text')}</Text> : null}
-        {/* 1音声の全設問を同ページに。各設問を個別タップ→正誤表示→全問終わると自動で次へ。 */}
+        {/* 1音声の全設問を同ページに。各設問を個別タップ→正誤表示→全問回答後に次へボタン。 */}
         {step.qs.map((q, qi) => {
           const reveal = picked[qi] != null;
           return (
@@ -315,32 +314,12 @@ export default function ListeningScreen() {
               {step.qs.length > 1 ? <Text style={s.qLabel}>{t('listening.q_label', { n: qi + 1, m: step.qs.length })}</Text> : null}
               {q.q ? <RubyText text={q.q} style={s.qText} rubyStyle={s.scriptRuby} rubyGate={rubyGate} /> : null}
               {reveal && showTrans && qtr(q.id)?.q ? <Text style={s.qTransTxt}>{qtr(q.id)!.q}</Text> : null}
-              <View style={s.choices}>
-                {q.choices.map((ch, ci) => {
-                  const isAnswer = ci === q.answerIndex;
-                  const isPicked = ci === picked[qi];
-                  // 選択肢はシャッフル表示だが Q_TRANS はデータ元順。元問題(step.clip.questions[qi])で ch の元indexを引いて訳を対応させる。
+              <StudyChoiceList choices={q.choices} selectedIndex={picked[qi] ?? null} answerIndex={q.answerIndex}
+                revealed={reveal} onSelect={(ci) => onPick(qi, ci)} numbersOnly={isAudioChoices && !reveal}
+                renderChoice={(ch, _ci, textStyle) => {
                   const ctr = reveal && showTrans ? qtr(q.id)?.choices[step.clip.questions[qi]?.choices.indexOf(ch) ?? -1] : undefined;
-                  return (
-                    <Pressable
-                      key={ci}
-                      style={[s.choice, isAudioChoices && !reveal && s.choiceNum, reveal && isAnswer && s.choiceCorrect, reveal && isPicked && !isAnswer && s.choiceWrong]}
-                      onPress={() => onPick(qi, ci)}
-                      disabled={reveal}
-                    >
-                      {isAudioChoices ? (
-                        <View style={s.numRow}>
-                          <Text style={s.numBadge}>{ci + 1}</Text>
-                          {reveal ? <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.scriptRuby} rubyGate={rubyGate} />{ctr ? <Text style={s.choiceTransTxt}>{ctr}</Text> : null}</View> : null}
-                        </View>
-                      ) : (
-                        <View style={s.choiceTxtWrap}><RubyText text={ch} style={s.choiceTxt} rubyStyle={s.scriptRuby} rubyGate={rubyGate} />{ctr ? <Text style={s.choiceTransTxt}>{ctr}</Text> : null}</View>
-                      )}
-                      {reveal && isAnswer ? <Text style={s.mark}>✓</Text> : null}
-                    </Pressable>
-                  );
-                })}
-              </View>
+                  return <><RubyText text={ch} style={textStyle} rubyStyle={s.scriptRuby} rubyGate={rubyGate} />{ctr ? <Text style={s.choiceTransTxt}>{ctr}</Text> : null}</>;
+                }} />
             </View>
           );
         })}
@@ -352,40 +331,14 @@ export default function ListeningScreen() {
           </Pressable>
         ) : null}
 
-        {/* 全ドリル共通の回答フッター(セット型=正誤なし・次へのみ)。 */}
-        {allDone ? <AnswerFooter onNext={advance} nextKind={idx + 1 >= steps.length ? 'result' : 'next'} /> : null}
-      </ScrollView>
-    </SafeAreaView>
+    </StudyLayout>
   );
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
-  body: { padding: spacing.lg, gap: spacing.md },
   doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
-  top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  close: { fontSize: ty.h2, color: c.mute },
-  progress: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
-  clipCard: {
-    backgroundColor: c.surface,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: c.line,
-    padding: spacing.lg,
-    gap: spacing.sm,
-  },
   clipTitle: { fontSize: ty.tiny, fontWeight: '800', color: c.choukai, letterSpacing: 1 },
-  playBtn: {
-    backgroundColor: c.bgSoft,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: c.choukai,
-    paddingVertical: spacing.md,
-    alignItems: 'center',
-  },
-  playBtnOn: { backgroundColor: c.okBg, borderColor: c.green },
-  playTxt: { fontSize: ty.body, fontWeight: '800', color: c.choukai },
-  playTxtOn: { color: c.green },
   script: { fontSize: ty.body, color: c.ink2, lineHeight: 26 },
   scriptBox: { gap: 2, marginTop: spacing.xs },
   scriptGap: { height: spacing.sm, width: '100%' },
@@ -406,30 +359,7 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   qBlock: { marginTop: spacing.md, paddingTop: spacing.md, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.line },
   qLabel: { fontSize: ty.tiny, fontWeight: '700', color: c.mute, letterSpacing: 1 },
   qText: { fontSize: ty.h2, fontWeight: '700', color: c.ink },
-  choices: { gap: spacing.sm },
-  choice: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: c.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: c.line,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.md,
-  },
-  choiceNum: { justifyContent: 'center', paddingVertical: spacing.lg }, // 番号のみ表示時は中央・やや高め
-  numRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, flex: 1 },
-  numBadge: { fontSize: ty.h1, fontWeight: '800', color: c.choukai, minWidth: 28, textAlign: 'center' },
-  choiceCorrect: { borderColor: c.green, backgroundColor: c.okBg },
-  choiceWrong: { borderColor: c.red, backgroundColor: c.ngBg },
-  choiceTxt: { fontSize: ty.body, color: c.ink2 },
-  choiceTxtWrap: { flex: 1 },
-  mark: { color: c.green, fontWeight: '800', fontSize: ty.h2 },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
   hint: { fontSize: ty.tiny, color: c.faint, textAlign: 'center' },
-  bigEmoji: { fontSize: 56 },
-  doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
-  doneSub: { fontSize: ty.body, color: c.mute },
 });

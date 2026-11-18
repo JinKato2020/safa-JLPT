@@ -1,17 +1,19 @@
+import StudyLayout from '../components/StudyLayout';
+import { useStudyColors } from '../components/StudyPresentation';
 // ミニ読解。お知らせ/メール/メモ等の本文を読み、4択で自動採点(重み3=mini)→読解リング点灯。
 // 1パッセージ=1セットとして PassageSetPlayer に一括提示(本文+全設問→一括採点)。掲示板§4(読解)。
 import { useEffect, useMemo, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
-import { spacing, radius, type as ty, useColors, type ThemeColors } from '../theme';
+import { spacing, radius, type as ty, type ThemeColors } from '../theme';
 import { useAppState } from '../store/store';
 import { useT, meaningL1 } from '../i18n';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward from '../components/AfterStudyReward';
 import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords, type StudiedQuestion } from '../data/studiedWords';
-import ExamHeader from '../components/ExamHeader';
+
 import DevIdPicker from '../components/DevIdPicker';
 import { readingItemsFor, readingItemsForSub } from '../data';
 import PassageSetPlayer from '../components/PassageSetPlayer';
@@ -31,7 +33,7 @@ export default function ReadingScreen() {
   const [gateAllowed, setGateAllowed] = useState<boolean | null>(null);
   useEffect(() => { setGateAllowed(gate.begin()); }, []); // 画面に入った時に1回だけ
   const state = useAppState();
-  const c = useColors();
+  const c = useStudyColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
 
@@ -115,28 +117,16 @@ export default function ReadingScreen() {
   }
 
   return (
-    <SafeAreaView style={s.c}>
-      {/* 聴解(ScrollView body padding=lg)と中断✕の位置を揃える。読解はヘッダー直置きのため横余白が無く✕が画面端に寄っていた。 */}
-      <View style={s.headerPad}>
-        <ExamHeader title={route.params?.title} id={set.id} onClose={() => nav.goBack()} count={`${idx + 1} / ${sets.length}`} onPressId={devTools ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: set.id, level: state.settings.level, daimon: route.params?.title, screen: 'Reading' })} reportA11y={t('bug.report')} />
-      </View>
+    <StudyLayout scrollable={false} current={idx + 1} total={sets.length} title={route.params?.title} id={set.id} onClose={() => nav.goBack()} onPressId={devTools ? () => setPickerOpen(true) : undefined} onReport={() => (nav.navigate as (n: string, p?: Record<string, unknown>) => void)('BugReport', { itemId: set.id, level: state.settings.level, daimon: route.params?.title, screen: 'Reading' })} reportA11y={t('bug.report')} >
       {devTools ? <DevIdPicker visible={pickerOpen} ids={devIds} currentId={set.id} onPick={jumpTo} onClose={() => setPickerOpen(false)} /> : null}
       <PassageSetPlayer key={set.id} set={set} isLast={idx + 1 >= sets.length} onNext={() => setIdx((i) => i + 1)} />
-    </SafeAreaView>
+    </StudyLayout>
   );
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
   c: { flex: 1, backgroundColor: c.bg },
-  // 中断✕を含むヘッダーの横/上余白。聴解の本文パディング(spacing.lg)と同値にして✕の位置を揃える。
-  headerPad: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg },
   doneBody: { padding: spacing.xl, gap: spacing.sm, alignItems: 'center', flexGrow: 1, justifyContent: 'center' },
-  top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
-  close: { fontSize: ty.h2, color: c.mute },
-  progress: { fontSize: ty.small, color: c.mute, fontWeight: '700' },
   cta: { backgroundColor: c.blue, borderRadius: radius.lg, padding: spacing.md, alignItems: 'center', marginTop: spacing.xs },
   ctaTxt: { color: '#ffffff', fontSize: ty.body, fontWeight: '800' },
-  bigEmoji: { fontSize: 56 },
-  doneTitle: { fontSize: ty.h1, fontWeight: '800', color: c.ink },
-  doneSub: { fontSize: ty.body, color: c.mute },
 });
