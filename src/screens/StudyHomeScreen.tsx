@@ -50,7 +50,7 @@ export default function StudyHomeScreen() {
         ] as TabEntry[]}
         aboveBar={
           <View style={[tabChallengePlacement, styles.actions]}>
-            <GradientButton style={styles.action} label={t('cards.practice_mix')}
+            <GradientButton style={styles.action} label={t('cards.practice_mix')} badge={t('cards.new_feature')}
               onPress={() => nav.navigate('WordDrill', { kind: 'examMix' })} />
             <GradientButton style={styles.action} disabledLook={!isPro}
               label={isPro ? t('test.mock_exam') : `🔒 ${t('test.mock_exam')}`}

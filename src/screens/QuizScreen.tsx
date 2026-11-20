@@ -147,17 +147,18 @@ export default function QuizScreen() {
     return (
       <StudyLayout title={[t('quiz.learn_tag'), title].filter(Boolean).join(' · ')} current={0} total={learnList.length}
         countLabel={t('quiz.learn_count', { n: learnList.length })} showProgress={false}
-        scrollKey="learn-list" onClose={() => nav.goBack()}>
+        compactBody scrollKey="learn-list" onClose={() => nav.goBack()}>
         {startButton('top')}
-        <StudyInstruction>{t('quiz.learn_scroll')}</StudyInstruction>
         {learnList.map(({ unit, card: lc }, i) => (
           <View key={`${unit}-${i}`} testID="learn-card">
-            <StudyPrompt>
-              <Text style={s.learnNumber}>{String(i + 1).padStart(2, '0')} / {learnList.length}</Text>
-              {lc.title ? <LearnText text={lc.title} style={[s.prompt, lc.title.length > 10 && s.promptLong]} hitStyle={s.learnHit} rubyStyle={s.promptRuby} rubyGate={rubyGate} /> : null}
-              {lc.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
-              {lc.body ? <LearnText text={lc.body} target={lc.hit} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
-              {lc.note ? <LearnText text={lc.note} style={s.learnNote} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
+            <StudyPrompt style={s.learnCard}>
+              <Text style={s.learnNumber}>{i + 1}</Text>
+              <View style={s.learnContent}>
+                {lc.title ? <LearnText text={lc.title} style={s.learnTitle} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
+                {lc.sub ? <Text style={s.reading}>{lc.sub}</Text> : null}
+                {lc.body ? <LearnText text={lc.body} target={lc.hit} style={s.learnBody} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
+                {lc.note ? <LearnText text={lc.note} style={s.learnNote} hitStyle={s.learnHit} rubyStyle={s.learnRuby} rubyGate={rubyGate} /> : null}
+              </View>
             </StudyPrompt>
           </View>
         ))}
@@ -298,14 +299,16 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   reading: { fontSize: ty.small, color: c.mute },
   sentence: { fontSize: ty.h2, lineHeight: 32, color: c.ink, textAlign: 'left', alignSelf: 'stretch' }, // 言い換え=文＋下線を主表示
 
-  learnBody: { fontSize: ty.body, color: c.ink2, marginTop: spacing.xs, textAlign: 'center', lineHeight: 22 },
-  learnNote: { fontSize: ty.small, color: c.ink, marginTop: spacing.sm, textAlign: 'center', lineHeight: 22 },
+  learnCard: { flexDirection: 'row', alignItems: 'flex-start', paddingVertical: spacing.sm, paddingHorizontal: 12 },
+  learnContent: { flex: 1, gap: 2 },
+  learnTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
+  learnBody: { fontSize: ty.body, color: c.ink2 },
+  learnNote: { fontSize: ty.small, color: c.ink },
   learnHit: { color: c.ink, fontWeight: '800', textDecorationLine: 'underline' },
   learnRuby: { fontSize: 9, lineHeight: 11, color: c.mute, textAlign: 'center' },
-  promptRuby: { fontSize: 12, lineHeight: 14, color: c.mute, textAlign: 'center' }, // 見出し(title)のルビ(大きめ本文用)
-  learnNumber: { fontSize: ty.small, color: c.blueDark, fontWeight: '800' },
-  learnStart: { minHeight: 52, borderRadius: 12, paddingVertical: spacing.md, paddingHorizontal: spacing.lg, alignItems: 'center', justifyContent: 'center', backgroundColor: c.blue },
-  learnStartText: { fontSize: ty.h2, fontWeight: '800', color: '#fff', textAlign: 'center' },
+  learnNumber: { minWidth: 18, paddingTop: 3, fontSize: ty.small, color: c.blueDark, fontWeight: '800' },
+  learnStart: { minHeight: 44, borderRadius: 12, paddingVertical: spacing.sm, paddingHorizontal: spacing.lg, alignItems: 'center', justifyContent: 'center', backgroundColor: c.blue },
+  learnStartText: { fontSize: ty.body, fontWeight: '800', color: '#fff', textAlign: 'center' },
   exHit: { color: c.blueDark, textDecorationLine: 'underline' },
   qRuby: { fontSize: 10, lineHeight: 12, color: c.mute, textAlign: 'center' },
   cRuby: { fontSize: 9, lineHeight: 11, color: c.faint, textAlign: 'center' },

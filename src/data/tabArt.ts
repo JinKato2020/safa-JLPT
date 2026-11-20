@@ -50,9 +50,13 @@ export function useDaylight(): Daylight {
 
 // 指定タブの、いまの時刻に応じた背景を返す。季節のOTA画像(sceneArtRemote)があればそれ、無ければ同梱画像。
 export function useTabBg(key: TabKey): ImageSourcePropType {
-  const dl = useDaylight();
+  return useTabScene(key).source;
+}
+
+export function useTabScene(key: TabKey) {
+  const period = useDaylight();
   useSceneArt();
-  return sceneImage(key, dl) ?? TAB_BG[key][dl];
+  return { period, source: sceneImage(key, period) ?? TAB_BG[key][period] };
 }
 
 // ホーム背景の、いまの時刻に応じた昼/夜を返す(OTA画像を優先)。

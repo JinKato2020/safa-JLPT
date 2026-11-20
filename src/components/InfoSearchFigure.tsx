@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import RubyText from './RubyText';
 import { type Figure, type FigureBlock, type FigureTable } from '../quiz/passageSet';
-import { spacing, radius, type as ty, type ThemeColors } from '../theme';
+import { useSimpleMode, spacing, radius, type as ty, type ThemeColors } from '../theme';
 import { useT } from '../i18n';
 
 type Props = {
@@ -32,6 +32,8 @@ type Props = {
 export function InfoSearchFigure(props: Props) {
   const { title, situation, figure, question, choices, answer, explain, rubyGate, isLast, mock, onGraded, onNext } = props;
   const c = useStudyColors(!props.mock);
+  const simple = useSimpleMode();
+  const showBanner = !mock && !simple;
   const s = makeStyles(c);
   const t = useT();
   const [picked, setPicked] = useState<number | null>(null);
@@ -157,8 +159,8 @@ export function InfoSearchFigure(props: Props) {
 
   return (
     <View style={{ flex: 1 }}>
-    <ScrollView contentContainerStyle={s.body}>
-      {!mock && <StudySceneBanner />}
+    <ScrollView contentContainerStyle={[s.body, showBanner && s.bodyWithBanner]}>
+      {showBanner && <StudySceneBanner />}
       {title ? R(title, s.title) : null}
 
       {situation ? (
@@ -217,7 +219,8 @@ const PAPER = '#f5efe0', PAPER2 = '#efe7d3', INK_P = '#282219', SUB_P = '#6f6553
   FAINT_P = '#9a8d70', RULE_P = '#c8bc9e', RULE2_P = '#7a6f56', BAND_P = '#243c5a', STAMP_P = '#b0432c';
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
-  body: { padding: spacing.lg, gap: spacing.md },
+  bodyWithBanner: { paddingTop: 0 },
+  body: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.lg, gap: spacing.md },
   title: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
   ruby: { fontSize: 10, color: c.mute },
   rubyPaper: { fontSize: 10, color: SUB_P },

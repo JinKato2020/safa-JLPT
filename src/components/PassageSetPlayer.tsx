@@ -14,7 +14,7 @@ import { useAppState, useAppActions } from '../store/store';
 import { shuffleChoices } from '../quiz/quiz';
 import { type PassageSet, type Figure } from '../quiz/passageSet';
 import { PASSAGE_TRANS, Q_TRANS } from '../data';
-import { spacing, radius, type as ty, type ThemeColors } from '../theme';
+import { useSimpleMode, spacing, radius, type as ty, type ThemeColors } from '../theme';
 import { useT, meaningL1, pickTr } from '../i18n';
 import AnswerFooter from './AnswerFooter';
 
@@ -29,6 +29,8 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
   const { quizAnswer } = useAppActions();
   const c = useStudyColors(!mock);
   const scrollRef = useStudyScroll(set.id);
+  const simple = useSimpleMode();
+  const showBanner = !mock && !simple;
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
   const rubyGate = (run: string) => rubyNeeded(run, state.settings.level);
@@ -94,8 +96,8 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
 
   return (
     <View style={{ flex: 1 }}>
-    <ScrollView ref={scrollRef} contentContainerStyle={s.body}>
-      {!mock && <StudySceneBanner />}
+    <ScrollView ref={scrollRef} contentContainerStyle={[s.body, showBanner && s.bodyWithBanner]}>
+      {showBanner && <StudySceneBanner />}
       {set.passages.map((p, pi) => (
         <StudyPrompt key={pi} study={!mock}>
           {p.format ? <Text style={s.fmtTag}>{p.format}</Text> : null}
@@ -145,7 +147,8 @@ export default function PassageSetPlayer({ set, isLast, onNext, onGraded, mock }
 }
 
 const makeStyles = (c: ThemeColors) => StyleSheet.create({
-  body: { padding: spacing.lg, gap: spacing.md },
+  bodyWithBanner: { paddingTop: 0 },
+  body: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.lg, gap: spacing.md },
   fmtTag: { fontSize: ty.tiny, fontWeight: '800', color: c.mute, letterSpacing: 1 },
   passageTitle: { fontSize: ty.h2, fontWeight: '800', color: c.ink },
   passageBodyWrap: { gap: 2 },

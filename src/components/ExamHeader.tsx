@@ -18,13 +18,13 @@ export default function ExamHeader({ title, count, id, onClose, onPressId, onRep
   const t = useT();
   const s = useMemo(() => makeStyles(c), [c]);
   return (
-    <View style={s.wrap}>
+    <View style={[s.wrap, study && s.compactWrap]}>
       <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel={t('listening2.close')} hitSlop={4} style={s.side}>
         <Text style={s.close}>✕</Text>
       </Pressable>
       <View style={s.center}>
         {/* 大問名と分数を縦に並べ、長い翻訳も省略せず表示する。 */}
-        <View style={s.line1}>
+        <View style={[s.line1, study && s.compactLine]}>
           <Text style={s.title}>{title ?? ''}</Text>
           {count ? <Text style={s.count}>{count}</Text> : null}
         </View>
@@ -50,6 +50,8 @@ export default function ExamHeader({ title, count, id, onClose, onPressId, onRep
 const makeStyles = (c: ThemeColors) =>
   StyleSheet.create({
     wrap: { flexDirection: 'row', alignItems: 'center', paddingBottom: spacing.sm },
+    compactWrap: { paddingBottom: 0 },
+    compactLine: { gap: 0 },
     side: { width: 44, minHeight: 44, justifyContent: 'center' },
     close: { fontSize: ty.h2, color: c.mute },
     center: { flex: 1, alignItems: 'center' },
