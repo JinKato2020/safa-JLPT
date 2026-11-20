@@ -309,7 +309,7 @@ export default function AICoachScreen() {
           </View>
         </View>
 
-        {/* ⑤ 苦手な単語に挑戦(主導線)。練習画面のボタンと同じ文言(cards.reco)を使う。 */}
+        {/* ⑤ 練習画面と同じ文言で、苦手な分野に挑戦する入口。 */}
         <Pressable style={({ pressed }) => [s.cta, pressed && { opacity: 0.9 }]} onPress={startLearn}>
           <Ionicons name="sparkles" size={16} color="#fff" />
           <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={[s.ctaT, { flexShrink: 1 }]}>{t('cards.reco')}</Text>

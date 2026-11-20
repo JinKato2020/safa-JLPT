@@ -162,7 +162,7 @@ export default function HomeScreen() {
         <SafeBoundary tag="weeklyletter" fallback={null}>
           <WeeklyLetter />
         </SafeBoundary>
-        {/* 今日のおすすめ(統合復習=苦手単語の復習)。桜/柴犬の下・ボトムナビの上に常設。分析はAIコーチにも有り。
+        {/* 初回の5問、または苦手な分野の統合復習。桜/柴犬の下・ボトムナビの上に常設。
             見た目は試験タブ「試験に挑戦する」と統一(GradientButton=斜めグラデ＋光沢の高級ピル)。 */}
         <GradientButton style={styles.reco} label={t(firstLesson ? 'home.first_lesson' : 'cards.reco')}
           onPress={() => nav.navigate('Quiz', firstLesson

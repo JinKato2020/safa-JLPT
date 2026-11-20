@@ -16,7 +16,6 @@ export function contentView(route: ContentRoute): { content: string; level?: str
     case 'Quiz':
       if (params.firstLesson === true) return content('Quiz:firstLesson');
       if (params.review === true) return content('Quiz:review');
-      if (params.expression === true) return content('Quiz:expression');
       return content('Quiz:' + option(params.daimon, [
         'kanji_read', 'orthography', 'context', 'synonym', 'usage', 'grammar_form', 'order', 'passage_grammar',
       ], 'general'));

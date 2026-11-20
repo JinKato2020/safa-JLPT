@@ -58,7 +58,7 @@ export default function CardsScreen() {
           <Text style={s.title}>{t('cards.title')}</Text>
         )}
 
-        {/* 試験問題の復習(面別マスタリー統合復習): 苦手な面を忘却曲線でまとめて出題。書斎タブの目立つ入口。
+        {/* 苦手な分野に挑戦する(面別マスタリー統合復習): 苦手な面を忘却曲線でまとめて出題。
             旧「今日のオススメ(mixed=産出/作成/意味の横断)」はここへ吸収。ハブ(区分指定)から開いた時は出さない。 */}
         {!kubunParam && (
           <View style={s.recoCard}>

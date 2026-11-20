@@ -21,7 +21,7 @@ import { resolveStudiedWords, type StudiedQuestion } from '../data/studiedWords'
 import DevIdPicker from '../components/DevIdPicker';
 import { itemsFor, allWordsFor, rubyNeeded } from '../data';
 import { buildQueue, buildUnitQueue, makeQuestion, EXAM_FORMATS } from '../quiz/quiz';
-import { daimonUnitIds, questionForUnit, learnCardFor, expressionUnitIds, MOJI_DAIMON, BUNPOU_DAIMON, type LearnCard } from '../data/daimon';
+import { daimonUnitIds, questionForUnit, learnCardFor, MOJI_DAIMON, BUNPOU_DAIMON, type LearnCard } from '../data/daimon';
 import { selectReview } from '../review/selectReview';
 import { unitForPick } from '../review/reviewQuestion';
 import type { StudyItem } from '../data';
@@ -80,14 +80,13 @@ export default function QuizScreen() {
   const sessionSize = route.params?.firstLesson ? 5 : SESSION_SIZE;
   const paramTitle = route.params?.title;
   const daimon = route.params?.daimon; // 大問学習(本番の大問を固定形式で連続出題・状態は「項目#大問」キー)
-  const expression = route.params?.expression; // JFT会話と表現(場面→適切な表現)
   const state = useAppState();
   const { settings, items } = state;
   const { quizAnswer, addToMyList } = useAppActions();
   const c = useStudyColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
-  const title = review ? t('review.title') : paramTitle; // 復習はヘッダー名を「試験問題の復習」に
+  const title = review ? t('cards.reco') : paramTitle;
   // レベル適応ルビ: ユーザーのレベル以上(同レベル含む)の漢字群にだけ読みを振る。
   const rubyGate = (run: string) => rubyNeeded(run, settings.level);
 
@@ -105,7 +104,6 @@ export default function QuizScreen() {
       //  buildQueueが未習・低習得を優先=自然に頻出順の先頭から進み、解くほど苦手が記録され次回の復習の種になる。
       return buildQueue(itemsFor(settings.level, 'moji_goi'), items, Date.now(), SESSION_SIZE);
     }
-    if (expression) return buildUnitQueue(expressionUnitIds(), items, Date.now(), SESSION_SIZE);
     if (daimon) return buildUnitQueue(daimonUnitIds(settings.level, daimon, 'learn'), items, Date.now(), sessionSize);
     if (itemIds && itemIds.length) {
       // 模試の弱点ドリルも復習/学習と同じ検証済みバンクから出す。idは模試が daimonUnitIds→questionForUnit で
