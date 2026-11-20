@@ -1,10 +1,10 @@
 // Phase2: reducer が面別マスタリーへ合流するか。実行 node --import tsx --test src/review/facetReducer.test.ts
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { reducer } from '../store/store';
+import { reducer } from '../store/reducer';
 import { INITIAL_STATE } from '../store/state.ts';
 import { facetEffectiveP } from './facetMastery.ts';
-import type { AppState } from '../store/store';
+import type { AppState } from '../store/state';
 
 const NOW = 1_700_000_000_000;
 function base(): AppState { return { ...INITIAL_STATE, mastery: {}, items: {} }; }

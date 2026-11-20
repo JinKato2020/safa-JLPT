@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { reducer } from './store';
+import { reducer } from './reducer';
 import { INITIAL_STATE } from './state';
 import { effectiveP } from '../engine/engine';
-import type { AppState } from './store';
+import type { AppState } from './state';
 
 const NOW = 1_700_000_000_000;
 // withStudyDay(streak/growth参照)がcrashしないよう、実在のINITIAL_STATEを土台に構築する。

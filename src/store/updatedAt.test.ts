@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { withUpdatedAt, INITIAL_STATE, type AppState } from './state';
-import { reducer } from './store';
+import { reducer } from './reducer';
 
 test('withUpdatedAt sets updatedAt and preserves other fields', () => {
   const s: AppState = { ...INITIAL_STATE, streak: { ...INITIAL_STATE.streak, current: 5 } };
