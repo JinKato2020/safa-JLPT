@@ -7,7 +7,7 @@ import { Platform } from 'react-native';
 import NOTE_IDS from './grammarNoteIds.json';
 
 export const GRAMMAR_NOTE_BASE_URL = 'https://jlpt.safa-lang.com/grammar-notes/';
-const LANGS = new Set(['ja', 'en', 'ne', 'bn', 'id', 'ko', 'my', 'th', 'vi', 'zh', 'zh2']);
+const LANGS = new Set(['ja', 'en', 'ne', 'bn', 'id', 'ko', 'my', 'th', 'vi', 'zh', 'zh2', 'hi']);
 
 export interface GrammarNote {
   id: string;

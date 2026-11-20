@@ -3,7 +3,7 @@ import { computeReadiness, effectiveP, type Category, type Level, type SectionIn
 import { examOf } from '../engine/examProfile';
 import { ringItemIdsFor, allItemIdsFor, jftItemIdsFor, allJftItemIdsFor, JFT_BANDS, META, KANJI, VOCAB, GRAMMAR, VOCAB_FREQ, readingIdsBySub, listeningIdsBySub } from '../data';
 import { JLPT_BLUEPRINT, JFT_BLUEPRINT, DOKKAI_BLUEPRINT, CHOUKAI_BLUEPRINT, DAIMON_BLUEPRINT, type Daimon } from '../data/examBlueprint';
-import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, daimonsWithUnits, bankLevelOf, METRIC_EXCLUDED_POINTS } from '../data/daimon';
+import { MOJI_DAIMON, BUNPOU_DAIMON, daimonUnitIds, bankLevelOf, METRIC_EXCLUDED_POINTS } from '../data/daimon';
 import { hasKanji } from '../quiz/quiz';
 import { facetsForUnit, type Facet } from '../review/facetMap';
 import { facetEffectiveP } from '../review/facetMastery';
@@ -595,46 +595,6 @@ export function pacePrediction(state: AppState, now: number): PacePrediction {
   const perDay = studyDays > 0 ? learnedNow(state, now) / studyDays : 0;
   const daysToPass = needed > 0 && perDay > 0 ? Math.ceil(needed / perDay) : perDay > 0 ? 0 : null;
   return { passing: false, perDay: Math.round(perDay * 10) / 10, itemsNeeded: needed, daysToPass };
-}
-
-// route のみ(表示ラベルは reasonKey で画面側 i18n。旧 label フィールドは未使用のため撤去)。
-const NBA_MAP: Record<Category, { route: 'Flashcard' | 'Quiz' | 'Reading' | 'Listening' }> = {
-  moji_goi: { route: 'Flashcard' },
-  bunpou: { route: 'Quiz' }, // 文法は大問フロー(学習→四択)へ。旧Grammar画面は廃止。
-  dokkai: { route: 'Reading' },
-  choukai: { route: 'Listening' },
-};
-
-export interface NextAction {
-  category: Category;
-  route: 'Flashcard' | 'Quiz' | 'Reading' | 'Listening';
-  daimon?: Daimon;                        // route==='Quiz'(文法)のとき、勧める大問
-  reasonKey: string;                      // i18nキー(画面側でt()翻訳)。日本語固定をやめる。
-  reasonParams?: { pct: number };
-}
-
-/** Next Best Action = いちばん弱い区分の学習を勧める。
- *  未測定の区分があれば最優先(まず触って測る)。なければ【正解率が最も低い区分】を弱点として勧める。
- *  合格圏でも弱点は勧める(=合格済でも穴を埋める)。全区分とも高(>=85)なら特になし(一般復習へ)。 */
-export function nextBestAction(state: AppState, now: number): NextAction | null {
-  const rings = ringsFor(state, now);
-  const unmeasured = RING_CATS.find((c) => rings[c] === null);
-  let target: Category;
-  if (unmeasured) {
-    target = unmeasured;
-  } else {
-    let lowest = Infinity; let t: Category = 'moji_goi';
-    for (const c of RING_CATS) { const v = rings[c] ?? 0; if (v < lowest) { lowest = v; t = c; } }
-    if (lowest >= 85) return null; // 全区分とも高い=特に弱点なし
-    target = t;
-  }
-  const m = NBA_MAP[target];
-  const ringPct = rings[target];
-  // 文法は「弱い大問」を名指しで勧める(なければ先頭の大問)。
-  const daimon = target === 'bunpou' ? daimonsWithUnits(state.settings.level, 'bunpou')[0]?.daimon : undefined;
-  return ringPct === null
-    ? { category: target, route: m.route, daimon, reasonKey: 'home.nba_reason_unmeasured' }
-    : { category: target, route: m.route, daimon, reasonKey: 'home.nba_reason_lowest', reasonParams: { pct: ringPct } };
 }
 
 // 達成ランク(C): 級内の習得率(覚えた/全)で上がる“帯”。10段階(習得率10%刻み)。合格判定とは別軸。

@@ -28,7 +28,6 @@ import ProfileScreen from './src/screens/ProfileScreen';
 import DownloadScreen from './src/screens/DownloadScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import QuizScreen from './src/screens/QuizScreen';
-import FlashcardScreen from './src/screens/FlashcardScreen';
 import MockScreen from './src/screens/MockScreen';
 import MockResultScreen from './src/screens/MockResultScreen';
 import MockIntroScreen from './src/screens/MockIntroScreen';
@@ -515,7 +514,6 @@ function Root() {
             <RootStack.Screen name="Main" component={MainTabs} />
             {/* 学習系(試験/単語タブ→学習)は全画面切替(card)。下から持ち上がる部分モーダル(上部に背景が覗く)をやめる。ユーザー要望2026-07-17。 */}
             <RootStack.Screen name="Quiz" component={QuizScreen} options={{ presentation: 'card' }} />
-            <RootStack.Screen name="Flashcard" component={FlashcardScreen} options={{ presentation: 'card' }} />
             <RootStack.Screen name="MockIntro" component={MockIntroScreen} options={{ presentation: 'card' }} />
             <RootStack.Screen name="Mock" component={MockScreen} options={{ presentation: 'card' }} />
             <RootStack.Screen name="MockResultDetail" component={MockResultScreen} options={{ presentation: 'card' }} />

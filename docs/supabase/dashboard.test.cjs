@@ -65,6 +65,7 @@ test('content usage shows one row per menu in fixed order with N5, N4, N3 pairs'
     {content:'listening_drill', level:'N5', users:'100', opens:'300'},
     {content:'expression', level:'N5', users:'100', opens:'300'},
     {content:'first_lesson', level:'N3', users:'3', opens:'5'},
+    {content:'flashcard', level:'N3', users:'10', opens:'300'},
     ...['reading_general', 'listening_general', 'general_quiz', 'kanji_recognition', 'general_drill', 'dictionary_general']
       .map(content => ({content, level:'N5', users:'100', opens:'300'})),
   ]);
@@ -82,7 +83,7 @@ test('content usage shows one row per menu in fixed order with N5, N4, N3 pairs'
   const cells = row => [...row[2].matchAll(/<td[^>]*>([^<]+)/g)].map(m => m[1]);
   assert.deepEqual(cells(rows.find(row => row[1] === '苦手な分野に挑戦する')), ['0人', '0回', '0人', '0回', '2人', '3回']);
   assert(!labels.some(label => label.includes('総合')));
-  for (const removed of ['練習：初回学習', '練習：試験問題の復習', '練習：会話と表現']) {
+  for (const removed of ['練習：初回学習', '練習：試験問題の復習', '練習：会話と表現', '練習：学習カードの復習']) {
     assert(!labels.includes(removed));
   }
   assert.deepEqual(cells(rows[0]), ['1人', '100回', '0人', '0回', '3人', '30回']);

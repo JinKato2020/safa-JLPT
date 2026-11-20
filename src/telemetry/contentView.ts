@@ -35,8 +35,6 @@ export function contentView(route: ContentRoute): { content: string; level?: str
     case 'WordList':
     case 'DictList':
       return content(route.name + ':' + category(params.view));
-    case 'Flashcard':
-      return content(Array.isArray(params.ids) && params.ids.length ? 'Flashcard:myWords' : 'Flashcard');
     case 'Mock':
       return params.preview ? undefined : content(params.full === true ? 'Mock:full' : 'Mock:mini');
     case 'MyWords':

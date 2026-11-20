@@ -9,7 +9,7 @@ import json, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LANGS = ['ja', 'en', 'ne', 'bn', 'id', 'ko', 'my', 'th', 'vi', 'zh', 'zh2']  # アプリの表示11言語
+LANGS = ['ja', 'en', 'ne', 'bn', 'id', 'ko', 'my', 'th', 'vi', 'zh', 'zh2', 'hi']
 
 
 def pick(d, lang):
