@@ -17,7 +17,7 @@ import { recordQualifyingDay } from '../referral/trigger';
 export type Action =
   | { type: 'HYDRATE'; state: AppState }
   | { type: 'SET_SETTINGS'; patch: Partial<Settings> }
-  | { type: 'QUIZ_ANSWER'; itemId: string; correct: boolean; now: number }
+  | { type: 'QUIZ_ANSWER'; weakness?: boolean; itemId: string; correct: boolean; now: number }
   | { type: 'MOCK_ANSWER'; itemId: string; correct: boolean; now: number }
   | { type: 'RECORD_MOCK'; result: MockResult }
   | { type: 'KAKITORI_PROGRESS'; char: string; step: number; score: number; skipped?: boolean; now?: number }
@@ -97,6 +97,7 @@ function reduceCore(state: AppState, action: Action): AppState {
       // 漢字読み/表記は答えが一つで暗記懸念が薄い→不正解は即再出題OK。他大問(文脈/用法/文法等)は翌日以降(ユーザー要望2026-07-17)。
       const immediate = action.itemId.endsWith('#kanji_read') || action.itemId.endsWith('#orthography');
       const next = recordQuiz(prev, action.correct, action.now, immediate);
+      if (action.weakness) next.weaknessAnswers = (prev.weaknessAnswers ?? 0) + 1;
       // 面別マスタリーへも合流(additive・従来のitems記録は維持)。統合復習/予想得点の正本。
       // 文法は出題形式noveltyで更新強度を可変(少ない形式ほど強く)。
       const { mul: gMul, gFmt } = grammarNovelty(state, action.itemId);

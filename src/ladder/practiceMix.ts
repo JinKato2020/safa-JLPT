@@ -34,7 +34,7 @@ export function practicePriority(mastery: MasterySlice, unit: string, now: numbe
   return facets.length ? Math.min(itemProgress ? score(itemProgress) : 3, ...facets) : score(itemProgress);
 }
 
-export function buildPracticeMix(
+export function practiceCandidates(
   level: 'N5' | 'N4' | 'N3', l1: Parameters<typeof meaningIn>[1],
   mastery: MasterySlice, now: number, items: Record<string, ItemState>, rng = Math.random,
 ): PracticeProblem[] {
@@ -104,4 +104,27 @@ export function buildPracticeMix(
     recognize('read'), word('vReading'), word('gBuild'),
     listen('kanji'), listen('vocab'), form(), word('vWriting'), word('vProduce'),
   ].filter((q): q is PracticeProblem => q !== undefined);
+}
+
+export function practiceFamily(p: PracticeProblem) {
+  if (p.kind === 'practiceChoice') return p.ref.type;
+  return p.kind.startsWith('g') ? 'grammar' : 'vocab';
+}
+
+export function buildPracticeMix(...args: Parameters<typeof practiceCandidates>): PracticeProblem[] {
+  const [level, , mastery, now, items, rng = Math.random] = args;
+  const ranked = practiceCandidates(...args).map(problem => ({
+    problem, score: practicePriority(mastery, problem.itemId, now, items[problem.itemId]), tie: rng(),
+  })).sort((a, b) => a.score - b.score || a.tie - b.tie);
+  const result: PracticeProblem[] = [];
+  const counts = new Map<string, number>();
+  while (ranked.length && result.length < (level === 'N5' ? 6 : 7)) {
+    const count = (p: PracticeProblem) => counts.get(practiceFamily(p)) ?? 0;
+    const min = Math.min(...ranked.map(r => count(r.problem)));
+    const index = ranked.findIndex(r => count(r.problem) === min);
+    const { problem } = ranked.splice(index, 1)[0];
+    counts.set(practiceFamily(problem), count(problem) + 1);
+    result.push(problem);
+  }
+  return result;
 }

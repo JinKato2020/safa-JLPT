@@ -119,7 +119,7 @@ export default function WordDrillScreen() {
   const record = (correct: boolean, itemId: string) => {
     setJudged(correct);
     if (correct) setScore((n) => n + 1);
-    actions.quizAnswer(itemId, correct);
+    actions.quizAnswer(itemId, correct, kind === 'weaknessMix');
     setResults((m) => ({ ...m, [itemId]: correct }));
   };
 

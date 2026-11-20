@@ -1,7 +1,7 @@
 // 問題画面の書斎と紙面。既存の季節画像を再利用し、出題・採点には触れない。
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Image, StyleSheet, View, useWindowDimensions, type ScrollView, type ViewStyle } from 'react-native';
-import { useTabBg } from '../data/tabArt';
+import { useDaylight, useTabBg } from '../data/tabArt';
 import { spacing, useColors, useIsDarkTheme, useSimpleMode, type ThemeColors } from '../theme';
 
 export function useStudyColors(enabled = true): ThemeColors {
@@ -67,10 +67,25 @@ export function StudySceneBanner({ inset = spacing.lg }: { inset?: number }) {
 function StudySceneArt({ inset }: { inset: number }) {
   const source = useTabBg('word'); // 昼夜・季節のOTA更新・オフラインの同梱画像を共用。
   const c = useStudyColors();
+  const daylight = useDaylight();
   const { height } = useWindowDimensions();
+  const [width, setWidth] = useState(0);
+  const compactHeight = height < 700 ? 76 : 104;
+  const night = daylight === 'night';
+  const bannerHeight = night ? Math.max(compactHeight, Math.ceil(width * 0.19)) : compactHeight;
+  const size = Image.resolveAssetSource(source);
+  const imageHeight = size?.width && size.height ? width * size.height / size.width : 0;
+  // 夜の書斎では桜の顔が画像中央より下にある。横長の領域でも顔を中心に切り出す。
+  const nightTop = Math.max(0, Math.min(imageHeight - bannerHeight, imageHeight * 0.56 - bannerHeight / 2));
+  const imageStyle = night && width > 0 && imageHeight > bannerHeight
+    ? { width, height: imageHeight, position: 'absolute' as const, top: -nightTop }
+    : { width: '100%' as const, height: bannerHeight };
   return (
     <View style={[styles.banner, { marginHorizontal: -inset }]} pointerEvents="none" accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
-      <Image source={source} resizeMode="cover" style={{ width: '100%', height: height < 700 ? 76 : 104 }} />
+      <View style={{ height: bannerHeight, overflow: 'hidden' }}
+        onLayout={event => setWidth(event.nativeEvent.layout.width)}>
+        <Image source={source} resizeMode="cover" style={imageStyle} />
+      </View>
       <View style={{ height: 2, backgroundColor: c.line }} />
     </View>
   );

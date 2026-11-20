@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { newItemState } from '../engine/engine';
-import { buildPracticeMix, practicePriority } from './practiceMix';
+import { buildPracticeMix, practiceCandidates, practicePriority } from './practiceMix';
 
 const NOW = 1_800_000_000_000;
 function random() {
@@ -11,7 +11,8 @@ function random() {
 
 test('each JLPT level has eleven formats, with the same kanji practiced from three angles', () => {
   for (const level of ['N5', 'N4', 'N3'] as const) {
-    const mix = buildPracticeMix(level, 'en', {}, NOW, {}, random());
+    assert.equal(buildPracticeMix(level, 'en', {}, NOW, {}, random()).length, level === 'N5' ? 6 : 7);
+    const mix = practiceCandidates(level, 'en', {}, NOW, {}, random());
     assert.equal(mix.length, 11);
     const choices = mix.filter(q => q.kind === 'practiceChoice');
     assert.deepEqual(choices.map(q => q.instruction), [

@@ -17,6 +17,7 @@ export const SIGNAL_WEIGHT = {
 export type SignalKind = keyof typeof SIGNAL_WEIGHT;
 
 export interface ItemState {
+  weaknessAnswers?: number; // Automatically chosen review answers are excluded from tab preferences.
   p: number;         // 習得度 0..1
   evidence: number;  // 累積エビデンス重み (信頼幅の収束に使用)
   updatedAt: number; // epoch ms (減衰の起点)

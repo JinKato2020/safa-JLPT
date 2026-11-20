@@ -69,9 +69,9 @@ export function useAppActions() {
   const dispatch = useContext(DispatchCtx);
   return {
     setSettings: (patch: Partial<Settings>) => { void sendEvent('setting_changed', patch as Record<string, unknown>); dispatch({ type: 'SET_SETTINGS', patch }); },
-    quizAnswer: (itemId: string, correct: boolean) => {
+    quizAnswer: (itemId: string, correct: boolean, weakness = false) => {
       recordAnswer(itemId, correct); // 全回答を匿名記録(問題別正答率の資源化)
-      dispatch({ type: 'QUIZ_ANSWER', itemId, correct, now: Date.now() });
+      dispatch({ type: 'QUIZ_ANSWER', itemId, correct, weakness, now: Date.now() });
       if (correct) dispatch({ type: 'ADD_POINTS', amount: 2, now: Date.now(), cap: true });
     },
     mockAnswer: (itemId: string, correct: boolean) => {
