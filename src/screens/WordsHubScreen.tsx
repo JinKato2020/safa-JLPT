@@ -3,14 +3,18 @@
 // KubunCard(成長バッジ/バー/リスト/聞き取り/書き取り 等)をトグル表示する。✦=オススメは遷移。
 // 旧「全体カバー率◯%で解禁」の段階解禁とその演出は廃止(2026-10-27・全モード最初から解禁)。
 import { View, StyleSheet } from 'react-native';
-import type { Kubun } from '../navigation/types';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { Kubun, RootStackParamList } from '../navigation/types';
 import { ImmersiveTab, type TabEntry } from '../components/TabScene';
 import { useTabBg, useTabBlink } from '../data/tabArt';
 import KubunCard from '../components/KubunCard';
+import GradientButton, { tabChallengePlacement } from '../components/GradientButton';
 import { useColors } from '../theme';
 import { useT } from '../i18n';
 
 export default function WordsHubScreen() {
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const t = useT();
   const c = useColors();
   const bg = useTabBg('word');
@@ -22,6 +26,10 @@ export default function WordsHubScreen() {
       <ImmersiveTab
         source={bg}
         blinkSource={blinkBg}
+        aboveBar={
+          <GradientButton style={tabChallengePlacement} label={t('cards.practice_mix')}
+            badge={t('cards.new_feature')} onPress={() => nav.navigate('WordDrill', { kind: 'practiceMix' })} />
+        }
         entries={[
           { key: 'kanji', glyph: '漢', label: t('cards.kanji'), accent: '#d9743f', renderCard: card('kanji') },
           { key: 'vocab', glyph: '語', label: t('cards.vocab'), accent: '#3f9d5a', renderCard: card('vocab') },

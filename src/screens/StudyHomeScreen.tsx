@@ -9,7 +9,7 @@ import type { RootStackParamList, StudyStackParamList } from '../navigation/type
 import { ImmersiveTab, type TabEntry } from '../components/TabScene';
 import { useTabBg } from '../data/tabArt';
 import CategoryCard from '../components/CategoryCard';
-import GradientButton from '../components/GradientButton';
+import GradientButton, { tabChallengePlacement } from '../components/GradientButton';
 import { useAppState } from '../store/store';
 import { examOf } from '../engine/examProfile';
 import type { Category } from '../engine/engine';
@@ -54,7 +54,7 @@ export default function StudyHomeScreen() {
         // デザインはホームの「苦手な単語に挑戦する」ボタンと統一(GradientButton=斜めグラデ＋光沢の高級ピル)。カードを開くと隠れる。
         aboveBar={
           <GradientButton
-            style={styles.challenge}
+            style={tabChallengePlacement}
             disabledLook={!isPro}
             label={isPro ? t('test.challenge') : `🔒 ${t('test.pro_locked')}`}
             accessibilityLabel={isPro ? t('test.challenge') : t('test.pro_locked')}
@@ -68,6 +68,4 @@ export default function StudyHomeScreen() {
 
 const styles = StyleSheet.create({
   c: { flex: 1 },
-  // 「試験に挑戦する」CTAの配置のみ(見た目は GradientButton 側)。4カテゴリのアイコン列のすぐ上・中央。
-  challenge: { position: 'absolute', left: 32, right: 32, bottom: 84 },
 });

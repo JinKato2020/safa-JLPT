@@ -26,7 +26,7 @@ export function contentView(route: ContentRoute): { content: string; level?: str
       return practice('Kakitori:' + option(params.script, ['hiragana', 'katakana'], 'kanji'));
     case 'WordDrill':
       return practice('WordDrill:' + option(params.kind, [
-        'vProduce', 'gBuild', 'gMeaning', 'vMeaning', 'vReading', 'vWriting', 'mixed',
+        'vProduce', 'gBuild', 'gMeaning', 'vMeaning', 'vReading', 'vWriting', 'mixed', 'practiceMix',
       ], 'all'));
     case 'ListeningQuiz':
       return content('ListeningQuiz:' + option(params.kind, ['vocab', 'kanji'], 'all'));
@@ -39,6 +39,7 @@ export function contentView(route: ContentRoute): { content: string; level?: str
       return params.preview ? undefined : content(params.full === true ? 'Mock:full' : 'Mock:mini');
     case 'MyWords':
     case 'GrammarNote':
+    case 'GrammarLessons':
     case 'KanjiDetail':
     case 'PosterList':
     case 'PosterAudio':

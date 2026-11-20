@@ -6,22 +6,28 @@ import StudyPrompt, { StudyInstruction } from '../components/StudyPrompt';
 //  ・gOrder    全タイルを正しい順に並べる(完全並べ替え・産出)
 //  ・gMeaning  文法点の意味を4択(受容)
 // 結果は quizAnswer(itemId, correct) で記録 → 語彙/文法カバー率に反映。専門用語はUIに出さない。
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Audio } from 'expo-av';
+import * as Speech from 'expo-speech';
 import { spacing, radius, type as ty, shadow, type ThemeColors } from '../theme';
 import { useStudyColors } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import { walletPoints } from '../store/wallet';
 import { buildDrill, type DrillProblem } from '../ladder/wordDrill';
+import { buildPracticeMix, type PracticeChoice, type PracticeProblem } from '../ladder/practiceMix';
+import { playKanjiRep, playVocab, stopVocab } from '../data/vocabAudio';
+import { resolveStudiedWords } from '../data/studiedWords';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward, { type StudiedWord } from '../components/AfterStudyReward';
 import AnswerFooter from '../components/AnswerFooter';
 import ExamHeader from '../components/ExamHeader';
+import StudyAudioButton from '../components/StudyAudioButton';
 import RubyText from '../components/RubyText';
-import { useT } from '../i18n';
+import { meaningL1, useT } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
 import { useSessionGate } from '../pro/useSessionGate';
 import LimitReachedSheet from '../pro/LimitReachedSheet';
@@ -45,11 +51,13 @@ export default function WordDrillScreen() {
 
   const kind = route.params.kind;
   const level = route.params.level ?? (state.settings.level as 'N5' | 'N4' | 'N3');
+  const l1 = meaningL1(state.settings);
   // seedは初回固定(再レンダで並びが変わらないように)。SRS=未習/低習得優先。
   const [seed] = useState(() => (Date.now() & 0xffff) | 1);
-  const problems = useMemo(
-    () => buildDrill(kind, level, 10, seed, state.items as Record<string, { p: number }>),
-    [kind, level, seed], // eslint-disable-line react-hooks/exhaustive-deps
+  const [problems] = useState<PracticeProblem[]>(
+    () => kind === 'practiceMix'
+      ? buildPracticeMix(level, l1, state.mastery ?? {}, Date.now(), state.items)
+      : buildDrill(kind, level, 10, seed, state.items),
   );
 
   const [i, setI] = useState(0);
@@ -57,7 +65,7 @@ export default function WordDrillScreen() {
   const [sel, setSel] = useState<number | null>(null); // gMeaning: 選んだ選択肢
   const [judged, setJudged] = useState<null | boolean>(null);
   const [score, setScore] = useState(0);
-  const [results, setResults] = useState<Record<string, boolean>>({}); // itemId(#前)→正誤(学習後リストの参考表示用)
+  const [results, setResults] = useState<Record<string, boolean>>({});
   const [before] = useState(() => progressSnapshot(state, Date.now())); // 完了画面の「伸び」表示用(試験タブと統一)
   const [walletStart] = useState(() => walletPoints(state)); // セッション開始時の桜貝残高(獲得数=終了時との差)
 
@@ -66,12 +74,21 @@ export default function WordDrillScreen() {
     const seen = new Set<string>();
     const out: StudiedWord[] = [];
     for (const pr of problems) {
+      if (pr.kind === 'practiceChoice') {
+        const key = pr.ref.type + pr.ref.id;
+        if (!seen.has(key)) {
+          const related = problems.filter(q => q.kind === 'practiceChoice' && q.ref.id === pr.ref.id);
+          out.push(...resolveStudiedWords([{ ref: pr.ref, correct: related.every(q => results[q.itemId]) }], l1));
+          seen.add(key);
+        }
+        continue;
+      }
       const id = pr.itemId.split('#')[0];
       const type = pr.kind === 'vProduce' || pr.kind === 'vMeaning' || pr.kind === 'vReading' || pr.kind === 'vWriting' ? ('vocab' as const) : ('grammar' as const);
       const key = type + id;
       if (seen.has(key)) continue;
       seen.add(key);
-      const correct = results[id];
+      const correct = results[pr.itemId];
       if (pr.kind === 'vProduce') out.push({ ref: { type, id }, word: pr.hint ?? pr.reading, meaning: pr.prompt, correct });
       else if (pr.kind === 'gBuild') out.push({ ref: { type, id }, word: pr.reading, meaning: pr.hint, correct });
       else if (pr.kind === 'vMeaning') out.push({ ref: { type, id }, word: pr.prompt, meaning: pr.choices[pr.answerIndex], correct });
@@ -80,7 +97,7 @@ export default function WordDrillScreen() {
       else out.push({ ref: { type, id }, word: pr.hit ?? pr.prompt, correct });
     }
     return out;
-  }, [problems, results]);
+  }, [problems, results, l1]);
 
   const p = problems[i];
 
@@ -88,7 +105,7 @@ export default function WordDrillScreen() {
     setJudged(correct);
     if (correct) setScore((n) => n + 1);
     actions.quizAnswer(itemId, correct);
-    setResults((m) => ({ ...m, [itemId.split('#')[0]]: correct })); // 学習後リストの正誤参考表示
+    setResults((m) => ({ ...m, [itemId]: correct }));
   };
 
   const next = () => {
@@ -98,7 +115,7 @@ export default function WordDrillScreen() {
     setI((n) => n + 1);
   };
 
-  const titleKey = kind === 'vProduce' ? 'worddrill.title_vProduce' : kind === 'gBuild' ? 'worddrill.title_gBuild' : kind === 'gMeaning' ? 'worddrill.title_gMeaning' : kind === 'vMeaning' ? 'worddrill.title_vMeaning' : kind === 'vReading' ? 'worddrill.title_vReading' : kind === 'vWriting' ? 'worddrill.title_vWriting' : 'worddrill.title_mixed';
+  const titleKey = kind === 'practiceMix' ? 'cards.practice_mix' : `worddrill.title_${kind}`;
   // 問いかけは各問題の形式に依存(mixedでは問題ごとに変わる)。
   const askKeyFor = (k: DrillProblem['kind']) => k === 'vProduce' ? 'worddrill.produce_ask' : k === 'gBuild' ? 'worddrill.build_ask' : k === 'vMeaning' ? 'worddrill.vmeaning_ask' : k === 'vReading' ? 'worddrill.vreading_ask' : k === 'vWriting' ? 'worddrill.vwriting_ask' : 'worddrill.meaning_ask';
 
@@ -126,7 +143,7 @@ export default function WordDrillScreen() {
             accuracy={problems.length ? Math.round((score / problems.length) * 100) : 0}
             correct={score}
             total={problems.length}
-            mode={kind === 'vProduce' || kind === 'vMeaning' || kind === 'vReading' || kind === 'vWriting' ? 'moji_goi' : 'bunpou'}
+            mode={kind === 'practiceMix' || kind.startsWith('v') ? 'moji_goi' : 'bunpou'}
             seed={seed}
           />
           <Pressable style={s.cta} onPress={() => nav.goBack()}><Text style={s.ctaTxt}>{t('worddrill.finish')}</Text></Pressable>
@@ -138,7 +155,15 @@ export default function WordDrillScreen() {
   return (
     <StudyLayout title={t(titleKey)} current={i + 1} total={problems.length} onClose={() => nav.goBack()}
       footer={judged !== null ? <AnswerFooter study correct={judged} onNext={next} nextKind={i + 1 >= problems.length ? 'finish' : 'next'} /> : null}>
-        <StudyInstruction>{t(askKeyFor(p.kind))}</StudyInstruction>
+        <StudyInstruction>{t(p.kind === 'practiceChoice' ? p.instruction : askKeyFor(p.kind))}</StudyInstruction>
+
+        {p.kind === 'practiceChoice' && (
+          <MixedChoice key={p.itemId} p={p} sel={sel} revealed={judged !== null} s={s} onSelect={index => {
+            if (judged !== null) return;
+            setSel(index);
+            record(index === p.answerIndex, p.itemId);
+          }} />
+        )}
 
         {(p.kind === 'vProduce' || p.kind === 'gBuild') && (
           <ProduceView p={p} placed={placed} setPlaced={setPlaced} judged={judged} record={record} s={s} c={c} t={t} />
@@ -148,6 +173,40 @@ export default function WordDrillScreen() {
         )}
     </StudyLayout>
   );
+}
+
+function MixedChoice({ p, sel, revealed, s, onSelect }: {
+  p: PracticeChoice; sel: number | null; revealed: boolean; s: Styles; onSelect: (index: number) => void;
+}) {
+  const t = useT();
+  const playback = useRef(0);
+  const audio = p.audio;
+  useEffect(() => {
+    if (!audio) return;
+    void Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(() => {});
+    return () => {
+      playback.current++;
+      void stopVocab();
+      void Speech.stop();
+    };
+  }, [audio]);
+  const play = async () => {
+    if (!audio) return;
+    const tap = ++playback.current;
+    void Speech.stop();
+    const ok = await (audio.audioVocabId ? playVocab(audio.audioVocabId) :
+      audio.audioChar ? playKanjiRep(audio.audioChar) : Promise.resolve(false)).catch(() => false);
+    if (!ok && tap === playback.current && audio.audioReading) {
+      Speech.speak(audio.audioReading, { language: 'ja-JP' });
+    }
+  };
+  return <>
+    {audio && <StudyAudioButton label={t('listening.play')} onPress={play} />}
+    {p.prompt && <StudyPrompt><Text style={s.promptPt}>{p.prompt}</Text></StudyPrompt>}
+    <StudyChoiceList choices={p.choices} selectedIndex={sel} answerIndex={p.answerIndex}
+      revealed={revealed} onSelect={onSelect} />
+    {revealed && p.feedback && <Text style={s.answerHint}>{p.feedback}</Text>}
+  </>;
 }
 
 // ── 産出(かなタイル): 語彙 意味→単語 / 文法 例文の空所に文法語を作る ──

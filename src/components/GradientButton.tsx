@@ -13,13 +13,14 @@ type Props = {
   colors?: [string, string];        // グラデーション 始点→終点
   glowColor?: string;               // 発光シャドウ色
   accessibilityLabel?: string;
+  badge?: string;
   style?: StyleProp<ViewStyle>;     // 親からの配置(絶対配置など)
   disabledLook?: boolean;           // ロック等のグレー見た目
 };
 
 export default function GradientButton({
   label, onPress, colors = ['#4f7dff', '#2436c8'], glowColor = '#2f4fd8',
-  accessibilityLabel, style, disabledLook,
+  accessibilityLabel, badge, style, disabledLook,
 }: Props) {
   const [size, setSize] = useState({ w: 0, h: 0 });
   const grad = disabledLook ? ['#9aa2b4', '#6f7789'] : colors;
@@ -29,7 +30,8 @@ export default function GradientButton({
   return (
     <Pressable
       onPress={onPress}
-      accessibilityLabel={accessibilityLabel ?? label}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel ?? [label, badge].filter(Boolean).join(' · ')}
       onLayout={(e) => setSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height })}
       style={({ pressed }) => [styles.btn, { shadowColor: glow }, style, pressed && styles.pressed]}
     >
@@ -49,7 +51,9 @@ export default function GradientButton({
           <Rect x={1} y={1} width={size.w - 2} height={size.h - 2} rx={r} ry={r} fill="url(#gbGloss)" />
         </Svg>
       )}
-      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={styles.txt}>{label}</Text>
+      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={styles.txt}>
+        {label}{badge ? <Text style={styles.badge}>{`  ✦ ${badge}`}</Text> : null}
+      </Text>
     </Pressable>
   );
 }
@@ -62,8 +66,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5, shadowRadius: 12, shadowOffset: { width: 0, height: 5 }, elevation: 7,
   },
   pressed: { transform: [{ scale: 0.98 }], shadowOpacity: 0.35 },
+  badge: { color: '#fff0ba', fontSize: 12 },
   txt: {
     color: '#ffffff', fontSize: 16, fontWeight: '900', letterSpacing: 0.6,
     textShadowColor: 'rgba(0,0,0,0.35)', textShadowRadius: 4, textShadowOffset: { width: 0, height: 1 },
   },
 });
+
+export const tabChallengePlacement: ViewStyle = { position: 'absolute', left: 32, right: 32, bottom: 84 };

@@ -64,6 +64,7 @@
   #tContentUsage{ min-width:600px; }
   #tContentUsage td[class*="usage-"]{ color:#1d392c; }
   #tContentUsage tbody th{ color:var(--ink); font-size:13px; font-weight:500; }
+  #tContentUsage tbody .usage-section{ background:var(--bg); font-weight:700; }
   #tContentUsage .level-start{ border-left:1px solid var(--line); }
   #tContentUsage tbody + tbody tr:first-child > *{ border-top:2px solid var(--line); }
   #tDevices th.grp.frz{ background:var(--bg); }
@@ -592,6 +593,13 @@ const CONTENT_LEVELS = ['N5', 'N4', 'N3'];
 // 行の順序はアプリの学習メニューに合わせる。利用件数では並べ替えない。
 const CONTENT_SECTIONS = [
   [
+    ['ai_coach', 'AIコーチ'],
+    ['review', 'ホーム：苦手な分野に挑戦する'],
+  ],
+  [
+    ['mock', '模試試験'],
+  ],
+  [
     ['exam_reading', '模試：漢字読み'], ['exam_writing', '模試：表記'],
     ['vocab_context', '模試：文脈規定'], ['vocab_synonym', '模試：言い換え類語'], ['vocab_usage', '模試：用法'],
   ],
@@ -608,6 +616,9 @@ const CONTENT_SECTIONS = [
     ['listening_response', '模試：即時応答'],
   ],
   [
+    ['practice_mix', '練習：総合問題'],
+  ],
+  [
     ['kanji_list', '練習：漢字リスト'], ['radicals', '練習：部首'], ['kanji_writing', '練習：書き取り'],
     ['kanji_meaning', '練習：意味'], ['kanji_reading', '練習：読み'], ['kanji_form', '練習：似た漢字'],
     ['kanji_listening', '練習：聞き取り'],
@@ -616,21 +627,27 @@ const CONTENT_SECTIONS = [
     ['vocab_list', '練習：語彙リスト'], ['poster', '練習：ポスター朗読'], ['vocab_meaning', '練習：語彙の意味'],
     ['vocab_reading', '練習：語彙の読み'], ['vocab_writing', '練習：語彙の表記'],
     ['vocab_listening', '練習：語彙の聞き取り'], ['vocab_produce', '練習：意味から単語'],
-    ['grammar_list', '練習：文法リスト'], ['grammar_meaning', '練習：文法の意味'], ['grammar_build', '練習：文をつくる'],
-    ['review', '苦手な分野に挑戦する'],
+  ],
+  [
+    ['grammar_list', '練習：文法リスト'], ['grammar_lessons', '練習：文法教材'],
+    ['grammar_meaning', '練習：文法の意味'], ['grammar_build', '練習：文をつくる'],
   ],
   [
     ['dictionary_kanji', '辞書：漢字'], ['dictionary_vocab', '辞書：語彙'],
     ['dictionary_grammar', '辞書：文法'], ['my_words', '辞書：単語帳'],
   ],
   [
-    ['ai_coach', 'AIコーチ'], ['mock', '模試試験'], ['town', '日本語の町'],
+    ['town', '日本語の町'],
     ['shop', 'ショップ'], ['account', 'アカウント'], ['settings', '設定'],
   ],
 ];
 const OPTIONAL_CONTENT = [
   ['kanji_detail', '漢字の詳しい解説'], ['grammar_note', '文法の詳しい解説'],
 ];
+const CONTENT_TAB_TITLES = {
+  ai_coach: 'ホーム', mock: '試験問題', practice_mix: '練習問題',
+  dictionary_kanji: '書庫', town: 'その他',
+};
 
 function renderContentUsage(rows){
   const lookup = new Map(rows.map(row => [row.content + '/' + row.level, row]));
@@ -657,14 +674,19 @@ function renderContentUsage(rows){
     + CONTENT_LEVELS.map(level => `<th class="grp" scope="colgroup" colspan="2">${level}</th>`).join('')
     + '</tr><tr>' + CONTENT_LEVELS.map(() => '<th class="num level-start" scope="col">利用者数</th><th class="num" scope="col">開いた回数</th>').join('')
     + '</tr></thead>';
-  const body = sections.map(section => '<tbody>' + section.map(([key, label]) => {
-    const cells = CONTENT_LEVELS.map(level => {
-      const usage = lookup.get(key + '/' + level);
-      const color = demandClass(usage?.users, level);
-      return `<td class="num level-start${color}">${count(usage?.users, '人')}</td><td class="num${color}">${count(usage?.opens, '回')}</td>`;
+  const body = sections.map(section => {
+    const tab = CONTENT_TAB_TITLES[section[0][0]];
+    const heading = tab ? `<tr><th class="usage-section" scope="rowgroup" colspan="7">${esc(tab)}</th></tr>` : '';
+    const rows = section.map(([key, label]) => {
+      const cells = CONTENT_LEVELS.map(level => {
+        const usage = lookup.get(key + '/' + level);
+        const color = demandClass(usage?.users, level);
+        return `<td class="num level-start${color}">${count(usage?.users, '人')}</td><td class="num${color}">${count(usage?.opens, '回')}</td>`;
+      }).join('');
+      return `<tr><th scope="row">${esc(label)}</th>${cells}</tr>`;
     }).join('');
-    return `<tr><th scope="row">${esc(label)}</th>${cells}</tr>`;
-  }).join('') + '</tbody>').join('');
+    return '<tbody>' + heading + rows + '</tbody>';
+  }).join('');
   $('tContentUsage').innerHTML = head + body;
 }
 

@@ -163,15 +163,18 @@ export function meaningEligible(level: string): G[] {
 }
 
 // SRS優先度: 未習(state無し)を最優先、次に p(習得度)が低い順。state未提供なら seed シャッフル。
-function orderBySrs<T>(items: T[], keyOf: (t: T) => string, itemsState: Record<string, { p: number }> | undefined, seed: number): T[] {
+type DrillPriority = Record<string, { p: number }> | ((id: string) => number);
+
+function orderBySrs<T>(items: T[], keyOf: (t: T) => string, itemsState: DrillPriority | undefined, seed: number): T[] {
   const shuffled = shuffle(items, seed);
   if (!itemsState) return shuffled;
-  return shuffled.sort((a, b) => (itemsState[keyOf(a)]?.p ?? -1) - (itemsState[keyOf(b)]?.p ?? -1));
+  const score = typeof itemsState === 'function' ? itemsState : (id: string) => itemsState[id]?.p ?? -1;
+  return shuffled.map(item => ({ item, score: score(keyOf(item)) })).sort((a, b) => a.score - b.score).map(entry => entry.item);
 }
 
 /** 指定形式・レベルの出題バッチ(count問)。itemsState を渡すと SRS(未習/低習得優先)で並べる。
  *  mixed=今日のオススメ: 語彙産出/文法作成/文法意味の3形式を横断で交互出題(単語タブ内で完結・試験タブとは独立)。 */
-export function buildDrill(kind: DrillKind, level: string, count = 10, seed = 1, itemsState?: Record<string, { p: number }>): DrillProblem[] {
+export function buildDrill(kind: DrillKind, level: string, count = 10, seed = 1, itemsState?: DrillPriority): DrillProblem[] {
   if (kind === 'mixed') {
     const per = Math.ceil(count / 3);
     const a = buildDrill('vProduce', level, per, seed, itemsState);

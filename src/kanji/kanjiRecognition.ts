@@ -87,7 +87,7 @@ function readingDistractors(it: KRItem, answer: KRReading, pool: KRItem[], count
   return [...same, ...relaxed].slice(0, count);
 }
 
-function makeQuestion(it: KRItem, pool: KRItem[], rng: () => number, only?: KRKind): KRQuestion | null {
+export function makeRecognitionQuestion(it: KRItem, pool: KRItem[], rng: () => number, only?: KRKind): KRQuestion | null {
   const canMean = it.meaningClear && !!it.meaning;
   const ans = pickAnswerReading(it);
   let kinds: KRKind[] = [];
@@ -112,7 +112,7 @@ export function buildKanjiRecognitionQuiz(pool: KRItem[], count: number, rng: ()
   const out: KRQuestion[] = [];
   for (const it of shuffle(pool, rng)) {
     if (out.length >= count) break;
-    const q = makeQuestion(it, pool, rng, only);
+    const q = makeRecognitionQuestion(it, pool, rng, only);
     if (q && q.choices.length >= 2) out.push(q); // 誤答が全く作れない病的ケースは捨てる
   }
   return out;
