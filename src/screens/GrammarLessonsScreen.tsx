@@ -4,8 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
+import RubyText from '../components/RubyText';
 import { StudySceneBanner, studyPaper, useStudyColors } from '../components/StudyPresentation';
-import { GRAMMAR, meaningIn } from '../data';
+import { GRAMMAR, meaningIn, rubyNeeded } from '../data';
 import { hasGrammarNote } from '../data/grammarNotes';
 import { meaningL1, useT } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
@@ -20,6 +21,7 @@ export default function GrammarLessonsScreen() {
   const styles = useMemo(() => makeStyles(colors), [colors]);
   const level = settings.level;
   const language = meaningL1(settings);
+  const rubyGate = (run: string) => rubyNeeded(run, level);
   const lessons = useMemo(
     () => GRAMMAR.filter(item => item.level === level && hasGrammarNote(item.id)),
     [level],
@@ -48,7 +50,7 @@ export default function GrammarLessonsScreen() {
             onPress={() => nav.navigate('GrammarNote', { id: item.id })}
           >
             <View style={styles.copy}>
-              <Text style={styles.point}>{item.point}</Text>
+              <RubyText text={item.point} style={styles.point} rubyStyle={styles.ruby} rubyGate={rubyGate} />
               <Text style={styles.hint}>{(language && meaningIn(item.id, language)) || item.meaning}</Text>
             </View>
             <Ionicons name="chevron-forward" size={18} color={colors.mute} />
@@ -73,5 +75,6 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   pressed: { backgroundColor: c.bgSoft },
   copy: { flex: 1, gap: 3 },
   point: { color: c.ink, fontSize: ty.body, fontWeight: '800' },
+  ruby: { color: c.mute, fontSize: 10 },
   hint: { color: c.mute, fontSize: ty.small },
 });
