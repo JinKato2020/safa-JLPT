@@ -52,6 +52,7 @@
       "bundler": "metro"
     },
     "plugins": [
+      "./tools/withOptionalPortrait.js",
       "expo-localization",
       [
         "expo-notifications",
