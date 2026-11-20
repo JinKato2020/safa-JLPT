@@ -114,6 +114,7 @@
   "cards.moji_goi": "汉字・词汇",
   "cards.kanji_list": "汉字列表",
   "cards.vocab_list": "词汇列表",
+  "cards.grammar_lessons": "语法课程",
   "cards.grammar_list": "语法列表",
   "cards.new_feature": "新功能",
   "cards.radical_lessons": "按部首学习汉字",
@@ -404,6 +405,7 @@
   "mock.see_result": "查看结果 →",
   "mock.timeup": "⏰ 时间到・已自动批改",
   "mywords.add": "＋我的生词本",
+  "mywords.remove": "从我的单词本移除",
   "mywords.added": "已收藏 ✓",
   "mywords.card": "我的生词本",
   "mywords.title": "我的生词本",
@@ -1516,7 +1518,6 @@
   "feedback.send": "发送意见邮件",
   "feedback.subject": "每日JLPT 意见与建议",
   "feedback.email_error": "无法打开邮件应用，请发送邮件至 {email}。",
-  "home.first_lesson": "先从5道题开始",
   "sakura.exam_all": "考试标签页中，有{n}个大题（{names}）您还未解答。所有大题都解答一遍后，才能正确显示预估分数。",
   "sakura.exam_all_more": "考试标签页中，有{n}个大题（如{names}）您还未解答。所有大题都解答一遍后，才能正确显示预估分数。",
   "sakura.exam_all_sep": "、"

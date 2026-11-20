@@ -40,6 +40,7 @@ export default function KubunCard({ kubun }: { kubun: Kubun }) {
 
   add(m.listKey, () => nav.navigate('WordList', { view: kubun, mode: 'study' })); // 辞書リスト(土台)
   if (kubun === 'grammar') {
+    add('cards.grammar_lessons', () => nav.navigate('GrammarLessons'));
     add('cards.gmeaning', () => nav.navigate('WordDrill', { kind: 'gMeaning' })); // 意味を選ぶ(認識)
     add('cards.gorder', () => nav.navigate('WordDrill', { kind: 'gBuild' }));     // 文法パズル(産出)
   }

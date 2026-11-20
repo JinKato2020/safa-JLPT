@@ -121,6 +121,7 @@
   "cards.moji_goi": "कान्जी र शब्दावली",
   "cards.kanji_list": "कान्जी सूची",
   "cards.vocab_list": "शब्दावली सूची",
+  "cards.grammar_lessons": "व्याकरणका पाठहरू",
   "cards.grammar_list": "व्याकरण सूची",
   "cards.new_feature": "नयाँ",
   "cards.radical_lessons": "कान्जीका मूल भागबाट सिक्नुहोस्",
@@ -410,6 +411,7 @@
   "mock.see_result": "नतिजा हेर्नुहोस् →",
   "mock.timeup": "⏰ समय सकियो — स्वचालित मूल्याङ्कन भयो",
   "mywords.add": "＋मेरो शब्द नोटबुक",
+  "mywords.remove": "मेरो शब्दसूचीबाट हटाउनुहोस्",
   "mywords.added": "दर्ता भइसकियो ✓",
   "mywords.card": "मेरो शब्द नोटबुक",
   "mywords.title": "मेरो शब्द नोटबुक",
@@ -1516,7 +1518,6 @@
   "feedback.send": "इमेलबाट सुझाव पठाउनुहोस्",
   "feedback.subject": "Mainichi JLPT सुझाव र अनुरोध",
   "feedback.email_error": "इमेल एप खोल्न सकिएन। कृपया {email} मा इमेल पठाउनुहोस्।",
-  "home.first_lesson": "५ प्रश्नबाट सुरु गर्नुहोस्",
   "sakura.exam_all": "परीक्षा ट्याबमा अझै एक पटक पनि नगरेका {n} वटा खण्ड छन् ({names})। सबै खण्ड एक-एक पटक गर्नुभयो भने अनुमानित अंक सही देखिन्छ।",
   "sakura.exam_all_more": "परीक्षा ट्याबमा अझै एक पटक पनि नगरेका {n} वटा खण्ड छन् ({names} आदि)। सबै खण्ड एक-एक पटक गर्नुभयो भने अनुमानित अंक सही देखिन्छ।",
   "sakura.exam_all_sep": ", "

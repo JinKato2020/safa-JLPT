@@ -21,7 +21,7 @@ export type RootStackParamList = {
   Inventory: undefined; // アイテム(所持品・道具・バッジ一覧。上部の袋アイコンから開く)
   Shop: undefined; // ショップ(桜貝で着せ替え購入)
   // 診断クイズ / 弱点ドリル(itemIds 指定でその語だけを出題) / 大問学習(daimon 指定=本番の大問を固定形式で連続出題)
-  Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon; review?: boolean; firstLesson?: boolean } | undefined; // firstLesson=初回ホームからの5問。review=面別マスタリー統合復習
+  Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon; review?: boolean } | undefined; // review=面別マスタリー統合復習
   Flashcard: { ids?: string[] } | undefined; // 漢字・語彙 連続学習→連続テスト(個別漢字79字を含む)。ids指定時はその語id集合だけを復習(my単語帳の「復習する」)
   MockIntro: { full?: boolean } | undefined; // 模試の説明(いきなり始めず遷移)。案内キャラ＋目安
   Mock: { full?: boolean; preview?: 'pass' | 'fail' } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)。preview=開発者用に終了画面(合格/不合格)を直接表示
@@ -33,6 +33,7 @@ export type RootStackParamList = {
   Kakitori: { level?: 'N5' | 'N4' | 'N3'; mode?: 'drill' | 'review'; char?: string; script?: 'kanji' | 'hiragana' | 'katakana' } | undefined; // 書き取り(漢字/ひらがな/カタカナ・3ステップ、単字自由練習対応)
   KanjiDetail: { char: string; scope?: 'level' | 'all' };
   GrammarNote: { id: string }; // 文法の「くわしい解説」(サイトの解説を取り込み・grammarNotes.ts) // scope=level:自レベル読み(単語タブ) / all(既定):全読み(辞書)
+  GrammarLessons: undefined;
   ListeningQuiz: { kind: 'vocab' | 'kanji' }; // 聞き取りドリル(学習→テスト・語彙/漢字)
   KanjiRecognition: { mode?: 'mean' | 'read' } | undefined; // 漢字認識テスト(字を単独提示→意味/読み4択)。mode=意味/読みを別ボタンに分離
   KanjiForm: undefined; // 漢字の形の弁別テスト(似た字4択→正しい字を選ぶ・form面)
@@ -53,7 +54,7 @@ export type WordsStackParamList = {
 };
 export type DictStackParamList = {
   DictHome: undefined;                        // 図書館ホーム(4カード=語彙/漢字/文法辞書＋My単語帳)
-  DictList: { view: Kubun };                  // 各辞書リスト(BrowseScreen)
+  DictList: { view: Kubun; entryId?: string }; // entryId を指定すると保存したカードを1件表示
   MyWords: undefined;                         // my単語帳(保存した語/文法)一覧。タブ内画面=ボトムナビを消さない
 };
 export type StudyStackParamList = {

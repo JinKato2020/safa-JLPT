@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
 import { playVocab } from '../data/vocabAudio';
-import type { RootStackParamList } from '../navigation/types';
+import type { DictStackParamList, RootStackParamList, WordsStackParamList } from '../navigation/types';
 import { spacing, radius, type as ty, shadow, type ThemeColors } from '../theme';
 import { useStudyColors, studyPaper, StudySceneBanner } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
@@ -82,8 +82,9 @@ export default function BrowseScreen() {
   const kg = (word: string): string | undefined => (l1 && l1 !== 'en' ? kanjiGlossIn(word, l1) : undefined);
 
   const route = useRoute();
-  const params = (route.params ?? {}) as { view?: Kubun; mode?: 'dict' | 'study' };
+  const params = (route.params ?? {}) as Partial<DictStackParamList['DictList'] & WordsStackParamList['WordList']>;
   const study = params.mode === 'study';
+  const { entryId } = params;
   const [kubun] = useState<Kubun>(params.view ?? 'vocab');
   const [level, setLevel] = useState<string>(settings.level); // 'all' または N5..N1
   const [query, setQuery] = useState('');
@@ -126,13 +127,19 @@ export default function BrowseScreen() {
 
   const results = useMemo(() => {
     if (study) return src; // 既に当該レベルのコアのみ・検索なし
+    if (entryId) {
+      const entry = src.find((item) => item.id === entryId)
+        ?? (kubun === 'vocab' ? VOCAB.find((item) => item.id === entryId) : undefined);
+      return entry ? [entry] : [];
+    }
     const byLevel =
       effLevel === 'all'
         ? [...src].sort((a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level)) // 全=N5→N1でソート
         : src.filter((i) => i.level === effLevel);
     const q = query.trim().toLowerCase();
     return q ? byLevel.filter((i) => haystack(i).includes(q)) : byLevel;
-  }, [src, effLevel, query, study]);
+  }, [src, effLevel, query, study, entryId, kubun]);
+  const browseList = !study && !entryId;
 
   const statusMark = (item: StudyItem) => {
     const st = items[item.id];
@@ -335,7 +342,7 @@ export default function BrowseScreen() {
             <Text style={s.close}>{study ? '←' : '×'}</Text>
           </Pressable>
         ) : <View style={{ width: 30 }} />}
-        {!study && (
+        {browseList && (
           <TextInput
             style={s.search}
             value={query}
@@ -345,12 +352,12 @@ export default function BrowseScreen() {
             autoCorrect={false}
           />
         )}
-        {study && <Text style={s.title}>{t(KUBUN.find((k) => k.key === kubun)!.labelKey)}</Text>}
-        {study && <View style={{ width: 30 }} />}
+        {!browseList && <Text style={s.title}>{t(KUBUN.find((k) => k.key === kubun)!.labelKey)}</Text>}
+        {!browseList && <View style={{ width: 30 }} />}
       </View>
 
       {/* レベル変更のプルダウン(全＝N5→N1ソート / 各級＝その級のみ)＋ 右に「今どの区分の一覧か」を明示。 */}
-      {!study && (
+      {browseList && (
         <View style={[s.filters, s.filters2, s.filtersRow]}>
           <View style={s.filterSide}>
             <Dropdown
@@ -365,7 +372,7 @@ export default function BrowseScreen() {
         </View>
       )}
 
-      <Text style={s.count}>{t('browse.count', { n: results.length })}</Text>
+      {!entryId && <Text style={s.count}>{t('browse.count', { n: results.length })}</Text>}
 
       {study ? (
         <SectionList

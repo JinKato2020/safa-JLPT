@@ -31,10 +31,6 @@ export default function HomeScreen() {
   const simple = useSimpleMode();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const t = useT();
-  const firstLesson = !(state.settings.afterStudyCount ?? 0)
-    && Object.keys(state.items).length === 0
-    && Object.keys(state.mastery ?? {}).length === 0
-    && (state.mockHistory ?? []).length === 0;
   const c = useColors(); // 配布モーダルの模試チケット券をショップと同じ色(bgSoft)で描くため
   // 到達度の左に出す現在レベル(JFT目標はレベル無し=「JFT」)。
   const levelLabel = (state.settings.targetExam ?? 'jlpt') === 'jft' ? 'JFT' : state.settings.level;
@@ -162,12 +158,10 @@ export default function HomeScreen() {
         <SafeBoundary tag="weeklyletter" fallback={null}>
           <WeeklyLetter />
         </SafeBoundary>
-        {/* 初回の5問、または苦手な分野の統合復習。桜/柴犬の下・ボトムナビの上に常設。
+        {/* 苦手な分野の統合復習。桜/柴犬の下・ボトムナビの上に常設。
             見た目は試験タブ「試験に挑戦する」と統一(GradientButton=斜めグラデ＋光沢の高級ピル)。 */}
-        <GradientButton style={styles.reco} label={t(firstLesson ? 'home.first_lesson' : 'cards.reco')}
-          onPress={() => nav.navigate('Quiz', firstLesson
-            ? { daimon: 'context', firstLesson: true, title: t('home.first_lesson') }
-            : { review: true })} />
+        <GradientButton style={styles.reco} label={t('cards.reco')}
+          onPress={() => nav.navigate('Quiz', { review: true })} />
         {/* 模試チケットの配布(歓迎/月次)を目立つ祝いモーダルで通知。ショップ購入時と同じ「手に入れた!」の見せ方。 */}
         <Modal visible={ticketNotice > 0} transparent animationType="fade" onRequestClose={clearTicketNotice}>
           <Pressable style={styles.noticeBackdrop} onPress={clearTicketNotice}>

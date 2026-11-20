@@ -121,6 +121,7 @@
   "cards.moji_goi": "Kanji & Vocab",
   "cards.kanji_list": "Kanji list",
   "cards.vocab_list": "Vocabulary list",
+  "cards.grammar_lessons": "Grammar lessons",
   "cards.grammar_list": "Grammar list",
   "cards.new_feature": "New",
   "cards.radical_lessons": "Learn kanji by radical",
@@ -410,6 +411,7 @@
   "mock.see_result": "See Results →",
   "mock.timeup": "⏰ Time's up — auto-graded",
   "mywords.add": "+ My Words",
+  "mywords.remove": "Remove from My Word Book",
   "mywords.added": "Saved ✓",
   "mywords.card": "My Words",
   "mywords.title": "My Words",
@@ -1516,7 +1518,6 @@
   "feedback.send": "Send feedback by email",
   "feedback.subject": "Mainichi JLPT feedback and requests",
   "feedback.email_error": "Could not open your email app. Please email {email}.",
-  "home.first_lesson": "Start with 5 questions",
   "sakura.exam_all": "There are {n} sections in the Exam tab you haven’t tried yet ({names}). Try every section once and your predicted score will become accurate.",
   "sakura.exam_all_more": "There are {n} sections in the Exam tab you haven’t tried yet ({names}, and more). Try every section once and your predicted score will become accurate.",
   "sakura.exam_all_sep": ", "

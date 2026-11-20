@@ -1,11 +1,12 @@
-// my単語帳(モーダル) = 保存した 語彙/漢字/文法 の一覧。
+// 私の単語帳 = 保存した語彙・漢字・文法の一覧と辞書カードへの入口。
 // 本棚/案内キャラは挟まず、開いたら直接いずれかの帳(リスト)を表示。上部のボタンで 漢字帳↔語彙帳↔文法帳 を切り替える。
-// 保存参照 SaveRef({type}) を vocab/kanji/grammar.json から解決(未収載idは静かにスキップ)。復習=語彙+漢字を Flashcard へ。
+// 保存参照は同梱データから解決する。
 // 単一モーダル・単一入口(辞書タブ最上部)は不変。
 import { useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import type { CompositeNavigationProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, radius, type as ty, shadow, type ThemeColors } from '../theme';
@@ -15,9 +16,12 @@ import type { SaveRef } from '../store/state';
 import { VOCAB, GRAMMAR, KANJI, meaningIn } from '../data';
 import type { BookKind } from '../data/mywordsArt';
 import { useT, meaningL1 } from '../i18n';
-import type { DictStackParamList } from '../navigation/types';
+import type { DictStackParamList, RootStackParamList } from '../navigation/types';
 
-type Nav = NativeStackNavigationProp<DictStackParamList>;
+type Nav = CompositeNavigationProp<
+  NativeStackNavigationProp<DictStackParamList, 'MyWords'>,
+  NativeStackNavigationProp<RootStackParamList>
+>;
 const KINDS: BookKind[] = ['kanji', 'vocab', 'grammar']; // 表示順=漢字→語彙→文法(ユーザー指定)
 
 interface Row { ref: SaveRef; title: string; sub: string; level: string; big?: boolean }
@@ -64,15 +68,28 @@ export default function MyWordsScreen() {
   });
   const rows = rowsByKind[view];
 
+  const openCard = (item: Row) => {
+    const { type, id } = item.ref;
+    if (type === 'kanji') {
+      nav.navigate('KanjiDetail', { char: item.title, scope: 'all' });
+      return;
+    }
+    nav.push('DictList', { view: type, entryId: id });
+  };
+
   const rowItem = (item: Row, kind: BookKind) => (
     <View style={s.row}>
-      <View style={[s.accentBar, { backgroundColor: accentOf(kind) }]} />
-      <View style={s.rowText}>
-        <Text style={[s.rowTitle, item.big && s.rowTitleBig]} numberOfLines={1}>{item.title}</Text>
-        <Text style={s.rowSub} numberOfLines={2}>{item.sub}</Text>
-      </View>
-      <Text style={s.levelBadge}>{item.level}</Text>
-      <Pressable style={s.delBtn} hitSlop={10} onPress={() => addToMyList(item.ref)}>
+      <Pressable style={({ pressed }) => [s.rowLink, pressed && s.rowPressed]}
+        accessibilityRole="button" onPress={() => openCard(item)}>
+        <View style={[s.accentBar, { backgroundColor: accentOf(kind) }]} />
+        <View style={s.rowText}>
+          <Text style={[s.rowTitle, item.big && s.rowTitleBig]} numberOfLines={1}>{item.title}</Text>
+          <Text style={s.rowSub} numberOfLines={2}>{item.sub}</Text>
+        </View>
+        <Text style={s.levelBadge}>{item.level}</Text>
+        <Ionicons name="chevron-forward" size={16} color={c.mute} />
+      </Pressable>
+      <Pressable style={s.delBtn} accessibilityRole="button" accessibilityLabel={t('mywords.remove')} onPress={() => addToMyList(item.ref)}>
         <Ionicons name="close" size={18} color={c.faint} />
       </Pressable>
     </View>
@@ -140,12 +157,14 @@ const makeStyles = (c: ThemeColors) => StyleSheet.create({
   list: { paddingHorizontal: spacing.lg, paddingBottom: spacing.xl },
   listEmpty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl },
   emptyTxt: { fontSize: ty.body, color: c.mute, textAlign: 'center' },
-  row: { ...shadow(1), flexDirection: 'row', alignItems: 'center', ...studyPaper(c), overflow: 'hidden', paddingRight: spacing.md },
+  row: { ...shadow(1), flexDirection: 'row', alignItems: 'center', ...studyPaper(c), overflow: 'hidden', paddingRight: spacing.sm },
+  rowLink: { alignSelf: 'stretch', flex: 1, flexDirection: 'row', alignItems: 'center', paddingRight: spacing.sm },
+  rowPressed: { backgroundColor: c.bgSoft },
   accentBar: { width: 5, alignSelf: 'stretch' },
   rowText: { flex: 1, paddingVertical: spacing.md, paddingLeft: spacing.md },
   rowTitle: { fontSize: ty.body, fontWeight: '800', color: c.ink },
   rowTitleBig: { fontSize: 28, lineHeight: 34, fontWeight: '800' },
   rowSub: { fontSize: ty.small, color: c.mute, marginTop: 2 },
   levelBadge: { fontSize: 10, fontWeight: '800', color: c.mute, backgroundColor: c.bgSoft, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 2, overflow: 'hidden', marginRight: spacing.xs },
-  delBtn: { padding: spacing.xs },
+  delBtn: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center' },
 });

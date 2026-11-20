@@ -114,6 +114,7 @@
   "cards.moji_goi": "Kanji/Kosakata",
   "cards.kanji_list": "Daftar Kanji",
   "cards.vocab_list": "Daftar Kosakata",
+  "cards.grammar_lessons": "Materi tata bahasa",
   "cards.grammar_list": "Daftar Tata Bahasa",
   "cards.new_feature": "Baru",
   "cards.radical_lessons": "Belajar kanji lewat radikal",
@@ -404,6 +405,7 @@
   "mock.see_result": "Lihat Hasil →",
   "mock.timeup": "⏰ Waktu habis, penilaian otomatis",
   "mywords.add": "+ Kosakata Saya",
+  "mywords.remove": "Hapus dari daftar kata saya",
   "mywords.added": "Terdaftar ✓",
   "mywords.card": "Kosakata Saya",
   "mywords.title": "Kosakata Saya",
@@ -1516,7 +1518,6 @@
   "feedback.send": "Kirim masukan lewat email",
   "feedback.subject": "Mainichi JLPT: saran dan permintaan",
   "feedback.email_error": "Aplikasi email tidak dapat dibuka. Silakan kirim email ke {email}.",
-  "home.first_lesson": "Mulai dengan 5 soal",
   "sakura.exam_all": "Ada {n} pertanyaan besar yang belum Anda coba di tab Ujian ({names}). Setelah Anda mencoba setiap pertanyaan besar sekali, skor prediksi akan ditampilkan dengan benar.",
   "sakura.exam_all_more": "Ada {n} pertanyaan besar yang belum Anda coba di tab Ujian (seperti {names}). Setelah Anda mencoba setiap pertanyaan besar sekali, skor prediksi akan ditampilkan dengan benar.",
   "sakura.exam_all_sep": ", "
