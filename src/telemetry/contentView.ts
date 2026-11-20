@@ -25,8 +25,9 @@ export function contentView(route: ContentRoute): { content: string; level?: str
     case 'Kakitori':
       return practice('Kakitori:' + option(params.script, ['hiragana', 'katakana'], 'kanji'));
     case 'WordDrill':
+      if (params.kind === 'weaknessMix') return practice('Quiz:review');
       return practice('WordDrill:' + option(params.kind, [
-        'vProduce', 'gBuild', 'gMeaning', 'vMeaning', 'vReading', 'vWriting', 'mixed', 'practiceMix',
+        'vProduce', 'gBuild', 'gMeaning', 'vMeaning', 'vReading', 'vWriting', 'mixed', 'practiceMix', 'examMix',
       ], 'all'));
     case 'ListeningQuiz':
       return content('ListeningQuiz:' + option(params.kind, ['vocab', 'kanji'], 'all'));

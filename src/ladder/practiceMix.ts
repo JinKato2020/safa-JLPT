@@ -31,7 +31,7 @@ export function practicePriority(mastery: MasterySlice, unit: string, now: numbe
     ? effectiveP(progress, now) + (progress.dueAt <= now ? 0 : 2)
     : 1;
   const facets = facetsForUnit(unit).map(({ itemId, facet }) => score(mastery[itemId]?.[facet]));
-  return Math.min(itemProgress ? score(itemProgress) : 3, ...facets);
+  return facets.length ? Math.min(itemProgress ? score(itemProgress) : 3, ...facets) : score(itemProgress);
 }
 
 export function buildPracticeMix(

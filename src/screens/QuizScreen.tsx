@@ -19,13 +19,10 @@ import { walletPoints } from '../store/wallet';
 import { resolveStudiedWords, type StudiedQuestion } from '../data/studiedWords';
 
 import DevIdPicker from '../components/DevIdPicker';
-import { itemsFor, allWordsFor, rubyNeeded } from '../data';
-import { buildQueue, buildUnitQueue, makeQuestion, EXAM_FORMATS } from '../quiz/quiz';
+import { allWordsFor, rubyNeeded } from '../data';
+import { buildUnitQueue, makeQuestion, EXAM_FORMATS } from '../quiz/quiz';
 import { daimonUnitIds, questionForUnit, learnCardFor, MOJI_DAIMON, BUNPOU_DAIMON, type LearnCard } from '../data/daimon';
-import { selectReview } from '../review/selectReview';
-import { unitForPick } from '../review/reviewQuestion';
 import type { StudyItem } from '../data';
-import type { Category } from '../engine/engine';
 import type { RootStackParamList } from '../navigation/types';
 import RubyText from '../components/RubyText';
 import { useSessionGate } from '../pro/useSessionGate';
@@ -51,22 +48,6 @@ const SESSION_SIZE = 10;
 // 文法ミックス出題用の大問(passage_grammarはセット形式=questionForUnitで単問化できないため除外。専用画面PassageGrammarScreenへ)。
 const MIX_BUNPOU_DAIMON = BUNPOU_DAIMON.filter((d) => d !== 'passage_grammar');
 
-function poolFor(level: 'N5' | 'N4' | 'N3', cat: Category | 'all'): StudyItem[] {
-  if (cat === 'all') return [...itemsFor(level, 'moji_goi'), ...itemsFor(level, 'bunpou')];
-  return itemsFor(level, cat);
-}
-// 「全区分の復習」は区分ごとにキューを作り交互に混ぜる(SRS期限切れが1区分に偏らない=本当に全区分から出す)。
-function buildAllQueue(level: 'N5' | 'N4' | 'N3', items: Parameters<typeof buildQueue>[1], now: number): StudyItem[] {
-  const a = buildQueue(itemsFor(level, 'moji_goi'), items, now, SESSION_SIZE);
-  const b = buildQueue(itemsFor(level, 'bunpou'), items, now, SESSION_SIZE);
-  const out: StudyItem[] = [];
-  for (let i = 0; out.length < SESSION_SIZE && (i < a.length || i < b.length); i++) {
-    if (i < a.length) out.push(a[i]);
-    if (out.length < SESSION_SIZE && i < b.length) out.push(b[i]);
-  }
-  return out;
-}
-
 export default function QuizScreen() {
   const nav = useNavigation();
   // 1日の回数ゲート(共通)。GATING_ENABLED=false の間は素通りする。
@@ -76,8 +57,7 @@ export default function QuizScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'Quiz'>>();
   const category = route.params?.category ?? 'all';
   const itemIds = route.params?.itemIds;
-  const review = route.params?.review; // 面別マスタリー統合復習(既習の苦手な面だけを忘却曲線で)
-  const paramTitle = route.params?.title;
+  const title = route.params?.title;
   const daimon = route.params?.daimon; // 大問学習(本番の大問を固定形式で連続出題・状態は「項目#大問」キー)
   const state = useAppState();
   const { settings, items } = state;
@@ -85,24 +65,13 @@ export default function QuizScreen() {
   const c = useStudyColors();
   const s = useMemo(() => makeStyles(c), [c]);
   const t = useT();
-  const title = review ? t('cards.reco') : paramTitle;
   // レベル適応ルビ: ユーザーのレベル以上(同レベル含む)の漢字群にだけ読みを振る。
   const rubyGate = (run: string) => rubyNeeded(run, settings.level);
 
-  // 誤答プール＆弱点ドリルの照合は全語(学習＋模試専用)。出題キュー(category)は学習のみ=poolFor。
+  // 誤答プール＆弱点ドリルの照合は全語(学習＋模試専用)。
   const pool = useMemo(() => [...allWordsFor(settings.level, 'moji_goi'), ...allWordsFor(settings.level, 'bunpou')], [settings.level]);
   // 大問モードはユニットid(string)、それ以外はStudyItemのキュー。
   const [queue, setQueue] = useState<(StudyItem | string)[]>(() => {
-    if (review) {
-      // 面別マスタリー統合復習: 既習の苦手な面を弱い順に選び、描ける面だけを unit にして出題。
-      // listen/漢字書き取り等の描けない面は読み飛ばすため多めに選んで先頭 SESSION_SIZE 件。
-      const picks = selectReview(state.mastery ?? {}, Date.now(), SESSION_SIZE * 2);
-      const reviewQ = picks.map((p) => unitForPick(p.itemId, p.facet, Math.random)).filter((u): u is string => !!u).slice(0, SESSION_SIZE);
-      if (reviewQ.length > 0) return reviewQ;
-      // 苦手な単語がまだ無い(未学習 or 期限内)=その級の頻出単語(語彙)を順番に出す。
-      //  buildQueueが未習・低習得を優先=自然に頻出順の先頭から進み、解くほど苦手が記録され次回の復習の種になる。
-      return buildQueue(itemsFor(settings.level, 'moji_goi'), items, Date.now(), SESSION_SIZE);
-    }
     if (daimon) return buildUnitQueue(daimonUnitIds(settings.level, daimon, 'learn'), items, Date.now(), SESSION_SIZE);
     if (itemIds && itemIds.length) {
       // 模試の弱点ドリルも復習/学習と同じ検証済みバンクから出す。idは模試が daimonUnitIds→questionForUnit で
@@ -194,20 +163,6 @@ export default function QuizScreen() {
         ))}
         {startButton('bottom')}
       </StudyLayout>
-    );
-  }
-
-  // 復習に出す問題が無い(未学習/苦手が期限内)=ねぎらいつつ新出学習へ誘導。
-  if (review && queue.length === 0 && answered === 0) {
-    return (
-      <SafeAreaView style={s.c}>
-        <ScrollView contentContainerStyle={s.center}>
-          <Text style={s.bigEmoji}>🌸</Text>
-          <Text style={s.doneTitle}>{t('review.empty_title')}</Text>
-          <Text style={s.doneSub}>{t('review.empty_sub')}</Text>
-          <AppButton label={t('reading.backToHome')} onPress={() => nav.goBack()} full={false} style={{ marginTop: spacing.md }} />
-        </ScrollView>
-      </SafeAreaView>
     );
   }
 

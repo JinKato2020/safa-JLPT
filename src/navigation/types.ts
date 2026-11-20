@@ -21,7 +21,7 @@ export type RootStackParamList = {
   Inventory: undefined; // アイテム(所持品・道具・バッジ一覧。上部の袋アイコンから開く)
   Shop: undefined; // ショップ(桜貝で着せ替え購入)
   // 診断クイズ / 弱点ドリル(itemIds 指定でその語だけを出題) / 大問学習(daimon 指定=本番の大問を固定形式で連続出題)
-  Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon; review?: boolean } | undefined; // review=面別マスタリー統合復習
+  Quiz: { category?: Category | 'all'; itemIds?: string[]; title?: string; daimon?: Daimon } | undefined;
   MockIntro: { full?: boolean } | undefined; // 模試の説明(いきなり始めず遷移)。案内キャラ＋目安
   Mock: { full?: boolean; preview?: 'pass' | 'fail' } | undefined; // ミニ/フル模試(本番形式・弱点ヒートマップ)。preview=開発者用に終了画面(合格/不合格)を直接表示
   // 模試成績表(詳細結果)。合否画面の「詳細結果を見る」から遷移。JLPT専用。区分別実測(byCat)から得点/相対位置/偏差値をその場で算出。
@@ -37,7 +37,7 @@ export type RootStackParamList = {
   KanjiRecognition: { mode?: 'mean' | 'read' } | undefined; // 漢字認識テスト(字を単独提示→意味/読み4択)。mode=意味/読みを別ボタンに分離
   KanjiForm: undefined; // 漢字の形の弁別テスト(似た字4択→正しい字を選ぶ・form面)
   RadicalLessons: undefined;
-  WordDrill: { kind: import('../ladder/wordDrill').DrillKind | 'practiceMix'; level?: 'N5' | 'N4' | 'N3' };
+  WordDrill: { kind: import('../ladder/wordDrill').DrillKind | 'practiceMix' | 'examMix' | 'weaknessMix'; level?: 'N5' | 'N4' | 'N3' };
   PosterList: undefined; // ポスター朗読のテーマ選択(単語タブ→語彙カード「ポスター朗読」から)
   PosterAudio: { lessonId?: string } | undefined; // ポスター朗読(画像＋カードをハイライトしながら母語→日本語で連続再生)
   // バグ・不具合の報告フォーム。入口=設定タブ「サポート・規約」/ 各問題画面ヘッダーの⚠報告。

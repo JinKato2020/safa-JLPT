@@ -119,7 +119,7 @@ export default function AICoachScreen() {
   const goalPct = st.predMax > 0 ? Math.round((st.passTotal / st.predMax) * 100) : 50;
   // 予想得点=主役。合格ラインに届いていれば緑・未満は橙。
   const scoreColor = st.predScore >= st.passTotal && st.passTotal > 0 ? c.green : c.amber;
-  const startLearn = () => { nav.goBack(); nav.navigate('Quiz', { review: true }); };
+  const startLearn = () => { nav.goBack(); nav.navigate('WordDrill', { kind: 'weaknessMix' }); };
   // 過去の模試を成績表(MockResultScreen)で開く。区分別実測(byCat)を保存している回のみ・JLPTのみ。
   const isJlptExam = (state.settings.targetExam ?? 'jlpt') !== 'jft';
   const canOpenMock = (mk: MockResult) => isJlptExam && !!mk.byCat && !!mk.level;

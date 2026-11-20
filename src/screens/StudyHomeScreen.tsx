@@ -46,20 +46,17 @@ export default function StudyHomeScreen() {
         source={bg}
         scrim={0.12}
         entries={[
-          // 試験タブ=大問別カテゴリ(語彙/文法/読解/聴解)の4アイコンのみ。模試は下の「試験に挑戦する」ボタンへ分離。
-          // 旧「全部混ぜ(今日のオススメ)」は統合復習へ移行し撤去(復習はホーム/書斎の入口へ・試験タブに復習は置かない=方針2026-08-01)。
           ...CATS.map((x) => ({ key: x.cat, glyph: x.glyph, label: x.labelKey ? t(x.labelKey) : t(prof.catLabel[x.cat]), accent: x.accent, renderCard: () => <CategoryCard cat={x.cat} /> })),
         ] as TabEntry[]}
-        // 「試験に挑戦する」= 模試フローの入口。4カテゴリのアイコンの"真上"に中央配置(ユーザー指定2026-08-29)。
-        // デザインはホームの「苦手な単語に挑戦する」ボタンと統一(GradientButton=斜めグラデ＋光沢の高級ピル)。カードを開くと隠れる。
         aboveBar={
-          <GradientButton
-            style={tabChallengePlacement}
-            disabledLook={!isPro}
-            label={isPro ? t('test.challenge') : `🔒 ${t('test.pro_locked')}`}
-            accessibilityLabel={isPro ? t('test.challenge') : t('test.pro_locked')}
-            onPress={() => { if (isPro) nav.navigate('MockIntro', { full: true }); else nav.navigate('Paywall'); }}
-          />
+          <View style={[tabChallengePlacement, styles.actions]}>
+            <GradientButton style={styles.action} label={t('cards.practice_mix')}
+              onPress={() => nav.navigate('WordDrill', { kind: 'examMix' })} />
+            <GradientButton style={styles.action} disabledLook={!isPro}
+              label={isPro ? t('test.mock_exam') : `🔒 ${t('test.mock_exam')}`}
+              accessibilityLabel={isPro ? t('test.mock_exam') : t('test.pro_locked')}
+              onPress={() => { if (isPro) nav.navigate('MockIntro', { full: true }); else nav.navigate('Paywall'); }} />
+          </View>
         }
       />
     </View>
@@ -68,4 +65,6 @@ export default function StudyHomeScreen() {
 
 const styles = StyleSheet.create({
   c: { flex: 1 },
+  actions: { flexDirection: 'row', gap: 8 },
+  action: { flex: 1, minWidth: 0, paddingHorizontal: 8 },
 });

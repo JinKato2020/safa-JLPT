@@ -161,7 +161,7 @@ export default function HomeScreen() {
         {/* 苦手な分野の統合復習。桜/柴犬の下・ボトムナビの上に常設。
             見た目は試験タブ「試験に挑戦する」と統一(GradientButton=斜めグラデ＋光沢の高級ピル)。 */}
         <GradientButton style={styles.reco} label={t('cards.reco')}
-          onPress={() => nav.navigate('Quiz', { review: true })} />
+          onPress={() => nav.navigate('WordDrill', { kind: 'weaknessMix' })} />
         {/* 模試チケットの配布(歓迎/月次)を目立つ祝いモーダルで通知。ショップ購入時と同じ「手に入れた!」の見せ方。 */}
         <Modal visible={ticketNotice > 0} transparent animationType="fade" onRequestClose={clearTicketNotice}>
           <Pressable style={styles.noticeBackdrop} onPress={clearTicketNotice}>

@@ -18,14 +18,16 @@ import { useStudyColors } from '../components/StudyPresentation';
 import { useAppState, useAppActions } from '../store/store';
 import { walletPoints } from '../store/wallet';
 import { buildDrill, type DrillProblem } from '../ladder/wordDrill';
-import { buildPracticeMix, type PracticeChoice, type PracticeProblem } from '../ladder/practiceMix';
+import { buildPracticeMix, type PracticeChoice } from '../ladder/practiceMix';
+import { buildExamMix, buildWeaknessMix, type MixedProblem } from '../ladder/examMix';
 import { playKanjiRep, playVocab, stopVocab } from '../data/vocabAudio';
-import { resolveStudiedWords } from '../data/studiedWords';
+import { resolveStudiedWords, type StudiedQuestion } from '../data/studiedWords';
 import { progressSnapshot } from '../store/selectors';
 import AfterStudyReward, { type StudiedWord } from '../components/AfterStudyReward';
 import AnswerFooter from '../components/AnswerFooter';
 import ExamHeader from '../components/ExamHeader';
 import StudyAudioButton from '../components/StudyAudioButton';
+import MixedExamQuestion from '../components/MixedExamQuestion';
 import RubyText from '../components/RubyText';
 import { meaningL1, useT } from '../i18n';
 import type { RootStackParamList } from '../navigation/types';
@@ -54,11 +56,13 @@ export default function WordDrillScreen() {
   const l1 = meaningL1(state.settings);
   // seedは初回固定(再レンダで並びが変わらないように)。SRS=未習/低習得優先。
   const [seed] = useState(() => (Date.now() & 0xffff) | 1);
-  const [problems] = useState<PracticeProblem[]>(
-    () => kind === 'practiceMix'
-      ? buildPracticeMix(level, l1, state.mastery ?? {}, Date.now(), state.items)
-      : buildDrill(kind, level, 10, seed, state.items),
-  );
+  const [problems] = useState<MixedProblem[]>(() => {
+    const now = Date.now();
+    if (kind === 'examMix') return buildExamMix(level, state, now);
+    if (kind === 'weaknessMix') return buildWeaknessMix(level, l1, state, now);
+    if (kind === 'practiceMix') return buildPracticeMix(level, l1, state.mastery ?? {}, now, state.items);
+    return buildDrill(kind, level, 10, seed, state.items);
+  });
 
   const [i, setI] = useState(0);
   const [placed, setPlaced] = useState<number[]>([]); // vProduce/gOrder: 置いたタイルの原index列
@@ -66,6 +70,7 @@ export default function WordDrillScreen() {
   const [judged, setJudged] = useState<null | boolean>(null);
   const [score, setScore] = useState(0);
   const [results, setResults] = useState<Record<string, boolean>>({});
+  const [examReview, setExamReview] = useState<StudiedQuestion[]>([]);
   const [before] = useState(() => progressSnapshot(state, Date.now())); // 完了画面の「伸び」表示用(試験タブと統一)
   const [walletStart] = useState(() => walletPoints(state)); // セッション開始時の桜貝残高(獲得数=終了時との差)
 
@@ -74,6 +79,16 @@ export default function WordDrillScreen() {
     const seen = new Set<string>();
     const out: StudiedWord[] = [];
     for (const pr of problems) {
+      if (pr.kind === 'examChoice') {
+        if (pr.question.saveRef) out.push(...resolveStudiedWords([{ ref: pr.question.saveRef, correct: results[pr.itemId] }], l1)
+          .filter(word => {
+            const key = word.ref.type + word.ref.id;
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          }));
+        continue;
+      }
       if (pr.kind === 'practiceChoice') {
         const key = pr.ref.type + pr.ref.id;
         if (!seen.has(key)) {
@@ -115,7 +130,8 @@ export default function WordDrillScreen() {
     setI((n) => n + 1);
   };
 
-  const titleKey = kind === 'practiceMix' ? 'cards.practice_mix' : `worddrill.title_${kind}`;
+  const titleKey = kind === 'weaknessMix' ? 'cards.reco' :
+    kind === 'practiceMix' || kind === 'examMix' ? 'cards.practice_mix' : `worddrill.title_${kind}`;
   // 問いかけは各問題の形式に依存(mixedでは問題ごとに変わる)。
   const askKeyFor = (k: DrillProblem['kind']) => k === 'vProduce' ? 'worddrill.produce_ask' : k === 'gBuild' ? 'worddrill.build_ask' : k === 'vMeaning' ? 'worddrill.vmeaning_ask' : k === 'vReading' ? 'worddrill.vreading_ask' : k === 'vWriting' ? 'worddrill.vwriting_ask' : 'worddrill.meaning_ask';
 
@@ -138,12 +154,14 @@ export default function WordDrillScreen() {
         <ScrollView contentContainerStyle={s.doneBody}>
           <AfterStudyReward
             words={studiedWords}
+            reviewList={examReview}
             shellsEarned={Math.max(0, walletPoints(state) - walletStart)}
             scored={progressSnapshot(state, Date.now()).touched - before.touched}
             accuracy={problems.length ? Math.round((score / problems.length) * 100) : 0}
             correct={score}
             total={problems.length}
-            mode={kind === 'practiceMix' || kind.startsWith('v') ? 'moji_goi' : 'bunpou'}
+            mode={kind === 'examMix' || kind === 'weaknessMix' ? kind :
+              kind === 'practiceMix' || kind.startsWith('v') ? 'moji_goi' : 'bunpou'}
             seed={seed}
           />
           <Pressable style={s.cta} onPress={() => nav.goBack()}><Text style={s.ctaTxt}>{t('worddrill.finish')}</Text></Pressable>
@@ -155,7 +173,20 @@ export default function WordDrillScreen() {
   return (
     <StudyLayout title={t(titleKey)} current={i + 1} total={problems.length} onClose={() => nav.goBack()}
       footer={judged !== null ? <AnswerFooter study correct={judged} onNext={next} nextKind={i + 1 >= problems.length ? 'finish' : 'next'} /> : null}>
-        <StudyInstruction>{t(p.kind === 'practiceChoice' ? p.instruction : askKeyFor(p.kind))}</StudyInstruction>
+        {p.kind === 'examChoice' ? (
+          <MixedExamQuestion key={p.itemId} problem={p} level={level} selected={sel}
+            onSelect={index => {
+              if (judged !== null) return;
+              const q = p.question;
+              const correct = index === q.answerIndex;
+              setSel(index);
+              setExamReview(list => [...list, {
+                ...q, picked: index,
+                explain: q.orderSentence ?? q.explain, correct,
+              }]);
+              record(correct, p.itemId);
+            }} />
+        ) : <StudyInstruction>{t(p.kind === 'practiceChoice' ? p.instruction : askKeyFor(p.kind))}</StudyInstruction>}
 
         {p.kind === 'practiceChoice' && (
           <MixedChoice key={p.itemId} p={p} sel={sel} revealed={judged !== null} s={s} onSelect={index => {

@@ -64,7 +64,7 @@ export default function CardsScreen() {
           <View style={s.recoCard}>
             <Text style={s.recoCardTitle}>{t('cards.reco')}</Text>
             <Text style={s.recoCardDesc}>{t('cards.reco_sub')}</Text>
-            <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('Quiz', { review: true })}>
+            <Pressable style={({ pressed }) => [s.mixBtn, pressed && s.mixBtnPressed]} onPress={() => nav.navigate('WordDrill', { kind: 'weaknessMix' })}>
               <Text style={s.mixTitle}>{t('cards.reco_start')}</Text>
               <Text style={s.mixSub}>›</Text>
             </Pressable>
