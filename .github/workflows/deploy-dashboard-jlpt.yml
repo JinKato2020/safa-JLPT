@@ -1,0 +1,50 @@
+name: まいにちJLPT 管理ダッシュボード配信 (R2)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/deploy-dashboard-jlpt.yml'
+      - 'docs/supabase/dashboard.html'
+      - 'docs/supabase/dashboard.test.cjs'
+      - 'docs/supabase/dashboard_content_usage.sql'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: jlpt-dashboard-r2
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Validate dashboard rendering
+        run: node --test docs/supabase/dashboard.test.cjs
+      - name: Publish dashboard to Cloudflare R2
+        env:
+          RCLONE_CONFIG_R2_TYPE: s3
+          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+          RCLONE_CONFIG_R2_REGION: auto
+          RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          export RCLONE_CONFIG_R2_ENDPOINT="$(printf '%s' "$RCLONE_CONFIG_R2_ENDPOINT" | tr -d '[:space:]')"
+          : "${RCLONE_CONFIG_R2_ENDPOINT:?Missing R2_ENDPOINT}"
+          : "${RCLONE_CONFIG_R2_ACCESS_KEY_ID:?Missing R2_ACCESS_KEY_ID}"
+          : "${RCLONE_CONFIG_R2_SECRET_ACCESS_KEY:?Missing R2_SECRET_ACCESS_KEY}"
+          curl -fsSL https://rclone.org/install.sh | sudo bash
+          rclone copyto docs/supabase/dashboard.html r2:jlpt-assets/dashboard.html \
+            --ignore-times --header-upload 'Cache-Control: no-cache' --s3-no-check-bucket
+      - name: Verify published dashboard
+        run: |
+          curl -fsSL --retry 3 --max-time 30 -H 'Cache-Control: no-cache' \
+            "https://jlpt.safa-lang.com/dashboard.html?revision=$GITHUB_SHA" -o "$RUNNER_TEMP/dashboard.html"
+          cmp docs/supabase/dashboard.html "$RUNNER_TEMP/dashboard.html"

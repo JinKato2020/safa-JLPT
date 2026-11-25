@@ -30,6 +30,12 @@ run-name: "${{ inputs.build_number && format('{0} — {1} {2} ビルド', inputs
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '.github/workflows/build-jlpt.yml'
+      - '.github/workflows/deploy-dashboard-jlpt.yml'
+      - 'docs/supabase/dashboard.html'
+      - 'docs/supabase/dashboard.test.cjs'
+      - 'docs/supabase/dashboard_content_usage.sql'
   workflow_dispatch:
     inputs:
       platforms:
@@ -102,8 +108,6 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - name: Validate dashboard rendering
-        run: node --test docs/supabase/dashboard.test.cjs
       - name: Regenerate content manifest (配信前に目録を実ファイルと一致=OTAズレ防止)
         run: |
           npx --yes tsx tools/content/rebuild.ts
@@ -131,8 +135,6 @@ jobs:
           [ -f confirm_for_teacher.html ] && cp confirm_for_teacher.html _site/ || true
           # 教師専用サイト(先生が自校の生徒の学習/成長を閲覧)。docs配下から同ドメインへ配信。
           [ -f docs/supabase/teacher.html ] && cp docs/supabase/teacher.html _site/ || true
-          # 管理ダッシュボード(スマホ閲覧用・noindex・鍵は画面入力でファイルに無し)
-          [ -f docs/supabase/dashboard.html ] && cp docs/supabase/dashboard.html _site/ || true
           # 文法の「くわしい解説」(サイトの解説を取り込み=tools/import_grammar_notes.py)。アプリが開いた時に1点ずつ取得。
           [ -d web/grammar-notes ] && cp -r web/grammar-notes _site/grammar-notes || true
           # 共有辞書を1か所で配信(JLPT・App B 共通の単一ソース): /dict/ja-*.json
