@@ -67,7 +67,6 @@ export interface Settings {
   sakuraExamDay?: string;                    // 桜が「試験まであと◯日」の応援を出した日(YYYY-MM-DD)。間隔は残り日数で変える
   afterStudyCount?: number;                  // 学習後のご褒美(イラスト＋励まし＋AIコーチ)を約10回に1度出すためのカウンタ
   weeklyLetterDay?: string;                  // 週次「桜のおたより」(今週の成長サマリ)を最後に出した日(YYYY-MM-DD)。前回から7日以上あき＋その週に伸びがある時だけ出す。
-  weeklyLetterTurn?: number;                 // おたよりの通算表示回数。偶数→友だち紹介スロット / 奇数→アプリ評価スロット(1通につき最大1つだけ・交互)。
   ratingAskedAt?: number;                    // 桜がアプリ評価を最後に尋ねた時刻(ms)。良い週だけ＋数ヶ月に1度に絞り、押し付けない。
 }
 
