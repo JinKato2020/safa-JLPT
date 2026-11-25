@@ -61,6 +61,7 @@ test('content usage shows one row per menu in fixed order with N5, N4, N3 pairs'
     {content:'dictionary_vocab', level:'N5', users:'2', opens:'10'},
     {content:'radicals', level:'N4', users:'10', opens:'13'},
     {content:'review', level:'N3', users:'2', opens:'3'},
+    {content:'exam_mix', level:'N4', users:'4', opens:'21'},
     {content:'practice_mix', level:'N4', users:'1', opens:'4'},
     {content:'grammar_lessons', level:'N3', users:'1', opens:'2'},
     {content:'study_list', level:'N5', users:'100', opens:'300'},
@@ -77,28 +78,29 @@ test('content usage shows one row per menu in fixed order with N5, N4, N3 pairs'
     ['ホーム', '試験問題', '練習問題', '書庫', 'その他']);
   const rows = [...table.innerHTML.matchAll(/<tr><th scope="row">([^<]+)<\/th>(.*?)<\/tr>/g)];
   const labels = rows.map(row => row[1]);
-  assert.deepEqual(labels.slice(0, 3), ['AIコーチ', 'ホーム：苦手な分野に挑戦する', '模試試験']);
-  assert.deepEqual(labels.slice(3, 12), [
+  assert.deepEqual(labels.slice(0, 4), ['AIコーチ', 'ホーム：苦手な分野に挑戦する', '試験問題：総合', '模試試験']);
+  assert.deepEqual(labels.slice(4, 13), [
     '模試：漢字読み', '模試：表記', '模試：文脈規定', '模試：言い換え類語', '模試：用法',
     '模試：文法形式', '模試：文の組み立て', '模試：文章の文法', '模試：短文',
   ]);
   const i = labels.indexOf('練習：漢字リスト');
-  assert.equal(labels[i - 1], '練習：総合問題');
+  assert.equal(labels[i - 1], '練習問題：総合');
   assert.deepEqual(labels.slice(i, i+7), ['練習：漢字リスト', '練習：部首', '練習：書き取り', '練習：意味', '練習：読み', '練習：似た漢字', '練習：聞き取り']);
   assert.deepEqual(labels.slice(-12), ['練習：文法リスト', '練習：文法教材', '練習：文法の意味', '練習：文をつくる', '辞書：漢字', '辞書：語彙', '辞書：文法', '辞書：単語帳', '日本語の町', 'ショップ', 'アカウント', '設定']);
   const cells = row => [...row[2].matchAll(/<td[^>]*>([^<]+)/g)].map(m => m[1]);
   assert.deepEqual(cells(rows[1]), ['0人', '0回', '0人', '0回', '2人', '3回']);
   assert.deepEqual(cells(rows[i - 1]), ['0人', '0回', '1人', '4回', '0人', '0回']);
-  assert.deepEqual(labels.filter(label => label.includes('総合')), ['練習：総合問題']);
+  assert.deepEqual(labels.filter(label => label.includes('総合')), ['試験問題：総合', '練習問題：総合']);
   for (const removed of ['練習：初回学習', '練習：試験問題の復習', '練習：会話と表現', '練習：学習カードの復習', '練習：総合']) {
     assert(!labels.includes(removed));
   }
-  assert.deepEqual(cells(rows[3]), ['1人', '100回', '0人', '0回', '3人', '30回']);
-  assert.deepEqual(cells(rows[4]), ['0人', '0回', '20人', '40回', '0人', '0回']);
+  assert.deepEqual(cells(rows[2]), ['0人', '0回', '4人', '21回', '0人', '0回']);
+  assert.deepEqual(cells(rows[4]), ['1人', '100回', '0人', '0回', '3人', '30回']);
+  assert.deepEqual(cells(rows[5]), ['0人', '0回', '20人', '40回', '0人', '0回']);
   const dictionary = rows.find(row => row[1] === '辞書：語彙');
   assert.deepEqual(cells(dictionary), ['2人', '10回', '0人', '0回', '0人', '0回']);
-  assert.match(rows[3][2], /usage-medium">1人<\/td><td class="num usage-medium">100回/);
-  assert.match(rows[3][2], /class="num level-start">0人/);
+  assert.match(rows[4][2], /usage-medium">1人<\/td><td class="num usage-medium">100回/);
+  assert.match(rows[4][2], /class="num level-start">0人/);
   assert.match(dictionary[2], /usage-high">2人/);
   assert.match(rows.find(row => row[1] === '練習：書き取り')[2], /usage-low">9人/);
 });
